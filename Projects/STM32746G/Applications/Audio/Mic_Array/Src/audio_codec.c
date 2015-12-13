@@ -1124,18 +1124,19 @@ static void Codec_AudioInterface_Init(uint32_t AudioFreq)
   if (CurrAudioInterface == AUDIO_INTERFACE_DAC)
   {    
 	static DAC_HandleTypeDef DACHandle;
+	static DAC_ChannelConfTypeDef sConfig;
     /* DAC Periph clock enable */
     //RCC_APB1PeriphClockCmd(RCC_APB1Periph_DAC, ENABLE);
 	__DAC_CLK_ENABLE();
     
     /* DAC channel1 Configuration */
-    DAC_InitStructure.DAC_Trigger = DAC_Trigger_None;
-    DAC_InitStructure.DAC_WaveGeneration = DAC_WaveGeneration_None;
-    DAC_InitStructure.DAC_OutputBuffer = DAC_OutputBuffer_Enable;
-    DAC_Init(AUDIO_DAC_CHANNEL, &DAC_InitStructure);
-    
+	DACHandle.Instance = DAC;
+	sConfig.DAC_Trigger = DAC_TRIGGER_NONE;
+	sConfig.DAC_OutputBuffer = DAC_OUTPUTBUFFER_ENABLE;
+	HAL_DAC_ConfigChannel(&DacHandle, &sConfig, DACx_CHANNEL)
+		
     /* Enable DAC Channel1 */
-    DAC_Cmd(AUDIO_DAC_CHANNEL, ENABLE);  
+	__HAL_DAC_ENABLE(&DACHandle,AUDIO_DAC_CHANNEL);
   }
   
   /* The I2S peripheral will be enabled only in the AUDIO_Play() function 
