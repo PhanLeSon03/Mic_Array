@@ -1,0 +1,12 @@
+Wednesday, 06/10/15 09:12:10 AM
+EWARM 7.2.0: C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.2
+MDK-ARM 5.14: C:\Keil_v5
+TrueSTUDIO  5.3.0: C:\Program Files (x86)\Atollic\TrueSTUDIO for ARM Pro 5.3.0
+RIDE : C:\Raisonance\Ride: Warning: This directory doesn't exist
+SW4STM32 : C:\SystemWorkbench-beta
+
+Build log file:  C:\STM32Cube_FW_F7_V1.1.0RC2\Projects\STM32746G-Discovery\Applications\USB_Host\MSC_RTOS/build.log
+Build Start
+09:12:10: Building C:\STM32Cube_FW_F7_V1.1.0RC2\Projects\STM32746G-Discovery\Applications\USB_Host\MSC_RTOS/MDK-ARM/Project.uvprojx -> WARNING
+09:15:36: Building C:\STM32Cube_FW_F7_V1.1.0RC2\Projects\STM32746G-Discovery\Applications\USB_Host\MSC_RTOS/SW4STM32 -> OK
+Buil End
