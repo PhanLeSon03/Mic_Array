@@ -162,7 +162,7 @@ __IO uint32_t CurrAudioInterface = AUDIO_INTERFACE_I2S; //AUDIO_INTERFACE_DAC
 
 DMA_HandleTypeDef     DmaHandle;
 I2S_HandleTypeDef     hi2s3;
-
+I2C_HandleTypeDef     hi2c1;
 
 static void Audio_MAL_IRQHandler(void);
 /*-----------------------------------
@@ -432,8 +432,8 @@ static void Audio_MAL_IRQHandler(void)
       __HAL_DMA_CLEAR_FLAG(&DmaHandle, AUDIO_MAL_DMA_FLAG_TC);
           
       /* Re-Configure the buffer address and size */
-      DmaHandle.Init.DMA_Memory0BaseAddr = (uint32_t) CurrentPos;
-      DmaHandle.Init.DMA_BufferSize = (uint32_t) (DMA_MAX(AudioRemSize));
+      //DmaHandle.Init.DMA_Memory0BaseAddr = (uint32_t) CurrentPos;
+      //DmaHandle.Init.DMA_BufferSize = (uint32_t) (DMA_MAX(AudioRemSize));
             
       /* Configure the DMA Stream with the new parameters */
       HAL_DMA_Init(&DmaHandle);
@@ -746,7 +746,7 @@ static uint32_t Codec_Stop(uint32_t CodecPdwnMode)
     Delay(0xFFF);
     
     /* Reset The pin */
-    GPIO_WriteBit(AUDIO_RESET_GPIO, AUDIO_RESET_PIN, Bit_RESET);
+    HAL_GPIO_WritePin(AUDIO_RESET_GPIO, AUDIO_RESET_PIN, GPIO_PIN_RESET);
   }
   
   return counter;    
@@ -811,13 +811,13 @@ static uint32_t Codec_Mute(uint32_t Cmd)
 static void Codec_Reset(void)
 {
   /* Power Down the codec */
-  GPIO_WriteBit(AUDIO_RESET_GPIO, AUDIO_RESET_PIN, Bit_RESET);
+  HAL_GPIO_WritePin(AUDIO_RESET_GPIO, AUDIO_RESET_PIN, GPIO_PIN_RESET);
 
   /* wait for a delay to insure registers erasing */
   Delay(CODEC_RESET_DELAY); 
   
   /* Power on the codec */
-  GPIO_WriteBit(AUDIO_RESET_GPIO, AUDIO_RESET_PIN, Bit_SET);
+  HAL_GPIO_WritePin(AUDIO_RESET_GPIO, AUDIO_RESET_PIN,GPIO_PIN_SET);
 }
 
 /**
@@ -833,16 +833,18 @@ static uint32_t Codec_WriteRegister(uint8_t RegisterAddr, uint8_t RegisterValue)
 
   /*!< While the bus is busy */
   CODECTimeout = CODEC_LONG_TIMEOUT;
-  while(I2C_GetFlagStatus(CODEC_I2C, I2C_FLAG_BUSY))
+  while(__HAL_I2C_GET_FLAG(&hi2c1, I2C_FLAG_BUSY))
   {
-    if((CODECTimeout--) == 0) return Codec_TIMEOUT_UserCallback();
+     if((CODECTimeout--) == 0) return Codec_TIMEOUT_UserCallback();
   }
   
   /* Start the config sequence */
   I2C_GenerateSTART(CODEC_I2C, ENABLE);
+  //__HAL_I2C_ENABLE(&hi2c1);
 
   /* Test on EV5 and clear it */
   CODECTimeout = CODEC_FLAG_TIMEOUT;
+  
   while (!I2C_CheckEvent(CODEC_I2C, I2C_EVENT_MASTER_MODE_SELECT))
   {
     if((CODECTimeout--) == 0) return Codec_TIMEOUT_UserCallback();
@@ -1688,5 +1690,38 @@ static void SPI_I2S_SendData(SPI_TypeDef* SPIx, uint16_t Data)
   SPIx->DR = Data;
 }
 
+
+static void I2C_GenerateSTART(I2C_TypeDef* I2Cx, FunctionalState NewState)
+{
+  /* Check the parameters */
+  assert_param(IS_I2C_ALL_PERIPH(I2Cx));
+  assert_param(IS_FUNCTIONAL_STATE(NewState));
+  if (NewState != DISABLE)
+  {
+    /* Generate a START condition */
+    I2Cx->CR1 |= I2C_CR1_START;
+  }
+  else
+  {
+    /* Disable the START condition generation */
+    I2Cx->CR1 &= (uint16_t)~((uint16_t)I2C_CR1_START);
+  }
+}
+
+
+#define  I2C_CR1_PE                          ((uint16_t)0x0001)            /*!<Peripheral Enable */
+#define  I2C_CR1_SMBUS                       ((uint16_t)0x0002)            /*!<SMBus Mode */
+#define  I2C_CR1_SMBTYPE                     ((uint16_t)0x0008)            /*!<SMBus Type */
+#define  I2C_CR1_ENARP                       ((uint16_t)0x0010)            /*!<ARP Enable */
+#define  I2C_CR1_ENPEC                       ((uint16_t)0x0020)            /*!<PEC Enable */
+#define  I2C_CR1_ENGC                        ((uint16_t)0x0040)            /*!<General Call Enable */
+#define  I2C_CR1_NOSTRETCH                   ((uint16_t)0x0080)            /*!<Clock Stretching Disable (Slave mode) */
+#define  I2C_CR1_START                       ((uint16_t)0x0100)            /*!<Start Generation */
+#define  I2C_CR1_STOP                        ((uint16_t)0x0200)            /*!<Stop Generation */
+#define  I2C_CR1_ACK                         ((uint16_t)0x0400)            /*!<Acknowledge Enable */
+#define  I2C_CR1_POS                         ((uint16_t)0x0800)            /*!<Acknowledge/PEC Position (for data reception) */
+#define  I2C_CR1_PEC                         ((uint16_t)0x1000)            /*!<Packet Error Checking */
+#define  I2C_CR1_ALERT                       ((uint16_t)0x2000)            /*!<SMBus Alert */
+#define  I2C_CR1_SWRST                       ((uint16_t)0x8000)            /*!<Software Reset */
 
 
