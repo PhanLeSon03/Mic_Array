@@ -252,7 +252,7 @@ void WavePlayBack(uint32_t AudioFreq)
   */
 void WavePlayerPauseResume(uint8_t state)
 { 
-  EVAL_AUDIO_PauseResume(state);   
+  AUDIO_PauseResume(state);   
 }
 
 /**
@@ -262,7 +262,7 @@ void WavePlayerPauseResume(uint8_t state)
   */
 uint8_t WaveplayerCtrlVolume(uint8_t vol)
 { 
-  EVAL_AUDIO_VolumeCtl(vol);
+  AUDIO_VolumeCtl(vol);
   return 0;
 }
 
@@ -274,7 +274,7 @@ uint8_t WaveplayerCtrlVolume(uint8_t vol)
   */
 void WavePlayerStop(void)
 { 
-  EVAL_AUDIO_Stop(CODEC_PDWN_SW);
+  AUDIO_Stop(CODEC_PDWN_SW);
 }
  
 /**
@@ -322,7 +322,7 @@ uint32_t LIS302DL_TIMEOUT_UserCallback(void)
 */
 uint32_t AudioFlashPlay(uint16_t* pBuffer, uint32_t FullSize, uint32_t StartAdd)
 { 
-  EVAL_AUDIO_Play((uint16_t*)pBuffer, (FullSize - StartAdd));
+  AUDIO_Play((uint16_t*)pBuffer, (FullSize - StartAdd));
   return 0;
 }
 
@@ -337,7 +337,7 @@ Below some examples of callback implementations.
 * @param  None
 * @retval None
 */
-void EVAL_AUDIO_TransferComplete_CallBack(uint32_t pBuffer, uint32_t Size)
+void AUDIO_TransferComplete_CallBack(uint32_t pBuffer, uint32_t Size)
 {
   /* Calculate the remaining audio data in the file and the new size 
   for the DMA transfer. If the Audio files size is less than the DMA max 
@@ -376,7 +376,7 @@ void EVAL_AUDIO_TransferComplete_CallBack(uint32_t pBuffer, uint32_t Size)
 * @param  None
 * @retval None
 */
-void EVAL_AUDIO_HalfTransfer_CallBack(uint32_t pBuffer, uint32_t Size)
+void AUDIO_HalfTransfer_CallBack(uint32_t pBuffer, uint32_t Size)
 {  
 #ifdef AUDIO_MAL_MODE_CIRCULAR
     
@@ -397,7 +397,7 @@ void EVAL_AUDIO_HalfTransfer_CallBack(uint32_t pBuffer, uint32_t Size)
 * @param  None
 * @retval None
 */
-void EVAL_AUDIO_Error_CallBack(void* pData)
+void AUDIO_Error_CallBack(void* pData)
 {
   /* Stop the program with an infinite loop */
   while (1)
@@ -412,7 +412,7 @@ void EVAL_AUDIO_Error_CallBack(void* pData)
 * @param  None
 * @retval Next data sample to be sent
 */
-uint16_t EVAL_AUDIO_GetSampleCallBack(void)
+uint16_t AUDIO_GetSampleCallBack(void)
 {
   return 0;
 }
@@ -760,36 +760,24 @@ static void Mems_Config(void)
 static void EXTILine_Config(void)
 {
   GPIO_InitTypeDef   GPIO_InitStructure;
-  NVIC_InitTypeDef   NVIC_InitStructure;
-  EXTI_InitTypeDef   EXTI_InitStructure;
+  
   /* Enable GPIOA clock */
-  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);
+  __GPIOE_CLK_ENABLE();
   /* Enable SYSCFG clock */
-  RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
+  __SYSCFG_CLK_ENABLE();
+ 
   /* Configure PE0 and PE1 pins as input floating */
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
-  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0|GPIO_Pin_1;
-  GPIO_Init(GPIOE, &GPIO_InitStructure);
+  GPIO_InitStructure.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStructure.Pull = GPIO_NOPULL;
+  GPIO_InitStructure.Pin = GPIO_PIN_0|GPIO_PIN_1;
+  HAL_GPIO_Init(GPIOE, &GPIO_InitStructure);
 
   /* Connect EXTI Line to PE1 pins */
-  SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOE, EXTI_PinSource1);
-
-  /* Configure EXTI Line1 */
-  EXTI_InitStructure.EXTI_Line = EXTI_Line1;
-  EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
-  EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising;  
-  EXTI_InitStructure.EXTI_LineCmd = ENABLE;
-  EXTI_Init(&EXTI_InitStructure);
-
-  NVIC_PriorityGroupConfig(NVIC_PriorityGroup_3);
+  //SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOE, EXTI_PinSource1);
   
-  /* Enable and set EXTI Line0 Interrupt to the lowest priority */
-  NVIC_InitStructure.NVIC_IRQChannel = EXTI1_IRQn;
-  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x00;
-  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x00;
-  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-  NVIC_Init(&NVIC_InitStructure);
+  HAL_NVIC_SetPriority((IRQn_Type)EXTI1_IRQn, 0x00, 0x00);
+  HAL_NVIC_EnableIRQ((IRQn_Type)EXTI1_IRQn);
+
 }
 
 #ifdef  USE_FULL_ASSERT

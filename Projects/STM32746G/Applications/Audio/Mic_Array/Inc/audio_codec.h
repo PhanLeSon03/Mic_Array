@@ -26,6 +26,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f7xx.h"
+#include "stm32f4xx_dac.h"
 #include "stm32f7xx_hal_gpio.h"
 #include "stm32f7xx_hal_gpio_ex.h"
 
@@ -227,24 +228,12 @@
 /* MUTE commands */
 #define AUDIO_MUTE_ON                 1
 #define AUDIO_MUTE_OFF                0
-/*----------------------------------------------------------------------------*/
-/**
-  * @}
-  */ 
 
-/** @defgroup STM32F4_DISCOVERY_AUDIO_CODEC_Exported_Macros
-  * @{
-  */ 
 #define VOLUME_CONVERT(x)    ((Volume > 100)? 100:((uint8_t)((Volume * 255) / 100)))
 #define DMA_MAX(x)           (((x) <= DMA_MAX_SZE)? (x):DMA_MAX_SZE)
 
-/**
-  * @}
-  */ 
+#define FRERAD 8000 
 
-/** @defgroup AUDIO_CODEC_Exported_Functions
-  * @{
-  */ 
 void AUDIO_SetAudioInterface(uint32_t Interface);
 uint32_t AUDIO_Init(uint16_t OutputDevice, uint8_t Volume, uint32_t AudioFreq);
 uint32_t AUDIO_DeInit(void);
@@ -286,23 +275,10 @@ void AUDIO_Error_CallBack(void* pData);
    and re-initialize communication or in worst case reset all the application. */
 uint32_t Codec_TIMEOUT_UserCallback(void);
 
+void Audio_MAL_I2S_IRQHandler(void);
+void Audio_MAL_DAC_IRQHandler(void);
+void Audio_I2S_IRQHandler(void);
+
 #endif /* __STM32F4_DISCOVERY_AUDIOCODEC_H */
 
-/**
-  * @}
-  */ 
 
-/**
-  * @}
-  */ 
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */ 
-   
-
-/******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/

@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * @file    audio_codec.c
-  * @author  MCD Application Team
+  * @author  Phan Le Son ( porting from "MCD Application Team")
   * @version V1.0.0
   * @date    12-December-2015
   * @brief   This file includes the low layer driver for CS43L22 Audio Codec
@@ -114,30 +114,14 @@
 /* Includes ------------------------------------------------------------------*/
 #include "audio_codec.h"
 
-/** @addtogroup Utilities
-  * @{
-  */
-  
-/** @addtogroup STM32F4_DISCOVERY
-  * @{
-  */
 
-/** @addtogroup STM32F4_DISCOVERY_AUDIO_CODEC
-  * @brief       This file includes the low layer driver for CS43L22 Audio Codec
+/** 
+  *      This file includes the low layer driver for CS43L22 Audio Codec
   *              available on STM32F4-Discovery Kit.
-  * @{
+  *
   */ 
 
-/** @defgroup STM32F4_DISCOVERY_AUDIO_CODEC_Private_Types
-  * @{
-  */ 
-/**
-  * @}
-  */ 
-  
-/** @defgroup STM32F4_DISCOVERY_AUDIO_CODEC_Private_Defines
-  * @{
-  */ 
+
 
 /* Mask for the bit EN of the I2S CFGR register */
 #define I2S_ENABLE_MASK                 0x0400
@@ -161,20 +145,7 @@
 
 /* The 7 bits Codec address (sent through I2C interface) */
 #define CODEC_ADDRESS                   0x94  /* b00100111 */
-/**
-  * @}
-  */ 
 
-/** @defgroup STM32F4_DISCOVERY_AUDIO_CODEC_Private_Macros
-  * @{
-  */
-/**
-  * @}
-  */ 
-  
-/** @defgroup STM32F4_DISCOVERY_AUDIO_CODEC_Private_Variables
-  * @{
-  */
 /* This structure is declared global because it is handled by two different functions */
 DMA_InitTypeDef DMA_InitStructure; 
 DMA_InitTypeDef AUDIO_MAL_DMA_InitStructure;
@@ -190,21 +161,9 @@ __IO uint8_t OutputDev = 0;
 __IO uint32_t CurrAudioInterface = AUDIO_INTERFACE_I2S; //AUDIO_INTERFACE_DAC
 
 DMA_HandleTypeDef     DmaHandle;
+I2S_HandleTypeDef     hi2s3;
 
-/**
-  * @}
-  */ 
 
-/** @defgroup STM32F4_DISCOVERY_AUDIO_CODEC_Private_Function_Prototypes
-  * @{
-  */ 
-/**
-  * @}
-  */ 
-
-/** @defgroup STM32F4_DISCOVERY_AUDIO_CODEC_Private_Functions
-  * @{
-  */ 
 static void Audio_MAL_IRQHandler(void);
 /*-----------------------------------
                            Audio Codec functions 
@@ -228,6 +187,7 @@ static uint32_t Codec_ReadRegister(uint8_t RegisterAddr);
 static void     Codec_GPIO_Init(void);
 static void     Codec_GPIO_DeInit(void);
 static void     Delay(__IO uint32_t nCount);
+static void SPI_I2S_SendData(SPI_TypeDef* SPIx, uint16_t Data);
 /*----------------------------------------------------------------------------*/
 
 /*-----------------------------------
@@ -469,33 +429,34 @@ static void Audio_MAL_IRQHandler(void)
       {}
       
       /* Clear the Interrupt flag */
-      __HAL_DMA_ClearFlag(&DmaHandle, AUDIO_MAL_DMA_FLAG_TC); 
-           
+      __HAL_DMA_CLEAR_FLAG(&DmaHandle, AUDIO_MAL_DMA_FLAG_TC);
+          
       /* Re-Configure the buffer address and size */
-      DMA_InitStructure.DMA_Memory0BaseAddr = (uint32_t) CurrentPos;
-      DMA_InitStructure.DMA_BufferSize = (uint32_t) (DMA_MAX(AudioRemSize));
+      DmaHandle.Init.DMA_Memory0BaseAddr = (uint32_t) CurrentPos;
+      DmaHandle.Init.DMA_BufferSize = (uint32_t) (DMA_MAX(AudioRemSize));
             
       /* Configure the DMA Stream with the new parameters */
-      DMA_Init(AUDIO_MAL_DMA_STREAM, &DMA_InitStructure);
+      HAL_DMA_Init(&DmaHandle);
       
       /* Enable the I2S DMA Stream*/
-      DMA_Cmd(AUDIO_MAL_DMA_STREAM, ENABLE);    
+	  __HAL_DMA_ENABLE(&DmaHandle);
       
       /* Update the current pointer position */
       CurrentPos += DMA_MAX(AudioRemSize);        
       
       /* Update the remaining number of data to be played */
       AudioRemSize -= DMA_MAX(AudioRemSize);   
-        /* Enable the I2S DMA Stream*/
-      DMA_Cmd(AUDIO_MAL_DMA_STREAM, ENABLE); 
+
+	  /* Enable the I2S DMA Stream*/
+      __HAL_DMA_ENABLE(&DmaHandle);
     }
     else
     {
       /* Disable the I2S DMA Stream*/
-      DMA_Cmd(AUDIO_MAL_DMA_STREAM, DISABLE);   
+      __HAL_DMA_DISABLE(&DmaHandle);   
       
       /* Clear the Interrupt flag */
-      DMA_ClearFlag(AUDIO_MAL_DMA_STREAM, AUDIO_MAL_DMA_FLAG_TC);       
+       __HAL_DMA_CLEAR_FLAG(&DmaHandle, AUDIO_MAL_DMA_FLAG_TC);       
       
       /* Manage the remaining file size and new address offset: This function 
       should be coded by user (its prototype is already declared in stm32f4_discovery_audio_codec.h) */  
@@ -505,32 +466,34 @@ static void Audio_MAL_IRQHandler(void)
  #elif defined(AUDIO_MAL_MODE_CIRCULAR)
     /* Manage the remaining file size and new address offset: This function 
        should be coded by user (its prototype is already declared in stm32f4_discovery_audio_codec.h) */  
-    AUDIO_TransferComplete_CallBack(pAddr, Size);    
+     AUDIO_TransferComplete_CallBack(pAddr, Size);    
     
     /* Clear the Interrupt flag */
-    DMA_ClearFlag(AUDIO_MAL_DMA_STREAM, AUDIO_MAL_DMA_FLAG_TC);
+    __HAL_DMA_CLEAR_FLAG(&DmaHandle, AUDIO_MAL_DMA_FLAG_TC);  
  #endif /* AUDIO_MAL_MODE_NORMAL */  
   }
 #endif /* AUDIO_MAL_DMA_IT_TC_EN */
 
 #ifdef AUDIO_MAL_DMA_IT_HT_EN  
   /* Half Transfer complete interrupt */
-  if (DMA_GetFlagStatus(AUDIO_MAL_DMA_STREAM, AUDIO_MAL_DMA_FLAG_HT) != RESET)
+  //if (DMA_GetFlagStatus(AUDIO_MAL_DMA_STREAM, AUDIO_MAL_DMA_FLAG_HT) != RESET)
+  if (__HAL_DMA_GET_FLAG(&DmaHandle, AUDIO_MAL_DMA_FLAG_HT) != RESET)
   {
     /* Manage the remaining file size and new address offset: This function 
        should be coded by user (its prototype is already declared in stm32f4_discovery_audio_codec.h) */  
     AUDIO_HalfTransfer_CallBack((uint32_t)pAddr, Size);    
    
     /* Clear the Interrupt flag */
-    DMA_ClearFlag(AUDIO_MAL_DMA_STREAM, AUDIO_MAL_DMA_FLAG_HT);    
+	__HAL_DMA_CLEAR_FLAG(&DmaHandle, AUDIO_MAL_DMA_FLAG_HT); 
+
   }
 #endif /* AUDIO_MAL_DMA_IT_HT_EN */
   
 #ifdef AUDIO_MAL_DMA_IT_TE_EN  
   /* FIFO Error interrupt */
-  if ((DMA_GetFlagStatus(AUDIO_MAL_DMA_STREAM, AUDIO_MAL_DMA_FLAG_TE) != RESET) || \
-     (DMA_GetFlagStatus(AUDIO_MAL_DMA_STREAM, AUDIO_MAL_DMA_FLAG_FE) != RESET) || \
-     (DMA_GetFlagStatus(AUDIO_MAL_DMA_STREAM, AUDIO_MAL_DMA_FLAG_DME) != RESET))
+  if ((__HAL_DMA_GET_FLAG(&DmaHandle, AUDIO_MAL_DMA_FLAG_TE) != RESET) || \
+     (__HAL_DMA_GET_FLAG(&DmaHandle, AUDIO_MAL_DMA_FLAG_FE) != RESET) || \
+     (__HAL_DMA_GET_FLAG(&DmaHandle, AUDIO_MAL_DMA_FLAG_DME) != RESET))
     
   {
     /* Manage the error generated on DMA FIFO: This function 
@@ -538,7 +501,7 @@ static void Audio_MAL_IRQHandler(void)
     AUDIO_Error_CallBack((uint32_t*)&pAddr);    
     
     /* Clear the Interrupt flag */
-    DMA_ClearFlag(AUDIO_MAL_DMA_STREAM, AUDIO_MAL_DMA_FLAG_TE | AUDIO_MAL_DMA_FLAG_FE | \
+    __HAL_DMA_CLEAR_FLAG(&DmaHandle, AUDIO_MAL_DMA_FLAG_TE | AUDIO_MAL_DMA_FLAG_FE | \
                                         AUDIO_MAL_DMA_FLAG_DME);
   }  
 #endif /* AUDIO_MAL_DMA_IT_TE_EN */
@@ -572,7 +535,8 @@ void Audio_MAL_DAC_IRQHandler(void)
 void Audio_I2S_IRQHandler(void)
 {
   /* Check on the I2S TXE flag */  
-  if (SPI_I2S_GetFlagStatus(SPI3, SPI_I2S_FLAG_TXE) != RESET)
+  //if (SPI_I2S_GetFlagStatus(SPI3, SPI_I2S_FLAG_TXE) != RESET)
+  if (__HAL_SPI_GET_FLAG(&hi2s3, SPI_IT_TXE) != RESET)
   { 
     if (CurrAudioInterface == AUDIO_INTERFACE_DAC)
     {
@@ -581,7 +545,7 @@ void Audio_I2S_IRQHandler(void)
     }
     
     /* Send dummy data on I2S to avoid the underrun condition */
-    SPI_I2S_SendData(CODEC_I2S, AUDIO_GetSampleCallBack()); 
+     SPI_I2S_SendData(CODEC_I2S, AUDIO_GetSampleCallBack()); 
   }
 }
 /*========================
@@ -1501,9 +1465,7 @@ static void Audio_MAL_Init(void)
   {
     /* Enable the I2S DMA request */
     SPI_I2S_DMACmd(CODEC_I2S, SPI_I2S_DMAReq_Tx, ENABLE); 
-
 	
-
 
   }
   else
@@ -1716,20 +1678,15 @@ void DAC_Config(void)
   /* Enable DAC Channel1 */
   DAC_Cmd(AUDIO_DAC_CHANNEL, ENABLE);
 }
-/**
-  * @}
-  */
 
-/**
-  * @}
-  */
+static void SPI_I2S_SendData(SPI_TypeDef* SPIx, uint16_t Data)
+{
+  /* Check the parameters */
+  assert_param(IS_SPI_ALL_PERIPH_EXT(SPIx));
+  
+  /* Write in the DR register the data to be sent */
+  SPIx->DR = Data;
+}
 
-/**
-  * @}
-  */
 
-/**
-  * @}
-  */
 
-/******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/

@@ -1000,6 +1000,9 @@
         <name>$PROJ_DIR$\..\Src\explorer.c</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\Src\lis302dl.c</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\Src\main.c</name>
       </file>
       <file>
@@ -1007,6 +1010,9 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\sta321mp.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Src\stm32f4xx_dac.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\stm32f7xx_it.c</name>

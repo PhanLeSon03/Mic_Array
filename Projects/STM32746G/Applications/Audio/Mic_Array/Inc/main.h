@@ -20,6 +20,7 @@
 #include "stm32f746xx.h"
 #include "sta321mp.h"
 #include "waveplayer_CS43L22.h"
+#include "lis302dl.h"
 
 /* Exported Defines ----------------------------------------------------------*/
 #define AUDIO_OUT_BUFFER_SIZE                      8192
@@ -123,7 +124,7 @@ typedef struct {
   uint16_t BitPerSample;  /* 34 */  
   uint32_t SubChunk2ID;   /* 36 */   
   uint32_t SubChunk2Size; /* 40 */    
-}WAVE_FormatTypeDef;
+}WAVE_FormatTypeDef1;
 
 typedef struct _FILELIST_LineTypeDef {
   uint8_t type;
