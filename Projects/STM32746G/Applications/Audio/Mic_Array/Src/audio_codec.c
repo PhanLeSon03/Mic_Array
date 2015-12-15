@@ -183,7 +183,9 @@
 #define I2C_FLAG_MSL                    ((uint32_t)0x00100001)
 #define  I2C_EVENT_MASTER_MODE_SELECT                      ((uint32_t)0x00030001)  /* BUSY, MSL and SB flag */
 
-
+#define SPI_I2S_DMAReq_Tx               ((uint16_t)0x0002)
+#define SPI_I2S_DMAReq_Rx               ((uint16_t)0x0001)
+//#define IS_SPI_I2S_DMAREQ(DMAREQ) ((((DMAREQ) & (uint16_t)0xFFFC) == 0x00) && ((DMAREQ) != 0x00))
 
 /** 
   *      This file includes the low layer driver for CS43L22 Audio Codec
@@ -257,7 +259,10 @@ static uint8_t I2C_ReceiveData(I2C_TypeDef* I2Cx);
 static void I2C_ClearFlag(I2C_TypeDef* I2Cx, uint32_t I2C_FLAG);
 static void I2S_Cmd(SPI_TypeDef* SPIx, FunctionalState NewState);
 static void SPI_I2S_DeInit(SPI_TypeDef* SPIx);
-
+static void DMA_Cmd(DMA_Stream_TypeDef* DMAy_Streamx, FunctionalState NewState);
+static void DMA_DeInit(DMA_Stream_TypeDef* DMAy_Streamx);
+static void SPI_I2S_DMACmd(SPI_TypeDef* SPIx, uint16_t SPI_I2S_DMAReq, FunctionalState NewState);
+static void DMA_ClearFlag(DMA_Stream_TypeDef* DMAy_Streamx, uint32_t DMA_FLAG);
 /*----------------------------------------------------------------------------*/
 
 /*-----------------------------------
@@ -1440,8 +1445,8 @@ static void Audio_MAL_Init(void)
   {
     /* Enable the DMA clock */
     //RCC_AHB1PeriphClockCmd(AUDIO_MAL_DMA_CLOCK, ENABLE); 
-	 //RCC_AHB1Periph_DMA1
-	__HAL_RCC_DMA1_IS_CLK_ENABLED();  
+    //RCC_AHB1Periph_DMA1
+    __HAL_RCC_DMA1_IS_CLK_ENABLED();  
     
     /* Configure the DMA Stream */
     DMA_Cmd(AUDIO_MAL_DMA_STREAM, DISABLE);
@@ -1449,34 +1454,34 @@ static void Audio_MAL_Init(void)
 	
     /* Set the parameters to be configured */
     //DMA_InitStructure.DMA_Channel = AUDIO_MAL_DMA_CHANNEL;  
-	DmaHandle.Init.Channel = AUDIO_MAL_DMA_CHANNEL;
+     DmaHandle.Init.Channel = AUDIO_MAL_DMA_CHANNEL;
     //DMA_InitStructure.DMA_PeripheralBaseAddr = AUDIO_MAL_DMA_DREG;
-	DmaHandle.Init.DMA_PeripheralBaseAddr =  AUDIO_MAL_DMA_DREG;
+    //DmaHandle.Init.DMA_PeripheralBaseAddr =  AUDIO_MAL_DMA_DREG;
     //DMA_InitStructure.DMA_Memory0BaseAddr = (uint32_t)0;      /* This field will be configured in play function */
-    DmaHandle.Init.DMA_MemoryBaseAddr = (uint32_t)0;
+     //DmaHandle.Init.DMA_MemoryBaseAddr = (uint32_t)0;
     //DMA_InitStructure.DMA_DIR = DMA_DIR_MemoryToPeripheral;
-	DmaHandle.Init.Direction = DMA_MEMORY_TO_PERIPH;
+	 DmaHandle.Init.Direction = DMA_MEMORY_TO_PERIPH;
     //DMA_InitStructure.DMA_BufferSize = (uint32_t)0xFFFE;      /* This field will be configured in play function */
-	DmaHandle.Init.DMA_BufferSize = (uint32_t)0xFFFE;
+	//DmaHandle.Init.DMA_BufferSize = (uint32_t)0xFFFE;
     //DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
 	DmaHandle.Init.PeriphInc = DMA_PINC_ENABLE;
     //DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
     DmaHandle.Init.MemInc = DMA_MINC_ENABLE;
     //DMA_InitStructure.DMA_PeripheralDataSize = AUDIO_MAL_DMA_PERIPH_DATA_SIZE;
-	DmaHandle.Init.DMA_PeripheralDataSize = AUDIO_MAL_DMA_PERIPH_DATA_SIZE;
+	//DmaHandle.Init.DMA_PeripheralDataSize = AUDIO_MAL_DMA_PERIPH_DATA_SIZE;
     //DMA_InitStructure.DMA_MemoryDataSize = AUDIO_MAL_DMA_MEM_DATA_SIZE; 
-	DmaHandle.Init.DMA_MemoryDataSize = AUDIO_MAL_DMA_MEM_DATA_SIZE; 
+       DmaHandle.Init.MemDataAlignment = AUDIO_MAL_DMA_MEM_DATA_SIZE; 
 #ifdef AUDIO_MAL_MODE_NORMAL
     //DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
-    DmaHandle.Init.DMA_Mode = DMA_Mode_Normal;
+    DmaHandle.Init.Mode = DMA_NORMAL;
 #elif defined(AUDIO_MAL_MODE_CIRCULAR)
     //DMA_InitStructure.DMA_Mode = DMA_Mode_Circular;
-    DmaHandle.Init.DMA_Mode = DMA_Mode_Circular;
+    DmaHandle.Init.Mode = DMA_CIRCULAR;
 #else
 #error "AUDIO_MAL_MODE_NORMAL or AUDIO_MAL_MODE_CIRCULAR should be selected !!"
 #endif /* AUDIO_MAL_MODE_NORMAL */  
     //DMA_InitStructure.DMA_Priority = DMA_Priority_High;
-    DmaHandle.Init.DMA_Priority = DMA_Priority_High;
+    DmaHandle.Init.Priority = DMA_PRIORITY_HIGH;
     //DMA_InitStructure.DMA_FIFOMode = DMA_FIFOMode_Disable;         
 	DmaHandle.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
     //DMA_InitStructure.DMA_FIFOThreshold = DMA_FIFOThreshold_1QuarterFull;
@@ -1491,7 +1496,9 @@ static void Audio_MAL_Init(void)
     
     /* Enable the selected DMA interrupts (selected in "audio_codec.h" defines) */
 #ifdef AUDIO_MAL_DMA_IT_TC_EN
-    DMA_ITConfig(AUDIO_MAL_DMA_STREAM, DMA_IT_TC, ENABLE);
+    //DMA_ITConfig(AUDIO_MAL_DMA_STREAM, DMA_IT_TC, ENABLE);
+    __HAL_DMA_ENABLE_IT(&DmaHandle, DMA_IT_TC);
+    //__HAL_DMA_ENABLE(&DmaHandle);
 #endif /* AUDIO_MAL_DMA_IT_TC_EN */
 #ifdef AUDIO_MAL_DMA_IT_HT_EN
     DMA_ITConfig(AUDIO_MAL_DMA_STREAM, DMA_IT_HT, ENABLE);
@@ -1511,10 +1518,10 @@ static void Audio_MAL_Init(void)
     //NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
     //NVIC_Init(&NVIC_InitStructure);
 
-	/* Set Interrupt Group Priority */
-    HAL_NVIC_SetPriority(DMA2_Stream0_IRQn, 0, 0);
-	/* Enable the DMA STREAM global Interrupt */
-	HAL_NVIC_EnableIRQ(AUDIO_MAL_DMA_STREAM);
+    /* Set Interrupt Group Priority */
+    HAL_NVIC_SetPriority(DMA1_Stream7_IRQn, 0, 0);
+    /* Enable the DMA STREAM global Interrupt */
+    HAL_NVIC_EnableIRQ(DMA1_Stream7_IRQn);
 
 #endif     
   }
@@ -1607,9 +1614,8 @@ static void Audio_MAL_Init(void)
   if (CurrAudioInterface == AUDIO_INTERFACE_I2S)
   {
     /* Enable the I2S DMA request */
-    SPI_I2S_DMACmd(CODEC_I2S, SPI_I2S_DMAReq_Tx, ENABLE); 
-	
-
+    //SPI_I2S_DMACmd(CODEC_I2S, SPI_I2S_DMAReq_Tx, ENABLE); 
+    __HAL_I2S_ENABLE_IT(&hi2s3, SPI_I2S_DMAReq_Tx);
   }
   else
   {
@@ -1618,39 +1624,27 @@ static void Audio_MAL_Init(void)
     
 #ifndef DAC_USE_I2S_DMA
     /* Enable the I2S interrupt used to write into the DAC register */
-    SPI_I2S_ITConfig(SPI3, SPI_I2S_IT_TXE, ENABLE);
+    //SPI_I2S_ITConfig(SPI3, SPI_I2S_IT_TXE, ENABLE);
     
     /* I2S DMA IRQ Channel configuration */
-    NVIC_InitStructure.NVIC_IRQChannel = CODEC_I2S_IRQ;
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = AUDIO_IRQ_PREPRIO;
-    NVIC_InitStructure.NVIC_IRQChannelSubPriority = AUDIO_IRQ_SUBRIO;
-    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-    NVIC_Init(&NVIC_InitStructure); 
+    //NVIC_InitStructure.NVIC_IRQChannel = CODEC_I2S_IRQ;
+    //NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = AUDIO_IRQ_PREPRIO;
+    //NVIC_InitStructure.NVIC_IRQChannelSubPriority = AUDIO_IRQ_SUBRIO;
+    //NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+    //NVIC_Init(&NVIC_InitStructure); 
 
+    hi2s3.Instance = SPI3;
+    hi2s3.Init.Mode = I2S_MODE_MASTER_TX;
+    //hspi5.RxISR = SPI5_CallBack;
+    HAL_I2S_Init(&hi2s3);
 
-	hspi3.Instance = SPI3;
-	hspi3.Init.Mode = SPI_MODE_SLAVE;
-	hspi3.Init.Direction = SPI_DIRECTION_2LINES_RXONLY;//SPI_DIRECTION_2LINES_RXONLY
-	hspi3.Init.DataSize = SPI_DATASIZE_16BIT;
-	hspi3.Init.CLKPolarity = SPI_POLARITY_LOW;
-	hspi3.Init.CLKPhase = SPI_PHASE_1EDGE;
-	hspi3.Init.NSS = SPI_NSS_SOFT;//SPI_NSS_HARD_INPUT
-	hspi3.Init.FirstBit = SPI_FIRSTBIT_MSB;
-	hspi3.Init.TIMode = SPI_TIMODE_DISABLE;
-	hspi3.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLED;
-	hspi3.Init.CRCPolynomial = 7;
-	hspi3.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
-	hspi3.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
-	//hspi5.RxISR = SPI5_CallBack;
-	HAL_SPI_Init(&hspi3);
-
-	/* Enable TXE, RXNE and ERR interrupt */
-	__HAL_SPI_ENABLE_IT(&hspi3, (SPI_IT_TXE| SPI_IT_ERR));
-
-	__HAL_SPI_ENABLE(&hspi3);
+    /* Enable TXE interrupt */
+    __HAL_SPI_ENABLE_IT(&hi2s3, I2S_IT_TXE);
+    __HAL_SPI_ENABLE(&hi2s3);
 #else
     /* Enable the I2S DMA request */
-    SPI_I2S_DMACmd(CODEC_I2S, SPI_I2S_DMAReq_Rx, ENABLE);   
+    //SPI_I2S_DMACmd(CODEC_I2S, SPI_I2S_DMAReq_Rx, ENABLE);   
+     __HAL_I2S_ENABLE(&hi2s3, SPI_I2S_DMAReq_Tx);
 #endif /* DAC_USE_I2S_DMA */
   }
 #endif
@@ -1664,21 +1658,21 @@ static void Audio_MAL_Init(void)
 static void Audio_MAL_DeInit(void)  
 {   
 #if defined(AUDIO_MAL_DMA_IT_TC_EN) || defined(AUDIO_MAL_DMA_IT_HT_EN) || defined(AUDIO_MAL_DMA_IT_TE_EN)
-  NVIC_InitTypeDef NVIC_InitStructure;  
+  //NVIC_InitTypeDef NVIC_InitStructure;  
   
   /* Deinitialize the NVIC interrupt for the I2S DMA Stream */
-  NVIC_InitStructure.NVIC_IRQChannel = AUDIO_MAL_DMA_IRQ;
-  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = AUDIO_IRQ_PREPRIO;
-  NVIC_InitStructure.NVIC_IRQChannelSubPriority = AUDIO_IRQ_SUBRIO;
-  NVIC_InitStructure.NVIC_IRQChannelCmd = DISABLE;
-  NVIC_Init(&NVIC_InitStructure);  
+  //NVIC_InitStructure.NVIC_IRQChannel = AUDIO_MAL_DMA_IRQ;
+  //NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = AUDIO_IRQ_PREPRIO;
+  //NVIC_InitStructure.NVIC_IRQChannelSubPriority = AUDIO_IRQ_SUBRIO;
+  //NVIC_InitStructure.NVIC_IRQChannelCmd = DISABLE;
+  //NVIC_Init(&NVIC_InitStructure);  
 #endif 
   
   /* Disable the DMA stream before the deinit */
-  DMA_Cmd(AUDIO_MAL_DMA_STREAM, DISABLE);
+  //DMA_Cmd(AUDIO_MAL_DMA_STREAM, DISABLE);
   
   /* Dinitialize the DMA Stream */
-  DMA_DeInit(AUDIO_MAL_DMA_STREAM);
+  //DMA_DeInit(AUDIO_MAL_DMA_STREAM);
   
   /* 
      The DMA clock is not disabled, since it can be used by other streams 
@@ -1695,11 +1689,11 @@ void Audio_MAL_Play(uint32_t Addr, uint32_t Size)
   if (CurrAudioInterface == AUDIO_INTERFACE_I2S)
   {
     /* Configure the buffer address and size */
-    DMA_InitStructure.DMA_Memory0BaseAddr = (uint32_t)Addr;
-    DMA_InitStructure.DMA_BufferSize = (uint32_t)Size/2;
+    //DMA_InitStructure.DMA_Memory0BaseAddr = (uint32_t)Addr;
+    //DMA_InitStructure.DMA_BufferSize = (uint32_t)Size/2;
     
     /* Configure the DMA Stream with the new parameters */
-    DMA_Init(AUDIO_MAL_DMA_STREAM, &DMA_InitStructure);
+    //DMA_Init(AUDIO_MAL_DMA_STREAM, &DMA_InitStructure);
     
     /* Enable the I2S DMA Stream*/
     DMA_Cmd(AUDIO_MAL_DMA_STREAM, ENABLE);   
@@ -1708,11 +1702,11 @@ void Audio_MAL_Play(uint32_t Addr, uint32_t Size)
   else
   {
     /* Configure the buffer address and size */
-    DMA_InitStructure.DMA_Memory0BaseAddr = (uint32_t)Addr;
-    DMA_InitStructure.DMA_BufferSize = (uint32_t)Size;
+    //DMA_InitStructure.DMA_Memory0BaseAddr = (uint32_t)Addr;
+    //DMA_InitStructure.DMA_BufferSize = (uint32_t)Size;
     
     /* Configure the DMA Stream with the new parameters */
-    DMA_Init(AUDIO_MAL_DMA_STREAM, &DMA_InitStructure);
+    //DMA_Init(AUDIO_MAL_DMA_STREAM, &DMA_InitStructure);
     
     /* Enable the I2S DMA Stream*/
     DMA_Cmd(AUDIO_MAL_DMA_STREAM, ENABLE);
@@ -1801,16 +1795,24 @@ void DAC_Config(void)
   GPIO_InitTypeDef GPIO_InitStructure;
 
   /* DMA1 clock and GPIOA clock enable (to be used with DAC) */
-  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA1 | RCC_AHB1Periph_GPIOA, ENABLE);
+  //RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA1 | RCC_AHB1Periph_GPIOA, ENABLE);
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_DMA1_CLK_ENABLE();
 
   /* DAC Periph clock enable */
-  RCC_APB1PeriphClockCmd(RCC_APB1Periph_DAC, ENABLE);
+  //RCC_APB1PeriphClockCmd(RCC_APB1Periph_DAC, ENABLE);
+  __HAL_RCC_DAC_CLK_ENABLE();
 
   /* DAC channel 1 & 2 (DAC_OUT1 = PA.4) configuration */
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
-  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  //GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
+  //GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
+  //GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+  //GPIO_Init(GPIOA, &GPIO_InitStructure);
+  
+  GPIO_InitStructure.Pin = GPIO_PIN_4;
+  GPIO_InitStructure.Mode = GPIO_MODE_ANALOG;
+  GPIO_InitStructure.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
 
   /* DAC channel1 Configuration */
   DAC_InitStructure.DAC_Trigger = DAC_Trigger_None;
@@ -1864,7 +1866,8 @@ static void I2C_Send7bitAddress(I2C_TypeDef* I2Cx, uint8_t Address, uint8_t I2C_
     Address &= (uint8_t)~((uint8_t)I2C_OAR1_ADD0);
   }
   /* Send the address */
-  I2Cx->DR = Address;
+  //I2Cx->DR = Address;
+  I2Cx->TXDR = Address;
 }
 
 
@@ -1916,13 +1919,13 @@ static ErrorStatus I2C_CheckEvent(I2C_TypeDef* I2Cx, uint32_t I2C_EVENT)
 
 
   /* Read the I2Cx status register */
-  flag1 = I2Cx->SR1;
-  flag2 = I2Cx->SR2;
-  flag2 = flag2 << 16;
-
+  //flag1 = I2Cx->SR1;
+  //flag2 = I2Cx->SR2;
+  //flag2 = flag2 << 16;
+  
   /* Get the last event value from I2C status register */
-  lastevent = (flag1 | flag2) & FLAG_MASK;
-
+  //lastevent = (flag1 | flag2) & FLAG_MASK;
+  lastevent = I2Cx->ISR;
   /* Check whether the last event contains the I2C_EVENT */
   if ((lastevent & I2C_EVENT) == I2C_EVENT)
   {
@@ -1961,27 +1964,7 @@ static void I2C_GenerateSTOP(I2C_TypeDef* I2Cx, FunctionalState NewState)
   }
 }
 
-/**
-  * @brief  Generates I2Cx communication START condition.
-  * @param  I2Cx: where x can be 1, 2 or 3 to select the I2C peripheral.
-  * @param  NewState: new state of the I2C START condition generation.
-  *          This parameter can be: ENABLE or DISABLE.
-  * @retval None.
-  */
-static void I2C_GenerateSTART(I2C_TypeDef* I2Cx, FunctionalState NewState)
-{
 
-  if (NewState != DISABLE)
-  {
-    /* Generate a START condition */
-    I2Cx->CR1 |= I2C_CR1_START;
-  }
-  else
-  {
-    /* Disable the START condition generation */
-    I2Cx->CR1 &= (uint16_t)~((uint16_t)I2C_CR1_START);
-  }
-}
 
 /*
  ===============================================================================
@@ -2173,24 +2156,142 @@ static void SPI_I2S_DeInit(SPI_TypeDef* SPIx)
   if (SPIx == SPI1)
   {
     /* Enable SPI1 reset state */
-    RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI1, ENABLE);
+    //RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI1, ENABLE);
+    __HAL_RCC_SPI1_CLK_ENABLE();
     /* Release SPI1 from reset state */
-    RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI1, DISABLE);
+    //RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI1, DISABLE);
+    __HAL_RCC_SPI1_CLK_DISABLE();
   }
   else if (SPIx == SPI2)
   {
     /* Enable SPI2 reset state */
-    RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI2, ENABLE);
+    //RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI2, ENABLE);
+    __HAL_RCC_SPI2_CLK_ENABLE();
     /* Release SPI2 from reset state */
-    RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI2, DISABLE);
-    }
+    //RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI2, DISABLE);
+    __HAL_RCC_SPI2_CLK_DISABLE();
+  }
   else
   {
     if (SPIx == SPI3)
     {
       /* Enable SPI3 reset state */
-      RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, ENABLE);
+      //RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, ENABLE);
+      __HAL_RCC_SPI3_CLK_ENABLE();
       /* Release SPI3 from reset state */
-      RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, DISABLE);
+      //RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, DISABLE);
+      __HAL_RCC_SPI3_CLK_DISABLE();
     }
   }
+}
+
+/**
+  * @brief  Enables or disables the specified DMAy Streamx.
+  * @param  DMAy_Streamx: where y can be 1 or 2 to select the DMA and x can be 0
+  *         to 7 to select the DMA Stream.
+  * @param  NewState: new state of the DMAy Streamx. 
+  *          This parameter can be: ENABLE or DISABLE.
+  *
+  * @note  This function may be used to perform Pause-Resume operation. When a
+  *        transfer is ongoing, calling this function to disable the Stream will
+  *        cause the transfer to be paused. All configuration registers and the
+  *        number of remaining data will be preserved. When calling again this
+  *        function to re-enable the Stream, the transfer will be resumed from
+  *        the point where it was paused.          
+  *    
+  * @note  After configuring the DMA Stream (DMA_Init() function) and enabling the
+  *        stream, it is recommended to check (or wait until) the DMA Stream is
+  *        effectively enabled. A Stream may remain disabled if a configuration 
+  *        parameter is wrong.
+  *        After disabling a DMA Stream, it is also recommended to check (or wait
+  *        until) the DMA Stream is effectively disabled. If a Stream is disabled 
+  *        while a data transfer is ongoing, the current data will be transferred
+  *        and the Stream will be effectively disabled only after the transfer of
+  *        this single data is finished.            
+  *    
+  * @retval None
+  */
+static void DMA_Cmd(DMA_Stream_TypeDef* DMAy_Streamx, FunctionalState NewState)
+{
+
+
+  if (NewState != DISABLE)
+  {
+    /* Enable the selected DMAy Streamx by setting EN bit */
+    DMAy_Streamx->CR |= (uint32_t)DMA_SxCR_EN;
+  }
+  else
+  {
+    /* Disable the selected DMAy Streamx by clearing EN bit */
+    DMAy_Streamx->CR &= ~(uint32_t)DMA_SxCR_EN;
+  }
+}
+
+/**
+  * @brief  Deinitialize the DMAy Streamx registers to their default reset values.
+  * @param  DMAy_Streamx: where y can be 1 or 2 to select the DMA and x can be 0
+  *         to 7 to select the DMA Stream.
+  * @retval None
+  */
+static void DMA_DeInit(DMA_Stream_TypeDef* DMAy_Streamx)
+{
+
+  /* Disable the selected DMAy Streamx */
+  DMAy_Streamx->CR &= ~((uint32_t)DMA_SxCR_EN);
+
+  /* Reset DMAy Streamx control register */
+  DMAy_Streamx->CR  = 0;
+  
+  /* Reset DMAy Streamx Number of Data to Transfer register */
+  DMAy_Streamx->NDTR = 0;
+  
+  /* Reset DMAy Streamx peripheral address register */
+  DMAy_Streamx->PAR  = 0;
+  
+  /* Reset DMAy Streamx memory 0 address register */
+  DMAy_Streamx->M0AR = 0;
+
+  /* Reset DMAy Streamx memory 1 address register */
+  DMAy_Streamx->M1AR = 0;
+
+  /* Reset DMAy Streamx FIFO control register */
+  DMAy_Streamx->FCR = (uint32_t)0x00000021; 
+
+ }
+
+/**
+  * @brief  Enables or disables the SPIx/I2Sx DMA interface.
+  * @param  SPIx: To select the SPIx/I2Sx peripheral, where x can be: 1, 2 or 3 
+  *         in SPI mode or 2 or 3 in I2S mode or I2Sxext for I2S full duplex mode. 
+  * @param  SPI_I2S_DMAReq: specifies the SPI DMA transfer request to be enabled or disabled. 
+  *          This parameter can be any combination of the following values:
+  *            @arg SPI_I2S_DMAReq_Tx: Tx buffer DMA transfer request
+  *            @arg SPI_I2S_DMAReq_Rx: Rx buffer DMA transfer request
+  * @param  NewState: new state of the selected SPI DMA transfer request.
+  *          This parameter can be: ENABLE or DISABLE.
+  * @retval None
+  */
+static void SPI_I2S_DMACmd(SPI_TypeDef* SPIx, uint16_t SPI_I2S_DMAReq, FunctionalState NewState)
+{
+  /* Check the parameters */
+  assert_param(IS_SPI_ALL_PERIPH_EXT(SPIx));
+  assert_param(IS_FUNCTIONAL_STATE(NewState));
+  assert_param(IS_SPI_I2S_DMAREQ(SPI_I2S_DMAReq));
+
+  if (NewState != DISABLE)
+  {
+    /* Enable the selected SPI DMA requests */
+    SPIx->CR2 |= SPI_I2S_DMAReq;
+  }
+  else
+  {
+    /* Disable the selected SPI DMA requests */
+    SPIx->CR2 &= (uint16_t)~SPI_I2S_DMAReq;
+  }
+}
+
+static void DMA_ClearFlag(DMA_Stream_TypeDef* DMAy_Streamx, uint32_t DMA_FLAG)
+{
+
+  
+}

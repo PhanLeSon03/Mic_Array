@@ -1074,9 +1074,6 @@
         <name>$PROJ_DIR$\..\Src\explorer.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Src\lis302dl.c</name>
-      </file>
-      <file>
         <name>$PROJ_DIR$\..\Src\main.c</name>
       </file>
       <file>

@@ -29,7 +29,8 @@
 #endif
 
 /* Includes ------------------------------------------------------------------*/
- #include "stm32f7xx.h"
+#include "stm32f7xx.h"
+#include "stm32f7xx_hal_gpio.h"
 
 /** @addtogroup Utilities
   * @{
@@ -120,7 +121,7 @@ typedef struct
 #define LIS302DL_SPI_MOSI_SOURCE           GPIO_PinSource7
 #define LIS302DL_SPI_MOSI_AF               GPIO_AF_SPI1
 
-#define LIS302DL_SPI_CS_PIN                GPIO_Pin_3                  /* PE.03 */
+#define LIS302DL_SPI_CS_PIN                GPIO_PIN_3                  /* PE.03 */
 #define LIS302DL_SPI_CS_GPIO_PORT          GPIOE                       /* GPIOE */
 #define LIS302DL_SPI_CS_GPIO_CLK           RCC_AHB1Periph_GPIOE
 
@@ -716,8 +717,8 @@ typedef struct
 /** @defgroup STM32F4_DISCOVERY_LIS302DL_Exported_Macros
   * @{
   */
-#define LIS302DL_CS_LOW()       GPIO_ResetBits(LIS302DL_SPI_CS_GPIO_PORT, LIS302DL_SPI_CS_PIN)
-#define LIS302DL_CS_HIGH()      GPIO_SetBits(LIS302DL_SPI_CS_GPIO_PORT, LIS302DL_SPI_CS_PIN)
+#define LIS302DL_CS_LOW()       HAL_GPIO_WritePin(LIS302DL_SPI_CS_GPIO_PORT, LIS302DL_SPI_CS_PIN,GPIO_PIN_RESET)//GPIO_ResetBits(LIS302DL_SPI_CS_GPIO_PORT, LIS302DL_SPI_CS_PIN)
+#define LIS302DL_CS_HIGH()      HAL_GPIO_WritePin(LIS302DL_SPI_CS_GPIO_PORT, LIS302DL_SPI_CS_PIN,GPIO_PIN_SET)  //GPIO_SetBits(LIS302DL_SPI_CS_GPIO_PORT, LIS302DL_SPI_CS_PIN)
 /**
   * @}
   */ 

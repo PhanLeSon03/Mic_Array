@@ -141,8 +141,8 @@
 #define Audio_I2S_IRQHandler           SPI3_IRQHandler
 
 
- #define AUDIO_MAL_DMA_PERIPH_DATA_SIZE DMA_PeripheralDataSize_HalfWord
- #define AUDIO_MAL_DMA_MEM_DATA_SIZE    DMA_MemoryDataSize_HalfWord
+ #define AUDIO_MAL_DMA_PERIPH_DATA_SIZE DMA_PDATAALIGN_HALFWORD //DMA_PeripheralDataSize_HalfWord
+ #define AUDIO_MAL_DMA_MEM_DATA_SIZE    DMA_MDATAALIGN_HALFWORD //DMA_MemoryDataSize_HalfWord
  #define DMA_MAX_SZE                    0xFFFF
 
 

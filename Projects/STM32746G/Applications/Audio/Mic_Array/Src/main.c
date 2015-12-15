@@ -35,7 +35,7 @@
 USBH_HandleTypeDef hUSBHost;
 AUDIO_ApplicationTypeDef appli_state = APPLICATION_IDLE;//APPLICATION_IDLE
 
-I2C_HandleTypeDef hi2c1;
+extern I2C_HandleTypeDef hi2c1;
 UART_HandleTypeDef huart6;
 SPI_HandleTypeDef hspi5;
 GPIO_InitTypeDef GPIO_INS;
@@ -788,8 +788,6 @@ void MX_SPI5_Init(void)
  __HAL_SPI_ENABLE_IT(&hspi5, (SPI_IT_RXNE| SPI_IT_ERR));
 
  __HAL_SPI_ENABLE(&hspi5);
-
-
 
 }
 
