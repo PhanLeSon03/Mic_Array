@@ -1,13 +1,53 @@
----- wm8994_drv Matches (12 in 2 files) ----
-Stm32746g_discovery_audio.c (drivers\bsp\stm32746g-discovery):  deviceid = wm8994_drv.ReadID(AUDIO_I2C_ADDRESS);
-Stm32746g_discovery_audio.c (drivers\bsp\stm32746g-discovery):    wm8994_drv.Reset(AUDIO_I2C_ADDRESS);
-Stm32746g_discovery_audio.c (drivers\bsp\stm32746g-discovery):    audio_drv = &wm8994_drv; 
-Stm32746g_discovery_audio.c (drivers\bsp\stm32746g-discovery):    deviceid = wm8994_drv.ReadID(AUDIO_I2C_ADDRESS);
-Stm32746g_discovery_audio.c (drivers\bsp\stm32746g-discovery):      wm8994_drv.Reset(AUDIO_I2C_ADDRESS);
-Stm32746g_discovery_audio.c (drivers\bsp\stm32746g-discovery):      audio_drv = &wm8994_drv;
-Stm32746g_discovery_audio.c (drivers\bsp\stm32746g-discovery):    deviceid = wm8994_drv.ReadID(AUDIO_I2C_ADDRESS);
-Stm32746g_discovery_audio.c (drivers\bsp\stm32746g-discovery):      wm8994_drv.Reset(AUDIO_I2C_ADDRESS);
-Stm32746g_discovery_audio.c (drivers\bsp\stm32746g-discovery):      audio_drv = &wm8994_drv;
-Stm32756g_eval_audio.c (drivers\bsp\stm32756g_eval):  deviceid = wm8994_drv.ReadID(AUDIO_I2C_ADDRESS);
-Stm32756g_eval_audio.c (drivers\bsp\stm32756g_eval):    wm8994_drv.Reset(AUDIO_I2C_ADDRESS);
-Stm32756g_eval_audio.c (drivers\bsp\stm32756g_eval):    audio_drv = &wm8994_drv; 
+---- DmaHandle Matches (52 in 1 files) ----
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):DMA_HandleTypeDef     DmaHandle;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):  if (__HAL_DMA_GET_FLAG(&DmaHandle,AUDIO_MAL_DMA_FLAG_TC)!=RESET)
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):      while (HAL_DMA_GetState(&DmaHandle) != DISABLE)
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):      __HAL_DMA_CLEAR_FLAG(&DmaHandle, AUDIO_MAL_DMA_FLAG_TC);
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):      //DmaHandle.Init.DMA_Memory0BaseAddr = (uint32_t) CurrentPos;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):      //DmaHandle.Init.DMA_BufferSize = (uint32_t) (DMA_MAX(AudioRemSize));
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):      HAL_DMA_Init(&DmaHandle);
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):	  __HAL_DMA_ENABLE(&DmaHandle);
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):      __HAL_DMA_ENABLE(&DmaHandle);
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):      __HAL_DMA_DISABLE(&DmaHandle);   
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):       __HAL_DMA_CLEAR_FLAG(&DmaHandle, AUDIO_MAL_DMA_FLAG_TC);       
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):    __HAL_DMA_CLEAR_FLAG(&DmaHandle, AUDIO_MAL_DMA_FLAG_TC);  
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):  if (__HAL_DMA_GET_FLAG(&DmaHandle, AUDIO_MAL_DMA_FLAG_HT) != RESET)
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):	__HAL_DMA_CLEAR_FLAG(&DmaHandle, AUDIO_MAL_DMA_FLAG_HT); 
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):  if ((__HAL_DMA_GET_FLAG(&DmaHandle, AUDIO_MAL_DMA_FLAG_TE) != RESET) || \
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):     (__HAL_DMA_GET_FLAG(&DmaHandle, AUDIO_MAL_DMA_FLAG_FE) != RESET) || \
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):     (__HAL_DMA_GET_FLAG(&DmaHandle, AUDIO_MAL_DMA_FLAG_DME) != RESET))
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):    __HAL_DMA_CLEAR_FLAG(&DmaHandle, AUDIO_MAL_DMA_FLAG_TE | AUDIO_MAL_DMA_FLAG_FE | \
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):	DmaHandle.Init.Channel = AUDIO_MAL_DMA_CHANNEL;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):	DmaHandle.Init.DMA_PeripheralBaseAddr =  AUDIO_MAL_DMA_DREG;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):    DmaHandle.Init.DMA_MemoryBaseAddr = (uint32_t)0;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):	DmaHandle.Init.Direction = DMA_MEMORY_TO_PERIPH;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):	DmaHandle.Init.DMA_BufferSize = (uint32_t)0xFFFE;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):	DmaHandle.Init.PeriphInc = DMA_PINC_ENABLE;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):    DmaHandle.Init.MemInc = DMA_MINC_ENABLE;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):	DmaHandle.Init.DMA_PeripheralDataSize = AUDIO_MAL_DMA_PERIPH_DATA_SIZE;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):	DmaHandle.Init.DMA_MemoryDataSize = AUDIO_MAL_DMA_MEM_DATA_SIZE; 
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):    DmaHandle.Init.DMA_Mode = DMA_Mode_Normal;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):    DmaHandle.Init.DMA_Mode = DMA_Mode_Circular;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):    DmaHandle.Init.DMA_Priority = DMA_Priority_High;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):	DmaHandle.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):    DmaHandle.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_1QUARTERFULL;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):	DmaHandle.Init.MemBurst = DMA_MBURST_SINGLE;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):    DmaHandle.Init.PeriphBurst = DMA_PBURST_SINGLE;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):	DmaHandle.Instance = AUDIO_MAL_DMA_STREAM;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):    HAL_DMA_Init(&DmaHandle);
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):	DmaHandle.Init.Channel = AUDIO_MAL_DMA_CHANNEL;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):	DmaHandle.Init.DMA_PeripheralBaseAddr =  AUDIO_MAL_DMA_DREG;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):    DmaHandle.Init.DMA_MemoryBaseAddr = (uint32_t)0;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):	DmaHandle.Init.Direction = DMA_MEMORY_TO_PERIPH;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):	DmaHandle.Init.DMA_BufferSize = (uint32_t)0xFFFE;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):	DmaHandle.Init.PeriphInc = DMA_PINC_ENABLE;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):    DmaHandle.Init.MemInc = DMA_MINC_ENABLE;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):	DmaHandle.Init.DMA_PeripheralDataSize = AUDIO_MAL_DMA_PERIPH_DATA_SIZE;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):	DmaHandle.Init.DMA_MemoryDataSize = AUDIO_MAL_DMA_MEM_DATA_SIZE;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):    DmaHandle.Init.DMA_Priority = DMA_Priority_High;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):	DmaHandle.Init.FIFOMode = DMA_FIFOMODE_ENABLE;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):    DmaHandle.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):  	DmaHandle.Init.MemBurst = DMA_MBURST_SINGLE;  
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):    DmaHandle.Init.PeriphBurst = DMA_PBURST_SINGLE;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):	DmaHandle.Instance = AUDIO_MAL_DMA_STREAM;
+Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):    HAL_DMA_Init(&DmaHandle);
