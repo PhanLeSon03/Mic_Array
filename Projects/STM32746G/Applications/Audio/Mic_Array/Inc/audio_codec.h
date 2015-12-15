@@ -187,8 +187,8 @@
 #define CODEC_I2C_GPIO_CLOCK           RCC_AHB1Periph_GPIOB
 #define CODEC_I2C_GPIO_AF              GPIO_AF_I2C1
 #define CODEC_I2C_GPIO                 GPIOB
-#define CODEC_I2C_SCL_PIN              GPIO_Pin_6
-#define CODEC_I2C_SDA_PIN              GPIO_Pin_7
+#define CODEC_I2C_SCL_PIN              GPIO_PIN_6
+#define CODEC_I2C_SDA_PIN              GPIO_PIN_7
 #define CODEC_I2S_SCL_PINSRC           GPIO_PinSource6
 #define CODEC_I2S_SDA_PINSRC           GPIO_PinSource7
 

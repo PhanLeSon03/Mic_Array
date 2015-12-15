@@ -1,0 +1,13 @@
+---- wm8994_drv Matches (12 in 2 files) ----
+Stm32746g_discovery_audio.c (drivers\bsp\stm32746g-discovery):  deviceid = wm8994_drv.ReadID(AUDIO_I2C_ADDRESS);
+Stm32746g_discovery_audio.c (drivers\bsp\stm32746g-discovery):    wm8994_drv.Reset(AUDIO_I2C_ADDRESS);
+Stm32746g_discovery_audio.c (drivers\bsp\stm32746g-discovery):    audio_drv = &wm8994_drv; 
+Stm32746g_discovery_audio.c (drivers\bsp\stm32746g-discovery):    deviceid = wm8994_drv.ReadID(AUDIO_I2C_ADDRESS);
+Stm32746g_discovery_audio.c (drivers\bsp\stm32746g-discovery):      wm8994_drv.Reset(AUDIO_I2C_ADDRESS);
+Stm32746g_discovery_audio.c (drivers\bsp\stm32746g-discovery):      audio_drv = &wm8994_drv;
+Stm32746g_discovery_audio.c (drivers\bsp\stm32746g-discovery):    deviceid = wm8994_drv.ReadID(AUDIO_I2C_ADDRESS);
+Stm32746g_discovery_audio.c (drivers\bsp\stm32746g-discovery):      wm8994_drv.Reset(AUDIO_I2C_ADDRESS);
+Stm32746g_discovery_audio.c (drivers\bsp\stm32746g-discovery):      audio_drv = &wm8994_drv;
+Stm32756g_eval_audio.c (drivers\bsp\stm32756g_eval):  deviceid = wm8994_drv.ReadID(AUDIO_I2C_ADDRESS);
+Stm32756g_eval_audio.c (drivers\bsp\stm32756g_eval):    wm8994_drv.Reset(AUDIO_I2C_ADDRESS);
+Stm32756g_eval_audio.c (drivers\bsp\stm32756g_eval):    audio_drv = &wm8994_drv; 

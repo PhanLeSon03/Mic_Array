@@ -116,6 +116,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_dac.h"
+#include "stm32f7xx_hal_rcc_ex.h"
 //#include "stm32f4xx_rcc.h"
 
 /** @addtogroup STM32F4xx_StdPeriph_Driver
@@ -174,9 +175,11 @@
 void DAC_DeInit(void)
 {
   /* Enable DAC reset state */
-  RCC_APB1PeriphResetCmd(RCC_APB1Periph_DAC, ENABLE);
+  //RCC_APB1PeriphResetCmd(RCC_APB1Periph_DAC, ENABLE);
+  __HAL_RCC_DAC_CLK_ENABLE();
   /* Release DAC from reset state */
-  RCC_APB1PeriphResetCmd(RCC_APB1Periph_DAC, DISABLE);
+  //RCC_APB1PeriphResetCmd(RCC_APB1Periph_DAC, DISABLE);
+  __HAL_RCC_DAC_CLK_DISABLE();
 }
 
 /**
