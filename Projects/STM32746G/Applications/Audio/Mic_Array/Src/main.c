@@ -14,6 +14,7 @@
 #include "waverecorder.h"
 #include "stm32f7xx_hal_usart.h"
 #include "pdm_filter.h"
+#include "main.h"
 #include <stdio.h>
 
 
@@ -26,7 +27,8 @@
 /* I2C TIMING is calculated in case of the I2C Clock source is the APB1CLK = 50 MHz */
 /* This example use TIMING to 0x40912732 to reach 100 kHz speed (Rise time = 700 ns, Fall time = 100 ns) */
 
-
+#define AUDIO_FILE_SZE          990000
+#define AUIDO_START_ADDRESS     58 /* Offset relative to audio file header size */
 
 #define DEBUG           0
 
@@ -47,6 +49,7 @@ AUDIO_IN_BufferTypeDef Buffer3;
 uint8_t  pI2CData[20]= {0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190};
 uint8_t  pI2CRx[10];
 extern uint8_t  pcSTAComnd[19];
+extern const uint16_t AUDIO_SAMPLE[];
 
 uint16_t __IO idxSPI5DataBuf1, idxSPI5DataBuf2;
 uint16_t __IO cntRisingEXTI;
@@ -114,7 +117,10 @@ int main(void)
   BSP_LED_Init(LED1);
   
   /* Initialize for Audio player with CS43L22 */
-  WavePlayerInit(FRERAD);
+  WavePlayerInit(16000);
+
+    /* Play on */
+  AudioFlashPlay((uint16_t*)(AUDIO_SAMPLE + AUIDO_START_ADDRESS),AUDIO_FILE_SZE,AUIDO_START_ADDRESS);
   
   /* Init TS module */
   //BSP_TS_Init(BSP_LCD_GetXSize(), BSP_LCD_GetYSize());

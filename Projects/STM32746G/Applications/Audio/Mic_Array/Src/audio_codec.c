@@ -1453,25 +1453,17 @@ static void Audio_MAL_Init(void)
     DMA_Cmd(AUDIO_MAL_DMA_STREAM, DISABLE);
     DMA_DeInit(AUDIO_MAL_DMA_STREAM);
 	
-    /* Set the parameters to be configured */
-    //DMA_InitStructure.DMA_Channel = AUDIO_MAL_DMA_CHANNEL;  
+    /* Set the parameters to be configured */ 
     DmaHandle.Init.Channel = AUDIO_MAL_DMA_CHANNEL;
-    //DMA_InitStructure.DMA_PeripheralBaseAddr = AUDIO_MAL_DMA_DREG;
     DmaHandle.Instance->PAR = AUDIO_MAL_DMA_DREG;
-    //DMA_InitStructure.DMA_Memory0BaseAddr = (uint32_t)0;      /* This field will be configured in play function */
     DmaHandle.Instance->M0AR = (uint32_t)0;
-    //DMA_InitStructure.DMA_DIR = DMA_DIR_MemoryToPeripheral;
-	 DmaHandle.Init.Direction = DMA_MEMORY_TO_PERIPH;
-    //DMA_InitStructure.DMA_BufferSize = (uint32_t)0xFFFE;      /* This field will be configured in play function */
-	//DmaHandle.Init.DMA_BufferSize = (uint32_t)0xFFFE;
-    //DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
-	DmaHandle.Init.PeriphInc = DMA_PINC_ENABLE;
-    //DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+    DmaHandle.Init.Direction = DMA_MEMORY_TO_PERIPH;
+    DmaHandle.Instance->NDTR = (uint32_t)0xFFFE;
+    DmaHandle.Init.PeriphInc = DMA_PINC_ENABLE;
     DmaHandle.Init.MemInc = DMA_MINC_ENABLE;
-    //DMA_InitStructure.DMA_PeripheralDataSize = AUDIO_MAL_DMA_PERIPH_DATA_SIZE;
-	//DmaHandle.Init.DMA_PeripheralDataSize = AUDIO_MAL_DMA_PERIPH_DATA_SIZE;
-    //DMA_InitStructure.DMA_MemoryDataSize = AUDIO_MAL_DMA_MEM_DATA_SIZE; 
-       DmaHandle.Init.MemDataAlignment = AUDIO_MAL_DMA_MEM_DATA_SIZE; 
+    DmaHandle.Init.PeriphDataAlignment = AUDIO_MAL_DMA_MEM_DATA_SIZE;
+    DmaHandle.Init.MemDataAlignment = AUDIO_MAL_DMA_MEM_DATA_SIZE; 
+
 #ifdef AUDIO_MAL_MODE_NORMAL
     //DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
     DmaHandle.Init.Mode = DMA_NORMAL;
@@ -1481,19 +1473,13 @@ static void Audio_MAL_Init(void)
 #else
 #error "AUDIO_MAL_MODE_NORMAL or AUDIO_MAL_MODE_CIRCULAR should be selected !!"
 #endif /* AUDIO_MAL_MODE_NORMAL */  
-    //DMA_InitStructure.DMA_Priority = DMA_Priority_High;
-    DmaHandle.Init.Priority = DMA_PRIORITY_HIGH;
-    //DMA_InitStructure.DMA_FIFOMode = DMA_FIFOMode_Disable;         
-	DmaHandle.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
-    //DMA_InitStructure.DMA_FIFOThreshold = DMA_FIFOThreshold_1QuarterFull;
+    DmaHandle.Init.Priority = DMA_PRIORITY_HIGH;    
+    DmaHandle.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
     DmaHandle.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_1QUARTERFULL;
-    //DMA_InitStructure.DMA_MemoryBurst = DMA_MemoryBurst_Single;
-	DmaHandle.Init.MemBurst = DMA_MBURST_SINGLE;
-    //DMA_InitStructure.DMA_PeripheralBurst = DMA_PeripheralBurst_Single;  
+    DmaHandle.Init.MemBurst = DMA_MBURST_SINGLE;
     DmaHandle.Init.PeriphBurst = DMA_PBURST_SINGLE;
-
-	DmaHandle.Instance = AUDIO_MAL_DMA_STREAM;
-    //DMA_Init(AUDIO_MAL_DMA_STREAM, &DMA_InitStructure);  
+    DmaHandle.Instance = AUDIO_MAL_DMA_STREAM;
+    HAL_DMA_Init(&DmaHandle);
     
     /* Enable the selected DMA interrupts (selected in "audio_codec.h" defines) */
 #ifdef AUDIO_MAL_DMA_IT_TC_EN
@@ -1547,7 +1533,7 @@ static void Audio_MAL_Init(void)
     //A_InitStructure.DMA_DIR = DMA_DIR_MemoryToPeripheral;
 	DmaHandle.Init.Direction = DMA_MEMORY_TO_PERIPH;
     //A_InitStructure.DMA_BufferSize = (uint32_t)0xFFFE;      /* This field will be configured in play function */
-	DmaHandle.Init.DMA_BufferSize = (uint32_t)0xFFFE;
+	DmaHandle.Instance->NDTR =(uint32_t)0xFFFE;
     //A_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
 	DmaHandle.Init.PeriphInc = DMA_PINC_ENABLE;
     //DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
@@ -1644,8 +1630,8 @@ static void Audio_MAL_Init(void)
     __HAL_SPI_ENABLE(&hi2s3);
 #else
     /* Enable the I2S DMA request */
-    //SPI_I2S_DMACmd(CODEC_I2S, SPI_I2S_DMAReq_Rx, ENABLE);   
-     __HAL_I2S_ENABLE(&hi2s3, SPI_I2S_DMAReq_Tx);
+    SPI_I2S_DMACmd(CODEC_I2S, SPI_I2S_DMAReq_Rx, ENABLE);   
+     //__HAL_I2S_ENABLE(&hi2s3, SPI_I2S_DMAReq_Tx);
 #endif /* DAC_USE_I2S_DMA */
   }
 #endif
@@ -1693,26 +1679,28 @@ void Audio_MAL_Play(uint32_t Addr, uint32_t Size)
     //DMA_InitStructure.DMA_Memory0BaseAddr = (uint32_t)Addr;
     DmaHandle.Instance->M0AR= (uint32_t)Addr;
     //DMA_InitStructure.DMA_BufferSize = (uint32_t)Size/2;
-    DmaHandle.Init.MemDataAlignment = (uint32_t)Size/2;
+    DmaHandle.Instance->NDTR = (uint32_t)Size/2;
     /* Configure the DMA Stream with the new parameters */
     //DMA_Init(AUDIO_MAL_DMA_STREAM, &DMA_InitStructure);
     HAL_DMA_Init(&DmaHandle);
     /* Enable the I2S DMA Stream*/
-    DMA_Cmd(AUDIO_MAL_DMA_STREAM, ENABLE);   
+    //DMA_Cmd(AUDIO_MAL_DMA_STREAM, ENABLE);  
+	__HAL_DMA_ENABLE(&DmaHandle);
   }
 #ifndef DAC_USE_I2S_DMA
   else
   {
     /* Configure the buffer address and size */
-    //DMA_InitStructure.DMA_Memory0BaseAddr = (uint32_t)Addr;
     DmaHandle.Instance->M0AR = (uint32_t)Addr;
-    //DMA_InitStructure.DMA_BufferSize = (uint32_t)Size;
     DmaHandle.Init.MemDataAlignment = (uint32_t)Size;
+
+
     /* Configure the DMA Stream with the new parameters */
-    //DMA_Init(AUDIO_MAL_DMA_STREAM, &DMA_InitStructure);
     HAL_DMA_Init(&DmaHandle);
+
     /* Enable the I2S DMA Stream*/
     DMA_Cmd(AUDIO_MAL_DMA_STREAM, ENABLE);
+    __HAL_DMA_ENABLE(&DmaHandle);
   }
 #endif /* DAC_USE_I2S_DMA */
   
@@ -1720,6 +1708,7 @@ void Audio_MAL_Play(uint32_t Addr, uint32_t Size)
   if ((CODEC_I2S->I2SCFGR & I2S_ENABLE_MASK) == 0)
   {
     I2S_Cmd(CODEC_I2S, ENABLE);
+	//__HAL_I2S_ENABLE(&hi2s3);
   }
 }
 
