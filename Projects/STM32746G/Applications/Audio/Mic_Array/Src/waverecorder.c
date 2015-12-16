@@ -140,7 +140,7 @@ extern FIL WavFile;
 extern AUDIO_DEMO_StateMachine AudioDemo;
 extern AUDIO_PLAYBACK_StateTypeDef AudioState;
 
-static uint32_t  display_update = 1;
+
 static uint16_t pDataI2S2[1024];
 static __IO uint16_t iBuff;
 extern uint16_t __IO idxSPI5DataBuf1, idxSPI5DataBuf2;
@@ -148,8 +148,6 @@ extern uint16_t __IO idxSPI5DataBuf1, idxSPI5DataBuf2;
 
 
 /* Private function prototypes -----------------------------------------------*/
-static uint32_t WavProcess_EncInit(uint32_t Freq, uint8_t* pHeader);
-static uint32_t WavProcess_HeaderInit(uint8_t* pHeader, WAVE_FormatTypeDef* pWaveFormatStruct);
 static uint32_t WavProcess_HeaderUpdate(uint8_t* pHeader, WAVE_FormatTypeDef* pWaveFormatStruct);
 static void AUDIO_REC_DisplayButtons(void);
 
@@ -222,65 +220,6 @@ void BSP_AUDIO_IN_HalfTransfer_CallBack(void)
 
   
 }
-
-/*******************************************************************************
-                            Static Functions
-*******************************************************************************/
-
-/**
-  * @brief  Encoder initialization.
-  * @param  Freq: Sampling frequency.
-  * @param  pHeader: Pointer to the WAV file header to be written.  
-  * @retval 0 if success, !0 else.
-  */
-static uint32_t WavProcess_EncInit(uint32_t Freq, uint8_t *pHeader)
-{  
-  
-  return 0;
-}
-
-/**
-  * @brief  Initialize the wave header file
-  * @param  pHeader: Header Buffer to be filled
-  * @param  pWaveFormatStruct: Pointer to the wave structure to be filled.
-  * @retval 0 if passed, !0 if failed.
-  */
-static uint32_t WavProcess_HeaderInit(uint8_t* pHeader, WAVE_FormatTypeDef* pWaveFormatStruct)
-{
-  
-  /* Return 0 if all operations are OK */
-  return 0;
-}
-
-/**
-  * @brief  Initialize the wave header file
-  * @param  pHeader: Header Buffer to be filled
-  * @param  pWaveFormatStruct: Pointer to the wave structure to be filled.
-  * @retval 0 if passed, !0 if failed.
-  */
-static uint32_t WavProcess_HeaderUpdate(uint8_t* pHeader, WAVE_FormatTypeDef* pWaveFormatStruct)
-{
-  /* Write the file length ---------------------------------------------------*/
-  /* The sampling time: this value will be written back at the end of the 
-     recording operation.  Example: 661500 Btyes = 0x000A17FC, byte[7]=0x00, byte[4]=0xFC */
-  pHeader[4] = (uint8_t)(BufferCtlRecIn.fptr);
-  pHeader[5] = (uint8_t)(BufferCtlRecIn.fptr >> 8);
-  pHeader[6] = (uint8_t)(BufferCtlRecIn.fptr >> 16);
-  pHeader[7] = (uint8_t)(BufferCtlRecIn.fptr >> 24);
-  /* Write the number of sample data -----------------------------------------*/
-  /* This variable will be written back at the end of the recording operation */
-  BufferCtlRecIn.fptr -=44;
-  pHeader[40] = (uint8_t)(BufferCtlRecIn.fptr); 
-  pHeader[41] = (uint8_t)(BufferCtlRecIn.fptr >> 8);
-  pHeader[42] = (uint8_t)(BufferCtlRecIn.fptr >> 16);
-  pHeader[43] = (uint8_t)(BufferCtlRecIn.fptr >> 24); 
-  
-  /* Return 0 if all operations are OK */
-  return 0;
-}
-
-
-
 
 
 /* sop1hc */
@@ -477,6 +416,7 @@ void SPI1_IRQHandler(void)
     app = SPI_I2S_ReceiveData(SPI1);
 	
     SPI_I2S_SendData(SPI1, 3333);
+    
    }
 }
 
@@ -489,7 +429,7 @@ void SPI1_IRQHandler(void)
 
 void SPI2_IRQHandler(void)
 {  
-    uint16_t volume;
+    //uint16_t volume;
     uint16_t app;
   
 
@@ -841,16 +781,6 @@ void HAL_I2S_MspInit(I2S_HandleTypeDef* hi2s)
 
 
 
-
-/* Copy memory to memory */
-static void mem_cpy (uint16_t * dst, const uint16_t * src, UINT cnt) {
-	uint16_t *d = dst;
-	const uint16_t *s = (const uint16_t *)src;
-
-
-	while (cnt--)
-		*d++ = *s++;
-}
 
 static void SPI_I2S_SendData(SPI_TypeDef* SPIx, uint16_t Data)
 {

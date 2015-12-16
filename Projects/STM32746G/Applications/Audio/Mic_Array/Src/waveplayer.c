@@ -90,9 +90,9 @@ extern FILELIST_FileTypeDef FileList;
 
 /* Private function prototypes -----------------------------------------------*/
 
-static uint8_t PlayerInit(uint32_t AudioFreq);
 
-static void AUDIO_AcquireTouchButtons(void);
+
+
 
 /* Private functions ---------------------------------------------------------*/
 

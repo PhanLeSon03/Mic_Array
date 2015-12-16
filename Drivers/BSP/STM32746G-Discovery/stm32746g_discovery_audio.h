@@ -114,7 +114,7 @@
 #define AUDIO_OUT_SAIx_DMAx_IRQ                  DMA2_Stream4_IRQn
 #define AUDIO_OUT_SAIx_DMAx_PERIPH_DATA_SIZE     DMA_PDATAALIGN_HALFWORD
 #define AUDIO_OUT_SAIx_DMAx_MEM_DATA_SIZE        DMA_MDATAALIGN_HALFWORD
-#define DMA_MAX_SZE                              ((uint16_t)0xFFFF)
+//#define DMA_MAX_SZE                              ((uint16_t)0xFFFF)
    
 #define AUDIO_OUT_SAIx_DMAx_IRQHandler           DMA2_Stream4_IRQHandler
 
@@ -202,6 +202,7 @@ extern __IO uint16_t AudioInVolume;
   * @{
   */
 #define DMA_MAX(x)           (((x) <= DMA_MAX_SZE)? (x):DMA_MAX_SZE)
+
 /**
   * @}
   */ 

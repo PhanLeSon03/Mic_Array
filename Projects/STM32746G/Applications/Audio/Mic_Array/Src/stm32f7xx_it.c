@@ -49,10 +49,7 @@ extern HCD_HandleTypeDef hhcd;
 extern char __IO flg10ms;
 
 uint32_t cntOS;
-/* SAI handler declared in "stm32746g_discovery_audio.c" file */
-extern SAI_HandleTypeDef haudio_out_sai;
-/* I2S handler declared in "stm32746g_discovery_audio.c" file */
-extern SAI_HandleTypeDef haudio_in_sai;
+
 
 extern I2C_HandleTypeDef hi2c1;
 extern UART_HandleTypeDef huart6;
@@ -223,7 +220,7 @@ void OTG_HS_IRQHandler(void)
   */
 void AUDIO_OUT_SAIx_DMAx_IRQHandler(void)
 {
-  HAL_DMA_IRQHandler(haudio_out_sai.hdmatx);
+  //HAL_DMA_IRQHandler(haudio_out_sai.hdmatx);
 }
 
 /**
@@ -233,7 +230,7 @@ void AUDIO_OUT_SAIx_DMAx_IRQHandler(void)
   */
 void AUDIO_IN_SAIx_DMAx_IRQHandler(void)
 {
-  HAL_DMA_IRQHandler(haudio_in_sai.hdmarx);
+  //HAL_DMA_IRQHandler(haudio_in_sai.hdmarx);
 }
 
 /**

@@ -79,7 +79,6 @@ extern uint32_t AudioRemSize;
 static __IO uint32_t TimingDelay;
 
 /* Private function prototypes -----------------------------------------------*/
-static void Mems_Config(void);
 static void EXTILine_Config(void);
 #if defined MEDIA_USB_KEY
  static ErrorCode WavePlayer_WaveParsing(uint32_t *FileLen);
@@ -691,66 +690,6 @@ uint32_t ReadUnit(uint8_t *buffer, uint8_t idx, uint8_t NbrOfBytes, Endianness B
 }
 #endif
 
-/**
-* @brief  configure the mems accelometer
-* @param  None
-* @retval None
-*/
-static void Mems_Config(void)
-{ 
-  uint8_t ctrl = 0;
-  
-  LIS302DL_InitTypeDef  LIS302DL_InitStruct;
-  LIS302DL_InterruptConfigTypeDef LIS302DL_InterruptStruct;  
-  
-  /* Set configuration of LIS302DL*/
-  LIS302DL_InitStruct.Power_Mode = LIS302DL_LOWPOWERMODE_ACTIVE;
-  LIS302DL_InitStruct.Output_DataRate = LIS302DL_DATARATE_100;
-  LIS302DL_InitStruct.Axes_Enable = LIS302DL_X_ENABLE | LIS302DL_Y_ENABLE | LIS302DL_Z_ENABLE;
-  LIS302DL_InitStruct.Full_Scale = LIS302DL_FULLSCALE_2_3;
-  LIS302DL_InitStruct.Self_Test = LIS302DL_SELFTEST_NORMAL;
-  LIS302DL_Init(&LIS302DL_InitStruct);
-    
-  /* Set configuration of Internal High Pass Filter of LIS302DL*/
-  LIS302DL_InterruptStruct.Latch_Request = LIS302DL_INTERRUPTREQUEST_LATCHED;
-  LIS302DL_InterruptStruct.SingleClick_Axes = LIS302DL_CLICKINTERRUPT_Z_ENABLE;
-  LIS302DL_InterruptStruct.DoubleClick_Axes = LIS302DL_DOUBLECLICKINTERRUPT_Z_ENABLE;
-  LIS302DL_InterruptConfig(&LIS302DL_InterruptStruct);
-  
-  /* Configure Interrupt control register: enable Click interrupt on INT1 and
-     INT2 on Z axis high event */
-  ctrl = 0x3F;
-  LIS302DL_Write(&ctrl, LIS302DL_CTRL_REG3_ADDR, 1);
-  
-  /* Enable Interrupt generation on click on Z axis */
-  ctrl = 0x50;
-  LIS302DL_Write(&ctrl, LIS302DL_CLICK_CFG_REG_ADDR, 1);
-  
-  /* Configure Click Threshold on X/Y axis (10 x 0.5g) */
-  ctrl = 0xAA;
-  LIS302DL_Write(&ctrl, LIS302DL_CLICK_THSY_X_REG_ADDR, 1);
-  
-  /* Configure Click Threshold on Z axis (10 x 0.5g) */
-  ctrl = 0x0A;
-  LIS302DL_Write(&ctrl, LIS302DL_CLICK_THSZ_REG_ADDR, 1);
-  
-  /* Enable interrupt on Y axis high event */
-  ctrl = 0x4C;
-  LIS302DL_Write(&ctrl, LIS302DL_FF_WU_CFG1_REG_ADDR, 1);
-  
-  /* Configure Time Limit */
-  ctrl = 0x03;
-  LIS302DL_Write(&ctrl, LIS302DL_CLICK_TIMELIMIT_REG_ADDR, 1);
-    
-  /* Configure Latency */
-  ctrl = 0x7F;
-  LIS302DL_Write(&ctrl, LIS302DL_CLICK_LATENCY_REG_ADDR, 1);
-  
-  /* Configure Click Window */
-  ctrl = 0x7F;
-  LIS302DL_Write(&ctrl, LIS302DL_CLICK_WINDOW_REG_ADDR, 1);
-    
-}
 
 /**
   * @brief  Configures EXTI Line0 (connected to PA0 pin) in interrupt mode

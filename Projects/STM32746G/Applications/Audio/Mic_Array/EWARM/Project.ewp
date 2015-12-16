@@ -1046,17 +1046,11 @@
         <file>
           <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\BSP\Components\ft5336\ft5336.c</name>
         </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\BSP\Components\wm8994\wm8994.c</name>
-        </file>
       </group>
       <group>
         <name>STM32756G_EVAL</name>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\stm32746g_discovery.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\stm32746g_discovery_audio.c</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\stm32746g_discovery_lcd.c</name>

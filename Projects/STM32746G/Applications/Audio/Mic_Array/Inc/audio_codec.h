@@ -98,9 +98,8 @@
 
 /* Uncomment defines below to select standard for audio communication between 
   Codec and I2S peripheral */
-#define I2S_STANDARD_PHILLIPS
-/* #define I2S_STANDARD_MSB */
-/* #define I2S_STANDARD_LSB */
+
+
 
 /* Uncomment the defines below to select if the Master clock mode should be 
   enabled or not */
@@ -143,7 +142,7 @@
 
  #define AUDIO_MAL_DMA_PERIPH_DATA_SIZE DMA_PDATAALIGN_HALFWORD //DMA_PeripheralDataSize_HalfWord
  #define AUDIO_MAL_DMA_MEM_DATA_SIZE    DMA_MDATAALIGN_HALFWORD //DMA_MemoryDataSize_HalfWord
- #define DMA_MAX_SZE                    0xFFFF
+
 
 
  #define DAC_DHR12L1_ADDRESS            0x4000740C
@@ -208,11 +207,7 @@
 #define AUDIO_INTERFACE_I2S           1
 #define AUDIO_INTERFACE_DAC           2
 
-/* Codec output DEVICE */
-#define OUTPUT_DEVICE_SPEAKER         1
-#define OUTPUT_DEVICE_HEADPHONE       2
-#define OUTPUT_DEVICE_BOTH            3
-#define OUTPUT_DEVICE_AUTO            4
+
 
 /* Volume Levels values */
 #define DEFAULT_VOLMIN                0x00
@@ -232,7 +227,7 @@
 
 #define VOLUME_CONVERT(x)    ((Volume > 100)? 100:((uint8_t)((Volume * 255) / 100)))
 #define DMA_MAX(x)           (((x) <= DMA_MAX_SZE)? (x):DMA_MAX_SZE)
-
+#define DMA_MAX_SZE                              ((uint16_t)0xFFFF)
 #define FRERAD 8000 
 
 void AUDIO_SetAudioInterface(uint32_t Interface);

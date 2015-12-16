@@ -105,20 +105,20 @@
 #include "stm32f7xx_hal_i2s.h"
 #include "audio.h"
 
-
+#define  I2C_CR1_PE                          ((uint16_t)0x0001)            /*!<Peripheral Enable */
 #define  I2C_CR1_SMBUS                       ((uint16_t)0x0002)            /*!<SMBus Mode */
 #define  I2C_CR1_SMBTYPE                     ((uint16_t)0x0008)            /*!<SMBus Type */
 #define  I2C_CR1_ENARP                       ((uint16_t)0x0010)            /*!<ARP Enable */
 #define  I2C_CR1_ENPEC                       ((uint16_t)0x0020)            /*!<PEC Enable */
 #define  I2C_CR1_ENGC                        ((uint16_t)0x0040)            /*!<General Call Enable */
-
+#define  I2C_CR1_NOSTRETCH                   ((uint16_t)0x0080)            /*!<Clock Stretching Disable (Slave mode) */
 #define  I2C_CR1_START                       ((uint16_t)0x0100)            /*!<Start Generation */
 #define  I2C_CR1_STOP                        ((uint16_t)0x0200)            /*!<Stop Generation */
 #define  I2C_CR1_ACK                         ((uint16_t)0x0400)            /*!<Acknowledge Enable */
 #define  I2C_CR1_POS                         ((uint16_t)0x0800)            /*!<Acknowledge/PEC Position (for data reception) */
 #define  I2C_CR1_PEC                         ((uint16_t)0x1000)            /*!<Packet Error Checking */
 #define  I2C_CR1_ALERT                       ((uint16_t)0x2000)            /*!<SMBus Alert */
-
+#define  I2C_CR1_SWRST                       ((uint16_t)0x8000)            /*!<Software Reset */
 #define  I2C_Direction_Transmitter      ((uint8_t)0x00)
 #define  I2C_Direction_Receiver         ((uint8_t)0x01)
 #define IS_I2C_DIRECTION(DIRECTION) (((DIRECTION) == I2C_Direction_Transmitter) || \
@@ -160,17 +160,25 @@
 #define  I2C_EVENT_MASTER_BYTE_TRANSMITTED                 ((uint32_t)0x00070084)  /* TRA, BUSY, MSL, TXE and BTF flags */
 
 #define I2C_FLAG_SMBALERT               ((uint32_t)0x00018000)
-
+#define I2C_FLAG_TIMEOUT                ((uint32_t)0x00014000)
+#define I2C_FLAG_PECERR                 ((uint32_t)0x00011000)
+#define I2C_FLAG_OVR                    ((uint32_t)0x00010800)
+#define I2C_FLAG_AF                     ((uint32_t)0x00010400)
+#define I2C_FLAG_ARLO                   ((uint32_t)0x00010200)
+#define I2C_FLAG_BERR                   ((uint32_t)0x00010100)
+#define I2C_FLAG_TXE                    ((uint32_t)0x00010080)
+#define I2C_FLAG_RXNE                   ((uint32_t)0x00010040)
+#define I2C_FLAG_STOPF                  ((uint32_t)0x00010010)
 #define I2C_FLAG_ADD10                  ((uint32_t)0x00010008)
 #define I2C_FLAG_BTF                    ((uint32_t)0x00010004)
-
+#define I2C_FLAG_ADDR                   ((uint32_t)0x00010002)
 #define I2C_FLAG_SB                     ((uint32_t)0x00010001)
 #define I2C_FLAG_DUALF                  ((uint32_t)0x00100080)
 #define I2C_FLAG_SMBHOST                ((uint32_t)0x00100040)
 #define I2C_FLAG_SMBDEFAULT             ((uint32_t)0x00100020)
 #define I2C_FLAG_GENCALL                ((uint32_t)0x00100010)
 #define I2C_FLAG_TRA                    ((uint32_t)0x00100004)
-
+#define I2C_FLAG_BUSY                   ((uint32_t)0x00100002)
 #define I2C_FLAG_MSL                    ((uint32_t)0x00100001)
 #define  I2C_EVENT_MASTER_MODE_SELECT                      ((uint32_t)0x00030001)  /* BUSY, MSL and SB flag */
 
@@ -1215,7 +1223,7 @@ static void Codec_AudioInterface_DeInit(void)
 {
   /* Disable the CODEC_I2S peripheral (in case it hasn't already been disabled) */
   //I2S_Cmd(CODEC_I2S, DISABLE);
-  __HAL_I2S_DISABLE(&hi2s3);
+  HAL_I2S_DISABLE(&hi2s3)
   /* Deinitialize the CODEC_I2S peripheral */
   SPI_I2S_DeInit(CODEC_I2S);
   
@@ -1455,11 +1463,11 @@ static void Audio_MAL_Init(void)
 	
     /* Set the parameters to be configured */
     //DMA_InitStructure.DMA_Channel = AUDIO_MAL_DMA_CHANNEL;  
-    DmaHandle.Init.Channel = AUDIO_MAL_DMA_CHANNEL;
+    DmaHandle.Instance.M0AR = AUDIO_MAL_DMA_CHANNEL;
     //DMA_InitStructure.DMA_PeripheralBaseAddr = AUDIO_MAL_DMA_DREG;
-    DmaHandle.Instance->PAR = AUDIO_MAL_DMA_DREG;
+    DmaHandle.Instance.P0AR = AUDIO_MAL_DMA_DREG;
     //DMA_InitStructure.DMA_Memory0BaseAddr = (uint32_t)0;      /* This field will be configured in play function */
-    DmaHandle.Instance->M0AR = (uint32_t)0;
+    DmaHandle.Instance.M0AR = (uint32_t)0;
     //DMA_InitStructure.DMA_DIR = DMA_DIR_MemoryToPeripheral;
 	 DmaHandle.Init.Direction = DMA_MEMORY_TO_PERIPH;
     //DMA_InitStructure.DMA_BufferSize = (uint32_t)0xFFFE;      /* This field will be configured in play function */
@@ -1691,12 +1699,11 @@ void Audio_MAL_Play(uint32_t Addr, uint32_t Size)
   {
     /* Configure the buffer address and size */
     //DMA_InitStructure.DMA_Memory0BaseAddr = (uint32_t)Addr;
-    DmaHandle.Instance->M0AR= (uint32_t)Addr;
     //DMA_InitStructure.DMA_BufferSize = (uint32_t)Size/2;
-    DmaHandle.Init.MemDataAlignment = (uint32_t)Size/2;
+    
     /* Configure the DMA Stream with the new parameters */
     //DMA_Init(AUDIO_MAL_DMA_STREAM, &DMA_InitStructure);
-    HAL_DMA_Init(&DmaHandle);
+    
     /* Enable the I2S DMA Stream*/
     DMA_Cmd(AUDIO_MAL_DMA_STREAM, ENABLE);   
   }
@@ -1705,12 +1712,11 @@ void Audio_MAL_Play(uint32_t Addr, uint32_t Size)
   {
     /* Configure the buffer address and size */
     //DMA_InitStructure.DMA_Memory0BaseAddr = (uint32_t)Addr;
-    DmaHandle.Instance->M0AR = (uint32_t)Addr;
     //DMA_InitStructure.DMA_BufferSize = (uint32_t)Size;
-    DmaHandle.Init.MemDataAlignment = (uint32_t)Size;
+    
     /* Configure the DMA Stream with the new parameters */
     //DMA_Init(AUDIO_MAL_DMA_STREAM, &DMA_InitStructure);
-    HAL_DMA_Init(&DmaHandle);
+    
     /* Enable the I2S DMA Stream*/
     DMA_Cmd(AUDIO_MAL_DMA_STREAM, ENABLE);
   }
@@ -1919,7 +1925,7 @@ static void I2C_Send7bitAddress(I2C_TypeDef* I2Cx, uint8_t Address, uint8_t I2C_
 static ErrorStatus I2C_CheckEvent(I2C_TypeDef* I2Cx, uint32_t I2C_EVENT)
 {
   uint32_t lastevent = 0;
-  //uint32_t flag1 = 0, flag2 = 0;
+  uint32_t flag1 = 0, flag2 = 0;
   ErrorStatus status = ERROR;
 
 
