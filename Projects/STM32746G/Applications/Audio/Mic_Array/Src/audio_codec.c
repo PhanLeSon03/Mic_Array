@@ -105,11 +105,6 @@
 #include "stm32f7xx_hal_i2s.h"
 #include "audio.h"
 
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 3f3271fd57f3863b18efb1d61c76aa5b863b974c
 #define  I2C_CR1_PE                          ((uint16_t)0x0001)            /*!<Peripheral Enable */
 #define  I2C_CR1_SMBUS                       ((uint16_t)0x0002)            /*!<SMBus Mode */
 #define  I2C_CR1_SMBTYPE                     ((uint16_t)0x0008)            /*!<SMBus Type */
@@ -187,13 +182,11 @@
 #define I2C_FLAG_MSL                    ((uint32_t)0x00100001)
 #define  I2C_EVENT_MASTER_MODE_SELECT                      ((uint32_t)0x00030001)  /* BUSY, MSL and SB flag */
 
-<<<<<<< HEAD
+
 #define SPI_I2S_DMAReq_Tx               ((uint16_t)0x0002)
 #define SPI_I2S_DMAReq_Rx               ((uint16_t)0x0001)
 //#define IS_SPI_I2S_DMAREQ(DMAREQ) ((((DMAREQ) & (uint16_t)0xFFFC) == 0x00) && ((DMAREQ) != 0x00))
-=======
 
->>>>>>> 3f3271fd57f3863b18efb1d61c76aa5b863b974c
 
 /** 
   *      This file includes the low layer driver for CS43L22 Audio Codec
@@ -265,17 +258,14 @@ static FlagStatus I2C_GetFlagStatus(I2C_TypeDef* I2Cx, uint32_t I2C_FLAG);
 static void I2C_AcknowledgeConfig(I2C_TypeDef* I2Cx, FunctionalState NewState);
 static uint8_t I2C_ReceiveData(I2C_TypeDef* I2Cx);
 static void I2C_ClearFlag(I2C_TypeDef* I2Cx, uint32_t I2C_FLAG);
-<<<<<<< HEAD
+
 static void I2S_Cmd(SPI_TypeDef* SPIx, FunctionalState NewState);
 static void SPI_I2S_DeInit(SPI_TypeDef* SPIx);
 static void DMA_Cmd(DMA_Stream_TypeDef* DMAy_Streamx, FunctionalState NewState);
 static void DMA_DeInit(DMA_Stream_TypeDef* DMAy_Streamx);
 static void SPI_I2S_DMACmd(SPI_TypeDef* SPIx, uint16_t SPI_I2S_DMAReq, FunctionalState NewState);
 static void DMA_ClearFlag(DMA_Stream_TypeDef* DMAy_Streamx, uint32_t DMA_FLAG);
-=======
 
-
->>>>>>> 3f3271fd57f3863b18efb1d61c76aa5b863b974c
 /*----------------------------------------------------------------------------*/
 
 /*-----------------------------------
@@ -1879,12 +1869,10 @@ static void I2C_Send7bitAddress(I2C_TypeDef* I2Cx, uint8_t Address, uint8_t I2C_
     Address &= (uint8_t)~((uint8_t)I2C_OAR1_ADD0);
   }
   /* Send the address */
-<<<<<<< HEAD
+
   //I2Cx->DR = Address;
   I2Cx->TXDR = Address;
-=======
-  I2Cx->DR = Address;
->>>>>>> 3f3271fd57f3863b18efb1d61c76aa5b863b974c
+
 }
 
 
@@ -1936,7 +1924,7 @@ static ErrorStatus I2C_CheckEvent(I2C_TypeDef* I2Cx, uint32_t I2C_EVENT)
 
 
   /* Read the I2Cx status register */
-<<<<<<< HEAD
+
   //flag1 = I2Cx->SR1;
   //flag2 = I2Cx->SR2;
   //flag2 = flag2 << 16;
@@ -1944,15 +1932,7 @@ static ErrorStatus I2C_CheckEvent(I2C_TypeDef* I2Cx, uint32_t I2C_EVENT)
   /* Get the last event value from I2C status register */
   //lastevent = (flag1 | flag2) & FLAG_MASK;
   lastevent = I2Cx->ISR;
-=======
-  flag1 = I2Cx->SR1;
-  flag2 = I2Cx->SR2;
-  flag2 = flag2 << 16;
 
-  /* Get the last event value from I2C status register */
-  lastevent = (flag1 | flag2) & FLAG_MASK;
-
->>>>>>> 3f3271fd57f3863b18efb1d61c76aa5b863b974c
   /* Check whether the last event contains the I2C_EVENT */
   if ((lastevent & I2C_EVENT) == I2C_EVENT)
   {
@@ -1967,205 +1947,6 @@ static ErrorStatus I2C_CheckEvent(I2C_TypeDef* I2Cx, uint32_t I2C_EVENT)
   /* Return status */
   return status;
 }
-<<<<<<< HEAD
-=======
-
-
-static void I2C_SendData(I2C_TypeDef* I2Cx, uint8_t Data)
-{
-
-  /* Write in the DR register the data to be sent */
-  I2Cx->TXDR = Data;
-}
-
-static void I2C_GenerateSTOP(I2C_TypeDef* I2Cx, FunctionalState NewState)
-{
-
-  if (NewState != DISABLE)
-  {
-    /* Generate a STOP condition */
-    I2Cx->CR1 |= I2C_CR1_STOP;
-  }
-  else
-  {
-    /* Disable the STOP condition generation */
-    I2Cx->CR1 &= (uint16_t)~((uint16_t)I2C_CR1_STOP);
-  }
-}
-
-/**
-  * @brief  Generates I2Cx communication START condition.
-  * @param  I2Cx: where x can be 1, 2 or 3 to select the I2C peripheral.
-  * @param  NewState: new state of the I2C START condition generation.
-  *          This parameter can be: ENABLE or DISABLE.
-  * @retval None.
-  */
-static void I2C_GenerateSTART(I2C_TypeDef* I2Cx, FunctionalState NewState)
-{
-
-  if (NewState != DISABLE)
-  {
-    /* Generate a START condition */
-    I2Cx->CR1 |= I2C_CR1_START;
-  }
-  else
-  {
-    /* Disable the START condition generation */
-    I2Cx->CR1 &= (uint16_t)~((uint16_t)I2C_CR1_START);
-  }
-}
-
-/*
- ===============================================================================
-                          3. Flag-based state monitoring                   
- ===============================================================================  
- */
-
-/**
-  * @brief  Checks whether the specified I2C flag is set or not.
-  * @param  I2Cx: where x can be 1, 2 or 3 to select the I2C peripheral.
-  * @param  I2C_FLAG: specifies the flag to check. 
-  *          This parameter can be one of the following values:
-  *            @arg I2C_FLAG_DUALF: Dual flag (Slave mode)
-  *            @arg I2C_FLAG_SMBHOST: SMBus host header (Slave mode)
-  *            @arg I2C_FLAG_SMBDEFAULT: SMBus default header (Slave mode)
-  *            @arg I2C_FLAG_GENCALL: General call header flag (Slave mode)
-  *            @arg I2C_FLAG_TRA: Transmitter/Receiver flag
-  *            @arg I2C_FLAG_BUSY: Bus busy flag
-  *            @arg I2C_FLAG_MSL: Master/Slave flag
-  *            @arg I2C_FLAG_SMBALERT: SMBus Alert flag
-  *            @arg I2C_FLAG_TIMEOUT: Timeout or Tlow error flag
-  *            @arg I2C_FLAG_PECERR: PEC error in reception flag
-  *            @arg I2C_FLAG_OVR: Overrun/Underrun flag (Slave mode)
-  *            @arg I2C_FLAG_AF: Acknowledge failure flag
-  *            @arg I2C_FLAG_ARLO: Arbitration lost flag (Master mode)
-  *            @arg I2C_FLAG_BERR: Bus error flag
-  *            @arg I2C_FLAG_TXE: Data register empty flag (Transmitter)
-  *            @arg I2C_FLAG_RXNE: Data register not empty (Receiver) flag
-  *            @arg I2C_FLAG_STOPF: Stop detection flag (Slave mode)
-  *            @arg I2C_FLAG_ADD10: 10-bit header sent flag (Master mode)
-  *            @arg I2C_FLAG_BTF: Byte transfer finished flag
-  *            @arg I2C_FLAG_ADDR: Address sent flag (Master mode) "ADSL"
-  *                                Address matched flag (Slave mode)"ENDAD"
-  *            @arg I2C_FLAG_SB: Start bit flag (Master mode)
-  * @retval The new state of I2C_FLAG (SET or RESET).
-  */
-static FlagStatus I2C_GetFlagStatus(I2C_TypeDef* I2Cx, uint32_t I2C_FLAG)
-{
-  FlagStatus bitstatus = RESET;
-  __IO uint32_t i2creg = 0, i2cxbase = 0;
-
-
-  /* Get the I2Cx peripheral base address */
-  i2cxbase = (uint32_t)I2Cx;
-  
-  /* Read flag register index */
-  i2creg = I2C_FLAG >> 28;
-  
-  /* Get bit[23:0] of the flag */
-  I2C_FLAG &= FLAG_MASK;
-  
-  if(i2creg != 0)
-  {
-    /* Get the I2Cx SR1 register address */
-    i2cxbase += 0x14;
-  }
-  else
-  {
-    /* Flag in I2Cx SR2 Register */
-    I2C_FLAG = (uint32_t)(I2C_FLAG >> 16);
-    /* Get the I2Cx SR2 register address */
-    i2cxbase += 0x18;
-  }
-  
-  if(((*(__IO uint32_t *)i2cxbase) & I2C_FLAG) != (uint32_t)RESET)
-  {
-    /* I2C_FLAG is set */
-    bitstatus = SET;
-  }
-  else
-  {
-    /* I2C_FLAG is reset */
-    bitstatus = RESET;
-  }
-  
-  /* Return the I2C_FLAG status */
-  return  bitstatus;
-}
-
-/**
-  * @brief  Enables or disables the specified I2C acknowledge feature.
-  * @param  I2Cx: where x can be 1, 2 or 3 to select the I2C peripheral.
-  * @param  NewState: new state of the I2C Acknowledgement.
-  *          This parameter can be: ENABLE or DISABLE.
-  * @retval None.
-  */
-static void I2C_AcknowledgeConfig(I2C_TypeDef* I2Cx, FunctionalState NewState)
-{
-  if (NewState != DISABLE)
-  {
-    /* Enable the acknowledgement */
-    I2Cx->CR1 |= I2C_CR1_ACK;
-  }
-  else
-  {
-    /* Disable the acknowledgement */
-    I2Cx->CR1 &= (uint16_t)~((uint16_t)I2C_CR1_ACK);
-  }
-}
-
-/**
-  * @brief  Returns the most recent received data by the I2Cx peripheral.
-  * @param  I2Cx: where x can be 1, 2 or 3 to select the I2C peripheral.
-  * @retval The value of the received data.
-  */
-static uint8_t I2C_ReceiveData(I2C_TypeDef* I2Cx)
-{
-  /* Return the data in the DR register */
-  return (uint8_t)I2Cx->RXDR;
-}
-
-/**
-  * @brief  Clears the I2Cx's pending flags.
-  * @param  I2Cx: where x can be 1, 2 or 3 to select the I2C peripheral.
-  * @param  I2C_FLAG: specifies the flag to clear. 
-  *          This parameter can be any combination of the following values:
-  *            @arg I2C_FLAG_SMBALERT: SMBus Alert flag
-  *            @arg I2C_FLAG_TIMEOUT: Timeout or Tlow error flag
-  *            @arg I2C_FLAG_PECERR: PEC error in reception flag
-  *            @arg I2C_FLAG_OVR: Overrun/Underrun flag (Slave mode)
-  *            @arg I2C_FLAG_AF: Acknowledge failure flag
-  *            @arg I2C_FLAG_ARLO: Arbitration lost flag (Master mode)
-  *            @arg I2C_FLAG_BERR: Bus error flag
-  *   
-  * @note   STOPF (STOP detection) is cleared by software sequence: a read operation 
-  *          to I2C_SR1 register (I2C_GetFlagStatus()) followed by a write operation 
-  *          to I2C_CR1 register (I2C_Cmd() to re-enable the I2C peripheral).
-  * @note   ADD10 (10-bit header sent) is cleared by software sequence: a read 
-  *          operation to I2C_SR1 (I2C_GetFlagStatus()) followed by writing the 
-  *          second byte of the address in DR register.
-  * @note   BTF (Byte Transfer Finished) is cleared by software sequence: a read 
-  *          operation to I2C_SR1 register (I2C_GetFlagStatus()) followed by a 
-  *          read/write to I2C_DR register (I2C_SendData()).
-  * @note   ADDR (Address sent) is cleared by software sequence: a read operation to 
-  *          I2C_SR1 register (I2C_GetFlagStatus()) followed by a read operation to 
-  *          I2C_SR2 register ((void)(I2Cx->SR2)).
-  * @note   SB (Start Bit) is cleared software sequence: a read operation to I2C_SR1
-  *          register (I2C_GetFlagStatus()) followed by a write operation to I2C_DR
-  *          register (I2C_SendData()).
-  *  
-  * @retval None
-  */
-static void I2C_ClearFlag(I2C_TypeDef* I2Cx, uint32_t I2C_FLAG)
-{
-  uint32_t flagpos = 0;
-
-  /* Get the I2C flag position */
-  flagpos = I2C_FLAG & FLAG_MASK;
-  /* Clear the selected I2C flag */
-  I2Cx->ISR = (uint16_t)~flagpos;
-}
->>>>>>> 3f3271fd57f3863b18efb1d61c76aa5b863b974c
 
 
 static void I2C_SendData(I2C_TypeDef* I2Cx, uint8_t Data)
