@@ -451,10 +451,8 @@ static void Audio_MAL_IRQHandler(void)
       __HAL_DMA_CLEAR_FLAG(&DmaHandle, AUDIO_I2S_DMA_FLAG_TC);
           
       /* Re-Configure the buffer address and size */
-      //DmaHandle.Init.DMA_Memory0BaseAddr = (uint32_t) CurrentPos;
-      DmaHandle.Instance->M0AR = (uint32_t) CurrentPos;
-      //DmaHandle.Init.DMA_BufferSize = (uint32_t) (DMA_MAX(AudioRemSize));
-      DmaHandle.Instance->NDTR = (uint32_t) (DMA_MAX(AudioRemSize));    
+       DmaHandle.Instance->M0AR = (uint32_t) CurrentPos;
+       DmaHandle.Instance->NDTR = (uint32_t) (DMA_MAX(AudioRemSize));    
       /* Configure the DMA Stream with the new parameters */
       HAL_DMA_Init(&DmaHandle);
       
@@ -555,15 +553,9 @@ void Audio_MAL_DAC_IRQHandler(void)
 void Audio_I2S_IRQHandler(void)
 {
   /* Check on the I2S TXE flag */  
-  //if (SPI_I2S_GetFlagStatus(SPI3, SPI_I2S_FLAG_TXE) != RESET)
   if (__HAL_SPI_GET_FLAG(&hi2s3, SPI_IT_TXE) != RESET)
   { 
-    if (CurrAudioInterface == AUDIO_INTERFACE_DAC)
-    {
-      /* Wirte data to the DAC interface */
-      DAC_SetChannel1Data(DAC_Align_12b_L, AUDIO_GetSampleCallBack()); 
-    }
-    
+   
     /* Send dummy data on I2S to avoid the underrun condition */
      SPI_I2S_SendData(CODEC_I2S, AUDIO_GetSampleCallBack()); 
   }
@@ -859,8 +851,6 @@ static uint32_t Codec_WriteRegister(uint8_t RegisterAddr, uint8_t RegisterValue)
   
   /* Start the config sequence */
   I2C_GenerateSTART(CODEC_I2C, ENABLE);
-  //I2C_GENERATE_START(CODEC_I2C, ENABLE);	
-
   /* Test on EV5 and clear it */
   CODECTimeout = CODEC_FLAG_TIMEOUT;
   
@@ -893,8 +883,18 @@ static uint32_t Codec_WriteRegister(uint8_t RegisterAddr, uint8_t RegisterValue)
   /* Prepare the register value to be sent */
   I2C_SendData(CODEC_I2C, RegisterValue);
   
+  /* Test on EV8 and clear it */
+  //CODECTimeout = CODEC_FLAG_TIMEOUT;
+  //while (!I2C_CheckEvent(CODEC_I2C, I2C_EVENT_MASTER_BYTE_TRANSMITTING))
+  //{
+  //  if((CODECTimeout--) == 0) return Codec_TIMEOUT_UserCallback();
+  //}
   /*!< Wait till all data have been physically transferred on the bus */
-  CODECTimeout = CODEC_LONG_TIMEOUT;
+
+  /* Prepare the register value to be sent */
+  //I2C_SendData(CODEC_I2C, RegisterValue);
+  
+CODECTimeout = CODEC_LONG_TIMEOUT;
   while(!__HAL_I2C_GET_FLAG(&hi2c1, I2C_FLAG_BTF))
   {
     if((CODECTimeout--) == 0) Codec_TIMEOUT_UserCallback();
