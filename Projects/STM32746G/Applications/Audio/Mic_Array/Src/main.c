@@ -117,7 +117,7 @@ int main(void)
   BSP_LED_Init(LED1);
   
   /* Initialize for Audio player with CS43L22 */
-  WavePlayerInit(16000);
+  WavePlayerInit(48000);
 
     /* Play on */
   AudioFlashPlay((uint16_t*)(AUDIO_SAMPLE + AUIDO_START_ADDRESS),AUDIO_FILE_SZE,AUIDO_START_ADDRESS);
@@ -392,7 +392,7 @@ static void SystemClock_Config(void)
   HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
 
   HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
-	
+
 }
 
 /**

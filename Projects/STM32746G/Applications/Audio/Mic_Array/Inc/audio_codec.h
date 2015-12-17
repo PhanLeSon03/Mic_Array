@@ -115,25 +115,18 @@
                     Hardware Configuration defines parameters
                                      -----------------------------------------*/
 /* Audio Reset Pin definition */
-#define AUDIO_RESET_GPIO_CLK           RCC_AHB1Periph_GPIOD  
+
 #define AUDIO_RESET_PIN                GPIO_PIN_4    
 #define AUDIO_RESET_GPIO               GPIOD 
                  
 /* I2S peripheral configuration defines */
 #define CODEC_I2S                      SPI3
-#define CODEC_I2S_CLK                  RCC_APB1Periph_SPI3
 #define CODEC_I2S_ADDRESS              0x40003C0C
-#define CODEC_I2S_GPIO_AF              GPIO_AF_SPI3
 #define CODEC_I2S_IRQ                  SPI3_IRQn
-#define CODEC_I2S_GPIO_CLOCK           (RCC_AHB1Periph_GPIOC | RCC_AHB1Periph_GPIOA | RCC_AHB1Periph_GPIOB)
 #define CODEC_I2S_WS_PIN               GPIO_PIN_15  //PA15
 #define CODEC_I2S_SCK_PIN              GPIO_PIN_3   //PB3
 #define CODEC_I2S_SD_PIN               GPIO_PIN_2   //PB2 
 #define CODEC_I2S_MCK_PIN              GPIO_PIN_7   //PC7
-#define CODEC_I2S_WS_PINSRC            GPIO_PinSource14
-#define CODEC_I2S_SCK_PINSRC           GPIO_PinSource3
-#define CODEC_I2S_SD_PINSRC            GPIO_PinSource2
-#define CODEC_I2S_MCK_PINSRC           GPIO_PinSource7
 #define CODEC_I2S_GPIO                 GPIOB
 #define CODEC_I2S_WS_GPIO              GPIOA
 #define CODEC_I2S_MCK_GPIO             GPIOC
@@ -151,7 +144,6 @@
  #define AUDIO_DAC_CHANNEL              DAC_CHANNEL_1
 
  /* I2S DMA Stream definitions */
- #define AUDIO_I2S_DMA_CLOCK            RCC_AHB1Periph_DMA1
  #define AUDIO_I2S_DMA_STREAM           DMA1_Stream7
  #define AUDIO_I2S_DMA_DREG             CODEC_I2S_ADDRESS
  #define AUDIO_I2S_DMA_CHANNEL          DMA_CHANNEL_0
@@ -230,7 +222,6 @@
 #define DMA_MAX_SZE                              ((uint16_t)0xFFFF)
 #define FRERAD 8000 
 
-void AUDIO_SetAudioInterface(uint32_t Interface);
 uint32_t AUDIO_Init(uint16_t OutputDevice, uint8_t Volume, uint32_t AudioFreq);
 uint32_t AUDIO_DeInit(void);
 uint32_t AUDIO_Play(uint16_t* pBuffer, uint32_t Size);

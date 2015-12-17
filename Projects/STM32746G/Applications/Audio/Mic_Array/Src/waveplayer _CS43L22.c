@@ -283,18 +283,7 @@ void WavePlayerStop(void)
 */
 int WavePlayerInit(uint32_t AudioFreq)
 { 
-  
-  /* MEMS Accelerometre configure to manage PAUSE, RESUME and Controle Volume operation */
-  //1 sop1hc: Mems_Config();
-  //Mems_Config();
-  
-  /* EXTI configue to detect interrupts on Z axis click and on Y axis high event */
-  //1 sop1hc: EXTILine_Config();  
-  
-  
-  /* Initialize I2S interface */  
-  AUDIO_SetAudioInterface(AUDIO_INTERFACE_I2S);
-  
+   
   /* Initialize the Audio codec and all related peripherals (I2S, I2C, IOExpander, IOs...) */  
   AUDIO_Init(OUTPUT_DEVICE_AUTO, volume, AudioFreq );  
   
