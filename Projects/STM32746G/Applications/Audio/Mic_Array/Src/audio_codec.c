@@ -1115,7 +1115,7 @@ static void Codec_CtrlInterface_Init(void)
   
   /* Init the I2C */
   HAL_I2C_Init(&hi2c1);
-  
+  __HAL_I2C_ENABLE(&hi2c1);
   
 }
 

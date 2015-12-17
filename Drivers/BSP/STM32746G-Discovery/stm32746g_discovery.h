@@ -284,7 +284,7 @@ typedef enum
 /* 0x40912732 takes in account the big rising and aims a clock of 100khz */
 /* this value might be adapted when next Rev Birdie board is available */
 #ifndef DISCOVERY_I2Cx_TIMING  
-#define DISCOVERY_I2Cx_TIMING                      ((uint32_t)0x40912732)  
+#define DISCOVERY_I2Cx_TIMING                     0x40912732//  ((uint32_t)0x40912732)  
 #endif /* DISCOVERY_I2Cx_TIMING */
 
 /**
