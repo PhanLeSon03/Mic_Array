@@ -436,10 +436,8 @@ static void Audio_MAL_IRQHandler(void)
   
 #ifdef AUDIO_MAL_DMA_IT_TC_EN
   /* Transfer complete interrupt */
-  //if (DMA_GetFlagStatus(AUDIO_I2S_DMA_STREAM, AUDIO_I2S_DMA_FLAG_TC) != RESET)
   if (__HAL_DMA_GET_FLAG(&DmaHandle,AUDIO_I2S_DMA_FLAG_TC)!=RESET)
   {         
- #ifdef AUDIO_MAL_MODE_NORMAL
     /* Check if the end of file has been reached */
     if (AudioRemSize > 0)
     {      
@@ -487,8 +485,7 @@ static void Audio_MAL_IRQHandler(void)
      AUDIO_TransferComplete_CallBack(pAddr, Size);    
     
     /* Clear the Interrupt flag */
-    __HAL_DMA_CLEAR_FLAG(&DmaHandle, AUDIO_I2S_DMA_FLAG_TC);  
- #endif /* AUDIO_MAL_MODE_NORMAL */  
+    __HAL_DMA_CLEAR_FLAG(&DmaHandle, AUDIO_I2S_DMA_FLAG_TC);   
   }
 #endif /* AUDIO_MAL_DMA_IT_TC_EN */
 
