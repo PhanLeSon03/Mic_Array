@@ -1108,28 +1108,10 @@ static void Codec_AudioInterface_Init(uint32_t AudioFreq)
   /* Initialize the I2S peripheral with the structure above */
   HAL_I2S_Init(&hi2s3);
   /* Enable TXE and ERR interrupt */
-  //__HAL_I2S_ENABLE_IT(&hi2s2, (I2S_IT_RXNE));
-  //__HAL_I2S_ENABLE(&hi2s3);
+  __HAL_I2S_ENABLE_IT(&hi2s3, (I2S_IT_RXNE));
+  __HAL_I2S_ENABLE(&hi2s3);
 
-  /* Configure the DAC interface */
-  if (CurrAudioInterface == AUDIO_INTERFACE_DAC)
-  {    
-	static DAC_HandleTypeDef DACHandle;
-	static DAC_ChannelConfTypeDef sConfig;
-    /* DAC Periph clock enable */
-    //RCC_APB1PeriphClockCmd(RCC_APB1Periph_DAC, ENABLE);
-	__DAC_CLK_ENABLE();
-
-    
-    /* DAC channel1 Configuration */
-	DACHandle.Instance = DAC;
-	sConfig.DAC_Trigger = DAC_TRIGGER_NONE;
-	sConfig.DAC_OutputBuffer = DAC_OUTPUTBUFFER_ENABLE;
-	HAL_DAC_ConfigChannel(&DACHandle, &sConfig, AUDIO_DAC_CHANNEL);
-		
-    /* Enable DAC Channel1 */
-	__HAL_DAC_ENABLE(&DACHandle,AUDIO_DAC_CHANNEL);
-  }
+ 
   
   /* The I2S peripheral will be enabled only in the AUDIO_Play() function 
        or by user functions if DMA mode not enabled */  
@@ -1364,6 +1346,8 @@ static void Audio_MAL_Init(void)
 	/* Enable the DMA clock */
 	//RCC_AHB1PeriphClockCmd(AUDIO_MAL_DMA_CLOCK, ENABLE); 
 	__HAL_RCC_DMA1_IS_CLK_ENABLED();  
+    __HAL_RCC_DMA1_CLK_ENABLE();
+    __HAL_RCC_I2S3_CLK_ENABLE();
 
 	/* Configure the DMA Stream */
 	DMA_Cmd(AUDIO_I2S_DMA_STREAM, DISABLE);
@@ -1375,7 +1359,7 @@ static void Audio_MAL_Init(void)
 	DmaHandle.Instance->M0AR = (uint32_t)0;
 	DmaHandle.Init.Direction = DMA_MEMORY_TO_PERIPH;
 	DmaHandle.Instance->NDTR = (uint32_t)0xFFFE;
-	DmaHandle.Init.PeriphInc = DMA_PINC_ENABLE;
+	DmaHandle.Init.PeriphInc = DMA_PINC_DISABLE;
 	DmaHandle.Init.MemInc = DMA_MINC_ENABLE;
 	DmaHandle.Init.PeriphDataAlignment = AUDIO_MAL_DMA_MEM_DATA_SIZE;
 	DmaHandle.Init.MemDataAlignment = AUDIO_MAL_DMA_MEM_DATA_SIZE; 
@@ -1390,6 +1374,9 @@ static void Audio_MAL_Init(void)
 
 	__HAL_DMA_ENABLE_IT(&DmaHandle, DMA_IT_TC);
 	HAL_DMA_Init(&DmaHandle);
+
+    /* Associate the initialized DMA handle to the the I2S3 handle */
+    __HAL_LINKDMA(hi2s3, DmaHandle, DmaHandle);
 
 	/* Set Interrupt Group Priority */
 	HAL_NVIC_SetPriority(DMA1_Stream7_IRQn, 0, 0);
