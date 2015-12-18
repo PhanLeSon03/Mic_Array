@@ -1,70 +1,70 @@
-"H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_spi.c"
+"D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_spi.c"
 -std=c99
 -ferror-limit=100
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM
 -I
-D:\Program Files (x86)\IAR Systems\Embedded Workbench 7.2\arm\CMSIS\Include
+C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.2\arm\CMSIS\Include
 -I
-D:\Program Files (x86)\IAR Systems\Embedded Workbench 7.2\arm\inc
+C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.2\arm\inc
 -I
-D:\Program Files (x86)\IAR Systems\Embedded Workbench 7.2\arm\inc\c
+C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.2\arm\inc\c
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Inc
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Inc
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\CMSIS\Device\ST\STM32F7xx\Include
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Drivers\CMSIS\Device\ST\STM32F7xx\Include
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Inc
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Inc
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\STM32746G-Discovery
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Drivers\BSP\STM32746G-Discovery
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\Components\Common
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Drivers\BSP\Components\Common
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Utilities\Log
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Utilities\Log
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Utilities\Fonts
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Utilities\Fonts
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Utilities\CPU
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Utilities\CPU
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST\STM32_USB_Device_Library\Core\Inc
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Middlewares\ST\STM32_USB_Device_Library\Core\Inc
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\Third_Party\FatFs\src
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Middlewares\Third_Party\FatFs\src
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\Third_Party\FatFs\src\drivers
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Middlewares\Third_Party\FatFs\src\drivers
 -I
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST\STM32_Audio\Addons\PDM
+D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Middlewares\ST\STM32_Audio\Addons\PDM
 -I
-D:\Program Files (x86)\IAR Systems\Embedded Workbench 7.2\arm\CMSIS\Include
+C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.2\arm\CMSIS\Include
 -DUSE_HAL_DRIVER=1
 -DSTM32F746xx=1
 -DUSE_STM32746G_DISCO=1
@@ -309,8 +309,8 @@ D:\Program Files (x86)\IAR Systems\Embedded Workbench 7.2\arm\CMSIS\Include
 -D__EDG_SYSV=0
 -D__EDG_ANSIC=1
 -D__EDG_CPP11_IL_EXTENSIONS_SUPPORTED=1
--D_DLIB_CONFIG_FILE_HEADER_NAME="D:\Program Files (x86)\IAR Systems\Embedded Workbench 7.2\arm\INC\c\DLib_Config_Full.h"
--D_DLIB_CONFIG_FILE_STRING="D:\\Program Files (x86)\\IAR Systems\\Embedded Workbench 7.2\\arm\\INC\\c\\DLib_Config_Full.h"
+-D_DLIB_CONFIG_FILE_HEADER_NAME="C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.2\arm\INC\c\DLib_Config_Full.h"
+-D_DLIB_CONFIG_FILE_STRING="C:\\Program Files (x86)\\IAR Systems\\Embedded Workbench 7.2\\arm\\INC\\c\\DLib_Config_Full.h"
 -D__VERSION__="IAR ANSI C/C++ Compiler V7.40.3.8902/W32 for ARM"
 -D_VA_DEFINED=
 -D__CODE_MEMORY_LIST1__()=__CODE_MEM_HELPER1__(__code, 0 )

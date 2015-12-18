@@ -79,16 +79,16 @@ Exclusions=
 Enabled=0
 [CallStackStripe]
 ShowTiming=1
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
 [Disassemble mode]
 mode=0
 [Breakpoints2]
 Bp0=_ 0 "EMUL_CODE" "0x0801228E" 0 0 1 "" 0 "" 0
 Bp1=_ 0 "EMUL_DATA" "DMA_SxCR_EN" 0 0 0 0 4294967295
 Count=2
-[Log file]
-LoggingEnabled=_ 0
-LogFile=_ ""
-Category=_ 0
 [Aliases]
 Count=0
 SuppressDialog=0
