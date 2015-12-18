@@ -216,7 +216,7 @@ __IO uint32_t CurrAudioInterface = AUDIO_INTERFACE_I2S; //AUDIO_INTERFACE_DAC
 DMA_HandleTypeDef     DmaHandle;
 I2S_HandleTypeDef     hi2s3;
 I2C_HandleTypeDef     hi2c1;
-
+uint8_t Volume=80;
 static void Audio_MAL_IRQHandler(void);
 /*-----------------------------------
                            Audio Codec functions 
@@ -280,20 +280,8 @@ static void     Audio_MAL_Stop(void);
   */
 uint32_t AUDIO_Init(uint16_t OutputDevice, uint8_t Volume, uint32_t AudioFreq)
 {    
-  /* Perform low layer Codec initialization */
-  if (Codec_Init(OutputDevice, VOLUME_CONVERT(Volume), AudioFreq) != 0)
-  {
-    return 1;                
-  }
-  else
-  {    
-    /* I2S data transfer preparation:
-    Prepare the Media to be used for the audio transfer from memory to I2S peripheral */
-    Audio_MAL_Init();
-    
-    /* Return 0 when all operations are OK */
-    return 0;
-  }
+	/* Perform low layer Codec initialization */
+	Codec_Init(OutputDevice, VOLUME_CONVERT(Volume), AudioFreq);
 }
 
 /**
@@ -328,7 +316,7 @@ uint32_t AUDIO_Play(uint16_t* pBuffer, uint32_t Size)
   Codec_Play();
   
   /* Update the Media layer and enable it for play */  
-  Audio_MAL_Play((uint32_t)pBuffer, (uint32_t)(DMA_MAX(Size/4)));
+  Audio_MAL_Play((uint16_t)pBuffer, (uint16_t)(DMA_MAX(Size/4)));
   
   /* Update the remaining number of data to be played */
   AudioRemSize = (Size/2) - DMA_MAX(AudioTotalSize)/2;//1 sop1hc: change "DMA_MAX(AudioTotalSize)" to "DMA_MAX(AudioTotalSize)/2"
@@ -479,13 +467,13 @@ static void Audio_MAL_IRQHandler(void)
       AUDIO_TransferComplete_CallBack((uint32_t)CurrentPos, 0);       
     }
     
- #elif defined(AUDIO_MAL_MODE_CIRCULAR)
+
     /* Manage the remaining file size and new address offset: This function 
        should be coded by user (its prototype is already declared in stm32f4_discovery_audio_codec.h) */  
-     AUDIO_TransferComplete_CallBack(pAddr, Size);    
+     //AUDIO_TransferComplete_CallBack(pAddr, Size);    
     
     /* Clear the Interrupt flag */
-    __HAL_DMA_CLEAR_FLAG(&DmaHandle, AUDIO_I2S_DMA_FLAG_TC);   
+    //__HAL_DMA_CLEAR_FLAG(&DmaHandle, AUDIO_I2S_DMA_FLAG_TC);   
   }
 #endif /* AUDIO_MAL_DMA_IT_TC_EN */
 
@@ -529,7 +517,7 @@ static void Audio_MAL_IRQHandler(void)
   */
 void Audio_MAL_I2S_IRQHandler(void)
 { 
-  Audio_MAL_IRQHandler();
+    Audio_MAL_IRQHandler();
 }
 
 /**
@@ -838,67 +826,20 @@ static void Codec_Reset(void)
 static uint32_t Codec_WriteRegister(uint8_t RegisterAddr, uint8_t RegisterValue)
 {
   uint32_t result = 0;
-
-  /*!< While the bus is busy */
-  CODECTimeout = CODEC_LONG_TIMEOUT;
-  while(__HAL_I2C_GET_FLAG(&hi2c1, I2C_FLAG_BUSY))
-  {
-     if((CODECTimeout--) == 0) return Codec_TIMEOUT_UserCallback();
-  }
-  
-  /* Start the config sequence */
-  I2C_GenerateSTART(CODEC_I2C, ENABLE);
-  /* Test on EV5 and clear it */
-  CODECTimeout = CODEC_FLAG_TIMEOUT;
-  
-  while (!I2C_CheckEvent(CODEC_I2C, I2C_EVENT_MASTER_MODE_SELECT))
-  {
-    if((CODECTimeout--) == 0) return Codec_TIMEOUT_UserCallback();
-  }
-  
-  /* Transmit the slave address and enable writing operation */
-  I2C_Send7bitAddress(CODEC_I2C, CODEC_ADDRESS, I2C_Direction_Transmitter);
-  
-
-  /* Test on EV6 and clear it */
-  CODECTimeout = CODEC_FLAG_TIMEOUT;
-  while (!I2C_CheckEvent(CODEC_I2C, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED))
-  {
-    if((CODECTimeout--) == 0) return Codec_TIMEOUT_UserCallback();
-  }
-
+  uint8_t bufI2C[2];
+  bufI2C[0] = RegisterAddr;
+  bufI2C[1] = RegisterValue;
   /* Transmit the first address for write operation */
-  I2C_SendData(CODEC_I2C, RegisterAddr);
-
-  /* Test on EV8 and clear it */
-  CODECTimeout = CODEC_FLAG_TIMEOUT;
-  while (!I2C_CheckEvent(CODEC_I2C, I2C_EVENT_MASTER_BYTE_TRANSMITTING))
+  while(HAL_I2C_Master_Transmit(&hi2c1, CODEC_ADDRESS, &bufI2C[0],2,CODEC_LONG_TIMEOUT))
   {
-    if((CODECTimeout--) == 0) return Codec_TIMEOUT_UserCallback();
+	/* Error_Handler() function is called when Timeout error occurs.
+	When Acknowledge failure occurs (Slave don't acknowledge its address)
+	Master restarts communication */
+    if (HAL_I2C_GetError(&hi2c1) != HAL_I2C_ERROR_AF)
+    {
+      return Codec_TIMEOUT_UserCallback();;
+    }  
   }
-  
-  /* Prepare the register value to be sent */
-  I2C_SendData(CODEC_I2C, RegisterValue);
-  
-  /* Test on EV8 and clear it */
-  //CODECTimeout = CODEC_FLAG_TIMEOUT;
-  //while (!I2C_CheckEvent(CODEC_I2C, I2C_EVENT_MASTER_BYTE_TRANSMITTING))
-  //{
-  //  if((CODECTimeout--) == 0) return Codec_TIMEOUT_UserCallback();
-  //}
-  /*!< Wait till all data have been physically transferred on the bus */
-
-  /* Prepare the register value to be sent */
-  //I2C_SendData(CODEC_I2C, RegisterValue);
-  
-CODECTimeout = CODEC_LONG_TIMEOUT;
-  while(!__HAL_I2C_GET_FLAG(&hi2c1, I2C_FLAG_BTF))
-  {
-    if((CODECTimeout--) == 0) Codec_TIMEOUT_UserCallback();
-  }
-  
-  /* End the configuration sequence */
-  I2C_GenerateSTOP(CODEC_I2C, ENABLE);  
   
 #ifdef VERIFY_WRITTENDATA
   /* Verify that the data has been correctly written */  
@@ -918,99 +859,36 @@ CODECTimeout = CODEC_LONG_TIMEOUT;
   */
 static uint32_t Codec_ReadRegister(uint8_t RegisterAddr)
 {
-  uint32_t result = 0;
-
-  /*!< While the bus is busy */
-  CODECTimeout = CODEC_LONG_TIMEOUT;
-  while(I2C_GetFlagStatus(CODEC_I2C, I2C_FLAG_BUSY))
-  {
-    if((CODECTimeout--) == 0) return Codec_TIMEOUT_UserCallback();
-  }
-  
-  /* Start the config sequence */
-  I2C_GenerateSTART(CODEC_I2C, ENABLE);
-
-  /* Test on EV5 and clear it */
-  CODECTimeout = CODEC_FLAG_TIMEOUT;
-  while (!I2C_CheckEvent(CODEC_I2C, I2C_EVENT_MASTER_MODE_SELECT))
-  {
-    if((CODECTimeout--) == 0) return Codec_TIMEOUT_UserCallback();
-  }
-  
-  /* Transmit the slave address and enable writing operation */
-  I2C_Send7bitAddress(CODEC_I2C, CODEC_ADDRESS, I2C_Direction_Transmitter);
-
-  /* Test on EV6 and clear it */
-  CODECTimeout = CODEC_FLAG_TIMEOUT;
-  while (!I2C_CheckEvent(CODEC_I2C, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED))
-  {
-    if((CODECTimeout--) == 0) return Codec_TIMEOUT_UserCallback();
-  }
+  uint8_t result = 0;
 
   /* Transmit the register address to be read */
-  I2C_SendData(CODEC_I2C, RegisterAddr);
-
-  /* Test on EV8 and clear it */
-  CODECTimeout = CODEC_FLAG_TIMEOUT;
-  while (I2C_GetFlagStatus(CODEC_I2C, I2C_FLAG_BTF) == RESET)
+  /* Transmit the first address for write operation */
+  while(HAL_I2C_Master_Transmit(&hi2c1, CODEC_ADDRESS, &RegisterAddr,1,CODEC_LONG_TIMEOUT))
   {
-    if((CODECTimeout--) == 0) return Codec_TIMEOUT_UserCallback();
-  }
-  
-  /*!< Send START condition a second time */  
-  I2C_GenerateSTART(CODEC_I2C, ENABLE);
-  
-  /*!< Test on EV5 and clear it (cleared by reading SR1 then writing to DR) */
-  CODECTimeout = CODEC_FLAG_TIMEOUT;
-  while(!I2C_CheckEvent(CODEC_I2C, I2C_EVENT_MASTER_MODE_SELECT))
-  {
-    if((CODECTimeout--) == 0) return Codec_TIMEOUT_UserCallback();
-  } 
-  
-  /*!< Send Codec address for read */
-  I2C_Send7bitAddress(CODEC_I2C, CODEC_ADDRESS, I2C_Direction_Receiver);  
-  
-  /* Wait on ADDR flag to be set (ADDR is still not cleared at this level */
-  CODECTimeout = CODEC_FLAG_TIMEOUT;
-  while(I2C_GetFlagStatus(CODEC_I2C, I2C_FLAG_ADDR) == RESET)
-  {
-    if((CODECTimeout--) == 0) return Codec_TIMEOUT_UserCallback();
-  }     
-  
-  /*!< Disable Acknowledgment */
-  I2C_AcknowledgeConfig(CODEC_I2C, DISABLE);   
-  
-  /* Clear ADDR register by reading SR1 then SR2 register (SR1 has already been read) */
-  (void)CODEC_I2C->ISR;
-  
-  /*!< Send STOP Condition */
-  I2C_GenerateSTOP(CODEC_I2C, ENABLE);
-  
-  /* Wait for the byte to be received */
-  CODECTimeout = CODEC_FLAG_TIMEOUT;
-  while(I2C_GetFlagStatus(CODEC_I2C, I2C_FLAG_RXNE) == RESET)
-  {
-    if((CODECTimeout--) == 0) return Codec_TIMEOUT_UserCallback();
+	/* Error_Handler() function is called when Timeout error occurs.
+	When Acknowledge failure occurs (Slave don't acknowledge its address)
+	Master restarts communication */
+    if (HAL_I2C_GetError(&hi2c1) != HAL_I2C_ERROR_AF)
+    {
+      return Codec_TIMEOUT_UserCallback();
+    }  
   }
   
   /*!< Read the byte received from the Codec */
-  result = I2C_ReceiveData(CODEC_I2C);
-  
-  /* Wait to make sure that STOP flag has been cleared */
-  CODECTimeout = CODEC_FLAG_TIMEOUT;
-  while(CODEC_I2C->CR1 & I2C_CR1_STOP)
+  //result = I2C_ReceiveData(CODEC_I2C);
+  while(HAL_I2C_Master_Receive(&hi2c1, (uint16_t)CODEC_ADDRESS, &result, 1, CODEC_LONG_TIMEOUT) != HAL_OK)
   {
-    if((CODECTimeout--) == 0) return Codec_TIMEOUT_UserCallback();
-  }  
-  
-  /*!< Re-Enable Acknowledgment to be ready for another reception */
-  I2C_AcknowledgeConfig(CODEC_I2C, ENABLE);  
-  
-  /* Clear AF flag for next communication */
-  I2C_ClearFlag(CODEC_I2C, I2C_FLAG_AF); 
+    /* Error_Handler() function is called when Timeout error occurs.
+       When Acknowledge failure occurs (Slave don't acknowledge it's address)
+       Master restarts communication */
+    if (HAL_I2C_GetError(&hi2c1) != HAL_I2C_ERROR_AF)
+    {
+      return Codec_TIMEOUT_UserCallback();
+    }
+  }
   
   /* Return the byte read from Codec */
-  return result;
+  return (uint32_t)result;
 }
 
 /**
@@ -1043,9 +921,15 @@ static void Codec_CtrlInterface_Init(void)
 
   
   /* Init the I2C */
-  HAL_I2C_Init(&hi2c1);
-  __HAL_I2C_ENABLE(&hi2c1);
-  
+  if (HAL_I2C_Init(&hi2c1)!=HAL_OK)
+  {
+     while (1)
+     {
+         ;
+     }
+  }
+
+    
 }
 
 /**
@@ -1060,6 +944,7 @@ static void Codec_CtrlInterface_DeInit(void)
   /* Disable the I2C peripheral */ /* This step is not done here because 
      the I2C interface can be used by other modules */
   /* I2C_DeInit(CODEC_I2C); */
+  HAL_I2C_MspDeInit(&hi2c1);
 }
 
 /**
@@ -1077,26 +962,13 @@ static void Codec_AudioInterface_Init(uint32_t AudioFreq)
   __SPI3_CLK_ENABLE();
 
   hi2s3.Instance = SPI3;
-
   hi2s3.Init.Standard = I2S_STANDARD;
   hi2s3.Init.DataFormat = I2S_DATAFORMAT_16B;
   hi2s3.Init.AudioFreq = AudioFreq;
   hi2s3.Init.CPOL = I2S_CPOL_LOW;
   hi2s3.Init.ClockSource = I2S_CLOCK_SYSCLK;
+  hi2s3.Init.Mode = I2S_MODE_MASTER_TX;
 
-#ifdef DAC_USE_I2S_DMA
-  if (CurrAudioInterface == AUDIO_INTERFACE_DAC)
-  {  
-	  hi2s3.Init.Mode = I2S_MODE_MASTER_RX;
-  }
-  else
-  {
-#else
-    hi2s3.Init.Mode = I2S_MODE_MASTER_TX;
-#endif
-#ifdef DAC_USE_I2S_DMA
-   }
-#endif /* DAC_USE_I2S_DMA */
 #ifdef CODEC_MCLK_ENABLED
   hi2s3.Init.MCLKOutput = I2S_MCLKOUTPUT_ENABLE;
 #elif defined(CODEC_MCLK_DISABLED)
@@ -1106,31 +978,14 @@ static void Codec_AudioInterface_Init(uint32_t AudioFreq)
 #endif /* CODEC_MCLK_ENABLED */
   
   /* Initialize the I2S peripheral with the structure above */
-  HAL_I2S_Init(&hi2s3);
-  /* Enable TXE and ERR interrupt */
-  //__HAL_I2S_ENABLE_IT(&hi2s2, (I2S_IT_RXNE));
-  //__HAL_I2S_ENABLE(&hi2s3);
-
-  /* Configure the DAC interface */
-  if (CurrAudioInterface == AUDIO_INTERFACE_DAC)
-  {    
-	static DAC_HandleTypeDef DACHandle;
-	static DAC_ChannelConfTypeDef sConfig;
-    /* DAC Periph clock enable */
-    //RCC_APB1PeriphClockCmd(RCC_APB1Periph_DAC, ENABLE);
-	__DAC_CLK_ENABLE();
-
-    
-    /* DAC channel1 Configuration */
-	DACHandle.Instance = DAC;
-	sConfig.DAC_Trigger = DAC_TRIGGER_NONE;
-	sConfig.DAC_OutputBuffer = DAC_OUTPUTBUFFER_ENABLE;
-	HAL_DAC_ConfigChannel(&DACHandle, &sConfig, AUDIO_DAC_CHANNEL);
-		
-    /* Enable DAC Channel1 */
-	__HAL_DAC_ENABLE(&DACHandle,AUDIO_DAC_CHANNEL);
+  if (HAL_I2S_Init(&hi2s3)!=HAL_OK)
+  {
+      while (1)
+      {
+          ;
+      }
   }
-  
+
   /* The I2S peripheral will be enabled only in the AUDIO_Play() function 
        or by user functions if DMA mode not enabled */  
 }
@@ -1163,12 +1018,8 @@ static void Codec_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStructure;
   
-  /* Enable Reset GPIO Clock */  
-  /* Enable I2S and I2C GPIO clocks */
-  //RCC_AHB1PeriphClockCmd(CODEC_I2C_GPIO_CLOCK | CODEC_I2S_GPIO_CLOCK, ENABLE);
-  __GPIOA_CLK_ENABLE();
-  __GPIOB_CLK_ENABLE();
-  __GPIOC_CLK_ENABLE();
+  /* Enable I2C GPIO clocks */
+  __GPIOB_CLK_ENABLE();;
   __GPIOD_CLK_ENABLE();
   
   /* Audio reset pin configuration -------------------------------------------------*/
@@ -1182,88 +1033,13 @@ static void Codec_GPIO_Init(void)
 
 
   /* CODEC_I2C SCL and SDA pins configuration -------------------------------------*/
-  //GPIO_InitStructure.GPIO_Pin = CODEC_I2C_SCL_PIN | CODEC_I2C_SDA_PIN; 
-  //GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
-  //GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-  //GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;
-  //GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_NOPULL;
-  //GPIO_Init(CODEC_I2C_GPIO, &GPIO_InitStructure);     
-  /* Connect pins to I2C peripheral */
-  //GPIO_PinAFConfig(CODEC_I2C_GPIO, CODEC_I2S_SCL_PINSRC, CODEC_I2C_GPIO_AF);  
-  //GPIO_PinAFConfig(CODEC_I2C_GPIO, CODEC_I2S_SDA_PINSRC, CODEC_I2C_GPIO_AF);  
   GPIO_InitStructure.Pin = CODEC_I2C_SCL_PIN | CODEC_I2C_SDA_PIN; 
   GPIO_InitStructure.Mode = GPIO_MODE_AF_OD;
   GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
   GPIO_InitStructure.Pull  = GPIO_NOPULL ;
   GPIO_InitStructure.Alternate = GPIO_AF4_I2C1;
  
-  HAL_GPIO_Init(CODEC_I2C_GPIO, &GPIO_InitStructure);   
-
-  /* CODEC_I2S pins configuration: WS, SCK and SD pins -----------------------------*/
-  //GPIO_InitStructure.GPIO_Pin = CODEC_I2S_SCK_PIN | CODEC_I2S_SD_PIN; 
-  //GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
-  //GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-  //GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-  //GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-  //GPIO_Init(CODEC_I2S_GPIO, &GPIO_InitStructure);
-  
-  /* Connect pins to I2S peripheral  */
-  //GPIO_PinAFConfig(CODEC_I2S_WS_GPIO, CODEC_I2S_WS_PINSRC, CODEC_I2S_GPIO_AF);  
-  //GPIO_PinAFConfig(CODEC_I2S_GPIO, CODEC_I2S_SCK_PINSRC, CODEC_I2S_GPIO_AF);
-
-  GPIO_InitStructure.Pin = CODEC_I2S_SCK_PIN | CODEC_I2S_SD_PIN; 
-  GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
-  GPIO_InitStructure.Pull = GPIO_NOPULL;
-  GPIO_InitStructure.Alternate = GPIO_AF6_SPI3;
-  HAL_GPIO_Init(CODEC_I2S_GPIO, &GPIO_InitStructure);
-  
-  if (CurrAudioInterface != AUDIO_INTERFACE_DAC) 
-  {
-    //GPIO_InitStructure.GPIO_Pin = CODEC_I2S_WS_PIN ;
-    //GPIO_Init(CODEC_I2S_WS_GPIO, &GPIO_InitStructure); 
-    //GPIO_PinAFConfig(CODEC_I2S_GPIO, CODEC_I2S_SD_PINSRC, CODEC_I2S_GPIO_AF);
-    GPIO_InitStructure.Pin = CODEC_I2S_WS_PIN;
-    GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStructure.Alternate = GPIO_AF6_SPI3;
-    HAL_GPIO_Init(CODEC_I2S_WS_GPIO, &GPIO_InitStructure);
-  }
-  else
-  {
-    /* GPIOA clock enable (to be used with DAC) */
-    //RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
-   
-    /* DAC channel 1 & 2 (DAC_OUT1 = PA.4) configuration */
-    //GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
-    //GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
-    //GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-    //GPIO_Init(GPIOA, &GPIO_InitStructure);
-    
-    GPIO_InitStructure.Pin = GPIO_PIN_15;
-    GPIO_InitStructure.Mode = GPIO_MODE_ANALOG;
-    GPIO_InitStructure.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
-  }
-
-#ifdef CODEC_MCLK_ENABLED
-  /* CODEC_I2S pins configuration: MCK pin */
-  //GPIO_InitStructure.GPIO_Pin = CODEC_I2S_MCK_PIN; 
-  //GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
-  //GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-  //GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-  //GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-  //GPIO_Init(CODEC_I2S_MCK_GPIO, &GPIO_InitStructure);   
-  /* Connect pins to I2S peripheral  */
-  //GPIO_PinAFConfig(CODEC_I2S_MCK_GPIO, CODEC_I2S_MCK_PINSRC, CODEC_I2S_GPIO_AF); 
-  
-  GPIO_InitStructure.Pin = CODEC_I2S_MCK_PIN; 
-  GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
-  GPIO_InitStructure.Pull = GPIO_NOPULL;
-  GPIO_InitStructure.Alternate = GPIO_AF6_SPI3;
-  HAL_GPIO_Init(CODEC_I2S_MCK_GPIO, &GPIO_InitStructure);
-  
-#endif /* CODEC_MCLK_ENABLED */ 
+  HAL_GPIO_Init(CODEC_I2C_GPIO, &GPIO_InitStructure);     
 }
 
 /**
@@ -1275,38 +1051,16 @@ static void Codec_GPIO_DeInit(void)
 {
   GPIO_InitTypeDef GPIO_InitStructure;
   
-  /* Deinitialize all the GPIOs used by the driver */
-  //GPIO_InitStructure.GPIO_Pin =  CODEC_I2S_SCK_PIN | CODEC_I2S_SD_PIN;
-  //GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
-  //GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
-  //GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-  //GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_NOPULL;
-  //GPIO_Init(CODEC_I2S_GPIO, &GPIO_InitStructure);  
-  
   GPIO_InitStructure.Pin = CODEC_I2S_SCK_PIN | CODEC_I2S_SD_PIN; 
   GPIO_InitStructure.Mode = GPIO_MODE_INPUT;
   GPIO_InitStructure.Speed = GPIO_SPEED_LOW;
   GPIO_InitStructure.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(CODEC_I2S_GPIO, &GPIO_InitStructure);
-  
-  
-  //GPIO_InitStructure.GPIO_Pin = CODEC_I2S_WS_PIN ;
-  //GPIO_Init(CODEC_I2S_WS_GPIO, &GPIO_InitStructure);    
+      
   GPIO_InitStructure.Pin = CODEC_I2S_WS_PIN ;
   HAL_GPIO_Init(CODEC_I2S_WS_GPIO, &GPIO_InitStructure); 
   
-  /* Disconnect pins from I2S peripheral  */
-  //GPIO_PinAFConfig(CODEC_I2S_WS_GPIO, CODEC_I2S_WS_PINSRC, 0x00);  
-  //GPIO_PinAFConfig(CODEC_I2S_GPIO, CODEC_I2S_SCK_PINSRC, 0x00);
-  //GPIO_PinAFConfig(CODEC_I2S_GPIO, CODEC_I2S_SD_PINSRC, 0x00);  
-  
 #ifdef CODEC_MCLK_ENABLED
-  /* CODEC_I2S pins deinitialization: MCK pin */
-  //GPIO_InitStructure.GPIO_Pin = CODEC_I2S_MCK_PIN; 
-  //GPIO_Init(CODEC_I2S_MCK_GPIO, &GPIO_InitStructure);   
-  /* Disconnect pins from I2S peripheral  */
-  //GPIO_PinAFConfig(CODEC_I2S_MCK_GPIO, CODEC_I2S_MCK_PINSRC, CODEC_I2S_GPIO_AF);
-  
   GPIO_InitStructure.Pin = CODEC_I2S_MCK_PIN; 
   HAL_GPIO_Init(CODEC_I2S_MCK_GPIO, &GPIO_InitStructure); 
 #endif /* CODEC_MCLK_ENABLED */    
@@ -1349,55 +1103,12 @@ uint32_t Codec_TIMEOUT_UserCallback(void)
 static void Audio_MAL_Init(void)  
 { 
   
-#ifdef I2S_INTERRUPT  
-  
-  /* Enable and set Button EXTI Interrupt to the lowest priority */
-  HAL_NVIC_SetPriority((IRQn_Type)SPI3_IRQn, 0x00, 0x01);
-  HAL_NVIC_EnableIRQ((IRQn_Type)SPI3_IRQn);
-  
-#else  
-#endif
+
 #if defined(AUDIO_MAL_DMA_IT_TC_EN) || defined(AUDIO_MAL_DMA_IT_HT_EN) || defined(AUDIO_MAL_DMA_IT_TE_EN)
   //NVIC_InitTypeDef NVIC_InitStructure;
 #endif
 
-	/* Enable the DMA clock */
-	//RCC_AHB1PeriphClockCmd(AUDIO_MAL_DMA_CLOCK, ENABLE); 
-	__HAL_RCC_DMA1_IS_CLK_ENABLED();  
 
-	/* Configure the DMA Stream */
-	DMA_Cmd(AUDIO_I2S_DMA_STREAM, DISABLE);
-	DMA_DeInit(AUDIO_I2S_DMA_STREAM);
-
-	/* Set the parameters to be configured */ 
-	DmaHandle.Init.Channel = AUDIO_I2S_DMA_CHANNEL;
-	DmaHandle.Instance->PAR = AUDIO_I2S_DMA_DREG;
-	DmaHandle.Instance->M0AR = (uint32_t)0;
-	DmaHandle.Init.Direction = DMA_MEMORY_TO_PERIPH;
-	DmaHandle.Instance->NDTR = (uint32_t)0xFFFE;
-	DmaHandle.Init.PeriphInc = DMA_PINC_ENABLE;
-	DmaHandle.Init.MemInc = DMA_MINC_ENABLE;
-	DmaHandle.Init.PeriphDataAlignment = AUDIO_MAL_DMA_MEM_DATA_SIZE;
-	DmaHandle.Init.MemDataAlignment = AUDIO_MAL_DMA_MEM_DATA_SIZE; 
-	DmaHandle.Init.Mode = DMA_NORMAL;
-	DmaHandle.Init.Priority = DMA_PRIORITY_HIGH;    
-	DmaHandle.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
-	DmaHandle.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_1QUARTERFULL;
-	DmaHandle.Init.MemBurst = DMA_MBURST_SINGLE;
-	DmaHandle.Init.PeriphBurst = DMA_PBURST_SINGLE;
-	DmaHandle.Instance = AUDIO_I2S_DMA_STREAM;
-	HAL_DMA_Init(&DmaHandle);
-
-	__HAL_DMA_ENABLE_IT(&DmaHandle, DMA_IT_TC);
-	HAL_DMA_Init(&DmaHandle);
-
-	/* Set Interrupt Group Priority */
-	HAL_NVIC_SetPriority(DMA1_Stream7_IRQn, 0, 0);
-	/* Enable the DMA STREAM global Interrupt */
-	HAL_NVIC_EnableIRQ(DMA1_Stream7_IRQn);     
-
-	/* Enable the I2S DMA request */
-	__HAL_I2S_ENABLE_IT(&hi2s3, SPI_I2S_DMAReq_Tx);
 
 }
 
@@ -1417,17 +1128,13 @@ static void Audio_MAL_DeInit(void)
   //NVIC_InitStructure.NVIC_IRQChannelSubPriority = AUDIO_IRQ_SUBRIO;
   //NVIC_InitStructure.NVIC_IRQChannelCmd = DISABLE;
   //NVIC_Init(&NVIC_InitStructure);  
+   HAL_NVIC_DisableIRQ(SPI3_IRQn); 
 #endif 
   
   /* Disable the DMA stream before the deinit */
-  //DMA_Cmd(AUDIO_I2S_DMA_STREAM, DISABLE);
+  HAL_NVIC_DisableIRQ(SPI_I2S_DMAReq_Tx); 
+  HAL_NVIC_DisableIRQ(SPI3_IRQn); 
   
-  /* Dinitialize the DMA Stream */
-  //DMA_DeInit(AUDIO_I2S_DMA_STREAM);
-  
-  /* 
-     The DMA clock is not disabled, since it can be used by other streams 
-                                                                          */ 
 }
 
 /**
@@ -1435,25 +1142,11 @@ static void Audio_MAL_DeInit(void)
   * @param  None
   * @retval None
   */
-void Audio_MAL_Play(uint32_t Addr, uint32_t Size)
-{         
-    /* Configure the buffer address and size */
-    DmaHandle.Instance->M0AR= (uint32_t)Addr;
-    //DMA_InitStructure.DMA_BufferSize = (uint32_t)Size/2;
-    DmaHandle.Instance->NDTR = (uint32_t)Size/2;
-    /* Configure the DMA Stream with the new parameters */
-    //DMA_Init(AUDIO_I2S_DMA_STREAM, &DMA_InitStructure);
-    HAL_DMA_Init(&DmaHandle);
-    /* Enable the I2S DMA Stream*/
-    //DMA_Cmd(AUDIO_I2S_DMA_STREAM, ENABLE);  
-	__HAL_DMA_ENABLE(&DmaHandle);
-
-  /* If the I2S peripheral is still not enabled, enable it */
-  if ((CODEC_I2S->I2SCFGR & I2S_ENABLE_MASK) == 0)
-  {
-    I2S_Cmd(CODEC_I2S, ENABLE);
-	//__HAL_I2S_ENABLE(&hi2s3);
-  }
+void Audio_MAL_Play(uint16_t Addr, uint16_t Size)
+{
+   uint16_t *bufAddrI2S;
+   bufAddrI2S = &Addr;
+   HAL_I2S_Transmit_DMA(&hi2s3,bufAddrI2S,(uint16_t)Size/2);  
 }
 
 /**
@@ -1527,37 +1220,7 @@ static void Audio_MAL_Stop(void)
   */
 void DAC_Config(void)
 {
-  DAC_InitTypeDef  DAC_InitStructure;
-  GPIO_InitTypeDef GPIO_InitStructure;
 
-  /* DMA1 clock and GPIOA clock enable (to be used with DAC) */
-  //RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA1 | RCC_AHB1Periph_GPIOA, ENABLE);
-  __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_DMA1_CLK_ENABLE();
-
-  /* DAC Periph clock enable */
-  //RCC_APB1PeriphClockCmd(RCC_APB1Periph_DAC, ENABLE);
-  __HAL_RCC_DAC_CLK_ENABLE();
-
-  /* DAC channel 1 & 2 (DAC_OUT1 = PA.4) configuration */
-  //GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
-  //GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
-  //GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-  //GPIO_Init(GPIOA, &GPIO_InitStructure);
-  
-  GPIO_InitStructure.Pin = GPIO_PIN_4;
-  GPIO_InitStructure.Mode = GPIO_MODE_ANALOG;
-  GPIO_InitStructure.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
-
-  /* DAC channel1 Configuration */
-  DAC_InitStructure.DAC_Trigger = DAC_Trigger_None;
-  DAC_InitStructure.DAC_WaveGeneration = DAC_WaveGeneration_None;
-  DAC_InitStructure.DAC_OutputBuffer = DAC_OutputBuffer_Enable;
-  DAC_Init(AUDIO_DAC_CHANNEL, &DAC_InitStructure);
-
-  /* Enable DAC Channel1 */
-  DAC_Cmd(AUDIO_DAC_CHANNEL, ENABLE);
 }
 
 static void SPI_I2S_SendData(SPI_TypeDef* SPIx, uint16_t Data)
@@ -1651,18 +1314,10 @@ static void I2C_Send7bitAddress(I2C_TypeDef* I2Cx, uint8_t Address, uint8_t I2C_
 static ErrorStatus I2C_CheckEvent(I2C_TypeDef* I2Cx, uint32_t I2C_EVENT)
 {
   uint32_t lastevent = 0;
-  //uint32_t flag1 = 0, flag2 = 0;
   ErrorStatus status = ERROR;
 
-
-  /* Read the I2Cx status register */
-
-  //flag1 = I2Cx->SR1;
-  //flag2 = I2Cx->SR2;
-  //flag2 = flag2 << 16;
   
   /* Get the last event value from I2C status register */
-  //lastevent = (flag1 | flag2) & FLAG_MASK;
   lastevent = I2Cx->ISR;
 
   /* Check whether the last event contains the I2C_EVENT */
@@ -2034,4 +1689,220 @@ static void DMA_ClearFlag(DMA_Stream_TypeDef* DMAy_Streamx, uint32_t DMA_FLAG)
 
   
 }
+void HAL_I2S_MspInit(I2S_HandleTypeDef *hi2s)
+{
+   GPIO_InitTypeDef GPIO_InitStructure;
+	
+   
+   GPIO_InitTypeDef GPIO_InitStruct;
+  if(hi2s->Instance==SPI1)
+  {
+  /* USER CODE BEGIN SPI1_MspInit 0 */
+
+  /* USER CODE END SPI1_MspInit 0 */
+    /* Peripheral clock enable */
+    __SPI1_CLK_ENABLE();
+  
+    /**I2S1 GPIO Configuration    
+    PA4     ------> I2S1_WS
+    PA5     ------> I2S1_CK
+    PA7     ------> I2S1_SD 
+    */
+    GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_7;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /* Peripheral interrupt init*/
+    HAL_NVIC_SetPriority(SPI1_IRQn, 1, 1);
+    HAL_NVIC_EnableIRQ(SPI1_IRQn);
+  /* USER CODE BEGIN SPI1_MspInit 1 */
+
+  /* USER CODE END SPI1_MspInit 1 */
+  }
+  else if(hi2s->Instance==SPI2)
+  {
+  /* USER CODE BEGIN SPI2_MspInit 0 */
+
+  /* USER CODE END SPI2_MspInit 0 */
+    /* Peripheral clock enable */
+    __SPI2_CLK_ENABLE();
+    __GPIOI_CLK_ENABLE();
+	__GPIOB_CLK_ENABLE();
+	__GPIOC_CLK_ENABLE();
+  
+    /**I2S2 GPIO Configuration     
+    PC1     ------> I2S2_SD  : PI3 PC1 PC3 PB15      --> PB15
+    PB10     ------> I2S2_CK :PD3 PB10 PB13 PA9 PI1  --> PI1
+    PB12     ------> I2S2_WS : PB12 PI0 PB4 PB9      --> PB4
+
+    */
+    GPIO_InitStruct.Pin = GPIO_PIN_15; //SD
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+	GPIO_InitStruct.Pin = GPIO_PIN_4;//WS
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = GPIO_PIN_1;//CK
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
+    HAL_GPIO_Init(GPIOI, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = GPIO_PIN_6;//CK
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
+    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+
+
+    /* Peripheral interrupt init*/
+    //HAL_NVIC_SetPriority(SPI2_IRQn, 6, 0);
+    //HAL_NVIC_EnableIRQ(SPI2_IRQn);
+    /* USER CODE BEGIN SPI2_MspInit 1 */
+
+  /* USER CODE END SPI2_MspInit 1 */
+  }
+  else if(hi2s->Instance==SPI3)
+  {
+  /* USER CODE BEGIN SPI3_MspInit 0 */
+
+  /* USER CODE END SPI3_MspInit 0 */
+    /* Peripheral clock enable */
+
+  
+    /**I2S3 GPIO Configuration    
+    PB2     ------> I2S3_SD
+    PA15     ------> I2S3_WS
+    PC10     ------> I2S3_CK 
+    */
+ 
+  /* USER CODE BEGIN SPI3_MspInit 1 */
+  __SPI3_CLK_ENABLE();
+  __GPIOA_CLK_ENABLE();
+  __GPIOB_CLK_ENABLE();
+  __GPIOC_CLK_ENABLE();
+  GPIO_InitStructure.Pin = CODEC_I2S_SCK_PIN | CODEC_I2S_SD_PIN; 
+  GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
+  GPIO_InitStructure.Pull = GPIO_NOPULL;
+  GPIO_InitStructure.Alternate = GPIO_AF6_SPI3;
+  HAL_GPIO_Init(CODEC_I2S_GPIO, &GPIO_InitStructure);
+
+
+  GPIO_InitStructure.Pin = CODEC_I2S_WS_PIN;
+  GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStructure.Alternate = GPIO_AF6_SPI3;
+  HAL_GPIO_Init(CODEC_I2S_WS_GPIO, &GPIO_InitStructure);
+
+#ifdef CODEC_MCLK_ENABLED
+
+  GPIO_InitStructure.Pin = CODEC_I2S_MCK_PIN; 
+  GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
+  GPIO_InitStructure.Pull = GPIO_NOPULL;
+  GPIO_InitStructure.Alternate = GPIO_AF6_SPI3;
+  HAL_GPIO_Init(CODEC_I2S_MCK_GPIO, &GPIO_InitStructure);
+
+#endif /* CODEC_MCLK_ENABLED */ 
+
+#ifdef I2S_INTERRUPT   
+     /* Enable and set Button EXTI Interrupt to the lowest priority */
+     HAL_NVIC_SetPriority((IRQn_Type)SPI3_IRQn, 0x00, 0x01);
+     HAL_NVIC_EnableIRQ((IRQn_Type)SPI3_IRQn);
+
+     /* Enable the I2S DMA request */
+     __HAL_I2S_ENABLE_IT(&hi2s3, SPI_I2S_DMAReq_Tx);
+     __HAL_I2S_ENABLE(&hi2s3);
+#endif
+
+      /* Enable the DMA clock */
+      __HAL_RCC_DMA1_IS_CLK_ENABLED();  
+
+      /* Configure the DMA Stream */
+      HAL_DMA_DeInit(&DmaHandle);
+
+      /* Set the parameters to be configured */ 
+      DmaHandle.Init.Channel = AUDIO_I2S_DMA_CHANNEL;
+      DmaHandle.Instance->PAR = AUDIO_I2S_DMA_DREG;
+      DmaHandle.Instance->M0AR = (uint32_t)0;
+      DmaHandle.Init.Direction = DMA_MEMORY_TO_PERIPH;
+      DmaHandle.Instance->NDTR = (uint32_t)0xFFFE;
+      DmaHandle.Init.PeriphInc = DMA_PINC_ENABLE;
+      DmaHandle.Init.MemInc = DMA_MINC_ENABLE;
+      DmaHandle.Init.PeriphDataAlignment = AUDIO_MAL_DMA_MEM_DATA_SIZE;
+      DmaHandle.Init.MemDataAlignment = AUDIO_MAL_DMA_MEM_DATA_SIZE; 
+      DmaHandle.Init.Mode = DMA_NORMAL;
+      DmaHandle.Init.Priority = DMA_PRIORITY_HIGH;    
+      DmaHandle.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+      DmaHandle.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_1QUARTERFULL;
+      DmaHandle.Init.MemBurst = DMA_MBURST_SINGLE;
+      DmaHandle.Init.PeriphBurst = DMA_PBURST_SINGLE;
+      DmaHandle.Instance = AUDIO_I2S_DMA_STREAM;
+      HAL_DMA_Init(&DmaHandle);
+
+      /* Associate the initialized DMA handle to the the SPI handle */
+      __HAL_LINKDMA(hi2s, hdmatx, DmaHandle);
+      //__HAL_DMA_ENABLE_IT(&DmaHandle, DMA_IT_TC);
+
+      /* Set Interrupt Group Priority */
+      HAL_NVIC_SetPriority(DMA1_Stream7_IRQn, 0, 0);
+      /* Enable the DMA STREAM global Interrupt */
+      HAL_NVIC_EnableIRQ(DMA1_Stream7_IRQn);              
+ }
+
+}
+
+void HAL_SPI_MspDeInit(SPI_HandleTypeDef *hspi)
+{
+  if(hspi->Instance == SPI3)
+  {   
+    /*##-1- Reset peripherals ##################################################*/
+    __HAL_RCC_SPI2_FORCE_RESET();
+    __HAL_RCC_SPI2_RELEASE_RESET();
+
+    /*##-2- Disable peripherals and GPIO Clocks ################################*/
+    HAL_GPIO_DeInit(CODEC_I2S_GPIO, CODEC_I2S_SCK_PIN);
+    HAL_GPIO_DeInit(CODEC_I2S_GPIO, CODEC_I2S_SD_PIN);
+    HAL_GPIO_DeInit(CODEC_I2S_WS_GPIO, CODEC_I2S_WS_PIN);
+	 HAL_GPIO_DeInit(CODEC_I2S_MCK_GPIO, CODEC_I2S_MCK_PIN);
+
+    /*##-3- Disable the DMA ####################################################*/
+    /* De-Initialize the DMA associated to transmission process */
+    HAL_DMA_DeInit(&DmaHandle);
+
+
+    /*##-4- Disable the NVIC for DMA ###########################################*/
+    HAL_NVIC_DisableIRQ(DMA1_Stream7_IRQn);
+  }
+}
+
+
+void HAL_I2C_MspDeInit(I2C_HandleTypeDef *hi2c)
+{
+    /*##-1- Reset peripherals ##################################################*/
+    __HAL_RCC_I2C1_FORCE_RESET();
+    __HAL_RCC_I2C1_RELEASE_RESET();
+
+
+  /*##-2- Disable peripherals and GPIO Clocks #################################*/
+  /* Configure I2C Tx as alternate function  */
+  HAL_GPIO_DeInit(CODEC_I2C_GPIO, CODEC_I2C_SCL_PIN);
+  /* Configure I2C Rx as alternate function  */
+  HAL_GPIO_DeInit(CODEC_I2C_GPIO, CODEC_I2C_SDA_PIN);
+}
+
 

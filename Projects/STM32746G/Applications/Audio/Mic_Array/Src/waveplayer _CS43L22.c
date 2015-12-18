@@ -172,7 +172,7 @@ void WavePlayBack(uint32_t AudioFreq)
   f_read (&fileR, buffer2, _MAX_SS, &BytesRead);
  
   /* Start playing wave */
-  Audio_MAL_Play((uint32_t)buffer1, _MAX_SS);
+  Audio_MAL_Play((uint16_t)buffer1, _MAX_SS);
   buffer_switch = 1;
   XferCplt = 0;
   LED_Toggle = 6;
@@ -207,7 +207,7 @@ void WavePlayBack(uint32_t AudioFreq)
       if(buffer_switch == 0)
       {
         /* Play data from buffer1 */
-        Audio_MAL_Play((uint32_t)buffer1, _MAX_SS);
+        Audio_MAL_Play((uint16_t)buffer1, _MAX_SS);
         /* Store data in buffer2 */
         f_read (&fileR, buffer2, _MAX_SS, &BytesRead);
         buffer_switch = 1;
@@ -215,7 +215,7 @@ void WavePlayBack(uint32_t AudioFreq)
       else 
       {   
         /* Play data from buffer2 */
-        Audio_MAL_Play((uint32_t)buffer2, _MAX_SS);
+        Audio_MAL_Play((uint16_t)buffer2, _MAX_SS);
         /* Store data in buffer1 */
         f_read (&fileR, buffer1, _MAX_SS, &BytesRead);
         buffer_switch = 0;

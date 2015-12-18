@@ -229,7 +229,7 @@ uint32_t AUDIO_PauseResume(uint32_t Cmd);
 uint32_t AUDIO_Stop(uint32_t CodecPowerDown_Mode);
 uint32_t AUDIO_VolumeCtl(uint8_t Volume);
 uint32_t AUDIO_Mute(uint32_t Command);
-void Audio_MAL_Play(uint32_t Addr, uint32_t Size);
+void Audio_MAL_Play(uint16_t Addr, uint16_t Size);
 void DAC_Config(void);
 
 /* User Callbacks: user has to implement these functions in his code if
