@@ -17,15 +17,15 @@
         <debug>1</debug>
         <option>
           <name>ExePath</name>
-          <state>STM32F7-DISCO\Exe</state>
+          <state>STM32F7\Exe</state>
         </option>
         <option>
           <name>ObjPath</name>
-          <state>STM32F7-DISCO\Obj</state>
+          <state>STM32F7\Obj</state>
         </option>
         <option>
           <name>ListPath</name>
-          <state>STM32F7-DISCO\List</state>
+          <state>STM32F7\List</state>
         </option>
         <option>
           <name>GEndianMode</name>
@@ -77,7 +77,7 @@
         </option>
         <option>
           <name>OGLastSavedByProductVersion</name>
-          <state>7.40.3.8937</state>
+          <state>7.50.2.10499</state>
         </option>
         <option>
           <name>GeneralEnableMisra</name>
@@ -136,7 +136,7 @@
         </option>
         <option>
           <name>OGUseCmsisDspLib</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>GRuntimeLibThreads</name>
@@ -205,23 +205,23 @@
         </option>
         <option>
           <name>CCListCFile</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCListCMnemonics</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCListCMessages</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCListAssFile</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCListAssSource</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCEnableRemarks</name>
@@ -250,7 +250,7 @@
         <option>
           <name>CCAllowList</name>
           <version>1</version>
-          <state>00000000</state>
+          <state>11111110</state>
         </option>
         <option>
           <name>CCDebugInfo</name>
@@ -294,7 +294,7 @@
         </option>
         <option>
           <name>CCCompilerRuntimeInfo</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IFpuProcessor</name>
@@ -351,7 +351,7 @@
         </option>
         <option>
           <name>CCOptLevel</name>
-          <state>0</state>
+          <state>3</state>
         </option>
         <option>
           <name>CCOptStrategy</name>
@@ -360,7 +360,7 @@
         </option>
         <option>
           <name>CCOptLevelSlave</name>
-          <state>0</state>
+          <state>3</state>
         </option>
         <option>
           <name>CompilerMisraRules98</name>
@@ -497,7 +497,7 @@
         </option>
         <option>
           <name>AList</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>AListHeader</name>
@@ -623,7 +623,7 @@
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state>STM32756G_mic_array.hex</state>
+          <state>STM32746IG_Mic_Array.hex</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>
@@ -742,7 +742,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>$PROJ_DIR$\stm32f746xx_flash.icf</state>
+          <state>D:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\arm\config\linker\ST\stm32f746xG.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -893,11 +893,11 @@
         </option>
         <option>
           <name>IlinkOptInline</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IlinkOptExceptionsAllow</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>IlinkOptExceptionsForce</name>
@@ -1009,9 +1009,6 @@
         <name>$PROJ_DIR$\..\Src\sta321mp.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Src\stm32f4xx_dac.c</name>
-      </file>
-      <file>
         <name>$PROJ_DIR$\..\Src\stm32f7xx_it.c</name>
       </file>
       <file>
@@ -1022,12 +1019,6 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\waveplayer _CS43L22.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\Src\waveplayer.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\Src\waverecorder.c</name>
       </file>
     </group>
   </group>
@@ -1076,12 +1067,6 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_cortex.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_dac.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_dac_ex.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_dma.c</name>

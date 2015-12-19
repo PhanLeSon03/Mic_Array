@@ -1,0 +1,352 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       20/Dec/2015  03:50:47
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_pipes.c
+#    Command line =  
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_pipes.c
+#        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
+#        USE_IOEXPANDER -D USE_USB_FS -lC
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        -lA
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        -o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+#        --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
+#        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        7.3\arm\INC\c\DLib_Config_Full.h" -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+#        -Ohz --use_c++_inline --require_prototypes -I "D:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
+#        ARM_MATH_CM7
+#    List file    =  
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\usbh_pipes.lst
+#    Object file  =  
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbh_pipes.o
+#
+###############################################################################
+
+H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_pipes.c
+      1          /**
+      2            ******************************************************************************
+      3            * @file    usbh_pipes.c
+      4            * @author  MCD Application Team
+      5            * @version V3.2.1
+      6            * @date    26-June-2015
+      7            * @brief   This file implements functions for opening and closing Pipes
+      8            ******************************************************************************
+      9            * @attention
+     10            *
+     11            * <h2><center>&copy; COPYRIGHT 2015 STMicroelectronics</center></h2>
+     12            *
+     13            * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
+     14            * You may not use this file except in compliance with the License.
+     15            * You may obtain a copy of the License at:
+     16            *
+     17            *        http://www.st.com/software_license_agreement_liberty_v2
+     18            *
+     19            * Unless required by applicable law or agreed to in writing, software 
+     20            * distributed under the License is distributed on an "AS IS" BASIS, 
+     21            * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     22            * See the License for the specific language governing permissions and
+     23            * limitations under the License.
+     24            *
+     25            ******************************************************************************
+     26            */ 
+     27          
+     28          /* Includes ------------------------------------------------------------------*/
+     29          #include "usbh_pipes.h"
+     30          
+     31          /** @addtogroup USBH_LIB
+     32            * @{
+     33            */
+     34          
+     35          /** @addtogroup USBH_LIB_CORE
+     36          * @{
+     37          */
+     38            
+     39          /** @defgroup USBH_PIPES
+     40            * @brief This file includes opening and closing Pipes
+     41            * @{
+     42            */ 
+     43          
+     44          /** @defgroup USBH_PIPES_Private_Defines
+     45            * @{
+     46            */ 
+     47          /**
+     48            * @}
+     49            */ 
+     50          
+     51          /** @defgroup USBH_PIPES_Private_TypesDefinitions
+     52            * @{
+     53            */ 
+     54          /**
+     55            * @}
+     56            */ 
+     57          
+     58          
+     59          /** @defgroup USBH_PIPES_Private_Macros
+     60            * @{
+     61            */ 
+     62          /**
+     63            * @}
+     64            */ 
+     65          
+     66          
+     67          /** @defgroup USBH_PIPES_Private_Variables
+     68            * @{
+     69            */ 
+     70          
+     71          /**
+     72            * @}
+     73            */ 
+     74          
+     75          
+     76          /** @defgroup USBH_PIPES_Private_Functions
+     77            * @{
+     78            */ 
+     79          static uint16_t USBH_GetFreePipe (USBH_HandleTypeDef *phost);
+     80          
+     81          
+     82          /**
+     83            * @brief  USBH_Open_Pipe
+     84            *         Open a  pipe
+     85            * @param  phost: Host Handle
+     86            * @param  pipe_num: Pipe Number
+     87            * @param  dev_address: USB Device address allocated to attached device
+     88            * @param  speed : USB device speed (Full/Low)
+     89            * @param  ep_type: end point type (Bulk/int/ctl)
+     90            * @param  mps: max pkt size
+     91            * @retval USBH Status
+     92            */
+
+   \                                 In section .text, align 2, keep-with-next
+     93          USBH_StatusTypeDef USBH_OpenPipe  (USBH_HandleTypeDef *phost,
+     94                                      uint8_t pipe_num,
+     95                                      uint8_t epnum,
+     96                                      uint8_t dev_address,
+     97                                      uint8_t speed,
+     98                                      uint8_t ep_type,
+     99                                      uint16_t mps)
+    100          {
+   \                     USBH_OpenPipe: (+1)
+   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000002   0xB084             SUB      SP,SP,#+16
+    101          
+    102            USBH_LL_OpenPipe(phost,
+    103                                  pipe_num,
+    104                                  epnum,
+    105                                  dev_address,
+    106                                  speed,
+    107                                  ep_type,
+    108                                  mps);
+   \   00000004   0x9C08             LDR      R4,[SP, #+32]
+   \   00000006   0x9402             STR      R4,[SP, #+8]
+   \   00000008   0x9C07             LDR      R4,[SP, #+28]
+   \   0000000A   0x9401             STR      R4,[SP, #+4]
+   \   0000000C   0x9C06             LDR      R4,[SP, #+24]
+   \   0000000E   0x9400             STR      R4,[SP, #+0]
+   \   00000010   0x.... 0x....      BL       USBH_LL_OpenPipe
+    109            
+    110            return USBH_OK; 
+   \   00000014   0x2000             MOVS     R0,#+0
+   \   00000016   0xB004             ADD      SP,SP,#+16
+   \   00000018   0xBD10             POP      {R4,PC}          ;; return
+    111          
+    112          }
+    113          
+    114          /**
+    115            * @brief  USBH_ClosePipe
+    116            *         Close a  pipe
+    117            * @param  phost: Host Handle
+    118            * @param  pipe_num: Pipe Number
+    119            * @retval USBH Status
+    120            */
+
+   \                                 In section .text, align 2, keep-with-next
+    121          USBH_StatusTypeDef USBH_ClosePipe  (USBH_HandleTypeDef *phost,
+    122                                      uint8_t pipe_num)
+    123          {
+   \                     USBH_ClosePipe: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+    124          
+    125            USBH_LL_ClosePipe(phost, pipe_num);
+   \   00000002   0x.... 0x....      BL       USBH_LL_ClosePipe
+    126            
+    127            return USBH_OK; 
+   \   00000006   0x2000             MOVS     R0,#+0
+   \   00000008   0xBD02             POP      {R1,PC}          ;; return
+    128          
+    129          }
+    130          
+    131          /**
+    132            * @brief  USBH_Alloc_Pipe
+    133            *         Allocate a new Pipe
+    134            * @param  phost: Host Handle
+    135            * @param  ep_addr: End point for which the Pipe to be allocated
+    136            * @retval Pipe number
+    137            */
+
+   \                                 In section .text, align 2, keep-with-next
+    138          uint8_t USBH_AllocPipe  (USBH_HandleTypeDef *phost, uint8_t ep_addr)
+    139          {
+    140            uint16_t pipe;
+    141            
+    142            pipe =  USBH_GetFreePipe(phost);
+   \                     USBH_AllocPipe: (+1)
+   \   00000000   0x2200             MOVS     R2,#+0
+   \                     ??USBH_AllocPipe_0: (+1)
+   \   00000002   0xEB00 0x0382      ADD      R3,R0,R2, LSL #+2
+   \   00000006   0xF8D3 0x326C      LDR      R3,[R3, #+620]
+   \   0000000A   0x041B             LSLS     R3,R3,#+16
+   \   0000000C   0xD506             BPL.N    ??USBH_AllocPipe_1
+   \   0000000E   0x1C52             ADDS     R2,R2,#+1
+   \   00000010   0xB2D2             UXTB     R2,R2
+   \   00000012   0x2A0B             CMP      R2,#+11
+   \   00000014   0xDBF5             BLT.N    ??USBH_AllocPipe_0
+   \   00000016   0xF64F 0x72FF      MOVW     R2,#+65535
+   \   0000001A   0xE009             B.N      ??USBH_AllocPipe_2
+    143          
+    144            if (pipe != 0xFFFF)
+   \                     ??USBH_AllocPipe_1: (+1)
+   \   0000001C   0xF64F 0x73FF      MOVW     R3,#+65535
+   \   00000020   0x429A             CMP      R2,R3
+   \   00000022   0xD005             BEQ.N    ??USBH_AllocPipe_2
+    145            {
+    146          	phost->Pipes[pipe] = 0x8000 | ep_addr;
+   \   00000024   0xEB00 0x0082      ADD      R0,R0,R2, LSL #+2
+   \   00000028   0xF441 0x4100      ORR      R1,R1,#0x8000
+   \   0000002C   0xF8C0 0x126C      STR      R1,[R0, #+620]
+    147            }
+    148            return pipe;
+   \                     ??USBH_AllocPipe_2: (+1)
+   \   00000030   0xB2D0             UXTB     R0,R2
+   \   00000032   0x4770             BX       LR               ;; return
+    149          }
+    150          
+    151          /**
+    152            * @brief  USBH_Free_Pipe
+    153            *         Free the USB Pipe
+    154            * @param  phost: Host Handle
+    155            * @param  idx: Pipe number to be freed 
+    156            * @retval USBH Status
+    157            */
+
+   \                                 In section .text, align 2, keep-with-next
+    158          USBH_StatusTypeDef USBH_FreePipe  (USBH_HandleTypeDef *phost, uint8_t idx)
+    159          {
+    160             if(idx < 11)
+   \                     USBH_FreePipe: (+1)
+   \   00000000   0x290B             CMP      R1,#+11
+   \   00000002   0xDA07             BGE.N    ??USBH_FreePipe_0
+    161             {
+    162          	 phost->Pipes[idx] &= 0x7FFF;
+   \   00000004   0xEB00 0x0081      ADD      R0,R0,R1, LSL #+2
+   \   00000008   0xF8D0 0x126C      LDR      R1,[R0, #+620]
+   \   0000000C   0x0449             LSLS     R1,R1,#+17
+   \   0000000E   0x0C49             LSRS     R1,R1,#+17
+   \   00000010   0xF8C0 0x126C      STR      R1,[R0, #+620]
+    163             }
+    164             return USBH_OK;
+   \                     ??USBH_FreePipe_0: (+1)
+   \   00000014   0x2000             MOVS     R0,#+0
+   \   00000016   0x4770             BX       LR               ;; return
+    165          }
+    166          
+    167          /**
+    168            * @brief  USBH_GetFreePipe
+    169            * @param  phost: Host Handle
+    170            *         Get a free Pipe number for allocation to a device endpoint
+    171            * @retval idx: Free Pipe number
+    172            */
+    173          static uint16_t USBH_GetFreePipe (USBH_HandleTypeDef *phost)
+    174          {
+    175            uint8_t idx = 0;
+    176            
+    177            for (idx = 0 ; idx < 11 ; idx++)
+    178            {
+    179          	if ((phost->Pipes[idx] & 0x8000) == 0)
+    180          	{
+    181          	   return idx;
+    182          	} 
+    183            }
+    184            return 0xFFFF;
+    185          }
+    186          /**
+    187          * @}
+    188          */ 
+    189          
+    190          /**
+    191          * @}
+    192          */ 
+    193          
+    194          /**
+    195          * @}
+    196          */
+    197          
+    198          /**
+    199          * @}
+    200          */ 
+    201          
+    202          /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+    203          
+    204          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   USBH_AllocPipe
+       8   USBH_ClosePipe
+         8   -> USBH_LL_ClosePipe
+       0   USBH_FreePipe
+      24   USBH_OpenPipe
+        24   -> USBH_LL_OpenPipe
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+      52  USBH_AllocPipe
+      10  USBH_ClosePipe
+      24  USBH_FreePipe
+      26  USBH_OpenPipe
+
+ 
+ 112 bytes in section .text
+ 
+ 112 bytes of CODE memory
+
+Errors: none
+Warnings: none

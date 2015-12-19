@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<flash_board>
+  <pass>
+    <loader>$TOOLKIT_DIR$\config\flashloader\ST\FlashSTM32F756xG.flash</loader>
+    <range>CODE 0x8000000 0x80fffff</range>
+  </pass>
+  <pass>
+    <loader>$TOOLKIT_DIR$\config\flashloader\ST\FlashSTM32F756xG_TCM.flash</loader>
+    <range>CODE 0x200000 0x2fffff</range>
+  </pass>
+</flash_board>
+
+

@@ -60,8 +60,8 @@ AUDIO_DEMO_StateMachine     AudioDemo;
 AUDIO_PLAYBACK_StateTypeDef AudioState;
 
 /* Private function prototypes -----------------------------------------------*/
-static void AUDIO_ChangeSelectMode(AUDIO_DEMO_SelectMode select_mode);
-static void LCD_ClearTextZone(void);
+
+
 
 
 

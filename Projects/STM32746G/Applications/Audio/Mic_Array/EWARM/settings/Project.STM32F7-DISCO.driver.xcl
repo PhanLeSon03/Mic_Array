@@ -1,5 +1,3 @@
- -B 
-
 "--endian=little" 
 
 "--cpu=Cortex-M7" 
@@ -8,9 +6,7 @@
 
 "-p" 
 
-"D:\Program Files (x86)\IAR Systems\Embedded Workbench 7.2\arm\CONFIG\debugger\ST\STM32F746IG.ddf" 
-
-"--drv_verify_download" 
+"D:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\arm\CONFIG\debugger\ST\STM32F746IG.ddf" 
 
 "--semihosting" 
 
@@ -20,7 +16,11 @@
 
 "--stlink_reset_strategy=0,2" 
 
-"--drv_swo_clock_setup=200000000,0,2000000" 
+"--drv_swo_clock_setup=72000000,0,2000000" 
+
+"--drv_catch_exceptions=0x000" 
+
+"--drv_interface_speed=1800" 
 
 
 

@@ -5,11 +5,9 @@
 #define __MAIN_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "stdio.h"
-#include "usbh_core.h"
+
 #include "stm32f7xx_hal.h"
 #include "stm32746g_discovery.h"
-#include "stm32746g_discovery_audio.h"
 #include "stm32746g_discovery_ts.h"
 #include "audio_codec.h"
 
@@ -17,10 +15,12 @@
 #include "ff_gen_drv.h"
 #include "usbh_diskio.h"
 #include "stm32f7xx_hal_spi.h"
+#include "stm32f7xx_hal_usart.h"
+#include "stm32f7xx_hal_i2c.h"
 #include "stm32f746xx.h"
 #include "sta321mp.h"
 #include "waveplayer_CS43L22.h"
-#include "lis302dl.h"
+
 
 /* Exported Defines ----------------------------------------------------------*/
 #define AUDIO_OUT_BUFFER_SIZE                      8192
@@ -166,6 +166,7 @@ void Toggle_Leds(void);
 
 void SPI5_IRQHandler(void);
 void EXTI4_IRQHandler(void);;
+void MX_I2C1_Init(void);
 
 
 #endif /* __MAIN_H */

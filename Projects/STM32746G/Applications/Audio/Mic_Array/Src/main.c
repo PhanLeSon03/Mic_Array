@@ -10,9 +10,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "waveplayer.h"
-#include "waverecorder.h"
-#include "stm32f7xx_hal_usart.h"
+
 #include "pdm_filter.h"
 #include "main.h"
 #include <stdio.h>
@@ -42,7 +40,7 @@ UART_HandleTypeDef huart6;
 SPI_HandleTypeDef hspi5;
 GPIO_InitTypeDef GPIO_INS;
 
-extern AUDIO_IN_BufferTypeDef Buffer1, Buffer2;
+AUDIO_IN_BufferTypeDef Buffer1, Buffer2;
 AUDIO_IN_BufferTypeDef Buffer3;
 
 
@@ -70,8 +68,6 @@ static void CPU_CACHE_Enable(void);
 static void SystemClock_Config1(void);
 static uint16_t SPI_I2S_ReceiveData(SPI_TypeDef* SPIx);
 
-void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c);
-void MX_I2C1_Init(void);
 void UART6_Init(void);
 void MX_SPI5_Init(void);
 void ReadSTASeq(uint8_t Addr, uint8_t *pBufOut,uint8_t Len );
@@ -117,7 +113,7 @@ int main(void)
   BSP_LED_Init(LED1);
   
   /* Initialize for Audio player with CS43L22 */
-  WavePlayerInit(48000);
+   WavePlayerInit(48000);
 
     /* Play on */
   AudioFlashPlay((uint16_t*)(AUDIO_SAMPLE + AUIDO_START_ADDRESS),AUDIO_FILE_SZE,AUIDO_START_ADDRESS);
@@ -255,75 +251,6 @@ void Toggle_Leds(void)
   }
 }
 
-/*******************************************************************************
-                            Static Function
-*******************************************************************************/
-
-/**
-  * @brief  Audio Application Init.
-  * @param  None
-  * @retval None
-  */
-static void AUDIO_InitApplication(void)
-{
-  /* Configure LED1 */
-  BSP_LED_Init(LED1);
-
-  /* Initialize the LCD */
-  //BSP_LCD_Init();
-  
-  /* LCD Layer Initialization */
-  //BSP_LCD_LayerDefaultInit(1, LCD_FB_START_ADDRESS); 
-  
-  /* Select the LCD Layer */
-  //BSP_LCD_SelectLayer(1);
-  
-  /* Enable the display */
-  //BSP_LCD_DisplayOn();
-  
-  /* Init the LCD Log module */
-  //LCD_LOG_Init();
-  
-  //LCD_LOG_SetHeader((uint8_t *)"Audio Playback and Record Application");
-  
-  //LCD_UsrLog("USB Host library started.\n"); 
-  
-  /* Start Audio interface */
-  //USBH_UsrLog("Starting Audio Demo");
-  
-  /* Init Audio interface */
-  //AUDIO_PLAYER_Init();
-}
-
-/**
-  * @brief  User Process
-  * @param  phost: Host Handle
-  * @param  id: Host Library user message ID
-  * @retval None
-  */
-static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8_t id)
-{
-  switch(id)
-  { 
-  case HOST_USER_SELECT_CONFIGURATION:
-    break;
-    
-  case HOST_USER_DISCONNECTION:
-    appli_state = APPLICATION_DISCONNECT;
-    break;
-
-  case HOST_USER_CLASS_ACTIVE:
-    appli_state = APPLICATION_READY;
-    break;
- 
-  case HOST_USER_CONNECTION:
-    appli_state = APPLICATION_START;
-    break;
-   
-  default:
-    break; 
-  }
-}
 
 /**
   * @brief  System Clock Configuration
@@ -348,13 +275,9 @@ static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8_t id)
 static void SystemClock_Config(void)
 {
 
-  RCC_OscInitTypeDef RCC_OscInitStruct;
+   RCC_OscInitTypeDef RCC_OscInitStruct;
   RCC_ClkInitTypeDef RCC_ClkInitStruct;
   RCC_PeriphCLKInitTypeDef PeriphClkInitStruct;
-
-  __HAL_RCC_PLL_PLLM_CONFIG(16);
-
-  __HAL_RCC_PLL_PLLSOURCE_CONFIG(RCC_PLLSOURCE_HSI);
 
   __PWR_CLK_ENABLE();
 
@@ -363,18 +286,23 @@ static void SystemClock_Config(void)
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = 16;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
   RCC_OscInitStruct.PLL.PLLM = 16;
+  RCC_OscInitStruct.PLL.PLLN = 200;
+  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+  RCC_OscInitStruct.PLL.PLLQ = 2;
   HAL_RCC_OscConfig(&RCC_OscInitStruct);
+
+  HAL_PWREx_ActivateOverDrive();
 
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
-  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV2;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
-  HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0);
+  HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1);
 
   PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_UART4|RCC_PERIPHCLK_I2C1
                               |RCC_PERIPHCLK_I2C2|RCC_PERIPHCLK_I2S;
@@ -392,56 +320,8 @@ static void SystemClock_Config(void)
   HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
 
   HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
-
 }
 
-/**
-  * @brief  Clock Config.
-  * @param  hsai: might be required to set audio peripheral predivider if any.
-  * @param  AudioFreq: Audio frequency used to play the audio stream.
-  * @note   This API is called by BSP_AUDIO_OUT_Init() and BSP_AUDIO_OUT_SetFrequency()
-  *         Being __weak it can be overwritten by the application     
-  * @retval None
-  */
-void BSP_AUDIO_OUT_ClockConfig(SAI_HandleTypeDef *hsai, uint32_t AudioFreq, void *Params)
-{
-  RCC_PeriphCLKInitTypeDef RCC_ExCLKInitStruct;
-
-  HAL_RCCEx_GetPeriphCLKConfig(&RCC_ExCLKInitStruct);
-  
-  /* Set the PLL configuration according to the audio frequency */
-  if((AudioFreq == AUDIO_FREQUENCY_11K) || (AudioFreq == AUDIO_FREQUENCY_22K) || (AudioFreq == AUDIO_FREQUENCY_44K))
-  {
-    /* Configure PLLSAI prescalers */
-    /* PLLI2S_VCO: VCO_429M
-    SAI_CLK(first level) = PLLI2S_VCO/PLLSAIQ = 429/2 = 214.5 Mhz
-    SAI_CLK_x = SAI_CLK(first level)/PLLI2SDivQ = 214.5/19 = 11.289 Mhz */
-    RCC_ExCLKInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SAI2;
-    RCC_ExCLKInitStruct.Sai2ClockSelection = RCC_SAI2CLKSOURCE_PLLI2S;
-    RCC_ExCLKInitStruct.PLLI2S.PLLI2SP = 8;
-    RCC_ExCLKInitStruct.PLLI2S.PLLI2SN = 429;
-    RCC_ExCLKInitStruct.PLLI2S.PLLI2SQ = 2;
-    RCC_ExCLKInitStruct.PLLI2SDivQ = 19;
-    HAL_RCCEx_PeriphCLKConfig(&RCC_ExCLKInitStruct);
-  }
-  else /* AUDIO_FREQUENCY_8K, AUDIO_FREQUENCY_16K, AUDIO_FREQUENCY_48K), AUDIO_FREQUENCY_96K */
-  {
-    /* SAI clock config
-    PLLI2S_VCO: VCO_344M
-    SAI_CLK(first level) = PLLI2S_VCO/PLLSAIQ = 344/7 = 49.142 Mhz
-    SAI_CLK_x = SAI_CLK(first level)/PLLI2SDivQ = 49.142/1 = 49.142 Mhz */
-    RCC_ExCLKInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SAI2;
-    RCC_ExCLKInitStruct.Sai2ClockSelection = RCC_SAI2CLKSOURCE_PLLI2S;
-	//RCC_ExCLKInitStruct.I2sClockSelection = RCC_I2SCLKSOURCE_PLLI2S;
-//    RCC_ExCLKInitStruct.PLLI2S.PLLI2SP = 8;
-    RCC_ExCLKInitStruct.PLLI2S.PLLI2SN = 344;//244
-    RCC_ExCLKInitStruct.PLLI2S.PLLI2SQ = 7;
-	//RCC_ExCLKInitStruct.PLLI2S.PLLI2SR = 1;
-    RCC_ExCLKInitStruct.PLLI2SDivQ = 1;
-    HAL_RCCEx_PeriphCLKConfig(&RCC_ExCLKInitStruct);
-  }
-  
-}
 
 
 #ifdef  USE_FULL_ASSERT
@@ -478,60 +358,6 @@ static void CPU_CACHE_Enable(void)
   SCB_EnableDCache();
 }
 
-/** System Clock Configuration
-*/
-static void SystemClock_Config1(void)
-{
-	RCC_OscInitTypeDef RCC_OscInitStruct;
-	RCC_ClkInitTypeDef RCC_ClkInitStruct;
-	RCC_PeriphCLKInitTypeDef PeriphClkInitStruct;
-	
-	__HAL_RCC_PLL_PLLM_CONFIG(16);
-	
-	__HAL_RCC_PLL_PLLSOURCE_CONFIG(RCC_PLLSOURCE_HSI);
-	
-	__PWR_CLK_ENABLE();
-	
-	__HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
-	
-	RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
-	RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-	RCC_OscInitStruct.HSICalibrationValue = 16;
-	RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
-	RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-	RCC_OscInitStruct.PLL.PLLM = 16;
-	HAL_RCC_OscConfig(&RCC_OscInitStruct);
-	
-	RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-								|RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-	RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
-	RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-	RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
-	RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
-	HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0);
-	
-	PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SAI2|RCC_PERIPHCLK_I2S;
-	PeriphClkInitStruct.PLLI2S.PLLI2SN = 192;
-	PeriphClkInitStruct.PLLI2S.PLLI2SP = 0;
-	PeriphClkInitStruct.PLLI2S.PLLI2SR = 2;
-	PeriphClkInitStruct.PLLI2S.PLLI2SQ = 2;
-	PeriphClkInitStruct.PLLSAI.PLLSAIN = 192;
-	PeriphClkInitStruct.PLLSAI.PLLSAIR = 2;
-	PeriphClkInitStruct.PLLSAI.PLLSAIQ = 2;
-	PeriphClkInitStruct.PLLSAI.PLLSAIP = RCC_PLLSAIP_DIV2;
-	PeriphClkInitStruct.PLLI2SDivQ = 1;
-	PeriphClkInitStruct.PLLSAIDivQ = 1;
-	PeriphClkInitStruct.PLLSAIDivR = RCC_PLLSAIDIVR_2;
-	PeriphClkInitStruct.I2sClockSelection = RCC_I2SCLKSOURCE_PLLI2S;
-	PeriphClkInitStruct.Sai2ClockSelection = RCC_SAI2CLKSOURCE_PLLSAI;
-	HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct);
-	
-	HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
-	
-	HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
-
-}
-
 
 /* I2C1 init function */
 void MX_I2C1_Init(void)
@@ -539,8 +365,9 @@ void MX_I2C1_Init(void)
 
 
   hi2c1.Instance = I2C1;
-  hi2c1.Init.Timing =I2C_TIMING ;//I2C_TIMING  0x00303D5D
-  hi2c1.Init.OwnAddress1 = 0;
+  hi2c1.Init.Timing =DISCOVERY_I2Cx_TIMING; //I2C_SPEED DISCOVERY_I2Cx_TIMING;
+                                           //I2C_TIMING ;//I2C_TIMING  0x00303D5D
+  hi2c1.Init.OwnAddress1 = 0x33;
   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
   hi2c1.Init.OwnAddress2 = 0;
@@ -576,14 +403,12 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
     __HAL_RCC_GPIOB_CLK_ENABLE();
 
   
-
-  /* USER CODE END I2C1_MspInit 0 */
   
     /**I2C1 GPIO Configuration    
-    PB6     ------> I2C1_SCL (PB8)
-    PB7     ------> I2C1_SDA (PB9) 
+    PB6     ------> I2C1_SCL (PB6)
+    PB7     ------> I2C1_SDA (PB7) 
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9;
+    GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
     GPIO_InitStruct.Pull = GPIO_PULLUP;
     GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
@@ -596,6 +421,7 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
     HAL_NVIC_SetPriority(I2C1_EV_IRQn, 3, 0);
     HAL_NVIC_EnableIRQ(I2C1_EV_IRQn);
   /* USER CODE BEGIN I2C1_MspInit 1 */
+
 
   /* USER CODE END I2C1_MspInit 1 */
   }

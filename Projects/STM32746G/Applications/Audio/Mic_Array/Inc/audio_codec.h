@@ -201,6 +201,12 @@
 
 
 
+#define OUTPUT_DEVICE_SPEAKER                 ((uint16_t)0x0001)
+#define OUTPUT_DEVICE_HEADPHONE               ((uint16_t)0x0002)
+#define OUTPUT_DEVICE_BOTH                    ((uint16_t)0x0003)
+#define OUTPUT_DEVICE_AUTO                    ((uint16_t)0x0004)
+
+
 /* Volume Levels values */
 #define DEFAULT_VOLMIN                0x00
 #define DEFAULT_VOLMAX                0xFF
@@ -229,7 +235,7 @@ uint32_t AUDIO_PauseResume(uint32_t Cmd);
 uint32_t AUDIO_Stop(uint32_t CodecPowerDown_Mode);
 uint32_t AUDIO_VolumeCtl(uint8_t Volume);
 uint32_t AUDIO_Mute(uint32_t Command);
-void Audio_MAL_Play(uint32_t Addr, uint32_t Size);
+void Audio_MAL_Play(uint16_t* Addr, uint16_t Size);
 void DAC_Config(void);
 
 /* User Callbacks: user has to implement these functions in his code if
@@ -262,9 +268,9 @@ void AUDIO_Error_CallBack(void* pData);
    and re-initialize communication or in worst case reset all the application. */
 uint32_t Codec_TIMEOUT_UserCallback(void);
 
-void Audio_MAL_I2S_IRQHandler(void);
-void Audio_MAL_DAC_IRQHandler(void);
-void Audio_I2S_IRQHandler(void);
+void DMA1_Stream7_IRQHandler(void);
+void DMA1_Stream0_IRQHandler(void);
+void SPI3_IRQHandler(void);
 
 #endif /* __STM32F4_DISCOVERY_AUDIOCODEC_H */
 

@@ -141,23 +141,22 @@ extern AUDIO_DEMO_StateMachine AudioDemo;
 extern AUDIO_PLAYBACK_StateTypeDef AudioState;
 
 
-static uint16_t pDataI2S2[1024];
+//static uint16_t pDataI2S2[1024];
 static __IO uint16_t iBuff;
 extern uint16_t __IO idxSPI5DataBuf1, idxSPI5DataBuf2;
 
 
 
 /* Private function prototypes -----------------------------------------------*/
-static uint32_t WavProcess_HeaderUpdate(uint8_t* pHeader, WAVE_FormatTypeDef* pWaveFormatStruct);
-static void AUDIO_REC_DisplayButtons(void);
+
+
 
 /*sop1hc*/
 static uint8_t PlayerIni(uint32_t AudioFreq);
-static void mem_cpy (uint16_t * dst, const uint16_t * src, UINT cnt); 
-static void WaveRecorder_NVIC_Init(void);
+
 static void SPI_I2S_SendData(SPI_TypeDef* SPIx, uint16_t Data);
 static uint16_t SPI_I2S_ReceiveData(SPI_TypeDef* SPIx);
-static void DMA_Init(void);
+
 static void I2S1_Init(void);
 static void I2S2_Init(void);
 static void I2S3_Init(void);
@@ -168,58 +167,13 @@ static void GPIO_CLK_Init(void);
 
 /* Private functions ---------------------------------------------------------*/
 
-/**
-  * @brief  Calculates the remaining file size and new position of the pointer.
-  * @param  None
-  * @retval None
-  */
-void BSP_AUDIO_IN_TransferComplete_CallBack(void)
-{
-  BufferCtlRecIn.pcm_ptr+= AUDIO_OUT_BUFFER_SIZE/2;
-  if(BufferCtlRecIn.pcm_ptr == AUDIO_OUT_BUFFER_SIZE/2)
-  {
-    BufferCtlRecIn.wr_state   =  BUFFER_FULL;
-    BufferCtlRecIn.offset  = 0;
-  }
-  
-  if(BufferCtlRecIn.pcm_ptr >= AUDIO_OUT_BUFFER_SIZE)
-  {
-    BufferCtlRecIn.wr_state   =  BUFFER_FULL;
-    BufferCtlRecIn.offset  = AUDIO_OUT_BUFFER_SIZE/2;    
-    BufferCtlRecIn.pcm_ptr = 0;
-  }
 
 
 
   
 }
 
-/**
-  * @brief  Manages the DMA Half Transfer complete interrupt.
-  * @param  None
-  * @retval None
-  */
-void BSP_AUDIO_IN_HalfTransfer_CallBack(void)
-{ 
-  BufferCtlRecIn.pcm_ptr+= AUDIO_OUT_BUFFER_SIZE/2;
-  if(BufferCtlRecIn.pcm_ptr == AUDIO_OUT_BUFFER_SIZE/2)
-  {
-    BufferCtlRecIn.wr_state   =  BUFFER_FULL;
-    BufferCtlRecIn.offset  = 0;
-  }
-  
-  if(BufferCtlRecIn.pcm_ptr >= AUDIO_OUT_BUFFER_SIZE)
-  {
-    BufferCtlRecIn.wr_state   =  BUFFER_FULL;
-    BufferCtlRecIn.offset  = AUDIO_OUT_BUFFER_SIZE/2;    
-    BufferCtlRecIn.pcm_ptr = 0;
-  }
 
-
-
-
-  
-}
 
 
 /* sop1hc */
@@ -467,17 +421,7 @@ void SPI2_IRQHandler(void)
 }
 
 
-/**
-  * @brief  Initialize the NVIC.
-  * @param  None
-  * @retval None
-  */
-static void WaveRecorder_NVIC_Init(void)
-{
-  HAL_NVIC_SetPriority(SPI2_IRQn, 1, 0);
-  HAL_NVIC_EnableIRQ(SPI1_IRQn);
 
-}
 
 
 
@@ -562,21 +506,7 @@ static void GPIO_CLK_Init(void)
 
 }
 
-/** 
-  * Enable DMA controller clock
-  */
-static void DMA_Init(void) 
-{
-  /* DMA controller clock enable */
-  __HAL_RCC_DMA1_CLK_ENABLE();
 
-  /* DMA interrupt init */
-  HAL_NVIC_SetPriority(DMA1_Stream4_IRQn, 0, 2);
-  HAL_NVIC_EnableIRQ(DMA1_Stream4_IRQn);
-  HAL_NVIC_SetPriority(DMA1_Stream5_IRQn, 0, 3);
-  HAL_NVIC_EnableIRQ(DMA1_Stream5_IRQn);
-
-}
 
 /* I2S1 init function */
 static void I2S1_Init(void)
@@ -629,156 +559,6 @@ static void I2S3_Init(void)
   HAL_I2S_Init(&hi2s3);
 
 }
-
-
-void HAL_I2S_MspInit(I2S_HandleTypeDef* hi2s)
-{
-
-  GPIO_InitTypeDef GPIO_InitStruct;
-  if(hi2s->Instance==SPI1)
-  {
-  /* USER CODE BEGIN SPI1_MspInit 0 */
-
-  /* USER CODE END SPI1_MspInit 0 */
-    /* Peripheral clock enable */
-    __SPI1_CLK_ENABLE();
-  
-    /**I2S1 GPIO Configuration    
-    PA4     ------> I2S1_WS
-    PA5     ------> I2S1_CK
-    PA7     ------> I2S1_SD 
-    */
-    GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_7;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /* Peripheral interrupt init*/
-    HAL_NVIC_SetPriority(SPI1_IRQn, 1, 1);
-    HAL_NVIC_EnableIRQ(SPI1_IRQn);
-  /* USER CODE BEGIN SPI1_MspInit 1 */
-
-  /* USER CODE END SPI1_MspInit 1 */
-  }
-  else if(hi2s->Instance==SPI2)
-  {
-  /* USER CODE BEGIN SPI2_MspInit 0 */
-
-  /* USER CODE END SPI2_MspInit 0 */
-    /* Peripheral clock enable */
-    __SPI2_CLK_ENABLE();
-    __GPIOI_CLK_ENABLE();
-	__GPIOB_CLK_ENABLE();
-	__GPIOC_CLK_ENABLE();
-  
-    /**I2S2 GPIO Configuration     
-    PC1     ------> I2S2_SD  : PI3 PC1 PC3 PB15      --> PB15
-    PB10     ------> I2S2_CK :PD3 PB10 PB13 PA9 PI1  --> PI1
-    PB12     ------> I2S2_WS : PB12 PI0 PB4 PB9      --> PB4
-
-    */
-    GPIO_InitStruct.Pin = GPIO_PIN_15; //SD
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
-    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-	GPIO_InitStruct.Pin = GPIO_PIN_4;//WS
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
-    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-    GPIO_InitStruct.Pin = GPIO_PIN_1;//CK
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
-    HAL_GPIO_Init(GPIOI, &GPIO_InitStruct);
-
-    GPIO_InitStruct.Pin = GPIO_PIN_6;//CK
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
-    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
-
-
-    /* Peripheral interrupt init*/
-    //HAL_NVIC_SetPriority(SPI2_IRQn, 6, 0);
-    //HAL_NVIC_EnableIRQ(SPI2_IRQn);
-    /* USER CODE BEGIN SPI2_MspInit 1 */
-
-  /* USER CODE END SPI2_MspInit 1 */
-  }
-  else if(hi2s->Instance==SPI3)
-  {
-  /* USER CODE BEGIN SPI3_MspInit 0 */
-
-  /* USER CODE END SPI3_MspInit 0 */
-    /* Peripheral clock enable */
-    __SPI3_CLK_ENABLE();
-  
-    /**I2S3 GPIO Configuration    
-    PB2     ------> I2S3_SD
-    PA15     ------> I2S3_WS
-    PC10     ------> I2S3_CK 
-    */
-    GPIO_InitStruct.Pin = GPIO_PIN_2;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF7_SPI3;
-    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-    GPIO_InitStruct.Pin = GPIO_PIN_15;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF6_SPI3;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-    GPIO_InitStruct.Pin = GPIO_PIN_10;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF6_SPI3;
-    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
-    /* Peripheral DMA init*/
-  
-    //hdma_spi3_tx.Instance = DMA1_Stream5;
-    //hdma_spi3_tx.Init.Channel = DMA_CHANNEL_0;
-    //hdma_spi3_tx.Init.Direction = DMA_MEMORY_TO_PERIPH;
-    //hdma_spi3_tx.Init.PeriphInc = DMA_PINC_DISABLE;
-    //hdma_spi3_tx.Init.MemInc = DMA_MINC_DISABLE;
-    //hdma_spi3_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-    //hdma_spi3_tx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-    //hdma_spi3_tx.Init.Mode = DMA_NORMAL;
-    //hdma_spi3_tx.Init.Priority = DMA_PRIORITY_MEDIUM;
-    //hdma_spi3_tx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
-    //hdma_spi3_tx.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
-    //hdma_spi3_tx.Init.MemBurst = DMA_MBURST_SINGLE;
-    //hdma_spi3_tx.Init.PeriphBurst = DMA_PBURST_SINGLE;
-    //HAL_DMA_Init(&hdma_spi3_tx);
-
-    //__HAL_LINKDMA(hi2s,hdmatx,hdma_spi3_tx);
-
-  /* Peripheral interrupt init*/
-    HAL_NVIC_SetPriority(SPI3_IRQn, 6, 0);
-    HAL_NVIC_EnableIRQ(SPI3_IRQn);
-  /* USER CODE BEGIN SPI3_MspInit 1 */
-
-  /* USER CODE END SPI3_MspInit 1 */
-  }
-
-}
-
 
 
 

@@ -1,0 +1,3727 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       20/Dec/2015  03:50:44
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_ll_usb.c
+#    Command line =  
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_ll_usb.c
+#        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
+#        USE_IOEXPANDER -D USE_USB_FS -lC
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        -lA
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        -o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+#        --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
+#        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        7.3\arm\INC\c\DLib_Config_Full.h" -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+#        -Ohz --use_c++_inline --require_prototypes -I "D:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
+#        ARM_MATH_CM7
+#    List file    =  
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_ll_usb.lst
+#    Object file  =  
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_ll_usb.o
+#
+###############################################################################
+
+H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_ll_usb.c
+      1          /**
+      2            ******************************************************************************
+      3            * @file    stm32f7xx_ll_usb.c
+      4            * @author  MCD Application Team
+      5            * @version V1.0.1
+      6            * @date    25-June-2015
+      7            * @brief   USB Low Layer HAL module driver.
+      8            *    
+      9            *          This file provides firmware functions to manage the following 
+     10            *          functionalities of the USB Peripheral Controller:
+     11            *           + Initialization/de-initialization functions
+     12            *           + I/O operation functions
+     13            *           + Peripheral Control functions 
+     14            *           + Peripheral State functions
+     15            *         
+     16            @verbatim
+     17            ==============================================================================
+     18                              ##### How to use this driver #####
+     19            ==============================================================================
+     20              [..]
+     21                (#) Fill parameters of Init structure in USB_OTG_CfgTypeDef structure.
+     22            
+     23                (#) Call USB_CoreInit() API to initialize the USB Core peripheral.
+     24          
+     25                (#) The upper HAL HCD/PCD driver will call the right routines for its internal processes.
+     26          
+     27            @endverbatim
+     28            ******************************************************************************
+     29            * @attention
+     30            *
+     31            * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+     32            *
+     33            * Redistribution and use in source and binary forms, with or without modification,
+     34            * are permitted provided that the following conditions are met:
+     35            *   1. Redistributions of source code must retain the above copyright notice,
+     36            *      this list of conditions and the following disclaimer.
+     37            *   2. Redistributions in binary form must reproduce the above copyright notice,
+     38            *      this list of conditions and the following disclaimer in the documentation
+     39            *      and/or other materials provided with the distribution.
+     40            *   3. Neither the name of STMicroelectronics nor the names of its contributors
+     41            *      may be used to endorse or promote products derived from this software
+     42            *      without specific prior written permission.
+     43            *
+     44            * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+     45            * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+     46            * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+     47            * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+     48            * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+     49            * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+     50            * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+     51            * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+     52            * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+     53            * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     54            *
+     55            ******************************************************************************
+     56            */ 
+     57          
+     58          /* Includes ------------------------------------------------------------------*/
+     59          #include "stm32f7xx_hal.h"
+     60          
+     61          /** @addtogroup STM32F7xx_LL_USB_DRIVER
+     62            * @{
+     63            */
+     64          
+     65          #if defined (HAL_PCD_MODULE_ENABLED) || defined (HAL_HCD_MODULE_ENABLED)
+     66          
+     67          /* Private typedef -----------------------------------------------------------*/
+     68          /* Private define ------------------------------------------------------------*/
+     69          /* Private macro -------------------------------------------------------------*/
+     70          /* Private variables ---------------------------------------------------------*/
+     71          /* Private function prototypes -----------------------------------------------*/
+     72          /* Private functions ---------------------------------------------------------*/
+     73          static HAL_StatusTypeDef USB_CoreReset(USB_OTG_GlobalTypeDef *USBx);
+     74          
+     75          /** @defgroup PCD_Private_Functions
+     76            * @{
+     77            */
+     78          
+     79          /** @defgroup LL_USB_Group1 Initialization/de-initialization functions 
+     80           *  @brief    Initialization and Configuration functions 
+     81           *
+     82          @verbatim    
+     83           ===============================================================================
+     84                        ##### Initialization/de-initialization functions #####
+     85           ===============================================================================
+     86              [..]  This section provides functions allowing to:
+     87           
+     88          @endverbatim
+     89            * @{
+     90            */
+     91          
+     92          /**
+     93            * @brief  Initializes the USB Core
+     94            * @param  USBx: USB Instance
+     95            * @param  cfg : pointer to a USB_OTG_CfgTypeDef structure that contains
+     96            *         the configuration information for the specified USBx peripheral.
+     97            * @retval HAL status
+     98            */
+
+   \                                 In section .text, align 2, keep-with-next
+     99          HAL_StatusTypeDef USB_CoreInit(USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef cfg)
+    100          {
+   \                     USB_CoreInit: (+1)
+   \   00000000   0xB40E             PUSH     {R1-R3}
+   \   00000002   0xB518             PUSH     {R3,R4,LR}
+   \   00000004   0x4604             MOV      R4,R0
+    101            if (cfg.phy_itface == USB_OTG_ULPI_PHY)
+   \   00000006   0x9808             LDR      R0,[SP, #+32]
+   \   00000008   0x2801             CMP      R0,#+1
+   \   0000000A   0xD117             BNE.N    ??USB_CoreInit_0
+    102            {
+    103              
+    104              USBx->GCCFG &= ~(USB_OTG_GCCFG_PWRDWN);
+   \   0000000C   0x6BA0             LDR      R0,[R4, #+56]
+    105          
+    106              /* Init The ULPI Interface */
+    107              USBx->GUSBCFG &= ~(USB_OTG_GUSBCFG_TSDPS | USB_OTG_GUSBCFG_ULPIFSLS | USB_OTG_GUSBCFG_PHYSEL);
+   \   0000000E   0x.... 0x....      LDR.W    R1,??DataTable8  ;; 0xffbdffbf
+   \   00000012   0xF420 0x3080      BIC      R0,R0,#0x10000
+   \   00000016   0x63A0             STR      R0,[R4, #+56]
+   \   00000018   0x68E0             LDR      R0,[R4, #+12]
+   \   0000001A   0x4008             ANDS     R0,R1,R0
+   \   0000001C   0x60E0             STR      R0,[R4, #+12]
+    108             
+    109              /* Select vbus source */
+    110              USBx->GUSBCFG &= ~(USB_OTG_GUSBCFG_ULPIEVBUSD | USB_OTG_GUSBCFG_ULPIEVBUSI);
+   \   0000001E   0x68E0             LDR      R0,[R4, #+12]
+   \   00000020   0xF420 0x1040      BIC      R0,R0,#0x300000
+   \   00000024   0x60E0             STR      R0,[R4, #+12]
+    111              if(cfg.use_external_vbus == 1)
+   \   00000026   0x980E             LDR      R0,[SP, #+56]
+   \   00000028   0x2801             CMP      R0,#+1
+   \   0000002A   0xD103             BNE.N    ??USB_CoreInit_1
+    112              {
+    113                USBx->GUSBCFG |= USB_OTG_GUSBCFG_ULPIEVBUSD;
+   \   0000002C   0x68E0             LDR      R0,[R4, #+12]
+   \   0000002E   0xF440 0x1080      ORR      R0,R0,#0x100000
+   \   00000032   0x60E0             STR      R0,[R4, #+12]
+    114              }
+    115              /* Reset after a PHY select  */
+    116              USB_CoreReset(USBx); 
+   \                     ??USB_CoreInit_1: (+1)
+   \   00000034   0x4620             MOV      R0,R4
+   \   00000036   0x.... 0x....      BL       USB_CoreReset
+   \   0000003A   0xE009             B.N      ??USB_CoreInit_2
+    117            }
+    118            else /* FS interface (embedded Phy) */
+    119            {
+    120              
+    121              /* Select FS Embedded PHY */
+    122              USBx->GUSBCFG |= USB_OTG_GUSBCFG_PHYSEL;
+   \                     ??USB_CoreInit_0: (+1)
+   \   0000003C   0x68E0             LDR      R0,[R4, #+12]
+   \   0000003E   0xF040 0x0040      ORR      R0,R0,#0x40
+   \   00000042   0x60E0             STR      R0,[R4, #+12]
+    123              
+    124              /* Reset after a PHY select and set Host mode */
+    125              USB_CoreReset(USBx);
+   \   00000044   0x4620             MOV      R0,R4
+   \   00000046   0x.... 0x....      BL       USB_CoreReset
+    126              
+    127              /* Deactivate the power down*/
+    128              USBx->GCCFG = USB_OTG_GCCFG_PWRDWN;
+   \   0000004A   0xF44F 0x3080      MOV      R0,#+65536
+   \   0000004E   0x63A0             STR      R0,[R4, #+56]
+    129            }
+    130           
+    131            if(cfg.dma_enable == ENABLE)
+   \                     ??USB_CoreInit_2: (+1)
+   \   00000050   0x9806             LDR      R0,[SP, #+24]
+   \   00000052   0x2801             CMP      R0,#+1
+   \   00000054   0xD107             BNE.N    ??USB_CoreInit_3
+    132            {
+    133              USBx->GAHBCFG |= (USB_OTG_GAHBCFG_HBSTLEN_1 | USB_OTG_GAHBCFG_HBSTLEN_2);
+   \   00000056   0x68A0             LDR      R0,[R4, #+8]
+   \   00000058   0xF040 0x000C      ORR      R0,R0,#0xC
+   \   0000005C   0x60A0             STR      R0,[R4, #+8]
+    134              USBx->GAHBCFG |= USB_OTG_GAHBCFG_DMAEN;
+   \   0000005E   0x68A0             LDR      R0,[R4, #+8]
+   \   00000060   0xF040 0x0020      ORR      R0,R0,#0x20
+   \   00000064   0x60A0             STR      R0,[R4, #+8]
+    135            }  
+    136          
+    137            return HAL_OK;
+   \                     ??USB_CoreInit_3: (+1)
+   \   00000066   0xBC12             POP      {R1,R4}
+   \   00000068   0x....             B.N      ?Subroutine0
+    138          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine0: (+1)
+   \   00000000   0x2000             MOVS     R0,#+0
+   \   00000002   0xF85D 0xFB10      LDR      PC,[SP], #+16    ;; return
+    139          
+    140          /**
+    141            * @brief  USB_EnableGlobalInt
+    142            *         Enables the controller's Global Int in the AHB Config reg
+    143            * @param  USBx : Selected device
+    144            * @retval HAL status
+    145            */
+
+   \                                 In section .text, align 2, keep-with-next
+    146          HAL_StatusTypeDef USB_EnableGlobalInt(USB_OTG_GlobalTypeDef *USBx)
+    147          {
+    148            USBx->GAHBCFG |= USB_OTG_GAHBCFG_GINT;
+   \                     USB_EnableGlobalInt: (+1)
+   \   00000000   0x6881             LDR      R1,[R0, #+8]
+   \   00000002   0xF041 0x0101      ORR      R1,R1,#0x1
+   \   00000006   0x....             B.N      ?Subroutine2
+    149            return HAL_OK;
+    150          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine2: (+1)
+   \   00000000   0x6081             STR      R1,[R0, #+8]
+   \   00000002   0x2000             MOVS     R0,#+0
+   \   00000004   0x4770             BX       LR               ;; return
+    151          
+    152          
+    153          /**
+    154            * @brief  USB_DisableGlobalInt
+    155            *         Disable the controller's Global Int in the AHB Config reg
+    156            * @param  USBx : Selected device
+    157            * @retval HAL status
+    158          */
+
+   \                                 In section .text, align 2, keep-with-next
+    159          HAL_StatusTypeDef USB_DisableGlobalInt(USB_OTG_GlobalTypeDef *USBx)
+    160          {
+    161            USBx->GAHBCFG &= ~USB_OTG_GAHBCFG_GINT;
+   \                     USB_DisableGlobalInt: (+1)
+   \   00000000   0x6881             LDR      R1,[R0, #+8]
+   \   00000002   0x0849             LSRS     R1,R1,#+1
+   \   00000004   0x0049             LSLS     R1,R1,#+1
+   \   00000006                      REQUIRE ?Subroutine2
+   \   00000006                      ;; // Fall through to label ?Subroutine2
+    162            return HAL_OK;
+    163          }
+    164             
+    165          /**
+    166            * @brief  USB_SetCurrentMode : Set functional mode
+    167            * @param  USBx : Selected device
+    168            * @param  mode :  current core mode
+    169            *          This parameter can be one of the these values:
+    170            *            @arg USB_OTG_DEVICE_MODE: Peripheral mode
+    171            *            @arg USB_OTG_HOST_MODE: Host mode
+    172            *            @arg USB_OTG_DRD_MODE: Dual Role Device mode  
+    173            * @retval HAL status
+    174            */
+
+   \                                 In section .text, align 2, keep-with-next
+    175          HAL_StatusTypeDef USB_SetCurrentMode(USB_OTG_GlobalTypeDef *USBx , USB_OTG_ModeTypeDef mode)
+    176          {
+   \                     USB_SetCurrentMode: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+    177            USBx->GUSBCFG &= ~(USB_OTG_GUSBCFG_FHMOD | USB_OTG_GUSBCFG_FDMOD); 
+   \   00000002   0x68C2             LDR      R2,[R0, #+12]
+    178            
+    179            if ( mode == USB_OTG_HOST_MODE)
+   \   00000004   0x2901             CMP      R1,#+1
+   \   00000006   0xF022 0x42C0      BIC      R2,R2,#0x60000000
+   \   0000000A   0x60C2             STR      R2,[R0, #+12]
+   \   0000000C   0xD103             BNE.N    ??USB_SetCurrentMode_0
+    180            {
+    181              USBx->GUSBCFG |= USB_OTG_GUSBCFG_FHMOD; 
+   \   0000000E   0x68C1             LDR      R1,[R0, #+12]
+   \   00000010   0xF041 0x5100      ORR      R1,R1,#0x20000000
+   \   00000014   0xE003             B.N      ??USB_SetCurrentMode_1
+    182            }
+    183            else if ( mode == USB_OTG_DEVICE_MODE)
+   \                     ??USB_SetCurrentMode_0: (+1)
+   \   00000016   0xB919             CBNZ.N   R1,??USB_SetCurrentMode_2
+    184            {
+    185              USBx->GUSBCFG |= USB_OTG_GUSBCFG_FDMOD; 
+   \   00000018   0x68C1             LDR      R1,[R0, #+12]
+   \   0000001A   0xF041 0x4180      ORR      R1,R1,#0x40000000
+   \                     ??USB_SetCurrentMode_1: (+1)
+   \   0000001E   0x60C1             STR      R1,[R0, #+12]
+    186            }
+    187            HAL_Delay(50);
+   \                     ??USB_SetCurrentMode_2: (+1)
+   \   00000020   0x2032             MOVS     R0,#+50
+   \   00000022   0x.... 0x....      B.W      ??Subroutine3_0
+    188            
+    189            return HAL_OK;
+    190          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine3: (+1)
+   \   00000000   0x6041             STR      R1,[R0, #+4]
+   \   00000002   0x2003             MOVS     R0,#+3
+   \                     ??Subroutine3_0: (+1)
+   \   00000004   0x.... 0x....      BL       HAL_Delay
+   \   00000008   0x2000             MOVS     R0,#+0
+   \   0000000A   0xBD02             POP      {R1,PC}          ;; return
+    191          
+    192          /**
+    193            * @brief  USB_DevInit : Initializes the USB_OTG controller registers 
+    194            *         for device mode
+    195            * @param  USBx : Selected device
+    196            * @param  cfg  : pointer to a USB_OTG_CfgTypeDef structure that contains
+    197            *         the configuration information for the specified USBx peripheral.
+    198            * @retval HAL status
+    199            */
+
+   \                                 In section .text, align 2, keep-with-next
+    200          HAL_StatusTypeDef USB_DevInit (USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef cfg)
+    201          {
+   \                     USB_DevInit: (+1)
+   \   00000000   0xB40E             PUSH     {R1-R3}
+   \   00000002   0xB5FC             PUSH     {R2-R7,LR}
+   \   00000004   0x4604             MOV      R4,R0
+    202            uint32_t i = 0;
+   \   00000006   0x2600             MOVS     R6,#+0
+    203          
+    204            /*Activate VBUS Sensing B */
+    205            USBx->GCCFG |= USB_OTG_GCCFG_VBDEN;
+   \   00000008   0x6BA0             LDR      R0,[R4, #+56]
+   \   0000000A   0xF440 0x1000      ORR      R0,R0,#0x200000
+   \   0000000E   0x63A0             STR      R0,[R4, #+56]
+    206            
+    207            if (cfg.vbus_sensing_enable == 0)
+   \   00000010   0x9D10             LDR      R5,[SP, #+64]
+   \   00000012   0xB95D             CBNZ.N   R5,??USB_DevInit_0
+    208            {
+    209              /*Desactivate VBUS Sensing B */
+    210              USBx->GCCFG &= ~ USB_OTG_GCCFG_VBDEN;
+   \   00000014   0x6BA0             LDR      R0,[R4, #+56]
+   \   00000016   0xF420 0x1000      BIC      R0,R0,#0x200000
+   \   0000001A   0x63A0             STR      R0,[R4, #+56]
+    211              
+    212              /* B-peripheral session valid override enable*/ 
+    213              USBx->GOTGCTL |= USB_OTG_GOTGCTL_BVALOEN;
+   \   0000001C   0x6820             LDR      R0,[R4, #+0]
+   \   0000001E   0xF040 0x0040      ORR      R0,R0,#0x40
+   \   00000022   0x6020             STR      R0,[R4, #+0]
+    214              USBx->GOTGCTL |= USB_OTG_GOTGCTL_BVALOVAL;
+   \   00000024   0x6820             LDR      R0,[R4, #+0]
+   \   00000026   0xF040 0x0080      ORR      R0,R0,#0x80
+   \   0000002A   0x6020             STR      R0,[R4, #+0]
+    215            }
+    216             
+    217            /* Restart the Phy Clock */
+    218            USBx_PCGCCTL = 0;
+   \                     ??USB_DevInit_0: (+1)
+   \   0000002C   0xF504 0x6160      ADD      R1,R4,#+3584
+    219          
+    220            /* Device mode configuration */
+    221            USBx_DEVICE->DCFG |= DCFG_FRAME_INTERVAL_80;
+   \   00000030   0xF504 0x6700      ADD      R7,R4,#+2048
+   \   00000034   0x600E             STR      R6,[R1, #+0]
+   \   00000036   0x6838             LDR      R0,[R7, #+0]
+   \   00000038   0x6038             STR      R0,[R7, #+0]
+    222            
+    223            if(cfg.phy_itface  == USB_OTG_ULPI_PHY)
+   \   0000003A   0x980C             LDR      R0,[SP, #+48]
+   \   0000003C   0x2801             CMP      R0,#+1
+   \   0000003E   0xD105             BNE.N    ??USB_DevInit_1
+    224            {
+    225              if(cfg.speed == USB_OTG_SPEED_HIGH)
+   \   00000040   0x9809             LDR      R0,[SP, #+36]
+   \   00000042   0x2800             CMP      R0,#+0
+   \   00000044   0xBF14             ITE      NE 
+   \   00000046   0x2101             MOVNE    R1,#+1
+   \   00000048   0x2100             MOVEQ    R1,#+0
+    226              {      
+    227                /* Set High speed phy */
+    228                USB_SetDevSpeed (USBx , USB_OTG_SPEED_HIGH);
+    229              }
+    230              else 
+    231              {
+    232                /* set High speed phy in Full speed mode */
+    233                USB_SetDevSpeed (USBx , USB_OTG_SPEED_HIGH_IN_FULL);
+   \   0000004A   0xE000             B.N      ??USB_DevInit_2
+    234              }
+    235            }
+    236            else
+    237            {
+    238              /* Set Full speed phy */
+    239              USB_SetDevSpeed (USBx , USB_OTG_SPEED_FULL);
+   \                     ??USB_DevInit_1: (+1)
+   \   0000004C   0x2103             MOVS     R1,#+3
+   \                     ??USB_DevInit_2: (+1)
+   \   0000004E   0x4620             MOV      R0,R4
+   \   00000050   0x.... 0x....      BL       USB_SetDevSpeed
+    240            }
+    241          
+    242            /* Flush the FIFOs */
+    243            USB_FlushTxFifo(USBx , 0x10); /* all Tx FIFOs */
+   \   00000054   0x2110             MOVS     R1,#+16
+   \   00000056   0x4620             MOV      R0,R4
+   \   00000058   0x.... 0x....      BL       USB_FlushTxFifo
+    244            USB_FlushRxFifo(USBx);
+   \   0000005C   0x4620             MOV      R0,R4
+   \   0000005E   0x.... 0x....      BL       USB_FlushRxFifo
+    245          
+    246            
+    247            /* Clear all pending Device Interrupts */
+    248            USBx_DEVICE->DIEPMSK = 0;
+   \   00000062   0x613E             STR      R6,[R7, #+16]
+    249            USBx_DEVICE->DOEPMSK = 0;
+    250            USBx_DEVICE->DAINT = 0xFFFFFFFF;
+   \   00000064   0xF04F 0x30FF      MOV      R0,#-1
+   \   00000068   0x617E             STR      R6,[R7, #+20]
+    251            USBx_DEVICE->DAINTMSK = 0;
+    252            
+    253            for (i = 0; i < cfg.dev_endpoints; i++)
+   \   0000006A   0xF04F 0x4190      MOV      R1,#+1207959552
+   \   0000006E   0x61B8             STR      R0,[R7, #+24]
+   \   00000070   0x20FF             MOVS     R0,#+255
+   \   00000072   0x61FE             STR      R6,[R7, #+28]
+   \   00000074   0xE003             B.N      ??USB_DevInit_3
+    254            {
+    255              if ((USBx_INEP(i)->DIEPCTL & USB_OTG_DIEPCTL_EPENA) == USB_OTG_DIEPCTL_EPENA)
+    256              {
+    257                USBx_INEP(i)->DIEPCTL = (USB_OTG_DIEPCTL_EPDIS | USB_OTG_DIEPCTL_SNAK);
+    258              }
+    259              else
+    260              {
+    261                USBx_INEP(i)->DIEPCTL = 0;
+    262              }
+    263              
+    264              USBx_INEP(i)->DIEPTSIZ = 0;
+   \                     ??USB_DevInit_4: (+1)
+   \   00000076   0x2300             MOVS     R3,#+0
+    265              USBx_INEP(i)->DIEPINT  = 0xFF;
+   \   00000078   0x1C76             ADDS     R6,R6,#+1
+   \   0000007A   0x6113             STR      R3,[R2, #+16]
+   \   0000007C   0x6090             STR      R0,[R2, #+8]
+   \                     ??USB_DevInit_3: (+1)
+   \   0000007E   0x9A07             LDR      R2,[SP, #+28]
+   \   00000080   0x4296             CMP      R6,R2
+   \   00000082   0xD20A             BCS.N    ??USB_DevInit_5
+   \   00000084   0xEB04 0x1246      ADD      R2,R4,R6, LSL #+5
+   \   00000088   0xF502 0x6210      ADD      R2,R2,#+2304
+   \   0000008C   0x6813             LDR      R3,[R2, #+0]
+   \   0000008E   0x2B00             CMP      R3,#+0
+   \   00000090   0xBF4E             ITEE     MI 
+   \   00000092   0x6011             STRMI    R1,[R2, #+0]
+   \   00000094   0x2300             MOVPL    R3,#+0
+   \   00000096   0x6013             STRPL    R3,[R2, #+0]
+   \   00000098   0xE7ED             B.N      ??USB_DevInit_4
+    266            }
+    267            
+    268            for (i = 0; i < cfg.dev_endpoints; i++)
+   \                     ??USB_DevInit_5: (+1)
+   \   0000009A   0x2200             MOVS     R2,#+0
+   \   0000009C   0xE003             B.N      ??USB_DevInit_6
+    269            {
+    270              if ((USBx_OUTEP(i)->DOEPCTL & USB_OTG_DOEPCTL_EPENA) == USB_OTG_DOEPCTL_EPENA)
+    271              {
+    272                USBx_OUTEP(i)->DOEPCTL = (USB_OTG_DOEPCTL_EPDIS | USB_OTG_DOEPCTL_SNAK);
+    273              }
+    274              else
+    275              {
+    276                USBx_OUTEP(i)->DOEPCTL = 0;
+    277              }
+    278              
+    279              USBx_OUTEP(i)->DOEPTSIZ = 0;
+   \                     ??USB_DevInit_7: (+1)
+   \   0000009E   0x2600             MOVS     R6,#+0
+    280              USBx_OUTEP(i)->DOEPINT  = 0xFF;
+   \   000000A0   0x1C52             ADDS     R2,R2,#+1
+   \   000000A2   0x611E             STR      R6,[R3, #+16]
+   \   000000A4   0x6098             STR      R0,[R3, #+8]
+   \                     ??USB_DevInit_6: (+1)
+   \   000000A6   0x9B07             LDR      R3,[SP, #+28]
+   \   000000A8   0x429A             CMP      R2,R3
+   \   000000AA   0xD20A             BCS.N    ??USB_DevInit_8
+   \   000000AC   0xEB04 0x1342      ADD      R3,R4,R2, LSL #+5
+   \   000000B0   0xF503 0x6330      ADD      R3,R3,#+2816
+   \   000000B4   0x681E             LDR      R6,[R3, #+0]
+   \   000000B6   0x2E00             CMP      R6,#+0
+   \   000000B8   0xBF4E             ITEE     MI 
+   \   000000BA   0x6019             STRMI    R1,[R3, #+0]
+   \   000000BC   0x2600             MOVPL    R6,#+0
+   \   000000BE   0x601E             STRPL    R6,[R3, #+0]
+   \   000000C0   0xE7ED             B.N      ??USB_DevInit_7
+    281            }
+    282            
+    283            USBx_DEVICE->DIEPMSK &= ~(USB_OTG_DIEPMSK_TXFURM);
+   \                     ??USB_DevInit_8: (+1)
+   \   000000C2   0x6938             LDR      R0,[R7, #+16]
+   \   000000C4   0xF420 0x7080      BIC      R0,R0,#0x100
+   \   000000C8   0x6138             STR      R0,[R7, #+16]
+    284            
+    285            if (cfg.dma_enable == 1)
+   \   000000CA   0x980A             LDR      R0,[SP, #+40]
+   \   000000CC   0x2801             CMP      R0,#+1
+   \   000000CE   0xD109             BNE.N    ??USB_DevInit_9
+    286            {
+    287              /*Set threshold parameters */
+    288              USBx_DEVICE->DTHRCTL = (USB_OTG_DTHRCTL_TXTHRLEN_6 | USB_OTG_DTHRCTL_RXTHRLEN_6);
+   \   000000D0   0x.... 0x....      LDR.W    R1,??DataTable9  ;; 0x800100
+   \   000000D4   0x6339             STR      R1,[R7, #+48]
+    289              USBx_DEVICE->DTHRCTL |= (USB_OTG_DTHRCTL_RXTHREN | USB_OTG_DTHRCTL_ISOTHREN | USB_OTG_DTHRCTL_NONISOTHREN);
+   \   000000D6   0x6B39             LDR      R1,[R7, #+48]
+   \   000000D8   0xF441 0x3180      ORR      R1,R1,#0x10000
+   \   000000DC   0xF041 0x0103      ORR      R1,R1,#0x3
+   \   000000E0   0x6339             STR      R1,[R7, #+48]
+    290              
+    291              i= USBx_DEVICE->DTHRCTL;
+   \   000000E2   0x6B39             LDR      R1,[R7, #+48]
+    292            }
+    293            
+    294            /* Disable all interrupts. */
+    295            USBx->GINTMSK = 0;
+   \                     ??USB_DevInit_9: (+1)
+   \   000000E4   0x2100             MOVS     R1,#+0
+   \   000000E6   0x61A1             STR      R1,[R4, #+24]
+    296            
+    297            /* Clear any pending interrupts */
+    298            USBx->GINTSTS = 0xBFFFFFFF;
+   \   000000E8   0xF06F 0x4180      MVN      R1,#+1073741824
+   \   000000EC   0x6161             STR      R1,[R4, #+20]
+    299          
+    300            /* Enable the common interrupts */
+    301            if (cfg.dma_enable == DISABLE)
+   \   000000EE   0x.... 0x....      BL       ?Subroutine5
+    302            {
+    303              USBx->GINTMSK |= USB_OTG_GINTMSK_RXFLVLM; 
+    304            }
+    305            
+    306            /* Enable interrupts matching to the Device mode ONLY */
+    307            USBx->GINTMSK |= (USB_OTG_GINTMSK_USBSUSPM | USB_OTG_GINTMSK_USBRST |\
+    308                              USB_OTG_GINTMSK_ENUMDNEM | USB_OTG_GINTMSK_IEPINT |\
+    309                              USB_OTG_GINTMSK_OEPINT   | USB_OTG_GINTMSK_IISOIXFRM|\
+    310                              USB_OTG_GINTMSK_PXFRM_IISOOXFRM | USB_OTG_GINTMSK_WUIM);
+   \                     ??CrossCallReturnLabel_0: (+1)
+   \   000000F2   0x.... 0x....      LDR.W    R1,??DataTable9_1  ;; 0x803c3800
+   \   000000F6   0x4308             ORRS     R0,R1,R0
+   \   000000F8   0x61A0             STR      R0,[R4, #+24]
+    311            
+    312            if(cfg.Sof_enable)
+   \   000000FA   0x980D             LDR      R0,[SP, #+52]
+   \   000000FC   0xB118             CBZ.N    R0,??USB_DevInit_10
+    313            {
+    314              USBx->GINTMSK |= USB_OTG_GINTMSK_SOFM;
+   \   000000FE   0x69A0             LDR      R0,[R4, #+24]
+   \   00000100   0xF040 0x0008      ORR      R0,R0,#0x8
+   \   00000104   0x61A0             STR      R0,[R4, #+24]
+    315            }
+    316          
+    317            if (cfg.vbus_sensing_enable == ENABLE)
+   \                     ??USB_DevInit_10: (+1)
+   \   00000106   0x2D01             CMP      R5,#+1
+   \   00000108   0xD105             BNE.N    ??USB_DevInit_11
+    318            {
+    319              USBx->GINTMSK |= (USB_OTG_GINTMSK_SRQIM | USB_OTG_GINTMSK_OTGINT); 
+   \   0000010A   0x69A0             LDR      R0,[R4, #+24]
+   \   0000010C   0xF040 0x4080      ORR      R0,R0,#0x40000000
+   \   00000110   0xF040 0x0004      ORR      R0,R0,#0x4
+   \   00000114   0x61A0             STR      R0,[R4, #+24]
+    320            }
+    321            
+    322            return HAL_OK;
+   \                     ??USB_DevInit_11: (+1)
+   \   00000116   0xBCF6             POP      {R1,R2,R4-R7}
+   \   00000118                      REQUIRE ?Subroutine0
+   \   00000118                      ;; // Fall through to label ?Subroutine0
+    323          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine5: (+1)
+   \   00000000   0xB918             CBNZ.N   R0,??Subroutine5_0
+   \   00000002   0x69A0             LDR      R0,[R4, #+24]
+   \   00000004   0xF040 0x0010      ORR      R0,R0,#0x10
+   \   00000008   0x61A0             STR      R0,[R4, #+24]
+   \                     ??Subroutine5_0: (+1)
+   \   0000000A   0x69A0             LDR      R0,[R4, #+24]
+   \   0000000C   0x4770             BX       LR
+    324          
+    325          
+    326          /**
+    327            * @brief  USB_OTG_FlushTxFifo : Flush a Tx FIFO
+    328            * @param  USBx : Selected device
+    329            * @param  num : FIFO number
+    330            *         This parameter can be a value from 1 to 15
+    331                      15 means Flush all Tx FIFOs
+    332            * @retval HAL status
+    333            */
+
+   \                                 In section .text, align 2, keep-with-next
+    334          HAL_StatusTypeDef USB_FlushTxFifo (USB_OTG_GlobalTypeDef *USBx, uint32_t num )
+    335          {
+    336            uint32_t count = 0;
+    337           
+    338            USBx->GRSTCTL = ( USB_OTG_GRSTCTL_TXFFLSH |(uint32_t)( num << 6)); 
+   \                     USB_FlushTxFifo: (+1)
+   \   00000000   0x0189             LSLS     R1,R1,#+6
+   \   00000002   0xF041 0x0120      ORR      R1,R1,#0x20
+   \   00000006   0x6101             STR      R1,[R0, #+16]
+   \   00000008   0x.... 0x....      LDR.W    R1,??DataTable9_2  ;; 0x30d41
+    339           
+    340            do
+    341            {
+    342              if (++count > 200000)
+   \                     ??USB_FlushTxFifo_0: (+1)
+   \   0000000C   0x1E49             SUBS     R1,R1,#+1
+   \   0000000E   0xD101             BNE.N    ??USB_FlushTxFifo_1
+    343              {
+    344                return HAL_TIMEOUT;
+   \   00000010   0x2003             MOVS     R0,#+3
+   \   00000012   0x4770             BX       LR
+    345              }
+    346            }
+    347            while ((USBx->GRSTCTL & USB_OTG_GRSTCTL_TXFFLSH) == USB_OTG_GRSTCTL_TXFFLSH);
+   \                     ??USB_FlushTxFifo_1: (+1)
+   \   00000014   0x6902             LDR      R2,[R0, #+16]
+   \   00000016   0x0692             LSLS     R2,R2,#+26
+   \   00000018   0xD4F8             BMI.N    ??USB_FlushTxFifo_0
+    348            
+    349            return HAL_OK;
+   \   0000001A   0x2000             MOVS     R0,#+0
+   \   0000001C   0x4770             BX       LR               ;; return
+    350          }
+    351          
+    352          
+    353          /**
+    354            * @brief  USB_FlushRxFifo : Flush Rx FIFO
+    355            * @param  USBx : Selected device
+    356            * @retval HAL status
+    357            */
+
+   \                                 In section .text, align 2, keep-with-next
+    358          HAL_StatusTypeDef USB_FlushRxFifo(USB_OTG_GlobalTypeDef *USBx)
+    359          {
+    360            uint32_t count = 0;
+    361            
+    362            USBx->GRSTCTL = USB_OTG_GRSTCTL_RXFFLSH;
+   \                     USB_FlushRxFifo: (+1)
+   \   00000000   0x2110             MOVS     R1,#+16
+   \   00000002   0x6101             STR      R1,[R0, #+16]
+   \   00000004   0x.... 0x....      LDR.W    R1,??DataTable9_2  ;; 0x30d41
+    363            
+    364            do
+    365            {
+    366              if (++count > 200000)
+   \                     ??USB_FlushRxFifo_0: (+1)
+   \   00000008   0x1E49             SUBS     R1,R1,#+1
+   \   0000000A   0xD101             BNE.N    ??USB_FlushRxFifo_1
+    367              {
+    368                return HAL_TIMEOUT;
+   \   0000000C   0x2003             MOVS     R0,#+3
+   \   0000000E   0x4770             BX       LR
+    369              }
+    370            }
+    371            while ((USBx->GRSTCTL & USB_OTG_GRSTCTL_RXFFLSH) == USB_OTG_GRSTCTL_RXFFLSH);
+   \                     ??USB_FlushRxFifo_1: (+1)
+   \   00000010   0x6902             LDR      R2,[R0, #+16]
+   \   00000012   0x06D2             LSLS     R2,R2,#+27
+   \   00000014   0xD4F8             BMI.N    ??USB_FlushRxFifo_0
+    372            
+    373            return HAL_OK;
+   \   00000016   0x2000             MOVS     R0,#+0
+   \   00000018   0x4770             BX       LR               ;; return
+    374          }
+    375          
+    376          /**
+    377            * @brief  USB_SetDevSpeed :Initializes the DevSpd field of DCFG register 
+    378            *         depending the PHY type and the enumeration speed of the device.
+    379            * @param  USBx : Selected device
+    380            * @param  speed : device speed
+    381            *          This parameter can be one of the these values:
+    382            *            @arg USB_OTG_SPEED_HIGH: High speed mode
+    383            *            @arg USB_OTG_SPEED_HIGH_IN_FULL: High speed core in Full Speed mode
+    384            *            @arg USB_OTG_SPEED_FULL: Full speed mode
+    385            *            @arg USB_OTG_SPEED_LOW: Low speed mode
+    386            * @retval  Hal status
+    387            */
+
+   \                                 In section .text, align 2, keep-with-next
+    388          HAL_StatusTypeDef USB_SetDevSpeed(USB_OTG_GlobalTypeDef *USBx , uint8_t speed)
+    389          {
+    390            USBx_DEVICE->DCFG |= speed;
+   \                     USB_SetDevSpeed: (+1)
+   \   00000000   0xF500 0x6000      ADD      R0,R0,#+2048
+   \   00000004   0x....             B.N      ?Subroutine1
+    391            return HAL_OK;
+    392          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine1: (+1)
+   \   00000000   0x6802             LDR      R2,[R0, #+0]
+   \   00000002   0x4311             ORRS     R1,R1,R2
+   \                     ??Subroutine1_0: (+1)
+   \   00000004   0x6001             STR      R1,[R0, #+0]
+   \   00000006   0x2000             MOVS     R0,#+0
+   \   00000008   0x4770             BX       LR               ;; return
+    393          
+    394          /**
+    395            * @brief  USB_GetDevSpeed :Return the  Dev Speed 
+    396            * @param  USBx : Selected device
+    397            * @retval speed : device speed
+    398            *          This parameter can be one of the these values:
+    399            *            @arg USB_OTG_SPEED_HIGH: High speed mode
+    400            *            @arg USB_OTG_SPEED_FULL: Full speed mode
+    401            *            @arg USB_OTG_SPEED_LOW: Low speed mode
+    402            */
+
+   \                                 In section .text, align 2, keep-with-next
+    403          uint8_t USB_GetDevSpeed(USB_OTG_GlobalTypeDef *USBx)
+    404          {
+    405            uint8_t speed = 0;
+    406            
+    407            if((USBx_DEVICE->DSTS & USB_OTG_DSTS_ENUMSPD) == DSTS_ENUMSPD_HS_PHY_30MHZ_OR_60MHZ)
+   \                     USB_GetDevSpeed: (+1)
+   \   00000000   0xF500 0x6000      ADD      R0,R0,#+2048
+   \   00000004   0x2100             MOVS     R1,#+0
+   \   00000006   0x6882             LDR      R2,[R0, #+8]
+   \   00000008   0xF012 0x0F06      TST      R2,#0x6
+   \   0000000C   0xD010             BEQ.N    ??USB_GetDevSpeed_0
+    408            {
+    409              speed = USB_OTG_SPEED_HIGH;
+    410            }
+    411            else if (((USBx_DEVICE->DSTS & USB_OTG_DSTS_ENUMSPD) == DSTS_ENUMSPD_FS_PHY_30MHZ_OR_60MHZ)||
+    412                     ((USBx_DEVICE->DSTS & USB_OTG_DSTS_ENUMSPD) == DSTS_ENUMSPD_FS_PHY_48MHZ))
+   \   0000000E   0x6882             LDR      R2,[R0, #+8]
+   \   00000010   0xF002 0x0206      AND      R2,R2,#0x6
+   \   00000014   0x2A02             CMP      R2,#+2
+   \   00000016   0xBF1D             ITTTE    NE 
+   \   00000018   0x6882             LDRNE    R2,[R0, #+8]
+   \   0000001A   0xF002 0x0206      ANDNE    R2,R2,#0x6
+   \   0000001E   0x2A06             CMPNE    R2,#+6
+   \   00000020   0x2103             MOVEQ    R1,#+3
+    413            {
+    414              speed = USB_OTG_SPEED_FULL;
+   \   00000022   0xD005             BEQ.N    ??USB_GetDevSpeed_0
+    415            }
+    416            else if((USBx_DEVICE->DSTS & USB_OTG_DSTS_ENUMSPD) == DSTS_ENUMSPD_LS_PHY_6MHZ)
+   \   00000024   0x6880             LDR      R0,[R0, #+8]
+   \   00000026   0xF000 0x0006      AND      R0,R0,#0x6
+   \   0000002A   0x2804             CMP      R0,#+4
+   \   0000002C   0xBF08             IT       EQ 
+   \   0000002E   0x2102             MOVEQ    R1,#+2
+    417            {
+    418              speed = USB_OTG_SPEED_LOW;
+    419            }
+    420            
+    421            return speed;
+   \                     ??USB_GetDevSpeed_0: (+1)
+   \   00000030   0x4608             MOV      R0,R1
+   \   00000032   0x4770             BX       LR               ;; return
+    422          }
+    423          
+    424          /**
+    425            * @brief  Activate and configure an endpoint
+    426            * @param  USBx : Selected device
+    427            * @param  ep: pointer to endpoint structure
+    428            * @retval HAL status
+    429            */
+
+   \                                 In section .text, align 2, keep-with-next
+    430          HAL_StatusTypeDef USB_ActivateEndpoint(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep)
+    431          {
+   \                     USB_ActivateEndpoint: (+1)
+   \   00000000   0xB530             PUSH     {R4,R5,LR}
+    432            if (ep->is_in == 1)
+   \   00000002   0xF991 0x4000      LDRSB    R4,[R1, #+0]
+   \   00000006   0x784D             LDRB     R5,[R1, #+1]
+   \   00000008   0xF500 0x6300      ADD      R3,R0,#+2048
+   \   0000000C   0x2201             MOVS     R2,#+1
+   \   0000000E   0xFA02 0xF404      LSL      R4,R2,R4
+   \   00000012   0x.... 0x....      LDR.W    R2,??DataTable9_3  ;; 0x10008000
+   \   00000016   0x2D01             CMP      R5,#+1
+   \   00000018   0x69DD             LDR      R5,[R3, #+28]
+   \   0000001A   0xD116             BNE.N    ??USB_ActivateEndpoint_0
+    433            {
+    434             USBx_DEVICE->DAINTMSK |= USB_OTG_DAINTMSK_IEPM & ((1 << (ep->num)));
+   \   0000001C   0xB2A4             UXTH     R4,R4
+   \   0000001E   0x432C             ORRS     R4,R4,R5
+   \   00000020   0x61DC             STR      R4,[R3, #+28]
+    435             
+    436              if (((USBx_INEP(ep->num)->DIEPCTL) & USB_OTG_DIEPCTL_USBAEP) == 0)
+   \   00000022   0x780B             LDRB     R3,[R1, #+0]
+   \   00000024   0xEB00 0x1043      ADD      R0,R0,R3, LSL #+5
+   \   00000028   0xF500 0x6010      ADD      R0,R0,#+2304
+   \   0000002C   0x6804             LDR      R4,[R0, #+0]
+   \   0000002E   0x0424             LSLS     R4,R4,#+16
+   \   00000030   0xD420             BMI.N    ??USB_ActivateEndpoint_1
+    437              {
+    438                USBx_INEP(ep->num)->DIEPCTL |= ((ep->maxpacket & USB_OTG_DIEPCTL_MPSIZ ) | (ep->type << 18 ) |\
+    439                  ((ep->num) << 22 ) | (USB_OTG_DIEPCTL_SD0PID_SEVNFRM) | (USB_OTG_DIEPCTL_USBAEP)); 
+   \   00000032   0x6804             LDR      R4,[R0, #+0]
+   \   00000034   0x688D             LDR      R5,[R1, #+8]
+   \   00000036   0x78C9             LDRB     R1,[R1, #+3]
+   \   00000038   0x056D             LSLS     R5,R5,#+21
+   \   0000003A   0x0D6D             LSRS     R5,R5,#+21
+   \   0000003C   0xEA45 0x4181      ORR      R1,R5,R1, LSL #+18
+   \   00000040   0xEA41 0x5183      ORR      R1,R1,R3, LSL #+22
+   \   00000044   0x4311             ORRS     R1,R2,R1
+   \   00000046   0x4321             ORRS     R1,R1,R4
+   \   00000048   0xE013             B.N      ??USB_ActivateEndpoint_2
+    440              } 
+    441          
+    442            }
+    443            else
+    444            {
+    445               USBx_DEVICE->DAINTMSK |= USB_OTG_DAINTMSK_OEPM & ((1 << (ep->num)) << 16);
+   \                     ??USB_ActivateEndpoint_0: (+1)
+   \   0000004A   0xEA45 0x4404      ORR      R4,R5,R4, LSL #+16
+   \   0000004E   0x61DC             STR      R4,[R3, #+28]
+    446               
+    447              if (((USBx_OUTEP(ep->num)->DOEPCTL) & USB_OTG_DOEPCTL_USBAEP) == 0)
+   \   00000050   0x780B             LDRB     R3,[R1, #+0]
+   \   00000052   0xEB00 0x1043      ADD      R0,R0,R3, LSL #+5
+   \   00000056   0xF500 0x6030      ADD      R0,R0,#+2816
+   \   0000005A   0x6803             LDR      R3,[R0, #+0]
+   \   0000005C   0x041B             LSLS     R3,R3,#+16
+   \   0000005E   0xD409             BMI.N    ??USB_ActivateEndpoint_1
+    448              {
+    449                USBx_OUTEP(ep->num)->DOEPCTL |= ((ep->maxpacket & USB_OTG_DOEPCTL_MPSIZ ) | (ep->type << 18 ) |\
+    450                 (USB_OTG_DIEPCTL_SD0PID_SEVNFRM)| (USB_OTG_DOEPCTL_USBAEP));
+   \   00000060   0x6803             LDR      R3,[R0, #+0]
+   \   00000062   0x688C             LDR      R4,[R1, #+8]
+   \   00000064   0x78C9             LDRB     R1,[R1, #+3]
+   \   00000066   0x0564             LSLS     R4,R4,#+21
+   \   00000068   0x0D64             LSRS     R4,R4,#+21
+   \   0000006A   0xEA44 0x4181      ORR      R1,R4,R1, LSL #+18
+   \   0000006E   0x4311             ORRS     R1,R2,R1
+   \   00000070   0x4319             ORRS     R1,R1,R3
+   \                     ??USB_ActivateEndpoint_2: (+1)
+   \   00000072   0x6001             STR      R1,[R0, #+0]
+    451              } 
+    452            }
+    453            return HAL_OK;
+   \                     ??USB_ActivateEndpoint_1: (+1)
+   \   00000074   0x2000             MOVS     R0,#+0
+   \   00000076   0xBD30             POP      {R4,R5,PC}       ;; return
+    454          }
+    455          /**
+    456            * @brief  Activate and configure a dedicated endpoint
+    457            * @param  USBx : Selected device
+    458            * @param  ep: pointer to endpoint structure
+    459            * @retval HAL status
+    460            */
+
+   \                                 In section .text, align 2, keep-with-next
+    461          HAL_StatusTypeDef USB_ActivateDedicatedEndpoint(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep)
+    462          {
+   \                     USB_ActivateDedicatedEndpoint: (+1)
+   \   00000000   0xB5F0             PUSH     {R4-R7,LR}
+    463            static __IO uint32_t debug = 0;
+    464            
+    465            /* Read DEPCTLn register */
+    466            if (ep->is_in == 1)
+   \   00000002   0x784F             LDRB     R7,[R1, #+1]
+   \   00000004   0x2501             MOVS     R5,#+1
+   \   00000006   0x780A             LDRB     R2,[R1, #+0]
+   \   00000008   0xF500 0x6300      ADD      R3,R0,#+2048
+   \   0000000C   0x.... 0x....      LDR.W    R4,??DataTable9_4
+   \   00000010   0x2F01             CMP      R7,#+1
+   \   00000012   0xEB00 0x1642      ADD      R6,R0,R2, LSL #+5
+   \   00000016   0xD128             BNE.N    ??USB_ActivateDedicatedEndpoint_0
+   \   00000018   0xF506 0x6010      ADD      R0,R6,#+2304
+   \   0000001C   0x.... 0x....      LDR.W    R6,??DataTable9_3  ;; 0x10008000
+   \   00000020   0x6807             LDR      R7,[R0, #+0]
+   \   00000022   0x043F             LSLS     R7,R7,#+16
+   \   00000024   0xD40F             BMI.N    ??USB_ActivateDedicatedEndpoint_1
+    467            {
+    468              if (((USBx_INEP(ep->num)->DIEPCTL) & USB_OTG_DIEPCTL_USBAEP) == 0)
+    469              {
+    470                USBx_INEP(ep->num)->DIEPCTL |= ((ep->maxpacket & USB_OTG_DIEPCTL_MPSIZ ) | (ep->type << 18 ) |\
+    471                  ((ep->num) << 22 ) | (USB_OTG_DIEPCTL_SD0PID_SEVNFRM) | (USB_OTG_DIEPCTL_USBAEP)); 
+   \   00000026   0x6807             LDR      R7,[R0, #+0]
+   \   00000028   0xF8D1 0xC008      LDR      R12,[R1, #+8]
+   \   0000002C   0xF891 0xE003      LDRB     LR,[R1, #+3]
+   \   00000030   0xEA4F 0x5C4C      LSL      R12,R12,#+21
+   \   00000034   0xEA4F 0x5C5C      LSR      R12,R12,#+21
+   \   00000038   0xEA4C 0x4C8E      ORR      R12,R12,LR, LSL #+18
+   \   0000003C   0xEA4C 0x5282      ORR      R2,R12,R2, LSL #+22
+   \   00000040   0x4332             ORRS     R2,R6,R2
+   \   00000042   0x433A             ORRS     R2,R2,R7
+   \   00000044   0x6002             STR      R2,[R0, #+0]
+    472              } 
+    473              
+    474              
+    475              debug  |= ((ep->maxpacket & USB_OTG_DIEPCTL_MPSIZ ) | (ep->type << 18 ) |\
+    476                  ((ep->num) << 22 ) | (USB_OTG_DIEPCTL_SD0PID_SEVNFRM) | (USB_OTG_DIEPCTL_USBAEP)); 
+   \                     ??USB_ActivateDedicatedEndpoint_1: (+1)
+   \   00000046   0x6820             LDR      R0,[R4, #+0]
+   \   00000048   0x688A             LDR      R2,[R1, #+8]
+   \   0000004A   0x78CF             LDRB     R7,[R1, #+3]
+   \   0000004C   0x0552             LSLS     R2,R2,#+21
+   \   0000004E   0x0D52             LSRS     R2,R2,#+21
+   \   00000050   0xEA42 0x4287      ORR      R2,R2,R7, LSL #+18
+   \   00000054   0x780F             LDRB     R7,[R1, #+0]
+   \   00000056   0xEA42 0x5287      ORR      R2,R2,R7, LSL #+22
+   \   0000005A   0x4332             ORRS     R2,R6,R2
+   \   0000005C   0x4310             ORRS     R0,R2,R0
+   \   0000005E   0x6020             STR      R0,[R4, #+0]
+    477              
+    478             USBx_DEVICE->DEACHMSK |= USB_OTG_DAINTMSK_IEPM & ((1 << (ep->num)));
+   \   00000060   0x.... 0x....      BL       ?Subroutine9
+    479            }
+   \                     ??CrossCallReturnLabel_11: (+1)
+   \   00000064   0xB289             UXTH     R1,R1
+   \   00000066   0x4308             ORRS     R0,R1,R0
+   \   00000068   0xE030             B.N      ??USB_ActivateDedicatedEndpoint_2
+   \                     ??USB_ActivateDedicatedEndpoint_0: (+1)
+   \   0000006A   0xF506 0x6630      ADD      R6,R6,#+2816
+   \   0000006E   0x6837             LDR      R7,[R6, #+0]
+   \   00000070   0x043F             LSLS     R7,R7,#+16
+   \   00000072   0xD427             BMI.N    ??USB_ActivateDedicatedEndpoint_3
+    480            else
+    481            {
+    482              if (((USBx_OUTEP(ep->num)->DOEPCTL) & USB_OTG_DOEPCTL_USBAEP) == 0)
+    483              {
+    484                USBx_OUTEP(ep->num)->DOEPCTL |= ((ep->maxpacket & USB_OTG_DOEPCTL_MPSIZ ) | (ep->type << 18 ) |\
+    485                  ((ep->num) << 22 ) | (USB_OTG_DOEPCTL_USBAEP));
+   \   00000074   0x6837             LDR      R7,[R6, #+0]
+   \   00000076   0xF8D1 0xC008      LDR      R12,[R1, #+8]
+   \   0000007A   0xF891 0xE003      LDRB     LR,[R1, #+3]
+   \   0000007E   0xEA4F 0x5C4C      LSL      R12,R12,#+21
+   \   00000082   0xEA4F 0x5C5C      LSR      R12,R12,#+21
+   \   00000086   0xEA4C 0x4C8E      ORR      R12,R12,LR, LSL #+18
+   \   0000008A   0xEA4C 0x5282      ORR      R2,R12,R2, LSL #+22
+   \   0000008E   0xF442 0x4200      ORR      R2,R2,#0x8000
+   \   00000092   0x433A             ORRS     R2,R2,R7
+   \   00000094   0x6032             STR      R2,[R6, #+0]
+    486                
+    487                debug = (uint32_t)(((uint32_t )USBx) + USB_OTG_OUT_ENDPOINT_BASE + (0)*USB_OTG_EP_REG_SIZE);
+   \   00000096   0xF500 0x6230      ADD      R2,R0,#+2816
+   \   0000009A   0x6022             STR      R2,[R4, #+0]
+    488                debug = (uint32_t )&USBx_OUTEP(ep->num)->DOEPCTL;
+   \   0000009C   0x780A             LDRB     R2,[R1, #+0]
+   \   0000009E   0xEB00 0x1042      ADD      R0,R0,R2, LSL #+5
+   \   000000A2   0xF500 0x6030      ADD      R0,R0,#+2816
+   \   000000A6   0x6020             STR      R0,[R4, #+0]
+    489                debug |= ((ep->maxpacket & USB_OTG_DOEPCTL_MPSIZ ) | (ep->type << 18 ) |\
+    490                  ((ep->num) << 22 ) | (USB_OTG_DOEPCTL_USBAEP)); 
+   \   000000A8   0x6820             LDR      R0,[R4, #+0]
+   \   000000AA   0x688A             LDR      R2,[R1, #+8]
+   \   000000AC   0x78CE             LDRB     R6,[R1, #+3]
+   \   000000AE   0x0552             LSLS     R2,R2,#+21
+   \   000000B0   0x0D52             LSRS     R2,R2,#+21
+   \   000000B2   0xEA42 0x4286      ORR      R2,R2,R6, LSL #+18
+   \   000000B6   0x780E             LDRB     R6,[R1, #+0]
+   \   000000B8   0xEA42 0x5286      ORR      R2,R2,R6, LSL #+22
+   \   000000BC   0xF442 0x4200      ORR      R2,R2,#0x8000
+   \   000000C0   0x4310             ORRS     R0,R2,R0
+   \   000000C2   0x6020             STR      R0,[R4, #+0]
+    491              } 
+    492              
+    493               USBx_DEVICE->DEACHMSK |= USB_OTG_DAINTMSK_OEPM & ((1 << (ep->num)) << 16);
+   \                     ??USB_ActivateDedicatedEndpoint_3: (+1)
+   \   000000C4   0x.... 0x....      BL       ?Subroutine9
+    494            }
+   \                     ??CrossCallReturnLabel_12: (+1)
+   \   000000C8   0xEA40 0x4001      ORR      R0,R0,R1, LSL #+16
+   \                     ??USB_ActivateDedicatedEndpoint_2: (+1)
+   \   000000CC   0x63D8             STR      R0,[R3, #+60]
+    495          
+    496            return HAL_OK;
+   \   000000CE   0x2000             MOVS     R0,#+0
+   \   000000D0   0xBDF0             POP      {R4-R7,PC}       ;; return
+    497          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine9: (+1)
+   \   00000000   0x6BD8             LDR      R0,[R3, #+60]
+   \   00000002   0xF991 0x1000      LDRSB    R1,[R1, #+0]
+   \   00000006   0xFA05 0xF101      LSL      R1,R5,R1
+   \   0000000A   0x4770             BX       LR
+
+   \                                 In section .bss, align 4
+   \                     ??debug:
+   \   00000000                      DS8 4
+    498          /**
+    499            * @brief  De-activate and de-initialize an endpoint
+    500            * @param  USBx : Selected device
+    501            * @param  ep: pointer to endpoint structure
+    502            * @retval HAL status
+    503            */
+
+   \                                 In section .text, align 2, keep-with-next
+    504          HAL_StatusTypeDef USB_DeactivateEndpoint(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep)
+    505          {
+   \                     USB_DeactivateEndpoint: (+1)
+   \   00000000   0xB530             PUSH     {R4,R5,LR}
+    506            /* Read DEPCTLn register */
+    507            if (ep->is_in == 1)
+   \   00000002   0x784D             LDRB     R5,[R1, #+1]
+   \   00000004   0xF991 0x4000      LDRSB    R4,[R1, #+0]
+   \   00000008   0xF500 0x6200      ADD      R2,R0,#+2048
+   \   0000000C   0x2301             MOVS     R3,#+1
+   \   0000000E   0x2D01             CMP      R5,#+1
+   \   00000010   0xFA03 0xF404      LSL      R4,R3,R4
+   \   00000014   0x6BD5             LDR      R5,[R2, #+60]
+   \   00000016   0xD10B             BNE.N    ??USB_DeactivateEndpoint_0
+    508            {
+    509             USBx_DEVICE->DEACHMSK &= ~(USB_OTG_DAINTMSK_IEPM & ((1 << (ep->num))));
+   \   00000018   0xB2A4             UXTH     R4,R4
+   \   0000001A   0xEA25 0x0404      BIC      R4,R5,R4
+   \   0000001E   0x.... 0x....      BL       ?Subroutine10
+    510             USBx_DEVICE->DAINTMSK &= ~(USB_OTG_DAINTMSK_IEPM & ((1 << (ep->num))));   
+   \                     ??CrossCallReturnLabel_13: (+1)
+   \   00000022   0xB29B             UXTH     R3,R3
+   \   00000024   0xEA24 0x0303      BIC      R3,R4,R3
+   \   00000028   0x61D3             STR      R3,[R2, #+28]
+    511             USBx_INEP(ep->num)->DIEPCTL &= ~ USB_OTG_DIEPCTL_USBAEP;   
+   \   0000002A   0x.... 0x....      BL       ?Subroutine11
+    512            }
+   \                     ??CrossCallReturnLabel_15: (+1)
+   \   0000002E   0xE008             B.N      ??CrossCallReturnLabel_17
+    513            else
+    514            {
+    515          
+    516               USBx_DEVICE->DEACHMSK &= ~(USB_OTG_DAINTMSK_OEPM & ((1 << (ep->num)) << 16));
+   \                     ??USB_DeactivateEndpoint_0: (+1)
+   \   00000030   0xEA25 0x4404      BIC      R4,R5,R4, LSL #+16
+   \   00000034   0x.... 0x....      BL       ?Subroutine10
+    517               USBx_DEVICE->DAINTMSK &= ~(USB_OTG_DAINTMSK_OEPM & ((1 << (ep->num)) << 16));     
+   \                     ??CrossCallReturnLabel_14: (+1)
+   \   00000038   0xEA24 0x4303      BIC      R3,R4,R3, LSL #+16
+   \   0000003C   0x61D3             STR      R3,[R2, #+28]
+    518               USBx_OUTEP(ep->num)->DOEPCTL &= ~USB_OTG_DOEPCTL_USBAEP;      
+   \   0000003E   0x.... 0x....      BL       ?Subroutine12
+    519            }
+   \                     ??CrossCallReturnLabel_17: (+1)
+   \   00000042   0x6801             LDR      R1,[R0, #+0]
+   \   00000044   0xF421 0x4100      BIC      R1,R1,#0x8000
+   \   00000048   0x....             B.N      ?Subroutine4
+    520            return HAL_OK;
+    521          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine10: (+1)
+   \   00000000   0x63D4             STR      R4,[R2, #+60]
+   \   00000002   0x69D4             LDR      R4,[R2, #+28]
+   \   00000004   0xF991 0x5000      LDRSB    R5,[R1, #+0]
+   \   00000008   0x40AB             LSLS     R3,R3,R5
+   \   0000000A   0x4770             BX       LR
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine4: (+1)
+   \   00000000   0x6001             STR      R1,[R0, #+0]
+   \   00000002   0x2000             MOVS     R0,#+0
+   \   00000004   0xBD30             POP      {R4,R5,PC}       ;; return
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine12: (+1)
+   \   00000000   0x7809             LDRB     R1,[R1, #+0]
+   \   00000002   0xEB00 0x1041      ADD      R0,R0,R1, LSL #+5
+   \   00000006   0xF500 0x6030      ADD      R0,R0,#+2816
+   \   0000000A   0x4770             BX       LR
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine11: (+1)
+   \   00000000   0x7809             LDRB     R1,[R1, #+0]
+   \   00000002   0xEB00 0x1041      ADD      R0,R0,R1, LSL #+5
+   \   00000006   0xF500 0x6010      ADD      R0,R0,#+2304
+   \   0000000A   0x4770             BX       LR
+    522          
+    523          /**
+    524            * @brief  De-activate and de-initialize a dedicated endpoint
+    525            * @param  USBx : Selected device
+    526            * @param  ep: pointer to endpoint structure
+    527            * @retval HAL status
+    528            */
+
+   \                                 In section .text, align 2, keep-with-next
+    529          HAL_StatusTypeDef USB_DeactivateDedicatedEndpoint(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep)
+    530          {
+   \                     USB_DeactivateDedicatedEndpoint: (+1)
+   \   00000000   0xB510             PUSH     {R4,LR}
+    531            /* Read DEPCTLn register */
+    532            if (ep->is_in == 1)
+   \   00000002   0x784C             LDRB     R4,[R1, #+1]
+   \   00000004   0x780A             LDRB     R2,[R1, #+0]
+   \   00000006   0xEB00 0x1342      ADD      R3,R0,R2, LSL #+5
+   \   0000000A   0x2201             MOVS     R2,#+1
+   \   0000000C   0xF500 0x6000      ADD      R0,R0,#+2048
+   \   00000010   0x2C01             CMP      R4,#+1
+   \   00000012   0xD107             BNE.N    ??USB_DeactivateDedicatedEndpoint_0
+   \   00000014   0xF503 0x6310      ADD      R3,R3,#+2304
+   \   00000018   0x.... 0x....      BL       ?Subroutine13
+    533            {
+    534             USBx_INEP(ep->num)->DIEPCTL &= ~ USB_OTG_DIEPCTL_USBAEP;
+    535             USBx_DEVICE->DAINTMSK &= ~(USB_OTG_DAINTMSK_IEPM & ((1 << (ep->num))));
+   \                     ??CrossCallReturnLabel_19: (+1)
+   \   0000001C   0xB289             UXTH     R1,R1
+   \   0000001E   0xEA23 0x0101      BIC      R1,R3,R1
+   \   00000022   0xE005             B.N      ??USB_DeactivateDedicatedEndpoint_1
+   \                     ??USB_DeactivateDedicatedEndpoint_0: (+1)
+   \   00000024   0xF503 0x6330      ADD      R3,R3,#+2816
+   \   00000028   0x.... 0x....      BL       ?Subroutine13
+    536            }
+    537            else
+    538            {
+    539               USBx_OUTEP(ep->num)->DOEPCTL &= ~USB_OTG_DOEPCTL_USBAEP; 
+    540               USBx_DEVICE->DAINTMSK &= ~(USB_OTG_DAINTMSK_OEPM & ((1 << (ep->num)) << 16));
+   \                     ??CrossCallReturnLabel_20: (+1)
+   \   0000002C   0xEA23 0x4101      BIC      R1,R3,R1, LSL #+16
+   \                     ??USB_DeactivateDedicatedEndpoint_1: (+1)
+   \   00000030   0x61C1             STR      R1,[R0, #+28]
+    541            }
+    542            return HAL_OK;
+   \   00000032   0x2000             MOVS     R0,#+0
+   \   00000034   0xBD10             POP      {R4,PC}          ;; return
+    543          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine13: (+1)
+   \   00000000   0x681C             LDR      R4,[R3, #+0]
+   \   00000002   0xF424 0x4400      BIC      R4,R4,#0x8000
+   \   00000006   0x601C             STR      R4,[R3, #+0]
+   \   00000008   0x69C3             LDR      R3,[R0, #+28]
+   \   0000000A   0xF991 0x1000      LDRSB    R1,[R1, #+0]
+   \   0000000E   0xFA02 0xF101      LSL      R1,R2,R1
+   \   00000012   0x4770             BX       LR
+    544          
+    545          /**
+    546            * @brief  USB_EPStartXfer : setup and starts a transfer over an EP
+    547            * @param  USBx : Selected device
+    548            * @param  ep: pointer to endpoint structure
+    549            * @param  dma: USB dma enabled or disabled 
+    550            *          This parameter can be one of the these values:
+    551            *           0 : DMA feature not used 
+    552            *           1 : DMA feature used  
+    553            * @retval HAL status
+    554            */
+
+   \                                 In section .text, align 2, keep-with-next
+    555          HAL_StatusTypeDef USB_EPStartXfer(USB_OTG_GlobalTypeDef *USBx , USB_OTG_EPTypeDef *ep, uint8_t dma)
+    556          {
+   \                     USB_EPStartXfer: (+1)
+   \   00000000   0xE92D 0x41F0      PUSH     {R4-R8,LR}
+   \   00000004   0xB082             SUB      SP,SP,#+8
+    557            uint16_t pktcnt = 0;
+    558            
+    559            /* IN endpoint */
+    560            if (ep->is_in == 1)
+   \   00000006   0xF891 0xE001      LDRB     LR,[R1, #+1]
+   \   0000000A   0x780C             LDRB     R4,[R1, #+0]
+   \   0000000C   0x4603             MOV      R3,R0
+   \   0000000E   0x4615             MOV      R5,R2
+   \   00000010   0x.... 0x....      LDR.W    R6,??DataTable9_5  ;; 0x1ff80000
+   \   00000014   0xF1BE 0x0F01      CMP      LR,#+1
+   \   00000018   0x.... 0x....      LDR.W    R7,??DataTable9_6  ;; 0xe007ffff
+   \   0000001C   0xEB03 0x1C44      ADD      R12,R3,R4, LSL #+5
+   \   00000020   0xF503 0x6400      ADD      R4,R3,#+2048
+   \   00000024   0xF040 0x808E      BNE.W    ??USB_EPStartXfer_0
+   \   00000028   0xF8D1 0xE014      LDR      LR,[R1, #+20]
+   \   0000002C   0xF50C 0x6C10      ADD      R12,R12,#+2304
+   \   00000030   0xF1BE 0x0F00      CMP      LR,#+0
+   \   00000034   0xD10D             BNE.N    ??USB_EPStartXfer_1
+    561            {
+    562              /* Zero Length Packet? */
+    563              if (ep->xfer_len == 0)
+    564              {
+    565                USBx_INEP(ep->num)->DIEPTSIZ &= ~(USB_OTG_DIEPTSIZ_PKTCNT); 
+   \   00000036   0xF8DC 0x6010      LDR      R6,[R12, #+16]
+   \   0000003A   0x403E             ANDS     R6,R7,R6
+   \   0000003C   0xF8CC 0x6010      STR      R6,[R12, #+16]
+    566                USBx_INEP(ep->num)->DIEPTSIZ |= (USB_OTG_DIEPTSIZ_PKTCNT & (1 << 19)) ;
+   \   00000040   0x.... 0x....      BL       ??Subroutine8_0
+    567                USBx_INEP(ep->num)->DIEPTSIZ &= ~(USB_OTG_DIEPTSIZ_XFRSIZ); 
+    568              }
+   \                     ??CrossCallReturnLabel_8: (+1)
+   \   00000044   0xF447 0x2700      ORR      R7,R7,#0x80000
+   \   00000048   0x.... 0x....      BL       ?Subroutine8
+   \                     ??CrossCallReturnLabel_6: (+1)
+   \   0000004C   0x0CFF             LSRS     R7,R7,#+19
+   \   0000004E   0x04FF             LSLS     R7,R7,#+19
+   \   00000050   0xE03C             B.N      ??USB_EPStartXfer_2
+    569              else
+    570              {
+    571                /* Program the transfer size and packet count
+    572                * as follows: xfersize = N * maxpacket +
+    573                * short_packet pktcnt = N + (short_packet
+    574                * exist ? 1 : 0)
+    575                */
+    576                USBx_INEP(ep->num)->DIEPTSIZ &= ~(USB_OTG_DIEPTSIZ_XFRSIZ);
+   \                     ??USB_EPStartXfer_1: (+1)
+   \   00000052   0xF8DC 0xE010      LDR      LR,[R12, #+16]
+   \   00000056   0xEA4F 0x4EDE      LSR      LR,LR,#+19
+   \   0000005A   0xEA4F 0x4ECE      LSL      LR,LR,#+19
+   \   0000005E   0xF8CC 0xE010      STR      LR,[R12, #+16]
+    577                USBx_INEP(ep->num)->DIEPTSIZ &= ~(USB_OTG_DIEPTSIZ_PKTCNT); 
+   \   00000062   0xF891 0xC000      LDRB     R12,[R1, #+0]
+   \   00000066   0xEB03 0x1C4C      ADD      R12,R3,R12, LSL #+5
+   \   0000006A   0xF50C 0x6C10      ADD      R12,R12,#+2304
+   \   0000006E   0xF8DC 0xE010      LDR      LR,[R12, #+16]
+   \   00000072   0xEA07 0x070E      AND      R7,R7,LR
+   \   00000076   0xF8CC 0x7010      STR      R7,[R12, #+16]
+    578                USBx_INEP(ep->num)->DIEPTSIZ |= (USB_OTG_DIEPTSIZ_PKTCNT & (((ep->xfer_len + ep->maxpacket -1)/ ep->maxpacket) << 19)) ;
+   \   0000007A   0x780F             LDRB     R7,[R1, #+0]
+   \   0000007C   0xF8D1 0xE008      LDR      LR,[R1, #+8]
+   \   00000080   0xEB03 0x1747      ADD      R7,R3,R7, LSL #+5
+   \   00000084   0xF507 0x6710      ADD      R7,R7,#+2304
+   \   00000088   0xF8D7 0xC010      LDR      R12,[R7, #+16]
+   \   0000008C   0xF8D1 0x8014      LDR      R8,[R1, #+20]
+   \   00000090   0x44F0             ADD      R8,LR,R8
+   \   00000092   0xF1A8 0x0801      SUB      R8,R8,#+1
+   \   00000096   0xFBB8 0xFEFE      UDIV     LR,R8,LR
+   \   0000009A   0xEA06 0x46CE      AND      R6,R6,LR, LSL #+19
+   \   0000009E   0xEA46 0x060C      ORR      R6,R6,R12
+   \   000000A2   0x613E             STR      R6,[R7, #+16]
+    579                USBx_INEP(ep->num)->DIEPTSIZ |= (USB_OTG_DIEPTSIZ_XFRSIZ & ep->xfer_len); 
+   \   000000A4   0x.... 0x....      BL       ??Subroutine8_0
+   \                     ??CrossCallReturnLabel_9: (+1)
+   \   000000A8   0xF8D1 0xC014      LDR      R12,[R1, #+20]
+   \   000000AC   0xEA4F 0x3C4C      LSL      R12,R12,#+13
+   \   000000B0   0xEA47 0x375C      ORR      R7,R7,R12, LSR #+13
+   \   000000B4   0x6137             STR      R7,[R6, #+16]
+    580                
+    581                if (ep->type == EP_TYPE_ISOC)
+   \   000000B6   0x78CE             LDRB     R6,[R1, #+3]
+   \   000000B8   0x2E01             CMP      R6,#+1
+   \   000000BA   0xD108             BNE.N    ??USB_EPStartXfer_3
+    582                {
+    583                  USBx_INEP(ep->num)->DIEPTSIZ &= ~(USB_OTG_DIEPTSIZ_MULCNT); 
+   \   000000BC   0x.... 0x....      BL       ??Subroutine8_0
+    584                  USBx_INEP(ep->num)->DIEPTSIZ |= (USB_OTG_DIEPTSIZ_MULCNT & (1 << 29)); 
+    585                }       
+    586              }
+   \                     ??CrossCallReturnLabel_10: (+1)
+   \   000000C0   0xF027 0x47C0      BIC      R7,R7,#0x60000000
+   \   000000C4   0x.... 0x....      BL       ?Subroutine8
+   \                     ??CrossCallReturnLabel_7: (+1)
+   \   000000C8   0xF047 0x5700      ORR      R7,R7,#0x20000000
+   \                     ??USB_EPStartXfer_2: (+1)
+   \   000000CC   0x6137             STR      R7,[R6, #+16]
+    587          
+    588              if (dma == 1)
+   \                     ??USB_EPStartXfer_3: (+1)
+   \   000000CE   0x2D01             CMP      R5,#+1
+   \   000000D0   0xD107             BNE.N    ??USB_EPStartXfer_4
+    589              {
+    590                USBx_INEP(ep->num)->DIEPDMA = (uint32_t)(ep->dma_addr);
+   \   000000D2   0x780D             LDRB     R5,[R1, #+0]
+   \   000000D4   0x690E             LDR      R6,[R1, #+16]
+   \   000000D6   0xEB03 0x1545      ADD      R5,R3,R5, LSL #+5
+   \   000000DA   0xF505 0x6510      ADD      R5,R5,#+2304
+   \   000000DE   0x616E             STR      R6,[R5, #+20]
+   \   000000E0   0xE00B             B.N      ??USB_EPStartXfer_5
+    591              }
+    592              else
+    593              {
+    594                if (ep->type != EP_TYPE_ISOC)
+   \                     ??USB_EPStartXfer_4: (+1)
+   \   000000E2   0x78CD             LDRB     R5,[R1, #+3]
+   \   000000E4   0x2D01             CMP      R5,#+1
+   \   000000E6   0xD00B             BEQ.N    ??USB_EPStartXfer_6
+    595                {
+    596                  /* Enable the Tx FIFO Empty Interrupt for this EP */
+    597                  if (ep->xfer_len > 0)
+   \   000000E8   0x694D             LDR      R5,[R1, #+20]
+   \   000000EA   0xB135             CBZ.N    R5,??USB_EPStartXfer_5
+    598                  {
+    599                    USBx_DEVICE->DIEPEMPMSK |= 1 << ep->num;
+   \   000000EC   0x6B65             LDR      R5,[R4, #+52]
+   \   000000EE   0xF991 0x7000      LDRSB    R7,[R1, #+0]
+   \   000000F2   0x2601             MOVS     R6,#+1
+   \   000000F4   0x40BE             LSLS     R6,R6,R7
+   \   000000F6   0x4335             ORRS     R5,R6,R5
+   \   000000F8   0x6365             STR      R5,[R4, #+52]
+    600                  }
+    601                }
+    602              }
+    603          
+    604              if (ep->type == EP_TYPE_ISOC)
+   \                     ??USB_EPStartXfer_5: (+1)
+   \   000000FA   0x78CD             LDRB     R5,[R1, #+3]
+   \   000000FC   0x2D01             CMP      R5,#+1
+   \   000000FE   0xD10D             BNE.N    ??USB_EPStartXfer_7
+    605              {
+    606                if ((USBx_DEVICE->DSTS & ( 1 << 8 )) == 0)
+   \                     ??USB_EPStartXfer_6: (+1)
+   \   00000100   0x780D             LDRB     R5,[R1, #+0]
+   \   00000102   0x68A4             LDR      R4,[R4, #+8]
+   \   00000104   0xEB03 0x1545      ADD      R5,R3,R5, LSL #+5
+   \   00000108   0x05E4             LSLS     R4,R4,#+23
+   \   0000010A   0xF505 0x6510      ADD      R5,R5,#+2304
+   \   0000010E   0x682C             LDR      R4,[R5, #+0]
+   \   00000110   0xBF54             ITE      PL 
+   \   00000112   0xF044 0x5400      ORRPL    R4,R4,#0x20000000
+   \   00000116   0xF044 0x5480      ORRMI    R4,R4,#0x10000000
+    607                {
+    608                  USBx_INEP(ep->num)->DIEPCTL |= USB_OTG_DIEPCTL_SODDFRM;
+    609                }
+    610                else
+    611                {
+    612                  USBx_INEP(ep->num)->DIEPCTL |= USB_OTG_DIEPCTL_SD0PID_SEVNFRM;
+   \   0000011A   0x602C             STR      R4,[R5, #+0]
+    613                }
+    614              } 
+    615              
+    616              /* EP enable, IN data in FIFO */
+    617              USBx_INEP(ep->num)->DIEPCTL |= (USB_OTG_DIEPCTL_CNAK | USB_OTG_DIEPCTL_EPENA);
+   \                     ??USB_EPStartXfer_7: (+1)
+   \   0000011C   0x780C             LDRB     R4,[R1, #+0]
+   \   0000011E   0xEB03 0x1344      ADD      R3,R3,R4, LSL #+5
+   \   00000122   0xF503 0x6310      ADD      R3,R3,#+2304
+   \   00000126   0x681C             LDR      R4,[R3, #+0]
+   \   00000128   0xF044 0x4404      ORR      R4,R4,#0x84000000
+   \   0000012C   0x601C             STR      R4,[R3, #+0]
+    618              
+    619              if (ep->type == EP_TYPE_ISOC)
+   \   0000012E   0x78CB             LDRB     R3,[R1, #+3]
+   \   00000130   0x2B01             CMP      R3,#+1
+   \   00000132   0xD150             BNE.N    ??USB_EPStartXfer_8
+    620              {
+    621                USB_WritePacket(USBx, ep->xfer_buff, ep->num, ep->xfer_len, dma);   
+   \   00000134   0x9200             STR      R2,[SP, #+0]
+   \   00000136   0x694B             LDR      R3,[R1, #+20]
+   \   00000138   0x780A             LDRB     R2,[R1, #+0]
+   \   0000013A   0x68C9             LDR      R1,[R1, #+12]
+   \   0000013C   0xB29B             UXTH     R3,R3
+   \   0000013E   0x.... 0x....      BL       USB_WritePacket
+   \   00000142   0xE048             B.N      ??USB_EPStartXfer_8
+    622              }    
+    623            }
+   \                     ??USB_EPStartXfer_0: (+1)
+   \   00000144   0xF50C 0x6030      ADD      R0,R12,#+2816
+   \   00000148   0x6902             LDR      R2,[R0, #+16]
+   \   0000014A   0x0CD2             LSRS     R2,R2,#+19
+   \   0000014C   0x04D2             LSLS     R2,R2,#+19
+   \   0000014E   0x.... 0x....      BL       ?Subroutine14
+    624            else /* OUT endpoint */
+    625            {
+    626              /* Program the transfer size and packet count as follows:
+    627              * pktcnt = N
+    628              * xfersize = N * maxpacket
+    629              */  
+    630              USBx_OUTEP(ep->num)->DOEPTSIZ &= ~(USB_OTG_DOEPTSIZ_XFRSIZ); 
+    631              USBx_OUTEP(ep->num)->DOEPTSIZ &= ~(USB_OTG_DOEPTSIZ_PKTCNT); 
+   \                     ??CrossCallReturnLabel_21: (+1)
+   \   00000152   0x403A             ANDS     R2,R7,R2
+   \   00000154   0x6102             STR      R2,[R0, #+16]
+    632                
+    633              if (ep->xfer_len == 0)
+   \   00000156   0x7808             LDRB     R0,[R1, #+0]
+   \   00000158   0x694F             LDR      R7,[R1, #+20]
+   \   0000015A   0x688A             LDR      R2,[R1, #+8]
+   \   0000015C   0x.... 0x....      BL       ??Subroutine15_0
+   \                     ??CrossCallReturnLabel_23: (+1)
+   \   00000160   0xB947             CBNZ.N   R7,??USB_EPStartXfer_9
+    634              {
+    635                USBx_OUTEP(ep->num)->DOEPTSIZ |= (USB_OTG_DOEPTSIZ_XFRSIZ & ep->maxpacket);
+   \   00000162   0x6906             LDR      R6,[R0, #+16]
+   \   00000164   0x0352             LSLS     R2,R2,#+13
+   \   00000166   0xEA56 0x3252      ORRS     R2,R6,R2, LSR #+13
+   \   0000016A   0x.... 0x....      BL       ?Subroutine14
+    636                USBx_OUTEP(ep->num)->DOEPTSIZ |= (USB_OTG_DOEPTSIZ_PKTCNT & (1 << 19)) ;      
+    637              }
+   \                     ??CrossCallReturnLabel_22: (+1)
+   \   0000016E   0xF442 0x2200      ORR      R2,R2,#0x80000
+   \   00000172   0xE011             B.N      ??USB_EPStartXfer_10
+    638              else
+    639              {
+    640                pktcnt = (ep->xfer_len + ep->maxpacket -1)/ ep->maxpacket; 
+   \                     ??USB_EPStartXfer_9: (+1)
+   \   00000174   0x19D7             ADDS     R7,R2,R7
+   \   00000176   0x1E7F             SUBS     R7,R7,#+1
+   \   00000178   0xFBB7 0xF2F2      UDIV     R2,R7,R2
+   \   0000017C   0xB292             UXTH     R2,R2
+    641                USBx_OUTEP(ep->num)->DOEPTSIZ |= (USB_OTG_DOEPTSIZ_PKTCNT & (pktcnt << 19));
+   \   0000017E   0x6907             LDR      R7,[R0, #+16]
+   \   00000180   0xEA06 0x46C2      AND      R6,R6,R2, LSL #+19
+   \   00000184   0x433E             ORRS     R6,R6,R7
+   \   00000186   0x6106             STR      R6,[R0, #+16]
+    642                USBx_OUTEP(ep->num)->DOEPTSIZ |= (USB_OTG_DOEPTSIZ_XFRSIZ & (ep->maxpacket * pktcnt)); 
+   \   00000188   0x.... 0x....      BL       ?Subroutine15
+    643              }
+   \                     ??CrossCallReturnLabel_24: (+1)
+   \   0000018C   0x6906             LDR      R6,[R0, #+16]
+   \   0000018E   0x688F             LDR      R7,[R1, #+8]
+   \   00000190   0x437A             MULS     R2,R2,R7
+   \   00000192   0x0352             LSLS     R2,R2,#+13
+   \   00000194   0xEA56 0x3252      ORRS     R2,R6,R2, LSR #+13
+    644          
+    645              if (dma == 1)
+   \                     ??USB_EPStartXfer_10: (+1)
+   \   00000198   0x2D01             CMP      R5,#+1
+   \   0000019A   0x6102             STR      R2,[R0, #+16]
+   \   0000019C   0xD104             BNE.N    ??USB_EPStartXfer_11
+    646              {
+    647                USBx_OUTEP(ep->num)->DOEPDMA = (uint32_t)ep->xfer_buff;
+   \   0000019E   0x7808             LDRB     R0,[R1, #+0]
+   \   000001A0   0x68CA             LDR      R2,[R1, #+12]
+   \   000001A2   0x.... 0x....      BL       ??Subroutine15_0
+    648              }
+   \                     ??CrossCallReturnLabel_25: (+1)
+   \   000001A6   0x6142             STR      R2,[R0, #+20]
+    649              
+    650              if (ep->type == EP_TYPE_ISOC)
+   \                     ??USB_EPStartXfer_11: (+1)
+   \   000001A8   0x78C8             LDRB     R0,[R1, #+3]
+   \   000001AA   0x2801             CMP      R0,#+1
+   \   000001AC   0xD10D             BNE.N    ??USB_EPStartXfer_12
+    651              {
+    652                if ((USBx_DEVICE->DSTS & ( 1 << 8 )) == 0)
+   \   000001AE   0x7808             LDRB     R0,[R1, #+0]
+   \   000001B0   0x68A2             LDR      R2,[R4, #+8]
+   \   000001B2   0xEB03 0x1040      ADD      R0,R3,R0, LSL #+5
+   \   000001B6   0x05D2             LSLS     R2,R2,#+23
+   \   000001B8   0xF500 0x6030      ADD      R0,R0,#+2816
+   \   000001BC   0x6802             LDR      R2,[R0, #+0]
+   \   000001BE   0xBF54             ITE      PL 
+   \   000001C0   0xF042 0x5200      ORRPL    R2,R2,#0x20000000
+   \   000001C4   0xF042 0x5280      ORRMI    R2,R2,#0x10000000
+    653                {
+    654                  USBx_OUTEP(ep->num)->DOEPCTL |= USB_OTG_DOEPCTL_SODDFRM;
+    655                }
+    656                else
+    657                {
+    658                  USBx_OUTEP(ep->num)->DOEPCTL |= USB_OTG_DOEPCTL_SD0PID_SEVNFRM;
+   \   000001C8   0x6002             STR      R2,[R0, #+0]
+    659                }
+    660              }
+    661              /* EP enable */
+    662              USBx_OUTEP(ep->num)->DOEPCTL |= (USB_OTG_DOEPCTL_CNAK | USB_OTG_DOEPCTL_EPENA);
+   \                     ??USB_EPStartXfer_12: (+1)
+   \   000001CA   0x.... 0x....      BL       ?Subroutine15
+    663            }
+   \                     ??CrossCallReturnLabel_26: (+1)
+   \   000001CE   0x6801             LDR      R1,[R0, #+0]
+   \   000001D0   0xF041 0x4104      ORR      R1,R1,#0x84000000
+   \   000001D4   0x6001             STR      R1,[R0, #+0]
+    664            return HAL_OK;
+   \                     ??USB_EPStartXfer_8: (+1)
+   \   000001D6   0x2000             MOVS     R0,#+0
+   \   000001D8   0xE8BD 0x81F6      POP      {R1,R2,R4-R8,PC}  ;; return
+    665          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine15: (+1)
+   \   00000000   0x7808             LDRB     R0,[R1, #+0]
+   \                     ??Subroutine15_0: (+1)
+   \   00000002   0xEB03 0x1040      ADD      R0,R3,R0, LSL #+5
+   \   00000006   0xF500 0x6030      ADD      R0,R0,#+2816
+   \   0000000A   0x4770             BX       LR
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine14: (+1)
+   \   00000000   0x6102             STR      R2,[R0, #+16]
+   \   00000002   0x7808             LDRB     R0,[R1, #+0]
+   \   00000004   0xEB03 0x1040      ADD      R0,R3,R0, LSL #+5
+   \   00000008   0xF500 0x6030      ADD      R0,R0,#+2816
+   \   0000000C   0x6902             LDR      R2,[R0, #+16]
+   \   0000000E   0x4770             BX       LR
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine8: (+1)
+   \   00000000   0x6137             STR      R7,[R6, #+16]
+   \                     ??Subroutine8_0: (+1)
+   \   00000002   0x780E             LDRB     R6,[R1, #+0]
+   \   00000004   0xEB03 0x1646      ADD      R6,R3,R6, LSL #+5
+   \   00000008   0xF506 0x6610      ADD      R6,R6,#+2304
+   \   0000000C   0x6937             LDR      R7,[R6, #+16]
+   \   0000000E   0x4770             BX       LR
+    666          
+    667          /**
+    668            * @brief  USB_EP0StartXfer : setup and starts a transfer over the EP  0
+    669            * @param  USBx : Selected device
+    670            * @param  ep: pointer to endpoint structure
+    671            * @param  dma: USB dma enabled or disabled 
+    672            *          This parameter can be one of the these values:
+    673            *           0 : DMA feature not used 
+    674            *           1 : DMA feature used  
+    675            * @retval HAL status
+    676            */
+
+   \                                 In section .text, align 2, keep-with-next
+    677          HAL_StatusTypeDef USB_EP0StartXfer(USB_OTG_GlobalTypeDef *USBx , USB_OTG_EPTypeDef *ep, uint8_t dma)
+    678          {
+   \                     USB_EP0StartXfer: (+1)
+   \   00000000   0xB530             PUSH     {R4,R5,LR}
+    679            /* IN endpoint */
+    680            if (ep->is_in == 1)
+   \   00000002   0x784D             LDRB     R5,[R1, #+1]
+   \   00000004   0x780B             LDRB     R3,[R1, #+0]
+   \   00000006   0x2D01             CMP      R5,#+1
+   \   00000008   0xEB00 0x1443      ADD      R4,R0,R3, LSL #+5
+   \   0000000C   0x.... 0x....      LDR.W    R3,??DataTable9_6  ;; 0xe007ffff
+   \   00000010   0xD138             BNE.N    ??USB_EP0StartXfer_0
+   \   00000012   0x694D             LDR      R5,[R1, #+20]
+   \   00000014   0xF504 0x6410      ADD      R4,R4,#+2304
+   \   00000018   0x2D00             CMP      R5,#+0
+   \   0000001A   0x6925             LDR      R5,[R4, #+16]
+   \   0000001C   0xD106             BNE.N    ??USB_EP0StartXfer_1
+    681            {
+    682              /* Zero Length Packet? */
+    683              if (ep->xfer_len == 0)
+    684              {
+    685                USBx_INEP(ep->num)->DIEPTSIZ &= ~(USB_OTG_DIEPTSIZ_PKTCNT); 
+   \   0000001E   0x402B             ANDS     R3,R3,R5
+   \   00000020   0x6123             STR      R3,[R4, #+16]
+    686                USBx_INEP(ep->num)->DIEPTSIZ |= (USB_OTG_DIEPTSIZ_PKTCNT & (1 << 19)) ;
+   \   00000022   0x.... 0x....      BL       ?Subroutine6
+    687                USBx_INEP(ep->num)->DIEPTSIZ &= ~(USB_OTG_DIEPTSIZ_XFRSIZ); 
+    688              }
+   \                     ??CrossCallReturnLabel_2: (+1)
+   \   00000026   0x0CE4             LSRS     R4,R4,#+19
+   \   00000028   0x04E4             LSLS     R4,R4,#+19
+   \   0000002A   0xE012             B.N      ??USB_EP0StartXfer_2
+    689              else
+    690              {
+    691                /* Program the transfer size and packet count
+    692                * as follows: xfersize = N * maxpacket +
+    693                * short_packet pktcnt = N + (short_packet
+    694                * exist ? 1 : 0)
+    695                */
+    696                USBx_INEP(ep->num)->DIEPTSIZ &= ~(USB_OTG_DIEPTSIZ_XFRSIZ);
+   \                     ??USB_EP0StartXfer_1: (+1)
+   \   0000002C   0x.... 0x....      BL       ?Subroutine16
+    697                USBx_INEP(ep->num)->DIEPTSIZ &= ~(USB_OTG_DIEPTSIZ_PKTCNT); 
+   \                     ??CrossCallReturnLabel_27: (+1)
+   \   00000030   0xF504 0x6410      ADD      R4,R4,#+2304
+   \   00000034   0x6925             LDR      R5,[R4, #+16]
+   \   00000036   0x402B             ANDS     R3,R3,R5
+   \   00000038   0x6123             STR      R3,[R4, #+16]
+    698                
+    699                if(ep->xfer_len > ep->maxpacket)
+   \   0000003A   0x688B             LDR      R3,[R1, #+8]
+   \   0000003C   0x694C             LDR      R4,[R1, #+20]
+   \   0000003E   0x42A3             CMP      R3,R4
+   \   00000040   0xBF88             IT       HI 
+   \   00000042   0x4623             MOVHI    R3,R4
+   \   00000044   0x614B             STR      R3,[R1, #+20]
+    700                {
+    701                  ep->xfer_len = ep->maxpacket;
+    702                }
+    703                USBx_INEP(ep->num)->DIEPTSIZ |= (USB_OTG_DIEPTSIZ_PKTCNT & (1 << 19)) ;
+   \   00000046   0x.... 0x....      BL       ?Subroutine6
+    704                USBx_INEP(ep->num)->DIEPTSIZ |= (USB_OTG_DIEPTSIZ_XFRSIZ & ep->xfer_len); 
+    705              
+    706              }
+   \                     ??CrossCallReturnLabel_3: (+1)
+   \   0000004A   0x694D             LDR      R5,[R1, #+20]
+   \   0000004C   0x036D             LSLS     R5,R5,#+13
+   \   0000004E   0xEA54 0x3455      ORRS     R4,R4,R5, LSR #+13
+    707              
+    708              if (dma == 1)
+   \                     ??USB_EP0StartXfer_2: (+1)
+   \   00000052   0x2A01             CMP      R2,#+1
+   \   00000054   0x611C             STR      R4,[R3, #+16]
+   \   00000056   0xD107             BNE.N    ??USB_EP0StartXfer_3
+    709              {
+    710                USBx_INEP(ep->num)->DIEPDMA = (uint32_t)(ep->dma_addr);
+   \   00000058   0x780A             LDRB     R2,[R1, #+0]
+   \   0000005A   0x690B             LDR      R3,[R1, #+16]
+   \   0000005C   0xEB00 0x1242      ADD      R2,R0,R2, LSL #+5
+   \   00000060   0xF502 0x6210      ADD      R2,R2,#+2304
+   \   00000064   0x6153             STR      R3,[R2, #+20]
+   \   00000066   0xE00A             B.N      ??USB_EP0StartXfer_4
+    711              }
+    712              else
+    713              {
+    714                /* Enable the Tx FIFO Empty Interrupt for this EP */
+    715                if (ep->xfer_len > 0)
+   \                     ??USB_EP0StartXfer_3: (+1)
+   \   00000068   0x694A             LDR      R2,[R1, #+20]
+   \   0000006A   0xB142             CBZ.N    R2,??USB_EP0StartXfer_4
+    716                {
+    717                  USBx_DEVICE->DIEPEMPMSK |= 1 << (ep->num);
+   \   0000006C   0xF500 0x6200      ADD      R2,R0,#+2048
+   \   00000070   0x2401             MOVS     R4,#+1
+   \   00000072   0x6B53             LDR      R3,[R2, #+52]
+   \   00000074   0xF991 0x5000      LDRSB    R5,[R1, #+0]
+   \   00000078   0x40AC             LSLS     R4,R4,R5
+   \   0000007A   0x4323             ORRS     R3,R4,R3
+   \   0000007C   0x6353             STR      R3,[R2, #+52]
+    718                }
+    719              }
+    720              
+    721              /* EP enable, IN data in FIFO */
+    722              USBx_INEP(ep->num)->DIEPCTL |= (USB_OTG_DIEPCTL_CNAK | USB_OTG_DIEPCTL_EPENA);   
+   \                     ??USB_EP0StartXfer_4: (+1)
+   \   0000007E   0x.... 0x....      BL       ?Subroutine11
+    723            }
+   \                     ??CrossCallReturnLabel_16: (+1)
+   \   00000082   0xE024             B.N      ??CrossCallReturnLabel_18
+   \                     ??USB_EP0StartXfer_0: (+1)
+   \   00000084   0xF504 0x6430      ADD      R4,R4,#+2816
+   \   00000088   0x6925             LDR      R5,[R4, #+16]
+   \   0000008A   0x.... 0x....      BL       ?Subroutine16
+    724            else /* OUT endpoint */
+    725            {
+    726              /* Program the transfer size and packet count as follows:
+    727              * pktcnt = N
+    728              * xfersize = N * maxpacket
+    729              */
+    730              USBx_OUTEP(ep->num)->DOEPTSIZ &= ~(USB_OTG_DOEPTSIZ_XFRSIZ); 
+    731              USBx_OUTEP(ep->num)->DOEPTSIZ &= ~(USB_OTG_DOEPTSIZ_PKTCNT); 
+   \                     ??CrossCallReturnLabel_28: (+1)
+   \   0000008E   0xF504 0x6430      ADD      R4,R4,#+2816
+   \   00000092   0x6925             LDR      R5,[R4, #+16]
+   \   00000094   0x402B             ANDS     R3,R3,R5
+   \   00000096   0x6123             STR      R3,[R4, #+16]
+    732                
+    733              if (ep->xfer_len > 0)
+   \   00000098   0x694B             LDR      R3,[R1, #+20]
+   \   0000009A   0xB10B             CBZ.N    R3,??USB_EP0StartXfer_5
+    734              {
+    735                ep->xfer_len = ep->maxpacket;
+   \   0000009C   0x688B             LDR      R3,[R1, #+8]
+   \   0000009E   0x614B             STR      R3,[R1, #+20]
+    736              }
+    737              
+    738              USBx_OUTEP(ep->num)->DOEPTSIZ |= (USB_OTG_DOEPTSIZ_PKTCNT & (1 << 19));
+   \                     ??USB_EP0StartXfer_5: (+1)
+   \   000000A0   0x.... 0x....      BL       ?Subroutine7
+   \                     ??CrossCallReturnLabel_4: (+1)
+   \   000000A4   0xF444 0x2400      ORR      R4,R4,#0x80000
+   \   000000A8   0x611C             STR      R4,[R3, #+16]
+    739              USBx_OUTEP(ep->num)->DOEPTSIZ |= (USB_OTG_DOEPTSIZ_XFRSIZ & (ep->maxpacket)); 
+   \   000000AA   0x.... 0x....      BL       ?Subroutine7
+   \                     ??CrossCallReturnLabel_5: (+1)
+   \   000000AE   0x688D             LDR      R5,[R1, #+8]
+   \   000000B0   0x036D             LSLS     R5,R5,#+13
+   \   000000B2   0xEA54 0x3455      ORRS     R4,R4,R5, LSR #+13
+    740              
+    741          
+    742              if (dma == 1)
+   \   000000B6   0x2A01             CMP      R2,#+1
+   \   000000B8   0x611C             STR      R4,[R3, #+16]
+   \   000000BA   0xD106             BNE.N    ??USB_EP0StartXfer_6
+    743              {
+    744                USBx_OUTEP(ep->num)->DOEPDMA = (uint32_t)(ep->xfer_buff);
+   \   000000BC   0x780A             LDRB     R2,[R1, #+0]
+   \   000000BE   0x68CB             LDR      R3,[R1, #+12]
+   \   000000C0   0xEB00 0x1242      ADD      R2,R0,R2, LSL #+5
+   \   000000C4   0xF502 0x6230      ADD      R2,R2,#+2816
+   \   000000C8   0x6153             STR      R3,[R2, #+20]
+    745              }
+    746              
+    747              /* EP enable */
+    748              USBx_OUTEP(ep->num)->DOEPCTL |= (USB_OTG_DOEPCTL_CNAK | USB_OTG_DOEPCTL_EPENA);    
+   \                     ??USB_EP0StartXfer_6: (+1)
+   \   000000CA   0x.... 0x....      BL       ?Subroutine12
+    749            }
+   \                     ??CrossCallReturnLabel_18: (+1)
+   \   000000CE   0x6801             LDR      R1,[R0, #+0]
+   \   000000D0   0xF041 0x4104      ORR      R1,R1,#0x84000000
+   \   000000D4                      REQUIRE ?Subroutine4
+   \   000000D4                      ;; // Fall through to label ?Subroutine4
+    750            return HAL_OK;
+    751          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine16: (+1)
+   \   00000000   0x0CED             LSRS     R5,R5,#+19
+   \   00000002   0x04ED             LSLS     R5,R5,#+19
+   \   00000004   0x6125             STR      R5,[R4, #+16]
+   \   00000006   0x780C             LDRB     R4,[R1, #+0]
+   \   00000008   0xEB00 0x1444      ADD      R4,R0,R4, LSL #+5
+   \   0000000C   0x4770             BX       LR
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine7: (+1)
+   \   00000000   0x780B             LDRB     R3,[R1, #+0]
+   \   00000002   0xEB00 0x1343      ADD      R3,R0,R3, LSL #+5
+   \   00000006   0xF503 0x6330      ADD      R3,R3,#+2816
+   \   0000000A   0x691C             LDR      R4,[R3, #+16]
+   \   0000000C   0x4770             BX       LR
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine6: (+1)
+   \   00000000   0x780B             LDRB     R3,[R1, #+0]
+   \   00000002   0xEB00 0x1343      ADD      R3,R0,R3, LSL #+5
+   \   00000006   0xF503 0x6310      ADD      R3,R3,#+2304
+   \   0000000A   0x691C             LDR      R4,[R3, #+16]
+   \   0000000C   0xF444 0x2400      ORR      R4,R4,#0x80000
+   \   00000010   0x611C             STR      R4,[R3, #+16]
+   \   00000012   0x780B             LDRB     R3,[R1, #+0]
+   \   00000014   0xEB00 0x1343      ADD      R3,R0,R3, LSL #+5
+   \   00000018   0xF503 0x6310      ADD      R3,R3,#+2304
+   \   0000001C   0x691C             LDR      R4,[R3, #+16]
+   \   0000001E   0x4770             BX       LR
+    752          
+    753          /**
+    754            * @brief  USB_WritePacket : Writes a packet into the Tx FIFO associated 
+    755            *         with the EP/channel
+    756            * @param  USBx : Selected device           
+    757            * @param  src :  pointer to source buffer
+    758            * @param  ch_ep_num : endpoint or host channel number
+    759            * @param  len : Number of bytes to write
+    760            * @param  dma: USB dma enabled or disabled 
+    761            *          This parameter can be one of the these values:
+    762            *           0 : DMA feature not used 
+    763            *           1 : DMA feature used  
+    764            * @retval HAL status
+    765            */
+
+   \                                 In section .text, align 2, keep-with-next
+    766          HAL_StatusTypeDef USB_WritePacket(USB_OTG_GlobalTypeDef *USBx, uint8_t *src, uint8_t ch_ep_num, uint16_t len, uint8_t dma)
+    767          {
+   \                     USB_WritePacket: (+1)
+   \   00000000   0xB570             PUSH     {R4-R6,LR}
+    768            uint32_t count32b= 0 , i= 0;
+   \   00000002   0x2500             MOVS     R5,#+0
+    769            
+    770            if (dma == 0)
+   \   00000004   0x9C04             LDR      R4,[SP, #+16]
+   \   00000006   0xB97C             CBNZ.N   R4,??USB_WritePacket_0
+    771            {
+    772              count32b =  (len + 3) / 4;
+   \   00000008   0x1CDB             ADDS     R3,R3,#+3
+   \   0000000A   0x105C             ASRS     R4,R3,#+1
+   \   0000000C   0xEB03 0x7394      ADD      R3,R3,R4, LSR #+30
+    773              for (i = 0; i < count32b; i++, src += 4)
+   \   00000010   0xE007             B.N      ??USB_WritePacket_1
+    774              {
+    775                USBx_DFIFO(ch_ep_num) = *((__packed uint32_t *)src);
+   \                     ??USB_WritePacket_2: (+1)
+   \   00000012   0xEB00 0x3602      ADD      R6,R0,R2, LSL #+12
+   \   00000016   0xF851 0x4B04      LDR      R4,[R1], #+4
+    776              }
+   \   0000001A   0x1C6D             ADDS     R5,R5,#+1
+   \   0000001C   0xF506 0x5680      ADD      R6,R6,#+4096
+   \   00000020   0x6034             STR      R4,[R6, #+0]
+   \                     ??USB_WritePacket_1: (+1)
+   \   00000022   0xEBB5 0x0FA3      CMP      R5,R3, ASR #+2
+   \   00000026   0xD3F4             BCC.N    ??USB_WritePacket_2
+    777            }
+    778            return HAL_OK;
+   \                     ??USB_WritePacket_0: (+1)
+   \   00000028   0x2000             MOVS     R0,#+0
+   \   0000002A   0xBD70             POP      {R4-R6,PC}       ;; return
+    779          }
+    780          
+    781          /**
+    782            * @brief  USB_ReadPacket : read a packet from the Tx FIFO associated 
+    783            *         with the EP/channel
+    784            * @param  USBx : Selected device  
+    785            * @param  src : source pointer
+    786            * @param  ch_ep_num : endpoint or host channel number
+    787            * @param  len : Number of bytes to read
+    788            * @param  dma: USB dma enabled or disabled 
+    789            *          This parameter can be one of the these values:
+    790            *           0 : DMA feature not used 
+    791            *           1 : DMA feature used  
+    792            * @retval pointer to destination buffer
+    793            */
+
+   \                                 In section .text, align 2, keep-with-next
+    794          void *USB_ReadPacket(USB_OTG_GlobalTypeDef *USBx, uint8_t *dest, uint16_t len)
+    795          {
+   \                     USB_ReadPacket: (+1)
+   \   00000000   0xB510             PUSH     {R4,LR}
+    796            uint32_t i=0;
+    797            uint32_t count32b = (len + 3) / 4;
+   \   00000002   0x1CD2             ADDS     R2,R2,#+3
+   \   00000004   0x1054             ASRS     R4,R2,#+1
+   \   00000006   0x2300             MOVS     R3,#+0
+   \   00000008   0xEB02 0x7294      ADD      R2,R2,R4, LSR #+30
+    798            
+    799            for ( i = 0; i < count32b; i++, dest += 4 )
+   \   0000000C   0xE005             B.N      ??USB_ReadPacket_0
+    800            {
+    801              *(__packed uint32_t *)dest = USBx_DFIFO(0);
+   \                     ??USB_ReadPacket_1: (+1)
+   \   0000000E   0xF500 0x5480      ADD      R4,R0,#+4096
+    802              
+    803            }
+   \   00000012   0x1C5B             ADDS     R3,R3,#+1
+   \   00000014   0x6824             LDR      R4,[R4, #+0]
+   \   00000016   0xF841 0x4B04      STR      R4,[R1], #+4
+   \                     ??USB_ReadPacket_0: (+1)
+   \   0000001A   0xEBB3 0x0FA2      CMP      R3,R2, ASR #+2
+   \   0000001E   0xD3F6             BCC.N    ??USB_ReadPacket_1
+    804            return ((void *)dest);
+   \   00000020   0x4608             MOV      R0,R1
+   \   00000022   0xBD10             POP      {R4,PC}          ;; return
+    805          }
+    806          
+    807          /**
+    808            * @brief  USB_EPSetStall : set a stall condition over an EP
+    809            * @param  USBx : Selected device
+    810            * @param  ep: pointer to endpoint structure   
+    811            * @retval HAL status
+    812            */
+
+   \                                 In section .text, align 2, keep-with-next
+    813          HAL_StatusTypeDef USB_EPSetStall(USB_OTG_GlobalTypeDef *USBx , USB_OTG_EPTypeDef *ep)
+    814          {
+    815            if (ep->is_in == 1)
+   \                     USB_EPSetStall: (+1)
+   \   00000000   0x784B             LDRB     R3,[R1, #+1]
+   \   00000002   0x780A             LDRB     R2,[R1, #+0]
+   \   00000004   0x2B01             CMP      R3,#+1
+   \   00000006   0xEB00 0x1242      ADD      R2,R0,R2, LSL #+5
+   \   0000000A   0xD10E             BNE.N    ??USB_EPSetStall_0
+   \   0000000C   0xF502 0x6210      ADD      R2,R2,#+2304
+   \   00000010   0x6813             LDR      R3,[R2, #+0]
+   \   00000012   0x2B00             CMP      R3,#+0
+   \   00000014   0xD403             BMI.N    ??USB_EPSetStall_1
+    816            {
+    817              if (((USBx_INEP(ep->num)->DIEPCTL) & USB_OTG_DIEPCTL_EPENA) == 0)
+    818              {
+    819                USBx_INEP(ep->num)->DIEPCTL &= ~(USB_OTG_DIEPCTL_EPDIS); 
+   \   00000016   0x6813             LDR      R3,[R2, #+0]
+   \   00000018   0xF023 0x4380      BIC      R3,R3,#0x40000000
+   \   0000001C   0x6013             STR      R3,[R2, #+0]
+    820              } 
+    821              USBx_INEP(ep->num)->DIEPCTL |= USB_OTG_DIEPCTL_STALL;
+   \                     ??USB_EPSetStall_1: (+1)
+   \   0000001E   0x7809             LDRB     R1,[R1, #+0]
+   \   00000020   0xEB00 0x1041      ADD      R0,R0,R1, LSL #+5
+   \   00000024   0xF500 0x6010      ADD      R0,R0,#+2304
+   \   00000028   0xE00D             B.N      ??USB_EPSetStall_2
+    822            }
+   \                     ??USB_EPSetStall_0: (+1)
+   \   0000002A   0xF502 0x6230      ADD      R2,R2,#+2816
+   \   0000002E   0x6813             LDR      R3,[R2, #+0]
+   \   00000030   0x2B00             CMP      R3,#+0
+   \   00000032   0xD403             BMI.N    ??USB_EPSetStall_3
+    823            else
+    824            {
+    825              if (((USBx_OUTEP(ep->num)->DOEPCTL) & USB_OTG_DOEPCTL_EPENA) == 0)
+    826              {
+    827                USBx_OUTEP(ep->num)->DOEPCTL &= ~(USB_OTG_DOEPCTL_EPDIS); 
+   \   00000034   0x6813             LDR      R3,[R2, #+0]
+   \   00000036   0xF023 0x4380      BIC      R3,R3,#0x40000000
+   \   0000003A   0x6013             STR      R3,[R2, #+0]
+    828              } 
+    829              USBx_OUTEP(ep->num)->DOEPCTL |= USB_OTG_DOEPCTL_STALL;
+   \                     ??USB_EPSetStall_3: (+1)
+   \   0000003C   0x7809             LDRB     R1,[R1, #+0]
+   \   0000003E   0xEB00 0x1041      ADD      R0,R0,R1, LSL #+5
+   \   00000042   0xF500 0x6030      ADD      R0,R0,#+2816
+   \                     ??USB_EPSetStall_2: (+1)
+   \   00000046   0x6801             LDR      R1,[R0, #+0]
+   \   00000048   0xF441 0x1100      ORR      R1,R1,#0x200000
+    830            }
+   \   0000004C   0x....             B.N      ??Subroutine1_0
+    831            return HAL_OK;
+    832          }
+    833          
+    834          
+    835          /**
+    836            * @brief  USB_EPClearStall : Clear a stall condition over an EP
+    837            * @param  USBx : Selected device
+    838            * @param  ep: pointer to endpoint structure   
+    839            * @retval HAL status
+    840            */
+
+   \                                 In section .text, align 2, keep-with-next
+    841          HAL_StatusTypeDef USB_EPClearStall(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep)
+    842          {
+    843            if (ep->is_in == 1)
+   \                     USB_EPClearStall: (+1)
+   \   00000000   0x784B             LDRB     R3,[R1, #+1]
+   \   00000002   0x780A             LDRB     R2,[R1, #+0]
+   \   00000004   0x2B01             CMP      R3,#+1
+   \   00000006   0xEB00 0x1242      ADD      R2,R0,R2, LSL #+5
+   \   0000000A   0xD110             BNE.N    ??USB_EPClearStall_0
+   \   0000000C   0xF502 0x6210      ADD      R2,R2,#+2304
+   \   00000010   0x6813             LDR      R3,[R2, #+0]
+   \   00000012   0xF423 0x1300      BIC      R3,R3,#0x200000
+   \   00000016   0x6013             STR      R3,[R2, #+0]
+    844            {
+    845              USBx_INEP(ep->num)->DIEPCTL &= ~USB_OTG_DIEPCTL_STALL;
+    846              if (ep->type == EP_TYPE_INTR || ep->type == EP_TYPE_BULK)
+   \   00000018   0x78CA             LDRB     R2,[R1, #+3]
+   \   0000001A   0x2A03             CMP      R2,#+3
+   \   0000001C   0xBF18             IT       NE 
+   \   0000001E   0x2A02             CMPNE    R2,#+2
+   \   00000020   0xD119             BNE.N    ??USB_EPClearStall_1
+    847              {
+    848                 USBx_INEP(ep->num)->DIEPCTL |= USB_OTG_DIEPCTL_SD0PID_SEVNFRM; /* DATA0 */
+   \   00000022   0x7809             LDRB     R1,[R1, #+0]
+   \   00000024   0xEB00 0x1041      ADD      R0,R0,R1, LSL #+5
+   \   00000028   0xF500 0x6010      ADD      R0,R0,#+2304
+   \   0000002C   0xE00F             B.N      ??USB_EPClearStall_2
+    849              }    
+    850            }
+   \                     ??USB_EPClearStall_0: (+1)
+   \   0000002E   0xF502 0x6230      ADD      R2,R2,#+2816
+   \   00000032   0x6813             LDR      R3,[R2, #+0]
+   \   00000034   0xF423 0x1300      BIC      R3,R3,#0x200000
+   \   00000038   0x6013             STR      R3,[R2, #+0]
+    851            else
+    852            {
+    853              USBx_OUTEP(ep->num)->DOEPCTL &= ~USB_OTG_DOEPCTL_STALL;
+    854              if (ep->type == EP_TYPE_INTR || ep->type == EP_TYPE_BULK)
+   \   0000003A   0x78CA             LDRB     R2,[R1, #+3]
+   \   0000003C   0x2A03             CMP      R2,#+3
+   \   0000003E   0xBF18             IT       NE 
+   \   00000040   0x2A02             CMPNE    R2,#+2
+   \   00000042   0xD108             BNE.N    ??USB_EPClearStall_1
+    855              {
+    856                USBx_OUTEP(ep->num)->DOEPCTL |= USB_OTG_DOEPCTL_SD0PID_SEVNFRM; /* DATA0 */
+   \   00000044   0x7809             LDRB     R1,[R1, #+0]
+   \   00000046   0xEB00 0x1041      ADD      R0,R0,R1, LSL #+5
+   \   0000004A   0xF500 0x6030      ADD      R0,R0,#+2816
+   \                     ??USB_EPClearStall_2: (+1)
+   \   0000004E   0x6801             LDR      R1,[R0, #+0]
+   \   00000050   0xF041 0x5180      ORR      R1,R1,#0x10000000
+   \   00000054   0x6001             STR      R1,[R0, #+0]
+    857              }    
+    858            }
+    859            return HAL_OK;
+   \                     ??USB_EPClearStall_1: (+1)
+   \   00000056   0x2000             MOVS     R0,#+0
+   \   00000058   0x4770             BX       LR               ;; return
+    860          }
+    861          
+    862          /**
+    863            * @brief  USB_StopDevice : Stop the usb device mode
+    864            * @param  USBx : Selected device
+    865            * @retval HAL status
+    866            */
+
+   \                                 In section .text, align 2, keep-with-next
+    867          HAL_StatusTypeDef USB_StopDevice(USB_OTG_GlobalTypeDef *USBx)
+    868          {
+   \                     USB_StopDevice: (+1)
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000002   0x4604             MOV      R4,R0
+    869            uint32_t i;
+    870            
+    871            /* Clear Pending interrupt */
+    872            for (i = 0; i < 15 ; i++)
+   \   00000004   0x2000             MOVS     R0,#+0
+   \   00000006   0x22FF             MOVS     R2,#+255
+    873            {
+    874              USBx_INEP(i)->DIEPINT  = 0xFF;
+   \                     ??USB_StopDevice_0: (+1)
+   \   00000008   0xEB04 0x1340      ADD      R3,R4,R0, LSL #+5
+    875              USBx_OUTEP(i)->DOEPINT  = 0xFF;
+    876            }
+   \   0000000C   0x1C40             ADDS     R0,R0,#+1
+   \   0000000E   0x280F             CMP      R0,#+15
+   \   00000010   0xF503 0x6510      ADD      R5,R3,#+2304
+   \   00000014   0xF503 0x6330      ADD      R3,R3,#+2816
+   \   00000018   0x60AA             STR      R2,[R5, #+8]
+   \   0000001A   0x609A             STR      R2,[R3, #+8]
+   \   0000001C   0xD3F4             BCC.N    ??USB_StopDevice_0
+    877            USBx_DEVICE->DAINT = 0xFFFFFFFF;
+   \   0000001E   0xF504 0x6000      ADD      R0,R4,#+2048
+   \   00000022   0xF04F 0x31FF      MOV      R1,#-1
+   \   00000026   0x6181             STR      R1,[R0, #+24]
+    878            
+    879            /* Clear interrupt masks */
+    880            USBx_DEVICE->DIEPMSK  = 0;
+   \   00000028   0x2100             MOVS     R1,#+0
+   \   0000002A   0x6101             STR      R1,[R0, #+16]
+    881            USBx_DEVICE->DOEPMSK  = 0;
+   \   0000002C   0x6141             STR      R1,[R0, #+20]
+    882            USBx_DEVICE->DAINTMSK = 0;
+   \   0000002E   0x61C1             STR      R1,[R0, #+28]
+    883            
+    884            /* Flush the FIFO */
+    885            USB_FlushRxFifo(USBx);
+   \   00000030   0x4620             MOV      R0,R4
+   \   00000032   0x.... 0x....      BL       USB_FlushRxFifo
+    886            USB_FlushTxFifo(USBx ,  0x10 );  
+   \   00000036   0x2110             MOVS     R1,#+16
+   \   00000038   0x4620             MOV      R0,R4
+   \   0000003A   0x.... 0x....      BL       USB_FlushTxFifo
+    887            
+    888            return HAL_OK;
+   \   0000003E   0x2000             MOVS     R0,#+0
+   \   00000040   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+    889          }
+    890          
+    891          /**
+    892            * @brief  USB_SetDevAddress : Stop the usb device mode
+    893            * @param  USBx : Selected device
+    894            * @param  address : new device address to be assigned
+    895            *          This parameter can be a value from 0 to 255
+    896            * @retval HAL status
+    897            */
+
+   \                                 In section .text, align 2, keep-with-next
+    898          HAL_StatusTypeDef  USB_SetDevAddress (USB_OTG_GlobalTypeDef *USBx, uint8_t address)
+    899          {
+    900            USBx_DEVICE->DCFG &= ~ (USB_OTG_DCFG_DAD);
+   \                     USB_SetDevAddress: (+1)
+   \   00000000   0xF500 0x6000      ADD      R0,R0,#+2048
+    901            USBx_DEVICE->DCFG |= (address << 4) & USB_OTG_DCFG_DAD ;
+   \   00000004   0x0109             LSLS     R1,R1,#+4
+   \   00000006   0xF401 0x61FE      AND      R1,R1,#0x7F0
+   \   0000000A   0x6802             LDR      R2,[R0, #+0]
+   \   0000000C   0xF422 0x62FE      BIC      R2,R2,#0x7F0
+   \   00000010   0x6002             STR      R2,[R0, #+0]
+   \   00000012                      REQUIRE ?Subroutine1
+   \   00000012                      ;; // Fall through to label ?Subroutine1
+    902            
+    903            return HAL_OK;  
+    904          }
+    905          
+    906          /**
+    907            * @brief  USB_DevConnect : Connect the USB device by enabling the pull-up/pull-down
+    908            * @param  USBx : Selected device
+    909            * @retval HAL status
+    910            */
+
+   \                                 In section .text, align 2, keep-with-next
+    911          HAL_StatusTypeDef  USB_DevConnect (USB_OTG_GlobalTypeDef *USBx)
+    912          {
+    913            USBx_DEVICE->DCTL &= ~USB_OTG_DCTL_SDIS ;
+   \                     USB_DevConnect: (+1)
+   \   00000000   0xF500 0x6000      ADD      R0,R0,#+2048
+   \   00000004   0xB580             PUSH     {R7,LR}
+   \   00000006   0x6841             LDR      R1,[R0, #+4]
+   \   00000008   0xF021 0x0102      BIC      R1,R1,#0x2
+   \   0000000C   0x....             B.N      ?Subroutine3
+    914            HAL_Delay(3);
+    915            
+    916            return HAL_OK;  
+    917          }
+    918          
+    919          /**
+    920            * @brief  USB_DevDisconnect : Disconnect the USB device by disabling the pull-up/pull-down
+    921            * @param  USBx : Selected device
+    922            * @retval HAL status
+    923            */
+
+   \                                 In section .text, align 2, keep-with-next
+    924          HAL_StatusTypeDef  USB_DevDisconnect (USB_OTG_GlobalTypeDef *USBx)
+    925          {
+    926            USBx_DEVICE->DCTL |= USB_OTG_DCTL_SDIS ;
+   \                     USB_DevDisconnect: (+1)
+   \   00000000   0xF500 0x6000      ADD      R0,R0,#+2048
+   \   00000004   0xB580             PUSH     {R7,LR}
+   \   00000006   0x6841             LDR      R1,[R0, #+4]
+   \   00000008   0xF041 0x0102      ORR      R1,R1,#0x2
+   \   0000000C                      REQUIRE ?Subroutine3
+   \   0000000C                      ;; // Fall through to label ?Subroutine3
+    927            HAL_Delay(3);
+    928            
+    929            return HAL_OK;  
+    930          }
+    931          
+    932          /**
+    933            * @brief  USB_ReadInterrupts: return the global USB interrupt status
+    934            * @param  USBx : Selected device
+    935            * @retval HAL status
+    936            */
+
+   \                                 In section .text, align 2, keep-with-next
+    937          uint32_t  USB_ReadInterrupts (USB_OTG_GlobalTypeDef *USBx)
+    938          {
+    939            uint32_t v = 0;
+    940            
+    941            v = USBx->GINTSTS;
+   \                     USB_ReadInterrupts: (+1)
+   \   00000000   0x6941             LDR      R1,[R0, #+20]
+    942            v &= USBx->GINTMSK;
+   \   00000002   0x6980             LDR      R0,[R0, #+24]
+    943            return v;  
+   \   00000004   0x4008             ANDS     R0,R0,R1
+   \   00000006   0x4770             BX       LR               ;; return
+    944          }
+    945          
+    946          /**
+    947            * @brief  USB_ReadDevAllOutEpInterrupt: return the USB device OUT endpoints interrupt status
+    948            * @param  USBx : Selected device
+    949            * @retval HAL status
+    950            */
+
+   \                                 In section .text, align 2, keep-with-next
+    951          uint32_t USB_ReadDevAllOutEpInterrupt (USB_OTG_GlobalTypeDef *USBx)
+    952          {
+    953            uint32_t v;
+    954            v  = USBx_DEVICE->DAINT;
+   \                     USB_ReadDevAllOutEpInterrupt: (+1)
+   \   00000000   0xF500 0x6000      ADD      R0,R0,#+2048
+   \   00000004   0x6981             LDR      R1,[R0, #+24]
+    955            v &= USBx_DEVICE->DAINTMSK;
+   \   00000006   0x69C0             LDR      R0,[R0, #+28]
+    956            return ((v & 0xffff0000) >> 16);
+   \   00000008   0x4008             ANDS     R0,R0,R1
+   \   0000000A   0x0C00             LSRS     R0,R0,#+16
+   \   0000000C   0x4770             BX       LR               ;; return
+    957          }
+    958          
+    959          /**
+    960            * @brief  USB_ReadDevAllInEpInterrupt: return the USB device IN endpoints interrupt status
+    961            * @param  USBx : Selected device
+    962            * @retval HAL status
+    963            */
+
+   \                                 In section .text, align 2, keep-with-next
+    964          uint32_t USB_ReadDevAllInEpInterrupt (USB_OTG_GlobalTypeDef *USBx)
+    965          {
+    966            uint32_t v;
+    967            v  = USBx_DEVICE->DAINT;
+   \                     USB_ReadDevAllInEpInterrupt: (+1)
+   \   00000000   0xF500 0x6000      ADD      R0,R0,#+2048
+   \   00000004   0x6981             LDR      R1,[R0, #+24]
+    968            v &= USBx_DEVICE->DAINTMSK;
+   \   00000006   0x69C0             LDR      R0,[R0, #+28]
+    969            return ((v & 0xFFFF));
+   \   00000008   0x4008             ANDS     R0,R0,R1
+   \   0000000A   0xB280             UXTH     R0,R0
+   \   0000000C   0x4770             BX       LR               ;; return
+    970          }
+    971          
+    972          /**
+    973            * @brief  Returns Device OUT EP Interrupt register
+    974            * @param  USBx : Selected device
+    975            * @param  epnum : endpoint number
+    976            *          This parameter can be a value from 0 to 15
+    977            * @retval Device OUT EP Interrupt register
+    978            */
+
+   \                                 In section .text, align 2, keep-with-next
+    979          uint32_t USB_ReadDevOutEPInterrupt (USB_OTG_GlobalTypeDef *USBx , uint8_t epnum)
+    980          {
+    981            uint32_t v;
+    982            v  = USBx_OUTEP(epnum)->DOEPINT;
+   \                     USB_ReadDevOutEPInterrupt: (+1)
+   \   00000000   0xEB00 0x1141      ADD      R1,R0,R1, LSL #+5
+    983            v &= USBx_DEVICE->DOEPMSK;
+   \   00000004   0xF500 0x6000      ADD      R0,R0,#+2048
+   \   00000008   0xF501 0x6130      ADD      R1,R1,#+2816
+   \   0000000C   0x6889             LDR      R1,[R1, #+8]
+   \   0000000E   0x6940             LDR      R0,[R0, #+20]
+    984            return v;
+   \   00000010   0x4008             ANDS     R0,R0,R1
+   \   00000012   0x4770             BX       LR               ;; return
+    985          }
+    986          
+    987          /**
+    988            * @brief  Returns Device IN EP Interrupt register
+    989            * @param  USBx : Selected device
+    990            * @param  epnum : endpoint number
+    991            *          This parameter can be a value from 0 to 15
+    992            * @retval Device IN EP Interrupt register
+    993            */
+
+   \                                 In section .text, align 2, keep-with-next
+    994          uint32_t USB_ReadDevInEPInterrupt (USB_OTG_GlobalTypeDef *USBx , uint8_t epnum)
+    995          {
+    996            uint32_t v, msk, emp;
+    997            
+    998            msk = USBx_DEVICE->DIEPMSK;
+   \                     USB_ReadDevInEPInterrupt: (+1)
+   \   00000000   0xF500 0x6200      ADD      R2,R0,#+2048
+    999            emp = USBx_DEVICE->DIEPEMPMSK;
+   1000            msk |= ((emp >> epnum) & 0x1) << 7;
+   1001            v = USBx_INEP(epnum)->DIEPINT & msk;
+   \   00000004   0xEB00 0x1041      ADD      R0,R0,R1, LSL #+5
+   \   00000008   0x6913             LDR      R3,[R2, #+16]
+   \   0000000A   0x6B52             LDR      R2,[R2, #+52]
+   \   0000000C   0xF500 0x6010      ADD      R0,R0,#+2304
+   1002            return v;
+   \   00000010   0x40CA             LSRS     R2,R2,R1
+   \   00000012   0xF002 0x0101      AND      R1,R2,#0x1
+   \   00000016   0x6880             LDR      R0,[R0, #+8]
+   \   00000018   0xEA43 0x11C1      ORR      R1,R3,R1, LSL #+7
+   \   0000001C   0x4008             ANDS     R0,R1,R0
+   \   0000001E   0x4770             BX       LR               ;; return
+   1003          }
+   1004          
+   1005          /**
+   1006            * @brief  USB_ClearInterrupts: clear a USB interrupt
+   1007            * @param  USBx : Selected device
+   1008            * @param  interrupt : interrupt flag
+   1009            * @retval None
+   1010            */
+
+   \                                 In section .text, align 2, keep-with-next
+   1011          void  USB_ClearInterrupts (USB_OTG_GlobalTypeDef *USBx, uint32_t interrupt)
+   1012          {
+   1013            USBx->GINTSTS |= interrupt; 
+   \                     USB_ClearInterrupts: (+1)
+   \   00000000   0x6942             LDR      R2,[R0, #+20]
+   \   00000002   0x4311             ORRS     R1,R1,R2
+   \   00000004   0x6141             STR      R1,[R0, #+20]
+   1014          }
+   \   00000006   0x4770             BX       LR               ;; return
+   1015          
+   1016          /**
+   1017            * @brief  Returns USB core mode
+   1018            * @param  USBx : Selected device
+   1019            * @retval return core mode : Host or Device
+   1020            *          This parameter can be one of the these values:
+   1021            *           0 : Host 
+   1022            *           1 : Device
+   1023            */
+
+   \                                 In section .text, align 2, keep-with-next
+   1024          uint32_t USB_GetMode(USB_OTG_GlobalTypeDef *USBx)
+   1025          {
+   1026            return ((USBx->GINTSTS ) & 0x1);
+   \                     USB_GetMode: (+1)
+   \   00000000   0x6940             LDR      R0,[R0, #+20]
+   \   00000002   0xF000 0x0001      AND      R0,R0,#0x1
+   \   00000006   0x4770             BX       LR               ;; return
+   1027          }
+   1028          
+   1029          
+   1030          /**
+   1031            * @brief  Activate EP0 for Setup transactions
+   1032            * @param  USBx : Selected device
+   1033            * @retval HAL status
+   1034            */
+
+   \                                 In section .text, align 2, keep-with-next
+   1035          HAL_StatusTypeDef  USB_ActivateSetup (USB_OTG_GlobalTypeDef *USBx)
+   1036          {
+   1037            /* Set the MPS of the IN EP based on the enumeration speed */
+   1038            USBx_INEP(0)->DIEPCTL &= ~USB_OTG_DIEPCTL_MPSIZ;
+   \                     USB_ActivateSetup: (+1)
+   \   00000000   0xF500 0x6110      ADD      R1,R0,#+2304
+   1039            
+   1040            if((USBx_DEVICE->DSTS & USB_OTG_DSTS_ENUMSPD) == DSTS_ENUMSPD_LS_PHY_6MHZ)
+   \   00000004   0xF500 0x6000      ADD      R0,R0,#+2048
+   \   00000008   0x680A             LDR      R2,[R1, #+0]
+   \   0000000A   0x0AD2             LSRS     R2,R2,#+11
+   \   0000000C   0x02D2             LSLS     R2,R2,#+11
+   \   0000000E   0x600A             STR      R2,[R1, #+0]
+   \   00000010   0x6882             LDR      R2,[R0, #+8]
+   \   00000012   0xF002 0x0206      AND      R2,R2,#0x6
+   \   00000016   0x2A04             CMP      R2,#+4
+   \   00000018   0xD103             BNE.N    ??USB_ActivateSetup_0
+   1041            {
+   1042              USBx_INEP(0)->DIEPCTL |= 3;
+   \   0000001A   0x680A             LDR      R2,[R1, #+0]
+   \   0000001C   0xF042 0x0203      ORR      R2,R2,#0x3
+   \   00000020   0x600A             STR      R2,[R1, #+0]
+   1043            }
+   1044            USBx_DEVICE->DCTL |= USB_OTG_DCTL_CGINAK;
+   \                     ??USB_ActivateSetup_0: (+1)
+   \   00000022   0x6841             LDR      R1,[R0, #+4]
+   \   00000024   0xF441 0x7180      ORR      R1,R1,#0x100
+   \   00000028   0x6041             STR      R1,[R0, #+4]
+   1045          
+   1046            return HAL_OK;
+   \   0000002A   0x2000             MOVS     R0,#+0
+   \   0000002C   0x4770             BX       LR               ;; return
+   1047          }
+   1048          
+   1049          
+   1050          /**
+   1051            * @brief  Prepare the EP0 to start the first control setup
+   1052            * @param  USBx : Selected device
+   1053            * @param  dma: USB dma enabled or disabled 
+   1054            *          This parameter can be one of the these values:
+   1055            *           0 : DMA feature not used 
+   1056            *           1 : DMA feature used  
+   1057            * @param  psetup : pointer to setup packet
+   1058            * @retval HAL status
+   1059            */
+
+   \                                 In section .text, align 2, keep-with-next
+   1060          HAL_StatusTypeDef USB_EP0_OutStart(USB_OTG_GlobalTypeDef *USBx, uint8_t dma, uint8_t *psetup)
+   1061          {
+   1062            USBx_OUTEP(0)->DOEPTSIZ = 0;
+   \                     USB_EP0_OutStart: (+1)
+   \   00000000   0xF500 0x6030      ADD      R0,R0,#+2816
+   \   00000004   0x2300             MOVS     R3,#+0
+   \   00000006   0x6103             STR      R3,[R0, #+16]
+   1063            USBx_OUTEP(0)->DOEPTSIZ |= (USB_OTG_DOEPTSIZ_PKTCNT & (1 << 19)) ;
+   1064            USBx_OUTEP(0)->DOEPTSIZ |= (3 * 8);
+   1065            USBx_OUTEP(0)->DOEPTSIZ |=  USB_OTG_DOEPTSIZ_STUPCNT;  
+   1066            
+   1067            if (dma == 1)
+   \   00000008   0x2901             CMP      R1,#+1
+   \   0000000A   0x6903             LDR      R3,[R0, #+16]
+   \   0000000C   0xF443 0x2300      ORR      R3,R3,#0x80000
+   \   00000010   0x6103             STR      R3,[R0, #+16]
+   \   00000012   0x6903             LDR      R3,[R0, #+16]
+   \   00000014   0xF043 0x0318      ORR      R3,R3,#0x18
+   \   00000018   0x6103             STR      R3,[R0, #+16]
+   \   0000001A   0x6903             LDR      R3,[R0, #+16]
+   \   0000001C   0xF043 0x43C0      ORR      R3,R3,#0x60000000
+   \   00000020   0x6103             STR      R3,[R0, #+16]
+   \   00000022   0xD103             BNE.N    ??USB_EP0_OutStart_0
+   1068            {
+   1069              USBx_OUTEP(0)->DOEPDMA = (uint32_t)psetup;
+   \   00000024   0x6142             STR      R2,[R0, #+20]
+   1070              /* EP enable */
+   1071              USBx_OUTEP(0)->DOEPCTL = 0x80008000;
+   \   00000026   0xF04F 0x2180      MOV      R1,#-2147450880
+   \   0000002A   0x6001             STR      R1,[R0, #+0]
+   1072            }
+   1073            
+   1074            return HAL_OK;  
+   \                     ??USB_EP0_OutStart_0: (+1)
+   \   0000002C   0x2000             MOVS     R0,#+0
+   \   0000002E   0x4770             BX       LR               ;; return
+   1075          }
+   1076          
+   1077          
+   1078          /**
+   1079            * @brief  Reset the USB Core (needed after USB clock settings change)
+   1080            * @param  USBx : Selected device
+   1081            * @retval HAL status
+   1082            */
+
+   \                                 In section .text, align 2, keep-with-next
+   1083          static HAL_StatusTypeDef USB_CoreReset(USB_OTG_GlobalTypeDef *USBx)
+   1084          {
+   1085            uint32_t count = 0;
+   \                     USB_CoreReset: (+1)
+   \   00000000   0x.... 0x....      LDR.W    R1,??DataTable9_2  ;; 0x30d41
+   \   00000004   0x460A             MOV      R2,R1
+   1086          
+   1087            /* Wait for AHB master IDLE state. */
+   1088            do
+   1089            {
+   1090              if (++count > 200000)
+   \                     ??USB_CoreReset_0: (+1)
+   \   00000006   0x1E52             SUBS     R2,R2,#+1
+   \   00000008   0xD008             BEQ.N    ??USB_CoreReset_1
+   1091              {
+   1092                return HAL_TIMEOUT;
+   1093              }
+   1094            }
+   1095            while ((USBx->GRSTCTL & USB_OTG_GRSTCTL_AHBIDL) == 0);
+   \   0000000A   0x6903             LDR      R3,[R0, #+16]
+   \   0000000C   0x2B00             CMP      R3,#+0
+   \   0000000E   0xD5FA             BPL.N    ??USB_CoreReset_0
+   1096            
+   1097            /* Core Soft Reset */
+   1098            count = 0;
+   1099            USBx->GRSTCTL |= USB_OTG_GRSTCTL_CSRST;
+   \   00000010   0x6902             LDR      R2,[R0, #+16]
+   \   00000012   0xF042 0x0201      ORR      R2,R2,#0x1
+   \   00000016   0x6102             STR      R2,[R0, #+16]
+   1100          
+   1101            do
+   1102            {
+   1103              if (++count > 200000)
+   \                     ??USB_CoreReset_2: (+1)
+   \   00000018   0x1E49             SUBS     R1,R1,#+1
+   \   0000001A   0xD101             BNE.N    ??USB_CoreReset_3
+   1104              {
+   1105                return HAL_TIMEOUT;
+   \                     ??USB_CoreReset_1: (+1)
+   \   0000001C   0x2003             MOVS     R0,#+3
+   \   0000001E   0x4770             BX       LR
+   1106              }
+   1107            }
+   1108            while ((USBx->GRSTCTL & USB_OTG_GRSTCTL_CSRST) == USB_OTG_GRSTCTL_CSRST);
+   \                     ??USB_CoreReset_3: (+1)
+   \   00000020   0x6902             LDR      R2,[R0, #+16]
+   \   00000022   0x07D2             LSLS     R2,R2,#+31
+   \   00000024   0xD4F8             BMI.N    ??USB_CoreReset_2
+   1109            
+   1110            return HAL_OK;
+   \   00000026   0x2000             MOVS     R0,#+0
+   \   00000028   0x4770             BX       LR               ;; return
+   1111          }
+   1112          
+   1113          
+   1114          /**
+   1115            * @brief  USB_HostInit : Initializes the USB OTG controller registers 
+   1116            *         for Host mode 
+   1117            * @param  USBx : Selected device
+   1118            * @param  cfg  : pointer to a USB_OTG_CfgTypeDef structure that contains
+   1119            *         the configuration information for the specified USBx peripheral.
+   1120            * @retval HAL status
+   1121            */
+
+   \                                 In section .text, align 2, keep-with-next
+   1122          HAL_StatusTypeDef USB_HostInit (USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef cfg)
+   1123          {
+   \                     USB_HostInit: (+1)
+   \   00000000   0xB40E             PUSH     {R1-R3}
+   \   00000002   0xB55C             PUSH     {R2-R4,R6,LR}
+   \   00000004   0x4604             MOV      R4,R0
+   1124            uint32_t i;
+   1125            
+   1126            /* Restart the Phy Clock */
+   1127            USBx_PCGCCTL = 0;
+   \   00000006   0x2000             MOVS     R0,#+0
+   \   00000008   0xF504 0x6160      ADD      R1,R4,#+3584
+   \   0000000C   0x6008             STR      R0,[R1, #+0]
+   1128            
+   1129            /*Activate VBUS Sensing B */
+   1130            USBx->GCCFG |= USB_OTG_GCCFG_VBDEN;
+   \   0000000E   0x6BA0             LDR      R0,[R4, #+56]
+   \   00000010   0xF440 0x1000      ORR      R0,R0,#0x200000
+   \   00000014   0x63A0             STR      R0,[R4, #+56]
+   1131            
+   1132            /* Disable the FS/LS support mode only */
+   1133            if((cfg.speed == USB_OTG_SPEED_FULL)&&
+   1134               (USBx != USB_OTG_FS))
+   \   00000016   0x9907             LDR      R1,[SP, #+28]
+   \   00000018   0xF504 0x6080      ADD      R0,R4,#+1024
+   \   0000001C   0x2903             CMP      R1,#+3
+   \   0000001E   0xD106             BNE.N    ??USB_HostInit_0
+   \   00000020   0xF1B4 0x4FA0      CMP      R4,#+1342177280
+   \   00000024   0xD003             BEQ.N    ??USB_HostInit_0
+   1135            {
+   1136              USBx_HOST->HCFG |= USB_OTG_HCFG_FSLSS; 
+   \   00000026   0x6801             LDR      R1,[R0, #+0]
+   \   00000028   0xF041 0x0104      ORR      R1,R1,#0x4
+   \   0000002C   0xE002             B.N      ??USB_HostInit_1
+   1137            }
+   1138            else
+   1139            {
+   1140              USBx_HOST->HCFG &= ~(USB_OTG_HCFG_FSLSS);  
+   \                     ??USB_HostInit_0: (+1)
+   \   0000002E   0x6801             LDR      R1,[R0, #+0]
+   \   00000030   0xF021 0x0104      BIC      R1,R1,#0x4
+   \                     ??USB_HostInit_1: (+1)
+   \   00000034   0x6001             STR      R1,[R0, #+0]
+   1141            }
+   1142          
+   1143            /* Make sure the FIFOs are flushed. */
+   1144            USB_FlushTxFifo(USBx, 0x10 ); /* all Tx FIFOs */
+   \   00000036   0x2110             MOVS     R1,#+16
+   \   00000038   0x4620             MOV      R0,R4
+   \   0000003A   0xF04F 0x36FF      MOV      R6,#-1
+   \   0000003E   0x.... 0x....      BL       USB_FlushTxFifo
+   1145            USB_FlushRxFifo(USBx);
+   \   00000042   0x4620             MOV      R0,R4
+   \   00000044   0x.... 0x....      BL       USB_FlushRxFifo
+   1146          
+   1147            /* Clear all pending HC Interrupts */
+   1148            for (i = 0; i < cfg.Host_channels; i++)
+   \   00000048   0x2000             MOVS     R0,#+0
+   \   0000004A   0x2200             MOVS     R2,#+0
+   \   0000004C   0xE006             B.N      ??USB_HostInit_2
+   1149            {
+   1150              USBx_HC(i)->HCINT = 0xFFFFFFFF;
+   \                     ??USB_HostInit_3: (+1)
+   \   0000004E   0xEB04 0x1140      ADD      R1,R4,R0, LSL #+5
+   1151              USBx_HC(i)->HCINTMSK = 0;
+   1152            }
+   \   00000052   0x1C40             ADDS     R0,R0,#+1
+   \   00000054   0xF501 0x61A0      ADD      R1,R1,#+1280
+   \   00000058   0x608E             STR      R6,[R1, #+8]
+   \   0000005A   0x60CA             STR      R2,[R1, #+12]
+   \                     ??USB_HostInit_2: (+1)
+   \   0000005C   0x9906             LDR      R1,[SP, #+24]
+   \   0000005E   0x4288             CMP      R0,R1
+   \   00000060   0xD3F5             BCC.N    ??USB_HostInit_3
+   1153            
+   1154            /* Enable VBUS driving */
+   1155            USB_DriveVbus(USBx, 1);
+   \   00000062   0x2101             MOVS     R1,#+1
+   \   00000064   0x4620             MOV      R0,R4
+   \   00000066   0x.... 0x....      BL       USB_DriveVbus
+   1156            
+   1157            HAL_Delay(200);
+   \   0000006A   0x20C8             MOVS     R0,#+200
+   \   0000006C   0x.... 0x....      BL       HAL_Delay
+   1158            
+   1159            /* Disable all interrupts. */
+   1160            USBx->GINTMSK = 0;
+   \   00000070   0x2000             MOVS     R0,#+0
+   1161            
+   1162            /* Clear any pending interrupts */
+   1163            USBx->GINTSTS = 0xFFFFFFFF;
+   1164          
+   1165            
+   1166            if(USBx == USB_OTG_FS)
+   \   00000072   0xF1B4 0x4FA0      CMP      R4,#+1342177280
+   \   00000076   0x61A0             STR      R0,[R4, #+24]
+   \   00000078   0x6166             STR      R6,[R4, #+20]
+   \   0000007A   0xD10C             BNE.N    ??USB_HostInit_4
+   1167            {
+   1168              /* set Rx FIFO size */
+   1169              USBx->GRXFSIZ  = (uint32_t )0x80; 
+   \   0000007C   0x.... 0x....      LDR.W    R0,??DataTable9_7  ;; 0x50000024
+   \   00000080   0x2180             MOVS     R1,#+128
+   \   00000082   0x6001             STR      R1,[R0, #+0]
+   1170              USBx->DIEPTXF0_HNPTXFSIZ = (uint32_t )(((0x60 << 16)& USB_OTG_NPTXFD) | 0x80);
+   \   00000084   0x.... 0x....      LDR.W    R1,??DataTable9_8  ;; 0x600080
+   \   00000088   0x6041             STR      R1,[R0, #+4]
+   1171              USBx->HPTXFSIZ = (uint32_t )(((0x40 << 16)& USB_OTG_HPTXFSIZ_PTXFD) | 0xE0);
+   \   0000008A   0x.... 0x....      LDR.W    R0,??DataTable9_9  ;; 0x4000e0
+   \   0000008E   0x.... 0x....      LDR.W    R1,??DataTable9_10  ;; 0x50000100
+   \   00000092   0x6008             STR      R0,[R1, #+0]
+   \   00000094   0xE009             B.N      ??USB_HostInit_5
+   1172          
+   1173            }
+   1174          
+   1175            else
+   1176            {
+   1177              /* set Rx FIFO size */
+   1178              USBx->GRXFSIZ  = (uint32_t )0x200; 
+   \                     ??USB_HostInit_4: (+1)
+   \   00000096   0xF44F 0x7000      MOV      R0,#+512
+   \   0000009A   0x6260             STR      R0,[R4, #+36]
+   1179              USBx->DIEPTXF0_HNPTXFSIZ = (uint32_t )(((0x100 << 16)& USB_OTG_NPTXFD) | 0x200);
+   \   0000009C   0x.... 0x....      LDR.W    R0,??DataTable9_11  ;; 0x1000200
+   \   000000A0   0x62A0             STR      R0,[R4, #+40]
+   1180              USBx->HPTXFSIZ = (uint32_t )(((0xE0 << 16)& USB_OTG_HPTXFSIZ_PTXFD) | 0x300);
+   \   000000A2   0x.... 0x....      LDR.W    R0,??DataTable9_12  ;; 0xe00300
+   \   000000A6   0xF8C4 0x0100      STR      R0,[R4, #+256]
+   1181            }
+   1182            
+   1183            /* Enable the common interrupts */
+   1184            if (cfg.dma_enable == DISABLE)
+   \                     ??USB_HostInit_5: (+1)
+   \   000000AA   0x9808             LDR      R0,[SP, #+32]
+   \   000000AC   0x.... 0x....      BL       ?Subroutine5
+   1185            {
+   1186              USBx->GINTMSK |= USB_OTG_GINTMSK_RXFLVLM; 
+   1187            }
+   1188            
+   1189            /* Enable interrupts matching to the Host mode ONLY */
+   1190            USBx->GINTMSK |= (USB_OTG_GINTMSK_PRTIM            | USB_OTG_GINTMSK_HCIM |\
+   1191                              USB_OTG_GINTMSK_SOFM             |USB_OTG_GINTSTS_DISCINT|\
+   1192                              USB_OTG_GINTMSK_PXFRM_IISOOXFRM  | USB_OTG_GINTMSK_WUIM);
+   \                     ??CrossCallReturnLabel_1: (+1)
+   \   000000B0   0x.... 0x....      LDR.W    R1,??DataTable9_13  ;; 0xa3200008
+   \   000000B4   0x4308             ORRS     R0,R1,R0
+   \   000000B6   0x61A0             STR      R0,[R4, #+24]
+   1193          
+   1194            return HAL_OK;
+   \   000000B8   0x2000             MOVS     R0,#+0
+   \   000000BA   0xBC56             POP      {R1,R2,R4,R6}
+   \   000000BC   0xF85D 0xFB10      LDR      PC,[SP], #+16    ;; return
+   1195          }
+   1196          
+   1197          /**
+   1198            * @brief  USB_InitFSLSPClkSel : Initializes the FSLSPClkSel field of the 
+   1199            *         HCFG register on the PHY type and set the right frame interval
+   1200            * @param  USBx : Selected device
+   1201            * @param  freq : clock frequency
+   1202            *          This parameter can be one of the these values:
+   1203            *           HCFG_48_MHZ : Full Speed 48 MHz Clock 
+   1204            *           HCFG_6_MHZ : Low Speed 6 MHz Clock 
+   1205            * @retval HAL status
+   1206            */
+
+   \                                 In section .text, align 2, keep-with-next
+   1207          HAL_StatusTypeDef USB_InitFSLSPClkSel(USB_OTG_GlobalTypeDef *USBx , uint8_t freq)
+   1208          {
+   1209            USBx_HOST->HCFG &= ~(USB_OTG_HCFG_FSLSPCS);
+   \                     USB_InitFSLSPClkSel: (+1)
+   \   00000000   0xF500 0x6080      ADD      R0,R0,#+1024
+   1210            USBx_HOST->HCFG |= (freq & USB_OTG_HCFG_FSLSPCS);
+   \   00000004   0xF001 0x0303      AND      R3,R1,#0x3
+   \   00000008   0x6802             LDR      R2,[R0, #+0]
+   \   0000000A   0x0892             LSRS     R2,R2,#+2
+   \   0000000C   0x0092             LSLS     R2,R2,#+2
+   \   0000000E   0x6002             STR      R2,[R0, #+0]
+   \   00000010   0x6802             LDR      R2,[R0, #+0]
+   \   00000012   0x431A             ORRS     R2,R3,R2
+   1211            
+   1212            if (freq ==  HCFG_48_MHZ)
+   \   00000014   0x2901             CMP      R1,#+1
+   \   00000016   0x6002             STR      R2,[R0, #+0]
+   \   00000018   0xBF08             IT       EQ 
+   \   0000001A   0xF64B 0x3180      MOVWEQ   R1,#+48000
+   1213            {
+   1214              USBx_HOST->HFIR = (uint32_t)48000;
+   \   0000001E   0xD003             BEQ.N    ??USB_InitFSLSPClkSel_0
+   1215            }
+   1216            else if (freq ==  HCFG_6_MHZ)
+   \   00000020   0x2902             CMP      R1,#+2
+   \   00000022   0xD102             BNE.N    ??USB_InitFSLSPClkSel_1
+   1217            {
+   1218              USBx_HOST->HFIR = (uint32_t)6000;
+   \   00000024   0xF241 0x7170      MOVW     R1,#+6000
+   \                     ??USB_InitFSLSPClkSel_0: (+1)
+   \   00000028   0x6041             STR      R1,[R0, #+4]
+   1219            } 
+   1220            return HAL_OK;  
+   \                     ??USB_InitFSLSPClkSel_1: (+1)
+   \   0000002A   0x2000             MOVS     R0,#+0
+   \   0000002C   0x4770             BX       LR               ;; return
+   1221          }
+   1222          
+   1223          /**
+   1224          * @brief  USB_OTG_ResetPort : Reset Host Port
+   1225            * @param  USBx : Selected device
+   1226            * @retval HAL status
+   1227            * @note : (1)The application must wait at least 10 ms
+   1228            *   before clearing the reset bit.
+   1229            */
+
+   \                                 In section .text, align 2, keep-with-next
+   1230          HAL_StatusTypeDef USB_ResetPort(USB_OTG_GlobalTypeDef *USBx)
+   1231          {
+   \                     USB_ResetPort: (+1)
+   \   00000000   0xB510             PUSH     {R4,LR}
+   1232            __IO uint32_t hprt0;
+   1233            
+   1234            hprt0 = USBx_HPRT0;
+   \   00000002   0xF500 0x6488      ADD      R4,R0,#+1088
+   \   00000006   0xB082             SUB      SP,SP,#+8
+   \   00000008   0x6820             LDR      R0,[R4, #+0]
+   \   0000000A   0x9000             STR      R0,[SP, #+0]
+   1235            
+   1236            hprt0 &= ~(USB_OTG_HPRT_PENA    | USB_OTG_HPRT_PCDET |\
+   1237              USB_OTG_HPRT_PENCHNG | USB_OTG_HPRT_POCCHNG );
+   \   0000000C   0x9800             LDR      R0,[SP, #+0]
+   \   0000000E   0xF020 0x002E      BIC      R0,R0,#0x2E
+   \   00000012   0x9000             STR      R0,[SP, #+0]
+   1238            
+   1239            USBx_HPRT0 = (USB_OTG_HPRT_PRST | hprt0);  
+   \   00000014   0x9800             LDR      R0,[SP, #+0]
+   \   00000016   0xF440 0x7080      ORR      R0,R0,#0x100
+   \   0000001A   0x6020             STR      R0,[R4, #+0]
+   1240            HAL_Delay (10);                                /* See Note #1 */
+   \   0000001C   0x200A             MOVS     R0,#+10
+   \   0000001E   0x.... 0x....      BL       HAL_Delay
+   1241            USBx_HPRT0 = ((~USB_OTG_HPRT_PRST) & hprt0); 
+   \   00000022   0x9800             LDR      R0,[SP, #+0]
+   \   00000024   0xF420 0x7080      BIC      R0,R0,#0x100
+   \   00000028   0x6020             STR      R0,[R4, #+0]
+   1242            return HAL_OK;
+   \   0000002A   0x2000             MOVS     R0,#+0
+   \   0000002C   0xBD16             POP      {R1,R2,R4,PC}    ;; return
+   1243          }
+   1244          
+   1245          /**
+   1246            * @brief  USB_DriveVbus : activate or de-activate vbus
+   1247            * @param  state : VBUS state
+   1248            *          This parameter can be one of the these values:
+   1249            *           0 : VBUS Active 
+   1250            *           1 : VBUS Inactive
+   1251            * @retval HAL status
+   1252          */
+
+   \                                 In section .text, align 2, keep-with-next
+   1253          HAL_StatusTypeDef USB_DriveVbus (USB_OTG_GlobalTypeDef *USBx, uint8_t state)
+   1254          {
+   1255            __IO uint32_t hprt0;
+   1256          
+   1257            hprt0 = USBx_HPRT0;
+   \                     USB_DriveVbus: (+1)
+   \   00000000   0xF500 0x6088      ADD      R0,R0,#+1088
+   \   00000004   0xB081             SUB      SP,SP,#+4
+   \   00000006   0x6802             LDR      R2,[R0, #+0]
+   \   00000008   0x9200             STR      R2,[SP, #+0]
+   1258            hprt0 &= ~(USB_OTG_HPRT_PENA    | USB_OTG_HPRT_PCDET |\
+   1259                                   USB_OTG_HPRT_PENCHNG | USB_OTG_HPRT_POCCHNG );
+   \   0000000A   0x9A00             LDR      R2,[SP, #+0]
+   \   0000000C   0xF022 0x022E      BIC      R2,R2,#0x2E
+   \   00000010   0x9200             STR      R2,[SP, #+0]
+   1260            
+   1261            if (((hprt0 & USB_OTG_HPRT_PPWR) == 0 ) && (state == 1 ))
+   \   00000012   0x9A00             LDR      R2,[SP, #+0]
+   \   00000014   0x04D2             LSLS     R2,R2,#+19
+   \   00000016   0xD407             BMI.N    ??USB_DriveVbus_0
+   \   00000018   0x2901             CMP      R1,#+1
+   \   0000001A   0xD105             BNE.N    ??USB_DriveVbus_0
+   1262            {
+   1263              USBx_HPRT0 = (USB_OTG_HPRT_PPWR | hprt0); 
+   \   0000001C   0x9900             LDR      R1,[SP, #+0]
+   \   0000001E   0xF441 0x5180      ORR      R1,R1,#0x1000
+   \   00000022   0x6001             STR      R1,[R0, #+0]
+   \   00000024   0x9800             LDR      R0,[SP, #+0]
+   \   00000026   0xE007             B.N      ??USB_DriveVbus_1
+   1264            }
+   1265            if (((hprt0 & USB_OTG_HPRT_PPWR) == USB_OTG_HPRT_PPWR) && (state == 0 ))
+   \                     ??USB_DriveVbus_0: (+1)
+   \   00000028   0x9A00             LDR      R2,[SP, #+0]
+   \   0000002A   0x04D2             LSLS     R2,R2,#+19
+   \   0000002C   0xD504             BPL.N    ??USB_DriveVbus_1
+   \   0000002E   0xB919             CBNZ.N   R1,??USB_DriveVbus_1
+   1266            {
+   1267              USBx_HPRT0 = ((~USB_OTG_HPRT_PPWR) & hprt0); 
+   \   00000030   0x9900             LDR      R1,[SP, #+0]
+   \   00000032   0xF421 0x5180      BIC      R1,R1,#0x1000
+   \   00000036   0x6001             STR      R1,[R0, #+0]
+   1268            }
+   1269            return HAL_OK; 
+   \                     ??USB_DriveVbus_1: (+1)
+   \   00000038   0x2000             MOVS     R0,#+0
+   \   0000003A   0xB001             ADD      SP,SP,#+4
+   \   0000003C   0x4770             BX       LR               ;; return
+   1270          }
+   1271          
+   1272          /**
+   1273            * @brief  Return Host Core speed
+   1274            * @param  USBx : Selected device
+   1275            * @retval speed : Host speed
+   1276            *          This parameter can be one of the these values:
+   1277            *            @arg USB_OTG_SPEED_HIGH: High speed mode
+   1278            *            @arg USB_OTG_SPEED_FULL: Full speed mode
+   1279            *            @arg USB_OTG_SPEED_LOW: Low speed mode
+   1280            */
+
+   \                                 In section .text, align 2, keep-with-next
+   1281          uint32_t USB_GetHostSpeed (USB_OTG_GlobalTypeDef *USBx)
+   1282          {
+   1283            __IO uint32_t hprt0;
+   1284            
+   1285            hprt0 = USBx_HPRT0;
+   \                     USB_GetHostSpeed: (+1)
+   \   00000000   0xF500 0x6088      ADD      R0,R0,#+1088
+   \   00000004   0xB081             SUB      SP,SP,#+4
+   \   00000006   0x6800             LDR      R0,[R0, #+0]
+   \   00000008   0x9000             STR      R0,[SP, #+0]
+   1286            return ((hprt0 & USB_OTG_HPRT_PSPD) >> 17);
+   \   0000000A   0x9800             LDR      R0,[SP, #+0]
+   \   0000000C   0xB001             ADD      SP,SP,#+4
+   \   0000000E   0xF3C0 0x4041      UBFX     R0,R0,#+17,#+2
+   \   00000012   0x4770             BX       LR               ;; return
+   1287          }
+   1288          
+   1289          /**
+   1290            * @brief  Return Host Current Frame number
+   1291            * @param  USBx : Selected device
+   1292            * @retval current frame number
+   1293          */
+
+   \                                 In section .text, align 2, keep-with-next
+   1294          uint32_t USB_GetCurrentFrame (USB_OTG_GlobalTypeDef *USBx)
+   1295          {
+   1296            return (USBx_HOST->HFNUM & USB_OTG_HFNUM_FRNUM);
+   \                     USB_GetCurrentFrame: (+1)
+   \   00000000   0xF500 0x6080      ADD      R0,R0,#+1024
+   \   00000004   0x6880             LDR      R0,[R0, #+8]
+   \   00000006   0xB280             UXTH     R0,R0
+   \   00000008   0x4770             BX       LR               ;; return
+   1297          }
+   1298          
+   1299          /**
+   1300            * @brief  Initialize a host channel
+   1301            * @param  USBx : Selected device
+   1302            * @param  ch_num : Channel number
+   1303            *         This parameter can be a value from 1 to 15
+   1304            * @param  epnum : Endpoint number
+   1305            *          This parameter can be a value from 1 to 15
+   1306            * @param  dev_address : Current device address
+   1307            *          This parameter can be a value from 0 to 255
+   1308            * @param  speed : Current device speed
+   1309            *          This parameter can be one of the these values:
+   1310            *            @arg USB_OTG_SPEED_HIGH: High speed mode
+   1311            *            @arg USB_OTG_SPEED_FULL: Full speed mode
+   1312            *            @arg USB_OTG_SPEED_LOW: Low speed mode
+   1313            * @param  ep_type : Endpoint Type
+   1314            *          This parameter can be one of the these values:
+   1315            *            @arg EP_TYPE_CTRL: Control type
+   1316            *            @arg EP_TYPE_ISOC: Isochronous type
+   1317            *            @arg EP_TYPE_BULK: Bulk type
+   1318            *            @arg EP_TYPE_INTR: Interrupt type
+   1319            * @param  mps : Max Packet Size
+   1320            *          This parameter can be a value from 0 to32K
+   1321            * @retval HAL state
+   1322            */
+
+   \                                 In section .text, align 4, keep-with-next
+   1323          HAL_StatusTypeDef USB_HC_Init(USB_OTG_GlobalTypeDef *USBx,  
+   1324                                        uint8_t ch_num,
+   1325                                        uint8_t epnum,
+   1326                                        uint8_t dev_address,
+   1327                                        uint8_t speed,
+   1328                                        uint8_t ep_type,
+   1329                                        uint16_t mps)
+   1330          {
+   \                     USB_HC_Init: (+1)
+   \   00000000   0xB5F0             PUSH     {R4-R7,LR}
+   1331              
+   1332            /* Clear old interrupt conditions for this host channel. */
+   1333            USBx_HC(ch_num)->HCINT = 0xFFFFFFFF;
+   \   00000002   0xEB00 0x1441      ADD      R4,R0,R1, LSL #+5
+   \   00000006   0xF504 0x65A0      ADD      R5,R4,#+1280
+   \   0000000A   0xF04F 0x34FF      MOV      R4,#-1
+   \   0000000E   0x60AC             STR      R4,[R5, #+8]
+   \   00000010   0x9C06             LDR      R4,[SP, #+24]
+   1334            
+   1335            /* Enable channel interrupts required for this transfer. */
+   1336            switch (ep_type) 
+   \   00000012   0x2C03             CMP      R4,#+3
+   \   00000014   0xD821             BHI.N    ??USB_HC_Init_1
+   \   00000016   0xE8DF 0xF004      TBB      [PC, R4]
+   \                     ??USB_HC_Init_0:
+   \   0000001A   0x02 0x17          DC8      0x2,0x17,0x2,0xE
+   \              0x02 0x0E    
+   1337            {
+   1338            case EP_TYPE_CTRL:
+   1339            case EP_TYPE_BULK:
+   1340              
+   1341              USBx_HC(ch_num)->HCINTMSK = USB_OTG_HCINTMSK_XFRCM  |\
+   1342                                          USB_OTG_HCINTMSK_STALLM |\
+   1343                                          USB_OTG_HCINTMSK_TXERRM |\
+   1344                                          USB_OTG_HCINTMSK_DTERRM |\
+   1345                                          USB_OTG_HCINTMSK_AHBERR |\
+   1346                                          USB_OTG_HCINTMSK_NAKM ;
+   \                     ??USB_HC_Init_2: (+1)
+   \   0000001E   0xF240 0x479D      MOVW     R7,#+1181
+   \   00000022   0x60EF             STR      R7,[R5, #+12]
+   1347           
+   1348              if (epnum & 0x80) 
+   \   00000024   0x0617             LSLS     R7,R2,#+24
+   \   00000026   0xD40B             BMI.N    ??USB_HC_Init_3
+   1349              {
+   1350                USBx_HC(ch_num)->HCINTMSK |= USB_OTG_HCINTMSK_BBERRM;
+   1351              } 
+   1352              else 
+   1353              {
+   1354                if(USBx != USB_OTG_FS)
+   \   00000028   0xF1B0 0x4FA0      CMP      R0,#+1342177280
+   \   0000002C   0xD015             BEQ.N    ??USB_HC_Init_1
+   1355                {
+   1356                  USBx_HC(ch_num)->HCINTMSK |= (USB_OTG_HCINTMSK_NYET | USB_OTG_HCINTMSK_ACKM);
+   \   0000002E   0x68EF             LDR      R7,[R5, #+12]
+   \   00000030   0xF047 0x0760      ORR      R7,R7,#0x60
+   \   00000034   0xE010             B.N      ??USB_HC_Init_4
+   1357                }
+   1358              }
+   1359              break;
+   1360            case EP_TYPE_INTR:
+   1361              
+   1362              USBx_HC(ch_num)->HCINTMSK = USB_OTG_HCINTMSK_XFRCM  |\
+   1363                                          USB_OTG_HCINTMSK_STALLM |\
+   1364                                          USB_OTG_HCINTMSK_TXERRM |\
+   1365                                          USB_OTG_HCINTMSK_DTERRM |\
+   1366                                          USB_OTG_HCINTMSK_NAKM   |\
+   1367                                          USB_OTG_HCINTMSK_AHBERR |\
+   1368                                          USB_OTG_HCINTMSK_FRMORM ;    
+   \                     ??USB_HC_Init_5: (+1)
+   \   00000036   0xF240 0x679D      MOVW     R7,#+1693
+   \   0000003A   0x60EF             STR      R7,[R5, #+12]
+   1369              
+   1370              if (epnum & 0x80) 
+   \   0000003C   0x0617             LSLS     R7,R2,#+24
+   \   0000003E   0xD50C             BPL.N    ??USB_HC_Init_1
+   1371              {
+   1372                USBx_HC(ch_num)->HCINTMSK |= USB_OTG_HCINTMSK_BBERRM;
+   \                     ??USB_HC_Init_3: (+1)
+   \   00000040   0x68EF             LDR      R7,[R5, #+12]
+   \   00000042   0xF447 0x7780      ORR      R7,R7,#0x100
+   \   00000046   0xE007             B.N      ??USB_HC_Init_4
+   1373              }
+   1374              
+   1375              break;
+   1376            case EP_TYPE_ISOC:
+   1377              
+   1378              USBx_HC(ch_num)->HCINTMSK = USB_OTG_HCINTMSK_XFRCM  |\
+   1379                                          USB_OTG_HCINTMSK_ACKM   |\
+   1380                                          USB_OTG_HCINTMSK_AHBERR |\
+   1381                                          USB_OTG_HCINTMSK_FRMORM ;   
+   \                     ??USB_HC_Init_6: (+1)
+   \   00000048   0xF240 0x2725      MOVW     R7,#+549
+   \   0000004C   0x60EF             STR      R7,[R5, #+12]
+   1382              
+   1383              if (epnum & 0x80) 
+   \   0000004E   0x0617             LSLS     R7,R2,#+24
+   \   00000050   0xD503             BPL.N    ??USB_HC_Init_1
+   1384              {
+   1385                USBx_HC(ch_num)->HCINTMSK |= (USB_OTG_HCINTMSK_TXERRM | USB_OTG_HCINTMSK_BBERRM);      
+   \   00000052   0x68EF             LDR      R7,[R5, #+12]
+   \   00000054   0xF447 0x77C0      ORR      R7,R7,#0x180
+   \                     ??USB_HC_Init_4: (+1)
+   \   00000058   0x60EF             STR      R7,[R5, #+12]
+   1386              }
+   1387              break;
+   1388            }
+   1389            
+   1390            /* Enable the top level host channel interrupt. */
+   1391            USBx_HOST->HAINTMSK |= (1 << ch_num);
+   \                     ??USB_HC_Init_1: (+1)
+   \   0000005A   0xF500 0x6680      ADD      R6,R0,#+1024
+   \   0000005E   0xF04F 0x0C01      MOV      R12,#+1
+   \   00000062   0xFA0C 0xF101      LSL      R1,R12,R1
+   \   00000066   0x69B7             LDR      R7,[R6, #+24]
+   \   00000068   0x4339             ORRS     R1,R1,R7
+   \   0000006A   0x61B1             STR      R1,[R6, #+24]
+   1392            
+   1393            /* Make sure host channel interrupts are enabled. */
+   1394            USBx->GINTMSK |= USB_OTG_GINTMSK_HCIM;
+   \   0000006C   0x6981             LDR      R1,[R0, #+24]
+   \   0000006E   0xF041 0x7100      ORR      R1,R1,#0x2000000
+   \   00000072   0x6181             STR      R1,[R0, #+24]
+   1395            
+   1396            /* Program the HCCHAR register */
+   1397            USBx_HC(ch_num)->HCCHAR = (((dev_address << 22) & USB_OTG_HCCHAR_DAD)  |\
+   1398                                       (((epnum & 0x7F)<< 11) & USB_OTG_HCCHAR_EPNUM)|\
+   1399                                       ((((epnum & 0x80) == 0x80)<< 15) & USB_OTG_HCCHAR_EPDIR)|\
+   1400                                       (((speed == HPRT0_PRTSPD_LOW_SPEED)<< 17) & USB_OTG_HCCHAR_LSDEV)|\
+   1401                                       ((ep_type << 18) & USB_OTG_HCCHAR_EPTYP)|\
+   1402                                       (mps & USB_OTG_HCCHAR_MPSIZ));
+   \   00000074   0x9805             LDR      R0,[SP, #+20]
+   \   00000076   0x09D1             LSRS     R1,R2,#+7
+   \   00000078   0x2802             CMP      R0,#+2
+   \   0000007A   0xBF0C             ITE      EQ 
+   \   0000007C   0x2001             MOVEQ    R0,#+1
+   \   0000007E   0x2000             MOVNE    R0,#+0
+   \   00000080   0x059B             LSLS     R3,R3,#+22
+   \   00000082   0x02D2             LSLS     R2,R2,#+11
+   \   00000084   0xF003 0x53FE      AND      R3,R3,#0x1FC00000
+   \   00000088   0xF402 0x42F0      AND      R2,R2,#0x7800
+   \   0000008C   0x431A             ORRS     R2,R2,R3
+   \   0000008E   0xEA42 0x31C1      ORR      R1,R2,R1, LSL #+15
+   \   00000092   0xEA41 0x4040      ORR      R0,R1,R0, LSL #+17
+   \   00000096   0x04A1             LSLS     R1,R4,#+18
+   \   00000098   0xF401 0x2140      AND      R1,R1,#0xC0000
+   \   0000009C   0x4301             ORRS     R1,R1,R0
+   \   0000009E   0x9807             LDR      R0,[SP, #+28]
+   \   000000A0   0x0540             LSLS     R0,R0,#+21
+   \   000000A2   0xEA51 0x5050      ORRS     R0,R1,R0, LSR #+21
+   1403              
+   1404            if (ep_type == EP_TYPE_INTR)
+   \   000000A6   0x2C03             CMP      R4,#+3
+   \   000000A8   0x6028             STR      R0,[R5, #+0]
+   \   000000AA   0xD103             BNE.N    ??USB_HC_Init_7
+   1405            {
+   1406              USBx_HC(ch_num)->HCCHAR |= USB_OTG_HCCHAR_ODDFRM ;
+   \   000000AC   0x6828             LDR      R0,[R5, #+0]
+   \   000000AE   0xF040 0x5000      ORR      R0,R0,#0x20000000
+   \   000000B2   0x6028             STR      R0,[R5, #+0]
+   1407            }
+   1408          
+   1409            return HAL_OK; 
+   \                     ??USB_HC_Init_7: (+1)
+   \   000000B4   0x2000             MOVS     R0,#+0
+   \   000000B6   0xBDF0             POP      {R4-R7,PC}       ;; return
+   1410          }
+   1411          
+   1412          /**
+   1413            * @brief  Start a transfer over a host channel
+   1414            * @param  USBx : Selected device
+   1415            * @param  hc : pointer to host channel structure
+   1416            * @param  dma: USB dma enabled or disabled 
+   1417            *          This parameter can be one of the these values:
+   1418            *           0 : DMA feature not used 
+   1419            *           1 : DMA feature used  
+   1420            * @retval HAL state
+   1421            */
+   1422          #if defined   (__CC_ARM) /*!< ARM Compiler */
+   1423          #pragma O0
+   1424          #elif defined (__GNUC__) /*!< GNU Compiler */
+   1425          #pragma GCC optimize ("O0")
+   1426          #endif /* __CC_ARM */
+
+   \                                 In section .text, align 4, keep-with-next
+   1427          HAL_StatusTypeDef USB_HC_StartXfer(USB_OTG_GlobalTypeDef *USBx, USB_OTG_HCTypeDef *hc, uint8_t dma)
+   1428          {
+   1429            uint8_t  is_oddframe = 0; 
+   1430            uint16_t len_words = 0;   
+   1431            uint16_t num_packets = 0;
+   1432            uint16_t max_hc_pkt_count = 256;
+   1433            uint32_t tmpreg = 0;
+   1434              
+   1435            if((USBx != USB_OTG_FS) && (hc->speed == USB_OTG_SPEED_HIGH))
+   \                     USB_HC_StartXfer: (+1)
+   \   00000000   0xF1B0 0x4FA0      CMP      R0,#+1342177280
+   \   00000004   0xB5F8             PUSH     {R3-R7,LR}
+   \   00000006   0xD017             BEQ.N    ??USB_HC_StartXfer_1
+   \   00000008   0x790C             LDRB     R4,[R1, #+4]
+   \   0000000A   0xB9AC             CBNZ.N   R4,??USB_HC_StartXfer_1
+   1436            {
+   1437              if((dma == 0) && (hc->do_ping == 1))
+   \   0000000C   0x2A00             CMP      R2,#+0
+   \   0000000E   0xBF04             ITT      EQ 
+   \   00000010   0x794C             LDRBEQ   R4,[R1, #+5]
+   \   00000012   0x2C01             CMPEQ    R4,#+1
+   \   00000014   0xD103             BNE.N    ??USB_HC_StartXfer_2
+   1438              {
+   1439                USB_DoPing(USBx, hc->ch_num);
+   \   00000016   0x7849             LDRB     R1,[R1, #+1]
+   \   00000018   0x.... 0x....      BL       USB_DoPing
+   1440                return HAL_OK;
+   \   0000001C   0xE086             B.N      ??USB_HC_StartXfer_3
+   1441              }
+   1442              else if(dma == 1)
+   \                     ??USB_HC_StartXfer_2: (+1)
+   \   0000001E   0x2A01             CMP      R2,#+1
+   \   00000020   0xD10A             BNE.N    ??USB_HC_StartXfer_1
+   \   00000022   0x784C             LDRB     R4,[R1, #+1]
+   \   00000024   0xEB00 0x1444      ADD      R4,R0,R4, LSL #+5
+   \   00000028   0xF504 0x64A0      ADD      R4,R4,#+1280
+   \   0000002C   0x68E5             LDR      R5,[R4, #+12]
+   \   0000002E   0xF025 0x0560      BIC      R5,R5,#0x60
+   \   00000032   0x60E5             STR      R5,[R4, #+12]
+   1443              {
+   1444                USBx_HC(hc->ch_num)->HCINTMSK &= ~(USB_OTG_HCINTMSK_NYET | USB_OTG_HCINTMSK_ACKM);
+   1445                hc->do_ping = 0;
+   \   00000034   0x2400             MOVS     R4,#+0
+   \   00000036   0x714C             STRB     R4,[R1, #+5]
+   1446              }
+   1447            }
+   1448            
+   1449            /* Compute the expected number of packets associated to the transfer */
+   1450            if (hc->xfer_len > 0)
+   \                     ??USB_HC_StartXfer_1: (+1)
+   \   00000038   0x690C             LDR      R4,[R1, #+16]
+   \   0000003A   0xB16C             CBZ.N    R4,??USB_HC_StartXfer_4
+   1451            {
+   1452              num_packets = (hc->xfer_len + hc->max_packet - 1) / hc->max_packet;
+   \   0000003C   0x890D             LDRH     R5,[R1, #+8]
+   \   0000003E   0x192C             ADDS     R4,R5,R4
+   \   00000040   0x1E64             SUBS     R4,R4,#+1
+   \   00000042   0xFBB4 0xF4F5      UDIV     R4,R4,R5
+   \   00000046   0xB2A4             UXTH     R4,R4
+   1453              
+   1454              if (num_packets > max_hc_pkt_count)
+   \   00000048   0xF5B4 0x7F80      CMP      R4,#+256
+   \   0000004C   0xDD05             BLE.N    ??USB_HC_StartXfer_5
+   1455              {
+   1456                num_packets = max_hc_pkt_count;
+   1457                hc->xfer_len = num_packets * hc->max_packet;
+   \   0000004E   0x022D             LSLS     R5,R5,#+8
+   \   00000050   0xF44F 0x7480      MOV      R4,#+256
+   \   00000054   0x610D             STR      R5,[R1, #+16]
+   \   00000056   0xE000             B.N      ??USB_HC_StartXfer_5
+   1458              }
+   1459            }
+   1460            else
+   1461            {
+   1462              num_packets = 1;
+   \                     ??USB_HC_StartXfer_4: (+1)
+   \   00000058   0x2401             MOVS     R4,#+1
+   1463            }
+   1464            if (hc->ep_is_in)
+   \                     ??USB_HC_StartXfer_5: (+1)
+   \   0000005A   0x78CD             LDRB     R5,[R1, #+3]
+   \   0000005C   0xB115             CBZ.N    R5,??USB_HC_StartXfer_6
+   1465            {
+   1466              hc->xfer_len = num_packets * hc->max_packet;
+   \   0000005E   0x890D             LDRH     R5,[R1, #+8]
+   \   00000060   0x4365             MULS     R5,R5,R4
+   \   00000062   0x610D             STR      R5,[R1, #+16]
+   1467            }
+   1468            
+   1469            
+   1470            
+   1471            /* Initialize the HCTSIZn register */
+   1472            USBx_HC(hc->ch_num)->HCTSIZ = (((hc->xfer_len) & USB_OTG_HCTSIZ_XFRSIZ)) |\
+   1473              ((num_packets << 19) & USB_OTG_HCTSIZ_PKTCNT) |\
+   1474                (((hc->data_pid) << 29) & USB_OTG_HCTSIZ_DPID);
+   \                     ??USB_HC_StartXfer_6: (+1)
+   \   00000064   0x690E             LDR      R6,[R1, #+16]
+   \   00000066   0x....             LDR.N    R7,??DataTable9_5  ;; 0x1ff80000
+   \   00000068   0xEA07 0x44C4      AND      R4,R7,R4, LSL #+19
+   \   0000006C   0x784D             LDRB     R5,[R1, #+1]
+   \   0000006E   0x0376             LSLS     R6,R6,#+13
+   \   00000070   0xEA54 0x3456      ORRS     R4,R4,R6, LSR #+13
+   \   00000074   0x7A8E             LDRB     R6,[R1, #+10]
+   \   00000076   0xEB00 0x1545      ADD      R5,R0,R5, LSL #+5
+   \   0000007A   0x0776             LSLS     R6,R6,#+29
+   \   0000007C   0xF006 0x46C0      AND      R6,R6,#0x60000000
+   \   00000080   0xF505 0x65A0      ADD      R5,R5,#+1280
+   \   00000084   0x4334             ORRS     R4,R6,R4
+   1475            
+   1476            if (dma)
+   \   00000086   0x2A00             CMP      R2,#+0
+   \   00000088   0x612C             STR      R4,[R5, #+16]
+   \   0000008A   0xD006             BEQ.N    ??USB_HC_StartXfer_7
+   1477            {
+   1478              /* xfer_buff MUST be 32-bits aligned */
+   1479              USBx_HC(hc->ch_num)->HCDMA = (uint32_t)hc->xfer_buff;
+   \   0000008C   0x784C             LDRB     R4,[R1, #+1]
+   \   0000008E   0x68CD             LDR      R5,[R1, #+12]
+   \   00000090   0xEB00 0x1444      ADD      R4,R0,R4, LSL #+5
+   \   00000094   0xF504 0x64A0      ADD      R4,R4,#+1280
+   \   00000098   0x6165             STR      R5,[R4, #+20]
+   1480            }
+   1481            
+   1482            is_oddframe = (USBx_HOST->HFNUM & 0x01) ? 0 : 1;
+   \                     ??USB_HC_StartXfer_7: (+1)
+   \   0000009A   0xF500 0x6480      ADD      R4,R0,#+1024
+   \   0000009E   0x68A5             LDR      R5,[R4, #+8]
+   1483            USBx_HC(hc->ch_num)->HCCHAR &= ~USB_OTG_HCCHAR_ODDFRM;
+   \   000000A0   0x784E             LDRB     R6,[R1, #+1]
+   \   000000A2   0xEB00 0x1646      ADD      R6,R0,R6, LSL #+5
+   1484            USBx_HC(hc->ch_num)->HCCHAR |= (is_oddframe << 29);
+   \   000000A6   0xF005 0x0501      AND      R5,R5,#0x1
+   \   000000AA   0xF085 0x0501      EOR      R5,R5,#0x1
+   \   000000AE   0xF506 0x66A0      ADD      R6,R6,#+1280
+   \   000000B2   0x6837             LDR      R7,[R6, #+0]
+   \   000000B4   0xF027 0x5700      BIC      R7,R7,#0x20000000
+   \   000000B8   0x6037             STR      R7,[R6, #+0]
+   \   000000BA   0x784E             LDRB     R6,[R1, #+1]
+   \   000000BC   0xEB00 0x1646      ADD      R6,R0,R6, LSL #+5
+   \   000000C0   0xF506 0x66A0      ADD      R6,R6,#+1280
+   \   000000C4   0x6837             LDR      R7,[R6, #+0]
+   \   000000C6   0xEA47 0x7545      ORR      R5,R7,R5, LSL #+29
+   \   000000CA   0x6035             STR      R5,[R6, #+0]
+   1485            
+   1486            /* Set host channel enable */
+   1487            tmpreg = USBx_HC(hc->ch_num)->HCCHAR;
+   \   000000CC   0x784D             LDRB     R5,[R1, #+1]
+   \   000000CE   0xEB00 0x1345      ADD      R3,R0,R5, LSL #+5
+   \   000000D2   0xF503 0x63A0      ADD      R3,R3,#+1280
+   \   000000D6   0x681D             LDR      R5,[R3, #+0]
+   1488            tmpreg &= ~USB_OTG_HCCHAR_CHDIS;
+   1489            tmpreg |= USB_OTG_HCCHAR_CHENA;
+   1490            USBx_HC(hc->ch_num)->HCCHAR = tmpreg;
+   \   000000D8   0xF025 0x4580      BIC      R5,R5,#0x40000000
+   \   000000DC   0xF045 0x4500      ORR      R5,R5,#0x80000000
+   \   000000E0   0x601D             STR      R5,[R3, #+0]
+   1491            
+   1492            if (dma == 0) /* Slave mode */
+   \   000000E2   0xBF04             ITT      EQ 
+   \   000000E4   0x78CA             LDRBEQ   R2,[R1, #+3]
+   \   000000E6   0x2A00             CMPEQ    R2,#+0
+   1493            {  
+   1494              if((hc->ep_is_in == 0) && (hc->xfer_len > 0))
+   \   000000E8   0xD120             BNE.N    ??USB_HC_StartXfer_3
+   \   000000EA   0x690A             LDR      R2,[R1, #+16]
+   \   000000EC   0xB1F2             CBZ.N    R2,??USB_HC_StartXfer_3
+   1495              {
+   1496                switch(hc->ep_type) 
+   \   000000EE   0x79CB             LDRB     R3,[R1, #+7]
+   \   000000F0   0x2B03             CMP      R3,#+3
+   \   000000F2   0xD813             BHI.N    ??USB_HC_StartXfer_8
+   \   000000F4   0xE8DF 0xF003      TBB      [PC, R3]
+   \                     ??USB_HC_StartXfer_0:
+   \   000000F8   0x02 0x0A          DC8      0x2,0xA,0x2,0xA
+   \              0x02 0x0A    
+   1497                {
+   1498                  /* Non periodic transfer */
+   1499                case EP_TYPE_CTRL:
+   1500                case EP_TYPE_BULK:
+   1501                  
+   1502                  len_words = (hc->xfer_len + 3) / 4;
+   1503                  
+   1504                  /* check if there is enough space in FIFO space */
+   1505                  if(len_words > (USBx->HNPTXSTS & 0xFFFF))
+   \                     ??USB_HC_StartXfer_9: (+1)
+   \   000000FC   0x6AC3             LDR      R3,[R0, #+44]
+   \   000000FE   0x.... 0x....      BL       ?Subroutine17
+   \                     ??CrossCallReturnLabel_29: (+1)
+   \   00000102   0xD20B             BCS.N    ??USB_HC_StartXfer_8
+   1506                  {
+   1507                    /* need to process data in nptxfempty interrupt */
+   1508                    USBx->GINTMSK |= USB_OTG_GINTMSK_NPTXFEM;
+   \   00000104   0x6982             LDR      R2,[R0, #+24]
+   \   00000106   0xF042 0x0220      ORR      R2,R2,#0x20
+   \   0000010A   0xE006             B.N      ??USB_HC_StartXfer_10
+   1509                  }
+   1510                  break;
+   1511                  /* Periodic transfer */
+   1512                case EP_TYPE_INTR:
+   1513                case EP_TYPE_ISOC:
+   1514                  len_words = (hc->xfer_len + 3) / 4;
+   1515                  /* check if there is enough space in FIFO space */
+   1516                  if(len_words > (USBx_HOST->HPTXSTS & 0xFFFF)) /* split the transfer */
+   \                     ??USB_HC_StartXfer_11: (+1)
+   \   0000010C   0x6923             LDR      R3,[R4, #+16]
+   \   0000010E   0x.... 0x....      BL       ?Subroutine17
+   \                     ??CrossCallReturnLabel_30: (+1)
+   \   00000112   0xD203             BCS.N    ??USB_HC_StartXfer_8
+   1517                  {
+   1518                    /* need to process data in ptxfempty interrupt */
+   1519                    USBx->GINTMSK |= USB_OTG_GINTMSK_PTXFEM;          
+   \   00000114   0x6982             LDR      R2,[R0, #+24]
+   \   00000116   0xF042 0x6280      ORR      R2,R2,#0x4000000
+   \                     ??USB_HC_StartXfer_10: (+1)
+   \   0000011A   0x6182             STR      R2,[R0, #+24]
+   1520                  }
+   1521                  break;
+   1522                  
+   1523                default:
+   1524                  break;
+   1525                }
+   1526                
+   1527                /* Write packet into the Tx FIFO. */
+   1528                USB_WritePacket(USBx, hc->xfer_buff, hc->ch_num, hc->xfer_len, 0);
+   \                     ??USB_HC_StartXfer_8: (+1)
+   \   0000011C   0x2200             MOVS     R2,#+0
+   \   0000011E   0x9200             STR      R2,[SP, #+0]
+   \   00000120   0x690B             LDR      R3,[R1, #+16]
+   \   00000122   0x784A             LDRB     R2,[R1, #+1]
+   \   00000124   0x68C9             LDR      R1,[R1, #+12]
+   \   00000126   0xB29B             UXTH     R3,R3
+   \   00000128   0x.... 0x....      BL       USB_WritePacket
+   1529              }
+   1530            }
+   1531            
+   1532            return HAL_OK;
+   \                     ??USB_HC_StartXfer_3: (+1)
+   \   0000012C   0x2000             MOVS     R0,#+0
+   \   0000012E   0xBDF2             POP      {R1,R4-R7,PC}    ;; return
+   1533          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine17: (+1)
+   \   00000000   0x1CD2             ADDS     R2,R2,#+3
+   \   00000002   0x0392             LSLS     R2,R2,#+14
+   \   00000004   0xB29B             UXTH     R3,R3
+   \   00000006   0xEBB3 0x4F12      CMP      R3,R2, LSR #+16
+   \   0000000A   0x4770             BX       LR
+   1534          
+   1535          /**
+   1536            * @brief Read all host channel interrupts status
+   1537            * @param  USBx : Selected device
+   1538            * @retval HAL state
+   1539            */
+
+   \                                 In section .text, align 2, keep-with-next
+   1540          uint32_t USB_HC_ReadInterrupt (USB_OTG_GlobalTypeDef *USBx)
+   1541          {
+   1542            return ((USBx_HOST->HAINT) & 0xFFFF);
+   \                     USB_HC_ReadInterrupt: (+1)
+   \   00000000   0xF500 0x6080      ADD      R0,R0,#+1024
+   \   00000004   0x6940             LDR      R0,[R0, #+20]
+   \   00000006   0xB280             UXTH     R0,R0
+   \   00000008   0x4770             BX       LR               ;; return
+   1543          }
+   1544          
+   1545          /**
+   1546            * @brief  Halt a host channel
+   1547            * @param  USBx : Selected device
+   1548            * @param  hc_num : Host Channel number
+   1549            *         This parameter can be a value from 1 to 15
+   1550            * @retval HAL state
+   1551            */
+
+   \                                 In section .text, align 2, keep-with-next
+   1552          HAL_StatusTypeDef USB_HC_Halt(USB_OTG_GlobalTypeDef *USBx , uint8_t hc_num)
+   1553          {
+   1554            uint32_t count = 0;
+   1555            
+   1556            /* Check for space in the request queue to issue the halt. */
+   1557            if (((USBx_HC(hc_num)->HCCHAR) & (HCCHAR_CTRL << 18)) || ((USBx_HC(hc_num)->HCCHAR) & (HCCHAR_BULK << 18)))
+   \                     USB_HC_Halt: (+1)
+   \   00000000   0xEB00 0x1141      ADD      R1,R0,R1, LSL #+5
+   \   00000004   0xF501 0x61A0      ADD      R1,R1,#+1280
+   \   00000008   0x680A             LDR      R2,[R1, #+0]
+   \   0000000A   0x680B             LDR      R3,[R1, #+0]
+   \   0000000C   0xF240 0x32E9      MOVW     R2,#+1001
+   \   00000010   0x031B             LSLS     R3,R3,#+12
+   \   00000012   0x680B             LDR      R3,[R1, #+0]
+   \   00000014   0xF043 0x4380      ORR      R3,R3,#0x40000000
+   \   00000018   0x600B             STR      R3,[R1, #+0]
+   \   0000001A   0xBF4E             ITEE     MI 
+   \   0000001C   0x6AC0             LDRMI    R0,[R0, #+44]
+   \   0000001E   0xF500 0x6080      ADDPL    R0,R0,#+1024
+   \   00000022   0x6900             LDRPL    R0,[R0, #+16]
+   1558            {
+   1559              USBx_HC(hc_num)->HCCHAR |= USB_OTG_HCCHAR_CHDIS;
+   1560              
+   1561              if ((USBx->HNPTXSTS & 0xFFFF) == 0)
+   1562              {
+   1563                USBx_HC(hc_num)->HCCHAR &= ~USB_OTG_HCCHAR_CHENA;
+   1564                USBx_HC(hc_num)->HCCHAR |= USB_OTG_HCCHAR_CHENA;  
+   1565                USBx_HC(hc_num)->HCCHAR &= ~USB_OTG_HCCHAR_EPDIR;
+   1566                do 
+   1567                {
+   1568                  if (++count > 1000) 
+   1569                  {
+   1570                    break;
+   1571                  }
+   1572                } 
+   1573                while ((USBx_HC(hc_num)->HCCHAR & USB_OTG_HCCHAR_CHENA) == USB_OTG_HCCHAR_CHENA);     
+   1574              }
+   1575              else
+   1576              {
+   1577                USBx_HC(hc_num)->HCCHAR |= USB_OTG_HCCHAR_CHENA; 
+   1578              }
+   1579            }
+   1580            else
+   1581            {
+   1582              USBx_HC(hc_num)->HCCHAR |= USB_OTG_HCCHAR_CHDIS;
+   1583              
+   1584              if ((USBx_HOST->HPTXSTS & 0xFFFF) == 0)
+   \   00000024   0x0400             LSLS     R0,R0,#+16
+   \   00000026   0x6808             LDR      R0,[R1, #+0]
+   \   00000028   0xD110             BNE.N    ??USB_HC_Halt_0
+   1585              {
+   1586                USBx_HC(hc_num)->HCCHAR &= ~USB_OTG_HCCHAR_CHENA;
+   \   0000002A   0x0040             LSLS     R0,R0,#+1
+   \   0000002C   0x0840             LSRS     R0,R0,#+1
+   \   0000002E   0x6008             STR      R0,[R1, #+0]
+   1587                USBx_HC(hc_num)->HCCHAR |= USB_OTG_HCCHAR_CHENA;  
+   \   00000030   0x6808             LDR      R0,[R1, #+0]
+   \   00000032   0xF040 0x4000      ORR      R0,R0,#0x80000000
+   \   00000036   0x6008             STR      R0,[R1, #+0]
+   1588                USBx_HC(hc_num)->HCCHAR &= ~USB_OTG_HCCHAR_EPDIR;
+   \   00000038   0x6808             LDR      R0,[R1, #+0]
+   \   0000003A   0xF420 0x4000      BIC      R0,R0,#0x8000
+   \   0000003E   0x6008             STR      R0,[R1, #+0]
+   1589                do 
+   1590                {
+   1591                  if (++count > 1000) 
+   \                     ??USB_HC_Halt_1: (+1)
+   \   00000040   0x1E52             SUBS     R2,R2,#+1
+   \   00000042   0xD006             BEQ.N    ??USB_HC_Halt_2
+   1592                  {
+   1593                    break;
+   1594                  }
+   1595                } 
+   1596                while ((USBx_HC(hc_num)->HCCHAR & USB_OTG_HCCHAR_CHENA) == USB_OTG_HCCHAR_CHENA);     
+   \   00000044   0x6808             LDR      R0,[R1, #+0]
+   \   00000046   0x2800             CMP      R0,#+0
+   \   00000048   0xD4FA             BMI.N    ??USB_HC_Halt_1
+   \   0000004A   0xE002             B.N      ??USB_HC_Halt_2
+   1597              }
+   1598              else
+   1599              {
+   1600                 USBx_HC(hc_num)->HCCHAR |= USB_OTG_HCCHAR_CHENA; 
+   \                     ??USB_HC_Halt_0: (+1)
+   \   0000004C   0xF040 0x4000      ORR      R0,R0,#0x80000000
+   \   00000050   0x6008             STR      R0,[R1, #+0]
+   1601              }
+   1602            }
+   1603            
+   1604            return HAL_OK;
+   \                     ??USB_HC_Halt_2: (+1)
+   \   00000052   0x2000             MOVS     R0,#+0
+   \   00000054   0x4770             BX       LR               ;; return
+   1605          }
+   1606          
+   1607          /**
+   1608            * @brief  Initiate Do Ping protocol
+   1609            * @param  USBx : Selected device
+   1610            * @param  hc_num : Host Channel number
+   1611            *         This parameter can be a value from 1 to 15
+   1612            * @retval HAL state
+   1613            */
+
+   \                                 In section .text, align 2, keep-with-next
+   1614          HAL_StatusTypeDef USB_DoPing(USB_OTG_GlobalTypeDef *USBx , uint8_t ch_num)
+   1615          {
+   1616            uint8_t  num_packets = 1;
+   1617            uint32_t tmpreg = 0;
+   1618          
+   1619            USBx_HC(ch_num)->HCTSIZ = ((num_packets << 19) & USB_OTG_HCTSIZ_PKTCNT) |\
+   1620                                          USB_OTG_HCTSIZ_DOPING;
+   \                     USB_DoPing: (+1)
+   \   00000000   0xEB00 0x1041      ADD      R0,R0,R1, LSL #+5
+   \   00000004   0x....             LDR.N    R1,??DataTable9_14  ;; 0x80080000
+   \   00000006   0xF500 0x60A0      ADD      R0,R0,#+1280
+   \   0000000A   0x6101             STR      R1,[R0, #+16]
+   1621            
+   1622            /* Set host channel enable */
+   1623            tmpreg = USBx_HC(ch_num)->HCCHAR;
+   \   0000000C   0x6801             LDR      R1,[R0, #+0]
+   1624            tmpreg &= ~USB_OTG_HCCHAR_CHDIS;
+   1625            tmpreg |= USB_OTG_HCCHAR_CHENA;
+   1626            USBx_HC(ch_num)->HCCHAR = tmpreg;
+   \   0000000E   0xF021 0x4180      BIC      R1,R1,#0x40000000
+   \   00000012   0xF041 0x4100      ORR      R1,R1,#0x80000000
+   \   00000016   0x....             B.N      ??Subroutine1_0
+   1627            
+   1628            return HAL_OK;  
+   1629          }
+   1630          
+   1631          /**
+   1632            * @brief  Stop Host Core
+   1633            * @param  USBx : Selected device
+   1634            * @retval HAL state
+   1635            */
+
+   \                                 In section .text, align 2, keep-with-next
+   1636          HAL_StatusTypeDef USB_StopHost(USB_OTG_GlobalTypeDef *USBx)
+   1637          {
+   \                     USB_StopHost: (+1)
+   \   00000000   0xB570             PUSH     {R4-R6,LR}
+   \   00000002   0x4604             MOV      R4,R0
+   1638            uint8_t i;
+   1639            uint32_t count = 0;
+   \   00000004   0x2500             MOVS     R5,#+0
+   1640            uint32_t value;
+   1641            
+   1642            USB_DisableGlobalInt(USBx);
+   \   00000006   0x.... 0x....      BL       USB_DisableGlobalInt
+   1643            
+   1644              /* Flush FIFO */
+   1645            USB_FlushTxFifo(USBx, 0x10);
+   \   0000000A   0x2110             MOVS     R1,#+16
+   \   0000000C   0x4620             MOV      R0,R4
+   \   0000000E   0x.... 0x....      BL       USB_FlushTxFifo
+   1646            USB_FlushRxFifo(USBx);
+   \   00000012   0x4620             MOV      R0,R4
+   \   00000014   0xF06F 0x2680      MVN      R6,#-2147450880
+   \   00000018   0x.... 0x....      BL       USB_FlushRxFifo
+   1647            
+   1648            /* Flush out any leftover queued requests. */
+   1649            for (i = 0; i <= 15; i++)
+   \   0000001C   0x2100             MOVS     R1,#+0
+   1650            {   
+   1651          
+   1652              value = USBx_HC(i)->HCCHAR ;
+   \                     ??USB_StopHost_0: (+1)
+   \   0000001E   0xEB04 0x1241      ADD      R2,R4,R1, LSL #+5
+   1653              value |=  USB_OTG_HCCHAR_CHDIS;
+   1654              value &= ~USB_OTG_HCCHAR_CHENA;  
+   1655              value &= ~USB_OTG_HCCHAR_EPDIR;
+   1656              USBx_HC(i)->HCCHAR = value;
+   1657            }
+   \   00000022   0x1C49             ADDS     R1,R1,#+1
+   \   00000024   0xF502 0x62A0      ADD      R2,R2,#+1280
+   \   00000028   0x6813             LDR      R3,[R2, #+0]
+   \   0000002A   0x4033             ANDS     R3,R6,R3
+   \   0000002C   0xF043 0x4380      ORR      R3,R3,#0x40000000
+   \   00000030   0x2910             CMP      R1,#+16
+   \   00000032   0x6013             STR      R3,[R2, #+0]
+   \   00000034   0xDBF3             BLT.N    ??USB_StopHost_0
+   1658            
+   1659            /* Halt all channels to put them into a known state. */  
+   1660            for (i = 0; i <= 15; i++)
+   \   00000036   0x2100             MOVS     R1,#+0
+   1661            {   
+   1662          
+   1663              value = USBx_HC(i)->HCCHAR ;
+   \                     ??USB_StopHost_1: (+1)
+   \   00000038   0xEB04 0x1241      ADD      R2,R4,R1, LSL #+5
+   \   0000003C   0xF502 0x62A0      ADD      R2,R2,#+1280
+   \   00000040   0x6813             LDR      R3,[R2, #+0]
+   1664              
+   1665              value |= USB_OTG_HCCHAR_CHDIS;
+   1666              value |= USB_OTG_HCCHAR_CHENA;  
+   1667              value &= ~USB_OTG_HCCHAR_EPDIR;
+   1668              
+   1669              USBx_HC(i)->HCCHAR = value;
+   \   00000042   0xF423 0x4300      BIC      R3,R3,#0x8000
+   \   00000046   0xF043 0x4340      ORR      R3,R3,#0xC0000000
+   \   0000004A   0x6013             STR      R3,[R2, #+0]
+   1670              do 
+   1671              {
+   1672                if (++count > 1000) 
+   \                     ??USB_StopHost_2: (+1)
+   \   0000004C   0x1C6D             ADDS     R5,R5,#+1
+   \   0000004E   0xF5B5 0x7F7A      CMP      R5,#+1000
+   \   00000052   0xD802             BHI.N    ??USB_StopHost_3
+   1673                {
+   1674                  break;
+   1675                }
+   1676              } 
+   1677              while ((USBx_HC(i)->HCCHAR & USB_OTG_HCCHAR_CHENA) == USB_OTG_HCCHAR_CHENA);
+   \   00000054   0x6813             LDR      R3,[R2, #+0]
+   \   00000056   0x2B00             CMP      R3,#+0
+   \   00000058   0xD4F8             BMI.N    ??USB_StopHost_2
+   1678            }
+   \                     ??USB_StopHost_3: (+1)
+   \   0000005A   0x1C49             ADDS     R1,R1,#+1
+   \   0000005C   0x2910             CMP      R1,#+16
+   \   0000005E   0xDBEB             BLT.N    ??USB_StopHost_1
+   1679          
+   1680            /* Clear any pending Host interrupts */
+   1681            USBx_HOST->HAINT = 0xFFFFFFFF;
+   \   00000060   0xF04F 0x31FF      MOV      R1,#-1
+   \   00000064   0xF504 0x6080      ADD      R0,R4,#+1024
+   \   00000068   0x6141             STR      R1,[R0, #+20]
+   1682            USBx->GINTSTS = 0xFFFFFFFF;
+   1683            USB_EnableGlobalInt(USBx);
+   \   0000006A   0x4620             MOV      R0,R4
+   \   0000006C   0x6161             STR      R1,[R4, #+20]
+   \   0000006E   0x.... 0x....      BL       USB_EnableGlobalInt
+   1684            return HAL_OK;  
+   \   00000072   0x2000             MOVS     R0,#+0
+   \   00000074   0xBD70             POP      {R4-R6,PC}       ;; return
+   1685          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8:
+   \   00000000   0xFFBDFFBF         DC32     0xffbdffbf
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9:
+   \   00000000   0x00800100         DC32     0x800100
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_1:
+   \   00000000   0x803C3800         DC32     0x803c3800
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_2:
+   \   00000000   0x00030D41         DC32     0x30d41
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_3:
+   \   00000000   0x10008000         DC32     0x10008000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_4:
+   \   00000000   0x........         DC32     ??debug
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_5:
+   \   00000000   0x1FF80000         DC32     0x1ff80000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_6:
+   \   00000000   0xE007FFFF         DC32     0xe007ffff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_7:
+   \   00000000   0x50000024         DC32     0x50000024
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_8:
+   \   00000000   0x00600080         DC32     0x600080
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_9:
+   \   00000000   0x004000E0         DC32     0x4000e0
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_10:
+   \   00000000   0x50000100         DC32     0x50000100
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_11:
+   \   00000000   0x01000200         DC32     0x1000200
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_12:
+   \   00000000   0x00E00300         DC32     0xe00300
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_13:
+   \   00000000   0xA3200008         DC32     0xa3200008
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_14:
+   \   00000000   0x80080000         DC32     0x80080000
+   1686          /**
+   1687            * @}
+   1688            */
+   1689          
+   1690          #endif /* defined (HAL_PCD_MODULE_ENABLED) || defined (HAL_HCD_MODULE_ENABLED) */
+   1691          
+   1692          /**
+   1693            * @}
+   1694            */
+   1695          
+   1696          /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      20   USB_ActivateDedicatedEndpoint
+      12   USB_ActivateEndpoint
+       0   USB_ActivateSetup
+       0   USB_ClearInterrupts
+      24   USB_CoreInit
+        24   -> USB_CoreReset
+       0   USB_CoreReset
+       8   USB_DeactivateDedicatedEndpoint
+      12   USB_DeactivateEndpoint
+       8   USB_DevConnect
+         8   -> HAL_Delay
+       8   USB_DevDisconnect
+         8   -> HAL_Delay
+      40   USB_DevInit
+        40   -> USB_FlushRxFifo
+        40   -> USB_FlushTxFifo
+        40   -> USB_SetDevSpeed
+       0   USB_DisableGlobalInt
+       0   USB_DoPing
+       4   USB_DriveVbus
+      12   USB_EP0StartXfer
+       0   USB_EP0_OutStart
+       0   USB_EPClearStall
+       0   USB_EPSetStall
+      32   USB_EPStartXfer
+        32   -> USB_WritePacket
+       0   USB_EnableGlobalInt
+       0   USB_FlushRxFifo
+       0   USB_FlushTxFifo
+       0   USB_GetCurrentFrame
+       0   USB_GetDevSpeed
+       4   USB_GetHostSpeed
+       0   USB_GetMode
+       0   USB_HC_Halt
+      20   USB_HC_Init
+       0   USB_HC_ReadInterrupt
+      24   USB_HC_StartXfer
+        24   -> USB_DoPing
+        24   -> USB_WritePacket
+      32   USB_HostInit
+        32   -> HAL_Delay
+        32   -> USB_DriveVbus
+        32   -> USB_FlushRxFifo
+        32   -> USB_FlushTxFifo
+       0   USB_InitFSLSPClkSel
+       0   USB_ReadDevAllInEpInterrupt
+       0   USB_ReadDevAllOutEpInterrupt
+       0   USB_ReadDevInEPInterrupt
+       0   USB_ReadDevOutEPInterrupt
+       0   USB_ReadInterrupts
+       8   USB_ReadPacket
+      16   USB_ResetPort
+        16   -> HAL_Delay
+       8   USB_SetCurrentMode
+         8   -> HAL_Delay
+       0   USB_SetDevAddress
+       0   USB_SetDevSpeed
+      16   USB_StopDevice
+        16   -> USB_FlushRxFifo
+        16   -> USB_FlushTxFifo
+      16   USB_StopHost
+        16   -> USB_DisableGlobalInt
+        16   -> USB_EnableGlobalInt
+        16   -> USB_FlushRxFifo
+        16   -> USB_FlushTxFifo
+      16   USB_WritePacket
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable8
+       4  ??DataTable9
+       4  ??DataTable9_1
+       4  ??DataTable9_10
+       4  ??DataTable9_11
+       4  ??DataTable9_12
+       4  ??DataTable9_13
+       4  ??DataTable9_14
+       4  ??DataTable9_2
+       4  ??DataTable9_3
+       4  ??DataTable9_4
+       4  ??DataTable9_5
+       4  ??DataTable9_6
+       4  ??DataTable9_7
+       4  ??DataTable9_8
+       4  ??DataTable9_9
+       6  ?Subroutine0
+      10  ?Subroutine1
+      12  ?Subroutine10
+      12  ?Subroutine11
+      12  ?Subroutine12
+      20  ?Subroutine13
+      16  ?Subroutine14
+      12  ?Subroutine15
+      14  ?Subroutine16
+      12  ?Subroutine17
+       6  ?Subroutine2
+      12  ?Subroutine3
+       6  ?Subroutine4
+      14  ?Subroutine5
+      32  ?Subroutine6
+      14  ?Subroutine7
+      16  ?Subroutine8
+      12  ?Subroutine9
+     210  USB_ActivateDedicatedEndpoint
+     120  USB_ActivateEndpoint
+      46  USB_ActivateSetup
+       8  USB_ClearInterrupts
+     106  USB_CoreInit
+      42  USB_CoreReset
+      54  USB_DeactivateDedicatedEndpoint
+      74  USB_DeactivateEndpoint
+      14  USB_DevConnect
+      12  USB_DevDisconnect
+     280  USB_DevInit
+       6  USB_DisableGlobalInt
+      24  USB_DoPing
+      62  USB_DriveVbus
+     212  USB_EP0StartXfer
+      48  USB_EP0_OutStart
+      90  USB_EPClearStall
+      78  USB_EPSetStall
+     476  USB_EPStartXfer
+       8  USB_EnableGlobalInt
+      26  USB_FlushRxFifo
+      30  USB_FlushTxFifo
+      10  USB_GetCurrentFrame
+      52  USB_GetDevSpeed
+      20  USB_GetHostSpeed
+       8  USB_GetMode
+      86  USB_HC_Halt
+     184  USB_HC_Init
+      10  USB_HC_ReadInterrupt
+     304  USB_HC_StartXfer
+     192  USB_HostInit
+      46  USB_InitFSLSPClkSel
+      14  USB_ReadDevAllInEpInterrupt
+      14  USB_ReadDevAllOutEpInterrupt
+      32  USB_ReadDevInEPInterrupt
+      20  USB_ReadDevOutEPInterrupt
+       8  USB_ReadInterrupts
+      36  USB_ReadPacket
+      46  USB_ResetPort
+      38  USB_SetCurrentMode
+      18  USB_SetDevAddress
+       6  USB_SetDevSpeed
+      66  USB_StopDevice
+     118  USB_StopHost
+      44  USB_WritePacket
+       4  debug
+
+ 
+     4 bytes in section .bss
+ 3 700 bytes in section .text
+ 
+ 3 700 bytes of CODE memory
+     4 bytes of DATA memory
+
+Errors: none
+Warnings: none

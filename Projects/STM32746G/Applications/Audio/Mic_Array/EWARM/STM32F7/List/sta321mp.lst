@@ -1,0 +1,2876 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       20/Dec/2015  03:50:26
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\sta321mp.c
+#    Command line =  
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\sta321mp.c
+#        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
+#        USE_IOEXPANDER -D USE_USB_FS -lC
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        -lA
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        -o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+#        --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
+#        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        7.3\arm\INC\c\DLib_Config_Full.h" -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+#        -Ohz --use_c++_inline --require_prototypes -I "D:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
+#        ARM_MATH_CM7
+#    List file    =  
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\sta321mp.lst
+#    Object file  =  
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\sta321mp.o
+#
+###############################################################################
+
+H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\sta321mp.c
+      1          #include "sta321mp.h"
+      2          #include <stdio.h>
+      3          #include <stdlib.h>
+      4          
+      5          extern I2C_HandleTypeDef hi2c1;
+
+   \                                 In section .data, align 4
+      6          uint8_t  pcSTAComnd[77]={/* Pre-setting */
+   \                     pcSTAComnd:
+   \   00000000   0x83 0x00          DC8 131, 0, 0, 254, 0, 0, 0, 254, 0, 0, 255, 96, 96, 96, 96, 96, 96, 96
+   \              0x00 0xFE    
+   \              0x00 0x00    
+   \              0x00 0xFE    
+   \              0x00 0x00    
+   \              0xFF 0x60    
+   \              0x60 0x60    
+   \              0x60 0x60    
+   \              0x60 0x60    
+   \   00000012   0x60 0x10          DC8 96, 16, 16, 16, 16, 16, 16, 16, 16, 16, 50, 84, 118, 0, 128, 1, 160
+   \              0x10 0x10    
+   \              0x10 0x10    
+   \              0x10 0x10    
+   \              0x10 0x10    
+   \              0x32 0x54    
+   \              0x76 0x00    
+   \              0x80 0x01    
+   \              0xA0         
+   \   00000023   0x0F 0x0F          DC8 15, 15, 15, 15, 15, 0, 0, 0, 0, 119, 0, 0, 106, 105, 106, 105, 64
+   \              0x0F 0x0F    
+   \              0x0F 0x00    
+   \              0x00 0x00    
+   \              0x00 0x77    
+   \              0x00 0x00    
+   \              0x6A 0x69    
+   \              0x6A 0x69    
+   \              0x40         
+   \   00000034   0x62 0x51          DC8 98, 81, 115, 16, 50, 84, 118, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x73 0x10    
+   \              0x32 0x54    
+   \              0x76 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \   00000048   0x00 0x40          DC8 0, 64, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+      7          0x83,//	Reg[00h]<=83h (10000011b)	Configuration Register A
+      8          0x00,//	Reg[01h]<=00h (00000000b)	Configuration Register B
+      9          0x00,//	Reg[02h]<=00h (00000000b)	Configuration Register C
+     10          0xFE,//	Reg[03h]<=FEh (11111110b)	Configuration Register D
+     11          0x00,//	Reg[04h]<=00h (00000000b)	Configuration Register E
+     12          0x00,//	Reg[05h]<=00h (00000000b)	Configuration Register F
+     13          0x00,//	Reg[06h]<=00h (00000000b)	Configuration Register G
+     14          0xFE,//	Reg[07h]<=7Eh (01111110b)	Configuration Register H
+     15          0x00,//	Reg[08h]<=00h (00000000b)	Configuration Register I
+     16          0x00,//	Reg[09h]<=00h (00000000b)	Master Mute
+     17          0xFF,//	Reg[0Ah]<=FFh (11111111b)	Master Volume
+     18          0x60,//	Reg[0Bh]<=60h (01100000b)	Channel 1 Volume
+     19          0x60,//	Reg[0Ch]<=60h (01100000b)	Channel 2 Volume
+     20          0x60,//	Reg[0Dh]<=60h (01100000b)	Channel 3 Volume
+     21          0x60,//	Reg[0Eh]<=60h (01100000b)	Channel 4 Volume
+     22          0x60,//	Reg[0Fh]<=60h (01100000b)	Channel 5 Volume
+     23          0x60,//	Reg[10h]<=60h (01100000b)	Channel 6 Volume
+     24          0x60,//	Reg[11h]<=60h (01100000b)	Channel 7 Volume
+     25          0x60,//	Reg[12h]<=60h (01100000b)	Channel 8 Volume
+     26          0x10,//	Reg[13h]<=10h (00010000b)	Channel 1 Mute, VolBP, Trim
+     27          0x10,//	Reg[14h]<=10h (00010000b)	Channel 2 Mute, VolBP, Trim
+     28          0x10,//	Reg[15h]<=10h (00010000b)	Channel 3 Mute, VolBP, Trim
+     29          0x10,//	Reg[16h]<=10h (00010000b)	Channel 4 Mute, VolBP, Trim
+     30          0x10,//	Reg[17h]<=10h (00010000b)	Channel 5 Mute, VolBP, Trim
+     31          0x10,//	Reg[18h]<=10h (00010000b)	Channel 6 Mute, VolBP, Trim
+     32          0x10,//	Reg[19h]<=10h (00010000b)	Channel 7 Mute, VolBP, Trim
+     33          0x10,//	Reg[1Ah]<=10h (00010000b)	Channel 8 Mute, VolBP, Trim
+     34          0x10,//	Reg[1Bh]<=10h (00010000b)	Channel 1 & 2 Input Mapping
+     35          0x32,//	Reg[1Ch]<=32h (00110010b)	Channel 3 & 4 Input Mapping
+     36          0x54,//	Reg[1Dh]<=54h (01010100b)	Channel 5 & 6 Input Mapping
+     37          0x76,//	Reg[1Eh]<=76h (01110110b)	Channel 7 & 8 Input Mapping
+     38          0x00,//	Reg[1Fh]<=00h (00000000b)	Auto Mode DM, GC, Volume, EQ
+     39          0x80,//	Reg[20h]<=80h (10000000b)	Auto Mode Bass Management
+     40          0x01,//	Reg[21h]<=01h (00000001b)	Auto Mode AM
+     41          0xA0,//	Reg[22h]<=A0h (10100000b)	Preset EQ
+     42          0x0F,//	Reg[23h]<=0Fh (00001111b)	Graphic EQ Band A
+     43          0x0F,//	Reg[24h]<=0Fh (00001111b)	Graphic EQ Band B
+     44          0x0F,//	Reg[25h]<=0Fh (00001111b)	Graphic EQ Band C
+     45          0x0F,//	Reg[26h]<=0Fh (00001111b)	Graphic EQ Band D
+     46          0x0F,//	Reg[27h]<=0Fh (00001111b)	Graphic EQ Band E
+     47          0x00,//	Reg[28h]<=00h (00000000b)	Channel Filter Loop
+     48          0x00,//	Reg[29h]<=00h (00000000b)	Channel Mix Loop
+     49          0x00,//	Reg[2Ah]<=00h (00000000b)	Channel EQ Bypass
+     50          0x00,//	Reg[2Bh]<=00h (00000000b)	Channel Tone Control Bypass
+     51          0x77,//	Reg[2Ch]<=77h (01110111b)	Bass and Treble Tone Control
+     52          0x00,//	Reg[2Dh]<=00h (00000000b)	Channel 1, 2, 3, 4 Limiter Select
+     53          0x00,//	Reg[2Eh]<=00h (00000000b)	Channel 5, 6, 7, 8 Limiter Select
+     54          0x6A,//	Reg[2Fh]<=6Ah (01101010b)	Limiter 1 Attack/Release Rate
+     55          0x69,//	Reg[30h]<=69h (01101001b)	Limiter 1 Attack/Release Threshold
+     56          0x6A,//	Reg[31h]<=6Ah (01101010b)	Limiter 2 Attack/Release Rate
+     57          0x69,//	Reg[32h]<=69h (01101001b)	Limiter 2 Attack/Release Threshold
+     58          0x40,//	Reg[33h]<=40h (01000000b)	PWM 1 & 2 Output Timing
+     59          0x62,//	Reg[34h]<=62h (01100010b)	PWM 3 & 4 Output Timing
+     60          0x51,//	Reg[35h]<=51h (01010001b)	PWM 5 & 6 Output Timing
+     61          0x73,//	Reg[36h]<=73h (01110011b)	PWM 7 & 8 Output Timing
+     62          0x10,//	Reg[37h]<=10h (00010000b)	I2S 1 & 2 Output Mapping
+     63          0x32,//	Reg[38h]<=32h (00110010b)	I2S 3 & 4 Output Mapping
+     64          0x54,//	Reg[39h]<=54h (01010100b)	I2S 5 & 6 Output Mapping
+     65          0x76,//	Reg[3Ah]<=76h (01110110b)	I2S 7 & 8 Output Mapping
+     66          0x00,//	Reg[3Bh]<=00h (00000000b)	Coefficient Address Bits 9..8
+     67          0x00,//	Reg[3Ch]<=00h (00000000b)	Coefficient Address Bits 7..0
+     68          0x00,//	Reg[3Dh]<=00h (00000000b)	Coefficient b1 Data Bits 23..16
+     69          0x00,//	Reg[3Eh]<=00h (00000000b)	Coefficient b1 Data Bits 15..8
+     70          0x00,//	Reg[3Fh]<=00h (00000000b)	Coefficient b1 Data Bits 7..0
+     71          0x00,//	Reg[40h]<=00h (00000000b)	Coefficient b2 Data Bits 23..16
+     72          0x00,//	Reg[41h]<=00h (00000000b)	Coefficient b2 Data Bits 15..8
+     73          0x00,//	Reg[42h]<=00h (00000000b)	Coefficient b2 Data Bits 7..0
+     74          0x00,//	Reg[43h]<=00h (00000000b)	Coefficient a1 Data Bits 23..16
+     75          0x00,//	Reg[44h]<=00h (00000000b)	Coefficient a1 Data Bits 15..8
+     76          0x00,//	Reg[45h]<=00h (00000000b)	Coefficient a1 Data Bits 7..0
+     77          0x00,//	Reg[46h]<=00h (00000000b)	Coefficient a2 Data Bits 23..16
+     78          0x00,//	Reg[47h]<=00h (00000000b)	Coefficient a2 Data Bits 15..8
+     79          0x00,//	Reg[48h]<=00h (00000000b)	Coefficient a2 Data Bits 7..0
+     80          0x40,//	Reg[49h]<=40h (01000000b)	Coefficient b0 Data Bits 23..16
+     81          0x00,//	Reg[4Ah]<=00h (00000000b)	Coefficient b0 Data Bits 15..8
+     82          0x00,//	Reg[4Bh]<=00h (00000000b)	Coefficient b0 Data Bits 7..0
+     83          0x00//	Reg[4Ch]<=00h (00000000b)	Coefficient Write Control
+     84          };
+     85          
+
+   \                                 In section .data, align 4
+     86          uint8_t  pcSTAComnd1[41]={/* Pre-setting */
+   \                     pcSTAComnd1:
+   \   00000000   0x00 0x00          DC8 0, 0, 0, 0, 32, 32, 32, 96, 96, 96, 51, 51, 51, 27, 27, 27, 48, 48
+   \              0x00 0x00    
+   \              0x20 0x20    
+   \              0x20 0x60    
+   \              0x60 0x60    
+   \              0x33 0x33    
+   \              0x33 0x1B    
+   \              0x1B 0x1B    
+   \              0x30 0x30    
+   \   00000012   0x2F 0x2F          DC8 47, 47, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 16, 162, 233, 0, 0, 24, 5, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x02    
+   \              0x00 0x00    
+   \              0x10 0xA2    
+   \              0xE9 0x00    
+   \              0x00 0x18    
+   \              0x05 0x00    
+   \   00000026   0xFF 0x00          DC8 255, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+     87          0x00,//	Reg[5Ah]<=00h (00000000b)	Extended Limiter/DRC look-up table 
+     88          0x00,//	Reg[5Bh]<=00h (00000000b)	Fine volume                        
+     89          0x00,//	Reg[5Dh]<=00h (00000000b)	PCM Recombination Control 1        
+     90          0x00,//	Reg[5Eh]<=00h (00000000b)	PCM Recombination Mode selector    
+     91          0x20,//	Reg[5Fh]<=20h (00100000b)	PCM Recombination Control 2        
+     92          0x20,//	Reg[60h]<=20h (00100000b)	PCM Recombination Control 3        
+     93          0x20,//	Reg[61h]<=20h (00100000b)	PCM Recombination Control 4        
+     94          0x60,//	Reg[62h]<=60h (01100000b)	PCM Recombination Control 5        
+     95          0x60,//	Reg[63h]<=60h (01100000b)	PCM Recombination Control 6        
+     96          0x60,//	Reg[64h]<=60h (01100000b)	PCM Recombination Control 7        
+     97          0x33,//	Reg[65h]<=33h (00110011b)	PCM Recombination Control 8        
+     98          0x33,//	Reg[66h]<=33h (00110011b)	PCM Recombination Control 9        
+     99          0x33,//	Reg[67h]<=33h (00110011b)	PCM Recombination Control 10       
+    100          0x1B,//	Reg[68h]<=1Bh (00011011b)	PCM Recombination Control 11       
+    101          0x1B,//	Reg[69h]<=1Bh (00011011b)	PCM Recombination Control 12       
+    102          0x1B,//	Reg[6Ah]<=1Bh (00011011b)	PCM Recombination Control 13       
+    103          0x30,//	Reg[6Bh]<=30h (00110000b)	Extended Limiter 1 Attack Threshold
+    104          0x30,//	Reg[6Ch]<=30h (00110000b)	Extended Limiter 2 Attack Threshold
+    105          0x2F,//	Reg[6Dh]<=2Fh (00101111b)	Extended Limiter 1 Release Threshold
+    106          0x2F,//	Reg[6Eh]<=2Fh (00101111b)	Extended Limiter 2 Release Threshold
+    107          0x00,//	Reg[6Fh]<=00h (00000000b)	RMS Automuting Thresholds          
+    108          0x00,//	Reg[70h]<=00h (00000000b)	RMS Control                        
+    109          0x00,//	Reg[71h]<=00h (00000000b)	PLL Fractional 1 Control           
+    110          0x00,//	Reg[72h]<=00h (00000000b)	PLL Fractional 0 Control           
+    111          0x00,//	Reg[73h]<=00h (00000000b)	PLL Divider                        
+    112          0x00,//	Reg[74h]<=00h (00000000b)	PLL Configuration 0                
+    113          0x00,//	Reg[75h]<=00h (00000000b)	PLL Configuration 1                
+    114          0x02,//	Reg[76h]<=02h (00000010b)	PLL Status                         
+    115          0x00,//	Reg[77h]<=00h (00000000b)	Extended Biquad range Control 1    
+    116          0x00,//	Reg[78h]<=00h (00000000b)	Extended Biquad range Control 2    
+    117          0x10,//	Reg[79h]<=10h (00010000b)	Extended Biquad range Control 3    
+    118          0xA2,//	Reg[7Ah]<=A2h (10100010b)	RMS Status Register ZD (High)      
+    119          0xE9,//	Reg[7Bh]<=E9h (11101001b)	RMS Status Register ZD (Low)       
+    120          0x00,//	Reg[7Ch]<=00h (00000000b)	RMS Status PWM level (High)        
+    121          0x00,//	Reg[7Dh]<=00h (00000000b)	RMS Status PWM level (Low)         
+    122          0x18,//	Reg[80h]<=18h (00011000b)	DPT                                
+    123          0x05,//	Reg[81h]<=05h (00000101b)	CFR129                             
+    124          0x00,//	Reg[82h]<=00h (00000000b)	Pop suppression delay time 1       
+    125          0xFF,//	Reg[83h]<=FFh (11111111b)	Pop suppression delay time 2       
+    126          0x00,//	Reg[84h]<=00h (00000000b)	OTP readback 1/2                   
+    127          0x00//	Reg[85h]<=00h (00000000b)	OTP readback 2/2
+    128          };    
+    129          
+
+   \                                 In section .bss, align 4
+    130          uint8_t bufCoefBiquad[15];
+   \                     bufCoefBiquad:
+   \   00000000                      DS8 16
+
+   \                                 In section .text, align 2, keep-with-next
+    131          void STA321MP_Ini(void)
+    132          {
+   \                     STA321MP_Ini: (+1)
+   \   00000000   0xB510             PUSH     {R4,LR}
+    133               	    //WriteSTAByte(CONFA,pcSTAComnd,77);
+    134                      //WriteSTAByte(0x5A,pcSTAComnd,41);
+    135                      HAL_Delay(100);
+   \   00000002   0x2064             MOVS     R0,#+100
+   \   00000004   0x.... 0x....      LDR.W    R4,??DataTable4
+   \   00000008   0x.... 0x....      BL       HAL_Delay
+    136                      /*
+    137                      rio_SetRegValue():	Reg[00h]<=9Bh (10011011b)	Configuration Register A
+    138                      rio_SetRegValue():	Reg[02h]<=20h (00100000b)	Configuration Register C
+    139                      rio_SetRegValue():	Reg[04h]<=18h (00011000b)	Configuration Register E
+    140                      rio_SetRegValue():	Reg[81h]<=09h (00001001b)	CFR129                             
+    141                      rio_SetRegValue():	Reg[07h]<=7Ah (01111010b)	Configuration Register H
+    142                      rio_SetRegValue():	Reg[08h]<=80h (10000000b)	Configuration Register I
+    143                      rio_SetRegValue():	Reg[5Dh]<=01h (00000001b)	PCM Recombination Control 1     
+    144                                
+    145                      */
+    146                      /* BIT7   BIT6   BIT5   BIT4    BIT3   BIT2    BIT1    BIT0 
+    147                      COS1   COS0   DSPB   IR1     IR0    MCS2    MCS1    MCS0 
+    148          
+    149                      MCS[2:0] 1xx        011        010        001       000                              
+    150                              2*PDM_CLK  4*PDM_CLK  6*PDM_CLK  8*PDM_CLK 12*PDM_CLK   
+    151          
+    152                      COS[1:0]           00     01      10       11 
+    153                      CKOUT frequency    PLL    PLL/4   PLL/8    PLL/16       
+    154          
+    155                      DSPB: DSP bypass bit : 0 Normal operation 
+    156                                            1 bypass of biquad and bass/trebble functions */	
+    157                      pcSTAComnd[0] = 0x9B;          // PDM_CLK = 11.2896/4
+   \   0000000C   0x209B             MOVS     R0,#+155
+    158                                                     // PLL/8 = 11.2896 Mhz
+    159          		                               
+    160                      WriteSTAByte(0x00,pcSTAComnd,1); //CONFA register
+   \   0000000E   0x.... 0x....      BL       ??Subroutine7_0
+   \                     ??CrossCallReturnLabel_32: (+1)
+   \   00000012   0x2000             MOVS     R0,#+0
+   \   00000014   0x.... 0x....      BL       WriteSTAByte
+    161          		
+    162          
+    163          	     /*
+    164                       D7    D6         D5         D4        D3        D2         D1       D0
+    165                                        SAOD4      SAOFB     SAO3      SAO2       SAIO     SAO0
+    166          
+    167          								SAOFB: 0 MSB first  
+    168          								          1 LSB  first
+    169          
+    170          								  SAO4: 0 div   by 1
+    171          								        1 dive by 4
+    172          								SAO[3:0] : 0101 --> BICKO = 64*fs :Right-justification 16-bit data
+    173          								           0000 --> BICKO = 64*fs :I2S data
+    174          								           0111 --> BICKO = 32*fs :I2S data
+    175          	      */
+    176          	      pcSTAComnd[0] = 0x25;  /* 11.2896Mhz/256 = 44.1Khz --> BICKO = 32*44.1Khz =1.411.2 Mhz*/
+   \   00000018   0x2025             MOVS     R0,#+37
+    177                    WriteSTAByte(0x02,pcSTAComnd,1); //CONFC register
+   \   0000001A   0x.... 0x....      BL       ??Subroutine7_0
+   \                     ??CrossCallReturnLabel_33: (+1)
+   \   0000001E   0x2002             MOVS     R0,#+2
+   \   00000020   0x.... 0x....      BL       WriteSTAByte
+    178                   
+    179          
+    180                        /*
+    181                           D7     D6      D5     D4     D3     D2     D1     D0
+    182                           MPC  CSZ4  CSZ3 CSZ2 CSZ1 CSZ0 OM1 OM0
+    183                           11111110
+    184          
+    185                            OM0-OM1: FFX output mode
+    186          
+    187                            CSZ[4:0] Compensating pulse size
+    188                        */
+    189          	    //	pcSTAComnd[0] = 0xFE;  
+    190                  //WriteSTAByte(0x03,pcSTAComnd,1); //CONFD register
+    191          		
+    192          	    pcSTAComnd[0] = 0xC0;//Ch4/5 binary
+   \   00000024   0x20C0             MOVS     R0,#+192
+    193                  WriteSTAByte(0x04,pcSTAComnd,1); //CONFE register
+   \   00000026   0x.... 0x....      BL       ??Subroutine7_0
+   \                     ??CrossCallReturnLabel_34: (+1)
+   \   0000002A   0x2004             MOVS     R0,#+4
+   \   0000002C   0x.... 0x....      BL       WriteSTAByte
+    194                  
+    195                  /*
+    196                  D7    D6    D5    D4   D3   D2   D1   D0
+    197                  PWMS2 PWMS1 PWMS0 BQL  PSL  DEMP DRC  HPB
+    198                  00000000
+    199          		HPB: Highpass filter bypass bit
+    200          		HPB = 1, then the filter that the high-pass filter utilizes is madeavailable as user-programmable biquad #1
+    201          		
+    202          		DRC: Dynamic range compression/anti-clipping
+    203          		0: limiters act in anti-clipping mode
+    204                  1: limiters act in dynamic range compression mode
+    205          		
+    206          		DEMP: De-emphasis:
+    207          		0: no de-emphasis 
+    208          		1: de-emphasis 
+    209          		
+    210          		PSL:Post-scale link:
+    211          		0: each channel uses individual post-scale value 
+    212          		1: each channel uses channel 1 post-scale value
+    213          		
+    214          		BQL: Biquad link:
+    215          		0: each channel uses coefficient values 
+    216          		1: each channel uses channel 1 coefficient values
+    217          		
+    218          		PWMS[2:0] PWM speed selection
+    219          		PWMS[2:0] PWM output speed
+    220          		000 Normal speed (384 kHz) (all channels)
+    221          		001 Half-speed (192 kHz) (all channels)
+    222          		010 Double-speed (768 kHz) (all channels)
+    223          		011 Normal speed (channels 1-6), double-speed (channels 7-8)
+    224          		100 Odd speed (341.3 kHz) (all channels)
+    225                 */
+    226                  pcSTAComnd[0] = 0x01;
+   \   00000030   0x2001             MOVS     R0,#+1
+    227                  WriteSTAByte(0x05,pcSTAComnd,1); //CONFE register
+   \   00000032   0x.... 0x....      BL       ??Subroutine7_0
+   \                     ??CrossCallReturnLabel_35: (+1)
+   \   00000036   0x2005             MOVS     R0,#+5
+   \   00000038   0x.... 0x....      BL       WriteSTAByte
+    228          		
+    229          		/*
+    230          		D7    D6    D5    D4    D3    D2    D1    D0
+    231          		MPCV  DCCV  HPE   AM2E  AME   COD   SID   PWM
+    232          		00000000
+    233          		
+    234          		PWMD: PWM output disable:
+    235          		0: PWM output normal 
+    236          		1: no PWM output 
+    237          		
+    238          		SID: Serial interface (I²S out) disable:
+    239          		0: I²S output normal 
+    240          		1: no I²S output
+    241          		
+    242          		COD: Clock output disable:
+    243          		0: clock output normal 
+    244          		1: no clock output
+    245          		
+    246          		AME: AM mode enable:
+    247          		0: normal FFX operation
+    248          		1: AM reduction mode FFX operation
+    249          		
+    250          		AM2E: AM2 mode enable:
+    251          		0: normal FFX operation
+    252          		1: AM2 reduction mode FFX operation
+    253          		
+    254          		HPE: FFX headphone enable:
+    255          		0: channels 7 and 8 normal FFX operation
+    256          		1: channels 7 and 8 headphone operation
+    257          		
+    258          		DCCV
+    259          		Distortion compensation variable enable:
+    260          		0: uses the preset DC coefficient
+    261          		1: uses the DCC coefficient
+    262          		
+    263          		MPCV Max power correction variable:
+    264          		0: uses the standard MPC coefficient 
+    265          		1: uses the MPCC bits for the MPC coefficient 
+    266          		*/
+    267          		//pcSTAComnd[0] = 0x00;
+    268                  //WriteSTAByte(0x06,pcSTAComnd,1); //CONFG register
+    269          
+    270          		/*
+    271          		D7     D6     D5     D4     D3    D2    D1    D0
+    272          		CLE    LDTE   BCLE   IDE    ZDE   SVE   ZCE   NSBW
+    273          		0      1       1      1     1     1     1     0
+    274          		
+    275          		NSBW: Noise-shaper bandwidth selection:
+    276          		1: 3rd order NS
+    277          		0: 4thorder NS
+    278          		
+    279          		ZCE:Zero-crossing volume enable:
+    280          		1: volume adjustments will only occur at digital zero-crossings
+    281          		0: volume adjustments will occur immediately
+    282          		
+    283          		SVE: Soft wolume enable
+    284          		1: volume adjustments use soft volume
+    285          		0: volume adjustments occur immediately
+    286          		
+    287          		ZDE: Zero-detect mute enable: setting of 1 enables the automatic
+    288          		zero-detect mute
+    289          		
+    290          		IDE: Invalide input detect mute enable
+    291          		1: enable the automatics invalid input detect mute
+    292          		
+    293          		BCLE Binary output mode clock loss detection enable
+    294          		
+    295          		LDTE LRCLK double trigger protection enable
+    296          		
+    297          		ECLE Auto devicepower-down signal EAPD on clock loss
+    298          		*/
+    299          		pcSTAComnd[0] = 0x7A;//Reg[07h]<=7Ch (01111010b)	Configuration Register H:remove soft volumn
+   \   0000003C   0x207A             MOVS     R0,#+122
+    300                  WriteSTAByte(0x07,pcSTAComnd,1); //CONFH register
+   \   0000003E   0x.... 0x....      BL       ??Subroutine7_0
+   \                     ??CrossCallReturnLabel_36: (+1)
+   \   00000042   0x2007             MOVS     R0,#+7
+   \   00000044   0x.... 0x....      BL       WriteSTAByte
+    301          
+    302          
+    303          		/*
+    304          		bit 0: PSCE
+    305          		Power supply ripple correction enable:
+    306          		0: normal operation 
+    307          		1: PSCorrect operation 
+    308          		
+    309          		bit 7: EAPD External amplifier power-down:
+    310          		0: external power stage power-down active 
+    311          		1: normal operation 
+    312          		*/
+    313          		pcSTAComnd[0] = 0x80;//Reg[08h]<=80h (10000000b)	Configuration Register I
+   \   00000048   0x2080             MOVS     R0,#+128
+    314                  WriteSTAByte(0x08,pcSTAComnd,1);//CONFI register
+   \   0000004A   0x.... 0x....      BL       ??Subroutine7_0
+   \                     ??CrossCallReturnLabel_37: (+1)
+   \   0000004E   0x2008             MOVS     R0,#+8
+   \   00000050   0x.... 0x....      BL       WriteSTAByte
+    315          
+    316          		/*  Reg[81h] 0x09 - Output I2S i/f pins set as output */
+    317                  /*
+    318                  D7    D6   D5    D4    D3    D2     D1    D0
+    319                  RL3  RL2   RL1  RL0   RD    SID1 FBYP  RTP
+    320                  00000101
+    321          
+    322                  RTP: Remove tristate initial pulses
+    323                  1: remove the tristate initilal pulses with frequency less than 16 kHz
+    324                  0: the tristate initial pulses are not removed
+    325                  
+    326                  SID1: Serial interface (I²S out)
+    327                  1: SDO_56 is connected to the fault signal and SDO_78 
+    328                  outputs the tristate signal
+    329                  0: I²S out normal
+    330          
+    331                  RD: Startup/shutdown pop noise disable
+    332                  1: Disable
+    333                  */
+    334                  pcSTAComnd[0] = 0x09;
+   \   00000054   0x2009             MOVS     R0,#+9
+    335                  WriteSTAByte(0x81,pcSTAComnd,1);//Reg[81h]<=09h (00001001b)	CFR129  
+   \   00000056   0x.... 0x....      BL       ??Subroutine7_0
+   \                     ??CrossCallReturnLabel_38: (+1)
+   \   0000005A   0x2081             MOVS     R0,#+129
+   \   0000005C   0x.... 0x....      BL       WriteSTAByte
+    336          		
+    337                  pcSTAComnd[0] = 0x00;/* Reg[0Ah]<=00h (00000000b)	Master Volume */    
+   \   00000060   0x2000             MOVS     R0,#+0
+    338                  WriteSTAByte(0x0A,pcSTAComnd,1);
+   \   00000062   0x.... 0x....      BL       ??Subroutine7_0
+   \                     ??CrossCallReturnLabel_39: (+1)
+   \   00000066   0x200A             MOVS     R0,#+10
+   \   00000068   0x.... 0x....      BL       WriteSTAByte
+    339                  
+    340                  pcSTAComnd[0] = 0x26;
+   \   0000006C   0x2026             MOVS     R0,#+38
+    341                  pcSTAComnd[1] = 0x26;
+    342                  pcSTAComnd[2] = 0x26;
+    343                  pcSTAComnd[3] = 0x26; 
+    344                  pcSTAComnd[4] = 0x26;
+    345                  pcSTAComnd[5] = 0x26;
+    346                  pcSTAComnd[6] = 0x26;
+    347                  pcSTAComnd[7] = 0x26;
+    348                  WriteSTAByte(0x0B,pcSTAComnd,8);
+   \   0000006E   0x2208             MOVS     R2,#+8
+   \   00000070   0x7020             STRB     R0,[R4, #+0]
+   \   00000072   0x4621             MOV      R1,R4
+   \   00000074   0x7060             STRB     R0,[R4, #+1]
+   \   00000076   0x70A0             STRB     R0,[R4, #+2]
+   \   00000078   0x70E0             STRB     R0,[R4, #+3]
+   \   0000007A   0x7120             STRB     R0,[R4, #+4]
+   \   0000007C   0x7160             STRB     R0,[R4, #+5]
+   \   0000007E   0x71A0             STRB     R0,[R4, #+6]
+   \   00000080   0x71E0             STRB     R0,[R4, #+7]
+   \   00000082   0x200B             MOVS     R0,#+11
+   \   00000084   0x.... 0x....      BL       WriteSTAByte
+    349                            
+    350          
+    351                          
+    352          		/* Register
+    353          		0x09: Master mute register
+    354          		0x0A: Master voulume register
+    355          		0x0B - 0x12: channel nth volume		
+    356          		*/
+    357          		
+    358          		/* 0x1B : Channel inputs mapping channel 1 and 2
+    359          		D7   D6      D5     D4   D3    D2    D1    D0
+    360                          C2IM2   C2IM1 C2IM0 C1IM2 C1IM1 C1IM
+    361                          00 1 0 00
+    362          		*/
+    363          		
+    364          
+    365                  
+    366             	    pcSTAComnd[0] = 0xFC; 
+   \   00000088   0x20FC             MOVS     R0,#+252
+    367          	    WriteSTAByte(0x5E,&pcSTAComnd[0],1);
+   \   0000008A   0x.... 0x....      BL       ??Subroutine7_0
+   \                     ??CrossCallReturnLabel_40: (+1)
+   \   0000008E   0x205E             MOVS     R0,#+94
+   \   00000090   0x.... 0x....      BL       WriteSTAByte
+    368          
+    369          		/* 0x62 */
+    370                  //	LPxen
+    371                  //'1': Low-pass filter of mike x is enabled
+    372                  //'0': Low-pass filter of mike x is not enabled
+    373             	    pcSTAComnd[0] = 0x4A;//40 
+   \   00000094   0x.... 0x....      BL       ?Subroutine7
+    374          	    WriteSTAByte(0x62,&pcSTAComnd[0],1);
+   \                     ??CrossCallReturnLabel_29: (+1)
+   \   00000098   0x2062             MOVS     R0,#+98
+   \   0000009A   0x.... 0x....      BL       WriteSTAByte
+    375          		
+    376          	    /* 0x63 */
+    377             	    pcSTAComnd[0] = 0x4A;//40 
+   \   0000009E   0x.... 0x....      BL       ?Subroutine7
+    378          	    WriteSTAByte(0x63,&pcSTAComnd[0],1);
+   \                     ??CrossCallReturnLabel_30: (+1)
+   \   000000A2   0x2063             MOVS     R0,#+99
+   \   000000A4   0x.... 0x....      BL       WriteSTAByte
+    379          
+    380          	    /* 0x64 */
+    381             	    pcSTAComnd[0] = 0x4A;//40 
+   \   000000A8   0x.... 0x....      BL       ?Subroutine7
+    382          	    WriteSTAByte(0x64,&pcSTAComnd[0],1);		
+   \                     ??CrossCallReturnLabel_31: (+1)
+   \   000000AC   0x2064             MOVS     R0,#+100
+   \   000000AE   0x.... 0x....      BL       WriteSTAByte
+    383          
+    384          		/*--------------- PLL configuration registers (0x71, 0x72, 0x73, 0x74) ----------------------- */
+    385          		/* PLLFC = 0: Fout = (Fin/IDF)*ND  */
+    386          
+    387          		/* 0x73: 5 bits ND */
+    388             	    pcSTAComnd[0] = 0x28;//40 
+   \   000000B2   0x2028             MOVS     R0,#+40
+    389          	    WriteSTAByte(0x73,&pcSTAComnd[0],1);
+   \   000000B4   0x.... 0x....      BL       ??Subroutine7_0
+   \                     ??CrossCallReturnLabel_41: (+1)
+   \   000000B8   0x2073             MOVS     R0,#+115
+   \   000000BA   0x.... 0x....      BL       WriteSTAByte
+    390          
+    391                 /* 0x74: bit[0:3]: IDF */
+    392          	   pcSTAComnd[0] = 0x0C; //10
+   \   000000BE   0x200C             MOVS     R0,#+12
+    393          	   WriteSTAByte(0x74,&pcSTAComnd[0],1);
+   \   000000C0   0x.... 0x....      BL       ??Subroutine7_0
+   \                     ??CrossCallReturnLabel_42: (+1)
+   \   000000C4   0x2074             MOVS     R0,#+116
+   \   000000C6   0x.... 0x....      BL       WriteSTAByte
+    394          
+    395                 /* 0x75:bit 2: PLLDPR--> PLL direct programming
+    396                 ‘0’: PLL configuration depends on MCS
+    397                 ‘1’: PLL configuration depends on I2C regs (0x72,0x73 and 0x74)
+    398                 */
+    399          	   pcSTAComnd[0] = 0x04; 
+   \   000000CA   0x2004             MOVS     R0,#+4
+    400          	   WriteSTAByte(0x75,&pcSTAComnd[0],1);
+   \   000000CC   0x.... 0x....      BL       ??Subroutine7_0
+   \                     ??CrossCallReturnLabel_43: (+1)
+   \   000000D0   0x2075             MOVS     R0,#+117
+   \   000000D2   0x.... 0x....      BL       WriteSTAByte
+    401          	   /* ----------------------------------------------------------------------------------------------*/
+    402          
+    403          		//bit 2: 1-> Microphone recombination IP is active
+    404          		//       0-> Microphone recombination IP is not active
+    405          		//Recombination control register: bit 0: 1-Auto-config of the CLKOUT generator to Fout=sys_clk/32
+    406          		//                                       0-CLK is configured only through COS bit
+    407          		pcSTAComnd[0] = 0x00;
+   \   000000D6   0x2000             MOVS     R0,#+0
+    408          		WriteSTAByte(0x5D,&pcSTAComnd[0],1);
+   \   000000D8   0x.... 0x....      BL       ??Subroutine7_0
+   \                     ??CrossCallReturnLabel_44: (+1)
+   \   000000DC   0x205D             MOVS     R0,#+93
+   \   000000DE   0x.... 0x....      BL       WriteSTAByte
+    409          
+    410                  		
+    411          		STACoefSet();
+   \   000000E2   0xE8BD 0x4010      POP      {R4,LR}
+   \   000000E6   0x....             B.N      STACoefSet
+    412                      
+    413           }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine7: (+1)
+   \   00000000   0x204A             MOVS     R0,#+74
+   \                     ??Subroutine7_0: (+1)
+   \   00000002   0x2201             MOVS     R2,#+1
+   \   00000004   0x7020             STRB     R0,[R4, #+0]
+   \   00000006   0x4621             MOV      R1,R4
+   \   00000008   0x4770             BX       LR
+    414           
+    415           
+
+   \                                 In section .text, align 2, keep-with-next
+    416           void ReadSTASeq(uint8_t Addr, uint8_t *pBufOut,uint8_t Len )
+    417          {
+   \                     ReadSTASeq: (+1)
+   \   00000000   0xB571             PUSH     {R0,R4-R6,LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
+   \   00000004   0x460C             MOV      R4,R1
+   \   00000006   0x4615             MOV      R5,R2
+   \   00000008   0x.... 0x....      LDR.W    R6,??DataTable4_1
+    418                  //while(HAL_I2C_Master_Transmit_IT(&hi2c1,0x40,pI2CData,2)!= HAL_OK)
+    419          		{
+    420                       ;
+    421          		}
+    422          
+    423          		  /*##-3- Wait for the end of the transfer ###################################*/  
+    424          		  /*  Before starting a new communication transfer, you need to check the current   
+    425          		      state of the peripheral; if it’s busy you need to wait for the end of current
+    426          		      transfer before starting a new one.
+    427          		      For simplicity reasons, this example is just waiting till the end of the
+    428          		      transfer, but application may perform other tasks while transfer operation
+    429          		      is ongoing. */
+    430          		  //while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY)
+    431          		  {
+    432          		  } 
+    433          
+    434          		 while(HAL_I2C_Master_Transmit(&hi2c1,STA_ADDR_1W,&Addr,1,1000)!=HAL_OK)
+   \                     ??ReadSTASeq_0: (+1)
+   \   0000000C   0xF44F 0x707A      MOV      R0,#+1000
+   \   00000010   0x2301             MOVS     R3,#+1
+   \   00000012   0x9000             STR      R0,[SP, #+0]
+   \   00000014   0xAA01             ADD      R2,SP,#+4
+   \   00000016   0x2140             MOVS     R1,#+64
+   \   00000018   0x4630             MOV      R0,R6
+   \   0000001A   0x.... 0x....      BL       HAL_I2C_Master_Transmit
+   \   0000001E   0x2800             CMP      R0,#+0
+   \   00000020   0xD1F4             BNE.N    ??ReadSTASeq_0
+    435          		 {
+    436                       ;
+    437          		 }
+    438          	     //HAL_I2C_Master_Receive_IT(&hi2c1, 0x40, pI2CRx, 4);
+    439          	     while(HAL_I2C_Master_Receive(&hi2c1,STA_ADDR_1R,pBufOut,Len,1000)!=HAL_OK)
+   \                     ??ReadSTASeq_1: (+1)
+   \   00000022   0xF44F 0x707A      MOV      R0,#+1000
+   \   00000026   0x462B             MOV      R3,R5
+   \   00000028   0x9000             STR      R0,[SP, #+0]
+   \   0000002A   0x4622             MOV      R2,R4
+   \   0000002C   0x2141             MOVS     R1,#+65
+   \   0000002E   0x4630             MOV      R0,R6
+   \   00000030   0x.... 0x....      BL       HAL_I2C_Master_Receive
+   \   00000034   0x2800             CMP      R0,#+0
+   \   00000036   0xD1F4             BNE.N    ??ReadSTASeq_1
+    440          	     {
+    441                        ;
+    442          	     }  
+    443          }
+   \   00000038   0xBD73             POP      {R0,R1,R4-R6,PC}  ;; return
+    444          
+
+   \                                 In section .text, align 2, keep-with-next
+    445          void WriteSTAByte(uint8_t Addr, uint8_t *pBufIn, uint8_t len)
+    446          {
+   \                     WriteSTAByte: (+1)
+   \   00000000   0xE92D 0x41F0      PUSH     {R4-R8,LR}
+   \   00000004   0x4614             MOV      R4,R2
+   \   00000006   0x4606             MOV      R6,R0
+    447               uint8_t *DataSeq;
+    448          	 
+    449               DataSeq= (uint8_t *) malloc(len+1);
+   \   00000008   0xF104 0x0801      ADD      R8,R4,#+1
+   \   0000000C   0xB082             SUB      SP,SP,#+8
+   \   0000000E   0x460F             MOV      R7,R1
+   \   00000010   0x4640             MOV      R0,R8
+   \   00000012   0x.... 0x....      BL       malloc
+   \   00000016   0x4605             MOV      R5,R0
+    450          
+    451               /* copy data and address to buffer send*/
+    452               for(uint8_t i=0;  i<(len+1);i++)
+   \   00000018   0x2000             MOVS     R0,#+0
+   \   0000001A   0xE000             B.N      ??WriteSTAByte_0
+    453               {
+    454                    if(i==0)
+   \                     ??WriteSTAByte_1: (+1)
+   \   0000001C   0xB908             CBNZ.N   R0,??WriteSTAByte_2
+    455          		  {
+    456          		      DataSeq[0]=Addr;
+   \                     ??WriteSTAByte_0: (+1)
+   \   0000001E   0x702E             STRB     R6,[R5, #+0]
+   \   00000020   0xE003             B.N      ??WriteSTAByte_3
+    457                    }
+    458          		  else
+    459          		  {
+    460                        DataSeq[i] = pBufIn[i-1];
+   \                     ??WriteSTAByte_2: (+1)
+   \   00000022   0x19C1             ADDS     R1,R0,R7
+   \   00000024   0xF811 0x1C01      LDRB     R1,[R1, #-1]
+   \   00000028   0x5541             STRB     R1,[R0, R5]
+    461          		  }
+    462               }
+   \                     ??WriteSTAByte_3: (+1)
+   \   0000002A   0x1C40             ADDS     R0,R0,#+1
+   \   0000002C   0xB2C0             UXTB     R0,R0
+   \   0000002E   0x4540             CMP      R0,R8
+   \   00000030   0xDBF4             BLT.N    ??WriteSTAByte_1
+    463          
+    464          	 
+    465          
+    466          	 /* Send data to STA321 */
+    467               while(HAL_I2C_Master_Transmit(&hi2c1,(uint16_t)STA_ADDR_1W,&DataSeq[0],len+1,1000)!=HAL_OK)
+   \                     ??WriteSTAByte_4: (+1)
+   \   00000032   0xF44F 0x707A      MOV      R0,#+1000
+   \   00000036   0x1C63             ADDS     R3,R4,#+1
+   \   00000038   0x9000             STR      R0,[SP, #+0]
+   \   0000003A   0xB29B             UXTH     R3,R3
+   \   0000003C   0x462A             MOV      R2,R5
+   \   0000003E   0x2140             MOVS     R1,#+64
+   \   00000040   0x.... 0x....      LDR.W    R0,??DataTable4_1
+   \   00000044   0x.... 0x....      BL       HAL_I2C_Master_Transmit
+   \   00000048   0x2800             CMP      R0,#+0
+   \   0000004A   0xD1F2             BNE.N    ??WriteSTAByte_4
+    468          	 {
+    469                    ;
+    470          	 }
+    471          
+    472          
+    473          	 
+    474          	 free(DataSeq);
+   \   0000004C   0x4628             MOV      R0,R5
+   \   0000004E   0xE8BD 0x41F6      POP      {R1,R2,R4-R8,LR}
+   \   00000052   0x.... 0x....      B.W      free
+    475          
+    476          }
+    477          
+
+   \                                 In section .text, align 2, keep-with-next
+    478          void STACoefSet(void)
+    479          {
+   \                     STACoefSet: (+1)
+   \   00000000   0xB510             PUSH     {R4,LR}
+    480          
+    481          // sta321mp_biquad(codec, 1, 2, 0x2d7d5e, 0x3faa84, 0x6599c4, 0xad9ed1,0x1fd542);
+    482          // sta321mp_biquad(codec, 1, 3, 0xfcec16, 0x177b7b, 0x63c973, 0xa4b499,0xbbdbd);
+    483          // sta321mp_biquad(codec, 1, 4, 0xf4caac, 0x177b7b, 0x616997, 0x98a93a,0xbbdbd);
+    484          // sta321mp_biquad(codec, 1, 5, 0xf1c0e3, 0x177b7b, 0x5f9823, 0x8e691f,0xbbdbd);
+    485          // sta321mp_biquad(codec, 1, 6, 0xf083cb, 0x177b7b, 0x5ec1ab, 0x873641,0xbbdbd);
+    486          // sta321mp_biquad(codec, 1, 7, 0xf00d82, 0x177b7b, 0x5f0547, 0x822c2a,0xbbdbd);
+    487          
+    488          bufCoefBiquad[0]= 250;
+   \   00000002   0x.... 0x....      LDR.W    R4,??DataTable4_2
+   \   00000006   0x20FA             MOVS     R0,#+250
+   \   00000008   0x7020             STRB     R0,[R4, #+0]
+    489          bufCoefBiquad[1]= 15;
+   \   0000000A   0x200F             MOVS     R0,#+15
+   \   0000000C   0x7060             STRB     R0,[R4, #+1]
+    490          bufCoefBiquad[2]= 248;
+   \   0000000E   0x20F8             MOVS     R0,#+248
+   \   00000010   0x70A0             STRB     R0,[R4, #+2]
+    491          bufCoefBiquad[3]= 90;
+   \   00000012   0x205A             MOVS     R0,#+90
+   \   00000014   0x70E0             STRB     R0,[R4, #+3]
+    492          bufCoefBiquad[4]= 30;
+   \   00000016   0x201E             MOVS     R0,#+30
+   \   00000018   0x7120             STRB     R0,[R4, #+4]
+    493          bufCoefBiquad[5]= 138;
+   \   0000001A   0x208A             MOVS     R0,#+138
+   \   0000001C   0x7160             STRB     R0,[R4, #+5]
+    494          bufCoefBiquad[6]= 117;
+   \   0000001E   0x2075             MOVS     R0,#+117
+   \   00000020   0x71A0             STRB     R0,[R4, #+6]
+    495          bufCoefBiquad[7]= 122;
+   \   00000022   0x207A             MOVS     R0,#+122
+   \   00000024   0x71E0             STRB     R0,[R4, #+7]
+    496          bufCoefBiquad[8]= 75;
+   \   00000026   0x204B             MOVS     R0,#+75
+   \   00000028   0x7220             STRB     R0,[R4, #+8]
+    497          bufCoefBiquad[9]= 147;
+   \   0000002A   0x2093             MOVS     R0,#+147
+   \   0000002C   0x7260             STRB     R0,[R4, #+9]
+    498          bufCoefBiquad[10]= 217;
+   \   0000002E   0x20D9             MOVS     R0,#+217
+   \   00000030   0x72A0             STRB     R0,[R4, #+10]
+    499          bufCoefBiquad[11]= 241;
+   \   00000032   0x20F1             MOVS     R0,#+241
+   \   00000034   0x72E0             STRB     R0,[R4, #+11]
+    500          bufCoefBiquad[12]= 45;
+   \   00000036   0x202D             MOVS     R0,#+45
+   \   00000038   0x7320             STRB     R0,[R4, #+12]
+    501          bufCoefBiquad[13]= 15;
+   \   0000003A   0x200F             MOVS     R0,#+15
+   \   0000003C   0x7360             STRB     R0,[R4, #+13]
+    502          bufCoefBiquad[14]= 69;
+   \   0000003E   0x2045             MOVS     R0,#+69
+   \   00000040   0x73A0             STRB     R0,[R4, #+14]
+    503          WriteCoef(0x05, bufCoefBiquad);
+   \   00000042   0x4621             MOV      R1,R4
+   \   00000044   0x2005             MOVS     R0,#+5
+   \   00000046   0x.... 0x....      BL       WriteCoef
+    504          bufCoefBiquad[0]= 243;
+   \   0000004A   0x20F3             MOVS     R0,#+243
+    505          bufCoefBiquad[1]= 182;
+    506          bufCoefBiquad[2]= 164;
+    507          bufCoefBiquad[3]= 15;
+    508          bufCoefBiquad[4]= 99;
+    509          bufCoefBiquad[5]= 170;
+    510          bufCoefBiquad[6]= 118;
+    511          bufCoefBiquad[7]= 97;
+    512          bufCoefBiquad[8]= 166;
+    513          bufCoefBiquad[9]= 143;
+    514          bufCoefBiquad[10]= 246;
+    515          bufCoefBiquad[11]= 17;
+    516          bufCoefBiquad[12]= 7;
+    517          bufCoefBiquad[13]= 177;
+    518          bufCoefBiquad[14]= 213;
+    519          WriteCoef(0x0a, bufCoefBiquad);
+   \   0000004C   0x4621             MOV      R1,R4
+   \   0000004E   0x7020             STRB     R0,[R4, #+0]
+   \   00000050   0x20B6             MOVS     R0,#+182
+   \   00000052   0x7060             STRB     R0,[R4, #+1]
+   \   00000054   0x20A4             MOVS     R0,#+164
+   \   00000056   0x.... 0x....      BL       ?Subroutine9
+   \                     ??CrossCallReturnLabel_53: (+1)
+   \   0000005A   0x2076             MOVS     R0,#+118
+   \   0000005C   0x71A0             STRB     R0,[R4, #+6]
+   \   0000005E   0x2061             MOVS     R0,#+97
+   \   00000060   0x71E0             STRB     R0,[R4, #+7]
+   \   00000062   0x20A6             MOVS     R0,#+166
+   \   00000064   0x7220             STRB     R0,[R4, #+8]
+   \   00000066   0x208F             MOVS     R0,#+143
+   \   00000068   0x7260             STRB     R0,[R4, #+9]
+   \   0000006A   0x20F6             MOVS     R0,#+246
+   \   0000006C   0x72A0             STRB     R0,[R4, #+10]
+   \   0000006E   0x2011             MOVS     R0,#+17
+   \   00000070   0x.... 0x....      BL       ?Subroutine8
+   \                     ??CrossCallReturnLabel_48: (+1)
+   \   00000074   0x200A             MOVS     R0,#+10
+   \   00000076   0x.... 0x....      BL       WriteCoef
+    520          bufCoefBiquad[0]= 242;
+   \   0000007A   0x20F2             MOVS     R0,#+242
+    521          bufCoefBiquad[1]= 31;
+    522          bufCoefBiquad[2]= 49;
+    523          bufCoefBiquad[3]= 15;
+    524          bufCoefBiquad[4]= 99;
+    525          bufCoefBiquad[5]= 170;
+    526          bufCoefBiquad[6]= 119;
+    527          bufCoefBiquad[7]= 157;
+    528          bufCoefBiquad[8]= 145;
+    529          bufCoefBiquad[9]= 138;
+    530          bufCoefBiquad[10]= 181;
+    531          bufCoefBiquad[11]= 246;
+    532          bufCoefBiquad[12]= 7;
+    533          bufCoefBiquad[13]= 177;
+    534          bufCoefBiquad[14]= 213;
+    535          WriteCoef(0x0f, bufCoefBiquad);
+   \   0000007C   0x4621             MOV      R1,R4
+   \   0000007E   0x7020             STRB     R0,[R4, #+0]
+   \   00000080   0x201F             MOVS     R0,#+31
+   \   00000082   0x7060             STRB     R0,[R4, #+1]
+   \   00000084   0x2031             MOVS     R0,#+49
+   \   00000086   0x.... 0x....      BL       ?Subroutine9
+   \                     ??CrossCallReturnLabel_54: (+1)
+   \   0000008A   0x2077             MOVS     R0,#+119
+   \   0000008C   0x71A0             STRB     R0,[R4, #+6]
+   \   0000008E   0x209D             MOVS     R0,#+157
+   \   00000090   0x71E0             STRB     R0,[R4, #+7]
+   \   00000092   0x2091             MOVS     R0,#+145
+   \   00000094   0x7220             STRB     R0,[R4, #+8]
+   \   00000096   0x208A             MOVS     R0,#+138
+   \   00000098   0x7260             STRB     R0,[R4, #+9]
+   \   0000009A   0x20B5             MOVS     R0,#+181
+   \   0000009C   0x72A0             STRB     R0,[R4, #+10]
+   \   0000009E   0x20F6             MOVS     R0,#+246
+   \   000000A0   0x.... 0x....      BL       ?Subroutine8
+   \                     ??CrossCallReturnLabel_49: (+1)
+   \   000000A4   0x200F             MOVS     R0,#+15
+   \   000000A6   0x.... 0x....      BL       WriteCoef
+    536          bufCoefBiquad[0]= 241;
+   \   000000AA   0x20F1             MOVS     R0,#+241
+   \   000000AC   0x7020             STRB     R0,[R4, #+0]
+    537          bufCoefBiquad[1]= 172;
+   \   000000AE   0x20AC             MOVS     R0,#+172
+   \   000000B0   0x7060             STRB     R0,[R4, #+1]
+    538          bufCoefBiquad[2]= 26;
+   \   000000B2   0x201A             MOVS     R0,#+26
+   \   000000B4   0x.... 0x....      BL       ?Subroutine9
+    539          bufCoefBiquad[3]= 15;
+    540          bufCoefBiquad[4]= 99;
+    541          bufCoefBiquad[5]= 170;
+    542          bufCoefBiquad[6]= 120;
+   \                     ??CrossCallReturnLabel_52: (+1)
+   \   000000B8   0x2078             MOVS     R0,#+120
+   \   000000BA   0x71A0             STRB     R0,[R4, #+6]
+    543          bufCoefBiquad[7]= 179;
+   \   000000BC   0x20B3             MOVS     R0,#+179
+   \   000000BE   0x71E0             STRB     R0,[R4, #+7]
+    544          bufCoefBiquad[8]= 221;
+   \   000000C0   0x20DD             MOVS     R0,#+221
+   \   000000C2   0x7220             STRB     R0,[R4, #+8]
+    545          bufCoefBiquad[9]= 134;
+   \   000000C4   0x2086             MOVS     R0,#+134
+   \   000000C6   0x7260             STRB     R0,[R4, #+9]
+    546          bufCoefBiquad[10]= 63;
+   \   000000C8   0x203F             MOVS     R0,#+63
+   \   000000CA   0x72A0             STRB     R0,[R4, #+10]
+    547          bufCoefBiquad[11]= 99;
+   \   000000CC   0x2063             MOVS     R0,#+99
+   \   000000CE   0x.... 0x....      BL       ?Subroutine8
+    548          bufCoefBiquad[12]= 7;
+    549          bufCoefBiquad[13]= 177;
+    550          bufCoefBiquad[14]= 213;
+    551          WriteCoef(0x014, bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_47: (+1)
+   \   000000D2   0x4621             MOV      R1,R4
+   \   000000D4   0x2014             MOVS     R0,#+20
+   \   000000D6   0x.... 0x....      BL       WriteCoef
+    552          bufCoefBiquad[0]= 241;
+   \   000000DA   0x20F1             MOVS     R0,#+241
+    553          bufCoefBiquad[1]= 129;
+    554          bufCoefBiquad[2]= 115;
+    555          bufCoefBiquad[3]= 15;
+    556          bufCoefBiquad[4]= 99;
+    557          bufCoefBiquad[5]= 170;
+    558          bufCoefBiquad[6]= 121;
+    559          bufCoefBiquad[7]= 140;
+    560          bufCoefBiquad[8]= 11;
+    561          bufCoefBiquad[9]= 131;
+    562          bufCoefBiquad[10]= 30;
+    563          bufCoefBiquad[11]= 24;
+    564          bufCoefBiquad[12]= 7;
+    565          bufCoefBiquad[13]= 177;
+    566          bufCoefBiquad[14]= 213;
+    567          WriteCoef(0x019, bufCoefBiquad);
+   \   000000DC   0x4621             MOV      R1,R4
+   \   000000DE   0x7020             STRB     R0,[R4, #+0]
+   \   000000E0   0x2081             MOVS     R0,#+129
+   \   000000E2   0x7060             STRB     R0,[R4, #+1]
+   \   000000E4   0x2073             MOVS     R0,#+115
+   \   000000E6   0x.... 0x....      BL       ?Subroutine9
+   \                     ??CrossCallReturnLabel_55: (+1)
+   \   000000EA   0x2079             MOVS     R0,#+121
+   \   000000EC   0x71A0             STRB     R0,[R4, #+6]
+   \   000000EE   0x208C             MOVS     R0,#+140
+   \   000000F0   0x71E0             STRB     R0,[R4, #+7]
+   \   000000F2   0x200B             MOVS     R0,#+11
+   \   000000F4   0x7220             STRB     R0,[R4, #+8]
+   \   000000F6   0x2083             MOVS     R0,#+131
+   \   000000F8   0x7260             STRB     R0,[R4, #+9]
+   \   000000FA   0x201E             MOVS     R0,#+30
+   \   000000FC   0x72A0             STRB     R0,[R4, #+10]
+   \   000000FE   0x2018             MOVS     R0,#+24
+   \   00000100   0x.... 0x....      BL       ?Subroutine8
+   \                     ??CrossCallReturnLabel_50: (+1)
+   \   00000104   0x2019             MOVS     R0,#+25
+   \   00000106   0x.... 0x....      BL       WriteCoef
+    568          bufCoefBiquad[0]= 241;
+   \   0000010A   0x20F1             MOVS     R0,#+241
+    569          bufCoefBiquad[1]= 114;
+    570          bufCoefBiquad[2]= 29;
+    571          bufCoefBiquad[3]= 15;
+    572          bufCoefBiquad[4]= 99;
+    573          bufCoefBiquad[5]= 170;
+    574          bufCoefBiquad[6]= 122;
+    575          bufCoefBiquad[7]= 75;
+    576          bufCoefBiquad[8]= 50;
+    577          bufCoefBiquad[9]= 128;
+    578          bufCoefBiquad[10]= 239;
+    579          bufCoefBiquad[11]= 42;
+    580          bufCoefBiquad[12]= 7;
+    581          bufCoefBiquad[13]= 177;
+    582          bufCoefBiquad[14]= 213;
+    583          WriteCoef(0x01e, bufCoefBiquad);
+   \   0000010C   0x4621             MOV      R1,R4
+   \   0000010E   0x7020             STRB     R0,[R4, #+0]
+   \   00000110   0x2072             MOVS     R0,#+114
+   \   00000112   0x7060             STRB     R0,[R4, #+1]
+   \   00000114   0x201D             MOVS     R0,#+29
+   \   00000116   0x.... 0x....      BL       ?Subroutine9
+   \                     ??CrossCallReturnLabel_56: (+1)
+   \   0000011A   0x207A             MOVS     R0,#+122
+   \   0000011C   0x71A0             STRB     R0,[R4, #+6]
+   \   0000011E   0x204B             MOVS     R0,#+75
+   \   00000120   0x71E0             STRB     R0,[R4, #+7]
+   \   00000122   0x2032             MOVS     R0,#+50
+   \   00000124   0x7220             STRB     R0,[R4, #+8]
+   \   00000126   0x2080             MOVS     R0,#+128
+   \   00000128   0x7260             STRB     R0,[R4, #+9]
+   \   0000012A   0x20EF             MOVS     R0,#+239
+   \   0000012C   0x72A0             STRB     R0,[R4, #+10]
+   \   0000012E   0x202A             MOVS     R0,#+42
+   \   00000130   0x.... 0x....      BL       ?Subroutine8
+   \                     ??CrossCallReturnLabel_51: (+1)
+   \   00000134   0x201E             MOVS     R0,#+30
+   \   00000136   0x.... 0x....      BL       WriteCoef
+    584          
+    585          
+    586          //037
+    587          bufCoefBiquad[0]=0x80;
+   \   0000013A   0x.... 0x....      BL       ?Subroutine2
+    588          bufCoefBiquad[1]=0x37;
+    589          bufCoefBiquad[2]=0xD9;
+    590          bufCoefBiquad[3]=0x7F;
+    591          bufCoefBiquad[4]=0xC8;
+    592          bufCoefBiquad[5]=0x27;
+    593          bufCoefBiquad[6]=0x7F;
+    594          bufCoefBiquad[7]=0xC8;
+    595          bufCoefBiquad[8]=0x1B;
+    596          bufCoefBiquad[9]=0x80;
+    597          bufCoefBiquad[10]=0x6F;
+    598          bufCoefBiquad[11]=0x98;
+    599          bufCoefBiquad[12]=0x3F;
+    600          bufCoefBiquad[13]=0xE4;
+    601          bufCoefBiquad[14]=0x13;
+    602          WriteCoef(0x037,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_2: (+1)
+   \   0000013E   0x2037             MOVS     R0,#+55
+   \   00000140   0x.... 0x....      BL       WriteCoef
+    603          //03C
+    604          bufCoefBiquad[0]=0x80;
+   \   00000144   0x.... 0x....      BL       ?Subroutine1
+    605          bufCoefBiquad[1]=0x37;
+    606          bufCoefBiquad[2]=0xD9;
+    607          bufCoefBiquad[3]=0x7F;
+    608          bufCoefBiquad[4]=0xC8;
+    609          bufCoefBiquad[5]=0x27;
+    610          bufCoefBiquad[6]=0x7F;
+    611          bufCoefBiquad[7]=0xC8;
+    612          bufCoefBiquad[8]=0x1B;
+    613          bufCoefBiquad[9]=0x80;
+    614          bufCoefBiquad[10]=0x6F;
+    615          bufCoefBiquad[11]=0x98;
+    616          bufCoefBiquad[12]=0x3F;
+    617          bufCoefBiquad[13]=0xE4;
+    618          bufCoefBiquad[14]=0x13;
+    619          WriteCoef(0x03C,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_0: (+1)
+   \   00000148   0x203C             MOVS     R0,#+60
+   \   0000014A   0x.... 0x....      BL       WriteCoef
+    620          //041
+    621          bufCoefBiquad[0]=0x09;
+   \   0000014E   0x.... 0x....      BL       ?Subroutine4
+    622          bufCoefBiquad[1]=0x3E;
+    623          bufCoefBiquad[2]=0xC0;
+    624          bufCoefBiquad[3]=0x09;
+    625          bufCoefBiquad[4]=0x3E;
+    626          bufCoefBiquad[5]=0xC0;
+    627          bufCoefBiquad[6]=0x46;
+    628          bufCoefBiquad[7]=0xFC;
+    629          bufCoefBiquad[8]=0xC7;
+    630          bufCoefBiquad[9]=0xCD;
+    631          bufCoefBiquad[10]=0x0B;
+    632          bufCoefBiquad[11]=0x6E;
+    633          bufCoefBiquad[12]=0x04;
+    634          bufCoefBiquad[13]=0x9F;
+    635          bufCoefBiquad[14]=0x60;
+    636          WriteCoef(0x041,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_12: (+1)
+   \   00000152   0x2041             MOVS     R0,#+65
+   \   00000154   0x.... 0x....      BL       WriteCoef
+    637          //046
+    638          bufCoefBiquad[0]=0x09;
+   \   00000158   0x.... 0x....      BL       ?Subroutine4
+    639          bufCoefBiquad[1]=0x3E;
+    640          bufCoefBiquad[2]=0xC0;
+    641          bufCoefBiquad[3]=0x09;
+    642          bufCoefBiquad[4]=0x3E;
+    643          bufCoefBiquad[5]=0xC0;
+    644          bufCoefBiquad[6]=0x46;
+    645          bufCoefBiquad[7]=0xFC;
+    646          bufCoefBiquad[8]=0xC7;
+    647          bufCoefBiquad[9]=0xCD;
+    648          bufCoefBiquad[10]=0x0B;
+    649          bufCoefBiquad[11]=0x6E;
+    650          bufCoefBiquad[12]=0x04;
+    651          bufCoefBiquad[13]=0x9F;
+    652          bufCoefBiquad[14]=0x60;
+    653          WriteCoef(0x046,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_13: (+1)
+   \   0000015C   0x2046             MOVS     R0,#+70
+   \   0000015E   0x.... 0x....      BL       WriteCoef
+    654          //04B
+    655          bufCoefBiquad[0]=0x09;
+   \   00000162   0x.... 0x....      BL       ?Subroutine4
+    656          bufCoefBiquad[1]=0x3E;
+    657          bufCoefBiquad[2]=0xC0;
+    658          bufCoefBiquad[3]=0x09;
+    659          bufCoefBiquad[4]=0x3E;
+    660          bufCoefBiquad[5]=0xC0;
+    661          bufCoefBiquad[6]=0x46;
+    662          bufCoefBiquad[7]=0xFC;
+    663          bufCoefBiquad[8]=0xC7;
+    664          bufCoefBiquad[9]=0xCD;
+    665          bufCoefBiquad[10]=0x0B;
+    666          bufCoefBiquad[11]=0x6E;
+    667          bufCoefBiquad[12]=0x04;
+    668          bufCoefBiquad[13]=0x9F;
+    669          bufCoefBiquad[14]=0x60;
+    670          WriteCoef(0x04B,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_14: (+1)
+   \   00000166   0x204B             MOVS     R0,#+75
+   \   00000168   0x.... 0x....      BL       WriteCoef
+    671          //050
+    672          bufCoefBiquad[0]=0xA4;
+   \   0000016C   0x.... 0x....      BL       ?Subroutine5
+    673          bufCoefBiquad[1]=0x18;
+    674          bufCoefBiquad[2]=0xCA;
+    675          bufCoefBiquad[3]=0x56;
+    676          bufCoefBiquad[4]=0x67;
+    677          bufCoefBiquad[5]=0xB6;
+    678          bufCoefBiquad[6]=0x5B;
+    679          bufCoefBiquad[7]=0xE7;
+    680          bufCoefBiquad[8]=0x36;
+    681          bufCoefBiquad[9]=0x98;
+    682          bufCoefBiquad[10]=0x51;
+    683          bufCoefBiquad[11]=0x32;
+    684          bufCoefBiquad[12]=0x48;
+    685          bufCoefBiquad[13]=0xA3;
+    686          bufCoefBiquad[14]=0x8B;
+    687          WriteCoef(0x050,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_24: (+1)
+   \   00000170   0x2050             MOVS     R0,#+80
+   \   00000172   0x.... 0x....      BL       WriteCoef
+    688          //069
+    689          bufCoefBiquad[0]=0x80;
+   \   00000176   0x.... 0x....      BL       ?Subroutine2
+    690          bufCoefBiquad[1]=0x37;
+    691          bufCoefBiquad[2]=0xD9;
+    692          bufCoefBiquad[3]=0x7F;
+    693          bufCoefBiquad[4]=0xC8;
+    694          bufCoefBiquad[5]=0x27;
+    695          bufCoefBiquad[6]=0x7F;
+    696          bufCoefBiquad[7]=0xC8;
+    697          bufCoefBiquad[8]=0x1B;
+    698          bufCoefBiquad[9]=0x80;
+    699          bufCoefBiquad[10]=0x6F;
+    700          bufCoefBiquad[11]=0x98;
+    701          bufCoefBiquad[12]=0x3F;
+    702          bufCoefBiquad[13]=0xE4;
+    703          bufCoefBiquad[14]=0x13;
+    704          WriteCoef(0x069,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_3: (+1)
+   \   0000017A   0x2069             MOVS     R0,#+105
+   \   0000017C   0x.... 0x....      BL       WriteCoef
+    705          //06E
+    706          bufCoefBiquad[0]=0x80;
+   \   00000180   0x.... 0x....      BL       ?Subroutine2
+    707          bufCoefBiquad[1]=0x37;
+    708          bufCoefBiquad[2]=0xD9;
+    709          bufCoefBiquad[3]=0x7F;
+    710          bufCoefBiquad[4]=0xC8;
+    711          bufCoefBiquad[5]=0x27;
+    712          bufCoefBiquad[6]=0x7F;
+    713          bufCoefBiquad[7]=0xC8;
+    714          bufCoefBiquad[8]=0x1B;
+    715          bufCoefBiquad[9]=0x80;
+    716          bufCoefBiquad[10]=0x6F;
+    717          bufCoefBiquad[11]=0x98;
+    718          bufCoefBiquad[12]=0x3F;
+    719          bufCoefBiquad[13]=0xE4;
+    720          bufCoefBiquad[14]=0x13;
+    721          WriteCoef(0x06E,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_4: (+1)
+   \   00000184   0x206E             MOVS     R0,#+110
+   \   00000186   0x.... 0x....      BL       WriteCoef
+    722          //073
+    723          bufCoefBiquad[0]=0x09;
+   \   0000018A   0x.... 0x....      BL       ?Subroutine4
+    724          bufCoefBiquad[1]=0x3E;
+    725          bufCoefBiquad[2]=0xC0;
+    726          bufCoefBiquad[3]=0x09;
+    727          bufCoefBiquad[4]=0x3E;
+    728          bufCoefBiquad[5]=0xC0;
+    729          bufCoefBiquad[6]=0x46;
+    730          bufCoefBiquad[7]=0xFC;
+    731          bufCoefBiquad[8]=0xC7;
+    732          bufCoefBiquad[9]=0xCD;
+    733          bufCoefBiquad[10]=0x0B;
+    734          bufCoefBiquad[11]=0x6E;
+    735          bufCoefBiquad[12]=0x04;
+    736          bufCoefBiquad[13]=0x9F;
+    737          bufCoefBiquad[14]=0x60;
+    738          WriteCoef(0x073,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_15: (+1)
+   \   0000018E   0x2073             MOVS     R0,#+115
+   \   00000190   0x.... 0x....      BL       WriteCoef
+    739          //078
+    740          bufCoefBiquad[0]=0x09;
+   \   00000194   0x.... 0x....      BL       ?Subroutine3
+    741          bufCoefBiquad[1]=0x3E;
+    742          bufCoefBiquad[2]=0xC0;
+    743          bufCoefBiquad[3]=0x09;
+    744          bufCoefBiquad[4]=0x3E;
+    745          bufCoefBiquad[5]=0xC0;
+    746          bufCoefBiquad[6]=0x46;
+    747          bufCoefBiquad[7]=0xFC;
+    748          bufCoefBiquad[8]=0xC7;
+    749          bufCoefBiquad[9]=0xCD;
+    750          bufCoefBiquad[10]=0x0B;
+    751          bufCoefBiquad[11]=0x6E;
+    752          bufCoefBiquad[12]=0x04;
+    753          bufCoefBiquad[13]=0x9F;
+    754          bufCoefBiquad[14]=0x60;
+    755          WriteCoef(0x078,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_10: (+1)
+   \   00000198   0x2078             MOVS     R0,#+120
+   \   0000019A   0x.... 0x....      BL       WriteCoef
+    756          //07D
+    757          bufCoefBiquad[0]=0x09;
+   \   0000019E   0x.... 0x....      BL       ?Subroutine4
+    758          bufCoefBiquad[1]=0x3E;
+    759          bufCoefBiquad[2]=0xC0;
+    760          bufCoefBiquad[3]=0x09;
+    761          bufCoefBiquad[4]=0x3E;
+    762          bufCoefBiquad[5]=0xC0;
+    763          bufCoefBiquad[6]=0x46;
+    764          bufCoefBiquad[7]=0xFC;
+    765          bufCoefBiquad[8]=0xC7;
+    766          bufCoefBiquad[9]=0xCD;
+    767          bufCoefBiquad[10]=0x0B;
+    768          bufCoefBiquad[11]=0x6E;
+    769          bufCoefBiquad[12]=0x04;
+    770          bufCoefBiquad[13]=0x9F;
+    771          bufCoefBiquad[14]=0x60;
+    772          WriteCoef(0x07D,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_16: (+1)
+   \   000001A2   0x207D             MOVS     R0,#+125
+   \   000001A4   0x.... 0x....      BL       WriteCoef
+    773          //082
+    774          bufCoefBiquad[0]=0xA4;
+   \   000001A8   0x.... 0x....      BL       ?Subroutine6
+    775          bufCoefBiquad[1]=0x18;
+    776          bufCoefBiquad[2]=0xCA;
+    777          bufCoefBiquad[3]=0x56;
+    778          bufCoefBiquad[4]=0x67;
+    779          bufCoefBiquad[5]=0xB6;
+    780          bufCoefBiquad[6]=0x5B;
+    781          bufCoefBiquad[7]=0xE7;
+    782          bufCoefBiquad[8]=0x36;
+    783          bufCoefBiquad[9]=0x98;
+    784          bufCoefBiquad[10]=0x51;
+    785          bufCoefBiquad[11]=0x32;
+    786          bufCoefBiquad[12]=0x48;
+    787          bufCoefBiquad[13]=0xA3;
+    788          bufCoefBiquad[14]=0x8B;
+    789          WriteCoef(0x082,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_26: (+1)
+   \   000001AC   0x2082             MOVS     R0,#+130
+   \   000001AE   0x.... 0x....      BL       WriteCoef
+    790          //09B
+    791          bufCoefBiquad[0]=0x80;
+   \   000001B2   0x.... 0x....      BL       ?Subroutine2
+    792          bufCoefBiquad[1]=0x37;
+    793          bufCoefBiquad[2]=0xD9;
+    794          bufCoefBiquad[3]=0x7F;
+    795          bufCoefBiquad[4]=0xC8;
+    796          bufCoefBiquad[5]=0x27;
+    797          bufCoefBiquad[6]=0x7F;
+    798          bufCoefBiquad[7]=0xC8;
+    799          bufCoefBiquad[8]=0x1B;
+    800          bufCoefBiquad[9]=0x80;
+    801          bufCoefBiquad[10]=0x6F;
+    802          bufCoefBiquad[11]=0x98;
+    803          bufCoefBiquad[12]=0x3F;
+    804          bufCoefBiquad[13]=0xE4;
+    805          bufCoefBiquad[14]=0x13;
+    806          WriteCoef(0x09B,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_5: (+1)
+   \   000001B6   0x209B             MOVS     R0,#+155
+   \   000001B8   0x.... 0x....      BL       WriteCoef
+    807          //0A0
+    808          bufCoefBiquad[0]=0x80;
+   \   000001BC   0x.... 0x....      BL       ?Subroutine1
+    809          bufCoefBiquad[1]=0x37;
+    810          bufCoefBiquad[2]=0xD9;
+    811          bufCoefBiquad[3]=0x7F;
+    812          bufCoefBiquad[4]=0xC8;
+    813          bufCoefBiquad[5]=0x27;
+    814          bufCoefBiquad[6]=0x7F;
+    815          bufCoefBiquad[7]=0xC8;
+    816          bufCoefBiquad[8]=0x1B;
+    817          bufCoefBiquad[9]=0x80;
+    818          bufCoefBiquad[10]=0x6F;
+    819          bufCoefBiquad[11]=0x98;
+    820          bufCoefBiquad[12]=0x3F;
+    821          bufCoefBiquad[13]=0xE4;
+    822          bufCoefBiquad[14]=0x13;
+    823          WriteCoef(0x0A0,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_1: (+1)
+   \   000001C0   0x20A0             MOVS     R0,#+160
+   \   000001C2   0x.... 0x....      BL       WriteCoef
+    824          //0A5
+    825          bufCoefBiquad[0]=0x09;
+   \   000001C6   0x.... 0x....      BL       ?Subroutine4
+    826          bufCoefBiquad[1]=0x3E;
+    827          bufCoefBiquad[2]=0xC0;
+    828          bufCoefBiquad[3]=0x09;
+    829          bufCoefBiquad[4]=0x3E;
+    830          bufCoefBiquad[5]=0xC0;
+    831          bufCoefBiquad[6]=0x46;
+    832          bufCoefBiquad[7]=0xFC;
+    833          bufCoefBiquad[8]=0xC7;
+    834          bufCoefBiquad[9]=0xCD;
+    835          bufCoefBiquad[10]=0x0B;
+    836          bufCoefBiquad[11]=0x6E;
+    837          bufCoefBiquad[12]=0x04;
+    838          bufCoefBiquad[13]=0x9F;
+    839          bufCoefBiquad[14]=0x60;
+    840          WriteCoef(0x0A5,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_17: (+1)
+   \   000001CA   0x20A5             MOVS     R0,#+165
+   \   000001CC   0x.... 0x....      BL       WriteCoef
+    841          //0AA
+    842          bufCoefBiquad[0]=0x09;
+   \   000001D0   0x.... 0x....      BL       ?Subroutine4
+    843          bufCoefBiquad[1]=0x3E;
+    844          bufCoefBiquad[2]=0xC0;
+    845          bufCoefBiquad[3]=0x09;
+    846          bufCoefBiquad[4]=0x3E;
+    847          bufCoefBiquad[5]=0xC0;
+    848          bufCoefBiquad[6]=0x46;
+    849          bufCoefBiquad[7]=0xFC;
+    850          bufCoefBiquad[8]=0xC7;
+    851          bufCoefBiquad[9]=0xCD;
+    852          bufCoefBiquad[10]=0x0B;
+    853          bufCoefBiquad[11]=0x6E;
+    854          bufCoefBiquad[12]=0x04;
+    855          bufCoefBiquad[13]=0x9F;
+    856          bufCoefBiquad[14]=0x60;
+    857          WriteCoef(0x0AA,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_18: (+1)
+   \   000001D4   0x20AA             MOVS     R0,#+170
+   \   000001D6   0x.... 0x....      BL       WriteCoef
+    858          //0AF
+    859          bufCoefBiquad[0]=0x09;
+   \   000001DA   0x.... 0x....      BL       ?Subroutine4
+    860          bufCoefBiquad[1]=0x3E;
+    861          bufCoefBiquad[2]=0xC0;
+    862          bufCoefBiquad[3]=0x09;
+    863          bufCoefBiquad[4]=0x3E;
+    864          bufCoefBiquad[5]=0xC0;
+    865          bufCoefBiquad[6]=0x46;
+    866          bufCoefBiquad[7]=0xFC;
+    867          bufCoefBiquad[8]=0xC7;
+    868          bufCoefBiquad[9]=0xCD;
+    869          bufCoefBiquad[10]=0x0B;
+    870          bufCoefBiquad[11]=0x6E;
+    871          bufCoefBiquad[12]=0x04;
+    872          bufCoefBiquad[13]=0x9F;
+    873          bufCoefBiquad[14]=0x60;
+    874          WriteCoef(0x0AF,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_19: (+1)
+   \   000001DE   0x20AF             MOVS     R0,#+175
+   \   000001E0   0x.... 0x....      BL       WriteCoef
+    875          //0B4
+    876          bufCoefBiquad[0]=0xA4;
+   \   000001E4   0x.... 0x....      BL       ?Subroutine5
+    877          bufCoefBiquad[1]=0x18;
+    878          bufCoefBiquad[2]=0xCA;
+    879          bufCoefBiquad[3]=0x56;
+    880          bufCoefBiquad[4]=0x67;
+    881          bufCoefBiquad[5]=0xB6;
+    882          bufCoefBiquad[6]=0x5B;
+    883          bufCoefBiquad[7]=0xE7;
+    884          bufCoefBiquad[8]=0x36;
+    885          bufCoefBiquad[9]=0x98;
+    886          bufCoefBiquad[10]=0x51;
+    887          bufCoefBiquad[11]=0x32;
+    888          bufCoefBiquad[12]=0x48;
+    889          bufCoefBiquad[13]=0xA3;
+    890          bufCoefBiquad[14]=0x8B;
+    891          WriteCoef(0x0B4,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_25: (+1)
+   \   000001E8   0x20B4             MOVS     R0,#+180
+   \   000001EA   0x.... 0x....      BL       WriteCoef
+    892          //0CD
+    893          bufCoefBiquad[0]=0x80;
+   \   000001EE   0x.... 0x....      BL       ?Subroutine2
+    894          bufCoefBiquad[1]=0x37;
+    895          bufCoefBiquad[2]=0xD9;
+    896          bufCoefBiquad[3]=0x7F;
+    897          bufCoefBiquad[4]=0xC8;
+    898          bufCoefBiquad[5]=0x27;
+    899          bufCoefBiquad[6]=0x7F;
+    900          bufCoefBiquad[7]=0xC8;
+    901          bufCoefBiquad[8]=0x1B;
+    902          bufCoefBiquad[9]=0x80;
+    903          bufCoefBiquad[10]=0x6F;
+    904          bufCoefBiquad[11]=0x98;
+    905          bufCoefBiquad[12]=0x3F;
+    906          bufCoefBiquad[13]=0xE4;
+    907          bufCoefBiquad[14]=0x13;
+    908          WriteCoef(0x0CD,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_6: (+1)
+   \   000001F2   0x20CD             MOVS     R0,#+205
+   \   000001F4   0x.... 0x....      BL       WriteCoef
+    909          //0D2
+    910          bufCoefBiquad[0]=0x80;
+   \   000001F8   0x.... 0x....      BL       ?Subroutine2
+    911          bufCoefBiquad[1]=0x37;
+    912          bufCoefBiquad[2]=0xD9;
+    913          bufCoefBiquad[3]=0x7F;
+    914          bufCoefBiquad[4]=0xC8;
+    915          bufCoefBiquad[5]=0x27;
+    916          bufCoefBiquad[6]=0x7F;
+    917          bufCoefBiquad[7]=0xC8;
+    918          bufCoefBiquad[8]=0x1B;
+    919          bufCoefBiquad[9]=0x80;
+    920          bufCoefBiquad[10]=0x6F;
+    921          bufCoefBiquad[11]=0x98;
+    922          bufCoefBiquad[12]=0x3F;
+    923          bufCoefBiquad[13]=0xE4;
+    924          bufCoefBiquad[14]=0x13;
+    925          WriteCoef(0x0D2,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_7: (+1)
+   \   000001FC   0x20D2             MOVS     R0,#+210
+   \   000001FE   0x.... 0x....      BL       WriteCoef
+    926          //0D7
+    927          bufCoefBiquad[0]=0x09;
+   \   00000202   0x.... 0x....      BL       ?Subroutine4
+    928          bufCoefBiquad[1]=0x3E;
+    929          bufCoefBiquad[2]=0xC0;
+    930          bufCoefBiquad[3]=0x09;
+    931          bufCoefBiquad[4]=0x3E;
+    932          bufCoefBiquad[5]=0xC0;
+    933          bufCoefBiquad[6]=0x46;
+    934          bufCoefBiquad[7]=0xFC;
+    935          bufCoefBiquad[8]=0xC7;
+    936          bufCoefBiquad[9]=0xCD;
+    937          bufCoefBiquad[10]=0x0B;
+    938          bufCoefBiquad[11]=0x6E;
+    939          bufCoefBiquad[12]=0x04;
+    940          bufCoefBiquad[13]=0x9F;
+    941          bufCoefBiquad[14]=0x60;
+    942          WriteCoef(0x0D7,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_20: (+1)
+   \   00000206   0x20D7             MOVS     R0,#+215
+   \   00000208   0x.... 0x....      BL       WriteCoef
+    943          //0DC
+    944          bufCoefBiquad[0]=0x09;
+   \   0000020C   0x.... 0x....      BL       ?Subroutine3
+    945          bufCoefBiquad[1]=0x3E;
+    946          bufCoefBiquad[2]=0xC0;
+    947          bufCoefBiquad[3]=0x09;
+    948          bufCoefBiquad[4]=0x3E;
+    949          bufCoefBiquad[5]=0xC0;
+    950          bufCoefBiquad[6]=0x46;
+    951          bufCoefBiquad[7]=0xFC;
+    952          bufCoefBiquad[8]=0xC7;
+    953          bufCoefBiquad[9]=0xCD;
+    954          bufCoefBiquad[10]=0x0B;
+    955          bufCoefBiquad[11]=0x6E;
+    956          bufCoefBiquad[12]=0x04;
+    957          bufCoefBiquad[13]=0x9F;
+    958          bufCoefBiquad[14]=0x60;
+    959          WriteCoef(0x0DC,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_11: (+1)
+   \   00000210   0x20DC             MOVS     R0,#+220
+   \   00000212   0x.... 0x....      BL       WriteCoef
+    960          //0E1
+    961          bufCoefBiquad[0]=0x09;
+   \   00000216   0x.... 0x....      BL       ?Subroutine4
+    962          bufCoefBiquad[1]=0x3E;
+    963          bufCoefBiquad[2]=0xC0;
+    964          bufCoefBiquad[3]=0x09;
+    965          bufCoefBiquad[4]=0x3E;
+    966          bufCoefBiquad[5]=0xC0;
+    967          bufCoefBiquad[6]=0x46;
+    968          bufCoefBiquad[7]=0xFC;
+    969          bufCoefBiquad[8]=0xC7;
+    970          bufCoefBiquad[9]=0xCD;
+    971          bufCoefBiquad[10]=0x0B;
+    972          bufCoefBiquad[11]=0x6E;
+    973          bufCoefBiquad[12]=0x04;
+    974          bufCoefBiquad[13]=0x9F;
+    975          bufCoefBiquad[14]=0x60;
+    976          WriteCoef(0x0E1,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_21: (+1)
+   \   0000021A   0x20E1             MOVS     R0,#+225
+   \   0000021C   0x.... 0x....      BL       WriteCoef
+    977          //0E6
+    978          bufCoefBiquad[0]=0xA4;
+   \   00000220   0x.... 0x....      BL       ?Subroutine6
+    979          bufCoefBiquad[1]=0x18;
+    980          bufCoefBiquad[2]=0xCA;
+    981          bufCoefBiquad[3]=0x56;
+    982          bufCoefBiquad[4]=0x67;
+    983          bufCoefBiquad[5]=0xB6;
+    984          bufCoefBiquad[6]=0x5B;
+    985          bufCoefBiquad[7]=0xE7;
+    986          bufCoefBiquad[8]=0x36;
+    987          bufCoefBiquad[9]=0x98;
+    988          bufCoefBiquad[10]=0x51;
+    989          bufCoefBiquad[11]=0x32;
+    990          bufCoefBiquad[12]=0x48;
+    991          bufCoefBiquad[13]=0xA3;
+    992          bufCoefBiquad[14]=0x8B;
+    993          WriteCoef(0x0E6,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_27: (+1)
+   \   00000224   0x20E6             MOVS     R0,#+230
+   \   00000226   0x.... 0x....      BL       WriteCoef
+    994          //0FF
+    995          bufCoefBiquad[0]=0x80;
+   \   0000022A   0x.... 0x....      BL       ?Subroutine2
+    996          bufCoefBiquad[1]=0x37;
+    997          bufCoefBiquad[2]=0xD9;
+    998          bufCoefBiquad[3]=0x7F;
+    999          bufCoefBiquad[4]=0xC8;
+   1000          bufCoefBiquad[5]=0x27;
+   1001          bufCoefBiquad[6]=0x7F;
+   1002          bufCoefBiquad[7]=0xC8;
+   1003          bufCoefBiquad[8]=0x1B;
+   1004          bufCoefBiquad[9]=0x80;
+   1005          bufCoefBiquad[10]=0x6F;
+   1006          bufCoefBiquad[11]=0x98;
+   1007          bufCoefBiquad[12]=0x3F;
+   1008          bufCoefBiquad[13]=0xE4;
+   1009          bufCoefBiquad[14]=0x13;
+   1010          WriteCoef(0x0FF,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_8: (+1)
+   \   0000022E   0x20FF             MOVS     R0,#+255
+   \   00000230   0x.... 0x....      BL       WriteCoef
+   1011          //104
+   1012          bufCoefBiquad[0]=0x80;
+   \   00000234   0x.... 0x....      BL       ?Subroutine2
+   1013          bufCoefBiquad[1]=0x37;
+   1014          bufCoefBiquad[2]=0xD9;
+   1015          bufCoefBiquad[3]=0x7F;
+   1016          bufCoefBiquad[4]=0xC8;
+   1017          bufCoefBiquad[5]=0x27;
+   1018          bufCoefBiquad[6]=0x7F;
+   1019          bufCoefBiquad[7]=0xC8;
+   1020          bufCoefBiquad[8]=0x1B;
+   1021          bufCoefBiquad[9]=0x80;
+   1022          bufCoefBiquad[10]=0x6F;
+   1023          bufCoefBiquad[11]=0x98;
+   1024          bufCoefBiquad[12]=0x3F;
+   1025          bufCoefBiquad[13]=0xE4;
+   1026          bufCoefBiquad[14]=0x13;
+   1027          WriteCoef(0x104,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_9: (+1)
+   \   00000238   0xF44F 0x7082      MOV      R0,#+260
+   \   0000023C   0x.... 0x....      BL       WriteCoef
+   1028          //109
+   1029          bufCoefBiquad[0]=0x09;
+   \   00000240   0x.... 0x....      BL       ?Subroutine4
+   1030          bufCoefBiquad[1]=0x3E;
+   1031          bufCoefBiquad[2]=0xC0;
+   1032          bufCoefBiquad[3]=0x09;
+   1033          bufCoefBiquad[4]=0x3E;
+   1034          bufCoefBiquad[5]=0xC0;
+   1035          bufCoefBiquad[6]=0x46;
+   1036          bufCoefBiquad[7]=0xFC;
+   1037          bufCoefBiquad[8]=0xC7;
+   1038          bufCoefBiquad[9]=0xCD;
+   1039          bufCoefBiquad[10]=0x0B;
+   1040          bufCoefBiquad[11]=0x6E;
+   1041          bufCoefBiquad[12]=0x04;
+   1042          bufCoefBiquad[13]=0x9F;
+   1043          bufCoefBiquad[14]=0x60;
+   1044          WriteCoef(0x109,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_22: (+1)
+   \   00000244   0xF240 0x1009      MOVW     R0,#+265
+   \   00000248   0x.... 0x....      BL       WriteCoef
+   1045          //10E
+   1046          bufCoefBiquad[0]=0x09;
+   \   0000024C   0x.... 0x....      BL       ?Subroutine4
+   1047          bufCoefBiquad[1]=0x3E;
+   1048          bufCoefBiquad[2]=0xC0;
+   1049          bufCoefBiquad[3]=0x09;
+   1050          bufCoefBiquad[4]=0x3E;
+   1051          bufCoefBiquad[5]=0xC0;
+   1052          bufCoefBiquad[6]=0x46;
+   1053          bufCoefBiquad[7]=0xFC;
+   1054          bufCoefBiquad[8]=0xC7;
+   1055          bufCoefBiquad[9]=0xCD;
+   1056          bufCoefBiquad[10]=0x0B;
+   1057          bufCoefBiquad[11]=0x6E;
+   1058          bufCoefBiquad[12]=0x04;
+   1059          bufCoefBiquad[13]=0x9F;
+   1060          bufCoefBiquad[14]=0x60;
+   1061          WriteCoef(0x10E,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_23: (+1)
+   \   00000250   0xF44F 0x7087      MOV      R0,#+270
+   \   00000254   0x.... 0x....      BL       WriteCoef
+   1062          //113
+   1063          bufCoefBiquad[0]=0x09;
+   \   00000258   0x2009             MOVS     R0,#+9
+   \   0000025A   0x7020             STRB     R0,[R4, #+0]
+   1064          bufCoefBiquad[1]=0x3E;
+   \   0000025C   0x203E             MOVS     R0,#+62
+   \   0000025E   0x7060             STRB     R0,[R4, #+1]
+   1065          bufCoefBiquad[2]=0xC0;
+   \   00000260   0x20C0             MOVS     R0,#+192
+   \   00000262   0x70A0             STRB     R0,[R4, #+2]
+   1066          bufCoefBiquad[3]=0x09;
+   \   00000264   0x2009             MOVS     R0,#+9
+   \   00000266   0x70E0             STRB     R0,[R4, #+3]
+   1067          bufCoefBiquad[4]=0x3E;
+   \   00000268   0x203E             MOVS     R0,#+62
+   \   0000026A   0x7120             STRB     R0,[R4, #+4]
+   1068          bufCoefBiquad[5]=0xC0;
+   \   0000026C   0x20C0             MOVS     R0,#+192
+   \   0000026E   0x7160             STRB     R0,[R4, #+5]
+   1069          bufCoefBiquad[6]=0x46;
+   \   00000270   0x2046             MOVS     R0,#+70
+   \   00000272   0x71A0             STRB     R0,[R4, #+6]
+   1070          bufCoefBiquad[7]=0xFC;
+   \   00000274   0x20FC             MOVS     R0,#+252
+   \   00000276   0x71E0             STRB     R0,[R4, #+7]
+   1071          bufCoefBiquad[8]=0xC7;
+   \   00000278   0x20C7             MOVS     R0,#+199
+   \   0000027A   0x7220             STRB     R0,[R4, #+8]
+   1072          bufCoefBiquad[9]=0xCD;
+   \   0000027C   0x20CD             MOVS     R0,#+205
+   \   0000027E   0x7260             STRB     R0,[R4, #+9]
+   1073          bufCoefBiquad[10]=0x0B;
+   \   00000280   0x200B             MOVS     R0,#+11
+   \   00000282   0x72A0             STRB     R0,[R4, #+10]
+   1074          bufCoefBiquad[11]=0x6E;
+   \   00000284   0x206E             MOVS     R0,#+110
+   \   00000286   0x72E0             STRB     R0,[R4, #+11]
+   1075          bufCoefBiquad[12]=0x04;
+   \   00000288   0x2004             MOVS     R0,#+4
+   \   0000028A   0x7320             STRB     R0,[R4, #+12]
+   1076          bufCoefBiquad[13]=0x9F;
+   \   0000028C   0x209F             MOVS     R0,#+159
+   \   0000028E   0x7360             STRB     R0,[R4, #+13]
+   1077          bufCoefBiquad[14]=0x60;
+   \   00000290   0x2060             MOVS     R0,#+96
+   1078          WriteCoef(0x113,bufCoefBiquad);
+   \   00000292   0x4621             MOV      R1,R4
+   \   00000294   0x73A0             STRB     R0,[R4, #+14]
+   \   00000296   0xF240 0x1013      MOVW     R0,#+275
+   \   0000029A   0x.... 0x....      BL       WriteCoef
+   1079          //118
+   1080          bufCoefBiquad[0]=0xA4;
+   \   0000029E   0x.... 0x....      BL       ?Subroutine6
+   1081          bufCoefBiquad[1]=0x18;
+   1082          bufCoefBiquad[2]=0xCA;
+   1083          bufCoefBiquad[3]=0x56;
+   1084          bufCoefBiquad[4]=0x67;
+   1085          bufCoefBiquad[5]=0xB6;
+   1086          bufCoefBiquad[6]=0x5B;
+   1087          bufCoefBiquad[7]=0xE7;
+   1088          bufCoefBiquad[8]=0x36;
+   1089          bufCoefBiquad[9]=0x98;
+   1090          bufCoefBiquad[10]=0x51;
+   1091          bufCoefBiquad[11]=0x32;
+   1092          bufCoefBiquad[12]=0x48;
+   1093          bufCoefBiquad[13]=0xA3;
+   1094          bufCoefBiquad[14]=0x8B;
+   1095          WriteCoef(0x118,bufCoefBiquad);
+   \                     ??CrossCallReturnLabel_28: (+1)
+   \   000002A2   0xF44F 0x708C      MOV      R0,#+280
+   \   000002A6   0x.... 0x....      BL       WriteCoef
+   1096          /*
+   1097          SetCoefValue( 0x000 , 0x000000 );
+   1098          SetCoefValue( 0x001 , 0x000000 );
+   1099          SetCoefValue( 0x002 , 0x000000 );
+   1100          SetCoefValue( 0x003 , 0x000000 );
+   1101          SetCoefValue( 0x004 , 0x400000 );
+   1102          SetCoefValue( 0x005 , 0x000000 );
+   1103          SetCoefValue( 0x006 , 0x000000 );
+   1104          SetCoefValue( 0x007 , 0x000000 );
+   1105          SetCoefValue( 0x008 , 0x000000 );
+   1106          SetCoefValue( 0x009 , 0x400000 );
+   1107          SetCoefValue( 0x00A , 0x000000 );
+   1108          SetCoefValue( 0x00B , 0x000000 );
+   1109          SetCoefValue( 0x00C , 0x000000 );
+   1110          SetCoefValue( 0x00D , 0x000000 );
+   1111          SetCoefValue( 0x00E , 0x400000 );
+   1112          SetCoefValue( 0x00F , 0x000000 );
+   1113          SetCoefValue( 0x010 , 0x000000 );
+   1114          SetCoefValue( 0x011 , 0x000000 );
+   1115          SetCoefValue( 0x012 , 0x000000 );
+   1116          SetCoefValue( 0x013 , 0x400000 );
+   1117          SetCoefValue( 0x014 , 0x000000 );
+   1118          SetCoefValue( 0x015 , 0x000000 );
+   1119          SetCoefValue( 0x016 , 0x000000 );
+   1120          SetCoefValue( 0x017 , 0x000000 );
+   1121          SetCoefValue( 0x018 , 0x400000 );
+   1122          SetCoefValue( 0x019 , 0x000000 );
+   1123          SetCoefValue( 0x01A , 0x000000 );
+   1124          SetCoefValue( 0x01B , 0x000000 );
+   1125          SetCoefValue( 0x01C , 0x000000 );
+   1126          SetCoefValue( 0x01D , 0x400000 );
+   1127          SetCoefValue( 0x01E , 0x000000 );
+   1128          SetCoefValue( 0x01F , 0x000000 );
+   1129          SetCoefValue( 0x020 , 0x000000 );
+   1130          SetCoefValue( 0x021 , 0x000000 );
+   1131          SetCoefValue( 0x022 , 0x400000 );
+   1132          SetCoefValue( 0x023 , 0x000000 );
+   1133          SetCoefValue( 0x024 , 0x000000 );
+   1134          SetCoefValue( 0x025 , 0x000000 );
+   1135          SetCoefValue( 0x026 , 0x000000 );
+   1136          SetCoefValue( 0x027 , 0x400000 );
+   1137          SetCoefValue( 0x028 , 0x000000 );
+   1138          SetCoefValue( 0x029 , 0x000000 );
+   1139          SetCoefValue( 0x02A , 0x000000 );
+   1140          SetCoefValue( 0x02B , 0x000000 );
+   1141          SetCoefValue( 0x02C , 0x400000 );
+   1142          SetCoefValue( 0x02D , 0x000000 );
+   1143          SetCoefValue( 0x02E , 0x000000 );
+   1144          SetCoefValue( 0x02F , 0x000000 );
+   1145          SetCoefValue( 0x030 , 0x000000 );
+   1146          SetCoefValue( 0x031 , 0x400000 );
+   1147          SetCoefValue( 0x032 , 0x000000 );
+   1148          SetCoefValue( 0x033 , 0x000000 );
+   1149          SetCoefValue( 0x034 , 0x000000 );
+   1150          SetCoefValue( 0x035 , 0x000000 );
+   1151          SetCoefValue( 0x036 , 0x400000 );
+   1152          SetCoefValue( 0x037 , 0x000000 );
+   1153          SetCoefValue( 0x038 , 0x000000 );
+   1154          SetCoefValue( 0x039 , 0x000000 );
+   1155          SetCoefValue( 0x03A , 0x000000 );
+   1156          SetCoefValue( 0x03B , 0x400000 );
+   1157          SetCoefValue( 0x03C , 0x000000 );
+   1158          SetCoefValue( 0x03D , 0x000000 );
+   1159          SetCoefValue( 0x03E , 0x000000 );
+   1160          SetCoefValue( 0x03F , 0x000000 );
+   1161          SetCoefValue( 0x040 , 0x400000 );
+   1162          SetCoefValue( 0x041 , 0x000000 );
+   1163          SetCoefValue( 0x042 , 0x000000 );
+   1164          SetCoefValue( 0x043 , 0x000000 );
+   1165          SetCoefValue( 0x044 , 0x000000 );
+   1166          SetCoefValue( 0x045 , 0x400000 );
+   1167          SetCoefValue( 0x046 , 0x000000 );
+   1168          SetCoefValue( 0x047 , 0x000000 );
+   1169          SetCoefValue( 0x048 , 0x000000 );
+   1170          SetCoefValue( 0x049 , 0x000000 );
+   1171          SetCoefValue( 0x04A , 0x400000 );
+   1172          SetCoefValue( 0x04B , 0x000000 );
+   1173          SetCoefValue( 0x04C , 0x000000 );
+   1174          SetCoefValue( 0x04D , 0x000000 );
+   1175          SetCoefValue( 0x04E , 0x000000 );
+   1176          SetCoefValue( 0x04F , 0x400000 );
+   1177          SetCoefValue( 0x050 , 0x000000 );
+   1178          SetCoefValue( 0x051 , 0x000000 );
+   1179          SetCoefValue( 0x052 , 0x000000 );
+   1180          SetCoefValue( 0x053 , 0x000000 );
+   1181          SetCoefValue( 0x054 , 0x400000 );
+   1182          SetCoefValue( 0x055 , 0x000000 );
+   1183          SetCoefValue( 0x056 , 0x000000 );
+   1184          SetCoefValue( 0x057 , 0x000000 );
+   1185          SetCoefValue( 0x058 , 0x000000 );
+   1186          SetCoefValue( 0x059 , 0x400000 );
+   1187          SetCoefValue( 0x05A , 0x000000 );
+   1188          SetCoefValue( 0x05B , 0x000000 );
+   1189          SetCoefValue( 0x05C , 0x000000 );
+   1190          SetCoefValue( 0x05D , 0x000000 );
+   1191          SetCoefValue( 0x05E , 0x400000 );
+   1192          SetCoefValue( 0x05F , 0x000000 );
+   1193          SetCoefValue( 0x060 , 0x000000 );
+   1194          SetCoefValue( 0x061 , 0x000000 );
+   1195          SetCoefValue( 0x062 , 0x000000 );
+   1196          SetCoefValue( 0x063 , 0x400000 );
+   1197          SetCoefValue( 0x064 , 0x000000 );
+   1198          SetCoefValue( 0x065 , 0x000000 );
+   1199          SetCoefValue( 0x066 , 0x000000 );
+   1200          SetCoefValue( 0x067 , 0x000000 );
+   1201          SetCoefValue( 0x068 , 0x400000 );
+   1202          SetCoefValue( 0x069 , 0x000000 );
+   1203          SetCoefValue( 0x06A , 0x000000 );
+   1204          SetCoefValue( 0x06B , 0x000000 );
+   1205          SetCoefValue( 0x06C , 0x000000 );
+   1206          SetCoefValue( 0x06D , 0x400000 );
+   1207          SetCoefValue( 0x06E , 0x000000 );
+   1208          SetCoefValue( 0x06F , 0x000000 );
+   1209          SetCoefValue( 0x070 , 0x000000 );
+   1210          SetCoefValue( 0x071 , 0x000000 );
+   1211          SetCoefValue( 0x072 , 0x400000 );
+   1212          SetCoefValue( 0x073 , 0x000000 );
+   1213          SetCoefValue( 0x074 , 0x000000 );
+   1214          SetCoefValue( 0x075 , 0x000000 );
+   1215          SetCoefValue( 0x076 , 0x000000 );
+   1216          SetCoefValue( 0x077 , 0x400000 );
+   1217          SetCoefValue( 0x078 , 0x000000 );
+   1218          SetCoefValue( 0x079 , 0x000000 );
+   1219          SetCoefValue( 0x07A , 0x000000 );
+   1220          SetCoefValue( 0x07B , 0x000000 );
+   1221          SetCoefValue( 0x07C , 0x400000 );
+   1222          SetCoefValue( 0x07D , 0x000000 );
+   1223          SetCoefValue( 0x07E , 0x000000 );
+   1224          SetCoefValue( 0x07F , 0x000000 );
+   1225          SetCoefValue( 0x080 , 0x000000 );
+   1226          SetCoefValue( 0x081 , 0x400000 );
+   1227          SetCoefValue( 0x082 , 0x000000 );
+   1228          SetCoefValue( 0x083 , 0x000000 );
+   1229          SetCoefValue( 0x084 , 0x000000 );
+   1230          SetCoefValue( 0x085 , 0x000000 );
+   1231          SetCoefValue( 0x086 , 0x400000 );
+   1232          SetCoefValue( 0x087 , 0x000000 );
+   1233          SetCoefValue( 0x088 , 0x000000 );
+   1234          SetCoefValue( 0x089 , 0x000000 );
+   1235          SetCoefValue( 0x08A , 0x000000 );
+   1236          SetCoefValue( 0x08B , 0x400000 );
+   1237          SetCoefValue( 0x08C , 0x000000 );
+   1238          SetCoefValue( 0x08D , 0x000000 );
+   1239          SetCoefValue( 0x08E , 0x000000 );
+   1240          SetCoefValue( 0x08F , 0x000000 );
+   1241          SetCoefValue( 0x090 , 0x400000 );
+   1242          SetCoefValue( 0x091 , 0x000000 );
+   1243          SetCoefValue( 0x092 , 0x000000 );
+   1244          SetCoefValue( 0x093 , 0x000000 );
+   1245          SetCoefValue( 0x094 , 0x000000 );
+   1246          SetCoefValue( 0x095 , 0x400000 );
+   1247          SetCoefValue( 0x096 , 0x000000 );
+   1248          SetCoefValue( 0x097 , 0x000000 );
+   1249          SetCoefValue( 0x098 , 0x000000 );
+   1250          SetCoefValue( 0x099 , 0x000000 );
+   1251          SetCoefValue( 0x09A , 0x400000 );
+   1252          SetCoefValue( 0x09B , 0x000000 );
+   1253          SetCoefValue( 0x09C , 0x000000 );
+   1254          SetCoefValue( 0x09D , 0x000000 );
+   1255          SetCoefValue( 0x09E , 0x000000 );
+   1256          SetCoefValue( 0x09F , 0x400000 );
+   1257          SetCoefValue( 0x0A0 , 0x000000 );
+   1258          SetCoefValue( 0x0A1 , 0x000000 );
+   1259          SetCoefValue( 0x0A2 , 0x000000 );
+   1260          SetCoefValue( 0x0A3 , 0x000000 );
+   1261          SetCoefValue( 0x0A4 , 0x400000 );
+   1262          SetCoefValue( 0x0A5 , 0x000000 );
+   1263          SetCoefValue( 0x0A6 , 0x000000 );
+   1264          SetCoefValue( 0x0A7 , 0x000000 );
+   1265          SetCoefValue( 0x0A8 , 0x000000 );
+   1266          SetCoefValue( 0x0A9 , 0x400000 );
+   1267          SetCoefValue( 0x0AA , 0x000000 );
+   1268          SetCoefValue( 0x0AB , 0x000000 );
+   1269          SetCoefValue( 0x0AC , 0x000000 );
+   1270          SetCoefValue( 0x0AD , 0x000000 );
+   1271          SetCoefValue( 0x0AE , 0x400000 );
+   1272          SetCoefValue( 0x0AF , 0x000000 );
+   1273          SetCoefValue( 0x0B0 , 0x000000 );
+   1274          SetCoefValue( 0x0B1 , 0x000000 );
+   1275          SetCoefValue( 0x0B2 , 0x000000 );
+   1276          SetCoefValue( 0x0B3 , 0x400000 );
+   1277          SetCoefValue( 0x0B4 , 0x000000 );
+   1278          SetCoefValue( 0x0B5 , 0x000000 );
+   1279          SetCoefValue( 0x0B6 , 0x000000 );
+   1280          SetCoefValue( 0x0B7 , 0x000000 );
+   1281          SetCoefValue( 0x0B8 , 0x400000 );
+   1282          SetCoefValue( 0x0B9 , 0x000000 );
+   1283          SetCoefValue( 0x0BA , 0x000000 );
+   1284          SetCoefValue( 0x0BB , 0x000000 );
+   1285          SetCoefValue( 0x0BC , 0x000000 );
+   1286          SetCoefValue( 0x0BD , 0x400000 );
+   1287          SetCoefValue( 0x0BE , 0x000000 );
+   1288          SetCoefValue( 0x0BF , 0x000000 );
+   1289          SetCoefValue( 0x0C0 , 0x000000 );
+   1290          SetCoefValue( 0x0C1 , 0x000000 );
+   1291          SetCoefValue( 0x0C2 , 0x400000 );
+   1292          SetCoefValue( 0x0C3 , 0x000000 );
+   1293          SetCoefValue( 0x0C4 , 0x000000 );
+   1294          SetCoefValue( 0x0C5 , 0x000000 );
+   1295          SetCoefValue( 0x0C6 , 0x000000 );
+   1296          SetCoefValue( 0x0C7 , 0x400000 );
+   1297          SetCoefValue( 0x0C8 , 0x000000 );
+   1298          SetCoefValue( 0x0C9 , 0x000000 );
+   1299          SetCoefValue( 0x0CA , 0x000000 );
+   1300          SetCoefValue( 0x0CB , 0x000000 );
+   1301          SetCoefValue( 0x0CC , 0x400000 );
+   1302          SetCoefValue( 0x0CD , 0x000000 );
+   1303          SetCoefValue( 0x0CE , 0x000000 );
+   1304          SetCoefValue( 0x0CF , 0x000000 );
+   1305          SetCoefValue( 0x0D0 , 0x000000 );
+   1306          SetCoefValue( 0x0D1 , 0x400000 );
+   1307          SetCoefValue( 0x0D2 , 0x000000 );
+   1308          SetCoefValue( 0x0D3 , 0x000000 );
+   1309          SetCoefValue( 0x0D4 , 0x000000 );
+   1310          SetCoefValue( 0x0D5 , 0x000000 );
+   1311          SetCoefValue( 0x0D6 , 0x400000 );
+   1312          SetCoefValue( 0x0D7 , 0x000000 );
+   1313          SetCoefValue( 0x0D8 , 0x000000 );
+   1314          SetCoefValue( 0x0D9 , 0x000000 );
+   1315          SetCoefValue( 0x0DA , 0x000000 );
+   1316          SetCoefValue( 0x0DB , 0x400000 );
+   1317          SetCoefValue( 0x0DC , 0x000000 );
+   1318          SetCoefValue( 0x0DD , 0x000000 );
+   1319          SetCoefValue( 0x0DE , 0x000000 );
+   1320          SetCoefValue( 0x0DF , 0x000000 );
+   1321          SetCoefValue( 0x0E0 , 0x400000 );
+   1322          SetCoefValue( 0x0E1 , 0x000000 );
+   1323          SetCoefValue( 0x0E2 , 0x000000 );
+   1324          SetCoefValue( 0x0E3 , 0x000000 );
+   1325          SetCoefValue( 0x0E4 , 0x000000 );
+   1326          SetCoefValue( 0x0E5 , 0x400000 );
+   1327          SetCoefValue( 0x0E6 , 0x000000 );
+   1328          SetCoefValue( 0x0E7 , 0x000000 );
+   1329          SetCoefValue( 0x0E8 , 0x000000 );
+   1330          SetCoefValue( 0x0E9 , 0x000000 );
+   1331          SetCoefValue( 0x0EA , 0x400000 );
+   1332          SetCoefValue( 0x0EB , 0x000000 );
+   1333          SetCoefValue( 0x0EC , 0x000000 );
+   1334          SetCoefValue( 0x0ED , 0x000000 );
+   1335          SetCoefValue( 0x0EE , 0x000000 );
+   1336          SetCoefValue( 0x0EF , 0x400000 );
+   1337          SetCoefValue( 0x0F0 , 0x000000 );
+   1338          SetCoefValue( 0x0F1 , 0x000000 );
+   1339          SetCoefValue( 0x0F2 , 0x000000 );
+   1340          SetCoefValue( 0x0F3 , 0x000000 );
+   1341          SetCoefValue( 0x0F4 , 0x400000 );
+   1342          SetCoefValue( 0x0F5 , 0x000000 );
+   1343          SetCoefValue( 0x0F6 , 0x000000 );
+   1344          SetCoefValue( 0x0F7 , 0x000000 );
+   1345          SetCoefValue( 0x0F8 , 0x000000 );
+   1346          SetCoefValue( 0x0F9 , 0x400000 );
+   1347          SetCoefValue( 0x0FA , 0x000000 );
+   1348          SetCoefValue( 0x0FB , 0x000000 );
+   1349          SetCoefValue( 0x0FC , 0x000000 );
+   1350          SetCoefValue( 0x0FD , 0x000000 );
+   1351          SetCoefValue( 0x0FE , 0x400000 );
+   1352          SetCoefValue( 0x0FF , 0x000000 );
+   1353          SetCoefValue( 0x100 , 0x000000 );
+   1354          SetCoefValue( 0x101 , 0x000000 );
+   1355          SetCoefValue( 0x102 , 0x000000 );
+   1356          SetCoefValue( 0x103 , 0x400000 );
+   1357          SetCoefValue( 0x104 , 0x000000 );
+   1358          SetCoefValue( 0x105 , 0x000000 );
+   1359          SetCoefValue( 0x106 , 0x000000 );
+   1360          SetCoefValue( 0x107 , 0x000000 );
+   1361          SetCoefValue( 0x108 , 0x400000 );
+   1362          SetCoefValue( 0x109 , 0x000000 );
+   1363          SetCoefValue( 0x10A , 0x000000 );
+   1364          SetCoefValue( 0x10B , 0x000000 );
+   1365          SetCoefValue( 0x10C , 0x000000 );
+   1366          SetCoefValue( 0x10D , 0x400000 );
+   1367          SetCoefValue( 0x10E , 0x000000 );
+   1368          SetCoefValue( 0x10F , 0x000000 );
+   1369          SetCoefValue( 0x110 , 0x000000 );
+   1370          SetCoefValue( 0x111 , 0x000000 );
+   1371          SetCoefValue( 0x112 , 0x400000 );
+   1372          SetCoefValue( 0x113 , 0x000000 );
+   1373          SetCoefValue( 0x114 , 0x000000 );
+   1374          SetCoefValue( 0x115 , 0x000000 );
+   1375          SetCoefValue( 0x116 , 0x000000 );
+   1376          SetCoefValue( 0x117 , 0x400000 );
+   1377          SetCoefValue( 0x118 , 0x000000 );
+   1378          SetCoefValue( 0x119 , 0x000000 );
+   1379          SetCoefValue( 0x11A , 0x000000 );
+   1380          SetCoefValue( 0x11B , 0x000000 );
+   1381          SetCoefValue( 0x11C , 0x400000 );
+   1382          SetCoefValue( 0x11D , 0x000000 );
+   1383          SetCoefValue( 0x11E , 0x000000 );
+   1384          SetCoefValue( 0x11F , 0x000000 );
+   1385          SetCoefValue( 0x120 , 0x000000 );
+   1386          SetCoefValue( 0x121 , 0x400000 );
+   1387          SetCoefValue( 0x122 , 0x000000 );
+   1388          SetCoefValue( 0x123 , 0x000000 );
+   1389          SetCoefValue( 0x124 , 0x000000 );
+   1390          SetCoefValue( 0x125 , 0x000000 );
+   1391          SetCoefValue( 0x126 , 0x400000 );
+   1392          SetCoefValue( 0x127 , 0x000000 );
+   1393          SetCoefValue( 0x128 , 0x000000 );
+   1394          SetCoefValue( 0x129 , 0x000000 );
+   1395          SetCoefValue( 0x12A , 0x000000 );
+   1396          SetCoefValue( 0x12B , 0x400000 );
+   1397          SetCoefValue( 0x12C , 0x000000 );
+   1398          SetCoefValue( 0x12D , 0x000000 );
+   1399          SetCoefValue( 0x12E , 0x000000 );
+   1400          SetCoefValue( 0x12F , 0x000000 );
+   1401          SetCoefValue( 0x130 , 0x400000 );
+   1402          SetCoefValue( 0x131 , 0x000000 );
+   1403          SetCoefValue( 0x132 , 0x000000 );
+   1404          SetCoefValue( 0x133 , 0x000000 );
+   1405          SetCoefValue( 0x134 , 0x000000 );
+   1406          SetCoefValue( 0x135 , 0x400000 );
+   1407          SetCoefValue( 0x136 , 0x000000 );
+   1408          SetCoefValue( 0x137 , 0x000000 );
+   1409          SetCoefValue( 0x138 , 0x000000 );
+   1410          SetCoefValue( 0x139 , 0x000000 );
+   1411          SetCoefValue( 0x13A , 0x400000 );
+   1412          SetCoefValue( 0x13B , 0x000000 );
+   1413          SetCoefValue( 0x13C , 0x000000 );
+   1414          SetCoefValue( 0x13D , 0x000000 );
+   1415          SetCoefValue( 0x13E , 0x000000 );
+   1416          SetCoefValue( 0x13F , 0x400000 );
+   1417          SetCoefValue( 0x140 , 0x000000 );
+   1418          SetCoefValue( 0x141 , 0x000000 );
+   1419          SetCoefValue( 0x142 , 0x000000 );
+   1420          SetCoefValue( 0x143 , 0x000000 );
+   1421          SetCoefValue( 0x144 , 0x400000 );
+   1422          SetCoefValue( 0x145 , 0x000000 );
+   1423          SetCoefValue( 0x146 , 0x000000 );
+   1424          SetCoefValue( 0x147 , 0x000000 );
+   1425          SetCoefValue( 0x148 , 0x000000 );
+   1426          SetCoefValue( 0x149 , 0x400000 );
+   1427          SetCoefValue( 0x14A , 0x000000 );
+   1428          SetCoefValue( 0x14B , 0x000000 );
+   1429          SetCoefValue( 0x14C , 0x000000 );
+   1430          SetCoefValue( 0x14D , 0x000000 );
+   1431          SetCoefValue( 0x14E , 0x400000 );
+   1432          SetCoefValue( 0x14F , 0x000000 );
+   1433          SetCoefValue( 0x150 , 0x000000 );
+   1434          SetCoefValue( 0x151 , 0x000000 );
+   1435          SetCoefValue( 0x152 , 0x000000 );
+   1436          SetCoefValue( 0x153 , 0x400000 );
+   1437          SetCoefValue( 0x154 , 0x000000 );
+   1438          SetCoefValue( 0x155 , 0x000000 );
+   1439          SetCoefValue( 0x156 , 0x000000 );
+   1440          SetCoefValue( 0x157 , 0x000000 );
+   1441          SetCoefValue( 0x158 , 0x400000 );
+   1442          SetCoefValue( 0x159 , 0x000000 );
+   1443          SetCoefValue( 0x15A , 0x000000 );
+   1444          SetCoefValue( 0x15B , 0x000000 );
+   1445          SetCoefValue( 0x15C , 0x000000 );
+   1446          SetCoefValue( 0x15D , 0x400000 );
+   1447          SetCoefValue( 0x15E , 0x000000 );
+   1448          SetCoefValue( 0x15F , 0x000000 );
+   1449          SetCoefValue( 0x160 , 0x000000 );
+   1450          SetCoefValue( 0x161 , 0x000000 );
+   1451          SetCoefValue( 0x162 , 0x400000 );
+   1452          SetCoefValue( 0x163 , 0x000000 );
+   1453          SetCoefValue( 0x164 , 0x000000 );
+   1454          SetCoefValue( 0x165 , 0x000000 );
+   1455          SetCoefValue( 0x166 , 0x000000 );
+   1456          SetCoefValue( 0x167 , 0x400000 );
+   1457          SetCoefValue( 0x168 , 0x000000 );
+   1458          SetCoefValue( 0x169 , 0x000000 );
+   1459          SetCoefValue( 0x16A , 0x000000 );
+   1460          SetCoefValue( 0x16B , 0x000000 );
+   1461          SetCoefValue( 0x16C , 0x400000 );
+   1462          SetCoefValue( 0x16D , 0x000000 );
+   1463          SetCoefValue( 0x16E , 0x000000 );
+   1464          SetCoefValue( 0x16F , 0x000000 );
+   1465          SetCoefValue( 0x170 , 0x000000 );
+   1466          SetCoefValue( 0x171 , 0x400000 );
+   1467          SetCoefValue( 0x172 , 0x000000 );
+   1468          SetCoefValue( 0x173 , 0x000000 );
+   1469          SetCoefValue( 0x174 , 0x000000 );
+   1470          SetCoefValue( 0x175 , 0x000000 );
+   1471          SetCoefValue( 0x176 , 0x400000 );
+   1472          SetCoefValue( 0x177 , 0x000000 );
+   1473          SetCoefValue( 0x178 , 0x000000 );
+   1474          SetCoefValue( 0x179 , 0x000000 );
+   1475          SetCoefValue( 0x17A , 0x000000 );
+   1476          SetCoefValue( 0x17B , 0x400000 );
+   1477          SetCoefValue( 0x17C , 0x000000 );
+   1478          SetCoefValue( 0x17D , 0x000000 );
+   1479          SetCoefValue( 0x17E , 0x000000 );
+   1480          SetCoefValue( 0x17F , 0x000000 );
+   1481          SetCoefValue( 0x180 , 0x400000 );
+   1482          SetCoefValue( 0x181 , 0x000000 );
+   1483          SetCoefValue( 0x182 , 0x000000 );
+   1484          SetCoefValue( 0x183 , 0x000000 );
+   1485          SetCoefValue( 0x184 , 0x000000 );
+   1486          SetCoefValue( 0x185 , 0x400000 );
+   1487          SetCoefValue( 0x186 , 0x000000 );
+   1488          SetCoefValue( 0x187 , 0x000000 );
+   1489          SetCoefValue( 0x188 , 0x000000 );
+   1490          SetCoefValue( 0x189 , 0x000000 );
+   1491          SetCoefValue( 0x18A , 0x400000 );
+   1492          SetCoefValue( 0x18B , 0x000000 );
+   1493          SetCoefValue( 0x18C , 0x000000 );
+   1494          SetCoefValue( 0x18D , 0x000000 );
+   1495          SetCoefValue( 0x18E , 0x000000 );
+   1496          SetCoefValue( 0x18F , 0x400000 );
+   1497          SetCoefValue( 0x190 , 0x7FFFFF );
+   1498          SetCoefValue( 0x191 , 0x7FFFFF );
+   1499          SetCoefValue( 0x192 , 0x7FFFFF );
+   1500          SetCoefValue( 0x193 , 0x7FFFFF );
+   1501          SetCoefValue( 0x194 , 0x7FFFFF );
+   1502          SetCoefValue( 0x195 , 0x7FFFFF );
+   1503          SetCoefValue( 0x196 , 0x7FFFFF );
+   1504          SetCoefValue( 0x197 , 0x7FFFFF );
+   1505          SetCoefValue( 0x198 , 0x7FFFFF );
+   1506          SetCoefValue( 0x199 , 0x7FFFFF );
+   1507          SetCoefValue( 0x19A , 0x7FFFFF );
+   1508          SetCoefValue( 0x19B , 0x7FFFFF );
+   1509          SetCoefValue( 0x19C , 0x7FFFFF );
+   1510          SetCoefValue( 0x19D , 0x7FFFFF );
+   1511          SetCoefValue( 0x19E , 0x7FFFFF );
+   1512          SetCoefValue( 0x19F , 0x7FFFFF );
+   1513          SetCoefValue( 0x1A0 , 0x7FFFFF );
+   1514          SetCoefValue( 0x1A1 , 0x000000 );
+   1515          SetCoefValue( 0x1A2 , 0x000000 );
+   1516          SetCoefValue( 0x1A3 , 0x000000 );
+   1517          SetCoefValue( 0x1A4 , 0x000000 );
+   1518          SetCoefValue( 0x1A5 , 0x000000 );
+   1519          SetCoefValue( 0x1A6 , 0x000000 );
+   1520          SetCoefValue( 0x1A7 , 0x000000 );
+   1521          SetCoefValue( 0x1A8 , 0x000000 );
+   1522          SetCoefValue( 0x1A9 , 0x7FFFFF );
+   1523          SetCoefValue( 0x1AA , 0x000000 );
+   1524          SetCoefValue( 0x1AB , 0x000000 );
+   1525          SetCoefValue( 0x1AC , 0x000000 );
+   1526          SetCoefValue( 0x1AD , 0x000000 );
+   1527          SetCoefValue( 0x1AE , 0x000000 );
+   1528          SetCoefValue( 0x1AF , 0x000000 );
+   1529          SetCoefValue( 0x1B0 , 0x000000 );
+   1530          SetCoefValue( 0x1B1 , 0x000000 );
+   1531          SetCoefValue( 0x1B2 , 0x7FFFFF );
+   1532          SetCoefValue( 0x1B3 , 0x000000 );
+   1533          SetCoefValue( 0x1B4 , 0x000000 );
+   1534          SetCoefValue( 0x1B5 , 0x000000 );
+   1535          SetCoefValue( 0x1B6 , 0x000000 );
+   1536          SetCoefValue( 0x1B7 , 0x000000 );
+   1537          SetCoefValue( 0x1B8 , 0x000000 );
+   1538          SetCoefValue( 0x1B9 , 0x000000 );
+   1539          SetCoefValue( 0x1BA , 0x000000 );
+   1540          SetCoefValue( 0x1BB , 0x7FFFFF );
+   1541          SetCoefValue( 0x1BC , 0x000000 );
+   1542          SetCoefValue( 0x1BD , 0x000000 );
+   1543          SetCoefValue( 0x1BE , 0x000000 );
+   1544          SetCoefValue( 0x1BF , 0x000000 );
+   1545          SetCoefValue( 0x1C0 , 0x000000 );
+   1546          SetCoefValue( 0x1C1 , 0x000000 );
+   1547          SetCoefValue( 0x1C2 , 0x000000 );
+   1548          SetCoefValue( 0x1C3 , 0x000000 );
+   1549          SetCoefValue( 0x1C4 , 0x7FFFFF );
+   1550          SetCoefValue( 0x1C5 , 0x000000 );
+   1551          SetCoefValue( 0x1C6 , 0x000000 );
+   1552          SetCoefValue( 0x1C7 , 0x000000 );
+   1553          SetCoefValue( 0x1C8 , 0x000000 );
+   1554          SetCoefValue( 0x1C9 , 0x000000 );
+   1555          SetCoefValue( 0x1CA , 0x000000 );
+   1556          SetCoefValue( 0x1CB , 0x000000 );
+   1557          SetCoefValue( 0x1CC , 0x000000 );
+   1558          SetCoefValue( 0x1CD , 0x7FFFFF );
+   1559          SetCoefValue( 0x1CE , 0x000000 );
+   1560          SetCoefValue( 0x1CF , 0x000000 );
+   1561          SetCoefValue( 0x1D0 , 0x000000 );
+   1562          SetCoefValue( 0x1D1 , 0x000000 );
+   1563          SetCoefValue( 0x1D2 , 0x000000 );
+   1564          SetCoefValue( 0x1D3 , 0x000000 );
+   1565          SetCoefValue( 0x1D4 , 0x000000 );
+   1566          SetCoefValue( 0x1D5 , 0x000000 );
+   1567          SetCoefValue( 0x1D6 , 0x7FFFFF );
+   1568          SetCoefValue( 0x1D7 , 0x000000 );
+   1569          SetCoefValue( 0x1D8 , 0x000000 );
+   1570          SetCoefValue( 0x1D9 , 0x000000 );
+   1571          SetCoefValue( 0x1DA , 0x000000 );
+   1572          SetCoefValue( 0x1DB , 0x000000 );
+   1573          SetCoefValue( 0x1DC , 0x000000 );
+   1574          SetCoefValue( 0x1DD , 0x000000 );
+   1575          SetCoefValue( 0x1DE , 0x000000 );
+   1576          SetCoefValue( 0x1DF , 0x7FFFFF );
+   1577          SetCoefValue( 0x1E0 , 0x7FFFFF );
+   1578          SetCoefValue( 0x1E1 , 0x000000 );
+   1579          SetCoefValue( 0x1E2 , 0x000000 );
+   1580          SetCoefValue( 0x1E3 , 0x000000 );
+   1581          SetCoefValue( 0x1E4 , 0x000000 );
+   1582          SetCoefValue( 0x1E5 , 0x000000 );
+   1583          SetCoefValue( 0x1E6 , 0x000000 );
+   1584          SetCoefValue( 0x1E7 , 0x000000 );
+   1585          SetCoefValue( 0x1E8 , 0x000000 );
+   1586          SetCoefValue( 0x1E9 , 0x7FFFFF );
+   1587          SetCoefValue( 0x1EA , 0x000000 );
+   1588          SetCoefValue( 0x1EB , 0x000000 );
+   1589          SetCoefValue( 0x1EC , 0x000000 );
+   1590          SetCoefValue( 0x1ED , 0x000000 );
+   1591          SetCoefValue( 0x1EE , 0x000000 );
+   1592          SetCoefValue( 0x1EF , 0x000000 );
+   1593          SetCoefValue( 0x1F0 , 0x000000 );
+   1594          SetCoefValue( 0x1F1 , 0x000000 );
+   1595          SetCoefValue( 0x1F2 , 0x7FFFFF );
+   1596          SetCoefValue( 0x1F3 , 0x000000 );
+   1597          SetCoefValue( 0x1F4 , 0x000000 );
+   1598          SetCoefValue( 0x1F5 , 0x000000 );
+   1599          SetCoefValue( 0x1F6 , 0x000000 );
+   1600          SetCoefValue( 0x1F7 , 0x000000 );
+   1601          SetCoefValue( 0x1F8 , 0x000000 );
+   1602          SetCoefValue( 0x1F9 , 0x000000 );
+   1603          SetCoefValue( 0x1FA , 0x000000 );
+   1604          SetCoefValue( 0x1FB , 0x7FFFFF );
+   1605          SetCoefValue( 0x1FC , 0x000000 );
+   1606          SetCoefValue( 0x1FD , 0x000000 );
+   1607          SetCoefValue( 0x1FE , 0x000000 );
+   1608          SetCoefValue( 0x1FF , 0x000000 );
+   1609          SetCoefValue( 0x200 , 0x000000 );
+   1610          SetCoefValue( 0x201 , 0x000000 );
+   1611          SetCoefValue( 0x202 , 0x000000 );
+   1612          SetCoefValue( 0x203 , 0x000000 );
+   1613          SetCoefValue( 0x204 , 0x7FFFFF );
+   1614          SetCoefValue( 0x205 , 0x000000 );
+   1615          SetCoefValue( 0x206 , 0x000000 );
+   1616          SetCoefValue( 0x207 , 0x000000 );
+   1617          SetCoefValue( 0x208 , 0x000000 );
+   1618          SetCoefValue( 0x209 , 0x000000 );
+   1619          SetCoefValue( 0x20A , 0x000000 );
+   1620          SetCoefValue( 0x20B , 0x000000 );
+   1621          SetCoefValue( 0x20C , 0x000000 );
+   1622          SetCoefValue( 0x20D , 0x7FFFFF );
+   1623          SetCoefValue( 0x20E , 0x000000 );
+   1624          SetCoefValue( 0x20F , 0x000000 );
+   1625          SetCoefValue( 0x210 , 0x000000 );
+   1626          SetCoefValue( 0x211 , 0x000000 );
+   1627          SetCoefValue( 0x212 , 0x000000 );
+   1628          SetCoefValue( 0x213 , 0x000000 );
+   1629          SetCoefValue( 0x214 , 0x000000 );
+   1630          SetCoefValue( 0x215 , 0x000000 );
+   1631          SetCoefValue( 0x216 , 0x7FFFFF );
+   1632          SetCoefValue( 0x217 , 0x000000 );
+   1633          SetCoefValue( 0x218 , 0x000000 );
+   1634          SetCoefValue( 0x219 , 0x000000 );
+   1635          SetCoefValue( 0x21A , 0x000000 );
+   1636          SetCoefValue( 0x21B , 0x000000 );
+   1637          SetCoefValue( 0x21C , 0x000000 );
+   1638          SetCoefValue( 0x21D , 0x000000 );
+   1639          SetCoefValue( 0x21E , 0x000000 );
+   1640          SetCoefValue( 0x21F , 0x7FFFFF );
+   1641          SetCoefValue( 0x220 , 0x000000 );
+   1642          SetCoefValue( 0x221 , 0x000000 );
+   1643          SetCoefValue( 0x222 , 0x000000 );
+   1644          SetCoefValue( 0x223 , 0x000000 );
+   1645          SetCoefValue( 0x224 , 0x000000 );
+   1646          SetCoefValue( 0x225 , 0x000000 );
+   1647          SetCoefValue( 0x226 , 0x000000 );
+   1648          SetCoefValue( 0x1A0 , 0x7FFFFF );
+   1649          SetCoefValue( 0x1A1 , 0x000000 );
+   1650          SetCoefValue( 0x1A2 , 0x000000 );
+   1651          SetCoefValue( 0x1A3 , 0x000000 );
+   1652          SetCoefValue( 0x1A4 , 0x000000 );
+   1653          SetCoefValue( 0x1A5 , 0x000000 );
+   1654          SetCoefValue( 0x1E0 , 0x7FFFFF );
+   1655          SetCoefValue( 0x1E1 , 0x000000 );
+   1656          SetCoefValue( 0x1E2 , 0x000000 );
+   1657          SetCoefValue( 0x1E3 , 0x000000 );
+   1658          SetCoefValue( 0x1E4 , 0x000000 );
+   1659          SetCoefValue( 0x1E5 , 0x000000 );
+   1660          SetCoefValue( 0x1A8 , 0x000000 );
+   1661          SetCoefValue( 0x1A9 , 0x7FFFFF );
+   1662          SetCoefValue( 0x1AA , 0x000000 );
+   1663          SetCoefValue( 0x1AB , 0x000000 );
+   1664          SetCoefValue( 0x1AC , 0x000000 );
+   1665          SetCoefValue( 0x1AD , 0x000000 );
+   1666          SetCoefValue( 0x1E8 , 0x000000 );
+   1667          SetCoefValue( 0x1E9 , 0x7FFFFF );
+   1668          SetCoefValue( 0x1EA , 0x000000 );
+   1669          SetCoefValue( 0x1EB , 0x000000 );
+   1670          SetCoefValue( 0x1EC , 0x000000 );
+   1671          SetCoefValue( 0x1ED , 0x000000 );
+   1672          SetCoefValue( 0x1B0 , 0x7FFFFF );
+   1673          SetCoefValue( 0x1B1 , 0x000000 );
+   1674          SetCoefValue( 0x1B2 , 0x000000 );
+   1675          SetCoefValue( 0x1B3 , 0x000000 );
+   1676          SetCoefValue( 0x1B4 , 0x000000 );
+   1677          SetCoefValue( 0x1B5 , 0x000000 );
+   1678          SetCoefValue( 0x1F0 , 0x000000 );
+   1679          SetCoefValue( 0x1F1 , 0x000000 );
+   1680          SetCoefValue( 0x1F2 , 0x7FFFFF );
+   1681          SetCoefValue( 0x1F3 , 0x000000 );
+   1682          SetCoefValue( 0x1F4 , 0x000000 );
+   1683          SetCoefValue( 0x1F5 , 0x000000 );
+   1684          SetCoefValue( 0x1B8 , 0x000000 );
+   1685          SetCoefValue( 0x1B9 , 0x7FFFFF );
+   1686          SetCoefValue( 0x1BA , 0x000000 );
+   1687          SetCoefValue( 0x1BB , 0x000000 );
+   1688          SetCoefValue( 0x1BC , 0x000000 );
+   1689          SetCoefValue( 0x1BD , 0x000000 );
+   1690          SetCoefValue( 0x1F8 , 0x000000 );
+   1691          SetCoefValue( 0x1F9 , 0x000000 );
+   1692          SetCoefValue( 0x1FA , 0x000000 );
+   1693          SetCoefValue( 0x1FB , 0x7FFFFF );
+   1694          SetCoefValue( 0x1FC , 0x000000 );
+   1695          SetCoefValue( 0x1FD , 0x000000 );
+   1696          SetCoefValue( 0x1C0 , 0x7FFFFF );
+   1697          SetCoefValue( 0x1C1 , 0x000000 );
+   1698          SetCoefValue( 0x1C2 , 0x000000 );
+   1699          SetCoefValue( 0x1C3 , 0x000000 );
+   1700          SetCoefValue( 0x1C4 , 0x000000 );
+   1701          SetCoefValue( 0x1C5 , 0x000000 );
+   1702          SetCoefValue( 0x200 , 0x000000 );
+   1703          SetCoefValue( 0x201 , 0x000000 );
+   1704          SetCoefValue( 0x202 , 0x000000 );
+   1705          SetCoefValue( 0x203 , 0x000000 );
+   1706          SetCoefValue( 0x204 , 0x7FFFFF );
+   1707          SetCoefValue( 0x205 , 0x000000 );
+   1708          SetCoefValue( 0x1C8 , 0x000000 );
+   1709          SetCoefValue( 0x1C9 , 0x7FFFFF );
+   1710          SetCoefValue( 0x1CA , 0x000000 );
+   1711          SetCoefValue( 0x1CB , 0x000000 );
+   1712          SetCoefValue( 0x1CC , 0x000000 );
+   1713          SetCoefValue( 0x1CD , 0x000000 );
+   1714          SetCoefValue( 0x208 , 0x000000 );
+   1715          SetCoefValue( 0x209 , 0x000000 );
+   1716          SetCoefValue( 0x20A , 0x000000 );
+   1717          SetCoefValue( 0x20B , 0x000000 );
+   1718          SetCoefValue( 0x20C , 0x000000 );
+   1719          SetCoefValue( 0x20D , 0x7FFFFF );
+   1720          SetCoefValue( 0x1A0 , 0x000000 );
+   1721          SetCoefValue( 0x1A1 , 0x000000 );
+   1722          SetCoefValue( 0x1A2 , 0x000000 );
+   1723          SetCoefValue( 0x1A3 , 0x000000 );
+   1724          SetCoefValue( 0x1A4 , 0x7FFFFF );
+   1725          SetCoefValue( 0x1A5 , 0x000000 );
+   1726          SetCoefValue( 0x1E0 , 0x7FFFFF );
+   1727          SetCoefValue( 0x1E1 , 0x000000 );
+   1728          SetCoefValue( 0x1E2 , 0x000000 );
+   1729          SetCoefValue( 0x1E3 , 0x000000 );
+   1730          SetCoefValue( 0x1E4 , 0x000000 );
+   1731          SetCoefValue( 0x1E5 , 0x000000 );
+   1732          SetCoefValue( 0x1A8 , 0x000000 );
+   1733          SetCoefValue( 0x1A9 , 0x000000 );
+   1734          SetCoefValue( 0x1AA , 0x000000 );
+   1735          SetCoefValue( 0x1AB , 0x000000 );
+   1736          SetCoefValue( 0x1AC , 0x000000 );
+   1737          SetCoefValue( 0x1AD , 0x7FFFFF );
+   1738          SetCoefValue( 0x1E8 , 0x000000 );
+   1739          SetCoefValue( 0x1E9 , 0x7FFFFF );
+   1740          SetCoefValue( 0x1EA , 0x000000 );
+   1741          SetCoefValue( 0x1EB , 0x000000 );
+   1742          SetCoefValue( 0x1EC , 0x000000 );
+   1743          SetCoefValue( 0x1ED , 0x000000 );
+   1744          SetCoefValue( 0x1A0 , 0x000000 );
+   1745          SetCoefValue( 0x1A1 , 0x000000 );
+   1746          SetCoefValue( 0x1A2 , 0x000000 );
+   1747          SetCoefValue( 0x1A3 , 0x7FFFFF );
+   1748          SetCoefValue( 0x1A4 , 0x000000 );
+   1749          SetCoefValue( 0x1A5 , 0x000000 );
+   1750          SetCoefValue( 0x1E0 , 0x7FFFFF );
+   1751          SetCoefValue( 0x1E1 , 0x000000 );
+   1752          SetCoefValue( 0x1E2 , 0x000000 );
+   1753          SetCoefValue( 0x1E3 , 0x000000 );
+   1754          SetCoefValue( 0x1E4 , 0x000000 );
+   1755          SetCoefValue( 0x1E5 , 0x000000 );
+   1756          SetCoefValue( 0x1A8 , 0x000000 );
+   1757          SetCoefValue( 0x1A9 , 0x000000 );
+   1758          SetCoefValue( 0x1AA , 0x000000 );
+   1759          SetCoefValue( 0x1AB , 0x000000 );
+   1760          SetCoefValue( 0x1AC , 0x7FFFFF );
+   1761          SetCoefValue( 0x1AD , 0x000000 );
+   1762          SetCoefValue( 0x1E8 , 0x000000 );
+   1763          SetCoefValue( 0x1E9 , 0x7FFFFF );
+   1764          SetCoefValue( 0x1EA , 0x000000 );
+   1765          SetCoefValue( 0x1EB , 0x000000 );
+   1766          SetCoefValue( 0x1EC , 0x000000 );
+   1767          SetCoefValue( 0x1ED , 0x000000 );
+   1768          SetCoefValue( 0x1A8 , 0x7FFFFF );
+   1769          SetCoefValue( 0x1A9 , 0x000000 );
+   1770          SetCoefValue( 0x1AA , 0x000000 );
+   1771          SetCoefValue( 0x1AB , 0x000000 );
+   1772          SetCoefValue( 0x1AC , 0x000000 );
+   1773          SetCoefValue( 0x1AD , 0x000000 );
+   1774          SetCoefValue( 0x1E8 , 0x000000 );
+   1775          SetCoefValue( 0x1E9 , 0x7FFFFF );
+   1776          SetCoefValue( 0x1EA , 0x000000 );
+   1777          SetCoefValue( 0x1EB , 0x000000 );
+   1778          SetCoefValue( 0x1EC , 0x000000 );
+   1779          SetCoefValue( 0x1ED , 0x000000 );
+   1780          */
+   1781          //reset to default value of coefficent registor
+   1782          bufCoefBiquad[0]=0x00;
+   \   000002AA   0x2000             MOVS     R0,#+0
+   1783          bufCoefBiquad[1]=0x00;
+   1784          bufCoefBiquad[2]=0x00;
+   1785          bufCoefBiquad[3]=0x00;
+   1786          bufCoefBiquad[4]=0x00;
+   1787          bufCoefBiquad[5]=0x00;
+   1788          bufCoefBiquad[6]=0x00;
+   1789          bufCoefBiquad[7]=0x00;
+   1790          bufCoefBiquad[8]=0x00;
+   1791          bufCoefBiquad[9]=0x00;
+   1792          bufCoefBiquad[10]=0x00;
+   1793          bufCoefBiquad[11]=0x00;
+   1794          bufCoefBiquad[12]=0x40;
+   1795          bufCoefBiquad[13]=0x00;
+   1796          bufCoefBiquad[14]=0x00;
+   1797          WriteSTAByte(0x3D,bufCoefBiquad,15);
+   \   000002AC   0x4621             MOV      R1,R4
+   \   000002AE   0x6020             STR      R0,[R4, #+0]
+   \   000002B0   0x220F             MOVS     R2,#+15
+   \   000002B2   0x6060             STR      R0,[R4, #+4]
+   \   000002B4   0x60A0             STR      R0,[R4, #+8]
+   \   000002B6   0x2040             MOVS     R0,#+64
+   \   000002B8   0x7320             STRB     R0,[R4, #+12]
+   \   000002BA   0x2000             MOVS     R0,#+0
+   \   000002BC   0x7360             STRB     R0,[R4, #+13]
+   \   000002BE   0x73A0             STRB     R0,[R4, #+14]
+   \   000002C0   0x203D             MOVS     R0,#+61
+   \   000002C2   0xE8BD 0x4010      POP      {R4,LR}
+   \   000002C6   0x....             B.N      WriteSTAByte
+   1798          
+   1799          
+   1800          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine9: (+1)
+   \   00000000   0x70A0             STRB     R0,[R4, #+2]
+   \   00000002   0x200F             MOVS     R0,#+15
+   \   00000004   0x70E0             STRB     R0,[R4, #+3]
+   \   00000006   0x2063             MOVS     R0,#+99
+   \   00000008   0x7120             STRB     R0,[R4, #+4]
+   \   0000000A   0x20AA             MOVS     R0,#+170
+   \   0000000C   0x7160             STRB     R0,[R4, #+5]
+   \   0000000E   0x4770             BX       LR
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine8: (+1)
+   \   00000000   0x72E0             STRB     R0,[R4, #+11]
+   \   00000002   0x2007             MOVS     R0,#+7
+   \   00000004   0x7320             STRB     R0,[R4, #+12]
+   \   00000006   0x20B1             MOVS     R0,#+177
+   \   00000008   0x7360             STRB     R0,[R4, #+13]
+   \   0000000A   0x20D5             MOVS     R0,#+213
+   \   0000000C   0x73A0             STRB     R0,[R4, #+14]
+   \   0000000E   0x4770             BX       LR
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine6: (+1)
+   \   00000000   0x20A4             MOVS     R0,#+164
+   \   00000002   0x4621             MOV      R1,R4
+   \   00000004   0x7020             STRB     R0,[R4, #+0]
+   \   00000006   0x2018             MOVS     R0,#+24
+   \   00000008   0x7060             STRB     R0,[R4, #+1]
+   \   0000000A   0x20CA             MOVS     R0,#+202
+   \   0000000C   0x70A0             STRB     R0,[R4, #+2]
+   \   0000000E   0x2056             MOVS     R0,#+86
+   \   00000010   0x70E0             STRB     R0,[R4, #+3]
+   \   00000012   0x2067             MOVS     R0,#+103
+   \   00000014   0x7120             STRB     R0,[R4, #+4]
+   \   00000016   0x20B6             MOVS     R0,#+182
+   \   00000018   0x7160             STRB     R0,[R4, #+5]
+   \   0000001A   0x205B             MOVS     R0,#+91
+   \   0000001C   0x71A0             STRB     R0,[R4, #+6]
+   \   0000001E   0x20E7             MOVS     R0,#+231
+   \   00000020   0x71E0             STRB     R0,[R4, #+7]
+   \   00000022   0x2036             MOVS     R0,#+54
+   \   00000024   0x7220             STRB     R0,[R4, #+8]
+   \   00000026   0x2098             MOVS     R0,#+152
+   \   00000028   0x7260             STRB     R0,[R4, #+9]
+   \   0000002A   0x2051             MOVS     R0,#+81
+   \   0000002C   0x72A0             STRB     R0,[R4, #+10]
+   \   0000002E   0x2032             MOVS     R0,#+50
+   \   00000030   0x72E0             STRB     R0,[R4, #+11]
+   \   00000032   0x2048             MOVS     R0,#+72
+   \   00000034   0x7320             STRB     R0,[R4, #+12]
+   \   00000036   0x20A3             MOVS     R0,#+163
+   \   00000038   0x7360             STRB     R0,[R4, #+13]
+   \   0000003A   0x208B             MOVS     R0,#+139
+   \   0000003C   0x73A0             STRB     R0,[R4, #+14]
+   \   0000003E   0x4770             BX       LR
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine5: (+1)
+   \   00000000   0x20A4             MOVS     R0,#+164
+   \   00000002   0x7020             STRB     R0,[R4, #+0]
+   \   00000004   0x2018             MOVS     R0,#+24
+   \   00000006   0x7060             STRB     R0,[R4, #+1]
+   \   00000008   0x20CA             MOVS     R0,#+202
+   \   0000000A   0x70A0             STRB     R0,[R4, #+2]
+   \   0000000C   0x2056             MOVS     R0,#+86
+   \   0000000E   0x70E0             STRB     R0,[R4, #+3]
+   \   00000010   0x2067             MOVS     R0,#+103
+   \   00000012   0x7120             STRB     R0,[R4, #+4]
+   \   00000014   0x20B6             MOVS     R0,#+182
+   \   00000016   0x7160             STRB     R0,[R4, #+5]
+   \   00000018   0x205B             MOVS     R0,#+91
+   \   0000001A   0x71A0             STRB     R0,[R4, #+6]
+   \   0000001C   0x20E7             MOVS     R0,#+231
+   \   0000001E   0x71E0             STRB     R0,[R4, #+7]
+   \   00000020   0x2036             MOVS     R0,#+54
+   \   00000022   0x7220             STRB     R0,[R4, #+8]
+   \   00000024   0x2098             MOVS     R0,#+152
+   \   00000026   0x7260             STRB     R0,[R4, #+9]
+   \   00000028   0x2051             MOVS     R0,#+81
+   \   0000002A   0x72A0             STRB     R0,[R4, #+10]
+   \   0000002C   0x2032             MOVS     R0,#+50
+   \   0000002E   0x72E0             STRB     R0,[R4, #+11]
+   \   00000030   0x2048             MOVS     R0,#+72
+   \   00000032   0x7320             STRB     R0,[R4, #+12]
+   \   00000034   0x20A3             MOVS     R0,#+163
+   \   00000036   0x7360             STRB     R0,[R4, #+13]
+   \   00000038   0x208B             MOVS     R0,#+139
+   \   0000003A   0x73A0             STRB     R0,[R4, #+14]
+   \   0000003C   0x4621             MOV      R1,R4
+   \   0000003E   0x4770             BX       LR
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine4: (+1)
+   \   00000000   0x2009             MOVS     R0,#+9
+   \   00000002   0x4621             MOV      R1,R4
+   \   00000004   0x7020             STRB     R0,[R4, #+0]
+   \   00000006   0x203E             MOVS     R0,#+62
+   \   00000008   0x7060             STRB     R0,[R4, #+1]
+   \   0000000A   0x20C0             MOVS     R0,#+192
+   \   0000000C   0x70A0             STRB     R0,[R4, #+2]
+   \   0000000E   0x2009             MOVS     R0,#+9
+   \   00000010   0x70E0             STRB     R0,[R4, #+3]
+   \   00000012   0x203E             MOVS     R0,#+62
+   \   00000014   0x7120             STRB     R0,[R4, #+4]
+   \   00000016   0x20C0             MOVS     R0,#+192
+   \   00000018   0x7160             STRB     R0,[R4, #+5]
+   \   0000001A   0x2046             MOVS     R0,#+70
+   \   0000001C   0x71A0             STRB     R0,[R4, #+6]
+   \   0000001E   0x20FC             MOVS     R0,#+252
+   \   00000020   0x71E0             STRB     R0,[R4, #+7]
+   \   00000022   0x20C7             MOVS     R0,#+199
+   \   00000024   0x7220             STRB     R0,[R4, #+8]
+   \   00000026   0x20CD             MOVS     R0,#+205
+   \   00000028   0x7260             STRB     R0,[R4, #+9]
+   \   0000002A   0x200B             MOVS     R0,#+11
+   \   0000002C   0x72A0             STRB     R0,[R4, #+10]
+   \   0000002E   0x206E             MOVS     R0,#+110
+   \   00000030   0x72E0             STRB     R0,[R4, #+11]
+   \   00000032   0x2004             MOVS     R0,#+4
+   \   00000034   0x7320             STRB     R0,[R4, #+12]
+   \   00000036   0x209F             MOVS     R0,#+159
+   \   00000038   0x7360             STRB     R0,[R4, #+13]
+   \   0000003A   0x2060             MOVS     R0,#+96
+   \   0000003C   0x73A0             STRB     R0,[R4, #+14]
+   \   0000003E   0x4770             BX       LR
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine3: (+1)
+   \   00000000   0x2009             MOVS     R0,#+9
+   \   00000002   0x7020             STRB     R0,[R4, #+0]
+   \   00000004   0x203E             MOVS     R0,#+62
+   \   00000006   0x7060             STRB     R0,[R4, #+1]
+   \   00000008   0x20C0             MOVS     R0,#+192
+   \   0000000A   0x70A0             STRB     R0,[R4, #+2]
+   \   0000000C   0x2009             MOVS     R0,#+9
+   \   0000000E   0x70E0             STRB     R0,[R4, #+3]
+   \   00000010   0x203E             MOVS     R0,#+62
+   \   00000012   0x7120             STRB     R0,[R4, #+4]
+   \   00000014   0x20C0             MOVS     R0,#+192
+   \   00000016   0x7160             STRB     R0,[R4, #+5]
+   \   00000018   0x2046             MOVS     R0,#+70
+   \   0000001A   0x71A0             STRB     R0,[R4, #+6]
+   \   0000001C   0x20FC             MOVS     R0,#+252
+   \   0000001E   0x71E0             STRB     R0,[R4, #+7]
+   \   00000020   0x20C7             MOVS     R0,#+199
+   \   00000022   0x7220             STRB     R0,[R4, #+8]
+   \   00000024   0x20CD             MOVS     R0,#+205
+   \   00000026   0x7260             STRB     R0,[R4, #+9]
+   \   00000028   0x200B             MOVS     R0,#+11
+   \   0000002A   0x72A0             STRB     R0,[R4, #+10]
+   \   0000002C   0x206E             MOVS     R0,#+110
+   \   0000002E   0x72E0             STRB     R0,[R4, #+11]
+   \   00000030   0x2004             MOVS     R0,#+4
+   \   00000032   0x7320             STRB     R0,[R4, #+12]
+   \   00000034   0x209F             MOVS     R0,#+159
+   \   00000036   0x7360             STRB     R0,[R4, #+13]
+   \   00000038   0x2060             MOVS     R0,#+96
+   \   0000003A   0x73A0             STRB     R0,[R4, #+14]
+   \   0000003C   0x4621             MOV      R1,R4
+   \   0000003E   0x4770             BX       LR
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine2: (+1)
+   \   00000000   0x2080             MOVS     R0,#+128
+   \   00000002   0x4621             MOV      R1,R4
+   \   00000004   0x7020             STRB     R0,[R4, #+0]
+   \   00000006   0x2037             MOVS     R0,#+55
+   \   00000008   0x7060             STRB     R0,[R4, #+1]
+   \   0000000A   0x20D9             MOVS     R0,#+217
+   \   0000000C   0x70A0             STRB     R0,[R4, #+2]
+   \   0000000E   0x207F             MOVS     R0,#+127
+   \   00000010   0x70E0             STRB     R0,[R4, #+3]
+   \   00000012   0x20C8             MOVS     R0,#+200
+   \   00000014   0x7120             STRB     R0,[R4, #+4]
+   \   00000016   0x2027             MOVS     R0,#+39
+   \   00000018   0x7160             STRB     R0,[R4, #+5]
+   \   0000001A   0x207F             MOVS     R0,#+127
+   \   0000001C   0x71A0             STRB     R0,[R4, #+6]
+   \   0000001E   0x20C8             MOVS     R0,#+200
+   \   00000020   0x71E0             STRB     R0,[R4, #+7]
+   \   00000022   0x201B             MOVS     R0,#+27
+   \   00000024   0x7220             STRB     R0,[R4, #+8]
+   \   00000026   0x2080             MOVS     R0,#+128
+   \   00000028   0x7260             STRB     R0,[R4, #+9]
+   \   0000002A   0x206F             MOVS     R0,#+111
+   \   0000002C   0x72A0             STRB     R0,[R4, #+10]
+   \   0000002E   0x2098             MOVS     R0,#+152
+   \   00000030   0x72E0             STRB     R0,[R4, #+11]
+   \   00000032   0x203F             MOVS     R0,#+63
+   \   00000034   0x7320             STRB     R0,[R4, #+12]
+   \   00000036   0x20E4             MOVS     R0,#+228
+   \   00000038   0x7360             STRB     R0,[R4, #+13]
+   \   0000003A   0x2013             MOVS     R0,#+19
+   \   0000003C   0x73A0             STRB     R0,[R4, #+14]
+   \   0000003E   0x4770             BX       LR
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine1: (+1)
+   \   00000000   0x2080             MOVS     R0,#+128
+   \   00000002   0x7020             STRB     R0,[R4, #+0]
+   \   00000004   0x2037             MOVS     R0,#+55
+   \   00000006   0x7060             STRB     R0,[R4, #+1]
+   \   00000008   0x20D9             MOVS     R0,#+217
+   \   0000000A   0x70A0             STRB     R0,[R4, #+2]
+   \   0000000C   0x207F             MOVS     R0,#+127
+   \   0000000E   0x70E0             STRB     R0,[R4, #+3]
+   \   00000010   0x20C8             MOVS     R0,#+200
+   \   00000012   0x7120             STRB     R0,[R4, #+4]
+   \   00000014   0x2027             MOVS     R0,#+39
+   \   00000016   0x7160             STRB     R0,[R4, #+5]
+   \   00000018   0x207F             MOVS     R0,#+127
+   \   0000001A   0x71A0             STRB     R0,[R4, #+6]
+   \   0000001C   0x20C8             MOVS     R0,#+200
+   \   0000001E   0x71E0             STRB     R0,[R4, #+7]
+   \   00000020   0x201B             MOVS     R0,#+27
+   \   00000022   0x7220             STRB     R0,[R4, #+8]
+   \   00000024   0x2080             MOVS     R0,#+128
+   \   00000026   0x7260             STRB     R0,[R4, #+9]
+   \   00000028   0x206F             MOVS     R0,#+111
+   \   0000002A   0x72A0             STRB     R0,[R4, #+10]
+   \   0000002C   0x2098             MOVS     R0,#+152
+   \   0000002E   0x72E0             STRB     R0,[R4, #+11]
+   \   00000030   0x203F             MOVS     R0,#+63
+   \   00000032   0x7320             STRB     R0,[R4, #+12]
+   \   00000034   0x20E4             MOVS     R0,#+228
+   \   00000036   0x7360             STRB     R0,[R4, #+13]
+   \   00000038   0x2013             MOVS     R0,#+19
+   \   0000003A   0x73A0             STRB     R0,[R4, #+14]
+   \   0000003C   0x4621             MOV      R1,R4
+   \   0000003E   0x4770             BX       LR
+   1801          
+
+   \                                 In section .text, align 2, keep-with-next
+   1802          void WriteCoef(uint16_t Adrss, uint8_t * BufData)
+   1803          {
+   \                     WriteCoef: (+1)
+   \   00000000   0xB570             PUSH     {R4-R6,LR}
+   \   00000002   0x4604             MOV      R4,R0
+   1804          //1. Write the top 2 bits of starting address to I2C register 0x3B
+   1805          pcSTAComnd[0] = (Adrss>>8)|0x03;
+   \   00000004   0x0A00             LSRS     R0,R0,#+8
+   \   00000006   0x....             LDR.N    R6,??DataTable4
+   \   00000008   0xF040 0x0003      ORR      R0,R0,#0x3
+   \   0000000C   0x460D             MOV      R5,R1
+   \   0000000E   0x7030             STRB     R0,[R6, #+0]
+   1806          WriteSTAByte(0x3B,&pcSTAComnd[0],1);
+   \   00000010   0x2201             MOVS     R2,#+1
+   \   00000012   0x4631             MOV      R1,R6
+   \   00000014   0x203B             MOVS     R0,#+59
+   \   00000016   0x.... 0x....      BL       WriteSTAByte
+   1807          
+   1808          //2. Write the bottom 8 bits of starting address to I2C register 0x3C
+   1809          pcSTAComnd[0] = (Adrss);
+   \   0000001A   0x7034             STRB     R4,[R6, #+0]
+   1810          WriteSTAByte(0x3C,&pcSTAComnd[0],1);
+   \   0000001C   0x2201             MOVS     R2,#+1
+   \   0000001E   0x4631             MOV      R1,R6
+   \   00000020   0x203C             MOVS     R0,#+60
+   \   00000022   0x.... 0x....      BL       WriteSTAByte
+   1811          
+   1812          //3. Write the top 8 bits of coefficient b1 in I2C address 0x3D
+   1813          //4. Write the middle 8 bits of coefficient b1 in I2C address 0x3E
+   1814          //5. Write the bottom 8 bits of coefficient b1 in I2C address 0x3F
+   1815          //6. Write the top 8 bits of coefficient b2 in I2C address 0x40
+   1816          //7. Write the middle 8-bits of coefficient b2 in I2C address 0x41
+   1817          //8. Write the bottom 8 bits of coefficient b2 in I2C address 0x42
+   1818          //9. Write the top 8 bits of coefficient a1 in I2C address 0x43
+   1819          //10. Write the middle 8 bits of coefficient a1 in I2C address 0x44
+   1820          //11. Write the bottom 8 bits of coefficient a1 in I2C address 0x45
+   1821          //12. Write the top 8 bits of coefficient a2 in I2C address 0x46
+   1822          //13. Write the middle 8 bits of coefficient a2 in I2C address 0x47
+   1823          //14. Write the bottom 8 bits of coefficient a2 in I2C address 0x48
+   1824          //15. Write the top 8-bits of coefficient b0 in I2C address 0x49
+   1825          //16. Write the middle 8 bits of coefficient b0 in I2C address 0x4A
+   1826          //17. Write the bottom 8 bits of coefficient b0 in I2C address 0x4B
+   1827          WriteSTAByte(0x3D,BufData,15);
+   \   00000026   0x220F             MOVS     R2,#+15
+   \   00000028   0x4629             MOV      R1,R5
+   \   0000002A   0x203D             MOVS     R0,#+61
+   \   0000002C   0x.... 0x....      BL       WriteSTAByte
+   1828          
+   1829          //18. Write 1 to the WA bit in I2C address 0x4C
+   1830          pcSTAComnd[0] = 0x02;
+   \   00000030   0x2002             MOVS     R0,#+2
+   1831          WriteSTAByte(0x4C,&pcSTAComnd[0],1);
+   \   00000032   0x4631             MOV      R1,R6
+   \   00000034   0x7030             STRB     R0,[R6, #+0]
+   \   00000036   0x....             B.N      ?Subroutine0
+   1832          
+   1833          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine0: (+1)
+   \   00000000   0x2201             MOVS     R2,#+1
+   \   00000002   0x204C             MOVS     R0,#+76
+   \   00000004   0xE8BD 0x4070      POP      {R4-R6,LR}
+   \   00000008   0x....             B.N      WriteSTAByte
+   1834          
+
+   \                                 In section .text, align 4, keep-with-next
+   1835          void SetCoefValue(uint16_t Adrss, uint32_t DataCoef)
+   1836          {
+   \                     SetCoefValue: (+1)
+   \   00000000   0xB570             PUSH     {R4-R6,LR}
+   \   00000002   0x4605             MOV      R5,R0
+   1837          //1. Write the top 2 bits of address to I2C register 0x3B
+   1838          pcSTAComnd[0] = (Adrss>>8)|0x03;
+   \   00000004   0x0A00             LSRS     R0,R0,#+8
+   \   00000006   0x4C01             LDR.N    R4,??SetCoefValue_0
+   \   00000008   0xE002             B.N      ??SetCoefValue_1
+   \   0000000A   0xBF00             Nop      
+   \                     ??SetCoefValue_0:
+   \   0000000C   0x........         DC32     pcSTAComnd
+   \                     ??SetCoefValue_1: (+1)
+   \   00000010   0xF040 0x0003      ORR      R0,R0,#0x3
+   \   00000014   0x460E             MOV      R6,R1
+   \   00000016   0x7020             STRB     R0,[R4, #+0]
+   1839          WriteSTAByte(0x3B,&pcSTAComnd[0],1);
+   \   00000018   0x2201             MOVS     R2,#+1
+   \   0000001A   0x4621             MOV      R1,R4
+   \   0000001C   0x203B             MOVS     R0,#+59
+   \   0000001E   0x.... 0x....      BL       WriteSTAByte
+   1840          
+   1841          //2. Write the bottom 8 bits of address to I2C register 0x3C
+   1842          pcSTAComnd[0] = (Adrss);
+   \   00000022   0x7025             STRB     R5,[R4, #+0]
+   1843          WriteSTAByte(0x3C,&pcSTAComnd[0],1);
+   \   00000024   0x2201             MOVS     R2,#+1
+   \   00000026   0x4621             MOV      R1,R4
+   \   00000028   0x203C             MOVS     R0,#+60
+   \   0000002A   0x.... 0x....      BL       WriteSTAByte
+   1844          
+   1845          //3. Write the top 8 bits of coefficient in I2C address 0x3D
+   1846          pcSTAComnd[0] = (uint8_t)((DataCoef & 0x00FF0000)>>16);
+   \   0000002E   0x0C30             LSRS     R0,R6,#+16
+   1847          WriteSTAByte(0x3D,&pcSTAComnd[0],1);
+   \   00000030   0x.... 0x....      BL       ??Subroutine7_0
+   \                     ??CrossCallReturnLabel_45: (+1)
+   \   00000034   0x203D             MOVS     R0,#+61
+   \   00000036   0x.... 0x....      BL       WriteSTAByte
+   1848          
+   1849          //4. Write the middle 8 bits of coefficient in I2C address 0x3E
+   1850          pcSTAComnd[0] = (uint8_t)((DataCoef & 0x0000FF00)>>8);
+   \   0000003A   0x0A30             LSRS     R0,R6,#+8
+   1851          WriteSTAByte(0x3E,&pcSTAComnd[0],1);
+   \   0000003C   0x.... 0x....      BL       ??Subroutine7_0
+   \                     ??CrossCallReturnLabel_46: (+1)
+   \   00000040   0x203E             MOVS     R0,#+62
+   \   00000042   0x.... 0x....      BL       WriteSTAByte
+   1852          
+   1853          //5. Write the bottom 8 bits of coefficient in I2C address 0x3F
+   1854          pcSTAComnd[0] = (uint8_t)((DataCoef & 0x000000FF));
+   \   00000046   0x7026             STRB     R6,[R4, #+0]
+   1855          WriteSTAByte(0x3F,&pcSTAComnd[0],1);
+   \   00000048   0x2201             MOVS     R2,#+1
+   \   0000004A   0x4621             MOV      R1,R4
+   \   0000004C   0x203F             MOVS     R0,#+63
+   \   0000004E   0x.... 0x....      BL       WriteSTAByte
+   1856          
+   1857          
+   1858          //6. Write 1 to the W1 bit in I2C address 0x4C
+   1859          pcSTAComnd[0] = 0x01;
+   \   00000052   0x2001             MOVS     R0,#+1
+   1860          WriteSTAByte(0x4C,&pcSTAComnd[0],1);
+   \   00000054   0x4621             MOV      R1,R4
+   \   00000056   0x7020             STRB     R0,[R4, #+0]
+   \   00000058                      REQUIRE ?Subroutine0
+   \   00000058                      ;; // Fall through to label ?Subroutine0
+   1861          
+   1862          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4:
+   \   00000000   0x........         DC32     pcSTAComnd
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_1:
+   \   00000000   0x........         DC32     hi2c1
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_2:
+   \   00000000   0x........         DC32     bufCoefBiquad
+   1863          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      24   ReadSTASeq
+        24   -> HAL_I2C_Master_Receive
+        24   -> HAL_I2C_Master_Transmit
+       8   STA321MP_Ini
+         8   -> HAL_Delay
+         0   -> STACoefSet
+         8   -> WriteSTAByte
+       8   STACoefSet
+         8   -> WriteCoef
+         0   -> WriteSTAByte
+      16   SetCoefValue
+         0   -> WriteSTAByte
+        16   -> WriteSTAByte
+      16   WriteCoef
+         0   -> WriteSTAByte
+        16   -> WriteSTAByte
+      32   WriteSTAByte
+        32   -> HAL_I2C_Master_Transmit
+         0   -> free
+        32   -> malloc
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable4
+       4  ??DataTable4_1
+       4  ??DataTable4_2
+      10  ?Subroutine0
+      64  ?Subroutine1
+      64  ?Subroutine2
+      64  ?Subroutine3
+      64  ?Subroutine4
+      64  ?Subroutine5
+      64  ?Subroutine6
+      10  ?Subroutine7
+      16  ?Subroutine8
+      16  ?Subroutine9
+      58  ReadSTASeq
+     232  STA321MP_Ini
+     712  STACoefSet
+      88  SetCoefValue
+      56  WriteCoef
+      86  WriteSTAByte
+      16  bufCoefBiquad
+      80  pcSTAComnd
+      44  pcSTAComnd1
+
+ 
+    16 bytes in section .bss
+   124 bytes in section .data
+ 1 680 bytes in section .text
+ 
+ 1 680 bytes of CODE memory
+   140 bytes of DATA memory
+
+Errors: none
+Warnings: none
