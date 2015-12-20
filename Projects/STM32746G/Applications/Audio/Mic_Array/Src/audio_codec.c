@@ -101,6 +101,13 @@
 #include "audio.h"
 #include "main.h"
 
+ /* This is an audio file stored in the Flash memory as a constant table of 16-bit data.
+    The audio format should be WAV (raw / PCM) 16-bits, Stereo (sampling rate may be modified) */
+extern const uint16_t AUDIO_SAMPLE[];
+/* Audio file size and start address are defined here since the audio file is 
+    stored in Flash memory as a constant table of 16-bit data */
+#define AUDIO_FILE_SZE          990000
+#define AUIDO_START_ADDRESS     58 /* Offset relative to audio file header size */
 
 #define  I2C_CR1_SMBUS                       ((uint16_t)0x0002)            /*!<SMBus Mode */
 #define  I2C_CR1_SMBTYPE                     ((uint16_t)0x0008)            /*!<SMBus Type */
@@ -928,6 +935,9 @@ static void Codec_AudioInterface_Init(uint32_t AudioFreq)
   __SPI3_CLK_ENABLE();
 
   hi2s3.Instance = SPI3;
+  /* Disable I2S3 peripheral to allow access to I2S internal registers */
+  __HAL_I2S_DISABLE(&hi2s3);
+  
   hi2s3.Init.Standard = I2S_STANDARD;
   hi2s3.Init.DataFormat = I2S_DATAFORMAT_16B;
   hi2s3.Init.AudioFreq = AudioFreq;
@@ -946,7 +956,7 @@ static void Codec_AudioInterface_Init(uint32_t AudioFreq)
   /* Initialize the I2S peripheral with the structure above */
   HAL_I2S_Init(&hi2s3);
  
-  //__HAL_I2S_ENABLE(&hi2s2);
+  __HAL_I2S_ENABLE(&hi2s3);
   
 
   /* The I2S peripheral will be enabled only in the AUDIO_Play() function 
@@ -1785,12 +1795,17 @@ void HAL_I2S_MspInit(I2S_HandleTypeDef *hi2s)
       DmaHandle.Instance->PAR = CODEC_I2S_ADDRESS;
       DmaHandle.Instance->M0AR = (uint32_t)0;
       DmaHandle.Instance->NDTR = (uint32_t)0xFFFE;
-      DmaHandle.XferCpltCallback = &TC_Callback;
-      HAL_DMA_Init(&DmaHandle);
+      //DmaHandle.XferCpltCallback = &TC_Callback;
+ 
 
       /* Associate the initialized DMA handle to the the SPI handle */
       __HAL_LINKDMA(hi2s, hdmatx, DmaHandle);
       //__HAL_DMA_ENABLE_IT(&DmaHandle, DMA_IT_TC);
+
+	   /* Deinitialize the Stream for new transfer */
+       HAL_DMA_DeInit(&DmaHandle);
+       /* Configure the DMA Stream */
+	   HAL_DMA_Init(&DmaHandle);
 
       /* Set Interrupt Group Priority */
       HAL_NVIC_SetPriority(DMA1_Stream7_IRQn, 2, 1);
@@ -1840,4 +1855,7 @@ void HAL_I2C_MspDeInit(I2C_HandleTypeDef *hi2c)
   HAL_GPIO_DeInit(CODEC_I2C_GPIO, CODEC_I2C_SDA_PIN);
 }
 
-
+// void HAL_I2S_TxCpltCallback(I2S_HandleTypeDef *hi2s)
+// {
+//	  AudioFlashPlay((uint16_t*)(AUDIO_SAMPLE + AUIDO_START_ADDRESS),AUDIO_FILE_SZE,AUIDO_START_ADDRESS);
+ //}
