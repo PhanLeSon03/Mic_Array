@@ -88,7 +88,7 @@
   * @{
   */
 
-const uint32_t GPIO_PIN[LEDn] = {LED1_PIN};
+const uint32_t GPIO_PIN[LEDn] = {LED1_PIN, LED2_PIN};
 
 GPIO_TypeDef* BUTTON_PORT[BUTTONn] = {WAKEUP_BUTTON_GPIO_PORT,
                                       TAMPER_BUTTON_GPIO_PORT,
@@ -204,6 +204,23 @@ void BSP_LED_Init(Led_TypeDef Led)
     /* By default, turn off LED */
     HAL_GPIO_WritePin(gpio_led, GPIO_PIN[Led], GPIO_PIN_RESET);
   }
+  else if (Led == LED2)
+  {
+    gpio_led = LED2_GPIO_PORT;
+    /* Enable the GPIO_LED clock */
+    LED2_GPIO_CLK_ENABLE();
+
+    /* Configure the GPIO_LED pin */
+    gpio_init_structure.Pin = GPIO_PIN[Led];
+    gpio_init_structure.Mode = GPIO_MODE_OUTPUT_PP;
+    gpio_init_structure.Pull = GPIO_PULLUP;
+    gpio_init_structure.Speed = GPIO_SPEED_HIGH;
+  
+    HAL_GPIO_Init(gpio_led, &gpio_init_structure);
+    
+    /* By default, turn off LED */
+    HAL_GPIO_WritePin(gpio_led, GPIO_PIN[Led], GPIO_PIN_SET);
+  }
 }
 
 /**
@@ -228,6 +245,16 @@ void BSP_LED_DeInit(Led_TypeDef Led)
     gpio_init_structure.Pin = GPIO_PIN[Led];
     HAL_GPIO_DeInit(gpio_led, gpio_init_structure.Pin);
   }
+  
+  if (Led == LED2)
+  {
+    gpio_led = LED2_GPIO_PORT;
+    /* Turn off LED */
+    HAL_GPIO_WritePin(gpio_led, GPIO_PIN[Led], GPIO_PIN_RESET);
+    /* Configure the GPIO_LED pin */
+    gpio_init_structure.Pin = GPIO_PIN[Led];
+    HAL_GPIO_DeInit(gpio_led, gpio_init_structure.Pin);
+  }
 }
 
 /**
@@ -244,6 +271,12 @@ void BSP_LED_On(Led_TypeDef Led)
   if (Led == LED1)	/* Switch On LED connected to GPIO */
   {
     gpio_led = LED1_GPIO_PORT;
+    HAL_GPIO_WritePin(gpio_led, GPIO_PIN[Led], GPIO_PIN_SET);
+  }
+  
+  if (Led == LED2)	/* Switch On LED connected to GPIO */
+  {
+    gpio_led = LED2_GPIO_PORT;
     HAL_GPIO_WritePin(gpio_led, GPIO_PIN[Led], GPIO_PIN_SET);
   }
 }
@@ -264,6 +297,12 @@ void BSP_LED_Off(Led_TypeDef Led)
     gpio_led = LED1_GPIO_PORT;
     HAL_GPIO_WritePin(gpio_led, GPIO_PIN[Led], GPIO_PIN_RESET);
   }
+  
+  if (Led == LED2) /* Switch Off LED connected to GPIO */
+  {
+    gpio_led = LED2_GPIO_PORT;
+    HAL_GPIO_WritePin(gpio_led, GPIO_PIN[Led], GPIO_PIN_RESET);
+  }
 }
 
 /**
@@ -280,6 +319,12 @@ void BSP_LED_Toggle(Led_TypeDef Led)
   if (Led == LED1)	/* Toggle LED connected to GPIO */
   {
     gpio_led = LED1_GPIO_PORT;
+    HAL_GPIO_TogglePin(gpio_led, GPIO_PIN[Led]);
+  }
+  
+  if (Led == LED2)	/* Toggle LED connected to GPIO */
+  {
+    gpio_led = LED2_GPIO_PORT;
     HAL_GPIO_TogglePin(gpio_led, GPIO_PIN[Led]);
   }
 }

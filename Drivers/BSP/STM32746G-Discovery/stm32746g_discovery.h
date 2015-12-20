@@ -47,25 +47,12 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f7xx_hal.h"
    
-/** @addtogroup BSP
-  * @{
-  */
 
-/** @addtogroup STM32746G_DISCOVERY
-  * @{
-  */
-      
-/** @addtogroup STM32746G_DISCOVERY_LOW_LEVEL
-  * @{
-  */ 
-
-/** @defgroup STM32746G_DISCOVERY_LOW_LEVEL_Exported_Types STM32746G_DISCOVERY_LOW_LEVEL Exported Types
-  * @{
-  */
 typedef enum 
 {
 LED1 = 0,
 LED_GREEN = LED1,
+LED2 = 1,
 }Led_TypeDef;
 
 typedef enum 
@@ -105,12 +92,17 @@ typedef enum
   * @{
   */
 
-#define LEDn                             ((uint8_t)1)
+#define LEDn                             ((uint8_t)2)
 
 #define LED1_GPIO_PORT                   GPIOI
 #define LED1_GPIO_CLK_ENABLE()           __HAL_RCC_GPIOI_CLK_ENABLE()
 #define LED1_GPIO_CLK_DISABLE()          __HAL_RCC_GPIOI_CLK_DISABLE()
 #define LED1_PIN                         GPIO_PIN_10
+
+#define LED2_GPIO_PORT                   GPIOI
+#define LED2_GPIO_CLK_ENABLE()           __HAL_RCC_GPIOI_CLK_ENABLE()
+#define LED2_GPIO_CLK_DISABLE()          __HAL_RCC_GPIOI_CLK_DISABLE()
+#define LED2_PIN                         GPIO_PIN_11
 
 /**
   * @}

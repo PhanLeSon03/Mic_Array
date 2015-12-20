@@ -111,6 +111,7 @@ int main(void)
   //AUDIO_InitApplication();
     /* Configure LED1 */
   BSP_LED_Init(LED1);
+  BSP_LED_Init(LED2);
   
   /* Initialize for Audio player with CS43L22 */
    WavePlayerInit(48000);
@@ -213,7 +214,7 @@ int main(void)
      
        j++;
 
-       if (j==50) //50*10ms = 500 ms
+       if (j==100) //50*10ms = 500 ms
        {
  
 
@@ -225,6 +226,7 @@ int main(void)
 	      }
 #endif
          BSP_LED_Toggle(LED1);
+		 BSP_LED_Toggle(LED2);
 	   	 j=0;
                  
        }

@@ -14,13 +14,11 @@
 
 "--drv_interface=SWD" 
 
-"--stlink_reset_strategy=0,2" 
+"--stlink_reset_strategy=0,0" 
 
 "--drv_swo_clock_setup=72000000,0,2000000" 
 
 "--drv_catch_exceptions=0x000" 
-
-"--drv_interface_speed=1800" 
 
 
 

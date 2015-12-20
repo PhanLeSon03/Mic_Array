@@ -1,8 +1,1 @@
----- Audio_MAL_Play Matches (7 in 3 files) ----
-Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):     the stm32f4_discovery_audio_codec.c file (Audio_MAL_Init(), Audio_MAL_Play() ...)
-Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):  Audio_MAL_Play(pBuffer, (uint16_t)(DMA_MAX(Size/4)));
-Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):void Audio_MAL_Play(uint16_t *Addr, uint16_t Size)
-Audio_codec.h (projects\stm32746g\applications\audio\mic_array\inc):void Audio_MAL_Play(uint16_t Addr, uint16_t Size);
-waveplayer _CS43L22.c (projects\stm32746g\applications\audio\mic_array\src):  Audio_MAL_Play((uint16_t *)buffer1, _MAX_SS);
-waveplayer _CS43L22.c (projects\stm32746g\applications\audio\mic_array\src):        Audio_MAL_Play((uint16_t)buffer1, _MAX_SS);
-waveplayer _CS43L22.c (projects\stm32746g\applications\audio\mic_array\src):        Audio_MAL_Play((uint16_t)buffer2, _MAX_SS);
+---- EVAL_AUDIO_GetSampleCallBack Matches (0 in 0 files) ----
