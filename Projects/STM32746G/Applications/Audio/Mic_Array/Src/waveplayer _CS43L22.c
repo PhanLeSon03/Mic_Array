@@ -28,15 +28,15 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-#if defined MEDIA_IntFLASH
+
  /* This is an audio file stored in the Flash memory as a constant table of 16-bit data.
     The audio format should be WAV (raw / PCM) 16-bits, Stereo (sampling rate may be modified) */
-extern uint16_t AUDIO_SAMPLE[];
+extern const uint16_t AUDIO_SAMPLE[];
 /* Audio file size and start address are defined here since the audio file is 
     stored in Flash memory as a constant table of 16-bit data */
 #define AUDIO_FILE_SZE          990000
 #define AUIDO_START_ADDRESS     58 /* Offset relative to audio file header size */
-#endif
+
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -313,7 +313,7 @@ Below some examples of callback implementations.
 * @param  None
 * @retval None
 */
-void AUDIO_TransferComplete_CallBack(uint32_t pBuffer, uint32_t Size)
+void  AUDIO_TransferComplete_CallBack(uint32_t pBuffer, uint32_t Size)
 {
   /* Calculate the remaining audio data in the file and the new size 
   for the DMA transfer. If the Audio files size is less than the DMA max 
@@ -345,6 +345,12 @@ void AUDIO_TransferComplete_CallBack(uint32_t pBuffer, uint32_t Size)
   
   
 #endif /* AUDIO_MAL_MODE_CIRCULAR */
+}
+
+void TC_Callback(struct __DMA_HandleTypeDef * hdma)
+{	
+      /* Replay from the beginning */
+       AudioFlashPlay((uint16_t*)(AUDIO_SAMPLE + AUIDO_START_ADDRESS),AUDIO_FILE_SZE,AUIDO_START_ADDRESS);	
 }
 
 /**

@@ -49,6 +49,7 @@ uint8_t  pI2CRx[10];
 extern uint8_t  pcSTAComnd[19];
 extern const uint16_t AUDIO_SAMPLE[];
 
+
 uint16_t __IO idxSPI5DataBuf1, idxSPI5DataBuf2;
 uint16_t __IO cntRisingEXTI;
 
@@ -118,6 +119,7 @@ int main(void)
 
     /* Play on */
   AudioFlashPlay((uint16_t*)(AUDIO_SAMPLE + AUIDO_START_ADDRESS),AUDIO_FILE_SZE,AUIDO_START_ADDRESS);
+  //while(1);
   
   /* Init TS module */
   //BSP_TS_Init(BSP_LCD_GetXSize(), BSP_LCD_GetYSize());
@@ -226,7 +228,7 @@ int main(void)
 	      }
 #endif
          BSP_LED_Toggle(LED1);
-		 BSP_LED_Toggle(LED2);
+		 //BSP_LED_Toggle(LED2);
 	   	 j=0;
                  
        }
@@ -367,8 +369,9 @@ void MX_I2C1_Init(void)
 
 
   hi2c1.Instance = I2C1;
-  hi2c1.Init.Timing =DISCOVERY_I2Cx_TIMING; //I2C_SPEED DISCOVERY_I2Cx_TIMING;
+  hi2c1.Init.Timing =0x00C0EFFF; //I2C_SPEED DISCOVERY_I2Cx_TIMING;
                                            //I2C_TIMING ;//I2C_TIMING  0x00303D5D
+                                           //DISCOVERY_I2Cx_TIMING
   hi2c1.Init.OwnAddress1 = 0x33;
   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
@@ -378,8 +381,7 @@ void MX_I2C1_Init(void)
   hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
   HAL_I2C_Init(&hi2c1);
 
-    /**Configure Analogue filter 
-    */
+   /*Configure Analogue filter */
   HAL_I2CEx_AnalogFilter_Config(&hi2c1, I2C_ANALOGFILTER_ENABLE);
 
 }

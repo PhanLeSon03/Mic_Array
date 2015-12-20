@@ -277,7 +277,10 @@ static void     Audio_MAL_Stop(void);
 uint32_t AUDIO_Init(uint16_t OutputDevice, uint8_t Volume, uint32_t AudioFreq)
 {    
 	/* Perform low layer Codec initialization */
-	Codec_Init(OutputDevice, VOLUME_CONVERT(Volume), AudioFreq);
+	if (Codec_Init(OutputDevice, VOLUME_CONVERT(Volume), AudioFreq)!=HAL_OK)
+	{
+        BSP_LED_Toggle(LED2);
+	}
 	
 	return 0;
 }
@@ -807,31 +810,36 @@ static uint32_t Codec_WriteRegister(uint8_t RegisterAddr, uint8_t RegisterValue)
   bufI2C[0] = RegisterAddr;
   bufI2C[1] = RegisterValue;
   /* Transmit the first address for write operation */
-  while(HAL_I2C_Master_Transmit(&hi2c1, CODEC_ADDRESS, &bufI2C[0],1,1000))//CODEC_LONG_TIMEOUT
+  while(HAL_I2C_Master_Transmit(&hi2c1, CODEC_ADDRESS, &bufI2C[0],2,CODEC_LONG_TIMEOUT)!= HAL_OK)//CODEC_LONG_TIMEOUT
   {
 	/* Error_Handler() function is called when Timeout error occurs.
 	When Acknowledge failure occurs (Slave don't acknowledge its address)
 	Master restarts communication */
-    //if (HAL_I2C_GetError(&hi2c1) != HAL_I2C_ERROR_AF)
-    //{
-    //  return Codec_TIMEOUT_UserCallback();;
-    //}  
+    if (HAL_I2C_GetError(&hi2c1) != HAL_I2C_ERROR_AF)
+    {
+        return Codec_TIMEOUT_UserCallback();;
+    }
+
   }
   
-   while(HAL_I2C_Master_Transmit(&hi2c1, CODEC_ADDRESS, &bufI2C[1],1,1000))//CODEC_LONG_TIMEOUT
-  {
+  // while(HAL_I2C_Master_Transmit(&hi2c1, CODEC_ADDRESS, &bufI2C[1],1,CODEC_LONG_TIMEOUT)!= HAL_OK)//CODEC_LONG_TIMEOUT
+  //{
 	/* Error_Handler() function is called when Timeout error occurs.
 	When Acknowledge failure occurs (Slave don't acknowledge its address)
 	Master restarts communication */
-    //if (HAL_I2C_GetError(&hi2c1) != HAL_I2C_ERROR_AF)
-    //{
-    //  return Codec_TIMEOUT_UserCallback();;
-    //}  
-  }
+  //  if (HAL_I2C_GetError(&hi2c1) != HAL_I2C_ERROR_AF)
+  //  {
+
+  //    return Codec_TIMEOUT_UserCallback();
+  //  }  
+
+  //}
   
 #ifdef VERIFY_WRITTENDATA
-  /* Verify that the data has been correctly written */  
-  result = (Codec_ReadRegister(RegisterAddr) == RegisterValue)? 0:1;
+  /* Verify that the data has been correctly written */ 
+  uint8_t test;
+  test = Codec_ReadRegister(RegisterAddr);
+  result = (test == RegisterValue)? 0:1;
 #endif /* VERIFY_WRITTENDATA */
 
   /* Return the verifying value: 0 (Passed) or 1 (Failed) */
@@ -851,7 +859,7 @@ static uint32_t Codec_ReadRegister(uint8_t RegisterAddr)
 
   /* Transmit the register address to be read */
   /* Transmit the first address for write operation */
-  while(HAL_I2C_Master_Transmit(&hi2c1, CODEC_ADDRESS, &RegisterAddr,1,CODEC_LONG_TIMEOUT))
+  while(HAL_I2C_Master_Transmit(&hi2c1, CODEC_ADDRESS, &RegisterAddr,1,CODEC_LONG_TIMEOUT)!= HAL_OK)
   {
 	/* Error_Handler() function is called when Timeout error occurs.
 	When Acknowledge failure occurs (Slave don't acknowledge its address)
@@ -1749,6 +1757,9 @@ void HAL_I2S_MspInit(I2S_HandleTypeDef *hi2s)
      /* Enable the I2S DMA request */
      //__HAL_I2S_ENABLE_IT(&hi2s3, SPI_I2S_DMAReq_Tx);
      //__HAL_I2S_ENABLE(&hi2s3);
+  	    /* Peripheral interrupt init*/
+		HAL_NVIC_SetPriority(SPI3_IRQn, 2, 0);
+		HAL_NVIC_EnableIRQ(SPI3_IRQn);
 #endif
 
       /* Enable the DMA clock */ 
@@ -1761,7 +1772,7 @@ void HAL_I2S_MspInit(I2S_HandleTypeDef *hi2s)
 	  DmaHandle.Instance = DMA1_Stream7;
       DmaHandle.Init.Channel = DMA_CHANNEL_0;
 	  DmaHandle.Init.Direction = DMA_MEMORY_TO_PERIPH;
-	  DmaHandle.Init.PeriphInc = DMA_PINC_ENABLE;
+	  DmaHandle.Init.PeriphInc = DMA_PINC_DISABLE;
 	  DmaHandle.Init.MemInc = DMA_MINC_ENABLE;
 	  DmaHandle.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
       DmaHandle.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD; 
@@ -1774,7 +1785,7 @@ void HAL_I2S_MspInit(I2S_HandleTypeDef *hi2s)
       DmaHandle.Instance->PAR = CODEC_I2S_ADDRESS;
       DmaHandle.Instance->M0AR = (uint32_t)0;
       DmaHandle.Instance->NDTR = (uint32_t)0xFFFE;
-      
+      DmaHandle.XferCpltCallback = &TC_Callback;
       HAL_DMA_Init(&DmaHandle);
 
       /* Associate the initialized DMA handle to the the SPI handle */
@@ -1786,9 +1797,6 @@ void HAL_I2S_MspInit(I2S_HandleTypeDef *hi2s)
       /* Enable the DMA STREAM global Interrupt */
       HAL_NVIC_EnableIRQ(DMA1_Stream7_IRQn);    
 	  
-	    /* Peripheral interrupt init*/
-		HAL_NVIC_SetPriority(SPI3_IRQn, 2, 0);
-		HAL_NVIC_EnableIRQ(SPI3_IRQn);
  }
 
 }
