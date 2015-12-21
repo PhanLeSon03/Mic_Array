@@ -25,8 +25,7 @@
 /* I2C TIMING is calculated in case of the I2C Clock source is the APB1CLK = 50 MHz */
 /* This example use TIMING to 0x40912732 to reach 100 kHz speed (Rise time = 700 ns, Fall time = 100 ns) */
 
-#define AUDIO_FILE_SZE          990000
-#define AUIDO_START_ADDRESS     58 /* Offset relative to audio file header size */
+
 
 #define DEBUG           0
 
@@ -46,9 +45,8 @@ AUDIO_IN_BufferTypeDef Buffer3;
 
 uint8_t  pI2CData[20]= {0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190};
 uint8_t  pI2CRx[10];
-extern uint8_t  pcSTAComnd[19];
 extern const uint16_t AUDIO_SAMPLE[];
-
+extern uint8_t  pcSTAComnd[19];
 
 uint16_t __IO idxSPI5DataBuf1, idxSPI5DataBuf2;
 uint16_t __IO cntRisingEXTI;
@@ -63,10 +61,9 @@ uint8_t  pUARTBuf[128];
 
 /* Private function prototypes -----------------------------------------------*/
 static void SystemClock_Config(void);
-static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8_t id);
-static void AUDIO_InitApplication(void);
+
 static void CPU_CACHE_Enable(void);
-static void SystemClock_Config1(void);
+
 static uint16_t SPI_I2S_ReceiveData(SPI_TypeDef* SPIx);
 
 void UART6_Init(void);
@@ -74,7 +71,6 @@ void MX_SPI5_Init(void);
 void ReadSTASeq(uint8_t Addr, uint8_t *pBufOut,uint8_t Len );
 void WriteSTAByte(uint8_t Addr, uint8_t *pBufIn, uint8_t len);
 void SPI5_CallBack(SPI_HandleTypeDef *hspi);
-static void SPI_I2S_SendData(SPI_TypeDef* SPIx, uint16_t Data);
 
 
 char __IO flg10ms;
@@ -115,7 +111,7 @@ int main(void)
   BSP_LED_Init(LED2);
   
   /* Initialize for Audio player with CS43L22 */
-   WavePlayerInit(48000);
+ WavePlayerInit(48000);
 
     /* Play on */
   AudioFlashPlay((uint16_t*)(AUDIO_SAMPLE + AUIDO_START_ADDRESS),AUDIO_FILE_SZE,AUIDO_START_ADDRESS);
@@ -228,7 +224,7 @@ int main(void)
 	      }
 #endif
          BSP_LED_Toggle(LED1);
-		 //BSP_LED_Toggle(LED2);
+		 BSP_LED_Toggle(LED2);
 	   	 j=0;
                  
        }
@@ -725,12 +721,6 @@ static uint16_t SPI_I2S_ReceiveData(SPI_TypeDef* SPIx)
   return SPIx->DR;
 }
 
-static void SPI_I2S_SendData(SPI_TypeDef* SPIx, uint16_t Data)
-{
-  /* set the data to the DR register */
-  SPIx->DR=Data;
-}
-	
 
 void EXTI4_IRQHandler(void)
 {

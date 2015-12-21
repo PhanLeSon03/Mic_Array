@@ -250,7 +250,7 @@
         <option>
           <name>CCAllowList</name>
           <version>1</version>
-          <state>00000000</state>
+          <state>11111110</state>
         </option>
         <option>
           <name>CCDebugInfo</name>
@@ -351,7 +351,7 @@
         </option>
         <option>
           <name>CCOptLevel</name>
-          <state>0</state>
+          <state>3</state>
         </option>
         <option>
           <name>CCOptStrategy</name>
@@ -360,7 +360,7 @@
         </option>
         <option>
           <name>CCOptLevelSlave</name>
-          <state>0</state>
+          <state>3</state>
         </option>
         <option>
           <name>CompilerMisraRules98</name>
@@ -997,13 +997,7 @@
         <name>$PROJ_DIR$\..\Src\audio_sample.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Src\explorer.c</name>
-      </file>
-      <file>
         <name>$PROJ_DIR$\..\Src\main.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\Src\menu.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\sta321mp.c</name>

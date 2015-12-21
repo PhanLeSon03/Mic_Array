@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      21/Dec/2015  01:05:26
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      21/Dec/2015  22:48:26
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -16,10 +16,8 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-//        --no_clustering --no_scheduling --debug --endian=little
-//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-//        (x86)\IAR Systems\Embedded Workbench
+//        --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
+//        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
@@ -48,7 +46,7 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
-//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohz --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
@@ -134,6 +132,44 @@
           CFI D14 SameValue
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
+        
+        
+          CFI Common cfiCommon1 Using cfiNames0
+          CFI CodeAlign 2
+          CFI DataAlign 4
+          CFI ReturnAddress R14 CODE
+          CFI CFA R13+0
+          CFI R0 SameValue
+          CFI R1 SameValue
+          CFI R2 SameValue
+          CFI R3 SameValue
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 SameValue
+          CFI R14 SameValue
+          CFI D0 SameValue
+          CFI D1 SameValue
+          CFI D2 SameValue
+          CFI D3 SameValue
+          CFI D4 SameValue
+          CFI D5 SameValue
+          CFI D6 SameValue
+          CFI D7 SameValue
+          CFI D8 SameValue
+          CFI D9 SameValue
+          CFI D10 SameValue
+          CFI D11 SameValue
+          CFI D12 SameValue
+          CFI D13 SameValue
+          CFI D14 SameValue
+          CFI D15 SameValue
+          CFI EndCommon cfiCommon1
         
 // H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_ll_fmc.c
 //    1 /**
@@ -294,13 +330,12 @@
 //  150 HAL_StatusTypeDef  FMC_NORSRAM_Init(FMC_NORSRAM_TypeDef *Device, FMC_NORSRAM_InitTypeDef* Init)
 //  151 { 
 FMC_NORSRAM_Init:
-        PUSH     {R4,R5}
-          CFI R5 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOVS     R2,R0
+        PUSH     {R4,R5,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
 //  152   uint32_t tmpr = 0;
-        MOVS     R3,#+0
 //  153     
 //  154   /* Check the parameters */
 //  155   assert_param(IS_FMC_NORSRAM_DEVICE(Device));
@@ -322,9 +357,6 @@ FMC_NORSRAM_Init:
 //  171 
 //  172   /* Get the BTCR register value */
 //  173   tmpr = Device->BTCR[Init->NSBank];
-        LDR      R0,[R1, #+0]
-        LDR      R0,[R2, R0, LSL #+2]
-        MOVS     R3,R0
 //  174   
 //  175   /* Clear MBKEN, MUXEN, MTYP, MWID, FACCEN, BURSTEN, WAITPOL, WAITCFG, WREN,
 //  176            WAITEN, EXTMOD, ASYNCWAIT, CBURSTRW and CCLKEN bits */
@@ -333,8 +365,6 @@ FMC_NORSRAM_Init:
 //  179                        FMC_BCR1_WAITPOL   | FMC_BCR1_CPSIZE    | FMC_BCR1_WAITCFG  | \ 
 //  180                        FMC_BCR1_WREN      | FMC_BCR1_WAITEN   | FMC_BCR1_EXTMOD   | \ 
 //  181                        FMC_BCR1_ASYNCWAIT | FMC_BCR1_CBURSTRW | FMC_BCR1_CCLKEN | FMC_BCR1_WFDIS));
-        LDR.N    R0,??DataTable2  ;; 0xffc00480
-        ANDS     R3,R0,R3
 //  182   
 //  183   /* Set NORSRAM device control parameters */
 //  184   tmpr |= (uint32_t)(Init->DataAddressMux       |\ 
@@ -351,91 +381,84 @@ FMC_NORSRAM_Init:
 //  195                     Init->ContinuousClock      |\ 
 //  196                     Init->PageSize             |\ 
 //  197                     Init->WriteFifo);
-        LDR      R0,[R1, #+4]
-        LDR      R4,[R1, #+8]
-        ORRS     R0,R4,R0
-        LDR      R4,[R1, #+12]
-        ORRS     R0,R4,R0
-        LDR      R4,[R1, #+16]
-        ORRS     R0,R4,R0
-        LDR      R4,[R1, #+20]
-        ORRS     R0,R4,R0
-        LDR      R4,[R1, #+24]
-        ORRS     R0,R4,R0
-        LDR      R4,[R1, #+28]
-        ORRS     R0,R4,R0
-        LDR      R4,[R1, #+32]
-        ORRS     R0,R4,R0
-        LDR      R4,[R1, #+36]
-        ORRS     R0,R4,R0
-        LDR      R4,[R1, #+40]
-        ORRS     R0,R4,R0
-        LDR      R4,[R1, #+44]
-        ORRS     R0,R4,R0
-        LDR      R4,[R1, #+48]
-        ORRS     R0,R4,R0
-        LDR      R4,[R1, #+56]
-        ORRS     R0,R4,R0
-        LDR      R4,[R1, #+52]
-        ORRS     R0,R4,R0
-        ORRS     R3,R0,R3
+        LDR.N    R5,??DataTable2  ;; 0xffc00480
+        LDR      R2,[R1, #+0]
+        LDR      R4,[R0, R2, LSL #+2]
+        LDR      R3,[R1, #+8]
+        ANDS     R4,R5,R4
+        LDR      R5,[R1, #+4]
+        ORRS     R4,R5,R4
+        LDR      R5,[R1, #+12]
+        ORRS     R4,R3,R4
+        ORRS     R4,R5,R4
+        LDR      R5,[R1, #+16]
+        ORRS     R4,R5,R4
+        LDR      R5,[R1, #+20]
+        ORRS     R4,R5,R4
+        LDR      R5,[R1, #+24]
+        ORRS     R4,R5,R4
+        LDR      R5,[R1, #+28]
+        ORRS     R4,R5,R4
+        LDR      R5,[R1, #+32]
+        ORRS     R4,R5,R4
+        LDR      R5,[R1, #+36]
+        ORRS     R4,R5,R4
+        LDR      R5,[R1, #+40]
+        ORRS     R4,R5,R4
+        LDR      R5,[R1, #+44]
+        ORRS     R4,R5,R4
+        LDR      R5,[R1, #+48]
+        ORRS     R4,R5,R4
+        LDR      R5,[R1, #+56]
+        ORRS     R4,R5,R4
+        LDR      R5,[R1, #+52]
+        ORRS     R4,R5,R4
 //  198                     
 //  199   if(Init->MemoryType == FMC_MEMORY_TYPE_NOR)
-        LDR      R0,[R1, #+8]
-        CMP      R0,#+8
-        BNE.N    ??FMC_NORSRAM_Init_0
+        CMP      R3,#+8
+        IT       EQ 
+        ORREQ    R4,R4,#0x40
 //  200   {
 //  201     tmpr |= (uint32_t)FMC_NORSRAM_FLASH_ACCESS_ENABLE;
-        ORRS     R3,R3,#0x40
 //  202   }
 //  203   
 //  204   Device->BTCR[Init->NSBank] = tmpr;
-??FMC_NORSRAM_Init_0:
-        LDR      R0,[R1, #+0]
-        STR      R3,[R2, R0, LSL #+2]
+        STR      R4,[R0, R2, LSL #+2]
 //  205 
 //  206   /* Configure synchronous mode when Continuous clock is enabled for bank2..4 */
 //  207   if((Init->ContinuousClock == FMC_CONTINUOUS_CLOCK_SYNC_ASYNC) && (Init->NSBank != FMC_NORSRAM_BANK1))
-        LDR      R0,[R1, #+48]
-        CMP      R0,#+1048576
-        BNE.N    ??FMC_NORSRAM_Init_1
-        LDR      R0,[R1, #+0]
-        CMP      R0,#+0
-        BEQ.N    ??FMC_NORSRAM_Init_1
+        LDR      R2,[R1, #+48]
+        CMP      R2,#+1048576
+        BNE.N    ??FMC_NORSRAM_Init_0
+        LDR      R2,[R1, #+0]
+        CBZ.N    R2,??FMC_NORSRAM_Init_1
 //  208   { 
 //  209     Init->BurstAccessMode = FMC_BURST_ACCESS_MODE_ENABLE; 
-        MOV      R0,#+256
-        STR      R0,[R1, #+16]
+        MOV      R2,#+256
+        STR      R2,[R1, #+16]
 //  210     Device->BTCR[FMC_NORSRAM_BANK1] |= (uint32_t)(Init->BurstAccessMode  |\ 
 //  211                                                   Init->ContinuousClock);
-        LDR      R0,[R2, #+0]
-        LDR      R4,[R1, #+16]
-        LDR      R5,[R1, #+48]
-        ORRS     R4,R5,R4
-        ORRS     R0,R4,R0
-        STR      R0,[R2, #+0]
+        LDR      R2,[R0, #+0]
+        ORR      R2,R2,#0x100000
+        ORR      R2,R2,#0x100
+        STR      R2,[R0, #+0]
 //  212   }
 //  213   if(Init->NSBank != FMC_NORSRAM_BANK1)
-??FMC_NORSRAM_Init_1:
-        LDR      R0,[R1, #+0]
-        CMP      R0,#+0
-        BEQ.N    ??FMC_NORSRAM_Init_2
+??FMC_NORSRAM_Init_0:
+        LDR      R2,[R1, #+0]
+        CBZ.N    R2,??FMC_NORSRAM_Init_1
 //  214   {
 //  215     Device->BTCR[FMC_NORSRAM_BANK1] |= (uint32_t)(Init->WriteFifo);              
-        LDR      R0,[R2, #+0]
-        LDR      R4,[R1, #+52]
-        ORRS     R0,R4,R0
-        STR      R0,[R2, #+0]
+        LDR      R2,[R0, #+0]
+        LDR      R1,[R1, #+52]
+        ORRS     R1,R1,R2
+        STR      R1,[R0, #+0]
 //  216   }
 //  217   
 //  218   return HAL_OK;
-??FMC_NORSRAM_Init_2:
+??FMC_NORSRAM_Init_1:
         MOVS     R0,#+0
-        POP      {R4,R5}
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI CFA R13+0
-        BX       LR               ;; return
+        POP      {R4,R5,PC}       ;; return
 //  219 }
           CFI EndBlock cfiBlock0
 //  220 
@@ -455,11 +478,6 @@ FMC_NORSRAM_Init:
         THUMB
 //  229 HAL_StatusTypeDef FMC_NORSRAM_DeInit(FMC_NORSRAM_TypeDef *Device, FMC_NORSRAM_EXTENDED_TypeDef *ExDevice, uint32_t Bank)
 //  230 {
-FMC_NORSRAM_DeInit:
-        PUSH     {R4}
-          CFI R4 Frame(CFA, -4)
-          CFI CFA R13+4
-        MOVS     R3,R0
 //  231   /* Check the parameters */
 //  232   assert_param(IS_FMC_NORSRAM_DEVICE(Device));
 //  233   assert_param(IS_FMC_NORSRAM_EXTENDED_DEVICE(ExDevice));
@@ -467,45 +485,39 @@ FMC_NORSRAM_DeInit:
 //  235   
 //  236   /* Disable the FMC_NORSRAM device */
 //  237   __FMC_NORSRAM_DISABLE(Device, Bank);
-        LDR      R0,[R3, R2, LSL #+2]
-        LSRS     R0,R0,#+1
-        LSLS     R0,R0,#+1
-        STR      R0,[R3, R2, LSL #+2]
+FMC_NORSRAM_DeInit:
+        LDR      R3,[R0, R2, LSL #+2]
+        LSRS     R3,R3,#+1
+        LSLS     R3,R3,#+1
 //  238   
 //  239   /* De-initialize the FMC_NORSRAM device */
 //  240   /* FMC_NORSRAM_BANK1 */
 //  241   if(Bank == FMC_NORSRAM_BANK1)
         CMP      R2,#+0
-        BNE.N    ??FMC_NORSRAM_DeInit_0
+        STR      R3,[R0, R2, LSL #+2]
+        ITTEE    EQ 
+        MOVWEQ   R3,#+12507
+        STREQ    R3,[R0, #+0]
+        MOVWNE   R3,#+12498
+        STRNE    R3,[R0, R2, LSL #+2]
 //  242   {
 //  243     Device->BTCR[Bank] = 0x000030DB;    
-        MOVW     R0,#+12507
-        STR      R0,[R3, R2, LSL #+2]
-        B.N      ??FMC_NORSRAM_DeInit_1
 //  244   }
 //  245   /* FMC_NORSRAM_BANK2, FMC_NORSRAM_BANK3 or FMC_NORSRAM_BANK4 */
 //  246   else
 //  247   {   
 //  248     Device->BTCR[Bank] = 0x000030D2; 
-??FMC_NORSRAM_DeInit_0:
-        MOVW     R0,#+12498
-        STR      R0,[R3, R2, LSL #+2]
 //  249   }
 //  250   
 //  251   Device->BTCR[Bank + 1] = 0x0FFFFFFF;
-??FMC_NORSRAM_DeInit_1:
-        MVNS     R0,#-268435456
-        ADDS     R4,R3,R2, LSL #+2
-        STR      R0,[R4, #+4]
+        ADD      R0,R0,R2, LSL #+2
+        MVN      R3,#-268435456
+        STR      R3,[R0, #+4]
 //  252   ExDevice->BWTR[Bank]   = 0x0FFFFFFF;
-        MVNS     R0,#-268435456
-        STR      R0,[R1, R2, LSL #+2]
 //  253    
 //  254   return HAL_OK;
         MOVS     R0,#+0
-        POP      {R4}
-          CFI R4 SameValue
-          CFI CFA R13+0
+        STR      R3,[R1, R2, LSL #+2]
         BX       LR               ;; return
 //  255 }
           CFI EndBlock cfiBlock1
@@ -527,14 +539,7 @@ FMC_NORSRAM_DeInit:
         THUMB
 //  266 HAL_StatusTypeDef FMC_NORSRAM_Timing_Init(FMC_NORSRAM_TypeDef *Device, FMC_NORSRAM_TimingTypeDef *Timing, uint32_t Bank)
 //  267 {
-FMC_NORSRAM_Timing_Init:
-        PUSH     {R4,R5}
-          CFI R5 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOVS     R3,R0
 //  268   uint32_t tmpr = 0;
-        MOVS     R4,#+0
 //  269   
 //  270   /* Check the parameters */
 //  271   assert_param(IS_FMC_NORSRAM_DEVICE(Device));
@@ -549,15 +554,18 @@ FMC_NORSRAM_Timing_Init:
 //  280   
 //  281   /* Get the BTCR register value */
 //  282   tmpr = Device->BTCR[Bank + 1];
-        ADDS     R0,R3,R2, LSL #+2
-        LDR      R0,[R0, #+4]
-        MOVS     R4,R0
+FMC_NORSRAM_Timing_Init:
+        ADD      R2,R0,R2, LSL #+2
+        PUSH     {R4,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        LDR      R3,[R2, #+4]
 //  283 
 //  284   /* Clear ADDSET, ADDHLD, DATAST, BUSTURN, CLKDIV, DATLAT and ACCMOD bits */
 //  285   tmpr &= ((uint32_t)~(FMC_BTR1_ADDSET  | FMC_BTR1_ADDHLD | FMC_BTR1_DATAST | \ 
 //  286                        FMC_BTR1_BUSTURN | FMC_BTR1_CLKDIV | FMC_BTR1_DATLAT | \ 
 //  287                        FMC_BTR1_ACCMOD));
-        ANDS     R4,R4,#0xC0000000
 //  288   
 //  289   /* Set FMC_NORSRAM device timing parameters */  
 //  290   tmpr |= (uint32_t)(Timing->AddressSetupTime                  |\ 
@@ -568,53 +576,44 @@ FMC_NORSRAM_Timing_Init:
 //  295                    (((Timing->DataLatency)-2) << 24)         |\ 
 //  296                     (Timing->AccessMode)
 //  297                     );
-        LDR      R0,[R1, #+0]
-        LDR      R5,[R1, #+4]
-        ORRS     R0,R0,R5, LSL #+4
-        LDR      R5,[R1, #+8]
-        ORRS     R0,R0,R5, LSL #+8
-        LDR      R5,[R1, #+12]
-        ORRS     R0,R0,R5, LSL #+16
-        LDR      R5,[R1, #+16]
-        SUBS     R5,R5,#+1
-        ORRS     R0,R0,R5, LSL #+20
-        LDR      R5,[R1, #+20]
-        SUBS     R5,R5,#+2
-        ORRS     R0,R0,R5, LSL #+24
-        LDR      R5,[R1, #+24]
-        ORRS     R0,R5,R0
-        ORRS     R4,R0,R4
 //  298   
 //  299   Device->BTCR[Bank + 1] = tmpr;
-        ADDS     R0,R3,R2, LSL #+2
-        STR      R4,[R0, #+4]
+        LDR      R4,[R1, #+0]
+        AND      R3,R3,#0xC0000000
+        BL       ?Subroutine3
+??CrossCallReturnLabel_0:
+        ORR      R3,R3,R4, LSL #+16
+        LDR      R4,[R1, #+16]
+        SUBS     R4,R4,#+1
+        ORR      R3,R3,R4, LSL #+20
+        LDR      R4,[R1, #+20]
+        SUBS     R4,R4,#+2
+        ORR      R3,R3,R4, LSL #+24
+        LDR      R4,[R1, #+24]
+        ORRS     R3,R4,R3
+        STR      R3,[R2, #+4]
 //  300   
 //  301   /* Configure Clock division value (in NORSRAM bank 1) when continuous clock is enabled */
 //  302   if(HAL_IS_BIT_SET(Device->BTCR[FMC_NORSRAM_BANK1], FMC_BCR1_CCLKEN))
-        LDR      R0,[R3, #+0]
-        LSLS     R0,R0,#+11
+        LDR      R2,[R0, #+0]
+        LSLS     R2,R2,#+11
         BPL.N    ??FMC_NORSRAM_Timing_Init_0
 //  303   {
 //  304     tmpr = (uint32_t)(Device->BTCR[FMC_NORSRAM_BANK1 + 1] & ~(((uint32_t)0x0F) << 20)); 
-        LDR      R0,[R3, #+4]
-        BICS     R0,R0,#0xF00000
-        MOVS     R4,R0
+        LDR      R2,[R0, #+4]
 //  305     tmpr |= (uint32_t)(((Timing->CLKDivision)-1) << 20);
-        LDR      R0,[R1, #+16]
-        SUBS     R0,R0,#+1
-        ORRS     R4,R4,R0, LSL #+20
 //  306     Device->BTCR[FMC_NORSRAM_BANK1 + 1] = tmpr;
-        STR      R4,[R3, #+4]
+        LDR      R1,[R1, #+16]
+        BIC      R2,R2,#0xF00000
+        SUBS     R1,R1,#+1
+        ORR      R1,R2,R1, LSL #+20
+        STR      R1,[R0, #+4]
 //  307   }  
 //  308   
 //  309   return HAL_OK;   
 ??FMC_NORSRAM_Timing_Init_0:
         MOVS     R0,#+0
-        POP      {R4,R5}
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI CFA R13+0
-        BX       LR               ;; return
+        POP      {R4,PC}          ;; return
 //  310 }
           CFI EndBlock cfiBlock2
 //  311 
@@ -634,22 +633,19 @@ FMC_NORSRAM_Timing_Init:
         THUMB
 //  320 HAL_StatusTypeDef  FMC_NORSRAM_Extended_Timing_Init(FMC_NORSRAM_EXTENDED_TypeDef *Device, FMC_NORSRAM_TimingTypeDef *Timing, uint32_t Bank, uint32_t ExtendedMode)
 //  321 {  
-FMC_NORSRAM_Extended_Timing_Init:
-        PUSH     {R4-R6}
-          CFI R6 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
-        MOVS     R4,R0
 //  322   uint32_t tmpr = 0;
-        MOVS     R5,#+0
 //  323  
 //  324   /* Check the parameters */
 //  325   assert_param(IS_FMC_EXTENDED_MODE(ExtendedMode));
 //  326   
 //  327   /* Set NORSRAM device timing register for write configuration, if extended mode is used */
 //  328   if(ExtendedMode == FMC_EXTENDED_MODE_ENABLE)
+FMC_NORSRAM_Extended_Timing_Init:
         CMP      R3,#+16384
+        PUSH     {R4,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
         BNE.N    ??FMC_NORSRAM_Extended_Timing_Init_0
 //  329   {
 //  330     /* Check the parameters */
@@ -665,54 +661,72 @@ FMC_NORSRAM_Extended_Timing_Init:
 //  340     
 //  341     /* Get the BWTR register value */
 //  342     tmpr = Device->BWTR[Bank];
-        LDR      R0,[R4, R2, LSL #+2]
-        MOVS     R5,R0
 //  343 
 //  344     /* Clear ADDSET, ADDHLD, DATAST, BUSTURN, CLKDIV, DATLAT and ACCMOD bits */
 //  345     tmpr &= ((uint32_t)~(FMC_BWTR1_ADDSET  | FMC_BWTR1_ADDHLD | FMC_BWTR1_DATAST | \ 
 //  346                          FMC_BWTR1_BUSTURN | FMC_BWTR1_ACCMOD));
-        LDR.N    R0,??DataTable2_1  ;; 0xcff00000
-        ANDS     R5,R0,R5
 //  347     
 //  348     tmpr |= (uint32_t)(Timing->AddressSetupTime                 |\ 
 //  349                       ((Timing->AddressHoldTime) << 4)          |\ 
 //  350                       ((Timing->DataSetupTime) << 8)            |\ 
 //  351                       ((Timing->BusTurnAroundDuration) << 16)   |\ 
 //  352                       (Timing->AccessMode));
-        LDR      R0,[R1, #+0]
-        LDR      R6,[R1, #+4]
-        ORRS     R0,R0,R6, LSL #+4
-        LDR      R6,[R1, #+8]
-        ORRS     R0,R0,R6, LSL #+8
-        LDR      R6,[R1, #+12]
-        ORRS     R0,R0,R6, LSL #+16
-        LDR      R6,[R1, #+24]
-        ORRS     R0,R6,R0
-        ORRS     R5,R0,R5
 //  353 
 //  354     Device->BWTR[Bank] = tmpr;
-        STR      R5,[R4, R2, LSL #+2]
-        B.N      ??FMC_NORSRAM_Extended_Timing_Init_1
+        LDR      R3,[R0, R2, LSL #+2]
+        LDR.N    R4,??DataTable2_1  ;; 0xcff00000
+        ANDS     R3,R4,R3
+        LDR      R4,[R1, #+0]
+        BL       ?Subroutine3
 //  355   }
+??CrossCallReturnLabel_1:
+        LDR      R1,[R1, #+24]
+        ORR      R3,R3,R4, LSL #+16
+        ORRS     R1,R1,R3
+        B.N      ??FMC_NORSRAM_Extended_Timing_Init_1
 //  356   else
 //  357   {
 //  358     Device->BWTR[Bank] = 0x0FFFFFFF;
 ??FMC_NORSRAM_Extended_Timing_Init_0:
-        MVNS     R0,#-268435456
-        STR      R0,[R4, R2, LSL #+2]
+        MVN      R1,#-268435456
+??FMC_NORSRAM_Extended_Timing_Init_1:
+        STR      R1,[R0, R2, LSL #+2]
 //  359   }   
 //  360   
 //  361   return HAL_OK;  
-??FMC_NORSRAM_Extended_Timing_Init_1:
         MOVS     R0,#+0
-        POP      {R4-R6}
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI R6 SameValue
-          CFI CFA R13+0
-        BX       LR               ;; return
+        POP      {R4,PC}          ;; return
 //  362 }
           CFI EndBlock cfiBlock3
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond4 Using cfiCommon0
+          CFI Function FMC_NORSRAM_Timing_Init
+          CFI Conditional ??CrossCallReturnLabel_0
+          CFI R4 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+8
+          CFI Block cfiCond5 Using cfiCommon0
+          CFI (cfiCond5) Function FMC_NORSRAM_Extended_Timing_Init
+          CFI (cfiCond5) Conditional ??CrossCallReturnLabel_1
+          CFI (cfiCond5) R4 Frame(CFA, -8)
+          CFI (cfiCond5) R14 Frame(CFA, -4)
+          CFI (cfiCond5) CFA R13+8
+          CFI Block cfiPicker6 Using cfiCommon1
+          CFI (cfiPicker6) NoFunction
+          CFI (cfiPicker6) Picker
+        THUMB
+?Subroutine3:
+        ORRS     R3,R4,R3
+        LDR      R4,[R1, #+4]
+        ORR      R3,R3,R4, LSL #+4
+        LDR      R4,[R1, #+8]
+        ORR      R3,R3,R4, LSL #+8
+        LDR      R4,[R1, #+12]
+        BX       LR
+          CFI EndBlock cfiCond4
+          CFI EndBlock cfiCond5
+          CFI EndBlock cfiPicker6
 //  363 /**
 //  364   * @}
 //  365   */
@@ -740,29 +754,26 @@ FMC_NORSRAM_Extended_Timing_Init:
 //  387   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock4 Using cfiCommon0
+          CFI Block cfiBlock7 Using cfiCommon0
           CFI Function FMC_NORSRAM_WriteOperation_Enable
           CFI NoCalls
         THUMB
 //  388 HAL_StatusTypeDef FMC_NORSRAM_WriteOperation_Enable(FMC_NORSRAM_TypeDef *Device, uint32_t Bank)
 //  389 {
-FMC_NORSRAM_WriteOperation_Enable:
-        MOVS     R2,R0
 //  390   /* Check the parameters */
 //  391   assert_param(IS_FMC_NORSRAM_DEVICE(Device));
 //  392   assert_param(IS_FMC_NORSRAM_BANK(Bank));
 //  393   
 //  394   /* Enable write operation */
 //  395   Device->BTCR[Bank] |= FMC_WRITE_OPERATION_ENABLE; 
-        LDR      R0,[R2, R1, LSL #+2]
-        ORRS     R0,R0,#0x1000
-        STR      R0,[R2, R1, LSL #+2]
+FMC_NORSRAM_WriteOperation_Enable:
+        LDR      R2,[R0, R1, LSL #+2]
+        ORR      R2,R2,#0x1000
+        B.N      ?Subroutine0
 //  396 
 //  397   return HAL_OK;  
-        MOVS     R0,#+0
-        BX       LR               ;; return
 //  398 }
-          CFI EndBlock cfiBlock4
+          CFI EndBlock cfiBlock7
 //  399 
 //  400 /**
 //  401   * @brief  Disables dynamically FMC_NORSRAM write operation.
@@ -772,29 +783,37 @@ FMC_NORSRAM_WriteOperation_Enable:
 //  405   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock5 Using cfiCommon0
+          CFI Block cfiBlock8 Using cfiCommon0
           CFI Function FMC_NORSRAM_WriteOperation_Disable
           CFI NoCalls
         THUMB
 //  406 HAL_StatusTypeDef FMC_NORSRAM_WriteOperation_Disable(FMC_NORSRAM_TypeDef *Device, uint32_t Bank)
 //  407 { 
-FMC_NORSRAM_WriteOperation_Disable:
-        MOVS     R2,R0
 //  408   /* Check the parameters */
 //  409   assert_param(IS_FMC_NORSRAM_DEVICE(Device));
 //  410   assert_param(IS_FMC_NORSRAM_BANK(Bank));
 //  411     
 //  412   /* Disable write operation */
 //  413   Device->BTCR[Bank] &= ~FMC_WRITE_OPERATION_ENABLE; 
-        LDR      R0,[R2, R1, LSL #+2]
-        BICS     R0,R0,#0x1000
-        STR      R0,[R2, R1, LSL #+2]
+FMC_NORSRAM_WriteOperation_Disable:
+        LDR      R2,[R0, R1, LSL #+2]
+        BIC      R2,R2,#0x1000
+          CFI EndBlock cfiBlock8
+        REQUIRE ?Subroutine0
+        ;; // Fall through to label ?Subroutine0
 //  414 
 //  415   return HAL_OK;  
+//  416 }
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock9 Using cfiCommon0
+          CFI NoFunction
+        THUMB
+?Subroutine0:
+        STR      R2,[R0, R1, LSL #+2]
         MOVS     R0,#+0
         BX       LR               ;; return
-//  416 }
-          CFI EndBlock cfiBlock5
+          CFI EndBlock cfiBlock9
 //  417 
 //  418 /**
 //  419   * @}
@@ -855,19 +874,13 @@ FMC_NORSRAM_WriteOperation_Disable:
 //  474   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock6 Using cfiCommon0
+          CFI Block cfiBlock10 Using cfiCommon0
           CFI Function FMC_NAND_Init
           CFI NoCalls
         THUMB
 //  475 HAL_StatusTypeDef FMC_NAND_Init(FMC_NAND_TypeDef *Device, FMC_NAND_InitTypeDef *Init)
 //  476 {
-FMC_NAND_Init:
-        PUSH     {R4}
-          CFI R4 Frame(CFA, -4)
-          CFI CFA R13+4
-        MOVS     R2,R0
 //  477   uint32_t tmpr  = 0; 
-        MOVS     R3,#+0
 //  478     
 //  479   /* Check the parameters */
 //  480   assert_param(IS_FMC_NAND_DEVICE(Device));
@@ -881,15 +894,11 @@ FMC_NAND_Init:
 //  488 
 //  489   /* Get the NAND bank 3 register value */
 //  490   tmpr = Device->PCR;
-        LDR      R0,[R2, #+0]
-        MOVS     R3,R0
 //  491 
 //  492   /* Clear PWAITEN, PBKEN, PTYP, PWID, ECCEN, TCLR, TAR and ECCPS bits */
 //  493   tmpr &= ((uint32_t)~(FMC_PCR_PWAITEN  | FMC_PCR_PBKEN | FMC_PCR_PTYP | \ 
 //  494                        FMC_PCR_PWID | FMC_PCR_ECCEN | FMC_PCR_TCLR | \ 
 //  495                        FMC_PCR_TAR | FMC_PCR_ECCPS));  
-        LDR.N    R0,??DataTable2_2  ;; 0xfff00181
-        ANDS     R3,R0,R3
 //  496   /* Set NAND device control parameters */
 //  497   tmpr |= (uint32_t)(Init->Waitfeature                |\ 
 //  498                       FMC_PCR_MEMORY_TYPE_NAND         |\ 
@@ -898,33 +907,32 @@ FMC_NAND_Init:
 //  501                       Init->ECCPageSize                |\ 
 //  502                       ((Init->TCLRSetupTime) << 9)     |\ 
 //  503                       ((Init->TARSetupTime) << 13));   
-        LDR      R0,[R1, #+4]
-        LDR      R4,[R1, #+8]
-        ORRS     R0,R4,R0
-        LDR      R4,[R1, #+12]
-        ORRS     R0,R4,R0
-        LDR      R4,[R1, #+16]
-        ORRS     R0,R4,R0
-        LDR      R4,[R1, #+20]
-        ORRS     R0,R0,R4, LSL #+9
-        LDR      R4,[R1, #+24]
-        ORRS     R0,R0,R4, LSL #+13
-        ORRS     R0,R0,#0x8
-        ORRS     R3,R0,R3
 //  504   
 //  505     /* NAND bank 3 registers configuration */
 //  506     Device->PCR  = tmpr;
-        STR      R3,[R2, #+0]
+FMC_NAND_Init:
+        LDR      R2,[R0, #+0]
+        LDR.N    R3,??DataTable2_2  ;; 0xfff00181
+        ANDS     R2,R3,R2
+        LDR      R3,[R1, #+4]
+        ORRS     R2,R3,R2
+        LDR      R3,[R1, #+8]
+        ORRS     R2,R3,R2
+        LDR      R3,[R1, #+12]
+        ORRS     R2,R3,R2
+        LDR      R3,[R1, #+16]
+        ORRS     R2,R3,R2
+        LDR      R3,[R1, #+20]
+        LDR      R1,[R1, #+24]
+        ORR      R2,R2,R3, LSL #+9
+        ORR      R1,R2,R1, LSL #+13
+        ORR      R1,R1,#0x8
+        B.N      ?Subroutine1
 //  507   
 //  508   return HAL_OK;
-        MOVS     R0,#+0
-        POP      {R4}
-          CFI R4 SameValue
-          CFI CFA R13+0
-        BX       LR               ;; return
 //  509 
 //  510 }
-          CFI EndBlock cfiBlock6
+          CFI EndBlock cfiBlock10
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -954,20 +962,13 @@ FMC_NAND_Init:
 //  519   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock7 Using cfiCommon0
+          CFI Block cfiBlock11 Using cfiCommon0
           CFI Function FMC_NAND_CommonSpace_Timing_Init
           CFI NoCalls
         THUMB
 //  520 HAL_StatusTypeDef FMC_NAND_CommonSpace_Timing_Init(FMC_NAND_TypeDef *Device, FMC_NAND_PCC_TimingTypeDef *Timing, uint32_t Bank)
 //  521 {
-FMC_NAND_CommonSpace_Timing_Init:
-        PUSH     {R4,R5}
-          CFI R5 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOVS     R3,R0
 //  522   uint32_t tmpr = 0;  
-        MOVS     R4,#+0
 //  523   
 //  524   /* Check the parameters */
 //  525   assert_param(IS_FMC_NAND_DEVICE(Device));
@@ -979,42 +980,35 @@ FMC_NAND_CommonSpace_Timing_Init:
 //  531   
 //  532   /* Get the NAND bank 3 register value */
 //  533   tmpr = Device->PMEM;
-        LDR      R0,[R3, #+8]
-        MOVS     R4,R0
+FMC_NAND_CommonSpace_Timing_Init:
+        LDR      R2,[R0, #+8]
 //  534 
 //  535   /* Clear MEMSETx, MEMWAITx, MEMHOLDx and MEMHIZx bits */
 //  536   tmpr &= ((uint32_t)~(FMC_PMEM_MEMSET3  | FMC_PMEM_MEMWAIT3 | FMC_PMEM_MEMHOLD3 | \ 
 //  537                        FMC_PMEM_MEMHIZ3)); 
-        MOVS     R0,#+0
-        MOVS     R4,R0
 //  538   /* Set FMC_NAND device timing parameters */
 //  539   tmpr |= (uint32_t)(Timing->SetupTime                  |\ 
 //  540                        ((Timing->WaitSetupTime) << 8)     |\ 
 //  541                        ((Timing->HoldSetupTime) << 16)    |\ 
 //  542                        ((Timing->HiZSetupTime) << 24)
 //  543                        );
-        LDR      R0,[R1, #+0]
-        LDR      R5,[R1, #+4]
-        ORRS     R0,R0,R5, LSL #+8
-        LDR      R5,[R1, #+8]
-        ORRS     R0,R0,R5, LSL #+16
-        LDR      R5,[R1, #+12]
-        ORRS     R0,R0,R5, LSL #+24
-        ORRS     R4,R0,R4
 //  544                             
 //  545     /* NAND bank 3 registers configuration */
 //  546     Device->PMEM = tmpr;
-        STR      R4,[R3, #+8]
+        LDR      R2,[R1, #+0]
+        LDR      R3,[R1, #+4]
+        ORR      R2,R2,R3, LSL #+8
+        LDR      R3,[R1, #+8]
+        LDR      R1,[R1, #+12]
+        ORR      R2,R2,R3, LSL #+16
+        ORR      R1,R2,R1, LSL #+24
+        STR      R1,[R0, #+8]
 //  547   
 //  548   return HAL_OK;  
         MOVS     R0,#+0
-        POP      {R4,R5}
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI CFA R13+0
         BX       LR               ;; return
 //  549 }
-          CFI EndBlock cfiBlock7
+          CFI EndBlock cfiBlock11
 //  550 
 //  551 /**
 //  552   * @brief  Initializes the FMC_NAND Attribute space Timing according to the specified
@@ -1026,20 +1020,13 @@ FMC_NAND_CommonSpace_Timing_Init:
 //  558   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock8 Using cfiCommon0
+          CFI Block cfiBlock12 Using cfiCommon0
           CFI Function FMC_NAND_AttributeSpace_Timing_Init
           CFI NoCalls
         THUMB
 //  559 HAL_StatusTypeDef FMC_NAND_AttributeSpace_Timing_Init(FMC_NAND_TypeDef *Device, FMC_NAND_PCC_TimingTypeDef *Timing, uint32_t Bank)
 //  560 {
-FMC_NAND_AttributeSpace_Timing_Init:
-        PUSH     {R4,R5}
-          CFI R5 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOVS     R3,R0
 //  561   uint32_t tmpr = 0;  
-        MOVS     R4,#+0
 //  562   
 //  563   /* Check the parameters */ 
 //  564   assert_param(IS_FMC_NAND_DEVICE(Device)); 
@@ -1051,41 +1038,32 @@ FMC_NAND_AttributeSpace_Timing_Init:
 //  570   
 //  571   /* Get the NAND bank 3 register value */
 //  572   tmpr = Device->PATT;
-        LDR      R0,[R3, #+12]
-        MOVS     R4,R0
+FMC_NAND_AttributeSpace_Timing_Init:
+        LDR      R2,[R0, #+12]
 //  573 
 //  574   /* Clear ATTSETx, ATTWAITx, ATTHOLDx and ATTHIZx bits */
 //  575   tmpr &= ((uint32_t)~(FMC_PATT_ATTSET3  | FMC_PATT_ATTWAIT3 | FMC_PATT_ATTHOLD3 | \ 
 //  576                        FMC_PATT_ATTHIZ3));
-        MOVS     R0,#+0
-        MOVS     R4,R0
 //  577   /* Set FMC_NAND device timing parameters */
 //  578   tmpr |= (uint32_t)(Timing->SetupTime                  |\ 
 //  579                    ((Timing->WaitSetupTime) << 8)     |\ 
 //  580                    ((Timing->HoldSetupTime) << 16)    |\ 
 //  581                    ((Timing->HiZSetupTime) << 24));
-        LDR      R0,[R1, #+0]
-        LDR      R5,[R1, #+4]
-        ORRS     R0,R0,R5, LSL #+8
-        LDR      R5,[R1, #+8]
-        ORRS     R0,R0,R5, LSL #+16
-        LDR      R5,[R1, #+12]
-        ORRS     R0,R0,R5, LSL #+24
-        ORRS     R4,R0,R4
 //  582                        
 //  583     /* NAND bank 3 registers configuration */
 //  584     Device->PATT = tmpr;
-        STR      R4,[R3, #+12]
+        LDR      R2,[R1, #+0]
+        LDR      R3,[R1, #+4]
+        ORR      R2,R2,R3, LSL #+8
+        LDR      R3,[R1, #+8]
+        LDR      R1,[R1, #+12]
+        ORR      R2,R2,R3, LSL #+16
+        ORR      R1,R2,R1, LSL #+24
+        B.N      ?Subroutine2
 //  585   
 //  586   return HAL_OK;
-        MOVS     R0,#+0
-        POP      {R4,R5}
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI CFA R13+0
-        BX       LR               ;; return
 //  587 }
-          CFI EndBlock cfiBlock8
+          CFI EndBlock cfiBlock12
 //  588 
 //  589 /**
 //  590   * @brief  DeInitializes the FMC_NAND device 
@@ -1095,43 +1073,50 @@ FMC_NAND_AttributeSpace_Timing_Init:
 //  594   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock9 Using cfiCommon0
+          CFI Block cfiBlock13 Using cfiCommon0
           CFI Function FMC_NAND_DeInit
           CFI NoCalls
         THUMB
 //  595 HAL_StatusTypeDef FMC_NAND_DeInit(FMC_NAND_TypeDef *Device, uint32_t Bank)
 //  596 {
-FMC_NAND_DeInit:
-        MOVS     R2,R0
 //  597   /* Check the parameters */ 
 //  598   assert_param(IS_FMC_NAND_DEVICE(Device)); 
 //  599   assert_param(IS_FMC_NAND_BANK(Bank));
 //  600       
 //  601   /* Disable the NAND Bank */
 //  602   __FMC_NAND_DISABLE(Device);
-        LDR      R0,[R2, #+0]
-        BICS     R0,R0,#0x4
-        STR      R0,[R2, #+0]
+FMC_NAND_DeInit:
+        LDR      R1,[R0, #+0]
+        BIC      R1,R1,#0x4
+        STR      R1,[R0, #+0]
 //  603  
 //  604     /* Set the FMC_NAND_BANK3 registers to their reset values */
 //  605     Device->PCR  = 0x00000018;
-        MOVS     R0,#+24
-        STR      R0,[R2, #+0]
+        MOVS     R1,#+24
+        STR      R1,[R0, #+0]
 //  606     Device->SR   = 0x00000040;
-        MOVS     R0,#+64
-        STR      R0,[R2, #+4]
+        MOVS     R1,#+64
+        STR      R1,[R0, #+4]
 //  607     Device->PMEM = 0xFCFCFCFC;
-        MOVS     R0,#-50529028
-        STR      R0,[R2, #+8]
+        MOV      R1,#-50529028
+        STR      R1,[R0, #+8]
 //  608     Device->PATT = 0xFCFCFCFC; 
-        MOVS     R0,#-50529028
-        STR      R0,[R2, #+12]
+          CFI EndBlock cfiBlock13
+        REQUIRE ?Subroutine2
+        ;; // Fall through to label ?Subroutine2
 //  609   
 //  610   return HAL_OK;
+//  611 }
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock14 Using cfiCommon0
+          CFI NoFunction
+        THUMB
+?Subroutine2:
+        STR      R1,[R0, #+12]
         MOVS     R0,#+0
         BX       LR               ;; return
-//  611 }
-          CFI EndBlock cfiBlock9
+          CFI EndBlock cfiBlock14
 //  612 
 //  613 /**
 //  614   * @}
@@ -1161,29 +1146,37 @@ FMC_NAND_DeInit:
 //  638   */    
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock10 Using cfiCommon0
+          CFI Block cfiBlock15 Using cfiCommon0
           CFI Function FMC_NAND_ECC_Enable
           CFI NoCalls
         THUMB
 //  639 HAL_StatusTypeDef FMC_NAND_ECC_Enable(FMC_NAND_TypeDef *Device, uint32_t Bank)
 //  640 {
-FMC_NAND_ECC_Enable:
-        MOVS     R2,R0
 //  641   /* Check the parameters */ 
 //  642   assert_param(IS_FMC_NAND_DEVICE(Device)); 
 //  643   assert_param(IS_FMC_NAND_BANK(Bank));
 //  644     
 //  645   /* Enable ECC feature */
 //  646     Device->PCR |= FMC_PCR_ECCEN;
-        LDR      R0,[R2, #+0]
-        ORRS     R0,R0,#0x40
-        STR      R0,[R2, #+0]
+FMC_NAND_ECC_Enable:
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x40
+          CFI EndBlock cfiBlock15
+        REQUIRE ?Subroutine1
+        ;; // Fall through to label ?Subroutine1
 //  647   
 //  648   return HAL_OK;  
+//  649 }
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock16 Using cfiCommon0
+          CFI NoFunction
+        THUMB
+?Subroutine1:
+        STR      R1,[R0, #+0]
         MOVS     R0,#+0
         BX       LR               ;; return
-//  649 }
-          CFI EndBlock cfiBlock10
+          CFI EndBlock cfiBlock16
 //  650 
 //  651 
 //  652 /**
@@ -1194,29 +1187,26 @@ FMC_NAND_ECC_Enable:
 //  657   */  
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock11 Using cfiCommon0
+          CFI Block cfiBlock17 Using cfiCommon0
           CFI Function FMC_NAND_ECC_Disable
           CFI NoCalls
         THUMB
 //  658 HAL_StatusTypeDef FMC_NAND_ECC_Disable(FMC_NAND_TypeDef *Device, uint32_t Bank)  
 //  659 {  
-FMC_NAND_ECC_Disable:
-        MOVS     R2,R0
 //  660   /* Check the parameters */ 
 //  661   assert_param(IS_FMC_NAND_DEVICE(Device)); 
 //  662   assert_param(IS_FMC_NAND_BANK(Bank));
 //  663     
 //  664   /* Disable ECC feature */
 //  665     Device->PCR &= ~FMC_PCR_ECCEN;
-        LDR      R0,[R2, #+0]
-        BICS     R0,R0,#0x40
-        STR      R0,[R2, #+0]
+FMC_NAND_ECC_Disable:
+        LDR      R1,[R0, #+0]
+        BIC      R1,R1,#0x40
+        B.N      ?Subroutine1
 //  666 
 //  667   return HAL_OK;  
-        MOVS     R0,#+0
-        BX       LR               ;; return
 //  668 }
-          CFI EndBlock cfiBlock11
+          CFI EndBlock cfiBlock17
 //  669 
 //  670 /**
 //  671   * @brief  Disables dynamically FMC_NAND ECC feature.
@@ -1228,26 +1218,23 @@ FMC_NAND_ECC_Disable:
 //  677   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock12 Using cfiCommon0
+          CFI Block cfiBlock18 Using cfiCommon0
           CFI Function FMC_NAND_GetECC
         THUMB
 //  678 HAL_StatusTypeDef FMC_NAND_GetECC(FMC_NAND_TypeDef *Device, uint32_t *ECCval, uint32_t Bank, uint32_t Timeout)
 //  679 {
 FMC_NAND_GetECC:
-        PUSH     {R4-R8,LR}
+        PUSH     {R3-R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R8 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -20)
-          CFI R4 Frame(CFA, -24)
+          CFI R7 Frame(CFA, -8)
+          CFI R6 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -16)
+          CFI R4 Frame(CFA, -20)
           CFI CFA R13+24
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
-        MOVS     R7,R3
+        MOV      R4,R0
+        MOV      R5,R1
+        MOV      R6,R3
 //  680   uint32_t tickstart = 0;
-        MOVS     R8,#+0
 //  681 
 //  682   /* Check the parameters */ 
 //  683   assert_param(IS_FMC_NAND_DEVICE(Device)); 
@@ -1257,7 +1244,7 @@ FMC_NAND_GetECC:
 //  687   tickstart = HAL_GetTick();
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R8,R0
+        MOV      R7,R0
 //  688 
 //  689   /* Wait until FIFO is empty */
 //  690   while(__FMC_NAND_GET_FLAG(Device, Bank, FMC_FLAG_FEMPT) == RESET)
@@ -1268,22 +1255,21 @@ FMC_NAND_GetECC:
 //  691   {
 //  692     /* Check for the Timeout */
 //  693     if(Timeout != HAL_MAX_DELAY)
-        CMN      R7,#+1
+        CMN      R6,#+1
         BEQ.N    ??FMC_NAND_GetECC_0
 //  694     {
 //  695       if((Timeout == 0)||((HAL_GetTick() - tickstart ) > Timeout))
-        CMP      R7,#+0
-        BEQ.N    ??FMC_NAND_GetECC_2
+        CBZ.N    R6,??FMC_NAND_GetECC_2
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUBS     R0,R0,R8
-        CMP      R7,R0
+        SUBS     R0,R0,R7
+        CMP      R6,R0
         BCS.N    ??FMC_NAND_GetECC_0
 //  696       {
 //  697         return HAL_TIMEOUT;
 ??FMC_NAND_GetECC_2:
         MOVS     R0,#+3
-        B.N      ??FMC_NAND_GetECC_3
+        POP      {R1,R4-R7,PC}
 //  698       }
 //  699     }  
 //  700   }
@@ -1296,10 +1282,9 @@ FMC_NAND_GetECC:
 //  704 
 //  705   return HAL_OK;  
         MOVS     R0,#+0
-??FMC_NAND_GetECC_3:
-        POP      {R4-R8,PC}       ;; return
+        POP      {R1,R4-R7,PC}    ;; return
 //  706 }
-          CFI EndBlock cfiBlock12
+          CFI EndBlock cfiBlock18
 //  707 
 //  708 /**
 //  709   * @}
@@ -1357,22 +1342,24 @@ FMC_NAND_GetECC:
 //  761   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock13 Using cfiCommon0
+          CFI Block cfiBlock19 Using cfiCommon0
           CFI Function FMC_SDRAM_Init
           CFI NoCalls
         THUMB
 //  762 HAL_StatusTypeDef FMC_SDRAM_Init(FMC_SDRAM_TypeDef *Device, FMC_SDRAM_InitTypeDef *Init)
 //  763 {
 FMC_SDRAM_Init:
-        PUSH     {R4,R5}
-          CFI R5 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOVS     R2,R0
+        PUSH     {R4-R9,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R9 Frame(CFA, -8)
+          CFI R8 Frame(CFA, -12)
+          CFI R7 Frame(CFA, -16)
+          CFI R6 Frame(CFA, -20)
+          CFI R5 Frame(CFA, -24)
+          CFI R4 Frame(CFA, -28)
+          CFI CFA R13+28
 //  764   uint32_t tmpr1 = 0;
-        MOVS     R4,#+0
 //  765   uint32_t tmpr2 = 0;
-        MOVS     R3,#+0
 //  766     
 //  767   /* Check the parameters */
 //  768   assert_param(IS_FMC_SDRAM_DEVICE(Device));
@@ -1389,20 +1376,26 @@ FMC_SDRAM_Init:
 //  779 
 //  780   /* Set SDRAM bank configuration parameters */
 //  781   if (Init->SDBank != FMC_SDRAM_BANK2) 
-        LDR      R0,[R1, #+0]
-        CMP      R0,#+1
+        LDR      R2,[R1, #+36]
+        LDR      R3,[R1, #+32]
+        LDR      R4,[R1, #+28]
+        LDR      R5,[R1, #+24]
+        LDR      R6,[R1, #+20]
+        LDR      R7,[R1, #+16]
+        LDR      R12,[R1, #+12]
+        LDR      LR,[R1, #+8]
+        LDR      R8,[R1, #+4]
+        LDR      R1,[R1, #+0]
+        CMP      R1,#+1
+        LDR      R1,[R0, #+0]
         BEQ.N    ??FMC_SDRAM_Init_0
 //  782   { 
 //  783     tmpr1 = Device->SDCR[FMC_SDRAM_BANK1];
-        LDR      R0,[R2, #+0]
-        MOVS     R4,R0
 //  784     
 //  785     /* Clear NC, NR, MWID, NB, CAS, WP, SDCLK, RBURST, and RPIPE bits */
 //  786     tmpr1 &= ((uint32_t)~(FMC_SDCR1_NC  | FMC_SDCR1_NR | FMC_SDCR1_MWID | \ 
 //  787                          FMC_SDCR1_NB  | FMC_SDCR1_CAS | FMC_SDCR1_WP | \ 
 //  788                          FMC_SDCR1_SDCLK | FMC_SDCR1_RBURST | FMC_SDCR1_RPIPE));
-        LSRS     R4,R4,#+15
-        LSLS     R4,R4,#+15
 //  789 
 //  790     tmpr1 |= (uint32_t)(Init->ColumnBitsNumber   |\ 
 //  791                         Init->RowBitsNumber      |\ 
@@ -1414,62 +1407,39 @@ FMC_SDRAM_Init:
 //  797                         Init->ReadBurst          |\ 
 //  798                         Init->ReadPipeDelay
 //  799                         );                                      
-        LDR      R0,[R1, #+4]
-        LDR      R5,[R1, #+8]
-        ORRS     R0,R5,R0
-        LDR      R5,[R1, #+12]
-        ORRS     R0,R5,R0
-        LDR      R5,[R1, #+16]
-        ORRS     R0,R5,R0
-        LDR      R5,[R1, #+20]
-        ORRS     R0,R5,R0
-        LDR      R5,[R1, #+24]
-        ORRS     R0,R5,R0
-        LDR      R5,[R1, #+28]
-        ORRS     R0,R5,R0
-        LDR      R5,[R1, #+32]
-        ORRS     R0,R5,R0
-        LDR      R5,[R1, #+36]
-        ORRS     R0,R5,R0
-        ORRS     R4,R0,R4
 //  800     Device->SDCR[FMC_SDRAM_BANK1] = tmpr1;
-        STR      R4,[R2, #+0]
+        ORR      R2,R8,R2
+        ORR      R2,LR,R2
+        ORR      R2,R12,R2
+        ORRS     R2,R7,R2
+        ORRS     R2,R6,R2
+        ORRS     R2,R5,R2
+        ORRS     R2,R4,R2
+        LSRS     R1,R1,#+15
+        ORRS     R2,R3,R2
+        ORR      R1,R2,R1, LSL #+15
+        STR      R1,[R0, #+0]
         B.N      ??FMC_SDRAM_Init_1
 //  801   }
 //  802   else /* FMC_Bank2_SDRAM */                      
 //  803   {
 //  804     tmpr1 = Device->SDCR[FMC_SDRAM_BANK1];
-??FMC_SDRAM_Init_0:
-        LDR      R0,[R2, #+0]
-        MOVS     R4,R0
 //  805     
 //  806     /* Clear NC, NR, MWID, NB, CAS, WP, SDCLK, RBURST, and RPIPE bits */
 //  807     tmpr1 &= ((uint32_t)~(FMC_SDCR1_NC  | FMC_SDCR1_NR | FMC_SDCR1_MWID | \ 
 //  808                           FMC_SDCR1_NB  | FMC_SDCR1_CAS | FMC_SDCR1_WP | \ 
 //  809                           FMC_SDCR1_SDCLK | FMC_SDCR1_RBURST | FMC_SDCR1_RPIPE));
-        LSRS     R4,R4,#+15
-        LSLS     R4,R4,#+15
 //  810     
 //  811     tmpr1 |= (uint32_t)(Init->SDClockPeriod      |\ 
 //  812                         Init->ReadBurst          |\ 
 //  813                         Init->ReadPipeDelay);  
-        LDR      R0,[R1, #+28]
-        LDR      R5,[R1, #+32]
-        ORRS     R0,R5,R0
-        LDR      R5,[R1, #+36]
-        ORRS     R0,R5,R0
-        ORRS     R4,R0,R4
 //  814     
 //  815     tmpr2 = Device->SDCR[FMC_SDRAM_BANK2];
-        LDR      R0,[R2, #+4]
-        MOVS     R3,R0
 //  816     
 //  817     /* Clear NC, NR, MWID, NB, CAS, WP, SDCLK, RBURST, and RPIPE bits */
 //  818     tmpr2 &= ((uint32_t)~(FMC_SDCR1_NC  | FMC_SDCR1_NR | FMC_SDCR1_MWID | \ 
 //  819                           FMC_SDCR1_NB  | FMC_SDCR1_CAS | FMC_SDCR1_WP | \ 
 //  820                           FMC_SDCR1_SDCLK | FMC_SDCR1_RBURST | FMC_SDCR1_RPIPE));
-        LSRS     R3,R3,#+15
-        LSLS     R3,R3,#+15
 //  821 
 //  822     tmpr2 |= (uint32_t)(Init->ColumnBitsNumber   |\ 
 //  823                        Init->RowBitsNumber      |\ 
@@ -1477,35 +1447,32 @@ FMC_SDRAM_Init:
 //  825                        Init->InternalBankNumber |\ 
 //  826                        Init->CASLatency         |\ 
 //  827                        Init->WriteProtection);
-        LDR      R0,[R1, #+4]
-        LDR      R5,[R1, #+8]
-        ORRS     R0,R5,R0
-        LDR      R5,[R1, #+12]
-        ORRS     R0,R5,R0
-        LDR      R5,[R1, #+16]
-        ORRS     R0,R5,R0
-        LDR      R5,[R1, #+20]
-        ORRS     R0,R5,R0
-        LDR      R5,[R1, #+24]
-        ORRS     R0,R5,R0
-        ORRS     R3,R0,R3
+??FMC_SDRAM_Init_0:
+        LDR      R9,[R0, #+4]
 //  828 
 //  829     Device->SDCR[FMC_SDRAM_BANK1] = tmpr1;
-        STR      R4,[R2, #+0]
+        LSRS     R1,R1,#+15
+        ORR      R1,R4,R1, LSL #+15
+        LSR      R9,R9,#+15
+        ORR      R8,R8,R9, LSL #+15
+        ORRS     R1,R3,R1
+        ORRS     R1,R2,R1
+        ORR      LR,LR,R8
+        ORR      R12,R12,LR
+        ORR      R7,R7,R12
+        ORRS     R6,R6,R7
+        ORRS     R5,R5,R6
+        STR      R1,[R0, #+0]
 //  830     Device->SDCR[FMC_SDRAM_BANK2] = tmpr2;
-        STR      R3,[R2, #+4]
+        STR      R5,[R0, #+4]
 //  831   }  
 //  832   
 //  833   return HAL_OK;
 ??FMC_SDRAM_Init_1:
         MOVS     R0,#+0
-        POP      {R4,R5}
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI CFA R13+0
-        BX       LR               ;; return
+        POP      {R4-R9,PC}       ;; return
 //  834 }
-          CFI EndBlock cfiBlock13
+          CFI EndBlock cfiBlock19
 //  835 
 //  836 /**
 //  837   * @brief  Initializes the FMC_SDRAM device timing according to the specified
@@ -1517,23 +1484,22 @@ FMC_SDRAM_Init:
 //  843   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock14 Using cfiCommon0
+          CFI Block cfiBlock20 Using cfiCommon0
           CFI Function FMC_SDRAM_Timing_Init
           CFI NoCalls
         THUMB
 //  844 HAL_StatusTypeDef FMC_SDRAM_Timing_Init(FMC_SDRAM_TypeDef *Device, FMC_SDRAM_TimingTypeDef *Timing, uint32_t Bank)
 //  845 {
 FMC_SDRAM_Timing_Init:
-        PUSH     {R4-R6}
-          CFI R6 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
-        MOVS     R3,R0
+        PUSH     {R4-R7,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R7 Frame(CFA, -8)
+          CFI R6 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -16)
+          CFI R4 Frame(CFA, -20)
+          CFI CFA R13+20
 //  846   uint32_t tmpr1 = 0;
-        MOVS     R5,#+0
 //  847   uint32_t tmpr2 = 0;
-        MOVS     R4,#+0
 //  848     
 //  849   /* Check the parameters */
 //  850   assert_param(IS_FMC_SDRAM_DEVICE(Device));
@@ -1548,18 +1514,29 @@ FMC_SDRAM_Timing_Init:
 //  859   
 //  860   /* Set SDRAM device timing parameters */ 
 //  861   if (Bank != FMC_SDRAM_BANK2) 
+        LDR      R3,[R1, #+24]
+        LDR      R4,[R1, #+20]
+        LDR      R5,[R1, #+16]
+        LDR      R6,[R1, #+12]
+        LDR      R7,[R1, #+8]
+        SUBS     R3,R3,#+1
+        SUBS     R4,R4,#+1
+        SUBS     R5,R5,#+1
+        SUBS     R6,R6,#+1
+        SUBS     R7,R7,#+1
+        LDR      R12,[R1, #+4]
+        LDR      R1,[R1, #+0]
         CMP      R2,#+1
+        SUB      R12,R12,#+1
+        SUB      LR,R1,#+1
         BEQ.N    ??FMC_SDRAM_Timing_Init_0
 //  862   { 
 //  863     tmpr1 = Device->SDTR[FMC_SDRAM_BANK1];
-        LDR      R0,[R3, #+8]
-        MOVS     R5,R0
 //  864     
 //  865     /* Clear TMRD, TXSR, TRAS, TRC, TWR, TRP and TRCD bits */
 //  866     tmpr1 &= ((uint32_t)~(FMC_SDTR1_TMRD  | FMC_SDTR1_TXSR | FMC_SDTR1_TRAS | \ 
 //  867                           FMC_SDTR1_TRC  | FMC_SDTR1_TWR | FMC_SDTR1_TRP | \ 
 //  868                           FMC_SDTR1_TRCD));
-        ANDS     R5,R5,#0xF0000000
 //  869     
 //  870     tmpr1 |= (uint32_t)(((Timing->LoadToActiveDelay)-1)           |\ 
 //  871                        (((Timing->ExitSelfRefreshDelay)-1) << 4) |\ 
@@ -1568,101 +1545,67 @@ FMC_SDRAM_Timing_Init:
 //  874                        (((Timing->WriteRecoveryTime)-1) <<16)    |\ 
 //  875                        (((Timing->RPDelay)-1) << 20)             |\ 
 //  876                        (((Timing->RCDDelay)-1) << 24));
-        LDR      R0,[R1, #+0]
-        SUBS     R0,R0,#+1
-        LDR      R6,[R1, #+4]
-        SUBS     R6,R6,#+1
-        ORRS     R0,R0,R6, LSL #+4
-        LDR      R6,[R1, #+8]
-        SUBS     R6,R6,#+1
-        ORRS     R0,R0,R6, LSL #+8
-        LDR      R6,[R1, #+12]
-        SUBS     R6,R6,#+1
-        ORRS     R0,R0,R6, LSL #+12
-        LDR      R6,[R1, #+16]
-        SUBS     R6,R6,#+1
-        ORRS     R0,R0,R6, LSL #+16
-        LDR      R6,[R1, #+20]
-        SUBS     R6,R6,#+1
-        ORRS     R0,R0,R6, LSL #+20
-        LDR      R6,[R1, #+24]
-        SUBS     R6,R6,#+1
-        ORRS     R0,R0,R6, LSL #+24
-        ORRS     R5,R0,R5
 //  877     Device->SDTR[FMC_SDRAM_BANK1] = tmpr1;
-        STR      R5,[R3, #+8]
+        ORR      R2,LR,R3, LSL #+24
+        LDR      R1,[R0, #+8]
+        ORR      R2,R2,R12, LSL #+4
+        AND      R1,R1,#0xF0000000
+        ORR      R2,R2,R7, LSL #+8
+        ORR      R2,R2,R6, LSL #+12
+        ORR      R2,R2,R5, LSL #+16
+        ORR      R2,R2,R4, LSL #+20
+        ORRS     R1,R2,R1
+        STR      R1,[R0, #+8]
         B.N      ??FMC_SDRAM_Timing_Init_1
 //  878   }
 //  879   else /* FMC_Bank2_SDRAM */
 //  880   {  
 //  881     tmpr1 = Device->SDTR[FMC_SDRAM_BANK2];
 ??FMC_SDRAM_Timing_Init_0:
-        LDR      R0,[R3, #+12]
-        MOVS     R5,R0
+        LDR      R1,[R0, #+12]
 //  882     
 //  883     /* Clear TMRD, TXSR, TRAS, TRC, TWR, TRP and TRCD bits */
 //  884     tmpr1 &= ((uint32_t)~(FMC_SDTR1_TMRD  | FMC_SDTR1_TXSR | FMC_SDTR1_TRAS | \ 
 //  885                           FMC_SDTR1_TRC  | FMC_SDTR1_TWR | FMC_SDTR1_TRP | \ 
 //  886                           FMC_SDTR1_TRCD));
-        ANDS     R5,R5,#0xF0000000
 //  887     
 //  888     tmpr1 |= (uint32_t)(((Timing->LoadToActiveDelay)-1)           |\ 
 //  889                        (((Timing->ExitSelfRefreshDelay)-1) << 4) |\ 
 //  890                        (((Timing->SelfRefreshTime)-1) << 8)      |\ 
 //  891                        (((Timing->WriteRecoveryTime)-1) <<16)    |\ 
 //  892                        (((Timing->RCDDelay)-1) << 24));   
-        LDR      R0,[R1, #+0]
-        SUBS     R0,R0,#+1
-        LDR      R6,[R1, #+4]
-        SUBS     R6,R6,#+1
-        ORRS     R0,R0,R6, LSL #+4
-        LDR      R6,[R1, #+8]
-        SUBS     R6,R6,#+1
-        ORRS     R0,R0,R6, LSL #+8
-        LDR      R6,[R1, #+16]
-        SUBS     R6,R6,#+1
-        ORRS     R0,R0,R6, LSL #+16
-        LDR      R6,[R1, #+24]
-        SUBS     R6,R6,#+1
-        ORRS     R0,R0,R6, LSL #+24
-        ORRS     R5,R0,R5
 //  893     
 //  894     tmpr2 = Device->SDTR[FMC_SDRAM_BANK1];
-        LDR      R0,[R3, #+8]
-        MOVS     R4,R0
 //  895     
 //  896     /* Clear TMRD, TXSR, TRAS, TRC, TWR, TRP and TRCD bits */
 //  897     tmpr2 &= ((uint32_t)~(FMC_SDTR1_TMRD  | FMC_SDTR1_TXSR | FMC_SDTR1_TRAS | \ 
 //  898                           FMC_SDTR1_TRC  | FMC_SDTR1_TWR | FMC_SDTR1_TRP | \ 
 //  899                           FMC_SDTR1_TRCD));
-        ANDS     R4,R4,#0xF0000000
 //  900     tmpr2 |= (uint32_t)((((Timing->RowCycleDelay)-1) << 12)       |\ 
 //  901                         (((Timing->RPDelay)-1) << 20)); 
-        LDR      R0,[R1, #+12]
-        SUBS     R0,R0,#+1
-        LDR      R6,[R1, #+20]
-        SUBS     R6,R6,#+1
-        LSLS     R6,R6,#+20
-        ORRS     R0,R6,R0, LSL #+12
-        ORRS     R4,R0,R4
+        LDR      R2,[R0, #+8]
 //  902 
 //  903     Device->SDTR[FMC_SDRAM_BANK2] = tmpr1;
-        STR      R5,[R3, #+12]
+        AND      R1,R1,#0xF0000000
+        ORR      R1,LR,R1
+        ORR      R1,R1,R12, LSL #+4
+        AND      R2,R2,#0xF0000000
+        ORR      R2,R2,R6, LSL #+12
+        ORR      R1,R1,R7, LSL #+8
+        ORR      R2,R2,R4, LSL #+20
+        ORR      R1,R1,R5, LSL #+16
+        ORR      R1,R1,R3, LSL #+24
+        STR      R1,[R0, #+12]
 //  904     Device->SDTR[FMC_SDRAM_BANK1] = tmpr2;
-        STR      R4,[R3, #+8]
+        STR      R2,[R0, #+8]
 //  905   }   
 //  906   
 //  907   return HAL_OK;
 ??FMC_SDRAM_Timing_Init_1:
         MOVS     R0,#+0
-        POP      {R4-R6}
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI R6 SameValue
-          CFI CFA R13+0
-        BX       LR               ;; return
+        POP      {R4-R7,PC}       ;; return
 //  908 }
-          CFI EndBlock cfiBlock14
+          CFI EndBlock cfiBlock20
 //  909 
 //  910 /**
 //  911   * @brief  DeInitializes the FMC_SDRAM peripheral 
@@ -1671,41 +1614,38 @@ FMC_SDRAM_Timing_Init:
 //  914   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock15 Using cfiCommon0
+          CFI Block cfiBlock21 Using cfiCommon0
           CFI Function FMC_SDRAM_DeInit
           CFI NoCalls
         THUMB
 //  915 HAL_StatusTypeDef FMC_SDRAM_DeInit(FMC_SDRAM_TypeDef *Device, uint32_t Bank)
 //  916 {
-FMC_SDRAM_DeInit:
-        MOVS     R2,R0
 //  917   /* Check the parameters */
 //  918   assert_param(IS_FMC_SDRAM_DEVICE(Device));
 //  919   assert_param(IS_FMC_SDRAM_BANK(Bank));
 //  920   
 //  921   /* De-initialize the SDRAM device */
 //  922   Device->SDCR[Bank] = 0x000002D0;
-        MOV      R0,#+720
-        STR      R0,[R2, R1, LSL #+2]
+FMC_SDRAM_DeInit:
+        MOV      R2,#+720
+        STR      R2,[R0, R1, LSL #+2]
 //  923   Device->SDTR[Bank] = 0x0FFFFFFF;    
-        MVNS     R0,#-268435456
-        ADDS     R3,R2,R1, LSL #+2
-        STR      R0,[R3, #+8]
+        ADD      R1,R0,R1, LSL #+2
+        MVN      R2,#-268435456
+        STR      R2,[R1, #+8]
 //  924   Device->SDCMR      = 0x00000000;
-        MOVS     R0,#+0
-        STR      R0,[R2, #+16]
+        MOVS     R1,#+0
+        STR      R1,[R0, #+16]
 //  925   Device->SDRTR      = 0x00000000;
-        MOVS     R0,#+0
-        STR      R0,[R2, #+20]
+        STR      R1,[R0, #+20]
 //  926   Device->SDSR       = 0x00000000;
-        MOVS     R0,#+0
-        STR      R0,[R2, #+24]
+        STR      R1,[R0, #+24]
 //  927 
 //  928   return HAL_OK;
         MOVS     R0,#+0
         BX       LR               ;; return
 //  929 }
-          CFI EndBlock cfiBlock15
+          CFI EndBlock cfiBlock21
 //  930 
 //  931 /**
 //  932   * @}
@@ -1734,29 +1674,26 @@ FMC_SDRAM_DeInit:
 //  955   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock16 Using cfiCommon0
+          CFI Block cfiBlock22 Using cfiCommon0
           CFI Function FMC_SDRAM_WriteProtection_Enable
           CFI NoCalls
         THUMB
 //  956 HAL_StatusTypeDef FMC_SDRAM_WriteProtection_Enable(FMC_SDRAM_TypeDef *Device, uint32_t Bank)
 //  957 { 
-FMC_SDRAM_WriteProtection_Enable:
-        MOVS     R2,R0
 //  958   /* Check the parameters */
 //  959   assert_param(IS_FMC_SDRAM_DEVICE(Device));
 //  960   assert_param(IS_FMC_SDRAM_BANK(Bank));
 //  961   
 //  962   /* Enable write protection */
 //  963   Device->SDCR[Bank] |= FMC_SDRAM_WRITE_PROTECTION_ENABLE;
-        LDR      R0,[R2, R1, LSL #+2]
-        ORRS     R0,R0,#0x200
-        STR      R0,[R2, R1, LSL #+2]
+FMC_SDRAM_WriteProtection_Enable:
+        LDR      R2,[R0, R1, LSL #+2]
+        ORR      R2,R2,#0x200
+        B.N      ?Subroutine0
 //  964   
 //  965   return HAL_OK;  
-        MOVS     R0,#+0
-        BX       LR               ;; return
 //  966 }
-          CFI EndBlock cfiBlock16
+          CFI EndBlock cfiBlock22
 //  967 
 //  968 /**
 //  969   * @brief  Disables dynamically FMC_SDRAM write protection.
@@ -1765,29 +1702,26 @@ FMC_SDRAM_WriteProtection_Enable:
 //  972   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock17 Using cfiCommon0
+          CFI Block cfiBlock23 Using cfiCommon0
           CFI Function FMC_SDRAM_WriteProtection_Disable
           CFI NoCalls
         THUMB
 //  973 HAL_StatusTypeDef FMC_SDRAM_WriteProtection_Disable(FMC_SDRAM_TypeDef *Device, uint32_t Bank)
 //  974 {
-FMC_SDRAM_WriteProtection_Disable:
-        MOVS     R2,R0
 //  975   /* Check the parameters */
 //  976   assert_param(IS_FMC_SDRAM_DEVICE(Device));
 //  977   assert_param(IS_FMC_SDRAM_BANK(Bank));
 //  978   
 //  979   /* Disable write protection */
 //  980   Device->SDCR[Bank] &= ~FMC_SDRAM_WRITE_PROTECTION_ENABLE;
-        LDR      R0,[R2, R1, LSL #+2]
-        BICS     R0,R0,#0x200
-        STR      R0,[R2, R1, LSL #+2]
+FMC_SDRAM_WriteProtection_Disable:
+        LDR      R2,[R0, R1, LSL #+2]
+        BIC      R2,R2,#0x200
+        B.N      ?Subroutine0
 //  981   
 //  982   return HAL_OK;
-        MOVS     R0,#+0
-        BX       LR               ;; return
 //  983 }
-          CFI EndBlock cfiBlock17
+          CFI EndBlock cfiBlock23
 //  984   
 //  985 /**
 //  986   * @brief  Send Command to the FMC SDRAM bank
@@ -1799,27 +1733,26 @@ FMC_SDRAM_WriteProtection_Disable:
 //  992   */  
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock18 Using cfiCommon0
+          CFI Block cfiBlock24 Using cfiCommon0
           CFI Function FMC_SDRAM_SendCommand
         THUMB
 //  993 HAL_StatusTypeDef FMC_SDRAM_SendCommand(FMC_SDRAM_TypeDef *Device, FMC_SDRAM_CommandTypeDef *Command, uint32_t Timeout)
 //  994 {
 FMC_SDRAM_SendCommand:
-        PUSH     {R3-R7,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
+        MOV      R4,R0
+        SUB      SP,SP,#+8
           CFI CFA R13+24
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
 //  995   __IO uint32_t tmpr = 0;
         MOVS     R0,#+0
+        MOV      R5,R2
         STR      R0,[SP, #+0]
 //  996   uint32_t tickstart = 0;
-        MOVS     R7,#+0
 //  997   
 //  998   /* Check the parameters */
 //  999   assert_param(IS_FMC_SDRAM_DEVICE(Device));
@@ -1834,14 +1767,14 @@ FMC_SDRAM_SendCommand:
 // 1008                     (((Command->AutoRefreshNumber)-1) << 5) |\ 
 // 1009                     ((Command->ModeRegisterDefinition) << 9)
 // 1010                     );
-        LDR      R0,[R5, #+0]
-        LDR      R1,[R5, #+4]
-        ORRS     R0,R1,R0
-        LDR      R1,[R5, #+8]
-        SUBS     R1,R1,#+1
-        ORRS     R0,R0,R1, LSL #+5
-        LDR      R1,[R5, #+12]
-        ORRS     R0,R0,R1, LSL #+9
+        LDR      R0,[R1, #+0]
+        LDR      R2,[R1, #+4]
+        ORRS     R0,R2,R0
+        LDR      R2,[R1, #+8]
+        LDR      R1,[R1, #+12]
+        SUBS     R2,R2,#+1
+        ORR      R0,R0,R2, LSL #+5
+        ORR      R0,R0,R1, LSL #+9
         STR      R0,[SP, #+0]
 // 1011     
 // 1012   Device->SDCMR = tmpr;
@@ -1852,7 +1785,7 @@ FMC_SDRAM_SendCommand:
 // 1015   tickstart = HAL_GetTick();
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOVS     R7,R0
+        MOV      R6,R0
 // 1016 
 // 1017   /* wait until command is send */
 // 1018   while(HAL_IS_BIT_SET(Device->SDSR, FMC_SDSR_BUSY))
@@ -1862,38 +1795,36 @@ FMC_SDRAM_SendCommand:
 // 1019   {
 // 1020     /* Check for the Timeout */
 // 1021     if(Timeout != HAL_MAX_DELAY)
-        CMN      R6,#+1
+        CMN      R5,#+1
         BEQ.N    ??FMC_SDRAM_SendCommand_1
 // 1022     {
 // 1023       if((Timeout == 0)||((HAL_GetTick() - tickstart ) > Timeout))
-        CMP      R6,#+0
-        BEQ.N    ??FMC_SDRAM_SendCommand_2
+        CBZ.N    R5,??FMC_SDRAM_SendCommand_2
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUBS     R0,R0,R7
-        CMP      R6,R0
+        SUBS     R0,R0,R6
+        CMP      R5,R0
         BCS.N    ??FMC_SDRAM_SendCommand_1
 // 1024       {
 // 1025         return HAL_TIMEOUT;
 ??FMC_SDRAM_SendCommand_2:
         MOVS     R0,#+3
-        B.N      ??FMC_SDRAM_SendCommand_3
+        POP      {R1,R2,R4-R6,PC}
 // 1026       }
 // 1027     }     
 // 1028     
 // 1029     return HAL_ERROR;
 ??FMC_SDRAM_SendCommand_1:
         MOVS     R0,#+1
-        B.N      ??FMC_SDRAM_SendCommand_3
+        POP      {R1,R2,R4-R6,PC}
 // 1030   }
 // 1031   
 // 1032   return HAL_OK;  
 ??FMC_SDRAM_SendCommand_0:
         MOVS     R0,#+0
-??FMC_SDRAM_SendCommand_3:
-        POP      {R1,R4-R7,PC}    ;; return
+        POP      {R1,R2,R4-R6,PC}  ;; return
 // 1033 }
-          CFI EndBlock cfiBlock18
+          CFI EndBlock cfiBlock24
 // 1034 
 // 1035 /**
 // 1036   * @brief  Program the SDRAM Memory Refresh rate.
@@ -1903,29 +1834,28 @@ FMC_SDRAM_SendCommand:
 // 1040   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock19 Using cfiCommon0
+          CFI Block cfiBlock25 Using cfiCommon0
           CFI Function FMC_SDRAM_ProgramRefreshRate
           CFI NoCalls
         THUMB
 // 1041 HAL_StatusTypeDef FMC_SDRAM_ProgramRefreshRate(FMC_SDRAM_TypeDef *Device, uint32_t RefreshRate)
 // 1042 {
-FMC_SDRAM_ProgramRefreshRate:
-        MOVS     R2,R0
 // 1043   /* Check the parameters */
 // 1044   assert_param(IS_FMC_SDRAM_DEVICE(Device));
 // 1045   assert_param(IS_FMC_REFRESH_RATE(RefreshRate));
 // 1046   
 // 1047   /* Set the refresh rate in command register */
 // 1048   Device->SDRTR |= (RefreshRate<<1);
-        LDR      R0,[R2, #+20]
-        ORRS     R0,R0,R1, LSL #+1
-        STR      R0,[R2, #+20]
+FMC_SDRAM_ProgramRefreshRate:
+        LDR      R2,[R0, #+20]
+        ORR      R1,R2,R1, LSL #+1
+        STR      R1,[R0, #+20]
 // 1049   
 // 1050   return HAL_OK;   
         MOVS     R0,#+0
         BX       LR               ;; return
 // 1051 }
-          CFI EndBlock cfiBlock19
+          CFI EndBlock cfiBlock25
 // 1052 
 // 1053 /**
 // 1054   * @brief  Set the Number of consecutive SDRAM Memory auto Refresh commands.
@@ -1935,29 +1865,28 @@ FMC_SDRAM_ProgramRefreshRate:
 // 1058   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock20 Using cfiCommon0
+          CFI Block cfiBlock26 Using cfiCommon0
           CFI Function FMC_SDRAM_SetAutoRefreshNumber
           CFI NoCalls
         THUMB
 // 1059 HAL_StatusTypeDef FMC_SDRAM_SetAutoRefreshNumber(FMC_SDRAM_TypeDef *Device, uint32_t AutoRefreshNumber)
 // 1060 {
-FMC_SDRAM_SetAutoRefreshNumber:
-        MOVS     R2,R0
 // 1061   /* Check the parameters */
 // 1062   assert_param(IS_FMC_SDRAM_DEVICE(Device));
 // 1063   assert_param(IS_FMC_AUTOREFRESH_NUMBER(AutoRefreshNumber));
 // 1064   
 // 1065   /* Set the Auto-refresh number in command register */
 // 1066   Device->SDCMR |= (AutoRefreshNumber << 5); 
-        LDR      R0,[R2, #+16]
-        ORRS     R0,R0,R1, LSL #+5
-        STR      R0,[R2, #+16]
+FMC_SDRAM_SetAutoRefreshNumber:
+        LDR      R2,[R0, #+16]
+        ORR      R1,R2,R1, LSL #+5
+        STR      R1,[R0, #+16]
 // 1067 
 // 1068   return HAL_OK;  
         MOVS     R0,#+0
         BX       LR               ;; return
 // 1069 }
-          CFI EndBlock cfiBlock20
+          CFI EndBlock cfiBlock26
 // 1070 
 // 1071 /**
 // 1072   * @brief  Returns the indicated FMC SDRAM bank mode status.
@@ -1970,16 +1899,13 @@ FMC_SDRAM_SetAutoRefreshNumber:
 // 1079   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock21 Using cfiCommon0
+          CFI Block cfiBlock27 Using cfiCommon0
           CFI Function FMC_SDRAM_GetModeStatus
           CFI NoCalls
         THUMB
 // 1080 uint32_t FMC_SDRAM_GetModeStatus(FMC_SDRAM_TypeDef *Device, uint32_t Bank)
 // 1081 {
-FMC_SDRAM_GetModeStatus:
-        MOVS     R2,R0
 // 1082   uint32_t tmpreg = 0;
-        MOVS     R0,#+0
 // 1083   
 // 1084   /* Check the parameters */
 // 1085   assert_param(IS_FMC_SDRAM_DEVICE(Device));
@@ -1987,31 +1913,25 @@ FMC_SDRAM_GetModeStatus:
 // 1087 
 // 1088   /* Get the corresponding bank mode */
 // 1089   if(Bank == FMC_SDRAM_BANK1)
+FMC_SDRAM_GetModeStatus:
+        LDR      R0,[R0, #+24]
         CMP      R1,#+0
-        BNE.N    ??FMC_SDRAM_GetModeStatus_0
+        IT       NE 
+        LSRNE    R0,R0,#+2
 // 1090   {
 // 1091     tmpreg = (uint32_t)(Device->SDSR & FMC_SDSR_MODES1); 
-        LDR      R3,[R2, #+24]
-        ANDS     R3,R3,#0x6
-        MOVS     R0,R3
-        B.N      ??FMC_SDRAM_GetModeStatus_1
 // 1092   }
 // 1093   else
 // 1094   {
 // 1095     tmpreg = ((uint32_t)(Device->SDSR & FMC_SDSR_MODES2) >> 2);
-??FMC_SDRAM_GetModeStatus_0:
-        LDR      R3,[R2, #+24]
-        LSRS     R3,R3,#+2
-        ANDS     R3,R3,#0x6
-        MOVS     R0,R3
+        AND      R0,R0,#0x6
 // 1096   }
 // 1097   
 // 1098   /* Return the mode status */
 // 1099   return tmpreg;
-??FMC_SDRAM_GetModeStatus_1:
         BX       LR               ;; return
 // 1100 }
-          CFI EndBlock cfiBlock21
+          CFI EndBlock cfiBlock27
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -2049,9 +1969,9 @@ FMC_SDRAM_GetModeStatus:
 // 1122 
 // 1123 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 1 180 bytes in section .text
+// 942 bytes in section .text
 // 
-// 1 180 bytes of CODE memory
+// 942 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

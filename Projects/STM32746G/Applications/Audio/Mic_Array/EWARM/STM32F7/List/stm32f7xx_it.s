@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      21/Dec/2015  01:05:25
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      21/Dec/2015  22:48:26
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -16,10 +16,8 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-//        --no_clustering --no_scheduling --debug --endian=little
-//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-//        (x86)\IAR Systems\Embedded Workbench
+//        --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
+//        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
@@ -48,7 +46,7 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
-//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohz --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
@@ -396,29 +394,24 @@ SysTick_Handler:
 //  162 
 //  163   cntOS++;
         LDR.N    R0,??DataTable3
-        LDR      R0,[R0, #+0]
-        ADDS     R0,R0,#+1
-        LDR.N    R1,??DataTable3
-        STR      R0,[R1, #+0]
+        LDR      R1,[R0, #+0]
+        ADDS     R1,R1,#+1
 //  164 
 //  165   if (cntOS==10)
-        LDR.N    R0,??DataTable3
-        LDR      R0,[R0, #+0]
-        CMP      R0,#+10
+        CMP      R1,#+10
         BNE.N    ??SysTick_Handler_0
 //  166   {
 //  167       cntOS=0;
-        MOVS     R0,#+0
-        LDR.N    R1,??DataTable3
-        STR      R0,[R1, #+0]
 //  168 	  flg10ms = 1;
-        MOVS     R0,#+1
-        LDR.N    R1,??DataTable3_1
-        STRB     R0,[R1, #+0]
+        MOVS     R2,#+1
+        LDR.N    R3,??DataTable3_1
+        MOVS     R1,#+0
+        STRB     R2,[R3, #+0]
+??SysTick_Handler_0:
+        STR      R1,[R0, #+0]
 //  169   }
 //  170   	
 //  171 }
-??SysTick_Handler_0:
         POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock8
 //  172 
@@ -429,16 +422,12 @@ SysTick_Handler:
         THUMB
 //  173 void USART6_IRQHandler(void)
 //  174 {
-USART6_IRQHandler:
-        PUSH     {R7,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+8
 //  175   HAL_UART_IRQHandler(&huart6);
+USART6_IRQHandler:
         LDR.N    R0,??DataTable3_2
           CFI FunCall HAL_UART_IRQHandler
-        BL       HAL_UART_IRQHandler
+        B.W      HAL_UART_IRQHandler
 //  176 }
-        POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock9
 //  177 
 //  178 
@@ -449,22 +438,18 @@ USART6_IRQHandler:
         THUMB
 //  179 void I2C1_EV_IRQHandler(void)
 //  180 {
-I2C1_EV_IRQHandler:
-        PUSH     {R7,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+8
 //  181   /* USER CODE BEGIN I2C1_EV_IRQn 0 */
 //  182 
 //  183   /* USER CODE END I2C1_EV_IRQn 0 */
 //  184   HAL_I2C_EV_IRQHandler(&hi2c1);
+I2C1_EV_IRQHandler:
         LDR.N    R0,??DataTable3_3
           CFI FunCall HAL_I2C_EV_IRQHandler
-        BL       HAL_I2C_EV_IRQHandler
+        B.W      HAL_I2C_EV_IRQHandler
 //  185   /* USER CODE BEGIN I2C1_EV_IRQn 1 */
 //  186 
 //  187   /* USER CODE END I2C1_EV_IRQn 1 */
 //  188 }
-        POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock10
 //  189 
 //  190 
@@ -495,16 +480,12 @@ I2C1_EV_IRQHandler:
 //  210 void OTG_HS_IRQHandler(void)
 //  211 #endif
 //  212 {
-OTG_FS_IRQHandler:
-        PUSH     {R7,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+8
 //  213   HAL_HCD_IRQHandler(&hhcd);
+OTG_FS_IRQHandler:
         LDR.N    R0,??DataTable3_4
           CFI FunCall HAL_HCD_IRQHandler
-        BL       HAL_HCD_IRQHandler
+        B.W      HAL_HCD_IRQHandler
 //  214 }
-        POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock11
 
         SECTION `.text`:CODE:NOROOT(2)
@@ -599,11 +580,11 @@ AUDIO_IN_SAIx_DMAx_IRQHandler:
 //  244 
 //  245 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-//   4 bytes in section .bss
-// 112 bytes in section .text
+//  4 bytes in section .bss
+// 90 bytes in section .text
 // 
-// 112 bytes of CODE memory
-//   4 bytes of DATA memory
+// 90 bytes of CODE memory
+//  4 bytes of DATA memory
 //
 //Errors: none
 //Warnings: none

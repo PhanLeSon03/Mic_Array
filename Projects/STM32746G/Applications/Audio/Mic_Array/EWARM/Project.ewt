@@ -1071,13 +1071,7 @@
         <name>$PROJ_DIR$\..\Src\audio_sample.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Src\explorer.c</name>
-      </file>
-      <file>
         <name>$PROJ_DIR$\..\Src\main.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\Src\menu.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\sta321mp.c</name>

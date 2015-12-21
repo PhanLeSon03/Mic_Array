@@ -103,11 +103,10 @@
 
  /* This is an audio file stored in the Flash memory as a constant table of 16-bit data.
     The audio format should be WAV (raw / PCM) 16-bits, Stereo (sampling rate may be modified) */
-extern const uint16_t AUDIO_SAMPLE[];
+//extern const uint16_t AUDIO_SAMPLE[];
 /* Audio file size and start address are defined here since the audio file is 
     stored in Flash memory as a constant table of 16-bit data */
-#define AUDIO_FILE_SZE          990000
-#define AUIDO_START_ADDRESS     58 /* Offset relative to audio file header size */
+
 
 #define  I2C_CR1_SMBUS                       ((uint16_t)0x0002)            /*!<SMBus Mode */
 #define  I2C_CR1_SMBTYPE                     ((uint16_t)0x0008)            /*!<SMBus Type */
@@ -267,7 +266,7 @@ static void DMA_ClearFlag(DMA_Stream_TypeDef* DMAy_Streamx, uint32_t DMA_FLAG);
                    MAL (Media Access Layer) functions 
                                     ------------------------------------------*/
 /* Peripherals configuration functions */
-static void     Audio_MAL_Init(void);
+
 static void     Audio_MAL_DeInit(void);
 static void     Audio_MAL_PauseResume(uint32_t Cmd, uint32_t Addr);
 static void     Audio_MAL_Stop(void);
@@ -281,10 +280,10 @@ static void     Audio_MAL_Stop(void);
   * @param  AudioFreq: Audio frequency used to play the audio stream.
   * @retval 0 if correct communication, else wrong communication
   */
-uint32_t AUDIO_Init(uint16_t OutputDevice, uint8_t Volume, uint32_t AudioFreq)
+uint32_t AUDIO_Init(uint16_t OutputDevice, uint8_t Vol, uint32_t AudioFreq)
 {    
 	/* Perform low layer Codec initialization */
-	if (Codec_Init(OutputDevice, VOLUME_CONVERT(Volume), AudioFreq)!=HAL_OK)
+	if (Codec_Init(OutputDevice, VOLUME_CONVERT(Vol), AudioFreq)!=HAL_OK)
 	{
         BSP_LED_Toggle(LED2);
 	}
@@ -400,10 +399,10 @@ uint32_t AUDIO_Stop(uint32_t Option)
   *         Mute and 100 for Max volume level).
   * @retval 0 if correct communication, else wrong communication
   */
-uint32_t AUDIO_VolumeCtl(uint8_t Volume)
+uint32_t AUDIO_VolumeCtl(uint8_t Vol)
 {
   /* Call the codec volume control function with converted volume value */
-  return (Codec_VolumeCtrl(VOLUME_CONVERT(Volume)));
+  return (Codec_VolumeCtrl(VOLUME_CONVERT(Vol)));
 }
 
 /**
@@ -543,7 +542,7 @@ void SPI3_IRQHandler(void)
   { 
    
     /* Send dummy data on I2S to avoid the underrun condition */
-     SPI_I2S_SendData(CODEC_I2S, AUDIO_GetSampleCallBack()); 
+     //SPI_I2S_SendData(CODEC_I2S, AUDIO_GetSampleCallBack()); 
   }
 }
 /*========================
@@ -558,7 +557,7 @@ void SPI3_IRQHandler(void)
   * @param  AudioFreq: Audio frequency used to play the audio stream.
   * @retval 0 if correct communication, else wrong communication
   */
-static uint32_t Codec_Init(uint16_t OutputDevice, uint8_t Volume, uint32_t AudioFreq)
+static uint32_t Codec_Init(uint16_t OutputDevice, uint8_t Vol, uint32_t AudioFreq)
 {
   uint32_t counter = 0; 
 
@@ -584,7 +583,7 @@ static uint32_t Codec_Init(uint16_t OutputDevice, uint8_t Volume, uint32_t Audio
   counter += Codec_WriteRegister(0x06, CODEC_STANDARD);
       
   /* Set the Master volume */
-  Codec_VolumeCtrl(Volume);
+  Codec_VolumeCtrl(Vol);
   
 
   /* Power on the Codec */
@@ -741,7 +740,7 @@ static uint32_t Codec_Stop(uint32_t CodecPdwnMode)
   *         description for more details).
   * @retval 0 if correct communication, else wrong communication
   */
-static uint32_t Codec_VolumeCtrl(uint8_t Volume)
+static uint32_t Codec_VolumeCtrl(uint8_t Vol)
 {
   uint32_t counter = 0;
   
@@ -930,7 +929,7 @@ static void Codec_CtrlInterface_DeInit(void)
 static void Codec_AudioInterface_Init(uint32_t AudioFreq)
 {
     
-  static I2S_HandleTypeDef hi2s3;
+// static I2S_HandleTypeDef hi2s3;
   /* Enable the CODEC_I2S peripheral clock */
   __SPI3_CLK_ENABLE();
 

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      21/Dec/2015  01:05:22
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      21/Dec/2015  22:48:21
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -16,10 +16,8 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-//        --no_clustering --no_scheduling --debug --endian=little
-//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-//        (x86)\IAR Systems\Embedded Workbench
+//        --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
+//        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
@@ -48,7 +46,7 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
-//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohz --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
@@ -231,81 +229,61 @@
 //  107 void SAI_BlockSynchroConfig(SAI_HandleTypeDef *hsai)
 //  108 {
 //  109   uint32_t tmpregisterGCR = 0;
-SAI_BlockSynchroConfig:
-        MOVS     R1,#+0
 //  110  
 //  111   /* This setting must be done with both audio block (A & B) disabled     */
 //  112   switch(hsai->Init.SynchroExt)
+SAI_BlockSynchroConfig:
         LDR      R2,[R0, #+12]
-        CMP      R2,#+0
-        BEQ.N    ??SAI_BlockSynchroConfig_0
+        MOVS     R1,#+0
         CMP      R2,#+1
-        BEQ.N    ??SAI_BlockSynchroConfig_1
+        BEQ.N    ??SAI_BlockSynchroConfig_0
         CMP      R2,#+2
-        BEQ.N    ??SAI_BlockSynchroConfig_2
+        BEQ.N    ??SAI_BlockSynchroConfig_1
         CMP      R2,#+4
-        BEQ.N    ??SAI_BlockSynchroConfig_3
-        B.N      ??SAI_BlockSynchroConfig_4
+        IT       EQ 
+        MOVEQ    R1,#+32
 //  113   {
 //  114   case SAI_SYNCEXT_DISABLE :
 //  115     tmpregisterGCR = 0;
-??SAI_BlockSynchroConfig_0:
-        MOVS     R2,#+0
-        MOVS     R1,R2
 //  116     break;
-        B.N      ??SAI_BlockSynchroConfig_5
 //  117   case SAI_SYNCEXT_IN_ENABLE :
 //  118     tmpregisterGCR = SAI_GCR_SYNCIN_0;
-??SAI_BlockSynchroConfig_1:
-        MOVS     R2,#+1
-        MOVS     R1,R2
 //  119     break;
-        B.N      ??SAI_BlockSynchroConfig_5
 //  120   case SAI_SYNCEXT_OUTBLOCKA_ENABLE :
 //  121     tmpregisterGCR = SAI_GCR_SYNCOUT_0;
-??SAI_BlockSynchroConfig_2:
-        MOVS     R2,#+16
-        MOVS     R1,R2
 //  122     break;
-        B.N      ??SAI_BlockSynchroConfig_5
 //  123   case SAI_SYNCEXT_OUTBLOCKB_ENABLE :
 //  124     tmpregisterGCR = SAI_GCR_SYNCOUT_1;
-??SAI_BlockSynchroConfig_3:
-        MOVS     R2,#+32
-        MOVS     R1,R2
+        B.N      ??SAI_BlockSynchroConfig_2
+??SAI_BlockSynchroConfig_0:
+        MOVS     R1,#+1
+        B.N      ??SAI_BlockSynchroConfig_2
+??SAI_BlockSynchroConfig_1:
+        MOVS     R1,#+16
 //  125     break;
-        B.N      ??SAI_BlockSynchroConfig_5
 //  126   default :
 //  127     break;
 //  128   }
 //  129   
 //  130   if((hsai->Instance == SAI1_Block_A) || (hsai->Instance == SAI1_Block_B))
-??SAI_BlockSynchroConfig_4:
-??SAI_BlockSynchroConfig_5:
-        LDR      R2,[R0, #+0]
-        LDR.N    R3,??DataTable1  ;; 0x40015804
-        CMP      R2,R3
-        BEQ.N    ??SAI_BlockSynchroConfig_6
-        LDR      R2,[R0, #+0]
-        LDR.N    R3,??DataTable1_1  ;; 0x40015824
-        CMP      R2,R3
-        BNE.N    ??SAI_BlockSynchroConfig_7
+??SAI_BlockSynchroConfig_2:
+        LDR      R0,[R0, #+0]
+        LDR.N    R2,??DataTable1  ;; 0x40015804
+        CMP      R0,R2
+        ITTET    NE 
+        LDRNE.N  R2,??DataTable1_1  ;; 0x40015824
+        CMPNE    R0,R2
+        LDREQ.N  R0,??DataTable1_2  ;; 0x40015800
+        LDRNE.N  R0,??DataTable1_3  ;; 0x40015c00
 //  131   {
 //  132     SAI1->GCR = tmpregisterGCR;
-??SAI_BlockSynchroConfig_6:
-        LDR.N    R2,??DataTable1_2  ;; 0x40015800
-        STR      R1,[R2, #+0]
-        B.N      ??SAI_BlockSynchroConfig_8
 //  133   }
 //  134   else 
 //  135   {
 //  136     SAI2->GCR = tmpregisterGCR;
-??SAI_BlockSynchroConfig_7:
-        LDR.N    R2,??DataTable1_3  ;; 0x40015c00
-        STR      R1,[R2, #+0]
+        STR      R1,[R0, #+0]
 //  137   }
 //  138 }
-??SAI_BlockSynchroConfig_8:
         BX       LR               ;; return
           CFI EndBlock cfiBlock0
 //  139   /**
@@ -321,49 +299,30 @@ SAI_BlockSynchroConfig:
         THUMB
 //  145 uint32_t SAI_GetInputClock(SAI_HandleTypeDef *hsai)   
 //  146 {
-SAI_GetInputClock:
-        PUSH     {R3-R5,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
-        MOVS     R4,R0
 //  147   /* This variable used to store the SAI_CK_x (value in Hz) */
 //  148   uint32_t saiclocksource = 0;
-        MOVS     R5,#+0
 //  149 
 //  150   if ((hsai->Instance == SAI1_Block_A) || (hsai->Instance == SAI1_Block_B))
-        LDR      R0,[R4, #+0]
+SAI_GetInputClock:
+        LDR      R0,[R0, #+0]
         LDR.N    R1,??DataTable1  ;; 0x40015804
         CMP      R0,R1
-        BEQ.N    ??SAI_GetInputClock_0
-        LDR      R0,[R4, #+0]
-        LDR.N    R1,??DataTable1_1  ;; 0x40015824
-        CMP      R0,R1
-        BNE.N    ??SAI_GetInputClock_1
+        ITTET    NE 
+        LDRNE.N  R1,??DataTable1_1  ;; 0x40015824
+        CMPNE    R0,R1
+        MOVEQ    R0,#+524288
+        MOVNE    R0,#+1048576
 //  151   {
 //  152     saiclocksource = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SAI1);
-??SAI_GetInputClock_0:
-        MOVS     R0,#+524288
-          CFI FunCall HAL_RCCEx_GetPeriphCLKFreq
-        BL       HAL_RCCEx_GetPeriphCLKFreq
-        MOVS     R5,R0
-        B.N      ??SAI_GetInputClock_2
 //  153   }
 //  154   else /* SAI2_Block_A || SAI2_Block_B*/
 //  155   {
 //  156     saiclocksource = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SAI2); 
-??SAI_GetInputClock_1:
-        MOVS     R0,#+1048576
           CFI FunCall HAL_RCCEx_GetPeriphCLKFreq
-        BL       HAL_RCCEx_GetPeriphCLKFreq
-        MOVS     R5,R0
+        B.W      HAL_RCCEx_GetPeriphCLKFreq
 //  157   }
 //  158   /* the return result is the value of SAI clock */
 //  159   return saiclocksource;        
-??SAI_GetInputClock_2:
-        MOVS     R0,R5
-        POP      {R1,R4,R5,PC}    ;; return
 //  160 }
           CFI EndBlock cfiBlock1
 
@@ -423,9 +382,9 @@ SAI_GetInputClock:
 //  178 
 //  179 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 138 bytes in section .text
+// 86 bytes in section .text
 // 
-// 138 bytes of CODE memory
+// 86 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

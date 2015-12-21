@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      21/Dec/2015  01:05:23
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      21/Dec/2015  22:48:23
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -16,10 +16,8 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-//        --no_clustering --no_scheduling --debug --endian=little
-//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-//        (x86)\IAR Systems\Embedded Workbench
+//        --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
+//        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
@@ -48,7 +46,7 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
-//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohz --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
@@ -140,6 +138,44 @@
           CFI D14 SameValue
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
+        
+        
+          CFI Common cfiCommon1 Using cfiNames0
+          CFI CodeAlign 2
+          CFI DataAlign 4
+          CFI ReturnAddress R14 CODE
+          CFI CFA R13+0
+          CFI R0 SameValue
+          CFI R1 SameValue
+          CFI R2 SameValue
+          CFI R3 SameValue
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 SameValue
+          CFI R14 SameValue
+          CFI D0 SameValue
+          CFI D1 SameValue
+          CFI D2 SameValue
+          CFI D3 SameValue
+          CFI D4 SameValue
+          CFI D5 SameValue
+          CFI D6 SameValue
+          CFI D7 SameValue
+          CFI D8 SameValue
+          CFI D9 SameValue
+          CFI D10 SameValue
+          CFI D11 SameValue
+          CFI D12 SameValue
+          CFI D13 SameValue
+          CFI D14 SameValue
+          CFI D15 SameValue
+          CFI EndCommon cfiCommon1
         
 // H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_spi.c
 //    1 /**
@@ -342,22 +378,22 @@
 //  193 HAL_StatusTypeDef HAL_SPI_Init(SPI_HandleTypeDef *hspi)
 //  194 {
 HAL_SPI_Init:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
           CFI CFA R13+16
         MOVS     R4,R0
 //  195   uint32_t frxth;
 //  196 
 //  197   /* Check the SPI handle allocation */
 //  198   if(hspi == NULL)
-        CMP      R4,#+0
         BNE.N    ??HAL_SPI_Init_0
 //  199   {
 //  200     return HAL_ERROR;
         MOVS     R0,#+1
-        B.N      ??HAL_SPI_Init_1
+        POP      {R4-R6,PC}
 //  201   }
 //  202 
 //  203   /* Check the parameters */
@@ -378,94 +414,82 @@ HAL_SPI_Init:
 //  218 
 //  219   if(hspi->State == HAL_SPI_STATE_RESET)
 ??HAL_SPI_Init_0:
-        LDRB     R0,[R4, #+93]
-        CMP      R0,#+0
-        BNE.N    ??HAL_SPI_Init_2
+        ADD      R5,R4,#+92
+        LDRB     R0,[R5, #+1]
+        CBNZ.N   R0,??HAL_SPI_Init_1
 //  220   {
 //  221     /* Allocate lock resource and initialize it */
 //  222     hspi->Lock = HAL_UNLOCKED;
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+92]
+        STRB     R0,[R5, #+0]
 //  223 
 //  224     /* Init the low level hardware : GPIO, CLOCK, NVIC... */
 //  225     HAL_SPI_MspInit(hspi);
-        MOVS     R0,R4
+        MOV      R0,R4
           CFI FunCall HAL_SPI_MspInit
         BL       HAL_SPI_MspInit
 //  226   }
 //  227 
 //  228   hspi->State = HAL_SPI_STATE_BUSY;
-??HAL_SPI_Init_2:
+??HAL_SPI_Init_1:
         MOVS     R0,#+2
-        STRB     R0,[R4, #+93]
 //  229 
 //  230   /* Disable the selected SPI peripheral */
 //  231   __HAL_SPI_DISABLE(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        BICS     R0,R0,#0x40
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
 //  232 
 //  233   /* Align by default the rs fifo threshold on the data size */
 //  234   if(hspi->Init.DataSize > SPI_DATASIZE_8BIT)
-        LDR      R0,[R4, #+12]
-        CMP      R0,#+1792
-        BLS.N    ??HAL_SPI_Init_3
+        MOVW     R3,#+1793
+        STRB     R0,[R5, #+1]
+        BL       ?Subroutine16
+??CrossCallReturnLabel_25:
+        LDR      R2,[R4, #+12]
+        CMP      R2,R3
+        BCC.N    ??HAL_SPI_Init_2
 //  235   {
 //  236     frxth = SPI_RXFIFO_THRESHOLD_HF;
-        MOVS     R0,#+0
-        MOVS     R5,R0
-        B.N      ??HAL_SPI_Init_4
+        MOVS     R1,#+0
 //  237   }
 //  238   else
 //  239   {
 //  240     frxth = SPI_RXFIFO_THRESHOLD_QF;
-??HAL_SPI_Init_3:
-        MOV      R0,#+4096
-        MOVS     R5,R0
 //  241   }
 //  242 
 //  243   /* CRC calculation is valid only for 16Bit and 8 Bit */
 //  244   if(( hspi->Init.DataSize != SPI_DATASIZE_16BIT ) && ( hspi->Init.DataSize != SPI_DATASIZE_8BIT ))
-??HAL_SPI_Init_4:
-        LDR      R0,[R4, #+12]
-        CMP      R0,#+3840
-        BEQ.N    ??HAL_SPI_Init_5
-        LDR      R0,[R4, #+12]
-        CMP      R0,#+1792
-        BEQ.N    ??HAL_SPI_Init_5
+        CMP      R2,#+3840
+        BNE.N    ??HAL_SPI_Init_3
+        B.N      ??HAL_SPI_Init_4
+??HAL_SPI_Init_2:
+        CMP      R2,#+1792
+        MOV      R1,#+4096
+        BEQ.N    ??HAL_SPI_Init_4
 //  245   {
 //  246     /* CRC must be disabled */
 //  247     hspi->Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
-        MOVS     R0,#+0
-        STR      R0,[R4, #+40]
+??HAL_SPI_Init_3:
+        MOVS     R6,#+0
+        STR      R6,[R4, #+40]
 //  248   }
 //  249 
 //  250   /* Align the CRC Length on the data size */
 //  251   if( hspi->Init.CRCLength == SPI_CRC_LENGTH_DATASIZE)
-??HAL_SPI_Init_5:
-        LDR      R0,[R4, #+48]
-        CMP      R0,#+0
-        BNE.N    ??HAL_SPI_Init_6
+??HAL_SPI_Init_4:
+        LDR      R6,[R4, #+48]
+        CBNZ.N   R6,??HAL_SPI_Init_5
 //  252   {
 //  253     /* CRC Length aligned on the data size : value set by default */
 //  254     if(hspi->Init.DataSize > SPI_DATASIZE_8BIT)
-        LDR      R0,[R4, #+12]
-        CMP      R0,#+1792
-        BLS.N    ??HAL_SPI_Init_7
+        CMP      R2,R3
+        ITE      CS 
+        MOVCS    R2,#+2
+        MOVCC    R2,#+1
 //  255     {
 //  256       hspi->Init.CRCLength = SPI_CRC_LENGTH_16BIT;
-        MOVS     R0,#+2
-        STR      R0,[R4, #+48]
-        B.N      ??HAL_SPI_Init_6
 //  257     }
 //  258     else
 //  259     {
 //  260       hspi->Init.CRCLength = SPI_CRC_LENGTH_8BIT;
-??HAL_SPI_Init_7:
-        MOVS     R0,#+1
-        STR      R0,[R4, #+48]
+        STR      R2,[R4, #+48]
 //  261     }
 //  262   }
 //  263 
@@ -475,75 +499,69 @@ HAL_SPI_Init:
 //  267   hspi->Instance->CR1 = (hspi->Init.Mode | hspi->Init.Direction |
 //  268                          hspi->Init.CLKPolarity | hspi->Init.CLKPhase | (hspi->Init.NSS & SPI_CR1_SSM) |
 //  269                          hspi->Init.BaudRatePrescaler | hspi->Init.FirstBit  | hspi->Init.CRCCalculation);
-??HAL_SPI_Init_6:
-        LDR      R0,[R4, #+4]
-        LDR      R1,[R4, #+8]
-        ORRS     R0,R1,R0
-        LDR      R1,[R4, #+16]
-        ORRS     R0,R1,R0
-        LDR      R1,[R4, #+20]
-        ORRS     R0,R1,R0
-        LDR      R1,[R4, #+24]
-        ANDS     R1,R1,#0x200
-        ORRS     R0,R1,R0
-        LDR      R1,[R4, #+28]
-        ORRS     R0,R1,R0
-        LDR      R1,[R4, #+32]
-        ORRS     R0,R1,R0
-        LDR      R1,[R4, #+40]
-        ORRS     R0,R1,R0
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+??HAL_SPI_Init_5:
+        LDR      R2,[R4, #+4]
+        LDR      R3,[R4, #+8]
+        ORRS     R2,R3,R2
+        LDR      R3,[R4, #+16]
+        ORRS     R2,R3,R2
+        LDR      R3,[R4, #+20]
+        ORRS     R2,R3,R2
+        LDR      R3,[R4, #+24]
+        AND      R3,R3,#0x200
+        ORRS     R2,R3,R2
+        LDR      R3,[R4, #+28]
+        ORRS     R2,R3,R2
+        LDR      R3,[R4, #+32]
+        ORRS     R2,R3,R2
+        LDR      R3,[R4, #+40]
+        ORRS     R2,R3,R2
+        STR      R2,[R0, #+0]
 //  270 
 //  271   if( hspi->Init.CRCLength == SPI_CRC_LENGTH_16BIT)
-        LDR      R0,[R4, #+48]
-        CMP      R0,#+2
-        BNE.N    ??HAL_SPI_Init_8
+        LDR      R2,[R4, #+48]
+        CMP      R2,#+2
+        BNE.N    ??HAL_SPI_Init_6
 //  272   {
 //  273     hspi->Instance->CR1|= SPI_CR1_CRCL;
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x800
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        LDR      R2,[R0, #+0]
+        ORR      R2,R2,#0x800
+        STR      R2,[R0, #+0]
 //  274   }
 //  275 
 //  276   /* Configure : NSS management */
 //  277   /* Configure : Rx Fifo Threshold */
 //  278   hspi->Instance->CR2 = (((hspi->Init.NSS >> 16) & SPI_CR2_SSOE) | hspi->Init.TIMode | hspi->Init.NSSPMode |
 //  279                          hspi->Init.DataSize ) | frxth;
-??HAL_SPI_Init_8:
-        LDR      R0,[R4, #+24]
-        LSRS     R0,R0,#+16
-        ANDS     R0,R0,#0x4
-        LDR      R1,[R4, #+36]
-        ORRS     R0,R1,R0
-        LDR      R1,[R4, #+52]
-        ORRS     R0,R1,R0
-        LDR      R1,[R4, #+12]
-        ORRS     R0,R1,R0
-        ORRS     R0,R5,R0
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+??HAL_SPI_Init_6:
+        LDR      R2,[R4, #+24]
+        LDR      R3,[R4, #+36]
+        LSRS     R2,R2,#+16
+        AND      R2,R2,#0x4
+        ORRS     R2,R3,R2
+        LDR      R3,[R4, #+52]
+        ORRS     R2,R3,R2
+        LDR      R3,[R4, #+12]
+        ORRS     R2,R3,R2
+        ORRS     R1,R1,R2
+        STR      R1,[R0, #+4]
 //  280 
 //  281   /*---------------------------- SPIx CRCPOLY Configuration --------------------*/
 //  282   /* Configure : CRC Polynomial */
 //  283   hspi->Instance->CRCPR = hspi->Init.CRCPolynomial;
-        LDR      R0,[R4, #+44]
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+16]
+        LDR      R1,[R4, #+44]
+        STR      R1,[R0, #+16]
 //  284 
 //  285   hspi->ErrorCode = HAL_SPI_ERROR_NONE;
         MOVS     R0,#+0
-        STR      R0,[R4, #+96]
+        STR      R0,[R5, #+4]
 //  286   hspi->State= HAL_SPI_STATE_READY;
         MOVS     R0,#+1
-        STRB     R0,[R4, #+93]
+        STRB     R0,[R5, #+1]
 //  287 
 //  288   return HAL_OK;
         MOVS     R0,#+0
-??HAL_SPI_Init_1:
-        POP      {R1,R4,R5,PC}    ;; return
+        POP      {R4-R6,PC}       ;; return
 //  289 }
           CFI EndBlock cfiBlock0
 //  290 
@@ -561,19 +579,19 @@ HAL_SPI_Init:
 //  297 HAL_StatusTypeDef HAL_SPI_DeInit(SPI_HandleTypeDef *hspi)
 //  298 {
 HAL_SPI_DeInit:
-        PUSH     {R4,LR}
+        PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOVS     R4,R0
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+16
+        MOVS     R5,R0
 //  299   /* Check the SPI handle allocation */
 //  300   if(hspi == NULL)
-        CMP      R4,#+0
         BNE.N    ??HAL_SPI_DeInit_0
 //  301   {
 //  302     return HAL_ERROR;
         MOVS     R0,#+1
-        B.N      ??HAL_SPI_DeInit_1
+        POP      {R1,R4,R5,PC}
 //  303   }
 //  304 
 //  305   /* Check the parameters */
@@ -581,61 +599,56 @@ HAL_SPI_DeInit:
 //  307 
 //  308   hspi->State = HAL_SPI_STATE_BUSY;
 ??HAL_SPI_DeInit_0:
+        ADD      R4,R5,#+92
         MOVS     R0,#+2
-        STRB     R0,[R4, #+93]
+        STRB     R0,[R4, #+1]
 //  309 
 //  310   /* check flag before the SPI disable */
 //  311   SPI_WaitFifoStateUntilTimeout(hspi, SPI_FLAG_FTLVL, SPI_FTLVL_EMPTY, SPI_DEFAULT_TIMEOUT);
         MOVS     R3,#+50
         MOVS     R2,#+0
         MOV      R1,#+6144
-        MOVS     R0,R4
+        MOV      R0,R5
           CFI FunCall SPI_WaitFifoStateUntilTimeout
         BL       SPI_WaitFifoStateUntilTimeout
 //  312   SPI_WaitFlagStateUntilTimeout(hspi, SPI_FLAG_BSY, RESET, SPI_DEFAULT_TIMEOUT);
         MOVS     R3,#+50
         MOVS     R2,#+0
         MOVS     R1,#+128
-        MOVS     R0,R4
-          CFI FunCall SPI_WaitFlagStateUntilTimeout
-        BL       SPI_WaitFlagStateUntilTimeout
+        BL       ??Subroutine21_0
 //  313   SPI_WaitFifoStateUntilTimeout(hspi, SPI_FLAG_FRLVL, SPI_FRLVL_EMPTY, SPI_DEFAULT_TIMEOUT);
+??CrossCallReturnLabel_36:
         MOVS     R3,#+50
         MOVS     R2,#+0
         MOV      R1,#+1536
-        MOVS     R0,R4
+        MOV      R0,R5
           CFI FunCall SPI_WaitFifoStateUntilTimeout
         BL       SPI_WaitFifoStateUntilTimeout
 //  314 
 //  315   /* Disable the SPI Peripheral Clock */
 //  316   __HAL_SPI_DISABLE(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        BICS     R0,R0,#0x40
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        LDR      R0,[R5, #+0]
+        LDR      R1,[R0, #+0]
+        BIC      R1,R1,#0x40
+        STR      R1,[R0, #+0]
 //  317 
 //  318   /* DeInit the low level hardware: GPIO, CLOCK, NVIC... */
 //  319   HAL_SPI_MspDeInit(hspi);
-        MOVS     R0,R4
+        MOV      R0,R5
           CFI FunCall HAL_SPI_MspDeInit
         BL       HAL_SPI_MspDeInit
 //  320 
 //  321   hspi->ErrorCode = HAL_SPI_ERROR_NONE;
         MOVS     R0,#+0
-        STR      R0,[R4, #+96]
+        STR      R0,[R4, #+4]
 //  322   hspi->State = HAL_SPI_STATE_RESET;
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+93]
+        STRB     R0,[R4, #+1]
 //  323 
 //  324   __HAL_UNLOCK(hspi);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+92]
+        STRB     R0,[R4, #+0]
 //  325 
 //  326   return HAL_OK;
-        MOVS     R0,#+0
-??HAL_SPI_DeInit_1:
-        POP      {R4,PC}          ;; return
+        POP      {R1,R4,R5,PC}    ;; return
 //  327 }
           CFI EndBlock cfiBlock1
 //  328 
@@ -743,272 +756,204 @@ HAL_SPI_Transmit:
           CFI R5 Frame(CFA, -16)
           CFI R4 Frame(CFA, -20)
           CFI CFA R13+24
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
-        MOVS     R7,R3
+        MOV      R5,R0
 //  402   assert_param(IS_SPI_DIRECTION_2LINES_OR_1LINE(hspi->Init.Direction));
 //  403 
 //  404   /* Process Locked */
 //  405   __HAL_LOCK(hspi);
-        LDRB     R0,[R4, #+92]
+        ADD      R4,R5,#+92
+        MOV      R6,R3
+        LDRB     R0,[R4, #+0]
         CMP      R0,#+1
-        BNE.N    ??HAL_SPI_Transmit_0
-        MOVS     R0,#+2
-        B.N      ??HAL_SPI_Transmit_1
-??HAL_SPI_Transmit_0:
+        BEQ.N    ??CrossCallReturnLabel_5
         MOVS     R0,#+1
-        STRB     R0,[R4, #+92]
+        STRB     R0,[R4, #+0]
 //  406 
 //  407   if(hspi->State != HAL_SPI_STATE_READY)
-        LDRB     R0,[R4, #+93]
+        LDRB     R0,[R4, #+1]
         CMP      R0,#+1
-        BEQ.N    ??HAL_SPI_Transmit_2
+        BEQ.N    ??HAL_SPI_Transmit_0
 //  408   {
 //  409     hspi->State = HAL_SPI_STATE_READY;
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+93]
+        BL       ?Subroutine10
 //  410    /* Process Unlocked */
 //  411    __HAL_UNLOCK(hspi);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+92]
 //  412    return HAL_BUSY;
+??CrossCallReturnLabel_5:
         MOVS     R0,#+2
-        B.N      ??HAL_SPI_Transmit_1
+        POP      {R1,R4-R7,PC}
 //  413   }
 //  414   
 //  415   if((pData == NULL ) || (Size == 0))
-??HAL_SPI_Transmit_2:
-        CMP      R5,#+0
-        BEQ.N    ??HAL_SPI_Transmit_3
-        UXTH     R6,R6            ;; ZeroExt  R6,R6,#+16,#+16
-        CMP      R6,#+0
-        BNE.N    ??HAL_SPI_Transmit_4
+??HAL_SPI_Transmit_0:
+        CMP      R1,#+0
+        IT       NE 
+        CMPNE    R2,#+0
+        BNE.N    ??HAL_SPI_Transmit_1
 //  416   {
 //  417     hspi->State = HAL_SPI_STATE_READY;
-??HAL_SPI_Transmit_3:
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+93]
+        STRB     R0,[R4, #+1]
 //  418    /* Process Unlocked */
 //  419    __HAL_UNLOCK(hspi);
         MOVS     R0,#+0
-        STRB     R0,[R4, #+92]
+        STRB     R0,[R4, #+0]
 //  420     return HAL_ERROR;
         MOVS     R0,#+1
-        B.N      ??HAL_SPI_Transmit_1
+        POP      {R1,R4-R7,PC}
 //  421   }
 //  422 
 //  423   /* Set the transaction information */
 //  424   hspi->State       = HAL_SPI_STATE_BUSY_TX;
-??HAL_SPI_Transmit_4:
+??HAL_SPI_Transmit_1:
         MOVS     R0,#+3
-        STRB     R0,[R4, #+93]
 //  425   hspi->ErrorCode   = HAL_SPI_ERROR_NONE;
-        MOVS     R0,#+0
-        STR      R0,[R4, #+96]
 //  426   hspi->pTxBuffPtr  = pData;
-        STR      R5,[R4, #+56]
+        ADD      R7,R5,#+56
+        STRB     R0,[R4, #+1]
+        MOVS     R0,#+0
+        STR      R0,[R4, #+4]
+        STR      R1,[R7, #+0]
 //  427   hspi->TxXferSize  = Size;
-        STRH     R6,[R4, #+60]
+        STRH     R2,[R7, #+4]
 //  428   hspi->TxXferCount = Size;
-        STRH     R6,[R4, #+62]
+        STRH     R2,[R7, #+6]
 //  429   hspi->pRxBuffPtr  = (uint8_t *)NULL;
-        MOVS     R0,#+0
-        STR      R0,[R4, #+64]
+        STR      R0,[R7, #+8]
 //  430   hspi->RxXferSize  = 0;
-        MOVS     R0,#+0
-        STRH     R0,[R4, #+68]
+        STRH     R0,[R7, #+12]
 //  431   hspi->RxXferCount = 0;
-        MOVS     R0,#+0
-        STRH     R0,[R4, #+70]
+        STRH     R0,[R7, #+14]
 //  432 
 //  433   /* Configure communication direction : 1Line */
 //  434   if(hspi->Init.Direction == SPI_DIRECTION_1LINE)
-        LDR      R0,[R4, #+8]
-        CMP      R0,#+32768
-        BNE.N    ??HAL_SPI_Transmit_5
+        LDR      R1,[R5, #+8]
+        LDR      R0,[R5, #+0]
+        CMP      R1,#+32768
+        BNE.N    ??HAL_SPI_Transmit_2
 //  435   {
 //  436     SPI_1LINE_TX(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x4000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x4000
+        STR      R1,[R0, #+0]
 //  437   }
 //  438 
 //  439   /* Reset CRC Calculation */
 //  440   if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
-??HAL_SPI_Transmit_5:
-        LDR      R0,[R4, #+40]
-        CMP      R0,#+8192
-        BNE.N    ??HAL_SPI_Transmit_6
+??HAL_SPI_Transmit_2:
+        LDR      R1,[R5, #+40]
+        CMP      R1,#+8192
+        BNE.N    ??CrossCallReturnLabel_30
 //  441   {
 //  442     SPI_RESET_CRC(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        MOVW     R1,#+57343
-        ANDS     R0,R1,R0
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x2000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        BL       ?Subroutine18
 //  443   }
 //  444 
 //  445   /* Check if the SPI is already enabled */
 //  446   if((hspi->Instance->CR1 & SPI_CR1_SPE) != SPI_CR1_SPE)
-??HAL_SPI_Transmit_6:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+25
-        BMI.N    ??HAL_SPI_Transmit_7
+??CrossCallReturnLabel_30:
+        BL       ?Subroutine17
 //  447   {
 //  448     /* Enable SPI peripheral */
 //  449     __HAL_SPI_ENABLE(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x40
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
 //  450   }
 //  451 
 //  452   /* Transmit data in 16 Bit mode */
 //  453   if(hspi->Init.DataSize > SPI_DATASIZE_8BIT)
-??HAL_SPI_Transmit_7:
-        LDR      R0,[R4, #+12]
+??CrossCallReturnLabel_27:
+        LDR      R0,[R5, #+12]
         CMP      R0,#+1792
-        BLS.N    ??HAL_SPI_Transmit_8
+        BLS.N    ??HAL_SPI_Transmit_3
 //  454   {
 //  455     /* Transmit data in 16 Bit mode */
 //  456     while (hspi->TxXferCount > 0)
-??HAL_SPI_Transmit_9:
-        LDRH     R0,[R4, #+62]
+??HAL_SPI_Transmit_4:
+        LDRH     R0,[R7, #+6]
         CMP      R0,#+0
-        BEQ.N    ??HAL_SPI_Transmit_10
+        BEQ.N    ??HAL_SPI_Transmit_5
 //  457     {
 //  458       /* Wait until TXE flag is set to send data */
 //  459       if(SPI_WaitFlagStateUntilTimeout(hspi,SPI_FLAG_TXE,SPI_FLAG_TXE,Timeout) != HAL_OK)
-        MOVS     R3,R7
-        MOVS     R2,#+2
-        MOVS     R1,#+2
-        MOVS     R0,R4
-          CFI FunCall SPI_WaitFlagStateUntilTimeout
-        BL       SPI_WaitFlagStateUntilTimeout
-        CMP      R0,#+0
-        BEQ.N    ??HAL_SPI_Transmit_11
+        MOV      R3,R6
+        BL       ?Subroutine21
+??CrossCallReturnLabel_39:
+        CBNZ.N   R0,??HAL_SPI_Transmit_6
 //  460       {
 //  461         hspi->State = HAL_SPI_STATE_READY;
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+93]
 //  462         /* Process Unlocked */
 //  463        __HAL_UNLOCK(hspi);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+92]
 //  464         return HAL_TIMEOUT;
-        MOVS     R0,#+3
-        B.N      ??HAL_SPI_Transmit_1
 //  465       }
 //  466       hspi->Instance->DR = *((uint16_t *)hspi->pTxBuffPtr);
-??HAL_SPI_Transmit_11:
-        LDR      R0,[R4, #+56]
-        LDRH     R0,[R0, #+0]
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+12]
+        BL       ?Subroutine24
 //  467       hspi->pTxBuffPtr += sizeof(uint16_t);
-        LDR      R0,[R4, #+56]
-        ADDS     R0,R0,#+2
-        STR      R0,[R4, #+56]
 //  468       hspi->TxXferCount--;
-        LDRH     R0,[R4, #+62]
-        SUBS     R0,R0,#+1
-        STRH     R0,[R4, #+62]
-        B.N      ??HAL_SPI_Transmit_9
 //  469     }
 //  470   }
+??CrossCallReturnLabel_44:
+        SUBS     R0,R0,#+1
+        STRH     R0,[R7, #+6]
+        B.N      ??HAL_SPI_Transmit_4
 //  471   /* Transmit data in 8 Bit mode */
 //  472   else
 //  473   {
 //  474     while (hspi->TxXferCount > 0)
-??HAL_SPI_Transmit_8:
-        LDRH     R0,[R4, #+62]
-        CMP      R0,#+0
-        BEQ.N    ??HAL_SPI_Transmit_10
 //  475     {
 //  476       if(hspi->TxXferCount != 0x1)
-        LDRH     R0,[R4, #+62]
-        CMP      R0,#+1
-        BEQ.N    ??HAL_SPI_Transmit_12
 //  477       {
 //  478         /* Wait until TXE flag is set to send data */
 //  479         if(SPI_WaitFlagStateUntilTimeout(hspi,SPI_FLAG_TXE,SPI_FLAG_TXE,Timeout) != HAL_OK)
-        MOVS     R3,R7
-        MOVS     R2,#+2
-        MOVS     R1,#+2
-        MOVS     R0,R4
-          CFI FunCall SPI_WaitFlagStateUntilTimeout
-        BL       SPI_WaitFlagStateUntilTimeout
-        CMP      R0,#+0
-        BEQ.N    ??HAL_SPI_Transmit_13
 //  480         {
 //  481           hspi->State = HAL_SPI_STATE_READY;
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+93]
 //  482           /* Process Unlocked */
 //  483           __HAL_UNLOCK(hspi);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+92]
 //  484           return HAL_TIMEOUT;
-        MOVS     R0,#+3
-        B.N      ??HAL_SPI_Transmit_1
 //  485         }
 //  486         hspi->Instance->DR = *((uint16_t*)hspi->pTxBuffPtr);
-??HAL_SPI_Transmit_13:
-        LDR      R0,[R4, #+56]
-        LDRH     R0,[R0, #+0]
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+12]
+??HAL_SPI_Transmit_7:
+        BL       ?Subroutine24
 //  487         hspi->pTxBuffPtr += sizeof(uint16_t);
-        LDR      R0,[R4, #+56]
-        ADDS     R0,R0,#+2
-        STR      R0,[R4, #+56]
 //  488         hspi->TxXferCount -= 2;
-        LDRH     R0,[R4, #+62]
+??CrossCallReturnLabel_45:
         SUBS     R0,R0,#+2
-        STRH     R0,[R4, #+62]
-        B.N      ??HAL_SPI_Transmit_8
+??HAL_SPI_Transmit_8:
+        STRH     R0,[R7, #+6]
+??HAL_SPI_Transmit_3:
+        LDRH     R0,[R7, #+6]
+        CBZ.N    R0,??HAL_SPI_Transmit_5
+        CMP      R0,#+1
+        MOV      R3,R6
+        BEQ.N    ??HAL_SPI_Transmit_9
+        BL       ?Subroutine21
+??CrossCallReturnLabel_38:
+        CMP      R0,#+0
+        BEQ.N    ??HAL_SPI_Transmit_7
+??HAL_SPI_Transmit_6:
+        BL       ?Subroutine10
 //  489       }
+??CrossCallReturnLabel_6:
+        B.N      ??HAL_SPI_Transmit_10
 //  490       else
 //  491       {
 //  492         /* Wait until TXE flag is set to send data */
 //  493         if(SPI_WaitFlagStateUntilTimeout(hspi,SPI_FLAG_TXE,SPI_FLAG_TXE,Timeout) != HAL_OK)  
-??HAL_SPI_Transmit_12:
-        MOVS     R3,R7
-        MOVS     R2,#+2
-        MOVS     R1,#+2
-        MOVS     R0,R4
-          CFI FunCall SPI_WaitFlagStateUntilTimeout
-        BL       SPI_WaitFlagStateUntilTimeout
-        CMP      R0,#+0
-        BEQ.N    ??HAL_SPI_Transmit_14
+??HAL_SPI_Transmit_9:
+        BL       ?Subroutine21
+??CrossCallReturnLabel_37:
+        CBNZ.N   R0,??HAL_SPI_Transmit_10
 //  494         {
 //  495           return HAL_TIMEOUT;
-        MOVS     R0,#+3
-        B.N      ??HAL_SPI_Transmit_1
 //  496         }
 //  497         *((__IO uint8_t*)&hspi->Instance->DR) = (*hspi->pTxBuffPtr++);
-??HAL_SPI_Transmit_14:
-        LDR      R0,[R4, #+56]
-        ADDS     R1,R0,#+1
-        STR      R1,[R4, #+56]
+        LDR      R0,[R7, #+0]
+        ADDS     R0,R0,#+1
+        STR      R0,[R7, #+0]
+        SUBS     R0,R0,#+1
+        LDR      R1,[R5, #+0]
         LDRB     R0,[R0, #+0]
-        LDR      R1,[R4, #+0]
         STRB     R0,[R1, #+12]
 //  498         hspi->TxXferCount--;    
-        LDRH     R0,[R4, #+62]
+        LDRH     R0,[R7, #+6]
         SUBS     R0,R0,#+1
-        STRH     R0,[R4, #+62]
         B.N      ??HAL_SPI_Transmit_8
 //  499       }
 //  500     }
@@ -1016,80 +961,205 @@ HAL_SPI_Transmit:
 //  502 
 //  503   /* Enable CRC Transmission */
 //  504   if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
-??HAL_SPI_Transmit_10:
-        LDR      R0,[R4, #+40]
+??HAL_SPI_Transmit_5:
+        LDR      R0,[R5, #+40]
         CMP      R0,#+8192
-        BNE.N    ??HAL_SPI_Transmit_15
+        BNE.N    ??HAL_SPI_Transmit_11
 //  505   {
 //  506      hspi->Instance->CR1|= SPI_CR1_CRCNEXT;
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x1000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        LDR      R0,[R5, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x1000
+        STR      R1,[R0, #+0]
 //  507   }
 //  508 
 //  509   /* Check the end of the transaction */
 //  510   if(SPI_EndRxTxTransaction(hspi,Timeout) != HAL_OK)
-??HAL_SPI_Transmit_15:
-        MOVS     R1,R7
-        MOVS     R0,R4
+??HAL_SPI_Transmit_11:
+        MOV      R1,R6
+        MOV      R0,R5
           CFI FunCall SPI_EndRxTxTransaction
         BL       SPI_EndRxTxTransaction
-        CMP      R0,#+0
-        BEQ.N    ??HAL_SPI_Transmit_16
+        CBZ.N    R0,??HAL_SPI_Transmit_12
 //  511   {
 //  512     return HAL_TIMEOUT;
+??HAL_SPI_Transmit_10:
         MOVS     R0,#+3
-        B.N      ??HAL_SPI_Transmit_1
+        POP      {R1,R4-R7,PC}
 //  513   }
 //  514   
 //  515   /* Clear OVERUN flag in 2 Lines communication mode because received is not read */
 //  516   if(hspi->Init.Direction == SPI_DIRECTION_2LINES)
-??HAL_SPI_Transmit_16:
-        LDR      R0,[R4, #+8]
-        CMP      R0,#+0
-        BNE.N    ??HAL_SPI_Transmit_17
+??HAL_SPI_Transmit_12:
+        LDR      R0,[R5, #+8]
+        CBNZ.N   R0,??HAL_SPI_Transmit_13
 //  517   {
 //  518     __HAL_SPI_CLEAR_OVRFLAG(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+12]
-        STR      R0,[SP, #+0]
-        LDR      R0,[R4, #+0]
+        LDR      R0,[R5, #+0]
+        LDR      R1,[R0, #+12]
+        STR      R1,[SP, #+0]
         LDR      R0,[R0, #+8]
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
 //  519   }
 //  520     
 //  521   hspi->State = HAL_SPI_STATE_READY; 
-??HAL_SPI_Transmit_17:
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+93]
+??HAL_SPI_Transmit_13:
+        BL       ?Subroutine10
 //  522 
 //  523   /* Process Unlocked */
 //  524   __HAL_UNLOCK(hspi);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+92]
 //  525   
 //  526   if(hspi->ErrorCode != HAL_SPI_ERROR_NONE)
-        LDR      R0,[R4, #+96]
-        CMP      R0,#+0
-        BEQ.N    ??HAL_SPI_Transmit_18
+??CrossCallReturnLabel_7:
+        LDR      R0,[R4, #+4]
+        CBZ.N    R0,??HAL_SPI_Transmit_14
+        MOVS     R0,#+1
+??HAL_SPI_Transmit_14:
+        UXTB     R0,R0
 //  527   {   
 //  528     return HAL_ERROR;
-        MOVS     R0,#+1
-        B.N      ??HAL_SPI_Transmit_1
 //  529   }
 //  530   else
 //  531   {
 //  532     return HAL_OK;
-??HAL_SPI_Transmit_18:
-        MOVS     R0,#+0
-??HAL_SPI_Transmit_1:
         POP      {R1,R4-R7,PC}    ;; return
 //  533   }
 //  534 }
           CFI EndBlock cfiBlock4
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond5 Using cfiCommon0
+          CFI Function HAL_SPI_Transmit
+          CFI Conditional ??CrossCallReturnLabel_44
+          CFI R4 Frame(CFA, -20)
+          CFI R5 Frame(CFA, -16)
+          CFI R6 Frame(CFA, -12)
+          CFI R7 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+24
+          CFI Block cfiCond6 Using cfiCommon0
+          CFI (cfiCond6) Function HAL_SPI_Transmit
+          CFI (cfiCond6) Conditional ??CrossCallReturnLabel_45
+          CFI (cfiCond6) R4 Frame(CFA, -20)
+          CFI (cfiCond6) R5 Frame(CFA, -16)
+          CFI (cfiCond6) R6 Frame(CFA, -12)
+          CFI (cfiCond6) R7 Frame(CFA, -8)
+          CFI (cfiCond6) R14 Frame(CFA, -4)
+          CFI (cfiCond6) CFA R13+24
+          CFI Block cfiPicker7 Using cfiCommon1
+          CFI (cfiPicker7) NoFunction
+          CFI (cfiPicker7) Picker
+        THUMB
+?Subroutine24:
+        LDR      R0,[R7, #+0]
+        LDR      R2,[R5, #+0]
+        LDRH     R1,[R0], #+2
+        STR      R1,[R2, #+12]
+        STR      R0,[R7, #+0]
+        LDRH     R0,[R7, #+6]
+        BX       LR
+          CFI EndBlock cfiCond5
+          CFI EndBlock cfiCond6
+          CFI EndBlock cfiPicker7
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond8 Using cfiCommon0
+          CFI Function HAL_SPI_Transmit
+          CFI Conditional ??CrossCallReturnLabel_39
+          CFI R4 Frame(CFA, -20)
+          CFI R5 Frame(CFA, -16)
+          CFI R6 Frame(CFA, -12)
+          CFI R7 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+24
+          CFI Block cfiCond9 Using cfiCommon0
+          CFI (cfiCond9) Function HAL_SPI_Transmit
+          CFI (cfiCond9) Conditional ??CrossCallReturnLabel_38
+          CFI (cfiCond9) R4 Frame(CFA, -20)
+          CFI (cfiCond9) R5 Frame(CFA, -16)
+          CFI (cfiCond9) R6 Frame(CFA, -12)
+          CFI (cfiCond9) R7 Frame(CFA, -8)
+          CFI (cfiCond9) R14 Frame(CFA, -4)
+          CFI (cfiCond9) CFA R13+24
+          CFI Block cfiCond10 Using cfiCommon0
+          CFI (cfiCond10) Function HAL_SPI_Transmit
+          CFI (cfiCond10) Conditional ??CrossCallReturnLabel_37
+          CFI (cfiCond10) R4 Frame(CFA, -20)
+          CFI (cfiCond10) R5 Frame(CFA, -16)
+          CFI (cfiCond10) R6 Frame(CFA, -12)
+          CFI (cfiCond10) R7 Frame(CFA, -8)
+          CFI (cfiCond10) R14 Frame(CFA, -4)
+          CFI (cfiCond10) CFA R13+24
+          CFI Block cfiPicker11 Using cfiCommon1
+          CFI (cfiPicker11) NoFunction
+          CFI (cfiPicker11) Picker
+        THUMB
+?Subroutine21:
+        MOVS     R2,#+2
+        MOVS     R1,#+2
+          CFI Block cfiCond12 Using cfiCommon0
+          CFI (cfiCond12) Function HAL_SPI_DeInit
+          CFI (cfiCond12) Conditional ??CrossCallReturnLabel_36
+          CFI (cfiCond12) R4 Frame(CFA, -12)
+          CFI (cfiCond12) R5 Frame(CFA, -8)
+          CFI (cfiCond12) R14 Frame(CFA, -4)
+          CFI (cfiCond12) CFA R13+16
+??Subroutine21_0:
+        MOV      R0,R5
+          CFI (cfiCond8) FunCall HAL_SPI_Transmit SPI_WaitFlagStateUntilTimeout
+          CFI (cfiCond8) FunCall HAL_SPI_Transmit SPI_WaitFlagStateUntilTimeout
+          CFI (cfiCond8) FunCall HAL_SPI_Transmit SPI_WaitFlagStateUntilTimeout
+          CFI (cfiCond12) FunCall HAL_SPI_DeInit SPI_WaitFlagStateUntilTimeout
+        B.W      SPI_WaitFlagStateUntilTimeout
+          CFI EndBlock cfiCond8
+          CFI EndBlock cfiCond9
+          CFI EndBlock cfiCond10
+          CFI EndBlock cfiPicker11
+          CFI EndBlock cfiCond12
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond13 Using cfiCommon0
+          CFI Function HAL_SPI_Transmit
+          CFI Conditional ??CrossCallReturnLabel_5
+          CFI R4 Frame(CFA, -20)
+          CFI R5 Frame(CFA, -16)
+          CFI R6 Frame(CFA, -12)
+          CFI R7 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+24
+          CFI Block cfiCond14 Using cfiCommon0
+          CFI (cfiCond14) Function HAL_SPI_Transmit
+          CFI (cfiCond14) Conditional ??CrossCallReturnLabel_6
+          CFI (cfiCond14) R4 Frame(CFA, -20)
+          CFI (cfiCond14) R5 Frame(CFA, -16)
+          CFI (cfiCond14) R6 Frame(CFA, -12)
+          CFI (cfiCond14) R7 Frame(CFA, -8)
+          CFI (cfiCond14) R14 Frame(CFA, -4)
+          CFI (cfiCond14) CFA R13+24
+          CFI Block cfiCond15 Using cfiCommon0
+          CFI (cfiCond15) Function HAL_SPI_Transmit
+          CFI (cfiCond15) Conditional ??CrossCallReturnLabel_7
+          CFI (cfiCond15) R4 Frame(CFA, -20)
+          CFI (cfiCond15) R5 Frame(CFA, -16)
+          CFI (cfiCond15) R6 Frame(CFA, -12)
+          CFI (cfiCond15) R7 Frame(CFA, -8)
+          CFI (cfiCond15) R14 Frame(CFA, -4)
+          CFI (cfiCond15) CFA R13+24
+          CFI Block cfiPicker16 Using cfiCommon1
+          CFI (cfiPicker16) NoFunction
+          CFI (cfiPicker16) Picker
+        THUMB
+?Subroutine10:
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+1]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+0]
+        BX       LR
+          CFI EndBlock cfiCond13
+          CFI EndBlock cfiCond14
+          CFI EndBlock cfiCond15
+          CFI EndBlock cfiPicker16
 //  535 
 //  536 /**
 //  537   * @brief  Receive an amount of data in blocking mode
@@ -1102,223 +1172,176 @@ HAL_SPI_Transmit:
 //  544   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock5 Using cfiCommon0
+          CFI Block cfiBlock17 Using cfiCommon0
           CFI Function HAL_SPI_Receive
         THUMB
 //  545 HAL_StatusTypeDef HAL_SPI_Receive(SPI_HandleTypeDef *hspi, uint8_t *pData, uint16_t Size, uint32_t Timeout)
 //  546 {
 HAL_SPI_Receive:
-        PUSH     {R4-R7,LR}
+        PUSH     {R3-R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI R7 Frame(CFA, -8)
           CFI R6 Frame(CFA, -12)
           CFI R5 Frame(CFA, -16)
           CFI R4 Frame(CFA, -20)
-          CFI CFA R13+20
-        SUB      SP,SP,#+12
-          CFI CFA R13+32
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
-        MOVS     R7,R3
+          CFI CFA R13+24
+        MOV      R4,R0
 //  547   __IO uint16_t tmpreg;
 //  548   
 //  549   if(hspi->State != HAL_SPI_STATE_READY)
-        LDRB     R0,[R4, #+93]
+        ADD      R6,R4,#+68
+        MOV      R5,R3
+        LDRB     R0,[R6, #+25]
         CMP      R0,#+1
-        BEQ.N    ??HAL_SPI_Receive_0
+        BNE.N    ??HAL_SPI_Receive_0
 //  550   {
 //  551     return HAL_BUSY;
-        MOVS     R0,#+2
-        B.N      ??HAL_SPI_Receive_1
 //  552   }
 //  553   
 //  554   if((pData == NULL ) || (Size == 0))
-??HAL_SPI_Receive_0:
-        CMP      R5,#+0
-        BEQ.N    ??HAL_SPI_Receive_2
-        UXTH     R6,R6            ;; ZeroExt  R6,R6,#+16,#+16
-        CMP      R6,#+0
-        BNE.N    ??HAL_SPI_Receive_3
+        CMP      R1,#+0
+        IT       NE 
+        CMPNE    R2,#+0
+        BEQ.N    ??HAL_SPI_Receive_1
 //  555   {
 //  556     return HAL_ERROR;
-??HAL_SPI_Receive_2:
-        MOVS     R0,#+1
-        B.N      ??HAL_SPI_Receive_1
 //  557   }
 //  558 
 //  559   if((hspi->Init.Mode == SPI_MODE_MASTER) && (hspi->Init.Direction == SPI_DIRECTION_2LINES))
-??HAL_SPI_Receive_3:
         LDR      R0,[R4, #+4]
         CMP      R0,#+260
-        BNE.N    ??HAL_SPI_Receive_4
-        LDR      R0,[R4, #+8]
-        CMP      R0,#+0
-        BNE.N    ??HAL_SPI_Receive_4
+        ITT      EQ 
+        LDREQ    R0,[R4, #+8]
+        CMPEQ    R0,#+0
+        BNE.N    ??HAL_SPI_Receive_2
 //  560   {
 //  561     /* the receive process is not supported in 2Lines direction master mode */
 //  562     /* in this case we call the transmitReceive process                     */
 //  563     return HAL_SPI_TransmitReceive(hspi,pData,pData,Size,Timeout);
-        STR      R7,[SP, #+0]
-        MOVS     R3,R6
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        MOVS     R2,R5
-        MOVS     R1,R5
-        MOVS     R0,R4
+        MOV      R3,R2
+        STR      R5,[SP, #+0]
+        MOV      R2,R1
+        MOV      R0,R4
           CFI FunCall HAL_SPI_TransmitReceive
         BL       HAL_SPI_TransmitReceive
-        B.N      ??HAL_SPI_Receive_1
+??HAL_SPI_Receive_1:
+        POP      {R1,R4-R7,PC}
 //  564   }
 //  565   
 //  566   /* Process Locked */
 //  567   __HAL_LOCK(hspi);
-??HAL_SPI_Receive_4:
-        LDRB     R0,[R4, #+92]
+??HAL_SPI_Receive_2:
+        LDRB     R0,[R6, #+24]
         CMP      R0,#+1
-        BNE.N    ??HAL_SPI_Receive_5
+        BNE.N    ??HAL_SPI_Receive_3
+??HAL_SPI_Receive_0:
         MOVS     R0,#+2
-        B.N      ??HAL_SPI_Receive_1
-??HAL_SPI_Receive_5:
+        POP      {R1,R4-R7,PC}
+??HAL_SPI_Receive_3:
         MOVS     R0,#+1
-        STRB     R0,[R4, #+92]
+        STRB     R0,[R6, #+24]
 //  568     
 //  569   hspi->State       = HAL_SPI_STATE_BUSY_RX;
         MOVS     R0,#+4
-        STRB     R0,[R4, #+93]
+        STRB     R0,[R6, #+25]
 //  570   hspi->ErrorCode   = HAL_SPI_ERROR_NONE;
         MOVS     R0,#+0
-        STR      R0,[R4, #+96]
+        STR      R0,[R6, #+28]
 //  571   hspi->pRxBuffPtr  = pData;
-        STR      R5,[R4, #+64]
+        STR      R1,[R4, #+64]
 //  572   hspi->RxXferSize  = Size;
-        STRH     R6,[R4, #+68]
+        STRH     R2,[R6, #+0]
 //  573   hspi->RxXferCount = Size;
-        STRH     R6,[R4, #+70]
+        STRH     R2,[R6, #+2]
 //  574   hspi->pTxBuffPtr  = (uint8_t *)NULL;
-        MOVS     R0,#+0
-        STR      R0,[R4, #+56]
 //  575   hspi->TxXferSize  = 0;
-        MOVS     R0,#+0
-        STRH     R0,[R4, #+60]
 //  576   hspi->TxXferCount = 0;
-        MOVS     R0,#+0
-        STRH     R0,[R4, #+62]
 //  577 
 //  578   /* Reset CRC Calculation */
 //  579   if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
-        LDR      R0,[R4, #+40]
-        CMP      R0,#+8192
-        BNE.N    ??HAL_SPI_Receive_6
+        LDR      R1,[R4, #+40]
+        STR      R0,[R4, #+56]
+        CMP      R1,#+8192
+        STRH     R0,[R4, #+60]
+        STRH     R0,[R4, #+62]
+        LDR      R0,[R4, #+0]
+        BNE.N    ??HAL_SPI_Receive_4
 //  580   {
 //  581     SPI_RESET_CRC(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        MOVW     R1,#+57343
-        ANDS     R0,R1,R0
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x2000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        BL       ?Subroutine18
 //  582     /* this is done to handle the CRCNEXT before the latest data */
 //  583     hspi->RxXferCount--;
-        LDRH     R0,[R4, #+70]
-        SUBS     R0,R0,#+1
-        STRH     R0,[R4, #+70]
+??CrossCallReturnLabel_31:
+        LDRH     R1,[R6, #+2]
+        SUBS     R1,R1,#+1
+        STRH     R1,[R6, #+2]
 //  584   }
 //  585 
 //  586   /* Set the Rx Fido threshold */
 //  587   if(hspi->Init.DataSize > SPI_DATASIZE_8BIT)
-??HAL_SPI_Receive_6:
-        LDR      R0,[R4, #+12]
-        CMP      R0,#+1792
-        BLS.N    ??HAL_SPI_Receive_7
+??HAL_SPI_Receive_4:
+        LDR      R1,[R4, #+12]
+        MOVW     R7,#+1793
+        CMP      R1,R7
+        LDR      R1,[R0, #+4]
+        ITE      CS 
+        BICCS    R1,R1,#0x1000
+        ORRCC    R1,R1,#0x1000
 //  588   {
 //  589     /* set fiforxthreshold according the reception data length: 16bit */
 //  590     CLEAR_BIT(hspi->Instance->CR2, SPI_RXFIFO_THRESHOLD);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0x1000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
-        B.N      ??HAL_SPI_Receive_8
 //  591   }
 //  592   else
 //  593   {
 //  594     /* set fiforxthreshold according the reception data length: 8bit */
 //  595     SET_BIT(hspi->Instance->CR2, SPI_RXFIFO_THRESHOLD);
-??HAL_SPI_Receive_7:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        ORRS     R0,R0,#0x1000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+        STR      R1,[R0, #+4]
 //  596   }
 //  597 
 //  598   /* Configure communication direction 1Line and enabled SPI if needed */
 //  599   if(hspi->Init.Direction == SPI_DIRECTION_1LINE)
-??HAL_SPI_Receive_8:
-        LDR      R0,[R4, #+8]
-        CMP      R0,#+32768
-        BNE.N    ??HAL_SPI_Receive_9
+        LDR      R1,[R4, #+8]
+        CMP      R1,#+32768
+        BNE.N    ??HAL_SPI_Receive_5
 //  600   {
 //  601     SPI_1LINE_RX(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        BICS     R0,R0,#0x4000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        LDR      R1,[R0, #+0]
+        BIC      R1,R1,#0x4000
+        STR      R1,[R0, #+0]
 //  602   }
 //  603 
 //  604   /* Check if the SPI is already enabled */
 //  605   if((hspi->Instance->CR1 & SPI_CR1_SPE) != SPI_CR1_SPE)
-??HAL_SPI_Receive_9:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+25
-        BMI.N    ??HAL_SPI_Receive_10
+??HAL_SPI_Receive_5:
+        BL       ?Subroutine17
 //  606   {
 //  607     /* Enable SPI peripheral */
 //  608     __HAL_SPI_ENABLE(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x40
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
 //  609   }
 //  610 
 //  611   /* Receive data in 8 Bit mode */
 //  612   if(hspi->Init.DataSize <= SPI_DATASIZE_8BIT)
-??HAL_SPI_Receive_10:
+??CrossCallReturnLabel_28:
         LDR      R0,[R4, #+12]
-        CMP      R0,#+1792
-        BHI.N    ??HAL_SPI_Receive_11
+        CMP      R0,R7
+        BCS.N    ??HAL_SPI_Receive_6
 //  613   {
 //  614     while(hspi->RxXferCount > 1)
-??HAL_SPI_Receive_12:
-        LDRH     R0,[R4, #+70]
+??HAL_SPI_Receive_7:
+        LDRH     R0,[R6, #+2]
         CMP      R0,#+2
-        BLT.N    ??HAL_SPI_Receive_13
+        BLT.N    ??HAL_SPI_Receive_8
 //  615     {
 //  616       /* Wait until the RXNE flag */
 //  617       if(SPI_WaitFlagStateUntilTimeout(hspi, SPI_FLAG_RXNE, SPI_FLAG_RXNE, Timeout) != HAL_OK)
-        MOVS     R3,R7
-        MOVS     R2,#+1
-        MOVS     R1,#+1
-        MOVS     R0,R4
-          CFI FunCall SPI_WaitFlagStateUntilTimeout
-        BL       SPI_WaitFlagStateUntilTimeout
+        BL       ?Subroutine13
+??CrossCallReturnLabel_20:
         CMP      R0,#+0
-        BEQ.N    ??HAL_SPI_Receive_14
+        BNE.N    ??HAL_SPI_Receive_9
 //  618       {
 //  619         return HAL_TIMEOUT;
-        MOVS     R0,#+3
-        B.N      ??HAL_SPI_Receive_1
 //  620       }
 //  621       (*hspi->pRxBuffPtr++)= *(__IO uint8_t *)&hspi->Instance->DR;
-??HAL_SPI_Receive_14:
         LDR      R0,[R4, #+64]
         ADDS     R1,R0,#+1
         STR      R1,[R4, #+64]
@@ -1326,273 +1349,308 @@ HAL_SPI_Receive:
         LDRB     R1,[R1, #+12]
         STRB     R1,[R0, #+0]
 //  622       hspi->RxXferCount--;  
-        LDRH     R0,[R4, #+70]
+        LDRH     R0,[R6, #+2]
         SUBS     R0,R0,#+1
-        STRH     R0,[R4, #+70]
-        B.N      ??HAL_SPI_Receive_12
+        STRH     R0,[R6, #+2]
+        B.N      ??HAL_SPI_Receive_7
 //  623     }
 //  624   }
 //  625   else /* Receive data in 16 Bit mode */
 //  626   {   
 //  627     while(hspi->RxXferCount > 1 )
-??HAL_SPI_Receive_11:
-        LDRH     R0,[R4, #+70]
-        CMP      R0,#+2
-        BLT.N    ??HAL_SPI_Receive_13
 //  628     {
 //  629       /* Wait until RXNE flag is reset to read data */
 //  630       if(SPI_WaitFlagStateUntilTimeout(hspi, SPI_FLAG_RXNE, SPI_FLAG_RXNE, Timeout) != HAL_OK)
-        MOVS     R3,R7
-        MOVS     R2,#+1
-        MOVS     R1,#+1
-        MOVS     R0,R4
-          CFI FunCall SPI_WaitFlagStateUntilTimeout
-        BL       SPI_WaitFlagStateUntilTimeout
+??HAL_SPI_Receive_10:
+        BL       ?Subroutine13
+??CrossCallReturnLabel_19:
         CMP      R0,#+0
-        BEQ.N    ??HAL_SPI_Receive_15
+        BNE.N    ??HAL_SPI_Receive_9
 //  631       {
 //  632         return HAL_TIMEOUT;
-        MOVS     R0,#+3
-        B.N      ??HAL_SPI_Receive_1
 //  633       }
 //  634       *((uint16_t*)hspi->pRxBuffPtr) = hspi->Instance->DR;
-??HAL_SPI_Receive_15:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+12]
-        LDR      R1,[R4, #+64]
-        STRH     R0,[R1, #+0]
-//  635       hspi->pRxBuffPtr += sizeof(uint16_t);
+        LDR      R1,[R4, #+0]
         LDR      R0,[R4, #+64]
-        ADDS     R0,R0,#+2
+        LDR      R1,[R1, #+12]
+        STRH     R1,[R0], #+2
+//  635       hspi->pRxBuffPtr += sizeof(uint16_t);
         STR      R0,[R4, #+64]
 //  636       hspi->RxXferCount--;
-        LDRH     R0,[R4, #+70]
+        LDRH     R0,[R6, #+2]
         SUBS     R0,R0,#+1
-        STRH     R0,[R4, #+70]
-        B.N      ??HAL_SPI_Receive_11
+        STRH     R0,[R6, #+2]
 //  637     } 
+??HAL_SPI_Receive_6:
+        LDRH     R0,[R6, #+2]
+        CMP      R0,#+2
+        BGE.N    ??HAL_SPI_Receive_10
 //  638   }
 //  639   
 //  640   /* Enable CRC Transmission */
 //  641   if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE) 
-??HAL_SPI_Receive_13:
-        LDR      R0,[R4, #+40]
-        CMP      R0,#+8192
-        BNE.N    ??HAL_SPI_Receive_16
+??HAL_SPI_Receive_8:
+        BL       ?Subroutine31
+??CrossCallReturnLabel_63:
+        BNE.N    ??HAL_SPI_Receive_11
 //  642   {
 //  643     hspi->Instance->CR1 |= SPI_CR1_CRCNEXT;
         LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x1000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x1000
+        STR      R1,[R0, #+0]
 //  644   }  
 //  645 
 //  646   /* Wait until RXNE flag is set */
 //  647   if(SPI_WaitFlagStateUntilTimeout(hspi, SPI_FLAG_RXNE, SPI_FLAG_RXNE, Timeout) != HAL_OK)
-??HAL_SPI_Receive_16:
-        MOVS     R3,R7
-        MOVS     R2,#+1
-        MOVS     R1,#+1
-        MOVS     R0,R4
-          CFI FunCall SPI_WaitFlagStateUntilTimeout
-        BL       SPI_WaitFlagStateUntilTimeout
+??HAL_SPI_Receive_11:
+        BL       ?Subroutine13
+??CrossCallReturnLabel_18:
         CMP      R0,#+0
-        BEQ.N    ??HAL_SPI_Receive_17
+        BNE.N    ??HAL_SPI_Receive_9
 //  648   {
 //  649     return HAL_TIMEOUT;
-        MOVS     R0,#+3
-        B.N      ??HAL_SPI_Receive_1
 //  650   }
 //  651   
 //  652   /* Receive last data in 16 Bit mode */
 //  653   if(hspi->Init.DataSize > SPI_DATASIZE_8BIT)
-??HAL_SPI_Receive_17:
-        LDR      R0,[R4, #+12]
-        CMP      R0,#+1792
-        BLS.N    ??HAL_SPI_Receive_18
+        LDR      R2,[R4, #+12]
+        LDR      R1,[R4, #+0]
+        LDR      R0,[R4, #+64]
+        CMP      R2,R7
+        ITTEE    CS 
+        LDRCS    R1,[R1, #+12]
+        STRHCS   R1,[R0], #+2
+        LDRBCC   R1,[R1, #+12]
+        STRBCC   R1,[R0], #+1
 //  654   {        
 //  655     *((uint16_t*)hspi->pRxBuffPtr) = hspi->Instance->DR;
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+12]
-        LDR      R1,[R4, #+64]
-        STRH     R0,[R1, #+0]
 //  656     hspi->pRxBuffPtr += sizeof(uint16_t);
-        LDR      R0,[R4, #+64]
-        ADDS     R0,R0,#+2
-        STR      R0,[R4, #+64]
-        B.N      ??HAL_SPI_Receive_19
 //  657   }
 //  658   /* Receive last data in 8 Bit mode */
 //  659   else 
 //  660   {
 //  661     (*hspi->pRxBuffPtr++) = *(__IO uint8_t *)&hspi->Instance->DR;
-??HAL_SPI_Receive_18:
-        LDR      R0,[R4, #+64]
-        ADDS     R1,R0,#+1
-        STR      R1,[R4, #+64]
-        LDR      R1,[R4, #+0]
-        LDRB     R1,[R1, #+12]
-        STRB     R1,[R0, #+0]
+        STR      R0,[R4, #+64]
 //  662   }
 //  663   hspi->RxXferCount--;
-??HAL_SPI_Receive_19:
-        LDRH     R0,[R4, #+70]
+        LDRH     R0,[R6, #+2]
         SUBS     R0,R0,#+1
-        STRH     R0,[R4, #+70]
+        STRH     R0,[R6, #+2]
 //  664   
 //  665   /* Read CRC from DR to close CRC calculation process */
 //  666   if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
-        LDR      R0,[R4, #+40]
-        CMP      R0,#+8192
-        BNE.N    ??HAL_SPI_Receive_20
+        BL       ?Subroutine31
+??CrossCallReturnLabel_64:
+        BNE.N    ??CrossCallReturnLabel_74
 //  667   {
 //  668     /* Wait until TXE flag */
 //  669     if(SPI_WaitFlagStateUntilTimeout(hspi, SPI_FLAG_RXNE, SPI_FLAG_RXNE, Timeout) != HAL_OK) 
-        MOVS     R3,R7
-        MOVS     R2,#+1
-        MOVS     R1,#+1
-        MOVS     R0,R4
-          CFI FunCall SPI_WaitFlagStateUntilTimeout
-        BL       SPI_WaitFlagStateUntilTimeout
-        CMP      R0,#+0
-        BEQ.N    ??HAL_SPI_Receive_21
+        BL       ?Subroutine13
+??CrossCallReturnLabel_17:
+        CBZ.N    R0,??HAL_SPI_Receive_12
 //  670     {
 //  671       /* Error on the CRC reception */
 //  672       hspi->ErrorCode|= HAL_SPI_ERROR_CRC;
-        LDR      R0,[R4, #+96]
-        ORRS     R0,R0,#0x2
-        STR      R0,[R4, #+96]
+        LDR      R0,[R6, #+28]
+        ORR      R0,R0,#0x2
+        STR      R0,[R6, #+28]
 //  673     }
 //  674     if(hspi->Init.DataSize > SPI_DATASIZE_8BIT)
-??HAL_SPI_Receive_21:
+??HAL_SPI_Receive_12:
         LDR      R0,[R4, #+12]
-        CMP      R0,#+1792
-        BLS.N    ??HAL_SPI_Receive_22
+        LDR      R1,[R4, #+0]
+        CMP      R0,R7
+        IT       CS 
+        LDRCS    R0,[R1, #+12]
 //  675     {        
 //  676       tmpreg = hspi->Instance->DR;
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+12]
-        STRH     R0,[SP, #+4]
+        BCS.N    ??HAL_SPI_Receive_13
 //  677       UNUSED(tmpreg); /* To avoid GCC warning */
-        LDRH     R0,[SP, #+4]
-        B.N      ??HAL_SPI_Receive_20
 //  678     }
 //  679     else
 //  680     {
 //  681       tmpreg = *(__IO uint8_t *)&hspi->Instance->DR;
-??HAL_SPI_Receive_22:
-        LDR      R0,[R4, #+0]
-        LDRB     R0,[R0, #+12]
-        STRH     R0,[SP, #+4]
+        LDRB     R1,[R1, #+12]
 //  682       UNUSED(tmpreg); /* To avoid GCC warning */
-        LDRH     R0,[SP, #+4]
 //  683 
 //  684       if((hspi->Init.DataSize == SPI_DATASIZE_8BIT) && (hspi->Init.CRCLength == SPI_CRC_LENGTH_16BIT))
-        LDR      R0,[R4, #+12]
         CMP      R0,#+1792
-        BNE.N    ??HAL_SPI_Receive_20
-        LDR      R0,[R4, #+48]
-        CMP      R0,#+2
-        BNE.N    ??HAL_SPI_Receive_20
+        STRH     R1,[SP, #+0]
+        LDRH     R1,[SP, #+0]
+        ITT      EQ 
+        LDREQ    R0,[R4, #+48]
+        CMPEQ    R0,#+2
+        BNE.N    ??CrossCallReturnLabel_74
 //  685       {
 //  686         if(SPI_WaitFlagStateUntilTimeout(hspi, SPI_FLAG_RXNE, SPI_FLAG_RXNE, Timeout) != HAL_OK)
-        MOVS     R3,R7
-        MOVS     R2,#+1
-        MOVS     R1,#+1
-        MOVS     R0,R4
-          CFI FunCall SPI_WaitFlagStateUntilTimeout
-        BL       SPI_WaitFlagStateUntilTimeout
-        CMP      R0,#+0
-        BEQ.N    ??HAL_SPI_Receive_23
+        BL       ?Subroutine13
+??CrossCallReturnLabel_16:
+        CBZ.N    R0,??HAL_SPI_Receive_14
 //  687         {
 //  688           /* Error on the CRC reception */
 //  689           hspi->ErrorCode|= HAL_SPI_ERROR_FLAG;
-        LDR      R0,[R4, #+96]
-        ORRS     R0,R0,#0x20
-        STR      R0,[R4, #+96]
+        LDR      R0,[R6, #+28]
+        ORR      R0,R0,#0x20
+        STR      R0,[R6, #+28]
 //  690         }
 //  691         tmpreg = *(__IO uint8_t *)&hspi->Instance->DR;
-??HAL_SPI_Receive_23:
+??HAL_SPI_Receive_14:
         LDR      R0,[R4, #+0]
         LDRB     R0,[R0, #+12]
-        STRH     R0,[SP, #+4]
 //  692         UNUSED(tmpreg); /* To avoid GCC warning */
-        LDRH     R0,[SP, #+4]
 //  693       }
 //  694     }
 //  695   }
+??HAL_SPI_Receive_13:
+        BL       ?Subroutine34
 //  696   
 //  697   /* Check the end of the transaction */
 //  698   if(SPI_EndRxTransaction(hspi,Timeout) != HAL_OK)
-??HAL_SPI_Receive_20:
-        MOVS     R1,R7
-        MOVS     R0,R4
+??CrossCallReturnLabel_74:
+        MOV      R1,R5
+        MOV      R0,R4
           CFI FunCall SPI_EndRxTransaction
         BL       SPI_EndRxTransaction
-        CMP      R0,#+0
-        BEQ.N    ??HAL_SPI_Receive_24
+        CBZ.N    R0,??HAL_SPI_Receive_15
 //  699   {
 //  700     return HAL_TIMEOUT;
+??HAL_SPI_Receive_9:
         MOVS     R0,#+3
-        B.N      ??HAL_SPI_Receive_1
+        POP      {R1,R4-R7,PC}
 //  701   }
 //  702 
 //  703   hspi->State = HAL_SPI_STATE_READY; 
-??HAL_SPI_Receive_24:
+??HAL_SPI_Receive_15:
         MOVS     R0,#+1
-        STRB     R0,[R4, #+93]
+        STRB     R0,[R6, #+25]
 //  704     
 //  705   /* Check if CRC error occurred */
 //  706   if(__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_CRCERR) != RESET)
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+8]
-        LSLS     R0,R0,#+27
-        BPL.N    ??HAL_SPI_Receive_25
+        LDR      R1,[R4, #+0]
+        LDR      R0,[R6, #+28]
+        LDR      R2,[R1, #+8]
+        LSLS     R2,R2,#+27
+        BPL.N    ??HAL_SPI_Receive_16
 //  707   {
 //  708     hspi->ErrorCode|= HAL_SPI_ERROR_CRC;
-        LDR      R0,[R4, #+96]
-        ORRS     R0,R0,#0x2
-        STR      R0,[R4, #+96]
+        ORR      R0,R0,#0x2
+        STR      R0,[R6, #+28]
 //  709     __HAL_SPI_CLEAR_CRCERRFLAG(hspi);
         MOVW     R0,#+65519
-        LDR      R1,[R4, #+0]
         STR      R0,[R1, #+8]
 //  710                   
 //  711     /* Process Unlocked */
 //  712     __HAL_UNLOCK(hspi);
         MOVS     R0,#+0
-        STRB     R0,[R4, #+92]
+        STRB     R0,[R6, #+24]
 //  713     return HAL_ERROR;
         MOVS     R0,#+1
-        B.N      ??HAL_SPI_Receive_1
+        POP      {R1,R4-R7,PC}
 //  714   }
 //  715     
 //  716   /* Process Unlocked */
 //  717   __HAL_UNLOCK(hspi);
-??HAL_SPI_Receive_25:
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+92]
+??HAL_SPI_Receive_16:
+        MOVS     R1,#+0
+        STRB     R1,[R6, #+24]
 //  718   
 //  719   if(hspi->ErrorCode != HAL_SPI_ERROR_NONE)
-        LDR      R0,[R4, #+96]
-        CMP      R0,#+0
-        BEQ.N    ??HAL_SPI_Receive_26
+        CBZ.N    R0,??HAL_SPI_Receive_17
+        MOVS     R0,#+1
+??HAL_SPI_Receive_17:
+        UXTB     R0,R0
 //  720   {   
 //  721     return HAL_ERROR;
-        MOVS     R0,#+1
-        B.N      ??HAL_SPI_Receive_1
 //  722   }
 //  723   else
 //  724   {
 //  725     return HAL_OK;
-??HAL_SPI_Receive_26:
-        MOVS     R0,#+0
-??HAL_SPI_Receive_1:
-        POP      {R1-R7,PC}       ;; return
+??HAL_SPI_Receive_18:
+        POP      {R1,R4-R7,PC}    ;; return
 //  726   }
 //  727 }
-          CFI EndBlock cfiBlock5
+          CFI EndBlock cfiBlock17
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond18 Using cfiCommon0
+          CFI Function HAL_SPI_Transmit
+          CFI Conditional ??CrossCallReturnLabel_30
+          CFI R4 Frame(CFA, -20)
+          CFI R5 Frame(CFA, -16)
+          CFI R6 Frame(CFA, -12)
+          CFI R7 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+24
+          CFI Block cfiCond19 Using cfiCommon0
+          CFI (cfiCond19) Function HAL_SPI_Receive
+          CFI (cfiCond19) Conditional ??CrossCallReturnLabel_31
+          CFI (cfiCond19) R4 Frame(CFA, -20)
+          CFI (cfiCond19) R5 Frame(CFA, -16)
+          CFI (cfiCond19) R6 Frame(CFA, -12)
+          CFI (cfiCond19) R7 Frame(CFA, -8)
+          CFI (cfiCond19) R14 Frame(CFA, -4)
+          CFI (cfiCond19) CFA R13+24
+          CFI Block cfiPicker20 Using cfiCommon1
+          CFI (cfiPicker20) NoFunction
+          CFI (cfiPicker20) Picker
+        THUMB
+?Subroutine18:
+        LDR      R1,[R0, #+0]
+        MOVW     R2,#+57343
+        ANDS     R1,R2,R1
+        STR      R1,[R0, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x2000
+        STR      R1,[R0, #+0]
+        BX       LR
+          CFI EndBlock cfiCond18
+          CFI EndBlock cfiCond19
+          CFI EndBlock cfiPicker20
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond21 Using cfiCommon0
+          CFI Function HAL_SPI_Transmit
+          CFI Conditional ??CrossCallReturnLabel_27
+          CFI R4 Frame(CFA, -20)
+          CFI R5 Frame(CFA, -16)
+          CFI R6 Frame(CFA, -12)
+          CFI R7 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+24
+          CFI Block cfiCond22 Using cfiCommon0
+          CFI (cfiCond22) Function HAL_SPI_Receive
+          CFI (cfiCond22) Conditional ??CrossCallReturnLabel_28
+          CFI (cfiCond22) R4 Frame(CFA, -20)
+          CFI (cfiCond22) R5 Frame(CFA, -16)
+          CFI (cfiCond22) R6 Frame(CFA, -12)
+          CFI (cfiCond22) R7 Frame(CFA, -8)
+          CFI (cfiCond22) R14 Frame(CFA, -4)
+          CFI (cfiCond22) CFA R13+24
+          CFI Block cfiCond23 Using cfiCommon0
+          CFI (cfiCond23) Function HAL_SPI_Transmit_DMA
+          CFI (cfiCond23) Conditional ??CrossCallReturnLabel_29
+          CFI (cfiCond23) R4 Frame(CFA, -12)
+          CFI (cfiCond23) R5 Frame(CFA, -8)
+          CFI (cfiCond23) R14 Frame(CFA, -4)
+          CFI (cfiCond23) CFA R13+16
+          CFI Block cfiPicker24 Using cfiCommon1
+          CFI (cfiPicker24) NoFunction
+          CFI (cfiPicker24) Picker
+        THUMB
+?Subroutine17:
+        LDR      R1,[R0, #+0]
+        LSLS     R1,R1,#+25
+        BMI.N    ??Subroutine17_0
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x40
+        STR      R1,[R0, #+0]
+??Subroutine17_0:
+        BX       LR
+          CFI EndBlock cfiCond21
+          CFI EndBlock cfiCond22
+          CFI EndBlock cfiCond23
+          CFI EndBlock cfiPicker24
 //  728 
 //  729 /**
 //  730   * @brief  Transmit and Receive an amount of data in blocking mode
@@ -1606,271 +1664,196 @@ HAL_SPI_Receive:
 //  738   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock6 Using cfiCommon0
+          CFI Block cfiBlock25 Using cfiCommon0
           CFI Function HAL_SPI_TransmitReceive
         THUMB
 //  739 HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, uint8_t *pTxData, uint8_t *pRxData, uint16_t Size, uint32_t Timeout)
 //  740 {
 HAL_SPI_TransmitReceive:
-        PUSH     {R3-R9,LR}
+        PUSH     {R4-R10,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R9 Frame(CFA, -8)
-          CFI R8 Frame(CFA, -12)
-          CFI R7 Frame(CFA, -16)
-          CFI R6 Frame(CFA, -20)
-          CFI R5 Frame(CFA, -24)
-          CFI R4 Frame(CFA, -28)
+          CFI R10 Frame(CFA, -8)
+          CFI R9 Frame(CFA, -12)
+          CFI R8 Frame(CFA, -16)
+          CFI R7 Frame(CFA, -20)
+          CFI R6 Frame(CFA, -24)
+          CFI R5 Frame(CFA, -28)
+          CFI R4 Frame(CFA, -32)
           CFI CFA R13+32
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
-        MOVS     R7,R3
-        LDR      R8,[SP, #+32]
+        MOV      R4,R0
+        SUB      SP,SP,#+8
+          CFI CFA R13+40
 //  741   __IO uint16_t tmpreg = 0;
         MOVS     R0,#+0
+        MOV      R6,R1
+        MOV      R9,R2
+        MOV      R10,R3
         STRH     R0,[SP, #+0]
+        ADD      R5,R4,#+92
 //  742   uint32_t tickstart = HAL_GetTick();
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R9,R0
+        MOV      R8,R0
 //  743   
 //  744   assert_param(IS_SPI_DIRECTION_2LINES(hspi->Init.Direction));
 //  745   
 //  746   if(hspi->State != HAL_SPI_STATE_READY) 
-        LDRB     R0,[R4, #+93]
+        LDRB     R0,[R5, #+1]
         CMP      R0,#+1
-        BEQ.N    ??HAL_SPI_TransmitReceive_0
+        BNE.N    ??HAL_SPI_TransmitReceive_0
 //  747   {
 //  748     return HAL_BUSY;
-        MOVS     R0,#+2
-        B.N      ??HAL_SPI_TransmitReceive_1
 //  749   }
 //  750   
 //  751   if((pTxData == NULL) || (pRxData == NULL) || (Size == 0))
-??HAL_SPI_TransmitReceive_0:
-        CMP      R5,#+0
-        BEQ.N    ??HAL_SPI_TransmitReceive_2
         CMP      R6,#+0
-        BEQ.N    ??HAL_SPI_TransmitReceive_2
-        UXTH     R7,R7            ;; ZeroExt  R7,R7,#+16,#+16
-        CMP      R7,#+0
-        BNE.N    ??HAL_SPI_TransmitReceive_3
+        ITT      NE 
+        CMPNE    R9,#+0
+        CMPNE    R10,#+0
+        BEQ.N    ??HAL_SPI_TransmitReceive_1
 //  752   {
 //  753     return HAL_ERROR;
-??HAL_SPI_TransmitReceive_2:
-        MOVS     R0,#+1
-        B.N      ??HAL_SPI_TransmitReceive_1
 //  754   }
 //  755 
 //  756   
 //  757   /* Process Locked */
 //  758   __HAL_LOCK(hspi); 
-??HAL_SPI_TransmitReceive_3:
-        LDRB     R0,[R4, #+92]
+        LDRB     R0,[R5, #+0]
         CMP      R0,#+1
-        BNE.N    ??HAL_SPI_TransmitReceive_4
+        BNE.N    ??HAL_SPI_TransmitReceive_2
+??HAL_SPI_TransmitReceive_0:
         MOVS     R0,#+2
-        B.N      ??HAL_SPI_TransmitReceive_1
-??HAL_SPI_TransmitReceive_4:
+??HAL_SPI_TransmitReceive_1:
+        B.N      ??HAL_SPI_TransmitReceive_3
+??HAL_SPI_TransmitReceive_2:
         MOVS     R0,#+1
-        STRB     R0,[R4, #+92]
 //  759   
 //  760   hspi->State       = HAL_SPI_STATE_BUSY_TX_RX;
-        MOVS     R0,#+5
-        STRB     R0,[R4, #+93]
 //  761   hspi->ErrorCode   = HAL_SPI_ERROR_NONE;
-        MOVS     R0,#+0
-        STR      R0,[R4, #+96]
 //  762   hspi->pRxBuffPtr  = pRxData;
-        STR      R6,[R4, #+64]
+        ADD      R7,R4,#+56
+        STRB     R0,[R5, #+0]
+        MOVS     R0,#+5
+        STRB     R0,[R5, #+1]
+        MOVS     R0,#+0
+        STR      R0,[R5, #+4]
+        STR      R9,[R7, #+8]
 //  763   hspi->RxXferCount = Size;
-        STRH     R7,[R4, #+70]
+        STRH     R10,[R7, #+14]
 //  764   hspi->RxXferSize  = Size;
-        STRH     R7,[R4, #+68]
+        STRH     R10,[R7, #+12]
 //  765   hspi->pTxBuffPtr  = pTxData;
-        STR      R5,[R4, #+56]
+        STR      R6,[R7, #+0]
 //  766   hspi->TxXferCount = Size;
-        STRH     R7,[R4, #+62]
+        STRH     R10,[R7, #+6]
 //  767   hspi->TxXferSize  = Size;
-        STRH     R7,[R4, #+60]
+        STRH     R10,[R7, #+4]
 //  768 
 //  769   /* Reset CRC Calculation */
 //  770   if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
-        LDR      R0,[R4, #+40]
-        CMP      R0,#+8192
-        BNE.N    ??HAL_SPI_TransmitReceive_5
+        BL       ?Subroutine31
+??CrossCallReturnLabel_65:
+        BNE.N    ??HAL_SPI_TransmitReceive_4
 //  771   {
 //  772     SPI_RESET_CRC(hspi);
         LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        MOVW     R1,#+57343
-        ANDS     R0,R1,R0
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x2000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        MOVW     R2,#+57343
+        LDR      R1,[R0, #+0]
+        ANDS     R1,R2,R1
+        STR      R1,[R0, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x2000
+        STR      R1,[R0, #+0]
 //  773   }
 //  774 
 //  775   /* Set the Rx Fido threshold */
 //  776   if((hspi->Init.DataSize > SPI_DATASIZE_8BIT) || (hspi->RxXferCount > 1))
-??HAL_SPI_TransmitReceive_5:
+??HAL_SPI_TransmitReceive_4:
         LDR      R0,[R4, #+12]
-        CMP      R0,#+1792
-        BHI.N    ??HAL_SPI_TransmitReceive_6
-        LDRH     R0,[R4, #+70]
+        MOVW     R1,#+1793
+        CMP      R0,R1
+        BCS.N    ??HAL_SPI_TransmitReceive_5
+        LDRH     R0,[R7, #+14]
         CMP      R0,#+2
-        BLT.N    ??HAL_SPI_TransmitReceive_7
+        BLT.N    ??HAL_SPI_TransmitReceive_6
 //  777   {
 //  778     /* set fiforxthreshold according the reception data length: 16bit */
 //  779     CLEAR_BIT(hspi->Instance->CR2, SPI_RXFIFO_THRESHOLD);
-??HAL_SPI_TransmitReceive_6:
+??HAL_SPI_TransmitReceive_5:
         LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0x1000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
-        B.N      ??HAL_SPI_TransmitReceive_8
+        LDR      R2,[R0, #+4]
+        BIC      R2,R2,#0x1000
+        B.N      ??HAL_SPI_TransmitReceive_7
 //  780   }
 //  781   else
 //  782   {
 //  783     /* set fiforxthreshold according the reception data length: 8bit */
 //  784     SET_BIT(hspi->Instance->CR2, SPI_RXFIFO_THRESHOLD);
-??HAL_SPI_TransmitReceive_7:
+??HAL_SPI_TransmitReceive_6:
         LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        ORRS     R0,R0,#0x1000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+        LDR      R2,[R0, #+4]
+        ORR      R2,R2,#0x1000
+??HAL_SPI_TransmitReceive_7:
+        STR      R2,[R0, #+4]
 //  785   }
 //  786 
 //  787   /* Check if the SPI is already enabled */
 //  788   if((hspi->Instance->CR1 &SPI_CR1_SPE) != SPI_CR1_SPE)
-??HAL_SPI_TransmitReceive_8:
         LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+25
-        BMI.N    ??HAL_SPI_TransmitReceive_9
+        LDR      R2,[R0, #+0]
+        LSLS     R2,R2,#+25
+        BMI.N    ??HAL_SPI_TransmitReceive_8
 //  789   {
 //  790     /* Enable SPI peripheral */
 //  791     __HAL_SPI_ENABLE(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x40
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        LDR      R2,[R0, #+0]
+        ORR      R2,R2,#0x40
+        STR      R2,[R0, #+0]
 //  792   }
 //  793 
 //  794   /* Transmit and Receive data in 16 Bit mode */
 //  795   if(hspi->Init.DataSize > SPI_DATASIZE_8BIT)
-??HAL_SPI_TransmitReceive_9:
+??HAL_SPI_TransmitReceive_8:
         LDR      R0,[R4, #+12]
-        CMP      R0,#+1792
-        BLS.N    ??HAL_SPI_TransmitReceive_10
+        LDR      R6,[SP, #+40]
+        CMP      R0,R1
+        BCC.N    ??HAL_SPI_TransmitReceive_9
 //  796   {
 //  797     while ((hspi->TxXferCount > 0 ) || (hspi->RxXferCount > 0))
-??HAL_SPI_TransmitReceive_11:
-        LDRH     R0,[R4, #+62]
-        CMP      R0,#+0
-        BNE.N    ??HAL_SPI_TransmitReceive_12
-        LDRH     R0,[R4, #+70]
-        CMP      R0,#+0
-        BEQ.W    ??HAL_SPI_TransmitReceive_13
+??HAL_SPI_TransmitReceive_10:
+        LDRH     R1,[R7, #+6]
+        CBNZ.N   R1,??HAL_SPI_TransmitReceive_11
+        LDRH     R0,[R7, #+14]
+        CBNZ.N   R0,??CrossCallReturnLabel_8
 //  798     {
 //  799       /* Check TXE flag */
 //  800       if((hspi->TxXferCount > 0) && ((hspi->Instance->SR & SPI_FLAG_TXE) == SPI_FLAG_TXE))
-??HAL_SPI_TransmitReceive_12:
-        LDRH     R0,[R4, #+62]
-        CMP      R0,#+0
-        BEQ.N    ??HAL_SPI_TransmitReceive_14
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+8]
-        LSLS     R0,R0,#+30
-        BPL.N    ??HAL_SPI_TransmitReceive_14
 //  801       {
 //  802         hspi->Instance->DR = *((uint16_t *)hspi->pTxBuffPtr);
-        LDR      R0,[R4, #+56]
-        LDRH     R0,[R0, #+0]
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+12]
 //  803         hspi->pTxBuffPtr += sizeof(uint16_t);
-        LDR      R0,[R4, #+56]
-        ADDS     R0,R0,#+2
-        STR      R0,[R4, #+56]
 //  804         hspi->TxXferCount--;
-        LDRH     R0,[R4, #+62]
-        SUBS     R0,R0,#+1
-        STRH     R0,[R4, #+62]
 //  805 
 //  806         /* Enable CRC Transmission */
 //  807         if((hspi->TxXferCount == 0) && (hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE))
-        LDRH     R0,[R4, #+62]
-        CMP      R0,#+0
-        BNE.N    ??HAL_SPI_TransmitReceive_14
-        LDR      R0,[R4, #+40]
-        CMP      R0,#+8192
-        BNE.N    ??HAL_SPI_TransmitReceive_14
 //  808         {
 //  809           SET_BIT(hspi->Instance->CR1, SPI_CR1_CRCNEXT);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x1000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
 //  810         } 
 //  811       }
 //  812 
 //  813       /* Check RXNE flag */
 //  814       if((hspi->RxXferCount > 0) && ((hspi->Instance->SR & SPI_FLAG_RXNE) == SPI_FLAG_RXNE))
-??HAL_SPI_TransmitReceive_14:
-        LDRH     R0,[R4, #+70]
-        CMP      R0,#+0
-        BEQ.N    ??HAL_SPI_TransmitReceive_15
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+8]
-        LSLS     R0,R0,#+31
-        BPL.N    ??HAL_SPI_TransmitReceive_15
 //  815       {
 //  816         *((uint16_t *)hspi->pRxBuffPtr) = hspi->Instance->DR;
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+12]
-        LDR      R1,[R4, #+64]
-        STRH     R0,[R1, #+0]
 //  817         hspi->pRxBuffPtr += sizeof(uint16_t);
-        LDR      R0,[R4, #+64]
-        ADDS     R0,R0,#+2
-        STR      R0,[R4, #+64]
 //  818         hspi->RxXferCount--;
-        LDRH     R0,[R4, #+70]
-        SUBS     R0,R0,#+1
-        STRH     R0,[R4, #+70]
 //  819       }
 //  820       if(Timeout != HAL_MAX_DELAY)
-??HAL_SPI_TransmitReceive_15:
-        CMN      R8,#+1
-        BEQ.N    ??HAL_SPI_TransmitReceive_11
 //  821       {
 //  822         if((Timeout == 0) || ((HAL_GetTick()-tickstart) > Timeout)) 
-        CMP      R8,#+0
-        BEQ.N    ??HAL_SPI_TransmitReceive_16
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUBS     R0,R0,R9
-        CMP      R8,R0
-        BCS.N    ??HAL_SPI_TransmitReceive_11
 //  823         {
 //  824           hspi->State = HAL_SPI_STATE_READY;
-??HAL_SPI_TransmitReceive_16:
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+93]
 //  825           __HAL_UNLOCK(hspi);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+92]
 //  826           return HAL_TIMEOUT;
-        MOVS     R0,#+3
-        B.N      ??HAL_SPI_TransmitReceive_1
 //  827         }
 //  828       }
 //  829     }
@@ -1879,164 +1862,56 @@ HAL_SPI_TransmitReceive:
 //  832   else
 //  833   {
 //  834     while((hspi->TxXferCount > 0) || (hspi->RxXferCount > 0))
-??HAL_SPI_TransmitReceive_10:
-        LDRH     R0,[R4, #+62]
-        CMP      R0,#+0
-        BNE.N    ??HAL_SPI_TransmitReceive_17
-        LDRH     R0,[R4, #+70]
-        CMP      R0,#+0
-        BEQ.N    ??HAL_SPI_TransmitReceive_13
 //  835     {
 //  836       /* check TXE flag */
 //  837       if((hspi->TxXferCount > 0) && ((hspi->Instance->SR & SPI_FLAG_TXE) == SPI_FLAG_TXE))
-??HAL_SPI_TransmitReceive_17:
-        LDRH     R0,[R4, #+62]
-        CMP      R0,#+0
-        BEQ.N    ??HAL_SPI_TransmitReceive_18
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+8]
-        LSLS     R0,R0,#+30
-        BPL.N    ??HAL_SPI_TransmitReceive_18
 //  838       {
 //  839         if(hspi->TxXferCount > 1)
-        LDRH     R0,[R4, #+62]
-        CMP      R0,#+2
-        BLT.N    ??HAL_SPI_TransmitReceive_19
 //  840         {
 //  841           hspi->Instance->DR = *((uint16_t*)hspi->pTxBuffPtr);
-        LDR      R0,[R4, #+56]
-        LDRH     R0,[R0, #+0]
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+12]
 //  842           hspi->pTxBuffPtr += sizeof(uint16_t);
-        LDR      R0,[R4, #+56]
-        ADDS     R0,R0,#+2
-        STR      R0,[R4, #+56]
 //  843           hspi->TxXferCount -= 2;
-        LDRH     R0,[R4, #+62]
-        SUBS     R0,R0,#+2
-        STRH     R0,[R4, #+62]
-        B.N      ??HAL_SPI_TransmitReceive_20
 //  844         }
 //  845         else
 //  846         {
 //  847           *(__IO uint8_t *)&hspi->Instance->DR = (*hspi->pTxBuffPtr++);
-??HAL_SPI_TransmitReceive_19:
-        LDR      R0,[R4, #+56]
-        ADDS     R1,R0,#+1
-        STR      R1,[R4, #+56]
-        LDRB     R0,[R0, #+0]
-        LDR      R1,[R4, #+0]
-        STRB     R0,[R1, #+12]
 //  848           hspi->TxXferCount--;
-        LDRH     R0,[R4, #+62]
-        SUBS     R0,R0,#+1
-        STRH     R0,[R4, #+62]
 //  849         }
 //  850 
 //  851         /* Enable CRC Transmission */
 //  852         if((hspi->TxXferCount == 0) && (hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE))
-??HAL_SPI_TransmitReceive_20:
-        LDRH     R0,[R4, #+62]
-        CMP      R0,#+0
-        BNE.N    ??HAL_SPI_TransmitReceive_18
-        LDR      R0,[R4, #+40]
-        CMP      R0,#+8192
-        BNE.N    ??HAL_SPI_TransmitReceive_18
 //  853         {
 //  854           SET_BIT(hspi->Instance->CR1, SPI_CR1_CRCNEXT);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x1000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
 //  855         }
 //  856       }
 //  857 
 //  858       /* Wait until RXNE flag is reset */
 //  859       if((hspi->RxXferCount > 0) && ((hspi->Instance->SR & SPI_FLAG_RXNE) == SPI_FLAG_RXNE))
-??HAL_SPI_TransmitReceive_18:
-        LDRH     R0,[R4, #+70]
-        CMP      R0,#+0
-        BEQ.N    ??HAL_SPI_TransmitReceive_21
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+8]
-        LSLS     R0,R0,#+31
-        BPL.N    ??HAL_SPI_TransmitReceive_21
 //  860       {
 //  861         if(hspi->RxXferCount > 1)
-        LDRH     R0,[R4, #+70]
-        CMP      R0,#+2
-        BLT.N    ??HAL_SPI_TransmitReceive_22
 //  862         {
 //  863           *((uint16_t*)hspi->pRxBuffPtr) = hspi->Instance->DR;
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+12]
-        LDR      R1,[R4, #+64]
-        STRH     R0,[R1, #+0]
 //  864           hspi->pRxBuffPtr += sizeof(uint16_t);
-        LDR      R0,[R4, #+64]
-        ADDS     R0,R0,#+2
-        STR      R0,[R4, #+64]
 //  865           hspi->RxXferCount -= 2;
-        LDRH     R0,[R4, #+70]
-        SUBS     R0,R0,#+2
-        STRH     R0,[R4, #+70]
 //  866           if(hspi->RxXferCount <= 1)
-        LDRH     R0,[R4, #+70]
-        CMP      R0,#+2
-        BGE.N    ??HAL_SPI_TransmitReceive_21
 //  867           {
 //  868             /* set fiforxthreshold before to switch on 8 bit data size */
 //  869             SET_BIT(hspi->Instance->CR2, SPI_RXFIFO_THRESHOLD);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        ORRS     R0,R0,#0x1000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
-        B.N      ??HAL_SPI_TransmitReceive_21
 //  870           }
 //  871         }
 //  872         else
 //  873         {
 //  874           (*hspi->pRxBuffPtr++) =  *(__IO uint8_t *)&hspi->Instance->DR;
-??HAL_SPI_TransmitReceive_22:
-        LDR      R0,[R4, #+64]
-        ADDS     R1,R0,#+1
-        STR      R1,[R4, #+64]
-        LDR      R1,[R4, #+0]
-        LDRB     R1,[R1, #+12]
-        STRB     R1,[R0, #+0]
 //  875           hspi->RxXferCount--;
-        LDRH     R0,[R4, #+70]
-        SUBS     R0,R0,#+1
-        STRH     R0,[R4, #+70]
 //  876         }
 //  877       }
 //  878       if(Timeout != HAL_MAX_DELAY)
-??HAL_SPI_TransmitReceive_21:
-        CMN      R8,#+1
-        BEQ.N    ??HAL_SPI_TransmitReceive_10
 //  879       {
 //  880         if((Timeout == 0) || ((HAL_GetTick()-tickstart) > Timeout))
-        CMP      R8,#+0
-        BEQ.N    ??HAL_SPI_TransmitReceive_23
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUBS     R0,R0,R9
-        CMP      R8,R0
-        BCS.N    ??HAL_SPI_TransmitReceive_10
 //  881         {
 //  882           hspi->State = HAL_SPI_STATE_READY;
-??HAL_SPI_TransmitReceive_23:
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+93]
 //  883           __HAL_UNLOCK(hspi);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+92]
 //  884           return HAL_TIMEOUT;
-        MOVS     R0,#+3
-        B.N      ??HAL_SPI_TransmitReceive_1
 //  885         }
 //  886       }
 //  887     }
@@ -2044,157 +1919,380 @@ HAL_SPI_TransmitReceive:
 //  889 
 //  890   /* Read CRC from DR to close CRC calculation process */
 //  891   if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
-??HAL_SPI_TransmitReceive_13:
-        LDR      R0,[R4, #+40]
-        CMP      R0,#+8192
-        BNE.N    ??HAL_SPI_TransmitReceive_24
+??HAL_SPI_TransmitReceive_12:
+        BL       ?Subroutine31
+??CrossCallReturnLabel_66:
+        BNE.W    ??CrossCallReturnLabel_75
 //  892   {
 //  893     /* Wait until TXE flag */
 //  894     if(SPI_WaitFlagStateUntilTimeout(hspi, SPI_FLAG_RXNE, SPI_FLAG_RXNE, Timeout) != HAL_OK)
-        MOV      R3,R8
-        MOVS     R2,#+1
-        MOVS     R1,#+1
-        MOVS     R0,R4
-          CFI FunCall SPI_WaitFlagStateUntilTimeout
-        BL       SPI_WaitFlagStateUntilTimeout
-        CMP      R0,#+0
-        BEQ.N    ??HAL_SPI_TransmitReceive_25
+        MOV      R3,R6
+        BL       ??Subroutine13_0
+??CrossCallReturnLabel_15:
+        BL       ?Subroutine26
 //  895     {
 //  896       /* Error on the CRC reception */
 //  897       hspi->ErrorCode|= HAL_SPI_ERROR_CRC;
-        LDR      R0,[R4, #+96]
-        ORRS     R0,R0,#0x2
-        STR      R0,[R4, #+96]
 //  898     }
 //  899 
 //  900     if(hspi->Init.DataSize == SPI_DATASIZE_16BIT)
-??HAL_SPI_TransmitReceive_25:
-        LDR      R0,[R4, #+12]
-        CMP      R0,#+3840
-        BNE.N    ??HAL_SPI_TransmitReceive_26
+??CrossCallReturnLabel_48:
+        LDR      R1,[R4, #+12]
+        LDR      R0,[R4, #+0]
+        CMP      R1,#+3840
+        BNE.W    ??HAL_SPI_TransmitReceive_13
 //  901     {
 //  902       tmpreg = hspi->Instance->DR;
-        LDR      R0,[R4, #+0]
         LDR      R0,[R0, #+12]
-        STRH     R0,[SP, #+0]
+        B.N      ??HAL_SPI_TransmitReceive_14
 //  903       UNUSED(tmpreg); /* To avoid GCC warning */
-        LDRH     R0,[SP, #+0]
-        B.N      ??HAL_SPI_TransmitReceive_24
 //  904     }
+??HAL_SPI_TransmitReceive_11:
+        LDR      R0,[R4, #+0]
+        LDR      R2,[R0, #+8]
+        LSLS     R2,R2,#+30
+        BPL.N    ??CrossCallReturnLabel_8
+        LDR      R2,[R7, #+0]
+        SUBS     R1,R1,#+1
+        LDRH     R3,[R2], #+2
+        STR      R3,[R0, #+12]
+        STRH     R1,[R7, #+6]
+        UXTH     R1,R1
+        CMP      R1,#+0
+        STR      R2,[R7, #+0]
+        ITT      EQ 
+        LDREQ    R1,[R4, #+40]
+        CMPEQ    R1,#+8192
+        BL       ?Subroutine11
+??CrossCallReturnLabel_8:
+        LDRH     R0,[R7, #+14]
+        CBZ.N    R0,??HAL_SPI_TransmitReceive_15
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+8]
+        LSLS     R1,R1,#+31
+        BPL.N    ??HAL_SPI_TransmitReceive_15
+        LDR      R1,[R7, #+8]
+        LDR      R0,[R0, #+12]
+        STRH     R0,[R1, #+0]
+        ADDS     R0,R1,#+2
+        STR      R0,[R7, #+8]
+        LDRH     R0,[R7, #+14]
+        SUBS     R0,R0,#+1
+        STRH     R0,[R7, #+14]
+??HAL_SPI_TransmitReceive_15:
+        CMN      R6,#+1
+        BEQ.N    ??HAL_SPI_TransmitReceive_10
+        CMP      R6,#+0
+        BEQ.N    ??HAL_SPI_TransmitReceive_16
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUB      R0,R0,R8
+        CMP      R6,R0
+        BCS.N    ??HAL_SPI_TransmitReceive_10
+        B.N      ??HAL_SPI_TransmitReceive_16
+??HAL_SPI_TransmitReceive_9:
+        LDRH     R1,[R7, #+6]
+        CBNZ.N   R1,??HAL_SPI_TransmitReceive_17
+        LDRH     R0,[R7, #+14]
+        CBNZ.N   R0,??CrossCallReturnLabel_9
+        B.N      ??HAL_SPI_TransmitReceive_12
+??HAL_SPI_TransmitReceive_17:
+        LDR      R0,[R4, #+0]
+        LDR      R2,[R0, #+8]
+        LSLS     R2,R2,#+30
+        BPL.N    ??CrossCallReturnLabel_9
+        CMP      R1,#+2
+        BLT.N    ??HAL_SPI_TransmitReceive_18
+        LDR      R2,[R7, #+0]
+        SUBS     R1,R1,#+2
+        LDRH     R3,[R2], #+2
+        STR      R3,[R0, #+12]
+        STR      R2,[R7, #+0]
+        B.N      ??HAL_SPI_TransmitReceive_19
+??HAL_SPI_TransmitReceive_18:
+        LDR      R1,[R7, #+0]
+        ADDS     R1,R1,#+1
+        STR      R1,[R7, #+0]
+        SUBS     R1,R1,#+1
+        LDRB     R1,[R1, #+0]
+        STRB     R1,[R0, #+12]
+        LDRH     R1,[R7, #+6]
+        SUBS     R1,R1,#+1
+??HAL_SPI_TransmitReceive_19:
+        STRH     R1,[R7, #+6]
+        LDRH     R1,[R7, #+6]
+        CMP      R1,#+0
+        ITT      EQ 
+        LDREQ    R1,[R4, #+40]
+        CMPEQ    R1,#+8192
+        BL       ?Subroutine11
+??CrossCallReturnLabel_9:
+        LDRH     R1,[R7, #+14]
+        CBZ.N    R1,??HAL_SPI_TransmitReceive_20
+        LDR      R0,[R4, #+0]
+        LDR      R2,[R0, #+8]
+        LSLS     R2,R2,#+31
+        BPL.N    ??HAL_SPI_TransmitReceive_20
+        CMP      R1,#+2
+        LDR      R2,[R7, #+8]
+        BLT.N    ??HAL_SPI_TransmitReceive_21
+        LDR      R1,[R0, #+12]
+        STRH     R1,[R2, #+0]
+        ADDS     R1,R2,#+2
+        STR      R1,[R7, #+8]
+        LDRH     R1,[R7, #+14]
+        SUBS     R1,R1,#+2
+        STRH     R1,[R7, #+14]
+        UXTH     R1,R1
+        CMP      R1,#+2
+        BGE.N    ??HAL_SPI_TransmitReceive_20
+        LDR      R1,[R0, #+4]
+        ORR      R1,R1,#0x1000
+        STR      R1,[R0, #+4]
+        B.N      ??HAL_SPI_TransmitReceive_20
+??HAL_SPI_TransmitReceive_21:
+        ADDS     R1,R2,#+1
+        STR      R1,[R7, #+8]
+        LDRB     R0,[R0, #+12]
+        STRB     R0,[R2, #+0]
+        LDRH     R0,[R7, #+14]
+        SUBS     R0,R0,#+1
+        STRH     R0,[R7, #+14]
+??HAL_SPI_TransmitReceive_20:
+        CMN      R6,#+1
+        BEQ.N    ??HAL_SPI_TransmitReceive_9
+        CBZ.N    R6,??HAL_SPI_TransmitReceive_16
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUB      R0,R0,R8
+        CMP      R6,R0
+        BCS.N    ??HAL_SPI_TransmitReceive_9
+??HAL_SPI_TransmitReceive_16:
+        MOVS     R0,#+1
+        STRB     R0,[R5, #+1]
+        MOVS     R0,#+0
+        STRB     R0,[R5, #+0]
+        B.N      ??HAL_SPI_TransmitReceive_22
 //  905     else
 //  906     {
 //  907       tmpreg = *(__IO uint8_t *)&hspi->Instance->DR;
-??HAL_SPI_TransmitReceive_26:
-        LDR      R0,[R4, #+0]
-        LDRB     R0,[R0, #+12]
-        STRH     R0,[SP, #+0]
+??HAL_SPI_TransmitReceive_13:
+        BL       ?Subroutine32
 //  908       UNUSED(tmpreg); /* To avoid GCC warning */
-        LDRH     R0,[SP, #+0]
 //  909 
 //  910       if(hspi->Init.CRCLength == SPI_CRC_LENGTH_16BIT)
-        LDR      R0,[R4, #+48]
-        CMP      R0,#+2
-        BNE.N    ??HAL_SPI_TransmitReceive_24
+??CrossCallReturnLabel_70:
+        BNE.N    ??CrossCallReturnLabel_75
 //  911       {
 //  912         if(SPI_WaitFlagStateUntilTimeout(hspi, SPI_FLAG_RXNE, SPI_FLAG_RXNE, Timeout) != HAL_OK)
-        MOV      R3,R8
-        MOVS     R2,#+1
-        MOVS     R1,#+1
-        MOVS     R0,R4
-          CFI FunCall SPI_WaitFlagStateUntilTimeout
-        BL       SPI_WaitFlagStateUntilTimeout
-        CMP      R0,#+0
-        BEQ.N    ??HAL_SPI_TransmitReceive_27
+        MOV      R3,R6
+        BL       ??Subroutine13_0
+??CrossCallReturnLabel_14:
+        BL       ?Subroutine26
 //  913         {
 //  914           /* Error on the CRC reception */
 //  915           hspi->ErrorCode|= HAL_SPI_ERROR_CRC;
-        LDR      R0,[R4, #+96]
-        ORRS     R0,R0,#0x2
-        STR      R0,[R4, #+96]
 //  916         }
 //  917         tmpreg = *(__IO uint8_t *)&hspi->Instance->DR;
-??HAL_SPI_TransmitReceive_27:
+??CrossCallReturnLabel_49:
         LDR      R0,[R4, #+0]
         LDRB     R0,[R0, #+12]
-        STRH     R0,[SP, #+0]
 //  918         UNUSED(tmpreg); /* To avoid GCC warning */
-        LDRH     R0,[SP, #+0]
 //  919       }
 //  920     }
 //  921   }
+??HAL_SPI_TransmitReceive_14:
+        BL       ?Subroutine34
 //  922 
 //  923   /* Check the end of the transaction */
 //  924   if(SPI_EndRxTxTransaction(hspi,Timeout) != HAL_OK)
-??HAL_SPI_TransmitReceive_24:
-        MOV      R1,R8
-        MOVS     R0,R4
+??CrossCallReturnLabel_75:
+        MOV      R1,R6
+        MOV      R0,R4
           CFI FunCall SPI_EndRxTxTransaction
         BL       SPI_EndRxTxTransaction
-        CMP      R0,#+0
-        BEQ.N    ??HAL_SPI_TransmitReceive_28
+        CBZ.N    R0,??HAL_SPI_TransmitReceive_23
 //  925   {
 //  926     return HAL_TIMEOUT;
+??HAL_SPI_TransmitReceive_22:
         MOVS     R0,#+3
-        B.N      ??HAL_SPI_TransmitReceive_1
+        B.N      ??HAL_SPI_TransmitReceive_3
 //  927   }
 //  928 
 //  929   hspi->State = HAL_SPI_STATE_READY;
-??HAL_SPI_TransmitReceive_28:
+??HAL_SPI_TransmitReceive_23:
         MOVS     R0,#+1
-        STRB     R0,[R4, #+93]
+        STRB     R0,[R5, #+1]
 //  930   
 //  931   /* Check if CRC error occurred */
 //  932   if(__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_CRCERR) != RESET)
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+8]
-        LSLS     R0,R0,#+27
-        BPL.N    ??HAL_SPI_TransmitReceive_29
+        LDR      R1,[R4, #+0]
+        LDR      R0,[R5, #+4]
+        LDR      R2,[R1, #+8]
+        LSLS     R2,R2,#+27
+        BPL.N    ??HAL_SPI_TransmitReceive_24
 //  933   {
 //  934     hspi->ErrorCode|= HAL_SPI_ERROR_CRC;
-        LDR      R0,[R4, #+96]
-        ORRS     R0,R0,#0x2
-        STR      R0,[R4, #+96]
+        ORR      R0,R0,#0x2
+        STR      R0,[R5, #+4]
 //  935     /* Clear CRC Flag */
 //  936     __HAL_SPI_CLEAR_CRCERRFLAG(hspi);
         MOVW     R0,#+65519
-        LDR      R1,[R4, #+0]
         STR      R0,[R1, #+8]
 //  937     
 //  938     /* Process Unlocked */
 //  939     __HAL_UNLOCK(hspi);
         MOVS     R0,#+0
-        STRB     R0,[R4, #+92]
+        STRB     R0,[R5, #+0]
 //  940     
 //  941     return HAL_ERROR;
         MOVS     R0,#+1
-        B.N      ??HAL_SPI_TransmitReceive_1
+        B.N      ??HAL_SPI_TransmitReceive_3
 //  942   }
 //  943   
 //  944   /* Process Unlocked */
 //  945   __HAL_UNLOCK(hspi);
-??HAL_SPI_TransmitReceive_29:
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+92]
+??HAL_SPI_TransmitReceive_24:
+        MOVS     R1,#+0
+        STRB     R1,[R5, #+0]
 //  946   
 //  947   if(hspi->ErrorCode != HAL_SPI_ERROR_NONE)
-        LDR      R0,[R4, #+96]
-        CMP      R0,#+0
-        BEQ.N    ??HAL_SPI_TransmitReceive_30
+        CBZ.N    R0,??HAL_SPI_TransmitReceive_25
+        MOVS     R0,#+1
+??HAL_SPI_TransmitReceive_25:
+        UXTB     R0,R0
 //  948   {   
 //  949     return HAL_ERROR;
-        MOVS     R0,#+1
-        B.N      ??HAL_SPI_TransmitReceive_1
 //  950   }
 //  951   else
 //  952   {
 //  953     return HAL_OK;
-??HAL_SPI_TransmitReceive_30:
-        MOVS     R0,#+0
-??HAL_SPI_TransmitReceive_1:
-        POP      {R1,R4-R9,PC}    ;; return
+??HAL_SPI_TransmitReceive_3:
+        POP      {R1,R2,R4-R10,PC}  ;; return
 //  954   }
 //  955 }
-          CFI EndBlock cfiBlock6
+          CFI EndBlock cfiBlock25
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond26 Using cfiCommon0
+          CFI Function HAL_SPI_Receive
+          CFI Conditional ??CrossCallReturnLabel_74
+          CFI R4 Frame(CFA, -20)
+          CFI R5 Frame(CFA, -16)
+          CFI R6 Frame(CFA, -12)
+          CFI R7 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+24
+          CFI Block cfiCond27 Using cfiCommon0
+          CFI (cfiCond27) Function HAL_SPI_TransmitReceive
+          CFI (cfiCond27) Conditional ??CrossCallReturnLabel_75
+          CFI (cfiCond27) R4 Frame(CFA, -32)
+          CFI (cfiCond27) R5 Frame(CFA, -28)
+          CFI (cfiCond27) R6 Frame(CFA, -24)
+          CFI (cfiCond27) R7 Frame(CFA, -20)
+          CFI (cfiCond27) R8 Frame(CFA, -16)
+          CFI (cfiCond27) R9 Frame(CFA, -12)
+          CFI (cfiCond27) R10 Frame(CFA, -8)
+          CFI (cfiCond27) R14 Frame(CFA, -4)
+          CFI (cfiCond27) CFA R13+40
+          CFI Block cfiCond28 Using cfiCommon0
+          CFI (cfiCond28) Function SPI_DMAReceiveCplt
+          CFI (cfiCond28) Conditional ??CrossCallReturnLabel_76
+          CFI (cfiCond28) R4 Frame(CFA, -8)
+          CFI (cfiCond28) R14 Frame(CFA, -4)
+          CFI (cfiCond28) CFA R13+16
+          CFI Block cfiPicker29 Using cfiCommon1
+          CFI (cfiPicker29) NoFunction
+          CFI (cfiPicker29) Picker
+        THUMB
+?Subroutine34:
+        STRH     R0,[SP, #+0]
+        LDRH     R0,[SP, #+0]
+        BX       LR
+          CFI EndBlock cfiCond26
+          CFI EndBlock cfiCond27
+          CFI EndBlock cfiCond28
+          CFI EndBlock cfiPicker29
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond30 Using cfiCommon0
+          CFI Function HAL_SPI_TransmitReceive
+          CFI Conditional ??CrossCallReturnLabel_48
+          CFI R4 Frame(CFA, -32)
+          CFI R5 Frame(CFA, -28)
+          CFI R6 Frame(CFA, -24)
+          CFI R7 Frame(CFA, -20)
+          CFI R8 Frame(CFA, -16)
+          CFI R9 Frame(CFA, -12)
+          CFI R10 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+40
+          CFI Block cfiCond31 Using cfiCommon0
+          CFI (cfiCond31) Function HAL_SPI_TransmitReceive
+          CFI (cfiCond31) Conditional ??CrossCallReturnLabel_49
+          CFI (cfiCond31) R4 Frame(CFA, -32)
+          CFI (cfiCond31) R5 Frame(CFA, -28)
+          CFI (cfiCond31) R6 Frame(CFA, -24)
+          CFI (cfiCond31) R7 Frame(CFA, -20)
+          CFI (cfiCond31) R8 Frame(CFA, -16)
+          CFI (cfiCond31) R9 Frame(CFA, -12)
+          CFI (cfiCond31) R10 Frame(CFA, -8)
+          CFI (cfiCond31) R14 Frame(CFA, -4)
+          CFI (cfiCond31) CFA R13+40
+          CFI Block cfiPicker32 Using cfiCommon1
+          CFI (cfiPicker32) NoFunction
+          CFI (cfiPicker32) Picker
+        THUMB
+?Subroutine26:
+        CBZ.N    R0,??Subroutine26_0
+        LDR      R0,[R5, #+4]
+        ORR      R0,R0,#0x2
+        STR      R0,[R5, #+4]
+??Subroutine26_0:
+        BX       LR
+          CFI EndBlock cfiCond30
+          CFI EndBlock cfiCond31
+          CFI EndBlock cfiPicker32
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond33 Using cfiCommon0
+          CFI Function HAL_SPI_TransmitReceive
+          CFI Conditional ??CrossCallReturnLabel_8
+          CFI R4 Frame(CFA, -32)
+          CFI R5 Frame(CFA, -28)
+          CFI R6 Frame(CFA, -24)
+          CFI R7 Frame(CFA, -20)
+          CFI R8 Frame(CFA, -16)
+          CFI R9 Frame(CFA, -12)
+          CFI R10 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+40
+          CFI Block cfiCond34 Using cfiCommon0
+          CFI (cfiCond34) Function HAL_SPI_TransmitReceive
+          CFI (cfiCond34) Conditional ??CrossCallReturnLabel_9
+          CFI (cfiCond34) R4 Frame(CFA, -32)
+          CFI (cfiCond34) R5 Frame(CFA, -28)
+          CFI (cfiCond34) R6 Frame(CFA, -24)
+          CFI (cfiCond34) R7 Frame(CFA, -20)
+          CFI (cfiCond34) R8 Frame(CFA, -16)
+          CFI (cfiCond34) R9 Frame(CFA, -12)
+          CFI (cfiCond34) R10 Frame(CFA, -8)
+          CFI (cfiCond34) R14 Frame(CFA, -4)
+          CFI (cfiCond34) CFA R13+40
+          CFI Block cfiPicker35 Using cfiCommon1
+          CFI (cfiPicker35) NoFunction
+          CFI (cfiPicker35) Picker
+        THUMB
+?Subroutine11:
+        BNE.N    ??Subroutine11_0
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x1000
+        STR      R1,[R0, #+0]
+??Subroutine11_0:
+        BX       LR
+          CFI EndBlock cfiCond33
+          CFI EndBlock cfiCond34
+          CFI EndBlock cfiPicker35
 //  956 
 //  957 /**
 //  958   * @brief  Transmit an amount of data in no-blocking mode with Interrupt
@@ -2206,145 +2304,109 @@ HAL_SPI_TransmitReceive:
 //  964   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock7 Using cfiCommon0
+          CFI Block cfiBlock36 Using cfiCommon0
           CFI Function HAL_SPI_Transmit_IT
           CFI NoCalls
         THUMB
 //  965 HAL_StatusTypeDef HAL_SPI_Transmit_IT(SPI_HandleTypeDef *hspi, uint8_t *pData, uint16_t Size)
 //  966 {
-HAL_SPI_Transmit_IT:
-        PUSH     {R4}
-          CFI R4 Frame(CFA, -4)
-          CFI CFA R13+4
-        MOVS     R3,R0
 //  967   assert_param(IS_SPI_DIRECTION_2LINES_OR_1LINE(hspi->Init.Direction));
 //  968   
 //  969   if(hspi->State == HAL_SPI_STATE_READY)
-        LDRB     R0,[R3, #+93]
-        CMP      R0,#+1
+HAL_SPI_Transmit_IT:
+        ADD      R3,R0,#+68
+        PUSH     {R4,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        LDRB     R4,[R3, #+25]
+        CMP      R4,#+1
         BNE.N    ??HAL_SPI_Transmit_IT_0
 //  970   {
 //  971     if((pData == NULL) || (Size == 0)) 
         CMP      R1,#+0
-        BEQ.N    ??HAL_SPI_Transmit_IT_1
-        UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
-        CMP      R2,#+0
-        BNE.N    ??HAL_SPI_Transmit_IT_2
+        IT       NE 
+        CMPNE    R2,#+0
+        BNE.N    ??HAL_SPI_Transmit_IT_1
 //  972     {
 //  973       return  HAL_ERROR;                                    
-??HAL_SPI_Transmit_IT_1:
         MOVS     R0,#+1
-        B.N      ??HAL_SPI_Transmit_IT_3
+        POP      {R4,PC}
 //  974     }
 //  975     
 //  976     /* Process Locked */
 //  977     __HAL_LOCK(hspi);
-??HAL_SPI_Transmit_IT_2:
-        LDRB     R0,[R3, #+92]
-        CMP      R0,#+1
-        BNE.N    ??HAL_SPI_Transmit_IT_4
-        MOVS     R0,#+2
-        B.N      ??HAL_SPI_Transmit_IT_3
-??HAL_SPI_Transmit_IT_4:
-        MOVS     R0,#+1
-        STRB     R0,[R3, #+92]
+??HAL_SPI_Transmit_IT_1:
+        LDRB     R4,[R3, #+24]
+        CMP      R4,#+1
+        BEQ.N    ??HAL_SPI_Transmit_IT_0
+        MOVS     R4,#+1
+        STRB     R4,[R3, #+24]
 //  978     
 //  979     hspi->State       = HAL_SPI_STATE_BUSY_TX;
-        MOVS     R0,#+3
-        STRB     R0,[R3, #+93]
+        MOVS     R4,#+3
+        STRB     R4,[R3, #+25]
 //  980     hspi->ErrorCode   = HAL_SPI_ERROR_NONE;
-        MOVS     R0,#+0
-        STR      R0,[R3, #+96]
+        MOVS     R4,#+0
+        STR      R4,[R3, #+28]
 //  981     hspi->pTxBuffPtr  = pData;
-        STR      R1,[R3, #+56]
+        STR      R1,[R0, #+56]
 //  982     hspi->TxXferSize  = Size;
-        STRH     R2,[R3, #+60]
+        STRH     R2,[R0, #+60]
 //  983     hspi->TxXferCount = Size;
-        STRH     R2,[R3, #+62]
+        STRH     R2,[R0, #+62]
 //  984     hspi->pRxBuffPtr  = NULL;
-        MOVS     R0,#+0
-        STR      R0,[R3, #+64]
+        STR      R4,[R0, #+64]
 //  985     hspi->RxXferSize  = 0;
-        MOVS     R0,#+0
-        STRH     R0,[R3, #+68]
+        STRH     R4,[R3, #+0]
 //  986     hspi->RxXferCount = 0;
-        MOVS     R0,#+0
-        STRH     R0,[R3, #+70]
+        STRH     R4,[R3, #+2]
 //  987 
 //  988     /* Set the function for IT treatement */
 //  989     if(hspi->Init.DataSize > SPI_DATASIZE_8BIT )
-        LDR      R0,[R3, #+12]
-        CMP      R0,#+1792
-        BLS.N    ??HAL_SPI_Transmit_IT_5
+        LDR      R1,[R0, #+12]
+        CMP      R1,#+1792
+        ITE      HI 
+        ADRHI.W  R1,SPI_TxISR_16BIT
+        ADRLS.W  R1,SPI_TxISR_8BIT
 //  990     {
 //  991       hspi->RxISR = NULL;
-        MOVS     R0,#+0
-        STR      R0,[R3, #+76]
 //  992       hspi->TxISR = SPI_TxISR_16BIT;
-        LDR.W    R0,??DataTable1
-        STR      R0,[R3, #+80]
-        B.N      ??HAL_SPI_Transmit_IT_6
 //  993     }
 //  994     else
 //  995     {
 //  996       hspi->RxISR = NULL;
-??HAL_SPI_Transmit_IT_5:
-        MOVS     R0,#+0
-        STR      R0,[R3, #+76]
 //  997       hspi->TxISR = SPI_TxISR_8BIT;
-        LDR.W    R0,??DataTable1_1
-        STR      R0,[R3, #+80]
+        STR      R1,[R3, #+12]
+        STR      R4,[R3, #+8]
 //  998     }
 //  999     
 // 1000     /* Configure communication direction : 1Line */
 // 1001     if(hspi->Init.Direction == SPI_DIRECTION_1LINE)
-??HAL_SPI_Transmit_IT_6:
-        LDR      R0,[R3, #+8]
-        CMP      R0,#+32768
-        BNE.N    ??HAL_SPI_Transmit_IT_7
+        LDR      R2,[R0, #+8]
+        LDR      R1,[R0, #+0]
+        CMP      R2,#+32768
+        BNE.N    ??HAL_SPI_Transmit_IT_2
 // 1002     {
 // 1003       SPI_1LINE_TX(hspi);
-        LDR      R0,[R3, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x4000
-        LDR      R4,[R3, #+0]
-        STR      R0,[R4, #+0]
+        LDR      R2,[R1, #+0]
+        ORR      R2,R2,#0x4000
+        STR      R2,[R1, #+0]
 // 1004     }
 // 1005     
 // 1006     /* Reset CRC Calculation */
 // 1007     if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
-??HAL_SPI_Transmit_IT_7:
-        LDR      R0,[R3, #+40]
-        CMP      R0,#+8192
-        BNE.N    ??HAL_SPI_Transmit_IT_8
+??HAL_SPI_Transmit_IT_2:
+        BL       ?Subroutine8
 // 1008     {
 // 1009       SPI_RESET_CRC(hspi);    
-        LDR      R0,[R3, #+0]
-        LDR      R0,[R0, #+0]
-        MOVW     R4,#+57343
-        ANDS     R0,R4,R0
-        LDR      R4,[R3, #+0]
-        STR      R0,[R4, #+0]
-        LDR      R0,[R3, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x2000
-        LDR      R4,[R3, #+0]
-        STR      R0,[R4, #+0]
 // 1010     }
 // 1011     
 // 1012     /* Enable TXE and ERR interrupt */
 // 1013     __HAL_SPI_ENABLE_IT(hspi,(SPI_IT_TXE));
-??HAL_SPI_Transmit_IT_8:
-        LDR      R0,[R3, #+0]
-        LDR      R0,[R0, #+4]
-        ORRS     R0,R0,#0x80
-        LDR      R4,[R3, #+0]
-        STR      R0,[R4, #+4]
 // 1014 
 // 1015     /* Process Unlocked */
 // 1016     __HAL_UNLOCK(hspi);
-        MOVS     R0,#+0
-        STRB     R0,[R3, #+92]
 // 1017 
 // 1018     /* Note : The SPI must be enabled after unlocking current process 
 // 1019               to avoid the risk of SPI interrupt handle execution before current
@@ -2352,38 +2414,70 @@ HAL_SPI_Transmit_IT:
 // 1021         
 // 1022     /* Check if the SPI is already enabled */ 
 // 1023     if((hspi->Instance->CR1 &SPI_CR1_SPE) != SPI_CR1_SPE)
-        LDR      R0,[R3, #+0]
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+25
-        BMI.N    ??HAL_SPI_Transmit_IT_9
 // 1024     {
 // 1025       /* Enable SPI peripheral */    
 // 1026       __HAL_SPI_ENABLE(hspi);
-        LDR      R0,[R3, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x40
-        LDR      R4,[R3, #+0]
-        STR      R0,[R4, #+0]
 // 1027     }
 // 1028         
 // 1029     return HAL_OK;
-??HAL_SPI_Transmit_IT_9:
-        MOVS     R0,#+0
-        B.N      ??HAL_SPI_Transmit_IT_3
 // 1030   }
+??CrossCallReturnLabel_0:
+        ORR      R0,R0,#0x80
+        B.N      ?Subroutine0
 // 1031   else
 // 1032   {
 // 1033     return HAL_BUSY;
 ??HAL_SPI_Transmit_IT_0:
         MOVS     R0,#+2
-??HAL_SPI_Transmit_IT_3:
-        POP      {R4}
-          CFI R4 SameValue
-          CFI CFA R13+0
-        BX       LR               ;; return
+        POP      {R4,PC}          ;; return
 // 1034   }
 // 1035 }
-          CFI EndBlock cfiBlock7
+          CFI EndBlock cfiBlock36
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond37 Using cfiCommon0
+          CFI Function HAL_SPI_Transmit_IT
+          CFI Conditional ??CrossCallReturnLabel_0
+          CFI R4 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+8
+          CFI Block cfiCond38 Using cfiCommon0
+          CFI (cfiCond38) Function HAL_SPI_Receive_IT
+          CFI (cfiCond38) Conditional ??CrossCallReturnLabel_1
+          CFI (cfiCond38) R4 Frame(CFA, -8)
+          CFI (cfiCond38) R14 Frame(CFA, -4)
+          CFI (cfiCond38) CFA R13+8
+          CFI Block cfiPicker39 Using cfiCommon1
+          CFI (cfiPicker39) NoFunction
+          CFI (cfiPicker39) Picker
+        THUMB
+?Subroutine8:
+        LDR      R0,[R0, #+40]
+          CFI Block cfiCond40 Using cfiCommon0
+          CFI (cfiCond40) Function HAL_SPI_TransmitReceive_DMA
+          CFI (cfiCond40) Conditional ??CrossCallReturnLabel_2
+          CFI (cfiCond40) R4 Frame(CFA, -16)
+          CFI (cfiCond40) R5 Frame(CFA, -12)
+          CFI (cfiCond40) R6 Frame(CFA, -8)
+          CFI (cfiCond40) R14 Frame(CFA, -4)
+          CFI (cfiCond40) CFA R13+16
+??Subroutine8_0:
+        CMP      R0,#+8192
+        BNE.N    ??Subroutine8_1
+        LDR      R0,[R1, #+0]
+        MOVW     R2,#+57343
+        ANDS     R0,R2,R0
+        STR      R0,[R1, #+0]
+        LDR      R0,[R1, #+0]
+        ORR      R0,R0,#0x2000
+        STR      R0,[R1, #+0]
+??Subroutine8_1:
+        LDR      R0,[R1, #+4]
+        BX       LR
+          CFI EndBlock cfiCond37
+          CFI EndBlock cfiCond38
+          CFI EndBlock cfiPicker39
+          CFI EndBlock cfiCond40
 // 1036 
 // 1037 /**
 // 1038   * @brief  Receive an amount of data in no-blocking mode with Interrupt
@@ -2395,219 +2489,179 @@ HAL_SPI_Transmit_IT:
 // 1044   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock8 Using cfiCommon0
+          CFI Block cfiBlock41 Using cfiCommon0
           CFI Function HAL_SPI_Receive_IT
         THUMB
 // 1045 HAL_StatusTypeDef HAL_SPI_Receive_IT(SPI_HandleTypeDef *hspi, uint8_t *pData, uint16_t Size)
 // 1046 {
-HAL_SPI_Receive_IT:
-        PUSH     {R4-R6,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+16
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
 // 1047   if(hspi->State == HAL_SPI_STATE_READY)
-        LDRB     R0,[R4, #+93]
-        CMP      R0,#+1
-        BNE.W    ??HAL_SPI_Receive_IT_0
+HAL_SPI_Receive_IT:
+        ADD      R3,R0,#+68
+        PUSH     {R4,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        LDRB     R4,[R3, #+25]
+        CMP      R4,#+1
+        BNE.N    ??HAL_SPI_Receive_IT_0
 // 1048   {
 // 1049     if((pData == NULL) || (Size == 0))
-        CMP      R5,#+0
-        BEQ.N    ??HAL_SPI_Receive_IT_1
-        UXTH     R6,R6            ;; ZeroExt  R6,R6,#+16,#+16
-        CMP      R6,#+0
-        BNE.N    ??HAL_SPI_Receive_IT_2
+        CMP      R1,#+0
+        IT       NE 
+        CMPNE    R2,#+0
+        BNE.N    ??HAL_SPI_Receive_IT_1
 // 1050     { 
 // 1051       return  HAL_ERROR;                      
-??HAL_SPI_Receive_IT_1:
         MOVS     R0,#+1
-        B.N      ??HAL_SPI_Receive_IT_3
+        POP      {R4,PC}
 // 1052     }
 // 1053 
 // 1054     /* Process Locked */
 // 1055     __HAL_LOCK(hspi);
-??HAL_SPI_Receive_IT_2:
-        LDRB     R0,[R4, #+92]
-        CMP      R0,#+1
-        BNE.N    ??HAL_SPI_Receive_IT_4
-        MOVS     R0,#+2
-        B.N      ??HAL_SPI_Receive_IT_3
-??HAL_SPI_Receive_IT_4:
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+92]
+??HAL_SPI_Receive_IT_1:
+        LDRB     R4,[R3, #+24]
+        CMP      R4,#+1
+        BEQ.N    ??HAL_SPI_Receive_IT_0
+        MOVS     R4,#+1
+        STRB     R4,[R3, #+24]
 // 1056     
 // 1057     /* Configure communication */
 // 1058     hspi->State       = HAL_SPI_STATE_BUSY_RX;
-        MOVS     R0,#+4
-        STRB     R0,[R4, #+93]
+        MOVS     R4,#+4
+        STRB     R4,[R3, #+25]
 // 1059     hspi->ErrorCode   = HAL_SPI_ERROR_NONE;
-        MOVS     R0,#+0
-        STR      R0,[R4, #+96]
+        MOVS     R4,#+0
+        STR      R4,[R3, #+28]
 // 1060     hspi->pRxBuffPtr  = pData;
-        STR      R5,[R4, #+64]
+        STR      R1,[R0, #+64]
 // 1061     hspi->RxXferSize  = Size;
-        STRH     R6,[R4, #+68]
+        STRH     R2,[R3, #+0]
 // 1062     hspi->RxXferCount = Size;
-        STRH     R6,[R4, #+70]
+        STRH     R2,[R3, #+2]
 // 1063     hspi->pTxBuffPtr  = NULL;
-        MOVS     R0,#+0
-        STR      R0,[R4, #+56]
+        STR      R4,[R0, #+56]
 // 1064     hspi->TxXferSize  = 0;
-        MOVS     R0,#+0
-        STRH     R0,[R4, #+60]
+        STRH     R4,[R0, #+60]
 // 1065     hspi->TxXferCount = 0;
-        MOVS     R0,#+0
-        STRH     R0,[R4, #+62]
+        STRH     R4,[R0, #+62]
 // 1066 
 // 1067     if((hspi->Init.Mode == SPI_MODE_MASTER) && (hspi->Init.Direction == SPI_DIRECTION_2LINES))
-        LDR      R0,[R4, #+4]
-        CMP      R0,#+260
-        BNE.N    ??HAL_SPI_Receive_IT_5
-        LDR      R0,[R4, #+8]
-        CMP      R0,#+0
-        BNE.N    ??HAL_SPI_Receive_IT_5
+        LDR      R4,[R0, #+4]
+        CMP      R4,#+260
+        ITT      EQ 
+        LDREQ    R4,[R0, #+8]
+        CMPEQ    R4,#+0
+        BNE.N    ??HAL_SPI_Receive_IT_2
 // 1068     {
 // 1069       /* Process Unlocked */
 // 1070       __HAL_UNLOCK(hspi);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+92]
+        STRB     R4,[R3, #+24]
 // 1071       /* the receive process is not supported in 2Lines direction master mode */
 // 1072       /* in this we call the transmitReceive process          */
 // 1073       return HAL_SPI_TransmitReceive_IT(hspi,pData,pData,Size);
-        MOVS     R3,R6
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        MOVS     R2,R5
-        MOVS     R1,R5
-        MOVS     R0,R4
+        MOV      R3,R2
+        MOV      R2,R1
+        POP      {R4,LR}
+          CFI R4 SameValue
+          CFI R14 SameValue
+          CFI CFA R13+0
           CFI FunCall HAL_SPI_TransmitReceive_IT
-        BL       HAL_SPI_TransmitReceive_IT
-        B.N      ??HAL_SPI_Receive_IT_3
+        B.N      HAL_SPI_TransmitReceive_IT
+          CFI R4 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+8
 // 1074     }
 // 1075         
 // 1076     if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
-??HAL_SPI_Receive_IT_5:
-        LDR      R0,[R4, #+40]
-        CMP      R0,#+8192
-        BNE.N    ??HAL_SPI_Receive_IT_6
+??HAL_SPI_Receive_IT_2:
+        LDR      R1,[R0, #+40]
+        MOVW     R2,#+1793
+        CMP      R1,#+8192
+        BNE.N    ??HAL_SPI_Receive_IT_3
 // 1077     {
 // 1078       hspi->CRCSize = 1;
-        MOVS     R0,#+1
-        STR      R0,[R4, #+72]
+        MOVS     R1,#+1
+        STR      R1,[R3, #+4]
 // 1079       if((hspi->Init.DataSize <= SPI_DATASIZE_8BIT) && (hspi->Init.CRCLength == SPI_CRC_LENGTH_16BIT))
-        LDR      R0,[R4, #+12]
-        CMP      R0,#+1792
-        BHI.N    ??HAL_SPI_Receive_IT_7
-        LDR      R0,[R4, #+48]
-        CMP      R0,#+2
-        BNE.N    ??HAL_SPI_Receive_IT_7
+        LDR      R1,[R0, #+12]
+        CMP      R1,R2
+        BCS.N    ??HAL_SPI_Receive_IT_4
+        LDR      R1,[R0, #+48]
+        CMP      R1,#+2
+        BNE.N    ??HAL_SPI_Receive_IT_4
 // 1080       {
 // 1081         hspi->CRCSize = 2;
-        MOVS     R0,#+2
-        STR      R0,[R4, #+72]
-        B.N      ??HAL_SPI_Receive_IT_7
+        B.N      ??HAL_SPI_Receive_IT_5
 // 1082       }
 // 1083     }
 // 1084     else
 // 1085     {
 // 1086       hspi->CRCSize = 0;
-??HAL_SPI_Receive_IT_6:
-        MOVS     R0,#+0
-        STR      R0,[R4, #+72]
+??HAL_SPI_Receive_IT_3:
+        MOVS     R1,#+0
+??HAL_SPI_Receive_IT_5:
+        STR      R1,[R3, #+4]
 // 1087     }
 // 1088         
 // 1089     /* check the data size to adapt Rx threshold and the set the function for IT treatment */
 // 1090     if(hspi->Init.DataSize > SPI_DATASIZE_8BIT )
-??HAL_SPI_Receive_IT_7:
-        LDR      R0,[R4, #+12]
-        CMP      R0,#+1792
-        BLS.N    ??HAL_SPI_Receive_IT_8
+??HAL_SPI_Receive_IT_4:
+        LDR      R1,[R0, #+0]
+        LDR      R4,[R0, #+12]
+        CMP      R4,R2
+        LDR      R2,[R1, #+4]
+        BCC.N    ??HAL_SPI_Receive_IT_6
 // 1091     {
 // 1092       /* set fiforxthreshold according the reception data length: 16 bit */
 // 1093       CLEAR_BIT(hspi->Instance->CR2, SPI_RXFIFO_THRESHOLD);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0x1000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+        BIC      R2,R2,#0x1000
+        STR      R2,[R1, #+4]
 // 1094       hspi->RxISR = SPI_RxISR_16BIT;
-        ADR.W    R0,SPI_RxISR_16BIT
-        STR      R0,[R4, #+76]
+        ADR.W    R2,SPI_RxISR_16BIT
 // 1095       hspi->TxISR = NULL;
-        MOVS     R0,#+0
-        STR      R0,[R4, #+80]
-        B.N      ??HAL_SPI_Receive_IT_9
+        B.N      ??HAL_SPI_Receive_IT_7
 // 1096     }
 // 1097     else
 // 1098     {
 // 1099       /* set fiforxthreshold according the reception data length: 8 bit */
 // 1100       SET_BIT(hspi->Instance->CR2, SPI_RXFIFO_THRESHOLD);
-??HAL_SPI_Receive_IT_8:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        ORRS     R0,R0,#0x1000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+??HAL_SPI_Receive_IT_6:
+        ORR      R2,R2,#0x1000
+        STR      R2,[R1, #+4]
 // 1101       hspi->RxISR = SPI_RxISR_8BIT;
-        ADR.W    R0,SPI_RxISR_8BIT
-        STR      R0,[R4, #+76]
+        ADR.W    R2,SPI_RxISR_8BIT
 // 1102       hspi->TxISR = NULL;
-        MOVS     R0,#+0
-        STR      R0,[R4, #+80]
+??HAL_SPI_Receive_IT_7:
+        MOVS     R4,#+0
+        STR      R2,[R3, #+8]
+        STR      R4,[R3, #+12]
 // 1103     }
 // 1104     
 // 1105     /* Configure communication direction : 1Line */
 // 1106     if(hspi->Init.Direction == SPI_DIRECTION_1LINE)
-??HAL_SPI_Receive_IT_9:
-        LDR      R0,[R4, #+8]
-        CMP      R0,#+32768
-        BNE.N    ??HAL_SPI_Receive_IT_10
+        LDR      R2,[R0, #+8]
+        CMP      R2,#+32768
+        BNE.N    ??HAL_SPI_Receive_IT_8
 // 1107     {
 // 1108       SPI_1LINE_RX(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        BICS     R0,R0,#0x4000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        LDR      R2,[R1, #+0]
+        BIC      R2,R2,#0x4000
+        STR      R2,[R1, #+0]
 // 1109     }
 // 1110     
 // 1111     /* Reset CRC Calculation */
 // 1112     if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
-??HAL_SPI_Receive_IT_10:
-        LDR      R0,[R4, #+40]
-        CMP      R0,#+8192
-        BNE.N    ??HAL_SPI_Receive_IT_11
+??HAL_SPI_Receive_IT_8:
+        BL       ?Subroutine8
 // 1113     {
 // 1114       SPI_RESET_CRC(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        MOVW     R1,#+57343
-        ANDS     R0,R1,R0
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x2000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
 // 1115     }
 // 1116     
 // 1117     /* Enable TXE and ERR interrupt */
 // 1118     __HAL_SPI_ENABLE_IT(hspi, (SPI_IT_RXNE | SPI_IT_ERR));
-??HAL_SPI_Receive_IT_11:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        ORRS     R0,R0,#0x60
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
 // 1119     
 // 1120     /* Process Unlocked */
 // 1121     __HAL_UNLOCK(hspi);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+92]
 // 1122     
 // 1123     /* Note : The SPI must be enabled after unlocking current process 
 // 1124     to avoid the risk of SPI interrupt handle execution before current
@@ -2615,35 +2669,81 @@ HAL_SPI_Receive_IT:
 // 1126     
 // 1127     /* Check if the SPI is already enabled */ 
 // 1128     if((hspi->Instance->CR1 & SPI_CR1_SPE) != SPI_CR1_SPE)
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+25
-        BMI.N    ??HAL_SPI_Receive_IT_12
 // 1129     {
 // 1130       /* Enable SPI peripheral */    
 // 1131       __HAL_SPI_ENABLE(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x40
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
 // 1132     }
 // 1133     
 // 1134     return HAL_OK;
-??HAL_SPI_Receive_IT_12:
-        MOVS     R0,#+0
-        B.N      ??HAL_SPI_Receive_IT_3
 // 1135   }
+??CrossCallReturnLabel_1:
+        ORR      R0,R0,#0x60
+        B.N      ?Subroutine0
 // 1136   else
 // 1137   {
 // 1138     return HAL_BUSY; 
 ??HAL_SPI_Receive_IT_0:
         MOVS     R0,#+2
-??HAL_SPI_Receive_IT_3:
-        POP      {R4-R6,PC}       ;; return
+        POP      {R4,PC}          ;; return
 // 1139   }
 // 1140 }
-          CFI EndBlock cfiBlock8
+          CFI EndBlock cfiBlock41
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock42 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+8
+          CFI R4 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+        THUMB
+?Subroutine0:
+        STR      R0,[R1, #+4]
+        STRB     R4,[R3, #+24]
+        BL       ?Subroutine23
+??CrossCallReturnLabel_42:
+        POP      {R4,PC}
+          CFI EndBlock cfiBlock42
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond43 Using cfiCommon0
+          CFI Function HAL_SPI_Transmit_IT
+          CFI Conditional ??CrossCallReturnLabel_42
+          CFI R4 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+8
+          CFI Block cfiCond44 Using cfiCommon0
+          CFI (cfiCond44) Function HAL_SPI_Receive_IT
+          CFI (cfiCond44) Conditional ??CrossCallReturnLabel_42
+          CFI (cfiCond44) R4 Frame(CFA, -8)
+          CFI (cfiCond44) R14 Frame(CFA, -4)
+          CFI (cfiCond44) CFA R13+8
+          CFI Block cfiCond45 Using cfiCommon0
+          CFI (cfiCond45) Function HAL_SPI_TransmitReceive_IT
+          CFI (cfiCond45) Conditional ??CrossCallReturnLabel_43
+          CFI (cfiCond45) R4 Frame(CFA, -20)
+          CFI (cfiCond45) R5 Frame(CFA, -16)
+          CFI (cfiCond45) R6 Frame(CFA, -12)
+          CFI (cfiCond45) R7 Frame(CFA, -8)
+          CFI (cfiCond45) R14 Frame(CFA, -4)
+          CFI (cfiCond45) CFA R13+20
+          CFI Block cfiPicker46 Using cfiCommon1
+          CFI (cfiPicker46) NoFunction
+          CFI (cfiPicker46) Picker
+        THUMB
+?Subroutine23:
+        LDR      R0,[R1, #+0]
+        LSLS     R0,R0,#+25
+        BMI.N    ??Subroutine23_0
+        LDR      R0,[R1, #+0]
+        ORR      R0,R0,#0x40
+        STR      R0,[R1, #+0]
+??Subroutine23_0:
+        MOVS     R0,#+0
+        BX       LR
+          CFI EndBlock cfiCond43
+          CFI EndBlock cfiCond44
+          CFI EndBlock cfiCond45
+          CFI EndBlock cfiPicker46
 // 1141 
 // 1142 /**
 // 1143   * @brief  Transmit and Receive an amount of data in no-blocking mode with Interrupt
@@ -2656,243 +2756,210 @@ HAL_SPI_Receive_IT:
 // 1150   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock9 Using cfiCommon0
+          CFI Block cfiBlock47 Using cfiCommon0
           CFI Function HAL_SPI_TransmitReceive_IT
           CFI NoCalls
         THUMB
 // 1151 HAL_StatusTypeDef HAL_SPI_TransmitReceive_IT(SPI_HandleTypeDef *hspi, uint8_t *pTxData, uint8_t *pRxData, uint16_t Size)
 // 1152 {
 HAL_SPI_TransmitReceive_IT:
-        PUSH     {R4,R5}
-          CFI R5 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOVS     R4,R0
+        PUSH     {R4-R7,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R7 Frame(CFA, -8)
+          CFI R6 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -16)
+          CFI R4 Frame(CFA, -20)
+          CFI CFA R13+20
 // 1153   assert_param(IS_SPI_DIRECTION_2LINES(hspi->Init.Direction));
 // 1154   
 // 1155   if((hspi->State == HAL_SPI_STATE_READY) || \ 
 // 1156      ((hspi->Init.Mode == SPI_MODE_MASTER) && (hspi->Init.Direction == SPI_DIRECTION_2LINES) && (hspi->State == HAL_SPI_STATE_BUSY_RX)))
-        LDRB     R0,[R4, #+93]
-        CMP      R0,#+1
+        ADD      R4,R0,#+68
+        LDRB     R5,[R4, #+25]
+        CMP      R5,#+1
         BEQ.N    ??HAL_SPI_TransmitReceive_IT_0
-        LDR      R0,[R4, #+4]
-        CMP      R0,#+260
-        BNE.W    ??HAL_SPI_TransmitReceive_IT_1
-        LDR      R0,[R4, #+8]
-        CMP      R0,#+0
-        BNE.W    ??HAL_SPI_TransmitReceive_IT_1
-        LDRB     R0,[R4, #+93]
-        CMP      R0,#+4
-        BNE.W    ??HAL_SPI_TransmitReceive_IT_1
+        LDR      R6,[R0, #+4]
+        CMP      R6,#+260
+        ITTT     EQ 
+        LDREQ    R6,[R0, #+8]
+        CMPEQ    R6,#+0
+        CMPEQ    R5,#+4
+        BNE.N    ??HAL_SPI_TransmitReceive_IT_1
 // 1157   {
 // 1158     if((pTxData == NULL ) || (pRxData == NULL ) || (Size == 0)) 
 ??HAL_SPI_TransmitReceive_IT_0:
         CMP      R1,#+0
+        IT       NE 
+        CMPNE    R2,#+0
         BEQ.N    ??HAL_SPI_TransmitReceive_IT_2
-        CMP      R2,#+0
-        BEQ.N    ??HAL_SPI_TransmitReceive_IT_2
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        CMP      R3,#+0
-        BNE.N    ??HAL_SPI_TransmitReceive_IT_3
+        CBNZ.N   R3,??HAL_SPI_TransmitReceive_IT_3
 // 1159     {
 // 1160       return  HAL_ERROR;                                    
 ??HAL_SPI_TransmitReceive_IT_2:
         MOVS     R0,#+1
-        B.N      ??HAL_SPI_TransmitReceive_IT_4
+        POP      {R4-R7,PC}
 // 1161     }
 // 1162     
 // 1163     /* Process locked */
 // 1164     __HAL_LOCK(hspi);
 ??HAL_SPI_TransmitReceive_IT_3:
-        LDRB     R0,[R4, #+92]
-        CMP      R0,#+1
-        BNE.N    ??HAL_SPI_TransmitReceive_IT_5
-        MOVS     R0,#+2
-        B.N      ??HAL_SPI_TransmitReceive_IT_4
-??HAL_SPI_TransmitReceive_IT_5:
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+92]
+        LDRB     R6,[R4, #+24]
+        CMP      R6,#+1
+        BEQ.N    ??HAL_SPI_TransmitReceive_IT_1
+        MOVS     R6,#+1
+        STRB     R6,[R4, #+24]
 // 1165     
 // 1166     hspi->CRCSize = 0;
-        MOVS     R0,#+0
-        STR      R0,[R4, #+72]
+        MOVS     R6,#+0
+        STR      R6,[R4, #+4]
 // 1167     if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
-        LDR      R0,[R4, #+40]
-        CMP      R0,#+8192
-        BNE.N    ??HAL_SPI_TransmitReceive_IT_6
+        LDR      R7,[R0, #+40]
+        MOVW     R6,#+1793
+        CMP      R7,#+8192
+        BNE.N    ??HAL_SPI_TransmitReceive_IT_4
 // 1168     {
 // 1169       hspi->CRCSize = 1;
-        MOVS     R0,#+1
-        STR      R0,[R4, #+72]
+        MOVS     R7,#+1
+        STR      R7,[R4, #+4]
 // 1170       if((hspi->Init.DataSize <= SPI_DATASIZE_8BIT) && (hspi->Init.CRCLength == SPI_CRC_LENGTH_16BIT))
-        LDR      R0,[R4, #+12]
-        CMP      R0,#+1792
-        BHI.N    ??HAL_SPI_TransmitReceive_IT_6
-        LDR      R0,[R4, #+48]
-        CMP      R0,#+2
-        BNE.N    ??HAL_SPI_TransmitReceive_IT_6
+        LDR      R7,[R0, #+12]
+        CMP      R7,R6
+        BCS.N    ??HAL_SPI_TransmitReceive_IT_4
+        LDR      R7,[R0, #+48]
+        CMP      R7,#+2
+        IT       EQ 
+        STREQ    R7,[R4, #+4]
 // 1171       {
 // 1172         hspi->CRCSize = 2;
-        MOVS     R0,#+2
-        STR      R0,[R4, #+72]
 // 1173       }
 // 1174     }
 // 1175     
 // 1176     if(hspi->State != HAL_SPI_STATE_BUSY_RX)
-??HAL_SPI_TransmitReceive_IT_6:
-        LDRB     R0,[R4, #+93]
-        CMP      R0,#+4
-        BEQ.N    ??HAL_SPI_TransmitReceive_IT_7
+??HAL_SPI_TransmitReceive_IT_4:
+        CMP      R5,#+4
+        ITT      NE 
+        MOVNE    R5,#+5
+        STRBNE   R5,[R4, #+25]
 // 1177     {
 // 1178       hspi->State = HAL_SPI_STATE_BUSY_TX_RX;
-        MOVS     R0,#+5
-        STRB     R0,[R4, #+93]
 // 1179     }
 // 1180     
 // 1181     hspi->ErrorCode   = HAL_SPI_ERROR_NONE;
-??HAL_SPI_TransmitReceive_IT_7:
-        MOVS     R0,#+0
-        STR      R0,[R4, #+96]
+        MOVS     R5,#+0
+        STR      R5,[R4, #+28]
 // 1182     hspi->pTxBuffPtr  = pTxData;
-        STR      R1,[R4, #+56]
+        STR      R1,[R0, #+56]
 // 1183     hspi->TxXferSize  = Size;
-        STRH     R3,[R4, #+60]
+        STRH     R3,[R0, #+60]
 // 1184     hspi->TxXferCount = Size;
-        STRH     R3,[R4, #+62]
+        STRH     R3,[R0, #+62]
 // 1185     hspi->pRxBuffPtr  = pRxData;
-        STR      R2,[R4, #+64]
+        STR      R2,[R0, #+64]
 // 1186     hspi->RxXferSize  = Size;
-        STRH     R3,[R4, #+68]
+        STRH     R3,[R4, #+0]
 // 1187     hspi->RxXferCount = Size;
-        STRH     R3,[R4, #+70]
+        STRH     R3,[R4, #+2]
 // 1188     
 // 1189     /* Set the function for IT treatement */
 // 1190     if(hspi->Init.DataSize > SPI_DATASIZE_8BIT )
-        LDR      R0,[R4, #+12]
-        CMP      R0,#+1792
-        BLS.N    ??HAL_SPI_TransmitReceive_IT_8
+        LDR      R1,[R0, #+12]
+        CMP      R1,R6
+        ITTEE    CS 
+        ADRCS.W  R1,SPI_2linesRxISR_16BIT
+        ADRCS.W  R2,SPI_2linesTxISR_16BIT
+        ADRCC.W  R1,SPI_2linesRxISR_8BIT
+        ADRCC.W  R2,SPI_2linesTxISR_8BIT
 // 1191     {
 // 1192       hspi->RxISR = SPI_2linesRxISR_16BIT;
-        ADR.W    R0,SPI_2linesRxISR_16BIT
-        STR      R0,[R4, #+76]
 // 1193       hspi->TxISR = SPI_2linesTxISR_16BIT;       
-        ADR.W    R0,SPI_2linesTxISR_16BIT
-        STR      R0,[R4, #+80]
-        B.N      ??HAL_SPI_TransmitReceive_IT_9
 // 1194     }
 // 1195     else
 // 1196     {
 // 1197       hspi->RxISR = SPI_2linesRxISR_8BIT;
-??HAL_SPI_TransmitReceive_IT_8:
-        ADR.W    R0,SPI_2linesRxISR_8BIT
-        STR      R0,[R4, #+76]
 // 1198       hspi->TxISR = SPI_2linesTxISR_8BIT;
-        ADR.W    R0,SPI_2linesTxISR_8BIT
-        STR      R0,[R4, #+80]
+        STR      R2,[R4, #+12]
+        STR      R1,[R4, #+8]
 // 1199     }
 // 1200     
 // 1201     /* Reset CRC Calculation */
 // 1202     if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
-??HAL_SPI_TransmitReceive_IT_9:
-        LDR      R0,[R4, #+40]
-        CMP      R0,#+8192
-        BNE.N    ??HAL_SPI_TransmitReceive_IT_10
+        LDR      R1,[R0, #+40]
+        CMP      R1,#+8192
+        BNE.N    ??HAL_SPI_TransmitReceive_IT_5
 // 1203     {
 // 1204       SPI_RESET_CRC(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        MOVW     R5,#+57343
-        ANDS     R0,R5,R0
-        LDR      R5,[R4, #+0]
-        STR      R0,[R5, #+0]
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x2000
-        LDR      R5,[R4, #+0]
-        STR      R0,[R5, #+0]
+        LDR      R1,[R0, #+0]
+        MOVW     R3,#+57343
+        LDR      R2,[R1, #+0]
+        ANDS     R2,R3,R2
+        STR      R2,[R1, #+0]
+        LDR      R2,[R1, #+0]
+        ORR      R2,R2,#0x2000
+        STR      R2,[R1, #+0]
 // 1205     }
 // 1206     
 // 1207     /* check if packing mode is enabled and if there is more than 2 data to receive */
 // 1208     if((hspi->Init.DataSize > SPI_DATASIZE_8BIT) || (hspi->RxXferCount >= 2))
-??HAL_SPI_TransmitReceive_IT_10:
-        LDR      R0,[R4, #+12]
-        CMP      R0,#+1792
-        BHI.N    ??HAL_SPI_TransmitReceive_IT_11
-        LDRH     R0,[R4, #+70]
-        CMP      R0,#+2
-        BLT.N    ??HAL_SPI_TransmitReceive_IT_12
+??HAL_SPI_TransmitReceive_IT_5:
+        LDR      R1,[R0, #+12]
+        CMP      R1,R6
+        BCS.N    ??HAL_SPI_TransmitReceive_IT_6
+        LDRH     R1,[R4, #+2]
+        CMP      R1,#+2
+        BLT.N    ??HAL_SPI_TransmitReceive_IT_7
 // 1209     {
 // 1210       /* set fiforxthreshold according the reception data length: 16 bit */
 // 1211       CLEAR_BIT(hspi->Instance->CR2, SPI_RXFIFO_THRESHOLD);
-??HAL_SPI_TransmitReceive_IT_11:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0x1000
-        LDR      R5,[R4, #+0]
-        STR      R0,[R5, #+4]
-        B.N      ??HAL_SPI_TransmitReceive_IT_13
+??HAL_SPI_TransmitReceive_IT_6:
+        LDR      R1,[R0, #+0]
+        LDR      R2,[R1, #+4]
+        BIC      R2,R2,#0x1000
+        B.N      ??HAL_SPI_TransmitReceive_IT_8
 // 1212     }
 // 1213     else
 // 1214     {
 // 1215       /* set fiforxthreshold according the reception data length: 8 bit */
 // 1216       SET_BIT(hspi->Instance->CR2, SPI_RXFIFO_THRESHOLD);
-??HAL_SPI_TransmitReceive_IT_12:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        ORRS     R0,R0,#0x1000
-        LDR      R5,[R4, #+0]
-        STR      R0,[R5, #+4]
+??HAL_SPI_TransmitReceive_IT_7:
+        LDR      R1,[R0, #+0]
+        LDR      R2,[R1, #+4]
+        ORR      R2,R2,#0x1000
+??HAL_SPI_TransmitReceive_IT_8:
+        STR      R2,[R1, #+4]
 // 1217     }
 // 1218     
 // 1219     /* Enable TXE, RXNE and ERR interrupt */
 // 1220     __HAL_SPI_ENABLE_IT(hspi, (SPI_IT_TXE | SPI_IT_RXNE | SPI_IT_ERR));
-??HAL_SPI_TransmitReceive_IT_13:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        ORRS     R0,R0,#0xE0
-        LDR      R5,[R4, #+0]
-        STR      R0,[R5, #+4]
+        LDR      R1,[R0, #+0]
+        LDR      R0,[R1, #+4]
+        ORR      R0,R0,#0xE0
+        STR      R0,[R1, #+4]
 // 1221     
 // 1222     /* Process Unlocked */
 // 1223     __HAL_UNLOCK(hspi);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+92]
+        STRB     R5,[R4, #+24]
 // 1224     
 // 1225     /* Check if the SPI is already enabled */ 
 // 1226     if((hspi->Instance->CR1 & SPI_CR1_SPE) != SPI_CR1_SPE)
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+25
-        BMI.N    ??HAL_SPI_TransmitReceive_IT_14
+        BL       ?Subroutine23
 // 1227     {
 // 1228       /* Enable SPI peripheral */    
 // 1229       __HAL_SPI_ENABLE(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x40
-        LDR      R5,[R4, #+0]
-        STR      R0,[R5, #+0]
 // 1230     }
 // 1231     
 // 1232     return HAL_OK;
-??HAL_SPI_TransmitReceive_IT_14:
-        MOVS     R0,#+0
-        B.N      ??HAL_SPI_TransmitReceive_IT_4
 // 1233   }
+??CrossCallReturnLabel_43:
+        POP      {R4-R7,PC}
 // 1234   else
 // 1235   {
 // 1236     return HAL_BUSY;
 ??HAL_SPI_TransmitReceive_IT_1:
         MOVS     R0,#+2
-??HAL_SPI_TransmitReceive_IT_4:
-        POP      {R4,R5}
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI CFA R13+0
-        BX       LR               ;; return
+        POP      {R4-R7,PC}       ;; return
 // 1237   }
 // 1238 }
-          CFI EndBlock cfiBlock9
+          CFI EndBlock cfiBlock47
 // 1239 
 // 1240 /**
 // 1241   * @brief  Transmit an amount of data in no-blocking mode with DMA
@@ -2904,235 +2971,189 @@ HAL_SPI_TransmitReceive_IT:
 // 1247   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock10 Using cfiCommon0
+          CFI Block cfiBlock48 Using cfiCommon0
           CFI Function HAL_SPI_Transmit_DMA
         THUMB
 // 1248 HAL_StatusTypeDef HAL_SPI_Transmit_DMA(SPI_HandleTypeDef *hspi, uint8_t *pData, uint16_t Size)
 // 1249 {    
 HAL_SPI_Transmit_DMA:
-        PUSH     {R4-R6,LR}
+        PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
           CFI CFA R13+16
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
+        MOV      R5,R0
 // 1250   assert_param(IS_SPI_DIRECTION_2LINES_OR_1LINE(hspi->Init.Direction));
 // 1251 
 // 1252   if(hspi->State != HAL_SPI_STATE_READY) 
-        LDRB     R0,[R4, #+93]
+        ADD      R4,R5,#+68
+        LDRB     R0,[R4, #+25]
         CMP      R0,#+1
-        BEQ.N    ??HAL_SPI_Transmit_DMA_0
+        BNE.N    ??HAL_SPI_Transmit_DMA_0
 // 1253   {
 // 1254     return HAL_BUSY;
-        MOVS     R0,#+2
-        B.N      ??HAL_SPI_Transmit_DMA_1
 // 1255   }
 // 1256   
 // 1257   if((pData == NULL) || (Size == 0))
-??HAL_SPI_Transmit_DMA_0:
-        CMP      R5,#+0
-        BEQ.N    ??HAL_SPI_Transmit_DMA_2
-        UXTH     R6,R6            ;; ZeroExt  R6,R6,#+16,#+16
-        CMP      R6,#+0
-        BNE.N    ??HAL_SPI_Transmit_DMA_3
+        CMP      R1,#+0
+        IT       NE 
+        CMPNE    R2,#+0
+        BEQ.N    ??HAL_SPI_Transmit_DMA_1
 // 1258   {
 // 1259     return HAL_ERROR;
-??HAL_SPI_Transmit_DMA_2:
-        MOVS     R0,#+1
-        B.N      ??HAL_SPI_Transmit_DMA_1
 // 1260   }
 // 1261   
 // 1262   /* Process Locked */
 // 1263   __HAL_LOCK(hspi);
-??HAL_SPI_Transmit_DMA_3:
-        LDRB     R0,[R4, #+92]
+        LDRB     R0,[R4, #+24]
         CMP      R0,#+1
-        BNE.N    ??HAL_SPI_Transmit_DMA_4
+        BNE.N    ??HAL_SPI_Transmit_DMA_2
+??HAL_SPI_Transmit_DMA_0:
         MOVS     R0,#+2
-        B.N      ??HAL_SPI_Transmit_DMA_1
-??HAL_SPI_Transmit_DMA_4:
+        POP      {R1,R4,R5,PC}
+??HAL_SPI_Transmit_DMA_2:
         MOVS     R0,#+1
-        STRB     R0,[R4, #+92]
+        STRB     R0,[R4, #+24]
 // 1264   
 // 1265   hspi->State       = HAL_SPI_STATE_BUSY_TX;
         MOVS     R0,#+3
-        STRB     R0,[R4, #+93]
+        STRB     R0,[R4, #+25]
 // 1266   hspi->ErrorCode   = HAL_SPI_ERROR_NONE;
         MOVS     R0,#+0
-        STR      R0,[R4, #+96]
+        STR      R0,[R4, #+28]
 // 1267   hspi->pTxBuffPtr  = pData;
-        STR      R5,[R4, #+56]
+        STR      R1,[R5, #+56]
 // 1268   hspi->TxXferSize  = Size;
-        STRH     R6,[R4, #+60]
+        STRH     R2,[R5, #+60]
 // 1269   hspi->TxXferCount = Size;
-        STRH     R6,[R4, #+62]
+        STRH     R2,[R5, #+62]
 // 1270   hspi->pRxBuffPtr  = (uint8_t *)NULL;
-        MOVS     R0,#+0
-        STR      R0,[R4, #+64]
+        STR      R0,[R5, #+64]
 // 1271   hspi->RxXferSize  = 0;
-        MOVS     R0,#+0
-        STRH     R0,[R4, #+68]
+        STRH     R0,[R4, #+0]
 // 1272   hspi->RxXferCount = 0;
-        MOVS     R0,#+0
-        STRH     R0,[R4, #+70]
+        STRH     R0,[R4, #+2]
 // 1273   
 // 1274   /* Configure communication direction : 1Line */
 // 1275   if(hspi->Init.Direction == SPI_DIRECTION_1LINE)
-        LDR      R0,[R4, #+8]
+        LDR      R0,[R5, #+8]
+        LDR      R2,[R5, #+0]
         CMP      R0,#+32768
-        BNE.N    ??HAL_SPI_Transmit_DMA_5
+        BNE.N    ??HAL_SPI_Transmit_DMA_3
 // 1276   {
 // 1277     SPI_1LINE_TX(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x4000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        LDR      R0,[R2, #+0]
+        ORR      R0,R0,#0x4000
+        STR      R0,[R2, #+0]
 // 1278   }
 // 1279   
 // 1280   /* Reset CRC Calculation */
 // 1281   if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
-??HAL_SPI_Transmit_DMA_5:
-        LDR      R0,[R4, #+40]
+??HAL_SPI_Transmit_DMA_3:
+        LDR      R0,[R5, #+40]
         CMP      R0,#+8192
-        BNE.N    ??HAL_SPI_Transmit_DMA_6
+        BNE.N    ??HAL_SPI_Transmit_DMA_4
 // 1282   {
 // 1283     SPI_RESET_CRC(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
+        LDR      R0,[R2, #+0]
         MOVW     R1,#+57343
         ANDS     R0,R1,R0
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x2000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        STR      R0,[R2, #+0]
+        LDR      R0,[R2, #+0]
+        ORR      R0,R0,#0x2000
+        STR      R0,[R2, #+0]
 // 1284   }
 // 1285   
 // 1286   /* Set the SPI TxDMA Half transfer complete callback */
 // 1287   hspi->hdmatx->XferHalfCpltCallback = SPI_DMAHalfTransmitCplt;
-??HAL_SPI_Transmit_DMA_6:
-        ADR.W    R0,SPI_DMAHalfTransmitCplt
-        LDR      R1,[R4, #+84]
-        STR      R0,[R1, #+64]
+??HAL_SPI_Transmit_DMA_4:
+        LDR      R0,[R4, #+16]
+        ADR.W    R1,SPI_DMAHalfTransmitCplt
+        STR      R1,[R0, #+64]
 // 1288   
 // 1289   /* Set the SPI TxDMA transfer complete callback */
 // 1290   hspi->hdmatx->XferCpltCallback = SPI_DMATransmitCplt;
-        ADR.W    R0,SPI_DMATransmitCplt
-        LDR      R1,[R4, #+84]
-        STR      R0,[R1, #+60]
+        ADR.W    R1,SPI_DMATransmitCplt
+        STR      R1,[R0, #+60]
 // 1291   
 // 1292   /* Set the DMA error callback */
 // 1293   hspi->hdmatx->XferErrorCallback = SPI_DMAError;
-        ADR.W    R0,SPI_DMAError
-        LDR      R1,[R4, #+84]
-        STR      R0,[R1, #+72]
+        ADR.W    R1,SPI_DMAError
+        STR      R1,[R0, #+72]
 // 1294   
 // 1295   CLEAR_BIT(hspi->Instance->CR2, SPI_CR2_LDMATX);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0x4000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+        LDR      R1,[R2, #+4]
+        BIC      R1,R1,#0x4000
+        STR      R1,[R2, #+4]
 // 1296   /* packing mode is enabled only if the DMA setting is HALWORD */
 // 1297   if((hspi->Init.DataSize <= SPI_DATASIZE_8BIT) && (hspi->hdmatx->Init.MemDataAlignment == DMA_MDATAALIGN_HALFWORD))
-        LDR      R0,[R4, #+12]
-        CMP      R0,#+1792
-        BHI.N    ??HAL_SPI_Transmit_DMA_7
-        LDR      R0,[R4, #+84]
-        LDR      R0,[R0, #+24]
-        CMP      R0,#+8192
-        BNE.N    ??HAL_SPI_Transmit_DMA_7
+        LDR      R1,[R5, #+12]
+        LDRH     R3,[R5, #+62]
+        CMP      R1,#+1792
+        BHI.N    ??HAL_SPI_Transmit_DMA_5
+        LDR      R1,[R0, #+24]
+        CMP      R1,#+8192
+        BNE.N    ??HAL_SPI_Transmit_DMA_5
 // 1298   {
 // 1299     /* Check the even/odd of the data size + crc if enabled */
 // 1300     if((hspi->TxXferCount & 0x1) == 0)
-        LDRB     R0,[R4, #+62]
-        LSLS     R0,R0,#+31
-        BMI.N    ??HAL_SPI_Transmit_DMA_8
+        LSRS     R1,R3,#+1
+        LSLS     R3,R3,#+31
+        LDR      R3,[R2, #+4]
+        BMI.N    ??HAL_SPI_Transmit_DMA_6
 // 1301     {
 // 1302       CLEAR_BIT(hspi->Instance->CR2, SPI_CR2_LDMATX);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0x4000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+        BIC      R3,R3,#0x4000
+        STR      R3,[R2, #+4]
 // 1303       hspi->TxXferCount = (hspi->TxXferCount >> 1);
-        LDRH     R0,[R4, #+62]
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        LSRS     R0,R0,#+1
-        STRH     R0,[R4, #+62]
-        B.N      ??HAL_SPI_Transmit_DMA_7
+        MOV      R3,R1
+        B.N      ??HAL_SPI_Transmit_DMA_5
 // 1304     }
 // 1305     else
 // 1306     {
 // 1307       SET_BIT(hspi->Instance->CR2, SPI_CR2_LDMATX);
-??HAL_SPI_Transmit_DMA_8:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        ORRS     R0,R0,#0x4000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+??HAL_SPI_Transmit_DMA_6:
+        ORR      R3,R3,#0x4000
+        STR      R3,[R2, #+4]
 // 1308       hspi->TxXferCount = (hspi->TxXferCount >> 1) + 1;
-        LDRH     R0,[R4, #+62]
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        LSRS     R0,R0,#+1
-        ADDS     R0,R0,#+1
-        STRH     R0,[R4, #+62]
+        ADDS     R3,R1,#+1
+??HAL_SPI_Transmit_DMA_5:
+        STRH     R3,[R5, #+62]
 // 1309     }
 // 1310   }
 // 1311   
 // 1312   /* Enable the Tx DMA channel */
 // 1313   HAL_DMA_Start_IT(hspi->hdmatx, (uint32_t)hspi->pTxBuffPtr, (uint32_t)&hspi->Instance->DR, hspi->TxXferCount);
-??HAL_SPI_Transmit_DMA_7:
-        LDRH     R3,[R4, #+62]
-        LDR      R0,[R4, #+0]
-        ADDS     R2,R0,#+12
-        LDR      R1,[R4, #+56]
-        LDR      R0,[R4, #+84]
+        LDRH     R3,[R5, #+62]
+        LDR      R1,[R5, #+56]
+        ADDS     R2,R2,#+12
           CFI FunCall HAL_DMA_Start_IT
         BL       HAL_DMA_Start_IT
 // 1314   
 // 1315   /* Check if the SPI is already enabled */ 
 // 1316   if((hspi->Instance->CR1 &SPI_CR1_SPE) != SPI_CR1_SPE)
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+25
-        BMI.N    ??HAL_SPI_Transmit_DMA_9
+        LDR      R0,[R5, #+0]
+        BL       ?Subroutine17
 // 1317   {
 // 1318     /* Enable SPI peripheral */    
 // 1319     __HAL_SPI_ENABLE(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x40
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
 // 1320   }
 // 1321 
 // 1322   /* Enable Tx DMA Request */
 // 1323   hspi->Instance->CR2 |= SPI_CR2_TXDMAEN;
-??HAL_SPI_Transmit_DMA_9:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        ORRS     R0,R0,#0x2
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+??CrossCallReturnLabel_29:
+        BL       ?Subroutine29
 // 1324   
 // 1325   /* Process Unlocked */
 // 1326   __HAL_UNLOCK(hspi);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+92]
+??CrossCallReturnLabel_54:
+        STRB     R0,[R4, #+24]
 // 1327   
 // 1328   return HAL_OK;
-        MOVS     R0,#+0
 ??HAL_SPI_Transmit_DMA_1:
-        POP      {R4-R6,PC}       ;; return
+        POP      {R1,R4,R5,PC}    ;; return
 // 1329 }
-          CFI EndBlock cfiBlock10
+          CFI EndBlock cfiBlock48
 // 1330 
 // 1331 /**
 // 1332 * @brief  Receive an amount of data in no-blocking mode with DMA 
@@ -3143,259 +3164,296 @@ HAL_SPI_Transmit_DMA:
 // 1337 */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock11 Using cfiCommon0
+          CFI Block cfiBlock49 Using cfiCommon0
           CFI Function HAL_SPI_Receive_DMA
         THUMB
 // 1338 HAL_StatusTypeDef HAL_SPI_Receive_DMA(SPI_HandleTypeDef *hspi, uint8_t *pData, uint16_t Size)
 // 1339 {
 HAL_SPI_Receive_DMA:
-        PUSH     {R4-R6,LR}
+        PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
           CFI CFA R13+16
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
+        BL       ?Subroutine28
 // 1340   if(hspi->State != HAL_SPI_STATE_READY)
-        LDRB     R0,[R4, #+93]
-        CMP      R0,#+1
-        BEQ.N    ??HAL_SPI_Receive_DMA_0
+??CrossCallReturnLabel_52:
+        BNE.N    ??HAL_SPI_Receive_DMA_0
 // 1341   {
 // 1342     return HAL_BUSY;
-        MOVS     R0,#+2
-        B.N      ??HAL_SPI_Receive_DMA_1
 // 1343   }
 // 1344   
 // 1345   if((pData == NULL) || (Size == 0))
-??HAL_SPI_Receive_DMA_0:
-        CMP      R5,#+0
-        BEQ.N    ??HAL_SPI_Receive_DMA_2
-        UXTH     R6,R6            ;; ZeroExt  R6,R6,#+16,#+16
-        CMP      R6,#+0
-        BNE.N    ??HAL_SPI_Receive_DMA_3
+        CMP      R1,#+0
+        IT       NE 
+        CMPNE    R2,#+0
+        BEQ.N    ??HAL_SPI_Receive_DMA_1
 // 1346   {
 // 1347     return HAL_ERROR;
-??HAL_SPI_Receive_DMA_2:
-        MOVS     R0,#+1
-        B.N      ??HAL_SPI_Receive_DMA_1
 // 1348   }
 // 1349   
 // 1350   /* Process Locked */
 // 1351   __HAL_LOCK(hspi);
-??HAL_SPI_Receive_DMA_3:
-        LDRB     R0,[R4, #+92]
+        LDRB     R0,[R5, #+24]
         CMP      R0,#+1
-        BNE.N    ??HAL_SPI_Receive_DMA_4
+        BNE.N    ??HAL_SPI_Receive_DMA_2
+??HAL_SPI_Receive_DMA_0:
         MOVS     R0,#+2
-        B.N      ??HAL_SPI_Receive_DMA_1
-??HAL_SPI_Receive_DMA_4:
+        POP      {R1,R4,R5,PC}
+??HAL_SPI_Receive_DMA_2:
         MOVS     R0,#+1
-        STRB     R0,[R4, #+92]
+        STRB     R0,[R5, #+24]
 // 1352 
 // 1353   hspi->State       = HAL_SPI_STATE_BUSY_RX;
         MOVS     R0,#+4
-        STRB     R0,[R4, #+93]
+        STRB     R0,[R5, #+25]
 // 1354   hspi->ErrorCode   = HAL_SPI_ERROR_NONE;
         MOVS     R0,#+0
-        STR      R0,[R4, #+96]
+        STR      R0,[R5, #+28]
 // 1355   hspi->pRxBuffPtr  = pData;
-        STR      R5,[R4, #+64]
+        STR      R1,[R4, #+64]
 // 1356   hspi->RxXferSize  = Size;
-        STRH     R6,[R4, #+68]
+        STRH     R2,[R5, #+0]
 // 1357   hspi->RxXferCount = Size;
-        STRH     R6,[R4, #+70]
+        STRH     R2,[R5, #+2]
 // 1358   hspi->pTxBuffPtr  = (uint8_t *)NULL;
-        MOVS     R0,#+0
         STR      R0,[R4, #+56]
 // 1359   hspi->TxXferSize  = 0;
-        MOVS     R0,#+0
         STRH     R0,[R4, #+60]
 // 1360   hspi->TxXferCount = 0;
-        MOVS     R0,#+0
         STRH     R0,[R4, #+62]
 // 1361 
 // 1362   if((hspi->Init.Mode == SPI_MODE_MASTER) && (hspi->Init.Direction == SPI_DIRECTION_2LINES))
         LDR      R0,[R4, #+4]
         CMP      R0,#+260
-        BNE.N    ??HAL_SPI_Receive_DMA_5
-        LDR      R0,[R4, #+8]
-        CMP      R0,#+0
-        BNE.N    ??HAL_SPI_Receive_DMA_5
+        ITT      EQ 
+        LDREQ    R0,[R4, #+8]
+        CMPEQ    R0,#+0
+        BNE.N    ??HAL_SPI_Receive_DMA_3
 // 1363   {
 // 1364     /* Process Unlocked */
 // 1365     __HAL_UNLOCK(hspi);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+92]
+        STRB     R0,[R5, #+24]
 // 1366     /* the receive process is not supported in 2Lines direction master mode */
 // 1367     /* in this case we call the transmitReceive process                     */
 // 1368     return HAL_SPI_TransmitReceive_DMA(hspi,pData,pData,Size);
-        MOVS     R3,R6
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        MOVS     R2,R5
-        MOVS     R1,R5
-        MOVS     R0,R4
+        MOV      R3,R2
+        MOV      R0,R4
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        MOV      R2,R1
+        POP      {R4,R5,LR}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R14 SameValue
+          CFI CFA R13+0
           CFI FunCall HAL_SPI_TransmitReceive_DMA
-        BL       HAL_SPI_TransmitReceive_DMA
-        B.N      ??HAL_SPI_Receive_DMA_1
+        B.N      HAL_SPI_TransmitReceive_DMA
+          CFI R4 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+16
 // 1369   }
 // 1370   
 // 1371   /* Configure communication direction : 1Line */
 // 1372   if(hspi->Init.Direction == SPI_DIRECTION_1LINE)
-??HAL_SPI_Receive_DMA_5:
+??HAL_SPI_Receive_DMA_3:
         LDR      R0,[R4, #+8]
         CMP      R0,#+32768
-        BNE.N    ??HAL_SPI_Receive_DMA_6
+        BNE.N    ??HAL_SPI_Receive_DMA_4
 // 1373   {
 // 1374     SPI_1LINE_RX(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        BICS     R0,R0,#0x4000
         LDR      R1,[R4, #+0]
+        LDR      R0,[R1, #+0]
+        BIC      R0,R0,#0x4000
         STR      R0,[R1, #+0]
 // 1375   }
 // 1376   
 // 1377   /* Reset CRC Calculation */
 // 1378   if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
-??HAL_SPI_Receive_DMA_6:
-        LDR      R0,[R4, #+40]
-        CMP      R0,#+8192
-        BNE.N    ??HAL_SPI_Receive_DMA_7
+??HAL_SPI_Receive_DMA_4:
+        BL       ?Subroutine31
+??CrossCallReturnLabel_67:
+        BNE.N    ??HAL_SPI_Receive_DMA_5
 // 1379   {
 // 1380     SPI_RESET_CRC(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        MOVW     R1,#+57343
-        ANDS     R0,R1,R0
         LDR      R1,[R4, #+0]
+        MOVW     R2,#+57343
+        LDR      R0,[R1, #+0]
+        ANDS     R0,R2,R0
         STR      R0,[R1, #+0]
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x2000
-        LDR      R1,[R4, #+0]
+        LDR      R0,[R1, #+0]
+        ORR      R0,R0,#0x2000
         STR      R0,[R1, #+0]
 // 1381   }
 // 1382   
 // 1383   /* packing mode management is enabled by the DMA settings */
 // 1384   if((hspi->Init.DataSize <= SPI_DATASIZE_8BIT) && (hspi->hdmarx->Init.MemDataAlignment == DMA_MDATAALIGN_HALFWORD))
-??HAL_SPI_Receive_DMA_7:
-        LDR      R0,[R4, #+12]
-        CMP      R0,#+1792
-        BHI.N    ??HAL_SPI_Receive_DMA_8
-        LDR      R0,[R4, #+88]
-        LDR      R0,[R0, #+24]
-        CMP      R0,#+8192
-        BNE.N    ??HAL_SPI_Receive_DMA_8
+??HAL_SPI_Receive_DMA_5:
+        LDR      R1,[R4, #+12]
+        MOVW     R0,#+1793
+        CMP      R1,R0
+        BCS.N    ??HAL_SPI_Receive_DMA_6
+        LDR      R1,[R5, #+20]
+        LDR      R1,[R1, #+24]
+        CMP      R1,#+8192
+        BNE.N    ??HAL_SPI_Receive_DMA_6
 // 1385   {
 // 1386     /* Process Locked */
 // 1387     __HAL_UNLOCK(hspi);
         MOVS     R0,#+0
-        STRB     R0,[R4, #+92]
+        STRB     R0,[R5, #+24]
 // 1388     /* Restriction the DMA data received is not allowed in this mode */
 // 1389     return HAL_ERROR;
         MOVS     R0,#+1
-        B.N      ??HAL_SPI_Receive_DMA_1
+        POP      {R1,R4,R5,PC}
 // 1390   }
 // 1391   
 // 1392   CLEAR_BIT(hspi->Instance->CR2, SPI_CR2_LDMARX);
-??HAL_SPI_Receive_DMA_8:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0x2000
+??HAL_SPI_Receive_DMA_6:
         LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+        LDR      R2,[R1, #+4]
+        BIC      R2,R2,#0x2000
+        STR      R2,[R1, #+4]
 // 1393   if( hspi->Init.DataSize > SPI_DATASIZE_8BIT)
-        LDR      R0,[R4, #+12]
-        CMP      R0,#+1792
-        BLS.N    ??HAL_SPI_Receive_DMA_9
+        LDR      R2,[R4, #+12]
+        CMP      R2,R0
+        LDR      R0,[R1, #+4]
 // 1394   {
 // 1395     /* set fiforxthreshold according the reception data length: 16bit */
 // 1396     CLEAR_BIT(hspi->Instance->CR2, SPI_RXFIFO_THRESHOLD);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0x1000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
-        B.N      ??HAL_SPI_Receive_DMA_10
 // 1397   }
 // 1398   else
 // 1399   {
 // 1400     /* set fiforxthreshold according the reception data length: 8bit */
 // 1401     SET_BIT(hspi->Instance->CR2, SPI_RXFIFO_THRESHOLD);
-??HAL_SPI_Receive_DMA_9:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        ORRS     R0,R0,#0x1000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
 // 1402   }
 // 1403   
 // 1404   /* Set the SPI RxDMA Half transfer complete callback */
 // 1405   hspi->hdmarx->XferHalfCpltCallback = SPI_DMAHalfReceiveCplt;
-??HAL_SPI_Receive_DMA_10:
-        ADR.W    R0,SPI_DMAHalfReceiveCplt
-        LDR      R1,[R4, #+88]
-        STR      R0,[R1, #+64]
+        ADR.W    R2,SPI_DMAHalfReceiveCplt
+        ITE      CS 
+        BICCS    R0,R0,#0x1000
+        ORRCC    R0,R0,#0x1000
+        STR      R0,[R1, #+4]
+        LDR      R0,[R5, #+20]
+        STR      R2,[R0, #+64]
 // 1406 
 // 1407   /* Set the SPI Rx DMA transfer complete callback */
 // 1408   hspi->hdmarx->XferCpltCallback = SPI_DMAReceiveCplt;
-        ADR.W    R0,SPI_DMAReceiveCplt
-        LDR      R1,[R4, #+88]
-        STR      R0,[R1, #+60]
+        ADR.W    R2,SPI_DMAReceiveCplt
+        STR      R2,[R0, #+60]
 // 1409   
 // 1410   /* Set the DMA error callback */
 // 1411   hspi->hdmarx->XferErrorCallback = SPI_DMAError;
-        ADR.W    R0,SPI_DMAError
-        LDR      R1,[R4, #+88]
-        STR      R0,[R1, #+72]
+        ADR.W    R2,SPI_DMAError
+        STR      R2,[R0, #+72]
 // 1412   
 // 1413   /* Enable Rx DMA Request */  
 // 1414   hspi->Instance->CR2 |= SPI_CR2_RXDMAEN;
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        ORRS     R0,R0,#0x1
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+        BL       ?Subroutine36
 // 1415   
 // 1416   /* Enable the Rx DMA channel */
 // 1417   HAL_DMA_Start_IT(hspi->hdmarx, (uint32_t)&hspi->Instance->DR, (uint32_t)hspi->pRxBuffPtr, hspi->RxXferCount);
-        LDRH     R3,[R4, #+70]
-        LDR      R2,[R4, #+64]
-        LDR      R0,[R4, #+0]
-        ADDS     R1,R0,#+12
-        LDR      R0,[R4, #+88]
-          CFI FunCall HAL_DMA_Start_IT
-        BL       HAL_DMA_Start_IT
 // 1418   
 // 1419   /* Process Unlocked */
 // 1420   __HAL_UNLOCK(hspi);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+92]
+??CrossCallReturnLabel_80:
+        BL       ?Subroutine14
 // 1421   
 // 1422   /* Check if the SPI is already enabled */ 
 // 1423   if((hspi->Instance->CR1 & SPI_CR1_SPE) != SPI_CR1_SPE)
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+25
-        BMI.N    ??HAL_SPI_Receive_DMA_11
 // 1424   {
 // 1425     /* Enable SPI peripheral */    
 // 1426     __HAL_SPI_ENABLE(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x40
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
 // 1427   }
 // 1428   
 // 1429   return HAL_OK;
-??HAL_SPI_Receive_DMA_11:
+??CrossCallReturnLabel_21:
         MOVS     R0,#+0
 ??HAL_SPI_Receive_DMA_1:
-        POP      {R4-R6,PC}       ;; return
+        POP      {R1,R4,R5,PC}    ;; return
 // 1430 }
-          CFI EndBlock cfiBlock11
+          CFI EndBlock cfiBlock49
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond50 Using cfiCommon0
+          CFI Function HAL_SPI_Receive
+          CFI Conditional ??CrossCallReturnLabel_63
+          CFI R4 Frame(CFA, -20)
+          CFI R5 Frame(CFA, -16)
+          CFI R6 Frame(CFA, -12)
+          CFI R7 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+24
+          CFI Block cfiCond51 Using cfiCommon0
+          CFI (cfiCond51) Function HAL_SPI_Receive
+          CFI (cfiCond51) Conditional ??CrossCallReturnLabel_64
+          CFI (cfiCond51) R4 Frame(CFA, -20)
+          CFI (cfiCond51) R5 Frame(CFA, -16)
+          CFI (cfiCond51) R6 Frame(CFA, -12)
+          CFI (cfiCond51) R7 Frame(CFA, -8)
+          CFI (cfiCond51) R14 Frame(CFA, -4)
+          CFI (cfiCond51) CFA R13+24
+          CFI Block cfiCond52 Using cfiCommon0
+          CFI (cfiCond52) Function HAL_SPI_TransmitReceive
+          CFI (cfiCond52) Conditional ??CrossCallReturnLabel_65
+          CFI (cfiCond52) R4 Frame(CFA, -32)
+          CFI (cfiCond52) R5 Frame(CFA, -28)
+          CFI (cfiCond52) R6 Frame(CFA, -24)
+          CFI (cfiCond52) R7 Frame(CFA, -20)
+          CFI (cfiCond52) R8 Frame(CFA, -16)
+          CFI (cfiCond52) R9 Frame(CFA, -12)
+          CFI (cfiCond52) R10 Frame(CFA, -8)
+          CFI (cfiCond52) R14 Frame(CFA, -4)
+          CFI (cfiCond52) CFA R13+40
+          CFI Block cfiCond53 Using cfiCommon0
+          CFI (cfiCond53) Function HAL_SPI_TransmitReceive
+          CFI (cfiCond53) Conditional ??CrossCallReturnLabel_66
+          CFI (cfiCond53) R4 Frame(CFA, -32)
+          CFI (cfiCond53) R5 Frame(CFA, -28)
+          CFI (cfiCond53) R6 Frame(CFA, -24)
+          CFI (cfiCond53) R7 Frame(CFA, -20)
+          CFI (cfiCond53) R8 Frame(CFA, -16)
+          CFI (cfiCond53) R9 Frame(CFA, -12)
+          CFI (cfiCond53) R10 Frame(CFA, -8)
+          CFI (cfiCond53) R14 Frame(CFA, -4)
+          CFI (cfiCond53) CFA R13+40
+          CFI Block cfiCond54 Using cfiCommon0
+          CFI (cfiCond54) Function HAL_SPI_Receive_DMA
+          CFI (cfiCond54) Conditional ??CrossCallReturnLabel_67
+          CFI (cfiCond54) R4 Frame(CFA, -12)
+          CFI (cfiCond54) R5 Frame(CFA, -8)
+          CFI (cfiCond54) R14 Frame(CFA, -4)
+          CFI (cfiCond54) CFA R13+16
+          CFI Block cfiCond55 Using cfiCommon0
+          CFI (cfiCond55) Function SPI_DMAReceiveCplt
+          CFI (cfiCond55) Conditional ??CrossCallReturnLabel_68
+          CFI (cfiCond55) R4 Frame(CFA, -8)
+          CFI (cfiCond55) R14 Frame(CFA, -4)
+          CFI (cfiCond55) CFA R13+16
+          CFI Block cfiCond56 Using cfiCommon0
+          CFI (cfiCond56) Function SPI_DMATransmitReceiveCplt
+          CFI (cfiCond56) Conditional ??CrossCallReturnLabel_69
+          CFI (cfiCond56) R4 Frame(CFA, -8)
+          CFI (cfiCond56) R14 Frame(CFA, -4)
+          CFI (cfiCond56) CFA R13+16
+          CFI Block cfiPicker57 Using cfiCommon1
+          CFI (cfiPicker57) NoFunction
+          CFI (cfiPicker57) Picker
+        THUMB
+?Subroutine31:
+        LDR      R0,[R4, #+40]
+        CMP      R0,#+8192
+        BX       LR
+          CFI EndBlock cfiCond50
+          CFI EndBlock cfiCond51
+          CFI EndBlock cfiCond52
+          CFI EndBlock cfiCond53
+          CFI EndBlock cfiCond54
+          CFI EndBlock cfiCond55
+          CFI EndBlock cfiCond56
+          CFI EndBlock cfiPicker57
 // 1431 
 // 1432 /**
 // 1433   * @brief  Transmit and Receive an amount of data in no-blocking mode with DMA
@@ -3409,248 +3467,195 @@ HAL_SPI_Receive_DMA:
 // 1441   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock12 Using cfiCommon0
+          CFI Block cfiBlock58 Using cfiCommon0
           CFI Function HAL_SPI_TransmitReceive_DMA
         THUMB
 // 1442 HAL_StatusTypeDef HAL_SPI_TransmitReceive_DMA(SPI_HandleTypeDef *hspi, uint8_t *pTxData, uint8_t *pRxData, uint16_t Size)
 // 1443 {
 HAL_SPI_TransmitReceive_DMA:
-        PUSH     {R3-R7,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+24
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
-        MOVS     R7,R3
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
+        BL       ?Subroutine28
 // 1444   assert_param(IS_SPI_DIRECTION_2LINES(hspi->Init.Direction));
 // 1445   
 // 1446   if((hspi->State == HAL_SPI_STATE_READY) ||
 // 1447      ((hspi->Init.Mode == SPI_MODE_MASTER) && (hspi->Init.Direction == SPI_DIRECTION_2LINES) && (hspi->State == HAL_SPI_STATE_BUSY_RX)))
-        LDRB     R0,[R4, #+93]
-        CMP      R0,#+1
+??CrossCallReturnLabel_53:
         BEQ.N    ??HAL_SPI_TransmitReceive_DMA_0
-        LDR      R0,[R4, #+4]
-        CMP      R0,#+260
-        BNE.W    ??HAL_SPI_TransmitReceive_DMA_1
-        LDR      R0,[R4, #+8]
-        CMP      R0,#+0
-        BNE.W    ??HAL_SPI_TransmitReceive_DMA_1
-        LDRB     R0,[R4, #+93]
-        CMP      R0,#+4
+        LDR      R6,[R4, #+4]
+        CMP      R6,#+260
+        ITTT     EQ 
+        LDREQ    R6,[R4, #+8]
+        CMPEQ    R6,#+0
+        CMPEQ    R0,#+4
         BNE.W    ??HAL_SPI_TransmitReceive_DMA_1
 // 1448   {
 // 1449     if((pTxData == NULL ) || (pRxData == NULL ) || (Size == 0)) 
 ??HAL_SPI_TransmitReceive_DMA_0:
-        CMP      R5,#+0
+        CMP      R1,#+0
+        IT       NE 
+        CMPNE    R2,#+0
         BEQ.N    ??HAL_SPI_TransmitReceive_DMA_2
-        CMP      R6,#+0
-        BEQ.N    ??HAL_SPI_TransmitReceive_DMA_2
-        UXTH     R7,R7            ;; ZeroExt  R7,R7,#+16,#+16
-        CMP      R7,#+0
-        BNE.N    ??HAL_SPI_TransmitReceive_DMA_3
+        CBNZ.N   R3,??HAL_SPI_TransmitReceive_DMA_3
 // 1450     {
 // 1451       return  HAL_ERROR;                                    
 ??HAL_SPI_TransmitReceive_DMA_2:
         MOVS     R0,#+1
-        B.N      ??HAL_SPI_TransmitReceive_DMA_4
+        POP      {R4-R6,PC}
 // 1452     }
 // 1453     
 // 1454     /* Process locked */
 // 1455     __HAL_LOCK(hspi);
 ??HAL_SPI_TransmitReceive_DMA_3:
-        LDRB     R0,[R4, #+92]
-        CMP      R0,#+1
-        BNE.N    ??HAL_SPI_TransmitReceive_DMA_5
-        MOVS     R0,#+2
-        B.N      ??HAL_SPI_TransmitReceive_DMA_4
-??HAL_SPI_TransmitReceive_DMA_5:
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+92]
+        LDRB     R6,[R5, #+24]
+        CMP      R6,#+1
+        BEQ.W    ??HAL_SPI_TransmitReceive_DMA_1
+        MOVS     R6,#+1
 // 1456     
 // 1457     /* check if the transmit Receive function is not called by a receive master */
 // 1458     if(hspi->State != HAL_SPI_STATE_BUSY_RX)
-        LDRB     R0,[R4, #+93]
         CMP      R0,#+4
-        BEQ.N    ??HAL_SPI_TransmitReceive_DMA_6
+        STRB     R6,[R5, #+24]
+        ITT      NE 
+        MOVNE    R0,#+5
+        STRBNE   R0,[R5, #+25]
 // 1459     {  
 // 1460       hspi->State = HAL_SPI_STATE_BUSY_TX_RX;
-        MOVS     R0,#+5
-        STRB     R0,[R4, #+93]
 // 1461     }
 // 1462     
 // 1463     hspi->ErrorCode   = HAL_SPI_ERROR_NONE;
-??HAL_SPI_TransmitReceive_DMA_6:
         MOVS     R0,#+0
-        STR      R0,[R4, #+96]
+        STR      R0,[R5, #+28]
 // 1464     hspi->pTxBuffPtr  = (uint8_t *)pTxData;
-        STR      R5,[R4, #+56]
+        STR      R1,[R4, #+56]
 // 1465     hspi->TxXferSize  = Size;
-        STRH     R7,[R4, #+60]
+        STRH     R3,[R4, #+60]
 // 1466     hspi->TxXferCount = Size;
-        STRH     R7,[R4, #+62]
+        STRH     R3,[R4, #+62]
 // 1467     hspi->pRxBuffPtr  = (uint8_t *)pRxData;
-        STR      R6,[R4, #+64]
+        STR      R2,[R4, #+64]
 // 1468     hspi->RxXferSize  = Size;
-        STRH     R7,[R4, #+68]
+        STRH     R3,[R5, #+0]
 // 1469     hspi->RxXferCount = Size;
-        STRH     R7,[R4, #+70]
+        STRH     R3,[R5, #+2]
 // 1470     
 // 1471     /* Reset CRC Calculation + increase the rxsize */
 // 1472     if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
         LDR      R0,[R4, #+40]
-        CMP      R0,#+8192
-        BNE.N    ??HAL_SPI_TransmitReceive_DMA_7
+        LDR      R1,[R4, #+0]
+        BL       ??Subroutine8_0
 // 1473     {
 // 1474       SPI_RESET_CRC(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        MOVW     R1,#+57343
-        ANDS     R0,R1,R0
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x2000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
 // 1475     }
 // 1476     
 // 1477     /* Reset the threshold bit */
 // 1478     CLEAR_BIT(hspi->Instance->CR2, SPI_CR2_LDMATX);
-??HAL_SPI_TransmitReceive_DMA_7:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0x4000
-        LDR      R1,[R4, #+0]
+??CrossCallReturnLabel_2:
+        BIC      R0,R0,#0x4000
         STR      R0,[R1, #+4]
 // 1479     CLEAR_BIT(hspi->Instance->CR2, SPI_CR2_LDMARX);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0x2000
-        LDR      R1,[R4, #+0]
+        LDR      R0,[R1, #+4]
+        BIC      R0,R0,#0x2000
         STR      R0,[R1, #+4]
 // 1480     
 // 1481     /* the packing mode management is enabled by the DMA settings according the spi data size */
 // 1482     if(hspi->Init.DataSize > SPI_DATASIZE_8BIT)
         LDR      R0,[R4, #+12]
         CMP      R0,#+1792
-        BLS.N    ??HAL_SPI_TransmitReceive_DMA_8
+        LDR      R0,[R1, #+4]
+        BLS.N    ??HAL_SPI_TransmitReceive_DMA_4
 // 1483     {
 // 1484       /* set fiforxthreshold according the reception data length: 16bit */
 // 1485       CLEAR_BIT(hspi->Instance->CR2, SPI_RXFIFO_THRESHOLD);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0x1000
-        LDR      R1,[R4, #+0]
+        BIC      R0,R0,#0x1000
         STR      R0,[R1, #+4]
-        B.N      ??HAL_SPI_TransmitReceive_DMA_9
+        B.N      ??HAL_SPI_TransmitReceive_DMA_5
 // 1486     }
 // 1487     else
 // 1488     {
 // 1489       /* set fiforxthreshold according the reception data length: 8bit */
 // 1490       SET_BIT(hspi->Instance->CR2, SPI_RXFIFO_THRESHOLD);
-??HAL_SPI_TransmitReceive_DMA_8:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        ORRS     R0,R0,#0x1000
-        LDR      R1,[R4, #+0]
+??HAL_SPI_TransmitReceive_DMA_4:
+        ORR      R0,R0,#0x1000
         STR      R0,[R1, #+4]
 // 1491       
 // 1492       if(hspi->hdmatx->Init.MemDataAlignment == DMA_MDATAALIGN_HALFWORD)
-        LDR      R0,[R4, #+84]
+        LDR      R0,[R5, #+16]
         LDR      R0,[R0, #+24]
         CMP      R0,#+8192
-        BNE.N    ??HAL_SPI_TransmitReceive_DMA_10
+        BNE.N    ??HAL_SPI_TransmitReceive_DMA_6
 // 1493       {
 // 1494         if((hspi->TxXferSize & 0x1) == 0x0 )
         LDRB     R0,[R4, #+60]
         LSLS     R0,R0,#+31
-        BMI.N    ??HAL_SPI_TransmitReceive_DMA_11
+        LDR      R0,[R1, #+4]
+        BMI.N    ??HAL_SPI_TransmitReceive_DMA_7
 // 1495         {
 // 1496           CLEAR_BIT(hspi->Instance->CR2, SPI_CR2_LDMATX);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0x4000
-        LDR      R1,[R4, #+0]
+        BIC      R0,R0,#0x4000
         STR      R0,[R1, #+4]
 // 1497           hspi->TxXferCount = hspi->TxXferCount >> 1;
         LDRH     R0,[R4, #+62]
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         LSRS     R0,R0,#+1
-        STRH     R0,[R4, #+62]
-        B.N      ??HAL_SPI_TransmitReceive_DMA_10
+        B.N      ??HAL_SPI_TransmitReceive_DMA_8
 // 1498         }
 // 1499         else
 // 1500         {
 // 1501           SET_BIT(hspi->Instance->CR2, SPI_CR2_LDMATX);
-??HAL_SPI_TransmitReceive_DMA_11:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        ORRS     R0,R0,#0x4000
-        LDR      R1,[R4, #+0]
+??HAL_SPI_TransmitReceive_DMA_7:
+        ORR      R0,R0,#0x4000
         STR      R0,[R1, #+4]
 // 1502           hspi->TxXferCount = (hspi->TxXferCount >> 1) + 1;
         LDRH     R0,[R4, #+62]
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         LSRS     R0,R0,#+1
         ADDS     R0,R0,#+1
+??HAL_SPI_TransmitReceive_DMA_8:
         STRH     R0,[R4, #+62]
 // 1503         }      
 // 1504       }
 // 1505       
 // 1506       if(hspi->hdmarx->Init.MemDataAlignment == DMA_MDATAALIGN_HALFWORD)
-??HAL_SPI_TransmitReceive_DMA_10:
-        LDR      R0,[R4, #+88]
+??HAL_SPI_TransmitReceive_DMA_6:
+        LDR      R0,[R5, #+20]
         LDR      R0,[R0, #+24]
         CMP      R0,#+8192
-        BNE.N    ??HAL_SPI_TransmitReceive_DMA_9
+        BNE.N    ??HAL_SPI_TransmitReceive_DMA_5
 // 1507       {
 // 1508         /* set fiforxthreshold according the reception data length: 16bit */
 // 1509         CLEAR_BIT(hspi->Instance->CR2, SPI_RXFIFO_THRESHOLD);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0x1000
-        LDR      R1,[R4, #+0]
+        LDR      R0,[R1, #+4]
+        BIC      R0,R0,#0x1000
         STR      R0,[R1, #+4]
 // 1510         
 // 1511         /* Size must include the CRC length */
 // 1512         if((hspi->RxXferCount & 0x1) == 0x0 )
-        LDRB     R0,[R4, #+70]
-        LSLS     R0,R0,#+31
-        BMI.N    ??HAL_SPI_TransmitReceive_DMA_12
+        LDRH     R0,[R5, #+2]
+        LSLS     R2,R0,#+31
+        LDR      R2,[R1, #+4]
+        BMI.N    ??HAL_SPI_TransmitReceive_DMA_9
 // 1513         {
 // 1514           CLEAR_BIT(hspi->Instance->CR2, SPI_CR2_LDMARX);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0x2000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+        BIC      R2,R2,#0x2000
 // 1515           hspi->RxXferCount = hspi->RxXferCount >> 1;
-        LDRH     R0,[R4, #+70]
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         LSRS     R0,R0,#+1
-        STRH     R0,[R4, #+70]
-        B.N      ??HAL_SPI_TransmitReceive_DMA_9
+        STR      R2,[R1, #+4]
+        B.N      ??HAL_SPI_TransmitReceive_DMA_10
 // 1516         }
 // 1517         else
 // 1518         {
 // 1519           SET_BIT(hspi->Instance->CR2, SPI_CR2_LDMARX);
-??HAL_SPI_TransmitReceive_DMA_12:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        ORRS     R0,R0,#0x2000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+??HAL_SPI_TransmitReceive_DMA_9:
+        ORR      R2,R2,#0x2000
 // 1520           hspi->RxXferCount = (hspi->RxXferCount >> 1) + 1; 
-        LDRH     R0,[R4, #+70]
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         LSRS     R0,R0,#+1
+        STR      R2,[R1, #+4]
         ADDS     R0,R0,#+1
-        STRH     R0,[R4, #+70]
+??HAL_SPI_TransmitReceive_DMA_10:
+        STRH     R0,[R5, #+2]
 // 1521         } 
 // 1522       }
 // 1523     }   
@@ -3658,145 +3663,236 @@ HAL_SPI_TransmitReceive_DMA:
 // 1525     /* Set the SPI Rx DMA transfer complete callback because the last generated transfer request is 
 // 1526     the reception request (RXNE) */
 // 1527     if(hspi->State == HAL_SPI_STATE_BUSY_RX)
-??HAL_SPI_TransmitReceive_DMA_9:
-        LDRB     R0,[R4, #+93]
-        CMP      R0,#+4
-        BNE.N    ??HAL_SPI_TransmitReceive_DMA_13
+??HAL_SPI_TransmitReceive_DMA_5:
+        LDRB     R2,[R5, #+25]
+        LDR      R0,[R5, #+20]
+        CMP      R2,#+4
+        BNE.N    ??HAL_SPI_TransmitReceive_DMA_11
 // 1528     {			
 // 1529       hspi->hdmarx->XferHalfCpltCallback = SPI_DMAHalfReceiveCplt;
-        ADR.W    R0,SPI_DMAHalfReceiveCplt
-        LDR      R1,[R4, #+88]
-        STR      R0,[R1, #+64]
+        ADR.W    R2,SPI_DMAHalfReceiveCplt
+        STR      R2,[R0, #+64]
 // 1530       hspi->hdmarx->XferCpltCallback = SPI_DMAReceiveCplt;
-        ADR.W    R0,SPI_DMAReceiveCplt
-        LDR      R1,[R4, #+88]
-        STR      R0,[R1, #+60]
-        B.N      ??HAL_SPI_TransmitReceive_DMA_14
+        ADR.W    R2,SPI_DMAReceiveCplt
+        B.N      ??HAL_SPI_TransmitReceive_DMA_12
 // 1531     }
 // 1532     else
 // 1533     {	
 // 1534        hspi->hdmarx->XferHalfCpltCallback = SPI_DMAHalfTransmitReceiveCplt;
-??HAL_SPI_TransmitReceive_DMA_13:
-        ADR.W    R0,SPI_DMAHalfTransmitReceiveCplt
-        LDR      R1,[R4, #+88]
-        STR      R0,[R1, #+64]
+??HAL_SPI_TransmitReceive_DMA_11:
+        ADR.W    R2,SPI_DMAHalfTransmitReceiveCplt
+        STR      R2,[R0, #+64]
 // 1535       hspi->hdmarx->XferCpltCallback = SPI_DMATransmitReceiveCplt;
-        ADR.W    R0,SPI_DMATransmitReceiveCplt
-        LDR      R1,[R4, #+88]
-        STR      R0,[R1, #+60]
+        ADR.W    R2,SPI_DMATransmitReceiveCplt
 // 1536     }
 // 1537     /* Set the DMA error callback */
 // 1538     hspi->hdmarx->XferErrorCallback = SPI_DMAError;
-??HAL_SPI_TransmitReceive_DMA_14:
-        ADR.W    R0,SPI_DMAError
-        LDR      R1,[R4, #+88]
-        STR      R0,[R1, #+72]
+??HAL_SPI_TransmitReceive_DMA_12:
+        ADR.W    R6,SPI_DMAError
+        STR      R2,[R0, #+60]
+        STR      R6,[R0, #+72]
 // 1539     
 // 1540     /* Enable Rx DMA Request */  
 // 1541     hspi->Instance->CR2 |= SPI_CR2_RXDMAEN;
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        ORRS     R0,R0,#0x1
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+        BL       ?Subroutine36
 // 1542     
 // 1543     /* Enable the Rx DMA channel */
 // 1544     HAL_DMA_Start_IT(hspi->hdmarx, (uint32_t)&hspi->Instance->DR, (uint32_t) hspi->pRxBuffPtr, hspi->RxXferCount);
-        LDRH     R3,[R4, #+70]
-        LDR      R2,[R4, #+64]
-        LDR      R0,[R4, #+0]
-        ADDS     R1,R0,#+12
-        LDR      R0,[R4, #+88]
-          CFI FunCall HAL_DMA_Start_IT
-        BL       HAL_DMA_Start_IT
 // 1545     
 // 1546     /* Set the SPI Tx DMA transfer complete callback as NULL because the communication closing
 // 1547     is performed in DMA reception complete callback  */
 // 1548     hspi->hdmatx->XferHalfCpltCallback = NULL;
-        MOVS     R0,#+0
-        LDR      R1,[R4, #+84]
-        STR      R0,[R1, #+64]
+??CrossCallReturnLabel_79:
+        LDR      R0,[R5, #+16]
+        MOVS     R1,#+0
+        STR      R1,[R0, #+64]
 // 1549     hspi->hdmatx->XferCpltCallback = NULL;
-        MOVS     R0,#+0
-        LDR      R1,[R4, #+84]
-        STR      R0,[R1, #+60]
+        STR      R1,[R0, #+60]
 // 1550 
 // 1551     if(hspi->State == HAL_SPI_STATE_BUSY_TX_RX)
-        LDRB     R0,[R4, #+93]
-        CMP      R0,#+5
-        BNE.N    ??HAL_SPI_TransmitReceive_DMA_15
+        LDRB     R1,[R5, #+25]
+        CMP      R1,#+5
+        ITEE     EQ 
+        STREQ    R6,[R0, #+72]
+        MOVNE    R1,#+0
+        STRNE    R1,[R0, #+72]
 // 1552     {
 // 1553       /* Set the DMA error callback */
 // 1554       hspi->hdmatx->XferErrorCallback = SPI_DMAError;
-        ADR.W    R0,SPI_DMAError
-        LDR      R1,[R4, #+84]
-        STR      R0,[R1, #+72]
-        B.N      ??HAL_SPI_TransmitReceive_DMA_16
 // 1555     }
 // 1556     else
 // 1557     {
 // 1558       hspi->hdmatx->XferErrorCallback = NULL;
-??HAL_SPI_TransmitReceive_DMA_15:
-        MOVS     R0,#+0
-        LDR      R1,[R4, #+84]
-        STR      R0,[R1, #+72]
 // 1559     } 
 // 1560     
 // 1561     /* Enable the Tx DMA channel */
 // 1562     HAL_DMA_Start_IT(hspi->hdmatx, (uint32_t)hspi->pTxBuffPtr, (uint32_t)&hspi->Instance->DR, hspi->TxXferCount);
-??HAL_SPI_TransmitReceive_DMA_16:
+        LDR      R1,[R4, #+0]
         LDRH     R3,[R4, #+62]
-        LDR      R0,[R4, #+0]
-        ADDS     R2,R0,#+12
+        ADD      R2,R1,#+12
         LDR      R1,[R4, #+56]
-        LDR      R0,[R4, #+84]
           CFI FunCall HAL_DMA_Start_IT
         BL       HAL_DMA_Start_IT
 // 1563 
 // 1564     /* Process Unlocked */
 // 1565     __HAL_UNLOCK(hspi);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+92]
+        BL       ?Subroutine14
 // 1566         
 // 1567     /* Check if the SPI is already enabled */ 
 // 1568     if((hspi->Instance->CR1 &SPI_CR1_SPE) != SPI_CR1_SPE)
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+25
-        BMI.N    ??HAL_SPI_TransmitReceive_DMA_17
 // 1569     {
 // 1570       /* Enable SPI peripheral */    
 // 1571       __HAL_SPI_ENABLE(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x40
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
 // 1572     }
 // 1573     
 // 1574     /* Enable Tx DMA Request */  
 // 1575     hspi->Instance->CR2 |= SPI_CR2_TXDMAEN;
-??HAL_SPI_TransmitReceive_DMA_17:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        ORRS     R0,R0,#0x2
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+??CrossCallReturnLabel_22:
+        BL       ?Subroutine29
 // 1576         
 // 1577     return HAL_OK;
-        MOVS     R0,#+0
-        B.N      ??HAL_SPI_TransmitReceive_DMA_4
 // 1578   }
+??CrossCallReturnLabel_55:
+        POP      {R4-R6,PC}
 // 1579   else
 // 1580   {
 // 1581     return HAL_BUSY;
 ??HAL_SPI_TransmitReceive_DMA_1:
         MOVS     R0,#+2
-??HAL_SPI_TransmitReceive_DMA_4:
-        POP      {R1,R4-R7,PC}    ;; return
+        POP      {R4-R6,PC}       ;; return
 // 1582   }
 // 1583 }
-          CFI EndBlock cfiBlock12
+          CFI EndBlock cfiBlock58
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond59 Using cfiCommon0
+          CFI Function HAL_SPI_Receive_DMA
+          CFI Conditional ??CrossCallReturnLabel_80
+          CFI R4 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+16
+          CFI Block cfiCond60 Using cfiCommon0
+          CFI (cfiCond60) Function HAL_SPI_TransmitReceive_DMA
+          CFI (cfiCond60) Conditional ??CrossCallReturnLabel_79
+          CFI (cfiCond60) R4 Frame(CFA, -16)
+          CFI (cfiCond60) R5 Frame(CFA, -12)
+          CFI (cfiCond60) R6 Frame(CFA, -8)
+          CFI (cfiCond60) R14 Frame(CFA, -4)
+          CFI (cfiCond60) CFA R13+16
+          CFI Block cfiPicker61 Using cfiCommon1
+          CFI (cfiPicker61) NoFunction
+          CFI (cfiPicker61) Picker
+        THUMB
+?Subroutine36:
+        LDR      R2,[R1, #+4]
+        ORR      R2,R2,#0x1
+        STR      R2,[R1, #+4]
+        LDRH     R3,[R5, #+2]
+        LDR      R2,[R4, #+64]
+        ADDS     R1,R1,#+12
+          CFI (cfiCond59) FunCall HAL_SPI_Receive_DMA HAL_DMA_Start_IT
+          CFI (cfiCond60) FunCall HAL_SPI_TransmitReceive_DMA HAL_DMA_Start_IT
+        B.W      HAL_DMA_Start_IT
+          CFI EndBlock cfiCond59
+          CFI EndBlock cfiCond60
+          CFI EndBlock cfiPicker61
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond62 Using cfiCommon0
+          CFI Function HAL_SPI_Transmit_DMA
+          CFI Conditional ??CrossCallReturnLabel_54
+          CFI R4 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+16
+          CFI Block cfiCond63 Using cfiCommon0
+          CFI (cfiCond63) Function HAL_SPI_TransmitReceive_DMA
+          CFI (cfiCond63) Conditional ??CrossCallReturnLabel_55
+          CFI (cfiCond63) R4 Frame(CFA, -16)
+          CFI (cfiCond63) R5 Frame(CFA, -12)
+          CFI (cfiCond63) R6 Frame(CFA, -8)
+          CFI (cfiCond63) R14 Frame(CFA, -4)
+          CFI (cfiCond63) CFA R13+16
+          CFI Block cfiPicker64 Using cfiCommon1
+          CFI (cfiPicker64) NoFunction
+          CFI (cfiPicker64) Picker
+        THUMB
+?Subroutine29:
+        LDR      R1,[R0, #+4]
+        ORR      R1,R1,#0x2
+        STR      R1,[R0, #+4]
+        MOVS     R0,#+0
+        BX       LR
+          CFI EndBlock cfiCond62
+          CFI EndBlock cfiCond63
+          CFI EndBlock cfiPicker64
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond65 Using cfiCommon0
+          CFI Function HAL_SPI_Receive_DMA
+          CFI Conditional ??CrossCallReturnLabel_52
+          CFI R4 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+16
+          CFI Block cfiCond66 Using cfiCommon0
+          CFI (cfiCond66) Function HAL_SPI_TransmitReceive_DMA
+          CFI (cfiCond66) Conditional ??CrossCallReturnLabel_53
+          CFI (cfiCond66) R4 Frame(CFA, -16)
+          CFI (cfiCond66) R5 Frame(CFA, -12)
+          CFI (cfiCond66) R6 Frame(CFA, -8)
+          CFI (cfiCond66) R14 Frame(CFA, -4)
+          CFI (cfiCond66) CFA R13+16
+          CFI Block cfiPicker67 Using cfiCommon1
+          CFI (cfiPicker67) NoFunction
+          CFI (cfiPicker67) Picker
+        THUMB
+?Subroutine28:
+        MOV      R4,R0
+        ADD      R5,R4,#+68
+        LDRB     R0,[R5, #+25]
+        CMP      R0,#+1
+        BX       LR
+          CFI EndBlock cfiCond65
+          CFI EndBlock cfiCond66
+          CFI EndBlock cfiPicker67
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond68 Using cfiCommon0
+          CFI Function HAL_SPI_Receive_DMA
+          CFI Conditional ??CrossCallReturnLabel_21
+          CFI R4 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+16
+          CFI Block cfiCond69 Using cfiCommon0
+          CFI (cfiCond69) Function HAL_SPI_TransmitReceive_DMA
+          CFI (cfiCond69) Conditional ??CrossCallReturnLabel_22
+          CFI (cfiCond69) R4 Frame(CFA, -16)
+          CFI (cfiCond69) R5 Frame(CFA, -12)
+          CFI (cfiCond69) R6 Frame(CFA, -8)
+          CFI (cfiCond69) R14 Frame(CFA, -4)
+          CFI (cfiCond69) CFA R13+16
+          CFI Block cfiPicker70 Using cfiCommon1
+          CFI (cfiPicker70) NoFunction
+          CFI (cfiPicker70) Picker
+        THUMB
+?Subroutine14:
+        MOVS     R0,#+0
+        STRB     R0,[R5, #+24]
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+0]
+        LSLS     R1,R1,#+25
+        BMI.N    ??Subroutine14_0
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x40
+        STR      R1,[R0, #+0]
+??Subroutine14_0:
+        BX       LR
+          CFI EndBlock cfiCond68
+          CFI EndBlock cfiCond69
+          CFI EndBlock cfiPicker70
 // 1584 
 // 1585 /**
 // 1586   * @brief Pauses the DMA Transfer.
@@ -3806,45 +3902,38 @@ HAL_SPI_TransmitReceive_DMA:
 // 1590   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock13 Using cfiCommon0
+          CFI Block cfiBlock71 Using cfiCommon0
           CFI Function HAL_SPI_DMAPause
           CFI NoCalls
         THUMB
 // 1591 HAL_StatusTypeDef HAL_SPI_DMAPause(SPI_HandleTypeDef *hspi)
 // 1592 {
-HAL_SPI_DMAPause:
-        MOVS     R1,R0
 // 1593   /* Process Locked */
 // 1594   __HAL_LOCK(hspi);
-        LDRB     R0,[R1, #+92]
-        CMP      R0,#+1
+HAL_SPI_DMAPause:
+        LDRB     R1,[R0, #+92]
+        CMP      R1,#+1
         BNE.N    ??HAL_SPI_DMAPause_0
         MOVS     R0,#+2
-        B.N      ??HAL_SPI_DMAPause_1
+        BX       LR
 ??HAL_SPI_DMAPause_0:
-        MOVS     R0,#+1
-        STRB     R0,[R1, #+92]
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+92]
 // 1595 
 // 1596   /* Disable the SPI DMA Tx & Rx requests */
 // 1597   CLEAR_BIT(hspi->Instance->CR2, SPI_CR2_TXDMAEN | SPI_CR2_RXDMAEN);
-        LDR      R0,[R1, #+0]
-        LDR      R0,[R0, #+4]
-        LSRS     R0,R0,#+2
-        LSLS     R0,R0,#+2
-        LDR      R2,[R1, #+0]
-        STR      R0,[R2, #+4]
+        LDR      R1,[R0, #+0]
+        LDR      R2,[R1, #+4]
+        LSRS     R2,R2,#+2
+        LSLS     R2,R2,#+2
+        B.N      ?Subroutine1
 // 1598 
 // 1599   /* Process Unlocked */
 // 1600   __HAL_UNLOCK(hspi);
-        MOVS     R0,#+0
-        STRB     R0,[R1, #+92]
 // 1601 
 // 1602   return HAL_OK;
-        MOVS     R0,#+0
-??HAL_SPI_DMAPause_1:
-        BX       LR               ;; return
 // 1603 }
-          CFI EndBlock cfiBlock13
+          CFI EndBlock cfiBlock71
 // 1604 
 // 1605 /**
 // 1606   * @brief Resumes the DMA Transfer.
@@ -3854,44 +3943,50 @@ HAL_SPI_DMAPause:
 // 1610   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock14 Using cfiCommon0
+          CFI Block cfiBlock72 Using cfiCommon0
           CFI Function HAL_SPI_DMAResume
           CFI NoCalls
         THUMB
 // 1611 HAL_StatusTypeDef HAL_SPI_DMAResume(SPI_HandleTypeDef *hspi)
 // 1612 {
-HAL_SPI_DMAResume:
-        MOVS     R1,R0
 // 1613   /* Process Locked */
 // 1614   __HAL_LOCK(hspi);
-        LDRB     R0,[R1, #+92]
-        CMP      R0,#+1
+HAL_SPI_DMAResume:
+        LDRB     R1,[R0, #+92]
+        CMP      R1,#+1
         BNE.N    ??HAL_SPI_DMAResume_0
         MOVS     R0,#+2
-        B.N      ??HAL_SPI_DMAResume_1
+        BX       LR
 ??HAL_SPI_DMAResume_0:
-        MOVS     R0,#+1
-        STRB     R0,[R1, #+92]
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+92]
 // 1615 
 // 1616   /* Enable the SPI DMA Tx & Rx requests */
 // 1617   SET_BIT(hspi->Instance->CR2, SPI_CR2_TXDMAEN | SPI_CR2_RXDMAEN);
-        LDR      R0,[R1, #+0]
-        LDR      R0,[R0, #+4]
-        ORRS     R0,R0,#0x3
-        LDR      R2,[R1, #+0]
-        STR      R0,[R2, #+4]
+        LDR      R1,[R0, #+0]
+        LDR      R2,[R1, #+4]
+        ORR      R2,R2,#0x3
+          CFI EndBlock cfiBlock72
+        REQUIRE ?Subroutine1
+        ;; // Fall through to label ?Subroutine1
 // 1618 
 // 1619   /* Process Unlocked */
 // 1620   __HAL_UNLOCK(hspi);
-        MOVS     R0,#+0
-        STRB     R0,[R1, #+92]
 // 1621 
 // 1622   return HAL_OK;
-        MOVS     R0,#+0
-??HAL_SPI_DMAResume_1:
-        BX       LR               ;; return
 // 1623 }
-          CFI EndBlock cfiBlock14
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock73 Using cfiCommon0
+          CFI NoFunction
+        THUMB
+?Subroutine1:
+        STR      R2,[R1, #+4]
+        MOVS     R1,#+0
+        STRB     R1,[R0, #+92]
+        MOVS     R0,#+0
+        BX       LR               ;; return
+          CFI EndBlock cfiBlock73
 // 1624 
 // 1625 /**
 // 1626   * @brief Stops the DMA Transfer.
@@ -3901,7 +3996,7 @@ HAL_SPI_DMAResume:
 // 1630   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock15 Using cfiCommon0
+          CFI Block cfiBlock74 Using cfiCommon0
           CFI Function HAL_SPI_DMAStop
         THUMB
 // 1631 HAL_StatusTypeDef HAL_SPI_DMAStop(SPI_HandleTypeDef *hspi)
@@ -3911,7 +4006,7 @@ HAL_SPI_DMAStop:
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-        MOVS     R4,R0
+        MOV      R4,R0
 // 1633   /* The Lock is not implemented on this API to allow the user application
 // 1634      to call the HAL SPI API under callbacks HAL_SPI_TxCpltCallback() or HAL_SPI_RxCpltCallback() or HAL_SPI_TxRxCpltCallback():
 // 1635      when calling HAL_DMA_Abort() API the DMA TX/RX Transfer complete interrupt is generated
@@ -3921,11 +4016,9 @@ HAL_SPI_DMAStop:
 // 1639   /* Abort the SPI DMA tx Stream */
 // 1640   if(hspi->hdmatx != NULL)
         LDR      R0,[R4, #+84]
-        CMP      R0,#+0
-        BEQ.N    ??HAL_SPI_DMAStop_0
+        CBZ.N    R0,??HAL_SPI_DMAStop_0
 // 1641   {
 // 1642     HAL_DMA_Abort(hspi->hdmatx);
-        LDR      R0,[R4, #+84]
           CFI FunCall HAL_DMA_Abort
         BL       HAL_DMA_Abort
 // 1643   }
@@ -3933,11 +4026,9 @@ HAL_SPI_DMAStop:
 // 1645   if(hspi->hdmarx != NULL)
 ??HAL_SPI_DMAStop_0:
         LDR      R0,[R4, #+88]
-        CMP      R0,#+0
-        BEQ.N    ??HAL_SPI_DMAStop_1
+        CBZ.N    R0,??HAL_SPI_DMAStop_1
 // 1646   {
 // 1647     HAL_DMA_Abort(hspi->hdmarx);
-        LDR      R0,[R4, #+88]
           CFI FunCall HAL_DMA_Abort
         BL       HAL_DMA_Abort
 // 1648   }
@@ -3946,11 +4037,10 @@ HAL_SPI_DMAStop:
 // 1651   CLEAR_BIT(hspi->Instance->CR2, SPI_CR2_TXDMAEN | SPI_CR2_RXDMAEN);
 ??HAL_SPI_DMAStop_1:
         LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        LSRS     R0,R0,#+2
-        LSLS     R0,R0,#+2
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+        LDR      R1,[R0, #+4]
+        LSRS     R1,R1,#+2
+        LSLS     R1,R1,#+2
+        STR      R1,[R0, #+4]
 // 1652   hspi->State = HAL_SPI_STATE_READY;
         MOVS     R0,#+1
         STRB     R0,[R4, #+93]
@@ -3958,7 +4048,7 @@ HAL_SPI_DMAStop:
         MOVS     R0,#+0
         POP      {R4,PC}          ;; return
 // 1654 }
-          CFI EndBlock cfiBlock15
+          CFI EndBlock cfiBlock74
 // 1655 
 // 1656 /**
 // 1657   * @brief  This function handles SPI interrupt request.
@@ -3968,173 +4058,155 @@ HAL_SPI_DMAStop:
 // 1661   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock16 Using cfiCommon0
+          CFI Block cfiBlock75 Using cfiCommon0
           CFI Function HAL_SPI_IRQHandler
         THUMB
 // 1662 void HAL_SPI_IRQHandler(SPI_HandleTypeDef *hspi)
 // 1663 {
 HAL_SPI_IRQHandler:
-        PUSH     {R4,LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-        SUB      SP,SP,#+8
-          CFI CFA R13+16
-        MOVS     R4,R0
 // 1664   /* SPI in mode Receiver ----------------------------------------------------*/
 // 1665   if((__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_OVR) == RESET) &&
 // 1666      (__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_RXNE) != RESET) && (__HAL_SPI_GET_IT_SOURCE(hspi, SPI_IT_RXNE) != RESET))
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+8]
-        LSLS     R0,R0,#+25
+        LDR      R1,[R0, #+0]
+        LDR      R2,[R1, #+8]
+        LSLS     R2,R2,#+25
         BMI.N    ??HAL_SPI_IRQHandler_0
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+8]
-        LSLS     R0,R0,#+31
+        LDR      R2,[R1, #+8]
+        LSLS     R2,R2,#+31
         BPL.N    ??HAL_SPI_IRQHandler_0
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        LSLS     R0,R0,#+25
+        LDR      R2,[R1, #+4]
+        LSLS     R2,R2,#+25
         BPL.N    ??HAL_SPI_IRQHandler_0
 // 1667   {
 // 1668     hspi->RxISR(hspi);
-        MOVS     R0,R4
-        LDR      R1,[R4, #+76]
+        LDR      R1,[R0, #+76]
+        POP      {R2,LR}
+          CFI R14 SameValue
+          CFI CFA R13+0
           CFI FunCall
-        BLX      R1
+        ANOTE "tailcall"
+        BX       R1
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+8
 // 1669     return;
-        B.N      ??HAL_SPI_IRQHandler_1
 // 1670   }
 // 1671   
 // 1672   /* SPI in mode Transmitter ---------------------------------------------------*/
 // 1673   if((__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_TXE) != RESET) && (__HAL_SPI_GET_IT_SOURCE(hspi, SPI_IT_TXE) != RESET))
 ??HAL_SPI_IRQHandler_0:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+8]
-        LSLS     R0,R0,#+30
-        BPL.N    ??HAL_SPI_IRQHandler_2
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        LSLS     R0,R0,#+24
-        BPL.N    ??HAL_SPI_IRQHandler_2
+        LDR      R2,[R1, #+8]
+        LSLS     R2,R2,#+30
+        BPL.N    ??HAL_SPI_IRQHandler_1
+        LDR      R2,[R1, #+4]
+        LSLS     R2,R2,#+24
+        BPL.N    ??HAL_SPI_IRQHandler_1
 // 1674   {   
 // 1675     hspi->TxISR(hspi);
-        MOVS     R0,R4
-        LDR      R1,[R4, #+80]
+        LDR      R1,[R0, #+80]
+        POP      {R2,LR}
+          CFI R14 SameValue
+          CFI CFA R13+0
           CFI FunCall
-        BLX      R1
+        ANOTE "tailcall"
+        BX       R1
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+8
 // 1676     return;
-        B.N      ??HAL_SPI_IRQHandler_1
 // 1677   }
 // 1678   
 // 1679   /* SPI in ERROR Treatment ---------------------------------------------------*/
 // 1680   if((hspi->Instance->SR & (SPI_FLAG_MODF | SPI_FLAG_OVR | SPI_FLAG_FRE)) != RESET)  
-??HAL_SPI_IRQHandler_2:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+8]
-        TST      R0,#0x160
-        BEQ.N    ??HAL_SPI_IRQHandler_3
+??HAL_SPI_IRQHandler_1:
+        LDR      R2,[R1, #+8]
+        TST      R2,#0x160
+        BEQ.N    ??HAL_SPI_IRQHandler_2
 // 1681   {
 // 1682     /* SPI Overrun error interrupt occurred -------------------------------------*/
 // 1683     if(__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_OVR) != RESET) 
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+8]
-        LSLS     R0,R0,#+25
-        BPL.N    ??HAL_SPI_IRQHandler_4
+        LDR      R2,[R1, #+8]
+        LSLS     R2,R2,#+25
+        BPL.N    ??HAL_SPI_IRQHandler_3
 // 1684     {
 // 1685       if(hspi->State != HAL_SPI_STATE_BUSY_TX)
-        LDRB     R0,[R4, #+93]
-        CMP      R0,#+3
-        BEQ.N    ??HAL_SPI_IRQHandler_5
+        LDRB     R2,[R0, #+93]
+        CMP      R2,#+3
+        BEQ.N    ??HAL_SPI_IRQHandler_2
 // 1686       {
 // 1687         hspi->ErrorCode |= HAL_SPI_ERROR_OVR;
-        LDR      R0,[R4, #+96]
-        ORRS     R0,R0,#0x4
-        STR      R0,[R4, #+96]
+        LDR      R2,[R0, #+96]
+        ORR      R2,R2,#0x4
+        STR      R2,[R0, #+96]
 // 1688         __HAL_SPI_CLEAR_OVRFLAG(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+12]
-        STR      R0,[SP, #+0]
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+8]
-        STR      R0,[SP, #+0]
-        LDR      R0,[SP, #+0]
-        B.N      ??HAL_SPI_IRQHandler_4
+        LDR      R2,[R1, #+12]
+        STR      R2,[SP, #+0]
+        LDR      R2,[R1, #+8]
+        STR      R2,[SP, #+0]
+        LDR      R2,[SP, #+0]
 // 1689       }
 // 1690       else
 // 1691       {
 // 1692         return;
-??HAL_SPI_IRQHandler_5:
-        B.N      ??HAL_SPI_IRQHandler_1
 // 1693       }
 // 1694     }
 // 1695     
 // 1696     /* SPI Mode Fault error interrupt occurred -------------------------------------*/
 // 1697     if(__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_MODF) != RESET)
-??HAL_SPI_IRQHandler_4:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+8]
-        LSLS     R0,R0,#+26
-        BPL.N    ??HAL_SPI_IRQHandler_6
+??HAL_SPI_IRQHandler_3:
+        LDR      R2,[R1, #+8]
+        LSLS     R2,R2,#+26
+        BPL.N    ??HAL_SPI_IRQHandler_4
 // 1698     { 
 // 1699       hspi->ErrorCode |= HAL_SPI_ERROR_MODF;
-        LDR      R0,[R4, #+96]
-        ORRS     R0,R0,#0x1
-        STR      R0,[R4, #+96]
+        LDR      R2,[R0, #+96]
+        ORR      R2,R2,#0x1
+        STR      R2,[R0, #+96]
 // 1700       __HAL_SPI_CLEAR_MODFFLAG(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+8]
-        STR      R0,[SP, #+0]
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        BICS     R0,R0,#0x40
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
-        LDR      R0,[SP, #+0]
+        LDR      R2,[R1, #+8]
+        STR      R2,[SP, #+0]
+        LDR      R2,[R1, #+0]
+        BIC      R2,R2,#0x40
+        STR      R2,[R1, #+0]
+        LDR      R2,[SP, #+0]
 // 1701     }
 // 1702     
 // 1703     /* SPI Frame error interrupt occurred ----------------------------------------*/
 // 1704     if(__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_FRE) != RESET)
-??HAL_SPI_IRQHandler_6:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+8]
-        LSLS     R0,R0,#+23
-        BPL.N    ??HAL_SPI_IRQHandler_7
+??HAL_SPI_IRQHandler_4:
+        LDR      R2,[R1, #+8]
+        LSLS     R2,R2,#+23
+        BPL.N    ??HAL_SPI_IRQHandler_5
 // 1705     { 
 // 1706       hspi->ErrorCode |= HAL_SPI_ERROR_FRE;
-        LDR      R0,[R4, #+96]
-        ORRS     R0,R0,#0x8
-        STR      R0,[R4, #+96]
+        LDR      R2,[R0, #+96]
+        ORR      R2,R2,#0x8
+        STR      R2,[R0, #+96]
 // 1707       __HAL_SPI_CLEAR_FREFLAG(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+8]
-        STR      R0,[SP, #+0]
-        LDR      R0,[SP, #+0]
+        LDR      R2,[R1, #+8]
+        STR      R2,[SP, #+0]
+        LDR      R2,[SP, #+0]
 // 1708     }
 // 1709     
 // 1710     __HAL_SPI_DISABLE_IT(hspi, SPI_IT_RXNE | SPI_IT_TXE | SPI_IT_ERR);
-??HAL_SPI_IRQHandler_7:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0xE0
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+??HAL_SPI_IRQHandler_5:
+        LDR      R2,[R1, #+4]
+        BIC      R2,R2,#0xE0
+        STR      R2,[R1, #+4]
 // 1711     hspi->State = HAL_SPI_STATE_READY;
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+93]
+        BL       ?Subroutine30
 // 1712     HAL_SPI_ErrorCallback(hspi);
-        MOVS     R0,R4
+??CrossCallReturnLabel_56:
           CFI FunCall HAL_SPI_ErrorCallback
         BL       HAL_SPI_ErrorCallback
 // 1713     
 // 1714     return;
-        B.N      ??HAL_SPI_IRQHandler_1
 // 1715   }
 // 1716 }
-??HAL_SPI_IRQHandler_3:
-??HAL_SPI_IRQHandler_1:
-        POP      {R0,R1,R4,PC}    ;; return
-          CFI EndBlock cfiBlock16
+??HAL_SPI_IRQHandler_2:
+        POP      {R0,PC}          ;; return
+          CFI EndBlock cfiBlock75
 // 1717 
 // 1718 /**
 // 1719   * @brief Tx Transfer completed callback
@@ -4144,7 +4216,7 @@ HAL_SPI_IRQHandler:
 // 1723   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock17 Using cfiCommon0
+          CFI Block cfiBlock76 Using cfiCommon0
           CFI Function HAL_SPI_TxCpltCallback
           CFI NoCalls
         THUMB
@@ -4156,7 +4228,7 @@ HAL_SPI_IRQHandler:
 // 1729 }
 HAL_SPI_TxCpltCallback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock17
+          CFI EndBlock cfiBlock76
 // 1730 
 // 1731 /**
 // 1732   * @brief Rx Transfer completed callbacks
@@ -4166,7 +4238,7 @@ HAL_SPI_TxCpltCallback:
 // 1736   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock18 Using cfiCommon0
+          CFI Block cfiBlock77 Using cfiCommon0
           CFI Function HAL_SPI_RxCpltCallback
           CFI NoCalls
         THUMB
@@ -4178,7 +4250,7 @@ HAL_SPI_TxCpltCallback:
 // 1742 }
 HAL_SPI_RxCpltCallback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock18
+          CFI EndBlock cfiBlock77
 // 1743 
 // 1744 /**
 // 1745   * @brief Tx and Rx Transfer completed callback
@@ -4188,7 +4260,7 @@ HAL_SPI_RxCpltCallback:
 // 1749   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock19 Using cfiCommon0
+          CFI Block cfiBlock78 Using cfiCommon0
           CFI Function HAL_SPI_TxRxCpltCallback
           CFI NoCalls
         THUMB
@@ -4200,7 +4272,7 @@ HAL_SPI_RxCpltCallback:
 // 1755 }
 HAL_SPI_TxRxCpltCallback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock19
+          CFI EndBlock cfiBlock78
 // 1756 
 // 1757 /**
 // 1758   * @brief Tx Half Transfer completed callback
@@ -4210,7 +4282,7 @@ HAL_SPI_TxRxCpltCallback:
 // 1762   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock20 Using cfiCommon0
+          CFI Block cfiBlock79 Using cfiCommon0
           CFI Function HAL_SPI_TxHalfCpltCallback
           CFI NoCalls
         THUMB
@@ -4222,7 +4294,7 @@ HAL_SPI_TxRxCpltCallback:
 // 1768 }
 HAL_SPI_TxHalfCpltCallback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock20
+          CFI EndBlock cfiBlock79
 // 1769 
 // 1770 /**
 // 1771   * @brief Rx Half Transfer completed callback
@@ -4232,7 +4304,7 @@ HAL_SPI_TxHalfCpltCallback:
 // 1775   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock21 Using cfiCommon0
+          CFI Block cfiBlock80 Using cfiCommon0
           CFI Function HAL_SPI_RxHalfCpltCallback
           CFI NoCalls
         THUMB
@@ -4244,7 +4316,7 @@ HAL_SPI_TxHalfCpltCallback:
 // 1781 }
 HAL_SPI_RxHalfCpltCallback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock21
+          CFI EndBlock cfiBlock80
 // 1782 
 // 1783 /**
 // 1784   * @brief Tx and Rx Half Transfer callback
@@ -4254,7 +4326,7 @@ HAL_SPI_RxHalfCpltCallback:
 // 1788   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock22 Using cfiCommon0
+          CFI Block cfiBlock81 Using cfiCommon0
           CFI Function HAL_SPI_TxRxHalfCpltCallback
           CFI NoCalls
         THUMB
@@ -4266,7 +4338,7 @@ HAL_SPI_RxHalfCpltCallback:
 // 1794 }
 HAL_SPI_TxRxHalfCpltCallback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock22
+          CFI EndBlock cfiBlock81
 // 1795 
 // 1796 /**
 // 1797   * @brief SPI error callback
@@ -4276,7 +4348,7 @@ HAL_SPI_TxRxHalfCpltCallback:
 // 1801   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock23 Using cfiCommon0
+          CFI Block cfiBlock82 Using cfiCommon0
           CFI Function HAL_SPI_ErrorCallback
           CFI NoCalls
         THUMB
@@ -4291,7 +4363,7 @@ HAL_SPI_TxRxHalfCpltCallback:
 // 1810 }
 HAL_SPI_ErrorCallback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock23
+          CFI EndBlock cfiBlock82
 // 1811 
 // 1812 /**
 // 1813   * @}
@@ -4324,7 +4396,7 @@ HAL_SPI_ErrorCallback:
 // 1840   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock24 Using cfiCommon0
+          CFI Block cfiBlock83 Using cfiCommon0
           CFI Function HAL_SPI_GetState
           CFI NoCalls
         THUMB
@@ -4335,7 +4407,7 @@ HAL_SPI_GetState:
         LDRB     R0,[R0, #+93]
         BX       LR               ;; return
 // 1844 }
-          CFI EndBlock cfiBlock24
+          CFI EndBlock cfiBlock83
 // 1845 
 // 1846 /**
 // 1847   * @brief  Return the SPI error code
@@ -4345,7 +4417,7 @@ HAL_SPI_GetState:
 // 1851   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock25 Using cfiCommon0
+          CFI Block cfiBlock84 Using cfiCommon0
           CFI Function HAL_SPI_GetError
           CFI NoCalls
         THUMB
@@ -4356,7 +4428,7 @@ HAL_SPI_GetError:
         LDR      R0,[R0, #+96]
         BX       LR               ;; return
 // 1855 }
-          CFI EndBlock cfiBlock25
+          CFI EndBlock cfiBlock84
 // 1856 
 // 1857 /**
 // 1858   * @}
@@ -4378,82 +4450,62 @@ HAL_SPI_GetError:
 // 1874   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock26 Using cfiCommon0
+          CFI Block cfiBlock85 Using cfiCommon0
           CFI Function SPI_DMATransmitCplt
+          CFI NoCalls
         THUMB
 // 1875 static void SPI_DMATransmitCplt(DMA_HandleTypeDef *hdma)
 // 1876 {
 SPI_DMATransmitCplt:
-        PUSH     {R3-R5,LR}
+        MOV      R1,R0
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
-        MOVS     R4,R0
+          CFI CFA R13+8
 // 1877   SPI_HandleTypeDef* hspi = ( SPI_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
-        LDR      R5,[R4, #+56]
+        LDR      R0,[R1, #+56]
 // 1878 
 // 1879   /* DMA Normal Mode */
 // 1880   if((hdma->Instance->CR & DMA_SxCR_CIRC) == 0)
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+23
+        LDR      R1,[R1, #+0]
+        LDR      R1,[R1, #+0]
+        LSLS     R1,R1,#+23
         BMI.N    ??SPI_DMATransmitCplt_0
 // 1881   {
 // 1882     /* Disable Tx DMA Request */
 // 1883     CLEAR_BIT(hspi->Instance->CR2, SPI_CR2_TXDMAEN);
-        LDR      R0,[R5, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0x2
-        LDR      R1,[R5, #+0]
-        STR      R0,[R1, #+4]
+        LDR      R1,[R0, #+0]
+        LDR      R2,[R1, #+4]
+        BIC      R2,R2,#0x2
+        BL       ?Subroutine35
 // 1884 
 // 1885     /* Clear OVERUN flag in 2 Lines communication mode because received data is not read */
 // 1886     if(hspi->Init.Direction == SPI_DIRECTION_2LINES)
-        LDR      R0,[R5, #+8]
-        CMP      R0,#+0
-        BNE.N    ??SPI_DMATransmitCplt_1
 // 1887     {
 // 1888       __HAL_SPI_CLEAR_OVRFLAG(hspi);
-        LDR      R0,[R5, #+0]
-        LDR      R0,[R0, #+12]
-        STR      R0,[SP, #+0]
-        LDR      R0,[R5, #+0]
-        LDR      R0,[R0, #+8]
-        STR      R0,[SP, #+0]
-        LDR      R0,[SP, #+0]
 // 1889     }
 // 1890 
 // 1891     hspi->TxXferCount = 0;
-??SPI_DMATransmitCplt_1:
-        MOVS     R0,#+0
-        STRH     R0,[R5, #+62]
+??CrossCallReturnLabel_77:
+        MOVS     R1,#+0
+        STRH     R1,[R0, #+62]
 // 1892     hspi->State = HAL_SPI_STATE_READY;
-        MOVS     R0,#+1
-        STRB     R0,[R5, #+93]
+        BL       ?Subroutine30
 // 1893 
 // 1894     if(hspi->ErrorCode != HAL_SPI_ERROR_NONE)
-        LDR      R0,[R5, #+96]
-        CMP      R0,#+0
-        BEQ.N    ??SPI_DMATransmitCplt_0
+??CrossCallReturnLabel_57:
+        LDR      R1,[R0, #+96]
+        CBZ.N    R1,??SPI_DMATransmitCplt_0
 // 1895     {
 // 1896       HAL_SPI_ErrorCallback(hspi);
-        MOVS     R0,R5
-          CFI FunCall HAL_SPI_ErrorCallback
-        BL       HAL_SPI_ErrorCallback
+        B.N      ?Subroutine4
 // 1897       return;
-        B.N      ??SPI_DMATransmitCplt_2
 // 1898     }
 // 1899   }
 // 1900   HAL_SPI_TxCpltCallback(hspi);
 ??SPI_DMATransmitCplt_0:
-        MOVS     R0,R5
-          CFI FunCall HAL_SPI_TxCpltCallback
-        BL       HAL_SPI_TxCpltCallback
+        B.N      ?Subroutine3
 // 1901 }
-??SPI_DMATransmitCplt_2:
-        POP      {R0,R4,R5,PC}    ;; return
-          CFI EndBlock cfiBlock26
+          CFI EndBlock cfiBlock85
 // 1902 
 // 1903 /**
 // 1904   * @brief DMA SPI receive process complete callback
@@ -4463,182 +4515,142 @@ SPI_DMATransmitCplt:
 // 1908   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock27 Using cfiCommon0
+          CFI Block cfiBlock86 Using cfiCommon0
           CFI Function SPI_DMAReceiveCplt
         THUMB
 // 1909 static void SPI_DMAReceiveCplt(DMA_HandleTypeDef *hdma)
 // 1910 {
 SPI_DMAReceiveCplt:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        SUB      SP,SP,#+8
           CFI CFA R13+16
-        MOVS     R4,R0
 // 1911   __IO uint16_t tmpreg;
 // 1912   SPI_HandleTypeDef* hspi = ( SPI_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
-        LDR      R5,[R4, #+56]
+        LDR      R4,[R0, #+56]
 // 1913   
 // 1914   /* DMA Normal mode */
 // 1915   if((hdma->Instance->CR & DMA_SxCR_CIRC) == 0)
-        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+0]
         LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+23
         BMI.N    ??SPI_DMAReceiveCplt_0
 // 1916   {  
 // 1917     /* CRC handling */
 // 1918     if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
-        LDR      R0,[R5, #+40]
-        CMP      R0,#+8192
-        BNE.N    ??SPI_DMAReceiveCplt_1
+        BL       ?Subroutine31
+??CrossCallReturnLabel_68:
+        BNE.N    ??CrossCallReturnLabel_76
 // 1919     {
 // 1920       /* Wait until TXE flag */
 // 1921       if(SPI_WaitFlagStateUntilTimeout(hspi, SPI_FLAG_RXNE, SPI_FLAG_RXNE, SPI_DEFAULT_TIMEOUT) != HAL_OK)
         MOVS     R3,#+50
-        MOVS     R2,#+1
-        MOVS     R1,#+1
-        MOVS     R0,R5
-          CFI FunCall SPI_WaitFlagStateUntilTimeout
-        BL       SPI_WaitFlagStateUntilTimeout
-        CMP      R0,#+0
-        BEQ.N    ??SPI_DMAReceiveCplt_2
+        BL       ??Subroutine13_0
+??CrossCallReturnLabel_13:
+        BL       ?Subroutine27
 // 1922       {
 // 1923         /* Error on the CRC reception */
 // 1924         hspi->ErrorCode|= HAL_SPI_ERROR_CRC;      
-        LDR      R0,[R5, #+96]
-        ORRS     R0,R0,#0x2
-        STR      R0,[R5, #+96]
 // 1925       }
 // 1926       if(hspi->Init.DataSize > SPI_DATASIZE_8BIT)
-??SPI_DMAReceiveCplt_2:
-        LDR      R0,[R5, #+12]
-        CMP      R0,#+1792
-        BLS.N    ??SPI_DMAReceiveCplt_3
+??CrossCallReturnLabel_50:
+        LDR      R1,[R4, #+12]
+        LDR      R0,[R4, #+0]
+        CMP      R1,#+1792
+        IT       HI 
+        LDRHI    R0,[R0, #+12]
 // 1927       {        
 // 1928         tmpreg = hspi->Instance->DR;
-        LDR      R0,[R5, #+0]
-        LDR      R0,[R0, #+12]
-        STRH     R0,[SP, #+0]
+        BHI.N    ??CrossCallReturnLabel_46
 // 1929         UNUSED(tmpreg); /* To avoid GCC warning */
-        LDRH     R0,[SP, #+0]
-        B.N      ??SPI_DMAReceiveCplt_1
 // 1930       }
 // 1931       else
 // 1932       {
 // 1933         tmpreg = *(__IO uint8_t *)&hspi->Instance->DR;
-??SPI_DMAReceiveCplt_3:
-        LDR      R0,[R5, #+0]
-        LDRB     R0,[R0, #+12]
-        STRH     R0,[SP, #+0]
+        BL       ?Subroutine32
 // 1934         UNUSED(tmpreg); /* To avoid GCC warning */
-        LDRH     R0,[SP, #+0]
 // 1935         
 // 1936         if(hspi->Init.CRCLength == SPI_CRC_LENGTH_16BIT)
-        LDR      R0,[R5, #+48]
-        CMP      R0,#+2
-        BNE.N    ??SPI_DMAReceiveCplt_1
+??CrossCallReturnLabel_71:
+        BNE.N    ??CrossCallReturnLabel_76
 // 1937         {
 // 1938           if(SPI_WaitFlagStateUntilTimeout(hspi, SPI_FLAG_RXNE, SPI_FLAG_RXNE, SPI_DEFAULT_TIMEOUT) != HAL_OK)
         MOVS     R3,#+50
-        MOVS     R2,#+1
-        MOVS     R1,#+1
-        MOVS     R0,R5
-          CFI FunCall SPI_WaitFlagStateUntilTimeout
-        BL       SPI_WaitFlagStateUntilTimeout
-        CMP      R0,#+0
-        BEQ.N    ??SPI_DMAReceiveCplt_4
+        BL       ??Subroutine13_0
 // 1939           {
 // 1940             /* Error on the CRC reception */
 // 1941             hspi->ErrorCode|= HAL_SPI_ERROR_CRC;      
-        LDR      R0,[R5, #+96]
-        ORRS     R0,R0,#0x2
-        STR      R0,[R5, #+96]
 // 1942           }
 // 1943           tmpreg = *(__IO uint8_t *)&hspi->Instance->DR;
-??SPI_DMAReceiveCplt_4:
-        LDR      R0,[R5, #+0]
-        LDRB     R0,[R0, #+12]
-        STRH     R0,[SP, #+0]
 // 1944           UNUSED(tmpreg); /* To avoid GCC warning */
-        LDRH     R0,[SP, #+0]
 // 1945         }
 // 1946       }  
 // 1947     }
+??CrossCallReturnLabel_12:
+        BL       ?Subroutine25
+??CrossCallReturnLabel_46:
+        BL       ?Subroutine34
 // 1948     
 // 1949     /* Disable Rx DMA Request */
 // 1950     hspi->Instance->CR2 &= (uint32_t)(~SPI_CR2_RXDMAEN);
-??SPI_DMAReceiveCplt_1:
-        LDR      R0,[R5, #+0]
-        LDR      R0,[R0, #+4]
-        LSRS     R0,R0,#+1
-        LSLS     R0,R0,#+1
-        LDR      R1,[R5, #+0]
-        STR      R0,[R1, #+4]
+??CrossCallReturnLabel_76:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+4]
+        LSRS     R1,R1,#+1
+        LSLS     R1,R1,#+1
+        STR      R1,[R0, #+4]
 // 1951     /* Disable Tx DMA Request (done by default to handle the case master rx direction 2 lines) */
 // 1952     hspi->Instance->CR2 &= (uint32_t)(~SPI_CR2_TXDMAEN);
-        LDR      R0,[R5, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0x2
-        LDR      R1,[R5, #+0]
-        STR      R0,[R1, #+4]
+        LDR      R1,[R0, #+4]
+        BIC      R1,R1,#0x2
+        STR      R1,[R0, #+4]
 // 1953     
 // 1954     /* Check the end of the transaction */
 // 1955     SPI_EndRxTransaction(hspi,SPI_DEFAULT_TIMEOUT);
         MOVS     R1,#+50
-        MOVS     R0,R5
+        MOV      R0,R4
           CFI FunCall SPI_EndRxTransaction
         BL       SPI_EndRxTransaction
 // 1956     
 // 1957     hspi->RxXferCount = 0;
-        MOVS     R0,#+0
-        STRH     R0,[R5, #+70]
+        ADD      R0,R4,#+70
+        MOVS     R1,#+0
+        STRH     R1,[R0, #+0]
 // 1958     hspi->State = HAL_SPI_STATE_READY;
-        MOVS     R0,#+1
-        STRB     R0,[R5, #+93]
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+23]
 // 1959     
 // 1960     /* Check if CRC error occurred */
 // 1961     if(__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_CRCERR) != RESET)
-        LDR      R0,[R5, #+0]
-        LDR      R0,[R0, #+8]
-        LSLS     R0,R0,#+27
-        BPL.N    ??SPI_DMAReceiveCplt_5
+        LDR      R1,[R4, #+0]
+        LDR      R0,[R4, #+96]
+        LDR      R2,[R1, #+8]
+        LSLS     R2,R2,#+27
+        BPL.N    ??SPI_DMAReceiveCplt_1
 // 1962     {
 // 1963       hspi->ErrorCode|= HAL_SPI_ERROR_CRC;
-        LDR      R0,[R5, #+96]
-        ORRS     R0,R0,#0x2
-        STR      R0,[R5, #+96]
+        BL       ?Subroutine33
 // 1964       __HAL_SPI_CLEAR_CRCERRFLAG(hspi);
-        MOVW     R0,#+65519
-        LDR      R1,[R5, #+0]
-        STR      R0,[R1, #+8]
 // 1965       HAL_SPI_RxCpltCallback(hspi);
-        MOVS     R0,R5
-          CFI FunCall HAL_SPI_RxCpltCallback
-        BL       HAL_SPI_RxCpltCallback
-        B.N      ??SPI_DMAReceiveCplt_6
+??CrossCallReturnLabel_72:
+        B.N      ??SPI_DMAReceiveCplt_0
 // 1966     }
 // 1967     else
 // 1968     {
 // 1969       if(hspi->ErrorCode == HAL_SPI_ERROR_NONE)
-??SPI_DMAReceiveCplt_5:
-        LDR      R0,[R5, #+96]
+??SPI_DMAReceiveCplt_1:
         CMP      R0,#+0
-        BNE.N    ??SPI_DMAReceiveCplt_7
+        MOV      R0,R4
+        BEQ.N    ??SPI_DMAReceiveCplt_2
 // 1970       {
 // 1971         HAL_SPI_RxCpltCallback(hspi);
-        MOVS     R0,R5
-          CFI FunCall HAL_SPI_RxCpltCallback
-        BL       HAL_SPI_RxCpltCallback
-        B.N      ??SPI_DMAReceiveCplt_6
 // 1972       }
 // 1973       else
 // 1974       {
 // 1975         HAL_SPI_ErrorCallback(hspi); 
-??SPI_DMAReceiveCplt_7:
-        MOVS     R0,R5
-          CFI FunCall HAL_SPI_ErrorCallback
-        BL       HAL_SPI_ErrorCallback
-        B.N      ??SPI_DMAReceiveCplt_6
+        B.N      ?Subroutine5
 // 1976       }
 // 1977     }
 // 1978   }
@@ -4646,14 +4658,161 @@ SPI_DMAReceiveCplt:
 // 1980   {
 // 1981     HAL_SPI_RxCpltCallback(hspi);
 ??SPI_DMAReceiveCplt_0:
-        MOVS     R0,R5
+        MOV      R0,R4
+??SPI_DMAReceiveCplt_2:
           CFI FunCall HAL_SPI_RxCpltCallback
         BL       HAL_SPI_RxCpltCallback
 // 1982   }
 // 1983 }
-??SPI_DMAReceiveCplt_6:
-        POP      {R0,R4,R5,PC}    ;; return
-          CFI EndBlock cfiBlock27
+        POP      {R0,R1,R4,PC}    ;; return
+          CFI EndBlock cfiBlock86
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond87 Using cfiCommon0
+          CFI Function HAL_SPI_TransmitReceive
+          CFI Conditional ??CrossCallReturnLabel_70
+          CFI R4 Frame(CFA, -32)
+          CFI R5 Frame(CFA, -28)
+          CFI R6 Frame(CFA, -24)
+          CFI R7 Frame(CFA, -20)
+          CFI R8 Frame(CFA, -16)
+          CFI R9 Frame(CFA, -12)
+          CFI R10 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+40
+          CFI Block cfiCond88 Using cfiCommon0
+          CFI (cfiCond88) Function SPI_DMAReceiveCplt
+          CFI (cfiCond88) Conditional ??CrossCallReturnLabel_71
+          CFI (cfiCond88) R4 Frame(CFA, -8)
+          CFI (cfiCond88) R14 Frame(CFA, -4)
+          CFI (cfiCond88) CFA R13+16
+          CFI Block cfiPicker89 Using cfiCommon1
+          CFI (cfiPicker89) NoFunction
+          CFI (cfiPicker89) Picker
+        THUMB
+?Subroutine32:
+        LDRB     R0,[R0, #+12]
+        STRH     R0,[SP, #+0]
+        LDRH     R0,[SP, #+0]
+        LDR      R0,[R4, #+48]
+        CMP      R0,#+2
+        BX       LR
+          CFI EndBlock cfiCond87
+          CFI EndBlock cfiCond88
+          CFI EndBlock cfiPicker89
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond90 Using cfiCommon0
+          CFI Function HAL_SPI_Receive
+          CFI Conditional ??CrossCallReturnLabel_20
+          CFI R4 Frame(CFA, -20)
+          CFI R5 Frame(CFA, -16)
+          CFI R6 Frame(CFA, -12)
+          CFI R7 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+24
+          CFI Block cfiCond91 Using cfiCommon0
+          CFI (cfiCond91) Function HAL_SPI_Receive
+          CFI (cfiCond91) Conditional ??CrossCallReturnLabel_19
+          CFI (cfiCond91) R4 Frame(CFA, -20)
+          CFI (cfiCond91) R5 Frame(CFA, -16)
+          CFI (cfiCond91) R6 Frame(CFA, -12)
+          CFI (cfiCond91) R7 Frame(CFA, -8)
+          CFI (cfiCond91) R14 Frame(CFA, -4)
+          CFI (cfiCond91) CFA R13+24
+          CFI Block cfiCond92 Using cfiCommon0
+          CFI (cfiCond92) Function HAL_SPI_Receive
+          CFI (cfiCond92) Conditional ??CrossCallReturnLabel_18
+          CFI (cfiCond92) R4 Frame(CFA, -20)
+          CFI (cfiCond92) R5 Frame(CFA, -16)
+          CFI (cfiCond92) R6 Frame(CFA, -12)
+          CFI (cfiCond92) R7 Frame(CFA, -8)
+          CFI (cfiCond92) R14 Frame(CFA, -4)
+          CFI (cfiCond92) CFA R13+24
+          CFI Block cfiCond93 Using cfiCommon0
+          CFI (cfiCond93) Function HAL_SPI_Receive
+          CFI (cfiCond93) Conditional ??CrossCallReturnLabel_17
+          CFI (cfiCond93) R4 Frame(CFA, -20)
+          CFI (cfiCond93) R5 Frame(CFA, -16)
+          CFI (cfiCond93) R6 Frame(CFA, -12)
+          CFI (cfiCond93) R7 Frame(CFA, -8)
+          CFI (cfiCond93) R14 Frame(CFA, -4)
+          CFI (cfiCond93) CFA R13+24
+          CFI Block cfiCond94 Using cfiCommon0
+          CFI (cfiCond94) Function HAL_SPI_Receive
+          CFI (cfiCond94) Conditional ??CrossCallReturnLabel_16
+          CFI (cfiCond94) R4 Frame(CFA, -20)
+          CFI (cfiCond94) R5 Frame(CFA, -16)
+          CFI (cfiCond94) R6 Frame(CFA, -12)
+          CFI (cfiCond94) R7 Frame(CFA, -8)
+          CFI (cfiCond94) R14 Frame(CFA, -4)
+          CFI (cfiCond94) CFA R13+24
+          CFI Block cfiPicker95 Using cfiCommon1
+          CFI (cfiPicker95) NoFunction
+          CFI (cfiPicker95) Picker
+        THUMB
+?Subroutine13:
+        MOV      R3,R5
+          CFI Block cfiCond96 Using cfiCommon0
+          CFI (cfiCond96) Function HAL_SPI_TransmitReceive
+          CFI (cfiCond96) Conditional ??CrossCallReturnLabel_15
+          CFI (cfiCond96) R4 Frame(CFA, -32)
+          CFI (cfiCond96) R5 Frame(CFA, -28)
+          CFI (cfiCond96) R6 Frame(CFA, -24)
+          CFI (cfiCond96) R7 Frame(CFA, -20)
+          CFI (cfiCond96) R8 Frame(CFA, -16)
+          CFI (cfiCond96) R9 Frame(CFA, -12)
+          CFI (cfiCond96) R10 Frame(CFA, -8)
+          CFI (cfiCond96) R14 Frame(CFA, -4)
+          CFI (cfiCond96) CFA R13+40
+          CFI Block cfiCond97 Using cfiCommon0
+          CFI (cfiCond97) Function HAL_SPI_TransmitReceive
+          CFI (cfiCond97) Conditional ??CrossCallReturnLabel_14
+          CFI (cfiCond97) R4 Frame(CFA, -32)
+          CFI (cfiCond97) R5 Frame(CFA, -28)
+          CFI (cfiCond97) R6 Frame(CFA, -24)
+          CFI (cfiCond97) R7 Frame(CFA, -20)
+          CFI (cfiCond97) R8 Frame(CFA, -16)
+          CFI (cfiCond97) R9 Frame(CFA, -12)
+          CFI (cfiCond97) R10 Frame(CFA, -8)
+          CFI (cfiCond97) R14 Frame(CFA, -4)
+          CFI (cfiCond97) CFA R13+40
+          CFI Block cfiCond98 Using cfiCommon0
+          CFI (cfiCond98) Function SPI_DMAReceiveCplt
+          CFI (cfiCond98) Conditional ??CrossCallReturnLabel_13
+          CFI (cfiCond98) R4 Frame(CFA, -8)
+          CFI (cfiCond98) R14 Frame(CFA, -4)
+          CFI (cfiCond98) CFA R13+16
+          CFI Block cfiCond99 Using cfiCommon0
+          CFI (cfiCond99) Function SPI_DMAReceiveCplt
+          CFI (cfiCond99) Conditional ??CrossCallReturnLabel_12
+          CFI (cfiCond99) R4 Frame(CFA, -8)
+          CFI (cfiCond99) R14 Frame(CFA, -4)
+          CFI (cfiCond99) CFA R13+16
+??Subroutine13_0:
+        MOVS     R2,#+1
+        MOVS     R1,#+1
+        MOV      R0,R4
+          CFI (cfiCond90) FunCall HAL_SPI_Receive SPI_WaitFlagStateUntilTimeout
+          CFI (cfiCond90) FunCall HAL_SPI_Receive SPI_WaitFlagStateUntilTimeout
+          CFI (cfiCond90) FunCall HAL_SPI_Receive SPI_WaitFlagStateUntilTimeout
+          CFI (cfiCond90) FunCall HAL_SPI_Receive SPI_WaitFlagStateUntilTimeout
+          CFI (cfiCond90) FunCall HAL_SPI_Receive SPI_WaitFlagStateUntilTimeout
+          CFI (cfiCond96) FunCall HAL_SPI_TransmitReceive SPI_WaitFlagStateUntilTimeout
+          CFI (cfiCond96) FunCall HAL_SPI_TransmitReceive SPI_WaitFlagStateUntilTimeout
+          CFI (cfiCond98) FunCall SPI_DMAReceiveCplt SPI_WaitFlagStateUntilTimeout
+          CFI (cfiCond98) FunCall SPI_DMAReceiveCplt SPI_WaitFlagStateUntilTimeout
+        B.N      SPI_WaitFlagStateUntilTimeout
+          CFI EndBlock cfiCond90
+          CFI EndBlock cfiCond91
+          CFI EndBlock cfiCond92
+          CFI EndBlock cfiCond93
+          CFI EndBlock cfiCond94
+          CFI EndBlock cfiPicker95
+          CFI EndBlock cfiCond96
+          CFI EndBlock cfiCond97
+          CFI EndBlock cfiCond98
+          CFI EndBlock cfiCond99
 // 1984 
 // 1985 /**
 // 1986   * @brief DMA SPI transmit receive process complete callback
@@ -4663,84 +4822,69 @@ SPI_DMAReceiveCplt:
 // 1990   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock28 Using cfiCommon0
+          CFI Block cfiBlock100 Using cfiCommon0
           CFI Function SPI_DMATransmitReceiveCplt
         THUMB
 // 1991 static void SPI_DMATransmitReceiveCplt(DMA_HandleTypeDef *hdma)
 // 1992 {
 SPI_DMATransmitReceiveCplt:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        SUB      SP,SP,#+8
           CFI CFA R13+16
-        MOVS     R4,R0
 // 1993   __IO int16_t tmpreg;
 // 1994   SPI_HandleTypeDef* hspi = ( SPI_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
-        LDR      R5,[R4, #+56]
+        LDR      R4,[R0, #+56]
 // 1995   
 // 1996   /* CRC handling */
 // 1997   if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
-        LDR      R0,[R5, #+40]
-        CMP      R0,#+8192
+        BL       ?Subroutine31
+??CrossCallReturnLabel_69:
         BNE.N    ??SPI_DMATransmitReceiveCplt_0
 // 1998   {
 // 1999     if((hspi->Init.DataSize == SPI_DATASIZE_8BIT) && (hspi->Init.CRCLength == SPI_CRC_LENGTH_8BIT))
-        LDR      R0,[R5, #+12]
+        LDR      R0,[R4, #+12]
         CMP      R0,#+1792
-        BNE.N    ??SPI_DMATransmitReceiveCplt_1
-        LDR      R0,[R5, #+48]
-        CMP      R0,#+1
+        ITT      EQ 
+        LDREQ    R0,[R4, #+48]
+        CMPEQ    R0,#+1
         BNE.N    ??SPI_DMATransmitReceiveCplt_1
 // 2000     {        
 // 2001       if(SPI_WaitFifoStateUntilTimeout(hspi, SPI_FLAG_FRLVL, SPI_FRLVL_QUARTER_FULL, SPI_DEFAULT_TIMEOUT) != HAL_OK)
         MOVS     R3,#+50
         MOV      R2,#+512
-        MOV      R1,#+1536
-        MOVS     R0,R5
-          CFI FunCall SPI_WaitFifoStateUntilTimeout
-        BL       SPI_WaitFifoStateUntilTimeout
-        CMP      R0,#+0
-        BEQ.N    ??SPI_DMATransmitReceiveCplt_2
+        BL       ?Subroutine22
 // 2002       {
 // 2003         /* Error on the CRC reception */
 // 2004         hspi->ErrorCode|= HAL_SPI_ERROR_CRC;      
-        LDR      R0,[R5, #+96]
-        ORRS     R0,R0,#0x2
-        STR      R0,[R5, #+96]
 // 2005       }
 // 2006       tmpreg = *(__IO uint8_t *)&hspi->Instance->DR;
-??SPI_DMATransmitReceiveCplt_2:
-        LDR      R0,[R5, #+0]
-        LDRB     R0,[R0, #+12]
-        STRH     R0,[SP, #+0]
 // 2007       UNUSED(tmpreg); /* To avoid GCC warning */
-        LDRSH    R0,[SP, #+0]
-        B.N      ??SPI_DMATransmitReceiveCplt_0
 // 2008     }
+??CrossCallReturnLabel_41:
+        BL       ?Subroutine25
+??CrossCallReturnLabel_47:
+        B.N      ??SPI_DMATransmitReceiveCplt_2
 // 2009     else
 // 2010     {
 // 2011       if(SPI_WaitFifoStateUntilTimeout(hspi, SPI_FLAG_FRLVL, SPI_FRLVL_HALF_FULL, SPI_DEFAULT_TIMEOUT) != HAL_OK)
 ??SPI_DMATransmitReceiveCplt_1:
         MOVS     R3,#+50
         MOV      R2,#+1024
-        MOV      R1,#+1536
-        MOVS     R0,R5
-          CFI FunCall SPI_WaitFifoStateUntilTimeout
-        BL       SPI_WaitFifoStateUntilTimeout
-        CMP      R0,#+0
-        BEQ.N    ??SPI_DMATransmitReceiveCplt_3
+        BL       ?Subroutine22
+??CrossCallReturnLabel_40:
+        BL       ?Subroutine27
 // 2012       {
 // 2013         /* Error on the CRC reception */
 // 2014         hspi->ErrorCode|= HAL_SPI_ERROR_CRC;      
-        LDR      R0,[R5, #+96]
-        ORRS     R0,R0,#0x2
-        STR      R0,[R5, #+96]
 // 2015       }
 // 2016       tmpreg = hspi->Instance->DR;
-??SPI_DMATransmitReceiveCplt_3:
-        LDR      R0,[R5, #+0]
+??CrossCallReturnLabel_51:
+        LDR      R0,[R4, #+0]
         LDR      R0,[R0, #+12]
+??SPI_DMATransmitReceiveCplt_2:
         STRH     R0,[SP, #+0]
 // 2017       UNUSED(tmpreg); /* To avoid GCC warning */
         LDRSH    R0,[SP, #+0]
@@ -4751,84 +4895,174 @@ SPI_DMATransmitReceiveCplt:
 // 2022   SPI_EndRxTxTransaction(hspi,SPI_DEFAULT_TIMEOUT);
 ??SPI_DMATransmitReceiveCplt_0:
         MOVS     R1,#+50
-        MOVS     R0,R5
+        MOV      R0,R4
           CFI FunCall SPI_EndRxTxTransaction
         BL       SPI_EndRxTxTransaction
 // 2023   
 // 2024   /* Disable Tx DMA Request */
 // 2025   CLEAR_BIT(hspi->Instance->CR2, SPI_CR2_TXDMAEN);
-        LDR      R0,[R5, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0x2
-        LDR      R1,[R5, #+0]
-        STR      R0,[R1, #+4]
+        LDR      R0,[R4, #+0]
 // 2026   
 // 2027   /* Disable Rx DMA Request */
 // 2028   CLEAR_BIT(hspi->Instance->CR2, SPI_CR2_RXDMAEN);
-        LDR      R0,[R5, #+0]
-        LDR      R0,[R0, #+4]
-        LSRS     R0,R0,#+1
-        LSLS     R0,R0,#+1
-        LDR      R1,[R5, #+0]
-        STR      R0,[R1, #+4]
 // 2029    
 // 2030   hspi->TxXferCount = 0;
-        MOVS     R0,#+0
-        STRH     R0,[R5, #+62]
 // 2031   hspi->RxXferCount = 0;
-        MOVS     R0,#+0
-        STRH     R0,[R5, #+70]
+        MOVS     R2,#+0
+        LDR      R1,[R0, #+4]
+        BIC      R1,R1,#0x2
+        STR      R1,[R0, #+4]
+        LDR      R1,[R0, #+4]
+        LSRS     R1,R1,#+1
+        LSLS     R1,R1,#+1
+        STR      R1,[R0, #+4]
+        MOVS     R1,#+0
+        STRH     R1,[R4, #+62]
+        ADD      R1,R4,#+70
+        STRH     R2,[R1, #+0]
 // 2032   hspi->State = HAL_SPI_STATE_READY;
-        MOVS     R0,#+1
-        STRB     R0,[R5, #+93]
+        MOVS     R2,#+1
+        STRB     R2,[R1, #+23]
 // 2033   
 // 2034   /* Check if CRC error occurred */
 // 2035   if(__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_CRCERR) != RESET)
-        LDR      R0,[R5, #+0]
-        LDR      R0,[R0, #+8]
-        LSLS     R0,R0,#+27
-        BPL.N    ??SPI_DMATransmitReceiveCplt_4
+        LDR      R1,[R0, #+8]
+        LSLS     R1,R1,#+27
+        BPL.N    ??SPI_DMATransmitReceiveCplt_3
 // 2036   {
 // 2037     hspi->ErrorCode = HAL_SPI_ERROR_CRC;
-        MOVS     R0,#+2
-        STR      R0,[R5, #+96]
+        MOVS     R1,#+2
+        STR      R1,[R4, #+96]
 // 2038     __HAL_SPI_CLEAR_CRCERRFLAG(hspi);
-        MOVW     R0,#+65519
-        LDR      R1,[R5, #+0]
-        STR      R0,[R1, #+8]
+        MOVW     R1,#+65519
+        STR      R1,[R0, #+8]
 // 2039     HAL_SPI_ErrorCallback(hspi);
-        MOVS     R0,R5
-          CFI FunCall HAL_SPI_ErrorCallback
-        BL       HAL_SPI_ErrorCallback
-        B.N      ??SPI_DMATransmitReceiveCplt_5
+        MOV      R0,R4
+        B.N      ??SPI_DMATransmitReceiveCplt_4
 // 2040   }
 // 2041   else
 // 2042   {     
 // 2043     if(hspi->ErrorCode == HAL_SPI_ERROR_NONE)
-??SPI_DMATransmitReceiveCplt_4:
-        LDR      R0,[R5, #+96]
+??SPI_DMATransmitReceiveCplt_3:
+        LDR      R0,[R4, #+96]
         CMP      R0,#+0
-        BNE.N    ??SPI_DMATransmitReceiveCplt_6
+        MOV      R0,R4
+        BNE.N    ??SPI_DMATransmitReceiveCplt_4
 // 2044     {
 // 2045       HAL_SPI_TxRxCpltCallback(hspi);
-        MOVS     R0,R5
           CFI FunCall HAL_SPI_TxRxCpltCallback
         BL       HAL_SPI_TxRxCpltCallback
-        B.N      ??SPI_DMATransmitReceiveCplt_5
+        POP      {R0,R1,R4,PC}
 // 2046     }
 // 2047     else
 // 2048     {
 // 2049       HAL_SPI_ErrorCallback(hspi);
-??SPI_DMATransmitReceiveCplt_6:
-        MOVS     R0,R5
-          CFI FunCall HAL_SPI_ErrorCallback
-        BL       HAL_SPI_ErrorCallback
+??SPI_DMATransmitReceiveCplt_4:
+          CFI EndBlock cfiBlock100
+        REQUIRE ?Subroutine5
+        ;; // Fall through to label ?Subroutine5
 // 2050     }
 // 2051   }
 // 2052 }
-??SPI_DMATransmitReceiveCplt_5:
-        POP      {R0,R4,R5,PC}    ;; return
-          CFI EndBlock cfiBlock28
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock101 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+16
+          CFI R4 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI FunCall SPI_DMAReceiveCplt HAL_SPI_ErrorCallback
+          CFI FunCall SPI_DMATransmitReceiveCplt HAL_SPI_ErrorCallback
+        THUMB
+?Subroutine5:
+        BL       HAL_SPI_ErrorCallback
+        POP      {R0,R1,R4,PC}
+          CFI EndBlock cfiBlock101
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond102 Using cfiCommon0
+          CFI Function SPI_DMAReceiveCplt
+          CFI Conditional ??CrossCallReturnLabel_50
+          CFI R4 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+16
+          CFI Block cfiCond103 Using cfiCommon0
+          CFI (cfiCond103) Function SPI_DMATransmitReceiveCplt
+          CFI (cfiCond103) Conditional ??CrossCallReturnLabel_51
+          CFI (cfiCond103) R4 Frame(CFA, -8)
+          CFI (cfiCond103) R14 Frame(CFA, -4)
+          CFI (cfiCond103) CFA R13+16
+          CFI Block cfiPicker104 Using cfiCommon1
+          CFI (cfiPicker104) NoFunction
+          CFI (cfiPicker104) Picker
+        THUMB
+?Subroutine27:
+        CBZ.N    R0,??Subroutine27_0
+        LDR      R0,[R4, #+96]
+        ORR      R0,R0,#0x2
+        STR      R0,[R4, #+96]
+??Subroutine27_0:
+        BX       LR
+          CFI EndBlock cfiCond102
+          CFI EndBlock cfiCond103
+          CFI EndBlock cfiPicker104
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond105 Using cfiCommon0
+          CFI Function SPI_DMAReceiveCplt
+          CFI Conditional ??CrossCallReturnLabel_46
+          CFI R4 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+16
+          CFI Block cfiCond106 Using cfiCommon0
+          CFI (cfiCond106) Function SPI_DMATransmitReceiveCplt
+          CFI (cfiCond106) Conditional ??CrossCallReturnLabel_47
+          CFI (cfiCond106) R4 Frame(CFA, -8)
+          CFI (cfiCond106) R14 Frame(CFA, -4)
+          CFI (cfiCond106) CFA R13+16
+          CFI Block cfiPicker107 Using cfiCommon1
+          CFI (cfiPicker107) NoFunction
+          CFI (cfiPicker107) Picker
+        THUMB
+?Subroutine25:
+        CBZ.N    R0,??Subroutine25_0
+        LDR      R0,[R4, #+96]
+        ORR      R0,R0,#0x2
+        STR      R0,[R4, #+96]
+??Subroutine25_0:
+        LDR      R0,[R4, #+0]
+        LDRB     R0,[R0, #+12]
+        BX       LR
+          CFI EndBlock cfiCond105
+          CFI EndBlock cfiCond106
+          CFI EndBlock cfiPicker107
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond108 Using cfiCommon0
+          CFI Function SPI_DMATransmitReceiveCplt
+          CFI Conditional ??CrossCallReturnLabel_41
+          CFI R4 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+16
+          CFI Block cfiCond109 Using cfiCommon0
+          CFI (cfiCond109) Function SPI_DMATransmitReceiveCplt
+          CFI (cfiCond109) Conditional ??CrossCallReturnLabel_40
+          CFI (cfiCond109) R4 Frame(CFA, -8)
+          CFI (cfiCond109) R14 Frame(CFA, -4)
+          CFI (cfiCond109) CFA R13+16
+          CFI Block cfiPicker110 Using cfiCommon1
+          CFI (cfiPicker110) NoFunction
+          CFI (cfiPicker110) Picker
+        THUMB
+?Subroutine22:
+        MOV      R1,#+1536
+        MOV      R0,R4
+          CFI (cfiCond108) FunCall SPI_DMATransmitReceiveCplt SPI_WaitFifoStateUntilTimeout
+          CFI (cfiCond108) FunCall SPI_DMATransmitReceiveCplt SPI_WaitFifoStateUntilTimeout
+        B.N      SPI_WaitFifoStateUntilTimeout
+          CFI EndBlock cfiCond108
+          CFI EndBlock cfiCond109
+          CFI EndBlock cfiPicker110
 // 2053 
 // 2054 /**
 // 2055   * @brief DMA SPI half transmit process complete callback
@@ -4838,28 +5072,24 @@ SPI_DMATransmitReceiveCplt:
 // 2059   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock29 Using cfiCommon0
+          CFI Block cfiBlock111 Using cfiCommon0
           CFI Function SPI_DMAHalfTransmitCplt
         THUMB
 // 2060 static void SPI_DMAHalfTransmitCplt(DMA_HandleTypeDef *hdma)
 // 2061 {
 SPI_DMAHalfTransmitCplt:
-        PUSH     {R3-R5,LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
-        MOVS     R4,R0
+          CFI CFA R13+8
 // 2062   SPI_HandleTypeDef* hspi = ( SPI_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
-        LDR      R5,[R4, #+56]
 // 2063 
 // 2064   HAL_SPI_TxHalfCpltCallback(hspi);
-        MOVS     R0,R5
+        LDR      R0,[R0, #+56]
           CFI FunCall HAL_SPI_TxHalfCpltCallback
         BL       HAL_SPI_TxHalfCpltCallback
 // 2065 }
-        POP      {R0,R4,R5,PC}    ;; return
-          CFI EndBlock cfiBlock29
+        POP      {R0,PC}          ;; return
+          CFI EndBlock cfiBlock111
 // 2066 
 // 2067 /**
 // 2068   * @brief DMA SPI half receive process complete callback
@@ -4869,28 +5099,24 @@ SPI_DMAHalfTransmitCplt:
 // 2072   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock30 Using cfiCommon0
+          CFI Block cfiBlock112 Using cfiCommon0
           CFI Function SPI_DMAHalfReceiveCplt
         THUMB
 // 2073 static void SPI_DMAHalfReceiveCplt(DMA_HandleTypeDef *hdma)
 // 2074 {
 SPI_DMAHalfReceiveCplt:
-        PUSH     {R3-R5,LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
-        MOVS     R4,R0
+          CFI CFA R13+8
 // 2075   SPI_HandleTypeDef* hspi = ( SPI_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
-        LDR      R5,[R4, #+56]
 // 2076 
 // 2077   HAL_SPI_RxHalfCpltCallback(hspi);
-        MOVS     R0,R5
+        LDR      R0,[R0, #+56]
           CFI FunCall HAL_SPI_RxHalfCpltCallback
         BL       HAL_SPI_RxHalfCpltCallback
 // 2078 }
-        POP      {R0,R4,R5,PC}    ;; return
-          CFI EndBlock cfiBlock30
+        POP      {R0,PC}          ;; return
+          CFI EndBlock cfiBlock112
 // 2079 
 // 2080 /**
 // 2081   * @brief DMA SPI Half transmit receive process complete callback
@@ -4900,28 +5126,24 @@ SPI_DMAHalfReceiveCplt:
 // 2085   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock31 Using cfiCommon0
+          CFI Block cfiBlock113 Using cfiCommon0
           CFI Function SPI_DMAHalfTransmitReceiveCplt
         THUMB
 // 2086 static void SPI_DMAHalfTransmitReceiveCplt(DMA_HandleTypeDef *hdma)
 // 2087 {
 SPI_DMAHalfTransmitReceiveCplt:
-        PUSH     {R3-R5,LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
-        MOVS     R4,R0
+          CFI CFA R13+8
 // 2088   SPI_HandleTypeDef* hspi = ( SPI_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
-        LDR      R5,[R4, #+56]
 // 2089 
 // 2090   HAL_SPI_TxRxHalfCpltCallback(hspi);
-        MOVS     R0,R5
+        LDR      R0,[R0, #+56]
           CFI FunCall HAL_SPI_TxRxHalfCpltCallback
         BL       HAL_SPI_TxRxHalfCpltCallback
 // 2091 }
-        POP      {R0,R4,R5,PC}    ;; return
-          CFI EndBlock cfiBlock31
+        POP      {R0,PC}          ;; return
+          CFI EndBlock cfiBlock113
 // 2092 
 // 2093 /**
 // 2094   * @brief DMA SPI communication error callback
@@ -4931,44 +5153,107 @@ SPI_DMAHalfTransmitReceiveCplt:
 // 2098   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock32 Using cfiCommon0
+          CFI Block cfiBlock114 Using cfiCommon0
           CFI Function SPI_DMAError
+          CFI NoCalls
         THUMB
 // 2099 static void SPI_DMAError(DMA_HandleTypeDef *hdma)
 // 2100 {
 SPI_DMAError:
-        PUSH     {R3-R5,LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
-        MOVS     R4,R0
+          CFI CFA R13+8
 // 2101   SPI_HandleTypeDef* hspi = ( SPI_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
-        LDR      R5,[R4, #+56]
+        LDR      R0,[R0, #+56]
 // 2102 
 // 2103   /* Stop the disable DMA transfer on SPI side */
 // 2104   CLEAR_BIT(hspi->Instance->CR2, SPI_CR2_TXDMAEN | SPI_CR2_RXDMAEN);
-        LDR      R0,[R5, #+0]
-        LDR      R0,[R0, #+4]
-        LSRS     R0,R0,#+2
-        LSLS     R0,R0,#+2
-        LDR      R1,[R5, #+0]
-        STR      R0,[R1, #+4]
+        LDR      R1,[R0, #+0]
+        LDR      R2,[R1, #+4]
+        LSRS     R2,R2,#+2
+        LSLS     R2,R2,#+2
+        STR      R2,[R1, #+4]
 // 2105 
 // 2106   hspi->ErrorCode|= HAL_SPI_ERROR_DMA;
-        LDR      R0,[R5, #+96]
-        ORRS     R0,R0,#0x10
-        STR      R0,[R5, #+96]
+        LDR      R1,[R0, #+96]
+        ORR      R1,R1,#0x10
+        STR.W    R1,[R0, #+96]
 // 2107   hspi->State = HAL_SPI_STATE_READY;
-        MOVS     R0,#+1
-        STRB     R0,[R5, #+93]
+        BL       ?Subroutine30
 // 2108   HAL_SPI_ErrorCallback(hspi);
-        MOVS     R0,R5
-          CFI FunCall HAL_SPI_ErrorCallback
-        BL       HAL_SPI_ErrorCallback
+??CrossCallReturnLabel_58:
+          CFI EndBlock cfiBlock114
+        REQUIRE ?Subroutine4
+        ;; // Fall through to label ?Subroutine4
 // 2109 }
-        POP      {R0,R4,R5,PC}    ;; return
-          CFI EndBlock cfiBlock32
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock115 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+8
+          CFI R14 Frame(CFA, -4)
+          CFI FunCall SPI_DMATransmitCplt HAL_SPI_ErrorCallback
+          CFI FunCall SPI_DMAError HAL_SPI_ErrorCallback
+          CFI FunCall SPI_CloseRxTx_ISR HAL_SPI_ErrorCallback
+          CFI FunCall SPI_CloseTx_ISR HAL_SPI_ErrorCallback
+        THUMB
+?Subroutine4:
+        BL       HAL_SPI_ErrorCallback
+        POP      {R0,PC}
+          CFI EndBlock cfiBlock115
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond116 Using cfiCommon0
+          CFI Function HAL_SPI_IRQHandler
+          CFI Conditional ??CrossCallReturnLabel_56
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+8
+          CFI Block cfiCond117 Using cfiCommon0
+          CFI (cfiCond117) Function SPI_DMATransmitCplt
+          CFI (cfiCond117) Conditional ??CrossCallReturnLabel_57
+          CFI (cfiCond117) R14 Frame(CFA, -4)
+          CFI (cfiCond117) CFA R13+8
+          CFI Block cfiCond118 Using cfiCommon0
+          CFI (cfiCond118) Function SPI_DMAError
+          CFI (cfiCond118) Conditional ??CrossCallReturnLabel_58
+          CFI (cfiCond118) R14 Frame(CFA, -4)
+          CFI (cfiCond118) CFA R13+8
+          CFI Block cfiCond119 Using cfiCommon0
+          CFI (cfiCond119) Function SPI_CloseRxTx_ISR
+          CFI (cfiCond119) Conditional ??CrossCallReturnLabel_59
+          CFI (cfiCond119) R14 Frame(CFA, -4)
+          CFI (cfiCond119) CFA R13+8
+          CFI Block cfiCond120 Using cfiCommon0
+          CFI (cfiCond120) Function SPI_CloseRxTx_ISR
+          CFI (cfiCond120) Conditional ??CrossCallReturnLabel_60
+          CFI (cfiCond120) R14 Frame(CFA, -4)
+          CFI (cfiCond120) CFA R13+8
+          CFI Block cfiCond121 Using cfiCommon0
+          CFI (cfiCond121) Function SPI_CloseRxTx_ISR
+          CFI (cfiCond121) Conditional ??CrossCallReturnLabel_61
+          CFI (cfiCond121) R14 Frame(CFA, -4)
+          CFI (cfiCond121) CFA R13+8
+          CFI Block cfiCond122 Using cfiCommon0
+          CFI (cfiCond122) Function SPI_CloseTx_ISR
+          CFI (cfiCond122) Conditional ??CrossCallReturnLabel_62
+          CFI (cfiCond122) R14 Frame(CFA, -4)
+          CFI (cfiCond122) CFA R13+8
+          CFI Block cfiPicker123 Using cfiCommon1
+          CFI (cfiPicker123) NoFunction
+          CFI (cfiPicker123) Picker
+        THUMB
+?Subroutine30:
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+93]
+        BX       LR
+          CFI EndBlock cfiCond116
+          CFI EndBlock cfiCond117
+          CFI EndBlock cfiCond118
+          CFI EndBlock cfiCond119
+          CFI EndBlock cfiCond120
+          CFI EndBlock cfiCond121
+          CFI EndBlock cfiCond122
+          CFI EndBlock cfiPicker123
 // 2110 
 // 2111 /**
 // 2112   * @brief  Rx Handler for Transmit and Receive in Interrupt mode
@@ -4978,48 +5263,38 @@ SPI_DMAError:
 // 2116   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock33 Using cfiCommon0
+          CFI Block cfiBlock124 Using cfiCommon0
           CFI Function SPI_2linesRxISR_8BIT
         THUMB
 // 2117 static void SPI_2linesRxISR_8BIT(struct __SPI_HandleTypeDef *hspi)
 // 2118 {
-SPI_2linesRxISR_8BIT:
-        PUSH     {R4,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOVS     R4,R0
 // 2119   /* Receive data in packing mode */
 // 2120   if(hspi->RxXferCount > 1)
-        LDRH     R0,[R4, #+70]
-        CMP      R0,#+2
+SPI_2linesRxISR_8BIT:
+        LDRH     R3,[R0, #+70]
+        LDR      R2,[R0, #+64]
+        LDR      R1,[R0, #+0]
+        CMP      R3,#+2
         BLT.N    ??SPI_2linesRxISR_8BIT_0
 // 2121   {
 // 2122     *((uint16_t*)hspi->pRxBuffPtr) = hspi->Instance->DR;
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+12]
-        LDR      R1,[R4, #+64]
-        STRH     R0,[R1, #+0]
+        LDR      R3,[R1, #+12]
+        STRH     R3,[R2], #+2
 // 2123     hspi->pRxBuffPtr += sizeof(uint16_t);
-        LDR      R0,[R4, #+64]
-        ADDS     R0,R0,#+2
-        STR      R0,[R4, #+64]
 // 2124     hspi->RxXferCount -= 2;
-        LDRH     R0,[R4, #+70]
-        SUBS     R0,R0,#+2
-        STRH     R0,[R4, #+70]
+        LDRH     R3,[R0, #+70]
+        SUBS     R3,R3,#+2
+        STRH     R3,[R0, #+70]
 // 2125     if(hspi->RxXferCount == 1)
-        LDRH     R0,[R4, #+70]
-        CMP      R0,#+1
+        UXTH     R3,R3
+        CMP      R3,#+1
         BNE.N    ??SPI_2linesRxISR_8BIT_1
 // 2126     {
 // 2127       /* set fiforxthreshold according the reception data length: 8bit */
 // 2128       SET_BIT(hspi->Instance->CR2, SPI_RXFIFO_THRESHOLD);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        ORRS     R0,R0,#0x1000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+        LDR      R3,[R1, #+4]
+        ORR      R3,R3,#0x1000
+        STR      R3,[R1, #+4]
         B.N      ??SPI_2linesRxISR_8BIT_1
 // 2129     }
 // 2130   }
@@ -5028,68 +5303,57 @@ SPI_2linesRxISR_8BIT:
 // 2133   {
 // 2134     *hspi->pRxBuffPtr++ = *((__IO uint8_t *)&hspi->Instance->DR);
 ??SPI_2linesRxISR_8BIT_0:
-        LDR      R0,[R4, #+64]
-        ADDS     R1,R0,#+1
-        STR      R1,[R4, #+64]
-        LDR      R1,[R4, #+0]
-        LDRB     R1,[R1, #+12]
-        STRB     R1,[R0, #+0]
+        LDRB     R3,[R1, #+12]
+        STRB     R3,[R2], #+1
 // 2135     hspi->RxXferCount--;
-        LDRH     R0,[R4, #+70]
-        SUBS     R0,R0,#+1
-        STRH     R0,[R4, #+70]
+        LDRH     R3,[R0, #+70]
+        SUBS     R3,R3,#+1
+        STRH     R3,[R0, #+70]
+??SPI_2linesRxISR_8BIT_1:
+        STR      R2,[R0, #+64]
 // 2136   }
 // 2137   
 // 2138   /* check end of the reception */
 // 2139   if(hspi->RxXferCount == 0)
-??SPI_2linesRxISR_8BIT_1:
-        LDRH     R0,[R4, #+70]
-        CMP      R0,#+0
-        BNE.N    ??SPI_2linesRxISR_8BIT_2
+        LDRH     R2,[R0, #+70]
+        CBNZ.N   R2,??SPI_2linesRxISR_8BIT_2
 // 2140   {
 // 2141     if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
-        LDR      R0,[R4, #+40]
-        CMP      R0,#+8192
+        LDR      R2,[R0, #+40]
+        CMP      R2,#+8192
+        LDR      R2,[R1, #+4]
         BNE.N    ??SPI_2linesRxISR_8BIT_3
 // 2142     {
 // 2143       SET_BIT(hspi->Instance->CR2, SPI_RXFIFO_THRESHOLD);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        ORRS     R0,R0,#0x1000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+        ORR      R2,R2,#0x1000
+        STR      R2,[R1, #+4]
 // 2144       hspi->RxISR =  SPI_2linesRxISR_8BITCRC;
-        ADR.W    R0,SPI_2linesRxISR_8BITCRC
-        STR      R0,[R4, #+76]
+        ADR.W    R1,SPI_2linesRxISR_8BITCRC
+        STR      R1,[R0, #+76]
 // 2145       return;
-        B.N      ??SPI_2linesRxISR_8BIT_4
+        BX       LR
 // 2146     }
 // 2147         
 // 2148     /* Disable RXNE interrupt */
 // 2149     __HAL_SPI_DISABLE_IT(hspi, SPI_IT_RXNE);
 ??SPI_2linesRxISR_8BIT_3:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0x40
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+        BIC      R2,R2,#0x40
+        STR      R2,[R1, #+4]
 // 2150 
 // 2151     if(hspi->TxXferCount == 0)
-        LDRH     R0,[R4, #+62]
-        CMP      R0,#+0
-        BNE.N    ??SPI_2linesRxISR_8BIT_2
+        LDRH     R1,[R0, #+62]
+        CMP      R1,#+0
+        IT       EQ 
 // 2152     {
 // 2153       SPI_CloseRxTx_ISR(hspi);
-        MOVS     R0,R4
           CFI FunCall SPI_CloseRxTx_ISR
-        BL       SPI_CloseRxTx_ISR
+        BEQ.W    SPI_CloseRxTx_ISR
 // 2154     }
 // 2155   }
 // 2156 }
 ??SPI_2linesRxISR_8BIT_2:
-??SPI_2linesRxISR_8BIT_4:
-        POP      {R4,PC}          ;; return
-          CFI EndBlock cfiBlock33
+        BX       LR               ;; return
+          CFI EndBlock cfiBlock124
 // 2157 
 // 2158 /**
 // 2159   * @brief  Rx Handler for Transmit and Receive in Interrupt mode
@@ -5099,62 +5363,53 @@ SPI_2linesRxISR_8BIT:
 // 2163   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock34 Using cfiCommon0
+          CFI Block cfiBlock125 Using cfiCommon0
           CFI Function SPI_2linesRxISR_8BITCRC
+          CFI NoCalls
         THUMB
 // 2164 static void SPI_2linesRxISR_8BITCRC(struct __SPI_HandleTypeDef *hspi)
 // 2165 {
 SPI_2linesRxISR_8BITCRC:
-        PUSH     {R4,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
         SUB      SP,SP,#+8
-          CFI CFA R13+16
-        MOVS     R4,R0
+          CFI CFA R13+8
 // 2166   __IO uint8_t tmpreg;
 // 2167   
 // 2168   tmpreg = *((__IO uint8_t *)&hspi->Instance->DR);
-        LDR      R0,[R4, #+0]
-        LDRB     R0,[R0, #+12]
-        STRB     R0,[SP, #+0]
+        LDR      R1,[R0, #+0]
+        LDRB     R2,[R1, #+12]
+        STRB     R2,[SP, #+0]
 // 2169   UNUSED(tmpreg); /* To avoid GCC warning */
-        LDRB     R0,[SP, #+0]
+        LDRB     R2,[SP, #+0]
 // 2170 
 // 2171   hspi->CRCSize--;
-        LDR      R0,[R4, #+72]
-        SUBS     R0,R0,#+1
-        STR      R0,[R4, #+72]
+        LDR      R2,[R0, #+72]
+        SUBS     R2,R2,#+1
+        STR      R2,[R0, #+72]
 // 2172   
 // 2173   /* check end of the reception */
 // 2174   if(hspi->CRCSize == 0)
-        LDR      R0,[R4, #+72]
-        CMP      R0,#+0
         BNE.N    ??SPI_2linesRxISR_8BITCRC_0
 // 2175   {
 // 2176     /* Disable RXNE interrupt */
 // 2177     __HAL_SPI_DISABLE_IT(hspi, SPI_IT_RXNE);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0x40
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+        LDR      R2,[R1, #+4]
+        BIC      R2,R2,#0x40
+        STR      R2,[R1, #+4]
 // 2178 
 // 2179     if(hspi->TxXferCount == 0)
-        LDRH     R0,[R4, #+62]
-        CMP      R0,#+0
-        BNE.N    ??SPI_2linesRxISR_8BITCRC_0
+        LDRH     R1,[R0, #+62]
+        CBNZ.N   R1,??SPI_2linesRxISR_8BITCRC_0
 // 2180     {
 // 2181       SPI_CloseRxTx_ISR(hspi);
-        MOVS     R0,R4
-          CFI FunCall SPI_CloseRxTx_ISR
-        BL       SPI_CloseRxTx_ISR
+        B.N      ?Subroutine6
 // 2182     }
 // 2183   }
 // 2184 }
 ??SPI_2linesRxISR_8BITCRC_0:
-        POP      {R0,R1,R4,PC}    ;; return
-          CFI EndBlock cfiBlock34
+        ADD      SP,SP,#+8
+          CFI CFA R13+0
+        BX       LR               ;; return
+          CFI EndBlock cfiBlock125
 // 2185 
 // 2186 /**
 // 2187   * @brief  Tx Handler for Transmit and Receive in Interrupt mode
@@ -5164,7 +5419,7 @@ SPI_2linesRxISR_8BITCRC:
 // 2191   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock35 Using cfiCommon0
+          CFI Block cfiBlock126 Using cfiCommon0
           CFI Function SPI_2linesTxISR_8BIT
         THUMB
 // 2192 static void SPI_2linesTxISR_8BIT(struct __SPI_HandleTypeDef *hspi)
@@ -5174,26 +5429,20 @@ SPI_2linesTxISR_8BIT:
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-        MOVS     R4,R0
 // 2194   /* Transmit data in packing Bit mode */
 // 2195   if(hspi->TxXferCount >= 2)
-        LDRH     R0,[R4, #+62]
-        CMP      R0,#+2
+        LDRH     R3,[R0, #+62]
+        LDR      R2,[R0, #+56]
+        LDR      R1,[R0, #+0]
+        CMP      R3,#+2
         BLT.N    ??SPI_2linesTxISR_8BIT_0
 // 2196   {
 // 2197     hspi->Instance->DR = *((uint16_t *)hspi->pTxBuffPtr);
-        LDR      R0,[R4, #+56]
-        LDRH     R0,[R0, #+0]
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+12]
+        LDRH     R4,[R2], #+2
 // 2198     hspi->pTxBuffPtr += sizeof(uint16_t);
-        LDR      R0,[R4, #+56]
-        ADDS     R0,R0,#+2
-        STR      R0,[R4, #+56]
 // 2199     hspi->TxXferCount -= 2;
-        LDRH     R0,[R4, #+62]
-        SUBS     R0,R0,#+2
-        STRH     R0,[R4, #+62]
+        SUBS     R3,R3,#+2
+        STR      R4,[R1, #+12]
         B.N      ??SPI_2linesTxISR_8BIT_1
 // 2200   }
 // 2201   /* Transmit data in 8 Bit mode */
@@ -5201,61 +5450,53 @@ SPI_2linesTxISR_8BIT:
 // 2203   {        
 // 2204     *(__IO uint8_t *)&hspi->Instance->DR = (*hspi->pTxBuffPtr++);
 ??SPI_2linesTxISR_8BIT_0:
-        LDR      R0,[R4, #+56]
-        ADDS     R1,R0,#+1
-        STR      R1,[R4, #+56]
-        LDRB     R0,[R0, #+0]
-        LDR      R1,[R4, #+0]
-        STRB     R0,[R1, #+12]
+        LDRB     R3,[R2], #+1
+        STRB     R3,[R1, #+12]
 // 2205     hspi->TxXferCount--;
-        LDRH     R0,[R4, #+62]
-        SUBS     R0,R0,#+1
-        STRH     R0,[R4, #+62]
+        LDRH     R3,[R0, #+62]
+        SUBS     R3,R3,#+1
+??SPI_2linesTxISR_8BIT_1:
+        STRH     R3,[R0, #+62]
+        STR      R2,[R0, #+56]
 // 2206   }
 // 2207   
 // 2208   /* check the end of the transmission */
 // 2209   if(hspi->TxXferCount == 0)
-??SPI_2linesTxISR_8BIT_1:
-        LDRH     R0,[R4, #+62]
-        CMP      R0,#+0
-        BNE.N    ??SPI_2linesTxISR_8BIT_2
+        LDRH     R2,[R0, #+62]
+        CBNZ.N   R2,??SPI_2linesTxISR_8BIT_2
 // 2210   {
 // 2211     if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
-        LDR      R0,[R4, #+40]
-        CMP      R0,#+8192
+        LDR      R2,[R0, #+40]
+        CMP      R2,#+8192
         BNE.N    ??SPI_2linesTxISR_8BIT_3
 // 2212     {
 // 2213       hspi->Instance->CR1 |= SPI_CR1_CRCNEXT;
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x1000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        LDR      R2,[R1, #+0]
+        ORR      R2,R2,#0x1000
+        STR      R2,[R1, #+0]
 // 2214     }
 // 2215     /* Disable TXE interrupt */
 // 2216     __HAL_SPI_DISABLE_IT(hspi, SPI_IT_TXE);
 ??SPI_2linesTxISR_8BIT_3:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0x80
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+        LDR      R2,[R1, #+4]
+        BIC      R2,R2,#0x80
+        STR      R2,[R1, #+4]
 // 2217     
 // 2218     if(hspi->RxXferCount == 0)
-        LDRH     R0,[R4, #+70]
-        CMP      R0,#+0
-        BNE.N    ??SPI_2linesTxISR_8BIT_2
+        LDRH     R1,[R0, #+70]
+        CMP      R1,#+0
+        ITT      EQ 
 // 2219     { 
 // 2220       SPI_CloseRxTx_ISR(hspi);
-        MOVS     R0,R4
+        POPEQ    {R4,LR}
           CFI FunCall SPI_CloseRxTx_ISR
-        BL       SPI_CloseRxTx_ISR
+        BEQ.W    SPI_CloseRxTx_ISR
 // 2221     }
 // 2222   }
 // 2223 }
 ??SPI_2linesTxISR_8BIT_2:
         POP      {R4,PC}          ;; return
-          CFI EndBlock cfiBlock35
+          CFI EndBlock cfiBlock126
 // 2224 
 // 2225 /**
 // 2226   * @brief  Rx 16Bit Handler for Transmit and Receive in Interrupt mode
@@ -5265,74 +5506,62 @@ SPI_2linesTxISR_8BIT:
 // 2230   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock36 Using cfiCommon0
+          CFI Block cfiBlock127 Using cfiCommon0
           CFI Function SPI_2linesRxISR_16BIT
         THUMB
 // 2231 static void SPI_2linesRxISR_16BIT(struct __SPI_HandleTypeDef *hspi)
 // 2232 {
-SPI_2linesRxISR_16BIT:
-        PUSH     {R4,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOVS     R4,R0
 // 2233   /* Receive data in 16 Bit mode */
 // 2234   *((uint16_t*)hspi->pRxBuffPtr) = hspi->Instance->DR;
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+12]
-        LDR      R1,[R4, #+64]
-        STRH     R0,[R1, #+0]
+SPI_2linesRxISR_16BIT:
+        LDR      R2,[R0, #+0]
+        LDR      R1,[R0, #+64]
+        LDR      R3,[R2, #+12]
+        STRH     R3,[R1], #+2
 // 2235   hspi->pRxBuffPtr += sizeof(uint16_t);
-        LDR      R0,[R4, #+64]
-        ADDS     R0,R0,#+2
-        STR      R0,[R4, #+64]
+        STR      R1,[R0, #+64]
 // 2236   hspi->RxXferCount--;
-        LDRH     R0,[R4, #+70]
-        SUBS     R0,R0,#+1
-        STRH     R0,[R4, #+70]
+        LDRH     R1,[R0, #+70]
+        SUBS     R1,R1,#+1
+        STRH     R1,[R0, #+70]
 // 2237 
 // 2238   if(hspi->RxXferCount == 0)
-        LDRH     R0,[R4, #+70]
-        CMP      R0,#+0
-        BNE.N    ??SPI_2linesRxISR_16BIT_0
+        UXTH     R1,R1
+        CBNZ.N   R1,??SPI_2linesRxISR_16BIT_0
 // 2239   {
 // 2240     if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
-        LDR      R0,[R4, #+40]
-        CMP      R0,#+8192
+        LDR      R1,[R0, #+40]
+        CMP      R1,#+8192
         BNE.N    ??SPI_2linesRxISR_16BIT_1
 // 2241     {
 // 2242       hspi->RxISR =  SPI_2linesRxISR_16BITCRC;
-        ADR.W    R0,SPI_2linesRxISR_16BITCRC
-        STR      R0,[R4, #+76]
+        ADR.W    R1,SPI_2linesRxISR_16BITCRC
+        STR      R1,[R0, #+76]
 // 2243       return;
-        B.N      ??SPI_2linesRxISR_16BIT_2
+        BX       LR
 // 2244     }
 // 2245     
 // 2246     /* Disable RXNE interrupt */
 // 2247     __HAL_SPI_DISABLE_IT(hspi, SPI_IT_RXNE);
 ??SPI_2linesRxISR_16BIT_1:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0x40
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+        LDR      R1,[R2, #+4]
+        BIC      R1,R1,#0x40
+        STR      R1,[R2, #+4]
 // 2248 
 // 2249     if(hspi->TxXferCount == 0)
-        LDRH     R0,[R4, #+62]
-        CMP      R0,#+0
-        BNE.N    ??SPI_2linesRxISR_16BIT_0
+        LDRH     R1,[R0, #+62]
+        CMP      R1,#+0
+        IT       EQ 
 // 2250     {
 // 2251       SPI_CloseRxTx_ISR(hspi);
-        MOVS     R0,R4
           CFI FunCall SPI_CloseRxTx_ISR
-        BL       SPI_CloseRxTx_ISR
+        BEQ.W    SPI_CloseRxTx_ISR
 // 2252     }
 // 2253   }
 // 2254 }
 ??SPI_2linesRxISR_16BIT_0:
-??SPI_2linesRxISR_16BIT_2:
-        POP      {R4,PC}          ;; return
-          CFI EndBlock cfiBlock36
+        BX       LR               ;; return
+          CFI EndBlock cfiBlock127
 // 2255 
 // 2256 /**
 // 2257   * @brief  Manage the CRC 16bit receive for Transmit and Receive in Interrupt mode
@@ -5342,42 +5571,47 @@ SPI_2linesRxISR_16BIT:
 // 2261   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock37 Using cfiCommon0
+          CFI Block cfiBlock128 Using cfiCommon0
           CFI Function SPI_2linesRxISR_16BITCRC
+          CFI NoCalls
         THUMB
 // 2262 static void SPI_2linesRxISR_16BITCRC(struct __SPI_HandleTypeDef *hspi)
 // 2263 {
 SPI_2linesRxISR_16BITCRC:
-        PUSH     {R4,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
         SUB      SP,SP,#+8
-          CFI CFA R13+16
-        MOVS     R4,R0
+          CFI CFA R13+8
 // 2264   /* Receive data in 16 Bit mode */
 // 2265   __IO uint16_t tmpreg = hspi->Instance->DR;
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+12]
-        STRH     R0,[SP, #+0]
+        LDR      R1,[R0, #+0]
+        LDR      R2,[R1, #+12]
+        STRH     R2,[SP, #+0]
 // 2266   UNUSED(tmpreg); /* To avoid GCC warning */
-        LDRH     R0,[SP, #+0]
+        LDRH     R2,[SP, #+0]
 // 2267 
 // 2268   /* Disable RXNE interrupt */
 // 2269   __HAL_SPI_DISABLE_IT(hspi, SPI_IT_RXNE);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0x40
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+        LDR      R2,[R1, #+4]
+        BIC      R2,R2,#0x40
+        STR.W    R2,[R1, #+4]
 // 2270 
 // 2271   SPI_CloseRxTx_ISR(hspi);
-        MOVS     R0,R4
-          CFI FunCall SPI_CloseRxTx_ISR
-        BL       SPI_CloseRxTx_ISR
+          CFI EndBlock cfiBlock128
+        REQUIRE ?Subroutine6
+        ;; // Fall through to label ?Subroutine6
 // 2272 }
-        POP      {R0,R1,R4,PC}    ;; return
-          CFI EndBlock cfiBlock37
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock129 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+8
+        THUMB
+?Subroutine6:
+        ADD      SP,SP,#+8
+          CFI CFA R13+0
+          CFI FunCall SPI_2linesRxISR_8BITCRC SPI_CloseRxTx_ISR
+          CFI FunCall SPI_2linesRxISR_16BITCRC SPI_CloseRxTx_ISR
+        B.N      SPI_CloseRxTx_ISR
+          CFI EndBlock cfiBlock129
 // 2273 
 // 2274 /**
 // 2275   * @brief  Tx Handler for Transmit and Receive in Interrupt mode
@@ -5387,74 +5621,61 @@ SPI_2linesRxISR_16BITCRC:
 // 2279   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock38 Using cfiCommon0
+          CFI Block cfiBlock130 Using cfiCommon0
           CFI Function SPI_2linesTxISR_16BIT
         THUMB
 // 2280 static void SPI_2linesTxISR_16BIT(struct __SPI_HandleTypeDef *hspi)
 // 2281 {
-SPI_2linesTxISR_16BIT:
-        PUSH     {R4,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOVS     R4,R0
 // 2282   /* Transmit data in 16 Bit mode */
 // 2283   hspi->Instance->DR = *((uint16_t *)hspi->pTxBuffPtr);
-        LDR      R0,[R4, #+56]
-        LDRH     R0,[R0, #+0]
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+12]
+SPI_2linesTxISR_16BIT:
+        LDR      R1,[R0, #+56]
+        LDR      R2,[R0, #+0]
+        LDRH     R3,[R1], #+2
+        STR      R3,[R2, #+12]
 // 2284   hspi->pTxBuffPtr += sizeof(uint16_t);
-        LDR      R0,[R4, #+56]
-        ADDS     R0,R0,#+2
-        STR      R0,[R4, #+56]
+        STR      R1,[R0, #+56]
 // 2285   hspi->TxXferCount--;
-        LDRH     R0,[R4, #+62]
-        SUBS     R0,R0,#+1
-        STRH     R0,[R4, #+62]
+        LDRH     R1,[R0, #+62]
+        SUBS     R1,R1,#+1
+        STRH     R1,[R0, #+62]
 // 2286   
 // 2287   /* Enable CRC Transmission */
 // 2288   if(hspi->TxXferCount == 0)
-        LDRH     R0,[R4, #+62]
-        CMP      R0,#+0
-        BNE.N    ??SPI_2linesTxISR_16BIT_0
+        UXTH     R1,R1
+        CBNZ.N   R1,??SPI_2linesTxISR_16BIT_0
 // 2289   {
 // 2290     if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
-        LDR      R0,[R4, #+40]
-        CMP      R0,#+8192
+        LDR      R1,[R0, #+40]
+        CMP      R1,#+8192
         BNE.N    ??SPI_2linesTxISR_16BIT_1
 // 2291     {
 // 2292       hspi->Instance->CR1 |= SPI_CR1_CRCNEXT;
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x1000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        LDR      R1,[R2, #+0]
+        ORR      R1,R1,#0x1000
+        STR      R1,[R2, #+0]
 // 2293     }
 // 2294     /* Disable TXE interrupt */
 // 2295     __HAL_SPI_DISABLE_IT(hspi, SPI_IT_TXE);
 ??SPI_2linesTxISR_16BIT_1:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0x80
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+        LDR      R1,[R2, #+4]
+        BIC      R1,R1,#0x80
+        STR      R1,[R2, #+4]
 // 2296 
 // 2297     if(hspi->RxXferCount == 0)
-        LDRH     R0,[R4, #+70]
-        CMP      R0,#+0
-        BNE.N    ??SPI_2linesTxISR_16BIT_0
+        LDRH     R1,[R0, #+70]
+        CMP      R1,#+0
+        IT       EQ 
 // 2298     {
 // 2299       SPI_CloseRxTx_ISR(hspi);
-        MOVS     R0,R4
           CFI FunCall SPI_CloseRxTx_ISR
-        BL       SPI_CloseRxTx_ISR
+        BEQ.W    SPI_CloseRxTx_ISR
 // 2300     }
 // 2301   }
 // 2302 }
 ??SPI_2linesTxISR_16BIT_0:
-        POP      {R4,PC}          ;; return
-          CFI EndBlock cfiBlock38
+        BX       LR               ;; return
+          CFI EndBlock cfiBlock130
 // 2303 
 // 2304 /**
 // 2305   * @brief  Manage the CRC receive in Interrupt context
@@ -5464,46 +5685,40 @@ SPI_2linesTxISR_16BIT:
 // 2309   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock39 Using cfiCommon0
+          CFI Block cfiBlock131 Using cfiCommon0
           CFI Function SPI_RxISR_8BITCRC
+          CFI NoCalls
         THUMB
 // 2310 static void SPI_RxISR_8BITCRC(struct __SPI_HandleTypeDef *hspi)
 // 2311 {
 SPI_RxISR_8BITCRC:
-        PUSH     {R4,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
         SUB      SP,SP,#+8
-          CFI CFA R13+16
-        MOVS     R4,R0
+          CFI CFA R13+8
 // 2312   __IO uint8_t tmpreg;
 // 2313   tmpreg = *((__IO uint8_t*)&hspi->Instance->DR);
-        LDR      R0,[R4, #+0]
-        LDRB     R0,[R0, #+12]
-        STRB     R0,[SP, #+0]
+        LDR      R1,[R0, #+0]
+        LDRB     R1,[R1, #+12]
+        STRB     R1,[SP, #+0]
 // 2314   UNUSED(tmpreg); /* To avoid GCC warning */
-        LDRB     R0,[SP, #+0]
+        LDRB     R1,[SP, #+0]
 // 2315 
 // 2316   hspi->CRCSize--;
-        LDR      R0,[R4, #+72]
-        SUBS     R0,R0,#+1
-        STR      R0,[R4, #+72]
+        LDR      R1,[R0, #+72]
+        SUBS     R1,R1,#+1
+        STR      R1,[R0, #+72]
 // 2317   
 // 2318   if(hspi->CRCSize == 0)
-        LDR      R0,[R4, #+72]
-        CMP      R0,#+0
         BNE.N    ??SPI_RxISR_8BITCRC_0
 // 2319   { 
 // 2320     SPI_CloseRx_ISR(hspi);
-        MOVS     R0,R4
-          CFI FunCall SPI_CloseRx_ISR
-        BL       SPI_CloseRx_ISR
+        B.N      ?Subroutine7
 // 2321   }
 // 2322 }
 ??SPI_RxISR_8BITCRC_0:
-        POP      {R0,R1,R4,PC}    ;; return
-          CFI EndBlock cfiBlock39
+        ADD      SP,SP,#+8
+          CFI CFA R13+0
+        BX       LR               ;; return
+          CFI EndBlock cfiBlock131
 // 2323 
 // 2324 /**
 // 2325   * @brief  Manage the receive in Interrupt context
@@ -5513,86 +5728,59 @@ SPI_RxISR_8BITCRC:
 // 2329   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock40 Using cfiCommon0
+          CFI Block cfiBlock132 Using cfiCommon0
           CFI Function SPI_RxISR_8BIT
         THUMB
 // 2330 static void SPI_RxISR_8BIT(struct __SPI_HandleTypeDef *hspi)
 // 2331 {
-SPI_RxISR_8BIT:
-        PUSH     {R4,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOVS     R4,R0
 // 2332   *hspi->pRxBuffPtr++ = (*(__IO uint8_t *)&hspi->Instance->DR);
-        LDR      R0,[R4, #+64]
-        ADDS     R1,R0,#+1
-        STR      R1,[R4, #+64]
-        LDR      R1,[R4, #+0]
-        LDRB     R1,[R1, #+12]
-        STRB     R1,[R0, #+0]
+SPI_RxISR_8BIT:
+        LDR      R1,[R0, #+64]
+        ADDS     R2,R1,#+1
+        STR      R2,[R0, #+64]
+        LDR      R2,[R0, #+0]
+        LDRB     R3,[R2, #+12]
+        STRB     R3,[R1, #+0]
 // 2333   hspi->RxXferCount--;
-        LDRH     R0,[R4, #+70]
-        SUBS     R0,R0,#+1
-        STRH     R0,[R4, #+70]
+        LDRH     R1,[R0, #+70]
+        SUBS     R1,R1,#+1
+        STRH     R1,[R0, #+70]
 // 2334 
 // 2335   /* Enable CRC Transmission */
 // 2336   if((hspi->RxXferCount == 1) && (hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE))
-        LDRH     R0,[R4, #+70]
-        CMP      R0,#+1
+        UXTH     R1,R1
+        CMP      R1,#+1
         BNE.N    ??SPI_RxISR_8BIT_0
-        LDR      R0,[R4, #+40]
+        LDR      R0,[R0, #+40]
         CMP      R0,#+8192
-        BNE.N    ??SPI_RxISR_8BIT_0
+        BNE.N    ??SPI_RxISR_8BIT_1
 // 2337   {
 // 2338     hspi->Instance->CR1 |= SPI_CR1_CRCNEXT;
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x1000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        B.N      ?Subroutine2
 // 2339   }
 // 2340 
 // 2341   if(hspi->RxXferCount == 0)
 ??SPI_RxISR_8BIT_0:
-        LDRH     R0,[R4, #+70]
-        CMP      R0,#+0
-        BNE.N    ??SPI_RxISR_8BIT_1
+        CBNZ.N   R1,??SPI_RxISR_8BIT_1
 // 2342   {
 // 2343     if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
-        LDR      R0,[R4, #+40]
-        CMP      R0,#+8192
-        BNE.N    ??SPI_RxISR_8BIT_2
+        LDR      R1,[R0, #+40]
+        CMP      R1,#+8192
+        IT       NE 
 // 2344     {
 // 2345       hspi->RxISR =  SPI_RxISR_8BITCRC;
-        LDR.N    R0,??DataTable2
-        STR      R0,[R4, #+76]
 // 2346       return;
-        B.N      ??SPI_RxISR_8BIT_3
 // 2347     }
 // 2348     SPI_CloseRx_ISR(hspi);
-??SPI_RxISR_8BIT_2:
-        MOVS     R0,R4
           CFI FunCall SPI_CloseRx_ISR
-        BL       SPI_CloseRx_ISR
+        BNE.W    SPI_CloseRx_ISR
+        LDR.N    R1,??DataTable1
+        STR      R1,[R0, #+76]
 // 2349   }
 // 2350 }
 ??SPI_RxISR_8BIT_1:
-??SPI_RxISR_8BIT_3:
-        POP      {R4,PC}          ;; return
-          CFI EndBlock cfiBlock40
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1:
-        DC32     SPI_TxISR_16BIT
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_1:
-        DC32     SPI_TxISR_8BIT
+        BX       LR               ;; return
+          CFI EndBlock cfiBlock132
 // 2351 
 // 2352 /**
 // 2353   * @brief  Manage the CRC 16bit receive in Interrupt context
@@ -5602,43 +5790,48 @@ SPI_RxISR_8BIT:
 // 2357   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock41 Using cfiCommon0
+          CFI Block cfiBlock133 Using cfiCommon0
           CFI Function SPI_RxISR_16BITCRC
+          CFI NoCalls
         THUMB
 // 2358 static void SPI_RxISR_16BITCRC(struct __SPI_HandleTypeDef *hspi)
 // 2359 {
 SPI_RxISR_16BITCRC:
-        PUSH     {R4,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
         SUB      SP,SP,#+8
-          CFI CFA R13+16
-        MOVS     R4,R0
+          CFI CFA R13+8
 // 2360   __IO uint16_t tmpreg;
 // 2361   
 // 2362   tmpreg = hspi->Instance->DR;
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+12]
-        STRH     R0,[SP, #+0]
+        LDR      R1,[R0, #+0]
+        LDR      R2,[R1, #+12]
+        STRH     R2,[SP, #+0]
 // 2363   UNUSED(tmpreg); /* To avoid GCC warning */
-        LDRH     R0,[SP, #+0]
+        LDRH     R2,[SP, #+0]
 // 2364 
 // 2365   /* Disable RXNE and ERR interrupt */
 // 2366   __HAL_SPI_DISABLE_IT(hspi, (SPI_IT_RXNE | SPI_IT_ERR));
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0x60
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+        LDR      R2,[R1, #+4]
+        BIC      R2,R2,#0x60
+        STR      R2,[R1, #+4]
 // 2367   
 // 2368   SPI_CloseRx_ISR(hspi);
-        MOVS     R0,R4
-          CFI FunCall SPI_CloseRx_ISR
-        BL       SPI_CloseRx_ISR
+          CFI EndBlock cfiBlock133
+        REQUIRE ?Subroutine7
+        ;; // Fall through to label ?Subroutine7
 // 2369 }
-        POP      {R0,R1,R4,PC}    ;; return
-          CFI EndBlock cfiBlock41
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock134 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+8
+        THUMB
+?Subroutine7:
+        ADD      SP,SP,#+8
+          CFI CFA R13+0
+          CFI FunCall SPI_RxISR_8BITCRC SPI_CloseRx_ISR
+          CFI FunCall SPI_RxISR_16BITCRC SPI_CloseRx_ISR
+        B.N      SPI_CloseRx_ISR
+          CFI EndBlock cfiBlock134
 // 2370 
 // 2371 /**
 // 2372   * @brief  Manage the 16Bit receive in Interrupt context
@@ -5648,88 +5841,82 @@ SPI_RxISR_16BITCRC:
 // 2376   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock42 Using cfiCommon0
+          CFI Block cfiBlock135 Using cfiCommon0
           CFI Function SPI_RxISR_16BIT
         THUMB
 // 2377 static void SPI_RxISR_16BIT(struct __SPI_HandleTypeDef *hspi)
 // 2378 {
-SPI_RxISR_16BIT:
-        PUSH     {R4,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOVS     R4,R0
 // 2379   *((uint16_t *)hspi->pRxBuffPtr) = hspi->Instance->DR;
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+12]
-        LDR      R1,[R4, #+64]
-        STRH     R0,[R1, #+0]
+SPI_RxISR_16BIT:
+        LDR      R2,[R0, #+0]
+        LDR      R1,[R0, #+64]
+        LDR      R3,[R2, #+12]
+        STRH     R3,[R1], #+2
 // 2380   hspi->pRxBuffPtr += sizeof(uint16_t);
-        LDR      R0,[R4, #+64]
-        ADDS     R0,R0,#+2
-        STR      R0,[R4, #+64]
+        STR      R1,[R0, #+64]
 // 2381   hspi->RxXferCount--;
-        LDRH     R0,[R4, #+70]
-        SUBS     R0,R0,#+1
-        STRH     R0,[R4, #+70]
+        LDRH     R1,[R0, #+70]
+        SUBS     R1,R1,#+1
+        STRH     R1,[R0, #+70]
 // 2382   
 // 2383   /* Enable CRC Transmission */
 // 2384   if((hspi->RxXferCount == 1) && (hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE))
-        LDRH     R0,[R4, #+70]
-        CMP      R0,#+1
+        UXTH     R1,R1
+        CMP      R1,#+1
         BNE.N    ??SPI_RxISR_16BIT_0
-        LDR      R0,[R4, #+40]
+        LDR      R0,[R0, #+40]
         CMP      R0,#+8192
-        BNE.N    ??SPI_RxISR_16BIT_0
+        BNE.N    ??SPI_RxISR_16BIT_1
 // 2385   {
 // 2386     hspi->Instance->CR1 |= SPI_CR1_CRCNEXT;
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x1000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        B.N      ?Subroutine2
 // 2387   }
 // 2388   
 // 2389   if(hspi->RxXferCount == 0)
 ??SPI_RxISR_16BIT_0:
-        LDRH     R0,[R4, #+70]
-        CMP      R0,#+0
-        BNE.N    ??SPI_RxISR_16BIT_1
+        CBNZ.N   R1,??SPI_RxISR_16BIT_1
 // 2390   {    
 // 2391     if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
-        LDR      R0,[R4, #+40]
-        CMP      R0,#+8192
-        BNE.N    ??SPI_RxISR_16BIT_2
+        LDR      R1,[R0, #+40]
+        CMP      R1,#+8192
+        IT       NE 
 // 2392     {
 // 2393       hspi->RxISR = SPI_RxISR_16BITCRC;
-        LDR.N    R0,??DataTable2_1
-        STR      R0,[R4, #+76]
 // 2394       return;
-        B.N      ??SPI_RxISR_16BIT_3
 // 2395     }
 // 2396     SPI_CloseRx_ISR(hspi);
-??SPI_RxISR_16BIT_2:
-        MOVS     R0,R4
           CFI FunCall SPI_CloseRx_ISR
-        BL       SPI_CloseRx_ISR
+        BNE.W    SPI_CloseRx_ISR
+        LDR.N    R1,??DataTable1_1
+        STR      R1,[R0, #+76]
 // 2397   }
 // 2398 }
 ??SPI_RxISR_16BIT_1:
-??SPI_RxISR_16BIT_3:
-        POP      {R4,PC}          ;; return
-          CFI EndBlock cfiBlock42
+        BX       LR               ;; return
+          CFI EndBlock cfiBlock135
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable2:
+??DataTable1:
         DC32     SPI_RxISR_8BITCRC
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable2_1:
+??DataTable1_1:
         DC32     SPI_RxISR_16BITCRC
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock136 Using cfiCommon0
+          CFI NoFunction
+        THUMB
+?Subroutine2:
+        LDR      R0,[R2, #+0]
+        ORR      R0,R0,#0x1000
+        STR      R0,[R2, #+0]
+        BX       LR
+          CFI EndBlock cfiBlock136
 // 2399 
 // 2400 /**
 // 2401   * @brief  Handle the data 8Bit transmit in Interrupt mode
@@ -5738,58 +5925,51 @@ SPI_RxISR_16BIT:
 // 2404   * @retval None
 // 2405   */
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock43 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock137 Using cfiCommon0
           CFI Function SPI_TxISR_8BIT
         THUMB
 // 2406 static void SPI_TxISR_8BIT(struct __SPI_HandleTypeDef *hspi)
 // 2407 {
-SPI_TxISR_8BIT:
-        PUSH     {R4,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOVS     R4,R0
 // 2408   *(__IO uint8_t *)&hspi->Instance->DR = (*hspi->pTxBuffPtr++);
-        LDR      R0,[R4, #+56]
-        ADDS     R1,R0,#+1
-        STR      R1,[R4, #+56]
-        LDRB     R0,[R0, #+0]
-        LDR      R1,[R4, #+0]
-        STRB     R0,[R1, #+12]
+SPI_TxISR_8BIT:
+        ADD      R2,R0,#+56
+        LDR      R1,[R0, #+0]
+        LDR      R3,[R2, #+0]
+        ADDS     R3,R3,#+1
+        STR      R3,[R2, #+0]
+        SUBS     R3,R3,#+1
+        LDRB     R3,[R3, #+0]
+        STRB     R3,[R1, #+12]
 // 2409   hspi->TxXferCount--;
-        LDRH     R0,[R4, #+62]
-        SUBS     R0,R0,#+1
-        STRH     R0,[R4, #+62]
+        LDRH     R3,[R2, #+6]
+        SUBS     R3,R3,#+1
+        STRH     R3,[R2, #+6]
 // 2410   
 // 2411   if(hspi->TxXferCount == 0)
-        LDRH     R0,[R4, #+62]
-        CMP      R0,#+0
-        BNE.N    ??SPI_TxISR_8BIT_0
+        UXTH     R3,R3
+        CBNZ.N   R3,??SPI_TxISR_8BIT_0
 // 2412   {
 // 2413     if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
-        LDR      R0,[R4, #+40]
-        CMP      R0,#+8192
+        LDR      R2,[R0, #+40]
+        CMP      R2,#+8192
         BNE.N    ??SPI_TxISR_8BIT_1
 // 2414     {
 // 2415       /* Enable CRC Transmission */
 // 2416       hspi->Instance->CR1 |= SPI_CR1_CRCNEXT;
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x1000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        LDR      R2,[R1, #+0]
+        ORR      R2,R2,#0x1000
+        STR      R2,[R1, #+0]
 // 2417     }
 // 2418     SPI_CloseTx_ISR(hspi);
 ??SPI_TxISR_8BIT_1:
-        MOVS     R0,R4
           CFI FunCall SPI_CloseTx_ISR
-        BL       SPI_CloseTx_ISR
+        B.N      SPI_CloseTx_ISR
 // 2419   }
 // 2420 }
 ??SPI_TxISR_8BIT_0:
-        POP      {R4,PC}          ;; return
-          CFI EndBlock cfiBlock43
+        BX       LR               ;; return
+          CFI EndBlock cfiBlock137
 // 2421 
 // 2422 /**
 // 2423   * @brief  Handle the data 16Bit transmit in Interrupt mode
@@ -5798,61 +5978,50 @@ SPI_TxISR_8BIT:
 // 2426   * @retval None
 // 2427   */
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock44 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock138 Using cfiCommon0
           CFI Function SPI_TxISR_16BIT
         THUMB
 // 2428 static void SPI_TxISR_16BIT(struct __SPI_HandleTypeDef *hspi)
 // 2429 { 
-SPI_TxISR_16BIT:
-        PUSH     {R4,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOVS     R4,R0
 // 2430   /* Transmit data in 16 Bit mode */
 // 2431   hspi->Instance->DR = *((uint16_t *)hspi->pTxBuffPtr);
-        LDR      R0,[R4, #+56]
-        LDRH     R0,[R0, #+0]
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+12]
+SPI_TxISR_16BIT:
+        LDR      R1,[R0, #+56]
+        LDR      R2,[R0, #+0]
+        LDRH     R3,[R1], #+2
+        STR      R3,[R2, #+12]
 // 2432   hspi->pTxBuffPtr += sizeof(uint16_t);
-        LDR      R0,[R4, #+56]
-        ADDS     R0,R0,#+2
-        STR      R0,[R4, #+56]
+        STR      R1,[R0, #+56]
 // 2433   hspi->TxXferCount--;
-        LDRH     R0,[R4, #+62]
-        SUBS     R0,R0,#+1
-        STRH     R0,[R4, #+62]
+        LDRH     R1,[R0, #+62]
+        SUBS     R1,R1,#+1
+        STRH     R1,[R0, #+62]
 // 2434   
 // 2435   if(hspi->TxXferCount == 0)
-        LDRH     R0,[R4, #+62]
-        CMP      R0,#+0
-        BNE.N    ??SPI_TxISR_16BIT_0
+        UXTH     R1,R1
+        CBNZ.N   R1,??SPI_TxISR_16BIT_0
 // 2436   {
 // 2437     if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
-        LDR      R0,[R4, #+40]
-        CMP      R0,#+8192
+        LDR      R1,[R0, #+40]
+        CMP      R1,#+8192
         BNE.N    ??SPI_TxISR_16BIT_1
 // 2438     {
 // 2439       /* Enable CRC Transmission */
 // 2440       hspi->Instance->CR1 |= SPI_CR1_CRCNEXT;
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x1000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        LDR      R1,[R2, #+0]
+        ORR      R1,R1,#0x1000
+        STR      R1,[R2, #+0]
 // 2441     }
 // 2442     SPI_CloseTx_ISR(hspi);
 ??SPI_TxISR_16BIT_1:
-        MOVS     R0,R4
           CFI FunCall SPI_CloseTx_ISR
-        BL       SPI_CloseTx_ISR
+        B.N      SPI_CloseTx_ISR
 // 2443   }
 // 2444 }
 ??SPI_TxISR_16BIT_0:
-        POP      {R4,PC}          ;; return
-          CFI EndBlock cfiBlock44
+        BX       LR               ;; return
+          CFI EndBlock cfiBlock138
 // 2445 
 // 2446 /**
 // 2447   * @brief This function handles SPI Communication Timeout.
@@ -5865,7 +6034,7 @@ SPI_TxISR_16BIT:
 // 2454   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock45 Using cfiCommon0
+          CFI Block cfiBlock139 Using cfiCommon0
           CFI Function SPI_WaitFlagStateUntilTimeout
         THUMB
 // 2455 static HAL_StatusTypeDef SPI_WaitFlagStateUntilTimeout(SPI_HandleTypeDef *hspi, uint32_t Flag, uint32_t State, uint32_t Timeout)
@@ -5879,21 +6048,21 @@ SPI_WaitFlagStateUntilTimeout:
           CFI R5 Frame(CFA, -20)
           CFI R4 Frame(CFA, -24)
           CFI CFA R13+24
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
-        MOVS     R7,R3
+        MOV      R4,R0
+        MOV      R5,R1
+        MOV      R8,R2
+        MOV      R7,R3
 // 2457   uint32_t tickstart = HAL_GetTick();
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R8,R0
+        MOV      R6,R0
 // 2458 
 // 2459   while((hspi->Instance->SR & Flag) != State)
 ??SPI_WaitFlagStateUntilTimeout_0:
         LDR      R0,[R4, #+0]
         LDR      R0,[R0, #+8]
         ANDS     R0,R5,R0
-        CMP      R0,R6
+        CMP      R0,R8
         BEQ.N    ??SPI_WaitFlagStateUntilTimeout_1
 // 2460   {
 // 2461     if(Timeout != HAL_MAX_DELAY)
@@ -5901,11 +6070,10 @@ SPI_WaitFlagStateUntilTimeout:
         BEQ.N    ??SPI_WaitFlagStateUntilTimeout_0
 // 2462     {
 // 2463       if((Timeout == 0) || ((HAL_GetTick()-tickstart) >= Timeout))
-        CMP      R7,#+0
-        BEQ.N    ??SPI_WaitFlagStateUntilTimeout_2
+        CBZ.N    R7,??SPI_WaitFlagStateUntilTimeout_2
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUBS     R0,R0,R8
+        SUBS     R0,R0,R6
         CMP      R0,R7
         BCC.N    ??SPI_WaitFlagStateUntilTimeout_0
 // 2464       {
@@ -5916,78 +6084,48 @@ SPI_WaitFlagStateUntilTimeout:
 // 2469         /* Disable TXE, RXNE and ERR interrupts for the interrupt process */
 // 2470         __HAL_SPI_DISABLE_IT(hspi, (SPI_IT_TXE | SPI_IT_RXNE | SPI_IT_ERR));
 ??SPI_WaitFlagStateUntilTimeout_2:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0xE0
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+        BL       ?Subroutine15
 // 2471 
 // 2472         if((hspi->Init.Mode == SPI_MODE_MASTER)&&((hspi->Init.Direction == SPI_DIRECTION_1LINE)||(hspi->Init.Direction == SPI_DIRECTION_2LINES_RXONLY)))
-        LDR      R0,[R4, #+4]
-        CMP      R0,#+260
-        BNE.N    ??SPI_WaitFlagStateUntilTimeout_3
-        LDR      R0,[R4, #+8]
-        CMP      R0,#+32768
-        BEQ.N    ??SPI_WaitFlagStateUntilTimeout_4
-        LDR      R0,[R4, #+8]
-        CMP      R0,#+1024
-        BNE.N    ??SPI_WaitFlagStateUntilTimeout_3
+??CrossCallReturnLabel_23:
+        BNE.N    ??CrossCallReturnLabel_10
+        LDR      R1,[R4, #+8]
+        CMP      R1,#+32768
+        IT       NE 
+        CMPNE    R1,#+1024
+        BL       ?Subroutine12
 // 2473         {
 // 2474           /* Disable SPI peripheral */
 // 2475           __HAL_SPI_DISABLE(hspi);
-??SPI_WaitFlagStateUntilTimeout_4:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        BICS     R0,R0,#0x40
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
 // 2476         }
 // 2477 
 // 2478         /* Reset CRC Calculation */
 // 2479         if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
-??SPI_WaitFlagStateUntilTimeout_3:
-        LDR      R0,[R4, #+40]
-        CMP      R0,#+8192
-        BNE.N    ??SPI_WaitFlagStateUntilTimeout_5
+??CrossCallReturnLabel_10:
+        BL       ?Subroutine9
 // 2480         {
 // 2481           SPI_RESET_CRC(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        MOVW     R1,#+57343
-        ANDS     R0,R1,R0
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x2000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
 // 2482         }
 // 2483         
 // 2484         hspi->State= HAL_SPI_STATE_READY;
-??SPI_WaitFlagStateUntilTimeout_5:
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+93]
 // 2485         
 // 2486         /* Process Unlocked */
 // 2487         __HAL_UNLOCK(hspi);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+92]
 // 2488         
 // 2489         return HAL_TIMEOUT;
-        MOVS     R0,#+3
-        B.N      ??SPI_WaitFlagStateUntilTimeout_6
 // 2490       }
 // 2491     }
 // 2492   }
+??CrossCallReturnLabel_3:
+        B.N      ??SPI_WaitFlagStateUntilTimeout_3
 // 2493   
 // 2494   return HAL_OK;      
 ??SPI_WaitFlagStateUntilTimeout_1:
         MOVS     R0,#+0
-??SPI_WaitFlagStateUntilTimeout_6:
+??SPI_WaitFlagStateUntilTimeout_3:
         POP      {R4-R8,PC}       ;; return
 // 2495 }
-          CFI EndBlock cfiBlock45
+          CFI EndBlock cfiBlock139
 // 2496 
 // 2497 /**
 // 2498   * @brief This function handles SPI Communication Timeout.
@@ -6000,7 +6138,7 @@ SPI_WaitFlagStateUntilTimeout:
 // 2505   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock46 Using cfiCommon0
+          CFI Block cfiBlock140 Using cfiCommon0
           CFI Function SPI_WaitFifoStateUntilTimeout
         THUMB
 // 2506 static HAL_StatusTypeDef SPI_WaitFifoStateUntilTimeout(SPI_HandleTypeDef *hspi, uint32_t Fifo, uint32_t State, uint32_t Timeout)
@@ -6016,10 +6154,10 @@ SPI_WaitFifoStateUntilTimeout:
           CFI CFA R13+24
         SUB      SP,SP,#+8
           CFI CFA R13+32
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
-        MOVS     R7,R3
+        MOV      R4,R0
+        MOV      R5,R1
+        MOV      R6,R2
+        MOV      R7,R3
 // 2508   __IO uint8_t tmpreg;
 // 2509   uint32_t tickstart = HAL_GetTick();
           CFI FunCall HAL_GetTick
@@ -6029,19 +6167,18 @@ SPI_WaitFifoStateUntilTimeout:
 // 2511   while((hspi->Instance->SR & Fifo) != State)
 ??SPI_WaitFifoStateUntilTimeout_0:
         LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+8]
-        ANDS     R0,R5,R0
-        CMP      R0,R6
+        LDR      R1,[R0, #+8]
+        ANDS     R1,R5,R1
+        CMP      R1,R6
         BEQ.N    ??SPI_WaitFifoStateUntilTimeout_1
 // 2512   {
 // 2513     if((Fifo == SPI_SR_FRLVL) && (State == SPI_FRLVL_EMPTY))
         CMP      R5,#+1536
-        BNE.N    ??SPI_WaitFifoStateUntilTimeout_2
-        CMP      R6,#+0
+        IT       EQ 
+        CMPEQ    R6,#+0
         BNE.N    ??SPI_WaitFifoStateUntilTimeout_2
 // 2514     {
 // 2515       tmpreg = *((__IO uint8_t*)&hspi->Instance->DR);
-        LDR      R0,[R4, #+0]
         LDRB     R0,[R0, #+12]
         STRB     R0,[SP, #+0]
 // 2516       UNUSED(tmpreg); /* To avoid GCC warning */
@@ -6054,11 +6191,10 @@ SPI_WaitFifoStateUntilTimeout:
         BEQ.N    ??SPI_WaitFifoStateUntilTimeout_0
 // 2520     {
 // 2521       if((Timeout == 0) || ((HAL_GetTick()-tickstart) >= Timeout))
-        CMP      R7,#+0
-        BEQ.N    ??SPI_WaitFifoStateUntilTimeout_3
+        CBZ.N    R7,??SPI_WaitFifoStateUntilTimeout_3
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUBS     R0,R0,R8
+        SUB      R0,R0,R8
         CMP      R0,R7
         BCC.N    ??SPI_WaitFifoStateUntilTimeout_0
 // 2522       {
@@ -6069,78 +6205,169 @@ SPI_WaitFifoStateUntilTimeout:
 // 2527         /* Disable TXE, RXNE and ERR interrupts for the interrupt process */
 // 2528         __HAL_SPI_DISABLE_IT(hspi, (SPI_IT_TXE | SPI_IT_RXNE | SPI_IT_ERR));
 ??SPI_WaitFifoStateUntilTimeout_3:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0xE0
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+        BL       ?Subroutine15
 // 2529 
 // 2530         if((hspi->Init.Mode == SPI_MODE_MASTER)&&((hspi->Init.Direction == SPI_DIRECTION_1LINE)||(hspi->Init.Direction == SPI_DIRECTION_2LINES_RXONLY)))
-        LDR      R0,[R4, #+4]
-        CMP      R0,#+260
-        BNE.N    ??SPI_WaitFifoStateUntilTimeout_4
-        LDR      R0,[R4, #+8]
-        CMP      R0,#+32768
-        BEQ.N    ??SPI_WaitFifoStateUntilTimeout_5
-        LDR      R0,[R4, #+8]
-        CMP      R0,#+1024
-        BNE.N    ??SPI_WaitFifoStateUntilTimeout_4
+??CrossCallReturnLabel_24:
+        BNE.N    ??CrossCallReturnLabel_11
+        LDR      R1,[R4, #+8]
+        CMP      R1,#+32768
+        IT       NE 
+        CMPNE    R1,#+1024
+        BL       ?Subroutine12
 // 2531         {
 // 2532           /* Disable SPI peripheral */
 // 2533           __HAL_SPI_DISABLE(hspi);
-??SPI_WaitFifoStateUntilTimeout_5:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        BICS     R0,R0,#0x40
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
 // 2534         }
 // 2535 
 // 2536         /* Reset CRC Calculation */
 // 2537         if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
-??SPI_WaitFifoStateUntilTimeout_4:
-        LDR      R0,[R4, #+40]
-        CMP      R0,#+8192
-        BNE.N    ??SPI_WaitFifoStateUntilTimeout_6
+??CrossCallReturnLabel_11:
+        BL       ?Subroutine9
 // 2538         {
 // 2539           SPI_RESET_CRC(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        MOVW     R1,#+57343
-        ANDS     R0,R1,R0
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x2000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
 // 2540         }
 // 2541 
 // 2542         hspi->State = HAL_SPI_STATE_READY;
-??SPI_WaitFifoStateUntilTimeout_6:
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+93]
 // 2543 
 // 2544         /* Process Unlocked */
 // 2545         __HAL_UNLOCK(hspi);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+92]
 // 2546 
 // 2547         return HAL_TIMEOUT;
-        MOVS     R0,#+3
-        B.N      ??SPI_WaitFifoStateUntilTimeout_7
 // 2548       }
 // 2549     }
 // 2550   }
+??CrossCallReturnLabel_4:
+        B.N      ??SPI_WaitFifoStateUntilTimeout_4
 // 2551 
 // 2552   return HAL_OK;
 ??SPI_WaitFifoStateUntilTimeout_1:
         MOVS     R0,#+0
-??SPI_WaitFifoStateUntilTimeout_7:
+??SPI_WaitFifoStateUntilTimeout_4:
         POP      {R1,R2,R4-R8,PC}  ;; return
 // 2553 }
-          CFI EndBlock cfiBlock46
+          CFI EndBlock cfiBlock140
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond141 Using cfiCommon0
+          CFI Function SPI_WaitFlagStateUntilTimeout
+          CFI Conditional ??CrossCallReturnLabel_23
+          CFI R4 Frame(CFA, -24)
+          CFI R5 Frame(CFA, -20)
+          CFI R6 Frame(CFA, -16)
+          CFI R7 Frame(CFA, -12)
+          CFI R8 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+24
+          CFI Block cfiCond142 Using cfiCommon0
+          CFI (cfiCond142) Function SPI_WaitFifoStateUntilTimeout
+          CFI (cfiCond142) Conditional ??CrossCallReturnLabel_24
+          CFI (cfiCond142) R4 Frame(CFA, -24)
+          CFI (cfiCond142) R5 Frame(CFA, -20)
+          CFI (cfiCond142) R6 Frame(CFA, -16)
+          CFI (cfiCond142) R7 Frame(CFA, -12)
+          CFI (cfiCond142) R8 Frame(CFA, -8)
+          CFI (cfiCond142) R14 Frame(CFA, -4)
+          CFI (cfiCond142) CFA R13+32
+          CFI Block cfiPicker143 Using cfiCommon1
+          CFI (cfiPicker143) NoFunction
+          CFI (cfiPicker143) Picker
+        THUMB
+?Subroutine15:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+4]
+        BIC      R1,R1,#0xE0
+        STR      R1,[R0, #+4]
+        LDR      R1,[R4, #+4]
+        CMP      R1,#+260
+        BX       LR
+          CFI EndBlock cfiCond141
+          CFI EndBlock cfiCond142
+          CFI EndBlock cfiPicker143
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond144 Using cfiCommon0
+          CFI Function SPI_WaitFlagStateUntilTimeout
+          CFI Conditional ??CrossCallReturnLabel_10
+          CFI R4 Frame(CFA, -24)
+          CFI R5 Frame(CFA, -20)
+          CFI R6 Frame(CFA, -16)
+          CFI R7 Frame(CFA, -12)
+          CFI R8 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+24
+          CFI Block cfiCond145 Using cfiCommon0
+          CFI (cfiCond145) Function SPI_WaitFifoStateUntilTimeout
+          CFI (cfiCond145) Conditional ??CrossCallReturnLabel_11
+          CFI (cfiCond145) R4 Frame(CFA, -24)
+          CFI (cfiCond145) R5 Frame(CFA, -20)
+          CFI (cfiCond145) R6 Frame(CFA, -16)
+          CFI (cfiCond145) R7 Frame(CFA, -12)
+          CFI (cfiCond145) R8 Frame(CFA, -8)
+          CFI (cfiCond145) R14 Frame(CFA, -4)
+          CFI (cfiCond145) CFA R13+32
+          CFI Block cfiPicker146 Using cfiCommon1
+          CFI (cfiPicker146) NoFunction
+          CFI (cfiPicker146) Picker
+        THUMB
+?Subroutine12:
+        BNE.N    ??Subroutine12_0
+        LDR      R1,[R0, #+0]
+        BIC      R1,R1,#0x40
+        STR      R1,[R0, #+0]
+??Subroutine12_0:
+        BX       LR
+          CFI EndBlock cfiCond144
+          CFI EndBlock cfiCond145
+          CFI EndBlock cfiPicker146
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond147 Using cfiCommon0
+          CFI Function SPI_WaitFlagStateUntilTimeout
+          CFI Conditional ??CrossCallReturnLabel_3
+          CFI R4 Frame(CFA, -24)
+          CFI R5 Frame(CFA, -20)
+          CFI R6 Frame(CFA, -16)
+          CFI R7 Frame(CFA, -12)
+          CFI R8 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+24
+          CFI Block cfiCond148 Using cfiCommon0
+          CFI (cfiCond148) Function SPI_WaitFifoStateUntilTimeout
+          CFI (cfiCond148) Conditional ??CrossCallReturnLabel_4
+          CFI (cfiCond148) R4 Frame(CFA, -24)
+          CFI (cfiCond148) R5 Frame(CFA, -20)
+          CFI (cfiCond148) R6 Frame(CFA, -16)
+          CFI (cfiCond148) R7 Frame(CFA, -12)
+          CFI (cfiCond148) R8 Frame(CFA, -8)
+          CFI (cfiCond148) R14 Frame(CFA, -4)
+          CFI (cfiCond148) CFA R13+32
+          CFI Block cfiPicker149 Using cfiCommon1
+          CFI (cfiPicker149) NoFunction
+          CFI (cfiPicker149) Picker
+        THUMB
+?Subroutine9:
+        LDR      R1,[R4, #+40]
+        CMP      R1,#+8192
+        BNE.N    ??Subroutine9_0
+        LDR      R1,[R0, #+0]
+        MOVW     R2,#+57343
+        ANDS     R1,R2,R1
+        STR      R1,[R0, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x2000
+        STR      R1,[R0, #+0]
+??Subroutine9_0:
+        ADD      R0,R4,#+92
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+1]
+        MOVS     R1,#+0
+        STRB     R1,[R0, #+0]
+        MOVS     R0,#+3
+        BX       LR
+          CFI EndBlock cfiCond147
+          CFI EndBlock cfiCond148
+          CFI EndBlock cfiPicker149
 // 2554 
 // 2555 /**
 // 2556   * @brief This function handles the check of the RX transaction complete.
@@ -6151,8 +6378,9 @@ SPI_WaitFifoStateUntilTimeout:
 // 2561   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock47 Using cfiCommon0
+          CFI Block cfiBlock150 Using cfiCommon0
           CFI Function SPI_EndRxTransaction
+          CFI NoCalls
         THUMB
 // 2562 static HAL_StatusTypeDef SPI_EndRxTransaction(SPI_HandleTypeDef *hspi,  uint32_t Timeout)
 // 2563 {
@@ -6162,74 +6390,77 @@ SPI_EndRxTransaction:
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
           CFI CFA R13+16
-        MOVS     R4,R0
-        MOVS     R5,R1
+        MOV      R4,R0
+        MOV      R5,R1
 // 2564   if((hspi->Init.Mode == SPI_MODE_MASTER)&&((hspi->Init.Direction == SPI_DIRECTION_1LINE)||(hspi->Init.Direction == SPI_DIRECTION_2LINES_RXONLY)))
         LDR      R0,[R4, #+4]
         CMP      R0,#+260
-        BNE.N    ??SPI_EndRxTransaction_0
+        BNE.N    ??CrossCallReturnLabel_26
         LDR      R0,[R4, #+8]
         CMP      R0,#+32768
-        BEQ.N    ??SPI_EndRxTransaction_1
-        LDR      R0,[R4, #+8]
-        CMP      R0,#+1024
-        BNE.N    ??SPI_EndRxTransaction_0
+        IT       NE 
+        CMPNE    R0,#+1024
+        BNE.N    ??CrossCallReturnLabel_26
 // 2565   {
 // 2566     /* Disable SPI peripheral */
 // 2567     __HAL_SPI_DISABLE(hspi);
-??SPI_EndRxTransaction_1:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        BICS     R0,R0,#0x40
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        BL       ?Subroutine16
 // 2568   }
 // 2569   if(SPI_WaitFlagStateUntilTimeout(hspi, SPI_FLAG_BSY, RESET, Timeout) != HAL_OK)
-??SPI_EndRxTransaction_0:
-        MOVS     R3,R5
-        MOVS     R2,#+0
-        MOVS     R1,#+128
-        MOVS     R0,R4
-          CFI FunCall SPI_WaitFlagStateUntilTimeout
-        BL       SPI_WaitFlagStateUntilTimeout
-        CMP      R0,#+0
-        BEQ.N    ??SPI_EndRxTransaction_2
+??CrossCallReturnLabel_26:
+        BL       ?Subroutine20
+??CrossCallReturnLabel_35:
+        CBNZ.N   R0,??SPI_EndRxTransaction_0
 // 2570   {  
 // 2571     hspi->ErrorCode |= HAL_SPI_ERROR_FLAG;
-        LDR      R0,[R4, #+96]
-        ORRS     R0,R0,#0x20
-        STR      R0,[R4, #+96]
 // 2572     return HAL_TIMEOUT;
-        MOVS     R0,#+3
-        B.N      ??SPI_EndRxTransaction_3
 // 2573   }
 // 2574   if(SPI_WaitFifoStateUntilTimeout(hspi, SPI_FLAG_FRLVL, SPI_FRLVL_EMPTY, Timeout) != HAL_OK) 
-??SPI_EndRxTransaction_2:
-        MOVS     R3,R5
-        MOVS     R2,#+0
-        MOV      R1,#+1536
-        MOVS     R0,R4
-          CFI FunCall SPI_WaitFifoStateUntilTimeout
-        BL       SPI_WaitFifoStateUntilTimeout
-        CMP      R0,#+0
-        BEQ.N    ??SPI_EndRxTransaction_4
+        BL       ?Subroutine19
+??CrossCallReturnLabel_33:
+        CBZ.N    R0,??CrossCallReturnLabel_81
 // 2575   {
 // 2576     hspi->ErrorCode |= HAL_SPI_ERROR_FLAG;
-        LDR      R0,[R4, #+96]
-        ORRS     R0,R0,#0x20
-        STR      R0,[R4, #+96]
+??SPI_EndRxTransaction_0:
+        BL       ?Subroutine37
 // 2577     return HAL_TIMEOUT;
-        MOVS     R0,#+3
-        B.N      ??SPI_EndRxTransaction_3
 // 2578   }
 // 2579   
 // 2580   return HAL_OK;
-??SPI_EndRxTransaction_4:
-        MOVS     R0,#+0
-??SPI_EndRxTransaction_3:
+??CrossCallReturnLabel_81:
         POP      {R1,R4,R5,PC}    ;; return
 // 2581 }
-          CFI EndBlock cfiBlock47
+          CFI EndBlock cfiBlock150
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond151 Using cfiCommon0
+          CFI Function HAL_SPI_Init
+          CFI Conditional ??CrossCallReturnLabel_25
+          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -12)
+          CFI R6 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+16
+          CFI Block cfiCond152 Using cfiCommon0
+          CFI (cfiCond152) Function SPI_EndRxTransaction
+          CFI (cfiCond152) Conditional ??CrossCallReturnLabel_26
+          CFI (cfiCond152) R4 Frame(CFA, -12)
+          CFI (cfiCond152) R5 Frame(CFA, -8)
+          CFI (cfiCond152) R14 Frame(CFA, -4)
+          CFI (cfiCond152) CFA R13+16
+          CFI Block cfiPicker153 Using cfiCommon1
+          CFI (cfiPicker153) NoFunction
+          CFI (cfiPicker153) Picker
+        THUMB
+?Subroutine16:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+0]
+        BIC      R1,R1,#0x40
+        STR      R1,[R0, #+0]
+        BX       LR
+          CFI EndBlock cfiCond151
+          CFI EndBlock cfiCond152
+          CFI EndBlock cfiPicker153
 // 2582   
 // 2583 /**
 // 2584   * @brief This function handles the check of the RXTX or TX transaction complete.
@@ -6238,7 +6469,7 @@ SPI_EndRxTransaction:
 // 2587   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock48 Using cfiCommon0
+          CFI Block cfiBlock154 Using cfiCommon0
           CFI Function SPI_EndRxTxTransaction
         THUMB
 // 2588 static HAL_StatusTypeDef SPI_EndRxTxTransaction(SPI_HandleTypeDef *hspi, uint32_t Timeout)
@@ -6249,72 +6480,134 @@ SPI_EndRxTxTransaction:
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
           CFI CFA R13+16
-        MOVS     R4,R0
-        MOVS     R5,R1
+        MOV      R5,R1
+        MOV      R4,R0
 // 2590   /* Procedure to check the transaction complete */
 // 2591   if(SPI_WaitFifoStateUntilTimeout(hspi, SPI_FLAG_FTLVL, SPI_FTLVL_EMPTY, Timeout) != HAL_OK)
-        MOVS     R3,R5
+        MOV      R3,R5
         MOVS     R2,#+0
         MOV      R1,#+6144
-        MOVS     R0,R4
           CFI FunCall SPI_WaitFifoStateUntilTimeout
         BL       SPI_WaitFifoStateUntilTimeout
-        CMP      R0,#+0
-        BEQ.N    ??SPI_EndRxTxTransaction_0
+        CBNZ.N   R0,??SPI_EndRxTxTransaction_0
 // 2592   {
 // 2593     hspi->ErrorCode |= HAL_SPI_ERROR_FLAG;
-        LDR      R0,[R4, #+96]
-        ORRS     R0,R0,#0x20
-        STR      R0,[R4, #+96]
 // 2594     return HAL_TIMEOUT;
-        MOVS     R0,#+3
-        B.N      ??SPI_EndRxTxTransaction_1
 // 2595   }
 // 2596   if(SPI_WaitFlagStateUntilTimeout(hspi, SPI_FLAG_BSY, RESET, Timeout) != HAL_OK)
-??SPI_EndRxTxTransaction_0:
-        MOVS     R3,R5
-        MOVS     R2,#+0
-        MOVS     R1,#+128
-        MOVS     R0,R4
-          CFI FunCall SPI_WaitFlagStateUntilTimeout
-        BL       SPI_WaitFlagStateUntilTimeout
-        CMP      R0,#+0
-        BEQ.N    ??SPI_EndRxTxTransaction_2
+        BL       ?Subroutine20
+??CrossCallReturnLabel_34:
+        CBNZ.N   R0,??SPI_EndRxTxTransaction_0
 // 2597   {
 // 2598     hspi->ErrorCode |= HAL_SPI_ERROR_FLAG;
-        LDR      R0,[R4, #+96]
-        ORRS     R0,R0,#0x20
-        STR      R0,[R4, #+96]
 // 2599     return HAL_TIMEOUT;
-        MOVS     R0,#+3
-        B.N      ??SPI_EndRxTxTransaction_1
 // 2600   }
 // 2601   if(SPI_WaitFifoStateUntilTimeout(hspi, SPI_FLAG_FRLVL, SPI_FRLVL_EMPTY, Timeout) != HAL_OK)
-??SPI_EndRxTxTransaction_2:
-        MOVS     R3,R5
-        MOVS     R2,#+0
-        MOV      R1,#+1536
-        MOVS     R0,R4
-          CFI FunCall SPI_WaitFifoStateUntilTimeout
-        BL       SPI_WaitFifoStateUntilTimeout
-        CMP      R0,#+0
-        BEQ.N    ??SPI_EndRxTxTransaction_3
+        BL       ?Subroutine19
+??CrossCallReturnLabel_32:
+        CBZ.N    R0,??CrossCallReturnLabel_82
 // 2602   {
 // 2603     hspi->ErrorCode |= HAL_SPI_ERROR_FLAG;
-        LDR      R0,[R4, #+96]
-        ORRS     R0,R0,#0x20
-        STR      R0,[R4, #+96]
+??SPI_EndRxTxTransaction_0:
+        BL       ?Subroutine37
 // 2604     return HAL_TIMEOUT;
-        MOVS     R0,#+3
-        B.N      ??SPI_EndRxTxTransaction_1
 // 2605   }
 // 2606   return HAL_OK;
-??SPI_EndRxTxTransaction_3:
-        MOVS     R0,#+0
-??SPI_EndRxTxTransaction_1:
+??CrossCallReturnLabel_82:
         POP      {R1,R4,R5,PC}    ;; return
 // 2607 }
-          CFI EndBlock cfiBlock48
+          CFI EndBlock cfiBlock154
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond155 Using cfiCommon0
+          CFI Function SPI_EndRxTransaction
+          CFI Conditional ??CrossCallReturnLabel_81
+          CFI R4 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+16
+          CFI Block cfiCond156 Using cfiCommon0
+          CFI (cfiCond156) Function SPI_EndRxTxTransaction
+          CFI (cfiCond156) Conditional ??CrossCallReturnLabel_82
+          CFI (cfiCond156) R4 Frame(CFA, -12)
+          CFI (cfiCond156) R5 Frame(CFA, -8)
+          CFI (cfiCond156) R14 Frame(CFA, -4)
+          CFI (cfiCond156) CFA R13+16
+          CFI Block cfiPicker157 Using cfiCommon1
+          CFI (cfiPicker157) NoFunction
+          CFI (cfiPicker157) Picker
+        THUMB
+?Subroutine37:
+        LDR      R0,[R4, #+96]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+96]
+        MOVS     R0,#+3
+        BX       LR
+          CFI EndBlock cfiCond155
+          CFI EndBlock cfiCond156
+          CFI EndBlock cfiPicker157
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond158 Using cfiCommon0
+          CFI Function SPI_EndRxTransaction
+          CFI Conditional ??CrossCallReturnLabel_35
+          CFI R4 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+16
+          CFI Block cfiCond159 Using cfiCommon0
+          CFI (cfiCond159) Function SPI_EndRxTxTransaction
+          CFI (cfiCond159) Conditional ??CrossCallReturnLabel_34
+          CFI (cfiCond159) R4 Frame(CFA, -12)
+          CFI (cfiCond159) R5 Frame(CFA, -8)
+          CFI (cfiCond159) R14 Frame(CFA, -4)
+          CFI (cfiCond159) CFA R13+16
+          CFI Block cfiPicker160 Using cfiCommon1
+          CFI (cfiPicker160) NoFunction
+          CFI (cfiPicker160) Picker
+        THUMB
+?Subroutine20:
+        MOV      R3,R5
+        MOVS     R2,#+0
+        MOVS     R1,#+128
+        MOV      R0,R4
+          CFI (cfiCond158) FunCall SPI_EndRxTransaction SPI_WaitFlagStateUntilTimeout
+          CFI (cfiCond159) FunCall SPI_EndRxTxTransaction SPI_WaitFlagStateUntilTimeout
+        B.N      SPI_WaitFlagStateUntilTimeout
+          CFI EndBlock cfiCond158
+          CFI EndBlock cfiCond159
+          CFI EndBlock cfiPicker160
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond161 Using cfiCommon0
+          CFI Function SPI_EndRxTransaction
+          CFI Conditional ??CrossCallReturnLabel_33
+          CFI R4 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+16
+          CFI Block cfiCond162 Using cfiCommon0
+          CFI (cfiCond162) Function SPI_EndRxTxTransaction
+          CFI (cfiCond162) Conditional ??CrossCallReturnLabel_32
+          CFI (cfiCond162) R4 Frame(CFA, -12)
+          CFI (cfiCond162) R5 Frame(CFA, -8)
+          CFI (cfiCond162) R14 Frame(CFA, -4)
+          CFI (cfiCond162) CFA R13+16
+          CFI Block cfiPicker163 Using cfiCommon1
+          CFI (cfiPicker163) NoFunction
+          CFI (cfiPicker163) Picker
+        THUMB
+?Subroutine19:
+        MOV      R3,R5
+        MOVS     R2,#+0
+        MOV      R1,#+1536
+        MOV      R0,R4
+          CFI (cfiCond161) FunCall SPI_EndRxTransaction SPI_WaitFifoStateUntilTimeout
+          CFI (cfiCond162) FunCall SPI_EndRxTxTransaction SPI_WaitFifoStateUntilTimeout
+        B.N      SPI_WaitFifoStateUntilTimeout
+          CFI EndBlock cfiCond161
+          CFI EndBlock cfiCond162
+          CFI EndBlock cfiPicker163
 // 2608 
 // 2609 /**
 // 2610   * @brief This function handles the close of the RXTX transaction.
@@ -6324,100 +6617,84 @@ SPI_EndRxTxTransaction:
 // 2614   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock49 Using cfiCommon0
+          CFI Block cfiBlock164 Using cfiCommon0
           CFI Function SPI_CloseRxTx_ISR
         THUMB
 // 2615 static void SPI_CloseRxTx_ISR(SPI_HandleTypeDef *hspi)
 // 2616 {
 SPI_CloseRxTx_ISR:
-        PUSH     {R4,LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-        MOVS     R4,R0
 // 2617   /* Disable ERR interrupt */
 // 2618   __HAL_SPI_DISABLE_IT(hspi, SPI_IT_ERR);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0x20
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+        LDR      R1,[R0, #+0]
+        LDR      R2,[R1, #+4]
+        BIC      R2,R2,#0x20
+        STR      R2,[R1, #+4]
 // 2619 
 // 2620   /* Check if CRC error occurred */
 // 2621   if(__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_CRCERR) != RESET)
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+8]
-        LSLS     R0,R0,#+27
+        LDR      R2,[R0, #+96]
+        LDR      R3,[R1, #+8]
+        LSLS     R3,R3,#+27
         BPL.N    ??SPI_CloseRxTx_ISR_0
 // 2622   {
 // 2623     hspi->State = HAL_SPI_STATE_READY;
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+93]
 // 2624     hspi->ErrorCode|= HAL_SPI_ERROR_CRC;
-        LDR      R0,[R4, #+96]
-        ORRS     R0,R0,#0x2
-        STR      R0,[R4, #+96]
+        ORR      R2,R2,#0x2
+        MOVS     R3,#+1
+        STR      R2,[R0, #+96]
 // 2625     __HAL_SPI_CLEAR_CRCERRFLAG(hspi);
-        MOVW     R0,#+65519
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+8]
+        MOVW     R2,#+65519
+        STRB     R3,[R0, #+93]
+        STR      R2,[R1, #+8]
 // 2626     HAL_SPI_ErrorCallback(hspi);
-        MOVS     R0,R4
-          CFI FunCall HAL_SPI_ErrorCallback
-        BL       HAL_SPI_ErrorCallback
-        B.N      ??SPI_CloseRxTx_ISR_1
+        B.N      ??CrossCallReturnLabel_61
 // 2627   }
 // 2628   else
 // 2629   {
 // 2630     if(hspi->ErrorCode == HAL_SPI_ERROR_NONE)
 ??SPI_CloseRxTx_ISR_0:
-        LDR      R0,[R4, #+96]
-        CMP      R0,#+0
-        BNE.N    ??SPI_CloseRxTx_ISR_2
+        CBNZ.N   R2,??SPI_CloseRxTx_ISR_1
 // 2631     {
 // 2632       if(hspi->State == HAL_SPI_STATE_BUSY_RX)
-        LDRB     R0,[R4, #+93]
-        CMP      R0,#+4
-        BNE.N    ??SPI_CloseRxTx_ISR_3
+        LDRB     R1,[R0, #+93]
+        CMP      R1,#+4
+        BNE.N    ??SPI_CloseRxTx_ISR_2
 // 2633       {
 // 2634       	hspi->State = HAL_SPI_STATE_READY;
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+93]
+        BL       ?Subroutine30
 // 2635         HAL_SPI_RxCpltCallback(hspi);
-        MOVS     R0,R4
+??CrossCallReturnLabel_59:
           CFI FunCall HAL_SPI_RxCpltCallback
         BL       HAL_SPI_RxCpltCallback
-        B.N      ??SPI_CloseRxTx_ISR_1
+        POP      {R0,PC}
 // 2636       }
 // 2637       else
 // 2638       {
 // 2639       	hspi->State = HAL_SPI_STATE_READY;
-??SPI_CloseRxTx_ISR_3:
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+93]
+??SPI_CloseRxTx_ISR_2:
+        BL       ?Subroutine30
 // 2640         HAL_SPI_TxRxCpltCallback(hspi);
-        MOVS     R0,R4
+??CrossCallReturnLabel_60:
           CFI FunCall HAL_SPI_TxRxCpltCallback
         BL       HAL_SPI_TxRxCpltCallback
-        B.N      ??SPI_CloseRxTx_ISR_1
+        POP      {R0,PC}
 // 2641       }      
 // 2642     }
 // 2643     else
 // 2644     {
 // 2645       hspi->State = HAL_SPI_STATE_READY;
-??SPI_CloseRxTx_ISR_2:
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+93]
+??SPI_CloseRxTx_ISR_1:
+        BL       ?Subroutine30
 // 2646       HAL_SPI_ErrorCallback(hspi);
-        MOVS     R0,R4
-          CFI FunCall HAL_SPI_ErrorCallback
-        BL       HAL_SPI_ErrorCallback
 // 2647     }
 // 2648   }
+??CrossCallReturnLabel_61:
+        B.N      ?Subroutine4
 // 2649 }
-??SPI_CloseRxTx_ISR_1:
-        POP      {R4,PC}          ;; return
-          CFI EndBlock cfiBlock49
+          CFI EndBlock cfiBlock164
 // 2650 
 // 2651 /**
 // 2652   * @brief This function handles the close of the RX transaction.
@@ -6427,7 +6704,7 @@ SPI_CloseRxTx_ISR:
 // 2656   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock50 Using cfiCommon0
+          CFI Block cfiBlock165 Using cfiCommon0
           CFI Function SPI_CloseRx_ISR
         THUMB
 // 2657 static void SPI_CloseRx_ISR(SPI_HandleTypeDef *hspi)
@@ -6437,19 +6714,18 @@ SPI_CloseRx_ISR:
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-        MOVS     R4,R0
+        MOV      R4,R0
 // 2659     /* Disable RXNE and ERR interrupt */
 // 2660     __HAL_SPI_DISABLE_IT(hspi, (SPI_IT_RXNE | SPI_IT_ERR));
         LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0x60
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+        LDR      R1,[R0, #+4]
+        BIC      R1,R1,#0x60
+        STR      R1,[R0, #+4]
 // 2661     
 // 2662     /* Check the end of the transaction */
 // 2663     SPI_EndRxTransaction(hspi,SPI_DEFAULT_TIMEOUT);
         MOVS     R1,#+50
-        MOVS     R0,R4
+        MOV      R0,R4
           CFI FunCall SPI_EndRxTransaction
         BL       SPI_EndRxTransaction
 // 2664 
@@ -6459,52 +6735,71 @@ SPI_CloseRx_ISR:
 // 2666 
 // 2667     /* Check if CRC error occurred */
 // 2668     if(__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_CRCERR) != RESET)
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+8]
-        LSLS     R0,R0,#+27
+        LDR      R1,[R4, #+0]
+        LDR      R0,[R4, #+96]
+        LDR      R2,[R1, #+8]
+        LSLS     R2,R2,#+27
         BPL.N    ??SPI_CloseRx_ISR_0
 // 2669     {
 // 2670       hspi->ErrorCode|= HAL_SPI_ERROR_CRC;
-        LDR      R0,[R4, #+96]
-        ORRS     R0,R0,#0x2
-        STR      R0,[R4, #+96]
+        BL       ?Subroutine33
 // 2671       __HAL_SPI_CLEAR_CRCERRFLAG(hspi);
-        MOVW     R0,#+65519
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+8]
 // 2672       HAL_SPI_ErrorCallback(hspi);
-        MOVS     R0,R4
-          CFI FunCall HAL_SPI_ErrorCallback
-        BL       HAL_SPI_ErrorCallback
+??CrossCallReturnLabel_73:
+        MOV      R0,R4
         B.N      ??SPI_CloseRx_ISR_1
 // 2673     }
 // 2674     else
 // 2675     {
 // 2676       if(hspi->ErrorCode == HAL_SPI_ERROR_NONE)
 ??SPI_CloseRx_ISR_0:
-        LDR      R0,[R4, #+96]
         CMP      R0,#+0
-        BNE.N    ??SPI_CloseRx_ISR_2
+        MOV      R0,R4
+        BNE.N    ??SPI_CloseRx_ISR_1
 // 2677       {
 // 2678         HAL_SPI_RxCpltCallback(hspi);
-        MOVS     R0,R4
           CFI FunCall HAL_SPI_RxCpltCallback
         BL       HAL_SPI_RxCpltCallback
-        B.N      ??SPI_CloseRx_ISR_1
+        POP      {R4,PC}
 // 2679       }
 // 2680       else
 // 2681       {
 // 2682         HAL_SPI_ErrorCallback(hspi);
-??SPI_CloseRx_ISR_2:
-        MOVS     R0,R4
+??SPI_CloseRx_ISR_1:
           CFI FunCall HAL_SPI_ErrorCallback
         BL       HAL_SPI_ErrorCallback
 // 2683       }
 // 2684     }
 // 2685 }
-??SPI_CloseRx_ISR_1:
         POP      {R4,PC}          ;; return
-          CFI EndBlock cfiBlock50
+          CFI EndBlock cfiBlock165
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond166 Using cfiCommon0
+          CFI Function SPI_DMAReceiveCplt
+          CFI Conditional ??CrossCallReturnLabel_72
+          CFI R4 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+16
+          CFI Block cfiCond167 Using cfiCommon0
+          CFI (cfiCond167) Function SPI_CloseRx_ISR
+          CFI (cfiCond167) Conditional ??CrossCallReturnLabel_73
+          CFI (cfiCond167) R4 Frame(CFA, -8)
+          CFI (cfiCond167) R14 Frame(CFA, -4)
+          CFI (cfiCond167) CFA R13+8
+          CFI Block cfiPicker168 Using cfiCommon1
+          CFI (cfiPicker168) NoFunction
+          CFI (cfiPicker168) Picker
+        THUMB
+?Subroutine33:
+        ORR      R0,R0,#0x2
+        STR      R0,[R4, #+96]
+        MOVW     R0,#+65519
+        STR      R0,[R1, #+8]
+        BX       LR
+          CFI EndBlock cfiCond166
+          CFI EndBlock cfiCond167
+          CFI EndBlock cfiPicker168
 // 2686 
 // 2687 /**
 // 2688   * @brief This function handles the close of the TX transaction.
@@ -6514,70 +6809,92 @@ SPI_CloseRx_ISR:
 // 2692   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock51 Using cfiCommon0
+          CFI Block cfiBlock169 Using cfiCommon0
           CFI Function SPI_CloseTx_ISR
+          CFI NoCalls
         THUMB
 // 2693 static void SPI_CloseTx_ISR(SPI_HandleTypeDef *hspi)
 // 2694 {
 SPI_CloseTx_ISR:
-        PUSH     {R4,LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-        SUB      SP,SP,#+8
-          CFI CFA R13+16
-        MOVS     R4,R0
 // 2695   /* Disable TXE and ERR interrupt */
 // 2696   __HAL_SPI_DISABLE_IT(hspi, (SPI_IT_TXE | SPI_IT_ERR));
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+4]
-        BICS     R0,R0,#0xA0
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+4]
+        LDR      R1,[R0, #+0]
+        LDR      R2,[R1, #+4]
+        BIC      R2,R2,#0xA0
+        BL       ?Subroutine35
 // 2697 
 // 2698   /* Clear OVERUN flag in 2 Lines communication mode because received is not read */
 // 2699   if(hspi->Init.Direction == SPI_DIRECTION_2LINES)
-        LDR      R0,[R4, #+8]
-        CMP      R0,#+0
-        BNE.N    ??SPI_CloseTx_ISR_0
 // 2700   {
 // 2701     __HAL_SPI_CLEAR_OVRFLAG(hspi);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+12]
-        STR      R0,[SP, #+0]
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+8]
-        STR      R0,[SP, #+0]
-        LDR      R0,[SP, #+0]
 // 2702   }
 // 2703 
 // 2704   hspi->State = HAL_SPI_STATE_READY;
-??SPI_CloseTx_ISR_0:
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+93]
+??CrossCallReturnLabel_78:
+        BL       ?Subroutine30
 // 2705   if(hspi->ErrorCode != HAL_SPI_ERROR_NONE)
-        LDR      R0,[R4, #+96]
-        CMP      R0,#+0
-        BEQ.N    ??SPI_CloseTx_ISR_1
+??CrossCallReturnLabel_62:
+        LDR      R1,[R0, #+96]
+        CBZ.N    R1,??SPI_CloseTx_ISR_0
 // 2706   {
 // 2707     HAL_SPI_ErrorCallback(hspi);
-        MOVS     R0,R4
-          CFI FunCall HAL_SPI_ErrorCallback
-        BL       HAL_SPI_ErrorCallback
-        B.N      ??SPI_CloseTx_ISR_2
+        B.N      ?Subroutine4
 // 2708   }
 // 2709   else
 // 2710   {
 // 2711     HAL_SPI_TxCpltCallback(hspi);
-??SPI_CloseTx_ISR_1:
-        MOVS     R0,R4
-          CFI FunCall HAL_SPI_TxCpltCallback
-        BL       HAL_SPI_TxCpltCallback
+??SPI_CloseTx_ISR_0:
+          CFI EndBlock cfiBlock169
+        REQUIRE ?Subroutine3
+        ;; // Fall through to label ?Subroutine3
 // 2712   }
 // 2713 }
-??SPI_CloseTx_ISR_2:
-        POP      {R0,R1,R4,PC}    ;; return
-          CFI EndBlock cfiBlock51
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock170 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+8
+          CFI R14 Frame(CFA, -4)
+          CFI FunCall SPI_DMATransmitCplt HAL_SPI_TxCpltCallback
+          CFI FunCall SPI_CloseTx_ISR HAL_SPI_TxCpltCallback
+        THUMB
+?Subroutine3:
+        BL       HAL_SPI_TxCpltCallback
+        POP      {R0,PC}          ;; return
+          CFI EndBlock cfiBlock170
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond171 Using cfiCommon0
+          CFI Function SPI_DMATransmitCplt
+          CFI Conditional ??CrossCallReturnLabel_77
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+8
+          CFI Block cfiCond172 Using cfiCommon0
+          CFI (cfiCond172) Function SPI_CloseTx_ISR
+          CFI (cfiCond172) Conditional ??CrossCallReturnLabel_78
+          CFI (cfiCond172) R14 Frame(CFA, -4)
+          CFI (cfiCond172) CFA R13+8
+          CFI Block cfiPicker173 Using cfiCommon1
+          CFI (cfiPicker173) NoFunction
+          CFI (cfiPicker173) Picker
+        THUMB
+?Subroutine35:
+        STR      R2,[R1, #+4]
+        LDR      R2,[R0, #+8]
+        CBNZ.N   R2,??Subroutine35_0
+        LDR      R2,[R1, #+12]
+        STR      R2,[SP, #+0]
+        LDR      R1,[R1, #+8]
+        STR      R1,[SP, #+0]
+        LDR      R1,[SP, #+0]
+??Subroutine35_0:
+        BX       LR
+          CFI EndBlock cfiCond171
+          CFI EndBlock cfiCond172
+          CFI EndBlock cfiPicker173
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -6607,9 +6924,9 @@ SPI_CloseTx_ISR:
 // 2727 
 // 2728 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 6 770 bytes in section .text
+// 4 950 bytes in section .text
 // 
-// 6 770 bytes of CODE memory
+// 4 950 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

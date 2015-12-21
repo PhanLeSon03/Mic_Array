@@ -26,36 +26,17 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f7xx.h"
-#include "stm32f4xx_dac.h"
 #include "stm32f7xx_hal_gpio.h"
 #include "stm32f7xx_hal_gpio_ex.h"
 #include "stm32f7xx_hal_i2c.h"
 
-/** @addtogroup Utilities
-  * @{
-  */
-
-
-/** @addtogroup STM32F4_DISCOVERY
-  * @{
-  */
-    
-/** @defgroup STM32F4_DISCOVERY_AUDIO_CODEC 
-  * @{
-  */    
-
-
-/** @defgroup STM32F4_DISCOVERY_AUDIO_CODEC_Exported_Types
-  * @{
-  */
-
-/** @defgroup STM32F4_DISCOVERY_AUDIO_CODEC_Exported_Constants
-  * @{
-  */ 
 
 /*------------------------------------
              CONFIGURATION: Audio Codec Driver Configuration parameters
                                       ----------------------------------------*/
+#define AUDIO_FILE_SZE          (990000 -22*25000)
+#define AUIDO_START_ADDRESS     58 /* Offset relative to audio file header size */
+	  
 /* Audio Transfer mode (I2S Interrupt) */
 //#define I2S_INTERRUPT                 /* Uncomment this line to enable audio transfert with I2S interrupt*/ 
 

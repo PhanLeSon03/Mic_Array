@@ -2,7 +2,7 @@
 stlinkserialNo=391C0B1F
 stlinkfoundProbes=
 [DebugChecksum]
-Checksum=-1498390854
+Checksum=927582332
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -101,6 +101,11 @@ ShowTimeLog=1
 SumEnabled=0
 ShowTimeSum=1
 SumSortOrder=0
+[Disassemble mode]
+mode=0
+[Breakpoints2]
+Bp0=_ 0 "EMUL_DATA" "AudioFlashPlay" 0 0 0 0 4294967295
+Count=1
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -108,6 +113,9 @@ Category=_ 0
 [TermIOLog]
 LoggingEnabled=_ 0
 LogFile=_ ""
+[Aliases]
+Count=0
+SuppressDialog=0
 [DriverProfiling]
 Enabled=0
 Mode=3
@@ -118,12 +126,3 @@ Exclusions=
 Enabled=0
 [CallStackStripe]
 ShowTiming=1
-[Disassemble mode]
-mode=0
-[Breakpoints2]
-Bp0=_ 1 "EMUL_DATA" "AudioFlashPlay" 0 0 0 0 4294967295
-Bp1=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Src\waveplayer _CS43L22.c}.393.3" 0 0 1 "" 0 "" 0
-Count=2
-[Aliases]
-Count=0
-SuppressDialog=0

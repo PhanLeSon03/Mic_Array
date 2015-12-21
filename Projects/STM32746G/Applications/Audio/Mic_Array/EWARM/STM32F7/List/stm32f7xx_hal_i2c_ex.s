@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      21/Dec/2015  01:05:20
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      21/Dec/2015  22:48:16
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -16,10 +16,8 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-//        --no_clustering --no_scheduling --debug --endian=little
-//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-//        (x86)\IAR Systems\Embedded Workbench
+//        --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
+//        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
@@ -48,7 +46,7 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
-//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohz --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
@@ -112,6 +110,44 @@
           CFI D14 SameValue
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
+        
+        
+          CFI Common cfiCommon1 Using cfiNames0
+          CFI CodeAlign 2
+          CFI DataAlign 4
+          CFI ReturnAddress R14 CODE
+          CFI CFA R13+0
+          CFI R0 SameValue
+          CFI R1 SameValue
+          CFI R2 SameValue
+          CFI R3 SameValue
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 SameValue
+          CFI R14 SameValue
+          CFI D0 SameValue
+          CFI D1 SameValue
+          CFI D2 SameValue
+          CFI D3 SameValue
+          CFI D4 SameValue
+          CFI D5 SameValue
+          CFI D6 SameValue
+          CFI D7 SameValue
+          CFI D8 SameValue
+          CFI D9 SameValue
+          CFI D10 SameValue
+          CFI D11 SameValue
+          CFI D12 SameValue
+          CFI D13 SameValue
+          CFI D14 SameValue
+          CFI D15 SameValue
+          CFI EndCommon cfiCommon1
         
 // H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_i2c_ex.c
 //    1 /**
@@ -227,97 +263,74 @@
         THUMB
 //  106 HAL_StatusTypeDef HAL_I2CEx_ConfigAnalogFilter(I2C_HandleTypeDef *hi2c, uint32_t AnalogFilter)
 //  107 {
-HAL_I2CEx_ConfigAnalogFilter:
-        MOVS     R2,R0
 //  108   /* Check the parameters */
 //  109   assert_param(IS_I2C_ALL_INSTANCE(hi2c->Instance));
 //  110   assert_param(IS_I2C_ANALOG_FILTER(AnalogFilter));
 //  111   
 //  112   if((hi2c->State == HAL_I2C_STATE_BUSY) || (hi2c->State == HAL_I2C_STATE_MASTER_BUSY_TX) || (hi2c->State == HAL_I2C_STATE_MASTER_BUSY_RX)
 //  113      || (hi2c->State == HAL_I2C_STATE_SLAVE_BUSY_TX) || (hi2c->State == HAL_I2C_STATE_SLAVE_BUSY_RX))
-        LDRB     R0,[R2, #+53]
-        CMP      R0,#+2
+HAL_I2CEx_ConfigAnalogFilter:
+        ADD      R2,R0,#+52
+        PUSH     {R4,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        LDRB     R3,[R2, #+1]
+        CMP      R3,#+2
+        ITT      NE 
+        LDRBNE   R3,[R2, #+1]
+        CMPNE    R3,#+18
         BEQ.N    ??HAL_I2CEx_ConfigAnalogFilter_0
-        LDRB     R0,[R2, #+53]
-        CMP      R0,#+18
+        LDRB     R3,[R2, #+1]
+        CMP      R3,#+34
+        ITT      NE 
+        LDRBNE   R3,[R2, #+1]
+        CMPNE    R3,#+50
         BEQ.N    ??HAL_I2CEx_ConfigAnalogFilter_0
-        LDRB     R0,[R2, #+53]
-        CMP      R0,#+34
-        BEQ.N    ??HAL_I2CEx_ConfigAnalogFilter_0
-        LDRB     R0,[R2, #+53]
-        CMP      R0,#+50
-        BEQ.N    ??HAL_I2CEx_ConfigAnalogFilter_0
-        LDRB     R0,[R2, #+53]
-        CMP      R0,#+66
-        BNE.N    ??HAL_I2CEx_ConfigAnalogFilter_1
+        LDRB     R3,[R2, #+1]
+        CMP      R3,#+66
+        ITT      NE 
+        LDRBNE   R3,[R2, #+0]
+        CMPNE    R3,#+1
 //  114   {
 //  115     return HAL_BUSY;
-??HAL_I2CEx_ConfigAnalogFilter_0:
-        MOVS     R0,#+2
-        B.N      ??HAL_I2CEx_ConfigAnalogFilter_2
 //  116   }
 //  117   
 //  118   /* Process Locked */
 //  119   __HAL_LOCK(hi2c);
-??HAL_I2CEx_ConfigAnalogFilter_1:
-        LDRB     R0,[R2, #+52]
-        CMP      R0,#+1
-        BNE.N    ??HAL_I2CEx_ConfigAnalogFilter_3
+        BNE.N    ??HAL_I2CEx_ConfigAnalogFilter_1
+??HAL_I2CEx_ConfigAnalogFilter_0:
         MOVS     R0,#+2
-        B.N      ??HAL_I2CEx_ConfigAnalogFilter_2
-??HAL_I2CEx_ConfigAnalogFilter_3:
-        MOVS     R0,#+1
-        STRB     R0,[R2, #+52]
+        POP      {R4,PC}
+??HAL_I2CEx_ConfigAnalogFilter_1:
+        BL       ?Subroutine1
 //  120 
 //  121   hi2c->State = HAL_I2C_STATE_BUSY;
-        MOVS     R0,#+2
-        STRB     R0,[R2, #+53]
 //  122   
 //  123   /* Disable the selected I2C peripheral */
 //  124   __HAL_I2C_DISABLE(hi2c);    
-        LDR      R0,[R2, #+0]
-        LDR      R0,[R0, #+0]
-        LSRS     R0,R0,#+1
-        LSLS     R0,R0,#+1
-        LDR      R3,[R2, #+0]
-        STR      R0,[R3, #+0]
 //  125   
 //  126   /* Reset I2Cx ANOFF bit */
 //  127   hi2c->Instance->CR1 &= ~(I2C_CR1_ANFOFF);    
-        LDR      R0,[R2, #+0]
-        LDR      R0,[R0, #+0]
-        BICS     R0,R0,#0x1000
-        LDR      R3,[R2, #+0]
-        STR      R0,[R3, #+0]
+??CrossCallReturnLabel_0:
+        BIC      R4,R4,#0x1000
+        STR      R4,[R3, #+0]
 //  128   
 //  129   /* Set analog filter bit*/
 //  130   hi2c->Instance->CR1 |= AnalogFilter;
-        LDR      R0,[R2, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R1,R0
-        LDR      R3,[R2, #+0]
-        STR      R0,[R3, #+0]
+        LDR      R3,[R0, #+0]
+        LDR      R4,[R3, #+0]
+        ORRS     R1,R1,R4
+        B.N      ?Subroutine0
 //  131   
 //  132   __HAL_I2C_ENABLE(hi2c); 
-        LDR      R0,[R2, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x1
-        LDR      R3,[R2, #+0]
-        STR      R0,[R3, #+0]
 //  133   
 //  134   hi2c->State = HAL_I2C_STATE_READY;
-        MOVS     R0,#+1
-        STRB     R0,[R2, #+53]
 //  135   
 //  136   /* Process Unlocked */
 //  137   __HAL_UNLOCK(hi2c);
-        MOVS     R0,#+0
-        STRB     R0,[R2, #+52]
 //  138 
 //  139   return HAL_OK; 
-        MOVS     R0,#+0
-??HAL_I2CEx_ConfigAnalogFilter_2:
-        BX       LR               ;; return
 //  140 }
           CFI EndBlock cfiBlock0
 //  141 
@@ -336,13 +349,7 @@ HAL_I2CEx_ConfigAnalogFilter:
         THUMB
 //  149 HAL_StatusTypeDef HAL_I2CEx_ConfigDigitalFilter(I2C_HandleTypeDef *hi2c, uint32_t DigitalFilter)
 //  150 {
-HAL_I2CEx_ConfigDigitalFilter:
-        PUSH     {R4}
-          CFI R4 Frame(CFA, -4)
-          CFI CFA R13+4
-        MOVS     R2,R0
 //  151   uint32_t tmpreg = 0;
-        MOVS     R3,#+0
 //  152   
 //  153   /* Check the parameters */
 //  154   assert_param(IS_I2C_ALL_INSTANCE(hi2c->Instance));
@@ -350,97 +357,128 @@ HAL_I2CEx_ConfigDigitalFilter:
 //  156   
 //  157   if((hi2c->State == HAL_I2C_STATE_BUSY) || (hi2c->State == HAL_I2C_STATE_MASTER_BUSY_TX) || (hi2c->State == HAL_I2C_STATE_MASTER_BUSY_RX)
 //  158      || (hi2c->State == HAL_I2C_STATE_SLAVE_BUSY_TX) || (hi2c->State == HAL_I2C_STATE_SLAVE_BUSY_RX))
-        LDRB     R0,[R2, #+53]
-        CMP      R0,#+2
+HAL_I2CEx_ConfigDigitalFilter:
+        ADD      R2,R0,#+52
+        PUSH     {R4,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        LDRB     R3,[R2, #+1]
+        CMP      R3,#+2
+        ITT      NE 
+        LDRBNE   R3,[R2, #+1]
+        CMPNE    R3,#+18
         BEQ.N    ??HAL_I2CEx_ConfigDigitalFilter_0
-        LDRB     R0,[R2, #+53]
-        CMP      R0,#+18
+        LDRB     R3,[R2, #+1]
+        CMP      R3,#+34
+        ITT      NE 
+        LDRBNE   R3,[R2, #+1]
+        CMPNE    R3,#+50
         BEQ.N    ??HAL_I2CEx_ConfigDigitalFilter_0
-        LDRB     R0,[R2, #+53]
-        CMP      R0,#+34
-        BEQ.N    ??HAL_I2CEx_ConfigDigitalFilter_0
-        LDRB     R0,[R2, #+53]
-        CMP      R0,#+50
-        BEQ.N    ??HAL_I2CEx_ConfigDigitalFilter_0
-        LDRB     R0,[R2, #+53]
-        CMP      R0,#+66
-        BNE.N    ??HAL_I2CEx_ConfigDigitalFilter_1
+        LDRB     R3,[R2, #+1]
+        CMP      R3,#+66
+        ITT      NE 
+        LDRBNE   R3,[R2, #+0]
+        CMPNE    R3,#+1
 //  159   {
 //  160     return HAL_BUSY;
-??HAL_I2CEx_ConfigDigitalFilter_0:
-        MOVS     R0,#+2
-        B.N      ??HAL_I2CEx_ConfigDigitalFilter_2
 //  161   }
 //  162   
 //  163   /* Process Locked */
 //  164   __HAL_LOCK(hi2c);
-??HAL_I2CEx_ConfigDigitalFilter_1:
-        LDRB     R0,[R2, #+52]
-        CMP      R0,#+1
-        BNE.N    ??HAL_I2CEx_ConfigDigitalFilter_3
+        BNE.N    ??HAL_I2CEx_ConfigDigitalFilter_1
+??HAL_I2CEx_ConfigDigitalFilter_0:
         MOVS     R0,#+2
-        B.N      ??HAL_I2CEx_ConfigDigitalFilter_2
-??HAL_I2CEx_ConfigDigitalFilter_3:
-        MOVS     R0,#+1
-        STRB     R0,[R2, #+52]
+        POP      {R4,PC}
+??HAL_I2CEx_ConfigDigitalFilter_1:
+        BL       ?Subroutine1
 //  165 
 //  166   hi2c->State = HAL_I2C_STATE_BUSY;
-        MOVS     R0,#+2
-        STRB     R0,[R2, #+53]
 //  167   
 //  168   /* Disable the selected I2C peripheral */
 //  169   __HAL_I2C_DISABLE(hi2c);  
-        LDR      R0,[R2, #+0]
-        LDR      R0,[R0, #+0]
-        LSRS     R0,R0,#+1
-        LSLS     R0,R0,#+1
-        LDR      R4,[R2, #+0]
-        STR      R0,[R4, #+0]
 //  170   
 //  171   /* Get the old register value */
 //  172   tmpreg = hi2c->Instance->CR1;
-        LDR      R0,[R2, #+0]
-        LDR      R0,[R0, #+0]
-        MOVS     R3,R0
 //  173   
 //  174   /* Reset I2Cx DNF bits [11:8] */
 //  175   tmpreg &= ~(I2C_CR1_DFN);
-        BICS     R3,R3,#0xF00
 //  176   
 //  177   /* Set I2Cx DNF coefficient */
 //  178   tmpreg |= DigitalFilter << 8;
-        ORRS     R3,R3,R1, LSL #+8
 //  179   
 //  180   /* Store the new register value */
 //  181   hi2c->Instance->CR1 = tmpreg;
-        LDR      R0,[R2, #+0]
-        STR      R3,[R0, #+0]
+??CrossCallReturnLabel_1:
+        BIC      R4,R4,#0xF00
+        ORR      R1,R4,R1, LSL #+8
+          CFI EndBlock cfiBlock1
+        REQUIRE ?Subroutine0
+        ;; // Fall through to label ?Subroutine0
 //  182   
 //  183   __HAL_I2C_ENABLE(hi2c); 
-        LDR      R0,[R2, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x1
-        LDR      R4,[R2, #+0]
-        STR      R0,[R4, #+0]
 //  184   
 //  185   hi2c->State = HAL_I2C_STATE_READY;
-        MOVS     R0,#+1
-        STRB     R0,[R2, #+53]
 //  186   
 //  187   /* Process Unlocked */
 //  188   __HAL_UNLOCK(hi2c);
-        MOVS     R0,#+0
-        STRB     R0,[R2, #+52]
 //  189 
 //  190   return HAL_OK; 
-        MOVS     R0,#+0
-??HAL_I2CEx_ConfigDigitalFilter_2:
-        POP      {R4}
-          CFI R4 SameValue
-          CFI CFA R13+0
-        BX       LR               ;; return
 //  191 }  
-          CFI EndBlock cfiBlock1
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock2 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+8
+          CFI R4 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+        THUMB
+?Subroutine0:
+        STR      R1,[R3, #+0]
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x1
+        STR      R1,[R0, #+0]
+        MOVS     R0,#+1
+        STRB     R0,[R2, #+1]
+        MOVS     R0,#+0
+        STRB     R0,[R2, #+0]
+        POP      {R4,PC}          ;; return
+          CFI EndBlock cfiBlock2
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond3 Using cfiCommon0
+          CFI Function HAL_I2CEx_ConfigAnalogFilter
+          CFI Conditional ??CrossCallReturnLabel_0
+          CFI R4 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+8
+          CFI Block cfiCond4 Using cfiCommon0
+          CFI (cfiCond4) Function HAL_I2CEx_ConfigDigitalFilter
+          CFI (cfiCond4) Conditional ??CrossCallReturnLabel_1
+          CFI (cfiCond4) R4 Frame(CFA, -8)
+          CFI (cfiCond4) R14 Frame(CFA, -4)
+          CFI (cfiCond4) CFA R13+8
+          CFI Block cfiPicker5 Using cfiCommon1
+          CFI (cfiPicker5) NoFunction
+          CFI (cfiPicker5) Picker
+        THUMB
+?Subroutine1:
+        MOVS     R3,#+1
+        STRB     R3,[R2, #+0]
+        MOVS     R3,#+2
+        STRB     R3,[R2, #+1]
+        LDR      R3,[R0, #+0]
+        LDR      R4,[R3, #+0]
+        LSRS     R4,R4,#+1
+        LSLS     R4,R4,#+1
+        STR      R4,[R3, #+0]
+        LDR      R3,[R0, #+0]
+        LDR      R4,[R3, #+0]
+        BX       LR
+          CFI EndBlock cfiCond3
+          CFI EndBlock cfiCond4
+          CFI EndBlock cfiPicker5
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -474,9 +512,9 @@ HAL_I2CEx_ConfigDigitalFilter:
 //  209 
 //  210 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 266 bytes in section .text
+// 168 bytes in section .text
 // 
-// 266 bytes of CODE memory
+// 168 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

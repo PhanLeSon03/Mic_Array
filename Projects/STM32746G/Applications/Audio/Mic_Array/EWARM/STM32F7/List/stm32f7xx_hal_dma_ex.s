@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      21/Dec/2015  01:05:17
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      21/Dec/2015  22:48:13
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -16,10 +16,8 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-//        --no_clustering --no_scheduling --debug --endian=little
-//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-//        (x86)\IAR Systems\Embedded Workbench
+//        --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
+//        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
@@ -48,7 +46,7 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
-//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohz --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
@@ -113,6 +111,44 @@
           CFI D14 SameValue
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
+        
+        
+          CFI Common cfiCommon1 Using cfiNames0
+          CFI CodeAlign 2
+          CFI DataAlign 4
+          CFI ReturnAddress R14 CODE
+          CFI CFA R13+0
+          CFI R0 SameValue
+          CFI R1 SameValue
+          CFI R2 SameValue
+          CFI R3 SameValue
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R11 SameValue
+          CFI R12 SameValue
+          CFI R14 SameValue
+          CFI D0 SameValue
+          CFI D1 SameValue
+          CFI D2 SameValue
+          CFI D3 SameValue
+          CFI D4 SameValue
+          CFI D5 SameValue
+          CFI D6 SameValue
+          CFI D7 SameValue
+          CFI D8 SameValue
+          CFI D9 SameValue
+          CFI D10 SameValue
+          CFI D11 SameValue
+          CFI D12 SameValue
+          CFI D13 SameValue
+          CFI D14 SameValue
+          CFI D15 SameValue
+          CFI EndCommon cfiCommon1
         
 // H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_dma_ex.c
 //    1 /**
@@ -214,9 +250,10 @@
 //   91 static void DMA_MultiBufferSetConfig(DMA_HandleTypeDef *hdma, uint32_t SrcAddress, uint32_t DstAddress, uint32_t DataLength)
 //   92 {  
 DMA_MultiBufferSetConfig:
-        PUSH     {R4}
-          CFI R4 Frame(CFA, -4)
-          CFI CFA R13+4
+        PUSH     {R4,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
 //   93   /* Configure DMA Stream data length */
 //   94   hdma->Instance->NDTR = DataLength;
         LDR      R4,[R0, #+0]
@@ -224,41 +261,31 @@ DMA_MultiBufferSetConfig:
 //   95   
 //   96   /* Peripheral to Memory */
 //   97   if((hdma->Init.Direction) == DMA_MEMORY_TO_PERIPH)
-        LDR      R4,[R0, #+8]
-        CMP      R4,#+64
-        BNE.N    ??DMA_MultiBufferSetConfig_0
+        LDR      R0,[R0, #+8]
+        CMP      R0,#+64
+        ITTEE    EQ 
+        STREQ    R2,[R4, #+8]
+        STREQ    R1,[R4, #+12]
+        STRNE    R1,[R4, #+8]
+        STRNE    R2,[R4, #+12]
 //   98   {   
 //   99     /* Configure DMA Stream destination address */
 //  100     hdma->Instance->PAR = DstAddress;
-        LDR      R4,[R0, #+0]
-        STR      R2,[R4, #+8]
 //  101     
 //  102     /* Configure DMA Stream source address */
 //  103     hdma->Instance->M0AR = SrcAddress;
-        LDR      R4,[R0, #+0]
-        STR      R1,[R4, #+12]
-        B.N      ??DMA_MultiBufferSetConfig_1
 //  104   }
 //  105   /* Memory to Peripheral */
 //  106   else
 //  107   {
 //  108     /* Configure DMA Stream source address */
 //  109     hdma->Instance->PAR = SrcAddress;
-??DMA_MultiBufferSetConfig_0:
-        LDR      R4,[R0, #+0]
-        STR      R1,[R4, #+8]
 //  110     
 //  111     /* Configure DMA Stream destination address */
 //  112     hdma->Instance->M0AR = DstAddress;
-        LDR      R4,[R0, #+0]
-        STR      R2,[R4, #+12]
+        POP      {R4,PC}
 //  113   }
 //  114 }
-??DMA_MultiBufferSetConfig_1:
-        POP      {R4}
-          CFI R4 SameValue
-          CFI CFA R13+0
-        BX       LR               ;; return
           CFI EndBlock cfiBlock0
 //  115 
 //  116 /**
@@ -304,57 +331,40 @@ DMA_MultiBufferSetConfig:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock1 Using cfiCommon0
           CFI Function HAL_DMAEx_MultiBufferStart
+          CFI NoCalls
         THUMB
 //  155 HAL_StatusTypeDef HAL_DMAEx_MultiBufferStart(DMA_HandleTypeDef *hdma, uint32_t SrcAddress, uint32_t DstAddress, uint32_t SecondMemAddress, uint32_t DataLength)
 //  156 {
 HAL_DMAEx_MultiBufferStart:
-        PUSH     {R4-R8,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R8 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -20)
-          CFI R4 Frame(CFA, -24)
-          CFI CFA R13+24
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
-        MOVS     R7,R3
-        LDR      R8,[SP, #+24]
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
+        BL       ?Subroutine2
 //  157   /* Process Locked */
 //  158   __HAL_LOCK(hdma);
-        LDRB     R0,[R4, #+52]
-        CMP      R0,#+1
+??CrossCallReturnLabel_2:
         BNE.N    ??HAL_DMAEx_MultiBufferStart_0
         MOVS     R0,#+2
-        B.N      ??HAL_DMAEx_MultiBufferStart_1
+        POP      {R4-R6,PC}
 ??HAL_DMAEx_MultiBufferStart_0:
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+52]
+        BL       ?Subroutine3
 //  159 
 //  160   /* Current memory buffer used is Memory 0 */
 //  161   if((hdma->Instance->CR & DMA_SxCR_CT) == 0)
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+12
-        BMI.N    ??HAL_DMAEx_MultiBufferStart_2
+??CrossCallReturnLabel_4:
+        IT       PL 
+        MOVPL    R6,#+18
 //  162   {
 //  163     hdma->State = HAL_DMA_STATE_BUSY_MEM0;
-        MOVS     R0,#+18
-        STRB     R0,[R4, #+53]
-        B.N      ??HAL_DMAEx_MultiBufferStart_3
+        BL       ?Subroutine1
 //  164   }
 //  165   /* Current memory buffer used is Memory 1 */
 //  166   else if((hdma->Instance->CR & DMA_SxCR_CT) != 0)
-??HAL_DMAEx_MultiBufferStart_2:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+12
-        BPL.N    ??HAL_DMAEx_MultiBufferStart_3
 //  167   {
 //  168     hdma->State = HAL_DMA_STATE_BUSY_MEM1;
-        MOVS     R0,#+34
-        STRB     R0,[R4, #+53]
 //  169   }
 //  170 
 //  171    /* Check the parameters */
@@ -362,48 +372,22 @@ HAL_DMAEx_MultiBufferStart:
 //  173 
 //  174   /* Disable the peripheral */
 //  175   __HAL_DMA_DISABLE(hdma);  
-??HAL_DMAEx_MultiBufferStart_3:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        LSRS     R0,R0,#+1
-        LSLS     R0,R0,#+1
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
 //  176 
 //  177   /* Enable the double buffer mode */
 //  178   hdma->Instance->CR |= (uint32_t)DMA_SxCR_DBM;
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x40000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
 //  179 
 //  180   /* Configure DMA Stream destination address */
 //  181   hdma->Instance->M1AR = SecondMemAddress;
-        LDR      R0,[R4, #+0]
-        STR      R7,[R0, #+16]
 //  182 
 //  183   /* Configure the source, destination address and the data length */
 //  184   DMA_MultiBufferSetConfig(hdma, SrcAddress, DstAddress, DataLength);
-        MOV      R3,R8
-        MOVS     R2,R6
-        MOVS     R1,R5
-        MOVS     R0,R4
-          CFI FunCall DMA_MultiBufferSetConfig
-        BL       DMA_MultiBufferSetConfig
 //  185 
 //  186   /* Enable the peripheral */
 //  187   __HAL_DMA_ENABLE(hdma);
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x1
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+??CrossCallReturnLabel_1:
+        B.N      ?Subroutine0
 //  188 
 //  189   return HAL_OK;
-        MOVS     R0,#+0
-??HAL_DMAEx_MultiBufferStart_1:
-        POP      {R4-R8,PC}       ;; return
 //  190 }
           CFI EndBlock cfiBlock1
 //  191 
@@ -421,57 +405,40 @@ HAL_DMAEx_MultiBufferStart:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock2 Using cfiCommon0
           CFI Function HAL_DMAEx_MultiBufferStart_IT
+          CFI NoCalls
         THUMB
 //  202 HAL_StatusTypeDef HAL_DMAEx_MultiBufferStart_IT(DMA_HandleTypeDef *hdma, uint32_t SrcAddress, uint32_t DstAddress, uint32_t SecondMemAddress, uint32_t DataLength)
 //  203 {
 HAL_DMAEx_MultiBufferStart_IT:
-        PUSH     {R4-R8,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R8 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -20)
-          CFI R4 Frame(CFA, -24)
-          CFI CFA R13+24
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
-        MOVS     R7,R3
-        LDR      R8,[SP, #+24]
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
+        BL       ?Subroutine2
 //  204   /* Process Locked */
 //  205   __HAL_LOCK(hdma);
-        LDRB     R0,[R4, #+52]
-        CMP      R0,#+1
+??CrossCallReturnLabel_3:
         BNE.N    ??HAL_DMAEx_MultiBufferStart_IT_0
         MOVS     R0,#+2
-        B.N      ??HAL_DMAEx_MultiBufferStart_IT_1
+        POP      {R4-R6,PC}
 ??HAL_DMAEx_MultiBufferStart_IT_0:
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+52]
+        BL       ?Subroutine3
 //  206 
 //  207   /* Current memory buffer used is Memory 0 */
 //  208   if((hdma->Instance->CR & DMA_SxCR_CT) == 0)
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+12
-        BMI.N    ??HAL_DMAEx_MultiBufferStart_IT_2
+??CrossCallReturnLabel_5:
+        IT       PL 
+        MOVPL    R6,#+18
 //  209   {
 //  210     hdma->State = HAL_DMA_STATE_BUSY_MEM0;
-        MOVS     R0,#+18
-        STRB     R0,[R4, #+53]
-        B.N      ??HAL_DMAEx_MultiBufferStart_IT_3
+        BL       ?Subroutine1
 //  211   }
 //  212   /* Current memory buffer used is Memory 1 */
 //  213   else if((hdma->Instance->CR & DMA_SxCR_CT) != 0)
-??HAL_DMAEx_MultiBufferStart_IT_2:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+12
-        BPL.N    ??HAL_DMAEx_MultiBufferStart_IT_3
 //  214   {
 //  215     hdma->State = HAL_DMA_STATE_BUSY_MEM1;
-        MOVS     R0,#+34
-        STRB     R0,[R4, #+53]
 //  216   }
 //  217 
 //  218   /* Check the parameters */
@@ -479,90 +446,190 @@ HAL_DMAEx_MultiBufferStart_IT:
 //  220 
 //  221   /* Disable the peripheral */
 //  222   __HAL_DMA_DISABLE(hdma);  
-??HAL_DMAEx_MultiBufferStart_IT_3:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        LSRS     R0,R0,#+1
-        LSLS     R0,R0,#+1
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
 //  223 
 //  224   /* Enable the Double buffer mode */
 //  225   hdma->Instance->CR |= (uint32_t)DMA_SxCR_DBM;
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x40000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
 //  226 
 //  227   /* Configure DMA Stream destination address */
 //  228   hdma->Instance->M1AR = SecondMemAddress;
-        LDR      R0,[R4, #+0]
-        STR      R7,[R0, #+16]
 //  229 
 //  230   /* Configure the source, destination address and the data length */
 //  231   DMA_MultiBufferSetConfig(hdma, SrcAddress, DstAddress, DataLength); 
-        MOV      R3,R8
-        MOVS     R2,R6
-        MOVS     R1,R5
-        MOVS     R0,R4
-          CFI FunCall DMA_MultiBufferSetConfig
-        BL       DMA_MultiBufferSetConfig
 //  232 
 //  233   /* Enable the transfer complete interrupt */
 //  234   __HAL_DMA_ENABLE_IT(hdma, DMA_IT_TC);
+??CrossCallReturnLabel_0:
         LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x10
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x10
+        STR      R1,[R0, #+0]
 //  235 
 //  236   /* Enable the Half transfer interrupt */
 //  237   __HAL_DMA_ENABLE_IT(hdma, DMA_IT_HT);
         LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x8
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x8
+        STR      R1,[R0, #+0]
 //  238 
 //  239   /* Enable the transfer Error interrupt */
 //  240   __HAL_DMA_ENABLE_IT(hdma, DMA_IT_TE);
         LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x4
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x4
+        STR      R1,[R0, #+0]
 //  241 
 //  242   /* Enable the fifo Error interrupt */
 //  243   __HAL_DMA_ENABLE_IT(hdma, DMA_IT_FE);  
         LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+20]
-        ORRS     R0,R0,#0x80
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+20]
+        LDR      R1,[R0, #+20]
+        ORR      R1,R1,#0x80
+        STR      R1,[R0, #+20]
 //  244 
 //  245   /* Enable the direct mode Error interrupt */
 //  246   __HAL_DMA_ENABLE_IT(hdma, DMA_IT_DME); 
         LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x2
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x2
+        STR      R1,[R0, #+0]
 //  247 
 //  248   /* Enable the peripheral */
 //  249   __HAL_DMA_ENABLE(hdma); 
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x1
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+          CFI EndBlock cfiBlock2
+        REQUIRE ?Subroutine0
+        ;; // Fall through to label ?Subroutine0
 //  250 
 //  251   return HAL_OK; 
-        MOVS     R0,#+0
-??HAL_DMAEx_MultiBufferStart_IT_1:
-        POP      {R4-R8,PC}       ;; return
 //  252 }
-          CFI EndBlock cfiBlock2
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock3 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+16
+          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -12)
+          CFI R6 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+        THUMB
+?Subroutine0:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x1
+        STR      R1,[R0, #+0]
+        MOVS     R0,#+0
+        POP      {R4-R6,PC}       ;; return
+          CFI EndBlock cfiBlock3
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond4 Using cfiCommon0
+          CFI Function HAL_DMAEx_MultiBufferStart
+          CFI Conditional ??CrossCallReturnLabel_4
+          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -12)
+          CFI R6 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+16
+          CFI Block cfiCond5 Using cfiCommon0
+          CFI (cfiCond5) Function HAL_DMAEx_MultiBufferStart_IT
+          CFI (cfiCond5) Conditional ??CrossCallReturnLabel_5
+          CFI (cfiCond5) R4 Frame(CFA, -16)
+          CFI (cfiCond5) R5 Frame(CFA, -12)
+          CFI (cfiCond5) R6 Frame(CFA, -8)
+          CFI (cfiCond5) R14 Frame(CFA, -4)
+          CFI (cfiCond5) CFA R13+16
+          CFI Block cfiPicker6 Using cfiCommon1
+          CFI (cfiPicker6) NoFunction
+          CFI (cfiPicker6) Picker
+        THUMB
+?Subroutine3:
+        MOVS     R5,#+1
+        STRB     R5,[R0, #+0]
+        LDR      R5,[R4, #+0]
+        LDR      R6,[R5, #+0]
+        LSLS     R6,R6,#+12
+        BX       LR
+          CFI EndBlock cfiCond4
+          CFI EndBlock cfiCond5
+          CFI EndBlock cfiPicker6
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond7 Using cfiCommon0
+          CFI Function HAL_DMAEx_MultiBufferStart
+          CFI Conditional ??CrossCallReturnLabel_2
+          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -12)
+          CFI R6 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+16
+          CFI Block cfiCond8 Using cfiCommon0
+          CFI (cfiCond8) Function HAL_DMAEx_MultiBufferStart_IT
+          CFI (cfiCond8) Conditional ??CrossCallReturnLabel_3
+          CFI (cfiCond8) R4 Frame(CFA, -16)
+          CFI (cfiCond8) R5 Frame(CFA, -12)
+          CFI (cfiCond8) R6 Frame(CFA, -8)
+          CFI (cfiCond8) R14 Frame(CFA, -4)
+          CFI (cfiCond8) CFA R13+16
+          CFI Block cfiPicker9 Using cfiCommon1
+          CFI (cfiPicker9) NoFunction
+          CFI (cfiPicker9) Picker
+        THUMB
+?Subroutine2:
+        MOV      R4,R0
+        ADD      R0,R4,#+52
+        LDRB     R5,[R0, #+0]
+        CMP      R5,#+1
+        BX       LR
+          CFI EndBlock cfiCond7
+          CFI EndBlock cfiCond8
+          CFI EndBlock cfiPicker9
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiCond10 Using cfiCommon0
+          CFI Function HAL_DMAEx_MultiBufferStart
+          CFI Conditional ??CrossCallReturnLabel_1
+          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -12)
+          CFI R6 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+16
+          CFI Block cfiCond11 Using cfiCommon0
+          CFI (cfiCond11) Function HAL_DMAEx_MultiBufferStart_IT
+          CFI (cfiCond11) Conditional ??CrossCallReturnLabel_0
+          CFI (cfiCond11) R4 Frame(CFA, -16)
+          CFI (cfiCond11) R5 Frame(CFA, -12)
+          CFI (cfiCond11) R6 Frame(CFA, -8)
+          CFI (cfiCond11) R14 Frame(CFA, -4)
+          CFI (cfiCond11) CFA R13+16
+          CFI Block cfiPicker12 Using cfiCommon1
+          CFI (cfiPicker12) NoFunction
+          CFI (cfiPicker12) Picker
+        THUMB
+?Subroutine1:
+        BPL.N    ??Subroutine1_0
+        LDR      R6,[R5, #+0]
+        LSLS     R6,R6,#+12
+        BPL.N    ??Subroutine1_1
+        MOVS     R6,#+34
+??Subroutine1_0:
+        STRB     R6,[R0, #+1]
+??Subroutine1_1:
+        LDR      R0,[R5, #+0]
+        LSRS     R0,R0,#+1
+        LSLS     R0,R0,#+1
+        STR      R0,[R5, #+0]
+        LDR      R0,[R4, #+0]
+        LDR      R5,[R0, #+0]
+        ORR      R5,R5,#0x40000
+        STR      R5,[R0, #+0]
+        LDR      R0,[R4, #+0]
+        STR      R3,[R0, #+16]
+        LDR      R3,[SP, #+16]
+        MOV      R0,R4
+          CFI (cfiCond10) FunCall HAL_DMAEx_MultiBufferStart DMA_MultiBufferSetConfig
+          CFI (cfiCond11) FunCall HAL_DMAEx_MultiBufferStart_IT DMA_MultiBufferSetConfig
+        B.N      DMA_MultiBufferSetConfig
+          CFI EndBlock cfiCond10
+          CFI EndBlock cfiCond11
+          CFI EndBlock cfiPicker12
 //  253 
 //  254 /**
 //  255   * @brief  Change the memory0 or memory1 address on the fly.
@@ -580,40 +647,34 @@ HAL_DMAEx_MultiBufferStart_IT:
 //  267   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock3 Using cfiCommon0
+          CFI Block cfiBlock13 Using cfiCommon0
           CFI Function HAL_DMAEx_ChangeMemory
           CFI NoCalls
         THUMB
 //  268 HAL_StatusTypeDef HAL_DMAEx_ChangeMemory(DMA_HandleTypeDef *hdma, uint32_t Address, HAL_DMA_MemoryTypeDef memory)
 //  269 {
-HAL_DMAEx_ChangeMemory:
-        MOVS     R3,R0
 //  270   if(memory == MEMORY0)
-        UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+HAL_DMAEx_ChangeMemory:
+        LDR      R0,[R0, #+0]
         CMP      R2,#+0
-        BNE.N    ??HAL_DMAEx_ChangeMemory_0
+        ITE      EQ 
+        STREQ    R1,[R0, #+12]
+        STRNE    R1,[R0, #+16]
 //  271   {
 //  272     /* change the memory0 address */
 //  273     hdma->Instance->M0AR = Address;
-        LDR      R0,[R3, #+0]
-        STR      R1,[R0, #+12]
-        B.N      ??HAL_DMAEx_ChangeMemory_1
 //  274   }
 //  275   else
 //  276   {
 //  277     /* change the memory1 address */
 //  278     hdma->Instance->M1AR = Address;
-??HAL_DMAEx_ChangeMemory_0:
-        LDR      R0,[R3, #+0]
-        STR      R1,[R0, #+16]
 //  279   }
 //  280 
 //  281   return HAL_OK;
-??HAL_DMAEx_ChangeMemory_1:
         MOVS     R0,#+0
         BX       LR               ;; return
 //  282 }
-          CFI EndBlock cfiBlock3
+          CFI EndBlock cfiBlock13
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -647,9 +708,9 @@ HAL_DMAEx_ChangeMemory:
 //  300 
 //  301 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 360 bytes in section .text
+// 214 bytes in section .text
 // 
-// 360 bytes of CODE memory
+// 214 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none
