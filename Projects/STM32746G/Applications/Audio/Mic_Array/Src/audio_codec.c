@@ -103,7 +103,7 @@
 
  /* This is an audio file stored in the Flash memory as a constant table of 16-bit data.
     The audio format should be WAV (raw / PCM) 16-bits, Stereo (sampling rate may be modified) */
-//extern const uint16_t AUDIO_SAMPLE[];
+extern const uint16_t AUDIO_SAMPLE[];
 /* Audio file size and start address are defined here since the audio file is 
     stored in Flash memory as a constant table of 16-bit data */
 
@@ -828,19 +828,7 @@ static uint32_t Codec_WriteRegister(uint8_t RegisterAddr, uint8_t RegisterValue)
 
   }
   
-  // while(HAL_I2C_Master_Transmit(&hi2c1, CODEC_ADDRESS, &bufI2C[1],1,CODEC_LONG_TIMEOUT)!= HAL_OK)//CODEC_LONG_TIMEOUT
-  //{
-	/* Error_Handler() function is called when Timeout error occurs.
-	When Acknowledge failure occurs (Slave don't acknowledge its address)
-	Master restarts communication */
-  //  if (HAL_I2C_GetError(&hi2c1) != HAL_I2C_ERROR_AF)
-  //  {
-
-  //    return Codec_TIMEOUT_UserCallback();
-  //  }  
-
-  //}
-  
+   
 #ifdef VERIFY_WRITTENDATA
   /* Verify that the data has been correctly written */ 
   uint8_t test;
@@ -955,7 +943,7 @@ static void Codec_AudioInterface_Init(uint32_t AudioFreq)
   /* Initialize the I2S peripheral with the structure above */
   HAL_I2S_Init(&hi2s3);
  
-  __HAL_I2S_ENABLE(&hi2s3);
+ // __HAL_I2S_ENABLE(&hi2s3);
   
 
   /* The I2S peripheral will be enabled only in the AUDIO_Play() function 
@@ -1140,18 +1128,21 @@ static void Audio_MAL_PauseResume(uint32_t Cmd, uint32_t Addr)
 static void Audio_MAL_Stop(void)
 {   
   /* Stop the Transfer on the I2S side: Stop and disable the DMA stream */
-  DMA_Cmd(AUDIO_I2S_DMA_STREAM, DISABLE);
+  //DMA_Cmd(AUDIO_I2S_DMA_STREAM, DISABLE);
 
   /* Clear all the DMA flags for the next transfer */
-  DMA_ClearFlag(AUDIO_I2S_DMA_STREAM, AUDIO_I2S_DMA_FLAG_TC |AUDIO_I2S_DMA_FLAG_HT | \
-                                  AUDIO_I2S_DMA_FLAG_FE | AUDIO_I2S_DMA_FLAG_TE);
+  //DMA_ClearFlag(AUDIO_I2S_DMA_STREAM, AUDIO_I2S_DMA_FLAG_TC |AUDIO_I2S_DMA_FLAG_HT | \
+   //                               AUDIO_I2S_DMA_FLAG_FE | AUDIO_I2S_DMA_FLAG_TE);
   
   /*  
            The I2S DMA requests are not disabled here.
                                                             */
   
   /* In all modes, disable the I2S peripheral */
-  I2S_Cmd(CODEC_I2S, DISABLE);
+  //I2S_Cmd(CODEC_I2S, DISABLE);
+
+  //HAL_SPI_MspDeInit(&hi2s3);
+  HAL_I2S_DMAStop(&hi2s3);
 }
 
 /**
@@ -1820,14 +1811,14 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef *hspi)
   if(hspi->Instance == SPI3)
   {   
     /*##-1- Reset peripherals ##################################################*/
-    __HAL_RCC_SPI2_FORCE_RESET();
-    __HAL_RCC_SPI2_RELEASE_RESET();
+    __HAL_RCC_SPI3_FORCE_RESET();
+    __HAL_RCC_SPI3_RELEASE_RESET();
 
     /*##-2- Disable peripherals and GPIO Clocks ################################*/
     HAL_GPIO_DeInit(CODEC_I2S_GPIO, CODEC_I2S_SCK_PIN);
     HAL_GPIO_DeInit(CODEC_I2S_GPIO, CODEC_I2S_SD_PIN);
     HAL_GPIO_DeInit(CODEC_I2S_WS_GPIO, CODEC_I2S_WS_PIN);
-	 HAL_GPIO_DeInit(CODEC_I2S_MCK_GPIO, CODEC_I2S_MCK_PIN);
+	HAL_GPIO_DeInit(CODEC_I2S_MCK_GPIO, CODEC_I2S_MCK_PIN);
 
     /*##-3- Disable the DMA ####################################################*/
     /* De-Initialize the DMA associated to transmission process */
@@ -1854,7 +1845,8 @@ void HAL_I2C_MspDeInit(I2C_HandleTypeDef *hi2c)
   HAL_GPIO_DeInit(CODEC_I2C_GPIO, CODEC_I2C_SDA_PIN);
 }
 
-// void HAL_I2S_TxCpltCallback(I2S_HandleTypeDef *hi2s)
-// {
-//	  AudioFlashPlay((uint16_t*)(AUDIO_SAMPLE + AUIDO_START_ADDRESS),AUDIO_FILE_SZE,AUIDO_START_ADDRESS);
- //}
+ void HAL_I2S_TxCpltCallback(I2S_HandleTypeDef *hi2s)
+{
+	  //AudioFlashPlay((uint16_t*)(AUDIO_SAMPLE + AUIDO_START_ADDRESS),AUDIO_FILE_SZE,AUIDO_START_ADDRESS);
+	  Audio_MAL_Stop();
+}
