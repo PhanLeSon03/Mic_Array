@@ -78,6 +78,10 @@ typedef enum
 #define  BITS_PER_SAMPLE_8                   8
 #define  BITS_PER_SAMPLE_16                  16
 
+#define AUDIO_FILE_SZE          990000
+#define AUIDO_START_ADDRESS     58 /* Offset relative to audio file header size */
+
+
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 void TimingDelay_Decrement(void);

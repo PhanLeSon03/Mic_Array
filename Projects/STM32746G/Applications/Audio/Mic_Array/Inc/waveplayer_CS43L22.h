@@ -78,6 +78,7 @@ typedef enum
 #define  BITS_PER_SAMPLE_8                   8
 #define  BITS_PER_SAMPLE_16                  16
 
+
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 void TimingDelay_Decrement(void);
@@ -91,7 +92,7 @@ uint8_t WaveplayerCtrlVolume(uint8_t volume);
 void WavePlayerStart(void);
 void WavePlayer_CallBack(void);
 uint32_t ReadUnit(uint8_t *buffer, uint8_t idx, uint8_t NbrOfBytes, Endianness BytesFormat);
-
+void TC_Callback(struct __DMA_HandleTypeDef * hdma);
 #endif /* __WAVE_PLAYER_H */
 
 /******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/

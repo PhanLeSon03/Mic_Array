@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       20/Dec/2015  12:46:53
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       21/Dec/2015  01:05:28
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -16,9 +16,11 @@
 #        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 #        -o
 #        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-#        --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
-#        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
-#        7.3\arm\INC\c\DLib_Config_Full.h" -I
+#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+#        --no_clustering --no_scheduling --debug --endian=little
+#        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\INC\c\DLib_Config_Full.h"
+#        -I
 #        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 #        -I
 #        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
@@ -46,7 +48,7 @@
 #        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 #        -I
 #        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
-#        -Ohz --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -On --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7
 #    List file    =  
@@ -175,8 +177,8 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
    \                     USBH_Get_DevDesc: (+1)
    \   00000000   0xB570             PUSH     {R4-R6,LR}
    \   00000002   0xB082             SUB      SP,SP,#+8
-   \   00000004   0x460D             MOV      R5,R1
-   \   00000006   0x4604             MOV      R4,R0
+   \   00000004   0x0004             MOVS     R4,R0
+   \   00000006   0x000D             MOVS     R5,R1
     114            USBH_StatusTypeDef status;
     115            
     116            if((status = USBH_GetDescriptor(phost,
@@ -184,25 +186,34 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
     118                                            USB_DESC_DEVICE, 
     119                                            phost->device.Data,
     120                                            length)) == USBH_OK)
-   \   00000008   0x9500             STR      R5,[SP, #+0]
-   \   0000000A   0xF104 0x031C      ADD      R3,R4,#+28
-   \   0000000E   0xF44F 0x7280      MOV      R2,#+256
-   \   00000012   0x2100             MOVS     R1,#+0
-   \   00000014   0x.... 0x....      BL       USBH_GetDescriptor
-   \   00000018   0x0006             MOVS     R6,R0
-   \   0000001A   0xD106             BNE.N    ??USBH_Get_DevDesc_0
+   \   00000008   0xB2ED             UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+   \   0000000A   0x0028             MOVS     R0,R5
+   \   0000000C   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000000E   0x9000             STR      R0,[SP, #+0]
+   \   00000010   0xF114 0x031C      ADDS     R3,R4,#+28
+   \   00000014   0xF44F 0x7280      MOV      R2,#+256
+   \   00000018   0x2100             MOVS     R1,#+0
+   \   0000001A   0x0020             MOVS     R0,R4
+   \   0000001C   0x.... 0x....      BL       USBH_GetDescriptor
+   \   00000020   0x0006             MOVS     R6,R0
+   \   00000022   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000024   0x2800             CMP      R0,#+0
+   \   00000026   0xD108             BNE.N    ??USBH_Get_DevDesc_0
     121            {
     122              /* Commands successfully sent and Response Received */       
     123              USBH_ParseDevDesc(&phost->device.DevDesc, phost->device.Data, length);
-   \   0000001C   0x462A             MOV      R2,R5
-   \   0000001E   0xF104 0x011C      ADD      R1,R4,#+28
-   \   00000022   0xF504 0x7008      ADD      R0,R4,#+544
-   \   00000026   0x.... 0x....      BL       USBH_ParseDevDesc
+   \   00000028   0xB2ED             UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+   \   0000002A   0x002A             MOVS     R2,R5
+   \   0000002C   0xB292             UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+   \   0000002E   0xF114 0x011C      ADDS     R1,R4,#+28
+   \   00000032   0xF514 0x7008      ADDS     R0,R4,#+544
+   \   00000036   0x.... 0x....      BL       USBH_ParseDevDesc
     124            }
     125            return status;      
    \                     ??USBH_Get_DevDesc_0: (+1)
-   \   0000002A   0x4630             MOV      R0,R6
-   \   0000002C   0xBD76             POP      {R1,R2,R4-R6,PC}  ;; return
+   \   0000003A   0x0030             MOVS     R0,R6
+   \   0000003C   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   0000003E   0xBD76             POP      {R1,R2,R4-R6,PC}  ;; return
     126          }
     127          
     128          /**
@@ -222,44 +233,52 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
     140          {
    \                     USBH_Get_CfgDesc: (+1)
    \   00000000   0xB5F8             PUSH     {R3-R7,LR}
-   \   00000002   0x4604             MOV      R4,R0
-   \   00000004   0x460D             MOV      R5,R1
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
     141            USBH_StatusTypeDef status;
     142            uint8_t *pData;
     143          #if (USBH_KEEP_CFG_DESCRIPTOR == 1)  
     144            pData = phost->device.CfgDesc_Raw;
     145          #else
     146            pData = phost->device.Data;
-   \   00000006   0xF104 0x061C      ADD      R6,R4,#+28
+   \   00000006   0xF114 0x001C      ADDS     R0,R4,#+28
+   \   0000000A   0x0007             MOVS     R7,R0
     147          #endif  
     148            if((status = USBH_GetDescriptor(phost,
     149                                            USB_REQ_RECIPIENT_DEVICE | USB_REQ_TYPE_STANDARD,                          
     150                                            USB_DESC_CONFIGURATION, 
     151                                            pData,
     152                                            length)) == USBH_OK)
-   \   0000000A   0x9500             STR      R5,[SP, #+0]
-   \   0000000C   0x4633             MOV      R3,R6
-   \   0000000E   0xF44F 0x7200      MOV      R2,#+512
-   \   00000012   0x2100             MOVS     R1,#+0
-   \   00000014   0x.... 0x....      BL       USBH_GetDescriptor
-   \   00000018   0x0007             MOVS     R7,R0
-   \   0000001A   0xD105             BNE.N    ??USBH_Get_CfgDesc_0
+   \   0000000C   0x0028             MOVS     R0,R5
+   \   0000000E   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000010   0x9000             STR      R0,[SP, #+0]
+   \   00000012   0x003B             MOVS     R3,R7
+   \   00000014   0xF44F 0x7200      MOV      R2,#+512
+   \   00000018   0x2100             MOVS     R1,#+0
+   \   0000001A   0x0020             MOVS     R0,R4
+   \   0000001C   0x.... 0x....      BL       USBH_GetDescriptor
+   \   00000020   0x0006             MOVS     R6,R0
+   \   00000022   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000024   0x2800             CMP      R0,#+0
+   \   00000026   0xD106             BNE.N    ??USBH_Get_CfgDesc_0
     153            {
     154              
     155              /* Commands successfully sent and Response Received  */       
     156              USBH_ParseCfgDesc (&phost->device.CfgDesc,
     157                                 pData,
     158                                 length); 
-   \   0000001C   0x462A             MOV      R2,R5
-   \   0000001E   0x4631             MOV      R1,R6
-   \   00000020   0xF204 0x2032      ADDW     R0,R4,#+562
-   \   00000024   0x.... 0x....      BL       USBH_ParseCfgDesc
+   \   00000028   0x002A             MOVS     R2,R5
+   \   0000002A   0xB292             UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+   \   0000002C   0x0039             MOVS     R1,R7
+   \   0000002E   0xF204 0x2032      ADDW     R0,R4,#+562
+   \   00000032   0x.... 0x....      BL       USBH_ParseCfgDesc
     159              
     160            }
     161            return status;
    \                     ??USBH_Get_CfgDesc_0: (+1)
-   \   00000028   0x4638             MOV      R0,R7
-   \   0000002A   0xBDF2             POP      {R1,R4-R7,PC}    ;; return
+   \   00000036   0x0030             MOVS     R0,R6
+   \   00000038   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   0000003A   0xBDF2             POP      {R1,R4-R7,PC}    ;; return
     162          }
     163          
     164          
@@ -281,53 +300,46 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
     178                                          uint16_t length)
     179          {
    \                     USBH_Get_StringDesc: (+1)
-   \   00000000   0xB570             PUSH     {R4-R6,LR}
-   \   00000002   0x4615             MOV      R5,R2
+   \   00000000   0xE92D 0x41F0      PUSH     {R4-R8,LR}
+   \   00000004   0xB082             SUB      SP,SP,#+8
+   \   00000006   0x0004             MOVS     R4,R0
+   \   00000008   0x000D             MOVS     R5,R1
+   \   0000000A   0x0016             MOVS     R6,R2
+   \   0000000C   0x001F             MOVS     R7,R3
     180            USBH_StatusTypeDef status;
     181            if((status = USBH_GetDescriptor(phost,
     182                                            USB_REQ_RECIPIENT_DEVICE | USB_REQ_TYPE_STANDARD,                                    
     183                                            USB_DESC_STRING | string_index, 
     184                                            phost->device.Data,
     185                                            length)) == USBH_OK)
-   \   00000004   0xF441 0x7240      ORR      R2,R1,#0x300
-   \   00000008   0xB082             SUB      SP,SP,#+8
-   \   0000000A   0x461C             MOV      R4,R3
-   \   0000000C   0xF100 0x061C      ADD      R6,R0,#+28
-   \   00000010   0x9400             STR      R4,[SP, #+0]
-   \   00000012   0x4633             MOV      R3,R6
-   \   00000014   0x2100             MOVS     R1,#+0
-   \   00000016   0x.... 0x....      BL       USBH_GetDescriptor
-   \   0000001A   0x2800             CMP      R0,#+0
-   \   0000001C   0xBF04             ITT      EQ 
-   \   0000001E   0x7871             LDRBEQ   R1,[R6, #+1]
-   \   00000020   0x2903             CMPEQ    R1,#+3
+   \   0000000E   0x0038             MOVS     R0,R7
+   \   00000010   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000012   0x9000             STR      R0,[SP, #+0]
+   \   00000014   0xF114 0x031C      ADDS     R3,R4,#+28
+   \   00000018   0xB2ED             UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+   \   0000001A   0xF455 0x7240      ORRS     R2,R5,#0x300
+   \   0000001E   0xB292             UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+   \   00000020   0x2100             MOVS     R1,#+0
+   \   00000022   0x0020             MOVS     R0,R4
+   \   00000024   0x.... 0x....      BL       USBH_GetDescriptor
+   \   00000028   0x4680             MOV      R8,R0
+   \   0000002A   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   0000002C   0x2800             CMP      R0,#+0
+   \   0000002E   0xD106             BNE.N    ??USBH_Get_StringDesc_0
     186            {
     187              /* Commands successfully sent and Response Received  */       
     188              USBH_ParseStringDesc(phost->device.Data,buff, length);    
-   \   00000022   0xD111             BNE.N    ??USBH_Get_StringDesc_0
-   \   00000024   0x7831             LDRB     R1,[R6, #+0]
-   \   00000026   0x1E8A             SUBS     R2,R1,#+2
-   \   00000028   0x4294             CMP      R4,R2
-   \   0000002A   0xBFA4             ITT      GE 
-   \   0000002C   0x1E8C             SUBGE    R4,R1,#+2
-   \   0000002E   0xB2A4             UXTHGE   R4,R4
-   \   00000030   0x1CB6             ADDS     R6,R6,#+2
-   \   00000032   0x2100             MOVS     R1,#+0
-   \   00000034   0xE004             B.N      ??USBH_Get_StringDesc_1
-   \                     ??USBH_Get_StringDesc_2: (+1)
-   \   00000036   0x5D8A             LDRB     R2,[R1, R6]
-   \   00000038   0x1C89             ADDS     R1,R1,#+2
-   \   0000003A   0xB289             UXTH     R1,R1
-   \   0000003C   0xF805 0x2B01      STRB     R2,[R5], #+1
-   \                     ??USBH_Get_StringDesc_1: (+1)
-   \   00000040   0x42A1             CMP      R1,R4
-   \   00000042   0xDBF8             BLT.N    ??USBH_Get_StringDesc_2
-   \   00000044   0x2100             MOVS     R1,#+0
-   \   00000046   0x7029             STRB     R1,[R5, #+0]
+   \   00000030   0x003A             MOVS     R2,R7
+   \   00000032   0xB292             UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+   \   00000034   0x0031             MOVS     R1,R6
+   \   00000036   0xF114 0x001C      ADDS     R0,R4,#+28
+   \   0000003A   0x.... 0x....      BL       USBH_ParseStringDesc
     189            }
     190            return status;
    \                     ??USBH_Get_StringDesc_0: (+1)
-   \   00000048   0xBD76             POP      {R1,R2,R4-R6,PC}  ;; return
+   \   0000003E   0x4640             MOV      R0,R8
+   \   00000040   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000042   0xE8BD 0x81F6      POP      {R1,R2,R4-R8,PC}  ;; return
     191          }
     192          
     193          /**
@@ -350,45 +362,56 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
     208                                         uint16_t length )
     209          { 
    \                     USBH_GetDescriptor: (+1)
-   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000000   0xE92D 0x41F0      PUSH     {R4-R8,LR}
+   \   00000004   0x0005             MOVS     R5,R0
+   \   00000006   0x000E             MOVS     R6,R1
+   \   00000008   0x0017             MOVS     R7,R2
+   \   0000000A   0x4698             MOV      R8,R3
+   \   0000000C   0x9C06             LDR      R4,[SP, #+24]
     210            if(phost->RequestState == CMD_SEND)
-   \   00000002   0x7885             LDRB     R5,[R0, #+2]
-   \   00000004   0x9C04             LDR      R4,[SP, #+16]
-   \   00000006   0x2D01             CMP      R5,#+1
-   \   00000008   0xD10F             BNE.N    ??USBH_GetDescriptor_0
+   \   0000000E   0x78A8             LDRB     R0,[R5, #+2]
+   \   00000010   0x2801             CMP      R0,#+1
+   \   00000012   0xD112             BNE.N    ??USBH_GetDescriptor_0
     211            {
     212              phost->Control.setup.b.bmRequestType = USB_D2H | req_type;
-   \   0000000A   0xF041 0x0180      ORR      R1,R1,#0x80
+   \   00000014   0xF056 0x0080      ORRS     R0,R6,#0x80
+   \   00000018   0x7428             STRB     R0,[R5, #+16]
     213              phost->Control.setup.b.bRequest = USB_REQ_GET_DESCRIPTOR;
+   \   0000001A   0x2006             MOVS     R0,#+6
+   \   0000001C   0x7468             STRB     R0,[R5, #+17]
     214              phost->Control.setup.b.wValue.w = value_idx;
-   \   0000000E   0x8242             STRH     R2,[R0, #+18]
-   \   00000010   0x7401             STRB     R1,[R0, #+16]
-   \   00000012   0x2106             MOVS     R1,#+6
-   \   00000014   0x7441             STRB     R1,[R0, #+17]
+   \   0000001E   0x826F             STRH     R7,[R5, #+18]
     215              
     216              if ((value_idx & 0xff00) == USB_DESC_STRING)
-   \   00000016   0xF402 0x417F      AND      R1,R2,#0xFF00
-   \   0000001A   0xF5B1 0x7F40      CMP      R1,#+768
-   \   0000001E   0xBF0C             ITE      EQ 
-   \   00000020   0xF240 0x4109      MOVWEQ   R1,#+1033
-   \   00000024   0x2100             MOVNE    R1,#+0
+   \   00000020   0xB2BF             UXTH     R7,R7            ;; ZeroExt  R7,R7,#+16,#+16
+   \   00000022   0xF417 0x407F      ANDS     R0,R7,#0xFF00
+   \   00000026   0xF5B0 0x7F40      CMP      R0,#+768
+   \   0000002A   0xD103             BNE.N    ??USBH_GetDescriptor_1
     217              {
     218                phost->Control.setup.b.wIndex.w = 0x0409;
+   \   0000002C   0xF240 0x4009      MOVW     R0,#+1033
+   \   00000030   0x82A8             STRH     R0,[R5, #+20]
+   \   00000032   0xE001             B.N      ??USBH_GetDescriptor_2
     219              }
     220              else
     221              {
     222                phost->Control.setup.b.wIndex.w = 0;
-   \   00000026   0x8281             STRH     R1,[R0, #+20]
+   \                     ??USBH_GetDescriptor_1: (+1)
+   \   00000034   0x2000             MOVS     R0,#+0
+   \   00000036   0x82A8             STRH     R0,[R5, #+20]
     223              }
     224              phost->Control.setup.b.wLength.w = length; 
-   \   00000028   0x82C4             STRH     R4,[R0, #+22]
+   \                     ??USBH_GetDescriptor_2: (+1)
+   \   00000038   0x82EC             STRH     R4,[R5, #+22]
     225            }
     226            return USBH_CtlReq(phost, buff , length );     
    \                     ??USBH_GetDescriptor_0: (+1)
-   \   0000002A   0x4622             MOV      R2,R4
-   \   0000002C   0x4619             MOV      R1,R3
-   \   0000002E   0xE8BD 0x4038      POP      {R3-R5,LR}
-   \   00000032   0x....             B.N      USBH_CtlReq
+   \   0000003A   0x0022             MOVS     R2,R4
+   \   0000003C   0xB292             UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+   \   0000003E   0x4641             MOV      R1,R8
+   \   00000040   0x0028             MOVS     R0,R5
+   \   00000042   0x.... 0x....      BL       USBH_CtlReq
+   \   00000046   0xE8BD 0x81F0      POP      {R4-R8,PC}       ;; return
     227          }
     228          
     229          /**
@@ -403,39 +426,42 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
     236          USBH_StatusTypeDef USBH_SetAddress(USBH_HandleTypeDef *phost, 
     237                                             uint8_t DeviceAddress)
     238          {
-    239            if(phost->RequestState == CMD_SEND)
    \                     USBH_SetAddress: (+1)
-   \   00000000   0x7882             LDRB     R2,[R0, #+2]
-   \   00000002   0x2A01             CMP      R2,#+1
-   \   00000004   0xD107             BNE.N    ??USBH_SetAddress_0
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
+    239            if(phost->RequestState == CMD_SEND)
+   \   00000006   0x78A0             LDRB     R0,[R4, #+2]
+   \   00000008   0x2801             CMP      R0,#+1
+   \   0000000A   0xD109             BNE.N    ??USBH_SetAddress_0
     240            {
     241              phost->Control.setup.b.bmRequestType = USB_H2D | USB_REQ_RECIPIENT_DEVICE | \
     242                USB_REQ_TYPE_STANDARD;
-   \   00000006   0x2200             MOVS     R2,#+0
+   \   0000000C   0x2000             MOVS     R0,#+0
+   \   0000000E   0x7420             STRB     R0,[R4, #+16]
     243              
     244              phost->Control.setup.b.bRequest = USB_REQ_SET_ADDRESS;
+   \   00000010   0x2005             MOVS     R0,#+5
+   \   00000012   0x7460             STRB     R0,[R4, #+17]
     245              
     246              phost->Control.setup.b.wValue.w = (uint16_t)DeviceAddress;
-   \   00000008   0x8241             STRH     R1,[R0, #+18]
-   \   0000000A   0x7402             STRB     R2,[R0, #+16]
-   \   0000000C   0x2205             MOVS     R2,#+5
+   \   00000014   0xB2ED             UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+   \   00000016   0x8265             STRH     R5,[R4, #+18]
     247              phost->Control.setup.b.wIndex.w = 0;
-   \   0000000E   0x2100             MOVS     R1,#+0
-   \   00000010   0x7442             STRB     R2,[R0, #+17]
-   \   00000012   0x8281             STRH     R1,[R0, #+20]
+   \   00000018   0x2000             MOVS     R0,#+0
+   \   0000001A   0x82A0             STRH     R0,[R4, #+20]
     248              phost->Control.setup.b.wLength.w = 0;
-   \   00000014   0x82C1             STRH     R1,[R0, #+22]
+   \   0000001C   0x2000             MOVS     R0,#+0
+   \   0000001E   0x82E0             STRH     R0,[R4, #+22]
     249            }
     250            return USBH_CtlReq(phost, 0 , 0 );
    \                     ??USBH_SetAddress_0: (+1)
-   \   00000016   0x....             B.N      ?Subroutine0
+   \   00000020   0x2200             MOVS     R2,#+0
+   \   00000022   0x2100             MOVS     R1,#+0
+   \   00000024   0x0020             MOVS     R0,R4
+   \   00000026   0x.... 0x....      BL       USBH_CtlReq
+   \   0000002A   0xBD32             POP      {R1,R4,R5,PC}    ;; return
     251          }
-
-   \                                 In section .text, align 2, keep-with-next
-   \                     ?Subroutine0: (+1)
-   \   00000000   0x2200             MOVS     R2,#+0
-   \   00000002   0x2100             MOVS     R1,#+0
-   \   00000004   0x....             B.N      USBH_CtlReq
     252          
     253          /**
     254            * @brief  USBH_SetCfg
@@ -449,32 +475,39 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
     260          USBH_StatusTypeDef USBH_SetCfg(USBH_HandleTypeDef *phost, 
     261                                         uint16_t cfg_idx)
     262          {
-    263            if(phost->RequestState == CMD_SEND)
    \                     USBH_SetCfg: (+1)
-   \   00000000   0x7882             LDRB     R2,[R0, #+2]
-   \   00000002   0x2A01             CMP      R2,#+1
-   \   00000004   0xD107             BNE.N    ??USBH_SetCfg_0
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
+    263            if(phost->RequestState == CMD_SEND)
+   \   00000006   0x78A0             LDRB     R0,[R4, #+2]
+   \   00000008   0x2801             CMP      R0,#+1
+   \   0000000A   0xD108             BNE.N    ??USBH_SetCfg_0
     264            {
     265              phost->Control.setup.b.bmRequestType = USB_H2D | USB_REQ_RECIPIENT_DEVICE |\
     266                USB_REQ_TYPE_STANDARD;
-   \   00000006   0x2200             MOVS     R2,#+0
+   \   0000000C   0x2000             MOVS     R0,#+0
+   \   0000000E   0x7420             STRB     R0,[R4, #+16]
     267              phost->Control.setup.b.bRequest = USB_REQ_SET_CONFIGURATION;
+   \   00000010   0x2009             MOVS     R0,#+9
+   \   00000012   0x7460             STRB     R0,[R4, #+17]
     268              phost->Control.setup.b.wValue.w = cfg_idx;
-   \   00000008   0x8241             STRH     R1,[R0, #+18]
-   \   0000000A   0x7402             STRB     R2,[R0, #+16]
-   \   0000000C   0x2209             MOVS     R2,#+9
+   \   00000014   0x8265             STRH     R5,[R4, #+18]
     269              phost->Control.setup.b.wIndex.w = 0;
-   \   0000000E   0x2100             MOVS     R1,#+0
-   \   00000010   0x7442             STRB     R2,[R0, #+17]
-   \   00000012   0x8281             STRH     R1,[R0, #+20]
+   \   00000016   0x2000             MOVS     R0,#+0
+   \   00000018   0x82A0             STRH     R0,[R4, #+20]
     270              phost->Control.setup.b.wLength.w = 0; 
-   \   00000014   0x82C1             STRH     R1,[R0, #+22]
+   \   0000001A   0x2000             MOVS     R0,#+0
+   \   0000001C   0x82E0             STRH     R0,[R4, #+22]
     271            }
     272            
     273            return USBH_CtlReq(phost, 0 , 0 );      
    \                     ??USBH_SetCfg_0: (+1)
-   \   00000016                      REQUIRE ?Subroutine0
-   \   00000016                      ;; // Fall through to label ?Subroutine0
+   \   0000001E   0x2200             MOVS     R2,#+0
+   \   00000020   0x2100             MOVS     R1,#+0
+   \   00000022   0x0020             MOVS     R0,R4
+   \   00000024   0x.... 0x....      BL       USBH_CtlReq
+   \   00000028   0xBD32             POP      {R1,R4,R5,PC}    ;; return
     274          }
     275          
     276          /**
@@ -489,31 +522,42 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
     283          USBH_StatusTypeDef USBH_SetInterface(USBH_HandleTypeDef *phost, 
     284                                  uint8_t ep_num, uint8_t altSetting)
     285          {
+   \                     USBH_SetInterface: (+1)
+   \   00000000   0xB570             PUSH     {R4-R6,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
+   \   00000006   0x0016             MOVS     R6,R2
     286            
     287            if(phost->RequestState == CMD_SEND)
-   \                     USBH_SetInterface: (+1)
-   \   00000000   0x7883             LDRB     R3,[R0, #+2]
-   \   00000002   0x2B01             CMP      R3,#+1
-   \   00000004   0xD106             BNE.N    ??USBH_SetInterface_0
+   \   00000008   0x78A0             LDRB     R0,[R4, #+2]
+   \   0000000A   0x2801             CMP      R0,#+1
+   \   0000000C   0xD109             BNE.N    ??USBH_SetInterface_0
     288            {
     289              phost->Control.setup.b.bmRequestType = USB_H2D | USB_REQ_RECIPIENT_INTERFACE | \
     290                USB_REQ_TYPE_STANDARD;
-   \   00000006   0x7403             STRB     R3,[R0, #+16]
+   \   0000000E   0x2001             MOVS     R0,#+1
+   \   00000010   0x7420             STRB     R0,[R4, #+16]
     291              
     292              phost->Control.setup.b.bRequest = USB_REQ_SET_INTERFACE;
-   \   00000008   0x230B             MOVS     R3,#+11
+   \   00000012   0x200B             MOVS     R0,#+11
+   \   00000014   0x7460             STRB     R0,[R4, #+17]
     293              phost->Control.setup.b.wValue.w = altSetting;
+   \   00000016   0xB2F6             UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+   \   00000018   0x8266             STRH     R6,[R4, #+18]
     294              phost->Control.setup.b.wIndex.w = ep_num;
-   \   0000000A   0x8281             STRH     R1,[R0, #+20]
+   \   0000001A   0xB2ED             UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+   \   0000001C   0x82A5             STRH     R5,[R4, #+20]
     295              phost->Control.setup.b.wLength.w = 0;           
-   \   0000000C   0x2100             MOVS     R1,#+0
-   \   0000000E   0x7443             STRB     R3,[R0, #+17]
-   \   00000010   0x8242             STRH     R2,[R0, #+18]
-   \   00000012   0x82C1             STRH     R1,[R0, #+22]
+   \   0000001E   0x2000             MOVS     R0,#+0
+   \   00000020   0x82E0             STRH     R0,[R4, #+22]
     296            }
     297            return USBH_CtlReq(phost, 0 , 0 );     
    \                     ??USBH_SetInterface_0: (+1)
-   \   00000014   0x....             B.N      ?Subroutine0
+   \   00000022   0x2200             MOVS     R2,#+0
+   \   00000024   0x2100             MOVS     R1,#+0
+   \   00000026   0x0020             MOVS     R0,R4
+   \   00000028   0x.... 0x....      BL       USBH_CtlReq
+   \   0000002C   0xBD70             POP      {R4-R6,PC}       ;; return
     298          }
     299          
     300          /**
@@ -529,32 +573,41 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
     308          USBH_StatusTypeDef USBH_ClrFeature(USBH_HandleTypeDef *phost,
     309                                             uint8_t ep_num) 
     310          {
-    311            if(phost->RequestState == CMD_SEND)
    \                     USBH_ClrFeature: (+1)
-   \   00000000   0x7882             LDRB     R2,[R0, #+2]
-   \   00000002   0x2A01             CMP      R2,#+1
-   \   00000004   0xD107             BNE.N    ??USBH_ClrFeature_0
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
+    311            if(phost->RequestState == CMD_SEND)
+   \   00000006   0x78A0             LDRB     R0,[R4, #+2]
+   \   00000008   0x2801             CMP      R0,#+1
+   \   0000000A   0xD109             BNE.N    ??USBH_ClrFeature_0
     312            {
     313              phost->Control.setup.b.bmRequestType = USB_H2D | 
     314                USB_REQ_RECIPIENT_ENDPOINT |
     315                  USB_REQ_TYPE_STANDARD;
-   \   00000006   0x2202             MOVS     R2,#+2
+   \   0000000C   0x2002             MOVS     R0,#+2
+   \   0000000E   0x7420             STRB     R0,[R4, #+16]
     316              
     317              phost->Control.setup.b.bRequest = USB_REQ_CLEAR_FEATURE;
+   \   00000010   0x2001             MOVS     R0,#+1
+   \   00000012   0x7460             STRB     R0,[R4, #+17]
     318              phost->Control.setup.b.wValue.w = FEATURE_SELECTOR_ENDPOINT;
+   \   00000014   0x2000             MOVS     R0,#+0
+   \   00000016   0x8260             STRH     R0,[R4, #+18]
     319              phost->Control.setup.b.wIndex.w = ep_num;
-   \   00000008   0x8281             STRH     R1,[R0, #+20]
-   \   0000000A   0x7402             STRB     R2,[R0, #+16]
-   \   0000000C   0x2201             MOVS     R2,#+1
-   \   0000000E   0x7442             STRB     R2,[R0, #+17]
-   \   00000010   0x2200             MOVS     R2,#+0
-   \   00000012   0x8242             STRH     R2,[R0, #+18]
+   \   00000018   0xB2ED             UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+   \   0000001A   0x82A5             STRH     R5,[R4, #+20]
     320              phost->Control.setup.b.wLength.w = 0;           
-   \   00000014   0x82C2             STRH     R2,[R0, #+22]
+   \   0000001C   0x2000             MOVS     R0,#+0
+   \   0000001E   0x82E0             STRH     R0,[R4, #+22]
     321            }
     322            return USBH_CtlReq(phost, 0 , 0 );   
    \                     ??USBH_ClrFeature_0: (+1)
-   \   00000016   0x....             B.N      ?Subroutine0
+   \   00000020   0x2200             MOVS     R2,#+0
+   \   00000022   0x2100             MOVS     R1,#+0
+   \   00000024   0x0020             MOVS     R0,R4
+   \   00000026   0x.... 0x....      BL       USBH_CtlReq
+   \   0000002A   0xBD32             POP      {R1,R4,R5,PC}    ;; return
     323          }
     324          
     325          /**
@@ -572,67 +625,73 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
     335                                          uint16_t length)
     336          {
    \                     USBH_ParseDevDesc: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000000   0xB410             PUSH     {R4}
     337            dev_desc->bLength            = *(uint8_t  *) (buf +  0);
    \   00000002   0x780B             LDRB     R3,[R1, #+0]
+   \   00000004   0x7003             STRB     R3,[R0, #+0]
     338            dev_desc->bDescriptorType    = *(uint8_t  *) (buf +  1);
+   \   00000006   0x784B             LDRB     R3,[R1, #+1]
+   \   00000008   0x7043             STRB     R3,[R0, #+1]
     339            dev_desc->bcdUSB             = LE16 (buf +  2);
+   \   0000000A   0x788B             LDRB     R3,[R1, #+2]
+   \   0000000C   0x78CC             LDRB     R4,[R1, #+3]
+   \   0000000E   0x0224             LSLS     R4,R4,#+8
+   \   00000010   0x18E3             ADDS     R3,R4,R3
+   \   00000012   0x8043             STRH     R3,[R0, #+2]
     340            dev_desc->bDeviceClass       = *(uint8_t  *) (buf +  4);
+   \   00000014   0x790B             LDRB     R3,[R1, #+4]
+   \   00000016   0x7103             STRB     R3,[R0, #+4]
     341            dev_desc->bDeviceSubClass    = *(uint8_t  *) (buf +  5);
+   \   00000018   0x794B             LDRB     R3,[R1, #+5]
+   \   0000001A   0x7143             STRB     R3,[R0, #+5]
     342            dev_desc->bDeviceProtocol    = *(uint8_t  *) (buf +  6);
+   \   0000001C   0x798B             LDRB     R3,[R1, #+6]
+   \   0000001E   0x7183             STRB     R3,[R0, #+6]
     343            dev_desc->bMaxPacketSize     = *(uint8_t  *) (buf +  7);
+   \   00000020   0x79CB             LDRB     R3,[R1, #+7]
+   \   00000022   0x71C3             STRB     R3,[R0, #+7]
     344            
     345            if (length > 8)
-   \   00000004   0x2A09             CMP      R2,#+9
-   \   00000006   0x7003             STRB     R3,[R0, #+0]
-   \   00000008   0x784B             LDRB     R3,[R1, #+1]
-   \   0000000A   0x7043             STRB     R3,[R0, #+1]
-   \   0000000C   0x788B             LDRB     R3,[R1, #+2]
-   \   0000000E   0x78CC             LDRB     R4,[R1, #+3]
-   \   00000010   0xEB03 0x2304      ADD      R3,R3,R4, LSL #+8
-   \   00000014   0x8043             STRH     R3,[R0, #+2]
-   \   00000016   0x790B             LDRB     R3,[R1, #+4]
-   \   00000018   0x7103             STRB     R3,[R0, #+4]
-   \   0000001A   0x794B             LDRB     R3,[R1, #+5]
-   \   0000001C   0x7143             STRB     R3,[R0, #+5]
-   \   0000001E   0x798B             LDRB     R3,[R1, #+6]
-   \   00000020   0x7183             STRB     R3,[R0, #+6]
-   \   00000022   0x79CB             LDRB     R3,[R1, #+7]
-   \   00000024   0x71C3             STRB     R3,[R0, #+7]
-   \   00000026   0xDB16             BLT.N    ??USBH_ParseDevDesc_0
+   \   00000024   0xB292             UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+   \   00000026   0x2A09             CMP      R2,#+9
+   \   00000028   0xDB16             BLT.N    ??USBH_ParseDevDesc_0
     346            { /* For 1st time after device connection, Host may issue only 8 bytes for 
     347              Device Descriptor Length  */
     348              dev_desc->idVendor           = LE16 (buf +  8);
-   \   00000028   0x7A0A             LDRB     R2,[R1, #+8]
-   \   0000002A   0x7A4B             LDRB     R3,[R1, #+9]
-   \   0000002C   0xEB02 0x2203      ADD      R2,R2,R3, LSL #+8
-   \   00000030   0x8102             STRH     R2,[R0, #+8]
+   \   0000002A   0x7A0B             LDRB     R3,[R1, #+8]
+   \   0000002C   0x7A4C             LDRB     R4,[R1, #+9]
+   \   0000002E   0x0224             LSLS     R4,R4,#+8
+   \   00000030   0x18E3             ADDS     R3,R4,R3
+   \   00000032   0x8103             STRH     R3,[R0, #+8]
     349              dev_desc->idProduct          = LE16 (buf + 10);
-   \   00000032   0x7A8A             LDRB     R2,[R1, #+10]
-   \   00000034   0x7ACB             LDRB     R3,[R1, #+11]
-   \   00000036   0xEB02 0x2203      ADD      R2,R2,R3, LSL #+8
-   \   0000003A   0x8142             STRH     R2,[R0, #+10]
+   \   00000034   0x7A8B             LDRB     R3,[R1, #+10]
+   \   00000036   0x7ACC             LDRB     R4,[R1, #+11]
+   \   00000038   0x0224             LSLS     R4,R4,#+8
+   \   0000003A   0x18E3             ADDS     R3,R4,R3
+   \   0000003C   0x8143             STRH     R3,[R0, #+10]
     350              dev_desc->bcdDevice          = LE16 (buf + 12);
-   \   0000003C   0x7B0A             LDRB     R2,[R1, #+12]
-   \   0000003E   0x7B4B             LDRB     R3,[R1, #+13]
-   \   00000040   0xEB02 0x2203      ADD      R2,R2,R3, LSL #+8
-   \   00000044   0x8182             STRH     R2,[R0, #+12]
+   \   0000003E   0x7B0B             LDRB     R3,[R1, #+12]
+   \   00000040   0x7B4C             LDRB     R4,[R1, #+13]
+   \   00000042   0x0224             LSLS     R4,R4,#+8
+   \   00000044   0x18E3             ADDS     R3,R4,R3
+   \   00000046   0x8183             STRH     R3,[R0, #+12]
     351              dev_desc->iManufacturer      = *(uint8_t  *) (buf + 14);
-   \   00000046   0x7B8A             LDRB     R2,[R1, #+14]
-   \   00000048   0x7382             STRB     R2,[R0, #+14]
+   \   00000048   0x7B8B             LDRB     R3,[R1, #+14]
+   \   0000004A   0x7383             STRB     R3,[R0, #+14]
     352              dev_desc->iProduct           = *(uint8_t  *) (buf + 15);
-   \   0000004A   0x7BCA             LDRB     R2,[R1, #+15]
-   \   0000004C   0x73C2             STRB     R2,[R0, #+15]
+   \   0000004C   0x7BCB             LDRB     R3,[R1, #+15]
+   \   0000004E   0x73C3             STRB     R3,[R0, #+15]
     353              dev_desc->iSerialNumber      = *(uint8_t  *) (buf + 16);
-   \   0000004E   0x7C0A             LDRB     R2,[R1, #+16]
-   \   00000050   0x7402             STRB     R2,[R0, #+16]
+   \   00000050   0x7C0B             LDRB     R3,[R1, #+16]
+   \   00000052   0x7403             STRB     R3,[R0, #+16]
     354              dev_desc->bNumConfigurations = *(uint8_t  *) (buf + 17);
-   \   00000052   0x7C49             LDRB     R1,[R1, #+17]
-   \   00000054   0x7441             STRB     R1,[R0, #+17]
+   \   00000054   0x7C4B             LDRB     R3,[R1, #+17]
+   \   00000056   0x7443             STRB     R3,[R0, #+17]
     355            }
     356          }
    \                     ??USBH_ParseDevDesc_0: (+1)
-   \   00000056   0xBD10             POP      {R4,PC}          ;; return
+   \   00000058   0xBC10             POP      {R4}
+   \   0000005A   0x4770             BX       LR               ;; return
     357          
     358          /**
     359            * @brief  USBH_ParseCfgDesc 
@@ -649,156 +708,154 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
     368                                         uint16_t length)
     369          {  
    \                     USBH_ParseCfgDesc: (+1)
-   \   00000000   0xE92D 0x41F0      PUSH     {R4-R8,LR}
-   \   00000004   0x4604             MOV      R4,R0
-   \   00000006   0x4608             MOV      R0,R1
-   \   00000008   0xB082             SUB      SP,SP,#+8
+   \   00000000   0xE92D 0x4FF8      PUSH     {R3-R11,LR}
+   \   00000004   0x0004             MOVS     R4,R0
+   \   00000006   0x000D             MOVS     R5,R1
+   \   00000008   0x0016             MOVS     R6,R2
     370            USBH_InterfaceDescTypeDef    *pif ;
     371            USBH_EpDescTypeDef           *pep;  
     372            USBH_DescHeader_t             *pdesc = (USBH_DescHeader_t *)buf;
+   \   0000000A   0x46A9             MOV      R9,R5
     373            uint16_t                      ptr;
     374            int8_t                        if_ix = 0;
-   \   0000000A   0x2500             MOVS     R5,#+0
+   \   0000000C   0xF05F 0x0A00      MOVS     R10,#+0
     375            int8_t                        ep_ix = 0;  
+   \   00000010   0xF05F 0x0B00      MOVS     R11,#+0
     376            
     377            pdesc   = (USBH_DescHeader_t *)buf;
+   \   00000014   0x46A9             MOV      R9,R5
     378            
     379            /* Parse configuration descriptor */
     380            cfg_desc->bLength             = *(uint8_t  *) (buf + 0);
-   \   0000000C   0x7801             LDRB     R1,[R0, #+0]
+   \   00000016   0x7828             LDRB     R0,[R5, #+0]
+   \   00000018   0x7020             STRB     R0,[R4, #+0]
     381            cfg_desc->bDescriptorType     = *(uint8_t  *) (buf + 1);
+   \   0000001A   0x7868             LDRB     R0,[R5, #+1]
+   \   0000001C   0x7060             STRB     R0,[R4, #+1]
     382            cfg_desc->wTotalLength        = LE16 (buf + 2);
+   \   0000001E   0x78A8             LDRB     R0,[R5, #+2]
+   \   00000020   0x78E9             LDRB     R1,[R5, #+3]
+   \   00000022   0x0209             LSLS     R1,R1,#+8
+   \   00000024   0x1808             ADDS     R0,R1,R0
+   \   00000026   0x8060             STRH     R0,[R4, #+2]
     383            cfg_desc->bNumInterfaces      = *(uint8_t  *) (buf + 4);
+   \   00000028   0x7928             LDRB     R0,[R5, #+4]
+   \   0000002A   0x7120             STRB     R0,[R4, #+4]
     384            cfg_desc->bConfigurationValue = *(uint8_t  *) (buf + 5);
+   \   0000002C   0x7968             LDRB     R0,[R5, #+5]
+   \   0000002E   0x7160             STRB     R0,[R4, #+5]
     385            cfg_desc->iConfiguration      = *(uint8_t  *) (buf + 6);
+   \   00000030   0x79A8             LDRB     R0,[R5, #+6]
+   \   00000032   0x71A0             STRB     R0,[R4, #+6]
     386            cfg_desc->bmAttributes        = *(uint8_t  *) (buf + 7);
+   \   00000034   0x79E8             LDRB     R0,[R5, #+7]
+   \   00000036   0x71E0             STRB     R0,[R4, #+7]
     387            cfg_desc->bMaxPower           = *(uint8_t  *) (buf + 8);    
+   \   00000038   0x7A28             LDRB     R0,[R5, #+8]
+   \   0000003A   0x7220             STRB     R0,[R4, #+8]
     388            
     389            
     390            if (length > USB_CONFIGURATION_DESC_SIZE)
-   \   0000000E   0x2A0A             CMP      R2,#+10
-   \   00000010   0x7021             STRB     R1,[R4, #+0]
-   \   00000012   0x7841             LDRB     R1,[R0, #+1]
-   \   00000014   0x7061             STRB     R1,[R4, #+1]
-   \   00000016   0x7881             LDRB     R1,[R0, #+2]
-   \   00000018   0x78C3             LDRB     R3,[R0, #+3]
-   \   0000001A   0xEB01 0x2103      ADD      R1,R1,R3, LSL #+8
-   \   0000001E   0x8061             STRH     R1,[R4, #+2]
-   \   00000020   0x7901             LDRB     R1,[R0, #+4]
-   \   00000022   0x7121             STRB     R1,[R4, #+4]
-   \   00000024   0x7941             LDRB     R1,[R0, #+5]
-   \   00000026   0x7161             STRB     R1,[R4, #+5]
-   \   00000028   0x7981             LDRB     R1,[R0, #+6]
-   \   0000002A   0x71A1             STRB     R1,[R4, #+6]
-   \   0000002C   0x79C1             LDRB     R1,[R0, #+7]
-   \   0000002E   0x71E1             STRB     R1,[R4, #+7]
-   \   00000030   0x7A01             LDRB     R1,[R0, #+8]
-   \   00000032   0x7221             STRB     R1,[R4, #+8]
-   \   00000034   0xDB4D             BLT.N    ??USBH_ParseCfgDesc_0
+   \   0000003C   0xB2B6             UXTH     R6,R6            ;; ZeroExt  R6,R6,#+16,#+16
+   \   0000003E   0x2E0A             CMP      R6,#+10
+   \   00000040   0xDB50             BLT.N    ??USBH_ParseCfgDesc_0
     391            {
     392              ptr = USB_LEN_CFG_DESC;
-   \   00000036   0x2109             MOVS     R1,#+9
-   \   00000038   0xF8AD 0x1000      STRH     R1,[SP, #+0]
+   \   00000042   0x2009             MOVS     R0,#+9
+   \   00000044   0xF8AD 0x0000      STRH     R0,[SP, #+0]
     393              pif = (USBH_InterfaceDescTypeDef *)0;
-   \                     ??USBH_ParseCfgDesc_1: (+1)
-   \   0000003C   0xF8BD 0x1000      LDRH     R1,[SP, #+0]
-   \   00000040   0x8862             LDRH     R2,[R4, #+2]
-   \   00000042   0x4291             CMP      R1,R2
-   \   00000044   0xD245             BCS.N    ??USBH_ParseCfgDesc_0
+   \   00000048   0x2000             MOVS     R0,#+0
+   \   0000004A   0x0007             MOVS     R7,R0
     394              
     395              
     396              while ((if_ix < USBH_MAX_NUM_INTERFACES ) && (ptr < cfg_desc->wTotalLength))
+   \                     ??USBH_ParseCfgDesc_1: (+1)
+   \   0000004C   0xFA4F 0xFA8A      SXTB     R10,R10          ;; SignExt  R10,R10,#+24,#+24
+   \   00000050   0xF1BA 0x0F01      CMP      R10,#+1
+   \   00000054   0xDA46             BGE.N    ??USBH_ParseCfgDesc_0
+   \   00000056   0xF8BD 0x0000      LDRH     R0,[SP, #+0]
+   \   0000005A   0x8861             LDRH     R1,[R4, #+2]
+   \   0000005C   0x4288             CMP      R0,R1
+   \   0000005E   0xD241             BCS.N    ??USBH_ParseCfgDesc_0
     397              {
     398                pdesc = USBH_GetNextDesc((uint8_t *)pdesc, &ptr);
-   \   00000046   0x4669             MOV      R1,SP
-   \   00000048   0x.... 0x....      BL       USBH_GetNextDesc
+   \   00000060   0x4669             MOV      R1,SP
+   \   00000062   0x4648             MOV      R0,R9
+   \   00000064   0x.... 0x....      BL       USBH_GetNextDesc
+   \   00000068   0x4681             MOV      R9,R0
     399                if (pdesc->bDescriptorType   == USB_DESC_TYPE_INTERFACE) 
-   \   0000004C   0x7841             LDRB     R1,[R0, #+1]
-   \   0000004E   0x2904             CMP      R1,#+4
-   \   00000050   0xD1F4             BNE.N    ??USBH_ParseCfgDesc_1
+   \   0000006A   0xF899 0x0001      LDRB     R0,[R9, #+1]
+   \   0000006E   0x2804             CMP      R0,#+4
+   \   00000070   0xD1EC             BNE.N    ??USBH_ParseCfgDesc_1
     400                {
     401                  pif = &cfg_desc->Itf_Desc[if_ix];
-   \   00000052   0x2122             MOVS     R1,#+34
+   \   00000072   0xFA4F 0xFA8A      SXTB     R10,R10          ;; SignExt  R10,R10,#+24,#+24
+   \   00000076   0x2022             MOVS     R0,#+34
+   \   00000078   0xFB1A 0x4000      SMLABB   R0,R10,R0,R4
+   \   0000007C   0x300A             ADDS     R0,R0,#+10
+   \   0000007E   0x0007             MOVS     R7,R0
     402                  USBH_ParseInterfaceDesc (pif, (uint8_t *)pdesc);            
+   \   00000080   0x4649             MOV      R1,R9
+   \   00000082   0x0038             MOVS     R0,R7
+   \   00000084   0x.... 0x....      BL       USBH_ParseInterfaceDesc
     403                  
     404                  ep_ix = 0;
-   \   00000054   0x2600             MOVS     R6,#+0
-   \   00000056   0xFB11 0x4805      SMLABB   R8,R1,R5,R4
-   \   0000005A   0x7801             LDRB     R1,[R0, #+0]
-   \   0000005C   0xF108 0x070A      ADD      R7,R8,#+10
-   \   00000060   0x7039             STRB     R1,[R7, #+0]
-   \   00000062   0x7841             LDRB     R1,[R0, #+1]
-   \   00000064   0x7079             STRB     R1,[R7, #+1]
-   \   00000066   0x7881             LDRB     R1,[R0, #+2]
-   \   00000068   0x70B9             STRB     R1,[R7, #+2]
-   \   0000006A   0x78C1             LDRB     R1,[R0, #+3]
-   \   0000006C   0x70F9             STRB     R1,[R7, #+3]
-   \   0000006E   0x7901             LDRB     R1,[R0, #+4]
-   \   00000070   0x7139             STRB     R1,[R7, #+4]
-   \   00000072   0x7941             LDRB     R1,[R0, #+5]
-   \   00000074   0x7179             STRB     R1,[R7, #+5]
-   \   00000076   0x7981             LDRB     R1,[R0, #+6]
-   \   00000078   0x71B9             STRB     R1,[R7, #+6]
-   \   0000007A   0x79C1             LDRB     R1,[R0, #+7]
-   \   0000007C   0x71F9             STRB     R1,[R7, #+7]
-   \   0000007E   0x7A01             LDRB     R1,[R0, #+8]
-   \   00000080   0x7239             STRB     R1,[R7, #+8]
+   \   00000088   0x2000             MOVS     R0,#+0
+   \   0000008A   0x4683             MOV      R11,R0
     405                  pep = (USBH_EpDescTypeDef *)0;        
-   \   00000082   0xE019             B.N      ??USBH_ParseCfgDesc_2
+   \   0000008C   0x2000             MOVS     R0,#+0
+   \   0000008E   0x4680             MOV      R8,R0
     406                  while ((ep_ix < pif->bNumEndpoints) && (ptr < cfg_desc->wTotalLength))
+   \                     ??USBH_ParseCfgDesc_2: (+1)
+   \   00000090   0x4658             MOV      R0,R11
+   \   00000092   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   00000094   0x7939             LDRB     R1,[R7, #+4]
+   \   00000096   0xB200             SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
+   \   00000098   0xB209             SXTH     R1,R1            ;; SignExt  R1,R1,#+16,#+16
+   \   0000009A   0x4288             CMP      R0,R1
+   \   0000009C   0xDA1F             BGE.N    ??USBH_ParseCfgDesc_3
+   \   0000009E   0xF8BD 0x0000      LDRH     R0,[SP, #+0]
+   \   000000A2   0x8861             LDRH     R1,[R4, #+2]
+   \   000000A4   0x4288             CMP      R0,R1
+   \   000000A6   0xD21A             BCS.N    ??USBH_ParseCfgDesc_3
     407                  {
     408                    pdesc = USBH_GetNextDesc((uint8_t*) pdesc, &ptr);
-   \                     ??USBH_ParseCfgDesc_3: (+1)
-   \   00000084   0x4669             MOV      R1,SP
-   \   00000086   0x.... 0x....      BL       USBH_GetNextDesc
+   \   000000A8   0x4669             MOV      R1,SP
+   \   000000AA   0x4648             MOV      R0,R9
+   \   000000AC   0x.... 0x....      BL       USBH_GetNextDesc
+   \   000000B0   0x4681             MOV      R9,R0
     409                    if (pdesc->bDescriptorType   == USB_DESC_TYPE_ENDPOINT) 
-   \   0000008A   0x7841             LDRB     R1,[R0, #+1]
-   \   0000008C   0x2905             CMP      R1,#+5
-   \   0000008E   0xD113             BNE.N    ??USBH_ParseCfgDesc_2
+   \   000000B2   0xF899 0x0001      LDRB     R0,[R9, #+1]
+   \   000000B6   0x2805             CMP      R0,#+5
+   \   000000B8   0xD1EA             BNE.N    ??USBH_ParseCfgDesc_2
     410                    {  
     411                      pep = &cfg_desc->Itf_Desc[if_ix].Ep_Desc[ep_ix];
+   \   000000BA   0xFA4F 0xFA8A      SXTB     R10,R10          ;; SignExt  R10,R10,#+24,#+24
+   \   000000BE   0x2022             MOVS     R0,#+34
+   \   000000C0   0xFB1A 0x4000      SMLABB   R0,R10,R0,R4
+   \   000000C4   0xFA4F 0xFB8B      SXTB     R11,R11          ;; SignExt  R11,R11,#+24,#+24
+   \   000000C8   0xEB10 0x00CB      ADDS     R0,R0,R11, LSL #+3
+   \   000000CC   0x3014             ADDS     R0,R0,#+20
+   \   000000CE   0x4680             MOV      R8,R0
     412                      USBH_ParseEPDesc (pep, (uint8_t *)pdesc);
-   \   00000090   0xB276             SXTB     R6,R6
-   \   00000092   0x7802             LDRB     R2,[R0, #+0]
-   \   00000094   0xEB08 0x01C6      ADD      R1,R8,R6, LSL #+3
+   \   000000D0   0x4649             MOV      R1,R9
+   \   000000D2   0x4640             MOV      R0,R8
+   \   000000D4   0x.... 0x....      BL       USBH_ParseEPDesc
     413                      ep_ix++;
-   \   00000098   0x1C76             ADDS     R6,R6,#+1
-   \   0000009A   0xF801 0x2F14      STRB     R2,[R1, #+20]!
-   \   0000009E   0x7842             LDRB     R2,[R0, #+1]
-   \   000000A0   0x704A             STRB     R2,[R1, #+1]
-   \   000000A2   0x7882             LDRB     R2,[R0, #+2]
-   \   000000A4   0x708A             STRB     R2,[R1, #+2]
-   \   000000A6   0x78C2             LDRB     R2,[R0, #+3]
-   \   000000A8   0x70CA             STRB     R2,[R1, #+3]
-   \   000000AA   0x7902             LDRB     R2,[R0, #+4]
-   \   000000AC   0x7943             LDRB     R3,[R0, #+5]
-   \   000000AE   0xEB02 0x2203      ADD      R2,R2,R3, LSL #+8
-   \   000000B2   0x808A             STRH     R2,[R1, #+4]
-   \   000000B4   0x7982             LDRB     R2,[R0, #+6]
-   \   000000B6   0x718A             STRB     R2,[R1, #+6]
+   \   000000D8   0xF11B 0x0B01      ADDS     R11,R11,#+1
+   \   000000DC   0xE7D8             B.N      ??USBH_ParseCfgDesc_2
     414                    }
     415                  }
-   \                     ??USBH_ParseCfgDesc_2: (+1)
-   \   000000B8   0x793A             LDRB     R2,[R7, #+4]
-   \   000000BA   0xB271             SXTB     R1,R6
-   \   000000BC   0x4291             CMP      R1,R2
-   \   000000BE   0xDA04             BGE.N    ??USBH_ParseCfgDesc_4
-   \   000000C0   0xF8BD 0x1000      LDRH     R1,[SP, #+0]
-   \   000000C4   0x8862             LDRH     R2,[R4, #+2]
-   \   000000C6   0x4291             CMP      R1,R2
-   \   000000C8   0xD3DC             BCC.N    ??USBH_ParseCfgDesc_3
     416                  if_ix++;
-   \                     ??USBH_ParseCfgDesc_4: (+1)
-   \   000000CA   0x1C6D             ADDS     R5,R5,#+1
-   \   000000CC   0xB26D             SXTB     R5,R5
+   \                     ??USBH_ParseCfgDesc_3: (+1)
+   \   000000DE   0xF11A 0x0A01      ADDS     R10,R10,#+1
+   \   000000E2   0xE7B3             B.N      ??USBH_ParseCfgDesc_1
     417                }
     418              }
-   \   000000CE   0x2D01             CMP      R5,#+1
-   \   000000D0   0xDBB4             BLT.N    ??USBH_ParseCfgDesc_1
     419            }  
     420          }
    \                     ??USBH_ParseCfgDesc_0: (+1)
-   \   000000D2   0xE8BD 0x81F3      POP      {R0,R1,R4-R8,PC}  ;; return
+   \   000000E4   0xE8BD 0x8FF1      POP      {R0,R4-R11,PC}   ;; return
     421          
     422          
     423          
@@ -809,19 +866,41 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
     428            * @param  buf: Buffer where the descriptor data is available
     429            * @retval None
     430            */
+
+   \                                 In section .text, align 2, keep-with-next
     431          static void  USBH_ParseInterfaceDesc (USBH_InterfaceDescTypeDef *if_descriptor, 
     432                                                uint8_t *buf)
     433          {
     434            if_descriptor->bLength            = *(uint8_t  *) (buf + 0);
+   \                     USBH_ParseInterfaceDesc: (+1)
+   \   00000000   0x780A             LDRB     R2,[R1, #+0]
+   \   00000002   0x7002             STRB     R2,[R0, #+0]
     435            if_descriptor->bDescriptorType    = *(uint8_t  *) (buf + 1);
+   \   00000004   0x784A             LDRB     R2,[R1, #+1]
+   \   00000006   0x7042             STRB     R2,[R0, #+1]
     436            if_descriptor->bInterfaceNumber   = *(uint8_t  *) (buf + 2);
+   \   00000008   0x788A             LDRB     R2,[R1, #+2]
+   \   0000000A   0x7082             STRB     R2,[R0, #+2]
     437            if_descriptor->bAlternateSetting  = *(uint8_t  *) (buf + 3);
+   \   0000000C   0x78CA             LDRB     R2,[R1, #+3]
+   \   0000000E   0x70C2             STRB     R2,[R0, #+3]
     438            if_descriptor->bNumEndpoints      = *(uint8_t  *) (buf + 4);
+   \   00000010   0x790A             LDRB     R2,[R1, #+4]
+   \   00000012   0x7102             STRB     R2,[R0, #+4]
     439            if_descriptor->bInterfaceClass    = *(uint8_t  *) (buf + 5);
+   \   00000014   0x794A             LDRB     R2,[R1, #+5]
+   \   00000016   0x7142             STRB     R2,[R0, #+5]
     440            if_descriptor->bInterfaceSubClass = *(uint8_t  *) (buf + 6);
+   \   00000018   0x798A             LDRB     R2,[R1, #+6]
+   \   0000001A   0x7182             STRB     R2,[R0, #+6]
     441            if_descriptor->bInterfaceProtocol = *(uint8_t  *) (buf + 7);
+   \   0000001C   0x79CA             LDRB     R2,[R1, #+7]
+   \   0000001E   0x71C2             STRB     R2,[R0, #+7]
     442            if_descriptor->iInterface         = *(uint8_t  *) (buf + 8);
+   \   00000020   0x7A0A             LDRB     R2,[R1, #+8]
+   \   00000022   0x7202             STRB     R2,[R0, #+8]
     443          }
+   \   00000024   0x4770             BX       LR               ;; return
     444          
     445          /**
     446            * @brief  USBH_ParseEPDesc 
@@ -830,17 +909,36 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
     449            * @param  buf: Buffer where the parsed descriptor stored
     450            * @retval None
     451            */
+
+   \                                 In section .text, align 2, keep-with-next
     452          static void  USBH_ParseEPDesc (USBH_EpDescTypeDef  *ep_descriptor, 
     453                                         uint8_t *buf)
     454          {
     455            
     456            ep_descriptor->bLength          = *(uint8_t  *) (buf + 0);
+   \                     USBH_ParseEPDesc: (+1)
+   \   00000000   0x780A             LDRB     R2,[R1, #+0]
+   \   00000002   0x7002             STRB     R2,[R0, #+0]
     457            ep_descriptor->bDescriptorType  = *(uint8_t  *) (buf + 1);
+   \   00000004   0x784A             LDRB     R2,[R1, #+1]
+   \   00000006   0x7042             STRB     R2,[R0, #+1]
     458            ep_descriptor->bEndpointAddress = *(uint8_t  *) (buf + 2);
+   \   00000008   0x788A             LDRB     R2,[R1, #+2]
+   \   0000000A   0x7082             STRB     R2,[R0, #+2]
     459            ep_descriptor->bmAttributes     = *(uint8_t  *) (buf + 3);
+   \   0000000C   0x78CA             LDRB     R2,[R1, #+3]
+   \   0000000E   0x70C2             STRB     R2,[R0, #+3]
     460            ep_descriptor->wMaxPacketSize   = LE16 (buf + 4);
+   \   00000010   0x790A             LDRB     R2,[R1, #+4]
+   \   00000012   0x794B             LDRB     R3,[R1, #+5]
+   \   00000014   0x021B             LSLS     R3,R3,#+8
+   \   00000016   0x189A             ADDS     R2,R3,R2
+   \   00000018   0x8082             STRH     R2,[R0, #+4]
     461            ep_descriptor->bInterval        = *(uint8_t  *) (buf + 6);
+   \   0000001A   0x798A             LDRB     R2,[R1, #+6]
+   \   0000001C   0x7182             STRB     R2,[R0, #+6]
     462          }
+   \   0000001E   0x4770             BX       LR               ;; return
     463          
     464          /**
     465            * @brief  USBH_ParseStringDesc 
@@ -850,10 +948,14 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
     469            * @param  length: Length of the descriptor
     470            * @retval None
     471            */
+
+   \                                 In section .text, align 2, keep-with-next
     472          static void USBH_ParseStringDesc (uint8_t* psrc, 
     473                                            uint8_t* pdest, 
     474                                            uint16_t length)
     475          {
+   \                     USBH_ParseStringDesc: (+1)
+   \   00000000   0xB430             PUSH     {R4,R5}
     476            uint16_t strlength;
     477            uint16_t idx;
     478            
@@ -865,20 +967,54 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
     484            from the device */
     485            
     486            if ( psrc[1] == USB_DESC_TYPE_STRING)
+   \   00000002   0x7845             LDRB     R5,[R0, #+1]
+   \   00000004   0x2D03             CMP      R5,#+3
+   \   00000006   0xD117             BNE.N    ??USBH_ParseStringDesc_0
     487            { /* Make sure the Descriptor is String Type */
     488              
     489              /* psrc[0] contains Size of Descriptor, subtract 2 to get the length of string */      
     490              strlength = ( ( (psrc[0]-2) <= length) ? (psrc[0]-2) :length); 
+   \   00000008   0xB292             UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+   \   0000000A   0x7805             LDRB     R5,[R0, #+0]
+   \   0000000C   0x1EAD             SUBS     R5,R5,#+2
+   \   0000000E   0x42AA             CMP      R2,R5
+   \   00000010   0xDB02             BLT.N    ??USBH_ParseStringDesc_1
+   \   00000012   0x7803             LDRB     R3,[R0, #+0]
+   \   00000014   0x1E9B             SUBS     R3,R3,#+2
+   \   00000016   0xE000             B.N      ??USBH_ParseStringDesc_2
+   \                     ??USBH_ParseStringDesc_1: (+1)
+   \   00000018   0x0013             MOVS     R3,R2
     491              psrc += 2; /* Adjust the offset ignoring the String Len and Descriptor type */
+   \                     ??USBH_ParseStringDesc_2: (+1)
+   \   0000001A   0x1C80             ADDS     R0,R0,#+2
     492              
     493              for (idx = 0; idx < strlength; idx+=2 )
+   \   0000001C   0x2500             MOVS     R5,#+0
+   \   0000001E   0x002C             MOVS     R4,R5
+   \                     ??USBH_ParseStringDesc_3: (+1)
+   \   00000020   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   00000022   0xB29B             UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
+   \   00000024   0x429C             CMP      R4,R3
+   \   00000026   0xD205             BCS.N    ??USBH_ParseStringDesc_4
     494              {/* Copy Only the string and ignore the UNICODE ID, hence add the src */
     495                *pdest =  psrc[idx];
+   \   00000028   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   0000002A   0x5C25             LDRB     R5,[R4, R0]
+   \   0000002C   0x700D             STRB     R5,[R1, #+0]
     496                pdest++;
+   \   0000002E   0x1C49             ADDS     R1,R1,#+1
     497              }  
+   \   00000030   0x1CA4             ADDS     R4,R4,#+2
+   \   00000032   0xE7F5             B.N      ??USBH_ParseStringDesc_3
     498              *pdest = 0; /* mark end of string */  
+   \                     ??USBH_ParseStringDesc_4: (+1)
+   \   00000034   0x2500             MOVS     R5,#+0
+   \   00000036   0x700D             STRB     R5,[R1, #+0]
     499            }
     500          }
+   \                     ??USBH_ParseStringDesc_0: (+1)
+   \   00000038   0xBC30             POP      {R4,R5}
+   \   0000003A   0x4770             BX       LR               ;; return
     501          
     502          /**
     503            * @brief  USBH_GetNextDesc 
@@ -891,21 +1027,25 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
    \                                 In section .text, align 2, keep-with-next
     509          USBH_DescHeader_t  *USBH_GetNextDesc (uint8_t   *pbuf, uint16_t  *ptr)
     510          {
+   \                     USBH_GetNextDesc: (+1)
+   \   00000000   0xB410             PUSH     {R4}
+   \   00000002   0x0002             MOVS     R2,R0
     511            USBH_DescHeader_t  *pnext;
     512           
     513            *ptr += ((USBH_DescHeader_t *)pbuf)->bLength;  
-   \                     USBH_GetNextDesc: (+1)
-   \   00000000   0x880A             LDRH     R2,[R1, #+0]
-   \   00000002   0x7803             LDRB     R3,[R0, #+0]
-   \   00000004   0xFA52 0xF283      UXTAB    R2,R2,R3
-   \   00000008   0x800A             STRH     R2,[R1, #+0]
+   \   00000004   0x880B             LDRH     R3,[R1, #+0]
+   \   00000006   0x7814             LDRB     R4,[R2, #+0]
+   \   00000008   0xFA53 0xF384      UXTAB    R3,R3,R4
+   \   0000000C   0x800B             STRH     R3,[R1, #+0]
     514            pnext = (USBH_DescHeader_t *)((uint8_t *)pbuf + \
     515                   ((USBH_DescHeader_t *)pbuf)->bLength);
+   \   0000000E   0x7813             LDRB     R3,[R2, #+0]
+   \   00000010   0x189B             ADDS     R3,R3,R2
+   \   00000012   0x0018             MOVS     R0,R3
     516           
     517            return(pnext);
-   \   0000000A   0x7801             LDRB     R1,[R0, #+0]
-   \   0000000C   0x1808             ADDS     R0,R1,R0
-   \   0000000E   0x4770             BX       LR               ;; return
+   \   00000014   0xBC10             POP      {R4}
+   \   00000016   0x4770             BX       LR               ;; return
     518          }
     519          
     520          
@@ -926,77 +1066,95 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
     533                                       uint16_t            length)
     534          {
    \                     USBH_CtlReq: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x4604             MOV      R4,R0
+   \   00000000   0xB5F8             PUSH     {R3-R7,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
+   \   00000006   0x0016             MOVS     R6,R2
     535            USBH_StatusTypeDef status;
     536            status = USBH_BUSY;
-   \   00000004   0x2001             MOVS     R0,#+1
+   \   00000008   0x2001             MOVS     R0,#+1
+   \   0000000A   0x0007             MOVS     R7,R0
     537            
     538            switch (phost->RequestState)
-   \   00000006   0x78A3             LDRB     R3,[R4, #+2]
-   \   00000008   0x2B01             CMP      R3,#+1
-   \   0000000A   0xD002             BEQ.N    ??USBH_CtlReq_0
-   \   0000000C   0x2B02             CMP      R3,#+2
-   \   0000000E   0xD006             BEQ.N    ??USBH_CtlReq_1
-   \   00000010   0xBD10             POP      {R4,PC}
+   \   0000000C   0x78A0             LDRB     R0,[R4, #+2]
+   \   0000000E   0x2801             CMP      R0,#+1
+   \   00000010   0xD002             BEQ.N    ??USBH_CtlReq_0
+   \   00000012   0x2802             CMP      R0,#+2
+   \   00000014   0xD009             BEQ.N    ??USBH_CtlReq_1
+   \   00000016   0xE01E             B.N      ??USBH_CtlReq_2
     539            {
     540            case CMD_SEND:
     541              /* Start a SETUP transfer */
     542              phost->Control.buff = buff; 
    \                     ??USBH_CtlReq_0: (+1)
-   \   00000012   0x60A1             STR      R1,[R4, #+8]
+   \   00000018   0x60A5             STR      R5,[R4, #+8]
     543              phost->Control.length = length;
+   \   0000001A   0x81A6             STRH     R6,[R4, #+12]
     544              phost->Control.state = CTRL_SETUP;  
+   \   0000001C   0x2001             MOVS     R0,#+1
+   \   0000001E   0x7620             STRB     R0,[R4, #+24]
     545              phost->RequestState = CMD_WAIT;
-   \   00000014   0x2102             MOVS     R1,#+2
-   \   00000016   0x81A2             STRH     R2,[R4, #+12]
-   \   00000018   0x7620             STRB     R0,[R4, #+24]
-   \   0000001A   0x70A1             STRB     R1,[R4, #+2]
+   \   00000020   0x2002             MOVS     R0,#+2
+   \   00000022   0x70A0             STRB     R0,[R4, #+2]
     546              status = USBH_BUSY;
+   \   00000024   0x2001             MOVS     R0,#+1
+   \   00000026   0x0007             MOVS     R7,R0
     547          #if (USBH_USE_OS == 1)
     548              osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
     549          #endif      
     550              break;
-   \   0000001C   0xBD10             POP      {R4,PC}
+   \   00000028   0xE015             B.N      ??USBH_CtlReq_3
     551              
     552            case CMD_WAIT:
     553              status = USBH_HandleControl(phost);
    \                     ??USBH_CtlReq_1: (+1)
-   \   0000001E   0x4620             MOV      R0,R4
-   \   00000020   0x.... 0x....      BL       USBH_HandleControl
+   \   0000002A   0x0020             MOVS     R0,R4
+   \   0000002C   0x.... 0x....      BL       USBH_HandleControl
+   \   00000030   0x0007             MOVS     R7,R0
     554               if (status == USBH_OK) 
-   \   00000024   0xB920             CBNZ.N   R0,??USBH_CtlReq_2
+   \   00000032   0xB2FF             UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+   \   00000034   0x2F00             CMP      R7,#+0
+   \   00000036   0xD106             BNE.N    ??USBH_CtlReq_4
     555              {
     556                /* Commands successfully sent and Response Received  */       
     557                phost->RequestState = CMD_SEND;
-   \   00000026   0x2101             MOVS     R1,#+1
-   \   00000028   0x70A1             STRB     R1,[R4, #+2]
+   \   00000038   0x2001             MOVS     R0,#+1
+   \   0000003A   0x70A0             STRB     R0,[R4, #+2]
     558                phost->Control.state =CTRL_IDLE;  
-   \   0000002A   0x2100             MOVS     R1,#+0
-   \   0000002C   0x7621             STRB     R1,[R4, #+24]
+   \   0000003C   0x2000             MOVS     R0,#+0
+   \   0000003E   0x7620             STRB     R0,[R4, #+24]
     559                status = USBH_OK;      
-   \   0000002E   0xBD10             POP      {R4,PC}
+   \   00000040   0x2000             MOVS     R0,#+0
+   \   00000042   0x0007             MOVS     R7,R0
+   \   00000044   0xE006             B.N      ??USBH_CtlReq_5
     560              }
     561              else if  (status == USBH_FAIL)
-   \                     ??USBH_CtlReq_2: (+1)
-   \   00000030   0x2802             CMP      R0,#+2
-   \   00000032   0xD102             BNE.N    ??USBH_CtlReq_3
+   \                     ??USBH_CtlReq_4: (+1)
+   \   00000046   0xB2FF             UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+   \   00000048   0x2F02             CMP      R7,#+2
+   \   0000004A   0xD103             BNE.N    ??USBH_CtlReq_5
     562              {
     563                /* Failure Mode */
     564                phost->RequestState = CMD_SEND;
-   \   00000034   0x2001             MOVS     R0,#+1
-   \   00000036   0x70A0             STRB     R0,[R4, #+2]
+   \   0000004C   0x2001             MOVS     R0,#+1
+   \   0000004E   0x70A0             STRB     R0,[R4, #+2]
     565                status = USBH_FAIL;
-   \   00000038   0x2002             MOVS     R0,#+2
+   \   00000050   0x2002             MOVS     R0,#+2
+   \   00000052   0x0007             MOVS     R7,R0
     566              }   
     567              break;
+   \                     ??USBH_CtlReq_5: (+1)
+   \   00000054   0xE7FF             B.N      ??USBH_CtlReq_3
     568              
     569            default:
     570              break; 
     571            }
     572            return status;
+   \                     ??USBH_CtlReq_2: (+1)
    \                     ??USBH_CtlReq_3: (+1)
-   \   0000003A   0xBD10             POP      {R4,PC}          ;; return
+   \   00000056   0x0038             MOVS     R0,R7
+   \   00000058   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   0000005A   0xBDF2             POP      {R1,R4-R7,PC}    ;; return
     573          }
     574          
     575          /**
@@ -1006,82 +1164,101 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
     579            * @retval USBH Status
     580            */
 
-   \                                 In section .text, align 4, keep-with-next
+   \                                 In section .text, align 2, keep-with-next
     581          static USBH_StatusTypeDef USBH_HandleControl (USBH_HandleTypeDef *phost)
     582          {
    \                     USBH_HandleControl: (+1)
    \   00000000   0xB5F8             PUSH     {R3-R7,LR}
+   \   00000002   0x0004             MOVS     R4,R0
     583            uint8_t direction;  
     584            USBH_StatusTypeDef status = USBH_BUSY;
+   \   00000004   0x2601             MOVS     R6,#+1
     585            USBH_URBStateTypeDef URB_Status = USBH_URB_IDLE;
+   \   00000006   0x2700             MOVS     R7,#+0
     586            
     587            switch (phost->Control.state)
-   \   00000002   0xF100 0x0508      ADD      R5,R0,#+8
-   \   00000006   0x2401             MOVS     R4,#+1
-   \   00000008   0x1C86             ADDS     R6,R0,#+2
-   \   0000000A   0xF500 0x772A      ADD      R7,R0,#+680
-   \   0000000E   0x7C29             LDRB     R1,[R5, #+16]
-   \   00000010   0x1E49             SUBS     R1,R1,#+1
-   \   00000012   0x290A             CMP      R1,#+10
-   \   00000014   0xD850             BHI.N    ??USBH_HandleControl_1
-   \   00000016   0xE8DF 0xF001      TBB      [PC, R1]
-   \                     ??USBH_HandleControl_0:
-   \   0000001A   0x06 0x0D          DC8      0x6,0xD,0x21,0x2A
-   \              0x21 0x2A    
-   \   0000001E   0x34 0x3E          DC8      0x34,0x3E,0x53,0x5C
-   \              0x53 0x5C    
-   \   00000022   0x6A 0x74          DC8      0x6A,0x74,0x85,0x0
-   \              0x85 0x00    
+   \   00000008   0x7E20             LDRB     R0,[R4, #+24]
+   \   0000000A   0x2801             CMP      R0,#+1
+   \   0000000C   0xD016             BEQ.N    ??USBH_HandleControl_0
+   \   0000000E   0xF0C0 0x8103      BCC.W    ??USBH_HandleControl_1
+   \   00000012   0x2803             CMP      R0,#+3
+   \   00000014   0xD042             BEQ.N    ??USBH_HandleControl_2
+   \   00000016   0xD31A             BCC.N    ??USBH_HandleControl_3
+   \   00000018   0x2805             CMP      R0,#+5
+   \   0000001A   0xD061             BEQ.N    ??USBH_HandleControl_4
+   \   0000001C   0xD34A             BCC.N    ??USBH_HandleControl_5
+   \   0000001E   0x2807             CMP      R0,#+7
+   \   00000020   0xF000 0x808D      BEQ.W    ??USBH_HandleControl_6
+   \   00000024   0xD36A             BCC.N    ??USBH_HandleControl_7
+   \   00000026   0x2809             CMP      R0,#+9
+   \   00000028   0xF000 0x80AE      BEQ.W    ??USBH_HandleControl_8
+   \   0000002C   0xF0C0 0x8093      BCC.W    ??USBH_HandleControl_9
+   \   00000030   0x280B             CMP      R0,#+11
+   \   00000032   0xF000 0x80D0      BEQ.W    ??USBH_HandleControl_10
+   \   00000036   0xF0C0 0x80B5      BCC.W    ??USBH_HandleControl_11
+   \   0000003A   0xE0ED             B.N      ??USBH_HandleControl_1
     588            {
     589            case CTRL_SETUP:
     590              /* send a SETUP packet */
     591              USBH_CtlSendSetup     (phost, 
     592          	                   (uint8_t *)phost->Control.setup.d8 , 
     593          	                   phost->Control.pipe_out); 
-   \                     ??USBH_HandleControl_2: (+1)
-   \   00000026   0x78F2             LDRB     R2,[R6, #+3]
-   \   00000028   0xF100 0x0110      ADD      R1,R0,#+16
-   \   0000002C   0x.... 0x....      BL       USBH_CtlSendSetup
+   \                     ??USBH_HandleControl_0: (+1)
+   \   0000003C   0x7962             LDRB     R2,[R4, #+5]
+   \   0000003E   0xF114 0x0110      ADDS     R1,R4,#+16
+   \   00000042   0x0020             MOVS     R0,R4
+   \   00000044   0x.... 0x....      BL       USBH_CtlSendSetup
     594              
     595              phost->Control.state = CTRL_SETUP_WAIT; 
-   \   00000030   0x2002             MOVS     R0,#+2
-   \   00000032   0xE075             B.N      ??USBH_HandleControl_3
+   \   00000048   0x2002             MOVS     R0,#+2
+   \   0000004A   0x7620             STRB     R0,[R4, #+24]
     596              break; 
+   \   0000004C   0xE0E4             B.N      ??USBH_HandleControl_12
     597              
     598            case CTRL_SETUP_WAIT:
     599              
     600              URB_Status = USBH_LL_GetURBState(phost, phost->Control.pipe_out); 
-   \                     ??USBH_HandleControl_4: (+1)
-   \   00000034   0x78F1             LDRB     R1,[R6, #+3]
-   \   00000036   0x.... 0x....      BL       USBH_LL_GetURBState
+   \                     ??USBH_HandleControl_3: (+1)
+   \   0000004E   0x7961             LDRB     R1,[R4, #+5]
+   \   00000050   0x0020             MOVS     R0,R4
+   \   00000052   0x.... 0x....      BL       USBH_LL_GetURBState
+   \   00000056   0x0007             MOVS     R7,R0
     601              /* case SETUP packet sent successfully */
     602              if(URB_Status == USBH_URB_DONE)
-   \   0000003A   0x2801             CMP      R0,#+1
-   \   0000003C   0xD16D             BNE.N    ??USBH_HandleControl_5
+   \   00000058   0xB2FF             UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+   \   0000005A   0x2F01             CMP      R7,#+1
+   \   0000005C   0xD118             BNE.N    ??USBH_HandleControl_13
     603              { 
     604                direction = (phost->Control.setup.b.bmRequestType & USB_REQ_DIR_MASK);
-   \   0000003E   0x7A28             LDRB     R0,[R5, #+8]
+   \   0000005E   0x7C20             LDRB     R0,[R4, #+16]
+   \   00000060   0xF010 0x0080      ANDS     R0,R0,#0x80
+   \   00000064   0x0005             MOVS     R5,R0
     605                
     606                /* check if there is a data stage */
     607                if (phost->Control.setup.b.wLength.w != 0 )
-   \   00000040   0x89E9             LDRH     R1,[R5, #+14]
-   \   00000042   0xF000 0x0080      AND      R0,R0,#0x80
-   \   00000046   0xB121             CBZ.N    R1,??USBH_HandleControl_6
+   \   00000066   0x8AE0             LDRH     R0,[R4, #+22]
+   \   00000068   0x2800             CMP      R0,#+0
+   \   0000006A   0xD008             BEQ.N    ??USBH_HandleControl_14
     608                {        
     609                  if (direction == USB_D2H)
-   \   00000048   0x2880             CMP      R0,#+128
-   \   0000004A   0xBF14             ITE      NE 
-   \   0000004C   0x2005             MOVNE    R0,#+5
-   \   0000004E   0x2003             MOVEQ    R0,#+3
+   \   0000006C   0xB2ED             UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+   \   0000006E   0x2D80             CMP      R5,#+128
+   \   00000070   0xD102             BNE.N    ??USBH_HandleControl_15
     610                  {
     611                    /* Data Direction is IN */
     612                    phost->Control.state = CTRL_DATA_IN;
+   \   00000072   0x2003             MOVS     R0,#+3
+   \   00000074   0x7620             STRB     R0,[R4, #+24]
+   \   00000076   0xE010             B.N      ??USBH_HandleControl_16
     613                  }
     614                  else
     615                  {
     616                    /* Data Direction is OUT */
     617                    phost->Control.state = CTRL_DATA_OUT;
-   \   00000050   0xE066             B.N      ??USBH_HandleControl_3
+   \                     ??USBH_HandleControl_15: (+1)
+   \   00000078   0x2005             MOVS     R0,#+5
+   \   0000007A   0x7620             STRB     R0,[R4, #+24]
+   \   0000007C   0xE00D             B.N      ??USBH_HandleControl_16
     618                  } 
     619                }
     620                /* No DATA stage */
@@ -1089,20 +1266,25 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
     622                {
     623                  /* If there is No Data Transfer Stage */
     624                  if (direction == USB_D2H)
-   \                     ??USBH_HandleControl_6: (+1)
-   \   00000052   0x2880             CMP      R0,#+128
-   \   00000054   0xBF14             ITE      NE 
-   \   00000056   0x2007             MOVNE    R0,#+7
-   \   00000058   0x2009             MOVEQ    R0,#+9
+   \                     ??USBH_HandleControl_14: (+1)
+   \   0000007E   0xB2ED             UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+   \   00000080   0x2D80             CMP      R5,#+128
+   \   00000082   0xD102             BNE.N    ??USBH_HandleControl_17
     625                  {
     626                    /* Data Direction is IN */
     627                    phost->Control.state = CTRL_STATUS_OUT;
+   \   00000084   0x2009             MOVS     R0,#+9
+   \   00000086   0x7620             STRB     R0,[R4, #+24]
+   \   00000088   0xE007             B.N      ??USBH_HandleControl_16
     628                  }
     629                  else
     630                  {
     631                    /* Data Direction is OUT */
     632                    phost->Control.state = CTRL_STATUS_IN;
-   \   0000005A   0xE061             B.N      ??USBH_HandleControl_3
+   \                     ??USBH_HandleControl_17: (+1)
+   \   0000008A   0x2007             MOVS     R0,#+7
+   \   0000008C   0x7620             STRB     R0,[R4, #+24]
+   \   0000008E   0xE004             B.N      ??USBH_HandleControl_16
     633                  } 
     634                }          
     635          #if (USBH_USE_OS == 1)
@@ -1110,49 +1292,62 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
     637          #endif
     638              }
     639              else if(URB_Status == USBH_URB_ERROR)
+   \                     ??USBH_HandleControl_13: (+1)
+   \   00000090   0xB2FF             UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+   \   00000092   0x2F04             CMP      R7,#+4
+   \   00000094   0xD101             BNE.N    ??USBH_HandleControl_16
     640              {
     641                phost->Control.state = CTRL_ERROR;
+   \   00000096   0x200B             MOVS     R0,#+11
+   \   00000098   0x7620             STRB     R0,[R4, #+24]
     642          #if (USBH_USE_OS == 1)
     643              osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
     644          #endif      
     645              }    
     646              break;
+   \                     ??USBH_HandleControl_16: (+1)
+   \   0000009A   0xE0BD             B.N      ??USBH_HandleControl_12
     647              
     648            case CTRL_DATA_IN:  
     649              /* Issue an IN token */ 
     650               phost->Control.timer = phost->Timer;
-   \                     ??USBH_HandleControl_7: (+1)
-   \   0000005C   0x6839             LDR      R1,[R7, #+0]
+   \                     ??USBH_HandleControl_2: (+1)
+   \   0000009C   0xF8D4 0x02A8      LDR      R0,[R4, #+680]
+   \   000000A0   0x81E0             STRH     R0,[R4, #+14]
     651              USBH_CtlReceiveData(phost,
     652                                  phost->Control.buff, 
     653                                  phost->Control.length,
     654                                  phost->Control.pipe_in);
-   \   0000005E   0x88AA             LDRH     R2,[R5, #+4]
-   \   00000060   0x80E9             STRH     R1,[R5, #+6]
-   \   00000062   0x78B3             LDRB     R3,[R6, #+2]
-   \   00000064   0x6829             LDR      R1,[R5, #+0]
-   \   00000066   0x.... 0x....      BL       USBH_CtlReceiveData
+   \   000000A2   0x7923             LDRB     R3,[R4, #+4]
+   \   000000A4   0x89A2             LDRH     R2,[R4, #+12]
+   \   000000A6   0x68A1             LDR      R1,[R4, #+8]
+   \   000000A8   0x0020             MOVS     R0,R4
+   \   000000AA   0x.... 0x....      BL       USBH_CtlReceiveData
     655           
     656              phost->Control.state = CTRL_DATA_IN_WAIT;
-   \   0000006A   0x2004             MOVS     R0,#+4
-   \   0000006C   0xE058             B.N      ??USBH_HandleControl_3
+   \   000000AE   0x2004             MOVS     R0,#+4
+   \   000000B0   0x7620             STRB     R0,[R4, #+24]
     657              break;    
+   \   000000B2   0xE0B1             B.N      ??USBH_HandleControl_12
     658              
     659            case CTRL_DATA_IN_WAIT:
     660              
     661              URB_Status = USBH_LL_GetURBState(phost , phost->Control.pipe_in); 
-   \                     ??USBH_HandleControl_8: (+1)
-   \   0000006E   0x78B1             LDRB     R1,[R6, #+2]
-   \   00000070   0x.... 0x....      BL       USBH_LL_GetURBState
+   \                     ??USBH_HandleControl_5: (+1)
+   \   000000B4   0x7921             LDRB     R1,[R4, #+4]
+   \   000000B6   0x0020             MOVS     R0,R4
+   \   000000B8   0x.... 0x....      BL       USBH_LL_GetURBState
+   \   000000BC   0x0007             MOVS     R7,R0
     662              
     663              /* check is DATA packet transferred successfully */
     664              if  (URB_Status == USBH_URB_DONE)
-   \   00000074   0x2801             CMP      R0,#+1
-   \   00000076   0xBF08             IT       EQ 
-   \   00000078   0x2009             MOVEQ    R0,#+9
-   \   0000007A   0xD051             BEQ.N    ??USBH_HandleControl_3
+   \   000000BE   0xB2FF             UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+   \   000000C0   0x2F01             CMP      R7,#+1
+   \   000000C2   0xD101             BNE.N    ??USBH_HandleControl_18
     665              { 
     666                phost->Control.state = CTRL_STATUS_OUT;
+   \   000000C4   0x2009             MOVS     R0,#+9
+   \   000000C6   0x7620             STRB     R0,[R4, #+24]
     667          #if (USBH_USE_OS == 1)
     668              osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
     669          #endif      
@@ -1160,25 +1355,37 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
     671             
     672              /* manage error cases*/
     673              if  (URB_Status == USBH_URB_STALL) 
-   \   0000007C   0x2805             CMP      R0,#+5
-   \   0000007E   0xD14C             BNE.N    ??USBH_HandleControl_5
+   \                     ??USBH_HandleControl_18: (+1)
+   \   000000C8   0xB2FF             UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+   \   000000CA   0x2F05             CMP      R7,#+5
+   \   000000CC   0xD102             BNE.N    ??USBH_HandleControl_19
     674              { 
     675                /* In stall case, return to previous machine state*/
     676                status = USBH_NOT_SUPPORTED;
-   \   00000080   0xE033             B.N      ??USBH_HandleControl_9
+   \   000000CE   0x2003             MOVS     R0,#+3
+   \   000000D0   0x0006             MOVS     R6,R0
+   \   000000D2   0xE004             B.N      ??USBH_HandleControl_20
     677          #if (USBH_USE_OS == 1)
     678              osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
     679          #endif      
     680              }   
     681              else if (URB_Status == USBH_URB_ERROR)
+   \                     ??USBH_HandleControl_19: (+1)
+   \   000000D4   0xB2FF             UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+   \   000000D6   0x2F04             CMP      R7,#+4
+   \   000000D8   0xD101             BNE.N    ??USBH_HandleControl_20
     682              {
     683                /* Device error */
     684                phost->Control.state = CTRL_ERROR;  
+   \   000000DA   0x200B             MOVS     R0,#+11
+   \   000000DC   0x7620             STRB     R0,[R4, #+24]
     685          #if (USBH_USE_OS == 1)
     686              osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
     687          #endif      
     688              }
     689              break;
+   \                     ??USBH_HandleControl_20: (+1)
+   \   000000DE   0xE09B             B.N      ??USBH_HandleControl_12
     690              
     691            case CTRL_DATA_OUT:
     692              
@@ -1187,34 +1394,41 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
     695                                phost->Control.length , 
     696                                phost->Control.pipe_out,
     697                                1);
-   \                     ??USBH_HandleControl_10: (+1)
-   \   00000082   0x9400             STR      R4,[SP, #+0]
-   \   00000084   0x78F3             LDRB     R3,[R6, #+3]
-   \   00000086   0x88AA             LDRH     R2,[R5, #+4]
-   \   00000088   0x6829             LDR      R1,[R5, #+0]
-   \   0000008A   0x.... 0x....      BL       USBH_CtlSendData
+   \                     ??USBH_HandleControl_4: (+1)
+   \   000000E0   0x2001             MOVS     R0,#+1
+   \   000000E2   0x9000             STR      R0,[SP, #+0]
+   \   000000E4   0x7963             LDRB     R3,[R4, #+5]
+   \   000000E6   0x89A2             LDRH     R2,[R4, #+12]
+   \   000000E8   0x68A1             LDR      R1,[R4, #+8]
+   \   000000EA   0x0020             MOVS     R0,R4
+   \   000000EC   0x.... 0x....      BL       USBH_CtlSendData
     698               phost->Control.timer = phost->Timer;
-   \   0000008E   0x6838             LDR      R0,[R7, #+0]
-   \   00000090   0x80E8             STRH     R0,[R5, #+6]
+   \   000000F0   0xF8D4 0x02A8      LDR      R0,[R4, #+680]
+   \   000000F4   0x81E0             STRH     R0,[R4, #+14]
     699              phost->Control.state = CTRL_DATA_OUT_WAIT;
-   \   00000092   0x2006             MOVS     R0,#+6
-   \   00000094   0xE044             B.N      ??USBH_HandleControl_3
+   \   000000F6   0x2006             MOVS     R0,#+6
+   \   000000F8   0x7620             STRB     R0,[R4, #+24]
     700              break;
+   \   000000FA   0xE08D             B.N      ??USBH_HandleControl_12
     701              
     702            case CTRL_DATA_OUT_WAIT:
     703              
     704              URB_Status = USBH_LL_GetURBState(phost , phost->Control.pipe_out);     
-   \                     ??USBH_HandleControl_11: (+1)
-   \   00000096   0x78F1             LDRB     R1,[R6, #+3]
-   \   00000098   0x.... 0x....      BL       USBH_LL_GetURBState
+   \                     ??USBH_HandleControl_7: (+1)
+   \   000000FC   0x7961             LDRB     R1,[R4, #+5]
+   \   000000FE   0x0020             MOVS     R0,R4
+   \   00000100   0x.... 0x....      BL       USBH_LL_GetURBState
+   \   00000104   0x0007             MOVS     R7,R0
     705              
     706              if  (URB_Status == USBH_URB_DONE)
-   \   0000009C   0x2801             CMP      R0,#+1
-   \   0000009E   0xBF08             IT       EQ 
-   \   000000A0   0x2007             MOVEQ    R0,#+7
+   \   00000106   0xB2FF             UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+   \   00000108   0x2F01             CMP      R7,#+1
+   \   0000010A   0xD102             BNE.N    ??USBH_HandleControl_21
     707              { /* If the Setup Pkt is sent successful, then change the state */
     708                phost->Control.state = CTRL_STATUS_IN;
-   \   000000A2   0xD03D             BEQ.N    ??USBH_HandleControl_3
+   \   0000010C   0x2007             MOVS     R0,#+7
+   \   0000010E   0x7620             STRB     R0,[R4, #+24]
+   \   00000110   0xE014             B.N      ??USBH_HandleControl_22
     709          #if (USBH_USE_OS == 1)
     710                osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
     711          #endif      
@@ -1222,50 +1436,60 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
     713              
     714              /* handle error cases */
     715              else if  (URB_Status == USBH_URB_STALL) 
-   \   000000A4   0x2805             CMP      R0,#+5
-   \   000000A6   0xD102             BNE.N    ??USBH_HandleControl_12
+   \                     ??USBH_HandleControl_21: (+1)
+   \   00000112   0xB2FF             UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+   \   00000114   0x2F05             CMP      R7,#+5
+   \   00000116   0xD104             BNE.N    ??USBH_HandleControl_23
     716              { 
     717                /* In stall case, return to previous machine state*/
     718                phost->Control.state = CTRL_STALLED; 
-   \   000000A8   0x200C             MOVS     R0,#+12
-   \   000000AA   0x7428             STRB     R0,[R5, #+16]
+   \   00000118   0x200C             MOVS     R0,#+12
+   \   0000011A   0x7620             STRB     R0,[R4, #+24]
     719                status = USBH_NOT_SUPPORTED;
-   \   000000AC   0xE01D             B.N      ??USBH_HandleControl_9
+   \   0000011C   0x2003             MOVS     R0,#+3
+   \   0000011E   0x0006             MOVS     R6,R0
+   \   00000120   0xE00C             B.N      ??USBH_HandleControl_22
     720          #if (USBH_USE_OS == 1)
     721              osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
     722          #endif      
     723              } 
     724              else if  (URB_Status == USBH_URB_NOTREADY)
-   \                     ??USBH_HandleControl_12: (+1)
-   \   000000AE   0x2802             CMP      R0,#+2
-   \   000000B0   0xBF08             IT       EQ 
-   \   000000B2   0x2005             MOVEQ    R0,#+5
+   \                     ??USBH_HandleControl_23: (+1)
+   \   00000122   0xB2FF             UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+   \   00000124   0x2F02             CMP      R7,#+2
+   \   00000126   0xD102             BNE.N    ??USBH_HandleControl_24
     725              { 
     726                /* Nack received from device */
     727                phost->Control.state = CTRL_DATA_OUT;
-   \   000000B4   0xD034             BEQ.N    ??USBH_HandleControl_3
+   \   00000128   0x2005             MOVS     R0,#+5
+   \   0000012A   0x7620             STRB     R0,[R4, #+24]
+   \   0000012C   0xE006             B.N      ??USBH_HandleControl_22
     728                
     729          #if (USBH_USE_OS == 1)
     730              osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
     731          #endif      
     732              }    
     733              else if (URB_Status == USBH_URB_ERROR)
-   \   000000B6   0x2804             CMP      R0,#+4
-   \                     ??USBH_HandleControl_1: (+1)
-   \   000000B8   0xD150             BNE.N    ??USBH_HandleControl_13
+   \                     ??USBH_HandleControl_24: (+1)
+   \   0000012E   0xB2FF             UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+   \   00000130   0x2F04             CMP      R7,#+4
+   \   00000132   0xD103             BNE.N    ??USBH_HandleControl_22
     734              {
     735                /* device error */
     736                phost->Control.state = CTRL_ERROR;  
-   \   000000BA   0x200B             MOVS     R0,#+11
-   \   000000BC   0x7428             STRB     R0,[R5, #+16]
+   \   00000134   0x200B             MOVS     R0,#+11
+   \   00000136   0x7620             STRB     R0,[R4, #+24]
     737                status = USBH_FAIL;    
-   \   000000BE   0xE04C             B.N      ??USBH_HandleControl_14
+   \   00000138   0x2002             MOVS     R0,#+2
+   \   0000013A   0x0006             MOVS     R6,R0
     738                
     739          #if (USBH_USE_OS == 1)
     740              osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
     741          #endif      
     742              } 
     743              break;
+   \                     ??USBH_HandleControl_22: (+1)
+   \   0000013C   0xE06C             B.N      ??USBH_HandleControl_12
     744              
     745              
     746            case CTRL_STATUS_IN:
@@ -1274,66 +1498,80 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
     749                                   0,
     750                                   0,
     751                                   phost->Control.pipe_in);
-   \                     ??USBH_HandleControl_15: (+1)
-   \   000000C0   0x78B3             LDRB     R3,[R6, #+2]
-   \   000000C2   0x2200             MOVS     R2,#+0
-   \   000000C4   0x2100             MOVS     R1,#+0
-   \   000000C6   0x.... 0x....      BL       USBH_CtlReceiveData
+   \                     ??USBH_HandleControl_6: (+1)
+   \   0000013E   0x7923             LDRB     R3,[R4, #+4]
+   \   00000140   0x2200             MOVS     R2,#+0
+   \   00000142   0x2100             MOVS     R1,#+0
+   \   00000144   0x0020             MOVS     R0,R4
+   \   00000146   0x.... 0x....      BL       USBH_CtlReceiveData
     752              phost->Control.timer = phost->Timer;
-   \   000000CA   0x6838             LDR      R0,[R7, #+0]
-   \   000000CC   0x80E8             STRH     R0,[R5, #+6]
+   \   0000014A   0xF8D4 0x02A8      LDR      R0,[R4, #+680]
+   \   0000014E   0x81E0             STRH     R0,[R4, #+14]
     753              phost->Control.state = CTRL_STATUS_IN_WAIT;
-   \   000000CE   0x2008             MOVS     R0,#+8
-   \   000000D0   0xE026             B.N      ??USBH_HandleControl_3
+   \   00000150   0x2008             MOVS     R0,#+8
+   \   00000152   0x7620             STRB     R0,[R4, #+24]
     754              
     755              break;
+   \   00000154   0xE060             B.N      ??USBH_HandleControl_12
     756              
     757            case CTRL_STATUS_IN_WAIT:
     758              
     759              URB_Status = USBH_LL_GetURBState(phost , phost->Control.pipe_in); 
-   \                     ??USBH_HandleControl_16: (+1)
-   \   000000D2   0x78B1             LDRB     R1,[R6, #+2]
-   \   000000D4   0x.... 0x....      BL       USBH_LL_GetURBState
+   \                     ??USBH_HandleControl_9: (+1)
+   \   00000156   0x7921             LDRB     R1,[R4, #+4]
+   \   00000158   0x0020             MOVS     R0,R4
+   \   0000015A   0x.... 0x....      BL       USBH_LL_GetURBState
+   \   0000015E   0x0007             MOVS     R7,R0
     760              
     761              if  ( URB_Status == USBH_URB_DONE)
-   \   000000D8   0x2801             CMP      R0,#+1
-   \   000000DA   0xD102             BNE.N    ??USBH_HandleControl_17
+   \   00000160   0xB2FF             UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+   \   00000162   0x2F01             CMP      R7,#+1
+   \   00000164   0xD104             BNE.N    ??USBH_HandleControl_25
     762              { /* Control transfers completed, Exit the State Machine */
     763                phost->Control.state = CTRL_COMPLETE;
-   \   000000DC   0x200D             MOVS     R0,#+13
+   \   00000166   0x200D             MOVS     R0,#+13
+   \   00000168   0x7620             STRB     R0,[R4, #+24]
     764                status = USBH_OK;
-   \   000000DE   0x2400             MOVS     R4,#+0
-   \   000000E0   0xE01E             B.N      ??USBH_HandleControl_3
+   \   0000016A   0x2000             MOVS     R0,#+0
+   \   0000016C   0x0006             MOVS     R6,R0
+   \   0000016E   0xE00A             B.N      ??USBH_HandleControl_26
     765          #if (USBH_USE_OS == 1)
     766              osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
     767          #endif      
     768              }
     769              
     770              else if (URB_Status == USBH_URB_ERROR)
-   \                     ??USBH_HandleControl_17: (+1)
-   \   000000E2   0x2804             CMP      R0,#+4
-   \   000000E4   0xD01B             BEQ.N    ??USBH_HandleControl_18
+   \                     ??USBH_HandleControl_25: (+1)
+   \   00000170   0xB2FF             UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+   \   00000172   0x2F04             CMP      R7,#+4
+   \   00000174   0xD102             BNE.N    ??USBH_HandleControl_27
     771              {
     772                phost->Control.state = CTRL_ERROR;
+   \   00000176   0x200B             MOVS     R0,#+11
+   \   00000178   0x7620             STRB     R0,[R4, #+24]
+   \   0000017A   0xE004             B.N      ??USBH_HandleControl_26
     773          #if (USBH_USE_OS == 1)
     774              osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
     775          #endif      
     776              }
     777               else if(URB_Status == USBH_URB_STALL)
-   \   000000E6   0x2805             CMP      R0,#+5
-   \   000000E8   0xD138             BNE.N    ??USBH_HandleControl_13
+   \                     ??USBH_HandleControl_27: (+1)
+   \   0000017C   0xB2FF             UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+   \   0000017E   0x2F05             CMP      R7,#+5
+   \   00000180   0xD101             BNE.N    ??USBH_HandleControl_26
     778              {
     779                /* Control transfers completed, Exit the State Machine */
     780                status = USBH_NOT_SUPPORTED;
-   \                     ??USBH_HandleControl_9: (+1)
-   \   000000EA   0x2403             MOVS     R4,#+3
-   \   000000EC   0xE036             B.N      ??USBH_HandleControl_13
+   \   00000182   0x2003             MOVS     R0,#+3
+   \   00000184   0x0006             MOVS     R6,R0
     781                
     782          #if (USBH_USE_OS == 1)
     783              osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
     784          #endif      
     785              }
     786              break;
+   \                     ??USBH_HandleControl_26: (+1)
+   \   00000186   0xE047             B.N      ??USBH_HandleControl_12
     787              
     788            case CTRL_STATUS_OUT:
     789              USBH_CtlSendData (phost,
@@ -1341,70 +1579,80 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
     791                                0,
     792                                phost->Control.pipe_out,
     793                                1);
-   \                     ??USBH_HandleControl_19: (+1)
-   \   000000EE   0x9400             STR      R4,[SP, #+0]
-   \   000000F0   0x78F3             LDRB     R3,[R6, #+3]
-   \   000000F2   0x2200             MOVS     R2,#+0
-   \   000000F4   0x2100             MOVS     R1,#+0
-   \   000000F6   0x.... 0x....      BL       USBH_CtlSendData
+   \                     ??USBH_HandleControl_8: (+1)
+   \   00000188   0x2001             MOVS     R0,#+1
+   \   0000018A   0x9000             STR      R0,[SP, #+0]
+   \   0000018C   0x7963             LDRB     R3,[R4, #+5]
+   \   0000018E   0x2200             MOVS     R2,#+0
+   \   00000190   0x2100             MOVS     R1,#+0
+   \   00000192   0x0020             MOVS     R0,R4
+   \   00000194   0x.... 0x....      BL       USBH_CtlSendData
     794               phost->Control.timer = phost->Timer;
-   \   000000FA   0x6838             LDR      R0,[R7, #+0]
-   \   000000FC   0x80E8             STRH     R0,[R5, #+6]
+   \   00000198   0xF8D4 0x02A8      LDR      R0,[R4, #+680]
+   \   0000019C   0x81E0             STRH     R0,[R4, #+14]
     795              phost->Control.state = CTRL_STATUS_OUT_WAIT;
-   \   000000FE   0x200A             MOVS     R0,#+10
-   \   00000100   0xE00E             B.N      ??USBH_HandleControl_3
+   \   0000019E   0x200A             MOVS     R0,#+10
+   \   000001A0   0x7620             STRB     R0,[R4, #+24]
     796              break;
+   \   000001A2   0xE039             B.N      ??USBH_HandleControl_12
     797              
     798            case CTRL_STATUS_OUT_WAIT: 
     799              
     800              URB_Status = USBH_LL_GetURBState(phost , phost->Control.pipe_out);  
-   \                     ??USBH_HandleControl_20: (+1)
-   \   00000102   0x78F1             LDRB     R1,[R6, #+3]
-   \   00000104   0x.... 0x....      BL       USBH_LL_GetURBState
+   \                     ??USBH_HandleControl_11: (+1)
+   \   000001A4   0x7961             LDRB     R1,[R4, #+5]
+   \   000001A6   0x0020             MOVS     R0,R4
+   \   000001A8   0x.... 0x....      BL       USBH_LL_GetURBState
+   \   000001AC   0x0007             MOVS     R7,R0
     801              if  (URB_Status == USBH_URB_DONE)
-   \   00000108   0x2801             CMP      R0,#+1
-   \   0000010A   0xD102             BNE.N    ??USBH_HandleControl_21
+   \   000001AE   0xB2FF             UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+   \   000001B0   0x2F01             CMP      R7,#+1
+   \   000001B2   0xD104             BNE.N    ??USBH_HandleControl_28
     802              { 
     803                status = USBH_OK;      
-   \   0000010C   0x2400             MOVS     R4,#+0
+   \   000001B4   0x2000             MOVS     R0,#+0
+   \   000001B6   0x0006             MOVS     R6,R0
     804                phost->Control.state = CTRL_COMPLETE; 
-   \   0000010E   0x200D             MOVS     R0,#+13
-   \   00000110   0xE006             B.N      ??USBH_HandleControl_3
+   \   000001B8   0x200D             MOVS     R0,#+13
+   \   000001BA   0x7620             STRB     R0,[R4, #+24]
+   \   000001BC   0xE00A             B.N      ??USBH_HandleControl_29
     805                
     806          #if (USBH_USE_OS == 1)
     807              osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
     808          #endif      
     809              }
     810              else if  (URB_Status == USBH_URB_NOTREADY)
-   \                     ??USBH_HandleControl_21: (+1)
-   \   00000112   0x2802             CMP      R0,#+2
-   \   00000114   0xBF08             IT       EQ 
-   \   00000116   0x2009             MOVEQ    R0,#+9
+   \                     ??USBH_HandleControl_28: (+1)
+   \   000001BE   0xB2FF             UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+   \   000001C0   0x2F02             CMP      R7,#+2
+   \   000001C2   0xD102             BNE.N    ??USBH_HandleControl_30
     811              { 
     812                phost->Control.state = CTRL_STATUS_OUT;
-   \   00000118   0xD002             BEQ.N    ??USBH_HandleControl_3
+   \   000001C4   0x2009             MOVS     R0,#+9
+   \   000001C6   0x7620             STRB     R0,[R4, #+24]
+   \   000001C8   0xE004             B.N      ??USBH_HandleControl_29
     813                
     814          #if (USBH_USE_OS == 1)
     815              osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
     816          #endif      
     817              }      
     818              else if (URB_Status == USBH_URB_ERROR)
-   \                     ??USBH_HandleControl_5: (+1)
-   \   0000011A   0x2804             CMP      R0,#+4
-   \   0000011C   0xD11E             BNE.N    ??USBH_HandleControl_13
+   \                     ??USBH_HandleControl_30: (+1)
+   \   000001CA   0xB2FF             UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+   \   000001CC   0x2F04             CMP      R7,#+4
+   \   000001CE   0xD101             BNE.N    ??USBH_HandleControl_29
     819              {
     820                phost->Control.state = CTRL_ERROR; 
-   \                     ??USBH_HandleControl_18: (+1)
-   \   0000011E   0x200B             MOVS     R0,#+11
-   \                     ??USBH_HandleControl_3: (+1)
-   \   00000120   0x7428             STRB     R0,[R5, #+16]
-   \   00000122   0xE01B             B.N      ??USBH_HandleControl_13
+   \   000001D0   0x200B             MOVS     R0,#+11
+   \   000001D2   0x7620             STRB     R0,[R4, #+24]
     821                
     822          #if (USBH_USE_OS == 1)
     823              osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
     824          #endif      
     825              }
     826              break;
+   \                     ??USBH_HandleControl_29: (+1)
+   \   000001D4   0xE020             B.N      ??USBH_HandleControl_12
     827              
     828            case CTRL_ERROR:
     829              /* 
@@ -1416,70 +1664,86 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
     835              accepted.
     836              */
     837              if (++ phost->Control.errorcount <= USBH_MAX_ERROR_COUNT)
-   \                     ??USBH_HandleControl_22: (+1)
-   \   00000124   0x7C69             LDRB     R1,[R5, #+17]
-   \   00000126   0x1C49             ADDS     R1,R1,#+1
-   \   00000128   0x7469             STRB     R1,[R5, #+17]
-   \   0000012A   0xB2C9             UXTB     R1,R1
-   \   0000012C   0x2903             CMP      R1,#+3
-   \   0000012E   0xDA04             BGE.N    ??USBH_HandleControl_23
+   \                     ??USBH_HandleControl_10: (+1)
+   \   000001D6   0x7E60             LDRB     R0,[R4, #+25]
+   \   000001D8   0x1C40             ADDS     R0,R0,#+1
+   \   000001DA   0x7660             STRB     R0,[R4, #+25]
+   \   000001DC   0x7E60             LDRB     R0,[R4, #+25]
+   \   000001DE   0x2803             CMP      R0,#+3
+   \   000001E0   0xDA07             BGE.N    ??USBH_HandleControl_31
     838              {
     839                /* try to recover control */
     840                USBH_LL_Stop(phost);
-   \   00000130   0x.... 0x....      BL       USBH_LL_Stop
+   \   000001E2   0x0020             MOVS     R0,R4
+   \   000001E4   0x.... 0x....      BL       USBH_LL_Stop
     841                   
     842                /* Do the transmission again, starting from SETUP Packet */
     843                phost->Control.state = CTRL_SETUP; 
-   \   00000134   0x742C             STRB     R4,[R5, #+16]
+   \   000001E8   0x2001             MOVS     R0,#+1
+   \   000001EA   0x7620             STRB     R0,[R4, #+24]
     844                phost->RequestState = CMD_SEND;
-   \   00000136   0x7034             STRB     R4,[R6, #+0]
-   \   00000138   0xE010             B.N      ??USBH_HandleControl_13
+   \   000001EC   0x2001             MOVS     R0,#+1
+   \   000001EE   0x70A0             STRB     R0,[R4, #+2]
+   \   000001F0   0xE011             B.N      ??USBH_HandleControl_32
     845              }
     846              else
     847              {
     848                phost->pUser(phost, HOST_USER_UNRECOVERED_ERROR);
-   \                     ??USBH_HandleControl_23: (+1)
-   \   0000013A   0x68FA             LDR      R2,[R7, #+12]
-   \   0000013C   0x2106             MOVS     R1,#+6
-   \   0000013E   0x4790             BLX      R2
+   \                     ??USBH_HandleControl_31: (+1)
+   \   000001F2   0x2106             MOVS     R1,#+6
+   \   000001F4   0x0020             MOVS     R0,R4
+   \   000001F6   0xF8D4 0x22B4      LDR      R2,[R4, #+692]
+   \   000001FA   0x4790             BLX      R2
     849                phost->Control.errorcount = 0;
-   \   00000140   0x2000             MOVS     R0,#+0
-   \   00000142   0x7468             STRB     R0,[R5, #+17]
+   \   000001FC   0x2000             MOVS     R0,#+0
+   \   000001FE   0x7660             STRB     R0,[R4, #+25]
     850                USBH_ErrLog("Control error");
-   \   00000144   0x.... 0x....      ADR.W    R0,?_0
-   \   00000148   0x.... 0x....      BL       printf
-   \   0000014C   0x.... 0x....      ADR.W    R0,?_1
-   \   00000150   0x.... 0x....      BL       printf
-   \   00000154   0x....             ADR.N    R0,??DataTable3  ;; "\n"
-   \   00000156   0x.... 0x....      BL       printf
+   \   00000200   0x....             LDR.N    R0,??DataTable0_1
+   \   00000202   0x.... 0x....      BL       printf
+   \   00000206   0x....             LDR.N    R0,??DataTable0_2
+   \   00000208   0x.... 0x....      BL       printf
+   \   0000020C   0x....             ADR.N    R0,??DataTable0  ;; "\n"
+   \   0000020E   0x.... 0x....      BL       printf
     851                status = USBH_FAIL;
-   \                     ??USBH_HandleControl_14: (+1)
-   \   0000015A   0x2402             MOVS     R4,#+2
+   \   00000212   0x2002             MOVS     R0,#+2
+   \   00000214   0x0006             MOVS     R6,R0
     852              }
     853              break;
+   \                     ??USBH_HandleControl_32: (+1)
+   \   00000216   0xE7FF             B.N      ??USBH_HandleControl_12
     854              
     855            default:
     856              break;
     857            }
     858            return status;
-   \                     ??USBH_HandleControl_13: (+1)
-   \   0000015C   0x4620             MOV      R0,R4
-   \   0000015E   0xBDF2             POP      {R1,R4-R7,PC}    ;; return
+   \                     ??USBH_HandleControl_1: (+1)
+   \                     ??USBH_HandleControl_12: (+1)
+   \   00000218   0x0030             MOVS     R0,R6
+   \   0000021A   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   0000021C   0xBDF2             POP      {R1,R4-R7,PC}    ;; return
     859          }
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable3:
+   \                     ??DataTable0:
    \   00000000   0x0A 0x00          DC8      "\n",0x0,0x0
    \              0x00 0x00    
 
    \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable0_1:
+   \   00000000   0x........         DC32     ?_0
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable0_2:
+   \   00000000   0x........         DC32     ?_1
+
+   \                                 In section .rodata, align 4
    \                     ?_0:
    \   00000000   0x45 0x52          DC8 "ERROR: "
    \              0x52 0x4F    
    \              0x52 0x3A    
    \              0x20 0x00    
 
-   \                                 In section .text, align 4, keep-with-next
+   \                                 In section .rodata, align 4
    \                     ?_1:
    \   00000000   0x43 0x6F          DC8 "Control error"
    \              0x6E 0x74    
@@ -1490,8 +1754,7 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
    \              0x72 0x00    
    \   0000000E   0x00 0x00          DC8 0, 0
 
-   \                                 In section .rodata, align 2, keep-with-next
-   \                     ?_2:
+   \                                 In section .rodata, align 2
    \   00000000   0x0A 0x00          DC8 "\012"
     860          
     861          /**
@@ -1520,21 +1783,22 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
 
    .cstack Function
    ------- --------
-       0   USBH_ClrFeature
-         0   -> USBH_CtlReq
-       8   USBH_CtlReq
-         8   -> USBH_HandleControl
-      16   USBH_GetDescriptor
-         0   -> USBH_CtlReq
-       0   USBH_GetNextDesc
+      16   USBH_ClrFeature
+        16   -> USBH_CtlReq
+      24   USBH_CtlReq
+        24   -> USBH_HandleControl
+      24   USBH_GetDescriptor
+        24   -> USBH_CtlReq
+       4   USBH_GetNextDesc
       24   USBH_Get_CfgDesc
         24   -> USBH_GetDescriptor
         24   -> USBH_ParseCfgDesc
       24   USBH_Get_DevDesc
         24   -> USBH_GetDescriptor
         24   -> USBH_ParseDevDesc
-      24   USBH_Get_StringDesc
-        24   -> USBH_GetDescriptor
+      32   USBH_Get_StringDesc
+        32   -> USBH_GetDescriptor
+        32   -> USBH_ParseStringDesc
       24   USBH_HandleControl
         24   -- Indirect call
         24   -> USBH_CtlReceiveData
@@ -1543,46 +1807,55 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST
         24   -> USBH_LL_GetURBState
         24   -> USBH_LL_Stop
         24   -> printf
-      32   USBH_ParseCfgDesc
-        32   -> USBH_GetNextDesc
-       8   USBH_ParseDevDesc
-       0   USBH_SetAddress
-         0   -> USBH_CtlReq
-       0   USBH_SetCfg
-         0   -> USBH_CtlReq
-       0   USBH_SetInterface
-         0   -> USBH_CtlReq
+      40   USBH_ParseCfgDesc
+        40   -> USBH_GetNextDesc
+        40   -> USBH_ParseEPDesc
+        40   -> USBH_ParseInterfaceDesc
+       4   USBH_ParseDevDesc
+       0   USBH_ParseEPDesc
+       0   USBH_ParseInterfaceDesc
+       8   USBH_ParseStringDesc
+      16   USBH_SetAddress
+        16   -> USBH_CtlReq
+      16   USBH_SetCfg
+        16   -> USBH_CtlReq
+      16   USBH_SetInterface
+        16   -> USBH_CtlReq
 
 
    Section sizes:
 
    Bytes  Function/Label
    -----  --------------
-       4  ??DataTable3
-       6  ?Subroutine0
+       4  ??DataTable0
+       4  ??DataTable0_1
+       4  ??DataTable0_2
        8  ?_0
       16  ?_1
        2  ?_2
-      24  USBH_ClrFeature
-      60  USBH_CtlReq
-      52  USBH_GetDescriptor
-      16  USBH_GetNextDesc
-      44  USBH_Get_CfgDesc
-      46  USBH_Get_DevDesc
-      74  USBH_Get_StringDesc
-     352  USBH_HandleControl
-     214  USBH_ParseCfgDesc
-      88  USBH_ParseDevDesc
-      24  USBH_SetAddress
-      22  USBH_SetCfg
-      22  USBH_SetInterface
+      44  USBH_ClrFeature
+      92  USBH_CtlReq
+      74  USBH_GetDescriptor
+      24  USBH_GetNextDesc
+      60  USBH_Get_CfgDesc
+      64  USBH_Get_DevDesc
+      70  USBH_Get_StringDesc
+     542  USBH_HandleControl
+     232  USBH_ParseCfgDesc
+      92  USBH_ParseDevDesc
+      32  USBH_ParseEPDesc
+      38  USBH_ParseInterfaceDesc
+      60  USBH_ParseStringDesc
+      44  USBH_SetAddress
+      42  USBH_SetCfg
+      46  USBH_SetInterface
 
  
-     2 bytes in section .rodata
- 1 072 bytes in section .text
+    26 bytes in section .rodata
+ 1 568 bytes in section .text
  
- 1 072 bytes of CODE  memory
-     2 bytes of CONST memory
+ 1 568 bytes of CODE  memory
+    26 bytes of CONST memory
 
 Errors: none
 Warnings: none

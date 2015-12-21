@@ -245,7 +245,7 @@ void BSP_LED_Init(Led_TypeDef Led)
   GPIO_InitTypeDef  gpio_init_structure;
   GPIO_TypeDef*     gpio_led;
 
-  if ((Led == LED1) || (Led == LED3))
+  if ((Led == LED1) || (Led == LED2))
   {
     if (Led == LED1)
     {

@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       20/Dec/2015  12:46:39
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       21/Dec/2015  01:05:20
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -16,9 +16,11 @@
 #        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 #        -o
 #        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-#        --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
-#        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
-#        7.3\arm\INC\c\DLib_Config_Full.h" -I
+#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+#        --no_clustering --no_scheduling --debug --endian=little
+#        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\INC\c\DLib_Config_Full.h"
+#        -I
 #        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 #        -I
 #        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
@@ -46,7 +48,7 @@
 #        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 #        -I
 #        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
-#        -Ohz --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -On --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7
 #    List file    =  
@@ -166,100 +168,98 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F
    \                                 In section .text, align 2, keep-with-next
     106          HAL_StatusTypeDef HAL_I2CEx_ConfigAnalogFilter(I2C_HandleTypeDef *hi2c, uint32_t AnalogFilter)
     107          {
+   \                     HAL_I2CEx_ConfigAnalogFilter: (+1)
+   \   00000000   0x0002             MOVS     R2,R0
     108            /* Check the parameters */
     109            assert_param(IS_I2C_ALL_INSTANCE(hi2c->Instance));
     110            assert_param(IS_I2C_ANALOG_FILTER(AnalogFilter));
     111            
     112            if((hi2c->State == HAL_I2C_STATE_BUSY) || (hi2c->State == HAL_I2C_STATE_MASTER_BUSY_TX) || (hi2c->State == HAL_I2C_STATE_MASTER_BUSY_RX)
     113               || (hi2c->State == HAL_I2C_STATE_SLAVE_BUSY_TX) || (hi2c->State == HAL_I2C_STATE_SLAVE_BUSY_RX))
-   \                     HAL_I2CEx_ConfigAnalogFilter: (+1)
-   \   00000000   0xF100 0x0234      ADD      R2,R0,#+52
-   \   00000004   0xB510             PUSH     {R4,LR}
-   \   00000006   0x7853             LDRB     R3,[R2, #+1]
-   \   00000008   0x2B02             CMP      R3,#+2
-   \   0000000A   0xBF1C             ITT      NE 
-   \   0000000C   0x7853             LDRBNE   R3,[R2, #+1]
-   \   0000000E   0x2B12             CMPNE    R3,#+18
+   \   00000002   0xF892 0x0035      LDRB     R0,[R2, #+53]
+   \   00000006   0x2802             CMP      R0,#+2
+   \   00000008   0xD00F             BEQ.N    ??HAL_I2CEx_ConfigAnalogFilter_0
+   \   0000000A   0xF892 0x0035      LDRB     R0,[R2, #+53]
+   \   0000000E   0x2812             CMP      R0,#+18
    \   00000010   0xD00B             BEQ.N    ??HAL_I2CEx_ConfigAnalogFilter_0
-   \   00000012   0x7853             LDRB     R3,[R2, #+1]
-   \   00000014   0x2B22             CMP      R3,#+34
-   \   00000016   0xBF1C             ITT      NE 
-   \   00000018   0x7853             LDRBNE   R3,[R2, #+1]
-   \   0000001A   0x2B32             CMPNE    R3,#+50
-   \   0000001C   0xD005             BEQ.N    ??HAL_I2CEx_ConfigAnalogFilter_0
-   \   0000001E   0x7853             LDRB     R3,[R2, #+1]
-   \   00000020   0x2B42             CMP      R3,#+66
-   \   00000022   0xBF1C             ITT      NE 
-   \   00000024   0x7813             LDRBNE   R3,[R2, #+0]
-   \   00000026   0x2B01             CMPNE    R3,#+1
+   \   00000012   0xF892 0x0035      LDRB     R0,[R2, #+53]
+   \   00000016   0x2822             CMP      R0,#+34
+   \   00000018   0xD007             BEQ.N    ??HAL_I2CEx_ConfigAnalogFilter_0
+   \   0000001A   0xF892 0x0035      LDRB     R0,[R2, #+53]
+   \   0000001E   0x2832             CMP      R0,#+50
+   \   00000020   0xD003             BEQ.N    ??HAL_I2CEx_ConfigAnalogFilter_0
+   \   00000022   0xF892 0x0035      LDRB     R0,[R2, #+53]
+   \   00000026   0x2842             CMP      R0,#+66
+   \   00000028   0xD101             BNE.N    ??HAL_I2CEx_ConfigAnalogFilter_1
     114            {
     115              return HAL_BUSY;
+   \                     ??HAL_I2CEx_ConfigAnalogFilter_0: (+1)
+   \   0000002A   0x2002             MOVS     R0,#+2
+   \   0000002C   0xE029             B.N      ??HAL_I2CEx_ConfigAnalogFilter_2
     116            }
     117            
     118            /* Process Locked */
     119            __HAL_LOCK(hi2c);
-   \   00000028   0xD101             BNE.N    ??HAL_I2CEx_ConfigAnalogFilter_1
-   \                     ??HAL_I2CEx_ConfigAnalogFilter_0: (+1)
-   \   0000002A   0x2002             MOVS     R0,#+2
-   \   0000002C   0xBD10             POP      {R4,PC}
    \                     ??HAL_I2CEx_ConfigAnalogFilter_1: (+1)
-   \   0000002E   0x.... 0x....      BL       ?Subroutine1
+   \   0000002E   0xF892 0x0034      LDRB     R0,[R2, #+52]
+   \   00000032   0x2801             CMP      R0,#+1
+   \   00000034   0xD101             BNE.N    ??HAL_I2CEx_ConfigAnalogFilter_3
+   \   00000036   0x2002             MOVS     R0,#+2
+   \   00000038   0xE023             B.N      ??HAL_I2CEx_ConfigAnalogFilter_2
+   \                     ??HAL_I2CEx_ConfigAnalogFilter_3: (+1)
+   \   0000003A   0x2001             MOVS     R0,#+1
+   \   0000003C   0xF882 0x0034      STRB     R0,[R2, #+52]
     120          
     121            hi2c->State = HAL_I2C_STATE_BUSY;
+   \   00000040   0x2002             MOVS     R0,#+2
+   \   00000042   0xF882 0x0035      STRB     R0,[R2, #+53]
     122            
     123            /* Disable the selected I2C peripheral */
     124            __HAL_I2C_DISABLE(hi2c);    
+   \   00000046   0x6810             LDR      R0,[R2, #+0]
+   \   00000048   0x6800             LDR      R0,[R0, #+0]
+   \   0000004A   0x0840             LSRS     R0,R0,#+1
+   \   0000004C   0x0040             LSLS     R0,R0,#+1
+   \   0000004E   0x6813             LDR      R3,[R2, #+0]
+   \   00000050   0x6018             STR      R0,[R3, #+0]
     125            
     126            /* Reset I2Cx ANOFF bit */
     127            hi2c->Instance->CR1 &= ~(I2C_CR1_ANFOFF);    
-   \                     ??CrossCallReturnLabel_0: (+1)
-   \   00000032   0xF424 0x5480      BIC      R4,R4,#0x1000
-   \   00000036   0x601C             STR      R4,[R3, #+0]
+   \   00000052   0x6810             LDR      R0,[R2, #+0]
+   \   00000054   0x6800             LDR      R0,[R0, #+0]
+   \   00000056   0xF430 0x5080      BICS     R0,R0,#0x1000
+   \   0000005A   0x6813             LDR      R3,[R2, #+0]
+   \   0000005C   0x6018             STR      R0,[R3, #+0]
     128            
     129            /* Set analog filter bit*/
     130            hi2c->Instance->CR1 |= AnalogFilter;
-   \   00000038   0x6803             LDR      R3,[R0, #+0]
-   \   0000003A   0x681C             LDR      R4,[R3, #+0]
-   \   0000003C   0x4321             ORRS     R1,R1,R4
-   \   0000003E   0x....             B.N      ?Subroutine0
+   \   0000005E   0x6810             LDR      R0,[R2, #+0]
+   \   00000060   0x6800             LDR      R0,[R0, #+0]
+   \   00000062   0x4308             ORRS     R0,R1,R0
+   \   00000064   0x6813             LDR      R3,[R2, #+0]
+   \   00000066   0x6018             STR      R0,[R3, #+0]
     131            
     132            __HAL_I2C_ENABLE(hi2c); 
+   \   00000068   0x6810             LDR      R0,[R2, #+0]
+   \   0000006A   0x6800             LDR      R0,[R0, #+0]
+   \   0000006C   0xF050 0x0001      ORRS     R0,R0,#0x1
+   \   00000070   0x6813             LDR      R3,[R2, #+0]
+   \   00000072   0x6018             STR      R0,[R3, #+0]
     133            
     134            hi2c->State = HAL_I2C_STATE_READY;
+   \   00000074   0x2001             MOVS     R0,#+1
+   \   00000076   0xF882 0x0035      STRB     R0,[R2, #+53]
     135            
     136            /* Process Unlocked */
     137            __HAL_UNLOCK(hi2c);
+   \   0000007A   0x2000             MOVS     R0,#+0
+   \   0000007C   0xF882 0x0034      STRB     R0,[R2, #+52]
     138          
     139            return HAL_OK; 
+   \   00000080   0x2000             MOVS     R0,#+0
+   \                     ??HAL_I2CEx_ConfigAnalogFilter_2: (+1)
+   \   00000082   0x4770             BX       LR               ;; return
     140          }
-
-   \                                 In section .text, align 2, keep-with-next
-   \                     ?Subroutine0: (+1)
-   \   00000000   0x6019             STR      R1,[R3, #+0]
-   \   00000002   0x6800             LDR      R0,[R0, #+0]
-   \   00000004   0x6801             LDR      R1,[R0, #+0]
-   \   00000006   0xF041 0x0101      ORR      R1,R1,#0x1
-   \   0000000A   0x6001             STR      R1,[R0, #+0]
-   \   0000000C   0x2001             MOVS     R0,#+1
-   \   0000000E   0x7050             STRB     R0,[R2, #+1]
-   \   00000010   0x2000             MOVS     R0,#+0
-   \   00000012   0x7010             STRB     R0,[R2, #+0]
-   \   00000014   0xBD10             POP      {R4,PC}          ;; return
-
-   \                                 In section .text, align 2, keep-with-next
-   \                     ?Subroutine1: (+1)
-   \   00000000   0x2301             MOVS     R3,#+1
-   \   00000002   0x7013             STRB     R3,[R2, #+0]
-   \   00000004   0x2302             MOVS     R3,#+2
-   \   00000006   0x7053             STRB     R3,[R2, #+1]
-   \   00000008   0x6803             LDR      R3,[R0, #+0]
-   \   0000000A   0x681C             LDR      R4,[R3, #+0]
-   \   0000000C   0x0864             LSRS     R4,R4,#+1
-   \   0000000E   0x0064             LSLS     R4,R4,#+1
-   \   00000010   0x601C             STR      R4,[R3, #+0]
-   \   00000012   0x6803             LDR      R3,[R0, #+0]
-   \   00000014   0x681C             LDR      R4,[R3, #+0]
-   \   00000016   0x4770             BX       LR
     141          
     142          /**
     143            * @brief  Configures I2C Digital noise filter. 
@@ -272,7 +272,11 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F
    \                                 In section .text, align 2, keep-with-next
     149          HAL_StatusTypeDef HAL_I2CEx_ConfigDigitalFilter(I2C_HandleTypeDef *hi2c, uint32_t DigitalFilter)
     150          {
+   \                     HAL_I2CEx_ConfigDigitalFilter: (+1)
+   \   00000000   0xB410             PUSH     {R4}
+   \   00000002   0x0002             MOVS     R2,R0
     151            uint32_t tmpreg = 0;
+   \   00000004   0x2300             MOVS     R3,#+0
     152            
     153            /* Check the parameters */
     154            assert_param(IS_I2C_ALL_INSTANCE(hi2c->Instance));
@@ -280,69 +284,93 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F
     156            
     157            if((hi2c->State == HAL_I2C_STATE_BUSY) || (hi2c->State == HAL_I2C_STATE_MASTER_BUSY_TX) || (hi2c->State == HAL_I2C_STATE_MASTER_BUSY_RX)
     158               || (hi2c->State == HAL_I2C_STATE_SLAVE_BUSY_TX) || (hi2c->State == HAL_I2C_STATE_SLAVE_BUSY_RX))
-   \                     HAL_I2CEx_ConfigDigitalFilter: (+1)
-   \   00000000   0xF100 0x0234      ADD      R2,R0,#+52
-   \   00000004   0xB510             PUSH     {R4,LR}
-   \   00000006   0x7853             LDRB     R3,[R2, #+1]
-   \   00000008   0x2B02             CMP      R3,#+2
-   \   0000000A   0xBF1C             ITT      NE 
-   \   0000000C   0x7853             LDRBNE   R3,[R2, #+1]
-   \   0000000E   0x2B12             CMPNE    R3,#+18
-   \   00000010   0xD00B             BEQ.N    ??HAL_I2CEx_ConfigDigitalFilter_0
-   \   00000012   0x7853             LDRB     R3,[R2, #+1]
-   \   00000014   0x2B22             CMP      R3,#+34
-   \   00000016   0xBF1C             ITT      NE 
-   \   00000018   0x7853             LDRBNE   R3,[R2, #+1]
-   \   0000001A   0x2B32             CMPNE    R3,#+50
-   \   0000001C   0xD005             BEQ.N    ??HAL_I2CEx_ConfigDigitalFilter_0
-   \   0000001E   0x7853             LDRB     R3,[R2, #+1]
-   \   00000020   0x2B42             CMP      R3,#+66
-   \   00000022   0xBF1C             ITT      NE 
-   \   00000024   0x7813             LDRBNE   R3,[R2, #+0]
-   \   00000026   0x2B01             CMPNE    R3,#+1
+   \   00000006   0xF892 0x0035      LDRB     R0,[R2, #+53]
+   \   0000000A   0x2802             CMP      R0,#+2
+   \   0000000C   0xD00F             BEQ.N    ??HAL_I2CEx_ConfigDigitalFilter_0
+   \   0000000E   0xF892 0x0035      LDRB     R0,[R2, #+53]
+   \   00000012   0x2812             CMP      R0,#+18
+   \   00000014   0xD00B             BEQ.N    ??HAL_I2CEx_ConfigDigitalFilter_0
+   \   00000016   0xF892 0x0035      LDRB     R0,[R2, #+53]
+   \   0000001A   0x2822             CMP      R0,#+34
+   \   0000001C   0xD007             BEQ.N    ??HAL_I2CEx_ConfigDigitalFilter_0
+   \   0000001E   0xF892 0x0035      LDRB     R0,[R2, #+53]
+   \   00000022   0x2832             CMP      R0,#+50
+   \   00000024   0xD003             BEQ.N    ??HAL_I2CEx_ConfigDigitalFilter_0
+   \   00000026   0xF892 0x0035      LDRB     R0,[R2, #+53]
+   \   0000002A   0x2842             CMP      R0,#+66
+   \   0000002C   0xD101             BNE.N    ??HAL_I2CEx_ConfigDigitalFilter_1
     159            {
     160              return HAL_BUSY;
+   \                     ??HAL_I2CEx_ConfigDigitalFilter_0: (+1)
+   \   0000002E   0x2002             MOVS     R0,#+2
+   \   00000030   0xE027             B.N      ??HAL_I2CEx_ConfigDigitalFilter_2
     161            }
     162            
     163            /* Process Locked */
     164            __HAL_LOCK(hi2c);
-   \   00000028   0xD101             BNE.N    ??HAL_I2CEx_ConfigDigitalFilter_1
-   \                     ??HAL_I2CEx_ConfigDigitalFilter_0: (+1)
-   \   0000002A   0x2002             MOVS     R0,#+2
-   \   0000002C   0xBD10             POP      {R4,PC}
    \                     ??HAL_I2CEx_ConfigDigitalFilter_1: (+1)
-   \   0000002E   0x.... 0x....      BL       ?Subroutine1
+   \   00000032   0xF892 0x0034      LDRB     R0,[R2, #+52]
+   \   00000036   0x2801             CMP      R0,#+1
+   \   00000038   0xD101             BNE.N    ??HAL_I2CEx_ConfigDigitalFilter_3
+   \   0000003A   0x2002             MOVS     R0,#+2
+   \   0000003C   0xE021             B.N      ??HAL_I2CEx_ConfigDigitalFilter_2
+   \                     ??HAL_I2CEx_ConfigDigitalFilter_3: (+1)
+   \   0000003E   0x2001             MOVS     R0,#+1
+   \   00000040   0xF882 0x0034      STRB     R0,[R2, #+52]
     165          
     166            hi2c->State = HAL_I2C_STATE_BUSY;
+   \   00000044   0x2002             MOVS     R0,#+2
+   \   00000046   0xF882 0x0035      STRB     R0,[R2, #+53]
     167            
     168            /* Disable the selected I2C peripheral */
     169            __HAL_I2C_DISABLE(hi2c);  
+   \   0000004A   0x6810             LDR      R0,[R2, #+0]
+   \   0000004C   0x6800             LDR      R0,[R0, #+0]
+   \   0000004E   0x0840             LSRS     R0,R0,#+1
+   \   00000050   0x0040             LSLS     R0,R0,#+1
+   \   00000052   0x6814             LDR      R4,[R2, #+0]
+   \   00000054   0x6020             STR      R0,[R4, #+0]
     170            
     171            /* Get the old register value */
     172            tmpreg = hi2c->Instance->CR1;
+   \   00000056   0x6810             LDR      R0,[R2, #+0]
+   \   00000058   0x6800             LDR      R0,[R0, #+0]
+   \   0000005A   0x0003             MOVS     R3,R0
     173            
     174            /* Reset I2Cx DNF bits [11:8] */
     175            tmpreg &= ~(I2C_CR1_DFN);
+   \   0000005C   0xF433 0x6370      BICS     R3,R3,#0xF00
     176            
     177            /* Set I2Cx DNF coefficient */
     178            tmpreg |= DigitalFilter << 8;
+   \   00000060   0xEA53 0x2301      ORRS     R3,R3,R1, LSL #+8
     179            
     180            /* Store the new register value */
     181            hi2c->Instance->CR1 = tmpreg;
-   \                     ??CrossCallReturnLabel_1: (+1)
-   \   00000032   0xF424 0x6470      BIC      R4,R4,#0xF00
-   \   00000036   0xEA44 0x2101      ORR      R1,R4,R1, LSL #+8
-   \   0000003A                      REQUIRE ?Subroutine0
-   \   0000003A                      ;; // Fall through to label ?Subroutine0
+   \   00000064   0x6810             LDR      R0,[R2, #+0]
+   \   00000066   0x6003             STR      R3,[R0, #+0]
     182            
     183            __HAL_I2C_ENABLE(hi2c); 
+   \   00000068   0x6810             LDR      R0,[R2, #+0]
+   \   0000006A   0x6800             LDR      R0,[R0, #+0]
+   \   0000006C   0xF050 0x0001      ORRS     R0,R0,#0x1
+   \   00000070   0x6814             LDR      R4,[R2, #+0]
+   \   00000072   0x6020             STR      R0,[R4, #+0]
     184            
     185            hi2c->State = HAL_I2C_STATE_READY;
+   \   00000074   0x2001             MOVS     R0,#+1
+   \   00000076   0xF882 0x0035      STRB     R0,[R2, #+53]
     186            
     187            /* Process Unlocked */
     188            __HAL_UNLOCK(hi2c);
+   \   0000007A   0x2000             MOVS     R0,#+0
+   \   0000007C   0xF882 0x0034      STRB     R0,[R2, #+52]
     189          
     190            return HAL_OK; 
+   \   00000080   0x2000             MOVS     R0,#+0
+   \                     ??HAL_I2CEx_ConfigDigitalFilter_2: (+1)
+   \   00000082   0xBC10             POP      {R4}
+   \   00000084   0x4770             BX       LR               ;; return
     191          }  
     192          
     193          /**
@@ -368,23 +396,21 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F
 
    .cstack Function
    ------- --------
-       8   HAL_I2CEx_ConfigAnalogFilter
-       8   HAL_I2CEx_ConfigDigitalFilter
+       0   HAL_I2CEx_ConfigAnalogFilter
+       4   HAL_I2CEx_ConfigDigitalFilter
 
 
    Section sizes:
 
    Bytes  Function/Label
    -----  --------------
-      22  ?Subroutine0
-      24  ?Subroutine1
-      64  HAL_I2CEx_ConfigAnalogFilter
-      58  HAL_I2CEx_ConfigDigitalFilter
+     132  HAL_I2CEx_ConfigAnalogFilter
+     134  HAL_I2CEx_ConfigDigitalFilter
 
  
- 168 bytes in section .text
+ 266 bytes in section .text
  
- 168 bytes of CODE memory
+ 266 bytes of CODE memory
 
 Errors: none
 Warnings: none

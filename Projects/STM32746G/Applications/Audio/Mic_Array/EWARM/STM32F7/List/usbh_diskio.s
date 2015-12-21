@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      20/Dec/2015  12:46:54
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      21/Dec/2015  01:05:28
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -16,8 +16,10 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
-//        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
+//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+//        --no_clustering --no_scheduling --debug --endian=little
+//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
+//        (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
@@ -46,7 +48,7 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
-//        -Ohz --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
@@ -125,44 +127,6 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
         
-        
-          CFI Common cfiCommon1 Using cfiNames0
-          CFI CodeAlign 2
-          CFI DataAlign 4
-          CFI ReturnAddress R14 CODE
-          CFI CFA R13+0
-          CFI R0 SameValue
-          CFI R1 SameValue
-          CFI R2 SameValue
-          CFI R3 SameValue
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI R6 SameValue
-          CFI R7 SameValue
-          CFI R8 SameValue
-          CFI R9 SameValue
-          CFI R10 SameValue
-          CFI R11 SameValue
-          CFI R12 SameValue
-          CFI R14 SameValue
-          CFI D0 SameValue
-          CFI D1 SameValue
-          CFI D2 SameValue
-          CFI D3 SameValue
-          CFI D4 SameValue
-          CFI D5 SameValue
-          CFI D6 SameValue
-          CFI D7 SameValue
-          CFI D8 SameValue
-          CFI D9 SameValue
-          CFI D10 SameValue
-          CFI D11 SameValue
-          CFI D12 SameValue
-          CFI D13 SameValue
-          CFI D14 SameValue
-          CFI D15 SameValue
-          CFI EndCommon cfiCommon1
-        
 // H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\usbh_diskio.c
 //    1 /**
 //    2   ******************************************************************************
@@ -227,8 +191,9 @@
         THUMB
 //   56 DSTATUS disk_initialize(BYTE pdrv)
 //   57 {
-//   58   return RES_OK;
 disk_initialize:
+        MOVS     R1,R0
+//   58   return RES_OK;
         MOVS     R0,#+0
         BX       LR               ;; return
 //   59 }
@@ -246,33 +211,43 @@ disk_initialize:
         THUMB
 //   66 DSTATUS disk_status (BYTE pdrv)
 //   67 {
+disk_status:
+        PUSH     {R3-R5,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+16
+        MOVS     R4,R0
 //   68   DRESULT res = RES_ERROR;
+        MOVS     R5,#+1
 //   69   
 //   70   if(USBH_MSC_UnitIsReady (&hUSBHost, pdrv))
-disk_status:
-        MOV      R1,R0
-        LDR.N    R0,??DataTable6_1
-        PUSH     {R4,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
+        MOVS     R1,R4
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        LDR.N    R0,??DataTable3_1
           CFI FunCall USBH_MSC_UnitIsReady
         BL       USBH_MSC_UnitIsReady
-        MOVS     R4,#+1
-        CBZ.N    R0,??disk_status_0
+        CMP      R0,#+0
+        BEQ.N    ??disk_status_0
 //   71   {
 //   72     res = RES_OK;
-        MOVS     R4,#+0
+        MOVS     R0,#+0
+        MOVS     R5,R0
+        B.N      ??disk_status_1
 //   73   }
 //   74   else
 //   75   {
 //   76     res = RES_ERROR;
+??disk_status_0:
+        MOVS     R0,#+1
+        MOVS     R5,R0
 //   77   }
 //   78   
 //   79   return res;
-??disk_status_0:
-        MOV      R0,R4
-        POP      {R4,PC}          ;; return
+??disk_status_1:
+        MOVS     R0,R5
+        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+        POP      {R1,R4,R5,PC}    ;; return
 //   80 }
           CFI EndBlock cfiBlock1
 //   81 
@@ -292,82 +267,105 @@ disk_status:
 //   90 DRESULT disk_read (BYTE pdrv, BYTE *buff, DWORD sector, UINT count)
 //   91 {
 disk_read:
-        PUSH     {R4-R9,LR}
+        PUSH     {R2,R4-R11,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R9 Frame(CFA, -8)
-          CFI R8 Frame(CFA, -12)
-          CFI R7 Frame(CFA, -16)
-          CFI R6 Frame(CFA, -20)
-          CFI R5 Frame(CFA, -24)
-          CFI R4 Frame(CFA, -28)
-          CFI CFA R13+28
-        MOV      R4,R0
-        MOV      R9,R1
+          CFI R11 Frame(CFA, -8)
+          CFI R10 Frame(CFA, -12)
+          CFI R9 Frame(CFA, -16)
+          CFI R8 Frame(CFA, -20)
+          CFI R7 Frame(CFA, -24)
+          CFI R6 Frame(CFA, -28)
+          CFI R5 Frame(CFA, -32)
+          CFI R4 Frame(CFA, -36)
+          CFI CFA R13+40
+        SUB      SP,SP,#+568
+          CFI CFA R13+608
+        MOVS     R4,R0
+        MOVS     R5,R1
+        MOV      R8,R3
 //   92   DRESULT res = RES_ERROR;
-        MOVS     R7,#+1
+        MOVS     R6,#+1
 //   93   MSC_LUNTypeDef info;
 //   94   USBH_StatusTypeDef  status = USBH_OK;
+        MOVS     R7,#+0
 //   95   DWORD scratch [_MAX_SS / 4];
 //   96   
 //   97   if ((DWORD)buff & 3) /* DMA Alignment issue, do single up to aligned buffer */
-        ANDS     R0,R9,#0x3
-        SUB      SP,SP,#+572
-          CFI CFA R13+600
-        MOV      R6,R2
-        MOV      R5,R3
-        LDR.W    R8,??DataTable6_1
+        ANDS     R0,R5,#0x3
+        CMP      R0,#+0
         BEQ.N    ??disk_read_0
 //   98   {
 //   99     while ((count--)&&(status == USBH_OK))
 ??disk_read_1:
-        MOV      R0,R5
-        SUBS     R5,R0,#+1
-        CBZ.N    R0,??disk_read_2
+        MOV      R0,R8
+        SUBS     R8,R0,#+1
+        CMP      R0,#+0
+        BEQ.N    ??disk_read_2
+        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+        CMP      R7,#+0
+        BNE.N    ??disk_read_2
 //  100     {
 //  101       status = USBH_MSC_Read(&hUSBHost, pdrv, sector + count, (uint8_t *)scratch, 1);
-        STR      R7,[SP, #+0]
+        MOVS     R0,#+1
+        STR      R0,[SP, #+0]
         ADD      R3,SP,#+4
-        ADDS     R2,R5,R6
-        MOV      R1,R4
-        MOV      R0,R8
+        LDR      R0,[SP, #+568]
+        ADDS     R2,R8,R0
+        MOVS     R1,R4
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        LDR.N    R0,??DataTable3_1
           CFI FunCall USBH_MSC_Read
         BL       USBH_MSC_Read
+        MOVS     R7,R0
 //  102       if(status == USBH_OK)
-        CBNZ.N   R0,??disk_read_3
+        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+        CMP      R7,#+0
+        BNE.N    ??disk_read_3
 //  103       {
 //  104         memcpy(&buff[count * _MAX_SS], scratch, _MAX_SS);
-        ADD      R0,R9,R5, LSL #+9
-        MOV      R2,#+512
-        ADD      R1,SP,#+4
+        MOV      R9,#+512
+        ADD      R10,SP,#+4
+        MOV      R0,#+512
+        MLA      R11,R0,R8,R5
+        MOV      R2,R9
+        MOV      R1,R10
+        MOV      R0,R11
           CFI FunCall __aeabi_memcpy
         BL       __aeabi_memcpy
 //  105       }
+        B.N      ??disk_read_1
 //  106       else
 //  107       {
 //  108         break;
+??disk_read_3:
+        B.N      ??disk_read_2
 //  109       }
 //  110     }
 //  111   }
-        B.N      ??disk_read_1
 //  112   else
 //  113   {
 //  114     status = USBH_MSC_Read(&hUSBHost, pdrv, sector, buff, count);
 ??disk_read_0:
-        STR      R5,[SP, #+0]
-        MOV      R3,R9
-        MOV      R1,R4
-        MOV      R0,R8
+        STR      R8,[SP, #+0]
+        MOVS     R3,R5
+        LDR      R2,[SP, #+568]
+        MOVS     R1,R4
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        LDR.N    R0,??DataTable3_1
           CFI FunCall USBH_MSC_Read
         BL       USBH_MSC_Read
+        MOVS     R7,R0
 //  115   }
 //  116   
 //  117   if(status == USBH_OK)
-??disk_read_3:
-        CBNZ.N   R0,??disk_read_4
+??disk_read_2:
+        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+        CMP      R7,#+0
+        BNE.N    ??disk_read_4
 //  118   {
 //  119     res = RES_OK;
-??disk_read_2:
-        MOVS     R7,#+0
+        MOVS     R0,#+0
+        MOVS     R6,R0
         B.N      ??disk_read_5
 //  120   }
 //  121   else
@@ -375,46 +373,57 @@ disk_read:
 //  123     USBH_MSC_GetLUNInfo(&hUSBHost, pdrv, &info); 
 ??disk_read_4:
         ADD      R2,SP,#+516
-        MOV      R1,R4
-        MOV      R0,R8
+        MOVS     R1,R4
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        LDR.N    R0,??DataTable3_1
           CFI FunCall USBH_MSC_GetLUNInfo
         BL       USBH_MSC_GetLUNInfo
 //  124     
 //  125     switch (info.sense.asc)
         LDRB     R0,[SP, #+529]
         CMP      R0,#+4
-        ITT      NE 
-        CMPNE    R0,#+40
-        CMPNE    R0,#+58
-        BNE.N    ??disk_read_5
+        BEQ.N    ??disk_read_6
+        CMP      R0,#+40
+        BEQ.N    ??disk_read_6
+        CMP      R0,#+58
+        BNE.N    ??disk_read_7
 //  126     {
 //  127     case SCSI_ASC_LOGICAL_UNIT_NOT_READY:
 //  128     case SCSI_ASC_MEDIUM_NOT_PRESENT:
 //  129     case SCSI_ASC_NOT_READY_TO_READY_CHANGE: 
 //  130       USBH_ErrLog("USB Disk is not ready!");  
-        ADR.W    R0,?_0
-        MOVS     R7,#+3
+??disk_read_6:
+        LDR.N    R0,??DataTable3_2
           CFI FunCall printf
         BL       printf
-        ADR.W    R0,?_1
+        LDR.N    R0,??DataTable3_3
           CFI FunCall printf
         BL       printf
-        ADR.N    R0,??DataTable6  ;; "\n"
+        ADR.N    R0,??DataTable3  ;; "\n"
           CFI FunCall printf
         BL       printf
 //  131       res = RES_NOTRDY;
+        MOVS     R0,#+3
+        MOVS     R6,R0
 //  132       break; 
+        B.N      ??disk_read_5
 //  133       
 //  134     default:
 //  135       res = RES_ERROR;
+??disk_read_7:
+        MOVS     R0,#+1
+        MOVS     R6,R0
 //  136       break;
 //  137     }
 //  138   }
 //  139   
 //  140   return res;
 ??disk_read_5:
-        MOV      R0,R7
-        B.N      ?Subroutine0
+        MOVS     R0,R6
+        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+        ADD      SP,SP,#+572
+          CFI CFA R13+36
+        POP      {R4-R11,PC}      ;; return
 //  141 }
           CFI EndBlock cfiBlock2
 //  142 
@@ -435,60 +444,72 @@ disk_read:
 //  152 DRESULT disk_write (BYTE pdrv, const BYTE* buff, DWORD sector, UINT count)
 //  153 {
 disk_write:
-        PUSH     {R4-R9,LR}
+        PUSH     {R4-R11,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R9 Frame(CFA, -8)
-          CFI R8 Frame(CFA, -12)
-          CFI R7 Frame(CFA, -16)
-          CFI R6 Frame(CFA, -20)
-          CFI R5 Frame(CFA, -24)
-          CFI R4 Frame(CFA, -28)
-          CFI CFA R13+28
-        MOV      R5,R0
-        MOV      R9,R1
+          CFI R11 Frame(CFA, -8)
+          CFI R10 Frame(CFA, -12)
+          CFI R9 Frame(CFA, -16)
+          CFI R8 Frame(CFA, -20)
+          CFI R7 Frame(CFA, -24)
+          CFI R6 Frame(CFA, -28)
+          CFI R5 Frame(CFA, -32)
+          CFI R4 Frame(CFA, -36)
+          CFI CFA R13+36
+        SUB      SP,SP,#+572
+          CFI CFA R13+608
+        MOVS     R4,R0
+        MOVS     R5,R1
+        MOVS     R6,R2
+        MOV      R9,R3
 //  154   DRESULT res = RES_ERROR; 
-        MOVS     R4,#+1
+        MOVS     R7,#+1
 //  155   MSC_LUNTypeDef info;
 //  156   USBH_StatusTypeDef  status = USBH_OK;  
-        MOVS     R0,#+0
+        MOVS     R8,#+0
 //  157   DWORD scratch [_MAX_SS / 4];  
 //  158   
 //  159   if ((DWORD)buff & 3) /* DMA Alignment issue, do single up to aligned buffer */
-        ANDS     R1,R9,#0x3
-        SUB      SP,SP,#+572
-          CFI CFA R13+600
-        MOV      R7,R2
-        MOV      R6,R3
-        LDR.W    R8,??DataTable6_1
+        ANDS     R0,R5,#0x3
+        CMP      R0,#+0
         BEQ.N    ??disk_write_0
 //  160   {
 //  161     while (count--)
 ??disk_write_1:
-        MOV      R1,R6
-        SUBS     R6,R1,#+1
-        CBZ.N    R1,??disk_write_2
+        MOV      R0,R9
+        SUBS     R9,R0,#+1
+        CMP      R0,#+0
+        BEQ.N    ??disk_write_2
 //  162     {
 //  163       memcpy (scratch, &buff[count * _MAX_SS], _MAX_SS);
-        ADD      R1,R9,R6, LSL #+9
-        MOV      R2,#+512
-        ADD      R0,SP,#+4
+        MOV      R10,#+512
+        MOV      R0,#+512
+        MLA      R0,R0,R9,R5
+        STR      R0,[SP, #+4]
+        ADD      R11,SP,#+8
+        MOV      R2,R10
+        LDR      R1,[SP, #+4]
+        MOV      R0,R11
           CFI FunCall __aeabi_memcpy
         BL       __aeabi_memcpy
 //  164       
 //  165       status = USBH_MSC_Write(&hUSBHost, pdrv, sector + count, (BYTE *)scratch, 1);
-        STR      R4,[SP, #+0]
-        ADD      R3,SP,#+4
-        ADDS     R2,R6,R7
-        MOV      R1,R5
-        MOV      R0,R8
+        MOVS     R0,#+1
+        STR      R0,[SP, #+0]
+        ADD      R3,SP,#+8
+        ADDS     R2,R9,R6
+        MOVS     R1,R4
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        LDR.N    R0,??DataTable3_1
           CFI FunCall USBH_MSC_Write
         BL       USBH_MSC_Write
+        MOV      R8,R0
 //  166       if(status == USBH_FAIL)
-        CMP      R0,#+2
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        CMP      R8,#+2
         BNE.N    ??disk_write_1
-        B.N      ??disk_write_2
 //  167       {
 //  168         break;
+        B.N      ??disk_write_2
 //  169       }
 //  170     }
 //  171   }
@@ -496,106 +517,107 @@ disk_write:
 //  173   {
 //  174     status = USBH_MSC_Write(&hUSBHost, pdrv, sector, (BYTE *)buff, count);
 ??disk_write_0:
-        STR      R6,[SP, #+0]
-        MOV      R3,R9
-        MOV      R1,R5
-        MOV      R0,R8
+        STR      R9,[SP, #+0]
+        MOVS     R3,R5
+        MOVS     R2,R6
+        MOVS     R1,R4
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        LDR.N    R0,??DataTable3_1
           CFI FunCall USBH_MSC_Write
         BL       USBH_MSC_Write
+        MOV      R8,R0
 //  175   }
 //  176   
 //  177   if(status == USBH_OK)
 ??disk_write_2:
-        CBNZ.N   R0,??disk_write_3
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        CMP      R8,#+0
+        BNE.N    ??disk_write_3
 //  178   {
 //  179     res = RES_OK;
-        MOVS     R4,#+0
+        MOVS     R0,#+0
+        MOVS     R7,R0
         B.N      ??disk_write_4
 //  180   }
 //  181   else
 //  182   {
 //  183     USBH_MSC_GetLUNInfo(&hUSBHost, pdrv, &info); 
 ??disk_write_3:
-        ADD      R2,SP,#+516
-        MOV      R1,R5
-        MOV      R0,R8
+        ADD      R2,SP,#+520
+        MOVS     R1,R4
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        LDR.N    R0,??DataTable3_1
           CFI FunCall USBH_MSC_GetLUNInfo
         BL       USBH_MSC_GetLUNInfo
 //  184     
 //  185     switch (info.sense.asc)
-        LDRB     R1,[SP, #+529]
-        ADR.W    R0,?_0
-        ADR.N    R5,??DataTable6  ;; "\n"
-        CMP      R1,#+4
+        LDRB     R0,[SP, #+533]
+        CMP      R0,#+4
         BEQ.N    ??disk_write_5
-        CMP      R1,#+39
+        CMP      R0,#+39
         BEQ.N    ??disk_write_6
-        CMP      R1,#+40
-        IT       NE 
-        CMPNE    R1,#+58
+        CMP      R0,#+40
         BEQ.N    ??disk_write_5
-        B.N      ??disk_write_4
+        CMP      R0,#+58
+        BEQ.N    ??disk_write_5
+        B.N      ??disk_write_7
 //  186     {
 //  187     case SCSI_ASC_WRITE_PROTECTED:
 //  188       USBH_ErrLog("USB Disk is Write protected!");
 ??disk_write_6:
+        LDR.N    R0,??DataTable3_2
           CFI FunCall printf
         BL       printf
-        ADR.W    R0,?_3
-        MOVS     R4,#+2
-        B.N      ??disk_write_7
+        LDR.N    R0,??DataTable3_4
+          CFI FunCall printf
+        BL       printf
+        ADR.N    R0,??DataTable3  ;; "\n"
+          CFI FunCall printf
+        BL       printf
 //  189       res = RES_WRPRT;
+        MOVS     R0,#+2
+        MOVS     R7,R0
 //  190       break;
+        B.N      ??disk_write_4
 //  191       
 //  192     case SCSI_ASC_LOGICAL_UNIT_NOT_READY:
 //  193     case SCSI_ASC_MEDIUM_NOT_PRESENT:
 //  194     case SCSI_ASC_NOT_READY_TO_READY_CHANGE:
 //  195       USBH_ErrLog("USB Disk is not ready!");      
 ??disk_write_5:
+        LDR.N    R0,??DataTable3_2
           CFI FunCall printf
         BL       printf
-        ADR.W    R0,?_1
-        MOVS     R4,#+3
-??disk_write_7:
+        LDR.N    R0,??DataTable3_3
           CFI FunCall printf
         BL       printf
-        MOV      R0,R5
+        ADR.N    R0,??DataTable3  ;; "\n"
           CFI FunCall printf
         BL       printf
 //  196       res = RES_NOTRDY;
+        MOVS     R0,#+3
+        MOVS     R7,R0
 //  197       break; 
+        B.N      ??disk_write_4
 //  198       
 //  199     default:
 //  200       res = RES_ERROR;
+??disk_write_7:
+        MOVS     R0,#+1
+        MOVS     R7,R0
 //  201       break;
 //  202     }
 //  203   }
 //  204   
 //  205   return res;   
 ??disk_write_4:
-        MOV      R0,R4
-          CFI EndBlock cfiBlock3
-        REQUIRE ?Subroutine0
-        ;; // Fall through to label ?Subroutine0
-//  206 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock4 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+600
-          CFI R4 Frame(CFA, -28)
-          CFI R5 Frame(CFA, -24)
-          CFI R6 Frame(CFA, -20)
-          CFI R7 Frame(CFA, -16)
-          CFI R8 Frame(CFA, -12)
-          CFI R9 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine0:
+        MOVS     R0,R7
+        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
         ADD      SP,SP,#+572
-          CFI CFA R13+28
-        POP      {R4-R9,PC}       ;; return
-          CFI EndBlock cfiBlock4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}      ;; return
+//  206 }
+          CFI EndBlock cfiBlock3
 //  207 #endif
 //  208 
 //  209 /**
@@ -607,169 +629,192 @@ disk_write:
 //  215   */
 //  216 #if _USE_IOCTL == 1
 
-        SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock5 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock4 Using cfiCommon0
           CFI Function disk_ioctl
-          CFI NoCalls
         THUMB
 //  217 DRESULT disk_ioctl(BYTE pdrv, BYTE cmd, void *buff)
 //  218 {
 disk_ioctl:
-        PUSH     {R4,R5,LR}
+        PUSH     {R4-R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
+          CFI R7 Frame(CFA, -8)
+          CFI R6 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -16)
+          CFI R4 Frame(CFA, -20)
+          CFI CFA R13+20
+        SUB      SP,SP,#+52
+          CFI CFA R13+72
+        MOVS     R4,R0
+        MOVS     R5,R1
+        MOVS     R6,R2
 //  219   DRESULT res = RES_OK;
-        MOVS     R5,#+0
+        MOVS     R7,#+0
 //  220   MSC_LUNTypeDef info;
 //  221   
 //  222   switch (cmd) {
-        CMP      R1,#+3
-        MOV      R3,R0
-        SUB      SP,SP,#+52
-          CFI CFA R13+64
-        MOV      R4,R2
-        LDR.N    R0,??DataTable6_1
-        BHI.N    ??disk_ioctl_1
-        TBB      [PC, R1]
-        DATA
-??disk_ioctl_0:
-        DC8      0x15,0x2,0x7,0xB
-        THUMB
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        CMP      R5,#+0
+        BEQ.N    ??disk_ioctl_0
+        CMP      R5,#+2
+        BEQ.N    ??disk_ioctl_1
+        BCC.N    ??disk_ioctl_2
+        CMP      R5,#+3
+        BEQ.N    ??disk_ioctl_3
+        B.N      ??disk_ioctl_4
 //  223     /* Make sure that no pending write process */  
 //  224   case CTRL_SYNC:		
 //  225     res = RES_OK;
+??disk_ioctl_0:
+        MOVS     R0,#+0
+        MOVS     R7,R0
 //  226     break;
+        B.N      ??disk_ioctl_5
 //  227     
 //  228     /* Get number of sectors on the disk (DWORD) */ 
 //  229   case GET_SECTOR_COUNT:	
 //  230     if(USBH_MSC_GetLUNInfo(&hUSBHost, pdrv, &info) == USBH_OK)
 ??disk_ioctl_2:
-        BL       ?Subroutine1
-??CrossCallReturnLabel_2:
-        CBNZ.N   R0,??disk_ioctl_3
+        MOV      R2,SP
+        MOVS     R1,R4
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        LDR.N    R0,??DataTable3_1
+          CFI FunCall USBH_MSC_GetLUNInfo
+        BL       USBH_MSC_GetLUNInfo
+        CMP      R0,#+0
+        BNE.N    ??disk_ioctl_6
 //  231     {
 //  232       *(DWORD*)buff = info.capacity.block_nbr;
         LDR      R0,[SP, #+4]
-        B.N      ??disk_ioctl_4
+        STR      R0,[R6, #+0]
 //  233       res = RES_OK;
+        MOVS     R0,#+0
+        MOVS     R7,R0
+        B.N      ??disk_ioctl_7
 //  234     }
 //  235     else
 //  236     {
 //  237       res = RES_ERROR;
+??disk_ioctl_6:
+        MOVS     R0,#+1
+        MOVS     R7,R0
 //  238     }
 //  239     break;
+??disk_ioctl_7:
+        B.N      ??disk_ioctl_5
 //  240     
 //  241   case GET_SECTOR_SIZE :	/* Get R/W sector size (WORD) */
 //  242     if(USBH_MSC_GetLUNInfo(&hUSBHost, pdrv, &info) == USBH_OK)
-??disk_ioctl_5:
-        BL       ?Subroutine1
-??CrossCallReturnLabel_1:
-        CBZ.N    R0,??disk_ioctl_6
+??disk_ioctl_1:
+        MOV      R2,SP
+        MOVS     R1,R4
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        LDR.N    R0,??DataTable3_1
+          CFI FunCall USBH_MSC_GetLUNInfo
+        BL       USBH_MSC_GetLUNInfo
+        CMP      R0,#+0
+        BNE.N    ??disk_ioctl_8
 //  243     {
 //  244       *(DWORD*)buff = info.capacity.block_size;
+        LDRH     R0,[SP, #+8]
+        STR      R0,[R6, #+0]
 //  245       res = RES_OK;
+        MOVS     R0,#+0
+        MOVS     R7,R0
+        B.N      ??disk_ioctl_9
 //  246     }
 //  247     else
 //  248     {
 //  249       res = RES_ERROR;
-        B.N      ??disk_ioctl_3
+??disk_ioctl_8:
+        MOVS     R0,#+1
+        MOVS     R7,R0
 //  250     }
 //  251     break;
+??disk_ioctl_9:
+        B.N      ??disk_ioctl_5
 //  252     
 //  253     /* Get erase block size in unit of sector (DWORD) */  
 //  254   case GET_BLOCK_SIZE:	
 //  255     
 //  256     if(USBH_MSC_GetLUNInfo(&hUSBHost, pdrv, &info) == USBH_OK)
-??disk_ioctl_7:
-        BL       ?Subroutine1
-??CrossCallReturnLabel_0:
-        CBNZ.N   R0,??disk_ioctl_3
+??disk_ioctl_3:
+        MOV      R2,SP
+        MOVS     R1,R4
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        LDR.N    R0,??DataTable3_1
+          CFI FunCall USBH_MSC_GetLUNInfo
+        BL       USBH_MSC_GetLUNInfo
+        CMP      R0,#+0
+        BNE.N    ??disk_ioctl_10
 //  257     {
 //  258       *(DWORD*)buff = info.capacity.block_size;
-??disk_ioctl_6:
         LDRH     R0,[SP, #+8]
-??disk_ioctl_4:
-        STR      R0,[R4, #+0]
+        STR      R0,[R6, #+0]
 //  259       res = RES_OK;
-        B.N      ??disk_ioctl_8
+        MOVS     R0,#+0
+        MOVS     R7,R0
+        B.N      ??disk_ioctl_11
 //  260     }
 //  261     else
 //  262     {
 //  263       res = RES_ERROR;
-??disk_ioctl_3:
-        MOVS     R5,#+1
-        B.N      ??disk_ioctl_8
+??disk_ioctl_10:
+        MOVS     R0,#+1
+        MOVS     R7,R0
 //  264     }
 //  265     
 //  266     break;
+??disk_ioctl_11:
+        B.N      ??disk_ioctl_5
 //  267     
 //  268     
 //  269   default:
 //  270     res = RES_PARERR;
-??disk_ioctl_1:
-        MOVS     R5,#+4
+??disk_ioctl_4:
+        MOVS     R0,#+4
+        MOVS     R7,R0
 //  271   }
 //  272   
 //  273   return res;
-??disk_ioctl_8:
-        MOV      R0,R5
+??disk_ioctl_5:
+        MOVS     R0,R7
+        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
         ADD      SP,SP,#+52
-          CFI CFA R13+12
-        POP      {R4,R5,PC}       ;; return
+          CFI CFA R13+20
+        POP      {R4-R7,PC}       ;; return
 //  274 }
-          CFI EndBlock cfiBlock5
+          CFI EndBlock cfiBlock4
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable6:
+??DataTable3:
         DC8      "\n",0x0,0x0
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable6_1:
+??DataTable3_1:
         DC32     hUSBHost
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiCond6 Using cfiCommon0
-          CFI Function disk_ioctl
-          CFI Conditional ??CrossCallReturnLabel_2
-          CFI R4 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+64
-          CFI Block cfiCond7 Using cfiCommon0
-          CFI (cfiCond7) Function disk_ioctl
-          CFI (cfiCond7) Conditional ??CrossCallReturnLabel_1
-          CFI (cfiCond7) R4 Frame(CFA, -12)
-          CFI (cfiCond7) R5 Frame(CFA, -8)
-          CFI (cfiCond7) R14 Frame(CFA, -4)
-          CFI (cfiCond7) CFA R13+64
-          CFI Block cfiCond8 Using cfiCommon0
-          CFI (cfiCond8) Function disk_ioctl
-          CFI (cfiCond8) Conditional ??CrossCallReturnLabel_0
-          CFI (cfiCond8) R4 Frame(CFA, -12)
-          CFI (cfiCond8) R5 Frame(CFA, -8)
-          CFI (cfiCond8) R14 Frame(CFA, -4)
-          CFI (cfiCond8) CFA R13+64
-          CFI Block cfiPicker9 Using cfiCommon1
-          CFI (cfiPicker9) NoFunction
-          CFI (cfiPicker9) Picker
-        THUMB
-?Subroutine1:
-        MOV      R2,SP
-        MOV      R1,R3
-          CFI (cfiCond6) FunCall disk_ioctl USBH_MSC_GetLUNInfo
-          CFI (cfiCond6) FunCall disk_ioctl USBH_MSC_GetLUNInfo
-          CFI (cfiCond6) FunCall disk_ioctl USBH_MSC_GetLUNInfo
-        B.W      USBH_MSC_GetLUNInfo
-          CFI EndBlock cfiCond6
-          CFI EndBlock cfiCond7
-          CFI EndBlock cfiCond8
-          CFI EndBlock cfiPicker9
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable3_2:
+        DC32     ?_0
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable3_3:
+        DC32     ?_1
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable3_4:
+        DC32     ?_3
 //  275 #endif
 //  276 
 //  277 /**
@@ -779,7 +824,7 @@ disk_ioctl:
 //  281   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock10 Using cfiCommon0
+          CFI Block cfiBlock5 Using cfiCommon0
           CFI Function get_fattime
           CFI NoCalls
         THUMB
@@ -790,27 +835,7 @@ get_fattime:
         MOVS     R0,#+0
         BX       LR               ;; return
 //  285 }
-          CFI EndBlock cfiBlock10
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-?_0:
-        DC8 "ERROR: "
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-?_1:
-        DC8 "USB Disk is not ready!"
-        DC8 0
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-?_3:
-        DC8 "USB Disk is Write protected!"
-        DC8 0, 0, 0
+          CFI EndBlock cfiBlock5
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -823,20 +848,36 @@ get_fattime:
         SECTION __DLIB_PERTHREAD_init:DATA:REORDER:NOROOT(0)
         SECTION_TYPE SHT_PROGBITS, 0
 
-        SECTION `.rodata`:CONST:NOROOT(1)
+        SECTION `.rodata`:CONST:REORDER:NOROOT(2)
         DATA
-?_2:
+?_0:
+        DC8 "ERROR: "
+
+        SECTION `.rodata`:CONST:REORDER:NOROOT(2)
+        DATA
+?_1:
+        DC8 "USB Disk is not ready!"
+        DC8 0
+
+        SECTION `.rodata`:CONST:REORDER:NOROOT(1)
+        DATA
         DC8 "\012"
+
+        SECTION `.rodata`:CONST:REORDER:NOROOT(2)
+        DATA
+?_3:
+        DC8 "USB Disk is Write protected!"
+        DC8 0, 0, 0
 
         END
 //  286 
 //  287 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-//   2 bytes in section .rodata
-// 480 bytes in section .text
+//  66 bytes in section .rodata
+// 652 bytes in section .text
 // 
-// 480 bytes of CODE  memory
-//   2 bytes of CONST memory
+// 652 bytes of CODE  memory
+//  66 bytes of CONST memory
 //
 //Errors: none
 //Warnings: none

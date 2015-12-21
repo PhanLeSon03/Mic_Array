@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      20/Dec/2015  12:46:32
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      21/Dec/2015  01:05:14
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -16,8 +16,10 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
-//        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
+//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+//        --no_clustering --no_scheduling --debug --endian=little
+//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
+//        (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
@@ -46,7 +48,7 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
-//        -Ohz --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
@@ -125,44 +127,6 @@
           CFI D14 SameValue
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
-        
-        
-          CFI Common cfiCommon1 Using cfiNames0
-          CFI CodeAlign 2
-          CFI DataAlign 4
-          CFI ReturnAddress R14 CODE
-          CFI CFA R13+0
-          CFI R0 SameValue
-          CFI R1 SameValue
-          CFI R2 SameValue
-          CFI R3 SameValue
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI R6 SameValue
-          CFI R7 SameValue
-          CFI R8 SameValue
-          CFI R9 SameValue
-          CFI R10 SameValue
-          CFI R11 SameValue
-          CFI R12 SameValue
-          CFI R14 SameValue
-          CFI D0 SameValue
-          CFI D1 SameValue
-          CFI D2 SameValue
-          CFI D3 SameValue
-          CFI D4 SameValue
-          CFI D5 SameValue
-          CFI D6 SameValue
-          CFI D7 SameValue
-          CFI D8 SameValue
-          CFI D9 SameValue
-          CFI D10 SameValue
-          CFI D11 SameValue
-          CFI D12 SameValue
-          CFI D13 SameValue
-          CFI D14 SameValue
-          CFI D15 SameValue
-          CFI EndCommon cfiCommon1
         
 // H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\sta321mp.c
 //    1 #include "sta321mp.h"
@@ -324,15 +288,13 @@ bufCoefBiquad:
 //  131 void STA321MP_Ini(void)
 //  132 {
 STA321MP_Ini:
-        PUSH     {R4,LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
 //  133      	    //WriteSTAByte(CONFA,pcSTAComnd,77);
 //  134             //WriteSTAByte(0x5A,pcSTAComnd,41);
 //  135             HAL_Delay(100);
         MOVS     R0,#+100
-        LDR.W    R4,??DataTable4
           CFI FunCall HAL_Delay
         BL       HAL_Delay
 //  136             /*
@@ -358,11 +320,13 @@ STA321MP_Ini:
 //  156                                   1 bypass of biquad and bass/trebble functions */	
 //  157             pcSTAComnd[0] = 0x9B;          // PDM_CLK = 11.2896/4
         MOVS     R0,#+155
+        LDR.N    R1,??DataTable2
+        STRB     R0,[R1, #+0]
 //  158                                            // PLL/8 = 11.2896 Mhz
 //  159 		                               
 //  160             WriteSTAByte(0x00,pcSTAComnd,1); //CONFA register
-        BL       ??Subroutine7_0
-??CrossCallReturnLabel_32:
+        MOVS     R2,#+1
+        LDR.N    R1,??DataTable2
         MOVS     R0,#+0
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -383,9 +347,11 @@ STA321MP_Ini:
 //  175 	      */
 //  176 	      pcSTAComnd[0] = 0x25;  /* 11.2896Mhz/256 = 44.1Khz --> BICKO = 32*44.1Khz =1.411.2 Mhz*/
         MOVS     R0,#+37
+        LDR.N    R1,??DataTable2
+        STRB     R0,[R1, #+0]
 //  177           WriteSTAByte(0x02,pcSTAComnd,1); //CONFC register
-        BL       ??Subroutine7_0
-??CrossCallReturnLabel_33:
+        MOVS     R2,#+1
+        LDR.N    R1,??DataTable2
         MOVS     R0,#+2
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -405,9 +371,11 @@ STA321MP_Ini:
 //  191 		
 //  192 	    pcSTAComnd[0] = 0xC0;//Ch4/5 binary
         MOVS     R0,#+192
+        LDR.N    R1,??DataTable2
+        STRB     R0,[R1, #+0]
 //  193         WriteSTAByte(0x04,pcSTAComnd,1); //CONFE register
-        BL       ??Subroutine7_0
-??CrossCallReturnLabel_34:
+        MOVS     R2,#+1
+        LDR.N    R1,??DataTable2
         MOVS     R0,#+4
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -445,9 +413,11 @@ STA321MP_Ini:
 //  225        */
 //  226         pcSTAComnd[0] = 0x01;
         MOVS     R0,#+1
+        LDR.N    R1,??DataTable2
+        STRB     R0,[R1, #+0]
 //  227         WriteSTAByte(0x05,pcSTAComnd,1); //CONFE register
-        BL       ??Subroutine7_0
-??CrossCallReturnLabel_35:
+        MOVS     R2,#+1
+        LDR.N    R1,??DataTable2
         MOVS     R0,#+5
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -524,9 +494,11 @@ STA321MP_Ini:
 //  298 		*/
 //  299 		pcSTAComnd[0] = 0x7A;//Reg[07h]<=7Ch (01111010b)	Configuration Register H:remove soft volumn
         MOVS     R0,#+122
+        LDR.N    R1,??DataTable2
+        STRB     R0,[R1, #+0]
 //  300         WriteSTAByte(0x07,pcSTAComnd,1); //CONFH register
-        BL       ??Subroutine7_0
-??CrossCallReturnLabel_36:
+        MOVS     R2,#+1
+        LDR.N    R1,??DataTable2
         MOVS     R0,#+7
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -544,9 +516,11 @@ STA321MP_Ini:
 //  312 		*/
 //  313 		pcSTAComnd[0] = 0x80;//Reg[08h]<=80h (10000000b)	Configuration Register I
         MOVS     R0,#+128
+        LDR.N    R1,??DataTable2
+        STRB     R0,[R1, #+0]
 //  314         WriteSTAByte(0x08,pcSTAComnd,1);//CONFI register
-        BL       ??Subroutine7_0
-??CrossCallReturnLabel_37:
+        MOVS     R2,#+1
+        LDR.N    R1,??DataTable2
         MOVS     R0,#+8
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -571,42 +545,61 @@ STA321MP_Ini:
 //  333         */
 //  334         pcSTAComnd[0] = 0x09;
         MOVS     R0,#+9
+        LDR.N    R1,??DataTable2
+        STRB     R0,[R1, #+0]
 //  335         WriteSTAByte(0x81,pcSTAComnd,1);//Reg[81h]<=09h (00001001b)	CFR129  
-        BL       ??Subroutine7_0
-??CrossCallReturnLabel_38:
+        MOVS     R2,#+1
+        LDR.N    R1,??DataTable2
         MOVS     R0,#+129
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
 //  336 		
 //  337         pcSTAComnd[0] = 0x00;/* Reg[0Ah]<=00h (00000000b)	Master Volume */    
         MOVS     R0,#+0
+        LDR.N    R1,??DataTable2
+        STRB     R0,[R1, #+0]
 //  338         WriteSTAByte(0x0A,pcSTAComnd,1);
-        BL       ??Subroutine7_0
-??CrossCallReturnLabel_39:
+        MOVS     R2,#+1
+        LDR.N    R1,??DataTable2
         MOVS     R0,#+10
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
 //  339         
 //  340         pcSTAComnd[0] = 0x26;
         MOVS     R0,#+38
+        LDR.N    R1,??DataTable2
+        STRB     R0,[R1, #+0]
 //  341         pcSTAComnd[1] = 0x26;
+        MOVS     R0,#+38
+        LDR.N    R1,??DataTable2
+        STRB     R0,[R1, #+1]
 //  342         pcSTAComnd[2] = 0x26;
+        MOVS     R0,#+38
+        LDR.N    R1,??DataTable2
+        STRB     R0,[R1, #+2]
 //  343         pcSTAComnd[3] = 0x26; 
+        MOVS     R0,#+38
+        LDR.N    R1,??DataTable2
+        STRB     R0,[R1, #+3]
 //  344         pcSTAComnd[4] = 0x26;
+        MOVS     R0,#+38
+        LDR.N    R1,??DataTable2
+        STRB     R0,[R1, #+4]
 //  345         pcSTAComnd[5] = 0x26;
+        MOVS     R0,#+38
+        LDR.N    R1,??DataTable2
+        STRB     R0,[R1, #+5]
 //  346         pcSTAComnd[6] = 0x26;
+        MOVS     R0,#+38
+        LDR.N    R1,??DataTable2
+        STRB     R0,[R1, #+6]
 //  347         pcSTAComnd[7] = 0x26;
+        MOVS     R0,#+38
+        LDR.N    R1,??DataTable2
+        STRB     R0,[R1, #+7]
 //  348         WriteSTAByte(0x0B,pcSTAComnd,8);
         MOVS     R2,#+8
-        STRB     R0,[R4, #+0]
-        MOV      R1,R4
-        STRB     R0,[R4, #+1]
-        STRB     R0,[R4, #+2]
-        STRB     R0,[R4, #+3]
-        STRB     R0,[R4, #+4]
-        STRB     R0,[R4, #+5]
-        STRB     R0,[R4, #+6]
-        STRB     R0,[R4, #+7]
+        LDR.N    R1,??DataTable2
         MOVS     R0,#+11
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -629,9 +622,11 @@ STA321MP_Ini:
 //  365         
 //  366    	    pcSTAComnd[0] = 0xFC; 
         MOVS     R0,#+252
+        LDR.N    R1,??DataTable2
+        STRB     R0,[R1, #+0]
 //  367 	    WriteSTAByte(0x5E,&pcSTAComnd[0],1);
-        BL       ??Subroutine7_0
-??CrossCallReturnLabel_40:
+        MOVS     R2,#+1
+        LDR.N    R1,??DataTable2
         MOVS     R0,#+94
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -641,27 +636,36 @@ STA321MP_Ini:
 //  371         //'1': Low-pass filter of mike x is enabled
 //  372         //'0': Low-pass filter of mike x is not enabled
 //  373    	    pcSTAComnd[0] = 0x4A;//40 
-        BL       ?Subroutine7
+        MOVS     R0,#+74
+        LDR.N    R1,??DataTable2
+        STRB     R0,[R1, #+0]
 //  374 	    WriteSTAByte(0x62,&pcSTAComnd[0],1);
-??CrossCallReturnLabel_29:
+        MOVS     R2,#+1
+        LDR.N    R1,??DataTable2
         MOVS     R0,#+98
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
 //  375 		
 //  376 	    /* 0x63 */
 //  377    	    pcSTAComnd[0] = 0x4A;//40 
-        BL       ?Subroutine7
+        MOVS     R0,#+74
+        LDR.N    R1,??DataTable2
+        STRB     R0,[R1, #+0]
 //  378 	    WriteSTAByte(0x63,&pcSTAComnd[0],1);
-??CrossCallReturnLabel_30:
+        MOVS     R2,#+1
+        LDR.N    R1,??DataTable2
         MOVS     R0,#+99
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
 //  379 
 //  380 	    /* 0x64 */
 //  381    	    pcSTAComnd[0] = 0x4A;//40 
-        BL       ?Subroutine7
+        MOVS     R0,#+74
+        LDR.N    R1,??DataTable2
+        STRB     R0,[R1, #+0]
 //  382 	    WriteSTAByte(0x64,&pcSTAComnd[0],1);		
-??CrossCallReturnLabel_31:
+        MOVS     R2,#+1
+        LDR.N    R1,??DataTable2
         MOVS     R0,#+100
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -672,9 +676,11 @@ STA321MP_Ini:
 //  387 		/* 0x73: 5 bits ND */
 //  388    	    pcSTAComnd[0] = 0x28;//40 
         MOVS     R0,#+40
+        LDR.N    R1,??DataTable2
+        STRB     R0,[R1, #+0]
 //  389 	    WriteSTAByte(0x73,&pcSTAComnd[0],1);
-        BL       ??Subroutine7_0
-??CrossCallReturnLabel_41:
+        MOVS     R2,#+1
+        LDR.N    R1,??DataTable2
         MOVS     R0,#+115
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -682,9 +688,11 @@ STA321MP_Ini:
 //  391        /* 0x74: bit[0:3]: IDF */
 //  392 	   pcSTAComnd[0] = 0x0C; //10
         MOVS     R0,#+12
+        LDR.N    R1,??DataTable2
+        STRB     R0,[R1, #+0]
 //  393 	   WriteSTAByte(0x74,&pcSTAComnd[0],1);
-        BL       ??Subroutine7_0
-??CrossCallReturnLabel_42:
+        MOVS     R2,#+1
+        LDR.N    R1,??DataTable2
         MOVS     R0,#+116
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -695,9 +703,11 @@ STA321MP_Ini:
 //  398        */
 //  399 	   pcSTAComnd[0] = 0x04; 
         MOVS     R0,#+4
+        LDR.N    R1,??DataTable2
+        STRB     R0,[R1, #+0]
 //  400 	   WriteSTAByte(0x75,&pcSTAComnd[0],1);
-        BL       ??Subroutine7_0
-??CrossCallReturnLabel_43:
+        MOVS     R2,#+1
+        LDR.N    R1,??DataTable2
         MOVS     R0,#+117
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -709,23 +719,22 @@ STA321MP_Ini:
 //  406 		//                                       0-CLK is configured only through COS bit
 //  407 		pcSTAComnd[0] = 0x00;
         MOVS     R0,#+0
+        LDR.N    R1,??DataTable2
+        STRB     R0,[R1, #+0]
 //  408 		WriteSTAByte(0x5D,&pcSTAComnd[0],1);
-        BL       ??Subroutine7_0
-??CrossCallReturnLabel_44:
+        MOVS     R2,#+1
+        LDR.N    R1,??DataTable2
         MOVS     R0,#+93
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
 //  409 
 //  410         		
 //  411 		STACoefSet();
-        POP      {R4,LR}
-          CFI R4 SameValue
-          CFI R14 SameValue
-          CFI CFA R13+0
           CFI FunCall STACoefSet
-        B.N      STACoefSet
+        BL       STACoefSet
 //  412             
 //  413  }
+        POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock0
 //  414  
 //  415  
@@ -737,17 +746,15 @@ STA321MP_Ini:
 //  416  void ReadSTASeq(uint8_t Addr, uint8_t *pBufOut,uint8_t Len )
 //  417 {
 ReadSTASeq:
-        PUSH     {R0,R4-R6,LR}
+        PUSH     {R0,R4,R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+20
-        SUB      SP,SP,#+4
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+16
+        SUB      SP,SP,#+8
           CFI CFA R13+24
-        MOV      R4,R1
-        MOV      R5,R2
-        LDR.W    R6,??DataTable4_1
+        MOVS     R4,R1
+        MOVS     R5,R2
 //  418         //while(HAL_I2C_Master_Transmit_IT(&hi2c1,0x40,pI2CData,2)!= HAL_OK)
 //  419 		{
 //  420              ;
@@ -767,11 +774,11 @@ ReadSTASeq:
 //  434 		 while(HAL_I2C_Master_Transmit(&hi2c1,STA_ADDR_1W,&Addr,1,1000)!=HAL_OK)
 ??ReadSTASeq_0:
         MOV      R0,#+1000
-        MOVS     R3,#+1
         STR      R0,[SP, #+0]
-        ADD      R2,SP,#+4
+        MOVS     R3,#+1
+        ADD      R2,SP,#+8
         MOVS     R1,#+64
-        MOV      R0,R6
+        LDR.N    R0,??DataTable2_1
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CMP      R0,#+0
@@ -783,11 +790,13 @@ ReadSTASeq:
 //  439 	     while(HAL_I2C_Master_Receive(&hi2c1,STA_ADDR_1R,pBufOut,Len,1000)!=HAL_OK)
 ??ReadSTASeq_1:
         MOV      R0,#+1000
-        MOV      R3,R5
         STR      R0,[SP, #+0]
-        MOV      R2,R4
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R3,R5
+        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
+        MOVS     R2,R4
         MOVS     R1,#+65
-        MOV      R0,R6
+        LDR.N    R0,??DataTable2_1
           CFI FunCall HAL_I2C_Master_Receive
         BL       HAL_I2C_Master_Receive
         CMP      R0,#+0
@@ -796,7 +805,7 @@ ReadSTASeq:
 //  441               ;
 //  442 	     }  
 //  443 }
-        POP      {R0,R1,R4-R6,PC}  ;; return
+        POP      {R0-R2,R4,R5,PC}  ;; return
           CFI EndBlock cfiBlock1
 //  444 
 
@@ -807,73 +816,76 @@ ReadSTASeq:
 //  445 void WriteSTAByte(uint8_t Addr, uint8_t *pBufIn, uint8_t len)
 //  446 {
 WriteSTAByte:
-        PUSH     {R4-R8,LR}
+        PUSH     {R3-R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R8 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -20)
-          CFI R4 Frame(CFA, -24)
+          CFI R7 Frame(CFA, -8)
+          CFI R6 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -16)
+          CFI R4 Frame(CFA, -20)
           CFI CFA R13+24
-        MOV      R4,R2
-        MOV      R6,R0
+        MOVS     R4,R0
+        MOVS     R5,R1
+        MOVS     R6,R2
 //  447      uint8_t *DataSeq;
 //  448 	 
 //  449      DataSeq= (uint8_t *) malloc(len+1);
-        ADD      R8,R4,#+1
-        SUB      SP,SP,#+8
-          CFI CFA R13+32
-        MOV      R7,R1
-        MOV      R0,R8
+        UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+        ADDS     R0,R6,#+1
           CFI FunCall malloc
         BL       malloc
-        MOV      R5,R0
+        MOVS     R7,R0
 //  450 
 //  451      /* copy data and address to buffer send*/
 //  452      for(uint8_t i=0;  i<(len+1);i++)
         MOVS     R0,#+0
-        B.N      ??WriteSTAByte_0
+??WriteSTAByte_0:
+        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+        UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+        ADDS     R1,R6,#+1
+        CMP      R0,R1
+        BGE.N    ??WriteSTAByte_1
 //  453      {
 //  454           if(i==0)
-??WriteSTAByte_1:
-        CBNZ.N   R0,??WriteSTAByte_2
+        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+        CMP      R0,#+0
+        BNE.N    ??WriteSTAByte_2
 //  455 		  {
 //  456 		      DataSeq[0]=Addr;
-??WriteSTAByte_0:
-        STRB     R6,[R5, #+0]
+        STRB     R4,[R7, #+0]
         B.N      ??WriteSTAByte_3
 //  457           }
 //  458 		  else
 //  459 		  {
 //  460               DataSeq[i] = pBufIn[i-1];
 ??WriteSTAByte_2:
-        ADDS     R1,R0,R7
+        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+        ADDS     R1,R0,R5
         LDRB     R1,[R1, #-1]
-        STRB     R1,[R0, R5]
+        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+        STRB     R1,[R0, R7]
 //  461 		  }
 //  462      }
 ??WriteSTAByte_3:
         ADDS     R0,R0,#+1
-        UXTB     R0,R0
-        CMP      R0,R8
-        BLT.N    ??WriteSTAByte_1
+        B.N      ??WriteSTAByte_0
 //  463 
 //  464 	 
 //  465 
 //  466 	 /* Send data to STA321 */
 //  467      while(HAL_I2C_Master_Transmit(&hi2c1,(uint16_t)STA_ADDR_1W,&DataSeq[0],len+1,1000)!=HAL_OK)
-??WriteSTAByte_4:
+??WriteSTAByte_1:
         MOV      R0,#+1000
-        ADDS     R3,R4,#+1
         STR      R0,[SP, #+0]
-        UXTH     R3,R3
-        MOV      R2,R5
+        UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+        ADDS     R3,R6,#+1
+        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
+        MOVS     R2,R7
         MOVS     R1,#+64
-        LDR.W    R0,??DataTable4_1
+        LDR.N    R0,??DataTable2_1
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CMP      R0,#+0
-        BNE.N    ??WriteSTAByte_4
+        BNE.N    ??WriteSTAByte_1
 //  468 	 {
 //  469           ;
 //  470 	 }
@@ -881,32 +893,36 @@ WriteSTAByte:
 //  472 
 //  473 	 
 //  474 	 free(DataSeq);
-        MOV      R0,R5
-        POP      {R1,R2,R4-R8,LR}
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI R6 SameValue
-          CFI R7 SameValue
-          CFI R8 SameValue
-          CFI R14 SameValue
-          CFI CFA R13+0
+        MOVS     R0,R7
           CFI FunCall free
-        B.W      free
+        BL       free
 //  475 
 //  476 }
+        POP      {R0,R4-R7,PC}    ;; return
           CFI EndBlock cfiBlock2
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2:
+        DC32     pcSTAComnd
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2_1:
+        DC32     hi2c1
 //  477 
 
-        SECTION `.text`:CODE:NOROOT(1)
+        SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock3 Using cfiCommon0
           CFI Function STACoefSet
         THUMB
 //  478 void STACoefSet(void)
 //  479 {
 STACoefSet:
-        PUSH     {R4,LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
 //  480 
 //  481 // sta321mp_biquad(codec, 1, 2, 0x2d7d5e, 0x3faa84, 0x6599c4, 0xad9ed1,0x1fd542);
@@ -917,253 +933,392 @@ STACoefSet:
 //  486 // sta321mp_biquad(codec, 1, 7, 0xf00d82, 0x177b7b, 0x5f0547, 0x822c2a,0xbbdbd);
 //  487 
 //  488 bufCoefBiquad[0]= 250;
-        LDR.W    R4,??DataTable4_2
         MOVS     R0,#+250
-        STRB     R0,[R4, #+0]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  489 bufCoefBiquad[1]= 15;
         MOVS     R0,#+15
-        STRB     R0,[R4, #+1]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
 //  490 bufCoefBiquad[2]= 248;
         MOVS     R0,#+248
-        STRB     R0,[R4, #+2]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
 //  491 bufCoefBiquad[3]= 90;
         MOVS     R0,#+90
-        STRB     R0,[R4, #+3]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
 //  492 bufCoefBiquad[4]= 30;
         MOVS     R0,#+30
-        STRB     R0,[R4, #+4]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
 //  493 bufCoefBiquad[5]= 138;
         MOVS     R0,#+138
-        STRB     R0,[R4, #+5]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
 //  494 bufCoefBiquad[6]= 117;
         MOVS     R0,#+117
-        STRB     R0,[R4, #+6]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
 //  495 bufCoefBiquad[7]= 122;
         MOVS     R0,#+122
-        STRB     R0,[R4, #+7]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
 //  496 bufCoefBiquad[8]= 75;
         MOVS     R0,#+75
-        STRB     R0,[R4, #+8]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
 //  497 bufCoefBiquad[9]= 147;
         MOVS     R0,#+147
-        STRB     R0,[R4, #+9]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+9]
 //  498 bufCoefBiquad[10]= 217;
         MOVS     R0,#+217
-        STRB     R0,[R4, #+10]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+10]
 //  499 bufCoefBiquad[11]= 241;
         MOVS     R0,#+241
-        STRB     R0,[R4, #+11]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+11]
 //  500 bufCoefBiquad[12]= 45;
         MOVS     R0,#+45
-        STRB     R0,[R4, #+12]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+12]
 //  501 bufCoefBiquad[13]= 15;
         MOVS     R0,#+15
-        STRB     R0,[R4, #+13]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+13]
 //  502 bufCoefBiquad[14]= 69;
         MOVS     R0,#+69
-        STRB     R0,[R4, #+14]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+14]
 //  503 WriteCoef(0x05, bufCoefBiquad);
-        MOV      R1,R4
+        LDR.W    R1,??STACoefSet_0
         MOVS     R0,#+5
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  504 bufCoefBiquad[0]= 243;
         MOVS     R0,#+243
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  505 bufCoefBiquad[1]= 182;
-//  506 bufCoefBiquad[2]= 164;
-//  507 bufCoefBiquad[3]= 15;
-//  508 bufCoefBiquad[4]= 99;
-//  509 bufCoefBiquad[5]= 170;
-//  510 bufCoefBiquad[6]= 118;
-//  511 bufCoefBiquad[7]= 97;
-//  512 bufCoefBiquad[8]= 166;
-//  513 bufCoefBiquad[9]= 143;
-//  514 bufCoefBiquad[10]= 246;
-//  515 bufCoefBiquad[11]= 17;
-//  516 bufCoefBiquad[12]= 7;
-//  517 bufCoefBiquad[13]= 177;
-//  518 bufCoefBiquad[14]= 213;
-//  519 WriteCoef(0x0a, bufCoefBiquad);
-        MOV      R1,R4
-        STRB     R0,[R4, #+0]
         MOVS     R0,#+182
-        STRB     R0,[R4, #+1]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
+//  506 bufCoefBiquad[2]= 164;
         MOVS     R0,#+164
-        BL       ?Subroutine9
-??CrossCallReturnLabel_53:
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
+//  507 bufCoefBiquad[3]= 15;
+        MOVS     R0,#+15
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
+//  508 bufCoefBiquad[4]= 99;
+        MOVS     R0,#+99
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
+//  509 bufCoefBiquad[5]= 170;
+        MOVS     R0,#+170
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
+//  510 bufCoefBiquad[6]= 118;
         MOVS     R0,#+118
-        STRB     R0,[R4, #+6]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
+//  511 bufCoefBiquad[7]= 97;
         MOVS     R0,#+97
-        STRB     R0,[R4, #+7]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
+//  512 bufCoefBiquad[8]= 166;
         MOVS     R0,#+166
-        STRB     R0,[R4, #+8]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
+//  513 bufCoefBiquad[9]= 143;
         MOVS     R0,#+143
-        STRB     R0,[R4, #+9]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+9]
+//  514 bufCoefBiquad[10]= 246;
         MOVS     R0,#+246
-        STRB     R0,[R4, #+10]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+10]
+//  515 bufCoefBiquad[11]= 17;
         MOVS     R0,#+17
-        BL       ?Subroutine8
-??CrossCallReturnLabel_48:
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+11]
+//  516 bufCoefBiquad[12]= 7;
+        MOVS     R0,#+7
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+12]
+//  517 bufCoefBiquad[13]= 177;
+        MOVS     R0,#+177
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+13]
+//  518 bufCoefBiquad[14]= 213;
+        MOVS     R0,#+213
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+14]
+//  519 WriteCoef(0x0a, bufCoefBiquad);
+        LDR.W    R1,??STACoefSet_0
         MOVS     R0,#+10
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  520 bufCoefBiquad[0]= 242;
         MOVS     R0,#+242
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  521 bufCoefBiquad[1]= 31;
-//  522 bufCoefBiquad[2]= 49;
-//  523 bufCoefBiquad[3]= 15;
-//  524 bufCoefBiquad[4]= 99;
-//  525 bufCoefBiquad[5]= 170;
-//  526 bufCoefBiquad[6]= 119;
-//  527 bufCoefBiquad[7]= 157;
-//  528 bufCoefBiquad[8]= 145;
-//  529 bufCoefBiquad[9]= 138;
-//  530 bufCoefBiquad[10]= 181;
-//  531 bufCoefBiquad[11]= 246;
-//  532 bufCoefBiquad[12]= 7;
-//  533 bufCoefBiquad[13]= 177;
-//  534 bufCoefBiquad[14]= 213;
-//  535 WriteCoef(0x0f, bufCoefBiquad);
-        MOV      R1,R4
-        STRB     R0,[R4, #+0]
         MOVS     R0,#+31
-        STRB     R0,[R4, #+1]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
+//  522 bufCoefBiquad[2]= 49;
         MOVS     R0,#+49
-        BL       ?Subroutine9
-??CrossCallReturnLabel_54:
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
+//  523 bufCoefBiquad[3]= 15;
+        MOVS     R0,#+15
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
+//  524 bufCoefBiquad[4]= 99;
+        MOVS     R0,#+99
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
+//  525 bufCoefBiquad[5]= 170;
+        MOVS     R0,#+170
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
+//  526 bufCoefBiquad[6]= 119;
         MOVS     R0,#+119
-        STRB     R0,[R4, #+6]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
+//  527 bufCoefBiquad[7]= 157;
         MOVS     R0,#+157
-        STRB     R0,[R4, #+7]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
+//  528 bufCoefBiquad[8]= 145;
         MOVS     R0,#+145
-        STRB     R0,[R4, #+8]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
+//  529 bufCoefBiquad[9]= 138;
         MOVS     R0,#+138
-        STRB     R0,[R4, #+9]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+9]
+//  530 bufCoefBiquad[10]= 181;
         MOVS     R0,#+181
-        STRB     R0,[R4, #+10]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+10]
+//  531 bufCoefBiquad[11]= 246;
         MOVS     R0,#+246
-        BL       ?Subroutine8
-??CrossCallReturnLabel_49:
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+11]
+//  532 bufCoefBiquad[12]= 7;
+        MOVS     R0,#+7
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+12]
+//  533 bufCoefBiquad[13]= 177;
+        MOVS     R0,#+177
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+13]
+//  534 bufCoefBiquad[14]= 213;
+        MOVS     R0,#+213
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+14]
+//  535 WriteCoef(0x0f, bufCoefBiquad);
+        LDR.W    R1,??STACoefSet_0
         MOVS     R0,#+15
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  536 bufCoefBiquad[0]= 241;
         MOVS     R0,#+241
-        STRB     R0,[R4, #+0]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  537 bufCoefBiquad[1]= 172;
         MOVS     R0,#+172
-        STRB     R0,[R4, #+1]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
 //  538 bufCoefBiquad[2]= 26;
         MOVS     R0,#+26
-        BL       ?Subroutine9
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
 //  539 bufCoefBiquad[3]= 15;
+        MOVS     R0,#+15
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
 //  540 bufCoefBiquad[4]= 99;
+        MOVS     R0,#+99
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
 //  541 bufCoefBiquad[5]= 170;
+        MOVS     R0,#+170
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
 //  542 bufCoefBiquad[6]= 120;
-??CrossCallReturnLabel_52:
         MOVS     R0,#+120
-        STRB     R0,[R4, #+6]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
 //  543 bufCoefBiquad[7]= 179;
         MOVS     R0,#+179
-        STRB     R0,[R4, #+7]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
 //  544 bufCoefBiquad[8]= 221;
         MOVS     R0,#+221
-        STRB     R0,[R4, #+8]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
 //  545 bufCoefBiquad[9]= 134;
         MOVS     R0,#+134
-        STRB     R0,[R4, #+9]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+9]
 //  546 bufCoefBiquad[10]= 63;
         MOVS     R0,#+63
-        STRB     R0,[R4, #+10]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+10]
 //  547 bufCoefBiquad[11]= 99;
         MOVS     R0,#+99
-        BL       ?Subroutine8
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+11]
 //  548 bufCoefBiquad[12]= 7;
+        MOVS     R0,#+7
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+12]
 //  549 bufCoefBiquad[13]= 177;
+        MOVS     R0,#+177
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+13]
 //  550 bufCoefBiquad[14]= 213;
+        MOVS     R0,#+213
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+14]
 //  551 WriteCoef(0x014, bufCoefBiquad);
-??CrossCallReturnLabel_47:
-        MOV      R1,R4
+        LDR.W    R1,??STACoefSet_0
         MOVS     R0,#+20
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  552 bufCoefBiquad[0]= 241;
         MOVS     R0,#+241
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  553 bufCoefBiquad[1]= 129;
-//  554 bufCoefBiquad[2]= 115;
-//  555 bufCoefBiquad[3]= 15;
-//  556 bufCoefBiquad[4]= 99;
-//  557 bufCoefBiquad[5]= 170;
-//  558 bufCoefBiquad[6]= 121;
-//  559 bufCoefBiquad[7]= 140;
-//  560 bufCoefBiquad[8]= 11;
-//  561 bufCoefBiquad[9]= 131;
-//  562 bufCoefBiquad[10]= 30;
-//  563 bufCoefBiquad[11]= 24;
-//  564 bufCoefBiquad[12]= 7;
-//  565 bufCoefBiquad[13]= 177;
-//  566 bufCoefBiquad[14]= 213;
-//  567 WriteCoef(0x019, bufCoefBiquad);
-        MOV      R1,R4
-        STRB     R0,[R4, #+0]
         MOVS     R0,#+129
-        STRB     R0,[R4, #+1]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
+//  554 bufCoefBiquad[2]= 115;
         MOVS     R0,#+115
-        BL       ?Subroutine9
-??CrossCallReturnLabel_55:
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
+//  555 bufCoefBiquad[3]= 15;
+        MOVS     R0,#+15
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
+//  556 bufCoefBiquad[4]= 99;
+        MOVS     R0,#+99
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
+//  557 bufCoefBiquad[5]= 170;
+        MOVS     R0,#+170
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
+//  558 bufCoefBiquad[6]= 121;
         MOVS     R0,#+121
-        STRB     R0,[R4, #+6]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
+//  559 bufCoefBiquad[7]= 140;
         MOVS     R0,#+140
-        STRB     R0,[R4, #+7]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
+//  560 bufCoefBiquad[8]= 11;
         MOVS     R0,#+11
-        STRB     R0,[R4, #+8]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
+//  561 bufCoefBiquad[9]= 131;
         MOVS     R0,#+131
-        STRB     R0,[R4, #+9]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+9]
+//  562 bufCoefBiquad[10]= 30;
         MOVS     R0,#+30
-        STRB     R0,[R4, #+10]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+10]
+//  563 bufCoefBiquad[11]= 24;
         MOVS     R0,#+24
-        BL       ?Subroutine8
-??CrossCallReturnLabel_50:
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+11]
+//  564 bufCoefBiquad[12]= 7;
+        MOVS     R0,#+7
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+12]
+//  565 bufCoefBiquad[13]= 177;
+        MOVS     R0,#+177
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+13]
+//  566 bufCoefBiquad[14]= 213;
+        MOVS     R0,#+213
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+14]
+//  567 WriteCoef(0x019, bufCoefBiquad);
+        LDR.W    R1,??STACoefSet_0
         MOVS     R0,#+25
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  568 bufCoefBiquad[0]= 241;
         MOVS     R0,#+241
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  569 bufCoefBiquad[1]= 114;
-//  570 bufCoefBiquad[2]= 29;
-//  571 bufCoefBiquad[3]= 15;
-//  572 bufCoefBiquad[4]= 99;
-//  573 bufCoefBiquad[5]= 170;
-//  574 bufCoefBiquad[6]= 122;
-//  575 bufCoefBiquad[7]= 75;
-//  576 bufCoefBiquad[8]= 50;
-//  577 bufCoefBiquad[9]= 128;
-//  578 bufCoefBiquad[10]= 239;
-//  579 bufCoefBiquad[11]= 42;
-//  580 bufCoefBiquad[12]= 7;
-//  581 bufCoefBiquad[13]= 177;
-//  582 bufCoefBiquad[14]= 213;
-//  583 WriteCoef(0x01e, bufCoefBiquad);
-        MOV      R1,R4
-        STRB     R0,[R4, #+0]
         MOVS     R0,#+114
-        STRB     R0,[R4, #+1]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
+//  570 bufCoefBiquad[2]= 29;
         MOVS     R0,#+29
-        BL       ?Subroutine9
-??CrossCallReturnLabel_56:
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
+//  571 bufCoefBiquad[3]= 15;
+        MOVS     R0,#+15
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
+//  572 bufCoefBiquad[4]= 99;
+        MOVS     R0,#+99
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
+//  573 bufCoefBiquad[5]= 170;
+        MOVS     R0,#+170
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
+//  574 bufCoefBiquad[6]= 122;
         MOVS     R0,#+122
-        STRB     R0,[R4, #+6]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
+//  575 bufCoefBiquad[7]= 75;
         MOVS     R0,#+75
-        STRB     R0,[R4, #+7]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
+//  576 bufCoefBiquad[8]= 50;
         MOVS     R0,#+50
-        STRB     R0,[R4, #+8]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
+//  577 bufCoefBiquad[9]= 128;
         MOVS     R0,#+128
-        STRB     R0,[R4, #+9]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+9]
+//  578 bufCoefBiquad[10]= 239;
         MOVS     R0,#+239
-        STRB     R0,[R4, #+10]
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+10]
+//  579 bufCoefBiquad[11]= 42;
         MOVS     R0,#+42
-        BL       ?Subroutine8
-??CrossCallReturnLabel_51:
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+11]
+//  580 bufCoefBiquad[12]= 7;
+        MOVS     R0,#+7
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+12]
+//  581 bufCoefBiquad[13]= 177;
+        MOVS     R0,#+177
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+13]
+//  582 bufCoefBiquad[14]= 213;
+        MOVS     R0,#+213
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+14]
+//  583 WriteCoef(0x01e, bufCoefBiquad);
+        LDR.W    R1,??STACoefSet_0
         MOVS     R0,#+30
           CFI FunCall WriteCoef
         BL       WriteCoef
@@ -1171,690 +1326,1987 @@ STACoefSet:
 //  585 
 //  586 //037
 //  587 bufCoefBiquad[0]=0x80;
-        BL       ?Subroutine2
+        MOVS     R0,#+128
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  588 bufCoefBiquad[1]=0x37;
+        MOVS     R0,#+55
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
 //  589 bufCoefBiquad[2]=0xD9;
+        MOVS     R0,#+217
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
 //  590 bufCoefBiquad[3]=0x7F;
+        MOVS     R0,#+127
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
 //  591 bufCoefBiquad[4]=0xC8;
+        MOVS     R0,#+200
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
 //  592 bufCoefBiquad[5]=0x27;
+        MOVS     R0,#+39
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
 //  593 bufCoefBiquad[6]=0x7F;
+        MOVS     R0,#+127
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
 //  594 bufCoefBiquad[7]=0xC8;
+        MOVS     R0,#+200
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
 //  595 bufCoefBiquad[8]=0x1B;
+        MOVS     R0,#+27
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
 //  596 bufCoefBiquad[9]=0x80;
+        MOVS     R0,#+128
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+9]
 //  597 bufCoefBiquad[10]=0x6F;
+        MOVS     R0,#+111
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+10]
 //  598 bufCoefBiquad[11]=0x98;
+        MOVS     R0,#+152
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+11]
 //  599 bufCoefBiquad[12]=0x3F;
+        MOVS     R0,#+63
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+12]
 //  600 bufCoefBiquad[13]=0xE4;
+        MOVS     R0,#+228
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+13]
 //  601 bufCoefBiquad[14]=0x13;
+        MOVS     R0,#+19
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+14]
 //  602 WriteCoef(0x037,bufCoefBiquad);
-??CrossCallReturnLabel_2:
+        LDR.W    R1,??STACoefSet_0
         MOVS     R0,#+55
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  603 //03C
 //  604 bufCoefBiquad[0]=0x80;
-        BL       ?Subroutine1
+        MOVS     R0,#+128
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  605 bufCoefBiquad[1]=0x37;
+        MOVS     R0,#+55
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
 //  606 bufCoefBiquad[2]=0xD9;
+        MOVS     R0,#+217
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
 //  607 bufCoefBiquad[3]=0x7F;
+        MOVS     R0,#+127
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
 //  608 bufCoefBiquad[4]=0xC8;
+        MOVS     R0,#+200
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
 //  609 bufCoefBiquad[5]=0x27;
+        MOVS     R0,#+39
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
 //  610 bufCoefBiquad[6]=0x7F;
+        MOVS     R0,#+127
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
 //  611 bufCoefBiquad[7]=0xC8;
+        MOVS     R0,#+200
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
 //  612 bufCoefBiquad[8]=0x1B;
+        MOVS     R0,#+27
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
 //  613 bufCoefBiquad[9]=0x80;
+        MOVS     R0,#+128
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+9]
 //  614 bufCoefBiquad[10]=0x6F;
+        MOVS     R0,#+111
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+10]
 //  615 bufCoefBiquad[11]=0x98;
+        MOVS     R0,#+152
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+11]
 //  616 bufCoefBiquad[12]=0x3F;
+        MOVS     R0,#+63
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+12]
 //  617 bufCoefBiquad[13]=0xE4;
+        MOVS     R0,#+228
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+13]
 //  618 bufCoefBiquad[14]=0x13;
+        MOVS     R0,#+19
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+14]
 //  619 WriteCoef(0x03C,bufCoefBiquad);
-??CrossCallReturnLabel_0:
+        LDR.W    R1,??STACoefSet_0
         MOVS     R0,#+60
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  620 //041
 //  621 bufCoefBiquad[0]=0x09;
-        BL       ?Subroutine4
+        MOVS     R0,#+9
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  622 bufCoefBiquad[1]=0x3E;
+        MOVS     R0,#+62
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
 //  623 bufCoefBiquad[2]=0xC0;
+        MOVS     R0,#+192
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
 //  624 bufCoefBiquad[3]=0x09;
+        MOVS     R0,#+9
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
 //  625 bufCoefBiquad[4]=0x3E;
+        MOVS     R0,#+62
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
 //  626 bufCoefBiquad[5]=0xC0;
+        MOVS     R0,#+192
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
 //  627 bufCoefBiquad[6]=0x46;
+        MOVS     R0,#+70
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
 //  628 bufCoefBiquad[7]=0xFC;
+        MOVS     R0,#+252
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
 //  629 bufCoefBiquad[8]=0xC7;
+        MOVS     R0,#+199
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
 //  630 bufCoefBiquad[9]=0xCD;
+        MOVS     R0,#+205
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+9]
 //  631 bufCoefBiquad[10]=0x0B;
+        MOVS     R0,#+11
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+10]
 //  632 bufCoefBiquad[11]=0x6E;
+        MOVS     R0,#+110
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+11]
 //  633 bufCoefBiquad[12]=0x04;
+        MOVS     R0,#+4
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+12]
 //  634 bufCoefBiquad[13]=0x9F;
+        MOVS     R0,#+159
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+13]
 //  635 bufCoefBiquad[14]=0x60;
+        MOVS     R0,#+96
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+14]
 //  636 WriteCoef(0x041,bufCoefBiquad);
-??CrossCallReturnLabel_12:
+        LDR.W    R1,??STACoefSet_0
         MOVS     R0,#+65
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  637 //046
 //  638 bufCoefBiquad[0]=0x09;
-        BL       ?Subroutine4
+        MOVS     R0,#+9
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  639 bufCoefBiquad[1]=0x3E;
+        MOVS     R0,#+62
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
 //  640 bufCoefBiquad[2]=0xC0;
+        MOVS     R0,#+192
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
 //  641 bufCoefBiquad[3]=0x09;
+        MOVS     R0,#+9
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
 //  642 bufCoefBiquad[4]=0x3E;
+        MOVS     R0,#+62
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
 //  643 bufCoefBiquad[5]=0xC0;
+        MOVS     R0,#+192
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
 //  644 bufCoefBiquad[6]=0x46;
+        MOVS     R0,#+70
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
 //  645 bufCoefBiquad[7]=0xFC;
+        MOVS     R0,#+252
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
 //  646 bufCoefBiquad[8]=0xC7;
+        MOVS     R0,#+199
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
 //  647 bufCoefBiquad[9]=0xCD;
+        MOVS     R0,#+205
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+9]
 //  648 bufCoefBiquad[10]=0x0B;
+        MOVS     R0,#+11
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+10]
 //  649 bufCoefBiquad[11]=0x6E;
+        MOVS     R0,#+110
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+11]
 //  650 bufCoefBiquad[12]=0x04;
+        MOVS     R0,#+4
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+12]
 //  651 bufCoefBiquad[13]=0x9F;
+        MOVS     R0,#+159
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+13]
 //  652 bufCoefBiquad[14]=0x60;
+        MOVS     R0,#+96
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+14]
 //  653 WriteCoef(0x046,bufCoefBiquad);
-??CrossCallReturnLabel_13:
+        LDR.W    R1,??STACoefSet_0
         MOVS     R0,#+70
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  654 //04B
 //  655 bufCoefBiquad[0]=0x09;
-        BL       ?Subroutine4
+        MOVS     R0,#+9
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  656 bufCoefBiquad[1]=0x3E;
+        MOVS     R0,#+62
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
 //  657 bufCoefBiquad[2]=0xC0;
+        MOVS     R0,#+192
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
 //  658 bufCoefBiquad[3]=0x09;
+        MOVS     R0,#+9
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
 //  659 bufCoefBiquad[4]=0x3E;
+        MOVS     R0,#+62
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
 //  660 bufCoefBiquad[5]=0xC0;
+        MOVS     R0,#+192
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
 //  661 bufCoefBiquad[6]=0x46;
+        MOVS     R0,#+70
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
 //  662 bufCoefBiquad[7]=0xFC;
+        MOVS     R0,#+252
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
 //  663 bufCoefBiquad[8]=0xC7;
+        MOVS     R0,#+199
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
 //  664 bufCoefBiquad[9]=0xCD;
+        MOVS     R0,#+205
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+9]
 //  665 bufCoefBiquad[10]=0x0B;
+        MOVS     R0,#+11
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+10]
 //  666 bufCoefBiquad[11]=0x6E;
+        MOVS     R0,#+110
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+11]
 //  667 bufCoefBiquad[12]=0x04;
+        MOVS     R0,#+4
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+12]
 //  668 bufCoefBiquad[13]=0x9F;
+        MOVS     R0,#+159
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+13]
 //  669 bufCoefBiquad[14]=0x60;
+        MOVS     R0,#+96
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+14]
 //  670 WriteCoef(0x04B,bufCoefBiquad);
-??CrossCallReturnLabel_14:
+        LDR.W    R1,??STACoefSet_0
         MOVS     R0,#+75
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  671 //050
 //  672 bufCoefBiquad[0]=0xA4;
-        BL       ?Subroutine5
+        MOVS     R0,#+164
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  673 bufCoefBiquad[1]=0x18;
+        MOVS     R0,#+24
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
 //  674 bufCoefBiquad[2]=0xCA;
+        MOVS     R0,#+202
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
 //  675 bufCoefBiquad[3]=0x56;
+        MOVS     R0,#+86
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
 //  676 bufCoefBiquad[4]=0x67;
+        MOVS     R0,#+103
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
 //  677 bufCoefBiquad[5]=0xB6;
+        MOVS     R0,#+182
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
 //  678 bufCoefBiquad[6]=0x5B;
+        MOVS     R0,#+91
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
 //  679 bufCoefBiquad[7]=0xE7;
+        MOVS     R0,#+231
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
 //  680 bufCoefBiquad[8]=0x36;
+        MOVS     R0,#+54
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
 //  681 bufCoefBiquad[9]=0x98;
+        MOVS     R0,#+152
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+9]
 //  682 bufCoefBiquad[10]=0x51;
+        MOVS     R0,#+81
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+10]
 //  683 bufCoefBiquad[11]=0x32;
+        MOVS     R0,#+50
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+11]
 //  684 bufCoefBiquad[12]=0x48;
+        MOVS     R0,#+72
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+12]
 //  685 bufCoefBiquad[13]=0xA3;
+        MOVS     R0,#+163
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+13]
 //  686 bufCoefBiquad[14]=0x8B;
+        MOVS     R0,#+139
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+14]
 //  687 WriteCoef(0x050,bufCoefBiquad);
-??CrossCallReturnLabel_24:
+        LDR.W    R1,??STACoefSet_0
         MOVS     R0,#+80
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  688 //069
 //  689 bufCoefBiquad[0]=0x80;
-        BL       ?Subroutine2
+        MOVS     R0,#+128
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  690 bufCoefBiquad[1]=0x37;
+        MOVS     R0,#+55
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
 //  691 bufCoefBiquad[2]=0xD9;
+        MOVS     R0,#+217
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
 //  692 bufCoefBiquad[3]=0x7F;
+        MOVS     R0,#+127
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
 //  693 bufCoefBiquad[4]=0xC8;
+        MOVS     R0,#+200
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
 //  694 bufCoefBiquad[5]=0x27;
+        MOVS     R0,#+39
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
 //  695 bufCoefBiquad[6]=0x7F;
+        MOVS     R0,#+127
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
 //  696 bufCoefBiquad[7]=0xC8;
+        MOVS     R0,#+200
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
 //  697 bufCoefBiquad[8]=0x1B;
+        MOVS     R0,#+27
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
 //  698 bufCoefBiquad[9]=0x80;
+        MOVS     R0,#+128
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+9]
 //  699 bufCoefBiquad[10]=0x6F;
+        MOVS     R0,#+111
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+10]
 //  700 bufCoefBiquad[11]=0x98;
+        MOVS     R0,#+152
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+11]
 //  701 bufCoefBiquad[12]=0x3F;
+        MOVS     R0,#+63
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+12]
 //  702 bufCoefBiquad[13]=0xE4;
+        MOVS     R0,#+228
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+13]
 //  703 bufCoefBiquad[14]=0x13;
+        MOVS     R0,#+19
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+14]
 //  704 WriteCoef(0x069,bufCoefBiquad);
-??CrossCallReturnLabel_3:
+        LDR.W    R1,??STACoefSet_0
         MOVS     R0,#+105
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  705 //06E
 //  706 bufCoefBiquad[0]=0x80;
-        BL       ?Subroutine2
+        MOVS     R0,#+128
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  707 bufCoefBiquad[1]=0x37;
+        MOVS     R0,#+55
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
 //  708 bufCoefBiquad[2]=0xD9;
+        MOVS     R0,#+217
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
 //  709 bufCoefBiquad[3]=0x7F;
+        MOVS     R0,#+127
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
 //  710 bufCoefBiquad[4]=0xC8;
+        MOVS     R0,#+200
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
 //  711 bufCoefBiquad[5]=0x27;
+        MOVS     R0,#+39
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
 //  712 bufCoefBiquad[6]=0x7F;
+        MOVS     R0,#+127
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
 //  713 bufCoefBiquad[7]=0xC8;
+        MOVS     R0,#+200
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
 //  714 bufCoefBiquad[8]=0x1B;
+        MOVS     R0,#+27
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
 //  715 bufCoefBiquad[9]=0x80;
+        MOVS     R0,#+128
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+9]
 //  716 bufCoefBiquad[10]=0x6F;
+        MOVS     R0,#+111
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+10]
 //  717 bufCoefBiquad[11]=0x98;
+        MOVS     R0,#+152
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+11]
 //  718 bufCoefBiquad[12]=0x3F;
+        MOVS     R0,#+63
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+12]
 //  719 bufCoefBiquad[13]=0xE4;
+        MOVS     R0,#+228
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+13]
 //  720 bufCoefBiquad[14]=0x13;
+        MOVS     R0,#+19
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+14]
 //  721 WriteCoef(0x06E,bufCoefBiquad);
-??CrossCallReturnLabel_4:
+        LDR.W    R1,??STACoefSet_0
         MOVS     R0,#+110
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  722 //073
 //  723 bufCoefBiquad[0]=0x09;
-        BL       ?Subroutine4
+        MOVS     R0,#+9
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  724 bufCoefBiquad[1]=0x3E;
+        MOVS     R0,#+62
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
 //  725 bufCoefBiquad[2]=0xC0;
+        MOVS     R0,#+192
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
 //  726 bufCoefBiquad[3]=0x09;
+        MOVS     R0,#+9
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
 //  727 bufCoefBiquad[4]=0x3E;
+        MOVS     R0,#+62
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
 //  728 bufCoefBiquad[5]=0xC0;
+        MOVS     R0,#+192
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
 //  729 bufCoefBiquad[6]=0x46;
+        MOVS     R0,#+70
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
 //  730 bufCoefBiquad[7]=0xFC;
+        MOVS     R0,#+252
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
 //  731 bufCoefBiquad[8]=0xC7;
+        MOVS     R0,#+199
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
 //  732 bufCoefBiquad[9]=0xCD;
+        MOVS     R0,#+205
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+9]
 //  733 bufCoefBiquad[10]=0x0B;
+        MOVS     R0,#+11
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+10]
 //  734 bufCoefBiquad[11]=0x6E;
+        MOVS     R0,#+110
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+11]
 //  735 bufCoefBiquad[12]=0x04;
+        MOVS     R0,#+4
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+12]
 //  736 bufCoefBiquad[13]=0x9F;
+        MOVS     R0,#+159
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+13]
 //  737 bufCoefBiquad[14]=0x60;
+        MOVS     R0,#+96
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+14]
 //  738 WriteCoef(0x073,bufCoefBiquad);
-??CrossCallReturnLabel_15:
+        LDR.W    R1,??STACoefSet_0
         MOVS     R0,#+115
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  739 //078
 //  740 bufCoefBiquad[0]=0x09;
-        BL       ?Subroutine3
+        MOVS     R0,#+9
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  741 bufCoefBiquad[1]=0x3E;
+        MOVS     R0,#+62
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
 //  742 bufCoefBiquad[2]=0xC0;
+        MOVS     R0,#+192
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
 //  743 bufCoefBiquad[3]=0x09;
+        MOVS     R0,#+9
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
 //  744 bufCoefBiquad[4]=0x3E;
+        MOVS     R0,#+62
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
 //  745 bufCoefBiquad[5]=0xC0;
+        MOVS     R0,#+192
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
 //  746 bufCoefBiquad[6]=0x46;
+        MOVS     R0,#+70
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
 //  747 bufCoefBiquad[7]=0xFC;
+        MOVS     R0,#+252
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
 //  748 bufCoefBiquad[8]=0xC7;
+        MOVS     R0,#+199
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
 //  749 bufCoefBiquad[9]=0xCD;
+        MOVS     R0,#+205
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+9]
 //  750 bufCoefBiquad[10]=0x0B;
+        MOVS     R0,#+11
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+10]
 //  751 bufCoefBiquad[11]=0x6E;
+        MOVS     R0,#+110
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+11]
 //  752 bufCoefBiquad[12]=0x04;
+        MOVS     R0,#+4
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+12]
 //  753 bufCoefBiquad[13]=0x9F;
+        MOVS     R0,#+159
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+13]
 //  754 bufCoefBiquad[14]=0x60;
+        MOVS     R0,#+96
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+14]
 //  755 WriteCoef(0x078,bufCoefBiquad);
-??CrossCallReturnLabel_10:
+        LDR.W    R1,??STACoefSet_0
         MOVS     R0,#+120
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  756 //07D
 //  757 bufCoefBiquad[0]=0x09;
-        BL       ?Subroutine4
+        MOVS     R0,#+9
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  758 bufCoefBiquad[1]=0x3E;
+        MOVS     R0,#+62
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
 //  759 bufCoefBiquad[2]=0xC0;
+        MOVS     R0,#+192
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
 //  760 bufCoefBiquad[3]=0x09;
+        MOVS     R0,#+9
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
 //  761 bufCoefBiquad[4]=0x3E;
+        MOVS     R0,#+62
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
 //  762 bufCoefBiquad[5]=0xC0;
+        MOVS     R0,#+192
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
 //  763 bufCoefBiquad[6]=0x46;
+        MOVS     R0,#+70
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
 //  764 bufCoefBiquad[7]=0xFC;
+        MOVS     R0,#+252
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
 //  765 bufCoefBiquad[8]=0xC7;
+        MOVS     R0,#+199
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
 //  766 bufCoefBiquad[9]=0xCD;
+        MOVS     R0,#+205
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+9]
 //  767 bufCoefBiquad[10]=0x0B;
+        MOVS     R0,#+11
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+10]
 //  768 bufCoefBiquad[11]=0x6E;
+        MOVS     R0,#+110
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+11]
 //  769 bufCoefBiquad[12]=0x04;
+        MOVS     R0,#+4
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+12]
 //  770 bufCoefBiquad[13]=0x9F;
+        MOVS     R0,#+159
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+13]
 //  771 bufCoefBiquad[14]=0x60;
+        MOVS     R0,#+96
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+14]
 //  772 WriteCoef(0x07D,bufCoefBiquad);
-??CrossCallReturnLabel_16:
+        LDR.W    R1,??STACoefSet_0
         MOVS     R0,#+125
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  773 //082
 //  774 bufCoefBiquad[0]=0xA4;
-        BL       ?Subroutine6
+        MOVS     R0,#+164
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  775 bufCoefBiquad[1]=0x18;
+        MOVS     R0,#+24
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
 //  776 bufCoefBiquad[2]=0xCA;
+        MOVS     R0,#+202
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
 //  777 bufCoefBiquad[3]=0x56;
+        MOVS     R0,#+86
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
 //  778 bufCoefBiquad[4]=0x67;
+        MOVS     R0,#+103
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
 //  779 bufCoefBiquad[5]=0xB6;
+        MOVS     R0,#+182
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
 //  780 bufCoefBiquad[6]=0x5B;
+        MOVS     R0,#+91
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
 //  781 bufCoefBiquad[7]=0xE7;
+        MOVS     R0,#+231
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
 //  782 bufCoefBiquad[8]=0x36;
+        MOVS     R0,#+54
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
 //  783 bufCoefBiquad[9]=0x98;
+        MOVS     R0,#+152
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+9]
 //  784 bufCoefBiquad[10]=0x51;
+        MOVS     R0,#+81
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+10]
 //  785 bufCoefBiquad[11]=0x32;
+        MOVS     R0,#+50
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+11]
 //  786 bufCoefBiquad[12]=0x48;
+        MOVS     R0,#+72
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+12]
 //  787 bufCoefBiquad[13]=0xA3;
+        MOVS     R0,#+163
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+13]
 //  788 bufCoefBiquad[14]=0x8B;
+        MOVS     R0,#+139
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+14]
 //  789 WriteCoef(0x082,bufCoefBiquad);
-??CrossCallReturnLabel_26:
+        LDR.W    R1,??STACoefSet_0
         MOVS     R0,#+130
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  790 //09B
 //  791 bufCoefBiquad[0]=0x80;
-        BL       ?Subroutine2
+        MOVS     R0,#+128
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  792 bufCoefBiquad[1]=0x37;
+        MOVS     R0,#+55
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
 //  793 bufCoefBiquad[2]=0xD9;
+        MOVS     R0,#+217
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
 //  794 bufCoefBiquad[3]=0x7F;
+        MOVS     R0,#+127
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
 //  795 bufCoefBiquad[4]=0xC8;
+        MOVS     R0,#+200
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
 //  796 bufCoefBiquad[5]=0x27;
+        MOVS     R0,#+39
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
 //  797 bufCoefBiquad[6]=0x7F;
+        MOVS     R0,#+127
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
 //  798 bufCoefBiquad[7]=0xC8;
+        MOVS     R0,#+200
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
 //  799 bufCoefBiquad[8]=0x1B;
+        MOVS     R0,#+27
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
 //  800 bufCoefBiquad[9]=0x80;
+        MOVS     R0,#+128
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+9]
 //  801 bufCoefBiquad[10]=0x6F;
+        MOVS     R0,#+111
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+10]
 //  802 bufCoefBiquad[11]=0x98;
+        MOVS     R0,#+152
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+11]
 //  803 bufCoefBiquad[12]=0x3F;
+        MOVS     R0,#+63
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+12]
 //  804 bufCoefBiquad[13]=0xE4;
+        MOVS     R0,#+228
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+13]
 //  805 bufCoefBiquad[14]=0x13;
+        MOVS     R0,#+19
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+14]
 //  806 WriteCoef(0x09B,bufCoefBiquad);
-??CrossCallReturnLabel_5:
+        LDR.W    R1,??STACoefSet_0
         MOVS     R0,#+155
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  807 //0A0
 //  808 bufCoefBiquad[0]=0x80;
-        BL       ?Subroutine1
+        MOVS     R0,#+128
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  809 bufCoefBiquad[1]=0x37;
+        MOVS     R0,#+55
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
 //  810 bufCoefBiquad[2]=0xD9;
+        MOVS     R0,#+217
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
 //  811 bufCoefBiquad[3]=0x7F;
+        MOVS     R0,#+127
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
 //  812 bufCoefBiquad[4]=0xC8;
+        MOVS     R0,#+200
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
 //  813 bufCoefBiquad[5]=0x27;
+        MOVS     R0,#+39
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
 //  814 bufCoefBiquad[6]=0x7F;
+        MOVS     R0,#+127
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
 //  815 bufCoefBiquad[7]=0xC8;
+        MOVS     R0,#+200
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
 //  816 bufCoefBiquad[8]=0x1B;
+        MOVS     R0,#+27
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
 //  817 bufCoefBiquad[9]=0x80;
+        MOVS     R0,#+128
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+9]
 //  818 bufCoefBiquad[10]=0x6F;
+        MOVS     R0,#+111
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+10]
 //  819 bufCoefBiquad[11]=0x98;
+        MOVS     R0,#+152
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+11]
 //  820 bufCoefBiquad[12]=0x3F;
+        MOVS     R0,#+63
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+12]
 //  821 bufCoefBiquad[13]=0xE4;
+        MOVS     R0,#+228
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+13]
 //  822 bufCoefBiquad[14]=0x13;
+        MOVS     R0,#+19
+        LDR.W    R1,??STACoefSet_0
+        STRB     R0,[R1, #+14]
 //  823 WriteCoef(0x0A0,bufCoefBiquad);
-??CrossCallReturnLabel_1:
+        LDR.W    R1,??STACoefSet_0
         MOVS     R0,#+160
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  824 //0A5
 //  825 bufCoefBiquad[0]=0x09;
-        BL       ?Subroutine4
+        MOVS     R0,#+9
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  826 bufCoefBiquad[1]=0x3E;
+        MOVS     R0,#+62
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
 //  827 bufCoefBiquad[2]=0xC0;
+        MOVS     R0,#+192
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
 //  828 bufCoefBiquad[3]=0x09;
+        MOVS     R0,#+9
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
 //  829 bufCoefBiquad[4]=0x3E;
+        MOVS     R0,#+62
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
 //  830 bufCoefBiquad[5]=0xC0;
+        MOVS     R0,#+192
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
 //  831 bufCoefBiquad[6]=0x46;
+        MOVS     R0,#+70
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
 //  832 bufCoefBiquad[7]=0xFC;
+        MOVS     R0,#+252
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
 //  833 bufCoefBiquad[8]=0xC7;
+        MOVS     R0,#+199
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
 //  834 bufCoefBiquad[9]=0xCD;
+        MOVS     R0,#+205
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+9]
 //  835 bufCoefBiquad[10]=0x0B;
+        MOVS     R0,#+11
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+10]
 //  836 bufCoefBiquad[11]=0x6E;
+        MOVS     R0,#+110
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+11]
 //  837 bufCoefBiquad[12]=0x04;
+        MOVS     R0,#+4
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+12]
 //  838 bufCoefBiquad[13]=0x9F;
+        MOVS     R0,#+159
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+13]
 //  839 bufCoefBiquad[14]=0x60;
+        MOVS     R0,#+96
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+14]
 //  840 WriteCoef(0x0A5,bufCoefBiquad);
-??CrossCallReturnLabel_17:
+        LDR.N    R1,??STACoefSet_0
         MOVS     R0,#+165
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  841 //0AA
 //  842 bufCoefBiquad[0]=0x09;
-        BL       ?Subroutine4
+        MOVS     R0,#+9
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  843 bufCoefBiquad[1]=0x3E;
+        MOVS     R0,#+62
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
 //  844 bufCoefBiquad[2]=0xC0;
+        MOVS     R0,#+192
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
 //  845 bufCoefBiquad[3]=0x09;
+        MOVS     R0,#+9
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
 //  846 bufCoefBiquad[4]=0x3E;
+        MOVS     R0,#+62
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
 //  847 bufCoefBiquad[5]=0xC0;
+        MOVS     R0,#+192
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
 //  848 bufCoefBiquad[6]=0x46;
+        MOVS     R0,#+70
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
 //  849 bufCoefBiquad[7]=0xFC;
+        MOVS     R0,#+252
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
 //  850 bufCoefBiquad[8]=0xC7;
+        MOVS     R0,#+199
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
 //  851 bufCoefBiquad[9]=0xCD;
+        MOVS     R0,#+205
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+9]
 //  852 bufCoefBiquad[10]=0x0B;
+        MOVS     R0,#+11
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+10]
 //  853 bufCoefBiquad[11]=0x6E;
+        MOVS     R0,#+110
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+11]
 //  854 bufCoefBiquad[12]=0x04;
+        MOVS     R0,#+4
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+12]
 //  855 bufCoefBiquad[13]=0x9F;
+        MOVS     R0,#+159
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+13]
 //  856 bufCoefBiquad[14]=0x60;
+        MOVS     R0,#+96
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+14]
 //  857 WriteCoef(0x0AA,bufCoefBiquad);
-??CrossCallReturnLabel_18:
+        LDR.N    R1,??STACoefSet_0
         MOVS     R0,#+170
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  858 //0AF
 //  859 bufCoefBiquad[0]=0x09;
-        BL       ?Subroutine4
+        MOVS     R0,#+9
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  860 bufCoefBiquad[1]=0x3E;
+        MOVS     R0,#+62
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
 //  861 bufCoefBiquad[2]=0xC0;
+        MOVS     R0,#+192
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
 //  862 bufCoefBiquad[3]=0x09;
+        MOVS     R0,#+9
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
 //  863 bufCoefBiquad[4]=0x3E;
+        MOVS     R0,#+62
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
 //  864 bufCoefBiquad[5]=0xC0;
+        MOVS     R0,#+192
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
 //  865 bufCoefBiquad[6]=0x46;
+        MOVS     R0,#+70
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
 //  866 bufCoefBiquad[7]=0xFC;
+        MOVS     R0,#+252
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
 //  867 bufCoefBiquad[8]=0xC7;
+        MOVS     R0,#+199
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
 //  868 bufCoefBiquad[9]=0xCD;
+        MOVS     R0,#+205
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+9]
 //  869 bufCoefBiquad[10]=0x0B;
+        MOVS     R0,#+11
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+10]
 //  870 bufCoefBiquad[11]=0x6E;
+        MOVS     R0,#+110
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+11]
 //  871 bufCoefBiquad[12]=0x04;
+        MOVS     R0,#+4
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+12]
 //  872 bufCoefBiquad[13]=0x9F;
+        MOVS     R0,#+159
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+13]
 //  873 bufCoefBiquad[14]=0x60;
+        MOVS     R0,#+96
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+14]
 //  874 WriteCoef(0x0AF,bufCoefBiquad);
-??CrossCallReturnLabel_19:
+        LDR.N    R1,??STACoefSet_0
         MOVS     R0,#+175
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  875 //0B4
 //  876 bufCoefBiquad[0]=0xA4;
-        BL       ?Subroutine5
+        MOVS     R0,#+164
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  877 bufCoefBiquad[1]=0x18;
+        MOVS     R0,#+24
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
 //  878 bufCoefBiquad[2]=0xCA;
+        MOVS     R0,#+202
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
 //  879 bufCoefBiquad[3]=0x56;
+        MOVS     R0,#+86
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
 //  880 bufCoefBiquad[4]=0x67;
+        MOVS     R0,#+103
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
 //  881 bufCoefBiquad[5]=0xB6;
+        MOVS     R0,#+182
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
 //  882 bufCoefBiquad[6]=0x5B;
+        MOVS     R0,#+91
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
 //  883 bufCoefBiquad[7]=0xE7;
+        MOVS     R0,#+231
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
 //  884 bufCoefBiquad[8]=0x36;
+        MOVS     R0,#+54
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
 //  885 bufCoefBiquad[9]=0x98;
+        MOVS     R0,#+152
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+9]
 //  886 bufCoefBiquad[10]=0x51;
+        MOVS     R0,#+81
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+10]
 //  887 bufCoefBiquad[11]=0x32;
+        MOVS     R0,#+50
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+11]
 //  888 bufCoefBiquad[12]=0x48;
+        MOVS     R0,#+72
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+12]
 //  889 bufCoefBiquad[13]=0xA3;
+        MOVS     R0,#+163
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+13]
 //  890 bufCoefBiquad[14]=0x8B;
+        MOVS     R0,#+139
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+14]
 //  891 WriteCoef(0x0B4,bufCoefBiquad);
-??CrossCallReturnLabel_25:
+        LDR.N    R1,??STACoefSet_0
         MOVS     R0,#+180
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  892 //0CD
 //  893 bufCoefBiquad[0]=0x80;
-        BL       ?Subroutine2
+        MOVS     R0,#+128
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  894 bufCoefBiquad[1]=0x37;
+        MOVS     R0,#+55
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
 //  895 bufCoefBiquad[2]=0xD9;
+        MOVS     R0,#+217
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
 //  896 bufCoefBiquad[3]=0x7F;
+        MOVS     R0,#+127
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
 //  897 bufCoefBiquad[4]=0xC8;
+        MOVS     R0,#+200
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
 //  898 bufCoefBiquad[5]=0x27;
+        MOVS     R0,#+39
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
 //  899 bufCoefBiquad[6]=0x7F;
+        MOVS     R0,#+127
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
 //  900 bufCoefBiquad[7]=0xC8;
+        MOVS     R0,#+200
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
 //  901 bufCoefBiquad[8]=0x1B;
+        MOVS     R0,#+27
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
 //  902 bufCoefBiquad[9]=0x80;
+        MOVS     R0,#+128
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+9]
 //  903 bufCoefBiquad[10]=0x6F;
+        MOVS     R0,#+111
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+10]
 //  904 bufCoefBiquad[11]=0x98;
+        MOVS     R0,#+152
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+11]
 //  905 bufCoefBiquad[12]=0x3F;
+        MOVS     R0,#+63
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+12]
 //  906 bufCoefBiquad[13]=0xE4;
+        MOVS     R0,#+228
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+13]
 //  907 bufCoefBiquad[14]=0x13;
+        MOVS     R0,#+19
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+14]
 //  908 WriteCoef(0x0CD,bufCoefBiquad);
-??CrossCallReturnLabel_6:
+        LDR.N    R1,??STACoefSet_0
         MOVS     R0,#+205
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  909 //0D2
 //  910 bufCoefBiquad[0]=0x80;
-        BL       ?Subroutine2
+        MOVS     R0,#+128
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  911 bufCoefBiquad[1]=0x37;
+        MOVS     R0,#+55
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
 //  912 bufCoefBiquad[2]=0xD9;
+        MOVS     R0,#+217
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
 //  913 bufCoefBiquad[3]=0x7F;
+        MOVS     R0,#+127
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
 //  914 bufCoefBiquad[4]=0xC8;
+        MOVS     R0,#+200
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
 //  915 bufCoefBiquad[5]=0x27;
+        MOVS     R0,#+39
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
 //  916 bufCoefBiquad[6]=0x7F;
+        MOVS     R0,#+127
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
 //  917 bufCoefBiquad[7]=0xC8;
+        MOVS     R0,#+200
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
 //  918 bufCoefBiquad[8]=0x1B;
+        MOVS     R0,#+27
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
 //  919 bufCoefBiquad[9]=0x80;
+        MOVS     R0,#+128
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+9]
 //  920 bufCoefBiquad[10]=0x6F;
+        MOVS     R0,#+111
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+10]
 //  921 bufCoefBiquad[11]=0x98;
+        MOVS     R0,#+152
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+11]
 //  922 bufCoefBiquad[12]=0x3F;
+        MOVS     R0,#+63
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+12]
 //  923 bufCoefBiquad[13]=0xE4;
+        MOVS     R0,#+228
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+13]
 //  924 bufCoefBiquad[14]=0x13;
+        MOVS     R0,#+19
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+14]
 //  925 WriteCoef(0x0D2,bufCoefBiquad);
-??CrossCallReturnLabel_7:
+        LDR.N    R1,??STACoefSet_0
         MOVS     R0,#+210
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  926 //0D7
 //  927 bufCoefBiquad[0]=0x09;
-        BL       ?Subroutine4
+        MOVS     R0,#+9
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  928 bufCoefBiquad[1]=0x3E;
+        MOVS     R0,#+62
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
 //  929 bufCoefBiquad[2]=0xC0;
+        MOVS     R0,#+192
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
 //  930 bufCoefBiquad[3]=0x09;
+        MOVS     R0,#+9
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
 //  931 bufCoefBiquad[4]=0x3E;
+        MOVS     R0,#+62
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
 //  932 bufCoefBiquad[5]=0xC0;
+        MOVS     R0,#+192
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
 //  933 bufCoefBiquad[6]=0x46;
+        MOVS     R0,#+70
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
 //  934 bufCoefBiquad[7]=0xFC;
+        MOVS     R0,#+252
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
 //  935 bufCoefBiquad[8]=0xC7;
+        MOVS     R0,#+199
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
 //  936 bufCoefBiquad[9]=0xCD;
+        MOVS     R0,#+205
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+9]
 //  937 bufCoefBiquad[10]=0x0B;
+        MOVS     R0,#+11
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+10]
 //  938 bufCoefBiquad[11]=0x6E;
+        MOVS     R0,#+110
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+11]
 //  939 bufCoefBiquad[12]=0x04;
+        MOVS     R0,#+4
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+12]
 //  940 bufCoefBiquad[13]=0x9F;
+        MOVS     R0,#+159
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+13]
 //  941 bufCoefBiquad[14]=0x60;
+        MOVS     R0,#+96
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+14]
 //  942 WriteCoef(0x0D7,bufCoefBiquad);
-??CrossCallReturnLabel_20:
+        LDR.N    R1,??STACoefSet_0
         MOVS     R0,#+215
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  943 //0DC
 //  944 bufCoefBiquad[0]=0x09;
-        BL       ?Subroutine3
+        MOVS     R0,#+9
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+0]
 //  945 bufCoefBiquad[1]=0x3E;
+        MOVS     R0,#+62
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+1]
 //  946 bufCoefBiquad[2]=0xC0;
+        MOVS     R0,#+192
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+2]
 //  947 bufCoefBiquad[3]=0x09;
+        MOVS     R0,#+9
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+3]
 //  948 bufCoefBiquad[4]=0x3E;
+        MOVS     R0,#+62
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+4]
 //  949 bufCoefBiquad[5]=0xC0;
+        MOVS     R0,#+192
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+5]
 //  950 bufCoefBiquad[6]=0x46;
+        MOVS     R0,#+70
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+6]
 //  951 bufCoefBiquad[7]=0xFC;
+        MOVS     R0,#+252
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+7]
 //  952 bufCoefBiquad[8]=0xC7;
+        MOVS     R0,#+199
+        LDR.N    R1,??STACoefSet_0
+        STRB     R0,[R1, #+8]
 //  953 bufCoefBiquad[9]=0xCD;
+        MOVS     R0,#+205
+        LDR.N    R1,??STACoefSet_0
+        B.N      ??STACoefSet_1
+        DATA
+??STACoefSet_0:
+        DC32     bufCoefBiquad
+        THUMB
+??STACoefSet_1:
+        STRB     R0,[R1, #+9]
 //  954 bufCoefBiquad[10]=0x0B;
+        MOVS     R0,#+11
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+10]
 //  955 bufCoefBiquad[11]=0x6E;
+        MOVS     R0,#+110
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+11]
 //  956 bufCoefBiquad[12]=0x04;
+        MOVS     R0,#+4
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+12]
 //  957 bufCoefBiquad[13]=0x9F;
+        MOVS     R0,#+159
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+13]
 //  958 bufCoefBiquad[14]=0x60;
+        MOVS     R0,#+96
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+14]
 //  959 WriteCoef(0x0DC,bufCoefBiquad);
-??CrossCallReturnLabel_11:
+        LDR.W    R1,??DataTable5
         MOVS     R0,#+220
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  960 //0E1
 //  961 bufCoefBiquad[0]=0x09;
-        BL       ?Subroutine4
+        MOVS     R0,#+9
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+0]
 //  962 bufCoefBiquad[1]=0x3E;
+        MOVS     R0,#+62
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+1]
 //  963 bufCoefBiquad[2]=0xC0;
+        MOVS     R0,#+192
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+2]
 //  964 bufCoefBiquad[3]=0x09;
+        MOVS     R0,#+9
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+3]
 //  965 bufCoefBiquad[4]=0x3E;
+        MOVS     R0,#+62
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+4]
 //  966 bufCoefBiquad[5]=0xC0;
+        MOVS     R0,#+192
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+5]
 //  967 bufCoefBiquad[6]=0x46;
+        MOVS     R0,#+70
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+6]
 //  968 bufCoefBiquad[7]=0xFC;
+        MOVS     R0,#+252
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+7]
 //  969 bufCoefBiquad[8]=0xC7;
+        MOVS     R0,#+199
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+8]
 //  970 bufCoefBiquad[9]=0xCD;
+        MOVS     R0,#+205
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+9]
 //  971 bufCoefBiquad[10]=0x0B;
+        MOVS     R0,#+11
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+10]
 //  972 bufCoefBiquad[11]=0x6E;
+        MOVS     R0,#+110
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+11]
 //  973 bufCoefBiquad[12]=0x04;
+        MOVS     R0,#+4
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+12]
 //  974 bufCoefBiquad[13]=0x9F;
+        MOVS     R0,#+159
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+13]
 //  975 bufCoefBiquad[14]=0x60;
+        MOVS     R0,#+96
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+14]
 //  976 WriteCoef(0x0E1,bufCoefBiquad);
-??CrossCallReturnLabel_21:
+        LDR.W    R1,??DataTable5
         MOVS     R0,#+225
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  977 //0E6
 //  978 bufCoefBiquad[0]=0xA4;
-        BL       ?Subroutine6
+        MOVS     R0,#+164
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+0]
 //  979 bufCoefBiquad[1]=0x18;
+        MOVS     R0,#+24
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+1]
 //  980 bufCoefBiquad[2]=0xCA;
+        MOVS     R0,#+202
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+2]
 //  981 bufCoefBiquad[3]=0x56;
+        MOVS     R0,#+86
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+3]
 //  982 bufCoefBiquad[4]=0x67;
+        MOVS     R0,#+103
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+4]
 //  983 bufCoefBiquad[5]=0xB6;
+        MOVS     R0,#+182
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+5]
 //  984 bufCoefBiquad[6]=0x5B;
+        MOVS     R0,#+91
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+6]
 //  985 bufCoefBiquad[7]=0xE7;
+        MOVS     R0,#+231
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+7]
 //  986 bufCoefBiquad[8]=0x36;
+        MOVS     R0,#+54
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+8]
 //  987 bufCoefBiquad[9]=0x98;
+        MOVS     R0,#+152
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+9]
 //  988 bufCoefBiquad[10]=0x51;
+        MOVS     R0,#+81
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+10]
 //  989 bufCoefBiquad[11]=0x32;
+        MOVS     R0,#+50
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+11]
 //  990 bufCoefBiquad[12]=0x48;
+        MOVS     R0,#+72
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+12]
 //  991 bufCoefBiquad[13]=0xA3;
+        MOVS     R0,#+163
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+13]
 //  992 bufCoefBiquad[14]=0x8B;
+        MOVS     R0,#+139
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+14]
 //  993 WriteCoef(0x0E6,bufCoefBiquad);
-??CrossCallReturnLabel_27:
+        LDR.W    R1,??DataTable5
         MOVS     R0,#+230
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  994 //0FF
 //  995 bufCoefBiquad[0]=0x80;
-        BL       ?Subroutine2
+        MOVS     R0,#+128
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+0]
 //  996 bufCoefBiquad[1]=0x37;
+        MOVS     R0,#+55
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+1]
 //  997 bufCoefBiquad[2]=0xD9;
+        MOVS     R0,#+217
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+2]
 //  998 bufCoefBiquad[3]=0x7F;
+        MOVS     R0,#+127
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+3]
 //  999 bufCoefBiquad[4]=0xC8;
+        MOVS     R0,#+200
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+4]
 // 1000 bufCoefBiquad[5]=0x27;
+        MOVS     R0,#+39
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+5]
 // 1001 bufCoefBiquad[6]=0x7F;
+        MOVS     R0,#+127
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+6]
 // 1002 bufCoefBiquad[7]=0xC8;
+        MOVS     R0,#+200
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+7]
 // 1003 bufCoefBiquad[8]=0x1B;
+        MOVS     R0,#+27
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+8]
 // 1004 bufCoefBiquad[9]=0x80;
+        MOVS     R0,#+128
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+9]
 // 1005 bufCoefBiquad[10]=0x6F;
+        MOVS     R0,#+111
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+10]
 // 1006 bufCoefBiquad[11]=0x98;
+        MOVS     R0,#+152
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+11]
 // 1007 bufCoefBiquad[12]=0x3F;
+        MOVS     R0,#+63
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+12]
 // 1008 bufCoefBiquad[13]=0xE4;
+        MOVS     R0,#+228
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+13]
 // 1009 bufCoefBiquad[14]=0x13;
+        MOVS     R0,#+19
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+14]
 // 1010 WriteCoef(0x0FF,bufCoefBiquad);
-??CrossCallReturnLabel_8:
+        LDR.W    R1,??DataTable5
         MOVS     R0,#+255
           CFI FunCall WriteCoef
         BL       WriteCoef
 // 1011 //104
 // 1012 bufCoefBiquad[0]=0x80;
-        BL       ?Subroutine2
+        MOVS     R0,#+128
+        LDR.W    R1,??DataTable5
+        STRB     R0,[R1, #+0]
 // 1013 bufCoefBiquad[1]=0x37;
+        MOVS     R0,#+55
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+1]
 // 1014 bufCoefBiquad[2]=0xD9;
+        MOVS     R0,#+217
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+2]
 // 1015 bufCoefBiquad[3]=0x7F;
+        MOVS     R0,#+127
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+3]
 // 1016 bufCoefBiquad[4]=0xC8;
+        MOVS     R0,#+200
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+4]
 // 1017 bufCoefBiquad[5]=0x27;
+        MOVS     R0,#+39
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+5]
 // 1018 bufCoefBiquad[6]=0x7F;
+        MOVS     R0,#+127
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+6]
 // 1019 bufCoefBiquad[7]=0xC8;
+        MOVS     R0,#+200
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+7]
 // 1020 bufCoefBiquad[8]=0x1B;
+        MOVS     R0,#+27
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+8]
 // 1021 bufCoefBiquad[9]=0x80;
+        MOVS     R0,#+128
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+9]
 // 1022 bufCoefBiquad[10]=0x6F;
+        MOVS     R0,#+111
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+10]
 // 1023 bufCoefBiquad[11]=0x98;
+        MOVS     R0,#+152
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+11]
 // 1024 bufCoefBiquad[12]=0x3F;
+        MOVS     R0,#+63
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+12]
 // 1025 bufCoefBiquad[13]=0xE4;
+        MOVS     R0,#+228
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+13]
 // 1026 bufCoefBiquad[14]=0x13;
+        MOVS     R0,#+19
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+14]
 // 1027 WriteCoef(0x104,bufCoefBiquad);
-??CrossCallReturnLabel_9:
+        LDR.N    R1,??DataTable5
         MOV      R0,#+260
           CFI FunCall WriteCoef
         BL       WriteCoef
 // 1028 //109
 // 1029 bufCoefBiquad[0]=0x09;
-        BL       ?Subroutine4
+        MOVS     R0,#+9
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+0]
 // 1030 bufCoefBiquad[1]=0x3E;
+        MOVS     R0,#+62
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+1]
 // 1031 bufCoefBiquad[2]=0xC0;
+        MOVS     R0,#+192
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+2]
 // 1032 bufCoefBiquad[3]=0x09;
+        MOVS     R0,#+9
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+3]
 // 1033 bufCoefBiquad[4]=0x3E;
+        MOVS     R0,#+62
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+4]
 // 1034 bufCoefBiquad[5]=0xC0;
+        MOVS     R0,#+192
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+5]
 // 1035 bufCoefBiquad[6]=0x46;
+        MOVS     R0,#+70
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+6]
 // 1036 bufCoefBiquad[7]=0xFC;
+        MOVS     R0,#+252
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+7]
 // 1037 bufCoefBiquad[8]=0xC7;
+        MOVS     R0,#+199
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+8]
 // 1038 bufCoefBiquad[9]=0xCD;
+        MOVS     R0,#+205
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+9]
 // 1039 bufCoefBiquad[10]=0x0B;
+        MOVS     R0,#+11
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+10]
 // 1040 bufCoefBiquad[11]=0x6E;
+        MOVS     R0,#+110
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+11]
 // 1041 bufCoefBiquad[12]=0x04;
+        MOVS     R0,#+4
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+12]
 // 1042 bufCoefBiquad[13]=0x9F;
+        MOVS     R0,#+159
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+13]
 // 1043 bufCoefBiquad[14]=0x60;
+        MOVS     R0,#+96
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+14]
 // 1044 WriteCoef(0x109,bufCoefBiquad);
-??CrossCallReturnLabel_22:
+        LDR.N    R1,??DataTable5
         MOVW     R0,#+265
           CFI FunCall WriteCoef
         BL       WriteCoef
 // 1045 //10E
 // 1046 bufCoefBiquad[0]=0x09;
-        BL       ?Subroutine4
+        MOVS     R0,#+9
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+0]
 // 1047 bufCoefBiquad[1]=0x3E;
+        MOVS     R0,#+62
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+1]
 // 1048 bufCoefBiquad[2]=0xC0;
+        MOVS     R0,#+192
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+2]
 // 1049 bufCoefBiquad[3]=0x09;
+        MOVS     R0,#+9
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+3]
 // 1050 bufCoefBiquad[4]=0x3E;
+        MOVS     R0,#+62
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+4]
 // 1051 bufCoefBiquad[5]=0xC0;
+        MOVS     R0,#+192
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+5]
 // 1052 bufCoefBiquad[6]=0x46;
+        MOVS     R0,#+70
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+6]
 // 1053 bufCoefBiquad[7]=0xFC;
+        MOVS     R0,#+252
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+7]
 // 1054 bufCoefBiquad[8]=0xC7;
+        MOVS     R0,#+199
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+8]
 // 1055 bufCoefBiquad[9]=0xCD;
+        MOVS     R0,#+205
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+9]
 // 1056 bufCoefBiquad[10]=0x0B;
+        MOVS     R0,#+11
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+10]
 // 1057 bufCoefBiquad[11]=0x6E;
+        MOVS     R0,#+110
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+11]
 // 1058 bufCoefBiquad[12]=0x04;
+        MOVS     R0,#+4
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+12]
 // 1059 bufCoefBiquad[13]=0x9F;
+        MOVS     R0,#+159
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+13]
 // 1060 bufCoefBiquad[14]=0x60;
+        MOVS     R0,#+96
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+14]
 // 1061 WriteCoef(0x10E,bufCoefBiquad);
-??CrossCallReturnLabel_23:
+        LDR.N    R1,??DataTable5
         MOV      R0,#+270
           CFI FunCall WriteCoef
         BL       WriteCoef
 // 1062 //113
 // 1063 bufCoefBiquad[0]=0x09;
         MOVS     R0,#+9
-        STRB     R0,[R4, #+0]
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+0]
 // 1064 bufCoefBiquad[1]=0x3E;
         MOVS     R0,#+62
-        STRB     R0,[R4, #+1]
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+1]
 // 1065 bufCoefBiquad[2]=0xC0;
         MOVS     R0,#+192
-        STRB     R0,[R4, #+2]
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+2]
 // 1066 bufCoefBiquad[3]=0x09;
         MOVS     R0,#+9
-        STRB     R0,[R4, #+3]
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+3]
 // 1067 bufCoefBiquad[4]=0x3E;
         MOVS     R0,#+62
-        STRB     R0,[R4, #+4]
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+4]
 // 1068 bufCoefBiquad[5]=0xC0;
         MOVS     R0,#+192
-        STRB     R0,[R4, #+5]
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+5]
 // 1069 bufCoefBiquad[6]=0x46;
         MOVS     R0,#+70
-        STRB     R0,[R4, #+6]
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+6]
 // 1070 bufCoefBiquad[7]=0xFC;
         MOVS     R0,#+252
-        STRB     R0,[R4, #+7]
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+7]
 // 1071 bufCoefBiquad[8]=0xC7;
         MOVS     R0,#+199
-        STRB     R0,[R4, #+8]
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+8]
 // 1072 bufCoefBiquad[9]=0xCD;
         MOVS     R0,#+205
-        STRB     R0,[R4, #+9]
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+9]
 // 1073 bufCoefBiquad[10]=0x0B;
         MOVS     R0,#+11
-        STRB     R0,[R4, #+10]
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+10]
 // 1074 bufCoefBiquad[11]=0x6E;
         MOVS     R0,#+110
-        STRB     R0,[R4, #+11]
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+11]
 // 1075 bufCoefBiquad[12]=0x04;
         MOVS     R0,#+4
-        STRB     R0,[R4, #+12]
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+12]
 // 1076 bufCoefBiquad[13]=0x9F;
         MOVS     R0,#+159
-        STRB     R0,[R4, #+13]
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+13]
 // 1077 bufCoefBiquad[14]=0x60;
         MOVS     R0,#+96
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+14]
 // 1078 WriteCoef(0x113,bufCoefBiquad);
-        MOV      R1,R4
-        STRB     R0,[R4, #+14]
+        LDR.N    R1,??DataTable5
         MOVW     R0,#+275
           CFI FunCall WriteCoef
         BL       WriteCoef
 // 1079 //118
 // 1080 bufCoefBiquad[0]=0xA4;
-        BL       ?Subroutine6
+        MOVS     R0,#+164
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+0]
 // 1081 bufCoefBiquad[1]=0x18;
+        MOVS     R0,#+24
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+1]
 // 1082 bufCoefBiquad[2]=0xCA;
+        MOVS     R0,#+202
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+2]
 // 1083 bufCoefBiquad[3]=0x56;
+        MOVS     R0,#+86
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+3]
 // 1084 bufCoefBiquad[4]=0x67;
+        MOVS     R0,#+103
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+4]
 // 1085 bufCoefBiquad[5]=0xB6;
+        MOVS     R0,#+182
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+5]
 // 1086 bufCoefBiquad[6]=0x5B;
+        MOVS     R0,#+91
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+6]
 // 1087 bufCoefBiquad[7]=0xE7;
+        MOVS     R0,#+231
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+7]
 // 1088 bufCoefBiquad[8]=0x36;
+        MOVS     R0,#+54
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+8]
 // 1089 bufCoefBiquad[9]=0x98;
+        MOVS     R0,#+152
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+9]
 // 1090 bufCoefBiquad[10]=0x51;
+        MOVS     R0,#+81
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+10]
 // 1091 bufCoefBiquad[11]=0x32;
+        MOVS     R0,#+50
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+11]
 // 1092 bufCoefBiquad[12]=0x48;
+        MOVS     R0,#+72
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+12]
 // 1093 bufCoefBiquad[13]=0xA3;
+        MOVS     R0,#+163
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+13]
 // 1094 bufCoefBiquad[14]=0x8B;
+        MOVS     R0,#+139
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+14]
 // 1095 WriteCoef(0x118,bufCoefBiquad);
-??CrossCallReturnLabel_28:
+        LDR.N    R1,??DataTable5
         MOV      R0,#+280
           CFI FunCall WriteCoef
         BL       WriteCoef
@@ -2546,623 +3998,113 @@ STACoefSet:
 // 1781 //reset to default value of coefficent registor
 // 1782 bufCoefBiquad[0]=0x00;
         MOVS     R0,#+0
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+0]
 // 1783 bufCoefBiquad[1]=0x00;
-// 1784 bufCoefBiquad[2]=0x00;
-// 1785 bufCoefBiquad[3]=0x00;
-// 1786 bufCoefBiquad[4]=0x00;
-// 1787 bufCoefBiquad[5]=0x00;
-// 1788 bufCoefBiquad[6]=0x00;
-// 1789 bufCoefBiquad[7]=0x00;
-// 1790 bufCoefBiquad[8]=0x00;
-// 1791 bufCoefBiquad[9]=0x00;
-// 1792 bufCoefBiquad[10]=0x00;
-// 1793 bufCoefBiquad[11]=0x00;
-// 1794 bufCoefBiquad[12]=0x40;
-// 1795 bufCoefBiquad[13]=0x00;
-// 1796 bufCoefBiquad[14]=0x00;
-// 1797 WriteSTAByte(0x3D,bufCoefBiquad,15);
-        MOV      R1,R4
-        STR      R0,[R4, #+0]
-        MOVS     R2,#+15
-        STR      R0,[R4, #+4]
-        STR      R0,[R4, #+8]
-        MOVS     R0,#+64
-        STRB     R0,[R4, #+12]
         MOVS     R0,#+0
-        STRB     R0,[R4, #+13]
-        STRB     R0,[R4, #+14]
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+1]
+// 1784 bufCoefBiquad[2]=0x00;
+        MOVS     R0,#+0
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+2]
+// 1785 bufCoefBiquad[3]=0x00;
+        MOVS     R0,#+0
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+3]
+// 1786 bufCoefBiquad[4]=0x00;
+        MOVS     R0,#+0
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+4]
+// 1787 bufCoefBiquad[5]=0x00;
+        MOVS     R0,#+0
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+5]
+// 1788 bufCoefBiquad[6]=0x00;
+        MOVS     R0,#+0
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+6]
+// 1789 bufCoefBiquad[7]=0x00;
+        MOVS     R0,#+0
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+7]
+// 1790 bufCoefBiquad[8]=0x00;
+        MOVS     R0,#+0
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+8]
+// 1791 bufCoefBiquad[9]=0x00;
+        MOVS     R0,#+0
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+9]
+// 1792 bufCoefBiquad[10]=0x00;
+        MOVS     R0,#+0
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+10]
+// 1793 bufCoefBiquad[11]=0x00;
+        MOVS     R0,#+0
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+11]
+// 1794 bufCoefBiquad[12]=0x40;
+        MOVS     R0,#+64
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+12]
+// 1795 bufCoefBiquad[13]=0x00;
+        MOVS     R0,#+0
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+13]
+// 1796 bufCoefBiquad[14]=0x00;
+        MOVS     R0,#+0
+        LDR.N    R1,??DataTable5
+        STRB     R0,[R1, #+14]
+// 1797 WriteSTAByte(0x3D,bufCoefBiquad,15);
+        MOVS     R2,#+15
+        LDR.N    R1,??DataTable5
         MOVS     R0,#+61
-        POP      {R4,LR}
-          CFI R4 SameValue
-          CFI R14 SameValue
-          CFI CFA R13+0
           CFI FunCall WriteSTAByte
-        B.N      WriteSTAByte
+        BL       WriteSTAByte
 // 1798 
 // 1799 
 // 1800 }
+        POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock3
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiCond4 Using cfiCommon0
-          CFI Function STACoefSet
-          CFI Conditional ??CrossCallReturnLabel_53
-          CFI R4 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+8
-          CFI Block cfiCond5 Using cfiCommon0
-          CFI (cfiCond5) Function STACoefSet
-          CFI (cfiCond5) Conditional ??CrossCallReturnLabel_54
-          CFI (cfiCond5) R4 Frame(CFA, -8)
-          CFI (cfiCond5) R14 Frame(CFA, -4)
-          CFI (cfiCond5) CFA R13+8
-          CFI Block cfiCond6 Using cfiCommon0
-          CFI (cfiCond6) Function STACoefSet
-          CFI (cfiCond6) Conditional ??CrossCallReturnLabel_52
-          CFI (cfiCond6) R4 Frame(CFA, -8)
-          CFI (cfiCond6) R14 Frame(CFA, -4)
-          CFI (cfiCond6) CFA R13+8
-          CFI Block cfiCond7 Using cfiCommon0
-          CFI (cfiCond7) Function STACoefSet
-          CFI (cfiCond7) Conditional ??CrossCallReturnLabel_55
-          CFI (cfiCond7) R4 Frame(CFA, -8)
-          CFI (cfiCond7) R14 Frame(CFA, -4)
-          CFI (cfiCond7) CFA R13+8
-          CFI Block cfiCond8 Using cfiCommon0
-          CFI (cfiCond8) Function STACoefSet
-          CFI (cfiCond8) Conditional ??CrossCallReturnLabel_56
-          CFI (cfiCond8) R4 Frame(CFA, -8)
-          CFI (cfiCond8) R14 Frame(CFA, -4)
-          CFI (cfiCond8) CFA R13+8
-          CFI Block cfiPicker9 Using cfiCommon1
-          CFI (cfiPicker9) NoFunction
-          CFI (cfiPicker9) Picker
-        THUMB
-?Subroutine9:
-        STRB     R0,[R4, #+2]
-        MOVS     R0,#+15
-        STRB     R0,[R4, #+3]
-        MOVS     R0,#+99
-        STRB     R0,[R4, #+4]
-        MOVS     R0,#+170
-        STRB     R0,[R4, #+5]
-        BX       LR
-          CFI EndBlock cfiCond4
-          CFI EndBlock cfiCond5
-          CFI EndBlock cfiCond6
-          CFI EndBlock cfiCond7
-          CFI EndBlock cfiCond8
-          CFI EndBlock cfiPicker9
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiCond10 Using cfiCommon0
-          CFI Function STACoefSet
-          CFI Conditional ??CrossCallReturnLabel_48
-          CFI R4 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+8
-          CFI Block cfiCond11 Using cfiCommon0
-          CFI (cfiCond11) Function STACoefSet
-          CFI (cfiCond11) Conditional ??CrossCallReturnLabel_49
-          CFI (cfiCond11) R4 Frame(CFA, -8)
-          CFI (cfiCond11) R14 Frame(CFA, -4)
-          CFI (cfiCond11) CFA R13+8
-          CFI Block cfiCond12 Using cfiCommon0
-          CFI (cfiCond12) Function STACoefSet
-          CFI (cfiCond12) Conditional ??CrossCallReturnLabel_47
-          CFI (cfiCond12) R4 Frame(CFA, -8)
-          CFI (cfiCond12) R14 Frame(CFA, -4)
-          CFI (cfiCond12) CFA R13+8
-          CFI Block cfiCond13 Using cfiCommon0
-          CFI (cfiCond13) Function STACoefSet
-          CFI (cfiCond13) Conditional ??CrossCallReturnLabel_50
-          CFI (cfiCond13) R4 Frame(CFA, -8)
-          CFI (cfiCond13) R14 Frame(CFA, -4)
-          CFI (cfiCond13) CFA R13+8
-          CFI Block cfiCond14 Using cfiCommon0
-          CFI (cfiCond14) Function STACoefSet
-          CFI (cfiCond14) Conditional ??CrossCallReturnLabel_51
-          CFI (cfiCond14) R4 Frame(CFA, -8)
-          CFI (cfiCond14) R14 Frame(CFA, -4)
-          CFI (cfiCond14) CFA R13+8
-          CFI Block cfiPicker15 Using cfiCommon1
-          CFI (cfiPicker15) NoFunction
-          CFI (cfiPicker15) Picker
-        THUMB
-?Subroutine8:
-        STRB     R0,[R4, #+11]
-        MOVS     R0,#+7
-        STRB     R0,[R4, #+12]
-        MOVS     R0,#+177
-        STRB     R0,[R4, #+13]
-        MOVS     R0,#+213
-        STRB     R0,[R4, #+14]
-        BX       LR
-          CFI EndBlock cfiCond10
-          CFI EndBlock cfiCond11
-          CFI EndBlock cfiCond12
-          CFI EndBlock cfiCond13
-          CFI EndBlock cfiCond14
-          CFI EndBlock cfiPicker15
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiCond16 Using cfiCommon0
-          CFI Function STACoefSet
-          CFI Conditional ??CrossCallReturnLabel_26
-          CFI R4 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+8
-          CFI Block cfiCond17 Using cfiCommon0
-          CFI (cfiCond17) Function STACoefSet
-          CFI (cfiCond17) Conditional ??CrossCallReturnLabel_27
-          CFI (cfiCond17) R4 Frame(CFA, -8)
-          CFI (cfiCond17) R14 Frame(CFA, -4)
-          CFI (cfiCond17) CFA R13+8
-          CFI Block cfiCond18 Using cfiCommon0
-          CFI (cfiCond18) Function STACoefSet
-          CFI (cfiCond18) Conditional ??CrossCallReturnLabel_28
-          CFI (cfiCond18) R4 Frame(CFA, -8)
-          CFI (cfiCond18) R14 Frame(CFA, -4)
-          CFI (cfiCond18) CFA R13+8
-          CFI Block cfiPicker19 Using cfiCommon1
-          CFI (cfiPicker19) NoFunction
-          CFI (cfiPicker19) Picker
-        THUMB
-?Subroutine6:
-        MOVS     R0,#+164
-        MOV      R1,R4
-        STRB     R0,[R4, #+0]
-        MOVS     R0,#+24
-        STRB     R0,[R4, #+1]
-        MOVS     R0,#+202
-        STRB     R0,[R4, #+2]
-        MOVS     R0,#+86
-        STRB     R0,[R4, #+3]
-        MOVS     R0,#+103
-        STRB     R0,[R4, #+4]
-        MOVS     R0,#+182
-        STRB     R0,[R4, #+5]
-        MOVS     R0,#+91
-        STRB     R0,[R4, #+6]
-        MOVS     R0,#+231
-        STRB     R0,[R4, #+7]
-        MOVS     R0,#+54
-        STRB     R0,[R4, #+8]
-        MOVS     R0,#+152
-        STRB     R0,[R4, #+9]
-        MOVS     R0,#+81
-        STRB     R0,[R4, #+10]
-        MOVS     R0,#+50
-        STRB     R0,[R4, #+11]
-        MOVS     R0,#+72
-        STRB     R0,[R4, #+12]
-        MOVS     R0,#+163
-        STRB     R0,[R4, #+13]
-        MOVS     R0,#+139
-        STRB     R0,[R4, #+14]
-        BX       LR
-          CFI EndBlock cfiCond16
-          CFI EndBlock cfiCond17
-          CFI EndBlock cfiCond18
-          CFI EndBlock cfiPicker19
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiCond20 Using cfiCommon0
-          CFI Function STACoefSet
-          CFI Conditional ??CrossCallReturnLabel_24
-          CFI R4 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+8
-          CFI Block cfiCond21 Using cfiCommon0
-          CFI (cfiCond21) Function STACoefSet
-          CFI (cfiCond21) Conditional ??CrossCallReturnLabel_25
-          CFI (cfiCond21) R4 Frame(CFA, -8)
-          CFI (cfiCond21) R14 Frame(CFA, -4)
-          CFI (cfiCond21) CFA R13+8
-          CFI Block cfiPicker22 Using cfiCommon1
-          CFI (cfiPicker22) NoFunction
-          CFI (cfiPicker22) Picker
-        THUMB
-?Subroutine5:
-        MOVS     R0,#+164
-        STRB     R0,[R4, #+0]
-        MOVS     R0,#+24
-        STRB     R0,[R4, #+1]
-        MOVS     R0,#+202
-        STRB     R0,[R4, #+2]
-        MOVS     R0,#+86
-        STRB     R0,[R4, #+3]
-        MOVS     R0,#+103
-        STRB     R0,[R4, #+4]
-        MOVS     R0,#+182
-        STRB     R0,[R4, #+5]
-        MOVS     R0,#+91
-        STRB     R0,[R4, #+6]
-        MOVS     R0,#+231
-        STRB     R0,[R4, #+7]
-        MOVS     R0,#+54
-        STRB     R0,[R4, #+8]
-        MOVS     R0,#+152
-        STRB     R0,[R4, #+9]
-        MOVS     R0,#+81
-        STRB     R0,[R4, #+10]
-        MOVS     R0,#+50
-        STRB     R0,[R4, #+11]
-        MOVS     R0,#+72
-        STRB     R0,[R4, #+12]
-        MOVS     R0,#+163
-        STRB     R0,[R4, #+13]
-        MOVS     R0,#+139
-        STRB     R0,[R4, #+14]
-        MOV      R1,R4
-        BX       LR
-          CFI EndBlock cfiCond20
-          CFI EndBlock cfiCond21
-          CFI EndBlock cfiPicker22
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiCond23 Using cfiCommon0
-          CFI Function STACoefSet
-          CFI Conditional ??CrossCallReturnLabel_12
-          CFI R4 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+8
-          CFI Block cfiCond24 Using cfiCommon0
-          CFI (cfiCond24) Function STACoefSet
-          CFI (cfiCond24) Conditional ??CrossCallReturnLabel_13
-          CFI (cfiCond24) R4 Frame(CFA, -8)
-          CFI (cfiCond24) R14 Frame(CFA, -4)
-          CFI (cfiCond24) CFA R13+8
-          CFI Block cfiCond25 Using cfiCommon0
-          CFI (cfiCond25) Function STACoefSet
-          CFI (cfiCond25) Conditional ??CrossCallReturnLabel_14
-          CFI (cfiCond25) R4 Frame(CFA, -8)
-          CFI (cfiCond25) R14 Frame(CFA, -4)
-          CFI (cfiCond25) CFA R13+8
-          CFI Block cfiCond26 Using cfiCommon0
-          CFI (cfiCond26) Function STACoefSet
-          CFI (cfiCond26) Conditional ??CrossCallReturnLabel_15
-          CFI (cfiCond26) R4 Frame(CFA, -8)
-          CFI (cfiCond26) R14 Frame(CFA, -4)
-          CFI (cfiCond26) CFA R13+8
-          CFI Block cfiCond27 Using cfiCommon0
-          CFI (cfiCond27) Function STACoefSet
-          CFI (cfiCond27) Conditional ??CrossCallReturnLabel_16
-          CFI (cfiCond27) R4 Frame(CFA, -8)
-          CFI (cfiCond27) R14 Frame(CFA, -4)
-          CFI (cfiCond27) CFA R13+8
-          CFI Block cfiCond28 Using cfiCommon0
-          CFI (cfiCond28) Function STACoefSet
-          CFI (cfiCond28) Conditional ??CrossCallReturnLabel_17
-          CFI (cfiCond28) R4 Frame(CFA, -8)
-          CFI (cfiCond28) R14 Frame(CFA, -4)
-          CFI (cfiCond28) CFA R13+8
-          CFI Block cfiCond29 Using cfiCommon0
-          CFI (cfiCond29) Function STACoefSet
-          CFI (cfiCond29) Conditional ??CrossCallReturnLabel_18
-          CFI (cfiCond29) R4 Frame(CFA, -8)
-          CFI (cfiCond29) R14 Frame(CFA, -4)
-          CFI (cfiCond29) CFA R13+8
-          CFI Block cfiCond30 Using cfiCommon0
-          CFI (cfiCond30) Function STACoefSet
-          CFI (cfiCond30) Conditional ??CrossCallReturnLabel_19
-          CFI (cfiCond30) R4 Frame(CFA, -8)
-          CFI (cfiCond30) R14 Frame(CFA, -4)
-          CFI (cfiCond30) CFA R13+8
-          CFI Block cfiCond31 Using cfiCommon0
-          CFI (cfiCond31) Function STACoefSet
-          CFI (cfiCond31) Conditional ??CrossCallReturnLabel_20
-          CFI (cfiCond31) R4 Frame(CFA, -8)
-          CFI (cfiCond31) R14 Frame(CFA, -4)
-          CFI (cfiCond31) CFA R13+8
-          CFI Block cfiCond32 Using cfiCommon0
-          CFI (cfiCond32) Function STACoefSet
-          CFI (cfiCond32) Conditional ??CrossCallReturnLabel_21
-          CFI (cfiCond32) R4 Frame(CFA, -8)
-          CFI (cfiCond32) R14 Frame(CFA, -4)
-          CFI (cfiCond32) CFA R13+8
-          CFI Block cfiCond33 Using cfiCommon0
-          CFI (cfiCond33) Function STACoefSet
-          CFI (cfiCond33) Conditional ??CrossCallReturnLabel_22
-          CFI (cfiCond33) R4 Frame(CFA, -8)
-          CFI (cfiCond33) R14 Frame(CFA, -4)
-          CFI (cfiCond33) CFA R13+8
-          CFI Block cfiCond34 Using cfiCommon0
-          CFI (cfiCond34) Function STACoefSet
-          CFI (cfiCond34) Conditional ??CrossCallReturnLabel_23
-          CFI (cfiCond34) R4 Frame(CFA, -8)
-          CFI (cfiCond34) R14 Frame(CFA, -4)
-          CFI (cfiCond34) CFA R13+8
-          CFI Block cfiPicker35 Using cfiCommon1
-          CFI (cfiPicker35) NoFunction
-          CFI (cfiPicker35) Picker
-        THUMB
-?Subroutine4:
-        MOVS     R0,#+9
-        MOV      R1,R4
-        STRB     R0,[R4, #+0]
-        MOVS     R0,#+62
-        STRB     R0,[R4, #+1]
-        MOVS     R0,#+192
-        STRB     R0,[R4, #+2]
-        MOVS     R0,#+9
-        STRB     R0,[R4, #+3]
-        MOVS     R0,#+62
-        STRB     R0,[R4, #+4]
-        MOVS     R0,#+192
-        STRB     R0,[R4, #+5]
-        MOVS     R0,#+70
-        STRB     R0,[R4, #+6]
-        MOVS     R0,#+252
-        STRB     R0,[R4, #+7]
-        MOVS     R0,#+199
-        STRB     R0,[R4, #+8]
-        MOVS     R0,#+205
-        STRB     R0,[R4, #+9]
-        MOVS     R0,#+11
-        STRB     R0,[R4, #+10]
-        MOVS     R0,#+110
-        STRB     R0,[R4, #+11]
-        MOVS     R0,#+4
-        STRB     R0,[R4, #+12]
-        MOVS     R0,#+159
-        STRB     R0,[R4, #+13]
-        MOVS     R0,#+96
-        STRB     R0,[R4, #+14]
-        BX       LR
-          CFI EndBlock cfiCond23
-          CFI EndBlock cfiCond24
-          CFI EndBlock cfiCond25
-          CFI EndBlock cfiCond26
-          CFI EndBlock cfiCond27
-          CFI EndBlock cfiCond28
-          CFI EndBlock cfiCond29
-          CFI EndBlock cfiCond30
-          CFI EndBlock cfiCond31
-          CFI EndBlock cfiCond32
-          CFI EndBlock cfiCond33
-          CFI EndBlock cfiCond34
-          CFI EndBlock cfiPicker35
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiCond36 Using cfiCommon0
-          CFI Function STACoefSet
-          CFI Conditional ??CrossCallReturnLabel_10
-          CFI R4 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+8
-          CFI Block cfiCond37 Using cfiCommon0
-          CFI (cfiCond37) Function STACoefSet
-          CFI (cfiCond37) Conditional ??CrossCallReturnLabel_11
-          CFI (cfiCond37) R4 Frame(CFA, -8)
-          CFI (cfiCond37) R14 Frame(CFA, -4)
-          CFI (cfiCond37) CFA R13+8
-          CFI Block cfiPicker38 Using cfiCommon1
-          CFI (cfiPicker38) NoFunction
-          CFI (cfiPicker38) Picker
-        THUMB
-?Subroutine3:
-        MOVS     R0,#+9
-        STRB     R0,[R4, #+0]
-        MOVS     R0,#+62
-        STRB     R0,[R4, #+1]
-        MOVS     R0,#+192
-        STRB     R0,[R4, #+2]
-        MOVS     R0,#+9
-        STRB     R0,[R4, #+3]
-        MOVS     R0,#+62
-        STRB     R0,[R4, #+4]
-        MOVS     R0,#+192
-        STRB     R0,[R4, #+5]
-        MOVS     R0,#+70
-        STRB     R0,[R4, #+6]
-        MOVS     R0,#+252
-        STRB     R0,[R4, #+7]
-        MOVS     R0,#+199
-        STRB     R0,[R4, #+8]
-        MOVS     R0,#+205
-        STRB     R0,[R4, #+9]
-        MOVS     R0,#+11
-        STRB     R0,[R4, #+10]
-        MOVS     R0,#+110
-        STRB     R0,[R4, #+11]
-        MOVS     R0,#+4
-        STRB     R0,[R4, #+12]
-        MOVS     R0,#+159
-        STRB     R0,[R4, #+13]
-        MOVS     R0,#+96
-        STRB     R0,[R4, #+14]
-        MOV      R1,R4
-        BX       LR
-          CFI EndBlock cfiCond36
-          CFI EndBlock cfiCond37
-          CFI EndBlock cfiPicker38
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiCond39 Using cfiCommon0
-          CFI Function STACoefSet
-          CFI Conditional ??CrossCallReturnLabel_2
-          CFI R4 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+8
-          CFI Block cfiCond40 Using cfiCommon0
-          CFI (cfiCond40) Function STACoefSet
-          CFI (cfiCond40) Conditional ??CrossCallReturnLabel_3
-          CFI (cfiCond40) R4 Frame(CFA, -8)
-          CFI (cfiCond40) R14 Frame(CFA, -4)
-          CFI (cfiCond40) CFA R13+8
-          CFI Block cfiCond41 Using cfiCommon0
-          CFI (cfiCond41) Function STACoefSet
-          CFI (cfiCond41) Conditional ??CrossCallReturnLabel_4
-          CFI (cfiCond41) R4 Frame(CFA, -8)
-          CFI (cfiCond41) R14 Frame(CFA, -4)
-          CFI (cfiCond41) CFA R13+8
-          CFI Block cfiCond42 Using cfiCommon0
-          CFI (cfiCond42) Function STACoefSet
-          CFI (cfiCond42) Conditional ??CrossCallReturnLabel_5
-          CFI (cfiCond42) R4 Frame(CFA, -8)
-          CFI (cfiCond42) R14 Frame(CFA, -4)
-          CFI (cfiCond42) CFA R13+8
-          CFI Block cfiCond43 Using cfiCommon0
-          CFI (cfiCond43) Function STACoefSet
-          CFI (cfiCond43) Conditional ??CrossCallReturnLabel_6
-          CFI (cfiCond43) R4 Frame(CFA, -8)
-          CFI (cfiCond43) R14 Frame(CFA, -4)
-          CFI (cfiCond43) CFA R13+8
-          CFI Block cfiCond44 Using cfiCommon0
-          CFI (cfiCond44) Function STACoefSet
-          CFI (cfiCond44) Conditional ??CrossCallReturnLabel_7
-          CFI (cfiCond44) R4 Frame(CFA, -8)
-          CFI (cfiCond44) R14 Frame(CFA, -4)
-          CFI (cfiCond44) CFA R13+8
-          CFI Block cfiCond45 Using cfiCommon0
-          CFI (cfiCond45) Function STACoefSet
-          CFI (cfiCond45) Conditional ??CrossCallReturnLabel_8
-          CFI (cfiCond45) R4 Frame(CFA, -8)
-          CFI (cfiCond45) R14 Frame(CFA, -4)
-          CFI (cfiCond45) CFA R13+8
-          CFI Block cfiCond46 Using cfiCommon0
-          CFI (cfiCond46) Function STACoefSet
-          CFI (cfiCond46) Conditional ??CrossCallReturnLabel_9
-          CFI (cfiCond46) R4 Frame(CFA, -8)
-          CFI (cfiCond46) R14 Frame(CFA, -4)
-          CFI (cfiCond46) CFA R13+8
-          CFI Block cfiPicker47 Using cfiCommon1
-          CFI (cfiPicker47) NoFunction
-          CFI (cfiPicker47) Picker
-        THUMB
-?Subroutine2:
-        MOVS     R0,#+128
-        MOV      R1,R4
-        STRB     R0,[R4, #+0]
-        MOVS     R0,#+55
-        STRB     R0,[R4, #+1]
-        MOVS     R0,#+217
-        STRB     R0,[R4, #+2]
-        MOVS     R0,#+127
-        STRB     R0,[R4, #+3]
-        MOVS     R0,#+200
-        STRB     R0,[R4, #+4]
-        MOVS     R0,#+39
-        STRB     R0,[R4, #+5]
-        MOVS     R0,#+127
-        STRB     R0,[R4, #+6]
-        MOVS     R0,#+200
-        STRB     R0,[R4, #+7]
-        MOVS     R0,#+27
-        STRB     R0,[R4, #+8]
-        MOVS     R0,#+128
-        STRB     R0,[R4, #+9]
-        MOVS     R0,#+111
-        STRB     R0,[R4, #+10]
-        MOVS     R0,#+152
-        STRB     R0,[R4, #+11]
-        MOVS     R0,#+63
-        STRB     R0,[R4, #+12]
-        MOVS     R0,#+228
-        STRB     R0,[R4, #+13]
-        MOVS     R0,#+19
-        STRB     R0,[R4, #+14]
-        BX       LR
-          CFI EndBlock cfiCond39
-          CFI EndBlock cfiCond40
-          CFI EndBlock cfiCond41
-          CFI EndBlock cfiCond42
-          CFI EndBlock cfiCond43
-          CFI EndBlock cfiCond44
-          CFI EndBlock cfiCond45
-          CFI EndBlock cfiCond46
-          CFI EndBlock cfiPicker47
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiCond48 Using cfiCommon0
-          CFI Function STACoefSet
-          CFI Conditional ??CrossCallReturnLabel_0
-          CFI R4 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+8
-          CFI Block cfiCond49 Using cfiCommon0
-          CFI (cfiCond49) Function STACoefSet
-          CFI (cfiCond49) Conditional ??CrossCallReturnLabel_1
-          CFI (cfiCond49) R4 Frame(CFA, -8)
-          CFI (cfiCond49) R14 Frame(CFA, -4)
-          CFI (cfiCond49) CFA R13+8
-          CFI Block cfiPicker50 Using cfiCommon1
-          CFI (cfiPicker50) NoFunction
-          CFI (cfiPicker50) Picker
-        THUMB
-?Subroutine1:
-        MOVS     R0,#+128
-        STRB     R0,[R4, #+0]
-        MOVS     R0,#+55
-        STRB     R0,[R4, #+1]
-        MOVS     R0,#+217
-        STRB     R0,[R4, #+2]
-        MOVS     R0,#+127
-        STRB     R0,[R4, #+3]
-        MOVS     R0,#+200
-        STRB     R0,[R4, #+4]
-        MOVS     R0,#+39
-        STRB     R0,[R4, #+5]
-        MOVS     R0,#+127
-        STRB     R0,[R4, #+6]
-        MOVS     R0,#+200
-        STRB     R0,[R4, #+7]
-        MOVS     R0,#+27
-        STRB     R0,[R4, #+8]
-        MOVS     R0,#+128
-        STRB     R0,[R4, #+9]
-        MOVS     R0,#+111
-        STRB     R0,[R4, #+10]
-        MOVS     R0,#+152
-        STRB     R0,[R4, #+11]
-        MOVS     R0,#+63
-        STRB     R0,[R4, #+12]
-        MOVS     R0,#+228
-        STRB     R0,[R4, #+13]
-        MOVS     R0,#+19
-        STRB     R0,[R4, #+14]
-        MOV      R1,R4
-        BX       LR
-          CFI EndBlock cfiCond48
-          CFI EndBlock cfiCond49
-          CFI EndBlock cfiPicker50
 // 1801 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock51 Using cfiCommon0
+          CFI Block cfiBlock4 Using cfiCommon0
           CFI Function WriteCoef
         THUMB
 // 1802 void WriteCoef(uint16_t Adrss, uint8_t * BufData)
 // 1803 {
 WriteCoef:
-        PUSH     {R4-R6,LR}
+        PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
           CFI CFA R13+16
-        MOV      R4,R0
+        MOVS     R4,R0
+        MOVS     R5,R1
 // 1804 //1. Write the top 2 bits of starting address to I2C register 0x3B
 // 1805 pcSTAComnd[0] = (Adrss>>8)|0x03;
+        MOVS     R0,R4
+        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         LSRS     R0,R0,#+8
-        LDR.N    R6,??DataTable4
-        ORR      R0,R0,#0x3
-        MOV      R5,R1
-        STRB     R0,[R6, #+0]
+        ORRS     R0,R0,#0x3
+        LDR.N    R1,??DataTable5_1
+        STRB     R0,[R1, #+0]
 // 1806 WriteSTAByte(0x3B,&pcSTAComnd[0],1);
         MOVS     R2,#+1
-        MOV      R1,R6
+        LDR.N    R1,??DataTable5_1
         MOVS     R0,#+59
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
 // 1807 
 // 1808 //2. Write the bottom 8 bits of starting address to I2C register 0x3C
 // 1809 pcSTAComnd[0] = (Adrss);
-        STRB     R4,[R6, #+0]
+        LDR.N    R0,??DataTable5_1
+        STRB     R4,[R0, #+0]
 // 1810 WriteSTAByte(0x3C,&pcSTAComnd[0],1);
         MOVS     R2,#+1
-        MOV      R1,R6
+        LDR.N    R1,??DataTable5_1
         MOVS     R0,#+60
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -3184,7 +4126,7 @@ WriteCoef:
 // 1826 //17. Write the bottom 8 bits of coefficient b0 in I2C address 0x4B
 // 1827 WriteSTAByte(0x3D,BufData,15);
         MOVS     R2,#+15
-        MOV      R1,R5
+        MOVS     R1,R5
         MOVS     R0,#+61
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -3192,104 +4134,91 @@ WriteCoef:
 // 1829 //18. Write 1 to the WA bit in I2C address 0x4C
 // 1830 pcSTAComnd[0] = 0x02;
         MOVS     R0,#+2
+        LDR.N    R1,??DataTable5_1
+        STRB     R0,[R1, #+0]
 // 1831 WriteSTAByte(0x4C,&pcSTAComnd[0],1);
-        MOV      R1,R6
-        STRB     R0,[R6, #+0]
-        B.N      ?Subroutine0
+        MOVS     R2,#+1
+        LDR.N    R1,??DataTable5_1
+        MOVS     R0,#+76
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
 // 1832 
 // 1833 }
-          CFI EndBlock cfiBlock51
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable4:
-        DC32     pcSTAComnd
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable4_1:
-        DC32     hi2c1
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable4_2:
-        DC32     bufCoefBiquad
+        POP      {R0,R4,R5,PC}    ;; return
+          CFI EndBlock cfiBlock4
 // 1834 
 
-        SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock52 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock5 Using cfiCommon0
           CFI Function SetCoefValue
         THUMB
 // 1835 void SetCoefValue(uint16_t Adrss, uint32_t DataCoef)
 // 1836 {
 SetCoefValue:
-        PUSH     {R4-R6,LR}
+        PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
           CFI CFA R13+16
-        MOV      R5,R0
+        MOVS     R4,R0
+        MOVS     R5,R1
 // 1837 //1. Write the top 2 bits of address to I2C register 0x3B
 // 1838 pcSTAComnd[0] = (Adrss>>8)|0x03;
+        MOVS     R0,R4
+        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         LSRS     R0,R0,#+8
-        LDR.N    R4,??SetCoefValue_0
-        B.N      ??SetCoefValue_1
-        Nop      
-        DATA
-??SetCoefValue_0:
-        DC32     pcSTAComnd
-        THUMB
-??SetCoefValue_1:
-        ORR      R0,R0,#0x3
-        MOV      R6,R1
-        STRB     R0,[R4, #+0]
+        ORRS     R0,R0,#0x3
+        LDR.N    R1,??DataTable5_1
+        STRB     R0,[R1, #+0]
 // 1839 WriteSTAByte(0x3B,&pcSTAComnd[0],1);
         MOVS     R2,#+1
-        MOV      R1,R4
+        LDR.N    R1,??DataTable5_1
         MOVS     R0,#+59
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
 // 1840 
 // 1841 //2. Write the bottom 8 bits of address to I2C register 0x3C
 // 1842 pcSTAComnd[0] = (Adrss);
-        STRB     R5,[R4, #+0]
+        LDR.N    R0,??DataTable5_1
+        STRB     R4,[R0, #+0]
 // 1843 WriteSTAByte(0x3C,&pcSTAComnd[0],1);
         MOVS     R2,#+1
-        MOV      R1,R4
+        LDR.N    R1,??DataTable5_1
         MOVS     R0,#+60
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
 // 1844 
 // 1845 //3. Write the top 8 bits of coefficient in I2C address 0x3D
 // 1846 pcSTAComnd[0] = (uint8_t)((DataCoef & 0x00FF0000)>>16);
-        LSRS     R0,R6,#+16
+        LSRS     R0,R5,#+16
+        LDR.N    R1,??DataTable5_1
+        STRB     R0,[R1, #+0]
 // 1847 WriteSTAByte(0x3D,&pcSTAComnd[0],1);
-        BL       ??Subroutine7_0
-??CrossCallReturnLabel_45:
+        MOVS     R2,#+1
+        LDR.N    R1,??DataTable5_1
         MOVS     R0,#+61
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
 // 1848 
 // 1849 //4. Write the middle 8 bits of coefficient in I2C address 0x3E
 // 1850 pcSTAComnd[0] = (uint8_t)((DataCoef & 0x0000FF00)>>8);
-        LSRS     R0,R6,#+8
+        LSRS     R0,R5,#+8
+        LDR.N    R1,??DataTable5_1
+        STRB     R0,[R1, #+0]
 // 1851 WriteSTAByte(0x3E,&pcSTAComnd[0],1);
-        BL       ??Subroutine7_0
-??CrossCallReturnLabel_46:
+        MOVS     R2,#+1
+        LDR.N    R1,??DataTable5_1
         MOVS     R0,#+62
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
 // 1852 
 // 1853 //5. Write the bottom 8 bits of coefficient in I2C address 0x3F
 // 1854 pcSTAComnd[0] = (uint8_t)((DataCoef & 0x000000FF));
-        STRB     R6,[R4, #+0]
+        LDR.N    R0,??DataTable5_1
+        STRB     R5,[R0, #+0]
 // 1855 WriteSTAByte(0x3F,&pcSTAComnd[0],1);
         MOVS     R2,#+1
-        MOV      R1,R4
+        LDR.N    R1,??DataTable5_1
         MOVS     R0,#+63
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -3298,181 +4227,30 @@ SetCoefValue:
 // 1858 //6. Write 1 to the W1 bit in I2C address 0x4C
 // 1859 pcSTAComnd[0] = 0x01;
         MOVS     R0,#+1
+        LDR.N    R1,??DataTable5_1
+        STRB     R0,[R1, #+0]
 // 1860 WriteSTAByte(0x4C,&pcSTAComnd[0],1);
-        MOV      R1,R4
-        STRB     R0,[R4, #+0]
-          CFI EndBlock cfiBlock52
-        REQUIRE ?Subroutine0
-        ;; // Fall through to label ?Subroutine0
+        MOVS     R2,#+1
+        LDR.N    R1,??DataTable5_1
+        MOVS     R0,#+76
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
 // 1861 
 // 1862 }
+        POP      {R0,R4,R5,PC}    ;; return
+          CFI EndBlock cfiBlock5
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock53 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+16
-          CFI R4 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine0:
-        MOVS     R2,#+1
-        MOVS     R0,#+76
-        POP      {R4-R6,LR}
-          CFI CFA R13+0
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI R6 SameValue
-          CFI R14 SameValue
-          CFI FunCall WriteCoef WriteSTAByte
-          CFI FunCall SetCoefValue WriteSTAByte
-        B.N      WriteSTAByte
-          CFI EndBlock cfiBlock53
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable5:
+        DC32     bufCoefBiquad
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiCond54 Using cfiCommon0
-          CFI Function STA321MP_Ini
-          CFI Conditional ??CrossCallReturnLabel_29
-          CFI R4 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+8
-          CFI Block cfiCond55 Using cfiCommon0
-          CFI (cfiCond55) Function STA321MP_Ini
-          CFI (cfiCond55) Conditional ??CrossCallReturnLabel_30
-          CFI (cfiCond55) R4 Frame(CFA, -8)
-          CFI (cfiCond55) R14 Frame(CFA, -4)
-          CFI (cfiCond55) CFA R13+8
-          CFI Block cfiCond56 Using cfiCommon0
-          CFI (cfiCond56) Function STA321MP_Ini
-          CFI (cfiCond56) Conditional ??CrossCallReturnLabel_31
-          CFI (cfiCond56) R4 Frame(CFA, -8)
-          CFI (cfiCond56) R14 Frame(CFA, -4)
-          CFI (cfiCond56) CFA R13+8
-          CFI Block cfiPicker57 Using cfiCommon1
-          CFI (cfiPicker57) NoFunction
-          CFI (cfiPicker57) Picker
-        THUMB
-?Subroutine7:
-        MOVS     R0,#+74
-          CFI Block cfiCond58 Using cfiCommon0
-          CFI (cfiCond58) Function STA321MP_Ini
-          CFI (cfiCond58) Conditional ??CrossCallReturnLabel_32
-          CFI (cfiCond58) R4 Frame(CFA, -8)
-          CFI (cfiCond58) R14 Frame(CFA, -4)
-          CFI (cfiCond58) CFA R13+8
-          CFI Block cfiCond59 Using cfiCommon0
-          CFI (cfiCond59) Function STA321MP_Ini
-          CFI (cfiCond59) Conditional ??CrossCallReturnLabel_33
-          CFI (cfiCond59) R4 Frame(CFA, -8)
-          CFI (cfiCond59) R14 Frame(CFA, -4)
-          CFI (cfiCond59) CFA R13+8
-          CFI Block cfiCond60 Using cfiCommon0
-          CFI (cfiCond60) Function STA321MP_Ini
-          CFI (cfiCond60) Conditional ??CrossCallReturnLabel_34
-          CFI (cfiCond60) R4 Frame(CFA, -8)
-          CFI (cfiCond60) R14 Frame(CFA, -4)
-          CFI (cfiCond60) CFA R13+8
-          CFI Block cfiCond61 Using cfiCommon0
-          CFI (cfiCond61) Function STA321MP_Ini
-          CFI (cfiCond61) Conditional ??CrossCallReturnLabel_35
-          CFI (cfiCond61) R4 Frame(CFA, -8)
-          CFI (cfiCond61) R14 Frame(CFA, -4)
-          CFI (cfiCond61) CFA R13+8
-          CFI Block cfiCond62 Using cfiCommon0
-          CFI (cfiCond62) Function STA321MP_Ini
-          CFI (cfiCond62) Conditional ??CrossCallReturnLabel_36
-          CFI (cfiCond62) R4 Frame(CFA, -8)
-          CFI (cfiCond62) R14 Frame(CFA, -4)
-          CFI (cfiCond62) CFA R13+8
-          CFI Block cfiCond63 Using cfiCommon0
-          CFI (cfiCond63) Function STA321MP_Ini
-          CFI (cfiCond63) Conditional ??CrossCallReturnLabel_37
-          CFI (cfiCond63) R4 Frame(CFA, -8)
-          CFI (cfiCond63) R14 Frame(CFA, -4)
-          CFI (cfiCond63) CFA R13+8
-          CFI Block cfiCond64 Using cfiCommon0
-          CFI (cfiCond64) Function STA321MP_Ini
-          CFI (cfiCond64) Conditional ??CrossCallReturnLabel_38
-          CFI (cfiCond64) R4 Frame(CFA, -8)
-          CFI (cfiCond64) R14 Frame(CFA, -4)
-          CFI (cfiCond64) CFA R13+8
-          CFI Block cfiCond65 Using cfiCommon0
-          CFI (cfiCond65) Function STA321MP_Ini
-          CFI (cfiCond65) Conditional ??CrossCallReturnLabel_39
-          CFI (cfiCond65) R4 Frame(CFA, -8)
-          CFI (cfiCond65) R14 Frame(CFA, -4)
-          CFI (cfiCond65) CFA R13+8
-          CFI Block cfiCond66 Using cfiCommon0
-          CFI (cfiCond66) Function STA321MP_Ini
-          CFI (cfiCond66) Conditional ??CrossCallReturnLabel_40
-          CFI (cfiCond66) R4 Frame(CFA, -8)
-          CFI (cfiCond66) R14 Frame(CFA, -4)
-          CFI (cfiCond66) CFA R13+8
-          CFI Block cfiCond67 Using cfiCommon0
-          CFI (cfiCond67) Function STA321MP_Ini
-          CFI (cfiCond67) Conditional ??CrossCallReturnLabel_41
-          CFI (cfiCond67) R4 Frame(CFA, -8)
-          CFI (cfiCond67) R14 Frame(CFA, -4)
-          CFI (cfiCond67) CFA R13+8
-          CFI Block cfiCond68 Using cfiCommon0
-          CFI (cfiCond68) Function STA321MP_Ini
-          CFI (cfiCond68) Conditional ??CrossCallReturnLabel_42
-          CFI (cfiCond68) R4 Frame(CFA, -8)
-          CFI (cfiCond68) R14 Frame(CFA, -4)
-          CFI (cfiCond68) CFA R13+8
-          CFI Block cfiCond69 Using cfiCommon0
-          CFI (cfiCond69) Function STA321MP_Ini
-          CFI (cfiCond69) Conditional ??CrossCallReturnLabel_43
-          CFI (cfiCond69) R4 Frame(CFA, -8)
-          CFI (cfiCond69) R14 Frame(CFA, -4)
-          CFI (cfiCond69) CFA R13+8
-          CFI Block cfiCond70 Using cfiCommon0
-          CFI (cfiCond70) Function STA321MP_Ini
-          CFI (cfiCond70) Conditional ??CrossCallReturnLabel_44
-          CFI (cfiCond70) R4 Frame(CFA, -8)
-          CFI (cfiCond70) R14 Frame(CFA, -4)
-          CFI (cfiCond70) CFA R13+8
-          CFI Block cfiCond71 Using cfiCommon0
-          CFI (cfiCond71) Function SetCoefValue
-          CFI (cfiCond71) Conditional ??CrossCallReturnLabel_45
-          CFI (cfiCond71) R4 Frame(CFA, -16)
-          CFI (cfiCond71) R5 Frame(CFA, -12)
-          CFI (cfiCond71) R6 Frame(CFA, -8)
-          CFI (cfiCond71) R14 Frame(CFA, -4)
-          CFI (cfiCond71) CFA R13+16
-          CFI Block cfiCond72 Using cfiCommon0
-          CFI (cfiCond72) Function SetCoefValue
-          CFI (cfiCond72) Conditional ??CrossCallReturnLabel_46
-          CFI (cfiCond72) R4 Frame(CFA, -16)
-          CFI (cfiCond72) R5 Frame(CFA, -12)
-          CFI (cfiCond72) R6 Frame(CFA, -8)
-          CFI (cfiCond72) R14 Frame(CFA, -4)
-          CFI (cfiCond72) CFA R13+16
-??Subroutine7_0:
-        MOVS     R2,#+1
-        STRB     R0,[R4, #+0]
-        MOV      R1,R4
-        BX       LR
-          CFI EndBlock cfiCond54
-          CFI EndBlock cfiCond55
-          CFI EndBlock cfiCond56
-          CFI EndBlock cfiPicker57
-          CFI EndBlock cfiCond58
-          CFI EndBlock cfiCond59
-          CFI EndBlock cfiCond60
-          CFI EndBlock cfiCond61
-          CFI EndBlock cfiCond62
-          CFI EndBlock cfiCond63
-          CFI EndBlock cfiCond64
-          CFI EndBlock cfiCond65
-          CFI EndBlock cfiCond66
-          CFI EndBlock cfiCond67
-          CFI EndBlock cfiCond68
-          CFI EndBlock cfiCond69
-          CFI EndBlock cfiCond70
-          CFI EndBlock cfiCond71
-          CFI EndBlock cfiCond72
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable5_1:
+        DC32     pcSTAComnd
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -3490,9 +4268,9 @@ SetCoefValue:
 // 
 //    16 bytes in section .bss
 //   124 bytes in section .data
-// 1 680 bytes in section .text
+// 5 070 bytes in section .text
 // 
-// 1 680 bytes of CODE memory
+// 5 070 bytes of CODE memory
 //   140 bytes of DATA memory
 //
 //Errors: none

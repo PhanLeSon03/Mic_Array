@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      20/Dec/2015  12:46:56
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      21/Dec/2015  01:05:30
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -16,8 +16,10 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
-//        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
+//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+//        --no_clustering --no_scheduling --debug --endian=little
+//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
+//        (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
@@ -46,7 +48,7 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
-//        -Ohz --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
@@ -224,12 +226,25 @@
 //   99                             uint16_t mps)
 //  100 {
 USBH_OpenPipe:
-        PUSH     {R4,LR}
+        PUSH     {R4-R10,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
+          CFI R10 Frame(CFA, -8)
+          CFI R9 Frame(CFA, -12)
+          CFI R8 Frame(CFA, -16)
+          CFI R7 Frame(CFA, -20)
+          CFI R6 Frame(CFA, -24)
+          CFI R5 Frame(CFA, -28)
+          CFI R4 Frame(CFA, -32)
+          CFI CFA R13+32
         SUB      SP,SP,#+16
-          CFI CFA R13+24
+          CFI CFA R13+48
+        MOVS     R7,R0
+        MOV      R8,R1
+        MOV      R9,R2
+        MOV      R10,R3
+        LDR      R4,[SP, #+48]
+        LDR      R6,[SP, #+52]
+        LDR      R5,[SP, #+56]
 //  101 
 //  102   USBH_LL_OpenPipe(phost,
 //  103                         pipe_num,
@@ -238,20 +253,30 @@ USBH_OpenPipe:
 //  106                         speed,
 //  107                         ep_type,
 //  108                         mps);
-        LDR      R4,[SP, #+32]
-        STR      R4,[SP, #+8]
-        LDR      R4,[SP, #+28]
-        STR      R4,[SP, #+4]
-        LDR      R4,[SP, #+24]
-        STR      R4,[SP, #+0]
+        MOVS     R0,R5
+        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+        STR      R0,[SP, #+8]
+        MOVS     R0,R6
+        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+        STR      R0,[SP, #+4]
+        MOVS     R0,R4
+        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+        STR      R0,[SP, #+0]
+        MOV      R3,R10
+        UXTB     R3,R3            ;; ZeroExt  R3,R3,#+24,#+24
+        MOV      R2,R9
+        UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+        MOV      R1,R8
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        MOVS     R0,R7
           CFI FunCall USBH_LL_OpenPipe
         BL       USBH_LL_OpenPipe
 //  109   
 //  110   return USBH_OK; 
         MOVS     R0,#+0
         ADD      SP,SP,#+16
-          CFI CFA R13+8
-        POP      {R4,PC}          ;; return
+          CFI CFA R13+32
+        POP      {R4-R10,PC}      ;; return
 //  111 
 //  112 }
           CFI EndBlock cfiBlock0
@@ -272,17 +297,24 @@ USBH_OpenPipe:
 //  122                             uint8_t pipe_num)
 //  123 {
 USBH_ClosePipe:
-        PUSH     {R7,LR}
+        PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI CFA R13+8
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+16
+        MOVS     R4,R0
+        MOVS     R5,R1
 //  124 
 //  125   USBH_LL_ClosePipe(phost, pipe_num);
+        MOVS     R1,R5
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        MOVS     R0,R4
           CFI FunCall USBH_LL_ClosePipe
         BL       USBH_LL_ClosePipe
 //  126   
 //  127   return USBH_OK; 
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        POP      {R1,R4,R5,PC}    ;; return
 //  128 
 //  129 }
           CFI EndBlock cfiBlock1
@@ -298,42 +330,44 @@ USBH_ClosePipe:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock2 Using cfiCommon0
           CFI Function USBH_AllocPipe
-          CFI NoCalls
         THUMB
 //  138 uint8_t USBH_AllocPipe  (USBH_HandleTypeDef *phost, uint8_t ep_addr)
 //  139 {
+USBH_AllocPipe:
+        PUSH     {R4-R6,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
+        MOVS     R4,R0
+        MOVS     R5,R1
 //  140   uint16_t pipe;
 //  141   
 //  142   pipe =  USBH_GetFreePipe(phost);
-USBH_AllocPipe:
-        MOVS     R2,#+0
-??USBH_AllocPipe_0:
-        ADD      R3,R0,R2, LSL #+2
-        LDR      R3,[R3, #+620]
-        LSLS     R3,R3,#+16
-        BPL.N    ??USBH_AllocPipe_1
-        ADDS     R2,R2,#+1
-        UXTB     R2,R2
-        CMP      R2,#+11
-        BLT.N    ??USBH_AllocPipe_0
-        MOVW     R2,#+65535
-        B.N      ??USBH_AllocPipe_2
+        MOVS     R0,R4
+          CFI FunCall USBH_GetFreePipe
+        BL       USBH_GetFreePipe
+        MOVS     R6,R0
 //  143 
 //  144   if (pipe != 0xFFFF)
-??USBH_AllocPipe_1:
-        MOVW     R3,#+65535
-        CMP      R2,R3
-        BEQ.N    ??USBH_AllocPipe_2
+        UXTH     R6,R6            ;; ZeroExt  R6,R6,#+16,#+16
+        MOVW     R0,#+65535
+        CMP      R6,R0
+        BEQ.N    ??USBH_AllocPipe_0
 //  145   {
 //  146 	phost->Pipes[pipe] = 0x8000 | ep_addr;
-        ADD      R0,R0,R2, LSL #+2
-        ORR      R1,R1,#0x8000
-        STR      R1,[R0, #+620]
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ORRS     R0,R5,#0x8000
+        UXTH     R6,R6            ;; ZeroExt  R6,R6,#+16,#+16
+        ADDS     R1,R4,R6, LSL #+2
+        STR      R0,[R1, #+620]
 //  147   }
 //  148   return pipe;
-??USBH_AllocPipe_2:
-        UXTB     R0,R2
-        BX       LR               ;; return
+??USBH_AllocPipe_0:
+        MOVS     R0,R6
+        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+        POP      {R4-R6,PC}       ;; return
 //  149 }
           CFI EndBlock cfiBlock2
 //  150 
@@ -352,17 +386,22 @@ USBH_AllocPipe:
         THUMB
 //  158 USBH_StatusTypeDef USBH_FreePipe  (USBH_HandleTypeDef *phost, uint8_t idx)
 //  159 {
-//  160    if(idx < 11)
 USBH_FreePipe:
+        MOVS     R2,R0
+//  160    if(idx < 11)
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
         CMP      R1,#+11
         BGE.N    ??USBH_FreePipe_0
 //  161    {
 //  162 	 phost->Pipes[idx] &= 0x7FFF;
-        ADD      R0,R0,R1, LSL #+2
-        LDR      R1,[R0, #+620]
-        LSLS     R1,R1,#+17
-        LSRS     R1,R1,#+17
-        STR      R1,[R0, #+620]
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        ADDS     R0,R2,R1, LSL #+2
+        LDR      R0,[R0, #+620]
+        LSLS     R0,R0,#+17       ;; ZeroExtS R0,R0,#+17,#+17
+        LSRS     R0,R0,#+17
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        ADDS     R3,R2,R1, LSL #+2
+        STR      R0,[R3, #+620]
 //  163    }
 //  164    return USBH_OK;
 ??USBH_FreePipe_0:
@@ -370,6 +409,58 @@ USBH_FreePipe:
         BX       LR               ;; return
 //  165 }
           CFI EndBlock cfiBlock3
+//  166 
+//  167 /**
+//  168   * @brief  USBH_GetFreePipe
+//  169   * @param  phost: Host Handle
+//  170   *         Get a free Pipe number for allocation to a device endpoint
+//  171   * @retval idx: Free Pipe number
+//  172   */
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock4 Using cfiCommon0
+          CFI Function USBH_GetFreePipe
+          CFI NoCalls
+        THUMB
+//  173 static uint16_t USBH_GetFreePipe (USBH_HandleTypeDef *phost)
+//  174 {
+USBH_GetFreePipe:
+        MOVS     R1,R0
+//  175   uint8_t idx = 0;
+        MOVS     R2,#+0
+//  176   
+//  177   for (idx = 0 ; idx < 11 ; idx++)
+        MOVS     R0,#+0
+        MOVS     R2,R0
+??USBH_GetFreePipe_0:
+        UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+        CMP      R2,#+11
+        BGE.N    ??USBH_GetFreePipe_1
+//  178   {
+//  179 	if ((phost->Pipes[idx] & 0x8000) == 0)
+        UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+        ADDS     R0,R1,R2, LSL #+2
+        LDR      R0,[R0, #+620]
+        LSLS     R0,R0,#+16
+        BMI.N    ??USBH_GetFreePipe_2
+//  180 	{
+//  181 	   return idx;
+        UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+        MOVS     R0,R2
+        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+        B.N      ??USBH_GetFreePipe_3
+//  182 	} 
+//  183   }
+??USBH_GetFreePipe_2:
+        ADDS     R2,R2,#+1
+        B.N      ??USBH_GetFreePipe_0
+//  184   return 0xFFFF;
+??USBH_GetFreePipe_1:
+        MOVW     R0,#+65535
+??USBH_GetFreePipe_3:
+        BX       LR               ;; return
+//  185 }
+          CFI EndBlock cfiBlock4
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -383,26 +474,6 @@ USBH_FreePipe:
         SECTION_TYPE SHT_PROGBITS, 0
 
         END
-//  166 
-//  167 /**
-//  168   * @brief  USBH_GetFreePipe
-//  169   * @param  phost: Host Handle
-//  170   *         Get a free Pipe number for allocation to a device endpoint
-//  171   * @retval idx: Free Pipe number
-//  172   */
-//  173 static uint16_t USBH_GetFreePipe (USBH_HandleTypeDef *phost)
-//  174 {
-//  175   uint8_t idx = 0;
-//  176   
-//  177   for (idx = 0 ; idx < 11 ; idx++)
-//  178   {
-//  179 	if ((phost->Pipes[idx] & 0x8000) == 0)
-//  180 	{
-//  181 	   return idx;
-//  182 	} 
-//  183   }
-//  184   return 0xFFFF;
-//  185 }
 //  186 /**
 //  187 * @}
 //  188 */ 
@@ -423,9 +494,9 @@ USBH_FreePipe:
 //  203 
 //  204 
 // 
-// 112 bytes in section .text
+// 212 bytes in section .text
 // 
-// 112 bytes of CODE memory
+// 212 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none
