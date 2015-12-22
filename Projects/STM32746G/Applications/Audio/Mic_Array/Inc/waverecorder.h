@@ -19,9 +19,9 @@
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-AUDIO_ErrorTypeDef AUDIO_REC_Process(void);
-AUDIO_ErrorTypeDef AUDIO_REC_Start(void);
-AUDIO_ErrorTypeDef AUDIO_PLAYER_Init(void);
+//AUDIO_ErrorTypeDef AUDIO_REC_Process(void);
+//AUDIO_ErrorTypeDef AUDIO_REC_Start(void);
+//AUDIO_ErrorTypeDef AUDIO_PLAYER_Init(void);
 
 /* sop1hc */
 void Audio_Streaming_Ini(void);

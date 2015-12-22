@@ -211,9 +211,8 @@ uint16_t *CurrentPos ;             /* This variable holds the current position o
 
 __IO uint32_t  CODECTimeout = CODEC_LONG_TIMEOUT;   
 __IO uint8_t OutputDev = 0;
-
-
 __IO uint32_t CurrAudioInterface = AUDIO_INTERFACE_I2S; //AUDIO_INTERFACE_DAC
+extern __IO uint8_t XferCplt;
 
 DMA_HandleTypeDef     DmaHandle;
 I2S_HandleTypeDef     hi2s3;
@@ -1848,5 +1847,6 @@ void HAL_I2C_MspDeInit(I2C_HandleTypeDef *hi2c)
  void HAL_I2S_TxCpltCallback(I2S_HandleTypeDef *hi2s)
 {
 	  //AudioFlashPlay((uint16_t*)(AUDIO_SAMPLE + AUIDO_START_ADDRESS),AUDIO_FILE_SZE,AUIDO_START_ADDRESS);
-	  Audio_MAL_Stop();
+	  //Audio_MAL_Stop();
+	   XferCplt = 1;
 }

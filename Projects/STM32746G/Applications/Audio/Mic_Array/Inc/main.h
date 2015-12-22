@@ -20,6 +20,7 @@
 #include "stm32f746xx.h"
 #include "sta321mp.h"
 #include "waveplayer_CS43L22.h"
+#include "waverecorder.h"
 
 
 /* Exported Defines ----------------------------------------------------------*/

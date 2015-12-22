@@ -12,7 +12,7 @@
       <name>C-SPY</name>
       <archiveVersion>2</archiveVersion>
       <data>
-        <version>26</version>
+        <version>27</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
@@ -89,7 +89,7 @@
         </option>
         <option>
           <name>OCLastSavedByProductVersion</name>
-          <state>7.40.3.8937</state>
+          <state>7.50.2.10499</state>
         </option>
         <option>
           <name>OCDownloadAttachToProgram</name>
@@ -97,7 +97,7 @@
         </option>
         <option>
           <name>UseFlashLoader</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>CLowLevel</name>
@@ -206,6 +206,10 @@
         <option>
           <name>OCMulticoreSlaveConfiguration</name>
           <state></state>
+        </option>
+        <option>
+          <name>OCDownloadExtraImage</name>
+          <state>1</state>
         </option>
       </data>
     </settings>
@@ -1064,7 +1068,7 @@
       <name>PEMICRO_ID</name>
       <archiveVersion>2</archiveVersion>
       <data>
-        <version>1</version>
+        <version>2</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
@@ -1074,19 +1078,6 @@
         <option>
           <name>OCPEMicroAttachSlave</name>
           <state>1</state>
-        </option>
-        <option>
-          <name>CCPEMicroInterfaceList</name>
-          <version>0</version>
-          <state>0</state>
-        </option>
-        <option>
-          <name>CCPEMicroResetDelay</name>
-          <state></state>
-        </option>
-        <option>
-          <name>CCPEMicroJtagSpeed</name>
-          <state>#UNINITIALIZED#</state>
         </option>
         <option>
           <name>CCJPEMicroShowSettings</name>
@@ -1099,36 +1090,6 @@
         <option>
           <name>LogFile</name>
           <state>$PROJ_DIR$\cspycomm.log</state>
-        </option>
-        <option>
-          <name>CCPEMicroUSBDevice</name>
-          <version>0</version>
-          <state>0</state>
-        </option>
-        <option>
-          <name>CCPEMicroSerialPort</name>
-          <version>0</version>
-          <state>0</state>
-        </option>
-        <option>
-          <name>CCJPEMicroTCPIPAutoScanNetwork</name>
-          <state>1</state>
-        </option>
-        <option>
-          <name>CCPEMicroTCPIP</name>
-          <state>10.0.0.1</state>
-        </option>
-        <option>
-          <name>CCPEMicroCommCmdLineProducer</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>CCSTLinkInterfaceRadio</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>CCSTLinkInterfaceCmdLine</name>
-          <state>0</state>
         </option>
       </data>
     </settings>
@@ -1193,16 +1154,16 @@
       <name>STLINK_ID</name>
       <archiveVersion>2</archiveVersion>
       <data>
-        <version>2</version>
+        <version>3</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
           <name>OCDriverInfo</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>CCSTLinkInterfaceRadio</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCSTLinkInterfaceCmdLine</name>
@@ -1224,6 +1185,71 @@
         <option>
           <name>CCSwoClockEdit</name>
           <state>2000</state>
+        </option>
+        <option>
+          <name>DoLogfile</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>LogFile</name>
+          <state>$PROJ_DIR$\cspycomm.log</state>
+        </option>
+        <option>
+          <name>CCSTLinkDoUpdateBreakpoints</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CCSTLinkUpdateBreakpoints</name>
+          <state>_call_main</state>
+        </option>
+        <option>
+          <name>CCSTLinkCatchCORERESET</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CCSTLinkCatchMMERR</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CCSTLinkCatchNOCPERR</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CCSTLinkCatchCHRERR</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CCSTLinkCatchSTATERR</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CCSTLinkCatchBUSERR</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CCSTLinkCatchINTERR</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CCSTLinkCatchHARDERR</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CCSTLinkCatchDummy</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CCSTLinkUsbSerialNo</name>
+          <state></state>
+        </option>
+        <option>
+          <name>CCSTLinkUsbSerialNoSelect</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>CCSTLinkJtagSpeedList</name>
+          <version>0</version>
+          <state>8</state>
         </option>
       </data>
     </settings>
@@ -1415,6 +1441,10 @@
     <debuggerPlugins>
       <plugin>
         <file>$TOOLKIT_DIR$\plugins\middleware\HCCWare\HCCWare.ewplugin</file>
+        <loadFlag>0</loadFlag>
+      </plugin>
+      <plugin>
+        <file>$TOOLKIT_DIR$\plugins\middleware\PercepioTraceExporter\PercepioTraceExportPlugin.ewplugin</file>
         <loadFlag>0</loadFlag>
       </plugin>
       <plugin>

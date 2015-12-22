@@ -1,57 +1,57 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      22/Dec/2015  15:52:45
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      22/Dec/2015  23:10:17
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\waveplayer
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\waveplayer
 //        _CS43L22.c
 //    Command line =  
-//        "D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\waveplayer
+//        "H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\waveplayer
 //        _CS43L22.c" -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO
 //        -D USE_IOEXPANDER -D USE_USB_FS -lC
-//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -lA
-//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
-//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
 //        --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
 //        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -Ohz --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\waveplayer
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\waveplayer
 //        _CS43L22.s
 //
 ///////////////////////////////////////////////////////////////////////////////
@@ -88,6 +88,7 @@
         PUBLIC WavePlayerStop
         PUBLIC WaveplayerCtrlVolume
         PUBLIC XferCplt
+        PUBLIC buffer_switch
         PUBLIC volume
         
           CFI Names cfiNames0
@@ -136,7 +137,7 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
         
-// D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\waveplayer _CS43L22.c
+// H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\waveplayer _CS43L22.c
 //    1 /* Includes ------------------------------------------------------------------*/
 //    2 #include "main.h"
 //    3 
@@ -167,27 +168,31 @@
 //   28  uint16_t buffer2_1[_MAX_SS] ={0x00};
 //   29 
 //   30 
-//   31  uint8_t buffer_switch = 1;
-//   32  extern FATFS fatfs;
-//   33  extern FIL file;
-//   34  extern FIL fileR;
-//   35  extern DIR dir;
-//   36  extern FILINFO fno;
-//   37  extern uint16_t *CurrentPos;
-//   38  extern USB_OTG_CORE_HANDLE USB_OTG_Core;
-//   39  extern uint8_t WaveRecStatus;
-//   40 #endif
-//   41 
+//   31  extern FATFS fatfs;
+//   32  extern FIL file;
+//   33  extern FIL fileR;
+//   34  extern DIR dir;
+//   35  extern FILINFO fno;
+//   36  extern uint16_t *CurrentPos;
+//   37  extern USB_OTG_CORE_HANDLE USB_OTG_Core;
+//   38  extern uint8_t WaveRecStatus;
+//   39 #endif
+
+        SECTION `.data`:DATA:REORDER:NOROOT(0)
+        DATA
+//   40 __IO uint8_t buffer_switch = 1;
+buffer_switch:
+        DC8 1
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
-//   42 __IO uint32_t XferCplt = 0;
+//   41 __IO uint32_t XferCplt = 0;
 XferCplt:
         DS8 4
 
         SECTION `.data`:DATA:REORDER:NOROOT(0)
         DATA
-//   43 __IO uint8_t volume = 80, AudioPlayStart = 0; //sop1hc: 70
+//   42 __IO uint8_t volume = 80, AudioPlayStart = 0; //sop1hc: 70
 volume:
         DC8 80
 
@@ -198,283 +203,283 @@ AudioPlayStart:
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
-//   44 __IO uint32_t WaveCounter;
+//   43 __IO uint32_t WaveCounter;
 WaveCounter:
         DS8 4
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
-//   45 uint8_t Buffer[6];
+//   44 uint8_t Buffer[6];
 Buffer:
         DS8 8
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
-//   46 __IO uint32_t WaveDataLength = 0;
+//   45 __IO uint32_t WaveDataLength = 0;
 WaveDataLength:
         DS8 4
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
-//   47 static __IO uint32_t TimingDelay;
+//   46 static __IO uint32_t TimingDelay;
 TimingDelay:
         DS8 4
-//   48 
-//   49 /* Private function prototypes -----------------------------------------------*/
-//   50 static void EXTILine_Config(void);
-//   51 
-//   52 /* Private functions ---------------------------------------------------------*/
-//   53 
-//   54 /**
-//   55   * @brief  Play wave from a mass storge
-//   56   * @param  AudioFreq: Audio Sampling Frequency
-//   57   * @retval None
-//   58 */
-//   59 
+//   47 
+//   48 /* Private function prototypes -----------------------------------------------*/
+//   49 static void EXTILine_Config(void);
+//   50 
+//   51 /* Private functions ---------------------------------------------------------*/
+//   52 
+//   53 /**
+//   54   * @brief  Play wave from a mass storge
+//   55   * @param  AudioFreq: Audio Sampling Frequency
+//   56   * @retval None
+//   57 */
+//   58 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock0 Using cfiCommon0
           CFI Function WavePlayBack
           CFI NoCalls
         THUMB
-//   60 void WavePlayBack(uint32_t AudioFreq)
-//   61 { 
-//   62   /* 
-//   63   Normal mode description:
-//   64   Start playing the audio file (using DMA stream) .
-//   65   Using this mode, the application can run other tasks in parallel since 
-//   66   the DMA is handling the Audio Transfer instead of the CPU.
-//   67   The only task remaining for the CPU will be the management of the DMA 
-//   68   Transfer Complete interrupt or the Half Transfer Complete interrupt in 
-//   69   order to load again the buffer and to calculate the remaining data.  
-//   70   Circular mode description:
-//   71   Start playing the file from a circular buffer, once the DMA is enabled it 
-//   72   always run. User has to fill periodically the buffer with the audio data 
-//   73   using Transfer complete and/or half transfer complete interrupts callbacks 
-//   74   (EVAL_AUDIO_TransferComplete_CallBack() or EVAL_AUDIO_HalfTransfer_CallBack()...
-//   75   In this case the audio data file is smaller than the DMA max buffer 
-//   76   size 65535 so there is no need to load buffer continuously or manage the 
-//   77   transfer complete or Half transfer interrupts callbacks. */  
-//   78   
-//   79   /* Start playing */
-//   80   AudioPlayStart = 1;
+//   59 void WavePlayBack(uint32_t AudioFreq)
+//   60 { 
+//   61   /* 
+//   62   Normal mode description:
+//   63   Start playing the audio file (using DMA stream) .
+//   64   Using this mode, the application can run other tasks in parallel since 
+//   65   the DMA is handling the Audio Transfer instead of the CPU.
+//   66   The only task remaining for the CPU will be the management of the DMA 
+//   67   Transfer Complete interrupt or the Half Transfer Complete interrupt in 
+//   68   order to load again the buffer and to calculate the remaining data.  
+//   69   Circular mode description:
+//   70   Start playing the file from a circular buffer, once the DMA is enabled it 
+//   71   always run. User has to fill periodically the buffer with the audio data 
+//   72   using Transfer complete and/or half transfer complete interrupts callbacks 
+//   73   (EVAL_AUDIO_TransferComplete_CallBack() or EVAL_AUDIO_HalfTransfer_CallBack()...
+//   74   In this case the audio data file is smaller than the DMA max buffer 
+//   75   size 65535 so there is no need to load buffer continuously or manage the 
+//   76   transfer complete or Half transfer interrupts callbacks. */  
+//   77   
+//   78   /* Start playing */
+//   79   AudioPlayStart = 1;
 WavePlayBack:
         MOVS     R0,#+1
         LDR.N    R1,??DataTable3
         STRB     R0,[R1, #+0]
-//   81 
-//   82 #if defined MEDIA_IntFLASH 
-//   83   
-//   84   /* Initialize wave player (Codec, DMA, I2C) */
-//   85   WavePlayerInit(AudioFreq); //1 sop1hc: Audio Sampling Frequency: 48000??
-//   86   
-//   87   /* Play on */
-//   88   //AudioFlashPlay((uint16_t*)(AUDIO_SAMPLE + AUIDO_START_ADDRESS),AUDIO_FILE_SZE,AUIDO_START_ADDRESS);
-//   89   // AUDIO_SAMPLE: Data
-//   90   //AUIDO_START_ADDRESS = 58: Offset ralative to audio file header size
-//   91   //AUDIO_FILE_SZE = 990000
+//   80 
+//   81 #if defined MEDIA_IntFLASH 
+//   82   
+//   83   /* Initialize wave player (Codec, DMA, I2C) */
+//   84   WavePlayerInit(AudioFreq); //1 sop1hc: Audio Sampling Frequency: 48000??
+//   85   
+//   86   /* Play on */
+//   87   //AudioFlashPlay((uint16_t*)(AUDIO_SAMPLE + AUIDO_START_ADDRESS),AUDIO_FILE_SZE,AUIDO_START_ADDRESS);
+//   88   // AUDIO_SAMPLE: Data
+//   89   //AUIDO_START_ADDRESS = 58: Offset ralative to audio file header size
+//   90   //AUDIO_FILE_SZE = 990000
+//   91   
 //   92   
-//   93   
-//   94   /* LED Blue Start toggling */
-//   95   LED_Toggle = 6;
-//   96   
-//   97   /* Infinite loop */
-//   98   while(1)
-//   99   { 
-//  100     /* check on the repeate status */
-//  101     if (RepeatState == 0)
-//  102     {
-//  103       if (PauseResumeStatus == 0)
-//  104       {
-//  105         /* LED Blue Stop Toggling */
-//  106         LED_Toggle = 0;
-//  107         /* Pause playing */
-//  108         WavePlayerPauseResume(PauseResumeStatus);
-//  109         PauseResumeStatus = 2;
-//  110       }
-//  111       else if (PauseResumeStatus == 1)
-//  112       {
-//  113         /* LED Blue Toggling */
-//  114         LED_Toggle = 6;
-//  115         /* Resume playing */
-//  116         WavePlayerPauseResume(PauseResumeStatus);
-//  117         PauseResumeStatus = 2;
-//  118       }
-//  119     }
-//  120     else
-//  121     {
-//  122       /* Stop playing */
-//  123       WavePlayerStop();
-//  124       /* Green LED toggling */
-//  125       LED_Toggle = 4;
-//  126     }
-//  127   }
-//  128   
-//  129 #elif defined MEDIA_USB_KEY
-//  130   /* Initialize wave player (Codec, DMA, I2C) */
-//  131   WavePlayerInit(AudioFreq);
-//  132   AudioRemSize   = 0; 
-//  133 
-//  134   /* Get Data from USB Key */
-//  135   f_lseek(&fileR, WaveCounter);
-//  136   f_read (&fileR, buffer1, _MAX_SS, &BytesRead); 
-//  137   f_read (&fileR, buffer2, _MAX_SS, &BytesRead);
-//  138  
-//  139   /* Start playing wave */
-//  140   Audio_MAL_Play((uint16_t *)buffer1, _MAX_SS);
-//  141   buffer_switch = 1;
-//  142   XferCplt = 0;
-//  143   LED_Toggle = 6;
-//  144   PauseResumeStatus = 1;
-//  145   Count = 0;
-//  146  
-//  147   while((WaveDataLength != 0) &&  HCD_IsDeviceConnected(&USB_OTG_Core))
-//  148   { 
-//  149     /* Test on the command: Playing */
-//  150     if (Command_index == 0)
-//  151     { 
-//  152       /* wait for DMA transfert complete */
-//  153       while((XferCplt == 0) &&  HCD_IsDeviceConnected(&USB_OTG_Core))
-//  154       {
-//  155         if (PauseResumeStatus == 0)
-//  156         {
-//  157           /* Pause Playing wave */
-//  158           LED_Toggle = 0;
-//  159           WavePlayerPauseResume(PauseResumeStatus);
-//  160           PauseResumeStatus = 2;
-//  161         }
-//  162         else if (PauseResumeStatus == 1)
-//  163         {
-//  164           LED_Toggle = 6;
-//  165           /* Resume Playing wave */
-//  166           WavePlayerPauseResume(PauseResumeStatus);
-//  167           PauseResumeStatus = 2;
-//  168         }  
-//  169       }
-//  170       XferCplt = 0;
-//  171 
-//  172       if(buffer_switch == 0)
-//  173       {
-//  174         /* Play data from buffer1 */
-//  175         Audio_MAL_Play((uint16_t)buffer1, _MAX_SS);
-//  176         /* Store data in buffer2 */
-//  177         f_read (&fileR, buffer2, _MAX_SS, &BytesRead);
-//  178         buffer_switch = 1;
-//  179       }
-//  180       else 
-//  181       {   
-//  182         /* Play data from buffer2 */
-//  183         Audio_MAL_Play((uint16_t)buffer2, _MAX_SS);
-//  184         /* Store data in buffer1 */
-//  185         f_read (&fileR, buffer1, _MAX_SS, &BytesRead);
-//  186         buffer_switch = 0;
-//  187       } 
-//  188     }
-//  189     else 
-//  190     {
-//  191       WavePlayerStop();
-//  192       WaveDataLength = 0;
-//  193       RepeatState =0;
-//  194       break;
-//  195     }
-//  196   }
-//  197 #if defined PLAY_REPEAT_OFF 
-//  198   RepeatState = 1;
-//  199   WavePlayerStop();
-//  200   if (Command_index == 0)
-//  201     LED_Toggle = 4;
-//  202 #else 
-//  203   LED_Toggle = 7;
-//  204   RepeatState = 0;
-//  205   AudioPlayStart = 0;
-//  206   WavePlayerStop();
-//  207 #endif
-//  208 #endif 
-//  209 
-//  210 }
+//   93   /* LED Blue Start toggling */
+//   94   LED_Toggle = 6;
+//   95   
+//   96   /* Infinite loop */
+//   97   while(1)
+//   98   { 
+//   99     /* check on the repeate status */
+//  100     if (RepeatState == 0)
+//  101     {
+//  102       if (PauseResumeStatus == 0)
+//  103       {
+//  104         /* LED Blue Stop Toggling */
+//  105         LED_Toggle = 0;
+//  106         /* Pause playing */
+//  107         WavePlayerPauseResume(PauseResumeStatus);
+//  108         PauseResumeStatus = 2;
+//  109       }
+//  110       else if (PauseResumeStatus == 1)
+//  111       {
+//  112         /* LED Blue Toggling */
+//  113         LED_Toggle = 6;
+//  114         /* Resume playing */
+//  115         WavePlayerPauseResume(PauseResumeStatus);
+//  116         PauseResumeStatus = 2;
+//  117       }
+//  118     }
+//  119     else
+//  120     {
+//  121       /* Stop playing */
+//  122       WavePlayerStop();
+//  123       /* Green LED toggling */
+//  124       LED_Toggle = 4;
+//  125     }
+//  126   }
+//  127   
+//  128 #elif defined MEDIA_USB_KEY
+//  129   /* Initialize wave player (Codec, DMA, I2C) */
+//  130   WavePlayerInit(AudioFreq);
+//  131   AudioRemSize   = 0; 
+//  132 
+//  133   /* Get Data from USB Key */
+//  134   f_lseek(&fileR, WaveCounter);
+//  135   f_read (&fileR, buffer1, _MAX_SS, &BytesRead); 
+//  136   f_read (&fileR, buffer2, _MAX_SS, &BytesRead);
+//  137  
+//  138   /* Start playing wave */
+//  139   Audio_MAL_Play((uint16_t *)buffer1, _MAX_SS);
+//  140   buffer_switch = 1;
+//  141   XferCplt = 0;
+//  142   LED_Toggle = 6;
+//  143   PauseResumeStatus = 1;
+//  144   Count = 0;
+//  145  
+//  146   while((WaveDataLength != 0) &&  HCD_IsDeviceConnected(&USB_OTG_Core))
+//  147   { 
+//  148     /* Test on the command: Playing */
+//  149     if (Command_index == 0)
+//  150     { 
+//  151       /* wait for DMA transfert complete */
+//  152       while((XferCplt == 0) &&  HCD_IsDeviceConnected(&USB_OTG_Core))
+//  153       {
+//  154         if (PauseResumeStatus == 0)
+//  155         {
+//  156           /* Pause Playing wave */
+//  157           LED_Toggle = 0;
+//  158           WavePlayerPauseResume(PauseResumeStatus);
+//  159           PauseResumeStatus = 2;
+//  160         }
+//  161         else if (PauseResumeStatus == 1)
+//  162         {
+//  163           LED_Toggle = 6;
+//  164           /* Resume Playing wave */
+//  165           WavePlayerPauseResume(PauseResumeStatus);
+//  166           PauseResumeStatus = 2;
+//  167         }  
+//  168       }
+//  169       XferCplt = 0;
+//  170 
+//  171       if(buffer_switch == 0)
+//  172       {
+//  173         /* Play data from buffer1 */
+//  174         Audio_MAL_Play((uint16_t)buffer1, _MAX_SS);
+//  175         /* Store data in buffer2 */
+//  176         f_read (&fileR, buffer2, _MAX_SS, &BytesRead);
+//  177         buffer_switch = 1;
+//  178       }
+//  179       else 
+//  180       {   
+//  181         /* Play data from buffer2 */
+//  182         Audio_MAL_Play((uint16_t)buffer2, _MAX_SS);
+//  183         /* Store data in buffer1 */
+//  184         f_read (&fileR, buffer1, _MAX_SS, &BytesRead);
+//  185         buffer_switch = 0;
+//  186       } 
+//  187     }
+//  188     else 
+//  189     {
+//  190       WavePlayerStop();
+//  191       WaveDataLength = 0;
+//  192       RepeatState =0;
+//  193       break;
+//  194     }
+//  195   }
+//  196 #if defined PLAY_REPEAT_OFF 
+//  197   RepeatState = 1;
+//  198   WavePlayerStop();
+//  199   if (Command_index == 0)
+//  200     LED_Toggle = 4;
+//  201 #else 
+//  202   LED_Toggle = 7;
+//  203   RepeatState = 0;
+//  204   AudioPlayStart = 0;
+//  205   WavePlayerStop();
+//  206 #endif
+//  207 #endif 
+//  208 
+//  209 }
         BX       LR               ;; return
           CFI EndBlock cfiBlock0
-//  211 
-//  212 /**
-//  213   * @brief  Pause or Resume a played wave
-//  214   * @param  state: if it is equal to 0 pause Playing else resume playing
-//  215   * @retval None
-//  216   */
+//  210 
+//  211 /**
+//  212   * @brief  Pause or Resume a played wave
+//  213   * @param  state: if it is equal to 0 pause Playing else resume playing
+//  214   * @retval None
+//  215   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock1 Using cfiCommon0
           CFI Function WavePlayerPauseResume
           CFI FunCall AUDIO_PauseResume
         THUMB
-//  217 void WavePlayerPauseResume(uint8_t state)
-//  218 { 
-//  219   AUDIO_PauseResume(state);   
+//  216 void WavePlayerPauseResume(uint8_t state)
+//  217 { 
+//  218   AUDIO_PauseResume(state);   
 WavePlayerPauseResume:
         B.W      AUDIO_PauseResume
-//  220 }
+//  219 }
           CFI EndBlock cfiBlock1
-//  221 
-//  222 /**
-//  223   * @brief  Configure the volune
-//  224   * @param  vol: volume value
-//  225   * @retval None
-//  226   */
+//  220 
+//  221 /**
+//  222   * @brief  Configure the volune
+//  223   * @param  vol: volume value
+//  224   * @retval None
+//  225   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock2 Using cfiCommon0
           CFI Function WaveplayerCtrlVolume
         THUMB
-//  227 uint8_t WaveplayerCtrlVolume(uint8_t vol)
-//  228 { 
+//  226 uint8_t WaveplayerCtrlVolume(uint8_t vol)
+//  227 { 
 WaveplayerCtrlVolume:
         PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+8
-//  229   AUDIO_VolumeCtl(vol);
+//  228   AUDIO_VolumeCtl(vol);
           CFI FunCall AUDIO_VolumeCtl
         BL       AUDIO_VolumeCtl
-//  230   return 0;
+//  229   return 0;
         MOVS     R0,#+0
         POP      {R1,PC}          ;; return
-//  231 }
+//  230 }
           CFI EndBlock cfiBlock2
+//  231 
 //  232 
-//  233 
-//  234 /**
-//  235   * @brief  Stop playing wave
-//  236   * @param  None
-//  237   * @retval None
-//  238   */
+//  233 /**
+//  234   * @brief  Stop playing wave
+//  235   * @param  None
+//  236   * @retval None
+//  237   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock3 Using cfiCommon0
           CFI Function WavePlayerStop
         THUMB
-//  239 void WavePlayerStop(void)
-//  240 { 
-//  241   AUDIO_Stop(CODEC_PDWN_SW);
+//  238 void WavePlayerStop(void)
+//  239 { 
+//  240   AUDIO_Stop(CODEC_PDWN_SW);
 WavePlayerStop:
         MOVS     R0,#+2
           CFI FunCall AUDIO_Stop
         B.W      AUDIO_Stop
-//  242 }
+//  241 }
           CFI EndBlock cfiBlock3
-//  243  
-//  244 /**
-//  245 * @brief  Initializes the wave player
-//  246 * @param  AudioFreq: Audio sampling frequency
-//  247 * @retval None
-//  248 */
+//  242  
+//  243 /**
+//  244 * @brief  Initializes the wave player
+//  245 * @param  AudioFreq: Audio sampling frequency
+//  246 * @retval None
+//  247 */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock4 Using cfiCommon0
           CFI Function WavePlayerInit
         THUMB
-//  249 int WavePlayerInit(uint32_t AudioFreq)
-//  250 { 
-//  251    
-//  252   /* Initialize the Audio codec and all related peripherals (I2S, I2C, IOExpander, IOs...) */  
-//  253   AUDIO_Init(OUTPUT_DEVICE_AUTO, volume, AudioFreq );  
+//  248 int WavePlayerInit(uint32_t AudioFreq)
+//  249 { 
+//  250    
+//  251   /* Initialize the Audio codec and all related peripherals (I2S, I2C, IOExpander, IOs...) */  
+//  252   AUDIO_Init(OUTPUT_DEVICE_AUTO, volume, AudioFreq );  
 WavePlayerInit:
         MOV      R2,R0
         LDR.N    R0,??DataTable3_1
@@ -485,203 +490,203 @@ WavePlayerInit:
         MOVS     R0,#+4
           CFI FunCall AUDIO_Init
         BL       AUDIO_Init
-//  254   
-//  255   return 0;
+//  253   
+//  254   return 0;
         MOVS     R0,#+0
         POP      {R1,PC}          ;; return
-//  256 }
+//  255 }
           CFI EndBlock cfiBlock4
+//  256 
 //  257 
-//  258 
-//  259 /**
-//  260 * @brief  Play wave file from internal Flash
-//  261 * @param  None
-//  262 * @retval None
-//  263 */
+//  258 /**
+//  259 * @brief  Play wave file from internal Flash
+//  260 * @param  None
+//  261 * @retval None
+//  262 */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock5 Using cfiCommon0
           CFI Function AudioFlashPlay
         THUMB
-//  264 uint32_t AudioFlashPlay(uint16_t* pBuffer, uint32_t FullSize, uint32_t StartAdd)
-//  265 { 
+//  263 uint32_t AudioFlashPlay(uint16_t* pBuffer, uint32_t FullSize, uint32_t StartAdd)
+//  264 { 
 AudioFlashPlay:
         PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+8
-//  266   AUDIO_Play((uint16_t*)pBuffer, (FullSize - StartAdd));
+//  265   AUDIO_Play((uint16_t*)pBuffer, (FullSize - StartAdd));
         SUBS     R1,R1,R2
           CFI FunCall AUDIO_Play
         BL       AUDIO_Play
-//  267   return 0;
+//  266   return 0;
         MOVS     R0,#+0
         POP      {R1,PC}          ;; return
-//  268 }
+//  267 }
           CFI EndBlock cfiBlock5
-//  269 
-//  270 /*--------------------------------
-//  271 Callbacks implementation:
-//  272 the callbacks prototypes are defined in the stm324xg_eval_audio_codec.h file
-//  273 and their implementation should be done in the user code if they are needed.
-//  274 Below some examples of callback implementations.
-//  275 --------------------------------------------------------*/
-//  276 /**
-//  277 * @brief  Calculates the remaining file size and new position of the pointer.
-//  278 * @param  None
-//  279 * @retval None
-//  280 */
+//  268 
+//  269 /*--------------------------------
+//  270 Callbacks implementation:
+//  271 the callbacks prototypes are defined in the stm324xg_eval_audio_codec.h file
+//  272 and their implementation should be done in the user code if they are needed.
+//  273 Below some examples of callback implementations.
+//  274 --------------------------------------------------------*/
+//  275 /**
+//  276 * @brief  Calculates the remaining file size and new position of the pointer.
+//  277 * @param  None
+//  278 * @retval None
+//  279 */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock6 Using cfiCommon0
           CFI Function AUDIO_TransferComplete_CallBack
           CFI NoCalls
         THUMB
-//  281 void  AUDIO_TransferComplete_CallBack(uint32_t pBuffer, uint32_t Size)
-//  282 {
-//  283   /* Calculate the remaining audio data in the file and the new size 
-//  284   for the DMA transfer. If the Audio files size is less than the DMA max 
-//  285   data transfer size, so there is no calculation to be done, just restart 
-//  286   from the beginning of the file ... */
-//  287   /* Check if the end of file has been reached */
-//  288 
-//  289 #if defined PLAY_REPEAT_OFF
-//  290   LED_Toggle = 4;
-//  291   RepeatState = 1;
-//  292   EVAL_AUDIO_Stop(CODEC_PDWN_HW);
-//  293 #else
-//  294   /* Replay from the beginning */
-//  295  // AudioFlashPlay((uint16_t*)(AUDIO_SAMPLE + AUIDO_START_ADDRESS),AUDIO_FILE_SZE,AUIDO_START_ADDRESS);
-//  296 #endif  
-//  297   
-//  298 #if defined MEDIA_USB_KEY  
-//  299   XferCplt = 1;
-//  300   if (WaveDataLength>=_MAX_SS) WaveDataLength -= _MAX_SS;//sop1hc: WaveDataLength>=_MAX_SS
-//  301   if (WaveDataLength < _MAX_SS) WaveDataLength = 0;
-//  302     
-//  303 #endif 
-//  304     
-//  305 
-//  306 }
+//  280 void  AUDIO_TransferComplete_CallBack(uint32_t pBuffer, uint32_t Size)
+//  281 {
+//  282   /* Calculate the remaining audio data in the file and the new size 
+//  283   for the DMA transfer. If the Audio files size is less than the DMA max 
+//  284   data transfer size, so there is no calculation to be done, just restart 
+//  285   from the beginning of the file ... */
+//  286   /* Check if the end of file has been reached */
+//  287 
+//  288 #if defined PLAY_REPEAT_OFF
+//  289   LED_Toggle = 4;
+//  290   RepeatState = 1;
+//  291   EVAL_AUDIO_Stop(CODEC_PDWN_HW);
+//  292 #else
+//  293   /* Replay from the beginning */
+//  294  // AudioFlashPlay((uint16_t*)(AUDIO_SAMPLE + AUIDO_START_ADDRESS),AUDIO_FILE_SZE,AUIDO_START_ADDRESS);
+//  295 #endif  
+//  296   
+//  297 #if defined MEDIA_USB_KEY  
+//  298   XferCplt = 1;
+//  299   if (WaveDataLength>=_MAX_SS) WaveDataLength -= _MAX_SS;//sop1hc: WaveDataLength>=_MAX_SS
+//  300   if (WaveDataLength < _MAX_SS) WaveDataLength = 0;
+//  301     
+//  302 #endif 
+//  303     
+//  304 
+//  305 }
 AUDIO_TransferComplete_CallBack:
         BX       LR               ;; return
           CFI EndBlock cfiBlock6
-//  307 
+//  306 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock7 Using cfiCommon0
           CFI Function TC_Callback
           CFI NoCalls
         THUMB
-//  308 void TC_Callback(struct __DMA_HandleTypeDef * hdma)
-//  309 {	
-//  310       /* Replay from the beginning */
-//  311    
-//  312 }
+//  307 void TC_Callback(struct __DMA_HandleTypeDef * hdma)
+//  308 {	
+//  309       /* Replay from the beginning */
+//  310    
+//  311 }
 TC_Callback:
         BX       LR               ;; return
           CFI EndBlock cfiBlock7
-//  313 
-//  314 /**
-//  315 * @brief  Manages the DMA Half Transfer complete interrupt.
-//  316 * @param  None
-//  317 * @retval None
-//  318 */
+//  312 
+//  313 /**
+//  314 * @brief  Manages the DMA Half Transfer complete interrupt.
+//  315 * @param  None
+//  316 * @retval None
+//  317 */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock8 Using cfiCommon0
           CFI Function AUDIO_HalfTransfer_CallBack
           CFI NoCalls
         THUMB
-//  319 void AUDIO_HalfTransfer_CallBack(uint32_t pBuffer, uint32_t Size)
-//  320 {  
-//  321 
-//  322 }
+//  318 void AUDIO_HalfTransfer_CallBack(uint32_t pBuffer, uint32_t Size)
+//  319 {  
+//  320 
+//  321 }
 AUDIO_HalfTransfer_CallBack:
         BX       LR               ;; return
           CFI EndBlock cfiBlock8
+//  322 
 //  323 
 //  324 
-//  325 
-//  326 #ifndef USE_DEFAULT_TIMEOUT_CALLBACK
-//  327 /**
-//  328   * @brief  Basic management of the timeout situation.
-//  329   * @param  None.
-//  330   * @retval None.
-//  331   */
+//  325 #ifndef USE_DEFAULT_TIMEOUT_CALLBACK
+//  326 /**
+//  327   * @brief  Basic management of the timeout situation.
+//  328   * @param  None.
+//  329   * @retval None.
+//  330   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock9 Using cfiCommon0
           CFI Function Codec_TIMEOUT_UserCallback
           CFI NoCalls
         THUMB
-//  332 uint32_t Codec_TIMEOUT_UserCallback(void)
-//  333 {   
-//  334   return (0);
+//  331 uint32_t Codec_TIMEOUT_UserCallback(void)
+//  332 {   
+//  333   return (0);
 Codec_TIMEOUT_UserCallback:
         MOVS     R0,#+0
         BX       LR               ;; return
-//  335 }
+//  334 }
           CFI EndBlock cfiBlock9
-//  336 #endif /* USE_DEFAULT_TIMEOUT_CALLBACK */
-//  337 /*----------------------------------------------------------------------------*/
-//  338 
-//  339 /**
-//  340   * @brief  Inserts a delay time.
-//  341   * @param  nTime: specifies the delay time length, in 10 ms.
-//  342   * @retval None
-//  343   */
+//  335 #endif /* USE_DEFAULT_TIMEOUT_CALLBACK */
+//  336 /*----------------------------------------------------------------------------*/
+//  337 
+//  338 /**
+//  339   * @brief  Inserts a delay time.
+//  340   * @param  nTime: specifies the delay time length, in 10 ms.
+//  341   * @retval None
+//  342   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock10 Using cfiCommon0
           CFI Function Delay
           CFI NoCalls
         THUMB
-//  344 void Delay(__IO uint32_t nTime)
-//  345 {
+//  343 void Delay(__IO uint32_t nTime)
+//  344 {
 Delay:
         PUSH     {R0}
           CFI CFA R13+4
-//  346   TimingDelay = nTime;
+//  345   TimingDelay = nTime;
         LDR.N    R0,??DataTable3_2
         LDR      R1,[SP, #+0]
         STR      R1,[R0, #+0]
-//  347   
-//  348   while(TimingDelay != 0);
+//  346   
+//  347   while(TimingDelay != 0);
 ??Delay_0:
         LDR      R1,[R0, #+0]
         CMP      R1,#+0
         BNE.N    ??Delay_0
-//  349 }
+//  348 }
         ADD      SP,SP,#+4
           CFI CFA R13+0
         BX       LR               ;; return
           CFI EndBlock cfiBlock10
-//  350 
-//  351 /**
-//  352   * @brief  Decrements the TimingDelay variable.
-//  353   * @param  None
-//  354   * @retval None
-//  355   */
+//  349 
+//  350 /**
+//  351   * @brief  Decrements the TimingDelay variable.
+//  352   * @param  None
+//  353   * @retval None
+//  354   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock11 Using cfiCommon0
           CFI Function TimingDelay_Decrement
           CFI NoCalls
         THUMB
-//  356 void TimingDelay_Decrement(void)
-//  357 {
-//  358   if (TimingDelay != 0x00)
+//  355 void TimingDelay_Decrement(void)
+//  356 {
+//  357   if (TimingDelay != 0x00)
 TimingDelay_Decrement:
         LDR.N    R0,??DataTable3_2
         LDR      R1,[R0, #+0]
         CBZ.N    R1,??TimingDelay_Decrement_0
-//  359   { 
-//  360     TimingDelay--;
+//  358   { 
+//  359     TimingDelay--;
         LDR      R1,[R0, #+0]
         SUBS     R1,R1,#+1
         STR      R1,[R0, #+0]
-//  361   }
-//  362 }
+//  360   }
+//  361 }
 ??TimingDelay_Decrement_0:
         BX       LR               ;; return
           CFI EndBlock cfiBlock11
@@ -716,69 +721,69 @@ TimingDelay_Decrement:
         SECTION_TYPE SHT_PROGBITS, 0
 
         END
-//  363 
-//  364 /**
-//  365   * @brief  Configures EXTI Line0 (connected to PA0 pin) in interrupt mode
-//  366   * @param  None
-//  367   * @retval None
-//  368   */
-//  369 static void EXTILine_Config(void)
-//  370 {
-//  371   GPIO_InitTypeDef   GPIO_InitStructure;
-//  372   
-//  373   /* Enable GPIOA clock */
-//  374   __GPIOE_CLK_ENABLE();
-//  375   /* Enable SYSCFG clock */
-//  376   __SYSCFG_CLK_ENABLE();
-//  377  
-//  378   /* Configure PE0 and PE1 pins as input floating */
-//  379   GPIO_InitStructure.Mode = GPIO_MODE_IT_RISING;
-//  380   GPIO_InitStructure.Pull = GPIO_NOPULL;
-//  381   GPIO_InitStructure.Pin = GPIO_PIN_0|GPIO_PIN_1;
-//  382   HAL_GPIO_Init(GPIOE, &GPIO_InitStructure);
-//  383 
-//  384   /* Connect EXTI Line to PE1 pins */
-//  385   //SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOE, EXTI_PinSource1);
-//  386   
-//  387   HAL_NVIC_SetPriority((IRQn_Type)EXTI1_IRQn, 0x00, 0x00);
-//  388   HAL_NVIC_EnableIRQ((IRQn_Type)EXTI1_IRQn);
-//  389 
-//  390 }
-//  391 
-//  392 #ifdef  USE_FULL_ASSERT
-//  393 
-//  394 /**
-//  395 * @brief  Reports the name of the source file and the source line number
-//  396 *   where the assert_param error has occurred.
-//  397 * @param  file: pointer to the source file name
-//  398 * @param  line: assert_param error line source number
-//  399 * @retval None
-//  400 */
-//  401 void assert_failed(uint8_t* file, uint32_t line)
-//  402 { 
-//  403   /* User can add his own implementation to report the file name and line number,
-//  404   ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-//  405   
-//  406   /* Infinite loop */
-//  407   while (1)
-//  408   {
-//  409   }
-//  410 }
-//  411 #endif
-//  412 
-//  413 /**
-//  414 * @}
-//  415 */ 
+//  362 
+//  363 /**
+//  364   * @brief  Configures EXTI Line0 (connected to PA0 pin) in interrupt mode
+//  365   * @param  None
+//  366   * @retval None
+//  367   */
+//  368 static void EXTILine_Config(void)
+//  369 {
+//  370   GPIO_InitTypeDef   GPIO_InitStructure;
+//  371   
+//  372   /* Enable GPIOA clock */
+//  373   __GPIOE_CLK_ENABLE();
+//  374   /* Enable SYSCFG clock */
+//  375   __SYSCFG_CLK_ENABLE();
+//  376  
+//  377   /* Configure PE0 and PE1 pins as input floating */
+//  378   GPIO_InitStructure.Mode = GPIO_MODE_IT_RISING;
+//  379   GPIO_InitStructure.Pull = GPIO_NOPULL;
+//  380   GPIO_InitStructure.Pin = GPIO_PIN_0|GPIO_PIN_1;
+//  381   HAL_GPIO_Init(GPIOE, &GPIO_InitStructure);
+//  382 
+//  383   /* Connect EXTI Line to PE1 pins */
+//  384   //SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOE, EXTI_PinSource1);
+//  385   
+//  386   HAL_NVIC_SetPriority((IRQn_Type)EXTI1_IRQn, 0x00, 0x00);
+//  387   HAL_NVIC_EnableIRQ((IRQn_Type)EXTI1_IRQn);
+//  388 
+//  389 }
+//  390 
+//  391 #ifdef  USE_FULL_ASSERT
+//  392 
+//  393 /**
+//  394 * @brief  Reports the name of the source file and the source line number
+//  395 *   where the assert_param error has occurred.
+//  396 * @param  file: pointer to the source file name
+//  397 * @param  line: assert_param error line source number
+//  398 * @retval None
+//  399 */
+//  400 void assert_failed(uint8_t* file, uint32_t line)
+//  401 { 
+//  402   /* User can add his own implementation to report the file name and line number,
+//  403   ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+//  404   
+//  405   /* Infinite loop */
+//  406   while (1)
+//  407   {
+//  408   }
+//  409 }
+//  410 #endif
+//  411 
+//  412 /**
+//  413 * @}
+//  414 */ 
+//  415 
 //  416 
-//  417 
-//  418 /******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/
+//  417 /******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/
 // 
 //  25 bytes in section .bss
-//   1 byte  in section .data
+//   2 bytes in section .data
 // 112 bytes in section .text
 // 
 // 112 bytes of CODE memory
-//  26 bytes of DATA memory
+//  27 bytes of DATA memory
 //
 //Errors: none
 //Warnings: 1

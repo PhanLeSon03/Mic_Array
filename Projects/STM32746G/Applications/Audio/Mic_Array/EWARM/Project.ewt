@@ -1085,6 +1085,9 @@
       <file>
         <name>$PROJ_DIR$\..\Src\waveplayer _CS43L22.c</name>
       </file>
+      <file>
+        <name>$PROJ_DIR$\..\Src\waverecorder.c</name>
+      </file>
     </group>
   </group>
   <group>

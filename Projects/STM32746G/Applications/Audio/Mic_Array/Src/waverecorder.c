@@ -119,7 +119,7 @@ uint16_t volatile cntTransFinish;
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-AUDIO_IN_BufferTypeDef  BufferCtlRecIn,Buffer1, Buffer2;
+extern AUDIO_IN_BufferTypeDef  BufferCtlRecIn,Buffer1, Buffer2;
 I2S_HandleTypeDef hi2s1;
 I2S_HandleTypeDef hi2s2;
 extern I2S_HandleTypeDef hi2s3;
@@ -171,7 +171,6 @@ static void GPIO_CLK_Init(void);
 
 
   
-}
 
 
 
@@ -180,44 +179,6 @@ static void GPIO_CLK_Init(void);
 void Audio_Streaming_Ini(void)
 {
 
-
-    /*------------------------PLAYER------------------------------------------------------*/
-	/*Adjust the Audio frequency */
-    PlayerIni(I2S_AUDIOFREQ_11K);//WaveFormat.SampleRate DEFAULT_AUDIO_IN_FREQ
-
-    BSP_AUDIO_OUT_Play((uint16_t*)&Buffer1.pcm_buff[0], 2*AUDIO_OUT_BUFFER_SIZE);//2*AUDIO_OUT_BUFFER_SIZE
-
-	//BSP_LCD_DisplayStringAt(250, LINE(20), (uint8_t *)"  [PLAY ]", LEFT_MODE);
-	///AudioState = AUDIO_STATE_PLAY;
-
-	//HAL_Delay(1000);
-
-    /*----------------------RECORDER-------------------------------------------------------*/	
-    /* Initial for microphone's data reading */
-    //BSP_AUDIO_IN_Init(INPUT_DEVICE_DIGITAL_MICROPHONE_2, uwVolume, DEFAULT_AUDIO_IN_FREQ); 
-
-    /* Record process*/
-    //BSP_AUDIO_IN_Record((uint16_t*)&Buffer1.pcm_buff[0], AUDIO_OUT_BUFFER_SIZE); //8192	
-
-	//BufferCtlRecIn.wr_state = BUFFER_EMPTY;
-        
-	/*-----------------------------------------------------------------------------------*/
-
-
-
-
-
-
-
-	/*----------------------------------STATE MACHINE CONTROL----------------------------*/
-	/* Streaming state */
-    AudioDemo.state =  AUDI0_DEMO_STREAMING;
-	appli_state = APPLICATION_READY;
-
-
-	/*------------------------------------------------------------------------------------*/
-
-	
 }
 
 void Audio_Streaming(void)
@@ -426,24 +387,6 @@ void SPI2_IRQHandler(void)
 
 
 
-/**
-  * @brief  Initializes the Wave player.
-  * @param  AudioFreq: Audio sampling frequency
-  * @retval None
-  */
-static uint8_t PlayerIni(uint32_t AudioFreq)
-{ 
-  /* Initialize the Audio codec and all related peripherals (I2S, I2C, IOExpander, IOs...) */  
-  if(BSP_AUDIO_OUT_Init(OUTPUT_DEVICE_HEADPHONE, 64, AudioFreq) != 0) //sop1hc OUTPUT_DEVICE_BOTH
-  {
-    return 1;
-  }
-  else
-  {
-    BSP_AUDIO_OUT_SetAudioFrameSlot(CODEC_AUDIOFRAME_SLOT_02);
-    return 0;
-  } 
-}
 
 void I2S_Init(void)
 {

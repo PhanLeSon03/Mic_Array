@@ -29,12 +29,20 @@
 
 #define DEBUG           0
 
-
-/* Private variables ---------------------------------------------------------*/
+/* Extern Variable */
+//extern const uint16_t AUDIO_SAMPLE[];
+extern I2C_HandleTypeDef hi2c1;
+extern __IO uint8_t XferCplt;
+extern __IO uint8_t buffer_switch;
+extern uint8_t  pcSTAComnd[19];
+extern __IO uint8_t volume;
+extern __IO uint16_t cntPos;
+extern PDMFilter_InitStruct Filter[2];
+/* Globble variables ---------------------------------------------------------*/
 USBH_HandleTypeDef hUSBHost;
 AUDIO_ApplicationTypeDef appli_state = APPLICATION_IDLE;//APPLICATION_IDLE
 
-extern I2C_HandleTypeDef hi2c1;
+
 UART_HandleTypeDef huart6;
 SPI_HandleTypeDef hspi5;
 GPIO_InitTypeDef GPIO_INS;
@@ -45,8 +53,7 @@ AUDIO_IN_BufferTypeDef Buffer3;
 
 uint8_t  pI2CData[20]= {0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190};
 uint8_t  pI2CRx[10];
-//extern const uint16_t AUDIO_SAMPLE[];
-extern uint8_t  pcSTAComnd[19];
+
 
 uint16_t __IO idxSPI5DataBuf1, idxSPI5DataBuf2;
 uint16_t __IO cntRisingEXTI;
@@ -54,6 +61,8 @@ uint16_t __IO cntRisingEXTI;
 /* Buffer used for reception */
 uint8_t aRxBuffer[1024];
 
+uint16_t pDataMic8[64];//INTERNAL_BUFF_SIZE
+uint16_t idxMic8=0;
 
 #if (DEBUG)
 uint8_t  pUARTBuf[128];
@@ -111,7 +120,7 @@ int main(void)
   BSP_LED_Init(LED2);
   
   /* Initialize for Audio player with CS43L22 */
- WavePlayerInit(48000);
+ //WavePlayerInit(48000);
 
     /* Play on */
   //AudioFlashPlay((uint16_t*)(AUDIO_SAMPLE + AUIDO_START_ADDRESS),AUDIO_FILE_SZE,AUIDO_START_ADDRESS);
@@ -151,11 +160,11 @@ int main(void)
   ///////Audio_Streaming_Ini();
   /* control the STA321 */
   ///////MX_I2C1_Init(); 
-  //MX_SPI5_Init();
+  MX_SPI5_Init();
   //HAL_Delay(10000);
   //__HAL_SPI_DISABLE(&hspi5);
   
-  ////////I2S_Init();
+  I2S_Init();
 
   ////////STA321MP_Ini();	
 #if (DEBUG)  
@@ -231,6 +240,21 @@ int main(void)
 
 
     }
+
+	if (XferCplt == 1)
+	{
+	    XferCplt = 0; // clear DMA interrupt flag
+
+		if (buffer_switch == 1)
+		{
+           Audio_MAL_Play(Buffer1.pcm_buff, 2*_MAX_SS);
+		}
+		else
+		{
+           Audio_MAL_Play(Buffer2.pcm_buff, 2*_MAX_SS);
+		}
+		buffer_switch ^=0x01;
+	}
   }
   
 }
@@ -627,9 +651,9 @@ void MX_SPI5_Init(void)
 
 void SPI5_IRQHandler(void)
 {
-  static uint16_t stNipple;
-  static uint8_t stLR, stOder;
-  
+  //static uint16_t stNipple;
+  //static uint8_t stLR, stOder;
+
   /* USER CODE BEGIN SPI5_IRQn 0 */
 
   /* USER CODE END SPI5_IRQn 0 */
@@ -648,11 +672,11 @@ void SPI5_IRQHandler(void)
 
    uint16_t test;
    test =  SPI_I2S_ReceiveData(SPI5);
+   SPI5->DR = 3333;
    //SPI_I2S_SendData(SPI5,0);
    //BSP_LED_Toggle(LED1);
    //if (HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_4)==GPIO_PIN_SET)
-   {
-
+#if 0
       stOder^=0x01;
       if(stOder==0x00)
       {
@@ -694,22 +718,34 @@ void SPI5_IRQHandler(void)
     {
      // BSP_LED_Off(LED1);
     }
+#endif 
+  pDataMic8[idxMic8++] =	HTONS(test);
+  
+  //volume = 64;
+  
+  if (idxMic8>=64)
+  {
+	if (buffer_switch != 1)
+	{
+		PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer1.pcm_buff + Buffer1.offset + cntPos*16), volume , (PDMFilter_InitStruct *)&Filter[0]);
+	}
+	else
+	{
+		PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer2.pcm_buff + Buffer2.offset + cntPos*16), volume , (PDMFilter_InitStruct *)&Filter[0]);   
+	}
+	idxMic8=0;
+	cntPos++;
+	if (cntPos>=256) cntPos=0;
+  }
 
-
-  // if (idxSPI5DataBuf >= AUDIO_IN_PCM_BUFFER_SIZE) idxSPI5DataBuf=0;
-   //SPI5->DR = 3333;
-    if(flgSTAIni==0)
-    {
-        flgSTAIni=1;
-		//__HAL_SPI_DISABLE(&hspi5);
-        						 
-    }
+	if(flgSTAIni==0)
+	{
+		flgSTAIni=1;
+		//__HAL_SPI_DISABLE(&hspi5);						 
+	}
       
   }
   
-  
-  
-
 }
 
 static uint16_t SPI_I2S_ReceiveData(SPI_TypeDef* SPIx)

@@ -28,7 +28,6 @@
  uint16_t buffer2_1[_MAX_SS] ={0x00};
 
 
- uint8_t buffer_switch = 1;
  extern FATFS fatfs;
  extern FIL file;
  extern FIL fileR;
@@ -38,7 +37,7 @@
  extern USB_OTG_CORE_HANDLE USB_OTG_Core;
  extern uint8_t WaveRecStatus;
 #endif
-
+__IO uint8_t buffer_switch = 1;
 __IO uint32_t XferCplt = 0;
 __IO uint8_t volume = 80, AudioPlayStart = 0; //sop1hc: 70
 __IO uint32_t WaveCounter;
