@@ -1068,9 +1068,6 @@
         <name>$PROJ_DIR$\..\Src\audio_codec.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Src\audio_sample.c</name>
-      </file>
-      <file>
         <name>$PROJ_DIR$\..\Src\main.c</name>
       </file>
       <file>

@@ -45,7 +45,7 @@ AUDIO_IN_BufferTypeDef Buffer3;
 
 uint8_t  pI2CData[20]= {0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190};
 uint8_t  pI2CRx[10];
-extern const uint16_t AUDIO_SAMPLE[];
+//extern const uint16_t AUDIO_SAMPLE[];
 extern uint8_t  pcSTAComnd[19];
 
 uint16_t __IO idxSPI5DataBuf1, idxSPI5DataBuf2;
@@ -114,7 +114,7 @@ int main(void)
  WavePlayerInit(48000);
 
     /* Play on */
-  AudioFlashPlay((uint16_t*)(AUDIO_SAMPLE + AUIDO_START_ADDRESS),AUDIO_FILE_SZE,AUIDO_START_ADDRESS);
+  //AudioFlashPlay((uint16_t*)(AUDIO_SAMPLE + AUIDO_START_ADDRESS),AUDIO_FILE_SZE,AUIDO_START_ADDRESS);
   //while(1);
   
   /* Init TS module */

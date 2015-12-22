@@ -1,56 +1,56 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      22/Dec/2015  00:06:24
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      22/Dec/2015  15:52:40
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\main.c
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\main.c
 //    Command line =  
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\main.c
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\main.c
 //        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 //        USE_IOEXPANDER -D USE_USB_FS -lC
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -lA
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
 //        --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
 //        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -Ohz --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\main.s
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\main.s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -63,8 +63,6 @@
 
         #define SHT_PROGBITS 0x1
 
-        EXTERN AUDIO_SAMPLE
-        EXTERN AudioFlashPlay
         EXTERN BSP_LED_Init
         EXTERN BSP_LED_Toggle
         EXTERN HAL_GPIO_Init
@@ -197,7 +195,7 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon1
         
-// H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\main.c
+// D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\main.c
 //    1 /**
 //    2   ******************************************************************************
 //    3   * @file    Audio/Mic_Array/Src/main.c
@@ -274,7 +272,7 @@ pI2CData:
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
 //   47 uint8_t  pI2CRx[10];
-//   48 extern const uint16_t AUDIO_SAMPLE[];
+//   48 //extern const uint16_t AUDIO_SAMPLE[];
 //   49 extern uint8_t  pcSTAComnd[19];
 //   50 
 //   51 uint16_t __IO idxSPI5DataBuf1, idxSPI5DataBuf2;
@@ -412,12 +410,7 @@ main:
         BL       WavePlayerInit
 //  115 
 //  116     /* Play on */
-//  117   AudioFlashPlay((uint16_t*)(AUDIO_SAMPLE + AUIDO_START_ADDRESS),AUDIO_FILE_SZE,AUIDO_START_ADDRESS);
-        MOVS     R2,#+58
-        LDR.W    R1,??DataTable10_3  ;; 0x6b6c0
-        LDR.W    R0,??DataTable10_4
-          CFI FunCall AudioFlashPlay
-        BL       AudioFlashPlay
+//  117   //AudioFlashPlay((uint16_t*)(AUDIO_SAMPLE + AUIDO_START_ADDRESS),AUDIO_FILE_SZE,AUIDO_START_ADDRESS);
 //  118   //while(1);
 //  119   
 //  120   /* Init TS module */
@@ -438,7 +431,7 @@ main:
 //  135 
 //  136    /* ----------------------*/
 //  137    __GPIOB_CLK_ENABLE();
-        LDR.W    R0,??DataTable10_5  ;; 0x40023830
+        LDR.W    R0,??DataTable10_3  ;; 0x40023830
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x2
         STR      R1,[R0, #+0]
@@ -455,11 +448,11 @@ main:
         MOVS     R0,#+16
         STR      R4,[R5, #+12]
         STR      R0,[R5, #+4]
-        LDR.W    R0,??DataTable10_6  ;; 0x10110000
+        LDR.W    R0,??DataTable10_4  ;; 0x10110000
         STR      R0,[R5, #+8]
         MOVS     R0,#+3
         STR      R0,[R5, #+16]
-        LDR.W    R0,??DataTable10_7  ;; 0x40020400
+        LDR.W    R0,??DataTable10_5  ;; 0x40020400
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 //  143 
@@ -638,7 +631,7 @@ main:
 //  246 
 //  247   if (ticks++ > 200)
 Toggle_Leds:
-        LDR.W    R0,??DataTable10_8
+        LDR.W    R0,??DataTable10_6
         LDR      R1,[R0, #+0]
         ADDS     R2,R1,#+1
         CMP      R1,#+201
@@ -691,7 +684,7 @@ SystemClock_Config:
 //  280   RCC_PeriphCLKInitTypeDef PeriphClkInitStruct;
 //  281 
 //  282   __PWR_CLK_ENABLE();
-        LDR.W    R0,??DataTable10_9  ;; 0x40023840
+        LDR.W    R0,??DataTable10_7  ;; 0x40023840
         SUB      SP,SP,#+204
           CFI CFA R13+208
         LDR      R1,[R0, #+0]
@@ -703,7 +696,7 @@ SystemClock_Config:
         LDR      R0,[SP, #+0]
 //  283 
 //  284   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
-        LDR.W    R0,??DataTable10_10  ;; 0x40007000
+        LDR.W    R0,??DataTable10_8  ;; 0x40007000
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0xC000
         ORR      R1,R1,#0x4000
@@ -872,11 +865,11 @@ MX_I2C1_Init:
 //  365 
 //  366 
 //  367   hi2c1.Instance = I2C1;
-        LDR.W    R4,??DataTable10_11
-        LDR.W    R0,??DataTable10_12  ;; 0x40005400
+        LDR.W    R4,??DataTable10_9
+        LDR.W    R0,??DataTable10_10  ;; 0x40005400
         STR      R0,[R4, #+0]
 //  368   hi2c1.Init.Timing =0x00C0EFFF; //I2C_SPEED DISCOVERY_I2Cx_TIMING;
-        LDR.W    R0,??DataTable10_13  ;; 0xc0efff
+        LDR.N    R0,??DataTable10_11  ;; 0xc0efff
         STR      R0,[R4, #+4]
 //  369                                            //I2C_TIMING ;//I2C_TIMING  0x00303D5D
 //  370                                            //DISCOVERY_I2Cx_TIMING
@@ -937,8 +930,8 @@ HAL_I2C_MspInit:
 //  391     
 //  392   if(hi2c->Instance==I2C1)
         LDR      R0,[R0, #+0]
-        LDR.N    R1,??DataTable10_12  ;; 0x40005400
-        LDR.N    R4,??DataTable10_5  ;; 0x40023830
+        LDR.N    R1,??DataTable10_10  ;; 0x40005400
+        LDR.N    R4,??DataTable10_3  ;; 0x40023830
         CMP      R0,R1
         BNE.N    ??HAL_I2C_MspInit_0
 //  393   {
@@ -976,7 +969,7 @@ HAL_I2C_MspInit:
         MOVS     R0,#+192
         BL       ?Subroutine2
 ??CrossCallReturnLabel_5:
-        LDR.N    R0,??DataTable10_7  ;; 0x40020400
+        LDR.N    R0,??DataTable10_5  ;; 0x40020400
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 //  417 
@@ -1008,7 +1001,7 @@ HAL_I2C_MspInit:
 //  427   }
 //  428   else if(hi2c->Instance==I2C2)
 ??HAL_I2C_MspInit_0:
-        LDR.N    R1,??DataTable10_14  ;; 0x40005800
+        LDR.N    R1,??DataTable10_12  ;; 0x40005800
         CMP      R0,R1
         BNE.N    ??HAL_I2C_MspInit_1
 //  429   {
@@ -1030,7 +1023,7 @@ HAL_I2C_MspInit:
         ADD      R1,SP,#+4
         BL       ?Subroutine2
 ??CrossCallReturnLabel_6:
-        LDR.N    R0,??DataTable10_15  ;; 0x40021400
+        LDR.N    R0,??DataTable10_13  ;; 0x40021400
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 //  444 
@@ -1100,8 +1093,8 @@ HAL_I2C_MspInit:
 //  459 
 //  460   huart6.Instance = USART6;
 UART6_Init:
-        LDR.N    R0,??DataTable10_16
-        LDR.N    R1,??DataTable10_17  ;; 0x40011400
+        LDR.N    R0,??DataTable10_14
+        LDR.N    R1,??DataTable10_15  ;; 0x40011400
         STR      R1,[R0, #+0]
 //  461   huart6.Init.BaudRate = 115200;
         MOV      R1,#+115200
@@ -1144,7 +1137,7 @@ UART6_Init:
 //  478   if(huart->Instance==USART6)
 HAL_UART_MspInit:
         LDR      R0,[R0, #+0]
-        LDR.N    R1,??DataTable10_17  ;; 0x40011400
+        LDR.N    R1,??DataTable10_15  ;; 0x40011400
         CMP      R0,R1
         BEQ.N    ??HAL_UART_MspInit_0
         BX       LR
@@ -1158,7 +1151,7 @@ HAL_UART_MspInit:
         PUSH     {LR}
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+4
-        LDR.N    R0,??DataTable10_5  ;; 0x40023830
+        LDR.N    R0,??DataTable10_3  ;; 0x40023830
         SUB      SP,SP,#+28
           CFI CFA R13+32
         LDR      R1,[R0, #+20]
@@ -1198,7 +1191,7 @@ HAL_UART_MspInit:
         STR      R0,[SP, #+16]
         MOVS     R0,#+8
         STR      R0,[SP, #+20]
-        LDR.N    R0,??DataTable10_18  ;; 0x40020800
+        LDR.N    R0,??DataTable10_16  ;; 0x40020800
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 //  497 
@@ -1241,11 +1234,11 @@ HAL_SPI_MspInit:
 //  513 
 //  514   GPIO_InitTypeDef GPIO_InitStruct;
 //  515   if(hspi->Instance==SPI4)
-        LDR.N    R2,??DataTable10_19  ;; 0x40013400
+        LDR.N    R2,??DataTable10_17  ;; 0x40013400
         SUB      SP,SP,#+28
           CFI CFA R13+32
         LDR      R1,[R0, #+0]
-        LDR.N    R0,??DataTable10_5  ;; 0x40023830
+        LDR.N    R0,??DataTable10_3  ;; 0x40023830
         CMP      R1,R2
         BNE.N    ??HAL_SPI_MspInit_0
 //  516   {
@@ -1284,11 +1277,11 @@ HAL_SPI_MspInit:
 //  539   /* USER CODE END SPI4_MspInit 1 */
 //  540   }
 ??CrossCallReturnLabel_3:
-        LDR.N    R0,??DataTable10_20  ;; 0x40021000
+        LDR.N    R0,??DataTable10_18  ;; 0x40021000
         B.N      ??HAL_SPI_MspInit_1
 //  541   else if(hspi->Instance==SPI5)
 ??HAL_SPI_MspInit_0:
-        LDR.N    R2,??DataTable10_21  ;; 0x40015000
+        LDR.N    R2,??DataTable10_19  ;; 0x40015000
         CMP      R1,R2
         BNE.N    ??HAL_SPI_MspInit_2
 //  542   {
@@ -1335,7 +1328,7 @@ HAL_SPI_MspInit:
         STR      R0,[SP, #+16]
         MOVS     R0,#+5
         STR      R0,[SP, #+20]
-        LDR.N    R0,??DataTable10_15  ;; 0x40021400
+        LDR.N    R0,??DataTable10_13  ;; 0x40021400
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 //  562 
@@ -1357,7 +1350,7 @@ HAL_SPI_MspInit:
 //  569   }
 //  570   else if(hspi->Instance==SPI6)
 ??HAL_SPI_MspInit_2:
-        LDR.N    R2,??DataTable10_22  ;; 0x40015400
+        LDR.N    R2,??DataTable10_20  ;; 0x40015400
         CMP      R1,R2
         BNE.N    ??HAL_SPI_MspInit_3
 //  571   {
@@ -1393,7 +1386,7 @@ HAL_SPI_MspInit:
 //  591   /* USER CODE END SPI6_MspInit 1 */
 //  592   }
 ??CrossCallReturnLabel_4:
-        LDR.N    R0,??DataTable10_23  ;; 0x40021800
+        LDR.N    R0,??DataTable10_21  ;; 0x40021800
 ??HAL_SPI_MspInit_1:
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
@@ -1451,8 +1444,8 @@ MX_SPI5_Init:
           CFI CFA R13+8
 //  600 
 //  601   hspi5.Instance = SPI5;
-        LDR.N    R4,??DataTable10_24
-        LDR.N    R0,??DataTable10_21  ;; 0x40015000
+        LDR.N    R4,??DataTable10_22
+        LDR.N    R0,??DataTable10_19  ;; 0x40015000
         STR      R0,[R4, #+0]
 //  602   hspi5.Init.Mode = SPI_MODE_SLAVE;
         MOVS     R0,#+0
@@ -1537,7 +1530,7 @@ MX_SPI5_Init:
 //  644      (__HAL_SPI_GET_FLAG(&hspi5, SPI_FLAG_RXNE) != RESET)&&
 //  645      (__HAL_SPI_GET_IT_SOURCE(&hspi5, SPI_IT_RXNE) != RESET))
 SPI5_IRQHandler:
-        LDR.N    R0,??DataTable10_24
+        LDR.N    R0,??DataTable10_22
         LDR      R0,[R0, #+0]
         LDR      R1,[R0, #+8]
         LSLS     R1,R1,#+25
@@ -1567,8 +1560,8 @@ SPI5_IRQHandler:
 //  654    {
 //  655 
 //  656       stOder^=0x01;
-        LDR.N    R1,??DataTable10_25
-        LDR.N    R0,??DataTable10_26  ;; 0x4001500c
+        LDR.N    R1,??DataTable10_23
+        LDR.N    R0,??DataTable10_24  ;; 0x4001500c
         LDR      R2,[R0, #+0]
         ADD      R0,R1,#+36864
         ADDS     R0,R0,#+24
@@ -1768,14 +1761,14 @@ EXTI4_IRQHandler:
           CFI CFA R13+16
 //  727     /* EXTI line interrupt detected */
 //  728   if(__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_4) != RESET)
-        LDR.N    R4,??DataTable10_27  ;; 0x40013c14
+        LDR.N    R4,??DataTable10_25  ;; 0x40013c14
         LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+27
         BPL.N    ??EXTI4_IRQHandler_0
 //  729   {
 //  730     
 //  731      if (cntRisingEXTI==10)
-        LDR.N    R5,??DataTable10_28
+        LDR.N    R5,??DataTable10_26
         LDRH     R0,[R5, #+0]
         CMP      R0,#+10
         BNE.N    ??EXTI4_IRQHandler_1
@@ -1841,156 +1834,144 @@ EXTI4_IRQHandler:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable10_3:
-        DC32     0x6b6c0
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable10_4:
-        DC32     AUDIO_SAMPLE+0x74
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable10_5:
         DC32     0x40023830
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_6:
+??DataTable10_4:
         DC32     0x10110000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_7:
+??DataTable10_5:
         DC32     0x40020400
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_8:
+??DataTable10_6:
         DC32     ??ticks
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_9:
+??DataTable10_7:
         DC32     0x40023840
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_10:
+??DataTable10_8:
         DC32     0x40007000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_11:
+??DataTable10_9:
         DC32     hi2c1
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_12:
+??DataTable10_10:
         DC32     0x40005400
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_13:
+??DataTable10_11:
         DC32     0xc0efff
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_14:
+??DataTable10_12:
         DC32     0x40005800
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_15:
+??DataTable10_13:
         DC32     0x40021400
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_16:
+??DataTable10_14:
         DC32     huart6
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_17:
+??DataTable10_15:
         DC32     0x40011400
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_18:
+??DataTable10_16:
         DC32     0x40020800
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_19:
+??DataTable10_17:
         DC32     0x40013400
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_20:
+??DataTable10_18:
         DC32     0x40021000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_21:
+??DataTable10_19:
         DC32     0x40015000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_22:
+??DataTable10_20:
         DC32     0x40015400
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_23:
+??DataTable10_21:
         DC32     0x40021800
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_24:
+??DataTable10_22:
         DC32     hspi5
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_25:
+??DataTable10_23:
         DC32     Buffer1
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_26:
+??DataTable10_24:
         DC32     0x4001500c
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_27:
+??DataTable10_25:
         DC32     0x40013c14
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_28:
+??DataTable10_26:
         DC32     cntRisingEXTI
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
@@ -2012,9 +1993,9 @@ EXTI4_IRQHandler:
 // 
 // 57 331 bytes in section .bss
 //     20 bytes in section .data
-//  1 442 bytes in section .text
+//  1 418 bytes in section .text
 // 
-//  1 442 bytes of CODE memory
+//  1 418 bytes of CODE memory
 // 57 351 bytes of DATA memory
 //
 //Errors: none
