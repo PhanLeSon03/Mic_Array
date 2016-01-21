@@ -101,128 +101,46 @@
 #include "audio.h"
 #include "main.h"
 
- /* This is an audio file stored in the Flash memory as a constant table of 16-bit data.
-    The audio format should be WAV (raw / PCM) 16-bits, Stereo (sampling rate may be modified) */
-extern const uint16_t AUDIO_SAMPLE[];
-/* Audio file size and start address are defined here since the audio file is 
-    stored in Flash memory as a constant table of 16-bit data */
-
-
-#define  I2C_CR1_SMBUS                       ((uint16_t)0x0002)            /*!<SMBus Mode */
-#define  I2C_CR1_SMBTYPE                     ((uint16_t)0x0008)            /*!<SMBus Type */
-#define  I2C_CR1_ENARP                       ((uint16_t)0x0010)            /*!<ARP Enable */
-#define  I2C_CR1_ENPEC                       ((uint16_t)0x0020)            /*!<PEC Enable */
-#define  I2C_CR1_ENGC                        ((uint16_t)0x0040)            /*!<General Call Enable */
-
-#define  I2C_CR1_START                       ((uint16_t)0x0100)            /*!<Start Generation */
-#define  I2C_CR1_STOP                        ((uint16_t)0x0200)            /*!<Stop Generation */
-#define  I2C_CR1_ACK                         ((uint16_t)0x0400)            /*!<Acknowledge Enable */
-#define  I2C_CR1_POS                         ((uint16_t)0x0800)            /*!<Acknowledge/PEC Position (for data reception) */
-#define  I2C_CR1_PEC                         ((uint16_t)0x1000)            /*!<Packet Error Checking */
-#define  I2C_CR1_ALERT                       ((uint16_t)0x2000)            /*!<SMBus Alert */
-
-#define  I2C_Direction_Transmitter      ((uint8_t)0x00)
-#define  I2C_Direction_Receiver         ((uint8_t)0x01)
-#define IS_I2C_DIRECTION(DIRECTION) (((DIRECTION) == I2C_Direction_Transmitter) || \
-                                     ((DIRECTION) == I2C_Direction_Receiver))
-/*******************  Bit definition for I2C_OAR1 register  *******************/
-#define  I2C_OAR1_ADD1_7                     ((uint16_t)0x00FE)            /*!<Interface Address */
-#define  I2C_OAR1_ADD8_9                     ((uint16_t)0x0300)            /*!<Interface Address */
-									 
-#define  I2C_OAR1_ADD0                       ((uint16_t)0x0001)            /*!<Bit 0 */
-#define  I2C_OAR1_ADD1                       ((uint16_t)0x0002)            /*!<Bit 1 */
-#define  I2C_OAR1_ADD2                       ((uint16_t)0x0004)            /*!<Bit 2 */
-#define  I2C_OAR1_ADD3                       ((uint16_t)0x0008)            /*!<Bit 3 */
-#define  I2C_OAR1_ADD4                       ((uint16_t)0x0010)            /*!<Bit 4 */
-#define  I2C_OAR1_ADD5                       ((uint16_t)0x0020)            /*!<Bit 5 */
-#define  I2C_OAR1_ADD6                       ((uint16_t)0x0040)            /*!<Bit 6 */
-#define  I2C_OAR1_ADD7                       ((uint16_t)0x0080)            /*!<Bit 7 */
-#define  I2C_OAR1_ADD8                       ((uint16_t)0x0100)            /*!<Bit 8 */
-#define  I2C_OAR1_ADD9                       ((uint16_t)0x0200)            /*!<Bit 9 */
-									 
-#define  I2C_OAR1_ADDMODE                    ((uint16_t)0x8000)            /*!<Addressing Mode (Slave mode) */
-
-#define CR1_CLEAR_MASK    ((uint16_t)0xFBF5)      /*<! I2C registers Masks */
-#define FLAG_MASK         ((uint32_t)0x00FFFFFF)  /*<! I2C FLAG mask */
-#define ITEN_MASK         ((uint32_t)0x07000000)  /*<! I2C Interrupt Enable mask */
-
-#define  I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED        ((uint32_t)0x00070082)  /* BUSY, MSL, ADDR, TXE and TRA flags */
-#define  I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED           ((uint32_t)0x00030002)  /* BUSY, MSL and ADDR flags */
-/* --EV9 */
-#define  I2C_EVENT_MASTER_MODE_ADDRESS10                   ((uint32_t)0x00030008)  /* BUSY, MSL and ADD10 flags */
-
-/* Master RECEIVER mode -----------------------------*/ 
-/* --EV7 */
-#define  I2C_EVENT_MASTER_BYTE_RECEIVED                    ((uint32_t)0x00030040)  /* BUSY, MSL and RXNE flags */
-
-/* Master TRANSMITTER mode --------------------------*/
-/* --EV8 */
-#define I2C_EVENT_MASTER_BYTE_TRANSMITTING                 ((uint32_t)0x00070080) /* TRA, BUSY, MSL, TXE flags */
-/* --EV8_2 */
-#define  I2C_EVENT_MASTER_BYTE_TRANSMITTED                 ((uint32_t)0x00070084)  /* TRA, BUSY, MSL, TXE and BTF flags */
-
-#define I2C_FLAG_SMBALERT               ((uint32_t)0x00018000)
-
-#define I2C_FLAG_ADD10                  ((uint32_t)0x00010008)
-#define I2C_FLAG_BTF                    ((uint32_t)0x00010004)
-
-#define I2C_FLAG_SB                     ((uint32_t)0x00010001)
-#define I2C_FLAG_DUALF                  ((uint32_t)0x00100080)
-#define I2C_FLAG_SMBHOST                ((uint32_t)0x00100040)
-#define I2C_FLAG_SMBDEFAULT             ((uint32_t)0x00100020)
-#define I2C_FLAG_GENCALL                ((uint32_t)0x00100010)
-#define I2C_FLAG_TRA                    ((uint32_t)0x00100004)
-
-#define I2C_FLAG_MSL                    ((uint32_t)0x00100001)
-#define  I2C_EVENT_MASTER_MODE_SELECT                      ((uint32_t)0x00030001)  /* BUSY, MSL and SB flag */
-
-
-#define SPI_I2S_DMAReq_Tx               ((uint16_t)0x0002)
-#define SPI_I2S_DMAReq_Rx               ((uint16_t)0x0001)
-//#define IS_SPI_I2S_DMAREQ(DMAREQ) ((((DMAREQ) & (uint16_t)0xFFFC) == 0x00) && ((DMAREQ) != 0x00))
-
 
 /** 
   *      This file includes the low layer driver for CS43L22 Audio Codec
-  *              available on STM32F4-Discovery Kit.
-  *
   */ 
 
-
-
+#define SPI_I2S_DMAReq_Tx               ((uint16_t)0x0002)
+#define SPI_I2S_DMAReq_Rx               ((uint16_t)0x0001)
 /* Mask for the bit EN of the I2S CFGR register */
 #define I2S_ENABLE_MASK                 0x0400
-
 /* Delay for the Codec to be correctly reset */
 #define CODEC_RESET_DELAY               0x4FFF
-
-
 /* The 7 bits Codec address (sent through I2C interface) */
 #define CODEC_ADDRESS                   0x94  /* b00100111 */
+
+
+/* This is an audio file stored in the Flash memory as a constant table of 16-bit data.
+    The audio format should be WAV (raw / PCM) 16-bits, Stereo (sampling rate may be modified) */
+extern const uint16_t AUDIO_SAMPLE[];
+extern __IO uint8_t XferCplt;
+extern I2S_HandleTypeDef     hi2s3;
 
 
 /* This structure is declared global because it is handled by two different functions */
 DMA_InitTypeDef DMA_InitStructure; 
 DMA_InitTypeDef AUDIO_MAL_DMA_InitStructure;
+DMA_HandleTypeDef     DmaHandle;
+I2C_HandleTypeDef     hi2c1,hi2c2;
 
 uint32_t AudioTotalSize = 0xFFFF; /* This variable holds the total size of the audio file */
 uint32_t AudioRemSize   = 0xFFFF; /* This variable holds the remaining data in audio file */
-uint16_t *CurrentPos ;             /* This variable holds the current position of audio pointer */
-
 __IO uint32_t  CODECTimeout = CODEC_LONG_TIMEOUT;   
-__IO uint8_t OutputDev = 0;
 __IO uint32_t CurrAudioInterface = AUDIO_INTERFACE_I2S; //AUDIO_INTERFACE_DAC
-extern __IO uint8_t XferCplt;
-
-DMA_HandleTypeDef     DmaHandle;
-I2S_HandleTypeDef     hi2s3;
-I2C_HandleTypeDef     hi2c1;
+__IO uint8_t OutputDev = 0;
+uint16_t *CurrentPos ;             /* This variable holds the current position of audio pointer */
 uint8_t Volume=80;
-static void Audio_MAL_IRQHandler(void);
+
+
 /*-----------------------------------
                            Audio Codec functions 
                                     ------------------------------------------*/
-/* High Layer codec functions */
 static uint32_t Codec_Init(uint16_t OutputDevice, uint8_t Volume, uint32_t AudioFreq);
 static uint32_t Codec_DeInit(void);
 static uint32_t Codec_Play(void);
@@ -230,7 +148,6 @@ static uint32_t Codec_PauseResume(uint32_t Cmd);
 static uint32_t Codec_Stop(uint32_t Cmd);
 static uint32_t Codec_VolumeCtrl(uint8_t Volume);
 static uint32_t Codec_Mute(uint32_t Cmd);
-/* Low layer codec functions */
 static void     Codec_CtrlInterface_Init(void);
 static void     Codec_CtrlInterface_DeInit(void);
 static void     Codec_AudioInterface_Init(uint32_t AudioFreq);
@@ -241,31 +158,10 @@ static uint32_t Codec_ReadRegister(uint8_t RegisterAddr);
 static void     Codec_GPIO_Init(void);
 static void     Codec_GPIO_DeInit(void);
 static void     Delay(__IO uint32_t nCount);
-static void SPI_I2S_SendData(SPI_TypeDef* SPIx, uint16_t Data);
-static void I2C_GenerateSTART(I2C_TypeDef* I2Cx, FunctionalState NewState);
-static void I2C_Send7bitAddress(I2C_TypeDef* I2Cx, uint8_t Address, uint8_t I2C_Direction);
-static ErrorStatus I2C_CheckEvent(I2C_TypeDef* I2Cx, uint32_t I2C_EVENT);
-static void I2C_SendData(I2C_TypeDef* I2Cx, uint8_t Data);
-static void I2C_GenerateSTOP(I2C_TypeDef* I2Cx, FunctionalState NewState);
-static FlagStatus I2C_GetFlagStatus(I2C_TypeDef* I2Cx, uint32_t I2C_FLAG);
-static void I2C_AcknowledgeConfig(I2C_TypeDef* I2Cx, FunctionalState NewState);
-static uint8_t I2C_ReceiveData(I2C_TypeDef* I2Cx);
-static void I2C_ClearFlag(I2C_TypeDef* I2Cx, uint32_t I2C_FLAG);
-
-static void I2S_Cmd(SPI_TypeDef* SPIx, FunctionalState NewState);
-static void SPI_I2S_DeInit(SPI_TypeDef* SPIx);
-static void DMA_Cmd(DMA_Stream_TypeDef* DMAy_Streamx, FunctionalState NewState);
-static void DMA_DeInit(DMA_Stream_TypeDef* DMAy_Streamx);
-static void SPI_I2S_DMACmd(SPI_TypeDef* SPIx, uint16_t SPI_I2S_DMAReq, FunctionalState NewState);
-static void DMA_ClearFlag(DMA_Stream_TypeDef* DMAy_Streamx, uint32_t DMA_FLAG);
-
-/*----------------------------------------------------------------------------*/
-
-/*-----------------------------------
-                   MAL (Media Access Layer) functions 
-                                    ------------------------------------------*/
-/* Peripherals configuration functions */
-
+static void     I2S_Cmd(SPI_TypeDef* SPIx, FunctionalState NewState);
+static void     SPI_I2S_DeInit(SPI_TypeDef* SPIx);
+static void     DMA_Cmd(DMA_Stream_TypeDef* DMAy_Streamx, FunctionalState NewState);
+static void     SPI_I2S_DMACmd(SPI_TypeDef* SPIx, uint16_t SPI_I2S_DMAReq, FunctionalState NewState);
 static void     Audio_MAL_DeInit(void);
 static void     Audio_MAL_PauseResume(uint32_t Cmd, uint32_t Addr);
 static void     Audio_MAL_Stop(void);
@@ -284,7 +180,7 @@ uint32_t AUDIO_Init(uint16_t OutputDevice, uint8_t Vol, uint32_t AudioFreq)
 	/* Perform low layer Codec initialization */
 	if (Codec_Init(OutputDevice, VOLUME_CONVERT(Vol), AudioFreq)!=HAL_OK)
 	{
-        BSP_LED_Toggle(LED2);
+            //BSP_LED_Toggle(LED2);
 	}
 	
 	return 0;
@@ -416,97 +312,6 @@ uint32_t AUDIO_Mute(uint32_t Cmd)
   return (Codec_Mute(Cmd));
 }
 
-/**
-  * @brief  This function handles main Media layer interrupt. 
-  * @param  None
-  * @retval 0 if correct communication, else wrong communication
-  */
-static void Audio_MAL_IRQHandler(void)
-{    
-  uint16_t *pAddr = (uint16_t *)CurrentPos;
-  uint32_t Size = AudioRemSize;
-  
-#ifdef AUDIO_MAL_DMA_IT_TC_EN
-  /* Transfer complete interrupt */
-  if (__HAL_DMA_GET_FLAG(&DmaHandle,AUDIO_I2S_DMA_FLAG_TC)!=RESET)
-  {         
-    /* Check if the end of file has been reached */
-    if (AudioRemSize > 0)
-    {      
-      /* Wait the DMA Stream to be effectively disabled */
-      //while (HAL_DMA_GetState(&DmaHandle) != DISABLE)
-      //{}
-      
-      /* Clear the Interrupt flag */
-      __HAL_DMA_CLEAR_FLAG(&DmaHandle, AUDIO_I2S_DMA_FLAG_TC);
-          
-      /* Re-Configure the buffer address and size */
-       DmaHandle.Instance->M0AR = (uint32_t) CurrentPos;
-       DmaHandle.Instance->NDTR = (uint32_t) (DMA_MAX(AudioRemSize));    
-      /* Configure the DMA Stream with the new parameters */
-      HAL_DMA_Init(&DmaHandle);
-      
-      /* Enable the I2S DMA Stream*/
-	  __HAL_DMA_ENABLE(&DmaHandle);
-      
-      /* Update the current pointer position */
-      CurrentPos += DMA_MAX(AudioRemSize);        
-      
-      /* Update the remaining number of data to be played */
-      AudioRemSize -= DMA_MAX(AudioRemSize);   
-
-	  /* Enable the I2S DMA Stream*/
-      __HAL_DMA_ENABLE(&DmaHandle);
-    }
-    else
-    {
-      /* Disable the I2S DMA Stream*/
-      __HAL_DMA_DISABLE(&DmaHandle);   
-      
-      /* Clear the Interrupt flag */
-       __HAL_DMA_CLEAR_FLAG(&DmaHandle, AUDIO_I2S_DMA_FLAG_TC);       
-      
-      /* Manage the remaining file size and new address offset: This function 
-      should be coded by user (its prototype is already declared in stm32f4_discovery_audio_codec.h) */  
-      AUDIO_TransferComplete_CallBack((uint32_t)CurrentPos, 0);       
-    }
-    
- 
-  }
-#endif /* AUDIO_MAL_DMA_IT_TC_EN */
-
-#ifdef AUDIO_MAL_DMA_IT_HT_EN  
-  /* Half Transfer complete interrupt */
-  //if (DMA_GetFlagStatus(AUDIO_I2S_DMA_STREAM, AUDIO_I2S_DMA_FLAG_HT) != RESET)
-  if (__HAL_DMA_GET_FLAG(&DmaHandle, AUDIO_I2S_DMA_FLAG_HT) != RESET)
-  {
-    /* Manage the remaining file size and new address offset: This function 
-       should be coded by user (its prototype is already declared in stm32f4_discovery_audio_codec.h) */  
-    AUDIO_HalfTransfer_CallBack((uint32_t)pAddr, Size);    
-   
-    /* Clear the Interrupt flag */
-	__HAL_DMA_CLEAR_FLAG(&DmaHandle, AUDIO_I2S_DMA_FLAG_HT); 
-
-  }
-#endif /* AUDIO_MAL_DMA_IT_HT_EN */
-  
-#ifdef AUDIO_MAL_DMA_IT_TE_EN  
-  /* FIFO Error interrupt */
-  if ((__HAL_DMA_GET_FLAG(&DmaHandle, AUDIO_I2S_DMA_FLAG_TE) != RESET) || \
-     (__HAL_DMA_GET_FLAG(&DmaHandle, AUDIO_I2S_DMA_FLAG_FE) != RESET) || \
-     (__HAL_DMA_GET_FLAG(&DmaHandle, AUDIO_I2S_DMA_FLAG_DME) != RESET))
-    
-  {
-    /* Manage the error generated on DMA FIFO: This function 
-       should be coded by user (its prototype is already declared in stm32f4_discovery_audio_codec.h) */  
-    AUDIO_Error_CallBack((uint32_t*)&pAddr);    
-    
-    /* Clear the Interrupt flag */
-    __HAL_DMA_CLEAR_FLAG(&DmaHandle, AUDIO_I2S_DMA_FLAG_TE | AUDIO_I2S_DMA_FLAG_FE | \
-                                        AUDIO_I2S_DMA_FLAG_DME);
-  }  
-#endif /* AUDIO_MAL_DMA_IT_TE_EN */
-}
 
 /**
   * @brief  This function handles main I2S interrupt. 
@@ -515,18 +320,18 @@ static void Audio_MAL_IRQHandler(void)
   */
 void DMA1_Stream7_IRQHandler(void)
 { 
-    //Audio_MAL_IRQHandler();
 	HAL_DMA_IRQHandler(hi2s3.hdmatx);
 }
 
 /**
   * @brief  This function handles main DAC interrupt. 
   * @param  None
-   * @retval None
+  * @retval None
   */
 void DMA1_Stream0_IRQHandler(void)
-{ 
-  Audio_MAL_IRQHandler();
+{
+  //DAC is not used any more
+  //Audio_MAL_IRQHandler();
 }
 
 /**
@@ -561,13 +366,13 @@ static uint32_t Codec_Init(uint16_t OutputDevice, uint8_t Vol, uint32_t AudioFre
   uint32_t counter = 0; 
 
   /* Configure the Codec related IOs */
-  Codec_GPIO_Init();   
+  Codec_GPIO_Init();   //only reset Pin configuration
   
   /* Reset the Codec Registers */
-  Codec_Reset();
+  Codec_Reset(); //  OFF ON the oin reset
 
   /* Initialize the Control interface of the Audio Codec */
-  Codec_CtrlInterface_Init();     
+  Codec_CtrlInterface_Init();     // I2C1 pin configuration
   
   /* Keep Codec powered OFF */
   counter += Codec_WriteRegister(0x02, 0x01);  
@@ -610,7 +415,7 @@ static uint32_t Codec_Init(uint16_t OutputDevice, uint8_t Vol, uint32_t AudioFre
   counter += Codec_WriteRegister(0x1B, 0x0A);
 
   /* Configure the I2S peripheral */
-  Codec_AudioInterface_Init(AudioFreq);  
+  Codec_AudioInterface_Init(AudioFreq);  //I2S3 is using
   
   /* Return communication control value */
   return counter;  
@@ -915,38 +720,7 @@ static void Codec_CtrlInterface_DeInit(void)
   */
 static void Codec_AudioInterface_Init(uint32_t AudioFreq)
 {
-    
-// static I2S_HandleTypeDef hi2s3;
-  /* Enable the CODEC_I2S peripheral clock */
-  __SPI3_CLK_ENABLE();
-
-  hi2s3.Instance = SPI3;
-  /* Disable I2S3 peripheral to allow access to I2S internal registers */
-  __HAL_I2S_DISABLE(&hi2s3);
-  
-  hi2s3.Init.Standard = I2S_STANDARD;
-  hi2s3.Init.DataFormat = I2S_DATAFORMAT_16B;
-  hi2s3.Init.AudioFreq = AudioFreq;
-  hi2s3.Init.CPOL = I2S_CPOL_LOW;
-  hi2s3.Init.ClockSource = I2S_CLOCK_SYSCLK;
-  hi2s3.Init.Mode = I2S_MODE_MASTER_TX;
-
-#ifdef CODEC_MCLK_ENABLED
-  hi2s3.Init.MCLKOutput = I2S_MCLKOUTPUT_ENABLE;
-#elif defined(CODEC_MCLK_DISABLED)
-  hi2s3.Init.MCLKOutput = I2S_MCLKOUTPUT_DISABLE;
-#else
-#error "No selection for the MCLK output has been defined !"
-#endif /* CODEC_MCLK_ENABLED */
-  
-  /* Initialize the I2S peripheral with the structure above */
-  HAL_I2S_Init(&hi2s3);
- 
- // __HAL_I2S_ENABLE(&hi2s3);
-  
-
-  /* The I2S peripheral will be enabled only in the AUDIO_Play() function 
-       or by user functions if DMA mode not enabled */  
+  I2S3_Init(AudioFreq); 
 }
 
 /**
@@ -1154,293 +928,11 @@ void DAC_Config(void)
 
 }
 
-static void SPI_I2S_SendData(SPI_TypeDef* SPIx, uint16_t Data)
-{
-  /* Check the parameters */
-  assert_param(IS_SPI_ALL_PERIPH_EXT(SPIx));
-  
-  /* Write in the DR register the data to be sent */
-  SPIx->DR = Data;
-}
-
-
-static void I2C_GenerateSTART(I2C_TypeDef* I2Cx, FunctionalState NewState)
-{
-  /* Check the parameters */
-  assert_param(IS_I2C_ALL_PERIPH(I2Cx));
-  assert_param(IS_FUNCTIONAL_STATE(NewState));
-  if (NewState != DISABLE)
-  {
-    /* Generate a START condition */
-    I2Cx->CR1 |= I2C_CR1_START;
-  }
-  else
-  {
-    /* Disable the START condition generation */
-    I2Cx->CR1 &= (uint16_t)~((uint16_t)I2C_CR1_START);
-  }
-}
-
-static void I2C_Send7bitAddress(I2C_TypeDef* I2Cx, uint8_t Address, uint8_t I2C_Direction)
-{
-
-  /* Test on the direction to set/reset the read/write bit */
-  if (I2C_Direction != I2C_Direction_Transmitter)
-  {
-    /* Set the address bit0 for read */
-    Address |= I2C_OAR1_ADD0;
-  }
-  else
-  {
-    /* Reset the address bit0 for write */
-    Address &= (uint8_t)~((uint8_t)I2C_OAR1_ADD0);
-  }
-  /* Send the address */
-
-  I2Cx->TXDR = Address;
-
-}
-
-
-/*
- ===============================================================================
-                          1. Basic state monitoring                    
- ===============================================================================  
- */
-
-/**
-  * @brief  Checks whether the last I2Cx Event is equal to the one passed
-  *         as parameter.
-  * @param  I2Cx: where x can be 1, 2 or 3 to select the I2C peripheral.
-  * @param  I2C_EVENT: specifies the event to be checked. 
-  *          This parameter can be one of the following values:
-  *            @arg I2C_EVENT_SLAVE_TRANSMITTER_ADDRESS_MATCHED: EV1
-  *            @arg I2C_EVENT_SLAVE_RECEIVER_ADDRESS_MATCHED: EV1
-  *            @arg I2C_EVENT_SLAVE_TRANSMITTER_SECONDADDRESS_MATCHED: EV1
-  *            @arg I2C_EVENT_SLAVE_RECEIVER_SECONDADDRESS_MATCHED: EV1
-  *            @arg I2C_EVENT_SLAVE_GENERALCALLADDRESS_MATCHED: EV1
-  *            @arg I2C_EVENT_SLAVE_BYTE_RECEIVED: EV2
-  *            @arg (I2C_EVENT_SLAVE_BYTE_RECEIVED | I2C_FLAG_DUALF): EV2
-  *            @arg (I2C_EVENT_SLAVE_BYTE_RECEIVED | I2C_FLAG_GENCALL): EV2
-  *            @arg I2C_EVENT_SLAVE_BYTE_TRANSMITTED: EV3
-  *            @arg (I2C_EVENT_SLAVE_BYTE_TRANSMITTED | I2C_FLAG_DUALF): EV3
-  *            @arg (I2C_EVENT_SLAVE_BYTE_TRANSMITTED | I2C_FLAG_GENCALL): EV3
-  *            @arg I2C_EVENT_SLAVE_ACK_FAILURE: EV3_2
-  *            @arg I2C_EVENT_SLAVE_STOP_DETECTED: EV4
-  *            @arg I2C_EVENT_MASTER_MODE_SELECT: EV5
-  *            @arg I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED: EV6     
-  *            @arg I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED: EV6
-  *            @arg I2C_EVENT_MASTER_BYTE_RECEIVED: EV7
-  *            @arg I2C_EVENT_MASTER_BYTE_TRANSMITTING: EV8
-  *            @arg I2C_EVENT_MASTER_BYTE_TRANSMITTED: EV8_2
-  *            @arg I2C_EVENT_MASTER_MODE_ADDRESS10: EV9
-  *     
-  * @note   For detailed description of Events, please refer to section I2C_Events
-  *         in stm32f4xx_i2c.h file.
-  *    
-  * @retval An ErrorStatus enumeration value:
-  *           - SUCCESS: Last event is equal to the I2C_EVENT
-  *           - ERROR: Last event is different from the I2C_EVENT
-  */
-static ErrorStatus I2C_CheckEvent(I2C_TypeDef* I2Cx, uint32_t I2C_EVENT)
-{
-  uint32_t lastevent = 0;
-  ErrorStatus status = ERROR;
-
-  
-  /* Get the last event value from I2C status register */
-  lastevent = I2Cx->ISR;
-
-  /* Check whether the last event contains the I2C_EVENT */
-  if ((lastevent & I2C_EVENT) == I2C_EVENT)
-  {
-    /* SUCCESS: last event is equal to I2C_EVENT */
-    status = SUCCESS;
-  }
-  else
-  {
-    /* ERROR: last event is different from I2C_EVENT */
-    status = ERROR;
-  }
-  /* Return status */
-  return status;
-}
-
-
-static void I2C_SendData(I2C_TypeDef* I2Cx, uint8_t Data)
-{
-
-  /* Write in the DR register the data to be sent */
-  I2Cx->TXDR = Data;
-}
-
-static void I2C_GenerateSTOP(I2C_TypeDef* I2Cx, FunctionalState NewState)
-{
-
-  if (NewState != DISABLE)
-  {
-    /* Generate a STOP condition */
-    I2Cx->CR1 |= I2C_CR1_STOP;
-  }
-  else
-  {
-    /* Disable the STOP condition generation */
-    I2Cx->CR1 &= (uint16_t)~((uint16_t)I2C_CR1_STOP);
-  }
-}
 
 
 
-/*
- ===============================================================================
-                          3. Flag-based state monitoring                   
- ===============================================================================  
- */
-
-/**
-  * @brief  Checks whether the specified I2C flag is set or not.
-  * @param  I2Cx: where x can be 1, 2 or 3 to select the I2C peripheral.
-  * @param  I2C_FLAG: specifies the flag to check. 
-  *          This parameter can be one of the following values:
-  *            @arg I2C_FLAG_DUALF: Dual flag (Slave mode)
-  *            @arg I2C_FLAG_SMBHOST: SMBus host header (Slave mode)
-  *            @arg I2C_FLAG_SMBDEFAULT: SMBus default header (Slave mode)
-  *            @arg I2C_FLAG_GENCALL: General call header flag (Slave mode)
-  *            @arg I2C_FLAG_TRA: Transmitter/Receiver flag
-  *            @arg I2C_FLAG_BUSY: Bus busy flag
-  *            @arg I2C_FLAG_MSL: Master/Slave flag
-  *            @arg I2C_FLAG_SMBALERT: SMBus Alert flag
-  *            @arg I2C_FLAG_TIMEOUT: Timeout or Tlow error flag
-  *            @arg I2C_FLAG_PECERR: PEC error in reception flag
-  *            @arg I2C_FLAG_OVR: Overrun/Underrun flag (Slave mode)
-  *            @arg I2C_FLAG_AF: Acknowledge failure flag
-  *            @arg I2C_FLAG_ARLO: Arbitration lost flag (Master mode)
-  *            @arg I2C_FLAG_BERR: Bus error flag
-  *            @arg I2C_FLAG_TXE: Data register empty flag (Transmitter)
-  *            @arg I2C_FLAG_RXNE: Data register not empty (Receiver) flag
-  *            @arg I2C_FLAG_STOPF: Stop detection flag (Slave mode)
-  *            @arg I2C_FLAG_ADD10: 10-bit header sent flag (Master mode)
-  *            @arg I2C_FLAG_BTF: Byte transfer finished flag
-  *            @arg I2C_FLAG_ADDR: Address sent flag (Master mode) "ADSL"
-  *                                Address matched flag (Slave mode)"ENDAD"
-  *            @arg I2C_FLAG_SB: Start bit flag (Master mode)
-  * @retval The new state of I2C_FLAG (SET or RESET).
-  */
-static FlagStatus I2C_GetFlagStatus(I2C_TypeDef* I2Cx, uint32_t I2C_FLAG)
-{
-  FlagStatus bitstatus = RESET;
-  __IO uint32_t i2creg = 0, i2cxbase = 0;
 
 
-  /* Get the I2Cx peripheral base address */
-  i2cxbase = (uint32_t)I2Cx;
-  
-  /* Read flag register index */
-  i2creg = I2C_FLAG >> 28;
-  
-  /* Get bit[23:0] of the flag */
-  I2C_FLAG &= FLAG_MASK;
-  
-  if(i2creg != 0)
-  {
-    /* Get the I2Cx SR1 register address */
-    i2cxbase += 0x14;
-  }
-  else
-  {
-    /* Flag in I2Cx SR2 Register */
-    I2C_FLAG = (uint32_t)(I2C_FLAG >> 16);
-    /* Get the I2Cx SR2 register address */
-    i2cxbase += 0x18;
-  }
-  
-  if(((*(__IO uint32_t *)i2cxbase) & I2C_FLAG) != (uint32_t)RESET)
-  {
-    /* I2C_FLAG is set */
-    bitstatus = SET;
-  }
-  else
-  {
-    /* I2C_FLAG is reset */
-    bitstatus = RESET;
-  }
-  
-  /* Return the I2C_FLAG status */
-  return  bitstatus;
-}
-
-/**
-  * @brief  Enables or disables the specified I2C acknowledge feature.
-  * @param  I2Cx: where x can be 1, 2 or 3 to select the I2C peripheral.
-  * @param  NewState: new state of the I2C Acknowledgement.
-  *          This parameter can be: ENABLE or DISABLE.
-  * @retval None.
-  */
-static void I2C_AcknowledgeConfig(I2C_TypeDef* I2Cx, FunctionalState NewState)
-{
-  if (NewState != DISABLE)
-  {
-    /* Enable the acknowledgement */
-    I2Cx->CR1 |= I2C_CR1_ACK;
-  }
-  else
-  {
-    /* Disable the acknowledgement */
-    I2Cx->CR1 &= (uint16_t)~((uint16_t)I2C_CR1_ACK);
-  }
-}
-
-/**
-  * @brief  Returns the most recent received data by the I2Cx peripheral.
-  * @param  I2Cx: where x can be 1, 2 or 3 to select the I2C peripheral.
-  * @retval The value of the received data.
-  */
-static uint8_t I2C_ReceiveData(I2C_TypeDef* I2Cx)
-{
-  /* Return the data in the DR register */
-  return (uint8_t)I2Cx->RXDR;
-}
-
-/**
-  * @brief  Clears the I2Cx's pending flags.
-  * @param  I2Cx: where x can be 1, 2 or 3 to select the I2C peripheral.
-  * @param  I2C_FLAG: specifies the flag to clear. 
-  *          This parameter can be any combination of the following values:
-  *            @arg I2C_FLAG_SMBALERT: SMBus Alert flag
-  *            @arg I2C_FLAG_TIMEOUT: Timeout or Tlow error flag
-  *            @arg I2C_FLAG_PECERR: PEC error in reception flag
-  *            @arg I2C_FLAG_OVR: Overrun/Underrun flag (Slave mode)
-  *            @arg I2C_FLAG_AF: Acknowledge failure flag
-  *            @arg I2C_FLAG_ARLO: Arbitration lost flag (Master mode)
-  *            @arg I2C_FLAG_BERR: Bus error flag
-  *   
-  * @note   STOPF (STOP detection) is cleared by software sequence: a read operation 
-  *          to I2C_SR1 register (I2C_GetFlagStatus()) followed by a write operation 
-  *          to I2C_CR1 register (I2C_Cmd() to re-enable the I2C peripheral).
-  * @note   ADD10 (10-bit header sent) is cleared by software sequence: a read 
-  *          operation to I2C_SR1 (I2C_GetFlagStatus()) followed by writing the 
-  *          second byte of the address in DR register.
-  * @note   BTF (Byte Transfer Finished) is cleared by software sequence: a read 
-  *          operation to I2C_SR1 register (I2C_GetFlagStatus()) followed by a 
-  *          read/write to I2C_DR register (I2C_SendData()).
-  * @note   ADDR (Address sent) is cleared by software sequence: a read operation to 
-  *          I2C_SR1 register (I2C_GetFlagStatus()) followed by a read operation to 
-  *          I2C_SR2 register ((void)(I2Cx->SR2)).
-  * @note   SB (Start Bit) is cleared software sequence: a read operation to I2C_SR1
-  *          register (I2C_GetFlagStatus()) followed by a write operation to I2C_DR
-  *          register (I2C_SendData()).
-  *  
-  * @retval None
-  */
-static void I2C_ClearFlag(I2C_TypeDef* I2Cx, uint32_t I2C_FLAG)
-{
-  uint32_t flagpos = 0;
-
-  /* Get the I2C flag position */
-  flagpos = I2C_FLAG & FLAG_MASK;
-  /* Clear the selected I2C flag */
-  I2Cx->ISR = (uint16_t)~flagpos;
-}
 
 /**
   * @brief  Enables or disables the specified SPI peripheral (in I2S mode).
@@ -1552,37 +1044,6 @@ static void DMA_Cmd(DMA_Stream_TypeDef* DMAy_Streamx, FunctionalState NewState)
   }
 }
 
-/**
-  * @brief  Deinitialize the DMAy Streamx registers to their default reset values.
-  * @param  DMAy_Streamx: where y can be 1 or 2 to select the DMA and x can be 0
-  *         to 7 to select the DMA Stream.
-  * @retval None
-  */
-static void DMA_DeInit(DMA_Stream_TypeDef* DMAy_Streamx)
-{
-
-  /* Disable the selected DMAy Streamx */
-  DMAy_Streamx->CR &= ~((uint32_t)DMA_SxCR_EN);
-
-  /* Reset DMAy Streamx control register */
-  DMAy_Streamx->CR  = 0;
-  
-  /* Reset DMAy Streamx Number of Data to Transfer register */
-  DMAy_Streamx->NDTR = 0;
-  
-  /* Reset DMAy Streamx peripheral address register */
-  DMAy_Streamx->PAR  = 0;
-  
-  /* Reset DMAy Streamx memory 0 address register */
-  DMAy_Streamx->M0AR = 0;
-
-  /* Reset DMAy Streamx memory 1 address register */
-  DMAy_Streamx->M1AR = 0;
-
-  /* Reset DMAy Streamx FIFO control register */
-  DMAy_Streamx->FCR = (uint32_t)0x00000021; 
-
- }
 
 /**
   * @brief  Enables or disables the SPIx/I2Sx DMA interface.
@@ -1615,11 +1076,6 @@ static void SPI_I2S_DMACmd(SPI_TypeDef* SPIx, uint16_t SPI_I2S_DMAReq, Functiona
   }
 }
 
-static void DMA_ClearFlag(DMA_Stream_TypeDef* DMAy_Streamx, uint32_t DMA_FLAG)
-{
-
-  
-}
 void HAL_I2S_MspInit(I2S_HandleTypeDef *hi2s)
 {
    GPIO_InitTypeDef GPIO_InitStructure;
@@ -1631,23 +1087,33 @@ void HAL_I2S_MspInit(I2S_HandleTypeDef *hi2s)
   /* USER CODE BEGIN SPI1_MspInit 0 */
 
   /* USER CODE END SPI1_MspInit 0 */
-    /* Peripheral clock enable */
-    __SPI1_CLK_ENABLE();
-  
-    /**I2S1 GPIO Configuration    
-    PA4     ------> I2S1_WS
-    PA5     ------> I2S1_CK
-    PA7     ------> I2S1_SD 
+  /* Peripheral clock enable */
+  __SPI1_CLK_ENABLE();
+  __GPIOA_CLK_ENABLE();
+  __GPIOC_CLK_ENABLE();
+
+  /**I2S1 GPIO Configuration    
+    PA4     ------> I2S1_WS --> LRCKO
+    PA5     ------> I2S1_CK --> BICKO
+    PA7     ------> I2S1_SD --> SDO12
+    PC4     ------> I2S1_MCK
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_7;
+	GPIO_InitStruct.Pin =  GPIO_PIN_5|GPIO_PIN_7;
+	GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+	GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
+	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = GPIO_PIN_4;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
     GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
+	
+    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
   /* Peripheral interrupt init*/
-    HAL_NVIC_SetPriority(SPI1_IRQn, 1, 1);
+    HAL_NVIC_SetPriority(SPI1_IRQn, 4, 0);
     HAL_NVIC_EnableIRQ(SPI1_IRQn);
   /* USER CODE BEGIN SPI1_MspInit 1 */
 
@@ -1665,44 +1131,30 @@ void HAL_I2S_MspInit(I2S_HandleTypeDef *hi2s)
 	__GPIOC_CLK_ENABLE();
   
     /**I2S2 GPIO Configuration     
-    PC1     ------> I2S2_SD  : PI3 PC1 PC3 PB15      --> PB15
-    PB10     ------> I2S2_CK :PD3 PB10 PB13 PA9 PI1  --> PI1
-    PB12     ------> I2S2_WS : PB12 PI0 PB4 PB9      --> PB4
+    PC1     ------> I2S2_SD  : PI3 PC1 PC3 PB15     
+    PB13     ------> I2S2_CK :PD3 PB10 PB13 PA9 PI1 
+    PB12     ------> I2S2_WS : PB12 PI0 PB4 PB9  
+
 
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_15; //SD
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
-    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-	GPIO_InitStruct.Pin = GPIO_PIN_4;//WS
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
-    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-    GPIO_InitStruct.Pin = GPIO_PIN_1;//CK
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
-    HAL_GPIO_Init(GPIOI, &GPIO_InitStruct);
-
-    GPIO_InitStruct.Pin = GPIO_PIN_6;//CK
+    GPIO_InitStruct.Pin = GPIO_PIN_1; //SD
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
     GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
+	GPIO_InitStruct.Pin = GPIO_PIN_13;//WS --> GPIO_PIN_12
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 
     /* Peripheral interrupt init*/
-    //HAL_NVIC_SetPriority(SPI2_IRQn, 6, 0);
-    //HAL_NVIC_EnableIRQ(SPI2_IRQn);
+    HAL_NVIC_SetPriority(SPI2_IRQn, 4, 1);
+    HAL_NVIC_EnableIRQ(SPI2_IRQn);
     /* USER CODE BEGIN SPI2_MspInit 1 */
 
   /* USER CODE END SPI2_MspInit 1 */
@@ -1713,9 +1165,9 @@ void HAL_I2S_MspInit(I2S_HandleTypeDef *hi2s)
 
   
     /**I2S3 GPIO Configuration    
-    PB2     ------> I2S3_SD
-    PA15     ------> I2S3_WS
-    PB3     ------> I2S3_CK 
+       PB2     ------> I2S3_SD
+       PA15     ------> I2S3_WS (LRCK)
+       PB3     ------> I2S3_CK 
 	 PC7    ------> MCLK
     */
  
@@ -1757,7 +1209,7 @@ void HAL_I2S_MspInit(I2S_HandleTypeDef *hi2s)
      //__HAL_I2S_ENABLE_IT(&hi2s3, SPI_I2S_DMAReq_Tx);
      //__HAL_I2S_ENABLE(&hi2s3);
   	    /* Peripheral interrupt init*/
-		HAL_NVIC_SetPriority(SPI3_IRQn, 2, 0);
+		HAL_NVIC_SetPriority(SPI3_IRQn, 3, 0);
 		HAL_NVIC_EnableIRQ(SPI3_IRQn);
 #endif
 
@@ -1777,7 +1229,7 @@ void HAL_I2S_MspInit(I2S_HandleTypeDef *hi2s)
       DmaHandle.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD; 
 	  DmaHandle.Init.Mode = DMA_NORMAL;
       DmaHandle.Init.Priority = DMA_PRIORITY_HIGH; 
-	  DmaHandle.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+	  DmaHandle.Init.FIFOMode = DMA_FIFOMODE_ENABLE;//DMA_FIFOMODE_DISABLE
       DmaHandle.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_1QUARTERFULL;
       DmaHandle.Init.MemBurst = DMA_MBURST_SINGLE;
       DmaHandle.Init.PeriphBurst = DMA_PBURST_SINGLE;	  
@@ -1844,9 +1296,28 @@ void HAL_I2C_MspDeInit(I2C_HandleTypeDef *hi2c)
   HAL_GPIO_DeInit(CODEC_I2C_GPIO, CODEC_I2C_SDA_PIN);
 }
 
- void HAL_I2S_TxCpltCallback(I2S_HandleTypeDef *hi2s)
+
+
+ /* I2C1 init function */
+void MX_I2C1_Init(void)
 {
-	  //AudioFlashPlay((uint16_t*)(AUDIO_SAMPLE + AUIDO_START_ADDRESS),AUDIO_FILE_SZE,AUIDO_START_ADDRESS);
-	  //Audio_MAL_Stop();
-	   XferCplt = 1;
+
+
+  hi2c1.Instance = I2C1;
+  hi2c1.Init.Timing =0x00C0EFFF;           //I2C_SPEED DISCOVERY_I2Cx_TIMING;
+                                           //I2C_TIMING ;//I2C_TIMING  0x00303D5D
+                                           //DISCOVERY_I2Cx_TIMING
+  hi2c1.Init.OwnAddress1 = 0x33;
+  hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  hi2c1.Init.OwnAddress2 = 0;
+  hi2c1.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
+  hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  HAL_I2C_Init(&hi2c1);
+
+   /*Configure Analogue filter */
+  HAL_I2CEx_AnalogFilter_Config(&hi2c1, I2C_ANALOGFILTER_ENABLE);
+
 }
+

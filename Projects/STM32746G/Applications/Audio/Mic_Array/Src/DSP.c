@@ -1,4 +1,5 @@
 #include "DSP.h"
+#include "main.h"
 #include <math.h>
 #include <stdlib.h>
 #include "arm_math.h"
@@ -52,20 +53,7 @@ case 2: [b,a] = butter(2,1/256); --> cut to 64Khz
 #endif
 
 
-float Coef[129] = { 
--0.000  ,-1.560  ,-2.990  ,-4.104  ,-4.722  ,-4.683  ,-3.880  ,-2.288  ,0.000  ,2.755 ,
-5.609  ,8.085  ,9.660  ,9.851  ,8.317  ,4.960  ,-0.000  ,-6.000  ,-12.166  ,-17.414 ,
--20.614  ,-20.795  ,-17.350  ,-10.219  ,0.000  ,12.048  ,24.119  ,34.098  ,39.884  ,39.773 ,
-32.823  ,19.134  ,-0.000  ,-22.146  ,-43.977  ,-61.716  ,-71.720  ,-71.119  ,-58.413  ,-33.924 ,
-0.000  ,39.086  ,77.572  ,108.935  ,126.848  ,126.222  ,104.203  ,60.939  ,-0.000  ,-71.661 ,
--144.245  ,-206.111  ,-245.139  ,-250.303  ,-213.240  ,-129.604  ,0.000  ,169.645  ,368.369  ,581.105 ,
-790.173  ,977.157  ,1124.942  ,1219.655  ,1252.270  ,1219.655  ,1124.942  ,977.157  ,790.173  ,581.105 ,
-368.369  ,169.645  ,0.000  ,-129.604  ,-213.240  ,-250.303  ,-245.139  ,-206.111  ,-144.245  ,-71.661 ,
--0.000  ,60.939  ,104.203  ,126.222  ,126.848  ,108.935  ,77.572  ,39.086  ,0.000  ,-33.924 ,
--58.413  ,-71.119  ,-71.720  ,-61.716  ,-43.977  ,-22.146  ,-0.000  ,19.134  ,32.823  ,39.773 ,
-39.884  ,34.098  ,24.119  ,12.048  ,0.000  ,-10.219  ,-17.350  ,-20.795  ,-20.614  ,-17.414 ,
--12.166  ,-6.000  ,-0.000  ,4.960  ,8.317  ,9.851  ,9.660  ,8.085  ,5.609  ,2.755 ,
-0.000  ,-2.288  ,-3.880  ,-4.683  ,-4.722  ,-4.104  ,-2.990  ,-1.560  ,-0.000  };
+
 
 
 /*
@@ -110,29 +98,49 @@ Library:
 https://github.com/piratfm/codec2_m4f/tree/master/lib
 */
 
+
+/*--------------EXTERN VARIABLES-----------------------------------------------------------------------------*/
+
+#if MAIN_CRSCORR
+extern arm_rfft_instance_q15 RealFFT_Ins, RealIFFT_Ins;
+#endif
+
+extern arm_cfft_radix4_instance_f32 SS1,SS2,SS3,SS4,ISS; 
+extern arm_rfft_instance_f32 S1,S2,S3,S4,IS;
+//extern arm_rfft_fast_instance_f32 S1,S2,S3,S4,IS;
+
+/*------------------------------------------------------------------------------------------------------------*/
+/*--------------------- VARIABLES-----------------------------------------------------------------------------*/
+
+float bufferFFTSum[AUDIO_OUT_BUFFER_SIZE+100];  //storage the SUM in Furier domain
+float fbufferOut[AUDIO_OUT_BUFFER_SIZE+100];    //storage the output buffer in float type
+float fbuffer[AUDIO_OUT_BUFFER_SIZE+100];       //storage the input buffer in float type
+Mic_Array_Data_f  DataFFT;                  //storage DFT's coefficients for microphones
+uint32_t EnergySound;
+/*------------------------------------------------------------------------------------------------------------*/
 /* Discreate Fourier Transform */
-void DFT (float *x, int N, float Xreal[], float Ximag[])
+void DFT (float *x, float *Out, int N)
 {
 	int m,n;
 	
 	for(m=0; m<N; m++)  // update for e very bar 
 	{
-		Xreal[m] = Ximag[m] = 0;
+		Out[2*m]  = Out[2*m+1] = 0;
 		
 		for (n  =0; n<N; n++) //
 		{
 		    /* spectrum m: Real[m] = (Sum(x[n]*cos(2*PI*m*n/N)) , where n from 0 -->N    */
-			Xreal[m] += x[n]*arm_cos_f32(2*PI*(float)m*(float)n/(float)N);
+			Out[2*m] += x[n]*arm_cos_f32(2*PI*(float)m*(float)n/(float)N);
 
             /* specstrum n: Imagine[m] = (Sum(x[n]*sin(2*PI*m*n/N) ,  where n from 0 -->N */			
-			Ximag[m] -= x[n]*arm_sin_f32(2*PI*(float)m*(float)n/(float)N);
+			Out[2*m+1] -= x[n]*arm_sin_f32(2*PI*(float)m*(float)n/(float)N);
 		}
 
 	}
 }
 
 /* revert of Discrete Fourier Transform */
-void rDFT(int N, int cycles, float *Real, float *Imag, float *out)
+void rDFT(int N, int cycles, float *IN, float *out)
 {
     int n,m;
 	
@@ -144,11 +152,11 @@ void rDFT(int N, int cycles, float *Real, float *Imag, float *out)
 
 		for (m = 0; m < N; m++)
 		{
-		    xOfn += Real[m]*cos(2*PI*cycles*(float)m*(float)n/(float)N);
-		    xOfn -= Imag[m]*sin(2*PI*cycles*(float)m*(float)n/(float)N);
+		    xOfn += IN[2*m]*arm_cos_f32(2*PI*cycles*(float)m*(float)n/(float)N);
+		    xOfn -= IN[2*m+1]*arm_sin_f32(2*PI*cycles*(float)m*(float)n/(float)N);
 
-			xOfn_m += Real[m]*sin(2*PI*cycles*(float)m*(float)n/(float)N);
-			xOfn_m += Imag[m]*cos(2*PI*cycles*(float)m*(float)n/(float)N);
+                    xOfn_m += IN[2*m]*arm_cos_f32(2*PI*cycles*(float)m*(float)n/(float)N);
+                    xOfn_m += IN[2*m+1]*arm_sin_f32(2*PI*cycles*(float)m*(float)n/(float)N);
 		}
 
 	    xOfn /= N;
@@ -343,12 +351,24 @@ void Decimation(uint8_t *Input, int16_t *Output, int16_t PreCalcBuff[129][256]) 
 {
     uint8_t test, IndexIn=0;
     int16_t Sigma;
-    static int16_t SigmaOld;
 	static int16_t OutRing[129];
 	static int16_t iRing=0;
-	static int32_t TempU32;
+//	static int32_t TempU32;
 	static float Data, Data_Old;
-	
+	float Coef[129] = { 
+-0.000  ,-1.560  ,-2.990  ,-4.104  ,-4.722  ,-4.683  ,-3.880  ,-2.288  ,0.000  ,2.755 ,
+5.609  ,8.085  ,9.660  ,9.851  ,8.317  ,4.960  ,-0.000  ,-6.000  ,-12.166  ,-17.414 ,
+-20.614  ,-20.795  ,-17.350  ,-10.219  ,0.000  ,12.048  ,24.119  ,34.098  ,39.884  ,39.773 ,
+32.823  ,19.134  ,-0.000  ,-22.146  ,-43.977  ,-61.716  ,-71.720  ,-71.119  ,-58.413  ,-33.924 ,
+0.000  ,39.086  ,77.572  ,108.935  ,126.848  ,126.222  ,104.203  ,60.939  ,-0.000  ,-71.661 ,
+-144.245  ,-206.111  ,-245.139  ,-250.303  ,-213.240  ,-129.604  ,0.000  ,169.645  ,368.369  ,581.105 ,
+790.173  ,977.157  ,1124.942  ,1219.655  ,1252.270  ,1219.655  ,1124.942  ,977.157  ,790.173  ,581.105 ,
+368.369  ,169.645  ,0.000  ,-129.604  ,-213.240  ,-250.303  ,-245.139  ,-206.111  ,-144.245  ,-71.661 ,
+-0.000  ,60.939  ,104.203  ,126.222  ,126.848  ,108.935  ,77.572  ,39.086  ,0.000  ,-33.924 ,
+-58.413  ,-71.119  ,-71.720  ,-61.716  ,-43.977  ,-22.146  ,-0.000  ,19.134  ,32.823  ,39.773 ,
+39.884  ,34.098  ,24.119  ,12.048  ,0.000  ,-10.219  ,-17.350  ,-20.795  ,-20.614  ,-17.414 ,
+-12.166  ,-6.000  ,-0.000  ,4.960  ,8.317  ,9.851  ,9.660  ,8.085  ,5.609  ,2.755 ,
+0.000  ,-2.288  ,-3.880  ,-4.683  ,-4.722  ,-4.104  ,-2.990  ,-1.560  ,-0.000  };
 
 	for (uint8_t i=0;i<16; i++) //index of output sample 16 ouput
 	{
@@ -396,16 +416,16 @@ void Decimation(uint8_t *Input, int16_t *Output, int16_t PreCalcBuff[129][256]) 
 	   //    ;
 	   //}
 	   
-	   SigmaOld = Sigma;
+
        Output[i] = 0;
 
    
        for(int16_t ii=0; ii<129;ii++)
        {
            if (iRing >= ii)
-               Output[i] = Output[i] + (OutRing[iRing - ii]*Coef[ii]);//PreCalcBuff[ii][(OutRing[iRing - ii]+128)]; //(OutRing[iRing - ii]*Coef[ii])
+               Output[i] = Output[i] + (int16_t)(OutRing[iRing - ii]*Coef[ii]);//PreCalcBuff[ii][(OutRing[iRing - ii]+128)]; //(OutRing[iRing - ii]*Coef[ii])
            else
-               Output[i] = Output[i] + (OutRing[129 + iRing - ii]*Coef[ii]);//PreCalcBuff[ii][(OutRing[129 + iRing - ii]+128)];  // (OutRing[129 + iRing - ii]*Coef[ii])
+               Output[i] = Output[i] + (int16_t)(OutRing[129 + iRing - ii]*Coef[ii]);//PreCalcBuff[ii][(OutRing[129 + iRing - ii]+128)];  // (OutRing[129 + iRing - ii]*Coef[ii])
 		  	   
        }
        
@@ -503,7 +523,7 @@ void PDM2PCM(uint8_t *InBuff,int16_t *OutBuff,int16_t PreCalcBuff[DSP_NUMBYTECON
     for (uint32_t currentSample = 0; currentSample < 16; currentSample++) // go for all the output sample
 	{                                                                     // 32*16 = 512 bytes of input steam 
         int16_t stSum=0;
-		int16_t coefficientIndex=0;
+//		int16_t coefficientIndex=0;
 
           
 		/* First half of frame */
@@ -646,28 +666,45 @@ float lowpassFIR(float * firBuffer,uint64_t M,uint64_t Fs,uint64_t Fc)
 	return sum;
 }
 
+/* */
 
-
-uint8_t CrssCor(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen )
+int8_t CrssCor(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen )
 {
-    int64_t Sum, SumMax=0;
-	uint8_t idxPos;
+    int64_t Sum, SumMax;
+	int8_t idxPos;
 
-    for (uint16_t i=0;i<16;i++)
+    SumMax=0;
+    Sum=0;
+    for (int8_t i=-8;i<8;i++)
     {
        Sum = 0;
-       for(uint16_t j=0;j<numLen;j++)
-       {
-           Sum += vDataIn1[j+i]*vDataIn2[j]/numLen;   
-       }
+	   if (i>=0)
+	   {
+	       for(uint16_t j=0;j<numLen;j++)
+	       {
+	           Sum += vDataIn1[j+i]*vDataIn2[j]/numLen;   
+	       }
+                            
+	   }
+	   else
+	   {
+           for(uint16_t j=0;j<numLen;j++)
+	       {
+	           Sum += vDataIn1[j]*vDataIn2[j-i]/numLen;   
+	       }
+	   }
 
 	   if (Sum > SumMax) 
 	   {
 	       SumMax = Sum;  	
-		   idxPos = i;
+	       idxPos = i;
+		   EnergySound = (uint32_t)((SumMax>>16));
 	   }
+
+	   
         
     }
+
 
     return idxPos;
 }
@@ -762,5 +799,92 @@ void Std_MatCorr(int16_t* vDataIn, float *Out, uint16_t numLen)
 
 }
 
+
+
+/************************************************************************************************************
+-----------------------------Summing in Fourier Domain-------------------------------------------------------
+
+*************************************************************************************************************/
+void Delay_Sum_FFT(const Mic_Array_Data * MicData, Mic_Array_Coef_f *coefMics,int16_t * stBufOut, int16_t lenFFT)
+{
+     int32_t         _value,_value1,_value2;
+    
+	for (uint16_t iFrm=0;iFrm<AUDIO_OUT_BUFFER_SIZE/(2*lenFFT);iFrm++)
+	{
+          RFFT_INT(MicData->bufMIC1,S1,DataFFT.bufMIC1);  
+          RFFT_INT(MicData->bufMIC2,S2,DataFFT.bufMIC2);
+          RFFT_INT(MicData->bufMIC3,S3,DataFFT.bufMIC3);
+          RFFT_INT(MicData->bufMIC4,S4,DataFFT.bufMIC4);
+
+          /* Adding in Fourier Domain */			 
+          //arm_add_f32((float *)bufferFFT,(float *)bufferFFT_1, (float *)bufferFFTSum,lenFFT*2);
+          for (uint16_t ii=0;ii<lenFFT*2;ii++)
+          {
+              bufferFFTSum[ii]= ((DataFFT.bufMIC1[ii]*coefMics->facMIC1) + 
+                                (DataFFT.bufMIC2[ii]*coefMics->facMIC2) +
+                                (DataFFT.bufMIC3[ii]*coefMics->facMIC3) +
+                                (DataFFT.bufMIC4[ii]*coefMics->facMIC4)); 
+          }
+
+          /* Revert FFT*/
+          arm_rfft_f32(&IS, (float *)bufferFFTSum, (float *)&fbufferOut[iFrm*lenFFT]);
+          //arm_rfft_fast_f32(&IS, (float *)bufferFFTSum, (float *)&fbufferOut[iFrm*lenFFT], 1);
+	}
+
+        /*covert from float to integer*/
+	for (uint16_t i=0; i<AUDIO_OUT_BUFFER_SIZE;)
+	{
+	    _value1 = (int32_t)fbufferOut[(i>>1)];
+		_value2 = MicData->bufMIC2[i>>1];
+	    stBufOut[i++] = (int16_t)_value1;
+		stBufOut[i++] = (int16_t)_value2;
+	}
+	
+	//arm_float_to_q15((float32_t *)fbufferOut,(q15_t *)stBufOut,AUDIO_OUT_BUFFER_SIZE); 
+	
+}
+/******************************************************************************/
+/*                  Factor Update                                             */ 
+/******************************************************************************/
+void FactorUpd(Mic_Array_Coef_f * facMic)
+{
+	facMic->facMIC1 = 0.25;
+	facMic->facMIC2 = 0.25;
+	facMic->facMIC3 = 0.25;
+	facMic->facMIC4 = 0.25;
+}
+
+
+
+void FFT_SUM(int16_t * stBuf1, int16_t * stBuf2,float *fBufOut, uint16_t lenFFT)
+{
+#if 0 //using self-writing DFT function 
+   int32_t         value;
+
+   /* covert from int to float */
+   for(uint16_t j=0;j<lenFFT;j++)
+   {
+      value = (int32_t)stBuf1[j];
+   	  fbuffer[j]=(float)value;
+   }	
+   DFT((float *)fbuffer,(float *)bufferFFT,lenFFT);
+
+	/* covert from int to float */
+	for(uint16_t j=0;j<lenFFT;j++)
+	{
+	   value = (int32_t)stBuf2[j];
+	   fbuffer[j]=(float)value;
+	}	 
+	DFT((float *)fbuffer,(float *)bufferFFT_1,lenFFT);
+
+   /* Adding in Fourier Domain */			 
+   for(uint16_t i=0;i<lenFFT;i++)
+   {
+        bufferFFTSum[i] = bufferFFT[i]+bufferFFT_1[i];
+   }
+
+   rDFT(lenFFT,1,bufferFFTSum,fbuffer);
+#endif
+}
 
 

@@ -1,25 +1,39 @@
+/* Author: Phan Le Son                   */
+/* Description: Driver for STA321MP */
+
 #include "sta321mp.h"
+#include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
 
+static void sta321mp_mixer( int16_t mix, int16_t ch_out, int16_t ch_in, uint32_t value);
+static void sta321mp_prescale(int16_t ch, uint32_t val);
+static void sta321mp_postscale(int16_t ch, uint32_t val);
+static void sta321mp_LP_48kHz(void);
+static void sta321mp_LP_192kHz(void);
+static void STA321MP_DefautLoad(void);
+static void sta321mp_biquad(int16_t channel, int16_t biquad, 
+                            uint32_t b1_2, uint32_t b2, uint32_t a1_2, uint32_t a2, uint32_t b0_2);
+
+
 extern I2C_HandleTypeDef hi2c1;
 uint8_t  pcSTAComnd[77]={/* Pre-setting */
-0x83,//	Reg[00h]<=83h (10000011b)	Configuration Register A
+0x9B,//	Reg[00h]<=83h (10000011b)	Configuration Register A
 0x00,//	Reg[01h]<=00h (00000000b)	Configuration Register B
-0x00,//	Reg[02h]<=00h (00000000b)	Configuration Register C
+0x25,//	Reg[02h]<=00h (00000000b)	Configuration Register C
 0xFE,//	Reg[03h]<=FEh (11111110b)	Configuration Register D
-0x00,//	Reg[04h]<=00h (00000000b)	Configuration Register E
+0x18,//	Reg[04h]<=00h (00000000b)	Configuration Register E
 0x00,//	Reg[05h]<=00h (00000000b)	Configuration Register F
 0x00,//	Reg[06h]<=00h (00000000b)	Configuration Register G
-0xFE,//	Reg[07h]<=7Eh (01111110b)	Configuration Register H
-0x00,//	Reg[08h]<=00h (00000000b)	Configuration Register I
+0x7E,//	Reg[07h]<=7Eh (01111110b)	Configuration Register H
+0x80,//	Reg[08h]<=00h (00000000b)	Configuration Register I
 0x00,//	Reg[09h]<=00h (00000000b)	Master Mute
-0xFF,//	Reg[0Ah]<=FFh (11111111b)	Master Volume
-0x60,//	Reg[0Bh]<=60h (01100000b)	Channel 1 Volume
-0x60,//	Reg[0Ch]<=60h (01100000b)	Channel 2 Volume
+0x00,//	Reg[0Ah]<=FFh (11111111b)	Master Volume
+0x54,//	Reg[0Bh]<=60h (01100000b)	Channel 1 Volume
+0x54,//	Reg[0Ch]<=60h (01100000b)	Channel 2 Volume
 0x60,//	Reg[0Dh]<=60h (01100000b)	Channel 3 Volume
-0x60,//	Reg[0Eh]<=60h (01100000b)	Channel 4 Volume
-0x60,//	Reg[0Fh]<=60h (01100000b)	Channel 5 Volume
+0x48,//	Reg[0Eh]<=60h (01100000b)	Channel 4 Volume
+0x48,//	Reg[0Fh]<=60h (01100000b)	Channel 5 Volume
 0x60,//	Reg[10h]<=60h (01100000b)	Channel 6 Volume
 0x60,//	Reg[11h]<=60h (01100000b)	Channel 7 Volume
 0x60,//	Reg[12h]<=60h (01100000b)	Channel 8 Volume
@@ -83,10 +97,13 @@ uint8_t  pcSTAComnd[77]={/* Pre-setting */
 0x00//	Reg[4Ch]<=00h (00000000b)	Coefficient Write Control
 };
 
-uint8_t  pcSTAComnd1[41]={/* Pre-setting */
+uint8_t  pcSTAComnd1[2]={/* Pre-setting */
 0x00,//	Reg[5Ah]<=00h (00000000b)	Extended Limiter/DRC look-up table 
-0x00,//	Reg[5Bh]<=00h (00000000b)	Fine volume                        
-0x00,//	Reg[5Dh]<=00h (00000000b)	PCM Recombination Control 1        
+0x00,//	Reg[5Bh]<=00h (00000000b)	Fine volume         
+};
+
+uint8_t  pcSTAComnd2[33]={/* Pre-setting */
+0x01,//	Reg[5Dh]<=00h (00000000b)	PCM Recombination Control 1        
 0x00,//	Reg[5Eh]<=00h (00000000b)	PCM Recombination Mode selector    
 0x20,//	Reg[5Fh]<=20h (00100000b)	PCM Recombination Control 2        
 0x20,//	Reg[60h]<=20h (00100000b)	PCM Recombination Control 3        
@@ -118,7 +135,10 @@ uint8_t  pcSTAComnd1[41]={/* Pre-setting */
 0xA2,//	Reg[7Ah]<=A2h (10100010b)	RMS Status Register ZD (High)      
 0xE9,//	Reg[7Bh]<=E9h (11101001b)	RMS Status Register ZD (Low)       
 0x00,//	Reg[7Ch]<=00h (00000000b)	RMS Status PWM level (High)        
-0x00,//	Reg[7Dh]<=00h (00000000b)	RMS Status PWM level (Low)         
+0x00,//	Reg[7Dh]<=00h (00000000b)	RMS Status PWM level (Low)   
+};
+
+uint8_t  pcSTAComnd3[6]={/* Pre-setting */
 0x18,//	Reg[80h]<=18h (00011000b)	DPT                                
 0x05,//	Reg[81h]<=05h (00000101b)	CFR129                             
 0x00,//	Reg[82h]<=00h (00000000b)	Pop suppression delay time 1       
@@ -130,286 +150,126 @@ uint8_t  pcSTAComnd1[41]={/* Pre-setting */
 uint8_t bufCoefBiquad[15];
 void STA321MP_Ini(void)
 {
-     	    //WriteSTAByte(CONFA,pcSTAComnd,77);
-            //WriteSTAByte(0x5A,pcSTAComnd,41);
-            HAL_Delay(100);
-            /*
-            rio_SetRegValue():	Reg[00h]<=9Bh (10011011b)	Configuration Register A
-            rio_SetRegValue():	Reg[02h]<=20h (00100000b)	Configuration Register C
-            rio_SetRegValue():	Reg[04h]<=18h (00011000b)	Configuration Register E
-            rio_SetRegValue():	Reg[81h]<=09h (00001001b)	CFR129                             
-            rio_SetRegValue():	Reg[07h]<=7Ah (01111010b)	Configuration Register H
-            rio_SetRegValue():	Reg[08h]<=80h (10000000b)	Configuration Register I
-            rio_SetRegValue():	Reg[5Dh]<=01h (00000001b)	PCM Recombination Control 1     
-                      
-            */
-            /* BIT7   BIT6   BIT5   BIT4    BIT3   BIT2    BIT1    BIT0 
-            COS1   COS0   DSPB   IR1     IR0    MCS2    MCS1    MCS0 
 
-            MCS[2:0] 1xx        011        010        001       000                              
-                    2*PDM_CLK  4*PDM_CLK  6*PDM_CLK  8*PDM_CLK 12*PDM_CLK   
+      // __GPIOA_CLK_ENABLE();
+      //GPIO_INS.Pin = GPIO_PIN_8;
+      //GPIO_INS.Mode = GPIO_MODE_OUTPUT_PP;
+      //GPIO_INS.Pull = GPIO_PULLUP;
+      //GPIO_INS.Speed = GPIO_SPEED_LOW;
+      //HAL_GPIO_Init(GPIOA, &GPIO_INS);
+      //HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
+      HAL_Delay(300);
+      //HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
 
-            COS[1:0]           00     01      10       11 
-            CKOUT frequency    PLL    PLL/4   PLL/8    PLL/16       
-
-            DSPB: DSP bypass bit : 0 Normal operation 
-                                  1 bypass of biquad and bass/trebble functions */	
-            pcSTAComnd[0] = 0x9B;          // PDM_CLK = 11.2896/4
-                                           // PLL/8 = 11.2896 Mhz
-		                               
-            WriteSTAByte(0x00,pcSTAComnd,1); //CONFA register
-		
-
-	     /*
-             D7    D6         D5         D4        D3        D2         D1       D0
-                              SAOD4      SAOFB     SAO3      SAO2       SAIO     SAO0
-
-								SAOFB: 0 MSB first  
-								          1 LSB  first
-
-								  SAO4: 0 div   by 1
-								        1 dive by 4
-								SAO[3:0] : 0101 --> BICKO = 64*fs :Right-justification 16-bit data
-								           0000 --> BICKO = 64*fs :I2S data
-								           0111 --> BICKO = 32*fs :I2S data
-	      */
-	      pcSTAComnd[0] = 0x25;  /* 11.2896Mhz/256 = 44.1Khz --> BICKO = 32*44.1Khz =1.411.2 Mhz*/
-          WriteSTAByte(0x02,pcSTAComnd,1); //CONFC register
+      STA321MP_DefautLoad();
+      pcSTAComnd[0] = 0x98;//PDM_I_EN;          // PDM_CLK =  12.288 /4 = 3.072 Mhz  XTI = PLL/8 = 12.288 MHz		                       
+      WriteSTAByte(STA321MP_CONFA	,pcSTAComnd,1); //CONFA register
+	    
+      pcSTAComnd[0] = FS_XTI_256|RIGHTJUST_DATA_FORMAT;  /* 12.288Mhz/256 = 48 Khz --> BICKO = 32*48Khz = 6.144/4 Mhz*/
+      WriteSTAByte(STA321MP_CONFC,pcSTAComnd,1); //CONFC register
          
 
-              /*
-                 D7     D6      D5     D4     D3     D2     D1     D0
-                 MPC  CSZ4  CSZ3 CSZ2 CSZ1 CSZ0 OM1 OM0
-                 11111110
+      /*
+      D7     D6      D5     D4     D3     D2     D1     D0
+      MPC  CSZ4  CSZ3 CSZ2 CSZ1 CSZ0 OM1 OM0
+      11111110
 
-                  OM0-OM1: FFX output mode
+      OM0-OM1: FFX output mode
 
-                  CSZ[4:0] Compensating pulse size
-              */
-	    //	pcSTAComnd[0] = 0xFE;  
-        //WriteSTAByte(0x03,pcSTAComnd,1); //CONFD register
+      CSZ[4:0] Compensating pulse size
+      */
+      ////pcSTAComnd[0] = 0xFE;  
+      ////WriteSTAByte(STA321MP_CONFD,pcSTAComnd,1); //CONFD register
 		
-	    pcSTAComnd[0] = 0xC0;//Ch4/5 binary
-        WriteSTAByte(0x04,pcSTAComnd,1); //CONFE register
+       pcSTAComnd[0] =  0xC0; //0x18;//Ch4/5 binary 0xC0
+       WriteSTAByte(STA321MP_CONFE,pcSTAComnd,1); //CONFE register
         
-        /*
-        D7    D6    D5    D4   D3   D2   D1   D0
-        PWMS2 PWMS1 PWMS0 BQL  PSL  DEMP DRC  HPB
-        00000000
-		HPB: Highpass filter bypass bit
-		HPB = 1, then the filter that the high-pass filter utilizes is madeavailable as user-programmable biquad #1
-		
-		DRC: Dynamic range compression/anti-clipping
-		0: limiters act in anti-clipping mode
-        1: limiters act in dynamic range compression mode
-		
-		DEMP: De-emphasis:
-		0: no de-emphasis 
-		1: de-emphasis 
-		
-		PSL:Post-scale link:
-		0: each channel uses individual post-scale value 
-		1: each channel uses channel 1 post-scale value
-		
-		BQL: Biquad link:
-		0: each channel uses coefficient values 
-		1: each channel uses channel 1 coefficient values
-		
-		PWMS[2:0] PWM speed selection
-		PWMS[2:0] PWM output speed
-		000 Normal speed (384 kHz) (all channels)
-		001 Half-speed (192 kHz) (all channels)
-		010 Double-speed (768 kHz) (all channels)
-		011 Normal speed (channels 1-6), double-speed (channels 7-8)
-		100 Odd speed (341.3 kHz) (all channels)
-       */
-        pcSTAComnd[0] = 0x01;
-        WriteSTAByte(0x05,pcSTAComnd,1); //CONFE register
-		
-		/*
-		D7    D6    D5    D4    D3    D2    D1    D0
-		MPCV  DCCV  HPE   AM2E  AME   COD   SID   PWM
-		00000000
-		
-		PWMD: PWM output disable:
-		0: PWM output normal 
-		1: no PWM output 
-		
-		SID: Serial interface (I²S out) disable:
-		0: I²S output normal 
-		1: no I²S output
-		
-		COD: Clock output disable:
-		0: clock output normal 
-		1: no clock output
-		
-		AME: AM mode enable:
-		0: normal FFX operation
-		1: AM reduction mode FFX operation
-		
-		AM2E: AM2 mode enable:
-		0: normal FFX operation
-		1: AM2 reduction mode FFX operation
-		
-		HPE: FFX headphone enable:
-		0: channels 7 and 8 normal FFX operation
-		1: channels 7 and 8 headphone operation
-		
-		DCCV
-		Distortion compensation variable enable:
-		0: uses the preset DC coefficient
-		1: uses the DCC coefficient
-		
-		MPCV Max power correction variable:
-		0: uses the standard MPC coefficient 
-		1: uses the MPCC bits for the MPC coefficient 
-		*/
-		//pcSTAComnd[0] = 0x00;
-        //WriteSTAByte(0x06,pcSTAComnd,1); //CONFG register
 
-		/*
-		D7     D6     D5     D4     D3    D2    D1    D0
-		CLE    LDTE   BCLE   IDE    ZDE   SVE   ZCE   NSBW
-		0      1       1      1     1     1     1     0
+        pcSTAComnd[0] = 0x18|CONF_HPENA; //0x18 CONF_HPENA
+        WriteSTAByte(STA321MP_CONFF,pcSTAComnd,1); //CONFE register
 		
-		NSBW: Noise-shaper bandwidth selection:
-		1: 3rd order NS
-		0: 4thorder NS
-		
-		ZCE:Zero-crossing volume enable:
-		1: volume adjustments will only occur at digital zero-crossings
-		0: volume adjustments will occur immediately
-		
-		SVE: Soft wolume enable
-		1: volume adjustments use soft volume
-		0: volume adjustments occur immediately
-		
-		ZDE: Zero-detect mute enable: setting of 1 enables the automatic
-		zero-detect mute
-		
-		IDE: Invalide input detect mute enable
-		1: enable the automatics invalid input detect mute
-		
-		BCLE Binary output mode clock loss detection enable
-		
-		LDTE LRCLK double trigger protection enable
-		
-		ECLE Auto devicepower-down signal EAPD on clock loss
-		*/
-		pcSTAComnd[0] = 0x7A;//Reg[07h]<=7Ch (01111010b)	Configuration Register H:remove soft volumn
-        WriteSTAByte(0x07,pcSTAComnd,1); //CONFH register
+
+      ////pcSTAComnd[0] = 0x00;
+      ////WriteSTAByte(0x06,pcSTAComnd,1); //CONFG register
 
 
-		/*
-		bit 0: PSCE
-		Power supply ripple correction enable:
-		0: normal operation 
-		1: PSCorrect operation 
-		
-		bit 7: EAPD External amplifier power-down:
-		0: external power stage power-down active 
-		1: normal operation 
-		*/
-		pcSTAComnd[0] = 0x80;//Reg[08h]<=80h (10000000b)	Configuration Register I
-        WriteSTAByte(0x08,pcSTAComnd,1);//CONFI register
+      pcSTAComnd[0] = 0x78;                //Reg[07h]<=7Ch (01111010b)	Configuration Register H:remove soft volumn
+      WriteSTAByte(STA321MP_CONFH	,pcSTAComnd,1); //CONFH register
 
-		/*  Reg[81h] 0x09 - Output I2S i/f pins set as output */
-        /*
-        D7    D6   D5    D4    D3    D2     D1    D0
-        RL3  RL2   RL1  RL0   RD    SID1 FBYP  RTP
-        00000101
 
-        RTP: Remove tristate initial pulses
-        1: remove the tristate initilal pulses with frequency less than 16 kHz
-        0: the tristate initial pulses are not removed
-        
-        SID1: Serial interface (I²S out)
-        1: SDO_56 is connected to the fault signal and SDO_78 
-        outputs the tristate signal
-        0: I²S out normal
-
-        RD: Startup/shutdown pop noise disable
-        1: Disable
-        */
-        pcSTAComnd[0] = 0x09;
-        WriteSTAByte(0x81,pcSTAComnd,1);//Reg[81h]<=09h (00001001b)	CFR129  
+        pcSTAComnd[0] = POWERDWNNOTACTV;
+        WriteSTAByte(STA321MP_CONFI,pcSTAComnd,1);//CONFI register
 		
         pcSTAComnd[0] = 0x00;/* Reg[0Ah]<=00h (00000000b)	Master Volume */    
-        WriteSTAByte(0x0A,pcSTAComnd,1);
+        WriteSTAByte(STA321MP_MVOL,pcSTAComnd,1);
         
-        pcSTAComnd[0] = 0x26;
-        pcSTAComnd[1] = 0x26;
-        pcSTAComnd[2] = 0x26;
-        pcSTAComnd[3] = 0x26; 
-        pcSTAComnd[4] = 0x26;
-        pcSTAComnd[5] = 0x26;
-        pcSTAComnd[6] = 0x26;
-        pcSTAComnd[7] = 0x26;
-        WriteSTAByte(0x0B,pcSTAComnd,8);
-                  
+        pcSTAComnd[0] = MIC_VOL;
+        pcSTAComnd[1] = MIC_VOL;
+        pcSTAComnd[2] = MIC_VOL;
+        pcSTAComnd[3] = MIC_VOL; 
+        pcSTAComnd[4] = MIC_VOL;
+        pcSTAComnd[5] = MIC_VOL;
+        pcSTAComnd[6] = MIC_VOL;
+        pcSTAComnd[7] = MIC_VOL;
+        WriteSTAByte(STA321MP_C1VOL,pcSTAComnd,8);
 
-                
-		/* Register
-		0x09: Master mute register
-		0x0A: Master voulume register
-		0x0B - 0x12: channel nth volume		
-		*/
-		
-		/* 0x1B : Channel inputs mapping channel 1 and 2
-		D7   D6      D5     D4   D3    D2    D1    D0
-                C2IM2   C2IM1 C2IM0 C1IM2 C1IM1 C1IM
-                00 1 0 00
-		*/
-		
 
+        pcSTAComnd[0] = 0x00;
+        WriteSTAByte(STA321MP_CHNLMIX,&pcSTAComnd[0],1);
+        pcSTAComnd[0] = 0xFF;
+        WriteSTAByte(STA321MP_TONEBP,&pcSTAComnd[0],1);
         
-   	    pcSTAComnd[0] = 0xFC; 
-	    WriteSTAByte(0x5E,&pcSTAComnd[0],1);
+        pcSTAComnd[0] = 0x00;
+        WriteSTAByte(STA321MP_CBQ1,&pcSTAComnd[0],1);
 
-		/* 0x62 */
-        //	LPxen
-        //'1': Low-pass filter of mike x is enabled
-        //'0': Low-pass filter of mike x is not enabled
-   	    pcSTAComnd[0] = 0x4A;//40 
-	    WriteSTAByte(0x62,&pcSTAComnd[0],1);
-		
-	    /* 0x63 */
-   	    pcSTAComnd[0] = 0x4A;//40 
-	    WriteSTAByte(0x63,&pcSTAComnd[0],1);
+        pcSTAComnd[0] = 0x00;
+        WriteSTAByte(STA321MP_CBQ2,&pcSTAComnd[0],1);
 
-	    /* 0x64 */
-   	    pcSTAComnd[0] = 0x4A;//40 
-	    WriteSTAByte(0x64,&pcSTAComnd[0],1);		
+        pcSTAComnd[0] = 0x10;
+        WriteSTAByte(STA321MP_CBQ3,&pcSTAComnd[0],1);
+               
+        //bit 2: 1-> Microphone recombination IP is active
+        //       0-> Microphone recombination IP is not active
+        //Recombination control register: bit 0: 1-Auto-config of the CLKOUT generator to Fout=sys_clk/32
+        //                                       0-CLK is configured only through COS bit
+        pcSTAComnd[0] = AUTO_CLKOUT;//AUTO_CLKOUT MIC_MODE
+        WriteSTAByte(STA321MP_RCTR1,&pcSTAComnd[0],1);
 
-		/*--------------- PLL configuration registers (0x71, 0x72, 0x73, 0x74) ----------------------- */
-		/* PLLFC = 0: Fout = (Fin/IDF)*ND  */
+        pcSTAComnd[0] = PDMSM_NORMAL;
+        WriteSTAByte(STA321MP_PDMCT,&pcSTAComnd[0],1);
 
-		/* 0x73: 5 bits ND */
-   	    pcSTAComnd[0] = 0x28;//40 
-	    WriteSTAByte(0x73,&pcSTAComnd[0],1);
+       pcSTAComnd[0] = I2S_OUT;
+        WriteSTAByte(STA321MP_CFR129,pcSTAComnd,1);//Reg[81h]<=09h (00001001b)	CFR129  
 
-       /* 0x74: bit[0:3]: IDF */
-	   pcSTAComnd[0] = 0x0C; //10
-	   WriteSTAByte(0x74,&pcSTAComnd[0],1);
+#if 1
+		  // Initialize all the mixers
+		  for (char mixer = 1 ; mixer <= 2 ; mixer++)
+		    for (char channel = 1 ; channel <= 8 ; channel++)
+		      for (char input = 1 ; input <= 8 ; input++)
+		        if (input == channel)
+		          sta321mp_mixer(mixer, channel, input, 0x7FFFFF); /* Setting channel 7, Mixer 1, channel 1 on  */
+		        else
+		          sta321mp_mixer(mixer, channel, input, 0x000000); /* Setting channel 7, Mixer 1, channel 1 on  */
 
-       /* 0x75:bit 2: PLLDPR--> PLL direct programming
-       ‘0’: PLL configuration depends on MCS
-       ‘1’: PLL configuration depends on I2C regs (0x72,0x73 and 0x74)
-       */
-	   pcSTAComnd[0] = 0x04; 
-	   WriteSTAByte(0x75,&pcSTAComnd[0],1);
-	   /* ----------------------------------------------------------------------------------------------*/
+	      // initialize all the post-scale (channel 1)
+		  for (char channel = 1 ; channel <= 8 ; channel++)
+		  {
+		    sta321mp_prescale(channel, 0x7FFFFF); 
+		    sta321mp_postscale(channel, 0x7FFFFF); 
+		  }
 
-		//bit 2: 1-> Microphone recombination IP is active
-		//       0-> Microphone recombination IP is not active
-		//Recombination control register: bit 0: 1-Auto-config of the CLKOUT generator to Fout=sys_clk/32
-		//                                       0-CLK is configured only through COS bit
-		pcSTAComnd[0] = 0x00;
-		WriteSTAByte(0x5D,&pcSTAComnd[0],1);
-
-        		
+		// set pwm output (channels 1/2 to pwm 7/8)
+		sta321mp_mixer( 1, 7, 1, 0x7FFFFF); /* Setting channel 7, Mixer 1, channel 1 on  */
+		sta321mp_mixer( 1, 7, 7, 0x000000); /* Setting channel 7, Mixer 1, channel 7 off */
+		sta321mp_mixer( 1, 8, 2, 0x7FFFFF); /* Setting channel 8, Mixer 1, channel 2 on  */
+		sta321mp_mixer( 1, 8, 8, 0x000000); /* Setting channel 8, Mixer 1, channel 8 off */
+#endif
 		STACoefSet();
-            
+
+		//sta321mp_LP_48kHz();
+        //sta321mp_LP_192kHz();
+        //pcSTAComnd[0] = MAN_CLKOUT;
+        //WriteSTAByte(STA321MP_RCTR1,&pcSTAComnd[0],1);
  }
  
  
@@ -485,1324 +345,118 @@ void STACoefSet(void)
 // sta321mp_biquad(codec, 1, 6, 0xf083cb, 0x177b7b, 0x5ec1ab, 0x873641,0xbbdbd);
 // sta321mp_biquad(codec, 1, 7, 0xf00d82, 0x177b7b, 0x5f0547, 0x822c2a,0xbbdbd);
 
-bufCoefBiquad[0]= 250;
-bufCoefBiquad[1]= 15;
-bufCoefBiquad[2]= 248;
-bufCoefBiquad[3]= 90;
-bufCoefBiquad[4]= 30;
-bufCoefBiquad[5]= 138;
-bufCoefBiquad[6]= 117;
-bufCoefBiquad[7]= 122;
-bufCoefBiquad[8]= 75;
-bufCoefBiquad[9]= 147;
-bufCoefBiquad[10]= 217;
-bufCoefBiquad[11]= 241;
-bufCoefBiquad[12]= 45;
-bufCoefBiquad[13]= 15;
-bufCoefBiquad[14]= 69;
+
+//rio_SetCoefValue():	Coef[000h]<=822A2Dh		Coefficient 0x000 - C1H10 (b1/2)
+//rio_SetCoefValue():	Coef[001h]<=7DD5D3h		Coefficient 0x001 - C1H11 (b2)  
+//rio_SetCoefValue():	Coef[002h]<=7DD123h		Coefficient 0x002 - C1H12 (a1/2)
+//rio_SetCoefValue():	Coef[003h]<=844AFCh		Coefficient 0x003 - C1H13 (a2)  
+//rio_SetCoefValue():	Coef[004h]<=3EEAE9h		Coefficient 0x004 - C1H14 (b0/2)
+
+//sta321mp_biquad(1, 1, 0x822A2D, 0x7DD5D3, 0x7DD123, 0x844AFC,0x3EEAE9);
+sta321mp_biquad(1, 1, 0x803C5C, 0x7FC3A4, 0x7FC396, 0x80789B,0x3FE1D2);
+
+bufCoefBiquad[0]= 41;
+bufCoefBiquad[1]= 20;
+bufCoefBiquad[2]= 186;
+bufCoefBiquad[3]= 69;
+bufCoefBiquad[4]= 103;
+bufCoefBiquad[5]= 10;
+bufCoefBiquad[6]= 106;
+bufCoefBiquad[7]= 110;
+bufCoefBiquad[8]= 180;
+bufCoefBiquad[9]= 166;
+bufCoefBiquad[10]= 71;
+bufCoefBiquad[11]= 204;
+bufCoefBiquad[12]= 34;
+bufCoefBiquad[13]= 179;
+bufCoefBiquad[14]= 133;
 WriteCoef(0x05, bufCoefBiquad);
-bufCoefBiquad[0]= 243;
-bufCoefBiquad[1]= 182;
-bufCoefBiquad[2]= 164;
-bufCoefBiquad[3]= 15;
-bufCoefBiquad[4]= 99;
-bufCoefBiquad[5]= 170;
-bufCoefBiquad[6]= 118;
-bufCoefBiquad[7]= 97;
-bufCoefBiquad[8]= 166;
-bufCoefBiquad[9]= 143;
-bufCoefBiquad[10]= 246;
-bufCoefBiquad[11]= 17;
-bufCoefBiquad[12]= 7;
-bufCoefBiquad[13]= 177;
-bufCoefBiquad[14]= 213;
+bufCoefBiquad[0]= 249;
+bufCoefBiquad[1]= 20;
+bufCoefBiquad[2]= 79;
+bufCoefBiquad[3]= 20;
+bufCoefBiquad[4]= 181;
+bufCoefBiquad[5]= 137;
+bufCoefBiquad[6]= 105;
+bufCoefBiquad[7]= 227;
+bufCoefBiquad[8]= 180;
+bufCoefBiquad[9]= 158;
+bufCoefBiquad[10]= 219;
+bufCoefBiquad[11]= 204;
+bufCoefBiquad[12]= 10;
+bufCoefBiquad[13]= 90;
+bufCoefBiquad[14]= 196;
 WriteCoef(0x0a, bufCoefBiquad);
-bufCoefBiquad[0]= 242;
-bufCoefBiquad[1]= 31;
-bufCoefBiquad[2]= 49;
-bufCoefBiquad[3]= 15;
-bufCoefBiquad[4]= 99;
-bufCoefBiquad[5]= 170;
-bufCoefBiquad[6]= 119;
-bufCoefBiquad[7]= 157;
-bufCoefBiquad[8]= 145;
-bufCoefBiquad[9]= 138;
-bufCoefBiquad[10]= 181;
-bufCoefBiquad[11]= 246;
-bufCoefBiquad[12]= 7;
-bufCoefBiquad[13]= 177;
-bufCoefBiquad[14]= 213;
+bufCoefBiquad[0]= 243;
+bufCoefBiquad[1]= 7;
+bufCoefBiquad[2]= 255;
+bufCoefBiquad[3]= 20;
+bufCoefBiquad[4]= 181;
+bufCoefBiquad[5]= 137;
+bufCoefBiquad[6]= 105;
+bufCoefBiquad[7]= 52;
+bufCoefBiquad[8]= 233;
+bufCoefBiquad[9]= 148;
+bufCoefBiquad[10]= 200;
+bufCoefBiquad[11]= 180;
+bufCoefBiquad[12]= 10;
+bufCoefBiquad[13]= 90;
+bufCoefBiquad[14]= 196;
 WriteCoef(0x0f, bufCoefBiquad);
-bufCoefBiquad[0]= 241;
-bufCoefBiquad[1]= 172;
-bufCoefBiquad[2]= 26;
-bufCoefBiquad[3]= 15;
-bufCoefBiquad[4]= 99;
-bufCoefBiquad[5]= 170;
-bufCoefBiquad[6]= 120;
-bufCoefBiquad[7]= 179;
-bufCoefBiquad[8]= 221;
-bufCoefBiquad[9]= 134;
-bufCoefBiquad[10]= 63;
-bufCoefBiquad[11]= 99;
-bufCoefBiquad[12]= 7;
-bufCoefBiquad[13]= 177;
-bufCoefBiquad[14]= 213;
+bufCoefBiquad[0]= 240;
+bufCoefBiquad[1]= 249;
+bufCoefBiquad[2]= 51;
+bufCoefBiquad[3]= 20;
+bufCoefBiquad[4]= 181;
+bufCoefBiquad[5]= 137;
+bufCoefBiquad[6]= 104;
+bufCoefBiquad[7]= 196;
+bufCoefBiquad[8]= 130;
+bufCoefBiquad[9]= 140;
+bufCoefBiquad[10]= 42;
+bufCoefBiquad[11]= 203;
+bufCoefBiquad[12]= 10;
+bufCoefBiquad[13]= 90;
+bufCoefBiquad[14]= 196;
 WriteCoef(0x014, bufCoefBiquad);
-bufCoefBiquad[0]= 241;
-bufCoefBiquad[1]= 129;
-bufCoefBiquad[2]= 115;
-bufCoefBiquad[3]= 15;
-bufCoefBiquad[4]= 99;
-bufCoefBiquad[5]= 170;
-bufCoefBiquad[6]= 121;
-bufCoefBiquad[7]= 140;
-bufCoefBiquad[8]= 11;
-bufCoefBiquad[9]= 131;
-bufCoefBiquad[10]= 30;
-bufCoefBiquad[11]= 24;
-bufCoefBiquad[12]= 7;
-bufCoefBiquad[13]= 177;
-bufCoefBiquad[14]= 213;
+bufCoefBiquad[0]= 240;
+bufCoefBiquad[1]= 41;
+bufCoefBiquad[2]= 185;
+bufCoefBiquad[3]= 20;
+bufCoefBiquad[4]= 181;
+bufCoefBiquad[5]= 137;
+bufCoefBiquad[6]= 104;
+bufCoefBiquad[7]= 197;
+bufCoefBiquad[8]= 171;
+bufCoefBiquad[9]= 134;
+bufCoefBiquad[10]= 23;
+bufCoefBiquad[11]= 214;
+bufCoefBiquad[12]= 10;
+bufCoefBiquad[13]= 90;
+bufCoefBiquad[14]= 196;
 WriteCoef(0x019, bufCoefBiquad);
-bufCoefBiquad[0]= 241;
-bufCoefBiquad[1]= 114;
-bufCoefBiquad[2]= 29;
-bufCoefBiquad[3]= 15;
-bufCoefBiquad[4]= 99;
-bufCoefBiquad[5]= 170;
-bufCoefBiquad[6]= 122;
-bufCoefBiquad[7]= 75;
-bufCoefBiquad[8]= 50;
-bufCoefBiquad[9]= 128;
-bufCoefBiquad[10]= 239;
-bufCoefBiquad[11]= 42;
-bufCoefBiquad[12]= 7;
-bufCoefBiquad[13]= 177;
-bufCoefBiquad[14]= 213;
+bufCoefBiquad[0]= 239;
+bufCoefBiquad[1]= 221;
+bufCoefBiquad[2]= 94;
+bufCoefBiquad[3]= 20;
+bufCoefBiquad[4]= 181;
+bufCoefBiquad[5]= 137;
+bufCoefBiquad[6]= 105;
+bufCoefBiquad[7]= 97;
+bufCoefBiquad[8]= 227;
+bufCoefBiquad[9]= 129;
+bufCoefBiquad[10]= 213;
+bufCoefBiquad[11]= 134;
+bufCoefBiquad[12]= 10;
+bufCoefBiquad[13]= 90;
+bufCoefBiquad[14]= 196;
 WriteCoef(0x01e, bufCoefBiquad);
-
-
-//037
-bufCoefBiquad[0]=0x80;
-bufCoefBiquad[1]=0x37;
-bufCoefBiquad[2]=0xD9;
-bufCoefBiquad[3]=0x7F;
-bufCoefBiquad[4]=0xC8;
-bufCoefBiquad[5]=0x27;
-bufCoefBiquad[6]=0x7F;
-bufCoefBiquad[7]=0xC8;
-bufCoefBiquad[8]=0x1B;
-bufCoefBiquad[9]=0x80;
-bufCoefBiquad[10]=0x6F;
-bufCoefBiquad[11]=0x98;
-bufCoefBiquad[12]=0x3F;
-bufCoefBiquad[13]=0xE4;
-bufCoefBiquad[14]=0x13;
-WriteCoef(0x037,bufCoefBiquad);
-//03C
-bufCoefBiquad[0]=0x80;
-bufCoefBiquad[1]=0x37;
-bufCoefBiquad[2]=0xD9;
-bufCoefBiquad[3]=0x7F;
-bufCoefBiquad[4]=0xC8;
-bufCoefBiquad[5]=0x27;
-bufCoefBiquad[6]=0x7F;
-bufCoefBiquad[7]=0xC8;
-bufCoefBiquad[8]=0x1B;
-bufCoefBiquad[9]=0x80;
-bufCoefBiquad[10]=0x6F;
-bufCoefBiquad[11]=0x98;
-bufCoefBiquad[12]=0x3F;
-bufCoefBiquad[13]=0xE4;
-bufCoefBiquad[14]=0x13;
-WriteCoef(0x03C,bufCoefBiquad);
-//041
-bufCoefBiquad[0]=0x09;
-bufCoefBiquad[1]=0x3E;
-bufCoefBiquad[2]=0xC0;
-bufCoefBiquad[3]=0x09;
-bufCoefBiquad[4]=0x3E;
-bufCoefBiquad[5]=0xC0;
-bufCoefBiquad[6]=0x46;
-bufCoefBiquad[7]=0xFC;
-bufCoefBiquad[8]=0xC7;
-bufCoefBiquad[9]=0xCD;
-bufCoefBiquad[10]=0x0B;
-bufCoefBiquad[11]=0x6E;
-bufCoefBiquad[12]=0x04;
-bufCoefBiquad[13]=0x9F;
-bufCoefBiquad[14]=0x60;
-WriteCoef(0x041,bufCoefBiquad);
-//046
-bufCoefBiquad[0]=0x09;
-bufCoefBiquad[1]=0x3E;
-bufCoefBiquad[2]=0xC0;
-bufCoefBiquad[3]=0x09;
-bufCoefBiquad[4]=0x3E;
-bufCoefBiquad[5]=0xC0;
-bufCoefBiquad[6]=0x46;
-bufCoefBiquad[7]=0xFC;
-bufCoefBiquad[8]=0xC7;
-bufCoefBiquad[9]=0xCD;
-bufCoefBiquad[10]=0x0B;
-bufCoefBiquad[11]=0x6E;
-bufCoefBiquad[12]=0x04;
-bufCoefBiquad[13]=0x9F;
-bufCoefBiquad[14]=0x60;
-WriteCoef(0x046,bufCoefBiquad);
-//04B
-bufCoefBiquad[0]=0x09;
-bufCoefBiquad[1]=0x3E;
-bufCoefBiquad[2]=0xC0;
-bufCoefBiquad[3]=0x09;
-bufCoefBiquad[4]=0x3E;
-bufCoefBiquad[5]=0xC0;
-bufCoefBiquad[6]=0x46;
-bufCoefBiquad[7]=0xFC;
-bufCoefBiquad[8]=0xC7;
-bufCoefBiquad[9]=0xCD;
-bufCoefBiquad[10]=0x0B;
-bufCoefBiquad[11]=0x6E;
-bufCoefBiquad[12]=0x04;
-bufCoefBiquad[13]=0x9F;
-bufCoefBiquad[14]=0x60;
-WriteCoef(0x04B,bufCoefBiquad);
-//050
-bufCoefBiquad[0]=0xA4;
-bufCoefBiquad[1]=0x18;
-bufCoefBiquad[2]=0xCA;
-bufCoefBiquad[3]=0x56;
-bufCoefBiquad[4]=0x67;
-bufCoefBiquad[5]=0xB6;
-bufCoefBiquad[6]=0x5B;
-bufCoefBiquad[7]=0xE7;
-bufCoefBiquad[8]=0x36;
-bufCoefBiquad[9]=0x98;
-bufCoefBiquad[10]=0x51;
-bufCoefBiquad[11]=0x32;
-bufCoefBiquad[12]=0x48;
-bufCoefBiquad[13]=0xA3;
-bufCoefBiquad[14]=0x8B;
-WriteCoef(0x050,bufCoefBiquad);
-//069
-bufCoefBiquad[0]=0x80;
-bufCoefBiquad[1]=0x37;
-bufCoefBiquad[2]=0xD9;
-bufCoefBiquad[3]=0x7F;
-bufCoefBiquad[4]=0xC8;
-bufCoefBiquad[5]=0x27;
-bufCoefBiquad[6]=0x7F;
-bufCoefBiquad[7]=0xC8;
-bufCoefBiquad[8]=0x1B;
-bufCoefBiquad[9]=0x80;
-bufCoefBiquad[10]=0x6F;
-bufCoefBiquad[11]=0x98;
-bufCoefBiquad[12]=0x3F;
-bufCoefBiquad[13]=0xE4;
-bufCoefBiquad[14]=0x13;
-WriteCoef(0x069,bufCoefBiquad);
-//06E
-bufCoefBiquad[0]=0x80;
-bufCoefBiquad[1]=0x37;
-bufCoefBiquad[2]=0xD9;
-bufCoefBiquad[3]=0x7F;
-bufCoefBiquad[4]=0xC8;
-bufCoefBiquad[5]=0x27;
-bufCoefBiquad[6]=0x7F;
-bufCoefBiquad[7]=0xC8;
-bufCoefBiquad[8]=0x1B;
-bufCoefBiquad[9]=0x80;
-bufCoefBiquad[10]=0x6F;
-bufCoefBiquad[11]=0x98;
-bufCoefBiquad[12]=0x3F;
-bufCoefBiquad[13]=0xE4;
-bufCoefBiquad[14]=0x13;
-WriteCoef(0x06E,bufCoefBiquad);
-//073
-bufCoefBiquad[0]=0x09;
-bufCoefBiquad[1]=0x3E;
-bufCoefBiquad[2]=0xC0;
-bufCoefBiquad[3]=0x09;
-bufCoefBiquad[4]=0x3E;
-bufCoefBiquad[5]=0xC0;
-bufCoefBiquad[6]=0x46;
-bufCoefBiquad[7]=0xFC;
-bufCoefBiquad[8]=0xC7;
-bufCoefBiquad[9]=0xCD;
-bufCoefBiquad[10]=0x0B;
-bufCoefBiquad[11]=0x6E;
-bufCoefBiquad[12]=0x04;
-bufCoefBiquad[13]=0x9F;
-bufCoefBiquad[14]=0x60;
-WriteCoef(0x073,bufCoefBiquad);
-//078
-bufCoefBiquad[0]=0x09;
-bufCoefBiquad[1]=0x3E;
-bufCoefBiquad[2]=0xC0;
-bufCoefBiquad[3]=0x09;
-bufCoefBiquad[4]=0x3E;
-bufCoefBiquad[5]=0xC0;
-bufCoefBiquad[6]=0x46;
-bufCoefBiquad[7]=0xFC;
-bufCoefBiquad[8]=0xC7;
-bufCoefBiquad[9]=0xCD;
-bufCoefBiquad[10]=0x0B;
-bufCoefBiquad[11]=0x6E;
-bufCoefBiquad[12]=0x04;
-bufCoefBiquad[13]=0x9F;
-bufCoefBiquad[14]=0x60;
-WriteCoef(0x078,bufCoefBiquad);
-//07D
-bufCoefBiquad[0]=0x09;
-bufCoefBiquad[1]=0x3E;
-bufCoefBiquad[2]=0xC0;
-bufCoefBiquad[3]=0x09;
-bufCoefBiquad[4]=0x3E;
-bufCoefBiquad[5]=0xC0;
-bufCoefBiquad[6]=0x46;
-bufCoefBiquad[7]=0xFC;
-bufCoefBiquad[8]=0xC7;
-bufCoefBiquad[9]=0xCD;
-bufCoefBiquad[10]=0x0B;
-bufCoefBiquad[11]=0x6E;
-bufCoefBiquad[12]=0x04;
-bufCoefBiquad[13]=0x9F;
-bufCoefBiquad[14]=0x60;
-WriteCoef(0x07D,bufCoefBiquad);
-//082
-bufCoefBiquad[0]=0xA4;
-bufCoefBiquad[1]=0x18;
-bufCoefBiquad[2]=0xCA;
-bufCoefBiquad[3]=0x56;
-bufCoefBiquad[4]=0x67;
-bufCoefBiquad[5]=0xB6;
-bufCoefBiquad[6]=0x5B;
-bufCoefBiquad[7]=0xE7;
-bufCoefBiquad[8]=0x36;
-bufCoefBiquad[9]=0x98;
-bufCoefBiquad[10]=0x51;
-bufCoefBiquad[11]=0x32;
-bufCoefBiquad[12]=0x48;
-bufCoefBiquad[13]=0xA3;
-bufCoefBiquad[14]=0x8B;
-WriteCoef(0x082,bufCoefBiquad);
-//09B
-bufCoefBiquad[0]=0x80;
-bufCoefBiquad[1]=0x37;
-bufCoefBiquad[2]=0xD9;
-bufCoefBiquad[3]=0x7F;
-bufCoefBiquad[4]=0xC8;
-bufCoefBiquad[5]=0x27;
-bufCoefBiquad[6]=0x7F;
-bufCoefBiquad[7]=0xC8;
-bufCoefBiquad[8]=0x1B;
-bufCoefBiquad[9]=0x80;
-bufCoefBiquad[10]=0x6F;
-bufCoefBiquad[11]=0x98;
-bufCoefBiquad[12]=0x3F;
-bufCoefBiquad[13]=0xE4;
-bufCoefBiquad[14]=0x13;
-WriteCoef(0x09B,bufCoefBiquad);
-//0A0
-bufCoefBiquad[0]=0x80;
-bufCoefBiquad[1]=0x37;
-bufCoefBiquad[2]=0xD9;
-bufCoefBiquad[3]=0x7F;
-bufCoefBiquad[4]=0xC8;
-bufCoefBiquad[5]=0x27;
-bufCoefBiquad[6]=0x7F;
-bufCoefBiquad[7]=0xC8;
-bufCoefBiquad[8]=0x1B;
-bufCoefBiquad[9]=0x80;
-bufCoefBiquad[10]=0x6F;
-bufCoefBiquad[11]=0x98;
-bufCoefBiquad[12]=0x3F;
-bufCoefBiquad[13]=0xE4;
-bufCoefBiquad[14]=0x13;
-WriteCoef(0x0A0,bufCoefBiquad);
-//0A5
-bufCoefBiquad[0]=0x09;
-bufCoefBiquad[1]=0x3E;
-bufCoefBiquad[2]=0xC0;
-bufCoefBiquad[3]=0x09;
-bufCoefBiquad[4]=0x3E;
-bufCoefBiquad[5]=0xC0;
-bufCoefBiquad[6]=0x46;
-bufCoefBiquad[7]=0xFC;
-bufCoefBiquad[8]=0xC7;
-bufCoefBiquad[9]=0xCD;
-bufCoefBiquad[10]=0x0B;
-bufCoefBiquad[11]=0x6E;
-bufCoefBiquad[12]=0x04;
-bufCoefBiquad[13]=0x9F;
-bufCoefBiquad[14]=0x60;
-WriteCoef(0x0A5,bufCoefBiquad);
-//0AA
-bufCoefBiquad[0]=0x09;
-bufCoefBiquad[1]=0x3E;
-bufCoefBiquad[2]=0xC0;
-bufCoefBiquad[3]=0x09;
-bufCoefBiquad[4]=0x3E;
-bufCoefBiquad[5]=0xC0;
-bufCoefBiquad[6]=0x46;
-bufCoefBiquad[7]=0xFC;
-bufCoefBiquad[8]=0xC7;
-bufCoefBiquad[9]=0xCD;
-bufCoefBiquad[10]=0x0B;
-bufCoefBiquad[11]=0x6E;
-bufCoefBiquad[12]=0x04;
-bufCoefBiquad[13]=0x9F;
-bufCoefBiquad[14]=0x60;
-WriteCoef(0x0AA,bufCoefBiquad);
-//0AF
-bufCoefBiquad[0]=0x09;
-bufCoefBiquad[1]=0x3E;
-bufCoefBiquad[2]=0xC0;
-bufCoefBiquad[3]=0x09;
-bufCoefBiquad[4]=0x3E;
-bufCoefBiquad[5]=0xC0;
-bufCoefBiquad[6]=0x46;
-bufCoefBiquad[7]=0xFC;
-bufCoefBiquad[8]=0xC7;
-bufCoefBiquad[9]=0xCD;
-bufCoefBiquad[10]=0x0B;
-bufCoefBiquad[11]=0x6E;
-bufCoefBiquad[12]=0x04;
-bufCoefBiquad[13]=0x9F;
-bufCoefBiquad[14]=0x60;
-WriteCoef(0x0AF,bufCoefBiquad);
-//0B4
-bufCoefBiquad[0]=0xA4;
-bufCoefBiquad[1]=0x18;
-bufCoefBiquad[2]=0xCA;
-bufCoefBiquad[3]=0x56;
-bufCoefBiquad[4]=0x67;
-bufCoefBiquad[5]=0xB6;
-bufCoefBiquad[6]=0x5B;
-bufCoefBiquad[7]=0xE7;
-bufCoefBiquad[8]=0x36;
-bufCoefBiquad[9]=0x98;
-bufCoefBiquad[10]=0x51;
-bufCoefBiquad[11]=0x32;
-bufCoefBiquad[12]=0x48;
-bufCoefBiquad[13]=0xA3;
-bufCoefBiquad[14]=0x8B;
-WriteCoef(0x0B4,bufCoefBiquad);
-//0CD
-bufCoefBiquad[0]=0x80;
-bufCoefBiquad[1]=0x37;
-bufCoefBiquad[2]=0xD9;
-bufCoefBiquad[3]=0x7F;
-bufCoefBiquad[4]=0xC8;
-bufCoefBiquad[5]=0x27;
-bufCoefBiquad[6]=0x7F;
-bufCoefBiquad[7]=0xC8;
-bufCoefBiquad[8]=0x1B;
-bufCoefBiquad[9]=0x80;
-bufCoefBiquad[10]=0x6F;
-bufCoefBiquad[11]=0x98;
-bufCoefBiquad[12]=0x3F;
-bufCoefBiquad[13]=0xE4;
-bufCoefBiquad[14]=0x13;
-WriteCoef(0x0CD,bufCoefBiquad);
-//0D2
-bufCoefBiquad[0]=0x80;
-bufCoefBiquad[1]=0x37;
-bufCoefBiquad[2]=0xD9;
-bufCoefBiquad[3]=0x7F;
-bufCoefBiquad[4]=0xC8;
-bufCoefBiquad[5]=0x27;
-bufCoefBiquad[6]=0x7F;
-bufCoefBiquad[7]=0xC8;
-bufCoefBiquad[8]=0x1B;
-bufCoefBiquad[9]=0x80;
-bufCoefBiquad[10]=0x6F;
-bufCoefBiquad[11]=0x98;
-bufCoefBiquad[12]=0x3F;
-bufCoefBiquad[13]=0xE4;
-bufCoefBiquad[14]=0x13;
-WriteCoef(0x0D2,bufCoefBiquad);
-//0D7
-bufCoefBiquad[0]=0x09;
-bufCoefBiquad[1]=0x3E;
-bufCoefBiquad[2]=0xC0;
-bufCoefBiquad[3]=0x09;
-bufCoefBiquad[4]=0x3E;
-bufCoefBiquad[5]=0xC0;
-bufCoefBiquad[6]=0x46;
-bufCoefBiquad[7]=0xFC;
-bufCoefBiquad[8]=0xC7;
-bufCoefBiquad[9]=0xCD;
-bufCoefBiquad[10]=0x0B;
-bufCoefBiquad[11]=0x6E;
-bufCoefBiquad[12]=0x04;
-bufCoefBiquad[13]=0x9F;
-bufCoefBiquad[14]=0x60;
-WriteCoef(0x0D7,bufCoefBiquad);
-//0DC
-bufCoefBiquad[0]=0x09;
-bufCoefBiquad[1]=0x3E;
-bufCoefBiquad[2]=0xC0;
-bufCoefBiquad[3]=0x09;
-bufCoefBiquad[4]=0x3E;
-bufCoefBiquad[5]=0xC0;
-bufCoefBiquad[6]=0x46;
-bufCoefBiquad[7]=0xFC;
-bufCoefBiquad[8]=0xC7;
-bufCoefBiquad[9]=0xCD;
-bufCoefBiquad[10]=0x0B;
-bufCoefBiquad[11]=0x6E;
-bufCoefBiquad[12]=0x04;
-bufCoefBiquad[13]=0x9F;
-bufCoefBiquad[14]=0x60;
-WriteCoef(0x0DC,bufCoefBiquad);
-//0E1
-bufCoefBiquad[0]=0x09;
-bufCoefBiquad[1]=0x3E;
-bufCoefBiquad[2]=0xC0;
-bufCoefBiquad[3]=0x09;
-bufCoefBiquad[4]=0x3E;
-bufCoefBiquad[5]=0xC0;
-bufCoefBiquad[6]=0x46;
-bufCoefBiquad[7]=0xFC;
-bufCoefBiquad[8]=0xC7;
-bufCoefBiquad[9]=0xCD;
-bufCoefBiquad[10]=0x0B;
-bufCoefBiquad[11]=0x6E;
-bufCoefBiquad[12]=0x04;
-bufCoefBiquad[13]=0x9F;
-bufCoefBiquad[14]=0x60;
-WriteCoef(0x0E1,bufCoefBiquad);
-//0E6
-bufCoefBiquad[0]=0xA4;
-bufCoefBiquad[1]=0x18;
-bufCoefBiquad[2]=0xCA;
-bufCoefBiquad[3]=0x56;
-bufCoefBiquad[4]=0x67;
-bufCoefBiquad[5]=0xB6;
-bufCoefBiquad[6]=0x5B;
-bufCoefBiquad[7]=0xE7;
-bufCoefBiquad[8]=0x36;
-bufCoefBiquad[9]=0x98;
-bufCoefBiquad[10]=0x51;
-bufCoefBiquad[11]=0x32;
-bufCoefBiquad[12]=0x48;
-bufCoefBiquad[13]=0xA3;
-bufCoefBiquad[14]=0x8B;
-WriteCoef(0x0E6,bufCoefBiquad);
-//0FF
-bufCoefBiquad[0]=0x80;
-bufCoefBiquad[1]=0x37;
-bufCoefBiquad[2]=0xD9;
-bufCoefBiquad[3]=0x7F;
-bufCoefBiquad[4]=0xC8;
-bufCoefBiquad[5]=0x27;
-bufCoefBiquad[6]=0x7F;
-bufCoefBiquad[7]=0xC8;
-bufCoefBiquad[8]=0x1B;
-bufCoefBiquad[9]=0x80;
-bufCoefBiquad[10]=0x6F;
-bufCoefBiquad[11]=0x98;
-bufCoefBiquad[12]=0x3F;
-bufCoefBiquad[13]=0xE4;
-bufCoefBiquad[14]=0x13;
-WriteCoef(0x0FF,bufCoefBiquad);
-//104
-bufCoefBiquad[0]=0x80;
-bufCoefBiquad[1]=0x37;
-bufCoefBiquad[2]=0xD9;
-bufCoefBiquad[3]=0x7F;
-bufCoefBiquad[4]=0xC8;
-bufCoefBiquad[5]=0x27;
-bufCoefBiquad[6]=0x7F;
-bufCoefBiquad[7]=0xC8;
-bufCoefBiquad[8]=0x1B;
-bufCoefBiquad[9]=0x80;
-bufCoefBiquad[10]=0x6F;
-bufCoefBiquad[11]=0x98;
-bufCoefBiquad[12]=0x3F;
-bufCoefBiquad[13]=0xE4;
-bufCoefBiquad[14]=0x13;
-WriteCoef(0x104,bufCoefBiquad);
-//109
-bufCoefBiquad[0]=0x09;
-bufCoefBiquad[1]=0x3E;
-bufCoefBiquad[2]=0xC0;
-bufCoefBiquad[3]=0x09;
-bufCoefBiquad[4]=0x3E;
-bufCoefBiquad[5]=0xC0;
-bufCoefBiquad[6]=0x46;
-bufCoefBiquad[7]=0xFC;
-bufCoefBiquad[8]=0xC7;
-bufCoefBiquad[9]=0xCD;
-bufCoefBiquad[10]=0x0B;
-bufCoefBiquad[11]=0x6E;
-bufCoefBiquad[12]=0x04;
-bufCoefBiquad[13]=0x9F;
-bufCoefBiquad[14]=0x60;
-WriteCoef(0x109,bufCoefBiquad);
-//10E
-bufCoefBiquad[0]=0x09;
-bufCoefBiquad[1]=0x3E;
-bufCoefBiquad[2]=0xC0;
-bufCoefBiquad[3]=0x09;
-bufCoefBiquad[4]=0x3E;
-bufCoefBiquad[5]=0xC0;
-bufCoefBiquad[6]=0x46;
-bufCoefBiquad[7]=0xFC;
-bufCoefBiquad[8]=0xC7;
-bufCoefBiquad[9]=0xCD;
-bufCoefBiquad[10]=0x0B;
-bufCoefBiquad[11]=0x6E;
-bufCoefBiquad[12]=0x04;
-bufCoefBiquad[13]=0x9F;
-bufCoefBiquad[14]=0x60;
-WriteCoef(0x10E,bufCoefBiquad);
-//113
-bufCoefBiquad[0]=0x09;
-bufCoefBiquad[1]=0x3E;
-bufCoefBiquad[2]=0xC0;
-bufCoefBiquad[3]=0x09;
-bufCoefBiquad[4]=0x3E;
-bufCoefBiquad[5]=0xC0;
-bufCoefBiquad[6]=0x46;
-bufCoefBiquad[7]=0xFC;
-bufCoefBiquad[8]=0xC7;
-bufCoefBiquad[9]=0xCD;
-bufCoefBiquad[10]=0x0B;
-bufCoefBiquad[11]=0x6E;
-bufCoefBiquad[12]=0x04;
-bufCoefBiquad[13]=0x9F;
-bufCoefBiquad[14]=0x60;
-WriteCoef(0x113,bufCoefBiquad);
-//118
-bufCoefBiquad[0]=0xA4;
-bufCoefBiquad[1]=0x18;
-bufCoefBiquad[2]=0xCA;
-bufCoefBiquad[3]=0x56;
-bufCoefBiquad[4]=0x67;
-bufCoefBiquad[5]=0xB6;
-bufCoefBiquad[6]=0x5B;
-bufCoefBiquad[7]=0xE7;
-bufCoefBiquad[8]=0x36;
-bufCoefBiquad[9]=0x98;
-bufCoefBiquad[10]=0x51;
-bufCoefBiquad[11]=0x32;
-bufCoefBiquad[12]=0x48;
-bufCoefBiquad[13]=0xA3;
-bufCoefBiquad[14]=0x8B;
-WriteCoef(0x118,bufCoefBiquad);
-/*
-SetCoefValue( 0x000 , 0x000000 );
-SetCoefValue( 0x001 , 0x000000 );
-SetCoefValue( 0x002 , 0x000000 );
-SetCoefValue( 0x003 , 0x000000 );
-SetCoefValue( 0x004 , 0x400000 );
-SetCoefValue( 0x005 , 0x000000 );
-SetCoefValue( 0x006 , 0x000000 );
-SetCoefValue( 0x007 , 0x000000 );
-SetCoefValue( 0x008 , 0x000000 );
-SetCoefValue( 0x009 , 0x400000 );
-SetCoefValue( 0x00A , 0x000000 );
-SetCoefValue( 0x00B , 0x000000 );
-SetCoefValue( 0x00C , 0x000000 );
-SetCoefValue( 0x00D , 0x000000 );
-SetCoefValue( 0x00E , 0x400000 );
-SetCoefValue( 0x00F , 0x000000 );
-SetCoefValue( 0x010 , 0x000000 );
-SetCoefValue( 0x011 , 0x000000 );
-SetCoefValue( 0x012 , 0x000000 );
-SetCoefValue( 0x013 , 0x400000 );
-SetCoefValue( 0x014 , 0x000000 );
-SetCoefValue( 0x015 , 0x000000 );
-SetCoefValue( 0x016 , 0x000000 );
-SetCoefValue( 0x017 , 0x000000 );
-SetCoefValue( 0x018 , 0x400000 );
-SetCoefValue( 0x019 , 0x000000 );
-SetCoefValue( 0x01A , 0x000000 );
-SetCoefValue( 0x01B , 0x000000 );
-SetCoefValue( 0x01C , 0x000000 );
-SetCoefValue( 0x01D , 0x400000 );
-SetCoefValue( 0x01E , 0x000000 );
-SetCoefValue( 0x01F , 0x000000 );
-SetCoefValue( 0x020 , 0x000000 );
-SetCoefValue( 0x021 , 0x000000 );
-SetCoefValue( 0x022 , 0x400000 );
-SetCoefValue( 0x023 , 0x000000 );
-SetCoefValue( 0x024 , 0x000000 );
-SetCoefValue( 0x025 , 0x000000 );
-SetCoefValue( 0x026 , 0x000000 );
-SetCoefValue( 0x027 , 0x400000 );
-SetCoefValue( 0x028 , 0x000000 );
-SetCoefValue( 0x029 , 0x000000 );
-SetCoefValue( 0x02A , 0x000000 );
-SetCoefValue( 0x02B , 0x000000 );
-SetCoefValue( 0x02C , 0x400000 );
-SetCoefValue( 0x02D , 0x000000 );
-SetCoefValue( 0x02E , 0x000000 );
-SetCoefValue( 0x02F , 0x000000 );
-SetCoefValue( 0x030 , 0x000000 );
-SetCoefValue( 0x031 , 0x400000 );
-SetCoefValue( 0x032 , 0x000000 );
-SetCoefValue( 0x033 , 0x000000 );
-SetCoefValue( 0x034 , 0x000000 );
-SetCoefValue( 0x035 , 0x000000 );
-SetCoefValue( 0x036 , 0x400000 );
-SetCoefValue( 0x037 , 0x000000 );
-SetCoefValue( 0x038 , 0x000000 );
-SetCoefValue( 0x039 , 0x000000 );
-SetCoefValue( 0x03A , 0x000000 );
-SetCoefValue( 0x03B , 0x400000 );
-SetCoefValue( 0x03C , 0x000000 );
-SetCoefValue( 0x03D , 0x000000 );
-SetCoefValue( 0x03E , 0x000000 );
-SetCoefValue( 0x03F , 0x000000 );
-SetCoefValue( 0x040 , 0x400000 );
-SetCoefValue( 0x041 , 0x000000 );
-SetCoefValue( 0x042 , 0x000000 );
-SetCoefValue( 0x043 , 0x000000 );
-SetCoefValue( 0x044 , 0x000000 );
-SetCoefValue( 0x045 , 0x400000 );
-SetCoefValue( 0x046 , 0x000000 );
-SetCoefValue( 0x047 , 0x000000 );
-SetCoefValue( 0x048 , 0x000000 );
-SetCoefValue( 0x049 , 0x000000 );
-SetCoefValue( 0x04A , 0x400000 );
-SetCoefValue( 0x04B , 0x000000 );
-SetCoefValue( 0x04C , 0x000000 );
-SetCoefValue( 0x04D , 0x000000 );
-SetCoefValue( 0x04E , 0x000000 );
-SetCoefValue( 0x04F , 0x400000 );
-SetCoefValue( 0x050 , 0x000000 );
-SetCoefValue( 0x051 , 0x000000 );
-SetCoefValue( 0x052 , 0x000000 );
-SetCoefValue( 0x053 , 0x000000 );
-SetCoefValue( 0x054 , 0x400000 );
-SetCoefValue( 0x055 , 0x000000 );
-SetCoefValue( 0x056 , 0x000000 );
-SetCoefValue( 0x057 , 0x000000 );
-SetCoefValue( 0x058 , 0x000000 );
-SetCoefValue( 0x059 , 0x400000 );
-SetCoefValue( 0x05A , 0x000000 );
-SetCoefValue( 0x05B , 0x000000 );
-SetCoefValue( 0x05C , 0x000000 );
-SetCoefValue( 0x05D , 0x000000 );
-SetCoefValue( 0x05E , 0x400000 );
-SetCoefValue( 0x05F , 0x000000 );
-SetCoefValue( 0x060 , 0x000000 );
-SetCoefValue( 0x061 , 0x000000 );
-SetCoefValue( 0x062 , 0x000000 );
-SetCoefValue( 0x063 , 0x400000 );
-SetCoefValue( 0x064 , 0x000000 );
-SetCoefValue( 0x065 , 0x000000 );
-SetCoefValue( 0x066 , 0x000000 );
-SetCoefValue( 0x067 , 0x000000 );
-SetCoefValue( 0x068 , 0x400000 );
-SetCoefValue( 0x069 , 0x000000 );
-SetCoefValue( 0x06A , 0x000000 );
-SetCoefValue( 0x06B , 0x000000 );
-SetCoefValue( 0x06C , 0x000000 );
-SetCoefValue( 0x06D , 0x400000 );
-SetCoefValue( 0x06E , 0x000000 );
-SetCoefValue( 0x06F , 0x000000 );
-SetCoefValue( 0x070 , 0x000000 );
-SetCoefValue( 0x071 , 0x000000 );
-SetCoefValue( 0x072 , 0x400000 );
-SetCoefValue( 0x073 , 0x000000 );
-SetCoefValue( 0x074 , 0x000000 );
-SetCoefValue( 0x075 , 0x000000 );
-SetCoefValue( 0x076 , 0x000000 );
-SetCoefValue( 0x077 , 0x400000 );
-SetCoefValue( 0x078 , 0x000000 );
-SetCoefValue( 0x079 , 0x000000 );
-SetCoefValue( 0x07A , 0x000000 );
-SetCoefValue( 0x07B , 0x000000 );
-SetCoefValue( 0x07C , 0x400000 );
-SetCoefValue( 0x07D , 0x000000 );
-SetCoefValue( 0x07E , 0x000000 );
-SetCoefValue( 0x07F , 0x000000 );
-SetCoefValue( 0x080 , 0x000000 );
-SetCoefValue( 0x081 , 0x400000 );
-SetCoefValue( 0x082 , 0x000000 );
-SetCoefValue( 0x083 , 0x000000 );
-SetCoefValue( 0x084 , 0x000000 );
-SetCoefValue( 0x085 , 0x000000 );
-SetCoefValue( 0x086 , 0x400000 );
-SetCoefValue( 0x087 , 0x000000 );
-SetCoefValue( 0x088 , 0x000000 );
-SetCoefValue( 0x089 , 0x000000 );
-SetCoefValue( 0x08A , 0x000000 );
-SetCoefValue( 0x08B , 0x400000 );
-SetCoefValue( 0x08C , 0x000000 );
-SetCoefValue( 0x08D , 0x000000 );
-SetCoefValue( 0x08E , 0x000000 );
-SetCoefValue( 0x08F , 0x000000 );
-SetCoefValue( 0x090 , 0x400000 );
-SetCoefValue( 0x091 , 0x000000 );
-SetCoefValue( 0x092 , 0x000000 );
-SetCoefValue( 0x093 , 0x000000 );
-SetCoefValue( 0x094 , 0x000000 );
-SetCoefValue( 0x095 , 0x400000 );
-SetCoefValue( 0x096 , 0x000000 );
-SetCoefValue( 0x097 , 0x000000 );
-SetCoefValue( 0x098 , 0x000000 );
-SetCoefValue( 0x099 , 0x000000 );
-SetCoefValue( 0x09A , 0x400000 );
-SetCoefValue( 0x09B , 0x000000 );
-SetCoefValue( 0x09C , 0x000000 );
-SetCoefValue( 0x09D , 0x000000 );
-SetCoefValue( 0x09E , 0x000000 );
-SetCoefValue( 0x09F , 0x400000 );
-SetCoefValue( 0x0A0 , 0x000000 );
-SetCoefValue( 0x0A1 , 0x000000 );
-SetCoefValue( 0x0A2 , 0x000000 );
-SetCoefValue( 0x0A3 , 0x000000 );
-SetCoefValue( 0x0A4 , 0x400000 );
-SetCoefValue( 0x0A5 , 0x000000 );
-SetCoefValue( 0x0A6 , 0x000000 );
-SetCoefValue( 0x0A7 , 0x000000 );
-SetCoefValue( 0x0A8 , 0x000000 );
-SetCoefValue( 0x0A9 , 0x400000 );
-SetCoefValue( 0x0AA , 0x000000 );
-SetCoefValue( 0x0AB , 0x000000 );
-SetCoefValue( 0x0AC , 0x000000 );
-SetCoefValue( 0x0AD , 0x000000 );
-SetCoefValue( 0x0AE , 0x400000 );
-SetCoefValue( 0x0AF , 0x000000 );
-SetCoefValue( 0x0B0 , 0x000000 );
-SetCoefValue( 0x0B1 , 0x000000 );
-SetCoefValue( 0x0B2 , 0x000000 );
-SetCoefValue( 0x0B3 , 0x400000 );
-SetCoefValue( 0x0B4 , 0x000000 );
-SetCoefValue( 0x0B5 , 0x000000 );
-SetCoefValue( 0x0B6 , 0x000000 );
-SetCoefValue( 0x0B7 , 0x000000 );
-SetCoefValue( 0x0B8 , 0x400000 );
-SetCoefValue( 0x0B9 , 0x000000 );
-SetCoefValue( 0x0BA , 0x000000 );
-SetCoefValue( 0x0BB , 0x000000 );
-SetCoefValue( 0x0BC , 0x000000 );
-SetCoefValue( 0x0BD , 0x400000 );
-SetCoefValue( 0x0BE , 0x000000 );
-SetCoefValue( 0x0BF , 0x000000 );
-SetCoefValue( 0x0C0 , 0x000000 );
-SetCoefValue( 0x0C1 , 0x000000 );
-SetCoefValue( 0x0C2 , 0x400000 );
-SetCoefValue( 0x0C3 , 0x000000 );
-SetCoefValue( 0x0C4 , 0x000000 );
-SetCoefValue( 0x0C5 , 0x000000 );
-SetCoefValue( 0x0C6 , 0x000000 );
-SetCoefValue( 0x0C7 , 0x400000 );
-SetCoefValue( 0x0C8 , 0x000000 );
-SetCoefValue( 0x0C9 , 0x000000 );
-SetCoefValue( 0x0CA , 0x000000 );
-SetCoefValue( 0x0CB , 0x000000 );
-SetCoefValue( 0x0CC , 0x400000 );
-SetCoefValue( 0x0CD , 0x000000 );
-SetCoefValue( 0x0CE , 0x000000 );
-SetCoefValue( 0x0CF , 0x000000 );
-SetCoefValue( 0x0D0 , 0x000000 );
-SetCoefValue( 0x0D1 , 0x400000 );
-SetCoefValue( 0x0D2 , 0x000000 );
-SetCoefValue( 0x0D3 , 0x000000 );
-SetCoefValue( 0x0D4 , 0x000000 );
-SetCoefValue( 0x0D5 , 0x000000 );
-SetCoefValue( 0x0D6 , 0x400000 );
-SetCoefValue( 0x0D7 , 0x000000 );
-SetCoefValue( 0x0D8 , 0x000000 );
-SetCoefValue( 0x0D9 , 0x000000 );
-SetCoefValue( 0x0DA , 0x000000 );
-SetCoefValue( 0x0DB , 0x400000 );
-SetCoefValue( 0x0DC , 0x000000 );
-SetCoefValue( 0x0DD , 0x000000 );
-SetCoefValue( 0x0DE , 0x000000 );
-SetCoefValue( 0x0DF , 0x000000 );
-SetCoefValue( 0x0E0 , 0x400000 );
-SetCoefValue( 0x0E1 , 0x000000 );
-SetCoefValue( 0x0E2 , 0x000000 );
-SetCoefValue( 0x0E3 , 0x000000 );
-SetCoefValue( 0x0E4 , 0x000000 );
-SetCoefValue( 0x0E5 , 0x400000 );
-SetCoefValue( 0x0E6 , 0x000000 );
-SetCoefValue( 0x0E7 , 0x000000 );
-SetCoefValue( 0x0E8 , 0x000000 );
-SetCoefValue( 0x0E9 , 0x000000 );
-SetCoefValue( 0x0EA , 0x400000 );
-SetCoefValue( 0x0EB , 0x000000 );
-SetCoefValue( 0x0EC , 0x000000 );
-SetCoefValue( 0x0ED , 0x000000 );
-SetCoefValue( 0x0EE , 0x000000 );
-SetCoefValue( 0x0EF , 0x400000 );
-SetCoefValue( 0x0F0 , 0x000000 );
-SetCoefValue( 0x0F1 , 0x000000 );
-SetCoefValue( 0x0F2 , 0x000000 );
-SetCoefValue( 0x0F3 , 0x000000 );
-SetCoefValue( 0x0F4 , 0x400000 );
-SetCoefValue( 0x0F5 , 0x000000 );
-SetCoefValue( 0x0F6 , 0x000000 );
-SetCoefValue( 0x0F7 , 0x000000 );
-SetCoefValue( 0x0F8 , 0x000000 );
-SetCoefValue( 0x0F9 , 0x400000 );
-SetCoefValue( 0x0FA , 0x000000 );
-SetCoefValue( 0x0FB , 0x000000 );
-SetCoefValue( 0x0FC , 0x000000 );
-SetCoefValue( 0x0FD , 0x000000 );
-SetCoefValue( 0x0FE , 0x400000 );
-SetCoefValue( 0x0FF , 0x000000 );
-SetCoefValue( 0x100 , 0x000000 );
-SetCoefValue( 0x101 , 0x000000 );
-SetCoefValue( 0x102 , 0x000000 );
-SetCoefValue( 0x103 , 0x400000 );
-SetCoefValue( 0x104 , 0x000000 );
-SetCoefValue( 0x105 , 0x000000 );
-SetCoefValue( 0x106 , 0x000000 );
-SetCoefValue( 0x107 , 0x000000 );
-SetCoefValue( 0x108 , 0x400000 );
-SetCoefValue( 0x109 , 0x000000 );
-SetCoefValue( 0x10A , 0x000000 );
-SetCoefValue( 0x10B , 0x000000 );
-SetCoefValue( 0x10C , 0x000000 );
-SetCoefValue( 0x10D , 0x400000 );
-SetCoefValue( 0x10E , 0x000000 );
-SetCoefValue( 0x10F , 0x000000 );
-SetCoefValue( 0x110 , 0x000000 );
-SetCoefValue( 0x111 , 0x000000 );
-SetCoefValue( 0x112 , 0x400000 );
-SetCoefValue( 0x113 , 0x000000 );
-SetCoefValue( 0x114 , 0x000000 );
-SetCoefValue( 0x115 , 0x000000 );
-SetCoefValue( 0x116 , 0x000000 );
-SetCoefValue( 0x117 , 0x400000 );
-SetCoefValue( 0x118 , 0x000000 );
-SetCoefValue( 0x119 , 0x000000 );
-SetCoefValue( 0x11A , 0x000000 );
-SetCoefValue( 0x11B , 0x000000 );
-SetCoefValue( 0x11C , 0x400000 );
-SetCoefValue( 0x11D , 0x000000 );
-SetCoefValue( 0x11E , 0x000000 );
-SetCoefValue( 0x11F , 0x000000 );
-SetCoefValue( 0x120 , 0x000000 );
-SetCoefValue( 0x121 , 0x400000 );
-SetCoefValue( 0x122 , 0x000000 );
-SetCoefValue( 0x123 , 0x000000 );
-SetCoefValue( 0x124 , 0x000000 );
-SetCoefValue( 0x125 , 0x000000 );
-SetCoefValue( 0x126 , 0x400000 );
-SetCoefValue( 0x127 , 0x000000 );
-SetCoefValue( 0x128 , 0x000000 );
-SetCoefValue( 0x129 , 0x000000 );
-SetCoefValue( 0x12A , 0x000000 );
-SetCoefValue( 0x12B , 0x400000 );
-SetCoefValue( 0x12C , 0x000000 );
-SetCoefValue( 0x12D , 0x000000 );
-SetCoefValue( 0x12E , 0x000000 );
-SetCoefValue( 0x12F , 0x000000 );
-SetCoefValue( 0x130 , 0x400000 );
-SetCoefValue( 0x131 , 0x000000 );
-SetCoefValue( 0x132 , 0x000000 );
-SetCoefValue( 0x133 , 0x000000 );
-SetCoefValue( 0x134 , 0x000000 );
-SetCoefValue( 0x135 , 0x400000 );
-SetCoefValue( 0x136 , 0x000000 );
-SetCoefValue( 0x137 , 0x000000 );
-SetCoefValue( 0x138 , 0x000000 );
-SetCoefValue( 0x139 , 0x000000 );
-SetCoefValue( 0x13A , 0x400000 );
-SetCoefValue( 0x13B , 0x000000 );
-SetCoefValue( 0x13C , 0x000000 );
-SetCoefValue( 0x13D , 0x000000 );
-SetCoefValue( 0x13E , 0x000000 );
-SetCoefValue( 0x13F , 0x400000 );
-SetCoefValue( 0x140 , 0x000000 );
-SetCoefValue( 0x141 , 0x000000 );
-SetCoefValue( 0x142 , 0x000000 );
-SetCoefValue( 0x143 , 0x000000 );
-SetCoefValue( 0x144 , 0x400000 );
-SetCoefValue( 0x145 , 0x000000 );
-SetCoefValue( 0x146 , 0x000000 );
-SetCoefValue( 0x147 , 0x000000 );
-SetCoefValue( 0x148 , 0x000000 );
-SetCoefValue( 0x149 , 0x400000 );
-SetCoefValue( 0x14A , 0x000000 );
-SetCoefValue( 0x14B , 0x000000 );
-SetCoefValue( 0x14C , 0x000000 );
-SetCoefValue( 0x14D , 0x000000 );
-SetCoefValue( 0x14E , 0x400000 );
-SetCoefValue( 0x14F , 0x000000 );
-SetCoefValue( 0x150 , 0x000000 );
-SetCoefValue( 0x151 , 0x000000 );
-SetCoefValue( 0x152 , 0x000000 );
-SetCoefValue( 0x153 , 0x400000 );
-SetCoefValue( 0x154 , 0x000000 );
-SetCoefValue( 0x155 , 0x000000 );
-SetCoefValue( 0x156 , 0x000000 );
-SetCoefValue( 0x157 , 0x000000 );
-SetCoefValue( 0x158 , 0x400000 );
-SetCoefValue( 0x159 , 0x000000 );
-SetCoefValue( 0x15A , 0x000000 );
-SetCoefValue( 0x15B , 0x000000 );
-SetCoefValue( 0x15C , 0x000000 );
-SetCoefValue( 0x15D , 0x400000 );
-SetCoefValue( 0x15E , 0x000000 );
-SetCoefValue( 0x15F , 0x000000 );
-SetCoefValue( 0x160 , 0x000000 );
-SetCoefValue( 0x161 , 0x000000 );
-SetCoefValue( 0x162 , 0x400000 );
-SetCoefValue( 0x163 , 0x000000 );
-SetCoefValue( 0x164 , 0x000000 );
-SetCoefValue( 0x165 , 0x000000 );
-SetCoefValue( 0x166 , 0x000000 );
-SetCoefValue( 0x167 , 0x400000 );
-SetCoefValue( 0x168 , 0x000000 );
-SetCoefValue( 0x169 , 0x000000 );
-SetCoefValue( 0x16A , 0x000000 );
-SetCoefValue( 0x16B , 0x000000 );
-SetCoefValue( 0x16C , 0x400000 );
-SetCoefValue( 0x16D , 0x000000 );
-SetCoefValue( 0x16E , 0x000000 );
-SetCoefValue( 0x16F , 0x000000 );
-SetCoefValue( 0x170 , 0x000000 );
-SetCoefValue( 0x171 , 0x400000 );
-SetCoefValue( 0x172 , 0x000000 );
-SetCoefValue( 0x173 , 0x000000 );
-SetCoefValue( 0x174 , 0x000000 );
-SetCoefValue( 0x175 , 0x000000 );
-SetCoefValue( 0x176 , 0x400000 );
-SetCoefValue( 0x177 , 0x000000 );
-SetCoefValue( 0x178 , 0x000000 );
-SetCoefValue( 0x179 , 0x000000 );
-SetCoefValue( 0x17A , 0x000000 );
-SetCoefValue( 0x17B , 0x400000 );
-SetCoefValue( 0x17C , 0x000000 );
-SetCoefValue( 0x17D , 0x000000 );
-SetCoefValue( 0x17E , 0x000000 );
-SetCoefValue( 0x17F , 0x000000 );
-SetCoefValue( 0x180 , 0x400000 );
-SetCoefValue( 0x181 , 0x000000 );
-SetCoefValue( 0x182 , 0x000000 );
-SetCoefValue( 0x183 , 0x000000 );
-SetCoefValue( 0x184 , 0x000000 );
-SetCoefValue( 0x185 , 0x400000 );
-SetCoefValue( 0x186 , 0x000000 );
-SetCoefValue( 0x187 , 0x000000 );
-SetCoefValue( 0x188 , 0x000000 );
-SetCoefValue( 0x189 , 0x000000 );
-SetCoefValue( 0x18A , 0x400000 );
-SetCoefValue( 0x18B , 0x000000 );
-SetCoefValue( 0x18C , 0x000000 );
-SetCoefValue( 0x18D , 0x000000 );
-SetCoefValue( 0x18E , 0x000000 );
-SetCoefValue( 0x18F , 0x400000 );
-SetCoefValue( 0x190 , 0x7FFFFF );
-SetCoefValue( 0x191 , 0x7FFFFF );
-SetCoefValue( 0x192 , 0x7FFFFF );
-SetCoefValue( 0x193 , 0x7FFFFF );
-SetCoefValue( 0x194 , 0x7FFFFF );
-SetCoefValue( 0x195 , 0x7FFFFF );
-SetCoefValue( 0x196 , 0x7FFFFF );
-SetCoefValue( 0x197 , 0x7FFFFF );
-SetCoefValue( 0x198 , 0x7FFFFF );
-SetCoefValue( 0x199 , 0x7FFFFF );
-SetCoefValue( 0x19A , 0x7FFFFF );
-SetCoefValue( 0x19B , 0x7FFFFF );
-SetCoefValue( 0x19C , 0x7FFFFF );
-SetCoefValue( 0x19D , 0x7FFFFF );
-SetCoefValue( 0x19E , 0x7FFFFF );
-SetCoefValue( 0x19F , 0x7FFFFF );
-SetCoefValue( 0x1A0 , 0x7FFFFF );
-SetCoefValue( 0x1A1 , 0x000000 );
-SetCoefValue( 0x1A2 , 0x000000 );
-SetCoefValue( 0x1A3 , 0x000000 );
-SetCoefValue( 0x1A4 , 0x000000 );
-SetCoefValue( 0x1A5 , 0x000000 );
-SetCoefValue( 0x1A6 , 0x000000 );
-SetCoefValue( 0x1A7 , 0x000000 );
-SetCoefValue( 0x1A8 , 0x000000 );
-SetCoefValue( 0x1A9 , 0x7FFFFF );
-SetCoefValue( 0x1AA , 0x000000 );
-SetCoefValue( 0x1AB , 0x000000 );
-SetCoefValue( 0x1AC , 0x000000 );
-SetCoefValue( 0x1AD , 0x000000 );
-SetCoefValue( 0x1AE , 0x000000 );
-SetCoefValue( 0x1AF , 0x000000 );
-SetCoefValue( 0x1B0 , 0x000000 );
-SetCoefValue( 0x1B1 , 0x000000 );
-SetCoefValue( 0x1B2 , 0x7FFFFF );
-SetCoefValue( 0x1B3 , 0x000000 );
-SetCoefValue( 0x1B4 , 0x000000 );
-SetCoefValue( 0x1B5 , 0x000000 );
-SetCoefValue( 0x1B6 , 0x000000 );
-SetCoefValue( 0x1B7 , 0x000000 );
-SetCoefValue( 0x1B8 , 0x000000 );
-SetCoefValue( 0x1B9 , 0x000000 );
-SetCoefValue( 0x1BA , 0x000000 );
-SetCoefValue( 0x1BB , 0x7FFFFF );
-SetCoefValue( 0x1BC , 0x000000 );
-SetCoefValue( 0x1BD , 0x000000 );
-SetCoefValue( 0x1BE , 0x000000 );
-SetCoefValue( 0x1BF , 0x000000 );
-SetCoefValue( 0x1C0 , 0x000000 );
-SetCoefValue( 0x1C1 , 0x000000 );
-SetCoefValue( 0x1C2 , 0x000000 );
-SetCoefValue( 0x1C3 , 0x000000 );
-SetCoefValue( 0x1C4 , 0x7FFFFF );
-SetCoefValue( 0x1C5 , 0x000000 );
-SetCoefValue( 0x1C6 , 0x000000 );
-SetCoefValue( 0x1C7 , 0x000000 );
-SetCoefValue( 0x1C8 , 0x000000 );
-SetCoefValue( 0x1C9 , 0x000000 );
-SetCoefValue( 0x1CA , 0x000000 );
-SetCoefValue( 0x1CB , 0x000000 );
-SetCoefValue( 0x1CC , 0x000000 );
-SetCoefValue( 0x1CD , 0x7FFFFF );
-SetCoefValue( 0x1CE , 0x000000 );
-SetCoefValue( 0x1CF , 0x000000 );
-SetCoefValue( 0x1D0 , 0x000000 );
-SetCoefValue( 0x1D1 , 0x000000 );
-SetCoefValue( 0x1D2 , 0x000000 );
-SetCoefValue( 0x1D3 , 0x000000 );
-SetCoefValue( 0x1D4 , 0x000000 );
-SetCoefValue( 0x1D5 , 0x000000 );
-SetCoefValue( 0x1D6 , 0x7FFFFF );
-SetCoefValue( 0x1D7 , 0x000000 );
-SetCoefValue( 0x1D8 , 0x000000 );
-SetCoefValue( 0x1D9 , 0x000000 );
-SetCoefValue( 0x1DA , 0x000000 );
-SetCoefValue( 0x1DB , 0x000000 );
-SetCoefValue( 0x1DC , 0x000000 );
-SetCoefValue( 0x1DD , 0x000000 );
-SetCoefValue( 0x1DE , 0x000000 );
-SetCoefValue( 0x1DF , 0x7FFFFF );
-SetCoefValue( 0x1E0 , 0x7FFFFF );
-SetCoefValue( 0x1E1 , 0x000000 );
-SetCoefValue( 0x1E2 , 0x000000 );
-SetCoefValue( 0x1E3 , 0x000000 );
-SetCoefValue( 0x1E4 , 0x000000 );
-SetCoefValue( 0x1E5 , 0x000000 );
-SetCoefValue( 0x1E6 , 0x000000 );
-SetCoefValue( 0x1E7 , 0x000000 );
-SetCoefValue( 0x1E8 , 0x000000 );
-SetCoefValue( 0x1E9 , 0x7FFFFF );
-SetCoefValue( 0x1EA , 0x000000 );
-SetCoefValue( 0x1EB , 0x000000 );
-SetCoefValue( 0x1EC , 0x000000 );
-SetCoefValue( 0x1ED , 0x000000 );
-SetCoefValue( 0x1EE , 0x000000 );
-SetCoefValue( 0x1EF , 0x000000 );
-SetCoefValue( 0x1F0 , 0x000000 );
-SetCoefValue( 0x1F1 , 0x000000 );
-SetCoefValue( 0x1F2 , 0x7FFFFF );
-SetCoefValue( 0x1F3 , 0x000000 );
-SetCoefValue( 0x1F4 , 0x000000 );
-SetCoefValue( 0x1F5 , 0x000000 );
-SetCoefValue( 0x1F6 , 0x000000 );
-SetCoefValue( 0x1F7 , 0x000000 );
-SetCoefValue( 0x1F8 , 0x000000 );
-SetCoefValue( 0x1F9 , 0x000000 );
-SetCoefValue( 0x1FA , 0x000000 );
-SetCoefValue( 0x1FB , 0x7FFFFF );
-SetCoefValue( 0x1FC , 0x000000 );
-SetCoefValue( 0x1FD , 0x000000 );
-SetCoefValue( 0x1FE , 0x000000 );
-SetCoefValue( 0x1FF , 0x000000 );
-SetCoefValue( 0x200 , 0x000000 );
-SetCoefValue( 0x201 , 0x000000 );
-SetCoefValue( 0x202 , 0x000000 );
-SetCoefValue( 0x203 , 0x000000 );
-SetCoefValue( 0x204 , 0x7FFFFF );
-SetCoefValue( 0x205 , 0x000000 );
-SetCoefValue( 0x206 , 0x000000 );
-SetCoefValue( 0x207 , 0x000000 );
-SetCoefValue( 0x208 , 0x000000 );
-SetCoefValue( 0x209 , 0x000000 );
-SetCoefValue( 0x20A , 0x000000 );
-SetCoefValue( 0x20B , 0x000000 );
-SetCoefValue( 0x20C , 0x000000 );
-SetCoefValue( 0x20D , 0x7FFFFF );
-SetCoefValue( 0x20E , 0x000000 );
-SetCoefValue( 0x20F , 0x000000 );
-SetCoefValue( 0x210 , 0x000000 );
-SetCoefValue( 0x211 , 0x000000 );
-SetCoefValue( 0x212 , 0x000000 );
-SetCoefValue( 0x213 , 0x000000 );
-SetCoefValue( 0x214 , 0x000000 );
-SetCoefValue( 0x215 , 0x000000 );
-SetCoefValue( 0x216 , 0x7FFFFF );
-SetCoefValue( 0x217 , 0x000000 );
-SetCoefValue( 0x218 , 0x000000 );
-SetCoefValue( 0x219 , 0x000000 );
-SetCoefValue( 0x21A , 0x000000 );
-SetCoefValue( 0x21B , 0x000000 );
-SetCoefValue( 0x21C , 0x000000 );
-SetCoefValue( 0x21D , 0x000000 );
-SetCoefValue( 0x21E , 0x000000 );
-SetCoefValue( 0x21F , 0x7FFFFF );
-SetCoefValue( 0x220 , 0x000000 );
-SetCoefValue( 0x221 , 0x000000 );
-SetCoefValue( 0x222 , 0x000000 );
-SetCoefValue( 0x223 , 0x000000 );
-SetCoefValue( 0x224 , 0x000000 );
-SetCoefValue( 0x225 , 0x000000 );
-SetCoefValue( 0x226 , 0x000000 );
-SetCoefValue( 0x1A0 , 0x7FFFFF );
-SetCoefValue( 0x1A1 , 0x000000 );
-SetCoefValue( 0x1A2 , 0x000000 );
-SetCoefValue( 0x1A3 , 0x000000 );
-SetCoefValue( 0x1A4 , 0x000000 );
-SetCoefValue( 0x1A5 , 0x000000 );
-SetCoefValue( 0x1E0 , 0x7FFFFF );
-SetCoefValue( 0x1E1 , 0x000000 );
-SetCoefValue( 0x1E2 , 0x000000 );
-SetCoefValue( 0x1E3 , 0x000000 );
-SetCoefValue( 0x1E4 , 0x000000 );
-SetCoefValue( 0x1E5 , 0x000000 );
-SetCoefValue( 0x1A8 , 0x000000 );
-SetCoefValue( 0x1A9 , 0x7FFFFF );
-SetCoefValue( 0x1AA , 0x000000 );
-SetCoefValue( 0x1AB , 0x000000 );
-SetCoefValue( 0x1AC , 0x000000 );
-SetCoefValue( 0x1AD , 0x000000 );
-SetCoefValue( 0x1E8 , 0x000000 );
-SetCoefValue( 0x1E9 , 0x7FFFFF );
-SetCoefValue( 0x1EA , 0x000000 );
-SetCoefValue( 0x1EB , 0x000000 );
-SetCoefValue( 0x1EC , 0x000000 );
-SetCoefValue( 0x1ED , 0x000000 );
-SetCoefValue( 0x1B0 , 0x7FFFFF );
-SetCoefValue( 0x1B1 , 0x000000 );
-SetCoefValue( 0x1B2 , 0x000000 );
-SetCoefValue( 0x1B3 , 0x000000 );
-SetCoefValue( 0x1B4 , 0x000000 );
-SetCoefValue( 0x1B5 , 0x000000 );
-SetCoefValue( 0x1F0 , 0x000000 );
-SetCoefValue( 0x1F1 , 0x000000 );
-SetCoefValue( 0x1F2 , 0x7FFFFF );
-SetCoefValue( 0x1F3 , 0x000000 );
-SetCoefValue( 0x1F4 , 0x000000 );
-SetCoefValue( 0x1F5 , 0x000000 );
-SetCoefValue( 0x1B8 , 0x000000 );
-SetCoefValue( 0x1B9 , 0x7FFFFF );
-SetCoefValue( 0x1BA , 0x000000 );
-SetCoefValue( 0x1BB , 0x000000 );
-SetCoefValue( 0x1BC , 0x000000 );
-SetCoefValue( 0x1BD , 0x000000 );
-SetCoefValue( 0x1F8 , 0x000000 );
-SetCoefValue( 0x1F9 , 0x000000 );
-SetCoefValue( 0x1FA , 0x000000 );
-SetCoefValue( 0x1FB , 0x7FFFFF );
-SetCoefValue( 0x1FC , 0x000000 );
-SetCoefValue( 0x1FD , 0x000000 );
-SetCoefValue( 0x1C0 , 0x7FFFFF );
-SetCoefValue( 0x1C1 , 0x000000 );
-SetCoefValue( 0x1C2 , 0x000000 );
-SetCoefValue( 0x1C3 , 0x000000 );
-SetCoefValue( 0x1C4 , 0x000000 );
-SetCoefValue( 0x1C5 , 0x000000 );
-SetCoefValue( 0x200 , 0x000000 );
-SetCoefValue( 0x201 , 0x000000 );
-SetCoefValue( 0x202 , 0x000000 );
-SetCoefValue( 0x203 , 0x000000 );
-SetCoefValue( 0x204 , 0x7FFFFF );
-SetCoefValue( 0x205 , 0x000000 );
-SetCoefValue( 0x1C8 , 0x000000 );
-SetCoefValue( 0x1C9 , 0x7FFFFF );
-SetCoefValue( 0x1CA , 0x000000 );
-SetCoefValue( 0x1CB , 0x000000 );
-SetCoefValue( 0x1CC , 0x000000 );
-SetCoefValue( 0x1CD , 0x000000 );
-SetCoefValue( 0x208 , 0x000000 );
-SetCoefValue( 0x209 , 0x000000 );
-SetCoefValue( 0x20A , 0x000000 );
-SetCoefValue( 0x20B , 0x000000 );
-SetCoefValue( 0x20C , 0x000000 );
-SetCoefValue( 0x20D , 0x7FFFFF );
-SetCoefValue( 0x1A0 , 0x000000 );
-SetCoefValue( 0x1A1 , 0x000000 );
-SetCoefValue( 0x1A2 , 0x000000 );
-SetCoefValue( 0x1A3 , 0x000000 );
-SetCoefValue( 0x1A4 , 0x7FFFFF );
-SetCoefValue( 0x1A5 , 0x000000 );
-SetCoefValue( 0x1E0 , 0x7FFFFF );
-SetCoefValue( 0x1E1 , 0x000000 );
-SetCoefValue( 0x1E2 , 0x000000 );
-SetCoefValue( 0x1E3 , 0x000000 );
-SetCoefValue( 0x1E4 , 0x000000 );
-SetCoefValue( 0x1E5 , 0x000000 );
-SetCoefValue( 0x1A8 , 0x000000 );
-SetCoefValue( 0x1A9 , 0x000000 );
-SetCoefValue( 0x1AA , 0x000000 );
-SetCoefValue( 0x1AB , 0x000000 );
-SetCoefValue( 0x1AC , 0x000000 );
-SetCoefValue( 0x1AD , 0x7FFFFF );
-SetCoefValue( 0x1E8 , 0x000000 );
-SetCoefValue( 0x1E9 , 0x7FFFFF );
-SetCoefValue( 0x1EA , 0x000000 );
-SetCoefValue( 0x1EB , 0x000000 );
-SetCoefValue( 0x1EC , 0x000000 );
-SetCoefValue( 0x1ED , 0x000000 );
-SetCoefValue( 0x1A0 , 0x000000 );
-SetCoefValue( 0x1A1 , 0x000000 );
-SetCoefValue( 0x1A2 , 0x000000 );
-SetCoefValue( 0x1A3 , 0x7FFFFF );
-SetCoefValue( 0x1A4 , 0x000000 );
-SetCoefValue( 0x1A5 , 0x000000 );
-SetCoefValue( 0x1E0 , 0x7FFFFF );
-SetCoefValue( 0x1E1 , 0x000000 );
-SetCoefValue( 0x1E2 , 0x000000 );
-SetCoefValue( 0x1E3 , 0x000000 );
-SetCoefValue( 0x1E4 , 0x000000 );
-SetCoefValue( 0x1E5 , 0x000000 );
-SetCoefValue( 0x1A8 , 0x000000 );
-SetCoefValue( 0x1A9 , 0x000000 );
-SetCoefValue( 0x1AA , 0x000000 );
-SetCoefValue( 0x1AB , 0x000000 );
-SetCoefValue( 0x1AC , 0x7FFFFF );
-SetCoefValue( 0x1AD , 0x000000 );
-SetCoefValue( 0x1E8 , 0x000000 );
-SetCoefValue( 0x1E9 , 0x7FFFFF );
-SetCoefValue( 0x1EA , 0x000000 );
-SetCoefValue( 0x1EB , 0x000000 );
-SetCoefValue( 0x1EC , 0x000000 );
-SetCoefValue( 0x1ED , 0x000000 );
-SetCoefValue( 0x1A8 , 0x7FFFFF );
-SetCoefValue( 0x1A9 , 0x000000 );
-SetCoefValue( 0x1AA , 0x000000 );
-SetCoefValue( 0x1AB , 0x000000 );
-SetCoefValue( 0x1AC , 0x000000 );
-SetCoefValue( 0x1AD , 0x000000 );
-SetCoefValue( 0x1E8 , 0x000000 );
-SetCoefValue( 0x1E9 , 0x7FFFFF );
-SetCoefValue( 0x1EA , 0x000000 );
-SetCoefValue( 0x1EB , 0x000000 );
-SetCoefValue( 0x1EC , 0x000000 );
-SetCoefValue( 0x1ED , 0x000000 );
-*/
-//reset to default value of coefficent registor
-bufCoefBiquad[0]=0x00;
-bufCoefBiquad[1]=0x00;
-bufCoefBiquad[2]=0x00;
-bufCoefBiquad[3]=0x00;
-bufCoefBiquad[4]=0x00;
-bufCoefBiquad[5]=0x00;
-bufCoefBiquad[6]=0x00;
-bufCoefBiquad[7]=0x00;
-bufCoefBiquad[8]=0x00;
-bufCoefBiquad[9]=0x00;
-bufCoefBiquad[10]=0x00;
-bufCoefBiquad[11]=0x00;
-bufCoefBiquad[12]=0x40;
-bufCoefBiquad[13]=0x00;
-bufCoefBiquad[14]=0x00;
-WriteSTAByte(0x3D,bufCoefBiquad,15);
-
-
 }
 
 void WriteCoef(uint16_t Adrss, uint8_t * BufData)
 {
 //1. Write the top 2 bits of starting address to I2C register 0x3B
-pcSTAComnd[0] = (Adrss>>8)|0x03;
+pcSTAComnd[0] = (Adrss>>8)&0x03;
 WriteSTAByte(0x3B,&pcSTAComnd[0],1);
 
 //2. Write the bottom 8 bits of starting address to I2C register 0x3C
@@ -1824,7 +478,27 @@ WriteSTAByte(0x3C,&pcSTAComnd[0],1);
 //15. Write the top 8-bits of coefficient b0 in I2C address 0x49
 //16. Write the middle 8 bits of coefficient b0 in I2C address 0x4A
 //17. Write the bottom 8 bits of coefficient b0 in I2C address 0x4B
-WriteSTAByte(0x3D,BufData,15);
+//WriteSTAByte(0x3D,BufData,15);
+
+for (uint8_t idxCoef=0; idxCoef < 5; idxCoef++)
+{
+	//3. Write the top 8 bits of coefficient in I2C address 0x3D
+	//pcSTAComnd[0] = (uint8_t)((BufData[idxCoef] & 0x00FF0000)>>16);
+    pcSTAComnd[0] = BufData[0+idxCoef*3];
+	WriteSTAByte(0x3D+idxCoef*3,&pcSTAComnd[0],1);
+
+	//4. Write the middle 8 bits of coefficient in I2C address 0x3E
+	//pcSTAComnd[0] = (uint8_t)(((BufData[idxCoef]  & 0x0000FF00)>>8);
+	pcSTAComnd[0] = BufData[1+idxCoef*3];
+	WriteSTAByte(0x3E+idxCoef*3,&pcSTAComnd[0],1);
+
+	//5. Write the bottom 8 bits of coefficient in I2C address 0x3F
+	//pcSTAComnd[0] = (uint8_t)(((BufData[idxCoef]  & 0x000000FF));
+	pcSTAComnd[0] = BufData[2+idxCoef*3];
+	WriteSTAByte(0x3F+idxCoef*3,&pcSTAComnd[0],1);
+}
+
+
 
 //18. Write 1 to the WA bit in I2C address 0x4C
 pcSTAComnd[0] = 0x02;
@@ -1832,10 +506,25 @@ WriteSTAByte(0x4C,&pcSTAComnd[0],1);
 
 }
 
+void ReadCoef(uint16_t Adrss, uint8_t * BufData)
+{
+//1. Write the top 2 bits of starting address to I2C register 0x3B
+pcSTAComnd[0] = (Adrss>>8)&0x03;
+WriteSTAByte(0x3B,&pcSTAComnd[0],1);
+
+//2. Write the bottom 8 bits of starting address to I2C register 0x3C
+pcSTAComnd[0] = (Adrss);
+WriteSTAByte(0x3C,&pcSTAComnd[0],1);
+
+ReadSTASeq(0x3D,BufData,3);
+
+}
+
+
 void SetCoefValue(uint16_t Adrss, uint32_t DataCoef)
 {
 //1. Write the top 2 bits of address to I2C register 0x3B
-pcSTAComnd[0] = (Adrss>>8)|0x03;
+pcSTAComnd[0] = (Adrss>>8)&0x03;
 WriteSTAByte(0x3B,&pcSTAComnd[0],1);
 
 //2. Write the bottom 8 bits of address to I2C register 0x3C
@@ -1859,5 +548,139 @@ WriteSTAByte(0x3F,&pcSTAComnd[0],1);
 pcSTAComnd[0] = 0x01;
 WriteSTAByte(0x4C,&pcSTAComnd[0],1);
 
+}
+
+
+static void sta321mp_mixer( int16_t mix, int16_t ch_out, int16_t ch_in, uint32_t value)
+{
+    uint16_t address = 0x1A0 + 64*(mix-1) + 8*(ch_out-1) + (ch_in-1);
+
+	SetCoefValue(address,value);	
+}
+
+static void sta321mp_prescale(int16_t ch, uint32_t val)
+{
+  unsigned int address = 0x190 + (ch-1);
+  SetCoefValue(address, val);
+}
+
+
+static void sta321mp_postscale(int16_t ch, uint32_t val)
+{
+  uint16_t address = 0x198 + (ch-1);
+  SetCoefValue(address, val);
+}
+
+/* set the biquad coefficients in RAM */
+static void sta321mp_biquad(int16_t channel, int16_t biquad, 
+                            uint32_t b1_2, uint32_t b2, uint32_t a1_2, uint32_t a2, uint32_t b0_2)
+{
+
+   uint16_t Adrss = 50*(channel-1) + 5*(biquad-1);
+
+	//1. Write the top 2 bits of address to I2C register 0x3B
+	pcSTAComnd[0] = (Adrss>>8)&0x03;
+	WriteSTAByte(0x3B,&pcSTAComnd[0],1);
+	
+	//2. Write the bottom 8 bits of address to I2C register 0x3C
+	pcSTAComnd[0] = (Adrss);
+	WriteSTAByte(0x3C,&pcSTAComnd[0],1);
+
+    pcSTAComnd[0]= 0xFF & (b1_2 >> 16);
+	WriteSTAByte(0x3D,&pcSTAComnd[0],1);
+
+	
+    pcSTAComnd[0]= 0xFF & (b1_2 >> 8);
+	WriteSTAByte(0x3E,&pcSTAComnd[0],1  );
+	
+    pcSTAComnd[0]= 0xFF & b1_2;
+	WriteSTAByte(0x3F, &pcSTAComnd[0],1 );
+	
+    pcSTAComnd[0]= 0xFF & (b2 >> 16);
+	WriteSTAByte(0x40, &pcSTAComnd[0],1 );
+	
+    pcSTAComnd[0]= 0xFF & (b2 >> 8);
+	WriteSTAByte(0x41, &pcSTAComnd[0],1 );
+	
+    pcSTAComnd[0]= 0xFF & b2;
+	WriteSTAByte( 0x42,&pcSTAComnd[0],1 );
+	
+    pcSTAComnd[0]= 0xFF & (a1_2 >> 16);
+	WriteSTAByte( 0x43, &pcSTAComnd[0],1 );
+	
+    pcSTAComnd[0]= 0xFF & (a1_2 >> 8);
+	WriteSTAByte( 0x44,  &pcSTAComnd[0],1);
+	
+    pcSTAComnd[0]= 0xFF & a1_2;
+	WriteSTAByte( 0x45, &pcSTAComnd[0],1 );
+	
+    pcSTAComnd[0]= 0xFF & (a2 >> 16);
+	WriteSTAByte( 0x46, &pcSTAComnd[0],1 );
+
+    pcSTAComnd[0]=  0xFF & (a2 >> 8);
+	WriteSTAByte( 0x47, &pcSTAComnd[0],1);
+	
+    pcSTAComnd[0]= 0xFF & a2;
+	WriteSTAByte( 0x48, &pcSTAComnd[0],1 );
+	
+    pcSTAComnd[0]= 0xFF & (b0_2 >> 16);
+	WriteSTAByte( 0x49, &pcSTAComnd[0],1 );
+	
+    pcSTAComnd[0]= 0xFF & (b0_2 >> 8);
+	WriteSTAByte( 0x4A, &pcSTAComnd[0],1 );
+	
+    pcSTAComnd[0]= 0xFF & b0_2 ;
+	WriteSTAByte( 0x4B,&pcSTAComnd[0],1 );
+	
+	//18. Write 1 to the WA bit in I2C address 0x4C
+	pcSTAComnd[0] = 0x02;
+	WriteSTAByte(0x4C,&pcSTAComnd[0],1);
+
+}
+
+
+static void sta321mp_LP_48kHz(void)
+{
+  /*
+   * This function sets the biquads as a 14th order elliptic
+   * Low pass filter with cutoff at 40kHz
+   */
+  sta321mp_biquad( 1, 1, 0x000000, 0x000000, 0x000000, 0x000000,0x400000); 
+  sta321mp_biquad( 1, 2,  0x2d7d5e, 0x3faa84, 0x6599c4, 0xad9ed1,0x1fd542);
+  sta321mp_biquad( 1, 3, 0xfcec16, 0x177b7b, 0x63c973, 0xa4b499,0xbbdbd);
+  sta321mp_biquad( 1, 4, 0xf4caac, 0x177b7b, 0x616997, 0x98a93a,0xbbdbd);
+  sta321mp_biquad( 1, 5, 0xf1c0e3, 0x177b7b, 0x5f9823, 0x8e691f,0xbbdbd);
+  sta321mp_biquad( 1, 6, 0xf083cb, 0x177b7b, 0x5ec1ab, 0x873641,0xbbdbd);
+  sta321mp_biquad( 1, 7, 0xf00d82, 0x177b7b, 0x5f0547, 0x822c2a,0xbbdbd);
+  sta321mp_biquad( 1, 8, 0x000000, 0x000000, 0x000000, 0x000000,0x400000);
+  sta321mp_biquad( 1, 9, 0x000000, 0x000000, 0x000000, 0x000000,0x400000);
+  sta321mp_biquad( 1, 10,0x000000, 0x000000, 0x000000, 0x000000,0x400000);
+}
+
+static void sta321mp_LP_192kHz(void)
+{
+  /*
+   * This function sets the biquads as a 18th order butterworth
+   * Low pass filter with cutoff at 40kHz
+   */
+  sta321mp_biquad(1, 2, 0x34417a, 0x34417a, 0x10e211, 0xfd899c,0x1a20bd);
+  sta321mp_biquad(1, 3, 0x1be34f, 0x1be34f, 0x112371, 0xfb9073,0xdf1a7);
+  sta321mp_biquad(1, 4, 0x1be34f, 0x1be34f, 0x11aa29, 0xf77f69,0xdf1a7);
+  sta321mp_biquad(1, 5, 0x1be34f, 0x1be34f, 0x127eb2, 0xf1150f,0xdf1a7);
+  sta321mp_biquad(1, 6, 0x1be34f, 0x1be34f, 0x13af2a, 0xe7e44f,0xdf1a7);
+  sta321mp_biquad(1, 7, 0x1be34f, 0x1be34f, 0x155167, 0xdb446c,0xdf1a7);
+  sta321mp_biquad(1, 8, 0x1be34f, 0x1be34f, 0x17867e, 0xca35c0,0xdf1a7);
+  sta321mp_biquad(1, 9, 0x1be34f, 0x1be34f, 0x1a80c9, 0xb33334,0xdf1a7);
+  sta321mp_biquad(1, 10, 0x1be34f, 0x1be34f, 0x1e8e71, 0x93e0cf,0xdf1a7);
+}
+
+
+static void STA321MP_DefautLoad(void)
+{
+      WriteSTAByte(STA321MP_CONFA,pcSTAComnd,77);
+      WriteSTAByte(0x5A,pcSTAComnd1,2);
+      WriteSTAByte(0x5D,pcSTAComnd2,33);
+	  WriteSTAByte(0x80,pcSTAComnd2,6);
+	  
 }
 

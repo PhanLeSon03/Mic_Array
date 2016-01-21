@@ -2,7 +2,7 @@
 stlinkserialNo=391C0B1F
 stlinkfoundProbes=
 [DebugChecksum]
-Checksum=-433750145
+Checksum=-313812594
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -42,11 +42,9 @@ ITMlogFile=$PROJ_DIR$\ITM.log
 [FlashMemory]
 FlashEraseSelection=0 1 
 [StLinkDriver]
-stlinkserialNo=2798FD0D
+stlinkserialNo=BE9DC169
 stlinkfoundProbes=
 CStepIntDis=_ 0
-[array_types]
-Fmt0=uint16_t[9216]	1	0
 [Interrupts]
 Enabled=1
 [MemConfig]
@@ -61,16 +59,8 @@ ShowSource=1
 [Simulator]
 Freq=10000000
 MultiCoreRunAll=1
-[DriverProfiling]
-Enabled=0
-Mode=3
-Graph=0
-Symbiont=0
-Exclusions=
-[CallStackLog]
-Enabled=0
-[CallStackStripe]
-ShowTiming=1
+[array_types]
+Fmt0=uint16_t[9216]	1	0
 [Trace2]
 Enabled=0
 ShowSource=0
@@ -111,9 +101,6 @@ ShowTimeLog=1
 SumEnabled=0
 ShowTimeSum=1
 SumSortOrder=0
-[TermIOLog]
-LoggingEnabled=_ 0
-LogFile=_ ""
 [Disassemble mode]
 mode=0
 [Breakpoints2]
@@ -124,6 +111,19 @@ Count=2
 LoggingEnabled=_ 0
 LogFile=_ ""
 Category=_ 0
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
 [Aliases]
 Count=0
 SuppressDialog=0
+[DriverProfiling]
+Enabled=0
+Mode=3
+Graph=0
+Symbiont=0
+Exclusions=
+[CallStackLog]
+Enabled=0
+[CallStackStripe]
+ShowTiming=1

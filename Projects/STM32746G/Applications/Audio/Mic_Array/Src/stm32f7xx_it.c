@@ -51,8 +51,8 @@ extern char __IO flg10ms;
 uint32_t cntOS;
 
 
-extern I2C_HandleTypeDef hi2c1;
-extern UART_HandleTypeDef huart6;
+extern I2C_HandleTypeDef hi2c1,hi2c2;
+extern UART_HandleTypeDef huart4;
 extern SPI_HandleTypeDef hspi5;
 
 /* Private function prototypes -----------------------------------------------*/
@@ -172,7 +172,12 @@ void SysTick_Handler(void)
 
 void USART6_IRQHandler(void)
 {
-  HAL_UART_IRQHandler(&huart6);
+//  HAL_UART_IRQHandler(&huart6);
+}
+
+void USART4_IRQHandler(void)
+{
+  HAL_UART_IRQHandler(&huart4);
 }
 
 
@@ -182,6 +187,18 @@ void I2C1_EV_IRQHandler(void)
 
   /* USER CODE END I2C1_EV_IRQn 0 */
   HAL_I2C_EV_IRQHandler(&hi2c1);
+  /* USER CODE BEGIN I2C1_EV_IRQn 1 */
+
+  /* USER CODE END I2C1_EV_IRQn 1 */
+}
+
+
+void I2C2_EV_IRQHandler(void)
+{
+  /* USER CODE BEGIN I2C1_EV_IRQn 0 */
+
+  /* USER CODE END I2C1_EV_IRQn 0 */
+  HAL_I2C_EV_IRQHandler(&hi2c2);
   /* USER CODE BEGIN I2C1_EV_IRQn 1 */
 
   /* USER CODE END I2C1_EV_IRQn 1 */

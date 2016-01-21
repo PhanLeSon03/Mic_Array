@@ -1,56 +1,56 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      22/Dec/2015  23:10:10
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      21/Jan/2016  18:08:45
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\stm32f7xx_it.c
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\stm32f7xx_it.c
 //    Command line =  
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\stm32f7xx_it.c
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\stm32f7xx_it.c
 //        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 //        USE_IOEXPANDER -D USE_USB_FS -lC
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -lA
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
 //        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -Ohz --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_it.s
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_it.s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -71,20 +71,23 @@
         EXTERN flg10ms
         EXTERN hhcd
         EXTERN hi2c1
-        EXTERN huart6
+        EXTERN hi2c2
+        EXTERN huart4
 
-        PUBLIC AUDIO_IN_SAIx_DMAx_IRQHandler
-        PUBLIC AUDIO_OUT_SAIx_DMAx_IRQHandler
         PUBLIC BusFault_Handler
+        PUBLIC DMA2_Stream4_IRQHandler
+        PUBLIC DMA2_Stream7_IRQHandler
         PUBLIC DebugMon_Handler
         PUBLIC HardFault_Handler
         PUBLIC I2C1_EV_IRQHandler
+        PUBLIC I2C2_EV_IRQHandler
         PUBLIC MemManage_Handler
         PUBLIC NMI_Handler
         PUBLIC OTG_FS_IRQHandler
         PUBLIC PendSV_Handler
         PUBLIC SVC_Handler
         PUBLIC SysTick_Handler
+        PUBLIC USART4_IRQHandler
         PUBLIC USART6_IRQHandler
         PUBLIC UsageFault_Handler
         PUBLIC cntOS
@@ -135,7 +138,7 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
         
-// H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\stm32f7xx_it.c
+// D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\stm32f7xx_it.c
 //    1 /**
 //    2   ******************************************************************************
 //    3   * @file    Audio/Audio_playback_and_record/Src/stm32f7xx_it.c
@@ -194,8 +197,8 @@ cntOS:
         DS8 4
 //   52 
 //   53 
-//   54 extern I2C_HandleTypeDef hi2c1;
-//   55 extern UART_HandleTypeDef huart6;
+//   54 extern I2C_HandleTypeDef hi2c1,hi2c2;
+//   55 extern UART_HandleTypeDef huart4;
 //   56 extern SPI_HandleTypeDef hspi5;
 //   57 
 //   58 /* Private function prototypes -----------------------------------------------*/
@@ -393,7 +396,7 @@ SysTick_Handler:
         BL       Toggle_Leds
 //  162 
 //  163   cntOS++;
-        LDR.N    R0,??DataTable3
+        LDR.N    R0,??DataTable4
         LDR      R1,[R0, #+0]
         ADDS     R1,R1,#+1
 //  164 
@@ -404,7 +407,7 @@ SysTick_Handler:
 //  167       cntOS=0;
 //  168 	  flg10ms = 1;
         MOVS     R2,#+1
-        LDR.N    R3,??DataTable3_1
+        LDR.N    R3,??DataTable4_1
         MOVS     R1,#+0
         STRB     R2,[R3, #+0]
 ??SysTick_Handler_0:
@@ -419,142 +422,184 @@ SysTick_Handler:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock9 Using cfiCommon0
           CFI Function USART6_IRQHandler
+          CFI NoCalls
         THUMB
 //  173 void USART6_IRQHandler(void)
 //  174 {
-//  175   HAL_UART_IRQHandler(&huart6);
-USART6_IRQHandler:
-        LDR.N    R0,??DataTable3_2
-          CFI FunCall HAL_UART_IRQHandler
-        B.W      HAL_UART_IRQHandler
+//  175 //  HAL_UART_IRQHandler(&huart6);
 //  176 }
+USART6_IRQHandler:
+        BX       LR               ;; return
           CFI EndBlock cfiBlock9
 //  177 
-//  178 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock10 Using cfiCommon0
-          CFI Function I2C1_EV_IRQHandler
+          CFI Function USART4_IRQHandler
         THUMB
-//  179 void I2C1_EV_IRQHandler(void)
-//  180 {
-//  181   /* USER CODE BEGIN I2C1_EV_IRQn 0 */
-//  182 
-//  183   /* USER CODE END I2C1_EV_IRQn 0 */
-//  184   HAL_I2C_EV_IRQHandler(&hi2c1);
-I2C1_EV_IRQHandler:
-        LDR.N    R0,??DataTable3_3
-          CFI FunCall HAL_I2C_EV_IRQHandler
-        B.W      HAL_I2C_EV_IRQHandler
-//  185   /* USER CODE BEGIN I2C1_EV_IRQn 1 */
-//  186 
-//  187   /* USER CODE END I2C1_EV_IRQn 1 */
-//  188 }
+//  178 void USART4_IRQHandler(void)
+//  179 {
+//  180   HAL_UART_IRQHandler(&huart4);
+USART4_IRQHandler:
+        LDR.N    R0,??DataTable4_2
+          CFI FunCall HAL_UART_IRQHandler
+        B.W      HAL_UART_IRQHandler
+//  181 }
           CFI EndBlock cfiBlock10
-//  189 
-//  190 
-//  191 
-//  192 
-//  193 
-//  194 
-//  195 /******************************************************************************/
-//  196 /*                 STM32F7xx Peripherals Interrupt Handlers                   */
-//  197 /*  Add here the Interrupt Handler for the used peripheral(s) (PPP), for the  */
-//  198 /*  available peripheral interrupt handler's name please refer to the startup */
-//  199 /*  file (startup_stm32f7xx.s).                                               */
-//  200 /******************************************************************************/
-//  201 
-//  202 /**
-//  203   * @brief  This function handles USB-On-The-Go FS/HS global interrupt request.
-//  204   * @param  None
-//  205   * @retval None
-//  206   */
-//  207 #ifdef USE_USB_FS
+//  182 
+//  183 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock11 Using cfiCommon0
+          CFI Function I2C1_EV_IRQHandler
+        THUMB
+//  184 void I2C1_EV_IRQHandler(void)
+//  185 {
+//  186   /* USER CODE BEGIN I2C1_EV_IRQn 0 */
+//  187 
+//  188   /* USER CODE END I2C1_EV_IRQn 0 */
+//  189   HAL_I2C_EV_IRQHandler(&hi2c1);
+I2C1_EV_IRQHandler:
+        LDR.N    R0,??DataTable4_3
+          CFI FunCall HAL_I2C_EV_IRQHandler
+        B.W      HAL_I2C_EV_IRQHandler
+//  190   /* USER CODE BEGIN I2C1_EV_IRQn 1 */
+//  191 
+//  192   /* USER CODE END I2C1_EV_IRQn 1 */
+//  193 }
+          CFI EndBlock cfiBlock11
+//  194 
+//  195 
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock12 Using cfiCommon0
+          CFI Function I2C2_EV_IRQHandler
+        THUMB
+//  196 void I2C2_EV_IRQHandler(void)
+//  197 {
+//  198   /* USER CODE BEGIN I2C1_EV_IRQn 0 */
+//  199 
+//  200   /* USER CODE END I2C1_EV_IRQn 0 */
+//  201   HAL_I2C_EV_IRQHandler(&hi2c2);
+I2C2_EV_IRQHandler:
+        LDR.N    R0,??DataTable4_4
+          CFI FunCall HAL_I2C_EV_IRQHandler
+        B.W      HAL_I2C_EV_IRQHandler
+//  202   /* USER CODE BEGIN I2C1_EV_IRQn 1 */
+//  203 
+//  204   /* USER CODE END I2C1_EV_IRQn 1 */
+//  205 }
+          CFI EndBlock cfiBlock12
+//  206 
+//  207 
+//  208 
+//  209 
+//  210 
+//  211 
+//  212 /******************************************************************************/
+//  213 /*                 STM32F7xx Peripherals Interrupt Handlers                   */
+//  214 /*  Add here the Interrupt Handler for the used peripheral(s) (PPP), for the  */
+//  215 /*  available peripheral interrupt handler's name please refer to the startup */
+//  216 /*  file (startup_stm32f7xx.s).                                               */
+//  217 /******************************************************************************/
+//  218 
+//  219 /**
+//  220   * @brief  This function handles USB-On-The-Go FS/HS global interrupt request.
+//  221   * @param  None
+//  222   * @retval None
+//  223   */
+//  224 #ifdef USE_USB_FS
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock13 Using cfiCommon0
           CFI Function OTG_FS_IRQHandler
         THUMB
-//  208 void OTG_FS_IRQHandler(void)
-//  209 #else
-//  210 void OTG_HS_IRQHandler(void)
-//  211 #endif
-//  212 {
-//  213   HAL_HCD_IRQHandler(&hhcd);
+//  225 void OTG_FS_IRQHandler(void)
+//  226 #else
+//  227 void OTG_HS_IRQHandler(void)
+//  228 #endif
+//  229 {
+//  230   HAL_HCD_IRQHandler(&hhcd);
 OTG_FS_IRQHandler:
-        LDR.N    R0,??DataTable3_4
+        LDR.N    R0,??DataTable4_5
           CFI FunCall HAL_HCD_IRQHandler
         B.W      HAL_HCD_IRQHandler
-//  214 }
-          CFI EndBlock cfiBlock11
+//  231 }
+          CFI EndBlock cfiBlock13
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable3:
+??DataTable4:
         DC32     cntOS
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable3_1:
+??DataTable4_1:
         DC32     flg10ms
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable3_2:
-        DC32     huart6
+??DataTable4_2:
+        DC32     huart4
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable3_3:
+??DataTable4_3:
         DC32     hi2c1
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable3_4:
+??DataTable4_4:
+        DC32     hi2c2
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable4_5:
         DC32     hhcd
-//  215 
-//  216 /**
-//  217   * @brief This function handles DMA2 Stream 4 interrupt request.
-//  218   * @param None
-//  219   * @retval None
-//  220   */
+//  232 
+//  233 /**
+//  234   * @brief This function handles DMA2 Stream 4 interrupt request.
+//  235   * @param None
+//  236   * @retval None
+//  237   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock12 Using cfiCommon0
-          CFI Function AUDIO_OUT_SAIx_DMAx_IRQHandler
+          CFI Block cfiBlock14 Using cfiCommon0
+          CFI Function DMA2_Stream4_IRQHandler
           CFI NoCalls
         THUMB
-//  221 void AUDIO_OUT_SAIx_DMAx_IRQHandler(void)
-//  222 {
-//  223   //HAL_DMA_IRQHandler(haudio_out_sai.hdmatx);
-//  224 }
-AUDIO_OUT_SAIx_DMAx_IRQHandler:
+//  238 void AUDIO_OUT_SAIx_DMAx_IRQHandler(void)
+//  239 {
+//  240   //HAL_DMA_IRQHandler(haudio_out_sai.hdmatx);
+//  241 }
+DMA2_Stream4_IRQHandler:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock12
-//  225 
-//  226 /**
-//  227   * @brief This function handles DMA2 Stream 7 interrupt request.
-//  228   * @param None
-//  229   * @retval None
-//  230   */
+          CFI EndBlock cfiBlock14
+//  242 
+//  243 /**
+//  244   * @brief This function handles DMA2 Stream 7 interrupt request.
+//  245   * @param None
+//  246   * @retval None
+//  247   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock13 Using cfiCommon0
-          CFI Function AUDIO_IN_SAIx_DMAx_IRQHandler
+          CFI Block cfiBlock15 Using cfiCommon0
+          CFI Function DMA2_Stream7_IRQHandler
           CFI NoCalls
         THUMB
-//  231 void AUDIO_IN_SAIx_DMAx_IRQHandler(void)
-//  232 {
-//  233   //HAL_DMA_IRQHandler(haudio_in_sai.hdmarx);
-//  234 }
-AUDIO_IN_SAIx_DMAx_IRQHandler:
+//  248 void AUDIO_IN_SAIx_DMAx_IRQHandler(void)
+//  249 {
+//  250   //HAL_DMA_IRQHandler(haudio_in_sai.hdmarx);
+//  251 }
+DMA2_Stream7_IRQHandler:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock13
+          CFI EndBlock cfiBlock15
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -568,23 +613,23 @@ AUDIO_IN_SAIx_DMAx_IRQHandler:
         SECTION_TYPE SHT_PROGBITS, 0
 
         END
-//  235 
-//  236 /**
-//  237   * @brief  This function handles PPP interrupt request.
-//  238   * @param  None
-//  239   * @retval None
-//  240   */
-//  241 /*void PPP_IRQHandler(void)
-//  242 {
-//  243 }*/
-//  244 
-//  245 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+//  252 
+//  253 /**
+//  254   * @brief  This function handles PPP interrupt request.
+//  255   * @param  None
+//  256   * @retval None
+//  257   */
+//  258 /*void PPP_IRQHandler(void)
+//  259 {
+//  260 }*/
+//  261 
+//  262 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-//  4 bytes in section .bss
-// 90 bytes in section .text
+//   4 bytes in section .bss
+// 102 bytes in section .text
 // 
-// 90 bytes of CODE memory
-//  4 bytes of DATA memory
+// 102 bytes of CODE memory
+//   4 bytes of DATA memory
 //
 //Errors: none
 //Warnings: none

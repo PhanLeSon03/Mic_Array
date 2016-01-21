@@ -33,18 +33,6 @@ typedef enum
   BigEndian
 }Endianness;
 
-typedef struct
-{
-  uint32_t  RIFFchunksize;
-  uint16_t  FormatTag;
-  uint16_t  NumChannels;
-  uint32_t  SampleRate;
-  uint32_t  ByteRate;
-  uint16_t  BlockAlign;
-  uint16_t  BitsPerSample;
-  uint32_t  DataSize;
-}
-WAVE_FormatTypeDef;
 
 typedef enum
 {
@@ -93,6 +81,7 @@ void WavePlayerStart(void);
 void WavePlayer_CallBack(void);
 uint32_t ReadUnit(uint8_t *buffer, uint8_t idx, uint8_t NbrOfBytes, Endianness BytesFormat);
 void TC_Callback(struct __DMA_HandleTypeDef * hdma);
+
 #endif /* __WAVE_PLAYER_H */
 
 /******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/

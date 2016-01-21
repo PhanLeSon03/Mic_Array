@@ -216,7 +216,7 @@ uint32_t AUDIO_PauseResume(uint32_t Cmd);
 uint32_t AUDIO_Stop(uint32_t CodecPowerDown_Mode);
 uint32_t AUDIO_VolumeCtl(uint8_t Volume);
 uint32_t AUDIO_Mute(uint32_t Command);
-void Audio_MAL_Play(uint16_t* Addr, uint16_t Size);
+void Audio_MAL_Play(uint16_t *Addr, uint16_t Size);
 void DAC_Config(void);
 
 /* User Callbacks: user has to implement these functions in his code if
@@ -252,7 +252,10 @@ uint32_t Codec_TIMEOUT_UserCallback(void);
 void DMA1_Stream7_IRQHandler(void);
 void DMA1_Stream0_IRQHandler(void);
 void SPI3_IRQHandler(void);
-
+void MX_I2C1_Init(void);
+void I2S3_Init(uint32_t AudioFreq);
+void Audio_MAL_Play(uint16_t *Addr, uint16_t Size);
+int WavePlayerInit(uint32_t AudioFreq);
 #endif /* __STM32F4_DISCOVERY_AUDIOCODEC_H */
 
 

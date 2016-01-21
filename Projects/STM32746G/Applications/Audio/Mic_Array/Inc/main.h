@@ -1,31 +1,63 @@
-
+/**
+  ******************************************************************************
+  * @file    Audio/Audio_playback_and_record/Inc/main.h 
+  * @author  MCD Application Team
+  * @version V1.0.0
+  * @date    25-June-2015
+  * @brief   Header for main.c module
+  ******************************************************************************
+  * @attention
+  *
+  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  *
+  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
+  * You may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at:
+  *
+  *        http://www.st.com/software_license_agreement_liberty_v2
+  *
+  * Unless required by applicable law or agreed to in writing, software 
+  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+  *
+  ******************************************************************************
+  */
   
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __MAIN_H
 #define __MAIN_H
 
 /* Includes ------------------------------------------------------------------*/
-
+#include "stdio.h"
+#include "usbh_core.h"
 #include "stm32f7xx_hal.h"
 #include "stm32746g_discovery.h"
+#include "stm32746g_discovery_audio.h"
 #include "stm32746g_discovery_ts.h"
-#include "audio_codec.h"
-
 #include "ff.h"    
 #include "ff_gen_drv.h"
 #include "usbh_diskio.h"
 #include "stm32f7xx_hal_spi.h"
-#include "stm32f7xx_hal_usart.h"
-#include "stm32f7xx_hal_i2c.h"
 #include "stm32f746xx.h"
 #include "sta321mp.h"
+#include "audio_codec.h"   
 #include "waveplayer_CS43L22.h"
-#include "waverecorder.h"
 
+#define DEBUG           0
+//#define MAIN_RECORD
+#define MAIN_CRSCORR    0
+#define MAIN_FFT        0
 
 /* Exported Defines ----------------------------------------------------------*/
-#define AUDIO_OUT_BUFFER_SIZE                      8192
-#define AUDIO_IN_PCM_BUFFER_SIZE                   4*2304 /* buffer size in half-word */
+#define AUDIO_OUT_BUFFER_SIZE                      1024
+#define AUDIO_FREQ                                 32000
+#define AUDIO_IN_PCM_BUFFER_SIZE                   2*2304 /* buffer size in half-word */
+
+#define BUF1_PLAY                0
+#define BUF2_PLAY                1
+#define BUF3_PLAY                2
 
 #define FILEMGR_LIST_DEPDTH                        24
 #define FILEMGR_FILE_NAME_SIZE                     40
@@ -33,7 +65,23 @@
 #define FILEMGR_MAX_LEVEL                          4    
 #define FILETYPE_DIR                               0
 #define FILETYPE_FILE                              1
+#define SDOSHFTBIT                                 3
+#define SDOLEN                                     16 
 
+#define MAX(X,Y)                                   ((X)>(Y)?(X):(Y))
+    
+#define U16_MAX                 65535
+#define S16_MAX                 32767
+#define S16_MIN                 (-32768)
+#define S32_MAX                 2147483647
+#define S32_MIN                 (-2147483648)
+#define s32                     int32_t
+#define u32                     uint32_t
+#define s16                     int16_t
+#define u16                     uint16_t
+#define s8                      int8_t
+#define u8                      uint8_t    
+    
 /* Exported types ------------------------------------------------------------*/
 /* Application State Machine Structure */
 typedef enum {
@@ -103,7 +151,7 @@ typedef enum {
 }WR_BUFFER_StateTypeDef;
 
 typedef struct {
-  uint16_t pcm_buff[AUDIO_IN_PCM_BUFFER_SIZE];
+  int16_t pcm_buff[AUDIO_IN_PCM_BUFFER_SIZE];
   uint32_t pcm_ptr;
   WR_BUFFER_StateTypeDef wr_state;
   uint32_t offset;  
@@ -125,7 +173,7 @@ typedef struct {
   uint16_t BitPerSample;  /* 34 */  
   uint32_t SubChunk2ID;   /* 36 */   
   uint32_t SubChunk2Size; /* 40 */    
-}WAVE_FormatTypeDef1;
+}WAVE_FormatTypeDef;
 
 typedef struct _FILELIST_LineTypeDef {
   uint8_t type;
@@ -143,6 +191,36 @@ typedef enum {
   AUDIO_ERROR_EOF,
   AUDIO_ERROR_INVALID_VALUE,     
 }AUDIO_ErrorTypeDef;
+
+typedef struct  {
+int16_t bufMIC1[AUDIO_OUT_BUFFER_SIZE+10];
+int16_t bufMIC2[AUDIO_OUT_BUFFER_SIZE+10];
+int16_t bufMIC3[AUDIO_OUT_BUFFER_SIZE+10];
+int16_t bufMIC4[AUDIO_OUT_BUFFER_SIZE+10];
+int16_t bufMIC5[AUDIO_OUT_BUFFER_SIZE+10];
+int16_t bufMIC6[AUDIO_OUT_BUFFER_SIZE+10];
+
+}Mic_Array_Data;
+
+typedef struct  {
+float bufMIC1[AUDIO_OUT_BUFFER_SIZE+10];
+float bufMIC2[AUDIO_OUT_BUFFER_SIZE+10];
+float bufMIC3[AUDIO_OUT_BUFFER_SIZE+10];
+float bufMIC4[AUDIO_OUT_BUFFER_SIZE+10];
+float bufMIC5[AUDIO_OUT_BUFFER_SIZE+10];
+float bufMIC6[AUDIO_OUT_BUFFER_SIZE+10];
+
+}Mic_Array_Data_f;
+
+typedef struct  {
+float facMIC1;
+float facMIC2;
+float facMIC3;
+float facMIC4;
+float facMIC5;
+float facMIC6;
+
+}Mic_Array_Coef_f;
 
 extern USBH_HandleTypeDef hUSBHost;
 extern AUDIO_ApplicationTypeDef appli_state;
@@ -164,11 +242,279 @@ uint16_t AUDIO_GetWavObjectNumber(void);
 
 /* Toggle LEDs */
 void Toggle_Leds(void);
-
 void SPI5_IRQHandler(void);
-void EXTI4_IRQHandler(void);;
-void MX_I2C1_Init(void);
+void EXTI4_IRQHandler(void);
+void MX_SPI4_Init(void);
+void EXTI15_10_IRQHandler(void);
+void EXTI9_5_IRQHandler(void);
+void SPI4_IRQHandler(void);
+void DFT_Init(void);
+void SumDelay(Mic_Array_Data *BufferIn);
+void ButtonInit(void);
 
+#define RESET_IDX   {                                                           \
+WaveRec_idxSens1 = 0; /* reset position store data in buffer for sensor 1*/     \
+WaveRec_idxSens2 = 0; /* reset position store data in buffer for sensor 2*/     \
+idxSPI5DataBuf3 = 0; /* reset position store data in temporary buffer */        \
+WaveRec_idxSens3 = 0; /* reset position store data in buffer for sensor 3 */    \
+WaveRec_idxSens4 = 0; /* reset position store data in buffer for sensor 4 */    \
+I2S2_idxTmp = 0; /* reset position store data in temporary buffer */            \
+WaveRec_idxSens5 = 0; /* reset position store data in buffer for sensor 3 */	\
+WaveRec_idxSens6 = 0; /* reset position store data in buffer for sensor 4 */	\
+flgSum = 0;                                                                     \
+flgDlyUpd=0;                                                                    \
+}
+
+inline s8 ADD_S8(s8 A1,s8 A2)
+{
+      if (A1 > 127 - A2)
+              return 127;
+      if (A1 < -128 - A2)
+              return -128;
+      return (A1+A2);
+}
+
+  
+ inline u8 ADD_U8(u8 A1,u8 A2)
+ {
+  	if (A1 > 255 - A2)
+		return 255;
+
+	return (A1+A2);
+ }
+
+
+inline s16 ADD_S16(s16 A1,s16 A2)
+{
+    int16_t _res16;
+
+	if ((A1>=0)&&(A2>=0))
+	{
+		if (A1 > S16_MAX - A2)
+			 _res16 = S16_MAX;
+		else
+			 _res16 = A1 + A2;
+	}
+	else if ((A1<0)&&(A2<0))
+	{
+        if (A1 < (int32_t)(S16_MIN - A2))
+		    _res16 = S16_MIN;
+		else
+			_res16 = A1 + A2;
+	}
+	else
+	{
+        _res16 = A1 + A2;
+	}
+
+    return _res16;
+}
+
+inline int16_t SUB_S16(int16_t X16, int16_t Y16)
+{
+    int16_t _res16;
+	
+    //if one number is positive, one is negative, =0 handle when 0-Min = max
+    if((X16 >= 0) && (Y16 <0))
+    {
+      //overflow case
+      if(X16 > (S16_MAX + Y16))
+      {
+              _res16 = S16_MAX;
+      }
+      //normal case
+      else
+      {
+              _res16 = X16 - Y16;
+      }
+    }
+    //if one number is positive, one is negative
+    else if((X16 < 0)&&(Y16 >0))
+    {
+      //overflow case
+      if(X16 < (S16_MIN  + Y16))
+      {
+              _res16 = S16_MIN;
+      }
+      //normal case
+      else
+      {
+              _res16 = X16 - Y16;
+      }
+    }
+    //other cases
+    else
+    {
+            _res16 = X16 - Y16;
+    }
+    
+    return _res16;
+}
+
+  
+inline int32_t ADD_S32(int32_t X32, int32_t Y32)
+{
+    int32_t _res32;
+    //if both numbers are positive
+    if((X32 >= 0) && (Y32 >= 0))
+    {
+      //overflow case
+      if(X32 > (S32_MAX - Y32))
+      {
+              _res32 = S32_MAX;
+      }
+      //normal case
+      else
+      {
+              _res32 = X32 + Y32;
+      }
+    }
+    //if both numbers are negative
+    else if((X32 < 0)&&(Y32 <0))
+    {
+      //overflow case
+      if(X32 < (S32_MIN - Y32))
+      {
+              _res32 = S32_MIN;
+      }
+      //normal case
+      else
+      {
+              _res32 = X32 + Y32;
+      }
+    }
+    //other cases
+    else
+    {
+            _res32 = X32 + Y32;
+    }
+    
+    return _res32;
+}
+
+inline int32_t SUB_S32(int32_t X32, int32_t Y32)
+{
+    int32_t _res32;
+    //if one number is positive, one is negative, =0 handle when 0-Min = max
+    if((X32 >= 0) && (Y32 <0))
+    {
+      //overflow case
+      if(X32 > (S32_MAX + Y32))
+      {
+              _res32 = S32_MAX;
+      }
+      //normal case
+      else
+      {
+              _res32 = X32 - Y32;
+      }
+    }
+    //if one number is positive, one is negative
+    else if((X32 < 0)&&(Y32 >0))
+    {
+      //overflow case
+      if(X32 < (S32_MIN  + Y32))
+      {
+              _res32 = S32_MIN ;
+      }
+      //normal case
+      else
+      {
+              _res32 = X32 - Y32;
+      }
+    }
+    //other cases
+    else
+    {
+            _res32 = X32 - Y32;
+    }
+    
+    return _res32;
+}
+
+inline int32_t MUL_S32(int32_t X32, int32_t Y32)
+{
+	int32_t _res32;
+	//one equals to 0
+	if((X32==0)||(Y32==0))
+	{
+		_res32=0;
+	}
+	//two numbers have difference sign
+	else if(((X32 >0)&&(Y32<0))||((X32<0)&&(Y32>0)))
+	{
+		if(X32>0)
+		{
+			if(X32 >= (S32_MIN /Y32))
+			{
+				_res32 = S32_MIN;
+			}
+			else
+			{
+				_res32 = X32*Y32;
+			}
+		}
+		else
+		{
+			if(X32 <= (S32_MIN/Y32))
+			{
+				_res32 = S32_MIN;
+			}
+			else
+			{
+				_res32 = X32*Y32;
+			}
+		}
+	}
+	//two numbers have same sign
+	else
+	{
+		if(X32>0)
+		{
+			if(X32 >= (S32_MAX /Y32))
+			{
+				_res32 = S32_MAX ;
+			}
+			else
+			{
+				_res32 = X32*Y32;
+			}
+		}
+		else
+		{
+			if(X32 <= (S32_MAX /Y32))
+			{
+				_res32 = S32_MAX ;
+			}
+			else
+			{
+				_res32 = X32*Y32;
+			}
+		}
+	}
+	return _res32;
+}
+
+
+inline uint8_t SrvB_Debound(uint8_t * Ins,uint8_t *Out, uint8_t In, uint16_t Delay)
+{
+    if (In!=*Out)
+    {
+	   *Ins=ADD_U8(*Ins,1);
+    }
+	else
+	{
+        *Ins = 0;  
+	}
+
+	if (*Ins > Delay)
+	{
+        *Out= In;
+	}
+
+	return *Out;
+
+}
 
 #endif /* __MAIN_H */
 

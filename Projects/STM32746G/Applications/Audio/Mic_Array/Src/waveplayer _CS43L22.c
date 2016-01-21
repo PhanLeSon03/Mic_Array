@@ -7,10 +7,6 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-
-
-
-
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 #if defined MEDIA_USB_KEY
@@ -18,14 +14,14 @@
  static uint32_t wavelen = 0;
  static char* WaveFileName ;
  static __IO uint32_t SpeechDataOffset = 0x00;
+
  __IO ErrorCode WaveFileStatus = Unvalid_RIFF_ID;
  UINT BytesRead;
  WAVE_FormatTypeDef WAVE_Format;
  uint16_t buffer1[2*_MAX_SS] ={0x00};
  uint16_t buffer2[2*_MAX_SS] ={0x00};
 
- uint16_t buffer1_1[_MAX_SS] ={0x00};
- uint16_t buffer2_1[_MAX_SS] ={0x00};
+
 
 
  extern FATFS fatfs;
@@ -37,12 +33,13 @@
  extern USB_OTG_CORE_HANDLE USB_OTG_Core;
  extern uint8_t WaveRecStatus;
 #endif
-__IO uint8_t buffer_switch = 1;
+extern uint8_t buffer_switch;
 __IO uint32_t XferCplt = 0;
 __IO uint8_t volume = 80, AudioPlayStart = 0; //sop1hc: 70
 __IO uint32_t WaveCounter;
 uint8_t Buffer[6];
 __IO uint32_t WaveDataLength = 0;
+I2S_HandleTypeDef     hi2s3;
 static __IO uint32_t TimingDelay;
 
 /* Private function prototypes -----------------------------------------------*/
@@ -247,7 +244,8 @@ void WavePlayerStop(void)
 */
 int WavePlayerInit(uint32_t AudioFreq)
 { 
-   
+
+  
   /* Initialize the Audio codec and all related peripherals (I2S, I2C, IOExpander, IOs...) */  
   AUDIO_Init(OUTPUT_DEVICE_AUTO, volume, AudioFreq );  
   
@@ -264,44 +262,6 @@ uint32_t AudioFlashPlay(uint16_t* pBuffer, uint32_t FullSize, uint32_t StartAdd)
 { 
   AUDIO_Play((uint16_t*)pBuffer, (FullSize - StartAdd));
   return 0;
-}
-
-/*--------------------------------
-Callbacks implementation:
-the callbacks prototypes are defined in the stm324xg_eval_audio_codec.h file
-and their implementation should be done in the user code if they are needed.
-Below some examples of callback implementations.
---------------------------------------------------------*/
-/**
-* @brief  Calculates the remaining file size and new position of the pointer.
-* @param  None
-* @retval None
-*/
-void  AUDIO_TransferComplete_CallBack(uint32_t pBuffer, uint32_t Size)
-{
-  /* Calculate the remaining audio data in the file and the new size 
-  for the DMA transfer. If the Audio files size is less than the DMA max 
-  data transfer size, so there is no calculation to be done, just restart 
-  from the beginning of the file ... */
-  /* Check if the end of file has been reached */
-
-#if defined PLAY_REPEAT_OFF
-  LED_Toggle = 4;
-  RepeatState = 1;
-  EVAL_AUDIO_Stop(CODEC_PDWN_HW);
-#else
-  /* Replay from the beginning */
- // AudioFlashPlay((uint16_t*)(AUDIO_SAMPLE + AUIDO_START_ADDRESS),AUDIO_FILE_SZE,AUIDO_START_ADDRESS);
-#endif  
-  
-#if defined MEDIA_USB_KEY  
-  XferCplt = 1;
-  if (WaveDataLength>=_MAX_SS) WaveDataLength -= _MAX_SS;//sop1hc: WaveDataLength>=_MAX_SS
-  if (WaveDataLength < _MAX_SS) WaveDataLength = 0;
-    
-#endif 
-    
-
 }
 
 void TC_Callback(struct __DMA_HandleTypeDef * hdma)
@@ -388,30 +348,44 @@ static void EXTILine_Config(void)
 
 }
 
-#ifdef  USE_FULL_ASSERT
 
-/**
-* @brief  Reports the name of the source file and the source line number
-*   where the assert_param error has occurred.
-* @param  file: pointer to the source file name
-* @param  line: assert_param error line source number
-* @retval None
-*/
-void assert_failed(uint8_t* file, uint32_t line)
-{ 
-  /* User can add his own implementation to report the file name and line number,
-  ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+
+void I2S3_Init(uint32_t AudioFreq)
+{
+
+  // static I2S_HandleTypeDef hi2s3;
+  /* Enable the CODEC_I2S peripheral clock */
+  __SPI3_CLK_ENABLE();
+
+  hi2s3.Instance = SPI3;
+  /* Disable I2S3 peripheral to allow access to I2S internal registers */
+  __HAL_I2S_DISABLE(&hi2s3);
   
-  /* Infinite loop */
-  while (1)
-  {
-  }
+  hi2s3.Init.Standard = I2S_STANDARD_MSB;//I2S_STANDARD_PHILIPS
+  hi2s3.Init.DataFormat = I2S_DATAFORMAT_16B;
+  hi2s3.Init.AudioFreq = AudioFreq;
+  hi2s3.Init.CPOL = I2S_CPOL_LOW;
+  hi2s3.Init.ClockSource = I2S_CLOCK_SYSCLK;
+  hi2s3.Init.Mode = I2S_MODE_MASTER_TX;
+
+#ifdef CODEC_MCLK_ENABLED
+  hi2s3.Init.MCLKOutput = I2S_MCLKOUTPUT_ENABLE;
+#elif defined(CODEC_MCLK_DISABLED)
+  hi2s3.Init.MCLKOutput = I2S_MCLKOUTPUT_DISABLE;
+#else
+#error "No selection for the MCLK output has been defined !"
+#endif /* CODEC_MCLK_ENABLED */
+  
+  /* Initialize the I2S peripheral with the structure above */
+  HAL_I2S_Init(&hi2s3);
+ 
+ // __HAL_I2S_ENABLE(&hi2s3);
+  
+
+  /* The I2S peripheral will be enabled only in the AUDIO_Play() function 
+       or by user functions if DMA mode not enabled */
+
 }
-#endif
-
-/**
-* @}
-*/ 
 
 
-/******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/
+

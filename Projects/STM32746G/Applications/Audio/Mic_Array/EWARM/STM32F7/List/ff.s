@@ -1,56 +1,56 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      22/Dec/2015  23:09:52
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      21/Jan/2016  18:08:41
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\Third_Party\FatFs\src\ff.c
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Middlewares\Third_Party\FatFs\src\ff.c
 //    Command line =  
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\Third_Party\FatFs\src\ff.c
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Middlewares\Third_Party\FatFs\src\ff.c
 //        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 //        USE_IOEXPANDER -D USE_USB_FS -lC
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -lA
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
 //        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -Ohz --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\ff.s
+//        D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\ff.s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -182,7 +182,7 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon1
         
-// H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\Third_Party\FatFs\src\ff.c
+// D:\sop1hc\Github\data\Mic_Array_V00\Mic_Array\Middlewares\Third_Party\FatFs\src\ff.c
 //    1 /*----------------------------------------------------------------------------/
 //    2 /  FatFs - FAT file system module  R0.11                 (C)ChaN, 2015
 //    3 /-----------------------------------------------------------------------------/
@@ -1041,17 +1041,20 @@ inc_lock:
         CMP      R2,#+2
         BNE.N    ??inc_lock_2
 //  713 		for (i = 0; i < _FS_LOCK && Files[i].fs; i++) ;
-        LDR      R6,[R5, #+0]
         MOVS     R2,#+0
-        CMP      R6,#+0
-        ITTT     NE 
-        MOVNE    R2,#+1
-        LDRNE    R6,[R5, #+12]
-        CMPNE    R6,#+0
-        BNE.N    ??inc_lock_3
+??inc_lock_3:
+        MLA      R6,R4,R2,R5
+        LDR      R6,[R6, #+0]
+        CBZ.N    R6,??inc_lock_4
+        ADDS     R2,R2,#+1
+        CMP      R2,#+2
+        BCC.N    ??inc_lock_3
 //  714 		if (i == _FS_LOCK) return 0;	/* No free entry to register (int err) */
+??inc_lock_4:
+        CMP      R2,#+2
+        BEQ.N    ??inc_lock_5
 //  715 		Files[i].fs = dp->fs;
-        SMLABB   R6,R4,R2,R5
+        MLA      R6,R4,R2,R5
         STR      R3,[R6, #+0]
 //  716 		Files[i].clu = dp->sclust;
         LDR      R3,[R0, #+8]
@@ -1068,17 +1071,17 @@ inc_lock:
 ??inc_lock_2:
         MLA      R0,R4,R2,R5
         LDRH     R3,[R0, #+10]
-        CBZ.N    R1,??inc_lock_4
-        CBZ.N    R3,??inc_lock_5
-??inc_lock_3:
+        CBZ.N    R1,??inc_lock_6
+        CBZ.N    R3,??inc_lock_7
+??inc_lock_5:
         MOVS     R0,#+0
         POP      {R4-R7,PC}
-??inc_lock_5:
+??inc_lock_7:
         MOV      R1,#+256
-        B.N      ??inc_lock_6
-??inc_lock_4:
-        ADDS     R1,R3,#+1
+        B.N      ??inc_lock_8
 ??inc_lock_6:
+        ADDS     R1,R3,#+1
+??inc_lock_8:
         STRH     R1,[R0, #+10]
 //  722 
 //  723 	Files[i].ctr = acc ? 0x100 : Files[i].ctr + 1;	/* Set semaphore value */
@@ -1571,8 +1574,8 @@ get_fat:
 ??get_fat_1:
         ADD      R4,R5,R5, LSR #+1
 //  910 			if (move_window(fs, fs->fatbase + (bc / SS(fs))) != FR_OK) break;
-        BL       ?Subroutine11
-??CrossCallReturnLabel_39:
+        BL       ?Subroutine10
+??CrossCallReturnLabel_34:
         CMP      R0,#+0
         BNE.N    ??get_fat_4
 //  911 			wc = fs->win.d8[bc++ % SS(fs)];
@@ -1581,8 +1584,8 @@ get_fat:
         ADDS     R4,R4,#+1
         LDRB     R9,[R0, R8]
 //  912 			if (move_window(fs, fs->fatbase + (bc / SS(fs))) != FR_OK) break;
-        BL       ?Subroutine11
-??CrossCallReturnLabel_38:
+        BL       ?Subroutine10
+??CrossCallReturnLabel_33:
         CBNZ.N   R0,??get_fat_4
 //  913 			wc |= fs->win.d8[bc % SS(fs)] << 8;
         LSLS     R0,R4,#+23
@@ -1603,8 +1606,8 @@ get_fat:
 ??get_fat_3:
         LDR      R0,[R6, #+32]
         ADD      R1,R0,R5, LSR #+8
-        BL       ??Subroutine11_0
-??CrossCallReturnLabel_37:
+        BL       ??Subroutine10_0
+??CrossCallReturnLabel_32:
         CBNZ.N   R0,??get_fat_4
 //  919 			p = &fs->win.d8[clst * 2 % SS(fs)];
         LSLS     R0,R5,#+1
@@ -1622,8 +1625,8 @@ get_fat:
 ??get_fat_2:
         LDR      R0,[R6, #+32]
         ADD      R1,R0,R5, LSR #+7
-        BL       ??Subroutine11_0
-??CrossCallReturnLabel_36:
+        BL       ??Subroutine10_0
+??CrossCallReturnLabel_31:
         CBNZ.N   R0,??get_fat_4
 //  925 			p = &fs->win.d8[clst * 4 % SS(fs)];
         LSLS     R0,R5,#+2
@@ -1721,9 +1724,9 @@ put_fat:
 //  964 			res = move_window(fs, fs->fatbase + (bc / SS(fs)));
         LDR      R0,[R6, #+32]
         ADD      R1,R0,R7, LSR #+9
-        BL       ??Subroutine11_0
+        BL       ??Subroutine10_0
 //  965 			if (res != FR_OK) break;
-??CrossCallReturnLabel_35:
+??CrossCallReturnLabel_30:
         CMP      R0,#+0
         BNE.N    ??put_fat_4
 //  966 			p = &fs->win.d8[bc++ % SS(fs)];
@@ -1744,9 +1747,9 @@ put_fat:
 //  969 			res = move_window(fs, fs->fatbase + (bc / SS(fs)));
         LDR      R0,[R6, #+32]
         ADD      R1,R0,R7, LSR #+9
-        BL       ??Subroutine11_0
+        BL       ??Subroutine10_0
 //  970 			if (res != FR_OK) break;
-??CrossCallReturnLabel_34:
+??CrossCallReturnLabel_29:
         CMP      R0,#+0
         BNE.N    ??put_fat_4
 //  971 			p = &fs->win.d8[bc % SS(fs)];
@@ -1773,9 +1776,9 @@ put_fat:
 ??put_fat_3:
         LDR      R0,[R6, #+32]
         ADD      R1,R0,R4, LSR #+8
-        BL       ??Subroutine11_0
+        BL       ??Subroutine10_0
 //  978 			if (res != FR_OK) break;
-??CrossCallReturnLabel_33:
+??CrossCallReturnLabel_28:
         CBNZ.N   R0,??put_fat_4
 //  979 			p = &fs->win.d8[clst * 2 % SS(fs)];
         LSLS     R1,R4,#+1
@@ -1795,9 +1798,9 @@ put_fat:
 ??put_fat_2:
         LDR      R0,[R6, #+32]
         ADD      R1,R0,R4, LSR #+7
-        BL       ??Subroutine11_0
+        BL       ??Subroutine10_0
 //  986 			if (res != FR_OK) break;
-??CrossCallReturnLabel_32:
+??CrossCallReturnLabel_27:
         CBNZ.N   R0,??put_fat_4
 //  987 			p = &fs->win.d8[clst * 4 % SS(fs)];
         LSLS     R1,R4,#+2
@@ -1840,7 +1843,7 @@ put_fat:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiCond12 Using cfiCommon0
           CFI Function get_fat
-          CFI Conditional ??CrossCallReturnLabel_39
+          CFI Conditional ??CrossCallReturnLabel_34
           CFI R4 Frame(CFA, -28)
           CFI R5 Frame(CFA, -24)
           CFI R6 Frame(CFA, -20)
@@ -1851,7 +1854,7 @@ put_fat:
           CFI CFA R13+32
           CFI Block cfiCond13 Using cfiCommon0
           CFI (cfiCond13) Function get_fat
-          CFI (cfiCond13) Conditional ??CrossCallReturnLabel_38
+          CFI (cfiCond13) Conditional ??CrossCallReturnLabel_33
           CFI (cfiCond13) R4 Frame(CFA, -28)
           CFI (cfiCond13) R5 Frame(CFA, -24)
           CFI (cfiCond13) R6 Frame(CFA, -20)
@@ -1864,12 +1867,12 @@ put_fat:
           CFI (cfiPicker14) NoFunction
           CFI (cfiPicker14) Picker
         THUMB
-?Subroutine11:
+?Subroutine10:
         LDR      R0,[R6, #+32]
         ADD      R1,R0,R4, LSR #+9
           CFI Block cfiCond15 Using cfiCommon0
           CFI (cfiCond15) Function get_fat
-          CFI (cfiCond15) Conditional ??CrossCallReturnLabel_37
+          CFI (cfiCond15) Conditional ??CrossCallReturnLabel_32
           CFI (cfiCond15) R4 Frame(CFA, -28)
           CFI (cfiCond15) R5 Frame(CFA, -24)
           CFI (cfiCond15) R6 Frame(CFA, -20)
@@ -1880,7 +1883,7 @@ put_fat:
           CFI (cfiCond15) CFA R13+32
           CFI Block cfiCond16 Using cfiCommon0
           CFI (cfiCond16) Function get_fat
-          CFI (cfiCond16) Conditional ??CrossCallReturnLabel_36
+          CFI (cfiCond16) Conditional ??CrossCallReturnLabel_31
           CFI (cfiCond16) R4 Frame(CFA, -28)
           CFI (cfiCond16) R5 Frame(CFA, -24)
           CFI (cfiCond16) R6 Frame(CFA, -20)
@@ -1891,7 +1894,7 @@ put_fat:
           CFI (cfiCond16) CFA R13+32
           CFI Block cfiCond17 Using cfiCommon0
           CFI (cfiCond17) Function put_fat
-          CFI (cfiCond17) Conditional ??CrossCallReturnLabel_35
+          CFI (cfiCond17) Conditional ??CrossCallReturnLabel_30
           CFI (cfiCond17) R4 Frame(CFA, -24)
           CFI (cfiCond17) R5 Frame(CFA, -20)
           CFI (cfiCond17) R6 Frame(CFA, -16)
@@ -1901,7 +1904,7 @@ put_fat:
           CFI (cfiCond17) CFA R13+24
           CFI Block cfiCond18 Using cfiCommon0
           CFI (cfiCond18) Function put_fat
-          CFI (cfiCond18) Conditional ??CrossCallReturnLabel_34
+          CFI (cfiCond18) Conditional ??CrossCallReturnLabel_29
           CFI (cfiCond18) R4 Frame(CFA, -24)
           CFI (cfiCond18) R5 Frame(CFA, -20)
           CFI (cfiCond18) R6 Frame(CFA, -16)
@@ -1911,7 +1914,7 @@ put_fat:
           CFI (cfiCond18) CFA R13+24
           CFI Block cfiCond19 Using cfiCommon0
           CFI (cfiCond19) Function put_fat
-          CFI (cfiCond19) Conditional ??CrossCallReturnLabel_33
+          CFI (cfiCond19) Conditional ??CrossCallReturnLabel_28
           CFI (cfiCond19) R4 Frame(CFA, -24)
           CFI (cfiCond19) R5 Frame(CFA, -20)
           CFI (cfiCond19) R6 Frame(CFA, -16)
@@ -1921,7 +1924,7 @@ put_fat:
           CFI (cfiCond19) CFA R13+24
           CFI Block cfiCond20 Using cfiCommon0
           CFI (cfiCond20) Function put_fat
-          CFI (cfiCond20) Conditional ??CrossCallReturnLabel_32
+          CFI (cfiCond20) Conditional ??CrossCallReturnLabel_27
           CFI (cfiCond20) R4 Frame(CFA, -24)
           CFI (cfiCond20) R5 Frame(CFA, -20)
           CFI (cfiCond20) R6 Frame(CFA, -16)
@@ -1929,7 +1932,7 @@ put_fat:
           CFI (cfiCond20) R8 Frame(CFA, -8)
           CFI (cfiCond20) R14 Frame(CFA, -4)
           CFI (cfiCond20) CFA R13+24
-??Subroutine11_0:
+??Subroutine10_0:
         MOV      R0,R8
           CFI (cfiCond12) FunCall get_fat move_window
           CFI (cfiCond12) FunCall get_fat move_window
@@ -3948,9 +3951,9 @@ follow_path:
         CMP      R0,#+32
         BCS.N    ??follow_path_0
 // 2147 		res = dir_sdi(dp, 0);
-        BL       ?Subroutine2
+        BL       ?Subroutine3
 // 2148 		dp->dir = 0;
-??CrossCallReturnLabel_8:
+??CrossCallReturnLabel_11:
         MOVS     R1,#+0
         STR      R1,[R5, #+20]
         POP      {R1,R4-R7,PC}
@@ -3990,8 +3993,8 @@ follow_path:
         BL       create_name
         CMP      R0,#+0
         BNE.N    ??follow_path_2
-        BL       ?Subroutine2
-??CrossCallReturnLabel_7:
+        BL       ?Subroutine3
+??CrossCallReturnLabel_10:
         CBNZ.N   R0,??follow_path_3
 ??follow_path_4:
         LDR      R1,[R5, #+16]
@@ -4716,8 +4719,8 @@ find_volume:
         BNE.N    ??find_volume_23
         LDRB     R1,[R6, #+2]
         LDRB     R0,[R6, #+3]
-        BL       ?Subroutine10
-??CrossCallReturnLabel_27:
+        BL       ?Subroutine11
+??CrossCallReturnLabel_35:
         LDRB     R1,[R6, #+1]
         ORR      R0,R0,R1, LSL #+8
         LDRB     R1,[R6, #+0]
@@ -4727,8 +4730,8 @@ find_volume:
         BNE.N    ??find_volume_23
         LDRB     R1,[R7, #+2]
         LDRB     R0,[R7, #+3]
-        BL       ?Subroutine10
-??CrossCallReturnLabel_28:
+        BL       ?Subroutine11
+??CrossCallReturnLabel_36:
         LDRB     R1,[R7, #+1]
         ORR      R0,R0,R1, LSL #+8
         LDRB     R1,[R7, #+0]
@@ -4741,8 +4744,8 @@ find_volume:
 // 2416 			fs->free_clust = LD_DWORD(fs->win.d8 + FSI_Free_Count);
         LDRB     R1,[R7, #+6]
         LDRB     R0,[R7, #+7]
-        BL       ?Subroutine10
-??CrossCallReturnLabel_29:
+        BL       ?Subroutine11
+??CrossCallReturnLabel_37:
         LDRB     R1,[R7, #+5]
         ORR      R0,R0,R1, LSL #+8
         LDRB     R1,[R7, #+4]
@@ -4753,11 +4756,11 @@ find_volume:
 // 2419 			fs->last_clust = LD_DWORD(fs->win.d8 + FSI_Nxt_Free);
         LDRB     R1,[R7, #+10]
         LDRB     R0,[R7, #+11]
-        BL       ?Subroutine10
+        BL       ?Subroutine11
 // 2420 #endif
 // 2421 		}
 // 2422 	}
-??CrossCallReturnLabel_30:
+??CrossCallReturnLabel_38:
         LDRB     R1,[R7, #+9]
         ORR      R0,R0,R1, LSL #+8
         LDRB     R1,[R7, #+8]
@@ -5109,14 +5112,21 @@ f_open:
         BNE.N    ??f_open_7
 // 2565 #if _FS_LOCK
 // 2566 					res = enq_lock() ? dir_register(&dj) : FR_TOO_MANY_OPEN_FILES;
-        LDR.N    R0,??DataTable14_4
-        LDR      R1,[R0, #+0]
-        CMP      R1,#+0
-        ITTT     NE 
-        LDRNE    R0,[R0, #+12]
-        CMPNE    R0,#+0
-        MOVNE    R7,#+18
-        BNE.N    ??f_open_7
+        MOVS     R0,#+0
+        LDR.N    R1,??DataTable14_4
+??f_open_8:
+        MOVS     R2,#+12
+        MLA      R2,R2,R0,R1
+        LDR      R2,[R2, #+0]
+        CBZ.N    R2,??f_open_9
+        ADDS     R0,R0,#+1
+        CMP      R0,#+2
+        BCC.N    ??f_open_8
+??f_open_9:
+        CMP      R0,#+2
+        IT       EQ 
+        MOVEQ    R7,#+18
+        BEQ.N    ??f_open_7
         ADD      R0,SP,#+12
           CFI FunCall dir_register
         BL       dir_register
@@ -5139,10 +5149,10 @@ f_open:
 // 2579 				}
 // 2580 			}
 // 2581 			if (res == FR_OK && (mode & FA_CREATE_ALWAYS)) {	/* Truncate it if overwrite mode */
-        CBNZ.N   R7,??f_open_8
-??f_open_9:
+        CBNZ.N   R7,??f_open_10
+??f_open_11:
         LSLS     R0,R5,#+28
-        BPL.N    ??f_open_10
+        BPL.N    ??f_open_12
 // 2582 				dw = GET_FATTIME();				/* Created time */
           CFI FunCall get_fattime
         BL       get_fattime
@@ -5181,7 +5191,7 @@ f_open:
 // 2589 				if (cl) {						/* Remove the cluster chain if exist */
         CMP      R9,#+0
         STRB     R0,[R1, #+516]
-        BEQ.N    ??f_open_11
+        BEQ.N    ??f_open_13
 // 2590 					dw = dj.fs->winsect;
         LDR      R0,[SP, #+524]
 // 2591 					res = remove_chain(dj.fs, cl);
@@ -5191,7 +5201,7 @@ f_open:
         BL       remove_chain
         MOVS     R7,R0
 // 2592 					if (res == FR_OK) {
-        BNE.N    ??f_open_8
+        BNE.N    ??f_open_10
 // 2593 						dj.fs->last_clust = cl - 1;	/* Reuse the cluster hole */
         LDR      R0,[SP, #+524]
         SUB      R1,R9,#+1
@@ -5216,18 +5226,18 @@ f_open:
 // 2607 			}
 // 2608 		}
 // 2609 		if (res == FR_OK) {
-??f_open_8:
+??f_open_10:
         CMP      R7,#+0
 ??f_open_2:
-        BNE.N    ??f_open_12
+        BNE.N    ??f_open_14
 // 2610 			if (mode & FA_CREATE_ALWAYS)		/* Set file change flag if created or overwritten */
-??f_open_11:
+??f_open_13:
         LSLS     R0,R5,#+28
         IT       MI 
         ORRMI    R5,R5,#0x20
 // 2611 				mode |= FA__WRITTEN;
 // 2612 			fp->dir_sect = dj.fs->winsect;		/* Pointer to the directory entry */
-??f_open_10:
+??f_open_12:
         LDR      R0,[SP, #+524]
 // 2613 			fp->dir_ptr = dir;
 // 2614 #if _FS_LOCK
@@ -5243,35 +5253,35 @@ f_open:
         BL       inc_lock
         STR      R0,[R4, #+36]
 // 2616 			if (!fp->lockid) res = FR_INT_ERR;
-        CBNZ.N   R0,??f_open_13
+        CBNZ.N   R0,??f_open_15
         MOVS     R7,#+2
-        B.N      ??f_open_12
+        B.N      ??f_open_14
 // 2617 #endif
 // 2618 		}
 ??f_open_6:
         LDRB     R0,[R6, #+11]
         MOVS     R1,#+17
         TST      R0,R1
-        BNE.N    ??f_open_14
+        BNE.N    ??f_open_16
         LSLS     R0,R5,#+29
-        BPL.N    ??f_open_9
+        BPL.N    ??f_open_11
         MOVS     R7,#+8
-        B.N      ??f_open_12
+        B.N      ??f_open_14
 ??f_open_5:
         CMP      R7,#+0
-        BNE.N    ??f_open_8
+        BNE.N    ??f_open_10
         LDRB     R0,[R6, #+11]
         LSLS     R1,R0,#+27
         IT       MI 
         MOVMI    R7,#+4
-        BMI.N    ??f_open_12
+        BMI.N    ??f_open_14
         LSLS     R1,R5,#+30
-        BPL.N    ??f_open_11
+        BPL.N    ??f_open_13
         LSLS     R0,R0,#+31
-        BPL.N    ??f_open_11
-??f_open_14:
+        BPL.N    ??f_open_13
+??f_open_16:
         MOVS     R7,#+7
-        B.N      ??f_open_12
+        B.N      ??f_open_14
 // 2619 
 // 2620 #else				/* R/O configuration */
 // 2621 		if (res == FR_OK) {					/* Follow succeeded */
@@ -5289,7 +5299,7 @@ f_open:
 // 2633 		if (res == FR_OK) {
 // 2634 			fp->flag = mode;					/* File access mode */
 // 2635 			fp->err = 0;						/* Clear error flag */
-??f_open_13:
+??f_open_15:
         MOVS     R0,#+0
         STRB     R5,[R4, #+6]
         STRB     R0,[R4, #+7]
@@ -5303,8 +5313,8 @@ f_open:
 // 2637 			fp->fsize = LD_DWORD(dir + DIR_FileSize);	/* File size */
         LDRB     R1,[R6, #+30]
         LDRB     R0,[R6, #+31]
-        BL       ?Subroutine10
-??CrossCallReturnLabel_31:
+        BL       ?Subroutine11
+??CrossCallReturnLabel_39:
         LDRB     R1,[R6, #+29]
         ORR      R0,R0,R1, LSL #+8
         LDRB     R1,[R6, #+28]
@@ -5327,7 +5337,7 @@ f_open:
 // 2646 	}
 // 2647 
 // 2648 	LEAVE_FF(dj.fs, res);
-??f_open_12:
+??f_open_14:
         MOV      R0,R7
 ??f_open_1:
         ADD      SP,SP,#+564
@@ -5369,7 +5379,7 @@ f_open:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiCond49 Using cfiCommon0
           CFI Function find_volume
-          CFI Conditional ??CrossCallReturnLabel_27
+          CFI Conditional ??CrossCallReturnLabel_35
           CFI R4 Frame(CFA, -36)
           CFI R5 Frame(CFA, -32)
           CFI R6 Frame(CFA, -28)
@@ -5382,7 +5392,7 @@ f_open:
           CFI CFA R13+56
           CFI Block cfiCond50 Using cfiCommon0
           CFI (cfiCond50) Function find_volume
-          CFI (cfiCond50) Conditional ??CrossCallReturnLabel_28
+          CFI (cfiCond50) Conditional ??CrossCallReturnLabel_36
           CFI (cfiCond50) R4 Frame(CFA, -36)
           CFI (cfiCond50) R5 Frame(CFA, -32)
           CFI (cfiCond50) R6 Frame(CFA, -28)
@@ -5395,7 +5405,7 @@ f_open:
           CFI (cfiCond50) CFA R13+56
           CFI Block cfiCond51 Using cfiCommon0
           CFI (cfiCond51) Function find_volume
-          CFI (cfiCond51) Conditional ??CrossCallReturnLabel_29
+          CFI (cfiCond51) Conditional ??CrossCallReturnLabel_37
           CFI (cfiCond51) R4 Frame(CFA, -36)
           CFI (cfiCond51) R5 Frame(CFA, -32)
           CFI (cfiCond51) R6 Frame(CFA, -28)
@@ -5408,7 +5418,7 @@ f_open:
           CFI (cfiCond51) CFA R13+56
           CFI Block cfiCond52 Using cfiCommon0
           CFI (cfiCond52) Function find_volume
-          CFI (cfiCond52) Conditional ??CrossCallReturnLabel_30
+          CFI (cfiCond52) Conditional ??CrossCallReturnLabel_38
           CFI (cfiCond52) R4 Frame(CFA, -36)
           CFI (cfiCond52) R5 Frame(CFA, -32)
           CFI (cfiCond52) R6 Frame(CFA, -28)
@@ -5421,7 +5431,7 @@ f_open:
           CFI (cfiCond52) CFA R13+56
           CFI Block cfiCond53 Using cfiCommon0
           CFI (cfiCond53) Function f_open
-          CFI (cfiCond53) Conditional ??CrossCallReturnLabel_31
+          CFI (cfiCond53) Conditional ??CrossCallReturnLabel_39
           CFI (cfiCond53) R4 Frame(CFA, -28)
           CFI (cfiCond53) R5 Frame(CFA, -24)
           CFI (cfiCond53) R6 Frame(CFA, -20)
@@ -5434,7 +5444,7 @@ f_open:
           CFI (cfiPicker54) NoFunction
           CFI (cfiPicker54) Picker
         THUMB
-?Subroutine10:
+?Subroutine11:
         LSLS     R1,R1,#+16
         ORR      R0,R1,R0, LSL #+24
         BX       LR
@@ -7141,9 +7151,9 @@ f_readdir:
 // 3359 		if (!fno) {
         CBNZ.N   R5,??f_readdir_1
 // 3360 			res = dir_sdi(dp, 0);			/* Rewind the directory object */
-        BL       ?Subroutine2
+        BL       ?Subroutine3
 // 3361 		} else {
-??CrossCallReturnLabel_6:
+??CrossCallReturnLabel_9:
         B.N      ??f_readdir_0
 // 3362 			INIT_BUF(*dp);
 ??f_readdir_1:
@@ -7199,7 +7209,7 @@ f_readdir:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiCond81 Using cfiCommon0
           CFI Function follow_path
-          CFI Conditional ??CrossCallReturnLabel_8
+          CFI Conditional ??CrossCallReturnLabel_11
           CFI R4 Frame(CFA, -20)
           CFI R5 Frame(CFA, -16)
           CFI R6 Frame(CFA, -12)
@@ -7208,7 +7218,7 @@ f_readdir:
           CFI CFA R13+24
           CFI Block cfiCond82 Using cfiCommon0
           CFI (cfiCond82) Function follow_path
-          CFI (cfiCond82) Conditional ??CrossCallReturnLabel_7
+          CFI (cfiCond82) Conditional ??CrossCallReturnLabel_10
           CFI (cfiCond82) R4 Frame(CFA, -20)
           CFI (cfiCond82) R5 Frame(CFA, -16)
           CFI (cfiCond82) R6 Frame(CFA, -12)
@@ -7217,7 +7227,7 @@ f_readdir:
           CFI (cfiCond82) CFA R13+24
           CFI Block cfiCond83 Using cfiCommon0
           CFI (cfiCond83) Function f_readdir
-          CFI (cfiCond83) Conditional ??CrossCallReturnLabel_6
+          CFI (cfiCond83) Conditional ??CrossCallReturnLabel_9
           CFI (cfiCond83) R4 Frame(CFA, -16)
           CFI (cfiCond83) R5 Frame(CFA, -12)
           CFI (cfiCond83) R6 Frame(CFA, -8)
@@ -7227,7 +7237,7 @@ f_readdir:
           CFI (cfiPicker84) NoFunction
           CFI (cfiPicker84) Picker
         THUMB
-?Subroutine2:
+?Subroutine3:
         MOVS     R1,#+0
         MOV      R0,R4
           CFI (cfiCond81) FunCall follow_path dir_sdi
@@ -9733,8 +9743,8 @@ f_mkfs:
 // 4339 		}
 // 4340 		if (disk_write(pdrv, tbl, wsect++, 1) != RES_OK)
 ??f_mkfs_30:
-        BL       ?Subroutine3
-??CrossCallReturnLabel_11:
+        BL       ?Subroutine2
+??CrossCallReturnLabel_8:
         CMP      R0,#+0
         BNE.N    ??f_mkfs_3
 // 4341 			return FR_DISK_ERR;
@@ -9746,10 +9756,10 @@ f_mkfs:
         B.N      ??f_mkfs_31
 // 4344 			if (disk_write(pdrv, tbl, wsect++, 1) != RES_OK)
 ??f_mkfs_32:
-        BL       ?Subroutine3
+        BL       ?Subroutine2
 // 4345 				return FR_DISK_ERR;
 // 4346 		}
-??CrossCallReturnLabel_10:
+??CrossCallReturnLabel_7:
         CMP      R0,#+0
         BNE.N    ??f_mkfs_3
         LDR      R0,[SP, #+0]
@@ -9771,10 +9781,10 @@ f_mkfs:
 // 4351 	do {
 // 4352 		if (disk_write(pdrv, tbl, wsect++, 1) != RES_OK)
 ??f_mkfs_33:
-        BL       ?Subroutine3
+        BL       ?Subroutine2
 // 4353 			return FR_DISK_ERR;
 // 4354 	} while (--i);
-??CrossCallReturnLabel_9:
+??CrossCallReturnLabel_6:
         CMP      R0,#+0
         BNE.N    ??f_mkfs_3
         SUBS     R7,R7,#+1
@@ -10045,7 +10055,7 @@ f_mkfs:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiCond132 Using cfiCommon0
           CFI Function f_mkfs
-          CFI Conditional ??CrossCallReturnLabel_11
+          CFI Conditional ??CrossCallReturnLabel_8
           CFI R4 Frame(CFA, -36)
           CFI R5 Frame(CFA, -32)
           CFI R6 Frame(CFA, -28)
@@ -10058,7 +10068,7 @@ f_mkfs:
           CFI CFA R13+72
           CFI Block cfiCond133 Using cfiCommon0
           CFI (cfiCond133) Function f_mkfs
-          CFI (cfiCond133) Conditional ??CrossCallReturnLabel_10
+          CFI (cfiCond133) Conditional ??CrossCallReturnLabel_7
           CFI (cfiCond133) R4 Frame(CFA, -36)
           CFI (cfiCond133) R5 Frame(CFA, -32)
           CFI (cfiCond133) R6 Frame(CFA, -28)
@@ -10071,7 +10081,7 @@ f_mkfs:
           CFI (cfiCond133) CFA R13+72
           CFI Block cfiCond134 Using cfiCommon0
           CFI (cfiCond134) Function f_mkfs
-          CFI (cfiCond134) Conditional ??CrossCallReturnLabel_9
+          CFI (cfiCond134) Conditional ??CrossCallReturnLabel_6
           CFI (cfiCond134) R4 Frame(CFA, -36)
           CFI (cfiCond134) R5 Frame(CFA, -32)
           CFI (cfiCond134) R6 Frame(CFA, -28)
@@ -10086,7 +10096,7 @@ f_mkfs:
           CFI (cfiPicker135) NoFunction
           CFI (cfiPicker135) Picker
         THUMB
-?Subroutine3:
+?Subroutine2:
         LDRB     R0,[SP, #+8]
         MOVS     R3,#+1
         MOV      R2,R6
@@ -11152,9 +11162,9 @@ f_printf:
 // 4752 #endif /* _USE_STRFUNC */
 // 
 //    32 bytes in section .bss
-// 8 986 bytes in section .text
+// 9 002 bytes in section .text
 // 
-// 8 986 bytes of CODE memory
+// 9 002 bytes of CODE memory
 //    32 bytes of DATA memory
 //
 //Errors: none

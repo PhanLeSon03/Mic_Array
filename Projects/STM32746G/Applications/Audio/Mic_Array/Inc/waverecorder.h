@@ -30,14 +30,15 @@ void SPI1_Ini(void);
 void mySPI_SendData(uint8_t adress, uint8_t data);
 void I2S_Init(void);
 void I2S_Proc(void);
-
 void SPI1_IRQHandler(void);
 void SPI2_IRQHandler(void);
-
-
-
-
-
+void GPIO_CLK_Init(void);
+void Mic7Rec(void);
+void Mic8Rec(void);
+void MX_SPI5_Init(void);
+void MX_SPI6_Init(void);
+void SPI5_IRQHandler(void);
+void SPI6_IRQHandler(void);
 
 #endif /* __WAVERECORDER_H */
 
