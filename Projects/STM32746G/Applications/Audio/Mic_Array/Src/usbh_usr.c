@@ -32,7 +32,7 @@
 /* Private defines -----------------------------------------------------------*/
 /* Private macros ------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-__IO uint8_t Command_index = 0;
+__IO uint8_t Command_index = 1;
 /*  Points to the DEVICE_PROP structure of current device */
 /*  The purpose of this register is to speed up the execution */
 FATFS fatfs;

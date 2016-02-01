@@ -46,13 +46,13 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 extern HCD_HandleTypeDef hhcd;
-extern char __IO flg10ms;
+extern __IO  char flg10ms;
 
 uint32_t cntOS;
 
 
 extern I2C_HandleTypeDef hi2c1,hi2c2;
-extern UART_HandleTypeDef huart4;
+extern UART_HandleTypeDef huart3;
 extern SPI_HandleTypeDef hspi5;
 
 /* Private function prototypes -----------------------------------------------*/
@@ -158,14 +158,14 @@ void PendSV_Handler(void)
 void SysTick_Handler(void)
 {
   HAL_IncTick(); 
-  Toggle_Leds();
+  //Toggle_Leds();
 
   cntOS++;
 
   if (cntOS==10)
   {
       cntOS=0;
-	  flg10ms = 1;
+      flg10ms = 1;
   }
   	
 }
@@ -175,9 +175,9 @@ void USART6_IRQHandler(void)
 //  HAL_UART_IRQHandler(&huart6);
 }
 
-void USART4_IRQHandler(void)
+void USART3_IRQHandler(void)
 {
-  HAL_UART_IRQHandler(&huart4);
+  HAL_UART_IRQHandler(&huart3);
 }
 
 

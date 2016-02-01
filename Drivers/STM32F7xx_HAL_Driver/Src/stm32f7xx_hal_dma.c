@@ -142,7 +142,7 @@
 /** @addtogroup DMA_Private_Functions
   * @{
   */
-static void DMA_SetConfig(DMA_HandleTypeDef *hdma, uint32_t SrcAddress, uint32_t DstAddress, uint32_t DataLength);
+
 /**
   * @brief  Sets the DMA Transfer parameter.
   * @param  hdma:       pointer to a DMA_HandleTypeDef structure that contains
@@ -152,7 +152,7 @@ static void DMA_SetConfig(DMA_HandleTypeDef *hdma, uint32_t SrcAddress, uint32_t
   * @param  DataLength: The length of data to be transferred from source to destination
   * @retval HAL status
   */
-static void DMA_SetConfig(DMA_HandleTypeDef *hdma, uint32_t SrcAddress, uint32_t DstAddress, uint32_t DataLength)
+void DMA_SetConfig(DMA_HandleTypeDef *hdma, uint32_t SrcAddress, uint32_t DstAddress, uint32_t DataLength)
 {
   /* Clear DBM bit */
   hdma->Instance->CR &= (uint32_t)(~DMA_SxCR_DBM);

@@ -91,12 +91,13 @@ void HAL_HCD_MspInit(HCD_HandleTypeDef *hhcd)
     __HAL_RCC_GPIOH_CLK_ENABLE();
 	
     /* CLK */
-    GPIO_InitStruct.Pin = GPIO_PIN_5;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF10_OTG_HS;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); 
+	//sop1hc
+    //GPIO_InitStruct.Pin = GPIO_PIN_5;
+    //GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    //GPIO_InitStruct.Pull = GPIO_NOPULL;
+    //GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+    //GPIO_InitStruct.Alternate = GPIO_AF10_OTG_HS;
+    //HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); 
     
     /* D0 */
     GPIO_InitStruct.Pin = GPIO_PIN_3;

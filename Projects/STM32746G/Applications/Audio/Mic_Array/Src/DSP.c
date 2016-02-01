@@ -334,15 +334,15 @@ void LowPass2ndOder_1(int16_t *Input, int16_t *Output, uint16_t Size)
 	
 }
 
-void LowPassIIR(int16_t *Input, int16_t *Output, uint16_t Size, uint16_t K)
+void LowPassIIR(int16_t *Input, int16_t *Output,int16_t *OutOld, uint16_t Size, uint16_t K)
 {
     
-    static	int16_t OutOld;
+    //static	int16_t OutOld;
 
 	for(uint16_t i=0; i<Size; i++)
 	{
-        *(Output+i) = ADD_S16(OutOld , SUB_S16(*(Input+i),OutOld)/(K));
-		OutOld = *(Output+i);
+        *(Output+i) = ADD_S16(*OutOld , SUB_S16(*(Input+i),*OutOld)/(K));
+		*OutOld = *(Output+i);
 	}
 }
 
@@ -670,11 +670,20 @@ float lowpassFIR(float * firBuffer,uint64_t M,uint64_t Fs,uint64_t Fc)
 
 int8_t CrssCor(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen )
 {
+    static int16_t vDataIn1Old, vDataIn2Old;
     int64_t Sum, SumMax;
 	int8_t idxPos;
+#if 0
+	int16_t *vDataIn1Out = malloc(sizeof(int16_t)*numLen);
+	int16_t *vDataIn2Out = malloc(sizeof(int16_t)*numLen);
+#endif
 
     SumMax=0;
     Sum=0;
+#if 0	
+	LowPassIIR(vDataIn1,vDataIn1Out ,&vDataIn1Old, numLen,8);
+	LowPassIIR(vDataIn2,vDataIn2Out ,&vDataIn2Old, numLen,8);
+#endif
     for (int8_t i=-8;i<8;i++)
     {
        Sum = 0;
@@ -700,12 +709,15 @@ int8_t CrssCor(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen )
 	       idxPos = i;
 		   EnergySound = (uint32_t)((SumMax>>16));
 	   }
-
-	   
-        
+	         
     }
+#if 0
+    free(vDataIn1Out);
+	free(vDataIn2Out);
+#endif
 
-
+    if((idxPos<-7)||(idxPos>6)) return 0;
+	
     return idxPos;
 }
 

@@ -236,7 +236,7 @@ void    BSP_AUDIO_OUT_Error_CallBack(void);
 
 /* These function can be modified in case the current settings (e.g. DMA stream)
    need to be changed for specific application needs */
-void  BSP_AUDIO_OUT_ClockConfig(SAI_HandleTypeDef *hsai, uint32_t AudioFreq, void *Params);
+//void  BSP_AUDIO_OUT_ClockConfig(SAI_HandleTypeDef *hsai, uint32_t AudioFreq, void *Params);
 void  BSP_AUDIO_OUT_MspInit(SAI_HandleTypeDef *hsai, void *Params);
 void  BSP_AUDIO_OUT_MspDeInit(SAI_HandleTypeDef *hsai, void *Params);
 

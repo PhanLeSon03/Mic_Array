@@ -404,12 +404,12 @@ HAL_StatusTypeDef HAL_I2C_DeInit(I2C_HandleTypeDef *hi2c)
   *                the configuration information for the specified I2C.
   * @retval None
   */
- __weak void HAL_I2C_MspInit(I2C_HandleTypeDef *hi2c)
-{
+// __weak void HAL_I2C_MspInit(I2C_HandleTypeDef *hi2c)
+//{
   /* NOTE : This function Should not be modified, when the callback is needed,
             the HAL_I2C_MspInit could be implemented in the user file
    */ 
-}
+//}
 
 /**
   * @brief I2C MSP DeInit

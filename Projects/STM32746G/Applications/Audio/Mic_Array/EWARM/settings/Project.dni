@@ -2,7 +2,7 @@
 stlinkserialNo=391C0B1F
 stlinkfoundProbes=
 [DebugChecksum]
-Checksum=-313812594
+Checksum=-1529461615
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -42,7 +42,7 @@ ITMlogFile=$PROJ_DIR$\ITM.log
 [FlashMemory]
 FlashEraseSelection=0 1 
 [StLinkDriver]
-stlinkserialNo=BE9DC169
+stlinkserialNo=391C0B1F
 stlinkfoundProbes=
 CStepIntDis=_ 0
 [Interrupts]
@@ -60,7 +60,15 @@ ShowSource=1
 Freq=10000000
 MultiCoreRunAll=1
 [array_types]
-Fmt0=uint16_t[9216]	1	0
+Fmt0=int16_t[1034]	1	0
+Fmt1=uint16_t[2048]	1	0
+Fmt2=uint16_t[4096]	1	0
+Fmt3=uint16_t[9216]	1	0
+[watch_formats]
+Fmt0={W}1:Buffer1	0	3
+Fmt1={W}1:I2S1_stPosShft	3	0
+Fmt2={W}1:I2S2_stPosShft	3	0
+Fmt3={W}1:SPI4_stPosShft	3	0
 [Trace2]
 Enabled=0
 ShowSource=0

@@ -45,14 +45,25 @@
 #include "audio_codec.h"   
 #include "waveplayer_CS43L22.h"
 
-#define DEBUG           0
+#define DEBUG           1
 //#define MAIN_RECORD
 #define MAIN_CRSCORR    0
 #define MAIN_FFT        0
 
 /* Exported Defines ----------------------------------------------------------*/
+#define INTERRUPT_PRI_SDO12     0
+#define INTERRUPT_PRI_SDO34     1
+#define INTERRUPT_PRI_SDO56     2
+#define INTERRUPT_PRI_AUDIOOUT  3
+#define INTERRUPT_PRI_SDO7      4
+#define INTERRUPT_PRI_SDO8      4
+#define INTERRUPT_PRI_DMA       5
+#define INTERRUPT_PRI_EXT_LRCK  6
+
+
+
 #define AUDIO_OUT_BUFFER_SIZE                      1024
-#define AUDIO_FREQ                                 32000
+#define AUDIO_FREQ                                 16000
 #define AUDIO_IN_PCM_BUFFER_SIZE                   2*2304 /* buffer size in half-word */
 
 #define BUF1_PLAY                0
@@ -193,12 +204,15 @@ typedef enum {
 }AUDIO_ErrorTypeDef;
 
 typedef struct  {
-int16_t bufMIC1[AUDIO_OUT_BUFFER_SIZE+10];
-int16_t bufMIC2[AUDIO_OUT_BUFFER_SIZE+10];
-int16_t bufMIC3[AUDIO_OUT_BUFFER_SIZE+10];
-int16_t bufMIC4[AUDIO_OUT_BUFFER_SIZE+10];
-int16_t bufMIC5[AUDIO_OUT_BUFFER_SIZE+10];
-int16_t bufMIC6[AUDIO_OUT_BUFFER_SIZE+10];
+int16_t bufMIC1[2*AUDIO_OUT_BUFFER_SIZE+10];
+int16_t bufMIC2[2*AUDIO_OUT_BUFFER_SIZE+10];
+int16_t bufMIC3[2*AUDIO_OUT_BUFFER_SIZE+10];
+int16_t bufMIC4[2*AUDIO_OUT_BUFFER_SIZE+10];
+int16_t bufMIC5[2*AUDIO_OUT_BUFFER_SIZE+10];
+int16_t bufMIC6[2*AUDIO_OUT_BUFFER_SIZE+10];
+int16_t bufMIC7[2*AUDIO_OUT_BUFFER_SIZE+10];
+int16_t bufMIC8[2*AUDIO_OUT_BUFFER_SIZE+10];
+
 
 }Mic_Array_Data;
 
@@ -209,6 +223,9 @@ float bufMIC3[AUDIO_OUT_BUFFER_SIZE+10];
 float bufMIC4[AUDIO_OUT_BUFFER_SIZE+10];
 float bufMIC5[AUDIO_OUT_BUFFER_SIZE+10];
 float bufMIC6[AUDIO_OUT_BUFFER_SIZE+10];
+float bufMIC7[AUDIO_OUT_BUFFER_SIZE+10];
+float bufMIC8[AUDIO_OUT_BUFFER_SIZE+10];
+
 
 }Mic_Array_Data_f;
 
@@ -242,15 +259,14 @@ uint16_t AUDIO_GetWavObjectNumber(void);
 
 /* Toggle LEDs */
 void Toggle_Leds(void);
-void SPI5_IRQHandler(void);
 void EXTI4_IRQHandler(void);
-void MX_SPI4_Init(void);
+
 void EXTI15_10_IRQHandler(void);
 void EXTI9_5_IRQHandler(void);
-void SPI4_IRQHandler(void);
 void DFT_Init(void);
 void SumDelay(Mic_Array_Data *BufferIn);
 void ButtonInit(void);
+void  BSP_AUDIO_OUT_ClockConfig(uint32_t AudioFreq, void *Params);
 
 #define RESET_IDX   {                                                           \
 WaveRec_idxSens1 = 0; /* reset position store data in buffer for sensor 1*/     \
@@ -261,9 +277,9 @@ WaveRec_idxSens4 = 0; /* reset position store data in buffer for sensor 4 */    
 I2S2_idxTmp = 0; /* reset position store data in temporary buffer */            \
 WaveRec_idxSens5 = 0; /* reset position store data in buffer for sensor 3 */	\
 WaveRec_idxSens6 = 0; /* reset position store data in buffer for sensor 4 */	\
-flgSum = 0;                                                                     \
 flgDlyUpd=0;                                                                    \
 }
+
 
 inline s8 ADD_S8(s8 A1,s8 A2)
 {

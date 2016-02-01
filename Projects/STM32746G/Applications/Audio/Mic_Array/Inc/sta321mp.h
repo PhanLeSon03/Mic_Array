@@ -392,7 +392,7 @@ mode  */
 
 #define  STA321MP_MAX_REGISTER	0x83
 
-#define MIC_VOL             0x20  //0x10
+#define MIC_VOL             0x10  //0x10
 #define I2S_S24_LE          0x00
 #define I2S_S24_3LE         0x0E
 #define I2S_S16_LE          0x07

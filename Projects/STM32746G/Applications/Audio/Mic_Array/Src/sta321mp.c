@@ -16,7 +16,7 @@ static void sta321mp_biquad(int16_t channel, int16_t biquad,
                             uint32_t b1_2, uint32_t b2, uint32_t a1_2, uint32_t a2, uint32_t b0_2);
 
 
-extern I2C_HandleTypeDef hi2c1;
+extern I2C_HandleTypeDef hi2c2;
 uint8_t  pcSTAComnd[77]={/* Pre-setting */
 0x9B,//	Reg[00h]<=83h (10000011b)	Configuration Register A
 0x00,//	Reg[01h]<=00h (00000000b)	Configuration Register B
@@ -161,6 +161,9 @@ void STA321MP_Ini(void)
       HAL_Delay(300);
       //HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
 
+	  
+      HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET);
+
       STA321MP_DefautLoad();
       pcSTAComnd[0] = 0x98;//PDM_I_EN;          // PDM_CLK =  12.288 /4 = 3.072 Mhz  XTI = PLL/8 = 12.288 MHz		                       
       WriteSTAByte(STA321MP_CONFA	,pcSTAComnd,1); //CONFA register
@@ -275,7 +278,7 @@ void STA321MP_Ini(void)
  
  void ReadSTASeq(uint8_t Addr, uint8_t *pBufOut,uint8_t Len )
 {
-        //while(HAL_I2C_Master_Transmit_IT(&hi2c1,0x40,pI2CData,2)!= HAL_OK)
+        //while(HAL_I2C_Master_Transmit_IT(&hi2c2,0x40,pI2CData,2)!= HAL_OK)
 		{
              ;
 		}
@@ -287,16 +290,16 @@ void STA321MP_Ini(void)
 		      For simplicity reasons, this example is just waiting till the end of the
 		      transfer, but application may perform other tasks while transfer operation
 		      is ongoing. */
-		  //while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY)
+		  //while (HAL_I2C_GetState(&hi2c2) != HAL_I2C_STATE_READY)
 		  {
 		  } 
 
-		 while(HAL_I2C_Master_Transmit(&hi2c1,STA_ADDR_1W,&Addr,1,1000)!=HAL_OK)
+		 while(HAL_I2C_Master_Transmit(&hi2c2,STA_ADDR_1W,&Addr,1,1000)!=HAL_OK)
 		 {
              ;
 		 }
-	     //HAL_I2C_Master_Receive_IT(&hi2c1, 0x40, pI2CRx, 4);
-	     while(HAL_I2C_Master_Receive(&hi2c1,STA_ADDR_1R,pBufOut,Len,1000)!=HAL_OK)
+	     //HAL_I2C_Master_Receive_IT(&hi2c2, 0x40, pI2CRx, 4);
+	     while(HAL_I2C_Master_Receive(&hi2c2,STA_ADDR_1R,pBufOut,Len,1000)!=HAL_OK)
 	     {
               ;
 	     }  
@@ -324,7 +327,7 @@ void WriteSTAByte(uint8_t Addr, uint8_t *pBufIn, uint8_t len)
 	 
 
 	 /* Send data to STA321 */
-     while(HAL_I2C_Master_Transmit(&hi2c1,(uint16_t)STA_ADDR_1W,&DataSeq[0],len+1,1000)!=HAL_OK)
+     while(HAL_I2C_Master_Transmit(&hi2c2,(uint16_t)STA_ADDR_1W,&DataSeq[0],len+1,1000)!=HAL_OK)
 	 {
           ;
 	 }

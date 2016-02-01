@@ -657,6 +657,11 @@ HAL_StatusTypeDef HAL_DMA_Start_IT(DMA_HandleTypeDef *hdma, uint32_t SrcAddress,
 HAL_StatusTypeDef HAL_DMA_Abort(DMA_HandleTypeDef *hdma);
 HAL_StatusTypeDef HAL_DMA_PollForTransfer(DMA_HandleTypeDef *hdma, uint32_t CompleteLevel, uint32_t Timeout);
 void              HAL_DMA_IRQHandler(DMA_HandleTypeDef *hdma);
+
+
+//sop1hc
+void DMA_SetConfig(DMA_HandleTypeDef *hdma, uint32_t SrcAddress, uint32_t DstAddress, uint32_t DataLength);
+
 /**
   * @}
   */ 

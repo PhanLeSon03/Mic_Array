@@ -29,7 +29,7 @@ float lowpassFIR(float * firBuffer,uint64_t M,uint64_t Fs,uint64_t Fc);
 void Precalculation(float *fir64Coff,int16_t precalculated[129][256]);
 void PDM2PCM(uint8_t *InBuff,int16_t *OutBuff,int16_t PreCalcBuff[DSP_NUMBYTECONV][256]);
 void Decimation(uint8_t *Input, int16_t *Output, int16_t PreCalcBuff[129][256]);
-void LowPassIIR(int16_t *Input, int16_t *Output, uint16_t Size, uint16_t K);
+void LowPassIIR(int16_t *Input, int16_t *Output,int16_t *OutOld, uint16_t Size, uint16_t K);
 void LowPass(int16_t *Input, int16_t *Output, uint16_t Size, uint16_t K);
 void LowPass2ndOder(int16_t *Input, int16_t *Output, uint16_t Size);
 void LowPass2ndOder_1(int16_t *Input, int16_t *Output, uint16_t Size);

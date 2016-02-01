@@ -40,11 +40,11 @@ __IO uint32_t WaveCounter;
 uint8_t Buffer[6];
 __IO uint32_t WaveDataLength = 0;
 I2S_HandleTypeDef     hi2s3;
+SPI_HandleTypeDef     hspi3;
+
 static __IO uint32_t TimingDelay;
 
 /* Private function prototypes -----------------------------------------------*/
-static void EXTILine_Config(void);
-
 /* Private functions ---------------------------------------------------------*/
 
 /**
@@ -320,42 +320,13 @@ void TimingDelay_Decrement(void)
   }
 }
 
-/**
-  * @brief  Configures EXTI Line0 (connected to PA0 pin) in interrupt mode
-  * @param  None
-  * @retval None
-  */
-static void EXTILine_Config(void)
-{
-  GPIO_InitTypeDef   GPIO_InitStructure;
-  
-  /* Enable GPIOA clock */
-  __GPIOE_CLK_ENABLE();
-  /* Enable SYSCFG clock */
-  __SYSCFG_CLK_ENABLE();
- 
-  /* Configure PE0 and PE1 pins as input floating */
-  GPIO_InitStructure.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStructure.Pull = GPIO_NOPULL;
-  GPIO_InitStructure.Pin = GPIO_PIN_0|GPIO_PIN_1;
-  HAL_GPIO_Init(GPIOE, &GPIO_InitStructure);
-
-  /* Connect EXTI Line to PE1 pins */
-  //SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOE, EXTI_PinSource1);
-  
-  HAL_NVIC_SetPriority((IRQn_Type)EXTI1_IRQn, 0x00, 0x00);
-  HAL_NVIC_EnableIRQ((IRQn_Type)EXTI1_IRQn);
-
-}
-
-
 
 void I2S3_Init(uint32_t AudioFreq)
 {
 
   // static I2S_HandleTypeDef hi2s3;
   /* Enable the CODEC_I2S peripheral clock */
-  __SPI3_CLK_ENABLE();
+  __HAL_RCC_SPI3_CLK_ENABLE();
 
   hi2s3.Instance = SPI3;
   /* Disable I2S3 peripheral to allow access to I2S internal registers */
@@ -378,13 +349,53 @@ void I2S3_Init(uint32_t AudioFreq)
   
   /* Initialize the I2S peripheral with the structure above */
   HAL_I2S_Init(&hi2s3);
- 
- // __HAL_I2S_ENABLE(&hi2s3);
+  
+
+  /* Enable I2S peripheral */    
+  __HAL_I2S_ENABLE(&hi2s3);
+      /* Enable the Peripheral */
+  //__HAL_DMA_ENABLE(&DmaHandle);
+
+
+}
+
+
+void SPI3_Init(uint32_t AudioFreq)
+{
+
+  // static I2S_HandleTypeDef hi2s3;
+  /* Enable the CODEC_I2S peripheral clock */
+  __SPI3_CLK_ENABLE();
+
+  hspi3.Instance = SPI3;
+  hspi3.Init.Mode = SPI_MODE_MASTER;
+  hspi3.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
+  hspi3.Init.Direction = SPI_DIRECTION_1LINE;
+  hspi3.Init.DataSize = SPI_DATASIZE_16BIT;
+  hspi3.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi3.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi3.Init.NSS = SPI_NSS_SOFT;//SPI_NSS_HARD_INPUT
+  hspi3.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi3.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi3.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLED;
+  hspi3.Init.CRCPolynomial = 7;
+  hspi3.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
+  hspi3.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
+  //hspi4.RxISR = SPI5_CallBack;
+  HAL_SPI_Init(&hspi3);
+  
+  __HAL_SPI_ENABLE(&hspi3);
   
 
   /* The I2S peripheral will be enabled only in the AUDIO_Play() function 
        or by user functions if DMA mode not enabled */
 
+}
+
+
+void AUDIO_InitApplication(void)
+{
+  WavePlayerInit(AUDIO_FREQ);
 }
 
 
