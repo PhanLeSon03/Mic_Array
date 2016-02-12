@@ -404,6 +404,7 @@ void SPI3_IRQHandler(void)
 static uint32_t Codec_Init(uint16_t OutputDevice, uint8_t Vol, uint32_t AudioFreq)
 {
   uint32_t counter = 0; 
+  uint32_t stReadReg;
 
   /* Configure the Codec related IOs */
   Codec_GPIO_Init();   //only reset Pin configuration
@@ -418,20 +419,38 @@ static uint32_t Codec_Init(uint16_t OutputDevice, uint8_t Vol, uint32_t AudioFre
   
   /* Keep Codec powered OFF */
   counter += Codec_WriteRegister(0x02, 0x01);  
-      
+
+  //1. Write 0x99 to register 0x00.
+  counter += Codec_WriteRegister(0x00, 0x99); 
+  //2. Write 0x80 to register 0x47.
+  counter += Codec_WriteRegister(0x47, 0x08); 
+
+  //3. Write ‘1’b to bit 7 in register 0x32. 
+  stReadReg = Codec_ReadRegister(0x32);
+  counter += Codec_WriteRegister(0x32, (uint8_t)(0x40|stReadReg)); 
+  //4. Write ‘0’b to bit 7 in register 0x32. 
+    counter += Codec_WriteRegister(0x32, (uint8_t)(0xBF&stReadReg)); 
+  //5. Write 0x00 to register 0x00.
+    counter += Codec_WriteRegister(0x00, 0x00); 
+  
   counter += Codec_WriteRegister(0x04, 0xAF); /* SPK always OFF & HP always ON */
   OutputDev = 0xAF;
   
-  /* Clock configuration: Auto detection */  
-  counter += Codec_WriteRegister(0x05, 0x81);
+
   
+  /* Clock configuration: Auto detection */  
+  counter += Codec_WriteRegister(0x05, 0x81);//0x81
+  //AUTO SPEED1 SPEED0 32k_GROUP VIDEOCLK RATIO1 RATIO0 MCLKDIV2
+  //
   /* Set the Slave Mode and the audio Standard */  
-  counter += Codec_WriteRegister(0x06, CODEC_STANDARD);
+  counter += Codec_WriteRegister(0x06, 0x0B);//CODEC_STANDARD 0x0B
+  //M/S INV_SCLK Reserved DSP DACDIF1 DACDIF0 AWL1 AWL0  
+  //DACDIF[1:0]: 10 -> Right Justified
+  //AWL[1:0]: 11      -> 16-bit data
       
   /* Set the Master volume */
   Codec_VolumeCtrl(Vol);
   
-
   /* Power on the Codec */
   counter += Codec_WriteRegister(0x02, 0x9E);  
   
@@ -456,11 +475,6 @@ static uint32_t Codec_Init(uint16_t OutputDevice, uint8_t Vol, uint32_t AudioFre
   counter += Codec_WriteRegister(0x1A, 0x0A);
   counter += Codec_WriteRegister(0x1B, 0x0A);
 
-
-  codec_sendBeep();
-  /* Configure the I2S peripheral */
-  Codec_AudioInterface_Init(AudioFreq);  //I2S3 is using
-
 #if 0
 	  for (uint8_t i=0x00;i<=0x34;i++)
 	  {
@@ -471,6 +485,9 @@ static uint32_t Codec_Init(uint16_t OutputDevice, uint8_t Vol, uint32_t AudioFre
 	  }
 #endif
 
+  //codec_sendBeep();
+  /* Configure the I2S peripheral */
+  Codec_AudioInterface_Init(AudioFreq);  //I2S3 is using
 
   /* Return communication control value */
   return counter;  
@@ -662,7 +679,7 @@ static void Codec_Reset(void)
   HAL_GPIO_WritePin(AUDIO_RESET_GPIO, AUDIO_RESET_PIN, GPIO_PIN_RESET);
 
   /* wait for a delay to insure registers erasing */
-  Delay(CODEC_RESET_DELAY);  //904ms
+  Delay(CODEC_RESET_DELAY);  //904ms CODEC_RESET_DELAY
   
   /* Power on the codec */
   HAL_GPIO_WritePin(AUDIO_RESET_GPIO, AUDIO_RESET_PIN,GPIO_PIN_SET);
@@ -949,7 +966,7 @@ void Audio_MAL_Play(uint32_t Addr, uint16_t Size)
    DmaHandle.Instance->PAR = (uint32_t)&SPI3->DR;
     /* Configure DMA Stream source address */
     DmaHandle.Instance->M0AR = (uint32_t)Addr;
-    
+    DmaHandle.Instance->M1AR = (uint32_t)Addr;
     /* Enable Tx DMA Request */  
     hi2s3.Instance->CR2 |= SPI_CR2_TXDMAEN;
   /* Enable the transfer complete interrupt */
@@ -962,12 +979,12 @@ void Audio_MAL_Play(uint32_t Addr, uint16_t Size)
    /* Check if the I2S is already enabled */ 
    if((hi2s3.Instance->I2SCFGR &SPI_I2SCFGR_I2SE) != SPI_I2SCFGR_I2SE)
    {
-	 /* Enable I2S peripheral */	
-	 __HAL_I2S_ENABLE(&hi2s3);
+   	 /* Enable I2S peripheral */	
+   	 __HAL_I2S_ENABLE(&hi2s3);
    }
 	   
 
-      /* Process Unlocked */
+     /* Process Unlocked */
     __HAL_UNLOCK(&hi2s3);
 
 

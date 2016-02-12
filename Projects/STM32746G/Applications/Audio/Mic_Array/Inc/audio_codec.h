@@ -204,7 +204,7 @@
 #define AUDIO_MUTE_ON                 1
 #define AUDIO_MUTE_OFF                0
 
-#define VOLUME_CONVERT(x)    ((Volume > 100)? 100:((uint8_t)((Volume * 255) / 100)))
+#define VOLUME_CONVERT(x)    ((Volume > 100)? 100:((uint8_t)(((uint16_t)(Volume * 255)) / 100)))
 #define DMA_MAX(x)           (((x) <= DMA_MAX_SZE)? (x):DMA_MAX_SZE)
 #define DMA_MAX_SZE                              ((uint16_t)0xFFFF)
 #define FRERAD 8000 

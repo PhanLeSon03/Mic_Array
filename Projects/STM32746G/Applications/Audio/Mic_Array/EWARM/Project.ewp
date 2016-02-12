@@ -742,7 +742,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>D:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\arm\config\linker\ST\stm32f746xG.icf</state>
+          <state>$PROJ_DIR$\Project.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>

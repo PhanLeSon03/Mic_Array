@@ -115,7 +115,9 @@ SPI_HandleTypeDef hspi5,hspi6;
 DMA_HandleTypeDef hdma_spi2_tx;
 DMA_HandleTypeDef hdma_spi3_tx;
 DMA_HandleTypeDef     hdma_spi5_rx,hdma_spi6_rx;
-Mic_Array_Data Buffer1,Buffer2,Buffer3;
+
+
+
 uint16_t *bufPCMSens7;
 uint16_t *bufPCMSens8;
 __IO uint16_t cntPos;
@@ -142,7 +144,12 @@ static uint16_t SPI_I2S_ReceiveData(SPI_TypeDef* SPIx);
 static void I2S1_Init(void);
 static void I2S2_Init(void);
 
-
+#pragma location=0xC0000000
+Mic_Array_Data Buffer1;
+#pragma location= (0xC0000000+ 0x80a0)
+Mic_Array_Data Buffer2;
+#pragma location= (0xC0000000+ 0x80a0 + 0x80a0)
+Mic_Array_Data Buffer3;
 
 void SPI1_Ini(void)
 {

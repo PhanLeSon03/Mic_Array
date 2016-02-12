@@ -20,7 +20,9 @@
 
 
 
+
 extern Mic_Array_Data Buffer1,Buffer2,Buffer3;
+
 extern __IO uint8_t XferCplt;
 extern __IO AUDIO_IN_BufferTypeDef BufferCtlRecIn;
 extern DMA_HandleTypeDef     DmaHandle;
@@ -281,21 +283,21 @@ inline static void Audio_Play_Out(void)
     {
       case BUF1_PLAY:
         /* Play data from buffer1 */
-	    Audio_MAL_Play(Command_index? (uint32_t)Buffer3.bufMIC5:(uint32_t)Buffer3.bufMIC2 , 4*AUDIO_OUT_BUFFER_SIZE);
+	    Audio_MAL_Play(Command_index? (uint32_t)Buffer3.bufMIC1:(uint32_t)Buffer3.bufMIC2 , 4*AUDIO_OUT_BUFFER_SIZE);
 		/* set flag for switch buffer */		  
         buffer_switch = BUF3_PLAY;
 
         break;
       case BUF2_PLAY:
         /* Play data from buffer2 */
-	    Audio_MAL_Play(Command_index? (uint32_t)Buffer1.bufMIC5:(uint32_t)Buffer1.bufMIC2, 4*AUDIO_OUT_BUFFER_SIZE);
+	    Audio_MAL_Play(Command_index? (uint32_t)Buffer1.bufMIC1:(uint32_t)Buffer1.bufMIC2, 4*AUDIO_OUT_BUFFER_SIZE);
 		/* set flag for switch buffer */
         buffer_switch = BUF1_PLAY;
         
         break;
       case BUF3_PLAY:
         /* Play data from buffer1 */
-       Audio_MAL_Play(Command_index? (uint32_t)Buffer2.bufMIC5:(uint32_t)Buffer2.bufMIC2, 4*AUDIO_OUT_BUFFER_SIZE);
+       Audio_MAL_Play(Command_index? (uint32_t)Buffer2.bufMIC1:(uint32_t)Buffer2.bufMIC2 ,4*AUDIO_OUT_BUFFER_SIZE);
         /* set flag for switch buffer */		  
         buffer_switch = BUF2_PLAY;
 
@@ -332,6 +334,9 @@ int main(void)
   //Test_SystemClock_Config(); 
   SystemClock_Config();
   BSP_AUDIO_OUT_ClockConfig(AUDIO_FREQ, NULL);
+  
+  /* Initialize the SDRAM */
+  BSP_SDRAM_Init();
 
 
   BSP_LED_Init(LED1);
@@ -388,6 +393,7 @@ int main(void)
 		/* UART for debug */
 		USART3_Init();
 #endif
+
 
 
     /*----------------------------------------*/
@@ -507,10 +513,10 @@ int main(void)
 						test[4]= idxLatency78;
 
 
-                        if (EnergySound<5)
+                        if (EnergySound<2)
                         {
-                                sprintf((char *)pUARTBuf,"No Speech:%d  \r\n",EnergySound);
-                                HAL_UART_Transmit_IT(&huart3,pUARTBuf,30); 
+                                //sprintf((char *)pUARTBuf,"No Speech:%d  \r\n",EnergySound);
+                                //HAL_UART_Transmit_IT(&huart3,pUARTBuf,30); 
                         }
                         else
                         {

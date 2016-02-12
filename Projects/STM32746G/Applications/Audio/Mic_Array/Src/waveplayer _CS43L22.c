@@ -22,8 +22,6 @@
  uint16_t buffer2[2*_MAX_SS] ={0x00};
 
 
-
-
  extern FATFS fatfs;
  extern FIL file;
  extern FIL fileR;
@@ -247,7 +245,7 @@ int WavePlayerInit(uint32_t AudioFreq)
 
   
   /* Initialize the Audio codec and all related peripherals (I2S, I2C, IOExpander, IOs...) */  
-  AUDIO_Init(OUTPUT_DEVICE_AUTO, volume, AudioFreq );  
+  AUDIO_Init(OUTPUT_DEVICE_AUTO, 80, AudioFreq );  
   
   return 0;
 }
@@ -332,7 +330,7 @@ void I2S3_Init(uint32_t AudioFreq)
   /* Disable I2S3 peripheral to allow access to I2S internal registers */
   __HAL_I2S_DISABLE(&hi2s3);
   
-  hi2s3.Init.Standard = I2S_STANDARD_MSB;//I2S_STANDARD_PHILIPS
+  hi2s3.Init.Standard = I2S_STANDARD;//I2S_STANDARD_PHILIPS
   hi2s3.Init.DataFormat = I2S_DATAFORMAT_16B;
   hi2s3.Init.AudioFreq = AudioFreq;
   hi2s3.Init.CPOL = I2S_CPOL_LOW;
@@ -352,7 +350,7 @@ void I2S3_Init(uint32_t AudioFreq)
   
 
   /* Enable I2S peripheral */    
-  __HAL_I2S_ENABLE(&hi2s3);
+  //__HAL_I2S_ENABLE(&hi2s3);
       /* Enable the Peripheral */
   //__HAL_DMA_ENABLE(&DmaHandle);
 

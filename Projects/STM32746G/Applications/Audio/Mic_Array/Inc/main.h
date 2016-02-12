@@ -44,6 +44,7 @@
 #include "sta321mp.h"
 #include "audio_codec.h"   
 #include "waveplayer_CS43L22.h"
+#include "stm32746g_discovery_sdram.h"
 
 #define DEBUG           1
 //#define MAIN_RECORD
@@ -51,6 +52,12 @@
 #define MAIN_FFT        0
 
 /* Exported Defines ----------------------------------------------------------*/
+
+/*  @brief  StartAddress   */
+#define SDRAM_BANK_ADDR                 ((uint32_t)0xC0000000)
+
+
+
 #define INTERRUPT_PRI_SDO12     0
 #define INTERRUPT_PRI_SDO34     1
 #define INTERRUPT_PRI_SDO56     2
