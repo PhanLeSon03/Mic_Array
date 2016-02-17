@@ -372,13 +372,13 @@ int main(void)
 
 
   /* Init Host Library */
-  //USBH_Init(&hUSBHost, USBH_UserProcess, 0);
+  //test GIT //USBH_Init(&hUSBHost, USBH_UserProcess, 0);
 
   /* Add Supported Class */
-  //USBH_RegisterClass(&hUSBHost, USBH_MSC_CLASS);
+  //test GIT //USBH_RegisterClass(&hUSBHost, USBH_MSC_CLASS);
   
   /* Start Host Process */
-  //USBH_Start(&hUSBHost);
+  //test GIT //USBH_Start(&hUSBHost);
 
 #endif 
    DFT_Init();	
