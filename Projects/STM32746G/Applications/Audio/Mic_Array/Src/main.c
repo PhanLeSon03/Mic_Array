@@ -34,8 +34,10 @@ extern I2C_HandleTypeDef hi2c2;
 extern __IO uint16_t cntStrt;
 extern __IO int16_t SPI1_stNipple,I2S1_stNipple, I2S2_stNipple;
 extern __IO   uint8_t I2S1_stPosShft,I2S2_stPosShft,SPI4_stPosShft;
+extern USBD_AUDIO_ItfTypeDef  USBD_AUDIO_fops;
 /* GLOBAL VARIABLE -----------------------------------------------------------*/
 USBH_HandleTypeDef hUSBHost;
+USBD_HandleTypeDef hUSBDDevice;
 AUDIO_ApplicationTypeDef appli_state = APPLICATION_IDLE;//APPLICATION_IDLE
 
 UART_HandleTypeDef huart3;
@@ -252,7 +254,9 @@ inline static void FFT_Update(void)
 					break;
                
 			}
-
+#if USB_STREAMING
+   AudioMerging();
+#endif
 	       //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_15);
 	  }
 	  
@@ -269,6 +273,9 @@ inline static void Audio_Play_Out(void)
   {
        RESET_IDX
        XferCplt = 0; // clear DMA interrupt flag
+#if USB_STREAMING
+	  AudioProcess();
+#endif
 /*-------------------------------------------------------------------------------------------------------------
 			  
 	Sequence  Record Data                     Processing Data                 Player Data
@@ -346,11 +353,23 @@ int main(void)
   ButtonInit();
   //BSP_PB_Init(BUTTON_KEY,BUTTON_MODE_EXTI);
 
-
-  /* Initialize for Audio player with CS43L22 */
   
   /* Init TS module */
   //BSP_TS_Init(BSP_LCD_GetXSize(), BSP_LCD_GetYSize());
+
+#if (USB_STREAMING)
+
+  /* Initialize USB descriptor basing on channels number and sampling frequency */
+  USBD_AUDIO_Init_Microphone_Descriptor(&hUSBDDevice, AUDIO_SAMPLING_FREQUENCY, AUDIO_CHANNELS);
+  /* Init Device Library */
+  USBD_Init(&hUSBDDevice, &AUDIO_Desc, 0);
+  /* Add Supported Class */
+  USBD_RegisterClass(&hUSBDDevice, &USBD_AUDIO);
+  /* Add Interface callbacks for AUDIO Class */  
+  USBD_AUDIO_RegisterInterface(&hUSBDDevice, &USBD_AUDIO_fops);
+  /* Start Device Process */
+  USBD_Start(&hUSBDDevice);
+
 
   /* Init Host Library */
   //USBH_Init(&hUSBHost, USBH_UserProcess, 0);
@@ -361,6 +380,7 @@ int main(void)
   /* Start Host Process */
   //USBH_Start(&hUSBHost);
 
+#endif 
    DFT_Init();	
 
     /* ---------PA4: LCCKO-------------*/

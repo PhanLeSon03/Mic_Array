@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      12/Feb/2016  13:22:02
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      13/Feb/2016  11:44:44
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,6 +48,8 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        -I
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
 //        -On --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
@@ -617,11 +619,11 @@ SPI4_stPosShft:
 //  144 static void I2S1_Init(void);
 //  145 static void I2S2_Init(void);
 //  146 
-//  147 #pragma location=0xC0000000
+//  147 #pragma location=SDRAM_BANK_ADDR
 //  148 Mic_Array_Data Buffer1;
-//  149 #pragma location= (0xC0000000+ 0x80a0)
+//  149 #pragma location= (SDRAM_BANK_ADDR+ BUFFER_SIZE_BYTE)
 //  150 Mic_Array_Data Buffer2;
-//  151 #pragma location= (0xC0000000+ 0x80a0 + 0x80a0)
+//  151 #pragma location= (SDRAM_BANK_ADDR+ BUFFER_SIZE_BYTE + BUFFER_SIZE_BYTE)
 //  152 Mic_Array_Data Buffer3;
 //  153 
 
@@ -5728,4 +5730,4 @@ PDM2PCMSDO78:
 // 157 639 bytes of DATA memory
 //
 //Errors: none
-//Warnings: 23
+//Warnings: 24

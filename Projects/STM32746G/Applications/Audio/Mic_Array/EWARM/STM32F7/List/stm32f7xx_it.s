@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      12/Feb/2016  13:21:56
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      13/Feb/2016  11:44:36
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,6 +48,8 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        -I
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
 //        -On --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
@@ -65,14 +67,14 @@
 
         #define SHT_PROGBITS 0x1
 
-        EXTERN HAL_HCD_IRQHandler
         EXTERN HAL_I2C_EV_IRQHandler
         EXTERN HAL_IncTick
+        EXTERN HAL_PCD_IRQHandler
         EXTERN HAL_UART_IRQHandler
         EXTERN flg10ms
-        EXTERN hhcd
         EXTERN hi2c1
         EXTERN hi2c2
+        EXTERN hpcd
         EXTERN huart3
 
         PUBLIC BusFault_Handler
@@ -188,362 +190,364 @@
 //   46 /* Private macro -------------------------------------------------------------*/
 //   47 /* Private variables ---------------------------------------------------------*/
 //   48 extern HCD_HandleTypeDef hhcd;
-//   49 extern __IO  char flg10ms;
-//   50 
+//   49 extern PCD_HandleTypeDef hpcd;
+//   50 extern __IO  char flg10ms;
+//   51 
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
-//   51 uint32_t cntOS;
+//   52 uint32_t cntOS;
 cntOS:
         DS8 4
-//   52 
 //   53 
-//   54 extern I2C_HandleTypeDef hi2c1,hi2c2;
-//   55 extern UART_HandleTypeDef huart3;
-//   56 extern SPI_HandleTypeDef hspi5;
-//   57 
-//   58 /* Private function prototypes -----------------------------------------------*/
-//   59 /* Private functions ---------------------------------------------------------*/
-//   60 
-//   61 /******************************************************************************/
-//   62 /*            Cortex-M7 Processor Exceptions Handlers                         */
-//   63 /******************************************************************************/
-//   64 
-//   65 /**
-//   66   * @brief  This function handles NMI exception.
-//   67   * @param  None
-//   68   * @retval None
-//   69   */
+//   54 
+//   55 extern I2C_HandleTypeDef hi2c1,hi2c2;
+//   56 extern UART_HandleTypeDef huart3;
+//   57 extern SPI_HandleTypeDef hspi5;
+//   58 
+//   59 /* Private function prototypes -----------------------------------------------*/
+//   60 /* Private functions ---------------------------------------------------------*/
+//   61 
+//   62 /******************************************************************************/
+//   63 /*            Cortex-M7 Processor Exceptions Handlers                         */
+//   64 /******************************************************************************/
+//   65 
+//   66 /**
+//   67   * @brief  This function handles NMI exception.
+//   68   * @param  None
+//   69   * @retval None
+//   70   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock0 Using cfiCommon0
           CFI Function NMI_Handler
           CFI NoCalls
         THUMB
-//   70 void NMI_Handler(void)
-//   71 {
-//   72 }
+//   71 void NMI_Handler(void)
+//   72 {
+//   73 }
 NMI_Handler:
         BX       LR               ;; return
           CFI EndBlock cfiBlock0
-//   73 
-//   74 /**
-//   75   * @brief  This function handles Hard Fault exception.
-//   76   * @param  None
-//   77   * @retval None
-//   78   */
+//   74 
+//   75 /**
+//   76   * @brief  This function handles Hard Fault exception.
+//   77   * @param  None
+//   78   * @retval None
+//   79   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock1 Using cfiCommon0
           CFI Function HardFault_Handler
           CFI NoCalls
         THUMB
-//   79 void HardFault_Handler(void)
-//   80 {
-//   81   /* Go to infinite loop when Hard Fault exception occurs */
-//   82   while (1)
+//   80 void HardFault_Handler(void)
+//   81 {
+//   82   /* Go to infinite loop when Hard Fault exception occurs */
+//   83   while (1)
 HardFault_Handler:
 ??HardFault_Handler_0:
         B.N      ??HardFault_Handler_0
-//   83   {
-//   84   }
-//   85 }
+//   84   {
+//   85   }
+//   86 }
           CFI EndBlock cfiBlock1
-//   86 
-//   87 /**
-//   88   * @brief  This function handles Memory Manage exception.
-//   89   * @param  None
-//   90   * @retval None
-//   91   */
+//   87 
+//   88 /**
+//   89   * @brief  This function handles Memory Manage exception.
+//   90   * @param  None
+//   91   * @retval None
+//   92   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock2 Using cfiCommon0
           CFI Function MemManage_Handler
           CFI NoCalls
         THUMB
-//   92 void MemManage_Handler(void)
-//   93 {
-//   94   /* Go to infinite loop when Memory Manage exception occurs */
-//   95   while (1)
+//   93 void MemManage_Handler(void)
+//   94 {
+//   95   /* Go to infinite loop when Memory Manage exception occurs */
+//   96   while (1)
 MemManage_Handler:
 ??MemManage_Handler_0:
         B.N      ??MemManage_Handler_0
-//   96   {
-//   97   }
-//   98 }
+//   97   {
+//   98   }
+//   99 }
           CFI EndBlock cfiBlock2
-//   99 
-//  100 /**
-//  101   * @brief  This function handles Bus Fault exception.
-//  102   * @param  None
-//  103   * @retval None
-//  104   */
+//  100 
+//  101 /**
+//  102   * @brief  This function handles Bus Fault exception.
+//  103   * @param  None
+//  104   * @retval None
+//  105   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock3 Using cfiCommon0
           CFI Function BusFault_Handler
           CFI NoCalls
         THUMB
-//  105 void BusFault_Handler(void)
-//  106 {
-//  107   /* Go to infinite loop when Bus Fault exception occurs */
-//  108   while (1)
+//  106 void BusFault_Handler(void)
+//  107 {
+//  108   /* Go to infinite loop when Bus Fault exception occurs */
+//  109   while (1)
 BusFault_Handler:
 ??BusFault_Handler_0:
         B.N      ??BusFault_Handler_0
-//  109   {
-//  110   }
-//  111 }
+//  110   {
+//  111   }
+//  112 }
           CFI EndBlock cfiBlock3
-//  112 
-//  113 /**
-//  114   * @brief  This function handles Usage Fault exception.
-//  115   * @param  None
-//  116   * @retval None
-//  117   */
+//  113 
+//  114 /**
+//  115   * @brief  This function handles Usage Fault exception.
+//  116   * @param  None
+//  117   * @retval None
+//  118   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock4 Using cfiCommon0
           CFI Function UsageFault_Handler
           CFI NoCalls
         THUMB
-//  118 void UsageFault_Handler(void)
-//  119 {
-//  120   /* Go to infinite loop when Usage Fault exception occurs */
-//  121   while (1)
+//  119 void UsageFault_Handler(void)
+//  120 {
+//  121   /* Go to infinite loop when Usage Fault exception occurs */
+//  122   while (1)
 UsageFault_Handler:
 ??UsageFault_Handler_0:
         B.N      ??UsageFault_Handler_0
-//  122   {
-//  123   }
-//  124 }
+//  123   {
+//  124   }
+//  125 }
           CFI EndBlock cfiBlock4
-//  125 
-//  126 /**
-//  127   * @brief  This function handles SVCall exception.
-//  128   * @param  None
-//  129   * @retval None
-//  130   */
+//  126 
+//  127 /**
+//  128   * @brief  This function handles SVCall exception.
+//  129   * @param  None
+//  130   * @retval None
+//  131   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock5 Using cfiCommon0
           CFI Function SVC_Handler
           CFI NoCalls
         THUMB
-//  131 void SVC_Handler(void)
-//  132 {
-//  133 }
+//  132 void SVC_Handler(void)
+//  133 {
+//  134 }
 SVC_Handler:
         BX       LR               ;; return
           CFI EndBlock cfiBlock5
-//  134 
-//  135 /**
-//  136   * @brief  This function handles Debug Monitor exception.
-//  137   * @param  None
-//  138   * @retval None
-//  139   */
+//  135 
+//  136 /**
+//  137   * @brief  This function handles Debug Monitor exception.
+//  138   * @param  None
+//  139   * @retval None
+//  140   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock6 Using cfiCommon0
           CFI Function DebugMon_Handler
           CFI NoCalls
         THUMB
-//  140 void DebugMon_Handler(void)
-//  141 {
-//  142 }
+//  141 void DebugMon_Handler(void)
+//  142 {
+//  143 }
 DebugMon_Handler:
         BX       LR               ;; return
           CFI EndBlock cfiBlock6
-//  143 
-//  144 /**
-//  145   * @brief  This function handles PendSVC exception.
-//  146   * @param  None
-//  147   * @retval None
-//  148   */
+//  144 
+//  145 /**
+//  146   * @brief  This function handles PendSVC exception.
+//  147   * @param  None
+//  148   * @retval None
+//  149   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock7 Using cfiCommon0
           CFI Function PendSV_Handler
           CFI NoCalls
         THUMB
-//  149 void PendSV_Handler(void)
-//  150 {
-//  151 }
+//  150 void PendSV_Handler(void)
+//  151 {
+//  152 }
 PendSV_Handler:
         BX       LR               ;; return
           CFI EndBlock cfiBlock7
-//  152 
-//  153 /**
-//  154   * @brief  This function handles SysTick Handler.
-//  155   * @param  None
-//  156   * @retval None
-//  157   */
+//  153 
+//  154 /**
+//  155   * @brief  This function handles SysTick Handler.
+//  156   * @param  None
+//  157   * @retval None
+//  158   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock8 Using cfiCommon0
           CFI Function SysTick_Handler
         THUMB
-//  158 void SysTick_Handler(void)
-//  159 {
+//  159 void SysTick_Handler(void)
+//  160 {
 SysTick_Handler:
         PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+8
-//  160   HAL_IncTick(); 
+//  161   HAL_IncTick(); 
           CFI FunCall HAL_IncTick
         BL       HAL_IncTick
-//  161   //Toggle_Leds();
-//  162 
-//  163   cntOS++;
+//  162   //Toggle_Leds();
+//  163 
+//  164   cntOS++;
         LDR.N    R0,??DataTable4
         LDR      R0,[R0, #+0]
         ADDS     R0,R0,#+1
         LDR.N    R1,??DataTable4
         STR      R0,[R1, #+0]
-//  164 
-//  165   if (cntOS==10)
+//  165 
+//  166   if (cntOS==10)
         LDR.N    R0,??DataTable4
         LDR      R0,[R0, #+0]
         CMP      R0,#+10
         BNE.N    ??SysTick_Handler_0
-//  166   {
-//  167       cntOS=0;
+//  167   {
+//  168       cntOS=0;
         MOVS     R0,#+0
         LDR.N    R1,??DataTable4
         STR      R0,[R1, #+0]
-//  168       flg10ms = 1;
+//  169       flg10ms = 1;
         MOVS     R0,#+1
         LDR.N    R1,??DataTable4_1
         STRB     R0,[R1, #+0]
-//  169   }
-//  170   	
-//  171 }
+//  170   }
+//  171   	
+//  172 }
 ??SysTick_Handler_0:
         POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock8
-//  172 
+//  173 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock9 Using cfiCommon0
           CFI Function USART6_IRQHandler
           CFI NoCalls
         THUMB
-//  173 void USART6_IRQHandler(void)
-//  174 {
-//  175 //  HAL_UART_IRQHandler(&huart6);
-//  176 }
+//  174 void USART6_IRQHandler(void)
+//  175 {
+//  176 //  HAL_UART_IRQHandler(&huart6);
+//  177 }
 USART6_IRQHandler:
         BX       LR               ;; return
           CFI EndBlock cfiBlock9
-//  177 
+//  178 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock10 Using cfiCommon0
           CFI Function USART3_IRQHandler
         THUMB
-//  178 void USART3_IRQHandler(void)
-//  179 {
+//  179 void USART3_IRQHandler(void)
+//  180 {
 USART3_IRQHandler:
         PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+8
-//  180   HAL_UART_IRQHandler(&huart3);
+//  181   HAL_UART_IRQHandler(&huart3);
         LDR.N    R0,??DataTable4_2
           CFI FunCall HAL_UART_IRQHandler
         BL       HAL_UART_IRQHandler
-//  181 }
+//  182 }
         POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock10
-//  182 
 //  183 
+//  184 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock11 Using cfiCommon0
           CFI Function I2C1_EV_IRQHandler
         THUMB
-//  184 void I2C1_EV_IRQHandler(void)
-//  185 {
+//  185 void I2C1_EV_IRQHandler(void)
+//  186 {
 I2C1_EV_IRQHandler:
         PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+8
-//  186   /* USER CODE BEGIN I2C1_EV_IRQn 0 */
-//  187 
-//  188   /* USER CODE END I2C1_EV_IRQn 0 */
-//  189   HAL_I2C_EV_IRQHandler(&hi2c1);
+//  187   /* USER CODE BEGIN I2C1_EV_IRQn 0 */
+//  188 
+//  189   /* USER CODE END I2C1_EV_IRQn 0 */
+//  190   HAL_I2C_EV_IRQHandler(&hi2c1);
         LDR.N    R0,??DataTable4_3
           CFI FunCall HAL_I2C_EV_IRQHandler
         BL       HAL_I2C_EV_IRQHandler
-//  190   /* USER CODE BEGIN I2C1_EV_IRQn 1 */
-//  191 
-//  192   /* USER CODE END I2C1_EV_IRQn 1 */
-//  193 }
+//  191   /* USER CODE BEGIN I2C1_EV_IRQn 1 */
+//  192 
+//  193   /* USER CODE END I2C1_EV_IRQn 1 */
+//  194 }
         POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock11
-//  194 
 //  195 
+//  196 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock12 Using cfiCommon0
           CFI Function I2C2_EV_IRQHandler
         THUMB
-//  196 void I2C2_EV_IRQHandler(void)
-//  197 {
+//  197 void I2C2_EV_IRQHandler(void)
+//  198 {
 I2C2_EV_IRQHandler:
         PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+8
-//  198   /* USER CODE BEGIN I2C1_EV_IRQn 0 */
-//  199 
-//  200   /* USER CODE END I2C1_EV_IRQn 0 */
-//  201   HAL_I2C_EV_IRQHandler(&hi2c2);
+//  199   /* USER CODE BEGIN I2C1_EV_IRQn 0 */
+//  200 
+//  201   /* USER CODE END I2C1_EV_IRQn 0 */
+//  202   HAL_I2C_EV_IRQHandler(&hi2c2);
         LDR.N    R0,??DataTable4_4
           CFI FunCall HAL_I2C_EV_IRQHandler
         BL       HAL_I2C_EV_IRQHandler
-//  202   /* USER CODE BEGIN I2C1_EV_IRQn 1 */
-//  203 
-//  204   /* USER CODE END I2C1_EV_IRQn 1 */
-//  205 }
+//  203   /* USER CODE BEGIN I2C1_EV_IRQn 1 */
+//  204 
+//  205   /* USER CODE END I2C1_EV_IRQn 1 */
+//  206 }
         POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock12
-//  206 
 //  207 
 //  208 
 //  209 
 //  210 
 //  211 
-//  212 /******************************************************************************/
-//  213 /*                 STM32F7xx Peripherals Interrupt Handlers                   */
-//  214 /*  Add here the Interrupt Handler for the used peripheral(s) (PPP), for the  */
-//  215 /*  available peripheral interrupt handler's name please refer to the startup */
-//  216 /*  file (startup_stm32f7xx.s).                                               */
-//  217 /******************************************************************************/
-//  218 
-//  219 /**
-//  220   * @brief  This function handles USB-On-The-Go FS/HS global interrupt request.
-//  221   * @param  None
-//  222   * @retval None
-//  223   */
-//  224 #ifdef USE_USB_FS
+//  212 
+//  213 /******************************************************************************/
+//  214 /*                 STM32F7xx Peripherals Interrupt Handlers                   */
+//  215 /*  Add here the Interrupt Handler for the used peripheral(s) (PPP), for the  */
+//  216 /*  available peripheral interrupt handler's name please refer to the startup */
+//  217 /*  file (startup_stm32f7xx.s).                                               */
+//  218 /******************************************************************************/
+//  219 
+//  220 /**
+//  221   * @brief  This function handles USB-On-The-Go FS/HS global interrupt request.
+//  222   * @param  None
+//  223   * @retval None
+//  224   */
+//  225 #ifdef USE_USB_FS
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock13 Using cfiCommon0
           CFI Function OTG_FS_IRQHandler
         THUMB
-//  225 void OTG_FS_IRQHandler(void)
-//  226 #else
-//  227 void OTG_HS_IRQHandler(void)
-//  228 #endif
-//  229 {
+//  226 void OTG_FS_IRQHandler(void)
+//  227 #else
+//  228 void OTG_HS_IRQHandler(void)
+//  229 #endif
+//  230 {
 OTG_FS_IRQHandler:
         PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+8
-//  230   HAL_HCD_IRQHandler(&hhcd);
+//  231   //sop1hc HAL_HCD_IRQHandler(&hhcd);
+//  232   HAL_PCD_IRQHandler(&hpcd);
         LDR.N    R0,??DataTable4_5
-          CFI FunCall HAL_HCD_IRQHandler
-        BL       HAL_HCD_IRQHandler
-//  231 }
+          CFI FunCall HAL_PCD_IRQHandler
+        BL       HAL_PCD_IRQHandler
+//  233 }
         POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock13
 
@@ -581,42 +585,42 @@ OTG_FS_IRQHandler:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable4_5:
-        DC32     hhcd
-//  232 
-//  233 /**
-//  234   * @brief This function handles DMA2 Stream 4 interrupt request.
-//  235   * @param None
-//  236   * @retval None
-//  237   */
+        DC32     hpcd
+//  234 
+//  235 /**
+//  236   * @brief This function handles DMA2 Stream 4 interrupt request.
+//  237   * @param None
+//  238   * @retval None
+//  239   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock14 Using cfiCommon0
           CFI Function DMA2_Stream4_IRQHandler
           CFI NoCalls
         THUMB
-//  238 void AUDIO_OUT_SAIx_DMAx_IRQHandler(void)
-//  239 {
-//  240   //HAL_DMA_IRQHandler(haudio_out_sai.hdmatx);
-//  241 }
+//  240 void AUDIO_OUT_SAIx_DMAx_IRQHandler(void)
+//  241 {
+//  242   //HAL_DMA_IRQHandler(haudio_out_sai.hdmatx);
+//  243 }
 DMA2_Stream4_IRQHandler:
         BX       LR               ;; return
           CFI EndBlock cfiBlock14
-//  242 
-//  243 /**
-//  244   * @brief This function handles DMA2 Stream 7 interrupt request.
-//  245   * @param None
-//  246   * @retval None
-//  247   */
+//  244 
+//  245 /**
+//  246   * @brief This function handles DMA2 Stream 7 interrupt request.
+//  247   * @param None
+//  248   * @retval None
+//  249   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock15 Using cfiCommon0
           CFI Function DMA2_Stream7_IRQHandler
           CFI NoCalls
         THUMB
-//  248 void AUDIO_IN_SAIx_DMAx_IRQHandler(void)
-//  249 {
-//  250   //HAL_DMA_IRQHandler(haudio_in_sai.hdmarx);
-//  251 }
+//  250 void AUDIO_IN_SAIx_DMAx_IRQHandler(void)
+//  251 {
+//  252   //HAL_DMA_IRQHandler(haudio_in_sai.hdmarx);
+//  253 }
 DMA2_Stream7_IRQHandler:
         BX       LR               ;; return
           CFI EndBlock cfiBlock15
@@ -633,17 +637,17 @@ DMA2_Stream7_IRQHandler:
         SECTION_TYPE SHT_PROGBITS, 0
 
         END
-//  252 
-//  253 /**
-//  254   * @brief  This function handles PPP interrupt request.
-//  255   * @param  None
-//  256   * @retval None
-//  257   */
-//  258 /*void PPP_IRQHandler(void)
-//  259 {
-//  260 }*/
-//  261 
-//  262 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+//  254 
+//  255 /**
+//  256   * @brief  This function handles PPP interrupt request.
+//  257   * @param  None
+//  258   * @retval None
+//  259   */
+//  260 /*void PPP_IRQHandler(void)
+//  261 {
+//  262 }*/
+//  263 
+//  264 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
 //   4 bytes in section .bss
 // 124 bytes in section .text
@@ -652,4 +656,4 @@ DMA2_Stream7_IRQHandler:
 //   4 bytes of DATA memory
 //
 //Errors: none
-//Warnings: none
+//Warnings: 1

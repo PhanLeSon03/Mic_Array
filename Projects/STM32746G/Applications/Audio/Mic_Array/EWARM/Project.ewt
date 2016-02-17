@@ -1065,6 +1065,9 @@
     <group>
       <name>User</name>
       <file>
+        <name>$PROJ_DIR$\..\Src\audio_application.c</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\Src\audio_codec.c</name>
       </file>
       <file>
@@ -1078,6 +1081,15 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\stm32f7xx_it.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Src\usbd_audio_if.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Src\usbd_conf_f4.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Src\usbd_desc.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\usbh_conf.c</name>
@@ -1173,6 +1185,12 @@
         <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_ltdc.c</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_pcd.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_pcd_ex.c</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_pwr.c</name>
       </file>
       <file>
@@ -1229,6 +1247,12 @@
       <group>
         <name>Class</name>
         <group>
+          <name>AUDIO</name>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Src\usbd_audio_in.c</name>
+          </file>
+        </group>
+        <group>
           <name>MSC</name>
           <file>
             <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src\usbh_msc.c</name>
@@ -1254,6 +1278,18 @@
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_pipes.c</name>
+        </file>
+      </group>
+      <group>
+        <name>Core_Device</name>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Src\usbd_core.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Src\usbd_ctlreq.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Src\usbd_ioreq.c</name>
         </file>
       </group>
     </group>

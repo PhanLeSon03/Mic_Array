@@ -45,6 +45,19 @@
 #include <stdlib.h>
 #include <string.h>
 
+extern PCD_HandleTypeDef hpcd;
+/* Common Config */
+#define USBD_MAX_NUM_INTERFACES               2
+#define USBD_MAX_NUM_CONFIGURATION            1
+#define USBD_MAX_STR_DESC_SIZ                 200
+#define USBD_SUPPORT_USER_STRING              0 
+#define USBD_SELF_POWERED                     1
+#define USBD_DEBUG_LEVEL                      0
+
+/* AUDIO Class Config */
+#define USBD_AUDIO_FREQ                       48000
+#define AUDIO_TOTAL_IF_NUM              0x02
+
 /* Exported types ------------------------------------------------------------*/
 #define USBH_MAX_NUM_ENDPOINTS                3
 #define USBH_MAX_NUM_INTERFACES               1
@@ -70,6 +83,15 @@
 #define USBH_memset               memset
 #define USBH_memcpy               memcpy
     
+#ifdef USE_STATIC_ALLOCATION
+#define USBD_free                 USBD_static_free
+#define USBD_malloc               USBD_static_malloc
+#define MAX_STATIC_ALLOC_SIZE     1600/4
+#else
+#define USBD_free                 free
+#define USBD_malloc               malloc
+#define MAX_STATIC_ALLOC_SIZE     4
+#endif
 /* DEBUG macros */  
    
 #if (USBH_DEBUG_LEVEL > 0)

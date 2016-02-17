@@ -1,0 +1,1146 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       13/Feb/2016  11:44:39
+# Copyright 1999-2015 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\usbd_conf_f4.c
+#    Command line =  
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\usbd_conf_f4.c
+#        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
+#        USE_IOEXPANDER -D USE_USB_FS -lC
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        -lA
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        -o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+#        --no_clustering --no_scheduling --debug --endian=little
+#        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\INC\c\DLib_Config_Full.h"
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+#        -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+#        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
+#        ARM_MATH_CM7
+#    List file    =  
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\usbd_conf_f4.lst
+#    Object file  =  
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbd_conf_f4.o
+#
+###############################################################################
+
+H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\usbd_conf_f4.c
+      1          /**
+      2          ******************************************************************************
+      3          * @file    Src/usbd_conf.c
+      4          * @author  Central Labs
+      5          * @version V1.1.0
+      6          * @date    11-Jan-2016
+      7          * @brief   This file implements the USB Device library callbacks and MSP
+      8          ******************************************************************************
+      9          * @attention
+     10          *
+     11          * <h2><center>&copy; COPYRIGHT(c) 2014 STMicroelectronics</center></h2>
+     12          *
+     13          * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
+     14          * You may not use this file except in compliance with the License.
+     15          * You may obtain a copy of the License at:
+     16          *
+     17          *        http://www.st.com/software_license_agreement_liberty_v2
+     18          *
+     19          * Unless required by applicable law or agreed to in writing, software 
+     20          * distributed under the License is distributed on an "AS IS" BASIS, 
+     21          * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     22          * See the License for the specific language governing permissions and
+     23          * limitations under the License.
+     24          *
+     25          ******************************************************************************
+     26          */ 
+     27          
+     28          /* Includes ------------------------------------------------------------------*/
+     29          #include "stm32f7xx_hal.h"
+
+   \                                 In section .text, align 2, keep-with-next
+   \   static __interwork __softfp void NVIC_SetPriority(IRQn_Type, uint32_t)
+   \                     NVIC_SetPriority: (+1)
+   \   00000000   0xB410             PUSH     {R4}
+   \   00000002   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   00000004   0x2800             CMP      R0,#+0
+   \   00000006   0xD508             BPL.N    ??NVIC_SetPriority_0
+   \   00000008   0x010A             LSLS     R2,R1,#+4
+   \   0000000A   0x....             LDR.N    R3,??DataTable3  ;; 0xe000ed18
+   \   0000000C   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   0000000E   0xF010 0x040F      ANDS     R4,R0,#0xF
+   \   00000012   0x18E3             ADDS     R3,R4,R3
+   \   00000014   0xF803 0x2C04      STRB     R2,[R3, #-4]
+   \   00000018   0xE003             B.N      ??NVIC_SetPriority_1
+   \                     ??NVIC_SetPriority_0: (+1)
+   \   0000001A   0x010A             LSLS     R2,R1,#+4
+   \   0000001C   0x....             LDR.N    R3,??DataTable3_1  ;; 0xe000e400
+   \   0000001E   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   00000020   0x54C2             STRB     R2,[R0, R3]
+   \                     ??NVIC_SetPriority_1: (+1)
+   \   00000022   0xBC10             POP      {R4}
+   \   00000024   0x4770             BX       LR               ;; return
+     30          #include "usbd_core.h"
+     31          
+
+   \                                 In section .bss, align 4
+     32          PCD_HandleTypeDef hpcd;
+   \                     hpcd:
+   \   00000000                      DS8 960
+     33          
+     34          /*******************************************************************************
+     35          PCD BSP Routines
+     36          *******************************************************************************/
+     37          /**
+     38          * @brief  Initializes the PCD MSP.
+     39          * @param  hpcd: PCD handle
+     40          * @retval None
+     41          */
+
+   \                                 In section .text, align 2, keep-with-next
+     42          void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
+     43          {
+   \                     HAL_PCD_MspInit: (+1)
+   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000002   0xB088             SUB      SP,SP,#+32
+   \   00000004   0x0004             MOVS     R4,R0
+     44            /* Note: On STM32F401-Discovery board only USB OTG FS core is supported. */
+     45            GPIO_InitTypeDef  GPIO_InitStruct;
+     46            
+     47            if(hpcd->Instance == USB_OTG_FS)
+   \   00000006   0x6820             LDR      R0,[R4, #+0]
+   \   00000008   0xF1B0 0x4FA0      CMP      R0,#+1342177280
+   \   0000000C   0xD13A             BNE.N    ??HAL_PCD_MspInit_0
+     48            {
+     49              /* Configure USB FS GPIOs */
+     50              __GPIOA_CLK_ENABLE();
+   \   0000000E   0x....             LDR.N    R0,??DataTable3_2  ;; 0x40023830
+   \   00000010   0x6800             LDR      R0,[R0, #+0]
+   \   00000012   0xF050 0x0001      ORRS     R0,R0,#0x1
+   \   00000016   0x....             LDR.N    R1,??DataTable3_2  ;; 0x40023830
+   \   00000018   0x6008             STR      R0,[R1, #+0]
+   \   0000001A   0x....             LDR.N    R0,??DataTable3_2  ;; 0x40023830
+   \   0000001C   0x6800             LDR      R0,[R0, #+0]
+   \   0000001E   0xF010 0x0001      ANDS     R0,R0,#0x1
+   \   00000022   0x9000             STR      R0,[SP, #+0]
+   \   00000024   0x9800             LDR      R0,[SP, #+0]
+     51              
+     52              /* Configure DM DP Pins */
+     53              GPIO_InitStruct.Pin = GPIO_PIN_11 | GPIO_PIN_12;
+   \   00000026   0xF44F 0x50C0      MOV      R0,#+6144
+   \   0000002A   0x9002             STR      R0,[SP, #+8]
+     54              GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+   \   0000002C   0x2003             MOVS     R0,#+3
+   \   0000002E   0x9005             STR      R0,[SP, #+20]
+     55              GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+   \   00000030   0x2002             MOVS     R0,#+2
+   \   00000032   0x9003             STR      R0,[SP, #+12]
+     56              GPIO_InitStruct.Pull = GPIO_NOPULL;
+   \   00000034   0x2000             MOVS     R0,#+0
+   \   00000036   0x9004             STR      R0,[SP, #+16]
+     57              GPIO_InitStruct.Alternate = GPIO_AF10_OTG_FS;
+   \   00000038   0x200A             MOVS     R0,#+10
+   \   0000003A   0x9006             STR      R0,[SP, #+24]
+     58              HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); 
+   \   0000003C   0xA902             ADD      R1,SP,#+8
+   \   0000003E   0x....             LDR.N    R0,??DataTable3_3  ;; 0x40020000
+   \   00000040   0x.... 0x....      BL       HAL_GPIO_Init
+     59              
+     60              /* Enable USB FS Clocks */ 
+     61              __USB_OTG_FS_CLK_ENABLE();
+   \   00000044   0x....             LDR.N    R0,??DataTable3_4  ;; 0x40023834
+   \   00000046   0x6800             LDR      R0,[R0, #+0]
+   \   00000048   0xF050 0x0080      ORRS     R0,R0,#0x80
+   \   0000004C   0x....             LDR.N    R1,??DataTable3_4  ;; 0x40023834
+   \   0000004E   0x6008             STR      R0,[R1, #+0]
+   \   00000050   0x....             LDR.N    R0,??DataTable3_4  ;; 0x40023834
+   \   00000052   0x6800             LDR      R0,[R0, #+0]
+   \   00000054   0xF010 0x0080      ANDS     R0,R0,#0x80
+   \   00000058   0x9001             STR      R0,[SP, #+4]
+   \   0000005A   0x9801             LDR      R0,[SP, #+4]
+   \   0000005C   0x....             LDR.N    R0,??DataTable3_5  ;; 0x40023844
+   \   0000005E   0x6800             LDR      R0,[R0, #+0]
+   \   00000060   0xF450 0x4080      ORRS     R0,R0,#0x4000
+   \   00000064   0x....             LDR.N    R1,??DataTable3_5  ;; 0x40023844
+   \   00000066   0x6008             STR      R0,[R1, #+0]
+   \   00000068   0x....             LDR.N    R0,??DataTable3_5  ;; 0x40023844
+   \   0000006A   0x6800             LDR      R0,[R0, #+0]
+   \   0000006C   0xF410 0x4080      ANDS     R0,R0,#0x4000
+   \   00000070   0x9000             STR      R0,[SP, #+0]
+   \   00000072   0x9800             LDR      R0,[SP, #+0]
+     62              
+     63              /* Set USBFS Interrupt to the lowest priority */
+     64              HAL_NVIC_SetPriority(OTG_FS_IRQn, 5, 0);
+   \   00000074   0x2200             MOVS     R2,#+0
+   \   00000076   0x2105             MOVS     R1,#+5
+   \   00000078   0x2043             MOVS     R0,#+67
+   \   0000007A   0x.... 0x....      BL       HAL_NVIC_SetPriority
+     65              
+     66              /* Enable USBFS Interrupt */
+     67              HAL_NVIC_EnableIRQ(OTG_FS_IRQn);
+   \   0000007E   0x2043             MOVS     R0,#+67
+   \   00000080   0x.... 0x....      BL       HAL_NVIC_EnableIRQ
+     68            } 
+     69          }
+   \                     ??HAL_PCD_MspInit_0: (+1)
+   \   00000084   0xB008             ADD      SP,SP,#+32
+   \   00000086   0xBD10             POP      {R4,PC}          ;; return
+     70          
+     71          /**
+     72          * @brief  DeInitializes the PCD MSP.
+     73          * @param  hpcd: PCD handle
+     74          * @retval None
+     75          */
+
+   \                                 In section .text, align 2, keep-with-next
+     76          void HAL_PCD_MspDeInit(PCD_HandleTypeDef *hpcd)
+     77          {
+     78            if(hpcd->Instance == USB_OTG_FS)
+   \                     HAL_PCD_MspDeInit: (+1)
+   \   00000000   0x6801             LDR      R1,[R0, #+0]
+   \   00000002   0xF1B1 0x4FA0      CMP      R1,#+1342177280
+   \   00000006   0xD10B             BNE.N    ??HAL_PCD_MspDeInit_0
+     79            {  
+     80              /* Disable USB FS Clocks */ 
+     81              __USB_OTG_FS_CLK_DISABLE();
+   \   00000008   0x....             LDR.N    R1,??DataTable3_4  ;; 0x40023834
+   \   0000000A   0x6809             LDR      R1,[R1, #+0]
+   \   0000000C   0xF031 0x0180      BICS     R1,R1,#0x80
+   \   00000010   0x....             LDR.N    R2,??DataTable3_4  ;; 0x40023834
+   \   00000012   0x6011             STR      R1,[R2, #+0]
+   \   00000014   0x....             LDR.N    R1,??DataTable3_5  ;; 0x40023844
+   \   00000016   0x6809             LDR      R1,[R1, #+0]
+   \   00000018   0xF431 0x4180      BICS     R1,R1,#0x4000
+   \   0000001C   0x....             LDR.N    R2,??DataTable3_5  ;; 0x40023844
+   \   0000001E   0x6011             STR      R1,[R2, #+0]
+     82            }
+     83          }
+   \                     ??HAL_PCD_MspDeInit_0: (+1)
+   \   00000020   0x4770             BX       LR               ;; return
+     84          
+     85          /*******************************************************************************
+     86          LL Driver Callbacks (PCD -> USB Device Library)
+     87          *******************************************************************************/
+     88          
+     89          
+     90          /**
+     91          * @brief  SOF callback.
+     92          * @param  hpcd: PCD handle
+     93          * @retval None
+     94          */
+
+   \                                 In section .text, align 2, keep-with-next
+     95          void HAL_PCD_SetupStageCallback(PCD_HandleTypeDef *hpcd)
+     96          {
+   \                     HAL_PCD_SetupStageCallback: (+1)
+   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+     97            USBD_LL_SetupStage(hpcd->pData, (uint8_t *)hpcd->Setup);
+   \   00000004   0xF514 0x7160      ADDS     R1,R4,#+896
+   \   00000008   0xF8D4 0x03BC      LDR      R0,[R4, #+956]
+   \   0000000C   0x.... 0x....      BL       USBD_LL_SetupStage
+     98          }
+   \   00000010   0xBD10             POP      {R4,PC}          ;; return
+     99          
+    100          /**
+    101          * @brief  SOF callback.
+    102          * @param  hpcd: PCD handle
+    103          * @retval None
+    104          */
+
+   \                                 In section .text, align 2, keep-with-next
+    105          void HAL_PCD_DataOutStageCallback(PCD_HandleTypeDef *hpcd, uint8_t epnum)
+    106          {
+   \                     HAL_PCD_DataOutStageCallback: (+1)
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
+    107            USBD_LL_DataOutStage(hpcd->pData, epnum, hpcd->OUT_ep[epnum].xfer_buff);
+   \   00000006   0xB2ED             UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+   \   00000008   0x201C             MOVS     R0,#+28
+   \   0000000A   0xFB00 0x4005      MLA      R0,R0,R5,R4
+   \   0000000E   0xF8D0 0x21E4      LDR      R2,[R0, #+484]
+   \   00000012   0x0029             MOVS     R1,R5
+   \   00000014   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   00000016   0xF8D4 0x03BC      LDR      R0,[R4, #+956]
+   \   0000001A   0x.... 0x....      BL       USBD_LL_DataOutStage
+    108          }
+   \   0000001E   0xBD31             POP      {R0,R4,R5,PC}    ;; return
+    109          
+    110          /**
+    111          * @brief  SOF callback.
+    112          * @param  hpcd: PCD handle
+    113          * @retval None
+    114          */
+
+   \                                 In section .text, align 2, keep-with-next
+    115          void HAL_PCD_DataInStageCallback(PCD_HandleTypeDef *hpcd, uint8_t epnum)
+    116          {
+   \                     HAL_PCD_DataInStageCallback: (+1)
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
+    117            USBD_LL_DataInStage(hpcd->pData, epnum, hpcd->IN_ep[epnum].xfer_buff);
+   \   00000006   0xB2ED             UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+   \   00000008   0x201C             MOVS     R0,#+28
+   \   0000000A   0xFB00 0x4005      MLA      R0,R0,R5,R4
+   \   0000000E   0x6C02             LDR      R2,[R0, #+64]
+   \   00000010   0x0029             MOVS     R1,R5
+   \   00000012   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   00000014   0xF8D4 0x03BC      LDR      R0,[R4, #+956]
+   \   00000018   0x.... 0x....      BL       USBD_LL_DataInStage
+    118          } 
+   \   0000001C   0xBD31             POP      {R0,R4,R5,PC}    ;; return
+    119          
+    120          /**
+    121          * @brief  SOF callback.
+    122          * @param  hpcd: PCD handle
+    123          * @retval None
+    124          */
+
+   \                                 In section .text, align 2, keep-with-next
+    125          void HAL_PCD_SOFCallback(PCD_HandleTypeDef *hpcd)
+    126          {
+   \                     HAL_PCD_SOFCallback: (+1)
+   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+    127            USBD_LL_SOF(hpcd->pData);
+   \   00000004   0xF8D4 0x03BC      LDR      R0,[R4, #+956]
+   \   00000008   0x.... 0x....      BL       USBD_LL_SOF
+    128          }
+   \   0000000C   0xBD10             POP      {R4,PC}          ;; return
+    129          
+    130          /**
+    131          * @brief  SOF callback.
+    132          * @param  hpcd: PCD handle
+    133          * @retval None
+    134          */
+
+   \                                 In section .text, align 2, keep-with-next
+    135          void HAL_PCD_ResetCallback(PCD_HandleTypeDef *hpcd)
+    136          { 
+   \                     HAL_PCD_ResetCallback: (+1)
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+    137            USBD_SpeedTypeDef speed = USBD_SPEED_FULL;
+   \   00000004   0x2501             MOVS     R5,#+1
+    138            
+    139            /*Set USB Current Speed*/
+    140            switch (hpcd->Init.speed)
+   \   00000006   0x68E0             LDR      R0,[R4, #+12]
+   \   00000008   0x2800             CMP      R0,#+0
+   \   0000000A   0xD002             BEQ.N    ??HAL_PCD_ResetCallback_0
+   \   0000000C   0x2802             CMP      R0,#+2
+   \   0000000E   0xD003             BEQ.N    ??HAL_PCD_ResetCallback_1
+   \   00000010   0xE005             B.N      ??HAL_PCD_ResetCallback_2
+    141            {
+    142            case PCD_SPEED_HIGH:
+    143              speed = USBD_SPEED_HIGH;
+   \                     ??HAL_PCD_ResetCallback_0: (+1)
+   \   00000012   0x2000             MOVS     R0,#+0
+   \   00000014   0x0005             MOVS     R5,R0
+    144              break;
+   \   00000016   0xE004             B.N      ??HAL_PCD_ResetCallback_3
+    145              
+    146            case PCD_SPEED_FULL:
+    147              speed = USBD_SPEED_FULL;    
+   \                     ??HAL_PCD_ResetCallback_1: (+1)
+   \   00000018   0x2001             MOVS     R0,#+1
+   \   0000001A   0x0005             MOVS     R5,R0
+    148              break;
+   \   0000001C   0xE001             B.N      ??HAL_PCD_ResetCallback_3
+    149              
+    150            default:
+    151              speed = USBD_SPEED_FULL;
+   \                     ??HAL_PCD_ResetCallback_2: (+1)
+   \   0000001E   0x2001             MOVS     R0,#+1
+   \   00000020   0x0005             MOVS     R5,R0
+    152              break;
+    153            }
+    154            USBD_LL_SetSpeed(hpcd->pData, speed);  
+   \                     ??HAL_PCD_ResetCallback_3: (+1)
+   \   00000022   0x0029             MOVS     R1,R5
+   \   00000024   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   00000026   0xF8D4 0x03BC      LDR      R0,[R4, #+956]
+   \   0000002A   0x.... 0x....      BL       USBD_LL_SetSpeed
+    155            
+    156            /*Reset Device*/
+    157            USBD_LL_Reset(hpcd->pData);
+   \   0000002E   0xF8D4 0x03BC      LDR      R0,[R4, #+956]
+   \   00000032   0x.... 0x....      BL       USBD_LL_Reset
+    158          }
+   \   00000036   0xBD31             POP      {R0,R4,R5,PC}    ;; return
+    159          
+    160          /**
+    161          * @brief  SOF callback.
+    162          * @param  hpcd: PCD handle
+    163          * @retval None
+    164          */
+
+   \                                 In section .text, align 2, keep-with-next
+    165          void HAL_PCD_SuspendCallback(PCD_HandleTypeDef *hpcd)
+    166          {
+   \                     HAL_PCD_SuspendCallback: (+1)
+   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+    167            USBD_LL_Suspend(hpcd->pData);
+   \   00000004   0xF8D4 0x03BC      LDR      R0,[R4, #+956]
+   \   00000008   0x.... 0x....      BL       USBD_LL_Suspend
+    168          }
+   \   0000000C   0xBD10             POP      {R4,PC}          ;; return
+    169          
+    170          /**
+    171          * @brief  SOF callback.
+    172          * @param  hpcd: PCD handle
+    173          * @retval None
+    174          */
+
+   \                                 In section .text, align 2, keep-with-next
+    175          void HAL_PCD_ResumeCallback(PCD_HandleTypeDef *hpcd)
+    176          {
+   \                     HAL_PCD_ResumeCallback: (+1)
+   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+    177            USBD_LL_Resume(hpcd->pData);
+   \   00000004   0xF8D4 0x03BC      LDR      R0,[R4, #+956]
+   \   00000008   0x.... 0x....      BL       USBD_LL_Resume
+    178          }
+   \   0000000C   0xBD10             POP      {R4,PC}          ;; return
+    179          
+    180          /**
+    181          * @brief  SOF callback.
+    182          * @param  hpcd: PCD handle
+    183          * @retval None
+    184          */
+
+   \                                 In section .text, align 2, keep-with-next
+    185          void HAL_PCD_ISOOUTIncompleteCallback(PCD_HandleTypeDef *hpcd, uint8_t epnum)
+    186          {
+   \                     HAL_PCD_ISOOUTIncompleteCallback: (+1)
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
+    187            USBD_LL_IsoOUTIncomplete(hpcd->pData, epnum);
+   \   00000006   0x0029             MOVS     R1,R5
+   \   00000008   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   0000000A   0xF8D4 0x03BC      LDR      R0,[R4, #+956]
+   \   0000000E   0x.... 0x....      BL       USBD_LL_IsoOUTIncomplete
+    188          }
+   \   00000012   0xBD31             POP      {R0,R4,R5,PC}    ;; return
+    189          
+    190          /**
+    191          * @brief  SOF callback.
+    192          * @param  hpcd: PCD handle
+    193          * @retval None
+    194          */
+
+   \                                 In section .text, align 2, keep-with-next
+    195          void HAL_PCD_ISOINIncompleteCallback(PCD_HandleTypeDef *hpcd, uint8_t epnum)
+    196          {
+   \                     HAL_PCD_ISOINIncompleteCallback: (+1)
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
+    197            USBD_LL_IsoINIncomplete(hpcd->pData, epnum);
+   \   00000006   0x0029             MOVS     R1,R5
+   \   00000008   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   0000000A   0xF8D4 0x03BC      LDR      R0,[R4, #+956]
+   \   0000000E   0x.... 0x....      BL       USBD_LL_IsoINIncomplete
+    198          }
+   \   00000012   0xBD31             POP      {R0,R4,R5,PC}    ;; return
+    199          
+    200          /**
+    201          * @brief  SOF callback.
+    202          * @param  hpcd: PCD handle
+    203          * @retval None
+    204          */
+
+   \                                 In section .text, align 2, keep-with-next
+    205          void HAL_PCD_ConnectCallback(PCD_HandleTypeDef *hpcd)
+    206          {
+   \                     HAL_PCD_ConnectCallback: (+1)
+   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+    207            USBD_LL_DevConnected(hpcd->pData);
+   \   00000004   0xF8D4 0x03BC      LDR      R0,[R4, #+956]
+   \   00000008   0x.... 0x....      BL       USBD_LL_DevConnected
+    208          }
+   \   0000000C   0xBD10             POP      {R4,PC}          ;; return
+    209          
+    210          /**
+    211          * @brief  SOF callback.
+    212          * @param  hpcd: PCD handle
+    213          * @retval None
+    214          */
+
+   \                                 In section .text, align 2, keep-with-next
+    215          void HAL_PCD_DisconnectCallback(PCD_HandleTypeDef *hpcd)
+    216          {
+   \                     HAL_PCD_DisconnectCallback: (+1)
+   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+    217            USBD_LL_DevDisconnected(hpcd->pData);
+   \   00000004   0xF8D4 0x03BC      LDR      R0,[R4, #+956]
+   \   00000008   0x.... 0x....      BL       USBD_LL_DevDisconnected
+    218          }
+   \   0000000C   0xBD10             POP      {R4,PC}          ;; return
+    219          
+    220          /*******************************************************************************
+    221          LL Driver Interface (USB Device Library --> PCD)
+    222          *******************************************************************************/
+    223          /**
+    224          * @brief  USBD_LL_Init 
+    225          *         Initialize the Low Level portion of the Device driver.
+    226          * @param  pdev: Device handle
+    227          * @retval USBD Status
+    228          */
+
+   \                                 In section .text, align 2, keep-with-next
+    229          USBD_StatusTypeDef  USBD_LL_Init (USBD_HandleTypeDef *pdev)
+    230          {
+   \                     USBD_LL_Init: (+1)
+   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+    231            /* Change Systick prioity */
+    232            NVIC_SetPriority (SysTick_IRQn, 0);  
+   \   00000004   0x2100             MOVS     R1,#+0
+   \   00000006   0xF05F 0x30FF      MOVS     R0,#-1
+   \   0000000A   0x.... 0x....      BL       NVIC_SetPriority
+    233            
+    234            /*Set LL Driver parameters */
+    235            hpcd.Instance = USB_OTG_FS;
+   \   0000000E   0xF05F 0x40A0      MOVS     R0,#+1342177280
+   \   00000012   0x....             LDR.N    R1,??DataTable3_6
+   \   00000014   0x6008             STR      R0,[R1, #+0]
+    236            hpcd.Init.dev_endpoints = 3; 
+   \   00000016   0x2003             MOVS     R0,#+3
+   \   00000018   0x....             LDR.N    R1,??DataTable3_6
+   \   0000001A   0x6048             STR      R0,[R1, #+4]
+    237            hpcd.Init.use_dedicated_ep1 = 0;
+   \   0000001C   0x2000             MOVS     R0,#+0
+   \   0000001E   0x....             LDR.N    R1,??DataTable3_6
+   \   00000020   0x62C8             STR      R0,[R1, #+44]
+    238            hpcd.Init.ep0_mps = 0x40;  
+   \   00000022   0x2040             MOVS     R0,#+64
+   \   00000024   0x....             LDR.N    R1,??DataTable3_6
+   \   00000026   0x6148             STR      R0,[R1, #+20]
+    239            hpcd.Init.dma_enable = 0;
+   \   00000028   0x2000             MOVS     R0,#+0
+   \   0000002A   0x....             LDR.N    R1,??DataTable3_6
+   \   0000002C   0x6108             STR      R0,[R1, #+16]
+    240            hpcd.Init.low_power_enable = 0;
+   \   0000002E   0x2000             MOVS     R0,#+0
+   \   00000030   0x....             LDR.N    R1,??DataTable3_6
+   \   00000032   0x6208             STR      R0,[R1, #+32]
+    241            hpcd.Init.phy_itface = PCD_PHY_EMBEDDED; 
+   \   00000034   0x2002             MOVS     R0,#+2
+   \   00000036   0x....             LDR.N    R1,??DataTable3_6
+   \   00000038   0x6188             STR      R0,[R1, #+24]
+    242            hpcd.Init.Sof_enable = 0;
+   \   0000003A   0x2000             MOVS     R0,#+0
+   \   0000003C   0x....             LDR.N    R1,??DataTable3_6
+   \   0000003E   0x61C8             STR      R0,[R1, #+28]
+    243            hpcd.Init.speed = PCD_SPEED_FULL;
+   \   00000040   0x2002             MOVS     R0,#+2
+   \   00000042   0x....             LDR.N    R1,??DataTable3_6
+   \   00000044   0x60C8             STR      R0,[R1, #+12]
+    244            hpcd.Init.vbus_sensing_enable = 0;
+   \   00000046   0x2000             MOVS     R0,#+0
+   \   00000048   0x....             LDR.N    R1,??DataTable3_6
+   \   0000004A   0x6288             STR      R0,[R1, #+40]
+    245            /* Link The driver to the stack */
+    246            hpcd.pData = pdev;
+   \   0000004C   0x....             LDR.N    R0,??DataTable3_6
+   \   0000004E   0xF8C0 0x43BC      STR      R4,[R0, #+956]
+    247            pdev->pData = &hpcd;
+   \   00000052   0x....             LDR.N    R0,??DataTable3_6
+   \   00000054   0xF8C4 0x0220      STR      R0,[R4, #+544]
+    248            /*Initialize LL Driver */
+    249            HAL_PCD_Init(&hpcd);
+   \   00000058   0x....             LDR.N    R0,??DataTable3_6
+   \   0000005A   0x.... 0x....      BL       HAL_PCD_Init
+    250            
+    251            HAL_PCD_SetRxFiFo(&hpcd, 0x80);
+   \   0000005E   0x2180             MOVS     R1,#+128
+   \   00000060   0x....             LDR.N    R0,??DataTable3_6
+   \   00000062   0x.... 0x....      BL       HAL_PCDEx_SetRxFiFo
+    252            HAL_PCD_SetTxFiFo(&hpcd, 0, 0x40);
+   \   00000066   0x2240             MOVS     R2,#+64
+   \   00000068   0x2100             MOVS     R1,#+0
+   \   0000006A   0x....             LDR.N    R0,??DataTable3_6
+   \   0000006C   0x.... 0x....      BL       HAL_PCDEx_SetTxFiFo
+    253            HAL_PCD_SetTxFiFo(&hpcd, 1, 0x64);
+   \   00000070   0x2264             MOVS     R2,#+100
+   \   00000072   0x2101             MOVS     R1,#+1
+   \   00000074   0x....             LDR.N    R0,??DataTable3_6
+   \   00000076   0x.... 0x....      BL       HAL_PCDEx_SetTxFiFo
+    254          
+    255            
+    256            return USBD_OK;
+   \   0000007A   0x2000             MOVS     R0,#+0
+   \   0000007C   0xBD10             POP      {R4,PC}          ;; return
+    257          }
+    258          
+    259          /**
+    260          * @brief  USBD_LL_DeInit 
+    261          *         De-Initialize the Low Level portion of the Device driver.
+    262          * @param  pdev: Device handle
+    263          * @retval USBD Status
+    264          */
+
+   \                                 In section .text, align 2, keep-with-next
+    265          USBD_StatusTypeDef  USBD_LL_DeInit (USBD_HandleTypeDef *pdev)
+    266          {
+   \                     USBD_LL_DeInit: (+1)
+   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+    267            HAL_PCD_DeInit(pdev->pData);
+   \   00000004   0xF8D4 0x0220      LDR      R0,[R4, #+544]
+   \   00000008   0x.... 0x....      BL       HAL_PCD_DeInit
+    268            return USBD_OK; 
+   \   0000000C   0x2000             MOVS     R0,#+0
+   \   0000000E   0xBD10             POP      {R4,PC}          ;; return
+    269          }
+    270          
+    271          /**
+    272          * @brief  USBD_LL_Start 
+    273          *         Start the Low Level portion of the Device driver.
+    274          * @param  pdev: Device handle
+    275          * @retval USBD Status
+    276          */
+
+   \                                 In section .text, align 2, keep-with-next
+    277          USBD_StatusTypeDef  USBD_LL_Start(USBD_HandleTypeDef *pdev)
+    278          {
+   \                     USBD_LL_Start: (+1)
+   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+    279            HAL_PCD_Start(pdev->pData);
+   \   00000004   0xF8D4 0x0220      LDR      R0,[R4, #+544]
+   \   00000008   0x.... 0x....      BL       HAL_PCD_Start
+    280            return USBD_OK; 
+   \   0000000C   0x2000             MOVS     R0,#+0
+   \   0000000E   0xBD10             POP      {R4,PC}          ;; return
+    281          }
+    282          
+    283          /**
+    284          * @brief  USBD_LL_Stop 
+    285          *         Stop the Low Level portion of the Device driver.
+    286          * @param  pdev: Device handle
+    287          * @retval USBD Status
+    288          */
+
+   \                                 In section .text, align 2, keep-with-next
+    289          USBD_StatusTypeDef  USBD_LL_Stop (USBD_HandleTypeDef *pdev)
+    290          {
+   \                     USBD_LL_Stop: (+1)
+   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+    291            HAL_PCD_Stop(pdev->pData);
+   \   00000004   0xF8D4 0x0220      LDR      R0,[R4, #+544]
+   \   00000008   0x.... 0x....      BL       HAL_PCD_Stop
+    292            return USBD_OK; 
+   \   0000000C   0x2000             MOVS     R0,#+0
+   \   0000000E   0xBD10             POP      {R4,PC}          ;; return
+    293          }
+    294          
+    295          /**
+    296          * @brief  USBD_LL_OpenEP 
+    297          *         Open an endpoint of the Low Level Driver.
+    298          * @param  pdev: device handle
+    299          * @param  ep_addr: Endpoint Number
+    300          * @param  ep_type: Endpoint Type
+    301          * @param  ep_mps: Endpoint Max Packet Size                 
+    302          * @retval USBD Status
+    303          */
+
+   \                                 In section .text, align 2, keep-with-next
+    304          USBD_StatusTypeDef  USBD_LL_OpenEP  (USBD_HandleTypeDef *pdev, 
+    305                                               uint8_t  ep_addr,                                      
+    306                                               uint8_t  ep_type,
+    307                                               uint16_t ep_mps)
+    308          {
+   \                     USBD_LL_OpenEP: (+1)
+   \   00000000   0xB5F8             PUSH     {R3-R7,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
+   \   00000006   0x0016             MOVS     R6,R2
+   \   00000008   0x001F             MOVS     R7,R3
+    309            HAL_PCD_EP_Open(pdev->pData, 
+    310                            ep_addr, 
+    311                            ep_mps, 
+    312                            ep_type);
+   \   0000000A   0x0033             MOVS     R3,R6
+   \   0000000C   0xB2DB             UXTB     R3,R3            ;; ZeroExt  R3,R3,#+24,#+24
+   \   0000000E   0x003A             MOVS     R2,R7
+   \   00000010   0xB292             UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+   \   00000012   0x0029             MOVS     R1,R5
+   \   00000014   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   00000016   0xF8D4 0x0220      LDR      R0,[R4, #+544]
+   \   0000001A   0x.... 0x....      BL       HAL_PCD_EP_Open
+    313            
+    314            return USBD_OK; 
+   \   0000001E   0x2000             MOVS     R0,#+0
+   \   00000020   0xBDF2             POP      {R1,R4-R7,PC}    ;; return
+    315          }
+    316          
+    317          /**
+    318          * @brief  USBD_LL_CloseEP 
+    319          *         Close an endpoint of the Low Level Driver.
+    320          * @param  pdev: device handle
+    321          * @param  ep_addr: Endpoint Number      
+    322          * @retval USBD Status
+    323          */
+
+   \                                 In section .text, align 2, keep-with-next
+    324          USBD_StatusTypeDef  USBD_LL_CloseEP (USBD_HandleTypeDef *pdev, uint8_t ep_addr)   
+    325          {
+   \                     USBD_LL_CloseEP: (+1)
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
+    326            HAL_PCD_EP_Close(pdev->pData, ep_addr);
+   \   00000006   0x0029             MOVS     R1,R5
+   \   00000008   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   0000000A   0xF8D4 0x0220      LDR      R0,[R4, #+544]
+   \   0000000E   0x.... 0x....      BL       HAL_PCD_EP_Close
+    327            return USBD_OK; 
+   \   00000012   0x2000             MOVS     R0,#+0
+   \   00000014   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+    328          }
+    329          
+    330          /**
+    331          * @brief  USBD_LL_FlushEP 
+    332          *         Flush an endpoint of the Low Level Driver.
+    333          * @param  pdev: device handle
+    334          * @param  ep_addr: Endpoint Number      
+    335          * @retval USBD Status
+    336          */
+
+   \                                 In section .text, align 2, keep-with-next
+    337          USBD_StatusTypeDef  USBD_LL_FlushEP (USBD_HandleTypeDef *pdev, uint8_t ep_addr)   
+    338          {
+   \                     USBD_LL_FlushEP: (+1)
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
+    339            HAL_PCD_EP_Flush(pdev->pData, ep_addr);
+   \   00000006   0x0029             MOVS     R1,R5
+   \   00000008   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   0000000A   0xF8D4 0x0220      LDR      R0,[R4, #+544]
+   \   0000000E   0x.... 0x....      BL       HAL_PCD_EP_Flush
+    340            return USBD_OK; 
+   \   00000012   0x2000             MOVS     R0,#+0
+   \   00000014   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+    341          }
+    342          
+    343          /**
+    344          * @brief  USBD_LL_StallEP 
+    345          *         Set a Stall condition on an endpoint of the Low Level Driver.
+    346          * @param  pdev: device handle
+    347          * @param  ep_addr: Endpoint Number      
+    348          * @retval USBD Status
+    349          */
+
+   \                                 In section .text, align 2, keep-with-next
+    350          USBD_StatusTypeDef  USBD_LL_StallEP (USBD_HandleTypeDef *pdev, uint8_t ep_addr)   
+    351          {
+   \                     USBD_LL_StallEP: (+1)
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
+    352            HAL_PCD_EP_SetStall(pdev->pData, ep_addr);
+   \   00000006   0x0029             MOVS     R1,R5
+   \   00000008   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   0000000A   0xF8D4 0x0220      LDR      R0,[R4, #+544]
+   \   0000000E   0x.... 0x....      BL       HAL_PCD_EP_SetStall
+    353            return USBD_OK; 
+   \   00000012   0x2000             MOVS     R0,#+0
+   \   00000014   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+    354          }
+    355          
+    356          /**
+    357          * @brief  USBD_LL_ClearStallEP 
+    358          *         Clear a Stall condition on an endpoint of the Low Level Driver.
+    359          * @param  pdev: device handle
+    360          * @param  ep_addr: Endpoint Number      
+    361          * @retval USBD Status
+    362          */
+
+   \                                 In section .text, align 2, keep-with-next
+    363          USBD_StatusTypeDef  USBD_LL_ClearStallEP (USBD_HandleTypeDef *pdev, uint8_t ep_addr)   
+    364          {
+   \                     USBD_LL_ClearStallEP: (+1)
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
+    365            HAL_PCD_EP_ClrStall(pdev->pData, ep_addr);  
+   \   00000006   0x0029             MOVS     R1,R5
+   \   00000008   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   0000000A   0xF8D4 0x0220      LDR      R0,[R4, #+544]
+   \   0000000E   0x.... 0x....      BL       HAL_PCD_EP_ClrStall
+    366            return USBD_OK; 
+   \   00000012   0x2000             MOVS     R0,#+0
+   \   00000014   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+    367          }
+    368          
+    369          /**
+    370          * @brief  USBD_LL_IsStallEP 
+    371          *         Return Stall condition.
+    372          * @param  pdev: device handle
+    373          * @param  ep_addr: Endpoint Number      
+    374          * @retval Stall (1: yes, 0: No)
+    375          */
+
+   \                                 In section .text, align 2, keep-with-next
+    376          uint8_t USBD_LL_IsStallEP (USBD_HandleTypeDef *pdev, uint8_t ep_addr)   
+    377          {
+   \                     USBD_LL_IsStallEP: (+1)
+   \   00000000   0x0002             MOVS     R2,R0
+    378            PCD_HandleTypeDef *hpcd = pdev->pData; 
+   \   00000002   0xF8D2 0x0220      LDR      R0,[R2, #+544]
+    379            
+    380            if((ep_addr & 0x80) == 0x80)
+   \   00000006   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   00000008   0x060B             LSLS     R3,R1,#+24
+   \   0000000A   0xD508             BPL.N    ??USBD_LL_IsStallEP_0
+    381            {
+    382              return hpcd->IN_ep[ep_addr & 0x7F].is_stall; 
+   \   0000000C   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   0000000E   0xF011 0x017F      ANDS     R1,R1,#0x7F
+   \   00000012   0x231C             MOVS     R3,#+28
+   \   00000014   0xFB03 0x0001      MLA      R0,R3,R1,R0
+   \   00000018   0xF890 0x0036      LDRB     R0,[R0, #+54]
+   \   0000001C   0xE007             B.N      ??USBD_LL_IsStallEP_1
+    383            }
+    384            else
+    385            {
+    386              return hpcd->OUT_ep[ep_addr & 0x7F].is_stall; 
+   \                     ??USBD_LL_IsStallEP_0: (+1)
+   \   0000001E   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   00000020   0xF011 0x017F      ANDS     R1,R1,#0x7F
+   \   00000024   0x231C             MOVS     R3,#+28
+   \   00000026   0xFB03 0x0001      MLA      R0,R3,R1,R0
+   \   0000002A   0xF890 0x01DA      LDRB     R0,[R0, #+474]
+   \                     ??USBD_LL_IsStallEP_1: (+1)
+   \   0000002E   0x4770             BX       LR               ;; return
+    387            }
+    388          }
+    389          /**
+    390          * @brief  USBD_LL_SetDevAddress 
+    391          *         Assign an USB address to the device
+    392          * @param  pdev: device handle
+    393          * @param  ep_addr: Endpoint Number      
+    394          * @retval USBD Status
+    395          */
+
+   \                                 In section .text, align 2, keep-with-next
+    396          USBD_StatusTypeDef  USBD_LL_SetUSBAddress (USBD_HandleTypeDef *pdev, uint8_t dev_addr)   
+    397          {
+   \                     USBD_LL_SetUSBAddress: (+1)
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
+    398            HAL_PCD_SetAddress(pdev->pData, dev_addr);
+   \   00000006   0x0029             MOVS     R1,R5
+   \   00000008   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   0000000A   0xF8D4 0x0220      LDR      R0,[R4, #+544]
+   \   0000000E   0x.... 0x....      BL       HAL_PCD_SetAddress
+    399            return USBD_OK; 
+   \   00000012   0x2000             MOVS     R0,#+0
+   \   00000014   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+    400          }
+    401          
+    402          /**
+    403          * @brief  USBD_LL_Transmit 
+    404          *         Transmit data over an endpoint
+    405          * @param  pdev: device handle
+    406          * @param  ep_addr: Endpoint Number
+    407          * @param  pbuf:pointer to data to be sent    
+    408          * @param  size: data size    
+    409          * @retval USBD Status
+    410          */
+
+   \                                 In section .text, align 2, keep-with-next
+    411          USBD_StatusTypeDef  USBD_LL_Transmit (USBD_HandleTypeDef *pdev, 
+    412                                                uint8_t  ep_addr,                                      
+    413                                                uint8_t  *pbuf,
+    414                                                uint16_t  size)
+    415          {
+   \                     USBD_LL_Transmit: (+1)
+   \   00000000   0xB5F8             PUSH     {R3-R7,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
+   \   00000006   0x0016             MOVS     R6,R2
+   \   00000008   0x001F             MOVS     R7,R3
+    416            HAL_PCD_EP_Transmit(pdev->pData, ep_addr, pbuf, size);
+   \   0000000A   0xB2BF             UXTH     R7,R7            ;; ZeroExt  R7,R7,#+16,#+16
+   \   0000000C   0x003B             MOVS     R3,R7
+   \   0000000E   0x0032             MOVS     R2,R6
+   \   00000010   0x0029             MOVS     R1,R5
+   \   00000012   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   00000014   0xF8D4 0x0220      LDR      R0,[R4, #+544]
+   \   00000018   0x.... 0x....      BL       HAL_PCD_EP_Transmit
+    417            return USBD_OK;   
+   \   0000001C   0x2000             MOVS     R0,#+0
+   \   0000001E   0xBDF2             POP      {R1,R4-R7,PC}    ;; return
+    418          }
+    419          
+    420          /**
+    421          * @brief  USBD_LL_PrepareReceive 
+    422          *         prepare an endpoint for reception
+    423          * @param  pdev: device handle
+    424          * @param  ep_addr: Endpoint Number
+    425          * @param  pbuf:pointer to data to be received    
+    426          * @param  size: data size              
+    427          * @retval USBD Status
+    428          */
+
+   \                                 In section .text, align 2, keep-with-next
+    429          USBD_StatusTypeDef  USBD_LL_PrepareReceive(USBD_HandleTypeDef *pdev, 
+    430                                                     uint8_t  ep_addr,                                      
+    431                                                     uint8_t  *pbuf,
+    432                                                     uint16_t  size)
+    433          {
+   \                     USBD_LL_PrepareReceive: (+1)
+   \   00000000   0xB5F8             PUSH     {R3-R7,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
+   \   00000006   0x0016             MOVS     R6,R2
+   \   00000008   0x001F             MOVS     R7,R3
+    434            HAL_PCD_EP_Receive(pdev->pData, ep_addr, pbuf, size);
+   \   0000000A   0xB2BF             UXTH     R7,R7            ;; ZeroExt  R7,R7,#+16,#+16
+   \   0000000C   0x003B             MOVS     R3,R7
+   \   0000000E   0x0032             MOVS     R2,R6
+   \   00000010   0x0029             MOVS     R1,R5
+   \   00000012   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   00000014   0xF8D4 0x0220      LDR      R0,[R4, #+544]
+   \   00000018   0x.... 0x....      BL       HAL_PCD_EP_Receive
+    435            return USBD_OK;   
+   \   0000001C   0x2000             MOVS     R0,#+0
+   \   0000001E   0xBDF2             POP      {R1,R4-R7,PC}    ;; return
+    436          }
+    437          
+    438          /**
+    439          * @brief  USBD_LL_GetRxDataSize 
+    440          *         Return the last transfered packet size.
+    441          * @param  phost: Device handle
+    442          * @param  ep_addr: Endpoint Number
+    443          * @retval Recived Data Size
+    444          */
+
+   \                                 In section .text, align 2, keep-with-next
+    445          uint32_t USBD_LL_GetRxDataSize  (USBD_HandleTypeDef *pdev, uint8_t  ep_addr)  
+    446          {
+   \                     USBD_LL_GetRxDataSize: (+1)
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
+    447            return HAL_PCD_EP_GetRxCount(pdev->pData, ep_addr);
+   \   00000006   0x0029             MOVS     R1,R5
+   \   00000008   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   0000000A   0xF8D4 0x0220      LDR      R0,[R4, #+544]
+   \   0000000E   0x.... 0x....      BL       HAL_PCD_EP_GetRxCount
+   \   00000012   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+    448          }
+    449          
+    450          /**
+    451          * @brief  USBD_LL_Delay 
+    452          *         Delay routine for the USB Device Library
+    453          * @param  Delay: Delay in ms
+    454          * @retval None
+    455          */
+
+   \                                 In section .text, align 2, keep-with-next
+    456          void  USBD_LL_Delay (uint32_t Delay)
+    457          {
+   \                     USBD_LL_Delay: (+1)
+   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+    458            HAL_Delay(Delay);  
+   \   00000004   0x0020             MOVS     R0,R4
+   \   00000006   0x.... 0x....      BL       HAL_Delay
+    459          }
+   \   0000000A   0xBD10             POP      {R4,PC}          ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3:
+   \   00000000   0xE000ED18         DC32     0xe000ed18
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_1:
+   \   00000000   0xE000E400         DC32     0xe000e400
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_2:
+   \   00000000   0x40023830         DC32     0x40023830
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_3:
+   \   00000000   0x40020000         DC32     0x40020000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_4:
+   \   00000000   0x40023834         DC32     0x40023834
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_5:
+   \   00000000   0x40023844         DC32     0x40023844
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_6:
+   \   00000000   0x........         DC32     hpcd
+    460          
+    461          /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       8   HAL_PCD_ConnectCallback
+         8   -> USBD_LL_DevConnected
+      16   HAL_PCD_DataInStageCallback
+        16   -> USBD_LL_DataInStage
+      16   HAL_PCD_DataOutStageCallback
+        16   -> USBD_LL_DataOutStage
+       8   HAL_PCD_DisconnectCallback
+         8   -> USBD_LL_DevDisconnected
+      16   HAL_PCD_ISOINIncompleteCallback
+        16   -> USBD_LL_IsoINIncomplete
+      16   HAL_PCD_ISOOUTIncompleteCallback
+        16   -> USBD_LL_IsoOUTIncomplete
+       0   HAL_PCD_MspDeInit
+      40   HAL_PCD_MspInit
+        40   -> HAL_GPIO_Init
+        40   -> HAL_NVIC_EnableIRQ
+        40   -> HAL_NVIC_SetPriority
+      16   HAL_PCD_ResetCallback
+        16   -> USBD_LL_Reset
+        16   -> USBD_LL_SetSpeed
+       8   HAL_PCD_ResumeCallback
+         8   -> USBD_LL_Resume
+       8   HAL_PCD_SOFCallback
+         8   -> USBD_LL_SOF
+       8   HAL_PCD_SetupStageCallback
+         8   -> USBD_LL_SetupStage
+       8   HAL_PCD_SuspendCallback
+         8   -> USBD_LL_Suspend
+       4   NVIC_SetPriority
+      16   USBD_LL_ClearStallEP
+        16   -> HAL_PCD_EP_ClrStall
+      16   USBD_LL_CloseEP
+        16   -> HAL_PCD_EP_Close
+       8   USBD_LL_DeInit
+         8   -> HAL_PCD_DeInit
+       8   USBD_LL_Delay
+         8   -> HAL_Delay
+      16   USBD_LL_FlushEP
+        16   -> HAL_PCD_EP_Flush
+      16   USBD_LL_GetRxDataSize
+        16   -> HAL_PCD_EP_GetRxCount
+       8   USBD_LL_Init
+         8   -> HAL_PCDEx_SetRxFiFo
+         8   -> HAL_PCDEx_SetTxFiFo
+         8   -> HAL_PCD_Init
+         8   -> NVIC_SetPriority
+       0   USBD_LL_IsStallEP
+      24   USBD_LL_OpenEP
+        24   -> HAL_PCD_EP_Open
+      24   USBD_LL_PrepareReceive
+        24   -> HAL_PCD_EP_Receive
+      16   USBD_LL_SetUSBAddress
+        16   -> HAL_PCD_SetAddress
+      16   USBD_LL_StallEP
+        16   -> HAL_PCD_EP_SetStall
+       8   USBD_LL_Start
+         8   -> HAL_PCD_Start
+       8   USBD_LL_Stop
+         8   -> HAL_PCD_Stop
+      24   USBD_LL_Transmit
+        24   -> HAL_PCD_EP_Transmit
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable3
+       4  ??DataTable3_1
+       4  ??DataTable3_2
+       4  ??DataTable3_3
+       4  ??DataTable3_4
+       4  ??DataTable3_5
+       4  ??DataTable3_6
+      14  HAL_PCD_ConnectCallback
+      30  HAL_PCD_DataInStageCallback
+      32  HAL_PCD_DataOutStageCallback
+      14  HAL_PCD_DisconnectCallback
+      20  HAL_PCD_ISOINIncompleteCallback
+      20  HAL_PCD_ISOOUTIncompleteCallback
+      34  HAL_PCD_MspDeInit
+     136  HAL_PCD_MspInit
+      56  HAL_PCD_ResetCallback
+      14  HAL_PCD_ResumeCallback
+      14  HAL_PCD_SOFCallback
+      18  HAL_PCD_SetupStageCallback
+      14  HAL_PCD_SuspendCallback
+      38  NVIC_SetPriority
+      22  USBD_LL_ClearStallEP
+      22  USBD_LL_CloseEP
+      16  USBD_LL_DeInit
+      12  USBD_LL_Delay
+      22  USBD_LL_FlushEP
+      20  USBD_LL_GetRxDataSize
+     126  USBD_LL_Init
+      48  USBD_LL_IsStallEP
+      34  USBD_LL_OpenEP
+      32  USBD_LL_PrepareReceive
+      22  USBD_LL_SetUSBAddress
+      22  USBD_LL_StallEP
+      16  USBD_LL_Start
+      16  USBD_LL_Stop
+      32  USBD_LL_Transmit
+     960  hpcd
+
+ 
+ 960 bytes in section .bss
+ 944 bytes in section .text
+ 
+ 944 bytes of CODE memory
+ 960 bytes of DATA memory
+
+Errors: none
+Warnings: none

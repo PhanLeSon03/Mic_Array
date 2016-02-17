@@ -46,6 +46,7 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 extern HCD_HandleTypeDef hhcd;
+extern PCD_HandleTypeDef hpcd;
 extern __IO  char flg10ms;
 
 uint32_t cntOS;
@@ -227,7 +228,8 @@ void OTG_FS_IRQHandler(void)
 void OTG_HS_IRQHandler(void)
 #endif
 {
-  HAL_HCD_IRQHandler(&hhcd);
+  //sop1hc HAL_HCD_IRQHandler(&hhcd);
+  HAL_PCD_IRQHandler(&hpcd);
 }
 
 /**

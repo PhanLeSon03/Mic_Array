@@ -45,17 +45,24 @@
 #include "audio_codec.h"   
 #include "waveplayer_CS43L22.h"
 #include "stm32746g_discovery_sdram.h"
+#include "usbd_desc.h"
+#include "usbd_audio_in.h"
+#include "usbd_audio_if.h" 
+#include "audio_application.h"
+
+
 
 #define DEBUG           1
 //#define MAIN_RECORD
 #define MAIN_CRSCORR    0
 #define MAIN_FFT        0
+#define USB_STREAMING   1
 
 /* Exported Defines ----------------------------------------------------------*/
 
 /*  @brief  StartAddress   */
-#define SDRAM_BANK_ADDR                 ((uint32_t)0xC0000000)
-
+#define SDRAM_BANK_ADDR                 (0xC0000000)
+#define BUFFER_SIZE_BYTE                (0x000080A0)                       
 
 
 #define INTERRUPT_PRI_SDO12     0
@@ -67,6 +74,10 @@
 #define INTERRUPT_PRI_DMA       5
 #define INTERRUPT_PRI_EXT_LRCK  6
 
+
+
+#define AUDIO_CHANNELS 				        			2
+#define AUDIO_SAMPLING_FREQUENCY 		            16000
 
 
 #define AUDIO_OUT_BUFFER_SIZE                      1024
