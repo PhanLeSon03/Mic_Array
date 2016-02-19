@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    USB_Device/AUDIO_Standalone/Src/usbd_desc.c
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    26-February-2014
+  * @version V1.0.0
+  * @date    25-June-2015
   * @brief   This file provides the USBD descriptors and string formating method.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2014 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
   *
   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
   * You may not use this file except in compliance with the License.
@@ -37,9 +37,7 @@
 #define USBD_LANGID_STRING            0x409
 #define USBD_MANUFACTURER_STRING      "STMicroelectronics"
 #define USBD_PRODUCT_HS_STRING        "STM32 AUDIO Streaming in HS Mode"
-#define USBD_SERIALNUMBER_HS_STRING   "00000000034E"
 #define USBD_PRODUCT_FS_STRING        "STM32 AUDIO Streaming in FS Mode"
-#define USBD_SERIALNUMBER_FS_STRING   "00000000034F"
 #define USBD_CONFIGURATION_HS_STRING  "AUDIO Config"
 #define USBD_INTERFACE_HS_STRING      "AUDIO Interface"
 #define USBD_CONFIGURATION_FS_STRING  "AUDIO Config"
@@ -73,7 +71,7 @@ USBD_DescriptorsTypeDef AUDIO_Desc = {
 #if defined ( __ICCARM__ ) /*!< IAR Compiler */
   #pragma data_alignment=4   
 #endif
-__ALIGN_BEGIN uint8_t hUSBDDeviceDesc[USB_LEN_DEV_DESC] __ALIGN_END = {
+__ALIGN_BEGIN uint8_t USBD_DeviceDesc[USB_LEN_DEV_DESC] __ALIGN_END = {
   0x12,                       /* bLength */
   USB_DESC_TYPE_DEVICE,       /* bDescriptorType */
   0x00,                       /* bcdUSB */
@@ -105,12 +103,21 @@ __ALIGN_BEGIN uint8_t USBD_LangIDDesc[USB_LEN_LANGID_STR_DESC] __ALIGN_END = {
   HIBYTE(USBD_LANGID_STRING), 
 };
 
+
+uint8_t USBD_StringSerial[USB_SIZ_STRING_SERIAL] =
+{
+  USB_SIZ_STRING_SERIAL,      
+  USB_DESC_TYPE_STRING,    
+};
+
 #if defined ( __ICCARM__ ) /*!< IAR Compiler */
   #pragma data_alignment=4   
 #endif
 __ALIGN_BEGIN uint8_t USBD_StrDesc[USBD_MAX_STR_DESC_SIZ] __ALIGN_END;
 
 /* Private functions ---------------------------------------------------------*/
+static void IntToUnicode (uint32_t value , uint8_t *pbuf , uint8_t len);
+static void Get_SerialNum(void);
 
 /**
   * @brief  Returns the device descriptor. 
@@ -120,8 +127,8 @@ __ALIGN_BEGIN uint8_t USBD_StrDesc[USBD_MAX_STR_DESC_SIZ] __ALIGN_END;
   */
 uint8_t *USBD_AUDIO_DeviceDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 {
-  *length = sizeof(hUSBDDeviceDesc);
-  return hUSBDDeviceDesc;
+  *length = sizeof(USBD_DeviceDesc);
+  return (uint8_t*)USBD_DeviceDesc;
 }
 
 /**
@@ -133,7 +140,7 @@ uint8_t *USBD_AUDIO_DeviceDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 uint8_t *USBD_AUDIO_LangIDStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 {
   *length = sizeof(USBD_LangIDDesc);  
-  return USBD_LangIDDesc;
+  return (uint8_t*)USBD_LangIDDesc;
 }
 
 /**
@@ -144,7 +151,7 @@ uint8_t *USBD_AUDIO_LangIDStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *lengt
   */
 uint8_t *USBD_AUDIO_ProductStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 {
-  if(speed == 0)
+  if(speed == USBD_SPEED_HIGH)
   {   
     USBD_GetString((uint8_t *)USBD_PRODUCT_HS_STRING, USBD_StrDesc, length);
   }
@@ -175,15 +182,12 @@ uint8_t *USBD_AUDIO_ManufacturerStrDescriptor(USBD_SpeedTypeDef speed, uint16_t 
   */
 uint8_t *USBD_AUDIO_SerialStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 {
-  if(speed == USBD_SPEED_HIGH)
-  {    
-    USBD_GetString((uint8_t *)USBD_SERIALNUMBER_HS_STRING, USBD_StrDesc, length);
-  }
-  else
-  {
-    USBD_GetString((uint8_t *)USBD_SERIALNUMBER_FS_STRING, USBD_StrDesc, length);
-  }
-  return USBD_StrDesc;
+  *length = USB_SIZ_STRING_SERIAL;
+  
+  /* Update the serial number string descriptor with the data from the unique ID*/
+  Get_SerialNum();
+  
+  return (uint8_t*)USBD_StringSerial;
 }
 
 /**
@@ -213,7 +217,7 @@ uint8_t *USBD_AUDIO_ConfigStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *lengt
   */
 uint8_t *USBD_AUDIO_InterfaceStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 {
-  if(speed == 0)
+  if(speed == USBD_SPEED_HIGH)
   {
     USBD_GetString((uint8_t *)USBD_INTERFACE_HS_STRING, USBD_StrDesc, length);
   }
@@ -224,4 +228,53 @@ uint8_t *USBD_AUDIO_InterfaceStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *le
   return USBD_StrDesc;  
 }
 
+/**
+  * @brief  Create the serial number string descriptor 
+  * @param  None 
+  * @retval None
+  */
+static void Get_SerialNum(void)
+{
+  uint32_t deviceserial0, deviceserial1, deviceserial2;
+  
+  deviceserial0 = *(uint32_t*)DEVICE_ID1;
+  deviceserial1 = *(uint32_t*)DEVICE_ID2;
+  deviceserial2 = *(uint32_t*)DEVICE_ID3;
+  
+  deviceserial0 += deviceserial2;
+  
+  if (deviceserial0 != 0)
+  {
+    IntToUnicode (deviceserial0, &USBD_StringSerial[2] ,8);
+    IntToUnicode (deviceserial1, &USBD_StringSerial[18] ,4);
+  }
+}
+
+/**
+  * @brief  Convert Hex 32Bits value into char 
+  * @param  value: value to convert
+  * @param  pbuf: pointer to the buffer 
+  * @param  len: buffer length
+  * @retval None
+  */
+static void IntToUnicode (uint32_t value , uint8_t *pbuf , uint8_t len)
+{
+  uint8_t idx = 0;
+  
+  for( idx = 0; idx < len; idx ++)
+  {
+    if( ((value >> 28)) < 0xA )
+    {
+      pbuf[ 2* idx] = (value >> 28) + '0';
+    }
+    else
+    {
+      pbuf[2* idx] = (value >> 28) + 'A' - 10; 
+    }
+    
+    value = value << 4;
+    
+    pbuf[ 2* idx + 1] = 0;
+  }
+}
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

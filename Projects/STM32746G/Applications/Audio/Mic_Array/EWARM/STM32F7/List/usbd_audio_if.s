@@ -1,60 +1,60 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      13/Feb/2016  11:44:38
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      19/Feb/2016  17:44:15
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\usbd_audio_if.c
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\usbd_audio_if.c
 //    Command line =  
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\usbd_audio_if.c
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\usbd_audio_if.c
 //        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 //        USE_IOEXPANDER -D USE_USB_FS -lC
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -lA
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
 //        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
 //        --no_clustering --no_scheduling --debug --endian=little
 //        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
 //        -On --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\usbd_audio_if.s
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\usbd_audio_if.s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -73,6 +73,7 @@
 
         PUBLIC Send_Audio_to_USB
         PUBLIC USBD_AUDIO_fops
+        PUBLIC USBD_stAudioStop
         PUBLIC vol_table
         
           CFI Names cfiNames0
@@ -121,7 +122,7 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
         
-// H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\usbd_audio_if.c
+// D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\usbd_audio_if.c
 //    1 /**
 //    2 ******************************************************************************
 //    3 * @file    /Src/usbd_audio_if.c
@@ -174,50 +175,56 @@
 //   50 extern uint16_t PDM_Buffer[];
 //   51 #endif
 //   52 
-//   53 /* Private typedef -----------------------------------------------------------*/
-//   54 /* Private define ------------------------------------------------------------*/
-//   55 /* Private macro -------------------------------------------------------------*/
-//   56 /* Private function prototypes -----------------------------------------------*/
-//   57 static int8_t Audio_Init(uint32_t  AudioFreq, uint32_t BitRes, uint32_t ChnlNbr);
-//   58 static int8_t Audio_DeInit(uint32_t options);
-//   59 static int8_t Audio_Record(void);
-//   60 static int8_t Audio_VolumeCtl(int16_t Volume);
-//   61 static int8_t Audio_MuteCtl(uint8_t cmd);
-//   62 static int8_t Audio_Stop(void);
-//   63 static int8_t Audio_Pause(void);
-//   64 static int8_t Audio_Resume(void);
-//   65 static int8_t Audio_CommandMgr(uint8_t cmd);
-//   66 
-//   67 /* Private variables ---------------------------------------------------------*/
-//   68 extern USBD_HandleTypeDef hUSBDDevice;
+
+        SECTION `.bss`:DATA:REORDER:NOROOT(0)
+        DATA
+//   53 uint8_t USBD_stAudioStop;
+USBD_stAudioStop:
+        DS8 1
+//   54 /* Private typedef -----------------------------------------------------------*/
+//   55 /* Private define ------------------------------------------------------------*/
+//   56 /* Private macro -------------------------------------------------------------*/
+//   57 /* Private function prototypes -----------------------------------------------*/
+//   58 static int8_t Audio_Init(uint32_t  AudioFreq, uint32_t BitRes, uint32_t ChnlNbr);
+//   59 static int8_t Audio_DeInit(uint32_t options);
+//   60 static int8_t Audio_Record(void);
+//   61 static int8_t Audio_VolumeCtl(int16_t Volume);
+//   62 static int8_t Audio_MuteCtl(uint8_t cmd);
+//   63 static int8_t Audio_Stop(void);
+//   64 static int8_t Audio_Pause(void);
+//   65 static int8_t Audio_Resume(void);
+//   66 static int8_t Audio_CommandMgr(uint8_t cmd);
+//   67 
+//   68 /* Private variables ---------------------------------------------------------*/
+//   69 extern USBD_HandleTypeDef hUSBDDevice;
 
         SECTION `.data`:DATA:REORDER:NOROOT(2)
         DATA
-//   69 USBD_AUDIO_ItfTypeDef USBD_AUDIO_fops = {
+//   70 USBD_AUDIO_ItfTypeDef USBD_AUDIO_fops = {
 USBD_AUDIO_fops:
         DC32 Audio_Init, Audio_DeInit, Audio_Record, Audio_VolumeCtl
         DC32 Audio_MuteCtl, Audio_Stop, Audio_Pause, Audio_Resume
         DC32 Audio_CommandMgr
-//   70   Audio_Init,
-//   71   Audio_DeInit,
-//   72   Audio_Record,
-//   73   Audio_VolumeCtl,
-//   74   Audio_MuteCtl,
-//   75   Audio_Stop,
-//   76   Audio_Pause,
-//   77   Audio_Resume,
-//   78   Audio_CommandMgr,
-//   79 };
-//   80 
+//   71   Audio_Init,
+//   72   Audio_DeInit,
+//   73   Audio_Record,
+//   74   Audio_VolumeCtl,
+//   75   Audio_MuteCtl,
+//   76   Audio_Stop,
+//   77   Audio_Pause,
+//   78   Audio_Resume,
+//   79   Audio_CommandMgr,
+//   80 };
 //   81 
-//   82 /* Private functions ---------------------------------------------------------*/
-//   83 /* This table maps the audio device class setting in 1/256 dB to a
-//   84 * linear 0-64 scaling used in pdm_filter.c. It is computed as
-//   85 * 256*20*log10(index/64). */
+//   82 
+//   83 /* Private functions ---------------------------------------------------------*/
+//   84 /* This table maps the audio device class setting in 1/256 dB to a
+//   85 * linear 0-64 scaling used in pdm_filter.c. It is computed as
+//   86 * 256*20*log10(index/64). */
 
         SECTION `.rodata`:CONST:REORDER:NOROOT(2)
         DATA
-//   86 const int16_t vol_table[65] =
+//   87 const int16_t vol_table[65] =
 vol_table:
         DC16 -32768, -9248, -7706, -6805, -6165, -5669, -5264, -4921, -4624
         DC16 -4362, -4128, -3916, -3722, -3544, -3379, -3226, -3083, -2948
@@ -227,105 +234,111 @@ vol_table:
         DC16 -734, -687, -640, -594, -549, -505, -462, -419, -378, -337, -297
         DC16 -256, -219, -181, -144, -107, -71, -48, 0
         DC8 0, 0
-//   87 { 0x8000, 0xDBE0, 0xE1E6, 0xE56B, 0xE7EB, 0xE9DB, 0xEB70, 0xECC7,
-//   88 0xEDF0, 0xEEF6, 0xEFE0, 0xF0B4, 0xF176, 0xF228, 0xF2CD, 0xF366,
-//   89 0xF3F5, 0xF47C, 0xF4FB, 0xF574, 0xF5E6, 0xF652, 0xF6BA, 0xF71C,
-//   90 0xF778, 0xF7D6, 0xF82D, 0xF881, 0xF8D2, 0xF920, 0xF96B, 0xF9B4,
-//   91 0xF9FB, 0xFA3F, 0xFA82, 0xFAC2, 0xFB01, 0xFB3E, 0xFB79, 0xFBB3,
-//   92 0xFBEB, 0xFC22, 0xFC57, 0xFC8C, 0xFCBF, 0xFCF1, 0xFD22, 0xFD51,
-//   93 0xFD80, 0xFDAE, 0xFDDB, 0xFE07, 0xFE32, 0xFE5D, 0xFE86, 0xFEAF,
-//   94 0xFED7, 0xFF00, 0xFF25, 0xFF4B, 0xFF70, 0xFF95, 0xFFB9, 0xFFD0,
-//   95 0x0000 };
-//   96 
-//   97 //volatile uint8_t VolumeSetting=64;
-//   98 
-//   99 /**
-//  100 * @brief  Initializes the AUDIO media low layer.
-//  101 * @param  AudioFreq: Audio frequency used to play the audio stream.
-//  102 * @param  BitRes: desired bit resolution
-//  103 * @param  ChnlNbr: number of channel to be configured
-//  104 * @retval AUDIO_OK in case of success, AUDIO_ERROR otherwise
-//  105 */
+//   88 { 0x8000, 0xDBE0, 0xE1E6, 0xE56B, 0xE7EB, 0xE9DB, 0xEB70, 0xECC7,
+//   89 0xEDF0, 0xEEF6, 0xEFE0, 0xF0B4, 0xF176, 0xF228, 0xF2CD, 0xF366,
+//   90 0xF3F5, 0xF47C, 0xF4FB, 0xF574, 0xF5E6, 0xF652, 0xF6BA, 0xF71C,
+//   91 0xF778, 0xF7D6, 0xF82D, 0xF881, 0xF8D2, 0xF920, 0xF96B, 0xF9B4,
+//   92 0xF9FB, 0xFA3F, 0xFA82, 0xFAC2, 0xFB01, 0xFB3E, 0xFB79, 0xFBB3,
+//   93 0xFBEB, 0xFC22, 0xFC57, 0xFC8C, 0xFCBF, 0xFCF1, 0xFD22, 0xFD51,
+//   94 0xFD80, 0xFDAE, 0xFDDB, 0xFE07, 0xFE32, 0xFE5D, 0xFE86, 0xFEAF,
+//   95 0xFED7, 0xFF00, 0xFF25, 0xFF4B, 0xFF70, 0xFF95, 0xFFB9, 0xFFD0,
+//   96 0x0000 };
+//   97 
+//   98 //volatile uint8_t VolumeSetting=64;
+//   99 
+//  100 /**
+//  101 * @brief  Initializes the AUDIO media low layer.
+//  102 * @param  AudioFreq: Audio frequency used to play the audio stream.
+//  103 * @param  BitRes: desired bit resolution
+//  104 * @param  ChnlNbr: number of channel to be configured
+//  105 * @retval AUDIO_OK in case of success, AUDIO_ERROR otherwise
+//  106 */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock0 Using cfiCommon0
           CFI Function Audio_Init
           CFI NoCalls
         THUMB
-//  106 static int8_t Audio_Init(uint32_t  AudioFreq, uint32_t BitRes, uint32_t ChnlNbr)
-//  107 {
+//  107 static int8_t Audio_Init(uint32_t  AudioFreq, uint32_t BitRes, uint32_t ChnlNbr)
+//  108 {
 Audio_Init:
         MOVS     R3,R0
-//  108 #ifndef DISABLE_USB_DRIVEN_ACQUISITION 
-//  109   //return BSP_AUDIO_IN_Init(AudioFreq, BitRes, ChnlNbr);
-//  110 	return 0;
+//  109 #ifndef DISABLE_USB_DRIVEN_ACQUISITION 
+//  110   //return BSP_AUDIO_IN_Init(AudioFreq, BitRes, ChnlNbr);
+//  111 	return 0;
         MOVS     R0,#+0
         BX       LR               ;; return
-//  111 #endif
-//  112 }
+//  112 #endif
+//  113 }
           CFI EndBlock cfiBlock0
-//  113 
-//  114 /**
-//  115 * @brief  De-Initializes the AUDIO media low layer.      
-//  116 * @param  options: Reserved for future use
-//  117 * @retval AUDIO_OK in case of success, AUDIO_ERROR otherwise
-//  118 */
+//  114 
+//  115 /**
+//  116 * @brief  De-Initializes the AUDIO media low layer.      
+//  117 * @param  options: Reserved for future use
+//  118 * @retval AUDIO_OK in case of success, AUDIO_ERROR otherwise
+//  119 */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock1 Using cfiCommon0
           CFI Function Audio_DeInit
           CFI NoCalls
         THUMB
-//  119 static int8_t Audio_DeInit(uint32_t options)
-//  120 {
+//  120 static int8_t Audio_DeInit(uint32_t options)
+//  121 {
 Audio_DeInit:
         MOVS     R1,R0
-//  121   return AUDIO_OK;
+//  122   return AUDIO_OK;
         MOVS     R0,#+0
         BX       LR               ;; return
-//  122 }
+//  123 }
           CFI EndBlock cfiBlock1
-//  123 
-//  124 /**
-//  125 * @brief  Start audio recording engine
-//  126 * @retval AUDIO_OK in case of success, AUDIO_ERROR otherwise
-//  127 */
+//  124 
+//  125 /**
+//  126 * @brief  Start audio recording engine
+//  127 * @retval AUDIO_OK in case of success, AUDIO_ERROR otherwise
+//  128 */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock2 Using cfiCommon0
           CFI Function Audio_Record
           CFI NoCalls
         THUMB
-//  128 static int8_t Audio_Record(void)
-//  129 {
-//  130 #ifndef DISABLE_USB_DRIVEN_ACQUISITION  
-//  131 #ifdef USE_STM32L4XX_NUCLEO
-//  132   //return BSP_AUDIO_IN_Record(PCM_Buffer, 0);
-//  133   return 0;
-//  134 #else
-//  135   //return BSP_AUDIO_IN_Record(PDM_Buffer, 0);
-//  136   return 0;
+//  129 static int8_t Audio_Record(void)
+//  130 {
+//  131 
+//  132 USBD_stAudioStop=0;
 Audio_Record:
         MOVS     R0,#+0
+        LDR.N    R1,??DataTable3
+        STRB     R0,[R1, #+0]
+//  133 
+//  134 #ifndef DISABLE_USB_DRIVEN_ACQUISITION  
+//  135 #ifdef USE_STM32L4XX_NUCLEO
+//  136   //return BSP_AUDIO_IN_Record(PCM_Buffer, 0);
+//  137   return 0;
+//  138 #else
+//  139   //return BSP_AUDIO_IN_Record(PDM_Buffer, 0);
+//  140   return 0;
+        MOVS     R0,#+0
         BX       LR               ;; return
-//  137 #endif
-//  138   
-//  139 #endif
-//  140 }
+//  141 #endif
+//  142   
+//  143 #endif
+//  144 }
           CFI EndBlock cfiBlock2
-//  141 
-//  142 /**
-//  143 * @brief  Controls AUDIO Volume.             
-//  144 * @param  vol: Volume level
-//  145 * @retval AUDIO_OK in case of success, AUDIO_ERROR otherwise
-//  146 */
+//  145 
+//  146 /**
+//  147 * @brief  Controls AUDIO Volume.             
+//  148 * @param  vol: Volume level
+//  149 * @retval AUDIO_OK in case of success, AUDIO_ERROR otherwise
+//  150 */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock3 Using cfiCommon0
           CFI Function Audio_VolumeCtl
         THUMB
-//  147 static int8_t Audio_VolumeCtl(int16_t Volume)
-//  148 {
+//  151 static int8_t Audio_VolumeCtl(int16_t Volume)
+//  152 {
 Audio_VolumeCtl:
         PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
@@ -334,20 +347,20 @@ Audio_VolumeCtl:
           CFI R4 Frame(CFA, -16)
           CFI CFA R13+16
         MOVS     R4,R0
-//  149   /* Call low layer volume setting function */
-//  150   int j;
-//  151   
-//  152   j = 0;
+//  153   /* Call low layer volume setting function */
+//  154   int j;
+//  155   
+//  156   j = 0;
         MOVS     R0,#+0
         MOVS     R5,R0
-//  153   /* Find the setting nearest to the desired setting */
-//  154   while(j<64 &&
-//  155         abs(Volume-vol_table[j]) > abs(Volume-vol_table[j+1])) {
+//  157   /* Find the setting nearest to the desired setting */
+//  158   while(j<64 &&
+//  159         abs(Volume-vol_table[j]) > abs(Volume-vol_table[j+1])) {
 ??Audio_VolumeCtl_0:
         CMP      R5,#+64
         BGE.N    ??Audio_VolumeCtl_1
         SXTH     R4,R4            ;; SignExt  R4,R4,#+16,#+16
-        LDR.N    R0,??DataTable1
+        LDR.N    R0,??DataTable3_1
         ADDS     R0,R0,R5, LSL #+1
         LDRSH    R0,[R0, #+2]
         SUBS     R0,R4,R0
@@ -355,152 +368,157 @@ Audio_VolumeCtl:
         BL       abs
         MOVS     R6,R0
         SXTH     R4,R4            ;; SignExt  R4,R4,#+16,#+16
-        LDR.N    R0,??DataTable1
+        LDR.N    R0,??DataTable3_1
         LDRSH    R0,[R0, R5, LSL #+1]
         SUBS     R0,R4,R0
           CFI FunCall abs
         BL       abs
         CMP      R6,R0
         BGE.N    ??Audio_VolumeCtl_1
-//  156           j++;
+//  160           j++;
         ADDS     R5,R5,#+1
         B.N      ??Audio_VolumeCtl_0
-//  157         }
-//  158   /* Now do the volume adjustment */
-//  159   //return BSP_AUDIO_IN_SetVolume((uint8_t)j);
-//  160   return 0;
+//  161         }
+//  162   /* Now do the volume adjustment */
+//  163   //return BSP_AUDIO_IN_SetVolume((uint8_t)j);
+//  164   return 0;
 ??Audio_VolumeCtl_1:
         MOVS     R0,#+0
         POP      {R4-R6,PC}       ;; return
-//  161   
-//  162   
-//  163 }
+//  165   
+//  166   
+//  167 }
           CFI EndBlock cfiBlock3
-//  164 
-//  165 /**
-//  166 * @brief  Controls AUDIO Mute.              
-//  167 * @param  cmd: Command opcode
-//  168 * @retval AUDIO_OK in case of success, AUDIO_ERROR otherwise
-//  169 */
+//  168 
+//  169 /**
+//  170 * @brief  Controls AUDIO Mute.              
+//  171 * @param  cmd: Command opcode
+//  172 * @retval AUDIO_OK in case of success, AUDIO_ERROR otherwise
+//  173 */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock4 Using cfiCommon0
           CFI Function Audio_MuteCtl
           CFI NoCalls
         THUMB
-//  170 static int8_t Audio_MuteCtl(uint8_t cmd)
-//  171 {
+//  174 static int8_t Audio_MuteCtl(uint8_t cmd)
+//  175 {
 Audio_MuteCtl:
         MOVS     R1,R0
-//  172   return AUDIO_OK;
+//  176   return AUDIO_OK;
         MOVS     R0,#+0
         BX       LR               ;; return
-//  173 }
+//  177 }
           CFI EndBlock cfiBlock4
-//  174 
-//  175 
-//  176 /**
-//  177 * @brief  Stops audio acquisition
-//  178 * @param  none
-//  179 * @retval AUDIO_OK in case of success, AUDIO_ERROR otherwise
-//  180 */
+//  178 
+//  179 
+//  180 /**
+//  181 * @brief  Stops audio acquisition
+//  182 * @param  none
+//  183 * @retval AUDIO_OK in case of success, AUDIO_ERROR otherwise
+//  184 */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock5 Using cfiCommon0
           CFI Function Audio_Stop
           CFI NoCalls
         THUMB
-//  181 static int8_t Audio_Stop(void)
-//  182 {  
-//  183 #ifndef DISABLE_USB_DRIVEN_ACQUISITION  
-//  184   //return BSP_AUDIO_IN_Stop();  
-//  185   return 0;
+//  185 static int8_t Audio_Stop(void)
+//  186 {  
+//  187     USBD_stAudioStop = 1;
 Audio_Stop:
+        MOVS     R0,#+1
+        LDR.N    R1,??DataTable3
+        STRB     R0,[R1, #+0]
+//  188 #ifndef DISABLE_USB_DRIVEN_ACQUISITION  
+//  189   //return BSP_AUDIO_IN_Stop();  
+//  190 
+//  191   return 0;
         MOVS     R0,#+0
         BX       LR               ;; return
-//  186 #endif
-//  187 }
+//  192 #endif
+//  193 }
           CFI EndBlock cfiBlock5
-//  188 
-//  189 /**
-//  190 * @brief  Pauses audio acquisition
-//  191 * @param  none
-//  192 * @retval AUDIO_OK in case of success, AUDIO_ERROR otherwise
-//  193 */
 //  194 
+//  195 /**
+//  196 * @brief  Pauses audio acquisition
+//  197 * @param  none
+//  198 * @retval AUDIO_OK in case of success, AUDIO_ERROR otherwise
+//  199 */
+//  200 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock6 Using cfiCommon0
           CFI Function Audio_Pause
           CFI NoCalls
         THUMB
-//  195 static int8_t Audio_Pause(void)
-//  196 {
-//  197   return 0;
+//  201 static int8_t Audio_Pause(void)
+//  202 {
+//  203   return 0;
 Audio_Pause:
         MOVS     R0,#+0
         BX       LR               ;; return
-//  198 }
+//  204 }
           CFI EndBlock cfiBlock6
-//  199 
-//  200 
-//  201 /**
-//  202 * @brief  Resumes audio acquisition
-//  203 * @param  none
-//  204 * @retval AUDIO_OK in case of success, AUDIO_ERROR otherwise
-//  205 */
+//  205 
+//  206 
+//  207 /**
+//  208 * @brief  Resumes audio acquisition
+//  209 * @param  none
+//  210 * @retval AUDIO_OK in case of success, AUDIO_ERROR otherwise
+//  211 */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock7 Using cfiCommon0
           CFI Function Audio_Resume
           CFI NoCalls
         THUMB
-//  206 static int8_t Audio_Resume(void)
-//  207 {  
-//  208   return AUDIO_OK;
+//  212 static int8_t Audio_Resume(void)
+//  213 {  
+//  214   return AUDIO_OK;
 Audio_Resume:
         MOVS     R0,#+0
         BX       LR               ;; return
-//  209 }
+//  215 }
           CFI EndBlock cfiBlock7
-//  210 
-//  211 /**
-//  212 * @brief  Manages command from usb
-//  213 * @param  None
-//  214 * @retval AUDIO_OK in case of success, AUDIO_ERROR otherwise
-//  215 */
 //  216 
+//  217 /**
+//  218 * @brief  Manages command from usb
+//  219 * @param  None
+//  220 * @retval AUDIO_OK in case of success, AUDIO_ERROR otherwise
+//  221 */
+//  222 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock8 Using cfiCommon0
           CFI Function Audio_CommandMgr
           CFI NoCalls
         THUMB
-//  217 static int8_t Audio_CommandMgr(uint8_t cmd)
-//  218 {
+//  223 static int8_t Audio_CommandMgr(uint8_t cmd)
+//  224 {
 Audio_CommandMgr:
         MOVS     R1,R0
-//  219   return AUDIO_OK;
+//  225   return AUDIO_OK;
         MOVS     R0,#+0
         BX       LR               ;; return
-//  220 }
+//  226 }
           CFI EndBlock cfiBlock8
-//  221 /**
-//  222 * @brief  Fills USB audio buffer with the right amount of data, depending on the
-//  223 *			channel/frequency configuration
-//  224 * @param  audioData: pointer to the PCM audio data
-//  225 * @param  PCMSamples: number of PCM samples to be passed to USB engine
-//  226 * @note Depending on the calling frequency, a coherent amount of samples must be passed to
-//  227 *       the function. E.g.: assuming a Sampling frequency of 16 KHz and 1 channel,
-//  228 *       you can pass 16 PCM samples if the function is called each millisecond,
-//  229 *       32 samples if called every 2 milliseconds and so on.
-//  230 */
+//  227 /**
+//  228 * @brief  Fills USB audio buffer with the right amount of data, depending on the
+//  229 *			channel/frequency configuration
+//  230 * @param  audioData: pointer to the PCM audio data
+//  231 * @param  PCMSamples: number of PCM samples to be passed to USB engine
+//  232 * @note Depending on the calling frequency, a coherent amount of samples must be passed to
+//  233 *       the function. E.g.: assuming a Sampling frequency of 16 KHz and 1 channel,
+//  234 *       you can pass 16 PCM samples if the function is called each millisecond,
+//  235 *       32 samples if called every 2 milliseconds and so on.
+//  236 */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock9 Using cfiCommon0
           CFI Function Send_Audio_to_USB
         THUMB
-//  231 void Send_Audio_to_USB(int16_t * audioData, uint16_t PCMSamples){
+//  237 void Send_Audio_to_USB(int16_t * audioData, uint16_t PCMSamples){
 Send_Audio_to_USB:
         PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
@@ -509,28 +527,34 @@ Send_Audio_to_USB:
           CFI CFA R13+16
         MOVS     R4,R0
         MOVS     R5,R1
-//  232   
-//  233   USBD_AUDIO_Data_Transfer(&hUSBDDevice, (int16_t *)audioData, PCMSamples);
+//  238   
+//  239   USBD_AUDIO_Data_Transfer(&hUSBDDevice, (int16_t *)audioData, PCMSamples);
         MOVS     R2,R5
         UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
         MOVS     R1,R4
-        LDR.N    R0,??DataTable1_1
+        LDR.N    R0,??DataTable3_2
           CFI FunCall USBD_AUDIO_Data_Transfer
         BL       USBD_AUDIO_Data_Transfer
-//  234 }
+//  240 }
         POP      {R0,R4,R5,PC}    ;; return
           CFI EndBlock cfiBlock9
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1:
+??DataTable3:
+        DC32     USBD_stAudioStop
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable3_1:
         DC32     vol_table
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1_1:
+??DataTable3_2:
         DC32     hUSBDDevice
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
@@ -545,24 +569,25 @@ Send_Audio_to_USB:
         SECTION_TYPE SHT_PROGBITS, 0
 
         END
-//  235 
-//  236 
-//  237 
-//  238 
-//  239 
-//  240 
 //  241 
 //  242 
 //  243 
-//  244 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+//  244 
+//  245 
+//  246 
+//  247 
+//  248 
+//  249 
+//  250 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
+//   1 byte  in section .bss
 //  36 bytes in section .data
 // 132 bytes in section .rodata
-// 126 bytes in section .text
+// 142 bytes in section .text
 // 
-// 126 bytes of CODE  memory
+// 142 bytes of CODE  memory
 // 132 bytes of CONST memory
-//  36 bytes of DATA  memory
+//  37 bytes of DATA  memory
 //
 //Errors: none
-//Warnings: 1
+//Warnings: none
