@@ -24,6 +24,7 @@ uint16_t cntFrm;
 
 extern uint8_t buffer_switch;
 extern Mic_Array_Data Buffer1,Buffer2,Buffer3;
+extern uint8_t USBD_stAudioStop;
 
 /*-------------------------------------------------------------------------------------------------------------
 			  
@@ -39,6 +40,7 @@ extern Mic_Array_Data Buffer1,Buffer2,Buffer3;
 void AudioProcess(uint16_t idxFrm)
 {
 
+<<<<<<< HEAD
 
 #if 0
     switch (buffer_switch)
@@ -61,6 +63,25 @@ void AudioProcess(uint16_t idxFrm)
     
     Send_Audio_to_USB((int16_t *)&PCM_Buffer1[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
 
+=======
+	if (USBD_stAudioStop==0)
+	{
+	    switch (buffer_switch)
+	    {
+	      case BUF1_PLAY:
+			Send_Audio_to_USB((int16_t *)PCM_Buffer3, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS);// AUDIO_SAMPLING_FREQUENCY/1000*AUDIO_CHANNELS
+	        break;
+	      case BUF2_PLAY:
+	        Send_Audio_to_USB((int16_t *)PCM_Buffer1, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS);// AUDIO_SAMPLING_FREQUENCY/1000*AUDIO_CHANNELS 
+	        break;
+	      case BUF3_PLAY:
+	        Send_Audio_to_USB((int16_t *)PCM_Buffer2, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS );// AUDIO_SAMPLING_FREQUENCY/1000*AUDIO_CHANNELS 
+	        break;
+	      default:
+	        break;
+	    } 
+	}
+>>>>>>> 057df7a95ed4be7451b7a4a457af92f9cb269b3e
 }
 
 void AudioMerging(void)
@@ -75,7 +96,7 @@ void AudioMerging(void)
  	  	    {
 	 	  	    for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
 	 	  	    {
-	                PCM_Buffer3[8*(i/2)+j] = (int16_t)*(&Buffer3.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i);
+	                PCM_Buffer3[AUDIO_CHANNELS*(i/2)+j] = (int16_t)*(&Buffer3.bufMIC7[0] + AUDIO_SIZE_ELEMENT*j + i);//
 	 	  	    }
  	  	    }
 		}
@@ -88,7 +109,7 @@ void AudioMerging(void)
  	  	    {
 	 	  	    for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
 	 	  	    {
-	                PCM_Buffer1[8*(i/2)+j] = (int16_t)*(&Buffer1.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i);
+	                PCM_Buffer1[AUDIO_CHANNELS*(i/2)+j] = (int16_t)*(&Buffer1.bufMIC7[0] + AUDIO_SIZE_ELEMENT*j + i);
 	 	  	    }
  	  	    }
 		}	  	
@@ -100,7 +121,7 @@ void AudioMerging(void)
 		  {
 			  for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
 			  {
-				  PCM_Buffer2[8*(i/2)+j] = (int16_t)*(&Buffer2.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i);
+				  PCM_Buffer2[AUDIO_CHANNELS*(i/2)+j] = (int16_t)*(&Buffer2.bufMIC7[0] + AUDIO_SIZE_ELEMENT*j + i);
 			  }
 		  }
 		}

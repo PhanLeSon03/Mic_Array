@@ -1,71 +1,79 @@
 ###############################################################################
 #
+<<<<<<< HEAD
 # IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       20/Feb/2016  22:27:27
+=======
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       19/Feb/2016  17:44:12
+>>>>>>> 057df7a95ed4be7451b7a4a457af92f9cb269b3e
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
 #    Endian       =  little
 #    Source file  =  
-#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\audio_application.c
+#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\audio_application.c
 #    Command line =  
-#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\audio_application.c
+#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\audio_application.c
 #        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 #        USE_IOEXPANDER -D USE_USB_FS -lC
-#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 #        -lA
-#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 #        -o
-#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
 #        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
 #        --no_clustering --no_scheduling --debug --endian=little
 #        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\INC\c\DLib_Config_Full.h"
 #        -I
-#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 #        -I
-#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 #        -I
-#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 #        -I
-#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 #        -I
-#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 #        -I
-#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 #        -I
-#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 #        -I
-#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 #        -I
-#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 #        -I
-#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 #        -I
-#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 #        -I
-#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 #        -I
-#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 #        -I
-#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
-#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
 #        -On --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7
 #    List file    =  
-#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\audio_application.lst
+#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\audio_application.lst
 #    Object file  =  
-#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\audio_application.o
+#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\audio_application.o
 #
 ###############################################################################
 
-H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\audio_application.c
+D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\audio_application.c
       1          
       2          
       3          /* Includes ------------------------------------------------------------------*/
       4          #include "audio_application.h"
+<<<<<<< HEAD
       5          
+=======
+      5          #include "main.h"
+>>>>>>> 057df7a95ed4be7451b7a4a457af92f9cb269b3e
       6          
       7          /* Private typedef -----------------------------------------------------------*/
       8          #define AUDIO_SIZE_ELEMENT (2*AUDIO_OUT_BUFFER_SIZE+10)
@@ -94,6 +102,7 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
    \                     PCM_Buffer3:
    \   00000000                      DS8 4096
      21          
+<<<<<<< HEAD
 
    \                                 In section .bss, align 2
      22          uint16_t cntFrm;
@@ -304,6 +313,268 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable1:
    \   00000000   0xC00181E0         DC32     0xc00181e0
+=======
+     22          extern uint8_t buffer_switch;
+     23          extern Mic_Array_Data Buffer1,Buffer2,Buffer3;
+     24          extern uint8_t USBD_stAudioStop;
+     25          
+     26          /*-------------------------------------------------------------------------------------------------------------
+     27          			  
+     28          	Sequence  Record Data                     Processing Data                 Player Data
+     29          			  
+     30          	1-------  Buffer1                         Buffer2                         Buffer3
+     31          			  
+     32          	2-------  Buffer3                         Buffer1                         Buffer2		  
+     33          			  
+     34          	3-------  Buffer2                         Buffer3                         Buffer1 
+     35           ---------------------------------------------------------------------------------------------------------------*/
+     36          
+
+   \                                 In section .text, align 2, keep-with-next
+     37          void AudioProcess(void)
+     38          {
+   \                     AudioProcess: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+     39          
+     40          	if (USBD_stAudioStop==0)
+   \   00000002   0x....             LDR.N    R0,??DataTable1
+   \   00000004   0x7800             LDRB     R0,[R0, #+0]
+   \   00000006   0x2800             CMP      R0,#+0
+   \   00000008   0xD119             BNE.N    ??AudioProcess_0
+     41          	{
+     42          	    switch (buffer_switch)
+   \   0000000A   0x....             LDR.N    R0,??DataTable1_1
+   \   0000000C   0x7800             LDRB     R0,[R0, #+0]
+   \   0000000E   0x2800             CMP      R0,#+0
+   \   00000010   0xD003             BEQ.N    ??AudioProcess_1
+   \   00000012   0x2802             CMP      R0,#+2
+   \   00000014   0xD00D             BEQ.N    ??AudioProcess_2
+   \   00000016   0xD306             BCC.N    ??AudioProcess_3
+   \   00000018   0xE011             B.N      ??AudioProcess_4
+     43          	    {
+     44          	      case BUF1_PLAY:
+     45          			Send_Audio_to_USB((int16_t *)PCM_Buffer3, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS);// AUDIO_SAMPLING_FREQUENCY/1000*AUDIO_CHANNELS
+   \                     ??AudioProcess_1: (+1)
+   \   0000001A   0xF44F 0x6100      MOV      R1,#+2048
+   \   0000001E   0x....             LDR.N    R0,??DataTable1_2  ;; 0xc001a1e0
+   \   00000020   0x.... 0x....      BL       Send_Audio_to_USB
+     46          	        break;
+   \   00000024   0xE00B             B.N      ??AudioProcess_0
+     47          	      case BUF2_PLAY:
+     48          	        Send_Audio_to_USB((int16_t *)PCM_Buffer1, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS);// AUDIO_SAMPLING_FREQUENCY/1000*AUDIO_CHANNELS 
+   \                     ??AudioProcess_3: (+1)
+   \   00000026   0xF44F 0x6100      MOV      R1,#+2048
+   \   0000002A   0x....             LDR.N    R0,??DataTable1_3  ;; 0xc00181e0
+   \   0000002C   0x.... 0x....      BL       Send_Audio_to_USB
+     49          	        break;
+   \   00000030   0xE005             B.N      ??AudioProcess_0
+     50          	      case BUF3_PLAY:
+     51          	        Send_Audio_to_USB((int16_t *)PCM_Buffer2, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS );// AUDIO_SAMPLING_FREQUENCY/1000*AUDIO_CHANNELS 
+   \                     ??AudioProcess_2: (+1)
+   \   00000032   0xF44F 0x6100      MOV      R1,#+2048
+   \   00000036   0x....             LDR.N    R0,??DataTable1_4  ;; 0xc00191e0
+   \   00000038   0x.... 0x....      BL       Send_Audio_to_USB
+     52          	        break;
+   \   0000003C   0xE7FF             B.N      ??AudioProcess_0
+     53          	      default:
+     54          	        break;
+     55          	    } 
+     56          	}
+     57          }
+   \                     ??AudioProcess_4: (+1)
+   \                     ??AudioProcess_0: (+1)
+   \   0000003E   0xBD01             POP      {R0,PC}          ;; return
+   \   00000040                      REQUIRE PCM_Buffer3
+   \   00000040                      REQUIRE PCM_Buffer1
+   \   00000040                      REQUIRE PCM_Buffer2
+     58          
+
+   \                                 In section .text, align 2, keep-with-next
+     59          void AudioMerging(void)
+     60          {
+   \                     AudioMerging: (+1)
+   \   00000000   0xB430             PUSH     {R4,R5}
+     61              switch (buffer_switch)
+   \   00000002   0x....             LDR.N    R0,??DataTable1_1
+   \   00000004   0x7800             LDRB     R0,[R0, #+0]
+   \   00000006   0x2800             CMP      R0,#+0
+   \   00000008   0xD003             BEQ.N    ??AudioMerging_0
+   \   0000000A   0x2802             CMP      R0,#+2
+   \   0000000C   0xD059             BEQ.N    ??AudioMerging_1
+   \   0000000E   0xD32C             BCC.N    ??AudioMerging_2
+   \   00000010   0xE083             B.N      ??AudioMerging_3
+     62              {
+     63                case BUF1_PLAY:
+     64          	  	for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
+   \                     ??AudioMerging_0: (+1)
+   \   00000012   0x2000             MOVS     R0,#+0
+   \                     ??AudioMerging_4: (+1)
+   \   00000014   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000016   0xF5B0 0x6F00      CMP      R0,#+2048
+   \   0000001A   0xDA25             BGE.N    ??AudioMerging_5
+     65           	  	{
+     66           	  	    if (i%2==0)
+   \   0000001C   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000001E   0x2102             MOVS     R1,#+2
+   \   00000020   0xFB90 0xF2F1      SDIV     R2,R0,R1
+   \   00000024   0xFB02 0x0211      MLS      R2,R2,R1,R0
+   \   00000028   0x2A00             CMP      R2,#+0
+   \   0000002A   0xD11B             BNE.N    ??AudioMerging_6
+     67           	  	    {
+     68          	 	  	    for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
+   \   0000002C   0x2100             MOVS     R1,#+0
+   \                     ??AudioMerging_7: (+1)
+   \   0000002E   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   00000030   0x2902             CMP      R1,#+2
+   \   00000032   0xDA17             BGE.N    ??AudioMerging_6
+     69          	 	  	    {
+     70          	                PCM_Buffer3[AUDIO_CHANNELS*(i/2)+j] = (int16_t)*(&Buffer3.bufMIC7[0] + AUDIO_SIZE_ELEMENT*j + i);
+   \   00000034   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000036   0x2202             MOVS     R2,#+2
+   \   00000038   0xFB90 0xF2F2      SDIV     R2,R0,R2
+   \   0000003C   0x0052             LSLS     R2,R2,#+1
+   \   0000003E   0xFA52 0xF281      UXTAB    R2,R2,R1
+   \   00000042   0x....             LDR.N    R3,??DataTable1_2  ;; 0xc001a1e0
+   \   00000044   0x....             LDR.N    R4,??DataTable1_5
+   \   00000046   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   00000048   0xF241 0x0514      MOVW     R5,#+4116
+   \   0000004C   0xFB05 0x4401      MLA      R4,R5,R1,R4
+   \   00000050   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000052   0xEB14 0x0440      ADDS     R4,R4,R0, LSL #+1
+   \   00000056   0xF246 0x0578      MOVW     R5,#+24696
+   \   0000005A   0x5B2C             LDRH     R4,[R5, R4]
+   \   0000005C   0xF823 0x4012      STRH     R4,[R3, R2, LSL #+1]
+     71          	 	  	    }
+   \   00000060   0x1C49             ADDS     R1,R1,#+1
+   \   00000062   0xE7E4             B.N      ??AudioMerging_7
+     72           	  	    }
+     73          		}
+   \                     ??AudioMerging_6: (+1)
+   \   00000064   0x1C40             ADDS     R0,R0,#+1
+   \   00000066   0xE7D5             B.N      ??AudioMerging_4
+     74          		
+     75                  break;
+   \                     ??AudioMerging_5: (+1)
+   \   00000068   0xE057             B.N      ??AudioMerging_8
+     76                case BUF2_PLAY:
+     77          	  	for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
+   \                     ??AudioMerging_2: (+1)
+   \   0000006A   0x2000             MOVS     R0,#+0
+   \                     ??AudioMerging_9: (+1)
+   \   0000006C   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000006E   0xF5B0 0x6F00      CMP      R0,#+2048
+   \   00000072   0xDA25             BGE.N    ??AudioMerging_10
+     78           	  	{
+     79           	  	    if (i%2==0)
+   \   00000074   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000076   0x2102             MOVS     R1,#+2
+   \   00000078   0xFB90 0xF2F1      SDIV     R2,R0,R1
+   \   0000007C   0xFB02 0x0211      MLS      R2,R2,R1,R0
+   \   00000080   0x2A00             CMP      R2,#+0
+   \   00000082   0xD11B             BNE.N    ??AudioMerging_11
+     80           	  	    {
+     81          	 	  	    for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
+   \   00000084   0x2100             MOVS     R1,#+0
+   \                     ??AudioMerging_12: (+1)
+   \   00000086   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   00000088   0x2902             CMP      R1,#+2
+   \   0000008A   0xDA17             BGE.N    ??AudioMerging_11
+     82          	 	  	    {
+     83          	                PCM_Buffer1[AUDIO_CHANNELS*(i/2)+j] = (int16_t)*(&Buffer1.bufMIC7[0] + AUDIO_SIZE_ELEMENT*j + i);
+   \   0000008C   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000008E   0x2202             MOVS     R2,#+2
+   \   00000090   0xFB90 0xF2F2      SDIV     R2,R0,R2
+   \   00000094   0x0052             LSLS     R2,R2,#+1
+   \   00000096   0xFA52 0xF281      UXTAB    R2,R2,R1
+   \   0000009A   0x....             LDR.N    R3,??DataTable1_3  ;; 0xc00181e0
+   \   0000009C   0x....             LDR.N    R4,??DataTable1_6
+   \   0000009E   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   000000A0   0xF241 0x0514      MOVW     R5,#+4116
+   \   000000A4   0xFB05 0x4401      MLA      R4,R5,R1,R4
+   \   000000A8   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000000AA   0xEB14 0x0440      ADDS     R4,R4,R0, LSL #+1
+   \   000000AE   0xF246 0x0578      MOVW     R5,#+24696
+   \   000000B2   0x5B2C             LDRH     R4,[R5, R4]
+   \   000000B4   0xF823 0x4012      STRH     R4,[R3, R2, LSL #+1]
+     84          	 	  	    }
+   \   000000B8   0x1C49             ADDS     R1,R1,#+1
+   \   000000BA   0xE7E4             B.N      ??AudioMerging_12
+     85           	  	    }
+     86          		}	  	
+   \                     ??AudioMerging_11: (+1)
+   \   000000BC   0x1C40             ADDS     R0,R0,#+1
+   \   000000BE   0xE7D5             B.N      ??AudioMerging_9
+     87                  break;
+   \                     ??AudioMerging_10: (+1)
+   \   000000C0   0xE02B             B.N      ??AudioMerging_8
+     88                case BUF3_PLAY:
+     89          		for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
+   \                     ??AudioMerging_1: (+1)
+   \   000000C2   0x2000             MOVS     R0,#+0
+   \                     ??AudioMerging_13: (+1)
+   \   000000C4   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000000C6   0xF5B0 0x6F00      CMP      R0,#+2048
+   \   000000CA   0xDA25             BGE.N    ??AudioMerging_14
+     90          		{
+     91          		  if (i%2==0)
+   \   000000CC   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000000CE   0x2102             MOVS     R1,#+2
+   \   000000D0   0xFB90 0xF2F1      SDIV     R2,R0,R1
+   \   000000D4   0xFB02 0x0211      MLS      R2,R2,R1,R0
+   \   000000D8   0x2A00             CMP      R2,#+0
+   \   000000DA   0xD11B             BNE.N    ??AudioMerging_15
+     92          		  {
+     93          			  for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
+   \   000000DC   0x2100             MOVS     R1,#+0
+   \                     ??AudioMerging_16: (+1)
+   \   000000DE   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   000000E0   0x2902             CMP      R1,#+2
+   \   000000E2   0xDA17             BGE.N    ??AudioMerging_15
+     94          			  {
+     95          				  PCM_Buffer2[AUDIO_CHANNELS*(i/2)+j] = (int16_t)*(&Buffer2.bufMIC7[0] + AUDIO_SIZE_ELEMENT*j + i);
+   \   000000E4   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000000E6   0x2202             MOVS     R2,#+2
+   \   000000E8   0xFB90 0xF2F2      SDIV     R2,R0,R2
+   \   000000EC   0x0052             LSLS     R2,R2,#+1
+   \   000000EE   0xFA52 0xF281      UXTAB    R2,R2,R1
+   \   000000F2   0x....             LDR.N    R3,??DataTable1_4  ;; 0xc00191e0
+   \   000000F4   0x....             LDR.N    R4,??DataTable1_7
+   \   000000F6   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   000000F8   0xF241 0x0514      MOVW     R5,#+4116
+   \   000000FC   0xFB05 0x4401      MLA      R4,R5,R1,R4
+   \   00000100   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000102   0xEB14 0x0440      ADDS     R4,R4,R0, LSL #+1
+   \   00000106   0xF246 0x0578      MOVW     R5,#+24696
+   \   0000010A   0x5B2C             LDRH     R4,[R5, R4]
+   \   0000010C   0xF823 0x4012      STRH     R4,[R3, R2, LSL #+1]
+     96          			  }
+   \   00000110   0x1C49             ADDS     R1,R1,#+1
+   \   00000112   0xE7E4             B.N      ??AudioMerging_16
+     97          		  }
+     98          		}
+   \                     ??AudioMerging_15: (+1)
+   \   00000114   0x1C40             ADDS     R0,R0,#+1
+   \   00000116   0xE7D5             B.N      ??AudioMerging_13
+     99                  break;
+   \                     ??AudioMerging_14: (+1)
+   \   00000118   0xE7FF             B.N      ??AudioMerging_8
+    100                default:
+    101                  break;
+    102              }
+    103          
+    104          }
+   \                     ??AudioMerging_3: (+1)
+   \                     ??AudioMerging_8: (+1)
+   \   0000011A   0xBC30             POP      {R4,R5}
+   \   0000011C   0x4770             BX       LR               ;; return
+   \   0000011E                      REQUIRE PCM_Buffer3
+   \   0000011E                      REQUIRE PCM_Buffer1
+   \   0000011E                      REQUIRE PCM_Buffer2
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1:
+   \   00000000   0x........         DC32     USBD_stAudioStop
+>>>>>>> 057df7a95ed4be7451b7a4a457af92f9cb269b3e
 
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable1_1:
@@ -311,6 +582,7 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
 
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable1_2:
+<<<<<<< HEAD
    \   00000000   0x........         DC32     Buffer3
 
    \                                 In section .text, align 4, keep-with-next
@@ -327,6 +599,32 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
     139          
     140          
     141          
+=======
+   \   00000000   0xC001A1E0         DC32     0xc001a1e0
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_3:
+   \   00000000   0xC00181E0         DC32     0xc00181e0
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_4:
+   \   00000000   0xC00191E0         DC32     0xc00191e0
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_5:
+   \   00000000   0x........         DC32     Buffer3
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_6:
+   \   00000000   0x........         DC32     Buffer1
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_7:
+   \   00000000   0x........         DC32     Buffer2
+    105          
+    106          
+    107          
+>>>>>>> 057df7a95ed4be7451b7a4a457af92f9cb269b3e
 
    Maximum stack usage in bytes:
 
@@ -347,8 +645,15 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
        4  ??DataTable1_3
        4  ??DataTable1_4
        4  ??DataTable1_5
+<<<<<<< HEAD
      138  AudioMerging
       22  AudioProcess
+=======
+       4  ??DataTable1_6
+       4  ??DataTable1_7
+     286  AudioMerging
+      64  AudioProcess
+>>>>>>> 057df7a95ed4be7451b7a4a457af92f9cb269b3e
     4096  PCM_Buffer1
     4096  PCM_Buffer2
     4096  PCM_Buffer3
@@ -357,10 +662,17 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
  
       2 bytes in section .bss
  12 288 bytes in section .bss  (abs)
+<<<<<<< HEAD
     184 bytes in section .text
  
     184 bytes of CODE memory
  12 290 bytes of DATA memory
+=======
+    382 bytes in section .text
+ 
+    382 bytes of CODE memory
+ 12 288 bytes of DATA memory
+>>>>>>> 057df7a95ed4be7451b7a4a457af92f9cb269b3e
 
 Errors: none
 Warnings: none
