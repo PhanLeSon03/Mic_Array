@@ -1,64 +1,60 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-<<<<<<< HEAD
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      20/Feb/2016  22:27:44
-=======
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      19/Feb/2016  17:44:15
->>>>>>> 057df7a95ed4be7451b7a4a457af92f9cb269b3e
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      20/Feb/2016  23:52:09
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Src\usbd_audio_in.c
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Src\usbd_audio_in.c
 //    Command line =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Src\usbd_audio_in.c
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Src\usbd_audio_in.c
 //        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 //        USE_IOEXPANDER -D USE_USB_FS -lC
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -lA
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
 //        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
 //        --no_clustering --no_scheduling --debug --endian=little
 //        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
 //        -On --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\usbd_audio_in.s
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\usbd_audio_in.s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -134,7 +130,7 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
         
-// D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Src\usbd_audio_in.c
+// H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Src\usbd_audio_in.c
 //    1 /**
 //    2 ******************************************************************************
 //    3 * @file    usbd_audio_in.c
@@ -1953,7 +1949,7 @@ USBD_AUDIO_Init_Microphone_Descriptor:
         LDR.W    R5,??DataTable10_3
         STRB     R4,[R5, #+46]
 //  783     USBD_AUDIO_CfgDesc[index] = AUDIO_CONTROLS;
-        LDR.N    R5,??DataTable10_3
+        LDR.W    R5,??DataTable10_3
         UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
         STRB     R4,[R3, R5]
 //  784     index++;
@@ -2345,102 +2341,94 @@ USBD_AUDIO_Init_Microphone_Descriptor:
         UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
         STRB     R5,[R3, R6]
         ADDS     R3,R3,#+1
-<<<<<<< HEAD
-//  875   USBD_AUDIO_CfgDesc[index++] = ((samplingFrequency/1000+2)*Channels*2)&0xFF; //(AUDIO_OUT_BUFFER_SIZE*Channels*2+2)&0xFF;// /* wMaxPacketSize */ 
+//  875 
+//  876   USBD_AUDIO_CfgDesc[index++] = ((samplingFrequency/1000+2)*Channels*2)&0xFF; //(AUDIO_OUT_BUFFER_SIZE*Channels*2+2)&0xFF;// /* wMaxPacketSize */ 
         MOV      R5,#+1000
         UDIV     R5,R1,R5
         ADDS     R5,R5,#+2
         SMULBB   R5,R5,R2
         UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
         LSLS     R5,R5,#+1
-=======
-//  875   USBD_AUDIO_CfgDesc[index++] = ((AUDIO_OUT_BUFFER_SIZE+2)*Channels*2)&0xFF;// ((samplingFrequency/1000+2)*Channels*2)&0xFF;  // /* wMaxPacketSize */ 
-        UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
-        LSLS     R5,R2,#+2
->>>>>>> 057df7a95ed4be7451b7a4a457af92f9cb269b3e
         LDR.N    R6,??DataTable10_3
         UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
         STRB     R5,[R3, R6]
         ADDS     R3,R3,#+1
-<<<<<<< HEAD
-//  876   USBD_AUDIO_CfgDesc[index++] = ((samplingFrequency/1000+2)*Channels*2)>>8;//(AUDIO_OUT_BUFFER_SIZE*Channels*2+2)>>8;// 
+//  877   USBD_AUDIO_CfgDesc[index++] = ((samplingFrequency/1000+2)*Channels*2)>>8;//(AUDIO_OUT_BUFFER_SIZE*Channels*2+2)>>8;// 
         MOV      R5,#+1000
         UDIV     R5,R1,R5
         ADDS     R5,R5,#+2
-=======
-//  876   USBD_AUDIO_CfgDesc[index++] = ((AUDIO_OUT_BUFFER_SIZE+2)*Channels*2)>>8;// ((samplingFrequency/1000+2)*Channels*2)>>8;    //
->>>>>>> 057df7a95ed4be7451b7a4a457af92f9cb269b3e
         UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
-        MOVW     R5,#+2052
-        MUL      R5,R5,R2
-        ASRS     R5,R5,#+8
+        MULS     R5,R2,R5
+        LSLS     R5,R5,#+1
+        LSRS     R5,R5,#+8
         LDR.N    R6,??DataTable10_3
         UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
         STRB     R5,[R3, R6]
         ADDS     R3,R3,#+1
-//  877   USBD_AUDIO_CfgDesc[index++] = 0x01;                                          /* bInterval */
+//  878 
+//  879   USBD_AUDIO_CfgDesc[index++] = 0x01;                                          /* bInterval */
         MOVS     R5,#+1
         LDR.N    R6,??DataTable10_3
         UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
         STRB     R5,[R3, R6]
         ADDS     R3,R3,#+1
-//  878   USBD_AUDIO_CfgDesc[index++] = 0x00;                                          /* bRefresh */
+//  880   USBD_AUDIO_CfgDesc[index++] = 0x00;                                          /* bRefresh */
         MOVS     R5,#+0
         LDR.N    R6,??DataTable10_3
         UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
         STRB     R5,[R3, R6]
         ADDS     R3,R3,#+1
-//  879   USBD_AUDIO_CfgDesc[index++] = 0x00;                                          /* bSynchAddress */   
+//  881   USBD_AUDIO_CfgDesc[index++] = 0x00;                                          /* bSynchAddress */   
         MOVS     R5,#+0
         LDR.N    R6,??DataTable10_3
         UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
         STRB     R5,[R3, R6]
         ADDS     R3,R3,#+1
-//  880   /* Endpoint - Audio Streaming Descriptor*/
-//  881   USBD_AUDIO_CfgDesc[index++] = AUDIO_STREAMING_ENDPOINT_DESC_SIZE;            /* bLength */
+//  882   /* Endpoint - Audio Streaming Descriptor*/
+//  883   USBD_AUDIO_CfgDesc[index++] = AUDIO_STREAMING_ENDPOINT_DESC_SIZE;            /* bLength */
         MOVS     R5,#+7
         LDR.N    R6,??DataTable10_3
         UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
         STRB     R5,[R3, R6]
         ADDS     R3,R3,#+1
-//  882   USBD_AUDIO_CfgDesc[index++] = AUDIO_ENDPOINT_DESCRIPTOR_TYPE;                /* bDescriptorType */
+//  884   USBD_AUDIO_CfgDesc[index++] = AUDIO_ENDPOINT_DESCRIPTOR_TYPE;                /* bDescriptorType */
         MOVS     R5,#+37
         LDR.N    R6,??DataTable10_3
         UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
         STRB     R5,[R3, R6]
         ADDS     R3,R3,#+1
-//  883   USBD_AUDIO_CfgDesc[index++] = AUDIO_ENDPOINT_GENERAL;                        /* bDescriptor */
+//  885   USBD_AUDIO_CfgDesc[index++] = AUDIO_ENDPOINT_GENERAL;                        /* bDescriptor */
         MOVS     R5,#+1
         LDR.N    R6,??DataTable10_3
         UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
         STRB     R5,[R3, R6]
         ADDS     R3,R3,#+1
-//  884   USBD_AUDIO_CfgDesc[index++] = 0x00;                                          /* bmAttributes */
+//  886   USBD_AUDIO_CfgDesc[index++] = 0x00;                                          /* bmAttributes */
         MOVS     R5,#+0
         LDR.N    R6,??DataTable10_3
         UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
         STRB     R5,[R3, R6]
         ADDS     R3,R3,#+1
-//  885   USBD_AUDIO_CfgDesc[index++] = 0x00;                                          /* bLockDelayUnits */
+//  887   USBD_AUDIO_CfgDesc[index++] = 0x00;                                          /* bLockDelayUnits */
         MOVS     R5,#+0
         LDR.N    R6,??DataTable10_3
         UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
         STRB     R5,[R3, R6]
         ADDS     R3,R3,#+1
-//  886   USBD_AUDIO_CfgDesc[index++] = 0x00;                                          /* wLockDelay */
+//  888   USBD_AUDIO_CfgDesc[index++] = 0x00;                                          /* wLockDelay */
         MOVS     R5,#+0
         LDR.N    R6,??DataTable10_3
         UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
         STRB     R5,[R3, R6]
         ADDS     R3,R3,#+1
-//  887   USBD_AUDIO_CfgDesc[index++] = 0x00;    
+//  889   USBD_AUDIO_CfgDesc[index++] = 0x00;    
         MOVS     R5,#+0
         LDR.N    R6,??DataTable10_3
         UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
         STRB     R5,[R3, R6]
         ADDS     R3,R3,#+1
-//  888     
-//  889   haudioInstance.paketDimension = (samplingFrequency/1000*Channels*2);//AUDIO_OUT_BUFFER_SIZE*2*Channels;//
+//  890     
+//  891   haudioInstance.paketDimension = (samplingFrequency/1000*Channels*2);//AUDIO_OUT_BUFFER_SIZE*2*Channels;//
         MOV      R5,#+1000
         UDIV     R5,R1,R5
         UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
@@ -2449,51 +2437,51 @@ USBD_AUDIO_Init_Microphone_Descriptor:
         LSLS     R5,R5,#+1
         LDR.N    R6,??DataTable10
         STRH     R5,[R6, #+18]
-//  890   haudioInstance.frequency=samplingFrequency;
+//  892   haudioInstance.frequency=samplingFrequency;
         LDR.N    R5,??DataTable10
         STR      R1,[R5, #+8]
-//  891   haudioInstance.buffer_length = haudioInstance.paketDimension * AUDIO_IN_PACKET_NUM;
+//  893   haudioInstance.buffer_length = haudioInstance.paketDimension * AUDIO_IN_PACKET_NUM;
         LDR.N    R5,??DataTable10
         LDRH     R5,[R5, #+18]
         MOVS     R6,#+6
         SMULBB   R5,R5,R6
         LDR.N    R6,??DataTable10
         STRH     R5,[R6, #+14]
-//  892   haudioInstance.channels=Channels;  
+//  894   haudioInstance.channels=Channels;  
         LDR.N    R5,??DataTable10
         STRB     R2,[R5, #+4]
-//  893   haudioInstance.upper_treshold = 5;
+//  895   haudioInstance.upper_treshold = 5;
         MOVS     R5,#+5
         LDR.N    R6,??DataTable10
         STRB     R5,[R6, #+26]
-//  894   haudioInstance.lower_treshold = 2;
+//  896   haudioInstance.lower_treshold = 2;
         MOVS     R5,#+2
         LDR.N    R6,??DataTable10
         STRB     R5,[R6, #+27]
-//  895   haudioInstance.state = STATE_USB_WAITING_FOR_INIT;
+//  897   haudioInstance.state = STATE_USB_WAITING_FOR_INIT;
         MOVS     R5,#+0
         LDR.N    R6,??DataTable10
         STRB     R5,[R6, #+20]
-//  896   haudioInstance.wr_ptr = 3 * haudioInstance.paketDimension;
+//  898   haudioInstance.wr_ptr = 3 * haudioInstance.paketDimension;
         LDR.N    R5,??DataTable10
         LDRH     R5,[R5, #+18]
         MOVS     R6,#+3
         SMULBB   R5,R5,R6
         LDR.N    R6,??DataTable10
         STRH     R5,[R6, #+24]
-//  897   haudioInstance.rd_ptr = 0;  
+//  899   haudioInstance.rd_ptr = 0;  
         MOVS     R5,#+0
         LDR.N    R6,??DataTable10
         STRH     R5,[R6, #+22]
-//  898   haudioInstance.dataAmount=0;
+//  900   haudioInstance.dataAmount=0;
         MOVS     R5,#+0
         LDR.N    R6,??DataTable10
         STRH     R5,[R6, #+16]
-//  899   haudioInstance.buffer = 0;
+//  901   haudioInstance.buffer = 0;
         MOVS     R5,#+0
         LDR.N    R6,??DataTable10
         STR      R5,[R6, #+96]
-//  900 }
+//  902 }
         POP      {R4-R6}
           CFI R4 SameValue
           CFI R5 SameValue
@@ -2550,34 +2538,28 @@ USBD_AUDIO_Init_Microphone_Descriptor:
         SECTION_TYPE SHT_PROGBITS, 0
 
         END
-//  901 
-//  902 /**
-//  903 * @}
-//  904 */ 
-//  905 
-//  906 
-//  907 /**
-//  908 * @}
-//  909 */ 
-//  910 
-//  911 
-//  912 /**
-//  913 * @}
-//  914 */ 
-//  915 
-//  916 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+//  903 
+//  904 /**
+//  905 * @}
+//  906 */ 
+//  907 
+//  908 
+//  909 /**
+//  910 * @}
+//  911 */ 
+//  912 
+//  913 
+//  914 /**
+//  915 * @}
+//  916 */ 
+//  917 
+//  918 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
 //   606 bytes in section .bss
 //    68 bytes in section .data
-<<<<<<< HEAD
 // 2 760 bytes in section .text
 // 
 // 2 760 bytes of CODE memory
-=======
-// 2 728 bytes in section .text
-// 
-// 2 728 bytes of CODE memory
->>>>>>> 057df7a95ed4be7451b7a4a457af92f9cb269b3e
 //   674 bytes of DATA memory
 //
 //Errors: none
