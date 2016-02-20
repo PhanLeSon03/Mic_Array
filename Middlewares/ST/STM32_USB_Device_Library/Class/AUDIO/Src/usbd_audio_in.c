@@ -872,8 +872,8 @@ void USBD_AUDIO_Init_Microphone_Descriptor(USBD_HandleTypeDef   *pdev, uint32_t 
   USBD_AUDIO_CfgDesc[index++] = 0x05;                                          /* bDescriptorType */
   USBD_AUDIO_CfgDesc[index++] = AUDIO_IN_EP;                                   /* bEndpointAddress 1 in endpoint*/
   USBD_AUDIO_CfgDesc[index++] = 0x05;                                          /* bmAttributes */
-  USBD_AUDIO_CfgDesc[index++] = ((samplingFrequency/1000+2)*Channels*2)&0xFF;  /* wMaxPacketSize */ 
-  USBD_AUDIO_CfgDesc[index++] = ((samplingFrequency/1000+2)*Channels*2)>>8; 
+  USBD_AUDIO_CfgDesc[index++] = ((samplingFrequency/1000+2)*Channels*2)&0xFF; //(AUDIO_OUT_BUFFER_SIZE*Channels*2+2)&0xFF;// /* wMaxPacketSize */ 
+  USBD_AUDIO_CfgDesc[index++] = ((samplingFrequency/1000+2)*Channels*2)>>8;//(AUDIO_OUT_BUFFER_SIZE*Channels*2+2)>>8;// 
   USBD_AUDIO_CfgDesc[index++] = 0x01;                                          /* bInterval */
   USBD_AUDIO_CfgDesc[index++] = 0x00;                                          /* bRefresh */
   USBD_AUDIO_CfgDesc[index++] = 0x00;                                          /* bSynchAddress */   
@@ -886,7 +886,7 @@ void USBD_AUDIO_Init_Microphone_Descriptor(USBD_HandleTypeDef   *pdev, uint32_t 
   USBD_AUDIO_CfgDesc[index++] = 0x00;                                          /* wLockDelay */
   USBD_AUDIO_CfgDesc[index++] = 0x00;    
     
-  haudioInstance.paketDimension = AUDIO_OUT_BUFFER_SIZE*2*Channels;//(samplingFrequency/1000*Channels*2);//
+  haudioInstance.paketDimension = (samplingFrequency/1000*Channels*2);//AUDIO_OUT_BUFFER_SIZE*2*Channels;//
   haudioInstance.frequency=samplingFrequency;
   haudioInstance.buffer_length = haudioInstance.paketDimension * AUDIO_IN_PACKET_NUM;
   haudioInstance.channels=Channels;  

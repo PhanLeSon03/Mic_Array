@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      13/Feb/2016  11:44:36
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      20/Feb/2016  20:48:59
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -67,6 +67,7 @@
 
         #define SHT_PROGBITS 0x1
 
+        EXTERN AudioProcess
         EXTERN HAL_I2C_EV_IRQHandler
         EXTERN HAL_IncTick
         EXTERN HAL_PCD_IRQHandler
@@ -403,151 +404,163 @@ SysTick_Handler:
         ADDS     R0,R0,#+1
         LDR.N    R1,??DataTable4
         STR      R0,[R1, #+0]
-//  165 
-//  166   if (cntOS==10)
+//  165 #if USB_STREAMING
+//  166   if(cntOS%2==0)
+        LDR.N    R0,??DataTable4
+        LDRB     R0,[R0, #+0]
+        LSLS     R0,R0,#+31
+        BMI.N    ??SysTick_Handler_0
+//  167   {
+//  168       AudioProcess();
+          CFI FunCall AudioProcess
+        BL       AudioProcess
+//  169   }
+//  170 #endif   
+//  171   if (cntOS==10)
+??SysTick_Handler_0:
         LDR.N    R0,??DataTable4
         LDR      R0,[R0, #+0]
         CMP      R0,#+10
-        BNE.N    ??SysTick_Handler_0
-//  167   {
-//  168       cntOS=0;
+        BNE.N    ??SysTick_Handler_1
+//  172   {
+//  173       cntOS=0;
         MOVS     R0,#+0
         LDR.N    R1,??DataTable4
         STR      R0,[R1, #+0]
-//  169       flg10ms = 1;
+//  174       flg10ms = 1;
         MOVS     R0,#+1
         LDR.N    R1,??DataTable4_1
         STRB     R0,[R1, #+0]
-//  170   }
-//  171   	
-//  172 }
-??SysTick_Handler_0:
+//  175   }
+//  176   	
+//  177 }
+??SysTick_Handler_1:
         POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock8
-//  173 
+//  178 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock9 Using cfiCommon0
           CFI Function USART6_IRQHandler
           CFI NoCalls
         THUMB
-//  174 void USART6_IRQHandler(void)
-//  175 {
-//  176 //  HAL_UART_IRQHandler(&huart6);
-//  177 }
+//  179 void USART6_IRQHandler(void)
+//  180 {
+//  181 //  HAL_UART_IRQHandler(&huart6);
+//  182 }
 USART6_IRQHandler:
         BX       LR               ;; return
           CFI EndBlock cfiBlock9
-//  178 
+//  183 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock10 Using cfiCommon0
           CFI Function USART3_IRQHandler
         THUMB
-//  179 void USART3_IRQHandler(void)
-//  180 {
+//  184 void USART3_IRQHandler(void)
+//  185 {
 USART3_IRQHandler:
         PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+8
-//  181   HAL_UART_IRQHandler(&huart3);
+//  186   HAL_UART_IRQHandler(&huart3);
         LDR.N    R0,??DataTable4_2
           CFI FunCall HAL_UART_IRQHandler
         BL       HAL_UART_IRQHandler
-//  182 }
+//  187 }
         POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock10
-//  183 
-//  184 
+//  188 
+//  189 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock11 Using cfiCommon0
           CFI Function I2C1_EV_IRQHandler
         THUMB
-//  185 void I2C1_EV_IRQHandler(void)
-//  186 {
+//  190 void I2C1_EV_IRQHandler(void)
+//  191 {
 I2C1_EV_IRQHandler:
         PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+8
-//  187   /* USER CODE BEGIN I2C1_EV_IRQn 0 */
-//  188 
-//  189   /* USER CODE END I2C1_EV_IRQn 0 */
-//  190   HAL_I2C_EV_IRQHandler(&hi2c1);
+//  192   /* USER CODE BEGIN I2C1_EV_IRQn 0 */
+//  193 
+//  194   /* USER CODE END I2C1_EV_IRQn 0 */
+//  195   HAL_I2C_EV_IRQHandler(&hi2c1);
         LDR.N    R0,??DataTable4_3
           CFI FunCall HAL_I2C_EV_IRQHandler
         BL       HAL_I2C_EV_IRQHandler
-//  191   /* USER CODE BEGIN I2C1_EV_IRQn 1 */
-//  192 
-//  193   /* USER CODE END I2C1_EV_IRQn 1 */
-//  194 }
+//  196   /* USER CODE BEGIN I2C1_EV_IRQn 1 */
+//  197 
+//  198   /* USER CODE END I2C1_EV_IRQn 1 */
+//  199 }
         POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock11
-//  195 
-//  196 
+//  200 
+//  201 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock12 Using cfiCommon0
           CFI Function I2C2_EV_IRQHandler
         THUMB
-//  197 void I2C2_EV_IRQHandler(void)
-//  198 {
+//  202 void I2C2_EV_IRQHandler(void)
+//  203 {
 I2C2_EV_IRQHandler:
         PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+8
-//  199   /* USER CODE BEGIN I2C1_EV_IRQn 0 */
-//  200 
-//  201   /* USER CODE END I2C1_EV_IRQn 0 */
-//  202   HAL_I2C_EV_IRQHandler(&hi2c2);
+//  204   /* USER CODE BEGIN I2C1_EV_IRQn 0 */
+//  205 
+//  206   /* USER CODE END I2C1_EV_IRQn 0 */
+//  207   HAL_I2C_EV_IRQHandler(&hi2c2);
         LDR.N    R0,??DataTable4_4
           CFI FunCall HAL_I2C_EV_IRQHandler
         BL       HAL_I2C_EV_IRQHandler
-//  203   /* USER CODE BEGIN I2C1_EV_IRQn 1 */
-//  204 
-//  205   /* USER CODE END I2C1_EV_IRQn 1 */
-//  206 }
+//  208   /* USER CODE BEGIN I2C1_EV_IRQn 1 */
+//  209 
+//  210   /* USER CODE END I2C1_EV_IRQn 1 */
+//  211 }
         POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock12
-//  207 
-//  208 
-//  209 
-//  210 
-//  211 
 //  212 
-//  213 /******************************************************************************/
-//  214 /*                 STM32F7xx Peripherals Interrupt Handlers                   */
-//  215 /*  Add here the Interrupt Handler for the used peripheral(s) (PPP), for the  */
-//  216 /*  available peripheral interrupt handler's name please refer to the startup */
-//  217 /*  file (startup_stm32f7xx.s).                                               */
+//  213 
+//  214 
+//  215 
+//  216 
+//  217 
 //  218 /******************************************************************************/
-//  219 
-//  220 /**
-//  221   * @brief  This function handles USB-On-The-Go FS/HS global interrupt request.
-//  222   * @param  None
-//  223   * @retval None
-//  224   */
-//  225 #ifdef USE_USB_FS
+//  219 /*                 STM32F7xx Peripherals Interrupt Handlers                   */
+//  220 /*  Add here the Interrupt Handler for the used peripheral(s) (PPP), for the  */
+//  221 /*  available peripheral interrupt handler's name please refer to the startup */
+//  222 /*  file (startup_stm32f7xx.s).                                               */
+//  223 /******************************************************************************/
+//  224 
+//  225 /**
+//  226   * @brief  This function handles USB-On-The-Go FS/HS global interrupt request.
+//  227   * @param  None
+//  228   * @retval None
+//  229   */
+//  230 #ifdef USE_USB_FS
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock13 Using cfiCommon0
           CFI Function OTG_FS_IRQHandler
         THUMB
-//  226 void OTG_FS_IRQHandler(void)
-//  227 #else
-//  228 void OTG_HS_IRQHandler(void)
-//  229 #endif
-//  230 {
+//  231 void OTG_FS_IRQHandler(void)
+//  232 #else
+//  233 void OTG_HS_IRQHandler(void)
+//  234 #endif
+//  235 {
 OTG_FS_IRQHandler:
         PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+8
-//  231   //sop1hc HAL_HCD_IRQHandler(&hhcd);
-//  232   HAL_PCD_IRQHandler(&hpcd);
+//  236   //sop1hc HAL_HCD_IRQHandler(&hhcd);
+//  237   HAL_PCD_IRQHandler(&hpcd);
         LDR.N    R0,??DataTable4_5
           CFI FunCall HAL_PCD_IRQHandler
         BL       HAL_PCD_IRQHandler
-//  233 }
+//  238 }
         POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock13
 
@@ -586,41 +599,41 @@ OTG_FS_IRQHandler:
         DATA
 ??DataTable4_5:
         DC32     hpcd
-//  234 
-//  235 /**
-//  236   * @brief This function handles DMA2 Stream 4 interrupt request.
-//  237   * @param None
-//  238   * @retval None
-//  239   */
+//  239 
+//  240 /**
+//  241   * @brief This function handles DMA2 Stream 4 interrupt request.
+//  242   * @param None
+//  243   * @retval None
+//  244   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock14 Using cfiCommon0
           CFI Function DMA2_Stream4_IRQHandler
           CFI NoCalls
         THUMB
-//  240 void AUDIO_OUT_SAIx_DMAx_IRQHandler(void)
-//  241 {
-//  242   //HAL_DMA_IRQHandler(haudio_out_sai.hdmatx);
-//  243 }
+//  245 void AUDIO_OUT_SAIx_DMAx_IRQHandler(void)
+//  246 {
+//  247   //HAL_DMA_IRQHandler(haudio_out_sai.hdmatx);
+//  248 }
 DMA2_Stream4_IRQHandler:
         BX       LR               ;; return
           CFI EndBlock cfiBlock14
-//  244 
-//  245 /**
-//  246   * @brief This function handles DMA2 Stream 7 interrupt request.
-//  247   * @param None
-//  248   * @retval None
-//  249   */
+//  249 
+//  250 /**
+//  251   * @brief This function handles DMA2 Stream 7 interrupt request.
+//  252   * @param None
+//  253   * @retval None
+//  254   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock15 Using cfiCommon0
           CFI Function DMA2_Stream7_IRQHandler
           CFI NoCalls
         THUMB
-//  250 void AUDIO_IN_SAIx_DMAx_IRQHandler(void)
-//  251 {
-//  252   //HAL_DMA_IRQHandler(haudio_in_sai.hdmarx);
-//  253 }
+//  255 void AUDIO_IN_SAIx_DMAx_IRQHandler(void)
+//  256 {
+//  257   //HAL_DMA_IRQHandler(haudio_in_sai.hdmarx);
+//  258 }
 DMA2_Stream7_IRQHandler:
         BX       LR               ;; return
           CFI EndBlock cfiBlock15
@@ -637,23 +650,23 @@ DMA2_Stream7_IRQHandler:
         SECTION_TYPE SHT_PROGBITS, 0
 
         END
-//  254 
-//  255 /**
-//  256   * @brief  This function handles PPP interrupt request.
-//  257   * @param  None
-//  258   * @retval None
-//  259   */
-//  260 /*void PPP_IRQHandler(void)
-//  261 {
-//  262 }*/
-//  263 
-//  264 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+//  259 
+//  260 /**
+//  261   * @brief  This function handles PPP interrupt request.
+//  262   * @param  None
+//  263   * @retval None
+//  264   */
+//  265 /*void PPP_IRQHandler(void)
+//  266 {
+//  267 }*/
+//  268 
+//  269 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
 //   4 bytes in section .bss
-// 124 bytes in section .text
+// 136 bytes in section .text
 // 
-// 124 bytes of CODE memory
+// 136 bytes of CODE memory
 //   4 bytes of DATA memory
 //
 //Errors: none
-//Warnings: 1
+//Warnings: none

@@ -162,7 +162,12 @@ void SysTick_Handler(void)
   //Toggle_Leds();
 
   cntOS++;
-
+#if USB_STREAMING
+  if(cntOS%2==0)
+  {
+      AudioProcess();
+  }
+#endif   
   if (cntOS==10)
   {
       cntOS=0;

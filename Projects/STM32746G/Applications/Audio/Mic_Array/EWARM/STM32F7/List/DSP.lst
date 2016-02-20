@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       13/Feb/2016  11:44:23
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       20/Feb/2016  20:48:45
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -62,14 +62,6 @@
 
 H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\DSP.c
       1          #include "DSP.h"
-
-  #define MAX(X,Y)                                   ((X)>(Y)?(X):(Y))
-          ^
-"H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Inc\main.h",100  Warning[Pe047]: 
-          incompatible redefinition of macro "MAX" (declared at line 266 of
-          "H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Pr
-          ojects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..
-          \Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_def.h")
 
    \                                 In section .text, align 4
    \   __interwork __softfp int16_t ADD_S16(int16_t, int16_t)
@@ -3242,4 +3234,4 @@ Warning[Pe177]: variable "vDataIn1Old" was declared but never referenced
  46 872 bytes of DATA  memory
 
 Errors: none
-Warnings: 3
+Warnings: 2

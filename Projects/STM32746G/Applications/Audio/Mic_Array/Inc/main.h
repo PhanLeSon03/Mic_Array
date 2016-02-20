@@ -52,7 +52,7 @@
 
 
 
-#define DEBUG           1
+#define DEBUG           0
 //#define MAIN_RECORD
 #define MAIN_CRSCORR    0
 #define MAIN_FFT        0
@@ -97,7 +97,7 @@
 #define SDOSHFTBIT                                 3
 #define SDOLEN                                     16 
 
-#define MAX(X,Y)                                   ((X)>(Y)?(X):(Y))
+//#define MAX(X,Y)                                   ((X)>(Y)?(X):(Y))
     
 #define U16_MAX                 65535
 #define S16_MAX                 32767

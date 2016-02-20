@@ -19,6 +19,9 @@ int16_t PCM_Buffer2[AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE];
 #pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE+4*AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE)
 int16_t PCM_Buffer3[AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE];
 
+uint16_t cntFrm;
+
+
 extern uint8_t buffer_switch;
 extern Mic_Array_Data Buffer1,Buffer2,Buffer3;
 
@@ -35,6 +38,9 @@ extern Mic_Array_Data Buffer1,Buffer2,Buffer3;
 
 void AudioProcess(void)
 {
+
+
+#if 0
     switch (buffer_switch)
     {
       case BUF1_PLAY:
@@ -48,12 +54,23 @@ void AudioProcess(void)
         break;
       default:
         break;
-    } 
+    }
+	
+#endif
+    //Send_Audio_to_USB((int16_t *)PCM_Buffer1, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS);
+    
+    Send_Audio_to_USB((int16_t *)&PCM_Buffer1[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*cntFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+    cntFrm++;
+	if (cntFrm==(AUDIO_OUT_BUFFER_SIZE/(AUDIO_SAMPLING_FREQUENCY/1000)))
+	{
+		cntFrm = 0;
+	}
 }
 
 void AudioMerging(void)
 {
-    switch (buffer_switch)
+#if 0
+	switch (buffer_switch)
     {
       case BUF1_PLAY:
 	  	for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
@@ -95,6 +112,32 @@ void AudioMerging(void)
       default:
         break;
     }
+#endif
+switch (buffer_switch)
+{
+  case BUF1_PLAY:
+	for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+	{
+	  PCM_Buffer1[i] = Buffer3.bufMIC5[i];			
+	}
+	
+	break;
+  case BUF2_PLAY:
+	for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+	{
+	  PCM_Buffer1[i] = Buffer1.bufMIC5[i];			
+	}		
+	break;
+  case BUF3_PLAY:
+	  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+	  {
+		PCM_Buffer1[i] = Buffer2.bufMIC5[i];		  
+	  }
+	break;
+  default:
+	break;
+}
+cntFrm=0;
 
 }
 

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      13/Feb/2016  11:44:25
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      20/Feb/2016  20:48:47
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -2115,4 +2115,4 @@ STA321MP_DefautLoad:
 //   142 bytes of DATA memory
 //
 //Errors: none
-//Warnings: 3
+//Warnings: 2

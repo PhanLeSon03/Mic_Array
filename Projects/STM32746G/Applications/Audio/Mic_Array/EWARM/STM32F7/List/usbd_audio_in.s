@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      13/Feb/2016  11:44:38
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      20/Feb/2016  20:49:01
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -1962,7 +1962,7 @@ USBD_AUDIO_Init_Microphone_Descriptor:
         BLT.N    ??USBD_AUDIO_Init_Microphone_Descriptor_4
 //  787   {
 //  788     USBD_AUDIO_CfgDesc[index] = AUDIO_CONTROLS;
-        LDR.N    R5,??DataTable10_3
+        LDR.W    R5,??DataTable10_3
         UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
         STRB     R4,[R3, R5]
 //  789     index++;
@@ -2341,7 +2341,7 @@ USBD_AUDIO_Init_Microphone_Descriptor:
         UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
         STRB     R5,[R3, R6]
         ADDS     R3,R3,#+1
-//  875   USBD_AUDIO_CfgDesc[index++] = ((samplingFrequency/1000+2)*Channels*2)&0xFF;  /* wMaxPacketSize */ 
+//  875   USBD_AUDIO_CfgDesc[index++] = ((samplingFrequency/1000+2)*Channels*2)&0xFF; //(AUDIO_OUT_BUFFER_SIZE*Channels*2+2)&0xFF;// /* wMaxPacketSize */ 
         MOV      R5,#+1000
         UDIV     R5,R1,R5
         ADDS     R5,R5,#+2
@@ -2352,7 +2352,7 @@ USBD_AUDIO_Init_Microphone_Descriptor:
         UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
         STRB     R5,[R3, R6]
         ADDS     R3,R3,#+1
-//  876   USBD_AUDIO_CfgDesc[index++] = ((samplingFrequency/1000+2)*Channels*2)>>8; 
+//  876   USBD_AUDIO_CfgDesc[index++] = ((samplingFrequency/1000+2)*Channels*2)>>8;//(AUDIO_OUT_BUFFER_SIZE*Channels*2+2)>>8;// 
         MOV      R5,#+1000
         UDIV     R5,R1,R5
         ADDS     R5,R5,#+2
@@ -2426,10 +2426,13 @@ USBD_AUDIO_Init_Microphone_Descriptor:
         STRB     R5,[R3, R6]
         ADDS     R3,R3,#+1
 //  888     
-//  889   haudioInstance.paketDimension = AUDIO_OUT_BUFFER_SIZE*2*Channels;//(samplingFrequency/1000*Channels*2);//
+//  889   haudioInstance.paketDimension = (samplingFrequency/1000*Channels*2);//AUDIO_OUT_BUFFER_SIZE*2*Channels;//
+        MOV      R5,#+1000
+        UDIV     R5,R1,R5
         UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
-        MOV      R5,#+2048
-        SMULBB   R5,R2,R5
+        SMULBB   R5,R5,R2
+        UXTH     R5,R5            ;; ZeroExt  R5,R5,#+16,#+16
+        LSLS     R5,R5,#+1
         LDR.N    R6,??DataTable10
         STRH     R5,[R6, #+18]
 //  890   haudioInstance.frequency=samplingFrequency;
@@ -2552,10 +2555,10 @@ USBD_AUDIO_Init_Microphone_Descriptor:
 // 
 //   606 bytes in section .bss
 //    68 bytes in section .data
-// 2 750 bytes in section .text
+// 2 760 bytes in section .text
 // 
-// 2 750 bytes of CODE memory
+// 2 760 bytes of CODE memory
 //   674 bytes of DATA memory
 //
 //Errors: none
-//Warnings: 1
+//Warnings: none

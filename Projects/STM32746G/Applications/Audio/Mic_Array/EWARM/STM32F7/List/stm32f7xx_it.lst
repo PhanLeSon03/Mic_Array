@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       13/Feb/2016  11:44:36
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       20/Feb/2016  20:48:59
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -102,14 +102,6 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
      39          
      40          /* Includes ------------------------------------------------------------------*/
      41          #include "main.h"
-
-  #define MAX(X,Y)                                   ((X)>(Y)?(X):(Y))
-          ^
-"H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Inc\main.h",100  Warning[Pe047]: 
-          incompatible redefinition of macro "MAX" (declared at line 266 of
-          "H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Pr
-          ojects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..
-          \Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_def.h")
      42          #include "stm32f7xx_it.h"
      43          
      44          /* Private typedef -----------------------------------------------------------*/
@@ -283,145 +275,156 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
    \   0000000A   0x1C40             ADDS     R0,R0,#+1
    \   0000000C   0x....             LDR.N    R1,??DataTable4
    \   0000000E   0x6008             STR      R0,[R1, #+0]
-    165          
-    166            if (cntOS==10)
+    165          #if USB_STREAMING
+    166            if(cntOS%2==0)
    \   00000010   0x....             LDR.N    R0,??DataTable4
-   \   00000012   0x6800             LDR      R0,[R0, #+0]
-   \   00000014   0x280A             CMP      R0,#+10
-   \   00000016   0xD105             BNE.N    ??SysTick_Handler_0
+   \   00000012   0x7800             LDRB     R0,[R0, #+0]
+   \   00000014   0x07C0             LSLS     R0,R0,#+31
+   \   00000016   0xD401             BMI.N    ??SysTick_Handler_0
     167            {
-    168                cntOS=0;
-   \   00000018   0x2000             MOVS     R0,#+0
-   \   0000001A   0x....             LDR.N    R1,??DataTable4
-   \   0000001C   0x6008             STR      R0,[R1, #+0]
-    169                flg10ms = 1;
-   \   0000001E   0x2001             MOVS     R0,#+1
-   \   00000020   0x....             LDR.N    R1,??DataTable4_1
-   \   00000022   0x7008             STRB     R0,[R1, #+0]
-    170            }
-    171            	
-    172          }
+    168                AudioProcess();
+   \   00000018   0x.... 0x....      BL       AudioProcess
+    169            }
+    170          #endif   
+    171            if (cntOS==10)
    \                     ??SysTick_Handler_0: (+1)
-   \   00000024   0xBD01             POP      {R0,PC}          ;; return
-    173          
-
-   \                                 In section .text, align 2, keep-with-next
-    174          void USART6_IRQHandler(void)
-    175          {
-    176          //  HAL_UART_IRQHandler(&huart6);
+   \   0000001C   0x....             LDR.N    R0,??DataTable4
+   \   0000001E   0x6800             LDR      R0,[R0, #+0]
+   \   00000020   0x280A             CMP      R0,#+10
+   \   00000022   0xD105             BNE.N    ??SysTick_Handler_1
+    172            {
+    173                cntOS=0;
+   \   00000024   0x2000             MOVS     R0,#+0
+   \   00000026   0x....             LDR.N    R1,??DataTable4
+   \   00000028   0x6008             STR      R0,[R1, #+0]
+    174                flg10ms = 1;
+   \   0000002A   0x2001             MOVS     R0,#+1
+   \   0000002C   0x....             LDR.N    R1,??DataTable4_1
+   \   0000002E   0x7008             STRB     R0,[R1, #+0]
+    175            }
+    176            	
     177          }
-   \                     USART6_IRQHandler: (+1)
-   \   00000000   0x4770             BX       LR               ;; return
+   \                     ??SysTick_Handler_1: (+1)
+   \   00000030   0xBD01             POP      {R0,PC}          ;; return
     178          
 
    \                                 In section .text, align 2, keep-with-next
-    179          void USART3_IRQHandler(void)
+    179          void USART6_IRQHandler(void)
     180          {
+    181          //  HAL_UART_IRQHandler(&huart6);
+    182          }
+   \                     USART6_IRQHandler: (+1)
+   \   00000000   0x4770             BX       LR               ;; return
+    183          
+
+   \                                 In section .text, align 2, keep-with-next
+    184          void USART3_IRQHandler(void)
+    185          {
    \                     USART3_IRQHandler: (+1)
    \   00000000   0xB580             PUSH     {R7,LR}
-    181            HAL_UART_IRQHandler(&huart3);
+    186            HAL_UART_IRQHandler(&huart3);
    \   00000002   0x....             LDR.N    R0,??DataTable4_2
    \   00000004   0x.... 0x....      BL       HAL_UART_IRQHandler
-    182          }
+    187          }
    \   00000008   0xBD01             POP      {R0,PC}          ;; return
-    183          
-    184          
+    188          
+    189          
 
    \                                 In section .text, align 2, keep-with-next
-    185          void I2C1_EV_IRQHandler(void)
-    186          {
+    190          void I2C1_EV_IRQHandler(void)
+    191          {
    \                     I2C1_EV_IRQHandler: (+1)
    \   00000000   0xB580             PUSH     {R7,LR}
-    187            /* USER CODE BEGIN I2C1_EV_IRQn 0 */
-    188          
-    189            /* USER CODE END I2C1_EV_IRQn 0 */
-    190            HAL_I2C_EV_IRQHandler(&hi2c1);
+    192            /* USER CODE BEGIN I2C1_EV_IRQn 0 */
+    193          
+    194            /* USER CODE END I2C1_EV_IRQn 0 */
+    195            HAL_I2C_EV_IRQHandler(&hi2c1);
    \   00000002   0x....             LDR.N    R0,??DataTable4_3
    \   00000004   0x.... 0x....      BL       HAL_I2C_EV_IRQHandler
-    191            /* USER CODE BEGIN I2C1_EV_IRQn 1 */
-    192          
-    193            /* USER CODE END I2C1_EV_IRQn 1 */
-    194          }
+    196            /* USER CODE BEGIN I2C1_EV_IRQn 1 */
+    197          
+    198            /* USER CODE END I2C1_EV_IRQn 1 */
+    199          }
    \   00000008   0xBD01             POP      {R0,PC}          ;; return
-    195          
-    196          
+    200          
+    201          
 
    \                                 In section .text, align 2, keep-with-next
-    197          void I2C2_EV_IRQHandler(void)
-    198          {
+    202          void I2C2_EV_IRQHandler(void)
+    203          {
    \                     I2C2_EV_IRQHandler: (+1)
    \   00000000   0xB580             PUSH     {R7,LR}
-    199            /* USER CODE BEGIN I2C1_EV_IRQn 0 */
-    200          
-    201            /* USER CODE END I2C1_EV_IRQn 0 */
-    202            HAL_I2C_EV_IRQHandler(&hi2c2);
+    204            /* USER CODE BEGIN I2C1_EV_IRQn 0 */
+    205          
+    206            /* USER CODE END I2C1_EV_IRQn 0 */
+    207            HAL_I2C_EV_IRQHandler(&hi2c2);
    \   00000002   0x....             LDR.N    R0,??DataTable4_4
    \   00000004   0x.... 0x....      BL       HAL_I2C_EV_IRQHandler
-    203            /* USER CODE BEGIN I2C1_EV_IRQn 1 */
-    204          
-    205            /* USER CODE END I2C1_EV_IRQn 1 */
-    206          }
-   \   00000008   0xBD01             POP      {R0,PC}          ;; return
-    207          
-    208          
+    208            /* USER CODE BEGIN I2C1_EV_IRQn 1 */
     209          
-    210          
-    211          
+    210            /* USER CODE END I2C1_EV_IRQn 1 */
+    211          }
+   \   00000008   0xBD01             POP      {R0,PC}          ;; return
     212          
-    213          /******************************************************************************/
-    214          /*                 STM32F7xx Peripherals Interrupt Handlers                   */
-    215          /*  Add here the Interrupt Handler for the used peripheral(s) (PPP), for the  */
-    216          /*  available peripheral interrupt handler's name please refer to the startup */
-    217          /*  file (startup_stm32f7xx.s).                                               */
+    213          
+    214          
+    215          
+    216          
+    217          
     218          /******************************************************************************/
-    219          
-    220          /**
-    221            * @brief  This function handles USB-On-The-Go FS/HS global interrupt request.
-    222            * @param  None
-    223            * @retval None
-    224            */
-    225          #ifdef USE_USB_FS
+    219          /*                 STM32F7xx Peripherals Interrupt Handlers                   */
+    220          /*  Add here the Interrupt Handler for the used peripheral(s) (PPP), for the  */
+    221          /*  available peripheral interrupt handler's name please refer to the startup */
+    222          /*  file (startup_stm32f7xx.s).                                               */
+    223          /******************************************************************************/
+    224          
+    225          /**
+    226            * @brief  This function handles USB-On-The-Go FS/HS global interrupt request.
+    227            * @param  None
+    228            * @retval None
+    229            */
+    230          #ifdef USE_USB_FS
 
    \                                 In section .text, align 2, keep-with-next
-    226          void OTG_FS_IRQHandler(void)
-    227          #else
-    228          void OTG_HS_IRQHandler(void)
-    229          #endif
-    230          {
+    231          void OTG_FS_IRQHandler(void)
+    232          #else
+    233          void OTG_HS_IRQHandler(void)
+    234          #endif
+    235          {
    \                     OTG_FS_IRQHandler: (+1)
    \   00000000   0xB580             PUSH     {R7,LR}
-    231            //sop1hc HAL_HCD_IRQHandler(&hhcd);
-    232            HAL_PCD_IRQHandler(&hpcd);
+    236            //sop1hc HAL_HCD_IRQHandler(&hhcd);
+    237            HAL_PCD_IRQHandler(&hpcd);
    \   00000002   0x....             LDR.N    R0,??DataTable4_5
    \   00000004   0x.... 0x....      BL       HAL_PCD_IRQHandler
-    233          }
+    238          }
    \   00000008   0xBD01             POP      {R0,PC}          ;; return
-    234          
-    235          /**
-    236            * @brief This function handles DMA2 Stream 4 interrupt request.
-    237            * @param None
-    238            * @retval None
-    239            */
+    239          
+    240          /**
+    241            * @brief This function handles DMA2 Stream 4 interrupt request.
+    242            * @param None
+    243            * @retval None
+    244            */
 
    \                                 In section .text, align 2, keep-with-next
-    240          void AUDIO_OUT_SAIx_DMAx_IRQHandler(void)
-    241          {
-    242            //HAL_DMA_IRQHandler(haudio_out_sai.hdmatx);
-    243          }
+    245          void AUDIO_OUT_SAIx_DMAx_IRQHandler(void)
+    246          {
+    247            //HAL_DMA_IRQHandler(haudio_out_sai.hdmatx);
+    248          }
    \                     DMA2_Stream4_IRQHandler: (+1)
    \   00000000   0x4770             BX       LR               ;; return
-    244          
-    245          /**
-    246            * @brief This function handles DMA2 Stream 7 interrupt request.
-    247            * @param None
-    248            * @retval None
-    249            */
+    249          
+    250          /**
+    251            * @brief This function handles DMA2 Stream 7 interrupt request.
+    252            * @param None
+    253            * @retval None
+    254            */
 
    \                                 In section .text, align 2, keep-with-next
-    250          void AUDIO_IN_SAIx_DMAx_IRQHandler(void)
-    251          {
-    252            //HAL_DMA_IRQHandler(haudio_in_sai.hdmarx);
-    253          }
+    255          void AUDIO_IN_SAIx_DMAx_IRQHandler(void)
+    256          {
+    257            //HAL_DMA_IRQHandler(haudio_in_sai.hdmarx);
+    258          }
    \                     DMA2_Stream7_IRQHandler: (+1)
    \   00000000   0x4770             BX       LR               ;; return
 
@@ -448,17 +451,17 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable4_5:
    \   00000000   0x........         DC32     hpcd
-    254          
-    255          /**
-    256            * @brief  This function handles PPP interrupt request.
-    257            * @param  None
-    258            * @retval None
-    259            */
-    260          /*void PPP_IRQHandler(void)
-    261          {
-    262          }*/
-    263          
-    264          /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+    259          
+    260          /**
+    261            * @brief  This function handles PPP interrupt request.
+    262            * @param  None
+    263            * @retval None
+    264            */
+    265          /*void PPP_IRQHandler(void)
+    266          {
+    267          }*/
+    268          
+    269          /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 
    Maximum stack usage in bytes:
 
@@ -480,6 +483,7 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
        0   PendSV_Handler
        0   SVC_Handler
        8   SysTick_Handler
+         8   -> AudioProcess
          8   -> HAL_IncTick
        8   USART3_IRQHandler
          8   -> HAL_UART_IRQHandler
@@ -509,7 +513,7 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
       10  OTG_FS_IRQHandler
        2  PendSV_Handler
        2  SVC_Handler
-      38  SysTick_Handler
+      50  SysTick_Handler
       10  USART3_IRQHandler
        2  USART6_IRQHandler
        2  UsageFault_Handler
@@ -517,10 +521,10 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
 
  
    4 bytes in section .bss
- 124 bytes in section .text
+ 136 bytes in section .text
  
- 124 bytes of CODE memory
+ 136 bytes of CODE memory
    4 bytes of DATA memory
 
 Errors: none
-Warnings: 1
+Warnings: none

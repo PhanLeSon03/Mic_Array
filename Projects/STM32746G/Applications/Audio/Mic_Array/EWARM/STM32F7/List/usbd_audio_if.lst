@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       13/Feb/2016  11:44:38
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       20/Feb/2016  20:49:01
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -106,13 +106,6 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
      43          
      44          /* Includes ------------------------------------------------------------------*/
      45          #include "usbd_audio_if.h"
-
-  #define MAX(X,Y)                                   ((X)>(Y)?(X):(Y))
-          ^
-"H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Inc\main.h",100  Warning[Pe047]: 
-          incompatible redefinition of macro "MAX" (declared at line 266 of
-          "H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Mi
-          ddlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_def.h")
      46          
      47          #ifdef USE_STM32L4XX_NUCLEO
      48          extern uint16_t PCM_Buffer[];
@@ -504,4 +497,4 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
   36 bytes of DATA  memory
 
 Errors: none
-Warnings: 1
+Warnings: none

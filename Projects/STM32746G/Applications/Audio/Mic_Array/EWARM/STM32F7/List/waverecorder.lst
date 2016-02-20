@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       13/Feb/2016  11:44:44
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       20/Feb/2016  20:49:08
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -64,14 +64,6 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
       1          
       2          /* Includes ------------------------------------------------------------------*/
       3          #include "waverecorder.h" 
-
-  #define MAX(X,Y)                                   ((X)>(Y)?(X):(Y))
-          ^
-"H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Inc\main.h",100  Warning[Pe047]: 
-          incompatible redefinition of macro "MAX" (declared at line 266 of
-          "H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Pr
-          ojects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..
-          \Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_def.h")
       4          #include "string.h"
       5          //#include "stm32f7xx_hal_spi.h"
       6          #include "stm32f7xx_hal.h"
@@ -5391,4 +5383,4 @@ Warning[Pa082]: undefined behavior: the order of volatile accesses is
  157 639 bytes of DATA memory
 
 Errors: none
-Warnings: 24
+Warnings: 23
