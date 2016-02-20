@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      20/Feb/2016  20:48:59
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      20/Feb/2016  22:27:42
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -67,7 +67,6 @@
 
         #define SHT_PROGBITS 0x1
 
-        EXTERN AudioProcess
         EXTERN HAL_I2C_EV_IRQHandler
         EXTERN HAL_IncTick
         EXTERN HAL_PCD_IRQHandler
@@ -405,23 +404,16 @@ SysTick_Handler:
         LDR.N    R1,??DataTable4
         STR      R0,[R1, #+0]
 //  165 #if USB_STREAMING
-//  166   if(cntOS%2==0)
-        LDR.N    R0,??DataTable4
-        LDRB     R0,[R0, #+0]
-        LSLS     R0,R0,#+31
-        BMI.N    ??SysTick_Handler_0
-//  167   {
-//  168       AudioProcess();
-          CFI FunCall AudioProcess
-        BL       AudioProcess
-//  169   }
+//  166   //if(cntOS%2==0)
+//  167   //{
+//  168   //    AudioProcess();
+//  169   //}
 //  170 #endif   
 //  171   if (cntOS==10)
-??SysTick_Handler_0:
         LDR.N    R0,??DataTable4
         LDR      R0,[R0, #+0]
         CMP      R0,#+10
-        BNE.N    ??SysTick_Handler_1
+        BNE.N    ??SysTick_Handler_0
 //  172   {
 //  173       cntOS=0;
         MOVS     R0,#+0
@@ -434,7 +426,7 @@ SysTick_Handler:
 //  175   }
 //  176   	
 //  177 }
-??SysTick_Handler_1:
+??SysTick_Handler_0:
         POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock8
 //  178 
@@ -663,9 +655,9 @@ DMA2_Stream7_IRQHandler:
 //  269 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
 //   4 bytes in section .bss
-// 136 bytes in section .text
+// 124 bytes in section .text
 // 
-// 136 bytes of CODE memory
+// 124 bytes of CODE memory
 //   4 bytes of DATA memory
 //
 //Errors: none

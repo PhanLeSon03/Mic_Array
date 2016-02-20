@@ -2,7 +2,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "audio_application.h"
-#include "main.h"
+
 
 /* Private typedef -----------------------------------------------------------*/
 #define AUDIO_SIZE_ELEMENT (2*AUDIO_OUT_BUFFER_SIZE+10)
@@ -36,7 +36,7 @@ extern Mic_Array_Data Buffer1,Buffer2,Buffer3;
 	3-------  Buffer2                         Buffer3                         Buffer1 
  ---------------------------------------------------------------------------------------------------------------*/
 
-void AudioProcess(void)
+void AudioProcess(uint16_t idxFrm)
 {
 
 
@@ -59,12 +59,8 @@ void AudioProcess(void)
 #endif
     //Send_Audio_to_USB((int16_t *)PCM_Buffer1, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS);
     
-    Send_Audio_to_USB((int16_t *)&PCM_Buffer1[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*cntFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
-    cntFrm++;
-	if (cntFrm==(AUDIO_OUT_BUFFER_SIZE/(AUDIO_SAMPLING_FREQUENCY/1000)))
-	{
-		cntFrm = 0;
-	}
+    Send_Audio_to_USB((int16_t *)&PCM_Buffer1[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+
 }
 
 void AudioMerging(void)
@@ -118,20 +114,20 @@ switch (buffer_switch)
   case BUF1_PLAY:
 	for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
 	{
-	  PCM_Buffer1[i] = Buffer3.bufMIC5[i];			
+	  PCM_Buffer1[i] = Buffer3.bufMIC6[i];			
 	}
 	
 	break;
   case BUF2_PLAY:
 	for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
 	{
-	  PCM_Buffer1[i] = Buffer1.bufMIC5[i];			
+	  PCM_Buffer1[i] = Buffer1.bufMIC6[i];			
 	}		
 	break;
   case BUF3_PLAY:
 	  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
 	  {
-		PCM_Buffer1[i] = Buffer2.bufMIC5[i];		  
+		PCM_Buffer1[i] = Buffer2.bufMIC6[i];		  
 	  }
 	break;
   default:

@@ -163,10 +163,10 @@ void SysTick_Handler(void)
 
   cntOS++;
 #if USB_STREAMING
-  if(cntOS%2==0)
-  {
-      AudioProcess();
-  }
+  //if(cntOS%2==0)
+  //{
+  //    AudioProcess();
+  //}
 #endif   
   if (cntOS==10)
   {

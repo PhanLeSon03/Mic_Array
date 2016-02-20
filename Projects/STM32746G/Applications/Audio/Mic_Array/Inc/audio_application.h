@@ -3,6 +3,7 @@
 #ifndef __AUDIO_APPLICATION_H
 #define __AUDIO_APPLICATION_H
 
+#include "main.h"
 
 
 //#define AUDIO_CHANNELS 				        	8
@@ -14,7 +15,8 @@ independentrly from USB functionalities*/
 
 
 
-void AudioProcess(void);
+void AudioProcess(uint16_t idxFrm);
+
 void AudioMerging(void);
 
 

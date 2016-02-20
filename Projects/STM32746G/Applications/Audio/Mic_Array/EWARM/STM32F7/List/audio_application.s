@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      20/Feb/2016  20:48:44
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      20/Feb/2016  22:27:27
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -131,7 +131,7 @@
 //    2 
 //    3 /* Includes ------------------------------------------------------------------*/
 //    4 #include "audio_application.h"
-//    5 #include "main.h"
+//    5 
 //    6 
 //    7 /* Private typedef -----------------------------------------------------------*/
 //    8 #define AUDIO_SIZE_ELEMENT (2*AUDIO_OUT_BUFFER_SIZE+10)
@@ -190,12 +190,14 @@ cntFrm:
           CFI Block cfiBlock0 Using cfiCommon0
           CFI Function AudioProcess
         THUMB
-//   39 void AudioProcess(void)
+//   39 void AudioProcess(uint16_t idxFrm)
 //   40 {
 AudioProcess:
-        PUSH     {R7,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
+        MOVS     R4,R0
 //   41 
 //   42 
 //   43 #if 0
@@ -217,93 +219,75 @@ AudioProcess:
 //   59 #endif
 //   60     //Send_Audio_to_USB((int16_t *)PCM_Buffer1, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS);
 //   61     
-//   62     Send_Audio_to_USB((int16_t *)&PCM_Buffer1[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*cntFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+//   62     Send_Audio_to_USB((int16_t *)&PCM_Buffer1[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
         MOVS     R1,#+32
         LDR.N    R0,??DataTable1  ;; 0xc00181e0
-        LDR.N    R2,??DataTable1_1
-        LDRH     R2,[R2, #+0]
-        MOVS     R3,#+64
-        MLA      R0,R3,R2,R0
+        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+        MOVS     R2,#+64
+        MLA      R0,R2,R4,R0
           CFI FunCall Send_Audio_to_USB
         BL       Send_Audio_to_USB
-//   63     cntFrm++;
-        LDR.N    R0,??DataTable1_1
-        LDRH     R0,[R0, #+0]
-        ADDS     R0,R0,#+1
-        LDR.N    R1,??DataTable1_1
-        STRH     R0,[R1, #+0]
-//   64 	if (cntFrm==(AUDIO_OUT_BUFFER_SIZE/(AUDIO_SAMPLING_FREQUENCY/1000)))
-        LDR.N    R0,??DataTable1_1
-        LDRH     R0,[R0, #+0]
-        CMP      R0,#+64
-        BNE.N    ??AudioProcess_0
-//   65 	{
-//   66 		cntFrm = 0;
-        MOVS     R0,#+0
-        LDR.N    R1,??DataTable1_1
-        STRH     R0,[R1, #+0]
-//   67 	}
-//   68 }
-??AudioProcess_0:
-        POP      {R0,PC}          ;; return
+//   63 
+//   64 }
+        POP      {R4,PC}          ;; return
           CFI EndBlock cfiBlock0
         REQUIRE PCM_Buffer1
-//   69 
+//   65 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock1 Using cfiCommon0
           CFI Function AudioMerging
           CFI NoCalls
         THUMB
-//   70 void AudioMerging(void)
-//   71 {
-//   72 #if 0
-//   73 	switch (buffer_switch)
-//   74     {
-//   75       case BUF1_PLAY:
-//   76 	  	for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
-//   77  	  	{
-//   78  	  	    if (i%2==0)
-//   79  	  	    {
-//   80 	 	  	    for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
-//   81 	 	  	    {
-//   82 	                PCM_Buffer3[8*(i/2)+j] = (int16_t)*(&Buffer3.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i);
-//   83 	 	  	    }
-//   84  	  	    }
-//   85 		}
-//   86 		
-//   87         break;
-//   88       case BUF2_PLAY:
-//   89 	  	for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
-//   90  	  	{
-//   91  	  	    if (i%2==0)
-//   92  	  	    {
-//   93 	 	  	    for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
-//   94 	 	  	    {
-//   95 	                PCM_Buffer1[8*(i/2)+j] = (int16_t)*(&Buffer1.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i);
-//   96 	 	  	    }
-//   97  	  	    }
-//   98 		}	  	
-//   99         break;
-//  100       case BUF3_PLAY:
-//  101 		for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
-//  102 		{
-//  103 		  if (i%2==0)
-//  104 		  {
-//  105 			  for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
-//  106 			  {
-//  107 				  PCM_Buffer2[8*(i/2)+j] = (int16_t)*(&Buffer2.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i);
-//  108 			  }
-//  109 		  }
-//  110 		}
-//  111         break;
-//  112       default:
-//  113         break;
-//  114     }
-//  115 #endif
-//  116 switch (buffer_switch)
+//   66 void AudioMerging(void)
+//   67 {
+//   68 #if 0
+//   69 	switch (buffer_switch)
+//   70     {
+//   71       case BUF1_PLAY:
+//   72 	  	for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
+//   73  	  	{
+//   74  	  	    if (i%2==0)
+//   75  	  	    {
+//   76 	 	  	    for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
+//   77 	 	  	    {
+//   78 	                PCM_Buffer3[8*(i/2)+j] = (int16_t)*(&Buffer3.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i);
+//   79 	 	  	    }
+//   80  	  	    }
+//   81 		}
+//   82 		
+//   83         break;
+//   84       case BUF2_PLAY:
+//   85 	  	for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
+//   86  	  	{
+//   87  	  	    if (i%2==0)
+//   88  	  	    {
+//   89 	 	  	    for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
+//   90 	 	  	    {
+//   91 	                PCM_Buffer1[8*(i/2)+j] = (int16_t)*(&Buffer1.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i);
+//   92 	 	  	    }
+//   93  	  	    }
+//   94 		}	  	
+//   95         break;
+//   96       case BUF3_PLAY:
+//   97 		for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
+//   98 		{
+//   99 		  if (i%2==0)
+//  100 		  {
+//  101 			  for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
+//  102 			  {
+//  103 				  PCM_Buffer2[8*(i/2)+j] = (int16_t)*(&Buffer2.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i);
+//  104 			  }
+//  105 		  }
+//  106 		}
+//  107         break;
+//  108       default:
+//  109         break;
+//  110     }
+//  111 #endif
+//  112 switch (buffer_switch)
 AudioMerging:
-        LDR.N    R0,??DataTable1_2
+        LDR.N    R0,??DataTable1_1
         LDRB     R0,[R0, #+0]
         CMP      R0,#+0
         BEQ.N    ??AudioMerging_0
@@ -311,91 +295,91 @@ AudioMerging:
         BEQ.N    ??AudioMerging_1
         BCC.N    ??AudioMerging_2
         B.N      ??AudioMerging_3
-//  117 {
-//  118   case BUF1_PLAY:
-//  119 	for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  113 {
+//  114   case BUF1_PLAY:
+//  115 	for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
 ??AudioMerging_0:
         MOVS     R0,#+0
 ??AudioMerging_4:
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         CMP      R0,#+2048
         BGE.N    ??AudioMerging_5
-//  120 	{
-//  121 	  PCM_Buffer1[i] = Buffer3.bufMIC5[i];			
-        LDR.N    R1,??DataTable1_3
+//  116 	{
+//  117 	  PCM_Buffer1[i] = Buffer3.bufMIC6[i];			
+        LDR.N    R1,??DataTable1_2
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         ADDS     R1,R1,R0, LSL #+1
-        MOVW     R2,#+16464
+        MOVW     R2,#+20580
         LDRH     R1,[R2, R1]
         LDR.N    R2,??DataTable1  ;; 0xc00181e0
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         STRH     R1,[R2, R0, LSL #+1]
-//  122 	}
+//  118 	}
         ADDS     R0,R0,#+1
         B.N      ??AudioMerging_4
-//  123 	
-//  124 	break;
+//  119 	
+//  120 	break;
 ??AudioMerging_5:
         B.N      ??AudioMerging_6
-//  125   case BUF2_PLAY:
-//  126 	for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  121   case BUF2_PLAY:
+//  122 	for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
 ??AudioMerging_2:
         MOVS     R0,#+0
 ??AudioMerging_7:
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         CMP      R0,#+2048
         BGE.N    ??AudioMerging_8
-//  127 	{
-//  128 	  PCM_Buffer1[i] = Buffer1.bufMIC5[i];			
-        LDR.N    R1,??DataTable1_4
+//  123 	{
+//  124 	  PCM_Buffer1[i] = Buffer1.bufMIC6[i];			
+        LDR.N    R1,??DataTable1_3
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         ADDS     R1,R1,R0, LSL #+1
-        MOVW     R2,#+16464
+        MOVW     R2,#+20580
         LDRH     R1,[R2, R1]
         LDR.N    R2,??DataTable1  ;; 0xc00181e0
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         STRH     R1,[R2, R0, LSL #+1]
-//  129 	}		
+//  125 	}		
         ADDS     R0,R0,#+1
         B.N      ??AudioMerging_7
-//  130 	break;
+//  126 	break;
 ??AudioMerging_8:
         B.N      ??AudioMerging_6
-//  131   case BUF3_PLAY:
-//  132 	  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  127   case BUF3_PLAY:
+//  128 	  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
 ??AudioMerging_1:
         MOVS     R0,#+0
 ??AudioMerging_9:
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         CMP      R0,#+2048
         BGE.N    ??AudioMerging_10
-//  133 	  {
-//  134 		PCM_Buffer1[i] = Buffer2.bufMIC5[i];		  
-        LDR.N    R1,??DataTable1_5
+//  129 	  {
+//  130 		PCM_Buffer1[i] = Buffer2.bufMIC6[i];		  
+        LDR.N    R1,??DataTable1_4
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         ADDS     R1,R1,R0, LSL #+1
-        MOVW     R2,#+16464
+        MOVW     R2,#+20580
         LDRH     R1,[R2, R1]
         LDR.N    R2,??DataTable1  ;; 0xc00181e0
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         STRH     R1,[R2, R0, LSL #+1]
-//  135 	  }
+//  131 	  }
         ADDS     R0,R0,#+1
         B.N      ??AudioMerging_9
-//  136 	break;
+//  132 	break;
 ??AudioMerging_10:
         B.N      ??AudioMerging_6
-//  137   default:
-//  138 	break;
-//  139 }
-//  140 cntFrm=0;
+//  133   default:
+//  134 	break;
+//  135 }
+//  136 cntFrm=0;
 ??AudioMerging_3:
 ??AudioMerging_6:
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable1_1
+        LDR.N    R1,??DataTable1_5
         STRH     R0,[R1, #+0]
-//  141 
-//  142 }
+//  137 
+//  138 }
         BX       LR               ;; return
           CFI EndBlock cfiBlock1
         REQUIRE PCM_Buffer1
@@ -410,31 +394,31 @@ AudioMerging:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable1_1:
-        DC32     cntFrm
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_2:
         DC32     buffer_switch
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1_3:
+??DataTable1_2:
         DC32     Buffer3
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1_4:
+??DataTable1_3:
         DC32     Buffer1
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1_5:
+??DataTable1_4:
         DC32     Buffer2
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable1_5:
+        DC32     cntFrm
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -448,15 +432,15 @@ AudioMerging:
         SECTION_TYPE SHT_PROGBITS, 0
 
         END
-//  143 
-//  144 
-//  145 
+//  139 
+//  140 
+//  141 
 // 
 //      2 bytes in section .bss
 // 12 288 bytes in section .bss  (abs)
-//    208 bytes in section .text
+//    184 bytes in section .text
 // 
-//    208 bytes of CODE memory
+//    184 bytes of CODE memory
 // 12 290 bytes of DATA memory
 //
 //Errors: none

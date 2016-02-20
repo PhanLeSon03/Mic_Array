@@ -116,6 +116,9 @@ DMA_HandleTypeDef hdma_spi2_tx;
 DMA_HandleTypeDef hdma_spi3_tx;
 DMA_HandleTypeDef     hdma_spi5_rx,hdma_spi6_rx;
 
+#if USB_STREAMING
+	uint16_t idxFrmPDMMic8;
+#endif
 
 
 uint16_t *bufPCMSens7;
@@ -772,8 +775,11 @@ void MIC1TO6_Init(void)
   SPI6_Init();
 
   HAL_SPI_Receive_DMA(&hspi5,( uint8_t *)TestSDO7,4*AUDIO_OUT_BUFFER_SIZE);
+#if (USB_STREAMING)
+  HAL_SPI_Receive_DMA(&hspi6,( uint8_t *)TestSDO8,4*(AUDIO_SAMPLING_FREQUENCY/1000));
+#else
   HAL_SPI_Receive_DMA(&hspi6,( uint8_t *)TestSDO8,4*AUDIO_OUT_BUFFER_SIZE);
-
+#endif
   swtSDO7 = 0;
   swtSDO8 = 0;
 }
@@ -1444,6 +1450,72 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
 	}
 	else if (hspi->Instance==SPI6)
     {
+#if USB_STREAMING
+   for (uint16_t i=0; i< 4*(AUDIO_SAMPLING_FREQUENCY/1000);i++)
+   {
+        pDataMic8[i%64] = HTONS(TestSDO8[i]);
+
+	  /* PDM conversion for frame of 64 inputs, 16 outputs */
+	  if (i%64==63)
+	  {
+			/* Recording Audio Data */						 
+			switch (buffer_switch)
+			{
+				case BUF1_PLAY: 							
+					PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer2.bufMIC8 + idxFrmPDMMic8*32), 64 ,
+					(PDMFilter_InitStruct *)&Filter[1]);
+					break;
+				case BUF2_PLAY:
+					PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer3.bufMIC8 + idxFrmPDMMic8*32), 64 ,
+					(PDMFilter_InitStruct *)&Filter[1]);	
+					break;
+				case BUF3_PLAY:
+					PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer1.bufMIC8 + idxFrmPDMMic8*32), 64 ,
+					(PDMFilter_InitStruct *)&Filter[1]);									
+					 break;
+				default:
+					 break; 
+			}
+
+			idxFrmPDMMic8++;
+
+			if(idxFrmPDMMic8==(4*AUDIO_OUT_BUFFER_SIZE/64))
+			{
+                idxFrmPDMMic8 = 0;
+			}
+
+	  	}
+		
+   }
+
+   
+   
+   /* Update for left-right channel */
+   for (int16_t i=(idxFrmPDMMic8+1)*16-1; i>=idxFrmPDMMic8*16;i--)
+   {
+		  /* Recording Audio Data */						
+		   switch (buffer_switch)
+		   {
+			   case BUF1_PLAY:							   
+				   Buffer2.bufMIC8[2*i+1]=	Buffer2.bufMIC8[i];
+				   Buffer2.bufMIC8[2*i] = Buffer2.bufMIC8[i];
+				   break;
+			   case BUF2_PLAY:
+				   Buffer3.bufMIC8[2*i+1]= Buffer3.bufMIC8[i];
+				   Buffer3.bufMIC8[2*i]= Buffer3.bufMIC8[i];;  
+				   break;
+			   case BUF3_PLAY:
+				   Buffer1.bufMIC8[2*i+1]= Buffer1.bufMIC8[i];
+				   Buffer1.bufMIC8[2*i]= Buffer1.bufMIC8[i];;  
+				   break;
+			   default:
+					break; 
+		   }
+   }
+   AudioProcess(idxFrmPDMMic8);
+   HAL_SPI_Receive_DMA(&hspi6,( uint8_t *)TestSDO8,4*(AUDIO_SAMPLING_FREQUENCY/1000));
+
+#else
         swtSDO8^=0x01;
 		WaveRecord_flgSDO8Finish = 1;
 		if (swtSDO8==0x01)
@@ -1455,13 +1527,14 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
 		    HAL_SPI_Receive_DMA(&hspi6,( uint8_t *)TestSDO8,4*AUDIO_OUT_BUFFER_SIZE);
 
 		}
+#endif
 
 	}
 	else
 	{
 	
 	}
-    
+       
 }
 
 void PDM2PCMSDO78(void)
