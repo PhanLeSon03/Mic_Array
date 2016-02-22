@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      22/Feb/2016  14:14:21
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      22/Feb/2016  14:50:39
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -16,10 +16,8 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-//        --no_clustering --no_scheduling --debug --endian=little
-//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-//        (x86)\IAR Systems\Embedded Workbench
+//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
+//        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
@@ -50,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
@@ -223,78 +221,6 @@
 // D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\main.c
 //    1 /* Includes ------------------------------------------------------------------*/
 //    2 #include "main.h"
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock0 Using cfiCommon0
-          CFI Function SCB_EnableICache
-          CFI NoCalls
-        THUMB
-// static __interwork __softfp void SCB_EnableICache(void)
-SCB_EnableICache:
-        DSB      
-        ISB      
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable15  ;; 0xe000ef50
-        STR      R0,[R1, #+0]
-        LDR.W    R0,??DataTable16  ;; 0xe000ed14
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x20000
-        LDR.W    R1,??DataTable16  ;; 0xe000ed14
-        STR      R0,[R1, #+0]
-        DSB      
-        ISB      
-        BX       LR               ;; return
-          CFI EndBlock cfiBlock0
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock1 Using cfiCommon0
-          CFI Function SCB_EnableDCache
-          CFI NoCalls
-        THUMB
-// static __interwork __softfp void SCB_EnableDCache(void)
-SCB_EnableDCache:
-        PUSH     {R4}
-          CFI R4 Frame(CFA, -4)
-          CFI CFA R13+4
-        MOVS     R3,#+0
-        LDR.W    R4,??DataTable15_1  ;; 0xe000ed84
-        STR      R3,[R4, #+0]
-        DSB      
-        LDR.W    R3,??DataTable16_1  ;; 0xe000ed80
-        LDR      R3,[R3, #+0]
-        MOVS     R0,R3
-        UBFX     R3,R0,#+13,#+15
-        MOVS     R1,R3
-??SCB_EnableDCache_0:
-        UBFX     R3,R0,#+3,#+10
-        MOVS     R2,R3
-??SCB_EnableDCache_1:
-        MOVW     R3,#+16352
-        ANDS     R3,R3,R1, LSL #+5
-        ORRS     R3,R3,R2, LSL #+30
-        LDR.W    R4,??DataTable16_2  ;; 0xe000ef60
-        STR      R3,[R4, #+0]
-        MOVS     R3,R2
-        SUBS     R2,R3,#+1
-        CMP      R3,#+0
-        BNE.N    ??SCB_EnableDCache_1
-        MOVS     R3,R1
-        SUBS     R1,R3,#+1
-        CMP      R3,#+0
-        BNE.N    ??SCB_EnableDCache_0
-        DSB      
-        LDR.W    R3,??DataTable16  ;; 0xe000ed14
-        LDR      R3,[R3, #+0]
-        ORRS     R3,R3,#0x10000
-        LDR.W    R4,??DataTable16  ;; 0xe000ed14
-        STR      R3,[R4, #+0]
-        DSB      
-        ISB      
-        POP      {R4}
-          CFI R4 SameValue
-          CFI CFA R13+0
-        BX       LR               ;; return
-          CFI EndBlock cfiBlock1
 //    3 #include "DSP.h"
 //    4 //#include "waveplayer.h"
 //    5 #include "waverecorder.h"
@@ -337,12 +263,7 @@ SCB_EnableDCache:
 //   39 USBH_HandleTypeDef hUSBHost;
 hUSBHost:
         DS8 696
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
-        DATA
 //   40 USBD_HandleTypeDef hUSBDDevice;
-hUSBDDevice:
-        DS8 548
 
         SECTION `.bss`:DATA:REORDER:NOROOT(0)
         DATA
@@ -362,26 +283,10 @@ huart3:
 //   44 SPI_HandleTypeDef hspi4;
 hspi4:
         DS8 100
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
-        DATA
 //   45 GPIO_InitTypeDef GPIO_INS;
-GPIO_INS:
-        DS8 20
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
-        DATA
 //   46 Mic_Array_Coef_f FacMic;
-FacMic:
-        DS8 24
 //   47 	  
-
-        SECTION `.data`:DATA:REORDER:NOROOT(2)
-        DATA
 //   48 uint8_t  pI2CData[20]= {0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190};
-pI2CData:
-        DC8 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150
-        DC8 160, 170, 180, 190
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
@@ -394,80 +299,20 @@ pI2CRx:
 //   50 uint16_t BufferTest[2*AUDIO_OUT_BUFFER_SIZE];
 BufferTest:
         DS8 4096
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
-        DATA
 //   51 uint16_t bufferSum[AUDIO_OUT_BUFFER_SIZE];
-bufferSum:
-        DS8 2048
 //   52 
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(1)
-        DATA
 //   53 __IO uint16_t  WaveRec_idxSens4,WaveRec_idxSens3,I2S2_idxTmp;
-WaveRec_idxSens4:
-        DS8 2
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(1)
-        DATA
-WaveRec_idxSens3:
-        DS8 2
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(1)
-        DATA
-I2S2_idxTmp:
-        DS8 2
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(1)
-        DATA
 //   54 __IO uint16_t  WaveRec_idxSens1,WaveRec_idxSens2;
-WaveRec_idxSens1:
-        DS8 2
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(1)
-        DATA
-WaveRec_idxSens2:
-        DS8 2
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(1)
-        DATA
 //   55 __IO uint16_t  WaveRec_idxSens5,WaveRec_idxSens6;
-WaveRec_idxSens5:
-        DS8 2
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(1)
-        DATA
-WaveRec_idxSens6:
-        DS8 2
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(1)
-        DATA
 //   56 __IO uint16_t  idxSPI5DataBuf3;
-idxSPI5DataBuf3:
-        DS8 2
 
         SECTION `.bss`:DATA:REORDER:NOROOT(1)
         DATA
 //   57 __IO uint16_t  cntRisingEXTI;
 cntRisingEXTI:
         DS8 2
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(0)
-        DATA
 //   58 __IO uint8_t   btnSW1,btnSW2;
-btnSW1:
-        DS8 1
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(0)
-        DATA
-btnSW2:
-        DS8 1
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(0)
-        DATA
 //   59 __IO uint8_t flgDlyUpd; 
-flgDlyUpd:
-        DS8 1
 //   60 
 //   61 /* Buffer used for reception */
 
@@ -483,11 +328,6 @@ aRxBuffer:
 idxDec:
         DS8 1
 
-        SECTION `.bss`:DATA:REORDER:NOROOT(0)
-        DATA
-stFrstFrmStore:
-        DS8 1
-
         SECTION `.bss`:DATA:REORDER:NOROOT(1)
         DATA
 //   64 int16_t DeltaBuf1,DeltaBuf1Old;
@@ -498,44 +338,9 @@ DeltaBuf1:
         DATA
 DeltaBuf1Old:
         DS8 2
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(1)
-        DATA
 //   65 int16_t idxLatency13,idxLatency12,idxLatency14,idxLatency25,idxLatency63,idxLatency78;
-idxLatency13:
-        DS8 2
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(1)
-        DATA
-idxLatency12:
-        DS8 2
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(1)
-        DATA
-idxLatency14:
-        DS8 2
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(1)
-        DATA
-idxLatency25:
-        DS8 2
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(1)
-        DATA
-idxLatency63:
-        DS8 2
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(1)
-        DATA
-idxLatency78:
-        DS8 2
 //   66 
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(0)
-        DATA
 //   67 __IO char flg10ms;
-flg10ms:
-        DS8 1
 
         SECTION `.bss`:DATA:REORDER:NOROOT(0)
         DATA
@@ -543,24 +348,233 @@ flg10ms:
 flgSTAIni:
         DS8 1
 
-        SECTION `.bss`:DATA:REORDER:NOROOT(1)
+        SECTION `.data`:DATA:REORDER:NOROOT(2)
         DATA
+GPIO_INS:
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+FacMic:
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0
+btnSW1:
+        DC8 0
+btnSW2:
+        DC8 0
+flgDlyUpd:
+        DC8 0
+stFrstFrmStore:
+        DC8 0
+flg10ms:
+        DC8 0
 //   69 uint16_t cntTime200;
-cntTime200:
-        DS8 2
 //   70 
-
-        SECTION `.data`:DATA:REORDER:NOROOT(0)
-        DATA
 //   71 uint8_t buffer_switch = 1;
 buffer_switch:
         DC8 1
-
-        SECTION `.data`:DATA:REORDER:NOROOT(0)
-        DATA
 //   72 uint8_t Command_index=1;
 Command_index:
         DC8 1
+        DC8 0
+WaveRec_idxSens4:
+        DC8 0, 0
+WaveRec_idxSens3:
+        DC8 0, 0
+I2S2_idxTmp:
+        DC8 0, 0
+WaveRec_idxSens1:
+        DC8 0, 0
+WaveRec_idxSens2:
+        DC8 0, 0
+WaveRec_idxSens5:
+        DC8 0, 0
+WaveRec_idxSens6:
+        DC8 0, 0
+idxSPI5DataBuf3:
+        DC8 0, 0
+idxLatency13:
+        DC8 0, 0
+idxLatency12:
+        DC8 0, 0
+idxLatency14:
+        DC8 0, 0
+idxLatency25:
+        DC8 0, 0
+idxLatency63:
+        DC8 0, 0
+idxLatency78:
+        DC8 0, 0
+cntTime200:
+        DC8 0, 0
+        DC8 0, 0
+bufferSum:
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+hUSBDDevice:
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+        SECTION `.data`:DATA:REORDER:NOROOT(2)
+        DATA
+pI2CData:
+        DC8 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150
+        DC8 160, 170, 180, 190
 //   73 
 //   74 #if MAIN_CRSCORR
 //   75 arm_rfft_instance_q15 RealFFT_Ins, RealIFFT_Ins;
@@ -572,50 +586,23 @@ Command_index:
 //   78 arm_cfft_radix4_instance_f32 SS1,SS2,SS3,SS4,ISS; 
 SS1:
         DS8 20
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
-        DATA
 SS2:
         DS8 20
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
-        DATA
 SS3:
         DS8 20
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
-        DATA
 SS4:
         DS8 20
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
-        DATA
 ISS:
         DS8 20
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
-        DATA
 //   79 arm_rfft_instance_f32 S1,S2,S3,S4,IS;
 `S1`:
         DS8 24
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
-        DATA
 `S2`:
         DS8 24
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
-        DATA
 `S3`:
         DS8 24
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
-        DATA
 `S4`:
         DS8 24
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
-        DATA
 IS:
         DS8 24
 //   80 
@@ -650,36 +637,39 @@ IS:
 //  109 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock2 Using cfiCommon0
+          CFI Block cfiBlock0 Using cfiCommon0
           CFI Function FFT_Update
         THUMB
 //  110 inline static void FFT_Update(void)
 //  111 {
 FFT_Update:
-        PUSH     {R7,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI CFA R13+8
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
+        SUB      SP,SP,#+4
+          CFI CFA R13+16
+        LDR.W    R4,??DataTable13
 //  112 
 //  113       PDM2PCMSDO78();
           CFI FunCall PDM2PCMSDO78
         BL       PDM2PCMSDO78
 //  114       /* Hafl buffer is filled in by I2S data stream in */
 //  115       if((flgDlyUpd==0))
-        LDR.W    R0,??DataTable16_3
-        LDRB     R0,[R0, #+0]
+        LDRB     R0,[R4, #+46]
         CMP      R0,#+0
-        BNE.W    ??FFT_Update_0
+        BNE.N    ??FFT_Update_0
 //  116       {
 //  117             //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_15);
 //  118             FactorUpd(&FacMic); 
-        LDR.W    R0,??DataTable16_4
+        ADD      R0,R4,#+20
           CFI FunCall FactorUpd
         BL       FactorUpd
 //  119             //STM_EVAL_LEDOn(LED3);
 //  120             flgDlyUpd = 1; 
         MOVS     R0,#+1
-        LDR.W    R1,??DataTable16_3
-        STRB     R0,[R1, #+0]
+        STRB     R0,[R4, #+46]
 //  121 /*-------------------------------------------------------------------------------------------------------------
 //  122 			  
 //  123 	Sequence  Record Data                     Processing Data                 Player Data
@@ -692,10 +682,8 @@ FFT_Update:
 //  130  ---------------------------------------------------------------------------------------------------------------*/
 //  131             /* Processing Data */
 //  132 			switch (buffer_switch)
-        LDR.W    R0,??DataTable16_5
-        LDRB     R0,[R0, #+0]
-        CMP      R0,#+0
-        BEQ.N    ??FFT_Update_1
+        LDRB     R0,[R4, #+49]
+        CBZ.N    R0,??FFT_Update_1
         CMP      R0,#+2
         BEQ.N    ??FFT_Update_2
         BCC.N    ??FFT_Update_3
@@ -731,47 +719,17 @@ FFT_Update:
 //  161 
 //  162 					idxLatency78 = CrssCor(Buffer3.bufMIC7, Buffer3.bufMIC8, AUDIO_OUT_BUFFER_SIZE);
 ??FFT_Update_1:
-        MOV      R2,#+1024
-        LDR.W    R1,??DataTable16_6
-        LDR.W    R0,??DataTable16_7
-          CFI FunCall CrssCor
-        BL       CrssCor
-        LDR.W    R1,??DataTable16_8
-        STRH     R0,[R1, #+0]
+        LDR.W    R5,??DataTable13_1
+        B.N      ??FFT_Update_5
 //  163                     idxLatency14 = CrssCor(Buffer3.bufMIC1, Buffer3.bufMIC4, AUDIO_OUT_BUFFER_SIZE);
-        MOV      R2,#+1024
-        LDR.W    R1,??DataTable16_9
-        LDR.W    R0,??DataTable16_10
-          CFI FunCall CrssCor
-        BL       CrssCor
-        LDR.W    R1,??DataTable16_11
-        STRH     R0,[R1, #+0]
 //  164 					idxLatency25 = CrssCor(Buffer3.bufMIC2, Buffer3.bufMIC5, AUDIO_OUT_BUFFER_SIZE);
-        MOV      R2,#+1024
-        LDR.W    R1,??DataTable16_12
-        LDR.W    R0,??DataTable16_13
-          CFI FunCall CrssCor
-        BL       CrssCor
-        LDR.W    R1,??DataTable16_14
-        STRH     R0,[R1, #+0]
 //  165 					idxLatency63 = CrssCor(Buffer3.bufMIC6, Buffer3.bufMIC3, AUDIO_OUT_BUFFER_SIZE);
-        MOV      R2,#+1024
-        LDR.W    R1,??DataTable16_15
-        LDR.W    R0,??DataTable16_16
-          CFI FunCall CrssCor
-        BL       CrssCor
-        LDR.W    R1,??DataTable16_17
-        STRH     R0,[R1, #+0]
 //  166 
 //  167 
 //  168                     SumDelay(&Buffer3);
-        LDR.W    R0,??DataTable16_10
-          CFI FunCall SumDelay
-        BL       SumDelay
 //  169 #endif
 //  170 					
 //  171 					break;
-        B.N      ??FFT_Update_5
 //  172 				case BUF2_PLAY:
 //  173 
 //  174 #if MAIN_CRSCORR
@@ -804,47 +762,17 @@ FFT_Update:
 //  201 		
 //  202                   idxLatency78 = CrssCor(Buffer1.bufMIC7, Buffer1.bufMIC8, AUDIO_OUT_BUFFER_SIZE);	
 ??FFT_Update_3:
-        MOV      R2,#+1024
-        LDR.W    R1,??DataTable16_18
-        LDR.W    R0,??DataTable16_19
-          CFI FunCall CrssCor
-        BL       CrssCor
-        LDR.W    R1,??DataTable16_8
-        STRH     R0,[R1, #+0]
+        LDR.W    R5,??DataTable13_2
+        B.N      ??FFT_Update_5
 //  203                   idxLatency14 = CrssCor(Buffer1.bufMIC1, Buffer1.bufMIC4, AUDIO_OUT_BUFFER_SIZE);
-        MOV      R2,#+1024
-        LDR.W    R1,??DataTable16_20
-        LDR.W    R0,??DataTable16_21
-          CFI FunCall CrssCor
-        BL       CrssCor
-        LDR.W    R1,??DataTable16_11
-        STRH     R0,[R1, #+0]
 //  204                   idxLatency25 = CrssCor(Buffer1.bufMIC2, Buffer1.bufMIC5, AUDIO_OUT_BUFFER_SIZE);
-        MOV      R2,#+1024
-        LDR.W    R1,??DataTable16_22
-        LDR.W    R0,??DataTable16_23
-          CFI FunCall CrssCor
-        BL       CrssCor
-        LDR.W    R1,??DataTable16_14
-        STRH     R0,[R1, #+0]
 //  205                   idxLatency63 = CrssCor(Buffer1.bufMIC6, Buffer1.bufMIC3, AUDIO_OUT_BUFFER_SIZE);
-        MOV      R2,#+1024
-        LDR.W    R1,??DataTable16_24
-        LDR.W    R0,??DataTable16_25
-          CFI FunCall CrssCor
-        BL       CrssCor
-        LDR.W    R1,??DataTable16_17
-        STRH     R0,[R1, #+0]
 //  206 
 //  207 
 //  208 
 //  209                   SumDelay(&Buffer1);
-        LDR.W    R0,??DataTable16_21
-          CFI FunCall SumDelay
-        BL       SumDelay
 //  210 #endif
 //  211 					break;
-        B.N      ??FFT_Update_5
 //  212 					
 //  213 				case BUF3_PLAY:
 //  214 #if MAIN_CRSCORR
@@ -879,45 +807,49 @@ FFT_Update:
 //  243 
 //  244 					idxLatency78 = CrssCor(Buffer2.bufMIC7, Buffer2.bufMIC8, AUDIO_OUT_BUFFER_SIZE);
 ??FFT_Update_2:
+        LDR.W    R5,??DataTable13_3
+??FFT_Update_5:
+        ADD      R1,R5,#+28672
+        ADD      R0,R5,#+24576
         MOV      R2,#+1024
-        LDR.W    R1,??DataTable16_26
-        LDR.W    R0,??DataTable16_27
+        ADDS     R1,R1,#+140
+        ADDS     R0,R0,#+120
           CFI FunCall CrssCor
         BL       CrssCor
-        LDR.W    R1,??DataTable16_8
-        STRH     R0,[R1, #+0]
+        STRH     R0,[R4, #+78]
 //  245 					idxLatency14 = CrssCor(Buffer2.bufMIC1, Buffer2.bufMIC4, AUDIO_OUT_BUFFER_SIZE);
+        ADD      R1,R5,#+12288
         MOV      R2,#+1024
-        LDR.W    R1,??DataTable16_28
-        LDR.W    R0,??DataTable16_29
+        ADDS     R1,R1,#+60
+        MOV      R0,R5
           CFI FunCall CrssCor
         BL       CrssCor
-        LDR.W    R1,??DataTable16_11
-        STRH     R0,[R1, #+0]
+        STRH     R0,[R4, #+72]
 //  246 					idxLatency25 = CrssCor(Buffer2.bufMIC2, Buffer2.bufMIC5, AUDIO_OUT_BUFFER_SIZE);
+        ADD      R1,R5,#+16384
+        ADD      R0,R5,#+4096
         MOV      R2,#+1024
-        LDR.W    R1,??DataTable16_30
-        LDR.W    R0,??DataTable16_31
+        ADDS     R1,R1,#+80
+        ADDS     R0,R0,#+20
           CFI FunCall CrssCor
         BL       CrssCor
-        LDR.W    R1,??DataTable16_14
-        STRH     R0,[R1, #+0]
+        STRH     R0,[R4, #+74]
 //  247 					idxLatency63 = CrssCor(Buffer2.bufMIC6, Buffer2.bufMIC3, AUDIO_OUT_BUFFER_SIZE);
+        ADD      R1,R5,#+8192
+        ADD      R0,R5,#+20480
         MOV      R2,#+1024
-        LDR.W    R1,??DataTable16_32
-        LDR.W    R0,??DataTable16_33
+        ADDS     R1,R1,#+40
+        ADDS     R0,R0,#+100
           CFI FunCall CrssCor
         BL       CrssCor
-        LDR.W    R1,??DataTable16_17
-        STRH     R0,[R1, #+0]
+        STRH     R0,[R4, #+76]
 //  248 
 //  249                      SumDelay(&Buffer2);
-        LDR.W    R0,??DataTable16_29
+        MOV      R0,R5
           CFI FunCall SumDelay
         BL       SumDelay
 //  250 #endif
 //  251 					break;
-        B.N      ??FFT_Update_5
 //  252 					
 //  253 				default:
 //  254 					break;
@@ -926,9 +858,19 @@ FFT_Update:
 //  257 #if USB_STREAMING
 //  258    AudioMerging();
 ??FFT_Update_4:
-??FFT_Update_5:
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,LR}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R14 SameValue
+          CFI CFA R13+0
           CFI FunCall AudioMerging
-        BL       AudioMerging
+        B.W      AudioMerging
+          CFI R4 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+16
 //  259 #endif
 //  260 	       //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_15);
 //  261 	  }
@@ -936,62 +878,21 @@ FFT_Update:
 //  263 
 //  264 }
 ??FFT_Update_0:
-        POP      {R0,PC}          ;; return
-          CFI EndBlock cfiBlock2
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
+          CFI EndBlock cfiBlock0
 //  265 
 //  266 
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock3 Using cfiCommon0
-          CFI Function Audio_Play_Out
-        THUMB
 //  267 inline static void Audio_Play_Out(void)
 //  268 {
-Audio_Play_Out:
-        PUSH     {R7,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+8
 //  269   /* wait for DMA transfert complete									*/
 //  270   /* This flag is set to 1 in callback function of DMA interrupt  */
 //  271   /* if player is finished for curent buffer */ 
 //  272   if (XferCplt == 1)
-        LDR.W    R0,??DataTable16_34
-        LDRB     R0,[R0, #+0]
-        CMP      R0,#+1
-        BNE.N    ??Audio_Play_Out_0
 //  273   {
 //  274        RESET_IDX
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_35
-        STRH     R0,[R1, #+0]
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_36
-        STRH     R0,[R1, #+0]
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_37
-        STRH     R0,[R1, #+0]
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_38
-        STRH     R0,[R1, #+0]
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_39
-        STRH     R0,[R1, #+0]
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_40
-        STRH     R0,[R1, #+0]
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_41
-        STRH     R0,[R1, #+0]
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_42
-        STRH     R0,[R1, #+0]
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_3
-        STRB     R0,[R1, #+0]
 //  275        XferCplt = 0; // clear DMA interrupt flag
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_34
-        STRB     R0,[R1, #+0]
 //  276 #if USB_STREAMING
 //  277 	  //AudioProcess();
 //  278 #endif
@@ -1006,97 +907,34 @@ Audio_Play_Out:
 //  287 	3-------  Buffer2                         Buffer3                           Buffer1 
 //  288  ---------------------------------------------------------------------------------------------------------------*/
 //  289     switch (buffer_switch)
-        LDR.W    R0,??DataTable16_5
-        LDRB     R0,[R0, #+0]
-        CMP      R0,#+0
-        BEQ.N    ??Audio_Play_Out_1
-        CMP      R0,#+2
-        BEQ.N    ??Audio_Play_Out_2
-        BCC.N    ??Audio_Play_Out_3
-        B.N      ??Audio_Play_Out_4
 //  290     {
 //  291       case BUF1_PLAY:
 //  292         /* Play data from buffer1 */
 //  293 	    Audio_MAL_Play(Command_index? (uint32_t)Buffer3.bufMIC1:(uint32_t)Buffer3.bufMIC2 , 4*AUDIO_OUT_BUFFER_SIZE);
-??Audio_Play_Out_1:
-        LDR.W    R0,??DataTable16_43
-        LDRB     R0,[R0, #+0]
-        CMP      R0,#+0
-        BEQ.N    ??Audio_Play_Out_5
-        LDR.W    R0,??DataTable16_10
-        B.N      ??Audio_Play_Out_6
-??Audio_Play_Out_5:
-        LDR.W    R0,??DataTable16_13
-??Audio_Play_Out_6:
-        MOV      R1,#+4096
-          CFI FunCall Audio_MAL_Play
-        BL       Audio_MAL_Play
 //  294 		/* set flag for switch buffer */		  
 //  295         buffer_switch = BUF3_PLAY;
-        MOVS     R0,#+2
-        LDR.W    R1,??DataTable16_5
-        STRB     R0,[R1, #+0]
 //  296 
 //  297         break;
-        B.N      ??Audio_Play_Out_0
 //  298       case BUF2_PLAY:
 //  299         /* Play data from buffer2 */
 //  300 	    Audio_MAL_Play(Command_index? (uint32_t)Buffer1.bufMIC1:(uint32_t)Buffer1.bufMIC2, 4*AUDIO_OUT_BUFFER_SIZE);
-??Audio_Play_Out_3:
-        LDR.W    R0,??DataTable16_43
-        LDRB     R0,[R0, #+0]
-        CMP      R0,#+0
-        BEQ.N    ??Audio_Play_Out_7
-        LDR.W    R0,??DataTable16_21
-        B.N      ??Audio_Play_Out_8
-??Audio_Play_Out_7:
-        LDR.W    R0,??DataTable16_23
-??Audio_Play_Out_8:
-        MOV      R1,#+4096
-          CFI FunCall Audio_MAL_Play
-        BL       Audio_MAL_Play
 //  301 		/* set flag for switch buffer */
 //  302         buffer_switch = BUF1_PLAY;
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_5
-        STRB     R0,[R1, #+0]
 //  303         
 //  304         break;
-        B.N      ??Audio_Play_Out_0
 //  305       case BUF3_PLAY:
 //  306         /* Play data from buffer1 */
 //  307        Audio_MAL_Play(Command_index? (uint32_t)Buffer2.bufMIC1:(uint32_t)Buffer2.bufMIC2 ,4*AUDIO_OUT_BUFFER_SIZE);
-??Audio_Play_Out_2:
-        LDR.W    R0,??DataTable16_43
-        LDRB     R0,[R0, #+0]
-        CMP      R0,#+0
-        BEQ.N    ??Audio_Play_Out_9
-        LDR.W    R0,??DataTable16_29
-        B.N      ??Audio_Play_Out_10
-??Audio_Play_Out_9:
-        LDR.W    R0,??DataTable16_31
-??Audio_Play_Out_10:
-        MOV      R1,#+4096
-          CFI FunCall Audio_MAL_Play
-        BL       Audio_MAL_Play
 //  308         /* set flag for switch buffer */		  
 //  309         buffer_switch = BUF2_PLAY;
-        MOVS     R0,#+1
-        LDR.W    R1,??DataTable16_5
-        STRB     R0,[R1, #+0]
 //  310 
 //  311         break;
-        B.N      ??Audio_Play_Out_0
 //  312       default:
 //  313         break;
 //  314     }
 //  315 			   
 //  316   }
 //  317 }
-??Audio_Play_Out_4:
-??Audio_Play_Out_0:
-        POP      {R0,PC}          ;; return
-          CFI EndBlock cfiBlock3
 //  318 
 //  319 
 //  320 /* Private functions ---------------------------------------------------------*/
@@ -1107,20 +945,63 @@ Audio_Play_Out:
 //  325   * @retval None
 //  326   */
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock4 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock1 Using cfiCommon0
           CFI Function main
         THUMB
 //  327 int main(void)
 //  328 {
 main:
-        PUSH     {R7,LR}
+        PUSH     {R4-R10,LR}
           CFI R14 Frame(CFA, -4)
-          CFI CFA R13+8
+          CFI R10 Frame(CFA, -8)
+          CFI R9 Frame(CFA, -12)
+          CFI R8 Frame(CFA, -16)
+          CFI R7 Frame(CFA, -20)
+          CFI R6 Frame(CFA, -24)
+          CFI R5 Frame(CFA, -28)
+          CFI R4 Frame(CFA, -32)
+          CFI CFA R13+32
+        SUB      SP,SP,#+136
+          CFI CFA R13+168
 //  329   /* Enable the CPU Cache */
 //  330   CPU_CACHE_Enable();
-          CFI FunCall CPU_CACHE_Enable
-        BL       CPU_CACHE_Enable
+        DSB      
+        ISB      
+        LDR.W    R0,??DataTable13_4  ;; 0xe000ed14
+        MOVS     R1,#+0
+        STR      R1,[R0, #+572]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x20000
+        STR      R1,[R0, #+0]
+        DSB      
+        ISB      
+        MOVS     R1,#+0
+        STR      R1,[R0, #+112]
+        DSB      
+        LDR.W    R1,[R0, #+108]
+        UBFX     R2,R1,#+13,#+15
+??main_0:
+        MOVW     R4,#+16352
+        UBFX     R3,R1,#+3,#+10
+        AND      R4,R4,R2, LSL #+5
+??main_1:
+        ORR      R5,R4,R3, LSL #+30
+        STR      R5,[R0, #+588]
+        MOV      R5,R3
+        SUBS     R3,R5,#+1
+        CMP      R5,#+0
+        BNE.N    ??main_1
+        MOV      R3,R2
+        SUBS     R2,R3,#+1
+        CMP      R3,#+0
+        BNE.N    ??main_0
+        DSB      
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x10000
+        STR      R1,[R0, #+0]
+        DSB      
+        ISB      
 //  331   
 //  332   /* STM32F7xx HAL library initialization:
 //  333        - Configure the Flash ART accelerator on ITCM interface
@@ -1138,10 +1019,24 @@ main:
           CFI FunCall SystemClock_Config
         BL       SystemClock_Config
 //  343   BSP_AUDIO_OUT_ClockConfig(AUDIO_FREQ, NULL);
-        MOVS     R1,#+0
-        MOV      R0,#+16000
-          CFI FunCall BSP_AUDIO_OUT_ClockConfig
-        BL       BSP_AUDIO_OUT_ClockConfig
+        ADD      R0,SP,#+4
+        LDR.W    R5,??DataTable13_5  ;; 0x40023830
+          CFI FunCall HAL_RCCEx_GetPeriphCLKConfig
+        BL       HAL_RCCEx_GetPeriphCLKConfig
+        MOV      R0,#+1048576
+        LDR.W    R4,??DataTable13
+        STR      R0,[SP, #+4]
+        MOV      R0,#+4194304
+        STR      R0,[SP, #+68]
+        MOV      R0,#+344
+        STR      R0,[SP, #+8]
+        MOVS     R0,#+7
+        STR      R0,[SP, #+16]
+        MOVS     R0,#+1
+        STR      R0,[SP, #+40]
+        ADD      R0,SP,#+4
+          CFI FunCall HAL_RCCEx_PeriphCLKConfig
+        BL       HAL_RCCEx_PeriphCLKConfig
 //  344   
 //  345   /* Initialize the SDRAM */
 //  346   BSP_SDRAM_Init();
@@ -1150,10 +1045,12 @@ main:
 //  347 
 //  348   BSP_LED_Init(LED1);
         MOVS     R0,#+0
+        LDR.W    R10,??DataTable13_2
           CFI FunCall BSP_LED_Init
         BL       BSP_LED_Init
 //  349   BSP_LED_Init(LED2);
         MOVS     R0,#+1
+        LDR.W    R8,??DataTable13_6
           CFI FunCall BSP_LED_Init
         BL       BSP_LED_Init
 //  350 
@@ -1172,35 +1069,31 @@ main:
 //  359 
 //  360     /* ---------PA4: LCCKO-------------*/
 //  361     __GPIOA_CLK_ENABLE();
-        LDR.W    R0,??DataTable16_44  ;; 0x40023830
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x1
-        LDR.W    R1,??DataTable16_44  ;; 0x40023830
-        STR      R0,[R1, #+0]
-        LDR.W    R0,??DataTable16_44  ;; 0x40023830
-        LDR      R0,[R0, #+0]
-        ANDS     R0,R0,#0x1
+        LDR      R0,[R5, #+0]
+//  362     GPIO_INS.Pin = GPIO_PIN_4;
+//  363     GPIO_INS.Mode =GPIO_MODE_IT_RISING;
+//  364     GPIO_INS.Pull =GPIO_NOPULL;
+//  365     GPIO_INS.Speed =GPIO_SPEED_HIGH;
+//  366     HAL_GPIO_Init(GPIOA,&GPIO_INS);
+        MOV      R1,R4
+        LDR.W    R7,??DataTable13_7
+        LDR.W    R6,??DataTable13_8
+        ORR      R0,R0,#0x1
+        MOVW     R9,#+2047
+        STR      R0,[R5, #+0]
+        LDR      R0,[R5, #+0]
+        AND      R0,R0,#0x1
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
-//  362     GPIO_INS.Pin = GPIO_PIN_4;
         MOVS     R0,#+16
-        LDR.W    R1,??DataTable16_45
-        STR      R0,[R1, #+0]
-//  363     GPIO_INS.Mode =GPIO_MODE_IT_RISING;
-        LDR.W    R0,??DataTable16_46  ;; 0x10110000
-        LDR.W    R1,??DataTable16_45
-        STR      R0,[R1, #+4]
-//  364     GPIO_INS.Pull =GPIO_NOPULL;
+        STR      R0,[R4, #+0]
+        LDR.W    R0,??DataTable13_9  ;; 0x10110000
+        STR      R0,[R4, #+4]
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_45
-        STR      R0,[R1, #+8]
-//  365     GPIO_INS.Speed =GPIO_SPEED_HIGH;
+        STR      R0,[R4, #+8]
         MOVS     R0,#+3
-        LDR.W    R1,??DataTable16_45
-        STR      R0,[R1, #+12]
-//  366     HAL_GPIO_Init(GPIOA,&GPIO_INS);
-        LDR.W    R1,??DataTable16_45
-        LDR.W    R0,??DataTable16_47  ;; 0x40020000
+        STR      R0,[R4, #+12]
+        LDR.W    R0,??DataTable13_10  ;; 0x40020000
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 //  367 
@@ -1219,43 +1112,37 @@ main:
 //  372 
 //  373     /*---------PE3: POWER DOWN-----------------*/
 //  374     __GPIOE_CLK_ENABLE();
-        LDR.W    R0,??DataTable16_44  ;; 0x40023830
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x10
-        LDR.W    R1,??DataTable16_44  ;; 0x40023830
-        STR      R0,[R1, #+0]
-        LDR.W    R0,??DataTable16_44  ;; 0x40023830
-        LDR      R0,[R0, #+0]
-        ANDS     R0,R0,#0x10
-        STR      R0,[SP, #+0]
-        LDR      R0,[SP, #+0]
+        LDR      R0,[R5, #+0]
 //  375     GPIO_INS.Pin = GPIO_PIN_3;
-        MOVS     R0,#+8
-        LDR.W    R1,??DataTable16_45
-        STR      R0,[R1, #+0]
 //  376     GPIO_INS.Mode = GPIO_MODE_OUTPUT_PP;
-        MOVS     R0,#+1
-        LDR.W    R1,??DataTable16_45
-        STR      R0,[R1, #+4]
 //  377     GPIO_INS.Pull = GPIO_PULLUP;
-        MOVS     R0,#+1
-        LDR.W    R1,??DataTable16_45
-        STR      R0,[R1, #+8]
 //  378     GPIO_INS.Speed = GPIO_SPEED_HIGH;
-        MOVS     R0,#+3
-        LDR.W    R1,??DataTable16_45
-        STR      R0,[R1, #+12]
 //  379 
 //  380     HAL_GPIO_Init(GPIOE, &GPIO_INS);
-        LDR.W    R1,??DataTable16_45
-        LDR.W    R0,??DataTable16_48  ;; 0x40021000
+        MOV      R1,R4
+        ORR      R0,R0,#0x10
+        STR      R0,[R5, #+0]
+        LDR      R0,[R5, #+0]
+        LDR.W    R5,??DataTable13_11  ;; 0x40021000
+        AND      R0,R0,#0x10
+        STR      R0,[SP, #+0]
+        LDR      R0,[SP, #+0]
+        MOVS     R0,#+8
+        STR      R0,[R4, #+0]
+        MOVS     R0,#+1
+        STR      R0,[R4, #+4]
+        STR      R0,[R4, #+8]
+        MOVS     R0,#+3
+        STR      R0,[R4, #+12]
+        MOV      R0,R5
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 //  381   
 //  382     HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_RESET);
         MOVS     R2,#+0
         MOVS     R1,#+8
-        LDR.W    R0,??DataTable16_48  ;; 0x40021000
+        MOV      R0,R5
+        LDR.W    R5,??DataTable13_12
           CFI FunCall HAL_GPIO_WritePin
         BL       HAL_GPIO_WritePin
 //  383 
@@ -1271,31 +1158,31 @@ main:
 //  393     USBD_AUDIO_Init_Microphone_Descriptor(&hUSBDDevice, AUDIO_SAMPLING_FREQUENCY, AUDIO_CHANNELS);
         MOVS     R2,#+2
         MOV      R1,#+16000
-        LDR.W    R0,??DataTable16_49
+        ADDW     R0,R4,#+2132
           CFI FunCall USBD_AUDIO_Init_Microphone_Descriptor
         BL       USBD_AUDIO_Init_Microphone_Descriptor
 //  394     /* Init Device Library */
 //  395     USBD_Init(&hUSBDDevice, &AUDIO_Desc, 0);
         MOVS     R2,#+0
-        LDR.W    R1,??DataTable16_50
-        LDR.W    R0,??DataTable16_49
+        LDR.W    R1,??DataTable13_13
+        ADDW     R0,R4,#+2132
           CFI FunCall USBD_Init
         BL       USBD_Init
 //  396     /* Add Supported Class */
 //  397     USBD_RegisterClass(&hUSBDDevice, &USBD_AUDIO);
-        LDR.W    R1,??DataTable16_51
-        LDR.W    R0,??DataTable16_49
+        LDR.W    R1,??DataTable13_14
+        ADDW     R0,R4,#+2132
           CFI FunCall USBD_RegisterClass
         BL       USBD_RegisterClass
 //  398     /* Add Interface callbacks for AUDIO Class */  
 //  399     USBD_AUDIO_RegisterInterface(&hUSBDDevice, &USBD_AUDIO_fops);
-        LDR.W    R1,??DataTable16_52
-        LDR.W    R0,??DataTable16_49
+        LDR.W    R1,??DataTable13_15
+        ADDW     R0,R4,#+2132
           CFI FunCall USBD_AUDIO_RegisterInterface
         BL       USBD_AUDIO_RegisterInterface
 //  400     /* Start Device Process */
 //  401     USBD_Start(&hUSBDDevice);
-        LDR.W    R0,??DataTable16_49
+        ADDW     R0,R4,#+2132
           CFI FunCall USBD_Start
         BL       USBD_Start
 //  402 
@@ -1331,11 +1218,11 @@ main:
 //  420 
 //  421     buffer_switch = BUF3_PLAY;		 /* record data to buffer1 */
         MOVS     R0,#+2
-        LDR.W    R1,??DataTable16_5
-        STRB     R0,[R1, #+0]
+        STRB     R0,[R4, #+49]
 //  422     MIC1TO6_Init();
           CFI FunCall MIC1TO6_Init
         BL       MIC1TO6_Init
+        B.N      ??main_2
 //  423 	                  
 //  424 
 //  425 
@@ -1343,56 +1230,20 @@ main:
 //  427     {
 //  428 		/* there is data in the buffer */  
 //  429 		if((WaveRec_idxSens1>=(2*AUDIO_OUT_BUFFER_SIZE-1))&&(stFrstFrmStore<3))
-??main_0:
-        LDR.W    R0,??DataTable16_35
-        LDRH     R0,[R0, #+0]
-        MOVW     R1,#+2047
-        CMP      R0,R1
-        BLT.N    ??main_1
-        LDR.W    R0,??DataTable16_53
-        LDRB     R0,[R0, #+0]
-        CMP      R0,#+3
-        BGE.N    ??main_1
 //  430 		{
 //  431 			/* this is just run 1 time after 1st frame of I2S data full */
 //  432 			if ((stFrstFrmStore<3))
-        LDR.W    R0,??DataTable16_53
-        LDRB     R0,[R0, #+0]
-        CMP      R0,#+3
-        BGE.N    ??main_1
 //  433 			{
 //  434 				stFrstFrmStore++;
-        LDR.W    R0,??DataTable16_53
-        LDRB     R0,[R0, #+0]
-        ADDS     R0,R0,#+1
-        LDR.W    R1,??DataTable16_53
-        STRB     R0,[R1, #+0]
 //  435 				buffer_switch = BUF2_PLAY; /* record data to buffer3 */
-        MOVS     R0,#+1
-        LDR.W    R1,??DataTable16_5
-        STRB     R0,[R1, #+0]
 //  436 				if (stFrstFrmStore==2)
-        LDR.W    R0,??DataTable16_53
-        LDRB     R0,[R0, #+0]
-        CMP      R0,#+2
-        BNE.N    ??main_1
 //  437 				{
 //  438 					
 //  439 					/*------------------------PLAYER------------------------------------------*/
 //  440 					Audio_MAL_Play((uint32_t)Buffer1.bufMIC1,4*AUDIO_OUT_BUFFER_SIZE);
-        MOV      R1,#+4096
-        LDR.W    R0,??DataTable16_21
-          CFI FunCall Audio_MAL_Play
-        BL       Audio_MAL_Play
 //  441 					/*------------------------------------------------------------------------*/
 //  442 					buffer_switch = BUF1_PLAY;
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_5
-        STRB     R0,[R1, #+0]
 //  443 					flgDlyUpd = 0;
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_3
-        STRB     R0,[R1, #+0]
 //  444 				}
 //  445 			
 //  446 			}
@@ -1402,24 +1253,10 @@ main:
 //  450                  /* This calculation happens once time in power cycles */
 //  451                  /* After 5 times of full frame recieved interrupt */
 //  452                  if (cntStrt==5)
-??main_1:
-        LDR.W    R0,??DataTable16_54
-        LDRH     R0,[R0, #+0]
-        CMP      R0,#+5
-        BNE.N    ??main_2
 //  453 		 {
 //  454 			   if ((WaveRecord_flgIni<200))
-        LDR.W    R0,??DataTable16_55
-        LDRB     R0,[R0, #+0]
-        CMP      R0,#+200
-        BGE.N    ??main_3
 //  455 			   {
 //  456 				  for(char i=0;i<16;i++)
-        MOVS     R0,#+0
-??main_4:
-        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-        CMP      R0,#+16
-        BGE.N    ??main_2
 //  457 				  {
 //  458                                       //if (ValBit(SPI1_stNipple,i)!=0) 
 //  459                                       //{
@@ -1432,47 +1269,20 @@ main:
 //  466                                       //}
 //  467 
 //  468                                       if (ValBit(I2S1_stNipple,i)!=0) 
-        LDR.W    R1,??DataTable16_56
-        LDRSH    R1,[R1, #+0]
-        ASRS     R1,R1,R0
-        LSLS     R1,R1,#+31
-        BPL.N    ??main_5
 //  469                                       {
 //  470                                          SPI4_stPosShft = MAX(SPI4_stPosShft,i+1);
-        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-        ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable16_57
-        LDRB     R2,[R2, #+0]
-        CMP      R1,R2
-        BGE.N    ??main_6
-        LDR.W    R1,??DataTable16_57
-        LDRB     R1,[R1, #+0]
-        B.N      ??main_7
-??main_6:
-        ADDS     R1,R0,#+1
-??main_7:
-        LDR.W    R2,??DataTable16_57
-        STRB     R1,[R2, #+0]
 //  471                                       }
 //  472 				  }
-??main_5:
-        ADDS     R0,R0,#+1
-        B.N      ??main_4
 //  473 					
 //  474 			   }
 //  475                            else if (WaveRecord_flgIni<255)
 ??main_3:
-        LDR.W    R0,??DataTable16_55
-        LDRB     R0,[R0, #+0]
-        CMP      R0,#+255
-        BEQ.N    ??main_2
+        CMP      R1,#+255
+        ITT      NE 
+        ADDNE    R0,R1,#+1
+        STRBNE   R0,[R7, #+0]
 //  476                            {
 //  477                                WaveRecord_flgIni++;
-        LDR.W    R0,??DataTable16_55
-        LDRB     R0,[R0, #+0]
-        ADDS     R0,R0,#+1
-        LDR.W    R1,??DataTable16_55
-        STRB     R0,[R1, #+0]
 //  478                            }
 //  479 			   else
 //  480 			   {
@@ -1487,31 +1297,28 @@ main:
 //  489 		/* AUDIO Menu Process */
 //  490 		//AUDIO_MenuProcess();
 //  491 		FFT_Update(); 
-??main_2:
+??main_4:
           CFI FunCall FFT_Update
         BL       FFT_Update
 //  492 
 //  493 		if (flg10ms==1)
-        LDR.W    R0,??DataTable16_58
-        LDRB     R0,[R0, #+0]
+        LDRB     R0,[R4, #+48]
         CMP      R0,#+1
-        BNE.N    ??main_0
+        BNE.N    ??main_2
 //  494 		{
 //  495 		    flg10ms=0;		   		      
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_58
-        STRB     R0,[R1, #+0]
+        STRB     R0,[R4, #+48]
 //  496 	         cntTime200++;
-        LDR.W    R0,??DataTable16_59
-        LDRH     R0,[R0, #+0]
+        LDRH     R0,[R4, #+80]
         ADDS     R0,R0,#+1
-        LDR.W    R1,??DataTable16_59
-        STRH     R0,[R1, #+0]
+        STRH     R0,[R4, #+80]
 //  497 	         if (cntTime200==40)
-        LDR.W    R0,??DataTable16_59
-        LDRH     R0,[R0, #+0]
+        UXTH     R0,R0
         CMP      R0,#+40
-        BNE.N    ??main_0
+        ITT      EQ 
+        MOVEQ    R0,#+0
+        STRHEQ   R0,[R4, #+80]
 //  498 	         {
 //  499 	 
 //  500 #if (DEBUG)
@@ -1680,15 +1487,56 @@ main:
 //  663 
 //  664 #endif
 //  665 	   	            cntTime200=0;
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_59
-        STRH     R0,[R1, #+0]
-        B.N      ??main_0
 //  666         } //(cntTime200==40)
 //  667       }	
+??main_2:
+        LDRH     R0,[R4, #+58]
+        CMP      R0,R9
+        BLT.N    ??main_5
+        LDRB     R0,[R4, #+47]
+        CMP      R0,#+3
+        BGE.N    ??main_5
+        ADDS     R0,R0,#+1
+        MOVS     R1,#+1
+        STRB     R0,[R4, #+47]
+        UXTB     R0,R0
+        CMP      R0,#+2
+        STRB     R1,[R4, #+49]
+        BNE.N    ??main_5
+        MOV      R1,#+4096
+        MOV      R0,R10
+          CFI FunCall Audio_MAL_Play
+        BL       Audio_MAL_Play
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+49]
+        STRB     R0,[R4, #+46]
+??main_5:
+        LDRH     R0,[R6, #+0]
+        CMP      R0,#+5
+        BNE.N    ??main_4
+        LDRB     R1,[R7, #+0]
+        CMP      R1,#+200
+        BGE.N    ??main_3
+        MOVS     R0,#+0
+??main_6:
+        LDRSH    R1,[R8, #+0]
+        ASRS     R1,R1,R0
+        LSLS     R1,R1,#+31
+        BPL.N    ??main_7
+        LDRB     R2,[R5, #+0]
+        ADDS     R1,R0,#+1
+        CMP      R1,R2
+        IT       LT 
+        LDRBLT   R1,[R5, #+0]
+        STRB     R1,[R5, #+0]
+??main_7:
+        ADDS     R0,R0,#+1
+        CMP      R0,#+16
+        BLT.N    ??main_6
+        B.N      ??main_4
 //  668   }
 //  669 }
-          CFI EndBlock cfiBlock4
+          CFI EndBlock cfiBlock1
 //  670 
 //  671 /**
 //  672   * @brief  Toggle Leds.
@@ -1697,7 +1545,7 @@ main:
 //  675   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock5 Using cfiCommon0
+          CFI Block cfiBlock2 Using cfiCommon0
           CFI Function Toggle_Leds
           CFI NoCalls
         THUMB
@@ -1707,24 +1555,20 @@ main:
 //  679 
 //  680   if (ticks++ > 200)
 Toggle_Leds:
-        LDR.W    R0,??DataTable16_60
-        LDR      R0,[R0, #+0]
-        ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable16_60
-        STR      R1,[R2, #+0]
-        CMP      R0,#+201
-        BCC.N    ??Toggle_Leds_0
+        LDR.W    R0,??DataTable13_16
+        LDR      R1,[R0, #+0]
+        ADDS     R2,R1,#+1
+        CMP      R1,#+201
+        IT       CS 
+        MOVCS    R2,#+0
 //  681   {
 //  682     //BSP_LED_Toggle(LED1);
 //  683     ticks = 0;
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_60
-        STR      R0,[R1, #+0]
+        STR      R2,[R0, #+0]
 //  684   }
 //  685 }
-??Toggle_Leds_0:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock5
+          CFI EndBlock cfiBlock2
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
@@ -1784,7 +1628,7 @@ Toggle_Leds:
 //  737   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock6 Using cfiCommon0
+          CFI Block cfiBlock3 Using cfiCommon0
           CFI Function SystemClock_Config
         THUMB
 //  738 static void SystemClock_Config(void)
@@ -1800,21 +1644,18 @@ SystemClock_Config:
 //  741   RCC_OscInitTypeDef RCC_OscInitStruct;
 //  742   RCC_PeriphCLKInitTypeDef PeriphClkInitStruct;
 //  743   HAL_StatusTypeDef ret = HAL_OK;
-        MOVS     R4,#+0
 //  744 
 //  745   /* Enable HSE Oscillator and activate PLL with HSE as source */
 //  746   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
         MOVS     R0,#+1
         STR      R0,[SP, #+152]
 //  747   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
-        MOVS     R0,#+65536
+        MOV      R0,#+65536
         STR      R0,[SP, #+156]
 //  748   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
         MOVS     R0,#+2
         STR      R0,[SP, #+176]
 //  749   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-        MOVS     R0,#+4194304
-        STR      R0,[SP, #+180]
 //  750   RCC_OscInitStruct.PLL.PLLM = 25;
         MOVS     R0,#+25
         STR      R0,[SP, #+184]
@@ -1826,13 +1667,14 @@ SystemClock_Config:
         STR      R0,[SP, #+192]
 //  753   RCC_OscInitStruct.PLL.PLLQ = 9;
         MOVS     R0,#+9
+        MOV      R4,#+4194304
         STR      R0,[SP, #+196]
+        STR      R4,[SP, #+180]
 //  754 
 //  755   ret = HAL_RCC_OscConfig(&RCC_OscInitStruct);
         ADD      R0,SP,#+152
           CFI FunCall HAL_RCC_OscConfig
         BL       HAL_RCC_OscConfig
-        MOVS     R4,R0
 //  756   if(ret != HAL_OK)
 //  757   {
 //  758     //while(1) { ; }
@@ -1842,7 +1684,6 @@ SystemClock_Config:
 //  762   ret = HAL_PWREx_EnableOverDrive();
           CFI FunCall HAL_PWREx_EnableOverDrive
         BL       HAL_PWREx_EnableOverDrive
-        MOVS     R4,R0
 //  763   if(ret != HAL_OK)
 //  764   {
 //  765     //while(1) { ; }
@@ -1850,10 +1691,10 @@ SystemClock_Config:
 //  767 
 //  768   /* Select PLLSAI output as USB clock source */
 //  769   PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_CLK48 ;
-        MOVS     R0,#+2097152
+        MOV      R0,#+2097152
         STR      R0,[SP, #+20]
 //  770   PeriphClkInitStruct.Clk48ClockSelection = RCC_CLK48SOURCE_PLLSAIP;
-        MOVS     R0,#+134217728
+        MOV      R0,#+134217728
         STR      R0,[SP, #+144]
 //  771 
 //  772   
@@ -1875,7 +1716,6 @@ SystemClock_Config:
         ADD      R0,SP,#+20
           CFI FunCall HAL_RCCEx_PeriphCLKConfig
         BL       HAL_RCCEx_PeriphCLKConfig
-        MOVS     R4,R0
 //  780   
 //  781   if(ret != HAL_OK)
 //  782   {
@@ -1885,26 +1725,25 @@ SystemClock_Config:
 //  786   /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2 clocks dividers */
 //  787   RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);
         MOVS     R0,#+15
-        STR      R0,[SP, #+0]
 //  788   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-        MOVS     R0,#+2
-        STR      R0,[SP, #+4]
 //  789   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV2;
-        MOVS     R0,#+128
-        STR      R0,[SP, #+8]
 //  790   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;  
-        MOV      R0,#+5120
-        STR      R0,[SP, #+12]
 //  791   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
-        MOV      R0,#+4096
-        STR      R0,[SP, #+16]
 //  792 
 //  793   ret = HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_7);
         MOVS     R1,#+7
+        STR      R0,[SP, #+0]
+        MOVS     R0,#+2
+        STR      R0,[SP, #+4]
+        MOVS     R0,#+128
+        STR      R0,[SP, #+8]
+        MOV      R0,#+5120
+        STR      R0,[SP, #+12]
+        MOV      R0,#+4096
+        STR      R0,[SP, #+16]
         MOV      R0,SP
           CFI FunCall HAL_RCC_ClockConfig
         BL       HAL_RCC_ClockConfig
-        MOVS     R4,R0
 //  794   if(ret != HAL_OK)
 //  795   {
 //  796     //while(1) { ; }
@@ -1912,11 +1751,10 @@ SystemClock_Config:
 //  798   
 //  799  //sop1hc 344/7 = 49.142 MHz
 //  800   PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SAI2|RCC_PERIPHCLK_I2S;
-        LDR.W    R0,??DataTable16_61  ;; 0x100001
-        STR      R0,[SP, #+20]
+        LDR.W    R0,??DataTable13_17  ;; 0x100001
 //  801   PeriphClkInitStruct.Sai2ClockSelection = RCC_SAI2CLKSOURCE_PLLI2S;
-        MOVS     R0,#+4194304
-        STR      R0,[SP, #+84]
+        STR      R4,[SP, #+84]
+        STR      R0,[SP, #+20]
 //  802   PeriphClkInitStruct.I2sClockSelection = RCC_I2SCLKSOURCE_PLLI2S;
         MOVS     R0,#+0
         STR      R0,[SP, #+72]
@@ -1930,7 +1768,6 @@ SystemClock_Config:
         MOVS     R0,#+7
         STR      R0,[SP, #+32]
 //  806   PeriphClkInitStruct.PLLI2S.PLLI2SR = 7;
-        MOVS     R0,#+7
         STR      R0,[SP, #+28]
 //  807   PeriphClkInitStruct.PLLI2SDivQ = 1;
         MOVS     R0,#+1
@@ -1943,7 +1780,7 @@ SystemClock_Config:
         ADD      SP,SP,#+200
           CFI CFA R13+8
         POP      {R4,PC}          ;; return
-          CFI EndBlock cfiBlock6
+          CFI EndBlock cfiBlock3
 //  810 
 //  811 /**
 //  812   * @brief  Clock Config.
@@ -1955,21 +1792,19 @@ SystemClock_Config:
 //  818   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock7 Using cfiCommon0
+          CFI Block cfiBlock4 Using cfiCommon0
           CFI Function BSP_AUDIO_OUT_ClockConfig
         THUMB
 //  819 void BSP_AUDIO_OUT_ClockConfig(uint32_t AudioFreq, void *Params)
 //  820 {
 BSP_AUDIO_OUT_ClockConfig:
-        PUSH     {R4,R5,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
-        SUB      SP,SP,#+132
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        SUB      SP,SP,#+136
           CFI CFA R13+144
-        MOVS     R4,R0
-        MOVS     R5,R1
+        MOV      R4,R0
 //  821   RCC_PeriphCLKInitTypeDef RCC_ExCLKInitStruct;
 //  822 
 //  823   HAL_RCCEx_GetPeriphCLKConfig(&RCC_ExCLKInitStruct);
@@ -1981,24 +1816,22 @@ BSP_AUDIO_OUT_ClockConfig:
 //  826   if((AudioFreq == AUDIO_FREQUENCY_11K) || (AudioFreq == AUDIO_FREQUENCY_22K) || (AudioFreq == AUDIO_FREQUENCY_44K))
         MOVW     R0,#+11025
         CMP      R4,R0
-        BEQ.N    ??BSP_AUDIO_OUT_ClockConfig_0
-        MOVW     R0,#+22050
-        CMP      R4,R0
-        BEQ.N    ??BSP_AUDIO_OUT_ClockConfig_0
-        MOVW     R0,#+44100
-        CMP      R4,R0
-        BNE.N    ??BSP_AUDIO_OUT_ClockConfig_1
+        ITTTT    NE 
+        MOVWNE   R0,#+22050
+        CMPNE    R4,R0
+        MOVWNE   R0,#+44100
+        CMPNE    R4,R0
+        BNE.N    ??BSP_AUDIO_OUT_ClockConfig_0
 //  827   {
 //  828     /* Configure PLLSAI prescalers */
 //  829     /* PLLI2S_VCO: VCO_429M
 //  830     SAI_CLK(first level) = PLLI2S_VCO/PLLSAIQ = 429/2 = 214.5 Mhz
 //  831     SAI_CLK_x = SAI_CLK(first level)/PLLI2SDivQ = 214.5/19 = 11.289 Mhz */
 //  832     RCC_ExCLKInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SAI2;
-??BSP_AUDIO_OUT_ClockConfig_0:
-        MOVS     R0,#+1048576
+        MOV      R0,#+1048576
         STR      R0,[SP, #+0]
 //  833     RCC_ExCLKInitStruct.Sai2ClockSelection = RCC_SAI2CLKSOURCE_PLLI2S;
-        MOVS     R0,#+4194304
+        MOV      R0,#+4194304
         STR      R0,[SP, #+64]
 //  834     RCC_ExCLKInitStruct.PLLI2S.PLLI2SP = 8;
         MOVS     R0,#+8
@@ -2011,12 +1844,8 @@ BSP_AUDIO_OUT_ClockConfig:
         STR      R0,[SP, #+12]
 //  837     RCC_ExCLKInitStruct.PLLI2SDivQ = 19;
         MOVS     R0,#+19
-        STR      R0,[SP, #+36]
+        B.N      ??BSP_AUDIO_OUT_ClockConfig_1
 //  838     HAL_RCCEx_PeriphCLKConfig(&RCC_ExCLKInitStruct);
-        MOV      R0,SP
-          CFI FunCall HAL_RCCEx_PeriphCLKConfig
-        BL       HAL_RCCEx_PeriphCLKConfig
-        B.N      ??BSP_AUDIO_OUT_ClockConfig_2
 //  839   }
 //  840   else /* AUDIO_FREQUENCY_8K, AUDIO_FREQUENCY_16K, AUDIO_FREQUENCY_48K), AUDIO_FREQUENCY_96K */
 //  841   {
@@ -2025,11 +1854,11 @@ BSP_AUDIO_OUT_ClockConfig:
 //  844     SAI_CLK(first level) = PLLI2S_VCO/PLLSAIQ = 344/7 = 49.142 Mhz
 //  845     SAI_CLK_x = SAI_CLK(first level)/PLLI2SDivQ = 49.142/1 = 49.142 Mhz */
 //  846     RCC_ExCLKInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SAI2;
-??BSP_AUDIO_OUT_ClockConfig_1:
-        MOVS     R0,#+1048576
+??BSP_AUDIO_OUT_ClockConfig_0:
+        MOV      R0,#+1048576
         STR      R0,[SP, #+0]
 //  847     RCC_ExCLKInitStruct.Sai2ClockSelection = RCC_SAI2CLKSOURCE_PLLI2S;
-        MOVS     R0,#+4194304
+        MOV      R0,#+4194304
         STR      R0,[SP, #+64]
 //  848 	//RCC_ExCLKInitStruct.I2sClockSelection = RCC_I2SCLKSOURCE_PLLI2S;
 //  849 //    RCC_ExCLKInitStruct.PLLI2S.PLLI2SP = 8;
@@ -2042,6 +1871,7 @@ BSP_AUDIO_OUT_ClockConfig:
 //  852 	//RCC_ExCLKInitStruct.PLLI2S.PLLI2SR = 1;
 //  853     RCC_ExCLKInitStruct.PLLI2SDivQ = 1;
         MOVS     R0,#+1
+??BSP_AUDIO_OUT_ClockConfig_1:
         STR      R0,[SP, #+36]
 //  854     HAL_RCCEx_PeriphCLKConfig(&RCC_ExCLKInitStruct);
         MOV      R0,SP
@@ -2050,11 +1880,10 @@ BSP_AUDIO_OUT_ClockConfig:
 //  855   }
 //  856   
 //  857 }
-??BSP_AUDIO_OUT_ClockConfig_2:
-        ADD      SP,SP,#+132
-          CFI CFA R13+12
-        POP      {R4,R5,PC}       ;; return
-          CFI EndBlock cfiBlock7
+        ADD      SP,SP,#+136
+          CFI CFA R13+8
+        POP      {R4,PC}          ;; return
+          CFI EndBlock cfiBlock4
 //  858 
 //  859 
 //  860 
@@ -2083,34 +1912,19 @@ BSP_AUDIO_OUT_ClockConfig:
 //  883   * @param  None
 //  884   * @retval None
 //  885   */
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock8 Using cfiCommon0
-          CFI Function CPU_CACHE_Enable
-        THUMB
 //  886 static void CPU_CACHE_Enable(void)
 //  887 {
-CPU_CACHE_Enable:
-        PUSH     {R7,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+8
 //  888   /* Enable I-Cache */
 //  889   SCB_EnableICache();
-          CFI FunCall SCB_EnableICache
-        BL       SCB_EnableICache
 //  890 
 //  891   /* Enable D-Cache */
 //  892   SCB_EnableDCache();
-          CFI FunCall SCB_EnableDCache
-        BL       SCB_EnableDCache
 //  893 }
-        POP      {R0,PC}          ;; return
-          CFI EndBlock cfiBlock8
 //  894 
 //  895 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock9 Using cfiCommon0
+          CFI Block cfiBlock5 Using cfiCommon0
           CFI Function HAL_I2C_MspInit
         THUMB
 //  896 void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
@@ -2122,13 +1936,12 @@ HAL_I2C_MspInit:
           CFI CFA R13+8
         SUB      SP,SP,#+24
           CFI CFA R13+32
-        MOVS     R4,R0
 //  898 
 //  899   GPIO_InitTypeDef GPIO_InitStruct;
 //  900     
 //  901   if(hi2c->Instance==I2C1)
-        LDR      R0,[R4, #+0]
-        LDR.W    R1,??DataTable16_62  ;; 0x40005400
+        LDR      R0,[R0, #+0]
+        LDR.W    R1,??DataTable13_18  ;; 0x40005400
         CMP      R0,R1
         BNE.N    ??HAL_I2C_MspInit_0
 //  902   {
@@ -2142,58 +1955,53 @@ HAL_I2C_MspInit:
 //  910 	/*##-2- Enable peripherals and GPIO Clocks #################################*/
 //  911 	/* Enable GPIO TX/RX clock */
 //  912 	__HAL_RCC_GPIOB_CLK_ENABLE();
-        LDR.W    R0,??DataTable16_44  ;; 0x40023830
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x2
-        LDR.W    R1,??DataTable16_44  ;; 0x40023830
-        STR      R0,[R1, #+0]
-        LDR.W    R0,??DataTable16_44  ;; 0x40023830
-        LDR      R0,[R0, #+0]
-        ANDS     R0,R0,#0x2
-        STR      R0,[SP, #+0]
-        LDR      R0,[SP, #+0]
+        LDR.W    R4,??DataTable13_5  ;; 0x40023830
 //  913 
 //  914 	/**I2C1 GPIO Configuration	
 //  915 	PB6	  ------> I2C1_SCL (PB6)
 //  916 	PB7	  ------> I2C1_SDA (PB7) 
 //  917 	*/
 //  918 	GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7;
-        MOVS     R0,#+192
-        STR      R0,[SP, #+4]
 //  919 	GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
-        MOVS     R0,#+18
-        STR      R0,[SP, #+8]
 //  920 	GPIO_InitStruct.Pull = GPIO_PULLUP;
-        MOVS     R0,#+1
-        STR      R0,[SP, #+12]
 //  921 	GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-        MOVS     R0,#+3
-        STR      R0,[SP, #+16]
 //  922 	GPIO_InitStruct.Alternate = GPIO_AF4_I2C1;
-        MOVS     R0,#+4
-        STR      R0,[SP, #+20]
 //  923 	HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
         ADD      R1,SP,#+4
-        LDR.W    R0,??DataTable16_63  ;; 0x40020400
+        LDR      R0,[R4, #+0]
+        ORR      R0,R0,#0x2
+        STR      R0,[R4, #+0]
+        LDR      R0,[R4, #+0]
+        AND      R0,R0,#0x2
+        STR      R0,[SP, #+0]
+        LDR      R0,[SP, #+0]
+        MOVS     R0,#+192
+        STR      R0,[SP, #+4]
+        MOVS     R0,#+18
+        STR      R0,[SP, #+8]
+        MOVS     R0,#+1
+        STR      R0,[SP, #+12]
+        MOVS     R0,#+3
+        STR      R0,[SP, #+16]
+        MOVS     R0,#+4
+        STR      R0,[SP, #+20]
+        LDR.W    R0,??DataTable13_19  ;; 0x40020400
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 //  924 
 //  925 	/* Peripheral clock enable */
 //  926 	__HAL_RCC_I2C1_CLK_ENABLE();
-        LDR.W    R0,??DataTable16_64  ;; 0x40023840
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x200000
-        LDR.W    R1,??DataTable16_64  ;; 0x40023840
-        STR      R0,[R1, #+0]
-        LDR.W    R0,??DataTable16_64  ;; 0x40023840
-        LDR      R0,[R0, #+0]
-        ANDS     R0,R0,#0x200000
-        STR      R0,[SP, #+0]
-        LDR      R0,[SP, #+0]
+        LDR      R0,[R4, #+16]
 //  927 	/* Peripheral interrupt init*/
 //  928 	HAL_NVIC_SetPriority(I2C1_EV_IRQn, 3, 0);
         MOVS     R2,#+0
         MOVS     R1,#+3
+        ORR      R0,R0,#0x200000
+        STR      R0,[R4, #+16]
+        LDR      R0,[R4, #+16]
+        AND      R0,R0,#0x200000
+        STR      R0,[SP, #+0]
+        LDR      R0,[SP, #+0]
         MOVS     R0,#+31
           CFI FunCall HAL_NVIC_SetPriority
         BL       HAL_NVIC_SetPriority
@@ -2201,15 +2009,9 @@ HAL_I2C_MspInit:
         MOVS     R0,#+31
           CFI FunCall HAL_NVIC_EnableIRQ
         BL       HAL_NVIC_EnableIRQ
-        B.N      ??HAL_I2C_MspInit_1
 //  930 
 //  931   }
 //  932   else if(hi2c->Instance==I2C2)
-??HAL_I2C_MspInit_0:
-        LDR      R0,[R4, #+0]
-        LDR.W    R1,??DataTable16_65  ;; 0x40005800
-        CMP      R0,R1
-        BNE.N    ??HAL_I2C_MspInit_1
 //  933   {
 //  934   /* USER CODE BEGIN I2C2_MspInit 0 */
 //  935 
@@ -2220,202 +2022,181 @@ HAL_I2C_MspInit:
 //  940     PB11     ------> I2C2_SDA 
 //  941     */
 //  942     __HAL_RCC_GPIOB_CLK_ENABLE();
-        LDR.W    R0,??DataTable16_44  ;; 0x40023830
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x2
-        LDR.W    R1,??DataTable16_44  ;; 0x40023830
-        STR      R0,[R1, #+0]
-        LDR.W    R0,??DataTable16_44  ;; 0x40023830
-        LDR      R0,[R0, #+0]
-        ANDS     R0,R0,#0x2
-        STR      R0,[SP, #+0]
-        LDR      R0,[SP, #+0]
 //  943     
 //  944     GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_11;
-        MOV      R0,#+3072
-        STR      R0,[SP, #+4]
 //  945     GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
-        MOVS     R0,#+18
-        STR      R0,[SP, #+8]
 //  946     GPIO_InitStruct.Pull = GPIO_NOPULL;
-        MOVS     R0,#+0
-        STR      R0,[SP, #+12]
 //  947     GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-        MOVS     R0,#+3
-        STR      R0,[SP, #+16]
 //  948     GPIO_InitStruct.Alternate = GPIO_AF4_I2C2;
-        MOVS     R0,#+4
-        STR      R0,[SP, #+20]
 //  949     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-        ADD      R1,SP,#+4
-        LDR.W    R0,??DataTable16_63  ;; 0x40020400
-          CFI FunCall HAL_GPIO_Init
-        BL       HAL_GPIO_Init
 //  950 
 //  951     /* Peripheral clock enable */
 //  952     __HAL_RCC_I2C2_CLK_ENABLE();
-        LDR.W    R0,??DataTable16_64  ;; 0x40023840
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x400000
-        LDR.W    R1,??DataTable16_64  ;; 0x40023840
-        STR      R0,[R1, #+0]
-        LDR.W    R0,??DataTable16_64  ;; 0x40023840
-        LDR      R0,[R0, #+0]
-        ANDS     R0,R0,#0x400000
-        STR      R0,[SP, #+0]
-        LDR      R0,[SP, #+0]
 //  953     /* Peripheral interrupt init*/
 //  954     //HAL_NVIC_SetPriority(I2C2_EV_IRQn, 3, 1);
 //  955     //HAL_NVIC_EnableIRQ(I2C2_EV_IRQn);
 //  956   }
 //  957 
 //  958 }
+        ADD      SP,SP,#+24
+          CFI CFA R13+8
+        POP      {R4,PC}
+          CFI CFA R13+32
+??HAL_I2C_MspInit_0:
+        LDR.W    R1,??DataTable13_20  ;; 0x40005800
+        CMP      R0,R1
+        BNE.N    ??HAL_I2C_MspInit_1
+        LDR.W    R4,??DataTable13_5  ;; 0x40023830
+        ADD      R1,SP,#+4
+        LDR      R0,[R4, #+0]
+        ORR      R0,R0,#0x2
+        STR      R0,[R4, #+0]
+        LDR      R0,[R4, #+0]
+        AND      R0,R0,#0x2
+        STR      R0,[SP, #+0]
+        LDR      R0,[SP, #+0]
+        MOV      R0,#+3072
+        STR      R0,[SP, #+4]
+        MOVS     R0,#+18
+        STR      R0,[SP, #+8]
+        MOVS     R0,#+0
+        STR      R0,[SP, #+12]
+        MOVS     R0,#+3
+        STR      R0,[SP, #+16]
+        MOVS     R0,#+4
+        STR      R0,[SP, #+20]
+        LDR.W    R0,??DataTable13_19  ;; 0x40020400
+          CFI FunCall HAL_GPIO_Init
+        BL       HAL_GPIO_Init
+        LDR      R0,[R4, #+16]
+        ORR      R0,R0,#0x400000
+        STR      R0,[R4, #+16]
+        LDR      R0,[R4, #+16]
+        AND      R0,R0,#0x400000
+        STR      R0,[SP, #+0]
+        LDR      R0,[SP, #+0]
 ??HAL_I2C_MspInit_1:
         ADD      SP,SP,#+24
           CFI CFA R13+8
         POP      {R4,PC}          ;; return
-          CFI EndBlock cfiBlock9
+          CFI EndBlock cfiBlock5
 //  959 
 //  960 /*---------------------------------------------------*/
 //  961 /*   UART                                            */
 //  962 /* UART4 init function */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock10 Using cfiCommon0
+          CFI Block cfiBlock6 Using cfiCommon0
           CFI Function USART3_Init
         THUMB
 //  963 void USART3_Init(void)
 //  964 {
-USART3_Init:
-        PUSH     {R7,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+8
 //  965 
 //  966   huart3.Instance = USART3;
-        LDR.W    R0,??DataTable16_66  ;; 0x40004800
-        LDR.W    R1,??DataTable16_67
-        STR      R0,[R1, #+0]
+USART3_Init:
+        LDR.W    R0,??DataTable13_21
+        LDR.W    R1,??DataTable13_22  ;; 0x40004800
+        STR      R1,[R0, #+0]
 //  967   huart3.Init.BaudRate = 115200;
-        MOVS     R0,#+115200
-        LDR.W    R1,??DataTable16_67
-        STR      R0,[R1, #+4]
+        MOV      R1,#+115200
+        STR      R1,[R0, #+4]
 //  968   huart3.Init.WordLength = UART_WORDLENGTH_8B;
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_67
-        STR      R0,[R1, #+8]
+        MOVS     R1,#+0
+        STR      R1,[R0, #+8]
 //  969   huart3.Init.StopBits = UART_STOPBITS_1;
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_67
-        STR      R0,[R1, #+12]
+        STR      R1,[R0, #+12]
 //  970   huart3.Init.Parity = UART_PARITY_NONE;
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_67
-        STR      R0,[R1, #+16]
+        STR      R1,[R0, #+16]
 //  971   huart3.Init.Mode = UART_MODE_TX_RX;
-        MOVS     R0,#+12
-        LDR.W    R1,??DataTable16_67
-        STR      R0,[R1, #+20]
+        MOVS     R1,#+12
+        STR      R1,[R0, #+20]
 //  972   huart3.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_67
-        STR      R0,[R1, #+24]
+        MOVS     R1,#+0
+        STR      R1,[R0, #+24]
 //  973   huart3.Init.OverSampling = UART_OVERSAMPLING_16;
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_67
-        STR      R0,[R1, #+28]
+        STR      R1,[R0, #+28]
 //  974   huart3.Init.OneBitSampling = UART_ONEBIT_SAMPLING_DISABLED ;
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_67
-        STR      R0,[R1, #+32]
+        STR      R1,[R0, #+32]
 //  975   huart3.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_67
-        STR      R0,[R1, #+36]
+        STR      R1,[R0, #+36]
 //  976   HAL_UART_Init(&huart3);
-        LDR.W    R0,??DataTable16_67
           CFI FunCall HAL_UART_Init
-        BL       HAL_UART_Init
+        B.W      HAL_UART_Init
 //  977 
 //  978   //HAL_NVIC_SetPriority(USART3_IRQn, 1, 1);
 //  979   //HAL_NVIC_EnableIRQ(USART3_IRQn);
 //  980 
 //  981 }
-        POP      {R0,PC}          ;; return
-          CFI EndBlock cfiBlock10
+          CFI EndBlock cfiBlock6
 //  982 
 //  983 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock11 Using cfiCommon0
+          CFI Block cfiBlock7 Using cfiCommon0
           CFI Function HAL_UART_MspInit
         THUMB
 //  984 void HAL_UART_MspInit(UART_HandleTypeDef *huart)
 //  985 {
-HAL_UART_MspInit:
-        PUSH     {R4,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        SUB      SP,SP,#+24
-          CFI CFA R13+32
-        MOVS     R4,R0
 //  986 
 //  987   GPIO_InitTypeDef GPIO_InitStruct;
 //  988   if(huart->Instance==USART3)
-        LDR      R0,[R4, #+0]
-        LDR.W    R1,??DataTable16_66  ;; 0x40004800
+HAL_UART_MspInit:
+        LDR      R0,[R0, #+0]
+        LDR.W    R1,??DataTable13_22  ;; 0x40004800
         CMP      R0,R1
-        BNE.N    ??HAL_UART_MspInit_0
+        BEQ.N    ??HAL_UART_MspInit_0
+        BX       LR
 //  989   {
 //  990 
 //  991 
 //  992   /* USER CODE END UART4_MspInit 0 */
 //  993     /* Peripheral clock enable */
 //  994     __USART3_CLK_ENABLE();
-        LDR.W    R0,??DataTable16_64  ;; 0x40023840
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x40000
-        LDR.W    R1,??DataTable16_64  ;; 0x40023840
-        STR      R0,[R1, #+0]
-        LDR.W    R0,??DataTable16_64  ;; 0x40023840
-        LDR      R0,[R0, #+0]
-        ANDS     R0,R0,#0x40000
-        STR      R0,[SP, #+0]
-        LDR      R0,[SP, #+0]
+??HAL_UART_MspInit_0:
+        PUSH     {LR}
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        LDR.N    R0,??DataTable13_5  ;; 0x40023830
+        SUB      SP,SP,#+28
+          CFI CFA R13+32
+        LDR      R1,[R0, #+16]
+        ORR      R1,R1,#0x40000
+        STR      R1,[R0, #+16]
+        LDR      R1,[R0, #+16]
+        AND      R1,R1,#0x40000
+        STR      R1,[SP, #+0]
+        LDR      R1,[SP, #+0]
 //  995     __GPIOC_CLK_ENABLE();
-        LDR.W    R0,??DataTable16_44  ;; 0x40023830
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x4
+        STR      R1,[R0, #+0]
         LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x4
-        LDR.W    R1,??DataTable16_44  ;; 0x40023830
-        STR      R0,[R1, #+0]
-        LDR.W    R0,??DataTable16_44  ;; 0x40023830
-        LDR      R0,[R0, #+0]
-        ANDS     R0,R0,#0x4
-        STR      R0,[SP, #+0]
-        LDR      R0,[SP, #+0]
 //  996   
 //  997     /**UART4 GPIO Configuration    
 //  998     PC10     ------> USART3_TX
 //  999     PC11     ------> USART3_RX
 // 1000     */
 // 1001     GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_11;
-        MOV      R0,#+3072
-        STR      R0,[SP, #+4]
 // 1002     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-        MOVS     R0,#+2
-        STR      R0,[SP, #+8]
 // 1003     GPIO_InitStruct.Pull = GPIO_PULLUP;
-        MOVS     R0,#+1
-        STR      R0,[SP, #+12]
 // 1004     GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-        MOVS     R0,#+3
-        STR      R0,[SP, #+16]
 // 1005     GPIO_InitStruct.Alternate = GPIO_AF7_USART3;
-        MOVS     R0,#+7
-        STR      R0,[SP, #+20]
 // 1006     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
         ADD      R1,SP,#+4
-        LDR.W    R0,??DataTable16_68  ;; 0x40020800
+        AND      R0,R0,#0x4
+        STR      R0,[SP, #+0]
+        LDR      R0,[SP, #+0]
+        MOV      R0,#+3072
+        STR      R0,[SP, #+4]
+        MOVS     R0,#+2
+        STR      R0,[SP, #+8]
+        MOVS     R0,#+1
+        STR      R0,[SP, #+12]
+        MOVS     R0,#+3
+        STR      R0,[SP, #+16]
+        MOVS     R0,#+7
+        STR      R0,[SP, #+20]
+        LDR.N    R0,??DataTable13_23  ;; 0x40020800
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 // 1007 
@@ -2434,37 +2215,37 @@ HAL_UART_MspInit:
 // 1012   }
 // 1013 
 // 1014 }
-??HAL_UART_MspInit_0:
-        ADD      SP,SP,#+24
-          CFI CFA R13+8
-        POP      {R4,PC}          ;; return
-          CFI EndBlock cfiBlock11
+        ADD      SP,SP,#+28
+          CFI CFA R13+4
+        POP      {PC}             ;; return
+          CFI EndBlock cfiBlock7
 // 1015 
 // 1016 
 // 1017 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock12 Using cfiCommon0
+          CFI Block cfiBlock8 Using cfiCommon0
           CFI Function EXTI4_IRQHandler
         THUMB
 // 1018 void EXTI4_IRQHandler(void)
 // 1019 {
 EXTI4_IRQHandler:
-        PUSH     {R7,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
 // 1020     /* EXTI line interrupt detected */
 // 1021   if(__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_4) != RESET)
-        LDR.W    R0,??DataTable16_69  ;; 0x40013c14
-        LDR      R0,[R0, #+0]
+        LDR.N    R4,??DataTable13_24  ;; 0x40013c14
+        LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+27
         BPL.N    ??EXTI4_IRQHandler_0
 // 1022   {
 // 1023     
 // 1024      if (cntRisingEXTI==20)
-        LDR.W    R0,??DataTable16_70
-        LDRH     R0,[R0, #+0]
-        CMP      R0,#+20
+        LDR.N    R0,??DataTable13_25
+        LDRH     R1,[R0, #+0]
+        CMP      R1,#+20
         BNE.N    ??EXTI4_IRQHandler_1
 // 1025      {
 // 1026     	/*--------------Enable read PCM data --------------------*/   
@@ -2473,9 +2254,8 @@ EXTI4_IRQHandler:
 // 1029 		//__HAL_UNLOCK(&hspi5);
 // 1030         //__HAL_SPI_ENABLE(&hspi5);
 // 1031         cntRisingEXTI=0;
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_70
-        STRH     R0,[R1, #+0]
+        MOVS     R1,#+0
+        STRH     R1,[R0, #+0]
 // 1032 
 // 1033         /*Disable external interrupt */
 // 1034         HAL_NVIC_DisableIRQ((IRQn_Type)(EXTI4_IRQn));
@@ -2489,29 +2269,26 @@ EXTI4_IRQHandler:
 // 1038      {
 // 1039         cntRisingEXTI++;
 ??EXTI4_IRQHandler_1:
-        LDR.W    R0,??DataTable16_70
-        LDRH     R0,[R0, #+0]
-        ADDS     R0,R0,#+1
-        LDR.W    R1,??DataTable16_70
-        STRH     R0,[R1, #+0]
+        LDRH     R1,[R0, #+0]
+        ADDS     R1,R1,#+1
+        STRH     R1,[R0, #+0]
 // 1040         //__HAL_SPI_DISABLE(&hspi5);
 // 1041      }
 // 1042      
 // 1043       __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_4);
 ??EXTI4_IRQHandler_2:
         MOVS     R0,#+16
-        LDR.W    R1,??DataTable16_69  ;; 0x40013c14
-        STR      R0,[R1, #+0]
+        STR      R0,[R4, #+0]
 // 1044 
 // 1045   }
 // 1046 }
 ??EXTI4_IRQHandler_0:
-        POP      {R0,PC}          ;; return
-          CFI EndBlock cfiBlock12
+        POP      {R4,PC}          ;; return
+          CFI EndBlock cfiBlock8
 // 1047               
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock13 Using cfiCommon0
+          CFI Block cfiBlock9 Using cfiCommon0
           CFI Function EXTI15_10_IRQHandler
           CFI NoCalls
         THUMB
@@ -2521,40 +2298,39 @@ EXTI4_IRQHandler:
 // 1051 }
 EXTI15_10_IRQHandler:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock13
+          CFI EndBlock cfiBlock9
 // 1052 
 // 1053 /* Events for Button Press */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock14 Using cfiCommon0
+          CFI Block cfiBlock10 Using cfiCommon0
           CFI Function EXTI9_5_IRQHandler
         THUMB
 // 1054 void EXTI9_5_IRQHandler(void)
 // 1055 {
 EXTI9_5_IRQHandler:
-        PUSH     {R7,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
 // 1056 
 // 1057   /* EXTI line interrupt detected */
 // 1058   if(__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_8) != RESET)
-        LDR.W    R0,??DataTable16_69  ;; 0x40013c14
-        LDR      R0,[R0, #+0]
+        LDR.N    R4,??DataTable13_24  ;; 0x40013c14
+        LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+23
         BPL.N    ??EXTI9_5_IRQHandler_0
 // 1059   {
 // 1060 	  btnSW2 = 1;
         MOVS     R0,#+1
-        LDR.W    R1,??DataTable16_71
-        STRB     R0,[R1, #+0]
+        LDR.N    R1,??DataTable13
+        STRB     R0,[R1, #+45]
 // 1061 	  BSP_LED_Toggle(LED2);
-        MOVS     R0,#+1
           CFI FunCall BSP_LED_Toggle
         BL       BSP_LED_Toggle
 // 1062 	  __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_8);
         MOV      R0,#+256
-        LDR.W    R1,??DataTable16_69  ;; 0x40013c14
-        STR      R0,[R1, #+0]
+        STR      R0,[R4, #+0]
 // 1063 
 // 1064   }
 // 1065 
@@ -2562,21 +2338,18 @@ EXTI9_5_IRQHandler:
 // 1067   /* EXTI line interrupt detected */
 // 1068   if(__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_9) != RESET)
 ??EXTI9_5_IRQHandler_0:
-        LDR.W    R0,??DataTable16_69  ;; 0x40013c14
-        LDR      R0,[R0, #+0]
+        LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+22
         BPL.N    ??EXTI9_5_IRQHandler_1
 // 1069   {
 // 1070 		btnSW1 = 1;
-        MOVS     R0,#+1
-        LDR.W    R1,??DataTable16_72
-        STRB     R0,[R1, #+0]
+        LDR.N    R0,??DataTable13
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+44]
 // 1071 		Command_index^=0x01;
-        LDR.N    R0,??DataTable16_43
-        LDRB     R0,[R0, #+0]
-        EORS     R0,R0,#0x1
-        LDR.N    R1,??DataTable16_43
-        STRB     R0,[R1, #+0]
+        LDRB     R1,[R0, #+50]
+        EOR      R1,R1,#0x1
+        STRB     R1,[R0, #+50]
 // 1072 		BSP_LED_Toggle(LED1);
         MOVS     R0,#+0
           CFI FunCall BSP_LED_Toggle
@@ -2584,27 +2357,29 @@ EXTI9_5_IRQHandler:
 // 1073 
 // 1074 	   __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_9);
         MOV      R0,#+512
-        LDR.N    R1,??DataTable16_69  ;; 0x40013c14
-        STR      R0,[R1, #+0]
+        STR      R0,[R4, #+0]
 // 1075   }
 // 1076 
 // 1077 }
 ??EXTI9_5_IRQHandler_1:
-        POP      {R0,PC}          ;; return
-          CFI EndBlock cfiBlock14
+        POP      {R4,PC}          ;; return
+          CFI EndBlock cfiBlock10
 // 1078 
 // 1079 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock15 Using cfiCommon0
+          CFI Block cfiBlock11 Using cfiCommon0
           CFI Function DFT_Init
         THUMB
 // 1080 void DFT_Init(void)
 // 1081 {
 DFT_Init:
-        PUSH     {R7,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
+        SUB      SP,SP,#+8
+          CFI CFA R13+16
 // 1082 #if MAIN_CRSCORR
 // 1083 		arm_rfft_init_q15(&RealFFT_Ins,(uint32_t)128,(uint32_t)0,(uint32_t)1);
 // 1084 		arm_rfft_init_q15(&RealIFFT_Ins,(uint32_t)128,(uint32_t)1,(uint32_t)1);
@@ -2612,47 +2387,48 @@ DFT_Init:
 // 1086 		/* Initialize the CFFT/CIFFT module */	
 // 1087 		arm_rfft_init_f32(&S1,&SS1, 512,  0, 1); 
         MOVS     R0,#+1
+        LDR.N    R4,??DataTable13_26
         STR      R0,[SP, #+0]
         MOVS     R3,#+0
         MOV      R2,#+512
-        LDR.N    R1,??DataTable16_73
-        LDR.N    R0,??DataTable16_74
+        MOV      R1,R4
+        ADD      R0,R4,#+100
           CFI FunCall arm_rfft_init_f32
         BL       arm_rfft_init_f32
 // 1088 		arm_rfft_init_f32(&S2,&SS2, 512,  0, 1); 
         MOVS     R0,#+1
-        STR      R0,[SP, #+0]
         MOVS     R3,#+0
+        STR      R0,[SP, #+0]
         MOV      R2,#+512
-        LDR.N    R1,??DataTable16_75
-        LDR.N    R0,??DataTable16_76
+        ADD      R1,R4,#+20
+        ADD      R0,R4,#+124
           CFI FunCall arm_rfft_init_f32
         BL       arm_rfft_init_f32
 // 1089 		arm_rfft_init_f32(&S3,&SS3, 512,  0, 1); 
         MOVS     R0,#+1
-        STR      R0,[SP, #+0]
         MOVS     R3,#+0
+        STR      R0,[SP, #+0]
         MOV      R2,#+512
-        LDR.N    R1,??DataTable16_77
-        LDR.N    R0,??DataTable16_78
+        ADD      R1,R4,#+40
+        ADD      R0,R4,#+148
           CFI FunCall arm_rfft_init_f32
         BL       arm_rfft_init_f32
 // 1090 		arm_rfft_init_f32(&S4,&SS4, 512,  0, 1);
         MOVS     R0,#+1
-        STR      R0,[SP, #+0]
         MOVS     R3,#+0
+        STR      R0,[SP, #+0]
         MOV      R2,#+512
-        LDR.N    R1,??DataTable16_79
-        LDR.N    R0,??DataTable16_80
+        ADD      R1,R4,#+60
+        ADD      R0,R4,#+172
           CFI FunCall arm_rfft_init_f32
         BL       arm_rfft_init_f32
 // 1091 		arm_rfft_init_f32(&IS,&ISS, 512,  1, 1);
         MOVS     R0,#+1
-        STR      R0,[SP, #+0]
         MOVS     R3,#+1
+        STR      R0,[SP, #+0]
         MOV      R2,#+512
-        LDR.N    R1,??DataTable16_81
-        LDR.N    R0,??DataTable16_82
+        ADD      R1,R4,#+80
+        ADD      R0,R4,#+196
           CFI FunCall arm_rfft_init_f32
         BL       arm_rfft_init_f32
 // 1092 
@@ -2662,23 +2438,20 @@ DFT_Init:
 // 1096 		//arm_rfft_fast_init_f32(&S4, 512);
 // 1097 		//arm_rfft_fast_init_f32(&IS, 512);
 // 1098 }
-        POP      {R0,PC}          ;; return
-          CFI EndBlock cfiBlock15
+        ADD      SP,SP,#+8
+          CFI CFA R13+8
+        POP      {R4,PC}          ;; return
+          CFI EndBlock cfiBlock11
 // 1099 
 // 1100 
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock16 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock12 Using cfiCommon0
           CFI Function SumDelay
           CFI NoCalls
         THUMB
 // 1101 void SumDelay(Mic_Array_Data *BufferIn)
 // 1102 {
-SumDelay:
-        PUSH     {R4,R5}
-          CFI R5 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
 // 1103            //if (idxLatency12>idxLatency13)
 // 1104            // {
 // 1105            //     if (idxLatency13 > idxLatency14)
@@ -2712,175 +2485,143 @@ SumDelay:
 // 1133 
 // 1134 	
 // 1135 	for(uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
+SumDelay:
+        LDR.N    R2,??DataTable13
         MOVS     R1,#+0
-??SumDelay_0:
-        UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        CMP      R1,#+1024
-        BGE.N    ??SumDelay_1
+        PUSH     {R4-R11,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R11 Frame(CFA, -8)
+          CFI R10 Frame(CFA, -12)
+          CFI R9 Frame(CFA, -16)
+          CFI R8 Frame(CFA, -20)
+          CFI R7 Frame(CFA, -24)
+          CFI R6 Frame(CFA, -28)
+          CFI R5 Frame(CFA, -32)
+          CFI R4 Frame(CFA, -36)
+          CFI CFA R13+36
+        LDRSH    R3,[R2, #+70]
+        LDRSH    R4,[R2, #+68]
+        LDRSH    R5,[R2, #+72]
+        ADD      R8,R2,#+84
+        MOV      R9,R0
+        MOVW     R12,#+8232
+        RSBS     R3,R3,#+0
+        RSBS     R4,R4,#+0
+        RSBS     R5,R5,#+0
+        MOVW     LR,#+4116
 // 1136 	{
 // 1137 
 // 1138 		 if (i%2==0)
-        UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        MOVS     R2,#+2
-        SDIV     R3,R1,R2
-        MLS      R3,R3,R2,R1
-        CMP      R3,#+0
-        BNE.N    ??SumDelay_2
+??SumDelay_0:
+        ADD      R6,R1,R1, LSR #+31
+        ASRS     R6,R6,#+1
+        SUBS     R6,R1,R6, LSL #+1
+        BNE.N    ??SumDelay_1
 // 1139 		 {
 // 1140                     bufferSum[i] = (uint16_t)(BufferIn->bufMIC1[i]*FacMic.facMIC1 + 
 // 1141                     BufferIn->bufMIC2[(((i-idxLatency12)>0)?(i-idxLatency12):0)]*FacMic.facMIC2 + 
 // 1142                     BufferIn->bufMIC3[(((i-idxLatency13)>0)?(i-idxLatency13):0)]*FacMic.facMIC3 + 
 // 1143                     BufferIn->bufMIC4[(((i-idxLatency14)>0)?(i-idxLatency14):0)]*FacMic.facMIC4); 		
-        UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        LDR.N    R2,??DataTable16_83
-        LDRSH    R2,[R2, #+0]
-        SUBS     R2,R1,R2
-        CMP      R2,#+1
-        BLT.N    ??SumDelay_3
-        UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        LDR.N    R2,??DataTable16_83
-        LDRSH    R2,[R2, #+0]
-        SUBS     R2,R1,R2
-        B.N      ??SumDelay_4
-??SumDelay_3:
-        MOVS     R2,#+0
-??SumDelay_4:
-        UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        LDR.N    R3,??DataTable16_84
-        LDRSH    R3,[R3, #+0]
-        SUBS     R3,R1,R3
         CMP      R3,#+1
-        BLT.N    ??SumDelay_5
-        UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        LDR.N    R3,??DataTable16_84
-        LDRSH    R3,[R3, #+0]
-        SUBS     R3,R1,R3
-        B.N      ??SumDelay_6
-??SumDelay_5:
-        MOVS     R3,#+0
-??SumDelay_6:
-        UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        LDR.N    R4,??DataTable16_11
-        LDRSH    R4,[R4, #+0]
-        SUBS     R4,R1,R4
+        ITE      GE 
+        MOVGE    R10,R3
+        MOVLT    R10,#+0
         CMP      R4,#+1
-        BLT.N    ??SumDelay_7
-        UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        LDR.N    R4,??DataTable16_11
-        LDRSH    R4,[R4, #+0]
-        SUBS     R4,R1,R4
-        B.N      ??SumDelay_8
-??SumDelay_7:
-        MOVS     R4,#+0
-??SumDelay_8:
-        UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        LDRSH    R5,[R0, R1, LSL #+1]
-        VMOV     S0,R5
+        ADD      R10,R0,R10, LSL #+1
+        IT       GE 
+        MOVGE    R6,R4
+        CMP      R5,#+1
+        ADD      R6,R0,R6, LSL #+1
+        ITE      GE 
+        MOVGE    R7,R5
+        MOVLT    R7,#+0
+        LDRSH    R11,[R9, #+0]
+        LDRSH    R10,[LR, R10]
+        VLDR     S1,[R2, #+20]
+        LDRSH    R6,[R12, R6]
+        VLDR     S2,[R2, #+24]
+        VMOV     S0,R11
         VCVT.F32.S32 S0,S0
-        LDR.N    R5,??DataTable16_4
-        VLDR     S1,[R5, #0]
         VMUL.F32 S0,S0,S1
-        ADDS     R2,R0,R2, LSL #+1
-        MOVW     R5,#+4116
-        LDRSH    R2,[R5, R2]
-        VMOV     S1,R2
+        VMOV     S1,R10
         VCVT.F32.S32 S1,S1
-        LDR.N    R2,??DataTable16_4
-        VLDR     S2,[R2, #+4]
         VMLA.F32 S0,S1,S2
-        ADDS     R2,R0,R3, LSL #+1
-        MOVW     R3,#+8232
-        LDRSH    R2,[R3, R2]
-        VMOV     S1,R2
+        VMOV     S1,R6
+        ADD      R6,R0,R7, LSL #+1
+        MOVW     R7,#+12348
         VCVT.F32.S32 S1,S1
-        LDR.N    R2,??DataTable16_4
-        VLDR     S2,[R2, #+8]
+        VLDR     S2,[R2, #+28]
+        LDRSH    R6,[R7, R6]
         VMLA.F32 S0,S1,S2
-        ADDS     R2,R0,R4, LSL #+1
-        MOVW     R3,#+12348
-        LDRSH    R2,[R3, R2]
-        VMOV     S1,R2
+        VLDR     S2,[R2, #+32]
+        VMOV     S1,R6
         VCVT.F32.S32 S1,S1
-        LDR.N    R2,??DataTable16_4
-        VLDR     S2,[R2, #+12]
         VMLA.F32 S0,S1,S2
         VCVT.S32.F32 S0,S0
-        VMOV     R2,S0
-        LDR.N    R3,??DataTable16_85
-        UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        STRH     R2,[R3, R1, LSL #+1]
-        B.N      ??SumDelay_9
+        VMOV     R6,S0
+        B.N      ??SumDelay_2
 // 1144 		 }
 // 1145 		 else
 // 1146 		 {
 // 1147                      bufferSum[i] = (uint16_t)(BufferIn->bufMIC3[i]);
-??SumDelay_2:
-        UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        ADDS     R2,R0,R1, LSL #+1
-        MOVW     R3,#+8232
-        LDRH     R2,[R3, R2]
-        LDR.N    R3,??DataTable16_85
-        UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        STRH     R2,[R3, R1, LSL #+1]
+??SumDelay_1:
+        LDRH     R6,[R12, R9]
 // 1148 		 }
 // 1149 	}
-??SumDelay_9:
+??SumDelay_2:
         ADDS     R1,R1,#+1
-        B.N      ??SumDelay_0
+        ADDS     R5,R5,#+1
+        ADDS     R4,R4,#+1
+        ADDS     R3,R3,#+1
+        CMP      R1,#+1024
+        STRH     R6,[R8], #+2
+        ADD      R9,R9,#+2
+        BLT.N    ??SumDelay_0
 // 1150 }
-??SumDelay_1:
-        POP      {R4,R5}
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI CFA R13+0
-        BX       LR               ;; return
-          CFI EndBlock cfiBlock16
+        POP      {R4-R11,PC}      ;; return
+          CFI EndBlock cfiBlock12
 // 1151 
 // 1152 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock17 Using cfiCommon0
+          CFI Block cfiBlock13 Using cfiCommon0
           CFI Function ButtonInit
         THUMB
 // 1153 void ButtonInit(void)
 // 1154 {
 ButtonInit:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
-          CFI CFA R13+8
+          CFI CFA R13+4
 // 1155     /* PI8: SW2 */
 // 1156 	/* PI9: SW1 */
 // 1157 	 /* ----------------------*/
 // 1158 	 __GPIOB_CLK_ENABLE();
-        LDR.N    R0,??DataTable16_44  ;; 0x40023830
+        LDR.N    R0,??DataTable13_5  ;; 0x40023830
+        SUB      SP,SP,#+4
+          CFI CFA R13+8
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x2
+        STR      R1,[R0, #+0]
         LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x2
-        LDR.N    R1,??DataTable16_44  ;; 0x40023830
-        STR      R0,[R1, #+0]
-        LDR.N    R0,??DataTable16_44  ;; 0x40023830
-        LDR      R0,[R0, #+0]
-        ANDS     R0,R0,#0x2
+// 1159 	GPIO_INS.Pin = GPIO_PIN_8|GPIO_PIN_9;
+        LDR.N    R1,??DataTable13
+        AND      R0,R0,#0x2
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
-// 1159 	GPIO_INS.Pin = GPIO_PIN_8|GPIO_PIN_9;
         MOV      R0,#+768
-        LDR.N    R1,??DataTable16_45
         STR      R0,[R1, #+0]
 // 1160 	GPIO_INS.Mode =GPIO_MODE_IT_RISING;
-        LDR.N    R0,??DataTable16_46  ;; 0x10110000
-        LDR.N    R1,??DataTable16_45
+        LDR.N    R0,??DataTable13_9  ;; 0x10110000
         STR      R0,[R1, #+4]
 // 1161 	GPIO_INS.Pull =GPIO_NOPULL;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable16_45
         STR      R0,[R1, #+8]
 // 1162 	GPIO_INS.Speed =GPIO_SPEED_HIGH;
         MOVS     R0,#+3
-        LDR.N    R1,??DataTable16_45
         STR      R0,[R1, #+12]
 // 1163 	HAL_GPIO_Init(GPIOI,&GPIO_INS);
-        LDR.N    R1,??DataTable16_45
-        LDR.N    R0,??DataTable16_86  ;; 0x40022000
+        LDR.N    R0,??DataTable13_27  ;; 0x40022000
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 // 1164 	
@@ -2892,101 +2633,73 @@ ButtonInit:
           CFI FunCall HAL_NVIC_SetPriority
         BL       HAL_NVIC_SetPriority
 // 1167 	HAL_NVIC_EnableIRQ((IRQn_Type)EXTI9_5_IRQn);
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
         MOVS     R0,#+23
+        POP      {LR}
+          CFI R14 SameValue
+          CFI CFA R13+0
           CFI FunCall HAL_NVIC_EnableIRQ
-        BL       HAL_NVIC_EnableIRQ
+        B.W      HAL_NVIC_EnableIRQ
 // 1168 	/*-----------------------*/
 // 1169 
 // 1170 }
-        POP      {R0,PC}          ;; return
-          CFI EndBlock cfiBlock17
+          CFI EndBlock cfiBlock13
 // 1171 
 // 1172 
 // 1173 /* I2C2 init function */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock18 Using cfiCommon0
+          CFI Block cfiBlock14 Using cfiCommon0
           CFI Function MX_I2C2_Init
         THUMB
 // 1174 void MX_I2C2_Init(void)
 // 1175 {
-MX_I2C2_Init:
-        PUSH     {R7,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+8
 // 1176    __HAL_I2C_DISABLE(&hi2c2);
-        LDR.N    R0,??DataTable16_87
-        LDR      R0,[R0, #+0]
-        LDR      R0,[R0, #+0]
-        LSRS     R0,R0,#+1
-        LSLS     R0,R0,#+1
-        LDR.N    R1,??DataTable16_87
-        LDR      R1,[R1, #+0]
-        STR      R0,[R1, #+0]
+MX_I2C2_Init:
+        LDR.N    R0,??DataTable13_28
+        LDR      R1,[R0, #+0]
+        LDR      R2,[R1, #+0]
+        LSRS     R2,R2,#+1
+        LSLS     R2,R2,#+1
+        STR      R2,[R1, #+0]
 // 1177   hi2c2.Instance = I2C2;
-        LDR.N    R0,??DataTable16_65  ;; 0x40005800
-        LDR.N    R1,??DataTable16_87
-        STR      R0,[R1, #+0]
+        LDR.N    R1,??DataTable13_20  ;; 0x40005800
+        STR      R1,[R0, #+0]
 // 1178   hi2c2.Init.Timing =0x00A0689A ;//I2C_TIMING  0x00303D5D 0x00A0689A
-        LDR.N    R0,??DataTable16_88  ;; 0xa0689a
-        LDR.N    R1,??DataTable16_87
-        STR      R0,[R1, #+4]
+        LDR.N    R1,??DataTable13_29  ;; 0xa0689a
+        STR      R1,[R0, #+4]
 // 1179   hi2c2.Init.OwnAddress1 = 0;
-        MOVS     R0,#+0
-        LDR.N    R1,??DataTable16_87
-        STR      R0,[R1, #+8]
+        MOVS     R1,#+0
+        STR      R1,[R0, #+8]
 // 1180   hi2c2.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
-        MOVS     R0,#+1
-        LDR.N    R1,??DataTable16_87
-        STR      R0,[R1, #+12]
+        MOVS     R1,#+1
+        STR      R1,[R0, #+12]
 // 1181   hi2c2.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
-        MOVS     R0,#+0
-        LDR.N    R1,??DataTable16_87
-        STR      R0,[R1, #+16]
+        MOVS     R1,#+0
+        STR      R1,[R0, #+16]
 // 1182   hi2c2.Init.OwnAddress2 = 0;
-        MOVS     R0,#+0
-        LDR.N    R1,??DataTable16_87
-        STR      R0,[R1, #+20]
+        STR      R1,[R0, #+20]
 // 1183   hi2c2.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
-        MOVS     R0,#+0
-        LDR.N    R1,??DataTable16_87
-        STR      R0,[R1, #+24]
+        STR      R1,[R0, #+24]
 // 1184   hi2c2.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
-        MOVS     R0,#+0
-        LDR.N    R1,??DataTable16_87
-        STR      R0,[R1, #+28]
+        STR      R1,[R0, #+28]
 // 1185   hi2c2.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
-        MOVS     R0,#+0
-        LDR.N    R1,??DataTable16_87
-        STR      R0,[R1, #+32]
+        STR      R1,[R0, #+32]
 // 1186   HAL_I2C_Init(&hi2c2);
-        LDR.N    R0,??DataTable16_87
           CFI FunCall HAL_I2C_Init
-        BL       HAL_I2C_Init
+        B.W      HAL_I2C_Init
 // 1187 
 // 1188     /**Configure Analogue filter 
 // 1189     */
 // 1190   //HAL_I2CEx_AnalogFilter_Config(&hi2c2, I2C_ANALOGFILTER_ENABLE);
 // 1191 
 // 1192 }
-        POP      {R0,PC}          ;; return
-          CFI EndBlock cfiBlock18
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable15:
-        DC32     0xe000ef50
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable15_1:
-        DC32     0xe000ed84
+          CFI EndBlock cfiBlock14
 // 1193 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock19 Using cfiCommon0
+          CFI Block cfiBlock15 Using cfiCommon0
           CFI Function HAL_I2S_TxCpltCallback
         THUMB
 // 1194  void HAL_I2S_TxCpltCallback(I2S_HandleTypeDef *hi2s)
@@ -2996,570 +2709,276 @@ HAL_I2S_TxCpltCallback:
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-        MOVS     R4,R0
 // 1196 	 //sop1hc if(AudioState == AUDIO_STATE_PLAY)
 // 1197 	 //if (BufferCtlPlayOut.state == BUFFER_OFFSET_HALF)
 // 1198 	 {
 // 1199 	   //BufferCtlPlayOut.state = BUFFER_OFFSET_FULL;
 // 1200 	   XferCplt=1;
-        MOVS     R0,#+1
-        LDR.N    R1,??DataTable16_34
-        STRB     R0,[R1, #+0]
+        LDR.N    R0,??DataTable13_30
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+0]
 // 1201 	   Audio_Play_Out(); 
-          CFI FunCall Audio_Play_Out
-        BL       Audio_Play_Out
+        LDRB     R1,[R0, #+0]
+        CMP      R1,#+1
+        BNE.N    ??HAL_I2S_TxCpltCallback_0
+        LDR.N    R4,??DataTable13
+        MOVS     R1,#+0
+        STRH     R1,[R4, #+58]
+        STRH     R1,[R4, #+60]
+        STRH     R1,[R4, #+66]
+        STRH     R1,[R4, #+54]
+        STRH     R1,[R4, #+52]
+        STRH     R1,[R4, #+56]
+        STRH     R1,[R4, #+62]
+        STRH     R1,[R4, #+64]
+        STRB     R1,[R4, #+46]
+        STRB     R1,[R0, #+0]
+        LDRB     R0,[R4, #+49]
+        CBZ.N    R0,??HAL_I2S_TxCpltCallback_1
+        CMP      R0,#+2
+        BEQ.N    ??HAL_I2S_TxCpltCallback_2
+        BCC.N    ??HAL_I2S_TxCpltCallback_3
+        B.N      ??HAL_I2S_TxCpltCallback_0
+??HAL_I2S_TxCpltCallback_2:
+        LDRB     R1,[R4, #+50]
+        LDR.N    R0,??DataTable13_3
+        CBNZ.N   R1,??HAL_I2S_TxCpltCallback_4
+        ADD      R0,R0,#+4096
+        ADDS     R0,R0,#+20
+??HAL_I2S_TxCpltCallback_4:
+        MOV      R1,#+4096
+          CFI FunCall Audio_MAL_Play
+        BL       Audio_MAL_Play
+        MOVS     R0,#+1
+        B.N      ??HAL_I2S_TxCpltCallback_5
+??HAL_I2S_TxCpltCallback_3:
+        LDRB     R1,[R4, #+50]
+        LDR.N    R0,??DataTable13_2
+        CBNZ.N   R1,??HAL_I2S_TxCpltCallback_6
+        ADD      R0,R0,#+4096
+        ADDS     R0,R0,#+20
+??HAL_I2S_TxCpltCallback_6:
+        MOV      R1,#+4096
+          CFI FunCall Audio_MAL_Play
+        BL       Audio_MAL_Play
+        MOVS     R0,#+0
+        B.N      ??HAL_I2S_TxCpltCallback_5
+??HAL_I2S_TxCpltCallback_1:
+        LDRB     R1,[R4, #+50]
+        LDR.N    R0,??DataTable13_1
+        CBNZ.N   R1,??HAL_I2S_TxCpltCallback_7
+        ADD      R0,R0,#+4096
+        ADDS     R0,R0,#+20
+??HAL_I2S_TxCpltCallback_7:
+        MOV      R1,#+4096
+          CFI FunCall Audio_MAL_Play
+        BL       Audio_MAL_Play
+        MOVS     R0,#+2
+??HAL_I2S_TxCpltCallback_5:
+        STRB     R0,[R4, #+49]
 // 1202 
 // 1203 	   if (cntStrt<100) cntStrt++;
-        LDR.N    R0,??DataTable16_54
-        LDRH     R0,[R0, #+0]
-        CMP      R0,#+100
-        BGE.N    ??HAL_I2S_TxCpltCallback_0
-        LDR.N    R0,??DataTable16_54
-        LDRH     R0,[R0, #+0]
-        ADDS     R0,R0,#+1
-        LDR.N    R1,??DataTable16_54
-        STRH     R0,[R1, #+0]
+??HAL_I2S_TxCpltCallback_0:
+        LDR.N    R0,??DataTable13_8
+        LDRH     R1,[R0, #+0]
+        CMP      R1,#+100
+        BGE.N    ??HAL_I2S_TxCpltCallback_8
+        LDRH     R1,[R0, #+0]
+        ADDS     R1,R1,#+1
+        STRH     R1,[R0, #+0]
 // 1204 	 }
 // 1205 	 
 // 1206 
 // 1207 }
-??HAL_I2S_TxCpltCallback_0:
+??HAL_I2S_TxCpltCallback_8:
         POP      {R4,PC}          ;; return
-          CFI EndBlock cfiBlock19
+          CFI EndBlock cfiBlock15
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16:
-        DC32     0xe000ed14
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_1:
-        DC32     0xe000ed80
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_2:
-        DC32     0xe000ef60
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_3:
-        DC32     flgDlyUpd
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_4:
-        DC32     FacMic
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_5:
-        DC32     buffer_switch
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_6:
-        DC32     Buffer3+0x708C
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_7:
-        DC32     Buffer3+0x6078
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_8:
-        DC32     idxLatency78
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_9:
-        DC32     Buffer3+0x303C
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_10:
-        DC32     Buffer3
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_11:
-        DC32     idxLatency14
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_12:
-        DC32     Buffer3+0x4050
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_13:
-        DC32     Buffer3+0x1014
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_14:
-        DC32     idxLatency25
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_15:
-        DC32     Buffer3+0x2028
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_16:
-        DC32     Buffer3+0x5064
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_17:
-        DC32     idxLatency63
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_18:
-        DC32     Buffer1+0x708C
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_19:
-        DC32     Buffer1+0x6078
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_20:
-        DC32     Buffer1+0x303C
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_21:
-        DC32     Buffer1
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_22:
-        DC32     Buffer1+0x4050
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_23:
-        DC32     Buffer1+0x1014
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_24:
-        DC32     Buffer1+0x2028
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_25:
-        DC32     Buffer1+0x5064
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_26:
-        DC32     Buffer2+0x708C
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_27:
-        DC32     Buffer2+0x6078
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_28:
-        DC32     Buffer2+0x303C
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_29:
-        DC32     Buffer2
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_30:
-        DC32     Buffer2+0x4050
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_31:
-        DC32     Buffer2+0x1014
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_32:
-        DC32     Buffer2+0x2028
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_33:
-        DC32     Buffer2+0x5064
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_34:
-        DC32     XferCplt
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_35:
-        DC32     WaveRec_idxSens1
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_36:
-        DC32     WaveRec_idxSens2
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_37:
-        DC32     idxSPI5DataBuf3
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_38:
-        DC32     WaveRec_idxSens3
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_39:
-        DC32     WaveRec_idxSens4
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_40:
-        DC32     I2S2_idxTmp
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_41:
-        DC32     WaveRec_idxSens5
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_42:
-        DC32     WaveRec_idxSens6
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_43:
-        DC32     Command_index
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_44:
-        DC32     0x40023830
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_45:
+??DataTable13:
         DC32     GPIO_INS
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_46:
-        DC32     0x10110000
+??DataTable13_1:
+        DC32     Buffer3
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_47:
-        DC32     0x40020000
+??DataTable13_2:
+        DC32     Buffer1
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_48:
-        DC32     0x40021000
+??DataTable13_3:
+        DC32     Buffer2
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_49:
-        DC32     hUSBDDevice
+??DataTable13_4:
+        DC32     0xe000ed14
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_50:
-        DC32     AUDIO_Desc
+??DataTable13_5:
+        DC32     0x40023830
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_51:
-        DC32     USBD_AUDIO
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_52:
-        DC32     USBD_AUDIO_fops
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_53:
-        DC32     stFrstFrmStore
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_54:
-        DC32     cntStrt
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_55:
-        DC32     WaveRecord_flgIni
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_56:
+??DataTable13_6:
         DC32     I2S1_stNipple
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_57:
+??DataTable13_7:
+        DC32     WaveRecord_flgIni
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable13_8:
+        DC32     cntStrt
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable13_9:
+        DC32     0x10110000
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable13_10:
+        DC32     0x40020000
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable13_11:
+        DC32     0x40021000
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable13_12:
         DC32     SPI4_stPosShft
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_58:
-        DC32     flg10ms
+??DataTable13_13:
+        DC32     AUDIO_Desc
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_59:
-        DC32     cntTime200
+??DataTable13_14:
+        DC32     USBD_AUDIO
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_60:
+??DataTable13_15:
+        DC32     USBD_AUDIO_fops
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable13_16:
         DC32     ??ticks
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_61:
+??DataTable13_17:
         DC32     0x100001
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_62:
+??DataTable13_18:
         DC32     0x40005400
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_63:
+??DataTable13_19:
         DC32     0x40020400
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_64:
-        DC32     0x40023840
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_65:
+??DataTable13_20:
         DC32     0x40005800
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_66:
-        DC32     0x40004800
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_67:
+??DataTable13_21:
         DC32     huart3
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_68:
+??DataTable13_22:
+        DC32     0x40004800
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable13_23:
         DC32     0x40020800
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_69:
+??DataTable13_24:
         DC32     0x40013c14
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_70:
+??DataTable13_25:
         DC32     cntRisingEXTI
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_71:
-        DC32     btnSW2
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_72:
-        DC32     btnSW1
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_73:
+??DataTable13_26:
         DC32     SS1
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_74:
-        DC32     `S1`
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_75:
-        DC32     SS2
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_76:
-        DC32     `S2`
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_77:
-        DC32     SS3
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_78:
-        DC32     `S3`
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_79:
-        DC32     SS4
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_80:
-        DC32     `S4`
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_81:
-        DC32     ISS
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_82:
-        DC32     IS
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_83:
-        DC32     idxLatency12
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_84:
-        DC32     idxLatency13
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_85:
-        DC32     bufferSum
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_86:
+??DataTable13_27:
         DC32     0x40022000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_87:
+??DataTable13_28:
         DC32     hi2c2
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_88:
+??DataTable13_29:
         DC32     0xa0689a
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable13_30:
+        DC32     XferCplt
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -3576,12 +2995,12 @@ HAL_I2S_TxCpltCallback:
 // 1208 
 // 1209 /*****************************END OF FILE**************************************/
 // 
-// 8 948 bytes in section .bss
-//    22 bytes in section .data
-// 3 136 bytes in section .text
+// 6 273 bytes in section .bss
+// 2 700 bytes in section .data
+// 2 192 bytes in section .text
 // 
-// 3 136 bytes of CODE memory
-// 8 970 bytes of DATA memory
+// 2 192 bytes of CODE memory
+// 8 973 bytes of DATA memory
 //
 //Errors: none
 //Warnings: 2

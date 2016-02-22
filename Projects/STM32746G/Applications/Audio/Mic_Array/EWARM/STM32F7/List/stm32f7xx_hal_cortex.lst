@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       22/Feb/2016  14:14:21
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       22/Feb/2016  14:50:39
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -16,11 +16,9 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 #        -o
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-#        --no_clustering --no_scheduling --debug --endian=little
-#        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\INC\c\DLib_Config_Full.h"
-#        -I
+#        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
+#        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        7.3\arm\INC\c\DLib_Config_Full.h" -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
@@ -50,7 +48,7 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7
 #    List file    =  
@@ -62,6 +60,9 @@
 
 D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_cortex.c
       1          /**
+                   ^
+Warning[Pa050]: non-native end of line sequence detected (this diagnostic is
+          only issued once)
       2            ******************************************************************************
       3            * @file    stm32f7xx_hal_cortex.c
       4            * @author  MCD Application Team
@@ -162,266 +163,6 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
      99          
     100          /* Includes ------------------------------------------------------------------*/
     101          #include "stm32f7xx_hal.h"
-
-  /**
-    ^
-"D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Inc\stm32f7xx_hal_conf.h",1  Warning[Pa050]: 
-          non-native end of line sequence detected (this diagnostic is only
-          issued once)
-
-   \                                 In section .text, align 2, keep-with-next
-   \   static __interwork __softfp void NVIC_SetPriorityGrouping(uint32_t)
-   \                     NVIC_SetPriorityGrouping: (+1)
-   \   00000000   0xF010 0x0207      ANDS     R2,R0,#0x7
-   \   00000004   0x....             LDR.N    R3,??DataTable13  ;; 0xe000ed0c
-   \   00000006   0x681B             LDR      R3,[R3, #+0]
-   \   00000008   0x0019             MOVS     R1,R3
-   \   0000000A   0xF64F 0x03FF      MOVW     R3,#+63743
-   \   0000000E   0x4019             ANDS     R1,R3,R1
-   \   00000010   0x....             LDR.N    R3,??DataTable13_1  ;; 0x5fa0000
-   \   00000012   0xEA53 0x2302      ORRS     R3,R3,R2, LSL #+8
-   \   00000016   0x4319             ORRS     R1,R3,R1
-   \   00000018   0x....             LDR.N    R3,??DataTable13  ;; 0xe000ed0c
-   \   0000001A   0x6019             STR      R1,[R3, #+0]
-   \   0000001C   0x4770             BX       LR               ;; return
-
-   \                                 In section .text, align 2, keep-with-next
-   \   static __interwork __softfp uint32_t NVIC_GetPriorityGrouping(void)
-   \                     NVIC_GetPriorityGrouping: (+1)
-   \   00000000   0x....             LDR.N    R0,??DataTable13  ;; 0xe000ed0c
-   \   00000002   0x6800             LDR      R0,[R0, #+0]
-   \   00000004   0xF3C0 0x2002      UBFX     R0,R0,#+8,#+3
-   \   00000008   0x4770             BX       LR               ;; return
-
-   \                                 In section .text, align 2, keep-with-next
-   \   static __interwork __softfp void NVIC_EnableIRQ(IRQn_Type)
-   \                     NVIC_EnableIRQ: (+1)
-   \   00000000   0x2101             MOVS     R1,#+1
-   \   00000002   0xF010 0x021F      ANDS     R2,R0,#0x1F
-   \   00000006   0x4091             LSLS     R1,R1,R2
-   \   00000008   0x....             LDR.N    R2,??DataTable13_2  ;; 0xe000e100
-   \   0000000A   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-   \   0000000C   0x0943             LSRS     R3,R0,#+5
-   \   0000000E   0xF842 0x1023      STR      R1,[R2, R3, LSL #+2]
-   \   00000012   0x4770             BX       LR               ;; return
-
-   \                                 In section .text, align 2, keep-with-next
-   \   static __interwork __softfp void NVIC_DisableIRQ(IRQn_Type)
-   \                     NVIC_DisableIRQ: (+1)
-   \   00000000   0x2101             MOVS     R1,#+1
-   \   00000002   0xF010 0x021F      ANDS     R2,R0,#0x1F
-   \   00000006   0x4091             LSLS     R1,R1,R2
-   \   00000008   0x....             LDR.N    R2,??DataTable13_3  ;; 0xe000e180
-   \   0000000A   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-   \   0000000C   0x0943             LSRS     R3,R0,#+5
-   \   0000000E   0xF842 0x1023      STR      R1,[R2, R3, LSL #+2]
-   \   00000012   0x4770             BX       LR               ;; return
-
-   \                                 In section .text, align 2, keep-with-next
-   \   static __interwork __softfp uint32_t NVIC_GetPendingIRQ(IRQn_Type)
-   \                     NVIC_GetPendingIRQ: (+1)
-   \   00000000   0x....             LDR.N    R1,??DataTable13_4  ;; 0xe000e200
-   \   00000002   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-   \   00000004   0x0942             LSRS     R2,R0,#+5
-   \   00000006   0xF851 0x1022      LDR      R1,[R1, R2, LSL #+2]
-   \   0000000A   0xF010 0x001F      ANDS     R0,R0,#0x1F
-   \   0000000E   0x40C1             LSRS     R1,R1,R0
-   \   00000010   0xF011 0x0001      ANDS     R0,R1,#0x1
-   \   00000014   0x4770             BX       LR               ;; return
-
-   \                                 In section .text, align 2, keep-with-next
-   \   static __interwork __softfp void NVIC_SetPendingIRQ(IRQn_Type)
-   \                     NVIC_SetPendingIRQ: (+1)
-   \   00000000   0x2101             MOVS     R1,#+1
-   \   00000002   0xF010 0x021F      ANDS     R2,R0,#0x1F
-   \   00000006   0x4091             LSLS     R1,R1,R2
-   \   00000008   0x....             LDR.N    R2,??DataTable13_4  ;; 0xe000e200
-   \   0000000A   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-   \   0000000C   0x0943             LSRS     R3,R0,#+5
-   \   0000000E   0xF842 0x1023      STR      R1,[R2, R3, LSL #+2]
-   \   00000012   0x4770             BX       LR               ;; return
-
-   \                                 In section .text, align 2, keep-with-next
-   \   static __interwork __softfp void NVIC_ClearPendingIRQ(IRQn_Type)
-   \                     NVIC_ClearPendingIRQ: (+1)
-   \   00000000   0x2101             MOVS     R1,#+1
-   \   00000002   0xF010 0x021F      ANDS     R2,R0,#0x1F
-   \   00000006   0x4091             LSLS     R1,R1,R2
-   \   00000008   0x....             LDR.N    R2,??DataTable13_5  ;; 0xe000e280
-   \   0000000A   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-   \   0000000C   0x0943             LSRS     R3,R0,#+5
-   \   0000000E   0xF842 0x1023      STR      R1,[R2, R3, LSL #+2]
-   \   00000012   0x4770             BX       LR               ;; return
-
-   \                                 In section .text, align 2, keep-with-next
-   \   static __interwork __softfp uint32_t NVIC_GetActive(IRQn_Type)
-   \                     NVIC_GetActive: (+1)
-   \   00000000   0x....             LDR.N    R1,??DataTable13_6  ;; 0xe000e300
-   \   00000002   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-   \   00000004   0x0942             LSRS     R2,R0,#+5
-   \   00000006   0xF851 0x1022      LDR      R1,[R1, R2, LSL #+2]
-   \   0000000A   0xF010 0x001F      ANDS     R0,R0,#0x1F
-   \   0000000E   0x40C1             LSRS     R1,R1,R0
-   \   00000010   0xF011 0x0001      ANDS     R0,R1,#0x1
-   \   00000014   0x4770             BX       LR               ;; return
-
-   \                                 In section .text, align 2, keep-with-next
-   \   static __interwork __softfp void NVIC_SetPriority(IRQn_Type, uint32_t)
-   \                     NVIC_SetPriority: (+1)
-   \   00000000   0xB410             PUSH     {R4}
-   \   00000002   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-   \   00000004   0x2800             CMP      R0,#+0
-   \   00000006   0xD508             BPL.N    ??NVIC_SetPriority_0
-   \   00000008   0x010A             LSLS     R2,R1,#+4
-   \   0000000A   0x....             LDR.N    R3,??DataTable13_7  ;; 0xe000ed18
-   \   0000000C   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-   \   0000000E   0xF010 0x040F      ANDS     R4,R0,#0xF
-   \   00000012   0x18E3             ADDS     R3,R4,R3
-   \   00000014   0xF803 0x2C04      STRB     R2,[R3, #-4]
-   \   00000018   0xE003             B.N      ??NVIC_SetPriority_1
-   \                     ??NVIC_SetPriority_0: (+1)
-   \   0000001A   0x010A             LSLS     R2,R1,#+4
-   \   0000001C   0x....             LDR.N    R3,??DataTable13_8  ;; 0xe000e400
-   \   0000001E   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-   \   00000020   0x54C2             STRB     R2,[R0, R3]
-   \                     ??NVIC_SetPriority_1: (+1)
-   \   00000022   0xBC10             POP      {R4}
-   \   00000024   0x4770             BX       LR               ;; return
-
-   \                                 In section .text, align 2, keep-with-next
-   \   static __interwork __softfp uint32_t NVIC_GetPriority(IRQn_Type)
-   \                     NVIC_GetPriority: (+1)
-   \   00000000   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-   \   00000002   0x2800             CMP      R0,#+0
-   \   00000004   0xD508             BPL.N    ??NVIC_GetPriority_0
-   \   00000006   0x....             LDR.N    R1,??DataTable13_7  ;; 0xe000ed18
-   \   00000008   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-   \   0000000A   0xF010 0x000F      ANDS     R0,R0,#0xF
-   \   0000000E   0x1840             ADDS     R0,R0,R1
-   \   00000010   0xF810 0x0C04      LDRB     R0,[R0, #-4]
-   \   00000014   0x0900             LSRS     R0,R0,#+4
-   \   00000016   0xE003             B.N      ??NVIC_GetPriority_1
-   \                     ??NVIC_GetPriority_0: (+1)
-   \   00000018   0x....             LDR.N    R1,??DataTable13_8  ;; 0xe000e400
-   \   0000001A   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-   \   0000001C   0x5C40             LDRB     R0,[R0, R1]
-   \   0000001E   0x0900             LSRS     R0,R0,#+4
-   \                     ??NVIC_GetPriority_1: (+1)
-   \   00000020   0x4770             BX       LR               ;; return
-
-   \                                 In section .text, align 2, keep-with-next
-   \   static __interwork __softfp uint32_t NVIC_EncodePriority(uint32_t, uint32_t, uint32_t)
-   \                     NVIC_EncodePriority: (+1)
-   \   00000000   0xB470             PUSH     {R4-R6}
-   \   00000002   0x0003             MOVS     R3,R0
-   \   00000004   0xF013 0x0407      ANDS     R4,R3,#0x7
-   \   00000008   0xF1D4 0x0607      RSBS     R6,R4,#+7
-   \   0000000C   0x2E05             CMP      R6,#+5
-   \   0000000E   0xD301             BCC.N    ??NVIC_EncodePriority_0
-   \   00000010   0x2004             MOVS     R0,#+4
-   \   00000012   0xE001             B.N      ??NVIC_EncodePriority_1
-   \                     ??NVIC_EncodePriority_0: (+1)
-   \   00000014   0xF1D4 0x0007      RSBS     R0,R4,#+7
-   \                     ??NVIC_EncodePriority_1: (+1)
-   \   00000018   0x1D26             ADDS     R6,R4,#+4
-   \   0000001A   0x2E07             CMP      R6,#+7
-   \   0000001C   0xD201             BCS.N    ??NVIC_EncodePriority_2
-   \   0000001E   0x2500             MOVS     R5,#+0
-   \   00000020   0xE000             B.N      ??NVIC_EncodePriority_3
-   \                     ??NVIC_EncodePriority_2: (+1)
-   \   00000022   0x1EE5             SUBS     R5,R4,#+3
-   \                     ??NVIC_EncodePriority_3: (+1)
-   \   00000024   0x2601             MOVS     R6,#+1
-   \   00000026   0xFA16 0xF000      LSLS     R0,R6,R0
-   \   0000002A   0x1E40             SUBS     R0,R0,#+1
-   \   0000002C   0x4008             ANDS     R0,R0,R1
-   \   0000002E   0x40A8             LSLS     R0,R0,R5
-   \   00000030   0x2101             MOVS     R1,#+1
-   \   00000032   0x40A9             LSLS     R1,R1,R5
-   \   00000034   0x1E49             SUBS     R1,R1,#+1
-   \   00000036   0x4011             ANDS     R1,R1,R2
-   \   00000038   0x4308             ORRS     R0,R1,R0
-   \   0000003A   0xBC70             POP      {R4-R6}
-   \   0000003C   0x4770             BX       LR               ;; return
-
-   \                                 In section .text, align 2, keep-with-next
-   \   static __interwork __softfp void NVIC_DecodePriority(uint32_t, uint32_t, uint32_t *const, uint32_t *const)
-   \                     NVIC_DecodePriority: (+1)
-   \   00000000   0xB4F0             PUSH     {R4-R7}
-   \   00000002   0xF011 0x0407      ANDS     R4,R1,#0x7
-   \   00000006   0xF1D4 0x0707      RSBS     R7,R4,#+7
-   \   0000000A   0x2F05             CMP      R7,#+5
-   \   0000000C   0xD301             BCC.N    ??NVIC_DecodePriority_0
-   \   0000000E   0x2504             MOVS     R5,#+4
-   \   00000010   0xE001             B.N      ??NVIC_DecodePriority_1
-   \                     ??NVIC_DecodePriority_0: (+1)
-   \   00000012   0xF1D4 0x0507      RSBS     R5,R4,#+7
-   \                     ??NVIC_DecodePriority_1: (+1)
-   \   00000016   0x1D27             ADDS     R7,R4,#+4
-   \   00000018   0x2F07             CMP      R7,#+7
-   \   0000001A   0xD201             BCS.N    ??NVIC_DecodePriority_2
-   \   0000001C   0x2600             MOVS     R6,#+0
-   \   0000001E   0xE000             B.N      ??NVIC_DecodePriority_3
-   \                     ??NVIC_DecodePriority_2: (+1)
-   \   00000020   0x1EE6             SUBS     R6,R4,#+3
-   \                     ??NVIC_DecodePriority_3: (+1)
-   \   00000022   0x0007             MOVS     R7,R0
-   \   00000024   0x40F7             LSRS     R7,R7,R6
-   \   00000026   0xF05F 0x0C01      MOVS     R12,#+1
-   \   0000002A   0xFA1C 0xFC05      LSLS     R12,R12,R5
-   \   0000002E   0xF1BC 0x0C01      SUBS     R12,R12,#+1
-   \   00000032   0xEA1C 0x0707      ANDS     R7,R12,R7
-   \   00000036   0x6017             STR      R7,[R2, #+0]
-   \   00000038   0x2701             MOVS     R7,#+1
-   \   0000003A   0x40B7             LSLS     R7,R7,R6
-   \   0000003C   0x1E7F             SUBS     R7,R7,#+1
-   \   0000003E   0x4007             ANDS     R7,R7,R0
-   \   00000040   0x601F             STR      R7,[R3, #+0]
-   \   00000042   0xBCF0             POP      {R4-R7}
-   \   00000044   0x4770             BX       LR               ;; return
-
-   \                                 In section .text, align 2, keep-with-next
-   \   static __interwork __softfp void NVIC_SystemReset(void)
-   \                     NVIC_SystemReset: (+1)
-   \   00000000   0xF3BF 0x8F4F      DSB      
-   \   00000004   0x....             LDR.N    R0,??DataTable13  ;; 0xe000ed0c
-   \   00000006   0x6800             LDR      R0,[R0, #+0]
-   \   00000008   0xF410 0x60E0      ANDS     R0,R0,#0x700
-   \   0000000C   0x....             LDR.N    R1,??DataTable13_9  ;; 0x5fa0004
-   \   0000000E   0x4308             ORRS     R0,R1,R0
-   \   00000010   0x....             LDR.N    R1,??DataTable13  ;; 0xe000ed0c
-   \   00000012   0x6008             STR      R0,[R1, #+0]
-   \   00000014   0xF3BF 0x8F4F      DSB      
-   \                     ??NVIC_SystemReset_0: (+1)
-   \   00000018   0xBF00             Nop      
-   \   0000001A   0xE7FD             B.N      ??NVIC_SystemReset_0
-
-   \                                 In section .text, align 2, keep-with-next
-   \   static __interwork __softfp uint32_t SysTick_Config(uint32_t)
-   \                     SysTick_Config: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x0004             MOVS     R4,R0
-   \   00000004   0x1E60             SUBS     R0,R4,#+1
-   \   00000006   0xF1B0 0x7F80      CMP      R0,#+16777216
-   \   0000000A   0xD301             BCC.N    ??SysTick_Config_0
-   \   0000000C   0x2001             MOVS     R0,#+1
-   \   0000000E   0xE00E             B.N      ??SysTick_Config_1
-   \                     ??SysTick_Config_0: (+1)
-   \   00000010   0x1E60             SUBS     R0,R4,#+1
-   \   00000012   0x....             LDR.N    R1,??DataTable13_10  ;; 0xe000e014
-   \   00000014   0x6008             STR      R0,[R1, #+0]
-   \   00000016   0x210F             MOVS     R1,#+15
-   \   00000018   0xF05F 0x30FF      MOVS     R0,#-1
-   \   0000001C   0x.... 0x....      BL       NVIC_SetPriority
-   \   00000020   0x2000             MOVS     R0,#+0
-   \   00000022   0x....             LDR.N    R1,??DataTable13_11  ;; 0xe000e018
-   \   00000024   0x6008             STR      R0,[R1, #+0]
-   \   00000026   0x2007             MOVS     R0,#+7
-   \   00000028   0x....             LDR.N    R1,??DataTable13_12  ;; 0xe000e010
-   \   0000002A   0x6008             STR      R0,[R1, #+0]
-   \   0000002C   0x2000             MOVS     R0,#+0
-   \                     ??SysTick_Config_1: (+1)
-   \   0000002E   0xBD10             POP      {R4,PC}          ;; return
     102          
     103          /** @addtogroup STM32F7xx_HAL_Driver
     104            * @{
@@ -485,18 +226,23 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                                 In section .text, align 2, keep-with-next
     161          void HAL_NVIC_SetPriorityGrouping(uint32_t PriorityGroup)
     162          {
-   \                     HAL_NVIC_SetPriorityGrouping: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x0004             MOVS     R4,R0
     163            /* Check the parameters */
     164            assert_param(IS_NVIC_PRIORITY_GROUP(PriorityGroup));
     165            
     166            /* Set the PRIGROUP[10:8] bits according to the PriorityGroup parameter value */
     167            NVIC_SetPriorityGrouping(PriorityGroup);
-   \   00000004   0x0020             MOVS     R0,R4
-   \   00000006   0x.... 0x....      BL       NVIC_SetPriorityGrouping
+   \                     HAL_NVIC_SetPriorityGrouping: (+1)
+   \   00000000   0x....             LDR.N    R1,??DataTable13  ;; 0xe000ed0c
+   \   00000002   0xF64F 0x03FF      MOVW     R3,#+63743
+   \   00000006   0xF000 0x0007      AND      R0,R0,#0x7
+   \   0000000A   0x680A             LDR      R2,[R1, #+0]
+   \   0000000C   0x401A             ANDS     R2,R3,R2
+   \   0000000E   0xEA42 0x2000      ORR      R0,R2,R0, LSL #+8
+   \   00000012   0x....             LDR.N    R2,??DataTable13_1  ;; 0x5fa0000
+   \   00000014   0x4310             ORRS     R0,R2,R0
+   \   00000016   0x6008             STR      R0,[R1, #+0]
     168          }
-   \   0000000A   0xBD10             POP      {R4,PC}          ;; return
+   \   00000018   0x4770             BX       LR               ;; return
     169          
     170          /**
     171            * @brief  Sets the priority of an interrupt.
@@ -515,33 +261,53 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                                 In section .text, align 2, keep-with-next
     183          void HAL_NVIC_SetPriority(IRQn_Type IRQn, uint32_t PreemptPriority, uint32_t SubPriority)
     184          { 
-   \                     HAL_NVIC_SetPriority: (+1)
-   \   00000000   0xB5F8             PUSH     {R3-R7,LR}
-   \   00000002   0x0004             MOVS     R4,R0
-   \   00000004   0x000D             MOVS     R5,R1
-   \   00000006   0x0016             MOVS     R6,R2
     185            uint32_t prioritygroup = 0x00;
-   \   00000008   0x2700             MOVS     R7,#+0
     186            
     187            /* Check the parameters */
     188            assert_param(IS_NVIC_SUB_PRIORITY(SubPriority));
     189            assert_param(IS_NVIC_PREEMPTION_PRIORITY(PreemptPriority));
     190            
     191            prioritygroup = NVIC_GetPriorityGrouping();
-   \   0000000A   0x.... 0x....      BL       NVIC_GetPriorityGrouping
-   \   0000000E   0x0007             MOVS     R7,R0
+   \                     HAL_NVIC_SetPriority: (+1)
+   \   00000000   0x....             LDR.N    R3,??DataTable13  ;; 0xe000ed0c
+   \   00000002   0xB430             PUSH     {R4,R5}
+   \   00000004   0x681B             LDR      R3,[R3, #+0]
     192            
     193            NVIC_SetPriority(IRQn, NVIC_EncodePriority(prioritygroup, PreemptPriority, SubPriority));
-   \   00000010   0x0032             MOVS     R2,R6
-   \   00000012   0x0029             MOVS     R1,R5
-   \   00000014   0x0038             MOVS     R0,R7
-   \   00000016   0x.... 0x....      BL       NVIC_EncodePriority
-   \   0000001A   0x0001             MOVS     R1,R0
-   \   0000001C   0x0020             MOVS     R0,R4
-   \   0000001E   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-   \   00000020   0x.... 0x....      BL       NVIC_SetPriority
+   \   00000006   0xF3C3 0x2302      UBFX     R3,R3,#+8,#+3
+   \   0000000A   0xF1C3 0x0407      RSB      R4,R3,#+7
+   \   0000000E   0x2C05             CMP      R4,#+5
+   \   00000010   0xBF28             IT       CS 
+   \   00000012   0x2404             MOVCS    R4,#+4
+   \   00000014   0x1D1D             ADDS     R5,R3,#+4
+   \   00000016   0x2D07             CMP      R5,#+7
+   \   00000018   0xBF34             ITE      CC 
+   \   0000001A   0x2300             MOVCC    R3,#+0
+   \   0000001C   0x1EDB             SUBCS    R3,R3,#+3
+   \   0000001E   0x2501             MOVS     R5,#+1
+   \   00000020   0xFA05 0xF404      LSL      R4,R5,R4
+   \   00000024   0x1E64             SUBS     R4,R4,#+1
+   \   00000026   0x4021             ANDS     R1,R4,R1
+   \   00000028   0x4099             LSLS     R1,R1,R3
+   \   0000002A   0xFA05 0xF303      LSL      R3,R5,R3
+   \   0000002E   0x1E5B             SUBS     R3,R3,#+1
+   \   00000030   0x401A             ANDS     R2,R3,R2
+   \   00000032   0x4311             ORRS     R1,R2,R1
+   \   00000034   0x0109             LSLS     R1,R1,#+4
+   \   00000036   0x2800             CMP      R0,#+0
+   \   00000038   0xD507             BPL.N    ??HAL_NVIC_SetPriority_0
+   \   0000003A   0x....             LDR.N    R2,??DataTable13_2  ;; 0xe000ed18
+   \   0000003C   0xF000 0x000F      AND      R0,R0,#0xF
+   \   00000040   0x1880             ADDS     R0,R0,R2
+   \   00000042   0xF800 0x1C04      STRB     R1,[R0, #-4]
     194          }
-   \   00000024   0xBDF1             POP      {R0,R4-R7,PC}    ;; return
+   \   00000046   0xBC30             POP      {R4,R5}
+   \   00000048   0x4770             BX       LR
+   \                     ??HAL_NVIC_SetPriority_0: (+1)
+   \   0000004A   0x....             LDR.N    R2,??DataTable13_3  ;; 0xe000e400
+   \   0000004C   0x5481             STRB     R1,[R0, R2]
+   \   0000004E   0xBC30             POP      {R4,R5}
+   \   00000050   0x4770             BX       LR               ;; return
     195          
     196          /**
     197            * @brief  Enables a device specific interrupt in the NVIC interrupt controller.
@@ -556,19 +322,20 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                                 In section .text, align 2, keep-with-next
     205          void HAL_NVIC_EnableIRQ(IRQn_Type IRQn)
     206          {
-   \                     HAL_NVIC_EnableIRQ: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x0004             MOVS     R4,R0
     207            /* Check the parameters */
     208            assert_param(IS_NVIC_DEVICE_IRQ(IRQn));
     209            
     210            /* Enable interrupt */
     211            NVIC_EnableIRQ(IRQn);
-   \   00000004   0x0020             MOVS     R0,R4
-   \   00000006   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-   \   00000008   0x.... 0x....      BL       NVIC_EnableIRQ
+   \                     HAL_NVIC_EnableIRQ: (+1)
+   \   00000000   0x2101             MOVS     R1,#+1
+   \   00000002   0xF000 0x021F      AND      R2,R0,#0x1F
+   \   00000006   0x4091             LSLS     R1,R1,R2
+   \   00000008   0x....             LDR.N    R2,??DataTable13_4  ;; 0xe000e100
+   \   0000000A   0x0940             LSRS     R0,R0,#+5
+   \   0000000C   0xF842 0x1020      STR      R1,[R2, R0, LSL #+2]
     212          }
-   \   0000000C   0xBD10             POP      {R4,PC}          ;; return
+   \   00000010   0x4770             BX       LR               ;; return
     213          
     214          /**
     215            * @brief  Disables a device specific interrupt in the NVIC interrupt controller.
@@ -581,19 +348,20 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                                 In section .text, align 2, keep-with-next
     221          void HAL_NVIC_DisableIRQ(IRQn_Type IRQn)
     222          {
-   \                     HAL_NVIC_DisableIRQ: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x0004             MOVS     R4,R0
     223            /* Check the parameters */
     224            assert_param(IS_NVIC_DEVICE_IRQ(IRQn));
     225            
     226            /* Disable interrupt */
     227            NVIC_DisableIRQ(IRQn);
-   \   00000004   0x0020             MOVS     R0,R4
-   \   00000006   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-   \   00000008   0x.... 0x....      BL       NVIC_DisableIRQ
+   \                     HAL_NVIC_DisableIRQ: (+1)
+   \   00000000   0x2101             MOVS     R1,#+1
+   \   00000002   0xF000 0x021F      AND      R2,R0,#0x1F
+   \   00000006   0x4091             LSLS     R1,R1,R2
+   \   00000008   0x....             LDR.N    R2,??DataTable13_5  ;; 0xe000e180
+   \   0000000A   0x0940             LSRS     R0,R0,#+5
+   \   0000000C   0xF842 0x1020      STR      R1,[R2, R0, LSL #+2]
     228          }
-   \   0000000C   0xBD10             POP      {R4,PC}          ;; return
+   \   00000010   0x4770             BX       LR               ;; return
     229          
     230          /**
     231            * @brief  Initiates a system reset request to reset the MCU.
@@ -603,13 +371,21 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                                 In section .text, align 2, keep-with-next
     234          void HAL_NVIC_SystemReset(void)
     235          {
-   \                     HAL_NVIC_SystemReset: (+1)
-   \   00000000   0xB580             PUSH     {R7,LR}
     236            /* System Reset */
     237            NVIC_SystemReset();
-   \   00000002   0x.... 0x....      BL       NVIC_SystemReset
+   \                     HAL_NVIC_SystemReset: (+1)
+   \   00000000   0xF3BF 0x8F4F      DSB      
+   \   00000004   0x....             LDR.N    R0,??DataTable13  ;; 0xe000ed0c
+   \   00000006   0x....             LDR.N    R2,??DataTable13_6  ;; 0x5fa0004
+   \   00000008   0x6801             LDR      R1,[R0, #+0]
+   \   0000000A   0xF401 0x61E0      AND      R1,R1,#0x700
+   \   0000000E   0x4311             ORRS     R1,R2,R1
+   \   00000010   0x6001             STR      R1,[R0, #+0]
+   \   00000012   0xF3BF 0x8F4F      DSB      
+   \                     ??HAL_NVIC_SystemReset_0: (+1)
+   \   00000016   0xBF00             Nop      
+   \   00000018   0xE7FD             B.N      ??HAL_NVIC_SystemReset_0
     238          }
-   \   00000006   0xBD01             POP      {R0,PC}          ;; return
     239          
     240          /**
     241            * @brief  Initializes the System Timer and its interrupt, and starts the System Tick Timer.
@@ -622,13 +398,24 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                                 In section .text, align 2, keep-with-next
     247          uint32_t HAL_SYSTICK_Config(uint32_t TicksNumb)
     248          {
-   \                     HAL_SYSTICK_Config: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x0004             MOVS     R4,R0
     249             return SysTick_Config(TicksNumb);
-   \   00000004   0x0020             MOVS     R0,R4
-   \   00000006   0x.... 0x....      BL       SysTick_Config
-   \   0000000A   0xBD10             POP      {R4,PC}          ;; return
+   \                     HAL_SYSTICK_Config: (+1)
+   \   00000000   0x1E40             SUBS     R0,R0,#+1
+   \   00000002   0xF1B0 0x7F80      CMP      R0,#+16777216
+   \   00000006   0xD301             BCC.N    ??HAL_SYSTICK_Config_0
+   \   00000008   0x2001             MOVS     R0,#+1
+   \   0000000A   0x4770             BX       LR
+   \                     ??HAL_SYSTICK_Config_0: (+1)
+   \   0000000C   0x....             LDR.N    R1,??DataTable13_7  ;; 0xe000e010
+   \   0000000E   0x6048             STR      R0,[R1, #+4]
+   \   00000010   0x20F0             MOVS     R0,#+240
+   \   00000012   0xF881 0x0D13      STRB     R0,[R1, #+3347]
+   \   00000016   0x2000             MOVS     R0,#+0
+   \   00000018   0x6088             STR      R0,[R1, #+8]
+   \   0000001A   0x2007             MOVS     R0,#+7
+   \   0000001C   0x6008             STR      R0,[R1, #+0]
+   \   0000001E   0x2000             MOVS     R0,#+0
+   \   00000020   0x4770             BX       LR               ;; return
     250          }
     251          /**
     252            * @}
@@ -668,14 +455,13 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     284            /* Set the Region number */
     285            MPU->RNR = MPU_Init->Number;
    \                     HAL_MPU_ConfigRegion: (+1)
-   \   00000000   0x7841             LDRB     R1,[R0, #+1]
-   \   00000002   0x....             LDR.N    R2,??DataTable13_13  ;; 0xe000ed98
-   \   00000004   0x6011             STR      R1,[R2, #+0]
+   \   00000000   0x7842             LDRB     R2,[R0, #+1]
+   \   00000002   0x....             LDR.N    R1,??DataTable13_8  ;; 0xe000ed98
+   \   00000004   0x600A             STR      R2,[R1, #+0]
     286          
     287            if ((MPU_Init->Enable) != RESET)
-   \   00000006   0x7801             LDRB     R1,[R0, #+0]
-   \   00000008   0x2900             CMP      R1,#+0
-   \   0000000A   0xD01E             BEQ.N    ??HAL_MPU_ConfigRegion_0
+   \   00000006   0x7802             LDRB     R2,[R0, #+0]
+   \   00000008   0xB1E2             CBZ.N    R2,??HAL_MPU_ConfigRegion_0
     288            {
     289              /* Check the parameters */
     290              assert_param(IS_MPU_INSTRUCTION_ACCESS(MPU_Init->DisableExec));
@@ -688,9 +474,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     297              assert_param(IS_MPU_REGION_SIZE(MPU_Init->Size));
     298              
     299              MPU->RBAR = MPU_Init->BaseAddress;
-   \   0000000C   0x6841             LDR      R1,[R0, #+4]
-   \   0000000E   0x....             LDR.N    R2,??DataTable13_14  ;; 0xe000ed9c
-   \   00000010   0x6011             STR      R1,[R2, #+0]
+   \   0000000A   0x6842             LDR      R2,[R0, #+4]
+   \   0000000C   0x604A             STR      R2,[R1, #+4]
     300              MPU->RASR = ((uint32_t)MPU_Init->DisableExec             << MPU_RASR_XN_Pos)   |
     301                          ((uint32_t)MPU_Init->AccessPermission        << MPU_RASR_AP_Pos)   |
     302                          ((uint32_t)MPU_Init->TypeExtField            << MPU_RASR_TEX_Pos)  |
@@ -700,43 +485,38 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     306                          ((uint32_t)MPU_Init->SubRegionDisable        << MPU_RASR_SRD_Pos)  |
     307                          ((uint32_t)MPU_Init->Size                    << MPU_RASR_SIZE_Pos) |
     308                          ((uint32_t)MPU_Init->Enable                  << MPU_RASR_ENABLE_Pos);
-   \   00000012   0x7B01             LDRB     R1,[R0, #+12]
-   \   00000014   0x7AC2             LDRB     R2,[R0, #+11]
-   \   00000016   0x0612             LSLS     R2,R2,#+24
-   \   00000018   0xEA52 0x7101      ORRS     R1,R2,R1, LSL #+28
-   \   0000001C   0x7A82             LDRB     R2,[R0, #+10]
-   \   0000001E   0xEA51 0x41C2      ORRS     R1,R1,R2, LSL #+19
-   \   00000022   0x7B42             LDRB     R2,[R0, #+13]
-   \   00000024   0xEA51 0x4182      ORRS     R1,R1,R2, LSL #+18
-   \   00000028   0x7B82             LDRB     R2,[R0, #+14]
-   \   0000002A   0xEA51 0x4142      ORRS     R1,R1,R2, LSL #+17
-   \   0000002E   0x7BC2             LDRB     R2,[R0, #+15]
-   \   00000030   0xEA51 0x4102      ORRS     R1,R1,R2, LSL #+16
-   \   00000034   0x7A42             LDRB     R2,[R0, #+9]
-   \   00000036   0xEA51 0x2102      ORRS     R1,R1,R2, LSL #+8
-   \   0000003A   0x7A02             LDRB     R2,[R0, #+8]
-   \   0000003C   0xEA51 0x0142      ORRS     R1,R1,R2, LSL #+1
-   \   00000040   0x7802             LDRB     R2,[R0, #+0]
-   \   00000042   0x4311             ORRS     R1,R2,R1
-   \   00000044   0x....             LDR.N    R2,??DataTable13_15  ;; 0xe000eda0
-   \   00000046   0x6011             STR      R1,[R2, #+0]
-   \   00000048   0xE005             B.N      ??HAL_MPU_ConfigRegion_1
+   \   0000000E   0x7AC3             LDRB     R3,[R0, #+11]
+   \   00000010   0x7B02             LDRB     R2,[R0, #+12]
+   \   00000012   0x061B             LSLS     R3,R3,#+24
+   \   00000014   0xEA43 0x7202      ORR      R2,R3,R2, LSL #+28
+   \   00000018   0x7A83             LDRB     R3,[R0, #+10]
+   \   0000001A   0xEA42 0x42C3      ORR      R2,R2,R3, LSL #+19
+   \   0000001E   0x7B43             LDRB     R3,[R0, #+13]
+   \   00000020   0xEA42 0x4283      ORR      R2,R2,R3, LSL #+18
+   \   00000024   0x7B83             LDRB     R3,[R0, #+14]
+   \   00000026   0xEA42 0x4243      ORR      R2,R2,R3, LSL #+17
+   \   0000002A   0x7BC3             LDRB     R3,[R0, #+15]
+   \   0000002C   0xEA42 0x4203      ORR      R2,R2,R3, LSL #+16
+   \   00000030   0x7A43             LDRB     R3,[R0, #+9]
+   \   00000032   0xEA42 0x2203      ORR      R2,R2,R3, LSL #+8
+   \   00000036   0x7A03             LDRB     R3,[R0, #+8]
+   \   00000038   0x7800             LDRB     R0,[R0, #+0]
+   \   0000003A   0xEA42 0x0243      ORR      R2,R2,R3, LSL #+1
+   \   0000003E   0x4310             ORRS     R0,R0,R2
     309            }
     310            else
     311            {
     312              MPU->RBAR = 0x00;
-   \                     ??HAL_MPU_ConfigRegion_0: (+1)
-   \   0000004A   0x2100             MOVS     R1,#+0
-   \   0000004C   0x....             LDR.N    R2,??DataTable13_14  ;; 0xe000ed9c
-   \   0000004E   0x6011             STR      R1,[R2, #+0]
     313              MPU->RASR = 0x00;
-   \   00000050   0x2100             MOVS     R1,#+0
-   \   00000052   0x....             LDR.N    R2,??DataTable13_15  ;; 0xe000eda0
-   \   00000054   0x6011             STR      R1,[R2, #+0]
+   \   00000040   0x6088             STR      R0,[R1, #+8]
     314            }
     315          }
-   \                     ??HAL_MPU_ConfigRegion_1: (+1)
-   \   00000056   0x4770             BX       LR               ;; return
+   \   00000042   0x4770             BX       LR
+   \                     ??HAL_MPU_ConfigRegion_0: (+1)
+   \   00000044   0x2000             MOVS     R0,#+0
+   \   00000046   0x6048             STR      R0,[R1, #+4]
+   \   00000048   0x6088             STR      R0,[R1, #+8]
+   \   0000004A   0x4770             BX       LR               ;; return
     316          #endif /* __MPU_PRESENT */
     317          
     318          /**
@@ -747,12 +527,13 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                                 In section .text, align 2, keep-with-next
     322          uint32_t HAL_NVIC_GetPriorityGrouping(void)
     323          {
-   \                     HAL_NVIC_GetPriorityGrouping: (+1)
-   \   00000000   0xB580             PUSH     {R7,LR}
     324            /* Get the PRIGROUP[10:8] field value */
     325            return NVIC_GetPriorityGrouping();
-   \   00000002   0x.... 0x....      BL       NVIC_GetPriorityGrouping
-   \   00000006   0xBD02             POP      {R1,PC}          ;; return
+   \                     HAL_NVIC_GetPriorityGrouping: (+1)
+   \   00000000   0x....             LDR.N    R0,??DataTable13  ;; 0xe000ed0c
+   \   00000002   0x6800             LDR      R0,[R0, #+0]
+   \   00000004   0xF3C0 0x2002      UBFX     R0,R0,#+8,#+3
+   \   00000008   0x4770             BX       LR               ;; return
     326          }
     327          
     328          /**
@@ -780,25 +561,51 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                                 In section .text, align 2, keep-with-next
     349          void HAL_NVIC_GetPriority(IRQn_Type IRQn, uint32_t PriorityGroup, uint32_t *pPreemptPriority, uint32_t *pSubPriority)
     350          {
-   \                     HAL_NVIC_GetPriority: (+1)
-   \   00000000   0xB5F8             PUSH     {R3-R7,LR}
-   \   00000002   0x0004             MOVS     R4,R0
-   \   00000004   0x000D             MOVS     R5,R1
-   \   00000006   0x0016             MOVS     R6,R2
-   \   00000008   0x001F             MOVS     R7,R3
     351            /* Check the parameters */
     352            assert_param(IS_NVIC_PRIORITY_GROUP(PriorityGroup));
     353           /* Get priority for Cortex-M system or device specific interrupts */
     354            NVIC_DecodePriority(NVIC_GetPriority(IRQn), PriorityGroup, pPreemptPriority, pSubPriority);
-   \   0000000A   0x0020             MOVS     R0,R4
-   \   0000000C   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-   \   0000000E   0x.... 0x....      BL       NVIC_GetPriority
-   \   00000012   0x003B             MOVS     R3,R7
-   \   00000014   0x0032             MOVS     R2,R6
-   \   00000016   0x0029             MOVS     R1,R5
-   \   00000018   0x.... 0x....      BL       NVIC_DecodePriority
+   \                     HAL_NVIC_GetPriority: (+1)
+   \   00000000   0x2800             CMP      R0,#+0
+   \   00000002   0xB430             PUSH     {R4,R5}
+   \   00000004   0xD506             BPL.N    ??HAL_NVIC_GetPriority_0
+   \   00000006   0x....             LDR.N    R4,??DataTable13_2  ;; 0xe000ed18
+   \   00000008   0xF000 0x000F      AND      R0,R0,#0xF
+   \   0000000C   0x1900             ADDS     R0,R0,R4
+   \   0000000E   0xF810 0x0C04      LDRB     R0,[R0, #-4]
+   \   00000012   0xE001             B.N      ??HAL_NVIC_GetPriority_1
+   \                     ??HAL_NVIC_GetPriority_0: (+1)
+   \   00000014   0x....             LDR.N    R4,??DataTable13_3  ;; 0xe000e400
+   \   00000016   0x5D00             LDRB     R0,[R0, R4]
+   \                     ??HAL_NVIC_GetPriority_1: (+1)
+   \   00000018   0xF001 0x0107      AND      R1,R1,#0x7
+   \   0000001C   0x0900             LSRS     R0,R0,#+4
+   \   0000001E   0xF1C1 0x0407      RSB      R4,R1,#+7
+   \   00000022   0x2C05             CMP      R4,#+5
+   \   00000024   0xBF28             IT       CS 
+   \   00000026   0x240F             MOVCS    R4,#+15
+   \   00000028   0xD204             BCS.N    ??HAL_NVIC_GetPriority_2
+   \   0000002A   0x2401             MOVS     R4,#+1
+   \   0000002C   0xF1C1 0x0507      RSB      R5,R1,#+7
+   \   00000030   0x40AC             LSLS     R4,R4,R5
+   \   00000032   0x1E64             SUBS     R4,R4,#+1
+   \                     ??HAL_NVIC_GetPriority_2: (+1)
+   \   00000034   0x1D0D             ADDS     R5,R1,#+4
+   \   00000036   0x2D07             CMP      R5,#+7
+   \   00000038   0xBF34             ITE      CC 
+   \   0000003A   0x2100             MOVCC    R1,#+0
+   \   0000003C   0x1EC9             SUBCS    R1,R1,#+3
+   \   0000003E   0xFA20 0xF501      LSR      R5,R0,R1
+   \   00000042   0x402C             ANDS     R4,R4,R5
+   \   00000044   0x6014             STR      R4,[R2, #+0]
+   \   00000046   0x2201             MOVS     R2,#+1
+   \   00000048   0xFA02 0xF101      LSL      R1,R2,R1
+   \   0000004C   0x1E49             SUBS     R1,R1,#+1
+   \   0000004E   0x4008             ANDS     R0,R1,R0
+   \   00000050   0x6018             STR      R0,[R3, #+0]
     355          }
-   \   0000001C   0xBDF1             POP      {R0,R4-R7,PC}    ;; return
+   \   00000052   0xBC30             POP      {R4,R5}
+   \   00000054   0x4770             BX       LR               ;; return
     356          
     357          /**
     358            * @brief  Sets Pending bit of an external interrupt.
@@ -811,19 +618,20 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                                 In section .text, align 2, keep-with-next
     364          void HAL_NVIC_SetPendingIRQ(IRQn_Type IRQn)
     365          {
-   \                     HAL_NVIC_SetPendingIRQ: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x0004             MOVS     R4,R0
     366            /* Check the parameters */
     367            assert_param(IS_NVIC_DEVICE_IRQ(IRQn));
     368            
     369            /* Set interrupt pending */
     370            NVIC_SetPendingIRQ(IRQn);
-   \   00000004   0x0020             MOVS     R0,R4
-   \   00000006   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-   \   00000008   0x.... 0x....      BL       NVIC_SetPendingIRQ
+   \                     HAL_NVIC_SetPendingIRQ: (+1)
+   \   00000000   0x2101             MOVS     R1,#+1
+   \   00000002   0xF000 0x021F      AND      R2,R0,#0x1F
+   \   00000006   0x4091             LSLS     R1,R1,R2
+   \   00000008   0x....             LDR.N    R2,??DataTable13_9  ;; 0xe000e200
+   \   0000000A   0x0940             LSRS     R0,R0,#+5
+   \   0000000C   0xF842 0x1020      STR      R1,[R2, R0, LSL #+2]
     371          }
-   \   0000000C   0xBD10             POP      {R4,PC}          ;; return
+   \   00000010   0x4770             BX       LR               ;; return
     372          
     373          /**
     374            * @brief  Gets Pending Interrupt (reads the pending register in the NVIC 
@@ -838,18 +646,19 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                                 In section .text, align 2, keep-with-next
     382          uint32_t HAL_NVIC_GetPendingIRQ(IRQn_Type IRQn)
     383          {
-   \                     HAL_NVIC_GetPendingIRQ: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x0004             MOVS     R4,R0
     384            /* Check the parameters */
     385            assert_param(IS_NVIC_DEVICE_IRQ(IRQn));
     386            
     387            /* Return 1 if pending else 0 */
     388            return NVIC_GetPendingIRQ(IRQn);
-   \   00000004   0x0020             MOVS     R0,R4
-   \   00000006   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-   \   00000008   0x.... 0x....      BL       NVIC_GetPendingIRQ
-   \   0000000C   0xBD10             POP      {R4,PC}          ;; return
+   \                     HAL_NVIC_GetPendingIRQ: (+1)
+   \   00000000   0x....             LDR.N    R1,??DataTable13_9  ;; 0xe000e200
+   \   00000002   0x0942             LSRS     R2,R0,#+5
+   \   00000004   0xF000 0x001F      AND      R0,R0,#0x1F
+   \   00000008   0xF851 0x1022      LDR      R1,[R1, R2, LSL #+2]
+   \   0000000C   0x40C1             LSRS     R1,R1,R0
+   \   0000000E   0xF001 0x0001      AND      R0,R1,#0x1
+   \   00000012   0x4770             BX       LR               ;; return
     389          }
     390          
     391          /**
@@ -863,19 +672,20 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                                 In section .text, align 2, keep-with-next
     398          void HAL_NVIC_ClearPendingIRQ(IRQn_Type IRQn)
     399          {
-   \                     HAL_NVIC_ClearPendingIRQ: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x0004             MOVS     R4,R0
     400            /* Check the parameters */
     401            assert_param(IS_NVIC_DEVICE_IRQ(IRQn));
     402            
     403            /* Clear pending interrupt */
     404            NVIC_ClearPendingIRQ(IRQn);
-   \   00000004   0x0020             MOVS     R0,R4
-   \   00000006   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-   \   00000008   0x.... 0x....      BL       NVIC_ClearPendingIRQ
+   \                     HAL_NVIC_ClearPendingIRQ: (+1)
+   \   00000000   0x2101             MOVS     R1,#+1
+   \   00000002   0xF000 0x021F      AND      R2,R0,#0x1F
+   \   00000006   0x4091             LSLS     R1,R1,R2
+   \   00000008   0x....             LDR.N    R2,??DataTable13_10  ;; 0xe000e280
+   \   0000000A   0x0940             LSRS     R0,R0,#+5
+   \   0000000C   0xF842 0x1020      STR      R1,[R2, R0, LSL #+2]
     405          }
-   \   0000000C   0xBD10             POP      {R4,PC}          ;; return
+   \   00000010   0x4770             BX       LR               ;; return
     406          
     407          /**
     408            * @brief Gets active interrupt ( reads the active register in NVIC and returns the active bit).
@@ -889,18 +699,19 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                                 In section .text, align 2, keep-with-next
     415          uint32_t HAL_NVIC_GetActive(IRQn_Type IRQn)
     416          {
-   \                     HAL_NVIC_GetActive: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x0004             MOVS     R4,R0
     417            /* Check the parameters */
     418            assert_param(IS_NVIC_DEVICE_IRQ(IRQn));
     419            
     420            /* Return 1 if active else 0 */
     421            return NVIC_GetActive(IRQn);
-   \   00000004   0x0020             MOVS     R0,R4
-   \   00000006   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-   \   00000008   0x.... 0x....      BL       NVIC_GetActive
-   \   0000000C   0xBD10             POP      {R4,PC}          ;; return
+   \                     HAL_NVIC_GetActive: (+1)
+   \   00000000   0x....             LDR.N    R1,??DataTable13_11  ;; 0xe000e300
+   \   00000002   0x0942             LSRS     R2,R0,#+5
+   \   00000004   0xF000 0x001F      AND      R0,R0,#0x1F
+   \   00000008   0xF851 0x1022      LDR      R1,[R1, R2, LSL #+2]
+   \   0000000C   0x40C1             LSRS     R1,R1,R0
+   \   0000000E   0xF001 0x0001      AND      R0,R1,#0x1
+   \   00000012   0x4770             BX       LR               ;; return
     422          }
     423          
     424          /**
@@ -919,30 +730,22 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     435            assert_param(IS_SYSTICK_CLK_SOURCE(CLKSource));
     436            if (CLKSource == SYSTICK_CLKSOURCE_HCLK)
    \                     HAL_SYSTICK_CLKSourceConfig: (+1)
-   \   00000000   0x2804             CMP      R0,#+4
-   \   00000002   0xD106             BNE.N    ??HAL_SYSTICK_CLKSourceConfig_0
+   \   00000000   0x....             LDR.N    R1,??DataTable13_7  ;; 0xe000e010
+   \   00000002   0x2804             CMP      R0,#+4
+   \   00000004   0x6808             LDR      R0,[R1, #+0]
+   \   00000006   0xBF0C             ITE      EQ 
+   \   00000008   0xF040 0x0004      ORREQ    R0,R0,#0x4
+   \   0000000C   0xF020 0x0004      BICNE    R0,R0,#0x4
     437            {
     438              SysTick->CTRL |= SYSTICK_CLKSOURCE_HCLK;
-   \   00000004   0x....             LDR.N    R1,??DataTable13_12  ;; 0xe000e010
-   \   00000006   0x6809             LDR      R1,[R1, #+0]
-   \   00000008   0xF051 0x0104      ORRS     R1,R1,#0x4
-   \   0000000C   0x....             LDR.N    R2,??DataTable13_12  ;; 0xe000e010
-   \   0000000E   0x6011             STR      R1,[R2, #+0]
-   \   00000010   0xE005             B.N      ??HAL_SYSTICK_CLKSourceConfig_1
     439            }
     440            else
     441            {
     442              SysTick->CTRL &= ~SYSTICK_CLKSOURCE_HCLK;
-   \                     ??HAL_SYSTICK_CLKSourceConfig_0: (+1)
-   \   00000012   0x....             LDR.N    R1,??DataTable13_12  ;; 0xe000e010
-   \   00000014   0x6809             LDR      R1,[R1, #+0]
-   \   00000016   0xF031 0x0104      BICS     R1,R1,#0x4
-   \   0000001A   0x....             LDR.N    R2,??DataTable13_12  ;; 0xe000e010
-   \   0000001C   0x6011             STR      R1,[R2, #+0]
+   \   00000010   0x6008             STR      R0,[R1, #+0]
     443            }
     444          }
-   \                     ??HAL_SYSTICK_CLKSourceConfig_1: (+1)
-   \   0000001E   0x4770             BX       LR               ;; return
+   \   00000012   0x4770             BX       LR               ;; return
     445          
     446          /**
     447            * @brief  This function handles SYSTICK interrupt request.
@@ -953,11 +756,13 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     450          void HAL_SYSTICK_IRQHandler(void)
     451          {
    \                     HAL_SYSTICK_IRQHandler: (+1)
-   \   00000000   0xB580             PUSH     {R7,LR}
+   \   00000000   0xB500             PUSH     {LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
     452            HAL_SYSTICK_Callback();
-   \   00000002   0x.... 0x....      BL       HAL_SYSTICK_Callback
+   \   00000004   0x.... 0x....      BL       HAL_SYSTICK_Callback
     453          }
-   \   00000006   0xBD01             POP      {R0,PC}          ;; return
+   \   00000008   0xB001             ADD      SP,SP,#+4
+   \   0000000A   0xBD00             POP      {PC}             ;; return
     454          
     455          /**
     456            * @brief  SYSTICK callback.
@@ -984,59 +789,43 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
 
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable13_2:
-   \   00000000   0xE000E100         DC32     0xe000e100
-
-   \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable13_3:
-   \   00000000   0xE000E180         DC32     0xe000e180
-
-   \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable13_4:
-   \   00000000   0xE000E200         DC32     0xe000e200
-
-   \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable13_5:
-   \   00000000   0xE000E280         DC32     0xe000e280
-
-   \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable13_6:
-   \   00000000   0xE000E300         DC32     0xe000e300
-
-   \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable13_7:
    \   00000000   0xE000ED18         DC32     0xe000ed18
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable13_8:
+   \                     ??DataTable13_3:
    \   00000000   0xE000E400         DC32     0xe000e400
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable13_9:
+   \                     ??DataTable13_4:
+   \   00000000   0xE000E100         DC32     0xe000e100
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable13_5:
+   \   00000000   0xE000E180         DC32     0xe000e180
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable13_6:
    \   00000000   0x05FA0004         DC32     0x5fa0004
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable13_10:
-   \   00000000   0xE000E014         DC32     0xe000e014
-
-   \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable13_11:
-   \   00000000   0xE000E018         DC32     0xe000e018
-
-   \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable13_12:
+   \                     ??DataTable13_7:
    \   00000000   0xE000E010         DC32     0xe000e010
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable13_13:
+   \                     ??DataTable13_8:
    \   00000000   0xE000ED98         DC32     0xe000ed98
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable13_14:
-   \   00000000   0xE000ED9C         DC32     0xe000ed9c
+   \                     ??DataTable13_9:
+   \   00000000   0xE000E200         DC32     0xe000e200
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable13_15:
-   \   00000000   0xE000EDA0         DC32     0xe000eda0
+   \                     ??DataTable13_10:
+   \   00000000   0xE000E280         DC32     0xe000e280
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable13_11:
+   \   00000000   0xE000E300         DC32     0xe000e300
     465          
     466          /**
     467            * @}
@@ -1062,52 +851,22 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    .cstack Function
    ------- --------
        0   HAL_MPU_ConfigRegion
-       8   HAL_NVIC_ClearPendingIRQ
-         8   -> NVIC_ClearPendingIRQ
-       8   HAL_NVIC_DisableIRQ
-         8   -> NVIC_DisableIRQ
-       8   HAL_NVIC_EnableIRQ
-         8   -> NVIC_EnableIRQ
-       8   HAL_NVIC_GetActive
-         8   -> NVIC_GetActive
-       8   HAL_NVIC_GetPendingIRQ
-         8   -> NVIC_GetPendingIRQ
-      24   HAL_NVIC_GetPriority
-        24   -> NVIC_DecodePriority
-        24   -> NVIC_GetPriority
-       8   HAL_NVIC_GetPriorityGrouping
-         8   -> NVIC_GetPriorityGrouping
-       8   HAL_NVIC_SetPendingIRQ
-         8   -> NVIC_SetPendingIRQ
-      24   HAL_NVIC_SetPriority
-        24   -> NVIC_EncodePriority
-        24   -> NVIC_GetPriorityGrouping
-        24   -> NVIC_SetPriority
-       8   HAL_NVIC_SetPriorityGrouping
-         8   -> NVIC_SetPriorityGrouping
-       8   HAL_NVIC_SystemReset
-         8   -> NVIC_SystemReset
+       0   HAL_NVIC_ClearPendingIRQ
+       0   HAL_NVIC_DisableIRQ
+       0   HAL_NVIC_EnableIRQ
+       0   HAL_NVIC_GetActive
+       0   HAL_NVIC_GetPendingIRQ
+       8   HAL_NVIC_GetPriority
+       0   HAL_NVIC_GetPriorityGrouping
+       0   HAL_NVIC_SetPendingIRQ
+       8   HAL_NVIC_SetPriority
+       0   HAL_NVIC_SetPriorityGrouping
+       0   HAL_NVIC_SystemReset
        0   HAL_SYSTICK_CLKSourceConfig
        0   HAL_SYSTICK_Callback
-       8   HAL_SYSTICK_Config
-         8   -> SysTick_Config
+       0   HAL_SYSTICK_Config
        8   HAL_SYSTICK_IRQHandler
          8   -> HAL_SYSTICK_Callback
-       0   NVIC_ClearPendingIRQ
-      16   NVIC_DecodePriority
-       0   NVIC_DisableIRQ
-       0   NVIC_EnableIRQ
-      12   NVIC_EncodePriority
-       0   NVIC_GetActive
-       0   NVIC_GetPendingIRQ
-       0   NVIC_GetPriority
-       0   NVIC_GetPriorityGrouping
-       0   NVIC_SetPendingIRQ
-       4   NVIC_SetPriority
-       0   NVIC_SetPriorityGrouping
-       0   NVIC_SystemReset
-       8   SysTick_Config
-         8   -> NVIC_SetPriority
 
 
    Section sizes:
@@ -1118,10 +877,6 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
        4  ??DataTable13_1
        4  ??DataTable13_10
        4  ??DataTable13_11
-       4  ??DataTable13_12
-       4  ??DataTable13_13
-       4  ??DataTable13_14
-       4  ??DataTable13_15
        4  ??DataTable13_2
        4  ??DataTable13_3
        4  ??DataTable13_4
@@ -1130,41 +885,27 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
        4  ??DataTable13_7
        4  ??DataTable13_8
        4  ??DataTable13_9
-      88  HAL_MPU_ConfigRegion
-      14  HAL_NVIC_ClearPendingIRQ
-      14  HAL_NVIC_DisableIRQ
-      14  HAL_NVIC_EnableIRQ
-      14  HAL_NVIC_GetActive
-      14  HAL_NVIC_GetPendingIRQ
-      30  HAL_NVIC_GetPriority
-       8  HAL_NVIC_GetPriorityGrouping
-      14  HAL_NVIC_SetPendingIRQ
-      38  HAL_NVIC_SetPriority
-      12  HAL_NVIC_SetPriorityGrouping
-       8  HAL_NVIC_SystemReset
-      32  HAL_SYSTICK_CLKSourceConfig
+      76  HAL_MPU_ConfigRegion
+      18  HAL_NVIC_ClearPendingIRQ
+      18  HAL_NVIC_DisableIRQ
+      18  HAL_NVIC_EnableIRQ
+      20  HAL_NVIC_GetActive
+      20  HAL_NVIC_GetPendingIRQ
+      86  HAL_NVIC_GetPriority
+      10  HAL_NVIC_GetPriorityGrouping
+      18  HAL_NVIC_SetPendingIRQ
+      82  HAL_NVIC_SetPriority
+      26  HAL_NVIC_SetPriorityGrouping
+      26  HAL_NVIC_SystemReset
+      20  HAL_SYSTICK_CLKSourceConfig
        2  HAL_SYSTICK_Callback
-      12  HAL_SYSTICK_Config
-       8  HAL_SYSTICK_IRQHandler
-      20  NVIC_ClearPendingIRQ
-      70  NVIC_DecodePriority
-      20  NVIC_DisableIRQ
-      20  NVIC_EnableIRQ
-      62  NVIC_EncodePriority
-      22  NVIC_GetActive
-      22  NVIC_GetPendingIRQ
-      34  NVIC_GetPriority
-      10  NVIC_GetPriorityGrouping
-      20  NVIC_SetPendingIRQ
-      38  NVIC_SetPriority
-      30  NVIC_SetPriorityGrouping
-      28  NVIC_SystemReset
-      48  SysTick_Config
+      34  HAL_SYSTICK_Config
+      12  HAL_SYSTICK_IRQHandler
 
  
- 830 bytes in section .text
+ 534 bytes in section .text
  
- 830 bytes of CODE memory
+ 534 bytes of CODE memory
 
 Errors: none
 Warnings: 1

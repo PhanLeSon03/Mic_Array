@@ -97,7 +97,7 @@
 #define VOL_MIN                                       0xDBE0 
 #define VOL_RES                                       0x0023
 #define VOL_MAX                                       0x0000 
-#define AUDIO_IN_PACKET                  (uint32_t)((((AUDIO_OUT_BUFFER_SIZE)+2)*8)*2) // (uint32_t)((((48000/1000)+2)*8)*2) 
+#define AUDIO_IN_PACKET                  (uint32_t)((((48000/1000)+2)*8)*2) 
 #define MIC_IN_TERMINAL_ID                            1
 #define MIC_FU_ID                                     2
 #define MIC_OUT_TERMINAL_ID                           3

@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       22/Feb/2016  14:14:24
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       22/Feb/2016  14:50:43
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -16,11 +16,9 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 #        -o
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-#        --no_clustering --no_scheduling --debug --endian=little
-#        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\INC\c\DLib_Config_Full.h"
-#        -I
+#        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
+#        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        7.3\arm\INC\c\DLib_Config_Full.h" -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
@@ -50,7 +48,7 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7
 #    List file    =  
@@ -220,14 +218,13 @@ Warning[Pa050]: non-native end of line sequence detected (this diagnostic is
    \                                 In section .text, align 2, keep-with-next
     121          uint8_t *USBD_AUDIO_DeviceDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
     122          {
-   \                     USBD_AUDIO_DeviceDescriptor: (+1)
-   \   00000000   0x0002             MOVS     R2,R0
     123            *length = sizeof(hUSBDDeviceDesc);
-   \   00000002   0x2012             MOVS     R0,#+18
-   \   00000004   0x8008             STRH     R0,[R1, #+0]
+   \                     USBD_AUDIO_DeviceDescriptor: (+1)
+   \   00000000   0x2012             MOVS     R0,#+18
+   \   00000002   0x8008             STRH     R0,[R1, #+0]
     124            return hUSBDDeviceDesc;
-   \   00000006   0x....             LDR.N    R0,??DataTable6
-   \   00000008   0x4770             BX       LR               ;; return
+   \   00000004   0x....             LDR.N    R0,??DataTable13
+   \   00000006   0x4770             BX       LR               ;; return
     125          }
     126          
     127          /**
@@ -240,14 +237,13 @@ Warning[Pa050]: non-native end of line sequence detected (this diagnostic is
    \                                 In section .text, align 2, keep-with-next
     133          uint8_t *USBD_AUDIO_LangIDStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
     134          {
-   \                     USBD_AUDIO_LangIDStrDescriptor: (+1)
-   \   00000000   0x0002             MOVS     R2,R0
     135            *length = sizeof(USBD_LangIDDesc);  
-   \   00000002   0x2004             MOVS     R0,#+4
-   \   00000004   0x8008             STRH     R0,[R1, #+0]
+   \                     USBD_AUDIO_LangIDStrDescriptor: (+1)
+   \   00000000   0x2004             MOVS     R0,#+4
+   \   00000002   0x8008             STRH     R0,[R1, #+0]
     136            return USBD_LangIDDesc;
-   \   00000006   0x....             LDR.N    R0,??DataTable6_1
-   \   00000008   0x4770             BX       LR               ;; return
+   \   00000004   0x....             LDR.N    R0,??DataTable13_1
+   \   00000006   0x4770             BX       LR               ;; return
     137          }
     138          
     139          /**
@@ -260,35 +256,27 @@ Warning[Pa050]: non-native end of line sequence detected (this diagnostic is
    \                                 In section .text, align 2, keep-with-next
     145          uint8_t *USBD_AUDIO_ProductStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
     146          {
-   \                     USBD_AUDIO_ProductStrDescriptor: (+1)
-   \   00000000   0xB538             PUSH     {R3-R5,LR}
-   \   00000002   0x0004             MOVS     R4,R0
-   \   00000004   0x000D             MOVS     R5,R1
     147            if(speed == 0)
-   \   00000006   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
-   \   00000008   0x2C00             CMP      R4,#+0
-   \   0000000A   0xD105             BNE.N    ??USBD_AUDIO_ProductStrDescriptor_0
+   \                     USBD_AUDIO_ProductStrDescriptor: (+1)
+   \   00000000   0x2800             CMP      R0,#+0
+   \   00000002   0x460A             MOV      R2,R1
+   \   00000004   0xB510             PUSH     {R4,LR}
+   \   00000006   0x....             LDR.N    R4,??DataTable13_2
+   \   00000008   0x4621             MOV      R1,R4
+   \   0000000A   0xBF0C             ITE      EQ 
+   \   0000000C   0x.... 0x....      ADREQ.W  R0,?_0
+   \   00000010   0x.... 0x....      ADRNE.W  R0,?_1
     148            {   
     149              USBD_GetString((uint8_t *)USBD_PRODUCT_HS_STRING, USBD_StrDesc, length);
-   \   0000000C   0x002A             MOVS     R2,R5
-   \   0000000E   0x....             LDR.N    R1,??DataTable6_2
-   \   00000010   0x....             LDR.N    R0,??DataTable6_3
-   \   00000012   0x.... 0x....      BL       USBD_GetString
-   \   00000016   0xE004             B.N      ??USBD_AUDIO_ProductStrDescriptor_1
     150            }
     151            else
     152            {
     153              USBD_GetString((uint8_t *)USBD_PRODUCT_FS_STRING, USBD_StrDesc, length);    
-   \                     ??USBD_AUDIO_ProductStrDescriptor_0: (+1)
-   \   00000018   0x002A             MOVS     R2,R5
-   \   0000001A   0x....             LDR.N    R1,??DataTable6_2
-   \   0000001C   0x....             LDR.N    R0,??DataTable6_4
-   \   0000001E   0x.... 0x....      BL       USBD_GetString
+   \   00000014   0x.... 0x....      BL       USBD_GetString
     154            }
     155            return USBD_StrDesc;
-   \                     ??USBD_AUDIO_ProductStrDescriptor_1: (+1)
-   \   00000022   0x....             LDR.N    R0,??DataTable6_2
-   \   00000024   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+   \   00000018   0x4620             MOV      R0,R4
+   \   0000001A   0xBD10             POP      {R4,PC}          ;; return
     156          }
     157          
     158          /**
@@ -302,17 +290,16 @@ Warning[Pa050]: non-native end of line sequence detected (this diagnostic is
     164          uint8_t *USBD_AUDIO_ManufacturerStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
     165          {
    \                     USBD_AUDIO_ManufacturerStrDescriptor: (+1)
-   \   00000000   0xB538             PUSH     {R3-R5,LR}
-   \   00000002   0x0004             MOVS     R4,R0
-   \   00000004   0x000D             MOVS     R5,R1
+   \   00000000   0xB510             PUSH     {R4,LR}
     166            USBD_GetString((uint8_t *)USBD_MANUFACTURER_STRING, USBD_StrDesc, length);
-   \   00000006   0x002A             MOVS     R2,R5
-   \   00000008   0x....             LDR.N    R1,??DataTable6_2
-   \   0000000A   0x....             LDR.N    R0,??DataTable6_5
+   \   00000002   0x....             LDR.N    R4,??DataTable13_2
+   \   00000004   0x460A             MOV      R2,R1
+   \   00000006   0x4621             MOV      R1,R4
+   \   00000008   0x.... 0x....      ADR.W    R0,?_2
    \   0000000C   0x.... 0x....      BL       USBD_GetString
     167            return USBD_StrDesc;
-   \   00000010   0x....             LDR.N    R0,??DataTable6_2
-   \   00000012   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+   \   00000010   0x4620             MOV      R0,R4
+   \   00000012   0xBD10             POP      {R4,PC}          ;; return
     168          }
     169          
     170          /**
@@ -325,35 +312,27 @@ Warning[Pa050]: non-native end of line sequence detected (this diagnostic is
    \                                 In section .text, align 2, keep-with-next
     176          uint8_t *USBD_AUDIO_SerialStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
     177          {
-   \                     USBD_AUDIO_SerialStrDescriptor: (+1)
-   \   00000000   0xB538             PUSH     {R3-R5,LR}
-   \   00000002   0x0004             MOVS     R4,R0
-   \   00000004   0x000D             MOVS     R5,R1
     178            if(speed == USBD_SPEED_HIGH)
-   \   00000006   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
-   \   00000008   0x2C00             CMP      R4,#+0
-   \   0000000A   0xD105             BNE.N    ??USBD_AUDIO_SerialStrDescriptor_0
+   \                     USBD_AUDIO_SerialStrDescriptor: (+1)
+   \   00000000   0x2800             CMP      R0,#+0
+   \   00000002   0x460A             MOV      R2,R1
+   \   00000004   0xB510             PUSH     {R4,LR}
+   \   00000006   0x....             LDR.N    R4,??DataTable13_2
+   \   00000008   0x4621             MOV      R1,R4
+   \   0000000A   0xBF0C             ITE      EQ 
+   \   0000000C   0x.... 0x....      ADREQ.W  R0,?_3
+   \   00000010   0x.... 0x....      ADRNE.W  R0,?_4
     179            {    
     180              USBD_GetString((uint8_t *)USBD_SERIALNUMBER_HS_STRING, USBD_StrDesc, length);
-   \   0000000C   0x002A             MOVS     R2,R5
-   \   0000000E   0x....             LDR.N    R1,??DataTable6_2
-   \   00000010   0x....             LDR.N    R0,??DataTable6_6
-   \   00000012   0x.... 0x....      BL       USBD_GetString
-   \   00000016   0xE004             B.N      ??USBD_AUDIO_SerialStrDescriptor_1
     181            }
     182            else
     183            {
     184              USBD_GetString((uint8_t *)USBD_SERIALNUMBER_FS_STRING, USBD_StrDesc, length);
-   \                     ??USBD_AUDIO_SerialStrDescriptor_0: (+1)
-   \   00000018   0x002A             MOVS     R2,R5
-   \   0000001A   0x....             LDR.N    R1,??DataTable6_2
-   \   0000001C   0x....             LDR.N    R0,??DataTable6_7
-   \   0000001E   0x.... 0x....      BL       USBD_GetString
+   \   00000014   0x.... 0x....      BL       USBD_GetString
     185            }
     186            return USBD_StrDesc;
-   \                     ??USBD_AUDIO_SerialStrDescriptor_1: (+1)
-   \   00000022   0x....             LDR.N    R0,??DataTable6_2
-   \   00000024   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+   \   00000018   0x4620             MOV      R0,R4
+   \   0000001A   0xBD10             POP      {R4,PC}          ;; return
     187          }
     188          
     189          /**
@@ -367,34 +346,23 @@ Warning[Pa050]: non-native end of line sequence detected (this diagnostic is
     195          uint8_t *USBD_AUDIO_ConfigStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
     196          {
    \                     USBD_AUDIO_ConfigStrDescriptor: (+1)
-   \   00000000   0xB538             PUSH     {R3-R5,LR}
-   \   00000002   0x0004             MOVS     R4,R0
-   \   00000004   0x000D             MOVS     R5,R1
+   \   00000000   0xB510             PUSH     {R4,LR}
     197            if(speed == USBD_SPEED_HIGH)
-   \   00000006   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
-   \   00000008   0x2C00             CMP      R4,#+0
-   \   0000000A   0xD105             BNE.N    ??USBD_AUDIO_ConfigStrDescriptor_0
+   \   00000002   0x....             LDR.N    R4,??DataTable13_2
+   \   00000004   0x460A             MOV      R2,R1
+   \   00000006   0x.... 0x....      ADR.W    R0,?_5
+   \   0000000A   0x4621             MOV      R1,R4
     198            {  
     199              USBD_GetString((uint8_t *)USBD_CONFIGURATION_HS_STRING, USBD_StrDesc, length);
-   \   0000000C   0x002A             MOVS     R2,R5
-   \   0000000E   0x....             LDR.N    R1,??DataTable6_2
-   \   00000010   0x....             LDR.N    R0,??DataTable6_8
-   \   00000012   0x.... 0x....      BL       USBD_GetString
-   \   00000016   0xE004             B.N      ??USBD_AUDIO_ConfigStrDescriptor_1
     200            }
     201            else
     202            {
     203              USBD_GetString((uint8_t *)USBD_CONFIGURATION_FS_STRING, USBD_StrDesc, length); 
-   \                     ??USBD_AUDIO_ConfigStrDescriptor_0: (+1)
-   \   00000018   0x002A             MOVS     R2,R5
-   \   0000001A   0x....             LDR.N    R1,??DataTable6_2
-   \   0000001C   0x....             LDR.N    R0,??DataTable6_8
-   \   0000001E   0x.... 0x....      BL       USBD_GetString
+   \   0000000C   0x.... 0x....      BL       USBD_GetString
     204            }
     205            return USBD_StrDesc;  
-   \                     ??USBD_AUDIO_ConfigStrDescriptor_1: (+1)
-   \   00000022   0x....             LDR.N    R0,??DataTable6_2
-   \   00000024   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+   \   00000010   0x4620             MOV      R0,R4
+   \   00000012   0xBD10             POP      {R4,PC}          ;; return
     206          }
     207          
     208          /**
@@ -408,77 +376,38 @@ Warning[Pa050]: non-native end of line sequence detected (this diagnostic is
     214          uint8_t *USBD_AUDIO_InterfaceStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
     215          {
    \                     USBD_AUDIO_InterfaceStrDescriptor: (+1)
-   \   00000000   0xB538             PUSH     {R3-R5,LR}
-   \   00000002   0x0004             MOVS     R4,R0
-   \   00000004   0x000D             MOVS     R5,R1
+   \   00000000   0xB510             PUSH     {R4,LR}
     216            if(speed == 0)
-   \   00000006   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
-   \   00000008   0x2C00             CMP      R4,#+0
-   \   0000000A   0xD105             BNE.N    ??USBD_AUDIO_InterfaceStrDescriptor_0
+   \   00000002   0x....             LDR.N    R4,??DataTable13_2
+   \   00000004   0x460A             MOV      R2,R1
+   \   00000006   0x.... 0x....      ADR.W    R0,?_6
+   \   0000000A   0x4621             MOV      R1,R4
     217            {
     218              USBD_GetString((uint8_t *)USBD_INTERFACE_HS_STRING, USBD_StrDesc, length);
-   \   0000000C   0x002A             MOVS     R2,R5
-   \   0000000E   0x....             LDR.N    R1,??DataTable6_2
-   \   00000010   0x....             LDR.N    R0,??DataTable6_9
-   \   00000012   0x.... 0x....      BL       USBD_GetString
-   \   00000016   0xE004             B.N      ??USBD_AUDIO_InterfaceStrDescriptor_1
     219            }
     220            else
     221            {
     222              USBD_GetString((uint8_t *)USBD_INTERFACE_FS_STRING, USBD_StrDesc, length);
-   \                     ??USBD_AUDIO_InterfaceStrDescriptor_0: (+1)
-   \   00000018   0x002A             MOVS     R2,R5
-   \   0000001A   0x....             LDR.N    R1,??DataTable6_2
-   \   0000001C   0x....             LDR.N    R0,??DataTable6_9
-   \   0000001E   0x.... 0x....      BL       USBD_GetString
+   \   0000000C   0x.... 0x....      BL       USBD_GetString
     223            }
     224            return USBD_StrDesc;  
-   \                     ??USBD_AUDIO_InterfaceStrDescriptor_1: (+1)
-   \   00000022   0x....             LDR.N    R0,??DataTable6_2
-   \   00000024   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+   \   00000010   0x4620             MOV      R0,R4
+   \   00000012   0xBD10             POP      {R4,PC}          ;; return
     225          }
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable6:
+   \                     ??DataTable13:
    \   00000000   0x........         DC32     hUSBDDeviceDesc
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable6_1:
+   \                     ??DataTable13_1:
    \   00000000   0x........         DC32     USBD_LangIDDesc
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable6_2:
+   \                     ??DataTable13_2:
    \   00000000   0x........         DC32     USBD_StrDesc
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable6_3:
-   \   00000000   0x........         DC32     ?_0
-
-   \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable6_4:
-   \   00000000   0x........         DC32     ?_1
-
-   \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable6_5:
-   \   00000000   0x........         DC32     ?_2
-
-   \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable6_6:
-   \   00000000   0x........         DC32     ?_3
-
-   \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable6_7:
-   \   00000000   0x........         DC32     ?_4
-
-   \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable6_8:
-   \   00000000   0x........         DC32     ?_5
-
-   \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable6_9:
-   \   00000000   0x........         DC32     ?_6
-
-   \                                 In section .rodata, align 4
    \                     ?_0:
    \   00000000   0x53 0x54          DC8 "STM32 AUDIO Streaming in HS Mode"
    \              0x4D 0x33    
@@ -500,7 +429,7 @@ Warning[Pa050]: non-native end of line sequence detected (this diagnostic is
    \   00000021   0x00 0x00          DC8 0, 0, 0
    \              0x00         
 
-   \                                 In section .rodata, align 4
+   \                                 In section .text, align 4, keep-with-next
    \                     ?_1:
    \   00000000   0x53 0x54          DC8 "STM32 AUDIO Streaming in FS Mode"
    \              0x4D 0x33    
@@ -522,7 +451,7 @@ Warning[Pa050]: non-native end of line sequence detected (this diagnostic is
    \   00000021   0x00 0x00          DC8 0, 0, 0
    \              0x00         
 
-   \                                 In section .rodata, align 4
+   \                                 In section .text, align 4, keep-with-next
    \                     ?_2:
    \   00000000   0x53 0x54          DC8 "STMicroelectronics"
    \              0x4D 0x69    
@@ -536,7 +465,7 @@ Warning[Pa050]: non-native end of line sequence detected (this diagnostic is
    \              0x00         
    \   00000013   0x00               DC8 0
 
-   \                                 In section .rodata, align 4
+   \                                 In section .text, align 4, keep-with-next
    \                     ?_3:
    \   00000000   0x30 0x30          DC8 "00000000034E"
    \              0x30 0x30    
@@ -548,7 +477,7 @@ Warning[Pa050]: non-native end of line sequence detected (this diagnostic is
    \   0000000D   0x00 0x00          DC8 0, 0, 0
    \              0x00         
 
-   \                                 In section .rodata, align 4
+   \                                 In section .text, align 4, keep-with-next
    \                     ?_4:
    \   00000000   0x30 0x30          DC8 "00000000034F"
    \              0x30 0x30    
@@ -560,7 +489,7 @@ Warning[Pa050]: non-native end of line sequence detected (this diagnostic is
    \   0000000D   0x00 0x00          DC8 0, 0, 0
    \              0x00         
 
-   \                                 In section .rodata, align 4
+   \                                 In section .text, align 4, keep-with-next
    \                     ?_5:
    \   00000000   0x41 0x55          DC8 "AUDIO Config"
    \              0x44 0x49    
@@ -572,7 +501,7 @@ Warning[Pa050]: non-native end of line sequence detected (this diagnostic is
    \   0000000D   0x00 0x00          DC8 0, 0, 0
    \              0x00         
 
-   \                                 In section .rodata, align 4
+   \                                 In section .text, align 4, keep-with-next
    \                     ?_6:
    \   00000000   0x41 0x55          DC8 "AUDIO Interface"
    \              0x44 0x49    
@@ -589,34 +518,27 @@ Warning[Pa050]: non-native end of line sequence detected (this diagnostic is
 
    .cstack Function
    ------- --------
-      16   USBD_AUDIO_ConfigStrDescriptor
-        16   -> USBD_GetString
+       8   USBD_AUDIO_ConfigStrDescriptor
+         8   -> USBD_GetString
        0   USBD_AUDIO_DeviceDescriptor
-      16   USBD_AUDIO_InterfaceStrDescriptor
-        16   -> USBD_GetString
+       8   USBD_AUDIO_InterfaceStrDescriptor
+         8   -> USBD_GetString
        0   USBD_AUDIO_LangIDStrDescriptor
-      16   USBD_AUDIO_ManufacturerStrDescriptor
-        16   -> USBD_GetString
-      16   USBD_AUDIO_ProductStrDescriptor
-        16   -> USBD_GetString
-      16   USBD_AUDIO_SerialStrDescriptor
-        16   -> USBD_GetString
+       8   USBD_AUDIO_ManufacturerStrDescriptor
+         8   -> USBD_GetString
+       8   USBD_AUDIO_ProductStrDescriptor
+         8   -> USBD_GetString
+       8   USBD_AUDIO_SerialStrDescriptor
+         8   -> USBD_GetString
 
 
    Section sizes:
 
    Bytes  Function/Label
    -----  --------------
-       4  ??DataTable6
-       4  ??DataTable6_1
-       4  ??DataTable6_2
-       4  ??DataTable6_3
-       4  ??DataTable6_4
-       4  ??DataTable6_5
-       4  ??DataTable6_6
-       4  ??DataTable6_7
-       4  ??DataTable6_8
-       4  ??DataTable6_9
+       4  ??DataTable13
+       4  ??DataTable13_1
+       4  ??DataTable13_2
       36  ?_0
       36  ?_1
       20  ?_2
@@ -625,13 +547,13 @@ Warning[Pa050]: non-native end of line sequence detected (this diagnostic is
       16  ?_5
       16  ?_6
       28  AUDIO_Desc
-      38  USBD_AUDIO_ConfigStrDescriptor
-      10  USBD_AUDIO_DeviceDescriptor
-      38  USBD_AUDIO_InterfaceStrDescriptor
-      10  USBD_AUDIO_LangIDStrDescriptor
+      20  USBD_AUDIO_ConfigStrDescriptor
+       8  USBD_AUDIO_DeviceDescriptor
+      20  USBD_AUDIO_InterfaceStrDescriptor
+       8  USBD_AUDIO_LangIDStrDescriptor
       20  USBD_AUDIO_ManufacturerStrDescriptor
-      38  USBD_AUDIO_ProductStrDescriptor
-      38  USBD_AUDIO_SerialStrDescriptor
+      28  USBD_AUDIO_ProductStrDescriptor
+      28  USBD_AUDIO_SerialStrDescriptor
        4  USBD_LangIDDesc
      200  USBD_StrDesc
       20  hUSBDDeviceDesc
@@ -639,12 +561,10 @@ Warning[Pa050]: non-native end of line sequence detected (this diagnostic is
  
  200 bytes in section .bss
   52 bytes in section .data
- 156 bytes in section .rodata
- 232 bytes in section .text
+ 300 bytes in section .text
  
- 232 bytes of CODE  memory
- 156 bytes of CONST memory
- 252 bytes of DATA  memory
+ 300 bytes of CODE memory
+ 252 bytes of DATA memory
 
 Errors: none
 Warnings: 1

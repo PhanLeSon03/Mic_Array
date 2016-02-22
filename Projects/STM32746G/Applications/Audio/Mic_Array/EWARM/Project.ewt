@@ -1086,7 +1086,7 @@
         <name>$PROJ_DIR$\..\Src\usbd_audio_if.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Src\usbd_conf.c</name>
+        <name>$PROJ_DIR$\..\Src\usbd_conf_f4.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\usbd_desc.c</name>
