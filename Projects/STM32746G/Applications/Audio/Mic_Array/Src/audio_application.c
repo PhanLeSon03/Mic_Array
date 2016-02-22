@@ -20,24 +20,15 @@ int16_t PCM_Buffer2[AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE];
 int16_t PCM_Buffer3[AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE];
 
 __IO uint16_t cntFrm;
-
+__IO uint8_t  swtBufUSBOut;
 
 extern uint8_t buffer_switch;
 extern Mic_Array_Data Buffer1,Buffer2,Buffer3;
 extern __IO uint8_t   cntBtnPress;
 
-/*-------------------------------------------------------------------------------------------------------------
-			  
-	Sequence  Record Data                     Processing Data                 Player Data
-			  
-	1-------  Buffer1                         Buffer2                         Buffer3
-			  
-	2-------  Buffer3                         Buffer1                         Buffer2		  
-			  
-	3-------  Buffer2                         Buffer3                         Buffer1 
- ---------------------------------------------------------------------------------------------------------------*/
 
-void AudioProcess(uint16_t idxFrm)
+
+void AudioProcess(uint16_t idxFrm) /* This function called every ms */
 {
 #if 0
     switch (buffer_switch)
@@ -58,11 +49,11 @@ void AudioProcess(uint16_t idxFrm)
 #endif
     //Send_Audio_to_USB((int16_t *)PCM_Buffer1, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS);
     
-    Send_Audio_to_USB((int16_t *)&PCM_Buffer1[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
-
+    (swtBufUSBOut)?Send_Audio_to_USB((int16_t *)&PCM_Buffer2[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS):
+                   Send_Audio_to_USB((int16_t *)&PCM_Buffer1[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
 }
 
-void AudioMerging(void)
+void AudioMerging(void) /* This function called with period of 64ms */
 {
 #if 0
 	switch (buffer_switch)
@@ -108,6 +99,21 @@ void AudioMerging(void)
         break;
     }
 #endif
+
+/* Tongle status to switch the USB audio buffer out */
+swtBufUSBOut^=0x01;
+
+/*-------------------------------------------------------------------------------------------------------------
+			  
+	Sequence  Record Data                     Processing Data                 Player Data
+			  
+	1-------  Buffer1                         Buffer2                         Buffer3
+			  
+	2-------  Buffer3                         Buffer1                         Buffer2		  
+			  
+	3-------  Buffer2                         Buffer3                         Buffer1 
+ ---------------------------------------------------------------------------------------------------------------*/
+
 switch (buffer_switch)
 {
   case BUF1_PLAY:
@@ -116,35 +122,36 @@ switch (buffer_switch)
 		  switch (cntBtnPress)
                   {
                     case 0:
-                           PCM_Buffer1[i] = Buffer3.bufMIC1[i];
+                           (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC1[i]):(PCM_Buffer2[i] = Buffer3.bufMIC1[i]);
                           break;
                     case 1:
-                           PCM_Buffer1[i] = Buffer3.bufMIC2[i];
+                            (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC2[i]):(PCM_Buffer2[i] = Buffer3.bufMIC2[i]);
                           break;
                     case 2:
-                           PCM_Buffer1[i] = Buffer3.bufMIC3[i];
+                           (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC3[i]):(PCM_Buffer2[i] = Buffer3.bufMIC3[i]);
                           break;
                     case 3:
-                           PCM_Buffer1[i] = Buffer3.bufMIC4[i];
+                           (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC4[i]):(PCM_Buffer2[i] = Buffer3.bufMIC4[i]);
                           break;
                     case 4:
-                           PCM_Buffer1[i] = Buffer3.bufMIC5[i];
+                           (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC5[i]):(PCM_Buffer2[i] = Buffer3.bufMIC5[i]);
                           break;
                     case 5:
-                           PCM_Buffer1[i] = Buffer3.bufMIC6[i];
+                           (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC6[i]):(PCM_Buffer2[i] = Buffer3.bufMIC6[i]);
                       break;
                     case 6:
-                           PCM_Buffer1[i] = Buffer3.bufMIC7[i];
+                           (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC7[i]):(PCM_Buffer2[i] = Buffer3.bufMIC7[i]);
                           break;
                     case 7:
-                           PCM_Buffer1[i] = Buffer3.bufMIC8[i];
+                          (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC8[i]):(PCM_Buffer2[i] = Buffer3.bufMIC8[i]);
                           break;
                     default:
-					     PCM_Buffer1[i] = Buffer3.bufMIC1[i];
                          break;
                   }
 			
-	}	
+	}
+	/* set flag for switch buffer */		  
+	buffer_switch = BUF3_PLAY;
 	break;
   case BUF2_PLAY:
 	for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
@@ -152,34 +159,36 @@ switch (buffer_switch)
 		  switch (cntBtnPress)
                   {
                     case 0:
-                           PCM_Buffer1[i] = Buffer1.bufMIC1[i];
+                           (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC1[i]):(PCM_Buffer2[i] = Buffer1.bufMIC1[i]);
                           break;
                     case 1:
-                           PCM_Buffer1[i] = Buffer1.bufMIC2[i];
+                            (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC2[i]):(PCM_Buffer2[i] = Buffer1.bufMIC2[i]);
                           break;
                     case 2:
-                           PCM_Buffer1[i] = Buffer1.bufMIC3[i];
+                           (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC3[i]):(PCM_Buffer2[i] = Buffer1.bufMIC3[i]);
                           break;
                     case 3:
-                           PCM_Buffer1[i] = Buffer1.bufMIC4[i];
+                           (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC4[i]):(PCM_Buffer2[i] = Buffer1.bufMIC4[i]);
                           break;
                     case 4:
-                           PCM_Buffer1[i] = Buffer1.bufMIC5[i];
+                           (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC5[i]):(PCM_Buffer2[i] = Buffer1.bufMIC5[i]);
                           break;
                     case 5:
-                           PCM_Buffer1[i] = Buffer1.bufMIC6[i];
+                           (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC6[i]):(PCM_Buffer2[i] = Buffer1.bufMIC6[i]);
                       break;
                     case 6:
-                           PCM_Buffer1[i] = Buffer1.bufMIC7[i];
+                           (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC7[i]):(PCM_Buffer2[i] = Buffer1.bufMIC7[i]);
                           break;
                     case 7:
-                           PCM_Buffer1[i] = Buffer1.bufMIC8[i];
+                          (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC8[i]):(PCM_Buffer2[i] = Buffer1.bufMIC8[i]);
                           break;
                     default:
-						  PCM_Buffer1[i] = Buffer1.bufMIC1[i];
-                          break;	
+                         break;	
                   }
-	}		
+	}
+
+	/* set flag for switch buffer */
+	buffer_switch = BUF1_PLAY;
 	break;
   case BUF3_PLAY:
 	  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
@@ -187,41 +196,40 @@ switch (buffer_switch)
 		  switch (cntBtnPress)
                   {
                     case 0:
-                           PCM_Buffer1[i] = Buffer2.bufMIC1[i];
+                           (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC1[i]):(PCM_Buffer2[i] = Buffer2.bufMIC1[i]);
                           break;
                     case 1:
-                           PCM_Buffer1[i] = Buffer2.bufMIC2[i];
+                            (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC2[i]):(PCM_Buffer2[i] = Buffer2.bufMIC2[i]);
                           break;
                     case 2:
-                           PCM_Buffer1[i] = Buffer2.bufMIC3[i];
+                           (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC3[i]):(PCM_Buffer2[i] = Buffer2.bufMIC3[i]);
                           break;
                     case 3:
-                           PCM_Buffer1[i] = Buffer2.bufMIC4[i];
+                           (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC4[i]):(PCM_Buffer2[i] = Buffer2.bufMIC4[i]);
                           break;
                     case 4:
-                           PCM_Buffer1[i] = Buffer2.bufMIC5[i];
+                           (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC5[i]):(PCM_Buffer2[i] = Buffer2.bufMIC5[i]);
                           break;
                     case 5:
-                           PCM_Buffer1[i] = Buffer2.bufMIC6[i];
+                           (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC6[i]):(PCM_Buffer2[i] = Buffer2.bufMIC6[i]);
                       break;
                     case 6:
-                           PCM_Buffer1[i] = Buffer2.bufMIC7[i];
+                           (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC7[i]):(PCM_Buffer2[i] = Buffer2.bufMIC7[i]);
                           break;
                     case 7:
-                           PCM_Buffer1[i] = Buffer2.bufMIC8[i];
+                          (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC8[i]):(PCM_Buffer2[i] = Buffer2.bufMIC8[i]);
                           break;
                     default:
-						  PCM_Buffer1[i] = Buffer2.bufMIC1[i];
-                          break;		  
+                         break;		  
                   }
 	  }
+	  /* set flag for switch buffer */		  
+	  buffer_switch = BUF2_PLAY;
 	break;
   default:
 	break;
 }
-//cntFrm=0;
 
 }
-
 
 

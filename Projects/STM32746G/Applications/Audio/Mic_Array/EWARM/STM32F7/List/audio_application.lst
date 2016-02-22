@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       22/Feb/2016  17:57:48
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       22/Feb/2016  19:58:41
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -16,9 +16,11 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 #        -o
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-#        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
-#        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
-#        7.3\arm\INC\c\DLib_Config_Full.h" -I
+#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+#        --no_clustering --no_scheduling --debug --endian=little
+#        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\INC\c\DLib_Config_Full.h"
+#        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
@@ -48,7 +50,7 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -On --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7
 #    List file    =  
@@ -103,423 +105,1136 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
      22          __IO uint16_t cntFrm;
    \                     cntFrm:
    \   00000000                      DS8 2
-     23          
+
+   \                                 In section .bss, align 1
+     23          __IO uint8_t  swtBufUSBOut;
+   \                     swtBufUSBOut:
+   \   00000000                      DS8 1
      24          
      25          extern uint8_t buffer_switch;
      26          extern Mic_Array_Data Buffer1,Buffer2,Buffer3;
      27          extern __IO uint8_t   cntBtnPress;
      28          
-     29          /*-------------------------------------------------------------------------------------------------------------
-     30          			  
-     31          	Sequence  Record Data                     Processing Data                 Player Data
-     32          			  
-     33          	1-------  Buffer1                         Buffer2                         Buffer3
-     34          			  
-     35          	2-------  Buffer3                         Buffer1                         Buffer2		  
-     36          			  
-     37          	3-------  Buffer2                         Buffer3                         Buffer1 
-     38           ---------------------------------------------------------------------------------------------------------------*/
-     39          
+     29          
+     30          
 
    \                                 In section .text, align 2, keep-with-next
-     40          void AudioProcess(uint16_t idxFrm)
-     41          {
-     42          #if 0
-     43              switch (buffer_switch)
-     44              {
-     45                case BUF1_PLAY:
-     46          		Send_Audio_to_USB((int16_t *)PCM_Buffer3, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS);
-     47                  break;
-     48                case BUF2_PLAY:
-     49                  Send_Audio_to_USB((int16_t *)PCM_Buffer1, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS); 
-     50                  break;
-     51                case BUF3_PLAY:
-     52                  Send_Audio_to_USB((int16_t *)PCM_Buffer2, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS); 
-     53                  break;
-     54                default:
-     55                  break;
-     56              }
-     57          	
-     58          #endif
-     59              //Send_Audio_to_USB((int16_t *)PCM_Buffer1, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS);
-     60              
-     61              Send_Audio_to_USB((int16_t *)&PCM_Buffer1[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+     31          void AudioProcess(uint16_t idxFrm) /* This function called every ms */
+     32          {
    \                     AudioProcess: (+1)
-   \   00000000   0x....             LDR.N    R2,??DataTable1  ;; 0xc00181e0
-   \   00000002   0x2120             MOVS     R1,#+32
-   \   00000004   0xEB02 0x1080      ADD      R0,R2,R0, LSL #+6
-   \   00000008   0x.... 0x....      B.W      Send_Audio_to_USB
-   \   0000000C                      REQUIRE PCM_Buffer1
-     62          
-     63          }
-     64          
+   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+     33          #if 0
+     34              switch (buffer_switch)
+     35              {
+     36                case BUF1_PLAY:
+     37          		Send_Audio_to_USB((int16_t *)PCM_Buffer3, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS);
+     38                  break;
+     39                case BUF2_PLAY:
+     40                  Send_Audio_to_USB((int16_t *)PCM_Buffer1, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS); 
+     41                  break;
+     42                case BUF3_PLAY:
+     43                  Send_Audio_to_USB((int16_t *)PCM_Buffer2, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS); 
+     44                  break;
+     45                default:
+     46                  break;
+     47              }
+     48          	
+     49          #endif
+     50              //Send_Audio_to_USB((int16_t *)PCM_Buffer1, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS);
+     51              
+     52              (swtBufUSBOut)?Send_Audio_to_USB((int16_t *)&PCM_Buffer2[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS):
+     53                             Send_Audio_to_USB((int16_t *)&PCM_Buffer1[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+   \   00000004   0x.... 0x....      LDR.W    R0,??DataTable1
+   \   00000008   0x7800             LDRB     R0,[R0, #+0]
+   \   0000000A   0x2800             CMP      R0,#+0
+   \   0000000C   0xD009             BEQ.N    ??AudioProcess_0
+   \   0000000E   0x2120             MOVS     R1,#+32
+   \   00000010   0x.... 0x....      LDR.W    R0,??DataTable1_1  ;; 0xc00191e0
+   \   00000014   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   00000016   0x2240             MOVS     R2,#+64
+   \   00000018   0xFB02 0x0004      MLA      R0,R2,R4,R0
+   \   0000001C   0x.... 0x....      BL       Send_Audio_to_USB
+   \   00000020   0xE008             B.N      ??AudioProcess_1
+   \                     ??AudioProcess_0: (+1)
+   \   00000022   0x2120             MOVS     R1,#+32
+   \   00000024   0x.... 0x....      LDR.W    R0,??DataTable1_2  ;; 0xc00181e0
+   \   00000028   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   0000002A   0x2240             MOVS     R2,#+64
+   \   0000002C   0xFB02 0x0004      MLA      R0,R2,R4,R0
+   \   00000030   0x.... 0x....      BL       Send_Audio_to_USB
+     54          }
+   \                     ??AudioProcess_1: (+1)
+   \   00000034   0xBD10             POP      {R4,PC}          ;; return
+   \   00000036                      REQUIRE PCM_Buffer2
+   \   00000036                      REQUIRE PCM_Buffer1
+     55          
 
-   \                                 In section .text, align 4, keep-with-next
-     65          void AudioMerging(void)
-     66          {
-     67          #if 0
-     68          	switch (buffer_switch)
-     69              {
-     70                case BUF1_PLAY:
-     71          	  	for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
-     72           	  	{
-     73           	  	    if (i%2==0)
-     74           	  	    {
-     75          	 	  	    for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
-     76          	 	  	    {
-     77          	                PCM_Buffer3[8*(i/2)+j] = (int16_t)*(&Buffer3.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i);
-     78          	 	  	    }
-     79           	  	    }
-     80          		}
-     81          		
-     82                  break;
-     83                case BUF2_PLAY:
-     84          	  	for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
-     85           	  	{
-     86           	  	    if (i%2==0)
-     87           	  	    {
-     88          	 	  	    for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
-     89          	 	  	    {
-     90          	                PCM_Buffer1[8*(i/2)+j] = (int16_t)*(&Buffer1.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i);
-     91          	 	  	    }
-     92           	  	    }
-     93          		}	  	
-     94                  break;
-     95                case BUF3_PLAY:
-     96          		for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
-     97          		{
-     98          		  if (i%2==0)
-     99          		  {
-    100          			  for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
-    101          			  {
-    102          				  PCM_Buffer2[8*(i/2)+j] = (int16_t)*(&Buffer2.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i);
-    103          			  }
-    104          		  }
-    105          		}
-    106                  break;
-    107                default:
-    108                  break;
-    109              }
-    110          #endif
-    111          switch (buffer_switch)
+   \                                 In section .text, align 2, keep-with-next
+     56          void AudioMerging(void) /* This function called with period of 64ms */
+     57          {
+     58          #if 0
+     59          	switch (buffer_switch)
+     60              {
+     61                case BUF1_PLAY:
+     62          	  	for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
+     63           	  	{
+     64           	  	    if (i%2==0)
+     65           	  	    {
+     66          	 	  	    for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
+     67          	 	  	    {
+     68          	                PCM_Buffer3[8*(i/2)+j] = (int16_t)*(&Buffer3.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i);
+     69          	 	  	    }
+     70           	  	    }
+     71          		}
+     72          		
+     73                  break;
+     74                case BUF2_PLAY:
+     75          	  	for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
+     76           	  	{
+     77           	  	    if (i%2==0)
+     78           	  	    {
+     79          	 	  	    for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
+     80          	 	  	    {
+     81          	                PCM_Buffer1[8*(i/2)+j] = (int16_t)*(&Buffer1.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i);
+     82          	 	  	    }
+     83           	  	    }
+     84          		}	  	
+     85                  break;
+     86                case BUF3_PLAY:
+     87          		for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
+     88          		{
+     89          		  if (i%2==0)
+     90          		  {
+     91          			  for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
+     92          			  {
+     93          				  PCM_Buffer2[8*(i/2)+j] = (int16_t)*(&Buffer2.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i);
+     94          			  }
+     95          		  }
+     96          		}
+     97                  break;
+     98                default:
+     99                  break;
+    100              }
+    101          #endif
+    102          
+    103          /* Tongle status to switch the USB audio buffer out */
+    104          swtBufUSBOut^=0x01;
    \                     AudioMerging: (+1)
-   \   00000000   0x....             LDR.N    R0,??DataTable1_1
-   \   00000002   0xB410             PUSH     {R4}
+   \   00000000   0x.... 0x....      LDR.W    R0,??DataTable1
    \   00000004   0x7800             LDRB     R0,[R0, #+0]
-   \   00000006   0xB120             CBZ.N    R0,??AudioMerging_3
-   \   00000008   0x2802             CMP      R0,#+2
-   \   0000000A   0xD06A             BEQ.N    ??AudioMerging_4
-   \   0000000C   0xD335             BCC.N    ??AudioMerging_5
-    112          {
-    113            case BUF1_PLAY:
-    114          	for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-    115          	{
-    116          		  switch (cntBtnPress)
-    117                            {
-    118                              case 0:
-    119                                     PCM_Buffer1[i] = Buffer3.bufMIC1[i];
-    120                                    break;
-    121                              case 1:
-    122                                     PCM_Buffer1[i] = Buffer3.bufMIC2[i];
-    123                                    break;
-    124                              case 2:
-    125                                     PCM_Buffer1[i] = Buffer3.bufMIC3[i];
-    126                                    break;
-    127                              case 3:
-    128                                     PCM_Buffer1[i] = Buffer3.bufMIC4[i];
-    129                                    break;
-    130                              case 4:
-    131                                     PCM_Buffer1[i] = Buffer3.bufMIC5[i];
-    132                                    break;
-    133                              case 5:
-    134                                     PCM_Buffer1[i] = Buffer3.bufMIC6[i];
-    135                                break;
-    136                              case 6:
-    137                                     PCM_Buffer1[i] = Buffer3.bufMIC7[i];
-    138                                    break;
-    139                              case 7:
-    140                                     PCM_Buffer1[i] = Buffer3.bufMIC8[i];
-    141                                    break;
-    142                              default:
-    143          					     PCM_Buffer1[i] = Buffer3.bufMIC1[i];
-    144                                   break;
-    145                            }
-    146          			
-    147          	}	
-    148          	break;
-    149            case BUF2_PLAY:
-    150          	for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-    151          	{
-    152          		  switch (cntBtnPress)
-    153                            {
-    154                              case 0:
-    155                                     PCM_Buffer1[i] = Buffer1.bufMIC1[i];
-    156                                    break;
-    157                              case 1:
-    158                                     PCM_Buffer1[i] = Buffer1.bufMIC2[i];
-    159                                    break;
-    160                              case 2:
-    161                                     PCM_Buffer1[i] = Buffer1.bufMIC3[i];
-    162                                    break;
-    163                              case 3:
-    164                                     PCM_Buffer1[i] = Buffer1.bufMIC4[i];
-    165                                    break;
-    166                              case 4:
-    167                                     PCM_Buffer1[i] = Buffer1.bufMIC5[i];
-    168                                    break;
-    169                              case 5:
-    170                                     PCM_Buffer1[i] = Buffer1.bufMIC6[i];
-    171                                break;
-    172                              case 6:
-    173                                     PCM_Buffer1[i] = Buffer1.bufMIC7[i];
-    174                                    break;
-    175                              case 7:
-    176                                     PCM_Buffer1[i] = Buffer1.bufMIC8[i];
-    177                                    break;
-    178                              default:
-    179          						  PCM_Buffer1[i] = Buffer1.bufMIC1[i];
-    180                                    break;	
-    181                            }
-    182          	}		
-    183          	break;
-    184            case BUF3_PLAY:
-    185          	  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-    186          	  {
-    187          		  switch (cntBtnPress)
-    188                            {
-    189                              case 0:
-    190                                     PCM_Buffer1[i] = Buffer2.bufMIC1[i];
-    191                                    break;
-    192                              case 1:
-    193                                     PCM_Buffer1[i] = Buffer2.bufMIC2[i];
-    194                                    break;
-    195                              case 2:
-    196                                     PCM_Buffer1[i] = Buffer2.bufMIC3[i];
-    197                                    break;
-    198                              case 3:
-    199                                     PCM_Buffer1[i] = Buffer2.bufMIC4[i];
-    200                                    break;
-    201                              case 4:
-    202                                     PCM_Buffer1[i] = Buffer2.bufMIC5[i];
-    203                                    break;
-    204                              case 5:
-    205                                     PCM_Buffer1[i] = Buffer2.bufMIC6[i];
-    206                                break;
-    207                              case 6:
-    208                                     PCM_Buffer1[i] = Buffer2.bufMIC7[i];
-    209                                    break;
-    210                              case 7:
-    211                                     PCM_Buffer1[i] = Buffer2.bufMIC8[i];
-    212                                    break;
-    213                              default:
-    214          						  PCM_Buffer1[i] = Buffer2.bufMIC1[i];
-    215                                    break;		  
-    216                            }
-    217          	  }
-    218          	break;
-    219            default:
-    220          	break;
-    221          }
-    222          //cntFrm=0;
-    223          
-    224          }
-   \   0000000E   0xBC10             POP      {R4}
-   \   00000010   0x4770             BX       LR
-   \                     ??AudioMerging_3: (+1)
-   \   00000012   0x....             LDR.N    R1,??DataTable1  ;; 0xc00181e0
-   \   00000014   0x....             LDR.N    R2,??DataTable1_2
-   \   00000016   0xF44F 0x6300      MOV      R3,#+2048
-   \   0000001A   0x....             LDR.N    R0,??DataTable1_3
-   \                     ??AudioMerging_6: (+1)
-   \   0000001C   0x7804             LDRB     R4,[R0, #+0]
-   \   0000001E   0x1E64             SUBS     R4,R4,#+1
-   \   00000020   0x2C06             CMP      R4,#+6
-   \   00000022   0xD821             BHI.N    ??AudioMerging_7
-   \   00000024   0xE8DF 0xF004      TBB      [PC, R4]
-   \                     ??AudioMerging_0:
-   \   00000028   0x04 0x08          DC8      0x4,0x8,0xC,0x10
-   \              0x0C 0x10    
-   \   0000002C   0x14 0x18          DC8      0x14,0x18,0x1C,0x0
-   \              0x1C 0x00    
-   \                     ??AudioMerging_8: (+1)
-   \   00000030   0xF241 0x0414      MOVW     R4,#+4116
-   \   00000034   0x5EA4             LDRSH    R4,[R4, R2]
-   \   00000036   0xE019             B.N      ??AudioMerging_9
-   \                     ??AudioMerging_10: (+1)
-   \   00000038   0xF242 0x0428      MOVW     R4,#+8232
-   \   0000003C   0x5EA4             LDRSH    R4,[R4, R2]
-   \   0000003E   0xE015             B.N      ??AudioMerging_9
-   \                     ??AudioMerging_11: (+1)
-   \   00000040   0xF243 0x043C      MOVW     R4,#+12348
-   \   00000044   0x5EA4             LDRSH    R4,[R4, R2]
-   \   00000046   0xE011             B.N      ??AudioMerging_9
-   \                     ??AudioMerging_12: (+1)
-   \   00000048   0xF244 0x0450      MOVW     R4,#+16464
-   \   0000004C   0x5EA4             LDRSH    R4,[R4, R2]
-   \   0000004E   0xE00D             B.N      ??AudioMerging_9
-   \                     ??AudioMerging_13: (+1)
-   \   00000050   0xF245 0x0464      MOVW     R4,#+20580
-   \   00000054   0x5EA4             LDRSH    R4,[R4, R2]
-   \   00000056   0xE009             B.N      ??AudioMerging_9
-   \                     ??AudioMerging_14: (+1)
-   \   00000058   0xF246 0x0478      MOVW     R4,#+24696
-   \   0000005C   0x5EA4             LDRSH    R4,[R4, R2]
-   \   0000005E   0xE005             B.N      ??AudioMerging_9
-   \                     ??AudioMerging_15: (+1)
-   \   00000060   0xF247 0x048C      MOVW     R4,#+28812
-   \   00000064   0x5EA4             LDRSH    R4,[R4, R2]
-   \   00000066   0xE001             B.N      ??AudioMerging_9
-   \                     ??AudioMerging_7: (+1)
-   \   00000068   0xF9B2 0x4000      LDRSH    R4,[R2, #+0]
-   \                     ??AudioMerging_9: (+1)
-   \   0000006C   0x1C92             ADDS     R2,R2,#+2
-   \   0000006E   0x1E5B             SUBS     R3,R3,#+1
-   \   00000070   0xF821 0x4B02      STRH     R4,[R1], #+2
-   \   00000074   0xD1D2             BNE.N    ??AudioMerging_6
-   \   00000076   0xBC10             POP      {R4}
-   \   00000078   0x4770             BX       LR
-   \                     ??AudioMerging_5: (+1)
-   \   0000007A   0x....             LDR.N    R1,??DataTable1  ;; 0xc00181e0
-   \   0000007C   0x....             LDR.N    R2,??DataTable1_4
-   \   0000007E   0xF44F 0x6300      MOV      R3,#+2048
-   \   00000082   0x....             LDR.N    R0,??DataTable1_3
-   \                     ??AudioMerging_16: (+1)
-   \   00000084   0x7804             LDRB     R4,[R0, #+0]
-   \   00000086   0x1E64             SUBS     R4,R4,#+1
-   \   00000088   0x2C06             CMP      R4,#+6
-   \   0000008A   0xD821             BHI.N    ??AudioMerging_17
-   \   0000008C   0xE8DF 0xF004      TBB      [PC, R4]
-   \                     ??AudioMerging_1:
-   \   00000090   0x04 0x08          DC8      0x4,0x8,0xC,0x10
-   \              0x0C 0x10    
-   \   00000094   0x14 0x18          DC8      0x14,0x18,0x1C,0x0
-   \              0x1C 0x00    
-   \                     ??AudioMerging_18: (+1)
-   \   00000098   0xF241 0x0414      MOVW     R4,#+4116
-   \   0000009C   0x5EA4             LDRSH    R4,[R4, R2]
-   \   0000009E   0xE019             B.N      ??AudioMerging_19
-   \                     ??AudioMerging_20: (+1)
-   \   000000A0   0xF242 0x0428      MOVW     R4,#+8232
-   \   000000A4   0x5EA4             LDRSH    R4,[R4, R2]
-   \   000000A6   0xE015             B.N      ??AudioMerging_19
-   \                     ??AudioMerging_21: (+1)
-   \   000000A8   0xF243 0x043C      MOVW     R4,#+12348
-   \   000000AC   0x5EA4             LDRSH    R4,[R4, R2]
-   \   000000AE   0xE011             B.N      ??AudioMerging_19
-   \                     ??AudioMerging_22: (+1)
-   \   000000B0   0xF244 0x0450      MOVW     R4,#+16464
-   \   000000B4   0x5EA4             LDRSH    R4,[R4, R2]
-   \   000000B6   0xE00D             B.N      ??AudioMerging_19
-   \                     ??AudioMerging_23: (+1)
-   \   000000B8   0xF245 0x0464      MOVW     R4,#+20580
-   \   000000BC   0x5EA4             LDRSH    R4,[R4, R2]
-   \   000000BE   0xE009             B.N      ??AudioMerging_19
-   \                     ??AudioMerging_24: (+1)
-   \   000000C0   0xF246 0x0478      MOVW     R4,#+24696
-   \   000000C4   0x5EA4             LDRSH    R4,[R4, R2]
-   \   000000C6   0xE005             B.N      ??AudioMerging_19
-   \                     ??AudioMerging_25: (+1)
-   \   000000C8   0xF247 0x048C      MOVW     R4,#+28812
-   \   000000CC   0x5EA4             LDRSH    R4,[R4, R2]
-   \   000000CE   0xE001             B.N      ??AudioMerging_19
-   \                     ??AudioMerging_17: (+1)
-   \   000000D0   0xF9B2 0x4000      LDRSH    R4,[R2, #+0]
-   \                     ??AudioMerging_19: (+1)
-   \   000000D4   0x1C92             ADDS     R2,R2,#+2
-   \   000000D6   0x1E5B             SUBS     R3,R3,#+1
-   \   000000D8   0xF821 0x4B02      STRH     R4,[R1], #+2
-   \   000000DC   0xD1D2             BNE.N    ??AudioMerging_16
-   \   000000DE   0xBC10             POP      {R4}
-   \   000000E0   0x4770             BX       LR
+   \   00000006   0xF090 0x0001      EORS     R0,R0,#0x1
+   \   0000000A   0x.... 0x....      LDR.W    R1,??DataTable1
+   \   0000000E   0x7008             STRB     R0,[R1, #+0]
+    105          
+    106          /*-------------------------------------------------------------------------------------------------------------
+    107          			  
+    108          	Sequence  Record Data                     Processing Data                 Player Data
+    109          			  
+    110          	1-------  Buffer1                         Buffer2                         Buffer3
+    111          			  
+    112          	2-------  Buffer3                         Buffer1                         Buffer2		  
+    113          			  
+    114          	3-------  Buffer2                         Buffer3                         Buffer1 
+    115           ---------------------------------------------------------------------------------------------------------------*/
+    116          
+    117          switch (buffer_switch)
+   \   00000010   0x.... 0x....      LDR.W    R0,??DataTable1_3
+   \   00000014   0x7800             LDRB     R0,[R0, #+0]
+   \   00000016   0x2800             CMP      R0,#+0
+   \   00000018   0xD006             BEQ.N    ??AudioMerging_0
+   \   0000001A   0x2802             CMP      R0,#+2
+   \   0000001C   0xF000 0x82E1      BEQ.W    ??AudioMerging_1
+   \   00000020   0xF0C0 0x8177      BCC.W    ??AudioMerging_2
+   \   00000024   0xF000 0xBC17      B.W      ??AudioMerging_3
+    118          {
+    119            case BUF1_PLAY:
+    120          	for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+   \                     ??AudioMerging_0: (+1)
+   \   00000028   0x2000             MOVS     R0,#+0
    \                     ??AudioMerging_4: (+1)
-   \   000000E2   0x....             LDR.N    R1,??DataTable1  ;; 0xc00181e0
-   \   000000E4   0x....             LDR.N    R2,??DataTable1_5
-   \   000000E6   0xF44F 0x6300      MOV      R3,#+2048
-   \   000000EA   0x....             LDR.N    R0,??DataTable1_3
+   \   0000002A   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000002C   0xF5B0 0x6F00      CMP      R0,#+2048
+   \   00000030   0xF280 0x816A      BGE.W    ??AudioMerging_5
+    121          	{
+    122          		  switch (cntBtnPress)
+   \   00000034   0x.... 0x....      LDR.W    R1,??DataTable1_4
+   \   00000038   0x7809             LDRB     R1,[R1, #+0]
+   \   0000003A   0x2900             CMP      R1,#+0
+   \   0000003C   0xD010             BEQ.N    ??AudioMerging_6
+   \   0000003E   0x2902             CMP      R1,#+2
+   \   00000040   0xD05E             BEQ.N    ??AudioMerging_7
+   \   00000042   0xD332             BCC.N    ??AudioMerging_8
+   \   00000044   0x2904             CMP      R1,#+4
+   \   00000046   0xF000 0x80B1      BEQ.W    ??AudioMerging_9
+   \   0000004A   0xF0C0 0x8084      BCC.W    ??AudioMerging_10
+   \   0000004E   0x2906             CMP      R1,#+6
+   \   00000050   0xF000 0x8102      BEQ.W    ??AudioMerging_11
+   \   00000054   0xF0C0 0x80D5      BCC.W    ??AudioMerging_12
+   \   00000058   0x2907             CMP      R1,#+7
+   \   0000005A   0xF000 0x8128      BEQ.W    ??AudioMerging_13
+   \   0000005E   0xE151             B.N      ??AudioMerging_14
+    123                            {
+    124                              case 0:
+    125                                     (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC1[i]):(PCM_Buffer2[i] = Buffer3.bufMIC1[i]);
+   \                     ??AudioMerging_6: (+1)
+   \   00000060   0x.... 0x....      LDR.W    R1,??DataTable1
+   \   00000064   0x7809             LDRB     R1,[R1, #+0]
+   \   00000066   0x2900             CMP      R1,#+0
+   \   00000068   0xD00F             BEQ.N    ??AudioMerging_15
+   \   0000006A   0x.... 0x....      LDR.W    R1,??DataTable1_5
+   \   0000006E   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000070   0xF831 0x1010      LDRH     R1,[R1, R0, LSL #+1]
+   \   00000074   0x.... 0x....      LDR.W    R2,??DataTable1_2  ;; 0xc00181e0
+   \   00000078   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000007A   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   0000007E   0x.... 0x....      LDR.W    R1,??DataTable1_2  ;; 0xc00181e0
+   \   00000082   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000084   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+   \   00000088   0xE00E             B.N      ??AudioMerging_16
+   \                     ??AudioMerging_15: (+1)
+   \   0000008A   0x.... 0x....      LDR.W    R1,??DataTable1_5
+   \   0000008E   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000090   0xF831 0x1010      LDRH     R1,[R1, R0, LSL #+1]
+   \   00000094   0x.... 0x....      LDR.W    R2,??DataTable1_1  ;; 0xc00191e0
+   \   00000098   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000009A   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   0000009E   0x.... 0x....      LDR.W    R1,??DataTable1_1  ;; 0xc00191e0
+   \   000000A2   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000000A4   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+    126                                    break;
+   \                     ??AudioMerging_16: (+1)
+   \   000000A8   0xE12C             B.N      ??AudioMerging_17
+    127                              case 1:
+    128                                      (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC2[i]):(PCM_Buffer2[i] = Buffer3.bufMIC2[i]);
+   \                     ??AudioMerging_8: (+1)
+   \   000000AA   0x.... 0x....      LDR.W    R1,??DataTable1
+   \   000000AE   0x7809             LDRB     R1,[R1, #+0]
+   \   000000B0   0x2900             CMP      R1,#+0
+   \   000000B2   0xD012             BEQ.N    ??AudioMerging_18
+   \   000000B4   0x.... 0x....      LDR.W    R1,??DataTable1_5
+   \   000000B8   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000000BA   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   000000BE   0xF241 0x0214      MOVW     R2,#+4116
+   \   000000C2   0x5A51             LDRH     R1,[R2, R1]
+   \   000000C4   0x.... 0x....      LDR.W    R2,??DataTable1_2  ;; 0xc00181e0
+   \   000000C8   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000000CA   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   000000CE   0x.... 0x....      LDR.W    R1,??DataTable1_2  ;; 0xc00181e0
+   \   000000D2   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000000D4   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+   \   000000D8   0xE011             B.N      ??AudioMerging_19
+   \                     ??AudioMerging_18: (+1)
+   \   000000DA   0x.... 0x....      LDR.W    R1,??DataTable1_5
+   \   000000DE   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000000E0   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   000000E4   0xF241 0x0214      MOVW     R2,#+4116
+   \   000000E8   0x5A51             LDRH     R1,[R2, R1]
+   \   000000EA   0x.... 0x....      LDR.W    R2,??DataTable1_1  ;; 0xc00191e0
+   \   000000EE   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000000F0   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   000000F4   0x.... 0x....      LDR.W    R1,??DataTable1_1  ;; 0xc00191e0
+   \   000000F8   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000000FA   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+    129                                    break;
+   \                     ??AudioMerging_19: (+1)
+   \   000000FE   0xE101             B.N      ??AudioMerging_17
+    130                              case 2:
+    131                                     (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC3[i]):(PCM_Buffer2[i] = Buffer3.bufMIC3[i]);
+   \                     ??AudioMerging_7: (+1)
+   \   00000100   0x.... 0x....      LDR.W    R1,??DataTable1
+   \   00000104   0x7809             LDRB     R1,[R1, #+0]
+   \   00000106   0x2900             CMP      R1,#+0
+   \   00000108   0xD012             BEQ.N    ??AudioMerging_20
+   \   0000010A   0x.... 0x....      LDR.W    R1,??DataTable1_5
+   \   0000010E   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000110   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   00000114   0xF242 0x0228      MOVW     R2,#+8232
+   \   00000118   0x5A51             LDRH     R1,[R2, R1]
+   \   0000011A   0x.... 0x....      LDR.W    R2,??DataTable1_2  ;; 0xc00181e0
+   \   0000011E   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000120   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   00000124   0x.... 0x....      LDR.W    R1,??DataTable1_2  ;; 0xc00181e0
+   \   00000128   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000012A   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+   \   0000012E   0xE011             B.N      ??AudioMerging_21
+   \                     ??AudioMerging_20: (+1)
+   \   00000130   0x.... 0x....      LDR.W    R1,??DataTable1_5
+   \   00000134   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000136   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   0000013A   0xF242 0x0228      MOVW     R2,#+8232
+   \   0000013E   0x5A51             LDRH     R1,[R2, R1]
+   \   00000140   0x.... 0x....      LDR.W    R2,??DataTable1_1  ;; 0xc00191e0
+   \   00000144   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000146   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   0000014A   0x.... 0x....      LDR.W    R1,??DataTable1_1  ;; 0xc00191e0
+   \   0000014E   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000150   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+    132                                    break;
+   \                     ??AudioMerging_21: (+1)
+   \   00000154   0xE0D6             B.N      ??AudioMerging_17
+    133                              case 3:
+    134                                     (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC4[i]):(PCM_Buffer2[i] = Buffer3.bufMIC4[i]);
+   \                     ??AudioMerging_10: (+1)
+   \   00000156   0x.... 0x....      LDR.W    R1,??DataTable1
+   \   0000015A   0x7809             LDRB     R1,[R1, #+0]
+   \   0000015C   0x2900             CMP      R1,#+0
+   \   0000015E   0xD012             BEQ.N    ??AudioMerging_22
+   \   00000160   0x.... 0x....      LDR.W    R1,??DataTable1_5
+   \   00000164   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000166   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   0000016A   0xF243 0x023C      MOVW     R2,#+12348
+   \   0000016E   0x5A51             LDRH     R1,[R2, R1]
+   \   00000170   0x.... 0x....      LDR.W    R2,??DataTable1_2  ;; 0xc00181e0
+   \   00000174   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000176   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   0000017A   0x.... 0x....      LDR.W    R1,??DataTable1_2  ;; 0xc00181e0
+   \   0000017E   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000180   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+   \   00000184   0xE011             B.N      ??AudioMerging_23
+   \                     ??AudioMerging_22: (+1)
+   \   00000186   0x.... 0x....      LDR.W    R1,??DataTable1_5
+   \   0000018A   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000018C   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   00000190   0xF243 0x023C      MOVW     R2,#+12348
+   \   00000194   0x5A51             LDRH     R1,[R2, R1]
+   \   00000196   0x.... 0x....      LDR.W    R2,??DataTable1_1  ;; 0xc00191e0
+   \   0000019A   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000019C   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   000001A0   0x.... 0x....      LDR.W    R1,??DataTable1_1  ;; 0xc00191e0
+   \   000001A4   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000001A6   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+    135                                    break;
+   \                     ??AudioMerging_23: (+1)
+   \   000001AA   0xE0AB             B.N      ??AudioMerging_17
+    136                              case 4:
+    137                                     (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC5[i]):(PCM_Buffer2[i] = Buffer3.bufMIC5[i]);
+   \                     ??AudioMerging_9: (+1)
+   \   000001AC   0x.... 0x....      LDR.W    R1,??DataTable1
+   \   000001B0   0x7809             LDRB     R1,[R1, #+0]
+   \   000001B2   0x2900             CMP      R1,#+0
+   \   000001B4   0xD012             BEQ.N    ??AudioMerging_24
+   \   000001B6   0x.... 0x....      LDR.W    R1,??DataTable1_5
+   \   000001BA   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000001BC   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   000001C0   0xF244 0x0250      MOVW     R2,#+16464
+   \   000001C4   0x5A51             LDRH     R1,[R2, R1]
+   \   000001C6   0x.... 0x....      LDR.W    R2,??DataTable1_2  ;; 0xc00181e0
+   \   000001CA   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000001CC   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   000001D0   0x.... 0x....      LDR.W    R1,??DataTable1_2  ;; 0xc00181e0
+   \   000001D4   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000001D6   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+   \   000001DA   0xE011             B.N      ??AudioMerging_25
+   \                     ??AudioMerging_24: (+1)
+   \   000001DC   0x.... 0x....      LDR.W    R1,??DataTable1_5
+   \   000001E0   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000001E2   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   000001E6   0xF244 0x0250      MOVW     R2,#+16464
+   \   000001EA   0x5A51             LDRH     R1,[R2, R1]
+   \   000001EC   0x.... 0x....      LDR.W    R2,??DataTable1_1  ;; 0xc00191e0
+   \   000001F0   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000001F2   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   000001F6   0x.... 0x....      LDR.W    R1,??DataTable1_1  ;; 0xc00191e0
+   \   000001FA   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000001FC   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+    138                                    break;
+   \                     ??AudioMerging_25: (+1)
+   \   00000200   0xE080             B.N      ??AudioMerging_17
+    139                              case 5:
+    140                                     (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC6[i]):(PCM_Buffer2[i] = Buffer3.bufMIC6[i]);
+   \                     ??AudioMerging_12: (+1)
+   \   00000202   0x.... 0x....      LDR.W    R1,??DataTable1
+   \   00000206   0x7809             LDRB     R1,[R1, #+0]
+   \   00000208   0x2900             CMP      R1,#+0
+   \   0000020A   0xD012             BEQ.N    ??AudioMerging_26
+   \   0000020C   0x.... 0x....      LDR.W    R1,??DataTable1_5
+   \   00000210   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000212   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   00000216   0xF245 0x0264      MOVW     R2,#+20580
+   \   0000021A   0x5A51             LDRH     R1,[R2, R1]
+   \   0000021C   0x.... 0x....      LDR.W    R2,??DataTable1_2  ;; 0xc00181e0
+   \   00000220   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000222   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   00000226   0x.... 0x....      LDR.W    R1,??DataTable1_2  ;; 0xc00181e0
+   \   0000022A   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000022C   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+   \   00000230   0xE011             B.N      ??AudioMerging_27
    \                     ??AudioMerging_26: (+1)
-   \   000000EC   0x7804             LDRB     R4,[R0, #+0]
-   \   000000EE   0x1E64             SUBS     R4,R4,#+1
-   \   000000F0   0x2C06             CMP      R4,#+6
-   \   000000F2   0xD821             BHI.N    ??AudioMerging_27
-   \   000000F4   0xE8DF 0xF004      TBB      [PC, R4]
-   \                     ??AudioMerging_2:
-   \   000000F8   0x04 0x08          DC8      0x4,0x8,0xC,0x10
-   \              0x0C 0x10    
-   \   000000FC   0x14 0x18          DC8      0x14,0x18,0x1C,0x0
-   \              0x1C 0x00    
-   \                     ??AudioMerging_28: (+1)
-   \   00000100   0xF241 0x0414      MOVW     R4,#+4116
-   \   00000104   0x5EA4             LDRSH    R4,[R4, R2]
-   \   00000106   0xE019             B.N      ??AudioMerging_29
-   \                     ??AudioMerging_30: (+1)
-   \   00000108   0xF242 0x0428      MOVW     R4,#+8232
-   \   0000010C   0x5EA4             LDRSH    R4,[R4, R2]
-   \   0000010E   0xE015             B.N      ??AudioMerging_29
-   \                     ??AudioMerging_31: (+1)
-   \   00000110   0xF243 0x043C      MOVW     R4,#+12348
-   \   00000114   0x5EA4             LDRSH    R4,[R4, R2]
-   \   00000116   0xE011             B.N      ??AudioMerging_29
-   \                     ??AudioMerging_32: (+1)
-   \   00000118   0xF244 0x0450      MOVW     R4,#+16464
-   \   0000011C   0x5EA4             LDRSH    R4,[R4, R2]
-   \   0000011E   0xE00D             B.N      ??AudioMerging_29
-   \                     ??AudioMerging_33: (+1)
-   \   00000120   0xF245 0x0464      MOVW     R4,#+20580
-   \   00000124   0x5EA4             LDRSH    R4,[R4, R2]
-   \   00000126   0xE009             B.N      ??AudioMerging_29
-   \                     ??AudioMerging_34: (+1)
-   \   00000128   0xF246 0x0478      MOVW     R4,#+24696
-   \   0000012C   0x5EA4             LDRSH    R4,[R4, R2]
-   \   0000012E   0xE005             B.N      ??AudioMerging_29
-   \                     ??AudioMerging_35: (+1)
-   \   00000130   0xF247 0x048C      MOVW     R4,#+28812
-   \   00000134   0x5EA4             LDRSH    R4,[R4, R2]
-   \   00000136   0xE001             B.N      ??AudioMerging_29
+   \   00000232   0x.... 0x....      LDR.W    R1,??DataTable1_5
+   \   00000236   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000238   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   0000023C   0xF245 0x0264      MOVW     R2,#+20580
+   \   00000240   0x5A51             LDRH     R1,[R2, R1]
+   \   00000242   0x.... 0x....      LDR.W    R2,??DataTable1_1  ;; 0xc00191e0
+   \   00000246   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000248   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   0000024C   0x.... 0x....      LDR.W    R1,??DataTable1_1  ;; 0xc00191e0
+   \   00000250   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000252   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+    141                                break;
    \                     ??AudioMerging_27: (+1)
-   \   00000138   0xF9B2 0x4000      LDRSH    R4,[R2, #+0]
+   \   00000256   0xE055             B.N      ??AudioMerging_17
+    142                              case 6:
+    143                                     (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC7[i]):(PCM_Buffer2[i] = Buffer3.bufMIC7[i]);
+   \                     ??AudioMerging_11: (+1)
+   \   00000258   0x.... 0x....      LDR.W    R1,??DataTable1
+   \   0000025C   0x7809             LDRB     R1,[R1, #+0]
+   \   0000025E   0x2900             CMP      R1,#+0
+   \   00000260   0xD012             BEQ.N    ??AudioMerging_28
+   \   00000262   0x.... 0x....      LDR.W    R1,??DataTable1_5
+   \   00000266   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000268   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   0000026C   0xF246 0x0278      MOVW     R2,#+24696
+   \   00000270   0x5A51             LDRH     R1,[R2, R1]
+   \   00000272   0x.... 0x....      LDR.W    R2,??DataTable1_2  ;; 0xc00181e0
+   \   00000276   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000278   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   0000027C   0x.... 0x....      LDR.W    R1,??DataTable1_2  ;; 0xc00181e0
+   \   00000280   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000282   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+   \   00000286   0xE011             B.N      ??AudioMerging_29
+   \                     ??AudioMerging_28: (+1)
+   \   00000288   0x.... 0x....      LDR.W    R1,??DataTable1_5
+   \   0000028C   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000028E   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   00000292   0xF246 0x0278      MOVW     R2,#+24696
+   \   00000296   0x5A51             LDRH     R1,[R2, R1]
+   \   00000298   0x.... 0x....      LDR.W    R2,??DataTable1_1  ;; 0xc00191e0
+   \   0000029C   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000029E   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   000002A2   0x.... 0x....      LDR.W    R1,??DataTable1_1  ;; 0xc00191e0
+   \   000002A6   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000002A8   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+    144                                    break;
    \                     ??AudioMerging_29: (+1)
-   \   0000013C   0x1C92             ADDS     R2,R2,#+2
-   \   0000013E   0x1E5B             SUBS     R3,R3,#+1
-   \   00000140   0xF821 0x4B02      STRH     R4,[R1], #+2
-   \   00000144   0xD1D2             BNE.N    ??AudioMerging_26
-   \   00000146   0xBC10             POP      {R4}
-   \   00000148   0x4770             BX       LR               ;; return
-   \   0000014A                      REQUIRE PCM_Buffer1
+   \   000002AC   0xE02A             B.N      ??AudioMerging_17
+    145                              case 7:
+    146                                    (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC8[i]):(PCM_Buffer2[i] = Buffer3.bufMIC8[i]);
+   \                     ??AudioMerging_13: (+1)
+   \   000002AE   0x.... 0x....      LDR.W    R1,??DataTable1
+   \   000002B2   0x7809             LDRB     R1,[R1, #+0]
+   \   000002B4   0x2900             CMP      R1,#+0
+   \   000002B6   0xD012             BEQ.N    ??AudioMerging_30
+   \   000002B8   0x.... 0x....      LDR.W    R1,??DataTable1_5
+   \   000002BC   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000002BE   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   000002C2   0xF247 0x028C      MOVW     R2,#+28812
+   \   000002C6   0x5A51             LDRH     R1,[R2, R1]
+   \   000002C8   0x.... 0x....      LDR.W    R2,??DataTable1_2  ;; 0xc00181e0
+   \   000002CC   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000002CE   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   000002D2   0x.... 0x....      LDR.W    R1,??DataTable1_2  ;; 0xc00181e0
+   \   000002D6   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000002D8   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+   \   000002DC   0xE011             B.N      ??AudioMerging_31
+   \                     ??AudioMerging_30: (+1)
+   \   000002DE   0x.... 0x....      LDR.W    R1,??DataTable1_5
+   \   000002E2   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000002E4   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   000002E8   0xF247 0x028C      MOVW     R2,#+28812
+   \   000002EC   0x5A51             LDRH     R1,[R2, R1]
+   \   000002EE   0x.... 0x....      LDR.W    R2,??DataTable1_1  ;; 0xc00191e0
+   \   000002F2   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000002F4   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   000002F8   0x.... 0x....      LDR.W    R1,??DataTable1_1  ;; 0xc00191e0
+   \   000002FC   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000002FE   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+    147                                    break;
+   \                     ??AudioMerging_31: (+1)
+   \   00000302   0xE7FF             B.N      ??AudioMerging_17
+    148                              default:
+    149                                   break;
+    150                            }
+    151          			
+    152          	}
+   \                     ??AudioMerging_14: (+1)
+   \                     ??AudioMerging_17: (+1)
+   \   00000304   0x1C40             ADDS     R0,R0,#+1
+   \   00000306   0xE690             B.N      ??AudioMerging_4
+    153          	/* set flag for switch buffer */		  
+    154          	buffer_switch = BUF3_PLAY;
+   \                     ??AudioMerging_5: (+1)
+   \   00000308   0x2002             MOVS     R0,#+2
+   \   0000030A   0x.... 0x....      LDR.W    R1,??DataTable1_3
+   \   0000030E   0x7008             STRB     R0,[R1, #+0]
+    155          	break;
+   \   00000310   0xE2A1             B.N      ??AudioMerging_32
+    156            case BUF2_PLAY:
+    157          	for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+   \                     ??AudioMerging_2: (+1)
+   \   00000312   0x2000             MOVS     R0,#+0
+   \                     ??AudioMerging_33: (+1)
+   \   00000314   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000316   0xF5B0 0x6F00      CMP      R0,#+2048
+   \   0000031A   0xF280 0x815E      BGE.W    ??AudioMerging_34
+    158          	{
+    159          		  switch (cntBtnPress)
+   \   0000031E   0x.... 0x....      LDR.W    R1,??DataTable1_4
+   \   00000322   0x7809             LDRB     R1,[R1, #+0]
+   \   00000324   0x2900             CMP      R1,#+0
+   \   00000326   0xD010             BEQ.N    ??AudioMerging_35
+   \   00000328   0x2902             CMP      R1,#+2
+   \   0000032A   0xD05E             BEQ.N    ??AudioMerging_36
+   \   0000032C   0xD332             BCC.N    ??AudioMerging_37
+   \   0000032E   0x2904             CMP      R1,#+4
+   \   00000330   0xF000 0x80B1      BEQ.W    ??AudioMerging_38
+   \   00000334   0xF0C0 0x8084      BCC.W    ??AudioMerging_39
+   \   00000338   0x2906             CMP      R1,#+6
+   \   0000033A   0xF000 0x8102      BEQ.W    ??AudioMerging_40
+   \   0000033E   0xF0C0 0x80D5      BCC.W    ??AudioMerging_41
+   \   00000342   0x2907             CMP      R1,#+7
+   \   00000344   0xF000 0x8123      BEQ.W    ??AudioMerging_42
+   \   00000348   0xE145             B.N      ??AudioMerging_43
+    160                            {
+    161                              case 0:
+    162                                     (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC1[i]):(PCM_Buffer2[i] = Buffer1.bufMIC1[i]);
+   \                     ??AudioMerging_35: (+1)
+   \   0000034A   0x.... 0x....      LDR.W    R1,??DataTable1
+   \   0000034E   0x7809             LDRB     R1,[R1, #+0]
+   \   00000350   0x2900             CMP      R1,#+0
+   \   00000352   0xD00F             BEQ.N    ??AudioMerging_44
+   \   00000354   0x.... 0x....      LDR.W    R1,??DataTable1_6
+   \   00000358   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000035A   0xF831 0x1010      LDRH     R1,[R1, R0, LSL #+1]
+   \   0000035E   0x.... 0x....      LDR.W    R2,??DataTable1_2  ;; 0xc00181e0
+   \   00000362   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000364   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   00000368   0x.... 0x....      LDR.W    R1,??DataTable1_2  ;; 0xc00181e0
+   \   0000036C   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000036E   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+   \   00000372   0xE00E             B.N      ??AudioMerging_45
+   \                     ??AudioMerging_44: (+1)
+   \   00000374   0x.... 0x....      LDR.W    R1,??DataTable1_6
+   \   00000378   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000037A   0xF831 0x1010      LDRH     R1,[R1, R0, LSL #+1]
+   \   0000037E   0x.... 0x....      LDR.W    R2,??DataTable1_1  ;; 0xc00191e0
+   \   00000382   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000384   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   00000388   0x.... 0x....      LDR.W    R1,??DataTable1_1  ;; 0xc00191e0
+   \   0000038C   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000038E   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+    163                                    break;
+   \                     ??AudioMerging_45: (+1)
+   \   00000392   0xE120             B.N      ??AudioMerging_46
+    164                              case 1:
+    165                                      (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC2[i]):(PCM_Buffer2[i] = Buffer1.bufMIC2[i]);
+   \                     ??AudioMerging_37: (+1)
+   \   00000394   0x.... 0x....      LDR.W    R1,??DataTable1
+   \   00000398   0x7809             LDRB     R1,[R1, #+0]
+   \   0000039A   0x2900             CMP      R1,#+0
+   \   0000039C   0xD012             BEQ.N    ??AudioMerging_47
+   \   0000039E   0x.... 0x....      LDR.W    R1,??DataTable1_6
+   \   000003A2   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000003A4   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   000003A8   0xF241 0x0214      MOVW     R2,#+4116
+   \   000003AC   0x5A51             LDRH     R1,[R2, R1]
+   \   000003AE   0x.... 0x....      LDR.W    R2,??DataTable1_2  ;; 0xc00181e0
+   \   000003B2   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000003B4   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   000003B8   0x.... 0x....      LDR.W    R1,??DataTable1_2  ;; 0xc00181e0
+   \   000003BC   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000003BE   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+   \   000003C2   0xE011             B.N      ??AudioMerging_48
+   \                     ??AudioMerging_47: (+1)
+   \   000003C4   0x.... 0x....      LDR.W    R1,??DataTable1_6
+   \   000003C8   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000003CA   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   000003CE   0xF241 0x0214      MOVW     R2,#+4116
+   \   000003D2   0x5A51             LDRH     R1,[R2, R1]
+   \   000003D4   0x.... 0x....      LDR.W    R2,??DataTable1_1  ;; 0xc00191e0
+   \   000003D8   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000003DA   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   000003DE   0x.... 0x....      LDR.W    R1,??DataTable1_1  ;; 0xc00191e0
+   \   000003E2   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000003E4   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+    166                                    break;
+   \                     ??AudioMerging_48: (+1)
+   \   000003E8   0xE0F5             B.N      ??AudioMerging_46
+    167                              case 2:
+    168                                     (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC3[i]):(PCM_Buffer2[i] = Buffer1.bufMIC3[i]);
+   \                     ??AudioMerging_36: (+1)
+   \   000003EA   0x.... 0x....      LDR.W    R1,??DataTable1
+   \   000003EE   0x7809             LDRB     R1,[R1, #+0]
+   \   000003F0   0x2900             CMP      R1,#+0
+   \   000003F2   0xD012             BEQ.N    ??AudioMerging_49
+   \   000003F4   0x.... 0x....      LDR.W    R1,??DataTable1_6
+   \   000003F8   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000003FA   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   000003FE   0xF242 0x0228      MOVW     R2,#+8232
+   \   00000402   0x5A51             LDRH     R1,[R2, R1]
+   \   00000404   0x.... 0x....      LDR.W    R2,??DataTable1_2  ;; 0xc00181e0
+   \   00000408   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000040A   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   0000040E   0x.... 0x....      LDR.W    R1,??DataTable1_2  ;; 0xc00181e0
+   \   00000412   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000414   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+   \   00000418   0xE011             B.N      ??AudioMerging_50
+   \                     ??AudioMerging_49: (+1)
+   \   0000041A   0x.... 0x....      LDR.W    R1,??DataTable1_6
+   \   0000041E   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000420   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   00000424   0xF242 0x0228      MOVW     R2,#+8232
+   \   00000428   0x5A51             LDRH     R1,[R2, R1]
+   \   0000042A   0x.... 0x....      LDR.W    R2,??DataTable1_1  ;; 0xc00191e0
+   \   0000042E   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000430   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   00000434   0x.... 0x....      LDR.W    R1,??DataTable1_1  ;; 0xc00191e0
+   \   00000438   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000043A   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+    169                                    break;
+   \                     ??AudioMerging_50: (+1)
+   \   0000043E   0xE0CA             B.N      ??AudioMerging_46
+    170                              case 3:
+    171                                     (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC4[i]):(PCM_Buffer2[i] = Buffer1.bufMIC4[i]);
+   \                     ??AudioMerging_39: (+1)
+   \   00000440   0x.... 0x....      LDR.W    R1,??DataTable1
+   \   00000444   0x7809             LDRB     R1,[R1, #+0]
+   \   00000446   0x2900             CMP      R1,#+0
+   \   00000448   0xD012             BEQ.N    ??AudioMerging_51
+   \   0000044A   0x.... 0x....      LDR.W    R1,??DataTable1_6
+   \   0000044E   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000450   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   00000454   0xF243 0x023C      MOVW     R2,#+12348
+   \   00000458   0x5A51             LDRH     R1,[R2, R1]
+   \   0000045A   0x.... 0x....      LDR.W    R2,??DataTable1_2  ;; 0xc00181e0
+   \   0000045E   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000460   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   00000464   0x.... 0x....      LDR.W    R1,??DataTable1_2  ;; 0xc00181e0
+   \   00000468   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000046A   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+   \   0000046E   0xE011             B.N      ??AudioMerging_52
+   \                     ??AudioMerging_51: (+1)
+   \   00000470   0x.... 0x....      LDR.W    R1,??DataTable1_6
+   \   00000474   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000476   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   0000047A   0xF243 0x023C      MOVW     R2,#+12348
+   \   0000047E   0x5A51             LDRH     R1,[R2, R1]
+   \   00000480   0x.... 0x....      LDR.W    R2,??DataTable1_1  ;; 0xc00191e0
+   \   00000484   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000486   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   0000048A   0x.... 0x....      LDR.W    R1,??DataTable1_1  ;; 0xc00191e0
+   \   0000048E   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000490   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+    172                                    break;
+   \                     ??AudioMerging_52: (+1)
+   \   00000494   0xE09F             B.N      ??AudioMerging_46
+    173                              case 4:
+    174                                     (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC5[i]):(PCM_Buffer2[i] = Buffer1.bufMIC5[i]);
+   \                     ??AudioMerging_38: (+1)
+   \   00000496   0x.... 0x....      LDR.W    R1,??DataTable1
+   \   0000049A   0x7809             LDRB     R1,[R1, #+0]
+   \   0000049C   0x2900             CMP      R1,#+0
+   \   0000049E   0xD012             BEQ.N    ??AudioMerging_53
+   \   000004A0   0x.... 0x....      LDR.W    R1,??DataTable1_6
+   \   000004A4   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000004A6   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   000004AA   0xF244 0x0250      MOVW     R2,#+16464
+   \   000004AE   0x5A51             LDRH     R1,[R2, R1]
+   \   000004B0   0x.... 0x....      LDR.W    R2,??DataTable1_2  ;; 0xc00181e0
+   \   000004B4   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000004B6   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   000004BA   0x.... 0x....      LDR.W    R1,??DataTable1_2  ;; 0xc00181e0
+   \   000004BE   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000004C0   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+   \   000004C4   0xE011             B.N      ??AudioMerging_54
+   \                     ??AudioMerging_53: (+1)
+   \   000004C6   0x.... 0x....      LDR.W    R1,??DataTable1_6
+   \   000004CA   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000004CC   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   000004D0   0xF244 0x0250      MOVW     R2,#+16464
+   \   000004D4   0x5A51             LDRH     R1,[R2, R1]
+   \   000004D6   0x.... 0x....      LDR.W    R2,??DataTable1_1  ;; 0xc00191e0
+   \   000004DA   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000004DC   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   000004E0   0x.... 0x....      LDR.W    R1,??DataTable1_1  ;; 0xc00191e0
+   \   000004E4   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000004E6   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+    175                                    break;
+   \                     ??AudioMerging_54: (+1)
+   \   000004EA   0xE074             B.N      ??AudioMerging_46
+    176                              case 5:
+    177                                     (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC6[i]):(PCM_Buffer2[i] = Buffer1.bufMIC6[i]);
+   \                     ??AudioMerging_41: (+1)
+   \   000004EC   0x.... 0x....      LDR.W    R1,??DataTable1
+   \   000004F0   0x7809             LDRB     R1,[R1, #+0]
+   \   000004F2   0x2900             CMP      R1,#+0
+   \   000004F4   0xD012             BEQ.N    ??AudioMerging_55
+   \   000004F6   0x.... 0x....      LDR.W    R1,??DataTable1_6
+   \   000004FA   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000004FC   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   00000500   0xF245 0x0264      MOVW     R2,#+20580
+   \   00000504   0x5A51             LDRH     R1,[R2, R1]
+   \   00000506   0x.... 0x....      LDR.W    R2,??DataTable1_2  ;; 0xc00181e0
+   \   0000050A   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000050C   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   00000510   0x.... 0x....      LDR.W    R1,??DataTable1_2  ;; 0xc00181e0
+   \   00000514   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000516   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+   \   0000051A   0xE011             B.N      ??AudioMerging_56
+   \                     ??AudioMerging_55: (+1)
+   \   0000051C   0x.... 0x....      LDR.W    R1,??DataTable1_6
+   \   00000520   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000522   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   00000526   0xF245 0x0264      MOVW     R2,#+20580
+   \   0000052A   0x5A51             LDRH     R1,[R2, R1]
+   \   0000052C   0x.... 0x....      LDR.W    R2,??DataTable1_1  ;; 0xc00191e0
+   \   00000530   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000532   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   00000536   0x.... 0x....      LDR.W    R1,??DataTable1_1  ;; 0xc00191e0
+   \   0000053A   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000053C   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+    178                                break;
+   \                     ??AudioMerging_56: (+1)
+   \   00000540   0xE049             B.N      ??AudioMerging_46
+    179                              case 6:
+    180                                     (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC7[i]):(PCM_Buffer2[i] = Buffer1.bufMIC7[i]);
+   \                     ??AudioMerging_40: (+1)
+   \   00000542   0x.... 0x....      LDR.W    R1,??DataTable1
+   \   00000546   0x7809             LDRB     R1,[R1, #+0]
+   \   00000548   0x2900             CMP      R1,#+0
+   \   0000054A   0xD010             BEQ.N    ??AudioMerging_57
+   \   0000054C   0x.... 0x....      LDR.W    R1,??DataTable1_6
+   \   00000550   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000552   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   00000556   0xF246 0x0278      MOVW     R2,#+24696
+   \   0000055A   0x5A51             LDRH     R1,[R2, R1]
+   \   0000055C   0x....             LDR.N    R2,??DataTable1_2  ;; 0xc00181e0
+   \   0000055E   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000560   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   00000564   0x....             LDR.N    R1,??DataTable1_2  ;; 0xc00181e0
+   \   00000566   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000568   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+   \   0000056C   0xE00E             B.N      ??AudioMerging_58
+   \                     ??AudioMerging_57: (+1)
+   \   0000056E   0x....             LDR.N    R1,??DataTable1_6
+   \   00000570   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000572   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   00000576   0xF246 0x0278      MOVW     R2,#+24696
+   \   0000057A   0x5A51             LDRH     R1,[R2, R1]
+   \   0000057C   0x....             LDR.N    R2,??DataTable1_1  ;; 0xc00191e0
+   \   0000057E   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000580   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   00000584   0x....             LDR.N    R1,??DataTable1_1  ;; 0xc00191e0
+   \   00000586   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000588   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+    181                                    break;
+   \                     ??AudioMerging_58: (+1)
+   \   0000058C   0xE023             B.N      ??AudioMerging_46
+    182                              case 7:
+    183                                    (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC8[i]):(PCM_Buffer2[i] = Buffer1.bufMIC8[i]);
+   \                     ??AudioMerging_42: (+1)
+   \   0000058E   0x....             LDR.N    R1,??DataTable1
+   \   00000590   0x7809             LDRB     R1,[R1, #+0]
+   \   00000592   0x2900             CMP      R1,#+0
+   \   00000594   0xD00F             BEQ.N    ??AudioMerging_59
+   \   00000596   0x....             LDR.N    R1,??DataTable1_6
+   \   00000598   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000059A   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   0000059E   0xF247 0x028C      MOVW     R2,#+28812
+   \   000005A2   0x5A51             LDRH     R1,[R2, R1]
+   \   000005A4   0x....             LDR.N    R2,??DataTable1_2  ;; 0xc00181e0
+   \   000005A6   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000005A8   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   000005AC   0x....             LDR.N    R1,??DataTable1_2  ;; 0xc00181e0
+   \   000005AE   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000005B0   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+   \   000005B4   0xE00E             B.N      ??AudioMerging_60
+   \                     ??AudioMerging_59: (+1)
+   \   000005B6   0x....             LDR.N    R1,??DataTable1_6
+   \   000005B8   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000005BA   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   000005BE   0xF247 0x028C      MOVW     R2,#+28812
+   \   000005C2   0x5A51             LDRH     R1,[R2, R1]
+   \   000005C4   0x....             LDR.N    R2,??DataTable1_1  ;; 0xc00191e0
+   \   000005C6   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000005C8   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   000005CC   0x....             LDR.N    R1,??DataTable1_1  ;; 0xc00191e0
+   \   000005CE   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000005D0   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+    184                                    break;
+   \                     ??AudioMerging_60: (+1)
+   \   000005D4   0xE7FF             B.N      ??AudioMerging_46
+    185                              default:
+    186                                   break;	
+    187                            }
+    188          	}
+   \                     ??AudioMerging_43: (+1)
+   \                     ??AudioMerging_46: (+1)
+   \   000005D6   0x1C40             ADDS     R0,R0,#+1
+   \   000005D8   0xE69C             B.N      ??AudioMerging_33
+    189          
+    190          	/* set flag for switch buffer */
+    191          	buffer_switch = BUF1_PLAY;
+   \                     ??AudioMerging_34: (+1)
+   \   000005DA   0x2000             MOVS     R0,#+0
+   \   000005DC   0x....             LDR.N    R1,??DataTable1_3
+   \   000005DE   0x7008             STRB     R0,[R1, #+0]
+    192          	break;
+   \   000005E0   0xE139             B.N      ??AudioMerging_32
+    193            case BUF3_PLAY:
+    194          	  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+   \                     ??AudioMerging_1: (+1)
+   \   000005E2   0x2000             MOVS     R0,#+0
+   \                     ??AudioMerging_61: (+1)
+   \   000005E4   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000005E6   0xF5B0 0x6F00      CMP      R0,#+2048
+   \   000005EA   0xF280 0x8130      BGE.W    ??AudioMerging_62
+    195          	  {
+    196          		  switch (cntBtnPress)
+   \   000005EE   0x....             LDR.N    R1,??DataTable1_4
+   \   000005F0   0x7809             LDRB     R1,[R1, #+0]
+   \   000005F2   0x2900             CMP      R1,#+0
+   \   000005F4   0xD00F             BEQ.N    ??AudioMerging_63
+   \   000005F6   0x2902             CMP      R1,#+2
+   \   000005F8   0xD04F             BEQ.N    ??AudioMerging_64
+   \   000005FA   0xD32A             BCC.N    ??AudioMerging_65
+   \   000005FC   0x2904             CMP      R1,#+4
+   \   000005FE   0xF000 0x8094      BEQ.W    ??AudioMerging_66
+   \   00000602   0xD36E             BCC.N    ??AudioMerging_67
+   \   00000604   0x2906             CMP      R1,#+6
+   \   00000606   0xF000 0x80D8      BEQ.W    ??AudioMerging_68
+   \   0000060A   0xF0C0 0x80B2      BCC.W    ??AudioMerging_69
+   \   0000060E   0x2907             CMP      R1,#+7
+   \   00000610   0xF000 0x80F7      BEQ.W    ??AudioMerging_70
+   \   00000614   0xE119             B.N      ??AudioMerging_71
+    197                            {
+    198                              case 0:
+    199                                     (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC1[i]):(PCM_Buffer2[i] = Buffer2.bufMIC1[i]);
+   \                     ??AudioMerging_63: (+1)
+   \   00000616   0x....             LDR.N    R1,??DataTable1
+   \   00000618   0x7809             LDRB     R1,[R1, #+0]
+   \   0000061A   0x2900             CMP      R1,#+0
+   \   0000061C   0xD00C             BEQ.N    ??AudioMerging_72
+   \   0000061E   0x....             LDR.N    R1,??DataTable1_7
+   \   00000620   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000622   0xF831 0x1010      LDRH     R1,[R1, R0, LSL #+1]
+   \   00000626   0x....             LDR.N    R2,??DataTable1_2  ;; 0xc00181e0
+   \   00000628   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000062A   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   0000062E   0x....             LDR.N    R1,??DataTable1_2  ;; 0xc00181e0
+   \   00000630   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000632   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+   \   00000636   0xE00B             B.N      ??AudioMerging_73
+   \                     ??AudioMerging_72: (+1)
+   \   00000638   0x....             LDR.N    R1,??DataTable1_7
+   \   0000063A   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000063C   0xF831 0x1010      LDRH     R1,[R1, R0, LSL #+1]
+   \   00000640   0x....             LDR.N    R2,??DataTable1_1  ;; 0xc00191e0
+   \   00000642   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000644   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   00000648   0x....             LDR.N    R1,??DataTable1_1  ;; 0xc00191e0
+   \   0000064A   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000064C   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+    200                                    break;
+   \                     ??AudioMerging_73: (+1)
+   \   00000650   0xE0FB             B.N      ??AudioMerging_74
+    201                              case 1:
+    202                                      (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC2[i]):(PCM_Buffer2[i] = Buffer2.bufMIC2[i]);
+   \                     ??AudioMerging_65: (+1)
+   \   00000652   0x....             LDR.N    R1,??DataTable1
+   \   00000654   0x7809             LDRB     R1,[R1, #+0]
+   \   00000656   0x2900             CMP      R1,#+0
+   \   00000658   0xD00F             BEQ.N    ??AudioMerging_75
+   \   0000065A   0x....             LDR.N    R1,??DataTable1_7
+   \   0000065C   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000065E   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   00000662   0xF241 0x0214      MOVW     R2,#+4116
+   \   00000666   0x5A51             LDRH     R1,[R2, R1]
+   \   00000668   0x....             LDR.N    R2,??DataTable1_2  ;; 0xc00181e0
+   \   0000066A   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000066C   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   00000670   0x....             LDR.N    R1,??DataTable1_2  ;; 0xc00181e0
+   \   00000672   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000674   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+   \   00000678   0xE00E             B.N      ??AudioMerging_76
+   \                     ??AudioMerging_75: (+1)
+   \   0000067A   0x....             LDR.N    R1,??DataTable1_7
+   \   0000067C   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000067E   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   00000682   0xF241 0x0214      MOVW     R2,#+4116
+   \   00000686   0x5A51             LDRH     R1,[R2, R1]
+   \   00000688   0x....             LDR.N    R2,??DataTable1_1  ;; 0xc00191e0
+   \   0000068A   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000068C   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   00000690   0x....             LDR.N    R1,??DataTable1_1  ;; 0xc00191e0
+   \   00000692   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000694   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+    203                                    break;
+   \                     ??AudioMerging_76: (+1)
+   \   00000698   0xE0D7             B.N      ??AudioMerging_74
+    204                              case 2:
+    205                                     (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC3[i]):(PCM_Buffer2[i] = Buffer2.bufMIC3[i]);
+   \                     ??AudioMerging_64: (+1)
+   \   0000069A   0x....             LDR.N    R1,??DataTable1
+   \   0000069C   0x7809             LDRB     R1,[R1, #+0]
+   \   0000069E   0x2900             CMP      R1,#+0
+   \   000006A0   0xD00F             BEQ.N    ??AudioMerging_77
+   \   000006A2   0x....             LDR.N    R1,??DataTable1_7
+   \   000006A4   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000006A6   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   000006AA   0xF242 0x0228      MOVW     R2,#+8232
+   \   000006AE   0x5A51             LDRH     R1,[R2, R1]
+   \   000006B0   0x....             LDR.N    R2,??DataTable1_2  ;; 0xc00181e0
+   \   000006B2   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000006B4   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   000006B8   0x....             LDR.N    R1,??DataTable1_2  ;; 0xc00181e0
+   \   000006BA   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000006BC   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+   \   000006C0   0xE00E             B.N      ??AudioMerging_78
+   \                     ??AudioMerging_77: (+1)
+   \   000006C2   0x....             LDR.N    R1,??DataTable1_7
+   \   000006C4   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000006C6   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   000006CA   0xF242 0x0228      MOVW     R2,#+8232
+   \   000006CE   0x5A51             LDRH     R1,[R2, R1]
+   \   000006D0   0x....             LDR.N    R2,??DataTable1_1  ;; 0xc00191e0
+   \   000006D2   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000006D4   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   000006D8   0x....             LDR.N    R1,??DataTable1_1  ;; 0xc00191e0
+   \   000006DA   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000006DC   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+    206                                    break;
+   \                     ??AudioMerging_78: (+1)
+   \   000006E0   0xE0B3             B.N      ??AudioMerging_74
+    207                              case 3:
+    208                                     (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC4[i]):(PCM_Buffer2[i] = Buffer2.bufMIC4[i]);
+   \                     ??AudioMerging_67: (+1)
+   \   000006E2   0x....             LDR.N    R1,??DataTable1
+   \   000006E4   0x7809             LDRB     R1,[R1, #+0]
+   \   000006E6   0x2900             CMP      R1,#+0
+   \   000006E8   0xD00F             BEQ.N    ??AudioMerging_79
+   \   000006EA   0x....             LDR.N    R1,??DataTable1_7
+   \   000006EC   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000006EE   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   000006F2   0xF243 0x023C      MOVW     R2,#+12348
+   \   000006F6   0x5A51             LDRH     R1,[R2, R1]
+   \   000006F8   0x....             LDR.N    R2,??DataTable1_2  ;; 0xc00181e0
+   \   000006FA   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000006FC   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   00000700   0x....             LDR.N    R1,??DataTable1_2  ;; 0xc00181e0
+   \   00000702   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000704   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+   \   00000708   0xE00E             B.N      ??AudioMerging_80
+   \                     ??AudioMerging_79: (+1)
+   \   0000070A   0x....             LDR.N    R1,??DataTable1_7
+   \   0000070C   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000070E   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   00000712   0xF243 0x023C      MOVW     R2,#+12348
+   \   00000716   0x5A51             LDRH     R1,[R2, R1]
+   \   00000718   0x....             LDR.N    R2,??DataTable1_1  ;; 0xc00191e0
+   \   0000071A   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000071C   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   00000720   0x....             LDR.N    R1,??DataTable1_1  ;; 0xc00191e0
+   \   00000722   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000724   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+    209                                    break;
+   \                     ??AudioMerging_80: (+1)
+   \   00000728   0xE08F             B.N      ??AudioMerging_74
+    210                              case 4:
+    211                                     (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC5[i]):(PCM_Buffer2[i] = Buffer2.bufMIC5[i]);
+   \                     ??AudioMerging_66: (+1)
+   \   0000072A   0x....             LDR.N    R1,??DataTable1
+   \   0000072C   0x7809             LDRB     R1,[R1, #+0]
+   \   0000072E   0x2900             CMP      R1,#+0
+   \   00000730   0xD00F             BEQ.N    ??AudioMerging_81
+   \   00000732   0x....             LDR.N    R1,??DataTable1_7
+   \   00000734   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000736   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   0000073A   0xF244 0x0250      MOVW     R2,#+16464
+   \   0000073E   0x5A51             LDRH     R1,[R2, R1]
+   \   00000740   0x....             LDR.N    R2,??DataTable1_2  ;; 0xc00181e0
+   \   00000742   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000744   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   00000748   0x....             LDR.N    R1,??DataTable1_2  ;; 0xc00181e0
+   \   0000074A   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000074C   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+   \   00000750   0xE00E             B.N      ??AudioMerging_82
+   \                     ??AudioMerging_81: (+1)
+   \   00000752   0x....             LDR.N    R1,??DataTable1_7
+   \   00000754   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000756   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   0000075A   0xF244 0x0250      MOVW     R2,#+16464
+   \   0000075E   0x5A51             LDRH     R1,[R2, R1]
+   \   00000760   0x....             LDR.N    R2,??DataTable1_1  ;; 0xc00191e0
+   \   00000762   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000764   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   00000768   0x....             LDR.N    R1,??DataTable1_1  ;; 0xc00191e0
+   \   0000076A   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000076C   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+    212                                    break;
+   \                     ??AudioMerging_82: (+1)
+   \   00000770   0xE06B             B.N      ??AudioMerging_74
+    213                              case 5:
+    214                                     (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC6[i]):(PCM_Buffer2[i] = Buffer2.bufMIC6[i]);
+   \                     ??AudioMerging_69: (+1)
+   \   00000772   0x....             LDR.N    R1,??DataTable1
+   \   00000774   0x7809             LDRB     R1,[R1, #+0]
+   \   00000776   0x2900             CMP      R1,#+0
+   \   00000778   0xD00F             BEQ.N    ??AudioMerging_83
+   \   0000077A   0x....             LDR.N    R1,??DataTable1_7
+   \   0000077C   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000077E   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   00000782   0xF245 0x0264      MOVW     R2,#+20580
+   \   00000786   0x5A51             LDRH     R1,[R2, R1]
+   \   00000788   0x....             LDR.N    R2,??DataTable1_2  ;; 0xc00181e0
+   \   0000078A   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000078C   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   00000790   0x....             LDR.N    R1,??DataTable1_2  ;; 0xc00181e0
+   \   00000792   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000794   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+   \   00000798   0xE00E             B.N      ??AudioMerging_84
+   \                     ??AudioMerging_83: (+1)
+   \   0000079A   0x....             LDR.N    R1,??DataTable1_7
+   \   0000079C   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000079E   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   000007A2   0xF245 0x0264      MOVW     R2,#+20580
+   \   000007A6   0x5A51             LDRH     R1,[R2, R1]
+   \   000007A8   0x....             LDR.N    R2,??DataTable1_1  ;; 0xc00191e0
+   \   000007AA   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000007AC   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   000007B0   0x....             LDR.N    R1,??DataTable1_1  ;; 0xc00191e0
+   \   000007B2   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000007B4   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+    215                                break;
+   \                     ??AudioMerging_84: (+1)
+   \   000007B8   0xE047             B.N      ??AudioMerging_74
+    216                              case 6:
+    217                                     (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC7[i]):(PCM_Buffer2[i] = Buffer2.bufMIC7[i]);
+   \                     ??AudioMerging_68: (+1)
+   \   000007BA   0x....             LDR.N    R1,??DataTable1
+   \   000007BC   0x7809             LDRB     R1,[R1, #+0]
+   \   000007BE   0x2900             CMP      R1,#+0
+   \   000007C0   0xD00F             BEQ.N    ??AudioMerging_85
+   \   000007C2   0x....             LDR.N    R1,??DataTable1_7
+   \   000007C4   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000007C6   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   000007CA   0xF246 0x0278      MOVW     R2,#+24696
+   \   000007CE   0x5A51             LDRH     R1,[R2, R1]
+   \   000007D0   0x....             LDR.N    R2,??DataTable1_2  ;; 0xc00181e0
+   \   000007D2   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000007D4   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   000007D8   0x....             LDR.N    R1,??DataTable1_2  ;; 0xc00181e0
+   \   000007DA   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000007DC   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+   \   000007E0   0xE00E             B.N      ??AudioMerging_86
+   \                     ??AudioMerging_85: (+1)
+   \   000007E2   0x....             LDR.N    R1,??DataTable1_7
+   \   000007E4   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000007E6   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   000007EA   0xF246 0x0278      MOVW     R2,#+24696
+   \   000007EE   0x5A51             LDRH     R1,[R2, R1]
+   \   000007F0   0x....             LDR.N    R2,??DataTable1_1  ;; 0xc00191e0
+   \   000007F2   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000007F4   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   000007F8   0x....             LDR.N    R1,??DataTable1_1  ;; 0xc00191e0
+   \   000007FA   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000007FC   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+    218                                    break;
+   \                     ??AudioMerging_86: (+1)
+   \   00000800   0xE023             B.N      ??AudioMerging_74
+    219                              case 7:
+    220                                    (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC8[i]):(PCM_Buffer2[i] = Buffer2.bufMIC8[i]);
+   \                     ??AudioMerging_70: (+1)
+   \   00000802   0x....             LDR.N    R1,??DataTable1
+   \   00000804   0x7809             LDRB     R1,[R1, #+0]
+   \   00000806   0x2900             CMP      R1,#+0
+   \   00000808   0xD00F             BEQ.N    ??AudioMerging_87
+   \   0000080A   0x....             LDR.N    R1,??DataTable1_7
+   \   0000080C   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000080E   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   00000812   0xF247 0x028C      MOVW     R2,#+28812
+   \   00000816   0x5A51             LDRH     R1,[R2, R1]
+   \   00000818   0x....             LDR.N    R2,??DataTable1_2  ;; 0xc00181e0
+   \   0000081A   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000081C   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   00000820   0x....             LDR.N    R1,??DataTable1_2  ;; 0xc00181e0
+   \   00000822   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000824   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+   \   00000828   0xE00E             B.N      ??AudioMerging_88
+   \                     ??AudioMerging_87: (+1)
+   \   0000082A   0x....             LDR.N    R1,??DataTable1_7
+   \   0000082C   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000082E   0xEB11 0x0140      ADDS     R1,R1,R0, LSL #+1
+   \   00000832   0xF247 0x028C      MOVW     R2,#+28812
+   \   00000836   0x5A51             LDRH     R1,[R2, R1]
+   \   00000838   0x....             LDR.N    R2,??DataTable1_1  ;; 0xc00191e0
+   \   0000083A   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000083C   0xF822 0x1010      STRH     R1,[R2, R0, LSL #+1]
+   \   00000840   0x....             LDR.N    R1,??DataTable1_1  ;; 0xc00191e0
+   \   00000842   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000844   0xF931 0x1010      LDRSH    R1,[R1, R0, LSL #+1]
+    221                                    break;
+   \                     ??AudioMerging_88: (+1)
+   \   00000848   0xE7FF             B.N      ??AudioMerging_74
+    222                              default:
+    223                                   break;		  
+    224                            }
+    225          	  }
+   \                     ??AudioMerging_71: (+1)
+   \                     ??AudioMerging_74: (+1)
+   \   0000084A   0x1C40             ADDS     R0,R0,#+1
+   \   0000084C   0xE6CA             B.N      ??AudioMerging_61
+    226          	  /* set flag for switch buffer */		  
+    227          	  buffer_switch = BUF2_PLAY;
+   \                     ??AudioMerging_62: (+1)
+   \   0000084E   0x2001             MOVS     R0,#+1
+   \   00000850   0x....             LDR.N    R1,??DataTable1_3
+   \   00000852   0x7008             STRB     R0,[R1, #+0]
+    228          	break;
+   \   00000854   0xE7FF             B.N      ??AudioMerging_32
+    229            default:
+    230          	break;
+    231          }
+    232          
+    233          }
+   \                     ??AudioMerging_3: (+1)
+   \                     ??AudioMerging_32: (+1)
+   \   00000856   0x4770             BX       LR               ;; return
+   \   00000858                      REQUIRE PCM_Buffer1
+   \   00000858                      REQUIRE PCM_Buffer2
 
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable1:
-   \   00000000   0xC00181E0         DC32     0xc00181e0
+   \   00000000   0x........         DC32     swtBufUSBOut
 
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable1_1:
-   \   00000000   0x........         DC32     buffer_switch
+   \   00000000   0xC00191E0         DC32     0xc00191e0
 
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable1_2:
-   \   00000000   0x........         DC32     Buffer3
+   \   00000000   0xC00181E0         DC32     0xc00181e0
 
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable1_3:
-   \   00000000   0x........         DC32     cntBtnPress
+   \   00000000   0x........         DC32     buffer_switch
 
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable1_4:
-   \   00000000   0x........         DC32     Buffer1
+   \   00000000   0x........         DC32     cntBtnPress
 
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable1_5:
+   \   00000000   0x........         DC32     Buffer3
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_6:
+   \   00000000   0x........         DC32     Buffer1
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_7:
    \   00000000   0x........         DC32     Buffer2
-    225          
-    226          
-    227          
+    234          
+    235          
 
    Maximum stack usage in bytes:
 
    .cstack Function
    ------- --------
-       4   AudioMerging
-       0   AudioProcess
-         0   -> Send_Audio_to_USB
+       0   AudioMerging
+       8   AudioProcess
+         8   -> Send_Audio_to_USB
 
 
    Section sizes:
@@ -532,20 +1247,23 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
        4  ??DataTable1_3
        4  ??DataTable1_4
        4  ??DataTable1_5
-     330  AudioMerging
-      12  AudioProcess
+       4  ??DataTable1_6
+       4  ??DataTable1_7
+    2136  AudioMerging
+      54  AudioProcess
     4096  PCM_Buffer1
     4096  PCM_Buffer2
     4096  PCM_Buffer3
        2  cntFrm
+       1  swtBufUSBOut
 
  
-      2 bytes in section .bss
+      3 bytes in section .bss
  12 288 bytes in section .bss  (abs)
-    366 bytes in section .text
+  2 222 bytes in section .text
  
-    366 bytes of CODE memory
- 12 290 bytes of DATA memory
+  2 222 bytes of CODE memory
+ 12 291 bytes of DATA memory
 
 Errors: none
 Warnings: 1

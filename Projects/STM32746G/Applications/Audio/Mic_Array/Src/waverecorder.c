@@ -134,6 +134,7 @@ __IO static uint32_t uwVolume = 70;
 __IO PDMFilter_InitStruct Filter[2];
 __IO uint16_t  pDataMic8[64];//INTERNAL_BUFF_SIZE
 __IO uint16_t  pDataMic7[64];//INTERNAL_BUFF_SIZE
+__IO int16_t   pPDM2PCM[16];
 __IO uint16_t cntStrt;
 __IO uint8_t WaveRecord_flgInt;
 uint8_t WaveRecord_flgIni;
@@ -1463,25 +1464,8 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
    }
    
     /* PDM conversion for frame of 64 inputs, 16 outputs */
-    /* Recording Audio Data */						 
-    switch (buffer_switch)
-    {
-        case BUF1_PLAY: 							
-                PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer2.bufMIC8 + idxFrmPDMMic8*32), 64 ,
-                (PDMFilter_InitStruct *)&Filter[1]);
-                break;
-        case BUF2_PLAY:
-                PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer3.bufMIC8 + idxFrmPDMMic8*32), 64 ,
-                (PDMFilter_InitStruct *)&Filter[1]);	
-                break;
-        case BUF3_PLAY:
-                PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer1.bufMIC8 + idxFrmPDMMic8*32), 64 ,
+    PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)&pPDM2PCM[0], 64 ,
                 (PDMFilter_InitStruct *)&Filter[1]);									
-                 break;
-        default:
-                 break; 
-    }
-
    
     /* Update for left-right channel */
     for (int16_t i=31; i>=0; i=i-2)
@@ -1490,16 +1474,16 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
       switch (buffer_switch)
       {
          case BUF1_PLAY:							   
-           Buffer2.bufMIC8[idxFrmPDMMic8*32+i]  = Buffer2.bufMIC8[idxFrmPDMMic8*32+i/2];
-           Buffer2.bufMIC8[idxFrmPDMMic8*32+i-1]= Buffer2.bufMIC8[idxFrmPDMMic8*32+i/2];
+           Buffer2.bufMIC8[idxFrmPDMMic8*32+i]  = pPDM2PCM[i/2];
+           Buffer2.bufMIC8[idxFrmPDMMic8*32+i-1]= pPDM2PCM[i/2];
            break;
          case BUF2_PLAY:
-           Buffer3.bufMIC8[idxFrmPDMMic8*32+i]  = Buffer3.bufMIC8[idxFrmPDMMic8*32+i/2];
-           Buffer3.bufMIC8[idxFrmPDMMic8*32+i-1]= Buffer3.bufMIC8[idxFrmPDMMic8*32+i/2]; 
+           Buffer3.bufMIC8[idxFrmPDMMic8*32+i]  = pPDM2PCM[i/2];
+           Buffer3.bufMIC8[idxFrmPDMMic8*32+i-1]= pPDM2PCM[i/2];
            break;
          case BUF3_PLAY:
-           Buffer1.bufMIC8[idxFrmPDMMic8*32+i]  = Buffer1.bufMIC8[idxFrmPDMMic8*32+i/2];
-           Buffer1.bufMIC8[idxFrmPDMMic8*32+i-1]= Buffer1.bufMIC8[idxFrmPDMMic8*32+i/2];
+           Buffer1.bufMIC8[idxFrmPDMMic8*32+i]  = pPDM2PCM[i/2];
+           Buffer1.bufMIC8[idxFrmPDMMic8*32+i-1]= pPDM2PCM[i/2];
            break;
          default:
            break; 
@@ -1510,43 +1494,13 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
    if(++idxFrmPDMMic8==(4*AUDIO_OUT_BUFFER_SIZE/64))
    {
        idxFrmPDMMic8 = 0;
+       swtSDO8^=0x01;
 #ifndef CS43L22_PLAY	  
        RESET_IDX
-       XferCplt = 0; // clear DMA interrupt flag
-
-	    /*-------------------------------------------------------------------------------------------------------------		  
-		Sequence  Record Data                     Processing Data                 Player Data
-				  
-		1-------  Buffer1                         Buffer2                          Buffer3
-				  
-		2-------  Buffer3                         Buffer1                           Buffer2		  
-				  
-		3-------  Buffer2                         Buffer3                           Buffer1 
-	    ---------------------------------------------------------------------------------------------------------------*/
-	    switch (buffer_switch)
-	    {
-	      case BUF1_PLAY:
-			/* set flag for switch buffer */		  
-	        buffer_switch = BUF3_PLAY;
-
-	        break;
-	      case BUF2_PLAY:
-			/* set flag for switch buffer */
-	        buffer_switch = BUF1_PLAY;
-	        
-	        break;
-	      case BUF3_PLAY:
-	        /* set flag for switch buffer */		  
-	        buffer_switch = BUF2_PLAY;
-
-	        break;
-	      default:
-	        break;
-	    }
-			   
-
-	  if (cntStrt<100) cntStrt++;
+       XferCplt = 0; // clear DMA interrupt flag		   
+      if (cntStrt<100) cntStrt++;
 #endif
+       AudioMerging();
    }
    
    HAL_SPI_Receive_DMA(&hspi6,( uint8_t *)TestSDO8,4*(AUDIO_SAMPLING_FREQUENCY/1000));
@@ -1566,8 +1520,7 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
     }
 #endif
 
-   }
-
+  }
 }
 
 void PDM2PCMSDO78(void)

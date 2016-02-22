@@ -255,9 +255,6 @@ inline static void FFT_Update(void)
 					break;
                
 			}
-#if USB_STREAMING
-   AudioMerging();
-#endif
 	       //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_15);
 	  }
 	  
@@ -669,7 +666,7 @@ int main(void)
 #endif
 	   	            cntTime200=0;
         } //(cntTime200==40)
-      }	
+      }//if (flg10ms==1)	
   }
 }
 
