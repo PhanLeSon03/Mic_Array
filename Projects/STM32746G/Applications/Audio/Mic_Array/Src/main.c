@@ -56,7 +56,8 @@ __IO uint16_t  WaveRec_idxSens5,WaveRec_idxSens6;
 __IO uint16_t  idxSPI5DataBuf3;
 __IO uint16_t  cntRisingEXTI;
 __IO uint8_t   btnSW1,btnSW2;
-__IO uint8_t flgDlyUpd; 
+__IO uint8_t   flgDlyUpd; 
+__IO uint8_t   cntBtnPress;
 
 /* Buffer used for reception */
 uint8_t aRxBuffer[1024];
@@ -266,15 +267,15 @@ inline static void FFT_Update(void)
 
 inline static void Audio_Play_Out(void)
 {
-  /* wait for DMA transfert complete									*/
-  /* This flag is set to 1 in callback function of DMA interrupt  */
+  /* wait for DMA transfert complete	                                      */
+  /* This flag is set to 1 in callback function of DMA interrupt              */
   /* if player is finished for curent buffer */ 
   if (XferCplt == 1)
   {
        RESET_IDX
        XferCplt = 0; // clear DMA interrupt flag
 #if USB_STREAMING
-	  //AudioProcess();
+       //AudioProcess();
 #endif
 /*-------------------------------------------------------------------------------------------------------------
 			  
@@ -290,21 +291,21 @@ inline static void Audio_Play_Out(void)
     {
       case BUF1_PLAY:
         /* Play data from buffer1 */
-	    Audio_MAL_Play(Command_index? (uint32_t)Buffer3.bufMIC1:(uint32_t)Buffer3.bufMIC2 , 4*AUDIO_OUT_BUFFER_SIZE);
+	 Audio_MAL_Play(Command_index? (uint32_t)Buffer3.bufMIC1:(uint32_t)Buffer3.bufMIC2 , 4*AUDIO_OUT_BUFFER_SIZE);
 		/* set flag for switch buffer */		  
         buffer_switch = BUF3_PLAY;
 
         break;
       case BUF2_PLAY:
         /* Play data from buffer2 */
-	    Audio_MAL_Play(Command_index? (uint32_t)Buffer1.bufMIC1:(uint32_t)Buffer1.bufMIC2, 4*AUDIO_OUT_BUFFER_SIZE);
-		/* set flag for switch buffer */
+	Audio_MAL_Play(Command_index? (uint32_t)Buffer1.bufMIC1:(uint32_t)Buffer1.bufMIC2, 4*AUDIO_OUT_BUFFER_SIZE);
+	/* set flag for switch buffer */
         buffer_switch = BUF1_PLAY;
         
         break;
       case BUF3_PLAY:
         /* Play data from buffer1 */
-       Audio_MAL_Play(Command_index? (uint32_t)Buffer2.bufMIC1:(uint32_t)Buffer2.bufMIC2 ,4*AUDIO_OUT_BUFFER_SIZE);
+        Audio_MAL_Play(Command_index? (uint32_t)Buffer2.bufMIC1:(uint32_t)Buffer2.bufMIC2 ,4*AUDIO_OUT_BUFFER_SIZE);
         /* set flag for switch buffer */		  
         buffer_switch = BUF2_PLAY;
 
@@ -388,40 +389,43 @@ int main(void)
     USART3_Init();
 #endif
 
-#if (USB_STREAMING)	
-    /* Initialize USB descriptor basing on channels number and sampling frequency */
-    USBD_AUDIO_Init_Microphone_Descriptor(&hUSBDDevice, AUDIO_SAMPLING_FREQUENCY, AUDIO_CHANNELS);
-    /* Init Device Library */
-    USBD_Init(&hUSBDDevice, &AUDIO_Desc, 0);
-    /* Add Supported Class */
-    USBD_RegisterClass(&hUSBDDevice, &USBD_AUDIO);
-    /* Add Interface callbacks for AUDIO Class */  
-    USBD_AUDIO_RegisterInterface(&hUSBDDevice, &USBD_AUDIO_fops);
-    /* Start Device Process */
-    USBD_Start(&hUSBDDevice);
-
-    /* Init Host Library */
-    //test GIT //USBH_Init(&hUSBHost, USBH_UserProcess, 0);
-
-    /* Add Supported Class */
-    //test GIT //USBH_RegisterClass(&hUSBHost, USBH_MSC_CLASS);
-    
-    /* Start Host Process */
-    //test GIT //USBH_Start(&hUSBHost);						  
-#endif 					  
+					  
 
     /*----------------------------------------*/
     MX_I2C2_Init(); //for STA321MP
     STA321MP_Ini();
     BSP_LED_Toggle(LED1);
     /* Init Audio Application */
+#ifdef CS43L22_PLAY
     AUDIO_InitApplication();
+#endif
     BSP_LED_Toggle(LED2);
 
     buffer_switch = BUF3_PLAY;		 /* record data to buffer1 */
     MIC1TO6_Init();
 	                  
 
+#if (USB_STREAMING)	
+	/* Initialize USB descriptor basing on channels number and sampling frequency */
+	USBD_AUDIO_Init_Microphone_Descriptor(&hUSBDDevice, AUDIO_SAMPLING_FREQUENCY, AUDIO_CHANNELS);
+	/* Init Device Library */
+	USBD_Init(&hUSBDDevice, &AUDIO_Desc, 0);
+	/* Add Supported Class */
+	USBD_RegisterClass(&hUSBDDevice, &USBD_AUDIO);
+	/* Add Interface callbacks for AUDIO Class */  
+	USBD_AUDIO_RegisterInterface(&hUSBDDevice, &USBD_AUDIO_fops);
+	/* Start Device Process */
+	USBD_Start(&hUSBDDevice);
+
+	/* Init Host Library */
+	//test GIT //USBH_Init(&hUSBHost, USBH_UserProcess, 0);
+
+	/* Add Supported Class */
+	//test GIT //USBH_RegisterClass(&hUSBHost, USBH_MSC_CLASS);
+	
+	/* Start Host Process */
+	//test GIT //USBH_Start(&hUSBHost); 					  
+#endif 
 
     while (1)
     {
@@ -435,10 +439,11 @@ int main(void)
 				buffer_switch = BUF2_PLAY; /* record data to buffer3 */
 				if (stFrstFrmStore==2)
 				{
-					
+				#ifdef CS43L22_PLAY
 					/*------------------------PLAYER------------------------------------------*/
 					Audio_MAL_Play((uint32_t)Buffer1.bufMIC1,4*AUDIO_OUT_BUFFER_SIZE);
 					/*------------------------------------------------------------------------*/
+				#endif
 					buffer_switch = BUF1_PLAY;
 					flgDlyUpd = 0;
 				}
@@ -1058,6 +1063,7 @@ void EXTI9_5_IRQHandler(void)
   if(__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_8) != RESET)
   {
 	  btnSW2 = 1;
+	  if ((++cntBtnPress)==8) cntBtnPress=0;
 	  BSP_LED_Toggle(LED2);
 	  __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_8);
 
@@ -1193,17 +1199,15 @@ void MX_I2C2_Init(void)
 
  void HAL_I2S_TxCpltCallback(I2S_HandleTypeDef *hi2s)
 {
-	 //sop1hc if(AudioState == AUDIO_STATE_PLAY)
-	 //if (BufferCtlPlayOut.state == BUFFER_OFFSET_HALF)
-	 {
-	   //BufferCtlPlayOut.state = BUFFER_OFFSET_FULL;
-	   XferCplt=1;
-	   Audio_Play_Out(); 
+  //sop1hc if(AudioState == AUDIO_STATE_PLAY)
+  //if (BufferCtlPlayOut.state == BUFFER_OFFSET_HALF)
+  {
+  //BufferCtlPlayOut.state = BUFFER_OFFSET_FULL;
+  XferCplt=1;
+  Audio_Play_Out(); 
 
-	   if (cntStrt<100) cntStrt++;
-	 }
-	 
-
+  if (cntStrt<100) cntStrt++;
+  }	 
 }
 
 /*****************************END OF FILE**************************************/

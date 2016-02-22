@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      22/Feb/2016  14:50:36
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      22/Feb/2016  17:57:49
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -665,7 +665,7 @@ AUDIO_Play:
         STR      R1,[R2, #+148]
         ITE      CC 
         LSLCC    R1,R3,#+1
-        LDRCS.W  R1,??DataTable14  ;; 0x1fffe
+        LDRCS.W  R1,??DataTable13  ;; 0x1fffe
         ADDS     R0,R1,R0
         STR      R0,[R2, #+152]
 //  234   
@@ -857,7 +857,7 @@ AUDIO_PauseResume:
 //  260     /* Call the Media layer pause/resume function */
 //  261     Audio_MAL_PauseResume(Cmd, 0);
 ??AUDIO_PauseResume_15:
-        LDR.W    R1,??DataTable14_1  ;; 0x40003c04
+        LDR.W    R1,??DataTable14  ;; 0x40003c04
         CMP      R4,#+0
         LDR.W    R0,??DataTable15  ;; 0x400260b8
         LDR      R2,[R1, #+0]
@@ -3024,7 +3024,7 @@ HAL_I2S_MspInit:
 // 1243 	GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
 // 1244 	GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
 // 1245 	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-        ADD      R1,SP,#+24
+        ADD      R1,SP,#+4
         LDR      R0,[R5, #+20]
         ORR      R0,R0,#0x1000
         STR      R0,[R5, #+20]
@@ -3047,25 +3047,39 @@ HAL_I2S_MspInit:
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
         MOVS     R0,#+176
-        STR      R0,[SP, #+24]
+        STR      R0,[SP, #+4]
         MOVS     R0,#+2
-        STR      R0,[SP, #+28]
+        STR      R0,[SP, #+8]
         MOVS     R0,#+0
-        STR      R0,[SP, #+32]
+        STR      R0,[SP, #+12]
         MOVS     R0,#+3
-        STR      R0,[SP, #+36]
+        STR      R0,[SP, #+16]
         MOVS     R0,#+5
-        STR      R0,[SP, #+40]
+        STR      R0,[SP, #+20]
         LDR.N    R0,??DataTable15_20  ;; 0x40020000
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 // 1246 
-// 1247     //GPIO_InitStruct.Pin = GPIO_PIN_4;
-// 1248     //GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-// 1249     //GPIO_InitStruct.Pull = GPIO_NOPULL;
-// 1250     //GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-// 1251     //GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
-// 1252     //HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+// 1247     GPIO_InitStruct.Pin = GPIO_PIN_4;
+        MOVS     R0,#+16
+// 1248     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+// 1249     GPIO_InitStruct.Pull = GPIO_NOPULL;
+// 1250     GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+// 1251     GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
+// 1252     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+        ADD      R1,SP,#+4
+        STR      R0,[SP, #+4]
+        MOVS     R0,#+2
+        STR      R0,[SP, #+8]
+        MOVS     R0,#+0
+        STR      R0,[SP, #+12]
+        MOVS     R0,#+3
+        STR      R0,[SP, #+16]
+        MOVS     R0,#+5
+        STR      R0,[SP, #+20]
+        LDR.N    R0,??DataTable15_21  ;; 0x40020800
+          CFI FunCall HAL_GPIO_Init
+        BL       HAL_GPIO_Init
 // 1253 	
 // 1254   /* Peripheral interrupt init*/
 // 1255     HAL_NVIC_SetPriority(SPI1_IRQn, INTERRUPT_PRI_SDO12, 0);
@@ -3083,7 +3097,7 @@ HAL_I2S_MspInit:
 // 1260   }
 // 1261   else if(hi2s->Instance==SPI2)
 ??HAL_I2S_MspInit_0:
-        LDR.N    R1,??DataTable15_21  ;; 0x40003800
+        LDR.N    R1,??DataTable15_22  ;; 0x40003800
         CMP      R0,R1
         BNE.N    ??HAL_I2S_MspInit_2
 // 1262   {
@@ -3110,7 +3124,7 @@ HAL_I2S_MspInit:
 // 1282 		GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
 // 1283 		GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
 // 1284 		HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-        ADD      R1,SP,#+24
+        ADD      R1,SP,#+4
         LDR      R0,[R5, #+16]
         ORR      R0,R0,#0x4000
         STR      R0,[R5, #+16]
@@ -3140,15 +3154,15 @@ HAL_I2S_MspInit:
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
         MOVS     R0,#+2
-        STR      R0,[SP, #+24]
-        STR      R0,[SP, #+28]
+        STR      R0,[SP, #+4]
+        STR      R0,[SP, #+8]
         MOVS     R0,#+0
-        STR      R0,[SP, #+32]
+        STR      R0,[SP, #+12]
         MOVS     R0,#+3
-        STR      R0,[SP, #+36]
+        STR      R0,[SP, #+16]
         MOVS     R0,#+5
-        STR      R0,[SP, #+40]
-        LDR.N    R0,??DataTable15_22  ;; 0x40020800
+        STR      R0,[SP, #+20]
+        LDR.N    R0,??DataTable15_21  ;; 0x40020800
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 // 1285 	  
@@ -3159,16 +3173,16 @@ HAL_I2S_MspInit:
 // 1289 		GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
 // 1290 		GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
 // 1291 		HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-        ADD      R1,SP,#+24
-        STR      R0,[SP, #+24]
+        ADD      R1,SP,#+4
+        STR      R0,[SP, #+4]
         MOVS     R0,#+2
-        STR      R0,[SP, #+28]
+        STR      R0,[SP, #+8]
         MOVS     R0,#+0
-        STR      R0,[SP, #+32]
+        STR      R0,[SP, #+12]
         MOVS     R0,#+3
-        STR      R0,[SP, #+36]
+        STR      R0,[SP, #+16]
         MOVS     R0,#+5
-        STR      R0,[SP, #+40]
+        STR      R0,[SP, #+20]
         LDR.N    R0,??DataTable15_23  ;; 0x40020400
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
@@ -3218,7 +3232,7 @@ HAL_I2S_MspInit:
 // 1323   GPIO_InitStructure.Alternate = GPIO_AF6_SPI3;
 // 1324   HAL_GPIO_Init(GPIOB, &GPIO_InitStructure);
         LDR.N    R6,??DataTable15_23  ;; 0x40020400
-        ADD      R1,SP,#+4
+        ADD      R1,SP,#+24
         LDR      R0,[R5, #+16]
         ORR      R0,R0,#0x8000
         STR      R0,[R5, #+16]
@@ -3248,15 +3262,15 @@ HAL_I2S_MspInit:
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
         MOVS     R0,#+8
-        STR      R0,[SP, #+4]
+        STR      R0,[SP, #+24]
         MOVS     R0,#+2
-        STR      R0,[SP, #+8]
+        STR      R0,[SP, #+28]
         MOVS     R0,#+3
-        STR      R0,[SP, #+16]
+        STR      R0,[SP, #+36]
         MOVS     R0,#+0
-        STR      R0,[SP, #+12]
+        STR      R0,[SP, #+32]
         MOVS     R0,#+6
-        STR      R0,[SP, #+20]
+        STR      R0,[SP, #+40]
         MOV      R0,R6
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
@@ -3268,16 +3282,16 @@ HAL_I2S_MspInit:
 // 1329   GPIO_InitStructure.Pull = GPIO_NOPULL;
 // 1330   GPIO_InitStructure.Alternate = GPIO_AF7_SPI3;
 // 1331   HAL_GPIO_Init(GPIOB, &GPIO_InitStructure);
-        ADD      R1,SP,#+4
-        STR      R0,[SP, #+4]
+        ADD      R1,SP,#+24
+        STR      R0,[SP, #+24]
         MOVS     R0,#+2
-        STR      R0,[SP, #+8]
+        STR      R0,[SP, #+28]
         MOVS     R0,#+3
-        STR      R0,[SP, #+16]
+        STR      R0,[SP, #+36]
         MOVS     R0,#+0
-        STR      R0,[SP, #+12]
+        STR      R0,[SP, #+32]
         MOVS     R0,#+7
-        STR      R0,[SP, #+20]
+        STR      R0,[SP, #+40]
         MOV      R0,R6
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
@@ -3288,12 +3302,12 @@ HAL_I2S_MspInit:
 // 1335   GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
 // 1336   GPIO_InitStructure.Alternate = GPIO_AF6_SPI3;
 // 1337   HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
-        ADD      R1,SP,#+4
-        STR      R0,[SP, #+4]
+        ADD      R1,SP,#+24
+        STR      R0,[SP, #+24]
         MOVS     R0,#+2
-        STR      R0,[SP, #+8]
+        STR      R0,[SP, #+28]
         MOVS     R0,#+6
-        STR      R0,[SP, #+20]
+        STR      R0,[SP, #+40]
         LDR.N    R0,??DataTable15_20  ;; 0x40020000
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
@@ -3309,17 +3323,17 @@ HAL_I2S_MspInit:
 // 1346   GPIO_InitStructure.Pull = GPIO_NOPULL;
 // 1347   GPIO_InitStructure.Alternate = GPIO_AF6_SPI3;
 // 1348   HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
-        ADD      R1,SP,#+4
-        STR      R0,[SP, #+4]
+        ADD      R1,SP,#+24
+        STR      R0,[SP, #+24]
         MOVS     R0,#+2
-        STR      R0,[SP, #+8]
+        STR      R0,[SP, #+28]
         MOVS     R0,#+3
-        STR      R0,[SP, #+16]
+        STR      R0,[SP, #+36]
         MOVS     R0,#+0
-        STR      R0,[SP, #+12]
+        STR      R0,[SP, #+32]
         MOVS     R0,#+6
-        STR      R0,[SP, #+20]
-        LDR.N    R0,??DataTable15_22  ;; 0x40020800
+        STR      R0,[SP, #+40]
+        LDR.N    R0,??DataTable15_21  ;; 0x40020800
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 // 1349 
@@ -3495,7 +3509,7 @@ HAL_SPI_MspDeInit:
         BL       HAL_GPIO_DeInit
 // 1423 	HAL_GPIO_DeInit(CODEC_I2S_MCK_GPIO, CODEC_I2S_MCK_PIN);
         MOVS     R1,#+128
-        LDR.N    R0,??DataTable15_22  ;; 0x40020800
+        LDR.N    R0,??DataTable15_21  ;; 0x40020800
           CFI FunCall HAL_GPIO_DeInit
         BL       HAL_GPIO_DeInit
 // 1424 
@@ -3524,6 +3538,12 @@ HAL_SPI_MspDeInit:
 ??HAL_SPI_MspDeInit_0:
         POP      {R4,PC}          ;; return
           CFI EndBlock cfiBlock15
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable13:
+        DC32     0x1fffe
 // 1434 
 // 1435 
 
@@ -3575,12 +3595,6 @@ HAL_I2C_MspDeInit:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable14:
-        DC32     0x1fffe
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable14_1:
         DC32     0x40003c04
 // 1449 
 // 1450 
@@ -3775,13 +3789,13 @@ MX_I2C1_Init:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable15_21:
-        DC32     0x40003800
+        DC32     0x40020800
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable15_22:
-        DC32     0x40020800
+        DC32     0x40003800
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -3841,9 +3855,9 @@ MX_I2C1_Init:
 // 
 //   156 bytes in section .bss
 //   164 bytes in section .data
-// 4 016 bytes in section .text
+// 4 044 bytes in section .text
 // 
-// 4 016 bytes of CODE memory
+// 4 044 bytes of CODE memory
 //   320 bytes of DATA memory
 //
 //Errors: none

@@ -1244,12 +1244,12 @@ void HAL_I2S_MspInit(I2S_HandleTypeDef *hi2s)
 	GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
 	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-    //GPIO_InitStruct.Pin = GPIO_PIN_4;
-    //GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    //GPIO_InitStruct.Pull = GPIO_NOPULL;
-    //GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-    //GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
-    //HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+    GPIO_InitStruct.Pin = GPIO_PIN_4;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
+    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 	
   /* Peripheral interrupt init*/
     HAL_NVIC_SetPriority(SPI1_IRQn, INTERRUPT_PRI_SDO12, 0);

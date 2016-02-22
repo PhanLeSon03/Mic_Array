@@ -24,6 +24,7 @@ __IO uint16_t cntFrm;
 
 extern uint8_t buffer_switch;
 extern Mic_Array_Data Buffer1,Buffer2,Buffer3;
+extern __IO uint8_t   cntBtnPress;
 
 /*-------------------------------------------------------------------------------------------------------------
 			  
@@ -112,20 +113,107 @@ switch (buffer_switch)
   case BUF1_PLAY:
 	for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
 	{
-	  PCM_Buffer1[i] = Buffer3.bufMIC5[i];			
-	}
-	
+		  switch (cntBtnPress)
+                  {
+                    case 0:
+                           PCM_Buffer1[i] = Buffer3.bufMIC1[i];
+                          break;
+                    case 1:
+                           PCM_Buffer1[i] = Buffer3.bufMIC2[i];
+                          break;
+                    case 2:
+                           PCM_Buffer1[i] = Buffer3.bufMIC3[i];
+                          break;
+                    case 3:
+                           PCM_Buffer1[i] = Buffer3.bufMIC4[i];
+                          break;
+                    case 4:
+                           PCM_Buffer1[i] = Buffer3.bufMIC5[i];
+                          break;
+                    case 5:
+                           PCM_Buffer1[i] = Buffer3.bufMIC6[i];
+                      break;
+                    case 6:
+                           PCM_Buffer1[i] = Buffer3.bufMIC7[i];
+                          break;
+                    case 7:
+                           PCM_Buffer1[i] = Buffer3.bufMIC8[i];
+                          break;
+                    default:
+					     PCM_Buffer1[i] = Buffer3.bufMIC1[i];
+                         break;
+                  }
+			
+	}	
 	break;
   case BUF2_PLAY:
 	for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
 	{
-	  PCM_Buffer1[i] = Buffer1.bufMIC5[i];			
+		  switch (cntBtnPress)
+                  {
+                    case 0:
+                           PCM_Buffer1[i] = Buffer1.bufMIC1[i];
+                          break;
+                    case 1:
+                           PCM_Buffer1[i] = Buffer1.bufMIC2[i];
+                          break;
+                    case 2:
+                           PCM_Buffer1[i] = Buffer1.bufMIC3[i];
+                          break;
+                    case 3:
+                           PCM_Buffer1[i] = Buffer1.bufMIC4[i];
+                          break;
+                    case 4:
+                           PCM_Buffer1[i] = Buffer1.bufMIC5[i];
+                          break;
+                    case 5:
+                           PCM_Buffer1[i] = Buffer1.bufMIC6[i];
+                      break;
+                    case 6:
+                           PCM_Buffer1[i] = Buffer1.bufMIC7[i];
+                          break;
+                    case 7:
+                           PCM_Buffer1[i] = Buffer1.bufMIC8[i];
+                          break;
+                    default:
+						  PCM_Buffer1[i] = Buffer1.bufMIC1[i];
+                          break;	
+                  }
 	}		
 	break;
   case BUF3_PLAY:
 	  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
 	  {
-		PCM_Buffer1[i] = Buffer2.bufMIC5[i];		  
+		  switch (cntBtnPress)
+                  {
+                    case 0:
+                           PCM_Buffer1[i] = Buffer2.bufMIC1[i];
+                          break;
+                    case 1:
+                           PCM_Buffer1[i] = Buffer2.bufMIC2[i];
+                          break;
+                    case 2:
+                           PCM_Buffer1[i] = Buffer2.bufMIC3[i];
+                          break;
+                    case 3:
+                           PCM_Buffer1[i] = Buffer2.bufMIC4[i];
+                          break;
+                    case 4:
+                           PCM_Buffer1[i] = Buffer2.bufMIC5[i];
+                          break;
+                    case 5:
+                           PCM_Buffer1[i] = Buffer2.bufMIC6[i];
+                      break;
+                    case 6:
+                           PCM_Buffer1[i] = Buffer2.bufMIC7[i];
+                          break;
+                    case 7:
+                           PCM_Buffer1[i] = Buffer2.bufMIC8[i];
+                          break;
+                    default:
+						  PCM_Buffer1[i] = Buffer2.bufMIC1[i];
+                          break;		  
+                  }
 	  }
 	break;
   default:
