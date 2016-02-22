@@ -49,7 +49,7 @@ extern PCD_HandleTypeDef hpcd;
 #define USBD_DEBUG_LEVEL                      0
 
 /* AUDIO Class Config */
-#define USBD_AUDIO_FREQ                       16000 //sop1hc:48000
+#define USBD_AUDIO_FREQ                       48000
 #define AUDIO_TOTAL_IF_NUM              0x02
 
 /* Exported macro ------------------------------------------------------------*/

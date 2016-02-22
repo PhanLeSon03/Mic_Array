@@ -76,7 +76,7 @@
 
 
 
-#define AUDIO_CHANNELS 				        			2
+#define AUDIO_CHANNELS 				            2
 #define AUDIO_SAMPLING_FREQUENCY 		            16000
 
 

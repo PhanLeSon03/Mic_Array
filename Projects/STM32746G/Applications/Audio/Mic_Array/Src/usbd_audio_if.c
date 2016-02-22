@@ -50,7 +50,6 @@ extern uint16_t PCM_Buffer[];
 extern uint16_t PDM_Buffer[];
 #endif
 
-uint8_t USBD_stAudioStop;
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -128,9 +127,6 @@ static int8_t Audio_DeInit(uint32_t options)
 */
 static int8_t Audio_Record(void)
 {
-
-USBD_stAudioStop=0;
-
 #ifndef DISABLE_USB_DRIVEN_ACQUISITION  
 #ifdef USE_STM32L4XX_NUCLEO
   //return BSP_AUDIO_IN_Record(PCM_Buffer, 0);
@@ -184,10 +180,8 @@ static int8_t Audio_MuteCtl(uint8_t cmd)
 */
 static int8_t Audio_Stop(void)
 {  
-    USBD_stAudioStop = 1;
 #ifndef DISABLE_USB_DRIVEN_ACQUISITION  
   //return BSP_AUDIO_IN_Stop();  
-
   return 0;
 #endif
 }
@@ -234,7 +228,8 @@ static int8_t Audio_CommandMgr(uint8_t cmd)
 *       you can pass 16 PCM samples if the function is called each millisecond,
 *       32 samples if called every 2 milliseconds and so on.
 */
-void Send_Audio_to_USB(int16_t * audioData, uint16_t PCMSamples){
+void Send_Audio_to_USB(int16_t * audioData, uint16_t PCMSamples)
+{
   
   USBD_AUDIO_Data_Transfer(&hUSBDDevice, (int16_t *)audioData, PCMSamples);
 }

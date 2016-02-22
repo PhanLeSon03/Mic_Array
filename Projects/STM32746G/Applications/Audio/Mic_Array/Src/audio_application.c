@@ -19,12 +19,11 @@ int16_t PCM_Buffer2[AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE];
 #pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE+4*AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE)
 int16_t PCM_Buffer3[AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE];
 
-uint16_t cntFrm;
+__IO uint16_t cntFrm;
 
 
 extern uint8_t buffer_switch;
 extern Mic_Array_Data Buffer1,Buffer2,Buffer3;
-extern uint8_t USBD_stAudioStop;
 
 /*-------------------------------------------------------------------------------------------------------------
 			  
@@ -39,9 +38,6 @@ extern uint8_t USBD_stAudioStop;
 
 void AudioProcess(uint16_t idxFrm)
 {
-
-
-
 #if 0
     switch (buffer_switch)
     {
@@ -77,7 +73,7 @@ void AudioMerging(void)
  	  	    {
 	 	  	    for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
 	 	  	    {
-	                PCM_Buffer3[AUDIO_CHANNELS*(i/2)+j] = (int16_t)*(&Buffer3.bufMIC7[0] + AUDIO_SIZE_ELEMENT*j + i);//
+	                PCM_Buffer3[8*(i/2)+j] = (int16_t)*(&Buffer3.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i);
 	 	  	    }
  	  	    }
 		}
@@ -90,7 +86,7 @@ void AudioMerging(void)
  	  	    {
 	 	  	    for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
 	 	  	    {
-	                PCM_Buffer1[AUDIO_CHANNELS*(i/2)+j] = (int16_t)*(&Buffer1.bufMIC7[0] + AUDIO_SIZE_ELEMENT*j + i);
+	                PCM_Buffer1[8*(i/2)+j] = (int16_t)*(&Buffer1.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i);
 	 	  	    }
  	  	    }
 		}	  	
@@ -102,7 +98,7 @@ void AudioMerging(void)
 		  {
 			  for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
 			  {
-				  PCM_Buffer2[AUDIO_CHANNELS*(i/2)+j] = (int16_t)*(&Buffer2.bufMIC7[0] + AUDIO_SIZE_ELEMENT*j + i);
+				  PCM_Buffer2[8*(i/2)+j] = (int16_t)*(&Buffer2.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i);
 			  }
 		  }
 		}
@@ -116,26 +112,26 @@ switch (buffer_switch)
   case BUF1_PLAY:
 	for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
 	{
-	  PCM_Buffer1[i] = Buffer3.bufMIC6[i];			
+	  PCM_Buffer1[i] = Buffer3.bufMIC5[i];			
 	}
 	
 	break;
   case BUF2_PLAY:
 	for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
 	{
-	  PCM_Buffer1[i] = Buffer1.bufMIC6[i];			
+	  PCM_Buffer1[i] = Buffer1.bufMIC5[i];			
 	}		
 	break;
   case BUF3_PLAY:
 	  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
 	  {
-		PCM_Buffer1[i] = Buffer2.bufMIC6[i];		  
+		PCM_Buffer1[i] = Buffer2.bufMIC5[i];		  
 	  }
 	break;
   default:
 	break;
 }
-cntFrm=0;
+//cntFrm=0;
 
 }
 

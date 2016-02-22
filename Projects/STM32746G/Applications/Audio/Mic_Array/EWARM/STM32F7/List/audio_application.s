@@ -1,60 +1,60 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      20/Feb/2016  23:51:52
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      22/Feb/2016  14:14:20
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\audio_application.c
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\audio_application.c
 //    Command line =  
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\audio_application.c
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\audio_application.c
 //        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 //        USE_IOEXPANDER -D USE_USB_FS -lC
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -lA
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
 //        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
 //        --no_clustering --no_scheduling --debug --endian=little
 //        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
 //        -On --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\audio_application.s
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\audio_application.s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -126,7 +126,7 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
         
-// H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\audio_application.c
+// D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\audio_application.c
 //    1 
 //    2 
 //    3 /* Includes ------------------------------------------------------------------*/
@@ -166,62 +166,58 @@ PCM_Buffer3:
 
         SECTION `.bss`:DATA:REORDER:NOROOT(1)
         DATA
-//   22 uint16_t cntFrm;
+//   22 __IO uint16_t cntFrm;
 cntFrm:
         DS8 2
 //   23 
 //   24 
 //   25 extern uint8_t buffer_switch;
 //   26 extern Mic_Array_Data Buffer1,Buffer2,Buffer3;
-//   27 extern uint8_t USBD_stAudioStop;
-//   28 
-//   29 /*-------------------------------------------------------------------------------------------------------------
-//   30 			  
-//   31 	Sequence  Record Data                     Processing Data                 Player Data
-//   32 			  
-//   33 	1-------  Buffer1                         Buffer2                         Buffer3
-//   34 			  
-//   35 	2-------  Buffer3                         Buffer1                         Buffer2		  
-//   36 			  
-//   37 	3-------  Buffer2                         Buffer3                         Buffer1 
-//   38  ---------------------------------------------------------------------------------------------------------------*/
-//   39 
+//   27 
+//   28 /*-------------------------------------------------------------------------------------------------------------
+//   29 			  
+//   30 	Sequence  Record Data                     Processing Data                 Player Data
+//   31 			  
+//   32 	1-------  Buffer1                         Buffer2                         Buffer3
+//   33 			  
+//   34 	2-------  Buffer3                         Buffer1                         Buffer2		  
+//   35 			  
+//   36 	3-------  Buffer2                         Buffer3                         Buffer1 
+//   37  ---------------------------------------------------------------------------------------------------------------*/
+//   38 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock0 Using cfiCommon0
           CFI Function AudioProcess
         THUMB
-//   40 void AudioProcess(uint16_t idxFrm)
-//   41 {
+//   39 void AudioProcess(uint16_t idxFrm)
+//   40 {
 AudioProcess:
         PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
         MOVS     R4,R0
-//   42 
-//   43 
-//   44 
-//   45 #if 0
-//   46     switch (buffer_switch)
-//   47     {
-//   48       case BUF1_PLAY:
-//   49 		Send_Audio_to_USB((int16_t *)PCM_Buffer3, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS);
-//   50         break;
-//   51       case BUF2_PLAY:
-//   52         Send_Audio_to_USB((int16_t *)PCM_Buffer1, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS); 
-//   53         break;
-//   54       case BUF3_PLAY:
-//   55         Send_Audio_to_USB((int16_t *)PCM_Buffer2, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS); 
-//   56         break;
-//   57       default:
-//   58         break;
-//   59     }
-//   60 	
-//   61 #endif
-//   62     //Send_Audio_to_USB((int16_t *)PCM_Buffer1, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS);
-//   63     
-//   64     Send_Audio_to_USB((int16_t *)&PCM_Buffer1[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+//   41 #if 0
+//   42     switch (buffer_switch)
+//   43     {
+//   44       case BUF1_PLAY:
+//   45 		Send_Audio_to_USB((int16_t *)PCM_Buffer3, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS);
+//   46         break;
+//   47       case BUF2_PLAY:
+//   48         Send_Audio_to_USB((int16_t *)PCM_Buffer1, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS); 
+//   49         break;
+//   50       case BUF3_PLAY:
+//   51         Send_Audio_to_USB((int16_t *)PCM_Buffer2, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS); 
+//   52         break;
+//   53       default:
+//   54         break;
+//   55     }
+//   56 	
+//   57 #endif
+//   58     //Send_Audio_to_USB((int16_t *)PCM_Buffer1, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS);
+//   59     
+//   60     Send_Audio_to_USB((int16_t *)&PCM_Buffer1[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
         MOVS     R1,#+32
         LDR.N    R0,??DataTable1  ;; 0xc00181e0
         UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
@@ -229,65 +225,65 @@ AudioProcess:
         MLA      R0,R2,R4,R0
           CFI FunCall Send_Audio_to_USB
         BL       Send_Audio_to_USB
-//   65 
-//   66 }
+//   61 
+//   62 }
         POP      {R4,PC}          ;; return
           CFI EndBlock cfiBlock0
         REQUIRE PCM_Buffer1
-//   67 
+//   63 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock1 Using cfiCommon0
           CFI Function AudioMerging
           CFI NoCalls
         THUMB
-//   68 void AudioMerging(void)
-//   69 {
-//   70 #if 0
-//   71 	switch (buffer_switch)
-//   72     {
-//   73       case BUF1_PLAY:
-//   74 	  	for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
-//   75  	  	{
-//   76  	  	    if (i%2==0)
-//   77  	  	    {
-//   78 	 	  	    for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
-//   79 	 	  	    {
-//   80 	                PCM_Buffer3[AUDIO_CHANNELS*(i/2)+j] = (int16_t)*(&Buffer3.bufMIC7[0] + AUDIO_SIZE_ELEMENT*j + i);//
-//   81 	 	  	    }
-//   82  	  	    }
-//   83 		}
-//   84 		
-//   85         break;
-//   86       case BUF2_PLAY:
-//   87 	  	for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
-//   88  	  	{
-//   89  	  	    if (i%2==0)
-//   90  	  	    {
-//   91 	 	  	    for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
-//   92 	 	  	    {
-//   93 	                PCM_Buffer1[AUDIO_CHANNELS*(i/2)+j] = (int16_t)*(&Buffer1.bufMIC7[0] + AUDIO_SIZE_ELEMENT*j + i);
-//   94 	 	  	    }
-//   95  	  	    }
-//   96 		}	  	
-//   97         break;
-//   98       case BUF3_PLAY:
-//   99 		for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
-//  100 		{
-//  101 		  if (i%2==0)
-//  102 		  {
-//  103 			  for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
-//  104 			  {
-//  105 				  PCM_Buffer2[AUDIO_CHANNELS*(i/2)+j] = (int16_t)*(&Buffer2.bufMIC7[0] + AUDIO_SIZE_ELEMENT*j + i);
-//  106 			  }
-//  107 		  }
-//  108 		}
-//  109         break;
-//  110       default:
-//  111         break;
-//  112     }
-//  113 #endif
-//  114 switch (buffer_switch)
+//   64 void AudioMerging(void)
+//   65 {
+//   66 #if 0
+//   67 	switch (buffer_switch)
+//   68     {
+//   69       case BUF1_PLAY:
+//   70 	  	for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
+//   71  	  	{
+//   72  	  	    if (i%2==0)
+//   73  	  	    {
+//   74 	 	  	    for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
+//   75 	 	  	    {
+//   76 	                PCM_Buffer3[8*(i/2)+j] = (int16_t)*(&Buffer3.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i);
+//   77 	 	  	    }
+//   78  	  	    }
+//   79 		}
+//   80 		
+//   81         break;
+//   82       case BUF2_PLAY:
+//   83 	  	for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
+//   84  	  	{
+//   85  	  	    if (i%2==0)
+//   86  	  	    {
+//   87 	 	  	    for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
+//   88 	 	  	    {
+//   89 	                PCM_Buffer1[8*(i/2)+j] = (int16_t)*(&Buffer1.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i);
+//   90 	 	  	    }
+//   91  	  	    }
+//   92 		}	  	
+//   93         break;
+//   94       case BUF3_PLAY:
+//   95 		for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
+//   96 		{
+//   97 		  if (i%2==0)
+//   98 		  {
+//   99 			  for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
+//  100 			  {
+//  101 				  PCM_Buffer2[8*(i/2)+j] = (int16_t)*(&Buffer2.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i);
+//  102 			  }
+//  103 		  }
+//  104 		}
+//  105         break;
+//  106       default:
+//  107         break;
+//  108     }
+//  109 #endif
+//  110 switch (buffer_switch)
 AudioMerging:
         LDR.N    R0,??DataTable1_1
         LDRB     R0,[R0, #+0]
@@ -297,91 +293,88 @@ AudioMerging:
         BEQ.N    ??AudioMerging_1
         BCC.N    ??AudioMerging_2
         B.N      ??AudioMerging_3
-//  115 {
-//  116   case BUF1_PLAY:
-//  117 	for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  111 {
+//  112   case BUF1_PLAY:
+//  113 	for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
 ??AudioMerging_0:
         MOVS     R0,#+0
 ??AudioMerging_4:
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         CMP      R0,#+2048
         BGE.N    ??AudioMerging_5
-//  118 	{
-//  119 	  PCM_Buffer1[i] = Buffer3.bufMIC6[i];			
+//  114 	{
+//  115 	  PCM_Buffer1[i] = Buffer3.bufMIC5[i];			
         LDR.N    R1,??DataTable1_2
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         ADDS     R1,R1,R0, LSL #+1
-        MOVW     R2,#+20580
+        MOVW     R2,#+16464
         LDRH     R1,[R2, R1]
         LDR.N    R2,??DataTable1  ;; 0xc00181e0
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         STRH     R1,[R2, R0, LSL #+1]
-//  120 	}
+//  116 	}
         ADDS     R0,R0,#+1
         B.N      ??AudioMerging_4
-//  121 	
-//  122 	break;
+//  117 	
+//  118 	break;
 ??AudioMerging_5:
         B.N      ??AudioMerging_6
-//  123   case BUF2_PLAY:
-//  124 	for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  119   case BUF2_PLAY:
+//  120 	for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
 ??AudioMerging_2:
         MOVS     R0,#+0
 ??AudioMerging_7:
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         CMP      R0,#+2048
         BGE.N    ??AudioMerging_8
-//  125 	{
-//  126 	  PCM_Buffer1[i] = Buffer1.bufMIC6[i];			
+//  121 	{
+//  122 	  PCM_Buffer1[i] = Buffer1.bufMIC5[i];			
         LDR.N    R1,??DataTable1_3
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         ADDS     R1,R1,R0, LSL #+1
-        MOVW     R2,#+20580
+        MOVW     R2,#+16464
         LDRH     R1,[R2, R1]
         LDR.N    R2,??DataTable1  ;; 0xc00181e0
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         STRH     R1,[R2, R0, LSL #+1]
-//  127 	}		
+//  123 	}		
         ADDS     R0,R0,#+1
         B.N      ??AudioMerging_7
-//  128 	break;
+//  124 	break;
 ??AudioMerging_8:
         B.N      ??AudioMerging_6
-//  129   case BUF3_PLAY:
-//  130 	  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  125   case BUF3_PLAY:
+//  126 	  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
 ??AudioMerging_1:
         MOVS     R0,#+0
 ??AudioMerging_9:
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         CMP      R0,#+2048
         BGE.N    ??AudioMerging_10
-//  131 	  {
-//  132 		PCM_Buffer1[i] = Buffer2.bufMIC6[i];		  
+//  127 	  {
+//  128 		PCM_Buffer1[i] = Buffer2.bufMIC5[i];		  
         LDR.N    R1,??DataTable1_4
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         ADDS     R1,R1,R0, LSL #+1
-        MOVW     R2,#+20580
+        MOVW     R2,#+16464
         LDRH     R1,[R2, R1]
         LDR.N    R2,??DataTable1  ;; 0xc00181e0
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         STRH     R1,[R2, R0, LSL #+1]
-//  133 	  }
+//  129 	  }
         ADDS     R0,R0,#+1
         B.N      ??AudioMerging_9
-//  134 	break;
+//  130 	break;
 ??AudioMerging_10:
         B.N      ??AudioMerging_6
-//  135   default:
-//  136 	break;
-//  137 }
-//  138 cntFrm=0;
+//  131   default:
+//  132 	break;
+//  133 }
+//  134 //cntFrm=0;
+//  135 
+//  136 }
 ??AudioMerging_3:
 ??AudioMerging_6:
-        MOVS     R0,#+0
-        LDR.N    R1,??DataTable1_5
-        STRH     R0,[R1, #+0]
-//  139 
-//  140 }
         BX       LR               ;; return
           CFI EndBlock cfiBlock1
         REQUIRE PCM_Buffer1
@@ -416,12 +409,6 @@ AudioMerging:
 ??DataTable1_4:
         DC32     Buffer2
 
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_5:
-        DC32     cntFrm
-
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
@@ -434,16 +421,16 @@ AudioMerging:
         SECTION_TYPE SHT_PROGBITS, 0
 
         END
-//  141 
-//  142 
-//  143 
+//  137 
+//  138 
+//  139 
 // 
 //      2 bytes in section .bss
 // 12 288 bytes in section .bss  (abs)
-//    184 bytes in section .text
+//    174 bytes in section .text
 // 
-//    184 bytes of CODE memory
+//    174 bytes of CODE memory
 // 12 290 bytes of DATA memory
 //
 //Errors: none
-//Warnings: none
+//Warnings: 1

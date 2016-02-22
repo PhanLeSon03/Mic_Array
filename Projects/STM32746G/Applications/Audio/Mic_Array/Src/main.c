@@ -345,7 +345,6 @@ int main(void)
   /* Initialize the SDRAM */
   BSP_SDRAM_Init();
 
-
   BSP_LED_Init(LED1);
   BSP_LED_Init(LED2);
 
@@ -385,53 +384,46 @@ int main(void)
     /*----------------------------------------*/
 
 #if (DEBUG)  
-		/* UART for debug */
-		USART3_Init();
+    /* UART for debug */
+    USART3_Init();
 #endif
 
-#if (USB_STREAMING)
-						  
-		/* Initialize USB descriptor basing on channels number and sampling frequency */
-		USBD_AUDIO_Init_Microphone_Descriptor(&hUSBDDevice, AUDIO_SAMPLING_FREQUENCY, AUDIO_CHANNELS);
-		/* Init Device Library */
-		USBD_Init(&hUSBDDevice, &AUDIO_Desc, 0);
-		/* Add Supported Class */
-		USBD_RegisterClass(&hUSBDDevice, &USBD_AUDIO);
-		/* Add Interface callbacks for AUDIO Class */  
-		USBD_AUDIO_RegisterInterface(&hUSBDDevice, &USBD_AUDIO_fops);
-		/* Start Device Process */
-		USBD_Start(&hUSBDDevice);
-	  
-	  
-		/* Init Host Library */
-		//test GIT //USBH_Init(&hUSBHost, USBH_UserProcess, 0);
-	  
-		/* Add Supported Class */
-		//test GIT //USBH_RegisterClass(&hUSBHost, USBH_MSC_CLASS);
-		
-		/* Start Host Process */
-		//test GIT //USBH_Start(&hUSBHost);
-						  
-#endif 
+#if (USB_STREAMING)	
+    /* Initialize USB descriptor basing on channels number and sampling frequency */
+    USBD_AUDIO_Init_Microphone_Descriptor(&hUSBDDevice, AUDIO_SAMPLING_FREQUENCY, AUDIO_CHANNELS);
+    /* Init Device Library */
+    USBD_Init(&hUSBDDevice, &AUDIO_Desc, 0);
+    /* Add Supported Class */
+    USBD_RegisterClass(&hUSBDDevice, &USBD_AUDIO);
+    /* Add Interface callbacks for AUDIO Class */  
+    USBD_AUDIO_RegisterInterface(&hUSBDDevice, &USBD_AUDIO_fops);
+    /* Start Device Process */
+    USBD_Start(&hUSBDDevice);
 
+    /* Init Host Library */
+    //test GIT //USBH_Init(&hUSBHost, USBH_UserProcess, 0);
+
+    /* Add Supported Class */
+    //test GIT //USBH_RegisterClass(&hUSBHost, USBH_MSC_CLASS);
+    
+    /* Start Host Process */
+    //test GIT //USBH_Start(&hUSBHost);						  
+#endif 					  
 
     /*----------------------------------------*/
     MX_I2C2_Init(); //for STA321MP
     STA321MP_Ini();
-	BSP_LED_Toggle(LED1);
+    BSP_LED_Toggle(LED1);
     /* Init Audio Application */
     AUDIO_InitApplication();
-	BSP_LED_Toggle(LED2);
-   
+    BSP_LED_Toggle(LED2);
 
-	
-	buffer_switch = BUF3_PLAY;		 /* record data to buffer1 */
-	MIC1TO6_Init();
+    buffer_switch = BUF3_PLAY;		 /* record data to buffer1 */
+    MIC1TO6_Init();
 	                  
-					  
 
 
-	while (1)
+    while (1)
     {
 		/* there is data in the buffer */  
 		if((WaveRec_idxSens1>=(2*AUDIO_OUT_BUFFER_SIZE-1))&&(stFrstFrmStore<3))
@@ -455,34 +447,35 @@ int main(void)
 		
 		}
 
-
-         if (cntStrt==5)
+                 /* This calculation happens once time in power cycles */
+                 /* After 5 times of full frame recieved interrupt */
+                 if (cntStrt==5)
 		 {
 			   if ((WaveRecord_flgIni<200))
 			   {
 				  for(char i=0;i<16;i++)
 				  {
-					  //if (ValBit(SPI1_stNipple,i)!=0) 
-					  //{
-					//	 I2S1_stPosShft = 0;//MAX(I2S1_stPosShft,i+1);
-					 // }
+                                      //if (ValBit(SPI1_stNipple,i)!=0) 
+                                      //{
+                                      //	 I2S1_stPosShft = 0;//MAX(I2S1_stPosShft,i+1);
+                                      // }
 
-					  //if (ValBit(I2S2_stNipple,i)!=0) 
-		              //{
-		              //   I2S2_stPosShft = 0;//MAX(I2S2_stPosShft,i+1);
-		              //}
+                                      //if (ValBit(I2S2_stNipple,i)!=0) 
+                                      //{
+                                      //   I2S2_stPosShft = 0;//MAX(I2S2_stPosShft,i+1);
+                                      //}
 
-					  if (ValBit(I2S1_stNipple,i)!=0) 
-					 {
-						 SPI4_stPosShft = MAX(SPI4_stPosShft,i+1);
-					 }
+                                      if (ValBit(I2S1_stNipple,i)!=0) 
+                                      {
+                                         SPI4_stPosShft = MAX(SPI4_stPosShft,i+1);
+                                      }
 				  }
 					
 			   }
-		       else if (WaveRecord_flgIni<255)
-		       {
-		           WaveRecord_flgIni++;
-		       }
+                           else if (WaveRecord_flgIni<255)
+                           {
+                               WaveRecord_flgIni++;
+                           }
 			   else
 			   {
 
@@ -490,23 +483,6 @@ int main(void)
 					   
 		 }
 	
-
-		if (cntStrt==6)
-		{
-					  if ((WaveRecord_flgIni<200))
-					  {
-						 for(char i=0;i<16;i++)
-						 {
-
-						 }
-						   
-					  }
-		}
-		else
-		{
-					 
-		} 
-
 		/* USB Host Background task */
 		//USBH_Process(&hUSBHost);
 
@@ -519,7 +495,7 @@ int main(void)
 		    flg10ms=0;		   		      
 	         cntTime200++;
 	         if (cntTime200==40)
-	          {
+	         {
 	 
 #if (DEBUG)
 
@@ -542,51 +518,49 @@ int main(void)
                         else
                         {
                              sprintf((char *)pUARTBuf,"%d:%d:%d:%d ",idxLatency63,idxLatency14,idxLatency25,idxLatency78);
-							 flagNotMin=0 ;
+                             flagNotMin=0 ;
 
-							if (test[3]>0)
-							{
-							   if((test[1]<=0)&&(test[4]<=0))
-							   {
-								flagNotMin=1 ;
-								sprintf((char *)(pUARTBuf+15),"Close Mic 2\r\n");
-							   }
-							}
-							else if (test[3]<-2)
-							{
-							    if((test[1]>1)&&(test[4]>1))
-							    {
-									flagNotMin=1 ;
-									sprintf((char *)(pUARTBuf+15),"Clsoe Mic 5\r\n");
-							    }
+                              if (test[3]>0)
+                              {
+                                 if((test[1]<=0)&&(test[4]<=0))
+                                 {
+                                      flagNotMin=1 ;
+                                      sprintf((char *)(pUARTBuf+15),"Close Mic 2\r\n");
+                                 }
+                              }
+                              else if (test[3]<-2)
+                              {
+                                  if((test[1]>1)&&(test[4]>1))
+                                  {
+                                    flagNotMin=1 ;
+                                    sprintf((char *)(pUARTBuf+15),"Clsoe Mic 5\r\n");
+                                  }
 
-							}
-							else
-							{
-									}	
-
+                              }
+                              else
+                              {
+                              }	
 							
-
-							if (test[2]>2)
+			    if (test[2]>2)
                       	    {
                       	       if((test[1]>=-1)&&(test[3]<=-3))
                       	       {
-								 flagNotMin=1 ;
-								 sprintf((char *)(pUARTBuf+15),"Clsoe Mic 4\r\n");
+                                 flagNotMin=1 ;
+                                 sprintf((char *)(pUARTBuf+15),"Clsoe Mic 4\r\n");
                       	       }
                       	    }
-							else if (test[2]<=-1)
-							{
-							   if((test[1]<=-2)&&(test[3]>=0))
+                            else if (test[2]<=-1)
+                            {
+                               if((test[1]<=-2)&&(test[3]>=0))
                       	       {
-								 flagNotMin=1 ;
-								 sprintf((char *)(pUARTBuf+15),"Clsoe Mic 1\r\n");
-							   }
-							}
-							else
-							{
+                                     flagNotMin=1 ;
+                                     sprintf((char *)(pUARTBuf+15),"Clsoe Mic 1\r\n");
+                               }
+                            }
+                            else
+                            {
 
-							}
+                            }
 
 						   
                             if (test[1]>=0)
@@ -598,51 +572,46 @@ int main(void)
                       	       }
 
                       	    }
-							else if (test[1]<=-3)
-							{
-							   if((test[2]<=0)&&(test[4]>=2))
+                            else if (test[1]<=-3)
+                            {
+                               if((test[2]<=0)&&(test[4]>=2))
                       	       {
-								 flagNotMin=1 ;
-								 sprintf((char *)(pUARTBuf+15),"Clsoe Mic 6\r\n");
-							   }
+                                   flagNotMin=1 ;
+                                   sprintf((char *)(pUARTBuf+15),"Clsoe Mic 6\r\n");
+                               }
 
-							}
-							else
-							{
+                            }
+                            else
+                            {
 
-							}
+                            }
 
 
-							if ((test[4]<=-1))
-							{
-
+                            if ((test[4]<=-1))
+                            {
                                 if ((test[1]>=-1)&&(test[3]>-0))
                                 {
-									sprintf((char *)(pUARTBuf+15),"Clsoe Mic 7\r\n");
-									flagNotMin=1 ;
-
+                                  sprintf((char *)(pUARTBuf+15),"Clsoe Mic 7\r\n");
+                                  flagNotMin=1 ;
                                	}
+                            }
+                          else if (test[4]>=3)
+                          {
+                              if ((test[1]<-1)&&(test[3]<-2))
+                             {
+                                  sprintf((char *)(pUARTBuf+15),"Clsoe Mic 8\r\n");
+                                  flagNotMin=1 ;
+                             }
 
-								;
-							}
-							else if (test[4]>=3)
-							{
-							    if ((test[1]<-1)&&(test[3]<-2))
-							   {
-								sprintf((char *)(pUARTBuf+15),"Clsoe Mic 8\r\n");
-								flagNotMin=1 ;
-							   }
+                          }
+                          else
+                          {
 
-							}
-							else
-							{
-
-							}
+                          }
 
 
-							if (flagNotMin==0) sprintf((char *)(pUARTBuf+15),"----------- \r\n");
+			  if (flagNotMin==0) sprintf((char *)(pUARTBuf+15),"----------- \r\n");
 									
-           
                           //HAL_UART_Transmit_IT(&huart3,pUARTBuf,15);
                           SrvB_Debound(&flgS2Ins,&flgS2Flt, flgS2,2);
                           SrvB_Debound(&flgS3Ins,&flgS3Flt, flgS3,2);
@@ -694,15 +663,9 @@ int main(void)
 
 #endif
 	   	            cntTime200=0;
-                         }
-
-
-                    }
-
-
-	
+        } //(cntTime200==40)
+      }	
   }
-  
 }
 
 /**
@@ -1065,16 +1028,16 @@ void EXTI4_IRQHandler(void)
         //__HAL_SPI_ENABLE_IT(&hspi5, (SPI_IT_RXNE| SPI_IT_ERR));
 		//__HAL_UNLOCK(&hspi5);
         //__HAL_SPI_ENABLE(&hspi5);
-		cntRisingEXTI=0;
+        cntRisingEXTI=0;
 
-		/*Disable external interrupt */
-		HAL_NVIC_DisableIRQ((IRQn_Type)(EXTI4_IRQn));
-		//HAL_GPIO_DeInit(GPIOB,GPIO_PIN_4);
+        /*Disable external interrupt */
+        HAL_NVIC_DisableIRQ((IRQn_Type)(EXTI4_IRQn));
+        //HAL_GPIO_DeInit(GPIOB,GPIO_PIN_4);
      }
      else
      {
-         cntRisingEXTI++;
-		 //__HAL_SPI_DISABLE(&hspi5);
+        cntRisingEXTI++;
+        //__HAL_SPI_DISABLE(&hspi5);
      }
      
       __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_4);
