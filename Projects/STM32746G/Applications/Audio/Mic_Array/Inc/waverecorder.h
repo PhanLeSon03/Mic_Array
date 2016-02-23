@@ -45,6 +45,7 @@ void RecordUpdBuf(void);
 void PDM2PCMSDO78(void);
 void DMA2_Stream5_IRQHandler(void);
 void DMA2_Stream6_IRQHandler(void);
+void StartRecMic7_8 (void);
 
 
 

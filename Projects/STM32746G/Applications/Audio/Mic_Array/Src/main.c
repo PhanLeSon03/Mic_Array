@@ -429,21 +429,24 @@ int main(void)
 		/* there is data in the buffer */  
 		if((WaveRec_idxSens1>=(2*AUDIO_OUT_BUFFER_SIZE-1))&&(stFrstFrmStore<3))
 		{
+		    RESET_IDX
 			/* this is just run 1 time after 1st frame of I2S data full */
 			if ((stFrstFrmStore<3))
 			{
 				stFrstFrmStore++;
-				buffer_switch = BUF2_PLAY; /* record data to buffer3 */
+			#ifdef CS43L22_PLAY
+			    buffer_switch = BUF2_PLAY; /* record data to buffer3 */
+			#endif
 				if (stFrstFrmStore==2)
 				{
-				#ifdef CS43L22_PLAY
+				    StartRecMic7_8();
+			#ifdef CS43L22_PLAY
 					/*------------------------PLAYER------------------------------------------*/
 					Audio_MAL_Play((uint32_t)Buffer1.bufMIC1,4*AUDIO_OUT_BUFFER_SIZE);
-					/*------------------------------------------------------------------------*/
-				#endif
+					/*------------------------------------------------------------------------*/				
 					buffer_switch = BUF1_PLAY;
-					flgDlyUpd = 0;
-				}
+			#endif
+			}				
 			
 			}
 		
