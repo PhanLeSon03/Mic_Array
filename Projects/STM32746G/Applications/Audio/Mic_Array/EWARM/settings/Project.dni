@@ -2,7 +2,7 @@
 stlinkserialNo=391C0B1F
 stlinkfoundProbes=
 [DebugChecksum]
-Checksum=1314473838
+Checksum=1901973264
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -64,9 +64,10 @@ Fmt0=DMA_Stream_TypeDef-M0AR	4	0
 Fmt1=DMA_Stream_TypeDef-M1AR	4	0
 [array_types]
 Fmt0=int16_t[1034]	1	0
-Fmt1=uint16_t[2048]	1	0
-Fmt2=uint16_t[4096]	1	0
-Fmt3=uint16_t[9216]	1	0
+Fmt1=int16_t[4096]	1	0
+Fmt2=uint16_t[2048]	1	0
+Fmt3=uint16_t[4096]	1	0
+Fmt4=uint16_t[9216]	1	0
 [watch_formats]
 Fmt0={W}1:Buffer1	0	3
 Fmt1={W}1:I2S1_stPosShft	3	0
@@ -112,10 +113,22 @@ ShowTimeLog=1
 SumEnabled=0
 ShowTimeSum=1
 SumSortOrder=0
+[Disassemble mode]
+mode=0
+[Breakpoints2]
+Bp0=_ 0 "EMUL_DATA" "AudioFlashPlay" 0 0 0 0 4294967295
+Bp1=_ 0 "EMUL_DATA" "HAL_DMA_IRQHandler" 0 0 0 0 4294967295
+Count=2
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
 Category=_ 0
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
+[Aliases]
+Count=0
+SuppressDialog=0
 [DriverProfiling]
 Enabled=0
 Mode=3
@@ -126,15 +139,3 @@ Exclusions=
 Enabled=0
 [CallStackStripe]
 ShowTiming=1
-[Disassemble mode]
-mode=0
-[Breakpoints2]
-Bp0=_ 0 "EMUL_DATA" "AudioFlashPlay" 0 0 0 0 4294967295
-Bp1=_ 0 "EMUL_DATA" "HAL_DMA_IRQHandler" 0 0 0 0 4294967295
-Count=2
-[Aliases]
-Count=0
-SuppressDialog=0
-[TermIOLog]
-LoggingEnabled=_ 0
-LogFile=_ ""

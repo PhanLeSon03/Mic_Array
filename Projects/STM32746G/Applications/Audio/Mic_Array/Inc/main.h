@@ -71,7 +71,7 @@
 #define INTERRUPT_PRI_SDO56     2
 #define INTERRUPT_PRI_AUDIOOUT  3
 #define INTERRUPT_PRI_SDO7      4
-#define INTERRUPT_PRI_SDO8      4
+#define INTERRUPT_PRI_SDO8      7
 #define INTERRUPT_PRI_DMA       5
 #define INTERRUPT_PRI_EXT_LRCK  6
 

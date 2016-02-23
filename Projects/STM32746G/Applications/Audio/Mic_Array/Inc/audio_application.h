@@ -9,8 +9,8 @@ independentrly from USB functionalities*/
 
 
 
-void AudioProcess(uint16_t idxFrm);
-void AudioMerging(void);
+void AudioUSBSend(uint16_t idxFrm);
+void AudioPlayerUpd(void);
 
 
 

@@ -32,7 +32,7 @@ extern uint8_t WaveRecord_flgIni;
 extern uint32_t EnergySound;
 extern I2C_HandleTypeDef hi2c2;
 extern __IO uint16_t cntStrt;
-extern __IO int16_t SPI1_stNipple,I2S1_stNipple, I2S2_stNipple;
+extern __IO int16_t SPI1_stNipple,I2S1_stNipple, I2S2_stNipple,SPI4_stNipple;
 extern __IO   uint8_t I2S1_stPosShft,I2S2_stPosShft,SPI4_stPosShft;
 extern USBD_AUDIO_ItfTypeDef  USBD_AUDIO_fops;
 /* GLOBAL VARIABLE -----------------------------------------------------------*/
@@ -115,7 +115,7 @@ inline static void FFT_Update(void)
       /* Hafl buffer is filled in by I2S data stream in */
       if((flgDlyUpd==0))
       {
-            //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_15);
+            //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_15); 
             FactorUpd(&FacMic); 
             //STM_EVAL_LEDOn(LED3);
             flgDlyUpd = 1; 
@@ -451,8 +451,8 @@ int main(void)
 
                  /* This calculation happens once time in power cycles */
                  /* After 5 times of full frame recieved interrupt */
-                 if (cntStrt==5)
-		 {
+                 if (cntStrt==10)
+		       {
 			   if ((WaveRecord_flgIni<200))
 			   {
 				  for(char i=0;i<16;i++)
@@ -467,7 +467,7 @@ int main(void)
                                       //   I2S2_stPosShft = 0;//MAX(I2S2_stPosShft,i+1);
                                       //}
 
-                                      if (ValBit(I2S1_stNipple,i)!=0) 
+                                      if (ValBit(SPI4_stNipple,i)!=0) 
                                       {
                                          SPI4_stPosShft = MAX(SPI4_stPosShft,i+1);
                                       }
@@ -490,6 +490,7 @@ int main(void)
 
 		/* AUDIO Menu Process */
 		//AUDIO_MenuProcess();
+		
 		FFT_Update(); 
 
 		if (flg10ms==1)
