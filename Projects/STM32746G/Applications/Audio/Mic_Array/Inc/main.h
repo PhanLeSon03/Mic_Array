@@ -66,8 +66,8 @@
 #define BUFFER_SIZE_BYTE                (0x000080A0)                       
 
 
-#define INTERRUPT_PRI_SDO12     0
-#define INTERRUPT_PRI_SDO34     1
+#define INTERRUPT_PRI_SDO12     1
+#define INTERRUPT_PRI_SDO34     0
 #define INTERRUPT_PRI_SDO56     2
 #define INTERRUPT_PRI_AUDIOOUT  3
 #define INTERRUPT_PRI_SDO7      4

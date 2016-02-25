@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       25/Feb/2016  12:02:38
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       25/Feb/2016  15:20:40
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -16,9 +16,11 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 #        -o
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-#        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
-#        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
-#        7.3\arm\INC\c\DLib_Config_Full.h" -I
+#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+#        --no_clustering --no_scheduling --debug --endian=little
+#        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\INC\c\DLib_Config_Full.h"
+#        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
@@ -48,7 +50,7 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -On --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7
 #    List file    =  
@@ -160,27 +162,32 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
      97                                         uint16_t len)
      98          {
    \                     USBD_CtlSendData: (+1)
-   \   00000000   0xB500             PUSH     {LR}
-   \   00000002   0xB081             SUB      SP,SP,#+4
+   \   00000000   0xB570             PUSH     {R4-R6,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
+   \   00000006   0x0016             MOVS     R6,R2
      99            /* Set EP0 State */
     100            pdev->ep0_state          = USBD_EP0_DATA_IN;                                      
-   \   00000004   0x2302             MOVS     R3,#+2
-   \   00000006   0xF8C0 0x31F4      STR      R3,[R0, #+500]
+   \   00000008   0x2002             MOVS     R0,#+2
+   \   0000000A   0xF8C4 0x01F4      STR      R0,[R4, #+500]
     101            pdev->ep_in[0].total_length = len;
+   \   0000000E   0xB2B6             UXTH     R6,R6            ;; ZeroExt  R6,R6,#+16,#+16
+   \   00000010   0x61A6             STR      R6,[R4, #+24]
     102            pdev->ep_in[0].rem_length   = len;
+   \   00000012   0xB2B6             UXTH     R6,R6            ;; ZeroExt  R6,R6,#+16,#+16
+   \   00000014   0x61E6             STR      R6,[R4, #+28]
     103           /* Start the transfer */
     104            USBD_LL_Transmit (pdev, 0x00, pbuf, len);  
-   \   0000000A   0x4613             MOV      R3,R2
-   \   0000000C   0x6182             STR      R2,[R0, #+24]
-   \   0000000E   0x61C2             STR      R2,[R0, #+28]
-   \   00000010   0x460A             MOV      R2,R1
-   \   00000012   0x2100             MOVS     R1,#+0
-   \   00000014   0x.... 0x....      BL       USBD_LL_Transmit
+   \   00000016   0x0033             MOVS     R3,R6
+   \   00000018   0xB29B             UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
+   \   0000001A   0x002A             MOVS     R2,R5
+   \   0000001C   0x2100             MOVS     R1,#+0
+   \   0000001E   0x0020             MOVS     R0,R4
+   \   00000020   0x.... 0x....      BL       USBD_LL_Transmit
     105            
     106            return USBD_OK;
-   \   00000018   0x2000             MOVS     R0,#+0
-   \   0000001A   0xB001             ADD      SP,SP,#+4
-   \   0000001C   0xBD00             POP      {PC}             ;; return
+   \   00000024   0x2000             MOVS     R0,#+0
+   \   00000026   0xBD70             POP      {R4-R6,PC}       ;; return
     107          }
     108          
     109          /**
@@ -197,20 +204,23 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     118                                                 uint8_t *pbuf,
     119                                                 uint16_t len)
     120          {
+   \                     USBD_CtlContinueSendData: (+1)
+   \   00000000   0xB570             PUSH     {R4-R6,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
+   \   00000006   0x0016             MOVS     R6,R2
     121           /* Start the next transfer */
     122            USBD_LL_Transmit (pdev, 0x00, pbuf, len);   
-   \                     USBD_CtlContinueSendData: (+1)
-   \   00000000   0x4613             MOV      R3,R2
-   \   00000002   0x460A             MOV      R2,R1
-   \   00000004   0xB500             PUSH     {LR}
-   \   00000006   0xB081             SUB      SP,SP,#+4
-   \   00000008   0x2100             MOVS     R1,#+0
-   \   0000000A   0x.... 0x....      BL       USBD_LL_Transmit
+   \   00000008   0x0033             MOVS     R3,R6
+   \   0000000A   0xB29B             UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
+   \   0000000C   0x002A             MOVS     R2,R5
+   \   0000000E   0x2100             MOVS     R1,#+0
+   \   00000010   0x0020             MOVS     R0,R4
+   \   00000012   0x.... 0x....      BL       USBD_LL_Transmit
     123            
     124            return USBD_OK;
-   \   0000000E   0x2000             MOVS     R0,#+0
-   \   00000010   0xB001             ADD      SP,SP,#+4
-   \   00000012   0xBD00             POP      {PC}             ;; return
+   \   00000016   0x2000             MOVS     R0,#+0
+   \   00000018   0xBD70             POP      {R4-R6,PC}       ;; return
     125          }
     126          
     127          /**
@@ -228,30 +238,35 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     137                                            uint16_t len)
     138          {
    \                     USBD_CtlPrepareRx: (+1)
-   \   00000000   0xB500             PUSH     {LR}
-   \   00000002   0xB081             SUB      SP,SP,#+4
+   \   00000000   0xB570             PUSH     {R4-R6,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
+   \   00000006   0x0016             MOVS     R6,R2
     139            /* Set EP0 State */
     140            pdev->ep0_state = USBD_EP0_DATA_OUT; 
-   \   00000004   0x2303             MOVS     R3,#+3
-   \   00000006   0xF8C0 0x31F4      STR      R3,[R0, #+500]
+   \   00000008   0x2003             MOVS     R0,#+3
+   \   0000000A   0xF8C4 0x01F4      STR      R0,[R4, #+500]
     141            pdev->ep_out[0].total_length = len;
+   \   0000000E   0xB2B6             UXTH     R6,R6            ;; ZeroExt  R6,R6,#+16,#+16
+   \   00000010   0xF8C4 0x6108      STR      R6,[R4, #+264]
     142            pdev->ep_out[0].rem_length   = len;
+   \   00000014   0xB2B6             UXTH     R6,R6            ;; ZeroExt  R6,R6,#+16,#+16
+   \   00000016   0xF8C4 0x610C      STR      R6,[R4, #+268]
     143            /* Start the transfer */
     144            USBD_LL_PrepareReceive (pdev,
     145                                    0,
     146                                    pbuf,
     147                                   len);
-   \   0000000A   0x4613             MOV      R3,R2
-   \   0000000C   0xF8C0 0x2108      STR      R2,[R0, #+264]
-   \   00000010   0xF8C0 0x210C      STR      R2,[R0, #+268]
-   \   00000014   0x460A             MOV      R2,R1
-   \   00000016   0x2100             MOVS     R1,#+0
-   \   00000018   0x.... 0x....      BL       USBD_LL_PrepareReceive
+   \   0000001A   0x0033             MOVS     R3,R6
+   \   0000001C   0xB29B             UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
+   \   0000001E   0x002A             MOVS     R2,R5
+   \   00000020   0x2100             MOVS     R1,#+0
+   \   00000022   0x0020             MOVS     R0,R4
+   \   00000024   0x.... 0x....      BL       USBD_LL_PrepareReceive
     148            
     149            return USBD_OK;
-   \   0000001C   0x2000             MOVS     R0,#+0
-   \   0000001E   0xB001             ADD      SP,SP,#+4
-   \   00000020   0xBD00             POP      {PC}             ;; return
+   \   00000028   0x2000             MOVS     R0,#+0
+   \   0000002A   0xBD70             POP      {R4-R6,PC}       ;; return
     150          }
     151          
     152          /**
@@ -268,22 +283,25 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     161                                                    uint8_t *pbuf,                                          
     162                                                    uint16_t len)
     163          {
+   \                     USBD_CtlContinueRx: (+1)
+   \   00000000   0xB570             PUSH     {R4-R6,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
+   \   00000006   0x0016             MOVS     R6,R2
     164          
     165            USBD_LL_PrepareReceive (pdev,
     166                                    0,                     
     167                                    pbuf,                         
     168                                    len);
-   \                     USBD_CtlContinueRx: (+1)
-   \   00000000   0x4613             MOV      R3,R2
-   \   00000002   0x460A             MOV      R2,R1
-   \   00000004   0xB500             PUSH     {LR}
-   \   00000006   0xB081             SUB      SP,SP,#+4
-   \   00000008   0x2100             MOVS     R1,#+0
-   \   0000000A   0x.... 0x....      BL       USBD_LL_PrepareReceive
+   \   00000008   0x0033             MOVS     R3,R6
+   \   0000000A   0xB29B             UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
+   \   0000000C   0x002A             MOVS     R2,R5
+   \   0000000E   0x2100             MOVS     R1,#+0
+   \   00000010   0x0020             MOVS     R0,R4
+   \   00000012   0x.... 0x....      BL       USBD_LL_PrepareReceive
     169            return USBD_OK;
-   \   0000000E   0x2000             MOVS     R0,#+0
-   \   00000010   0xB001             ADD      SP,SP,#+4
-   \   00000012   0xBD00             POP      {PC}             ;; return
+   \   00000016   0x2000             MOVS     R0,#+0
+   \   00000018   0xBD70             POP      {R4-R6,PC}       ;; return
     170          }
     171          /**
     172          * @brief  USBD_CtlSendStatus
@@ -296,25 +314,25 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     177          USBD_StatusTypeDef  USBD_CtlSendStatus (USBD_HandleTypeDef  *pdev)
     178          {
    \                     USBD_CtlSendStatus: (+1)
-   \   00000000   0xB500             PUSH     {LR}
-   \   00000002   0xB081             SUB      SP,SP,#+4
+   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000002   0x0004             MOVS     R4,R0
     179          
     180            /* Set EP0 State */
     181            pdev->ep0_state = USBD_EP0_STATUS_IN;
-   \   00000004   0x2104             MOVS     R1,#+4
-   \   00000006   0xF8C0 0x11F4      STR      R1,[R0, #+500]
+   \   00000004   0x2004             MOVS     R0,#+4
+   \   00000006   0xF8C4 0x01F4      STR      R0,[R4, #+500]
     182            
     183           /* Start the transfer */
     184            USBD_LL_Transmit (pdev, 0x00, NULL, 0);   
    \   0000000A   0x2300             MOVS     R3,#+0
    \   0000000C   0x2200             MOVS     R2,#+0
    \   0000000E   0x2100             MOVS     R1,#+0
-   \   00000010   0x.... 0x....      BL       USBD_LL_Transmit
+   \   00000010   0x0020             MOVS     R0,R4
+   \   00000012   0x.... 0x....      BL       USBD_LL_Transmit
     185            
     186            return USBD_OK;
-   \   00000014   0x2000             MOVS     R0,#+0
-   \   00000016   0xB001             ADD      SP,SP,#+4
-   \   00000018   0xBD00             POP      {PC}             ;; return
+   \   00000016   0x2000             MOVS     R0,#+0
+   \   00000018   0xBD10             POP      {R4,PC}          ;; return
     187          }
     188          
     189          /**
@@ -328,12 +346,12 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     195          USBD_StatusTypeDef  USBD_CtlReceiveStatus (USBD_HandleTypeDef  *pdev)
     196          {
    \                     USBD_CtlReceiveStatus: (+1)
-   \   00000000   0xB500             PUSH     {LR}
-   \   00000002   0xB081             SUB      SP,SP,#+4
+   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000002   0x0004             MOVS     R4,R0
     197            /* Set EP0 State */
     198            pdev->ep0_state = USBD_EP0_STATUS_OUT; 
-   \   00000004   0x2105             MOVS     R1,#+5
-   \   00000006   0xF8C0 0x11F4      STR      R1,[R0, #+500]
+   \   00000004   0x2005             MOVS     R0,#+5
+   \   00000006   0xF8C4 0x01F4      STR      R0,[R4, #+500]
     199            
     200           /* Start the transfer */  
     201            USBD_LL_PrepareReceive ( pdev,
@@ -343,12 +361,12 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
    \   0000000A   0x2300             MOVS     R3,#+0
    \   0000000C   0x2200             MOVS     R2,#+0
    \   0000000E   0x2100             MOVS     R1,#+0
-   \   00000010   0x.... 0x....      BL       USBD_LL_PrepareReceive
+   \   00000010   0x0020             MOVS     R0,R4
+   \   00000012   0x.... 0x....      BL       USBD_LL_PrepareReceive
     205          
     206            return USBD_OK;
-   \   00000014   0x2000             MOVS     R0,#+0
-   \   00000016   0xB001             ADD      SP,SP,#+4
-   \   00000018   0xBD00             POP      {PC}             ;; return
+   \   00000016   0x2000             MOVS     R0,#+0
+   \   00000018   0xBD10             POP      {R4,PC}          ;; return
     207          }
     208          
     209          
@@ -364,13 +382,16 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     217          uint16_t  USBD_GetRxCount (USBD_HandleTypeDef  *pdev , uint8_t ep_addr)
     218          {
    \                     USBD_GetRxCount: (+1)
-   \   00000000   0xB500             PUSH     {LR}
-   \   00000002   0xB081             SUB      SP,SP,#+4
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
     219            return USBD_LL_GetRxDataSize(pdev, ep_addr);
-   \   00000004   0x.... 0x....      BL       USBD_LL_GetRxDataSize
-   \   00000008   0xB280             UXTH     R0,R0
-   \   0000000A   0xB001             ADD      SP,SP,#+4
-   \   0000000C   0xBD00             POP      {PC}             ;; return
+   \   00000006   0x0029             MOVS     R1,R5
+   \   00000008   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   0000000A   0x0020             MOVS     R0,R4
+   \   0000000C   0x.... 0x....      BL       USBD_LL_GetRxDataSize
+   \   00000010   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000012   0xBD32             POP      {R1,R4,R5,PC}    ;; return
     220          }
     221          
     222          /**
@@ -393,38 +414,38 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
 
    .cstack Function
    ------- --------
-       8   USBD_CtlContinueRx
-         8   -> USBD_LL_PrepareReceive
-       8   USBD_CtlContinueSendData
-         8   -> USBD_LL_Transmit
-       8   USBD_CtlPrepareRx
-         8   -> USBD_LL_PrepareReceive
+      16   USBD_CtlContinueRx
+        16   -> USBD_LL_PrepareReceive
+      16   USBD_CtlContinueSendData
+        16   -> USBD_LL_Transmit
+      16   USBD_CtlPrepareRx
+        16   -> USBD_LL_PrepareReceive
        8   USBD_CtlReceiveStatus
          8   -> USBD_LL_PrepareReceive
-       8   USBD_CtlSendData
-         8   -> USBD_LL_Transmit
+      16   USBD_CtlSendData
+        16   -> USBD_LL_Transmit
        8   USBD_CtlSendStatus
          8   -> USBD_LL_Transmit
-       8   USBD_GetRxCount
-         8   -> USBD_LL_GetRxDataSize
+      16   USBD_GetRxCount
+        16   -> USBD_LL_GetRxDataSize
 
 
    Section sizes:
 
    Bytes  Function/Label
    -----  --------------
-      20  USBD_CtlContinueRx
-      20  USBD_CtlContinueSendData
-      34  USBD_CtlPrepareRx
+      26  USBD_CtlContinueRx
+      26  USBD_CtlContinueSendData
+      44  USBD_CtlPrepareRx
       26  USBD_CtlReceiveStatus
-      30  USBD_CtlSendData
+      40  USBD_CtlSendData
       26  USBD_CtlSendStatus
-      14  USBD_GetRxCount
+      20  USBD_GetRxCount
 
  
- 170 bytes in section .text
+ 208 bytes in section .text
  
- 170 bytes of CODE memory
+ 208 bytes of CODE memory
 
 Errors: none
 Warnings: none

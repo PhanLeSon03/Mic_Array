@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      25/Feb/2016  12:02:37
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      25/Feb/2016  15:20:39
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -16,8 +16,10 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
-//        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
+//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+//        --no_clustering --no_scheduling --debug --endian=little
+//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
+//        (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
@@ -48,7 +50,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
@@ -387,10 +389,8 @@ PendSV_Handler:
 //  159 void SysTick_Handler(void)
 //  160 {
 SysTick_Handler:
-        PUSH     {LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI CFA R13+4
-        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  161   HAL_IncTick(); 
           CFI FunCall HAL_IncTick
@@ -399,8 +399,10 @@ SysTick_Handler:
 //  163 
 //  164   cntOS++;
         LDR.N    R0,??DataTable4
-        LDR      R1,[R0, #+0]
-        ADDS     R1,R1,#+1
+        LDR      R0,[R0, #+0]
+        ADDS     R0,R0,#+1
+        LDR.N    R1,??DataTable4
+        STR      R0,[R1, #+0]
 //  165 #if USB_STREAMING
 //  166   //if(cntOS%2==0)
 //  167   //{
@@ -408,23 +410,24 @@ SysTick_Handler:
 //  169   //}
 //  170 #endif   
 //  171   if (cntOS==10)
-        CMP      R1,#+10
+        LDR.N    R0,??DataTable4
+        LDR      R0,[R0, #+0]
+        CMP      R0,#+10
         BNE.N    ??SysTick_Handler_0
 //  172   {
 //  173       cntOS=0;
+        MOVS     R0,#+0
+        LDR.N    R1,??DataTable4
+        STR      R0,[R1, #+0]
 //  174       flg10ms = 1;
-        MOVS     R2,#+1
-        LDR.N    R3,??DataTable4_1
-        MOVS     R1,#+0
-        STRB     R2,[R3, #+0]
-??SysTick_Handler_0:
-        STR      R1,[R0, #+0]
+        MOVS     R0,#+1
+        LDR.N    R1,??DataTable4_1
+        STRB     R0,[R1, #+0]
 //  175   }
 //  176   	
 //  177 }
-        ADD      SP,SP,#+4
-          CFI CFA R13+4
-        POP      {PC}             ;; return
+??SysTick_Handler_0:
+        POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock8
 //  178 
 
@@ -448,12 +451,16 @@ USART6_IRQHandler:
         THUMB
 //  184 void USART3_IRQHandler(void)
 //  185 {
-//  186   HAL_UART_IRQHandler(&huart3);
 USART3_IRQHandler:
+        PUSH     {R7,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+8
+//  186   HAL_UART_IRQHandler(&huart3);
         LDR.N    R0,??DataTable4_2
           CFI FunCall HAL_UART_IRQHandler
-        B.W      HAL_UART_IRQHandler
+        BL       HAL_UART_IRQHandler
 //  187 }
+        POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock10
 //  188 
 //  189 
@@ -464,18 +471,22 @@ USART3_IRQHandler:
         THUMB
 //  190 void I2C1_EV_IRQHandler(void)
 //  191 {
+I2C1_EV_IRQHandler:
+        PUSH     {R7,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+8
 //  192   /* USER CODE BEGIN I2C1_EV_IRQn 0 */
 //  193 
 //  194   /* USER CODE END I2C1_EV_IRQn 0 */
 //  195   HAL_I2C_EV_IRQHandler(&hi2c1);
-I2C1_EV_IRQHandler:
         LDR.N    R0,??DataTable4_3
           CFI FunCall HAL_I2C_EV_IRQHandler
-        B.W      HAL_I2C_EV_IRQHandler
+        BL       HAL_I2C_EV_IRQHandler
 //  196   /* USER CODE BEGIN I2C1_EV_IRQn 1 */
 //  197 
 //  198   /* USER CODE END I2C1_EV_IRQn 1 */
 //  199 }
+        POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock11
 //  200 
 //  201 
@@ -486,18 +497,22 @@ I2C1_EV_IRQHandler:
         THUMB
 //  202 void I2C2_EV_IRQHandler(void)
 //  203 {
+I2C2_EV_IRQHandler:
+        PUSH     {R7,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+8
 //  204   /* USER CODE BEGIN I2C1_EV_IRQn 0 */
 //  205 
 //  206   /* USER CODE END I2C1_EV_IRQn 0 */
 //  207   HAL_I2C_EV_IRQHandler(&hi2c2);
-I2C2_EV_IRQHandler:
         LDR.N    R0,??DataTable4_4
           CFI FunCall HAL_I2C_EV_IRQHandler
-        B.W      HAL_I2C_EV_IRQHandler
+        BL       HAL_I2C_EV_IRQHandler
 //  208   /* USER CODE BEGIN I2C1_EV_IRQn 1 */
 //  209 
 //  210   /* USER CODE END I2C1_EV_IRQn 1 */
 //  211 }
+        POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock12
 //  212 
 //  213 
@@ -528,13 +543,17 @@ I2C2_EV_IRQHandler:
 //  233 void OTG_HS_IRQHandler(void)
 //  234 #endif
 //  235 {
+OTG_FS_IRQHandler:
+        PUSH     {R7,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+8
 //  236   //sop1hc HAL_HCD_IRQHandler(&hhcd);
 //  237   HAL_PCD_IRQHandler(&hpcd);
-OTG_FS_IRQHandler:
         LDR.N    R0,??DataTable4_5
           CFI FunCall HAL_PCD_IRQHandler
-        B.W      HAL_PCD_IRQHandler
+        BL       HAL_PCD_IRQHandler
 //  238 }
+        POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock13
 
         SECTION `.text`:CODE:NOROOT(2)
@@ -636,9 +655,9 @@ DMA2_Stream7_IRQHandler:
 //  269 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
 //   4 bytes in section .bss
-// 102 bytes in section .text
+// 124 bytes in section .text
 // 
-// 102 bytes of CODE memory
+// 124 bytes of CODE memory
 //   4 bytes of DATA memory
 //
 //Errors: none

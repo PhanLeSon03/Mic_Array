@@ -119,10 +119,11 @@ uint8_t StartPlay(void);
 inline static void FFT_Update(void)
 {
 
-      PDM2PCMSDO78();
+      
       /* Hafl buffer is filled in by I2S data stream in */
       if((flgDlyUpd==0))
       {
+            PDM2PCMSDO78();
             //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_15); 
             FactorUpd(&FacMic); 
             //STM_EVAL_LEDOn(LED3);
@@ -1209,13 +1210,15 @@ void MX_I2C2_Init(void)
              
                              if (stFrstFrmStore==2)
                              {
-                                 StartRecMic7_8();
+                                 
          
                                  /*------------------------PLAYER------------------------------------------*/
                                  Audio_MAL_Play((uint32_t)Buffer1.bufMIC1,2*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
                                  /*------------------------------------------------------------------------*/				 
                                  buffer_switch = BUF1_PLAY;
-
+								 uint16_t tdelay=100;
+								 while(tdelay--);
+                                 StartRecMic7_8();
                                  return 0;		 
                              }				 
                      

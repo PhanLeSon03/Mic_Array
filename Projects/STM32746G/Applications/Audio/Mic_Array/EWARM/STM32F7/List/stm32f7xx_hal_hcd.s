@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      25/Feb/2016  12:02:35
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      25/Feb/2016  15:20:37
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -16,8 +16,10 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
-//        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
+//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+//        --no_clustering --no_scheduling --debug --endian=little
+//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
+//        (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
@@ -48,7 +50,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
@@ -289,28 +291,30 @@ HAL_HCD_Init:
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-        MOVS     R4,R0
         SUB      SP,SP,#+40
           CFI CFA R13+48
+        MOVS     R4,R0
 //  127   /* Check the HCD handle allocation */
 //  128   if(hhcd == NULL)
-        IT       EQ 
-        MOVEQ    R0,#+1
+        CMP      R4,#+0
+        BNE.N    ??HAL_HCD_Init_0
 //  129   {
 //  130     return HAL_ERROR;
-        BEQ.N    ??HAL_HCD_Init_0
+        MOVS     R0,#+1
+        B.N      ??HAL_HCD_Init_1
 //  131   }
 //  132   
 //  133   /* Check the parameters */
 //  134   assert_param(IS_HCD_ALL_INSTANCE(hhcd->Instance));
 //  135 
 //  136   hhcd->State = HAL_HCD_STATE_BUSY;
+??HAL_HCD_Init_0:
         MOVS     R0,#+3
         STRB     R0,[R4, #+653]
 //  137   
 //  138   /* Init the low level hardware : GPIO, CLOCK, NVIC... */
 //  139   HAL_HCD_MspInit(hhcd);
-        MOV      R0,R4
+        MOVS     R0,R4
           CFI FunCall HAL_HCD_MspInit
         BL       HAL_HCD_MspInit
 //  140 
@@ -322,38 +326,38 @@ HAL_HCD_Init:
 //  143  
 //  144  /*Init the Core (common init.) */
 //  145  USB_CoreInit(hhcd->Instance, hhcd->Init);
+        ADDS     R1,R4,#+4
         SUB      SP,SP,#+12
           CFI CFA R13+60
-        ADDS     R1,R4,#+4
         MOV      R0,SP
         MOVS     R2,#+48
           CFI FunCall __aeabi_memcpy4
         BL       __aeabi_memcpy4
-        LDR      R0,[R4, #+0]
         POP      {R1-R3}
           CFI CFA R13+48
+        LDR      R0,[R4, #+0]
           CFI FunCall USB_CoreInit
         BL       USB_CoreInit
 //  146  
 //  147  /* Force Host Mode*/
 //  148  USB_SetCurrentMode(hhcd->Instance , USB_OTG_HOST_MODE);
-        LDR      R0,[R4, #+0]
         MOVS     R1,#+1
+        LDR      R0,[R4, #+0]
           CFI FunCall USB_SetCurrentMode
         BL       USB_SetCurrentMode
 //  149  
 //  150  /* Init Host */
 //  151  USB_HostInit(hhcd->Instance, hhcd->Init);
+        ADDS     R1,R4,#+4
         SUB      SP,SP,#+12
           CFI CFA R13+60
-        ADDS     R1,R4,#+4
         MOV      R0,SP
         MOVS     R2,#+48
           CFI FunCall __aeabi_memcpy4
         BL       __aeabi_memcpy4
-        LDR      R0,[R4, #+0]
         POP      {R1-R3}
           CFI CFA R13+48
+        LDR      R0,[R4, #+0]
           CFI FunCall USB_HostInit
         BL       USB_HostInit
 //  152  
@@ -363,7 +367,7 @@ HAL_HCD_Init:
 //  154  
 //  155  return HAL_OK;
         MOVS     R0,#+0
-??HAL_HCD_Init_0:
+??HAL_HCD_Init_1:
         ADD      SP,SP,#+40
           CFI CFA R13+8
         POP      {R4,PC}          ;; return
@@ -408,48 +412,76 @@ HAL_HCD_Init:
 //  188                                   uint16_t mps)
 //  189 {
 HAL_HCD_HC_Init:
-        PUSH     {R4-R7,LR}
+        PUSH     {R1-R11,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+20
-        MOV      R6,R0
-        SUB      SP,SP,#+12
-          CFI CFA R13+32
+          CFI R11 Frame(CFA, -8)
+          CFI R10 Frame(CFA, -12)
+          CFI R9 Frame(CFA, -16)
+          CFI R8 Frame(CFA, -20)
+          CFI R7 Frame(CFA, -24)
+          CFI R6 Frame(CFA, -28)
+          CFI R5 Frame(CFA, -32)
+          CFI R4 Frame(CFA, -36)
+          CFI CFA R13+48
+        MOVS     R7,R0
+        MOV      R8,R1
+        MOV      R11,R2
+        MOV      R9,R3
+        LDR      R4,[SP, #+48]
+        LDR      R5,[SP, #+52]
+        LDR      R6,[SP, #+56]
 //  190   HAL_StatusTypeDef status = HAL_OK;
+        MOVS     R10,#+0
 //  191   
 //  192   __HAL_LOCK(hhcd); 
-        LDRB     R0,[R6, #+652]
+        LDRB     R0,[R7, #+652]
         CMP      R0,#+1
-        IT       EQ 
-        MOVEQ    R0,#+2
-        BEQ.N    ??HAL_HCD_HC_Init_0
+        BNE.N    ??HAL_HCD_HC_Init_0
+        MOVS     R0,#+2
+        B.N      ??HAL_HCD_HC_Init_1
+??HAL_HCD_HC_Init_0:
         MOVS     R0,#+1
-        STRB     R0,[R6, #+652]
+        STRB     R0,[R7, #+652]
 //  193   
 //  194   hhcd->hc[ch_num].dev_addr = dev_address;
-        ADD      R0,R1,R1, LSL #+2
-        ADD      R7,R6,R0, LSL #+3
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R8,R7
+        STRB     R9,[R0, #+52]
 //  195   hhcd->hc[ch_num].max_packet = mps;
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R8,R7
+        STRH     R6,[R0, #+60]
 //  196   hhcd->hc[ch_num].ch_num = ch_num;
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R8,R7
+        STRB     R8,[R0, #+53]
 //  197   hhcd->hc[ch_num].ep_type = ep_type;
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R8,R7
+        STRB     R5,[R0, #+59]
 //  198   hhcd->hc[ch_num].ep_num = epnum & 0x7F;
-        AND      R0,R2,#0x7F
-        STRB     R3,[R7, #+52]
-        LDR      R4,[SP, #+40]
-        STRB     R1,[R7, #+53]
-        STRH     R4,[R7, #+60]
-        LDR      R5,[SP, #+36]
-        STRB     R0,[R7, #+54]
+        ANDS     R0,R11,#0x7F
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R8,R7
+        STRB     R0,[R1, #+54]
 //  199   hhcd->hc[ch_num].ep_is_in = ((epnum & 0x80) == 0x80);
-        LSRS     R0,R2,#+7
-        STRB     R5,[R7, #+59]
-        STRB     R0,[R7, #+55]
-        LDR      R0,[SP, #+32]
+        MOV      R0,R11
+        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+        LSRS     R0,R0,#+7
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R8,R7
+        STRB     R0,[R1, #+55]
 //  200   hhcd->hc[ch_num].speed = speed;
-        STRB     R0,[R7, #+56]
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R8,R7
+        STRB     R4,[R0, #+56]
 //  201 
 //  202   status =  USB_HC_Init(hhcd->Instance, 
 //  203                         ch_num,
@@ -458,21 +490,34 @@ HAL_HCD_HC_Init:
 //  206                         speed,
 //  207                         ep_type,
 //  208                         mps);
-        STR      R4,[SP, #+8]
-        STR      R5,[SP, #+4]
+        MOVS     R0,R6
+        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+        STR      R0,[SP, #+8]
+        MOVS     R0,R5
+        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+        STR      R0,[SP, #+4]
+        MOVS     R0,R4
+        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
         STR      R0,[SP, #+0]
-        LDR      R0,[R6, #+0]
+        MOV      R3,R9
+        UXTB     R3,R3            ;; ZeroExt  R3,R3,#+24,#+24
+        MOV      R2,R11
+        UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+        MOV      R1,R8
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        LDR      R0,[R7, #+0]
           CFI FunCall USB_HC_Init
         BL       USB_HC_Init
+        MOV      R10,R0
 //  209   __HAL_UNLOCK(hhcd); 
-        MOVS     R1,#+0
-        STRB     R1,[R6, #+652]
+        MOVS     R0,#+0
+        STRB     R0,[R7, #+652]
 //  210   
 //  211   return status;
-??HAL_HCD_HC_Init_0:
-        ADD      SP,SP,#+12
-          CFI CFA R13+20
-        POP      {R4-R7,PC}       ;; return
+        MOV      R0,R10
+        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+??HAL_HCD_HC_Init_1:
+        POP      {R1-R11,PC}      ;; return
 //  212 }
           CFI EndBlock cfiBlock1
 //  213 
@@ -491,23 +536,29 @@ HAL_HCD_HC_Init:
 //  221 HAL_StatusTypeDef HAL_HCD_HC_Halt(HCD_HandleTypeDef *hhcd, uint8_t ch_num)
 //  222 {
 HAL_HCD_HC_Halt:
-        PUSH     {R4,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOV      R4,R0
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
+        MOVS     R4,R0
+        MOVS     R5,R1
 //  223   HAL_StatusTypeDef status = HAL_OK;
+        MOVS     R6,#+0
 //  224   
 //  225   __HAL_LOCK(hhcd);   
         LDRB     R0,[R4, #+652]
         CMP      R0,#+1
         BNE.N    ??HAL_HCD_HC_Halt_0
         MOVS     R0,#+2
-        POP      {R4,PC}
+        B.N      ??HAL_HCD_HC_Halt_1
 ??HAL_HCD_HC_Halt_0:
         MOVS     R0,#+1
         STRB     R0,[R4, #+652]
 //  226   USB_HC_Halt(hhcd->Instance, ch_num);   
+        MOVS     R1,R5
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
         LDR      R0,[R4, #+0]
           CFI FunCall USB_HC_Halt
         BL       USB_HC_Halt
@@ -516,7 +567,10 @@ HAL_HCD_HC_Halt:
         STRB     R0,[R4, #+652]
 //  228   
 //  229   return status;
-        POP      {R4,PC}          ;; return
+        MOVS     R0,R6
+        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+??HAL_HCD_HC_Halt_1:
+        POP      {R4-R6,PC}       ;; return
 //  230 }
           CFI EndBlock cfiBlock2
 //  231 
@@ -540,11 +594,12 @@ HAL_HCD_DeInit:
         MOVS     R4,R0
 //  239   /* Check the HCD handle allocation */
 //  240   if(hhcd == NULL)
+        CMP      R4,#+0
         BNE.N    ??HAL_HCD_DeInit_0
 //  241   {
 //  242     return HAL_ERROR;
         MOVS     R0,#+1
-        POP      {R4,PC}
+        B.N      ??HAL_HCD_DeInit_1
 //  243   }
 //  244   
 //  245   hhcd->State = HAL_HCD_STATE_BUSY;
@@ -554,7 +609,7 @@ HAL_HCD_DeInit:
 //  246   
 //  247   /* DeInit the low level hardware */
 //  248   HAL_HCD_MspDeInit(hhcd);
-        MOV      R0,R4
+        MOVS     R0,R4
           CFI FunCall HAL_HCD_MspDeInit
         BL       HAL_HCD_MspDeInit
 //  249   
@@ -568,6 +623,8 @@ HAL_HCD_DeInit:
         STRB     R0,[R4, #+653]
 //  253   
 //  254   return HAL_OK;
+        MOVS     R0,#+0
+??HAL_HCD_DeInit_1:
         POP      {R4,PC}          ;; return
 //  255 }
           CFI EndBlock cfiBlock3
@@ -657,7 +714,7 @@ HAL_HCD_MspDeInit:
 //  321   * @retval HAL status
 //  322   */
 
-        SECTION `.text`:CODE:NOROOT(2)
+        SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock6 Using cfiCommon0
           CFI Function HAL_HCD_HC_SubmitRequest
         THUMB
@@ -671,203 +728,357 @@ HAL_HCD_MspDeInit:
 //  330                                             uint8_t do_ping) 
 //  331 {
 HAL_HCD_HC_SubmitRequest:
-        PUSH     {R4-R6}
-          CFI R6 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
+        PUSH     {R3-R11,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R11 Frame(CFA, -8)
+          CFI R10 Frame(CFA, -12)
+          CFI R9 Frame(CFA, -16)
+          CFI R8 Frame(CFA, -20)
+          CFI R7 Frame(CFA, -24)
+          CFI R6 Frame(CFA, -28)
+          CFI R5 Frame(CFA, -32)
+          CFI R4 Frame(CFA, -36)
+          CFI CFA R13+40
+        MOVS     R7,R0
+        MOV      R8,R1
+        MOV      R9,R2
+        MOV      R10,R3
+        LDR      R4,[SP, #+40]
+        LDR      R11,[SP, #+44]
+        LDR      R5,[SP, #+48]
+        LDR      R6,[SP, #+52]
 //  332   hhcd->hc[ch_num].ep_is_in = direction;
-        ADD      R4,R1,R1, LSL #+2
-        SUB      SP,SP,#+4
-          CFI CFA R13+16
-        ADD      R6,R0,R4, LSL #+3
-        STRB     R2,[R6, #+55]
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R8,R7
+        STRB     R9,[R0, #+55]
 //  333   hhcd->hc[ch_num].ep_type  = ep_type; 
-        STRB     R3,[R6, #+59]
-        LDR      R5,[SP, #+16]
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R8,R7
+        STRB     R10,[R0, #+59]
 //  334   
 //  335   if(token == 0)
-        CMP      R5,#+0
-        ITE      EQ 
-        MOVEQ    R4,#+3
-        MOVNE    R4,#+2
+        UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+        CMP      R4,#+0
+        BNE.N    ??HAL_HCD_HC_SubmitRequest_0
 //  336   {
 //  337     hhcd->hc[ch_num].data_pid = HC_PID_SETUP;
+        MOVS     R0,#+3
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R8,R7
+        STRB     R0,[R1, #+62]
+        B.N      ??HAL_HCD_HC_SubmitRequest_1
 //  338   }
 //  339   else
 //  340   {
 //  341     hhcd->hc[ch_num].data_pid = HC_PID_DATA1;
+??HAL_HCD_HC_SubmitRequest_0:
+        MOVS     R0,#+2
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R8,R7
+        STRB     R0,[R1, #+62]
 //  342   }
 //  343   
 //  344   /* Manage Data Toggle */
 //  345   switch(ep_type)
-        CMP      R3,#+3
-        STRB     R4,[R6, #+62]
-        LDR      R4,[SP, #+24]
-        BHI.N    ??HAL_HCD_HC_SubmitRequest_1
-        TBB      [PC, R3]
-        DATA
-??HAL_HCD_HC_SubmitRequest_0:
-        DC8      0x2,0x1E,0xB,0x1A
-        THUMB
+??HAL_HCD_HC_SubmitRequest_1:
+        UXTB     R10,R10          ;; ZeroExt  R10,R10,#+24,#+24
+        CMP      R10,#+0
+        BEQ.N    ??HAL_HCD_HC_SubmitRequest_2
+        CMP      R10,#+2
+        BEQ.N    ??HAL_HCD_HC_SubmitRequest_3
+        BCC.W    ??HAL_HCD_HC_SubmitRequest_4
+        CMP      R10,#+3
+        BEQ.W    ??HAL_HCD_HC_SubmitRequest_5
+        B.N      ??HAL_HCD_HC_SubmitRequest_6
 //  346   {
 //  347   case EP_TYPE_CTRL:
 //  348     if((token == 1) && (direction == 0)) /*send data */
 ??HAL_HCD_HC_SubmitRequest_2:
-        CMP      R5,#+1
-        IT       EQ 
-        CMPEQ    R2,#+0
-        BNE.N    ??HAL_HCD_HC_SubmitRequest_1
+        UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+        CMP      R4,#+1
+        BNE.N    ??HAL_HCD_HC_SubmitRequest_7
+        UXTB     R9,R9            ;; ZeroExt  R9,R9,#+24,#+24
+        CMP      R9,#+0
+        BNE.N    ??HAL_HCD_HC_SubmitRequest_7
 //  349     {
 //  350       if ( length == 0 )
-        CBNZ.N   R4,??HAL_HCD_HC_SubmitRequest_3
+        UXTH     R5,R5            ;; ZeroExt  R5,R5,#+16,#+16
+        CMP      R5,#+0
+        BNE.N    ??HAL_HCD_HC_SubmitRequest_8
 //  351       { /* For Status OUT stage, Length==0, Status Out PID = 1 */
 //  352         hhcd->hc[ch_num].toggle_out = 1;
-        MOVS     R2,#+1
-        STRB     R2,[R6, #+77]
-        B.N      ??HAL_HCD_HC_SubmitRequest_3
+        MOVS     R0,#+1
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R8,R7
+        STRB     R0,[R1, #+77]
 //  353       }
 //  354       
 //  355       /* Set the Data Toggle bit as per the Flag */
 //  356       if ( hhcd->hc[ch_num].toggle_out == 0)
+??HAL_HCD_HC_SubmitRequest_8:
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R8,R7
+        LDRB     R0,[R0, #+77]
+        CMP      R0,#+0
+        BNE.N    ??HAL_HCD_HC_SubmitRequest_9
 //  357       { /* Put the PID 0 */
 //  358         hhcd->hc[ch_num].data_pid = HC_PID_DATA0;    
+        MOVS     R0,#+0
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R8,R7
+        STRB     R0,[R1, #+62]
+        B.N      ??HAL_HCD_HC_SubmitRequest_10
 //  359       }
 //  360       else
 //  361       { /* Put the PID 1 */
 //  362         hhcd->hc[ch_num].data_pid = HC_PID_DATA1 ;
+??HAL_HCD_HC_SubmitRequest_9:
+        MOVS     R0,#+2
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R8,R7
+        STRB     R0,[R1, #+62]
 //  363       }
 //  364       if(hhcd->hc[ch_num].urb_state  != URB_NOTREADY)
+??HAL_HCD_HC_SubmitRequest_10:
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R8,R7
+        LDRB     R0,[R0, #+88]
+        CMP      R0,#+2
+        BEQ.N    ??HAL_HCD_HC_SubmitRequest_7
 //  365       {
 //  366         hhcd->hc[ch_num].do_ping = do_ping;
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R8,R7
+        STRB     R6,[R0, #+57]
 //  367       }
 //  368     }
 //  369     break;
+??HAL_HCD_HC_SubmitRequest_7:
+        B.N      ??HAL_HCD_HC_SubmitRequest_6
 //  370   
 //  371   case EP_TYPE_BULK:
 //  372     if(direction == 0)
-??HAL_HCD_HC_SubmitRequest_4:
-        CBNZ.N   R2,??HAL_HCD_HC_SubmitRequest_5
+??HAL_HCD_HC_SubmitRequest_3:
+        UXTB     R9,R9            ;; ZeroExt  R9,R9,#+24,#+24
+        CMP      R9,#+0
+        BNE.N    ??HAL_HCD_HC_SubmitRequest_11
 //  373     {
 //  374       /* Set the Data Toggle bit as per the Flag */
 //  375       if ( hhcd->hc[ch_num].toggle_out == 0)
-??HAL_HCD_HC_SubmitRequest_3:
-        LDRB     R2,[R6, #+77]
-        CBZ.N    R2,??HAL_HCD_HC_SubmitRequest_6
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R8,R7
+        LDRB     R0,[R0, #+77]
+        CMP      R0,#+0
+        BNE.N    ??HAL_HCD_HC_SubmitRequest_12
 //  376       { /* Put the PID 0 */
 //  377         hhcd->hc[ch_num].data_pid = HC_PID_DATA0;    
+        MOVS     R0,#+0
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R8,R7
+        STRB     R0,[R1, #+62]
+        B.N      ??HAL_HCD_HC_SubmitRequest_13
 //  378       }
 //  379       else
 //  380       { /* Put the PID 1 */
 //  381         hhcd->hc[ch_num].data_pid = HC_PID_DATA1 ;
-        MOVS     R2,#+2
-??HAL_HCD_HC_SubmitRequest_6:
-        STRB     R2,[R6, #+62]
+??HAL_HCD_HC_SubmitRequest_12:
+        MOVS     R0,#+2
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R8,R7
+        STRB     R0,[R1, #+62]
 //  382       }
 //  383       if(hhcd->hc[ch_num].urb_state  != URB_NOTREADY)
-        LDRB     R2,[R6, #+88]
-        CMP      R2,#+2
-        BEQ.N    ??HAL_HCD_HC_SubmitRequest_1
+??HAL_HCD_HC_SubmitRequest_13:
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R8,R7
+        LDRB     R0,[R0, #+88]
+        CMP      R0,#+2
+        BEQ.N    ??HAL_HCD_HC_SubmitRequest_14
 //  384       {
 //  385         hhcd->hc[ch_num].do_ping = do_ping;
-        LDR      R2,[SP, #+28]
-        STRB     R2,[R6, #+57]
-        B.N      ??HAL_HCD_HC_SubmitRequest_1
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R8,R7
+        STRB     R6,[R0, #+57]
+        B.N      ??HAL_HCD_HC_SubmitRequest_14
 //  386       }
 //  387     }
 //  388     else
 //  389     {
 //  390       if( hhcd->hc[ch_num].toggle_in == 0)
+??HAL_HCD_HC_SubmitRequest_11:
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R8,R7
+        LDRB     R0,[R0, #+76]
+        CMP      R0,#+0
+        BNE.N    ??HAL_HCD_HC_SubmitRequest_15
 //  391       {
 //  392         hhcd->hc[ch_num].data_pid = HC_PID_DATA0;
+        MOVS     R0,#+0
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R8,R7
+        STRB     R0,[R1, #+62]
+        B.N      ??HAL_HCD_HC_SubmitRequest_14
 //  393       }
 //  394       else
 //  395       {
 //  396         hhcd->hc[ch_num].data_pid = HC_PID_DATA1;
+??HAL_HCD_HC_SubmitRequest_15:
+        MOVS     R0,#+2
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R8,R7
+        STRB     R0,[R1, #+62]
 //  397       }
 //  398     }
 //  399     
 //  400     break;
+??HAL_HCD_HC_SubmitRequest_14:
+        B.N      ??HAL_HCD_HC_SubmitRequest_6
 //  401   case EP_TYPE_INTR:
 //  402     if(direction == 0)
-??HAL_HCD_HC_SubmitRequest_7:
-        CBNZ.N   R2,??HAL_HCD_HC_SubmitRequest_5
+??HAL_HCD_HC_SubmitRequest_5:
+        UXTB     R9,R9            ;; ZeroExt  R9,R9,#+24,#+24
+        CMP      R9,#+0
+        BNE.N    ??HAL_HCD_HC_SubmitRequest_16
 //  403     {
 //  404       /* Set the Data Toggle bit as per the Flag */
 //  405       if ( hhcd->hc[ch_num].toggle_out == 0)
-        LDRB     R2,[R6, #+77]
-        CBNZ.N   R2,??HAL_HCD_HC_SubmitRequest_8
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R8,R7
+        LDRB     R0,[R0, #+77]
+        CMP      R0,#+0
+        BNE.N    ??HAL_HCD_HC_SubmitRequest_17
 //  406       { /* Put the PID 0 */
 //  407         hhcd->hc[ch_num].data_pid = HC_PID_DATA0;    
+        MOVS     R0,#+0
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R8,R7
+        STRB     R0,[R1, #+62]
+        B.N      ??HAL_HCD_HC_SubmitRequest_18
 //  408       }
 //  409       else
 //  410       { /* Put the PID 1 */
 //  411         hhcd->hc[ch_num].data_pid = HC_PID_DATA1 ;
+??HAL_HCD_HC_SubmitRequest_17:
+        MOVS     R0,#+2
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R8,R7
+        STRB     R0,[R1, #+62]
+        B.N      ??HAL_HCD_HC_SubmitRequest_18
 //  412       }
 //  413     }
 //  414     else
 //  415     {
 //  416       if( hhcd->hc[ch_num].toggle_in == 0)
+??HAL_HCD_HC_SubmitRequest_16:
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R8,R7
+        LDRB     R0,[R0, #+76]
+        CMP      R0,#+0
+        BNE.N    ??HAL_HCD_HC_SubmitRequest_19
 //  417       {
 //  418         hhcd->hc[ch_num].data_pid = HC_PID_DATA0;
+        MOVS     R0,#+0
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R8,R7
+        STRB     R0,[R1, #+62]
+        B.N      ??HAL_HCD_HC_SubmitRequest_18
 //  419       }
 //  420       else
 //  421       {
 //  422         hhcd->hc[ch_num].data_pid = HC_PID_DATA1;
+??HAL_HCD_HC_SubmitRequest_19:
+        MOVS     R0,#+2
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R8,R7
+        STRB     R0,[R1, #+62]
 //  423       }
 //  424     }
 //  425     break;
+??HAL_HCD_HC_SubmitRequest_18:
+        B.N      ??HAL_HCD_HC_SubmitRequest_6
 //  426     
 //  427   case EP_TYPE_ISOC: 
 //  428     hhcd->hc[ch_num].data_pid = HC_PID_DATA0;
-??HAL_HCD_HC_SubmitRequest_9:
-        MOVS     R2,#+0
-??HAL_HCD_HC_SubmitRequest_10:
-        STRB     R2,[R6, #+62]
+??HAL_HCD_HC_SubmitRequest_4:
+        MOVS     R0,#+0
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R8,R7
+        STRB     R0,[R1, #+62]
 //  429     break;      
 //  430   }
 //  431   
 //  432   hhcd->hc[ch_num].xfer_buff = pbuff;
-??HAL_HCD_HC_SubmitRequest_1:
-        LDR      R2,[SP, #+20]
+??HAL_HCD_HC_SubmitRequest_6:
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R8,R7
+        STR      R11,[R0, #+64]
 //  433   hhcd->hc[ch_num].xfer_len  = length;
-        STR      R4,[R6, #+68]
+        UXTH     R5,R5            ;; ZeroExt  R5,R5,#+16,#+16
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R8,R7
+        STR      R5,[R0, #+68]
 //  434   hhcd->hc[ch_num].urb_state =   URB_IDLE;  
+        MOVS     R0,#+0
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R8,R7
+        STRB     R0,[R1, #+88]
 //  435   hhcd->hc[ch_num].xfer_count = 0 ;
+        MOVS     R0,#+0
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R8,R7
+        STR      R0,[R1, #+72]
 //  436   hhcd->hc[ch_num].ch_num = ch_num;
-        STRB     R1,[R6, #+53]
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R8,R7
+        STRB     R8,[R0, #+53]
 //  437   hhcd->hc[ch_num].state = HC_IDLE;
+        MOVS     R0,#+0
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R8,R7
+        STRB     R0,[R1, #+89]
 //  438   
 //  439   return USB_HC_StartXfer(hhcd->Instance, &(hhcd->hc[ch_num]), hhcd->Init.dma_enable);
-        ADD      R1,R6,#+52
-        STR      R2,[R6, #+64]
-        MOVS     R2,#+0
-        STRB     R2,[R6, #+88]
-        STR      R2,[R6, #+72]
-        STRB     R2,[R6, #+89]
-        LDR      R2,[R0, #+16]
-        LDR      R0,[R0, #+0]
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        UXTB     R2,R2
-        POP      {R4-R6}
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI R6 SameValue
-          CFI CFA R13+0
+        LDR      R2,[R7, #+16]
+        UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R8,R7
+        ADDS     R1,R0,#+52
+        LDR      R0,[R7, #+0]
           CFI FunCall USB_HC_StartXfer
-        B.W      USB_HC_StartXfer
-          CFI R4 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -4)
-          CFI CFA R13+16
-??HAL_HCD_HC_SubmitRequest_5:
-        LDRB     R2,[R6, #+76]
-        CMP      R2,#+0
-        BEQ.N    ??HAL_HCD_HC_SubmitRequest_9
-??HAL_HCD_HC_SubmitRequest_8:
-        MOVS     R2,#+2
-        B.N      ??HAL_HCD_HC_SubmitRequest_10
+        BL       USB_HC_StartXfer
+        POP      {R1,R4-R11,PC}   ;; return
 //  440 }
           CFI EndBlock cfiBlock6
 //  441 
@@ -877,31 +1088,30 @@ HAL_HCD_HC_SubmitRequest:
 //  445   * @retval None
 //  446   */
 
-        SECTION `.text`:CODE:NOROOT(2)
+        SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock7 Using cfiCommon0
           CFI Function HAL_HCD_IRQHandler
         THUMB
 //  447 void HAL_HCD_IRQHandler(HCD_HandleTypeDef *hhcd)
 //  448 {
 HAL_HCD_IRQHandler:
-        PUSH     {R4-R7,LR}
+        PUSH     {R3-R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI R7 Frame(CFA, -8)
           CFI R6 Frame(CFA, -12)
           CFI R5 Frame(CFA, -16)
           CFI R4 Frame(CFA, -20)
-          CFI CFA R13+20
-        MOV      R4,R0
-        SUB      SP,SP,#+4
           CFI CFA R13+24
+        MOVS     R4,R0
 //  449   USB_OTG_GlobalTypeDef *USBx = hhcd->Instance;
+        LDR      R5,[R4, #+0]
 //  450   uint32_t i = 0 , interrupt = 0;
-        MOVS     R5,#+0
-        LDR      R6,[R4, #+0]
+        MOVS     R6,#+0
+        MOVS     R7,#+0
 //  451   
 //  452   /* ensure that we are in device mode */
 //  453   if (USB_GetMode(hhcd->Instance) == USB_OTG_MODE_HOST)
-        MOV      R0,R6
+        LDR      R0,[R4, #+0]
           CFI FunCall USB_GetMode
         BL       USB_GetMode
         CMP      R0,#+1
@@ -913,199 +1123,208 @@ HAL_HCD_IRQHandler:
           CFI FunCall USB_ReadInterrupts
         BL       USB_ReadInterrupts
         CMP      R0,#+0
-        BEQ.W    ??HAL_HCD_IRQHandler_0
+        BEQ.W    ??HAL_HCD_IRQHandler_1
 //  457     {
 //  458       return;
 //  459     }
 //  460     
 //  461     if(__HAL_HCD_GET_FLAG(hhcd, USB_OTG_GINTSTS_PXFR_INCOMPISOOUT))
-        LDR      R0,[R4, #+0]
-          CFI FunCall USB_ReadInterrupts
-        BL       USB_ReadInterrupts
-        LSLS     R0,R0,#+10
-        BPL.N    ??HAL_HCD_IRQHandler_1
-//  462     {
-//  463      /* incorrect mode, acknowledge the interrupt */
-//  464       __HAL_HCD_CLEAR_FLAG(hhcd, USB_OTG_GINTSTS_PXFR_INCOMPISOOUT);
-        LDR      R1,[R4, #+0]
-        MOV      R0,#+2097152
-        STR      R0,[R1, #+20]
-//  465     }
-//  466     
-//  467     if(__HAL_HCD_GET_FLAG(hhcd, USB_OTG_GINTSTS_IISOIXFR))
-??HAL_HCD_IRQHandler_1:
-        LDR      R0,[R4, #+0]
-          CFI FunCall USB_ReadInterrupts
-        BL       USB_ReadInterrupts
-        LSLS     R0,R0,#+11
-        BPL.N    ??HAL_HCD_IRQHandler_2
-//  468     {
-//  469      /* incorrect mode, acknowledge the interrupt */
-//  470       __HAL_HCD_CLEAR_FLAG(hhcd, USB_OTG_GINTSTS_IISOIXFR);
-        LDR      R1,[R4, #+0]
-        MOV      R0,#+1048576
-        STR      R0,[R1, #+20]
-//  471     }
-//  472 
-//  473     if(__HAL_HCD_GET_FLAG(hhcd, USB_OTG_GINTSTS_PTXFE))
 ??HAL_HCD_IRQHandler_2:
         LDR      R0,[R4, #+0]
           CFI FunCall USB_ReadInterrupts
         BL       USB_ReadInterrupts
-        LSLS     R0,R0,#+5
+        LSLS     R0,R0,#+10
         BPL.N    ??HAL_HCD_IRQHandler_3
-//  474     {
-//  475      /* incorrect mode, acknowledge the interrupt */
-//  476       __HAL_HCD_CLEAR_FLAG(hhcd, USB_OTG_GINTSTS_PTXFE);
+//  462     {
+//  463      /* incorrect mode, acknowledge the interrupt */
+//  464       __HAL_HCD_CLEAR_FLAG(hhcd, USB_OTG_GINTSTS_PXFR_INCOMPISOOUT);
+        MOVS     R0,#+2097152
         LDR      R1,[R4, #+0]
-        MOV      R0,#+67108864
         STR      R0,[R1, #+20]
-//  477     }   
-//  478     
-//  479     if(__HAL_HCD_GET_FLAG(hhcd, USB_OTG_GINTSTS_MMIS))
+//  465     }
+//  466     
+//  467     if(__HAL_HCD_GET_FLAG(hhcd, USB_OTG_GINTSTS_IISOIXFR))
 ??HAL_HCD_IRQHandler_3:
         LDR      R0,[R4, #+0]
           CFI FunCall USB_ReadInterrupts
         BL       USB_ReadInterrupts
-        LSLS     R0,R0,#+30
+        LSLS     R0,R0,#+11
         BPL.N    ??HAL_HCD_IRQHandler_4
+//  468     {
+//  469      /* incorrect mode, acknowledge the interrupt */
+//  470       __HAL_HCD_CLEAR_FLAG(hhcd, USB_OTG_GINTSTS_IISOIXFR);
+        MOVS     R0,#+1048576
+        LDR      R1,[R4, #+0]
+        STR      R0,[R1, #+20]
+//  471     }
+//  472 
+//  473     if(__HAL_HCD_GET_FLAG(hhcd, USB_OTG_GINTSTS_PTXFE))
+??HAL_HCD_IRQHandler_4:
+        LDR      R0,[R4, #+0]
+          CFI FunCall USB_ReadInterrupts
+        BL       USB_ReadInterrupts
+        LSLS     R0,R0,#+5
+        BPL.N    ??HAL_HCD_IRQHandler_5
+//  474     {
+//  475      /* incorrect mode, acknowledge the interrupt */
+//  476       __HAL_HCD_CLEAR_FLAG(hhcd, USB_OTG_GINTSTS_PTXFE);
+        MOVS     R0,#+67108864
+        LDR      R1,[R4, #+0]
+        STR      R0,[R1, #+20]
+//  477     }   
+//  478     
+//  479     if(__HAL_HCD_GET_FLAG(hhcd, USB_OTG_GINTSTS_MMIS))
+??HAL_HCD_IRQHandler_5:
+        LDR      R0,[R4, #+0]
+          CFI FunCall USB_ReadInterrupts
+        BL       USB_ReadInterrupts
+        LSLS     R0,R0,#+30
+        BPL.N    ??HAL_HCD_IRQHandler_6
 //  480     {
 //  481      /* incorrect mode, acknowledge the interrupt */
 //  482       __HAL_HCD_CLEAR_FLAG(hhcd, USB_OTG_GINTSTS_MMIS);
-        LDR      R1,[R4, #+0]
         MOVS     R0,#+2
+        LDR      R1,[R4, #+0]
         STR      R0,[R1, #+20]
 //  483     }     
 //  484     
 //  485     /* Handle Host Disconnect Interrupts */
 //  486     if(__HAL_HCD_GET_FLAG(hhcd, USB_OTG_GINTSTS_DISCINT))
-??HAL_HCD_IRQHandler_4:
+??HAL_HCD_IRQHandler_6:
         LDR      R0,[R4, #+0]
           CFI FunCall USB_ReadInterrupts
         BL       USB_ReadInterrupts
         LSLS     R0,R0,#+2
-        BPL.N    ??HAL_HCD_IRQHandler_5
-        ADD      R0,R6,#+1088
-        LDR      R1,[R0, #+0]
-        BIC      R1,R1,#0x2E
-        STR      R1,[R0, #+0]
+        BPL.N    ??HAL_HCD_IRQHandler_7
 //  487     {
 //  488       
 //  489       /* Cleanup HPRT */
 //  490       USBx_HPRT0 &= ~(USB_OTG_HPRT_PENA | USB_OTG_HPRT_PCDET |\ 
 //  491         USB_OTG_HPRT_PENCHNG | USB_OTG_HPRT_POCCHNG );
+        ADDS     R0,R5,#+1088
+        LDR      R0,[R0, #+0]
+        BICS     R0,R0,#0x2E
+        ADDS     R1,R5,#+1088
+        STR      R0,[R1, #+0]
 //  492        
 //  493       /* Handle Host Port Interrupts */
 //  494       HAL_HCD_Disconnect_Callback(hhcd);
-        MOV      R0,R4
+        MOVS     R0,R4
           CFI FunCall HAL_HCD_Disconnect_Callback
         BL       HAL_HCD_Disconnect_Callback
 //  495        USB_InitFSLSPClkSel(hhcd->Instance ,HCFG_48_MHZ );
-        LDR      R0,[R4, #+0]
         MOVS     R1,#+1
+        LDR      R0,[R4, #+0]
           CFI FunCall USB_InitFSLSPClkSel
         BL       USB_InitFSLSPClkSel
 //  496       __HAL_HCD_CLEAR_FLAG(hhcd, USB_OTG_GINTSTS_DISCINT);
+        MOVS     R0,#+536870912
         LDR      R1,[R4, #+0]
-        MOV      R0,#+536870912
         STR      R0,[R1, #+20]
 //  497     }
 //  498     
 //  499     /* Handle Host Port Interrupts */
 //  500     if(__HAL_HCD_GET_FLAG(hhcd, USB_OTG_GINTSTS_HPRTINT))
-??HAL_HCD_IRQHandler_5:
+??HAL_HCD_IRQHandler_7:
         LDR      R0,[R4, #+0]
           CFI FunCall USB_ReadInterrupts
         BL       USB_ReadInterrupts
         LSLS     R0,R0,#+7
-        ITT      MI 
+        BPL.N    ??HAL_HCD_IRQHandler_8
 //  501     {
 //  502       HCD_Port_IRQHandler (hhcd);
-        MOVMI    R0,R4
+        MOVS     R0,R4
           CFI FunCall HCD_Port_IRQHandler
-        BLMI     HCD_Port_IRQHandler
+        BL       HCD_Port_IRQHandler
 //  503     }
 //  504     
 //  505     /* Handle Host SOF Interrupts */
 //  506     if(__HAL_HCD_GET_FLAG(hhcd, USB_OTG_GINTSTS_SOF))
+??HAL_HCD_IRQHandler_8:
         LDR      R0,[R4, #+0]
           CFI FunCall USB_ReadInterrupts
         BL       USB_ReadInterrupts
         LSLS     R0,R0,#+28
-        BPL.N    ??HAL_HCD_IRQHandler_6
+        BPL.N    ??HAL_HCD_IRQHandler_9
 //  507     {
 //  508       HAL_HCD_SOF_Callback(hhcd);
-        MOV      R0,R4
+        MOVS     R0,R4
           CFI FunCall HAL_HCD_SOF_Callback
         BL       HAL_HCD_SOF_Callback
 //  509       __HAL_HCD_CLEAR_FLAG(hhcd, USB_OTG_GINTSTS_SOF);
-        LDR      R1,[R4, #+0]
         MOVS     R0,#+8
+        LDR      R1,[R4, #+0]
         STR      R0,[R1, #+20]
 //  510     }
 //  511           
 //  512     /* Handle Host channel Interrupts */
 //  513     if(__HAL_HCD_GET_FLAG(hhcd, USB_OTG_GINTSTS_HCINT))
-??HAL_HCD_IRQHandler_6:
+??HAL_HCD_IRQHandler_9:
         LDR      R0,[R4, #+0]
           CFI FunCall USB_ReadInterrupts
         BL       USB_ReadInterrupts
         LSLS     R0,R0,#+6
-        BPL.N    ??HAL_HCD_IRQHandler_7
+        BPL.N    ??HAL_HCD_IRQHandler_10
 //  514     {
 //  515       interrupt = USB_HC_ReadInterrupt(hhcd->Instance);
         LDR      R0,[R4, #+0]
-        ADD      R6,R6,#+1280
           CFI FunCall USB_HC_ReadInterrupt
         BL       USB_HC_ReadInterrupt
-        MOV      R7,R0
+        MOVS     R7,R0
 //  516       for (i = 0; i < hhcd->Init.Host_channels ; i++)
+        MOVS     R0,#+0
+        MOVS     R6,R0
+??HAL_HCD_IRQHandler_11:
         LDR      R0,[R4, #+8]
-        CBZ.N    R0,??HAL_HCD_IRQHandler_8
+        CMP      R6,R0
+        BCS.N    ??HAL_HCD_IRQHandler_12
 //  517       {
 //  518         if (interrupt & (1 << i))
-??HAL_HCD_IRQHandler_9:
-        LSR      R0,R7,R5
+        MOVS     R0,R7
+        LSRS     R0,R0,R6
         LSLS     R0,R0,#+31
-        BPL.N    ??HAL_HCD_IRQHandler_10
+        BPL.N    ??HAL_HCD_IRQHandler_13
 //  519         {
 //  520           if ((USBx_HC(i)->HCCHAR) &  USB_OTG_HCCHAR_EPDIR)
-        LDR      R0,[R6, #+0]
-        UXTB     R1,R5
+        ADDS     R0,R5,R6, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+16
-        MOV      R0,R4
-        BPL.N    ??HAL_HCD_IRQHandler_11
+        BPL.N    ??HAL_HCD_IRQHandler_14
 //  521           {
 //  522             HCD_HC_IN_IRQHandler (hhcd, i);
+        MOVS     R1,R6
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        MOVS     R0,R4
           CFI FunCall HCD_HC_IN_IRQHandler
         BL       HCD_HC_IN_IRQHandler
-        B.N      ??HAL_HCD_IRQHandler_10
+        B.N      ??HAL_HCD_IRQHandler_13
 //  523           }
 //  524           else
 //  525           {
 //  526             HCD_HC_OUT_IRQHandler (hhcd, i);
-??HAL_HCD_IRQHandler_11:
+??HAL_HCD_IRQHandler_14:
+        MOVS     R1,R6
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        MOVS     R0,R4
           CFI FunCall HCD_HC_OUT_IRQHandler
         BL       HCD_HC_OUT_IRQHandler
 //  527           }
 //  528         }
 //  529       }
-??HAL_HCD_IRQHandler_10:
-        LDR      R0,[R4, #+8]
-        ADDS     R5,R5,#+1
-        ADDS     R6,R6,#+32
-        CMP      R5,R0
-        BCC.N    ??HAL_HCD_IRQHandler_9
+??HAL_HCD_IRQHandler_13:
+        ADDS     R6,R6,#+1
+        B.N      ??HAL_HCD_IRQHandler_11
 //  530       __HAL_HCD_CLEAR_FLAG(hhcd, USB_OTG_GINTSTS_HCINT);
-??HAL_HCD_IRQHandler_8:
+??HAL_HCD_IRQHandler_12:
+        MOVS     R0,#+33554432
         LDR      R1,[R4, #+0]
-        MOV      R0,#+33554432
         STR      R0,[R1, #+20]
 //  531     } 
 //  532     
 //  533         /* Handle Rx Queue Level Interrupts */
 //  534     if(__HAL_HCD_GET_FLAG(hhcd, USB_OTG_GINTSTS_RXFLVL))
-??HAL_HCD_IRQHandler_7:
+??HAL_HCD_IRQHandler_10:
         LDR      R0,[R4, #+0]
           CFI FunCall USB_ReadInterrupts
         BL       USB_ReadInterrupts
@@ -1114,27 +1333,28 @@ HAL_HCD_IRQHandler:
 //  535     {
 //  536       USB_MASK_INTERRUPT(hhcd->Instance, USB_OTG_GINTSTS_RXFLVL);
         LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+24]
-        BIC      R1,R1,#0x10
-        STR      R1,[R0, #+24]
+        LDR      R0,[R0, #+24]
+        BICS     R0,R0,#0x10
+        LDR      R1,[R4, #+0]
+        STR      R0,[R1, #+24]
 //  537       
 //  538       HCD_RXQLVL_IRQHandler (hhcd);
-        MOV      R0,R4
+        MOVS     R0,R4
           CFI FunCall HCD_RXQLVL_IRQHandler
         BL       HCD_RXQLVL_IRQHandler
 //  539       
 //  540       USB_UNMASK_INTERRUPT(hhcd->Instance, USB_OTG_GINTSTS_RXFLVL);
         LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+24]
-        ORR      R1,R1,#0x10
-        STR      R1,[R0, #+24]
+        LDR      R0,[R0, #+24]
+        ORRS     R0,R0,#0x10
+        LDR      R1,[R4, #+0]
+        STR      R0,[R1, #+24]
 //  541     }
 //  542   }
 //  543 }
 ??HAL_HCD_IRQHandler_0:
-        ADD      SP,SP,#+4
-          CFI CFA R13+20
-        POP      {R4-R7,PC}       ;; return
+??HAL_HCD_IRQHandler_1:
+        POP      {R0,R4-R7,PC}    ;; return
           CFI EndBlock cfiBlock7
 //  544 
 //  545 /**
@@ -1267,13 +1487,13 @@ HAL_HCD_Start:
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-        MOV      R4,R0
+        MOVS     R4,R0
 //  629   __HAL_LOCK(hhcd); 
         LDRB     R0,[R4, #+652]
         CMP      R0,#+1
         BNE.N    ??HAL_HCD_Start_0
         MOVS     R0,#+2
-        POP      {R4,PC}
+        B.N      ??HAL_HCD_Start_1
 ??HAL_HCD_Start_0:
         MOVS     R0,#+1
         STRB     R0,[R4, #+652]
@@ -1282,14 +1502,16 @@ HAL_HCD_Start:
           CFI FunCall USB_EnableGlobalInt
         BL       USB_EnableGlobalInt
 //  631   USB_DriveVbus(hhcd->Instance, 1);  
-        LDR      R0,[R4, #+0]
         MOVS     R1,#+1
+        LDR      R0,[R4, #+0]
           CFI FunCall USB_DriveVbus
         BL       USB_DriveVbus
 //  632   __HAL_UNLOCK(hhcd); 
         MOVS     R0,#+0
         STRB     R0,[R4, #+652]
 //  633   return HAL_OK;
+        MOVS     R0,#+0
+??HAL_HCD_Start_1:
         POP      {R4,PC}          ;; return
 //  634 }
           CFI EndBlock cfiBlock12
@@ -1312,13 +1534,13 @@ HAL_HCD_Stop:
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-        MOV      R4,R0
+        MOVS     R4,R0
 //  644   __HAL_LOCK(hhcd); 
         LDRB     R0,[R4, #+652]
         CMP      R0,#+1
         BNE.N    ??HAL_HCD_Stop_0
         MOVS     R0,#+2
-        POP      {R4,PC}
+        B.N      ??HAL_HCD_Stop_1
 ??HAL_HCD_Stop_0:
         MOVS     R0,#+1
         STRB     R0,[R4, #+652]
@@ -1330,6 +1552,8 @@ HAL_HCD_Stop:
         MOVS     R0,#+0
         STRB     R0,[R4, #+652]
 //  647   return HAL_OK;
+        MOVS     R0,#+0
+??HAL_HCD_Stop_1:
         POP      {R4,PC}          ;; return
 //  648 }
           CFI EndBlock cfiBlock13
@@ -1346,11 +1570,17 @@ HAL_HCD_Stop:
         THUMB
 //  655 HAL_StatusTypeDef HAL_HCD_ResetPort(HCD_HandleTypeDef *hhcd)
 //  656 {
-//  657   return (USB_ResetPort(hhcd->Instance));
 HAL_HCD_ResetPort:
-        LDR      R0,[R0, #+0]
+        PUSH     {R4,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        MOVS     R4,R0
+//  657   return (USB_ResetPort(hhcd->Instance));
+        LDR      R0,[R4, #+0]
           CFI FunCall USB_ResetPort
-        B.W      USB_ResetPort
+        BL       USB_ResetPort
+        POP      {R4,PC}          ;; return
 //  658 }
           CFI EndBlock cfiBlock14
 //  659 
@@ -1417,8 +1647,9 @@ HAL_HCD_GetState:
 //  704 {
 //  705   return hhcd->hc[chnum].urb_state;
 HAL_HCD_HC_GetURBState:
-        ADD      R2,R1,R1, LSL #+2
-        ADD      R0,R0,R2, LSL #+3
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        MOVS     R2,#+40
+        MLA      R0,R2,R1,R0
         LDRB     R0,[R0, #+88]
         BX       LR               ;; return
 //  706 }
@@ -1442,8 +1673,9 @@ HAL_HCD_HC_GetURBState:
 //  717 {
 //  718   return hhcd->hc[chnum].xfer_count; 
 HAL_HCD_HC_GetXferCount:
-        ADD      R2,R1,R1, LSL #+2
-        ADD      R0,R0,R2, LSL #+3
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        MOVS     R2,#+40
+        MLA      R0,R2,R1,R0
         LDR      R0,[R0, #+72]
         BX       LR               ;; return
 //  719 }
@@ -1476,8 +1708,9 @@ HAL_HCD_HC_GetXferCount:
 //  739 {
 //  740   return hhcd->hc[chnum].state;
 HAL_HCD_HC_GetState:
-        ADD      R2,R1,R1, LSL #+2
-        ADD      R0,R0,R2, LSL #+3
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        MOVS     R2,#+40
+        MLA      R0,R2,R1,R0
         LDRB     R0,[R0, #+89]
         BX       LR               ;; return
 //  741 }
@@ -1495,11 +1728,17 @@ HAL_HCD_HC_GetState:
         THUMB
 //  748 uint32_t HAL_HCD_GetCurrentFrame(HCD_HandleTypeDef *hhcd)
 //  749 {
-//  750   return (USB_GetCurrentFrame(hhcd->Instance));
 HAL_HCD_GetCurrentFrame:
-        LDR      R0,[R0, #+0]
+        PUSH     {R4,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        MOVS     R4,R0
+//  750   return (USB_GetCurrentFrame(hhcd->Instance));
+        LDR      R0,[R4, #+0]
           CFI FunCall USB_GetCurrentFrame
-        B.W      USB_GetCurrentFrame
+        BL       USB_GetCurrentFrame
+        POP      {R4,PC}          ;; return
 //  751 }
           CFI EndBlock cfiBlock19
 //  752 
@@ -1515,11 +1754,17 @@ HAL_HCD_GetCurrentFrame:
         THUMB
 //  758 uint32_t HAL_HCD_GetCurrentSpeed(HCD_HandleTypeDef *hhcd)
 //  759 {
-//  760   return (USB_GetHostSpeed(hhcd->Instance));
 HAL_HCD_GetCurrentSpeed:
-        LDR      R0,[R0, #+0]
+        PUSH     {R4,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        MOVS     R4,R0
+//  760   return (USB_GetHostSpeed(hhcd->Instance));
+        LDR      R0,[R4, #+0]
           CFI FunCall USB_GetHostSpeed
-        B.W      USB_GetHostSpeed
+        BL       USB_GetHostSpeed
+        POP      {R4,PC}          ;; return
 //  761 }
           CFI EndBlock cfiBlock20
 //  762 /**
@@ -1548,68 +1793,101 @@ HAL_HCD_GetCurrentSpeed:
 //  780 static void HCD_HC_IN_IRQHandler   (HCD_HandleTypeDef *hhcd, uint8_t chnum)
 //  781 {
 HCD_HC_IN_IRQHandler:
-        PUSH     {R4-R7,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+20
-        MOV      R4,R0
-        SUB      SP,SP,#+4
-          CFI CFA R13+24
-        MOV      R5,R1
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
+        MOVS     R4,R0
+        MOVS     R5,R1
 //  782   USB_OTG_GlobalTypeDef *USBx = hhcd->Instance;
-        LDR      R0,[R4, #+0]
+        LDR      R6,[R4, #+0]
 //  783     
 //  784   if ((USBx_HC(chnum)->HCINT) &  USB_OTG_HCINT_AHBERR)
-        ADD      R0,R0,R5, LSL #+5
-        ADD      R6,R0,#+1280
-        LDR      R0,[R6, #+8]
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+8]
         LSLS     R0,R0,#+29
         BPL.N    ??HCD_HC_IN_IRQHandler_0
 //  785   {
 //  786     __HAL_HCD_CLEAR_HC_INT(chnum, USB_OTG_HCINT_AHBERR);
-        MOVS     R0,#+4
-        STR      R0,[R6, #+8]
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        MOVS     R1,#+4
+        STR      R1,[R0, #+8]
 //  787     __HAL_HCD_UNMASK_HALT_HC_INT(chnum);
-        LDR      R0,[R6, #+12]
-        ORR      R0,R0,#0x2
-        STR      R0,[R6, #+12]
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R1,R6,R5, LSL #+5
+        ADDS     R1,R1,#+1280
+        LDR      R1,[R1, #+12]
+        ORRS     R1,R1,#0x2
+        STR      R1,[R0, #+12]
         B.N      ??HCD_HC_IN_IRQHandler_1
 //  788   }  
 //  789   else if ((USBx_HC(chnum)->HCINT) &  USB_OTG_HCINT_ACK)
 ??HCD_HC_IN_IRQHandler_0:
-        LDR      R0,[R6, #+8]
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+8]
         LSLS     R0,R0,#+26
-        IT       MI 
-        MOVMI    R0,#+32
+        BPL.N    ??HCD_HC_IN_IRQHandler_2
 //  790   {
 //  791     __HAL_HCD_CLEAR_HC_INT(chnum, USB_OTG_HCINT_ACK);
-        BMI.N    ??HCD_HC_IN_IRQHandler_2
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        MOVS     R1,#+32
+        STR      R1,[R0, #+8]
+        B.N      ??HCD_HC_IN_IRQHandler_1
 //  792   }
 //  793   
 //  794   else if ((USBx_HC(chnum)->HCINT) &  USB_OTG_HCINT_STALL)  
-        ADD      R0,R5,R5, LSL #+2
-        ADD      R7,R4,R0, LSL #+3
-        LDR      R0,[R6, #+8]
+??HCD_HC_IN_IRQHandler_2:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+8]
         LSLS     R0,R0,#+28
         BPL.N    ??HCD_HC_IN_IRQHandler_3
 //  795   {
 //  796     __HAL_HCD_UNMASK_HALT_HC_INT(chnum);
-        LDR      R0,[R6, #+12]
-        ORR      R0,R0,#0x2
-        STR      R0,[R6, #+12]
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R1,R6,R5, LSL #+5
+        ADDS     R1,R1,#+1280
+        LDR      R1,[R1, #+12]
+        ORRS     R1,R1,#0x2
+        STR      R1,[R0, #+12]
 //  797     hhcd->hc[chnum].state = HC_STALL;
         MOVS     R0,#+5
-        STRB     R0,[R7, #+89]
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STRB     R0,[R1, #+89]
 //  798     __HAL_HCD_CLEAR_HC_INT(chnum, USB_OTG_HCINT_NAK);
-        MOVS     R0,#+16
-        STR      R0,[R6, #+8]
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        MOVS     R1,#+16
+        STR      R1,[R0, #+8]
 //  799     __HAL_HCD_CLEAR_HC_INT(chnum, USB_OTG_HCINT_STALL);    
-        MOVS     R0,#+8
-        STR      R0,[R6, #+8]
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        MOVS     R1,#+8
+        STR      R1,[R0, #+8]
 //  800     USB_HC_Halt(hhcd->Instance, chnum);    
+        MOVS     R1,R5
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
         LDR      R0,[R4, #+0]
           CFI FunCall USB_HC_Halt
         BL       USB_HC_Halt
@@ -1617,317 +1895,522 @@ HCD_HC_IN_IRQHandler:
 //  801   }
 //  802   else if ((USBx_HC(chnum)->HCINT) &  USB_OTG_HCINT_DTERR)
 ??HCD_HC_IN_IRQHandler_3:
-        LDR      R0,[R6, #+8]
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+8]
         LSLS     R0,R0,#+21
         BPL.N    ??HCD_HC_IN_IRQHandler_1
 //  803   {
 //  804     __HAL_HCD_UNMASK_HALT_HC_INT(chnum);
-        LDR      R0,[R6, #+12]
-        ORR      R0,R0,#0x2
-        STR      R0,[R6, #+12]
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R1,R6,R5, LSL #+5
+        ADDS     R1,R1,#+1280
+        LDR      R1,[R1, #+12]
+        ORRS     R1,R1,#0x2
+        STR      R1,[R0, #+12]
 //  805     USB_HC_Halt(hhcd->Instance, chnum);  
+        MOVS     R1,R5
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
         LDR      R0,[R4, #+0]
           CFI FunCall USB_HC_Halt
         BL       USB_HC_Halt
 //  806     __HAL_HCD_CLEAR_HC_INT(chnum, USB_OTG_HCINT_NAK);    
-        MOVS     R0,#+16
-        STR      R0,[R6, #+8]
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        MOVS     R1,#+16
+        STR      R1,[R0, #+8]
 //  807     hhcd->hc[chnum].state = HC_DATATGLERR;
         MOVS     R0,#+8
-        STRB     R0,[R7, #+89]
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STRB     R0,[R1, #+89]
 //  808     __HAL_HCD_CLEAR_HC_INT(chnum, USB_OTG_HCINT_DTERR);
-        MOV      R0,#+1024
-??HCD_HC_IN_IRQHandler_2:
-        STR      R0,[R6, #+8]
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        MOV      R1,#+1024
+        STR      R1,[R0, #+8]
 //  809   }    
 //  810   
 //  811   if ((USBx_HC(chnum)->HCINT) &  USB_OTG_HCINT_FRMOR)
 ??HCD_HC_IN_IRQHandler_1:
-        LDR      R0,[R6, #+8]
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+8]
         LSLS     R0,R0,#+22
         BPL.N    ??HCD_HC_IN_IRQHandler_4
 //  812   {
 //  813     __HAL_HCD_UNMASK_HALT_HC_INT(chnum); 
-        LDR      R0,[R6, #+12]
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R1,R6,R5, LSL #+5
+        ADDS     R1,R1,#+1280
+        LDR      R1,[R1, #+12]
+        ORRS     R1,R1,#0x2
+        STR      R1,[R0, #+12]
 //  814     USB_HC_Halt(hhcd->Instance, chnum);  
-        MOV      R1,R5
-        ORR      R0,R0,#0x2
-        STR      R0,[R6, #+12]
+        MOVS     R1,R5
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
         LDR      R0,[R4, #+0]
           CFI FunCall USB_HC_Halt
         BL       USB_HC_Halt
 //  815     __HAL_HCD_CLEAR_HC_INT(chnum, USB_OTG_HCINT_FRMOR);
-        MOV      R0,#+512
-        STR      R0,[R6, #+8]
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        MOV      R1,#+512
+        STR      R1,[R0, #+8]
+        B.N      ??HCD_HC_IN_IRQHandler_5
 //  816   }
 //  817   
 //  818   else if ((USBx_HC(chnum)->HCINT) &  USB_OTG_HCINT_XFRC)
+??HCD_HC_IN_IRQHandler_4:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+8]
+        LSLS     R0,R0,#+31
+        BPL.W    ??HCD_HC_IN_IRQHandler_6
 //  819   {
 //  820     
 //  821     if (hhcd->Init.dma_enable)
+        LDR      R0,[R4, #+16]
+        CMP      R0,#+0
+        BEQ.N    ??HCD_HC_IN_IRQHandler_7
 //  822     {
 //  823       hhcd->hc[chnum].xfer_count = hhcd->hc[chnum].xfer_len - \ 
 //  824                                (USBx_HC(chnum)->HCTSIZ & USB_OTG_HCTSIZ_XFRSIZ);
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R5,R4
+        LDR      R0,[R0, #+68]
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R1,R6,R5, LSL #+5
+        ADDS     R1,R1,#+1280
+        LDR      R1,[R1, #+16]
+        LSLS     R1,R1,#+13       ;; ZeroExtS R1,R1,#+13,#+13
+        LSRS     R1,R1,#+13
+        SUBS     R0,R0,R1
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STR      R0,[R1, #+72]
 //  825     }
 //  826     
 //  827     hhcd->hc[chnum].state = HC_XFRC;
+??HCD_HC_IN_IRQHandler_7:
+        MOVS     R0,#+1
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STRB     R0,[R1, #+89]
 //  828     hhcd->hc[chnum].ErrCnt = 0;
+        MOVS     R0,#+0
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STR      R0,[R1, #+84]
 //  829     __HAL_HCD_CLEAR_HC_INT(chnum, USB_OTG_HCINT_XFRC);
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        MOVS     R1,#+1
+        STR      R1,[R0, #+8]
 //  830     
 //  831     
 //  832     if ((hhcd->hc[chnum].ep_type == EP_TYPE_CTRL)||
 //  833         (hhcd->hc[chnum].ep_type == EP_TYPE_BULK))
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R5,R4
+        LDRB     R0,[R0, #+59]
+        CMP      R0,#+0
+        BEQ.N    ??HCD_HC_IN_IRQHandler_8
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R5,R4
+        LDRB     R0,[R0, #+59]
+        CMP      R0,#+2
+        BNE.N    ??HCD_HC_IN_IRQHandler_9
 //  834     {
 //  835       __HAL_HCD_UNMASK_HALT_HC_INT(chnum); 
+??HCD_HC_IN_IRQHandler_8:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R1,R6,R5, LSL #+5
+        ADDS     R1,R1,#+1280
+        LDR      R1,[R1, #+12]
+        ORRS     R1,R1,#0x2
+        STR      R1,[R0, #+12]
 //  836       USB_HC_Halt(hhcd->Instance, chnum); 
+        MOVS     R1,R5
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        LDR      R0,[R4, #+0]
+          CFI FunCall USB_HC_Halt
+        BL       USB_HC_Halt
 //  837       __HAL_HCD_CLEAR_HC_INT(chnum, USB_OTG_HCINT_NAK);
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        MOVS     R1,#+16
+        STR      R1,[R0, #+8]
+        B.N      ??HCD_HC_IN_IRQHandler_10
 //  838       
 //  839     }
 //  840     else if(hhcd->hc[chnum].ep_type == EP_TYPE_INTR)
+??HCD_HC_IN_IRQHandler_9:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R5,R4
+        LDRB     R0,[R0, #+59]
+        CMP      R0,#+3
+        BNE.N    ??HCD_HC_IN_IRQHandler_10
 //  841     {
 //  842       USBx_HC(chnum)->HCCHAR |= USB_OTG_HCCHAR_ODDFRM;
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x20000000
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R1,R6,R5, LSL #+5
+        ADDS     R1,R1,#+1280
+        STR      R0,[R1, #+0]
 //  843       hhcd->hc[chnum].urb_state = URB_DONE; 
+        MOVS     R0,#+1
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STRB     R0,[R1, #+88]
 //  844       HAL_HCD_HC_NotifyURBChange_Callback(hhcd, chnum, hhcd->hc[chnum].urb_state);
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R5,R4
+        LDRB     R2,[R0, #+88]
+        MOVS     R1,R5
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        MOVS     R0,R4
+          CFI FunCall HAL_HCD_HC_NotifyURBChange_Callback
+        BL       HAL_HCD_HC_NotifyURBChange_Callback
 //  845     }
 //  846     hhcd->hc[chnum].toggle_in ^= 1;
+??HCD_HC_IN_IRQHandler_10:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R5,R4
+        LDRB     R0,[R0, #+76]
+        EORS     R0,R0,#0x1
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STRB     R0,[R1, #+76]
+        B.N      ??HCD_HC_IN_IRQHandler_5
 //  847     
 //  848   }
 //  849   else if ((USBx_HC(chnum)->HCINT) &  USB_OTG_HCINT_CHH)
+??HCD_HC_IN_IRQHandler_6:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+8]
+        LSLS     R0,R0,#+30
+        BPL.W    ??HCD_HC_IN_IRQHandler_11
 //  850   {
 //  851     __HAL_HCD_MASK_HALT_HC_INT(chnum); 
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R1,R6,R5, LSL #+5
+        ADDS     R1,R1,#+1280
+        LDR      R1,[R1, #+12]
+        BICS     R1,R1,#0x2
+        STR      R1,[R0, #+12]
 //  852     
 //  853     if(hhcd->hc[chnum].state == HC_XFRC)
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R5,R4
+        LDRB     R0,[R0, #+89]
+        CMP      R0,#+1
+        BNE.N    ??HCD_HC_IN_IRQHandler_12
 //  854     {
 //  855       hhcd->hc[chnum].urb_state  = URB_DONE;      
+        MOVS     R0,#+1
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STRB     R0,[R1, #+88]
+        B.N      ??HCD_HC_IN_IRQHandler_13
 //  856     }
 //  857     
 //  858     else if (hhcd->hc[chnum].state == HC_STALL) 
+??HCD_HC_IN_IRQHandler_12:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R5,R4
+        LDRB     R0,[R0, #+89]
+        CMP      R0,#+5
+        BNE.N    ??HCD_HC_IN_IRQHandler_14
 //  859     {
 //  860       hhcd->hc[chnum].urb_state  = URB_STALL;
+        MOVS     R0,#+5
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STRB     R0,[R1, #+88]
+        B.N      ??HCD_HC_IN_IRQHandler_13
 //  861     }   
 //  862     
 //  863     else if((hhcd->hc[chnum].state == HC_XACTERR) ||
 //  864             (hhcd->hc[chnum].state == HC_DATATGLERR))
+??HCD_HC_IN_IRQHandler_14:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R5,R4
+        LDRB     R0,[R0, #+89]
+        CMP      R0,#+6
+        BEQ.N    ??HCD_HC_IN_IRQHandler_15
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R5,R4
+        LDRB     R0,[R0, #+89]
+        CMP      R0,#+8
+        BNE.N    ??HCD_HC_IN_IRQHandler_13
 //  865     {
 //  866       if(hhcd->hc[chnum].ErrCnt++ > 3)
+??HCD_HC_IN_IRQHandler_15:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R5,R4
+        LDR      R0,[R0, #+84]
+        ADDS     R1,R0,#+1
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R2,#+40
+        MLA      R2,R2,R5,R4
+        STR      R1,[R2, #+84]
+        CMP      R0,#+4
+        BCC.N    ??HCD_HC_IN_IRQHandler_16
 //  867       {      
 //  868         hhcd->hc[chnum].ErrCnt = 0;
+        MOVS     R0,#+0
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STR      R0,[R1, #+84]
 //  869         hhcd->hc[chnum].urb_state = URB_ERROR;
+        MOVS     R0,#+4
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STRB     R0,[R1, #+88]
+        B.N      ??HCD_HC_IN_IRQHandler_17
 //  870       }
 //  871       else
 //  872       {
 //  873         hhcd->hc[chnum].urb_state = URB_NOTREADY;
+??HCD_HC_IN_IRQHandler_16:
+        MOVS     R0,#+2
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STRB     R0,[R1, #+88]
 //  874       }
 //  875       
 //  876       /* re-activate the channel  */
 //  877       USBx_HC(chnum)->HCCHAR &= ~USB_OTG_HCCHAR_CHDIS;         
+??HCD_HC_IN_IRQHandler_17:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+0]
+        BICS     R0,R0,#0x40000000
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R1,R6,R5, LSL #+5
+        ADDS     R1,R1,#+1280
+        STR      R0,[R1, #+0]
 //  878       USBx_HC(chnum)->HCCHAR |= USB_OTG_HCCHAR_CHENA;      
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x80000000
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R1,R6,R5, LSL #+5
+        ADDS     R1,R1,#+1280
+        STR      R0,[R1, #+0]
 //  879     }
 //  880     __HAL_HCD_CLEAR_HC_INT(chnum, USB_OTG_HCINT_CHH);
+??HCD_HC_IN_IRQHandler_13:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        MOVS     R1,#+2
+        STR      R1,[R0, #+8]
 //  881     HAL_HCD_HC_NotifyURBChange_Callback(hhcd, chnum, hhcd->hc[chnum].urb_state);
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R5,R4
+        LDRB     R2,[R0, #+88]
+        MOVS     R1,R5
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        MOVS     R0,R4
+          CFI FunCall HAL_HCD_HC_NotifyURBChange_Callback
+        BL       HAL_HCD_HC_NotifyURBChange_Callback
+        B.N      ??HCD_HC_IN_IRQHandler_5
 //  882   }  
 //  883   
 //  884   else if ((USBx_HC(chnum)->HCINT) &  USB_OTG_HCINT_TXERR)
+??HCD_HC_IN_IRQHandler_11:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+8]
+        LSLS     R0,R0,#+24
+        BPL.N    ??HCD_HC_IN_IRQHandler_18
 //  885   {
 //  886     __HAL_HCD_UNMASK_HALT_HC_INT(chnum); 
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R1,R6,R5, LSL #+5
+        ADDS     R1,R1,#+1280
+        LDR      R1,[R1, #+12]
+        ORRS     R1,R1,#0x2
+        STR      R1,[R0, #+12]
 //  887      hhcd->hc[chnum].ErrCnt++;
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R5,R4
+        LDR      R0,[R0, #+84]
+        ADDS     R0,R0,#+1
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STR      R0,[R1, #+84]
 //  888      hhcd->hc[chnum].state = HC_XACTERR;
+        MOVS     R0,#+6
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STRB     R0,[R1, #+89]
 //  889      USB_HC_Halt(hhcd->Instance, chnum);     
+        MOVS     R1,R5
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        LDR      R0,[R4, #+0]
+          CFI FunCall USB_HC_Halt
+        BL       USB_HC_Halt
 //  890      __HAL_HCD_CLEAR_HC_INT(chnum, USB_OTG_HCINT_TXERR);
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        MOVS     R1,#+128
+        STR      R1,[R0, #+8]
+        B.N      ??HCD_HC_IN_IRQHandler_5
 //  891   }
 //  892   else if ((USBx_HC(chnum)->HCINT) &  USB_OTG_HCINT_NAK)
+??HCD_HC_IN_IRQHandler_18:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+8]
+        LSLS     R0,R0,#+27
+        BPL.N    ??HCD_HC_IN_IRQHandler_5
 //  893   {  
 //  894     if(hhcd->hc[chnum].ep_type == EP_TYPE_INTR)
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R5,R4
+        LDRB     R0,[R0, #+59]
+        CMP      R0,#+3
+        BNE.N    ??HCD_HC_IN_IRQHandler_19
 //  895     {
 //  896       __HAL_HCD_UNMASK_HALT_HC_INT(chnum); 
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R1,R6,R5, LSL #+5
+        ADDS     R1,R1,#+1280
+        LDR      R1,[R1, #+12]
+        ORRS     R1,R1,#0x2
+        STR      R1,[R0, #+12]
 //  897       USB_HC_Halt(hhcd->Instance, chnum);  
+        MOVS     R1,R5
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        LDR      R0,[R4, #+0]
+          CFI FunCall USB_HC_Halt
+        BL       USB_HC_Halt
 //  898     }
 //  899     
 //  900     hhcd->hc[chnum].state = HC_NAK;
+??HCD_HC_IN_IRQHandler_19:
+        MOVS     R0,#+3
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STRB     R0,[R1, #+89]
 //  901     __HAL_HCD_CLEAR_HC_INT(chnum, USB_OTG_HCINT_NAK);
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        MOVS     R1,#+16
+        STR      R1,[R0, #+8]
 //  902      
 //  903     if  ((hhcd->hc[chnum].ep_type == EP_TYPE_CTRL)||
 //  904          (hhcd->hc[chnum].ep_type == EP_TYPE_BULK))
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R5,R4
+        LDRB     R0,[R0, #+59]
+        CMP      R0,#+0
+        BEQ.N    ??HCD_HC_IN_IRQHandler_20
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R5,R4
+        LDRB     R0,[R0, #+59]
+        CMP      R0,#+2
+        BNE.N    ??HCD_HC_IN_IRQHandler_5
 //  905     {
 //  906       /* re-activate the channel  */
 //  907       USBx_HC(chnum)->HCCHAR &= ~USB_OTG_HCCHAR_CHDIS;         
+??HCD_HC_IN_IRQHandler_20:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+0]
+        BICS     R0,R0,#0x40000000
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R1,R6,R5, LSL #+5
+        ADDS     R1,R1,#+1280
+        STR      R0,[R1, #+0]
 //  908       USBx_HC(chnum)->HCCHAR |= USB_OTG_HCCHAR_CHENA;
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x80000000
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R1,R6,R5, LSL #+5
+        ADDS     R1,R1,#+1280
+        STR      R0,[R1, #+0]
 //  909     }
 //  910   }
 //  911 }
-        ADD      SP,SP,#+4
-          CFI CFA R13+20
-        POP      {R4-R7,PC}
-          CFI CFA R13+24
-??HCD_HC_IN_IRQHandler_4:
-        LDR      R0,[R6, #+8]
-        LSLS     R0,R0,#+31
-        BPL.N    ??HCD_HC_IN_IRQHandler_5
-        ADD      R0,R5,R5, LSL #+2
-        ADD      R7,R4,R0, LSL #+3
-        LDR      R0,[R4, #+16]
-        CBZ.N    R0,??HCD_HC_IN_IRQHandler_6
-        LDR      R0,[R7, #+68]
-        LDR      R1,[R6, #+16]
-        LSLS     R1,R1,#+13
-        SUBS     R0,R0,R1, LSR #+13
-        STR      R0,[R7, #+72]
-??HCD_HC_IN_IRQHandler_6:
-        MOVS     R0,#+1
-        STRB     R0,[R7, #+89]
-        MOVS     R0,#+0
-        STR      R0,[R7, #+84]
-        MOVS     R0,#+1
-        STR      R0,[R6, #+8]
-        LDRB     R0,[R7, #+59]
-        CMP      R0,#+0
-        IT       NE 
-        CMPNE    R0,#+2
-        BNE.N    ??HCD_HC_IN_IRQHandler_7
-        LDR      R0,[R6, #+12]
-        MOV      R1,R5
-        ORR      R0,R0,#0x2
-        STR      R0,[R6, #+12]
-        LDR      R0,[R4, #+0]
-          CFI FunCall USB_HC_Halt
-        BL       USB_HC_Halt
-        MOVS     R0,#+16
-        STR      R0,[R6, #+8]
-        LDRB     R0,[R7, #+76]
-        EOR      R0,R0,#0x1
-        STRB     R0,[R7, #+76]
-        ADD      SP,SP,#+4
-          CFI CFA R13+20
-        POP      {R4-R7,PC}
-          CFI CFA R13+24
-??HCD_HC_IN_IRQHandler_7:
-        CMP      R0,#+3
-        BNE.N    ??HCD_HC_IN_IRQHandler_8
-        LDR      R0,[R6, #+0]
-        MOVS     R2,#+1
-        MOV      R1,R5
-        ORR      R0,R0,#0x20000000
-        STR      R0,[R6, #+0]
-        MOVS     R0,#+1
-        STRB     R0,[R7, #+88]
-        MOV      R0,R4
-          CFI FunCall HAL_HCD_HC_NotifyURBChange_Callback
-        BL       HAL_HCD_HC_NotifyURBChange_Callback
-??HCD_HC_IN_IRQHandler_8:
-        LDRB     R0,[R7, #+76]
-        EOR      R0,R0,#0x1
-        STRB     R0,[R7, #+76]
-        ADD      SP,SP,#+4
-          CFI CFA R13+20
-        POP      {R4-R7,PC}
-          CFI CFA R13+24
 ??HCD_HC_IN_IRQHandler_5:
-        LDR      R0,[R6, #+8]
-        LSLS     R0,R0,#+30
-        BPL.N    ??HCD_HC_IN_IRQHandler_9
-        LDR      R0,[R6, #+12]
-        BIC      R0,R0,#0x2
-        STR      R0,[R6, #+12]
-        ADD      R0,R5,R5, LSL #+2
-        ADD      R7,R4,R0, LSL #+3
-        LDRB     R0,[R7, #+89]
-        CMP      R0,#+1
-        ITE      NE 
-        CMPNE    R0,#+5
-        STRBEQ   R0,[R7, #+88]
-        BEQ.N    ??HCD_HC_IN_IRQHandler_10
-        CMP      R0,#+6
-        IT       NE 
-        CMPNE    R0,#+8
-        BNE.N    ??HCD_HC_IN_IRQHandler_10
-        LDR      R0,[R7, #+84]
-        ADDS     R1,R0,#+1
-        CMP      R0,#+4
-        STR      R1,[R7, #+84]
-        ITTTE    CS 
-        MOVCS    R0,#+0
-        STRCS    R0,[R7, #+84]
-        MOVCS    R0,#+4
-        MOVCC    R0,#+2
-        STRB     R0,[R7, #+88]
-        LDR      R0,[R6, #+0]
-        BIC      R0,R0,#0x40000000
-        STR      R0,[R6, #+0]
-        LDR      R0,[R6, #+0]
-        ORR      R0,R0,#0x80000000
-        STR      R0,[R6, #+0]
-??HCD_HC_IN_IRQHandler_10:
-        MOVS     R0,#+2
-        MOV      R1,R5
-        STR      R0,[R6, #+8]
-        LDRB     R2,[R7, #+88]
-        MOV      R0,R4
-          CFI FunCall HAL_HCD_HC_NotifyURBChange_Callback
-        BL       HAL_HCD_HC_NotifyURBChange_Callback
-        ADD      SP,SP,#+4
-          CFI CFA R13+20
-        POP      {R4-R7,PC}
-          CFI CFA R13+24
-??HCD_HC_IN_IRQHandler_9:
-        LDR      R0,[R6, #+8]
-        LSLS     R0,R0,#+24
-        BPL.N    ??HCD_HC_IN_IRQHandler_11
-        LDR      R0,[R6, #+12]
-        MOV      R1,R5
-        ORR      R0,R0,#0x2
-        STR      R0,[R6, #+12]
-        ADD      R0,R5,R5, LSL #+2
-        ADD      R7,R4,R0, LSL #+3
-        LDR      R0,[R7, #+84]
-        ADDS     R0,R0,#+1
-        STR      R0,[R7, #+84]
-        MOVS     R0,#+6
-        STRB     R0,[R7, #+89]
-        LDR      R0,[R4, #+0]
-          CFI FunCall USB_HC_Halt
-        BL       USB_HC_Halt
-        MOVS     R0,#+128
-        STR      R0,[R6, #+8]
-        ADD      SP,SP,#+4
-          CFI CFA R13+20
-        POP      {R4-R7,PC}
-          CFI CFA R13+24
-??HCD_HC_IN_IRQHandler_11:
-        LDR      R0,[R6, #+8]
-        LSLS     R0,R0,#+27
-        BPL.N    ??HCD_HC_IN_IRQHandler_12
-        ADD      R0,R5,R5, LSL #+2
-        ADD      R7,R4,R0, LSL #+3
-        LDRB     R0,[R7, #+59]
-        CMP      R0,#+3
-        BNE.N    ??HCD_HC_IN_IRQHandler_13
-        LDR      R0,[R6, #+12]
-        MOV      R1,R5
-        ORR      R0,R0,#0x2
-        STR      R0,[R6, #+12]
-        LDR      R0,[R4, #+0]
-          CFI FunCall USB_HC_Halt
-        BL       USB_HC_Halt
-??HCD_HC_IN_IRQHandler_13:
-        MOVS     R0,#+3
-        STRB     R0,[R7, #+89]
-        MOVS     R0,#+16
-        STR      R0,[R6, #+8]
-        LDRB     R0,[R7, #+59]
-        CMP      R0,#+0
-        IT       NE 
-        CMPNE    R0,#+2
-        BNE.N    ??HCD_HC_IN_IRQHandler_12
-        LDR      R0,[R6, #+0]
-        BIC      R0,R0,#0x40000000
-        STR      R0,[R6, #+0]
-        LDR      R0,[R6, #+0]
-        ORR      R0,R0,#0x80000000
-        STR      R0,[R6, #+0]
-??HCD_HC_IN_IRQHandler_12:
-        ADD      SP,SP,#+4
-          CFI CFA R13+20
-        POP      {R4-R7,PC}       ;; return
+        POP      {R4-R6,PC}       ;; return
           CFI EndBlock cfiBlock21
 //  912 
 //  913 /**
@@ -1945,403 +2428,615 @@ HCD_HC_IN_IRQHandler:
 //  920 static void HCD_HC_OUT_IRQHandler  (HCD_HandleTypeDef *hhcd, uint8_t chnum)
 //  921 {
 HCD_HC_OUT_IRQHandler:
-        PUSH     {R4-R7,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+20
-        MOV      R4,R0
-        SUB      SP,SP,#+4
-          CFI CFA R13+24
-        MOV      R5,R1
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
+        MOVS     R4,R0
+        MOVS     R5,R1
 //  922   USB_OTG_GlobalTypeDef *USBx = hhcd->Instance;
-        LDR      R0,[R4, #+0]
+        LDR      R6,[R4, #+0]
 //  923   
 //  924   if ((USBx_HC(chnum)->HCINT) &  USB_OTG_HCINT_AHBERR)
-        ADD      R0,R0,R5, LSL #+5
-        ADD      R6,R0,#+1280
-        LDR      R0,[R6, #+8]
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+8]
         LSLS     R0,R0,#+29
         BPL.N    ??HCD_HC_OUT_IRQHandler_0
 //  925   {
 //  926     __HAL_HCD_CLEAR_HC_INT(chnum, USB_OTG_HCINT_AHBERR);
-        MOVS     R0,#+4
-        STR      R0,[R6, #+8]
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        MOVS     R1,#+4
+        STR      R1,[R0, #+8]
 //  927     __HAL_HCD_UNMASK_HALT_HC_INT(chnum);
-        LDR      R0,[R6, #+12]
-        ORR      R0,R0,#0x2
-        STR      R0,[R6, #+12]
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R1,R6,R5, LSL #+5
+        ADDS     R1,R1,#+1280
+        LDR      R1,[R1, #+12]
+        ORRS     R1,R1,#0x2
+        STR      R1,[R0, #+12]
+        B.N      ??HCD_HC_OUT_IRQHandler_1
 //  928   }  
 //  929   else if ((USBx_HC(chnum)->HCINT) &  USB_OTG_HCINT_ACK)
+??HCD_HC_OUT_IRQHandler_0:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+8]
+        LSLS     R0,R0,#+26
+        BPL.N    ??HCD_HC_OUT_IRQHandler_2
 //  930   {
 //  931     __HAL_HCD_CLEAR_HC_INT(chnum, USB_OTG_HCINT_ACK);
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        MOVS     R1,#+32
+        STR      R1,[R0, #+8]
 //  932     
 //  933     if( hhcd->hc[chnum].do_ping == 1)
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R5,R4
+        LDRB     R0,[R0, #+57]
+        CMP      R0,#+1
+        BNE.W    ??HCD_HC_OUT_IRQHandler_1
 //  934     {
 //  935       hhcd->hc[chnum].state = HC_NYET;     
+        MOVS     R0,#+4
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STRB     R0,[R1, #+89]
 //  936       __HAL_HCD_UNMASK_HALT_HC_INT(chnum); 
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R1,R6,R5, LSL #+5
+        ADDS     R1,R1,#+1280
+        LDR      R1,[R1, #+12]
+        ORRS     R1,R1,#0x2
+        STR      R1,[R0, #+12]
 //  937       USB_HC_Halt(hhcd->Instance, chnum); 
+        MOVS     R1,R5
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        LDR      R0,[R4, #+0]
+          CFI FunCall USB_HC_Halt
+        BL       USB_HC_Halt
 //  938       hhcd->hc[chnum].urb_state  = URB_NOTREADY;
+        MOVS     R0,#+2
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STRB     R0,[R1, #+88]
+        B.N      ??HCD_HC_OUT_IRQHandler_1
 //  939     }
 //  940   }
 //  941   
 //  942   else if ((USBx_HC(chnum)->HCINT) &  USB_OTG_HCINT_NYET)
+??HCD_HC_OUT_IRQHandler_2:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+8]
+        LSLS     R0,R0,#+25
+        BPL.N    ??HCD_HC_OUT_IRQHandler_3
 //  943   {
 //  944     hhcd->hc[chnum].state = HC_NYET;
+        MOVS     R0,#+4
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STRB     R0,[R1, #+89]
 //  945     hhcd->hc[chnum].ErrCnt= 0;    
+        MOVS     R0,#+0
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STR      R0,[R1, #+84]
 //  946     __HAL_HCD_UNMASK_HALT_HC_INT(chnum); 
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R1,R6,R5, LSL #+5
+        ADDS     R1,R1,#+1280
+        LDR      R1,[R1, #+12]
+        ORRS     R1,R1,#0x2
+        STR      R1,[R0, #+12]
 //  947     USB_HC_Halt(hhcd->Instance, chnum);      
+        MOVS     R1,R5
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        LDR      R0,[R4, #+0]
+          CFI FunCall USB_HC_Halt
+        BL       USB_HC_Halt
 //  948     __HAL_HCD_CLEAR_HC_INT(chnum, USB_OTG_HCINT_NYET);
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        MOVS     R1,#+64
+        STR      R1,[R0, #+8]
+        B.N      ??HCD_HC_OUT_IRQHandler_1
 //  949     
 //  950   }  
 //  951   
 //  952   else if ((USBx_HC(chnum)->HCINT) &  USB_OTG_HCINT_FRMOR)
+??HCD_HC_OUT_IRQHandler_3:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+8]
+        LSLS     R0,R0,#+22
+        BPL.N    ??HCD_HC_OUT_IRQHandler_4
 //  953   {
 //  954     __HAL_HCD_UNMASK_HALT_HC_INT(chnum); 
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R1,R6,R5, LSL #+5
+        ADDS     R1,R1,#+1280
+        LDR      R1,[R1, #+12]
+        ORRS     R1,R1,#0x2
+        STR      R1,[R0, #+12]
 //  955     USB_HC_Halt(hhcd->Instance, chnum);  
+        MOVS     R1,R5
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        LDR      R0,[R4, #+0]
+          CFI FunCall USB_HC_Halt
+        BL       USB_HC_Halt
 //  956     __HAL_HCD_CLEAR_HC_INT(chnum, USB_OTG_HCINT_FRMOR);
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        MOV      R1,#+512
+        STR      R1,[R0, #+8]
+        B.N      ??HCD_HC_OUT_IRQHandler_1
 //  957   }
 //  958   
 //  959   else if ((USBx_HC(chnum)->HCINT) &  USB_OTG_HCINT_XFRC)
+??HCD_HC_OUT_IRQHandler_4:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+8]
+        LSLS     R0,R0,#+31
+        BPL.N    ??HCD_HC_OUT_IRQHandler_5
 //  960   {
 //  961       hhcd->hc[chnum].ErrCnt = 0;  
+        MOVS     R0,#+0
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STR      R0,[R1, #+84]
 //  962     __HAL_HCD_UNMASK_HALT_HC_INT(chnum);
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R1,R6,R5, LSL #+5
+        ADDS     R1,R1,#+1280
+        LDR      R1,[R1, #+12]
+        ORRS     R1,R1,#0x2
+        STR      R1,[R0, #+12]
 //  963     USB_HC_Halt(hhcd->Instance, chnum);   
+        MOVS     R1,R5
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        LDR      R0,[R4, #+0]
+          CFI FunCall USB_HC_Halt
+        BL       USB_HC_Halt
 //  964     __HAL_HCD_CLEAR_HC_INT(chnum, USB_OTG_HCINT_XFRC);
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        MOVS     R1,#+1
+        STR      R1,[R0, #+8]
 //  965     hhcd->hc[chnum].state = HC_XFRC;
+        MOVS     R0,#+1
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STRB     R0,[R1, #+89]
+        B.N      ??HCD_HC_OUT_IRQHandler_1
 //  966 
 //  967   }  
 //  968 
 //  969   else if ((USBx_HC(chnum)->HCINT) &  USB_OTG_HCINT_STALL)  
+??HCD_HC_OUT_IRQHandler_5:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+8]
+        LSLS     R0,R0,#+28
+        BPL.N    ??HCD_HC_OUT_IRQHandler_6
 //  970   {
 //  971     __HAL_HCD_CLEAR_HC_INT(chnum, USB_OTG_HCINT_STALL);  
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        MOVS     R1,#+8
+        STR      R1,[R0, #+8]
 //  972     __HAL_HCD_UNMASK_HALT_HC_INT(chnum);
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R1,R6,R5, LSL #+5
+        ADDS     R1,R1,#+1280
+        LDR      R1,[R1, #+12]
+        ORRS     R1,R1,#0x2
+        STR      R1,[R0, #+12]
 //  973     USB_HC_Halt(hhcd->Instance, chnum);   
+        MOVS     R1,R5
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        LDR      R0,[R4, #+0]
+          CFI FunCall USB_HC_Halt
+        BL       USB_HC_Halt
 //  974     hhcd->hc[chnum].state = HC_STALL;    
+        MOVS     R0,#+5
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STRB     R0,[R1, #+89]
+        B.N      ??HCD_HC_OUT_IRQHandler_1
 //  975   }
 //  976 
 //  977   else if ((USBx_HC(chnum)->HCINT) &  USB_OTG_HCINT_NAK)
+??HCD_HC_OUT_IRQHandler_6:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+8]
+        LSLS     R0,R0,#+27
+        BPL.N    ??HCD_HC_OUT_IRQHandler_7
 //  978   {  
 //  979     hhcd->hc[chnum].ErrCnt = 0;  
+        MOVS     R0,#+0
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STR      R0,[R1, #+84]
 //  980     __HAL_HCD_UNMASK_HALT_HC_INT(chnum); 
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R1,R6,R5, LSL #+5
+        ADDS     R1,R1,#+1280
+        LDR      R1,[R1, #+12]
+        ORRS     R1,R1,#0x2
+        STR      R1,[R0, #+12]
 //  981     USB_HC_Halt(hhcd->Instance, chnum);   
+        MOVS     R1,R5
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        LDR      R0,[R4, #+0]
+          CFI FunCall USB_HC_Halt
+        BL       USB_HC_Halt
 //  982     hhcd->hc[chnum].state = HC_NAK;
+        MOVS     R0,#+3
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STRB     R0,[R1, #+89]
 //  983     __HAL_HCD_CLEAR_HC_INT(chnum, USB_OTG_HCINT_NAK);
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        MOVS     R1,#+16
+        STR      R1,[R0, #+8]
+        B.N      ??HCD_HC_OUT_IRQHandler_1
 //  984   }
 //  985 
 //  986   else if ((USBx_HC(chnum)->HCINT) &  USB_OTG_HCINT_TXERR)
+??HCD_HC_OUT_IRQHandler_7:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+8]
+        LSLS     R0,R0,#+24
+        BPL.N    ??HCD_HC_OUT_IRQHandler_8
 //  987   {
 //  988     __HAL_HCD_UNMASK_HALT_HC_INT(chnum); 
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R1,R6,R5, LSL #+5
+        ADDS     R1,R1,#+1280
+        LDR      R1,[R1, #+12]
+        ORRS     R1,R1,#0x2
+        STR      R1,[R0, #+12]
 //  989     USB_HC_Halt(hhcd->Instance, chnum);      
+        MOVS     R1,R5
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        LDR      R0,[R4, #+0]
+          CFI FunCall USB_HC_Halt
+        BL       USB_HC_Halt
 //  990     hhcd->hc[chnum].state = HC_XACTERR;  
+        MOVS     R0,#+6
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STRB     R0,[R1, #+89]
 //  991      __HAL_HCD_CLEAR_HC_INT(chnum, USB_OTG_HCINT_TXERR);
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        MOVS     R1,#+128
+        STR      R1,[R0, #+8]
+        B.N      ??HCD_HC_OUT_IRQHandler_1
 //  992   }
 //  993   
 //  994   else if ((USBx_HC(chnum)->HCINT) &  USB_OTG_HCINT_DTERR)
+??HCD_HC_OUT_IRQHandler_8:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+8]
+        LSLS     R0,R0,#+21
+        BPL.N    ??HCD_HC_OUT_IRQHandler_9
 //  995   {
 //  996     __HAL_HCD_UNMASK_HALT_HC_INT(chnum); 
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R1,R6,R5, LSL #+5
+        ADDS     R1,R1,#+1280
+        LDR      R1,[R1, #+12]
+        ORRS     R1,R1,#0x2
+        STR      R1,[R0, #+12]
 //  997     USB_HC_Halt(hhcd->Instance, chnum);      
+        MOVS     R1,R5
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        LDR      R0,[R4, #+0]
+          CFI FunCall USB_HC_Halt
+        BL       USB_HC_Halt
 //  998     __HAL_HCD_CLEAR_HC_INT(chnum, USB_OTG_HCINT_NAK);
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        MOVS     R1,#+16
+        STR      R1,[R0, #+8]
 //  999     __HAL_HCD_CLEAR_HC_INT(chnum, USB_OTG_HCINT_DTERR);    
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        MOV      R1,#+1024
+        STR      R1,[R0, #+8]
 // 1000     hhcd->hc[chnum].state = HC_DATATGLERR;
+        MOVS     R0,#+8
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STRB     R0,[R1, #+89]
+        B.N      ??HCD_HC_OUT_IRQHandler_1
 // 1001   }
 // 1002   
 // 1003   
 // 1004   else if ((USBx_HC(chnum)->HCINT) &  USB_OTG_HCINT_CHH)
+??HCD_HC_OUT_IRQHandler_9:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+8]
+        LSLS     R0,R0,#+30
+        BPL.W    ??HCD_HC_OUT_IRQHandler_1
 // 1005   {
 // 1006     __HAL_HCD_MASK_HALT_HC_INT(chnum); 
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R1,R6,R5, LSL #+5
+        ADDS     R1,R1,#+1280
+        LDR      R1,[R1, #+12]
+        BICS     R1,R1,#0x2
+        STR      R1,[R0, #+12]
 // 1007     
 // 1008     if(hhcd->hc[chnum].state == HC_XFRC)
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R5,R4
+        LDRB     R0,[R0, #+89]
+        CMP      R0,#+1
+        BNE.N    ??HCD_HC_OUT_IRQHandler_10
 // 1009     {
 // 1010       hhcd->hc[chnum].urb_state  = URB_DONE;
+        MOVS     R0,#+1
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STRB     R0,[R1, #+88]
 // 1011       if (hhcd->hc[chnum].ep_type == EP_TYPE_BULK)
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R5,R4
+        LDRB     R0,[R0, #+59]
+        CMP      R0,#+2
+        BNE.W    ??HCD_HC_OUT_IRQHandler_11
 // 1012       {
 // 1013         hhcd->hc[chnum].toggle_out ^= 1; 
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R5,R4
+        LDRB     R0,[R0, #+77]
+        EORS     R0,R0,#0x1
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STRB     R0,[R1, #+77]
+        B.N      ??HCD_HC_OUT_IRQHandler_11
 // 1014       }      
 // 1015     }
 // 1016     else if (hhcd->hc[chnum].state == HC_NAK) 
+??HCD_HC_OUT_IRQHandler_10:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R5,R4
+        LDRB     R0,[R0, #+89]
+        CMP      R0,#+3
+        BNE.N    ??HCD_HC_OUT_IRQHandler_12
 // 1017     {
 // 1018       hhcd->hc[chnum].urb_state  = URB_NOTREADY;
+        MOVS     R0,#+2
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STRB     R0,[R1, #+88]
+        B.N      ??HCD_HC_OUT_IRQHandler_11
 // 1019     }  
 // 1020     
 // 1021     else if (hhcd->hc[chnum].state == HC_NYET) 
+??HCD_HC_OUT_IRQHandler_12:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R5,R4
+        LDRB     R0,[R0, #+89]
+        CMP      R0,#+4
+        BNE.N    ??HCD_HC_OUT_IRQHandler_13
 // 1022     {
 // 1023       hhcd->hc[chnum].urb_state  = URB_NOTREADY;
+        MOVS     R0,#+2
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STRB     R0,[R1, #+88]
 // 1024       hhcd->hc[chnum].do_ping = 0;
+        MOVS     R0,#+0
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STRB     R0,[R1, #+57]
+        B.N      ??HCD_HC_OUT_IRQHandler_11
 // 1025     }   
 // 1026     
 // 1027     else if (hhcd->hc[chnum].state == HC_STALL) 
+??HCD_HC_OUT_IRQHandler_13:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R5,R4
+        LDRB     R0,[R0, #+89]
+        CMP      R0,#+5
+        BNE.N    ??HCD_HC_OUT_IRQHandler_14
 // 1028     {
 // 1029       hhcd->hc[chnum].urb_state  = URB_STALL;
+        MOVS     R0,#+5
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STRB     R0,[R1, #+88]
+        B.N      ??HCD_HC_OUT_IRQHandler_11
 // 1030     } 
 // 1031     
 // 1032     else if((hhcd->hc[chnum].state == HC_XACTERR) ||
 // 1033             (hhcd->hc[chnum].state == HC_DATATGLERR))
+??HCD_HC_OUT_IRQHandler_14:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R5,R4
+        LDRB     R0,[R0, #+89]
+        CMP      R0,#+6
+        BEQ.N    ??HCD_HC_OUT_IRQHandler_15
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R5,R4
+        LDRB     R0,[R0, #+89]
+        CMP      R0,#+8
+        BNE.N    ??HCD_HC_OUT_IRQHandler_11
 // 1034     {
 // 1035       if(hhcd->hc[chnum].ErrCnt++ > 3)
+??HCD_HC_OUT_IRQHandler_15:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R5,R4
+        LDR      R0,[R0, #+84]
+        ADDS     R1,R0,#+1
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R2,#+40
+        MLA      R2,R2,R5,R4
+        STR      R1,[R2, #+84]
+        CMP      R0,#+4
+        BCC.N    ??HCD_HC_OUT_IRQHandler_16
 // 1036       {      
 // 1037         hhcd->hc[chnum].ErrCnt = 0;
+        MOVS     R0,#+0
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STR      R0,[R1, #+84]
 // 1038         hhcd->hc[chnum].urb_state = URB_ERROR;
+        MOVS     R0,#+4
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STRB     R0,[R1, #+88]
+        B.N      ??HCD_HC_OUT_IRQHandler_17
 // 1039       }
 // 1040       else
 // 1041       {
 // 1042         hhcd->hc[chnum].urb_state = URB_NOTREADY;
+??HCD_HC_OUT_IRQHandler_16:
+        MOVS     R0,#+2
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R5,R4
+        STRB     R0,[R1, #+88]
 // 1043       }
 // 1044       
 // 1045       /* re-activate the channel  */
 // 1046       USBx_HC(chnum)->HCCHAR &= ~USB_OTG_HCCHAR_CHDIS;         
+??HCD_HC_OUT_IRQHandler_17:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+0]
+        BICS     R0,R0,#0x40000000
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R1,R6,R5, LSL #+5
+        ADDS     R1,R1,#+1280
+        STR      R0,[R1, #+0]
 // 1047       USBx_HC(chnum)->HCCHAR |= USB_OTG_HCCHAR_CHENA;      
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x80000000
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R1,R6,R5, LSL #+5
+        ADDS     R1,R1,#+1280
+        STR      R0,[R1, #+0]
 // 1048     }
 // 1049     
 // 1050     __HAL_HCD_CLEAR_HC_INT(chnum, USB_OTG_HCINT_CHH);
-// 1051     HAL_HCD_HC_NotifyURBChange_Callback(hhcd, chnum, hhcd->hc[chnum].urb_state);  
-// 1052   }
-// 1053 } 
-        ADD      SP,SP,#+4
-          CFI CFA R13+20
-        POP      {R4-R7,PC}
-          CFI CFA R13+24
-??HCD_HC_OUT_IRQHandler_0:
-        LDR      R0,[R6, #+8]
-        LSLS     R0,R0,#+26
-        BPL.N    ??HCD_HC_OUT_IRQHandler_1
-        MOVS     R0,#+32
-        STR      R0,[R6, #+8]
-        ADD      R0,R5,R5, LSL #+2
-        ADD      R7,R4,R0, LSL #+3
-        LDRB     R0,[R7, #+57]
-        CMP      R0,#+1
-        BNE.W    ??HCD_HC_OUT_IRQHandler_2
-        MOVS     R0,#+4
-        STRB     R0,[R7, #+89]
-        LDR      R0,[R6, #+12]
-        ORR      R0,R0,#0x2
-        STR      R0,[R6, #+12]
-        LDR      R0,[R4, #+0]
-          CFI FunCall USB_HC_Halt
-        BL       USB_HC_Halt
-        MOVS     R0,#+2
-        STRB     R0,[R7, #+88]
-        ADD      SP,SP,#+4
-          CFI CFA R13+20
-        POP      {R4-R7,PC}
-          CFI CFA R13+24
-??HCD_HC_OUT_IRQHandler_1:
-        LDR      R0,[R6, #+8]
-        LSLS     R0,R0,#+25
-        BPL.N    ??HCD_HC_OUT_IRQHandler_3
-        ADD      R0,R5,R5, LSL #+2
-        ADD      R7,R4,R0, LSL #+3
-        MOVS     R0,#+4
-        STRB     R0,[R7, #+89]
-        MOVS     R0,#+0
-        STR      R0,[R7, #+84]
-        LDR      R0,[R6, #+12]
-        ORR      R0,R0,#0x2
-        STR      R0,[R6, #+12]
-        LDR      R0,[R4, #+0]
-          CFI FunCall USB_HC_Halt
-        BL       USB_HC_Halt
-        MOVS     R0,#+64
-        STR      R0,[R6, #+8]
-        ADD      SP,SP,#+4
-          CFI CFA R13+20
-        POP      {R4-R7,PC}
-          CFI CFA R13+24
-??HCD_HC_OUT_IRQHandler_3:
-        LDR      R0,[R6, #+8]
-        LSLS     R0,R0,#+22
-        BPL.N    ??HCD_HC_OUT_IRQHandler_4
-        LDR      R0,[R6, #+12]
-        ORR      R0,R0,#0x2
-        STR      R0,[R6, #+12]
-        LDR      R0,[R4, #+0]
-          CFI FunCall USB_HC_Halt
-        BL       USB_HC_Halt
-        MOV      R0,#+512
-        STR      R0,[R6, #+8]
-        ADD      SP,SP,#+4
-          CFI CFA R13+20
-        POP      {R4-R7,PC}
-          CFI CFA R13+24
-??HCD_HC_OUT_IRQHandler_4:
-        LDR      R0,[R6, #+8]
-        LSLS     R0,R0,#+31
-        BPL.N    ??HCD_HC_OUT_IRQHandler_5
-        ADD      R0,R5,R5, LSL #+2
-        ADD      R7,R4,R0, LSL #+3
-        MOVS     R0,#+0
-        STR      R0,[R7, #+84]
-        LDR      R0,[R6, #+12]
-        ORR      R0,R0,#0x2
-        STR      R0,[R6, #+12]
-        LDR      R0,[R4, #+0]
-          CFI FunCall USB_HC_Halt
-        BL       USB_HC_Halt
-        MOVS     R0,#+1
-        STR      R0,[R6, #+8]
-        STRB     R0,[R7, #+89]
-        ADD      SP,SP,#+4
-          CFI CFA R13+20
-        POP      {R4-R7,PC}
-          CFI CFA R13+24
-??HCD_HC_OUT_IRQHandler_5:
-        LDR      R0,[R6, #+8]
-        LSLS     R0,R0,#+28
-        BPL.N    ??HCD_HC_OUT_IRQHandler_6
-        MOVS     R0,#+8
-        STR      R0,[R6, #+8]
-        LDR      R0,[R6, #+12]
-        ORR      R0,R0,#0x2
-        STR      R0,[R6, #+12]
-        LDR      R0,[R4, #+0]
-          CFI FunCall USB_HC_Halt
-        BL       USB_HC_Halt
-        ADD      R1,R5,R5, LSL #+2
-        MOVS     R0,#+5
-        ADD      R1,R4,R1, LSL #+3
-        STRB     R0,[R1, #+89]
-        ADD      SP,SP,#+4
-          CFI CFA R13+20
-        POP      {R4-R7,PC}
-          CFI CFA R13+24
-??HCD_HC_OUT_IRQHandler_6:
-        LDR      R0,[R6, #+8]
-        LSLS     R0,R0,#+27
-        BPL.N    ??HCD_HC_OUT_IRQHandler_7
-        ADD      R0,R5,R5, LSL #+2
-        ADD      R7,R4,R0, LSL #+3
-        MOVS     R0,#+0
-        STR      R0,[R7, #+84]
-        LDR      R0,[R6, #+12]
-        ORR      R0,R0,#0x2
-        STR      R0,[R6, #+12]
-        LDR      R0,[R4, #+0]
-          CFI FunCall USB_HC_Halt
-        BL       USB_HC_Halt
-        MOVS     R0,#+3
-        STRB     R0,[R7, #+89]
-        MOVS     R0,#+16
-        STR      R0,[R6, #+8]
-        ADD      SP,SP,#+4
-          CFI CFA R13+20
-        POP      {R4-R7,PC}
-          CFI CFA R13+24
-??HCD_HC_OUT_IRQHandler_7:
-        LDR      R0,[R6, #+8]
-        LSLS     R0,R0,#+24
-        BPL.N    ??HCD_HC_OUT_IRQHandler_8
-        LDR      R0,[R6, #+12]
-        ORR      R0,R0,#0x2
-        STR      R0,[R6, #+12]
-        LDR      R0,[R4, #+0]
-          CFI FunCall USB_HC_Halt
-        BL       USB_HC_Halt
-        ADD      R1,R5,R5, LSL #+2
-        MOVS     R0,#+6
-        ADD      R1,R4,R1, LSL #+3
-        STRB     R0,[R1, #+89]
-        MOVS     R0,#+128
-        STR      R0,[R6, #+8]
-        ADD      SP,SP,#+4
-          CFI CFA R13+20
-        POP      {R4-R7,PC}
-          CFI CFA R13+24
-??HCD_HC_OUT_IRQHandler_8:
-        LDR      R0,[R6, #+8]
-        LSLS     R0,R0,#+21
-        BPL.N    ??HCD_HC_OUT_IRQHandler_9
-        LDR      R0,[R6, #+12]
-        ORR      R0,R0,#0x2
-        STR      R0,[R6, #+12]
-        LDR      R0,[R4, #+0]
-          CFI FunCall USB_HC_Halt
-        BL       USB_HC_Halt
-        MOVS     R0,#+16
-        ADD      R1,R5,R5, LSL #+2
-        STR      R0,[R6, #+8]
-        MOV      R0,#+1024
-        STR      R0,[R6, #+8]
-        ADD      R1,R4,R1, LSL #+3
-        MOVS     R0,#+8
-        STRB     R0,[R1, #+89]
-        ADD      SP,SP,#+4
-          CFI CFA R13+20
-        POP      {R4-R7,PC}
-          CFI CFA R13+24
-??HCD_HC_OUT_IRQHandler_9:
-        LDR      R0,[R6, #+8]
-        LSLS     R0,R0,#+30
-        BPL.N    ??HCD_HC_OUT_IRQHandler_2
-        LDR      R0,[R6, #+12]
-        BIC      R0,R0,#0x2
-        STR      R0,[R6, #+12]
-        ADD      R0,R5,R5, LSL #+2
-        ADD      R7,R4,R0, LSL #+3
-        LDRB     R0,[R7, #+89]
-        CMP      R0,#+1
-        BNE.N    ??HCD_HC_OUT_IRQHandler_10
-        STRB     R0,[R7, #+88]
-        LDRB     R0,[R7, #+59]
-        CMP      R0,#+2
-        BNE.N    ??HCD_HC_OUT_IRQHandler_11
-        LDRB     R0,[R7, #+77]
-        EOR      R0,R0,#0x1
-        STRB     R0,[R7, #+77]
-        B.N      ??HCD_HC_OUT_IRQHandler_11
-??HCD_HC_OUT_IRQHandler_10:
-        CMP      R0,#+3
-        IT       EQ 
-        MOVEQ    R0,#+2
-        BEQ.N    ??HCD_HC_OUT_IRQHandler_12
-        CMP      R0,#+4
-        BNE.N    ??HCD_HC_OUT_IRQHandler_13
-        MOVS     R0,#+2
-        STRB     R0,[R7, #+88]
-        MOVS     R0,#+0
-        STRB     R0,[R7, #+57]
-        B.N      ??HCD_HC_OUT_IRQHandler_11
-??HCD_HC_OUT_IRQHandler_13:
-        CMP      R0,#+5
-        BNE.N    ??HCD_HC_OUT_IRQHandler_14
-??HCD_HC_OUT_IRQHandler_12:
-        STRB     R0,[R7, #+88]
-        B.N      ??HCD_HC_OUT_IRQHandler_11
-??HCD_HC_OUT_IRQHandler_14:
-        CMP      R0,#+6
-        IT       NE 
-        CMPNE    R0,#+8
-        BNE.N    ??HCD_HC_OUT_IRQHandler_11
-        LDR      R0,[R7, #+84]
-        ADDS     R1,R0,#+1
-        CMP      R0,#+4
-        STR      R1,[R7, #+84]
-        ITTTE    CS 
-        MOVCS    R0,#+0
-        STRCS    R0,[R7, #+84]
-        MOVCS    R0,#+4
-        MOVCC    R0,#+2
-        STRB     R0,[R7, #+88]
-        LDR      R0,[R6, #+0]
-        BIC      R0,R0,#0x40000000
-        STR      R0,[R6, #+0]
-        LDR      R0,[R6, #+0]
-        ORR      R0,R0,#0x80000000
-        STR      R0,[R6, #+0]
 ??HCD_HC_OUT_IRQHandler_11:
-        MOVS     R0,#+2
-        MOV      R1,R5
-        STR      R0,[R6, #+8]
-        LDRB     R2,[R7, #+88]
-        MOV      R0,R4
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ADDS     R0,R6,R5, LSL #+5
+        ADDS     R0,R0,#+1280
+        MOVS     R1,#+2
+        STR      R1,[R0, #+8]
+// 1051     HAL_HCD_HC_NotifyURBChange_Callback(hhcd, chnum, hhcd->hc[chnum].urb_state);  
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R5,R4
+        LDRB     R2,[R0, #+88]
+        MOVS     R1,R5
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        MOVS     R0,R4
           CFI FunCall HAL_HCD_HC_NotifyURBChange_Callback
         BL       HAL_HCD_HC_NotifyURBChange_Callback
-??HCD_HC_OUT_IRQHandler_2:
-        ADD      SP,SP,#+4
-          CFI CFA R13+20
-        POP      {R4-R7,PC}       ;; return
+// 1052   }
+// 1053 } 
+??HCD_HC_OUT_IRQHandler_1:
+        POP      {R4-R6,PC}       ;; return
           CFI EndBlock cfiBlock22
 // 1054 
 // 1055 /**
@@ -2357,101 +3052,153 @@ HCD_HC_OUT_IRQHandler:
 // 1060 static void HCD_RXQLVL_IRQHandler  (HCD_HandleTypeDef *hhcd)
 // 1061 {
 HCD_RXQLVL_IRQHandler:
-        PUSH     {R4-R7,LR}
+        PUSH     {R3-R9,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+20
-        MOV      R1,R0
-        SUB      SP,SP,#+4
-          CFI CFA R13+24
+          CFI R9 Frame(CFA, -8)
+          CFI R8 Frame(CFA, -12)
+          CFI R7 Frame(CFA, -16)
+          CFI R6 Frame(CFA, -20)
+          CFI R5 Frame(CFA, -24)
+          CFI R4 Frame(CFA, -28)
+          CFI CFA R13+32
+        MOVS     R4,R0
 // 1062   USB_OTG_GlobalTypeDef *USBx = hhcd->Instance;  
-        LDR      R0,[R1, #+0]
+        LDR      R5,[R4, #+0]
 // 1063   uint8_t                       channelnum =0;  
+        MOVS     R6,#+0
 // 1064   uint32_t                      pktsts;
 // 1065   uint32_t                      pktcnt; 
 // 1066   uint32_t                      temp = 0;
+        MOVS     R9,#+0
 // 1067   
 // 1068   temp = hhcd->Instance->GRXSTSP ;
-        LDR      R2,[R0, #+32]
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+32]
+        MOV      R9,R0
 // 1069   channelnum = temp &  USB_OTG_GRXSTSP_EPNUM;  
-        AND      R5,R2,#0xF
-        MOV      R4,R0
+        ANDS     R0,R9,#0xF
+        MOVS     R6,R0
 // 1070   pktsts = (temp &  USB_OTG_GRXSTSP_PKTSTS) >> 17;
+        UBFX     R0,R9,#+17,#+4
+        MOVS     R7,R0
 // 1071   pktcnt = (temp &  USB_OTG_GRXSTSP_BCNT) >> 4;
-        UBFX     R6,R2,#+4,#+11
+        UBFX     R0,R9,#+4,#+11
+        MOV      R8,R0
 // 1072     
 // 1073   switch (pktsts)
-        UBFX     R2,R2,#+17,#+4
-        CMP      R2,#+2
-        BNE.N    ??HCD_RXQLVL_IRQHandler_0
+        MOVS     R0,R7
+        CMP      R0,#+2
+        BEQ.N    ??HCD_RXQLVL_IRQHandler_0
+        CMP      R0,#+5
+        BEQ.N    ??HCD_RXQLVL_IRQHandler_1
+        B.N      ??HCD_RXQLVL_IRQHandler_2
 // 1074   {
 // 1075   case GRXSTS_PKTSTS_IN:
 // 1076     /* Read the data into the host buffer. */
 // 1077     if ((pktcnt > 0) && (hhcd->hc[channelnum].xfer_buff != (void  *)0))
-        CMP      R6,#+0
-        ITTTT    NE 
-        ADDNE    R2,R5,R5, LSL #+2
-        ADDNE    R7,R1,R2, LSL #+3
-        LDRNE    R1,[R7, #+64]
-        CMPNE    R1,#+0
-        BEQ.N    ??HCD_RXQLVL_IRQHandler_0
+??HCD_RXQLVL_IRQHandler_0:
+        CMP      R8,#+0
+        BEQ.N    ??HCD_RXQLVL_IRQHandler_3
+        UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R6,R4
+        LDR      R0,[R0, #+64]
+        CMP      R0,#+0
+        BEQ.N    ??HCD_RXQLVL_IRQHandler_3
 // 1078     {  
 // 1079       
 // 1080       USB_ReadPacket(hhcd->Instance, hhcd->hc[channelnum].xfer_buff, pktcnt);
-        MOV      R2,R6
+        MOV      R2,R8
+        UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+        UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R6,R4
+        LDR      R1,[R0, #+64]
+        LDR      R0,[R4, #+0]
           CFI FunCall USB_ReadPacket
         BL       USB_ReadPacket
 // 1081      
 // 1082       /*manage multiple Xfer */
 // 1083       hhcd->hc[channelnum].xfer_buff += pktcnt;           
-        LDR      R0,[R7, #+64]
+        UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R6,R4
+        LDR      R0,[R0, #+64]
+        ADDS     R0,R8,R0
+        UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R6,R4
+        STR      R0,[R1, #+64]
 // 1084       hhcd->hc[channelnum].xfer_count  += pktcnt;
+        UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R6,R4
+        LDR      R0,[R0, #+72]
+        ADDS     R0,R8,R0
+        UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R6,R4
+        STR      R0,[R1, #+72]
 // 1085         
 // 1086       if((USBx_HC(channelnum)->HCTSIZ & USB_OTG_HCTSIZ_PKTCNT) > 0)
-        LDR.N    R2,??DataTable0  ;; 0x1ff80000
-        ADDS     R0,R6,R0
-        STR      R0,[R7, #+64]
-        LDR      R0,[R7, #+72]
-        ADDS     R0,R6,R0
-        STR      R0,[R7, #+72]
-        ADD      R0,R4,R5, LSL #+5
-        ADD      R0,R0,#+1280
-        LDR      R1,[R0, #+16]
-        TST      R1,R2
-        BEQ.N    ??HCD_RXQLVL_IRQHandler_0
+        UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+        ADDS     R0,R5,R6, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+16]
+        LDR.N    R1,??DataTable0  ;; 0x1ff80000
+        TST      R0,R1
+        BEQ.N    ??HCD_RXQLVL_IRQHandler_3
 // 1087       {
 // 1088         /* re-activate the channel when more packets are expected */
 // 1089         USBx_HC(channelnum)->HCCHAR &= ~USB_OTG_HCCHAR_CHDIS; 
-        LDR      R1,[R0, #+0]
-        BIC      R1,R1,#0x40000000
-        STR      R1,[R0, #+0]
+        UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+        ADDS     R0,R5,R6, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+0]
+        BICS     R0,R0,#0x40000000
+        UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+        ADDS     R1,R5,R6, LSL #+5
+        ADDS     R1,R1,#+1280
+        STR      R0,[R1, #+0]
 // 1090         USBx_HC(channelnum)->HCCHAR |= USB_OTG_HCCHAR_CHENA;
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x80000000
-        STR      R1,[R0, #+0]
+        UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+        ADDS     R0,R5,R6, LSL #+5
+        ADDS     R0,R0,#+1280
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x80000000
+        UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+        ADDS     R1,R5,R6, LSL #+5
+        ADDS     R1,R1,#+1280
+        STR      R0,[R1, #+0]
 // 1091         hhcd->hc[channelnum].toggle_in ^= 1;
-        LDRB     R0,[R7, #+76]
-        EOR      R0,R0,#0x1
-        STRB     R0,[R7, #+76]
+        UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+        MOVS     R0,#+40
+        MLA      R0,R0,R6,R4
+        LDRB     R0,[R0, #+76]
+        EORS     R0,R0,#0x1
+        UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+        MOVS     R1,#+40
+        MLA      R1,R1,R6,R4
+        STRB     R0,[R1, #+76]
 // 1092       }
 // 1093     }
 // 1094     break;
+??HCD_RXQLVL_IRQHandler_3:
+        B.N      ??HCD_RXQLVL_IRQHandler_4
 // 1095 
 // 1096   case GRXSTS_PKTSTS_DATA_TOGGLE_ERR:
 // 1097     break;
+??HCD_RXQLVL_IRQHandler_1:
+        B.N      ??HCD_RXQLVL_IRQHandler_4
 // 1098   case GRXSTS_PKTSTS_IN_XFER_COMP:
 // 1099   case GRXSTS_PKTSTS_CH_HALTED:
 // 1100   default:
 // 1101     break;
 // 1102   }
 // 1103 }
-??HCD_RXQLVL_IRQHandler_0:
-        ADD      SP,SP,#+4
-          CFI CFA R13+20
-        POP      {R4-R7,PC}       ;; return
+??HCD_RXQLVL_IRQHandler_2:
+??HCD_RXQLVL_IRQHandler_4:
+        POP      {R0,R4-R9,PC}    ;; return
           CFI EndBlock cfiBlock23
 
         SECTION `.text`:CODE:NOROOT(2)
@@ -2473,59 +3220,60 @@ HCD_RXQLVL_IRQHandler:
 // 1110 static void HCD_Port_IRQHandler  (HCD_HandleTypeDef *hhcd)
 // 1111 {
 HCD_Port_IRQHandler:
-        PUSH     {R4-R6,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+16
-        MOV      R5,R0
-        SUB      SP,SP,#+8
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
+        SUB      SP,SP,#+12
           CFI CFA R13+24
+        MOVS     R4,R0
 // 1112   USB_OTG_GlobalTypeDef *USBx = hhcd->Instance;  
-        LDR      R0,[R5, #+0]
+        LDR      R5,[R4, #+0]
 // 1113   __IO uint32_t hprt0, hprt0_dup;
 // 1114   
 // 1115   /* Handle Host Port Interrupts */
 // 1116   hprt0 = USBx_HPRT0;
-        MOV      R6,R0
-        ADD      R4,R6,#+1088
-        LDR      R1,[R4, #+0]
-        STR      R1,[SP, #+4]
+        ADDS     R0,R5,#+1088
+        LDR      R0,[R0, #+0]
+        STR      R0,[SP, #+4]
 // 1117   hprt0_dup = USBx_HPRT0;
-        LDR      R1,[R4, #+0]
-        STR      R1,[SP, #+0]
+        ADDS     R0,R5,#+1088
+        LDR      R0,[R0, #+0]
+        STR      R0,[SP, #+0]
 // 1118   
 // 1119   hprt0_dup &= ~(USB_OTG_HPRT_PENA | USB_OTG_HPRT_PCDET |\ 
 // 1120                  USB_OTG_HPRT_PENCHNG | USB_OTG_HPRT_POCCHNG );
-        LDR      R1,[SP, #+0]
-        BIC      R1,R1,#0x2E
-        STR      R1,[SP, #+0]
+        LDR      R0,[SP, #+0]
+        BICS     R0,R0,#0x2E
+        STR      R0,[SP, #+0]
 // 1121   
 // 1122   /* Check whether Port Connect detected */
 // 1123   if((hprt0 & USB_OTG_HPRT_PCDET) == USB_OTG_HPRT_PCDET)
-        LDR      R1,[SP, #+4]
-        LSLS     R1,R1,#+30
+        LDR      R0,[SP, #+4]
+        LSLS     R0,R0,#+30
         BPL.N    ??HCD_Port_IRQHandler_0
 // 1124   {  
 // 1125     if((hprt0 & USB_OTG_HPRT_PCSTS) == USB_OTG_HPRT_PCSTS)
-        LDR      R1,[SP, #+4]
-        LSLS     R1,R1,#+31
+        LDR      R0,[SP, #+4]
+        LSLS     R0,R0,#+31
         BPL.N    ??HCD_Port_IRQHandler_1
 // 1126     {
 // 1127       USB_MASK_INTERRUPT(hhcd->Instance, USB_OTG_GINTSTS_DISCINT);
-        LDR      R1,[R0, #+24]
-        BIC      R1,R1,#0x20000000
-        STR      R1,[R0, #+24]
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+24]
+        BICS     R0,R0,#0x20000000
+        LDR      R1,[R4, #+0]
+        STR      R0,[R1, #+24]
 // 1128       HAL_HCD_Connect_Callback(hhcd);
-        MOV      R0,R5
+        MOVS     R0,R4
           CFI FunCall HAL_HCD_Connect_Callback
         BL       HAL_HCD_Connect_Callback
 // 1129     }
 // 1130     hprt0_dup  |= USB_OTG_HPRT_PCDET;
 ??HCD_Port_IRQHandler_1:
         LDR      R0,[SP, #+0]
-        ORR      R0,R0,#0x2
+        ORRS     R0,R0,#0x2
         STR      R0,[SP, #+0]
 // 1131     
 // 1132   }
@@ -2539,7 +3287,7 @@ HCD_Port_IRQHandler:
 // 1136   {
 // 1137     hprt0_dup |= USB_OTG_HPRT_PENCHNG;
         LDR      R0,[SP, #+0]
-        ORR      R0,R0,#0x8
+        ORRS     R0,R0,#0x8
         STR      R0,[SP, #+0]
 // 1138     
 // 1139     if((hprt0 & USB_OTG_HPRT_PENA) == USB_OTG_HPRT_PENA)
@@ -2548,55 +3296,66 @@ HCD_Port_IRQHandler:
         BPL.N    ??HCD_Port_IRQHandler_3
 // 1140     {    
 // 1141       if(hhcd->Init.phy_itface  == USB_OTG_EMBEDDED_PHY)
-        LDR      R0,[R5, #+24]
+        LDR      R0,[R4, #+24]
         CMP      R0,#+2
         BNE.N    ??HCD_Port_IRQHandler_4
 // 1142       {
 // 1143         if ((hprt0 & USB_OTG_HPRT_PSPD) == (HPRT0_PRTSPD_LOW_SPEED << 17))
-        LDR      R0,[R5, #+0]
-        LDR      R1,[SP, #+4]
-        AND      R1,R1,#0x60000
-        CMP      R1,#+262144
-        ITE      EQ 
-        MOVEQ    R1,#+2
-        MOVNE    R1,#+1
+        LDR      R0,[SP, #+4]
+        ANDS     R0,R0,#0x60000
+        CMP      R0,#+262144
+        BNE.N    ??HCD_Port_IRQHandler_5
 // 1144         {
 // 1145           USB_InitFSLSPClkSel(hhcd->Instance ,HCFG_6_MHZ );
+        MOVS     R1,#+2
+        LDR      R0,[R4, #+0]
+          CFI FunCall USB_InitFSLSPClkSel
+        BL       USB_InitFSLSPClkSel
+        B.N      ??HCD_Port_IRQHandler_6
 // 1146         }
 // 1147         else
 // 1148         {
 // 1149           USB_InitFSLSPClkSel(hhcd->Instance ,HCFG_48_MHZ );
+??HCD_Port_IRQHandler_5:
+        MOVS     R1,#+1
+        LDR      R0,[R4, #+0]
           CFI FunCall USB_InitFSLSPClkSel
         BL       USB_InitFSLSPClkSel
-        B.N      ??HCD_Port_IRQHandler_5
+        B.N      ??HCD_Port_IRQHandler_6
 // 1150         }
 // 1151       }
 // 1152       else
 // 1153       {
 // 1154         if(hhcd->Init.speed == HCD_SPEED_FULL)
 ??HCD_Port_IRQHandler_4:
-        LDR      R0,[R5, #+12]
+        LDR      R0,[R4, #+12]
         CMP      R0,#+3
-        BNE.N    ??HCD_Port_IRQHandler_5
+        BNE.N    ??HCD_Port_IRQHandler_6
 // 1155         {
 // 1156           USBx_HOST->HFIR = (uint32_t)60000;
         MOVW     R0,#+60000
-        ADD      R1,R6,#+1024
+        ADDS     R1,R5,#+1024
         STR      R0,[R1, #+4]
 // 1157         }
 // 1158       }
 // 1159       HAL_HCD_Connect_Callback(hhcd);
-??HCD_Port_IRQHandler_5:
-        MOV      R0,R5
+??HCD_Port_IRQHandler_6:
+        MOVS     R0,R4
           CFI FunCall HAL_HCD_Connect_Callback
         BL       HAL_HCD_Connect_Callback
 // 1160       
 // 1161       if(hhcd->Init.speed == HCD_SPEED_HIGH)
-        LDR      R0,[R5, #+12]
-        CBNZ.N   R0,??HCD_Port_IRQHandler_2
+        LDR      R0,[R4, #+12]
+        CMP      R0,#+0
+        BNE.N    ??HCD_Port_IRQHandler_2
 // 1162       {
 // 1163         USB_UNMASK_INTERRUPT(hhcd->Instance, USB_OTG_GINTSTS_DISCINT); 
-        B.N      ??HCD_Port_IRQHandler_6
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+24]
+        ORRS     R0,R0,#0x20000000
+        LDR      R1,[R4, #+0]
+        STR      R0,[R1, #+24]
+        B.N      ??HCD_Port_IRQHandler_2
 // 1164       }
 // 1165     }
 // 1166     else
@@ -2605,16 +3364,18 @@ HCD_Port_IRQHandler:
 // 1169       USBx_HPRT0 &= ~(USB_OTG_HPRT_PENA | USB_OTG_HPRT_PCDET |\ 
 // 1170         USB_OTG_HPRT_PENCHNG | USB_OTG_HPRT_POCCHNG );
 ??HCD_Port_IRQHandler_3:
-        LDR      R0,[R4, #+0]
-        BIC      R0,R0,#0x2E
-        STR      R0,[R4, #+0]
+        ADDS     R0,R5,#+1088
+        LDR      R0,[R0, #+0]
+        BICS     R0,R0,#0x2E
+        ADDS     R1,R5,#+1088
+        STR      R0,[R1, #+0]
 // 1171       
 // 1172       USB_UNMASK_INTERRUPT(hhcd->Instance, USB_OTG_GINTSTS_DISCINT); 
-??HCD_Port_IRQHandler_6:
-        LDR      R0,[R5, #+0]
-        LDR      R1,[R0, #+24]
-        ORR      R1,R1,#0x20000000
-        STR      R1,[R0, #+24]
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+24]
+        ORRS     R0,R0,#0x20000000
+        LDR      R1,[R4, #+0]
+        STR      R0,[R1, #+24]
 // 1173     }    
 // 1174   }
 // 1175   
@@ -2627,7 +3388,7 @@ HCD_Port_IRQHandler:
 // 1178   {
 // 1179     hprt0_dup |= USB_OTG_HPRT_POCCHNG;
         LDR      R0,[SP, #+0]
-        ORR      R0,R0,#0x20
+        ORRS     R0,R0,#0x20
         STR      R0,[SP, #+0]
 // 1180   }
 // 1181 
@@ -2635,11 +3396,10 @@ HCD_Port_IRQHandler:
 // 1183   USBx_HPRT0 = hprt0_dup;
 ??HCD_Port_IRQHandler_7:
         LDR      R0,[SP, #+0]
-        STR      R0,[R4, #+0]
+        ADDS     R1,R5,#+1088
+        STR      R0,[R1, #+0]
 // 1184 }
-        ADD      SP,SP,#+8
-          CFI CFA R13+16
-        POP      {R4-R6,PC}       ;; return
+        POP      {R0-R2,R4,R5,PC}  ;; return
           CFI EndBlock cfiBlock24
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
@@ -2670,9 +3430,9 @@ HCD_Port_IRQHandler:
 // 1198 
 // 1199 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 2 252 bytes in section .text
+// 4 494 bytes in section .text
 // 
-// 2 252 bytes of CODE memory
+// 4 494 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none
