@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       23/Feb/2016  19:41:47
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       25/Feb/2016  12:02:33
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -60,9 +60,6 @@
 
 D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\Third_Party\FatFs\src\ff.c
       1          /*----------------------------------------------------------------------------/
-                                                                                               ^
-Warning[Pa050]: non-native end of line sequence detected (this diagnostic is
-          only issued once)
       2          /  FatFs - FAT file system module  R0.11                 (C)ChaN, 2015
       3          /-----------------------------------------------------------------------------/
       4          / FatFs module is a free software that opened under license policy of
@@ -12056,4 +12053,4 @@ Warning[Pa050]: non-native end of line sequence detected (this diagnostic is
      32 bytes of DATA memory
 
 Errors: none
-Warnings: 1
+Warnings: none

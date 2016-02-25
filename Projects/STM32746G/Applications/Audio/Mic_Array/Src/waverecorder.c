@@ -110,6 +110,7 @@ __IO uint16_t TestSDO7[4*AUDIO_OUT_BUFFER_SIZE];
 __IO uint16_t TestSDO8[4*AUDIO_OUT_BUFFER_SIZE];
 __IO uint16_t TestSDO7_1[4*AUDIO_OUT_BUFFER_SIZE];
 __IO uint16_t TestSDO8_1[4*AUDIO_OUT_BUFFER_SIZE];
+__IO uint16_t  WaveRec_idxTest;
 
 
 SPI_HandleTypeDef hspi1,hspi2;
@@ -257,15 +258,7 @@ void SPI1_IRQHandler(void)
 {  
       uint16_t tmpTest;
 	  static uint8_t stLR,stLROld;
-
-	  /* USER CODE BEGIN SPI5_IRQn 0 */
 	
-	  /* USER CODE END SPI5_IRQn 0 */
-	  //HAL_SPI_IRQHandler(&hspi5);
-	  /* USER CODE BEGIN SPI5_IRQn 1 */
-	
-	  /* USER CODE END SPI5_IRQn 1 */
-		/* Check if data are available in SPI Data register */
 	  /* SPI in mode Receiver ----------------------------------------------------*/
 	  if(
 //	     (__HAL_SPI_GET_FLAG(&hi2s1, SPI_FLAG_OVR) == RESET)&&
@@ -281,29 +274,31 @@ void SPI1_IRQHandler(void)
 	
 		if (stLR==GPIO_PIN_SET)
 		{
-				if (stLROld==GPIO_PIN_RESET)
-				{
-					SPI1_stNipple = (tmpTest);
+			if (stLROld==GPIO_PIN_RESET)
+			{
+				SPI1_stNipple = (tmpTest);
 
-				}
-				else
-				{
-					 vRawSens1 =((tmpTest>>I2S1_stPosShft)|(SPI1_stNipple<<(SDOLEN-I2S1_stPosShft)));	
-				   
-				}
+			}
+			else
+			{
+				 vRawSens1 = (tmpTest);
+   		         WaveRec_idxTest++;
+			   
+			}
 		}
 		else
 		{
-			  if (stLROld==GPIO_PIN_SET)
-			  {
-				  SPI1_stNipple = (tmpTest);  
+			if (stLROld==GPIO_PIN_SET)
+			{
+			  SPI1_stNipple = (tmpTest);  
 
-			  }
-			  else
-			  {
-				  vRawSens2 =((tmpTest>>I2S1_stPosShft)|(SPI1_stNipple<<(SDOLEN-I2S1_stPosShft)));
+			}
+			else
+			{
+			  vRawSens2 = (tmpTest);
+ 	          WaveRec_idxTest++;
 
-			  } 	
+			} 	
 		}
 	   
 	   if (iSDO12<4*AUDIO_OUT_BUFFER_SIZE)
@@ -315,7 +310,7 @@ void SPI1_IRQHandler(void)
            iSDO12=0;
 	   }
 #if 1
-		if ((WaveRec_idxSens1 < (2*AUDIO_OUT_BUFFER_SIZE+1))&&(WaveRec_idxSens2 < (2*AUDIO_OUT_BUFFER_SIZE+1)))
+		if ((WaveRec_idxSens1 < (2*AUDIO_OUT_BUFFER_SIZE+5))&&(WaveRec_idxSens2 < (2*AUDIO_OUT_BUFFER_SIZE+5)))
 	//			  &&(stLR!=stLROld))
 		{
 	/*-------------------------------------------------------------------------------------------------------------
@@ -332,49 +327,27 @@ void SPI1_IRQHandler(void)
 				   switch (buffer_switch)
 				   {
 							case BUF1_PLAY:
-#if MAIN_FFT
-									//Data is updated to Buffer2
-									if ((stLR==GPIO_PIN_SET)&&(stLROld==GPIO_PIN_RESET))
-										Buffer2.bufMIC1[WaveRec_idxSens1++] = vRawSens1;
-									if ((stLR==GPIO_PIN_RESET)&&(stLROld==GPIO_PIN_SET))
-										Buffer2.bufMIC2[WaveRec_idxSens2++] = vRawSens2;
-	
-#else
+
                                 if (WaveRec_idxSens1<=WaveRec_idxSens2)
 									Buffer2.bufMIC1[WaveRec_idxSens1++] = vRawSens1;
 							    else
 									Buffer2.bufMIC2[WaveRec_idxSens2++] = vRawSens2;									
-#endif
+
 	
 									break;
 							case BUF2_PLAY:
-#if MAIN_FFT
-									//Data is updated to Buffer3				 
-									if ((stLR==GPIO_PIN_SET)&&(stLROld==GPIO_PIN_RESET))
-										Buffer3.bufMIC1[WaveRec_idxSens1++] = vRawSens1;
-									if ((stLR==GPIO_PIN_RESET)&&(stLROld==GPIO_PIN_SET))
-										Buffer3.bufMIC2[WaveRec_idxSens2++] = vRawSens2;
-#else
                                 if (WaveRec_idxSens1<=WaveRec_idxSens2)
 									Buffer3.bufMIC1[WaveRec_idxSens1++] = vRawSens1;
 							    else
 									Buffer3.bufMIC2[WaveRec_idxSens2++] = vRawSens2;	
-#endif
+
 									break;
 							case BUF3_PLAY:
-#if MAIN_FFT
-	
-									//Data is update to Buffer1 	 
-									if ((stLR==GPIO_PIN_SET)&&(stLROld==GPIO_PIN_RESET))
-										Buffer1.bufMIC1[WaveRec_idxSens1++] = vRawSens1;
-									if ((stLR==GPIO_PIN_RESET)&&(stLROld==GPIO_PIN_SET))
-										Buffer1.bufMIC2[ WaveRec_idxSens2++] = vRawSens2;
-#else
                                 if (WaveRec_idxSens1<=WaveRec_idxSens2)
 									Buffer1.bufMIC1[WaveRec_idxSens1++] = vRawSens1;
 							    else
 									Buffer1.bufMIC2[WaveRec_idxSens2++] = vRawSens2;									
-#endif
+
 									break;
 							default:
 									break; 
@@ -382,16 +355,12 @@ void SPI1_IRQHandler(void)
 			
 		 } 
 #endif		
+
 		/* Update Old value */	  
 		stLROld=stLR;
-		if(WaveRec_idxSens1 >= (2*AUDIO_OUT_BUFFER_SIZE-1))
-		{
-#ifndef CS43L22_PLAY	
 
-			
-#endif
-           }
-	  	}
+
+    }
 				 
 } 	 
 
@@ -431,7 +400,7 @@ void SPI2_IRQHandler(void)
 		else
 		{
 
-			 vRawSens3 = ((app>>I2S2_stPosShft)|(I2S2_stNipple<<(SDOLEN-I2S2_stPosShft)));
+			 vRawSens3 = app;
 
 		}
 	 }
@@ -444,7 +413,7 @@ void SPI2_IRQHandler(void)
         }
 		else
 		{
-            vRawSens4 =((app>>I2S2_stPosShft)|(I2S2_stNipple<<(SDOLEN-I2S2_stPosShft)));
+            vRawSens4 =app;
 		
 		}
 	 }
@@ -459,7 +428,7 @@ void SPI2_IRQHandler(void)
 	   }
 	 
 #if 1
-	 if ((WaveRec_idxSens3 < (2*AUDIO_OUT_BUFFER_SIZE+1))&&(WaveRec_idxSens4 < (2*AUDIO_OUT_BUFFER_SIZE+1)))
+	 if ((WaveRec_idxSens3 < (2*AUDIO_OUT_BUFFER_SIZE+5))&&(WaveRec_idxSens4 < (2*AUDIO_OUT_BUFFER_SIZE+5)))
 //             &&(I2S2_stLR!=I2S2_stLROld))
 	 {
 /*-------------------------------------------------------------------------------------------------------------
@@ -476,51 +445,23 @@ void SPI2_IRQHandler(void)
 		 switch (buffer_switch)
 		 {
 			  case BUF1_PLAY:
-				  //Data is updated to Buffer2
-				  //PDM_Filter_64_LSB((uint8_t *)InternalBuffer, (uint16_t *)(buffer2+cntPos*PCM_OUT_SIZE), volume , (PDMFilter_InitStruct *)&Filter[0]);
-#if MAIN_FFT
-				  if ((I2S2_stLR==GPIO_PIN_SET)&&(I2S2_stLROld==GPIO_PIN_RESET))
-				      Buffer2.bufMIC3[WaveRec_idxSens3++] = vRawSens3;
-				  if ((I2S2_stLR==GPIO_PIN_RESET)&&(I2S2_stLROld==GPIO_PIN_SET))
-				      Buffer2.bufMIC4[WaveRec_idxSens4++] = vRawSens4;
-#else
                   if (WaveRec_idxSens3<=WaveRec_idxSens4) 
                       Buffer2.bufMIC3[WaveRec_idxSens3++] = vRawSens3;
 				  else
                       Buffer2.bufMIC4[WaveRec_idxSens4++] = vRawSens4;			  
-#endif 
+
 				  break;
 			  case BUF2_PLAY:
-				  //Data is updated to Buffer3
-				  //PDM_Filter_64_LSB((uint8_t *)InternalBuffer, (uint16_t *)(buffer3+cntPos*PCM_OUT_SIZE), volume , (PDMFilter_InitStruct *)&Filter[0]);
-#if MAIN_FFT
-				  if ((I2S2_stLR==GPIO_PIN_SET)&&(I2S2_stLROld==GPIO_PIN_RESET))
-				      Buffer3.bufMIC3[WaveRec_idxSens3++] = vRawSens3;
-				  if ((I2S2_stLR==GPIO_PIN_RESET)&&(I2S2_stLROld==GPIO_PIN_SET))
-				      Buffer3.bufMIC4[WaveRec_idxSens4++] = vRawSens4;
-#else
                   if (WaveRec_idxSens3<=WaveRec_idxSens4) 
                       Buffer3.bufMIC3[WaveRec_idxSens3++] = vRawSens3;
 				  else
                       Buffer3.bufMIC4[WaveRec_idxSens4++] = vRawSens4;			   
-#endif
 				  break;
 			  case BUF3_PLAY:
-				  //Data is update to Buffer1
-				  //PDM_Filter_64_LSB((uint8_t *)InternalBuffer, (uint16_t *)(buffer1+cntPos*PCM_OUT_SIZE), volume , (PDMFilter_InitStruct *)&Filter[0]);
-#if MAIN_FFT
-				  if ((I2S2_stLR==GPIO_PIN_SET)&&(I2S2_stLROld==GPIO_PIN_RESET))
-     				  Buffer1.bufMIC3[WaveRec_idxSens3++] = vRawSens3;
-  				  if ((I2S2_stLR==GPIO_PIN_RESET)&&(I2S2_stLROld==GPIO_PIN_SET))
-     				  Buffer1.bufMIC4[ WaveRec_idxSens4++] = vRawSens4;
-#else
                   if (WaveRec_idxSens3<=WaveRec_idxSens4) 
                       Buffer1.bufMIC3[WaveRec_idxSens3++] = vRawSens3;
 				  else
                       Buffer1.bufMIC4[WaveRec_idxSens4++] = vRawSens4;
-
-
-#endif
 				  break;
 			  default:
 				  break; 
@@ -540,15 +481,6 @@ void SPI4_IRQHandler(void)
   static uint8_t Main_stLR, Main_stLROld;
 
 
-
-  /* USER CODE BEGIN SPI5_IRQn 0 */
-
-  /* USER CODE END SPI5_IRQn 0 */
-  //HAL_SPI_IRQHandler(&hspi5);
-  /* USER CODE BEGIN SPI5_IRQn 1 */
-
-  /* USER CODE END SPI5_IRQn 1 */
-    /* Check if data are available in SPI Data register */
   /* SPI in mode Receiver ----------------------------------------------------*/
   if(
 //    (__HAL_SPI_GET_FLAG(&hspi4, SPI_FLAG_OVR) == RESET)&&
@@ -579,7 +511,7 @@ void SPI4_IRQHandler(void)
             else
             {
                vRawSens5 =((test>>SPI4_stPosShft)|(SPI4_stNipple<<(SDOLEN-SPI4_stPosShft)));	
-               if (WaveRec_idxSens5 < (2*AUDIO_OUT_BUFFER_SIZE+2))
+               if (WaveRec_idxSens5 < (2*AUDIO_OUT_BUFFER_SIZE+5))
                {
                     /*-------------------------------------------------------------------------------------------------------------                                             
                     Sequence  Record Data                     Processing Data                 Player Data
@@ -621,7 +553,7 @@ void SPI4_IRQHandler(void)
           else
           {
                vRawSens6 =((test>>SPI4_stPosShft)|(SPI4_stNipple<<(SDOLEN-SPI4_stPosShft)));
-               if (WaveRec_idxSens6 < (2*AUDIO_OUT_BUFFER_SIZE+2))
+               if (WaveRec_idxSens6 < (2*AUDIO_OUT_BUFFER_SIZE+5))
                {
                     /*-------------------------------------------------------------------------------------------------------------                                             
                     Sequence  Record Data                     Processing Data                 Player Data
@@ -788,7 +720,7 @@ void MIC1TO6_Init(void)
 void StartRecMic7_8 (void)
 {
 	  HAL_SPI_Receive_DMA(&hspi5,( uint8_t *)TestSDO7,4*AUDIO_OUT_BUFFER_SIZE);
-#if (USB_STREAMING)
+#if (0)
 	  HAL_SPI_Receive_DMA(&hspi6,( uint8_t *)TestSDO8,4*(AUDIO_SAMPLING_FREQUENCY/1000));
 #else
 	  HAL_SPI_Receive_DMA(&hspi6,( uint8_t *)TestSDO8,4*AUDIO_OUT_BUFFER_SIZE);
@@ -813,7 +745,7 @@ static void I2S1_Init(void)
   hi2s1.Init.ClockSource = I2S_CLOCK_EXTERNAL;
   HAL_I2S_Init(&hi2s1);
 
-     /* Enable TXE and ERR interrupt */
+  /* Enable TXE and ERR interrupt */
  __HAL_I2S_ENABLE_IT(&hi2s1, (I2S_IT_RXNE));
  
  __HAL_I2S_ENABLE(&hi2s1);
@@ -861,9 +793,9 @@ static void I2S2_Init(void)
  hi2s2.Init.ClockSource = I2S_CLOCK_EXTERNAL;
 
  HAL_I2S_Init(&hi2s2);
-  /* Enable TXE and ERR interrupt */
-__HAL_I2S_ENABLE_IT(&hi2s2, (I2S_IT_RXNE));
-__HAL_I2S_ENABLE(&hi2s2);
+ /* Enable TXE and ERR interrupt */
+ __HAL_I2S_ENABLE_IT(&hi2s2, (I2S_IT_RXNE));
+ __HAL_I2S_ENABLE(&hi2s2);
 
 #else
    hspi2.Instance = SPI2;
@@ -1465,7 +1397,7 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
     
     if (hspi->Instance==SPI6) //MIC8
     {
-#if USB_STREAMING							
+#if 0							
 
     if (swtSDO8==0x01)
    {
@@ -1586,7 +1518,7 @@ void PDM2PCMSDO78(void)
 			        for (int16_t i=AUDIO_OUT_BUFFER_SIZE-1; i>=0;i--)
 			        {
 	                    Buffer2.bufMIC7[2*i+1]=  Buffer2.bufMIC7[i];
-			            Buffer2.bufMIC7[2*i] = Buffer2.bufMIC7[i];
+			            if (i!=0) Buffer2.bufMIC7[2*i] = Buffer2.bufMIC7[i];
 			        }
 			            break;
 			     case BUF2_PLAY:
@@ -1594,7 +1526,7 @@ void PDM2PCMSDO78(void)
 			        for (int16_t i=AUDIO_OUT_BUFFER_SIZE-1; i>=0;i--)
 			        {				 	
 		                Buffer3.bufMIC7[2*i+1]= Buffer3.bufMIC7[i];
-		                Buffer3.bufMIC7[2*i]= Buffer3.bufMIC7[i];;	
+		                if (i!=0) Buffer3.bufMIC7[2*i]= Buffer3.bufMIC7[i];;	
 			        }
 	                break;
 	            case BUF3_PLAY:
@@ -1602,7 +1534,7 @@ void PDM2PCMSDO78(void)
 			        for (int16_t i=AUDIO_OUT_BUFFER_SIZE-1; i>=0;i--)
 			        {					
 	                    Buffer1.bufMIC7[2*i+1]= Buffer1.bufMIC7[i];
-	                    Buffer1.bufMIC7[2*i]= Buffer1.bufMIC7[i];;	
+	                    if (i!=0) Buffer1.bufMIC7[2*i]= Buffer1.bufMIC7[i];;	
 			        }
 	                break;
 	            default:
@@ -1661,7 +1593,7 @@ void PDM2PCMSDO78(void)
                       for (int16_t i=AUDIO_OUT_BUFFER_SIZE-1; i>=0;i--)
                       {
                           Buffer2.bufMIC8[2*i+1]=  Buffer2.bufMIC8[i];
-                          Buffer2.bufMIC8[2*i] = Buffer2.bufMIC8[i];
+                          if (i!=0) Buffer2.bufMIC8[2*i] = Buffer2.bufMIC8[i];
                       }
                       break;
               case BUF2_PLAY:
@@ -1669,7 +1601,7 @@ void PDM2PCMSDO78(void)
                       for (int16_t i=AUDIO_OUT_BUFFER_SIZE-1; i>=0;i--)
                       {
                           Buffer3.bufMIC8[2*i+1]= Buffer3.bufMIC8[i];
-                          Buffer3.bufMIC8[2*i]= Buffer3.bufMIC8[i];;	
+                          if (i!=0) Buffer3.bufMIC8[2*i]= Buffer3.bufMIC8[i];;	
                       }
                       break;
               case BUF3_PLAY:
@@ -1677,7 +1609,7 @@ void PDM2PCMSDO78(void)
                     for (int16_t i=AUDIO_OUT_BUFFER_SIZE-1; i>=0;i--)
                     {					
                         Buffer1.bufMIC8[2*i+1]= Buffer1.bufMIC8[i];
-                        Buffer1.bufMIC8[2*i]= Buffer1.bufMIC8[i];
+                        if (i!=0) Buffer1.bufMIC8[2*i]= Buffer1.bufMIC8[i];
                     }
                     break;
               default:

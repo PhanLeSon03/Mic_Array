@@ -66,7 +66,8 @@ void AudioPlayerUpd(void) /* This function called with period of 64ms */
  	  	    {
                         for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
                         {
-                            PCM_Buffer3[8*(i/2)+j] = (int16_t)*(&Buffer3.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i);
+                            (swtBufUSBOut)?(PCM_Buffer1[8*(i/2)+j] = (int16_t)*(&Buffer1.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i)):
+								            (PCM_Buffer2[8*(i/2)+j] = (int16_t)*(&Buffer1.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i));
                         }
  	  	    }
 		}
@@ -79,7 +80,8 @@ void AudioPlayerUpd(void) /* This function called with period of 64ms */
  	  	    {
 	 	  	    for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
 	 	  	    {
-	                PCM_Buffer1[8*(i/2)+j] = (int16_t)*(&Buffer1.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i);
+                            (swtBufUSBOut)?(PCM_Buffer1[8*(i/2)+j] = (int16_t)*(&Buffer2.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i)):
+								            (PCM_Buffer2[8*(i/2)+j] = (int16_t)*(&Buffer2.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i));	                
 	 	  	    }
  	  	    }
 		}	  	
@@ -91,7 +93,9 @@ void AudioPlayerUpd(void) /* This function called with period of 64ms */
 		  {
 			  for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
 			  {
-				  PCM_Buffer2[8*(i/2)+j] = (int16_t)*(&Buffer2.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i);
+				  (swtBufUSBOut)?(PCM_Buffer1[8*(i/2)+j] = (int16_t)*(&Buffer3.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i)):
+								  (PCM_Buffer2[8*(i/2)+j] = (int16_t)*(&Buffer3.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i));
+
 			  }
 		  }
 		}
@@ -99,7 +103,7 @@ void AudioPlayerUpd(void) /* This function called with period of 64ms */
       default:
         break;
     }
-#endif
+#else
 
 /* Tongle status to switch the USB audio buffer out */
 swtBufUSBOut^=0x01;
@@ -117,7 +121,63 @@ swtBufUSBOut^=0x01;
 
 switch (buffer_switch)
 {
-  case BUF1_PLAY:
+	case BUF1_PLAY:
+		  switch (cntBtnPress)
+		  {
+			case 0:
+				  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+				  { 		   
+						   (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC1[i]):(PCM_Buffer2[i] = Buffer3.bufMIC1[i]);
+				  }
+				  break;
+			case 1:
+				  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+				  { 		   
+							(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC2[i]):(PCM_Buffer2[i] = Buffer3.bufMIC2[i]);
+				  }
+				  break;
+			case 2:
+				  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+				  {
+					  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC3[i]):(PCM_Buffer2[i] = Buffer3.bufMIC3[i]);
+				  }
+				  break;
+			case 3:
+				  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+				  { 		 
+					  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC4[i]):(PCM_Buffer2[i] = Buffer3.bufMIC4[i]);
+				  }
+				  break;
+			case 4:
+				for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+				{		   
+					(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC5[i]):(PCM_Buffer2[i] = Buffer3.bufMIC5[i]);
+				}
+				break;
+			case 5:
+				for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+				{		   
+					(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC6[i]):(PCM_Buffer2[i] = Buffer3.bufMIC6[i]);
+				}
+				break;
+			case 6:
+				for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+				{
+					(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC7[i]):(PCM_Buffer2[i] = Buffer3.bufMIC7[i]);
+				}
+				break;
+			case 7:
+				for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+				{
+					(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC8[i]):(PCM_Buffer2[i] = Buffer3.bufMIC8[i]);
+				}
+				break;
+			default:
+				 break;
+		  } 					  
+	  break;
+
+  case BUF2_PLAY:
 	  switch (cntBtnPress)
 	  {
 		case 0:
@@ -175,7 +235,7 @@ switch (buffer_switch)
  
   
 	break;
-  case BUF2_PLAY:
+  case BUF3_PLAY:
 	  switch (cntBtnPress)
 	  {
 		case 0:
@@ -230,66 +290,11 @@ switch (buffer_switch)
 			 break;
 	  }
 		  
-
-	break;
-  case BUF3_PLAY:
-  	    switch (cntBtnPress)
-        {
-          case 0:
-                for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-                {            
-                         (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC1[i]):(PCM_Buffer2[i] = Buffer3.bufMIC1[i]);
-                }
-                break;
-          case 1:
-                for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-                {            
-                          (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC2[i]):(PCM_Buffer2[i] = Buffer3.bufMIC2[i]);
-                }
-                break;
-          case 2:
-                for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-                {
-                    (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC3[i]):(PCM_Buffer2[i] = Buffer3.bufMIC3[i]);
-                }
-                break;
-          case 3:
-                for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-                {          
-                    (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC4[i]):(PCM_Buffer2[i] = Buffer3.bufMIC4[i]);
-                }
-                break;
-          case 4:
-              for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-              {          
-                  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC5[i]):(PCM_Buffer2[i] = Buffer3.bufMIC5[i]);
-              }
-              break;
-          case 5:
-              for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-              {          
-                  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC6[i]):(PCM_Buffer2[i] = Buffer3.bufMIC6[i]);
-              }
-              break;
-          case 6:
-              for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-              {
-                  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC7[i]):(PCM_Buffer2[i] = Buffer3.bufMIC7[i]);
-              }
-              break;
-          case 7:
-              for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-              {
-                  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC8[i]):(PCM_Buffer2[i] = Buffer3.bufMIC8[i]);
-              }
-              break;
-          default:
-               break;
-        }				        
 	break;
   default:
 	break;
 }
+#endif
 
 }
 

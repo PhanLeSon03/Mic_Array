@@ -59,6 +59,9 @@ __IO uint8_t   btnSW1,btnSW2;
 __IO uint8_t   flgDlyUpd; 
 __IO uint8_t   cntBtnPress;
 
+extern __IO uint16_t  WaveRec_idxTest;
+
+
 /* Buffer used for reception */
 uint8_t aRxBuffer[1024];
 uint8_t idxDec,stFrstFrmStore;
@@ -89,6 +92,11 @@ uint8_t stDir,flgS2,flgS3,flgS4,flgS2Flt,flgS3Flt,flgS4Flt;
 uint8_t flgS2Ins,flgS3Ins,flgS4Ins;
 #endif
 
+#if USB_STREAMING
+extern __IO uint16_t idxFrmPDMMic8;
+#endif
+
+
 /* Private function prototypes -----------------------------------------------*/
 static void SystemClock_Config(void);
 static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8_t id);
@@ -103,7 +111,7 @@ void USART3_Init(void);
 void ReadSTASeq(uint8_t Addr, uint8_t *pBufOut,uint8_t Len );
 void WriteSTAByte(uint8_t Addr, uint8_t *pBufIn, uint8_t len);
 void SPI5_CallBack(SPI_HandleTypeDef *hspi);
-
+uint8_t StartPlay(void);
 
 
 /*--------------INLINE FUNCTION-----------------------------------------------*/
@@ -255,6 +263,7 @@ inline static void FFT_Update(void)
 					break;
                
 			}
+			AudioPlayerUpd();
 	       //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_15);
 	  }
 	  
@@ -264,16 +273,7 @@ inline static void FFT_Update(void)
 
 inline static void Audio_Play_Out(void)
 {
-  /* wait for DMA transfert complete	                                      */
-  /* This flag is set to 1 in callback function of DMA interrupt              */
-  /* if player is finished for curent buffer */ 
-  if (XferCplt == 1)
-  {
-       RESET_IDX
-       XferCplt = 0; // clear DMA interrupt flag
-#if USB_STREAMING
-       //AudioProcess();
-#endif
+
 /*-------------------------------------------------------------------------------------------------------------
 			  
 	Sequence  Record Data                     Processing Data                 Player Data
@@ -288,30 +288,52 @@ inline static void Audio_Play_Out(void)
     {
       case BUF1_PLAY:
         /* Play data from buffer1 */
-	 Audio_MAL_Play(Command_index? (uint32_t)Buffer3.bufMIC1:(uint32_t)Buffer3.bufMIC2 , 4*AUDIO_OUT_BUFFER_SIZE);
-		/* set flag for switch buffer */		  
-        buffer_switch = BUF3_PLAY;
+	    Audio_MAL_Play((uint32_t)&Buffer3.bufMIC3[idxFrmPDMMic8*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000)] , 2*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
 
         break;
       case BUF2_PLAY:
         /* Play data from buffer2 */
-	Audio_MAL_Play(Command_index? (uint32_t)Buffer1.bufMIC1:(uint32_t)Buffer1.bufMIC2, 4*AUDIO_OUT_BUFFER_SIZE);
-	/* set flag for switch buffer */
-        buffer_switch = BUF1_PLAY;
+	    Audio_MAL_Play((uint32_t)&Buffer1.bufMIC3[idxFrmPDMMic8*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000)], 2*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
         
         break;
       case BUF3_PLAY:
         /* Play data from buffer1 */
-        Audio_MAL_Play(Command_index? (uint32_t)Buffer2.bufMIC1:(uint32_t)Buffer2.bufMIC2 ,4*AUDIO_OUT_BUFFER_SIZE);
-        /* set flag for switch buffer */		  
-        buffer_switch = BUF2_PLAY;
+        Audio_MAL_Play((uint32_t)&Buffer2.bufMIC3[idxFrmPDMMic8*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000)] ,2*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
 
         break;
       default:
         break;
     }
-			   
-  }
+    
+#if USB_STREAMING
+    AudioUSBSend(idxFrmPDMMic8);
+#endif
+
+	/* if player is finished for curent buffer                                  */ 
+	if (++idxFrmPDMMic8 == AUDIO_OUT_BUFFER_SIZE/(AUDIO_SAMPLING_FREQUENCY/1000))
+	{
+	   RESET_IDX
+       WaveRec_idxTest=0;
+       idxFrmPDMMic8=0;
+            switch (buffer_switch)
+            {
+                case BUF1_PLAY:
+                      /* set flag for switch buffer */		  
+                  buffer_switch = BUF3_PLAY;
+                  break;
+                case BUF2_PLAY:
+                  /* set flag for switch buffer */
+                  buffer_switch = BUF1_PLAY;        
+                  break;
+                case BUF3_PLAY:
+                  /* set flag for switch buffer */		  
+                  buffer_switch = BUF2_PLAY;
+                  break;
+                default:
+                  break;
+            }
+          if (cntStrt<100) cntStrt++;
+	}			   
 }
 
 
@@ -396,11 +418,11 @@ int main(void)
 #ifdef CS43L22_PLAY
     AUDIO_InitApplication();
 #endif
+    AUDIO_InitApplication();
     BSP_LED_Toggle(LED2);
 
     buffer_switch = BUF3_PLAY;		 /* record data to buffer1 */
     MIC1TO6_Init();
-	                  
 
 #if (USB_STREAMING)	
 	/* Initialize USB descriptor basing on channels number and sampling frequency */
@@ -424,57 +446,24 @@ int main(void)
 	//test GIT //USBH_Start(&hUSBHost); 					  
 #endif 
 
+    StartPlay();
     while (1)
     {
-		/* there is data in the buffer */  
-		if((WaveRec_idxSens1>=(2*AUDIO_OUT_BUFFER_SIZE-1))&&(stFrstFrmStore<3))
-		{
-		    RESET_IDX
-			/* this is just run 1 time after 1st frame of I2S data full */
-			if ((stFrstFrmStore<3))
-			{
-				stFrstFrmStore++;
-			#ifdef CS43L22_PLAY
-			    buffer_switch = BUF2_PLAY; /* record data to buffer3 */
-			#endif
-				if (stFrstFrmStore==2)
-				{
-				    StartRecMic7_8();
-			#ifdef CS43L22_PLAY
-					/*------------------------PLAYER------------------------------------------*/
-					Audio_MAL_Play((uint32_t)Buffer1.bufMIC1,4*AUDIO_OUT_BUFFER_SIZE);
-					/*------------------------------------------------------------------------*/				
-					buffer_switch = BUF1_PLAY;
-			#endif
-			}				
-			
-			}
-		
-		}
 
-                 /* This calculation happens once time in power cycles */
-                 /* After 5 times of full frame recieved interrupt */
-                 if (cntStrt==10)
-		       {
+
+                    /* This calculation happens once time in power cycles */
+                    /* After 5 times of full frame recieved interrupt */
+                    if (cntStrt==5)
+                    {
 			   if ((WaveRecord_flgIni<200))
 			   {
-				  for(char i=0;i<16;i++)
-				  {
-                                      //if (ValBit(SPI1_stNipple,i)!=0) 
-                                      //{
-                                      //	 I2S1_stPosShft = 0;//MAX(I2S1_stPosShft,i+1);
-                                      // }
-
-                                      //if (ValBit(I2S2_stNipple,i)!=0) 
-                                      //{
-                                      //   I2S2_stPosShft = 0;//MAX(I2S2_stPosShft,i+1);
-                                      //}
-
-                                      if (ValBit(SPI4_stNipple,i)!=0) 
-                                      {
-                                         SPI4_stPosShft = MAX(SPI4_stPosShft,i+1);
-                                      }
-				  }
+                              for(char i=0;i<16;i++)
+                              {
+                                if (ValBit(SPI4_stNipple,i)!=0) 
+                                {
+                                   SPI4_stPosShft = MAX(SPI4_stPosShft,i+1);
+                                }
+                              }
 					
 			   }
                            else if (WaveRecord_flgIni<255)
@@ -1199,16 +1188,40 @@ void MX_I2C2_Init(void)
 }
 
  void HAL_I2S_TxCpltCallback(I2S_HandleTypeDef *hi2s)
-{
-  //sop1hc if(AudioState == AUDIO_STATE_PLAY)
-  //if (BufferCtlPlayOut.state == BUFFER_OFFSET_HALF)
-  {
-  //BufferCtlPlayOut.state = BUFFER_OFFSET_FULL;
-  XferCplt=1;
-  Audio_Play_Out(); 
-
-  if (cntStrt<100) cntStrt++;
-  }	 
+{  
+  Audio_Play_Out();  
 }
 
+ uint8_t StartPlay(void)
+ {
+	while (1)
+	{
+		 /* there is data in the buffer */	
+		 if((WaveRec_idxSens1>=(2*AUDIO_OUT_BUFFER_SIZE-1))&&(stFrstFrmStore<3))
+		 {
+			 RESET_IDX
+			 /* this is just run 1 time after 1st frame of I2S data full */
+			 if ((stFrstFrmStore<3))
+			 {
+                             stFrstFrmStore++;
+             
+                             buffer_switch = BUF2_PLAY; /* record data to buffer3 */
+             
+                             if (stFrstFrmStore==2)
+                             {
+                                 StartRecMic7_8();
+         
+                                 /*------------------------PLAYER------------------------------------------*/
+                                 Audio_MAL_Play((uint32_t)Buffer1.bufMIC1,2*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
+                                 /*------------------------------------------------------------------------*/				 
+                                 buffer_switch = BUF1_PLAY;
+
+                                 return 0;		 
+                             }				 
+                     
+			 }
+		 
+		 }
+	}
+ }
 /*****************************END OF FILE**************************************/

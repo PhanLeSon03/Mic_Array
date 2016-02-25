@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      23/Feb/2016  19:41:45
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      25/Feb/2016  12:02:31
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -246,43 +246,47 @@ AudioUSBSend:
 //   66  	  	    {
 //   67                         for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
 //   68                         {
-//   69                             PCM_Buffer3[8*(i/2)+j] = (int16_t)*(&Buffer3.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i);
-//   70                         }
-//   71  	  	    }
-//   72 		}
-//   73 		
-//   74         break;
-//   75       case BUF2_PLAY:
-//   76 	  	for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
-//   77  	  	{
-//   78  	  	    if (i%2==0)
-//   79  	  	    {
-//   80 	 	  	    for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
-//   81 	 	  	    {
-//   82 	                PCM_Buffer1[8*(i/2)+j] = (int16_t)*(&Buffer1.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i);
-//   83 	 	  	    }
-//   84  	  	    }
-//   85 		}	  	
-//   86         break;
-//   87       case BUF3_PLAY:
-//   88 		for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
-//   89 		{
-//   90 		  if (i%2==0)
-//   91 		  {
-//   92 			  for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
-//   93 			  {
-//   94 				  PCM_Buffer2[8*(i/2)+j] = (int16_t)*(&Buffer2.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i);
-//   95 			  }
-//   96 		  }
-//   97 		}
-//   98         break;
-//   99       default:
-//  100         break;
-//  101     }
-//  102 #endif
-//  103 
-//  104 /* Tongle status to switch the USB audio buffer out */
-//  105 swtBufUSBOut^=0x01;
+//   69                             (swtBufUSBOut)?(PCM_Buffer1[8*(i/2)+j] = (int16_t)*(&Buffer1.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i)):
+//   70 								            (PCM_Buffer2[8*(i/2)+j] = (int16_t)*(&Buffer1.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i));
+//   71                         }
+//   72  	  	    }
+//   73 		}
+//   74 		
+//   75         break;
+//   76       case BUF2_PLAY:
+//   77 	  	for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
+//   78  	  	{
+//   79  	  	    if (i%2==0)
+//   80  	  	    {
+//   81 	 	  	    for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
+//   82 	 	  	    {
+//   83                             (swtBufUSBOut)?(PCM_Buffer1[8*(i/2)+j] = (int16_t)*(&Buffer2.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i)):
+//   84 								            (PCM_Buffer2[8*(i/2)+j] = (int16_t)*(&Buffer2.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i));	                
+//   85 	 	  	    }
+//   86  	  	    }
+//   87 		}	  	
+//   88         break;
+//   89       case BUF3_PLAY:
+//   90 		for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
+//   91 		{
+//   92 		  if (i%2==0)
+//   93 		  {
+//   94 			  for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
+//   95 			  {
+//   96 				  (swtBufUSBOut)?(PCM_Buffer1[8*(i/2)+j] = (int16_t)*(&Buffer3.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i)):
+//   97 								  (PCM_Buffer2[8*(i/2)+j] = (int16_t)*(&Buffer3.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i));
+//   98 
+//   99 			  }
+//  100 		  }
+//  101 		}
+//  102         break;
+//  103       default:
+//  104         break;
+//  105     }
+//  106 #else
+//  107 
+//  108 /* Tongle status to switch the USB audio buffer out */
+//  109 swtBufUSBOut^=0x01;
 AudioPlayerUpd:
         LDR.W    R0,??DataTable1
         PUSH     {R4-R6}
@@ -293,201 +297,202 @@ AudioPlayerUpd:
         LDRB     R1,[R0, #+0]
         EOR      R1,R1,#0x1
         STRB     R1,[R0, #+0]
-//  106 
-//  107 /*-------------------------------------------------------------------------------------------------------------
-//  108 			  
-//  109 	Sequence  Record Data                     Processing Data                 Player Data
-//  110 			  
-//  111 	1-------  Buffer1                         Buffer2                         Buffer3
+//  110 
+//  111 /*-------------------------------------------------------------------------------------------------------------
 //  112 			  
-//  113 	2-------  Buffer3                         Buffer1                         Buffer2		  
+//  113 	Sequence  Record Data                     Processing Data                 Player Data
 //  114 			  
-//  115 	3-------  Buffer2                         Buffer3                         Buffer1 
-//  116  ---------------------------------------------------------------------------------------------------------------*/
-//  117 
-//  118 switch (buffer_switch)
+//  115 	1-------  Buffer1                         Buffer2                         Buffer3
+//  116 			  
+//  117 	2-------  Buffer3                         Buffer1                         Buffer2		  
+//  118 			  
+//  119 	3-------  Buffer2                         Buffer3                         Buffer1 
+//  120  ---------------------------------------------------------------------------------------------------------------*/
+//  121 
+//  122 switch (buffer_switch)
         LDR.W    R1,??DataTable1_3
         LDRB     R1,[R1, #+0]
         CBZ.N    R1,??AudioPlayerUpd_3
         CMP      R1,#+2
         BEQ.W    ??AudioPlayerUpd_4
         BCC.W    ??AudioPlayerUpd_5
-//  119 {
-//  120   case BUF1_PLAY:
-//  121 	  switch (cntBtnPress)
-//  122 	  {
-//  123 		case 0:
-//  124 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  125 			  { 		   
-//  126 					   (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC1[i]):(PCM_Buffer2[i] = Buffer1.bufMIC1[i]);
-//  127 			  }
-//  128 			  break;
-//  129 		case 1:
-//  130 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  131 			  { 		   
-//  132 						(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC2[i]):(PCM_Buffer2[i] = Buffer1.bufMIC2[i]);
-//  133 			  }
-//  134 			  break;
-//  135 		case 2:
-//  136 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  137 			  {
-//  138 				  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC3[i]):(PCM_Buffer2[i] = Buffer1.bufMIC3[i]);
-//  139 			  }
-//  140 			  break;
-//  141 		case 3:
-//  142 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  143 			  { 		 
-//  144 				  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC4[i]):(PCM_Buffer2[i] = Buffer1.bufMIC4[i]);
-//  145 			  }
-//  146 			  break;
-//  147 		case 4:
-//  148 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  149 			{		   
-//  150 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC5[i]):(PCM_Buffer2[i] = Buffer1.bufMIC5[i]);
-//  151 			}
-//  152 			break;
-//  153 		case 5:
-//  154 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  155 			{		   
-//  156 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC6[i]):(PCM_Buffer2[i] = Buffer1.bufMIC6[i]);
-//  157 			}
-//  158 			break;
-//  159 		case 6:
-//  160 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  161 			{
-//  162 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC7[i]):(PCM_Buffer2[i] = Buffer1.bufMIC7[i]);
-//  163 			}
-//  164 			break;
-//  165 		case 7:
-//  166 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  167 			{
-//  168 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC8[i]):(PCM_Buffer2[i] = Buffer1.bufMIC8[i]);
-//  169 			}
-//  170 			break;
-//  171 		default:
-//  172 			 break;
-//  173 	  }
-//  174 	  
-//  175  
-//  176   
-//  177 	break;
-//  178   case BUF2_PLAY:
-//  179 	  switch (cntBtnPress)
-//  180 	  {
-//  181 		case 0:
-//  182 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  183 			  { 		   
-//  184 					   (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC1[i]):(PCM_Buffer2[i] = Buffer2.bufMIC1[i]);
-//  185 			  }
-//  186 			  break;
-//  187 		case 1:
-//  188 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  189 			  { 		   
-//  190 						(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC2[i]):(PCM_Buffer2[i] = Buffer2.bufMIC2[i]);
-//  191 			  }
-//  192 			  break;
-//  193 		case 2:
-//  194 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  195 			  {
-//  196 				  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC3[i]):(PCM_Buffer2[i] = Buffer2.bufMIC3[i]);
-//  197 			  }
-//  198 			  break;
-//  199 		case 3:
-//  200 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  201 			  { 		 
-//  202 				  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC4[i]):(PCM_Buffer2[i] = Buffer2.bufMIC4[i]);
-//  203 			  }
-//  204 			  break;
-//  205 		case 4:
-//  206 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  207 			{		   
-//  208 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC5[i]):(PCM_Buffer2[i] = Buffer2.bufMIC5[i]);
-//  209 			}
-//  210 			break;
-//  211 		case 5:
-//  212 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  213 			{		   
-//  214 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC6[i]):(PCM_Buffer2[i] = Buffer2.bufMIC6[i]);
-//  215 			}
-//  216 			break;
-//  217 		case 6:
-//  218 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  219 			{
-//  220 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC7[i]):(PCM_Buffer2[i] = Buffer2.bufMIC7[i]);
-//  221 			}
-//  222 			break;
-//  223 		case 7:
-//  224 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  225 			{
-//  226 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC8[i]):(PCM_Buffer2[i] = Buffer2.bufMIC8[i]);
-//  227 			}
-//  228 			break;
-//  229 		default:
-//  230 			 break;
-//  231 	  }
-//  232 		  
-//  233 
-//  234 	break;
-//  235   case BUF3_PLAY:
-//  236   	    switch (cntBtnPress)
-//  237         {
-//  238           case 0:
-//  239                 for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  240                 {            
-//  241                          (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC1[i]):(PCM_Buffer2[i] = Buffer3.bufMIC1[i]);
-//  242                 }
-//  243                 break;
-//  244           case 1:
-//  245                 for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  246                 {            
-//  247                           (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC2[i]):(PCM_Buffer2[i] = Buffer3.bufMIC2[i]);
-//  248                 }
-//  249                 break;
-//  250           case 2:
-//  251                 for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  252                 {
-//  253                     (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC3[i]):(PCM_Buffer2[i] = Buffer3.bufMIC3[i]);
-//  254                 }
-//  255                 break;
-//  256           case 3:
-//  257                 for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  258                 {          
-//  259                     (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC4[i]):(PCM_Buffer2[i] = Buffer3.bufMIC4[i]);
-//  260                 }
-//  261                 break;
-//  262           case 4:
-//  263               for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  264               {          
-//  265                   (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC5[i]):(PCM_Buffer2[i] = Buffer3.bufMIC5[i]);
-//  266               }
-//  267               break;
-//  268           case 5:
-//  269               for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  270               {          
-//  271                   (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC6[i]):(PCM_Buffer2[i] = Buffer3.bufMIC6[i]);
-//  272               }
-//  273               break;
-//  274           case 6:
-//  275               for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  276               {
-//  277                   (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC7[i]):(PCM_Buffer2[i] = Buffer3.bufMIC7[i]);
-//  278               }
-//  279               break;
-//  280           case 7:
-//  281               for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  282               {
-//  283                   (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC8[i]):(PCM_Buffer2[i] = Buffer3.bufMIC8[i]);
-//  284               }
-//  285               break;
-//  286           default:
-//  287                break;
-//  288         }				        
-//  289 	break;
-//  290   default:
-//  291 	break;
-//  292 }
-//  293 
-//  294 }
+//  123 {
+//  124 	case BUF1_PLAY:
+//  125 		  switch (cntBtnPress)
+//  126 		  {
+//  127 			case 0:
+//  128 				  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  129 				  { 		   
+//  130 						   (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC1[i]):(PCM_Buffer2[i] = Buffer3.bufMIC1[i]);
+//  131 				  }
+//  132 				  break;
+//  133 			case 1:
+//  134 				  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  135 				  { 		   
+//  136 							(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC2[i]):(PCM_Buffer2[i] = Buffer3.bufMIC2[i]);
+//  137 				  }
+//  138 				  break;
+//  139 			case 2:
+//  140 				  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  141 				  {
+//  142 					  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC3[i]):(PCM_Buffer2[i] = Buffer3.bufMIC3[i]);
+//  143 				  }
+//  144 				  break;
+//  145 			case 3:
+//  146 				  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  147 				  { 		 
+//  148 					  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC4[i]):(PCM_Buffer2[i] = Buffer3.bufMIC4[i]);
+//  149 				  }
+//  150 				  break;
+//  151 			case 4:
+//  152 				for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  153 				{		   
+//  154 					(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC5[i]):(PCM_Buffer2[i] = Buffer3.bufMIC5[i]);
+//  155 				}
+//  156 				break;
+//  157 			case 5:
+//  158 				for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  159 				{		   
+//  160 					(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC6[i]):(PCM_Buffer2[i] = Buffer3.bufMIC6[i]);
+//  161 				}
+//  162 				break;
+//  163 			case 6:
+//  164 				for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  165 				{
+//  166 					(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC7[i]):(PCM_Buffer2[i] = Buffer3.bufMIC7[i]);
+//  167 				}
+//  168 				break;
+//  169 			case 7:
+//  170 				for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  171 				{
+//  172 					(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC8[i]):(PCM_Buffer2[i] = Buffer3.bufMIC8[i]);
+//  173 				}
+//  174 				break;
+//  175 			default:
+//  176 				 break;
+//  177 		  } 					  
+//  178 	  break;
+//  179 
+//  180   case BUF2_PLAY:
+//  181 	  switch (cntBtnPress)
+//  182 	  {
+//  183 		case 0:
+//  184 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  185 			  { 		   
+//  186 					   (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC1[i]):(PCM_Buffer2[i] = Buffer1.bufMIC1[i]);
+//  187 			  }
+//  188 			  break;
+//  189 		case 1:
+//  190 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  191 			  { 		   
+//  192 						(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC2[i]):(PCM_Buffer2[i] = Buffer1.bufMIC2[i]);
+//  193 			  }
+//  194 			  break;
+//  195 		case 2:
+//  196 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  197 			  {
+//  198 				  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC3[i]):(PCM_Buffer2[i] = Buffer1.bufMIC3[i]);
+//  199 			  }
+//  200 			  break;
+//  201 		case 3:
+//  202 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  203 			  { 		 
+//  204 				  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC4[i]):(PCM_Buffer2[i] = Buffer1.bufMIC4[i]);
+//  205 			  }
+//  206 			  break;
+//  207 		case 4:
+//  208 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  209 			{		   
+//  210 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC5[i]):(PCM_Buffer2[i] = Buffer1.bufMIC5[i]);
+//  211 			}
+//  212 			break;
+//  213 		case 5:
+//  214 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  215 			{		   
+//  216 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC6[i]):(PCM_Buffer2[i] = Buffer1.bufMIC6[i]);
+//  217 			}
+//  218 			break;
+//  219 		case 6:
+//  220 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  221 			{
+//  222 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC7[i]):(PCM_Buffer2[i] = Buffer1.bufMIC7[i]);
+//  223 			}
+//  224 			break;
+//  225 		case 7:
+//  226 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  227 			{
+//  228 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC8[i]):(PCM_Buffer2[i] = Buffer1.bufMIC8[i]);
+//  229 			}
+//  230 			break;
+//  231 		default:
+//  232 			 break;
+//  233 	  }
+//  234 	  
+//  235  
+//  236   
+//  237 	break;
+//  238   case BUF3_PLAY:
+//  239 	  switch (cntBtnPress)
+//  240 	  {
+//  241 		case 0:
+//  242 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  243 			  { 		   
+//  244 					   (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC1[i]):(PCM_Buffer2[i] = Buffer2.bufMIC1[i]);
+//  245 			  }
+//  246 			  break;
+//  247 		case 1:
+//  248 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  249 			  { 		   
+//  250 						(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC2[i]):(PCM_Buffer2[i] = Buffer2.bufMIC2[i]);
+//  251 			  }
+//  252 			  break;
+//  253 		case 2:
+//  254 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  255 			  {
+//  256 				  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC3[i]):(PCM_Buffer2[i] = Buffer2.bufMIC3[i]);
+//  257 			  }
+//  258 			  break;
+//  259 		case 3:
+//  260 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  261 			  { 		 
+//  262 				  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC4[i]):(PCM_Buffer2[i] = Buffer2.bufMIC4[i]);
+//  263 			  }
+//  264 			  break;
+//  265 		case 4:
+//  266 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  267 			{		   
+//  268 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC5[i]):(PCM_Buffer2[i] = Buffer2.bufMIC5[i]);
+//  269 			}
+//  270 			break;
+//  271 		case 5:
+//  272 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  273 			{		   
+//  274 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC6[i]):(PCM_Buffer2[i] = Buffer2.bufMIC6[i]);
+//  275 			}
+//  276 			break;
+//  277 		case 6:
+//  278 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  279 			{
+//  280 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC7[i]):(PCM_Buffer2[i] = Buffer2.bufMIC7[i]);
+//  281 			}
+//  282 			break;
+//  283 		case 7:
+//  284 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  285 			{
+//  286 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC8[i]):(PCM_Buffer2[i] = Buffer2.bufMIC8[i]);
+//  287 			}
+//  288 			break;
+//  289 		default:
+//  290 			 break;
+//  291 	  }
+//  292 		  
+//  293 	break;
+//  294   default:
+//  295 	break;
+//  296 }
+//  297 #endif
+//  298 
+//  299 }
         POP      {R4-R6}
           CFI R4 SameValue
           CFI R5 SameValue
@@ -1214,145 +1219,145 @@ AudioPlayerUpd:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable1_5:
-        DC32     Buffer1
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_6:
-        DC32     Buffer1+0x1014
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_7:
-        DC32     Buffer1+0x2028
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_8:
-        DC32     Buffer1+0x303C
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_9:
-        DC32     Buffer1+0x4050
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_10:
-        DC32     Buffer1+0x5064
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_11:
-        DC32     Buffer1+0x6078
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_12:
-        DC32     Buffer1+0x708C
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_13:
-        DC32     Buffer2
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_14:
-        DC32     Buffer2+0x1014
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_15:
-        DC32     Buffer2+0x2028
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_16:
-        DC32     Buffer2+0x303C
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_17:
-        DC32     Buffer2+0x4050
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_18:
-        DC32     Buffer2+0x5064
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_19:
-        DC32     Buffer2+0x6078
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_20:
-        DC32     Buffer2+0x708C
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_21:
         DC32     Buffer3
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1_22:
+??DataTable1_6:
         DC32     Buffer3+0x1014
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1_23:
+??DataTable1_7:
         DC32     Buffer3+0x2028
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1_24:
+??DataTable1_8:
         DC32     Buffer3+0x303C
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1_25:
+??DataTable1_9:
         DC32     Buffer3+0x4050
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1_26:
+??DataTable1_10:
         DC32     Buffer3+0x5064
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1_27:
+??DataTable1_11:
         DC32     Buffer3+0x6078
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1_28:
+??DataTable1_12:
         DC32     Buffer3+0x708C
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable1_13:
+        DC32     Buffer1
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable1_14:
+        DC32     Buffer1+0x1014
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable1_15:
+        DC32     Buffer1+0x2028
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable1_16:
+        DC32     Buffer1+0x303C
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable1_17:
+        DC32     Buffer1+0x4050
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable1_18:
+        DC32     Buffer1+0x5064
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable1_19:
+        DC32     Buffer1+0x6078
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable1_20:
+        DC32     Buffer1+0x708C
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable1_21:
+        DC32     Buffer2
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable1_22:
+        DC32     Buffer2+0x1014
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable1_23:
+        DC32     Buffer2+0x2028
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable1_24:
+        DC32     Buffer2+0x303C
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable1_25:
+        DC32     Buffer2+0x4050
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable1_26:
+        DC32     Buffer2+0x5064
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable1_27:
+        DC32     Buffer2+0x6078
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable1_28:
+        DC32     Buffer2+0x708C
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -1366,9 +1371,9 @@ AudioPlayerUpd:
         SECTION_TYPE SHT_PROGBITS, 0
 
         END
-//  295 
-//  296 
-//  297 
+//  300 
+//  301 
+//  302 
 // 
 //      3 bytes in section .bss
 // 12 288 bytes in section .bss  (abs)
@@ -1378,4 +1383,4 @@ AudioPlayerUpd:
 // 12 291 bytes of DATA memory
 //
 //Errors: none
-//Warnings: 1
+//Warnings: none

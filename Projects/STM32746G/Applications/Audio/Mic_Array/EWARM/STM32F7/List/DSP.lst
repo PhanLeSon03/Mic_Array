@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       23/Feb/2016  19:41:45
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       25/Feb/2016  12:02:31
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -60,9 +60,6 @@
 
 D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\DSP.c
       1          #include "DSP.h"
-                                ^
-Warning[Pa050]: non-native end of line sequence detected (this diagnostic is
-          only issued once)
       2          #include "main.h"
       3          #include <math.h>
       4          #include <stdlib.h>
@@ -2644,4 +2641,4 @@ Warning[Pe177]: variable "vDataIn1Old" was declared but never referenced
  46 874 bytes of DATA memory
 
 Errors: none
-Warnings: 3
+Warnings: 2

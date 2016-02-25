@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       23/Feb/2016  19:41:51
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       25/Feb/2016  12:02:39
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -60,9 +60,6 @@
 
 D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_core.c
       1          /**
-                   ^
-Warning[Pa050]: non-native end of line sequence detected (this diagnostic is
-          only issued once)
       2            ******************************************************************************
       3            * @file    usbh_core.c 
       4            * @author  MCD Application Team
@@ -2319,4 +2316,4 @@ Warning[Pa050]: non-native end of line sequence detected (this diagnostic is
      2 bytes of CONST memory
 
 Errors: none
-Warnings: 1
+Warnings: none

@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       23/Feb/2016  19:41:46
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       25/Feb/2016  12:02:34
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -60,9 +60,6 @@
 
 D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\sta321mp.c
       1          /* Author: Phan Le Son                   */
-                                                           ^
-Warning[Pa050]: non-native end of line sequence detected (this diagnostic is
-          only issued once)
       2          /* Description: Driver for STA321MP */
       3          
       4          #include "sta321mp.h"
@@ -2310,4 +2307,4 @@ Warning[Pe177]: function "sta321mp_LP_192kHz" was declared but never referenced
    144 bytes of DATA memory
 
 Errors: none
-Warnings: 3
+Warnings: 2
