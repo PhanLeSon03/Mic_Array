@@ -60,7 +60,7 @@ __IO uint8_t   flgDlyUpd;
 __IO uint8_t   cntBtnPress;
 
 extern __IO uint16_t  WaveRec_idxTest;
-
+extern __IO uint8_t  swtBufUSBOut;
 
 /* Buffer used for reception */
 uint8_t aRxBuffer[1024];
@@ -264,7 +264,7 @@ inline static void FFT_Update(void)
 					break;
                
 			}
-			AudioPlayerUpd();
+			//AudioPlayerUpd();
 	       //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_15);
 	  }
 	  
@@ -334,6 +334,9 @@ inline static void Audio_Play_Out(void)
                   break;
             }
           if (cntStrt<100) cntStrt++;
+
+		 /* Tongle status to switch the USB audio buffer out */
+
 	}			   
 }
 
