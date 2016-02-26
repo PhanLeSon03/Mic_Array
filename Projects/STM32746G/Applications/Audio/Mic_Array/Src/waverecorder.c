@@ -146,6 +146,7 @@ __IO uint16_t iSDO12,iSDO34,iSDO56;
 __IO uint8_t swtSDO7,swtSDO8;
 __IO uint8_t WaveRecord_flgSDO7Finish,WaveRecord_flgSDO8Finish;
 __IO uint8_t I2S1_stPosShft,I2S2_stPosShft,SPI4_stPosShft;
+__IO uint8_t I2S2_stLR, I2S2_stLROld;
 
 /* Private function prototypes -----------------------------------------------*/
 static void SPI_I2S_SendData(SPI_TypeDef* SPIx, uint16_t Data);
@@ -270,11 +271,11 @@ void SPI1_IRQHandler(void)
 	   tmpTest =  SPI_I2S_ReceiveData(SPI1);
 	
 	   /* Left-Right Mic data */
-	   stLR= HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4);
+	   //stLR= HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4);
 	
-		if (stLR==GPIO_PIN_SET)
+		if (I2S2_stLR==GPIO_PIN_SET)
 		{
-			if (stLROld==GPIO_PIN_SET)
+			if (stLROld==GPIO_PIN_RESET)
 			{
 				SPI1_stNipple = (tmpTest);
 
@@ -283,12 +284,27 @@ void SPI1_IRQHandler(void)
 			{
 				 vRawSens1 = (tmpTest);
    		         WaveRec_idxTest++;
-			   
+				   /* Recording Audio Data */						 
+				   switch (buffer_switch)
+				   {
+							case BUF1_PLAY:
+									Buffer2.bufMIC1[WaveRec_idxSens1++] = vRawSens1;								
+									break;
+							case BUF2_PLAY:
+									Buffer3.bufMIC1[WaveRec_idxSens1++] = vRawSens1;
+									break;
+							case BUF3_PLAY:
+									Buffer1.bufMIC1[WaveRec_idxSens1++] = vRawSens1;									
+									break;
+							default:
+									break; 
+				   
+				   	}
 			}
 		}
 		else
 		{
-			if (stLROld==GPIO_PIN_RESET)
+			if (stLROld==GPIO_PIN_SET)
 			{
 			  SPI1_stNipple = (tmpTest);  
 
@@ -297,11 +313,30 @@ void SPI1_IRQHandler(void)
 			{
 			  vRawSens2 = (tmpTest);
  	          WaveRec_idxTest++;
+			  	   /* Recording Audio Data */						 
+				   switch (buffer_switch)
+				   {
+							case BUF1_PLAY:
+									Buffer2.bufMIC2[WaveRec_idxSens2++] = vRawSens2;								
+									break;
+							case BUF2_PLAY:
+									Buffer3.bufMIC2[WaveRec_idxSens2++] = vRawSens2;
+									break;
+							case BUF3_PLAY:
+									Buffer1.bufMIC2[WaveRec_idxSens2++] = vRawSens2;									
+									break;
+							default:
+									break; 
+				   
+				   	}
+			  }
 
 			} 	
 		}
 	   
-	   if (iSDO12<4*AUDIO_OUT_BUFFER_SIZE)
+
+#if 0
+       if (iSDO12<4*AUDIO_OUT_BUFFER_SIZE)
 	   {
            TestSDO12[iSDO12++]=tmpTest;
 	   }
@@ -309,7 +344,6 @@ void SPI1_IRQHandler(void)
 	   {
            iSDO12=0;
 	   }
-#if 1
 		if ((WaveRec_idxSens1 < (2*AUDIO_OUT_BUFFER_SIZE+5))&&(WaveRec_idxSens2 < (2*AUDIO_OUT_BUFFER_SIZE+5)))
 	//			  &&(stLR!=stLROld))
 		{
@@ -357,10 +391,8 @@ void SPI1_IRQHandler(void)
 #endif		
 
 		/* Update Old value */	  
-		stLROld=stLR;
+		stLROld=I2S2_stLR;
 
-
-    }
 				 
 } 	 
 
@@ -376,7 +408,7 @@ void SPI1_IRQHandler(void)
 void SPI2_IRQHandler(void)
 {      
     uint16_t app;
-    static uint8_t I2S2_stLR, I2S2_stLROld;
+    
 
   /* Check if data are available in SPI Data register */
    if (
@@ -401,6 +433,20 @@ void SPI2_IRQHandler(void)
 		{
 
 			 vRawSens3 = app;
+			switch (buffer_switch)
+			{
+				case BUF1_PLAY:
+					Buffer2.bufMIC3[WaveRec_idxSens3++] = vRawSens3;								
+					break;
+				case BUF2_PLAY:
+					Buffer3.bufMIC3[WaveRec_idxSens3++] = vRawSens3;
+					break;
+				case BUF3_PLAY:
+					Buffer1.bufMIC3[WaveRec_idxSens3++] = vRawSens3;									
+					break;
+				default:
+					break; 
+			}
 
 		}
 	 }
@@ -414,20 +460,35 @@ void SPI2_IRQHandler(void)
 		else
 		{
             vRawSens4 =app;
-		
+			switch (buffer_switch)
+			{	 
+				case BUF1_PLAY:
+					Buffer2.bufMIC4[WaveRec_idxSens4++] = vRawSens4;								
+					break;
+				case BUF2_PLAY:
+					Buffer3.bufMIC4[WaveRec_idxSens4++] = vRawSens4;
+					break;
+				case BUF3_PLAY:
+					Buffer1.bufMIC4[WaveRec_idxSens4++] = vRawSens4;									
+					break;
+				default:
+					break; 
+			}
 		}
 	 }
 
-	 	if (iSDO34<4*AUDIO_OUT_BUFFER_SIZE)
-	   {
-           TestSDO34[iSDO34++]=app;
-	   }
-	   else
-	   {
-           iSDO34=0;
-	   }
+
 	 
-#if 1
+#if 0
+	  if (iSDO34<4*AUDIO_OUT_BUFFER_SIZE)
+	 {
+		 TestSDO34[iSDO34++]=app;
+	 }
+	 else
+	 {
+		 iSDO34=0;
+	 }
+
 	 if ((WaveRec_idxSens3 < (2*AUDIO_OUT_BUFFER_SIZE+5))&&(WaveRec_idxSens4 < (2*AUDIO_OUT_BUFFER_SIZE+5)))
 //             &&(I2S2_stLR!=I2S2_stLROld))
 	 {
@@ -527,15 +588,15 @@ void SPI4_IRQHandler(void)
                      {
                          case BUF1_PLAY:
                              Buffer2.bufMIC5[WaveRec_idxSens5++] = vRawSens5;
-                             Buffer2.bufMIC5[WaveRec_idxSens5++] = vRawSens5;
+
                              break;
                          case BUF2_PLAY:
                              Buffer3.bufMIC5[WaveRec_idxSens5++] = vRawSens5;
-                             Buffer3.bufMIC5[WaveRec_idxSens5++] = vRawSens5;
+
                              break;
                          case BUF3_PLAY:
                              Buffer1.bufMIC5[WaveRec_idxSens5++] = vRawSens5;
-                             Buffer1.bufMIC5[WaveRec_idxSens5++] = vRawSens5;
+
                              break;                          
                          default:
                              break;
@@ -569,15 +630,15 @@ void SPI4_IRQHandler(void)
                      {
                          case BUF1_PLAY:
                              Buffer2.bufMIC6[WaveRec_idxSens6++] = vRawSens6;
-                             Buffer2.bufMIC6[WaveRec_idxSens6++] = vRawSens6;
+ 
                              break;
                          case BUF2_PLAY:
                              Buffer3.bufMIC6[WaveRec_idxSens6++] = vRawSens6;
-                             Buffer3.bufMIC6[WaveRec_idxSens6++] = vRawSens6;
+       
                              break;
                          case BUF3_PLAY:
                              Buffer1.bufMIC6[WaveRec_idxSens6++] = vRawSens6;
-                             Buffer1.bufMIC6[WaveRec_idxSens6++] = vRawSens6;
+ 
                              break;                          
                          default:
                              break;
@@ -585,7 +646,7 @@ void SPI4_IRQHandler(void)
                }
           }		
 	}
-
+#if 0
 	/* The code to store data in to buffer for testing purpose */
 	if (iSDO56<4*AUDIO_OUT_BUFFER_SIZE)
 	{
@@ -595,7 +656,7 @@ void SPI4_IRQHandler(void)
 	{
 		iSDO56=0;
 	}
-
+#endif
 
 	/* Update Old value */	  
 	Main_stLROld=Main_stLR;	  
@@ -741,7 +802,7 @@ static void I2S1_Init(void)
   hi2s1.Init.DataFormat = I2S_DATAFORMAT_16B;
   hi2s1.Init.MCLKOutput = I2S_MCLKOUTPUT_DISABLE;
   hi2s1.Init.AudioFreq = I2S_AUDIOFREQ_16K;
-  hi2s1.Init.CPOL = I2S_CPOL_LOW;
+  hi2s1.Init.CPOL = I2S_CPOL_HIGH;
   hi2s1.Init.ClockSource = I2S_CLOCK_EXTERNAL;
   HAL_I2S_Init(&hi2s1);
 
@@ -1510,7 +1571,7 @@ void PDM2PCMSDO78(void)
 		        }
 	      }//if (WaveRecord_flgSDO7Finish==1)
 
-
+#if 0
             /* Recording Audio Data */						 
 		    switch (buffer_switch)//buffer_switch
 		    {
@@ -1554,7 +1615,7 @@ void PDM2PCMSDO78(void)
 	                break; 
 	        }
 	    
-
+#endif
      }
     
 
@@ -1597,7 +1658,7 @@ void PDM2PCMSDO78(void)
                       }		
                    }					 
 		}
-                
+#if 0                
           /* Recording Audio Data */						 
           switch (buffer_switch)
           {
@@ -1640,6 +1701,7 @@ void PDM2PCMSDO78(void)
               default:
                     break; 
           }                
+#endif		  
    }//if (WaveRecord_flgSDO8Finish==1)
 }
 

@@ -2,7 +2,7 @@
 stlinkserialNo=391C0B1F
 stlinkfoundProbes=
 [DebugChecksum]
-Checksum=1190324412
+Checksum=-285892889
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -122,9 +122,6 @@ Count=2
 LoggingEnabled=_ 0
 LogFile=_ ""
 Category=_ 0
-[TermIOLog]
-LoggingEnabled=_ 0
-LogFile=_ ""
 [Aliases]
 Count=0
 SuppressDialog=0
@@ -138,3 +135,6 @@ Exclusions=
 Enabled=0
 [CallStackStripe]
 ShowTiming=1
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""

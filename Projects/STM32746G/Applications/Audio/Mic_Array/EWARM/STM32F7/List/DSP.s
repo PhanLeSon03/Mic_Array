@@ -1,60 +1,59 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      26/Feb/2016  17:55:58
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Feb/2016  00:32:26
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\DSP.c
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\DSP.c
 //    Command line =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\DSP.c
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\DSP.c
 //        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 //        USE_IOEXPANDER -D USE_USB_FS -lC
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -lA
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-//        --no_clustering --no_scheduling --debug --endian=little
-//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-//        (x86)\IAR Systems\Embedded Workbench
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+//        --no_unroll --no_inline --no_tbaa --no_scheduling --debug
+//        --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config
+//        "D:\Program Files (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+//        -Om --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\DSP.s
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\DSP.s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -160,7 +159,7 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
         
-// D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\DSP.c
+// H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\DSP.c
 //    1 #include "DSP.h"
 
         SECTION `.text`:CODE:REORDER:NOROOT(2)
@@ -171,55 +170,45 @@
         THUMB
 // __interwork __softfp int16_t ADD_S16(int16_t, int16_t)
 ADD_S16:
-        MOVS     R2,R0
-        SXTH     R2,R2            ;; SignExt  R2,R2,#+16,#+16
-        CMP      R2,#+0
+        PUSH     {R4}
+          CFI R4 Frame(CFA, -4)
+          CFI CFA R13+4
+        MOVS     R3,R0
         BMI.N    ??ADD_S16_0
-        SXTH     R1,R1            ;; SignExt  R1,R1,#+16,#+16
-        CMP      R1,#+0
+        MOVS     R4,R1
         BMI.N    ??ADD_S16_0
-        MOVW     R3,#+32767
-        SXTH     R1,R1            ;; SignExt  R1,R1,#+16,#+16
-        SUBS     R3,R3,R1
-        SXTH     R2,R2            ;; SignExt  R2,R2,#+16,#+16
-        CMP      R3,R2
-        BGE.N    ??ADD_S16_1
-        MOVW     R3,#+32767
-        MOVS     R0,R3
-        B.N      ??ADD_S16_2
-??ADD_S16_1:
-        ADDS     R3,R1,R2
-        MOVS     R0,R3
-        B.N      ??ADD_S16_2
+        MOVW     R2,#+32767
+        SUBS     R4,R2,R4
+        CMP      R4,R3
+        BLT.N    ??ADD_S16_1
+        ADDS     R2,R1,R0
+        B.N      ??ADD_S16_1
 ??ADD_S16_0:
-        SXTH     R2,R2            ;; SignExt  R2,R2,#+16,#+16
-        CMP      R2,#+0
-        BPL.N    ??ADD_S16_3
-        SXTH     R1,R1            ;; SignExt  R1,R1,#+16,#+16
-        CMP      R1,#+0
-        BPL.N    ??ADD_S16_3
-        SXTH     R2,R2            ;; SignExt  R2,R2,#+16,#+16
-        LDR.N    R3,??ADD_S16_4   ;; 0xffff8000
-        SXTH     R1,R1            ;; SignExt  R1,R1,#+16,#+16
-        SUBS     R3,R3,R1
-        CMP      R2,R3
-        BGE.N    ??ADD_S16_5
-        LDR.N    R3,??ADD_S16_4   ;; 0xffff8000
-        MOVS     R0,R3
-        B.N      ??ADD_S16_2
-??ADD_S16_5:
-        ADDS     R3,R1,R2
-        MOVS     R0,R3
-        B.N      ??ADD_S16_2
-??ADD_S16_3:
-        ADDS     R3,R1,R2
-        MOVS     R0,R3
+        CMP      R3,#+0
+        BPL.N    ??ADD_S16_2
+        MOVS     R4,R1
+        BPL.N    ??ADD_S16_2
+        LDR.N    R2,??ADD_S16_3   ;; 0xffff8000
+        SUBS     R2,R2,R4
+        CMP      R3,R2
+        BGE.N    ??ADD_S16_4
+        LDR.N    R2,??ADD_S16_3   ;; 0xffff8000
+        B.N      ??ADD_S16_1
+??ADD_S16_4:
+        ADDS     R2,R1,R0
+        B.N      ??ADD_S16_1
 ??ADD_S16_2:
-        SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
+        ADDS     R2,R1,R0
+??ADD_S16_1:
+        MOV      R0,R2
+        SXTH     R0,R0
+        POP      {R4}
+          CFI R4 SameValue
+          CFI CFA R13+0
         BX       LR               ;; return
         Nop      
         DATA
-??ADD_S16_4:
+??ADD_S16_3:
         DC32     0xffff8000
           CFI EndBlock cfiBlock0
 
@@ -231,54 +220,44 @@ ADD_S16:
         THUMB
 // __interwork __softfp int16_t SUB_S16(int16_t, int16_t)
 SUB_S16:
-        MOVS     R2,R0
-        SXTH     R2,R2            ;; SignExt  R2,R2,#+16,#+16
-        CMP      R2,#+0
+        PUSH     {R4}
+          CFI R4 Frame(CFA, -4)
+          CFI CFA R13+4
+        MOVS     R3,R0
         BMI.N    ??SUB_S16_0
-        SXTH     R1,R1            ;; SignExt  R1,R1,#+16,#+16
-        CMP      R1,#+0
+        MOVS     R4,R1
         BPL.N    ??SUB_S16_0
-        SXTH     R1,R1            ;; SignExt  R1,R1,#+16,#+16
-        ADD      R3,R1,#+32512
-        ADDS     R3,R3,#+255
-        SXTH     R2,R2            ;; SignExt  R2,R2,#+16,#+16
-        CMP      R3,R2
-        BGE.N    ??SUB_S16_1
-        MOVW     R3,#+32767
-        MOVS     R0,R3
-        B.N      ??SUB_S16_2
-??SUB_S16_1:
-        SUBS     R3,R2,R1
-        MOVS     R0,R3
-        B.N      ??SUB_S16_2
+        MOVW     R2,#+32767
+        ADDS     R4,R2,R4
+        CMP      R4,R3
+        BLT.N    ??SUB_S16_1
+        SUBS     R2,R0,R1
+        B.N      ??SUB_S16_1
 ??SUB_S16_0:
-        SXTH     R2,R2            ;; SignExt  R2,R2,#+16,#+16
-        CMP      R2,#+0
-        BPL.N    ??SUB_S16_3
-        SXTH     R1,R1            ;; SignExt  R1,R1,#+16,#+16
-        CMP      R1,#+1
-        BLT.N    ??SUB_S16_3
-        SXTH     R2,R2            ;; SignExt  R2,R2,#+16,#+16
-        SXTH     R1,R1            ;; SignExt  R1,R1,#+16,#+16
-        SUBS     R3,R1,#+32768
-        CMP      R2,R3
-        BGE.N    ??SUB_S16_4
-        LDR.N    R3,??SUB_S16_5   ;; 0xffff8000
-        MOVS     R0,R3
-        B.N      ??SUB_S16_2
-??SUB_S16_4:
-        SUBS     R3,R2,R1
-        MOVS     R0,R3
-        B.N      ??SUB_S16_2
+        CMP      R3,#+0
+        BPL.N    ??SUB_S16_2
+        MOV      R4,R1
+        CMP      R4,#+1
+        BLT.N    ??SUB_S16_2
+        SUB      R2,R4,#+32768
+        CMP      R3,R2
+        BGE.N    ??SUB_S16_3
+        LDR.N    R2,??SUB_S16_4   ;; 0xffff8000
+        B.N      ??SUB_S16_1
 ??SUB_S16_3:
-        SUBS     R3,R2,R1
-        MOVS     R0,R3
+        SUBS     R2,R0,R1
+        B.N      ??SUB_S16_1
 ??SUB_S16_2:
-        SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
+        SUBS     R2,R0,R1
+??SUB_S16_1:
+        MOV      R0,R2
+        SXTH     R0,R0
+        POP      {R4}
+          CFI R4 SameValue
+          CFI CFA R13+0
         BX       LR               ;; return
-        Nop      
         DATA
-??SUB_S16_5:
+??SUB_S16_4:
         DC32     0xffff8000
           CFI EndBlock cfiBlock1
 //    2 #include "main.h"
@@ -398,26 +377,17 @@ SUB_S16:
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
 //  115 float bufferFFTSum[AUDIO_OUT_BUFFER_SIZE+100];  //storage the SUM in Furier domain
-bufferFFTSum:
-        DS8 4496
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
-        DATA
 //  116 float fbufferOut[AUDIO_OUT_BUFFER_SIZE+100];    //storage the output buffer in float type
-fbufferOut:
-        DS8 4496
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
-        DATA
 //  117 float fbuffer[AUDIO_OUT_BUFFER_SIZE+100];       //storage the input buffer in float type
-fbuffer:
-        DS8 4496
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
-        DATA
 //  118 Mic_Array_Data_f  DataFFT;                  //storage DFT's coefficients for microphones
 DataFFT:
         DS8 33088
+bufferFFTSum:
+        DS8 4496
+fbufferOut:
+        DS8 4496
+fbuffer:
+        DS8 4496
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
@@ -434,58 +404,45 @@ EnergySound:
 //  122 void DFT (float *x, float *Out, int N)
 //  123 {
 DFT:
-        PUSH     {R4-R10,LR}
+        PUSH     {R3-R11,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R10 Frame(CFA, -8)
-          CFI R9 Frame(CFA, -12)
-          CFI R8 Frame(CFA, -16)
-          CFI R7 Frame(CFA, -20)
-          CFI R6 Frame(CFA, -24)
-          CFI R5 Frame(CFA, -28)
-          CFI R4 Frame(CFA, -32)
-          CFI CFA R13+32
-        MOV      R10,R0
-        MOVS     R4,R1
-        MOVS     R5,R2
+          CFI R11 Frame(CFA, -8)
+          CFI R10 Frame(CFA, -12)
+          CFI R9 Frame(CFA, -16)
+          CFI R8 Frame(CFA, -20)
+          CFI R7 Frame(CFA, -24)
+          CFI R6 Frame(CFA, -28)
+          CFI R5 Frame(CFA, -32)
+          CFI R4 Frame(CFA, -36)
+          CFI CFA R13+40
+        VPUSH    {D8}
+          CFI D8 Frame(CFA, -48)
+          CFI CFA R13+48
+        MOV      R11,R0
+        MOV      R4,R1
+        MOV      R7,R2
 //  124 	int m,n;
 //  125 	
 //  126 	for(m=0; m<N; m++)  // update for e very bar 
-        MOVS     R0,#+0
-        MOVS     R6,R0
-??DFT_0:
-        CMP      R6,R5
-        BGE.W    ??DFT_1
+        MOVS     R5,#+0
+        B.N      ??DFT_0
 //  127 	{
 //  128 		Out[2*m]  = Out[2*m+1] = 0;
-        LSLS     R0,R6,#+1
-        ADDS     R0,R4,R0, LSL #+2
-        MOVS     R1,#+0
-        STR      R1,[R0, #+4]
-        ADDS     R0,R4,R6, LSL #+3
-        LDR      R0,[R0, #+4]
-        STR      R0,[R4, R6, LSL #+3]
 //  129 		
 //  130 		for (n  =0; n<N; n++) //
-        MOVS     R0,#+0
-        MOVS     R7,R0
-??DFT_2:
-        CMP      R7,R5
-        BGE.W    ??DFT_3
-//  131 		{
-//  132 		    /* spectrum m: Real[m] = (Sum(x[n]*cos(2*PI*m*n/N)) , where n from 0 -->N    */
-//  133 			Out[2*m] += x[n]*arm_cos_f32(2*PI*(float)m*(float)n/(float)N);
-        VMOV     S0,R6
+??DFT_1:
+        VMOV     S0,R5
         VCVT.F32.S32 S0,S0
         VMOV     R0,S0
           CFI FunCall __aeabi_f2d
         BL       __aeabi_f2d
-        LDR.W    R2,??DataTable10  ;; 0x5a7ed197
-        LDR.W    R3,??DataTable10_1  ;; 0x401921fb
+        LDR.W    R2,??DataTable12  ;; 0x5a7ed197
+        LDR.W    R3,??DataTable12_1  ;; 0x401921fb
           CFI FunCall __aeabi_dmul
         BL       __aeabi_dmul
         MOV      R8,R0
         MOV      R9,R1
-        VMOV     S0,R7
+        VMOV     S0,R6
         VCVT.F32.S32 S0,S0
         VMOV     R0,S0
           CFI FunCall __aeabi_f2d
@@ -496,90 +453,66 @@ DFT:
         BL       __aeabi_dmul
         MOV      R8,R0
         MOV      R9,R1
-        VMOV     S0,R5
+        VMOV     S0,R7
         VCVT.F32.S32 S0,S0
         VMOV     R0,S0
           CFI FunCall __aeabi_f2d
         BL       __aeabi_f2d
-        MOVS     R2,R0
-        MOVS     R3,R1
+        MOV      R2,R0
+        MOV      R3,R1
         MOV      R0,R8
         MOV      R1,R9
           CFI FunCall __aeabi_ddiv
         BL       __aeabi_ddiv
           CFI FunCall __aeabi_d2f
         BL       __aeabi_d2f
-        VMOV     S0,R0
+        VMOV     S16,R0
+        VMOV.F32 S0,S16
+//  131 		{
+//  132 		    /* spectrum m: Real[m] = (Sum(x[n]*cos(2*PI*m*n/N)) , where n from 0 -->N    */
+//  133 			Out[2*m] += x[n]*arm_cos_f32(2*PI*(float)m*(float)n/(float)N);
           CFI FunCall arm_cos_f32
         BL       arm_cos_f32
-        ADDS     R0,R10,R7, LSL #+2
+        ADD      R0,R11,R6, LSL #+2
         VLDR     S1,[R0, #0]
-        ADDS     R0,R4,R6, LSL #+3
+        ADD      R0,R4,R5, LSL #+3
         VLDR     S2,[R0, #0]
         VMLA.F32 S2,S1,S0
-        ADDS     R0,R4,R6, LSL #+3
         VSTR     S2,[R0, #0]
 //  134 
 //  135             /* specstrum n: Imagine[m] = (Sum(x[n]*sin(2*PI*m*n/N) ,  where n from 0 -->N */			
 //  136 			Out[2*m+1] -= x[n]*arm_sin_f32(2*PI*(float)m*(float)n/(float)N);
-        VMOV     S0,R6
-        VCVT.F32.S32 S0,S0
-        VMOV     R0,S0
-          CFI FunCall __aeabi_f2d
-        BL       __aeabi_f2d
-        LDR.W    R2,??DataTable10  ;; 0x5a7ed197
-        LDR.W    R3,??DataTable10_1  ;; 0x401921fb
-          CFI FunCall __aeabi_dmul
-        BL       __aeabi_dmul
-        MOV      R8,R0
-        MOV      R9,R1
-        VMOV     S0,R7
-        VCVT.F32.S32 S0,S0
-        VMOV     R0,S0
-          CFI FunCall __aeabi_f2d
-        BL       __aeabi_f2d
-        MOV      R2,R8
-        MOV      R3,R9
-          CFI FunCall __aeabi_dmul
-        BL       __aeabi_dmul
-        MOV      R8,R0
-        MOV      R9,R1
-        VMOV     S0,R5
-        VCVT.F32.S32 S0,S0
-        VMOV     R0,S0
-          CFI FunCall __aeabi_f2d
-        BL       __aeabi_f2d
-        MOVS     R2,R0
-        MOVS     R3,R1
-        MOV      R0,R8
-        MOV      R1,R9
-          CFI FunCall __aeabi_ddiv
-        BL       __aeabi_ddiv
-          CFI FunCall __aeabi_d2f
-        BL       __aeabi_d2f
-        VMOV     S0,R0
+        VMOV.F32 S0,S16
           CFI FunCall arm_sin_f32
         BL       arm_sin_f32
-        LSLS     R0,R6,#+1
-        ADDS     R0,R4,R0, LSL #+2
-        ADDS     R1,R10,R7, LSL #+2
-        VLDR     S1,[R1, #0]
-        LSLS     R1,R6,#+1
-        ADDS     R1,R4,R1, LSL #+2
-        VLDR     S2,[R1, #+4]
+        ADD      R0,R11,R6, LSL #+2
+        VLDR     S1,[R0, #0]
+        VLDR     S2,[R10, #+4]
         VMLS.F32 S2,S1,S0
-        VSTR     S2,[R0, #+4]
+        VSTR     S2,[R10, #+4]
 //  137 		}
-        ADDS     R7,R7,#+1
+        ADDS     R6,R6,#+1
+??DFT_2:
+        CMP      R6,R7
+        BLT.N    ??DFT_1
+        ADDS     R5,R5,#+1
+??DFT_0:
+        CMP      R5,R7
+        BGE.N    ??DFT_3
+        ADD      R10,R4,R5, LSL #+3
+        MOVS     R0,#+0
+        STR      R0,[R10, #+4]
+        STR      R0,[R4, R5, LSL #+3]
+        MOV      R6,R0
         B.N      ??DFT_2
 //  138 
 //  139 	}
-??DFT_3:
-        ADDS     R6,R6,#+1
-        B.N      ??DFT_0
 //  140 }
-??DFT_1:
-        POP      {R4-R10,PC}      ;; return
+??DFT_3:
+        VPOP     {D8}
+          CFI D8 SameValue
+          CFI CFA R13+40
+        POP      {R0,R4-R11,PC}   ;; return
           CFI EndBlock cfiBlock2
 //  141 
 //  142 /* revert of Discrete Fourier Transform */
@@ -602,269 +535,130 @@ rDFT:
           CFI R5 Frame(CFA, -32)
           CFI R4 Frame(CFA, -36)
           CFI CFA R13+40
-        VPUSH    {D8}
-          CFI D8 Frame(CFA, -48)
-          CFI CFA R13+48
-        MOV      R8,R0
+        VPUSH    {D8-D9}
+          CFI D9 Frame(CFA, -48)
+          CFI D8 Frame(CFA, -56)
+          CFI CFA R13+56
+        MOV      R9,R0
         MOV      R10,R1
-        MOV      R9,R2
+        MOV      R8,R2
         MOV      R11,R3
 //  145     int n,m;
 //  146 	
 //  147     for (n= 0; n < N; n++)
-        MOVS     R0,#+0
-        MOVS     R6,R0
-??rDFT_0:
-        CMP      R6,R8
-        BGE.W    ??rDFT_1
+        MOVS     R6,#+0
+        B.N      ??rDFT_0
 //  148 	{
 //  149         float xOfn, xOfn_m; // temporary variable for the imagine and real 
 //  150 		
 //  151 		xOfn = xOfn_m = 0;
-        VLDR.W   S0,??DataTable2  ;; 0x0
-        VMOV.F32 S16,S0
-        VMOV.F32 S17,S16
 //  152 
 //  153 		for (m = 0; m < N; m++)
-        MOVS     R0,#+0
-        MOVS     R7,R0
-??rDFT_2:
-        CMP      R7,R8
-        BGE.W    ??rDFT_3
-//  154 		{
-//  155 		    xOfn += IN[2*m]*arm_cos_f32(2*PI*cycles*(float)m*(float)n/(float)N);
+??rDFT_1:
         MOV      R0,R10
           CFI FunCall __aeabi_i2d
         BL       __aeabi_i2d
-        LDR.W    R2,??DataTable10  ;; 0x5a7ed197
-        LDR.W    R3,??DataTable10_1  ;; 0x401921fb
+        LDR.W    R2,??DataTable12  ;; 0x5a7ed197
+        LDR.W    R3,??DataTable12_1  ;; 0x401921fb
           CFI FunCall __aeabi_dmul
         BL       __aeabi_dmul
-        MOVS     R4,R0
-        MOVS     R5,R1
+        MOV      R4,R0
+        MOV      R5,R1
         VMOV     S0,R7
         VCVT.F32.S32 S0,S0
         VMOV     R0,S0
           CFI FunCall __aeabi_f2d
         BL       __aeabi_f2d
-        MOVS     R2,R4
-        MOVS     R3,R5
+        MOV      R2,R4
+        MOV      R3,R5
           CFI FunCall __aeabi_dmul
         BL       __aeabi_dmul
-        MOVS     R4,R0
-        MOVS     R5,R1
+        MOV      R4,R0
+        MOV      R5,R1
         VMOV     S0,R6
         VCVT.F32.S32 S0,S0
         VMOV     R0,S0
           CFI FunCall __aeabi_f2d
         BL       __aeabi_f2d
-        MOVS     R2,R4
-        MOVS     R3,R5
+        MOV      R2,R4
+        MOV      R3,R5
           CFI FunCall __aeabi_dmul
         BL       __aeabi_dmul
-        MOVS     R4,R0
-        MOVS     R5,R1
-        VMOV     S0,R8
-        VCVT.F32.S32 S0,S0
-        VMOV     R0,S0
+        MOV      R4,R0
+        MOV      R5,R1
+        VMOV     R0,S18
           CFI FunCall __aeabi_f2d
         BL       __aeabi_f2d
-        MOVS     R2,R0
-        MOVS     R3,R1
-        MOVS     R0,R4
-        MOVS     R1,R5
+        MOV      R2,R0
+        MOV      R3,R1
+        MOV      R0,R4
+        MOV      R1,R5
           CFI FunCall __aeabi_ddiv
         BL       __aeabi_ddiv
           CFI FunCall __aeabi_d2f
         BL       __aeabi_d2f
-        VMOV     S0,R0
+        VMOV     S18,R0
+        VMOV.F32 S0,S18
+//  154 		{
+//  155 		    xOfn += IN[2*m]*arm_cos_f32(2*PI*cycles*(float)m*(float)n/(float)N);
           CFI FunCall arm_cos_f32
         BL       arm_cos_f32
-        ADDS     R0,R9,R7, LSL #+3
+        ADD      R0,R8,R7, LSL #+3
         VLDR     S1,[R0, #0]
         VMLA.F32 S17,S1,S0
 //  156 		    xOfn -= IN[2*m+1]*arm_sin_f32(2*PI*cycles*(float)m*(float)n/(float)N);
-        MOV      R0,R10
-          CFI FunCall __aeabi_i2d
-        BL       __aeabi_i2d
-        LDR.W    R2,??DataTable10  ;; 0x5a7ed197
-        LDR.W    R3,??DataTable10_1  ;; 0x401921fb
-          CFI FunCall __aeabi_dmul
-        BL       __aeabi_dmul
-        MOVS     R4,R0
-        MOVS     R5,R1
-        VMOV     S0,R7
-        VCVT.F32.S32 S0,S0
-        VMOV     R0,S0
-          CFI FunCall __aeabi_f2d
-        BL       __aeabi_f2d
-        MOVS     R2,R4
-        MOVS     R3,R5
-          CFI FunCall __aeabi_dmul
-        BL       __aeabi_dmul
-        MOVS     R4,R0
-        MOVS     R5,R1
-        VMOV     S0,R6
-        VCVT.F32.S32 S0,S0
-        VMOV     R0,S0
-          CFI FunCall __aeabi_f2d
-        BL       __aeabi_f2d
-        MOVS     R2,R4
-        MOVS     R3,R5
-          CFI FunCall __aeabi_dmul
-        BL       __aeabi_dmul
-        MOVS     R4,R0
-        MOVS     R5,R1
-        VMOV     S0,R8
-        VCVT.F32.S32 S0,S0
-        VMOV     R0,S0
-          CFI FunCall __aeabi_f2d
-        BL       __aeabi_f2d
-        MOVS     R2,R0
-        MOVS     R3,R1
-        MOVS     R0,R4
-        MOVS     R1,R5
-          CFI FunCall __aeabi_ddiv
-        BL       __aeabi_ddiv
-          CFI FunCall __aeabi_d2f
-        BL       __aeabi_d2f
-        VMOV     S0,R0
+        VMOV.F32 S0,S18
           CFI FunCall arm_sin_f32
         BL       arm_sin_f32
-        LSLS     R0,R7,#+1
-        ADDS     R0,R9,R0, LSL #+2
-        VLDR     S1,[R0, #+4]
+        ADD      R4,R8,R7, LSL #+3
+        VLDR     S1,[R4, #+4]
         VMLS.F32 S17,S1,S0
 //  157 
 //  158                     xOfn_m += IN[2*m]*arm_cos_f32(2*PI*cycles*(float)m*(float)n/(float)N);
-        MOV      R0,R10
-          CFI FunCall __aeabi_i2d
-        BL       __aeabi_i2d
-        LDR.W    R2,??DataTable10  ;; 0x5a7ed197
-        LDR.W    R3,??DataTable10_1  ;; 0x401921fb
-          CFI FunCall __aeabi_dmul
-        BL       __aeabi_dmul
-        MOVS     R4,R0
-        MOVS     R5,R1
-        VMOV     S0,R7
-        VCVT.F32.S32 S0,S0
-        VMOV     R0,S0
-          CFI FunCall __aeabi_f2d
-        BL       __aeabi_f2d
-        MOVS     R2,R4
-        MOVS     R3,R5
-          CFI FunCall __aeabi_dmul
-        BL       __aeabi_dmul
-        MOVS     R4,R0
-        MOVS     R5,R1
-        VMOV     S0,R6
-        VCVT.F32.S32 S0,S0
-        VMOV     R0,S0
-          CFI FunCall __aeabi_f2d
-        BL       __aeabi_f2d
-        MOVS     R2,R4
-        MOVS     R3,R5
-          CFI FunCall __aeabi_dmul
-        BL       __aeabi_dmul
-        MOVS     R4,R0
-        MOVS     R5,R1
-        VMOV     S0,R8
-        VCVT.F32.S32 S0,S0
-        VMOV     R0,S0
-          CFI FunCall __aeabi_f2d
-        BL       __aeabi_f2d
-        MOVS     R2,R0
-        MOVS     R3,R1
-        MOVS     R0,R4
-        MOVS     R1,R5
-          CFI FunCall __aeabi_ddiv
-        BL       __aeabi_ddiv
-          CFI FunCall __aeabi_d2f
-        BL       __aeabi_d2f
-        VMOV     S0,R0
+        VMOV.F32 S0,S18
           CFI FunCall arm_cos_f32
         BL       arm_cos_f32
-        ADDS     R0,R9,R7, LSL #+3
+        ADD      R0,R8,R7, LSL #+3
         VLDR     S1,[R0, #0]
         VMLA.F32 S16,S1,S0
 //  159                     xOfn_m += IN[2*m+1]*arm_sin_f32(2*PI*cycles*(float)m*(float)n/(float)N);
-        MOV      R0,R10
-          CFI FunCall __aeabi_i2d
-        BL       __aeabi_i2d
-        LDR.W    R2,??DataTable10  ;; 0x5a7ed197
-        LDR.W    R3,??DataTable10_1  ;; 0x401921fb
-          CFI FunCall __aeabi_dmul
-        BL       __aeabi_dmul
-        MOVS     R4,R0
-        MOVS     R5,R1
-        VMOV     S0,R7
-        VCVT.F32.S32 S0,S0
-        VMOV     R0,S0
-          CFI FunCall __aeabi_f2d
-        BL       __aeabi_f2d
-        MOVS     R2,R4
-        MOVS     R3,R5
-          CFI FunCall __aeabi_dmul
-        BL       __aeabi_dmul
-        MOVS     R4,R0
-        MOVS     R5,R1
-        VMOV     S0,R6
-        VCVT.F32.S32 S0,S0
-        VMOV     R0,S0
-          CFI FunCall __aeabi_f2d
-        BL       __aeabi_f2d
-        MOVS     R2,R4
-        MOVS     R3,R5
-          CFI FunCall __aeabi_dmul
-        BL       __aeabi_dmul
-        MOVS     R4,R0
-        MOVS     R5,R1
-        VMOV     S0,R8
-        VCVT.F32.S32 S0,S0
-        VMOV     R0,S0
-          CFI FunCall __aeabi_f2d
-        BL       __aeabi_f2d
-        MOVS     R2,R0
-        MOVS     R3,R1
-        MOVS     R0,R4
-        MOVS     R1,R5
-          CFI FunCall __aeabi_ddiv
-        BL       __aeabi_ddiv
-          CFI FunCall __aeabi_d2f
-        BL       __aeabi_d2f
-        VMOV     S0,R0
+        VMOV.F32 S0,S18
           CFI FunCall arm_sin_f32
         BL       arm_sin_f32
-        LSLS     R0,R7,#+1
-        ADDS     R0,R9,R0, LSL #+2
-        VLDR     S1,[R0, #+4]
+        VLDR     S1,[R4, #+4]
         VMLA.F32 S16,S1,S0
 //  160 		}
         ADDS     R7,R7,#+1
-        B.N      ??rDFT_2
+??rDFT_2:
+        VMOV     S0,R9
+        VCVT.F32.S32 S18,S0
+        CMP      R7,R9
+        BLT.N    ??rDFT_1
 //  161 
 //  162 	    xOfn /= N;
-??rDFT_3:
-        VMOV     S0,R8
-        VCVT.F32.S32 S0,S0
-        VDIV.F32 S17,S17,S0
 //  163 		xOfn_m /= N;
-        VMOV     S0,R8
-        VCVT.F32.S32 S0,S0
-        VDIV.F32 S16,S16,S0
 //  164 
 //  165         out[n] = xOfn + xOfn_m; 
-        VADD.F32 S0,S17,S16
-        ADDS     R0,R11,R6, LSL #+2
+        VDIV.F32 S0,S17,S18
+        VDIV.F32 S1,S16,S18
+        VADD.F32 S0,S0,S1
+        ADD      R0,R11,R6, LSL #+2
         VSTR     S0,[R0, #0]
+        ADDS     R6,R6,#+1
+??rDFT_0:
+        CMP      R6,R9
+        BGE.N    ??rDFT_3
+        VLDR.W   S16,??DataTable6  ;; 0x0
+        VLDR.W   S17,??DataTable6  ;; 0x0
+        MOVS     R7,#+0
+        B.N      ??rDFT_2
 //  166 
 //  167 	}
-        ADDS     R6,R6,#+1
-        B.N      ??rDFT_0
 //  168 }
-??rDFT_1:
-        VPOP     {D8}
+??rDFT_3:
+        VPOP     {D8-D9}
           CFI D8 SameValue
+          CFI D9 SameValue
           CFI CFA R13+40
         POP      {R0,R4-R11,PC}   ;; return
           CFI EndBlock cfiBlock3
@@ -888,86 +682,83 @@ rDFT:
 //  180 void iirFilter(float* a, int AN, float* b, int BN, float* x, float* y, int index)
 //  181 {
 iirFilter:
-        PUSH     {R4-R7,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+20
+        PUSH     {R4-R7}
+          CFI R7 Frame(CFA, -4)
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
         LDR      R4,[SP, #+20]
         LDR      R5,[SP, #+24]
-        LDR      R6,[SP, #+28]
 //  182     int loop;
 //  183 
 //  184     *(y+index) = 0;
-        MOVS     R12,#+0
-        STR      R12,[R5, R6, LSL #+2]
+        MOVS     R6,#+0
+        STR      R6,[R4, R5, LSL #+2]
 //  185     
 //  186     for (loop =0; loop < AN; loop++)
-        MOVS     R12,#+0
-        MOV      R7,R12
-??iirFilter_0:
-        CMP      R7,R1
-        BGE.N    ??iirFilter_1
+        MOV      R7,R6
+        LDR      R6,[SP, #+16]
+        B.N      ??iirFilter_0
 //  187     {
 //  188         if ((index -loop) >= 0)
-        SUBS     R12,R6,R7
-        CMP      R12,#+0
+??iirFilter_1:
+        SUBS     R12,R5,R7
         BMI.N    ??iirFilter_2
 //  189 		{
 //  190 		    *(y+index) += *(a+loop)**(x + index - loop);
-        ADDS     R12,R0,R7, LSL #+2
+        ADD      R12,R0,R7, LSL #+2
         VLDR     S0,[R12, #0]
-        ADDS     R12,R4,R6, LSL #+2
-        MVNS     LR,#+3
-        MLA      R12,LR,R7,R12
+        ADD      R12,R6,R5, LSL #+2
+        SUB      R12,R12,R7, LSL #+2
         VLDR     S1,[R12, #0]
-        ADDS     R12,R5,R6, LSL #+2
+        ADD      R12,R4,R5, LSL #+2
         VLDR     S2,[R12, #0]
         VMLA.F32 S2,S0,S1
-        ADDS     R12,R5,R6, LSL #+2
         VSTR     S2,[R12, #0]
 //  191 		}
 //  192     }
 ??iirFilter_2:
         ADDS     R7,R7,#+1
-        B.N      ??iirFilter_0
+??iirFilter_0:
+        CMP      R7,R1
+        BLT.N    ??iirFilter_1
 //  193 
 //  194     for (loop = 1; loop <= BN; loop++)
-??iirFilter_1:
-        MOVS     R12,#+1
-        MOV      R7,R12
-??iirFilter_3:
-        CMP      R3,R7
-        BLT.N    ??iirFilter_4
+        MOVS     R0,#+1
+        B.N      ??iirFilter_3
 //  195     {
 //  196         if ((index-loop) >=0)
-        SUBS     R12,R6,R7
-        CMP      R12,#+0
+??iirFilter_4:
+        SUBS     R1,R5,R0
         BMI.N    ??iirFilter_5
 //  197 		{
 //  198 		    *(y + index) +=  *(b + loop - 1)**(y+index-loop);
-        ADDS     R12,R2,R7, LSL #+2
-        SUBS     R12,R12,#+4
-        VLDR     S0,[R12, #0]
-        ADDS     R12,R5,R6, LSL #+2
-        MVNS     LR,#+3
-        MLA      R12,LR,R7,R12
-        VLDR     S1,[R12, #0]
-        ADDS     R12,R5,R6, LSL #+2
-        VLDR     S2,[R12, #0]
+        ADD      R1,R2,R0, LSL #+2
+        SUBS     R1,R1,#+4
+        VLDR     S0,[R1, #0]
+        ADD      R1,R4,R5, LSL #+2
+        SUB      R1,R1,R0, LSL #+2
+        VLDR     S1,[R1, #0]
+        ADD      R1,R4,R5, LSL #+2
+        VLDR     S2,[R1, #0]
         VMLA.F32 S2,S0,S1
-        ADDS     R12,R5,R6, LSL #+2
-        VSTR     S2,[R12, #0]
+        VSTR     S2,[R1, #0]
 //  199 		}
 //  200     }	
 ??iirFilter_5:
-        ADDS     R7,R7,#+1
-        B.N      ??iirFilter_3
+        ADDS     R0,R0,#+1
+??iirFilter_3:
+        CMP      R3,R0
+        BGE.N    ??iirFilter_4
 //  201 }
-??iirFilter_4:
-        POP      {R4-R7,PC}       ;; return
+        POP      {R4-R7}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI CFA R13+0
+        BX       LR               ;; return
           CFI EndBlock cfiBlock4
 //  202 
 //  203 /** First Oder IIR Lowpass filter 
@@ -990,70 +781,59 @@ iirFilter:
 //  215 void LowPass(int16_t *Input, int16_t *Output, uint16_t Size, uint16_t K)
 //  216 {
 LowPass:
-        PUSH     {R3-R9,LR}
+        PUSH     {R4-R10,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R9 Frame(CFA, -8)
-          CFI R8 Frame(CFA, -12)
-          CFI R7 Frame(CFA, -16)
-          CFI R6 Frame(CFA, -20)
-          CFI R5 Frame(CFA, -24)
-          CFI R4 Frame(CFA, -28)
+          CFI R10 Frame(CFA, -8)
+          CFI R9 Frame(CFA, -12)
+          CFI R8 Frame(CFA, -16)
+          CFI R7 Frame(CFA, -20)
+          CFI R6 Frame(CFA, -24)
+          CFI R5 Frame(CFA, -28)
+          CFI R4 Frame(CFA, -32)
           CFI CFA R13+32
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
-        MOVS     R7,R3
+        MOV      R5,R0
+        MOV      R4,R1
+        MOV      R6,R2
+        MOV      R7,R3
 //  217     
 //  218     static	int16_t Out_Old;
 //  219 	int16_t Out=0;
-        MOVS     R8,#+0
+        MOVS     R0,#+0
 //  220 
 //  221 	for(uint16_t i=0; i<Size; i++)
-        MOVS     R9,#+0
-??LowPass_0:
-        UXTH     R9,R9            ;; ZeroExt  R9,R9,#+16,#+16
-        UXTH     R6,R6            ;; ZeroExt  R6,R6,#+16,#+16
-        CMP      R9,R6
-        BCS.N    ??LowPass_1
+        MOV      R8,R0
+        LDR.W    R9,??DataTable12_2
+        B.N      ??LowPass_0
 //  222 	{
 //  223         Out = ADD_S16(Out_Old,SUB_S16(*(Input+i), Out_Old)/K);
-        LDR.W    R0,??DataTable11
-        LDRSH    R1,[R0, #+0]
-        UXTH     R9,R9            ;; ZeroExt  R9,R9,#+16,#+16
-        LDRSH    R0,[R4, R9, LSL #+1]
+??LowPass_1:
+        LDRSH    R10,[R9, #+0]
+        MOV      R1,R10
+        LDRSH    R0,[R5, R8, LSL #+1]
           CFI FunCall SUB_S16
         BL       SUB_S16
-        SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
-        UXTH     R7,R7            ;; ZeroExt  R7,R7,#+16,#+16
         SDIV     R1,R0,R7
-        SXTH     R1,R1            ;; SignExt  R1,R1,#+16,#+16
-        LDR.W    R0,??DataTable11
-        LDRSH    R0,[R0, #+0]
+        SXTH     R1,R1
+        MOV      R0,R10
           CFI FunCall ADD_S16
         BL       ADD_S16
-        MOV      R8,R0
 //  224 		Out_Old = Out;
-        LDR.W    R0,??DataTable11
-        STRH     R8,[R0, #+0]
+        STRH     R0,[R9, #+0]
 //  225 	}
-        ADDS     R9,R9,#+1
-        B.N      ??LowPass_0
+        ADD      R8,R8,#+1
+??LowPass_0:
+        UXTH     R8,R8
+        CMP      R8,R6
+        BCC.N    ??LowPass_1
 //  226 
 //  227 	*Output = 30*Out;
-??LowPass_1:
-        MOVS     R0,#+30
-        SMULBB   R0,R8,R0
-        STRH     R0,[R5, #+0]
+        RSB      R1,R0,R0, LSL #+4
+        LSLS     R0,R1,#+1
+        STRH     R0,[R4, #+0]
 //  228 
 //  229 }
-        POP      {R0,R4-R9,PC}    ;; return
+        POP      {R4-R10,PC}      ;; return
           CFI EndBlock cfiBlock5
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2:
-        DC32     0x0
 
         SECTION `.bss`:DATA:REORDER:NOROOT(1)
         DATA
@@ -1111,96 +891,75 @@ LowPass2ndOder:
           CFI R4 Frame(CFA, -16)
           CFI CFA R13+16
 //  268     int16_t Out=0;
-        MOVS     R3,#+0
+        MOVS     R6,#+0
 //  269 	static  int16_t InOld, InOld1;
 //  270 	static	int16_t Out_Old, Out_Old1;
 //  271         uint16_t i;
 //  272 	 
 //  273     for(i=0; i<Size; i++)
-        MOVS     R5,#+0
-        MOVS     R4,R5
-??LowPass2ndOder_0:
-        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
-        UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
-        CMP      R4,R2
-        BCS.N    ??LowPass2ndOder_1
+        MOV      R3,R6
+        LDR.W    R4,??DataTable12_3
+        B.N      ??LowPass2ndOder_0
 //  274 	{
 //  275 
 //  276  	
 //  277 	  if (i>0)
-        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
-        CMP      R4,#+0
+??LowPass2ndOder_1:
+        CMP      R3,#+0
         BEQ.N    ??LowPass2ndOder_2
 //  278 	  {
 //  279 	    InOld1 = InOld;
-        LDR.W    R5,??DataTable11_1
-        LDRH     R5,[R5, #+0]
-        LDR.W    R6,??DataTable11_2
-        STRH     R5,[R6, #+0]
+        LDRH     R5,[R4, #+0]
+        STRH     R5,[R4, #+2]
 //  280 	  	InOld = Input[i-1];
-        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
-        ADDS     R5,R0,R4, LSL #+1
+        ADD      R5,R0,R3, LSL #+1
         LDRH     R5,[R5, #-2]
-        LDR.W    R6,??DataTable11_1
-        STRH     R5,[R6, #+0]
+        STRH     R5,[R4, #+0]
 //  281 	  }
 //  282 	  	   
 //  283 
 //  284 	  	Out = (int16_t)(((int32_t)(B0*Input[i]) + (int32_t)(B1*InOld) + (int32_t)(B2*InOld1)-(int32_t)(A1*Out_Old) - (int32_t)(A2*Out_Old1))/10000) ;
 ??LowPass2ndOder_2:
-        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
-        LDRSH    R5,[R0, R4, LSL #+1]
-        MOVS     R6,#+6
-        SMULBB   R5,R5,R6
-        LDR.W    R6,??DataTable11_1
-        LDRSH    R6,[R6, #+0]
-        MOVS     R7,#+12
-        SMLABB   R5,R6,R7,R5
-        LDR.W    R6,??DataTable11_2
-        LDRSH    R6,[R6, #+0]
-        MOVS     R7,#+6
-        SMLABB   R5,R6,R7,R5
-        LDR.W    R6,??DataTable11_3
-        LDRSH    R6,[R6, #+0]
-        LDR.W    R7,??DataTable11_4  ;; 0xffffb486
-        SMULBB   R6,R6,R7
-        SUBS     R5,R5,R6
-        LDR.W    R6,??DataTable11_5
-        LDRSH    R6,[R6, #+0]
-        MOVW     R7,#+9322
-        SMULBB   R6,R6,R7
-        SUBS     R5,R5,R6
-        MOVW     R6,#+10000
-        SDIV     R5,R5,R6
-        MOVS     R3,R5
+        LDRSH    R5,[R4, #+4]
+        LDRSH    R6,[R0, R3, LSL #+1]
+        LDRSH    R7,[R4, #+2]
+        ADDS     R6,R7,R6
+        ADD      R7,R6,R6, LSL #+1
+        LDRSH    R6,[R4, #+0]
+        ADD      R12,R6,R6, LSL #+1
+        LSL      R6,R12,#+2
+        ADD      R6,R6,R7, LSL #+1
+        LDR.W    R7,??DataTable12_4  ;; 0xffffb486
+        SMULBB   R7,R5,R7
+        SUBS     R6,R6,R7
+        LDRSH    R7,[R4, #+6]
+        MOVW     R12,#+9322
+        SMULBB   R7,R7,R12
+        SUBS     R6,R6,R7
+        MOVW     R7,#+10000
+        SDIV     R6,R6,R7
 //  285 	  
 //  286 	    Out_Old1 = Out_Old;
-        LDR.W    R5,??DataTable11_3
-        LDRH     R5,[R5, #+0]
-        LDR.W    R6,??DataTable11_5
-        STRH     R5,[R6, #+0]
+        STRH     R5,[R4, #+6]
 //  287 		Out_Old = Out;
-        LDR.W    R5,??DataTable11_3
-        STRH     R3,[R5, #+0]
+        STRH     R6,[R4, #+4]
 //  288 	}
-        ADDS     R4,R4,#+1
-        B.N      ??LowPass2ndOder_0
+        ADDS     R3,R3,#+1
+        UXTH     R3,R3
+??LowPass2ndOder_0:
+        CMP      R3,R2
+        BLT.N    ??LowPass2ndOder_1
 //  289 
 //  290 	*Output = (int16_t)Out;
-??LowPass2ndOder_1:
-        STRH     R3,[R1, #+0]
+        STRH     R6,[R1, #+0]
 //  291 
 //  292     InOld1 = InOld;
-        LDR.W    R5,??DataTable11_1
-        LDRH     R5,[R5, #+0]
-        LDR.W    R6,??DataTable11_2
-        STRH     R5,[R6, #+0]
+        LDRH     R1,[R4, #+0]
+        STRH     R1,[R4, #+2]
 //  293 	InOld = Input[i-1];
-        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
-        ADDS     R5,R0,R4, LSL #+1
-        LDRH     R5,[R5, #-2]
-        LDR.W    R6,??DataTable11_1
-        STRH     R5,[R6, #+0]
+        ADD      R0,R0,R3, LSL #+1
+        LDRH     R0,[R0, #-2]
+        STRH     R0,[R4, #+0]
 //  294 
 //  295 
 //  296 
@@ -1218,20 +977,8 @@ LowPass2ndOder:
         DATA
 ??InOld:
         DS8 2
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(1)
-        DATA
-??InOld1:
         DS8 2
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(1)
-        DATA
-??Out_Old_1:
         DS8 2
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(1)
-        DATA
-??Out_Old1:
         DS8 2
 //  298 
 //  299 #endif
@@ -1255,96 +1002,75 @@ LowPass2ndOder_1:
           CFI R4 Frame(CFA, -16)
           CFI CFA R13+16
 //  306     int16_t Out=0;
-        MOVS     R3,#+0
+        MOVS     R6,#+0
 //  307 	static  int16_t InOld, InOld1;
 //  308 	static	int16_t Out_Old, Out_Old1;
 //  309         uint16_t i;
 //  310 	 
 //  311     for(i=0; i<Size; i++)
-        MOVS     R5,#+0
-        MOVS     R4,R5
-??LowPass2ndOder_1_0:
-        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
-        UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
-        CMP      R4,R2
-        BCS.N    ??LowPass2ndOder_1_1
+        MOV      R3,R6
+        LDR.W    R4,??DataTable12_5
+        B.N      ??LowPass2ndOder_1_0
 //  312 	{
 //  313 
 //  314  	
 //  315 	  if (i>0)
-        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
-        CMP      R4,#+0
+??LowPass2ndOder_1_1:
+        CMP      R3,#+0
         BEQ.N    ??LowPass2ndOder_1_2
 //  316 	  {
 //  317 	    InOld1 = InOld;
-        LDR.W    R5,??DataTable11_6
-        LDRH     R5,[R5, #+0]
-        LDR.W    R6,??DataTable11_7
-        STRH     R5,[R6, #+0]
+        LDRH     R5,[R4, #+0]
+        STRH     R5,[R4, #+2]
 //  318 	  	InOld = Input[i-1];
-        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
-        ADDS     R5,R0,R4, LSL #+1
+        ADD      R5,R0,R3, LSL #+1
         LDRH     R5,[R5, #-2]
-        LDR.W    R6,??DataTable11_6
-        STRH     R5,[R6, #+0]
+        STRH     R5,[R4, #+0]
 //  319 	  } 
 //  320 	  	   
 //  321 
 //  322 	  	Out = (int16_t)(((int32_t)(B0*Input[i]) + (int32_t)(B1*InOld) + (int32_t)(B2*InOld1)-(int32_t)(A1*Out_Old) - (int32_t)(A2*Out_Old1))/1000) ; /* gain 10) */
 ??LowPass2ndOder_1_2:
-        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
-        LDRSH    R5,[R0, R4, LSL #+1]
-        MOVS     R6,#+6
-        SMULBB   R5,R5,R6
-        LDR.W    R6,??DataTable11_6
-        LDRSH    R6,[R6, #+0]
-        MOVS     R7,#+12
-        SMLABB   R5,R6,R7,R5
-        LDR.W    R6,??DataTable11_7
-        LDRSH    R6,[R6, #+0]
-        MOVS     R7,#+6
-        SMLABB   R5,R6,R7,R5
-        LDR.W    R6,??DataTable11_8
-        LDRSH    R6,[R6, #+0]
-        LDR.W    R7,??DataTable11_4  ;; 0xffffb486
-        SMULBB   R6,R6,R7
-        SUBS     R5,R5,R6
-        LDR.W    R6,??DataTable11_9
-        LDRSH    R6,[R6, #+0]
-        MOVW     R7,#+9322
-        SMULBB   R6,R6,R7
-        SUBS     R5,R5,R6
-        MOV      R6,#+1000
-        SDIV     R5,R5,R6
-        MOVS     R3,R5
+        LDRSH    R5,[R4, #+4]
+        LDRSH    R6,[R0, R3, LSL #+1]
+        LDRSH    R7,[R4, #+2]
+        ADDS     R6,R7,R6
+        ADD      R7,R6,R6, LSL #+1
+        LDRSH    R6,[R4, #+0]
+        ADD      R12,R6,R6, LSL #+1
+        LSL      R6,R12,#+2
+        ADD      R6,R6,R7, LSL #+1
+        LDR.W    R7,??DataTable12_4  ;; 0xffffb486
+        SMULBB   R7,R5,R7
+        SUBS     R6,R6,R7
+        LDRSH    R7,[R4, #+6]
+        MOVW     R12,#+9322
+        SMULBB   R7,R7,R12
+        SUBS     R6,R6,R7
+        MOV      R7,#+1000
+        SDIV     R6,R6,R7
 //  323 	  
 //  324 	    Out_Old1 = Out_Old;
-        LDR.W    R5,??DataTable11_8
-        LDRH     R5,[R5, #+0]
-        LDR.W    R6,??DataTable11_9
-        STRH     R5,[R6, #+0]
+        STRH     R5,[R4, #+6]
 //  325 		Out_Old = Out;
-        LDR.W    R5,??DataTable11_8
-        STRH     R3,[R5, #+0]
+        STRH     R6,[R4, #+4]
 //  326 	}
-        ADDS     R4,R4,#+1
-        B.N      ??LowPass2ndOder_1_0
+        ADDS     R3,R3,#+1
+        UXTH     R3,R3
+??LowPass2ndOder_1_0:
+        CMP      R3,R2
+        BLT.N    ??LowPass2ndOder_1_1
 //  327 
 //  328 	*Output = (int16_t)Out;
-??LowPass2ndOder_1_1:
-        STRH     R3,[R1, #+0]
+        STRH     R6,[R1, #+0]
 //  329 
 //  330     InOld1 = InOld;
-        LDR.W    R5,??DataTable11_6
-        LDRH     R5,[R5, #+0]
-        LDR.W    R6,??DataTable11_7
-        STRH     R5,[R6, #+0]
+        LDRH     R1,[R4, #+0]
+        STRH     R1,[R4, #+2]
 //  331 	InOld = Input[i-1];
-        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
-        ADDS     R5,R0,R4, LSL #+1
-        LDRH     R5,[R5, #-2]
-        LDR.W    R6,??DataTable11_6
-        STRH     R5,[R6, #+0]
+        ADD      R0,R0,R3, LSL #+1
+        LDRH     R0,[R0, #-2]
+        STRH     R0,[R4, #+0]
 //  332 
 //  333 
 //  334 	
@@ -1362,20 +1088,8 @@ LowPass2ndOder_1:
         DATA
 ??InOld_1:
         DS8 2
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(1)
-        DATA
-??InOld1_1:
         DS8 2
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(1)
-        DATA
-??Out_Old_2:
         DS8 2
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(1)
-        DATA
-??Out_Old1_1:
         DS8 2
 //  336 
 
@@ -1395,46 +1109,39 @@ LowPassIIR:
           CFI R5 Frame(CFA, -24)
           CFI R4 Frame(CFA, -28)
           CFI CFA R13+32
-        MOVS     R5,R0
-        MOVS     R6,R1
-        MOVS     R7,R2
+        MOV      R5,R0
+        MOV      R6,R1
+        MOV      R7,R2
         MOV      R8,R3
-        LDR      R4,[SP, #+32]
 //  339     
 //  340     //static	int16_t OutOld;
 //  341 
 //  342 	for(uint16_t i=0; i<Size; i++)
-        MOVS     R9,#+0
-??LowPassIIR_0:
-        UXTH     R9,R9            ;; ZeroExt  R9,R9,#+16,#+16
-        UXTH     R8,R8            ;; ZeroExt  R8,R8,#+16,#+16
-        CMP      R9,R8
-        BCS.N    ??LowPassIIR_1
+        MOV      R9,#+0
+        LDR      R4,[SP, #+32]
+        B.N      ??LowPassIIR_0
 //  343 	{
 //  344         *(Output+i) = ADD_S16(*OutOld , SUB_S16(*(Input+i),*OutOld)/(K));
+??LowPassIIR_1:
         LDRSH    R1,[R7, #+0]
-        UXTH     R9,R9            ;; ZeroExt  R9,R9,#+16,#+16
         LDRSH    R0,[R5, R9, LSL #+1]
           CFI FunCall SUB_S16
         BL       SUB_S16
-        SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
-        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
         SDIV     R1,R0,R4
-        SXTH     R1,R1            ;; SignExt  R1,R1,#+16,#+16
+        SXTH     R1,R1
         LDRSH    R0,[R7, #+0]
           CFI FunCall ADD_S16
         BL       ADD_S16
-        UXTH     R9,R9            ;; ZeroExt  R9,R9,#+16,#+16
         STRH     R0,[R6, R9, LSL #+1]
 //  345 		*OutOld = *(Output+i);
-        UXTH     R9,R9            ;; ZeroExt  R9,R9,#+16,#+16
-        LDRH     R0,[R6, R9, LSL #+1]
         STRH     R0,[R7, #+0]
 //  346 	}
-        ADDS     R9,R9,#+1
-        B.N      ??LowPassIIR_0
+        ADD      R9,R9,#+1
+        UXTH     R9,R9
+??LowPassIIR_0:
+        CMP      R9,R8
+        BLT.N    ??LowPassIIR_1
 //  347 }
-??LowPassIIR_1:
         POP      {R0,R4-R9,PC}    ;; return
           CFI EndBlock cfiBlock8
 //  348 
@@ -1447,22 +1154,19 @@ LowPassIIR:
 //  350 void Decimation(uint8_t *Input, int16_t *Output, int16_t PreCalcBuff[129][256]) //128 bytes input 32 bytes output
 //  351 {
 Decimation:
-        PUSH     {R4-R9,LR}
+        PUSH     {R4-R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R9 Frame(CFA, -8)
-          CFI R8 Frame(CFA, -12)
-          CFI R7 Frame(CFA, -16)
-          CFI R6 Frame(CFA, -20)
-          CFI R5 Frame(CFA, -24)
-          CFI R4 Frame(CFA, -28)
-          CFI CFA R13+28
+          CFI R7 Frame(CFA, -8)
+          CFI R6 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -16)
+          CFI R4 Frame(CFA, -20)
+          CFI CFA R13+20
         SUB      SP,SP,#+516
-          CFI CFA R13+544
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
+          CFI CFA R13+536
+        MOV      R4,R0
+        MOV      R5,R1
 //  352     uint8_t test, IndexIn=0;
-        MOVS     R9,#+0
+        MOVS     R6,#+0
 //  353     int16_t Sigma;
 //  354 	static int16_t OutRing[129];
 //  355 	static int16_t iRing=0;
@@ -1483,114 +1187,46 @@ Decimation:
 //  370 -12.166  ,-6.000  ,-0.000  ,4.960  ,8.317  ,9.851  ,9.660  ,8.085  ,5.609  ,2.755 ,
 //  371 0.000  ,-2.288  ,-3.880  ,-4.683  ,-4.722  ,-4.104  ,-2.990  ,-1.560  ,-0.000  };
         MOV      R0,SP
-        LDR.W    R1,??DataTable11_10
+        ADR.W    R1,?_0
         MOV      R2,#+516
           CFI FunCall __aeabi_memcpy4
         BL       __aeabi_memcpy4
 //  372 
 //  373 	for (uint8_t i=0;i<16; i++) //index of output sample 16 ouput
-        MOVS     R0,#+0
-??Decimation_0:
-        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-        CMP      R0,#+16
-        BGE.W    ??Decimation_1
+        MOV      R0,R6
+        B.N      ??Decimation_0
 //  374 	{
 //  375 
 //  376 	   Sigma = 0;
-        MOVS     R1,#+0
-        MOV      R8,R1
 //  377 	   
 //  378 
 //  379 	   for (uint8_t j=0; j<8; j++)  // load byte by byte from Input array 8
-        MOVS     R1,#+0
-??Decimation_2:
-        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-        CMP      R1,#+8
-        BGE.N    ??Decimation_3
 //  380 	   {
 //  381 	       test = Input[IndexIn++];
-        UXTB     R9,R9            ;; ZeroExt  R9,R9,#+24,#+24
-        LDRB     R2,[R9, R4]
-        MOVS     R7,R2
-        ADDS     R9,R9,#+1
 //  382 		   
 //  383 		   for (uint8_t k=0; k<8; k++)  // this loop for 1 byte
-        MOVS     R2,#+0
-??Decimation_4:
-        UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
-        CMP      R2,#+8
-        BGE.N    ??Decimation_5
 //  384 		   {
 //  385      			if ((test&0x01)==0x01)
-        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
-        LSLS     R3,R7,#+31
-        BPL.N    ??Decimation_6
 //  386      			{
 //  387      			    //Sigma +=2;
 //  388      			    Data = Data_Old + (100 - Data_Old)/200;	
-        VLDR.W   S0,??DataTable6  ;; 0x42c80000
-        LDR.W    R3,??DataTable11_11
-        VLDR     S1,[R3, #0]
-        VSUB.F32 S0,S0,S1
-        VLDR.W   S1,??DataTable6_1  ;; 0x43480000
-        VDIV.F32 S0,S0,S1
-        LDR.W    R3,??DataTable11_11
-        VLDR     S1,[R3, #0]
-        VADD.F32 S0,S0,S1
-        LDR.W    R3,??DataTable11_12
-        VSTR     S0,[R3, #0]
-        B.N      ??Decimation_7
 //  389      			}
 //  390      			else
 //  391      			{
 //  392      			    //Sigma -=2;
 //  393 					Data = Data_Old + (-100 - Data_Old)/200;		
-??Decimation_6:
-        VLDR.W   S0,??DataTable6_2  ;; 0xc2c80000
-        LDR.W    R3,??DataTable11_11
-        VLDR     S1,[R3, #0]
-        VSUB.F32 S0,S0,S1
-        VLDR.W   S1,??DataTable6_1  ;; 0x43480000
-        VDIV.F32 S0,S0,S1
-        LDR.W    R3,??DataTable11_11
-        VLDR     S1,[R3, #0]
-        VADD.F32 S0,S0,S1
-        LDR.W    R3,??DataTable11_12
-        VSTR     S0,[R3, #0]
 //  394      			}
 //  395 
 //  396 				Data_Old = Data;
-??Decimation_7:
-        LDR.W    R3,??DataTable11_11
-        LDR.W    R12,??DataTable11_12
-        LDR      R12,[R12, #+0]
-        STR      R12,[R3, #+0]
 //  397 
 //  398 				Sigma += (int16_t)(Data); 
-        LDR.W    R3,??DataTable11_12
-        VLDR     S0,[R3, #0]
-        VCVT.S32.F32 S0,S0
-        VMOV     R3,S0
-        ADDS     R8,R3,R8
 //  399      
 //  400      			test >>= 1; /* go to next bit in "test" to convolution */
-        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
-        LSRS     R7,R7,#+1
 //  401 		   }
-        ADDS     R2,R2,#+1
-        B.N      ??Decimation_4
 //  402 		   
 //  403 	   }
-??Decimation_5:
-        ADDS     R1,R1,#+1
-        B.N      ??Decimation_2
 //  404 	   
 //  405 	   OutRing[iRing] = Sigma;
-??Decimation_3:
-        LDR.W    R1,??DataTable11_13
-        LDR.W    R2,??DataTable11_14
-        LDRSH    R2,[R2, #+0]
-        STRH     R8,[R1, R2, LSL #+1]
 //  406 	   //if (OutRing[iRing] > 127)
 //  407 	   //{
 //  408        //    OutRing[iRing] = 127;
@@ -1606,150 +1242,143 @@ Decimation:
 //  418 	   
 //  419 
 //  420        Output[i] = 0;
-        MOVS     R1,#+0
-        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-        STRH     R1,[R5, R0, LSL #+1]
 //  421 
 //  422    
 //  423        for(int16_t ii=0; ii<129;ii++)
-        MOVS     R1,#+0
-??Decimation_8:
-        SXTH     R1,R1            ;; SignExt  R1,R1,#+16,#+16
-        CMP      R1,#+129
-        BGE.N    ??Decimation_9
 //  424        {
 //  425            if (iRing >= ii)
-        LDR.W    R2,??DataTable11_14
-        LDRSH    R2,[R2, #+0]
-        SXTH     R1,R1            ;; SignExt  R1,R1,#+16,#+16
-        CMP      R2,R1
-        BLT.N    ??Decimation_10
 //  426                Output[i] = Output[i] + (int16_t)(OutRing[iRing - ii]*Coef[ii]);//PreCalcBuff[ii][(OutRing[iRing - ii]+128)]; //(OutRing[iRing - ii]*Coef[ii])
-        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-        LDRH     R2,[R5, R0, LSL #+1]
-        LDR.W    R3,??DataTable11_13
-        LDR.W    R12,??DataTable11_14
-        LDRSH    R12,[R12, #+0]
-        SXTH     R1,R1            ;; SignExt  R1,R1,#+16,#+16
-        SUBS     R12,R12,R1
-        LDRSH    R3,[R3, R12, LSL #+1]
-        VMOV     S0,R3
-        VCVT.F32.S32 S0,S0
-        MOV      R3,SP
-        SXTH     R1,R1            ;; SignExt  R1,R1,#+16,#+16
-        ADDS     R3,R3,R1, LSL #+2
-        VLDR     S1,[R3, #0]
-        VMUL.F32 S0,S0,S1
-        VCVT.S32.F32 S0,S0
-        VMOV     R3,S0
-        ADDS     R2,R3,R2
-        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-        STRH     R2,[R5, R0, LSL #+1]
-        B.N      ??Decimation_11
 //  427            else
 //  428                Output[i] = Output[i] + (int16_t)(OutRing[129 + iRing - ii]*Coef[ii]);//PreCalcBuff[ii][(OutRing[129 + iRing - ii]+128)];  // (OutRing[129 + iRing - ii]*Coef[ii])
-??Decimation_10:
-        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-        LDRH     R2,[R5, R0, LSL #+1]
-        LDR.W    R3,??DataTable11_13
-        LDR.W    R12,??DataTable11_14
-        LDRSH    R12,[R12, #+0]
-        ADDS     R12,R12,#+129
-        SXTH     R1,R1            ;; SignExt  R1,R1,#+16,#+16
-        SUBS     R12,R12,R1
-        LDRSH    R3,[R3, R12, LSL #+1]
-        VMOV     S0,R3
-        VCVT.F32.S32 S0,S0
-        MOV      R3,SP
-        SXTH     R1,R1            ;; SignExt  R1,R1,#+16,#+16
-        ADDS     R3,R3,R1, LSL #+2
-        VLDR     S1,[R3, #0]
-        VMUL.F32 S0,S0,S1
-        VCVT.S32.F32 S0,S0
-        VMOV     R3,S0
-        ADDS     R2,R3,R2
-        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-        STRH     R2,[R5, R0, LSL #+1]
 //  429 		  	   
 //  430        }
-??Decimation_11:
-        ADDS     R1,R1,#+1
-        B.N      ??Decimation_8
 //  431        
 //  432 	   
 //  433        iRing++;             
-??Decimation_9:
-        LDR.W    R1,??DataTable11_14
-        LDRH     R1,[R1, #+0]
-        ADDS     R1,R1,#+1
-        LDR.W    R2,??DataTable11_14
-        STRH     R1,[R2, #+0]
+??Decimation_1:
+        ADDS     R2,R3,#+1
+        STRH     R2,[R1, #+0]
 //  434        if (iRing==129) iRing = 0;  
-        LDR.W    R1,??DataTable11_14
-        LDRSH    R1,[R1, #+0]
-        CMP      R1,#+129
-        BNE.N    ??Decimation_12
-        MOVS     R1,#+0
-        LDR.W    R2,??DataTable11_14
-        STRH     R1,[R2, #+0]
+        SXTH     R2,R2
+        CMP      R2,#+129
+        BNE.N    ??Decimation_2
+        MOVS     R2,#+0
+        STRH     R2,[R1, #+0]
+??Decimation_2:
+        ADDS     R0,R0,#+1
+??Decimation_0:
+        CMP      R0,#+16
+        BGE.W    ??Decimation_3
+        MOVS     R2,#+0
+        MOV      R3,R2
+        B.N      ??Decimation_4
+??Decimation_5:
+        ADDS     R3,R3,#+1
+??Decimation_4:
+        CMP      R3,#+8
+        BGE.N    ??Decimation_6
+        UXTB     R6,R6
+        LDRB     R7,[R6, R4]
+        ADDS     R6,R6,#+1
+        MOV      R12,#+0
+        B.N      ??Decimation_7
+??Decimation_8:
+        VLDR.W   S1,??DataTable9  ;; 0xc2c80000
+        VSUB.F32 S1,S1,S0
+        VLDR.W   S2,??DataTable9_1  ;; 0x43480000
+        VDIV.F32 S1,S1,S2
+        VADD.F32 S0,S1,S0
+        VSTR     S0,[R1, #0]
+??Decimation_9:
+        VLDR     S0,[R1, #0]
+        VSTR     S0,[R1, #+4]
+        VCVT.S32.F32 S0,S0
+        VMOV     R1,S0
+        SXTAH    R2,R2,R1
+        LSRS     R7,R7,#+1
+        ADD      R12,R12,#+1
+??Decimation_7:
+        CMP      R12,#+8
+        BGE.N    ??Decimation_5
+        LDR.W    R1,??DataTable12_6
+        ADD      R1,R1,#+264
+        VLDR     S0,[R1, #+4]
+        LSLS     LR,R7,#+31
+        BPL.N    ??Decimation_8
+        VLDR.W   S1,??DataTable9_2  ;; 0x42c80000
+        VSUB.F32 S1,S1,S0
+        VLDR.W   S2,??DataTable9_1  ;; 0x43480000
+        VDIV.F32 S1,S1,S2
+        VADD.F32 S0,S1,S0
+        VSTR     S0,[R1, #0]
+        B.N      ??Decimation_9
+??Decimation_6:
+        LDR.W    R1,??DataTable12_6
+        LDRSH    R3,[R1, #+0]
+        MOV      R7,R3
+        ADD      R12,R1,R7, LSL #+1
+        STRH     R2,[R12, #+4]
+        MOVS     R2,#+0
+        STRH     R2,[R5, R0, LSL #+1]
+        B.N      ??Decimation_10
+??Decimation_11:
+        ADD      LR,R7,#+129
+        SUB      LR,LR,R2
+        ADD      LR,R1,LR, LSL #+1
+        LDRSH    LR,[LR, #+4]
+        VMOV     S1,LR
+        VCVT.F32.S32 S1,S1
+        VMUL.F32 S0,S1,S0
+        VCVT.S32.F32 S0,S0
+        VMOV     LR,S0
+        ADD      R12,LR,R12
+        STRH     R12,[R5, R0, LSL #+1]
+??Decimation_12:
+        ADDS     R2,R2,#+1
+        SXTH     R2,R2
+??Decimation_10:
+        CMP      R2,#+129
+        BGE.N    ??Decimation_1
+        LDRSH    R12,[R5, R0, LSL #+1]
+        MOV      LR,SP
+        LDR      LR,[LR, R2, LSL #+2]
+        VMOV     S0,LR
+        CMP      R7,R2
+        BLT.N    ??Decimation_11
+        SUB      LR,R7,R2
+        ADD      LR,R1,LR, LSL #+1
+        LDRSH    LR,[LR, #+4]
+        VMOV     S1,LR
+        VCVT.F32.S32 S1,S1
+        VMUL.F32 S0,S1,S0
+        VCVT.S32.F32 S0,S0
+        VMOV     LR,S0
+        ADD      R12,LR,R12
+        STRH     R12,[R5, R0, LSL #+1]
+        B.N      ??Decimation_12
 //  435 
 //  436 	}
-??Decimation_12:
-        ADDS     R0,R0,#+1
-        B.N      ??Decimation_0
 //  437 }
-??Decimation_1:
+??Decimation_3:
         ADD      SP,SP,#+516
-          CFI CFA R13+28
-        POP      {R4-R9,PC}       ;; return
+          CFI CFA R13+20
+        POP      {R4-R7,PC}       ;; return
           CFI EndBlock cfiBlock9
 
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??OutRing:
-        DS8 260
+??DataTable6:
+        DC32     0x0
 
-        SECTION `.bss`:DATA:REORDER:NOROOT(1)
+        SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
 ??iRing:
         DS8 2
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
-        DATA
-??Data:
+        DS8 2
+        DS8 260
         DS8 4
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
-        DATA
-??Data_Old:
         DS8 4
-
-        SECTION `.rodata`:CONST:REORDER:NOROOT(2)
-        DATA
-?_0:
-        DC32 80000000H, 0BFC7AE14H, 0C03F5C29H, 0C08353F8H, 0C0971AA0H
-        DC32 0C095DB23H, 0C07851ECH, 0C0126E98H, 0H, 403051ECH, 40B37CEEH
-        DC32 41015C29H, 411A8F5CH, 411D9DB2H, 4105126FH, 409EB852H, 80000000H
-        DC32 0C0C00000H, 0C142A7F0H, 0C18B4FDFH, 0C1A4E979H, 0C1A65C29H
-        DC32 0C18ACCCDH, 0C1238106H, 0H, 4140C49CH, 41C0F3B6H, 4208645AH
-        DC32 421F8937H, 421F178DH, 42034AC1H, 4199126FH, 80000000H, 0C1B12B02H
-        DC32 0C22FE873H, 0C276DD2FH, 0C28F70A4H, 0C28E3CEEH, 0C269A6E9H
-        DC32 0C207B22DH, 0H, 421C5810H, 429B24DDH, 42D9DEB8H, 42FDB22DH
-        DC32 42FC71AAH, 42D067F0H, 4273C189H, 80000000H, 0C28F526FH, 0C3103EB8H
-        DC32 0C34E1C6AH, 0C3752396H, 0C37A4D91H, 0C3553D71H, 0C3019AA0H, 0H
-        DC32 4329A51FH, 43B82F3BH, 441146B8H, 44458B12H, 44744A0CH, 448C9E25H
-        DC32 449874F6H, 449C88A4H, 449874F6H, 448C9E25H, 44744A0CH, 44458B12H
-        DC32 441146B8H, 43B82F3BH, 4329A51FH, 0H, 0C3019AA0H, 0C3553D71H
-        DC32 0C37A4D91H, 0C3752396H, 0C34E1C6AH, 0C3103EB8H, 0C28F526FH
-        DC32 80000000H, 4273C189H, 42D067F0H, 42FC71AAH, 42FDB22DH, 42D9DEB8H
-        DC32 429B24DDH, 421C5810H, 0H, 0C207B22DH, 0C269A6E9H, 0C28E3CEEH
-        DC32 0C28F70A4H, 0C276DD2FH, 0C22FE873H, 0C1B12B02H, 80000000H
-        DC32 4199126FH, 42034AC1H, 421F178DH, 421F8937H, 4208645AH, 41C0F3B6H
-        DC32 4140C49CH, 0H, 0C1238106H, 0C18ACCCDH, 0C1A65C29H, 0C1A4E979H
-        DC32 0C18B4FDFH, 0C142A7F0H, 0C0C00000H, 80000000H, 409EB852H
-        DC32 4105126FH, 411D9DB2H, 411A8F5CH, 41015C29H, 40B37CEEH, 403051ECH
-        DC32 0H, 0C0126E98H, 0C07851ECH, 0C095DB23H, 0C0971AA0H, 0C08353F8H
-        DC32 0C03F5C29H, 0BFC7AE14H, 80000000H
 //  438 
 //  439 
 //  440 
@@ -1771,30 +1400,29 @@ Window:
         VPUSH    {D8}
           CFI D8 Frame(CFA, -32)
           CFI CFA R13+32
-        MOVS     R4,R0
+        MOV      R4,R0
 //  443     for (int i = 0; i < DSP_NUMCOFF; i++) //DSP_NUMCOFF
         MOVS     R5,#+0
-??Window_0:
-        CMP      R5,#+64
-        BGE.N    ??Window_1
+        B.N      ??Window_0
 //  444 	{
 //  445         //fir64Coff[i] = (double_t)((1 << 10)-1);
 //  446         fir64Coff[i] = (float)(1000);
-        LDR.W    R0,??DataTable11_15  ;; 0x447a0000
+??Window_1:
+        LDR.W    R0,??DataTable12_7  ;; 0x447a0000
         STR      R0,[R4, R5, LSL #+2]
 //  447 		//Hanning Window (less noise than hamming?
 //  448         fir64Coff[i] *= 0.5f * (
 //  449 		                       1.0f - cos((2.0f * PI * i)/ (DSP_NUMCOFF - 1.0f))  
 //  450 		                      );
-        MOVS     R0,R5
+        MOV      R0,R5
           CFI FunCall __aeabi_i2d
         BL       __aeabi_i2d
-        LDR.W    R2,??DataTable10  ;; 0x5a7ed197
-        LDR.W    R3,??DataTable10_1  ;; 0x401921fb
+        LDR.W    R2,??DataTable12  ;; 0x5a7ed197
+        LDR.W    R3,??DataTable12_1  ;; 0x401921fb
           CFI FunCall __aeabi_dmul
         BL       __aeabi_dmul
         MOVS     R2,#+0
-        LDR.W    R3,??DataTable11_16  ;; 0x404f8000
+        LDR.W    R3,??DataTable12_8  ;; 0x404f8000
           CFI FunCall __aeabi_ddiv
         BL       __aeabi_ddiv
         VMOV     D0,R0,R1
@@ -1805,19 +1433,19 @@ Window:
         LDR      R0,[R4, R5, LSL #+2]
           CFI FunCall __aeabi_f2d
         BL       __aeabi_f2d
-        MOVS     R6,R0
-        MOVS     R7,R1
+        MOV      R6,R0
+        MOV      R7,R1
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable11_17  ;; 0x3ff00000
+        LDR.W    R1,??DataTable12_9  ;; 0x3ff00000
         VMOV     R2,R3,D8
           CFI FunCall __aeabi_dsub
         BL       __aeabi_dsub
         MOVS     R2,#+0
-        LDR.W    R3,??DataTable11_18  ;; 0x3fe00000
+        LDR.W    R3,??DataTable12_10  ;; 0x3fe00000
           CFI FunCall __aeabi_dmul
         BL       __aeabi_dmul
-        MOVS     R2,R6
-        MOVS     R3,R7
+        MOV      R2,R6
+        MOV      R3,R7
           CFI FunCall __aeabi_dmul
         BL       __aeabi_dmul
           CFI FunCall __aeabi_d2f
@@ -1838,33 +1466,16 @@ Window:
 //  463         //fir64Coff[i] *= 0.422323 - 0.49755 * cos(w) + 0.07922 * cos(2 * w);
 //  464     }
         ADDS     R5,R5,#+1
-        B.N      ??Window_0
+??Window_0:
+        CMP      R5,#+64
+        BLT.N    ??Window_1
 //  465 	 //fir64Coff[DSP_NUMCOFF-1] = 0;
 //  466 }
-??Window_1:
         VPOP     {D8}
           CFI D8 SameValue
           CFI CFA R13+24
         POP      {R0,R4-R7,PC}    ;; return
           CFI EndBlock cfiBlock10
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable6:
-        DC32     0x42c80000
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable6_1:
-        DC32     0x43480000
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable6_2:
-        DC32     0xc2c80000
 //  467 
 //  468 /*
 //  469 Wikimedia: PDM algorithm
@@ -1886,106 +1497,92 @@ Window:
 //  479 void PCM2PDM (int16_t *InBuff, int16_t *OutBuff, int16_t size, float *err)
 //  480 {		
 PCM2PDM:
-        PUSH     {R4-R6}
-          CFI R6 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
+        PUSH     {R4-R7}
+          CFI R7 Frame(CFA, -4)
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
 //  481 	for (int16_t i =0; i< size; i++)
         MOVS     R4,#+0
-??PCM2PDM_0:
-        SXTH     R4,R4            ;; SignExt  R4,R4,#+16,#+16
-        SXTH     R2,R2            ;; SignExt  R2,R2,#+16,#+16
-        CMP      R4,R2
-        BGE.N    ??PCM2PDM_1
+        B.N      ??PCM2PDM_0
 //  482 	{
 //  483 		if (i==0)
-        SXTH     R4,R4            ;; SignExt  R4,R4,#+16,#+16
-        CMP      R4,#+0
-        BNE.N    ??PCM2PDM_2
 //  484 		{
 //  485 		    if (InBuff[i] > 0)
-        SXTH     R4,R4            ;; SignExt  R4,R4,#+16,#+16
-        LDRSH    R5,[R0, R4, LSL #+1]
-        CMP      R5,#+1
-        BLT.N    ??PCM2PDM_3
 //  486 	            OutBuff[i] = 1;
-        MOVS     R5,#+1
-        SXTH     R4,R4            ;; SignExt  R4,R4,#+16,#+16
-        STRH     R5,[R1, R4, LSL #+1]
-        B.N      ??PCM2PDM_4
 //  487 		    else
 //  488 			    OutBuff[i] = 0; // "-1" is replace by "0"	
-??PCM2PDM_3:
-        MOVS     R5,#+0
-        SXTH     R4,R4            ;; SignExt  R4,R4,#+16,#+16
-        STRH     R5,[R1, R4, LSL #+1]
 //  489 			err[0] = OutBuff[i] - InBuff[i];
-??PCM2PDM_4:
-        SXTH     R4,R4            ;; SignExt  R4,R4,#+16,#+16
-        LDRSH    R5,[R1, R4, LSL #+1]
-        SXTH     R4,R4            ;; SignExt  R4,R4,#+16,#+16
-        LDRSH    R6,[R0, R4, LSL #+1]
-        SUBS     R5,R5,R6
-        VMOV     S0,R5
-        VCVT.F32.S32 S0,S0
-        VSTR     S0,[R3, #0]
-        B.N      ??PCM2PDM_5
 //  490 		}
 //  491 		else
 //  492 		{
 //  493 			if (InBuff[i] > err[i-1])
-??PCM2PDM_2:
-        SXTH     R4,R4            ;; SignExt  R4,R4,#+16,#+16
-        LDRSH    R5,[R0, R4, LSL #+1]
-        VMOV     S0,R5
-        VCVT.F32.S32 S0,S0
-        SXTH     R4,R4            ;; SignExt  R4,R4,#+16,#+16
-        ADDS     R5,R3,R4, LSL #+2
-        SUBS     R5,R5,#+4
-        VLDR     S1,[R5, #0]
-        VCMP.F32 S1,S0
-        FMSTAT   
-        BPL.N    ??PCM2PDM_6
 //  494 				OutBuff[i] = 1;
-        MOVS     R5,#+1
-        SXTH     R4,R4            ;; SignExt  R4,R4,#+16,#+16
-        STRH     R5,[R1, R4, LSL #+1]
-        B.N      ??PCM2PDM_7
 //  495 			else
 //  496 				OutBuff[i] = 0; // "-1" is replace by "0"
-??PCM2PDM_6:
-        MOVS     R5,#+0
-        SXTH     R4,R4            ;; SignExt  R4,R4,#+16,#+16
-        STRH     R5,[R1, R4, LSL #+1]
+??PCM2PDM_1:
+        MOVS     R6,#+0
+        STRH     R6,[R1, R4, LSL #+1]
 //  497 			err[i] = OutBuff[i] - InBuff[i] + err[i-1];
-??PCM2PDM_7:
-        SXTH     R4,R4            ;; SignExt  R4,R4,#+16,#+16
-        LDRSH    R5,[R1, R4, LSL #+1]
-        SXTH     R4,R4            ;; SignExt  R4,R4,#+16,#+16
-        LDRSH    R6,[R0, R4, LSL #+1]
-        SUBS     R5,R5,R6
-        VMOV     S0,R5
+??PCM2PDM_2:
+        LDRSH    R6,[R1, R4, LSL #+1]
+        LDRSH    R7,[R0, R4, LSL #+1]
+        SUBS     R6,R6,R7
+        VMOV     S0,R6
         VCVT.F32.S32 S0,S0
-        SXTH     R4,R4            ;; SignExt  R4,R4,#+16,#+16
-        ADDS     R5,R3,R4, LSL #+2
         SUBS     R5,R5,#+4
         VLDR     S1,[R5, #0]
         VADD.F32 S0,S0,S1
-        SXTH     R4,R4            ;; SignExt  R4,R4,#+16,#+16
-        ADDS     R5,R3,R4, LSL #+2
+        ADD      R5,R3,R4, LSL #+2
         VSTR     S0,[R5, #0]
+??PCM2PDM_3:
+        ADDS     R4,R4,#+1
+        SXTH     R4,R4
+??PCM2PDM_0:
+        CMP      R4,R2
+        BGE.N    ??PCM2PDM_4
+        CMP      R4,#+0
+        BNE.N    ??PCM2PDM_5
+        LDRSH    R5,[R0, #+0]
+        CMP      R5,#+1
+        BLT.N    ??PCM2PDM_6
+        MOVS     R5,#+1
+        STRH     R5,[R1, #+0]
+        B.N      ??PCM2PDM_7
+??PCM2PDM_6:
+        MOVS     R5,#+0
+        STRH     R5,[R1, #+0]
+??PCM2PDM_7:
+        LDRSH    R5,[R1, #+0]
+        LDRSH    R6,[R0, #+0]
+        SUBS     R5,R5,R6
+        VMOV     S0,R5
+        VCVT.F32.S32 S0,S0
+        VSTR     S0,[R3, #0]
+        B.N      ??PCM2PDM_3
+??PCM2PDM_5:
+        ADD      R5,R3,R4, LSL #+2
+        LDRSH    R6,[R0, R4, LSL #+1]
+        VMOV     S0,R6
+        VCVT.F32.S32 S0,S0
+        SUBS     R6,R5,#+4
+        VLDR     S1,[R6, #0]
+        VCMP.F32 S1,S0
+        FMSTAT   
+        BPL.N    ??PCM2PDM_1
+        MOVS     R6,#+1
+        STRH     R6,[R1, R4, LSL #+1]
+        B.N      ??PCM2PDM_2
 //  498 		}
 //  499 	}	
-??PCM2PDM_5:
-        ADDS     R4,R4,#+1
-        B.N      ??PCM2PDM_0
 //  500 }
-??PCM2PDM_1:
-        POP      {R4-R6}
+??PCM2PDM_4:
+        POP      {R4-R7}
           CFI R4 SameValue
           CFI R5 SameValue
           CFI R6 SameValue
+          CFI R7 SameValue
           CFI CFA R13+0
         BX       LR               ;; return
           CFI EndBlock cfiBlock11
@@ -2014,158 +1611,132 @@ PCM2PDM:
 //  518 void PDM2PCM(uint8_t *InBuff,int16_t *OutBuff,int16_t PreCalcBuff[DSP_NUMBYTECONV][256])
 //  519 {
 PDM2PCM:
-        PUSH     {R1,R4-R11,LR}
+        PUSH     {R3-R9,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R11 Frame(CFA, -8)
-          CFI R10 Frame(CFA, -12)
-          CFI R9 Frame(CFA, -16)
-          CFI R8 Frame(CFA, -20)
-          CFI R7 Frame(CFA, -24)
-          CFI R6 Frame(CFA, -28)
-          CFI R5 Frame(CFA, -32)
-          CFI R4 Frame(CFA, -36)
-          CFI CFA R13+40
-        MOVS     R4,R0
-        MOVS     R5,R2
+          CFI R9 Frame(CFA, -8)
+          CFI R8 Frame(CFA, -12)
+          CFI R7 Frame(CFA, -16)
+          CFI R6 Frame(CFA, -20)
+          CFI R5 Frame(CFA, -24)
+          CFI R4 Frame(CFA, -28)
+          CFI CFA R13+32
+        MOV      R4,R0
+        MOV      R5,R1
+        MOV      R6,R2
 //  520     int32_t BuffInPos = -DSP_NUMBYTECONV/2;
-        MVNS     R8,#+3
+        MVN      R7,#+3
 //  521 	static uint8_t Initial_Array[DSP_NUMBYTECONV/2];
 //  522 	
 //  523     for (uint32_t currentSample = 0; currentSample < 16; currentSample++) // go for all the output sample
-        MOVS     R6,#+0
-??PDM2PCM_0:
-        CMP      R6,#+16
-        BCS.N    ??PDM2PCM_1
+        MOV      R8,#+0
+        B.N      ??PDM2PCM_0
 //  524 	{                                                                     // 32*16 = 512 bytes of input steam 
 //  525         int16_t stSum=0;
-        MOVS     R7,#+0
 //  526 //		int16_t coefficientIndex=0;
 //  527 
 //  528           
 //  529 		/* First half of frame */
 //  530         for (uint16_t i = 0; i < DSP_NUMBYTECONV; i++) // DSP_NUMBYTECONV = 8
-        MOVS     R9,#+0
-??PDM2PCM_2:
-        UXTH     R9,R9            ;; ZeroExt  R9,R9,#+16,#+16
-        CMP      R9,#+8
-        BGE.N    ??PDM2PCM_3
 //  531         {         
 //  532 
 //  533            	int16_t temp,temp1;                        // temporary variable uses for debug, will be removed in future
 //  534 
 //  535             if (BuffInPos < 0)
-        CMP      R8,#+0
-        BPL.N    ??PDM2PCM_4
 //  536 				temp1 = Initial_Array[i];
-        LDR.W    R0,??DataTable11_19
-        UXTH     R9,R9            ;; ZeroExt  R9,R9,#+16,#+16
-        LDRB     R0,[R9, R0]
-        MOV      R11,R0
-        B.N      ??PDM2PCM_5
 //  537 			else
 //  538 			    temp1 = InBuff[BuffInPos];          // stored the value of 1 bytes input which is calculated
-??PDM2PCM_4:
-        LDRB     R0,[R8, R4]
-        MOV      R11,R0
 //  539 
 //  540 				
 //  541 			temp = (int16_t)PreCalcBuff[i][temp1];        // convolution for 1 bytes which take from the Pre-calculation array
-??PDM2PCM_5:
-        UXTH     R9,R9            ;; ZeroExt  R9,R9,#+16,#+16
-        MOV      R0,#+512
-        MLA      R0,R0,R9,R5
-        SXTH     R11,R11          ;; SignExt  R11,R11,#+16,#+16
-        LDRSH    R0,[R0, R11, LSL #+1]
-        MOV      R10,R0
 //  542 		
 //  543             stSum = ADD_S16(stSum,temp);  //These are the pre-calculated window values
-        MOV      R1,R10
-        SXTH     R1,R1            ;; SignExt  R1,R1,#+16,#+16
-        MOVS     R0,R7
-        SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
-          CFI FunCall ADD_S16
-        BL       ADD_S16
-        MOVS     R7,R0
 //  544 				
 //  545             
 //  546             BuffInPos++;  //next byte of the input sample stream:0-->255
-        ADDS     R8,R8,#+1
 //  547         }
-        ADDS     R9,R9,#+1
-        B.N      ??PDM2PCM_2
 //  548 
 //  549 		BuffInPos-=DSP_NUMBYTECONV/2;
-??PDM2PCM_3:
-        SUBS     R8,R8,#+4
 //  550 
 //  551 		/* Second half of frame */
 //  552         for (uint16_t i = 0; i < DSP_NUMBYTECONV; i++) // DSP_NUMBYTECONV = 8
-        MOVS     R9,#+0
-??PDM2PCM_6:
-        UXTH     R9,R9            ;; ZeroExt  R9,R9,#+16,#+16
-        CMP      R9,#+8
-        BGE.N    ??PDM2PCM_7
 //  553         {         
 //  554 
 //  555            	int16_t temp,temp1;                        // temporary variable uses for debug, will be removed in future
 //  556 
 //  557 
 //  558 			temp1 = InBuff[BuffInPos];          // stored the value of 1 bytes input which is calculated
-        LDRB     R0,[R8, R4]
-        MOV      R11,R0
 //  559 	
 //  560 			temp = (int16_t)PreCalcBuff[i][temp1];        // convolution for 1 bytes which take from the Pre-calculation array
-        UXTH     R9,R9            ;; ZeroExt  R9,R9,#+16,#+16
-        MOV      R0,#+512
-        MLA      R0,R0,R9,R5
-        SXTH     R11,R11          ;; SignExt  R11,R11,#+16,#+16
-        LDRSH    R0,[R0, R11, LSL #+1]
-        MOV      R10,R0
 //  561 		
 //  562             stSum = ADD_S16(stSum,temp);  //These are the pre-calculated window values
-        MOV      R1,R10
-        SXTH     R1,R1            ;; SignExt  R1,R1,#+16,#+16
-        MOVS     R0,R7
-        SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
-          CFI FunCall ADD_S16
-        BL       ADD_S16
-        MOVS     R7,R0
 //  563 				
 //  564             
 //  565             BuffInPos++;  //next byte of the input sample stream:0-->255
-        ADDS     R8,R8,#+1
 //  566         }
-        ADDS     R9,R9,#+1
-        B.N      ??PDM2PCM_6
 //  567 
 //  568         OutBuff[currentSample] = (int16_t)stSum;
-??PDM2PCM_7:
-        LDR      R0,[SP, #+0]
-        STRH     R7,[R0, R6, LSL #+1]
 //  569 		
 //  570 		
 //  571 
 //  572 		for (uint16_t i=0; i< (DSP_NUMBYTECONV/2); i++)
-        MOVS     R0,#+0
-??PDM2PCM_8:
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        CMP      R0,#+4
-        BGE.N    ??PDM2PCM_9
 //  573 		{
 //  574              Initial_Array[i]=InBuff[BuffInPos - 1 - DSP_NUMBYTECONV/2 + i];
-        UXTAH    R1,R8,R0
+??PDM2PCM_1:
+        ADDS     R1,R0,R7
         ADDS     R1,R1,R4
         LDRB     R1,[R1, #-5]
-        LDR.W    R2,??DataTable11_19
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         STRB     R1,[R0, R2]
 //  575 		}
         ADDS     R0,R0,#+1
+??PDM2PCM_2:
+        CMP      R0,#+4
+        BLT.N    ??PDM2PCM_1
+        ADD      R8,R8,#+1
+??PDM2PCM_0:
+        CMP      R8,#+16
+        BCS.N    ??PDM2PCM_3
+        MOVS     R0,#+0
+        MOV      R9,R0
+        B.N      ??PDM2PCM_4
+??PDM2PCM_5:
+        LDRB     R1,[R7, R4]
+??PDM2PCM_6:
+        ADD      R2,R6,R9, LSL #+9
+        LDRSH    R1,[R2, R1, LSL #+1]
+          CFI FunCall ADD_S16
+        BL       ADD_S16
+        ADDS     R7,R7,#+1
+        ADD      R9,R9,#+1
+??PDM2PCM_4:
+        CMP      R9,#+8
+        BGE.N    ??PDM2PCM_7
+        CMP      R7,#+0
+        BPL.N    ??PDM2PCM_5
+        LDR.W    R1,??DataTable12_11
+        LDRB     R1,[R9, R1]
+        B.N      ??PDM2PCM_6
+??PDM2PCM_7:
+        SUBS     R7,R7,#+4
+        MOV      R9,#+0
         B.N      ??PDM2PCM_8
-//  576     }
 ??PDM2PCM_9:
-        ADDS     R6,R6,#+1
-        B.N      ??PDM2PCM_0
+        ADD      R1,R6,R1, LSL #+9
+        LDRB     R2,[R7, R4]
+        LDRSH    R1,[R1, R2, LSL #+1]
+          CFI FunCall ADD_S16
+        BL       ADD_S16
+        ADDS     R7,R7,#+1
+        ADD      R9,R9,#+1
+??PDM2PCM_8:
+        UXTH     R9,R9
+        MOV      R1,R9
+        CMP      R1,#+8
+        BLT.N    ??PDM2PCM_9
+        STRH     R0,[R5, R8, LSL #+1]
+        MOVS     R0,#+0
+        LDR.W    R2,??DataTable12_11
+        B.N      ??PDM2PCM_2
+//  576     }
 //  577 
 //  578 
 //  579 	#if 0
@@ -2191,8 +1762,8 @@ PDM2PCM:
 //  599 #endif
 //  600 
 //  601 }
-??PDM2PCM_1:
-        POP      {R0,R4-R11,PC}   ;; return
+??PDM2PCM_3:
+        POP      {R0,R4-R9,PC}    ;; return
           CFI EndBlock cfiBlock12
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
@@ -2222,104 +1793,89 @@ Precalculation:
           CFI CFA R13+8
 //  612     for (uint8_t i = 0; i < 129; i++)  /* from byte 0th to byth 7th of data input */
         MOVS     R2,#+0
+        B.N      ??Precalculation_0
+??Precalculation_1:
+        ADDS     R2,R2,#+1
 ??Precalculation_0:
-        UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
         CMP      R2,#+129
-        BGE.N    ??Precalculation_1
+        BGE.N    ??Precalculation_2
 //  613 	{ 
 //  614 
 //  615         for (uint16_t j = 0; j < 256; j++)    /* list all the cases can happen for the input data */ 
         MOVS     R3,#+0
-??Precalculation_2:
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        CMP      R3,#+255
-        BGT.N    ??Precalculation_3
+        B.N      ??Precalculation_3
 //  616 		{         
 //  617             // check overflow 
 //  618 			if ((int32_t)(fir64Coff[i]*(j-128)) > 32767)
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        SUBS     R4,R3,#+128
-        VMOV     S0,R4
-        VCVT.F32.S32 S0,S0
-        UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
-        ADDS     R4,R0,R2, LSL #+2
-        VLDR     S1,[R4, #0]
-        VMUL.F32 S0,S0,S1
-        VCVT.S32.F32 S0,S0
-        VMOV     R4,S0
-        CMP      R4,#+32768
-        BLT.N    ??Precalculation_4
 //  619 			{
 //  620                 
 //  621 				precalculated[i][j] = 32767;
-        UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
-        MOV      R4,#+512
-        MLA      R4,R4,R2,R1
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        MOVW     R5,#+32767
-        STRH     R5,[R4, R3, LSL #+1]
-        B.N      ??Precalculation_5
 //  622 			}
 //  623 			else if ((int32_t)(fir64Coff[i]*(j-128)) < -32768)
-??Precalculation_4:
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        SUBS     R4,R3,#+128
-        VMOV     S0,R4
-        VCVT.F32.S32 S0,S0
-        UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
-        ADDS     R4,R0,R2, LSL #+2
-        VLDR     S1,[R4, #0]
-        VMUL.F32 S0,S0,S1
-        VCVT.S32.F32 S0,S0
-        VMOV     R4,S0
-        CMN      R4,#+32768
-        BGE.N    ??Precalculation_6
 //  624 			{
 //  625                 precalculated[i][j] = -32768;
-        UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
-        MOV      R4,#+512
-        MLA      R4,R4,R2,R1
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        LDR.W    R5,??DataTable11_20  ;; 0xffff8000
-        STRH     R5,[R4, R3, LSL #+1]
-        B.N      ??Precalculation_5
 //  626 			}
 //  627 			else
 //  628 			{
 //  629                 precalculated[i][j] = (int16_t)(fir64Coff[i]*(j-128));
-??Precalculation_6:
-        UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
-        MOV      R4,#+512
-        MLA      R4,R4,R2,R1
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        SUBS     R5,R3,#+128
-        VMOV     S0,R5
-        VCVT.F32.S32 S0,S0
-        UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
-        ADDS     R5,R0,R2, LSL #+2
-        VLDR     S1,[R5, #0]
-        VMUL.F32 S0,S0,S1
+??Precalculation_4:
         VCVT.S32.F32 S0,S0
         VMOV     R5,S0
         STRH     R5,[R4, R3, LSL #+1]
 //  630 			}
-//  631         }
 ??Precalculation_5:
         ADDS     R3,R3,#+1
-        B.N      ??Precalculation_2
-//  632     }
 ??Precalculation_3:
-        ADDS     R2,R2,#+1
-        B.N      ??Precalculation_0
+        CMP      R3,#+255
+        BGT.N    ??Precalculation_1
+        SUB      R4,R3,#+128
+        VMOV     S0,R4
+        VCVT.F32.S32 S0,S0
+        ADD      R4,R0,R2, LSL #+2
+        VLDR     S1,[R4, #0]
+        VMUL.F32 S0,S0,S1
+        VCVT.S32.F32 S1,S0
+        VMOV     R5,S1
+        ADD      R4,R1,R2, LSL #+9
+        CMP      R5,#+32768
+        BLT.N    ??Precalculation_6
+        MOVW     R5,#+32767
+        STRH     R5,[R4, R3, LSL #+1]
+        B.N      ??Precalculation_5
+??Precalculation_6:
+        CMN      R5,#+32768
+        BGE.N    ??Precalculation_4
+        LDR.W    R5,??DataTable12_12  ;; 0xffff8000
+        STRH     R5,[R4, R3, LSL #+1]
+        B.N      ??Precalculation_5
+//  631         }
+//  632     }
 //  633 }
-??Precalculation_1:
+??Precalculation_2:
         POP      {R4,R5}
           CFI R4 SameValue
           CFI R5 SameValue
           CFI CFA R13+0
         BX       LR               ;; return
           CFI EndBlock cfiBlock13
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable9:
+        DC32     0xc2c80000
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable9_1:
+        DC32     0x43480000
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable9_2:
+        DC32     0x42c80000
 //  634 
 //  635 
 //  636 /************************************************************************************************ 
@@ -2336,12 +1892,12 @@ Precalculation:
 //  642 float lowpassFIR(float * firBuffer,uint64_t M,uint64_t Fs,uint64_t Fc)
 //  643 {    
 lowpassFIR:
-        PUSH     {R4-R8,R10,R11,LR}
+        PUSH     {R4-R6,R8-R11,LR}
           CFI R14 Frame(CFA, -4)
           CFI R11 Frame(CFA, -8)
           CFI R10 Frame(CFA, -12)
-          CFI R8 Frame(CFA, -16)
-          CFI R7 Frame(CFA, -20)
+          CFI R9 Frame(CFA, -16)
+          CFI R8 Frame(CFA, -20)
           CFI R6 Frame(CFA, -24)
           CFI R5 Frame(CFA, -28)
           CFI R4 Frame(CFA, -32)
@@ -2351,23 +1907,17 @@ lowpassFIR:
           CFI D9 Frame(CFA, -48)
           CFI D8 Frame(CFA, -56)
           CFI CFA R13+56
-        SUB      SP,SP,#+8
-          CFI CFA R13+64
-        MOV      R8,R0
-        MOVS     R6,R2
-        MOVS     R7,R3
-        LDRD     R10,R11,[SP, #+72]
+        MOV      R6,R0
 //  644     M = M -1;
-        SUBS     R6,R6,#+1
-        SBCS     R7,R7,#+0
+        SUBS     R10,R2,#+1
+        SBC      R11,R3,#+0
 //  645 	
 //  646     float Ft = (float)Fc / (float)Fs;
-        MOV      R0,R10
-        MOV      R1,R11
+        LDRD     R0,R1,[SP, #+64]
           CFI FunCall __aeabi_ul2f
         BL       __aeabi_ul2f
         VMOV     S16,R0
-        LDRD     R0,R1,[SP, #+64]
+        LDRD     R0,R1,[SP, #+56]
           CFI FunCall __aeabi_ul2f
         BL       __aeabi_ul2f
         VMOV     S0,R0
@@ -2375,145 +1925,121 @@ lowpassFIR:
 //  647 
 //  648 
 //  649     float sum = 0.0f;
-        VLDR.W   S16,??DataTable10_2  ;; 0x0
+        VLDR.W   S16,??DataTable11  ;; 0x0
 //  650     
 //  651     for (uint64_t i = 0; i < M; i++) 
         MOVS     R4,#+0
-        MOVS     R5,#+0
-??lowpassFIR_0:
-        CMP      R5,R7
-        BHI.W    ??lowpassFIR_1
-        BCC.N    ??lowpassFIR_2
-        CMP      R4,R6
-        BCS.W    ??lowpassFIR_1
+        MOV      R5,R4
+        B.N      ??lowpassFIR_0
 //  652 	{
 //  653         if (i != ((float)M / 2)) 
-??lowpassFIR_2:
-        MOVS     R0,R4
-        MOVS     R1,R5
-          CFI FunCall __aeabi_ul2f
-        BL       __aeabi_ul2f
-        VMOV     S18,R0
-        MOVS     R0,R6
-        MOVS     R1,R7
-          CFI FunCall __aeabi_ul2f
-        BL       __aeabi_ul2f
-        VMOV     S0,R0
-        VMOV.F32 S1,#2.0
-        VDIV.F32 S0,S0,S1
-        VCMP.F32 S18,S0
-        FMSTAT   
-        BEQ.N    ??lowpassFIR_3
 //  654 		{
 //  655             firBuffer[i] *= sin(2*PI*Ft*(i - ((float)M / 2))) / 
 //  656 			                (PI * (i - ((float)M / 2)));
-        VMOV     R0,S17
-          CFI FunCall __aeabi_f2d
-        BL       __aeabi_f2d
-        MOVS     R2,R0
-        MOVS     R3,R1
-        LDR.N    R0,??DataTable10  ;; 0x5a7ed197
-        LDR.N    R1,??DataTable10_1  ;; 0x401921fb
-          CFI FunCall __aeabi_dmul
-        BL       __aeabi_dmul
-        STRD     R0,R1,[SP, #+0]
-        MOVS     R0,R4
-        MOVS     R1,R5
-          CFI FunCall __aeabi_ul2f
-        BL       __aeabi_ul2f
-        VMOV     S18,R0
-        MOVS     R0,R6
-        MOVS     R1,R7
+//  657         }
+//  658         else 
+//  659 		{
+//  660             firBuffer[i] *= 2* Ft;
+??lowpassFIR_1:
+        VMOV.F32 S0,#2.0
+        VMUL.F32 S0,S17,S0
+        ADD      R0,R6,R4, LSL #+2
+        VLDR     S1,[R0, #0]
+        VMUL.F32 S0,S0,S1
+        VSTR     S0,[R0, #0]
+//  661         }
+//  662         
+//  663         sum += firBuffer[i];     
+??lowpassFIR_2:
+        ADD      R0,R6,R4, LSL #+2
+        VLDR     S0,[R0, #0]
+        VADD.F32 S16,S16,S0
+        ADDS     R4,R4,#+1
+        ADC      R5,R5,#+0
+??lowpassFIR_0:
+        CMP      R5,R11
+        BHI.N    ??lowpassFIR_3
+        BCC.N    ??lowpassFIR_4
+        CMP      R4,R10
+        BCS.N    ??lowpassFIR_3
+??lowpassFIR_4:
+        MOV      R0,R10
+        MOV      R1,R11
           CFI FunCall __aeabi_ul2f
         BL       __aeabi_ul2f
         VMOV     S0,R0
-        VMOV.F32 S1,#2.0
-        VDIV.F32 S0,S0,S1
-        VSUB.F32 S0,S18,S0
-        VMOV     R0,S0
+        VMOV.F32 S1,#0.5
+        VMUL.F32 S18,S0,S1
+        MOV      R0,R4
+        MOV      R1,R5
+          CFI FunCall __aeabi_ul2f
+        BL       __aeabi_ul2f
+        VMOV     S0,R0
+        VCMP.F32 S0,S18
+        FMSTAT   
+        BEQ.N    ??lowpassFIR_1
+        VSUB.F32 S18,S0,S18
+        VMOV     R0,S17
           CFI FunCall __aeabi_f2d
         BL       __aeabi_f2d
-        LDRD     R2,R3,[SP, #+0]
+        MOV      R2,R0
+        MOV      R3,R1
+        LDR.W    R0,??DataTable12  ;; 0x5a7ed197
+        LDR.W    R1,??DataTable12_1  ;; 0x401921fb
+          CFI FunCall __aeabi_dmul
+        BL       __aeabi_dmul
+        MOV      R8,R0
+        MOV      R9,R1
+        VMOV     R0,S18
+          CFI FunCall __aeabi_f2d
+        BL       __aeabi_f2d
+        MOV      R2,R8
+        MOV      R3,R9
           CFI FunCall __aeabi_dmul
         BL       __aeabi_dmul
         VMOV     D0,R0,R1
           CFI FunCall sin
         BL       sin
-        VMOV.F32 S18,S0
-        VMOV.F32 S19,S1
-        LDR      R0,[R8, R4, LSL #+2]
+        VMOV.F32 S20,S0
+        VMOV.F32 S21,S1
+        LDR      R0,[R6, R4, LSL #+2]
           CFI FunCall __aeabi_f2d
         BL       __aeabi_f2d
-        STRD     R0,R1,[SP, #+0]
-        MOVS     R0,R4
-        MOVS     R1,R5
-          CFI FunCall __aeabi_ul2f
-        BL       __aeabi_ul2f
-        VMOV     S20,R0
-        MOVS     R0,R6
-        MOVS     R1,R7
-          CFI FunCall __aeabi_ul2f
-        BL       __aeabi_ul2f
-        VMOV     S0,R0
-        VMOV.F32 S1,#2.0
-        VDIV.F32 S0,S0,S1
-        VSUB.F32 S0,S20,S0
-        VMOV     R0,S0
+        MOV      R8,R0
+        MOV      R9,R1
+        VMOV     R0,S18
           CFI FunCall __aeabi_f2d
         BL       __aeabi_f2d
-        LDR.N    R2,??DataTable10  ;; 0x5a7ed197
-        LDR.W    R3,??DataTable11_21  ;; 0x400921fb
+        MOV      R2,R0
+        MOV      R3,R1
+        LDR.W    R0,??DataTable12  ;; 0x5a7ed197
+        LDR.W    R1,??DataTable12_13  ;; 0x400921fb
           CFI FunCall __aeabi_dmul
         BL       __aeabi_dmul
-        MOVS     R2,R0
-        MOVS     R3,R1
-        VMOV     R0,R1,D9
+        MOV      R2,R0
+        MOV      R3,R1
+        VMOV     R0,R1,D10
           CFI FunCall __aeabi_ddiv
         BL       __aeabi_ddiv
-        MOVS     R2,R0
-        MOVS     R3,R1
-        LDRD     R0,R1,[SP, #+0]
+        MOV      R2,R8
+        MOV      R3,R9
           CFI FunCall __aeabi_dmul
         BL       __aeabi_dmul
           CFI FunCall __aeabi_d2f
         BL       __aeabi_d2f
-        STR      R0,[R8, R4, LSL #+2]
-        B.N      ??lowpassFIR_4
-//  657         }
-//  658         else 
-//  659 		{
-//  660             firBuffer[i] *= 2* Ft;
-??lowpassFIR_3:
-        VMOV.F32 S0,#2.0
-        VMUL.F32 S0,S17,S0
-        ADDS     R0,R8,R4, LSL #+2
-        VLDR     S1,[R0, #0]
-        VMUL.F32 S0,S0,S1
-        ADDS     R0,R8,R4, LSL #+2
-        VSTR     S0,[R0, #0]
-//  661         }
-//  662         
-//  663         sum += firBuffer[i];     
-??lowpassFIR_4:
-        ADDS     R0,R8,R4, LSL #+2
-        VLDR     S0,[R0, #0]
-        VADD.F32 S16,S16,S0
+        STR      R0,[R6, R4, LSL #+2]
+        B.N      ??lowpassFIR_2
 //  664     }
-        ADDS     R4,R4,#+1
-        ADCS     R5,R5,#+0
-        B.N      ??lowpassFIR_0
 //  665     
 //  666 	return sum;
-??lowpassFIR_1:
+??lowpassFIR_3:
         VMOV.F32 S0,S16
-        ADD      SP,SP,#+8
-          CFI CFA R13+56
         VPOP     {D8-D10}
           CFI D8 SameValue
           CFI D9 SameValue
           CFI D10 SameValue
           CFI CFA R13+32
-        POP      {R4-R8,R10,R11,PC}  ;; return
+        POP      {R4-R6,R8-R11,PC}  ;; return
 //  667 }
           CFI EndBlock cfiBlock14
 //  668 
@@ -2528,18 +2054,19 @@ lowpassFIR:
 //  671 int8_t CrssCor(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen )
 //  672 {
 CrssCor:
-        PUSH     {R4-R9,LR}
+        PUSH     {R2,R4-R11,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R9 Frame(CFA, -8)
-          CFI R8 Frame(CFA, -12)
-          CFI R7 Frame(CFA, -16)
-          CFI R6 Frame(CFA, -20)
-          CFI R5 Frame(CFA, -24)
-          CFI R4 Frame(CFA, -28)
-          CFI CFA R13+28
-        MOV      LR,R0
-        MOVS     R6,R1
-        MOVS     R7,R2
+          CFI R11 Frame(CFA, -8)
+          CFI R10 Frame(CFA, -12)
+          CFI R9 Frame(CFA, -16)
+          CFI R8 Frame(CFA, -20)
+          CFI R7 Frame(CFA, -24)
+          CFI R6 Frame(CFA, -28)
+          CFI R5 Frame(CFA, -32)
+          CFI R4 Frame(CFA, -36)
+          CFI CFA R13+40
+        MOV      R11,R0
+        MOV      R10,R1
 //  673     static int16_t vDataIn1Old, vDataIn2Old;
 //  674     int64_t Sum, SumMax;
 //  675 	int8_t idxPos;
@@ -2549,160 +2076,125 @@ CrssCor:
 //  679 #endif
 //  680 
 //  681     SumMax=0;
-        MOVS     R0,#+0
-        MOVS     R1,#+0
-        MOVS     R4,R0
-        MOVS     R5,R1
+        MOVS     R2,#+0
+        MOV      R3,R2
+        MOV      R4,R2
+        MOV      R5,R3
 //  682     Sum=0;
-        MOVS     R0,#+0
-        MOVS     R1,#+0
-        MOVS     R2,R0
-        MOVS     R3,R1
 //  683 #if 0	
 //  684 	LowPassIIR(vDataIn1,vDataIn1Out ,&vDataIn1Old, numLen,8);
 //  685 	LowPassIIR(vDataIn2,vDataIn2Out ,&vDataIn2Old, numLen,8);
 //  686 #endif
 //  687     for (int8_t i=-8;i<8;i++)
-        MVNS     R12,#+7
-??CrssCor_0:
-        SXTB     R12,R12          ;; SignExt  R12,R12,#+24,#+24
-        CMP      R12,#+8
-        BGE.N    ??CrssCor_1
+        MVN      R12,#+7
+        B.N      ??CrssCor_0
 //  688     {
 //  689        Sum = 0;
-        MOVS     R0,#+0
-        MOVS     R1,#+0
-        MOVS     R2,R0
-        MOVS     R3,R1
 //  690 	   if (i>=0)
-        SXTB     R12,R12          ;; SignExt  R12,R12,#+24,#+24
-        CMP      R12,#+0
-        BMI.N    ??CrssCor_2
 //  691 	   {
 //  692 	       for(uint16_t j=0;j<numLen;j++)
-        MOVS     R9,#+0
-??CrssCor_3:
-        UXTH     R9,R9            ;; ZeroExt  R9,R9,#+16,#+16
-        UXTH     R7,R7            ;; ZeroExt  R7,R7,#+16,#+16
-        CMP      R9,R7
-        BCS.N    ??CrssCor_4
 //  693 	       {
 //  694 	           Sum += vDataIn1[j+i]*vDataIn2[j]/numLen;   
-        SXTB     R12,R12          ;; SignExt  R12,R12,#+24,#+24
-        UXTAH    R0,R12,R9
-        LDRSH    R0,[LR, R0, LSL #+1]
-        UXTH     R9,R9            ;; ZeroExt  R9,R9,#+16,#+16
-        LDRSH    R1,[R6, R9, LSL #+1]
-        SMULBB   R0,R0,R1
-        UXTH     R7,R7            ;; ZeroExt  R7,R7,#+16,#+16
-        SDIV     R0,R0,R7
-        ASRS     R1,R0,#+31
-        ADDS     R2,R2,R0
-        ADCS     R3,R3,R1
 //  695 	       }
-        ADDS     R9,R9,#+1
-        B.N      ??CrssCor_3
 //  696                             
 //  697 	   }
 //  698 	   else
 //  699 	   {
 //  700            for(uint16_t j=0;j<numLen;j++)
-??CrssCor_2:
-        MOVS     R9,#+0
-??CrssCor_5:
-        UXTH     R9,R9            ;; ZeroExt  R9,R9,#+16,#+16
-        UXTH     R7,R7            ;; ZeroExt  R7,R7,#+16,#+16
-        CMP      R9,R7
-        BCS.N    ??CrssCor_4
 //  701 	       {
 //  702 	           Sum += vDataIn1[j]*vDataIn2[j-i]/numLen;   
-        UXTH     R9,R9            ;; ZeroExt  R9,R9,#+16,#+16
-        LDRSH    R0,[LR, R9, LSL #+1]
-        UXTH     R9,R9            ;; ZeroExt  R9,R9,#+16,#+16
-        SXTB     R12,R12          ;; SignExt  R12,R12,#+24,#+24
-        SUBS     R1,R9,R12
-        LDRSH    R1,[R6, R1, LSL #+1]
+??CrssCor_1:
+        MOV      R6,R0
+        MOV      R7,R1
+        LDRSH    R0,[R11, R8, LSL #+1]
+        SUB      R1,R8,R12
+        LDRSH    R1,[R10, R1, LSL #+1]
         SMULBB   R0,R0,R1
-        UXTH     R7,R7            ;; ZeroExt  R7,R7,#+16,#+16
-        SDIV     R0,R0,R7
+        SDIV     R0,R0,LR
         ASRS     R1,R0,#+31
-        ADDS     R2,R2,R0
-        ADCS     R3,R3,R1
+        ADDS     R0,R6,R0
+        ADCS     R1,R7,R1
 //  703 	       }
-        ADDS     R9,R9,#+1
-        B.N      ??CrssCor_5
+        ADD      R8,R8,#+1
+        UXTH     R8,R8
+??CrssCor_2:
+        CMP      R8,LR
+        BLT.N    ??CrssCor_1
 //  704 	   }
 //  705 
 //  706 	   if (Sum > SumMax) 
-??CrssCor_4:
-        CMP      R5,R3
-        BGT.N    ??CrssCor_6
-        BLT.N    ??CrssCor_7
-        CMP      R4,R2
-        BCS.N    ??CrssCor_6
+??CrssCor_3:
+        CMP      R5,R1
+        BGT.N    ??CrssCor_4
+        BLT.N    ??CrssCor_5
+        CMP      R4,R0
+        BCS.N    ??CrssCor_4
 //  707 	   {
 //  708 	       SumMax = Sum;  	
-??CrssCor_7:
-        MOVS     R4,R2
-        MOVS     R5,R3
+??CrssCor_5:
+        MOV      R4,R0
+        MOV      R5,R1
 //  709 	       idxPos = i;
-        MOV      R8,R12
+        MOV      R9,R12
 //  710 		   EnergySound = (uint32_t)((SumMax>>16));
-        MOVS     R0,R4
-        MOVS     R1,R5
         LSRS     R0,R0,#+16
         ORR      R0,R0,R1, LSL #+16
-        ASRS     R1,R1,#+16
-        LDR.W    R1,??DataTable11_22
+        LDR.N    R1,??DataTable12_14
         STR      R0,[R1, #+0]
 //  711 	   }
+??CrssCor_4:
+        ADD      R12,R12,#+1
+        SXTB     R12,R12
+??CrssCor_0:
+        CMP      R12,#+8
+        BGE.N    ??CrssCor_6
+        MOV      R0,R2
+        MOV      R1,R3
+        LDRH     LR,[SP, #+0]
+        CMP      R12,#+0
+        MOV      R8,R0
+        BMI.N    ??CrssCor_2
+??CrssCor_7:
+        CMP      R8,LR
+        BGE.N    ??CrssCor_3
+        ADD      R6,R12,R8
+        LDRSH    R6,[R11, R6, LSL #+1]
+        LDRSH    R7,[R10, R8, LSL #+1]
+        SMULBB   R6,R6,R7
+        SDIV     R6,R6,LR
+        ADDS     R0,R0,R6
+        ADCS     R1,R1,R6, ASR #+31
+        ADD      R8,R8,#+1
+        UXTH     R8,R8
+        B.N      ??CrssCor_7
 //  712 	         
 //  713     }
-??CrssCor_6:
-        ADDS     R12,R12,#+1
-        B.N      ??CrssCor_0
 //  714 #if 0
 //  715     free(vDataIn1Out);
 //  716 	free(vDataIn2Out);
 //  717 #endif
 //  718 
 //  719     if((idxPos<-7)||(idxPos>6)) return 0;
-??CrssCor_1:
-        SXTB     R8,R8            ;; SignExt  R8,R8,#+24,#+24
-        CMN      R8,#+7
-        BLT.N    ??CrssCor_8
-        SXTB     R8,R8            ;; SignExt  R8,R8,#+24,#+24
-        CMP      R8,#+7
-        BLT.N    ??CrssCor_9
-??CrssCor_8:
-        MOVS     R0,#+0
-        B.N      ??CrssCor_10
+??CrssCor_6:
+        SXTB     R9,R9
+        ADD      R0,R9,#+7
+        CMP      R0,#+14
+        BCC.N    ??CrssCor_8
+        MOV      R0,R2
+        B.N      ??CrssCor_9
 //  720 	
 //  721     return idxPos;
+??CrssCor_8:
+        MOV      R0,R9
 ??CrssCor_9:
-        MOV      R0,R8
-        SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-??CrssCor_10:
-        POP      {R4-R9,PC}       ;; return
+        POP      {R1,R4-R11,PC}   ;; return
 //  722 }
           CFI EndBlock cfiBlock15
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10:
-        DC32     0x5a7ed197
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable10_1:
-        DC32     0x401921fb
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable10_2:
+??DataTable11:
         DC32     0x0
 //  723 
 //  724 
@@ -2743,52 +2235,43 @@ Std_CrssCor:
           CFI CFA R13+16
 //  747 
 //  748     for (uint16_t i=0;i<numLen;i++)
-        MOVS     R4,#+0
-??Std_CrssCor_0:
-        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        CMP      R4,R3
-        BCS.N    ??Std_CrssCor_1
+        MOVS     R2,#+0
+        MOV      R5,R3
+        B.N      ??Std_CrssCor_0
 //  749     {
 //  750        Out = 0;
-        MOVS     R5,#+0
-        MOVS     R2,R5
 //  751        for(uint16_t j=0;j<numLen;j++)
-        MOVS     R5,#+0
-??Std_CrssCor_2:
-        UXTH     R5,R5            ;; ZeroExt  R5,R5,#+16,#+16
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        CMP      R5,R3
-        BCS.N    ??Std_CrssCor_3
 //  752        {
 //  753            Out[i] += vDataIn1[j+i]*vDataIn2[j]/numLen;   
-        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
-        UXTAH    R6,R4,R5
+??Std_CrssCor_1:
+        ADDS     R6,R2,R4
         LDRSH    R6,[R0, R6, LSL #+1]
-        UXTH     R5,R5            ;; ZeroExt  R5,R5,#+16,#+16
-        LDRSH    R7,[R1, R5, LSL #+1]
+        LDRSH    R7,[R1, R4, LSL #+1]
         SMULBB   R6,R6,R7
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        SDIV     R6,R6,R3
+        SDIV     R6,R6,R5
         VMOV     S0,R6
         VCVT.F32.S32 S0,S0
-        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
-        ADDS     R6,R2,R4, LSL #+2
+        LSLS     R6,R2,#+2
         VLDR     S1,[R6, #0]
         VADD.F32 S0,S0,S1
-        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
-        ADDS     R6,R2,R4, LSL #+2
         VSTR     S0,[R6, #0]
 //  754        }       
-        ADDS     R5,R5,#+1
+        ADDS     R4,R4,#+1
+        UXTH     R4,R4
+??Std_CrssCor_2:
+        CMP      R4,R5
+        BLT.N    ??Std_CrssCor_1
+        ADDS     R2,R2,#+1
+        UXTH     R2,R2
+??Std_CrssCor_0:
+        CMP      R2,R5
+        BGE.N    ??Std_CrssCor_3
+        MOVS     R4,#+0
         B.N      ??Std_CrssCor_2
 //  755     }
-??Std_CrssCor_3:
-        ADDS     R4,R4,#+1
-        B.N      ??Std_CrssCor_0
 //  756 
 //  757 }
-??Std_CrssCor_1:
+??Std_CrssCor_3:
         POP      {R4-R7}
           CFI R4 SameValue
           CFI R5 SameValue
@@ -2818,62 +2301,55 @@ Std_CrssCor:
 //  770  void Std_AutoCorr(int16_t * vDataIn,float *Out, uint16_t numLen )
 //  771 {
 Std_AutoCorr:
-        PUSH     {R4-R6}
-          CFI R6 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
+        PUSH     {R4-R7}
+          CFI R7 Frame(CFA, -4)
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
 //  772     for (uint16_t i=0;i<numLen;i++)
         MOVS     R3,#+0
-??Std_AutoCorr_0:
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
-        CMP      R3,R2
-        BCS.N    ??Std_AutoCorr_1
+        MOV      R5,R2
+        B.N      ??Std_AutoCorr_0
 //  773     {
 //  774        Out[i] = 0;
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        MOVS     R4,#+0
-        STR      R4,[R1, R3, LSL #+2]
 //  775        for(uint16_t j=0;j<numLen;j++)
-        MOVS     R4,#+0
-??Std_AutoCorr_2:
-        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
-        UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
-        CMP      R4,R2
-        BCS.N    ??Std_AutoCorr_3
 //  776        {
 //  777            Out[i] += vDataIn[j+i]*vDataIn[j]/numLen;   
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        UXTAH    R5,R3,R4
-        LDRSH    R5,[R0, R5, LSL #+1]
-        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
-        LDRSH    R6,[R0, R4, LSL #+1]
-        SMULBB   R5,R5,R6
-        UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
-        SDIV     R5,R5,R2
-        VMOV     S0,R5
+??Std_AutoCorr_1:
+        ADDS     R6,R3,R4
+        LDRSH    R6,[R0, R6, LSL #+1]
+        LDRSH    R7,[R0, R4, LSL #+1]
+        SMULBB   R6,R6,R7
+        SDIV     R6,R6,R5
+        VMOV     S0,R6
         VCVT.F32.S32 S0,S0
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        ADDS     R5,R1,R3, LSL #+2
-        VLDR     S1,[R5, #0]
+        ADD      R6,R1,R3, LSL #+2
+        VLDR     S1,[R6, #0]
         VADD.F32 S0,S0,S1
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        ADDS     R5,R1,R3, LSL #+2
-        VSTR     S0,[R5, #0]
+        VSTR     S0,[R6, #0]
 //  778        }       
         ADDS     R4,R4,#+1
+        UXTH     R4,R4
+??Std_AutoCorr_2:
+        CMP      R4,R5
+        BLT.N    ??Std_AutoCorr_1
+        ADDS     R3,R3,#+1
+        UXTH     R3,R3
+??Std_AutoCorr_0:
+        CMP      R3,R5
+        BGE.N    ??Std_AutoCorr_3
+        MOVS     R4,#+0
+        STR      R4,[R1, R3, LSL #+2]
         B.N      ??Std_AutoCorr_2
 //  779     }
-??Std_AutoCorr_3:
-        ADDS     R3,R3,#+1
-        B.N      ??Std_AutoCorr_0
 //  780 }
-??Std_AutoCorr_1:
-        POP      {R4-R6}
+??Std_AutoCorr_3:
+        POP      {R4-R7}
           CFI R4 SameValue
           CFI R5 SameValue
           CFI R6 SameValue
+          CFI R7 SameValue
           CFI CFA R13+0
         BX       LR               ;; return
           CFI EndBlock cfiBlock17
@@ -2902,78 +2378,66 @@ Std_AutoCorr:
 //  797 void Std_MatCorr(int16_t* vDataIn, float *Out, uint16_t numLen)
 //  798 {
 Std_MatCorr:
-        PUSH     {R4-R6}
-          CFI R6 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
+        PUSH     {R4-R7}
+          CFI R7 Frame(CFA, -4)
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
 //  799     for (uint16_t i=0;i<numLen;i++)
         MOVS     R3,#+0
+        MOV      R4,R2
+        B.N      ??Std_MatCorr_0
+??Std_MatCorr_1:
+        ADDS     R3,R3,#+1
+        UXTH     R3,R3
 ??Std_MatCorr_0:
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
-        CMP      R3,R2
-        BCS.N    ??Std_MatCorr_1
+        CMP      R3,R4
+        BGE.N    ??Std_MatCorr_2
 //  800     {
 //  801        
 //  802        for(uint16_t j=0;j<numLen;j++)
-        MOVS     R4,#+0
-??Std_MatCorr_2:
-        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
-        UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
-        CMP      R4,R2
-        BCS.N    ??Std_MatCorr_3
+        MOVS     R5,#+0
+        B.N      ??Std_MatCorr_3
 //  803        {
 //  804            if (j>=i)
-        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        CMP      R4,R3
-        BCC.N    ??Std_MatCorr_4
 //  805                Out[i*numLen +j] = vDataIn[j-i]; 
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
-        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
-        MLA      R5,R2,R3,R4
-        ADDS     R5,R1,R5, LSL #+2
-        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        SUBS     R6,R4,R3
-        LDRSH    R6,[R0, R6, LSL #+1]
-        VMOV     S0,R6
-        VCVT.F32.S32 S0,S0
-        VSTR     S0,[R5, #0]
-        B.N      ??Std_MatCorr_5
 //  806 		   else
 //  807 		   	   Out[i*numLen +j] = vDataIn[i-j];
 ??Std_MatCorr_4:
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
-        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
-        MLA      R5,R2,R3,R4
-        ADDS     R5,R1,R5, LSL #+2
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
-        SUBS     R6,R3,R4
-        LDRSH    R6,[R0, R6, LSL #+1]
-        VMOV     S0,R6
+        SUBS     R7,R3,R5
+        LDRSH    R7,[R0, R7, LSL #+1]
+        VMOV     S0,R7
         VCVT.F32.S32 S0,S0
-        VSTR     S0,[R5, #0]
+        ADD      R6,R1,R6, LSL #+2
+        VSTR     S0,[R6, #0]
+??Std_MatCorr_5:
+        ADDS     R5,R5,#+1
+        UXTH     R5,R5
+??Std_MatCorr_3:
+        CMP      R5,R4
+        BGE.N    ??Std_MatCorr_1
+        MLA      R6,R4,R3,R5
+        CMP      R5,R3
+        BLT.N    ??Std_MatCorr_4
+        SUBS     R7,R5,R3
+        LDRSH    R7,[R0, R7, LSL #+1]
+        VMOV     S0,R7
+        VCVT.F32.S32 S0,S0
+        ADD      R6,R1,R6, LSL #+2
+        VSTR     S0,[R6, #0]
+        B.N      ??Std_MatCorr_5
 //  808 		   	
 //  809        }       
-??Std_MatCorr_5:
-        ADDS     R4,R4,#+1
-        B.N      ??Std_MatCorr_2
 //  810     }
-??Std_MatCorr_3:
-        ADDS     R3,R3,#+1
-        B.N      ??Std_MatCorr_0
 //  811 
 //  812 }
-??Std_MatCorr_1:
-        POP      {R4-R6}
+??Std_MatCorr_2:
+        POP      {R4-R7}
           CFI R4 SameValue
           CFI R5 SameValue
           CFI R6 SameValue
+          CFI R7 SameValue
           CFI CFA R13+0
         BX       LR               ;; return
           CFI EndBlock cfiBlock18
@@ -2992,482 +2456,357 @@ Std_MatCorr:
 //  820 void Delay_Sum_FFT(const Mic_Array_Data * MicData, Mic_Array_Coef_f *coefMics,int16_t * stBufOut, int16_t lenFFT)
 //  821 {
 Delay_Sum_FFT:
-        PUSH     {R3-R9,LR}
+        PUSH     {R2-R11,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R9 Frame(CFA, -8)
-          CFI R8 Frame(CFA, -12)
-          CFI R7 Frame(CFA, -16)
-          CFI R6 Frame(CFA, -20)
-          CFI R5 Frame(CFA, -24)
-          CFI R4 Frame(CFA, -28)
-          CFI CFA R13+32
-        VPUSH    {D8}
-          CFI D8 Frame(CFA, -40)
-          CFI CFA R13+40
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
-        MOVS     R7,R3
+          CFI R11 Frame(CFA, -8)
+          CFI R10 Frame(CFA, -12)
+          CFI R9 Frame(CFA, -16)
+          CFI R8 Frame(CFA, -20)
+          CFI R7 Frame(CFA, -24)
+          CFI R6 Frame(CFA, -28)
+          CFI R5 Frame(CFA, -32)
+          CFI R4 Frame(CFA, -36)
+          CFI CFA R13+44
+        SUB      SP,SP,#+12
+          CFI CFA R13+56
+        MOV      R4,R0
+        MOV      R5,R1
 //  822      int32_t         _value,_value1,_value2;
 //  823     
 //  824 	for (uint16_t iFrm=0;iFrm<AUDIO_OUT_BUFFER_SIZE/(2*lenFFT);iFrm++)
-        MOVS     R9,#+0
-??Delay_Sum_FFT_0:
-        MOV      R0,#+1024
-        SXTH     R7,R7            ;; SignExt  R7,R7,#+16,#+16
-        LSLS     R1,R7,#+1
-        SDIV     R0,R0,R1
-        UXTH     R9,R9            ;; ZeroExt  R9,R9,#+16,#+16
-        CMP      R9,R0
-        BGE.W    ??Delay_Sum_FFT_1
+        MOVS     R6,#+0
+        LDR.W    R8,??DataTable12_15
+        MOVW     R10,#+4136
+        MOVW     R11,#+8272
+        B.N      ??Delay_Sum_FFT_0
 //  825 	{
 //  826           RFFT_INT(MicData->bufMIC1,S1,DataFFT.bufMIC1);  
-        MOVS     R0,#+0
-??Delay_Sum_FFT_2:
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        SXTH     R7,R7            ;; SignExt  R7,R7,#+16,#+16
-        CMP      R0,R7
-        BGE.N    ??Delay_Sum_FFT_3
-        UXTH     R9,R9            ;; ZeroExt  R9,R9,#+16,#+16
-        SXTH     R7,R7            ;; SignExt  R7,R7,#+16,#+16
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        MLA      R1,R7,R9,R0
-        LDRSH    R1,[R4, R1, LSL #+1]
-        VMOV     S0,R1
-        VMOV.F32 S16,S0
-        VCVT.F32.S32 S0,S16
-        VMOV.F32 S1,#1.0
-        VMUL.F32 S0,S0,S1
-        LDR.N    R1,??DataTable11_23
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        ADDS     R1,R1,R0, LSL #+2
-        VSTR     S0,[R1, #0]
-        ADDS     R0,R0,#+1
-        B.N      ??Delay_Sum_FFT_2
-??Delay_Sum_FFT_3:
-        LDR.N    R2,??DataTable11_24
-        LDR.N    R1,??DataTable11_23
-        LDR.N    R0,??DataTable11_25
-          CFI FunCall arm_rfft_f32
-        BL       arm_rfft_f32
 //  827           RFFT_INT(MicData->bufMIC2,S2,DataFFT.bufMIC2);
-        MOVS     R0,#+0
-??Delay_Sum_FFT_4:
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        SXTH     R7,R7            ;; SignExt  R7,R7,#+16,#+16
-        CMP      R0,R7
-        BGE.N    ??Delay_Sum_FFT_5
-        UXTH     R9,R9            ;; ZeroExt  R9,R9,#+16,#+16
-        SXTH     R7,R7            ;; SignExt  R7,R7,#+16,#+16
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        MLA      R1,R7,R9,R0
-        ADDS     R1,R4,R1, LSL #+1
-        MOVW     R2,#+4116
-        LDRSH    R1,[R2, R1]
-        VMOV     S0,R1
-        VMOV.F32 S16,S0
-        VCVT.F32.S32 S0,S16
-        VMOV.F32 S1,#1.0
-        VMUL.F32 S0,S0,S1
-        LDR.N    R1,??DataTable11_23
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        ADDS     R1,R1,R0, LSL #+2
-        VSTR     S0,[R1, #0]
-        ADDS     R0,R0,#+1
-        B.N      ??Delay_Sum_FFT_4
-??Delay_Sum_FFT_5:
-        LDR.N    R2,??DataTable11_26
-        LDR.N    R1,??DataTable11_23
-        LDR.N    R0,??DataTable11_27
-          CFI FunCall arm_rfft_f32
-        BL       arm_rfft_f32
 //  828           RFFT_INT(MicData->bufMIC3,S3,DataFFT.bufMIC3);
-        MOVS     R0,#+0
-??Delay_Sum_FFT_6:
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        SXTH     R7,R7            ;; SignExt  R7,R7,#+16,#+16
-        CMP      R0,R7
-        BGE.N    ??Delay_Sum_FFT_7
-        UXTH     R9,R9            ;; ZeroExt  R9,R9,#+16,#+16
-        SXTH     R7,R7            ;; SignExt  R7,R7,#+16,#+16
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        MLA      R1,R7,R9,R0
-        ADDS     R1,R4,R1, LSL #+1
-        MOVW     R2,#+8232
-        LDRSH    R1,[R2, R1]
-        VMOV     S0,R1
-        VMOV.F32 S16,S0
-        VCVT.F32.S32 S0,S16
-        VMOV.F32 S1,#1.0
-        VMUL.F32 S0,S0,S1
-        LDR.N    R1,??DataTable11_23
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        ADDS     R1,R1,R0, LSL #+2
-        VSTR     S0,[R1, #0]
-        ADDS     R0,R0,#+1
-        B.N      ??Delay_Sum_FFT_6
-??Delay_Sum_FFT_7:
-        LDR.N    R2,??DataTable11_28
-        LDR.N    R1,??DataTable11_23
-        LDR.N    R0,??DataTable11_29
-          CFI FunCall arm_rfft_f32
-        BL       arm_rfft_f32
 //  829           RFFT_INT(MicData->bufMIC4,S4,DataFFT.bufMIC4);
-        MOVS     R0,#+0
-??Delay_Sum_FFT_8:
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        SXTH     R7,R7            ;; SignExt  R7,R7,#+16,#+16
-        CMP      R0,R7
-        BGE.N    ??Delay_Sum_FFT_9
-        UXTH     R9,R9            ;; ZeroExt  R9,R9,#+16,#+16
-        SXTH     R7,R7            ;; SignExt  R7,R7,#+16,#+16
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        MLA      R1,R7,R9,R0
-        ADDS     R1,R4,R1, LSL #+1
-        MOVW     R2,#+12348
-        LDRSH    R1,[R2, R1]
-        VMOV     S0,R1
-        VMOV.F32 S16,S0
-        VCVT.F32.S32 S0,S16
-        VMOV.F32 S1,#1.0
-        VMUL.F32 S0,S0,S1
-        LDR.N    R1,??DataTable11_23
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        ADDS     R1,R1,R0, LSL #+2
-        VSTR     S0,[R1, #0]
-        ADDS     R0,R0,#+1
-        B.N      ??Delay_Sum_FFT_8
-??Delay_Sum_FFT_9:
-        LDR.N    R2,??DataTable11_30
-        LDR.N    R1,??DataTable11_23
-        LDR.N    R0,??DataTable11_31
-          CFI FunCall arm_rfft_f32
-        BL       arm_rfft_f32
 //  830 
 //  831           /* Adding in Fourier Domain */			 
 //  832           //arm_add_f32((float *)bufferFFT,(float *)bufferFFT_1, (float *)bufferFFTSum,lenFFT*2);
 //  833           for (uint16_t ii=0;ii<lenFFT*2;ii++)
-        MOVS     R0,#+0
-??Delay_Sum_FFT_10:
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        SXTH     R7,R7            ;; SignExt  R7,R7,#+16,#+16
-        CMP      R0,R7, LSL #+1
-        BGE.N    ??Delay_Sum_FFT_11
 //  834           {
 //  835               bufferFFTSum[ii]= ((DataFFT.bufMIC1[ii]*coefMics->facMIC1) + 
 //  836                                 (DataFFT.bufMIC2[ii]*coefMics->facMIC2) +
 //  837                                 (DataFFT.bufMIC3[ii]*coefMics->facMIC3) +
 //  838                                 (DataFFT.bufMIC4[ii]*coefMics->facMIC4)); 
-        LDR.N    R1,??DataTable11_24
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        ADDS     R1,R1,R0, LSL #+2
-        VLDR     S0,[R1, #0]
+??Delay_Sum_FFT_1:
+        ADD      R2,R8,R1, LSL #+2
+        ADD      R3,R8,R1, LSL #+2
+        VLDR     S0,[R3, #0]
         VLDR     S1,[R5, #0]
         VMUL.F32 S0,S0,S1
-        LDR.N    R1,??DataTable11_24
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        ADDS     R1,R1,R0, LSL #+2
-        ADD      R1,R1,#+4096
-        ADDS     R1,R1,#+40
-        VLDR     S1,[R1, #0]
+        ADD      R3,R10,R2
+        VLDR     S1,[R3, #0]
         VLDR     S2,[R5, #+4]
         VMLA.F32 S0,S1,S2
-        LDR.N    R1,??DataTable11_24
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        ADDS     R1,R1,R0, LSL #+2
-        ADD      R1,R1,#+8192
-        ADDS     R1,R1,#+80
-        VLDR     S1,[R1, #0]
+        ADD      R3,R11,R2
+        VLDR     S1,[R3, #0]
         VLDR     S2,[R5, #+8]
         VMLA.F32 S0,S1,S2
-        LDR.N    R1,??DataTable11_24
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        ADDS     R1,R1,R0, LSL #+2
-        ADD      R1,R1,#+12288
-        ADDS     R1,R1,#+120
-        VLDR     S1,[R1, #0]
+        ADD      R3,R9,R2
+        VLDR     S1,[R3, #0]
         VLDR     S2,[R5, #+12]
         VMLA.F32 S0,S1,S2
-        LDR.N    R1,??DataTable11_32
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        ADDS     R1,R1,R0, LSL #+2
-        VSTR     S0,[R1, #0]
+        ADDS     R0,R0,R2
+        VSTR     S0,[R0, #0]
 //  839           }
-        ADDS     R0,R0,#+1
-        B.N      ??Delay_Sum_FFT_10
+        ADDS     R1,R1,#+1
+        UXTH     R1,R1
+??Delay_Sum_FFT_2:
+        MOVW     R0,#+33088
+        LDR      R2,[SP, #+4]
+        CMP      R1,R2
+        BLT.N    ??Delay_Sum_FFT_1
 //  840 
 //  841           /* Revert FFT*/
 //  842           arm_rfft_f32(&IS, (float *)bufferFFTSum, (float *)&fbufferOut[iFrm*lenFFT]);
-??Delay_Sum_FFT_11:
-        LDR.N    R0,??DataTable11_33
-        UXTH     R9,R9            ;; ZeroExt  R9,R9,#+16,#+16
-        SXTH     R7,R7            ;; SignExt  R7,R7,#+16,#+16
-        MUL      R1,R7,R9
-        ADDS     R2,R0,R1, LSL #+2
-        LDR.N    R1,??DataTable11_32
-        LDR.N    R0,??DataTable11_34
+        MUL      R1,R7,R6
+        ADD      R1,R8,R1, LSL #+2
+        ADD      R2,R1,#+37376
+        ADDS     R2,R2,#+208
+        ADD      R1,R0,R8
+        LDR.N    R0,??DataTable12_16
           CFI FunCall arm_rfft_f32
         BL       arm_rfft_f32
+        ADDS     R6,R6,#+1
+        UXTH     R6,R6
+??Delay_Sum_FFT_0:
+        LDRSH    R7,[SP, #+16]
+        LSLS     R0,R7,#+1
+        STR      R0,[SP, #+4]
+        MOV      R0,#+1024
+        LDR      R1,[SP, #+4]
+        SDIV     R0,R0,R1
+        CMP      R6,R0
+        BGE.N    ??Delay_Sum_FFT_3
+        MOVS     R0,#+0
+        MOVW     R9,#+42080
+        B.N      ??Delay_Sum_FFT_4
+??Delay_Sum_FFT_5:
+        MLA      R1,R7,R6,R0
+        LDRSH    R1,[R4, R1, LSL #+1]
+        VMOV     S0,R1
+        VCVT.F32.S32 S0,S0
+        ADD      R1,R8,R0, LSL #+2
+        ADD      R1,R9,R1
+        VSTR     S0,[R1, #0]
+        ADDS     R0,R0,#+1
+        UXTH     R0,R0
+??Delay_Sum_FFT_4:
+        CMP      R0,R7
+        BLT.N    ??Delay_Sum_FFT_5
+        ADD      R0,R9,R8
+        STR      R0,[SP, #+0]
+        MOV      R2,R8
+        MOV      R1,R0
+        LDR.N    R0,??DataTable12_17
+          CFI FunCall arm_rfft_f32
+        BL       arm_rfft_f32
+        MOVS     R0,#+0
+        MOVW     R2,#+4116
+        B.N      ??Delay_Sum_FFT_6
+??Delay_Sum_FFT_7:
+        MLA      R1,R7,R6,R0
+        ADD      R1,R4,R1, LSL #+1
+        LDRSH    R1,[R2, R1]
+        VMOV     S0,R1
+        VCVT.F32.S32 S0,S0
+        ADD      R1,R8,R0, LSL #+2
+        ADD      R1,R9,R1
+        VSTR     S0,[R1, #0]
+        ADDS     R0,R0,#+1
+        UXTH     R0,R0
+??Delay_Sum_FFT_6:
+        CMP      R0,R7
+        BLT.N    ??Delay_Sum_FFT_7
+        ADD      R2,R10,R8
+        LDR      R1,[SP, #+0]
+        LDR.N    R0,??DataTable12_18
+          CFI FunCall arm_rfft_f32
+        BL       arm_rfft_f32
+        MOVS     R0,#+0
+        MOVW     R2,#+8232
+        B.N      ??Delay_Sum_FFT_8
+??Delay_Sum_FFT_9:
+        MLA      R1,R7,R6,R0
+        ADD      R1,R4,R1, LSL #+1
+        LDRSH    R1,[R2, R1]
+        VMOV     S0,R1
+        VCVT.F32.S32 S0,S0
+        ADD      R1,R8,R0, LSL #+2
+        ADD      R1,R9,R1
+        VSTR     S0,[R1, #0]
+        ADDS     R0,R0,#+1
+        UXTH     R0,R0
+??Delay_Sum_FFT_8:
+        CMP      R0,R7
+        BLT.N    ??Delay_Sum_FFT_9
+        ADD      R2,R11,R8
+        LDR      R1,[SP, #+0]
+        LDR.N    R0,??DataTable12_19
+          CFI FunCall arm_rfft_f32
+        BL       arm_rfft_f32
+        MOVS     R0,#+0
+        MOVW     R2,#+12348
+        B.N      ??Delay_Sum_FFT_10
+??Delay_Sum_FFT_11:
+        MLA      R1,R7,R6,R0
+        ADD      R1,R4,R1, LSL #+1
+        LDRSH    R1,[R2, R1]
+        VMOV     S0,R1
+        VCVT.F32.S32 S0,S0
+        ADD      R1,R8,R0, LSL #+2
+        ADD      R1,R9,R1
+        VSTR     S0,[R1, #0]
+        ADDS     R0,R0,#+1
+        UXTH     R0,R0
+??Delay_Sum_FFT_10:
+        CMP      R0,R7
+        BLT.N    ??Delay_Sum_FFT_11
+        MOVW     R9,#+12408
+        ADD      R2,R9,R8
+        LDR      R1,[SP, #+0]
+        LDR.N    R0,??DataTable12_20
+          CFI FunCall arm_rfft_f32
+        BL       arm_rfft_f32
+        MOVS     R1,#+0
+        B.N      ??Delay_Sum_FFT_2
 //  843           //arm_rfft_fast_f32(&IS, (float *)bufferFFTSum, (float *)&fbufferOut[iFrm*lenFFT], 1);
 //  844 	}
-        ADDS     R9,R9,#+1
-        B.N      ??Delay_Sum_FFT_0
 //  845 
 //  846         /*covert from float to integer*/
 //  847 	for (uint16_t i=0; i<AUDIO_OUT_BUFFER_SIZE;)
-??Delay_Sum_FFT_1:
+??Delay_Sum_FFT_3:
         MOVS     R0,#+0
-??Delay_Sum_FFT_12:
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        CMP      R0,#+1024
-        BGE.N    ??Delay_Sum_FFT_13
+        B.N      ??Delay_Sum_FFT_12
 //  848 	{
 //  849 	    _value1 = (int32_t)fbufferOut[(i>>1)];
-        LDR.N    R1,??DataTable11_33
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        ASRS     R2,R0,#+1
-        ADDS     R1,R1,R2, LSL #+2
-        VLDR     S0,[R1, #0]
-        VCVT.S32.F32 S0,S0
-        VMOV.F32 S17,S0
 //  850 		_value2 = MicData->bufMIC2[i>>1];
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        ASRS     R1,R0,#+1
-        ADDS     R1,R4,R1, LSL #+1
+??Delay_Sum_FFT_13:
+        BIC      R1,R0,#0x1
+        ADDS     R1,R1,R4
         MOVW     R2,#+4116
         LDRSH    R1,[R2, R1]
-        MOV      R8,R1
 //  851 	    stBufOut[i++] = (int16_t)_value1;
-        VMOV     R1,S17
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        STRH     R1,[R6, R0, LSL #+1]
+        MOV      R2,R8
+        ASRS     R3,R0,#+1
+        ADD      R2,R2,R3, LSL #+2
+        ADD      R2,R2,#+37376
+        ADDS     R2,R2,#+208
+        VLDR     S0,[R2, #0]
+        VCVT.S32.F32 S0,S0
+        VMOV     R2,S0
+        LDR      R3,[SP, #+12]
+        STRH     R2,[R3, R0, LSL #+1]
         ADDS     R0,R0,#+1
+        UXTH     R0,R0
 //  852 		stBufOut[i++] = (int16_t)_value2;
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        STRH     R8,[R6, R0, LSL #+1]
+        LDR      R2,[SP, #+12]
+        STRH     R1,[R2, R0, LSL #+1]
         ADDS     R0,R0,#+1
-        B.N      ??Delay_Sum_FFT_12
+        UXTH     R0,R0
 //  853 	}
+??Delay_Sum_FFT_12:
+        CMP      R0,#+1024
+        BLT.N    ??Delay_Sum_FFT_13
 //  854 	
 //  855 	//arm_float_to_q15((float32_t *)fbufferOut,(q15_t *)stBufOut,AUDIO_OUT_BUFFER_SIZE); 
 //  856 	
 //  857 }
-??Delay_Sum_FFT_13:
-        VPOP     {D8}
-          CFI D8 SameValue
-          CFI CFA R13+32
-        POP      {R0,R4-R9,PC}    ;; return
+        ADD      SP,SP,#+20
+          CFI CFA R13+36
+        POP      {R4-R11,PC}      ;; return
           CFI EndBlock cfiBlock19
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable11:
+??DataTable12:
+        DC32     0x5a7ed197
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable12_1:
+        DC32     0x401921fb
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable12_2:
         DC32     ??Out_Old
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable11_1:
+??DataTable12_3:
         DC32     ??InOld
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable11_2:
-        DC32     ??InOld1
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable11_3:
-        DC32     ??Out_Old_1
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable11_4:
+??DataTable12_4:
         DC32     0xffffb486
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable11_5:
-        DC32     ??Out_Old1
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable11_6:
+??DataTable12_5:
         DC32     ??InOld_1
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable11_7:
-        DC32     ??InOld1_1
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable11_8:
-        DC32     ??Out_Old_2
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable11_9:
-        DC32     ??Out_Old1_1
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable11_10:
-        DC32     ?_0
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable11_11:
-        DC32     ??Data_Old
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable11_12:
-        DC32     ??Data
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable11_13:
-        DC32     ??OutRing
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable11_14:
+??DataTable12_6:
         DC32     ??iRing
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable11_15:
+??DataTable12_7:
         DC32     0x447a0000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable11_16:
+??DataTable12_8:
         DC32     0x404f8000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable11_17:
+??DataTable12_9:
         DC32     0x3ff00000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable11_18:
+??DataTable12_10:
         DC32     0x3fe00000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable11_19:
+??DataTable12_11:
         DC32     ??Initial_Array
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable11_20:
+??DataTable12_12:
         DC32     0xffff8000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable11_21:
+??DataTable12_13:
         DC32     0x400921fb
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable11_22:
+??DataTable12_14:
         DC32     EnergySound
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable11_23:
-        DC32     fbuffer
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable11_24:
+??DataTable12_15:
         DC32     DataFFT
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable11_25:
+??DataTable12_16:
+        DC32     IS
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable12_17:
         DC32     `S1`
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable11_26:
-        DC32     DataFFT+0x1028
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable11_27:
+??DataTable12_18:
         DC32     `S2`
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable11_28:
-        DC32     DataFFT+0x2050
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable11_29:
+??DataTable12_19:
         DC32     `S3`
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable11_30:
-        DC32     DataFFT+0x3078
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable11_31:
+??DataTable12_20:
         DC32     `S4`
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable11_32:
-        DC32     bufferFFTSum
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable11_33:
-        DC32     fbufferOut
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable11_34:
-        DC32     IS
 //  858 /******************************************************************************/
 //  859 /*                  Factor Update                                             */ 
 //  860 /******************************************************************************/
@@ -3481,17 +2820,14 @@ Delay_Sum_FFT:
 //  862 {
 //  863 	facMic->facMIC1 = 0.25;
 FactorUpd:
-        MOVS     R1,#+1048576000
-        STR      R1,[R0, #+0]
+        VMOV.F32 S0,#0.25
+        VSTR     S0,[R0, #0]
 //  864 	facMic->facMIC2 = 0.25;
-        MOVS     R1,#+1048576000
-        STR      R1,[R0, #+4]
+        VSTR     S0,[R0, #+4]
 //  865 	facMic->facMIC3 = 0.25;
-        MOVS     R1,#+1048576000
-        STR      R1,[R0, #+8]
+        VSTR     S0,[R0, #+8]
 //  866 	facMic->facMIC4 = 0.25;
-        MOVS     R1,#+1048576000
-        STR      R1,[R0, #+12]
+        VSTR     S0,[R0, #+12]
 //  867 }
         BX       LR               ;; return
           CFI EndBlock cfiBlock20
@@ -3538,6 +2874,34 @@ FFT_SUM:
         BX       LR               ;; return
           CFI EndBlock cfiBlock21
 
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+?_0:
+        DC32 80000000H, 0BFC7AE14H, 0C03F5C29H, 0C08353F8H, 0C0971AA0H
+        DC32 0C095DB23H, 0C07851ECH, 0C0126E98H, 0H, 403051ECH, 40B37CEEH
+        DC32 41015C29H, 411A8F5CH, 411D9DB2H, 4105126FH, 409EB852H, 80000000H
+        DC32 0C0C00000H, 0C142A7F0H, 0C18B4FDFH, 0C1A4E979H, 0C1A65C29H
+        DC32 0C18ACCCDH, 0C1238106H, 0H, 4140C49CH, 41C0F3B6H, 4208645AH
+        DC32 421F8937H, 421F178DH, 42034AC1H, 4199126FH, 80000000H, 0C1B12B02H
+        DC32 0C22FE873H, 0C276DD2FH, 0C28F70A4H, 0C28E3CEEH, 0C269A6E9H
+        DC32 0C207B22DH, 0H, 421C5810H, 429B24DDH, 42D9DEB8H, 42FDB22DH
+        DC32 42FC71AAH, 42D067F0H, 4273C189H, 80000000H, 0C28F526FH, 0C3103EB8H
+        DC32 0C34E1C6AH, 0C3752396H, 0C37A4D91H, 0C3553D71H, 0C3019AA0H, 0H
+        DC32 4329A51FH, 43B82F3BH, 441146B8H, 44458B12H, 44744A0CH, 448C9E25H
+        DC32 449874F6H, 449C88A4H, 449874F6H, 448C9E25H, 44744A0CH, 44458B12H
+        DC32 441146B8H, 43B82F3BH, 4329A51FH, 0H, 0C3019AA0H, 0C3553D71H
+        DC32 0C37A4D91H, 0C3752396H, 0C34E1C6AH, 0C3103EB8H, 0C28F526FH
+        DC32 80000000H, 4273C189H, 42D067F0H, 42FC71AAH, 42FDB22DH, 42D9DEB8H
+        DC32 429B24DDH, 421C5810H, 0H, 0C207B22DH, 0C269A6E9H, 0C28E3CEEH
+        DC32 0C28F70A4H, 0C276DD2FH, 0C22FE873H, 0C1B12B02H, 80000000H
+        DC32 4199126FH, 42034AC1H, 421F178DH, 421F8937H, 4208645AH, 41C0F3B6H
+        DC32 4140C49CH, 0H, 0C1238106H, 0C18ACCCDH, 0C1A65C29H, 0C1A4E979H
+        DC32 0C18B4FDFH, 0C142A7F0H, 0C0C00000H, 80000000H, 409EB852H
+        DC32 4105126FH, 411D9DB2H, 411A8F5CH, 41015C29H, 40B37CEEH, 403051ECH
+        DC32 0H, 0C0126E98H, 0C07851ECH, 0C095DB23H, 0C0971AA0H, 0C08353F8H
+        DC32 0C03F5C29H, 0BFC7AE14H, 80000000H
+
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
@@ -3553,13 +2917,11 @@ FFT_SUM:
 //  901 
 //  902 
 // 
-// 46 872 bytes in section .bss
-//    516 bytes in section .rodata
-//  4 774 bytes in section .text
+// 46 874 bytes in section .bss
+//  3 792 bytes in section .text
 // 
-//  4 590 bytes of CODE  memory (+ 184 bytes shared)
-//    516 bytes of CONST memory
-// 46 872 bytes of DATA  memory
+//  3 664 bytes of CODE memory (+ 128 bytes shared)
+// 46 874 bytes of DATA memory
 //
 //Errors: none
 //Warnings: 2

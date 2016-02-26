@@ -1,60 +1,59 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      26/Feb/2016  17:56:01
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Feb/2016  00:32:44
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\system_stm32f7xx.c
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\system_stm32f7xx.c
 //    Command line =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\system_stm32f7xx.c
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\system_stm32f7xx.c
 //        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 //        USE_IOEXPANDER -D USE_USB_FS -lC
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -lA
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-//        --no_clustering --no_scheduling --debug --endian=little
-//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-//        (x86)\IAR Systems\Embedded Workbench
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+//        --no_unroll --no_inline --no_tbaa --no_scheduling --debug
+//        --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config
+//        "D:\Program Files (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+//        -Om --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\system_stm32f7xx.s
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\system_stm32f7xx.s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -117,7 +116,7 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
         
-// D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\system_stm32f7xx.c
+// H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\system_stm32f7xx.c
 //    1 /**
 //    2   ******************************************************************************
 //    3   * @file    system_stm32f7xx.c
@@ -254,14 +253,11 @@
         SECTION `.data`:DATA:REORDER:NOROOT(2)
         DATA
 //  133   uint32_t SystemCoreClock = 16000000;
-SystemCoreClock:
-        DC32 16000000
-
-        SECTION `.data`:DATA:REORDER:NOROOT(2)
-        DATA
 //  134   __IO const uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
 AHBPrescTable:
         DC8 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9
+SystemCoreClock:
+        DC32 16000000
 //  135 
 //  136 /**
 //  137   * @}
@@ -302,54 +298,45 @@ AHBPrescTable:
 //  166     SCB->CPACR |= ((3UL << 10*2)|(3UL << 11*2));  /* set CP10 and CP11 Full Access */
 SystemInit:
         LDR.N    R0,??DataTable1  ;; 0xe000ed88
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0xF00000
-        LDR.N    R1,??DataTable1  ;; 0xe000ed88
-        STR      R0,[R1, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0xF00000
+        STR      R1,[R0, #+0]
 //  167   #endif
 //  168   /* Reset the RCC clock configuration to the default reset state ------------*/
 //  169   /* Set HSION bit */
 //  170   RCC->CR |= (uint32_t)0x00000001;
         LDR.N    R0,??DataTable1_1  ;; 0x40023800
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x1
-        LDR.N    R1,??DataTable1_1  ;; 0x40023800
-        STR      R0,[R1, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x1
+        STR      R1,[R0, #+0]
 //  171 
 //  172   /* Reset CFGR register */
 //  173   RCC->CFGR = 0x00000000;
-        MOVS     R0,#+0
-        LDR.N    R1,??DataTable1_2  ;; 0x40023808
-        STR      R0,[R1, #+0]
+        MOVS     R1,#+0
+        STR      R1,[R0, #+8]
 //  174 
 //  175   /* Reset HSEON, CSSON and PLLON bits */
 //  176   RCC->CR &= (uint32_t)0xFEF6FFFF;
-        LDR.N    R0,??DataTable1_1  ;; 0x40023800
-        LDR      R0,[R0, #+0]
-        LDR.N    R1,??DataTable1_3  ;; 0xfef6ffff
-        ANDS     R0,R1,R0
-        LDR.N    R1,??DataTable1_1  ;; 0x40023800
-        STR      R0,[R1, #+0]
+        LDR      R1,[R0, #+0]
+        LDR.N    R2,??DataTable1_2  ;; 0xfef6ffff
+        ANDS     R1,R2,R1
+        STR      R1,[R0, #+0]
 //  177 
 //  178   /* Reset PLLCFGR register */
 //  179   RCC->PLLCFGR = 0x24003010;
-        LDR.N    R0,??DataTable1_4  ;; 0x24003010
-        LDR.N    R1,??DataTable1_5  ;; 0x40023804
-        STR      R0,[R1, #+0]
+        LDR.N    R1,??DataTable1_3  ;; 0x24003010
+        STR      R1,[R0, #+4]
 //  180 
 //  181   /* Reset HSEBYP bit */
 //  182   RCC->CR &= (uint32_t)0xFFFBFFFF;
-        LDR.N    R0,??DataTable1_1  ;; 0x40023800
-        LDR      R0,[R0, #+0]
-        BICS     R0,R0,#0x40000
-        LDR.N    R1,??DataTable1_1  ;; 0x40023800
-        STR      R0,[R1, #+0]
+        LDR      R1,[R0, #+0]
+        BIC      R1,R1,#0x40000
+        STR      R1,[R0, #+0]
 //  183 
 //  184   /* Disable all interrupts */
 //  185   RCC->CIR = 0x00000000;
-        MOVS     R0,#+0
-        LDR.N    R1,??DataTable1_6  ;; 0x4002380c
-        STR      R0,[R1, #+0]
+        MOVS     R1,#+0
+        STR      R1,[R0, #+12]
 //  186 
 //  187 #if defined (DATA_IN_ExtSRAM) || defined (DATA_IN_ExtSDRAM)
 //  188   SystemInit_ExtMemCtl(); 
@@ -360,8 +347,8 @@ SystemInit:
 //  193   SCB->VTOR = SRAM1_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal SRAM */
 //  194 #else
 //  195   SCB->VTOR = FLASH_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal FLASH */
-        MOVS     R0,#+134217728
-        LDR.N    R1,??DataTable1_7  ;; 0xe000ed08
+        MOV      R0,#+134217728
+        LDR.N    R1,??DataTable1_4  ;; 0xe000ed08
         STR      R0,[R1, #+0]
 //  196 #endif
 //  197 }
@@ -412,143 +399,105 @@ SystemInit:
         THUMB
 //  235 void SystemCoreClockUpdate(void)
 //  236 {
-SystemCoreClockUpdate:
-        PUSH     {R4-R6}
-          CFI R6 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
 //  237   uint32_t tmp = 0, pllvco = 0, pllp = 2, pllsource = 0, pllm = 2;
-        MOVS     R0,#+0
-        MOVS     R1,#+0
-        MOVS     R2,#+2
-        MOVS     R3,#+0
-        MOVS     R4,#+2
 //  238   
 //  239   /* Get SYSCLK source -------------------------------------------------------*/
 //  240   tmp = RCC->CFGR & RCC_CFGR_SWS;
-        LDR.N    R5,??DataTable1_2  ;; 0x40023808
-        LDR      R5,[R5, #+0]
-        ANDS     R5,R5,#0xC
-        MOVS     R0,R5
+SystemCoreClockUpdate:
+        LDR.N    R0,??DataTable1_5  ;; 0x40023804
+        LDR      R1,[R0, #+4]
+        AND      R1,R1,#0xC
 //  241 
 //  242   switch (tmp)
-        MOVS     R5,R0
-        CMP      R5,#+0
+        CMP      R1,#+4
         BEQ.N    ??SystemCoreClockUpdate_0
-        CMP      R5,#+4
+        CMP      R1,#+8
         BEQ.N    ??SystemCoreClockUpdate_1
-        CMP      R5,#+8
-        BEQ.N    ??SystemCoreClockUpdate_2
-        B.N      ??SystemCoreClockUpdate_3
+        B.N      ??SystemCoreClockUpdate_2
 //  243   {
 //  244     case 0x00:  /* HSI used as system clock source */
 //  245       SystemCoreClock = HSI_VALUE;
-??SystemCoreClockUpdate_0:
-        LDR.N    R5,??DataTable1_8  ;; 0xf42400
-        LDR.N    R6,??DataTable1_9
-        STR      R5,[R6, #+0]
 //  246       break;
-        B.N      ??SystemCoreClockUpdate_4
 //  247     case 0x04:  /* HSE used as system clock source */
 //  248       SystemCoreClock = HSE_VALUE;
-??SystemCoreClockUpdate_1:
-        LDR.N    R5,??DataTable1_10  ;; 0x17d7840
-        LDR.N    R6,??DataTable1_9
-        STR      R5,[R6, #+0]
+??SystemCoreClockUpdate_0:
+        LDR.N    R1,??DataTable1_6  ;; 0x17d7840
+        LDR.N    R2,??DataTable1_7
+        STR      R1,[R2, #+16]
 //  249       break;
-        B.N      ??SystemCoreClockUpdate_4
+        B.N      ??SystemCoreClockUpdate_3
 //  250     case 0x08:  /* PLL used as system clock source */
 //  251 
 //  252       /* PLL_VCO = (HSE_VALUE or HSI_VALUE / PLL_M) * PLL_N
 //  253          SYSCLK = PLL_VCO / PLL_P
 //  254          */    
 //  255       pllsource = (RCC->PLLCFGR & RCC_PLLCFGR_PLLSRC) >> 22;
-??SystemCoreClockUpdate_2:
-        LDR.N    R5,??DataTable1_5  ;; 0x40023804
-        LDR      R5,[R5, #+0]
-        UBFX     R5,R5,#+22,#+1
-        MOVS     R3,R5
+??SystemCoreClockUpdate_1:
+        LDR      R1,[R0, #+0]
+        UBFX     R1,R1,#+22,#+1
 //  256       pllm = RCC->PLLCFGR & RCC_PLLCFGR_PLLM;
-        LDR.N    R5,??DataTable1_5  ;; 0x40023804
-        LDR      R5,[R5, #+0]
-        ANDS     R5,R5,#0x3F
-        MOVS     R4,R5
+        LDR      R2,[R0, #+0]
+        AND      R2,R2,#0x3F
 //  257       
 //  258       if (pllsource != 0)
-        CMP      R3,#+0
-        BEQ.N    ??SystemCoreClockUpdate_5
+        CMP      R1,#+0
+        BEQ.N    ??SystemCoreClockUpdate_4
 //  259       {
 //  260         /* HSE used as PLL clock source */
 //  261         pllvco = (HSE_VALUE / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);
-        LDR.N    R5,??DataTable1_10  ;; 0x17d7840
-        UDIV     R5,R5,R4
-        LDR.N    R6,??DataTable1_5  ;; 0x40023804
-        LDR      R6,[R6, #+0]
-        UBFX     R6,R6,#+6,#+9
-        MULS     R5,R6,R5
-        MOVS     R1,R5
-        B.N      ??SystemCoreClockUpdate_6
+        LDR.N    R1,??DataTable1_6  ;; 0x17d7840
+        UDIV     R1,R1,R2
+        LDR      R2,[R0, #+0]
+        UBFX     R2,R2,#+6,#+9
+        MULS     R1,R2,R1
+        B.N      ??SystemCoreClockUpdate_5
 //  262       }
 //  263       else
 //  264       {
 //  265         /* HSI used as PLL clock source */
 //  266         pllvco = (HSI_VALUE / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);      
-??SystemCoreClockUpdate_5:
-        LDR.N    R5,??DataTable1_8  ;; 0xf42400
-        UDIV     R5,R5,R4
-        LDR.N    R6,??DataTable1_5  ;; 0x40023804
-        LDR      R6,[R6, #+0]
-        UBFX     R6,R6,#+6,#+9
-        MULS     R5,R6,R5
-        MOVS     R1,R5
+??SystemCoreClockUpdate_4:
+        LDR.N    R1,??DataTable1_8  ;; 0xf42400
+        UDIV     R1,R1,R2
+        LDR      R2,[R0, #+0]
+        UBFX     R2,R2,#+6,#+9
+        MULS     R1,R2,R1
 //  267       }
 //  268 
 //  269       pllp = (((RCC->PLLCFGR & RCC_PLLCFGR_PLLP) >>16) + 1 ) *2;
-??SystemCoreClockUpdate_6:
-        LDR.N    R5,??DataTable1_5  ;; 0x40023804
-        LDR      R5,[R5, #+0]
-        UBFX     R5,R5,#+16,#+2
-        ADDS     R5,R5,#+1
-        LSLS     R5,R5,#+1
-        MOVS     R2,R5
+??SystemCoreClockUpdate_5:
+        LDR      R2,[R0, #+0]
+        UBFX     R2,R2,#+16,#+2
+        ADDS     R2,R2,#+1
+        LSLS     R2,R2,#+1
 //  270       SystemCoreClock = pllvco/pllp;
-        UDIV     R5,R1,R2
-        LDR.N    R6,??DataTable1_9
-        STR      R5,[R6, #+0]
+        UDIV     R1,R1,R2
+        LDR.N    R2,??DataTable1_7
+        STR      R1,[R2, #+16]
 //  271       break;
-        B.N      ??SystemCoreClockUpdate_4
+        B.N      ??SystemCoreClockUpdate_3
 //  272     default:
 //  273       SystemCoreClock = HSI_VALUE;
-??SystemCoreClockUpdate_3:
-        LDR.N    R5,??DataTable1_8  ;; 0xf42400
-        LDR.N    R6,??DataTable1_9
-        STR      R5,[R6, #+0]
+??SystemCoreClockUpdate_2:
+        LDR.N    R1,??DataTable1_8  ;; 0xf42400
+        LDR.N    R2,??DataTable1_7
+        STR      R1,[R2, #+16]
 //  274       break;
 //  275   }
 //  276   /* Compute HCLK frequency --------------------------------------------------*/
 //  277   /* Get HCLK prescaler */
 //  278   tmp = AHBPrescTable[((RCC->CFGR & RCC_CFGR_HPRE) >> 4)];
-??SystemCoreClockUpdate_4:
-        LDR.N    R5,??DataTable1_2  ;; 0x40023808
-        LDR      R5,[R5, #+0]
-        LDR.N    R6,??DataTable1_11
-        UBFX     R5,R5,#+4,#+4
-        LDRB     R5,[R5, R6]
-        MOVS     R0,R5
+??SystemCoreClockUpdate_3:
+        LDR      R0,[R0, #+4]
+        MOV      R1,R2
+        UBFX     R0,R0,#+4,#+4
+        LDRB     R0,[R0, R1]
 //  279   /* HCLK frequency */
 //  280   SystemCoreClock >>= tmp;
-        LDR.N    R5,??DataTable1_9
-        LDR      R5,[R5, #+0]
-        LSRS     R5,R5,R0
-        LDR.N    R6,??DataTable1_9
-        STR      R5,[R6, #+0]
+        LDR      R2,[R1, #+16]
+        LSRS     R2,R2,R0
+        STR      R2,[R1, #+16]
 //  281 }
-        POP      {R4-R6}
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI R6 SameValue
-          CFI CFA R13+0
         BX       LR               ;; return
           CFI EndBlock cfiBlock1
 
@@ -568,19 +517,19 @@ SystemCoreClockUpdate:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable1_2:
-        DC32     0x40023808
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_3:
         DC32     0xfef6ffff
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1_4:
+??DataTable1_3:
         DC32     0x24003010
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable1_4:
+        DC32     0xe000ed08
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -592,37 +541,19 @@ SystemCoreClockUpdate:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable1_6:
-        DC32     0x4002380c
+        DC32     0x17d7840
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable1_7:
-        DC32     0xe000ed08
+        DC32     AHBPrescTable
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable1_8:
         DC32     0xf42400
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_9:
-        DC32     SystemCoreClock
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_10:
-        DC32     0x17d7840
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_11:
-        DC32     AHBPrescTable
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -861,9 +792,9 @@ SystemCoreClockUpdate:
 //  504 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
 //  20 bytes in section .data
-// 298 bytes in section .text
+// 210 bytes in section .text
 // 
-// 298 bytes of CODE memory
+// 210 bytes of CODE memory
 //  20 bytes of DATA memory
 //
 //Errors: none

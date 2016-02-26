@@ -1,60 +1,59 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      26/Feb/2016  17:56:01
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Feb/2016  00:32:47
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32_USB_Device_Library\Core\Src\usbd_ioreq.c
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST\STM32_USB_Device_Library\Core\Src\usbd_ioreq.c
 //    Command line =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32_USB_Device_Library\Core\Src\usbd_ioreq.c
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST\STM32_USB_Device_Library\Core\Src\usbd_ioreq.c
 //        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 //        USE_IOEXPANDER -D USE_USB_FS -lC
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -lA
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-//        --no_clustering --no_scheduling --debug --endian=little
-//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-//        (x86)\IAR Systems\Embedded Workbench
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+//        --no_unroll --no_inline --no_tbaa --no_scheduling --debug
+//        --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config
+//        "D:\Program Files (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+//        -Om --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\usbd_ioreq.s
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\usbd_ioreq.s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -125,7 +124,7 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
         
-// D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32_USB_Device_Library\Core\Src\usbd_ioreq.c
+// H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST\STM32_USB_Device_Library\Core\Src\usbd_ioreq.c
 //    1 /**
 //    2   ******************************************************************************
 //    3   * @file    usbd_ioreq.c
@@ -230,38 +229,29 @@
 //   97                                uint16_t len)
 //   98 {
 USBD_CtlSendData:
-        PUSH     {R4-R6,LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+16
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
+          CFI CFA R13+8
 //   99   /* Set EP0 State */
 //  100   pdev->ep0_state          = USBD_EP0_DATA_IN;                                      
-        MOVS     R0,#+2
-        STR      R0,[R4, #+500]
+        MOVS     R3,#+2
+        STR      R3,[R0, #+500]
 //  101   pdev->ep_in[0].total_length = len;
-        UXTH     R6,R6            ;; ZeroExt  R6,R6,#+16,#+16
-        STR      R6,[R4, #+24]
+        ADD      R3,R0,#+24
+        STR      R2,[R3, #+0]
 //  102   pdev->ep_in[0].rem_length   = len;
-        UXTH     R6,R6            ;; ZeroExt  R6,R6,#+16,#+16
-        STR      R6,[R4, #+28]
+        STR      R2,[R3, #+4]
 //  103  /* Start the transfer */
 //  104   USBD_LL_Transmit (pdev, 0x00, pbuf, len);  
-        MOVS     R3,R6
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        MOVS     R2,R5
+        MOV      R3,R2
+        MOV      R2,R1
         MOVS     R1,#+0
-        MOVS     R0,R4
           CFI FunCall USBD_LL_Transmit
         BL       USBD_LL_Transmit
 //  105   
 //  106   return USBD_OK;
         MOVS     R0,#+0
-        POP      {R4-R6,PC}       ;; return
+        POP      {R1,PC}          ;; return
 //  107 }
           CFI EndBlock cfiBlock0
 //  108 
@@ -283,28 +273,20 @@ USBD_CtlSendData:
 //  119                                        uint16_t len)
 //  120 {
 USBD_CtlContinueSendData:
-        PUSH     {R4-R6,LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+16
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
+          CFI CFA R13+8
 //  121  /* Start the next transfer */
 //  122   USBD_LL_Transmit (pdev, 0x00, pbuf, len);   
-        MOVS     R3,R6
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        MOVS     R2,R5
+        MOV      R3,R2
+        MOV      R2,R1
         MOVS     R1,#+0
-        MOVS     R0,R4
           CFI FunCall USBD_LL_Transmit
         BL       USBD_LL_Transmit
 //  123   
 //  124   return USBD_OK;
         MOVS     R0,#+0
-        POP      {R4-R6,PC}       ;; return
+        POP      {R1,PC}          ;; return
 //  125 }
           CFI EndBlock cfiBlock1
 //  126 
@@ -326,41 +308,32 @@ USBD_CtlContinueSendData:
 //  137                                   uint16_t len)
 //  138 {
 USBD_CtlPrepareRx:
-        PUSH     {R4-R6,LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+16
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
+          CFI CFA R13+8
 //  139   /* Set EP0 State */
 //  140   pdev->ep0_state = USBD_EP0_DATA_OUT; 
-        MOVS     R0,#+3
-        STR      R0,[R4, #+500]
+        MOVS     R3,#+3
+        STR      R3,[R0, #+500]
 //  141   pdev->ep_out[0].total_length = len;
-        UXTH     R6,R6            ;; ZeroExt  R6,R6,#+16,#+16
-        STR      R6,[R4, #+264]
+        ADD      R3,R0,#+264
+        STR      R2,[R3, #+0]
 //  142   pdev->ep_out[0].rem_length   = len;
-        UXTH     R6,R6            ;; ZeroExt  R6,R6,#+16,#+16
-        STR      R6,[R4, #+268]
+        STR      R2,[R3, #+4]
 //  143   /* Start the transfer */
 //  144   USBD_LL_PrepareReceive (pdev,
 //  145                           0,
 //  146                           pbuf,
 //  147                          len);
-        MOVS     R3,R6
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        MOVS     R2,R5
+        MOV      R3,R2
+        MOV      R2,R1
         MOVS     R1,#+0
-        MOVS     R0,R4
           CFI FunCall USBD_LL_PrepareReceive
         BL       USBD_LL_PrepareReceive
 //  148   
 //  149   return USBD_OK;
         MOVS     R0,#+0
-        POP      {R4-R6,PC}       ;; return
+        POP      {R1,PC}          ;; return
 //  150 }
           CFI EndBlock cfiBlock2
 //  151 
@@ -382,30 +355,22 @@ USBD_CtlPrepareRx:
 //  162                                           uint16_t len)
 //  163 {
 USBD_CtlContinueRx:
-        PUSH     {R4-R6,LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+16
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
+          CFI CFA R13+8
 //  164 
 //  165   USBD_LL_PrepareReceive (pdev,
 //  166                           0,                     
 //  167                           pbuf,                         
 //  168                           len);
-        MOVS     R3,R6
-        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
-        MOVS     R2,R5
+        MOV      R3,R2
+        MOV      R2,R1
         MOVS     R1,#+0
-        MOVS     R0,R4
           CFI FunCall USBD_LL_PrepareReceive
         BL       USBD_LL_PrepareReceive
 //  169   return USBD_OK;
         MOVS     R0,#+0
-        POP      {R4-R6,PC}       ;; return
+        POP      {R1,PC}          ;; return
 //  170 }
           CFI EndBlock cfiBlock3
 //  171 /**
@@ -422,29 +387,26 @@ USBD_CtlContinueRx:
 //  177 USBD_StatusTypeDef  USBD_CtlSendStatus (USBD_HandleTypeDef  *pdev)
 //  178 {
 USBD_CtlSendStatus:
-        PUSH     {R4,LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-        MOVS     R4,R0
 //  179 
 //  180   /* Set EP0 State */
 //  181   pdev->ep0_state = USBD_EP0_STATUS_IN;
-        MOVS     R0,#+4
-        STR      R0,[R4, #+500]
+        MOVS     R1,#+4
+        STR      R1,[R0, #+500]
 //  182   
 //  183  /* Start the transfer */
 //  184   USBD_LL_Transmit (pdev, 0x00, NULL, 0);   
         MOVS     R3,#+0
-        MOVS     R2,#+0
-        MOVS     R1,#+0
-        MOVS     R0,R4
+        MOV      R2,R3
+        MOV      R1,R2
           CFI FunCall USBD_LL_Transmit
         BL       USBD_LL_Transmit
 //  185   
 //  186   return USBD_OK;
         MOVS     R0,#+0
-        POP      {R4,PC}          ;; return
+        POP      {R1,PC}          ;; return
 //  187 }
           CFI EndBlock cfiBlock4
 //  188 
@@ -462,15 +424,13 @@ USBD_CtlSendStatus:
 //  195 USBD_StatusTypeDef  USBD_CtlReceiveStatus (USBD_HandleTypeDef  *pdev)
 //  196 {
 USBD_CtlReceiveStatus:
-        PUSH     {R4,LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-        MOVS     R4,R0
 //  197   /* Set EP0 State */
 //  198   pdev->ep0_state = USBD_EP0_STATUS_OUT; 
-        MOVS     R0,#+5
-        STR      R0,[R4, #+500]
+        MOVS     R1,#+5
+        STR      R1,[R0, #+500]
 //  199   
 //  200  /* Start the transfer */  
 //  201   USBD_LL_PrepareReceive ( pdev,
@@ -478,15 +438,14 @@ USBD_CtlReceiveStatus:
 //  203                     NULL,
 //  204                     0);  
         MOVS     R3,#+0
-        MOVS     R2,#+0
-        MOVS     R1,#+0
-        MOVS     R0,R4
+        MOV      R2,R3
+        MOV      R1,R2
           CFI FunCall USBD_LL_PrepareReceive
         BL       USBD_LL_PrepareReceive
 //  205 
 //  206   return USBD_OK;
         MOVS     R0,#+0
-        POP      {R4,PC}          ;; return
+        POP      {R1,PC}          ;; return
 //  207 }
           CFI EndBlock cfiBlock5
 //  208 
@@ -506,21 +465,14 @@ USBD_CtlReceiveStatus:
 //  217 uint16_t  USBD_GetRxCount (USBD_HandleTypeDef  *pdev , uint8_t ep_addr)
 //  218 {
 USBD_GetRxCount:
-        PUSH     {R3-R5,LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
-        MOVS     R4,R0
-        MOVS     R5,R1
+          CFI CFA R13+8
 //  219   return USBD_LL_GetRxDataSize(pdev, ep_addr);
-        MOVS     R1,R5
-        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-        MOVS     R0,R4
           CFI FunCall USBD_LL_GetRxDataSize
         BL       USBD_LL_GetRxDataSize
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        POP      {R1,R4,R5,PC}    ;; return
+        UXTH     R0,R0
+        POP      {R1,PC}          ;; return
 //  220 }
           CFI EndBlock cfiBlock6
 
@@ -553,9 +505,9 @@ USBD_GetRxCount:
 //  235 
 //  236 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 208 bytes in section .text
+// 146 bytes in section .text
 // 
-// 208 bytes of CODE memory
+// 146 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

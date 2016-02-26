@@ -1201,7 +1201,7 @@ void MX_I2C2_Init(void)
 	while (1)
 	{
 		 /* there is data in the buffer */	
-		 if((WaveRec_idxSens1>=(2*AUDIO_OUT_BUFFER_SIZE-1))&&(stFrstFrmStore<3))
+		 if((WaveRec_idxSens1>=(AUDIO_OUT_BUFFER_SIZE-1))&&(stFrstFrmStore<3))
 		 {
 			 RESET_IDX
 			 /* this is just run 1 time after 1st frame of I2S data full */

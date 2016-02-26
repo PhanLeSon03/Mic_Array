@@ -1,60 +1,59 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      26/Feb/2016  17:55:59
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Feb/2016  00:32:30
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_cortex.c
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_cortex.c
 //    Command line =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_cortex.c
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_cortex.c
 //        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 //        USE_IOEXPANDER -D USE_USB_FS -lC
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -lA
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-//        --no_clustering --no_scheduling --debug --endian=little
-//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-//        (x86)\IAR Systems\Embedded Workbench
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+//        --no_unroll --no_inline --no_tbaa --no_scheduling --debug
+//        --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config
+//        "D:\Program Files (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+//        -Om --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_cortex.s
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_cortex.s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -129,7 +128,7 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
         
-// D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_cortex.c
+// H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_cortex.c
 //    1 /**
 //    2   ******************************************************************************
 //    3   * @file    stm32f7xx_hal_cortex.c
@@ -239,17 +238,15 @@
         THUMB
 // static __interwork __softfp void NVIC_SetPriorityGrouping(uint32_t)
 NVIC_SetPriorityGrouping:
-        ANDS     R2,R0,#0x7
-        LDR.N    R3,??DataTable13  ;; 0xe000ed0c
-        LDR      R3,[R3, #+0]
-        MOVS     R1,R3
+        LDR.N    R1,??DataTable13  ;; 0xe000ed0c
+        LDR      R2,[R1, #+0]
         MOVW     R3,#+63743
-        ANDS     R1,R3,R1
-        LDR.N    R3,??DataTable13_1  ;; 0x5fa0000
-        ORRS     R3,R3,R2, LSL #+8
-        ORRS     R1,R3,R1
-        LDR.N    R3,??DataTable13  ;; 0xe000ed0c
-        STR      R1,[R3, #+0]
+        ANDS     R2,R3,R2
+        AND      R0,R0,#0x7
+        ORR      R0,R2,R0, LSL #+8
+        LDR.N    R2,??DataTable13_1  ;; 0x5fa0000
+        ORRS     R0,R2,R0
+        STR      R0,[R1, #+0]
         BX       LR               ;; return
           CFI EndBlock cfiBlock0
 
@@ -274,12 +271,11 @@ NVIC_GetPriorityGrouping:
 // static __interwork __softfp void NVIC_EnableIRQ(IRQn_Type)
 NVIC_EnableIRQ:
         MOVS     R1,#+1
-        ANDS     R2,R0,#0x1F
+        AND      R2,R0,#0x1F
         LSLS     R1,R1,R2
         LDR.N    R2,??DataTable13_2  ;; 0xe000e100
-        SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-        LSRS     R3,R0,#+5
-        STR      R1,[R2, R3, LSL #+2]
+        LSRS     R0,R0,#+5
+        STR      R1,[R2, R0, LSL #+2]
         BX       LR               ;; return
           CFI EndBlock cfiBlock2
 
@@ -291,12 +287,11 @@ NVIC_EnableIRQ:
 // static __interwork __softfp void NVIC_DisableIRQ(IRQn_Type)
 NVIC_DisableIRQ:
         MOVS     R1,#+1
-        ANDS     R2,R0,#0x1F
+        AND      R2,R0,#0x1F
         LSLS     R1,R1,R2
         LDR.N    R2,??DataTable13_3  ;; 0xe000e180
-        SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-        LSRS     R3,R0,#+5
-        STR      R1,[R2, R3, LSL #+2]
+        LSRS     R0,R0,#+5
+        STR      R1,[R2, R0, LSL #+2]
         BX       LR               ;; return
           CFI EndBlock cfiBlock3
 
@@ -308,12 +303,11 @@ NVIC_DisableIRQ:
 // static __interwork __softfp uint32_t NVIC_GetPendingIRQ(IRQn_Type)
 NVIC_GetPendingIRQ:
         LDR.N    R1,??DataTable13_4  ;; 0xe000e200
-        SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
         LSRS     R2,R0,#+5
         LDR      R1,[R1, R2, LSL #+2]
-        ANDS     R0,R0,#0x1F
+        AND      R0,R0,#0x1F
         LSRS     R1,R1,R0
-        ANDS     R0,R1,#0x1
+        AND      R0,R1,#0x1
         BX       LR               ;; return
           CFI EndBlock cfiBlock4
 
@@ -325,12 +319,11 @@ NVIC_GetPendingIRQ:
 // static __interwork __softfp void NVIC_SetPendingIRQ(IRQn_Type)
 NVIC_SetPendingIRQ:
         MOVS     R1,#+1
-        ANDS     R2,R0,#0x1F
+        AND      R2,R0,#0x1F
         LSLS     R1,R1,R2
         LDR.N    R2,??DataTable13_4  ;; 0xe000e200
-        SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-        LSRS     R3,R0,#+5
-        STR      R1,[R2, R3, LSL #+2]
+        LSRS     R0,R0,#+5
+        STR      R1,[R2, R0, LSL #+2]
         BX       LR               ;; return
           CFI EndBlock cfiBlock5
 
@@ -342,12 +335,11 @@ NVIC_SetPendingIRQ:
 // static __interwork __softfp void NVIC_ClearPendingIRQ(IRQn_Type)
 NVIC_ClearPendingIRQ:
         MOVS     R1,#+1
-        ANDS     R2,R0,#0x1F
+        AND      R2,R0,#0x1F
         LSLS     R1,R1,R2
         LDR.N    R2,??DataTable13_5  ;; 0xe000e280
-        SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-        LSRS     R3,R0,#+5
-        STR      R1,[R2, R3, LSL #+2]
+        LSRS     R0,R0,#+5
+        STR      R1,[R2, R0, LSL #+2]
         BX       LR               ;; return
           CFI EndBlock cfiBlock6
 
@@ -359,12 +351,11 @@ NVIC_ClearPendingIRQ:
 // static __interwork __softfp uint32_t NVIC_GetActive(IRQn_Type)
 NVIC_GetActive:
         LDR.N    R1,??DataTable13_6  ;; 0xe000e300
-        SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
         LSRS     R2,R0,#+5
         LDR      R1,[R1, R2, LSL #+2]
-        ANDS     R0,R0,#0x1F
+        AND      R0,R0,#0x1F
         LSRS     R1,R1,R0
-        ANDS     R0,R1,#0x1
+        AND      R0,R1,#0x1
         BX       LR               ;; return
           CFI EndBlock cfiBlock7
 
@@ -375,28 +366,17 @@ NVIC_GetActive:
         THUMB
 // static __interwork __softfp void NVIC_SetPriority(IRQn_Type, uint32_t)
 NVIC_SetPriority:
-        PUSH     {R4}
-          CFI R4 Frame(CFA, -4)
-          CFI CFA R13+4
-        SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+        LSLS     R1,R1,#+4
         CMP      R0,#+0
         BPL.N    ??NVIC_SetPriority_0
-        LSLS     R2,R1,#+4
-        LDR.N    R3,??DataTable13_7  ;; 0xe000ed18
-        SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-        ANDS     R4,R0,#0xF
-        ADDS     R3,R4,R3
-        STRB     R2,[R3, #-4]
-        B.N      ??NVIC_SetPriority_1
+        LDR.N    R2,??DataTable13_7  ;; 0xe000ed18
+        AND      R0,R0,#0xF
+        ADDS     R0,R0,R2
+        STRB     R1,[R0, #-4]
+        BX       LR
 ??NVIC_SetPriority_0:
-        LSLS     R2,R1,#+4
-        LDR.N    R3,??DataTable13_8  ;; 0xe000e400
-        SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-        STRB     R2,[R0, R3]
-??NVIC_SetPriority_1:
-        POP      {R4}
-          CFI R4 SameValue
-          CFI CFA R13+0
+        LDR.N    R2,??DataTable13_8  ;; 0xe000e400
+        STRB     R1,[R0, R2]
         BX       LR               ;; return
           CFI EndBlock cfiBlock8
 
@@ -407,22 +387,18 @@ NVIC_SetPriority:
         THUMB
 // static __interwork __softfp uint32_t NVIC_GetPriority(IRQn_Type)
 NVIC_GetPriority:
-        SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
         CMP      R0,#+0
         BPL.N    ??NVIC_GetPriority_0
         LDR.N    R1,??DataTable13_7  ;; 0xe000ed18
-        SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-        ANDS     R0,R0,#0xF
+        AND      R0,R0,#0xF
         ADDS     R0,R0,R1
         LDRB     R0,[R0, #-4]
         LSRS     R0,R0,#+4
-        B.N      ??NVIC_GetPriority_1
+        BX       LR
 ??NVIC_GetPriority_0:
         LDR.N    R1,??DataTable13_8  ;; 0xe000e400
-        SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
         LDRB     R0,[R0, R1]
         LSRS     R0,R0,#+4
-??NVIC_GetPriority_1:
         BX       LR               ;; return
           CFI EndBlock cfiBlock9
 
@@ -433,43 +409,34 @@ NVIC_GetPriority:
         THUMB
 // static __interwork __softfp uint32_t NVIC_EncodePriority(uint32_t, uint32_t, uint32_t)
 NVIC_EncodePriority:
-        PUSH     {R4-R6}
-          CFI R6 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
-        MOVS     R3,R0
-        ANDS     R4,R3,#0x7
-        RSBS     R6,R4,#+7
-        CMP      R6,#+5
+        PUSH     {R4}
+          CFI R4 Frame(CFA, -4)
+          CFI CFA R13+4
+        AND      R0,R0,#0x7
+        RSB      R3,R0,#+7
+        CMP      R3,#+5
         BCC.N    ??NVIC_EncodePriority_0
-        MOVS     R0,#+4
-        B.N      ??NVIC_EncodePriority_1
+        MOVS     R3,#+4
 ??NVIC_EncodePriority_0:
-        RSBS     R0,R4,#+7
+        ADDS     R4,R0,#+4
+        CMP      R4,#+7
+        BCS.N    ??NVIC_EncodePriority_1
+        MOVS     R0,#+0
+        B.N      ??NVIC_EncodePriority_2
 ??NVIC_EncodePriority_1:
-        ADDS     R6,R4,#+4
-        CMP      R6,#+7
-        BCS.N    ??NVIC_EncodePriority_2
-        MOVS     R5,#+0
-        B.N      ??NVIC_EncodePriority_3
+        SUBS     R0,R0,#+3
 ??NVIC_EncodePriority_2:
-        SUBS     R5,R4,#+3
-??NVIC_EncodePriority_3:
-        MOVS     R6,#+1
-        LSLS     R0,R6,R0
+        MOVS     R4,#+1
+        LSL      R3,R4,R3
+        SUBS     R3,R3,#+1
+        ANDS     R1,R3,R1
+        LSLS     R1,R1,R0
+        LSL      R0,R4,R0
         SUBS     R0,R0,#+1
-        ANDS     R0,R0,R1
-        LSLS     R0,R0,R5
-        MOVS     R1,#+1
-        LSLS     R1,R1,R5
-        SUBS     R1,R1,#+1
-        ANDS     R1,R1,R2
-        ORRS     R0,R1,R0
-        POP      {R4-R6}
+        ANDS     R0,R0,R2
+        ORRS     R0,R0,R1
+        POP      {R4}
           CFI R4 SameValue
-          CFI R5 SameValue
-          CFI R6 SameValue
           CFI CFA R13+0
         BX       LR               ;; return
           CFI EndBlock cfiBlock10
@@ -481,46 +448,40 @@ NVIC_EncodePriority:
         THUMB
 // static __interwork __softfp void NVIC_DecodePriority(uint32_t, uint32_t, uint32_t *const, uint32_t *const)
 NVIC_DecodePriority:
-        PUSH     {R4-R7}
-          CFI R7 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+16
-        ANDS     R4,R1,#0x7
-        RSBS     R7,R4,#+7
-        CMP      R7,#+5
+        PUSH     {R4-R6}
+          CFI R6 Frame(CFA, -4)
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
+        AND      R1,R1,#0x7
+        RSB      R4,R1,#+7
+        CMP      R4,#+5
         BCC.N    ??NVIC_DecodePriority_0
-        MOVS     R5,#+4
-        B.N      ??NVIC_DecodePriority_1
+        MOVS     R4,#+4
 ??NVIC_DecodePriority_0:
-        RSBS     R5,R4,#+7
+        ADDS     R5,R1,#+4
+        CMP      R5,#+7
+        BCS.N    ??NVIC_DecodePriority_1
+        MOVS     R1,#+0
+        B.N      ??NVIC_DecodePriority_2
 ??NVIC_DecodePriority_1:
-        ADDS     R7,R4,#+4
-        CMP      R7,#+7
-        BCS.N    ??NVIC_DecodePriority_2
-        MOVS     R6,#+0
-        B.N      ??NVIC_DecodePriority_3
+        SUBS     R1,R1,#+3
 ??NVIC_DecodePriority_2:
-        SUBS     R6,R4,#+3
-??NVIC_DecodePriority_3:
-        MOVS     R7,R0
-        LSRS     R7,R7,R6
-        MOVS     R12,#+1
-        LSLS     R12,R12,R5
-        SUBS     R12,R12,#+1
-        ANDS     R7,R12,R7
-        STR      R7,[R2, #+0]
-        MOVS     R7,#+1
-        LSLS     R7,R7,R6
-        SUBS     R7,R7,#+1
-        ANDS     R7,R7,R0
-        STR      R7,[R3, #+0]
-        POP      {R4-R7}
+        MOVS     R5,#+1
+        MOV      R6,R0
+        LSRS     R6,R6,R1
+        LSL      R4,R5,R4
+        SUBS     R4,R4,#+1
+        ANDS     R4,R4,R6
+        STR      R4,[R2, #+0]
+        LSL      R1,R5,R1
+        SUBS     R1,R1,#+1
+        ANDS     R0,R1,R0
+        STR      R0,[R3, #+0]
+        POP      {R4-R6}
           CFI R4 SameValue
           CFI R5 SameValue
           CFI R6 SameValue
-          CFI R7 SameValue
           CFI CFA R13+0
         BX       LR               ;; return
           CFI EndBlock cfiBlock11
@@ -534,12 +495,11 @@ NVIC_DecodePriority:
 NVIC_SystemReset:
         DSB      
         LDR.N    R0,??DataTable13  ;; 0xe000ed0c
-        LDR      R0,[R0, #+0]
-        ANDS     R0,R0,#0x700
-        LDR.N    R1,??DataTable13_9  ;; 0x5fa0004
-        ORRS     R0,R1,R0
-        LDR.N    R1,??DataTable13  ;; 0xe000ed0c
-        STR      R0,[R1, #+0]
+        LDR      R1,[R0, #+0]
+        AND      R1,R1,#0x700
+        LDR.N    R2,??DataTable13_9  ;; 0x5fa0004
+        ORRS     R1,R2,R1
+        STR      R1,[R0, #+0]
         DSB      
 ??NVIC_SystemReset_0:
         Nop      
@@ -556,28 +516,23 @@ SysTick_Config:
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-        MOVS     R4,R0
-        SUBS     R0,R4,#+1
+        SUBS     R0,R0,#+1
         CMP      R0,#+16777216
         BCC.N    ??SysTick_Config_0
         MOVS     R0,#+1
-        B.N      ??SysTick_Config_1
+        POP      {R4,PC}
 ??SysTick_Config_0:
-        SUBS     R0,R4,#+1
-        LDR.N    R1,??DataTable13_10  ;; 0xe000e014
-        STR      R0,[R1, #+0]
+        LDR.N    R4,??DataTable13_10  ;; 0xe000e010
+        STR      R0,[R4, #+4]
         MOVS     R1,#+15
-        MOVS     R0,#-1
+        MOV      R0,#-1
           CFI FunCall NVIC_SetPriority
         BL       NVIC_SetPriority
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable13_11  ;; 0xe000e018
-        STR      R0,[R1, #+0]
+        STR      R0,[R4, #+8]
         MOVS     R0,#+7
-        LDR.N    R1,??DataTable13_12  ;; 0xe000e010
-        STR      R0,[R1, #+0]
+        STR      R0,[R4, #+0]
         MOVS     R0,#+0
-??SysTick_Config_1:
         POP      {R4,PC}          ;; return
           CFI EndBlock cfiBlock13
 //  102 
@@ -643,25 +598,18 @@ SysTick_Config:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock14 Using cfiCommon0
           CFI Function HAL_NVIC_SetPriorityGrouping
+          CFI FunCall NVIC_SetPriorityGrouping
         THUMB
 //  161 void HAL_NVIC_SetPriorityGrouping(uint32_t PriorityGroup)
 //  162 {
-HAL_NVIC_SetPriorityGrouping:
-        PUSH     {R4,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOVS     R4,R0
 //  163   /* Check the parameters */
 //  164   assert_param(IS_NVIC_PRIORITY_GROUP(PriorityGroup));
 //  165   
 //  166   /* Set the PRIGROUP[10:8] bits according to the PriorityGroup parameter value */
 //  167   NVIC_SetPriorityGrouping(PriorityGroup);
-        MOVS     R0,R4
-          CFI FunCall NVIC_SetPriorityGrouping
-        BL       NVIC_SetPriorityGrouping
+HAL_NVIC_SetPriorityGrouping:
+        B.N      NVIC_SetPriorityGrouping
 //  168 }
-        POP      {R4,PC}          ;; return
           CFI EndBlock cfiBlock14
 //  169 
 //  170 /**
@@ -685,18 +633,16 @@ HAL_NVIC_SetPriorityGrouping:
 //  183 void HAL_NVIC_SetPriority(IRQn_Type IRQn, uint32_t PreemptPriority, uint32_t SubPriority)
 //  184 { 
 HAL_NVIC_SetPriority:
-        PUSH     {R3-R7,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+24
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
+        MOV      R4,R0
+        MOV      R5,R1
+        MOV      R6,R2
 //  185   uint32_t prioritygroup = 0x00;
-        MOVS     R7,#+0
 //  186   
 //  187   /* Check the parameters */
 //  188   assert_param(IS_NVIC_SUB_PRIORITY(SubPriority));
@@ -705,21 +651,23 @@ HAL_NVIC_SetPriority:
 //  191   prioritygroup = NVIC_GetPriorityGrouping();
           CFI FunCall NVIC_GetPriorityGrouping
         BL       NVIC_GetPriorityGrouping
-        MOVS     R7,R0
 //  192   
 //  193   NVIC_SetPriority(IRQn, NVIC_EncodePriority(prioritygroup, PreemptPriority, SubPriority));
-        MOVS     R2,R6
-        MOVS     R1,R5
-        MOVS     R0,R7
+        MOV      R2,R6
+        MOV      R1,R5
           CFI FunCall NVIC_EncodePriority
         BL       NVIC_EncodePriority
-        MOVS     R1,R0
-        MOVS     R0,R4
-        SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+        MOV      R1,R0
+        MOV      R0,R4
+        POP      {R4-R6,LR}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R14 SameValue
+          CFI CFA R13+0
           CFI FunCall NVIC_SetPriority
-        BL       NVIC_SetPriority
+        B.N      NVIC_SetPriority
 //  194 }
-        POP      {R0,R4-R7,PC}    ;; return
           CFI EndBlock cfiBlock15
 //  195 
 //  196 /**
@@ -735,26 +683,18 @@ HAL_NVIC_SetPriority:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock16 Using cfiCommon0
           CFI Function HAL_NVIC_EnableIRQ
+          CFI FunCall NVIC_EnableIRQ
         THUMB
 //  205 void HAL_NVIC_EnableIRQ(IRQn_Type IRQn)
 //  206 {
-HAL_NVIC_EnableIRQ:
-        PUSH     {R4,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOVS     R4,R0
 //  207   /* Check the parameters */
 //  208   assert_param(IS_NVIC_DEVICE_IRQ(IRQn));
 //  209   
 //  210   /* Enable interrupt */
 //  211   NVIC_EnableIRQ(IRQn);
-        MOVS     R0,R4
-        SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-          CFI FunCall NVIC_EnableIRQ
-        BL       NVIC_EnableIRQ
+HAL_NVIC_EnableIRQ:
+        B.N      NVIC_EnableIRQ
 //  212 }
-        POP      {R4,PC}          ;; return
           CFI EndBlock cfiBlock16
 //  213 
 //  214 /**
@@ -768,26 +708,18 @@ HAL_NVIC_EnableIRQ:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock17 Using cfiCommon0
           CFI Function HAL_NVIC_DisableIRQ
+          CFI FunCall NVIC_DisableIRQ
         THUMB
 //  221 void HAL_NVIC_DisableIRQ(IRQn_Type IRQn)
 //  222 {
-HAL_NVIC_DisableIRQ:
-        PUSH     {R4,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOVS     R4,R0
 //  223   /* Check the parameters */
 //  224   assert_param(IS_NVIC_DEVICE_IRQ(IRQn));
 //  225   
 //  226   /* Disable interrupt */
 //  227   NVIC_DisableIRQ(IRQn);
-        MOVS     R0,R4
-        SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-          CFI FunCall NVIC_DisableIRQ
-        BL       NVIC_DisableIRQ
+HAL_NVIC_DisableIRQ:
+        B.N      NVIC_DisableIRQ
 //  228 }
-        POP      {R4,PC}          ;; return
           CFI EndBlock cfiBlock17
 //  229 
 //  230 /**
@@ -798,19 +730,15 @@ HAL_NVIC_DisableIRQ:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock18 Using cfiCommon0
           CFI Function HAL_NVIC_SystemReset
+          CFI FunCall NVIC_SystemReset
         THUMB
 //  234 void HAL_NVIC_SystemReset(void)
 //  235 {
-HAL_NVIC_SystemReset:
-        PUSH     {R7,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+8
 //  236   /* System Reset */
 //  237   NVIC_SystemReset();
-          CFI FunCall NVIC_SystemReset
-        BL       NVIC_SystemReset
+HAL_NVIC_SystemReset:
+        B.N      NVIC_SystemReset
 //  238 }
-        POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock18
 //  239 
 //  240 /**
@@ -824,20 +752,13 @@ HAL_NVIC_SystemReset:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock19 Using cfiCommon0
           CFI Function HAL_SYSTICK_Config
+          CFI FunCall SysTick_Config
         THUMB
 //  247 uint32_t HAL_SYSTICK_Config(uint32_t TicksNumb)
 //  248 {
-HAL_SYSTICK_Config:
-        PUSH     {R4,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOVS     R4,R0
 //  249    return SysTick_Config(TicksNumb);
-        MOVS     R0,R4
-          CFI FunCall SysTick_Config
-        BL       SysTick_Config
-        POP      {R4,PC}          ;; return
+HAL_SYSTICK_Config:
+        B.N      SysTick_Config
 //  250 }
           CFI EndBlock cfiBlock19
 //  251 /**
@@ -882,13 +803,13 @@ HAL_SYSTICK_Config:
 //  284   /* Set the Region number */
 //  285   MPU->RNR = MPU_Init->Number;
 HAL_MPU_ConfigRegion:
-        LDRB     R1,[R0, #+1]
-        LDR.N    R2,??DataTable13_13  ;; 0xe000ed98
-        STR      R1,[R2, #+0]
+        LDR.N    R1,??DataTable13_11  ;; 0xe000ed98
+        LDRB     R2,[R0, #+1]
+        STR      R2,[R1, #+0]
 //  286 
 //  287   if ((MPU_Init->Enable) != RESET)
-        LDRB     R1,[R0, #+0]
-        CMP      R1,#+0
+        LDRB     R2,[R0, #+0]
+        CMP      R2,#+0
         BEQ.N    ??HAL_MPU_ConfigRegion_0
 //  288   {
 //  289     /* Check the parameters */
@@ -902,9 +823,8 @@ HAL_MPU_ConfigRegion:
 //  297     assert_param(IS_MPU_REGION_SIZE(MPU_Init->Size));
 //  298     
 //  299     MPU->RBAR = MPU_Init->BaseAddress;
-        LDR      R1,[R0, #+4]
-        LDR.N    R2,??DataTable13_14  ;; 0xe000ed9c
-        STR      R1,[R2, #+0]
+        LDR      R2,[R0, #+4]
+        STR      R2,[R1, #+4]
 //  300     MPU->RASR = ((uint32_t)MPU_Init->DisableExec             << MPU_RASR_XN_Pos)   |
 //  301                 ((uint32_t)MPU_Init->AccessPermission        << MPU_RASR_AP_Pos)   |
 //  302                 ((uint32_t)MPU_Init->TypeExtField            << MPU_RASR_TEX_Pos)  |
@@ -914,42 +834,37 @@ HAL_MPU_ConfigRegion:
 //  306                 ((uint32_t)MPU_Init->SubRegionDisable        << MPU_RASR_SRD_Pos)  |
 //  307                 ((uint32_t)MPU_Init->Size                    << MPU_RASR_SIZE_Pos) |
 //  308                 ((uint32_t)MPU_Init->Enable                  << MPU_RASR_ENABLE_Pos);
-        LDRB     R1,[R0, #+12]
-        LDRB     R2,[R0, #+11]
-        LSLS     R2,R2,#+24
-        ORRS     R1,R2,R1, LSL #+28
-        LDRB     R2,[R0, #+10]
-        ORRS     R1,R1,R2, LSL #+19
-        LDRB     R2,[R0, #+13]
-        ORRS     R1,R1,R2, LSL #+18
-        LDRB     R2,[R0, #+14]
-        ORRS     R1,R1,R2, LSL #+17
-        LDRB     R2,[R0, #+15]
-        ORRS     R1,R1,R2, LSL #+16
-        LDRB     R2,[R0, #+9]
-        ORRS     R1,R1,R2, LSL #+8
-        LDRB     R2,[R0, #+8]
-        ORRS     R1,R1,R2, LSL #+1
-        LDRB     R2,[R0, #+0]
-        ORRS     R1,R2,R1
-        LDR.N    R2,??DataTable13_15  ;; 0xe000eda0
-        STR      R1,[R2, #+0]
-        B.N      ??HAL_MPU_ConfigRegion_1
+        LDRB     R2,[R0, #+12]
+        LDRB     R3,[R0, #+11]
+        LSLS     R3,R3,#+24
+        ORR      R2,R3,R2, LSL #+28
+        LDRB     R3,[R0, #+10]
+        ORR      R2,R2,R3, LSL #+19
+        LDRB     R3,[R0, #+13]
+        ORR      R2,R2,R3, LSL #+18
+        LDRB     R3,[R0, #+14]
+        ORR      R2,R2,R3, LSL #+17
+        LDRB     R3,[R0, #+15]
+        ORR      R2,R2,R3, LSL #+16
+        LDRB     R3,[R0, #+9]
+        ORR      R2,R2,R3, LSL #+8
+        LDRB     R3,[R0, #+8]
+        ORR      R2,R2,R3, LSL #+1
+        LDRB     R0,[R0, #+0]
+        ORRS     R0,R0,R2
+        STR      R0,[R1, #+8]
+        BX       LR
 //  309   }
 //  310   else
 //  311   {
 //  312     MPU->RBAR = 0x00;
 ??HAL_MPU_ConfigRegion_0:
-        MOVS     R1,#+0
-        LDR.N    R2,??DataTable13_14  ;; 0xe000ed9c
-        STR      R1,[R2, #+0]
+        MOVS     R0,#+0
+        STR      R0,[R1, #+4]
 //  313     MPU->RASR = 0x00;
-        MOVS     R1,#+0
-        LDR.N    R2,??DataTable13_15  ;; 0xe000eda0
-        STR      R1,[R2, #+0]
+        STR      R0,[R1, #+8]
 //  314   }
 //  315 }
-??HAL_MPU_ConfigRegion_1:
         BX       LR               ;; return
           CFI EndBlock cfiBlock20
 //  316 #endif /* __MPU_PRESENT */
@@ -962,18 +877,14 @@ HAL_MPU_ConfigRegion:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock21 Using cfiCommon0
           CFI Function HAL_NVIC_GetPriorityGrouping
+          CFI FunCall NVIC_GetPriorityGrouping
         THUMB
 //  322 uint32_t HAL_NVIC_GetPriorityGrouping(void)
 //  323 {
-HAL_NVIC_GetPriorityGrouping:
-        PUSH     {R7,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+8
 //  324   /* Get the PRIGROUP[10:8] field value */
 //  325   return NVIC_GetPriorityGrouping();
-          CFI FunCall NVIC_GetPriorityGrouping
-        BL       NVIC_GetPriorityGrouping
-        POP      {R1,PC}          ;; return
+HAL_NVIC_GetPriorityGrouping:
+        B.N      NVIC_GetPriorityGrouping
 //  326 }
           CFI EndBlock cfiBlock21
 //  327 
@@ -1006,32 +917,33 @@ HAL_NVIC_GetPriorityGrouping:
 //  349 void HAL_NVIC_GetPriority(IRQn_Type IRQn, uint32_t PriorityGroup, uint32_t *pPreemptPriority, uint32_t *pSubPriority)
 //  350 {
 HAL_NVIC_GetPriority:
-        PUSH     {R3-R7,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+24
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
-        MOVS     R7,R3
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
+        MOV      R4,R1
+        MOV      R5,R2
+        MOV      R6,R3
 //  351   /* Check the parameters */
 //  352   assert_param(IS_NVIC_PRIORITY_GROUP(PriorityGroup));
 //  353  /* Get priority for Cortex-M system or device specific interrupts */
 //  354   NVIC_DecodePriority(NVIC_GetPriority(IRQn), PriorityGroup, pPreemptPriority, pSubPriority);
-        MOVS     R0,R4
-        SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
           CFI FunCall NVIC_GetPriority
         BL       NVIC_GetPriority
-        MOVS     R3,R7
-        MOVS     R2,R6
-        MOVS     R1,R5
+        MOV      R3,R6
+        MOV      R2,R5
+        MOV      R1,R4
+        POP      {R4-R6,LR}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R14 SameValue
+          CFI CFA R13+0
           CFI FunCall NVIC_DecodePriority
-        BL       NVIC_DecodePriority
+        B.N      NVIC_DecodePriority
 //  355 }
-        POP      {R0,R4-R7,PC}    ;; return
           CFI EndBlock cfiBlock22
 //  356 
 //  357 /**
@@ -1045,26 +957,18 @@ HAL_NVIC_GetPriority:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock23 Using cfiCommon0
           CFI Function HAL_NVIC_SetPendingIRQ
+          CFI FunCall NVIC_SetPendingIRQ
         THUMB
 //  364 void HAL_NVIC_SetPendingIRQ(IRQn_Type IRQn)
 //  365 {
-HAL_NVIC_SetPendingIRQ:
-        PUSH     {R4,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOVS     R4,R0
 //  366   /* Check the parameters */
 //  367   assert_param(IS_NVIC_DEVICE_IRQ(IRQn));
 //  368   
 //  369   /* Set interrupt pending */
 //  370   NVIC_SetPendingIRQ(IRQn);
-        MOVS     R0,R4
-        SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-          CFI FunCall NVIC_SetPendingIRQ
-        BL       NVIC_SetPendingIRQ
+HAL_NVIC_SetPendingIRQ:
+        B.N      NVIC_SetPendingIRQ
 //  371 }
-        POP      {R4,PC}          ;; return
           CFI EndBlock cfiBlock23
 //  372 
 //  373 /**
@@ -1080,25 +984,17 @@ HAL_NVIC_SetPendingIRQ:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock24 Using cfiCommon0
           CFI Function HAL_NVIC_GetPendingIRQ
+          CFI FunCall NVIC_GetPendingIRQ
         THUMB
 //  382 uint32_t HAL_NVIC_GetPendingIRQ(IRQn_Type IRQn)
 //  383 {
-HAL_NVIC_GetPendingIRQ:
-        PUSH     {R4,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOVS     R4,R0
 //  384   /* Check the parameters */
 //  385   assert_param(IS_NVIC_DEVICE_IRQ(IRQn));
 //  386   
 //  387   /* Return 1 if pending else 0 */
 //  388   return NVIC_GetPendingIRQ(IRQn);
-        MOVS     R0,R4
-        SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-          CFI FunCall NVIC_GetPendingIRQ
-        BL       NVIC_GetPendingIRQ
-        POP      {R4,PC}          ;; return
+HAL_NVIC_GetPendingIRQ:
+        B.N      NVIC_GetPendingIRQ
 //  389 }
           CFI EndBlock cfiBlock24
 //  390 
@@ -1113,26 +1009,18 @@ HAL_NVIC_GetPendingIRQ:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock25 Using cfiCommon0
           CFI Function HAL_NVIC_ClearPendingIRQ
+          CFI FunCall NVIC_ClearPendingIRQ
         THUMB
 //  398 void HAL_NVIC_ClearPendingIRQ(IRQn_Type IRQn)
 //  399 {
-HAL_NVIC_ClearPendingIRQ:
-        PUSH     {R4,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOVS     R4,R0
 //  400   /* Check the parameters */
 //  401   assert_param(IS_NVIC_DEVICE_IRQ(IRQn));
 //  402   
 //  403   /* Clear pending interrupt */
 //  404   NVIC_ClearPendingIRQ(IRQn);
-        MOVS     R0,R4
-        SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-          CFI FunCall NVIC_ClearPendingIRQ
-        BL       NVIC_ClearPendingIRQ
+HAL_NVIC_ClearPendingIRQ:
+        B.N      NVIC_ClearPendingIRQ
 //  405 }
-        POP      {R4,PC}          ;; return
           CFI EndBlock cfiBlock25
 //  406 
 //  407 /**
@@ -1147,25 +1035,17 @@ HAL_NVIC_ClearPendingIRQ:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock26 Using cfiCommon0
           CFI Function HAL_NVIC_GetActive
+          CFI FunCall NVIC_GetActive
         THUMB
 //  415 uint32_t HAL_NVIC_GetActive(IRQn_Type IRQn)
 //  416 {
-HAL_NVIC_GetActive:
-        PUSH     {R4,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOVS     R4,R0
 //  417   /* Check the parameters */
 //  418   assert_param(IS_NVIC_DEVICE_IRQ(IRQn));
 //  419   
 //  420   /* Return 1 if active else 0 */
 //  421   return NVIC_GetActive(IRQn);
-        MOVS     R0,R4
-        SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
-          CFI FunCall NVIC_GetActive
-        BL       NVIC_GetActive
-        POP      {R4,PC}          ;; return
+HAL_NVIC_GetActive:
+        B.N      NVIC_GetActive
 //  422 }
           CFI EndBlock cfiBlock26
 //  423 
@@ -1189,29 +1069,24 @@ HAL_NVIC_GetActive:
 //  435   assert_param(IS_SYSTICK_CLK_SOURCE(CLKSource));
 //  436   if (CLKSource == SYSTICK_CLKSOURCE_HCLK)
 HAL_SYSTICK_CLKSourceConfig:
+        LDR.N    R1,??DataTable13_10  ;; 0xe000e010
         CMP      R0,#+4
+        LDR      R0,[R1, #+0]
         BNE.N    ??HAL_SYSTICK_CLKSourceConfig_0
 //  437   {
 //  438     SysTick->CTRL |= SYSTICK_CLKSOURCE_HCLK;
-        LDR.N    R1,??DataTable13_12  ;; 0xe000e010
-        LDR      R1,[R1, #+0]
-        ORRS     R1,R1,#0x4
-        LDR.N    R2,??DataTable13_12  ;; 0xe000e010
-        STR      R1,[R2, #+0]
-        B.N      ??HAL_SYSTICK_CLKSourceConfig_1
+        ORR      R0,R0,#0x4
+        STR      R0,[R1, #+0]
+        BX       LR
 //  439   }
 //  440   else
 //  441   {
 //  442     SysTick->CTRL &= ~SYSTICK_CLKSOURCE_HCLK;
 ??HAL_SYSTICK_CLKSourceConfig_0:
-        LDR.N    R1,??DataTable13_12  ;; 0xe000e010
-        LDR      R1,[R1, #+0]
-        BICS     R1,R1,#0x4
-        LDR.N    R2,??DataTable13_12  ;; 0xe000e010
-        STR      R1,[R2, #+0]
+        BIC      R0,R0,#0x4
+        STR      R0,[R1, #+0]
 //  443   }
 //  444 }
-??HAL_SYSTICK_CLKSourceConfig_1:
         BX       LR               ;; return
           CFI EndBlock cfiBlock27
 
@@ -1279,37 +1154,13 @@ HAL_SYSTICK_CLKSourceConfig:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable13_10:
-        DC32     0xe000e014
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable13_11:
-        DC32     0xe000e018
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable13_12:
         DC32     0xe000e010
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable13_13:
+??DataTable13_11:
         DC32     0xe000ed98
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable13_14:
-        DC32     0xe000ed9c
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable13_15:
-        DC32     0xe000eda0
 //  445 
 //  446 /**
 //  447   * @brief  This function handles SYSTICK interrupt request.
@@ -1385,9 +1236,9 @@ HAL_SYSTICK_Callback:
 //  482 
 //  483 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 830 bytes in section .text
+// 614 bytes in section .text
 // 
-// 830 bytes of CODE memory
+// 614 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

@@ -1,66 +1,65 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       26/Feb/2016  17:56:02
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       27/Feb/2016  00:32:49
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
 #    Endian       =  little
 #    Source file  =  
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_ioreq.c
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_ioreq.c
 #    Command line =  
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_ioreq.c
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_ioreq.c
 #        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 #        USE_IOEXPANDER -D USE_USB_FS -lC
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 #        -lA
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 #        -o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-#        --no_clustering --no_scheduling --debug --endian=little
-#        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\INC\c\DLib_Config_Full.h"
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+#        --no_unroll --no_inline --no_tbaa --no_scheduling --debug
+#        --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config
+#        "D:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        7.3\arm\INC\c\DLib_Config_Full.h" -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
-#        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+#        -Om --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7
 #    List file    =  
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\usbh_ioreq.lst
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\usbh_ioreq.lst
 #    Object file  =  
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbh_ioreq.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbh_ioreq.o
 #
 ###############################################################################
 
-D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_ioreq.c
+H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_ioreq.c
       1          /** 
       2            ******************************************************************************
       3            * @file    usbh_ioreq.c 
@@ -167,10 +166,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     102                                          uint8_t pipe_num)
     103          {
    \                     USBH_CtlSendSetup: (+1)
-   \   00000000   0xB57F             PUSH     {R0-R6,LR}
-   \   00000002   0x0004             MOVS     R4,R0
-   \   00000004   0x000D             MOVS     R5,R1
-   \   00000006   0x0016             MOVS     R6,R2
+   \   00000000   0xB51F             PUSH     {R0-R4,LR}
+   \   00000002   0x4614             MOV      R4,R2
     104          
     105            USBH_LL_SubmitURB (phost,                     /* Driver handle    */
     106                                    pipe_num,             /* Pipe index       */
@@ -180,23 +177,21 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     110                                    buff,                 /* data buffer      */
     111                                    USBH_SETUP_PKT_SIZE,  /* data length      */ 
     112                                    0);
-   \   00000008   0x2000             MOVS     R0,#+0
-   \   0000000A   0x9003             STR      R0,[SP, #+12]
-   \   0000000C   0x2008             MOVS     R0,#+8
-   \   0000000E   0x9002             STR      R0,[SP, #+8]
-   \   00000010   0x9501             STR      R5,[SP, #+4]
-   \   00000012   0x2000             MOVS     R0,#+0
-   \   00000014   0x9000             STR      R0,[SP, #+0]
-   \   00000016   0x2300             MOVS     R3,#+0
-   \   00000018   0x2200             MOVS     R2,#+0
-   \   0000001A   0x0031             MOVS     R1,R6
-   \   0000001C   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-   \   0000001E   0x0020             MOVS     R0,R4
-   \   00000020   0x.... 0x....      BL       USBH_LL_SubmitURB
+   \   00000004   0x2200             MOVS     R2,#+0
+   \   00000006   0x9203             STR      R2,[SP, #+12]
+   \   00000008   0x2208             MOVS     R2,#+8
+   \   0000000A   0x9202             STR      R2,[SP, #+8]
+   \   0000000C   0x9101             STR      R1,[SP, #+4]
+   \   0000000E   0x2100             MOVS     R1,#+0
+   \   00000010   0x9100             STR      R1,[SP, #+0]
+   \   00000012   0x460B             MOV      R3,R1
+   \   00000014   0x460A             MOV      R2,R1
+   \   00000016   0x4621             MOV      R1,R4
+   \   00000018   0x.... 0x....      BL       USBH_LL_SubmitURB
     113            return USBH_OK;  
-   \   00000024   0x2000             MOVS     R0,#+0
-   \   00000026   0xB004             ADD      SP,SP,#+16
-   \   00000028   0xBD70             POP      {R4-R6,PC}       ;; return
+   \   0000001C   0x2000             MOVS     R0,#+0
+   \   0000001E   0xB004             ADD      SP,SP,#+16
+   \   00000020   0xBD10             POP      {R4,PC}          ;; return
     114          }
     115          
     116          
@@ -218,20 +213,17 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     130                                          uint8_t do_ping )
     131          {
    \                     USBH_CtlSendData: (+1)
-   \   00000000   0xE92D 0x41FF      PUSH     {R0-R8,LR}
-   \   00000004   0x0005             MOVS     R5,R0
-   \   00000006   0x000E             MOVS     R6,R1
-   \   00000008   0x4690             MOV      R8,R2
-   \   0000000A   0x001F             MOVS     R7,R3
-   \   0000000C   0x9C0A             LDR      R4,[SP, #+40]
+   \   00000000   0xB530             PUSH     {R4,R5,LR}
+   \   00000002   0xB085             SUB      SP,SP,#+20
+   \   00000004   0x461C             MOV      R4,R3
+   \   00000006   0x9B08             LDR      R3,[SP, #+32]
     132            if(phost->device.speed != USBH_SPEED_HIGH)
-   \   0000000E   0xF895 0x021D      LDRB     R0,[R5, #+541]
-   \   00000012   0x2800             CMP      R0,#+0
-   \   00000014   0xD001             BEQ.N    ??USBH_CtlSendData_0
+   \   00000008   0xF890 0x521D      LDRB     R5,[R0, #+541]
+   \   0000000C   0x2D00             CMP      R5,#+0
+   \   0000000E   0xD000             BEQ.N    ??USBH_CtlSendData_0
     133            {
     134              do_ping = 0;
-   \   00000016   0x2000             MOVS     R0,#+0
-   \   00000018   0x0004             MOVS     R4,R0
+   \   00000010   0x2300             MOVS     R3,#+0
     135            }
     136            
     137            USBH_LL_SubmitURB (phost,                     /* Driver handle    */
@@ -243,26 +235,20 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     143                                    length,               /* data length      */ 
     144                                    do_ping);             /* do ping (HS Only)*/
    \                     ??USBH_CtlSendData_0: (+1)
-   \   0000001A   0x0020             MOVS     R0,R4
-   \   0000001C   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-   \   0000001E   0x9003             STR      R0,[SP, #+12]
-   \   00000020   0x4640             MOV      R0,R8
-   \   00000022   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-   \   00000024   0x9002             STR      R0,[SP, #+8]
-   \   00000026   0x9601             STR      R6,[SP, #+4]
-   \   00000028   0x2001             MOVS     R0,#+1
-   \   0000002A   0x9000             STR      R0,[SP, #+0]
-   \   0000002C   0x2300             MOVS     R3,#+0
-   \   0000002E   0x2200             MOVS     R2,#+0
-   \   00000030   0x0039             MOVS     R1,R7
-   \   00000032   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-   \   00000034   0x0028             MOVS     R0,R5
-   \   00000036   0x.... 0x....      BL       USBH_LL_SubmitURB
+   \   00000012   0x9303             STR      R3,[SP, #+12]
+   \   00000014   0x9202             STR      R2,[SP, #+8]
+   \   00000016   0x9101             STR      R1,[SP, #+4]
+   \   00000018   0x2101             MOVS     R1,#+1
+   \   0000001A   0x9100             STR      R1,[SP, #+0]
+   \   0000001C   0x2300             MOVS     R3,#+0
+   \   0000001E   0x461A             MOV      R2,R3
+   \   00000020   0x4621             MOV      R1,R4
+   \   00000022   0x.... 0x....      BL       USBH_LL_SubmitURB
     145            
     146            return USBH_OK;
-   \   0000003A   0x2000             MOVS     R0,#+0
-   \   0000003C   0xB004             ADD      SP,SP,#+16
-   \   0000003E   0xE8BD 0x81F0      POP      {R4-R8,PC}       ;; return
+   \   00000026   0x2000             MOVS     R0,#+0
+   \   00000028   0xB005             ADD      SP,SP,#+20
+   \   0000002A   0xBD30             POP      {R4,R5,PC}       ;; return
     147          }
     148          
     149          
@@ -283,12 +269,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     162                                          uint8_t pipe_num)
     163          {
    \                     USBH_CtlReceiveData: (+1)
-   \   00000000   0xB5F0             PUSH     {R4-R7,LR}
-   \   00000002   0xB085             SUB      SP,SP,#+20
-   \   00000004   0x0004             MOVS     R4,R0
-   \   00000006   0x000D             MOVS     R5,R1
-   \   00000008   0x0016             MOVS     R6,R2
-   \   0000000A   0x001F             MOVS     R7,R3
+   \   00000000   0xB51F             PUSH     {R0-R4,LR}
+   \   00000002   0x461C             MOV      R4,R3
     164            USBH_LL_SubmitURB (phost,                     /* Driver handle    */
     165                                    pipe_num,             /* Pipe index       */
     166                                    1,                    /* Direction : IN   */
@@ -297,24 +279,19 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     169                                    buff,                 /* data buffer      */
     170                                    length,               /* data length      */ 
     171                                    0);
-   \   0000000C   0x2000             MOVS     R0,#+0
-   \   0000000E   0x9003             STR      R0,[SP, #+12]
-   \   00000010   0x0030             MOVS     R0,R6
-   \   00000012   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-   \   00000014   0x9002             STR      R0,[SP, #+8]
-   \   00000016   0x9501             STR      R5,[SP, #+4]
-   \   00000018   0x2001             MOVS     R0,#+1
-   \   0000001A   0x9000             STR      R0,[SP, #+0]
-   \   0000001C   0x2300             MOVS     R3,#+0
-   \   0000001E   0x2201             MOVS     R2,#+1
-   \   00000020   0x0039             MOVS     R1,R7
-   \   00000022   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-   \   00000024   0x0020             MOVS     R0,R4
-   \   00000026   0x.... 0x....      BL       USBH_LL_SubmitURB
+   \   00000004   0x2300             MOVS     R3,#+0
+   \   00000006   0x9303             STR      R3,[SP, #+12]
+   \   00000008   0x9202             STR      R2,[SP, #+8]
+   \   0000000A   0x9101             STR      R1,[SP, #+4]
+   \   0000000C   0x2101             MOVS     R1,#+1
+   \   0000000E   0x9100             STR      R1,[SP, #+0]
+   \   00000010   0x460A             MOV      R2,R1
+   \   00000012   0x4621             MOV      R1,R4
+   \   00000014   0x.... 0x....      BL       USBH_LL_SubmitURB
     172            return USBH_OK;
-   \   0000002A   0x2000             MOVS     R0,#+0
-   \   0000002C   0xB005             ADD      SP,SP,#+20
-   \   0000002E   0xBDF0             POP      {R4-R7,PC}       ;; return
+   \   00000018   0x2000             MOVS     R0,#+0
+   \   0000001A   0xB004             ADD      SP,SP,#+16
+   \   0000001C   0xBD10             POP      {R4,PC}          ;; return
     173            
     174          }
     175          
@@ -337,20 +314,17 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     190                                          uint8_t do_ping )
     191          { 
    \                     USBH_BulkSendData: (+1)
-   \   00000000   0xE92D 0x41FF      PUSH     {R0-R8,LR}
-   \   00000004   0x0005             MOVS     R5,R0
-   \   00000006   0x000E             MOVS     R6,R1
-   \   00000008   0x4690             MOV      R8,R2
-   \   0000000A   0x001F             MOVS     R7,R3
-   \   0000000C   0x9C0A             LDR      R4,[SP, #+40]
+   \   00000000   0xB530             PUSH     {R4,R5,LR}
+   \   00000002   0xB085             SUB      SP,SP,#+20
+   \   00000004   0x461C             MOV      R4,R3
+   \   00000006   0x9B08             LDR      R3,[SP, #+32]
     192            if(phost->device.speed != USBH_SPEED_HIGH)
-   \   0000000E   0xF895 0x021D      LDRB     R0,[R5, #+541]
-   \   00000012   0x2800             CMP      R0,#+0
-   \   00000014   0xD001             BEQ.N    ??USBH_BulkSendData_0
+   \   00000008   0xF890 0x521D      LDRB     R5,[R0, #+541]
+   \   0000000C   0x2D00             CMP      R5,#+0
+   \   0000000E   0xD000             BEQ.N    ??USBH_BulkSendData_0
     193            {
     194              do_ping = 0;
-   \   00000016   0x2000             MOVS     R0,#+0
-   \   00000018   0x0004             MOVS     R4,R0
+   \   00000010   0x2300             MOVS     R3,#+0
     195            }
     196            
     197            USBH_LL_SubmitURB (phost,                     /* Driver handle    */
@@ -362,25 +336,19 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     203                                    length,               /* data length      */  
     204                                    do_ping);             /* do ping (HS Only)*/
    \                     ??USBH_BulkSendData_0: (+1)
-   \   0000001A   0x0020             MOVS     R0,R4
-   \   0000001C   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-   \   0000001E   0x9003             STR      R0,[SP, #+12]
-   \   00000020   0x4640             MOV      R0,R8
-   \   00000022   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-   \   00000024   0x9002             STR      R0,[SP, #+8]
-   \   00000026   0x9601             STR      R6,[SP, #+4]
-   \   00000028   0x2001             MOVS     R0,#+1
-   \   0000002A   0x9000             STR      R0,[SP, #+0]
-   \   0000002C   0x2302             MOVS     R3,#+2
-   \   0000002E   0x2200             MOVS     R2,#+0
-   \   00000030   0x0039             MOVS     R1,R7
-   \   00000032   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-   \   00000034   0x0028             MOVS     R0,R5
-   \   00000036   0x.... 0x....      BL       USBH_LL_SubmitURB
+   \   00000012   0x9303             STR      R3,[SP, #+12]
+   \   00000014   0x9202             STR      R2,[SP, #+8]
+   \   00000016   0x9101             STR      R1,[SP, #+4]
+   \   00000018   0x2101             MOVS     R1,#+1
+   \   0000001A   0x9100             STR      R1,[SP, #+0]
+   \   0000001C   0x2302             MOVS     R3,#+2
+   \   0000001E   0x2200             MOVS     R2,#+0
+   \   00000020   0x4621             MOV      R1,R4
+   \   00000022   0x.... 0x....      BL       USBH_LL_SubmitURB
     205            return USBH_OK;
-   \   0000003A   0x2000             MOVS     R0,#+0
-   \   0000003C   0xB004             ADD      SP,SP,#+16
-   \   0000003E   0xE8BD 0x81F0      POP      {R4-R8,PC}       ;; return
+   \   00000026   0x2000             MOVS     R0,#+0
+   \   00000028   0xB005             ADD      SP,SP,#+20
+   \   0000002A   0xBD30             POP      {R4,R5,PC}       ;; return
     206          }
     207          
     208          
@@ -401,12 +369,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     221                                          uint8_t pipe_num)
     222          {
    \                     USBH_BulkReceiveData: (+1)
-   \   00000000   0xB5F0             PUSH     {R4-R7,LR}
-   \   00000002   0xB085             SUB      SP,SP,#+20
-   \   00000004   0x0004             MOVS     R4,R0
-   \   00000006   0x000D             MOVS     R5,R1
-   \   00000008   0x0016             MOVS     R6,R2
-   \   0000000A   0x001F             MOVS     R7,R3
+   \   00000000   0xB51F             PUSH     {R0-R4,LR}
+   \   00000002   0x461C             MOV      R4,R3
     223            USBH_LL_SubmitURB (phost,                     /* Driver handle    */
     224                                    pipe_num,             /* Pipe index       */
     225                                    1,                    /* Direction : IN   */
@@ -415,24 +379,20 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     228                                    buff,                 /* data buffer      */
     229                                    length,               /* data length      */  
     230                                    0);
-   \   0000000C   0x2000             MOVS     R0,#+0
-   \   0000000E   0x9003             STR      R0,[SP, #+12]
-   \   00000010   0x0030             MOVS     R0,R6
-   \   00000012   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-   \   00000014   0x9002             STR      R0,[SP, #+8]
-   \   00000016   0x9501             STR      R5,[SP, #+4]
-   \   00000018   0x2001             MOVS     R0,#+1
-   \   0000001A   0x9000             STR      R0,[SP, #+0]
-   \   0000001C   0x2302             MOVS     R3,#+2
-   \   0000001E   0x2201             MOVS     R2,#+1
-   \   00000020   0x0039             MOVS     R1,R7
-   \   00000022   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-   \   00000024   0x0020             MOVS     R0,R4
-   \   00000026   0x.... 0x....      BL       USBH_LL_SubmitURB
+   \   00000004   0x2300             MOVS     R3,#+0
+   \   00000006   0x9303             STR      R3,[SP, #+12]
+   \   00000008   0x9202             STR      R2,[SP, #+8]
+   \   0000000A   0x9101             STR      R1,[SP, #+4]
+   \   0000000C   0x2101             MOVS     R1,#+1
+   \   0000000E   0x9100             STR      R1,[SP, #+0]
+   \   00000010   0x2302             MOVS     R3,#+2
+   \   00000012   0x460A             MOV      R2,R1
+   \   00000014   0x4621             MOV      R1,R4
+   \   00000016   0x.... 0x....      BL       USBH_LL_SubmitURB
     231            return USBH_OK;
-   \   0000002A   0x2000             MOVS     R0,#+0
-   \   0000002C   0xB005             ADD      SP,SP,#+20
-   \   0000002E   0xBDF0             POP      {R4-R7,PC}       ;; return
+   \   0000001A   0x2000             MOVS     R0,#+0
+   \   0000001C   0xB004             ADD      SP,SP,#+16
+   \   0000001E   0xBD10             POP      {R4,PC}          ;; return
     232          }
     233          
     234          
@@ -453,12 +413,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     247                                          uint8_t pipe_num)
     248          {
    \                     USBH_InterruptReceiveData: (+1)
-   \   00000000   0xB5F0             PUSH     {R4-R7,LR}
-   \   00000002   0xB085             SUB      SP,SP,#+20
-   \   00000004   0x0004             MOVS     R4,R0
-   \   00000006   0x000D             MOVS     R5,R1
-   \   00000008   0x0016             MOVS     R6,R2
-   \   0000000A   0x001F             MOVS     R7,R3
+   \   00000000   0xB51F             PUSH     {R0-R4,LR}
+   \   00000002   0x461C             MOV      R4,R3
     249            USBH_LL_SubmitURB (phost,                     /* Driver handle    */
     250                                    pipe_num,             /* Pipe index       */
     251                                    1,                    /* Direction : IN   */
@@ -467,26 +423,21 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     254                                    buff,                 /* data buffer      */
     255                                    length,               /* data length      */  
     256                                    0); 
-   \   0000000C   0x2000             MOVS     R0,#+0
-   \   0000000E   0x9003             STR      R0,[SP, #+12]
-   \   00000010   0xB2F6             UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
-   \   00000012   0x0030             MOVS     R0,R6
-   \   00000014   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-   \   00000016   0x9002             STR      R0,[SP, #+8]
-   \   00000018   0x9501             STR      R5,[SP, #+4]
-   \   0000001A   0x2001             MOVS     R0,#+1
-   \   0000001C   0x9000             STR      R0,[SP, #+0]
-   \   0000001E   0x2303             MOVS     R3,#+3
-   \   00000020   0x2201             MOVS     R2,#+1
-   \   00000022   0x0039             MOVS     R1,R7
-   \   00000024   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-   \   00000026   0x0020             MOVS     R0,R4
-   \   00000028   0x.... 0x....      BL       USBH_LL_SubmitURB
+   \   00000004   0x2300             MOVS     R3,#+0
+   \   00000006   0x9303             STR      R3,[SP, #+12]
+   \   00000008   0x9202             STR      R2,[SP, #+8]
+   \   0000000A   0x9101             STR      R1,[SP, #+4]
+   \   0000000C   0x2101             MOVS     R1,#+1
+   \   0000000E   0x9100             STR      R1,[SP, #+0]
+   \   00000010   0x2303             MOVS     R3,#+3
+   \   00000012   0x460A             MOV      R2,R1
+   \   00000014   0x4621             MOV      R1,R4
+   \   00000016   0x.... 0x....      BL       USBH_LL_SubmitURB
     257            
     258            return USBH_OK;
-   \   0000002C   0x2000             MOVS     R0,#+0
-   \   0000002E   0xB005             ADD      SP,SP,#+20
-   \   00000030   0xBDF0             POP      {R4-R7,PC}       ;; return
+   \   0000001A   0x2000             MOVS     R0,#+0
+   \   0000001C   0xB004             ADD      SP,SP,#+16
+   \   0000001E   0xBD10             POP      {R4,PC}          ;; return
     259          }
     260          
     261          /**
@@ -506,12 +457,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     273                                          uint8_t pipe_num)
     274          {
    \                     USBH_InterruptSendData: (+1)
-   \   00000000   0xB5F0             PUSH     {R4-R7,LR}
-   \   00000002   0xB085             SUB      SP,SP,#+20
-   \   00000004   0x0004             MOVS     R4,R0
-   \   00000006   0x000D             MOVS     R5,R1
-   \   00000008   0x0016             MOVS     R6,R2
-   \   0000000A   0x001F             MOVS     R7,R3
+   \   00000000   0xB51F             PUSH     {R0-R4,LR}
+   \   00000002   0x461C             MOV      R4,R3
     275            USBH_LL_SubmitURB (phost,                     /* Driver handle    */
     276                                    pipe_num,             /* Pipe index       */
     277                                    0,                    /* Direction : OUT   */
@@ -520,26 +467,21 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     280                                    buff,                 /* data buffer      */
     281                                    length,               /* data length      */  
     282                                    0);  
-   \   0000000C   0x2000             MOVS     R0,#+0
-   \   0000000E   0x9003             STR      R0,[SP, #+12]
-   \   00000010   0xB2F6             UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
-   \   00000012   0x0030             MOVS     R0,R6
-   \   00000014   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-   \   00000016   0x9002             STR      R0,[SP, #+8]
-   \   00000018   0x9501             STR      R5,[SP, #+4]
-   \   0000001A   0x2001             MOVS     R0,#+1
-   \   0000001C   0x9000             STR      R0,[SP, #+0]
-   \   0000001E   0x2303             MOVS     R3,#+3
-   \   00000020   0x2200             MOVS     R2,#+0
-   \   00000022   0x0039             MOVS     R1,R7
-   \   00000024   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-   \   00000026   0x0020             MOVS     R0,R4
-   \   00000028   0x.... 0x....      BL       USBH_LL_SubmitURB
+   \   00000004   0x2300             MOVS     R3,#+0
+   \   00000006   0x9303             STR      R3,[SP, #+12]
+   \   00000008   0x9202             STR      R2,[SP, #+8]
+   \   0000000A   0x9101             STR      R1,[SP, #+4]
+   \   0000000C   0x2101             MOVS     R1,#+1
+   \   0000000E   0x9100             STR      R1,[SP, #+0]
+   \   00000010   0x2303             MOVS     R3,#+3
+   \   00000012   0x2200             MOVS     R2,#+0
+   \   00000014   0x4621             MOV      R1,R4
+   \   00000016   0x.... 0x....      BL       USBH_LL_SubmitURB
     283            
     284            return USBH_OK;
-   \   0000002C   0x2000             MOVS     R0,#+0
-   \   0000002E   0xB005             ADD      SP,SP,#+20
-   \   00000030   0xBDF0             POP      {R4-R7,PC}       ;; return
+   \   0000001A   0x2000             MOVS     R0,#+0
+   \   0000001C   0xB004             ADD      SP,SP,#+16
+   \   0000001E   0xBD10             POP      {R4,PC}          ;; return
     285          }
     286          
     287          /**
@@ -559,12 +501,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     299                                          uint8_t pipe_num)
     300          {    
    \                     USBH_IsocReceiveData: (+1)
-   \   00000000   0xB5F0             PUSH     {R4-R7,LR}
-   \   00000002   0xB085             SUB      SP,SP,#+20
-   \   00000004   0x0004             MOVS     R4,R0
-   \   00000006   0x000D             MOVS     R5,R1
-   \   00000008   0x0016             MOVS     R6,R2
-   \   0000000A   0x001F             MOVS     R7,R3
+   \   00000000   0xB51F             PUSH     {R0-R4,LR}
+   \   00000002   0x461C             MOV      R4,R3
     301            USBH_LL_SubmitURB (phost,                     /* Driver handle    */
     302                                    pipe_num,             /* Pipe index       */
     303                                    1,                    /* Direction : IN   */
@@ -573,26 +511,23 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     306                                    buff,                 /* data buffer      */
     307                                    length,               /* data length      */
     308                                    0);
-   \   0000000C   0x2000             MOVS     R0,#+0
-   \   0000000E   0x9003             STR      R0,[SP, #+12]
-   \   00000010   0x0030             MOVS     R0,R6
-   \   00000012   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-   \   00000014   0x9002             STR      R0,[SP, #+8]
-   \   00000016   0x9501             STR      R5,[SP, #+4]
-   \   00000018   0x2001             MOVS     R0,#+1
-   \   0000001A   0x9000             STR      R0,[SP, #+0]
-   \   0000001C   0x2301             MOVS     R3,#+1
-   \   0000001E   0x2201             MOVS     R2,#+1
-   \   00000020   0x0039             MOVS     R1,R7
-   \   00000022   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-   \   00000024   0x0020             MOVS     R0,R4
-   \   00000026   0x.... 0x....      BL       USBH_LL_SubmitURB
+   \   00000004   0x2300             MOVS     R3,#+0
+   \   00000006   0x9303             STR      R3,[SP, #+12]
+   \   00000008   0xB292             UXTH     R2,R2
+   \   0000000A   0x9202             STR      R2,[SP, #+8]
+   \   0000000C   0x9101             STR      R1,[SP, #+4]
+   \   0000000E   0x2101             MOVS     R1,#+1
+   \   00000010   0x9100             STR      R1,[SP, #+0]
+   \   00000012   0x460B             MOV      R3,R1
+   \   00000014   0x460A             MOV      R2,R1
+   \   00000016   0x4621             MOV      R1,R4
+   \   00000018   0x.... 0x....      BL       USBH_LL_SubmitURB
     309          
     310            
     311            return USBH_OK;
-   \   0000002A   0x2000             MOVS     R0,#+0
-   \   0000002C   0xB005             ADD      SP,SP,#+20
-   \   0000002E   0xBDF0             POP      {R4-R7,PC}       ;; return
+   \   0000001C   0x2000             MOVS     R0,#+0
+   \   0000001E   0xB004             ADD      SP,SP,#+16
+   \   00000020   0xBD10             POP      {R4,PC}          ;; return
     312          }
     313          
     314          /**
@@ -612,12 +547,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     326                                          uint8_t pipe_num)
     327          {
    \                     USBH_IsocSendData: (+1)
-   \   00000000   0xB5F0             PUSH     {R4-R7,LR}
-   \   00000002   0xB085             SUB      SP,SP,#+20
-   \   00000004   0x0004             MOVS     R4,R0
-   \   00000006   0x000D             MOVS     R5,R1
-   \   00000008   0x0016             MOVS     R6,R2
-   \   0000000A   0x001F             MOVS     R7,R3
+   \   00000000   0xB51F             PUSH     {R0-R4,LR}
+   \   00000002   0x461C             MOV      R4,R3
     328            USBH_LL_SubmitURB (phost,                     /* Driver handle    */
     329                                    pipe_num,             /* Pipe index       */
     330                                    0,                    /* Direction : OUT   */
@@ -626,25 +557,22 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     333                                    buff,                 /* data buffer      */
     334                                    length,               /* data length      */ 
     335                                    0);
-   \   0000000C   0x2000             MOVS     R0,#+0
-   \   0000000E   0x9003             STR      R0,[SP, #+12]
-   \   00000010   0x0030             MOVS     R0,R6
-   \   00000012   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-   \   00000014   0x9002             STR      R0,[SP, #+8]
-   \   00000016   0x9501             STR      R5,[SP, #+4]
-   \   00000018   0x2001             MOVS     R0,#+1
-   \   0000001A   0x9000             STR      R0,[SP, #+0]
-   \   0000001C   0x2301             MOVS     R3,#+1
-   \   0000001E   0x2200             MOVS     R2,#+0
-   \   00000020   0x0039             MOVS     R1,R7
-   \   00000022   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-   \   00000024   0x0020             MOVS     R0,R4
-   \   00000026   0x.... 0x....      BL       USBH_LL_SubmitURB
+   \   00000004   0x2300             MOVS     R3,#+0
+   \   00000006   0x9303             STR      R3,[SP, #+12]
+   \   00000008   0xB292             UXTH     R2,R2
+   \   0000000A   0x9202             STR      R2,[SP, #+8]
+   \   0000000C   0x9101             STR      R1,[SP, #+4]
+   \   0000000E   0x2101             MOVS     R1,#+1
+   \   00000010   0x9100             STR      R1,[SP, #+0]
+   \   00000012   0x460B             MOV      R3,R1
+   \   00000014   0x2200             MOVS     R2,#+0
+   \   00000016   0x4621             MOV      R1,R4
+   \   00000018   0x.... 0x....      BL       USBH_LL_SubmitURB
     336            
     337            return USBH_OK;
-   \   0000002A   0x2000             MOVS     R0,#+0
-   \   0000002C   0xB005             ADD      SP,SP,#+20
-   \   0000002E   0xBDF0             POP      {R4-R7,PC}       ;; return
+   \   0000001C   0x2000             MOVS     R0,#+0
+   \   0000001E   0xB004             ADD      SP,SP,#+16
+   \   00000020   0xBD10             POP      {R4,PC}          ;; return
     338          }
     339          /**
     340          * @}
@@ -671,44 +599,44 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
 
    .cstack Function
    ------- --------
-      40   USBH_BulkReceiveData
-        40   -> USBH_LL_SubmitURB
-      40   USBH_BulkSendData
-        40   -> USBH_LL_SubmitURB
-      40   USBH_CtlReceiveData
-        40   -> USBH_LL_SubmitURB
-      40   USBH_CtlSendData
-        40   -> USBH_LL_SubmitURB
-      32   USBH_CtlSendSetup
+      24   USBH_BulkReceiveData
+        24   -> USBH_LL_SubmitURB
+      32   USBH_BulkSendData
         32   -> USBH_LL_SubmitURB
-      40   USBH_InterruptReceiveData
-        40   -> USBH_LL_SubmitURB
-      40   USBH_InterruptSendData
-        40   -> USBH_LL_SubmitURB
-      40   USBH_IsocReceiveData
-        40   -> USBH_LL_SubmitURB
-      40   USBH_IsocSendData
-        40   -> USBH_LL_SubmitURB
+      24   USBH_CtlReceiveData
+        24   -> USBH_LL_SubmitURB
+      32   USBH_CtlSendData
+        32   -> USBH_LL_SubmitURB
+      24   USBH_CtlSendSetup
+        24   -> USBH_LL_SubmitURB
+      24   USBH_InterruptReceiveData
+        24   -> USBH_LL_SubmitURB
+      24   USBH_InterruptSendData
+        24   -> USBH_LL_SubmitURB
+      24   USBH_IsocReceiveData
+        24   -> USBH_LL_SubmitURB
+      24   USBH_IsocSendData
+        24   -> USBH_LL_SubmitURB
 
 
    Section sizes:
 
    Bytes  Function/Label
    -----  --------------
-      48  USBH_BulkReceiveData
-      66  USBH_BulkSendData
-      48  USBH_CtlReceiveData
-      66  USBH_CtlSendData
-      42  USBH_CtlSendSetup
-      50  USBH_InterruptReceiveData
-      50  USBH_InterruptSendData
-      48  USBH_IsocReceiveData
-      48  USBH_IsocSendData
+      32  USBH_BulkReceiveData
+      44  USBH_BulkSendData
+      30  USBH_CtlReceiveData
+      44  USBH_CtlSendData
+      34  USBH_CtlSendSetup
+      32  USBH_InterruptReceiveData
+      32  USBH_InterruptSendData
+      34  USBH_IsocReceiveData
+      34  USBH_IsocSendData
 
  
- 466 bytes in section .text
+ 316 bytes in section .text
  
- 466 bytes of CODE memory
+ 316 bytes of CODE memory
 
 Errors: none
 Warnings: none

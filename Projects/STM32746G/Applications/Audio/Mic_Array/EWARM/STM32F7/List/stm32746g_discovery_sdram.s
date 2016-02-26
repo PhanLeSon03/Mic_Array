@@ -1,60 +1,59 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      26/Feb/2016  17:55:58
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Feb/2016  00:32:29
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\BSP\STM32746G-Discovery\stm32746g_discovery_sdram.c
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\STM32746G-Discovery\stm32746g_discovery_sdram.c
 //    Command line =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\BSP\STM32746G-Discovery\stm32746g_discovery_sdram.c
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\STM32746G-Discovery\stm32746g_discovery_sdram.c
 //        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 //        USE_IOEXPANDER -D USE_USB_FS -lC
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -lA
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-//        --no_clustering --no_scheduling --debug --endian=little
-//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-//        (x86)\IAR Systems\Embedded Workbench
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+//        --no_unroll --no_inline --no_tbaa --no_scheduling --debug
+//        --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config
+//        "D:\Program Files (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+//        -Om --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32746g_discovery_sdram.s
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32746g_discovery_sdram.s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -141,7 +140,7 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
         
-// D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\BSP\STM32746G-Discovery\stm32746g_discovery_sdram.c
+// H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\STM32746G-Discovery\stm32746g_discovery_sdram.c
 //    1 /**
 //    2   ******************************************************************************
 //    3   * @file    stm32746g_discovery_sdram.c
@@ -258,24 +257,9 @@
 //  114 /** @defgroup STM32746G_DISCOVERY_SDRAM_Private_Variables STM32746G_DISCOVERY_SDRAM Private Variables
 //  115   * @{
 //  116   */       
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
-        DATA
 //  117 static SDRAM_HandleTypeDef sdramHandle;
-sdramHandle:
-        DS8 52
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
-        DATA
 //  118 static FMC_SDRAM_TimingTypeDef Timing;
-Timing:
-        DS8 28
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
-        DATA
 //  119 static FMC_SDRAM_CommandTypeDef Command;
-Command:
-        DS8 16
 //  120 /**
 //  121   * @}
 //  122   */ 
@@ -303,136 +287,105 @@ Command:
 //  139 uint8_t BSP_SDRAM_Init(void)
 //  140 { 
 BSP_SDRAM_Init:
-        PUSH     {R7,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
 //  141   static uint8_t sdramstatus = SDRAM_ERROR;
 //  142   /* SDRAM device configuration */
 //  143   sdramHandle.Instance = FMC_SDRAM_DEVICE;
-        LDR.W    R0,??DataTable10  ;; 0xa0000140
-        LDR.W    R1,??DataTable10_1
-        STR      R0,[R1, #+0]
+        LDR.N    R4,??DataTable10
+        LDR.N    R0,??DataTable10_1  ;; 0xa0000140
+        STR      R0,[R4, #+4]
 //  144     
 //  145   /* Timing configuration for 100Mhz as SD clock frequency (System clock is up to 200Mhz) */
 //  146   Timing.LoadToActiveDelay    = 2;
         MOVS     R0,#+2
-        LDR.W    R1,??DataTable10_2
-        STR      R0,[R1, #+0]
+        STR      R0,[R4, #+56]
 //  147   Timing.ExitSelfRefreshDelay = 7;
         MOVS     R0,#+7
-        LDR.W    R1,??DataTable10_2
-        STR      R0,[R1, #+4]
+        STR      R0,[R4, #+60]
 //  148   Timing.SelfRefreshTime      = 4;
         MOVS     R0,#+4
-        LDR.W    R1,??DataTable10_2
-        STR      R0,[R1, #+8]
+        STR      R0,[R4, #+64]
 //  149   Timing.RowCycleDelay        = 7;
         MOVS     R0,#+7
-        LDR.W    R1,??DataTable10_2
-        STR      R0,[R1, #+12]
+        STR      R0,[R4, #+68]
 //  150   Timing.WriteRecoveryTime    = 2;
         MOVS     R0,#+2
-        LDR.W    R1,??DataTable10_2
-        STR      R0,[R1, #+16]
+        STR      R0,[R4, #+72]
 //  151   Timing.RPDelay              = 2;
-        MOVS     R0,#+2
-        LDR.W    R1,??DataTable10_2
-        STR      R0,[R1, #+20]
+        STR      R0,[R4, #+76]
 //  152   Timing.RCDDelay             = 2;
-        MOVS     R0,#+2
-        LDR.W    R1,??DataTable10_2
-        STR      R0,[R1, #+24]
+        STR      R0,[R4, #+80]
 //  153   
 //  154   sdramHandle.Init.SDBank             = FMC_SDRAM_BANK1;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable10_1
-        STR      R0,[R1, #+4]
+        STR      R0,[R4, #+8]
 //  155   sdramHandle.Init.ColumnBitsNumber   = FMC_SDRAM_COLUMN_BITS_NUM_8;
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable10_1
-        STR      R0,[R1, #+8]
+        STR      R0,[R4, #+12]
 //  156   sdramHandle.Init.RowBitsNumber      = FMC_SDRAM_ROW_BITS_NUM_12;
         MOVS     R0,#+4
-        LDR.W    R1,??DataTable10_1
-        STR      R0,[R1, #+12]
+        STR      R0,[R4, #+16]
 //  157   sdramHandle.Init.MemoryDataWidth    = SDRAM_MEMORY_WIDTH;
         MOVS     R0,#+16
-        LDR.W    R1,??DataTable10_1
-        STR      R0,[R1, #+16]
+        STR      R0,[R4, #+20]
 //  158   sdramHandle.Init.InternalBankNumber = FMC_SDRAM_INTERN_BANKS_NUM_4;
         MOVS     R0,#+64
-        LDR.W    R1,??DataTable10_1
-        STR      R0,[R1, #+20]
+        STR      R0,[R4, #+24]
 //  159   sdramHandle.Init.CASLatency         = FMC_SDRAM_CAS_LATENCY_2;
         MOV      R0,#+256
-        LDR.W    R1,??DataTable10_1
-        STR      R0,[R1, #+24]
+        STR      R0,[R4, #+28]
 //  160   sdramHandle.Init.WriteProtection    = FMC_SDRAM_WRITE_PROTECTION_DISABLE;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable10_1
-        STR      R0,[R1, #+28]
+        STR      R0,[R4, #+32]
 //  161   sdramHandle.Init.SDClockPeriod      = SDCLOCK_PERIOD;
         MOV      R0,#+2048
-        LDR.W    R1,??DataTable10_1
-        STR      R0,[R1, #+32]
+        STR      R0,[R4, #+36]
 //  162   sdramHandle.Init.ReadBurst          = FMC_SDRAM_RBURST_ENABLE;
         MOV      R0,#+4096
-        LDR.W    R1,??DataTable10_1
-        STR      R0,[R1, #+36]
+        STR      R0,[R4, #+40]
 //  163   sdramHandle.Init.ReadPipeDelay      = FMC_SDRAM_RPIPE_DELAY_0;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable10_1
-        STR      R0,[R1, #+40]
+        STR      R0,[R4, #+44]
 //  164   
 //  165   /* SDRAM controller initialization */
 //  166 
 //  167   BSP_SDRAM_MspInit(&sdramHandle, NULL); /* __weak function can be rewritten by the application */
-        MOVS     R1,#+0
-        LDR.W    R0,??DataTable10_1
+        MOV      R1,R0
+        ADDS     R0,R4,#+4
           CFI FunCall BSP_SDRAM_MspInit
         BL       BSP_SDRAM_MspInit
 //  168 
 //  169   if(HAL_SDRAM_Init(&sdramHandle, &Timing) != HAL_OK)
-        LDR.W    R1,??DataTable10_2
-        LDR.W    R0,??DataTable10_1
+        ADD      R1,R4,#+56
+        ADDS     R0,R4,#+4
           CFI FunCall HAL_SDRAM_Init
         BL       HAL_SDRAM_Init
-        CMP      R0,#+0
-        BEQ.N    ??BSP_SDRAM_Init_0
+        SUBS     R0,R0,#+1
+        SBCS     R0,R0,R0
+        MVNS     R0,R0
+        LSRS     R0,R0,#+31
+        STRB     R0,[R4, #+0]
 //  170   {
 //  171     sdramstatus = SDRAM_ERROR;
-        MOVS     R0,#+1
-        LDR.W    R1,??DataTable10_3
-        STRB     R0,[R1, #+0]
-        B.N      ??BSP_SDRAM_Init_1
 //  172   }
 //  173   else
 //  174   {
 //  175     sdramstatus = SDRAM_OK;
-??BSP_SDRAM_Init_0:
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable10_3
-        STRB     R0,[R1, #+0]
 //  176   }
 //  177   
 //  178   /* SDRAM initialization sequence */
 //  179   BSP_SDRAM_Initialization_sequence(REFRESH_COUNT);
-??BSP_SDRAM_Init_1:
         MOVW     R0,#+1539
           CFI FunCall BSP_SDRAM_Initialization_sequence
         BL       BSP_SDRAM_Initialization_sequence
 //  180   
 //  181   return sdramstatus;
-        LDR.W    R0,??DataTable10_3
-        LDRB     R0,[R0, #+0]
-        POP      {R1,PC}          ;; return
+        LDRB     R0,[R4, #+0]
+        POP      {R4,PC}          ;; return
 //  182 }
           CFI EndBlock cfiBlock0
-
-        SECTION `.data`:DATA:REORDER:NOROOT(0)
-        DATA
-??sdramstatus:
-        DC8 1
 //  183 
 //  184 /**
 //  185   * @brief  DeInitializes the SDRAM device.
@@ -446,57 +399,59 @@ BSP_SDRAM_Init:
 //  188 uint8_t BSP_SDRAM_DeInit(void)
 //  189 { 
 BSP_SDRAM_DeInit:
-        PUSH     {R7,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
 //  190   static uint8_t sdramstatus = SDRAM_ERROR;
 //  191   /* SDRAM device de-initialization */
 //  192   sdramHandle.Instance = FMC_SDRAM_DEVICE;
-        LDR.W    R0,??DataTable10  ;; 0xa0000140
-        LDR.W    R1,??DataTable10_1
-        STR      R0,[R1, #+0]
+        LDR.N    R4,??DataTable10
+        LDR.N    R0,??DataTable10_1  ;; 0xa0000140
+        STR      R0,[R4, #+4]
 //  193 
 //  194   if(HAL_SDRAM_DeInit(&sdramHandle) != HAL_OK)
-        LDR.W    R0,??DataTable10_1
+        ADDS     R0,R4,#+4
           CFI FunCall HAL_SDRAM_DeInit
         BL       HAL_SDRAM_DeInit
-        CMP      R0,#+0
-        BEQ.N    ??BSP_SDRAM_DeInit_0
+        SUBS     R0,R0,#+1
+        SBCS     R0,R0,R0
+        MVNS     R0,R0
+        LSRS     R0,R0,#+31
+        STRB     R0,[R4, #+1]
 //  195   {
 //  196     sdramstatus = SDRAM_ERROR;
-        MOVS     R0,#+1
-        LDR.W    R1,??DataTable10_4
-        STRB     R0,[R1, #+0]
-        B.N      ??BSP_SDRAM_DeInit_1
 //  197   }
 //  198   else
 //  199   {
 //  200     sdramstatus = SDRAM_OK;
-??BSP_SDRAM_DeInit_0:
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable10_4
-        STRB     R0,[R1, #+0]
 //  201   }
 //  202   
 //  203   /* SDRAM controller de-initialization */
 //  204   BSP_SDRAM_MspDeInit(&sdramHandle, NULL);
-??BSP_SDRAM_DeInit_1:
         MOVS     R1,#+0
-        LDR.W    R0,??DataTable10_1
+        ADDS     R0,R4,#+4
           CFI FunCall BSP_SDRAM_MspDeInit
         BL       BSP_SDRAM_MspDeInit
 //  205   
 //  206   return sdramstatus;
-        LDR.W    R0,??DataTable10_4
-        LDRB     R0,[R0, #+0]
-        POP      {R1,PC}          ;; return
+        LDRB     R0,[R4, #+1]
+        POP      {R4,PC}          ;; return
 //  207 }
           CFI EndBlock cfiBlock1
 
-        SECTION `.data`:DATA:REORDER:NOROOT(0)
+        SECTION `.data`:DATA:REORDER:NOROOT(2)
         DATA
-??sdramstatus_1:
+??sdramstatus:
         DC8 1
+        DC8 1
+        DC8 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 //  208 
 //  209 /**
 //  210   * @brief  Programs the SDRAM device.
@@ -511,40 +466,40 @@ BSP_SDRAM_DeInit:
 //  214 void BSP_SDRAM_Initialization_sequence(uint32_t RefreshCount)
 //  215 {
 BSP_SDRAM_Initialization_sequence:
-        PUSH     {R4,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        SUB      SP,SP,#+8
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
           CFI CFA R13+16
-        MOVS     R4,R0
+        SUB      SP,SP,#+8
+          CFI CFA R13+24
+        MOV      R4,R0
 //  216   __IO uint32_t tmpmrd = 0;
         MOVS     R0,#+0
         STR      R0,[SP, #+0]
 //  217   
 //  218   /* Step 1: Configure a clock configuration enable command */
 //  219   Command.CommandMode            = FMC_SDRAM_CMD_CLK_ENABLE;
+        LDR.N    R5,??DataTable10
         MOVS     R0,#+1
-        LDR.N    R1,??DataTable10_5
-        STR      R0,[R1, #+0]
+        STR      R0,[R5, #+84]
 //  220   Command.CommandTarget          = FMC_SDRAM_CMD_TARGET_BANK1;
         MOVS     R0,#+16
-        LDR.N    R1,??DataTable10_5
-        STR      R0,[R1, #+4]
+        STR      R0,[R5, #+88]
 //  221   Command.AutoRefreshNumber      = 1;
         MOVS     R0,#+1
-        LDR.N    R1,??DataTable10_5
-        STR      R0,[R1, #+8]
+        STR      R0,[R5, #+92]
 //  222   Command.ModeRegisterDefinition = 0;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable10_5
-        STR      R0,[R1, #+12]
+        STR      R0,[R5, #+96]
 //  223 
 //  224   /* Send the command */
 //  225   HAL_SDRAM_SendCommand(&sdramHandle, &Command, SDRAM_TIMEOUT);
-        MOVW     R2,#+65535
-        LDR.N    R1,??DataTable10_5
-        LDR.N    R0,??DataTable10_1
+        MOVW     R6,#+65535
+        MOV      R2,R6
+        ADD      R1,R5,#+84
+        ADDS     R0,R5,#+4
           CFI FunCall HAL_SDRAM_SendCommand
         BL       HAL_SDRAM_SendCommand
 //  226 
@@ -558,52 +513,44 @@ BSP_SDRAM_Initialization_sequence:
 //  231   /* Step 3: Configure a PALL (precharge all) command */ 
 //  232   Command.CommandMode            = FMC_SDRAM_CMD_PALL;
         MOVS     R0,#+2
-        LDR.N    R1,??DataTable10_5
-        STR      R0,[R1, #+0]
+        STR      R0,[R5, #+84]
 //  233   Command.CommandTarget          = FMC_SDRAM_CMD_TARGET_BANK1;
         MOVS     R0,#+16
-        LDR.N    R1,??DataTable10_5
-        STR      R0,[R1, #+4]
+        STR      R0,[R5, #+88]
 //  234   Command.AutoRefreshNumber      = 1;
         MOVS     R0,#+1
-        LDR.N    R1,??DataTable10_5
-        STR      R0,[R1, #+8]
+        STR      R0,[R5, #+92]
 //  235   Command.ModeRegisterDefinition = 0;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable10_5
-        STR      R0,[R1, #+12]
+        STR      R0,[R5, #+96]
 //  236 
 //  237   /* Send the command */
 //  238   HAL_SDRAM_SendCommand(&sdramHandle, &Command, SDRAM_TIMEOUT);  
-        MOVW     R2,#+65535
-        LDR.N    R1,??DataTable10_5
-        LDR.N    R0,??DataTable10_1
+        MOV      R2,R6
+        ADD      R1,R5,#+84
+        ADDS     R0,R5,#+4
           CFI FunCall HAL_SDRAM_SendCommand
         BL       HAL_SDRAM_SendCommand
 //  239   
 //  240   /* Step 4: Configure an Auto Refresh command */ 
 //  241   Command.CommandMode            = FMC_SDRAM_CMD_AUTOREFRESH_MODE;
         MOVS     R0,#+3
-        LDR.N    R1,??DataTable10_5
-        STR      R0,[R1, #+0]
+        STR      R0,[R5, #+84]
 //  242   Command.CommandTarget          = FMC_SDRAM_CMD_TARGET_BANK1;
         MOVS     R0,#+16
-        LDR.N    R1,??DataTable10_5
-        STR      R0,[R1, #+4]
+        STR      R0,[R5, #+88]
 //  243   Command.AutoRefreshNumber      = 8;
         MOVS     R0,#+8
-        LDR.N    R1,??DataTable10_5
-        STR      R0,[R1, #+8]
+        STR      R0,[R5, #+92]
 //  244   Command.ModeRegisterDefinition = 0;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable10_5
-        STR      R0,[R1, #+12]
+        STR      R0,[R5, #+96]
 //  245 
 //  246   /* Send the command */
 //  247   HAL_SDRAM_SendCommand(&sdramHandle, &Command, SDRAM_TIMEOUT);
-        MOVW     R2,#+65535
-        LDR.N    R1,??DataTable10_5
-        LDR.N    R0,??DataTable10_1
+        MOV      R2,R6
+        ADD      R1,R5,#+84
+        ADDS     R0,R5,#+4
           CFI FunCall HAL_SDRAM_SendCommand
         BL       HAL_SDRAM_SendCommand
 //  248   
@@ -618,38 +565,39 @@ BSP_SDRAM_Initialization_sequence:
 //  255   
 //  256   Command.CommandMode            = FMC_SDRAM_CMD_LOAD_MODE;
         MOVS     R0,#+4
-        LDR.N    R1,??DataTable10_5
-        STR      R0,[R1, #+0]
+        STR      R0,[R5, #+84]
 //  257   Command.CommandTarget          = FMC_SDRAM_CMD_TARGET_BANK1;
         MOVS     R0,#+16
-        LDR.N    R1,??DataTable10_5
-        STR      R0,[R1, #+4]
+        STR      R0,[R5, #+88]
 //  258   Command.AutoRefreshNumber      = 1;
         MOVS     R0,#+1
-        LDR.N    R1,??DataTable10_5
-        STR      R0,[R1, #+8]
+        STR      R0,[R5, #+92]
 //  259   Command.ModeRegisterDefinition = tmpmrd;
         LDR      R0,[SP, #+0]
-        LDR.N    R1,??DataTable10_5
-        STR      R0,[R1, #+12]
+        STR      R0,[R5, #+96]
 //  260 
 //  261   /* Send the command */
 //  262   HAL_SDRAM_SendCommand(&sdramHandle, &Command, SDRAM_TIMEOUT);
-        MOVW     R2,#+65535
-        LDR.N    R1,??DataTable10_5
-        LDR.N    R0,??DataTable10_1
+        MOV      R2,R6
+        ADD      R1,R5,#+84
+        ADDS     R0,R5,#+4
           CFI FunCall HAL_SDRAM_SendCommand
         BL       HAL_SDRAM_SendCommand
 //  263   
 //  264   /* Step 6: Set the refresh rate counter */
 //  265   /* Set the device refresh rate */
 //  266   HAL_SDRAM_ProgramRefreshRate(&sdramHandle, RefreshCount); 
-        MOVS     R1,R4
-        LDR.N    R0,??DataTable10_1
+        MOV      R1,R4
+        ADDS     R0,R5,#+4
+        POP      {R2-R6,LR}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R14 SameValue
+          CFI CFA R13+0
           CFI FunCall HAL_SDRAM_ProgramRefreshRate
-        BL       HAL_SDRAM_ProgramRefreshRate
+        B.W      HAL_SDRAM_ProgramRefreshRate
 //  267 }
-        POP      {R0,R1,R4,PC}    ;; return
           CFI EndBlock cfiBlock2
 //  268 
 //  269 /**
@@ -667,36 +615,27 @@ BSP_SDRAM_Initialization_sequence:
 //  276 uint8_t BSP_SDRAM_ReadData(uint32_t uwStartAddress, uint32_t *pData, uint32_t uwDataSize)
 //  277 {
 BSP_SDRAM_ReadData:
-        PUSH     {R4-R6,LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+16
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
+          CFI CFA R13+8
 //  278   if(HAL_SDRAM_Read_32b(&sdramHandle, (uint32_t *)uwStartAddress, pData, uwDataSize) != HAL_OK)
-        MOVS     R3,R6
-        MOVS     R2,R5
-        MOVS     R1,R4
-        LDR.N    R0,??DataTable10_1
+        MOV      R3,R2
+        MOV      R2,R1
+        MOV      R1,R0
+        LDR.N    R0,??DataTable10_2
           CFI FunCall HAL_SDRAM_Read_32b
         BL       HAL_SDRAM_Read_32b
-        CMP      R0,#+0
-        BEQ.N    ??BSP_SDRAM_ReadData_0
+        SUBS     R0,R0,#+1
+        SBCS     R0,R0,R0
+        MVNS     R0,R0
+        LSRS     R0,R0,#+31
 //  279   {
 //  280     return SDRAM_ERROR;
-        MOVS     R0,#+1
-        B.N      ??BSP_SDRAM_ReadData_1
 //  281   }
 //  282   else
 //  283   {
 //  284     return SDRAM_OK;
-??BSP_SDRAM_ReadData_0:
-        MOVS     R0,#+0
-??BSP_SDRAM_ReadData_1:
-        POP      {R4-R6,PC}       ;; return
+        POP      {R1,PC}          ;; return
 //  285   } 
 //  286 }
           CFI EndBlock cfiBlock3
@@ -716,36 +655,27 @@ BSP_SDRAM_ReadData:
 //  295 uint8_t BSP_SDRAM_ReadData_DMA(uint32_t uwStartAddress, uint32_t *pData, uint32_t uwDataSize)
 //  296 {
 BSP_SDRAM_ReadData_DMA:
-        PUSH     {R4-R6,LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+16
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
+          CFI CFA R13+8
 //  297   if(HAL_SDRAM_Read_DMA(&sdramHandle, (uint32_t *)uwStartAddress, pData, uwDataSize) != HAL_OK)
-        MOVS     R3,R6
-        MOVS     R2,R5
-        MOVS     R1,R4
-        LDR.N    R0,??DataTable10_1
+        MOV      R3,R2
+        MOV      R2,R1
+        MOV      R1,R0
+        LDR.N    R0,??DataTable10_2
           CFI FunCall HAL_SDRAM_Read_DMA
         BL       HAL_SDRAM_Read_DMA
-        CMP      R0,#+0
-        BEQ.N    ??BSP_SDRAM_ReadData_DMA_0
+        SUBS     R0,R0,#+1
+        SBCS     R0,R0,R0
+        MVNS     R0,R0
+        LSRS     R0,R0,#+31
 //  298   {
 //  299     return SDRAM_ERROR;
-        MOVS     R0,#+1
-        B.N      ??BSP_SDRAM_ReadData_DMA_1
 //  300   }
 //  301   else
 //  302   {
 //  303     return SDRAM_OK;
-??BSP_SDRAM_ReadData_DMA_0:
-        MOVS     R0,#+0
-??BSP_SDRAM_ReadData_DMA_1:
-        POP      {R4-R6,PC}       ;; return
+        POP      {R1,PC}          ;; return
 //  304   }     
 //  305 }
           CFI EndBlock cfiBlock4
@@ -765,36 +695,27 @@ BSP_SDRAM_ReadData_DMA:
 //  314 uint8_t BSP_SDRAM_WriteData(uint32_t uwStartAddress, uint32_t *pData, uint32_t uwDataSize) 
 //  315 {
 BSP_SDRAM_WriteData:
-        PUSH     {R4-R6,LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+16
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
+          CFI CFA R13+8
 //  316   if(HAL_SDRAM_Write_32b(&sdramHandle, (uint32_t *)uwStartAddress, pData, uwDataSize) != HAL_OK)
-        MOVS     R3,R6
-        MOVS     R2,R5
-        MOVS     R1,R4
-        LDR.N    R0,??DataTable10_1
+        MOV      R3,R2
+        MOV      R2,R1
+        MOV      R1,R0
+        LDR.N    R0,??DataTable10_2
           CFI FunCall HAL_SDRAM_Write_32b
         BL       HAL_SDRAM_Write_32b
-        CMP      R0,#+0
-        BEQ.N    ??BSP_SDRAM_WriteData_0
+        SUBS     R0,R0,#+1
+        SBCS     R0,R0,R0
+        MVNS     R0,R0
+        LSRS     R0,R0,#+31
 //  317   {
 //  318     return SDRAM_ERROR;
-        MOVS     R0,#+1
-        B.N      ??BSP_SDRAM_WriteData_1
 //  319   }
 //  320   else
 //  321   {
 //  322     return SDRAM_OK;
-??BSP_SDRAM_WriteData_0:
-        MOVS     R0,#+0
-??BSP_SDRAM_WriteData_1:
-        POP      {R4-R6,PC}       ;; return
+        POP      {R1,PC}          ;; return
 //  323   }
 //  324 }
           CFI EndBlock cfiBlock5
@@ -814,36 +735,27 @@ BSP_SDRAM_WriteData:
 //  333 uint8_t BSP_SDRAM_WriteData_DMA(uint32_t uwStartAddress, uint32_t *pData, uint32_t uwDataSize) 
 //  334 {
 BSP_SDRAM_WriteData_DMA:
-        PUSH     {R4-R6,LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+16
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
+          CFI CFA R13+8
 //  335   if(HAL_SDRAM_Write_DMA(&sdramHandle, (uint32_t *)uwStartAddress, pData, uwDataSize) != HAL_OK)
-        MOVS     R3,R6
-        MOVS     R2,R5
-        MOVS     R1,R4
-        LDR.N    R0,??DataTable10_1
+        MOV      R3,R2
+        MOV      R2,R1
+        MOV      R1,R0
+        LDR.N    R0,??DataTable10_2
           CFI FunCall HAL_SDRAM_Write_DMA
         BL       HAL_SDRAM_Write_DMA
-        CMP      R0,#+0
-        BEQ.N    ??BSP_SDRAM_WriteData_DMA_0
+        SUBS     R0,R0,#+1
+        SBCS     R0,R0,R0
+        MVNS     R0,R0
+        LSRS     R0,R0,#+31
 //  336   {
 //  337     return SDRAM_ERROR;
-        MOVS     R0,#+1
-        B.N      ??BSP_SDRAM_WriteData_DMA_1
 //  338   }
 //  339   else
 //  340   {
 //  341     return SDRAM_OK;
-??BSP_SDRAM_WriteData_DMA_0:
-        MOVS     R0,#+0
-??BSP_SDRAM_WriteData_DMA_1:
-        POP      {R4-R6,PC}       ;; return
+        POP      {R1,PC}          ;; return
 //  342   } 
 //  343 }
           CFI EndBlock cfiBlock6
@@ -861,31 +773,26 @@ BSP_SDRAM_WriteData_DMA:
 //  350 uint8_t BSP_SDRAM_Sendcmd(FMC_SDRAM_CommandTypeDef *SdramCmd)
 //  351 {
 BSP_SDRAM_Sendcmd:
-        PUSH     {R4,LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-        MOVS     R4,R0
 //  352   if(HAL_SDRAM_SendCommand(&sdramHandle, SdramCmd, SDRAM_TIMEOUT) != HAL_OK)
         MOVW     R2,#+65535
-        MOVS     R1,R4
-        LDR.N    R0,??DataTable10_1
+        MOV      R1,R0
+        LDR.N    R0,??DataTable10_2
           CFI FunCall HAL_SDRAM_SendCommand
         BL       HAL_SDRAM_SendCommand
-        CMP      R0,#+0
-        BEQ.N    ??BSP_SDRAM_Sendcmd_0
+        SUBS     R0,R0,#+1
+        SBCS     R0,R0,R0
+        MVNS     R0,R0
+        LSRS     R0,R0,#+31
 //  353   {
 //  354     return SDRAM_ERROR;
-        MOVS     R0,#+1
-        B.N      ??BSP_SDRAM_Sendcmd_1
 //  355   }
 //  356   else
 //  357   {
 //  358     return SDRAM_OK;
-??BSP_SDRAM_Sendcmd_0:
-        MOVS     R0,#+0
-??BSP_SDRAM_Sendcmd_1:
-        POP      {R4,PC}          ;; return
+        POP      {R1,PC}          ;; return
 //  359   }
 //  360 }
           CFI EndBlock cfiBlock7
@@ -901,17 +808,13 @@ BSP_SDRAM_Sendcmd:
         THUMB
 //  366 void BSP_SDRAM_DMA_IRQHandler(void)
 //  367 {
-BSP_SDRAM_DMA_IRQHandler:
-        PUSH     {R7,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+8
 //  368   HAL_DMA_IRQHandler(sdramHandle.hdma); 
-        LDR.N    R0,??DataTable10_1
-        LDR      R0,[R0, #+48]
+BSP_SDRAM_DMA_IRQHandler:
+        LDR.N    R0,??DataTable10
+        LDR      R0,[R0, #+52]
           CFI FunCall HAL_DMA_IRQHandler
-        BL       HAL_DMA_IRQHandler
+        B.W      HAL_DMA_IRQHandler
 //  369 }
-        POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock8
 //  370 
 //  371 /**
@@ -935,102 +838,78 @@ BSP_SDRAM_MspInit:
           CFI CFA R13+12
         SUB      SP,SP,#+28
           CFI CFA R13+40
-        MOVS     R4,R0
-        MOVS     R5,R1
+        MOV      R4,R0
 //  379   static DMA_HandleTypeDef dma_handle;
 //  380   GPIO_InitTypeDef gpio_init_structure;
 //  381   
 //  382   /* Enable FMC clock */
 //  383   __HAL_RCC_FMC_CLK_ENABLE();
-        LDR.N    R0,??DataTable10_6  ;; 0x40023838
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x1
-        LDR.N    R1,??DataTable10_6  ;; 0x40023838
-        STR      R0,[R1, #+0]
-        LDR.N    R0,??DataTable10_6  ;; 0x40023838
-        LDR      R0,[R0, #+0]
-        ANDS     R0,R0,#0x1
-        STR      R0,[SP, #+0]
-        LDR      R0,[SP, #+0]
+        LDR.N    R0,??DataTable10_3  ;; 0x40023830
+        LDR      R1,[R0, #+8]
+        ORR      R1,R1,#0x1
+        STR      R1,[R0, #+8]
+        LDR      R1,[R0, #+8]
+        AND      R1,R1,#0x1
+        STR      R1,[SP, #+0]
+        LDR      R1,[SP, #+0]
 //  384   
 //  385   /* Enable chosen DMAx clock */
 //  386   __DMAx_CLK_ENABLE();
-        LDR.N    R0,??DataTable10_7  ;; 0x40023830
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x400000
-        LDR.N    R1,??DataTable10_7  ;; 0x40023830
-        STR      R0,[R1, #+0]
-        LDR.N    R0,??DataTable10_7  ;; 0x40023830
-        LDR      R0,[R0, #+0]
-        ANDS     R0,R0,#0x400000
-        STR      R0,[SP, #+0]
-        LDR      R0,[SP, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x400000
+        STR      R1,[R0, #+0]
+        LDR      R1,[R0, #+0]
+        AND      R1,R1,#0x400000
+        STR      R1,[SP, #+0]
+        LDR      R1,[SP, #+0]
 //  387 
 //  388   /* Enable GPIOs clock */
 //  389   __HAL_RCC_GPIOC_CLK_ENABLE();
-        LDR.N    R0,??DataTable10_7  ;; 0x40023830
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x4
-        LDR.N    R1,??DataTable10_7  ;; 0x40023830
-        STR      R0,[R1, #+0]
-        LDR.N    R0,??DataTable10_7  ;; 0x40023830
-        LDR      R0,[R0, #+0]
-        ANDS     R0,R0,#0x4
-        STR      R0,[SP, #+0]
-        LDR      R0,[SP, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x4
+        STR      R1,[R0, #+0]
+        LDR      R1,[R0, #+0]
+        AND      R1,R1,#0x4
+        STR      R1,[SP, #+0]
+        LDR      R1,[SP, #+0]
 //  390   __HAL_RCC_GPIOD_CLK_ENABLE();
-        LDR.N    R0,??DataTable10_7  ;; 0x40023830
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x8
-        LDR.N    R1,??DataTable10_7  ;; 0x40023830
-        STR      R0,[R1, #+0]
-        LDR.N    R0,??DataTable10_7  ;; 0x40023830
-        LDR      R0,[R0, #+0]
-        ANDS     R0,R0,#0x8
-        STR      R0,[SP, #+0]
-        LDR      R0,[SP, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x8
+        STR      R1,[R0, #+0]
+        LDR      R1,[R0, #+0]
+        AND      R1,R1,#0x8
+        STR      R1,[SP, #+0]
+        LDR      R1,[SP, #+0]
 //  391   __HAL_RCC_GPIOE_CLK_ENABLE();
-        LDR.N    R0,??DataTable10_7  ;; 0x40023830
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x10
-        LDR.N    R1,??DataTable10_7  ;; 0x40023830
-        STR      R0,[R1, #+0]
-        LDR.N    R0,??DataTable10_7  ;; 0x40023830
-        LDR      R0,[R0, #+0]
-        ANDS     R0,R0,#0x10
-        STR      R0,[SP, #+0]
-        LDR      R0,[SP, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x10
+        STR      R1,[R0, #+0]
+        LDR      R1,[R0, #+0]
+        AND      R1,R1,#0x10
+        STR      R1,[SP, #+0]
+        LDR      R1,[SP, #+0]
 //  392   __HAL_RCC_GPIOF_CLK_ENABLE();
-        LDR.N    R0,??DataTable10_7  ;; 0x40023830
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x20
-        LDR.N    R1,??DataTable10_7  ;; 0x40023830
-        STR      R0,[R1, #+0]
-        LDR.N    R0,??DataTable10_7  ;; 0x40023830
-        LDR      R0,[R0, #+0]
-        ANDS     R0,R0,#0x20
-        STR      R0,[SP, #+0]
-        LDR      R0,[SP, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x20
+        STR      R1,[R0, #+0]
+        LDR      R1,[R0, #+0]
+        AND      R1,R1,#0x20
+        STR      R1,[SP, #+0]
+        LDR      R1,[SP, #+0]
 //  393   __HAL_RCC_GPIOG_CLK_ENABLE();
-        LDR.N    R0,??DataTable10_7  ;; 0x40023830
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x40
-        LDR.N    R1,??DataTable10_7  ;; 0x40023830
-        STR      R0,[R1, #+0]
-        LDR.N    R0,??DataTable10_7  ;; 0x40023830
-        LDR      R0,[R0, #+0]
-        ANDS     R0,R0,#0x40
-        STR      R0,[SP, #+0]
-        LDR      R0,[SP, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x40
+        STR      R1,[R0, #+0]
+        LDR      R1,[R0, #+0]
+        AND      R1,R1,#0x40
+        STR      R1,[SP, #+0]
+        LDR      R1,[SP, #+0]
 //  394   __HAL_RCC_GPIOH_CLK_ENABLE();
-        LDR.N    R0,??DataTable10_7  ;; 0x40023830
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x80
+        STR      R1,[R0, #+0]
         LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x80
-        LDR.N    R1,??DataTable10_7  ;; 0x40023830
-        STR      R0,[R1, #+0]
-        LDR.N    R0,??DataTable10_7  ;; 0x40023830
-        LDR      R0,[R0, #+0]
-        ANDS     R0,R0,#0x80
+        AND      R0,R0,#0x80
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
 //  395   
@@ -1054,7 +933,7 @@ BSP_SDRAM_MspInit:
         STR      R0,[SP, #+4]
 //  404   HAL_GPIO_Init(GPIOC, &gpio_init_structure);
         ADD      R1,SP,#+4
-        LDR.N    R0,??DataTable10_8  ;; 0x40020800
+        LDR.N    R0,??DataTable10_4  ;; 0x40020800
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 //  405 
@@ -1065,7 +944,7 @@ BSP_SDRAM_MspInit:
         STR      R0,[SP, #+4]
 //  409   HAL_GPIO_Init(GPIOD, &gpio_init_structure);
         ADD      R1,SP,#+4
-        LDR.N    R0,??DataTable10_9  ;; 0x40020c00
+        LDR.N    R0,??DataTable10_5  ;; 0x40020c00
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 //  410 
@@ -1077,7 +956,7 @@ BSP_SDRAM_MspInit:
         STR      R0,[SP, #+4]
 //  415   HAL_GPIO_Init(GPIOE, &gpio_init_structure);
         ADD      R1,SP,#+4
-        LDR.N    R0,??DataTable10_10  ;; 0x40021000
+        LDR.N    R0,??DataTable10_6  ;; 0x40021000
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 //  416   
@@ -1089,7 +968,7 @@ BSP_SDRAM_MspInit:
         STR      R0,[SP, #+4]
 //  421   HAL_GPIO_Init(GPIOF, &gpio_init_structure);
         ADD      R1,SP,#+4
-        LDR.N    R0,??DataTable10_11  ;; 0x40021400
+        LDR.N    R0,??DataTable10_7  ;; 0x40021400
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 //  422   
@@ -1100,7 +979,7 @@ BSP_SDRAM_MspInit:
         STR      R0,[SP, #+4]
 //  426   HAL_GPIO_Init(GPIOG, &gpio_init_structure);
         ADD      R1,SP,#+4
-        LDR.N    R0,??DataTable10_12  ;; 0x40021800
+        LDR.N    R0,??DataTable10_8  ;; 0x40021800
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 //  427 
@@ -1110,81 +989,66 @@ BSP_SDRAM_MspInit:
         STR      R0,[SP, #+4]
 //  430   HAL_GPIO_Init(GPIOH, &gpio_init_structure); 
         ADD      R1,SP,#+4
-        LDR.N    R0,??DataTable10_13  ;; 0x40021c00
+        LDR.N    R0,??DataTable10_9  ;; 0x40021c00
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 //  431   
 //  432   /* Configure common DMA parameters */
 //  433   dma_handle.Init.Channel             = SDRAM_DMAx_CHANNEL;
+        LDR.N    R5,??DataTable10_10
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable10_14
-        STR      R0,[R1, #+4]
+        STR      R0,[R5, #+4]
 //  434   dma_handle.Init.Direction           = DMA_MEMORY_TO_MEMORY;
         MOVS     R0,#+128
-        LDR.N    R1,??DataTable10_14
-        STR      R0,[R1, #+8]
+        STR      R0,[R5, #+8]
 //  435   dma_handle.Init.PeriphInc           = DMA_PINC_ENABLE;
         MOV      R0,#+512
-        LDR.N    R1,??DataTable10_14
-        STR      R0,[R1, #+12]
+        STR      R0,[R5, #+12]
 //  436   dma_handle.Init.MemInc              = DMA_MINC_ENABLE;
         MOV      R0,#+1024
-        LDR.N    R1,??DataTable10_14
-        STR      R0,[R1, #+16]
+        STR      R0,[R5, #+16]
 //  437   dma_handle.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
         MOV      R0,#+4096
-        LDR.N    R1,??DataTable10_14
-        STR      R0,[R1, #+20]
+        STR      R0,[R5, #+20]
 //  438   dma_handle.Init.MemDataAlignment    = DMA_MDATAALIGN_WORD;
         MOV      R0,#+16384
-        LDR.N    R1,??DataTable10_14
-        STR      R0,[R1, #+24]
+        STR      R0,[R5, #+24]
 //  439   dma_handle.Init.Mode                = DMA_NORMAL;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable10_14
-        STR      R0,[R1, #+28]
+        STR      R0,[R5, #+28]
 //  440   dma_handle.Init.Priority            = DMA_PRIORITY_HIGH;
-        MOVS     R0,#+131072
-        LDR.N    R1,??DataTable10_14
-        STR      R0,[R1, #+32]
+        MOV      R0,#+131072
+        STR      R0,[R5, #+32]
 //  441   dma_handle.Init.FIFOMode            = DMA_FIFOMODE_DISABLE;         
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable10_14
-        STR      R0,[R1, #+36]
+        STR      R0,[R5, #+36]
 //  442   dma_handle.Init.FIFOThreshold       = DMA_FIFO_THRESHOLD_FULL;
         MOVS     R0,#+3
-        LDR.N    R1,??DataTable10_14
-        STR      R0,[R1, #+40]
+        STR      R0,[R5, #+40]
 //  443   dma_handle.Init.MemBurst            = DMA_MBURST_SINGLE;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable10_14
-        STR      R0,[R1, #+44]
+        STR      R0,[R5, #+44]
 //  444   dma_handle.Init.PeriphBurst         = DMA_PBURST_SINGLE; 
-        MOVS     R0,#+0
-        LDR.N    R1,??DataTable10_14
-        STR      R0,[R1, #+48]
+        STR      R0,[R5, #+48]
 //  445   
 //  446   dma_handle.Instance = SDRAM_DMAx_STREAM;
-        LDR.N    R0,??DataTable10_15  ;; 0x40026410
-        LDR.N    R1,??DataTable10_14
-        STR      R0,[R1, #+0]
+        LDR.N    R0,??DataTable10_11  ;; 0x40026410
+        STR      R0,[R5, #+0]
 //  447   
 //  448    /* Associate the DMA handle */
 //  449   __HAL_LINKDMA(hsdram, hdma, dma_handle);
-        LDR.N    R0,??DataTable10_14
-        STR      R0,[R4, #+48]
-        LDR.N    R0,??DataTable10_14
-        STR      R4,[R0, #+56]
+        STR      R5,[R4, #+48]
+        STR      R4,[R5, #+56]
 //  450   
 //  451   /* Deinitialize the stream for new transfer */
 //  452   HAL_DMA_DeInit(&dma_handle);
-        LDR.N    R0,??DataTable10_14
+        MOV      R0,R5
           CFI FunCall HAL_DMA_DeInit
         BL       HAL_DMA_DeInit
 //  453   
 //  454   /* Configure the DMA stream */
 //  455   HAL_DMA_Init(&dma_handle); 
-        LDR.N    R0,??DataTable10_14
+        MOV      R0,R5
           CFI FunCall HAL_DMA_Init
         BL       HAL_DMA_Init
 //  456   
@@ -1224,13 +1088,9 @@ BSP_SDRAM_MspInit:
 //  468 __weak void BSP_SDRAM_MspDeInit(SDRAM_HandleTypeDef  *hsdram, void *Params)
 //  469 {  
 BSP_SDRAM_MspDeInit:
-        PUSH     {R3-R5,LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
-        MOVS     R4,R0
-        MOVS     R5,R1
+          CFI CFA R13+8
 //  470     static DMA_HandleTypeDef dma_handle;
 //  471   
 //  472     /* Disable NVIC configuration for DMA interrupt */
@@ -1241,120 +1101,97 @@ BSP_SDRAM_MspDeInit:
 //  474 
 //  475     /* Deinitialize the stream for new transfer */
 //  476     dma_handle.Instance = SDRAM_DMAx_STREAM;
-        LDR.N    R0,??DataTable10_15  ;; 0x40026410
-        LDR.N    R1,??DataTable10_16
-        STR      R0,[R1, #+0]
+        LDR.N    R0,??DataTable10_12
+        LDR.N    R1,??DataTable10_11  ;; 0x40026410
+        STR      R1,[R0, #+0]
 //  477     HAL_DMA_DeInit(&dma_handle);
-        LDR.N    R0,??DataTable10_16
+        POP      {R1,LR}
+          CFI R14 SameValue
+          CFI CFA R13+0
           CFI FunCall HAL_DMA_DeInit
-        BL       HAL_DMA_DeInit
+        B.W      HAL_DMA_DeInit
 //  478 
 //  479     /* GPIO pins clock, FMC clock and DMA clock can be shut down in the applications
 //  480        by surcharging this __weak function */ 
 //  481 }
-        POP      {R0,R4,R5,PC}    ;; return
           CFI EndBlock cfiBlock10
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable10:
-        DC32     0xa0000140
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable10_1:
-        DC32     sdramHandle
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable10_2:
-        DC32     Timing
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable10_3:
         DC32     ??sdramstatus
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_4:
-        DC32     ??sdramstatus_1
+??DataTable10_1:
+        DC32     0xa0000140
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_5:
-        DC32     Command
+??DataTable10_2:
+        DC32     ??sdramstatus+0x4
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_6:
-        DC32     0x40023838
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable10_7:
+??DataTable10_3:
         DC32     0x40023830
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_8:
+??DataTable10_4:
         DC32     0x40020800
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_9:
+??DataTable10_5:
         DC32     0x40020c00
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_10:
+??DataTable10_6:
         DC32     0x40021000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_11:
+??DataTable10_7:
         DC32     0x40021400
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_12:
+??DataTable10_8:
         DC32     0x40021800
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_13:
+??DataTable10_9:
         DC32     0x40021c00
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_14:
+??DataTable10_10:
         DC32     ??dma_handle
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_15:
+??DataTable10_11:
         DC32     0x40026410
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_16:
+??DataTable10_12:
         DC32     ??dma_handle_1
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
@@ -1393,12 +1230,12 @@ BSP_SDRAM_MspDeInit:
 //  498 
 //  499 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-//   256 bytes in section .bss
-//     2 bytes in section .data
-// 1 136 bytes in section .text
+// 160 bytes in section .bss
+// 100 bytes in section .data
+// 852 bytes in section .text
 // 
-// 1 136 bytes of CODE memory
-//   258 bytes of DATA memory
+// 852 bytes of CODE memory
+// 260 bytes of DATA memory
 //
 //Errors: none
 //Warnings: none

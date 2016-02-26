@@ -1292,7 +1292,7 @@ void HAL_I2S_MspInit(I2S_HandleTypeDef *hi2s)
 	  
 	  
 		/* Peripheral interrupt init*/
-		HAL_NVIC_SetPriority(SPI2_IRQn, INTERRUPT_PRI_SDO34, 0);
+		HAL_NVIC_SetPriority(SPI2_IRQn, INTERRUPT_PRI_SDO34, 1);
 		HAL_NVIC_EnableIRQ(SPI2_IRQn);
 		/* USER CODE BEGIN SPI2_MspInit 1 */
 	  

@@ -1,60 +1,59 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      26/Feb/2016  17:55:59
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Feb/2016  00:32:34
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_gpio.c
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_gpio.c
 //    Command line =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_gpio.c
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_gpio.c
 //        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 //        USE_IOEXPANDER -D USE_USB_FS -lC
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -lA
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-//        --no_clustering --no_scheduling --debug --endian=little
-//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-//        (x86)\IAR Systems\Embedded Workbench
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+//        --no_unroll --no_inline --no_tbaa --no_scheduling --debug
+//        --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config
+//        "D:\Program Files (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+//        -Om --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_gpio.s
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_gpio.s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -121,7 +120,7 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
         
-// D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_gpio.c
+// H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_gpio.c
 //    1 /**
 //    2   ******************************************************************************
 //    3   * @file    stm32f7xx_hal_gpio.c
@@ -326,11 +325,8 @@ HAL_GPIO_Init:
 //  189   uint32_t position = 0x00;
         MOVS     R2,#+0
 //  190   uint32_t ioposition = 0x00;
-        MOVS     R3,#+0
 //  191   uint32_t iocurrent = 0x00;
-        MOVS     R4,#+0
 //  192   uint32_t temp = 0x00;
-        MOVS     R5,#+0
 //  193 
 //  194   /* Check the parameters */
 //  195   assert_param(IS_GPIO_ALL_INSTANCE(GPIOx));
@@ -340,364 +336,299 @@ HAL_GPIO_Init:
 //  199 
 //  200   /* Configure the port pins */
 //  201   for(position = 0; position < GPIO_NUMBER; position++)
-        MOVS     R6,#+0
-        MOVS     R2,R6
-??HAL_GPIO_Init_0:
-        CMP      R2,#+16
-        BCS.W    ??HAL_GPIO_Init_1
+        B.N      ??HAL_GPIO_Init_0
 //  202   {
 //  203     /* Get the IO position */
 //  204     ioposition = ((uint32_t)0x01) << position;
-        MOVS     R6,#+1
-        LSLS     R6,R6,R2
-        MOVS     R3,R6
 //  205     /* Get the current IO position */
 //  206     iocurrent = (uint32_t)(GPIO_Init->Pin) & ioposition;
-        LDR      R6,[R1, #+0]
-        ANDS     R6,R3,R6
-        MOVS     R4,R6
 //  207 
 //  208     if(iocurrent == ioposition)
-        CMP      R4,R3
-        BNE.W    ??HAL_GPIO_Init_2
 //  209     {
 //  210       /*--------------------- GPIO Mode Configuration ------------------------*/
 //  211       /* In case of Alternate function mode selection */
 //  212       if((GPIO_Init->Mode == GPIO_MODE_AF_PP) || (GPIO_Init->Mode == GPIO_MODE_AF_OD))
-        LDR      R6,[R1, #+4]
-        CMP      R6,#+2
-        BEQ.N    ??HAL_GPIO_Init_3
-        LDR      R6,[R1, #+4]
-        CMP      R6,#+18
-        BNE.N    ??HAL_GPIO_Init_4
 //  213       {
 //  214         /* Check the Alternate function parameter */
 //  215         assert_param(IS_GPIO_AF(GPIO_Init->Alternate));
 //  216         
 //  217         /* Configure Alternate function mapped with the current IO */
 //  218         temp = GPIOx->AFR[position >> 3];
-??HAL_GPIO_Init_3:
-        LSRS     R6,R2,#+3
-        ADDS     R6,R0,R6, LSL #+2
-        LDR      R6,[R6, #+32]
-        MOVS     R5,R6
 //  219         temp &= ~((uint32_t)0xF << ((uint32_t)(position & (uint32_t)0x07) * 4)) ;
-        MOVS     R6,#+15
-        ANDS     R7,R2,#0x7
-        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
-        LSLS     R7,R7,#+2
-        LSLS     R6,R6,R7
-        BICS     R5,R5,R6
 //  220         temp |= ((uint32_t)(GPIO_Init->Alternate) << (((uint32_t)position & (uint32_t)0x07) * 4));
-        LDR      R6,[R1, #+16]
-        ANDS     R7,R2,#0x7
-        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
-        LSLS     R7,R7,#+2
-        LSLS     R6,R6,R7
-        ORRS     R5,R6,R5
 //  221         GPIOx->AFR[position >> 3] = temp;
-        LSRS     R6,R2,#+3
-        ADDS     R6,R0,R6, LSL #+2
-        STR      R5,[R6, #+32]
 //  222       }
 //  223 
 //  224       /* Configure IO Direction mode (Input, Output, Alternate or Analog) */
 //  225       temp = GPIOx->MODER;
-??HAL_GPIO_Init_4:
-        LDR      R6,[R0, #+0]
-        MOVS     R5,R6
 //  226       temp &= ~(GPIO_MODER_MODER0 << (position * 2));
-        MOVS     R6,#+3
-        MOVS     R7,R2
-        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
-        LSLS     R7,R7,#+1
-        LSLS     R6,R6,R7
-        BICS     R5,R5,R6
 //  227       temp |= ((GPIO_Init->Mode & GPIO_MODE) << (position * 2));
-        LDRB     R6,[R1, #+4]
-        ANDS     R6,R6,#0x3
-        MOVS     R7,R2
-        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
-        LSLS     R7,R7,#+1
-        LSLS     R6,R6,R7
-        ORRS     R5,R6,R5
 //  228       GPIOx->MODER = temp;
-        STR      R5,[R0, #+0]
 //  229 
 //  230       /* In case of Output or Alternate function mode selection */
 //  231       if((GPIO_Init->Mode == GPIO_MODE_OUTPUT_PP) || (GPIO_Init->Mode == GPIO_MODE_AF_PP) ||
 //  232          (GPIO_Init->Mode == GPIO_MODE_OUTPUT_OD) || (GPIO_Init->Mode == GPIO_MODE_AF_OD))
-        LDR      R6,[R1, #+4]
-        CMP      R6,#+1
-        BEQ.N    ??HAL_GPIO_Init_5
-        LDR      R6,[R1, #+4]
-        CMP      R6,#+2
-        BEQ.N    ??HAL_GPIO_Init_5
-        LDR      R6,[R1, #+4]
-        CMP      R6,#+17
-        BEQ.N    ??HAL_GPIO_Init_5
-        LDR      R6,[R1, #+4]
-        CMP      R6,#+18
-        BNE.N    ??HAL_GPIO_Init_6
 //  233       {
 //  234         /* Check the Speed parameter */
 //  235         assert_param(IS_GPIO_SPEED(GPIO_Init->Speed));
 //  236         /* Configure the IO Speed */
 //  237         temp = GPIOx->OSPEEDR; 
-??HAL_GPIO_Init_5:
-        LDR      R6,[R0, #+8]
-        MOVS     R5,R6
 //  238         temp &= ~(GPIO_OSPEEDER_OSPEEDR0 << (position * 2));
-        MOVS     R6,#+3
-        MOVS     R7,R2
-        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
-        LSLS     R7,R7,#+1
-        LSLS     R6,R6,R7
-        BICS     R5,R5,R6
 //  239         temp |= (GPIO_Init->Speed << (position * 2));
-        LDR      R6,[R1, #+12]
-        MOVS     R7,R2
-        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
-        LSLS     R7,R7,#+1
-        LSLS     R6,R6,R7
-        ORRS     R5,R6,R5
 //  240         GPIOx->OSPEEDR = temp;
-        STR      R5,[R0, #+8]
 //  241 
 //  242         /* Configure the IO Output Type */
 //  243         temp = GPIOx->OTYPER;
-        LDR      R6,[R0, #+4]
-        MOVS     R5,R6
 //  244         temp &= ~(GPIO_OTYPER_OT_0 << position) ;
-        MOVS     R6,#+1
-        LSLS     R6,R6,R2
-        BICS     R5,R5,R6
 //  245         temp |= (((GPIO_Init->Mode & GPIO_OUTPUT_TYPE) >> 4) << position);
-        LDR      R6,[R1, #+4]
-        UBFX     R6,R6,#+4,#+1
-        LSLS     R6,R6,R2
-        ORRS     R5,R6,R5
 //  246         GPIOx->OTYPER = temp;
-        STR      R5,[R0, #+4]
 //  247       }
 //  248 
 //  249       /* Activate the Pull-up or Pull down resistor for the current IO */
 //  250       temp = GPIOx->PUPDR;
-??HAL_GPIO_Init_6:
-        LDR      R6,[R0, #+12]
-        MOVS     R5,R6
 //  251       temp &= ~(GPIO_PUPDR_PUPDR0 << (position * 2));
-        MOVS     R6,#+3
-        MOVS     R7,R2
-        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
-        LSLS     R7,R7,#+1
-        LSLS     R6,R6,R7
-        BICS     R5,R5,R6
 //  252       temp |= ((GPIO_Init->Pull) << (position * 2));
-        LDR      R6,[R1, #+8]
-        MOVS     R7,R2
-        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
-        LSLS     R7,R7,#+1
-        LSLS     R6,R6,R7
-        ORRS     R5,R6,R5
 //  253       GPIOx->PUPDR = temp;
-        STR      R5,[R0, #+12]
 //  254 
 //  255       /*--------------------- EXTI Mode Configuration ------------------------*/
 //  256       /* Configure the External Interrupt or event for the current IO */
 //  257       if((GPIO_Init->Mode & EXTI_MODE) == EXTI_MODE)
-        LDR      R6,[R1, #+4]
-        LSLS     R6,R6,#+3
-        BPL.N    ??HAL_GPIO_Init_2
 //  258       {
 //  259         /* Enable SYSCFG Clock */
 //  260         __HAL_RCC_SYSCFG_CLK_ENABLE();
-        LDR.N    R6,??DataTable2  ;; 0x40023844
-        LDR      R6,[R6, #+0]
-        ORRS     R6,R6,#0x4000
-        LDR.N    R7,??DataTable2  ;; 0x40023844
-        STR      R6,[R7, #+0]
-        LDR.N    R6,??DataTable2  ;; 0x40023844
-        LDR      R6,[R6, #+0]
-        ANDS     R6,R6,#0x4000
-        STR      R6,[SP, #+0]
-        LDR      R6,[SP, #+0]
 //  261 
 //  262         temp = SYSCFG->EXTICR[position >> 2];
-        LDR.N    R6,??DataTable2_1  ;; 0x40013808
-        LSRS     R7,R2,#+2
-        LDR      R6,[R6, R7, LSL #+2]
-        MOVS     R5,R6
 //  263         temp &= ~(((uint32_t)0x0F) << (4 * (position & 0x03)));
-        MOVS     R6,#+15
-        ANDS     R7,R2,#0x3
-        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
-        LSLS     R7,R7,#+2
-        LSLS     R6,R6,R7
-        BICS     R5,R5,R6
 //  264         temp |= ((uint32_t)(GPIO_GET_INDEX(GPIOx)) << (4 * (position & 0x03)));
-        LDR.N    R6,??DataTable2_2  ;; 0x40020000
-        CMP      R0,R6
-        BNE.N    ??HAL_GPIO_Init_7
-        MOVS     R6,#+0
-        B.N      ??HAL_GPIO_Init_8
-??HAL_GPIO_Init_7:
-        LDR.N    R6,??DataTable2_3  ;; 0x40020400
-        CMP      R0,R6
-        BNE.N    ??HAL_GPIO_Init_9
-        MOVS     R6,#+1
-        B.N      ??HAL_GPIO_Init_8
-??HAL_GPIO_Init_9:
-        LDR.N    R6,??DataTable2_4  ;; 0x40020800
-        CMP      R0,R6
-        BNE.N    ??HAL_GPIO_Init_10
-        MOVS     R6,#+2
-        B.N      ??HAL_GPIO_Init_11
-??HAL_GPIO_Init_10:
-        LDR.N    R6,??DataTable2_5  ;; 0x40020c00
-        CMP      R0,R6
-        BNE.N    ??HAL_GPIO_Init_12
-        MOVS     R6,#+3
-        B.N      ??HAL_GPIO_Init_11
-??HAL_GPIO_Init_12:
-        LDR.N    R6,??DataTable2_6  ;; 0x40021000
-        CMP      R0,R6
-        BNE.N    ??HAL_GPIO_Init_13
-        MOVS     R6,#+4
-        B.N      ??HAL_GPIO_Init_14
-??HAL_GPIO_Init_13:
-        LDR.N    R6,??DataTable2_7  ;; 0x40021400
-        CMP      R0,R6
-        BNE.N    ??HAL_GPIO_Init_15
-        MOVS     R6,#+5
-        B.N      ??HAL_GPIO_Init_14
-??HAL_GPIO_Init_15:
-        LDR.N    R6,??DataTable2_8  ;; 0x40021800
-        CMP      R0,R6
-        BNE.N    ??HAL_GPIO_Init_16
-        MOVS     R6,#+6
-        B.N      ??HAL_GPIO_Init_17
-??HAL_GPIO_Init_16:
-        LDR.N    R6,??DataTable2_9  ;; 0x40021c00
-        CMP      R0,R6
-        BNE.N    ??HAL_GPIO_Init_18
-        MOVS     R6,#+7
-        B.N      ??HAL_GPIO_Init_17
-??HAL_GPIO_Init_18:
-        LDR.N    R6,??DataTable2_10  ;; 0x40022000
-        CMP      R0,R6
-        BNE.N    ??HAL_GPIO_Init_19
-        MOVS     R6,#+8
-        B.N      ??HAL_GPIO_Init_20
-??HAL_GPIO_Init_19:
-        LDR.N    R6,??DataTable2_11  ;; 0x40022400
-        CMP      R0,R6
-        BNE.N    ??HAL_GPIO_Init_21
-        MOVS     R6,#+9
-        B.N      ??HAL_GPIO_Init_20
-??HAL_GPIO_Init_21:
-        MOVS     R6,#+10
-??HAL_GPIO_Init_20:
-??HAL_GPIO_Init_17:
-??HAL_GPIO_Init_14:
-??HAL_GPIO_Init_11:
-??HAL_GPIO_Init_8:
-        UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
-        ANDS     R7,R2,#0x3
-        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
-        LSLS     R7,R7,#+2
-        LSLS     R6,R6,R7
-        ORRS     R5,R6,R5
+??HAL_GPIO_Init_1:
+        MOV      R12,#+10
+??HAL_GPIO_Init_2:
+        LSL      R6,R12,R6
+        ORRS     R6,R6,R7
 //  265         SYSCFG->EXTICR[position >> 2] = temp;
-        LDR.N    R6,??DataTable2_1  ;; 0x40013808
-        LSRS     R7,R2,#+2
-        STR      R5,[R6, R7, LSL #+2]
+        STR      R6,[R5, R4, LSL #+2]
 //  266 
 //  267         /* Clear EXTI line configuration */
 //  268         temp = EXTI->IMR;
-        LDR.N    R6,??DataTable2_12  ;; 0x40013c00
-        LDR      R6,[R6, #+0]
-        MOVS     R5,R6
+        LDR.N    R4,??DataTable2  ;; 0x40013c00
+        LDR      R6,[R4, #+0]
 //  269         temp &= ~((uint32_t)iocurrent);
-        BICS     R5,R5,R4
+        MVNS     R5,R3
+        ANDS     R6,R5,R6
 //  270         if((GPIO_Init->Mode & GPIO_MODE_IT) == GPIO_MODE_IT)
-        LDR      R6,[R1, #+4]
-        LSLS     R6,R6,#+15
-        BPL.N    ??HAL_GPIO_Init_22
+        LDR      R7,[R1, #+4]
+        LSLS     R7,R7,#+15
+        BPL.N    ??HAL_GPIO_Init_3
 //  271         {
 //  272           temp |= iocurrent;
-        ORRS     R5,R4,R5
+        ORRS     R6,R3,R6
 //  273         }
 //  274         EXTI->IMR = temp;
-??HAL_GPIO_Init_22:
-        LDR.N    R6,??DataTable2_12  ;; 0x40013c00
-        STR      R5,[R6, #+0]
+??HAL_GPIO_Init_3:
+        STR      R6,[R4, #+0]
 //  275 
 //  276         temp = EXTI->EMR;
-        LDR.N    R6,??DataTable2_13  ;; 0x40013c04
-        LDR      R6,[R6, #+0]
-        MOVS     R5,R6
+        LDR      R6,[R4, #+4]
 //  277         temp &= ~((uint32_t)iocurrent);
-        BICS     R5,R5,R4
+        ANDS     R6,R5,R6
 //  278         if((GPIO_Init->Mode & GPIO_MODE_EVT) == GPIO_MODE_EVT)
-        LDR      R6,[R1, #+4]
-        LSLS     R6,R6,#+14
-        BPL.N    ??HAL_GPIO_Init_23
+        LDR      R7,[R1, #+4]
+        LSLS     R7,R7,#+14
+        BPL.N    ??HAL_GPIO_Init_4
 //  279         {
 //  280           temp |= iocurrent;
-        ORRS     R5,R4,R5
+        ORRS     R6,R3,R6
 //  281         }
 //  282         EXTI->EMR = temp;
-??HAL_GPIO_Init_23:
-        LDR.N    R6,??DataTable2_13  ;; 0x40013c04
-        STR      R5,[R6, #+0]
+??HAL_GPIO_Init_4:
+        STR      R6,[R4, #+4]
 //  283 
 //  284         /* Clear Rising Falling edge configuration */
 //  285         temp = EXTI->RTSR;
-        LDR.N    R6,??DataTable2_14  ;; 0x40013c08
-        LDR      R6,[R6, #+0]
-        MOVS     R5,R6
+        LDR      R6,[R4, #+8]
 //  286         temp &= ~((uint32_t)iocurrent);
-        BICS     R5,R5,R4
+        ANDS     R6,R5,R6
 //  287         if((GPIO_Init->Mode & RISING_EDGE) == RISING_EDGE)
-        LDR      R6,[R1, #+4]
-        LSLS     R6,R6,#+11
-        BPL.N    ??HAL_GPIO_Init_24
+        LDR      R7,[R1, #+4]
+        LSLS     R7,R7,#+11
+        BPL.N    ??HAL_GPIO_Init_5
 //  288         {
 //  289           temp |= iocurrent;
-        ORRS     R5,R4,R5
+        ORRS     R6,R3,R6
 //  290         }
 //  291         EXTI->RTSR = temp;
-??HAL_GPIO_Init_24:
-        LDR.N    R6,??DataTable2_14  ;; 0x40013c08
-        STR      R5,[R6, #+0]
+??HAL_GPIO_Init_5:
+        STR      R6,[R4, #+8]
 //  292 
 //  293         temp = EXTI->FTSR;
-        LDR.N    R6,??DataTable2_15  ;; 0x40013c0c
-        LDR      R6,[R6, #+0]
-        MOVS     R5,R6
+        LDR      R6,[R4, #+12]
 //  294         temp &= ~((uint32_t)iocurrent);
-        BICS     R5,R5,R4
+        ANDS     R5,R5,R6
 //  295         if((GPIO_Init->Mode & FALLING_EDGE) == FALLING_EDGE)
         LDR      R6,[R1, #+4]
         LSLS     R6,R6,#+10
-        BPL.N    ??HAL_GPIO_Init_25
+        BPL.N    ??HAL_GPIO_Init_6
 //  296         {
 //  297           temp |= iocurrent;
-        ORRS     R5,R4,R5
+        ORRS     R5,R3,R5
 //  298         }
 //  299         EXTI->FTSR = temp;
-??HAL_GPIO_Init_25:
-        LDR.N    R6,??DataTable2_15  ;; 0x40013c0c
-        STR      R5,[R6, #+0]
+??HAL_GPIO_Init_6:
+        STR      R5,[R4, #+12]
+??HAL_GPIO_Init_7:
+        ADDS     R2,R2,#+1
+??HAL_GPIO_Init_0:
+        CMP      R2,#+16
+        BCS.W    ??HAL_GPIO_Init_8
+        MOVS     R3,#+1
+        LSL      R4,R3,R2
+        LDR      R3,[R1, #+0]
+        ANDS     R3,R4,R3
+        CMP      R3,R4
+        BNE.N    ??HAL_GPIO_Init_7
+        LDR      R5,[R1, #+4]
+        CMP      R5,#+2
+        BEQ.N    ??HAL_GPIO_Init_9
+        CMP      R5,#+18
+        BNE.N    ??HAL_GPIO_Init_10
+??HAL_GPIO_Init_9:
+        LSRS     R5,R2,#+3
+        ADD      R6,R0,R5, LSL #+2
+        LDR      R5,[R6, #+32]
+        AND      R7,R2,#0x7
+        LSLS     R7,R7,#+2
+        MOV      R12,#+15
+        LSL      R12,R12,R7
+        BIC      R5,R5,R12
+        LDR      R12,[R1, #+16]
+        LSL      R7,R12,R7
+        ORRS     R5,R7,R5
+        STR      R5,[R6, #+32]
+??HAL_GPIO_Init_10:
+        LDR      R5,[R0, #+0]
+        LSLS     R6,R2,#+1
+        MOVS     R7,#+3
+        LSLS     R7,R7,R6
+        MVNS     R7,R7
+        ANDS     R5,R7,R5
+        LDRB     R12,[R1, #+4]
+        AND      R12,R12,#0x3
+        LSL      R12,R12,R6
+        ORR      R5,R12,R5
+        STR      R5,[R0, #+0]
+        LDR      R5,[R1, #+4]
+        CMP      R5,#+1
+        BEQ.N    ??HAL_GPIO_Init_11
+        CMP      R5,#+2
+        BEQ.N    ??HAL_GPIO_Init_11
+        CMP      R5,#+17
+        BEQ.N    ??HAL_GPIO_Init_11
+        CMP      R5,#+18
+        BNE.N    ??HAL_GPIO_Init_12
+??HAL_GPIO_Init_11:
+        LDR      R5,[R0, #+8]
+        ANDS     R5,R7,R5
+        LDR      R12,[R1, #+12]
+        LSL      R12,R12,R6
+        ORR      R5,R12,R5
+        STR      R5,[R0, #+8]
+        LDR      R5,[R0, #+4]
+        BIC      R4,R5,R4
+        LDR      R5,[R1, #+4]
+        UBFX     R5,R5,#+4,#+1
+        LSLS     R5,R5,R2
+        ORRS     R4,R5,R4
+        STR      R4,[R0, #+4]
+??HAL_GPIO_Init_12:
+        LDR      R5,[R0, #+12]
+        AND      R4,R7,R5
+        LDR      R5,[R1, #+8]
+        LSLS     R5,R5,R6
+        ORRS     R4,R5,R4
+        STR      R4,[R0, #+12]
+        LDR      R4,[R1, #+4]
+        LSLS     R4,R4,#+3
+        BPL.N    ??HAL_GPIO_Init_7
+        LDR.N    R4,??DataTable2_1  ;; 0x40023844
+        LDR      R5,[R4, #+0]
+        ORR      R5,R5,#0x4000
+        STR      R5,[R4, #+0]
+        LDR      R4,[R4, #+0]
+        AND      R4,R4,#0x4000
+        STR      R4,[SP, #+0]
+        LDR      R4,[SP, #+0]
+        LSRS     R4,R2,#+2
+        LDR.N    R5,??DataTable2_2  ;; 0x40013808
+        LDR      R7,[R5, R4, LSL #+2]
+        AND      R6,R2,#0x3
+        LSLS     R6,R6,#+2
+        MOV      R12,#+15
+        LSL      R12,R12,R6
+        BIC      R7,R7,R12
+        LDR.W    R12,??DataTable2_3  ;; 0x40020000
+        CMP      R0,R12
+        BNE.N    ??HAL_GPIO_Init_13
+        MOV      R12,#+0
+        B.N      ??HAL_GPIO_Init_2
+??HAL_GPIO_Init_13:
+        LDR.W    R12,??DataTable2_4  ;; 0x40020400
+        CMP      R0,R12
+        BNE.N    ??HAL_GPIO_Init_14
+        MOV      R12,#+1
+        B.N      ??HAL_GPIO_Init_2
+??HAL_GPIO_Init_14:
+        LDR.W    R12,??DataTable2_5  ;; 0x40020800
+        CMP      R0,R12
+        BNE.N    ??HAL_GPIO_Init_15
+        MOV      R12,#+2
+        B.N      ??HAL_GPIO_Init_2
+??HAL_GPIO_Init_15:
+        LDR.W    R12,??DataTable2_6  ;; 0x40020c00
+        CMP      R0,R12
+        BNE.N    ??HAL_GPIO_Init_16
+        MOV      R12,#+3
+        B.N      ??HAL_GPIO_Init_2
+??HAL_GPIO_Init_16:
+        LDR.W    R12,??DataTable2_7  ;; 0x40021000
+        CMP      R0,R12
+        BNE.N    ??HAL_GPIO_Init_17
+        MOV      R12,#+4
+        B.N      ??HAL_GPIO_Init_2
+??HAL_GPIO_Init_17:
+        LDR.W    R12,??DataTable2_8  ;; 0x40021400
+        CMP      R0,R12
+        BNE.N    ??HAL_GPIO_Init_18
+        MOV      R12,#+5
+        B.N      ??HAL_GPIO_Init_2
+??HAL_GPIO_Init_18:
+        LDR.W    R12,??DataTable2_9  ;; 0x40021800
+        CMP      R0,R12
+        BNE.N    ??HAL_GPIO_Init_19
+        MOV      R12,#+6
+        B.N      ??HAL_GPIO_Init_2
+??HAL_GPIO_Init_19:
+        LDR.W    R12,??DataTable2_10  ;; 0x40021c00
+        CMP      R0,R12
+        BNE.N    ??HAL_GPIO_Init_20
+        MOV      R12,#+7
+        B.N      ??HAL_GPIO_Init_2
+??HAL_GPIO_Init_20:
+        LDR.W    R12,??DataTable2_11  ;; 0x40022000
+        CMP      R0,R12
+        BNE.N    ??HAL_GPIO_Init_21
+        MOV      R12,#+8
+        B.N      ??HAL_GPIO_Init_2
+??HAL_GPIO_Init_21:
+        LDR.W    R12,??DataTable2_12  ;; 0x40022400
+        CMP      R0,R12
+        BNE.W    ??HAL_GPIO_Init_1
+        MOV      R12,#+9
+        B.N      ??HAL_GPIO_Init_2
 //  300       }
 //  301     }
 //  302   }
-??HAL_GPIO_Init_2:
-        ADDS     R2,R2,#+1
-        B.N      ??HAL_GPIO_Init_0
 //  303 }
-??HAL_GPIO_Init_1:
+??HAL_GPIO_Init_8:
         POP      {R0,R4-R7}
           CFI R4 SameValue
           CFI R5 SameValue
@@ -732,234 +663,185 @@ HAL_GPIO_DeInit:
           CFI CFA R13+20
 //  314   uint32_t position;
 //  315   uint32_t ioposition = 0x00;
-        MOVS     R2,#+0
 //  316   uint32_t iocurrent = 0x00;
-        MOVS     R3,#+0
 //  317   uint32_t tmp = 0x00;
-        MOVS     R4,#+0
 //  318 
 //  319   /* Check the parameters */
 //  320   assert_param(IS_GPIO_ALL_INSTANCE(GPIOx));
 //  321   
 //  322   /* Configure the port pins */
 //  323   for(position = 0; position < GPIO_NUMBER; position++)
-        MOVS     R6,#+0
-        MOVS     R5,R6
-??HAL_GPIO_DeInit_0:
-        CMP      R5,#+16
-        BCS.W    ??HAL_GPIO_DeInit_1
+        MOVS     R2,#+0
+        B.N      ??HAL_GPIO_DeInit_0
 //  324   {
 //  325     /* Get the IO position */
 //  326     ioposition = ((uint32_t)0x01) << position;
-        MOVS     R6,#+1
-        LSLS     R6,R6,R5
-        MOVS     R2,R6
 //  327     /* Get the current IO position */
 //  328     iocurrent = (GPIO_Pin) & ioposition;
-        ANDS     R6,R2,R1
-        MOVS     R3,R6
 //  329 
 //  330     if(iocurrent == ioposition)
-        CMP      R3,R2
-        BNE.W    ??HAL_GPIO_DeInit_2
 //  331     {
 //  332       /*------------------------- GPIO Mode Configuration --------------------*/
 //  333       /* Configure IO Direction in Input Floating Mode */
 //  334       GPIOx->MODER &= ~(GPIO_MODER_MODER0 << (position * 2));
-        LDR      R6,[R0, #+0]
-        MOVS     R7,#+3
-        MOV      R12,R5
-        UXTB     R12,R12          ;; ZeroExt  R12,R12,#+24,#+24
-        LSLS     R12,R12,#+1
-        LSLS     R7,R7,R12
-        BICS     R6,R6,R7
-        STR      R6,[R0, #+0]
 //  335 
 //  336       /* Configure the default Alternate Function in current IO */
 //  337       GPIOx->AFR[position >> 3] &= ~((uint32_t)0xF << ((uint32_t)(position & (uint32_t)0x07) * 4)) ;
-        LSRS     R6,R5,#+3
-        ADDS     R6,R0,R6, LSL #+2
-        LSRS     R7,R5,#+3
-        ADDS     R7,R0,R7, LSL #+2
-        LDR      R7,[R7, #+32]
-        MOVS     R12,#+15
-        ANDS     LR,R5,#0x7
-        UXTB     LR,LR            ;; ZeroExt  LR,LR,#+24,#+24
-        LSLS     LR,LR,#+2
-        LSLS     R12,R12,LR
-        BICS     R7,R7,R12
-        STR      R7,[R6, #+32]
 //  338 
 //  339       /* Configure the default value for IO Speed */
 //  340       GPIOx->OSPEEDR &= ~(GPIO_OSPEEDER_OSPEEDR0 << (position * 2));
-        LDR      R6,[R0, #+8]
-        MOVS     R7,#+3
-        MOV      R12,R5
-        UXTB     R12,R12          ;; ZeroExt  R12,R12,#+24,#+24
-        LSLS     R12,R12,#+1
-        LSLS     R7,R7,R12
-        BICS     R6,R6,R7
-        STR      R6,[R0, #+8]
 //  341 
 //  342       /* Configure the default value IO Output Type */
 //  343       GPIOx->OTYPER  &= ~(GPIO_OTYPER_OT_0 << position) ;
-        LDR      R6,[R0, #+4]
-        MOVS     R7,#+1
-        LSLS     R7,R7,R5
-        BICS     R6,R6,R7
-        STR      R6,[R0, #+4]
 //  344 
 //  345       /* Deactivate the Pull-up and Pull-down resistor for the current IO */
 //  346       GPIOx->PUPDR &= ~(GPIO_PUPDR_PUPDR0 << (position * 2));
-        LDR      R6,[R0, #+12]
-        MOVS     R7,#+3
-        MOV      R12,R5
-        UXTB     R12,R12          ;; ZeroExt  R12,R12,#+24,#+24
-        LSLS     R12,R12,#+1
-        LSLS     R7,R7,R12
-        BICS     R6,R6,R7
-        STR      R6,[R0, #+12]
 //  347 
 //  348       /*------------------------- EXTI Mode Configuration --------------------*/
 //  349       tmp = SYSCFG->EXTICR[position >> 2];
-        LDR.N    R6,??DataTable2_1  ;; 0x40013808
-        LSRS     R7,R5,#+2
-        LDR      R6,[R6, R7, LSL #+2]
-        MOVS     R4,R6
 //  350       tmp &= (((uint32_t)0x0F) << (4 * (position & 0x03)));
-        MOVS     R6,#+15
-        ANDS     R7,R5,#0x3
-        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
-        LSLS     R7,R7,#+2
-        LSLS     R6,R6,R7
-        ANDS     R4,R6,R4
 //  351       if(tmp == ((uint32_t)(GPIO_GET_INDEX(GPIOx)) << (4 * (position & 0x03))))
-        LDR.N    R6,??DataTable2_2  ;; 0x40020000
-        CMP      R0,R6
+??HAL_GPIO_DeInit_1:
+        MOV      LR,#+10
+??HAL_GPIO_DeInit_2:
+        LSL      R7,LR,R7
+        CMP      R12,R7
         BNE.N    ??HAL_GPIO_DeInit_3
-        MOVS     R6,#+0
-        B.N      ??HAL_GPIO_DeInit_4
-??HAL_GPIO_DeInit_3:
-        LDR.N    R6,??DataTable2_3  ;; 0x40020400
-        CMP      R0,R6
-        BNE.N    ??HAL_GPIO_DeInit_5
-        MOVS     R6,#+1
-        B.N      ??HAL_GPIO_DeInit_4
-??HAL_GPIO_DeInit_5:
-        LDR.N    R6,??DataTable2_4  ;; 0x40020800
-        CMP      R0,R6
-        BNE.N    ??HAL_GPIO_DeInit_6
-        MOVS     R6,#+2
-        B.N      ??HAL_GPIO_DeInit_7
-??HAL_GPIO_DeInit_6:
-        LDR.N    R6,??DataTable2_5  ;; 0x40020c00
-        CMP      R0,R6
-        BNE.N    ??HAL_GPIO_DeInit_8
-        MOVS     R6,#+3
-        B.N      ??HAL_GPIO_DeInit_7
-??HAL_GPIO_DeInit_8:
-        LDR.N    R6,??DataTable2_6  ;; 0x40021000
-        CMP      R0,R6
-        BNE.N    ??HAL_GPIO_DeInit_9
-        MOVS     R6,#+4
-        B.N      ??HAL_GPIO_DeInit_10
-??HAL_GPIO_DeInit_9:
-        LDR.N    R6,??DataTable2_7  ;; 0x40021400
-        CMP      R0,R6
-        BNE.N    ??HAL_GPIO_DeInit_11
-        MOVS     R6,#+5
-        B.N      ??HAL_GPIO_DeInit_10
-??HAL_GPIO_DeInit_11:
-        LDR.N    R6,??DataTable2_8  ;; 0x40021800
-        CMP      R0,R6
-        BNE.N    ??HAL_GPIO_DeInit_12
-        MOVS     R6,#+6
-        B.N      ??HAL_GPIO_DeInit_13
-??HAL_GPIO_DeInit_12:
-        LDR.N    R6,??DataTable2_9  ;; 0x40021c00
-        CMP      R0,R6
-        BNE.N    ??HAL_GPIO_DeInit_14
-        MOVS     R6,#+7
-        B.N      ??HAL_GPIO_DeInit_13
-??HAL_GPIO_DeInit_14:
-        LDR.N    R6,??DataTable2_10  ;; 0x40022000
-        CMP      R0,R6
-        BNE.N    ??HAL_GPIO_DeInit_15
-        MOVS     R6,#+8
-        B.N      ??HAL_GPIO_DeInit_16
-??HAL_GPIO_DeInit_15:
-        LDR.N    R6,??DataTable2_11  ;; 0x40022400
-        CMP      R0,R6
-        BNE.N    ??HAL_GPIO_DeInit_17
-        MOVS     R6,#+9
-        B.N      ??HAL_GPIO_DeInit_16
-??HAL_GPIO_DeInit_17:
-        MOVS     R6,#+10
-??HAL_GPIO_DeInit_16:
-??HAL_GPIO_DeInit_13:
-??HAL_GPIO_DeInit_10:
-??HAL_GPIO_DeInit_7:
-??HAL_GPIO_DeInit_4:
-        UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
-        ANDS     R7,R5,#0x3
-        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
-        LSLS     R7,R7,#+2
-        LSLS     R6,R6,R7
-        CMP      R4,R6
-        BNE.N    ??HAL_GPIO_DeInit_2
 //  352       {
 //  353         /* Configure the External Interrupt or event for the current IO */
 //  354         tmp = ((uint32_t)0x0F) << (4 * (position & 0x03));
-        MOVS     R6,#+15
-        ANDS     R7,R5,#0x3
-        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
-        LSLS     R7,R7,#+2
-        LSLS     R6,R6,R7
-        MOVS     R4,R6
 //  355         SYSCFG->EXTICR[position >> 2] &= ~tmp;
-        LDR.N    R6,??DataTable2_1  ;; 0x40013808
-        LSRS     R7,R5,#+2
-        LDR      R6,[R6, R7, LSL #+2]
-        BICS     R6,R6,R4
-        LDR.N    R7,??DataTable2_1  ;; 0x40013808
-        LSRS     R12,R5,#+2
-        STR      R6,[R7, R12, LSL #+2]
+        LDR      R7,[R4, R5, LSL #+2]
+        BIC      R6,R7,R6
+        STR      R6,[R4, R5, LSL #+2]
 //  356 
 //  357         /* Clear EXTI line configuration */
 //  358         EXTI->IMR &= ~((uint32_t)iocurrent);
-        LDR.N    R6,??DataTable2_12  ;; 0x40013c00
-        LDR      R6,[R6, #+0]
-        BICS     R6,R6,R3
-        LDR.N    R7,??DataTable2_12  ;; 0x40013c00
-        STR      R6,[R7, #+0]
+        MVNS     R3,R3
+        LDR.N    R4,??DataTable2  ;; 0x40013c00
+        LDR      R5,[R4, #+0]
+        ANDS     R5,R3,R5
+        STR      R5,[R4, #+0]
 //  359         EXTI->EMR &= ~((uint32_t)iocurrent);
-        LDR.N    R6,??DataTable2_13  ;; 0x40013c04
-        LDR      R6,[R6, #+0]
-        BICS     R6,R6,R3
-        LDR.N    R7,??DataTable2_13  ;; 0x40013c04
-        STR      R6,[R7, #+0]
+        LDR      R5,[R4, #+4]
+        ANDS     R5,R3,R5
+        STR      R5,[R4, #+4]
 //  360 
 //  361         /* Clear Rising Falling edge configuration */
 //  362         EXTI->RTSR &= ~((uint32_t)iocurrent);
-        LDR.N    R6,??DataTable2_14  ;; 0x40013c08
-        LDR      R6,[R6, #+0]
-        BICS     R6,R6,R3
-        LDR.N    R7,??DataTable2_14  ;; 0x40013c08
-        STR      R6,[R7, #+0]
+        LDR      R5,[R4, #+8]
+        ANDS     R5,R3,R5
+        STR      R5,[R4, #+8]
 //  363         EXTI->FTSR &= ~((uint32_t)iocurrent);
-        LDR.N    R6,??DataTable2_15  ;; 0x40013c0c
-        LDR      R6,[R6, #+0]
-        BICS     R6,R6,R3
-        LDR.N    R7,??DataTable2_15  ;; 0x40013c0c
-        STR      R6,[R7, #+0]
+        LDR      R5,[R4, #+12]
+        ANDS     R3,R3,R5
+        STR      R3,[R4, #+12]
 //  364 	  }
+??HAL_GPIO_DeInit_3:
+        ADDS     R2,R2,#+1
+??HAL_GPIO_DeInit_0:
+        CMP      R2,#+16
+        BCS.N    ??HAL_GPIO_DeInit_4
+        MOVS     R3,#+1
+        LSL      R4,R3,R2
+        AND      R3,R4,R1
+        CMP      R3,R4
+        BNE.N    ??HAL_GPIO_DeInit_3
+        MOVS     R5,#+3
+        LSLS     R6,R2,#+1
+        LSLS     R5,R5,R6
+        MVNS     R5,R5
+        LDR      R6,[R0, #+0]
+        ANDS     R6,R5,R6
+        STR      R6,[R0, #+0]
+        LSRS     R6,R2,#+3
+        ADD      R7,R0,R6, LSL #+2
+        MOVS     R6,#+15
+        LDR      R12,[R7, #+32]
+        AND      LR,R2,#0x7
+        LSL      LR,LR,#+2
+        LSL      LR,R6,LR
+        BIC      R12,R12,LR
+        STR      R12,[R7, #+32]
+        LDR      R7,[R0, #+8]
+        ANDS     R7,R5,R7
+        STR      R7,[R0, #+8]
+        LDR      R7,[R0, #+4]
+        BIC      R4,R7,R4
+        STR      R4,[R0, #+4]
+        LDR      R4,[R0, #+12]
+        ANDS     R4,R5,R4
+        STR      R4,[R0, #+12]
+        LSRS     R5,R2,#+2
+        LDR.N    R4,??DataTable2_2  ;; 0x40013808
+        LDR      R12,[R4, R5, LSL #+2]
+        AND      R7,R2,#0x3
+        LSLS     R7,R7,#+2
+        LSLS     R6,R6,R7
+        AND      R12,R6,R12
+        LDR.W    LR,??DataTable2_3  ;; 0x40020000
+        CMP      R0,LR
+        BNE.N    ??HAL_GPIO_DeInit_5
+        MOV      LR,#+0
+        B.N      ??HAL_GPIO_DeInit_2
+??HAL_GPIO_DeInit_5:
+        LDR.W    LR,??DataTable2_4  ;; 0x40020400
+        CMP      R0,LR
+        BNE.N    ??HAL_GPIO_DeInit_6
+        MOV      LR,#+1
+        B.N      ??HAL_GPIO_DeInit_2
+??HAL_GPIO_DeInit_6:
+        LDR.W    LR,??DataTable2_5  ;; 0x40020800
+        CMP      R0,LR
+        BNE.N    ??HAL_GPIO_DeInit_7
+        MOV      LR,#+2
+        B.N      ??HAL_GPIO_DeInit_2
+??HAL_GPIO_DeInit_7:
+        LDR.W    LR,??DataTable2_6  ;; 0x40020c00
+        CMP      R0,LR
+        BNE.N    ??HAL_GPIO_DeInit_8
+        MOV      LR,#+3
+        B.N      ??HAL_GPIO_DeInit_2
+??HAL_GPIO_DeInit_8:
+        LDR.W    LR,??DataTable2_7  ;; 0x40021000
+        CMP      R0,LR
+        BNE.N    ??HAL_GPIO_DeInit_9
+        MOV      LR,#+4
+        B.N      ??HAL_GPIO_DeInit_2
+??HAL_GPIO_DeInit_9:
+        LDR.W    LR,??DataTable2_8  ;; 0x40021400
+        CMP      R0,LR
+        BNE.N    ??HAL_GPIO_DeInit_10
+        MOV      LR,#+5
+        B.N      ??HAL_GPIO_DeInit_2
+??HAL_GPIO_DeInit_10:
+        LDR.W    LR,??DataTable2_9  ;; 0x40021800
+        CMP      R0,LR
+        BNE.N    ??HAL_GPIO_DeInit_11
+        MOV      LR,#+6
+        B.N      ??HAL_GPIO_DeInit_2
+??HAL_GPIO_DeInit_11:
+        LDR.W    LR,??DataTable2_10  ;; 0x40021c00
+        CMP      R0,LR
+        BNE.N    ??HAL_GPIO_DeInit_12
+        MOV      LR,#+7
+        B.N      ??HAL_GPIO_DeInit_2
+??HAL_GPIO_DeInit_12:
+        LDR.W    LR,??DataTable2_11  ;; 0x40022000
+        CMP      R0,LR
+        BNE.N    ??HAL_GPIO_DeInit_13
+        MOV      LR,#+8
+        B.N      ??HAL_GPIO_DeInit_2
+??HAL_GPIO_DeInit_13:
+        LDR.W    LR,??DataTable2_12  ;; 0x40022400
+        CMP      R0,LR
+        BNE.W    ??HAL_GPIO_DeInit_1
+        MOV      LR,#+9
+        B.N      ??HAL_GPIO_DeInit_2
 //  365     }
 //  366   }
-??HAL_GPIO_DeInit_2:
-        ADDS     R5,R5,#+1
-        B.N      ??HAL_GPIO_DeInit_0
 //  367 }
-??HAL_GPIO_DeInit_1:
+??HAL_GPIO_DeInit_4:
         POP      {R4-R7,PC}       ;; return
           CFI EndBlock cfiBlock1
 //  368 
@@ -994,34 +876,27 @@ HAL_GPIO_DeInit:
         THUMB
 //  392 GPIO_PinState HAL_GPIO_ReadPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
 //  393 {
-HAL_GPIO_ReadPin:
-        MOVS     R2,R0
 //  394   GPIO_PinState bitstatus;
 //  395 
 //  396   /* Check the parameters */
 //  397   assert_param(IS_GPIO_PIN(GPIO_Pin));
 //  398 
 //  399   if((GPIOx->IDR & GPIO_Pin) != (uint32_t)GPIO_PIN_RESET)
-        LDR      R3,[R2, #+16]
-        UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        TST      R3,R1
-        BEQ.N    ??HAL_GPIO_ReadPin_0
+HAL_GPIO_ReadPin:
+        LDR      R0,[R0, #+16]
+        ANDS     R0,R1,R0
+        SUBS     R0,R0,#+1
+        SBCS     R0,R0,R0
+        MVNS     R0,R0
+        LSRS     R0,R0,#+31
 //  400   {
 //  401     bitstatus = GPIO_PIN_SET;
-        MOVS     R3,#+1
-        MOVS     R0,R3
-        B.N      ??HAL_GPIO_ReadPin_1
 //  402   }
 //  403   else
 //  404   {
 //  405     bitstatus = GPIO_PIN_RESET;
-??HAL_GPIO_ReadPin_0:
-        MOVS     R3,#+0
-        MOVS     R0,R3
 //  406   }
 //  407   return bitstatus;
-??HAL_GPIO_ReadPin_1:
-        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
         BX       LR               ;; return
 //  408 }
           CFI EndBlock cfiBlock2
@@ -1056,25 +931,21 @@ HAL_GPIO_ReadPin:
 //  431 
 //  432   if(PinState != GPIO_PIN_RESET)
 HAL_GPIO_WritePin:
-        UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
         CMP      R2,#+0
         BEQ.N    ??HAL_GPIO_WritePin_0
 //  433   {
 //  434     GPIOx->BSRR = GPIO_Pin;
-        UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
         STR      R1,[R0, #+24]
-        B.N      ??HAL_GPIO_WritePin_1
+        BX       LR
 //  435   }
 //  436   else
 //  437   {
 //  438     GPIOx->BSRR = (uint32_t)GPIO_Pin << 16;
 ??HAL_GPIO_WritePin_0:
-        UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        LSLS     R3,R1,#+16
-        STR      R3,[R0, #+24]
+        LSLS     R1,R1,#+16
+        STR      R1,[R0, #+24]
 //  439   }
 //  440 }
-??HAL_GPIO_WritePin_1:
         BX       LR               ;; return
           CFI EndBlock cfiBlock3
 //  441 
@@ -1098,9 +969,8 @@ HAL_GPIO_WritePin:
 //  453   GPIOx->ODR ^= GPIO_Pin;
 HAL_GPIO_TogglePin:
         LDR      R2,[R0, #+20]
-        UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        EORS     R2,R1,R2
-        STR      R2,[R0, #+20]
+        EORS     R1,R1,R2
+        STR      R1,[R0, #+20]
 //  454 }
         BX       LR               ;; return
           CFI EndBlock cfiBlock4
@@ -1127,52 +997,46 @@ HAL_GPIO_TogglePin:
 HAL_GPIO_LockPin:
         SUB      SP,SP,#+4
           CFI CFA R13+4
-        MOVS     R2,R0
 //  469   __IO uint32_t tmp = GPIO_LCKR_LCKK;
-        MOVS     R0,#+65536
-        STR      R0,[SP, #+0]
+        MOV      R2,#+65536
+        STR      R2,[SP, #+0]
 //  470 
 //  471   /* Check the parameters */
 //  472   assert_param(IS_GPIO_PIN(GPIO_Pin));
 //  473 
 //  474   /* Apply lock key write sequence */
 //  475   tmp |= GPIO_Pin;
-        LDR      R0,[SP, #+0]
-        UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        ORRS     R0,R1,R0
-        STR      R0,[SP, #+0]
+        LDR      R2,[SP, #+0]
+        ORRS     R2,R1,R2
+        STR      R2,[SP, #+0]
 //  476   /* Set LCKx bit(s): LCKK='1' + LCK[15-0] */
 //  477   GPIOx->LCKR = tmp;
-        LDR      R0,[SP, #+0]
-        STR      R0,[R2, #+28]
+        LDR      R2,[SP, #+0]
+        STR      R2,[R0, #+28]
 //  478   /* Reset LCKx bit(s): LCKK='0' + LCK[15-0] */
 //  479   GPIOx->LCKR = GPIO_Pin;
-        UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        STR      R1,[R2, #+28]
+        STR      R1,[R0, #+28]
 //  480   /* Set LCKx bit(s): LCKK='1' + LCK[15-0] */
 //  481   GPIOx->LCKR = tmp;
-        LDR      R0,[SP, #+0]
-        STR      R0,[R2, #+28]
+        LDR      R1,[SP, #+0]
+        STR      R1,[R0, #+28]
 //  482   /* Read LCKK bit*/
 //  483   tmp = GPIOx->LCKR;
-        LDR      R0,[R2, #+28]
-        STR      R0,[SP, #+0]
+        LDR      R1,[R0, #+28]
+        STR      R1,[SP, #+0]
 //  484 
 //  485  if((GPIOx->LCKR & GPIO_LCKR_LCKK) != RESET)
-        LDR      R0,[R2, #+28]
-        LSLS     R0,R0,#+15
-        BPL.N    ??HAL_GPIO_LockPin_0
+        LDR      R0,[R0, #+28]
+        AND      R0,R0,#0x10000
+        SUBS     R0,R0,#+1
+        SBCS     R0,R0,R0
+        LSRS     R0,R0,#+31
 //  486   {
 //  487     return HAL_OK;
-        MOVS     R0,#+0
-        B.N      ??HAL_GPIO_LockPin_1
 //  488   }
 //  489   else
 //  490   {
 //  491     return HAL_ERROR;
-??HAL_GPIO_LockPin_0:
-        MOVS     R0,#+1
-??HAL_GPIO_LockPin_1:
         ADD      SP,SP,#+4
           CFI CFA R13+0
         BX       LR               ;; return
@@ -1192,135 +1056,112 @@ HAL_GPIO_LockPin:
         THUMB
 //  500 void HAL_GPIO_EXTI_IRQHandler(uint16_t GPIO_Pin)
 //  501 {
-HAL_GPIO_EXTI_IRQHandler:
-        PUSH     {R4,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOVS     R4,R0
 //  502   /* EXTI line interrupt detected */
 //  503   if(__HAL_GPIO_EXTI_GET_IT(GPIO_Pin) != RESET)
-        LDR.N    R0,??DataTable2_16  ;; 0x40013c14
-        LDR      R0,[R0, #+0]
-        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
-        TST      R0,R4
-        BEQ.N    ??HAL_GPIO_EXTI_IRQHandler_0
+HAL_GPIO_EXTI_IRQHandler:
+        MOV      R1,R0
+        LDR.N    R2,??DataTable2_13  ;; 0x40013c14
+        LDR      R3,[R2, #+0]
+        TST      R3,R1
+        BNE.N    ??HAL_GPIO_EXTI_IRQHandler_0
+        BX       LR
 //  504   {
 //  505     __HAL_GPIO_EXTI_CLEAR_IT(GPIO_Pin);
-        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
-        LDR.N    R0,??DataTable2_16  ;; 0x40013c14
-        STR      R4,[R0, #+0]
+??HAL_GPIO_EXTI_IRQHandler_0:
+        PUSH     {R7,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+8
+        STR      R1,[R2, #+0]
 //  506     HAL_GPIO_EXTI_Callback(GPIO_Pin);
-        MOVS     R0,R4
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
           CFI FunCall HAL_GPIO_EXTI_Callback
         BL       HAL_GPIO_EXTI_Callback
 //  507   }
 //  508 }
-??HAL_GPIO_EXTI_IRQHandler_0:
-        POP      {R4,PC}          ;; return
+        POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock6
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable2:
-        DC32     0x40023844
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2_1:
-        DC32     0x40013808
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2_2:
-        DC32     0x40020000
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2_3:
-        DC32     0x40020400
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2_4:
-        DC32     0x40020800
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2_5:
-        DC32     0x40020c00
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2_6:
-        DC32     0x40021000
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2_7:
-        DC32     0x40021400
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2_8:
-        DC32     0x40021800
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2_9:
-        DC32     0x40021c00
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2_10:
-        DC32     0x40022000
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2_11:
-        DC32     0x40022400
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2_12:
         DC32     0x40013c00
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
+??DataTable2_1:
+        DC32     0x40023844
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2_2:
+        DC32     0x40013808
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2_3:
+        DC32     0x40020000
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2_4:
+        DC32     0x40020400
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2_5:
+        DC32     0x40020800
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2_6:
+        DC32     0x40020c00
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2_7:
+        DC32     0x40021000
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2_8:
+        DC32     0x40021400
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2_9:
+        DC32     0x40021800
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2_10:
+        DC32     0x40021c00
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2_11:
+        DC32     0x40022000
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2_12:
+        DC32     0x40022400
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
 ??DataTable2_13:
-        DC32     0x40013c04
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2_14:
-        DC32     0x40013c08
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2_15:
-        DC32     0x40013c0c
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2_16:
         DC32     0x40013c14
 //  509 
 //  510 /**
@@ -1377,9 +1218,9 @@ HAL_GPIO_EXTI_Callback:
 //  539 
 //  540 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 1 080 bytes in section .text
+// 914 bytes in section .text
 // 
-// 1 080 bytes of CODE memory
+// 914 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

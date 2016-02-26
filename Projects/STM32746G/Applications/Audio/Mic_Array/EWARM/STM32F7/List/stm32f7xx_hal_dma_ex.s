@@ -1,60 +1,59 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      26/Feb/2016  17:55:59
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Feb/2016  00:32:32
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_dma_ex.c
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_dma_ex.c
 //    Command line =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_dma_ex.c
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_dma_ex.c
 //        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 //        USE_IOEXPANDER -D USE_USB_FS -lC
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -lA
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-//        --no_clustering --no_scheduling --debug --endian=little
-//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-//        (x86)\IAR Systems\Embedded Workbench
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+//        --no_unroll --no_inline --no_tbaa --no_scheduling --debug
+//        --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config
+//        "D:\Program Files (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+//        -Om --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_dma_ex.s
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_dma_ex.s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -116,7 +115,7 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
         
-// D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_dma_ex.c
+// H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_dma_ex.c
 //    1 /**
 //    2   ******************************************************************************
 //    3   * @file    stm32f7xx_hal_dma_ex.c
@@ -226,19 +225,19 @@ DMA_MultiBufferSetConfig:
 //   95   
 //   96   /* Peripheral to Memory */
 //   97   if((hdma->Init.Direction) == DMA_MEMORY_TO_PERIPH)
+        LDR      R3,[R0, #+0]
         LDR      R4,[R0, #+8]
         CMP      R4,#+64
         BNE.N    ??DMA_MultiBufferSetConfig_0
 //   98   {   
 //   99     /* Configure DMA Stream destination address */
 //  100     hdma->Instance->PAR = DstAddress;
-        LDR      R4,[R0, #+0]
-        STR      R2,[R4, #+8]
+        STR      R2,[R3, #+8]
 //  101     
 //  102     /* Configure DMA Stream source address */
 //  103     hdma->Instance->M0AR = SrcAddress;
-        LDR      R4,[R0, #+0]
-        STR      R1,[R4, #+12]
+        LDR      R0,[R0, #+0]
+        STR      R1,[R0, #+12]
         B.N      ??DMA_MultiBufferSetConfig_1
 //  104   }
 //  105   /* Memory to Peripheral */
@@ -247,13 +246,12 @@ DMA_MultiBufferSetConfig:
 //  108     /* Configure DMA Stream source address */
 //  109     hdma->Instance->PAR = SrcAddress;
 ??DMA_MultiBufferSetConfig_0:
-        LDR      R4,[R0, #+0]
-        STR      R1,[R4, #+8]
+        STR      R1,[R3, #+8]
 //  110     
 //  111     /* Configure DMA Stream destination address */
 //  112     hdma->Instance->M0AR = DstAddress;
-        LDR      R4,[R0, #+0]
-        STR      R2,[R4, #+12]
+        LDR      R0,[R0, #+0]
+        STR      R2,[R0, #+12]
 //  113   }
 //  114 }
 ??DMA_MultiBufferSetConfig_1:
@@ -310,53 +308,47 @@ DMA_MultiBufferSetConfig:
 //  155 HAL_StatusTypeDef HAL_DMAEx_MultiBufferStart(DMA_HandleTypeDef *hdma, uint32_t SrcAddress, uint32_t DstAddress, uint32_t SecondMemAddress, uint32_t DataLength)
 //  156 {
 HAL_DMAEx_MultiBufferStart:
-        PUSH     {R4-R8,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R8 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -20)
-          CFI R4 Frame(CFA, -24)
-          CFI CFA R13+24
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
-        MOVS     R7,R3
-        LDR      R8,[SP, #+24]
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
+        MOV      R4,R0
 //  157   /* Process Locked */
 //  158   __HAL_LOCK(hdma);
-        LDRB     R0,[R4, #+52]
-        CMP      R0,#+1
+        ADD      R0,R4,#+52
+        LDRB     R5,[R0, #+0]
+        CMP      R5,#+1
         BNE.N    ??HAL_DMAEx_MultiBufferStart_0
         MOVS     R0,#+2
-        B.N      ??HAL_DMAEx_MultiBufferStart_1
+        POP      {R4-R6,PC}
 ??HAL_DMAEx_MultiBufferStart_0:
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+52]
+        MOVS     R5,#+1
+        STRB     R5,[R0, #+0]
 //  159 
 //  160   /* Current memory buffer used is Memory 0 */
 //  161   if((hdma->Instance->CR & DMA_SxCR_CT) == 0)
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+12
-        BMI.N    ??HAL_DMAEx_MultiBufferStart_2
+        LDR      R5,[R4, #+0]
+        LDR      R6,[R5, #+0]
+        LSLS     R6,R6,#+12
+        BMI.N    ??HAL_DMAEx_MultiBufferStart_1
 //  162   {
 //  163     hdma->State = HAL_DMA_STATE_BUSY_MEM0;
-        MOVS     R0,#+18
-        STRB     R0,[R4, #+53]
-        B.N      ??HAL_DMAEx_MultiBufferStart_3
+        MOVS     R5,#+18
+        STRB     R5,[R0, #+1]
+        B.N      ??HAL_DMAEx_MultiBufferStart_2
 //  164   }
 //  165   /* Current memory buffer used is Memory 1 */
 //  166   else if((hdma->Instance->CR & DMA_SxCR_CT) != 0)
-??HAL_DMAEx_MultiBufferStart_2:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+12
-        BPL.N    ??HAL_DMAEx_MultiBufferStart_3
+??HAL_DMAEx_MultiBufferStart_1:
+        LDR      R5,[R5, #+0]
+        LSLS     R5,R5,#+12
+        BPL.N    ??HAL_DMAEx_MultiBufferStart_2
 //  167   {
 //  168     hdma->State = HAL_DMA_STATE_BUSY_MEM1;
-        MOVS     R0,#+34
-        STRB     R0,[R4, #+53]
+        MOVS     R5,#+34
+        STRB     R5,[R0, #+1]
 //  169   }
 //  170 
 //  171    /* Check the parameters */
@@ -364,48 +356,42 @@ HAL_DMAEx_MultiBufferStart:
 //  173 
 //  174   /* Disable the peripheral */
 //  175   __HAL_DMA_DISABLE(hdma);  
-??HAL_DMAEx_MultiBufferStart_3:
+??HAL_DMAEx_MultiBufferStart_2:
         LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        LSRS     R0,R0,#+1
-        LSLS     R0,R0,#+1
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        LDR      R5,[R0, #+0]
+        LSRS     R5,R5,#+1
+        LSLS     R5,R5,#+1
+        STR      R5,[R0, #+0]
 //  176 
 //  177   /* Enable the double buffer mode */
 //  178   hdma->Instance->CR |= (uint32_t)DMA_SxCR_DBM;
         LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x40000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        LDR      R5,[R0, #+0]
+        ORR      R5,R5,#0x40000
+        STR      R5,[R0, #+0]
 //  179 
 //  180   /* Configure DMA Stream destination address */
 //  181   hdma->Instance->M1AR = SecondMemAddress;
         LDR      R0,[R4, #+0]
-        STR      R7,[R0, #+16]
+        STR      R3,[R0, #+16]
 //  182 
 //  183   /* Configure the source, destination address and the data length */
 //  184   DMA_MultiBufferSetConfig(hdma, SrcAddress, DstAddress, DataLength);
-        MOV      R3,R8
-        MOVS     R2,R6
-        MOVS     R1,R5
-        MOVS     R0,R4
+        LDR      R3,[SP, #+16]
+        MOV      R0,R4
           CFI FunCall DMA_MultiBufferSetConfig
         BL       DMA_MultiBufferSetConfig
 //  185 
 //  186   /* Enable the peripheral */
 //  187   __HAL_DMA_ENABLE(hdma);
         LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x1
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x1
+        STR      R1,[R0, #+0]
 //  188 
 //  189   return HAL_OK;
         MOVS     R0,#+0
-??HAL_DMAEx_MultiBufferStart_1:
-        POP      {R4-R8,PC}       ;; return
+        POP      {R4-R6,PC}       ;; return
 //  190 }
           CFI EndBlock cfiBlock1
 //  191 
@@ -427,53 +413,47 @@ HAL_DMAEx_MultiBufferStart:
 //  202 HAL_StatusTypeDef HAL_DMAEx_MultiBufferStart_IT(DMA_HandleTypeDef *hdma, uint32_t SrcAddress, uint32_t DstAddress, uint32_t SecondMemAddress, uint32_t DataLength)
 //  203 {
 HAL_DMAEx_MultiBufferStart_IT:
-        PUSH     {R4-R8,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R8 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -20)
-          CFI R4 Frame(CFA, -24)
-          CFI CFA R13+24
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
-        MOVS     R7,R3
-        LDR      R8,[SP, #+24]
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
+        MOV      R4,R0
 //  204   /* Process Locked */
 //  205   __HAL_LOCK(hdma);
-        LDRB     R0,[R4, #+52]
-        CMP      R0,#+1
+        ADD      R0,R4,#+52
+        LDRB     R5,[R0, #+0]
+        CMP      R5,#+1
         BNE.N    ??HAL_DMAEx_MultiBufferStart_IT_0
         MOVS     R0,#+2
-        B.N      ??HAL_DMAEx_MultiBufferStart_IT_1
+        POP      {R4-R6,PC}
 ??HAL_DMAEx_MultiBufferStart_IT_0:
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+52]
+        MOVS     R5,#+1
+        STRB     R5,[R0, #+0]
 //  206 
 //  207   /* Current memory buffer used is Memory 0 */
 //  208   if((hdma->Instance->CR & DMA_SxCR_CT) == 0)
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+12
-        BMI.N    ??HAL_DMAEx_MultiBufferStart_IT_2
+        LDR      R5,[R4, #+0]
+        LDR      R6,[R5, #+0]
+        LSLS     R6,R6,#+12
+        BMI.N    ??HAL_DMAEx_MultiBufferStart_IT_1
 //  209   {
 //  210     hdma->State = HAL_DMA_STATE_BUSY_MEM0;
-        MOVS     R0,#+18
-        STRB     R0,[R4, #+53]
-        B.N      ??HAL_DMAEx_MultiBufferStart_IT_3
+        MOVS     R5,#+18
+        STRB     R5,[R0, #+1]
+        B.N      ??HAL_DMAEx_MultiBufferStart_IT_2
 //  211   }
 //  212   /* Current memory buffer used is Memory 1 */
 //  213   else if((hdma->Instance->CR & DMA_SxCR_CT) != 0)
-??HAL_DMAEx_MultiBufferStart_IT_2:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+12
-        BPL.N    ??HAL_DMAEx_MultiBufferStart_IT_3
+??HAL_DMAEx_MultiBufferStart_IT_1:
+        LDR      R5,[R5, #+0]
+        LSLS     R5,R5,#+12
+        BPL.N    ??HAL_DMAEx_MultiBufferStart_IT_2
 //  214   {
 //  215     hdma->State = HAL_DMA_STATE_BUSY_MEM1;
-        MOVS     R0,#+34
-        STRB     R0,[R4, #+53]
+        MOVS     R5,#+34
+        STRB     R5,[R0, #+1]
 //  216   }
 //  217 
 //  218   /* Check the parameters */
@@ -481,88 +461,77 @@ HAL_DMAEx_MultiBufferStart_IT:
 //  220 
 //  221   /* Disable the peripheral */
 //  222   __HAL_DMA_DISABLE(hdma);  
-??HAL_DMAEx_MultiBufferStart_IT_3:
+??HAL_DMAEx_MultiBufferStart_IT_2:
         LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        LSRS     R0,R0,#+1
-        LSLS     R0,R0,#+1
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        LDR      R5,[R0, #+0]
+        LSRS     R5,R5,#+1
+        LSLS     R5,R5,#+1
+        STR      R5,[R0, #+0]
 //  223 
 //  224   /* Enable the Double buffer mode */
 //  225   hdma->Instance->CR |= (uint32_t)DMA_SxCR_DBM;
         LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x40000
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        LDR      R5,[R0, #+0]
+        ORR      R5,R5,#0x40000
+        STR      R5,[R0, #+0]
 //  226 
 //  227   /* Configure DMA Stream destination address */
 //  228   hdma->Instance->M1AR = SecondMemAddress;
         LDR      R0,[R4, #+0]
-        STR      R7,[R0, #+16]
+        STR      R3,[R0, #+16]
 //  229 
 //  230   /* Configure the source, destination address and the data length */
 //  231   DMA_MultiBufferSetConfig(hdma, SrcAddress, DstAddress, DataLength); 
-        MOV      R3,R8
-        MOVS     R2,R6
-        MOVS     R1,R5
-        MOVS     R0,R4
+        LDR      R3,[SP, #+16]
+        MOV      R0,R4
           CFI FunCall DMA_MultiBufferSetConfig
         BL       DMA_MultiBufferSetConfig
 //  232 
 //  233   /* Enable the transfer complete interrupt */
 //  234   __HAL_DMA_ENABLE_IT(hdma, DMA_IT_TC);
         LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x10
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x10
+        STR      R1,[R0, #+0]
 //  235 
 //  236   /* Enable the Half transfer interrupt */
 //  237   __HAL_DMA_ENABLE_IT(hdma, DMA_IT_HT);
         LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x8
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x8
+        STR      R1,[R0, #+0]
 //  238 
 //  239   /* Enable the transfer Error interrupt */
 //  240   __HAL_DMA_ENABLE_IT(hdma, DMA_IT_TE);
         LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x4
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x4
+        STR      R1,[R0, #+0]
 //  241 
 //  242   /* Enable the fifo Error interrupt */
 //  243   __HAL_DMA_ENABLE_IT(hdma, DMA_IT_FE);  
         LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+20]
-        ORRS     R0,R0,#0x80
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+20]
+        LDR      R1,[R0, #+20]
+        ORR      R1,R1,#0x80
+        STR      R1,[R0, #+20]
 //  244 
 //  245   /* Enable the direct mode Error interrupt */
 //  246   __HAL_DMA_ENABLE_IT(hdma, DMA_IT_DME); 
         LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x2
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x2
+        STR      R1,[R0, #+0]
 //  247 
 //  248   /* Enable the peripheral */
 //  249   __HAL_DMA_ENABLE(hdma); 
         LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x1
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x1
+        STR      R1,[R0, #+0]
 //  250 
 //  251   return HAL_OK; 
         MOVS     R0,#+0
-??HAL_DMAEx_MultiBufferStart_IT_1:
-        POP      {R4-R8,PC}       ;; return
+        POP      {R4-R6,PC}       ;; return
 //  252 }
           CFI EndBlock cfiBlock2
 //  253 
@@ -588,16 +557,14 @@ HAL_DMAEx_MultiBufferStart_IT:
         THUMB
 //  268 HAL_StatusTypeDef HAL_DMAEx_ChangeMemory(DMA_HandleTypeDef *hdma, uint32_t Address, HAL_DMA_MemoryTypeDef memory)
 //  269 {
-HAL_DMAEx_ChangeMemory:
-        MOVS     R3,R0
 //  270   if(memory == MEMORY0)
-        UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+HAL_DMAEx_ChangeMemory:
+        LDR      R0,[R0, #+0]
         CMP      R2,#+0
         BNE.N    ??HAL_DMAEx_ChangeMemory_0
 //  271   {
 //  272     /* change the memory0 address */
 //  273     hdma->Instance->M0AR = Address;
-        LDR      R0,[R3, #+0]
         STR      R1,[R0, #+12]
         B.N      ??HAL_DMAEx_ChangeMemory_1
 //  274   }
@@ -606,7 +573,6 @@ HAL_DMAEx_ChangeMemory:
 //  277     /* change the memory1 address */
 //  278     hdma->Instance->M1AR = Address;
 ??HAL_DMAEx_ChangeMemory_0:
-        LDR      R0,[R3, #+0]
         STR      R1,[R0, #+16]
 //  279   }
 //  280 
@@ -649,9 +615,9 @@ HAL_DMAEx_ChangeMemory:
 //  300 
 //  301 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 360 bytes in section .text
+// 282 bytes in section .text
 // 
-// 360 bytes of CODE memory
+// 282 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

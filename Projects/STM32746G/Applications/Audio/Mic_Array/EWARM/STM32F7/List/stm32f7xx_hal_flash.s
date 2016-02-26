@@ -1,60 +1,59 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      26/Feb/2016  17:55:59
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Feb/2016  00:32:32
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_flash.c
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_flash.c
 //    Command line =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_flash.c
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_flash.c
 //        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 //        USE_IOEXPANDER -D USE_USB_FS -lC
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -lA
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-//        --no_clustering --no_scheduling --debug --endian=little
-//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-//        (x86)\IAR Systems\Embedded Workbench
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+//        --no_unroll --no_inline --no_tbaa --no_scheduling --debug
+//        --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config
+//        "D:\Program Files (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+//        -Om --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_flash.s
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_flash.s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -129,7 +128,7 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
         
-// D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_flash.c
+// H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_flash.c
 //    1 /**
 //    2   ******************************************************************************
 //    3   * @file    stm32f7xx_hal_flash.c
@@ -317,154 +316,144 @@ pFlash:
 //  180   * @retval HAL_StatusTypeDef HAL Status
 //  181   */
 
-        SECTION `.text`:CODE:NOROOT(1)
+        SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock0 Using cfiCommon0
           CFI Function HAL_FLASH_Program
         THUMB
 //  182 HAL_StatusTypeDef HAL_FLASH_Program(uint32_t TypeProgram, uint32_t Address, uint64_t Data)
 //  183 {
 HAL_FLASH_Program:
-        PUSH     {R4-R8,LR}
+        PUSH     {R3-R9,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R8 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -20)
-          CFI R4 Frame(CFA, -24)
-          CFI CFA R13+24
-        MOVS     R6,R0
-        MOVS     R7,R1
-        MOVS     R4,R2
-        MOVS     R5,R3
+          CFI R9 Frame(CFA, -8)
+          CFI R8 Frame(CFA, -12)
+          CFI R7 Frame(CFA, -16)
+          CFI R6 Frame(CFA, -20)
+          CFI R5 Frame(CFA, -24)
+          CFI R4 Frame(CFA, -28)
+          CFI CFA R13+32
+        MOV      R9,R0
+        MOV      R6,R1
+        MOV      R4,R2
+        MOV      R5,R3
 //  184   HAL_StatusTypeDef status = HAL_ERROR;
-        MOVS     R8,#+1
 //  185   
 //  186   /* Process Locked */
 //  187   __HAL_LOCK(&pFlash);
-        LDR.W    R0,??DataTable14
-        LDRB     R0,[R0, #+20]
+        LDR.N    R7,??DataTable14
+        LDRB     R0,[R7, #+20]
         CMP      R0,#+1
-        BNE.N    ??HAL_FLASH_Program_0
+        BNE.N    ??HAL_FLASH_Program_1
         MOVS     R0,#+2
-        B.N      ??HAL_FLASH_Program_1
-??HAL_FLASH_Program_0:
+        B.N      ??HAL_FLASH_Program_2
+??HAL_FLASH_Program_1:
         MOVS     R0,#+1
-        LDR.W    R1,??DataTable14
-        STRB     R0,[R1, #+20]
+        STRB     R0,[R7, #+20]
 //  188 
 //  189   /* Check the parameters */
 //  190   assert_param(IS_FLASH_TYPEPROGRAM(TypeProgram));
 //  191 
 //  192   /* Wait for last operation to be completed */
 //  193   status = FLASH_WaitForLastOperation((uint32_t)FLASH_TIMEOUT_VALUE);
-        MOVW     R0,#+50000
+        MOVW     R8,#+50000
+        MOV      R0,R8
           CFI FunCall FLASH_WaitForLastOperation
         BL       FLASH_WaitForLastOperation
-        MOV      R8,R0
 //  194   
 //  195   if(status == HAL_OK)
-        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
-        CMP      R8,#+0
-        BNE.N    ??HAL_FLASH_Program_2
+        CMP      R0,#+0
+        BNE.N    ??HAL_FLASH_Program_3
 //  196   {
 //  197     switch(TypeProgram)
-        CMP      R6,#+0
-        BEQ.N    ??HAL_FLASH_Program_3
-        CMP      R6,#+2
-        BEQ.N    ??HAL_FLASH_Program_4
-        BCC.N    ??HAL_FLASH_Program_5
-        CMP      R6,#+3
-        BEQ.N    ??HAL_FLASH_Program_6
-        B.N      ??HAL_FLASH_Program_7
+        CMP      R9,#+3
+        BHI.N    ??HAL_FLASH_Program_4
+        TBB      [PC, R9]
+        DATA
+??HAL_FLASH_Program_0:
+        DC8      0x2,0x8,0xE,0x13
+        THUMB
 //  198     {
 //  199       case FLASH_TYPEPROGRAM_BYTE :
 //  200       {
 //  201         /*Program byte (8-bit) at a specified address.*/
 //  202         FLASH_Program_Byte(Address, (uint8_t) Data);
-??HAL_FLASH_Program_3:
-        MOVS     R1,R4
-        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-        MOVS     R0,R7
+??HAL_FLASH_Program_5:
+        MOV      R1,R4
+        UXTB     R1,R1
+        MOV      R0,R6
           CFI FunCall FLASH_Program_Byte
         BL       FLASH_Program_Byte
 //  203         break;
-        B.N      ??HAL_FLASH_Program_8
+        B.N      ??HAL_FLASH_Program_4
 //  204       }
 //  205       
 //  206       case FLASH_TYPEPROGRAM_HALFWORD :
 //  207       {
 //  208         /*Program halfword (16-bit) at a specified address.*/
 //  209         FLASH_Program_HalfWord(Address, (uint16_t) Data);
-??HAL_FLASH_Program_5:
-        MOVS     R1,R4
-        UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        MOVS     R0,R7
+??HAL_FLASH_Program_6:
+        MOV      R1,R4
+        UXTH     R1,R1
+        MOV      R0,R6
           CFI FunCall FLASH_Program_HalfWord
         BL       FLASH_Program_HalfWord
 //  210         break;
-        B.N      ??HAL_FLASH_Program_8
+        B.N      ??HAL_FLASH_Program_4
 //  211       }
 //  212       
 //  213       case FLASH_TYPEPROGRAM_WORD :
 //  214       {
 //  215         /*Program word (32-bit) at a specified address.*/
 //  216         FLASH_Program_Word(Address, (uint32_t) Data);
-??HAL_FLASH_Program_4:
-        MOVS     R1,R4
-        MOVS     R0,R7
+??HAL_FLASH_Program_7:
+        MOV      R1,R4
+        MOV      R0,R6
           CFI FunCall FLASH_Program_Word
         BL       FLASH_Program_Word
 //  217         break;
-        B.N      ??HAL_FLASH_Program_8
+        B.N      ??HAL_FLASH_Program_4
 //  218       }
 //  219       
 //  220       case FLASH_TYPEPROGRAM_DOUBLEWORD :
 //  221       {
 //  222         /*Program double word (64-bit) at a specified address.*/
 //  223         FLASH_Program_DoubleWord(Address, Data);
-??HAL_FLASH_Program_6:
-        MOVS     R2,R4
-        MOVS     R3,R5
-        MOVS     R0,R7
+??HAL_FLASH_Program_8:
+        MOV      R2,R4
+        MOV      R3,R5
+        MOV      R0,R6
           CFI FunCall FLASH_Program_DoubleWord
         BL       FLASH_Program_DoubleWord
 //  224         break;
-        B.N      ??HAL_FLASH_Program_8
 //  225       }
 //  226       default :
 //  227         break;
 //  228     }
 //  229     /* Wait for last operation to be completed */
 //  230     status = FLASH_WaitForLastOperation((uint32_t)FLASH_TIMEOUT_VALUE);
-??HAL_FLASH_Program_7:
-??HAL_FLASH_Program_8:
-        MOVW     R0,#+50000
+??HAL_FLASH_Program_4:
+        MOV      R0,R8
           CFI FunCall FLASH_WaitForLastOperation
         BL       FLASH_WaitForLastOperation
-        MOV      R8,R0
 //  231     
 //  232     /* If the program operation is completed, disable the PG Bit */
 //  233     FLASH->CR &= (~FLASH_CR_PG);
-        LDR.W    R0,??DataTable14_1  ;; 0x40023c10
-        LDR      R0,[R0, #+0]
-        LSRS     R0,R0,#+1
-        LSLS     R0,R0,#+1
-        LDR.W    R1,??DataTable14_1  ;; 0x40023c10
-        STR      R0,[R1, #+0]
+        LDR.N    R1,??DataTable14_1  ;; 0x40023c10
+        LDR      R2,[R1, #+0]
+        LSRS     R2,R2,#+1
+        LSLS     R2,R2,#+1
+        STR      R2,[R1, #+0]
 //  234   }
 //  235 
 //  236   /* Process Unlocked */
 //  237   __HAL_UNLOCK(&pFlash);
-??HAL_FLASH_Program_2:
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable14
-        STRB     R0,[R1, #+20]
+??HAL_FLASH_Program_3:
+        MOVS     R1,#+0
+        STRB     R1,[R7, #+20]
 //  238 
 //  239   return status;
-        MOV      R0,R8
-        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-??HAL_FLASH_Program_1:
-        POP      {R4-R8,PC}       ;; return
+??HAL_FLASH_Program_2:
+        POP      {R1,R4-R9,PC}    ;; return
 //  240 }
           CFI EndBlock cfiBlock0
 //  241 
@@ -478,97 +467,83 @@ HAL_FLASH_Program:
 //  249   * @retval HAL Status
 //  250   */
 
-        SECTION `.text`:CODE:NOROOT(1)
+        SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock1 Using cfiCommon0
           CFI Function HAL_FLASH_Program_IT
         THUMB
 //  251 HAL_StatusTypeDef HAL_FLASH_Program_IT(uint32_t TypeProgram, uint32_t Address, uint64_t Data)
 //  252 {
 HAL_FLASH_Program_IT:
-        PUSH     {R4-R8,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R8 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -20)
-          CFI R4 Frame(CFA, -24)
-          CFI CFA R13+24
-        MOVS     R6,R0
-        MOVS     R7,R1
-        MOVS     R4,R2
-        MOVS     R5,R3
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
+        MOV      R4,R0
+        MOV      R0,R1
 //  253   HAL_StatusTypeDef status = HAL_OK;
-        MOVS     R8,#+0
 //  254   
 //  255   /* Process Locked */
 //  256   __HAL_LOCK(&pFlash);
-        LDR.W    R0,??DataTable14
-        LDRB     R0,[R0, #+20]
-        CMP      R0,#+1
-        BNE.N    ??HAL_FLASH_Program_IT_0
+        LDR.N    R1,??DataTable14
+        LDRB     R5,[R1, #+20]
+        CMP      R5,#+1
+        BNE.N    ??HAL_FLASH_Program_IT_1
         MOVS     R0,#+2
-        B.N      ??HAL_FLASH_Program_IT_1
-??HAL_FLASH_Program_IT_0:
-        MOVS     R0,#+1
-        LDR.W    R1,??DataTable14
-        STRB     R0,[R1, #+20]
+        POP      {R4-R6,PC}
+??HAL_FLASH_Program_IT_1:
+        MOVS     R5,#+1
+        STRB     R5,[R1, #+20]
 //  257 
 //  258   /* Check the parameters */
 //  259   assert_param(IS_FLASH_TYPEPROGRAM(TypeProgram));
 //  260 
 //  261   /* Enable End of FLASH Operation interrupt */
 //  262   __HAL_FLASH_ENABLE_IT(FLASH_IT_EOP);
-        LDR.W    R0,??DataTable14_1  ;; 0x40023c10
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x1000000
-        LDR.W    R1,??DataTable14_1  ;; 0x40023c10
-        STR      R0,[R1, #+0]
+        LDR.N    R5,??DataTable14_2  ;; 0x40023c0c
+        LDR      R6,[R5, #+4]
+        ORR      R6,R6,#0x1000000
+        STR      R6,[R5, #+4]
 //  263   
 //  264   /* Enable Error source interrupt */
 //  265   __HAL_FLASH_ENABLE_IT(FLASH_IT_ERR);
-        LDR.W    R0,??DataTable14_1  ;; 0x40023c10
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x2000000
-        LDR.W    R1,??DataTable14_1  ;; 0x40023c10
-        STR      R0,[R1, #+0]
+        LDR      R6,[R5, #+4]
+        ORR      R6,R6,#0x2000000
+        STR      R6,[R5, #+4]
 //  266   
 //  267   /* Clear pending flags (if any) */  
 //  268   __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP    | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR |\ 
 //  269                          FLASH_FLAG_PGAERR | FLASH_FLAG_PGPERR| FLASH_FLAG_ERSERR);  
-        MOVS     R0,#+243
-        LDR.W    R1,??DataTable14_2  ;; 0x40023c0c
-        STR      R0,[R1, #+0]
+        MOVS     R6,#+243
+        STR      R6,[R5, #+0]
 //  270 
 //  271   pFlash.ProcedureOnGoing = FLASH_PROC_PROGRAM;
-        MOVS     R0,#+3
-        LDR.W    R1,??DataTable14
-        STRB     R0,[R1, #+0]
+        MOVS     R5,#+3
+        STRB     R5,[R1, #+0]
 //  272   pFlash.Address = Address;
-        LDR.W    R0,??DataTable14
-        STR      R7,[R0, #+16]
+        STR      R0,[R1, #+16]
 //  273   
 //  274   switch(TypeProgram)
-        CMP      R6,#+0
-        BEQ.N    ??HAL_FLASH_Program_IT_2
-        CMP      R6,#+2
-        BEQ.N    ??HAL_FLASH_Program_IT_3
-        BCC.N    ??HAL_FLASH_Program_IT_4
-        CMP      R6,#+3
-        BEQ.N    ??HAL_FLASH_Program_IT_5
-        B.N      ??HAL_FLASH_Program_IT_6
+        CMP      R4,#+3
+        BHI.N    ??HAL_FLASH_Program_IT_2
+        TBB      [PC, R4]
+        DATA
+??HAL_FLASH_Program_IT_0:
+        DC8      0x2,0x7,0xC,0x10
+        THUMB
 //  275   {
 //  276     case FLASH_TYPEPROGRAM_BYTE :
 //  277     {
 //  278       /*Program byte (8-bit) at a specified address.*/
 //  279       FLASH_Program_Byte(Address, (uint8_t) Data);
-??HAL_FLASH_Program_IT_2:
-        MOVS     R1,R4
-        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-        MOVS     R0,R7
+??HAL_FLASH_Program_IT_3:
+        MOV      R1,R2
+        UXTB     R1,R1
           CFI FunCall FLASH_Program_Byte
         BL       FLASH_Program_Byte
 //  280       break;
-        B.N      ??HAL_FLASH_Program_IT_7
+        B.N      ??HAL_FLASH_Program_IT_2
 //  281     }
 //  282     
 //  283     case FLASH_TYPEPROGRAM_HALFWORD :
@@ -576,51 +551,42 @@ HAL_FLASH_Program_IT:
 //  285       /*Program halfword (16-bit) at a specified address.*/
 //  286       FLASH_Program_HalfWord(Address, (uint16_t) Data);
 ??HAL_FLASH_Program_IT_4:
-        MOVS     R1,R4
-        UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        MOVS     R0,R7
+        MOV      R1,R2
+        UXTH     R1,R1
           CFI FunCall FLASH_Program_HalfWord
         BL       FLASH_Program_HalfWord
 //  287       break;
-        B.N      ??HAL_FLASH_Program_IT_7
+        B.N      ??HAL_FLASH_Program_IT_2
 //  288     }
 //  289     
 //  290     case FLASH_TYPEPROGRAM_WORD :
 //  291     {
 //  292       /*Program word (32-bit) at a specified address.*/
 //  293       FLASH_Program_Word(Address, (uint32_t) Data);
-??HAL_FLASH_Program_IT_3:
-        MOVS     R1,R4
-        MOVS     R0,R7
+??HAL_FLASH_Program_IT_5:
+        MOV      R1,R2
           CFI FunCall FLASH_Program_Word
         BL       FLASH_Program_Word
 //  294       break;
-        B.N      ??HAL_FLASH_Program_IT_7
+        B.N      ??HAL_FLASH_Program_IT_2
 //  295     }
 //  296     
 //  297     case FLASH_TYPEPROGRAM_DOUBLEWORD :
 //  298     {
 //  299       /*Program double word (64-bit) at a specified address.*/
 //  300       FLASH_Program_DoubleWord(Address, Data);
-??HAL_FLASH_Program_IT_5:
-        MOVS     R2,R4
-        MOVS     R3,R5
-        MOVS     R0,R7
+??HAL_FLASH_Program_IT_6:
           CFI FunCall FLASH_Program_DoubleWord
         BL       FLASH_Program_DoubleWord
 //  301       break;
-        B.N      ??HAL_FLASH_Program_IT_7
 //  302     }
 //  303     default :
 //  304       break;
 //  305   }
 //  306   return status;
-??HAL_FLASH_Program_IT_6:
-??HAL_FLASH_Program_IT_7:
-        MOV      R0,R8
-        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-??HAL_FLASH_Program_IT_1:
-        POP      {R4-R8,PC}       ;; return
+??HAL_FLASH_Program_IT_2:
+        MOVS     R0,#+0
+        POP      {R4-R6,PC}       ;; return
 //  307 }
           CFI EndBlock cfiBlock1
 //  308 
@@ -636,141 +602,119 @@ HAL_FLASH_Program_IT:
 //  313 void HAL_FLASH_IRQHandler(void)
 //  314 {
 HAL_FLASH_IRQHandler:
-        PUSH     {R4,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
 //  315   uint32_t temp = 0;
         MOVS     R4,#+0
 //  316   
 //  317   /* If the program operation is completed, disable the PG Bit */
 //  318   FLASH->CR &= (~FLASH_CR_PG);
-        LDR.W    R0,??DataTable14_1  ;; 0x40023c10
-        LDR      R0,[R0, #+0]
+        LDR.N    R5,??DataTable14_2  ;; 0x40023c0c
+        LDR      R0,[R5, #+4]
         LSRS     R0,R0,#+1
         LSLS     R0,R0,#+1
-        LDR.W    R1,??DataTable14_1  ;; 0x40023c10
-        STR      R0,[R1, #+0]
+        STR      R0,[R5, #+4]
 //  319 
 //  320   /* If the erase operation is completed, disable the SER Bit */
 //  321   FLASH->CR &= (~FLASH_CR_SER);
-        LDR.W    R0,??DataTable14_1  ;; 0x40023c10
-        LDR      R0,[R0, #+0]
-        BICS     R0,R0,#0x2
-        LDR.W    R1,??DataTable14_1  ;; 0x40023c10
-        STR      R0,[R1, #+0]
+        LDR      R0,[R5, #+4]
+        BIC      R0,R0,#0x2
+        STR      R0,[R5, #+4]
 //  322   FLASH->CR &= SECTOR_MASK; 
-        LDR.W    R0,??DataTable14_1  ;; 0x40023c10
-        LDR      R0,[R0, #+0]
-        BICS     R0,R0,#0xF8
-        LDR.W    R1,??DataTable14_1  ;; 0x40023c10
-        STR      R0,[R1, #+0]
+        LDR      R0,[R5, #+4]
+        BIC      R0,R0,#0xF8
+        STR      R0,[R5, #+4]
 //  323 
 //  324   /* if the erase operation is completed, disable the MER Bit */
 //  325   FLASH->CR &= (~FLASH_MER_BIT);
-        LDR.W    R0,??DataTable14_1  ;; 0x40023c10
-        LDR      R0,[R0, #+0]
-        BICS     R0,R0,#0x4
-        LDR.W    R1,??DataTable14_1  ;; 0x40023c10
-        STR      R0,[R1, #+0]
+        LDR      R0,[R5, #+4]
+        BIC      R0,R0,#0x4
+        STR      R0,[R5, #+4]
 //  326 
 //  327   /* Check FLASH End of Operation flag  */
 //  328   if(__HAL_FLASH_GET_FLAG(FLASH_FLAG_EOP) != RESET)
-        LDR.W    R0,??DataTable14_2  ;; 0x40023c0c
-        LDR      R0,[R0, #+0]
+        LDR.N    R6,??DataTable14
+        LDR      R0,[R5, #+0]
         LSLS     R0,R0,#+31
         BPL.N    ??HAL_FLASH_IRQHandler_0
 //  329   {
 //  330     switch (pFlash.ProcedureOnGoing)
-        LDR.W    R0,??DataTable14
-        LDRB     R0,[R0, #+0]
+        LDRB     R0,[R6, #+0]
         CMP      R0,#+1
         BEQ.N    ??HAL_FLASH_IRQHandler_1
-        BCC.N    ??HAL_FLASH_IRQHandler_2
+        BCC.N    ??HAL_FLASH_IRQHandler_0
         CMP      R0,#+3
-        BEQ.N    ??HAL_FLASH_IRQHandler_3
-        BCC.N    ??HAL_FLASH_IRQHandler_4
-        B.N      ??HAL_FLASH_IRQHandler_2
+        BEQ.N    ??HAL_FLASH_IRQHandler_2
+        BCC.N    ??HAL_FLASH_IRQHandler_3
+        B.N      ??HAL_FLASH_IRQHandler_0
 //  331     {
 //  332       case FLASH_PROC_SECTERASE :
 //  333       {
 //  334         /* Nb of sector to erased can be decreased */
 //  335         pFlash.NbSectorsToErase--;
 ??HAL_FLASH_IRQHandler_1:
-        LDR.N    R0,??DataTable14
-        LDR      R0,[R0, #+4]
+        LDR      R0,[R6, #+4]
         SUBS     R0,R0,#+1
-        LDR.N    R1,??DataTable14
-        STR      R0,[R1, #+4]
+        STR      R0,[R6, #+4]
 //  336 
 //  337         /* Check if there are still sectors to erase */
 //  338         if(pFlash.NbSectorsToErase != 0)
-        LDR.N    R0,??DataTable14
-        LDR      R0,[R0, #+4]
+        LDR      R0,[R6, #+4]
         CMP      R0,#+0
-        BEQ.N    ??HAL_FLASH_IRQHandler_5
+        BEQ.N    ??HAL_FLASH_IRQHandler_4
 //  339         {
 //  340           temp = pFlash.Sector;
-        LDR.N    R0,??DataTable14
-        LDR      R0,[R0, #+12]
-        MOVS     R4,R0
+        LDR      R0,[R6, #+12]
 //  341           /* Indicate user which sector has been erased */
 //  342           HAL_FLASH_EndOfOperationCallback(temp);
-        MOVS     R0,R4
           CFI FunCall HAL_FLASH_EndOfOperationCallback
         BL       HAL_FLASH_EndOfOperationCallback
 //  343 
 //  344           /* Clear pending flags (if any) */  
 //  345           __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP);  
         MOVS     R0,#+1
-        LDR.N    R1,??DataTable14_2  ;; 0x40023c0c
-        STR      R0,[R1, #+0]
+        STR      R0,[R5, #+0]
 //  346 
 //  347           /* Increment sector number */
 //  348           temp = ++pFlash.Sector;
-        LDR.N    R0,??DataTable14
-        LDR      R0,[R0, #+12]
-        ADDS     R0,R0,#+1
-        LDR.N    R1,??DataTable14
-        STR      R0,[R1, #+12]
-        MOVS     R4,R0
+        LDR      R0,[R6, #+12]
+        ADDS     R4,R0,#+1
+        STR      R4,[R6, #+12]
 //  349           FLASH_Erase_Sector(temp, pFlash.VoltageForErase);
-        LDR.N    R0,??DataTable14
-        LDRB     R1,[R0, #+8]
-        MOVS     R0,R4
+        LDRB     R1,[R6, #+8]
+        MOV      R0,R4
           CFI FunCall FLASH_Erase_Sector
         BL       FLASH_Erase_Sector
-        B.N      ??HAL_FLASH_IRQHandler_6
+        B.N      ??HAL_FLASH_IRQHandler_0
 //  350         }
 //  351         else
 //  352         {
 //  353           /* No more sectors to Erase, user callback can be called.*/
 //  354           /* Reset Sector and stop Erase sectors procedure */
 //  355           pFlash.Sector = temp = 0xFFFFFFFF;
-??HAL_FLASH_IRQHandler_5:
-        MOVS     R0,#-1
-        MOVS     R4,R0
-        LDR.N    R0,??DataTable14
-        STR      R4,[R0, #+12]
+??HAL_FLASH_IRQHandler_4:
+        MOV      R4,#-1
+        STR      R4,[R6, #+12]
 //  356           /* FLASH EOP interrupt user callback */
 //  357           HAL_FLASH_EndOfOperationCallback(temp);
-        MOVS     R0,R4
+        MOV      R0,R4
           CFI FunCall HAL_FLASH_EndOfOperationCallback
         BL       HAL_FLASH_EndOfOperationCallback
 //  358           /* Sector Erase procedure is completed */
 //  359           pFlash.ProcedureOnGoing = FLASH_PROC_NONE;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable14
-        STRB     R0,[R1, #+0]
+        STRB     R0,[R6, #+0]
 //  360           /* Clear FLASH End of Operation pending bit */
 //  361           __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP);
         MOVS     R0,#+1
-        LDR.N    R1,??DataTable14_2  ;; 0x40023c0c
-        STR      R0,[R1, #+0]
+        STR      R0,[R5, #+0]
+        B.N      ??HAL_FLASH_IRQHandler_0
 //  362         }
 //  363         break;
-??HAL_FLASH_IRQHandler_6:
-        B.N      ??HAL_FLASH_IRQHandler_0
 //  364       }
 //  365     
 //  366       case FLASH_PROC_MASSERASE :
@@ -778,20 +722,18 @@ HAL_FLASH_IRQHandler:
 //  368         /* MassErase ended. Return the selected bank : in this product we don't have Banks */
 //  369         /* FLASH EOP interrupt user callback */
 //  370         HAL_FLASH_EndOfOperationCallback(0);
-??HAL_FLASH_IRQHandler_4:
-        MOVS     R0,#+0
+??HAL_FLASH_IRQHandler_3:
+        MOV      R0,R4
           CFI FunCall HAL_FLASH_EndOfOperationCallback
         BL       HAL_FLASH_EndOfOperationCallback
 //  371         /* MAss Erase procedure is completed */
 //  372         pFlash.ProcedureOnGoing = FLASH_PROC_NONE;
-        MOVS     R0,#+0
-        LDR.N    R1,??DataTable14
-        STRB     R0,[R1, #+0]
+        MOV      R0,R4
+        STRB     R0,[R6, #+0]
 //  373         /* Clear FLASH End of Operation pending bit */
 //  374         __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP);
         MOVS     R0,#+1
-        LDR.N    R1,??DataTable14_2  ;; 0x40023c0c
-        STR      R0,[R1, #+0]
+        STR      R0,[R5, #+0]
 //  375         break;
         B.N      ??HAL_FLASH_IRQHandler_0
 //  376       }
@@ -801,23 +743,19 @@ HAL_FLASH_IRQHandler:
 //  380         /*Program ended. Return the selected address*/
 //  381         /* FLASH EOP interrupt user callback */
 //  382         HAL_FLASH_EndOfOperationCallback(pFlash.Address);
-??HAL_FLASH_IRQHandler_3:
-        LDR.N    R0,??DataTable14
-        LDR      R0,[R0, #+16]
+??HAL_FLASH_IRQHandler_2:
+        LDR      R0,[R6, #+16]
           CFI FunCall HAL_FLASH_EndOfOperationCallback
         BL       HAL_FLASH_EndOfOperationCallback
 //  383         /* Programming procedure is completed */
 //  384         pFlash.ProcedureOnGoing = FLASH_PROC_NONE;
-        MOVS     R0,#+0
-        LDR.N    R1,??DataTable14
-        STRB     R0,[R1, #+0]
+        MOV      R0,R4
+        STRB     R0,[R6, #+0]
 //  385         /* Clear FLASH End of Operation pending bit */
 //  386         __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP);
         MOVS     R0,#+1
-        LDR.N    R1,??DataTable14_2  ;; 0x40023c0c
-        STR      R0,[R1, #+0]
+        STR      R0,[R5, #+0]
 //  387         break;
-        B.N      ??HAL_FLASH_IRQHandler_0
 //  388       }
 //  389       default :
 //  390         break;
@@ -826,121 +764,102 @@ HAL_FLASH_IRQHandler:
 //  393   
 //  394   /* Check FLASH operation error flags */
 //  395   if(__HAL_FLASH_GET_FLAG((FLASH_FLAG_OPERR  | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | FLASH_FLAG_PGPERR | FLASH_FLAG_ERSERR )) != RESET)
-??HAL_FLASH_IRQHandler_2:
 ??HAL_FLASH_IRQHandler_0:
-        LDR.N    R0,??DataTable14_2  ;; 0x40023c0c
-        LDR      R0,[R0, #+0]
+        LDR      R0,[R5, #+0]
         TST      R0,#0xF2
-        BEQ.N    ??HAL_FLASH_IRQHandler_7
+        BEQ.N    ??HAL_FLASH_IRQHandler_5
 //  396   {
 //  397     switch (pFlash.ProcedureOnGoing)
-        LDR.N    R0,??DataTable14
-        LDRB     R0,[R0, #+0]
+        LDRB     R0,[R6, #+0]
         CMP      R0,#+1
+        BEQ.N    ??HAL_FLASH_IRQHandler_6
+        BCC.N    ??HAL_FLASH_IRQHandler_7
+        CMP      R0,#+3
         BEQ.N    ??HAL_FLASH_IRQHandler_8
         BCC.N    ??HAL_FLASH_IRQHandler_9
-        CMP      R0,#+3
-        BEQ.N    ??HAL_FLASH_IRQHandler_10
-        BCC.N    ??HAL_FLASH_IRQHandler_11
-        B.N      ??HAL_FLASH_IRQHandler_9
+        B.N      ??HAL_FLASH_IRQHandler_7
 //  398     {
 //  399       case FLASH_PROC_SECTERASE :
 //  400       {
 //  401         /* return the faulty sector */
 //  402         temp = pFlash.Sector;
-??HAL_FLASH_IRQHandler_8:
-        LDR.N    R0,??DataTable14
-        LDR      R0,[R0, #+12]
-        MOVS     R4,R0
+??HAL_FLASH_IRQHandler_6:
+        LDR      R4,[R6, #+12]
 //  403         pFlash.Sector = 0xFFFFFFFF;
-        MOVS     R0,#-1
-        LDR.N    R1,??DataTable14
-        STR      R0,[R1, #+12]
+        MOV      R0,#-1
+        STR      R0,[R6, #+12]
 //  404         break;
-        B.N      ??HAL_FLASH_IRQHandler_12
+        B.N      ??HAL_FLASH_IRQHandler_7
 //  405       }
 //  406       case FLASH_PROC_MASSERASE :
 //  407       {
 //  408         /* No return in case of Mass Erase */
 //  409         temp = 0;
-??HAL_FLASH_IRQHandler_11:
-        MOVS     R0,#+0
-        MOVS     R4,R0
+??HAL_FLASH_IRQHandler_9:
+        MOVS     R4,#+0
 //  410         break;
-        B.N      ??HAL_FLASH_IRQHandler_12
+        B.N      ??HAL_FLASH_IRQHandler_7
 //  411       }
 //  412       case FLASH_PROC_PROGRAM :
 //  413       {
 //  414         /*return the faulty address*/
 //  415         temp = pFlash.Address;
-??HAL_FLASH_IRQHandler_10:
-        LDR.N    R0,??DataTable14
-        LDR      R0,[R0, #+16]
-        MOVS     R4,R0
+??HAL_FLASH_IRQHandler_8:
+        LDR      R4,[R6, #+16]
 //  416         break;
-        B.N      ??HAL_FLASH_IRQHandler_12
 //  417       }
 //  418 			default :
 //  419 				break;
 //  420     }
 //  421     /*Save the Error code*/
 //  422     FLASH_SetErrorCode();
-??HAL_FLASH_IRQHandler_9:
-??HAL_FLASH_IRQHandler_12:
+??HAL_FLASH_IRQHandler_7:
           CFI FunCall FLASH_SetErrorCode
         BL       FLASH_SetErrorCode
 //  423 
 //  424     /* FLASH error interrupt user callback */
 //  425     HAL_FLASH_OperationErrorCallback(temp);
-        MOVS     R0,R4
+        MOV      R0,R4
           CFI FunCall HAL_FLASH_OperationErrorCallback
         BL       HAL_FLASH_OperationErrorCallback
 //  426     /* Clear FLASH error pending bits */
 //  427     __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_OPERR  | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | FLASH_FLAG_PGPERR | FLASH_FLAG_ERSERR );
         MOVS     R0,#+242
-        LDR.N    R1,??DataTable14_2  ;; 0x40023c0c
-        STR      R0,[R1, #+0]
+        STR      R0,[R5, #+0]
 //  428 
 //  429     /*Stop the procedure ongoing */
 //  430     pFlash.ProcedureOnGoing = FLASH_PROC_NONE;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable14
-        STRB     R0,[R1, #+0]
+        STRB     R0,[R6, #+0]
 //  431   }
 //  432   
 //  433   if(pFlash.ProcedureOnGoing == FLASH_PROC_NONE)
-??HAL_FLASH_IRQHandler_7:
-        LDR.N    R0,??DataTable14
-        LDRB     R0,[R0, #+0]
+??HAL_FLASH_IRQHandler_5:
+        LDRB     R0,[R6, #+0]
         CMP      R0,#+0
-        BNE.N    ??HAL_FLASH_IRQHandler_13
+        BNE.N    ??HAL_FLASH_IRQHandler_10
 //  434   {
 //  435     /* Disable End of FLASH Operation interrupt */
 //  436     __HAL_FLASH_DISABLE_IT(FLASH_IT_EOP);
-        LDR.N    R0,??DataTable14_1  ;; 0x40023c10
-        LDR      R0,[R0, #+0]
-        BICS     R0,R0,#0x1000000
-        LDR.N    R1,??DataTable14_1  ;; 0x40023c10
-        STR      R0,[R1, #+0]
+        LDR      R0,[R5, #+4]
+        BIC      R0,R0,#0x1000000
+        STR      R0,[R5, #+4]
 //  437 
 //  438     /* Disable Error source interrupt */
 //  439     __HAL_FLASH_DISABLE_IT(FLASH_IT_ERR);
-        LDR.N    R0,??DataTable14_1  ;; 0x40023c10
-        LDR      R0,[R0, #+0]
-        BICS     R0,R0,#0x2000000
-        LDR.N    R1,??DataTable14_1  ;; 0x40023c10
-        STR      R0,[R1, #+0]
+        LDR      R0,[R5, #+4]
+        BIC      R0,R0,#0x2000000
+        STR      R0,[R5, #+4]
 //  440 
 //  441     /* Process Unlocked */
 //  442     __HAL_UNLOCK(&pFlash);
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable14
-        STRB     R0,[R1, #+20]
+        STRB     R0,[R6, #+20]
 //  443   }
 //  444   
 //  445 }
-??HAL_FLASH_IRQHandler_13:
-        POP      {R4,PC}          ;; return
+??HAL_FLASH_IRQHandler_10:
+        POP      {R4-R6,PC}       ;; return
           CFI EndBlock cfiBlock2
 //  446 
 //  447 /**
@@ -1026,20 +945,18 @@ HAL_FLASH_OperationErrorCallback:
 //  503 {
 //  504   if((FLASH->CR & FLASH_CR_LOCK) != RESET)
 HAL_FLASH_Unlock:
-        LDR.N    R0,??DataTable14_1  ;; 0x40023c10
-        LDR      R0,[R0, #+0]
-        CMP      R0,#+0
+        LDR.N    R0,??DataTable14_3  ;; 0x40023c04
+        LDR      R1,[R0, #+12]
+        CMP      R1,#+0
         BPL.N    ??HAL_FLASH_Unlock_0
 //  505   {
 //  506     /* Authorize the FLASH Registers access */
 //  507     FLASH->KEYR = FLASH_KEY1;
-        LDR.N    R0,??DataTable14_3  ;; 0x45670123
-        LDR.N    R1,??DataTable14_4  ;; 0x40023c04
-        STR      R0,[R1, #+0]
+        LDR.N    R1,??DataTable14_4  ;; 0x45670123
+        STR      R1,[R0, #+0]
 //  508     FLASH->KEYR = FLASH_KEY2;
-        LDR.N    R0,??DataTable14_5  ;; 0xcdef89ab
-        LDR.N    R1,??DataTable14_4  ;; 0x40023c04
-        STR      R0,[R1, #+0]
+        LDR.N    R1,??DataTable14_5  ;; 0xcdef89ab
+        STR      R1,[R0, #+0]
 //  509   }
 //  510   else
 //  511   {
@@ -1048,10 +965,9 @@ HAL_FLASH_Unlock:
 //  514   
 //  515   return HAL_OK; 
         MOVS     R0,#+0
-        B.N      ??HAL_FLASH_Unlock_1
+        BX       LR
 ??HAL_FLASH_Unlock_0:
         MOVS     R0,#+1
-??HAL_FLASH_Unlock_1:
         BX       LR               ;; return
 //  516 }
           CFI EndBlock cfiBlock5
@@ -1072,10 +988,9 @@ HAL_FLASH_Unlock:
 //  525   FLASH->CR |= FLASH_CR_LOCK;
 HAL_FLASH_Lock:
         LDR.N    R0,??DataTable14_1  ;; 0x40023c10
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x80000000
-        LDR.N    R1,??DataTable14_1  ;; 0x40023c10
-        STR      R0,[R1, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x80000000
+        STR      R1,[R0, #+0]
 //  526   
 //  527   return HAL_OK;  
         MOVS     R0,#+0
@@ -1097,20 +1012,18 @@ HAL_FLASH_Lock:
 //  535 {
 //  536   if((FLASH->OPTCR & FLASH_OPTCR_OPTLOCK) != RESET)
 HAL_FLASH_OB_Unlock:
-        LDR.N    R0,??DataTable14_6  ;; 0x40023c14
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+31
+        LDR.N    R0,??DataTable14_6  ;; 0x40023c08
+        LDR      R1,[R0, #+12]
+        LSLS     R1,R1,#+31
         BPL.N    ??HAL_FLASH_OB_Unlock_0
 //  537   {
 //  538     /* Authorizes the Option Byte register programming */
 //  539     FLASH->OPTKEYR = FLASH_OPT_KEY1;
-        LDR.N    R0,??DataTable14_7  ;; 0x8192a3b
-        LDR.N    R1,??DataTable14_8  ;; 0x40023c08
-        STR      R0,[R1, #+0]
+        LDR.N    R1,??DataTable14_7  ;; 0x8192a3b
+        STR      R1,[R0, #+0]
 //  540     FLASH->OPTKEYR = FLASH_OPT_KEY2;
-        LDR.N    R0,??DataTable14_9  ;; 0x4c5d6e7f
-        LDR.N    R1,??DataTable14_8  ;; 0x40023c08
-        STR      R0,[R1, #+0]
+        LDR.N    R1,??DataTable14_8  ;; 0x4c5d6e7f
+        STR      R1,[R0, #+0]
 //  541   }
 //  542   else
 //  543   {
@@ -1119,10 +1032,9 @@ HAL_FLASH_OB_Unlock:
 //  546   
 //  547   return HAL_OK;  
         MOVS     R0,#+0
-        B.N      ??HAL_FLASH_OB_Unlock_1
+        BX       LR
 ??HAL_FLASH_OB_Unlock_0:
         MOVS     R0,#+1
-??HAL_FLASH_OB_Unlock_1:
         BX       LR               ;; return
 //  548 }
           CFI EndBlock cfiBlock7
@@ -1142,11 +1054,10 @@ HAL_FLASH_OB_Unlock:
 //  556   /* Set the OPTLOCK Bit to lock the FLASH Option Byte Registers access */
 //  557   FLASH->OPTCR |= FLASH_OPTCR_OPTLOCK;
 HAL_FLASH_OB_Lock:
-        LDR.N    R0,??DataTable14_6  ;; 0x40023c14
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x1
-        LDR.N    R1,??DataTable14_6  ;; 0x40023c14
-        STR      R0,[R1, #+0]
+        LDR.N    R0,??DataTable14_9  ;; 0x40023c14
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x1
+        STR      R1,[R0, #+0]
 //  558   
 //  559   return HAL_OK;  
         MOVS     R0,#+0
@@ -1165,24 +1076,19 @@ HAL_FLASH_OB_Lock:
         THUMB
 //  566 HAL_StatusTypeDef HAL_FLASH_OB_Launch(void)
 //  567 {
-HAL_FLASH_OB_Launch:
-        PUSH     {R7,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+8
 //  568   /* Set the OPTSTRT bit in OPTCR register */
 //  569   FLASH->OPTCR |= FLASH_OPTCR_OPTSTRT;
-        LDR.N    R0,??DataTable14_6  ;; 0x40023c14
-        LDR      R0,[R0, #+0]
-        ORRS     R0,R0,#0x2
-        LDR.N    R1,??DataTable14_6  ;; 0x40023c14
-        STR      R0,[R1, #+0]
+HAL_FLASH_OB_Launch:
+        LDR.N    R0,??DataTable14_9  ;; 0x40023c14
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x2
+        STR      R1,[R0, #+0]
 //  570 
 //  571   /* Wait for last operation to be completed */
 //  572   return(FLASH_WaitForLastOperation((uint32_t)FLASH_TIMEOUT_VALUE)); 
         MOVW     R0,#+50000
           CFI FunCall FLASH_WaitForLastOperation
-        BL       FLASH_WaitForLastOperation
-        POP      {R1,PC}          ;; return
+        B.N      FLASH_WaitForLastOperation
 //  573 }
           CFI EndBlock cfiBlock9
 //  574 
@@ -1251,9 +1157,8 @@ FLASH_WaitForLastOperation:
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
           CFI CFA R13+16
-        MOVS     R4,R0
+        MOV      R4,R0
 //  618   uint32_t tickstart = 0;
-        MOVS     R5,#+0
 //  619   
 //  620   /* Clear Error Code */
 //  621   pFlash.ErrorCode = HAL_FLASH_ERROR_NONE;
@@ -1268,13 +1173,13 @@ FLASH_WaitForLastOperation:
 //  627   tickstart = HAL_GetTick();
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOVS     R5,R0
+        MOV      R5,R0
 //  628 
 //  629   while(__HAL_FLASH_GET_FLAG(FLASH_FLAG_BSY) != RESET) 
 ??FLASH_WaitForLastOperation_0:
         LDR.N    R0,??DataTable14_2  ;; 0x40023c0c
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+15
+        LDR      R1,[R0, #+0]
+        LSLS     R1,R1,#+15
         BPL.N    ??FLASH_WaitForLastOperation_1
 //  630   { 
 //  631     if(Timeout != HAL_MAX_DELAY)
@@ -1293,7 +1198,7 @@ FLASH_WaitForLastOperation:
 //  635         return HAL_TIMEOUT;
 ??FLASH_WaitForLastOperation_2:
         MOVS     R0,#+3
-        B.N      ??FLASH_WaitForLastOperation_3
+        POP      {R1,R4,R5,PC}
 //  636       }
 //  637     } 
 //  638   }
@@ -1301,10 +1206,9 @@ FLASH_WaitForLastOperation:
 //  640   if(__HAL_FLASH_GET_FLAG((FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | \ 
 //  641                            FLASH_FLAG_PGPERR | FLASH_FLAG_ERSERR )) != RESET)
 ??FLASH_WaitForLastOperation_1:
-        LDR.N    R0,??DataTable14_2  ;; 0x40023c0c
         LDR      R0,[R0, #+0]
         TST      R0,#0xF2
-        BEQ.N    ??FLASH_WaitForLastOperation_4
+        BEQ.N    ??FLASH_WaitForLastOperation_3
 //  642   {
 //  643     /*Save the error code*/
 //  644     FLASH_SetErrorCode();
@@ -1312,14 +1216,13 @@ FLASH_WaitForLastOperation:
         BL       FLASH_SetErrorCode
 //  645     return HAL_ERROR;
         MOVS     R0,#+1
-        B.N      ??FLASH_WaitForLastOperation_3
+        POP      {R1,R4,R5,PC}
 //  646   }
 //  647 
 //  648   /* If there is an error flag set */
 //  649   return HAL_OK;
-??FLASH_WaitForLastOperation_4:
-        MOVS     R0,#+0
 ??FLASH_WaitForLastOperation_3:
+        MOVS     R0,#+0
         POP      {R1,R4,R5,PC}    ;; return
 //  650   
 //  651 }  
@@ -1355,22 +1258,17 @@ FLASH_Program_DoubleWord:
 //  670   /* If the previous operation is completed, proceed to program the new data */
 //  671   FLASH->CR &= CR_PSIZE_MASK;
         LDR.N    R1,??DataTable14_1  ;; 0x40023c10
-        LDR      R1,[R1, #+0]
-        BICS     R1,R1,#0x300
-        LDR.N    R4,??DataTable14_1  ;; 0x40023c10
-        STR      R1,[R4, #+0]
+        LDR      R4,[R1, #+0]
+        BIC      R4,R4,#0x300
+        STR      R4,[R1, #+0]
 //  672   FLASH->CR |= FLASH_PSIZE_DOUBLE_WORD;
-        LDR.N    R1,??DataTable14_1  ;; 0x40023c10
-        LDR      R1,[R1, #+0]
-        ORRS     R1,R1,#0x300
-        LDR.N    R4,??DataTable14_1  ;; 0x40023c10
-        STR      R1,[R4, #+0]
+        LDR      R4,[R1, #+0]
+        ORR      R4,R4,#0x300
+        STR      R4,[R1, #+0]
 //  673   FLASH->CR |= FLASH_CR_PG;
-        LDR.N    R1,??DataTable14_1  ;; 0x40023c10
-        LDR      R1,[R1, #+0]
-        ORRS     R1,R1,#0x1
-        LDR.N    R4,??DataTable14_1  ;; 0x40023c10
-        STR      R1,[R4, #+0]
+        LDR      R4,[R1, #+0]
+        ORR      R4,R4,#0x1
+        STR      R4,[R1, #+0]
 //  674   
 //  675   *(__IO uint64_t*)Address = Data;
         STRD     R2,R3,[R0, #+0]
@@ -1414,22 +1312,17 @@ FLASH_Program_DoubleWord:
 //  701   FLASH->CR &= CR_PSIZE_MASK;
 FLASH_Program_Word:
         LDR.N    R2,??DataTable14_1  ;; 0x40023c10
-        LDR      R2,[R2, #+0]
-        BICS     R2,R2,#0x300
-        LDR.N    R3,??DataTable14_1  ;; 0x40023c10
-        STR      R2,[R3, #+0]
+        LDR      R3,[R2, #+0]
+        BIC      R3,R3,#0x300
+        STR      R3,[R2, #+0]
 //  702   FLASH->CR |= FLASH_PSIZE_WORD;
-        LDR.N    R2,??DataTable14_1  ;; 0x40023c10
-        LDR      R2,[R2, #+0]
-        ORRS     R2,R2,#0x200
-        LDR.N    R3,??DataTable14_1  ;; 0x40023c10
-        STR      R2,[R3, #+0]
+        LDR      R3,[R2, #+0]
+        ORR      R3,R3,#0x200
+        STR      R3,[R2, #+0]
 //  703   FLASH->CR |= FLASH_CR_PG;
-        LDR.N    R2,??DataTable14_1  ;; 0x40023c10
-        LDR      R2,[R2, #+0]
-        ORRS     R2,R2,#0x1
-        LDR.N    R3,??DataTable14_1  ;; 0x40023c10
-        STR      R2,[R3, #+0]
+        LDR      R3,[R2, #+0]
+        ORR      R3,R3,#0x1
+        STR      R3,[R2, #+0]
 //  704 
 //  705   *(__IO uint32_t*)Address = Data;
         STR      R1,[R0, #+0]
@@ -1469,22 +1362,17 @@ FLASH_Program_Word:
 //  730   FLASH->CR &= CR_PSIZE_MASK;
 FLASH_Program_HalfWord:
         LDR.N    R2,??DataTable14_1  ;; 0x40023c10
-        LDR      R2,[R2, #+0]
-        BICS     R2,R2,#0x300
-        LDR.N    R3,??DataTable14_1  ;; 0x40023c10
-        STR      R2,[R3, #+0]
+        LDR      R3,[R2, #+0]
+        BIC      R3,R3,#0x300
+        STR      R3,[R2, #+0]
 //  731   FLASH->CR |= FLASH_PSIZE_HALF_WORD;
-        LDR.N    R2,??DataTable14_1  ;; 0x40023c10
-        LDR      R2,[R2, #+0]
-        ORRS     R2,R2,#0x100
-        LDR.N    R3,??DataTable14_1  ;; 0x40023c10
-        STR      R2,[R3, #+0]
+        LDR      R3,[R2, #+0]
+        ORR      R3,R3,#0x100
+        STR      R3,[R2, #+0]
 //  732   FLASH->CR |= FLASH_CR_PG;
-        LDR.N    R2,??DataTable14_1  ;; 0x40023c10
-        LDR      R2,[R2, #+0]
-        ORRS     R2,R2,#0x1
-        LDR.N    R3,??DataTable14_1  ;; 0x40023c10
-        STR      R2,[R3, #+0]
+        LDR      R3,[R2, #+0]
+        ORR      R3,R3,#0x1
+        STR      R3,[R2, #+0]
 //  733 
 //  734   *(__IO uint16_t*)Address = Data;
         STRH     R1,[R0, #+0]
@@ -1525,21 +1413,16 @@ FLASH_Program_HalfWord:
 //  760   FLASH->CR &= CR_PSIZE_MASK;
 FLASH_Program_Byte:
         LDR.N    R2,??DataTable14_1  ;; 0x40023c10
-        LDR      R2,[R2, #+0]
-        BICS     R2,R2,#0x300
-        LDR.N    R3,??DataTable14_1  ;; 0x40023c10
-        STR      R2,[R3, #+0]
+        LDR      R3,[R2, #+0]
+        BIC      R3,R3,#0x300
+        STR      R3,[R2, #+0]
 //  761   FLASH->CR |= FLASH_PSIZE_BYTE;
-        LDR.N    R2,??DataTable14_1  ;; 0x40023c10
-        LDR      R2,[R2, #+0]
-        LDR.N    R3,??DataTable14_1  ;; 0x40023c10
-        STR      R2,[R3, #+0]
+        LDR      R3,[R2, #+0]
+        STR      R3,[R2, #+0]
 //  762   FLASH->CR |= FLASH_CR_PG;
-        LDR.N    R2,??DataTable14_1  ;; 0x40023c10
-        LDR      R2,[R2, #+0]
-        ORRS     R2,R2,#0x1
-        LDR.N    R3,??DataTable14_1  ;; 0x40023c10
-        STR      R2,[R3, #+0]
+        LDR      R3,[R2, #+0]
+        ORR      R3,R3,#0x1
+        STR      R3,[R2, #+0]
 //  763 
 //  764   *(__IO uint8_t*)Address = Data;
         STRB     R1,[R0, #+0]
@@ -1566,77 +1449,64 @@ FLASH_Program_Byte:
 //  776 { 
 //  777   if(__HAL_FLASH_GET_FLAG(FLASH_FLAG_WRPERR) != RESET)
 FLASH_SetErrorCode:
-        LDR.N    R0,??DataTable14_2  ;; 0x40023c0c
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+27
+        LDR.N    R0,??DataTable14
+        LDR.N    R1,??DataTable14_2  ;; 0x40023c0c
+        LDR      R2,[R1, #+0]
+        LSLS     R2,R2,#+27
         BPL.N    ??FLASH_SetErrorCode_0
 //  778   {
 //  779    pFlash.ErrorCode |= HAL_FLASH_ERROR_WRP;
-        LDR.N    R0,??DataTable14
-        LDR      R0,[R0, #+24]
-        ORRS     R0,R0,#0x10
-        LDR.N    R1,??DataTable14
-        STR      R0,[R1, #+24]
+        LDR      R2,[R0, #+24]
+        ORR      R2,R2,#0x10
+        STR      R2,[R0, #+24]
 //  780   }
 //  781   
 //  782   if(__HAL_FLASH_GET_FLAG(FLASH_FLAG_PGAERR) != RESET)
 ??FLASH_SetErrorCode_0:
-        LDR.N    R0,??DataTable14_2  ;; 0x40023c0c
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+26
+        LDR      R2,[R1, #+0]
+        LSLS     R2,R2,#+26
         BPL.N    ??FLASH_SetErrorCode_1
 //  783   {
 //  784    pFlash.ErrorCode |= HAL_FLASH_ERROR_PGA;
-        LDR.N    R0,??DataTable14
-        LDR      R0,[R0, #+24]
-        ORRS     R0,R0,#0x8
-        LDR.N    R1,??DataTable14
-        STR      R0,[R1, #+24]
+        LDR      R2,[R0, #+24]
+        ORR      R2,R2,#0x8
+        STR      R2,[R0, #+24]
 //  785   }
 //  786   
 //  787   if(__HAL_FLASH_GET_FLAG(FLASH_FLAG_PGPERR) != RESET)
 ??FLASH_SetErrorCode_1:
-        LDR.N    R0,??DataTable14_2  ;; 0x40023c0c
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+25
+        LDR      R2,[R1, #+0]
+        LSLS     R2,R2,#+25
         BPL.N    ??FLASH_SetErrorCode_2
 //  788   {
 //  789     pFlash.ErrorCode |= HAL_FLASH_ERROR_PGP;
-        LDR.N    R0,??DataTable14
-        LDR      R0,[R0, #+24]
-        ORRS     R0,R0,#0x4
-        LDR.N    R1,??DataTable14
-        STR      R0,[R1, #+24]
+        LDR      R2,[R0, #+24]
+        ORR      R2,R2,#0x4
+        STR      R2,[R0, #+24]
 //  790   }
 //  791   
 //  792   if(__HAL_FLASH_GET_FLAG(FLASH_FLAG_ERSERR) != RESET)
 ??FLASH_SetErrorCode_2:
-        LDR.N    R0,??DataTable14_2  ;; 0x40023c0c
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+24
+        LDR      R2,[R1, #+0]
+        LSLS     R2,R2,#+24
         BPL.N    ??FLASH_SetErrorCode_3
 //  793   {
 //  794     pFlash.ErrorCode |= HAL_FLASH_ERROR_ERS;
-        LDR.N    R0,??DataTable14
-        LDR      R0,[R0, #+24]
-        ORRS     R0,R0,#0x2
-        LDR.N    R1,??DataTable14
-        STR      R0,[R1, #+24]
+        LDR      R2,[R0, #+24]
+        ORR      R2,R2,#0x2
+        STR      R2,[R0, #+24]
 //  795   }
 //  796   
 //  797   if(__HAL_FLASH_GET_FLAG(FLASH_FLAG_OPERR) != RESET)
 ??FLASH_SetErrorCode_3:
-        LDR.N    R0,??DataTable14_2  ;; 0x40023c0c
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+30
+        LDR      R1,[R1, #+0]
+        LSLS     R1,R1,#+30
         BPL.N    ??FLASH_SetErrorCode_4
 //  798   {
 //  799     pFlash.ErrorCode |= HAL_FLASH_ERROR_OPERATION;
-        LDR.N    R0,??DataTable14
-        LDR      R0,[R0, #+24]
-        ORRS     R0,R0,#0x20
-        LDR.N    R1,??DataTable14
-        STR      R0,[R1, #+24]
+        LDR      R1,[R0, #+24]
+        ORR      R1,R1,#0x20
+        STR      R1,[R0, #+24]
 //  800   }
 //  801 }
 ??FLASH_SetErrorCode_4:
@@ -1665,13 +1535,13 @@ FLASH_SetErrorCode:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable14_3:
-        DC32     0x45670123
+        DC32     0x40023c04
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable14_4:
-        DC32     0x40023c04
+        DC32     0x45670123
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -1683,7 +1553,7 @@ FLASH_SetErrorCode:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable14_6:
-        DC32     0x40023c14
+        DC32     0x40023c08
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -1695,13 +1565,13 @@ FLASH_SetErrorCode:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable14_8:
-        DC32     0x40023c08
+        DC32     0x4c5d6e7f
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable14_9:
-        DC32     0x4c5d6e7f
+        DC32     0x40023c14
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -1732,11 +1602,11 @@ FLASH_SetErrorCode:
 //  816 
 //  817 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-//    28 bytes in section .bss
-// 1 188 bytes in section .text
+//  28 bytes in section .bss
+// 884 bytes in section .text
 // 
-// 1 188 bytes of CODE memory
-//    28 bytes of DATA memory
+// 884 bytes of CODE memory
+//  28 bytes of DATA memory
 //
 //Errors: none
 //Warnings: none
