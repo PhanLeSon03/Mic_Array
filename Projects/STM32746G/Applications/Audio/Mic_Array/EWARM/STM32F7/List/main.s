@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      25/Feb/2016  16:19:11
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      26/Feb/2016  17:55:58
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -69,6 +69,7 @@
 
         EXTERN AUDIO_Desc
         EXTERN AUDIO_InitApplication
+        EXTERN AudioPlayerUpd
         EXTERN AudioUSBSend
         EXTERN Audio_MAL_Play
         EXTERN BSP_LED_Init
@@ -790,7 +791,7 @@ FFT_Update:
 //  179 #endif
 //  180 					
 //  181 					break;
-        B.N      ??FFT_Update_0
+        B.N      ??FFT_Update_5
 //  182 				case BUF2_PLAY:
 //  183 
 //  184 #if MAIN_CRSCORR
@@ -863,7 +864,7 @@ FFT_Update:
         BL       SumDelay
 //  220 #endif
 //  221 					break;
-        B.N      ??FFT_Update_0
+        B.N      ??FFT_Update_5
 //  222 					
 //  223 				case BUF3_PLAY:
 //  224 #if MAIN_CRSCORR
@@ -936,19 +937,22 @@ FFT_Update:
         BL       SumDelay
 //  260 #endif
 //  261 					break;
-        B.N      ??FFT_Update_0
+        B.N      ??FFT_Update_5
 //  262 					
 //  263 				default:
 //  264 					break;
 //  265                
 //  266 			}
-//  267 			//AudioPlayerUpd();
+//  267 			AudioPlayerUpd();
+??FFT_Update_4:
+??FFT_Update_5:
+          CFI FunCall AudioPlayerUpd
+        BL       AudioPlayerUpd
 //  268 	       //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_15);
 //  269 	  }
 //  270 	  
 //  271 
 //  272 }
-??FFT_Update_4:
 ??FFT_Update_0:
         POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock2
@@ -1362,9 +1366,9 @@ main:
 //  430 
 //  431 #if (USB_STREAMING)	
 //  432 	/* Initialize USB descriptor basing on channels number and sampling frequency */
-//  433 	USBD_AUDIO_Init_Microphone_Descriptor(&hUSBDDevice, AUDIO_SAMPLING_FREQUENCY, AUDIO_CHANNELS);
+//  433 	USBD_AUDIO_Init_Microphone_Descriptor(&hUSBDDevice, 2*AUDIO_SAMPLING_FREQUENCY, AUDIO_CHANNELS);
         MOVS     R2,#+2
-        MOV      R1,#+16000
+        MOV      R1,#+32000
         LDR.W    R0,??DataTable16_45
           CFI FunCall USBD_AUDIO_Init_Microphone_Descriptor
         BL       USBD_AUDIO_Init_Microphone_Descriptor
@@ -1412,34 +1416,34 @@ main:
 //  457 
 //  458                     /* This calculation happens once time in power cycles */
 //  459                     /* After 5 times of full frame recieved interrupt */
-//  460                     if (cntStrt==5)
+//  460                if ((cntStrt==5))
 ??main_0:
         LDR.W    R0,??DataTable16_39
         LDRH     R0,[R0, #+0]
         CMP      R0,#+5
         BNE.N    ??main_1
-//  461                     {
-//  462 			   if ((WaveRecord_flgIni<200))
+//  461                {
+//  462 				   if ((WaveRecord_flgIni<200))
         LDR.W    R0,??DataTable16_49
         LDRB     R0,[R0, #+0]
         CMP      R0,#+200
         BGE.N    ??main_2
-//  463 			   {
-//  464                               for(char i=0;i<16;i++)
+//  463 				   {
+//  464                       for(char i=0;i<16;i++)
         MOVS     R0,#+0
 ??main_3:
         UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
         CMP      R0,#+16
         BGE.N    ??main_1
-//  465                               {
-//  466                                 if (ValBit(SPI4_stNipple,i)!=0) 
+//  465                       {
+//  466                         if (ValBit(SPI4_stNipple,i)!=0) 
         LDR.W    R1,??DataTable16_50
         LDRSH    R1,[R1, #+0]
         ASRS     R1,R1,R0
         LSLS     R1,R1,#+31
         BPL.N    ??main_4
-//  467                                 {
-//  468                                    SPI4_stPosShft = MAX(SPI4_stPosShft,i+1);
+//  467                         {
+//  468                            SPI4_stPosShft = MAX(SPI4_stPosShft,i+1);
         UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
         ADDS     R1,R0,#+1
         LDR.W    R2,??DataTable16_51
@@ -1454,33 +1458,33 @@ main:
 ??main_6:
         LDR.W    R2,??DataTable16_51
         STRB     R1,[R2, #+0]
-//  469                                 }
-//  470                               }
+//  469                         }
+//  470                       }
 ??main_4:
         ADDS     R0,R0,#+1
         B.N      ??main_3
-//  471 					
-//  472 			   }
-//  473                            else if (WaveRecord_flgIni<255)
+//  471 						
+//  472 				   }
+//  473 	               else if (WaveRecord_flgIni<255)
 ??main_2:
         LDR.W    R0,??DataTable16_49
         LDRB     R0,[R0, #+0]
         CMP      R0,#+255
         BEQ.N    ??main_1
-//  474                            {
-//  475                                WaveRecord_flgIni++;
+//  474 	               {
+//  475 	                   WaveRecord_flgIni++;
         LDR.W    R0,??DataTable16_49
         LDRB     R0,[R0, #+0]
         ADDS     R0,R0,#+1
         LDR.W    R1,??DataTable16_49
         STRB     R0,[R1, #+0]
-//  476                            }
-//  477 			   else
-//  478 			   {
+//  476 	               }
+//  477 				   else
+//  478 				   {
 //  479 
-//  480 			   }
+//  480 				   }
 //  481 					   
-//  482 		 }
+//  482 		       }
 //  483 	
 //  484 		/* USB Host Background task */
 //  485 		//USBH_Process(&hUSBHost);
@@ -3704,9 +3708,9 @@ StartPlay:
 // 
 // 8 949 bytes in section .bss
 //    22 bytes in section .data
-// 3 308 bytes in section .text
+// 3 312 bytes in section .text
 // 
-// 3 308 bytes of CODE memory
+// 3 312 bytes of CODE memory
 // 8 971 bytes of DATA memory
 //
 //Errors: none

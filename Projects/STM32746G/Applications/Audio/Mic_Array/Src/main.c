@@ -264,7 +264,7 @@ inline static void FFT_Update(void)
 					break;
                
 			}
-			//AudioPlayerUpd();
+			AudioPlayerUpd();
 	       //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_15);
 	  }
 	  
@@ -430,7 +430,7 @@ int main(void)
 
 #if (USB_STREAMING)	
 	/* Initialize USB descriptor basing on channels number and sampling frequency */
-	USBD_AUDIO_Init_Microphone_Descriptor(&hUSBDDevice, AUDIO_SAMPLING_FREQUENCY, AUDIO_CHANNELS);
+	USBD_AUDIO_Init_Microphone_Descriptor(&hUSBDDevice, 2*AUDIO_SAMPLING_FREQUENCY, AUDIO_CHANNELS);
 	/* Init Device Library */
 	USBD_Init(&hUSBDDevice, &AUDIO_Desc, 0);
 	/* Add Supported Class */
@@ -457,29 +457,29 @@ int main(void)
 
                     /* This calculation happens once time in power cycles */
                     /* After 5 times of full frame recieved interrupt */
-                    if (cntStrt==5)
-                    {
-			   if ((WaveRecord_flgIni<200))
-			   {
-                              for(char i=0;i<16;i++)
-                              {
-                                if (ValBit(SPI4_stNipple,i)!=0) 
-                                {
-                                   SPI4_stPosShft = MAX(SPI4_stPosShft,i+1);
-                                }
-                              }
-					
-			   }
-                           else if (WaveRecord_flgIni<255)
-                           {
-                               WaveRecord_flgIni++;
-                           }
-			   else
-			   {
+               if ((cntStrt==5))
+               {
+				   if ((WaveRecord_flgIni<200))
+				   {
+                      for(char i=0;i<16;i++)
+                      {
+                        if (ValBit(SPI4_stNipple,i)!=0) 
+                        {
+                           SPI4_stPosShft = MAX(SPI4_stPosShft,i+1);
+                        }
+                      }
+						
+				   }
+	               else if (WaveRecord_flgIni<255)
+	               {
+	                   WaveRecord_flgIni++;
+	               }
+				   else
+				   {
 
-			   }
+				   }
 					   
-		 }
+		       }
 	
 		/* USB Host Background task */
 		//USBH_Process(&hUSBHost);

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      25/Feb/2016  16:19:16
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      26/Feb/2016  17:56:02
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -653,27 +653,12 @@ SPI4_stPosShft:
 //  153 static void I2S1_Init(void);
 //  154 static void I2S2_Init(void);
 //  155 
-//  156 //#pragma location=SDRAM_BANK_ADDR
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
-        DATA
+//  156 #pragma location=SDRAM_BANK_ADDR
 //  157 Mic_Array_Data Buffer1;
-Buffer1:
-        DS8 32928
-//  158 //#pragma location= (SDRAM_BANK_ADDR+ BUFFER_SIZE_BYTE)
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
-        DATA
+//  158 #pragma location= (SDRAM_BANK_ADDR+ BUFFER_SIZE_BYTE)
 //  159 Mic_Array_Data Buffer2;
-Buffer2:
-        DS8 32928
-//  160 //#pragma location= (SDRAM_BANK_ADDR+ BUFFER_SIZE_BYTE + BUFFER_SIZE_BYTE)
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
-        DATA
+//  160 #pragma location= (SDRAM_BANK_ADDR+ BUFFER_SIZE_BYTE + BUFFER_SIZE_BYTE)
 //  161 Mic_Array_Data Buffer3;
-Buffer3:
-        DS8 32928
 //  162 
 
         SECTION `.text`:CODE:NOROOT(1)
@@ -694,23 +679,23 @@ SPI1_Ini:
 //  168    	 
 //  169   /* Enable SCK, MOSI and MISO GPIO clocks */
 //  170   __HAL_RCC_SPI1_CLK_ENABLE();
-        LDR.W    R0,??DataTable9  ;; 0x40023844
+        LDR.W    R0,??DataTable10  ;; 0x40023844
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x1000
-        LDR.W    R1,??DataTable9  ;; 0x40023844
+        LDR.W    R1,??DataTable10  ;; 0x40023844
         STR      R0,[R1, #+0]
-        LDR.W    R0,??DataTable9  ;; 0x40023844
+        LDR.W    R0,??DataTable10  ;; 0x40023844
         LDR      R0,[R0, #+0]
         ANDS     R0,R0,#0x1000
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
 //  171   __HAL_RCC_GPIOA_CLK_ENABLE();
-        LDR.W    R0,??DataTable10  ;; 0x40023830
+        LDR.W    R0,??DataTable10_1  ;; 0x40023830
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x1
-        LDR.W    R1,??DataTable10  ;; 0x40023830
+        LDR.W    R1,??DataTable10_1  ;; 0x40023830
         STR      R0,[R1, #+0]
-        LDR.W    R0,??DataTable10  ;; 0x40023830
+        LDR.W    R0,??DataTable10_1  ;; 0x40023830
         LDR      R0,[R0, #+0]
         ANDS     R0,R0,#0x1
         STR      R0,[SP, #+0]
@@ -736,7 +721,7 @@ SPI1_Ini:
         STR      R0,[SP, #+4]
 //  181   HAL_GPIO_Init(SPI1_SCK_GPIO_PORT,&GPIO_InitStructure);
         ADD      R1,SP,#+4
-        LDR.W    R0,??DataTable10_1  ;; 0x40020000
+        LDR.W    R0,??DataTable10_2  ;; 0x40020000
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 //  182 
@@ -749,7 +734,7 @@ SPI1_Ini:
         STR      R0,[SP, #+4]
 //  186   HAL_GPIO_Init(SPI1_MOSI_GPIO_PORT, &GPIO_InitStructure);
         ADD      R1,SP,#+4
-        LDR.W    R0,??DataTable10_1  ;; 0x40020000
+        LDR.W    R0,??DataTable10_2  ;; 0x40020000
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 //  187 
@@ -762,7 +747,7 @@ SPI1_Ini:
         STR      R0,[SP, #+4]
 //  191   HAL_GPIO_Init(SPI1_MISO_GPIO_PORT, &GPIO_InitStructure);
         ADD      R1,SP,#+4
-        LDR.W    R0,??DataTable10_1  ;; 0x40020000
+        LDR.W    R0,??DataTable10_2  ;; 0x40020000
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 //  192 
@@ -771,42 +756,42 @@ SPI1_Ini:
 //  195   
 //  196   spi1_ins.Init.Direction = SPI_DIRECTION_2LINES_RXONLY;
         MOV      R0,#+1024
-        LDR.W    R1,??DataTable10_2
+        LDR.W    R1,??DataTable11
         STR      R0,[R1, #+8]
 //  197   spi1_ins.Init.DataSize = SPI_DATASIZE_16BIT;
         MOV      R0,#+3840
-        LDR.W    R1,??DataTable10_2
+        LDR.W    R1,??DataTable11
         STR      R0,[R1, #+12]
 //  198   spi1_ins.Init.CLKPolarity = SPI_POLARITY_LOW;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable10_2
+        LDR.W    R1,??DataTable11
         STR      R0,[R1, #+16]
 //  199   spi1_ins.Init.CLKPhase = SPI_PHASE_1EDGE;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable10_2
+        LDR.W    R1,??DataTable11
         STR      R0,[R1, #+20]
 //  200   spi1_ins.Init.NSS = SPI_NSS_SOFT;
         MOV      R0,#+512
-        LDR.W    R1,??DataTable10_2
+        LDR.W    R1,??DataTable11
         STR      R0,[R1, #+24]
 //  201   spi1_ins.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_64;
         MOVS     R0,#+40
-        LDR.W    R1,??DataTable10_2
+        LDR.W    R1,??DataTable11
         STR      R0,[R1, #+28]
 //  202   spi1_ins.Init.FirstBit = SPI_FIRSTBIT_MSB;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable10_2
+        LDR.W    R1,??DataTable11
         STR      R0,[R1, #+32]
 //  203   spi1_ins.Init.CRCPolynomial = 7;
         MOVS     R0,#+7
-        LDR.W    R1,??DataTable10_2
+        LDR.W    R1,??DataTable11
         STR      R0,[R1, #+44]
 //  204   spi1_ins.Init.Mode = SPI_MODE_SLAVE;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable10_2
+        LDR.W    R1,??DataTable11
         STR      R0,[R1, #+4]
 //  205   if(HAL_SPI_Init(&spi1_ins) != HAL_OK)
-        LDR.W    R0,??DataTable10_2
+        LDR.W    R0,??DataTable11
           CFI FunCall HAL_SPI_Init
         BL       HAL_SPI_Init
 //  206   {
@@ -884,7 +869,7 @@ mySPI_SendData:
 //  236  
 //  237 while(!__HAL_SPI_GET_FLAG(&spi1_ins, SPI_FLAG_TXE)); 
 ??mySPI_SendData_0:
-        LDR.W    R0,??DataTable10_2
+        LDR.W    R0,??DataTable11
         LDR      R0,[R0, #+0]
         LDR      R0,[R0, #+8]
         LSLS     R0,R0,#+30
@@ -893,25 +878,25 @@ mySPI_SendData:
         UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
         MOVS     R1,R4
         UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        LDR.W    R0,??DataTable11  ;; 0x40013000
+        LDR.W    R0,??DataTable11_1  ;; 0x40013000
           CFI FunCall SPI_I2S_SendData
         BL       SPI_I2S_SendData
 //  239 
 //  240 while(!__HAL_SPI_GET_FLAG(&spi1_ins, SPI_FLAG_RXNE));
 ??mySPI_SendData_1:
-        LDR.W    R0,??DataTable10_2
+        LDR.W    R0,??DataTable11
         LDR      R0,[R0, #+0]
         LDR      R0,[R0, #+8]
         LSLS     R0,R0,#+31
         BPL.N    ??mySPI_SendData_1
 //  241 SPI_I2S_ReceiveData(SPI1);
-        LDR.W    R0,??DataTable11  ;; 0x40013000
+        LDR.W    R0,??DataTable11_1  ;; 0x40013000
           CFI FunCall SPI_I2S_ReceiveData
         BL       SPI_I2S_ReceiveData
 //  242 
 //  243 while(!!__HAL_SPI_GET_FLAG(&spi1_ins, SPI_FLAG_TXE)); 
 ??mySPI_SendData_2:
-        LDR.W    R0,??DataTable10_2
+        LDR.W    R0,??DataTable11
         LDR      R0,[R0, #+0]
         LDR      R0,[R0, #+8]
         LSLS     R0,R0,#+30
@@ -920,19 +905,19 @@ mySPI_SendData:
         UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
         MOVS     R1,R5
         UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        LDR.W    R0,??DataTable11  ;; 0x40013000
+        LDR.W    R0,??DataTable11_1  ;; 0x40013000
           CFI FunCall SPI_I2S_SendData
         BL       SPI_I2S_SendData
 //  245 
 //  246 while(!!__HAL_SPI_GET_FLAG(&spi1_ins, SPI_FLAG_RXNE));
 ??mySPI_SendData_3:
-        LDR.W    R0,??DataTable10_2
+        LDR.W    R0,??DataTable11
         LDR      R0,[R0, #+0]
         LDR      R0,[R0, #+8]
         LSLS     R0,R0,#+31
         BMI.N    ??mySPI_SendData_3
 //  247 SPI_I2S_ReceiveData(SPI1);
-        LDR.W    R0,??DataTable11  ;; 0x40013000
+        LDR.W    R0,??DataTable11_1  ;; 0x40013000
           CFI FunCall SPI_I2S_ReceiveData
         BL       SPI_I2S_ReceiveData
 //  248  
@@ -966,7 +951,7 @@ SPI1_IRQHandler:
 //  264 //	     (__HAL_SPI_GET_FLAG(&hi2s1, SPI_FLAG_OVR) == RESET)&&
 //  265 //	     (__HAL_SPI_GET_FLAG(&hi2s1, SPI_FLAG_RXNE) != RESET)&&
 //  266 		 (__HAL_I2S_GET_IT_SOURCE(&hi2s1, SPI_IT_RXNE) != RESET))
-        LDR.W    R0,??DataTable11_1
+        LDR.W    R0,??DataTable11_2
         LDR      R0,[R0, #+0]
         LDR      R0,[R0, #+4]
         LSLS     R0,R0,#+25
@@ -975,7 +960,7 @@ SPI1_IRQHandler:
 //  268 	
 //  269 
 //  270 	   tmpTest =  SPI_I2S_ReceiveData(SPI1);
-        LDR.W    R0,??DataTable11  ;; 0x40013000
+        LDR.W    R0,??DataTable11_1  ;; 0x40013000
           CFI FunCall SPI_I2S_ReceiveData
         BL       SPI_I2S_ReceiveData
         MOVS     R4,R0
@@ -983,7 +968,7 @@ SPI1_IRQHandler:
 //  272 	   /* Left-Right Mic data */
 //  273 	   stLR= HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4);
         MOVS     R1,#+16
-        LDR.W    R0,??DataTable10_1  ;; 0x40020000
+        LDR.W    R0,??DataTable10_2  ;; 0x40020000
           CFI FunCall HAL_GPIO_ReadPin
         BL       HAL_GPIO_ReadPin
         LDR.W    R1,??DataTable12
@@ -1002,7 +987,7 @@ SPI1_IRQHandler:
         BNE.N    ??SPI1_IRQHandler_2
 //  278 			{
 //  279 				SPI1_stNipple = (tmpTest);
-        LDR.W    R0,??DataTable11_2
+        LDR.W    R0,??DataTable12_1
         STRH     R4,[R0, #+0]
         B.N      ??SPI1_IRQHandler_3
 //  280 
@@ -1011,13 +996,13 @@ SPI1_IRQHandler:
 //  283 			{
 //  284 				 vRawSens1 = (tmpTest);
 ??SPI1_IRQHandler_2:
-        LDR.W    R0,??DataTable12_1
+        LDR.W    R0,??DataTable12_2
         STRH     R4,[R0, #+0]
 //  285    		         WaveRec_idxTest++;
-        LDR.W    R0,??DataTable11_3
+        LDR.W    R0,??DataTable12_3
         LDRH     R0,[R0, #+0]
         ADDS     R0,R0,#+1
-        LDR.W    R1,??DataTable11_3
+        LDR.W    R1,??DataTable12_3
         STRH     R0,[R1, #+0]
         B.N      ??SPI1_IRQHandler_3
 //  286 			   
@@ -1033,7 +1018,7 @@ SPI1_IRQHandler:
         BNE.N    ??SPI1_IRQHandler_4
 //  292 			{
 //  293 			  SPI1_stNipple = (tmpTest);  
-        LDR.W    R0,??DataTable11_2
+        LDR.W    R0,??DataTable12_1
         STRH     R4,[R0, #+0]
         B.N      ??SPI1_IRQHandler_3
 //  294 
@@ -1042,13 +1027,13 @@ SPI1_IRQHandler:
 //  297 			{
 //  298 			  vRawSens2 = (tmpTest);
 ??SPI1_IRQHandler_4:
-        LDR.W    R0,??DataTable12_2
+        LDR.W    R0,??DataTable12_4
         STRH     R4,[R0, #+0]
 //  299  	          WaveRec_idxTest++;
-        LDR.W    R0,??DataTable11_3
+        LDR.W    R0,??DataTable12_3
         LDRH     R0,[R0, #+0]
         ADDS     R0,R0,#+1
-        LDR.W    R1,??DataTable11_3
+        LDR.W    R1,??DataTable12_3
         STRH     R0,[R1, #+0]
 //  300 
 //  301 			} 	
@@ -1056,18 +1041,18 @@ SPI1_IRQHandler:
 //  303 	   
 //  304 	   if (iSDO12<4*AUDIO_OUT_BUFFER_SIZE)
 ??SPI1_IRQHandler_3:
-        LDR.W    R0,??DataTable12_3
+        LDR.W    R0,??DataTable12_5
         LDRH     R0,[R0, #+0]
         CMP      R0,#+4096
         BGE.N    ??SPI1_IRQHandler_5
 //  305 	   {
 //  306            TestSDO12[iSDO12++]=tmpTest;
-        LDR.W    R0,??DataTable12_3
+        LDR.W    R0,??DataTable12_5
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable12_3
+        LDR.W    R2,??DataTable12_5
         STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable12_4
+        LDR.W    R1,??DataTable13_2
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         STRH     R4,[R1, R0, LSL #+1]
         B.N      ??SPI1_IRQHandler_6
@@ -1077,18 +1062,18 @@ SPI1_IRQHandler:
 //  310            iSDO12=0;
 ??SPI1_IRQHandler_5:
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable12_3
+        LDR.W    R1,??DataTable12_5
         STRH     R0,[R1, #+0]
 //  311 	   }
 //  312 #if 1
 //  313 		if ((WaveRec_idxSens1 < (2*AUDIO_OUT_BUFFER_SIZE+5))&&(WaveRec_idxSens2 < (2*AUDIO_OUT_BUFFER_SIZE+5)))
 ??SPI1_IRQHandler_6:
-        LDR.W    R0,??DataTable12_5
+        LDR.W    R0,??DataTable13_3
         LDRH     R0,[R0, #+0]
         MOVW     R1,#+2053
         CMP      R0,R1
         BGE.W    ??SPI1_IRQHandler_7
-        LDR.W    R0,??DataTable13_2
+        LDR.W    R0,??DataTable13_4
         LDRH     R0,[R0, #+0]
         MOVW     R1,#+2053
         CMP      R0,R1
@@ -1107,7 +1092,7 @@ SPI1_IRQHandler:
 //  325 	 ---------------------------------------------------------------------------------------------------------------*/
 //  326 				  /* Recording Audio Data */						 
 //  327 				   switch (buffer_switch)
-        LDR.W    R0,??DataTable13_3
+        LDR.W    R0,??DataTable13_5
         LDRB     R0,[R0, #+0]
         CMP      R0,#+0
         BEQ.N    ??SPI1_IRQHandler_8
@@ -1120,36 +1105,36 @@ SPI1_IRQHandler:
 //  330 
 //  331                                 if (WaveRec_idxSens1<=WaveRec_idxSens2)
 ??SPI1_IRQHandler_8:
-        LDR.W    R0,??DataTable13_2
+        LDR.W    R0,??DataTable13_4
         LDRH     R0,[R0, #+0]
-        LDR.W    R1,??DataTable12_5
+        LDR.W    R1,??DataTable13_3
         LDRH     R1,[R1, #+0]
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         CMP      R0,R1
         BCC.N    ??SPI1_IRQHandler_12
 //  332 									Buffer2.bufMIC1[WaveRec_idxSens1++] = vRawSens1;
-        LDR.W    R0,??DataTable12_5
+        LDR.W    R0,??DataTable13_3
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable12_5
+        LDR.W    R2,??DataTable13_3
         STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable12_1
+        LDR.W    R1,??DataTable12_2
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable13_4
+        LDR.W    R2,??DataTable13_6  ;; 0xc00080a0
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         STRH     R1,[R2, R0, LSL #+1]
         B.N      ??SPI1_IRQHandler_13
 //  333 							    else
 //  334 									Buffer2.bufMIC2[WaveRec_idxSens2++] = vRawSens2;									
 ??SPI1_IRQHandler_12:
-        LDR.W    R0,??DataTable13_2
+        LDR.W    R0,??DataTable13_4
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable13_2
-        STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable12_2
-        LDRSH    R1,[R1, #+0]
         LDR.W    R2,??DataTable13_4
+        STRH     R1,[R2, #+0]
+        LDR.W    R1,??DataTable12_4
+        LDRSH    R1,[R1, #+0]
+        LDR.W    R2,??DataTable13_6  ;; 0xc00080a0
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         ADDS     R0,R2,R0, LSL #+1
         MOVW     R2,#+4116
@@ -1162,36 +1147,36 @@ SPI1_IRQHandler:
 //  338 							case BUF2_PLAY:
 //  339                                 if (WaveRec_idxSens1<=WaveRec_idxSens2)
 ??SPI1_IRQHandler_10:
-        LDR.W    R0,??DataTable13_2
+        LDR.W    R0,??DataTable13_4
         LDRH     R0,[R0, #+0]
-        LDR.W    R1,??DataTable12_5
+        LDR.W    R1,??DataTable13_3
         LDRH     R1,[R1, #+0]
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         CMP      R0,R1
         BCC.N    ??SPI1_IRQHandler_14
 //  340 									Buffer3.bufMIC1[WaveRec_idxSens1++] = vRawSens1;
-        LDR.W    R0,??DataTable12_5
+        LDR.W    R0,??DataTable13_3
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable12_5
+        LDR.W    R2,??DataTable13_3
         STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable12_1
+        LDR.W    R1,??DataTable12_2
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable13_5
+        LDR.W    R2,??DataTable13_7  ;; 0xc0010140
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         STRH     R1,[R2, R0, LSL #+1]
         B.N      ??SPI1_IRQHandler_15
 //  341 							    else
 //  342 									Buffer3.bufMIC2[WaveRec_idxSens2++] = vRawSens2;	
 ??SPI1_IRQHandler_14:
-        LDR.W    R0,??DataTable13_2
+        LDR.W    R0,??DataTable13_4
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable13_2
+        LDR.W    R2,??DataTable13_4
         STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable12_2
+        LDR.W    R1,??DataTable12_4
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable13_5
+        LDR.W    R2,??DataTable13_7  ;; 0xc0010140
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         ADDS     R0,R2,R0, LSL #+1
         MOVW     R2,#+4116
@@ -1203,38 +1188,39 @@ SPI1_IRQHandler:
 //  345 							case BUF3_PLAY:
 //  346                                 if (WaveRec_idxSens1<=WaveRec_idxSens2)
 ??SPI1_IRQHandler_9:
-        LDR.W    R0,??DataTable13_2
+        LDR.W    R0,??DataTable13_4
         LDRH     R0,[R0, #+0]
-        LDR.W    R1,??DataTable12_5
+        LDR.W    R1,??DataTable13_3
         LDRH     R1,[R1, #+0]
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         CMP      R0,R1
         BCC.N    ??SPI1_IRQHandler_16
 //  347 									Buffer1.bufMIC1[WaveRec_idxSens1++] = vRawSens1;
-        LDR.W    R0,??DataTable12_5
+        LDR.W    R0,??DataTable13_3
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable12_5
+        LDR.W    R2,??DataTable13_3
         STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable12_1
+        LDR.W    R1,??DataTable12_2
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable13_6
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        STRH     R1,[R2, R0, LSL #+1]
+        LSLS     R0,R0,#+1
+        SUBS     R0,R0,#+1073741824
+        STRH     R1,[R0, #+0]
         B.N      ??SPI1_IRQHandler_17
 //  348 							    else
 //  349 									Buffer1.bufMIC2[WaveRec_idxSens2++] = vRawSens2;									
 ??SPI1_IRQHandler_16:
-        LDR.W    R0,??DataTable13_2
+        LDR.W    R0,??DataTable13_4
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable13_2
+        LDR.W    R2,??DataTable13_4
         STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable12_2
+        LDR.W    R1,??DataTable12_4
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable13_6
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        ADDS     R0,R2,R0, LSL #+1
+        LSLS     R0,R0,#+1
+        SUBS     R0,R0,#+1073741824
         MOVW     R2,#+4116
         STRH     R1,[R2, R0]
 //  350 
@@ -1264,6 +1250,9 @@ SPI1_IRQHandler:
 ??SPI1_IRQHandler_0:
         POP      {R4,PC}          ;; return
           CFI EndBlock cfiBlock2
+        REQUIRE Buffer2
+        REQUIRE Buffer3
+        REQUIRE Buffer1
 
         SECTION `.bss`:DATA:REORDER:NOROOT(0)
         DATA
@@ -1305,7 +1294,7 @@ SPI2_IRQHandler:
 //  384 //   	    (__HAL_SPI_GET_FLAG(&hi2s2, SPI_FLAG_RXNE) != RESET)&&
 //  385    	    (__HAL_I2S_GET_IT_SOURCE(&hi2s2, SPI_IT_RXNE)!=RESET)
 //  386    	  )
-        LDR.W    R0,??DataTable13_7
+        LDR.W    R0,??DataTable13_8
         LDR      R0,[R0, #+0]
         LDR      R0,[R0, #+4]
         LSLS     R0,R0,#+25
@@ -1313,7 +1302,7 @@ SPI2_IRQHandler:
 //  387    {
 //  388     
 //  389      app = SPI_I2S_ReceiveData(SPI2);   
-        LDR.W    R0,??DataTable13_8  ;; 0x40003800
+        LDR.W    R0,??DataTable13_9  ;; 0x40003800
           CFI FunCall SPI_I2S_ReceiveData
         BL       SPI_I2S_ReceiveData
         MOVS     R4,R0
@@ -1321,26 +1310,26 @@ SPI2_IRQHandler:
 //  391 
 //  392 	 I2S2_stLR= HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4);
         MOVS     R1,#+16
-        LDR.W    R0,??DataTable10_1  ;; 0x40020000
+        LDR.W    R0,??DataTable10_2  ;; 0x40020000
           CFI FunCall HAL_GPIO_ReadPin
         BL       HAL_GPIO_ReadPin
-        LDR.W    R1,??DataTable13_9
+        LDR.W    R1,??DataTable13_10
         STRB     R0,[R1, #+0]
 //  393 
 //  394 	 if (I2S2_stLR==GPIO_PIN_SET)
-        LDR.W    R0,??DataTable13_9
+        LDR.W    R0,??DataTable13_10
         LDRB     R0,[R0, #+0]
         CMP      R0,#+1
         BNE.N    ??SPI2_IRQHandler_1
 //  395 	 {
 //  396         if (I2S2_stLROld==GPIO_PIN_SET)
-        LDR.W    R0,??DataTable13_10
+        LDR.W    R0,??DataTable13_11
         LDRB     R0,[R0, #+0]
         CMP      R0,#+1
         BNE.N    ??SPI2_IRQHandler_2
 //  397         {
 //  398             I2S2_stNipple = app;           
-        LDR.W    R0,??DataTable13_11
+        LDR.W    R0,??DataTable13_12
         STRH     R4,[R0, #+0]
         B.N      ??SPI2_IRQHandler_3
 //  399         }
@@ -1349,7 +1338,7 @@ SPI2_IRQHandler:
 //  402 
 //  403 			 vRawSens3 = app;
 ??SPI2_IRQHandler_2:
-        LDR.W    R0,??DataTable13_12
+        LDR.W    R0,??DataTable13_13
         STRH     R4,[R0, #+0]
         B.N      ??SPI2_IRQHandler_3
 //  404 
@@ -1359,13 +1348,13 @@ SPI2_IRQHandler:
 //  408 	 {
 //  409         if (I2S2_stLROld==GPIO_PIN_RESET)
 ??SPI2_IRQHandler_1:
-        LDR.W    R0,??DataTable13_10
+        LDR.W    R0,??DataTable13_11
         LDRB     R0,[R0, #+0]
         CMP      R0,#+0
         BNE.N    ??SPI2_IRQHandler_4
 //  410         {
 //  411             I2S2_stNipple = app;
-        LDR.W    R0,??DataTable13_11
+        LDR.W    R0,??DataTable13_12
         STRH     R4,[R0, #+0]
         B.N      ??SPI2_IRQHandler_3
 //  412 
@@ -1374,7 +1363,7 @@ SPI2_IRQHandler:
 //  415 		{
 //  416             vRawSens4 =app;
 ??SPI2_IRQHandler_4:
-        LDR.W    R0,??DataTable13_13
+        LDR.W    R0,??DataTable13_14
         STRH     R4,[R0, #+0]
 //  417 		
 //  418 		}
@@ -1382,18 +1371,18 @@ SPI2_IRQHandler:
 //  420 
 //  421 	 	if (iSDO34<4*AUDIO_OUT_BUFFER_SIZE)
 ??SPI2_IRQHandler_3:
-        LDR.W    R0,??DataTable13_14
+        LDR.W    R0,??DataTable13_15
         LDRH     R0,[R0, #+0]
         CMP      R0,#+4096
         BGE.N    ??SPI2_IRQHandler_5
 //  422 	   {
 //  423            TestSDO34[iSDO34++]=app;
-        LDR.W    R0,??DataTable13_14
+        LDR.W    R0,??DataTable13_15
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable13_14
+        LDR.W    R2,??DataTable13_15
         STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable13_15
+        LDR.W    R1,??DataTable13_16
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         STRH     R4,[R1, R0, LSL #+1]
         B.N      ??SPI2_IRQHandler_6
@@ -1403,19 +1392,19 @@ SPI2_IRQHandler:
 //  427            iSDO34=0;
 ??SPI2_IRQHandler_5:
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable13_14
+        LDR.W    R1,??DataTable13_15
         STRH     R0,[R1, #+0]
 //  428 	   }
 //  429 	 
 //  430 #if 1
 //  431 	 if ((WaveRec_idxSens3 < (2*AUDIO_OUT_BUFFER_SIZE+5))&&(WaveRec_idxSens4 < (2*AUDIO_OUT_BUFFER_SIZE+5)))
 ??SPI2_IRQHandler_6:
-        LDR.W    R0,??DataTable13_16
+        LDR.W    R0,??DataTable13_17
         LDRH     R0,[R0, #+0]
         MOVW     R1,#+2053
         CMP      R0,R1
         BGE.W    ??SPI2_IRQHandler_7
-        LDR.W    R0,??DataTable13_17
+        LDR.W    R0,??DataTable13_18
         LDRH     R0,[R0, #+0]
         MOVW     R1,#+2053
         CMP      R0,R1
@@ -1434,7 +1423,7 @@ SPI2_IRQHandler:
 //  443  ---------------------------------------------------------------------------------------------------------------*/
 //  444 		/* Recording Audio Data */			             
 //  445 		 switch (buffer_switch)
-        LDR.W    R0,??DataTable13_3
+        LDR.W    R0,??DataTable13_5
         LDRB     R0,[R0, #+0]
         CMP      R0,#+0
         BEQ.N    ??SPI2_IRQHandler_8
@@ -1446,22 +1435,22 @@ SPI2_IRQHandler:
 //  447 			  case BUF1_PLAY:
 //  448                   if (WaveRec_idxSens3<=WaveRec_idxSens4) 
 ??SPI2_IRQHandler_8:
-        LDR.W    R0,??DataTable13_17
+        LDR.W    R0,??DataTable13_18
         LDRH     R0,[R0, #+0]
-        LDR.W    R1,??DataTable13_16
+        LDR.W    R1,??DataTable13_17
         LDRH     R1,[R1, #+0]
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         CMP      R0,R1
         BCC.N    ??SPI2_IRQHandler_12
 //  449                       Buffer2.bufMIC3[WaveRec_idxSens3++] = vRawSens3;
-        LDR.W    R0,??DataTable13_16
+        LDR.W    R0,??DataTable13_17
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable13_16
+        LDR.W    R2,??DataTable13_17
         STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable13_12
+        LDR.W    R1,??DataTable13_13
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable13_4
+        LDR.W    R2,??DataTable13_6  ;; 0xc00080a0
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         ADDS     R0,R2,R0, LSL #+1
         MOVW     R2,#+8232
@@ -1470,14 +1459,14 @@ SPI2_IRQHandler:
 //  450 				  else
 //  451                       Buffer2.bufMIC4[WaveRec_idxSens4++] = vRawSens4;			  
 ??SPI2_IRQHandler_12:
-        LDR.W    R0,??DataTable13_17
+        LDR.W    R0,??DataTable13_18
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable13_17
+        LDR.W    R2,??DataTable13_18
         STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable13_13
+        LDR.W    R1,??DataTable13_14
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable13_4
+        LDR.W    R2,??DataTable13_6  ;; 0xc00080a0
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         ADDS     R0,R2,R0, LSL #+1
         MOVW     R2,#+12348
@@ -1489,22 +1478,22 @@ SPI2_IRQHandler:
 //  454 			  case BUF2_PLAY:
 //  455                   if (WaveRec_idxSens3<=WaveRec_idxSens4) 
 ??SPI2_IRQHandler_10:
-        LDR.W    R0,??DataTable13_17
+        LDR.W    R0,??DataTable13_18
         LDRH     R0,[R0, #+0]
-        LDR.W    R1,??DataTable13_16
+        LDR.W    R1,??DataTable13_17
         LDRH     R1,[R1, #+0]
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         CMP      R0,R1
         BCC.N    ??SPI2_IRQHandler_14
 //  456                       Buffer3.bufMIC3[WaveRec_idxSens3++] = vRawSens3;
-        LDR.W    R0,??DataTable13_16
+        LDR.W    R0,??DataTable13_17
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable13_16
+        LDR.W    R2,??DataTable13_17
         STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable13_12
+        LDR.W    R1,??DataTable13_13
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable13_5
+        LDR.W    R2,??DataTable13_7  ;; 0xc0010140
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         ADDS     R0,R2,R0, LSL #+1
         MOVW     R2,#+8232
@@ -1513,14 +1502,14 @@ SPI2_IRQHandler:
 //  457 				  else
 //  458                       Buffer3.bufMIC4[WaveRec_idxSens4++] = vRawSens4;			   
 ??SPI2_IRQHandler_14:
-        LDR.W    R0,??DataTable13_17
+        LDR.W    R0,??DataTable13_18
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable13_17
+        LDR.W    R2,??DataTable13_18
         STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable13_13
+        LDR.W    R1,??DataTable13_14
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable13_5
+        LDR.W    R2,??DataTable13_7  ;; 0xc0010140
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         ADDS     R0,R2,R0, LSL #+1
         MOVW     R2,#+12348
@@ -1531,30 +1520,14 @@ SPI2_IRQHandler:
 //  460 			  case BUF3_PLAY:
 //  461                   if (WaveRec_idxSens3<=WaveRec_idxSens4) 
 ??SPI2_IRQHandler_9:
-        LDR.W    R0,??DataTable13_17
+        LDR.W    R0,??DataTable13_18
         LDRH     R0,[R0, #+0]
-        LDR.W    R1,??DataTable13_16
+        LDR.W    R1,??DataTable13_17
         LDRH     R1,[R1, #+0]
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         CMP      R0,R1
         BCC.N    ??SPI2_IRQHandler_16
 //  462                       Buffer1.bufMIC3[WaveRec_idxSens3++] = vRawSens3;
-        LDR.W    R0,??DataTable13_16
-        LDRH     R0,[R0, #+0]
-        ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable13_16
-        STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable13_12
-        LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable13_6
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        ADDS     R0,R2,R0, LSL #+1
-        MOVW     R2,#+8232
-        STRH     R1,[R2, R0]
-        B.N      ??SPI2_IRQHandler_17
-//  463 				  else
-//  464                       Buffer1.bufMIC4[WaveRec_idxSens4++] = vRawSens4;
-??SPI2_IRQHandler_16:
         LDR.W    R0,??DataTable13_17
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
@@ -1562,9 +1535,25 @@ SPI2_IRQHandler:
         STRH     R1,[R2, #+0]
         LDR.W    R1,??DataTable13_13
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable13_6
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        ADDS     R0,R2,R0, LSL #+1
+        LSLS     R0,R0,#+1
+        SUBS     R0,R0,#+1073741824
+        MOVW     R2,#+8232
+        STRH     R1,[R2, R0]
+        B.N      ??SPI2_IRQHandler_17
+//  463 				  else
+//  464                       Buffer1.bufMIC4[WaveRec_idxSens4++] = vRawSens4;
+??SPI2_IRQHandler_16:
+        LDR.W    R0,??DataTable13_18
+        LDRH     R0,[R0, #+0]
+        ADDS     R1,R0,#+1
+        LDR.W    R2,??DataTable13_18
+        STRH     R1,[R2, #+0]
+        LDR.W    R1,??DataTable13_14
+        LDRSH    R1,[R1, #+0]
+        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+        LSLS     R0,R0,#+1
+        SUBS     R0,R0,#+1073741824
         MOVW     R2,#+12348
         STRH     R1,[R2, R0]
 //  465 				  break;
@@ -1579,9 +1568,9 @@ SPI2_IRQHandler:
 //  472 	 I2S2_stLROld = I2S2_stLR;
 ??SPI2_IRQHandler_11:
 ??SPI2_IRQHandler_7:
-        LDR.W    R0,??DataTable13_9
+        LDR.W    R0,??DataTable13_10
         LDRB     R0,[R0, #+0]
-        LDR.W    R1,??DataTable13_10
+        LDR.W    R1,??DataTable13_11
         STRB     R0,[R1, #+0]
 //  473 
 //  474    }
@@ -1590,6 +1579,9 @@ SPI2_IRQHandler:
 ??SPI2_IRQHandler_0:
         POP      {R4,PC}          ;; return
           CFI EndBlock cfiBlock3
+        REQUIRE Buffer2
+        REQUIRE Buffer3
+        REQUIRE Buffer1
 
         SECTION `.bss`:DATA:REORDER:NOROOT(0)
         DATA
@@ -1622,7 +1614,7 @@ SPI4_IRQHandler:
 //  486 //    (__HAL_SPI_GET_FLAG(&hspi4, SPI_FLAG_OVR) == RESET)&&
 //  487 //    (__HAL_SPI_GET_FLAG(&hspi4, SPI_FLAG_RXNE) != RESET)&&
 //  488      (__HAL_SPI_GET_IT_SOURCE(&hspi4, SPI_IT_RXNE) != RESET))
-        LDR.W    R0,??DataTable13_18
+        LDR.W    R0,??DataTable13_19
         LDR      R0,[R0, #+0]
         LDR      R0,[R0, #+4]
         LSLS     R0,R0,#+25
@@ -1631,7 +1623,7 @@ SPI4_IRQHandler:
 //  490 
 //  491         uint16_t test;
 //  492         test =  SPI_I2S_ReceiveData(SPI4);
-        LDR.W    R0,??DataTable13_19  ;; 0x40013400
+        LDR.W    R0,??DataTable13_20  ;; 0x40013400
           CFI FunCall SPI_I2S_ReceiveData
         BL       SPI_I2S_ReceiveData
         MOVS     R4,R0
@@ -1639,10 +1631,10 @@ SPI4_IRQHandler:
 //  494         /* Left-Right Mic data */
 //  495         Main_stLR= HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4);
         MOVS     R1,#+16
-        LDR.W    R0,??DataTable10_1  ;; 0x40020000
+        LDR.W    R0,??DataTable10_2  ;; 0x40020000
           CFI FunCall HAL_GPIO_ReadPin
         BL       HAL_GPIO_ReadPin
-        LDR.W    R1,??DataTable13_20
+        LDR.W    R1,??DataTable13_21
         STRB     R0,[R1, #+0]
 //  496 
 //  497         /* STM32F746 read data from STA321MP, the data is shifted few bit     */
@@ -1654,19 +1646,19 @@ SPI4_IRQHandler:
 //  503         /*                  ______DATAL_____              ______DATAR_____    */
 //  504         /*                  _____vRawSens5__              ______vRawSens6_    */       
 //  505 	if (Main_stLR==GPIO_PIN_SET)
-        LDR.W    R0,??DataTable13_20
+        LDR.W    R0,??DataTable13_21
         LDRB     R0,[R0, #+0]
         CMP      R0,#+1
         BNE.W    ??SPI4_IRQHandler_1
 //  506 	{
 //  507             if (Main_stLROld==GPIO_PIN_SET)
-        LDR.W    R0,??DataTable13_21
+        LDR.W    R0,??DataTable13_22
         LDRB     R0,[R0, #+0]
         CMP      R0,#+1
         BNE.N    ??SPI4_IRQHandler_2
 //  508             {
 //  509                SPI4_stNipple = (test);    
-        LDR.W    R0,??DataTable13_22
+        LDR.W    R0,??DataTable13_23
         STRH     R4,[R0, #+0]
         B.N      ??SPI4_IRQHandler_3
 //  510             }
@@ -1674,23 +1666,23 @@ SPI4_IRQHandler:
 //  512             {
 //  513                vRawSens5 =((test>>SPI4_stPosShft)|(SPI4_stNipple<<(SDOLEN-SPI4_stPosShft)));	
 ??SPI4_IRQHandler_2:
-        LDR.W    R0,??DataTable13_23
+        LDR.W    R0,??DataTable13_24
         LDRB     R0,[R0, #+0]
-        LDR.W    R1,??DataTable13_22
+        LDR.W    R1,??DataTable13_23
         LDRSH    R1,[R1, #+0]
         UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
         MOVS     R2,R4
         ASRS     R2,R2,R0
         SXTH     R1,R1            ;; SignExt  R1,R1,#+16,#+16
-        LDR.W    R0,??DataTable13_23
+        LDR.W    R0,??DataTable13_24
         LDRB     R0,[R0, #+0]
         RSBS     R0,R0,#+16
         LSLS     R0,R1,R0
         ORRS     R0,R0,R2
-        LDR.W    R1,??DataTable13_24
+        LDR.W    R1,??DataTable13_25
         STRH     R0,[R1, #+0]
 //  514                if (WaveRec_idxSens5 < (2*AUDIO_OUT_BUFFER_SIZE+5))
-        LDR.W    R0,??DataTable13_25
+        LDR.W    R0,??DataTable13_26
         LDRH     R0,[R0, #+0]
         MOVW     R1,#+2053
         CMP      R0,R1
@@ -1707,7 +1699,7 @@ SPI4_IRQHandler:
 //  524                      ---------------------------------------------------------------------------------------------------------------*/                     
 //  525                      /* Recording Audio Data */			             
 //  526                      switch (buffer_switch)
-        LDR.W    R0,??DataTable13_3
+        LDR.W    R0,??DataTable13_5
         LDRB     R0,[R0, #+0]
         CMP      R0,#+0
         BEQ.N    ??SPI4_IRQHandler_4
@@ -1719,27 +1711,27 @@ SPI4_IRQHandler:
 //  528                          case BUF1_PLAY:
 //  529                              Buffer2.bufMIC5[WaveRec_idxSens5++] = vRawSens5;
 ??SPI4_IRQHandler_4:
-        LDR.W    R0,??DataTable13_25
+        LDR.W    R0,??DataTable13_26
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable13_25
+        LDR.W    R2,??DataTable13_26
         STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable13_24
+        LDR.W    R1,??DataTable13_25
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable13_4
+        LDR.W    R2,??DataTable13_6  ;; 0xc00080a0
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         ADDS     R0,R2,R0, LSL #+1
         MOVW     R2,#+16464
         STRH     R1,[R2, R0]
 //  530                              Buffer2.bufMIC5[WaveRec_idxSens5++] = vRawSens5;
-        LDR.W    R0,??DataTable13_25
+        LDR.W    R0,??DataTable13_26
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable13_25
+        LDR.W    R2,??DataTable13_26
         STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable13_24
+        LDR.W    R1,??DataTable13_25
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable13_4
+        LDR.W    R2,??DataTable13_6  ;; 0xc00080a0
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         ADDS     R0,R2,R0, LSL #+1
         MOVW     R2,#+16464
@@ -1749,27 +1741,27 @@ SPI4_IRQHandler:
 //  532                          case BUF2_PLAY:
 //  533                              Buffer3.bufMIC5[WaveRec_idxSens5++] = vRawSens5;
 ??SPI4_IRQHandler_6:
-        LDR.W    R0,??DataTable13_25
+        LDR.W    R0,??DataTable13_26
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable13_25
+        LDR.W    R2,??DataTable13_26
         STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable13_24
+        LDR.W    R1,??DataTable13_25
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable13_5
+        LDR.W    R2,??DataTable13_7  ;; 0xc0010140
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         ADDS     R0,R2,R0, LSL #+1
         MOVW     R2,#+16464
         STRH     R1,[R2, R0]
 //  534                              Buffer3.bufMIC5[WaveRec_idxSens5++] = vRawSens5;
-        LDR.W    R0,??DataTable13_25
+        LDR.W    R0,??DataTable13_26
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable13_25
+        LDR.W    R2,??DataTable13_26
         STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable13_24
+        LDR.W    R1,??DataTable13_25
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable13_5
+        LDR.W    R2,??DataTable13_7  ;; 0xc0010140
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         ADDS     R0,R2,R0, LSL #+1
         MOVW     R2,#+16464
@@ -1779,29 +1771,29 @@ SPI4_IRQHandler:
 //  536                          case BUF3_PLAY:
 //  537                              Buffer1.bufMIC5[WaveRec_idxSens5++] = vRawSens5;
 ??SPI4_IRQHandler_5:
-        LDR.W    R0,??DataTable13_25
+        LDR.W    R0,??DataTable13_26
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable13_25
+        LDR.W    R2,??DataTable13_26
         STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable13_24
+        LDR.W    R1,??DataTable13_25
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable13_6
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        ADDS     R0,R2,R0, LSL #+1
+        LSLS     R0,R0,#+1
+        SUBS     R0,R0,#+1073741824
         MOVW     R2,#+16464
         STRH     R1,[R2, R0]
 //  538                              Buffer1.bufMIC5[WaveRec_idxSens5++] = vRawSens5;
-        LDR.W    R0,??DataTable13_25
+        LDR.W    R0,??DataTable13_26
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable13_25
+        LDR.W    R2,??DataTable13_26
         STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable13_24
+        LDR.W    R1,??DataTable13_25
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable13_6
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        ADDS     R0,R2,R0, LSL #+1
+        LSLS     R0,R0,#+1
+        SUBS     R0,R0,#+1073741824
         MOVW     R2,#+16464
         STRH     R1,[R2, R0]
 //  539                              break;                          
@@ -1818,13 +1810,13 @@ SPI4_IRQHandler:
 //  547 	{
 //  548           if (Main_stLROld==GPIO_PIN_RESET)
 ??SPI4_IRQHandler_1:
-        LDR.W    R0,??DataTable13_21
+        LDR.W    R0,??DataTable13_22
         LDRB     R0,[R0, #+0]
         CMP      R0,#+0
         BNE.N    ??SPI4_IRQHandler_8
 //  549           {
 //  550               SPI4_stNipple = (test);	  
-        LDR.W    R0,??DataTable13_22
+        LDR.W    R0,??DataTable13_23
         STRH     R4,[R0, #+0]
         B.N      ??SPI4_IRQHandler_3
 //  551 
@@ -1833,23 +1825,23 @@ SPI4_IRQHandler:
 //  554           {
 //  555                vRawSens6 =((test>>SPI4_stPosShft)|(SPI4_stNipple<<(SDOLEN-SPI4_stPosShft)));
 ??SPI4_IRQHandler_8:
-        LDR.W    R0,??DataTable13_23
+        LDR.W    R0,??DataTable13_24
         LDRB     R0,[R0, #+0]
-        LDR.W    R1,??DataTable13_22
+        LDR.W    R1,??DataTable13_23
         LDRSH    R1,[R1, #+0]
         UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
         MOVS     R2,R4
         ASRS     R2,R2,R0
         SXTH     R1,R1            ;; SignExt  R1,R1,#+16,#+16
-        LDR.W    R0,??DataTable13_23
+        LDR.W    R0,??DataTable13_24
         LDRB     R0,[R0, #+0]
         RSBS     R0,R0,#+16
         LSLS     R0,R1,R0
         ORRS     R0,R0,R2
-        LDR.W    R1,??DataTable13_26
+        LDR.W    R1,??DataTable13_27
         STRH     R0,[R1, #+0]
 //  556                if (WaveRec_idxSens6 < (2*AUDIO_OUT_BUFFER_SIZE+5))
-        LDR.W    R0,??DataTable13_27
+        LDR.W    R0,??DataTable13_28
         LDRH     R0,[R0, #+0]
         MOVW     R1,#+2053
         CMP      R0,R1
@@ -1866,7 +1858,7 @@ SPI4_IRQHandler:
 //  566                      ---------------------------------------------------------------------------------------------------------------*/                 
 //  567                       /* Recording Audio Data */			             
 //  568                      switch (buffer_switch)
-        LDR.W    R0,??DataTable13_3
+        LDR.W    R0,??DataTable13_5
         LDRB     R0,[R0, #+0]
         CMP      R0,#+0
         BEQ.N    ??SPI4_IRQHandler_9
@@ -1878,27 +1870,27 @@ SPI4_IRQHandler:
 //  570                          case BUF1_PLAY:
 //  571                              Buffer2.bufMIC6[WaveRec_idxSens6++] = vRawSens6;
 ??SPI4_IRQHandler_9:
-        LDR.W    R0,??DataTable13_27
+        LDR.W    R0,??DataTable13_28
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable13_27
+        LDR.W    R2,??DataTable13_28
         STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable13_26
+        LDR.W    R1,??DataTable13_27
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable13_4
+        LDR.W    R2,??DataTable13_6  ;; 0xc00080a0
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         ADDS     R0,R2,R0, LSL #+1
         MOVW     R2,#+20580
         STRH     R1,[R2, R0]
 //  572                              Buffer2.bufMIC6[WaveRec_idxSens6++] = vRawSens6;
-        LDR.W    R0,??DataTable13_27
+        LDR.W    R0,??DataTable13_28
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable13_27
+        LDR.W    R2,??DataTable13_28
         STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable13_26
+        LDR.W    R1,??DataTable13_27
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable13_4
+        LDR.W    R2,??DataTable13_6  ;; 0xc00080a0
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         ADDS     R0,R2,R0, LSL #+1
         MOVW     R2,#+20580
@@ -1908,27 +1900,27 @@ SPI4_IRQHandler:
 //  574                          case BUF2_PLAY:
 //  575                              Buffer3.bufMIC6[WaveRec_idxSens6++] = vRawSens6;
 ??SPI4_IRQHandler_11:
-        LDR.W    R0,??DataTable13_27
+        LDR.W    R0,??DataTable13_28
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable13_27
+        LDR.W    R2,??DataTable13_28
         STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable13_26
+        LDR.W    R1,??DataTable13_27
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable13_5
+        LDR.W    R2,??DataTable13_7  ;; 0xc0010140
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         ADDS     R0,R2,R0, LSL #+1
         MOVW     R2,#+20580
         STRH     R1,[R2, R0]
 //  576                              Buffer3.bufMIC6[WaveRec_idxSens6++] = vRawSens6;
-        LDR.W    R0,??DataTable13_27
+        LDR.W    R0,??DataTable13_28
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable13_27
+        LDR.W    R2,??DataTable13_28
         STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable13_26
+        LDR.W    R1,??DataTable13_27
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable13_5
+        LDR.W    R2,??DataTable13_7  ;; 0xc0010140
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         ADDS     R0,R2,R0, LSL #+1
         MOVW     R2,#+20580
@@ -1938,29 +1930,29 @@ SPI4_IRQHandler:
 //  578                          case BUF3_PLAY:
 //  579                              Buffer1.bufMIC6[WaveRec_idxSens6++] = vRawSens6;
 ??SPI4_IRQHandler_10:
-        LDR.W    R0,??DataTable13_27
+        LDR.W    R0,??DataTable13_28
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable13_27
+        LDR.W    R2,??DataTable13_28
         STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable13_26
+        LDR.W    R1,??DataTable13_27
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable13_6
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        ADDS     R0,R2,R0, LSL #+1
+        LSLS     R0,R0,#+1
+        SUBS     R0,R0,#+1073741824
         MOVW     R2,#+20580
         STRH     R1,[R2, R0]
 //  580                              Buffer1.bufMIC6[WaveRec_idxSens6++] = vRawSens6;
-        LDR.W    R0,??DataTable13_27
+        LDR.W    R0,??DataTable13_28
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable13_27
+        LDR.W    R2,??DataTable13_28
         STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable13_26
+        LDR.W    R1,??DataTable13_27
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable13_6
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        ADDS     R0,R2,R0, LSL #+1
+        LSLS     R0,R0,#+1
+        SUBS     R0,R0,#+1073741824
         MOVW     R2,#+20580
         STRH     R1,[R2, R0]
 //  581                              break;                          
@@ -2005,9 +1997,9 @@ SPI4_IRQHandler:
 //  600 	/* Update Old value */	  
 //  601 	Main_stLROld=Main_stLR;	  
 ??SPI4_IRQHandler_14:
-        LDR.W    R0,??DataTable13_20
+        LDR.W    R0,??DataTable13_21
         LDRB     R0,[R0, #+0]
-        LDR.W    R1,??DataTable13_21
+        LDR.W    R1,??DataTable13_22
         STRB     R0,[R1, #+0]
 //  602      
 //  603   }      
@@ -2015,6 +2007,9 @@ SPI4_IRQHandler:
 ??SPI4_IRQHandler_0:
         POP      {R4,PC}          ;; return
           CFI EndBlock cfiBlock4
+        REQUIRE Buffer2
+        REQUIRE Buffer3
+        REQUIRE Buffer1
 
         SECTION `.bss`:DATA:REORDER:NOROOT(0)
         DATA
@@ -2025,6 +2020,21 @@ SPI4_IRQHandler:
         DATA
 ??Main_stLROld:
         DS8 1
+
+        ASEGN `.bss`:DATA:NOROOT,0c0000000H
+        DATA
+Buffer1:
+        DS8 32928
+
+        ASEGN `.bss`:DATA:NOROOT,0c00080a0H
+        DATA
+Buffer2:
+        DS8 32928
+
+        ASEGN `.bss`:DATA:NOROOT,0c0010140H
+        DATA
+Buffer3:
+        DS8 32928
 //  605 
 //  606 
 //  607 
@@ -2110,7 +2120,7 @@ SPI5_IRQHandler:
         BLT.N    ??SPI5_IRQHandler_0
 //  639   {
 //  640 	if (buffer_switch != 1)
-        LDR.W    R0,??DataTable13_3
+        LDR.W    R0,??DataTable13_5
         LDRB     R0,[R0, #+0]
         CMP      R0,#+1
         BEQ.N    ??SPI5_IRQHandler_1
@@ -2247,7 +2257,7 @@ SPI6_IRQHandler:
         BLT.N    ??SPI6_IRQHandler_0
 //  681     {
 //  682       if (buffer_switch != 1)
-        LDR.W    R0,??DataTable13_3
+        LDR.W    R0,??DataTable13_5
         LDRB     R0,[R0, #+0]
         CMP      R0,#+1
         BEQ.N    ??SPI6_IRQHandler_1
@@ -2453,58 +2463,58 @@ I2S1_Init:
           CFI CFA R13+8
 //  737 #if 1
 //  738   hi2s1.Instance = SPI1;
-        LDR.N    R0,??DataTable11  ;; 0x40013000
-        LDR.N    R1,??DataTable11_1
+        LDR.N    R0,??DataTable11_1  ;; 0x40013000
+        LDR.N    R1,??DataTable11_2
         STR      R0,[R1, #+0]
 //  739   hi2s1.Init.Mode = I2S_MODE_SLAVE_RX;
         MOV      R0,#+256
-        LDR.N    R1,??DataTable11_1
+        LDR.N    R1,??DataTable11_2
         STR      R0,[R1, #+4]
 //  740   hi2s1.Init.Standard = I2S_STANDARD_LSB;
         MOVS     R0,#+32
-        LDR.N    R1,??DataTable11_1
+        LDR.N    R1,??DataTable11_2
         STR      R0,[R1, #+8]
 //  741   hi2s1.Init.DataFormat = I2S_DATAFORMAT_16B;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable11_1
+        LDR.N    R1,??DataTable11_2
         STR      R0,[R1, #+12]
 //  742   hi2s1.Init.MCLKOutput = I2S_MCLKOUTPUT_DISABLE;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable11_1
+        LDR.N    R1,??DataTable11_2
         STR      R0,[R1, #+16]
 //  743   hi2s1.Init.AudioFreq = I2S_AUDIOFREQ_16K;
         MOV      R0,#+16000
-        LDR.N    R1,??DataTable11_1
+        LDR.N    R1,??DataTable11_2
         STR      R0,[R1, #+20]
 //  744   hi2s1.Init.CPOL = I2S_CPOL_LOW;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable11_1
+        LDR.N    R1,??DataTable11_2
         STR      R0,[R1, #+24]
 //  745   hi2s1.Init.ClockSource = I2S_CLOCK_EXTERNAL;
         MOVS     R0,#+1
-        LDR.N    R1,??DataTable11_1
+        LDR.N    R1,??DataTable11_2
         STR      R0,[R1, #+28]
 //  746   HAL_I2S_Init(&hi2s1);
-        LDR.N    R0,??DataTable11_1
+        LDR.N    R0,??DataTable11_2
           CFI FunCall HAL_I2S_Init
         BL       HAL_I2S_Init
 //  747 
 //  748   /* Enable TXE and ERR interrupt */
 //  749  __HAL_I2S_ENABLE_IT(&hi2s1, (I2S_IT_RXNE));
-        LDR.N    R0,??DataTable11_1
+        LDR.N    R0,??DataTable11_2
         LDR      R0,[R0, #+0]
         LDR      R0,[R0, #+4]
         ORRS     R0,R0,#0x40
-        LDR.N    R1,??DataTable11_1
+        LDR.N    R1,??DataTable11_2
         LDR      R1,[R1, #+0]
         STR      R0,[R1, #+4]
 //  750  
 //  751  __HAL_I2S_ENABLE(&hi2s1);
-        LDR.N    R0,??DataTable11_1
+        LDR.N    R0,??DataTable11_2
         LDR      R0,[R0, #+0]
         LDR      R0,[R0, #+28]
         ORRS     R0,R0,#0x400
-        LDR.N    R1,??DataTable11_1
+        LDR.N    R1,??DataTable11_2
         LDR      R1,[R1, #+0]
         STR      R0,[R1, #+28]
 //  752 #else
@@ -2534,12 +2544,6 @@ I2S1_Init:
 //  776 }
         POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock9
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable9:
-        DC32     0x40023844
 //  777 
 //  778 /* I2S2 init function */
 //  779 /* Read data of MIC34 */
@@ -2559,57 +2563,57 @@ I2S2_Init:
 //  784 #if 1
 //  785  //HAL_I2S_DeInit(&hi2s2);
 //  786  hi2s2.Instance = SPI2;
-        LDR.N    R0,??DataTable13_8  ;; 0x40003800
-        LDR.N    R1,??DataTable13_7
+        LDR.N    R0,??DataTable13_9  ;; 0x40003800
+        LDR.N    R1,??DataTable13_8
         STR      R0,[R1, #+0]
 //  787  hi2s2.Init.Mode = I2S_MODE_SLAVE_RX;//I2S_MODE_MASTER_RX
         MOV      R0,#+256
-        LDR.N    R1,??DataTable13_7
+        LDR.N    R1,??DataTable13_8
         STR      R0,[R1, #+4]
 //  788  hi2s2.Init.Standard = I2S_STANDARD_LSB;//I2S_STANDARD_LSB
         MOVS     R0,#+32
-        LDR.N    R1,??DataTable13_7
+        LDR.N    R1,??DataTable13_8
         STR      R0,[R1, #+8]
 //  789  hi2s2.Init.DataFormat = I2S_DATAFORMAT_16B;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable13_7
+        LDR.N    R1,??DataTable13_8
         STR      R0,[R1, #+12]
 //  790  hi2s2.Init.MCLKOutput = I2S_MCLKOUTPUT_DISABLE;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable13_7
+        LDR.N    R1,??DataTable13_8
         STR      R0,[R1, #+16]
 //  791  hi2s2.Init.AudioFreq = I2S_AUDIOFREQ_16K;
         MOV      R0,#+16000
-        LDR.N    R1,??DataTable13_7
+        LDR.N    R1,??DataTable13_8
         STR      R0,[R1, #+20]
 //  792  hi2s2.Init.CPOL = I2S_CPOL_LOW;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable13_7
+        LDR.N    R1,??DataTable13_8
         STR      R0,[R1, #+24]
 //  793  hi2s2.Init.ClockSource = I2S_CLOCK_EXTERNAL;
         MOVS     R0,#+1
-        LDR.N    R1,??DataTable13_7
+        LDR.N    R1,??DataTable13_8
         STR      R0,[R1, #+28]
 //  794 
 //  795  HAL_I2S_Init(&hi2s2);
-        LDR.N    R0,??DataTable13_7
+        LDR.N    R0,??DataTable13_8
           CFI FunCall HAL_I2S_Init
         BL       HAL_I2S_Init
 //  796  /* Enable TXE and ERR interrupt */
 //  797  __HAL_I2S_ENABLE_IT(&hi2s2, (I2S_IT_RXNE));
-        LDR.N    R0,??DataTable13_7
+        LDR.N    R0,??DataTable13_8
         LDR      R0,[R0, #+0]
         LDR      R0,[R0, #+4]
         ORRS     R0,R0,#0x40
-        LDR.N    R1,??DataTable13_7
+        LDR.N    R1,??DataTable13_8
         LDR      R1,[R1, #+0]
         STR      R0,[R1, #+4]
 //  798  __HAL_I2S_ENABLE(&hi2s2);
-        LDR.N    R0,??DataTable13_7
+        LDR.N    R0,??DataTable13_8
         LDR      R0,[R0, #+0]
         LDR      R0,[R0, #+28]
         ORRS     R0,R0,#0x400
-        LDR.N    R1,??DataTable13_7
+        LDR.N    R1,??DataTable13_8
         LDR      R1,[R1, #+0]
         STR      R0,[R1, #+28]
 //  799 
@@ -2646,19 +2650,19 @@ I2S2_Init:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable10:
-        DC32     0x40023830
+        DC32     0x40023844
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable10_1:
-        DC32     0x40020000
+        DC32     0x40023830
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable10_2:
-        DC32     spi1_ins
+        DC32     0x40020000
 //  826 
 //  827 /* SPI5 init function */
 
@@ -2674,78 +2678,78 @@ SPI4_Init:
           CFI CFA R13+8
 //  830 
 //  831   hspi4.Instance = SPI4;
-        LDR.N    R0,??DataTable13_19  ;; 0x40013400
-        LDR.N    R1,??DataTable13_18
+        LDR.N    R0,??DataTable13_20  ;; 0x40013400
+        LDR.N    R1,??DataTable13_19
         STR      R0,[R1, #+0]
 //  832   hspi4.Init.Mode = SPI_MODE_SLAVE;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable13_18
+        LDR.N    R1,??DataTable13_19
         STR      R0,[R1, #+4]
 //  833   hspi4.Init.Direction = SPI_DIRECTION_2LINES_RXONLY;//SPI_DIRECTION_2LINES_RXONLY
         MOV      R0,#+1024
-        LDR.N    R1,??DataTable13_18
+        LDR.N    R1,??DataTable13_19
         STR      R0,[R1, #+8]
 //  834   hspi4.Init.DataSize = SPI_DATASIZE_16BIT;
         MOV      R0,#+3840
-        LDR.N    R1,??DataTable13_18
+        LDR.N    R1,??DataTable13_19
         STR      R0,[R1, #+12]
 //  835   hspi4.Init.CLKPolarity = SPI_POLARITY_HIGH;
         MOVS     R0,#+2
-        LDR.N    R1,??DataTable13_18
+        LDR.N    R1,??DataTable13_19
         STR      R0,[R1, #+16]
 //  836   hspi4.Init.CLKPhase = SPI_PHASE_1EDGE;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable13_18
+        LDR.N    R1,??DataTable13_19
         STR      R0,[R1, #+20]
 //  837   hspi4.Init.NSS = SPI_NSS_SOFT;//SPI_NSS_HARD_INPUT
         MOV      R0,#+512
-        LDR.N    R1,??DataTable13_18
+        LDR.N    R1,??DataTable13_19
         STR      R0,[R1, #+24]
 //  838   hspi4.Init.FirstBit = SPI_FIRSTBIT_MSB;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable13_18
+        LDR.N    R1,??DataTable13_19
         STR      R0,[R1, #+32]
 //  839   hspi4.Init.TIMode = SPI_TIMODE_DISABLE;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable13_18
+        LDR.N    R1,??DataTable13_19
         STR      R0,[R1, #+36]
 //  840   hspi4.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLED;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable13_18
+        LDR.N    R1,??DataTable13_19
         STR      R0,[R1, #+40]
 //  841   hspi4.Init.CRCPolynomial = 7;
         MOVS     R0,#+7
-        LDR.N    R1,??DataTable13_18
+        LDR.N    R1,??DataTable13_19
         STR      R0,[R1, #+44]
 //  842   hspi4.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable13_18
+        LDR.N    R1,??DataTable13_19
         STR      R0,[R1, #+48]
 //  843   hspi4.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable13_18
+        LDR.N    R1,??DataTable13_19
         STR      R0,[R1, #+52]
 //  844   HAL_SPI_Init(&hspi4);
-        LDR.N    R0,??DataTable13_18
+        LDR.N    R0,??DataTable13_19
           CFI FunCall HAL_SPI_Init
         BL       HAL_SPI_Init
 //  845 
 //  846   /* Enable TXE, RXNE and ERR interrupt */
 //  847  __HAL_SPI_ENABLE_IT(&hspi4, (SPI_IT_RXNE| SPI_IT_ERR));
-        LDR.N    R0,??DataTable13_18
+        LDR.N    R0,??DataTable13_19
         LDR      R0,[R0, #+0]
         LDR      R0,[R0, #+4]
         ORRS     R0,R0,#0x60
-        LDR.N    R1,??DataTable13_18
+        LDR.N    R1,??DataTable13_19
         LDR      R1,[R1, #+0]
         STR      R0,[R1, #+4]
 //  848 
 //  849  __HAL_SPI_ENABLE(&hspi4);
-        LDR.N    R0,??DataTable13_18
+        LDR.N    R0,??DataTable13_19
         LDR      R0,[R0, #+0]
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x40
-        LDR.N    R1,??DataTable13_18
+        LDR.N    R1,??DataTable13_19
         LDR      R1,[R1, #+0]
         STR      R0,[R1, #+0]
 //  850 }
@@ -2756,25 +2760,19 @@ SPI4_Init:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable11:
-        DC32     0x40013000
+        DC32     spi1_ins
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable11_1:
-        DC32     hi2s1
+        DC32     0x40013000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable11_2:
-        DC32     SPI1_stNipple
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable11_3:
-        DC32     WaveRec_idxTest
+        DC32     hi2s1
 //  851 
 //  852 
 
@@ -2970,31 +2968,31 @@ SPI5_Init:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable12_1:
-        DC32     vRawSens1
+        DC32     SPI1_stNipple
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable12_2:
-        DC32     vRawSens2
+        DC32     vRawSens1
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable12_3:
-        DC32     iSDO12
+        DC32     WaveRec_idxTest
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable12_4:
-        DC32     TestSDO12
+        DC32     vRawSens2
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable12_5:
-        DC32     WaveRec_idxSens1
+        DC32     iSDO12
 //  906 
 
         SECTION `.text`:CODE:NOROOT(1)
@@ -3093,156 +3091,162 @@ SPI6_Init:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable13_2:
-        DC32     WaveRec_idxSens2
+        DC32     TestSDO12
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable13_3:
-        DC32     buffer_switch
+        DC32     WaveRec_idxSens1
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable13_4:
-        DC32     Buffer2
+        DC32     WaveRec_idxSens2
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable13_5:
-        DC32     Buffer3
+        DC32     buffer_switch
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable13_6:
-        DC32     Buffer1
+        DC32     0xc00080a0
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable13_7:
-        DC32     hi2s2
+        DC32     0xc0010140
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable13_8:
-        DC32     0x40003800
+        DC32     hi2s2
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable13_9:
-        DC32     ??I2S2_stLR
+        DC32     0x40003800
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable13_10:
-        DC32     ??I2S2_stLROld
+        DC32     ??I2S2_stLR
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable13_11:
-        DC32     I2S2_stNipple
+        DC32     ??I2S2_stLROld
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable13_12:
-        DC32     vRawSens3
+        DC32     I2S2_stNipple
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable13_13:
-        DC32     vRawSens4
+        DC32     vRawSens3
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable13_14:
-        DC32     iSDO34
+        DC32     vRawSens4
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable13_15:
-        DC32     TestSDO34
+        DC32     iSDO34
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable13_16:
-        DC32     WaveRec_idxSens3
+        DC32     TestSDO34
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable13_17:
-        DC32     WaveRec_idxSens4
+        DC32     WaveRec_idxSens3
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable13_18:
-        DC32     hspi4
+        DC32     WaveRec_idxSens4
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable13_19:
-        DC32     0x40013400
+        DC32     hspi4
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable13_20:
-        DC32     ??Main_stLR
+        DC32     0x40013400
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable13_21:
-        DC32     ??Main_stLROld
+        DC32     ??Main_stLR
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable13_22:
-        DC32     SPI4_stNipple
+        DC32     ??Main_stLROld
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable13_23:
-        DC32     SPI4_stPosShft
+        DC32     SPI4_stNipple
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable13_24:
-        DC32     vRawSens5
+        DC32     SPI4_stPosShft
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable13_25:
-        DC32     WaveRec_idxSens5
+        DC32     vRawSens5
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable13_26:
-        DC32     vRawSens6
+        DC32     WaveRec_idxSens5
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable13_27:
+        DC32     vRawSens6
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable13_28:
         DC32     WaveRec_idxSens6
 //  934 
 //  935 
@@ -3795,7 +3799,7 @@ HAL_SPI_MspInit:
         STR      R0,[SP, #+20]
 // 1138     HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
         ADD      R1,SP,#+4
-        LDR.W    R0,??DataTable18_15  ;; 0x40021000
+        LDR.W    R0,??DataTable19  ;; 0x40021000
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 // 1139 
@@ -3873,7 +3877,7 @@ HAL_SPI_MspInit:
         STR      R0,[SP, #+20]
 // 1168     HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
         ADD      R1,SP,#+4
-        LDR.W    R0,??DataTable18_16  ;; 0x40021400
+        LDR.W    R0,??DataTable19_1  ;; 0x40021400
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 // 1169 
@@ -3896,66 +3900,66 @@ HAL_SPI_MspInit:
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
 // 1178 	hdma_spi5_rx.Instance = DMA2_Stream5;
-        LDR.W    R0,??DataTable18_17  ;; 0x40026488
-        LDR.W    R1,??DataTable18_18
+        LDR.W    R0,??DataTable19_2  ;; 0x40026488
+        LDR.W    R1,??DataTable19_3
         STR      R0,[R1, #+0]
 // 1179 	hdma_spi5_rx.Init.Channel = DMA_CHANNEL_7;
         MOVS     R0,#+234881024
-        LDR.W    R1,??DataTable18_18
+        LDR.W    R1,??DataTable19_3
         STR      R0,[R1, #+4]
 // 1180 	hdma_spi5_rx.Init.Direction = DMA_PERIPH_TO_MEMORY;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable18_18
+        LDR.W    R1,??DataTable19_3
         STR      R0,[R1, #+8]
 // 1181 	hdma_spi5_rx.Init.PeriphInc = DMA_PINC_DISABLE;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable18_18
+        LDR.W    R1,??DataTable19_3
         STR      R0,[R1, #+12]
 // 1182 	hdma_spi5_rx.Init.MemInc = DMA_MINC_ENABLE;
         MOV      R0,#+1024
-        LDR.W    R1,??DataTable18_18
+        LDR.W    R1,??DataTable19_3
         STR      R0,[R1, #+16]
 // 1183 	hdma_spi5_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
         MOV      R0,#+2048
-        LDR.W    R1,??DataTable18_18
+        LDR.W    R1,??DataTable19_3
         STR      R0,[R1, #+20]
 // 1184 	hdma_spi5_rx.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
         MOV      R0,#+8192
-        LDR.W    R1,??DataTable18_18
+        LDR.W    R1,??DataTable19_3
         STR      R0,[R1, #+24]
 // 1185 	hdma_spi5_rx.Init.Mode = DMA_NORMAL;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable18_18
+        LDR.W    R1,??DataTable19_3
         STR      R0,[R1, #+28]
 // 1186 	hdma_spi5_rx.Init.Priority = DMA_PRIORITY_HIGH;
         MOVS     R0,#+131072
-        LDR.W    R1,??DataTable18_18
+        LDR.W    R1,??DataTable19_3
         STR      R0,[R1, #+32]
 // 1187 	hdma_spi5_rx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable18_18
+        LDR.W    R1,??DataTable19_3
         STR      R0,[R1, #+36]
 // 1188 	hdma_spi5_rx.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
         MOVS     R0,#+3
-        LDR.W    R1,??DataTable18_18
+        LDR.W    R1,??DataTable19_3
         STR      R0,[R1, #+40]
 // 1189 	hdma_spi5_rx.Init.MemBurst = DMA_MBURST_SINGLE;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable18_18
+        LDR.W    R1,??DataTable19_3
         STR      R0,[R1, #+44]
 // 1190 	hdma_spi5_rx.Init.PeriphBurst = DMA_PBURST_SINGLE;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable18_18
+        LDR.W    R1,??DataTable19_3
         STR      R0,[R1, #+48]
 // 1191 	HAL_DMA_Init(&hdma_spi5_rx);
-        LDR.W    R0,??DataTable18_18
+        LDR.W    R0,??DataTable19_3
           CFI FunCall HAL_DMA_Init
         BL       HAL_DMA_Init
 // 1192 
 // 1193     __HAL_LINKDMA(hspi,hdmarx,hdma_spi5_rx);
-        LDR.W    R0,??DataTable18_18
+        LDR.W    R0,??DataTable19_3
         STR      R0,[R4, #+88]
-        LDR.W    R0,??DataTable18_18
+        LDR.W    R0,??DataTable19_3
         STR      R4,[R0, #+56]
 // 1194 
 // 1195 	HAL_NVIC_SetPriority(DMA2_Stream5_IRQn, INTERRUPT_PRI_SDO7, 0);
@@ -4028,7 +4032,7 @@ HAL_SPI_MspInit:
         STR      R0,[SP, #+20]
 // 1219     HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
         ADD      R1,SP,#+4
-        LDR.W    R0,??DataTable19  ;; 0x40021800
+        LDR.W    R0,??DataTable19_4  ;; 0x40021800
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 // 1220 
@@ -4050,66 +4054,66 @@ HAL_SPI_MspInit:
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
 // 1228 	hdma_spi6_rx.Instance = DMA2_Stream6;
-        LDR.W    R0,??DataTable19_1  ;; 0x400264a0
-        LDR.W    R1,??DataTable19_2
+        LDR.W    R0,??DataTable19_5  ;; 0x400264a0
+        LDR.W    R1,??DataTable19_6
         STR      R0,[R1, #+0]
 // 1229 	hdma_spi6_rx.Init.Channel = DMA_CHANNEL_1;
         MOVS     R0,#+33554432
-        LDR.W    R1,??DataTable19_2
+        LDR.W    R1,??DataTable19_6
         STR      R0,[R1, #+4]
 // 1230 	hdma_spi6_rx.Init.Direction = DMA_PERIPH_TO_MEMORY;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable19_2
+        LDR.W    R1,??DataTable19_6
         STR      R0,[R1, #+8]
 // 1231 	hdma_spi6_rx.Init.PeriphInc = DMA_PINC_DISABLE;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable19_2
+        LDR.W    R1,??DataTable19_6
         STR      R0,[R1, #+12]
 // 1232 	hdma_spi6_rx.Init.MemInc = DMA_MINC_ENABLE;
         MOV      R0,#+1024
-        LDR.W    R1,??DataTable19_2
+        LDR.W    R1,??DataTable19_6
         STR      R0,[R1, #+16]
 // 1233 	hdma_spi6_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
         MOV      R0,#+2048
-        LDR.W    R1,??DataTable19_2
+        LDR.W    R1,??DataTable19_6
         STR      R0,[R1, #+20]
 // 1234 	hdma_spi6_rx.Init.MemDataAlignment = DMA_PDATAALIGN_HALFWORD;
         MOV      R0,#+2048
-        LDR.W    R1,??DataTable19_2
+        LDR.W    R1,??DataTable19_6
         STR      R0,[R1, #+24]
 // 1235 	hdma_spi6_rx.Init.Mode = DMA_NORMAL;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable19_2
+        LDR.W    R1,??DataTable19_6
         STR      R0,[R1, #+28]
 // 1236 	hdma_spi6_rx.Init.Priority = DMA_PRIORITY_HIGH;
         MOVS     R0,#+131072
-        LDR.W    R1,??DataTable19_2
+        LDR.W    R1,??DataTable19_6
         STR      R0,[R1, #+32]
 // 1237 	hdma_spi6_rx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable19_2
+        LDR.W    R1,??DataTable19_6
         STR      R0,[R1, #+36]
 // 1238 	hdma_spi6_rx.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
         MOVS     R0,#+3
-        LDR.W    R1,??DataTable19_2
+        LDR.W    R1,??DataTable19_6
         STR      R0,[R1, #+40]
 // 1239 	hdma_spi6_rx.Init.MemBurst = DMA_MBURST_SINGLE;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable19_2
+        LDR.W    R1,??DataTable19_6
         STR      R0,[R1, #+44]
 // 1240 	hdma_spi6_rx.Init.PeriphBurst = DMA_PBURST_SINGLE;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable19_2
+        LDR.W    R1,??DataTable19_6
         STR      R0,[R1, #+48]
 // 1241 	HAL_DMA_Init(&hdma_spi6_rx);
-        LDR.W    R0,??DataTable19_2
+        LDR.W    R0,??DataTable19_6
           CFI FunCall HAL_DMA_Init
         BL       HAL_DMA_Init
 // 1242 
 // 1243 	__HAL_LINKDMA(hspi,hdmarx,hdma_spi6_rx);
-        LDR.W    R0,??DataTable19_2
+        LDR.W    R0,??DataTable19_6
         STR      R0,[R4, #+88]
-        LDR.W    R0,??DataTable19_2
+        LDR.W    R0,??DataTable19_6
         STR      R4,[R0, #+56]
 // 1244 
 // 1245 	HAL_NVIC_SetPriority(DMA2_Stream6_IRQn, INTERRUPT_PRI_SDO8, 1);
@@ -4291,21 +4295,21 @@ SPI_I2S_ReceiveData:
 // 1278 
 // 1279      if (WaveRecord_flgInt==2)
 RecordUpdBuf:
-        LDR.W    R0,??DataTable19_3
+        LDR.W    R0,??DataTable19_7
         LDRB     R0,[R0, #+0]
         CMP      R0,#+2
         BNE.W    ??RecordUpdBuf_0
 // 1280      {
 // 1281         WaveRecord_flgInt=0;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable19_3
+        LDR.W    R1,??DataTable19_7
         STRB     R0,[R1, #+0]
 // 1282 			if ((WaveRec_idxSens1 < (AUDIO_OUT_BUFFER_SIZE))&&(WaveRec_idxSens2 < (AUDIO_OUT_BUFFER_SIZE)))
-        LDR.W    R0,??DataTable19_4
+        LDR.W    R0,??DataTable19_8
         LDRH     R0,[R0, #+0]
         CMP      R0,#+1024
         BGE.W    ??RecordUpdBuf_0
-        LDR.W    R0,??DataTable19_5
+        LDR.W    R0,??DataTable19_9
         LDRH     R0,[R0, #+0]
         CMP      R0,#+1024
         BGE.W    ??RecordUpdBuf_0
@@ -4323,7 +4327,7 @@ RecordUpdBuf:
 // 1294 		 ---------------------------------------------------------------------------------------------------------------*/
 // 1295 					  /* Recording Audio Data */						 
 // 1296 					   switch (buffer_switch)
-        LDR.W    R0,??DataTable19_6
+        LDR.W    R0,??DataTable19_10
         LDRB     R0,[R0, #+0]
         CMP      R0,#+0
         BEQ.N    ??RecordUpdBuf_1
@@ -4336,56 +4340,30 @@ RecordUpdBuf:
 // 1299 
 // 1300 										Buffer2.bufMIC1[WaveRec_idxSens1++] = vRawSens1;
 ??RecordUpdBuf_1:
-        LDR.W    R0,??DataTable19_4
+        LDR.W    R0,??DataTable19_8
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable19_4
-        STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable19_7
-        LDRSH    R1,[R1, #+0]
         LDR.W    R2,??DataTable19_8
+        STRH     R1,[R2, #+0]
+        LDR.W    R1,??DataTable19_11
+        LDRSH    R1,[R1, #+0]
+        LDR.W    R2,??DataTable19_12  ;; 0xc00080a0
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         STRH     R1,[R2, R0, LSL #+1]
 // 1301 										Buffer2.bufMIC2[WaveRec_idxSens2++] = vRawSens2;
-        LDR.W    R0,??DataTable19_5
+        LDR.W    R0,??DataTable19_9
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable19_5
+        LDR.W    R2,??DataTable19_9
         STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable19_9
+        LDR.W    R1,??DataTable19_13
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable19_8
+        LDR.W    R2,??DataTable19_12  ;; 0xc00080a0
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         ADDS     R0,R2,R0, LSL #+1
         MOVW     R2,#+4116
         STRH     R1,[R2, R0]
 // 1302 										Buffer2.bufMIC3[WaveRec_idxSens3++] = vRawSens3;
-        LDR.W    R0,??DataTable19_10
-        LDRH     R0,[R0, #+0]
-        ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable19_10
-        STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable19_11
-        LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable19_8
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        ADDS     R0,R2,R0, LSL #+1
-        MOVW     R2,#+8232
-        STRH     R1,[R2, R0]
-// 1303 										Buffer2.bufMIC4[WaveRec_idxSens4++] = vRawSens4;
-        LDR.W    R0,??DataTable19_12
-        LDRH     R0,[R0, #+0]
-        ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable19_12
-        STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable19_13
-        LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable19_8
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        ADDS     R0,R2,R0, LSL #+1
-        MOVW     R2,#+12348
-        STRH     R1,[R2, R0]
-// 1304 										Buffer2.bufMIC5[WaveRec_idxSens5++] = vRawSens5;
         LDR.W    R0,??DataTable19_14
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
@@ -4393,12 +4371,12 @@ RecordUpdBuf:
         STRH     R1,[R2, #+0]
         LDR.W    R1,??DataTable19_15
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable19_8
+        LDR.W    R2,??DataTable19_12  ;; 0xc00080a0
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         ADDS     R0,R2,R0, LSL #+1
-        MOVW     R2,#+16464
+        MOVW     R2,#+8232
         STRH     R1,[R2, R0]
-// 1305 										Buffer2.bufMIC6[WaveRec_idxSens6++] = vRawSens6;
+// 1303 										Buffer2.bufMIC4[WaveRec_idxSens4++] = vRawSens4;
         LDR.W    R0,??DataTable19_16
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
@@ -4406,7 +4384,33 @@ RecordUpdBuf:
         STRH     R1,[R2, #+0]
         LDR.W    R1,??DataTable19_17
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable19_8
+        LDR.W    R2,??DataTable19_12  ;; 0xc00080a0
+        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+        ADDS     R0,R2,R0, LSL #+1
+        MOVW     R2,#+12348
+        STRH     R1,[R2, R0]
+// 1304 										Buffer2.bufMIC5[WaveRec_idxSens5++] = vRawSens5;
+        LDR.W    R0,??DataTable19_18
+        LDRH     R0,[R0, #+0]
+        ADDS     R1,R0,#+1
+        LDR.W    R2,??DataTable19_18
+        STRH     R1,[R2, #+0]
+        LDR.W    R1,??DataTable19_19
+        LDRSH    R1,[R1, #+0]
+        LDR.W    R2,??DataTable19_12  ;; 0xc00080a0
+        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+        ADDS     R0,R2,R0, LSL #+1
+        MOVW     R2,#+16464
+        STRH     R1,[R2, R0]
+// 1305 										Buffer2.bufMIC6[WaveRec_idxSens6++] = vRawSens6;
+        LDR.W    R0,??DataTable19_20
+        LDRH     R0,[R0, #+0]
+        ADDS     R1,R0,#+1
+        LDR.W    R2,??DataTable19_20
+        STRH     R1,[R2, #+0]
+        LDR.W    R1,??DataTable19_21
+        LDRSH    R1,[R1, #+0]
+        LDR.W    R2,??DataTable19_12  ;; 0xc00080a0
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         ADDS     R0,R2,R0, LSL #+1
         MOVW     R2,#+20580
@@ -4418,56 +4422,30 @@ RecordUpdBuf:
 // 1309 
 // 1310 										Buffer3.bufMIC1[WaveRec_idxSens1++] = vRawSens1;
 ??RecordUpdBuf_3:
-        LDR.W    R0,??DataTable19_4
+        LDR.W    R0,??DataTable19_8
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable19_4
+        LDR.W    R2,??DataTable19_8
         STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable19_7
+        LDR.W    R1,??DataTable19_11
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable19_18
+        LDR.W    R2,??DataTable19_22  ;; 0xc0010140
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         STRH     R1,[R2, R0, LSL #+1]
 // 1311 										Buffer3.bufMIC2[WaveRec_idxSens2++] = vRawSens2;
-        LDR.W    R0,??DataTable19_5
+        LDR.W    R0,??DataTable19_9
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable19_5
+        LDR.W    R2,??DataTable19_9
         STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable19_9
+        LDR.W    R1,??DataTable19_13
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable19_18
+        LDR.W    R2,??DataTable19_22  ;; 0xc0010140
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         ADDS     R0,R2,R0, LSL #+1
         MOVW     R2,#+4116
         STRH     R1,[R2, R0]
 // 1312 										Buffer3.bufMIC3[WaveRec_idxSens3++] = vRawSens3;
-        LDR.W    R0,??DataTable19_10
-        LDRH     R0,[R0, #+0]
-        ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable19_10
-        STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable19_11
-        LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable19_18
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        ADDS     R0,R2,R0, LSL #+1
-        MOVW     R2,#+8232
-        STRH     R1,[R2, R0]
-// 1313 										Buffer3.bufMIC4[WaveRec_idxSens4++] = vRawSens4;
-        LDR.W    R0,??DataTable19_12
-        LDRH     R0,[R0, #+0]
-        ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable19_12
-        STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable19_13
-        LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable19_18
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        ADDS     R0,R2,R0, LSL #+1
-        MOVW     R2,#+12348
-        STRH     R1,[R2, R0]
-// 1314 										Buffer3.bufMIC5[WaveRec_idxSens5++] = vRawSens5;
         LDR.W    R0,??DataTable19_14
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
@@ -4475,12 +4453,12 @@ RecordUpdBuf:
         STRH     R1,[R2, #+0]
         LDR.W    R1,??DataTable19_15
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable19_18
+        LDR.W    R2,??DataTable19_22  ;; 0xc0010140
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         ADDS     R0,R2,R0, LSL #+1
-        MOVW     R2,#+16464
+        MOVW     R2,#+8232
         STRH     R1,[R2, R0]
-// 1315 										Buffer3.bufMIC6[WaveRec_idxSens6++] = vRawSens6;
+// 1313 										Buffer3.bufMIC4[WaveRec_idxSens4++] = vRawSens4;
         LDR.W    R0,??DataTable19_16
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
@@ -4488,7 +4466,33 @@ RecordUpdBuf:
         STRH     R1,[R2, #+0]
         LDR.W    R1,??DataTable19_17
         LDRSH    R1,[R1, #+0]
+        LDR.W    R2,??DataTable19_22  ;; 0xc0010140
+        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+        ADDS     R0,R2,R0, LSL #+1
+        MOVW     R2,#+12348
+        STRH     R1,[R2, R0]
+// 1314 										Buffer3.bufMIC5[WaveRec_idxSens5++] = vRawSens5;
+        LDR.W    R0,??DataTable19_18
+        LDRH     R0,[R0, #+0]
+        ADDS     R1,R0,#+1
         LDR.W    R2,??DataTable19_18
+        STRH     R1,[R2, #+0]
+        LDR.W    R1,??DataTable19_19
+        LDRSH    R1,[R1, #+0]
+        LDR.W    R2,??DataTable19_22  ;; 0xc0010140
+        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+        ADDS     R0,R2,R0, LSL #+1
+        MOVW     R2,#+16464
+        STRH     R1,[R2, R0]
+// 1315 										Buffer3.bufMIC6[WaveRec_idxSens6++] = vRawSens6;
+        LDR.W    R0,??DataTable19_20
+        LDRH     R0,[R0, #+0]
+        ADDS     R1,R0,#+1
+        LDR.W    R2,??DataTable19_20
+        STRH     R1,[R2, #+0]
+        LDR.W    R1,??DataTable19_21
+        LDRSH    R1,[R1, #+0]
+        LDR.W    R2,??DataTable19_22  ;; 0xc0010140
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         ADDS     R0,R2,R0, LSL #+1
         MOVW     R2,#+20580
@@ -4501,56 +4505,31 @@ RecordUpdBuf:
 // 1320 
 // 1321 										Buffer1.bufMIC1[WaveRec_idxSens1++] = vRawSens1;
 ??RecordUpdBuf_2:
-        LDR.W    R0,??DataTable19_4
+        LDR.W    R0,??DataTable19_8
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable19_4
-        STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable19_7
-        LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable19_19
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        STRH     R1,[R2, R0, LSL #+1]
-// 1322 										Buffer1.bufMIC2[ WaveRec_idxSens2++] = vRawSens2;
-        LDR.W    R0,??DataTable19_5
-        LDRH     R0,[R0, #+0]
-        ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable19_5
-        STRH     R1,[R2, #+0]
-        LDR.W    R1,??DataTable19_9
-        LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable19_19
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        ADDS     R0,R2,R0, LSL #+1
-        MOVW     R2,#+4116
-        STRH     R1,[R2, R0]
-// 1323 										Buffer1.bufMIC3[WaveRec_idxSens3++] = vRawSens3;
-        LDR.W    R0,??DataTable19_10
-        LDRH     R0,[R0, #+0]
-        ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable19_10
+        LDR.W    R2,??DataTable19_8
         STRH     R1,[R2, #+0]
         LDR.W    R1,??DataTable19_11
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable19_19
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        ADDS     R0,R2,R0, LSL #+1
-        MOVW     R2,#+8232
-        STRH     R1,[R2, R0]
-// 1324 										Buffer1.bufMIC4[ WaveRec_idxSens4++] = vRawSens4;
-        LDR.W    R0,??DataTable19_12
+        LSLS     R0,R0,#+1
+        SUBS     R0,R0,#+1073741824
+        STRH     R1,[R0, #+0]
+// 1322 										Buffer1.bufMIC2[ WaveRec_idxSens2++] = vRawSens2;
+        LDR.W    R0,??DataTable19_9
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable19_12
+        LDR.W    R2,??DataTable19_9
         STRH     R1,[R2, #+0]
         LDR.W    R1,??DataTable19_13
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable19_19
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        ADDS     R0,R2,R0, LSL #+1
-        MOVW     R2,#+12348
+        LSLS     R0,R0,#+1
+        SUBS     R0,R0,#+1073741824
+        MOVW     R2,#+4116
         STRH     R1,[R2, R0]
-// 1325 										Buffer1.bufMIC5[WaveRec_idxSens5++] = vRawSens5;
+// 1323 										Buffer1.bufMIC3[WaveRec_idxSens3++] = vRawSens3;
         LDR.W    R0,??DataTable19_14
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
@@ -4558,12 +4537,12 @@ RecordUpdBuf:
         STRH     R1,[R2, #+0]
         LDR.W    R1,??DataTable19_15
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable19_19
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        ADDS     R0,R2,R0, LSL #+1
-        MOVW     R2,#+16464
+        LSLS     R0,R0,#+1
+        SUBS     R0,R0,#+1073741824
+        MOVW     R2,#+8232
         STRH     R1,[R2, R0]
-// 1326 										Buffer1.bufMIC6[ WaveRec_idxSens6++] = vRawSens6;
+// 1324 										Buffer1.bufMIC4[ WaveRec_idxSens4++] = vRawSens4;
         LDR.W    R0,??DataTable19_16
         LDRH     R0,[R0, #+0]
         ADDS     R1,R0,#+1
@@ -4571,9 +4550,35 @@ RecordUpdBuf:
         STRH     R1,[R2, #+0]
         LDR.W    R1,??DataTable19_17
         LDRSH    R1,[R1, #+0]
-        LDR.W    R2,??DataTable19_19
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        ADDS     R0,R2,R0, LSL #+1
+        LSLS     R0,R0,#+1
+        SUBS     R0,R0,#+1073741824
+        MOVW     R2,#+12348
+        STRH     R1,[R2, R0]
+// 1325 										Buffer1.bufMIC5[WaveRec_idxSens5++] = vRawSens5;
+        LDR.W    R0,??DataTable19_18
+        LDRH     R0,[R0, #+0]
+        ADDS     R1,R0,#+1
+        LDR.W    R2,??DataTable19_18
+        STRH     R1,[R2, #+0]
+        LDR.W    R1,??DataTable19_19
+        LDRSH    R1,[R1, #+0]
+        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+        LSLS     R0,R0,#+1
+        SUBS     R0,R0,#+1073741824
+        MOVW     R2,#+16464
+        STRH     R1,[R2, R0]
+// 1326 										Buffer1.bufMIC6[ WaveRec_idxSens6++] = vRawSens6;
+        LDR.W    R0,??DataTable19_20
+        LDRH     R0,[R0, #+0]
+        ADDS     R1,R0,#+1
+        LDR.W    R2,??DataTable19_20
+        STRH     R1,[R2, #+0]
+        LDR.W    R1,??DataTable19_21
+        LDRSH    R1,[R1, #+0]
+        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+        LSLS     R0,R0,#+1
+        SUBS     R0,R0,#+1073741824
         MOVW     R2,#+20580
         STRH     R1,[R2, R0]
 // 1327 										break;
@@ -4590,6 +4595,9 @@ RecordUpdBuf:
 ??RecordUpdBuf_0:
         BX       LR               ;; return
           CFI EndBlock cfiBlock19
+        REQUIRE Buffer2
+        REQUIRE Buffer3
+        REQUIRE Buffer1
 // 1336 
 // 1337 
 
@@ -4607,7 +4615,7 @@ DMA2_Stream5_IRQHandler:
 // 1341 
 // 1342   /* USER CODE END DMA2_Stream5_IRQn 0 */
 // 1343   HAL_DMA_IRQHandler(&hdma_spi5_rx);
-        LDR.N    R0,??DataTable18_18
+        LDR.W    R0,??DataTable19_3
           CFI FunCall HAL_DMA_IRQHandler
         BL       HAL_DMA_IRQHandler
 // 1344   /* USER CODE BEGIN DMA2_Stream5_IRQn 1 */
@@ -4635,7 +4643,7 @@ DMA2_Stream6_IRQHandler:
 // 1355 
 // 1356   /* USER CODE END DMA2_Stream6_IRQn 0 */
 // 1357   HAL_DMA_IRQHandler(&hdma_spi6_rx);
-        LDR.W    R0,??DataTable19_2
+        LDR.W    R0,??DataTable19_6
           CFI FunCall HAL_DMA_IRQHandler
         BL       HAL_DMA_IRQHandler
 // 1358   /* USER CODE BEGIN DMA2_Stream6_IRQn 1 */
@@ -4717,30 +4725,30 @@ HAL_SPI_RxCpltCallback:
 // 1379     }
 // 1380     else if (hspi->Instance==SPI5)
         LDR      R0,[R4, #+0]
-        LDR.W    R1,??DataTable19_20  ;; 0x40015000
+        LDR.W    R1,??DataTable19_23  ;; 0x40015000
         CMP      R0,R1
         BNE.N    ??HAL_SPI_RxCpltCallback_0
 // 1381     {
 // 1382         swtSDO7^=0x01;
-        LDR.W    R0,??DataTable19_21
+        LDR.W    R0,??DataTable19_24
         LDRB     R0,[R0, #+0]
         EORS     R0,R0,#0x1
-        LDR.W    R1,??DataTable19_21
+        LDR.W    R1,??DataTable19_24
         STRB     R0,[R1, #+0]
 // 1383         WaveRecord_flgSDO7Finish = 1;
         MOVS     R0,#+1
-        LDR.W    R1,??DataTable19_22
+        LDR.W    R1,??DataTable19_25
         STRB     R0,[R1, #+0]
 // 1384         if (swtSDO7==0x01)
-        LDR.W    R0,??DataTable19_21
+        LDR.W    R0,??DataTable19_24
         LDRB     R0,[R0, #+0]
         CMP      R0,#+1
         BNE.N    ??HAL_SPI_RxCpltCallback_1
 // 1385         {
 // 1386             HAL_SPI_Receive_DMA(&hspi5,( uint8_t *)TestSDO7_1,4*AUDIO_OUT_BUFFER_SIZE);
         MOV      R2,#+4096
-        LDR.W    R1,??DataTable19_23
-        LDR.W    R0,??DataTable19_24
+        LDR.W    R1,??DataTable19_26
+        LDR.W    R0,??DataTable19_27
           CFI FunCall HAL_SPI_Receive_DMA
         BL       HAL_SPI_Receive_DMA
         B.N      ??HAL_SPI_RxCpltCallback_0
@@ -4750,8 +4758,8 @@ HAL_SPI_RxCpltCallback:
 // 1390             HAL_SPI_Receive_DMA(&hspi5,( uint8_t *)TestSDO7,4*AUDIO_OUT_BUFFER_SIZE);
 ??HAL_SPI_RxCpltCallback_1:
         MOV      R2,#+4096
-        LDR.W    R1,??DataTable19_25
-        LDR.W    R0,??DataTable19_24
+        LDR.W    R1,??DataTable19_28
+        LDR.W    R0,??DataTable19_27
           CFI FunCall HAL_SPI_Receive_DMA
         BL       HAL_SPI_Receive_DMA
 // 1391         }        
@@ -4764,7 +4772,7 @@ HAL_SPI_RxCpltCallback:
 // 1398     if (hspi->Instance==SPI6) //MIC8
 ??HAL_SPI_RxCpltCallback_0:
         LDR      R0,[R4, #+0]
-        LDR.W    R1,??DataTable19_26  ;; 0x40015400
+        LDR.W    R1,??DataTable19_29  ;; 0x40015400
         CMP      R0,R1
         BNE.N    ??HAL_SPI_RxCpltCallback_2
 // 1399     {
@@ -4819,7 +4827,7 @@ HAL_SPI_RxCpltCallback:
         STRB     R0,[R1, #+0]
 // 1444     WaveRecord_flgSDO8Finish = 1;
         MOVS     R0,#+1
-        LDR.W    R1,??DataTable19_27
+        LDR.W    R1,??DataTable19_30
         STRB     R0,[R1, #+0]
 // 1445     if (swtSDO8==0x01)
         LDR.N    R0,??DataTable18_1
@@ -4829,8 +4837,8 @@ HAL_SPI_RxCpltCallback:
 // 1446     {
 // 1447         HAL_SPI_Receive_DMA(&hspi6,( uint8_t *)TestSDO8_1,4*AUDIO_OUT_BUFFER_SIZE);
         MOV      R2,#+4096
-        LDR.W    R1,??DataTable19_28
-        LDR.W    R0,??DataTable19_29
+        LDR.W    R1,??DataTable19_31
+        LDR.W    R0,??DataTable19_32
           CFI FunCall HAL_SPI_Receive_DMA
         BL       HAL_SPI_Receive_DMA
         B.N      ??HAL_SPI_RxCpltCallback_2
@@ -4840,8 +4848,8 @@ HAL_SPI_RxCpltCallback:
 // 1451         HAL_SPI_Receive_DMA(&hspi6,( uint8_t *)TestSDO8,4*AUDIO_OUT_BUFFER_SIZE);
 ??HAL_SPI_RxCpltCallback_3:
         MOV      R2,#+4096
-        LDR.W    R1,??DataTable19_30
-        LDR.W    R0,??DataTable19_29
+        LDR.W    R1,??DataTable19_33
+        LDR.W    R0,??DataTable19_32
           CFI FunCall HAL_SPI_Receive_DMA
         BL       HAL_SPI_Receive_DMA
 // 1452 
@@ -4943,30 +4951,6 @@ HAL_SPI_RxCpltCallback:
         DATA
 ??DataTable18_14:
         DC32     0x40013400
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable18_15:
-        DC32     0x40021000
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable18_16:
-        DC32     0x40021400
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable18_17:
-        DC32     0x40026488
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable18_18:
-        DC32     hdma_spi5_rx
 // 1458 
 
         SECTION `.text`:CODE:NOROOT(1)
@@ -4993,14 +4977,14 @@ PDM2PCMSDO78:
 // 1471 
 // 1472     /* Data in Mic7 finished recording */
 // 1473     if (WaveRecord_flgSDO7Finish==1)
-        LDR.W    R0,??DataTable19_22
+        LDR.W    R0,??DataTable19_25
         LDRB     R0,[R0, #+0]
         CMP      R0,#+1
         BNE.W    ??PDM2PCMSDO78_0
 // 1474     {
 // 1475         WaveRecord_flgSDO7Finish=0;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable19_22
+        LDR.W    R1,??DataTable19_25
         STRB     R0,[R1, #+0]
 // 1476 
 // 1477 		for (uint16_t i=0; i< 4*AUDIO_OUT_BUFFER_SIZE;i++)
@@ -5011,22 +4995,22 @@ PDM2PCMSDO78:
         BGE.W    ??PDM2PCMSDO78_2
 // 1478 		{
 // 1479 	            if(swtSDO7==0x01)
-        LDR.W    R0,??DataTable19_21
+        LDR.W    R0,??DataTable19_24
         LDRB     R0,[R0, #+0]
         CMP      R0,#+1
         BNE.N    ??PDM2PCMSDO78_3
 // 1480 	            {
 // 1481 	                pDataMic7[i%64] = HTONS(TestSDO7[i]);
-        LDR.W    R0,??DataTable19_25
+        LDR.W    R0,??DataTable19_28
         UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
         LDRH     R0,[R0, R4, LSL #+1]
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        LDR.W    R1,??DataTable19_25
+        LDR.W    R1,??DataTable19_28
         UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
         LDRH     R1,[R1, R4, LSL #+1]
         LSLS     R1,R1,#+8
         ORRS     R0,R1,R0, LSR #+8
-        LDR.W    R1,??DataTable19_31
+        LDR.W    R1,??DataTable19_34
         UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
         MOVS     R2,#+64
         SDIV     R3,R4,R2
@@ -5038,16 +5022,16 @@ PDM2PCMSDO78:
 // 1484 	            {
 // 1485 	               pDataMic7[i%64] = HTONS(TestSDO7_1[i]);
 ??PDM2PCMSDO78_3:
-        LDR.W    R0,??DataTable19_23
+        LDR.W    R0,??DataTable19_26
         UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
         LDRH     R0,[R0, R4, LSL #+1]
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        LDR.W    R1,??DataTable19_23
+        LDR.W    R1,??DataTable19_26
         UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
         LDRH     R1,[R1, R4, LSL #+1]
         LSLS     R1,R1,#+8
         ORRS     R0,R1,R0, LSR #+8
-        LDR.W    R1,??DataTable19_31
+        LDR.W    R1,??DataTable19_34
         UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
         MOVS     R2,#+64
         SDIV     R3,R4,R2
@@ -5068,7 +5052,7 @@ PDM2PCMSDO78:
 // 1491 	            {
 // 1492 	              /* Recording Audio Data */						 
 // 1493 	              switch (buffer_switch)
-        LDR.W    R0,??DataTable19_6
+        LDR.W    R0,??DataTable19_10
         LDRB     R0,[R0, #+0]
         CMP      R0,#+0
         BEQ.N    ??PDM2PCMSDO78_6
@@ -5078,55 +5062,55 @@ PDM2PCMSDO78:
         B.N      ??PDM2PCMSDO78_9
 // 1494 	              {
 // 1495 	                case BUF1_PLAY:								
-// 1496 	                      PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer2.bufMIC7 + (i/64)*16), 200 ,
+// 1496 	                      PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer2.bufMIC7 + (i/64)*16), 150 ,
 // 1497 	                      (PDMFilter_InitStruct *)&Filter[0]);
 ??PDM2PCMSDO78_6:
-        LDR.W    R3,??DataTable19_32
-        MOVS     R2,#+200
+        LDR.W    R3,??DataTable19_35
+        MOVS     R2,#+150
         UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
         MOVS     R0,#+64
         SDIV     R0,R4,R0
-        LDR.W    R1,??DataTable19_8
+        LDR.W    R1,??DataTable19_12  ;; 0xc00080a0
         ADDS     R0,R1,R0, LSL #+5
         ADD      R1,R0,#+24576
         ADDS     R1,R1,#+120
-        LDR.W    R0,??DataTable19_31
+        LDR.W    R0,??DataTable19_34
           CFI FunCall PDM_Filter_64_LSB
         BL       PDM_Filter_64_LSB
 // 1498 	                      break;
         B.N      ??PDM2PCMSDO78_5
 // 1499 	                case BUF2_PLAY:
-// 1500 	                        PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer3.bufMIC7 + (i/64)*16), 200 ,
+// 1500 	                        PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer3.bufMIC7 + (i/64)*16), 150 ,
 // 1501 	                        (PDMFilter_InitStruct *)&Filter[0]);	
 ??PDM2PCMSDO78_8:
-        LDR.W    R3,??DataTable19_32
-        MOVS     R2,#+200
+        LDR.W    R3,??DataTable19_35
+        MOVS     R2,#+150
         UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
         MOVS     R0,#+64
         SDIV     R0,R4,R0
-        LDR.W    R1,??DataTable19_18
+        LDR.W    R1,??DataTable19_22  ;; 0xc0010140
         ADDS     R0,R1,R0, LSL #+5
         ADD      R1,R0,#+24576
         ADDS     R1,R1,#+120
-        LDR.W    R0,??DataTable19_31
+        LDR.W    R0,??DataTable19_34
           CFI FunCall PDM_Filter_64_LSB
         BL       PDM_Filter_64_LSB
 // 1502 	                        break;
         B.N      ??PDM2PCMSDO78_5
 // 1503 	                case BUF3_PLAY:
-// 1504 	                        PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer1.bufMIC7 + (i/64)*16), 200 ,
+// 1504 	                        PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer1.bufMIC7 + (i/64)*16), 150 ,
 // 1505 	                        (PDMFilter_InitStruct *)&Filter[0]);									
 ??PDM2PCMSDO78_7:
-        LDR.W    R3,??DataTable19_32
-        MOVS     R2,#+200
+        LDR.W    R3,??DataTable19_35
+        MOVS     R2,#+150
         UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
         MOVS     R0,#+64
         SDIV     R0,R4,R0
-        LDR.W    R1,??DataTable19_19
-        ADDS     R0,R1,R0, LSL #+5
+        LSLS     R0,R0,#+5
+        SUBS     R0,R0,#+1073741824
         ADD      R1,R0,#+24576
         ADDS     R1,R1,#+120
-        LDR.W    R0,??DataTable19_31
+        LDR.W    R0,??DataTable19_34
           CFI FunCall PDM_Filter_64_LSB
         BL       PDM_Filter_64_LSB
 // 1506 	                         break;
@@ -5145,7 +5129,7 @@ PDM2PCMSDO78:
 // 1514             /* Recording Audio Data */						 
 // 1515 		    switch (buffer_switch)//buffer_switch
 ??PDM2PCMSDO78_2:
-        LDR.W    R0,??DataTable19_6
+        LDR.W    R0,??DataTable19_10
         LDRB     R0,[R0, #+0]
         CMP      R0,#+0
         BEQ.N    ??PDM2PCMSDO78_10
@@ -5165,23 +5149,23 @@ PDM2PCMSDO78:
         BLT.N    ??PDM2PCMSDO78_15
 // 1520 			        {
 // 1521 	                    Buffer2.bufMIC7[2*i+1]=  Buffer2.bufMIC7[i];
-        LDR.W    R1,??DataTable19_8
+        LDR.W    R1,??DataTable19_12  ;; 0xc00080a0
         SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
         ADDS     R1,R1,R0, LSL #+1
         MOVW     R2,#+24696
         LDRH     R1,[R2, R1]
-        LDR.W    R2,??DataTable19_8
+        LDR.W    R2,??DataTable19_12  ;; 0xc00080a0
         SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
         ADDS     R2,R2,R0, LSL #+2
         MOVW     R3,#+24698
         STRH     R1,[R3, R2]
 // 1522                         Buffer2.bufMIC7[2*i] = Buffer2.bufMIC7[i];
-        LDR.W    R1,??DataTable19_8
+        LDR.W    R1,??DataTable19_12  ;; 0xc00080a0
         SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
         ADDS     R1,R1,R0, LSL #+1
         MOVW     R2,#+24696
         LDRH     R1,[R2, R1]
-        LDR.W    R2,??DataTable19_8
+        LDR.W    R2,??DataTable19_12  ;; 0xc00080a0
         SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
         ADDS     R2,R2,R0, LSL #+2
         MOVW     R3,#+24696
@@ -5191,25 +5175,33 @@ PDM2PCMSDO78:
         B.N      ??PDM2PCMSDO78_14
 // 1524 					  Buffer2.bufMIC7[0] = Buffer2.bufMIC7[4];
 ??PDM2PCMSDO78_15:
-        LDR.W    R0,??DataTable19_33
+        LDR.W    R0,??DataTable19_12  ;; 0xc00080a0
+        ADDS     R0,R0,#+24704
         LDRH     R0,[R0, #+0]
-        LDR.W    R1,??DataTable19_34
-        STRH     R0,[R1, #+0]
+        LDR.W    R1,??DataTable19_12  ;; 0xc00080a0
+        MOVW     R2,#+24696
+        STRH     R0,[R2, R1]
 // 1525 					  Buffer2.bufMIC7[1] = Buffer2.bufMIC7[5];
-        LDR.W    R0,??DataTable19_35
-        LDRH     R0,[R0, #+0]
-        LDR.W    R1,??DataTable19_36
-        STRH     R0,[R1, #+0]
+        LDR.W    R0,??DataTable19_12  ;; 0xc00080a0
+        MOVW     R1,#+24706
+        LDRH     R0,[R1, R0]
+        LDR.W    R1,??DataTable19_12  ;; 0xc00080a0
+        MOVW     R2,#+24698
+        STRH     R0,[R2, R1]
 // 1526 					  Buffer2.bufMIC7[2] = Buffer2.bufMIC7[6];
-        LDR.W    R0,??DataTable19_37
-        LDRH     R0,[R0, #+0]
-        LDR.W    R1,??DataTable19_38
-        STRH     R0,[R1, #+0]
+        LDR.W    R0,??DataTable19_12  ;; 0xc00080a0
+        MOVW     R1,#+24708
+        LDRH     R0,[R1, R0]
+        LDR.W    R1,??DataTable19_12  ;; 0xc00080a0
+        MOVW     R2,#+24700
+        STRH     R0,[R2, R1]
 // 1527 					  Buffer2.bufMIC7[3] = Buffer2.bufMIC7[7];
-        LDR.W    R0,??DataTable19_39
-        LDRH     R0,[R0, #+0]
-        LDR.W    R1,??DataTable19_40
-        STRH     R0,[R1, #+0]
+        LDR.W    R0,??DataTable19_12  ;; 0xc00080a0
+        MOVW     R1,#+24710
+        LDRH     R0,[R1, R0]
+        LDR.W    R1,??DataTable19_12  ;; 0xc00080a0
+        MOVW     R2,#+24702
+        STRH     R0,[R2, R1]
 // 1528 			            break;
         B.N      ??PDM2PCMSDO78_0
 // 1529 			     case BUF2_PLAY:
@@ -5223,23 +5215,23 @@ PDM2PCMSDO78:
         BLT.N    ??PDM2PCMSDO78_17
 // 1532 			        {				 	
 // 1533 		                Buffer3.bufMIC7[2*i+1]= Buffer3.bufMIC7[i];
-        LDR.W    R1,??DataTable19_18
+        LDR.W    R1,??DataTable19_22  ;; 0xc0010140
         SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
         ADDS     R1,R1,R0, LSL #+1
         MOVW     R2,#+24696
         LDRH     R1,[R2, R1]
-        LDR.W    R2,??DataTable19_18
+        LDR.W    R2,??DataTable19_22  ;; 0xc0010140
         SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
         ADDS     R2,R2,R0, LSL #+2
         MOVW     R3,#+24698
         STRH     R1,[R3, R2]
 // 1534 		                Buffer3.bufMIC7[2*i]= Buffer3.bufMIC7[i];;	
-        LDR.W    R1,??DataTable19_18
+        LDR.W    R1,??DataTable19_22  ;; 0xc0010140
         SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
         ADDS     R1,R1,R0, LSL #+1
         MOVW     R2,#+24696
         LDRH     R1,[R2, R1]
-        LDR.W    R2,??DataTable19_18
+        LDR.W    R2,??DataTable19_22  ;; 0xc0010140
         SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
         ADDS     R2,R2,R0, LSL #+2
         MOVW     R3,#+24696
@@ -5249,25 +5241,33 @@ PDM2PCMSDO78:
         B.N      ??PDM2PCMSDO78_16
 // 1536 					  Buffer3.bufMIC7[0] = Buffer3.bufMIC7[4];
 ??PDM2PCMSDO78_17:
-        LDR.W    R0,??DataTable19_41
+        LDR.W    R0,??DataTable19_22  ;; 0xc0010140
+        ADDS     R0,R0,#+24704
         LDRH     R0,[R0, #+0]
-        LDR.W    R1,??DataTable19_42
-        STRH     R0,[R1, #+0]
+        LDR.W    R1,??DataTable19_22  ;; 0xc0010140
+        MOVW     R2,#+24696
+        STRH     R0,[R2, R1]
 // 1537 					  Buffer3.bufMIC7[1] = Buffer3.bufMIC7[5];
-        LDR.W    R0,??DataTable19_43
-        LDRH     R0,[R0, #+0]
-        LDR.W    R1,??DataTable19_44
-        STRH     R0,[R1, #+0]
+        LDR.W    R0,??DataTable19_22  ;; 0xc0010140
+        MOVW     R1,#+24706
+        LDRH     R0,[R1, R0]
+        LDR.W    R1,??DataTable19_22  ;; 0xc0010140
+        MOVW     R2,#+24698
+        STRH     R0,[R2, R1]
 // 1538 					  Buffer3.bufMIC7[2] = Buffer3.bufMIC7[6];
-        LDR.W    R0,??DataTable19_45
-        LDRH     R0,[R0, #+0]
-        LDR.W    R1,??DataTable19_46
-        STRH     R0,[R1, #+0]
+        LDR.W    R0,??DataTable19_22  ;; 0xc0010140
+        MOVW     R1,#+24708
+        LDRH     R0,[R1, R0]
+        LDR.W    R1,??DataTable19_22  ;; 0xc0010140
+        MOVW     R2,#+24700
+        STRH     R0,[R2, R1]
 // 1539 					  Buffer3.bufMIC7[3] = Buffer3.bufMIC7[7];					
-        LDR.W    R0,??DataTable19_47
-        LDRH     R0,[R0, #+0]
-        LDR.W    R1,??DataTable19_48
-        STRH     R0,[R1, #+0]
+        LDR.W    R0,??DataTable19_22  ;; 0xc0010140
+        MOVW     R1,#+24710
+        LDRH     R0,[R1, R0]
+        LDR.W    R1,??DataTable19_22  ;; 0xc0010140
+        MOVW     R2,#+24702
+        STRH     R0,[R2, R1]
 // 1540 	                break;
         B.N      ??PDM2PCMSDO78_0
 // 1541 	            case BUF3_PLAY:
@@ -5281,25 +5281,25 @@ PDM2PCMSDO78:
         BLT.N    ??PDM2PCMSDO78_19
 // 1544 			        {					
 // 1545 	                    Buffer1.bufMIC7[2*i+1]= Buffer1.bufMIC7[i];
-        LDR.N    R1,??DataTable19_19
         SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
-        ADDS     R1,R1,R0, LSL #+1
+        LSLS     R1,R0,#+1
+        SUBS     R1,R1,#+1073741824
         MOVW     R2,#+24696
         LDRH     R1,[R2, R1]
-        LDR.N    R2,??DataTable19_19
         SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
-        ADDS     R2,R2,R0, LSL #+2
+        LSLS     R2,R0,#+2
+        SUBS     R2,R2,#+1073741824
         MOVW     R3,#+24698
         STRH     R1,[R3, R2]
 // 1546 	                    Buffer1.bufMIC7[2*i]= Buffer1.bufMIC7[i];;	
-        LDR.N    R1,??DataTable19_19
         SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
-        ADDS     R1,R1,R0, LSL #+1
+        LSLS     R1,R0,#+1
+        SUBS     R1,R1,#+1073741824
         MOVW     R2,#+24696
         LDRH     R1,[R2, R1]
-        LDR.N    R2,??DataTable19_19
         SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
-        ADDS     R2,R2,R0, LSL #+2
+        LSLS     R2,R0,#+2
+        SUBS     R2,R2,#+1073741824
         MOVW     R3,#+24696
         STRH     R1,[R3, R2]
 // 1547 			        }
@@ -5307,24 +5307,32 @@ PDM2PCMSDO78:
         B.N      ??PDM2PCMSDO78_18
 // 1548 					  Buffer1.bufMIC7[0] = Buffer1.bufMIC7[4];
 ??PDM2PCMSDO78_19:
-        LDR.N    R0,??DataTable19_49
+        MOV      R0,#+24704
+        SUBS     R0,R0,#+1073741824
         LDRH     R0,[R0, #+0]
-        LDR.N    R1,??DataTable19_50
+        MOVW     R1,#+24696
+        SUBS     R1,R1,#+1073741824
         STRH     R0,[R1, #+0]
 // 1549 					  Buffer1.bufMIC7[1] = Buffer1.bufMIC7[5];
-        LDR.N    R0,??DataTable19_51
+        MOVW     R0,#+24706
+        SUBS     R0,R0,#+1073741824
         LDRH     R0,[R0, #+0]
-        LDR.N    R1,??DataTable19_52
+        MOVW     R1,#+24698
+        SUBS     R1,R1,#+1073741824
         STRH     R0,[R1, #+0]
 // 1550 					  Buffer1.bufMIC7[2] = Buffer1.bufMIC7[6];
-        LDR.N    R0,??DataTable19_53
+        MOVW     R0,#+24708
+        SUBS     R0,R0,#+1073741824
         LDRH     R0,[R0, #+0]
-        LDR.N    R1,??DataTable19_54
+        MOVW     R1,#+24700
+        SUBS     R1,R1,#+1073741824
         STRH     R0,[R1, #+0]
 // 1551 					  Buffer1.bufMIC7[3] = Buffer1.bufMIC7[7];						
-        LDR.N    R0,??DataTable19_55
+        MOVW     R0,#+24710
+        SUBS     R0,R0,#+1073741824
         LDRH     R0,[R0, #+0]
-        LDR.N    R1,??DataTable19_56
+        MOVW     R1,#+24702
+        SUBS     R1,R1,#+1073741824
         STRH     R0,[R1, #+0]
 // 1552 	                break;
         B.N      ??PDM2PCMSDO78_0
@@ -5340,14 +5348,14 @@ PDM2PCMSDO78:
 // 1562 	if (WaveRecord_flgSDO8Finish==1)
 ??PDM2PCMSDO78_13:
 ??PDM2PCMSDO78_0:
-        LDR.N    R0,??DataTable19_27
+        LDR.N    R0,??DataTable19_30
         LDRB     R0,[R0, #+0]
         CMP      R0,#+1
         BNE.W    ??PDM2PCMSDO78_20
 // 1563 	{
 // 1564 		WaveRecord_flgSDO8Finish=0;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable19_27
+        LDR.N    R1,??DataTable19_30
         STRB     R0,[R1, #+0]
 // 1565 		
 // 1566 		for (uint16_t i=0; i< 4*AUDIO_OUT_BUFFER_SIZE;i++)
@@ -5358,22 +5366,22 @@ PDM2PCMSDO78:
         BGE.N    ??PDM2PCMSDO78_22
 // 1567 		{
 // 1568                   if(swtSDO8==0x01)
-        LDR.N    R0,??DataTable19_57
+        LDR.N    R0,??DataTable19_36
         LDRB     R0,[R0, #+0]
         CMP      R0,#+1
         BNE.N    ??PDM2PCMSDO78_23
 // 1569                   {
 // 1570                      pDataMic8[i%64] = HTONS(TestSDO8[i]);
-        LDR.N    R0,??DataTable19_30
+        LDR.N    R0,??DataTable19_33
         UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
         LDRH     R0,[R0, R4, LSL #+1]
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        LDR.N    R1,??DataTable19_30
+        LDR.N    R1,??DataTable19_33
         UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
         LDRH     R1,[R1, R4, LSL #+1]
         LSLS     R1,R1,#+8
         ORRS     R0,R1,R0, LSR #+8
-        LDR.N    R1,??DataTable19_58
+        LDR.N    R1,??DataTable19_37
         UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
         MOVS     R2,#+64
         SDIV     R3,R4,R2
@@ -5385,16 +5393,16 @@ PDM2PCMSDO78:
 // 1573                   {
 // 1574                      pDataMic8[i%64] = HTONS(TestSDO8_1[i]);
 ??PDM2PCMSDO78_23:
-        LDR.N    R0,??DataTable19_28
+        LDR.N    R0,??DataTable19_31
         UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
         LDRH     R0,[R0, R4, LSL #+1]
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        LDR.N    R1,??DataTable19_28
+        LDR.N    R1,??DataTable19_31
         UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
         LDRH     R1,[R1, R4, LSL #+1]
         LSLS     R1,R1,#+8
         ORRS     R0,R1,R0, LSR #+8
-        LDR.N    R1,??DataTable19_58
+        LDR.N    R1,??DataTable19_37
         UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
         MOVS     R2,#+64
         SDIV     R3,R4,R2
@@ -5414,7 +5422,7 @@ PDM2PCMSDO78:
 // 1579                   {
 // 1580                       /* Recording Audio Data */						 
 // 1581                       switch (buffer_switch)
-        LDR.N    R0,??DataTable19_6
+        LDR.N    R0,??DataTable19_10
         LDRB     R0,[R0, #+0]
         CMP      R0,#+0
         BEQ.N    ??PDM2PCMSDO78_26
@@ -5424,55 +5432,55 @@ PDM2PCMSDO78:
         B.N      ??PDM2PCMSDO78_29
 // 1582                       {
 // 1583                               case BUF1_PLAY: 							
-// 1584                                       PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer2.bufMIC8 + (i/64)*16), 200 ,
+// 1584                                       PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer2.bufMIC8 + (i/64)*16), 150 ,
 // 1585                                       (PDMFilter_InitStruct *)&Filter[1]);
 ??PDM2PCMSDO78_26:
-        LDR.N    R3,??DataTable19_59
-        MOVS     R2,#+200
+        LDR.N    R3,??DataTable19_38
+        MOVS     R2,#+150
         UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
         MOVS     R0,#+64
         SDIV     R0,R4,R0
-        LDR.N    R1,??DataTable19_8
+        LDR.N    R1,??DataTable19_12  ;; 0xc00080a0
         ADDS     R0,R1,R0, LSL #+5
         ADD      R1,R0,#+28672
         ADDS     R1,R1,#+140
-        LDR.N    R0,??DataTable19_58
+        LDR.N    R0,??DataTable19_37
           CFI FunCall PDM_Filter_64_LSB
         BL       PDM_Filter_64_LSB
 // 1586                                       break;
         B.N      ??PDM2PCMSDO78_25
 // 1587                               case BUF2_PLAY:
-// 1588                                       PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer3.bufMIC8 + (i/64)*16), 200 ,
+// 1588                                       PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer3.bufMIC8 + (i/64)*16), 150 ,
 // 1589                                       (PDMFilter_InitStruct *)&Filter[1]);	
 ??PDM2PCMSDO78_28:
-        LDR.N    R3,??DataTable19_59
-        MOVS     R2,#+200
+        LDR.N    R3,??DataTable19_38
+        MOVS     R2,#+150
         UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
         MOVS     R0,#+64
         SDIV     R0,R4,R0
-        LDR.N    R1,??DataTable19_18
+        LDR.N    R1,??DataTable19_22  ;; 0xc0010140
         ADDS     R0,R1,R0, LSL #+5
         ADD      R1,R0,#+28672
         ADDS     R1,R1,#+140
-        LDR.N    R0,??DataTable19_58
+        LDR.N    R0,??DataTable19_37
           CFI FunCall PDM_Filter_64_LSB
         BL       PDM_Filter_64_LSB
 // 1590                                       break;
         B.N      ??PDM2PCMSDO78_25
 // 1591                               case BUF3_PLAY:
-// 1592                                       PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer1.bufMIC8 + (i/64)*16), 200 ,
+// 1592                                       PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer1.bufMIC8 + (i/64)*16), 150 ,
 // 1593                                       (PDMFilter_InitStruct *)&Filter[1]);									
 ??PDM2PCMSDO78_27:
-        LDR.N    R3,??DataTable19_59
-        MOVS     R2,#+200
+        LDR.N    R3,??DataTable19_38
+        MOVS     R2,#+150
         UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
         MOVS     R0,#+64
         SDIV     R0,R4,R0
-        LDR.N    R1,??DataTable19_19
-        ADDS     R0,R1,R0, LSL #+5
+        LSLS     R0,R0,#+5
+        SUBS     R0,R0,#+1073741824
         ADD      R1,R0,#+28672
         ADDS     R1,R1,#+140
-        LDR.N    R0,??DataTable19_58
+        LDR.N    R0,??DataTable19_37
           CFI FunCall PDM_Filter_64_LSB
         BL       PDM_Filter_64_LSB
 // 1594                                        break;
@@ -5490,12 +5498,12 @@ PDM2PCMSDO78:
 // 1601           /* Recording Audio Data */						 
 // 1602           switch (buffer_switch)
 ??PDM2PCMSDO78_22:
-        LDR.N    R0,??DataTable19_6
+        LDR.N    R0,??DataTable19_10
         LDRB     R0,[R0, #+0]
         CMP      R0,#+0
         BEQ.N    ??PDM2PCMSDO78_30
         CMP      R0,#+2
-        BEQ.N    ??PDM2PCMSDO78_31
+        BEQ.W    ??PDM2PCMSDO78_31
         BCC.N    ??PDM2PCMSDO78_32
         B.N      ??PDM2PCMSDO78_33
 // 1603           {
@@ -5510,23 +5518,23 @@ PDM2PCMSDO78:
         BLT.N    ??PDM2PCMSDO78_35
 // 1607                       {
 // 1608                           Buffer2.bufMIC8[2*i+1]=  Buffer2.bufMIC8[i];
-        LDR.N    R1,??DataTable19_8
+        LDR.N    R1,??DataTable19_12  ;; 0xc00080a0
         SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
         ADDS     R1,R1,R0, LSL #+1
         MOVW     R2,#+28812
         LDRH     R1,[R2, R1]
-        LDR.N    R2,??DataTable19_8
+        LDR.N    R2,??DataTable19_12  ;; 0xc00080a0
         SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
         ADDS     R2,R2,R0, LSL #+2
         MOVW     R3,#+28814
         STRH     R1,[R3, R2]
 // 1609                           Buffer2.bufMIC8[2*i] = Buffer2.bufMIC8[i];
-        LDR.N    R1,??DataTable19_8
+        LDR.N    R1,??DataTable19_12  ;; 0xc00080a0
         SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
         ADDS     R1,R1,R0, LSL #+1
         MOVW     R2,#+28812
         LDRH     R1,[R2, R1]
-        LDR.N    R2,??DataTable19_8
+        LDR.N    R2,??DataTable19_12  ;; 0xc00080a0
         SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
         ADDS     R2,R2,R0, LSL #+2
         MOVW     R3,#+28812
@@ -5536,25 +5544,33 @@ PDM2PCMSDO78:
         B.N      ??PDM2PCMSDO78_34
 // 1611 					  Buffer2.bufMIC8[0] = Buffer2.bufMIC8[4];
 ??PDM2PCMSDO78_35:
-        LDR.N    R0,??DataTable19_60
-        LDRH     R0,[R0, #+0]
-        LDR.N    R1,??DataTable19_61
-        STRH     R0,[R1, #+0]
+        LDR.N    R0,??DataTable19_12  ;; 0xc00080a0
+        MOVW     R1,#+28820
+        LDRH     R0,[R1, R0]
+        LDR.N    R1,??DataTable19_12  ;; 0xc00080a0
+        MOVW     R2,#+28812
+        STRH     R0,[R2, R1]
 // 1612 					  Buffer2.bufMIC8[1] = Buffer2.bufMIC8[5];
-        LDR.N    R0,??DataTable19_62
-        LDRH     R0,[R0, #+0]
-        LDR.N    R1,??DataTable19_63
-        STRH     R0,[R1, #+0]
+        LDR.N    R0,??DataTable19_12  ;; 0xc00080a0
+        MOVW     R1,#+28822
+        LDRH     R0,[R1, R0]
+        LDR.N    R1,??DataTable19_12  ;; 0xc00080a0
+        MOVW     R2,#+28814
+        STRH     R0,[R2, R1]
 // 1613 					  Buffer2.bufMIC8[2] = Buffer2.bufMIC8[6];
-        LDR.N    R0,??DataTable19_64
-        LDRH     R0,[R0, #+0]
-        LDR.N    R1,??DataTable19_65
-        STRH     R0,[R1, #+0]
+        LDR.N    R0,??DataTable19_12  ;; 0xc00080a0
+        MOVW     R1,#+28824
+        LDRH     R0,[R1, R0]
+        LDR.N    R1,??DataTable19_12  ;; 0xc00080a0
+        MOVW     R2,#+28816
+        STRH     R0,[R2, R1]
 // 1614 					  Buffer2.bufMIC8[3] = Buffer2.bufMIC8[7];
-        LDR.N    R0,??DataTable19_66
-        LDRH     R0,[R0, #+0]
-        LDR.N    R1,??DataTable19_67
-        STRH     R0,[R1, #+0]
+        LDR.N    R0,??DataTable19_12  ;; 0xc00080a0
+        MOVW     R1,#+28826
+        LDRH     R0,[R1, R0]
+        LDR.N    R1,??DataTable19_12  ;; 0xc00080a0
+        MOVW     R2,#+28818
+        STRH     R0,[R2, R1]
 // 1615                       break;
         B.N      ??PDM2PCMSDO78_20
 // 1616               case BUF2_PLAY:
@@ -5568,23 +5584,23 @@ PDM2PCMSDO78:
         BLT.N    ??PDM2PCMSDO78_37
 // 1619                       {
 // 1620                           Buffer3.bufMIC8[2*i+1]= Buffer3.bufMIC8[i];
-        LDR.N    R1,??DataTable19_18
+        LDR.N    R1,??DataTable19_22  ;; 0xc0010140
         SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
         ADDS     R1,R1,R0, LSL #+1
         MOVW     R2,#+28812
         LDRH     R1,[R2, R1]
-        LDR.N    R2,??DataTable19_18
+        LDR.N    R2,??DataTable19_22  ;; 0xc0010140
         SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
         ADDS     R2,R2,R0, LSL #+2
         MOVW     R3,#+28814
         STRH     R1,[R3, R2]
 // 1621 						  Buffer3.bufMIC8[2*i]= Buffer3.bufMIC8[i];;	
-        LDR.N    R1,??DataTable19_18
+        LDR.N    R1,??DataTable19_22  ;; 0xc0010140
         SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
         ADDS     R1,R1,R0, LSL #+1
         MOVW     R2,#+28812
         LDRH     R1,[R2, R1]
-        LDR.N    R2,??DataTable19_18
+        LDR.N    R2,??DataTable19_22  ;; 0xc0010140
         SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
         ADDS     R2,R2,R0, LSL #+2
         MOVW     R3,#+28812
@@ -5594,25 +5610,33 @@ PDM2PCMSDO78:
         B.N      ??PDM2PCMSDO78_36
 // 1623   					  Buffer3.bufMIC8[0] = Buffer3.bufMIC8[4];
 ??PDM2PCMSDO78_37:
-        LDR.N    R0,??DataTable19_68
-        LDRH     R0,[R0, #+0]
-        LDR.N    R1,??DataTable19_69
-        STRH     R0,[R1, #+0]
+        LDR.N    R0,??DataTable19_22  ;; 0xc0010140
+        MOVW     R1,#+28820
+        LDRH     R0,[R1, R0]
+        LDR.N    R1,??DataTable19_22  ;; 0xc0010140
+        MOVW     R2,#+28812
+        STRH     R0,[R2, R1]
 // 1624 					  Buffer3.bufMIC8[1] = Buffer3.bufMIC8[5];
-        LDR.N    R0,??DataTable19_70
-        LDRH     R0,[R0, #+0]
-        LDR.N    R1,??DataTable19_71
-        STRH     R0,[R1, #+0]
+        LDR.N    R0,??DataTable19_22  ;; 0xc0010140
+        MOVW     R1,#+28822
+        LDRH     R0,[R1, R0]
+        LDR.N    R1,??DataTable19_22  ;; 0xc0010140
+        MOVW     R2,#+28814
+        STRH     R0,[R2, R1]
 // 1625 					  Buffer3.bufMIC8[2] = Buffer3.bufMIC8[6];
-        LDR.N    R0,??DataTable19_72
-        LDRH     R0,[R0, #+0]
-        LDR.N    R1,??DataTable19_73
-        STRH     R0,[R1, #+0]
+        LDR.N    R0,??DataTable19_22  ;; 0xc0010140
+        MOVW     R1,#+28824
+        LDRH     R0,[R1, R0]
+        LDR.N    R1,??DataTable19_22  ;; 0xc0010140
+        MOVW     R2,#+28816
+        STRH     R0,[R2, R1]
 // 1626 					  Buffer3.bufMIC8[3] = Buffer3.bufMIC8[7];
-        LDR.N    R0,??DataTable19_74
-        LDRH     R0,[R0, #+0]
-        LDR.N    R1,??DataTable19_75
-        STRH     R0,[R1, #+0]
+        LDR.N    R0,??DataTable19_22  ;; 0xc0010140
+        MOVW     R1,#+28826
+        LDRH     R0,[R1, R0]
+        LDR.N    R1,??DataTable19_22  ;; 0xc0010140
+        MOVW     R2,#+28818
+        STRH     R0,[R2, R1]
 // 1627                       break;
         B.N      ??PDM2PCMSDO78_20
 // 1628               case BUF3_PLAY:
@@ -5626,54 +5650,58 @@ PDM2PCMSDO78:
         BLT.N    ??PDM2PCMSDO78_39
 // 1631                     {					
 // 1632                         Buffer1.bufMIC8[2*i+1]= Buffer1.bufMIC8[i];
-        LDR.N    R1,??DataTable19_19
         SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
-        ADDS     R1,R1,R0, LSL #+1
+        LSLS     R1,R0,#+1
+        SUBS     R1,R1,#+1073741824
         MOVW     R2,#+28812
         LDRH     R1,[R2, R1]
-        LDR.N    R2,??DataTable19_19
         SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
-        ADDS     R2,R2,R0, LSL #+2
+        LSLS     R2,R0,#+2
+        SUBS     R2,R2,#+1073741824
         MOVW     R3,#+28814
         STRH     R1,[R3, R2]
-// 1633                         if (i!=0) Buffer1.bufMIC8[2*i]= Buffer1.bufMIC8[i];
+// 1633                         Buffer1.bufMIC8[2*i]= Buffer1.bufMIC8[i];
         SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
-        CMP      R0,#+0
-        BEQ.N    ??PDM2PCMSDO78_40
-        LDR.N    R1,??DataTable19_19
-        SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
-        ADDS     R1,R1,R0, LSL #+1
+        LSLS     R1,R0,#+1
+        SUBS     R1,R1,#+1073741824
         MOVW     R2,#+28812
         LDRH     R1,[R2, R1]
-        LDR.N    R2,??DataTable19_19
         SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
-        ADDS     R2,R2,R0, LSL #+2
+        LSLS     R2,R0,#+2
+        SUBS     R2,R2,#+1073741824
         MOVW     R3,#+28812
         STRH     R1,[R3, R2]
 // 1634                     }
-??PDM2PCMSDO78_40:
         SUBS     R0,R0,#+1
         B.N      ??PDM2PCMSDO78_38
 // 1635   					  Buffer1.bufMIC8[0] = Buffer1.bufMIC8[4];
 ??PDM2PCMSDO78_39:
-        LDR.N    R0,??DataTable19_76
+        MOVW     R0,#+28820
+        SUBS     R0,R0,#+1073741824
         LDRH     R0,[R0, #+0]
-        LDR.N    R1,??DataTable19_77
+        MOVW     R1,#+28812
+        SUBS     R1,R1,#+1073741824
         STRH     R0,[R1, #+0]
 // 1636 					  Buffer1.bufMIC8[1] = Buffer1.bufMIC8[5];
-        LDR.N    R0,??DataTable19_78
+        MOVW     R0,#+28822
+        SUBS     R0,R0,#+1073741824
         LDRH     R0,[R0, #+0]
-        LDR.N    R1,??DataTable19_79
+        MOVW     R1,#+28814
+        SUBS     R1,R1,#+1073741824
         STRH     R0,[R1, #+0]
 // 1637 					  Buffer1.bufMIC8[2] = Buffer1.bufMIC8[6];
-        LDR.N    R0,??DataTable19_80
+        MOVW     R0,#+28824
+        SUBS     R0,R0,#+1073741824
         LDRH     R0,[R0, #+0]
-        LDR.N    R1,??DataTable19_81
+        MOVW     R1,#+28816
+        SUBS     R1,R1,#+1073741824
         STRH     R0,[R1, #+0]
 // 1638 					  Buffer1.bufMIC8[3] = Buffer1.bufMIC8[7];
-        LDR.N    R0,??DataTable19_82
+        MOVW     R0,#+28826
+        SUBS     R0,R0,#+1073741824
         LDRH     R0,[R0, #+0]
-        LDR.N    R1,??DataTable19_83
+        MOVW     R1,#+28818
+        SUBS     R1,R1,#+1073741824
         STRH     R0,[R1, #+0]
 // 1639                     break;
         B.N      ??PDM2PCMSDO78_20
@@ -5686,510 +5714,243 @@ PDM2PCMSDO78:
 ??PDM2PCMSDO78_20:
         POP      {R4,PC}          ;; return
           CFI EndBlock cfiBlock23
+        REQUIRE Buffer2
+        REQUIRE Buffer3
+        REQUIRE Buffer1
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19:
-        DC32     0x40021800
+        DC32     0x40021000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_1:
-        DC32     0x400264a0
+        DC32     0x40021400
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_2:
-        DC32     hdma_spi6_rx
+        DC32     0x40026488
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_3:
-        DC32     WaveRecord_flgInt
+        DC32     hdma_spi5_rx
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_4:
-        DC32     WaveRec_idxSens1
+        DC32     0x40021800
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_5:
-        DC32     WaveRec_idxSens2
+        DC32     0x400264a0
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_6:
-        DC32     buffer_switch
+        DC32     hdma_spi6_rx
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_7:
-        DC32     vRawSens1
+        DC32     WaveRecord_flgInt
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_8:
-        DC32     Buffer2
+        DC32     WaveRec_idxSens1
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_9:
-        DC32     vRawSens2
+        DC32     WaveRec_idxSens2
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_10:
-        DC32     WaveRec_idxSens3
+        DC32     buffer_switch
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_11:
-        DC32     vRawSens3
+        DC32     vRawSens1
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_12:
-        DC32     WaveRec_idxSens4
+        DC32     0xc00080a0
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_13:
-        DC32     vRawSens4
+        DC32     vRawSens2
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_14:
-        DC32     WaveRec_idxSens5
+        DC32     WaveRec_idxSens3
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_15:
-        DC32     vRawSens5
+        DC32     vRawSens3
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_16:
-        DC32     WaveRec_idxSens6
+        DC32     WaveRec_idxSens4
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_17:
-        DC32     vRawSens6
+        DC32     vRawSens4
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_18:
-        DC32     Buffer3
+        DC32     WaveRec_idxSens5
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_19:
-        DC32     Buffer1
+        DC32     vRawSens5
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_20:
-        DC32     0x40015000
+        DC32     WaveRec_idxSens6
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_21:
-        DC32     swtSDO7
+        DC32     vRawSens6
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_22:
-        DC32     WaveRecord_flgSDO7Finish
+        DC32     0xc0010140
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_23:
-        DC32     TestSDO7_1
+        DC32     0x40015000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_24:
-        DC32     hspi5
+        DC32     swtSDO7
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_25:
-        DC32     TestSDO7
+        DC32     WaveRecord_flgSDO7Finish
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_26:
-        DC32     0x40015400
+        DC32     TestSDO7_1
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_27:
-        DC32     WaveRecord_flgSDO8Finish
+        DC32     hspi5
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_28:
-        DC32     TestSDO8_1
+        DC32     TestSDO7
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_29:
-        DC32     hspi6
+        DC32     0x40015400
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_30:
-        DC32     TestSDO8
+        DC32     WaveRecord_flgSDO8Finish
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_31:
-        DC32     pDataMic7
+        DC32     TestSDO8_1
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_32:
-        DC32     Filter
+        DC32     hspi6
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_33:
-        DC32     Buffer2+0x6080
+        DC32     TestSDO8
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_34:
-        DC32     Buffer2+0x6078
+        DC32     pDataMic7
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_35:
-        DC32     Buffer2+0x6082
+        DC32     Filter
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable19_36:
-        DC32     Buffer2+0x607A
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_37:
-        DC32     Buffer2+0x6084
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_38:
-        DC32     Buffer2+0x607C
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_39:
-        DC32     Buffer2+0x6086
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_40:
-        DC32     Buffer2+0x607E
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_41:
-        DC32     Buffer3+0x6080
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_42:
-        DC32     Buffer3+0x6078
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_43:
-        DC32     Buffer3+0x6082
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_44:
-        DC32     Buffer3+0x607A
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_45:
-        DC32     Buffer3+0x6084
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_46:
-        DC32     Buffer3+0x607C
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_47:
-        DC32     Buffer3+0x6086
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_48:
-        DC32     Buffer3+0x607E
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_49:
-        DC32     Buffer1+0x6080
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_50:
-        DC32     Buffer1+0x6078
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_51:
-        DC32     Buffer1+0x6082
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_52:
-        DC32     Buffer1+0x607A
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_53:
-        DC32     Buffer1+0x6084
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_54:
-        DC32     Buffer1+0x607C
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_55:
-        DC32     Buffer1+0x6086
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_56:
-        DC32     Buffer1+0x607E
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_57:
         DC32     swtSDO8
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable19_58:
+??DataTable19_37:
         DC32     pDataMic8
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable19_59:
+??DataTable19_38:
         DC32     Filter+0x34
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_60:
-        DC32     Buffer2+0x7094
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_61:
-        DC32     Buffer2+0x708C
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_62:
-        DC32     Buffer2+0x7096
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_63:
-        DC32     Buffer2+0x708E
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_64:
-        DC32     Buffer2+0x7098
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_65:
-        DC32     Buffer2+0x7090
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_66:
-        DC32     Buffer2+0x709A
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_67:
-        DC32     Buffer2+0x7092
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_68:
-        DC32     Buffer3+0x7094
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_69:
-        DC32     Buffer3+0x708C
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_70:
-        DC32     Buffer3+0x7096
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_71:
-        DC32     Buffer3+0x708E
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_72:
-        DC32     Buffer3+0x7098
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_73:
-        DC32     Buffer3+0x7090
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_74:
-        DC32     Buffer3+0x709A
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_75:
-        DC32     Buffer3+0x7092
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_76:
-        DC32     Buffer1+0x7094
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_77:
-        DC32     Buffer1+0x708C
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_78:
-        DC32     Buffer1+0x7096
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_79:
-        DC32     Buffer1+0x708E
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_80:
-        DC32     Buffer1+0x7098
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_81:
-        DC32     Buffer1+0x7090
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_82:
-        DC32     Buffer1+0x709A
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable19_83:
-        DC32     Buffer1+0x7092
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -6207,10 +5968,11 @@ PDM2PCMSDO78:
 // 1646 
 // 1647 
 // 
-// 157 677 bytes in section .bss
-//   7 866 bytes in section .text
+// 58 893 bytes in section .bss
+// 98 784 bytes in section .bss  (abs)
+//  7 862 bytes in section .text
 // 
-//   7 866 bytes of CODE memory
+//   7 862 bytes of CODE memory
 // 157 677 bytes of DATA memory
 //
 //Errors: none

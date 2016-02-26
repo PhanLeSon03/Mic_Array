@@ -153,11 +153,11 @@ static uint16_t SPI_I2S_ReceiveData(SPI_TypeDef* SPIx);
 static void I2S1_Init(void);
 static void I2S2_Init(void);
 
-//#pragma location=SDRAM_BANK_ADDR
+#pragma location=SDRAM_BANK_ADDR
 Mic_Array_Data Buffer1;
-//#pragma location= (SDRAM_BANK_ADDR+ BUFFER_SIZE_BYTE)
+#pragma location= (SDRAM_BANK_ADDR+ BUFFER_SIZE_BYTE)
 Mic_Array_Data Buffer2;
-//#pragma location= (SDRAM_BANK_ADDR+ BUFFER_SIZE_BYTE + BUFFER_SIZE_BYTE)
+#pragma location= (SDRAM_BANK_ADDR+ BUFFER_SIZE_BYTE + BUFFER_SIZE_BYTE)
 Mic_Array_Data Buffer3;
 
 void SPI1_Ini(void)
@@ -1493,15 +1493,15 @@ void PDM2PCMSDO78(void)
 	              switch (buffer_switch)
 	              {
 	                case BUF1_PLAY:								
-	                      PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer2.bufMIC7 + (i/64)*16), 200 ,
+	                      PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer2.bufMIC7 + (i/64)*16), 150 ,
 	                      (PDMFilter_InitStruct *)&Filter[0]);
 	                      break;
 	                case BUF2_PLAY:
-	                        PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer3.bufMIC7 + (i/64)*16), 200 ,
+	                        PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer3.bufMIC7 + (i/64)*16), 150 ,
 	                        (PDMFilter_InitStruct *)&Filter[0]);	
 	                        break;
 	                case BUF3_PLAY:
-	                        PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer1.bufMIC7 + (i/64)*16), 200 ,
+	                        PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer1.bufMIC7 + (i/64)*16), 150 ,
 	                        (PDMFilter_InitStruct *)&Filter[0]);									
 	                         break;
 	                default:
@@ -1581,15 +1581,15 @@ void PDM2PCMSDO78(void)
                       switch (buffer_switch)
                       {
                               case BUF1_PLAY: 							
-                                      PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer2.bufMIC8 + (i/64)*16), 200 ,
+                                      PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer2.bufMIC8 + (i/64)*16), 150 ,
                                       (PDMFilter_InitStruct *)&Filter[1]);
                                       break;
                               case BUF2_PLAY:
-                                      PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer3.bufMIC8 + (i/64)*16), 200 ,
+                                      PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer3.bufMIC8 + (i/64)*16), 150 ,
                                       (PDMFilter_InitStruct *)&Filter[1]);	
                                       break;
                               case BUF3_PLAY:
-                                      PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer1.bufMIC8 + (i/64)*16), 200 ,
+                                      PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer1.bufMIC8 + (i/64)*16), 150 ,
                                       (PDMFilter_InitStruct *)&Filter[1]);									
                                        break;
                               default:
@@ -1630,7 +1630,7 @@ void PDM2PCMSDO78(void)
                     for (int16_t i=AUDIO_OUT_BUFFER_SIZE-1; i>1;i--)
                     {					
                         Buffer1.bufMIC8[2*i+1]= Buffer1.bufMIC8[i];
-                        if (i!=0) Buffer1.bufMIC8[2*i]= Buffer1.bufMIC8[i];
+                        Buffer1.bufMIC8[2*i]= Buffer1.bufMIC8[i];
                     }
   					  Buffer1.bufMIC8[0] = Buffer1.bufMIC8[4];
 					  Buffer1.bufMIC8[1] = Buffer1.bufMIC8[5];

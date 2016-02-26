@@ -12,12 +12,12 @@
 /** @defgroup AUDIO_APPLICATION_Exported_Variables 
 * @{
 */
-//#pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE)
-int16_t PCM_Buffer1[AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE];
-//#pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE+2*AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE)
-int16_t PCM_Buffer2[AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE];
-//#pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE+4*AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE)
-int16_t PCM_Buffer3[AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE];
+#pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE)
+int16_t PCM_Buffer1[8*AUDIO_OUT_BUFFER_SIZE];
+#pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE+2*8*AUDIO_OUT_BUFFER_SIZE)
+int16_t PCM_Buffer2[8*AUDIO_OUT_BUFFER_SIZE];//AUDIO_CHANNELS
+#pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE+4*8*AUDIO_OUT_BUFFER_SIZE)
+int16_t PCM_Buffer3[8*AUDIO_OUT_BUFFER_SIZE];
 
 __IO uint16_t cntFrm;
 __IO uint8_t  swtBufUSBOut;
@@ -30,7 +30,7 @@ extern __IO uint8_t   cntBtnPress;
 
 void AudioUSBSend(uint16_t idxFrm) /* This function called every ms */
 {
-#if 1
+#if 0
 	switch (cntBtnPress)
 			{
 			  case 0:
@@ -177,61 +177,63 @@ void AudioUSBSend(uint16_t idxFrm) /* This function called every ms */
 #else
     //Send_Audio_to_USB((int16_t *)PCM_Buffer1, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS);
     
-    (swtBufUSBOut)?Send_Audio_to_USB((int16_t *)&PCM_Buffer2[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS):
-                   Send_Audio_to_USB((int16_t *)&PCM_Buffer1[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+    (swtBufUSBOut)?Send_Audio_to_USB((int16_t *)&PCM_Buffer2[(2*AUDIO_SAMPLING_FREQUENCY/1000)*2*idxFrm], (2*AUDIO_SAMPLING_FREQUENCY/1000)*2)://AUDIO_CHANNELS
+                   Send_Audio_to_USB((int16_t *)&PCM_Buffer1[(2*AUDIO_SAMPLING_FREQUENCY/1000)*2*idxFrm], (2*AUDIO_SAMPLING_FREQUENCY/1000)*2);//AUDIO_CHANNELS
 #endif			   
 }
 
 /* This function should be called after data processing */
 void AudioPlayerUpd(void) /* This function called with period of 64ms */
 {
-#if 0
+#if (!0)
 	switch (buffer_switch)
     {
       case BUF1_PLAY:
-	  	for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
- 	  	{
- 	  	    if (i%2==0)
- 	  	    {
-                        for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
-                        {
-                            (swtBufUSBOut)?(PCM_Buffer1[8*(i/2)+j] = (int16_t)*(&Buffer1.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i)):
-								            (PCM_Buffer2[8*(i/2)+j] = (int16_t)*(&Buffer1.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i));
-                        }
- 	  	    }
+		for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
+		{
+		  if (i%2==0)
+		  {
+			  for(uint8_t j=0;j<4;j++)//AUDIO_CHANNELS
+			  {
+				  (swtBufUSBOut)?(PCM_Buffer1[4*(i/2)+j] = (int16_t)*(&Buffer3.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i)):
+								  (PCM_Buffer2[4*(i/2)+j] = (int16_t)*(&Buffer3.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i));
+
+			  }
+		  }
 		}
-		
-        break;
+        break;    
       case BUF2_PLAY:
 	  	for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
  	  	{
  	  	    if (i%2==0)
  	  	    {
-	 	  	    for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
+                for(uint8_t j=0;j<4;j++)//AUDIO_CHANNELS
+                {
+                    (swtBufUSBOut)?(PCM_Buffer1[4*(i/2)+j] = (int16_t)*(&Buffer1.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i)):
+						            (PCM_Buffer2[4*(i/2)+j] = (int16_t)*(&Buffer1.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i));
+                }
+ 	  	    }
+		}
+		
+        break;
+      case BUF3_PLAY:
+	  	for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
+ 	  	{
+ 	  	    if (i%2==0)
+ 	  	    {
+	 	  	    for(uint8_t j=0;j<4;j++)//AUDIO_CHANNELS
 	 	  	    {
-                            (swtBufUSBOut)?(PCM_Buffer1[8*(i/2)+j] = (int16_t)*(&Buffer2.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i)):
-								            (PCM_Buffer2[8*(i/2)+j] = (int16_t)*(&Buffer2.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i));	                
+                            (swtBufUSBOut)?(PCM_Buffer1[4*(i/2)+j] = (int16_t)*(&Buffer2.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i)):
+								            (PCM_Buffer2[4*(i/2)+j] = (int16_t)*(&Buffer2.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i));	                
 	 	  	    }
  	  	    }
 		}	  	
         break;
-      case BUF3_PLAY:
-		for (uint16_t i=0;i<2*AUDIO_OUT_BUFFER_SIZE;i++)
-		{
-		  if (i%2==0)
-		  {
-			  for(uint8_t j=0;j<AUDIO_CHANNELS;j++)
-			  {
-				  (swtBufUSBOut)?(PCM_Buffer1[8*(i/2)+j] = (int16_t)*(&Buffer3.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i)):
-								  (PCM_Buffer2[8*(i/2)+j] = (int16_t)*(&Buffer3.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i));
-
-			  }
-		  }
-		}
-        break;
       default:
         break;
     }
+
+	swtBufUSBOut^=0x01;
 #else
 
 swtBufUSBOut^=0x01;

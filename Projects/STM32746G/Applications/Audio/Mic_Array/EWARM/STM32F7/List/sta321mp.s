@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      25/Feb/2016  16:19:11
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      26/Feb/2016  17:55:58
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -452,35 +452,35 @@ STA321MP_Ini:
         BL       WriteSTAByte
 //  208         
 //  209         pcSTAComnd[0] = MIC_VOL;
-        MOVS     R0,#+16
+        MOVS     R0,#+21
         LDR.W    R1,??DataTable8_1
         STRB     R0,[R1, #+0]
 //  210         pcSTAComnd[1] = MIC_VOL;
-        MOVS     R0,#+16
+        MOVS     R0,#+21
         LDR.W    R1,??DataTable8_1
         STRB     R0,[R1, #+1]
 //  211         pcSTAComnd[2] = MIC_VOL;
-        MOVS     R0,#+16
+        MOVS     R0,#+21
         LDR.W    R1,??DataTable8_1
         STRB     R0,[R1, #+2]
 //  212         pcSTAComnd[3] = MIC_VOL; 
-        MOVS     R0,#+16
+        MOVS     R0,#+21
         LDR.W    R1,??DataTable8_1
         STRB     R0,[R1, #+3]
 //  213         pcSTAComnd[4] = MIC_VOL;
-        MOVS     R0,#+16
+        MOVS     R0,#+21
         LDR.W    R1,??DataTable8_1
         STRB     R0,[R1, #+4]
 //  214         pcSTAComnd[5] = MIC_VOL;
-        MOVS     R0,#+16
+        MOVS     R0,#+21
         LDR.W    R1,??DataTable8_1
         STRB     R0,[R1, #+5]
 //  215         pcSTAComnd[6] = MIC_VOL;
-        MOVS     R0,#+16
+        MOVS     R0,#+21
         LDR.W    R1,??DataTable8_1
         STRB     R0,[R1, #+6]
 //  216         pcSTAComnd[7] = MIC_VOL;
-        MOVS     R0,#+16
+        MOVS     R0,#+21
         LDR.W    R1,??DataTable8_1
         STRB     R0,[R1, #+7]
 //  217         WriteSTAByte(STA321MP_C1VOL,pcSTAComnd,8);

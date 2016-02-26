@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       25/Feb/2016  16:19:11
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       26/Feb/2016  17:55:58
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -459,7 +459,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \   00000002   0x.... 0x....      LDR.W    R0,??DataTable16_1
    \   00000006   0x7800             LDRB     R0,[R0, #+0]
    \   00000008   0x2800             CMP      R0,#+0
-   \   0000000A   0xF040 0x80A6      BNE.W    ??FFT_Update_0
+   \   0000000A   0xF040 0x80A8      BNE.W    ??FFT_Update_0
     125                {
     126                      PDM2PCMSDO78();
    \   0000000E   0x.... 0x....      BL       PDM2PCMSDO78
@@ -558,7 +558,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     179          #endif
     180          					
     181          					break;
-   \   00000094   0xE061             B.N      ??FFT_Update_0
+   \   00000094   0xE061             B.N      ??FFT_Update_5
     182          				case BUF2_PLAY:
     183          
     184          #if MAIN_CRSCORR
@@ -626,7 +626,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \   000000F2   0x.... 0x....      BL       SumDelay
     220          #endif
     221          					break;
-   \   000000F6   0xE030             B.N      ??FFT_Update_0
+   \   000000F6   0xE030             B.N      ??FFT_Update_5
     222          					
     223          				case BUF3_PLAY:
     224          #if MAIN_CRSCORR
@@ -694,21 +694,23 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \   00000154   0x.... 0x....      BL       SumDelay
     260          #endif
     261          					break;
-   \   00000158   0xE7FF             B.N      ??FFT_Update_0
+   \   00000158   0xE7FF             B.N      ??FFT_Update_5
     262          					
     263          				default:
     264          					break;
     265                         
     266          			}
-    267          			//AudioPlayerUpd();
+    267          			AudioPlayerUpd();
+   \                     ??FFT_Update_4: (+1)
+   \                     ??FFT_Update_5: (+1)
+   \   0000015A   0x.... 0x....      BL       AudioPlayerUpd
     268          	       //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_15);
     269          	  }
     270          	  
     271          
     272          }
-   \                     ??FFT_Update_4: (+1)
    \                     ??FFT_Update_0: (+1)
-   \   0000015A   0xBD01             POP      {R0,PC}          ;; return
+   \   0000015E   0xBD01             POP      {R0,PC}          ;; return
     273          
     274          
 
@@ -1084,9 +1086,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     430          
     431          #if (USB_STREAMING)	
     432          	/* Initialize USB descriptor basing on channels number and sampling frequency */
-    433          	USBD_AUDIO_Init_Microphone_Descriptor(&hUSBDDevice, AUDIO_SAMPLING_FREQUENCY, AUDIO_CHANNELS);
+    433          	USBD_AUDIO_Init_Microphone_Descriptor(&hUSBDDevice, 2*AUDIO_SAMPLING_FREQUENCY, AUDIO_CHANNELS);
    \   00000106   0x2202             MOVS     R2,#+2
-   \   00000108   0xF44F 0x517A      MOV      R1,#+16000
+   \   00000108   0xF44F 0x41FA      MOV      R1,#+32000
    \   0000010C   0x.... 0x....      LDR.W    R0,??DataTable16_45
    \   00000110   0x.... 0x....      BL       USBD_AUDIO_Init_Microphone_Descriptor
     434          	/* Init Device Library */
@@ -1128,34 +1130,34 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     457          
     458                              /* This calculation happens once time in power cycles */
     459                              /* After 5 times of full frame recieved interrupt */
-    460                              if (cntStrt==5)
+    460                         if ((cntStrt==5))
    \                     ??main_0: (+1)
    \   00000146   0x.... 0x....      LDR.W    R0,??DataTable16_39
    \   0000014A   0x8800             LDRH     R0,[R0, #+0]
    \   0000014C   0x2805             CMP      R0,#+5
    \   0000014E   0xD12C             BNE.N    ??main_1
-    461                              {
-    462          			   if ((WaveRecord_flgIni<200))
+    461                         {
+    462          				   if ((WaveRecord_flgIni<200))
    \   00000150   0x.... 0x....      LDR.W    R0,??DataTable16_49
    \   00000154   0x7800             LDRB     R0,[R0, #+0]
    \   00000156   0x28C8             CMP      R0,#+200
    \   00000158   0xDA1B             BGE.N    ??main_2
-    463          			   {
-    464                                        for(char i=0;i<16;i++)
+    463          				   {
+    464                                for(char i=0;i<16;i++)
    \   0000015A   0x2000             MOVS     R0,#+0
    \                     ??main_3: (+1)
    \   0000015C   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
    \   0000015E   0x2810             CMP      R0,#+16
    \   00000160   0xDA23             BGE.N    ??main_1
-    465                                        {
-    466                                          if (ValBit(SPI4_stNipple,i)!=0) 
+    465                                {
+    466                                  if (ValBit(SPI4_stNipple,i)!=0) 
    \   00000162   0x.... 0x....      LDR.W    R1,??DataTable16_50
    \   00000166   0xF9B1 0x1000      LDRSH    R1,[R1, #+0]
    \   0000016A   0x4101             ASRS     R1,R1,R0
    \   0000016C   0x07C9             LSLS     R1,R1,#+31
    \   0000016E   0xD50E             BPL.N    ??main_4
-    467                                          {
-    468                                             SPI4_stPosShft = MAX(SPI4_stPosShft,i+1);
+    467                                  {
+    468                                     SPI4_stPosShft = MAX(SPI4_stPosShft,i+1);
    \   00000170   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
    \   00000172   0x1C41             ADDS     R1,R0,#+1
    \   00000174   0x.... 0x....      LDR.W    R2,??DataTable16_51
@@ -1170,33 +1172,33 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \                     ??main_6: (+1)
    \   00000188   0x.... 0x....      LDR.W    R2,??DataTable16_51
    \   0000018C   0x7011             STRB     R1,[R2, #+0]
-    469                                          }
-    470                                        }
+    469                                  }
+    470                                }
    \                     ??main_4: (+1)
    \   0000018E   0x1C40             ADDS     R0,R0,#+1
    \   00000190   0xE7E4             B.N      ??main_3
-    471          					
-    472          			   }
-    473                                     else if (WaveRecord_flgIni<255)
+    471          						
+    472          				   }
+    473          	               else if (WaveRecord_flgIni<255)
    \                     ??main_2: (+1)
    \   00000192   0x.... 0x....      LDR.W    R0,??DataTable16_49
    \   00000196   0x7800             LDRB     R0,[R0, #+0]
    \   00000198   0x28FF             CMP      R0,#+255
    \   0000019A   0xD006             BEQ.N    ??main_1
-    474                                     {
-    475                                         WaveRecord_flgIni++;
+    474          	               {
+    475          	                   WaveRecord_flgIni++;
    \   0000019C   0x.... 0x....      LDR.W    R0,??DataTable16_49
    \   000001A0   0x7800             LDRB     R0,[R0, #+0]
    \   000001A2   0x1C40             ADDS     R0,R0,#+1
    \   000001A4   0x.... 0x....      LDR.W    R1,??DataTable16_49
    \   000001A8   0x7008             STRB     R0,[R1, #+0]
-    476                                     }
-    477          			   else
-    478          			   {
+    476          	               }
+    477          				   else
+    478          				   {
     479          
-    480          			   }
+    480          				   }
     481          					   
-    482          		 }
+    482          		       }
     483          	
     484          		/* USB Host Background task */
     485          		//USBH_Process(&hUSBHost);
@@ -3094,6 +3096,7 @@ Warning[Pe177]: function "USBH_UserProcess" was declared but never referenced
        8   EXTI9_5_IRQHandler
          8   -> BSP_LED_Toggle
        8   FFT_Update
+         8   -> AudioPlayerUpd
          8   -> CrssCor
          8   -> FactorUpd
          8   -> PDM2PCMSDO78
@@ -3261,7 +3264,7 @@ Warning[Pe177]: function "USBH_UserProcess" was declared but never referenced
        2  EXTI15_10_IRQHandler
       62  EXTI4_IRQHandler
      116  EXTI9_5_IRQHandler
-     348  FFT_Update
+     352  FFT_Update
       24  FacMic
       20  GPIO_INS
      230  HAL_I2C_MspInit
@@ -3325,9 +3328,9 @@ Warning[Pe177]: function "USBH_UserProcess" was declared but never referenced
  
  8 949 bytes in section .bss
     22 bytes in section .data
- 3 308 bytes in section .text
+ 3 312 bytes in section .text
  
- 3 308 bytes of CODE memory
+ 3 312 bytes of CODE memory
  8 971 bytes of DATA memory
 
 Errors: none
