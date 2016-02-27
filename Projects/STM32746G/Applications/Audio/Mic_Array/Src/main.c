@@ -1221,7 +1221,7 @@ void MX_I2C2_Init(void)
                                  buffer_switch = BUF1_PLAY;
 								 uint16_t tdelay=100;
 								 while(tdelay--);
-                                 StartRecMic7_8();
+                                 //StartRecMic7_8();
                                  return 0;		 
                              }				 
                      

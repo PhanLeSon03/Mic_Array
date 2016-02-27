@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Feb/2016  00:32:33
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Feb/2016  12:00:13
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -16,9 +16,10 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_unroll --no_inline --no_tbaa --no_scheduling --debug
-//        --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config
-//        "D:\Program Files (x86)\IAR Systems\Embedded Workbench
+//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+//        --no_clustering --no_scheduling --debug --endian=little
+//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
+//        (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
@@ -49,7 +50,7 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Om --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
@@ -295,9 +296,10 @@ DMA_SetConfig:
 //  157   /* Clear DBM bit */
 //  158   hdma->Instance->CR &= (uint32_t)(~DMA_SxCR_DBM);
         LDR      R4,[R0, #+0]
-        LDR      R5,[R4, #+0]
-        BIC      R5,R5,#0x40000
-        STR      R5,[R4, #+0]
+        LDR      R4,[R4, #+0]
+        BICS     R4,R4,#0x40000
+        LDR      R5,[R0, #+0]
+        STR      R4,[R5, #+0]
 //  159 	
 //  160   /* Configure DMA Stream data length */
 //  161   hdma->Instance->NDTR = DataLength;
@@ -306,19 +308,19 @@ DMA_SetConfig:
 //  162 
 //  163   /* Peripheral to Memory */
 //  164   if((hdma->Init.Direction) == DMA_MEMORY_TO_PERIPH)
-        LDR      R3,[R0, #+0]
         LDR      R4,[R0, #+8]
         CMP      R4,#+64
         BNE.N    ??DMA_SetConfig_0
 //  165   {
 //  166     /* Configure DMA Stream destination address */
 //  167     hdma->Instance->PAR = DstAddress;
-        STR      R2,[R3, #+8]
+        LDR      R4,[R0, #+0]
+        STR      R2,[R4, #+8]
 //  168 
 //  169     /* Configure DMA Stream source address */
 //  170     hdma->Instance->M0AR = SrcAddress;
-        LDR      R0,[R0, #+0]
-        STR      R1,[R0, #+12]
+        LDR      R4,[R0, #+0]
+        STR      R1,[R4, #+12]
         B.N      ??DMA_SetConfig_1
 //  171   }
 //  172   /* Memory to Peripheral */
@@ -327,12 +329,13 @@ DMA_SetConfig:
 //  175     /* Configure DMA Stream source address */
 //  176     hdma->Instance->PAR = SrcAddress;
 ??DMA_SetConfig_0:
-        STR      R1,[R3, #+8]
+        LDR      R4,[R0, #+0]
+        STR      R1,[R4, #+8]
 //  177     
 //  178     /* Configure DMA Stream destination address */
 //  179     hdma->Instance->M0AR = DstAddress;
-        LDR      R0,[R0, #+0]
-        STR      R2,[R0, #+12]
+        LDR      R4,[R0, #+0]
+        STR      R2,[R4, #+12]
 //  180   }
 //  181 }
 ??DMA_SetConfig_1:
@@ -386,14 +389,13 @@ DMA_SetConfig:
 //  217 HAL_StatusTypeDef HAL_DMA_Init(DMA_HandleTypeDef *hdma)
 //  218 { 
 HAL_DMA_Init:
-        PUSH     {R4}
-          CFI R4 Frame(CFA, -4)
-          CFI CFA R13+4
+        MOVS     R1,R0
 //  219   uint32_t tmp = 0;
+        MOVS     R2,#+0
 //  220   
 //  221   /* Check the DMA peripheral state */
 //  222   if(hdma == NULL)
-        CMP      R0,#+0
+        CMP      R1,#+0
         BNE.N    ??HAL_DMA_Init_0
 //  223   {
 //  224     return HAL_ERROR;
@@ -415,6 +417,9 @@ HAL_DMA_Init:
 //  238   /* Check the memory burst, peripheral burst and FIFO threshold parameters only
 //  239      when FIFO mode is enabled */
 //  240   if(hdma->Init.FIFOMode != DMA_FIFOMODE_DISABLE)
+??HAL_DMA_Init_0:
+        LDR      R0,[R1, #+36]
+        CMP      R0,#+0
 //  241   {
 //  242     assert_param(IS_DMA_FIFO_THRESHOLD(hdma->Init.FIFOThreshold));
 //  243     assert_param(IS_DMA_MEMORY_BURST(hdma->Init.MemBurst));
@@ -423,113 +428,122 @@ HAL_DMA_Init:
 //  246 
 //  247   /* Change DMA peripheral state */
 //  248   hdma->State = HAL_DMA_STATE_BUSY;
-??HAL_DMA_Init_0:
-        MOVS     R1,#+2
-        STRB     R1,[R0, #+53]
+??HAL_DMA_Init_2:
+        MOVS     R0,#+2
+        STRB     R0,[R1, #+53]
 //  249 
 //  250   /* Get the CR register value */
 //  251   tmp = hdma->Instance->CR;
-        LDR      R1,[R0, #+0]
-        LDR      R2,[R1, #+0]
+        LDR      R0,[R1, #+0]
+        LDR      R0,[R0, #+0]
+        MOVS     R2,R0
 //  252 
 //  253   /* Clear CHSEL, MBURST, PBURST, PL, MSIZE, PSIZE, MINC, PINC, CIRC, DIR, CT and DBM bits */
 //  254   tmp &= ((uint32_t)~(DMA_SxCR_CHSEL | DMA_SxCR_MBURST | DMA_SxCR_PBURST | \ 
 //  255                       DMA_SxCR_PL    | DMA_SxCR_MSIZE  | DMA_SxCR_PSIZE  | \ 
 //  256                       DMA_SxCR_MINC  | DMA_SxCR_PINC   | DMA_SxCR_CIRC   | \ 
 //  257                       DMA_SxCR_DIR   | DMA_SxCR_CT     | DMA_SxCR_DBM));
+        LDR.N    R0,??DataTable0  ;; 0xf010803f
+        ANDS     R2,R0,R2
 //  258 
 //  259   /* Prepare the DMA Stream configuration */
 //  260   tmp |=  hdma->Init.Channel             | hdma->Init.Direction        |
 //  261           hdma->Init.PeriphInc           | hdma->Init.MemInc           |
 //  262           hdma->Init.PeriphDataAlignment | hdma->Init.MemDataAlignment |
 //  263           hdma->Init.Mode                | hdma->Init.Priority;
-        LDR.W    R3,??DataTable1  ;; 0xf010803f
-        ANDS     R2,R3,R2
-        LDR      R3,[R0, #+4]
-        ORRS     R2,R3,R2
-        LDR      R3,[R0, #+8]
-        ORRS     R2,R3,R2
-        LDR      R3,[R0, #+12]
-        ORRS     R2,R3,R2
-        LDR      R3,[R0, #+16]
-        ORRS     R2,R3,R2
-        LDR      R3,[R0, #+20]
-        ORRS     R2,R3,R2
-        LDR      R3,[R0, #+24]
-        ORRS     R2,R3,R2
-        LDR      R3,[R0, #+28]
-        ORRS     R2,R3,R2
-        LDR      R3,[R0, #+32]
-        ORRS     R2,R3,R2
+        LDR      R0,[R1, #+4]
+        LDR      R3,[R1, #+8]
+        ORRS     R0,R3,R0
+        LDR      R3,[R1, #+12]
+        ORRS     R0,R3,R0
+        LDR      R3,[R1, #+16]
+        ORRS     R0,R3,R0
+        LDR      R3,[R1, #+20]
+        ORRS     R0,R3,R0
+        LDR      R3,[R1, #+24]
+        ORRS     R0,R3,R0
+        LDR      R3,[R1, #+28]
+        ORRS     R0,R3,R0
+        LDR      R3,[R1, #+32]
+        ORRS     R0,R3,R0
+        ORRS     R2,R0,R2
 //  264 
 //  265   /* the Memory burst and peripheral burst are not used when the FIFO is disabled */
 //  266   if(hdma->Init.FIFOMode == DMA_FIFOMODE_ENABLE)
-        LDR      R3,[R0, #+36]
-        CMP      R3,#+4
-        BNE.N    ??HAL_DMA_Init_2
+        LDR      R0,[R1, #+36]
+        CMP      R0,#+4
+        BNE.N    ??HAL_DMA_Init_3
 //  267   {
 //  268     /* Get memory burst and peripheral burst */
 //  269     tmp |=  hdma->Init.MemBurst | hdma->Init.PeriphBurst;
-        LDR      R3,[R0, #+44]
-        LDR      R4,[R0, #+48]
-        ORRS     R3,R4,R3
-        ORRS     R2,R3,R2
+        LDR      R0,[R1, #+44]
+        LDR      R3,[R1, #+48]
+        ORRS     R0,R3,R0
+        ORRS     R2,R0,R2
 //  270   }
 //  271   
 //  272   /* Write to DMA Stream CR register */
 //  273   hdma->Instance->CR = tmp;  
-??HAL_DMA_Init_2:
-        STR      R2,[R1, #+0]
+??HAL_DMA_Init_3:
+        LDR      R0,[R1, #+0]
+        STR      R2,[R0, #+0]
 //  274 
 //  275   /* Get the FCR register value */
 //  276   tmp = hdma->Instance->FCR;
-        LDR      R1,[R0, #+0]
-        LDR      R2,[R1, #+20]
+        LDR      R0,[R1, #+0]
+        LDR      R0,[R0, #+20]
+        MOVS     R2,R0
 //  277 
 //  278   /* Clear Direct mode and FIFO threshold bits */
 //  279   tmp &= (uint32_t)~(DMA_SxFCR_DMDIS | DMA_SxFCR_FTH);
+        LSRS     R2,R2,#+3
+        LSLS     R2,R2,#+3
 //  280 
 //  281   /* Prepare the DMA Stream FIFO configuration */
 //  282   tmp |= hdma->Init.FIFOMode;
-        LDR      R3,[R0, #+36]
-        LSRS     R2,R2,#+3
-        ORRS     R2,R3,R2, LSL #+3
+        LDR      R0,[R1, #+36]
+        ORRS     R2,R0,R2
 //  283 
 //  284   /* the FIFO threshold is not used when the FIFO mode is disabled */
 //  285   if(hdma->Init.FIFOMode == DMA_FIFOMODE_ENABLE)
-        CMP      R3,#+4
-        BNE.N    ??HAL_DMA_Init_3
+        LDR      R0,[R1, #+36]
+        CMP      R0,#+4
+        BNE.N    ??HAL_DMA_Init_4
 //  286   {
 //  287     /* Get the FIFO threshold */
 //  288     tmp |= hdma->Init.FIFOThreshold;
-        LDR      R3,[R0, #+40]
-        ORRS     R2,R3,R2
+        LDR      R0,[R1, #+40]
+        ORRS     R2,R0,R2
 //  289   }
 //  290   
 //  291   /* Write to DMA Stream FCR */
 //  292   hdma->Instance->FCR = tmp;
-??HAL_DMA_Init_3:
-        STR      R2,[R1, #+20]
+??HAL_DMA_Init_4:
+        LDR      R0,[R1, #+0]
+        STR      R2,[R0, #+20]
 //  293 
 //  294   /* Initialize the error code */
 //  295   hdma->ErrorCode = HAL_DMA_ERROR_NONE;
-        MOVS     R1,#+0
-        STR      R1,[R0, #+76]
+        MOVS     R0,#+0
+        STR      R0,[R1, #+76]
 //  296 
 //  297   /* Initialize the DMA state */
 //  298   hdma->State = HAL_DMA_STATE_READY;
-        MOVS     R1,#+1
-        STRB     R1,[R0, #+53]
+        MOVS     R0,#+1
+        STRB     R0,[R1, #+53]
 //  299 
 //  300   return HAL_OK;
         MOVS     R0,#+0
 ??HAL_DMA_Init_1:
-        POP      {R4}
-          CFI R4 SameValue
-          CFI CFA R13+0
         BX       LR               ;; return
 //  301 }
           CFI EndBlock cfiBlock1
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable0:
+        DC32     0xf010803f
 //  302 
 //  303 /**
 //  304   * @brief  DeInitializes the DMA peripheral 
@@ -538,7 +552,7 @@ HAL_DMA_Init:
 //  307   * @retval HAL status
 //  308   */
 
-        SECTION `.text`:CODE:NOROOT(1)
+        SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock2 Using cfiCommon0
           CFI Function HAL_DMA_DeInit
           CFI NoCalls
@@ -546,1332 +560,1993 @@ HAL_DMA_Init:
 //  309 HAL_StatusTypeDef HAL_DMA_DeInit(DMA_HandleTypeDef *hdma)
 //  310 {
 HAL_DMA_DeInit:
-        PUSH     {R4-R7}
-          CFI R7 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+16
+        MOVS     R1,R0
 //  311   /* Check the DMA peripheral state */
 //  312   if(hdma == NULL)
-        CMP      R0,#+0
-        BEQ.N    ??HAL_DMA_DeInit_0
+        CMP      R1,#+0
+        BNE.N    ??HAL_DMA_DeInit_0
 //  313   {
 //  314     return HAL_ERROR;
+        MOVS     R0,#+1
+        B.W      ??HAL_DMA_DeInit_1
 //  315   }
 //  316   
 //  317   /* Check the DMA peripheral state */
 //  318   if(hdma->State == HAL_DMA_STATE_BUSY)
-        ADD      R1,R0,#+52
-        LDRB     R2,[R1, #+1]
-        CMP      R2,#+2
-        BNE.N    ??HAL_DMA_DeInit_1
+??HAL_DMA_DeInit_0:
+        LDRB     R0,[R1, #+53]
+        CMP      R0,#+2
+        BNE.N    ??HAL_DMA_DeInit_2
 //  319   {
 //  320      return HAL_ERROR;
-??HAL_DMA_DeInit_0:
         MOVS     R0,#+1
-        B.W      ??HAL_DMA_DeInit_2
+        B.W      ??HAL_DMA_DeInit_1
 //  321   }
 //  322 
 //  323   /* Disable the selected DMA Streamx */
 //  324   __HAL_DMA_DISABLE(hdma);
-??HAL_DMA_DeInit_1:
-        LDR      R2,[R0, #+0]
-        LDR      R3,[R2, #+0]
-        LSRS     R3,R3,#+1
-        LSLS     R3,R3,#+1
-        STR      R3,[R2, #+0]
+??HAL_DMA_DeInit_2:
+        LDR      R0,[R1, #+0]
+        LDR      R0,[R0, #+0]
+        LSRS     R0,R0,#+1
+        LSLS     R0,R0,#+1
+        LDR      R2,[R1, #+0]
+        STR      R0,[R2, #+0]
 //  325 
 //  326   /* Reset DMA Streamx control register */
 //  327   hdma->Instance->CR   = 0;
-        MOVS     R2,#+0
-        LDR      R3,[R0, #+0]
-        STR      R2,[R3, #+0]
+        MOVS     R0,#+0
+        LDR      R2,[R1, #+0]
+        STR      R0,[R2, #+0]
 //  328 
 //  329   /* Reset DMA Streamx number of data to transfer register */
 //  330   hdma->Instance->NDTR = 0;
-        LDR      R3,[R0, #+0]
-        STR      R2,[R3, #+4]
+        MOVS     R0,#+0
+        LDR      R2,[R1, #+0]
+        STR      R0,[R2, #+4]
 //  331 
 //  332   /* Reset DMA Streamx peripheral address register */
 //  333   hdma->Instance->PAR  = 0;
-        LDR      R3,[R0, #+0]
-        STR      R2,[R3, #+8]
+        MOVS     R0,#+0
+        LDR      R2,[R1, #+0]
+        STR      R0,[R2, #+8]
 //  334 
 //  335   /* Reset DMA Streamx memory 0 address register */
 //  336   hdma->Instance->M0AR = 0;
-        LDR      R3,[R0, #+0]
-        STR      R2,[R3, #+12]
+        MOVS     R0,#+0
+        LDR      R2,[R1, #+0]
+        STR      R0,[R2, #+12]
 //  337 
 //  338   /* Reset DMA Streamx memory 1 address register */
 //  339   hdma->Instance->M1AR = 0;
-        LDR      R3,[R0, #+0]
-        STR      R2,[R3, #+16]
+        MOVS     R0,#+0
+        LDR      R2,[R1, #+0]
+        STR      R0,[R2, #+16]
 //  340 
 //  341   /* Reset DMA Streamx FIFO control register */
 //  342   hdma->Instance->FCR  = (uint32_t)0x00000021;
-        MOVS     R2,#+33
-        LDR      R3,[R0, #+0]
-        STR      R2,[R3, #+20]
+        MOVS     R0,#+33
+        LDR      R2,[R1, #+0]
+        STR      R0,[R2, #+20]
 //  343 
 //  344   /* Clear all flags */
 //  345   __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
-        LDR      R7,[R0, #+0]
-        LDR.W    R2,??DataTable1_1  ;; 0x40026408
-        LDR.W    R3,??DataTable1_2  ;; 0x400260b9
-        LDR.W    R4,??DataTable1_3  ;; 0x40026410
-        LDR.W    R5,??DataTable1_4  ;; 0x40026010
-        LDR.W    R6,??DataTable1_5  ;; 0x40026459
-        CMP      R7,R6
-        BCC.N    ??HAL_DMA_DeInit_3
-        CMP      R7,R5
-        BEQ.N    ??HAL_DMA_DeInit_4
-        CMP      R7,R4
-        BEQ.N    ??HAL_DMA_DeInit_4
-        LDR.W    R12,??DataTable1_6  ;; 0x40026070
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_4
-        LDR.W    R12,??DataTable1_7  ;; 0x40026470
-        CMP      R7,R12
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_3  ;; 0x40026459
+        CMP      R0,R2
+        BCC.N    ??HAL_DMA_DeInit_4
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_3+0x4  ;; 0x40026010
+        CMP      R0,R2
         BNE.N    ??HAL_DMA_DeInit_5
-??HAL_DMA_DeInit_4:
-        LDR.W    R7,??DataTable1_8  ;; 0x800004
+        LDR.W    R0,??HAL_DMA_DeInit_3+0x8  ;; 0x800004
         B.N      ??HAL_DMA_DeInit_6
 ??HAL_DMA_DeInit_5:
-        LDR.W    R12,??DataTable1_9  ;; 0x40026028
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_7
-        LDR.W    R12,??DataTable1_10  ;; 0x40026428
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_7
-        LDR.W    R12,??DataTable1_11  ;; 0x40026088
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_7
-        LDR.W    R12,??DataTable1_12  ;; 0x40026488
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_8
-??HAL_DMA_DeInit_7:
-        MOV      R7,#+256
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_3+0xC  ;; 0x40026410
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_7
+        LDR.W    R0,??HAL_DMA_DeInit_3+0x8  ;; 0x800004
         B.N      ??HAL_DMA_DeInit_6
-??HAL_DMA_DeInit_8:
-        LDR.W    R12,??DataTable1_13  ;; 0x40026040
-        CMP      R7,R12
+??HAL_DMA_DeInit_7:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8  ;; 0x40026070
+        CMP      R0,R2
         BNE.N    ??HAL_DMA_DeInit_9
-        MOV      R7,#+262144
+        LDR.W    R0,??HAL_DMA_DeInit_3+0x8  ;; 0x800004
         B.N      ??HAL_DMA_DeInit_6
 ??HAL_DMA_DeInit_9:
-        LDR.W    R12,??DataTable1_14  ;; 0x40026440
-        CMP      R7,R12
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x4  ;; 0x40026470
+        CMP      R0,R2
         BNE.N    ??HAL_DMA_DeInit_10
-        MOV      R7,#+262144
+        LDR.W    R0,??HAL_DMA_DeInit_3+0x8  ;; 0x800004
         B.N      ??HAL_DMA_DeInit_6
 ??HAL_DMA_DeInit_10:
-        LDR.W    R12,??DataTable1_15  ;; 0x400260a0
-        CMP      R7,R12
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x8  ;; 0x40026028
+        CMP      R0,R2
         BNE.N    ??HAL_DMA_DeInit_11
-        MOV      R7,#+262144
+        MOV      R0,#+256
         B.N      ??HAL_DMA_DeInit_6
 ??HAL_DMA_DeInit_11:
-        LDR.W    R12,??DataTable1_16  ;; 0x400264a0
-        CMP      R7,R12
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0xC  ;; 0x40026428
+        CMP      R0,R2
         BNE.N    ??HAL_DMA_DeInit_12
-        MOV      R7,#+262144
+        MOV      R0,#+256
         B.N      ??HAL_DMA_DeInit_6
 ??HAL_DMA_DeInit_12:
-        MOV      R7,#+16777216
-??HAL_DMA_DeInit_6:
-        STR      R7,[R2, #+4]
-        B.N      ??HAL_DMA_DeInit_13
-??HAL_DMA_DeInit_3:
-        CMP      R7,R3
-        BCC.N    ??HAL_DMA_DeInit_14
-        CMP      R7,R5
-        BEQ.N    ??HAL_DMA_DeInit_15
-        CMP      R7,R4
-        BEQ.N    ??HAL_DMA_DeInit_15
-        LDR.W    R12,??DataTable1_6  ;; 0x40026070
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_15
-        LDR.W    R12,??DataTable1_7  ;; 0x40026470
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_16
-??HAL_DMA_DeInit_15:
-        LDR.W    R7,??DataTable1_8  ;; 0x800004
-        B.N      ??HAL_DMA_DeInit_17
-??HAL_DMA_DeInit_16:
-        LDR.W    R12,??DataTable1_9  ;; 0x40026028
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_18
-        LDR.W    R12,??DataTable1_10  ;; 0x40026428
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_18
-        LDR.W    R12,??DataTable1_11  ;; 0x40026088
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_18
-        LDR.W    R12,??DataTable1_12  ;; 0x40026488
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_19
-??HAL_DMA_DeInit_18:
-        MOV      R7,#+256
-        B.N      ??HAL_DMA_DeInit_17
-??HAL_DMA_DeInit_19:
-        LDR.W    R12,??DataTable1_13  ;; 0x40026040
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_20
-        MOV      R7,#+262144
-        B.N      ??HAL_DMA_DeInit_17
-??HAL_DMA_DeInit_20:
-        LDR.W    R12,??DataTable1_14  ;; 0x40026440
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_21
-        MOV      R7,#+262144
-        B.N      ??HAL_DMA_DeInit_17
-??HAL_DMA_DeInit_21:
-        LDR.W    R12,??DataTable1_15  ;; 0x400260a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_22
-        MOV      R7,#+262144
-        B.N      ??HAL_DMA_DeInit_17
-??HAL_DMA_DeInit_22:
-        LDR.W    R12,??DataTable1_16  ;; 0x400264a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_23
-        MOV      R7,#+262144
-        B.N      ??HAL_DMA_DeInit_17
-??HAL_DMA_DeInit_23:
-        MOV      R7,#+16777216
-??HAL_DMA_DeInit_17:
-        STR      R7,[R2, #+0]
-        B.N      ??HAL_DMA_DeInit_13
-??HAL_DMA_DeInit_14:
-        LDR.W    R12,??DataTable1_17  ;; 0x40026059
-        CMP      R7,R12
-        BCC.N    ??HAL_DMA_DeInit_24
-        CMP      R7,R5
-        BEQ.N    ??HAL_DMA_DeInit_25
-        CMP      R7,R4
-        BEQ.N    ??HAL_DMA_DeInit_25
-        LDR.W    R12,??DataTable1_6  ;; 0x40026070
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_25
-        LDR.W    R12,??DataTable1_7  ;; 0x40026470
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_26
-??HAL_DMA_DeInit_25:
-        LDR.W    R7,??DataTable1_8  ;; 0x800004
-        B.N      ??HAL_DMA_DeInit_27
-??HAL_DMA_DeInit_26:
-        LDR.W    R12,??DataTable1_9  ;; 0x40026028
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_28
-        LDR.W    R12,??DataTable1_10  ;; 0x40026428
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_28
-        LDR.W    R12,??DataTable1_11  ;; 0x40026088
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_28
-        LDR.W    R12,??DataTable1_12  ;; 0x40026488
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_29
-??HAL_DMA_DeInit_28:
-        MOV      R7,#+256
-        B.N      ??HAL_DMA_DeInit_27
-??HAL_DMA_DeInit_29:
-        LDR.W    R12,??DataTable1_13  ;; 0x40026040
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_30
-        MOV      R7,#+262144
-        B.N      ??HAL_DMA_DeInit_27
-??HAL_DMA_DeInit_30:
-        LDR.W    R12,??DataTable1_14  ;; 0x40026440
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_31
-        MOV      R7,#+262144
-        B.N      ??HAL_DMA_DeInit_27
-??HAL_DMA_DeInit_31:
-        LDR.W    R12,??DataTable1_15  ;; 0x400260a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_32
-        MOV      R7,#+262144
-        B.N      ??HAL_DMA_DeInit_27
-??HAL_DMA_DeInit_32:
-        LDR.W    R12,??DataTable1_16  ;; 0x400264a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_33
-        MOV      R7,#+262144
-        B.N      ??HAL_DMA_DeInit_27
-??HAL_DMA_DeInit_33:
-        MOV      R7,#+16777216
-??HAL_DMA_DeInit_27:
-        LDR.W    R12,??DataTable1_18  ;; 0x40026008
-        STR      R7,[R12, #+4]
-        B.N      ??HAL_DMA_DeInit_13
-??HAL_DMA_DeInit_24:
-        CMP      R7,R5
-        BEQ.N    ??HAL_DMA_DeInit_34
-        CMP      R7,R4
-        BEQ.N    ??HAL_DMA_DeInit_34
-        LDR.W    R12,??DataTable1_6  ;; 0x40026070
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_34
-        LDR.W    R12,??DataTable1_7  ;; 0x40026470
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_35
-??HAL_DMA_DeInit_34:
-        LDR.W    R7,??DataTable1_8  ;; 0x800004
-        B.N      ??HAL_DMA_DeInit_36
-??HAL_DMA_DeInit_35:
-        LDR.W    R12,??DataTable1_9  ;; 0x40026028
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_37
-        LDR.W    R12,??DataTable1_10  ;; 0x40026428
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_37
-        LDR.W    R12,??DataTable1_11  ;; 0x40026088
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_37
-        LDR.W    R12,??DataTable1_12  ;; 0x40026488
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_38
-??HAL_DMA_DeInit_37:
-        MOV      R7,#+256
-        B.N      ??HAL_DMA_DeInit_36
-??HAL_DMA_DeInit_38:
-        LDR.W    R12,??DataTable1_13  ;; 0x40026040
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_39
-        MOV      R7,#+262144
-        B.N      ??HAL_DMA_DeInit_36
-??HAL_DMA_DeInit_39:
-        LDR.W    R12,??DataTable1_14  ;; 0x40026440
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_40
-        MOV      R7,#+262144
-        B.N      ??HAL_DMA_DeInit_36
-??HAL_DMA_DeInit_40:
-        LDR.W    R12,??DataTable1_15  ;; 0x400260a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_41
-        MOV      R7,#+262144
-        B.N      ??HAL_DMA_DeInit_36
-??HAL_DMA_DeInit_41:
-        LDR.W    R12,??DataTable1_16  ;; 0x400264a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_42
-        MOV      R7,#+262144
-        B.N      ??HAL_DMA_DeInit_36
-??HAL_DMA_DeInit_42:
-        MOV      R7,#+16777216
-??HAL_DMA_DeInit_36:
-        LDR.W    R12,??DataTable1_18  ;; 0x40026008
-        STR      R7,[R12, #+0]
-//  346   __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_TC_FLAG_INDEX(hdma));
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x10  ;; 0x40026088
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_13
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_DeInit_6
 ??HAL_DMA_DeInit_13:
-        LDR      R7,[R0, #+0]
-        CMP      R7,R6
-        BCC.N    ??HAL_DMA_DeInit_43
-        CMP      R7,R5
-        BEQ.N    ??HAL_DMA_DeInit_44
-        CMP      R7,R4
-        BEQ.N    ??HAL_DMA_DeInit_44
-        LDR.W    R12,??DataTable1_6  ;; 0x40026070
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_44
-        LDR.W    R12,??DataTable1_7  ;; 0x40026470
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_45
-??HAL_DMA_DeInit_44:
-        MOVS     R7,#+32
-        B.N      ??HAL_DMA_DeInit_46
-??HAL_DMA_DeInit_45:
-        LDR.W    R12,??DataTable1_9  ;; 0x40026028
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_47
-        LDR.W    R12,??DataTable1_10  ;; 0x40026428
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_47
-        LDR.W    R12,??DataTable1_11  ;; 0x40026088
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_47
-        LDR.W    R12,??DataTable1_12  ;; 0x40026488
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_48
-??HAL_DMA_DeInit_47:
-        MOV      R7,#+2048
-        B.N      ??HAL_DMA_DeInit_46
-??HAL_DMA_DeInit_48:
-        LDR.W    R12,??DataTable1_13  ;; 0x40026040
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_49
-        MOV      R7,#+2097152
-        B.N      ??HAL_DMA_DeInit_46
-??HAL_DMA_DeInit_49:
-        LDR.W    R12,??DataTable1_14  ;; 0x40026440
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_50
-        MOV      R7,#+2097152
-        B.N      ??HAL_DMA_DeInit_46
-??HAL_DMA_DeInit_50:
-        LDR.W    R12,??DataTable1_15  ;; 0x400260a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_51
-        MOV      R7,#+2097152
-        B.N      ??HAL_DMA_DeInit_46
-??HAL_DMA_DeInit_51:
-        LDR.W    R12,??DataTable1_16  ;; 0x400264a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_52
-        MOV      R7,#+2097152
-        B.N      ??HAL_DMA_DeInit_46
-??HAL_DMA_DeInit_52:
-        MOV      R7,#+134217728
-??HAL_DMA_DeInit_46:
-        STR      R7,[R2, #+4]
-        B.N      ??HAL_DMA_DeInit_53
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x14  ;; 0x40026488
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_14
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_DeInit_6
+??HAL_DMA_DeInit_14:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x18  ;; 0x40026040
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_15
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_DeInit_6
+??HAL_DMA_DeInit_15:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x1C  ;; 0x40026440
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_16
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_DeInit_6
+??HAL_DMA_DeInit_16:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x20  ;; 0x400260a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_17
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_DeInit_6
+??HAL_DMA_DeInit_17:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x24  ;; 0x400264a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_18
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_DeInit_6
+??HAL_DMA_DeInit_18:
+        MOVS     R0,#+16777216
+??HAL_DMA_DeInit_6:
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x28  ;; 0x4002640c
+        STR      R0,[R2, #+0]
+        B.N      ??HAL_DMA_DeInit_19
+??HAL_DMA_DeInit_4:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x2C  ;; 0x400260b9
+        CMP      R0,R2
+        BCC.N    ??HAL_DMA_DeInit_20
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_3+0x4  ;; 0x40026010
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_21
+        LDR.W    R0,??HAL_DMA_DeInit_3+0x8  ;; 0x800004
+        B.N      ??HAL_DMA_DeInit_22
+??HAL_DMA_DeInit_21:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_3+0xC  ;; 0x40026410
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_23
+        LDR.W    R0,??HAL_DMA_DeInit_3+0x8  ;; 0x800004
+        B.N      ??HAL_DMA_DeInit_22
+??HAL_DMA_DeInit_23:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8  ;; 0x40026070
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_24
+        LDR.W    R0,??HAL_DMA_DeInit_3+0x8  ;; 0x800004
+        B.N      ??HAL_DMA_DeInit_22
+??HAL_DMA_DeInit_24:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x4  ;; 0x40026470
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_25
+        LDR.W    R0,??HAL_DMA_DeInit_3+0x8  ;; 0x800004
+        B.N      ??HAL_DMA_DeInit_22
+??HAL_DMA_DeInit_25:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x8  ;; 0x40026028
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_26
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_DeInit_22
+??HAL_DMA_DeInit_26:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0xC  ;; 0x40026428
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_27
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_DeInit_22
+??HAL_DMA_DeInit_27:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x10  ;; 0x40026088
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_28
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_DeInit_22
+??HAL_DMA_DeInit_28:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x14  ;; 0x40026488
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_29
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_DeInit_22
+??HAL_DMA_DeInit_29:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x18  ;; 0x40026040
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_30
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_DeInit_22
+??HAL_DMA_DeInit_30:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x1C  ;; 0x40026440
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_31
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_DeInit_22
+??HAL_DMA_DeInit_31:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x20  ;; 0x400260a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_32
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_DeInit_22
+??HAL_DMA_DeInit_32:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x24  ;; 0x400264a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_33
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_DeInit_22
+??HAL_DMA_DeInit_33:
+        MOVS     R0,#+16777216
+??HAL_DMA_DeInit_22:
+        LDR.W    R2,??HAL_DMA_DeInit_34  ;; 0x40026408
+        STR      R0,[R2, #+0]
+        B.N      ??HAL_DMA_DeInit_19
+??HAL_DMA_DeInit_20:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_34+0x4  ;; 0x40026059
+        CMP      R0,R2
+        BCC.N    ??HAL_DMA_DeInit_35
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_3+0x4  ;; 0x40026010
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_36
+        LDR.W    R0,??HAL_DMA_DeInit_3+0x8  ;; 0x800004
+        B.N      ??HAL_DMA_DeInit_37
+??HAL_DMA_DeInit_36:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_3+0xC  ;; 0x40026410
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_38
+        LDR.W    R0,??HAL_DMA_DeInit_3+0x8  ;; 0x800004
+        B.N      ??HAL_DMA_DeInit_37
+??HAL_DMA_DeInit_38:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8  ;; 0x40026070
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_39
+        LDR.W    R0,??HAL_DMA_DeInit_3+0x8  ;; 0x800004
+        B.N      ??HAL_DMA_DeInit_37
+??HAL_DMA_DeInit_39:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x4  ;; 0x40026470
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_40
+        LDR.W    R0,??HAL_DMA_DeInit_3+0x8  ;; 0x800004
+        B.N      ??HAL_DMA_DeInit_37
+??HAL_DMA_DeInit_40:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x8  ;; 0x40026028
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_41
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_DeInit_37
+??HAL_DMA_DeInit_41:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0xC  ;; 0x40026428
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_42
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_DeInit_37
+??HAL_DMA_DeInit_42:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x10  ;; 0x40026088
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_43
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_DeInit_37
 ??HAL_DMA_DeInit_43:
-        CMP      R7,R3
-        BCC.N    ??HAL_DMA_DeInit_54
-        CMP      R7,R5
-        BEQ.N    ??HAL_DMA_DeInit_55
-        CMP      R7,R4
-        BEQ.N    ??HAL_DMA_DeInit_55
-        LDR.W    R12,??DataTable1_6  ;; 0x40026070
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_55
-        LDR.W    R12,??DataTable1_7  ;; 0x40026470
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_56
-??HAL_DMA_DeInit_55:
-        MOVS     R7,#+32
-        B.N      ??HAL_DMA_DeInit_57
-??HAL_DMA_DeInit_56:
-        LDR.W    R12,??DataTable1_9  ;; 0x40026028
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_58
-        LDR.W    R12,??DataTable1_10  ;; 0x40026428
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_58
-        LDR.W    R12,??DataTable1_11  ;; 0x40026088
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_58
-        LDR.W    R12,??DataTable1_12  ;; 0x40026488
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_59
-??HAL_DMA_DeInit_58:
-        MOV      R7,#+2048
-        B.N      ??HAL_DMA_DeInit_57
-??HAL_DMA_DeInit_59:
-        LDR.W    R12,??DataTable1_13  ;; 0x40026040
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_60
-        MOV      R7,#+2097152
-        B.N      ??HAL_DMA_DeInit_57
-??HAL_DMA_DeInit_60:
-        LDR.W    R12,??DataTable1_14  ;; 0x40026440
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_61
-        MOV      R7,#+2097152
-        B.N      ??HAL_DMA_DeInit_57
-??HAL_DMA_DeInit_61:
-        LDR.W    R12,??DataTable1_15  ;; 0x400260a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_62
-        MOV      R7,#+2097152
-        B.N      ??HAL_DMA_DeInit_57
-??HAL_DMA_DeInit_62:
-        LDR.W    R12,??DataTable1_16  ;; 0x400264a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_63
-        MOV      R7,#+2097152
-        B.N      ??HAL_DMA_DeInit_57
-??HAL_DMA_DeInit_63:
-        MOV      R7,#+134217728
-??HAL_DMA_DeInit_57:
-        STR      R7,[R2, #+0]
-        B.N      ??HAL_DMA_DeInit_53
-??HAL_DMA_DeInit_54:
-        LDR.W    R12,??DataTable1_17  ;; 0x40026059
-        CMP      R7,R12
-        BCC.N    ??HAL_DMA_DeInit_64
-        CMP      R7,R5
-        BEQ.N    ??HAL_DMA_DeInit_65
-        CMP      R7,R4
-        BEQ.N    ??HAL_DMA_DeInit_65
-        LDR.W    R12,??DataTable1_6  ;; 0x40026070
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_65
-        LDR.W    R12,??DataTable1_7  ;; 0x40026470
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_66
-??HAL_DMA_DeInit_65:
-        MOVS     R7,#+32
-        B.N      ??HAL_DMA_DeInit_67
-??HAL_DMA_DeInit_66:
-        LDR.W    R12,??DataTable1_9  ;; 0x40026028
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_68
-        LDR.W    R12,??DataTable1_10  ;; 0x40026428
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_68
-        LDR.W    R12,??DataTable1_11  ;; 0x40026088
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_68
-        LDR.W    R12,??DataTable1_12  ;; 0x40026488
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_69
-??HAL_DMA_DeInit_68:
-        MOV      R7,#+2048
-        B.N      ??HAL_DMA_DeInit_67
-??HAL_DMA_DeInit_69:
-        LDR.W    R12,??DataTable1_13  ;; 0x40026040
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_70
-        MOV      R7,#+2097152
-        B.N      ??HAL_DMA_DeInit_67
-??HAL_DMA_DeInit_70:
-        LDR.W    R12,??DataTable1_14  ;; 0x40026440
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_71
-        MOV      R7,#+2097152
-        B.N      ??HAL_DMA_DeInit_67
-??HAL_DMA_DeInit_71:
-        LDR.W    R12,??DataTable1_15  ;; 0x400260a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_72
-        MOV      R7,#+2097152
-        B.N      ??HAL_DMA_DeInit_67
-??HAL_DMA_DeInit_72:
-        LDR.W    R12,??DataTable1_16  ;; 0x400264a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_73
-        MOV      R7,#+2097152
-        B.N      ??HAL_DMA_DeInit_67
-??HAL_DMA_DeInit_73:
-        MOV      R7,#+134217728
-??HAL_DMA_DeInit_67:
-        LDR.W    R12,??DataTable1_18  ;; 0x40026008
-        STR      R7,[R12, #+4]
-        B.N      ??HAL_DMA_DeInit_53
-??HAL_DMA_DeInit_64:
-        CMP      R7,R5
-        BEQ.N    ??HAL_DMA_DeInit_74
-        CMP      R7,R4
-        BEQ.N    ??HAL_DMA_DeInit_74
-        LDR.W    R12,??DataTable1_6  ;; 0x40026070
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_74
-        LDR.W    R12,??DataTable1_7  ;; 0x40026470
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_75
-??HAL_DMA_DeInit_74:
-        MOVS     R7,#+32
-        B.N      ??HAL_DMA_DeInit_76
-??HAL_DMA_DeInit_75:
-        LDR.W    R12,??DataTable1_9  ;; 0x40026028
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_77
-        LDR.W    R12,??DataTable1_10  ;; 0x40026428
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_77
-        LDR.W    R12,??DataTable1_11  ;; 0x40026088
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_77
-        LDR.W    R12,??DataTable1_12  ;; 0x40026488
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_78
-??HAL_DMA_DeInit_77:
-        MOV      R7,#+2048
-        B.N      ??HAL_DMA_DeInit_76
-??HAL_DMA_DeInit_78:
-        LDR.W    R12,??DataTable1_13  ;; 0x40026040
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_79
-        MOV      R7,#+2097152
-        B.N      ??HAL_DMA_DeInit_76
-??HAL_DMA_DeInit_79:
-        LDR.W    R12,??DataTable1_14  ;; 0x40026440
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_80
-        MOV      R7,#+2097152
-        B.N      ??HAL_DMA_DeInit_76
-??HAL_DMA_DeInit_80:
-        LDR.W    R12,??DataTable1_15  ;; 0x400260a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_81
-        MOV      R7,#+2097152
-        B.N      ??HAL_DMA_DeInit_76
-??HAL_DMA_DeInit_81:
-        LDR.W    R12,??DataTable1_16  ;; 0x400264a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_82
-        MOV      R7,#+2097152
-        B.N      ??HAL_DMA_DeInit_76
-??HAL_DMA_DeInit_82:
-        MOV      R7,#+134217728
-??HAL_DMA_DeInit_76:
-        LDR.W    R12,??DataTable1_18  ;; 0x40026008
-        STR      R7,[R12, #+0]
-//  347   __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x14  ;; 0x40026488
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_44
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_DeInit_37
+??HAL_DMA_DeInit_44:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x18  ;; 0x40026040
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_45
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_DeInit_37
+??HAL_DMA_DeInit_45:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x1C  ;; 0x40026440
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_46
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_DeInit_37
+??HAL_DMA_DeInit_46:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x20  ;; 0x400260a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_47
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_DeInit_37
+??HAL_DMA_DeInit_47:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x24  ;; 0x400264a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_48
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_DeInit_37
+??HAL_DMA_DeInit_48:
+        MOVS     R0,#+16777216
+??HAL_DMA_DeInit_37:
+        LDR.W    R2,??HAL_DMA_DeInit_49  ;; 0x4002600c
+        STR      R0,[R2, #+0]
+        B.N      ??HAL_DMA_DeInit_19
+??HAL_DMA_DeInit_35:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_3+0x4  ;; 0x40026010
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_50
+        LDR.W    R0,??HAL_DMA_DeInit_3+0x8  ;; 0x800004
+        B.N      ??HAL_DMA_DeInit_51
+??HAL_DMA_DeInit_50:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_3+0xC  ;; 0x40026410
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_52
+        LDR.W    R0,??HAL_DMA_DeInit_3+0x8  ;; 0x800004
+        B.N      ??HAL_DMA_DeInit_51
+??HAL_DMA_DeInit_52:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8  ;; 0x40026070
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_53
+        LDR.W    R0,??HAL_DMA_DeInit_3+0x8  ;; 0x800004
+        B.N      ??HAL_DMA_DeInit_51
 ??HAL_DMA_DeInit_53:
-        LDR      R7,[R0, #+0]
-        CMP      R7,R6
-        BCC.N    ??HAL_DMA_DeInit_83
-        CMP      R7,R5
-        BEQ.N    ??HAL_DMA_DeInit_84
-        CMP      R7,R4
-        BEQ.N    ??HAL_DMA_DeInit_84
-        LDR.W    R12,??DataTable1_6  ;; 0x40026070
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_84
-        LDR.W    R12,??DataTable1_7  ;; 0x40026470
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_85
-??HAL_DMA_DeInit_84:
-        MOVS     R7,#+8
-        B.N      ??HAL_DMA_DeInit_86
-??HAL_DMA_DeInit_85:
-        LDR.W    R12,??DataTable1_9  ;; 0x40026028
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_87
-        LDR.W    R12,??DataTable1_10  ;; 0x40026428
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_87
-        LDR.W    R12,??DataTable1_11  ;; 0x40026088
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_87
-        LDR.W    R12,??DataTable1_12  ;; 0x40026488
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_88
-??HAL_DMA_DeInit_87:
-        MOV      R7,#+512
-        B.N      ??HAL_DMA_DeInit_86
-??HAL_DMA_DeInit_88:
-        LDR.W    R12,??DataTable1_13  ;; 0x40026040
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_89
-        MOV      R7,#+524288
-        B.N      ??HAL_DMA_DeInit_86
-??HAL_DMA_DeInit_89:
-        LDR.W    R12,??DataTable1_14  ;; 0x40026440
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_90
-        MOV      R7,#+524288
-        B.N      ??HAL_DMA_DeInit_86
-??HAL_DMA_DeInit_90:
-        LDR.W    R12,??DataTable1_15  ;; 0x400260a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_91
-        MOV      R7,#+524288
-        B.N      ??HAL_DMA_DeInit_86
-??HAL_DMA_DeInit_91:
-        LDR.W    R12,??DataTable1_16  ;; 0x400264a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_92
-        MOV      R7,#+524288
-        B.N      ??HAL_DMA_DeInit_86
-??HAL_DMA_DeInit_92:
-        MOV      R7,#+33554432
-??HAL_DMA_DeInit_86:
-        STR      R7,[R2, #+4]
-        B.N      ??HAL_DMA_DeInit_93
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x4  ;; 0x40026470
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_54
+        LDR.W    R0,??HAL_DMA_DeInit_3+0x8  ;; 0x800004
+        B.N      ??HAL_DMA_DeInit_51
+??HAL_DMA_DeInit_54:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x8  ;; 0x40026028
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_55
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_DeInit_51
+??HAL_DMA_DeInit_55:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0xC  ;; 0x40026428
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_56
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_DeInit_51
+??HAL_DMA_DeInit_56:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x10  ;; 0x40026088
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_57
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_DeInit_51
+??HAL_DMA_DeInit_57:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x14  ;; 0x40026488
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_58
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_DeInit_51
+??HAL_DMA_DeInit_58:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x18  ;; 0x40026040
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_59
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_DeInit_51
+??HAL_DMA_DeInit_59:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x1C  ;; 0x40026440
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_60
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_DeInit_51
+??HAL_DMA_DeInit_60:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x20  ;; 0x400260a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_61
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_DeInit_51
+??HAL_DMA_DeInit_61:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x24  ;; 0x400264a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_62
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_DeInit_51
+??HAL_DMA_DeInit_62:
+        MOVS     R0,#+16777216
+??HAL_DMA_DeInit_51:
+        LDR.W    R2,??HAL_DMA_DeInit_63  ;; 0x40026008
+        STR      R0,[R2, #+0]
+//  346   __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_TC_FLAG_INDEX(hdma));
+??HAL_DMA_DeInit_19:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_3  ;; 0x40026459
+        CMP      R0,R2
+        BCC.N    ??HAL_DMA_DeInit_64
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_3+0x4  ;; 0x40026010
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_65
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_DeInit_66
+??HAL_DMA_DeInit_65:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_3+0xC  ;; 0x40026410
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_67
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_DeInit_66
+??HAL_DMA_DeInit_67:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8  ;; 0x40026070
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_68
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_DeInit_66
+??HAL_DMA_DeInit_68:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x4  ;; 0x40026470
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_69
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_DeInit_66
+??HAL_DMA_DeInit_69:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x8  ;; 0x40026028
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_70
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_DeInit_66
+??HAL_DMA_DeInit_70:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0xC  ;; 0x40026428
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_71
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_DeInit_66
+??HAL_DMA_DeInit_71:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x10  ;; 0x40026088
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_72
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_DeInit_66
+??HAL_DMA_DeInit_72:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x14  ;; 0x40026488
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_73
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_DeInit_66
+??HAL_DMA_DeInit_73:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x18  ;; 0x40026040
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_74
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_DeInit_66
+??HAL_DMA_DeInit_74:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x1C  ;; 0x40026440
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_75
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_DeInit_66
+??HAL_DMA_DeInit_75:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x20  ;; 0x400260a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_76
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_DeInit_66
+??HAL_DMA_DeInit_76:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x24  ;; 0x400264a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_77
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_DeInit_66
+??HAL_DMA_DeInit_77:
+        MOVS     R0,#+134217728
+??HAL_DMA_DeInit_66:
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x28  ;; 0x4002640c
+        STR      R0,[R2, #+0]
+        B.N      ??HAL_DMA_DeInit_78
+??HAL_DMA_DeInit_64:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x2C  ;; 0x400260b9
+        CMP      R0,R2
+        BCC.N    ??HAL_DMA_DeInit_79
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_3+0x4  ;; 0x40026010
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_80
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_DeInit_81
+??HAL_DMA_DeInit_80:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_3+0xC  ;; 0x40026410
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_82
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_DeInit_81
+??HAL_DMA_DeInit_82:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8  ;; 0x40026070
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_83
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_DeInit_81
 ??HAL_DMA_DeInit_83:
-        CMP      R7,R3
-        BCC.N    ??HAL_DMA_DeInit_94
-        CMP      R7,R5
-        BEQ.N    ??HAL_DMA_DeInit_95
-        CMP      R7,R4
-        BEQ.N    ??HAL_DMA_DeInit_95
-        LDR.W    R12,??DataTable1_6  ;; 0x40026070
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_95
-        LDR.W    R12,??DataTable1_7  ;; 0x40026470
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_96
-??HAL_DMA_DeInit_95:
-        MOVS     R7,#+8
-        B.N      ??HAL_DMA_DeInit_97
-??HAL_DMA_DeInit_96:
-        LDR.W    R12,??DataTable1_9  ;; 0x40026028
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_98
-        LDR.W    R12,??DataTable1_10  ;; 0x40026428
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_98
-        LDR.W    R12,??DataTable1_11  ;; 0x40026088
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_98
-        LDR.W    R12,??DataTable1_12  ;; 0x40026488
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_99
-??HAL_DMA_DeInit_98:
-        MOV      R7,#+512
-        B.N      ??HAL_DMA_DeInit_97
-??HAL_DMA_DeInit_99:
-        LDR.W    R12,??DataTable1_13  ;; 0x40026040
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_100
-        MOV      R7,#+524288
-        B.N      ??HAL_DMA_DeInit_97
-??HAL_DMA_DeInit_100:
-        LDR.W    R12,??DataTable1_14  ;; 0x40026440
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_101
-        MOV      R7,#+524288
-        B.N      ??HAL_DMA_DeInit_97
-??HAL_DMA_DeInit_101:
-        LDR.W    R12,??DataTable1_15  ;; 0x400260a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_102
-        MOV      R7,#+524288
-        B.N      ??HAL_DMA_DeInit_97
-??HAL_DMA_DeInit_102:
-        LDR.W    R12,??DataTable1_16  ;; 0x400264a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_103
-        MOV      R7,#+524288
-        B.N      ??HAL_DMA_DeInit_97
-??HAL_DMA_DeInit_103:
-        MOV      R7,#+33554432
-??HAL_DMA_DeInit_97:
-        STR      R7,[R2, #+0]
-        B.N      ??HAL_DMA_DeInit_93
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x4  ;; 0x40026470
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_84
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_DeInit_81
+??HAL_DMA_DeInit_84:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x8  ;; 0x40026028
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_85
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_DeInit_81
+??HAL_DMA_DeInit_85:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0xC  ;; 0x40026428
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_86
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_DeInit_81
+??HAL_DMA_DeInit_86:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x10  ;; 0x40026088
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_87
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_DeInit_81
+??HAL_DMA_DeInit_87:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x14  ;; 0x40026488
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_88
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_DeInit_81
+??HAL_DMA_DeInit_88:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x18  ;; 0x40026040
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_89
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_DeInit_81
+??HAL_DMA_DeInit_89:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x1C  ;; 0x40026440
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_90
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_DeInit_81
+??HAL_DMA_DeInit_90:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x20  ;; 0x400260a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_91
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_DeInit_81
+??HAL_DMA_DeInit_91:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x24  ;; 0x400264a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_92
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_DeInit_81
+??HAL_DMA_DeInit_92:
+        MOVS     R0,#+134217728
+??HAL_DMA_DeInit_81:
+        LDR.W    R2,??HAL_DMA_DeInit_34  ;; 0x40026408
+        STR      R0,[R2, #+0]
+        B.N      ??HAL_DMA_DeInit_78
+??HAL_DMA_DeInit_79:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_34+0x4  ;; 0x40026059
+        CMP      R0,R2
+        BCC.N    ??HAL_DMA_DeInit_93
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_3+0x4  ;; 0x40026010
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_94
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_DeInit_95
 ??HAL_DMA_DeInit_94:
-        LDR.W    R12,??DataTable1_17  ;; 0x40026059
-        CMP      R7,R12
-        BCC.N    ??HAL_DMA_DeInit_104
-        CMP      R7,R5
-        BEQ.N    ??HAL_DMA_DeInit_105
-        CMP      R7,R4
-        BEQ.N    ??HAL_DMA_DeInit_105
-        LDR.W    R12,??DataTable1_6  ;; 0x40026070
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_105
-        LDR.W    R12,??DataTable1_7  ;; 0x40026470
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_106
-??HAL_DMA_DeInit_105:
-        MOVS     R7,#+8
-        B.N      ??HAL_DMA_DeInit_107
-??HAL_DMA_DeInit_106:
-        LDR.W    R12,??DataTable1_9  ;; 0x40026028
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_108
-        LDR.W    R12,??DataTable1_10  ;; 0x40026428
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_108
-        LDR.W    R12,??DataTable1_11  ;; 0x40026088
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_108
-        LDR.W    R12,??DataTable1_12  ;; 0x40026488
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_109
-??HAL_DMA_DeInit_108:
-        MOV      R7,#+512
-        B.N      ??HAL_DMA_DeInit_107
-??HAL_DMA_DeInit_109:
-        LDR.W    R12,??DataTable1_13  ;; 0x40026040
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_110
-        MOV      R7,#+524288
-        B.N      ??HAL_DMA_DeInit_107
-??HAL_DMA_DeInit_110:
-        LDR.W    R12,??DataTable1_14  ;; 0x40026440
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_111
-        MOV      R7,#+524288
-        B.N      ??HAL_DMA_DeInit_107
-??HAL_DMA_DeInit_111:
-        LDR.W    R12,??DataTable1_15  ;; 0x400260a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_112
-        MOV      R7,#+524288
-        B.N      ??HAL_DMA_DeInit_107
-??HAL_DMA_DeInit_112:
-        LDR.W    R12,??DataTable1_16  ;; 0x400264a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_113
-        MOV      R7,#+524288
-        B.N      ??HAL_DMA_DeInit_107
-??HAL_DMA_DeInit_113:
-        MOV      R7,#+33554432
-??HAL_DMA_DeInit_107:
-        LDR.W    R12,??DataTable1_18  ;; 0x40026008
-        STR      R7,[R12, #+4]
-        B.N      ??HAL_DMA_DeInit_93
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_3+0xC  ;; 0x40026410
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_96
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_DeInit_95
+??HAL_DMA_DeInit_96:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8  ;; 0x40026070
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_97
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_DeInit_95
+??HAL_DMA_DeInit_97:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x4  ;; 0x40026470
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_98
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_DeInit_95
+??HAL_DMA_DeInit_98:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x8  ;; 0x40026028
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_99
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_DeInit_95
+??HAL_DMA_DeInit_99:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0xC  ;; 0x40026428
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_100
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_DeInit_95
+??HAL_DMA_DeInit_100:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x10  ;; 0x40026088
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_101
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_DeInit_95
+??HAL_DMA_DeInit_101:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x14  ;; 0x40026488
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_102
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_DeInit_95
+??HAL_DMA_DeInit_102:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x18  ;; 0x40026040
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_103
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_DeInit_95
+??HAL_DMA_DeInit_103:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x1C  ;; 0x40026440
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_104
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_DeInit_95
 ??HAL_DMA_DeInit_104:
-        CMP      R7,R5
-        BEQ.N    ??HAL_DMA_DeInit_114
-        CMP      R7,R4
-        BEQ.N    ??HAL_DMA_DeInit_114
-        LDR.W    R12,??DataTable1_6  ;; 0x40026070
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_114
-        LDR.W    R12,??DataTable1_7  ;; 0x40026470
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_115
-??HAL_DMA_DeInit_114:
-        MOVS     R7,#+8
-        B.N      ??HAL_DMA_DeInit_116
-??HAL_DMA_DeInit_115:
-        LDR.W    R12,??DataTable1_9  ;; 0x40026028
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_117
-        LDR.W    R12,??DataTable1_10  ;; 0x40026428
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_117
-        LDR.W    R12,??DataTable1_11  ;; 0x40026088
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_117
-        LDR.W    R12,??DataTable1_12  ;; 0x40026488
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_118
-??HAL_DMA_DeInit_117:
-        MOV      R7,#+512
-        B.N      ??HAL_DMA_DeInit_116
-??HAL_DMA_DeInit_118:
-        LDR.W    R12,??DataTable1_13  ;; 0x40026040
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_119
-        MOV      R7,#+524288
-        B.N      ??HAL_DMA_DeInit_116
-??HAL_DMA_DeInit_119:
-        LDR.W    R12,??DataTable1_14  ;; 0x40026440
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_120
-        MOV      R7,#+524288
-        B.N      ??HAL_DMA_DeInit_116
-??HAL_DMA_DeInit_120:
-        LDR.W    R12,??DataTable1_15  ;; 0x400260a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_121
-        MOV      R7,#+524288
-        B.N      ??HAL_DMA_DeInit_116
-??HAL_DMA_DeInit_121:
-        LDR.W    R12,??DataTable1_16  ;; 0x400264a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_122
-        MOV      R7,#+524288
-        B.N      ??HAL_DMA_DeInit_116
-??HAL_DMA_DeInit_122:
-        MOV      R7,#+33554432
-??HAL_DMA_DeInit_116:
-        LDR.W    R12,??DataTable1_18  ;; 0x40026008
-        STR      R7,[R12, #+0]
-//  348   __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x20  ;; 0x400260a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_105
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_DeInit_95
+??HAL_DMA_DeInit_105:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x24  ;; 0x400264a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_106
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_DeInit_95
+??HAL_DMA_DeInit_106:
+        MOVS     R0,#+134217728
+??HAL_DMA_DeInit_95:
+        LDR.W    R2,??HAL_DMA_DeInit_49  ;; 0x4002600c
+        STR      R0,[R2, #+0]
+        B.N      ??HAL_DMA_DeInit_78
 ??HAL_DMA_DeInit_93:
-        LDR      R7,[R0, #+0]
-        CMP      R7,R6
-        BCC.N    ??HAL_DMA_DeInit_123
-        CMP      R7,R5
-        BEQ.N    ??HAL_DMA_DeInit_124
-        CMP      R7,R4
-        BEQ.N    ??HAL_DMA_DeInit_124
-        LDR.W    R12,??DataTable1_6  ;; 0x40026070
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_124
-        LDR.W    R12,??DataTable1_7  ;; 0x40026470
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_125
-??HAL_DMA_DeInit_124:
-        LDR.W    R7,??DataTable1_19  ;; 0x800001
-        B.N      ??HAL_DMA_DeInit_126
-??HAL_DMA_DeInit_125:
-        LDR.W    R12,??DataTable1_9  ;; 0x40026028
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_127
-        LDR.W    R12,??DataTable1_10  ;; 0x40026428
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_127
-        LDR.W    R12,??DataTable1_11  ;; 0x40026088
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_127
-        LDR.W    R12,??DataTable1_12  ;; 0x40026488
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_128
-??HAL_DMA_DeInit_127:
-        MOVS     R7,#+64
-        B.N      ??HAL_DMA_DeInit_126
-??HAL_DMA_DeInit_128:
-        LDR.W    R12,??DataTable1_13  ;; 0x40026040
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_129
-        MOV      R7,#+65536
-        B.N      ??HAL_DMA_DeInit_126
-??HAL_DMA_DeInit_129:
-        LDR.W    R12,??DataTable1_14  ;; 0x40026440
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_130
-        MOV      R7,#+65536
-        B.N      ??HAL_DMA_DeInit_126
-??HAL_DMA_DeInit_130:
-        LDR.W    R12,??DataTable1_15  ;; 0x400260a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_131
-        MOV      R7,#+65536
-        B.N      ??HAL_DMA_DeInit_126
-??HAL_DMA_DeInit_131:
-        LDR.W    R12,??DataTable1_16  ;; 0x400264a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_132
-        MOV      R7,#+65536
-        B.N      ??HAL_DMA_DeInit_126
-??HAL_DMA_DeInit_132:
-        MOV      R7,#+4194304
-??HAL_DMA_DeInit_126:
-        STR      R7,[R2, #+4]
-        B.N      ??HAL_DMA_DeInit_133
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_3+0x4  ;; 0x40026010
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_107
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_DeInit_108
+??HAL_DMA_DeInit_107:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_3+0xC  ;; 0x40026410
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_109
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_DeInit_108
+??HAL_DMA_DeInit_109:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8  ;; 0x40026070
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_110
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_DeInit_108
+??HAL_DMA_DeInit_110:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x4  ;; 0x40026470
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_111
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_DeInit_108
+??HAL_DMA_DeInit_111:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x8  ;; 0x40026028
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_112
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_DeInit_108
+??HAL_DMA_DeInit_112:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0xC  ;; 0x40026428
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_113
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_DeInit_108
+??HAL_DMA_DeInit_113:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x10  ;; 0x40026088
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_114
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_DeInit_108
+??HAL_DMA_DeInit_114:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x14  ;; 0x40026488
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_115
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_DeInit_108
+??HAL_DMA_DeInit_115:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x18  ;; 0x40026040
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_116
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_DeInit_108
+??HAL_DMA_DeInit_116:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x1C  ;; 0x40026440
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_117
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_DeInit_108
+??HAL_DMA_DeInit_117:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x20  ;; 0x400260a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_118
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_DeInit_108
+??HAL_DMA_DeInit_118:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x24  ;; 0x400264a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_119
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_DeInit_108
+??HAL_DMA_DeInit_119:
+        MOVS     R0,#+134217728
+??HAL_DMA_DeInit_108:
+        LDR.W    R2,??HAL_DMA_DeInit_63  ;; 0x40026008
+        STR      R0,[R2, #+0]
+//  347   __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+??HAL_DMA_DeInit_78:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_3  ;; 0x40026459
+        CMP      R0,R2
+        BCC.N    ??HAL_DMA_DeInit_120
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_3+0x4  ;; 0x40026010
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_121
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_DeInit_122
+??HAL_DMA_DeInit_121:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_3+0xC  ;; 0x40026410
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_123
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_DeInit_122
 ??HAL_DMA_DeInit_123:
-        CMP      R7,R3
-        BCC.N    ??HAL_DMA_DeInit_134
-        CMP      R7,R5
-        BEQ.N    ??HAL_DMA_DeInit_135
-        CMP      R7,R4
-        BEQ.N    ??HAL_DMA_DeInit_135
-        LDR.W    R12,??DataTable1_6  ;; 0x40026070
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_135
-        LDR.W    R12,??DataTable1_7  ;; 0x40026470
-        CMP      R7,R12
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8  ;; 0x40026070
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_124
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_DeInit_122
+??HAL_DMA_DeInit_124:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x4  ;; 0x40026470
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_125
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_DeInit_122
+??HAL_DMA_DeInit_125:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x8  ;; 0x40026028
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_126
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_DeInit_122
+??HAL_DMA_DeInit_126:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0xC  ;; 0x40026428
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_127
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_DeInit_122
+??HAL_DMA_DeInit_127:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x10  ;; 0x40026088
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_128
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_DeInit_122
+??HAL_DMA_DeInit_128:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x14  ;; 0x40026488
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_129
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_DeInit_122
+??HAL_DMA_DeInit_129:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x18  ;; 0x40026040
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_130
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_DeInit_122
+??HAL_DMA_DeInit_130:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x1C  ;; 0x40026440
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_131
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_DeInit_122
+??HAL_DMA_DeInit_131:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x20  ;; 0x400260a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_132
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_DeInit_122
+??HAL_DMA_DeInit_132:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x24  ;; 0x400264a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_133
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_DeInit_122
+??HAL_DMA_DeInit_133:
+        MOVS     R0,#+33554432
+??HAL_DMA_DeInit_122:
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x28  ;; 0x4002640c
+        STR      R0,[R2, #+0]
+        B.N      ??HAL_DMA_DeInit_134
+??HAL_DMA_DeInit_120:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x2C  ;; 0x400260b9
+        CMP      R0,R2
+        BCC.N    ??HAL_DMA_DeInit_135
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_3+0x4  ;; 0x40026010
+        CMP      R0,R2
         BNE.N    ??HAL_DMA_DeInit_136
-??HAL_DMA_DeInit_135:
-        LDR.W    R7,??DataTable1_19  ;; 0x800001
+        MOVS     R0,#+8
         B.N      ??HAL_DMA_DeInit_137
 ??HAL_DMA_DeInit_136:
-        LDR.W    R12,??DataTable1_9  ;; 0x40026028
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_138
-        LDR.W    R12,??DataTable1_10  ;; 0x40026428
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_138
-        LDR.W    R12,??DataTable1_11  ;; 0x40026088
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_138
-        LDR.W    R12,??DataTable1_12  ;; 0x40026488
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_139
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_3+0xC  ;; 0x40026410
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_138
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_DeInit_137
 ??HAL_DMA_DeInit_138:
-        MOVS     R7,#+64
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8  ;; 0x40026070
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_139
+        MOVS     R0,#+8
         B.N      ??HAL_DMA_DeInit_137
 ??HAL_DMA_DeInit_139:
-        LDR.W    R12,??DataTable1_13  ;; 0x40026040
-        CMP      R7,R12
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x4  ;; 0x40026470
+        CMP      R0,R2
         BNE.N    ??HAL_DMA_DeInit_140
-        MOV      R7,#+65536
+        MOVS     R0,#+8
         B.N      ??HAL_DMA_DeInit_137
 ??HAL_DMA_DeInit_140:
-        LDR.W    R12,??DataTable1_14  ;; 0x40026440
-        CMP      R7,R12
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x8  ;; 0x40026028
+        CMP      R0,R2
         BNE.N    ??HAL_DMA_DeInit_141
-        MOV      R7,#+65536
+        MOV      R0,#+512
         B.N      ??HAL_DMA_DeInit_137
 ??HAL_DMA_DeInit_141:
-        LDR.W    R12,??DataTable1_15  ;; 0x400260a0
-        CMP      R7,R12
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0xC  ;; 0x40026428
+        CMP      R0,R2
         BNE.N    ??HAL_DMA_DeInit_142
-        MOV      R7,#+65536
+        MOV      R0,#+512
         B.N      ??HAL_DMA_DeInit_137
 ??HAL_DMA_DeInit_142:
-        LDR.W    R12,??DataTable1_16  ;; 0x400264a0
-        CMP      R7,R12
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x10  ;; 0x40026088
+        CMP      R0,R2
         BNE.N    ??HAL_DMA_DeInit_143
-        MOV      R7,#+65536
+        MOV      R0,#+512
         B.N      ??HAL_DMA_DeInit_137
 ??HAL_DMA_DeInit_143:
-        MOV      R7,#+4194304
-??HAL_DMA_DeInit_137:
-        STR      R7,[R2, #+0]
-        B.N      ??HAL_DMA_DeInit_133
-??HAL_DMA_DeInit_134:
-        LDR.W    R12,??DataTable1_17  ;; 0x40026059
-        CMP      R7,R12
-        BCC.N    ??HAL_DMA_DeInit_144
-        CMP      R7,R5
-        BEQ.N    ??HAL_DMA_DeInit_145
-        CMP      R7,R4
-        BEQ.N    ??HAL_DMA_DeInit_145
-        LDR.W    R12,??DataTable1_6  ;; 0x40026070
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_145
-        LDR.W    R12,??DataTable1_7  ;; 0x40026470
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_146
-??HAL_DMA_DeInit_145:
-        LDR.W    R7,??DataTable1_19  ;; 0x800001
-        B.N      ??HAL_DMA_DeInit_147
-??HAL_DMA_DeInit_146:
-        LDR.W    R12,??DataTable1_9  ;; 0x40026028
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_148
-        LDR.W    R12,??DataTable1_10  ;; 0x40026428
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_148
-        LDR.W    R12,??DataTable1_11  ;; 0x40026088
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_148
-        LDR.W    R12,??DataTable1_12  ;; 0x40026488
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_149
-??HAL_DMA_DeInit_148:
-        MOVS     R7,#+64
-        B.N      ??HAL_DMA_DeInit_147
-??HAL_DMA_DeInit_149:
-        LDR.W    R12,??DataTable1_13  ;; 0x40026040
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_150
-        MOV      R7,#+65536
-        B.N      ??HAL_DMA_DeInit_147
-??HAL_DMA_DeInit_150:
-        LDR.W    R12,??DataTable1_14  ;; 0x40026440
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_151
-        MOV      R7,#+65536
-        B.N      ??HAL_DMA_DeInit_147
-??HAL_DMA_DeInit_151:
-        LDR.W    R12,??DataTable1_15  ;; 0x400260a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_152
-        MOV      R7,#+65536
-        B.N      ??HAL_DMA_DeInit_147
-??HAL_DMA_DeInit_152:
-        LDR.W    R12,??DataTable1_16  ;; 0x400264a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_153
-        MOV      R7,#+65536
-        B.N      ??HAL_DMA_DeInit_147
-??HAL_DMA_DeInit_153:
-        MOV      R7,#+4194304
-??HAL_DMA_DeInit_147:
-        LDR.W    R12,??DataTable1_18  ;; 0x40026008
-        STR      R7,[R12, #+4]
-        B.N      ??HAL_DMA_DeInit_133
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x14  ;; 0x40026488
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_144
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_DeInit_137
 ??HAL_DMA_DeInit_144:
-        CMP      R7,R5
-        BEQ.N    ??HAL_DMA_DeInit_154
-        CMP      R7,R4
-        BEQ.N    ??HAL_DMA_DeInit_154
-        LDR.W    R12,??DataTable1_6  ;; 0x40026070
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_154
-        LDR.W    R12,??DataTable1_7  ;; 0x40026470
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_155
-??HAL_DMA_DeInit_154:
-        LDR.N    R7,??DataTable1_19  ;; 0x800001
-        B.N      ??HAL_DMA_DeInit_156
-??HAL_DMA_DeInit_155:
-        LDR.W    R12,??DataTable1_9  ;; 0x40026028
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_157
-        LDR.W    R12,??DataTable1_10  ;; 0x40026428
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_157
-        LDR.W    R12,??DataTable1_11  ;; 0x40026088
-        CMP      R7,R12
-        BEQ.N    ??HAL_DMA_DeInit_157
-        LDR.W    R12,??DataTable1_12  ;; 0x40026488
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_158
-??HAL_DMA_DeInit_157:
-        MOVS     R7,#+64
-        B.N      ??HAL_DMA_DeInit_156
-??HAL_DMA_DeInit_158:
-        LDR.W    R12,??DataTable1_13  ;; 0x40026040
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_159
-        MOV      R7,#+65536
-        B.N      ??HAL_DMA_DeInit_156
-??HAL_DMA_DeInit_159:
-        LDR.W    R12,??DataTable1_14  ;; 0x40026440
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_160
-        MOV      R7,#+65536
-        B.N      ??HAL_DMA_DeInit_156
-??HAL_DMA_DeInit_160:
-        LDR.W    R12,??DataTable1_15  ;; 0x400260a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_161
-        MOV      R7,#+65536
-        B.N      ??HAL_DMA_DeInit_156
-??HAL_DMA_DeInit_161:
-        LDR.W    R12,??DataTable1_16  ;; 0x400264a0
-        CMP      R7,R12
-        BNE.N    ??HAL_DMA_DeInit_162
-        MOV      R7,#+65536
-        B.N      ??HAL_DMA_DeInit_156
-??HAL_DMA_DeInit_162:
-        MOV      R7,#+4194304
-??HAL_DMA_DeInit_156:
-        LDR.W    R12,??DataTable1_18  ;; 0x40026008
-        STR      R7,[R12, #+0]
-//  349   __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
-??HAL_DMA_DeInit_133:
-        LDR      R0,[R0, #+0]
-        CMP      R0,R6
-        BCC.N    ??HAL_DMA_DeInit_163
-        CMP      R0,R5
-        BEQ.N    ??HAL_DMA_DeInit_164
-        CMP      R0,R4
-        BEQ.N    ??HAL_DMA_DeInit_164
-        LDR.N    R3,??DataTable1_6  ;; 0x40026070
-        CMP      R0,R3
-        BEQ.N    ??HAL_DMA_DeInit_164
-        LDR.N    R3,??DataTable1_7  ;; 0x40026470
-        CMP      R0,R3
-        BNE.N    ??HAL_DMA_DeInit_165
-??HAL_DMA_DeInit_164:
-        MOVS     R0,#+16
-        B.N      ??HAL_DMA_DeInit_166
-??HAL_DMA_DeInit_165:
-        LDR.N    R3,??DataTable1_9  ;; 0x40026028
-        CMP      R0,R3
-        BEQ.N    ??HAL_DMA_DeInit_167
-        LDR.N    R3,??DataTable1_10  ;; 0x40026428
-        CMP      R0,R3
-        BEQ.N    ??HAL_DMA_DeInit_167
-        LDR.N    R3,??DataTable1_11  ;; 0x40026088
-        CMP      R0,R3
-        BEQ.N    ??HAL_DMA_DeInit_167
-        LDR.N    R3,??DataTable1_12  ;; 0x40026488
-        CMP      R0,R3
-        BNE.N    ??HAL_DMA_DeInit_168
-??HAL_DMA_DeInit_167:
-        MOV      R0,#+1024
-        B.N      ??HAL_DMA_DeInit_166
-??HAL_DMA_DeInit_168:
-        LDR.N    R3,??DataTable1_13  ;; 0x40026040
-        CMP      R0,R3
-        BNE.N    ??HAL_DMA_DeInit_169
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_DeInit_166
-??HAL_DMA_DeInit_169:
-        LDR.N    R3,??DataTable1_14  ;; 0x40026440
-        CMP      R0,R3
-        BNE.N    ??HAL_DMA_DeInit_170
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_DeInit_166
-??HAL_DMA_DeInit_170:
-        LDR.N    R3,??DataTable1_15  ;; 0x400260a0
-        CMP      R0,R3
-        BNE.N    ??HAL_DMA_DeInit_171
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_DeInit_166
-??HAL_DMA_DeInit_171:
-        LDR.N    R3,??DataTable1_16  ;; 0x400264a0
-        CMP      R0,R3
-        BNE.N    ??HAL_DMA_DeInit_172
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_DeInit_166
-??HAL_DMA_DeInit_172:
-        MOV      R0,#+67108864
-??HAL_DMA_DeInit_166:
-        STR      R0,[R2, #+4]
-        B.N      ??HAL_DMA_DeInit_173
-??HAL_DMA_DeInit_163:
-        CMP      R0,R3
-        BCC.N    ??HAL_DMA_DeInit_174
-        CMP      R0,R5
-        BEQ.N    ??HAL_DMA_DeInit_175
-        CMP      R0,R4
-        BEQ.N    ??HAL_DMA_DeInit_175
-        LDR.N    R3,??DataTable1_6  ;; 0x40026070
-        CMP      R0,R3
-        BEQ.N    ??HAL_DMA_DeInit_175
-        LDR.N    R3,??DataTable1_7  ;; 0x40026470
-        CMP      R0,R3
-        BNE.N    ??HAL_DMA_DeInit_176
-??HAL_DMA_DeInit_175:
-        MOVS     R0,#+16
-        B.N      ??HAL_DMA_DeInit_177
-??HAL_DMA_DeInit_176:
-        LDR.N    R3,??DataTable1_9  ;; 0x40026028
-        CMP      R0,R3
-        BEQ.N    ??HAL_DMA_DeInit_178
-        LDR.N    R3,??DataTable1_10  ;; 0x40026428
-        CMP      R0,R3
-        BEQ.N    ??HAL_DMA_DeInit_178
-        LDR.N    R3,??DataTable1_11  ;; 0x40026088
-        CMP      R0,R3
-        BEQ.N    ??HAL_DMA_DeInit_178
-        LDR.N    R3,??DataTable1_12  ;; 0x40026488
-        CMP      R0,R3
-        BNE.N    ??HAL_DMA_DeInit_179
-??HAL_DMA_DeInit_178:
-        MOV      R0,#+1024
-        B.N      ??HAL_DMA_DeInit_177
-??HAL_DMA_DeInit_179:
-        LDR.N    R3,??DataTable1_13  ;; 0x40026040
-        CMP      R0,R3
-        BNE.N    ??HAL_DMA_DeInit_180
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_DeInit_177
-??HAL_DMA_DeInit_180:
-        LDR.N    R3,??DataTable1_14  ;; 0x40026440
-        CMP      R0,R3
-        BNE.N    ??HAL_DMA_DeInit_181
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_DeInit_177
-??HAL_DMA_DeInit_181:
-        LDR.N    R3,??DataTable1_15  ;; 0x400260a0
-        CMP      R0,R3
-        BNE.N    ??HAL_DMA_DeInit_182
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_DeInit_177
-??HAL_DMA_DeInit_182:
-        LDR.N    R3,??DataTable1_16  ;; 0x400264a0
-        CMP      R0,R3
-        BNE.N    ??HAL_DMA_DeInit_183
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_DeInit_177
-??HAL_DMA_DeInit_183:
-        MOV      R0,#+67108864
-??HAL_DMA_DeInit_177:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x18  ;; 0x40026040
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_145
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_DeInit_137
+??HAL_DMA_DeInit_145:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x1C  ;; 0x40026440
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_146
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_DeInit_137
+??HAL_DMA_DeInit_146:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x20  ;; 0x400260a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_147
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_DeInit_137
+??HAL_DMA_DeInit_147:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x24  ;; 0x400264a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_148
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_DeInit_137
+??HAL_DMA_DeInit_148:
+        MOVS     R0,#+33554432
+??HAL_DMA_DeInit_137:
+        LDR.W    R2,??HAL_DMA_DeInit_34  ;; 0x40026408
         STR      R0,[R2, #+0]
-        B.N      ??HAL_DMA_DeInit_173
+        B.N      ??HAL_DMA_DeInit_134
+??HAL_DMA_DeInit_135:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_34+0x4  ;; 0x40026059
+        CMP      R0,R2
+        BCC.N    ??HAL_DMA_DeInit_149
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_3+0x4  ;; 0x40026010
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_150
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_DeInit_151
+??HAL_DMA_DeInit_150:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_3+0xC  ;; 0x40026410
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_152
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_DeInit_151
+??HAL_DMA_DeInit_152:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8  ;; 0x40026070
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_153
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_DeInit_151
+??HAL_DMA_DeInit_153:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x4  ;; 0x40026470
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_154
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_DeInit_151
+??HAL_DMA_DeInit_154:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x8  ;; 0x40026028
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_155
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_DeInit_151
+??HAL_DMA_DeInit_155:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0xC  ;; 0x40026428
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_156
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_DeInit_151
+??HAL_DMA_DeInit_156:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x10  ;; 0x40026088
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_157
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_DeInit_151
+??HAL_DMA_DeInit_157:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x14  ;; 0x40026488
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_158
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_DeInit_151
+??HAL_DMA_DeInit_158:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x18  ;; 0x40026040
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_159
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_DeInit_151
+??HAL_DMA_DeInit_159:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x1C  ;; 0x40026440
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_160
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_DeInit_151
+??HAL_DMA_DeInit_160:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x20  ;; 0x400260a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_161
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_DeInit_151
+??HAL_DMA_DeInit_161:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x24  ;; 0x400264a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_162
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_DeInit_151
+??HAL_DMA_DeInit_162:
+        MOVS     R0,#+33554432
+??HAL_DMA_DeInit_151:
+        LDR.W    R2,??HAL_DMA_DeInit_49  ;; 0x4002600c
+        STR      R0,[R2, #+0]
+        B.N      ??HAL_DMA_DeInit_134
+??HAL_DMA_DeInit_149:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_3+0x4  ;; 0x40026010
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_163
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_DeInit_164
+??HAL_DMA_DeInit_163:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_3+0xC  ;; 0x40026410
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_165
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_DeInit_164
+??HAL_DMA_DeInit_165:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8  ;; 0x40026070
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_166
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_DeInit_164
+??HAL_DMA_DeInit_166:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x4  ;; 0x40026470
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_167
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_DeInit_164
+??HAL_DMA_DeInit_167:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x8  ;; 0x40026028
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_168
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_DeInit_164
+??HAL_DMA_DeInit_168:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0xC  ;; 0x40026428
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_169
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_DeInit_164
+??HAL_DMA_DeInit_169:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x10  ;; 0x40026088
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_170
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_DeInit_164
+??HAL_DMA_DeInit_170:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??HAL_DMA_DeInit_8+0x14  ;; 0x40026488
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_171
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_DeInit_164
+??HAL_DMA_DeInit_171:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x18  ;; 0x40026040
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_172
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_DeInit_164
+??HAL_DMA_DeInit_172:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x1C  ;; 0x40026440
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_173
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_DeInit_164
+??HAL_DMA_DeInit_173:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x20  ;; 0x400260a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_174
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_DeInit_164
 ??HAL_DMA_DeInit_174:
-        LDR.N    R2,??DataTable1_17  ;; 0x40026059
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x24  ;; 0x400264a0
         CMP      R0,R2
-        BCC.N    ??HAL_DMA_DeInit_184
-        CMP      R0,R5
-        BEQ.N    ??HAL_DMA_DeInit_185
-        CMP      R0,R4
-        BEQ.N    ??HAL_DMA_DeInit_185
-        LDR.N    R2,??DataTable1_6  ;; 0x40026070
+        BNE.N    ??HAL_DMA_DeInit_175
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_DeInit_164
+        DATA
+??HAL_DMA_DeInit_3:
+        DC32     0x40026459
+        DC32     0x40026010
+        DC32     0x800004
+        DC32     0x40026410
+        THUMB
+??HAL_DMA_DeInit_175:
+        MOVS     R0,#+33554432
+??HAL_DMA_DeInit_164:
+        LDR.W    R2,??HAL_DMA_DeInit_63  ;; 0x40026008
+        STR      R0,[R2, #+0]
+//  348   __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+??HAL_DMA_DeInit_134:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??DataTable1  ;; 0x40026459
         CMP      R0,R2
-        BEQ.N    ??HAL_DMA_DeInit_185
-        LDR.N    R2,??DataTable1_7  ;; 0x40026470
+        BCC.N    ??HAL_DMA_DeInit_176
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??DataTable1_1  ;; 0x40026010
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_177
+        LDR.W    R0,??DataTable1_2  ;; 0x800001
+        B.N      ??HAL_DMA_DeInit_178
+??HAL_DMA_DeInit_177:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??DataTable1_3  ;; 0x40026410
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_179
+        LDR.W    R0,??DataTable1_2  ;; 0x800001
+        B.N      ??HAL_DMA_DeInit_178
+??HAL_DMA_DeInit_179:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8  ;; 0x40026070
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_180
+        LDR.W    R0,??DataTable1_2  ;; 0x800001
+        B.N      ??HAL_DMA_DeInit_178
+??HAL_DMA_DeInit_180:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x4  ;; 0x40026470
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_181
+        LDR.W    R0,??DataTable1_2  ;; 0x800001
+        B.N      ??HAL_DMA_DeInit_178
+??HAL_DMA_DeInit_181:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x8  ;; 0x40026028
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_182
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_DeInit_178
+??HAL_DMA_DeInit_182:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0xC  ;; 0x40026428
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_183
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_DeInit_178
+??HAL_DMA_DeInit_183:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x10  ;; 0x40026088
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_184
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_DeInit_178
+??HAL_DMA_DeInit_184:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x14  ;; 0x40026488
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_185
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_DeInit_178
+??HAL_DMA_DeInit_185:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x18  ;; 0x40026040
         CMP      R0,R2
         BNE.N    ??HAL_DMA_DeInit_186
-??HAL_DMA_DeInit_185:
-        MOVS     R0,#+16
-        B.N      ??HAL_DMA_DeInit_187
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_DeInit_178
 ??HAL_DMA_DeInit_186:
-        LDR.N    R2,??DataTable1_9  ;; 0x40026028
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x1C  ;; 0x40026440
         CMP      R0,R2
-        BEQ.N    ??HAL_DMA_DeInit_188
-        LDR.N    R2,??DataTable1_10  ;; 0x40026428
+        BNE.N    ??HAL_DMA_DeInit_187
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_DeInit_178
+??HAL_DMA_DeInit_187:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x20  ;; 0x400260a0
         CMP      R0,R2
-        BEQ.N    ??HAL_DMA_DeInit_188
-        LDR.N    R2,??DataTable1_11  ;; 0x40026088
-        CMP      R0,R2
-        BEQ.N    ??HAL_DMA_DeInit_188
-        LDR.N    R2,??DataTable1_12  ;; 0x40026488
+        BNE.N    ??HAL_DMA_DeInit_188
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_DeInit_178
+??HAL_DMA_DeInit_188:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x24  ;; 0x400264a0
         CMP      R0,R2
         BNE.N    ??HAL_DMA_DeInit_189
-??HAL_DMA_DeInit_188:
-        MOV      R0,#+1024
-        B.N      ??HAL_DMA_DeInit_187
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_DeInit_178
 ??HAL_DMA_DeInit_189:
-        LDR.N    R2,??DataTable1_13  ;; 0x40026040
+        MOVS     R0,#+4194304
+??HAL_DMA_DeInit_178:
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x28  ;; 0x4002640c
+        STR      R0,[R2, #+0]
+        B.N      ??HAL_DMA_DeInit_190
+??HAL_DMA_DeInit_176:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x2C  ;; 0x400260b9
         CMP      R0,R2
-        BNE.N    ??HAL_DMA_DeInit_190
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_DeInit_187
-??HAL_DMA_DeInit_190:
-        LDR.N    R2,??DataTable1_14  ;; 0x40026440
-        CMP      R0,R2
-        BNE.N    ??HAL_DMA_DeInit_191
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_DeInit_187
-??HAL_DMA_DeInit_191:
-        LDR.N    R2,??DataTable1_15  ;; 0x400260a0
+        BCC.N    ??HAL_DMA_DeInit_191
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??DataTable1_1  ;; 0x40026010
         CMP      R0,R2
         BNE.N    ??HAL_DMA_DeInit_192
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_DeInit_187
+        LDR.W    R0,??DataTable1_2  ;; 0x800001
+        B.N      ??HAL_DMA_DeInit_193
 ??HAL_DMA_DeInit_192:
-        LDR.N    R2,??DataTable1_16  ;; 0x400264a0
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??DataTable1_3  ;; 0x40026410
         CMP      R0,R2
-        BNE.N    ??HAL_DMA_DeInit_193
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_DeInit_187
-??HAL_DMA_DeInit_193:
-        MOV      R0,#+67108864
-??HAL_DMA_DeInit_187:
-        LDR.N    R2,??DataTable1_18  ;; 0x40026008
-        STR      R0,[R2, #+4]
-        B.N      ??HAL_DMA_DeInit_173
-??HAL_DMA_DeInit_184:
-        CMP      R0,R5
-        BEQ.N    ??HAL_DMA_DeInit_194
-        CMP      R0,R4
-        BEQ.N    ??HAL_DMA_DeInit_194
-        LDR.N    R2,??DataTable1_6  ;; 0x40026070
-        CMP      R0,R2
-        BEQ.N    ??HAL_DMA_DeInit_194
-        LDR.N    R2,??DataTable1_7  ;; 0x40026470
+        BNE.N    ??HAL_DMA_DeInit_194
+        LDR.W    R0,??DataTable1_2  ;; 0x800001
+        B.N      ??HAL_DMA_DeInit_193
+??HAL_DMA_DeInit_194:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8  ;; 0x40026070
         CMP      R0,R2
         BNE.N    ??HAL_DMA_DeInit_195
-??HAL_DMA_DeInit_194:
-        MOVS     R0,#+16
-        B.N      ??HAL_DMA_DeInit_196
+        LDR.W    R0,??DataTable1_2  ;; 0x800001
+        B.N      ??HAL_DMA_DeInit_193
 ??HAL_DMA_DeInit_195:
-        LDR.N    R2,??DataTable1_9  ;; 0x40026028
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x4  ;; 0x40026470
         CMP      R0,R2
-        BEQ.N    ??HAL_DMA_DeInit_197
-        LDR.N    R2,??DataTable1_10  ;; 0x40026428
+        BNE.N    ??HAL_DMA_DeInit_196
+        LDR.W    R0,??DataTable1_2  ;; 0x800001
+        B.N      ??HAL_DMA_DeInit_193
+??HAL_DMA_DeInit_196:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x8  ;; 0x40026028
         CMP      R0,R2
-        BEQ.N    ??HAL_DMA_DeInit_197
-        LDR.N    R2,??DataTable1_11  ;; 0x40026088
-        CMP      R0,R2
-        BEQ.N    ??HAL_DMA_DeInit_197
-        LDR.N    R2,??DataTable1_12  ;; 0x40026488
+        BNE.N    ??HAL_DMA_DeInit_197
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_DeInit_193
+??HAL_DMA_DeInit_197:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0xC  ;; 0x40026428
         CMP      R0,R2
         BNE.N    ??HAL_DMA_DeInit_198
-??HAL_DMA_DeInit_197:
-        MOV      R0,#+1024
-        B.N      ??HAL_DMA_DeInit_196
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_DeInit_193
 ??HAL_DMA_DeInit_198:
-        LDR.N    R2,??DataTable1_13  ;; 0x40026040
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x10  ;; 0x40026088
         CMP      R0,R2
         BNE.N    ??HAL_DMA_DeInit_199
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_DeInit_196
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_DeInit_193
 ??HAL_DMA_DeInit_199:
-        LDR.N    R2,??DataTable1_14  ;; 0x40026440
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x14  ;; 0x40026488
         CMP      R0,R2
         BNE.N    ??HAL_DMA_DeInit_200
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_DeInit_196
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_DeInit_193
 ??HAL_DMA_DeInit_200:
-        LDR.N    R2,??DataTable1_15  ;; 0x400260a0
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x18  ;; 0x40026040
         CMP      R0,R2
         BNE.N    ??HAL_DMA_DeInit_201
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_DeInit_196
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_DeInit_193
 ??HAL_DMA_DeInit_201:
-        LDR.N    R2,??DataTable1_16  ;; 0x400264a0
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x1C  ;; 0x40026440
         CMP      R0,R2
         BNE.N    ??HAL_DMA_DeInit_202
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_DeInit_196
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_DeInit_193
 ??HAL_DMA_DeInit_202:
-        MOV      R0,#+67108864
-??HAL_DMA_DeInit_196:
-        LDR.N    R2,??DataTable1_18  ;; 0x40026008
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x20  ;; 0x400260a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_203
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_DeInit_193
+??HAL_DMA_DeInit_203:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x24  ;; 0x400264a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_204
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_DeInit_193
+??HAL_DMA_DeInit_204:
+        MOVS     R0,#+4194304
+??HAL_DMA_DeInit_193:
+        LDR.N    R2,??HAL_DMA_DeInit_34  ;; 0x40026408
+        STR      R0,[R2, #+0]
+        B.N      ??HAL_DMA_DeInit_190
+??HAL_DMA_DeInit_191:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_34+0x4  ;; 0x40026059
+        CMP      R0,R2
+        BCC.N    ??HAL_DMA_DeInit_205
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??DataTable1_1  ;; 0x40026010
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_206
+        LDR.W    R0,??DataTable1_2  ;; 0x800001
+        B.N      ??HAL_DMA_DeInit_207
+??HAL_DMA_DeInit_206:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??DataTable1_3  ;; 0x40026410
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_208
+        LDR.W    R0,??DataTable1_2  ;; 0x800001
+        B.N      ??HAL_DMA_DeInit_207
+??HAL_DMA_DeInit_208:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8  ;; 0x40026070
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_209
+        LDR.W    R0,??DataTable1_2  ;; 0x800001
+        B.N      ??HAL_DMA_DeInit_207
+??HAL_DMA_DeInit_209:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x4  ;; 0x40026470
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_210
+        LDR.W    R0,??DataTable1_2  ;; 0x800001
+        B.N      ??HAL_DMA_DeInit_207
+??HAL_DMA_DeInit_210:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x8  ;; 0x40026028
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_211
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_DeInit_207
+??HAL_DMA_DeInit_211:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0xC  ;; 0x40026428
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_212
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_DeInit_207
+??HAL_DMA_DeInit_212:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x10  ;; 0x40026088
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_213
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_DeInit_207
+??HAL_DMA_DeInit_213:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x14  ;; 0x40026488
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_214
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_DeInit_207
+??HAL_DMA_DeInit_214:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x18  ;; 0x40026040
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_215
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_DeInit_207
+??HAL_DMA_DeInit_215:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x1C  ;; 0x40026440
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_216
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_DeInit_207
+??HAL_DMA_DeInit_216:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x20  ;; 0x400260a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_217
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_DeInit_207
+??HAL_DMA_DeInit_217:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x24  ;; 0x400264a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_218
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_DeInit_207
+??HAL_DMA_DeInit_218:
+        MOVS     R0,#+4194304
+??HAL_DMA_DeInit_207:
+        LDR.N    R2,??HAL_DMA_DeInit_49  ;; 0x4002600c
+        STR      R0,[R2, #+0]
+        B.N      ??HAL_DMA_DeInit_190
+??HAL_DMA_DeInit_205:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??DataTable1_1  ;; 0x40026010
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_219
+        LDR.W    R0,??DataTable1_2  ;; 0x800001
+        B.N      ??HAL_DMA_DeInit_220
+??HAL_DMA_DeInit_219:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??DataTable1_3  ;; 0x40026410
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_221
+        LDR.W    R0,??DataTable1_2  ;; 0x800001
+        B.N      ??HAL_DMA_DeInit_220
+??HAL_DMA_DeInit_221:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8  ;; 0x40026070
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_222
+        LDR.W    R0,??DataTable1_2  ;; 0x800001
+        B.N      ??HAL_DMA_DeInit_220
+??HAL_DMA_DeInit_222:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??HAL_DMA_DeInit_8+0x4  ;; 0x40026470
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_223
+        LDR.W    R0,??DataTable1_2  ;; 0x800001
+        B.N      ??HAL_DMA_DeInit_220
+        Nop      
+        DATA
+??HAL_DMA_DeInit_8:
+        DC32     0x40026070
+        DC32     0x40026470
+        DC32     0x40026028
+        DC32     0x40026428
+        DC32     0x40026088
+        DC32     0x40026488
+        DC32     0x40026040
+        DC32     0x40026440
+        DC32     0x400260a0
+        DC32     0x400264a0
+        DC32     0x4002640c
+        DC32     0x400260b9
+        THUMB
+??HAL_DMA_DeInit_223:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??DataTable1_4  ;; 0x40026028
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_224
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_DeInit_220
+??HAL_DMA_DeInit_224:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??DataTable1_5  ;; 0x40026428
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_225
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_DeInit_220
+??HAL_DMA_DeInit_225:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??DataTable1_6  ;; 0x40026088
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_226
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_DeInit_220
+??HAL_DMA_DeInit_226:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??DataTable1_7  ;; 0x40026488
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_227
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_DeInit_220
+??HAL_DMA_DeInit_227:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??DataTable1_8  ;; 0x40026040
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_228
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_DeInit_220
+??HAL_DMA_DeInit_228:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??DataTable1_9  ;; 0x40026440
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_229
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_DeInit_220
+??HAL_DMA_DeInit_229:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??DataTable1_10  ;; 0x400260a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_230
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_DeInit_220
+??HAL_DMA_DeInit_230:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??DataTable1_11  ;; 0x400264a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_231
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_DeInit_220
+??HAL_DMA_DeInit_231:
+        MOVS     R0,#+4194304
+??HAL_DMA_DeInit_220:
+        LDR.N    R2,??HAL_DMA_DeInit_63  ;; 0x40026008
+        STR      R0,[R2, #+0]
+//  349   __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+??HAL_DMA_DeInit_190:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??DataTable1  ;; 0x40026459
+        CMP      R0,R2
+        BCC.N    ??HAL_DMA_DeInit_232
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??DataTable1_1  ;; 0x40026010
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_233
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_DeInit_234
+??HAL_DMA_DeInit_233:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??DataTable1_3  ;; 0x40026410
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_235
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_DeInit_234
+??HAL_DMA_DeInit_235:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??DataTable1_12  ;; 0x40026070
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_236
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_DeInit_234
+??HAL_DMA_DeInit_236:
+        LDR      R0,[R1, #+0]
+        LDR.W    R2,??DataTable1_13  ;; 0x40026470
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_237
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_DeInit_234
+??HAL_DMA_DeInit_237:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_4  ;; 0x40026028
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_238
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_DeInit_234
+??HAL_DMA_DeInit_238:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_5  ;; 0x40026428
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_239
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_DeInit_234
+??HAL_DMA_DeInit_239:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_6  ;; 0x40026088
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_240
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_DeInit_234
+??HAL_DMA_DeInit_240:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_7  ;; 0x40026488
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_241
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_DeInit_234
+??HAL_DMA_DeInit_241:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_8  ;; 0x40026040
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_242
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_DeInit_234
+??HAL_DMA_DeInit_242:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_9  ;; 0x40026440
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_243
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_DeInit_234
+??HAL_DMA_DeInit_243:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_10  ;; 0x400260a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_244
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_DeInit_234
+??HAL_DMA_DeInit_244:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_11  ;; 0x400264a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_245
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_DeInit_234
+??HAL_DMA_DeInit_245:
+        MOVS     R0,#+67108864
+??HAL_DMA_DeInit_234:
+        LDR.N    R2,??DataTable1_14  ;; 0x4002640c
+        STR      R0,[R2, #+0]
+        B.N      ??HAL_DMA_DeInit_246
+        DATA
+??HAL_DMA_DeInit_34:
+        DC32     0x40026408
+        DC32     0x40026059
+        THUMB
+??HAL_DMA_DeInit_232:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_15  ;; 0x400260b9
+        CMP      R0,R2
+        BCC.N    ??HAL_DMA_DeInit_247
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_1  ;; 0x40026010
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_248
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_DeInit_249
+??HAL_DMA_DeInit_248:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_3  ;; 0x40026410
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_250
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_DeInit_249
+??HAL_DMA_DeInit_250:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_12  ;; 0x40026070
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_251
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_DeInit_249
+??HAL_DMA_DeInit_251:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_13  ;; 0x40026470
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_252
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_DeInit_249
+??HAL_DMA_DeInit_252:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_4  ;; 0x40026028
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_253
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_DeInit_249
+??HAL_DMA_DeInit_253:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_5  ;; 0x40026428
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_254
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_DeInit_249
+??HAL_DMA_DeInit_254:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_6  ;; 0x40026088
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_255
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_DeInit_249
+??HAL_DMA_DeInit_255:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_7  ;; 0x40026488
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_256
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_DeInit_249
+??HAL_DMA_DeInit_256:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_8  ;; 0x40026040
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_257
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_DeInit_249
+??HAL_DMA_DeInit_257:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_9  ;; 0x40026440
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_258
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_DeInit_249
+??HAL_DMA_DeInit_258:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_10  ;; 0x400260a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_259
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_DeInit_249
+??HAL_DMA_DeInit_259:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_11  ;; 0x400264a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_260
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_DeInit_249
+??HAL_DMA_DeInit_260:
+        MOVS     R0,#+67108864
+??HAL_DMA_DeInit_249:
+        LDR.N    R2,??DataTable1_16  ;; 0x40026408
+        STR      R0,[R2, #+0]
+        B.N      ??HAL_DMA_DeInit_246
+        Nop      
+        DATA
+??HAL_DMA_DeInit_49:
+        DC32     0x4002600c
+        THUMB
+??HAL_DMA_DeInit_247:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_17  ;; 0x40026059
+        CMP      R0,R2
+        BCC.N    ??HAL_DMA_DeInit_261
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_1  ;; 0x40026010
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_262
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_DeInit_263
+??HAL_DMA_DeInit_262:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_3  ;; 0x40026410
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_264
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_DeInit_263
+??HAL_DMA_DeInit_264:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_12  ;; 0x40026070
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_265
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_DeInit_263
+??HAL_DMA_DeInit_265:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_13  ;; 0x40026470
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_266
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_DeInit_263
+??HAL_DMA_DeInit_266:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_4  ;; 0x40026028
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_267
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_DeInit_263
+??HAL_DMA_DeInit_267:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_5  ;; 0x40026428
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_268
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_DeInit_263
+??HAL_DMA_DeInit_268:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_6  ;; 0x40026088
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_269
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_DeInit_263
+??HAL_DMA_DeInit_269:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_7  ;; 0x40026488
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_270
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_DeInit_263
+??HAL_DMA_DeInit_270:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_8  ;; 0x40026040
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_271
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_DeInit_263
+??HAL_DMA_DeInit_271:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_9  ;; 0x40026440
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_272
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_DeInit_263
+??HAL_DMA_DeInit_272:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_10  ;; 0x400260a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_273
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_DeInit_263
+??HAL_DMA_DeInit_273:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_11  ;; 0x400264a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_274
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_DeInit_263
+??HAL_DMA_DeInit_274:
+        MOVS     R0,#+67108864
+??HAL_DMA_DeInit_263:
+        LDR.N    R2,??DataTable1_18  ;; 0x4002600c
+        STR      R0,[R2, #+0]
+        B.N      ??HAL_DMA_DeInit_246
+??HAL_DMA_DeInit_261:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_1  ;; 0x40026010
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_275
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_DeInit_276
+??HAL_DMA_DeInit_275:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_3  ;; 0x40026410
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_277
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_DeInit_276
+        Nop      
+        DATA
+??HAL_DMA_DeInit_63:
+        DC32     0x40026008
+        THUMB
+??HAL_DMA_DeInit_277:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_12  ;; 0x40026070
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_278
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_DeInit_276
+??HAL_DMA_DeInit_278:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_13  ;; 0x40026470
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_279
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_DeInit_276
+??HAL_DMA_DeInit_279:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_4  ;; 0x40026028
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_280
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_DeInit_276
+??HAL_DMA_DeInit_280:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_5  ;; 0x40026428
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_281
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_DeInit_276
+??HAL_DMA_DeInit_281:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_6  ;; 0x40026088
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_282
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_DeInit_276
+??HAL_DMA_DeInit_282:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_7  ;; 0x40026488
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_283
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_DeInit_276
+??HAL_DMA_DeInit_283:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_8  ;; 0x40026040
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_284
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_DeInit_276
+??HAL_DMA_DeInit_284:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_9  ;; 0x40026440
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_285
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_DeInit_276
+??HAL_DMA_DeInit_285:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_10  ;; 0x400260a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_286
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_DeInit_276
+??HAL_DMA_DeInit_286:
+        LDR      R0,[R1, #+0]
+        LDR.N    R2,??DataTable1_11  ;; 0x400264a0
+        CMP      R0,R2
+        BNE.N    ??HAL_DMA_DeInit_287
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_DeInit_276
+??HAL_DMA_DeInit_287:
+        MOVS     R0,#+67108864
+??HAL_DMA_DeInit_276:
+        LDR.N    R2,??DataTable1_19  ;; 0x40026008
         STR      R0,[R2, #+0]
 //  350 
 //  351   /* Initialize the error code */
 //  352   hdma->ErrorCode = HAL_DMA_ERROR_NONE;
-??HAL_DMA_DeInit_173:
+??HAL_DMA_DeInit_246:
         MOVS     R0,#+0
-        STR      R0,[R1, #+24]
+        STR      R0,[R1, #+76]
 //  353 
 //  354   /* Initialize the DMA state */
 //  355   hdma->State = HAL_DMA_STATE_RESET;
-        STRB     R0,[R1, #+1]
+        MOVS     R0,#+0
+        STRB     R0,[R1, #+53]
 //  356 
 //  357   /* Release Lock */
 //  358   __HAL_UNLOCK(hdma);
-        STRB     R0,[R1, #+0]
+        MOVS     R0,#+0
+        STRB     R0,[R1, #+52]
 //  359 
 //  360   return HAL_OK;
-??HAL_DMA_DeInit_2:
-        POP      {R4-R7}
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI R6 SameValue
-          CFI R7 SameValue
-          CFI CFA R13+0
+        MOVS     R0,#+0
+??HAL_DMA_DeInit_1:
         BX       LR               ;; return
 //  361 }
           CFI EndBlock cfiBlock2
@@ -1880,19 +2555,19 @@ HAL_DMA_DeInit:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable1:
-        DC32     0xf010803f
+        DC32     0x40026459
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable1_1:
-        DC32     0x40026408
+        DC32     0x40026010
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable1_2:
-        DC32     0x400260b9
+        DC32     0x800001
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -1904,79 +2579,79 @@ HAL_DMA_DeInit:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable1_4:
-        DC32     0x40026010
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_5:
-        DC32     0x40026459
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_6:
-        DC32     0x40026070
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_7:
-        DC32     0x40026470
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_8:
-        DC32     0x800004
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_9:
         DC32     0x40026028
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1_10:
+??DataTable1_5:
         DC32     0x40026428
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1_11:
+??DataTable1_6:
         DC32     0x40026088
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1_12:
+??DataTable1_7:
         DC32     0x40026488
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1_13:
+??DataTable1_8:
         DC32     0x40026040
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1_14:
+??DataTable1_9:
         DC32     0x40026440
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1_15:
+??DataTable1_10:
         DC32     0x400260a0
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1_16:
+??DataTable1_11:
         DC32     0x400264a0
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable1_12:
+        DC32     0x40026070
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable1_13:
+        DC32     0x40026470
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable1_14:
+        DC32     0x4002640c
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable1_15:
+        DC32     0x400260b9
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable1_16:
+        DC32     0x40026408
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -1988,13 +2663,13 @@ HAL_DMA_DeInit:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable1_18:
-        DC32     0x40026008
+        DC32     0x4002600c
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable1_19:
-        DC32     0x800001
+        DC32     0x40026008
 //  362 
 //  363 /**
 //  364   * @}
@@ -2035,28 +2710,32 @@ HAL_DMA_DeInit:
 //  394 HAL_StatusTypeDef HAL_DMA_Start(DMA_HandleTypeDef *hdma, uint32_t SrcAddress, uint32_t DstAddress, uint32_t DataLength)
 //  395 {
 HAL_DMA_Start:
-        PUSH     {R3-R5,LR}
+        PUSH     {R3-R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
-        MOV      R4,R0
+          CFI R7 Frame(CFA, -8)
+          CFI R6 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -16)
+          CFI R4 Frame(CFA, -20)
+          CFI CFA R13+24
+        MOVS     R4,R0
+        MOVS     R5,R1
+        MOVS     R6,R2
+        MOVS     R7,R3
 //  396   /* Process locked */
 //  397   __HAL_LOCK(hdma);
-        ADD      R0,R4,#+52
-        LDRB     R5,[R0, #+0]
-        CMP      R5,#+1
+        LDRB     R0,[R4, #+52]
+        CMP      R0,#+1
         BNE.N    ??HAL_DMA_Start_0
         MOVS     R0,#+2
-        POP      {R1,R4,R5,PC}
+        B.N      ??HAL_DMA_Start_1
 ??HAL_DMA_Start_0:
-        MOVS     R5,#+1
-        STRB     R5,[R0, #+0]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+52]
 //  398 
 //  399   /* Change DMA peripheral state */
 //  400   hdma->State = HAL_DMA_STATE_BUSY;
-        MOVS     R5,#+2
-        STRB     R5,[R0, #+1]
+        MOVS     R0,#+2
+        STRB     R0,[R4, #+53]
 //  401 
 //  402    /* Check the parameters */
 //  403   assert_param(IS_DMA_BUFFER_SIZE(DataLength));
@@ -2064,27 +2743,33 @@ HAL_DMA_Start:
 //  405   /* Disable the peripheral */
 //  406   __HAL_DMA_DISABLE(hdma);
         LDR      R0,[R4, #+0]
-        LDR      R5,[R0, #+0]
-        LSRS     R5,R5,#+1
-        LSLS     R5,R5,#+1
-        STR      R5,[R0, #+0]
+        LDR      R0,[R0, #+0]
+        LSRS     R0,R0,#+1
+        LSLS     R0,R0,#+1
+        LDR      R1,[R4, #+0]
+        STR      R0,[R1, #+0]
 //  407 
 //  408   /* Configure the source, destination address and the data length */
 //  409   DMA_SetConfig(hdma, SrcAddress, DstAddress, DataLength);
-        MOV      R0,R4
+        MOVS     R3,R7
+        MOVS     R2,R6
+        MOVS     R1,R5
+        MOVS     R0,R4
           CFI FunCall DMA_SetConfig
         BL       DMA_SetConfig
 //  410 
 //  411   /* Enable the Peripheral */
 //  412   __HAL_DMA_ENABLE(hdma);
         LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x1
-        STR      R1,[R0, #+0]
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x1
+        LDR      R1,[R4, #+0]
+        STR      R0,[R1, #+0]
 //  413 
 //  414   return HAL_OK; 
         MOVS     R0,#+0
-        POP      {R1,R4,R5,PC}    ;; return
+??HAL_DMA_Start_1:
+        POP      {R1,R4-R7,PC}    ;; return
 //  415 }
           CFI EndBlock cfiBlock3
 //  416 
@@ -2105,28 +2790,32 @@ HAL_DMA_Start:
 //  426 HAL_StatusTypeDef HAL_DMA_Start_IT(DMA_HandleTypeDef *hdma, uint32_t SrcAddress, uint32_t DstAddress, uint32_t DataLength)
 //  427 {
 HAL_DMA_Start_IT:
-        PUSH     {R3-R5,LR}
+        PUSH     {R3-R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
-        MOV      R4,R0
+          CFI R7 Frame(CFA, -8)
+          CFI R6 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -16)
+          CFI R4 Frame(CFA, -20)
+          CFI CFA R13+24
+        MOVS     R4,R0
+        MOVS     R5,R1
+        MOVS     R6,R2
+        MOVS     R7,R3
 //  428   /* Process locked */
 //  429   __HAL_LOCK(hdma);
-        ADD      R0,R4,#+52
-        LDRB     R5,[R0, #+0]
-        CMP      R5,#+1
+        LDRB     R0,[R4, #+52]
+        CMP      R0,#+1
         BNE.N    ??HAL_DMA_Start_IT_0
         MOVS     R0,#+2
-        POP      {R1,R4,R5,PC}
+        B.N      ??HAL_DMA_Start_IT_1
 ??HAL_DMA_Start_IT_0:
-        MOVS     R5,#+1
-        STRB     R5,[R0, #+0]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+52]
 //  430 
 //  431   /* Change DMA peripheral state */
 //  432   hdma->State = HAL_DMA_STATE_BUSY;
-        MOVS     R5,#+2
-        STRB     R5,[R0, #+1]
+        MOVS     R0,#+2
+        STRB     R0,[R4, #+53]
 //  433 
 //  434    /* Check the parameters */
 //  435   assert_param(IS_DMA_BUFFER_SIZE(DataLength));
@@ -2134,62 +2823,73 @@ HAL_DMA_Start_IT:
 //  437   /* Disable the peripheral */
 //  438   __HAL_DMA_DISABLE(hdma);
         LDR      R0,[R4, #+0]
-        LDR      R5,[R0, #+0]
-        LSRS     R5,R5,#+1
-        LSLS     R5,R5,#+1
-        STR      R5,[R0, #+0]
+        LDR      R0,[R0, #+0]
+        LSRS     R0,R0,#+1
+        LSLS     R0,R0,#+1
+        LDR      R1,[R4, #+0]
+        STR      R0,[R1, #+0]
 //  439 
 //  440   /* Configure the source, destination address and the data length */
 //  441   DMA_SetConfig(hdma, SrcAddress, DstAddress, DataLength);
-        MOV      R0,R4
+        MOVS     R3,R7
+        MOVS     R2,R6
+        MOVS     R1,R5
+        MOVS     R0,R4
           CFI FunCall DMA_SetConfig
         BL       DMA_SetConfig
 //  442 
 //  443   /* Enable the transfer complete interrupt */
 //  444   __HAL_DMA_ENABLE_IT(hdma, DMA_IT_TC);
         LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x10
-        STR      R1,[R0, #+0]
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x10
+        LDR      R1,[R4, #+0]
+        STR      R0,[R1, #+0]
 //  445 
 //  446   /* Enable the Half transfer complete interrupt */
 //  447   __HAL_DMA_ENABLE_IT(hdma, DMA_IT_HT);  
         LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x8
-        STR      R1,[R0, #+0]
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x8
+        LDR      R1,[R4, #+0]
+        STR      R0,[R1, #+0]
 //  448 
 //  449   /* Enable the transfer Error interrupt */
 //  450   __HAL_DMA_ENABLE_IT(hdma, DMA_IT_TE);
         LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x4
-        STR      R1,[R0, #+0]
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x4
+        LDR      R1,[R4, #+0]
+        STR      R0,[R1, #+0]
 //  451 
 //  452   /* Enable the FIFO Error interrupt */
 //  453   __HAL_DMA_ENABLE_IT(hdma, DMA_IT_FE);
         LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+20]
-        ORR      R1,R1,#0x80
-        STR      R1,[R0, #+20]
+        LDR      R0,[R0, #+20]
+        ORRS     R0,R0,#0x80
+        LDR      R1,[R4, #+0]
+        STR      R0,[R1, #+20]
 //  454 
 //  455   /* Enable the direct mode Error interrupt */
 //  456   __HAL_DMA_ENABLE_IT(hdma, DMA_IT_DME);
         LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x2
-        STR      R1,[R0, #+0]
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x2
+        LDR      R1,[R4, #+0]
+        STR      R0,[R1, #+0]
 //  457 
 //  458    /* Enable the Peripheral */
 //  459   __HAL_DMA_ENABLE(hdma);
         LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x1
-        STR      R1,[R0, #+0]
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x1
+        LDR      R1,[R4, #+0]
+        STR      R0,[R1, #+0]
 //  460 
 //  461   return HAL_OK;
         MOVS     R0,#+0
-        POP      {R1,R4,R5,PC}    ;; return
+??HAL_DMA_Start_IT_1:
+        POP      {R1,R4-R7,PC}    ;; return
 //  462 } 
           CFI EndBlock cfiBlock4
 //  463 
@@ -2218,22 +2918,24 @@ HAL_DMA_Abort:
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
           CFI CFA R13+16
-        MOV      R4,R0
+        MOVS     R4,R0
 //  478   uint32_t tickstart = 0;
+        MOVS     R5,#+0
 //  479 
 //  480   /* Disable the stream */
 //  481   __HAL_DMA_DISABLE(hdma);
         LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+0]
-        LSRS     R1,R1,#+1
-        LSLS     R1,R1,#+1
-        STR      R1,[R0, #+0]
+        LDR      R0,[R0, #+0]
+        LSRS     R0,R0,#+1
+        LSLS     R0,R0,#+1
+        LDR      R1,[R4, #+0]
+        STR      R0,[R1, #+0]
 //  482 
 //  483   /* Get tick */
 //  484   tickstart = HAL_GetTick();
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R5,R0
+        MOVS     R5,R0
 //  485 
 //  486   /* Check if the DMA Stream is effectively disabled */
 //  487   while((hdma->Instance->CR & DMA_SxCR_EN) != 0)
@@ -2253,40 +2955,39 @@ HAL_DMA_Abort:
 //  491     {
 //  492       /* Update error code */
 //  493       hdma->ErrorCode |= HAL_DMA_ERROR_TIMEOUT;
-        ADD      R0,R4,#+52
-        LDR      R1,[R0, #+24]
-        ORR      R1,R1,#0x20
-        STR      R1,[R0, #+24]
+        LDR      R0,[R4, #+76]
+        ORRS     R0,R0,#0x20
+        STR      R0,[R4, #+76]
 //  494       
 //  495       /* Process Unlocked */
 //  496       __HAL_UNLOCK(hdma);
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+0]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 //  497       
 //  498       /* Change the DMA state */
 //  499       hdma->State = HAL_DMA_STATE_TIMEOUT;
-        MOVS     R1,#+3
-        STRB     R1,[R0, #+1]
+        MOVS     R0,#+3
+        STRB     R0,[R4, #+53]
 //  500       
 //  501       return HAL_TIMEOUT;
-        MOV      R0,R1
-        POP      {R1,R4,R5,PC}
+        MOVS     R0,#+3
+        B.N      ??HAL_DMA_Abort_2
 //  502     }
 //  503   }
 //  504   /* Process Unlocked */
 //  505   __HAL_UNLOCK(hdma);
 ??HAL_DMA_Abort_1:
-        ADD      R0,R4,#+52
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+0]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 //  506 
 //  507   /* Change the DMA state*/
 //  508   hdma->State = HAL_DMA_STATE_READY;
-        MOVS     R1,#+1
-        STRB     R1,[R0, #+1]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
 //  509 
 //  510   return HAL_OK;
         MOVS     R0,#+0
+??HAL_DMA_Abort_2:
         POP      {R1,R4,R5,PC}    ;; return
 //  511 }
           CFI EndBlock cfiBlock5
@@ -2307,1315 +3008,1322 @@ HAL_DMA_Abort:
 //  521 HAL_StatusTypeDef HAL_DMA_PollForTransfer(DMA_HandleTypeDef *hdma, uint32_t CompleteLevel, uint32_t Timeout)
 //  522 {
 HAL_DMA_PollForTransfer:
-        PUSH     {R4-R10,LR}
+        PUSH     {R3-R11,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R10 Frame(CFA, -8)
-          CFI R9 Frame(CFA, -12)
-          CFI R8 Frame(CFA, -16)
-          CFI R7 Frame(CFA, -20)
-          CFI R6 Frame(CFA, -24)
-          CFI R5 Frame(CFA, -28)
-          CFI R4 Frame(CFA, -32)
-          CFI CFA R13+32
-        MOV      R4,R0
-        MOV      R5,R1
-        MOV      R6,R2
+          CFI R11 Frame(CFA, -8)
+          CFI R10 Frame(CFA, -12)
+          CFI R9 Frame(CFA, -16)
+          CFI R8 Frame(CFA, -20)
+          CFI R7 Frame(CFA, -24)
+          CFI R6 Frame(CFA, -28)
+          CFI R5 Frame(CFA, -32)
+          CFI R4 Frame(CFA, -36)
+          CFI CFA R13+40
+        MOVS     R4,R0
+        MOVS     R5,R1
+        MOVS     R6,R2
 //  523   uint32_t temp, tmp, tmp1, tmp2;
 //  524   uint32_t tickstart = 0; 
+        MOVS     R9,#+0
 //  525 
 //  526   /* Get the level transfer complete flag */
 //  527   if(CompleteLevel == HAL_DMA_FULL_TRANSFER)
-        LDR      R0,[R4, #+0]
-        LDR.W    R7,??HAL_DMA_PollForTransfer_0  ;; 0x40026010
         CMP      R5,#+0
-        BNE.N    ??HAL_DMA_PollForTransfer_1
+        BNE.N    ??HAL_DMA_PollForTransfer_0
 //  528   {
 //  529     /* Transfer Complete flag */
 //  530     temp = __HAL_DMA_GET_TC_FLAG_INDEX(hdma);
-        CMP      R0,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_2
-        LDR.W    R1,??HAL_DMA_PollForTransfer_0+0x4  ;; 0x40026410
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_1  ;; 0x40026010
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_2
-        LDR.W    R1,??HAL_DMA_PollForTransfer_0+0x8  ;; 0x40026070
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_2
-        LDR.W    R1,??HAL_DMA_PollForTransfer_0+0xC  ;; 0x40026470
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_3
+        BNE.N    ??HAL_DMA_PollForTransfer_2
+        MOVS     R10,#+32
+        B.N      ??HAL_DMA_PollForTransfer_3
 ??HAL_DMA_PollForTransfer_2:
-        MOV      R8,#+32
-        B.N      ??HAL_DMA_PollForTransfer_4
-??HAL_DMA_PollForTransfer_3:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_0+0x10  ;; 0x40026028
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_1+0x4  ;; 0x40026410
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_5
-        LDR.W    R1,??HAL_DMA_PollForTransfer_0+0x14  ;; 0x40026428
+        BNE.N    ??HAL_DMA_PollForTransfer_4
+        MOVS     R10,#+32
+        B.N      ??HAL_DMA_PollForTransfer_3
+??HAL_DMA_PollForTransfer_4:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_1+0x8  ;; 0x40026070
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_5
-        LDR.W    R1,??HAL_DMA_PollForTransfer_0+0x18  ;; 0x40026088
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_5
-        LDR.W    R1,??HAL_DMA_PollForTransfer_0+0x1C  ;; 0x40026488
+        BNE.N    ??HAL_DMA_PollForTransfer_5
+        MOVS     R10,#+32
+        B.N      ??HAL_DMA_PollForTransfer_3
+??HAL_DMA_PollForTransfer_5:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_1+0xC  ;; 0x40026470
         CMP      R0,R1
         BNE.N    ??HAL_DMA_PollForTransfer_6
-??HAL_DMA_PollForTransfer_5:
-        MOV      R8,#+2048
-        B.N      ??HAL_DMA_PollForTransfer_4
+        MOVS     R10,#+32
+        B.N      ??HAL_DMA_PollForTransfer_3
 ??HAL_DMA_PollForTransfer_6:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_0+0x20  ;; 0x40026040
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_1+0x10  ;; 0x40026028
         CMP      R0,R1
         BNE.N    ??HAL_DMA_PollForTransfer_7
-        MOV      R8,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_4
+        MOV      R10,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_3
 ??HAL_DMA_PollForTransfer_7:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_0+0x24  ;; 0x40026440
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_1+0x14  ;; 0x40026428
         CMP      R0,R1
         BNE.N    ??HAL_DMA_PollForTransfer_8
-        MOV      R8,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_4
+        MOV      R10,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_3
 ??HAL_DMA_PollForTransfer_8:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_0+0x28  ;; 0x400260a0
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_1+0x18  ;; 0x40026088
         CMP      R0,R1
         BNE.N    ??HAL_DMA_PollForTransfer_9
-        MOV      R8,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_4
+        MOV      R10,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_3
 ??HAL_DMA_PollForTransfer_9:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_10  ;; 0x400264a0
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_1+0x1C  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_10
+        MOV      R10,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_3
+??HAL_DMA_PollForTransfer_10:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_1+0x20  ;; 0x40026040
         CMP      R0,R1
         BNE.N    ??HAL_DMA_PollForTransfer_11
-        MOV      R8,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_4
+        MOVS     R10,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_3
 ??HAL_DMA_PollForTransfer_11:
-        MOV      R8,#+134217728
-        B.N      ??HAL_DMA_PollForTransfer_4
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_1+0x24  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_12
+        MOVS     R10,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_3
+??HAL_DMA_PollForTransfer_12:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_1+0x28  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_13
+        MOVS     R10,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_3
+??HAL_DMA_PollForTransfer_13:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_1+0x2C  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_14
+        MOVS     R10,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_3
+??HAL_DMA_PollForTransfer_14:
+        MOVS     R10,#+134217728
+        B.N      ??HAL_DMA_PollForTransfer_3
 //  531   }
 //  532   else
 //  533   {
 //  534     /* Half Transfer Complete flag */
 //  535     temp = __HAL_DMA_GET_HT_FLAG_INDEX(hdma);
-??HAL_DMA_PollForTransfer_1:
-        CMP      R0,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_12
-        LDR.W    R1,??HAL_DMA_PollForTransfer_0+0x4  ;; 0x40026410
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_12
-        LDR.W    R1,??HAL_DMA_PollForTransfer_0+0x8  ;; 0x40026070
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_12
-        LDR.W    R1,??HAL_DMA_PollForTransfer_0+0xC  ;; 0x40026470
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_13
-??HAL_DMA_PollForTransfer_12:
-        MOV      R8,#+16
-        B.N      ??HAL_DMA_PollForTransfer_4
-??HAL_DMA_PollForTransfer_13:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_0+0x10  ;; 0x40026028
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_14
-        LDR.W    R1,??HAL_DMA_PollForTransfer_0+0x14  ;; 0x40026428
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_14
-        LDR.W    R1,??HAL_DMA_PollForTransfer_0+0x18  ;; 0x40026088
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_14
-        LDR.W    R1,??HAL_DMA_PollForTransfer_0+0x1C  ;; 0x40026488
+??HAL_DMA_PollForTransfer_0:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_1  ;; 0x40026010
         CMP      R0,R1
         BNE.N    ??HAL_DMA_PollForTransfer_15
-??HAL_DMA_PollForTransfer_14:
-        MOV      R8,#+1024
-        B.N      ??HAL_DMA_PollForTransfer_4
+        MOVS     R10,#+16
+        B.N      ??HAL_DMA_PollForTransfer_3
 ??HAL_DMA_PollForTransfer_15:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_0+0x20  ;; 0x40026040
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_1+0x4  ;; 0x40026410
         CMP      R0,R1
         BNE.N    ??HAL_DMA_PollForTransfer_16
-        MOV      R8,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_4
+        MOVS     R10,#+16
+        B.N      ??HAL_DMA_PollForTransfer_3
 ??HAL_DMA_PollForTransfer_16:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_0+0x24  ;; 0x40026440
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_1+0x8  ;; 0x40026070
         CMP      R0,R1
         BNE.N    ??HAL_DMA_PollForTransfer_17
-        MOV      R8,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_4
+        MOVS     R10,#+16
+        B.N      ??HAL_DMA_PollForTransfer_3
 ??HAL_DMA_PollForTransfer_17:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_0+0x28  ;; 0x400260a0
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_1+0xC  ;; 0x40026470
         CMP      R0,R1
         BNE.N    ??HAL_DMA_PollForTransfer_18
-        MOV      R8,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_4
+        MOVS     R10,#+16
+        B.N      ??HAL_DMA_PollForTransfer_3
 ??HAL_DMA_PollForTransfer_18:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_10  ;; 0x400264a0
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_1+0x10  ;; 0x40026028
         CMP      R0,R1
         BNE.N    ??HAL_DMA_PollForTransfer_19
-        MOV      R8,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_4
+        MOV      R10,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_3
 ??HAL_DMA_PollForTransfer_19:
-        MOV      R8,#+67108864
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_1+0x14  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_20
+        MOV      R10,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_3
+??HAL_DMA_PollForTransfer_20:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_1+0x18  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_21
+        MOV      R10,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_3
+??HAL_DMA_PollForTransfer_21:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_1+0x1C  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_22
+        MOV      R10,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_3
+??HAL_DMA_PollForTransfer_22:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_1+0x20  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_23
+        MOVS     R10,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_3
+??HAL_DMA_PollForTransfer_23:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_1+0x24  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_24
+        MOVS     R10,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_3
+??HAL_DMA_PollForTransfer_24:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_1+0x28  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_25
+        MOVS     R10,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_3
+??HAL_DMA_PollForTransfer_25:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_1+0x2C  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_26
+        MOVS     R10,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_3
+??HAL_DMA_PollForTransfer_26:
+        MOVS     R10,#+67108864
 //  536   }
 //  537 
 //  538   /* Get tick */
 //  539   tickstart = HAL_GetTick();
-??HAL_DMA_PollForTransfer_4:
+??HAL_DMA_PollForTransfer_3:
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         MOV      R9,R0
 //  540 
 //  541   while(__HAL_DMA_GET_FLAG(hdma, temp) == RESET)
-??HAL_DMA_PollForTransfer_20:
-        LDR      R3,[R4, #+0]
-        MOV      R2,R3
-        LDR.W    R0,??HAL_DMA_PollForTransfer_10+0x4  ;; 0x40026400
-        LDR.W    R1,??HAL_DMA_PollForTransfer_10+0x8  ;; 0x40026459
-        CMP      R2,R1
-        BCC.N    ??HAL_DMA_PollForTransfer_21
-        LDR      R12,[R0, #+4]
-        AND      R12,R8,R12
-        B.N      ??HAL_DMA_PollForTransfer_22
-??HAL_DMA_PollForTransfer_21:
-        LDR.W    R12,??HAL_DMA_PollForTransfer_10+0xC  ;; 0x400260b9
-        CMP      R2,R12
-        BCC.N    ??HAL_DMA_PollForTransfer_23
-        LDR      R12,[R0, #+0]
-        AND      R12,R8,R12
-        B.N      ??HAL_DMA_PollForTransfer_22
-??HAL_DMA_PollForTransfer_23:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_10+0x10  ;; 0x40026000
-        LDR.W    R12,??HAL_DMA_PollForTransfer_10+0x14  ;; 0x40026059
-        CMP      R2,R12
-        BCC.N    ??HAL_DMA_PollForTransfer_24
-        LDR      R12,[LR, #+4]
-        AND      R12,R8,R12
-        B.N      ??HAL_DMA_PollForTransfer_22
-??HAL_DMA_PollForTransfer_24:
-        LDR      R12,[LR, #+0]
-        AND      R12,R8,R12
-??HAL_DMA_PollForTransfer_22:
-        CMP      R12,#+0
-        BNE.W    ??HAL_DMA_PollForTransfer_25
+??HAL_DMA_PollForTransfer_27:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28  ;; 0x40026459
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_29
+        LDR.W    R0,??HAL_DMA_PollForTransfer_28+0x4  ;; 0x40026404
+        LDR      R0,[R0, #+0]
+        ANDS     R0,R10,R0
+        B.N      ??HAL_DMA_PollForTransfer_30
+??HAL_DMA_PollForTransfer_29:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28+0x8  ;; 0x400260b9
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_31
+        LDR.W    R0,??HAL_DMA_PollForTransfer_28+0xC  ;; 0x40026400
+        LDR      R0,[R0, #+0]
+        ANDS     R0,R10,R0
+        B.N      ??HAL_DMA_PollForTransfer_30
+??HAL_DMA_PollForTransfer_31:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28+0x10  ;; 0x40026059
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_32
+        LDR.W    R0,??HAL_DMA_PollForTransfer_28+0x14  ;; 0x40026004
+        LDR      R0,[R0, #+0]
+        ANDS     R0,R10,R0
+        B.N      ??HAL_DMA_PollForTransfer_30
+??HAL_DMA_PollForTransfer_32:
+        LDR.W    R0,??HAL_DMA_PollForTransfer_28+0x18  ;; 0x40026000
+        LDR      R0,[R0, #+0]
+        ANDS     R0,R10,R0
+??HAL_DMA_PollForTransfer_30:
+        CMP      R0,#+0
+        BNE.W    ??HAL_DMA_PollForTransfer_33
 //  542   {
 //  543     tmp  = __HAL_DMA_GET_FLAG(hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
-        CMP      R2,R1
-        BCC.N    ??HAL_DMA_PollForTransfer_26
-        LDR      R3,[R0, #+4]
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_27
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x4  ;; 0x40026410
-        CMP      R2,R12
-        BEQ.N    ??HAL_DMA_PollForTransfer_27
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x8  ;; 0x40026070
-        CMP      R2,R12
-        BEQ.N    ??HAL_DMA_PollForTransfer_27
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0xC  ;; 0x40026470
-        CMP      R2,R12
-        BNE.N    ??HAL_DMA_PollForTransfer_28
-??HAL_DMA_PollForTransfer_27:
-        MOV      R12,#+8
-        B.N      ??HAL_DMA_PollForTransfer_29
-??HAL_DMA_PollForTransfer_28:
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x10  ;; 0x40026028
-        CMP      R2,R12
-        BEQ.N    ??HAL_DMA_PollForTransfer_30
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x14  ;; 0x40026428
-        CMP      R2,R12
-        BEQ.N    ??HAL_DMA_PollForTransfer_30
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x18  ;; 0x40026088
-        CMP      R2,R12
-        BEQ.N    ??HAL_DMA_PollForTransfer_30
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x1C  ;; 0x40026488
-        CMP      R2,R12
-        BNE.N    ??HAL_DMA_PollForTransfer_31
-??HAL_DMA_PollForTransfer_30:
-        MOV      R12,#+512
-        B.N      ??HAL_DMA_PollForTransfer_29
-??HAL_DMA_PollForTransfer_31:
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x20  ;; 0x40026040
-        CMP      R2,R12
-        BNE.N    ??HAL_DMA_PollForTransfer_32
-        MOV      R12,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_29
-??HAL_DMA_PollForTransfer_32:
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x24  ;; 0x40026440
-        CMP      R2,R12
-        BNE.N    ??HAL_DMA_PollForTransfer_33
-        MOV      R12,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_29
-??HAL_DMA_PollForTransfer_33:
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x28  ;; 0x400260a0
-        CMP      R2,R12
-        BNE.N    ??HAL_DMA_PollForTransfer_34
-        MOV      R12,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_29
-??HAL_DMA_PollForTransfer_34:
-        LDR.W    R12,??HAL_DMA_PollForTransfer_10  ;; 0x400264a0
-        CMP      R2,R12
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28  ;; 0x40026459
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_34
+        LDR.W    R0,??HAL_DMA_PollForTransfer_28+0x4  ;; 0x40026404
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1  ;; 0x40026010
+        CMP      R1,R2
         BNE.N    ??HAL_DMA_PollForTransfer_35
-        MOV      R12,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_29
-??HAL_DMA_PollForTransfer_35:
-        MOV      R12,#+33554432
-??HAL_DMA_PollForTransfer_29:
-        AND      R3,R12,R3
+        MOVS     R1,#+8
         B.N      ??HAL_DMA_PollForTransfer_36
-??HAL_DMA_PollForTransfer_26:
-        LDR.W    R3,??HAL_DMA_PollForTransfer_10+0xC  ;; 0x400260b9
-        CMP      R2,R3
-        BCC.N    ??HAL_DMA_PollForTransfer_37
-        LDR      R3,[R0, #+0]
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_38
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x4  ;; 0x40026410
-        CMP      R2,R12
-        BEQ.N    ??HAL_DMA_PollForTransfer_38
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x8  ;; 0x40026070
-        CMP      R2,R12
-        BEQ.N    ??HAL_DMA_PollForTransfer_38
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0xC  ;; 0x40026470
-        CMP      R2,R12
-        BNE.N    ??HAL_DMA_PollForTransfer_39
-??HAL_DMA_PollForTransfer_38:
-        MOV      R12,#+8
-        B.N      ??HAL_DMA_PollForTransfer_40
-??HAL_DMA_PollForTransfer_39:
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x10  ;; 0x40026028
-        CMP      R2,R12
-        BEQ.N    ??HAL_DMA_PollForTransfer_41
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x14  ;; 0x40026428
-        CMP      R2,R12
-        BEQ.N    ??HAL_DMA_PollForTransfer_41
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x18  ;; 0x40026088
-        CMP      R2,R12
-        BEQ.N    ??HAL_DMA_PollForTransfer_41
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x1C  ;; 0x40026488
-        CMP      R2,R12
-        BNE.N    ??HAL_DMA_PollForTransfer_42
-??HAL_DMA_PollForTransfer_41:
-        MOV      R12,#+512
-        B.N      ??HAL_DMA_PollForTransfer_40
-??HAL_DMA_PollForTransfer_42:
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x20  ;; 0x40026040
-        CMP      R2,R12
-        BNE.N    ??HAL_DMA_PollForTransfer_43
-        MOV      R12,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_40
-??HAL_DMA_PollForTransfer_43:
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x24  ;; 0x40026440
-        CMP      R2,R12
-        BNE.N    ??HAL_DMA_PollForTransfer_44
-        MOV      R12,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_40
-??HAL_DMA_PollForTransfer_44:
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x28  ;; 0x400260a0
-        CMP      R2,R12
-        BNE.N    ??HAL_DMA_PollForTransfer_45
-        MOV      R12,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_40
-??HAL_DMA_PollForTransfer_45:
-        LDR.W    R12,??HAL_DMA_PollForTransfer_10  ;; 0x400264a0
-        CMP      R2,R12
-        BNE.N    ??HAL_DMA_PollForTransfer_46
-        MOV      R12,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_40
-??HAL_DMA_PollForTransfer_46:
-        MOV      R12,#+33554432
-??HAL_DMA_PollForTransfer_40:
-        AND      R3,R12,R3
+??HAL_DMA_PollForTransfer_35:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x4  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_37
+        MOVS     R1,#+8
         B.N      ??HAL_DMA_PollForTransfer_36
 ??HAL_DMA_PollForTransfer_37:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_10+0x10  ;; 0x40026000
-        LDR.W    R3,??HAL_DMA_PollForTransfer_10+0x14  ;; 0x40026059
-        CMP      R2,R3
-        BCC.N    ??HAL_DMA_PollForTransfer_47
-        LDR      R3,[LR, #+4]
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_48
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x4  ;; 0x40026410
-        CMP      R2,R12
-        BEQ.N    ??HAL_DMA_PollForTransfer_48
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x8  ;; 0x40026070
-        CMP      R2,R12
-        BEQ.N    ??HAL_DMA_PollForTransfer_48
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0xC  ;; 0x40026470
-        CMP      R2,R12
-        BNE.N    ??HAL_DMA_PollForTransfer_49
-??HAL_DMA_PollForTransfer_48:
-        MOV      R12,#+8
-        B.N      ??HAL_DMA_PollForTransfer_50
-??HAL_DMA_PollForTransfer_49:
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x10  ;; 0x40026028
-        CMP      R2,R12
-        BEQ.N    ??HAL_DMA_PollForTransfer_51
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x14  ;; 0x40026428
-        CMP      R2,R12
-        BEQ.N    ??HAL_DMA_PollForTransfer_51
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x18  ;; 0x40026088
-        CMP      R2,R12
-        BEQ.N    ??HAL_DMA_PollForTransfer_51
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x1C  ;; 0x40026488
-        CMP      R2,R12
-        BNE.N    ??HAL_DMA_PollForTransfer_52
-??HAL_DMA_PollForTransfer_51:
-        MOV      R12,#+512
-        B.N      ??HAL_DMA_PollForTransfer_50
-??HAL_DMA_PollForTransfer_52:
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x20  ;; 0x40026040
-        CMP      R2,R12
-        BNE.N    ??HAL_DMA_PollForTransfer_53
-        MOV      R12,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_50
-??HAL_DMA_PollForTransfer_53:
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x24  ;; 0x40026440
-        CMP      R2,R12
-        BNE.N    ??HAL_DMA_PollForTransfer_54
-        MOV      R12,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_50
-??HAL_DMA_PollForTransfer_54:
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x28  ;; 0x400260a0
-        CMP      R2,R12
-        BNE.N    ??HAL_DMA_PollForTransfer_55
-        MOV      R12,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_50
-??HAL_DMA_PollForTransfer_55:
-        LDR.W    R12,??HAL_DMA_PollForTransfer_10  ;; 0x400264a0
-        CMP      R2,R12
-        BNE.N    ??HAL_DMA_PollForTransfer_56
-        MOV      R12,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_50
-??HAL_DMA_PollForTransfer_56:
-        MOV      R12,#+33554432
-??HAL_DMA_PollForTransfer_50:
-        AND      R3,R12,R3
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x8  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_38
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_PollForTransfer_36
+??HAL_DMA_PollForTransfer_38:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0xC  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_39
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_PollForTransfer_36
+??HAL_DMA_PollForTransfer_39:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x10  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_40
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_PollForTransfer_36
+??HAL_DMA_PollForTransfer_40:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x14  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_41
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_PollForTransfer_36
+??HAL_DMA_PollForTransfer_41:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x18  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_42
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_PollForTransfer_36
+??HAL_DMA_PollForTransfer_42:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x1C  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_43
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_PollForTransfer_36
+??HAL_DMA_PollForTransfer_43:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x20  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_44
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_36
+??HAL_DMA_PollForTransfer_44:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x24  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_45
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_36
+??HAL_DMA_PollForTransfer_45:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x28  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_46
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_36
+??HAL_DMA_PollForTransfer_46:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x2C  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_47
+        MOVS     R1,#+524288
         B.N      ??HAL_DMA_PollForTransfer_36
 ??HAL_DMA_PollForTransfer_47:
-        LDR      R3,[LR, #+0]
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_57
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x4  ;; 0x40026410
-        CMP      R2,R12
-        BEQ.N    ??HAL_DMA_PollForTransfer_57
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x8  ;; 0x40026070
-        CMP      R2,R12
-        BEQ.N    ??HAL_DMA_PollForTransfer_57
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0xC  ;; 0x40026470
-        CMP      R2,R12
-        BNE.N    ??HAL_DMA_PollForTransfer_58
-??HAL_DMA_PollForTransfer_57:
-        MOV      R12,#+8
-        B.N      ??HAL_DMA_PollForTransfer_59
-??HAL_DMA_PollForTransfer_58:
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x10  ;; 0x40026028
-        CMP      R2,R12
-        BEQ.N    ??HAL_DMA_PollForTransfer_60
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x14  ;; 0x40026428
-        CMP      R2,R12
-        BEQ.N    ??HAL_DMA_PollForTransfer_60
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x18  ;; 0x40026088
-        CMP      R2,R12
-        BEQ.N    ??HAL_DMA_PollForTransfer_60
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x1C  ;; 0x40026488
-        CMP      R2,R12
-        BNE.N    ??HAL_DMA_PollForTransfer_61
-??HAL_DMA_PollForTransfer_60:
-        MOV      R12,#+512
-        B.N      ??HAL_DMA_PollForTransfer_59
-??HAL_DMA_PollForTransfer_61:
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x20  ;; 0x40026040
-        CMP      R2,R12
-        BNE.N    ??HAL_DMA_PollForTransfer_62
-        MOV      R12,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_59
-??HAL_DMA_PollForTransfer_62:
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x24  ;; 0x40026440
-        CMP      R2,R12
-        BNE.N    ??HAL_DMA_PollForTransfer_63
-        MOV      R12,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_59
-??HAL_DMA_PollForTransfer_63:
-        LDR.W    R12,??HAL_DMA_PollForTransfer_0+0x28  ;; 0x400260a0
-        CMP      R2,R12
-        BNE.N    ??HAL_DMA_PollForTransfer_64
-        MOV      R12,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_59
-??HAL_DMA_PollForTransfer_64:
-        LDR.W    R12,??HAL_DMA_PollForTransfer_10  ;; 0x400264a0
-        CMP      R2,R12
-        BNE.N    ??HAL_DMA_PollForTransfer_65
-        MOV      R12,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_59
-??HAL_DMA_PollForTransfer_65:
-        MOV      R12,#+33554432
-??HAL_DMA_PollForTransfer_59:
-        AND      R3,R12,R3
-//  544     tmp1 = __HAL_DMA_GET_FLAG(hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+        MOVS     R1,#+33554432
 ??HAL_DMA_PollForTransfer_36:
-        CMP      R2,R1
-        BCC.N    ??HAL_DMA_PollForTransfer_66
-        LDR      R12,[R0, #+4]
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_67
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x4  ;; 0x40026410
-        CMP      R2,LR
-        BEQ.N    ??HAL_DMA_PollForTransfer_67
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x8  ;; 0x40026070
-        CMP      R2,LR
-        BEQ.N    ??HAL_DMA_PollForTransfer_67
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0xC  ;; 0x40026470
-        CMP      R2,LR
-        BNE.N    ??HAL_DMA_PollForTransfer_68
-??HAL_DMA_PollForTransfer_67:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_69  ;; 0x800001
-        B.N      ??HAL_DMA_PollForTransfer_70
-??HAL_DMA_PollForTransfer_68:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x10  ;; 0x40026028
-        CMP      R2,LR
-        BEQ.N    ??HAL_DMA_PollForTransfer_71
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x14  ;; 0x40026428
-        CMP      R2,LR
-        BEQ.N    ??HAL_DMA_PollForTransfer_71
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x18  ;; 0x40026088
-        CMP      R2,LR
-        BEQ.N    ??HAL_DMA_PollForTransfer_71
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x1C  ;; 0x40026488
-        CMP      R2,LR
-        BNE.N    ??HAL_DMA_PollForTransfer_72
-??HAL_DMA_PollForTransfer_71:
-        MOV      LR,#+64
-        B.N      ??HAL_DMA_PollForTransfer_70
-??HAL_DMA_PollForTransfer_72:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x20  ;; 0x40026040
-        CMP      R2,LR
-        BNE.N    ??HAL_DMA_PollForTransfer_73
-        MOV      LR,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_70
-??HAL_DMA_PollForTransfer_73:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x24  ;; 0x40026440
-        CMP      R2,LR
-        BNE.N    ??HAL_DMA_PollForTransfer_74
-        MOV      LR,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_70
-??HAL_DMA_PollForTransfer_74:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x28  ;; 0x400260a0
-        CMP      R2,LR
-        BNE.N    ??HAL_DMA_PollForTransfer_75
-        MOV      LR,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_70
-??HAL_DMA_PollForTransfer_75:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_10  ;; 0x400264a0
-        CMP      R2,LR
-        BNE.N    ??HAL_DMA_PollForTransfer_76
-        MOV      LR,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_70
-??HAL_DMA_PollForTransfer_76:
-        MOV      LR,#+4194304
-??HAL_DMA_PollForTransfer_70:
-        AND      R12,LR,R12
-        B.N      ??HAL_DMA_PollForTransfer_77
+        ANDS     R11,R1,R0
+        B.N      ??HAL_DMA_PollForTransfer_48
+??HAL_DMA_PollForTransfer_34:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28+0x8  ;; 0x400260b9
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_49
+        LDR.W    R0,??HAL_DMA_PollForTransfer_28+0xC  ;; 0x40026400
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_50
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_PollForTransfer_51
+??HAL_DMA_PollForTransfer_50:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x4  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_52
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_PollForTransfer_51
+??HAL_DMA_PollForTransfer_52:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x8  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_53
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_PollForTransfer_51
+??HAL_DMA_PollForTransfer_53:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0xC  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_54
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_PollForTransfer_51
+??HAL_DMA_PollForTransfer_54:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x10  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_55
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_PollForTransfer_51
+??HAL_DMA_PollForTransfer_55:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x14  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_56
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_PollForTransfer_51
+??HAL_DMA_PollForTransfer_56:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x18  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_57
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_PollForTransfer_51
+??HAL_DMA_PollForTransfer_57:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x1C  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_58
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_PollForTransfer_51
+??HAL_DMA_PollForTransfer_58:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x20  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_59
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_51
+??HAL_DMA_PollForTransfer_59:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x24  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_60
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_51
+??HAL_DMA_PollForTransfer_60:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x28  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_61
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_51
+??HAL_DMA_PollForTransfer_61:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x2C  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_62
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_51
+??HAL_DMA_PollForTransfer_62:
+        MOVS     R1,#+33554432
+??HAL_DMA_PollForTransfer_51:
+        ANDS     R11,R1,R0
+        B.N      ??HAL_DMA_PollForTransfer_48
+??HAL_DMA_PollForTransfer_49:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28+0x10  ;; 0x40026059
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_63
+        LDR.W    R0,??HAL_DMA_PollForTransfer_28+0x14  ;; 0x40026004
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_64
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_PollForTransfer_65
+??HAL_DMA_PollForTransfer_64:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x4  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_66
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_PollForTransfer_65
 ??HAL_DMA_PollForTransfer_66:
-        LDR.W    R12,??HAL_DMA_PollForTransfer_10+0xC  ;; 0x400260b9
-        CMP      R2,R12
-        BCC.N    ??HAL_DMA_PollForTransfer_78
-        LDR      R12,[R0, #+0]
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_79
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x4  ;; 0x40026410
-        CMP      R2,LR
-        BEQ.N    ??HAL_DMA_PollForTransfer_79
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x8  ;; 0x40026070
-        CMP      R2,LR
-        BEQ.N    ??HAL_DMA_PollForTransfer_79
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0xC  ;; 0x40026470
-        CMP      R2,LR
-        BNE.N    ??HAL_DMA_PollForTransfer_80
-??HAL_DMA_PollForTransfer_79:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_69  ;; 0x800001
-        B.N      ??HAL_DMA_PollForTransfer_81
-??HAL_DMA_PollForTransfer_80:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x10  ;; 0x40026028
-        CMP      R2,LR
-        BEQ.N    ??HAL_DMA_PollForTransfer_82
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x14  ;; 0x40026428
-        CMP      R2,LR
-        BEQ.N    ??HAL_DMA_PollForTransfer_82
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x18  ;; 0x40026088
-        CMP      R2,LR
-        BEQ.N    ??HAL_DMA_PollForTransfer_82
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x1C  ;; 0x40026488
-        CMP      R2,LR
-        BNE.N    ??HAL_DMA_PollForTransfer_83
-??HAL_DMA_PollForTransfer_82:
-        MOV      LR,#+64
-        B.N      ??HAL_DMA_PollForTransfer_81
-??HAL_DMA_PollForTransfer_83:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x20  ;; 0x40026040
-        CMP      R2,LR
-        BNE.N    ??HAL_DMA_PollForTransfer_84
-        MOV      LR,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_81
-??HAL_DMA_PollForTransfer_84:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x24  ;; 0x40026440
-        CMP      R2,LR
-        BNE.N    ??HAL_DMA_PollForTransfer_85
-        MOV      LR,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_81
-??HAL_DMA_PollForTransfer_85:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x28  ;; 0x400260a0
-        CMP      R2,LR
-        BNE.N    ??HAL_DMA_PollForTransfer_86
-        MOV      LR,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_81
-??HAL_DMA_PollForTransfer_86:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_10  ;; 0x400264a0
-        CMP      R2,LR
-        BNE.N    ??HAL_DMA_PollForTransfer_87
-        MOV      LR,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_81
-??HAL_DMA_PollForTransfer_87:
-        MOV      LR,#+4194304
-??HAL_DMA_PollForTransfer_81:
-        AND      R12,LR,R12
-        B.N      ??HAL_DMA_PollForTransfer_77
-??HAL_DMA_PollForTransfer_78:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_10+0x10  ;; 0x40026000
-        LDR.W    R12,??HAL_DMA_PollForTransfer_10+0x14  ;; 0x40026059
-        CMP      R2,R12
-        BCC.N    ??HAL_DMA_PollForTransfer_88
-        LDR      R12,[LR, #+4]
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_89
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x4  ;; 0x40026410
-        CMP      R2,LR
-        BEQ.N    ??HAL_DMA_PollForTransfer_89
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x8  ;; 0x40026070
-        CMP      R2,LR
-        BEQ.N    ??HAL_DMA_PollForTransfer_89
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0xC  ;; 0x40026470
-        CMP      R2,LR
-        BNE.N    ??HAL_DMA_PollForTransfer_90
-??HAL_DMA_PollForTransfer_89:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_69  ;; 0x800001
-        B.N      ??HAL_DMA_PollForTransfer_91
-??HAL_DMA_PollForTransfer_90:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x10  ;; 0x40026028
-        CMP      R2,LR
-        BEQ.N    ??HAL_DMA_PollForTransfer_92
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x14  ;; 0x40026428
-        CMP      R2,LR
-        BEQ.N    ??HAL_DMA_PollForTransfer_92
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x18  ;; 0x40026088
-        CMP      R2,LR
-        BEQ.N    ??HAL_DMA_PollForTransfer_92
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x1C  ;; 0x40026488
-        CMP      R2,LR
-        BNE.N    ??HAL_DMA_PollForTransfer_93
-??HAL_DMA_PollForTransfer_92:
-        MOV      LR,#+64
-        B.N      ??HAL_DMA_PollForTransfer_91
-??HAL_DMA_PollForTransfer_93:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x20  ;; 0x40026040
-        CMP      R2,LR
-        BNE.N    ??HAL_DMA_PollForTransfer_94
-        MOV      LR,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_91
-??HAL_DMA_PollForTransfer_94:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x24  ;; 0x40026440
-        CMP      R2,LR
-        BNE.N    ??HAL_DMA_PollForTransfer_95
-        MOV      LR,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_91
-??HAL_DMA_PollForTransfer_95:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x28  ;; 0x400260a0
-        CMP      R2,LR
-        BNE.N    ??HAL_DMA_PollForTransfer_96
-        MOV      LR,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_91
-??HAL_DMA_PollForTransfer_96:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_10  ;; 0x400264a0
-        CMP      R2,LR
-        BNE.N    ??HAL_DMA_PollForTransfer_97
-        MOV      LR,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_91
-??HAL_DMA_PollForTransfer_97:
-        MOV      LR,#+4194304
-??HAL_DMA_PollForTransfer_91:
-        AND      R12,LR,R12
-        B.N      ??HAL_DMA_PollForTransfer_77
-??HAL_DMA_PollForTransfer_88:
-        LDR      R12,[LR, #+0]
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_98
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x4  ;; 0x40026410
-        CMP      R2,LR
-        BEQ.N    ??HAL_DMA_PollForTransfer_98
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x8  ;; 0x40026070
-        CMP      R2,LR
-        BEQ.N    ??HAL_DMA_PollForTransfer_98
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0xC  ;; 0x40026470
-        CMP      R2,LR
-        BNE.N    ??HAL_DMA_PollForTransfer_99
-??HAL_DMA_PollForTransfer_98:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_69  ;; 0x800001
-        B.N      ??HAL_DMA_PollForTransfer_100
-??HAL_DMA_PollForTransfer_99:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x10  ;; 0x40026028
-        CMP      R2,LR
-        BEQ.N    ??HAL_DMA_PollForTransfer_101
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x14  ;; 0x40026428
-        CMP      R2,LR
-        BEQ.N    ??HAL_DMA_PollForTransfer_101
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x18  ;; 0x40026088
-        CMP      R2,LR
-        BEQ.N    ??HAL_DMA_PollForTransfer_101
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x1C  ;; 0x40026488
-        CMP      R2,LR
-        BNE.N    ??HAL_DMA_PollForTransfer_102
-??HAL_DMA_PollForTransfer_101:
-        MOV      LR,#+64
-        B.N      ??HAL_DMA_PollForTransfer_100
-??HAL_DMA_PollForTransfer_102:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x20  ;; 0x40026040
-        CMP      R2,LR
-        BNE.N    ??HAL_DMA_PollForTransfer_103
-        MOV      LR,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_100
-??HAL_DMA_PollForTransfer_103:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x24  ;; 0x40026440
-        CMP      R2,LR
-        BNE.N    ??HAL_DMA_PollForTransfer_104
-        MOV      LR,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_100
-??HAL_DMA_PollForTransfer_104:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_0+0x28  ;; 0x400260a0
-        CMP      R2,LR
-        BNE.N    ??HAL_DMA_PollForTransfer_105
-        MOV      LR,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_100
-??HAL_DMA_PollForTransfer_105:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_10  ;; 0x400264a0
-        CMP      R2,LR
-        BNE.N    ??HAL_DMA_PollForTransfer_106
-        MOV      LR,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_100
-??HAL_DMA_PollForTransfer_106:
-        MOV      LR,#+4194304
-??HAL_DMA_PollForTransfer_100:
-        AND      R12,LR,R12
-//  545     tmp2 = __HAL_DMA_GET_FLAG(hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x8  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_67
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_PollForTransfer_65
+??HAL_DMA_PollForTransfer_67:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0xC  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_68
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_PollForTransfer_65
+??HAL_DMA_PollForTransfer_68:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x10  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_69
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_PollForTransfer_65
+??HAL_DMA_PollForTransfer_69:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x14  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_70
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_PollForTransfer_65
+??HAL_DMA_PollForTransfer_70:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x18  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_71
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_PollForTransfer_65
+??HAL_DMA_PollForTransfer_71:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x1C  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_72
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_PollForTransfer_65
+??HAL_DMA_PollForTransfer_72:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x20  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_73
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_65
+??HAL_DMA_PollForTransfer_73:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x24  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_74
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_65
+??HAL_DMA_PollForTransfer_74:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x28  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_75
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_65
+??HAL_DMA_PollForTransfer_75:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x2C  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_76
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_65
+??HAL_DMA_PollForTransfer_76:
+        MOVS     R1,#+33554432
+??HAL_DMA_PollForTransfer_65:
+        ANDS     R11,R1,R0
+        B.N      ??HAL_DMA_PollForTransfer_48
+??HAL_DMA_PollForTransfer_63:
+        LDR.W    R0,??HAL_DMA_PollForTransfer_28+0x18  ;; 0x40026000
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_77
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_PollForTransfer_78
 ??HAL_DMA_PollForTransfer_77:
-        CMP      R2,R1
-        BCC.N    ??HAL_DMA_PollForTransfer_107
-        LDR      LR,[R0, #+4]
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_108
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x4  ;; 0x40026410
-        CMP      R2,R10
-        BEQ.N    ??HAL_DMA_PollForTransfer_108
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x8  ;; 0x40026070
-        CMP      R2,R10
-        BEQ.N    ??HAL_DMA_PollForTransfer_108
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0xC  ;; 0x40026470
-        CMP      R2,R10
-        BNE.N    ??HAL_DMA_PollForTransfer_109
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x4  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_79
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_PollForTransfer_78
+??HAL_DMA_PollForTransfer_79:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x8  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_80
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_PollForTransfer_78
+??HAL_DMA_PollForTransfer_80:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0xC  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_81
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_PollForTransfer_78
+??HAL_DMA_PollForTransfer_81:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x10  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_82
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_PollForTransfer_78
+??HAL_DMA_PollForTransfer_82:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x14  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_83
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_PollForTransfer_78
+??HAL_DMA_PollForTransfer_83:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x18  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_84
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_PollForTransfer_78
+??HAL_DMA_PollForTransfer_84:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x1C  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_85
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_PollForTransfer_78
+??HAL_DMA_PollForTransfer_85:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x20  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_86
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_78
+??HAL_DMA_PollForTransfer_86:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x24  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_87
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_78
+??HAL_DMA_PollForTransfer_87:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x28  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_88
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_78
+??HAL_DMA_PollForTransfer_88:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x2C  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_89
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_78
+??HAL_DMA_PollForTransfer_89:
+        MOVS     R1,#+33554432
+??HAL_DMA_PollForTransfer_78:
+        ANDS     R11,R1,R0
+//  544     tmp1 = __HAL_DMA_GET_FLAG(hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+??HAL_DMA_PollForTransfer_48:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28  ;; 0x40026459
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_90
+        LDR.W    R0,??HAL_DMA_PollForTransfer_28+0x4  ;; 0x40026404
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_91
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28+0x1C  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_92
+??HAL_DMA_PollForTransfer_91:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x4  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_93
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28+0x1C  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_92
+??HAL_DMA_PollForTransfer_93:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x8  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_94
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28+0x1C  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_92
+??HAL_DMA_PollForTransfer_94:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0xC  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_95
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28+0x1C  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_92
+??HAL_DMA_PollForTransfer_95:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x10  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_96
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_PollForTransfer_92
+??HAL_DMA_PollForTransfer_96:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x14  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_97
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_PollForTransfer_92
+??HAL_DMA_PollForTransfer_97:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x18  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_98
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_PollForTransfer_92
+??HAL_DMA_PollForTransfer_98:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x1C  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_99
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_PollForTransfer_92
+??HAL_DMA_PollForTransfer_99:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x20  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_100
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_92
+??HAL_DMA_PollForTransfer_100:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x24  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_101
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_92
+??HAL_DMA_PollForTransfer_101:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x28  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_102
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_92
+??HAL_DMA_PollForTransfer_102:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x2C  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_103
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_92
+??HAL_DMA_PollForTransfer_103:
+        MOVS     R1,#+4194304
+??HAL_DMA_PollForTransfer_92:
+        ANDS     R7,R1,R0
+        B.N      ??HAL_DMA_PollForTransfer_104
+??HAL_DMA_PollForTransfer_90:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28+0x8  ;; 0x400260b9
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_105
+        LDR.W    R0,??HAL_DMA_PollForTransfer_28+0xC  ;; 0x40026400
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_106
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28+0x1C  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_107
+??HAL_DMA_PollForTransfer_106:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x4  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_108
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28+0x1C  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_107
 ??HAL_DMA_PollForTransfer_108:
-        LDR.W    R2,??HAL_DMA_PollForTransfer_110  ;; 0x800004
-        B.N      ??HAL_DMA_PollForTransfer_111
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x8  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_109
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28+0x1C  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_107
 ??HAL_DMA_PollForTransfer_109:
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x10  ;; 0x40026028
-        CMP      R2,R10
-        BEQ.N    ??HAL_DMA_PollForTransfer_112
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x14  ;; 0x40026428
-        CMP      R2,R10
-        BEQ.N    ??HAL_DMA_PollForTransfer_112
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x18  ;; 0x40026088
-        CMP      R2,R10
-        BEQ.N    ??HAL_DMA_PollForTransfer_112
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x1C  ;; 0x40026488
-        CMP      R2,R10
-        BNE.N    ??HAL_DMA_PollForTransfer_113
-??HAL_DMA_PollForTransfer_112:
-        MOV      R2,#+256
-        B.N      ??HAL_DMA_PollForTransfer_111
-??HAL_DMA_PollForTransfer_113:
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x20  ;; 0x40026040
-        CMP      R2,R10
-        BNE.N    ??HAL_DMA_PollForTransfer_114
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_111
-??HAL_DMA_PollForTransfer_114:
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x24  ;; 0x40026440
-        CMP      R2,R10
-        BNE.N    ??HAL_DMA_PollForTransfer_115
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_111
-??HAL_DMA_PollForTransfer_115:
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x28  ;; 0x400260a0
-        CMP      R2,R10
-        BNE.N    ??HAL_DMA_PollForTransfer_116
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_111
-??HAL_DMA_PollForTransfer_116:
-        LDR.W    R10,??HAL_DMA_PollForTransfer_10  ;; 0x400264a0
-        CMP      R2,R10
-        BNE.N    ??HAL_DMA_PollForTransfer_117
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_111
-??HAL_DMA_PollForTransfer_117:
-        MOV      R2,#+16777216
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0xC  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_110
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28+0x1C  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_107
+??HAL_DMA_PollForTransfer_110:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x10  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_111
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_PollForTransfer_107
 ??HAL_DMA_PollForTransfer_111:
-        AND      R2,R2,LR
-        B.N      ??HAL_DMA_PollForTransfer_118
-??HAL_DMA_PollForTransfer_107:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_10+0xC  ;; 0x400260b9
-        CMP      R2,LR
-        BCC.N    ??HAL_DMA_PollForTransfer_119
-        LDR      LR,[R0, #+0]
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_120
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x4  ;; 0x40026410
-        CMP      R2,R10
-        BEQ.N    ??HAL_DMA_PollForTransfer_120
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x8  ;; 0x40026070
-        CMP      R2,R10
-        BEQ.N    ??HAL_DMA_PollForTransfer_120
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0xC  ;; 0x40026470
-        CMP      R2,R10
-        BNE.N    ??HAL_DMA_PollForTransfer_121
-??HAL_DMA_PollForTransfer_120:
-        LDR.W    R2,??HAL_DMA_PollForTransfer_110  ;; 0x800004
-        B.N      ??HAL_DMA_PollForTransfer_122
-??HAL_DMA_PollForTransfer_121:
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x10  ;; 0x40026028
-        CMP      R2,R10
-        BEQ.N    ??HAL_DMA_PollForTransfer_123
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x14  ;; 0x40026428
-        CMP      R2,R10
-        BEQ.N    ??HAL_DMA_PollForTransfer_123
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x18  ;; 0x40026088
-        CMP      R2,R10
-        BEQ.N    ??HAL_DMA_PollForTransfer_123
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x1C  ;; 0x40026488
-        CMP      R2,R10
-        BNE.N    ??HAL_DMA_PollForTransfer_124
-??HAL_DMA_PollForTransfer_123:
-        MOV      R2,#+256
-        B.N      ??HAL_DMA_PollForTransfer_122
-??HAL_DMA_PollForTransfer_124:
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x20  ;; 0x40026040
-        CMP      R2,R10
-        BNE.N    ??HAL_DMA_PollForTransfer_125
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_122
-??HAL_DMA_PollForTransfer_125:
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x24  ;; 0x40026440
-        CMP      R2,R10
-        BNE.N    ??HAL_DMA_PollForTransfer_126
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_122
-??HAL_DMA_PollForTransfer_126:
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x28  ;; 0x400260a0
-        CMP      R2,R10
-        BNE.N    ??HAL_DMA_PollForTransfer_127
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_122
-??HAL_DMA_PollForTransfer_127:
-        LDR.W    R10,??HAL_DMA_PollForTransfer_10  ;; 0x400264a0
-        CMP      R2,R10
-        BNE.N    ??HAL_DMA_PollForTransfer_128
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_122
-??HAL_DMA_PollForTransfer_128:
-        MOV      R2,#+16777216
-??HAL_DMA_PollForTransfer_122:
-        AND      R2,R2,LR
-        B.N      ??HAL_DMA_PollForTransfer_118
-??HAL_DMA_PollForTransfer_119:
-        LDR.W    LR,??HAL_DMA_PollForTransfer_10+0x10  ;; 0x40026000
-        LDR.W    R10,??HAL_DMA_PollForTransfer_10+0x14  ;; 0x40026059
-        CMP      R2,R10
-        BCC.N    ??HAL_DMA_PollForTransfer_129
-        LDR      LR,[LR, #+4]
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_130
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x4  ;; 0x40026410
-        CMP      R2,R10
-        BEQ.N    ??HAL_DMA_PollForTransfer_130
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x8  ;; 0x40026070
-        CMP      R2,R10
-        BEQ.N    ??HAL_DMA_PollForTransfer_130
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0xC  ;; 0x40026470
-        CMP      R2,R10
-        BNE.N    ??HAL_DMA_PollForTransfer_131
-??HAL_DMA_PollForTransfer_130:
-        LDR.W    R2,??HAL_DMA_PollForTransfer_110  ;; 0x800004
-        B.N      ??HAL_DMA_PollForTransfer_132
-??HAL_DMA_PollForTransfer_131:
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x10  ;; 0x40026028
-        CMP      R2,R10
-        BEQ.N    ??HAL_DMA_PollForTransfer_133
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x14  ;; 0x40026428
-        CMP      R2,R10
-        BEQ.N    ??HAL_DMA_PollForTransfer_133
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x18  ;; 0x40026088
-        CMP      R2,R10
-        BEQ.N    ??HAL_DMA_PollForTransfer_133
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x1C  ;; 0x40026488
-        CMP      R2,R10
-        BNE.N    ??HAL_DMA_PollForTransfer_134
-??HAL_DMA_PollForTransfer_133:
-        MOV      R2,#+256
-        B.N      ??HAL_DMA_PollForTransfer_132
-??HAL_DMA_PollForTransfer_134:
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x20  ;; 0x40026040
-        CMP      R2,R10
-        BNE.N    ??HAL_DMA_PollForTransfer_135
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_132
-??HAL_DMA_PollForTransfer_135:
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x24  ;; 0x40026440
-        CMP      R2,R10
-        BNE.N    ??HAL_DMA_PollForTransfer_136
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_132
-??HAL_DMA_PollForTransfer_136:
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x28  ;; 0x400260a0
-        CMP      R2,R10
-        BNE.N    ??HAL_DMA_PollForTransfer_137
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_132
-??HAL_DMA_PollForTransfer_137:
-        LDR.W    R10,??HAL_DMA_PollForTransfer_10  ;; 0x400264a0
-        CMP      R2,R10
-        BNE.N    ??HAL_DMA_PollForTransfer_138
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_132
-??HAL_DMA_PollForTransfer_138:
-        MOV      R2,#+16777216
-??HAL_DMA_PollForTransfer_132:
-        AND      R2,R2,LR
-        B.N      ??HAL_DMA_PollForTransfer_118
-??HAL_DMA_PollForTransfer_129:
-        LDR      LR,[LR, #+0]
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_139
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x4  ;; 0x40026410
-        CMP      R2,R10
-        BEQ.N    ??HAL_DMA_PollForTransfer_139
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x8  ;; 0x40026070
-        CMP      R2,R10
-        BEQ.N    ??HAL_DMA_PollForTransfer_139
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0xC  ;; 0x40026470
-        CMP      R2,R10
-        BNE.N    ??HAL_DMA_PollForTransfer_140
-??HAL_DMA_PollForTransfer_139:
-        LDR.W    R2,??HAL_DMA_PollForTransfer_110  ;; 0x800004
-        B.N      ??HAL_DMA_PollForTransfer_141
-??HAL_DMA_PollForTransfer_140:
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x10  ;; 0x40026028
-        CMP      R2,R10
-        BEQ.N    ??HAL_DMA_PollForTransfer_142
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x14  ;; 0x40026428
-        CMP      R2,R10
-        BEQ.N    ??HAL_DMA_PollForTransfer_142
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x18  ;; 0x40026088
-        CMP      R2,R10
-        BEQ.N    ??HAL_DMA_PollForTransfer_142
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x1C  ;; 0x40026488
-        CMP      R2,R10
-        BNE.N    ??HAL_DMA_PollForTransfer_143
-??HAL_DMA_PollForTransfer_142:
-        MOV      R2,#+256
-        B.N      ??HAL_DMA_PollForTransfer_141
-??HAL_DMA_PollForTransfer_143:
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x20  ;; 0x40026040
-        CMP      R2,R10
-        BNE.N    ??HAL_DMA_PollForTransfer_144
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_141
-??HAL_DMA_PollForTransfer_144:
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x24  ;; 0x40026440
-        CMP      R2,R10
-        BNE.N    ??HAL_DMA_PollForTransfer_145
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_141
-??HAL_DMA_PollForTransfer_145:
-        LDR.W    R10,??HAL_DMA_PollForTransfer_0+0x28  ;; 0x400260a0
-        CMP      R2,R10
-        BNE.N    ??HAL_DMA_PollForTransfer_146
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_141
-??HAL_DMA_PollForTransfer_146:
-        LDR.W    R10,??HAL_DMA_PollForTransfer_10  ;; 0x400264a0
-        CMP      R2,R10
-        BNE.N    ??HAL_DMA_PollForTransfer_147
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_141
-??HAL_DMA_PollForTransfer_147:
-        MOV      R2,#+16777216
-??HAL_DMA_PollForTransfer_141:
-        AND      R2,R2,LR
-//  546     if((tmp != RESET) || (tmp1 != RESET) || (tmp2 != RESET))
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x14  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_112
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_PollForTransfer_107
+??HAL_DMA_PollForTransfer_112:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x18  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_113
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_PollForTransfer_107
+??HAL_DMA_PollForTransfer_113:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x1C  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_114
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_PollForTransfer_107
+??HAL_DMA_PollForTransfer_114:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x20  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_115
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_107
+??HAL_DMA_PollForTransfer_115:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x24  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_116
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_107
+??HAL_DMA_PollForTransfer_116:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x28  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_117
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_107
+??HAL_DMA_PollForTransfer_117:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x2C  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_118
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_107
 ??HAL_DMA_PollForTransfer_118:
-        ORR      LR,R12,R3
-        ORRS     LR,R2,LR
-        BEQ.W    ??HAL_DMA_PollForTransfer_148
-//  547     {
-//  548       if(tmp != RESET)
-        ADD      R5,R4,#+52
-        CMP      R3,#+0
-        BEQ.W    ??HAL_DMA_PollForTransfer_149
-//  549       {
-//  550         /* Update error code */
-//  551         hdma->ErrorCode |= HAL_DMA_ERROR_TE;
-        LDR      R3,[R5, #+24]
-        ORR      R3,R3,#0x1
-        STR      R3,[R5, #+24]
-//  552 
-//  553         /* Clear the transfer error flag */
-//  554         __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
-        LDR      R3,[R4, #+0]
-        CMP      R3,R1
-        BCC.N    ??HAL_DMA_PollForTransfer_150
-        CMP      R3,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_151
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x4  ;; 0x40026410
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_151
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x8  ;; 0x40026070
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_151
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0xC  ;; 0x40026470
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_152
-??HAL_DMA_PollForTransfer_151:
-        MOVS     R3,#+8
-        B.N      ??HAL_DMA_PollForTransfer_153
-??HAL_DMA_PollForTransfer_152:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x10  ;; 0x40026028
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_154
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x14  ;; 0x40026428
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_154
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x18  ;; 0x40026088
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_154
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x1C  ;; 0x40026488
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_155
-??HAL_DMA_PollForTransfer_154:
-        MOV      R3,#+512
-        B.N      ??HAL_DMA_PollForTransfer_153
-??HAL_DMA_PollForTransfer_155:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x20  ;; 0x40026040
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_156
-        MOV      R3,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_153
-??HAL_DMA_PollForTransfer_156:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x24  ;; 0x40026440
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_157
-        MOV      R3,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_153
-??HAL_DMA_PollForTransfer_157:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x28  ;; 0x400260a0
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_158
-        MOV      R3,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_153
-??HAL_DMA_PollForTransfer_158:
-        LDR.W    R6,??HAL_DMA_PollForTransfer_10  ;; 0x400264a0
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_159
-        MOV      R3,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_153
-??HAL_DMA_PollForTransfer_159:
-        MOV      R3,#+33554432
-??HAL_DMA_PollForTransfer_153:
-        STR      R3,[R0, #+12]
+        MOVS     R1,#+4194304
+??HAL_DMA_PollForTransfer_107:
+        ANDS     R7,R1,R0
+        B.N      ??HAL_DMA_PollForTransfer_104
+??HAL_DMA_PollForTransfer_105:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28+0x10  ;; 0x40026059
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_119
+        LDR.W    R0,??HAL_DMA_PollForTransfer_28+0x14  ;; 0x40026004
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_120
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28+0x1C  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_121
+??HAL_DMA_PollForTransfer_120:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x4  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_122
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28+0x1C  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_121
+??HAL_DMA_PollForTransfer_122:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x8  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_123
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28+0x1C  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_121
+??HAL_DMA_PollForTransfer_123:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0xC  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_124
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28+0x1C  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_121
+??HAL_DMA_PollForTransfer_124:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x10  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_125
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_PollForTransfer_121
+??HAL_DMA_PollForTransfer_125:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x14  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_126
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_PollForTransfer_121
+??HAL_DMA_PollForTransfer_126:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x18  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_127
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_PollForTransfer_121
+??HAL_DMA_PollForTransfer_127:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x1C  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_128
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_PollForTransfer_121
+??HAL_DMA_PollForTransfer_128:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x20  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_129
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_121
+??HAL_DMA_PollForTransfer_129:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x24  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_130
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_121
+??HAL_DMA_PollForTransfer_130:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x28  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_131
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_121
+??HAL_DMA_PollForTransfer_131:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x2C  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_132
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_121
+??HAL_DMA_PollForTransfer_132:
+        MOVS     R1,#+4194304
+??HAL_DMA_PollForTransfer_121:
+        ANDS     R7,R1,R0
+        B.N      ??HAL_DMA_PollForTransfer_104
+??HAL_DMA_PollForTransfer_119:
+        LDR.W    R0,??HAL_DMA_PollForTransfer_28+0x18  ;; 0x40026000
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_133
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28+0x1C  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_134
+??HAL_DMA_PollForTransfer_133:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x4  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_135
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28+0x1C  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_134
+??HAL_DMA_PollForTransfer_135:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x8  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_136
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28+0x1C  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_134
+??HAL_DMA_PollForTransfer_136:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0xC  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_137
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28+0x1C  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_134
+??HAL_DMA_PollForTransfer_137:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x10  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_138
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_PollForTransfer_134
+??HAL_DMA_PollForTransfer_138:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x14  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_139
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_PollForTransfer_134
+??HAL_DMA_PollForTransfer_139:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x18  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_140
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_PollForTransfer_134
+??HAL_DMA_PollForTransfer_140:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x1C  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_141
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_PollForTransfer_134
+??HAL_DMA_PollForTransfer_141:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_1+0x20  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_142
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_134
+??HAL_DMA_PollForTransfer_142:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x24  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_143
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_134
+??HAL_DMA_PollForTransfer_143:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x28  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_144
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_134
+??HAL_DMA_PollForTransfer_144:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x2C  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_145
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_134
+??HAL_DMA_PollForTransfer_145:
+        MOVS     R1,#+4194304
+??HAL_DMA_PollForTransfer_134:
+        ANDS     R7,R1,R0
+//  545     tmp2 = __HAL_DMA_GET_FLAG(hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+??HAL_DMA_PollForTransfer_104:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28  ;; 0x40026459
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_146
+        LDR.W    R0,??HAL_DMA_PollForTransfer_28+0x4  ;; 0x40026404
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_147
+        LDR.W    R1,??HAL_DMA_PollForTransfer_148  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_149
+??HAL_DMA_PollForTransfer_147:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x4  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_150
+        LDR.W    R1,??HAL_DMA_PollForTransfer_148  ;; 0x800004
         B.N      ??HAL_DMA_PollForTransfer_149
 ??HAL_DMA_PollForTransfer_150:
-        LDR.W    R6,??HAL_DMA_PollForTransfer_10+0xC  ;; 0x400260b9
-        CMP      R3,R6
-        BCC.N    ??HAL_DMA_PollForTransfer_160
-        CMP      R3,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_161
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x4  ;; 0x40026410
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_161
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x8  ;; 0x40026070
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_161
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0xC  ;; 0x40026470
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_162
-??HAL_DMA_PollForTransfer_161:
-        MOVS     R3,#+8
-        B.N      ??HAL_DMA_PollForTransfer_163
-??HAL_DMA_PollForTransfer_162:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x10  ;; 0x40026028
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_164
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x14  ;; 0x40026428
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_164
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x18  ;; 0x40026088
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_164
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x1C  ;; 0x40026488
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_165
-??HAL_DMA_PollForTransfer_164:
-        MOV      R3,#+512
-        B.N      ??HAL_DMA_PollForTransfer_163
-??HAL_DMA_PollForTransfer_165:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x20  ;; 0x40026040
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_166
-        MOV      R3,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_163
-??HAL_DMA_PollForTransfer_166:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x24  ;; 0x40026440
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_167
-        MOV      R3,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_163
-??HAL_DMA_PollForTransfer_167:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x28  ;; 0x400260a0
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_168
-        MOV      R3,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_163
-??HAL_DMA_PollForTransfer_168:
-        LDR.W    R6,??HAL_DMA_PollForTransfer_10  ;; 0x400264a0
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_169
-        MOV      R3,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_163
-??HAL_DMA_PollForTransfer_169:
-        MOV      R3,#+33554432
-??HAL_DMA_PollForTransfer_163:
-        STR      R3,[R0, #+8]
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x8  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_151
+        LDR.W    R1,??HAL_DMA_PollForTransfer_148  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_149
+??HAL_DMA_PollForTransfer_151:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0xC  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_152
+        LDR.W    R1,??HAL_DMA_PollForTransfer_148  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_149
+??HAL_DMA_PollForTransfer_152:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x10  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_153
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_PollForTransfer_149
+??HAL_DMA_PollForTransfer_153:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x14  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_154
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_PollForTransfer_149
+??HAL_DMA_PollForTransfer_154:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x18  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_155
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_PollForTransfer_149
+??HAL_DMA_PollForTransfer_155:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x1C  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_156
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_PollForTransfer_149
+??HAL_DMA_PollForTransfer_156:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x20  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_157
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_149
+??HAL_DMA_PollForTransfer_157:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x24  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_158
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_149
+??HAL_DMA_PollForTransfer_158:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x28  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_159
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_149
+??HAL_DMA_PollForTransfer_159:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x2C  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_160
+        MOVS     R1,#+262144
         B.N      ??HAL_DMA_PollForTransfer_149
 ??HAL_DMA_PollForTransfer_160:
-        LDR.W    R6,??HAL_DMA_PollForTransfer_10+0x14  ;; 0x40026059
-        CMP      R3,R6
-        BCC.N    ??HAL_DMA_PollForTransfer_170
-        CMP      R3,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_171
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x4  ;; 0x40026410
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_171
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x8  ;; 0x40026070
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_171
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0xC  ;; 0x40026470
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_172
-??HAL_DMA_PollForTransfer_171:
-        MOVS     R3,#+8
-        B.N      ??HAL_DMA_PollForTransfer_173
-??HAL_DMA_PollForTransfer_172:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x10  ;; 0x40026028
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_174
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x14  ;; 0x40026428
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_174
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x18  ;; 0x40026088
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_174
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x1C  ;; 0x40026488
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_175
-??HAL_DMA_PollForTransfer_174:
-        MOV      R3,#+512
-        B.N      ??HAL_DMA_PollForTransfer_173
-??HAL_DMA_PollForTransfer_175:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x20  ;; 0x40026040
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_176
-        MOV      R3,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_173
-??HAL_DMA_PollForTransfer_176:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x24  ;; 0x40026440
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_177
-        MOV      R3,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_173
-??HAL_DMA_PollForTransfer_177:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x28  ;; 0x400260a0
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_178
-        MOV      R3,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_173
-??HAL_DMA_PollForTransfer_178:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_10  ;; 0x400264a0
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_179
-        MOV      R3,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_173
-??HAL_DMA_PollForTransfer_179:
-        MOV      R3,#+33554432
-??HAL_DMA_PollForTransfer_173:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_10+0x10  ;; 0x40026000
-        STR      R3,[R6, #+12]
-        B.N      ??HAL_DMA_PollForTransfer_149
-??HAL_DMA_PollForTransfer_170:
-        CMP      R3,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_180
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x4  ;; 0x40026410
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_180
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x8  ;; 0x40026070
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_180
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0xC  ;; 0x40026470
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_181
-??HAL_DMA_PollForTransfer_180:
-        MOVS     R3,#+8
-        B.N      ??HAL_DMA_PollForTransfer_182
-??HAL_DMA_PollForTransfer_181:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x10  ;; 0x40026028
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_183
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x14  ;; 0x40026428
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_183
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x18  ;; 0x40026088
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_183
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x1C  ;; 0x40026488
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_184
-??HAL_DMA_PollForTransfer_183:
-        MOV      R3,#+512
-        B.N      ??HAL_DMA_PollForTransfer_182
-??HAL_DMA_PollForTransfer_184:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x20  ;; 0x40026040
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_185
-        MOV      R3,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_182
-??HAL_DMA_PollForTransfer_185:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x24  ;; 0x40026440
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_186
-        MOV      R3,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_182
-??HAL_DMA_PollForTransfer_186:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x28  ;; 0x400260a0
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_187
-        MOV      R3,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_182
-??HAL_DMA_PollForTransfer_187:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_10  ;; 0x400264a0
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_188
-        MOV      R3,#+524288
-        B.N      ??HAL_DMA_PollForTransfer_182
-??HAL_DMA_PollForTransfer_188:
-        MOV      R3,#+33554432
-??HAL_DMA_PollForTransfer_182:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_10+0x10  ;; 0x40026000
-        STR      R3,[R6, #+8]
-//  555       }
-//  556       if(tmp1 != RESET)
+        MOVS     R1,#+16777216
 ??HAL_DMA_PollForTransfer_149:
-        CMP      R12,#+0
-        BEQ.W    ??HAL_DMA_PollForTransfer_189
-//  557       {
-//  558         /* Update error code */
-//  559         hdma->ErrorCode |= HAL_DMA_ERROR_FE;
-        LDR      R3,[R5, #+24]
-        ORR      R3,R3,#0x2
-        STR      R3,[R5, #+24]
-//  560  
-//  561         /* Clear the FIFO error flag */
-//  562         __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
-        LDR      R3,[R4, #+0]
-        CMP      R3,R1
-        BCC.N    ??HAL_DMA_PollForTransfer_190
-        CMP      R3,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_191
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x4  ;; 0x40026410
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_191
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x8  ;; 0x40026070
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_191
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0xC  ;; 0x40026470
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_192
-??HAL_DMA_PollForTransfer_191:
-        LDR.W    R3,??HAL_DMA_PollForTransfer_69  ;; 0x800001
-        B.N      ??HAL_DMA_PollForTransfer_193
-??HAL_DMA_PollForTransfer_192:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x10  ;; 0x40026028
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_194
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x14  ;; 0x40026428
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_194
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x18  ;; 0x40026088
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_194
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x1C  ;; 0x40026488
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_195
-??HAL_DMA_PollForTransfer_194:
-        MOVS     R3,#+64
-        B.N      ??HAL_DMA_PollForTransfer_193
-??HAL_DMA_PollForTransfer_195:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x20  ;; 0x40026040
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_196
-        MOV      R3,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_193
-??HAL_DMA_PollForTransfer_196:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x24  ;; 0x40026440
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_197
-        MOV      R3,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_193
-??HAL_DMA_PollForTransfer_197:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x28  ;; 0x400260a0
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_198
-        MOV      R3,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_193
-??HAL_DMA_PollForTransfer_198:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_10  ;; 0x400264a0
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_199
-        MOV      R3,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_193
-??HAL_DMA_PollForTransfer_199:
-        MOV      R3,#+4194304
-??HAL_DMA_PollForTransfer_193:
-        STR      R3,[R0, #+12]
-        B.N      ??HAL_DMA_PollForTransfer_189
+        ANDS     R8,R1,R0
+        B.N      ??HAL_DMA_PollForTransfer_161
+??HAL_DMA_PollForTransfer_146:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28+0x8  ;; 0x400260b9
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_162
+        LDR.W    R0,??HAL_DMA_PollForTransfer_28+0xC  ;; 0x40026400
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_163
+        LDR.W    R1,??HAL_DMA_PollForTransfer_148  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_164
+??HAL_DMA_PollForTransfer_163:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x4  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_165
+        LDR.W    R1,??HAL_DMA_PollForTransfer_148  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_164
+??HAL_DMA_PollForTransfer_165:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x8  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_166
+        LDR.W    R1,??HAL_DMA_PollForTransfer_148  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_164
+??HAL_DMA_PollForTransfer_166:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0xC  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_167
+        LDR.W    R1,??HAL_DMA_PollForTransfer_148  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_164
+??HAL_DMA_PollForTransfer_167:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x10  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_168
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_PollForTransfer_164
+??HAL_DMA_PollForTransfer_168:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x14  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_169
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_PollForTransfer_164
+??HAL_DMA_PollForTransfer_169:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x18  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_170
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_PollForTransfer_164
+??HAL_DMA_PollForTransfer_170:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x1C  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_171
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_PollForTransfer_164
+??HAL_DMA_PollForTransfer_171:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x20  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_172
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_164
+??HAL_DMA_PollForTransfer_172:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x24  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_173
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_164
+??HAL_DMA_PollForTransfer_173:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x28  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_174
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_164
+??HAL_DMA_PollForTransfer_174:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x2C  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_175
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_164
+??HAL_DMA_PollForTransfer_175:
+        MOVS     R1,#+16777216
+??HAL_DMA_PollForTransfer_164:
+        ANDS     R8,R1,R0
+        B.N      ??HAL_DMA_PollForTransfer_161
+??HAL_DMA_PollForTransfer_162:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_28+0x10  ;; 0x40026059
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_176
+        LDR.W    R0,??HAL_DMA_PollForTransfer_28+0x14  ;; 0x40026004
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_177
+        LDR.W    R1,??HAL_DMA_PollForTransfer_148  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_178
+??HAL_DMA_PollForTransfer_177:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x4  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_179
+        LDR.W    R1,??HAL_DMA_PollForTransfer_148  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_178
+??HAL_DMA_PollForTransfer_179:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x8  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_180
+        LDR.W    R1,??HAL_DMA_PollForTransfer_148  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_178
+??HAL_DMA_PollForTransfer_180:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0xC  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_181
+        LDR.W    R1,??HAL_DMA_PollForTransfer_148  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_178
+??HAL_DMA_PollForTransfer_181:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x10  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_182
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_PollForTransfer_178
+??HAL_DMA_PollForTransfer_182:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x14  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_183
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_PollForTransfer_178
+??HAL_DMA_PollForTransfer_183:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x18  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_184
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_PollForTransfer_178
+??HAL_DMA_PollForTransfer_184:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x1C  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_185
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_PollForTransfer_178
+??HAL_DMA_PollForTransfer_185:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x20  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_186
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_178
+??HAL_DMA_PollForTransfer_186:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x24  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_187
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_178
+??HAL_DMA_PollForTransfer_187:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x28  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_188
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_178
+??HAL_DMA_PollForTransfer_188:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x2C  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_189
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_178
+??HAL_DMA_PollForTransfer_189:
+        MOVS     R1,#+16777216
+??HAL_DMA_PollForTransfer_178:
+        ANDS     R8,R1,R0
+        B.N      ??HAL_DMA_PollForTransfer_161
+??HAL_DMA_PollForTransfer_176:
+        LDR.N    R0,??HAL_DMA_PollForTransfer_28+0x18  ;; 0x40026000
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_190
+        LDR.W    R1,??HAL_DMA_PollForTransfer_148  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_191
 ??HAL_DMA_PollForTransfer_190:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_10+0xC  ;; 0x400260b9
-        CMP      R3,R6
-        BCC.N    ??HAL_DMA_PollForTransfer_200
-        CMP      R3,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_201
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x4  ;; 0x40026410
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_201
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0x8  ;; 0x40026070
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_201
-        LDR.N    R6,??HAL_DMA_PollForTransfer_0+0xC  ;; 0x40026470
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_202
-??HAL_DMA_PollForTransfer_201:
-        LDR.W    R3,??HAL_DMA_PollForTransfer_69  ;; 0x800001
-        B.N      ??HAL_DMA_PollForTransfer_203
-        Nop      
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x4  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_192
+        LDR.W    R1,??HAL_DMA_PollForTransfer_148  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_191
+??HAL_DMA_PollForTransfer_192:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0x8  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_193
+        LDR.W    R1,??HAL_DMA_PollForTransfer_148  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_191
+??HAL_DMA_PollForTransfer_193:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_PollForTransfer_1+0xC  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_194
+        LDR.W    R1,??HAL_DMA_PollForTransfer_148  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_191
         DATA
-??HAL_DMA_PollForTransfer_0:
+??HAL_DMA_PollForTransfer_1:
         DC32     0x40026010
         DC32     0x40026410
         DC32     0x40026070
@@ -3627,860 +4335,1437 @@ HAL_DMA_PollForTransfer:
         DC32     0x40026040
         DC32     0x40026440
         DC32     0x400260a0
-        THUMB
-??HAL_DMA_PollForTransfer_202:
-        LDR.W    R6,??HAL_DMA_PollForTransfer_204  ;; 0x40026028
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_205
-        LDR.W    R6,??HAL_DMA_PollForTransfer_204+0x4  ;; 0x40026428
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_205
-        LDR.W    R6,??HAL_DMA_PollForTransfer_204+0x8  ;; 0x40026088
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_205
-        LDR.W    R6,??HAL_DMA_PollForTransfer_204+0xC  ;; 0x40026488
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_206
-??HAL_DMA_PollForTransfer_205:
-        MOVS     R3,#+64
-        B.N      ??HAL_DMA_PollForTransfer_203
-??HAL_DMA_PollForTransfer_206:
-        LDR.W    R6,??HAL_DMA_PollForTransfer_204+0x10  ;; 0x40026040
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_207
-        MOV      R3,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_203
-??HAL_DMA_PollForTransfer_207:
-        LDR.W    R6,??HAL_DMA_PollForTransfer_204+0x14  ;; 0x40026440
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_208
-        MOV      R3,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_203
-??HAL_DMA_PollForTransfer_208:
-        LDR.W    R6,??HAL_DMA_PollForTransfer_204+0x18  ;; 0x400260a0
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_209
-        MOV      R3,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_203
-??HAL_DMA_PollForTransfer_209:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_10  ;; 0x400264a0
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_210
-        MOV      R3,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_203
-??HAL_DMA_PollForTransfer_210:
-        MOV      R3,#+4194304
-??HAL_DMA_PollForTransfer_203:
-        STR      R3,[R0, #+8]
-        B.N      ??HAL_DMA_PollForTransfer_189
-??HAL_DMA_PollForTransfer_200:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_10+0x14  ;; 0x40026059
-        CMP      R3,R6
-        BCC.N    ??HAL_DMA_PollForTransfer_211
-        CMP      R3,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_212
-        LDR.W    R6,??HAL_DMA_PollForTransfer_204+0x1C  ;; 0x40026410
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_212
-        LDR.W    R6,??HAL_DMA_PollForTransfer_204+0x20  ;; 0x40026070
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_212
-        LDR.W    R6,??HAL_DMA_PollForTransfer_204+0x24  ;; 0x40026470
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_213
-??HAL_DMA_PollForTransfer_212:
-        LDR.N    R3,??HAL_DMA_PollForTransfer_69  ;; 0x800001
-        B.N      ??HAL_DMA_PollForTransfer_214
-??HAL_DMA_PollForTransfer_213:
-        LDR.W    R6,??HAL_DMA_PollForTransfer_204  ;; 0x40026028
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_215
-        LDR.W    R6,??HAL_DMA_PollForTransfer_204+0x4  ;; 0x40026428
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_215
-        LDR.W    R6,??HAL_DMA_PollForTransfer_204+0x8  ;; 0x40026088
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_215
-        LDR.W    R6,??HAL_DMA_PollForTransfer_204+0xC  ;; 0x40026488
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_216
-??HAL_DMA_PollForTransfer_215:
-        MOVS     R3,#+64
-        B.N      ??HAL_DMA_PollForTransfer_214
-??HAL_DMA_PollForTransfer_216:
-        LDR.W    R6,??HAL_DMA_PollForTransfer_204+0x10  ;; 0x40026040
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_217
-        MOV      R3,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_214
-??HAL_DMA_PollForTransfer_217:
-        LDR.W    R6,??HAL_DMA_PollForTransfer_204+0x14  ;; 0x40026440
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_218
-        MOV      R3,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_214
-??HAL_DMA_PollForTransfer_218:
-        LDR.W    R6,??HAL_DMA_PollForTransfer_204+0x18  ;; 0x400260a0
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_219
-        MOV      R3,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_214
-??HAL_DMA_PollForTransfer_219:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_10  ;; 0x400264a0
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_220
-        MOV      R3,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_214
-??HAL_DMA_PollForTransfer_220:
-        MOV      R3,#+4194304
-??HAL_DMA_PollForTransfer_214:
-        LDR.N    R6,??HAL_DMA_PollForTransfer_10+0x10  ;; 0x40026000
-        STR      R3,[R6, #+12]
-        B.N      ??HAL_DMA_PollForTransfer_189
-??HAL_DMA_PollForTransfer_211:
-        CMP      R3,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_221
-        LDR.W    R6,??HAL_DMA_PollForTransfer_204+0x1C  ;; 0x40026410
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_221
-        LDR.W    R6,??HAL_DMA_PollForTransfer_204+0x20  ;; 0x40026070
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_221
-        LDR.W    R6,??HAL_DMA_PollForTransfer_204+0x24  ;; 0x40026470
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_222
-??HAL_DMA_PollForTransfer_221:
-        LDR.N    R3,??HAL_DMA_PollForTransfer_69  ;; 0x800001
-        B.N      ??HAL_DMA_PollForTransfer_223
-        DATA
-??HAL_DMA_PollForTransfer_10:
         DC32     0x400264a0
-        DC32     0x40026400
-        DC32     0x40026459
-        DC32     0x400260b9
-        DC32     0x40026000
-        DC32     0x40026059
         THUMB
-??HAL_DMA_PollForTransfer_222:
-        LDR.W    R6,??HAL_DMA_PollForTransfer_204  ;; 0x40026028
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_224
-        LDR.W    R6,??HAL_DMA_PollForTransfer_204+0x4  ;; 0x40026428
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_224
-        LDR.W    R6,??HAL_DMA_PollForTransfer_204+0x8  ;; 0x40026088
-        CMP      R3,R6
-        BEQ.N    ??HAL_DMA_PollForTransfer_224
-        LDR.W    R6,??HAL_DMA_PollForTransfer_204+0xC  ;; 0x40026488
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_225
-??HAL_DMA_PollForTransfer_224:
-        MOVS     R3,#+64
-        B.N      ??HAL_DMA_PollForTransfer_223
-??HAL_DMA_PollForTransfer_225:
-        LDR.W    R6,??HAL_DMA_PollForTransfer_204+0x10  ;; 0x40026040
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_226
-        MOV      R3,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_223
-??HAL_DMA_PollForTransfer_226:
-        LDR.W    R6,??HAL_DMA_PollForTransfer_204+0x14  ;; 0x40026440
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_227
-        MOV      R3,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_223
-??HAL_DMA_PollForTransfer_227:
-        LDR.W    R6,??HAL_DMA_PollForTransfer_204+0x18  ;; 0x400260a0
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_228
-        MOV      R3,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_223
-??HAL_DMA_PollForTransfer_228:
-        LDR.W    R6,??HAL_DMA_PollForTransfer_229  ;; 0x400264a0
-        CMP      R3,R6
-        BNE.N    ??HAL_DMA_PollForTransfer_230
-        MOV      R3,#+65536
-        B.N      ??HAL_DMA_PollForTransfer_223
-??HAL_DMA_PollForTransfer_230:
-        MOV      R3,#+4194304
+??HAL_DMA_PollForTransfer_194:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_195  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_196
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_PollForTransfer_191
+??HAL_DMA_PollForTransfer_196:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_195+0x4  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_197
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_PollForTransfer_191
+??HAL_DMA_PollForTransfer_197:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_195+0x8  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_198
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_PollForTransfer_191
+??HAL_DMA_PollForTransfer_198:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_195+0xC  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_199
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_PollForTransfer_191
+??HAL_DMA_PollForTransfer_199:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_195+0x10  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_200
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_191
+??HAL_DMA_PollForTransfer_200:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_195+0x14  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_201
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_191
+??HAL_DMA_PollForTransfer_201:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_195+0x18  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_202
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_191
+??HAL_DMA_PollForTransfer_202:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_PollForTransfer_195+0x1C  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_PollForTransfer_203
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_191
+??HAL_DMA_PollForTransfer_203:
+        MOVS     R1,#+16777216
+??HAL_DMA_PollForTransfer_191:
+        ANDS     R8,R1,R0
+//  546     if((tmp != RESET) || (tmp1 != RESET) || (tmp2 != RESET))
+??HAL_DMA_PollForTransfer_161:
+        ORRS     R0,R7,R11
+        ORRS     R0,R8,R0
+        CMP      R0,#+0
+        BEQ.W    ??HAL_DMA_PollForTransfer_204
+//  547     {
+//  548       if(tmp != RESET)
+        CMP      R11,#+0
+        BEQ.W    ??HAL_DMA_PollForTransfer_205
+//  549       {
+//  550         /* Update error code */
+//  551         hdma->ErrorCode |= HAL_DMA_ERROR_TE;
+        LDR      R0,[R4, #+76]
+        ORRS     R0,R0,#0x1
+        STR      R0,[R4, #+76]
+//  552 
+//  553         /* Clear the transfer error flag */
+//  554         __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_28  ;; 0x40026459
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_206
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x20  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_207
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_PollForTransfer_208
+??HAL_DMA_PollForTransfer_207:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x24  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_209
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_PollForTransfer_208
+??HAL_DMA_PollForTransfer_209:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x28  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_210
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_PollForTransfer_208
+??HAL_DMA_PollForTransfer_210:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x2C  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_211
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_PollForTransfer_208
+??HAL_DMA_PollForTransfer_211:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_212
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_PollForTransfer_208
+??HAL_DMA_PollForTransfer_212:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x4  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_213
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_PollForTransfer_208
+??HAL_DMA_PollForTransfer_213:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x8  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_214
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_PollForTransfer_208
+??HAL_DMA_PollForTransfer_214:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0xC  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_215
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_PollForTransfer_208
+??HAL_DMA_PollForTransfer_215:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x10  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_216
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_208
+??HAL_DMA_PollForTransfer_216:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x14  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_217
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_208
+??HAL_DMA_PollForTransfer_217:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x18  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_218
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_208
+??HAL_DMA_PollForTransfer_218:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x1C  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_219
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_208
+??HAL_DMA_PollForTransfer_219:
+        MOVS     R0,#+33554432
+??HAL_DMA_PollForTransfer_208:
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x30  ;; 0x4002640c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_PollForTransfer_205
+??HAL_DMA_PollForTransfer_206:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_28+0x8  ;; 0x400260b9
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_220
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x20  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_221
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_PollForTransfer_222
+??HAL_DMA_PollForTransfer_221:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x24  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_223
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_PollForTransfer_222
 ??HAL_DMA_PollForTransfer_223:
-        LDR.W    R6,??HAL_DMA_PollForTransfer_231  ;; 0x40026000
-        STR      R3,[R6, #+8]
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x28  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_224
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_PollForTransfer_222
+??HAL_DMA_PollForTransfer_224:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x2C  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_225
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_PollForTransfer_222
+??HAL_DMA_PollForTransfer_225:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_226
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_PollForTransfer_222
+??HAL_DMA_PollForTransfer_226:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x4  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_227
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_PollForTransfer_222
+??HAL_DMA_PollForTransfer_227:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x8  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_228
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_PollForTransfer_222
+??HAL_DMA_PollForTransfer_228:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0xC  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_229
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_PollForTransfer_222
+??HAL_DMA_PollForTransfer_229:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x10  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_230
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_222
+??HAL_DMA_PollForTransfer_230:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x14  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_231
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_222
+??HAL_DMA_PollForTransfer_231:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x18  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_232
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_222
+??HAL_DMA_PollForTransfer_232:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x1C  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_233
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_222
+??HAL_DMA_PollForTransfer_233:
+        MOVS     R0,#+33554432
+??HAL_DMA_PollForTransfer_222:
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x34  ;; 0x40026408
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_PollForTransfer_205
+??HAL_DMA_PollForTransfer_220:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_28+0x10  ;; 0x40026059
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_234
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x20  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_235
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_PollForTransfer_236
+??HAL_DMA_PollForTransfer_235:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x24  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_237
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_PollForTransfer_236
+??HAL_DMA_PollForTransfer_237:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x28  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_238
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_PollForTransfer_236
+??HAL_DMA_PollForTransfer_238:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x2C  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_239
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_PollForTransfer_236
+        Nop      
+        DATA
+??HAL_DMA_PollForTransfer_28:
+        DC32     0x40026459
+        DC32     0x40026404
+        DC32     0x400260b9
+        DC32     0x40026400
+        DC32     0x40026059
+        DC32     0x40026004
+        DC32     0x40026000
+        DC32     0x800001
+        THUMB
+??HAL_DMA_PollForTransfer_239:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_240
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_PollForTransfer_236
+??HAL_DMA_PollForTransfer_240:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x4  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_241
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_PollForTransfer_236
+??HAL_DMA_PollForTransfer_241:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x8  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_242
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_PollForTransfer_236
+??HAL_DMA_PollForTransfer_242:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0xC  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_243
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_PollForTransfer_236
+??HAL_DMA_PollForTransfer_243:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x10  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_244
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_236
+??HAL_DMA_PollForTransfer_244:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x14  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_245
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_236
+??HAL_DMA_PollForTransfer_245:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x18  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_246
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_236
+??HAL_DMA_PollForTransfer_246:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x1C  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_247
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_236
+??HAL_DMA_PollForTransfer_247:
+        MOVS     R0,#+33554432
+??HAL_DMA_PollForTransfer_236:
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x38  ;; 0x4002600c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_PollForTransfer_205
+??HAL_DMA_PollForTransfer_234:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x20  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_248
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_PollForTransfer_249
+??HAL_DMA_PollForTransfer_248:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x24  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_250
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_PollForTransfer_249
+??HAL_DMA_PollForTransfer_250:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x28  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_251
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_PollForTransfer_249
+??HAL_DMA_PollForTransfer_251:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x2C  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_252
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_PollForTransfer_249
+??HAL_DMA_PollForTransfer_252:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_253
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_PollForTransfer_249
+??HAL_DMA_PollForTransfer_253:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x4  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_254
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_PollForTransfer_249
+??HAL_DMA_PollForTransfer_254:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x8  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_255
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_PollForTransfer_249
+??HAL_DMA_PollForTransfer_255:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0xC  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_256
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_PollForTransfer_249
+??HAL_DMA_PollForTransfer_256:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x10  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_257
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_249
+??HAL_DMA_PollForTransfer_257:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x14  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_258
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_249
+??HAL_DMA_PollForTransfer_258:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x18  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_259
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_249
+??HAL_DMA_PollForTransfer_259:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x1C  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_260
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_PollForTransfer_249
+??HAL_DMA_PollForTransfer_260:
+        MOVS     R0,#+33554432
+??HAL_DMA_PollForTransfer_249:
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x3C  ;; 0x40026008
+        STR      R0,[R1, #+0]
+//  555       }
+//  556       if(tmp1 != RESET)
+??HAL_DMA_PollForTransfer_205:
+        CMP      R7,#+0
+        BEQ.W    ??HAL_DMA_PollForTransfer_261
+//  557       {
+//  558         /* Update error code */
+//  559         hdma->ErrorCode |= HAL_DMA_ERROR_FE;
+        LDR      R0,[R4, #+76]
+        ORRS     R0,R0,#0x2
+        STR      R0,[R4, #+76]
+//  560  
+//  561         /* Clear the FIFO error flag */
+//  562         __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x40  ;; 0x40026459
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_262
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x20  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_263
+        LDR.W    R0,??HAL_DMA_PollForTransfer_195+0x44  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_264
+??HAL_DMA_PollForTransfer_263:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x24  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_265
+        LDR.W    R0,??HAL_DMA_PollForTransfer_195+0x44  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_264
+??HAL_DMA_PollForTransfer_265:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x28  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_266
+        LDR.W    R0,??HAL_DMA_PollForTransfer_195+0x44  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_264
+??HAL_DMA_PollForTransfer_266:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x2C  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_267
+        LDR.W    R0,??HAL_DMA_PollForTransfer_195+0x44  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_264
+??HAL_DMA_PollForTransfer_267:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_268
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_PollForTransfer_264
+??HAL_DMA_PollForTransfer_268:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x4  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_269
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_PollForTransfer_264
+??HAL_DMA_PollForTransfer_269:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x8  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_270
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_PollForTransfer_264
+??HAL_DMA_PollForTransfer_270:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0xC  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_271
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_PollForTransfer_264
+??HAL_DMA_PollForTransfer_271:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x10  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_272
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_264
+??HAL_DMA_PollForTransfer_272:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x14  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_273
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_264
+??HAL_DMA_PollForTransfer_273:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x18  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_274
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_264
+??HAL_DMA_PollForTransfer_274:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x1C  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_275
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_264
+??HAL_DMA_PollForTransfer_275:
+        MOVS     R0,#+4194304
+??HAL_DMA_PollForTransfer_264:
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x30  ;; 0x4002640c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_PollForTransfer_261
+??HAL_DMA_PollForTransfer_262:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_276  ;; 0x400260b9
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_277
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x20  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_278
+        LDR.W    R0,??HAL_DMA_PollForTransfer_195+0x44  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_279
+??HAL_DMA_PollForTransfer_278:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x24  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_280
+        LDR.W    R0,??HAL_DMA_PollForTransfer_195+0x44  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_279
+??HAL_DMA_PollForTransfer_280:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x28  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_281
+        LDR.W    R0,??HAL_DMA_PollForTransfer_195+0x44  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_279
+??HAL_DMA_PollForTransfer_281:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x2C  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_282
+        LDR.W    R0,??HAL_DMA_PollForTransfer_195+0x44  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_279
+??HAL_DMA_PollForTransfer_282:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_283
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_PollForTransfer_279
+??HAL_DMA_PollForTransfer_283:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x4  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_284
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_PollForTransfer_279
+??HAL_DMA_PollForTransfer_284:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x8  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_285
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_PollForTransfer_279
+??HAL_DMA_PollForTransfer_285:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0xC  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_286
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_PollForTransfer_279
+??HAL_DMA_PollForTransfer_286:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x10  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_287
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_279
+??HAL_DMA_PollForTransfer_287:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x14  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_288
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_279
+??HAL_DMA_PollForTransfer_288:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x18  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_289
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_279
+??HAL_DMA_PollForTransfer_289:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x1C  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_290
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_279
+??HAL_DMA_PollForTransfer_290:
+        MOVS     R0,#+4194304
+??HAL_DMA_PollForTransfer_279:
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x34  ;; 0x40026408
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_PollForTransfer_261
+??HAL_DMA_PollForTransfer_277:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_291  ;; 0x40026059
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_292
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x20  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_293
+        LDR.W    R0,??HAL_DMA_PollForTransfer_195+0x44  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_294
+??HAL_DMA_PollForTransfer_293:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x24  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_295
+        LDR.W    R0,??HAL_DMA_PollForTransfer_195+0x44  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_294
+??HAL_DMA_PollForTransfer_295:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x28  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_296
+        LDR.W    R0,??HAL_DMA_PollForTransfer_195+0x44  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_294
+??HAL_DMA_PollForTransfer_296:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x2C  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_297
+        LDR.W    R0,??HAL_DMA_PollForTransfer_195+0x44  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_294
+??HAL_DMA_PollForTransfer_297:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_298
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_PollForTransfer_294
+??HAL_DMA_PollForTransfer_298:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x4  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_299
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_PollForTransfer_294
+??HAL_DMA_PollForTransfer_299:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x8  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_300
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_PollForTransfer_294
+??HAL_DMA_PollForTransfer_300:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0xC  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_301
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_PollForTransfer_294
+??HAL_DMA_PollForTransfer_301:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x10  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_302
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_294
+??HAL_DMA_PollForTransfer_302:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x14  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_303
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_294
+??HAL_DMA_PollForTransfer_303:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x18  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_304
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_294
+??HAL_DMA_PollForTransfer_304:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x1C  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_305
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_294
+??HAL_DMA_PollForTransfer_305:
+        MOVS     R0,#+4194304
+??HAL_DMA_PollForTransfer_294:
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x38  ;; 0x4002600c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_PollForTransfer_261
+??HAL_DMA_PollForTransfer_292:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x20  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_306
+        LDR.W    R0,??HAL_DMA_PollForTransfer_195+0x44  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_307
+??HAL_DMA_PollForTransfer_306:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x24  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_308
+        LDR.W    R0,??HAL_DMA_PollForTransfer_195+0x44  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_307
+??HAL_DMA_PollForTransfer_308:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x28  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_309
+        LDR.W    R0,??HAL_DMA_PollForTransfer_195+0x44  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_307
+??HAL_DMA_PollForTransfer_309:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x2C  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_310
+        LDR.W    R0,??HAL_DMA_PollForTransfer_195+0x44  ;; 0x800001
+        B.N      ??HAL_DMA_PollForTransfer_307
+??HAL_DMA_PollForTransfer_310:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_311
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_PollForTransfer_307
+??HAL_DMA_PollForTransfer_311:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x4  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_312
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_PollForTransfer_307
+??HAL_DMA_PollForTransfer_312:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x8  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_313
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_PollForTransfer_307
+??HAL_DMA_PollForTransfer_313:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0xC  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_314
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_PollForTransfer_307
+??HAL_DMA_PollForTransfer_314:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x10  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_315
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_307
+??HAL_DMA_PollForTransfer_315:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x14  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_316
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_307
+??HAL_DMA_PollForTransfer_316:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x18  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_317
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_307
+??HAL_DMA_PollForTransfer_317:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x1C  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_318
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_PollForTransfer_307
+??HAL_DMA_PollForTransfer_318:
+        MOVS     R0,#+4194304
+??HAL_DMA_PollForTransfer_307:
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x3C  ;; 0x40026008
+        STR      R0,[R1, #+0]
 //  563       }
 //  564       if(tmp2 != RESET)
-??HAL_DMA_PollForTransfer_189:
-        CMP      R2,#+0
-        BEQ.W    ??HAL_DMA_PollForTransfer_232
+??HAL_DMA_PollForTransfer_261:
+        CMP      R8,#+0
+        BEQ.W    ??HAL_DMA_PollForTransfer_319
 //  565       {
 //  566         /* Update error code */
 //  567         hdma->ErrorCode |= HAL_DMA_ERROR_DME;
-        LDR      R2,[R5, #+24]
-        ORR      R2,R2,#0x4
-        STR      R2,[R5, #+24]
+        LDR      R0,[R4, #+76]
+        ORRS     R0,R0,#0x4
+        STR      R0,[R4, #+76]
 //  568 
 //  569         /* Clear the Direct Mode error flag */
 //  570         __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
-        LDR      R2,[R4, #+0]
-        CMP      R2,R1
-        BCC.N    ??HAL_DMA_PollForTransfer_233
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_234
-        LDR.W    R1,??HAL_DMA_PollForTransfer_204+0x1C  ;; 0x40026410
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_234
-        LDR.W    R1,??HAL_DMA_PollForTransfer_204+0x20  ;; 0x40026070
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_234
-        LDR.W    R1,??HAL_DMA_PollForTransfer_204+0x24  ;; 0x40026470
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_235
-??HAL_DMA_PollForTransfer_234:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_110  ;; 0x800004
-        B.N      ??HAL_DMA_PollForTransfer_236
-??HAL_DMA_PollForTransfer_235:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_204  ;; 0x40026028
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_237
-        LDR.W    R1,??HAL_DMA_PollForTransfer_204+0x4  ;; 0x40026428
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_237
-        LDR.W    R1,??HAL_DMA_PollForTransfer_204+0x8  ;; 0x40026088
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_237
-        LDR.W    R1,??HAL_DMA_PollForTransfer_204+0xC  ;; 0x40026488
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_238
-??HAL_DMA_PollForTransfer_237:
-        MOV      R1,#+256
-        B.N      ??HAL_DMA_PollForTransfer_236
-??HAL_DMA_PollForTransfer_238:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_204+0x10  ;; 0x40026040
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_239
-        MOV      R1,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_236
-??HAL_DMA_PollForTransfer_239:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_204+0x14  ;; 0x40026440
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_240
-        MOV      R1,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_236
-??HAL_DMA_PollForTransfer_240:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_204+0x18  ;; 0x400260a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_241
-        MOV      R1,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_236
-??HAL_DMA_PollForTransfer_241:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_229  ;; 0x400264a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_242
-        MOV      R1,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_236
-??HAL_DMA_PollForTransfer_242:
-        MOV      R1,#+16777216
-??HAL_DMA_PollForTransfer_236:
-        STR      R1,[R0, #+12]
-        B.N      ??HAL_DMA_PollForTransfer_232
-??HAL_DMA_PollForTransfer_233:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_243  ;; 0x400260b9
-        CMP      R2,R1
-        BCC.N    ??HAL_DMA_PollForTransfer_244
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_245
-        LDR.W    R1,??HAL_DMA_PollForTransfer_204+0x1C  ;; 0x40026410
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_245
-        LDR.W    R1,??HAL_DMA_PollForTransfer_204+0x20  ;; 0x40026070
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_245
-        LDR.W    R1,??HAL_DMA_PollForTransfer_204+0x24  ;; 0x40026470
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_246
-??HAL_DMA_PollForTransfer_245:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_110  ;; 0x800004
-        B.N      ??HAL_DMA_PollForTransfer_247
-??HAL_DMA_PollForTransfer_246:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_204  ;; 0x40026028
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_248
-        LDR.W    R1,??HAL_DMA_PollForTransfer_204+0x4  ;; 0x40026428
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_248
-        LDR.W    R1,??HAL_DMA_PollForTransfer_204+0x8  ;; 0x40026088
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_248
-        LDR.W    R1,??HAL_DMA_PollForTransfer_204+0xC  ;; 0x40026488
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_249
-??HAL_DMA_PollForTransfer_248:
-        MOV      R1,#+256
-        B.N      ??HAL_DMA_PollForTransfer_247
-??HAL_DMA_PollForTransfer_249:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_204+0x10  ;; 0x40026040
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_250
-        MOV      R1,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_247
-??HAL_DMA_PollForTransfer_250:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_204+0x14  ;; 0x40026440
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_251
-        MOV      R1,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_247
-??HAL_DMA_PollForTransfer_251:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_204+0x18  ;; 0x400260a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_252
-        MOV      R1,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_247
-??HAL_DMA_PollForTransfer_252:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_229  ;; 0x400264a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_253
-        MOV      R1,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_247
-??HAL_DMA_PollForTransfer_253:
-        MOV      R1,#+16777216
-??HAL_DMA_PollForTransfer_247:
-        STR      R1,[R0, #+8]
-        B.N      ??HAL_DMA_PollForTransfer_232
-??HAL_DMA_PollForTransfer_244:
-        LDR.W    R0,??HAL_DMA_PollForTransfer_243+0x4  ;; 0x40026059
-        CMP      R2,R0
-        BCC.N    ??HAL_DMA_PollForTransfer_254
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_255
-        LDR.W    R0,??HAL_DMA_PollForTransfer_204+0x1C  ;; 0x40026410
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_255
-        LDR.W    R0,??HAL_DMA_PollForTransfer_204+0x20  ;; 0x40026070
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_255
-        LDR.W    R0,??HAL_DMA_PollForTransfer_204+0x24  ;; 0x40026470
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_256
-??HAL_DMA_PollForTransfer_255:
-        LDR.N    R0,??HAL_DMA_PollForTransfer_110  ;; 0x800004
-        B.N      ??HAL_DMA_PollForTransfer_257
-??HAL_DMA_PollForTransfer_256:
-        LDR.W    R0,??HAL_DMA_PollForTransfer_204  ;; 0x40026028
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_258
-        LDR.W    R0,??HAL_DMA_PollForTransfer_204+0x4  ;; 0x40026428
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_258
-        LDR.W    R0,??HAL_DMA_PollForTransfer_204+0x8  ;; 0x40026088
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_258
-        LDR.W    R0,??HAL_DMA_PollForTransfer_204+0xC  ;; 0x40026488
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_259
-??HAL_DMA_PollForTransfer_258:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x40  ;; 0x40026459
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_320
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x20  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_321
+        LDR.N    R0,??HAL_DMA_PollForTransfer_148  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_322
+??HAL_DMA_PollForTransfer_321:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x24  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_323
+        LDR.N    R0,??HAL_DMA_PollForTransfer_148  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_322
+??HAL_DMA_PollForTransfer_323:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x28  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_324
+        LDR.N    R0,??HAL_DMA_PollForTransfer_148  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_322
+??HAL_DMA_PollForTransfer_324:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x2C  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_325
+        LDR.N    R0,??HAL_DMA_PollForTransfer_148  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_322
+??HAL_DMA_PollForTransfer_325:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_326
         MOV      R0,#+256
-        B.N      ??HAL_DMA_PollForTransfer_257
-??HAL_DMA_PollForTransfer_259:
-        LDR.W    R0,??HAL_DMA_PollForTransfer_204+0x10  ;; 0x40026040
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_260
-        MOV      R0,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_257
-??HAL_DMA_PollForTransfer_260:
-        LDR.W    R0,??HAL_DMA_PollForTransfer_204+0x14  ;; 0x40026440
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_261
-        MOV      R0,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_257
-??HAL_DMA_PollForTransfer_261:
-        LDR.W    R0,??HAL_DMA_PollForTransfer_204+0x18  ;; 0x400260a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_262
-        MOV      R0,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_257
-??HAL_DMA_PollForTransfer_262:
-        LDR.W    R0,??HAL_DMA_PollForTransfer_229  ;; 0x400264a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_263
-        MOV      R0,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_257
-??HAL_DMA_PollForTransfer_263:
-        MOV      R0,#+16777216
-??HAL_DMA_PollForTransfer_257:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_231  ;; 0x40026000
-        STR      R0,[R1, #+12]
-        B.N      ??HAL_DMA_PollForTransfer_232
-??HAL_DMA_PollForTransfer_254:
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_264
-        LDR.W    R0,??HAL_DMA_PollForTransfer_204+0x1C  ;; 0x40026410
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_264
-        LDR.W    R0,??HAL_DMA_PollForTransfer_204+0x20  ;; 0x40026070
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_264
-        LDR.W    R0,??HAL_DMA_PollForTransfer_204+0x24  ;; 0x40026470
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_265
-??HAL_DMA_PollForTransfer_264:
-        LDR.N    R0,??HAL_DMA_PollForTransfer_110  ;; 0x800004
-        B.N      ??HAL_DMA_PollForTransfer_266
+        B.N      ??HAL_DMA_PollForTransfer_322
+??HAL_DMA_PollForTransfer_326:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x4  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_327
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_PollForTransfer_322
+??HAL_DMA_PollForTransfer_327:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x8  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_328
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_PollForTransfer_322
+??HAL_DMA_PollForTransfer_328:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0xC  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_329
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_PollForTransfer_322
+??HAL_DMA_PollForTransfer_329:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x10  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_330
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_322
+??HAL_DMA_PollForTransfer_330:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x14  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_331
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_322
+??HAL_DMA_PollForTransfer_331:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x18  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_332
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_322
+??HAL_DMA_PollForTransfer_332:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x1C  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_333
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_322
+??HAL_DMA_PollForTransfer_333:
+        MOVS     R0,#+16777216
+??HAL_DMA_PollForTransfer_322:
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x30  ;; 0x4002640c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_PollForTransfer_319
+??HAL_DMA_PollForTransfer_320:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_276  ;; 0x400260b9
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_334
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x20  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_335
+        LDR.N    R0,??HAL_DMA_PollForTransfer_148  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_336
+??HAL_DMA_PollForTransfer_335:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x24  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_337
+        LDR.N    R0,??HAL_DMA_PollForTransfer_148  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_336
+??HAL_DMA_PollForTransfer_337:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x28  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_338
+        LDR.N    R0,??HAL_DMA_PollForTransfer_148  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_336
+??HAL_DMA_PollForTransfer_338:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x2C  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_339
+        LDR.N    R0,??HAL_DMA_PollForTransfer_148  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_336
+??HAL_DMA_PollForTransfer_339:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_340
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_PollForTransfer_336
+??HAL_DMA_PollForTransfer_340:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x4  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_341
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_PollForTransfer_336
+??HAL_DMA_PollForTransfer_341:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x8  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_342
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_PollForTransfer_336
+??HAL_DMA_PollForTransfer_342:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0xC  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_343
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_PollForTransfer_336
+??HAL_DMA_PollForTransfer_343:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x10  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_344
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_336
+??HAL_DMA_PollForTransfer_344:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x14  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_345
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_336
+??HAL_DMA_PollForTransfer_345:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x18  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_346
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_336
+??HAL_DMA_PollForTransfer_346:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x1C  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_347
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_336
+??HAL_DMA_PollForTransfer_347:
+        MOVS     R0,#+16777216
+??HAL_DMA_PollForTransfer_336:
+        LDR.W    R1,??HAL_DMA_PollForTransfer_195+0x34  ;; 0x40026408
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_PollForTransfer_319
         DATA
-??HAL_DMA_PollForTransfer_69:
-        DC32     0x800001
+??HAL_DMA_PollForTransfer_148:
+        DC32     0x800004
         THUMB
-??HAL_DMA_PollForTransfer_265:
-        LDR.W    R0,??HAL_DMA_PollForTransfer_204  ;; 0x40026028
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_267
-        LDR.W    R0,??HAL_DMA_PollForTransfer_204+0x4  ;; 0x40026428
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_267
-        LDR.W    R0,??HAL_DMA_PollForTransfer_204+0x8  ;; 0x40026088
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_267
-        LDR.W    R0,??HAL_DMA_PollForTransfer_204+0xC  ;; 0x40026488
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_268
-??HAL_DMA_PollForTransfer_267:
+??HAL_DMA_PollForTransfer_334:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_291  ;; 0x40026059
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_348
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x20  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_349
+        LDR.W    R0,??HAL_DMA_PollForTransfer_350  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_351
+??HAL_DMA_PollForTransfer_349:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x24  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_352
+        LDR.W    R0,??HAL_DMA_PollForTransfer_350  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_351
+??HAL_DMA_PollForTransfer_352:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x28  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_353
+        LDR.W    R0,??HAL_DMA_PollForTransfer_350  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_351
+??HAL_DMA_PollForTransfer_353:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x2C  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_354
+        LDR.W    R0,??HAL_DMA_PollForTransfer_350  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_351
+??HAL_DMA_PollForTransfer_354:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_355
         MOV      R0,#+256
-        B.N      ??HAL_DMA_PollForTransfer_266
-??HAL_DMA_PollForTransfer_268:
-        LDR.W    R0,??HAL_DMA_PollForTransfer_204+0x10  ;; 0x40026040
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_269
-        MOV      R0,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_266
-??HAL_DMA_PollForTransfer_269:
-        LDR.W    R0,??HAL_DMA_PollForTransfer_204+0x14  ;; 0x40026440
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_270
-        MOV      R0,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_266
-??HAL_DMA_PollForTransfer_270:
-        LDR.W    R0,??HAL_DMA_PollForTransfer_204+0x18  ;; 0x400260a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_271
-        MOV      R0,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_266
-??HAL_DMA_PollForTransfer_271:
-        LDR.W    R0,??HAL_DMA_PollForTransfer_229  ;; 0x400264a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_272
-        MOV      R0,#+262144
-        B.N      ??HAL_DMA_PollForTransfer_266
-??HAL_DMA_PollForTransfer_272:
-        MOV      R0,#+16777216
-??HAL_DMA_PollForTransfer_266:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_231  ;; 0x40026000
-        STR      R0,[R1, #+8]
+        B.N      ??HAL_DMA_PollForTransfer_351
+??HAL_DMA_PollForTransfer_355:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x4  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_356
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_PollForTransfer_351
+??HAL_DMA_PollForTransfer_356:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x8  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_357
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_PollForTransfer_351
+??HAL_DMA_PollForTransfer_357:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0xC  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_358
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_PollForTransfer_351
+??HAL_DMA_PollForTransfer_358:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x10  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_359
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_351
+??HAL_DMA_PollForTransfer_359:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x14  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_360
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_351
+??HAL_DMA_PollForTransfer_360:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x18  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_361
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_351
+??HAL_DMA_PollForTransfer_361:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x1C  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_362
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_351
+??HAL_DMA_PollForTransfer_362:
+        MOVS     R0,#+16777216
+??HAL_DMA_PollForTransfer_351:
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x38  ;; 0x4002600c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_PollForTransfer_319
+??HAL_DMA_PollForTransfer_348:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x20  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_363
+        LDR.W    R0,??HAL_DMA_PollForTransfer_350  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_364
+??HAL_DMA_PollForTransfer_363:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x24  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_365
+        LDR.W    R0,??HAL_DMA_PollForTransfer_350  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_364
+??HAL_DMA_PollForTransfer_365:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x28  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_366
+        LDR.W    R0,??HAL_DMA_PollForTransfer_350  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_364
+??HAL_DMA_PollForTransfer_366:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x2C  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_367
+        LDR.W    R0,??HAL_DMA_PollForTransfer_350  ;; 0x800004
+        B.N      ??HAL_DMA_PollForTransfer_364
+??HAL_DMA_PollForTransfer_367:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_368
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_PollForTransfer_364
+??HAL_DMA_PollForTransfer_368:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x4  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_369
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_PollForTransfer_364
+??HAL_DMA_PollForTransfer_369:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x8  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_370
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_PollForTransfer_364
+??HAL_DMA_PollForTransfer_370:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0xC  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_371
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_PollForTransfer_364
+??HAL_DMA_PollForTransfer_371:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x10  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_372
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_364
+??HAL_DMA_PollForTransfer_372:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x14  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_373
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_364
+??HAL_DMA_PollForTransfer_373:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x18  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_374
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_364
+??HAL_DMA_PollForTransfer_374:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x1C  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_375
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_PollForTransfer_364
+??HAL_DMA_PollForTransfer_375:
+        MOVS     R0,#+16777216
+??HAL_DMA_PollForTransfer_364:
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x3C  ;; 0x40026008
+        STR      R0,[R1, #+0]
 //  571       }
 //  572       /* Change the DMA state */
 //  573       hdma->State= HAL_DMA_STATE_ERROR;
-??HAL_DMA_PollForTransfer_232:
+??HAL_DMA_PollForTransfer_319:
         MOVS     R0,#+4
-        STRB     R0,[R5, #+1]
+        STRB     R0,[R4, #+53]
 //  574       
 //  575       /* Process Unlocked */
 //  576       __HAL_UNLOCK(hdma);
         MOVS     R0,#+0
-        STRB     R0,[R5, #+0]
+        STRB     R0,[R4, #+52]
 //  577 
 //  578       return HAL_ERROR;
         MOVS     R0,#+1
-        B.W      ??HAL_DMA_PollForTransfer_273
+        B.W      ??HAL_DMA_PollForTransfer_376
 //  579     }  
 //  580     /* Check for the Timeout */
 //  581     if(Timeout != HAL_MAX_DELAY)
-??HAL_DMA_PollForTransfer_148:
+??HAL_DMA_PollForTransfer_204:
         CMN      R6,#+1
-        BEQ.W    ??HAL_DMA_PollForTransfer_20
+        BEQ.W    ??HAL_DMA_PollForTransfer_27
 //  582     {
 //  583       if((Timeout == 0)||((HAL_GetTick() - tickstart ) > Timeout))
         CMP      R6,#+0
-        BEQ.N    ??HAL_DMA_PollForTransfer_274
+        BEQ.N    ??HAL_DMA_PollForTransfer_377
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUB      R0,R0,R9
+        SUBS     R0,R0,R9
         CMP      R6,R0
-        BCS.W    ??HAL_DMA_PollForTransfer_20
+        BCS.W    ??HAL_DMA_PollForTransfer_27
 //  584       {
 //  585         /* Update error code */
 //  586         hdma->ErrorCode |= HAL_DMA_ERROR_TIMEOUT;
-??HAL_DMA_PollForTransfer_274:
-        ADD      R5,R4,#+52
-        LDR      R0,[R5, #+24]
-        ORR      R0,R0,#0x20
-        STR      R0,[R5, #+24]
+??HAL_DMA_PollForTransfer_377:
+        LDR      R0,[R4, #+76]
+        ORRS     R0,R0,#0x20
+        STR      R0,[R4, #+76]
 //  587 
 //  588         /* Change the DMA state */
 //  589         hdma->State = HAL_DMA_STATE_TIMEOUT;
         MOVS     R0,#+3
-        STRB     R0,[R5, #+1]
+        STRB     R0,[R4, #+53]
 //  590 
 //  591         /* Process Unlocked */
 //  592         __HAL_UNLOCK(hdma);
         MOVS     R0,#+0
-        STRB     R0,[R5, #+0]
+        STRB     R0,[R4, #+52]
 //  593         
 //  594         return HAL_TIMEOUT;
         MOVS     R0,#+3
-        B.W      ??HAL_DMA_PollForTransfer_273
+        B.W      ??HAL_DMA_PollForTransfer_376
 //  595       }
 //  596     }
 //  597   }
 //  598 
 //  599   if(CompleteLevel == HAL_DMA_FULL_TRANSFER)
-??HAL_DMA_PollForTransfer_25:
+??HAL_DMA_PollForTransfer_33:
         CMP      R5,#+0
-        LDR      R3,[R3, #+0]
-        BNE.W    ??HAL_DMA_PollForTransfer_275
+        BNE.W    ??HAL_DMA_PollForTransfer_378
 //  600   {
 //  601     /* Multi_Buffering mode enabled */
 //  602     if(((hdma->Instance->CR) & (uint32_t)(DMA_SxCR_DBM)) != 0)
-        LSLS     R3,R3,#+13
-        BPL.W    ??HAL_DMA_PollForTransfer_276
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+0]
+        LSLS     R0,R0,#+13
+        BPL.W    ??HAL_DMA_PollForTransfer_379
 //  603     {
 //  604       /* Clear the half transfer complete flag */
 //  605       __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
-        CMP      R2,R1
-        BCC.N    ??HAL_DMA_PollForTransfer_277
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_278
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x1C  ;; 0x40026410
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_278
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x20  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_278
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x24  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_279
-??HAL_DMA_PollForTransfer_278:
-        MOVS     R2,#+16
-        B.N      ??HAL_DMA_PollForTransfer_280
-??HAL_DMA_PollForTransfer_279:
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_281
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x4  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_281
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x8  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_281
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0xC  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_282
-??HAL_DMA_PollForTransfer_281:
-        MOV      R2,#+1024
-        B.N      ??HAL_DMA_PollForTransfer_280
-??HAL_DMA_PollForTransfer_282:
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x10  ;; 0x40026040
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_283
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_280
-??HAL_DMA_PollForTransfer_283:
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x14  ;; 0x40026440
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_284
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_280
-??HAL_DMA_PollForTransfer_284:
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x18  ;; 0x400260a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_285
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_280
-??HAL_DMA_PollForTransfer_285:
-        LDR.W    R3,??HAL_DMA_PollForTransfer_229  ;; 0x400264a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_286
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_280
-??HAL_DMA_PollForTransfer_286:
-        MOV      R2,#+67108864
-??HAL_DMA_PollForTransfer_280:
-        STR      R2,[R0, #+12]
-        B.N      ??HAL_DMA_PollForTransfer_287
-??HAL_DMA_PollForTransfer_277:
-        LDR.W    R3,??HAL_DMA_PollForTransfer_243  ;; 0x400260b9
-        CMP      R2,R3
-        BCC.N    ??HAL_DMA_PollForTransfer_288
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_289
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x1C  ;; 0x40026410
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_289
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x20  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_289
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x24  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_290
-??HAL_DMA_PollForTransfer_289:
-        MOVS     R2,#+16
-        B.N      ??HAL_DMA_PollForTransfer_291
-??HAL_DMA_PollForTransfer_290:
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_292
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x4  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_292
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x8  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_292
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0xC  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_293
-??HAL_DMA_PollForTransfer_292:
-        MOV      R2,#+1024
-        B.N      ??HAL_DMA_PollForTransfer_291
-??HAL_DMA_PollForTransfer_293:
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x10  ;; 0x40026040
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_294
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_291
-??HAL_DMA_PollForTransfer_294:
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x14  ;; 0x40026440
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_295
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_291
-??HAL_DMA_PollForTransfer_295:
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x18  ;; 0x400260a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_296
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_291
-??HAL_DMA_PollForTransfer_296:
-        LDR.W    R3,??HAL_DMA_PollForTransfer_229  ;; 0x400264a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_297
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_291
-??HAL_DMA_PollForTransfer_297:
-        MOV      R2,#+67108864
-??HAL_DMA_PollForTransfer_291:
-        STR      R2,[R0, #+8]
-        B.N      ??HAL_DMA_PollForTransfer_287
-??HAL_DMA_PollForTransfer_288:
-        LDR.W    R3,??HAL_DMA_PollForTransfer_243+0x4  ;; 0x40026059
-        CMP      R2,R3
-        BCC.N    ??HAL_DMA_PollForTransfer_298
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_299
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x1C  ;; 0x40026410
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_299
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x20  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_299
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x24  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_300
-??HAL_DMA_PollForTransfer_299:
-        MOVS     R2,#+16
-        B.N      ??HAL_DMA_PollForTransfer_301
-??HAL_DMA_PollForTransfer_300:
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_302
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x4  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_302
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x8  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_302
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0xC  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_303
-??HAL_DMA_PollForTransfer_302:
-        MOV      R2,#+1024
-        B.N      ??HAL_DMA_PollForTransfer_301
-??HAL_DMA_PollForTransfer_303:
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x10  ;; 0x40026040
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_304
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_301
-??HAL_DMA_PollForTransfer_304:
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x14  ;; 0x40026440
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_305
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_301
-??HAL_DMA_PollForTransfer_305:
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x18  ;; 0x400260a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_306
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_301
-??HAL_DMA_PollForTransfer_306:
-        LDR.W    R3,??HAL_DMA_PollForTransfer_229  ;; 0x400264a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_307
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_301
-??HAL_DMA_PollForTransfer_307:
-        MOV      R2,#+67108864
-??HAL_DMA_PollForTransfer_301:
-        LDR.W    R3,??HAL_DMA_PollForTransfer_231  ;; 0x40026000
-        STR      R2,[R3, #+12]
-        B.N      ??HAL_DMA_PollForTransfer_287
-        Nop      
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x40  ;; 0x40026459
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_380
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x20  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_381
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_382
+??HAL_DMA_PollForTransfer_381:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x24  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_383
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_382
+??HAL_DMA_PollForTransfer_383:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x28  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_384
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_382
+??HAL_DMA_PollForTransfer_384:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x2C  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_385
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_382
+??HAL_DMA_PollForTransfer_385:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_386
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_382
+??HAL_DMA_PollForTransfer_386:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x4  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_387
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_382
+??HAL_DMA_PollForTransfer_387:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x8  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_388
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_382
+??HAL_DMA_PollForTransfer_388:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0xC  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_389
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_382
+??HAL_DMA_PollForTransfer_389:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x10  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_390
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_382
+??HAL_DMA_PollForTransfer_390:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x14  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_391
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_382
+??HAL_DMA_PollForTransfer_391:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x18  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_392
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_382
+??HAL_DMA_PollForTransfer_392:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x1C  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_393
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_382
+??HAL_DMA_PollForTransfer_393:
+        MOVS     R0,#+67108864
+??HAL_DMA_PollForTransfer_382:
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x30  ;; 0x4002640c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_PollForTransfer_394
+??HAL_DMA_PollForTransfer_380:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_276  ;; 0x400260b9
+        CMP      R0,R1
+        BCC.W    ??HAL_DMA_PollForTransfer_395
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x20  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_396
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_397
+??HAL_DMA_PollForTransfer_396:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x24  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_398
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_397
+??HAL_DMA_PollForTransfer_398:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x28  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_399
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_397
+??HAL_DMA_PollForTransfer_399:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_195+0x2C  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_400
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_397
         DATA
-??HAL_DMA_PollForTransfer_110:
-        DC32     0x800004
-        THUMB
-??HAL_DMA_PollForTransfer_298:
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_308
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x1C  ;; 0x40026410
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_308
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x20  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_308
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x24  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_309
-??HAL_DMA_PollForTransfer_308:
-        MOVS     R2,#+16
-        B.N      ??HAL_DMA_PollForTransfer_310
-??HAL_DMA_PollForTransfer_309:
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_311
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x4  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_311
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x8  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_311
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0xC  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_312
-??HAL_DMA_PollForTransfer_311:
-        MOV      R2,#+1024
-        B.N      ??HAL_DMA_PollForTransfer_310
-??HAL_DMA_PollForTransfer_312:
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x10  ;; 0x40026040
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_313
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_310
-??HAL_DMA_PollForTransfer_313:
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x14  ;; 0x40026440
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_314
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_310
-??HAL_DMA_PollForTransfer_314:
-        LDR.N    R3,??HAL_DMA_PollForTransfer_204+0x18  ;; 0x400260a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_315
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_310
-??HAL_DMA_PollForTransfer_315:
-        LDR.W    R3,??HAL_DMA_PollForTransfer_229  ;; 0x400264a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_316
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_310
-??HAL_DMA_PollForTransfer_316:
-        MOV      R2,#+67108864
-??HAL_DMA_PollForTransfer_310:
-        LDR.W    R3,??HAL_DMA_PollForTransfer_231  ;; 0x40026000
-        STR      R2,[R3, #+8]
-//  606       /* Clear the transfer complete flag */
-//  607       __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_TC_FLAG_INDEX(hdma));
-??HAL_DMA_PollForTransfer_287:
-        LDR      R2,[R4, #+0]
-        CMP      R2,R1
-        BCC.N    ??HAL_DMA_PollForTransfer_317
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_318
-        LDR.N    R1,??HAL_DMA_PollForTransfer_204+0x1C  ;; 0x40026410
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_318
-        LDR.N    R1,??HAL_DMA_PollForTransfer_204+0x20  ;; 0x40026070
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_318
-        LDR.N    R1,??HAL_DMA_PollForTransfer_204+0x24  ;; 0x40026470
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_319
-??HAL_DMA_PollForTransfer_318:
-        MOVS     R1,#+32
-        B.N      ??HAL_DMA_PollForTransfer_320
-??HAL_DMA_PollForTransfer_319:
-        LDR.N    R1,??HAL_DMA_PollForTransfer_204  ;; 0x40026028
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_321
-        LDR.N    R1,??HAL_DMA_PollForTransfer_204+0x4  ;; 0x40026428
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_321
-        LDR.N    R1,??HAL_DMA_PollForTransfer_204+0x8  ;; 0x40026088
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_321
-        LDR.N    R1,??HAL_DMA_PollForTransfer_204+0xC  ;; 0x40026488
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_322
-??HAL_DMA_PollForTransfer_321:
-        MOV      R1,#+2048
-        B.N      ??HAL_DMA_PollForTransfer_320
-??HAL_DMA_PollForTransfer_322:
-        LDR.N    R1,??HAL_DMA_PollForTransfer_204+0x10  ;; 0x40026040
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_323
-        MOV      R1,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_320
-??HAL_DMA_PollForTransfer_323:
-        LDR.N    R1,??HAL_DMA_PollForTransfer_204+0x14  ;; 0x40026440
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_324
-        MOV      R1,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_320
-??HAL_DMA_PollForTransfer_324:
-        LDR.N    R1,??HAL_DMA_PollForTransfer_204+0x18  ;; 0x400260a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_325
-        MOV      R1,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_320
-??HAL_DMA_PollForTransfer_325:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_229  ;; 0x400264a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_326
-        MOV      R1,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_320
-??HAL_DMA_PollForTransfer_326:
-        MOV      R1,#+134217728
-??HAL_DMA_PollForTransfer_320:
-        STR      R1,[R0, #+12]
-        B.N      ??HAL_DMA_PollForTransfer_327
-??HAL_DMA_PollForTransfer_317:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_243  ;; 0x400260b9
-        CMP      R2,R1
-        BCC.N    ??HAL_DMA_PollForTransfer_328
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_329
-        LDR.N    R1,??HAL_DMA_PollForTransfer_204+0x1C  ;; 0x40026410
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_329
-        LDR.N    R1,??HAL_DMA_PollForTransfer_204+0x20  ;; 0x40026070
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_329
-        LDR.N    R1,??HAL_DMA_PollForTransfer_204+0x24  ;; 0x40026470
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_330
-??HAL_DMA_PollForTransfer_329:
-        MOVS     R1,#+32
-        B.N      ??HAL_DMA_PollForTransfer_331
-        Nop      
-        DATA
-??HAL_DMA_PollForTransfer_204:
+??HAL_DMA_PollForTransfer_195:
         DC32     0x40026028
         DC32     0x40026428
         DC32     0x40026088
@@ -4488,1290 +5773,2271 @@ HAL_DMA_PollForTransfer:
         DC32     0x40026040
         DC32     0x40026440
         DC32     0x400260a0
+        DC32     0x400264a0
+        DC32     0x40026010
         DC32     0x40026410
         DC32     0x40026070
         DC32     0x40026470
+        DC32     0x4002640c
+        DC32     0x40026408
+        DC32     0x4002600c
+        DC32     0x40026008
+        DC32     0x40026459
+        DC32     0x800001
         THUMB
-??HAL_DMA_PollForTransfer_330:
-        LDR.W    R1,??DataTable2  ;; 0x40026028
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_332
-        LDR.W    R1,??DataTable2_1  ;; 0x40026428
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_332
-        LDR.W    R1,??DataTable2_2  ;; 0x40026088
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_332
-        LDR.W    R1,??DataTable2_3  ;; 0x40026488
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_333
-??HAL_DMA_PollForTransfer_332:
-        MOV      R1,#+2048
-        B.N      ??HAL_DMA_PollForTransfer_331
-??HAL_DMA_PollForTransfer_333:
-        LDR.W    R1,??DataTable2_4  ;; 0x40026040
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_334
-        MOV      R1,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_331
-??HAL_DMA_PollForTransfer_334:
-        LDR.W    R1,??DataTable2_5  ;; 0x40026440
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_335
-        MOV      R1,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_331
-??HAL_DMA_PollForTransfer_335:
-        LDR.W    R1,??DataTable2_6  ;; 0x400260a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_336
-        MOV      R1,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_331
-??HAL_DMA_PollForTransfer_336:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_229  ;; 0x400264a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_337
-        MOV      R1,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_331
-??HAL_DMA_PollForTransfer_337:
-        MOV      R1,#+134217728
-??HAL_DMA_PollForTransfer_331:
-        STR      R1,[R0, #+8]
-        B.N      ??HAL_DMA_PollForTransfer_327
-??HAL_DMA_PollForTransfer_328:
-        LDR.W    R0,??HAL_DMA_PollForTransfer_243+0x4  ;; 0x40026059
-        CMP      R2,R0
-        BCC.N    ??HAL_DMA_PollForTransfer_338
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_339
-        LDR.W    R0,??DataTable2_7  ;; 0x40026410
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_339
-        LDR.W    R0,??DataTable2_8  ;; 0x40026070
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_339
-        LDR.W    R0,??DataTable2_9  ;; 0x40026470
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_340
-??HAL_DMA_PollForTransfer_339:
+??HAL_DMA_PollForTransfer_400:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_402
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_397
+??HAL_DMA_PollForTransfer_402:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x4  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_403
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_397
+??HAL_DMA_PollForTransfer_403:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x8  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_404
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_397
+??HAL_DMA_PollForTransfer_404:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0xC  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_405
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_397
+??HAL_DMA_PollForTransfer_405:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x10  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_406
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_397
+??HAL_DMA_PollForTransfer_406:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x14  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_407
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_397
+??HAL_DMA_PollForTransfer_407:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x18  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_408
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_397
+??HAL_DMA_PollForTransfer_408:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x1C  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_409
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_397
+??HAL_DMA_PollForTransfer_409:
+        MOVS     R0,#+67108864
+??HAL_DMA_PollForTransfer_397:
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x20  ;; 0x40026408
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_PollForTransfer_394
+??HAL_DMA_PollForTransfer_395:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_291  ;; 0x40026059
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_410
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x24  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_411
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_412
+??HAL_DMA_PollForTransfer_411:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x28  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_413
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_412
+??HAL_DMA_PollForTransfer_413:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x2C  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_414
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_412
+??HAL_DMA_PollForTransfer_414:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x30  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_415
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_412
+??HAL_DMA_PollForTransfer_415:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_416
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_412
+??HAL_DMA_PollForTransfer_416:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x4  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_417
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_412
+??HAL_DMA_PollForTransfer_417:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x8  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_418
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_412
+??HAL_DMA_PollForTransfer_418:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0xC  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_419
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_412
+??HAL_DMA_PollForTransfer_419:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x10  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_420
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_412
+??HAL_DMA_PollForTransfer_420:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x14  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_421
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_412
+??HAL_DMA_PollForTransfer_421:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x18  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_422
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_412
+??HAL_DMA_PollForTransfer_422:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x1C  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_423
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_412
+??HAL_DMA_PollForTransfer_423:
+        MOVS     R0,#+67108864
+??HAL_DMA_PollForTransfer_412:
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x34  ;; 0x4002600c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_PollForTransfer_394
+??HAL_DMA_PollForTransfer_410:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x24  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_424
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_425
+??HAL_DMA_PollForTransfer_424:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x28  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_426
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_425
+??HAL_DMA_PollForTransfer_426:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x2C  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_427
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_425
+??HAL_DMA_PollForTransfer_427:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x30  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_428
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_425
+??HAL_DMA_PollForTransfer_428:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_429
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_425
+??HAL_DMA_PollForTransfer_429:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x4  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_430
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_425
+??HAL_DMA_PollForTransfer_430:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x8  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_431
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_425
+??HAL_DMA_PollForTransfer_431:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0xC  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_432
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_425
+??HAL_DMA_PollForTransfer_432:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x10  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_433
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_425
+??HAL_DMA_PollForTransfer_433:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x14  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_434
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_425
+??HAL_DMA_PollForTransfer_434:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x18  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_435
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_425
+??HAL_DMA_PollForTransfer_435:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x1C  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_436
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_425
+??HAL_DMA_PollForTransfer_436:
+        MOVS     R0,#+67108864
+??HAL_DMA_PollForTransfer_425:
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x38  ;; 0x40026008
+        STR      R0,[R1, #+0]
+//  606       /* Clear the transfer complete flag */
+//  607       __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_TC_FLAG_INDEX(hdma));
+??HAL_DMA_PollForTransfer_394:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x3C  ;; 0x40026459
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_437
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x24  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_438
         MOVS     R0,#+32
-        B.N      ??HAL_DMA_PollForTransfer_341
-??HAL_DMA_PollForTransfer_340:
-        LDR.W    R0,??DataTable2  ;; 0x40026028
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_342
-        LDR.W    R0,??DataTable2_1  ;; 0x40026428
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_342
-        LDR.W    R0,??DataTable2_2  ;; 0x40026088
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_342
-        LDR.W    R0,??DataTable2_3  ;; 0x40026488
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_343
-??HAL_DMA_PollForTransfer_342:
-        MOV      R0,#+2048
-        B.N      ??HAL_DMA_PollForTransfer_341
-??HAL_DMA_PollForTransfer_343:
-        LDR.W    R0,??DataTable2_4  ;; 0x40026040
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_344
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_341
-??HAL_DMA_PollForTransfer_344:
-        LDR.W    R0,??DataTable2_5  ;; 0x40026440
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_345
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_341
-??HAL_DMA_PollForTransfer_345:
-        LDR.W    R0,??DataTable2_6  ;; 0x400260a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_346
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_341
-??HAL_DMA_PollForTransfer_346:
-        LDR.W    R0,??HAL_DMA_PollForTransfer_229  ;; 0x400264a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_347
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_341
-??HAL_DMA_PollForTransfer_347:
-        MOV      R0,#+134217728
-??HAL_DMA_PollForTransfer_341:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_231  ;; 0x40026000
-        STR      R0,[R1, #+12]
-        B.N      ??HAL_DMA_PollForTransfer_327
-??HAL_DMA_PollForTransfer_338:
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_348
-        LDR.W    R0,??DataTable2_7  ;; 0x40026410
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_348
-        LDR.W    R0,??DataTable2_8  ;; 0x40026070
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_348
-        LDR.W    R0,??DataTable2_9  ;; 0x40026470
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_349
-??HAL_DMA_PollForTransfer_348:
+        B.N      ??HAL_DMA_PollForTransfer_439
+??HAL_DMA_PollForTransfer_438:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x28  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_440
         MOVS     R0,#+32
-        B.N      ??HAL_DMA_PollForTransfer_350
-??HAL_DMA_PollForTransfer_349:
-        LDR.W    R0,??DataTable2  ;; 0x40026028
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_351
-        LDR.W    R0,??DataTable2_1  ;; 0x40026428
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_351
-        LDR.W    R0,??DataTable2_2  ;; 0x40026088
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_351
-        LDR.W    R0,??DataTable2_3  ;; 0x40026488
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_352
-??HAL_DMA_PollForTransfer_351:
+        B.N      ??HAL_DMA_PollForTransfer_439
+??HAL_DMA_PollForTransfer_440:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x2C  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_441
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_439
+??HAL_DMA_PollForTransfer_441:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x30  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_442
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_439
+??HAL_DMA_PollForTransfer_442:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_443
         MOV      R0,#+2048
-        B.N      ??HAL_DMA_PollForTransfer_350
-??HAL_DMA_PollForTransfer_352:
-        LDR.W    R0,??DataTable2_4  ;; 0x40026040
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_353
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_350
-??HAL_DMA_PollForTransfer_353:
-        LDR.W    R0,??DataTable2_5  ;; 0x40026440
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_354
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_350
-??HAL_DMA_PollForTransfer_354:
-        LDR.W    R0,??DataTable2_6  ;; 0x400260a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_355
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_350
-??HAL_DMA_PollForTransfer_355:
-        LDR.W    R0,??HAL_DMA_PollForTransfer_229  ;; 0x400264a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_356
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_350
-??HAL_DMA_PollForTransfer_356:
-        MOV      R0,#+134217728
-??HAL_DMA_PollForTransfer_350:
-        LDR.W    R1,??HAL_DMA_PollForTransfer_231  ;; 0x40026000
-        STR      R0,[R1, #+8]
+        B.N      ??HAL_DMA_PollForTransfer_439
+??HAL_DMA_PollForTransfer_443:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x4  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_444
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_439
+??HAL_DMA_PollForTransfer_444:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x8  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_445
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_439
+??HAL_DMA_PollForTransfer_445:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0xC  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_446
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_439
+??HAL_DMA_PollForTransfer_446:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x10  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_447
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_439
+??HAL_DMA_PollForTransfer_447:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x14  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_448
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_439
+??HAL_DMA_PollForTransfer_448:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x18  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_449
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_439
+??HAL_DMA_PollForTransfer_449:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x1C  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_450
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_439
+??HAL_DMA_PollForTransfer_450:
+        MOVS     R0,#+134217728
+??HAL_DMA_PollForTransfer_439:
+        LDR.W    R1,??HAL_DMA_PollForTransfer_451  ;; 0x4002640c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_PollForTransfer_452
+??HAL_DMA_PollForTransfer_437:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_276  ;; 0x400260b9
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_453
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x24  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_454
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_455
+??HAL_DMA_PollForTransfer_454:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x28  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_456
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_455
+??HAL_DMA_PollForTransfer_456:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x2C  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_457
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_455
+??HAL_DMA_PollForTransfer_457:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x30  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_458
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_455
+??HAL_DMA_PollForTransfer_458:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_459
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_455
+??HAL_DMA_PollForTransfer_459:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x4  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_460
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_455
+??HAL_DMA_PollForTransfer_460:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x8  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_461
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_455
+??HAL_DMA_PollForTransfer_461:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0xC  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_462
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_455
+??HAL_DMA_PollForTransfer_462:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x10  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_463
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_455
+??HAL_DMA_PollForTransfer_463:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x14  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_464
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_455
+??HAL_DMA_PollForTransfer_464:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x18  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_465
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_455
+??HAL_DMA_PollForTransfer_465:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x1C  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_466
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_455
+??HAL_DMA_PollForTransfer_466:
+        MOVS     R0,#+134217728
+??HAL_DMA_PollForTransfer_455:
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x20  ;; 0x40026408
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_PollForTransfer_452
+??HAL_DMA_PollForTransfer_453:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_291  ;; 0x40026059
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_467
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x24  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_468
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_469
+??HAL_DMA_PollForTransfer_468:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x28  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_470
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_469
+??HAL_DMA_PollForTransfer_470:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x2C  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_471
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_469
+??HAL_DMA_PollForTransfer_471:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x30  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_472
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_469
+??HAL_DMA_PollForTransfer_472:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_473
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_469
+??HAL_DMA_PollForTransfer_473:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x4  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_474
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_469
+??HAL_DMA_PollForTransfer_474:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x8  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_475
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_469
+??HAL_DMA_PollForTransfer_475:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0xC  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_476
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_469
+??HAL_DMA_PollForTransfer_476:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x10  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_477
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_469
+??HAL_DMA_PollForTransfer_477:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x14  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_478
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_469
+??HAL_DMA_PollForTransfer_478:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x18  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_479
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_469
+??HAL_DMA_PollForTransfer_479:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x1C  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_480
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_469
+??HAL_DMA_PollForTransfer_480:
+        MOVS     R0,#+134217728
+??HAL_DMA_PollForTransfer_469:
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x34  ;; 0x4002600c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_PollForTransfer_452
+??HAL_DMA_PollForTransfer_467:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x24  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_481
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_482
+??HAL_DMA_PollForTransfer_481:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x28  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_483
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_482
+??HAL_DMA_PollForTransfer_483:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x2C  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_484
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_482
+??HAL_DMA_PollForTransfer_484:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x30  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_485
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_482
+??HAL_DMA_PollForTransfer_485:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_486
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_482
+??HAL_DMA_PollForTransfer_486:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x4  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_487
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_482
+??HAL_DMA_PollForTransfer_487:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x8  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_488
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_482
+??HAL_DMA_PollForTransfer_488:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0xC  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_489
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_482
+        Nop      
+        DATA
+??HAL_DMA_PollForTransfer_276:
+        DC32     0x400260b9
+        THUMB
+??HAL_DMA_PollForTransfer_489:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x10  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_490
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_482
+??HAL_DMA_PollForTransfer_490:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x14  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_491
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_482
+??HAL_DMA_PollForTransfer_491:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x18  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_492
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_482
+??HAL_DMA_PollForTransfer_492:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x1C  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_493
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_482
+??HAL_DMA_PollForTransfer_493:
+        MOVS     R0,#+134217728
+??HAL_DMA_PollForTransfer_482:
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x38  ;; 0x40026008
+        STR      R0,[R1, #+0]
 //  608 
 //  609       /* Current memory buffer used is Memory 0 */
 //  610       if((hdma->Instance->CR & DMA_SxCR_CT) == 0)
-??HAL_DMA_PollForTransfer_327:
+??HAL_DMA_PollForTransfer_452:
         LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+0]
-        LSLS     R1,R1,#+12
-        BPL.W    ??HAL_DMA_PollForTransfer_357
+        LDR      R0,[R0, #+0]
+        LSLS     R0,R0,#+12
+        BMI.N    ??HAL_DMA_PollForTransfer_494
 //  611       {
 //  612         /* Change DMA peripheral state */
 //  613         hdma->State = HAL_DMA_STATE_READY_MEM0;
+        MOVS     R0,#+17
+        STRB     R0,[R4, #+53]
+        B.N      ??HAL_DMA_PollForTransfer_495
+        Nop      
+        DATA
+??HAL_DMA_PollForTransfer_291:
+        DC32     0x40026059
+        THUMB
 //  614       }
 //  615       /* Current memory buffer used is Memory 1 */
 //  616       else if((hdma->Instance->CR & DMA_SxCR_CT) != 0)
+??HAL_DMA_PollForTransfer_494:
+        LDR      R0,[R4, #+0]
         LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+12
-        BPL.W    ??HAL_DMA_PollForTransfer_358
+        BPL.W    ??HAL_DMA_PollForTransfer_495
 //  617       {
 //  618         /* Change DMA peripheral state */
 //  619         hdma->State = HAL_DMA_STATE_READY_MEM1;
         MOVS     R0,#+33
-        ADD      R1,R4,#+52
-        STRB     R0,[R1, #+1]
-        B.N      ??HAL_DMA_PollForTransfer_358
+        STRB     R0,[R4, #+53]
+        B.N      ??HAL_DMA_PollForTransfer_495
 //  620       }
 //  621     }
 //  622     else
 //  623     {
 //  624       /* Clear the half transfer complete flag */
 //  625       __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
-??HAL_DMA_PollForTransfer_276:
-        CMP      R2,R1
-        BCC.N    ??HAL_DMA_PollForTransfer_359
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_360
-        LDR.W    R3,??DataTable2_7  ;; 0x40026410
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_360
-        LDR.W    R3,??DataTable2_8  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_360
-        LDR.W    R3,??DataTable2_9  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_361
-??HAL_DMA_PollForTransfer_360:
-        MOVS     R2,#+16
-        B.N      ??HAL_DMA_PollForTransfer_362
-??HAL_DMA_PollForTransfer_361:
-        LDR.W    R3,??DataTable2  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_363
-        LDR.W    R3,??DataTable2_1  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_363
-        LDR.W    R3,??DataTable2_2  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_363
-        LDR.W    R3,??DataTable2_3  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_364
-??HAL_DMA_PollForTransfer_363:
-        MOV      R2,#+1024
-        B.N      ??HAL_DMA_PollForTransfer_362
-??HAL_DMA_PollForTransfer_364:
-        LDR.W    R3,??DataTable2_4  ;; 0x40026040
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_365
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_362
-??HAL_DMA_PollForTransfer_365:
-        LDR.W    R3,??DataTable2_5  ;; 0x40026440
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_366
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_362
-??HAL_DMA_PollForTransfer_366:
-        LDR.W    R3,??DataTable2_6  ;; 0x400260a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_367
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_362
-??HAL_DMA_PollForTransfer_367:
-        LDR.W    R3,??HAL_DMA_PollForTransfer_229  ;; 0x400264a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_368
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_362
-??HAL_DMA_PollForTransfer_368:
-        MOV      R2,#+67108864
-??HAL_DMA_PollForTransfer_362:
-        STR      R2,[R0, #+12]
-        B.N      ??HAL_DMA_PollForTransfer_369
-??HAL_DMA_PollForTransfer_359:
-        LDR.W    R3,??HAL_DMA_PollForTransfer_243  ;; 0x400260b9
-        CMP      R2,R3
-        BCC.N    ??HAL_DMA_PollForTransfer_370
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_371
-        LDR.W    R3,??DataTable2_7  ;; 0x40026410
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_371
-        LDR.W    R3,??DataTable2_8  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_371
-        LDR.W    R3,??DataTable2_9  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_372
-??HAL_DMA_PollForTransfer_371:
-        MOVS     R2,#+16
-        B.N      ??HAL_DMA_PollForTransfer_373
-??HAL_DMA_PollForTransfer_372:
-        LDR.W    R3,??DataTable2  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_374
-        LDR.W    R3,??DataTable2_1  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_374
-        LDR.W    R3,??DataTable2_2  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_374
-        LDR.W    R3,??DataTable2_3  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_375
-??HAL_DMA_PollForTransfer_374:
-        MOV      R2,#+1024
-        B.N      ??HAL_DMA_PollForTransfer_373
-??HAL_DMA_PollForTransfer_375:
-        LDR.W    R3,??DataTable2_4  ;; 0x40026040
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_376
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_373
-??HAL_DMA_PollForTransfer_376:
-        LDR.W    R3,??DataTable2_5  ;; 0x40026440
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_377
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_373
-??HAL_DMA_PollForTransfer_377:
-        LDR.W    R3,??DataTable2_6  ;; 0x400260a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_378
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_373
-??HAL_DMA_PollForTransfer_378:
-        LDR.W    R3,??HAL_DMA_PollForTransfer_229  ;; 0x400264a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_379
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_373
 ??HAL_DMA_PollForTransfer_379:
-        MOV      R2,#+67108864
-??HAL_DMA_PollForTransfer_373:
-        STR      R2,[R0, #+8]
-        B.N      ??HAL_DMA_PollForTransfer_369
-??HAL_DMA_PollForTransfer_370:
-        LDR.W    R3,??HAL_DMA_PollForTransfer_243+0x4  ;; 0x40026059
-        CMP      R2,R3
-        BCC.N    ??HAL_DMA_PollForTransfer_380
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_381
-        LDR.W    R3,??DataTable2_7  ;; 0x40026410
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_381
-        LDR.W    R3,??DataTable2_8  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_381
-        LDR.W    R3,??DataTable2_9  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_382
-??HAL_DMA_PollForTransfer_381:
-        MOVS     R2,#+16
-        B.N      ??HAL_DMA_PollForTransfer_383
-??HAL_DMA_PollForTransfer_382:
-        LDR.W    R3,??DataTable2  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_384
-        LDR.W    R3,??DataTable2_1  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_384
-        LDR.W    R3,??DataTable2_2  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_384
-        LDR.W    R3,??DataTable2_3  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_385
-??HAL_DMA_PollForTransfer_384:
-        MOV      R2,#+1024
-        B.N      ??HAL_DMA_PollForTransfer_383
-??HAL_DMA_PollForTransfer_385:
-        LDR.W    R3,??DataTable2_4  ;; 0x40026040
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_386
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_383
-??HAL_DMA_PollForTransfer_386:
-        LDR.W    R3,??DataTable2_5  ;; 0x40026440
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_387
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_383
-??HAL_DMA_PollForTransfer_387:
-        LDR.W    R3,??DataTable2_6  ;; 0x400260a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_388
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_383
-??HAL_DMA_PollForTransfer_388:
-        LDR.N    R3,??HAL_DMA_PollForTransfer_229  ;; 0x400264a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_389
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_383
-??HAL_DMA_PollForTransfer_389:
-        MOV      R2,#+67108864
-??HAL_DMA_PollForTransfer_383:
-        LDR.W    R3,??HAL_DMA_PollForTransfer_231  ;; 0x40026000
-        STR      R2,[R3, #+12]
-        B.N      ??HAL_DMA_PollForTransfer_369
-??HAL_DMA_PollForTransfer_380:
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_390
-        LDR.W    R3,??DataTable2_7  ;; 0x40026410
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_390
-        LDR.W    R3,??DataTable2_8  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_390
-        LDR.W    R3,??DataTable2_9  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_391
-??HAL_DMA_PollForTransfer_390:
-        MOVS     R2,#+16
-        B.N      ??HAL_DMA_PollForTransfer_392
-??HAL_DMA_PollForTransfer_391:
-        LDR.W    R3,??DataTable2  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_393
-        LDR.W    R3,??DataTable2_1  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_393
-        LDR.W    R3,??DataTable2_2  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_PollForTransfer_393
-        LDR.W    R3,??DataTable2_3  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_394
-??HAL_DMA_PollForTransfer_393:
-        MOV      R2,#+1024
-        B.N      ??HAL_DMA_PollForTransfer_392
-??HAL_DMA_PollForTransfer_394:
-        LDR.W    R3,??DataTable2_4  ;; 0x40026040
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_395
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_392
-??HAL_DMA_PollForTransfer_395:
-        LDR.W    R3,??DataTable2_5  ;; 0x40026440
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_396
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_392
-??HAL_DMA_PollForTransfer_396:
-        LDR.W    R3,??DataTable2_6  ;; 0x400260a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_397
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_392
-??HAL_DMA_PollForTransfer_397:
-        LDR.N    R3,??HAL_DMA_PollForTransfer_229  ;; 0x400264a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_PollForTransfer_398
-        MOV      R2,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_392
-??HAL_DMA_PollForTransfer_398:
-        MOV      R2,#+67108864
-??HAL_DMA_PollForTransfer_392:
-        LDR.N    R3,??HAL_DMA_PollForTransfer_231  ;; 0x40026000
-        STR      R2,[R3, #+8]
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x3C  ;; 0x40026459
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_496
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x24  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_497
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_498
+??HAL_DMA_PollForTransfer_497:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x28  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_499
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_498
+??HAL_DMA_PollForTransfer_499:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x2C  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_500
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_498
+??HAL_DMA_PollForTransfer_500:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x30  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_501
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_498
+??HAL_DMA_PollForTransfer_501:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_502
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_498
+??HAL_DMA_PollForTransfer_502:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x4  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_503
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_498
+??HAL_DMA_PollForTransfer_503:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x8  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_504
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_498
+??HAL_DMA_PollForTransfer_504:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0xC  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_505
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_498
+??HAL_DMA_PollForTransfer_505:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x10  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_506
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_498
+??HAL_DMA_PollForTransfer_506:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x14  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_507
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_498
+??HAL_DMA_PollForTransfer_507:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x18  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_508
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_498
+??HAL_DMA_PollForTransfer_508:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x1C  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_509
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_498
+??HAL_DMA_PollForTransfer_509:
+        MOVS     R0,#+67108864
+??HAL_DMA_PollForTransfer_498:
+        LDR.W    R1,??HAL_DMA_PollForTransfer_451  ;; 0x4002640c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_PollForTransfer_510
+??HAL_DMA_PollForTransfer_496:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_511  ;; 0x400260b9
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_512
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x24  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_513
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_514
+??HAL_DMA_PollForTransfer_513:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x28  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_515
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_514
+??HAL_DMA_PollForTransfer_515:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x2C  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_516
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_514
+??HAL_DMA_PollForTransfer_516:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x30  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_517
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_514
+??HAL_DMA_PollForTransfer_517:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_518
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_514
+??HAL_DMA_PollForTransfer_518:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_401+0x4  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_519
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_514
+??HAL_DMA_PollForTransfer_519:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x8  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_520
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_514
+??HAL_DMA_PollForTransfer_520:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0xC  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_521
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_514
+??HAL_DMA_PollForTransfer_521:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x10  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_522
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_514
+??HAL_DMA_PollForTransfer_522:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x14  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_523
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_514
+??HAL_DMA_PollForTransfer_523:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x18  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_524
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_514
+??HAL_DMA_PollForTransfer_524:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x1C  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_525
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_514
+??HAL_DMA_PollForTransfer_525:
+        MOVS     R0,#+67108864
+??HAL_DMA_PollForTransfer_514:
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x20  ;; 0x40026408
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_PollForTransfer_510
+??HAL_DMA_PollForTransfer_512:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2  ;; 0x40026059
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_526
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x24  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_527
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_528
+??HAL_DMA_PollForTransfer_527:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x28  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_529
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_528
+??HAL_DMA_PollForTransfer_529:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x2C  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_530
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_528
+??HAL_DMA_PollForTransfer_530:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x30  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_531
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_528
+??HAL_DMA_PollForTransfer_531:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_532
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_528
+??HAL_DMA_PollForTransfer_532:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x4  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_533
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_528
+??HAL_DMA_PollForTransfer_533:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x8  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_534
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_528
+??HAL_DMA_PollForTransfer_534:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0xC  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_535
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_528
+??HAL_DMA_PollForTransfer_535:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x10  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_536
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_528
+??HAL_DMA_PollForTransfer_536:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x14  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_537
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_528
+??HAL_DMA_PollForTransfer_537:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x18  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_538
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_528
+??HAL_DMA_PollForTransfer_538:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x1C  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_539
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_528
+??HAL_DMA_PollForTransfer_539:
+        MOVS     R0,#+67108864
+??HAL_DMA_PollForTransfer_528:
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x34  ;; 0x4002600c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_PollForTransfer_510
+        DATA
+??HAL_DMA_PollForTransfer_350:
+        DC32     0x800004
+        THUMB
+??HAL_DMA_PollForTransfer_526:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x24  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_540
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_541
+??HAL_DMA_PollForTransfer_540:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x28  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_542
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_541
+??HAL_DMA_PollForTransfer_542:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x2C  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_543
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_541
+??HAL_DMA_PollForTransfer_543:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x30  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_544
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_541
+??HAL_DMA_PollForTransfer_544:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_545
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_541
+??HAL_DMA_PollForTransfer_545:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x4  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_546
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_541
+??HAL_DMA_PollForTransfer_546:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x8  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_547
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_541
+??HAL_DMA_PollForTransfer_547:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0xC  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_548
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_541
+??HAL_DMA_PollForTransfer_548:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x10  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_549
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_541
+??HAL_DMA_PollForTransfer_549:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x14  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_550
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_541
+??HAL_DMA_PollForTransfer_550:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x18  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_551
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_541
+??HAL_DMA_PollForTransfer_551:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x1C  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_552
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_541
+??HAL_DMA_PollForTransfer_552:
+        MOVS     R0,#+67108864
+??HAL_DMA_PollForTransfer_541:
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x38  ;; 0x40026008
+        STR      R0,[R1, #+0]
 //  626       /* Clear the transfer complete flag */
 //  627       __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_TC_FLAG_INDEX(hdma)); 
-??HAL_DMA_PollForTransfer_369:
-        LDR      R2,[R4, #+0]
-        CMP      R2,R1
-        BCC.N    ??HAL_DMA_PollForTransfer_399
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_400
-        LDR.W    R1,??DataTable2_7  ;; 0x40026410
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_400
-        LDR.W    R1,??DataTable2_8  ;; 0x40026070
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_400
-        LDR.W    R1,??DataTable2_9  ;; 0x40026470
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_401
-??HAL_DMA_PollForTransfer_400:
-        MOVS     R1,#+32
-        B.N      ??HAL_DMA_PollForTransfer_402
+??HAL_DMA_PollForTransfer_510:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x3C  ;; 0x40026459
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_553
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x24  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_554
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_555
+??HAL_DMA_PollForTransfer_554:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x28  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_556
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_555
+??HAL_DMA_PollForTransfer_556:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x2C  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_557
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_555
+??HAL_DMA_PollForTransfer_557:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x30  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_558
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_555
+??HAL_DMA_PollForTransfer_558:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_559
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_555
+??HAL_DMA_PollForTransfer_559:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x4  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_560
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_555
+??HAL_DMA_PollForTransfer_560:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x8  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_561
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_555
+??HAL_DMA_PollForTransfer_561:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0xC  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_562
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_555
+??HAL_DMA_PollForTransfer_562:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x10  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_563
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_555
+??HAL_DMA_PollForTransfer_563:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x14  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_564
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_555
+??HAL_DMA_PollForTransfer_564:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x18  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_565
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_555
+??HAL_DMA_PollForTransfer_565:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x1C  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_566
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_555
+??HAL_DMA_PollForTransfer_566:
+        MOVS     R0,#+134217728
+??HAL_DMA_PollForTransfer_555:
+        LDR.W    R1,??HAL_DMA_PollForTransfer_451  ;; 0x4002640c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_PollForTransfer_567
+??HAL_DMA_PollForTransfer_553:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_511  ;; 0x400260b9
+        CMP      R0,R1
+        BCC.W    ??HAL_DMA_PollForTransfer_568
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x24  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_569
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_570
+??HAL_DMA_PollForTransfer_569:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x28  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_571
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_570
+??HAL_DMA_PollForTransfer_571:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x2C  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_572
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_570
+??HAL_DMA_PollForTransfer_572:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_401+0x30  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_573
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_570
+        DATA
 ??HAL_DMA_PollForTransfer_401:
-        LDR.W    R1,??DataTable2  ;; 0x40026028
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_403
-        LDR.W    R1,??DataTable2_1  ;; 0x40026428
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_403
-        LDR.W    R1,??DataTable2_2  ;; 0x40026088
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_403
-        LDR.W    R1,??DataTable2_3  ;; 0x40026488
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_404
-??HAL_DMA_PollForTransfer_403:
-        MOV      R1,#+2048
-        B.N      ??HAL_DMA_PollForTransfer_402
-??HAL_DMA_PollForTransfer_404:
-        LDR.W    R1,??DataTable2_4  ;; 0x40026040
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_405
-        MOV      R1,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_402
-??HAL_DMA_PollForTransfer_405:
-        LDR.W    R1,??DataTable2_5  ;; 0x40026440
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_406
-        MOV      R1,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_402
-??HAL_DMA_PollForTransfer_406:
-        LDR.W    R1,??DataTable2_6  ;; 0x400260a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_407
-        MOV      R1,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_402
-??HAL_DMA_PollForTransfer_407:
-        LDR.N    R1,??HAL_DMA_PollForTransfer_229  ;; 0x400264a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_408
-        MOV      R1,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_402
-??HAL_DMA_PollForTransfer_408:
-        MOV      R1,#+134217728
-??HAL_DMA_PollForTransfer_402:
-        STR      R1,[R0, #+12]
-        B.N      ??HAL_DMA_PollForTransfer_357
-??HAL_DMA_PollForTransfer_399:
-        LDR.N    R1,??HAL_DMA_PollForTransfer_243  ;; 0x400260b9
-        CMP      R2,R1
-        BCC.N    ??HAL_DMA_PollForTransfer_409
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_410
-        LDR.W    R1,??DataTable2_7  ;; 0x40026410
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_410
-        LDR.W    R1,??DataTable2_8  ;; 0x40026070
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_410
-        LDR.W    R1,??DataTable2_9  ;; 0x40026470
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_411
-??HAL_DMA_PollForTransfer_410:
-        MOVS     R1,#+32
-        B.N      ??HAL_DMA_PollForTransfer_412
-??HAL_DMA_PollForTransfer_411:
-        LDR.W    R1,??DataTable2  ;; 0x40026028
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_413
-        LDR.W    R1,??DataTable2_1  ;; 0x40026428
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_413
-        LDR.W    R1,??DataTable2_2  ;; 0x40026088
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_413
-        LDR.W    R1,??DataTable2_3  ;; 0x40026488
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_414
-??HAL_DMA_PollForTransfer_413:
-        MOV      R1,#+2048
-        B.N      ??HAL_DMA_PollForTransfer_412
-??HAL_DMA_PollForTransfer_414:
-        LDR.W    R1,??DataTable2_4  ;; 0x40026040
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_415
-        MOV      R1,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_412
-??HAL_DMA_PollForTransfer_415:
-        LDR.W    R1,??DataTable2_5  ;; 0x40026440
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_416
-        MOV      R1,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_412
-??HAL_DMA_PollForTransfer_416:
-        LDR.W    R1,??DataTable2_6  ;; 0x400260a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_417
-        MOV      R1,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_412
-??HAL_DMA_PollForTransfer_417:
-        LDR.N    R1,??HAL_DMA_PollForTransfer_229  ;; 0x400264a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_418
-        MOV      R1,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_412
-??HAL_DMA_PollForTransfer_418:
-        MOV      R1,#+134217728
-??HAL_DMA_PollForTransfer_412:
-        STR      R1,[R0, #+8]
-        B.N      ??HAL_DMA_PollForTransfer_357
-??HAL_DMA_PollForTransfer_409:
-        LDR.N    R0,??HAL_DMA_PollForTransfer_243+0x4  ;; 0x40026059
-        CMP      R2,R0
-        BCC.N    ??HAL_DMA_PollForTransfer_419
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_420
-        LDR.W    R0,??DataTable2_7  ;; 0x40026410
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_420
-        LDR.W    R0,??DataTable2_8  ;; 0x40026070
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_420
-        LDR.W    R0,??DataTable2_9  ;; 0x40026470
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_421
-??HAL_DMA_PollForTransfer_420:
-        MOVS     R0,#+32
-        B.N      ??HAL_DMA_PollForTransfer_422
-??HAL_DMA_PollForTransfer_421:
-        LDR.W    R0,??DataTable2  ;; 0x40026028
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_423
-        LDR.W    R0,??DataTable2_1  ;; 0x40026428
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_423
-        LDR.W    R0,??DataTable2_2  ;; 0x40026088
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_423
-        LDR.W    R0,??DataTable2_3  ;; 0x40026488
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_424
-??HAL_DMA_PollForTransfer_423:
+        DC32     0x40026028
+        DC32     0x40026428
+        DC32     0x40026088
+        DC32     0x40026488
+        DC32     0x40026040
+        DC32     0x40026440
+        DC32     0x400260a0
+        DC32     0x400264a0
+        DC32     0x40026408
+        DC32     0x40026010
+        DC32     0x40026410
+        DC32     0x40026070
+        DC32     0x40026470
+        DC32     0x4002600c
+        DC32     0x40026008
+        DC32     0x40026459
+        THUMB
+??HAL_DMA_PollForTransfer_573:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_1  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_574
         MOV      R0,#+2048
-        B.N      ??HAL_DMA_PollForTransfer_422
-??HAL_DMA_PollForTransfer_424:
-        LDR.W    R0,??DataTable2_4  ;; 0x40026040
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_425
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_422
-??HAL_DMA_PollForTransfer_425:
-        LDR.W    R0,??DataTable2_5  ;; 0x40026440
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_426
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_422
-??HAL_DMA_PollForTransfer_426:
-        LDR.W    R0,??DataTable2_6  ;; 0x400260a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_427
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_422
-??HAL_DMA_PollForTransfer_427:
-        LDR.N    R0,??HAL_DMA_PollForTransfer_229  ;; 0x400264a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_428
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_422
-??HAL_DMA_PollForTransfer_428:
-        MOV      R0,#+134217728
-??HAL_DMA_PollForTransfer_422:
-        LDR.N    R1,??HAL_DMA_PollForTransfer_231  ;; 0x40026000
-        STR      R0,[R1, #+12]
-        B.N      ??HAL_DMA_PollForTransfer_357
-??HAL_DMA_PollForTransfer_419:
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_429
-        LDR.W    R0,??DataTable2_7  ;; 0x40026410
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_429
-        LDR.W    R0,??DataTable2_8  ;; 0x40026070
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_429
-        LDR.W    R0,??DataTable2_9  ;; 0x40026470
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_430
-??HAL_DMA_PollForTransfer_429:
-        MOVS     R0,#+32
-        B.N      ??HAL_DMA_PollForTransfer_431
-??HAL_DMA_PollForTransfer_430:
-        LDR.W    R0,??DataTable2  ;; 0x40026028
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_432
-        LDR.W    R0,??DataTable2_1  ;; 0x40026428
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_432
-        LDR.W    R0,??DataTable2_2  ;; 0x40026088
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_432
-        LDR.W    R0,??DataTable2_3  ;; 0x40026488
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_433
-??HAL_DMA_PollForTransfer_432:
+        B.N      ??HAL_DMA_PollForTransfer_570
+??HAL_DMA_PollForTransfer_574:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_2  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_575
         MOV      R0,#+2048
-        B.N      ??HAL_DMA_PollForTransfer_431
-??HAL_DMA_PollForTransfer_433:
-        LDR.W    R0,??DataTable2_4  ;; 0x40026040
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_434
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_431
-??HAL_DMA_PollForTransfer_434:
-        LDR.W    R0,??DataTable2_5  ;; 0x40026440
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_435
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_431
-??HAL_DMA_PollForTransfer_435:
-        LDR.W    R0,??DataTable2_6  ;; 0x400260a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_436
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_431
-??HAL_DMA_PollForTransfer_436:
-        LDR.N    R0,??HAL_DMA_PollForTransfer_229  ;; 0x400264a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_437
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_PollForTransfer_431
-??HAL_DMA_PollForTransfer_437:
-        MOV      R0,#+134217728
-??HAL_DMA_PollForTransfer_431:
-        LDR.N    R1,??HAL_DMA_PollForTransfer_231  ;; 0x40026000
-        STR      R0,[R1, #+8]
+        B.N      ??HAL_DMA_PollForTransfer_570
+??HAL_DMA_PollForTransfer_575:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_3  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_576
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_570
+??HAL_DMA_PollForTransfer_576:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_4  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_577
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_570
+??HAL_DMA_PollForTransfer_577:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_5  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_578
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_570
+??HAL_DMA_PollForTransfer_578:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_6  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_579
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_570
+??HAL_DMA_PollForTransfer_579:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_7  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_580
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_570
+??HAL_DMA_PollForTransfer_580:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_8  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_581
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_570
+??HAL_DMA_PollForTransfer_581:
+        MOVS     R0,#+134217728
+??HAL_DMA_PollForTransfer_570:
+        LDR.W    R1,??DataTable2_9  ;; 0x40026408
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_PollForTransfer_567
+??HAL_DMA_PollForTransfer_568:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2  ;; 0x40026059
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_582
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_10  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_583
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_584
+??HAL_DMA_PollForTransfer_583:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_11  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_585
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_584
+??HAL_DMA_PollForTransfer_585:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_12  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_586
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_584
+??HAL_DMA_PollForTransfer_586:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_13  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_587
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_584
+??HAL_DMA_PollForTransfer_587:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_1  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_588
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_584
+??HAL_DMA_PollForTransfer_588:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_2  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_589
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_584
+??HAL_DMA_PollForTransfer_589:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_3  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_590
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_584
+??HAL_DMA_PollForTransfer_590:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_4  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_591
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_584
+??HAL_DMA_PollForTransfer_591:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_5  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_592
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_584
+??HAL_DMA_PollForTransfer_592:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_6  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_593
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_584
+??HAL_DMA_PollForTransfer_593:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_7  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_594
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_584
+??HAL_DMA_PollForTransfer_594:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_8  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_595
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_584
+??HAL_DMA_PollForTransfer_595:
+        MOVS     R0,#+134217728
+??HAL_DMA_PollForTransfer_584:
+        LDR.W    R1,??DataTable2_14  ;; 0x4002600c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_PollForTransfer_567
+??HAL_DMA_PollForTransfer_582:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_10  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_596
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_597
+??HAL_DMA_PollForTransfer_596:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_11  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_598
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_597
+??HAL_DMA_PollForTransfer_598:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_12  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_599
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_597
+??HAL_DMA_PollForTransfer_599:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_13  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_600
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_PollForTransfer_597
+??HAL_DMA_PollForTransfer_600:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_1  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_601
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_597
+??HAL_DMA_PollForTransfer_601:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_2  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_602
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_597
+??HAL_DMA_PollForTransfer_602:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_3  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_603
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_597
+??HAL_DMA_PollForTransfer_603:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_4  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_604
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_PollForTransfer_597
+??HAL_DMA_PollForTransfer_604:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_5  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_605
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_597
+??HAL_DMA_PollForTransfer_605:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_6  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_606
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_597
+??HAL_DMA_PollForTransfer_606:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_7  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_607
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_597
+??HAL_DMA_PollForTransfer_607:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_8  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_608
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_PollForTransfer_597
+??HAL_DMA_PollForTransfer_608:
+        MOVS     R0,#+134217728
+??HAL_DMA_PollForTransfer_597:
+        LDR.W    R1,??DataTable2_15  ;; 0x40026008
+        STR      R0,[R1, #+0]
 //  628 
 //  629       /* The selected Streamx EN bit is cleared (DMA is disabled and all transfers
 //  630          are complete) */
 //  631       hdma->State = HAL_DMA_STATE_READY_MEM0;
-??HAL_DMA_PollForTransfer_357:
+??HAL_DMA_PollForTransfer_567:
         MOVS     R0,#+17
-        ADD      R1,R4,#+52
-        STRB     R0,[R1, #+1]
+        STRB     R0,[R4, #+53]
 //  632     }
 //  633     /* Process Unlocked */
 //  634     __HAL_UNLOCK(hdma);
-??HAL_DMA_PollForTransfer_358:
+??HAL_DMA_PollForTransfer_495:
         MOVS     R0,#+0
         STRB     R0,[R4, #+52]
-        B.N      ??HAL_DMA_PollForTransfer_438
-        DATA
-??HAL_DMA_PollForTransfer_229:
-        DC32     0x400264a0
-        THUMB
+        B.N      ??HAL_DMA_PollForTransfer_609
 //  635   }
 //  636   else
 //  637   { 
 //  638     /* Multi_Buffering mode enabled */
 //  639     if(((hdma->Instance->CR) & (uint32_t)(DMA_SxCR_DBM)) != 0)
-??HAL_DMA_PollForTransfer_275:
-        LSLS     R3,R3,#+13
-        BPL.W    ??HAL_DMA_PollForTransfer_439
+??HAL_DMA_PollForTransfer_378:
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+0]
+        LSLS     R0,R0,#+13
+        BPL.W    ??HAL_DMA_PollForTransfer_610
 //  640     {
 //  641       /* Clear the half transfer complete flag */
 //  642       __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
-        CMP      R2,R1
-        BCC.N    ??HAL_DMA_PollForTransfer_440
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_441
-        LDR.W    R1,??DataTable2_7  ;; 0x40026410
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_441
-        LDR.W    R1,??DataTable2_8  ;; 0x40026070
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_441
-        LDR.W    R1,??DataTable2_9  ;; 0x40026470
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_442
-??HAL_DMA_PollForTransfer_441:
-        MOVS     R1,#+16
-        B.N      ??HAL_DMA_PollForTransfer_443
-??HAL_DMA_PollForTransfer_442:
-        LDR.W    R1,??DataTable2  ;; 0x40026028
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_444
-        LDR.W    R1,??DataTable2_1  ;; 0x40026428
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_444
-        LDR.W    R1,??DataTable2_2  ;; 0x40026088
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_444
-        LDR.W    R1,??DataTable2_3  ;; 0x40026488
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_445
-??HAL_DMA_PollForTransfer_444:
-        MOV      R1,#+1024
-        B.N      ??HAL_DMA_PollForTransfer_443
-??HAL_DMA_PollForTransfer_445:
-        LDR.W    R1,??DataTable2_4  ;; 0x40026040
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_446
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_443
-??HAL_DMA_PollForTransfer_446:
-        LDR.W    R1,??DataTable2_5  ;; 0x40026440
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_447
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_443
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_16  ;; 0x40026459
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_611
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_10  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_612
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_613
+??HAL_DMA_PollForTransfer_612:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_11  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_614
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_613
+??HAL_DMA_PollForTransfer_614:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_12  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_615
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_613
+??HAL_DMA_PollForTransfer_615:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_13  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_616
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_613
+??HAL_DMA_PollForTransfer_616:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_1  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_617
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_613
+??HAL_DMA_PollForTransfer_617:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_2  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_618
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_613
+??HAL_DMA_PollForTransfer_618:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_3  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_619
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_613
+??HAL_DMA_PollForTransfer_619:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_4  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_620
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_613
+??HAL_DMA_PollForTransfer_620:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_5  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_621
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_613
+??HAL_DMA_PollForTransfer_621:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_6  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_622
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_613
+??HAL_DMA_PollForTransfer_622:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_7  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_623
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_613
+??HAL_DMA_PollForTransfer_623:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_8  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_624
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_613
+??HAL_DMA_PollForTransfer_624:
+        MOVS     R0,#+67108864
+??HAL_DMA_PollForTransfer_613:
+        LDR.N    R1,??HAL_DMA_PollForTransfer_451  ;; 0x4002640c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_PollForTransfer_625
+??HAL_DMA_PollForTransfer_611:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_PollForTransfer_511  ;; 0x400260b9
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_626
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_10  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_627
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_628
+??HAL_DMA_PollForTransfer_627:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_11  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_629
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_628
+??HAL_DMA_PollForTransfer_629:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_12  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_630
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_628
+??HAL_DMA_PollForTransfer_630:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_13  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_631
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_628
+??HAL_DMA_PollForTransfer_631:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_1  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_632
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_628
+??HAL_DMA_PollForTransfer_632:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_2  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_633
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_628
+??HAL_DMA_PollForTransfer_633:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_3  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_634
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_628
+??HAL_DMA_PollForTransfer_634:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_4  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_635
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_628
+??HAL_DMA_PollForTransfer_635:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_5  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_636
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_628
+??HAL_DMA_PollForTransfer_636:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_6  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_637
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_628
+??HAL_DMA_PollForTransfer_637:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_7  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_638
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_628
+??HAL_DMA_PollForTransfer_638:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_8  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_639
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_628
+??HAL_DMA_PollForTransfer_639:
+        MOVS     R0,#+67108864
+??HAL_DMA_PollForTransfer_628:
+        LDR.W    R1,??DataTable2_9  ;; 0x40026408
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_PollForTransfer_625
+??HAL_DMA_PollForTransfer_626:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2  ;; 0x40026059
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_640
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_10  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_641
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_642
+??HAL_DMA_PollForTransfer_641:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_11  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_643
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_642
+??HAL_DMA_PollForTransfer_643:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_12  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_644
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_642
+??HAL_DMA_PollForTransfer_644:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_13  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_645
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_642
+??HAL_DMA_PollForTransfer_645:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_1  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_646
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_642
+??HAL_DMA_PollForTransfer_646:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_2  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_647
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_642
+??HAL_DMA_PollForTransfer_647:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_3  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_648
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_642
+??HAL_DMA_PollForTransfer_648:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_4  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_649
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_642
+??HAL_DMA_PollForTransfer_649:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_5  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_650
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_642
+??HAL_DMA_PollForTransfer_650:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_6  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_651
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_642
+??HAL_DMA_PollForTransfer_651:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_7  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_652
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_642
+??HAL_DMA_PollForTransfer_652:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_8  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_653
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_642
+??HAL_DMA_PollForTransfer_653:
+        MOVS     R0,#+67108864
+??HAL_DMA_PollForTransfer_642:
+        LDR.W    R1,??DataTable2_14  ;; 0x4002600c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_PollForTransfer_625
+??HAL_DMA_PollForTransfer_640:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_10  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_654
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_655
+??HAL_DMA_PollForTransfer_654:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_11  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_656
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_655
+??HAL_DMA_PollForTransfer_656:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_12  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_657
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_655
+??HAL_DMA_PollForTransfer_657:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_13  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_658
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_655
+??HAL_DMA_PollForTransfer_658:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_1  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_659
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_655
+??HAL_DMA_PollForTransfer_659:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_2  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_660
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_655
+??HAL_DMA_PollForTransfer_660:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_3  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_661
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_655
+??HAL_DMA_PollForTransfer_661:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_4  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_662
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_655
+??HAL_DMA_PollForTransfer_662:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_5  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_663
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_655
+??HAL_DMA_PollForTransfer_663:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_6  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_664
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_655
+??HAL_DMA_PollForTransfer_664:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_7  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_665
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_655
         DATA
-??HAL_DMA_PollForTransfer_231:
-        DC32     0x40026000
-        THUMB
-??HAL_DMA_PollForTransfer_447:
-        LDR.W    R1,??DataTable2_6  ;; 0x400260a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_448
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_443
-??HAL_DMA_PollForTransfer_448:
-        LDR.W    R1,??DataTable2_10  ;; 0x400264a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_449
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_443
-        DATA
-??HAL_DMA_PollForTransfer_243:
-        DC32     0x400260b9
-        DC32     0x40026059
-        THUMB
-??HAL_DMA_PollForTransfer_449:
-        MOV      R1,#+67108864
-??HAL_DMA_PollForTransfer_443:
-        STR      R1,[R0, #+12]
-        B.N      ??HAL_DMA_PollForTransfer_450
-??HAL_DMA_PollForTransfer_440:
-        LDR.W    R1,??DataTable2_11  ;; 0x400260b9
-        CMP      R2,R1
-        BCC.N    ??HAL_DMA_PollForTransfer_451
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_452
-        LDR.W    R1,??DataTable2_7  ;; 0x40026410
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_452
-        LDR.W    R1,??DataTable2_8  ;; 0x40026070
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_452
-        LDR.W    R1,??DataTable2_9  ;; 0x40026470
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_453
-??HAL_DMA_PollForTransfer_452:
-        MOVS     R1,#+16
-        B.N      ??HAL_DMA_PollForTransfer_454
-??HAL_DMA_PollForTransfer_453:
-        LDR.W    R1,??DataTable2  ;; 0x40026028
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_455
-        LDR.W    R1,??DataTable2_1  ;; 0x40026428
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_455
-        LDR.W    R1,??DataTable2_2  ;; 0x40026088
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_455
-        LDR.W    R1,??DataTable2_3  ;; 0x40026488
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_456
-??HAL_DMA_PollForTransfer_455:
-        MOV      R1,#+1024
-        B.N      ??HAL_DMA_PollForTransfer_454
-??HAL_DMA_PollForTransfer_456:
-        LDR.W    R1,??DataTable2_4  ;; 0x40026040
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_457
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_454
-??HAL_DMA_PollForTransfer_457:
-        LDR.W    R1,??DataTable2_5  ;; 0x40026440
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_458
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_454
-??HAL_DMA_PollForTransfer_458:
-        LDR.W    R1,??DataTable2_6  ;; 0x400260a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_459
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_454
-??HAL_DMA_PollForTransfer_459:
-        LDR.W    R1,??DataTable2_10  ;; 0x400264a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_460
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_454
-??HAL_DMA_PollForTransfer_460:
-        MOV      R1,#+67108864
-??HAL_DMA_PollForTransfer_454:
-        STR      R1,[R0, #+8]
-        B.N      ??HAL_DMA_PollForTransfer_450
 ??HAL_DMA_PollForTransfer_451:
-        LDR.W    R0,??DataTable2_12  ;; 0x40026059
-        CMP      R2,R0
-        BCC.N    ??HAL_DMA_PollForTransfer_461
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_462
-        LDR.W    R0,??DataTable2_7  ;; 0x40026410
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_462
-        LDR.W    R0,??DataTable2_8  ;; 0x40026070
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_462
-        LDR.W    R0,??DataTable2_9  ;; 0x40026470
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_463
-??HAL_DMA_PollForTransfer_462:
-        MOVS     R0,#+16
-        B.N      ??HAL_DMA_PollForTransfer_464
-??HAL_DMA_PollForTransfer_463:
-        LDR.W    R0,??DataTable2  ;; 0x40026028
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_465
-        LDR.W    R0,??DataTable2_1  ;; 0x40026428
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_465
-        LDR.W    R0,??DataTable2_2  ;; 0x40026088
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_465
-        LDR.W    R0,??DataTable2_3  ;; 0x40026488
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_466
-??HAL_DMA_PollForTransfer_465:
-        MOV      R0,#+1024
-        B.N      ??HAL_DMA_PollForTransfer_464
-??HAL_DMA_PollForTransfer_466:
-        LDR.W    R0,??DataTable2_4  ;; 0x40026040
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_467
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_464
-??HAL_DMA_PollForTransfer_467:
-        LDR.W    R0,??DataTable2_5  ;; 0x40026440
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_468
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_464
-??HAL_DMA_PollForTransfer_468:
-        LDR.W    R0,??DataTable2_6  ;; 0x400260a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_469
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_464
-??HAL_DMA_PollForTransfer_469:
-        LDR.W    R0,??DataTable2_10  ;; 0x400264a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_470
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_464
-??HAL_DMA_PollForTransfer_470:
-        MOV      R0,#+67108864
-??HAL_DMA_PollForTransfer_464:
-        LDR.N    R1,??DataTable2_13  ;; 0x40026000
-        STR      R0,[R1, #+12]
-        B.N      ??HAL_DMA_PollForTransfer_450
-??HAL_DMA_PollForTransfer_461:
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_471
-        LDR.N    R0,??DataTable2_7  ;; 0x40026410
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_471
-        LDR.N    R0,??DataTable2_8  ;; 0x40026070
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_471
-        LDR.N    R0,??DataTable2_9  ;; 0x40026470
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_472
-??HAL_DMA_PollForTransfer_471:
-        MOVS     R0,#+16
-        B.N      ??HAL_DMA_PollForTransfer_473
-??HAL_DMA_PollForTransfer_472:
-        LDR.N    R0,??DataTable2  ;; 0x40026028
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_474
-        LDR.N    R0,??DataTable2_1  ;; 0x40026428
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_474
-        LDR.N    R0,??DataTable2_2  ;; 0x40026088
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_474
-        LDR.N    R0,??DataTable2_3  ;; 0x40026488
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_475
-??HAL_DMA_PollForTransfer_474:
-        MOV      R0,#+1024
-        B.N      ??HAL_DMA_PollForTransfer_473
-??HAL_DMA_PollForTransfer_475:
-        LDR.N    R0,??DataTable2_4  ;; 0x40026040
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_476
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_473
-??HAL_DMA_PollForTransfer_476:
-        LDR.N    R0,??DataTable2_5  ;; 0x40026440
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_477
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_473
-??HAL_DMA_PollForTransfer_477:
-        LDR.N    R0,??DataTable2_6  ;; 0x400260a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_478
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_473
-??HAL_DMA_PollForTransfer_478:
-        LDR.N    R0,??DataTable2_10  ;; 0x400264a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_479
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_473
-??HAL_DMA_PollForTransfer_479:
-        MOV      R0,#+67108864
-??HAL_DMA_PollForTransfer_473:
-        LDR.N    R1,??DataTable2_13  ;; 0x40026000
-        STR      R0,[R1, #+8]
+        DC32     0x4002640c
+        THUMB
+??HAL_DMA_PollForTransfer_665:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_8  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_666
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_655
+??HAL_DMA_PollForTransfer_666:
+        MOVS     R0,#+67108864
+??HAL_DMA_PollForTransfer_655:
+        LDR.W    R1,??DataTable2_15  ;; 0x40026008
+        STR      R0,[R1, #+0]
 //  643 
 //  644       /* Current memory buffer used is Memory 0 */
 //  645       if((hdma->Instance->CR & DMA_SxCR_CT) == 0)
-??HAL_DMA_PollForTransfer_450:
+??HAL_DMA_PollForTransfer_625:
         LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+0]
-        LSLS     R1,R1,#+12
-        BPL.W    ??HAL_DMA_PollForTransfer_480
+        LDR      R0,[R0, #+0]
+        LSLS     R0,R0,#+12
+        BMI.N    ??HAL_DMA_PollForTransfer_667
 //  646       {
 //  647         /* Change DMA peripheral state */
 //  648         hdma->State = HAL_DMA_STATE_READY_HALF_MEM0;
+        MOVS     R0,#+49
+        STRB     R0,[R4, #+53]
+        B.N      ??HAL_DMA_PollForTransfer_609
 //  649       }
 //  650       /* Current memory buffer used is Memory 1 */
 //  651       else if((hdma->Instance->CR & DMA_SxCR_CT) != 0)
+??HAL_DMA_PollForTransfer_667:
+        LDR      R0,[R4, #+0]
         LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+12
-        BPL.W    ??HAL_DMA_PollForTransfer_438
+        BPL.W    ??HAL_DMA_PollForTransfer_609
 //  652       {
 //  653         /* Change DMA peripheral state */
 //  654         hdma->State = HAL_DMA_STATE_READY_HALF_MEM1;
         MOVS     R0,#+65
-        ADD      R1,R4,#+52
-        STRB     R0,[R1, #+1]
-        B.N      ??HAL_DMA_PollForTransfer_438
+        STRB     R0,[R4, #+53]
+        B.N      ??HAL_DMA_PollForTransfer_609
 //  655       }
 //  656     }
 //  657     else
 //  658     {
 //  659       /* Clear the half transfer complete flag */
 //  660       __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
-??HAL_DMA_PollForTransfer_439:
-        CMP      R2,R1
-        BCC.N    ??HAL_DMA_PollForTransfer_481
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_482
-        LDR.N    R1,??DataTable2_7  ;; 0x40026410
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_482
-        LDR.N    R1,??DataTable2_8  ;; 0x40026070
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_482
-        LDR.N    R1,??DataTable2_9  ;; 0x40026470
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_483
-??HAL_DMA_PollForTransfer_482:
-        MOVS     R1,#+16
-        B.N      ??HAL_DMA_PollForTransfer_484
-??HAL_DMA_PollForTransfer_483:
-        LDR.N    R1,??DataTable2  ;; 0x40026028
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_485
-        LDR.N    R1,??DataTable2_1  ;; 0x40026428
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_485
-        LDR.N    R1,??DataTable2_2  ;; 0x40026088
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_485
-        LDR.N    R1,??DataTable2_3  ;; 0x40026488
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_486
-??HAL_DMA_PollForTransfer_485:
-        MOV      R1,#+1024
-        B.N      ??HAL_DMA_PollForTransfer_484
-??HAL_DMA_PollForTransfer_486:
-        LDR.N    R1,??DataTable2_4  ;; 0x40026040
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_487
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_484
-??HAL_DMA_PollForTransfer_487:
-        LDR.N    R1,??DataTable2_5  ;; 0x40026440
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_488
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_484
-??HAL_DMA_PollForTransfer_488:
-        LDR.N    R1,??DataTable2_6  ;; 0x400260a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_489
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_484
-??HAL_DMA_PollForTransfer_489:
-        LDR.N    R1,??DataTable2_10  ;; 0x400264a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_490
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_484
-??HAL_DMA_PollForTransfer_490:
-        MOV      R1,#+67108864
-??HAL_DMA_PollForTransfer_484:
-        STR      R1,[R0, #+12]
-        B.N      ??HAL_DMA_PollForTransfer_480
-??HAL_DMA_PollForTransfer_481:
-        LDR.N    R1,??DataTable2_11  ;; 0x400260b9
-        CMP      R2,R1
-        BCC.N    ??HAL_DMA_PollForTransfer_491
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_492
-        LDR.N    R1,??DataTable2_7  ;; 0x40026410
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_492
-        LDR.N    R1,??DataTable2_8  ;; 0x40026070
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_492
-        LDR.N    R1,??DataTable2_9  ;; 0x40026470
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_493
-??HAL_DMA_PollForTransfer_492:
-        MOVS     R1,#+16
-        B.N      ??HAL_DMA_PollForTransfer_494
-??HAL_DMA_PollForTransfer_493:
-        LDR.N    R1,??DataTable2  ;; 0x40026028
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_495
-        LDR.N    R1,??DataTable2_1  ;; 0x40026428
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_495
-        LDR.N    R1,??DataTable2_2  ;; 0x40026088
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_PollForTransfer_495
-        LDR.N    R1,??DataTable2_3  ;; 0x40026488
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_496
-??HAL_DMA_PollForTransfer_495:
-        MOV      R1,#+1024
-        B.N      ??HAL_DMA_PollForTransfer_494
-??HAL_DMA_PollForTransfer_496:
-        LDR.N    R1,??DataTable2_4  ;; 0x40026040
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_497
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_494
-??HAL_DMA_PollForTransfer_497:
-        LDR.N    R1,??DataTable2_5  ;; 0x40026440
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_498
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_494
-??HAL_DMA_PollForTransfer_498:
-        LDR.N    R1,??DataTable2_6  ;; 0x400260a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_499
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_494
-??HAL_DMA_PollForTransfer_499:
-        LDR.N    R1,??DataTable2_10  ;; 0x400264a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_PollForTransfer_500
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_494
-??HAL_DMA_PollForTransfer_500:
-        MOV      R1,#+67108864
-??HAL_DMA_PollForTransfer_494:
-        STR      R1,[R0, #+8]
-        B.N      ??HAL_DMA_PollForTransfer_480
-??HAL_DMA_PollForTransfer_491:
-        LDR.N    R0,??DataTable2_12  ;; 0x40026059
-        CMP      R2,R0
-        BCC.N    ??HAL_DMA_PollForTransfer_501
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_502
-        LDR.N    R0,??DataTable2_7  ;; 0x40026410
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_502
-        LDR.N    R0,??DataTable2_8  ;; 0x40026070
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_502
-        LDR.N    R0,??DataTable2_9  ;; 0x40026470
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_503
-??HAL_DMA_PollForTransfer_502:
+??HAL_DMA_PollForTransfer_610:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_16  ;; 0x40026459
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_668
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_10  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_669
         MOVS     R0,#+16
-        B.N      ??HAL_DMA_PollForTransfer_504
-??HAL_DMA_PollForTransfer_503:
-        LDR.N    R0,??DataTable2  ;; 0x40026028
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_505
-        LDR.N    R0,??DataTable2_1  ;; 0x40026428
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_505
-        LDR.N    R0,??DataTable2_2  ;; 0x40026088
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_505
-        LDR.N    R0,??DataTable2_3  ;; 0x40026488
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_506
-??HAL_DMA_PollForTransfer_505:
+        B.N      ??HAL_DMA_PollForTransfer_670
+??HAL_DMA_PollForTransfer_669:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_11  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_671
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_670
+??HAL_DMA_PollForTransfer_671:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_12  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_672
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_670
+??HAL_DMA_PollForTransfer_672:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable2_13  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_673
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_670
+??HAL_DMA_PollForTransfer_673:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_1  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_674
         MOV      R0,#+1024
-        B.N      ??HAL_DMA_PollForTransfer_504
-??HAL_DMA_PollForTransfer_506:
-        LDR.N    R0,??DataTable2_4  ;; 0x40026040
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_507
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_504
-??HAL_DMA_PollForTransfer_507:
-        LDR.N    R0,??DataTable2_5  ;; 0x40026440
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_508
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_504
-??HAL_DMA_PollForTransfer_508:
-        LDR.N    R0,??DataTable2_6  ;; 0x400260a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_509
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_504
-??HAL_DMA_PollForTransfer_509:
-        LDR.N    R0,??DataTable2_10  ;; 0x400264a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_510
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_504
-??HAL_DMA_PollForTransfer_510:
-        MOV      R0,#+67108864
-??HAL_DMA_PollForTransfer_504:
-        LDR.N    R1,??DataTable2_13  ;; 0x40026000
-        STR      R0,[R1, #+12]
-        B.N      ??HAL_DMA_PollForTransfer_480
-??HAL_DMA_PollForTransfer_501:
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_PollForTransfer_511
-        LDR.N    R0,??DataTable2_7  ;; 0x40026410
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_511
-        LDR.N    R0,??DataTable2_8  ;; 0x40026070
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_511
-        LDR.N    R0,??DataTable2_9  ;; 0x40026470
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_512
+        B.N      ??HAL_DMA_PollForTransfer_670
+??HAL_DMA_PollForTransfer_674:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_2  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_675
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_670
+??HAL_DMA_PollForTransfer_675:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_3  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_676
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_670
+??HAL_DMA_PollForTransfer_676:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_4  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_677
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_670
+??HAL_DMA_PollForTransfer_677:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_5  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_678
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_670
+??HAL_DMA_PollForTransfer_678:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_6  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_679
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_670
+??HAL_DMA_PollForTransfer_679:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_7  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_680
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_670
+??HAL_DMA_PollForTransfer_680:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_8  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_681
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_670
+??HAL_DMA_PollForTransfer_681:
+        MOVS     R0,#+67108864
+??HAL_DMA_PollForTransfer_670:
+        LDR.N    R1,??DataTable2_17  ;; 0x4002640c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_PollForTransfer_682
+??HAL_DMA_PollForTransfer_668:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_PollForTransfer_511  ;; 0x400260b9
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_683
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_10  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_684
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_685
+??HAL_DMA_PollForTransfer_684:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_11  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_686
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_685
+??HAL_DMA_PollForTransfer_686:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_12  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_687
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_685
+??HAL_DMA_PollForTransfer_687:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_13  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_688
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_685
+??HAL_DMA_PollForTransfer_688:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_1  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_689
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_685
+??HAL_DMA_PollForTransfer_689:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_2  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_690
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_685
+??HAL_DMA_PollForTransfer_690:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_3  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_691
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_685
+??HAL_DMA_PollForTransfer_691:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_4  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_692
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_685
+??HAL_DMA_PollForTransfer_692:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_5  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_693
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_685
+??HAL_DMA_PollForTransfer_693:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_6  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_694
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_685
+??HAL_DMA_PollForTransfer_694:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_7  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_695
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_685
+??HAL_DMA_PollForTransfer_695:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_8  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_696
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_685
+??HAL_DMA_PollForTransfer_696:
+        MOVS     R0,#+67108864
+??HAL_DMA_PollForTransfer_685:
+        LDR.N    R1,??DataTable2_9  ;; 0x40026408
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_PollForTransfer_682
+??HAL_DMA_PollForTransfer_683:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2  ;; 0x40026059
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_PollForTransfer_697
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_10  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_698
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_699
+??HAL_DMA_PollForTransfer_698:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_11  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_700
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_699
+??HAL_DMA_PollForTransfer_700:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_12  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_701
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_699
+??HAL_DMA_PollForTransfer_701:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_13  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_702
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_699
+??HAL_DMA_PollForTransfer_702:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_1  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_703
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_699
+??HAL_DMA_PollForTransfer_703:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_2  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_704
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_699
+??HAL_DMA_PollForTransfer_704:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_3  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_705
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_699
+??HAL_DMA_PollForTransfer_705:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_4  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_706
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_699
+??HAL_DMA_PollForTransfer_706:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_5  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_707
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_699
+??HAL_DMA_PollForTransfer_707:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_6  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_708
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_699
+??HAL_DMA_PollForTransfer_708:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_7  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_709
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_699
+??HAL_DMA_PollForTransfer_709:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_8  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_710
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_699
+??HAL_DMA_PollForTransfer_710:
+        MOVS     R0,#+67108864
+??HAL_DMA_PollForTransfer_699:
+        LDR.N    R1,??DataTable2_14  ;; 0x4002600c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_PollForTransfer_682
+??HAL_DMA_PollForTransfer_697:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_10  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_711
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_712
+??HAL_DMA_PollForTransfer_711:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_11  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_713
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_712
+??HAL_DMA_PollForTransfer_713:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_12  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_714
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_712
+??HAL_DMA_PollForTransfer_714:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_13  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_715
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_PollForTransfer_712
+??HAL_DMA_PollForTransfer_715:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_1  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_716
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_712
+??HAL_DMA_PollForTransfer_716:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_2  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_717
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_712
+??HAL_DMA_PollForTransfer_717:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_3  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_718
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_712
+??HAL_DMA_PollForTransfer_718:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_4  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_719
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_PollForTransfer_712
+??HAL_DMA_PollForTransfer_719:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_5  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_720
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_712
+??HAL_DMA_PollForTransfer_720:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_6  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_721
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_712
+??HAL_DMA_PollForTransfer_721:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_7  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_722
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_712
+        Nop      
+        DATA
 ??HAL_DMA_PollForTransfer_511:
-        MOVS     R0,#+16
-        B.N      ??HAL_DMA_PollForTransfer_513
-??HAL_DMA_PollForTransfer_512:
-        LDR.N    R0,??DataTable2  ;; 0x40026028
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_514
-        LDR.N    R0,??DataTable2_1  ;; 0x40026428
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_514
-        LDR.N    R0,??DataTable2_2  ;; 0x40026088
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_PollForTransfer_514
-        LDR.N    R0,??DataTable2_3  ;; 0x40026488
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_515
-??HAL_DMA_PollForTransfer_514:
-        MOV      R0,#+1024
-        B.N      ??HAL_DMA_PollForTransfer_513
-??HAL_DMA_PollForTransfer_515:
-        LDR.N    R0,??DataTable2_4  ;; 0x40026040
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_516
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_513
-??HAL_DMA_PollForTransfer_516:
-        LDR.N    R0,??DataTable2_5  ;; 0x40026440
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_517
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_513
-??HAL_DMA_PollForTransfer_517:
-        LDR.N    R0,??DataTable2_6  ;; 0x400260a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_518
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_513
-??HAL_DMA_PollForTransfer_518:
-        LDR.N    R0,??DataTable2_10  ;; 0x400264a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_PollForTransfer_519
-        MOV      R0,#+1048576
-        B.N      ??HAL_DMA_PollForTransfer_513
-??HAL_DMA_PollForTransfer_519:
-        MOV      R0,#+67108864
-??HAL_DMA_PollForTransfer_513:
-        LDR.N    R1,??DataTable2_13  ;; 0x40026000
-        STR      R0,[R1, #+8]
+        DC32     0x400260b9
+        THUMB
+??HAL_DMA_PollForTransfer_722:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable2_8  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_PollForTransfer_723
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_PollForTransfer_712
+??HAL_DMA_PollForTransfer_723:
+        MOVS     R0,#+67108864
+??HAL_DMA_PollForTransfer_712:
+        LDR.N    R1,??DataTable2_15  ;; 0x40026008
+        STR      R0,[R1, #+0]
 //  661 
 //  662       /* Change DMA peripheral state */
 //  663       hdma->State = HAL_DMA_STATE_READY_HALF_MEM0;
-??HAL_DMA_PollForTransfer_480:
+??HAL_DMA_PollForTransfer_682:
         MOVS     R0,#+49
-        ADD      R1,R4,#+52
-        STRB     R0,[R1, #+1]
+        STRB     R0,[R4, #+53]
 //  664     }
 //  665   }
 //  666   return HAL_OK;
-??HAL_DMA_PollForTransfer_438:
+??HAL_DMA_PollForTransfer_609:
         MOVS     R0,#+0
-??HAL_DMA_PollForTransfer_273:
-        POP      {R4-R10,PC}      ;; return
+??HAL_DMA_PollForTransfer_376:
+        POP      {R1,R4-R11,PC}   ;; return
 //  667 }
           CFI EndBlock cfiBlock6
 
@@ -5779,85 +8045,109 @@ HAL_DMA_PollForTransfer:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable2:
-        DC32     0x40026028
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2_1:
-        DC32     0x40026428
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2_2:
-        DC32     0x40026088
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2_3:
-        DC32     0x40026488
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2_4:
-        DC32     0x40026040
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2_5:
-        DC32     0x40026440
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2_6:
-        DC32     0x400260a0
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2_7:
-        DC32     0x40026410
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2_8:
-        DC32     0x40026070
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2_9:
-        DC32     0x40026470
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2_10:
-        DC32     0x400264a0
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2_11:
-        DC32     0x400260b9
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable2_12:
         DC32     0x40026059
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
+??DataTable2_1:
+        DC32     0x40026028
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2_2:
+        DC32     0x40026428
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2_3:
+        DC32     0x40026088
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2_4:
+        DC32     0x40026488
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2_5:
+        DC32     0x40026040
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2_6:
+        DC32     0x40026440
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2_7:
+        DC32     0x400260a0
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2_8:
+        DC32     0x400264a0
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2_9:
+        DC32     0x40026408
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2_10:
+        DC32     0x40026010
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2_11:
+        DC32     0x40026410
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2_12:
+        DC32     0x40026070
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
 ??DataTable2_13:
-        DC32     0x40026000
+        DC32     0x40026470
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2_14:
+        DC32     0x4002600c
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2_15:
+        DC32     0x40026008
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2_16:
+        DC32     0x40026459
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable2_17:
+        DC32     0x4002640c
 //  668 
 //  669 /**
 //  670   * @brief  Handles DMA interrupt request.
@@ -5873,558 +8163,804 @@ HAL_DMA_PollForTransfer:
 //  675 void HAL_DMA_IRQHandler(DMA_HandleTypeDef *hdma)
 //  676 {
 HAL_DMA_IRQHandler:
-        PUSH     {R3-R9,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R9 Frame(CFA, -8)
-          CFI R8 Frame(CFA, -12)
-          CFI R7 Frame(CFA, -16)
-          CFI R6 Frame(CFA, -20)
-          CFI R5 Frame(CFA, -24)
-          CFI R4 Frame(CFA, -28)
-          CFI CFA R13+32
-        MOV      R4,R0
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        MOVS     R4,R0
 //  677   /* Transfer Error Interrupt management ***************************************/
 //  678   if(__HAL_DMA_GET_FLAG(hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma)) != RESET)
-        LDR      R1,[R4, #+0]
-        MOV      R2,R1
-        LDR.W    R5,??HAL_DMA_IRQHandler_0  ;; 0x40026400
-        LDR.W    R6,??HAL_DMA_IRQHandler_0+0x4  ;; 0x400260b9
-        LDR.W    R7,??HAL_DMA_IRQHandler_0+0x8  ;; 0x40026410
-        LDR.W    R8,??HAL_DMA_IRQHandler_0+0xC  ;; 0x40026010
-        LDR.W    R9,??HAL_DMA_IRQHandler_0+0x10  ;; 0x40026459
-        CMP      R2,R9
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0  ;; 0x40026459
+        CMP      R0,R1
         BCC.N    ??HAL_DMA_IRQHandler_1
-        LDR      R0,[R5, #+4]
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_2
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_2
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_2
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_3
-??HAL_DMA_IRQHandler_2:
-        MOVS     R2,#+8
-        B.N      ??HAL_DMA_IRQHandler_4
-??HAL_DMA_IRQHandler_3:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_5
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_5
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x24  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_5
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x28  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_6
-??HAL_DMA_IRQHandler_5:
-        MOV      R2,#+512
-        B.N      ??HAL_DMA_IRQHandler_4
-??HAL_DMA_IRQHandler_6:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x2C  ;; 0x40026040
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_7
-        MOV      R2,#+524288
-        B.N      ??HAL_DMA_IRQHandler_4
-??HAL_DMA_IRQHandler_7:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x30  ;; 0x40026440
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_8
-        MOV      R2,#+524288
-        B.N      ??HAL_DMA_IRQHandler_4
-??HAL_DMA_IRQHandler_8:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x34  ;; 0x400260a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_9
-        MOV      R2,#+524288
-        B.N      ??HAL_DMA_IRQHandler_4
-??HAL_DMA_IRQHandler_9:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x38  ;; 0x400264a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_10
-        MOV      R2,#+524288
-        B.N      ??HAL_DMA_IRQHandler_4
-??HAL_DMA_IRQHandler_10:
-        MOV      R2,#+33554432
-??HAL_DMA_IRQHandler_4:
-        ANDS     R0,R2,R0
-        B.N      ??HAL_DMA_IRQHandler_11
-??HAL_DMA_IRQHandler_1:
-        CMP      R2,R6
-        BCC.N    ??HAL_DMA_IRQHandler_12
-        LDR      R0,[R5, #+0]
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_13
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_13
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_13
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_14
-??HAL_DMA_IRQHandler_13:
-        MOVS     R2,#+8
-        B.N      ??HAL_DMA_IRQHandler_15
-??HAL_DMA_IRQHandler_14:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_16
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_16
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x24  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_16
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x28  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_17
-??HAL_DMA_IRQHandler_16:
-        MOV      R2,#+512
-        B.N      ??HAL_DMA_IRQHandler_15
-??HAL_DMA_IRQHandler_17:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x2C  ;; 0x40026040
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_18
-        MOV      R2,#+524288
-        B.N      ??HAL_DMA_IRQHandler_15
-??HAL_DMA_IRQHandler_18:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x30  ;; 0x40026440
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_19
-        MOV      R2,#+524288
-        B.N      ??HAL_DMA_IRQHandler_15
-??HAL_DMA_IRQHandler_19:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x34  ;; 0x400260a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_20
-        MOV      R2,#+524288
-        B.N      ??HAL_DMA_IRQHandler_15
-??HAL_DMA_IRQHandler_20:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x38  ;; 0x400264a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_21
-        MOV      R2,#+524288
-        B.N      ??HAL_DMA_IRQHandler_15
-??HAL_DMA_IRQHandler_21:
-        MOV      R2,#+33554432
-??HAL_DMA_IRQHandler_15:
-        ANDS     R0,R2,R0
-        B.N      ??HAL_DMA_IRQHandler_11
-??HAL_DMA_IRQHandler_12:
-        LDR.W    R0,??HAL_DMA_IRQHandler_22  ;; 0x40026000
-        LDR.W    R3,??HAL_DMA_IRQHandler_22+0x4  ;; 0x40026059
-        CMP      R2,R3
-        BCC.N    ??HAL_DMA_IRQHandler_23
-        LDR      R0,[R0, #+4]
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_24
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_24
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_24
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_25
-??HAL_DMA_IRQHandler_24:
-        MOVS     R2,#+8
-        B.N      ??HAL_DMA_IRQHandler_26
-??HAL_DMA_IRQHandler_25:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_27
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_27
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x24  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_27
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x28  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_28
-??HAL_DMA_IRQHandler_27:
-        MOV      R2,#+512
-        B.N      ??HAL_DMA_IRQHandler_26
-??HAL_DMA_IRQHandler_28:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x2C  ;; 0x40026040
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_29
-        MOV      R2,#+524288
-        B.N      ??HAL_DMA_IRQHandler_26
-??HAL_DMA_IRQHandler_29:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x30  ;; 0x40026440
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_30
-        MOV      R2,#+524288
-        B.N      ??HAL_DMA_IRQHandler_26
-??HAL_DMA_IRQHandler_30:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x34  ;; 0x400260a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_31
-        MOV      R2,#+524288
-        B.N      ??HAL_DMA_IRQHandler_26
-??HAL_DMA_IRQHandler_31:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x38  ;; 0x400264a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_32
-        MOV      R2,#+524288
-        B.N      ??HAL_DMA_IRQHandler_26
-??HAL_DMA_IRQHandler_32:
-        MOV      R2,#+33554432
-??HAL_DMA_IRQHandler_26:
-        ANDS     R0,R2,R0
-        B.N      ??HAL_DMA_IRQHandler_11
-??HAL_DMA_IRQHandler_23:
+        LDR.W    R0,??HAL_DMA_IRQHandler_0+0x4  ;; 0x40026404
         LDR      R0,[R0, #+0]
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_33
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_33
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_33
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_34
-??HAL_DMA_IRQHandler_33:
-        MOVS     R2,#+8
-        B.N      ??HAL_DMA_IRQHandler_35
-??HAL_DMA_IRQHandler_34:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_36
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_36
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x24  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_36
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x28  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_37
-??HAL_DMA_IRQHandler_36:
-        MOV      R2,#+512
-        B.N      ??HAL_DMA_IRQHandler_35
-??HAL_DMA_IRQHandler_37:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x2C  ;; 0x40026040
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_38
-        MOV      R2,#+524288
-        B.N      ??HAL_DMA_IRQHandler_35
-??HAL_DMA_IRQHandler_38:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x30  ;; 0x40026440
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_39
-        MOV      R2,#+524288
-        B.N      ??HAL_DMA_IRQHandler_35
-??HAL_DMA_IRQHandler_39:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x34  ;; 0x400260a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_40
-        MOV      R2,#+524288
-        B.N      ??HAL_DMA_IRQHandler_35
-??HAL_DMA_IRQHandler_40:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x38  ;; 0x400264a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_41
-        MOV      R2,#+524288
-        B.N      ??HAL_DMA_IRQHandler_35
-??HAL_DMA_IRQHandler_41:
-        MOV      R2,#+33554432
-??HAL_DMA_IRQHandler_35:
-        ANDS     R0,R2,R0
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x8  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_2
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_IRQHandler_3
+??HAL_DMA_IRQHandler_2:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0xC  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_4
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_IRQHandler_3
+??HAL_DMA_IRQHandler_4:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x10  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_5
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_IRQHandler_3
+??HAL_DMA_IRQHandler_5:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_6
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_IRQHandler_3
+??HAL_DMA_IRQHandler_6:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_7
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_IRQHandler_3
+??HAL_DMA_IRQHandler_7:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_8
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_IRQHandler_3
+??HAL_DMA_IRQHandler_8:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_9
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_IRQHandler_3
+??HAL_DMA_IRQHandler_9:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_11
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_IRQHandler_3
 ??HAL_DMA_IRQHandler_11:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0x4  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_12
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_IRQHandler_3
+??HAL_DMA_IRQHandler_12:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0x8  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_13
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_IRQHandler_3
+??HAL_DMA_IRQHandler_13:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0xC  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_14
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_IRQHandler_3
+??HAL_DMA_IRQHandler_14:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0x10  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_15
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_IRQHandler_3
+??HAL_DMA_IRQHandler_15:
+        MOVS     R1,#+33554432
+??HAL_DMA_IRQHandler_3:
+        ANDS     R0,R1,R0
+        B.N      ??HAL_DMA_IRQHandler_16
+??HAL_DMA_IRQHandler_1:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_10+0x14  ;; 0x400260b9
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_IRQHandler_17
+        LDR.W    R0,??HAL_DMA_IRQHandler_10+0x18  ;; 0x40026400
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x8  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_18
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_IRQHandler_19
+??HAL_DMA_IRQHandler_18:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0xC  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_20
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_IRQHandler_19
+??HAL_DMA_IRQHandler_20:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x10  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_21
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_IRQHandler_19
+??HAL_DMA_IRQHandler_21:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_22
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_IRQHandler_19
+??HAL_DMA_IRQHandler_22:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_23
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_IRQHandler_19
+??HAL_DMA_IRQHandler_23:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_24
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_IRQHandler_19
+??HAL_DMA_IRQHandler_24:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_25
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_IRQHandler_19
+??HAL_DMA_IRQHandler_25:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_26
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_IRQHandler_19
+??HAL_DMA_IRQHandler_26:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0x4  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_27
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_IRQHandler_19
+??HAL_DMA_IRQHandler_27:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0x8  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_28
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_IRQHandler_19
+??HAL_DMA_IRQHandler_28:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0xC  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_29
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_IRQHandler_19
+??HAL_DMA_IRQHandler_29:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0x10  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_30
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_IRQHandler_19
+??HAL_DMA_IRQHandler_30:
+        MOVS     R1,#+33554432
+??HAL_DMA_IRQHandler_19:
+        ANDS     R0,R1,R0
+        B.N      ??HAL_DMA_IRQHandler_16
+??HAL_DMA_IRQHandler_17:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_10+0x1C  ;; 0x40026059
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_IRQHandler_31
+        LDR.W    R0,??HAL_DMA_IRQHandler_10+0x20  ;; 0x40026004
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x8  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_32
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_IRQHandler_33
+??HAL_DMA_IRQHandler_32:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0xC  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_34
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_IRQHandler_33
+??HAL_DMA_IRQHandler_34:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x10  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_35
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_IRQHandler_33
+??HAL_DMA_IRQHandler_35:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_36
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_IRQHandler_33
+??HAL_DMA_IRQHandler_36:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_37
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_IRQHandler_33
+??HAL_DMA_IRQHandler_37:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_38
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_IRQHandler_33
+??HAL_DMA_IRQHandler_38:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_39
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_IRQHandler_33
+??HAL_DMA_IRQHandler_39:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_40
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_IRQHandler_33
+??HAL_DMA_IRQHandler_40:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0x4  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_41
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_IRQHandler_33
+??HAL_DMA_IRQHandler_41:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0x8  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_42
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_IRQHandler_33
+??HAL_DMA_IRQHandler_42:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0xC  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_43
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_IRQHandler_33
+??HAL_DMA_IRQHandler_43:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0x10  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_44
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_IRQHandler_33
+??HAL_DMA_IRQHandler_44:
+        MOVS     R1,#+33554432
+??HAL_DMA_IRQHandler_33:
+        ANDS     R0,R1,R0
+        B.N      ??HAL_DMA_IRQHandler_16
+??HAL_DMA_IRQHandler_31:
+        LDR.W    R0,??HAL_DMA_IRQHandler_10+0x24  ;; 0x40026000
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x8  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_45
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_IRQHandler_46
+??HAL_DMA_IRQHandler_45:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0xC  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_47
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_IRQHandler_46
+??HAL_DMA_IRQHandler_47:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x10  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_48
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_IRQHandler_46
+??HAL_DMA_IRQHandler_48:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_49
+        MOVS     R1,#+8
+        B.N      ??HAL_DMA_IRQHandler_46
+??HAL_DMA_IRQHandler_49:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_50
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_IRQHandler_46
+??HAL_DMA_IRQHandler_50:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_51
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_IRQHandler_46
+??HAL_DMA_IRQHandler_51:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_52
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_IRQHandler_46
+??HAL_DMA_IRQHandler_52:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_53
+        MOV      R1,#+512
+        B.N      ??HAL_DMA_IRQHandler_46
+??HAL_DMA_IRQHandler_53:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0x4  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_54
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_IRQHandler_46
+??HAL_DMA_IRQHandler_54:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0x8  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_55
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_IRQHandler_46
+??HAL_DMA_IRQHandler_55:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0xC  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_56
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_IRQHandler_46
+??HAL_DMA_IRQHandler_56:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0x10  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_57
+        MOVS     R1,#+524288
+        B.N      ??HAL_DMA_IRQHandler_46
+??HAL_DMA_IRQHandler_57:
+        MOVS     R1,#+33554432
+??HAL_DMA_IRQHandler_46:
+        ANDS     R0,R1,R0
+??HAL_DMA_IRQHandler_16:
         CMP      R0,#+0
-        BEQ.W    ??HAL_DMA_IRQHandler_42
+        BEQ.W    ??HAL_DMA_IRQHandler_58
 //  679   {
 //  680     if(__HAL_DMA_GET_IT_SOURCE(hdma, DMA_IT_TE) != RESET)
-        LDR      R0,[R1, #+0]
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+29
-        BPL.W    ??HAL_DMA_IRQHandler_42
+        BPL.W    ??HAL_DMA_IRQHandler_58
 //  681     {
 //  682       /* Disable the transfer error interrupt */
 //  683       __HAL_DMA_DISABLE_IT(hdma, DMA_IT_TE);
-        LDR      R0,[R1, #+0]
-        BIC      R0,R0,#0x4
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+0]
+        BICS     R0,R0,#0x4
+        LDR      R1,[R4, #+0]
         STR      R0,[R1, #+0]
 //  684 
 //  685       /* Clear the transfer error flag */
 //  686       __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
-        LDR      R1,[R4, #+0]
-        CMP      R1,R9
-        BCC.N    ??HAL_DMA_IRQHandler_43
-        CMP      R1,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_44
-        CMP      R1,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_44
-        LDR.W    R0,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026070
-        CMP      R1,R0
-        BEQ.N    ??HAL_DMA_IRQHandler_44
-        LDR.W    R0,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026470
-        CMP      R1,R0
-        BNE.N    ??HAL_DMA_IRQHandler_45
-??HAL_DMA_IRQHandler_44:
-        MOVS     R0,#+8
-        B.N      ??HAL_DMA_IRQHandler_46
-??HAL_DMA_IRQHandler_45:
-        LDR.W    R0,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026028
-        CMP      R1,R0
-        BEQ.N    ??HAL_DMA_IRQHandler_47
-        LDR.W    R0,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026428
-        CMP      R1,R0
-        BEQ.N    ??HAL_DMA_IRQHandler_47
-        LDR.W    R0,??HAL_DMA_IRQHandler_0+0x24  ;; 0x40026088
-        CMP      R1,R0
-        BEQ.N    ??HAL_DMA_IRQHandler_47
-        LDR.W    R0,??HAL_DMA_IRQHandler_0+0x28  ;; 0x40026488
-        CMP      R1,R0
-        BNE.N    ??HAL_DMA_IRQHandler_48
-??HAL_DMA_IRQHandler_47:
-        MOV      R0,#+512
-        B.N      ??HAL_DMA_IRQHandler_46
-??HAL_DMA_IRQHandler_48:
-        LDR.W    R0,??HAL_DMA_IRQHandler_0+0x2C  ;; 0x40026040
-        CMP      R1,R0
-        BNE.N    ??HAL_DMA_IRQHandler_49
-        MOV      R0,#+524288
-        B.N      ??HAL_DMA_IRQHandler_46
-??HAL_DMA_IRQHandler_49:
-        LDR.W    R0,??HAL_DMA_IRQHandler_0+0x30  ;; 0x40026440
-        CMP      R1,R0
-        BNE.N    ??HAL_DMA_IRQHandler_50
-        MOV      R0,#+524288
-        B.N      ??HAL_DMA_IRQHandler_46
-??HAL_DMA_IRQHandler_50:
-        LDR.W    R0,??HAL_DMA_IRQHandler_0+0x34  ;; 0x400260a0
-        CMP      R1,R0
-        BNE.N    ??HAL_DMA_IRQHandler_51
-        MOV      R0,#+524288
-        B.N      ??HAL_DMA_IRQHandler_46
-??HAL_DMA_IRQHandler_51:
-        LDR.W    R0,??HAL_DMA_IRQHandler_0+0x38  ;; 0x400264a0
-        CMP      R1,R0
-        BNE.N    ??HAL_DMA_IRQHandler_52
-        MOV      R0,#+524288
-        B.N      ??HAL_DMA_IRQHandler_46
-??HAL_DMA_IRQHandler_52:
-        MOV      R0,#+33554432
-??HAL_DMA_IRQHandler_46:
-        STR      R0,[R5, #+12]
-        B.N      ??HAL_DMA_IRQHandler_53
-??HAL_DMA_IRQHandler_43:
-        CMP      R1,R6
-        BCC.N    ??HAL_DMA_IRQHandler_54
-        CMP      R1,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_55
-        CMP      R1,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_55
-        LDR.W    R0,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026070
-        CMP      R1,R0
-        BEQ.N    ??HAL_DMA_IRQHandler_55
-        LDR.W    R0,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026470
-        CMP      R1,R0
-        BNE.N    ??HAL_DMA_IRQHandler_56
-??HAL_DMA_IRQHandler_55:
-        MOVS     R0,#+8
-        B.N      ??HAL_DMA_IRQHandler_57
-??HAL_DMA_IRQHandler_56:
-        LDR.W    R0,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026028
-        CMP      R1,R0
-        BEQ.N    ??HAL_DMA_IRQHandler_58
-        LDR.W    R0,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026428
-        CMP      R1,R0
-        BEQ.N    ??HAL_DMA_IRQHandler_58
-        LDR.W    R0,??HAL_DMA_IRQHandler_0+0x24  ;; 0x40026088
-        CMP      R1,R0
-        BEQ.N    ??HAL_DMA_IRQHandler_58
-        LDR.W    R0,??HAL_DMA_IRQHandler_0+0x28  ;; 0x40026488
-        CMP      R1,R0
-        BNE.N    ??HAL_DMA_IRQHandler_59
-??HAL_DMA_IRQHandler_58:
-        MOV      R0,#+512
-        B.N      ??HAL_DMA_IRQHandler_57
-??HAL_DMA_IRQHandler_59:
-        LDR.W    R0,??HAL_DMA_IRQHandler_0+0x2C  ;; 0x40026040
-        CMP      R1,R0
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0  ;; 0x40026459
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_IRQHandler_59
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0x8  ;; 0x40026010
+        CMP      R0,R1
         BNE.N    ??HAL_DMA_IRQHandler_60
-        MOV      R0,#+524288
-        B.N      ??HAL_DMA_IRQHandler_57
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_IRQHandler_61
 ??HAL_DMA_IRQHandler_60:
-        LDR.W    R0,??HAL_DMA_IRQHandler_0+0x30  ;; 0x40026440
-        CMP      R1,R0
-        BNE.N    ??HAL_DMA_IRQHandler_61
-        MOV      R0,#+524288
-        B.N      ??HAL_DMA_IRQHandler_57
-??HAL_DMA_IRQHandler_61:
-        LDR.W    R0,??HAL_DMA_IRQHandler_0+0x34  ;; 0x400260a0
-        CMP      R1,R0
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0xC  ;; 0x40026410
+        CMP      R0,R1
         BNE.N    ??HAL_DMA_IRQHandler_62
-        MOV      R0,#+524288
-        B.N      ??HAL_DMA_IRQHandler_57
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_IRQHandler_61
 ??HAL_DMA_IRQHandler_62:
-        LDR.W    R0,??HAL_DMA_IRQHandler_0+0x38  ;; 0x400264a0
-        CMP      R1,R0
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0x10  ;; 0x40026070
+        CMP      R0,R1
         BNE.N    ??HAL_DMA_IRQHandler_63
-        MOV      R0,#+524288
-        B.N      ??HAL_DMA_IRQHandler_57
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_IRQHandler_61
 ??HAL_DMA_IRQHandler_63:
-        MOV      R0,#+33554432
-??HAL_DMA_IRQHandler_57:
-        STR      R0,[R5, #+8]
-        B.N      ??HAL_DMA_IRQHandler_53
-??HAL_DMA_IRQHandler_54:
-        LDR.W    R0,??HAL_DMA_IRQHandler_22  ;; 0x40026000
-        LDR.W    R2,??HAL_DMA_IRQHandler_22+0x4  ;; 0x40026059
-        CMP      R1,R2
-        BCC.N    ??HAL_DMA_IRQHandler_64
-        CMP      R1,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_65
-        CMP      R1,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_65
-        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026070
-        CMP      R1,R2
-        BEQ.N    ??HAL_DMA_IRQHandler_65
-        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026470
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_66
-??HAL_DMA_IRQHandler_65:
-        MOVS     R1,#+8
-        B.N      ??HAL_DMA_IRQHandler_67
-??HAL_DMA_IRQHandler_66:
-        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026028
-        CMP      R1,R2
-        BEQ.N    ??HAL_DMA_IRQHandler_68
-        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026428
-        CMP      R1,R2
-        BEQ.N    ??HAL_DMA_IRQHandler_68
-        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x24  ;; 0x40026088
-        CMP      R1,R2
-        BEQ.N    ??HAL_DMA_IRQHandler_68
-        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x28  ;; 0x40026488
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_69
-??HAL_DMA_IRQHandler_68:
-        MOV      R1,#+512
-        B.N      ??HAL_DMA_IRQHandler_67
-??HAL_DMA_IRQHandler_69:
-        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x2C  ;; 0x40026040
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_70
-        MOV      R1,#+524288
-        B.N      ??HAL_DMA_IRQHandler_67
-??HAL_DMA_IRQHandler_70:
-        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x30  ;; 0x40026440
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_71
-        MOV      R1,#+524288
-        B.N      ??HAL_DMA_IRQHandler_67
-??HAL_DMA_IRQHandler_71:
-        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x34  ;; 0x400260a0
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_72
-        MOV      R1,#+524288
-        B.N      ??HAL_DMA_IRQHandler_67
-??HAL_DMA_IRQHandler_72:
-        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x38  ;; 0x400264a0
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_73
-        MOV      R1,#+524288
-        B.N      ??HAL_DMA_IRQHandler_67
-??HAL_DMA_IRQHandler_73:
-        MOV      R1,#+33554432
-??HAL_DMA_IRQHandler_67:
-        STR      R1,[R0, #+12]
-        B.N      ??HAL_DMA_IRQHandler_53
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_64
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_IRQHandler_61
 ??HAL_DMA_IRQHandler_64:
-        CMP      R1,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_74
-        CMP      R1,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_74
-        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026070
-        CMP      R1,R2
-        BEQ.N    ??HAL_DMA_IRQHandler_74
-        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026470
-        CMP      R1,R2
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_65
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_IRQHandler_61
+??HAL_DMA_IRQHandler_65:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_66
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_IRQHandler_61
+??HAL_DMA_IRQHandler_66:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_67
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_IRQHandler_61
+??HAL_DMA_IRQHandler_67:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_10  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_68
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_IRQHandler_61
+??HAL_DMA_IRQHandler_68:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_10+0x4  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_69
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_IRQHandler_61
+??HAL_DMA_IRQHandler_69:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_10+0x8  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_70
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_IRQHandler_61
+??HAL_DMA_IRQHandler_70:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_10+0xC  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_71
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_IRQHandler_61
+??HAL_DMA_IRQHandler_71:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_10+0x10  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_72
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_IRQHandler_61
+??HAL_DMA_IRQHandler_72:
+        MOVS     R0,#+33554432
+??HAL_DMA_IRQHandler_61:
+        LDR.W    R1,??HAL_DMA_IRQHandler_10+0x28  ;; 0x4002640c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_IRQHandler_73
+??HAL_DMA_IRQHandler_59:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_10+0x14  ;; 0x400260b9
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_IRQHandler_74
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0x8  ;; 0x40026010
+        CMP      R0,R1
         BNE.N    ??HAL_DMA_IRQHandler_75
-??HAL_DMA_IRQHandler_74:
-        MOVS     R1,#+8
+        MOVS     R0,#+8
         B.N      ??HAL_DMA_IRQHandler_76
 ??HAL_DMA_IRQHandler_75:
-        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026028
-        CMP      R1,R2
-        BEQ.N    ??HAL_DMA_IRQHandler_77
-        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026428
-        CMP      R1,R2
-        BEQ.N    ??HAL_DMA_IRQHandler_77
-        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x24  ;; 0x40026088
-        CMP      R1,R2
-        BEQ.N    ??HAL_DMA_IRQHandler_77
-        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x28  ;; 0x40026488
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_78
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0xC  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_77
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_IRQHandler_76
 ??HAL_DMA_IRQHandler_77:
-        MOV      R1,#+512
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0x10  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_78
+        MOVS     R0,#+8
         B.N      ??HAL_DMA_IRQHandler_76
 ??HAL_DMA_IRQHandler_78:
-        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x2C  ;; 0x40026040
-        CMP      R1,R2
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026470
+        CMP      R0,R1
         BNE.N    ??HAL_DMA_IRQHandler_79
-        MOV      R1,#+524288
+        MOVS     R0,#+8
         B.N      ??HAL_DMA_IRQHandler_76
 ??HAL_DMA_IRQHandler_79:
-        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x30  ;; 0x40026440
-        CMP      R1,R2
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026028
+        CMP      R0,R1
         BNE.N    ??HAL_DMA_IRQHandler_80
-        MOV      R1,#+524288
+        MOV      R0,#+512
         B.N      ??HAL_DMA_IRQHandler_76
 ??HAL_DMA_IRQHandler_80:
-        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x34  ;; 0x400260a0
-        CMP      R1,R2
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026428
+        CMP      R0,R1
         BNE.N    ??HAL_DMA_IRQHandler_81
-        MOV      R1,#+524288
+        MOV      R0,#+512
         B.N      ??HAL_DMA_IRQHandler_76
 ??HAL_DMA_IRQHandler_81:
-        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x38  ;; 0x400264a0
-        CMP      R1,R2
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026088
+        CMP      R0,R1
         BNE.N    ??HAL_DMA_IRQHandler_82
-        MOV      R1,#+524288
+        MOV      R0,#+512
         B.N      ??HAL_DMA_IRQHandler_76
 ??HAL_DMA_IRQHandler_82:
-        MOV      R1,#+33554432
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_10  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_83
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_IRQHandler_76
+??HAL_DMA_IRQHandler_83:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_10+0x4  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_84
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_IRQHandler_76
+??HAL_DMA_IRQHandler_84:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_10+0x8  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_85
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_IRQHandler_76
+??HAL_DMA_IRQHandler_85:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_10+0xC  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_86
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_IRQHandler_76
+??HAL_DMA_IRQHandler_86:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_10+0x10  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_87
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_IRQHandler_76
+??HAL_DMA_IRQHandler_87:
+        MOVS     R0,#+33554432
 ??HAL_DMA_IRQHandler_76:
-        STR      R1,[R0, #+8]
+        LDR.W    R1,??HAL_DMA_IRQHandler_10+0x2C  ;; 0x40026408
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_IRQHandler_73
+??HAL_DMA_IRQHandler_74:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_10+0x1C  ;; 0x40026059
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_IRQHandler_88
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0x8  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_89
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_IRQHandler_90
+??HAL_DMA_IRQHandler_89:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0xC  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_91
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_IRQHandler_90
+??HAL_DMA_IRQHandler_91:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0x10  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_92
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_IRQHandler_90
+??HAL_DMA_IRQHandler_92:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_93
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_IRQHandler_90
+??HAL_DMA_IRQHandler_93:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_94
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_IRQHandler_90
+??HAL_DMA_IRQHandler_94:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_95
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_IRQHandler_90
+??HAL_DMA_IRQHandler_95:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_96
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_IRQHandler_90
+??HAL_DMA_IRQHandler_96:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_10  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_97
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_IRQHandler_90
+??HAL_DMA_IRQHandler_97:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_10+0x4  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_98
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_IRQHandler_90
+??HAL_DMA_IRQHandler_98:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_10+0x8  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_99
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_IRQHandler_90
+??HAL_DMA_IRQHandler_99:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_10+0xC  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_100
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_IRQHandler_90
+??HAL_DMA_IRQHandler_100:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_10+0x10  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_101
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_IRQHandler_90
+??HAL_DMA_IRQHandler_101:
+        MOVS     R0,#+33554432
+??HAL_DMA_IRQHandler_90:
+        LDR.W    R1,??HAL_DMA_IRQHandler_10+0x30  ;; 0x4002600c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_IRQHandler_73
+??HAL_DMA_IRQHandler_88:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0x8  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_102
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_IRQHandler_103
+??HAL_DMA_IRQHandler_102:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0xC  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_104
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_IRQHandler_103
+??HAL_DMA_IRQHandler_104:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0x10  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_105
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_IRQHandler_103
+??HAL_DMA_IRQHandler_105:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_106
+        MOVS     R0,#+8
+        B.N      ??HAL_DMA_IRQHandler_103
+??HAL_DMA_IRQHandler_106:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_107
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_IRQHandler_103
+??HAL_DMA_IRQHandler_107:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_108
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_IRQHandler_103
+??HAL_DMA_IRQHandler_108:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_109
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_IRQHandler_103
+??HAL_DMA_IRQHandler_109:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_10  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_110
+        MOV      R0,#+512
+        B.N      ??HAL_DMA_IRQHandler_103
+??HAL_DMA_IRQHandler_110:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_10+0x4  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_111
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_IRQHandler_103
+??HAL_DMA_IRQHandler_111:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_10+0x8  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_112
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_IRQHandler_103
+??HAL_DMA_IRQHandler_112:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_10+0xC  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_113
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_IRQHandler_103
+??HAL_DMA_IRQHandler_113:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_10+0x10  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_114
+        MOVS     R0,#+524288
+        B.N      ??HAL_DMA_IRQHandler_103
+??HAL_DMA_IRQHandler_114:
+        MOVS     R0,#+33554432
+??HAL_DMA_IRQHandler_103:
+        LDR.W    R1,??HAL_DMA_IRQHandler_115  ;; 0x40026008
+        STR      R0,[R1, #+0]
 //  687 
 //  688       /* Update error code */
 //  689       hdma->ErrorCode |= HAL_DMA_ERROR_TE;
-??HAL_DMA_IRQHandler_53:
-        ADD      R0,R4,#+52
-        LDR      R1,[R0, #+24]
-        ORR      R1,R1,#0x1
-        STR      R1,[R0, #+24]
+??HAL_DMA_IRQHandler_73:
+        LDR      R0,[R4, #+76]
+        ORRS     R0,R0,#0x1
+        STR      R0,[R4, #+76]
 //  690 
 //  691       /* Change the DMA state */
 //  692       hdma->State = HAL_DMA_STATE_ERROR;
-        MOVS     R1,#+4
-        STRB     R1,[R0, #+1]
+        MOVS     R0,#+4
+        STRB     R0,[R4, #+53]
 //  693 
 //  694       /* Process Unlocked */
 //  695       __HAL_UNLOCK(hdma); 
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+0]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 //  696 
 //  697       if(hdma->XferErrorCallback != NULL)
-        LDR      R1,[R0, #+20]
-        MOVS     R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_42
+        LDR      R0,[R4, #+72]
+        CMP      R0,#+0
+        BEQ.N    ??HAL_DMA_IRQHandler_58
 //  698       {
 //  699         /* Transfer error callback */
 //  700         hdma->XferErrorCallback(hdma);
-        MOV      R0,R4
+        MOVS     R0,R4
+        LDR      R1,[R4, #+72]
           CFI FunCall
         BLX      R1
 //  701       }
@@ -6432,562 +8968,826 @@ HAL_DMA_IRQHandler:
 //  703   }
 //  704   /* FIFO Error Interrupt management ******************************************/
 //  705   if(__HAL_DMA_GET_FLAG(hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma)) != RESET)
-??HAL_DMA_IRQHandler_42:
-        LDR      R1,[R4, #+0]
-        MOV      R2,R1
-        CMP      R2,R9
-        BCC.N    ??HAL_DMA_IRQHandler_83
-        LDR      R0,[R5, #+4]
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_84
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_84
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_84
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_85
-??HAL_DMA_IRQHandler_84:
-        LDR.W    R2,??HAL_DMA_IRQHandler_22+0x8  ;; 0x800001
-        B.N      ??HAL_DMA_IRQHandler_86
-??HAL_DMA_IRQHandler_85:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_87
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_87
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x24  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_87
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x28  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_88
-??HAL_DMA_IRQHandler_87:
-        MOVS     R2,#+64
-        B.N      ??HAL_DMA_IRQHandler_86
-??HAL_DMA_IRQHandler_88:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x2C  ;; 0x40026040
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_89
-        MOV      R2,#+65536
-        B.N      ??HAL_DMA_IRQHandler_86
-??HAL_DMA_IRQHandler_89:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x30  ;; 0x40026440
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_90
-        MOV      R2,#+65536
-        B.N      ??HAL_DMA_IRQHandler_86
-??HAL_DMA_IRQHandler_90:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x34  ;; 0x400260a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_91
-        MOV      R2,#+65536
-        B.N      ??HAL_DMA_IRQHandler_86
-??HAL_DMA_IRQHandler_91:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x38  ;; 0x400264a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_92
-        MOV      R2,#+65536
-        B.N      ??HAL_DMA_IRQHandler_86
-??HAL_DMA_IRQHandler_92:
-        MOV      R2,#+4194304
-??HAL_DMA_IRQHandler_86:
-        ANDS     R0,R2,R0
-        B.N      ??HAL_DMA_IRQHandler_93
-??HAL_DMA_IRQHandler_83:
-        CMP      R2,R6
-        BCC.N    ??HAL_DMA_IRQHandler_94
-        LDR      R0,[R5, #+0]
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_95
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_95
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_95
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_96
-??HAL_DMA_IRQHandler_95:
-        LDR.W    R2,??HAL_DMA_IRQHandler_22+0x8  ;; 0x800001
-        B.N      ??HAL_DMA_IRQHandler_97
-??HAL_DMA_IRQHandler_96:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_98
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_98
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x24  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_98
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x28  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_99
-??HAL_DMA_IRQHandler_98:
-        MOVS     R2,#+64
-        B.N      ??HAL_DMA_IRQHandler_97
-??HAL_DMA_IRQHandler_99:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x2C  ;; 0x40026040
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_100
-        MOV      R2,#+65536
-        B.N      ??HAL_DMA_IRQHandler_97
-??HAL_DMA_IRQHandler_100:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x30  ;; 0x40026440
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_101
-        MOV      R2,#+65536
-        B.N      ??HAL_DMA_IRQHandler_97
-??HAL_DMA_IRQHandler_101:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x34  ;; 0x400260a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_102
-        MOV      R2,#+65536
-        B.N      ??HAL_DMA_IRQHandler_97
-??HAL_DMA_IRQHandler_102:
-        LDR.W    R3,??HAL_DMA_IRQHandler_0+0x38  ;; 0x400264a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_103
-        MOV      R2,#+65536
-        B.N      ??HAL_DMA_IRQHandler_97
-??HAL_DMA_IRQHandler_103:
-        MOV      R2,#+4194304
-??HAL_DMA_IRQHandler_97:
-        ANDS     R0,R2,R0
-        B.N      ??HAL_DMA_IRQHandler_93
-??HAL_DMA_IRQHandler_94:
-        LDR.W    R0,??HAL_DMA_IRQHandler_22  ;; 0x40026000
-        LDR.W    R3,??HAL_DMA_IRQHandler_22+0x4  ;; 0x40026059
-        CMP      R2,R3
-        BCC.N    ??HAL_DMA_IRQHandler_104
-        LDR      R0,[R0, #+4]
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_105
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_105
-        LDR.N    R3,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_105
-        LDR.N    R3,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_106
-??HAL_DMA_IRQHandler_105:
-        LDR.W    R2,??HAL_DMA_IRQHandler_22+0x8  ;; 0x800001
-        B.N      ??HAL_DMA_IRQHandler_107
-??HAL_DMA_IRQHandler_106:
-        LDR.N    R3,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_108
-        LDR.N    R3,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_108
-        LDR.N    R3,??HAL_DMA_IRQHandler_0+0x24  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_108
-        LDR.N    R3,??HAL_DMA_IRQHandler_0+0x28  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_109
-??HAL_DMA_IRQHandler_108:
-        MOVS     R2,#+64
-        B.N      ??HAL_DMA_IRQHandler_107
-??HAL_DMA_IRQHandler_109:
-        LDR.N    R3,??HAL_DMA_IRQHandler_0+0x2C  ;; 0x40026040
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_110
-        MOV      R2,#+65536
-        B.N      ??HAL_DMA_IRQHandler_107
-??HAL_DMA_IRQHandler_110:
-        LDR.N    R3,??HAL_DMA_IRQHandler_0+0x30  ;; 0x40026440
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_111
-        MOV      R2,#+65536
-        B.N      ??HAL_DMA_IRQHandler_107
-??HAL_DMA_IRQHandler_111:
-        LDR.N    R3,??HAL_DMA_IRQHandler_0+0x34  ;; 0x400260a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_112
-        MOV      R2,#+65536
-        B.N      ??HAL_DMA_IRQHandler_107
-??HAL_DMA_IRQHandler_112:
-        LDR.N    R3,??HAL_DMA_IRQHandler_0+0x38  ;; 0x400264a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_113
-        MOV      R2,#+65536
-        B.N      ??HAL_DMA_IRQHandler_107
-??HAL_DMA_IRQHandler_113:
-        MOV      R2,#+4194304
-??HAL_DMA_IRQHandler_107:
-        ANDS     R0,R2,R0
-        B.N      ??HAL_DMA_IRQHandler_93
-??HAL_DMA_IRQHandler_104:
+??HAL_DMA_IRQHandler_58:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_0  ;; 0x40026459
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_IRQHandler_116
+        LDR.W    R0,??HAL_DMA_IRQHandler_0+0x4  ;; 0x40026404
         LDR      R0,[R0, #+0]
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_114
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_114
-        LDR.N    R3,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_114
-        LDR.N    R3,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_115
-??HAL_DMA_IRQHandler_114:
-        LDR.W    R2,??HAL_DMA_IRQHandler_22+0x8  ;; 0x800001
-        B.N      ??HAL_DMA_IRQHandler_116
-??HAL_DMA_IRQHandler_115:
-        LDR.N    R3,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_117
-        LDR.N    R3,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_117
-        LDR.N    R3,??HAL_DMA_IRQHandler_0+0x24  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_117
-        LDR.N    R3,??HAL_DMA_IRQHandler_0+0x28  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_118
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x8  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_117
+        LDR.W    R1,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_118
 ??HAL_DMA_IRQHandler_117:
-        MOVS     R2,#+64
-        B.N      ??HAL_DMA_IRQHandler_116
-??HAL_DMA_IRQHandler_118:
-        LDR.N    R3,??HAL_DMA_IRQHandler_0+0x2C  ;; 0x40026040
-        CMP      R2,R3
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0xC  ;; 0x40026410
+        CMP      R1,R2
         BNE.N    ??HAL_DMA_IRQHandler_119
-        MOV      R2,#+65536
-        B.N      ??HAL_DMA_IRQHandler_116
+        LDR.W    R1,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_118
 ??HAL_DMA_IRQHandler_119:
-        LDR.N    R3,??HAL_DMA_IRQHandler_0+0x30  ;; 0x40026440
-        CMP      R2,R3
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x10  ;; 0x40026070
+        CMP      R1,R2
         BNE.N    ??HAL_DMA_IRQHandler_120
-        MOV      R2,#+65536
-        B.N      ??HAL_DMA_IRQHandler_116
+        LDR.W    R1,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_118
 ??HAL_DMA_IRQHandler_120:
-        LDR.N    R3,??HAL_DMA_IRQHandler_0+0x34  ;; 0x400260a0
-        CMP      R2,R3
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026470
+        CMP      R1,R2
         BNE.N    ??HAL_DMA_IRQHandler_121
-        MOV      R2,#+65536
-        B.N      ??HAL_DMA_IRQHandler_116
+        LDR.W    R1,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_118
 ??HAL_DMA_IRQHandler_121:
-        LDR.N    R3,??HAL_DMA_IRQHandler_0+0x38  ;; 0x400264a0
-        CMP      R2,R3
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026028
+        CMP      R1,R2
         BNE.N    ??HAL_DMA_IRQHandler_122
-        MOV      R2,#+65536
-        B.N      ??HAL_DMA_IRQHandler_116
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_IRQHandler_118
 ??HAL_DMA_IRQHandler_122:
-        MOV      R2,#+4194304
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_123
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_IRQHandler_118
+??HAL_DMA_IRQHandler_123:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_124
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_IRQHandler_118
+??HAL_DMA_IRQHandler_124:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_125
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_IRQHandler_118
+??HAL_DMA_IRQHandler_125:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0x4  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_126
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_IRQHandler_118
+??HAL_DMA_IRQHandler_126:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0x8  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_127
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_IRQHandler_118
+??HAL_DMA_IRQHandler_127:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0xC  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_128
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_IRQHandler_118
+??HAL_DMA_IRQHandler_128:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0x10  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_129
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_IRQHandler_118
+??HAL_DMA_IRQHandler_129:
+        MOVS     R1,#+4194304
+??HAL_DMA_IRQHandler_118:
+        ANDS     R0,R1,R0
+        B.N      ??HAL_DMA_IRQHandler_130
 ??HAL_DMA_IRQHandler_116:
-        ANDS     R0,R2,R0
-??HAL_DMA_IRQHandler_93:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_10+0x14  ;; 0x400260b9
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_IRQHandler_131
+        LDR.W    R0,??HAL_DMA_IRQHandler_10+0x18  ;; 0x40026400
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x8  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_132
+        LDR.W    R1,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_133
+??HAL_DMA_IRQHandler_132:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0xC  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_134
+        LDR.W    R1,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_133
+??HAL_DMA_IRQHandler_134:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x10  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_135
+        LDR.W    R1,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_133
+??HAL_DMA_IRQHandler_135:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_136
+        LDR.W    R1,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_133
+??HAL_DMA_IRQHandler_136:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_137
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_IRQHandler_133
+??HAL_DMA_IRQHandler_137:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_138
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_IRQHandler_133
+??HAL_DMA_IRQHandler_138:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_139
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_IRQHandler_133
+??HAL_DMA_IRQHandler_139:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_140
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_IRQHandler_133
+??HAL_DMA_IRQHandler_140:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0x4  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_141
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_IRQHandler_133
+??HAL_DMA_IRQHandler_141:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0x8  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_142
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_IRQHandler_133
+??HAL_DMA_IRQHandler_142:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0xC  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_143
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_IRQHandler_133
+??HAL_DMA_IRQHandler_143:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0x10  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_144
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_IRQHandler_133
+??HAL_DMA_IRQHandler_144:
+        MOVS     R1,#+4194304
+??HAL_DMA_IRQHandler_133:
+        ANDS     R0,R1,R0
+        B.N      ??HAL_DMA_IRQHandler_130
+??HAL_DMA_IRQHandler_131:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_10+0x1C  ;; 0x40026059
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_IRQHandler_145
+        LDR.W    R0,??HAL_DMA_IRQHandler_10+0x20  ;; 0x40026004
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x8  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_146
+        LDR.W    R1,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_147
+??HAL_DMA_IRQHandler_146:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0xC  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_148
+        LDR.W    R1,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_147
+??HAL_DMA_IRQHandler_148:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x10  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_149
+        LDR.W    R1,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_147
+??HAL_DMA_IRQHandler_149:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_150
+        LDR.W    R1,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_147
+??HAL_DMA_IRQHandler_150:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_151
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_IRQHandler_147
+??HAL_DMA_IRQHandler_151:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_152
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_IRQHandler_147
+??HAL_DMA_IRQHandler_152:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_153
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_IRQHandler_147
+??HAL_DMA_IRQHandler_153:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_154
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_IRQHandler_147
+??HAL_DMA_IRQHandler_154:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0x4  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_155
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_IRQHandler_147
+??HAL_DMA_IRQHandler_155:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0x8  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_156
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_IRQHandler_147
+??HAL_DMA_IRQHandler_156:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0xC  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_157
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_IRQHandler_147
+??HAL_DMA_IRQHandler_157:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0x10  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_158
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_IRQHandler_147
+??HAL_DMA_IRQHandler_158:
+        MOVS     R1,#+4194304
+??HAL_DMA_IRQHandler_147:
+        ANDS     R0,R1,R0
+        B.N      ??HAL_DMA_IRQHandler_130
+??HAL_DMA_IRQHandler_145:
+        LDR.W    R0,??HAL_DMA_IRQHandler_10+0x24  ;; 0x40026000
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x8  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_159
+        LDR.W    R1,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_160
+??HAL_DMA_IRQHandler_159:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0xC  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_161
+        LDR.W    R1,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_160
+??HAL_DMA_IRQHandler_161:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_0+0x10  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_162
+        LDR.W    R1,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_160
+??HAL_DMA_IRQHandler_162:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_163
+        LDR.W    R1,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_160
+??HAL_DMA_IRQHandler_163:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_164
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_IRQHandler_160
+??HAL_DMA_IRQHandler_164:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_165
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_IRQHandler_160
+??HAL_DMA_IRQHandler_165:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_166
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_IRQHandler_160
+??HAL_DMA_IRQHandler_166:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_167
+        MOVS     R1,#+64
+        B.N      ??HAL_DMA_IRQHandler_160
+??HAL_DMA_IRQHandler_167:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_10+0x4  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_168
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_IRQHandler_160
+??HAL_DMA_IRQHandler_168:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_10+0x8  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_169
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_IRQHandler_160
+??HAL_DMA_IRQHandler_169:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_10+0xC  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_170
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_IRQHandler_160
+??HAL_DMA_IRQHandler_170:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_10+0x10  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_171
+        MOVS     R1,#+65536
+        B.N      ??HAL_DMA_IRQHandler_160
+??HAL_DMA_IRQHandler_171:
+        MOVS     R1,#+4194304
+??HAL_DMA_IRQHandler_160:
+        ANDS     R0,R1,R0
+??HAL_DMA_IRQHandler_130:
         CMP      R0,#+0
-        BEQ.W    ??HAL_DMA_IRQHandler_123
+        BEQ.W    ??HAL_DMA_IRQHandler_172
 //  706   {
 //  707     if(__HAL_DMA_GET_IT_SOURCE(hdma, DMA_IT_FE) != RESET)
-        LDR      R0,[R1, #+20]
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+20]
         LSLS     R0,R0,#+24
-        BPL.W    ??HAL_DMA_IRQHandler_123
+        BPL.W    ??HAL_DMA_IRQHandler_172
 //  708     {
 //  709       /* Disable the FIFO Error interrupt */
 //  710       __HAL_DMA_DISABLE_IT(hdma, DMA_IT_FE);
-        LDR      R0,[R1, #+20]
-        BIC      R0,R0,#0x80
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+20]
+        BICS     R0,R0,#0x80
+        LDR      R1,[R4, #+0]
         STR      R0,[R1, #+20]
 //  711 
 //  712       /* Clear the FIFO error flag */
 //  713       __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
         LDR      R0,[R4, #+0]
-        CMP      R0,R9
-        BCC.N    ??HAL_DMA_IRQHandler_124
-        CMP      R0,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_125
-        CMP      R0,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_125
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026070
+        LDR.N    R1,??HAL_DMA_IRQHandler_0  ;; 0x40026459
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_125
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026470
+        BCC.N    ??HAL_DMA_IRQHandler_173
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x8  ;; 0x40026010
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_126
-??HAL_DMA_IRQHandler_125:
-        LDR.W    R0,??HAL_DMA_IRQHandler_22+0x8  ;; 0x800001
-        B.N      ??HAL_DMA_IRQHandler_127
-??HAL_DMA_IRQHandler_126:
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026028
+        BNE.N    ??HAL_DMA_IRQHandler_174
+        LDR.W    R0,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_175
+??HAL_DMA_IRQHandler_174:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_0+0xC  ;; 0x40026410
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_128
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026428
+        BNE.N    ??HAL_DMA_IRQHandler_176
+        LDR.W    R0,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_175
+??HAL_DMA_IRQHandler_176:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x10  ;; 0x40026070
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_128
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x24  ;; 0x40026088
+        BNE.N    ??HAL_DMA_IRQHandler_177
+        LDR.W    R0,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_175
+??HAL_DMA_IRQHandler_177:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026470
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_128
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x28  ;; 0x40026488
+        BNE.N    ??HAL_DMA_IRQHandler_178
+        LDR.W    R0,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_175
+??HAL_DMA_IRQHandler_178:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026028
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_129
-??HAL_DMA_IRQHandler_128:
+        BNE.N    ??HAL_DMA_IRQHandler_179
         MOVS     R0,#+64
-        B.N      ??HAL_DMA_IRQHandler_127
-??HAL_DMA_IRQHandler_129:
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x2C  ;; 0x40026040
+        B.N      ??HAL_DMA_IRQHandler_175
+??HAL_DMA_IRQHandler_179:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026428
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_130
-        MOV      R0,#+65536
-        B.N      ??HAL_DMA_IRQHandler_127
-??HAL_DMA_IRQHandler_130:
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x30  ;; 0x40026440
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_131
-        MOV      R0,#+65536
-        B.N      ??HAL_DMA_IRQHandler_127
-??HAL_DMA_IRQHandler_131:
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x34  ;; 0x400260a0
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_132
-        MOV      R0,#+65536
-        B.N      ??HAL_DMA_IRQHandler_127
-??HAL_DMA_IRQHandler_132:
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x38  ;; 0x400264a0
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_133
-        MOV      R0,#+65536
-        B.N      ??HAL_DMA_IRQHandler_127
-??HAL_DMA_IRQHandler_133:
-        MOV      R0,#+4194304
-??HAL_DMA_IRQHandler_127:
-        STR      R0,[R5, #+12]
-        B.N      ??HAL_DMA_IRQHandler_134
-??HAL_DMA_IRQHandler_124:
-        CMP      R0,R6
-        BCC.N    ??HAL_DMA_IRQHandler_135
-        CMP      R0,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_136
-        CMP      R0,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_136
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026070
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_136
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026470
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_137
-??HAL_DMA_IRQHandler_136:
-        LDR.W    R0,??HAL_DMA_IRQHandler_22+0x8  ;; 0x800001
-        B.N      ??HAL_DMA_IRQHandler_138
-??HAL_DMA_IRQHandler_137:
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026028
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_139
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026428
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_139
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x24  ;; 0x40026088
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_139
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x28  ;; 0x40026488
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_140
-??HAL_DMA_IRQHandler_139:
+        BNE.N    ??HAL_DMA_IRQHandler_180
         MOVS     R0,#+64
-        B.N      ??HAL_DMA_IRQHandler_138
-??HAL_DMA_IRQHandler_140:
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x2C  ;; 0x40026040
+        B.N      ??HAL_DMA_IRQHandler_175
+??HAL_DMA_IRQHandler_180:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026088
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_141
-        MOV      R0,#+65536
-        B.N      ??HAL_DMA_IRQHandler_138
-??HAL_DMA_IRQHandler_141:
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x30  ;; 0x40026440
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_142
-        MOV      R0,#+65536
-        B.N      ??HAL_DMA_IRQHandler_138
-??HAL_DMA_IRQHandler_142:
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x34  ;; 0x400260a0
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_143
-        MOV      R0,#+65536
-        B.N      ??HAL_DMA_IRQHandler_138
-??HAL_DMA_IRQHandler_143:
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x38  ;; 0x400264a0
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_144
-        MOV      R0,#+65536
-        B.N      ??HAL_DMA_IRQHandler_138
-??HAL_DMA_IRQHandler_144:
-        MOV      R0,#+4194304
-??HAL_DMA_IRQHandler_138:
-        STR      R0,[R5, #+8]
-        B.N      ??HAL_DMA_IRQHandler_134
-??HAL_DMA_IRQHandler_135:
-        LDR.W    R1,??HAL_DMA_IRQHandler_22+0x4  ;; 0x40026059
-        CMP      R0,R1
-        BCC.N    ??HAL_DMA_IRQHandler_145
-        CMP      R0,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_146
-        CMP      R0,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_146
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026070
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_146
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026470
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_147
-??HAL_DMA_IRQHandler_146:
-        LDR.W    R0,??HAL_DMA_IRQHandler_22+0x8  ;; 0x800001
-        B.N      ??HAL_DMA_IRQHandler_148
-??HAL_DMA_IRQHandler_147:
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026028
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_149
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026428
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_149
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x24  ;; 0x40026088
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_149
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x28  ;; 0x40026488
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_150
-??HAL_DMA_IRQHandler_149:
+        BNE.N    ??HAL_DMA_IRQHandler_181
         MOVS     R0,#+64
-        B.N      ??HAL_DMA_IRQHandler_148
-??HAL_DMA_IRQHandler_150:
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x2C  ;; 0x40026040
+        B.N      ??HAL_DMA_IRQHandler_175
+??HAL_DMA_IRQHandler_181:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_10  ;; 0x40026488
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_151
-        MOV      R0,#+65536
-        B.N      ??HAL_DMA_IRQHandler_148
-??HAL_DMA_IRQHandler_151:
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x30  ;; 0x40026440
+        BNE.N    ??HAL_DMA_IRQHandler_182
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_IRQHandler_175
+??HAL_DMA_IRQHandler_182:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_10+0x4  ;; 0x40026040
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_152
-        MOV      R0,#+65536
-        B.N      ??HAL_DMA_IRQHandler_148
-??HAL_DMA_IRQHandler_152:
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x34  ;; 0x400260a0
+        BNE.N    ??HAL_DMA_IRQHandler_183
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_IRQHandler_175
+??HAL_DMA_IRQHandler_183:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_10+0x8  ;; 0x40026440
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_153
-        MOV      R0,#+65536
-        B.N      ??HAL_DMA_IRQHandler_148
-??HAL_DMA_IRQHandler_153:
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x38  ;; 0x400264a0
+        BNE.N    ??HAL_DMA_IRQHandler_184
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_IRQHandler_175
+??HAL_DMA_IRQHandler_184:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_10+0xC  ;; 0x400260a0
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_154
-        MOV      R0,#+65536
-        B.N      ??HAL_DMA_IRQHandler_148
-??HAL_DMA_IRQHandler_154:
-        MOV      R0,#+4194304
-??HAL_DMA_IRQHandler_148:
-        LDR.W    R1,??HAL_DMA_IRQHandler_22  ;; 0x40026000
-        STR      R0,[R1, #+12]
-        B.N      ??HAL_DMA_IRQHandler_134
-??HAL_DMA_IRQHandler_145:
-        CMP      R0,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_155
-        CMP      R0,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_155
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026070
+        BNE.N    ??HAL_DMA_IRQHandler_185
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_IRQHandler_175
+??HAL_DMA_IRQHandler_185:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_10+0x10  ;; 0x400264a0
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_155
-        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026470
+        BNE.N    ??HAL_DMA_IRQHandler_186
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_IRQHandler_175
+??HAL_DMA_IRQHandler_186:
+        MOVS     R0,#+4194304
+??HAL_DMA_IRQHandler_175:
+        LDR.N    R1,??HAL_DMA_IRQHandler_10+0x28  ;; 0x4002640c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_IRQHandler_187
+??HAL_DMA_IRQHandler_173:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_10+0x14  ;; 0x400260b9
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_156
-??HAL_DMA_IRQHandler_155:
-        LDR.W    R0,??HAL_DMA_IRQHandler_22+0x8  ;; 0x800001
-        B.N      ??HAL_DMA_IRQHandler_157
-        Nop      
+        BCC.N    ??HAL_DMA_IRQHandler_188
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x8  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_189
+        LDR.W    R0,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_190
+??HAL_DMA_IRQHandler_189:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_0+0xC  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_191
+        LDR.W    R0,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_190
+??HAL_DMA_IRQHandler_191:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x10  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_192
+        LDR.W    R0,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_190
+??HAL_DMA_IRQHandler_192:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_193
+        LDR.W    R0,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_190
+??HAL_DMA_IRQHandler_193:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_194
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_IRQHandler_190
+??HAL_DMA_IRQHandler_194:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_195
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_IRQHandler_190
+??HAL_DMA_IRQHandler_195:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_196
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_IRQHandler_190
+??HAL_DMA_IRQHandler_196:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_10  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_197
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_IRQHandler_190
+??HAL_DMA_IRQHandler_197:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_10+0x4  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_198
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_IRQHandler_190
+??HAL_DMA_IRQHandler_198:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_10+0x8  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_199
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_IRQHandler_190
+??HAL_DMA_IRQHandler_199:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_10+0xC  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_200
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_IRQHandler_190
+??HAL_DMA_IRQHandler_200:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_10+0x10  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_201
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_IRQHandler_190
+??HAL_DMA_IRQHandler_201:
+        MOVS     R0,#+4194304
+??HAL_DMA_IRQHandler_190:
+        LDR.N    R1,??HAL_DMA_IRQHandler_10+0x2C  ;; 0x40026408
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_IRQHandler_187
+??HAL_DMA_IRQHandler_188:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_10+0x1C  ;; 0x40026059
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_IRQHandler_202
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x8  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_203
+        LDR.W    R0,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_204
+??HAL_DMA_IRQHandler_203:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_0+0xC  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_205
+        LDR.W    R0,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_204
+??HAL_DMA_IRQHandler_205:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x10  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_206
+        LDR.W    R0,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_204
+??HAL_DMA_IRQHandler_206:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x14  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_207
+        LDR.W    R0,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_204
+??HAL_DMA_IRQHandler_207:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x18  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_208
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_IRQHandler_204
+??HAL_DMA_IRQHandler_208:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x1C  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_209
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_IRQHandler_204
+??HAL_DMA_IRQHandler_209:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_0+0x20  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_210
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_IRQHandler_204
+??HAL_DMA_IRQHandler_210:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_10  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_211
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_IRQHandler_204
+??HAL_DMA_IRQHandler_211:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_10+0x4  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_212
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_IRQHandler_204
+??HAL_DMA_IRQHandler_212:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_10+0x8  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_213
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_IRQHandler_204
+??HAL_DMA_IRQHandler_213:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_10+0xC  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_214
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_IRQHandler_204
+??HAL_DMA_IRQHandler_214:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_10+0x10  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_215
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_IRQHandler_204
+??HAL_DMA_IRQHandler_215:
+        MOVS     R0,#+4194304
+??HAL_DMA_IRQHandler_204:
+        LDR.N    R1,??HAL_DMA_IRQHandler_10+0x30  ;; 0x4002600c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_IRQHandler_187
         DATA
 ??HAL_DMA_IRQHandler_0:
-        DC32     0x40026400
-        DC32     0x400260b9
-        DC32     0x40026410
-        DC32     0x40026010
         DC32     0x40026459
+        DC32     0x40026404
+        DC32     0x40026010
+        DC32     0x40026410
         DC32     0x40026070
         DC32     0x40026470
         DC32     0x40026028
         DC32     0x40026428
         DC32     0x40026088
+        THUMB
+??HAL_DMA_IRQHandler_202:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_217
+        LDR.W    R0,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_218
+??HAL_DMA_IRQHandler_217:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216+0x4  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_219
+        LDR.W    R0,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_218
+??HAL_DMA_IRQHandler_219:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216+0x8  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_220
+        LDR.W    R0,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_218
+??HAL_DMA_IRQHandler_220:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216+0xC  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_221
+        LDR.W    R0,??HAL_DMA_IRQHandler_115+0x4  ;; 0x800001
+        B.N      ??HAL_DMA_IRQHandler_218
+        DATA
+??HAL_DMA_IRQHandler_10:
         DC32     0x40026488
         DC32     0x40026040
         DC32     0x40026440
         DC32     0x400260a0
         DC32     0x400264a0
+        DC32     0x400260b9
+        DC32     0x40026400
+        DC32     0x40026059
+        DC32     0x40026004
+        DC32     0x40026000
+        DC32     0x4002640c
+        DC32     0x40026408
+        DC32     0x4002600c
         THUMB
-??HAL_DMA_IRQHandler_156:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158  ;; 0x40026028
+??HAL_DMA_IRQHandler_221:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216+0x10  ;; 0x40026028
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_159
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x4  ;; 0x40026428
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_159
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x8  ;; 0x40026088
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_159
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0xC  ;; 0x40026488
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_160
-??HAL_DMA_IRQHandler_159:
+        BNE.N    ??HAL_DMA_IRQHandler_222
         MOVS     R0,#+64
-        B.N      ??HAL_DMA_IRQHandler_157
-??HAL_DMA_IRQHandler_160:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x10  ;; 0x40026040
+        B.N      ??HAL_DMA_IRQHandler_218
+??HAL_DMA_IRQHandler_222:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216+0x14  ;; 0x40026428
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_161
-        MOV      R0,#+65536
-        B.N      ??HAL_DMA_IRQHandler_157
-??HAL_DMA_IRQHandler_161:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x14  ;; 0x40026440
+        BNE.N    ??HAL_DMA_IRQHandler_223
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_IRQHandler_218
+??HAL_DMA_IRQHandler_223:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224  ;; 0x40026088
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_162
-        MOV      R0,#+65536
-        B.N      ??HAL_DMA_IRQHandler_157
-??HAL_DMA_IRQHandler_162:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x18  ;; 0x400260a0
+        BNE.N    ??HAL_DMA_IRQHandler_225
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_IRQHandler_218
+??HAL_DMA_IRQHandler_225:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x4  ;; 0x40026488
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_163
-        MOV      R0,#+65536
-        B.N      ??HAL_DMA_IRQHandler_157
-??HAL_DMA_IRQHandler_163:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x1C  ;; 0x400264a0
+        BNE.N    ??HAL_DMA_IRQHandler_226
+        MOVS     R0,#+64
+        B.N      ??HAL_DMA_IRQHandler_218
+??HAL_DMA_IRQHandler_226:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x8  ;; 0x40026040
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_164
-        MOV      R0,#+65536
-        B.N      ??HAL_DMA_IRQHandler_157
-??HAL_DMA_IRQHandler_164:
-        MOV      R0,#+4194304
-??HAL_DMA_IRQHandler_157:
-        LDR.W    R1,??HAL_DMA_IRQHandler_22  ;; 0x40026000
-        STR      R0,[R1, #+8]
+        BNE.N    ??HAL_DMA_IRQHandler_227
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_IRQHandler_218
+??HAL_DMA_IRQHandler_227:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0xC  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_228
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_IRQHandler_218
+??HAL_DMA_IRQHandler_228:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x10  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_229
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_IRQHandler_218
+??HAL_DMA_IRQHandler_229:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x14  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_230
+        MOVS     R0,#+65536
+        B.N      ??HAL_DMA_IRQHandler_218
+??HAL_DMA_IRQHandler_230:
+        MOVS     R0,#+4194304
+??HAL_DMA_IRQHandler_218:
+        LDR.W    R1,??HAL_DMA_IRQHandler_115  ;; 0x40026008
+        STR      R0,[R1, #+0]
 //  714 
 //  715       /* Update error code */
 //  716       hdma->ErrorCode |= HAL_DMA_ERROR_FE;
-??HAL_DMA_IRQHandler_134:
-        ADD      R0,R4,#+52
-        LDR      R1,[R0, #+24]
-        ORR      R1,R1,#0x2
-        STR      R1,[R0, #+24]
+??HAL_DMA_IRQHandler_187:
+        LDR      R0,[R4, #+76]
+        ORRS     R0,R0,#0x2
+        STR      R0,[R4, #+76]
 //  717 
 //  718       /* Change the DMA state */
 //  719       hdma->State = HAL_DMA_STATE_ERROR;
-        MOVS     R1,#+4
-        STRB     R1,[R0, #+1]
+        MOVS     R0,#+4
+        STRB     R0,[R4, #+53]
 //  720 
 //  721       /* Process Unlocked */
 //  722       __HAL_UNLOCK(hdma);
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+0]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 //  723 
 //  724       if(hdma->XferErrorCallback != NULL)
-        LDR      R1,[R0, #+20]
-        MOVS     R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_123
+        LDR      R0,[R4, #+72]
+        CMP      R0,#+0
+        BEQ.N    ??HAL_DMA_IRQHandler_172
 //  725       {
 //  726         /* Transfer error callback */
 //  727         hdma->XferErrorCallback(hdma);
-        MOV      R0,R4
+        MOVS     R0,R4
+        LDR      R1,[R4, #+72]
           CFI FunCall
         BLX      R1
 //  728       }
@@ -6995,549 +9795,804 @@ HAL_DMA_IRQHandler:
 //  730   }
 //  731   /* Direct Mode Error Interrupt management ***********************************/
 //  732   if(__HAL_DMA_GET_FLAG(hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma)) != RESET)
-??HAL_DMA_IRQHandler_123:
-        LDR      R1,[R4, #+0]
-        MOV      R2,R1
-        CMP      R2,R9
-        BCC.N    ??HAL_DMA_IRQHandler_165
-        LDR      R0,[R5, #+4]
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_166
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_166
-        LDR.W    R3,??HAL_DMA_IRQHandler_167  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_166
-        LDR.W    R3,??HAL_DMA_IRQHandler_167+0x4  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_168
-??HAL_DMA_IRQHandler_166:
-        LDR.W    R2,??HAL_DMA_IRQHandler_167+0x8  ;; 0x800004
-        B.N      ??HAL_DMA_IRQHandler_169
-??HAL_DMA_IRQHandler_168:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_170
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x4  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_170
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x8  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_170
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0xC  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_171
-??HAL_DMA_IRQHandler_170:
-        MOV      R2,#+256
-        B.N      ??HAL_DMA_IRQHandler_169
-??HAL_DMA_IRQHandler_171:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x10  ;; 0x40026040
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_172
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_IRQHandler_169
 ??HAL_DMA_IRQHandler_172:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x14  ;; 0x40026440
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_173
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_IRQHandler_169
-??HAL_DMA_IRQHandler_173:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x18  ;; 0x400260a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_174
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_IRQHandler_169
-??HAL_DMA_IRQHandler_174:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x1C  ;; 0x400264a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_175
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_IRQHandler_169
-??HAL_DMA_IRQHandler_175:
-        MOV      R2,#+16777216
-??HAL_DMA_IRQHandler_169:
-        ANDS     R0,R2,R0
-        B.N      ??HAL_DMA_IRQHandler_176
-??HAL_DMA_IRQHandler_165:
-        CMP      R2,R6
-        BCC.N    ??HAL_DMA_IRQHandler_177
-        LDR      R0,[R5, #+0]
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_178
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_178
-        LDR.W    R3,??HAL_DMA_IRQHandler_167  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_178
-        LDR.W    R3,??HAL_DMA_IRQHandler_167+0x4  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_179
-??HAL_DMA_IRQHandler_178:
-        LDR.W    R2,??HAL_DMA_IRQHandler_167+0x8  ;; 0x800004
-        B.N      ??HAL_DMA_IRQHandler_180
-??HAL_DMA_IRQHandler_179:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_181
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x4  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_181
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x8  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_181
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0xC  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_182
-??HAL_DMA_IRQHandler_181:
-        MOV      R2,#+256
-        B.N      ??HAL_DMA_IRQHandler_180
-??HAL_DMA_IRQHandler_182:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x10  ;; 0x40026040
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_183
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_IRQHandler_180
-??HAL_DMA_IRQHandler_183:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x14  ;; 0x40026440
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_184
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_IRQHandler_180
-??HAL_DMA_IRQHandler_184:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x18  ;; 0x400260a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_185
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_IRQHandler_180
-??HAL_DMA_IRQHandler_185:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x1C  ;; 0x400264a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_186
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_IRQHandler_180
-??HAL_DMA_IRQHandler_186:
-        MOV      R2,#+16777216
-??HAL_DMA_IRQHandler_180:
-        ANDS     R0,R2,R0
-        B.N      ??HAL_DMA_IRQHandler_176
-??HAL_DMA_IRQHandler_177:
-        LDR.N    R0,??HAL_DMA_IRQHandler_22  ;; 0x40026000
-        LDR.N    R3,??HAL_DMA_IRQHandler_22+0x4  ;; 0x40026059
-        CMP      R2,R3
-        BCC.N    ??HAL_DMA_IRQHandler_187
-        LDR      R0,[R0, #+4]
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_188
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_188
-        LDR.W    R3,??HAL_DMA_IRQHandler_167  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_188
-        LDR.W    R3,??HAL_DMA_IRQHandler_167+0x4  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_189
-??HAL_DMA_IRQHandler_188:
-        LDR.W    R2,??HAL_DMA_IRQHandler_167+0x8  ;; 0x800004
-        B.N      ??HAL_DMA_IRQHandler_190
-??HAL_DMA_IRQHandler_189:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_191
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x4  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_191
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x8  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_191
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0xC  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_192
-??HAL_DMA_IRQHandler_191:
-        MOV      R2,#+256
-        B.N      ??HAL_DMA_IRQHandler_190
-??HAL_DMA_IRQHandler_192:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x10  ;; 0x40026040
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_193
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_IRQHandler_190
-??HAL_DMA_IRQHandler_193:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x14  ;; 0x40026440
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_194
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_IRQHandler_190
-??HAL_DMA_IRQHandler_194:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x18  ;; 0x400260a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_195
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_IRQHandler_190
-??HAL_DMA_IRQHandler_195:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x1C  ;; 0x400264a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_196
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_IRQHandler_190
-??HAL_DMA_IRQHandler_196:
-        MOV      R2,#+16777216
-??HAL_DMA_IRQHandler_190:
-        ANDS     R0,R2,R0
-        B.N      ??HAL_DMA_IRQHandler_176
-??HAL_DMA_IRQHandler_187:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x18  ;; 0x40026459
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_IRQHandler_231
+        LDR.W    R0,??HAL_DMA_IRQHandler_224+0x1C  ;; 0x40026404
         LDR      R0,[R0, #+0]
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_197
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_197
-        LDR.W    R3,??HAL_DMA_IRQHandler_167  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_197
-        LDR.W    R3,??HAL_DMA_IRQHandler_167+0x4  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_198
-??HAL_DMA_IRQHandler_197:
-        LDR.W    R2,??HAL_DMA_IRQHandler_167+0x8  ;; 0x800004
-        B.N      ??HAL_DMA_IRQHandler_199
-??HAL_DMA_IRQHandler_198:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_200
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x4  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_200
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x8  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_200
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0xC  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_201
-??HAL_DMA_IRQHandler_200:
-        MOV      R2,#+256
-        B.N      ??HAL_DMA_IRQHandler_199
-??HAL_DMA_IRQHandler_201:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x10  ;; 0x40026040
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_202
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_IRQHandler_199
-??HAL_DMA_IRQHandler_202:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x14  ;; 0x40026440
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_203
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_IRQHandler_199
-??HAL_DMA_IRQHandler_203:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x18  ;; 0x400260a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_204
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_IRQHandler_199
-??HAL_DMA_IRQHandler_204:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x1C  ;; 0x400264a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_205
-        MOV      R2,#+262144
-        B.N      ??HAL_DMA_IRQHandler_199
-??HAL_DMA_IRQHandler_205:
-        MOV      R2,#+16777216
-??HAL_DMA_IRQHandler_199:
-        ANDS     R0,R2,R0
-??HAL_DMA_IRQHandler_176:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_232
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_233
+??HAL_DMA_IRQHandler_232:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0x4  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_234
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_233
+??HAL_DMA_IRQHandler_234:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0x8  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_235
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_233
+??HAL_DMA_IRQHandler_235:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0xC  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_236
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_233
+??HAL_DMA_IRQHandler_236:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0x10  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_237
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_IRQHandler_233
+??HAL_DMA_IRQHandler_237:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0x14  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_238
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_IRQHandler_233
+??HAL_DMA_IRQHandler_238:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_239
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_IRQHandler_233
+??HAL_DMA_IRQHandler_239:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0x4  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_240
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_IRQHandler_233
+??HAL_DMA_IRQHandler_240:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0x8  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_241
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_IRQHandler_233
+??HAL_DMA_IRQHandler_241:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0xC  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_242
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_IRQHandler_233
+??HAL_DMA_IRQHandler_242:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0x10  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_243
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_IRQHandler_233
+??HAL_DMA_IRQHandler_243:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0x14  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_244
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_IRQHandler_233
+??HAL_DMA_IRQHandler_244:
+        MOVS     R1,#+16777216
+??HAL_DMA_IRQHandler_233:
+        ANDS     R0,R1,R0
+        B.N      ??HAL_DMA_IRQHandler_245
+??HAL_DMA_IRQHandler_231:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_246  ;; 0x400260b9
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_IRQHandler_247
+        LDR.W    R0,??HAL_DMA_IRQHandler_246+0x4  ;; 0x40026400
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_248
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_249
+??HAL_DMA_IRQHandler_248:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0x4  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_250
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_249
+??HAL_DMA_IRQHandler_250:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0x8  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_251
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_249
+??HAL_DMA_IRQHandler_251:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0xC  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_252
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_249
+??HAL_DMA_IRQHandler_252:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0x10  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_253
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_IRQHandler_249
+??HAL_DMA_IRQHandler_253:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0x14  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_254
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_IRQHandler_249
+??HAL_DMA_IRQHandler_254:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_255
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_IRQHandler_249
+??HAL_DMA_IRQHandler_255:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0x4  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_256
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_IRQHandler_249
+??HAL_DMA_IRQHandler_256:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0x8  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_257
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_IRQHandler_249
+??HAL_DMA_IRQHandler_257:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0xC  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_258
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_IRQHandler_249
+??HAL_DMA_IRQHandler_258:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0x10  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_259
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_IRQHandler_249
+??HAL_DMA_IRQHandler_259:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0x14  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_260
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_IRQHandler_249
+??HAL_DMA_IRQHandler_260:
+        MOVS     R1,#+16777216
+??HAL_DMA_IRQHandler_249:
+        ANDS     R0,R1,R0
+        B.N      ??HAL_DMA_IRQHandler_245
+??HAL_DMA_IRQHandler_247:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_261  ;; 0x40026059
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_IRQHandler_262
+        LDR.W    R0,??HAL_DMA_IRQHandler_261+0x4  ;; 0x40026004
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_263
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_264
+??HAL_DMA_IRQHandler_263:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0x4  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_265
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_264
+??HAL_DMA_IRQHandler_265:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0x8  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_266
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_264
+??HAL_DMA_IRQHandler_266:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0xC  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_267
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_264
+??HAL_DMA_IRQHandler_267:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0x10  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_268
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_IRQHandler_264
+??HAL_DMA_IRQHandler_268:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0x14  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_269
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_IRQHandler_264
+??HAL_DMA_IRQHandler_269:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_270
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_IRQHandler_264
+??HAL_DMA_IRQHandler_270:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0x4  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_271
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_IRQHandler_264
+??HAL_DMA_IRQHandler_271:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0x8  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_272
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_IRQHandler_264
+??HAL_DMA_IRQHandler_272:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0xC  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_273
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_IRQHandler_264
+??HAL_DMA_IRQHandler_273:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0x10  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_274
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_IRQHandler_264
+??HAL_DMA_IRQHandler_274:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0x14  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_275
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_IRQHandler_264
+??HAL_DMA_IRQHandler_275:
+        MOVS     R1,#+16777216
+??HAL_DMA_IRQHandler_264:
+        ANDS     R0,R1,R0
+        B.N      ??HAL_DMA_IRQHandler_245
+??HAL_DMA_IRQHandler_262:
+        LDR.W    R0,??HAL_DMA_IRQHandler_261+0x8  ;; 0x40026000
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_276
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_277
+??HAL_DMA_IRQHandler_276:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0x4  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_278
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_277
+??HAL_DMA_IRQHandler_278:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0x8  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_279
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_277
+??HAL_DMA_IRQHandler_279:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0xC  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_280
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_277
+??HAL_DMA_IRQHandler_280:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0x10  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_281
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_IRQHandler_277
+??HAL_DMA_IRQHandler_281:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0x14  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_282
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_IRQHandler_277
+??HAL_DMA_IRQHandler_282:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_283
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_IRQHandler_277
+??HAL_DMA_IRQHandler_283:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0x4  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_284
+        MOV      R1,#+256
+        B.N      ??HAL_DMA_IRQHandler_277
+??HAL_DMA_IRQHandler_284:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0x8  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_285
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_IRQHandler_277
+??HAL_DMA_IRQHandler_285:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0xC  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_286
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_IRQHandler_277
+??HAL_DMA_IRQHandler_286:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0x10  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_287
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_IRQHandler_277
+??HAL_DMA_IRQHandler_287:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0x14  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_288
+        MOVS     R1,#+262144
+        B.N      ??HAL_DMA_IRQHandler_277
+??HAL_DMA_IRQHandler_288:
+        MOVS     R1,#+16777216
+??HAL_DMA_IRQHandler_277:
+        ANDS     R0,R1,R0
+??HAL_DMA_IRQHandler_245:
         CMP      R0,#+0
-        BEQ.W    ??HAL_DMA_IRQHandler_206
+        BEQ.W    ??HAL_DMA_IRQHandler_289
 //  733   {
 //  734     if(__HAL_DMA_GET_IT_SOURCE(hdma, DMA_IT_DME) != RESET)
-        LDR      R0,[R1, #+0]
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+30
-        BPL.W    ??HAL_DMA_IRQHandler_206
+        BPL.W    ??HAL_DMA_IRQHandler_289
 //  735     {
 //  736       /* Disable the direct mode Error interrupt */
 //  737       __HAL_DMA_DISABLE_IT(hdma, DMA_IT_DME);
-        LDR      R0,[R1, #+0]
-        BIC      R0,R0,#0x2
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+0]
+        BICS     R0,R0,#0x2
+        LDR      R1,[R4, #+0]
         STR      R0,[R1, #+0]
 //  738 
 //  739       /* Clear the direct mode error flag */
 //  740       __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
         LDR      R0,[R4, #+0]
-        CMP      R0,R9
-        BCC.N    ??HAL_DMA_IRQHandler_207
-        CMP      R0,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_208
-        CMP      R0,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_208
-        LDR.W    R1,??HAL_DMA_IRQHandler_167  ;; 0x40026070
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x18  ;; 0x40026459
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_208
-        LDR.W    R1,??HAL_DMA_IRQHandler_167+0x4  ;; 0x40026470
+        BCC.N    ??HAL_DMA_IRQHandler_290
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216  ;; 0x40026010
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_209
-??HAL_DMA_IRQHandler_208:
-        LDR.W    R0,??HAL_DMA_IRQHandler_167+0x8  ;; 0x800004
-        B.N      ??HAL_DMA_IRQHandler_210
-??HAL_DMA_IRQHandler_209:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158  ;; 0x40026028
+        BNE.N    ??HAL_DMA_IRQHandler_291
+        LDR.W    R0,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_292
+??HAL_DMA_IRQHandler_291:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216+0x4  ;; 0x40026410
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_211
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x4  ;; 0x40026428
+        BNE.N    ??HAL_DMA_IRQHandler_293
+        LDR.W    R0,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_292
+??HAL_DMA_IRQHandler_293:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216+0x8  ;; 0x40026070
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_211
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x8  ;; 0x40026088
+        BNE.N    ??HAL_DMA_IRQHandler_294
+        LDR.W    R0,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_292
+??HAL_DMA_IRQHandler_294:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216+0xC  ;; 0x40026470
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_211
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0xC  ;; 0x40026488
+        BNE.N    ??HAL_DMA_IRQHandler_295
+        LDR.W    R0,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_292
+??HAL_DMA_IRQHandler_295:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216+0x10  ;; 0x40026028
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_212
-??HAL_DMA_IRQHandler_211:
+        BNE.N    ??HAL_DMA_IRQHandler_296
         MOV      R0,#+256
-        B.N      ??HAL_DMA_IRQHandler_210
-??HAL_DMA_IRQHandler_212:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x10  ;; 0x40026040
+        B.N      ??HAL_DMA_IRQHandler_292
+??HAL_DMA_IRQHandler_296:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216+0x14  ;; 0x40026428
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_213
-        MOV      R0,#+262144
-        B.N      ??HAL_DMA_IRQHandler_210
-??HAL_DMA_IRQHandler_213:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x14  ;; 0x40026440
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_214
-        MOV      R0,#+262144
-        B.N      ??HAL_DMA_IRQHandler_210
-??HAL_DMA_IRQHandler_214:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x18  ;; 0x400260a0
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_215
-        MOV      R0,#+262144
-        B.N      ??HAL_DMA_IRQHandler_210
-??HAL_DMA_IRQHandler_215:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x1C  ;; 0x400264a0
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_216
-        MOV      R0,#+262144
-        B.N      ??HAL_DMA_IRQHandler_210
-??HAL_DMA_IRQHandler_216:
-        MOV      R0,#+16777216
-??HAL_DMA_IRQHandler_210:
-        STR      R0,[R5, #+12]
-        B.N      ??HAL_DMA_IRQHandler_217
-??HAL_DMA_IRQHandler_207:
-        CMP      R0,R6
-        BCC.N    ??HAL_DMA_IRQHandler_218
-        CMP      R0,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_219
-        CMP      R0,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_219
-        LDR.W    R1,??HAL_DMA_IRQHandler_167  ;; 0x40026070
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_219
-        LDR.W    R1,??HAL_DMA_IRQHandler_167+0x4  ;; 0x40026470
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_220
-??HAL_DMA_IRQHandler_219:
-        LDR.W    R0,??HAL_DMA_IRQHandler_167+0x8  ;; 0x800004
-        B.N      ??HAL_DMA_IRQHandler_221
-??HAL_DMA_IRQHandler_220:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158  ;; 0x40026028
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_222
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x4  ;; 0x40026428
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_222
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x8  ;; 0x40026088
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_222
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0xC  ;; 0x40026488
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_223
-??HAL_DMA_IRQHandler_222:
+        BNE.N    ??HAL_DMA_IRQHandler_297
         MOV      R0,#+256
-        B.N      ??HAL_DMA_IRQHandler_221
-??HAL_DMA_IRQHandler_223:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x10  ;; 0x40026040
+        B.N      ??HAL_DMA_IRQHandler_292
+??HAL_DMA_IRQHandler_297:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224  ;; 0x40026088
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_224
-        MOV      R0,#+262144
-        B.N      ??HAL_DMA_IRQHandler_221
-??HAL_DMA_IRQHandler_224:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x14  ;; 0x40026440
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_225
-        MOV      R0,#+262144
-        B.N      ??HAL_DMA_IRQHandler_221
-??HAL_DMA_IRQHandler_225:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x18  ;; 0x400260a0
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_226
-        MOV      R0,#+262144
-        B.N      ??HAL_DMA_IRQHandler_221
-??HAL_DMA_IRQHandler_226:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x1C  ;; 0x400264a0
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_227
-        MOV      R0,#+262144
-        B.N      ??HAL_DMA_IRQHandler_221
-??HAL_DMA_IRQHandler_227:
-        MOV      R0,#+16777216
-??HAL_DMA_IRQHandler_221:
-        STR      R0,[R5, #+8]
-        B.N      ??HAL_DMA_IRQHandler_217
-??HAL_DMA_IRQHandler_218:
-        LDR.N    R1,??HAL_DMA_IRQHandler_22+0x4  ;; 0x40026059
-        CMP      R0,R1
-        BCC.N    ??HAL_DMA_IRQHandler_228
-        CMP      R0,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_229
-        CMP      R0,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_229
-        LDR.W    R1,??HAL_DMA_IRQHandler_167  ;; 0x40026070
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_229
-        LDR.W    R1,??HAL_DMA_IRQHandler_167+0x4  ;; 0x40026470
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_230
-??HAL_DMA_IRQHandler_229:
-        LDR.W    R0,??HAL_DMA_IRQHandler_167+0x8  ;; 0x800004
-        B.N      ??HAL_DMA_IRQHandler_231
-??HAL_DMA_IRQHandler_230:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158  ;; 0x40026028
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_232
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x4  ;; 0x40026428
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_232
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x8  ;; 0x40026088
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_232
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0xC  ;; 0x40026488
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_233
-??HAL_DMA_IRQHandler_232:
+        BNE.N    ??HAL_DMA_IRQHandler_298
         MOV      R0,#+256
-        B.N      ??HAL_DMA_IRQHandler_231
-??HAL_DMA_IRQHandler_233:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x10  ;; 0x40026040
+        B.N      ??HAL_DMA_IRQHandler_292
+??HAL_DMA_IRQHandler_298:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x4  ;; 0x40026488
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_234
-        MOV      R0,#+262144
-        B.N      ??HAL_DMA_IRQHandler_231
-??HAL_DMA_IRQHandler_234:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x14  ;; 0x40026440
+        BNE.N    ??HAL_DMA_IRQHandler_299
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_IRQHandler_292
+??HAL_DMA_IRQHandler_299:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x8  ;; 0x40026040
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_235
-        MOV      R0,#+262144
-        B.N      ??HAL_DMA_IRQHandler_231
-??HAL_DMA_IRQHandler_235:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x18  ;; 0x400260a0
+        BNE.N    ??HAL_DMA_IRQHandler_300
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_IRQHandler_292
+??HAL_DMA_IRQHandler_300:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0xC  ;; 0x40026440
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_236
-        MOV      R0,#+262144
-        B.N      ??HAL_DMA_IRQHandler_231
-??HAL_DMA_IRQHandler_236:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x1C  ;; 0x400264a0
+        BNE.N    ??HAL_DMA_IRQHandler_301
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_IRQHandler_292
+??HAL_DMA_IRQHandler_301:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x10  ;; 0x400260a0
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_237
-        MOV      R0,#+262144
-        B.N      ??HAL_DMA_IRQHandler_231
-??HAL_DMA_IRQHandler_237:
-        MOV      R0,#+16777216
-??HAL_DMA_IRQHandler_231:
-        LDR.N    R1,??HAL_DMA_IRQHandler_22  ;; 0x40026000
-        STR      R0,[R1, #+12]
-        B.N      ??HAL_DMA_IRQHandler_217
-??HAL_DMA_IRQHandler_228:
-        CMP      R0,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_238
-        CMP      R0,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_238
-        LDR.W    R1,??HAL_DMA_IRQHandler_167  ;; 0x40026070
+        BNE.N    ??HAL_DMA_IRQHandler_302
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_IRQHandler_292
+??HAL_DMA_IRQHandler_302:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x14  ;; 0x400264a0
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_238
-        LDR.W    R1,??HAL_DMA_IRQHandler_167+0x4  ;; 0x40026470
+        BNE.N    ??HAL_DMA_IRQHandler_303
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_IRQHandler_292
+??HAL_DMA_IRQHandler_303:
+        MOVS     R0,#+16777216
+??HAL_DMA_IRQHandler_292:
+        LDR.W    R1,??HAL_DMA_IRQHandler_304  ;; 0x4002640c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_IRQHandler_305
+??HAL_DMA_IRQHandler_290:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_246  ;; 0x400260b9
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_239
-??HAL_DMA_IRQHandler_238:
-        LDR.W    R0,??HAL_DMA_IRQHandler_167+0x8  ;; 0x800004
-        B.N      ??HAL_DMA_IRQHandler_240
+        BCC.N    ??HAL_DMA_IRQHandler_306
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_307
+        LDR.W    R0,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_308
+??HAL_DMA_IRQHandler_307:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216+0x4  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_309
+        LDR.W    R0,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_308
+??HAL_DMA_IRQHandler_309:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216+0x8  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_310
+        LDR.W    R0,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_308
+??HAL_DMA_IRQHandler_310:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216+0xC  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_311
+        LDR.W    R0,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_308
+??HAL_DMA_IRQHandler_311:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216+0x10  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_312
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_IRQHandler_308
+??HAL_DMA_IRQHandler_312:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216+0x14  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_313
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_IRQHandler_308
+??HAL_DMA_IRQHandler_313:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_314
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_IRQHandler_308
+??HAL_DMA_IRQHandler_314:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x4  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_315
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_IRQHandler_308
+??HAL_DMA_IRQHandler_315:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x8  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_316
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_IRQHandler_308
+??HAL_DMA_IRQHandler_316:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0xC  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_317
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_IRQHandler_308
+??HAL_DMA_IRQHandler_317:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x10  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_318
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_IRQHandler_308
+??HAL_DMA_IRQHandler_318:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x14  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_319
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_IRQHandler_308
+        Nop      
         DATA
-??HAL_DMA_IRQHandler_22:
-        DC32     0x40026000
-        DC32     0x40026059
+??HAL_DMA_IRQHandler_115:
+        DC32     0x40026008
         DC32     0x800001
         THUMB
-??HAL_DMA_IRQHandler_239:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158  ;; 0x40026028
+??HAL_DMA_IRQHandler_319:
+        MOVS     R0,#+16777216
+??HAL_DMA_IRQHandler_308:
+        LDR.W    R1,??HAL_DMA_IRQHandler_304+0x4  ;; 0x40026408
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_IRQHandler_305
+??HAL_DMA_IRQHandler_306:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_261  ;; 0x40026059
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_241
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x4  ;; 0x40026428
+        BCC.N    ??HAL_DMA_IRQHandler_320
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216  ;; 0x40026010
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_241
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x8  ;; 0x40026088
+        BNE.N    ??HAL_DMA_IRQHandler_321
+        LDR.W    R0,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_322
+??HAL_DMA_IRQHandler_321:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216+0x4  ;; 0x40026410
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_241
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0xC  ;; 0x40026488
+        BNE.N    ??HAL_DMA_IRQHandler_323
+        LDR.W    R0,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_322
+??HAL_DMA_IRQHandler_323:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216+0x8  ;; 0x40026070
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_242
-??HAL_DMA_IRQHandler_241:
+        BNE.N    ??HAL_DMA_IRQHandler_324
+        LDR.W    R0,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_322
+??HAL_DMA_IRQHandler_324:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216+0xC  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_325
+        LDR.W    R0,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_322
+??HAL_DMA_IRQHandler_325:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216+0x10  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_326
         MOV      R0,#+256
-        B.N      ??HAL_DMA_IRQHandler_240
-??HAL_DMA_IRQHandler_242:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x10  ;; 0x40026040
+        B.N      ??HAL_DMA_IRQHandler_322
+??HAL_DMA_IRQHandler_326:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216+0x14  ;; 0x40026428
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_243
-        MOV      R0,#+262144
-        B.N      ??HAL_DMA_IRQHandler_240
-??HAL_DMA_IRQHandler_243:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x14  ;; 0x40026440
+        BNE.N    ??HAL_DMA_IRQHandler_327
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_IRQHandler_322
+??HAL_DMA_IRQHandler_327:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224  ;; 0x40026088
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_244
-        MOV      R0,#+262144
-        B.N      ??HAL_DMA_IRQHandler_240
-??HAL_DMA_IRQHandler_244:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x18  ;; 0x400260a0
+        BNE.N    ??HAL_DMA_IRQHandler_328
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_IRQHandler_322
+??HAL_DMA_IRQHandler_328:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x4  ;; 0x40026488
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_245
-        MOV      R0,#+262144
-        B.N      ??HAL_DMA_IRQHandler_240
-??HAL_DMA_IRQHandler_245:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x1C  ;; 0x400264a0
+        BNE.N    ??HAL_DMA_IRQHandler_329
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_IRQHandler_322
+??HAL_DMA_IRQHandler_329:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x8  ;; 0x40026040
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_246
-        MOV      R0,#+262144
-        B.N      ??HAL_DMA_IRQHandler_240
-??HAL_DMA_IRQHandler_246:
-        MOV      R0,#+16777216
-??HAL_DMA_IRQHandler_240:
-        LDR.W    R1,??HAL_DMA_IRQHandler_247  ;; 0x40026000
-        STR      R0,[R1, #+8]
+        BNE.N    ??HAL_DMA_IRQHandler_330
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_IRQHandler_322
+??HAL_DMA_IRQHandler_330:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0xC  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_331
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_IRQHandler_322
+??HAL_DMA_IRQHandler_331:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x10  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_332
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_IRQHandler_322
+??HAL_DMA_IRQHandler_332:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x14  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_333
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_IRQHandler_322
+??HAL_DMA_IRQHandler_333:
+        MOVS     R0,#+16777216
+??HAL_DMA_IRQHandler_322:
+        LDR.W    R1,??HAL_DMA_IRQHandler_304+0x8  ;; 0x4002600c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_IRQHandler_305
+??HAL_DMA_IRQHandler_320:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_334
+        LDR.W    R0,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_335
+??HAL_DMA_IRQHandler_334:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216+0x4  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_336
+        LDR.W    R0,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_335
+??HAL_DMA_IRQHandler_336:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216+0x8  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_337
+        LDR.W    R0,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_335
+??HAL_DMA_IRQHandler_337:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216+0xC  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_338
+        LDR.W    R0,??HAL_DMA_IRQHandler_224+0x20  ;; 0x800004
+        B.N      ??HAL_DMA_IRQHandler_335
+??HAL_DMA_IRQHandler_338:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216+0x10  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_339
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_IRQHandler_335
+??HAL_DMA_IRQHandler_339:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_216+0x14  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_340
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_IRQHandler_335
+??HAL_DMA_IRQHandler_340:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_341
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_IRQHandler_335
+??HAL_DMA_IRQHandler_341:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x4  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_342
+        MOV      R0,#+256
+        B.N      ??HAL_DMA_IRQHandler_335
+??HAL_DMA_IRQHandler_342:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x8  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_343
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_IRQHandler_335
+??HAL_DMA_IRQHandler_343:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0xC  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_344
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_IRQHandler_335
+??HAL_DMA_IRQHandler_344:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x10  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_345
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_IRQHandler_335
+??HAL_DMA_IRQHandler_345:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x14  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_346
+        MOVS     R0,#+262144
+        B.N      ??HAL_DMA_IRQHandler_335
+??HAL_DMA_IRQHandler_346:
+        MOVS     R0,#+16777216
+??HAL_DMA_IRQHandler_335:
+        LDR.W    R1,??HAL_DMA_IRQHandler_304+0xC  ;; 0x40026008
+        STR      R0,[R1, #+0]
 //  741 
 //  742       /* Update error code */
 //  743       hdma->ErrorCode |= HAL_DMA_ERROR_DME;
-??HAL_DMA_IRQHandler_217:
-        ADD      R0,R4,#+52
-        LDR      R1,[R0, #+24]
-        ORR      R1,R1,#0x4
-        STR      R1,[R0, #+24]
+??HAL_DMA_IRQHandler_305:
+        LDR      R0,[R4, #+76]
+        ORRS     R0,R0,#0x4
+        STR      R0,[R4, #+76]
 //  744 
 //  745       /* Change the DMA state */
 //  746       hdma->State = HAL_DMA_STATE_ERROR;
-        MOVS     R1,#+4
-        STRB     R1,[R0, #+1]
+        MOVS     R0,#+4
+        STRB     R0,[R4, #+53]
 //  747 
 //  748       /* Process Unlocked */
 //  749       __HAL_UNLOCK(hdma);
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+0]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 //  750 
 //  751       if(hdma->XferErrorCallback != NULL)
-        LDR      R1,[R0, #+20]
-        MOVS     R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_206
+        LDR      R0,[R4, #+72]
+        CMP      R0,#+0
+        BEQ.N    ??HAL_DMA_IRQHandler_289
 //  752       {
 //  753         /* Transfer error callback */
 //  754         hdma->XferErrorCallback(hdma);
-        MOV      R0,R4
+        MOVS     R0,R4
+        LDR      R1,[R4, #+72]
           CFI FunCall
         BLX      R1
 //  755       }
@@ -7545,832 +10600,1250 @@ HAL_DMA_IRQHandler:
 //  757   }
 //  758   /* Half Transfer Complete Interrupt management ******************************/
 //  759   if(__HAL_DMA_GET_FLAG(hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma)) != RESET)
-??HAL_DMA_IRQHandler_206:
-        LDR      R1,[R4, #+0]
-        MOV      R2,R1
-        CMP      R2,R9
-        BCC.N    ??HAL_DMA_IRQHandler_248
-        LDR      R0,[R5, #+4]
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_249
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_249
-        LDR.W    R3,??HAL_DMA_IRQHandler_167  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_249
-        LDR.W    R3,??HAL_DMA_IRQHandler_167+0x4  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_250
-??HAL_DMA_IRQHandler_249:
-        MOVS     R3,#+16
-        B.N      ??HAL_DMA_IRQHandler_251
-??HAL_DMA_IRQHandler_250:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_252
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x4  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_252
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x8  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_252
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0xC  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_253
-??HAL_DMA_IRQHandler_252:
-        MOV      R3,#+1024
-        B.N      ??HAL_DMA_IRQHandler_251
-??HAL_DMA_IRQHandler_253:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x10  ;; 0x40026040
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_254
-        MOV      R3,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_251
-??HAL_DMA_IRQHandler_254:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x14  ;; 0x40026440
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_255
-        MOV      R3,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_251
-??HAL_DMA_IRQHandler_255:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x18  ;; 0x400260a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_256
-        MOV      R3,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_251
-??HAL_DMA_IRQHandler_256:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x1C  ;; 0x400264a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_257
-        MOV      R3,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_251
-??HAL_DMA_IRQHandler_257:
-        MOV      R3,#+67108864
-??HAL_DMA_IRQHandler_251:
-        ANDS     R0,R3,R0
-        B.N      ??HAL_DMA_IRQHandler_258
-??HAL_DMA_IRQHandler_248:
-        CMP      R2,R6
-        BCC.N    ??HAL_DMA_IRQHandler_259
-        LDR      R0,[R5, #+0]
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_260
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_260
-        LDR.W    R3,??HAL_DMA_IRQHandler_167  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_260
-        LDR.W    R3,??HAL_DMA_IRQHandler_167+0x4  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_261
-??HAL_DMA_IRQHandler_260:
-        MOVS     R3,#+16
-        B.N      ??HAL_DMA_IRQHandler_262
-??HAL_DMA_IRQHandler_261:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_263
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x4  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_263
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x8  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_263
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0xC  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_264
-??HAL_DMA_IRQHandler_263:
-        MOV      R3,#+1024
-        B.N      ??HAL_DMA_IRQHandler_262
-??HAL_DMA_IRQHandler_264:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x10  ;; 0x40026040
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_265
-        MOV      R3,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_262
-??HAL_DMA_IRQHandler_265:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x14  ;; 0x40026440
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_266
-        MOV      R3,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_262
-??HAL_DMA_IRQHandler_266:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x18  ;; 0x400260a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_267
-        MOV      R3,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_262
-??HAL_DMA_IRQHandler_267:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x1C  ;; 0x400264a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_268
-        MOV      R3,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_262
-??HAL_DMA_IRQHandler_268:
-        MOV      R3,#+67108864
-??HAL_DMA_IRQHandler_262:
-        ANDS     R0,R3,R0
-        B.N      ??HAL_DMA_IRQHandler_258
-??HAL_DMA_IRQHandler_259:
-        LDR.W    R0,??HAL_DMA_IRQHandler_247  ;; 0x40026000
-        LDR.W    R3,??HAL_DMA_IRQHandler_269  ;; 0x40026059
-        CMP      R2,R3
-        BCC.N    ??HAL_DMA_IRQHandler_270
-        LDR      R0,[R0, #+4]
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_271
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_271
-        LDR.W    R3,??HAL_DMA_IRQHandler_167  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_271
-        LDR.W    R3,??HAL_DMA_IRQHandler_167+0x4  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_272
-??HAL_DMA_IRQHandler_271:
-        MOVS     R3,#+16
-        B.N      ??HAL_DMA_IRQHandler_273
-??HAL_DMA_IRQHandler_272:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_274
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x4  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_274
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x8  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_274
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0xC  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_275
-??HAL_DMA_IRQHandler_274:
-        MOV      R3,#+1024
-        B.N      ??HAL_DMA_IRQHandler_273
-??HAL_DMA_IRQHandler_275:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x10  ;; 0x40026040
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_276
-        MOV      R3,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_273
-??HAL_DMA_IRQHandler_276:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x14  ;; 0x40026440
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_277
-        MOV      R3,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_273
-??HAL_DMA_IRQHandler_277:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x18  ;; 0x400260a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_278
-        MOV      R3,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_273
-??HAL_DMA_IRQHandler_278:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x1C  ;; 0x400264a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_279
-        MOV      R3,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_273
-??HAL_DMA_IRQHandler_279:
-        MOV      R3,#+67108864
-??HAL_DMA_IRQHandler_273:
-        ANDS     R0,R3,R0
-        B.N      ??HAL_DMA_IRQHandler_258
-??HAL_DMA_IRQHandler_270:
+??HAL_DMA_IRQHandler_289:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_224+0x18  ;; 0x40026459
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_IRQHandler_347
+        LDR.W    R0,??HAL_DMA_IRQHandler_224+0x1C  ;; 0x40026404
         LDR      R0,[R0, #+0]
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_280
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_280
-        LDR.W    R3,??HAL_DMA_IRQHandler_167  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_280
-        LDR.W    R3,??HAL_DMA_IRQHandler_167+0x4  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_281
-??HAL_DMA_IRQHandler_280:
-        MOVS     R3,#+16
-        B.N      ??HAL_DMA_IRQHandler_282
-??HAL_DMA_IRQHandler_281:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_283
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x4  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_283
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x8  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_283
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0xC  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_284
-??HAL_DMA_IRQHandler_283:
-        MOV      R3,#+1024
-        B.N      ??HAL_DMA_IRQHandler_282
-??HAL_DMA_IRQHandler_284:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x10  ;; 0x40026040
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_285
-        MOV      R3,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_282
-??HAL_DMA_IRQHandler_285:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x14  ;; 0x40026440
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_286
-        MOV      R3,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_282
-??HAL_DMA_IRQHandler_286:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x18  ;; 0x400260a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_287
-        MOV      R3,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_282
-??HAL_DMA_IRQHandler_287:
-        LDR.W    R3,??HAL_DMA_IRQHandler_158+0x1C  ;; 0x400264a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_288
-        MOV      R3,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_282
-??HAL_DMA_IRQHandler_288:
-        MOV      R3,#+67108864
-??HAL_DMA_IRQHandler_282:
-        ANDS     R0,R3,R0
-??HAL_DMA_IRQHandler_258:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_348
+        MOVS     R1,#+16
+        B.N      ??HAL_DMA_IRQHandler_349
+??HAL_DMA_IRQHandler_348:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0x4  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_350
+        MOVS     R1,#+16
+        B.N      ??HAL_DMA_IRQHandler_349
+??HAL_DMA_IRQHandler_350:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0x8  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_351
+        MOVS     R1,#+16
+        B.N      ??HAL_DMA_IRQHandler_349
+??HAL_DMA_IRQHandler_351:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0xC  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_352
+        MOVS     R1,#+16
+        B.N      ??HAL_DMA_IRQHandler_349
+??HAL_DMA_IRQHandler_352:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0x10  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_353
+        MOV      R1,#+1024
+        B.N      ??HAL_DMA_IRQHandler_349
+??HAL_DMA_IRQHandler_353:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0x14  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_354
+        MOV      R1,#+1024
+        B.N      ??HAL_DMA_IRQHandler_349
+??HAL_DMA_IRQHandler_354:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_355
+        MOV      R1,#+1024
+        B.N      ??HAL_DMA_IRQHandler_349
+??HAL_DMA_IRQHandler_355:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0x4  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_356
+        MOV      R1,#+1024
+        B.N      ??HAL_DMA_IRQHandler_349
+??HAL_DMA_IRQHandler_356:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0x8  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_357
+        MOVS     R1,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_349
+??HAL_DMA_IRQHandler_357:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0xC  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_358
+        MOVS     R1,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_349
+??HAL_DMA_IRQHandler_358:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0x10  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_359
+        MOVS     R1,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_349
+??HAL_DMA_IRQHandler_359:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0x14  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_360
+        MOVS     R1,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_349
+??HAL_DMA_IRQHandler_360:
+        MOVS     R1,#+67108864
+??HAL_DMA_IRQHandler_349:
+        ANDS     R0,R1,R0
+        B.N      ??HAL_DMA_IRQHandler_361
+??HAL_DMA_IRQHandler_347:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_246  ;; 0x400260b9
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_IRQHandler_362
+        LDR.W    R0,??HAL_DMA_IRQHandler_246+0x4  ;; 0x40026400
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_363
+        MOVS     R1,#+16
+        B.N      ??HAL_DMA_IRQHandler_364
+??HAL_DMA_IRQHandler_363:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0x4  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_365
+        MOVS     R1,#+16
+        B.N      ??HAL_DMA_IRQHandler_364
+??HAL_DMA_IRQHandler_365:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0x8  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_366
+        MOVS     R1,#+16
+        B.N      ??HAL_DMA_IRQHandler_364
+??HAL_DMA_IRQHandler_366:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0xC  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_367
+        MOVS     R1,#+16
+        B.N      ??HAL_DMA_IRQHandler_364
+??HAL_DMA_IRQHandler_367:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0x10  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_368
+        MOV      R1,#+1024
+        B.N      ??HAL_DMA_IRQHandler_364
+??HAL_DMA_IRQHandler_368:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_216+0x14  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_369
+        MOV      R1,#+1024
+        B.N      ??HAL_DMA_IRQHandler_364
+??HAL_DMA_IRQHandler_369:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_370
+        MOV      R1,#+1024
+        B.N      ??HAL_DMA_IRQHandler_364
+??HAL_DMA_IRQHandler_370:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0x4  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_371
+        MOV      R1,#+1024
+        B.N      ??HAL_DMA_IRQHandler_364
+??HAL_DMA_IRQHandler_371:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0x8  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_372
+        MOVS     R1,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_364
+??HAL_DMA_IRQHandler_372:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0xC  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_373
+        MOVS     R1,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_364
+??HAL_DMA_IRQHandler_373:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0x10  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_374
+        MOVS     R1,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_364
+??HAL_DMA_IRQHandler_374:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_224+0x14  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_375
+        MOVS     R1,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_364
+??HAL_DMA_IRQHandler_375:
+        MOVS     R1,#+67108864
+??HAL_DMA_IRQHandler_364:
+        ANDS     R0,R1,R0
+        B.N      ??HAL_DMA_IRQHandler_361
+??HAL_DMA_IRQHandler_362:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_261  ;; 0x40026059
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_IRQHandler_376
+        LDR.W    R0,??HAL_DMA_IRQHandler_261+0x4  ;; 0x40026004
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_216  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_377
+        MOVS     R1,#+16
+        B.N      ??HAL_DMA_IRQHandler_378
+??HAL_DMA_IRQHandler_377:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_216+0x4  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_379
+        MOVS     R1,#+16
+        B.N      ??HAL_DMA_IRQHandler_378
+??HAL_DMA_IRQHandler_379:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_216+0x8  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_380
+        MOVS     R1,#+16
+        B.N      ??HAL_DMA_IRQHandler_378
+??HAL_DMA_IRQHandler_380:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_216+0xC  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_381
+        MOVS     R1,#+16
+        B.N      ??HAL_DMA_IRQHandler_378
+??HAL_DMA_IRQHandler_381:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_216+0x10  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_382
+        MOV      R1,#+1024
+        B.N      ??HAL_DMA_IRQHandler_378
+??HAL_DMA_IRQHandler_382:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_216+0x14  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_383
+        MOV      R1,#+1024
+        B.N      ??HAL_DMA_IRQHandler_378
+??HAL_DMA_IRQHandler_383:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_224  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_384
+        MOV      R1,#+1024
+        B.N      ??HAL_DMA_IRQHandler_378
+??HAL_DMA_IRQHandler_384:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_224+0x4  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_385
+        MOV      R1,#+1024
+        B.N      ??HAL_DMA_IRQHandler_378
+??HAL_DMA_IRQHandler_385:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_224+0x8  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_386
+        MOVS     R1,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_378
+??HAL_DMA_IRQHandler_386:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_224+0xC  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_387
+        MOVS     R1,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_378
+??HAL_DMA_IRQHandler_387:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_224+0x10  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_388
+        MOVS     R1,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_378
+??HAL_DMA_IRQHandler_388:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_224+0x14  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_389
+        MOVS     R1,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_378
+??HAL_DMA_IRQHandler_389:
+        MOVS     R1,#+67108864
+??HAL_DMA_IRQHandler_378:
+        ANDS     R0,R1,R0
+        B.N      ??HAL_DMA_IRQHandler_361
+??HAL_DMA_IRQHandler_376:
+        LDR.W    R0,??HAL_DMA_IRQHandler_261+0x8  ;; 0x40026000
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_216  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_390
+        MOVS     R1,#+16
+        B.N      ??HAL_DMA_IRQHandler_391
+??HAL_DMA_IRQHandler_390:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_216+0x4  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_392
+        MOVS     R1,#+16
+        B.N      ??HAL_DMA_IRQHandler_391
+??HAL_DMA_IRQHandler_392:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_216+0x8  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_393
+        MOVS     R1,#+16
+        B.N      ??HAL_DMA_IRQHandler_391
+??HAL_DMA_IRQHandler_393:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_216+0xC  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_394
+        MOVS     R1,#+16
+        B.N      ??HAL_DMA_IRQHandler_391
+??HAL_DMA_IRQHandler_394:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_216+0x10  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_395
+        MOV      R1,#+1024
+        B.N      ??HAL_DMA_IRQHandler_391
+??HAL_DMA_IRQHandler_395:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_216+0x14  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_396
+        MOV      R1,#+1024
+        B.N      ??HAL_DMA_IRQHandler_391
+??HAL_DMA_IRQHandler_396:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_224  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_397
+        MOV      R1,#+1024
+        B.N      ??HAL_DMA_IRQHandler_391
+??HAL_DMA_IRQHandler_397:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_224+0x4  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_398
+        MOV      R1,#+1024
+        B.N      ??HAL_DMA_IRQHandler_391
+??HAL_DMA_IRQHandler_398:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_224+0x8  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_399
+        MOVS     R1,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_391
+??HAL_DMA_IRQHandler_399:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_224+0xC  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_400
+        MOVS     R1,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_391
+??HAL_DMA_IRQHandler_400:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_224+0x10  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_401
+        MOVS     R1,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_391
+??HAL_DMA_IRQHandler_401:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_224+0x14  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_402
+        MOVS     R1,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_391
+??HAL_DMA_IRQHandler_402:
+        MOVS     R1,#+67108864
+??HAL_DMA_IRQHandler_391:
+        ANDS     R0,R1,R0
+??HAL_DMA_IRQHandler_361:
         CMP      R0,#+0
-        BEQ.W    ??HAL_DMA_IRQHandler_289
+        BEQ.W    ??HAL_DMA_IRQHandler_403
 //  760   {
 //  761     if(__HAL_DMA_GET_IT_SOURCE(hdma, DMA_IT_HT) != RESET)
-        LDR      R0,[R1, #+0]
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+28
-        BPL.W    ??HAL_DMA_IRQHandler_289
+        BPL.W    ??HAL_DMA_IRQHandler_403
 //  762     { 
 //  763       /* Multi_Buffering mode enabled */
 //  764       if(((hdma->Instance->CR) & (uint32_t)(DMA_SxCR_DBM)) != 0)
-        ADD      R0,R4,#+52
-        LDR      R3,[R1, #+0]
-        LSLS     R3,R3,#+13
-        BPL.W    ??HAL_DMA_IRQHandler_290
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+0]
+        LSLS     R0,R0,#+13
+        BPL.W    ??HAL_DMA_IRQHandler_404
 //  765       {
 //  766         /* Clear the half transfer complete flag */
 //  767         __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
-        CMP      R2,R9
-        BCC.N    ??HAL_DMA_IRQHandler_291
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_292
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_292
-        LDR.W    R1,??HAL_DMA_IRQHandler_167  ;; 0x40026070
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_292
-        LDR.W    R1,??HAL_DMA_IRQHandler_167+0x4  ;; 0x40026470
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_IRQHandler_293
-??HAL_DMA_IRQHandler_292:
-        MOVS     R1,#+16
-        B.N      ??HAL_DMA_IRQHandler_294
-??HAL_DMA_IRQHandler_293:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158  ;; 0x40026028
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_295
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x4  ;; 0x40026428
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_295
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x8  ;; 0x40026088
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_295
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0xC  ;; 0x40026488
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_IRQHandler_296
-??HAL_DMA_IRQHandler_295:
-        MOV      R1,#+1024
-        B.N      ??HAL_DMA_IRQHandler_294
-??HAL_DMA_IRQHandler_296:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x10  ;; 0x40026040
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_IRQHandler_297
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_294
-??HAL_DMA_IRQHandler_297:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x14  ;; 0x40026440
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_IRQHandler_298
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_294
-??HAL_DMA_IRQHandler_298:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x18  ;; 0x400260a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_IRQHandler_299
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_294
-??HAL_DMA_IRQHandler_299:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x1C  ;; 0x400264a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_IRQHandler_300
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_294
-??HAL_DMA_IRQHandler_300:
-        MOV      R1,#+67108864
-??HAL_DMA_IRQHandler_294:
-        STR      R1,[R5, #+12]
-        B.N      ??HAL_DMA_IRQHandler_301
-??HAL_DMA_IRQHandler_291:
-        CMP      R2,R6
-        BCC.N    ??HAL_DMA_IRQHandler_302
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_303
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_303
-        LDR.W    R1,??HAL_DMA_IRQHandler_167  ;; 0x40026070
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_303
-        LDR.W    R1,??HAL_DMA_IRQHandler_167+0x4  ;; 0x40026470
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_IRQHandler_304
-??HAL_DMA_IRQHandler_303:
-        MOVS     R1,#+16
-        B.N      ??HAL_DMA_IRQHandler_305
-??HAL_DMA_IRQHandler_304:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158  ;; 0x40026028
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_306
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x4  ;; 0x40026428
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_306
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x8  ;; 0x40026088
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_306
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0xC  ;; 0x40026488
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_IRQHandler_307
-??HAL_DMA_IRQHandler_306:
-        MOV      R1,#+1024
-        B.N      ??HAL_DMA_IRQHandler_305
-??HAL_DMA_IRQHandler_307:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x10  ;; 0x40026040
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_IRQHandler_308
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_305
-??HAL_DMA_IRQHandler_308:
-        LDR.W    R1,??HAL_DMA_IRQHandler_158+0x14  ;; 0x40026440
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_IRQHandler_309
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_305
-??HAL_DMA_IRQHandler_309:
-        LDR.N    R1,??HAL_DMA_IRQHandler_158+0x18  ;; 0x400260a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_IRQHandler_310
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_305
-??HAL_DMA_IRQHandler_310:
-        LDR.N    R1,??HAL_DMA_IRQHandler_158+0x1C  ;; 0x400264a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_IRQHandler_311
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_305
-??HAL_DMA_IRQHandler_311:
-        MOV      R1,#+67108864
-??HAL_DMA_IRQHandler_305:
-        STR      R1,[R5, #+8]
-        B.N      ??HAL_DMA_IRQHandler_301
-??HAL_DMA_IRQHandler_302:
-        LDR.W    R1,??HAL_DMA_IRQHandler_269  ;; 0x40026059
-        CMP      R2,R1
-        BCC.N    ??HAL_DMA_IRQHandler_312
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_313
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_313
-        LDR.W    R1,??HAL_DMA_IRQHandler_167  ;; 0x40026070
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_313
-        LDR.W    R1,??HAL_DMA_IRQHandler_167+0x4  ;; 0x40026470
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_IRQHandler_314
-??HAL_DMA_IRQHandler_313:
-        MOVS     R1,#+16
-        B.N      ??HAL_DMA_IRQHandler_315
-??HAL_DMA_IRQHandler_314:
-        LDR.N    R1,??HAL_DMA_IRQHandler_158  ;; 0x40026028
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_316
-        LDR.N    R1,??HAL_DMA_IRQHandler_158+0x4  ;; 0x40026428
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_316
-        LDR.N    R1,??HAL_DMA_IRQHandler_158+0x8  ;; 0x40026088
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_316
-        LDR.N    R1,??HAL_DMA_IRQHandler_158+0xC  ;; 0x40026488
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_IRQHandler_317
-??HAL_DMA_IRQHandler_316:
-        MOV      R1,#+1024
-        B.N      ??HAL_DMA_IRQHandler_315
-??HAL_DMA_IRQHandler_317:
-        LDR.N    R1,??HAL_DMA_IRQHandler_158+0x10  ;; 0x40026040
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_IRQHandler_318
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_315
-??HAL_DMA_IRQHandler_318:
-        LDR.N    R1,??HAL_DMA_IRQHandler_158+0x14  ;; 0x40026440
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_IRQHandler_319
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_315
-??HAL_DMA_IRQHandler_319:
-        LDR.N    R1,??HAL_DMA_IRQHandler_158+0x18  ;; 0x400260a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_IRQHandler_320
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_315
-??HAL_DMA_IRQHandler_320:
-        LDR.N    R1,??HAL_DMA_IRQHandler_158+0x1C  ;; 0x400264a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_IRQHandler_321
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_315
-??HAL_DMA_IRQHandler_321:
-        MOV      R1,#+67108864
-??HAL_DMA_IRQHandler_315:
-        LDR.W    R2,??HAL_DMA_IRQHandler_247  ;; 0x40026000
-        STR      R1,[R2, #+12]
-        B.N      ??HAL_DMA_IRQHandler_301
-??HAL_DMA_IRQHandler_312:
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_322
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_322
-        LDR.W    R1,??HAL_DMA_IRQHandler_167  ;; 0x40026070
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_322
-        LDR.W    R1,??HAL_DMA_IRQHandler_167+0x4  ;; 0x40026470
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_IRQHandler_323
-??HAL_DMA_IRQHandler_322:
-        MOVS     R1,#+16
-        B.N      ??HAL_DMA_IRQHandler_324
-??HAL_DMA_IRQHandler_323:
-        LDR.N    R1,??HAL_DMA_IRQHandler_158  ;; 0x40026028
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_325
-        LDR.N    R1,??HAL_DMA_IRQHandler_158+0x4  ;; 0x40026428
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_325
-        LDR.N    R1,??HAL_DMA_IRQHandler_158+0x8  ;; 0x40026088
-        CMP      R2,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_325
-        LDR.N    R1,??HAL_DMA_IRQHandler_158+0xC  ;; 0x40026488
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_IRQHandler_326
-??HAL_DMA_IRQHandler_325:
-        MOV      R1,#+1024
-        B.N      ??HAL_DMA_IRQHandler_324
-??HAL_DMA_IRQHandler_326:
-        LDR.N    R1,??HAL_DMA_IRQHandler_158+0x10  ;; 0x40026040
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_IRQHandler_327
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_324
-??HAL_DMA_IRQHandler_327:
-        LDR.N    R1,??HAL_DMA_IRQHandler_158+0x14  ;; 0x40026440
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_IRQHandler_328
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_324
-??HAL_DMA_IRQHandler_328:
-        LDR.N    R1,??HAL_DMA_IRQHandler_158+0x18  ;; 0x400260a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_IRQHandler_329
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_324
-??HAL_DMA_IRQHandler_329:
-        LDR.N    R1,??HAL_DMA_IRQHandler_158+0x1C  ;; 0x400264a0
-        CMP      R2,R1
-        BNE.N    ??HAL_DMA_IRQHandler_330
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_324
-??HAL_DMA_IRQHandler_330:
-        MOV      R1,#+67108864
-??HAL_DMA_IRQHandler_324:
-        LDR.W    R2,??HAL_DMA_IRQHandler_247  ;; 0x40026000
-        STR      R1,[R2, #+8]
-//  768 
-//  769         /* Current memory buffer used is Memory 0 */
-//  770         if((hdma->Instance->CR & DMA_SxCR_CT) == 0)
-??HAL_DMA_IRQHandler_301:
-        LDR      R1,[R4, #+0]
-        LDR      R2,[R1, #+0]
-        LSLS     R2,R2,#+12
-        BPL.W    ??HAL_DMA_IRQHandler_331
-//  771         {
-//  772           /* Change DMA peripheral state */
-//  773           hdma->State = HAL_DMA_STATE_READY_HALF_MEM0;
-//  774         }
-//  775         /* Current memory buffer used is Memory 1 */
-//  776         else if((hdma->Instance->CR & DMA_SxCR_CT) != 0)
-        LDR      R1,[R1, #+0]
-        LSLS     R1,R1,#+12
-        BPL.W    ??HAL_DMA_IRQHandler_332
-//  777         {
-//  778           /* Change DMA peripheral state */
-//  779           hdma->State = HAL_DMA_STATE_READY_HALF_MEM1;
-        MOVS     R1,#+65
-        STRB     R1,[R0, #+1]
-        B.N      ??HAL_DMA_IRQHandler_332
-//  780         }
-//  781       }
-//  782       else
-//  783       {
-//  784         /* Disable the half transfer interrupt if the DMA mode is not CIRCULAR */
-//  785         if((hdma->Instance->CR & DMA_SxCR_CIRC) == 0)
-??HAL_DMA_IRQHandler_290:
-        LDR      R2,[R1, #+0]
-        LSLS     R2,R2,#+23
-        BMI.N    ??HAL_DMA_IRQHandler_333
-//  786         {
-//  787           /* Disable the half transfer interrupt */
-//  788           __HAL_DMA_DISABLE_IT(hdma, DMA_IT_HT);
-        LDR      R2,[R1, #+0]
-        BIC      R2,R2,#0x8
-        STR      R2,[R1, #+0]
-//  789         }
-//  790         /* Clear the half transfer complete flag */
-//  791         __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
-??HAL_DMA_IRQHandler_333:
-        LDR      R1,[R4, #+0]
-        CMP      R1,R9
-        BCC.N    ??HAL_DMA_IRQHandler_334
-        CMP      R1,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_335
-        CMP      R1,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_335
-        LDR.N    R2,??HAL_DMA_IRQHandler_167  ;; 0x40026070
-        CMP      R1,R2
-        BEQ.N    ??HAL_DMA_IRQHandler_335
-        LDR.N    R2,??HAL_DMA_IRQHandler_167+0x4  ;; 0x40026470
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_336
-??HAL_DMA_IRQHandler_335:
-        MOVS     R1,#+16
-        B.N      ??HAL_DMA_IRQHandler_337
-??HAL_DMA_IRQHandler_336:
-        LDR.N    R2,??HAL_DMA_IRQHandler_158  ;; 0x40026028
-        CMP      R1,R2
-        BEQ.N    ??HAL_DMA_IRQHandler_338
-        LDR.N    R2,??HAL_DMA_IRQHandler_158+0x4  ;; 0x40026428
-        CMP      R1,R2
-        BEQ.N    ??HAL_DMA_IRQHandler_338
-        LDR.N    R2,??HAL_DMA_IRQHandler_158+0x8  ;; 0x40026088
-        CMP      R1,R2
-        BEQ.N    ??HAL_DMA_IRQHandler_338
-        LDR.N    R2,??HAL_DMA_IRQHandler_158+0xC  ;; 0x40026488
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_339
-??HAL_DMA_IRQHandler_338:
-        MOV      R1,#+1024
-        B.N      ??HAL_DMA_IRQHandler_337
-??HAL_DMA_IRQHandler_339:
-        LDR.N    R2,??HAL_DMA_IRQHandler_158+0x10  ;; 0x40026040
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_340
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_337
-??HAL_DMA_IRQHandler_340:
-        LDR.N    R2,??HAL_DMA_IRQHandler_158+0x14  ;; 0x40026440
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_341
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_337
-??HAL_DMA_IRQHandler_341:
-        LDR.N    R2,??HAL_DMA_IRQHandler_158+0x18  ;; 0x400260a0
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_342
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_337
-??HAL_DMA_IRQHandler_342:
-        LDR.N    R2,??HAL_DMA_IRQHandler_158+0x1C  ;; 0x400264a0
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_343
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_337
-??HAL_DMA_IRQHandler_343:
-        MOV      R1,#+67108864
-??HAL_DMA_IRQHandler_337:
-        STR      R1,[R5, #+12]
-        B.N      ??HAL_DMA_IRQHandler_331
-??HAL_DMA_IRQHandler_334:
-        CMP      R1,R6
-        BCC.N    ??HAL_DMA_IRQHandler_344
-        CMP      R1,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_345
-        CMP      R1,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_345
-        LDR.N    R2,??HAL_DMA_IRQHandler_167  ;; 0x40026070
-        CMP      R1,R2
-        BEQ.N    ??HAL_DMA_IRQHandler_345
-        LDR.N    R2,??HAL_DMA_IRQHandler_167+0x4  ;; 0x40026470
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_346
-??HAL_DMA_IRQHandler_345:
-        MOVS     R1,#+16
-        B.N      ??HAL_DMA_IRQHandler_347
-??HAL_DMA_IRQHandler_346:
-        LDR.N    R2,??HAL_DMA_IRQHandler_158  ;; 0x40026028
-        CMP      R1,R2
-        BEQ.N    ??HAL_DMA_IRQHandler_348
-        LDR.N    R2,??HAL_DMA_IRQHandler_158+0x4  ;; 0x40026428
-        CMP      R1,R2
-        BEQ.N    ??HAL_DMA_IRQHandler_348
-        LDR.N    R2,??HAL_DMA_IRQHandler_158+0x8  ;; 0x40026088
-        CMP      R1,R2
-        BEQ.N    ??HAL_DMA_IRQHandler_348
-        LDR.N    R2,??HAL_DMA_IRQHandler_158+0xC  ;; 0x40026488
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_349
-??HAL_DMA_IRQHandler_348:
-        MOV      R1,#+1024
-        B.N      ??HAL_DMA_IRQHandler_347
-??HAL_DMA_IRQHandler_349:
-        LDR.N    R2,??HAL_DMA_IRQHandler_158+0x10  ;; 0x40026040
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_350
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_347
-??HAL_DMA_IRQHandler_350:
-        LDR.N    R2,??HAL_DMA_IRQHandler_158+0x14  ;; 0x40026440
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_351
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_347
-??HAL_DMA_IRQHandler_351:
-        LDR.N    R2,??HAL_DMA_IRQHandler_158+0x18  ;; 0x400260a0
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_352
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_347
-??HAL_DMA_IRQHandler_352:
-        LDR.N    R2,??HAL_DMA_IRQHandler_158+0x1C  ;; 0x400264a0
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_353
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_347
-??HAL_DMA_IRQHandler_353:
-        MOV      R1,#+67108864
-??HAL_DMA_IRQHandler_347:
-        STR      R1,[R5, #+8]
-        B.N      ??HAL_DMA_IRQHandler_331
-??HAL_DMA_IRQHandler_344:
-        LDR.W    R2,??HAL_DMA_IRQHandler_269  ;; 0x40026059
-        CMP      R1,R2
-        BCC.N    ??HAL_DMA_IRQHandler_354
-        CMP      R1,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_355
-        CMP      R1,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_355
-        LDR.N    R2,??HAL_DMA_IRQHandler_167  ;; 0x40026070
-        CMP      R1,R2
-        BEQ.N    ??HAL_DMA_IRQHandler_355
-        LDR.N    R2,??HAL_DMA_IRQHandler_167+0x4  ;; 0x40026470
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_356
-??HAL_DMA_IRQHandler_355:
-        MOVS     R1,#+16
-        B.N      ??HAL_DMA_IRQHandler_357
-??HAL_DMA_IRQHandler_356:
-        LDR.N    R2,??HAL_DMA_IRQHandler_158  ;; 0x40026028
-        CMP      R1,R2
-        BEQ.N    ??HAL_DMA_IRQHandler_358
-        LDR.N    R2,??HAL_DMA_IRQHandler_158+0x4  ;; 0x40026428
-        CMP      R1,R2
-        BEQ.N    ??HAL_DMA_IRQHandler_358
-        LDR.N    R2,??HAL_DMA_IRQHandler_158+0x8  ;; 0x40026088
-        CMP      R1,R2
-        BEQ.N    ??HAL_DMA_IRQHandler_358
-        LDR.N    R2,??HAL_DMA_IRQHandler_158+0xC  ;; 0x40026488
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_359
-??HAL_DMA_IRQHandler_358:
-        MOV      R1,#+1024
-        B.N      ??HAL_DMA_IRQHandler_357
-??HAL_DMA_IRQHandler_359:
-        LDR.N    R2,??HAL_DMA_IRQHandler_158+0x10  ;; 0x40026040
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_360
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_357
-??HAL_DMA_IRQHandler_360:
-        LDR.N    R2,??HAL_DMA_IRQHandler_158+0x14  ;; 0x40026440
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_361
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_357
-??HAL_DMA_IRQHandler_361:
-        LDR.N    R2,??HAL_DMA_IRQHandler_158+0x18  ;; 0x400260a0
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_362
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_357
-??HAL_DMA_IRQHandler_362:
-        LDR.N    R2,??HAL_DMA_IRQHandler_158+0x1C  ;; 0x400264a0
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_363
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_357
-??HAL_DMA_IRQHandler_363:
-        MOV      R1,#+67108864
-??HAL_DMA_IRQHandler_357:
-        LDR.W    R2,??HAL_DMA_IRQHandler_247  ;; 0x40026000
-        STR      R1,[R2, #+12]
-        B.N      ??HAL_DMA_IRQHandler_331
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_224+0x18  ;; 0x40026459
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_IRQHandler_405
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_216  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_406
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_407
+??HAL_DMA_IRQHandler_406:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_216+0x4  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_408
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_407
+??HAL_DMA_IRQHandler_408:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_216+0x8  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_409
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_407
+??HAL_DMA_IRQHandler_409:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_216+0xC  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_410
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_407
+??HAL_DMA_IRQHandler_410:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_216+0x10  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_411
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_407
+??HAL_DMA_IRQHandler_411:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_216+0x14  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_412
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_407
+??HAL_DMA_IRQHandler_412:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_224  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_413
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_407
+??HAL_DMA_IRQHandler_413:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_224+0x4  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_414
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_407
+??HAL_DMA_IRQHandler_414:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_224+0x8  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_415
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_407
+??HAL_DMA_IRQHandler_415:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_224+0xC  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_416
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_407
+??HAL_DMA_IRQHandler_416:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_224+0x10  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_417
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_407
+??HAL_DMA_IRQHandler_417:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_224+0x14  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_418
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_407
+??HAL_DMA_IRQHandler_418:
+        MOVS     R0,#+67108864
+??HAL_DMA_IRQHandler_407:
+        LDR.W    R1,??HAL_DMA_IRQHandler_304  ;; 0x4002640c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_IRQHandler_419
+??HAL_DMA_IRQHandler_405:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_246  ;; 0x400260b9
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_IRQHandler_420
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_216  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_421
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_422
+??HAL_DMA_IRQHandler_421:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_216+0x4  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_423
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_422
+??HAL_DMA_IRQHandler_423:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_216+0x8  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_424
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_422
+??HAL_DMA_IRQHandler_424:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_216+0xC  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_425
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_422
         Nop      
         DATA
-??HAL_DMA_IRQHandler_158:
+??HAL_DMA_IRQHandler_216:
+        DC32     0x40026010
+        DC32     0x40026410
+        DC32     0x40026070
+        DC32     0x40026470
         DC32     0x40026028
         DC32     0x40026428
+        THUMB
+??HAL_DMA_IRQHandler_425:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_426  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_427
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_422
+??HAL_DMA_IRQHandler_427:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_429
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_422
+??HAL_DMA_IRQHandler_429:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_224  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_430
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_422
+??HAL_DMA_IRQHandler_430:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_224+0x4  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_431
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_422
+??HAL_DMA_IRQHandler_431:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_224+0x8  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_432
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_422
+??HAL_DMA_IRQHandler_432:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_224+0xC  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_433
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_422
+??HAL_DMA_IRQHandler_433:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_224+0x10  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_434
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_422
+??HAL_DMA_IRQHandler_434:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_224+0x14  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_435
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_422
+??HAL_DMA_IRQHandler_435:
+        MOVS     R0,#+67108864
+??HAL_DMA_IRQHandler_422:
+        LDR.W    R1,??HAL_DMA_IRQHandler_304+0x4  ;; 0x40026408
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_IRQHandler_419
+        DATA
+??HAL_DMA_IRQHandler_224:
         DC32     0x40026088
         DC32     0x40026488
         DC32     0x40026040
         DC32     0x40026440
         DC32     0x400260a0
         DC32     0x400264a0
+        DC32     0x40026459
+        DC32     0x40026404
+        DC32     0x800004
         THUMB
-??HAL_DMA_IRQHandler_354:
-        CMP      R1,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_364
-        CMP      R1,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_364
-        LDR.N    R2,??HAL_DMA_IRQHandler_167  ;; 0x40026070
-        CMP      R1,R2
-        BEQ.N    ??HAL_DMA_IRQHandler_364
-        LDR.N    R2,??HAL_DMA_IRQHandler_167+0x4  ;; 0x40026470
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_365
-??HAL_DMA_IRQHandler_364:
-        MOVS     R1,#+16
-        B.N      ??HAL_DMA_IRQHandler_366
-??HAL_DMA_IRQHandler_365:
-        LDR.W    R2,??DataTable3  ;; 0x40026028
-        CMP      R1,R2
-        BEQ.N    ??HAL_DMA_IRQHandler_367
-        LDR.W    R2,??DataTable3_1  ;; 0x40026428
-        CMP      R1,R2
-        BEQ.N    ??HAL_DMA_IRQHandler_367
-        LDR.W    R2,??DataTable3_2  ;; 0x40026088
-        CMP      R1,R2
-        BEQ.N    ??HAL_DMA_IRQHandler_367
-        LDR.W    R2,??DataTable3_3  ;; 0x40026488
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_368
-??HAL_DMA_IRQHandler_367:
-        MOV      R1,#+1024
-        B.N      ??HAL_DMA_IRQHandler_366
-??HAL_DMA_IRQHandler_368:
-        LDR.W    R2,??DataTable3_4  ;; 0x40026040
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_369
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_366
-??HAL_DMA_IRQHandler_369:
-        LDR.W    R2,??DataTable3_5  ;; 0x40026440
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_370
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_366
-??HAL_DMA_IRQHandler_370:
-        LDR.W    R2,??DataTable3_6  ;; 0x400260a0
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_371
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_366
-??HAL_DMA_IRQHandler_371:
-        LDR.W    R2,??DataTable3_7  ;; 0x400264a0
-        CMP      R1,R2
-        BNE.N    ??HAL_DMA_IRQHandler_372
-        MOV      R1,#+1048576
-        B.N      ??HAL_DMA_IRQHandler_366
-??HAL_DMA_IRQHandler_372:
-        MOV      R1,#+67108864
-??HAL_DMA_IRQHandler_366:
-        LDR.W    R2,??HAL_DMA_IRQHandler_247  ;; 0x40026000
-        STR      R1,[R2, #+8]
+??HAL_DMA_IRQHandler_420:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_261  ;; 0x40026059
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_IRQHandler_436
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0x4  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_437
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_438
+??HAL_DMA_IRQHandler_437:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0x8  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_439
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_438
+??HAL_DMA_IRQHandler_439:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0xC  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_440
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_438
+??HAL_DMA_IRQHandler_440:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0x10  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_441
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_438
+??HAL_DMA_IRQHandler_441:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_426  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_442
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_438
+??HAL_DMA_IRQHandler_442:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_443
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_438
+??HAL_DMA_IRQHandler_443:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0x14  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_444
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_438
+??HAL_DMA_IRQHandler_444:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_446
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_438
+??HAL_DMA_IRQHandler_446:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0x4  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_447
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_438
+??HAL_DMA_IRQHandler_447:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0x8  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_448
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_438
+??HAL_DMA_IRQHandler_448:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0xC  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_449
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_438
+??HAL_DMA_IRQHandler_449:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0x10  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_450
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_438
+??HAL_DMA_IRQHandler_450:
+        MOVS     R0,#+67108864
+??HAL_DMA_IRQHandler_438:
+        LDR.N    R1,??HAL_DMA_IRQHandler_304+0x8  ;; 0x4002600c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_IRQHandler_419
+        Nop      
+        DATA
+??HAL_DMA_IRQHandler_246:
+        DC32     0x400260b9
+        DC32     0x40026400
+        THUMB
+??HAL_DMA_IRQHandler_436:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0x4  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_451
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_452
+??HAL_DMA_IRQHandler_451:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0x8  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_453
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_452
+??HAL_DMA_IRQHandler_453:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0xC  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_454
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_452
+??HAL_DMA_IRQHandler_454:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0x10  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_455
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_452
+??HAL_DMA_IRQHandler_455:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_426  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_456
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_452
+??HAL_DMA_IRQHandler_456:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_457
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_452
+??HAL_DMA_IRQHandler_457:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0x14  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_458
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_452
+??HAL_DMA_IRQHandler_458:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_459
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_452
+??HAL_DMA_IRQHandler_459:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0x4  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_460
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_452
+??HAL_DMA_IRQHandler_460:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0x8  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_461
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_452
+??HAL_DMA_IRQHandler_461:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0xC  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_462
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_452
+??HAL_DMA_IRQHandler_462:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0x10  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_463
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_452
+??HAL_DMA_IRQHandler_463:
+        MOVS     R0,#+67108864
+??HAL_DMA_IRQHandler_452:
+        LDR.N    R1,??HAL_DMA_IRQHandler_304+0xC  ;; 0x40026008
+        STR      R0,[R1, #+0]
+//  768 
+//  769         /* Current memory buffer used is Memory 0 */
+//  770         if((hdma->Instance->CR & DMA_SxCR_CT) == 0)
+??HAL_DMA_IRQHandler_419:
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+0]
+        LSLS     R0,R0,#+12
+        BMI.N    ??HAL_DMA_IRQHandler_464
+//  771         {
+//  772           /* Change DMA peripheral state */
+//  773           hdma->State = HAL_DMA_STATE_READY_HALF_MEM0;
+        MOVS     R0,#+49
+        STRB     R0,[R4, #+53]
+        B.N      ??HAL_DMA_IRQHandler_465
+        DATA
+??HAL_DMA_IRQHandler_261:
+        DC32     0x40026059
+        DC32     0x40026004
+        DC32     0x40026000
+        THUMB
+//  774         }
+//  775         /* Current memory buffer used is Memory 1 */
+//  776         else if((hdma->Instance->CR & DMA_SxCR_CT) != 0)
+??HAL_DMA_IRQHandler_464:
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+0]
+        LSLS     R0,R0,#+12
+        BPL.W    ??HAL_DMA_IRQHandler_465
+//  777         {
+//  778           /* Change DMA peripheral state */
+//  779           hdma->State = HAL_DMA_STATE_READY_HALF_MEM1;
+        MOVS     R0,#+65
+        STRB     R0,[R4, #+53]
+        B.N      ??HAL_DMA_IRQHandler_465
+//  780         }
+//  781       }
+//  782       else
+//  783       {
+//  784         /* Disable the half transfer interrupt if the DMA mode is not CIRCULAR */
+//  785         if((hdma->Instance->CR & DMA_SxCR_CIRC) == 0)
+??HAL_DMA_IRQHandler_404:
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+0]
+        LSLS     R0,R0,#+23
+        BMI.N    ??HAL_DMA_IRQHandler_466
+//  786         {
+//  787           /* Disable the half transfer interrupt */
+//  788           __HAL_DMA_DISABLE_IT(hdma, DMA_IT_HT);
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+0]
+        BICS     R0,R0,#0x8
+        LDR      R1,[R4, #+0]
+        STR      R0,[R1, #+0]
+//  789         }
+//  790         /* Clear the half transfer complete flag */
+//  791         __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+??HAL_DMA_IRQHandler_466:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_467  ;; 0x40026459
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_IRQHandler_468
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0x4  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_469
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_470
+??HAL_DMA_IRQHandler_469:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0x8  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_471
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_470
+??HAL_DMA_IRQHandler_471:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0xC  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_472
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_470
+??HAL_DMA_IRQHandler_472:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0x10  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_473
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_470
+??HAL_DMA_IRQHandler_473:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_426  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_474
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_470
+??HAL_DMA_IRQHandler_474:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_475
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_470
+??HAL_DMA_IRQHandler_475:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0x14  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_476
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_470
+??HAL_DMA_IRQHandler_476:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_477
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_470
+??HAL_DMA_IRQHandler_477:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0x4  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_478
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_470
+??HAL_DMA_IRQHandler_478:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0x8  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_479
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_470
+??HAL_DMA_IRQHandler_479:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0xC  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_480
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_470
+??HAL_DMA_IRQHandler_480:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0x10  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_481
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_470
+??HAL_DMA_IRQHandler_481:
+        MOVS     R0,#+67108864
+??HAL_DMA_IRQHandler_470:
+        LDR.N    R1,??HAL_DMA_IRQHandler_304  ;; 0x4002640c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_IRQHandler_482
+??HAL_DMA_IRQHandler_468:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_483  ;; 0x400260b9
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_IRQHandler_484
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0x4  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_485
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_486
+??HAL_DMA_IRQHandler_485:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0x8  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_487
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_486
+??HAL_DMA_IRQHandler_487:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0xC  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_488
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_486
+??HAL_DMA_IRQHandler_488:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0x10  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_489
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_486
+??HAL_DMA_IRQHandler_489:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_426  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_490
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_486
+??HAL_DMA_IRQHandler_490:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_491
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_486
+??HAL_DMA_IRQHandler_491:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0x14  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_492
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_486
+??HAL_DMA_IRQHandler_492:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_493
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_486
+??HAL_DMA_IRQHandler_493:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0x4  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_494
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_486
+??HAL_DMA_IRQHandler_494:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0x8  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_495
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_486
+??HAL_DMA_IRQHandler_495:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0xC  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_496
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_486
+??HAL_DMA_IRQHandler_496:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0x10  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_497
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_486
+        DATA
+??HAL_DMA_IRQHandler_304:
+        DC32     0x4002640c
+        DC32     0x40026408
+        DC32     0x4002600c
+        DC32     0x40026008
+        THUMB
+??HAL_DMA_IRQHandler_497:
+        MOVS     R0,#+67108864
+??HAL_DMA_IRQHandler_486:
+        LDR.W    R1,??DataTable3  ;; 0x40026408
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_IRQHandler_482
+??HAL_DMA_IRQHandler_484:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable3_1  ;; 0x40026059
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_IRQHandler_498
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0x4  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_499
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_500
+??HAL_DMA_IRQHandler_499:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0x8  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_501
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_500
+??HAL_DMA_IRQHandler_501:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0xC  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_502
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_500
+??HAL_DMA_IRQHandler_502:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0x10  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_503
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_500
+??HAL_DMA_IRQHandler_503:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_426  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_504
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_500
+??HAL_DMA_IRQHandler_504:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_505
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_500
+??HAL_DMA_IRQHandler_505:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0x14  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_506
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_500
+??HAL_DMA_IRQHandler_506:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_507
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_500
+??HAL_DMA_IRQHandler_507:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0x4  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_508
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_500
+??HAL_DMA_IRQHandler_508:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0x8  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_509
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_500
+??HAL_DMA_IRQHandler_509:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0xC  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_510
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_500
+??HAL_DMA_IRQHandler_510:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0x10  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_511
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_500
+??HAL_DMA_IRQHandler_511:
+        MOVS     R0,#+67108864
+??HAL_DMA_IRQHandler_500:
+        LDR.W    R1,??DataTable3_2  ;; 0x4002600c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_IRQHandler_482
+??HAL_DMA_IRQHandler_498:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0x4  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_512
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_513
+??HAL_DMA_IRQHandler_512:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0x8  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_514
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_513
+??HAL_DMA_IRQHandler_514:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0xC  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_515
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_513
+??HAL_DMA_IRQHandler_515:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0x10  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_516
+        MOVS     R0,#+16
+        B.N      ??HAL_DMA_IRQHandler_513
+??HAL_DMA_IRQHandler_516:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_426  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_517
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_513
+??HAL_DMA_IRQHandler_517:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_518
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_513
+??HAL_DMA_IRQHandler_518:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0x14  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_519
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_513
+??HAL_DMA_IRQHandler_519:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_520
+        MOV      R0,#+1024
+        B.N      ??HAL_DMA_IRQHandler_513
+??HAL_DMA_IRQHandler_520:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0x4  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_521
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_513
+??HAL_DMA_IRQHandler_521:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0x8  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_522
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_513
+??HAL_DMA_IRQHandler_522:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0xC  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_523
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_513
+??HAL_DMA_IRQHandler_523:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0x10  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_524
+        MOVS     R0,#+1048576
+        B.N      ??HAL_DMA_IRQHandler_513
+??HAL_DMA_IRQHandler_524:
+        MOVS     R0,#+67108864
+??HAL_DMA_IRQHandler_513:
+        LDR.W    R1,??DataTable3_3  ;; 0x40026008
+        STR      R0,[R1, #+0]
 //  792 
 //  793         /* Change DMA peripheral state */
 //  794         hdma->State = HAL_DMA_STATE_READY_HALF_MEM0;
-??HAL_DMA_IRQHandler_331:
-        MOVS     R1,#+49
-        STRB     R1,[R0, #+1]
+??HAL_DMA_IRQHandler_482:
+        MOVS     R0,#+49
+        STRB     R0,[R4, #+53]
 //  795       }
 //  796 
 //  797       if(hdma->XferHalfCpltCallback != NULL)
-??HAL_DMA_IRQHandler_332:
-        LDR      R1,[R0, #+12]
-        MOVS     R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_289
+??HAL_DMA_IRQHandler_465:
+        LDR      R0,[R4, #+64]
+        CMP      R0,#+0
+        BEQ.N    ??HAL_DMA_IRQHandler_403
 //  798       {
 //  799         /* Half transfer callback */
 //  800         hdma->XferHalfCpltCallback(hdma);
-        MOV      R0,R4
+        MOVS     R0,R4
+        LDR      R1,[R4, #+64]
           CFI FunCall
         BLX      R1
 //  801       }
@@ -8378,596 +11851,825 @@ HAL_DMA_IRQHandler:
 //  803   }
 //  804   /* Transfer Complete Interrupt management ***********************************/
 //  805   if(__HAL_DMA_GET_FLAG(hdma, __HAL_DMA_GET_TC_FLAG_INDEX(hdma)) != RESET)
-??HAL_DMA_IRQHandler_289:
-        LDR      R1,[R4, #+0]
-        MOV      R2,R1
-        CMP      R2,R9
-        BCC.N    ??HAL_DMA_IRQHandler_373
-        LDR      R0,[R5, #+4]
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_374
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_374
-        LDR.N    R3,??HAL_DMA_IRQHandler_167  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_374
-        LDR.N    R3,??HAL_DMA_IRQHandler_167+0x4  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_375
-??HAL_DMA_IRQHandler_374:
-        MOVS     R3,#+32
-        B.N      ??HAL_DMA_IRQHandler_376
-??HAL_DMA_IRQHandler_375:
-        LDR.W    R3,??DataTable3  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_377
-        LDR.W    R3,??DataTable3_1  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_377
-        LDR.W    R3,??DataTable3_2  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_377
-        LDR.W    R3,??DataTable3_3  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_378
-??HAL_DMA_IRQHandler_377:
-        MOV      R3,#+2048
-        B.N      ??HAL_DMA_IRQHandler_376
-??HAL_DMA_IRQHandler_378:
-        LDR.W    R3,??DataTable3_4  ;; 0x40026040
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_379
-        MOV      R3,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_376
-??HAL_DMA_IRQHandler_379:
-        LDR.W    R3,??DataTable3_5  ;; 0x40026440
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_380
-        MOV      R3,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_376
-??HAL_DMA_IRQHandler_380:
-        LDR.W    R3,??DataTable3_6  ;; 0x400260a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_381
-        MOV      R3,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_376
-??HAL_DMA_IRQHandler_381:
-        LDR.W    R3,??DataTable3_7  ;; 0x400264a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_382
-        MOV      R3,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_376
-??HAL_DMA_IRQHandler_382:
-        MOV      R3,#+134217728
-??HAL_DMA_IRQHandler_376:
-        ANDS     R0,R3,R0
-        B.N      ??HAL_DMA_IRQHandler_383
-??HAL_DMA_IRQHandler_373:
-        CMP      R2,R6
-        BCC.N    ??HAL_DMA_IRQHandler_384
-        LDR      R0,[R5, #+0]
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_385
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_385
-        LDR.N    R3,??HAL_DMA_IRQHandler_167  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_385
-        LDR.N    R3,??HAL_DMA_IRQHandler_167+0x4  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_386
-??HAL_DMA_IRQHandler_385:
-        MOVS     R3,#+32
-        B.N      ??HAL_DMA_IRQHandler_387
-        DATA
-??HAL_DMA_IRQHandler_167:
-        DC32     0x40026070
-        DC32     0x40026470
-        DC32     0x800004
-        THUMB
-??HAL_DMA_IRQHandler_386:
-        LDR.W    R3,??DataTable3  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_388
-        LDR.W    R3,??DataTable3_1  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_388
-        LDR.W    R3,??DataTable3_2  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_388
-        LDR.W    R3,??DataTable3_3  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_389
-??HAL_DMA_IRQHandler_388:
-        MOV      R3,#+2048
-        B.N      ??HAL_DMA_IRQHandler_387
-??HAL_DMA_IRQHandler_389:
-        LDR.W    R3,??DataTable3_4  ;; 0x40026040
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_390
-        MOV      R3,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_387
-??HAL_DMA_IRQHandler_390:
-        LDR.W    R3,??DataTable3_5  ;; 0x40026440
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_391
-        MOV      R3,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_387
-??HAL_DMA_IRQHandler_391:
-        LDR.W    R3,??DataTable3_6  ;; 0x400260a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_392
-        MOV      R3,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_387
-??HAL_DMA_IRQHandler_392:
-        LDR.W    R3,??DataTable3_7  ;; 0x400264a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_393
-        MOV      R3,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_387
-??HAL_DMA_IRQHandler_393:
-        MOV      R3,#+134217728
-??HAL_DMA_IRQHandler_387:
-        ANDS     R0,R3,R0
-        B.N      ??HAL_DMA_IRQHandler_383
-??HAL_DMA_IRQHandler_384:
-        LDR.W    R0,??HAL_DMA_IRQHandler_247  ;; 0x40026000
-        LDR.W    R3,??HAL_DMA_IRQHandler_269  ;; 0x40026059
-        CMP      R2,R3
-        BCC.N    ??HAL_DMA_IRQHandler_394
-        LDR      R0,[R0, #+4]
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_395
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_395
-        LDR.W    R3,??DataTable3_8  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_395
-        LDR.W    R3,??DataTable3_9  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_396
-??HAL_DMA_IRQHandler_395:
-        MOVS     R3,#+32
-        B.N      ??HAL_DMA_IRQHandler_397
-??HAL_DMA_IRQHandler_396:
-        LDR.W    R3,??DataTable3  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_398
-        LDR.W    R3,??DataTable3_1  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_398
-        LDR.W    R3,??DataTable3_2  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_398
-        LDR.W    R3,??DataTable3_3  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_399
-??HAL_DMA_IRQHandler_398:
-        MOV      R3,#+2048
-        B.N      ??HAL_DMA_IRQHandler_397
-??HAL_DMA_IRQHandler_399:
-        LDR.W    R3,??DataTable3_4  ;; 0x40026040
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_400
-        MOV      R3,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_397
-??HAL_DMA_IRQHandler_400:
-        LDR.W    R3,??DataTable3_5  ;; 0x40026440
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_401
-        MOV      R3,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_397
-??HAL_DMA_IRQHandler_401:
-        LDR.W    R3,??DataTable3_6  ;; 0x400260a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_402
-        MOV      R3,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_397
-??HAL_DMA_IRQHandler_402:
-        LDR.W    R3,??DataTable3_7  ;; 0x400264a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_403
-        MOV      R3,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_397
 ??HAL_DMA_IRQHandler_403:
-        MOV      R3,#+134217728
-??HAL_DMA_IRQHandler_397:
-        ANDS     R0,R3,R0
-        B.N      ??HAL_DMA_IRQHandler_383
-??HAL_DMA_IRQHandler_394:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_467  ;; 0x40026459
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_IRQHandler_525
+        LDR.W    R0,??DataTable3_4  ;; 0x40026404
         LDR      R0,[R0, #+0]
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_404
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_404
-        LDR.W    R3,??DataTable3_8  ;; 0x40026070
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_404
-        LDR.W    R3,??DataTable3_9  ;; 0x40026470
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_405
-??HAL_DMA_IRQHandler_404:
-        MOVS     R3,#+32
-        B.N      ??HAL_DMA_IRQHandler_406
-??HAL_DMA_IRQHandler_405:
-        LDR.W    R3,??DataTable3  ;; 0x40026028
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_407
-        LDR.W    R3,??DataTable3_1  ;; 0x40026428
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_407
-        LDR.W    R3,??DataTable3_2  ;; 0x40026088
-        CMP      R2,R3
-        BEQ.N    ??HAL_DMA_IRQHandler_407
-        LDR.W    R3,??DataTable3_3  ;; 0x40026488
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_408
-??HAL_DMA_IRQHandler_407:
-        MOV      R3,#+2048
-        B.N      ??HAL_DMA_IRQHandler_406
-??HAL_DMA_IRQHandler_408:
-        LDR.W    R3,??DataTable3_4  ;; 0x40026040
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_409
-        MOV      R3,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_406
-??HAL_DMA_IRQHandler_409:
-        LDR.W    R3,??DataTable3_5  ;; 0x40026440
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_410
-        MOV      R3,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_406
-??HAL_DMA_IRQHandler_410:
-        LDR.W    R3,??DataTable3_6  ;; 0x400260a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_411
-        MOV      R3,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_406
-??HAL_DMA_IRQHandler_411:
-        LDR.W    R3,??DataTable3_7  ;; 0x400264a0
-        CMP      R2,R3
-        BNE.N    ??HAL_DMA_IRQHandler_412
-        MOV      R3,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_406
-??HAL_DMA_IRQHandler_412:
-        MOV      R3,#+134217728
-??HAL_DMA_IRQHandler_406:
-        ANDS     R0,R3,R0
-??HAL_DMA_IRQHandler_383:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_428+0x4  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_526
+        MOVS     R1,#+32
+        B.N      ??HAL_DMA_IRQHandler_527
+??HAL_DMA_IRQHandler_526:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_428+0x8  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_528
+        MOVS     R1,#+32
+        B.N      ??HAL_DMA_IRQHandler_527
+??HAL_DMA_IRQHandler_528:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_428+0xC  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_529
+        MOVS     R1,#+32
+        B.N      ??HAL_DMA_IRQHandler_527
+??HAL_DMA_IRQHandler_529:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_428+0x10  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_530
+        MOVS     R1,#+32
+        B.N      ??HAL_DMA_IRQHandler_527
+??HAL_DMA_IRQHandler_530:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_426  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_531
+        MOV      R1,#+2048
+        B.N      ??HAL_DMA_IRQHandler_527
+??HAL_DMA_IRQHandler_531:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_428  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_532
+        MOV      R1,#+2048
+        B.N      ??HAL_DMA_IRQHandler_527
+??HAL_DMA_IRQHandler_532:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_428+0x14  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_533
+        MOV      R1,#+2048
+        B.N      ??HAL_DMA_IRQHandler_527
+??HAL_DMA_IRQHandler_533:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_445  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_534
+        MOV      R1,#+2048
+        B.N      ??HAL_DMA_IRQHandler_527
+??HAL_DMA_IRQHandler_534:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_445+0x4  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_535
+        MOVS     R1,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_527
+??HAL_DMA_IRQHandler_535:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_445+0x8  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_536
+        MOVS     R1,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_527
+??HAL_DMA_IRQHandler_536:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_445+0xC  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_537
+        MOVS     R1,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_527
+??HAL_DMA_IRQHandler_537:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_445+0x10  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_538
+        MOVS     R1,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_527
+??HAL_DMA_IRQHandler_538:
+        MOVS     R1,#+134217728
+??HAL_DMA_IRQHandler_527:
+        ANDS     R0,R1,R0
+        B.N      ??HAL_DMA_IRQHandler_539
+??HAL_DMA_IRQHandler_525:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_483  ;; 0x400260b9
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_IRQHandler_540
+        LDR.W    R0,??DataTable3_5  ;; 0x40026400
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_428+0x4  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_541
+        MOVS     R1,#+32
+        B.N      ??HAL_DMA_IRQHandler_542
+??HAL_DMA_IRQHandler_541:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_428+0x8  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_543
+        MOVS     R1,#+32
+        B.N      ??HAL_DMA_IRQHandler_542
+??HAL_DMA_IRQHandler_543:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_428+0xC  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_544
+        MOVS     R1,#+32
+        B.N      ??HAL_DMA_IRQHandler_542
+??HAL_DMA_IRQHandler_544:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_428+0x10  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_545
+        MOVS     R1,#+32
+        B.N      ??HAL_DMA_IRQHandler_542
+??HAL_DMA_IRQHandler_545:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_426  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_546
+        MOV      R1,#+2048
+        B.N      ??HAL_DMA_IRQHandler_542
+??HAL_DMA_IRQHandler_546:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_428  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_547
+        MOV      R1,#+2048
+        B.N      ??HAL_DMA_IRQHandler_542
+??HAL_DMA_IRQHandler_547:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_428+0x14  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_548
+        MOV      R1,#+2048
+        B.N      ??HAL_DMA_IRQHandler_542
+??HAL_DMA_IRQHandler_548:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_445  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_549
+        MOV      R1,#+2048
+        B.N      ??HAL_DMA_IRQHandler_542
+??HAL_DMA_IRQHandler_549:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_445+0x4  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_550
+        MOVS     R1,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_542
+??HAL_DMA_IRQHandler_550:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_445+0x8  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_551
+        MOVS     R1,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_542
+??HAL_DMA_IRQHandler_551:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_445+0xC  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_552
+        MOVS     R1,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_542
+??HAL_DMA_IRQHandler_552:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_445+0x10  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_553
+        MOVS     R1,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_542
+??HAL_DMA_IRQHandler_553:
+        MOVS     R1,#+134217728
+??HAL_DMA_IRQHandler_542:
+        ANDS     R0,R1,R0
+        B.N      ??HAL_DMA_IRQHandler_539
+??HAL_DMA_IRQHandler_540:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable3_1  ;; 0x40026059
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_IRQHandler_554
+        LDR.W    R0,??DataTable3_6  ;; 0x40026004
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_428+0x4  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_555
+        MOVS     R1,#+32
+        B.N      ??HAL_DMA_IRQHandler_556
+??HAL_DMA_IRQHandler_555:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_428+0x8  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_557
+        MOVS     R1,#+32
+        B.N      ??HAL_DMA_IRQHandler_556
+??HAL_DMA_IRQHandler_557:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_428+0xC  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_558
+        MOVS     R1,#+32
+        B.N      ??HAL_DMA_IRQHandler_556
+??HAL_DMA_IRQHandler_558:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_428+0x10  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_559
+        MOVS     R1,#+32
+        B.N      ??HAL_DMA_IRQHandler_556
+??HAL_DMA_IRQHandler_559:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_426  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_560
+        MOV      R1,#+2048
+        B.N      ??HAL_DMA_IRQHandler_556
+??HAL_DMA_IRQHandler_560:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_428  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_561
+        MOV      R1,#+2048
+        B.N      ??HAL_DMA_IRQHandler_556
+??HAL_DMA_IRQHandler_561:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_428+0x14  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_562
+        MOV      R1,#+2048
+        B.N      ??HAL_DMA_IRQHandler_556
+??HAL_DMA_IRQHandler_562:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_445  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_563
+        MOV      R1,#+2048
+        B.N      ??HAL_DMA_IRQHandler_556
+??HAL_DMA_IRQHandler_563:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_445+0x4  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_564
+        MOVS     R1,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_556
+??HAL_DMA_IRQHandler_564:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_445+0x8  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_565
+        MOVS     R1,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_556
+??HAL_DMA_IRQHandler_565:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_445+0xC  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_566
+        MOVS     R1,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_556
+??HAL_DMA_IRQHandler_566:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_445+0x10  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_567
+        MOVS     R1,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_556
+??HAL_DMA_IRQHandler_567:
+        MOVS     R1,#+134217728
+??HAL_DMA_IRQHandler_556:
+        ANDS     R0,R1,R0
+        B.N      ??HAL_DMA_IRQHandler_539
+??HAL_DMA_IRQHandler_554:
+        LDR.W    R0,??DataTable3_7  ;; 0x40026000
+        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_428+0x4  ;; 0x40026010
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_568
+        MOVS     R1,#+32
+        B.N      ??HAL_DMA_IRQHandler_569
+??HAL_DMA_IRQHandler_568:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_428+0x8  ;; 0x40026410
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_570
+        MOVS     R1,#+32
+        B.N      ??HAL_DMA_IRQHandler_569
+??HAL_DMA_IRQHandler_570:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_428+0xC  ;; 0x40026070
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_571
+        MOVS     R1,#+32
+        B.N      ??HAL_DMA_IRQHandler_569
+??HAL_DMA_IRQHandler_571:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_428+0x10  ;; 0x40026470
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_572
+        MOVS     R1,#+32
+        B.N      ??HAL_DMA_IRQHandler_569
+??HAL_DMA_IRQHandler_572:
+        LDR      R1,[R4, #+0]
+        LDR.N    R2,??HAL_DMA_IRQHandler_426  ;; 0x40026028
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_573
+        MOV      R1,#+2048
+        B.N      ??HAL_DMA_IRQHandler_569
+??HAL_DMA_IRQHandler_573:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_428  ;; 0x40026428
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_574
+        MOV      R1,#+2048
+        B.N      ??HAL_DMA_IRQHandler_569
+??HAL_DMA_IRQHandler_574:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_428+0x14  ;; 0x40026088
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_575
+        MOV      R1,#+2048
+        B.N      ??HAL_DMA_IRQHandler_569
+??HAL_DMA_IRQHandler_575:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_445  ;; 0x40026488
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_576
+        MOV      R1,#+2048
+        B.N      ??HAL_DMA_IRQHandler_569
+??HAL_DMA_IRQHandler_576:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_445+0x4  ;; 0x40026040
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_577
+        MOVS     R1,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_569
+??HAL_DMA_IRQHandler_577:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_445+0x8  ;; 0x40026440
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_578
+        MOVS     R1,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_569
+??HAL_DMA_IRQHandler_578:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_445+0xC  ;; 0x400260a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_579
+        MOVS     R1,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_569
+??HAL_DMA_IRQHandler_579:
+        LDR      R1,[R4, #+0]
+        LDR.W    R2,??HAL_DMA_IRQHandler_445+0x10  ;; 0x400264a0
+        CMP      R1,R2
+        BNE.N    ??HAL_DMA_IRQHandler_580
+        MOVS     R1,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_569
+??HAL_DMA_IRQHandler_580:
+        MOVS     R1,#+134217728
+??HAL_DMA_IRQHandler_569:
+        ANDS     R0,R1,R0
+??HAL_DMA_IRQHandler_539:
         CMP      R0,#+0
-        BEQ.W    ??HAL_DMA_IRQHandler_413
+        BEQ.W    ??HAL_DMA_IRQHandler_581
 //  806   {
 //  807     if(__HAL_DMA_GET_IT_SOURCE(hdma, DMA_IT_TC) != RESET)
-        LDR      R0,[R1, #+0]
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+27
-        BPL.W    ??HAL_DMA_IRQHandler_413
+        BPL.W    ??HAL_DMA_IRQHandler_581
 //  808     {
 //  809       if(((hdma->Instance->CR) & (uint32_t)(DMA_SxCR_DBM)) != 0)
-        LDR      R0,[R1, #+0]
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+13
-        BPL.W    ??HAL_DMA_IRQHandler_414
+        BPL.W    ??HAL_DMA_IRQHandler_582
 //  810       {
 //  811         /* Clear the transfer complete flag */
 //  812         __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_TC_FLAG_INDEX(hdma));
-        CMP      R2,R9
-        BCC.N    ??HAL_DMA_IRQHandler_415
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_416
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_416
-        LDR.W    R0,??DataTable3_8  ;; 0x40026070
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_IRQHandler_416
-        LDR.W    R0,??DataTable3_9  ;; 0x40026470
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_IRQHandler_417
-??HAL_DMA_IRQHandler_416:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_467  ;; 0x40026459
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_IRQHandler_583
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0x4  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_584
         MOVS     R0,#+32
-        B.N      ??HAL_DMA_IRQHandler_418
-??HAL_DMA_IRQHandler_417:
-        LDR.W    R0,??DataTable3  ;; 0x40026028
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_IRQHandler_419
-        LDR.W    R0,??DataTable3_1  ;; 0x40026428
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_IRQHandler_419
-        LDR.W    R0,??DataTable3_2  ;; 0x40026088
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_IRQHandler_419
-        LDR.W    R0,??DataTable3_3  ;; 0x40026488
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_IRQHandler_420
-??HAL_DMA_IRQHandler_419:
-        MOV      R0,#+2048
-        B.N      ??HAL_DMA_IRQHandler_418
-??HAL_DMA_IRQHandler_420:
-        LDR.W    R0,??DataTable3_4  ;; 0x40026040
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_IRQHandler_421
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_418
-??HAL_DMA_IRQHandler_421:
-        LDR.W    R0,??DataTable3_5  ;; 0x40026440
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_IRQHandler_422
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_418
-??HAL_DMA_IRQHandler_422:
-        LDR.W    R0,??DataTable3_6  ;; 0x400260a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_IRQHandler_423
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_418
-??HAL_DMA_IRQHandler_423:
-        LDR.W    R0,??DataTable3_7  ;; 0x400264a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_IRQHandler_424
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_418
-??HAL_DMA_IRQHandler_424:
-        MOV      R0,#+134217728
-??HAL_DMA_IRQHandler_418:
-        STR      R0,[R5, #+12]
-        B.N      ??HAL_DMA_IRQHandler_425
-??HAL_DMA_IRQHandler_415:
-        CMP      R2,R6
-        BCC.N    ??HAL_DMA_IRQHandler_426
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_427
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_427
-        LDR.W    R0,??DataTable3_8  ;; 0x40026070
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_IRQHandler_427
-        LDR.W    R0,??DataTable3_9  ;; 0x40026470
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_IRQHandler_428
-??HAL_DMA_IRQHandler_427:
+        B.N      ??HAL_DMA_IRQHandler_585
+??HAL_DMA_IRQHandler_584:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0x8  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_586
         MOVS     R0,#+32
-        B.N      ??HAL_DMA_IRQHandler_429
-??HAL_DMA_IRQHandler_428:
-        LDR.W    R0,??DataTable3  ;; 0x40026028
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_IRQHandler_430
-        LDR.W    R0,??DataTable3_1  ;; 0x40026428
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_IRQHandler_430
-        LDR.W    R0,??DataTable3_2  ;; 0x40026088
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_IRQHandler_430
-        LDR.W    R0,??DataTable3_3  ;; 0x40026488
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_IRQHandler_431
-??HAL_DMA_IRQHandler_430:
+        B.N      ??HAL_DMA_IRQHandler_585
+??HAL_DMA_IRQHandler_586:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_428+0xC  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_587
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_IRQHandler_585
+??HAL_DMA_IRQHandler_587:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_428+0x10  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_588
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_IRQHandler_585
+??HAL_DMA_IRQHandler_588:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_426  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_589
         MOV      R0,#+2048
-        B.N      ??HAL_DMA_IRQHandler_429
-??HAL_DMA_IRQHandler_431:
-        LDR.W    R0,??DataTable3_4  ;; 0x40026040
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_IRQHandler_432
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_429
-??HAL_DMA_IRQHandler_432:
-        LDR.W    R0,??DataTable3_5  ;; 0x40026440
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_IRQHandler_433
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_429
-??HAL_DMA_IRQHandler_433:
-        LDR.W    R0,??DataTable3_6  ;; 0x400260a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_IRQHandler_434
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_429
-??HAL_DMA_IRQHandler_434:
-        LDR.W    R0,??DataTable3_7  ;; 0x400264a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_IRQHandler_435
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_429
-??HAL_DMA_IRQHandler_435:
-        MOV      R0,#+134217728
-??HAL_DMA_IRQHandler_429:
-        STR      R0,[R5, #+8]
-        B.N      ??HAL_DMA_IRQHandler_425
+        B.N      ??HAL_DMA_IRQHandler_585
+??HAL_DMA_IRQHandler_589:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_428  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_590
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_IRQHandler_585
+??HAL_DMA_IRQHandler_590:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_428+0x14  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_591
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_IRQHandler_585
+??HAL_DMA_IRQHandler_591:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_592
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_IRQHandler_585
+??HAL_DMA_IRQHandler_592:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0x4  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_593
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_585
+??HAL_DMA_IRQHandler_593:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0x8  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_594
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_585
+??HAL_DMA_IRQHandler_594:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0xC  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_595
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_585
+??HAL_DMA_IRQHandler_595:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_445+0x10  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_596
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_585
+??HAL_DMA_IRQHandler_596:
+        MOVS     R0,#+134217728
+??HAL_DMA_IRQHandler_585:
+        LDR.W    R1,??DataTable3_8  ;; 0x4002640c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_IRQHandler_597
+??HAL_DMA_IRQHandler_583:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??HAL_DMA_IRQHandler_483  ;; 0x400260b9
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_IRQHandler_598
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_428+0x4  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_599
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_IRQHandler_600
+??HAL_DMA_IRQHandler_599:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_428+0x8  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_601
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_IRQHandler_600
+??HAL_DMA_IRQHandler_601:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_428+0xC  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_602
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_IRQHandler_600
+??HAL_DMA_IRQHandler_602:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_428+0x10  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_603
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_IRQHandler_600
+??HAL_DMA_IRQHandler_603:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_426  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_604
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_IRQHandler_600
+??HAL_DMA_IRQHandler_604:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_428  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_605
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_IRQHandler_600
+??HAL_DMA_IRQHandler_605:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_428+0x14  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_606
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_IRQHandler_600
+??HAL_DMA_IRQHandler_606:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_445  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_607
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_IRQHandler_600
+??HAL_DMA_IRQHandler_607:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_445+0x4  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_608
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_600
+??HAL_DMA_IRQHandler_608:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_445+0x8  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_609
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_600
+??HAL_DMA_IRQHandler_609:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_445+0xC  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_610
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_600
+??HAL_DMA_IRQHandler_610:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_445+0x10  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_611
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_600
+??HAL_DMA_IRQHandler_611:
+        MOVS     R0,#+134217728
+??HAL_DMA_IRQHandler_600:
+        LDR.W    R1,??DataTable3  ;; 0x40026408
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_IRQHandler_597
+??HAL_DMA_IRQHandler_598:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable3_1  ;; 0x40026059
+        CMP      R0,R1
+        BCC.N    ??HAL_DMA_IRQHandler_612
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_428+0x4  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_613
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_IRQHandler_614
+??HAL_DMA_IRQHandler_613:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_428+0x8  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_615
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_IRQHandler_614
+??HAL_DMA_IRQHandler_615:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_428+0xC  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_616
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_IRQHandler_614
+??HAL_DMA_IRQHandler_616:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_428+0x10  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_617
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_IRQHandler_614
+??HAL_DMA_IRQHandler_617:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_426  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_618
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_IRQHandler_614
+??HAL_DMA_IRQHandler_618:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_428  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_619
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_IRQHandler_614
+??HAL_DMA_IRQHandler_619:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_428+0x14  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_620
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_IRQHandler_614
+??HAL_DMA_IRQHandler_620:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_445  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_621
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_IRQHandler_614
+??HAL_DMA_IRQHandler_621:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_445+0x4  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_622
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_614
+??HAL_DMA_IRQHandler_622:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_445+0x8  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_623
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_614
+??HAL_DMA_IRQHandler_623:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_445+0xC  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_624
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_614
+??HAL_DMA_IRQHandler_624:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_445+0x10  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_625
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_614
+??HAL_DMA_IRQHandler_625:
+        MOVS     R0,#+134217728
+??HAL_DMA_IRQHandler_614:
+        LDR.W    R1,??DataTable3_2  ;; 0x4002600c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_IRQHandler_597
+        DATA
 ??HAL_DMA_IRQHandler_426:
-        LDR.W    R0,??HAL_DMA_IRQHandler_269  ;; 0x40026059
-        CMP      R2,R0
-        BCC.N    ??HAL_DMA_IRQHandler_436
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_437
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_437
-        LDR.W    R0,??DataTable3_8  ;; 0x40026070
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_IRQHandler_437
-        LDR.W    R0,??DataTable3_9  ;; 0x40026470
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_IRQHandler_438
-??HAL_DMA_IRQHandler_437:
+        DC32     0x40026028
+        THUMB
+??HAL_DMA_IRQHandler_612:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_428+0x4  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_626
         MOVS     R0,#+32
-        B.N      ??HAL_DMA_IRQHandler_439
-??HAL_DMA_IRQHandler_438:
-        LDR.W    R0,??DataTable3  ;; 0x40026028
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_IRQHandler_440
-        LDR.W    R0,??DataTable3_1  ;; 0x40026428
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_IRQHandler_440
-        LDR.W    R0,??DataTable3_2  ;; 0x40026088
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_IRQHandler_440
-        LDR.W    R0,??DataTable3_3  ;; 0x40026488
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_IRQHandler_441
-??HAL_DMA_IRQHandler_440:
-        MOV      R0,#+2048
-        B.N      ??HAL_DMA_IRQHandler_439
-??HAL_DMA_IRQHandler_441:
-        LDR.W    R0,??DataTable3_4  ;; 0x40026040
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_IRQHandler_442
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_439
-??HAL_DMA_IRQHandler_442:
-        LDR.W    R0,??DataTable3_5  ;; 0x40026440
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_IRQHandler_443
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_439
-??HAL_DMA_IRQHandler_443:
-        LDR.W    R0,??DataTable3_6  ;; 0x400260a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_IRQHandler_444
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_439
-??HAL_DMA_IRQHandler_444:
-        LDR.W    R0,??DataTable3_7  ;; 0x400264a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_IRQHandler_445
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_439
-??HAL_DMA_IRQHandler_445:
-        MOV      R0,#+134217728
-??HAL_DMA_IRQHandler_439:
-        LDR.N    R1,??HAL_DMA_IRQHandler_247  ;; 0x40026000
-        STR      R0,[R1, #+12]
-        B.N      ??HAL_DMA_IRQHandler_425
-??HAL_DMA_IRQHandler_436:
-        CMP      R2,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_446
-        CMP      R2,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_446
-        LDR.W    R0,??DataTable3_8  ;; 0x40026070
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_IRQHandler_446
-        LDR.W    R0,??DataTable3_9  ;; 0x40026470
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_IRQHandler_447
-??HAL_DMA_IRQHandler_446:
+        B.N      ??HAL_DMA_IRQHandler_627
+??HAL_DMA_IRQHandler_626:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_428+0x8  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_628
         MOVS     R0,#+32
-        B.N      ??HAL_DMA_IRQHandler_448
-??HAL_DMA_IRQHandler_447:
-        LDR.N    R0,??DataTable3  ;; 0x40026028
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_IRQHandler_449
-        LDR.N    R0,??DataTable3_1  ;; 0x40026428
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_IRQHandler_449
-        LDR.N    R0,??DataTable3_2  ;; 0x40026088
-        CMP      R2,R0
-        BEQ.N    ??HAL_DMA_IRQHandler_449
-        LDR.N    R0,??DataTable3_3  ;; 0x40026488
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_IRQHandler_450
-??HAL_DMA_IRQHandler_449:
+        B.N      ??HAL_DMA_IRQHandler_627
+??HAL_DMA_IRQHandler_628:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_428+0xC  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_629
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_IRQHandler_627
+??HAL_DMA_IRQHandler_629:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_428+0x10  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_630
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_IRQHandler_627
+??HAL_DMA_IRQHandler_630:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable3_9  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_631
         MOV      R0,#+2048
-        B.N      ??HAL_DMA_IRQHandler_448
-??HAL_DMA_IRQHandler_450:
-        LDR.N    R0,??DataTable3_4  ;; 0x40026040
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_IRQHandler_451
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_448
-??HAL_DMA_IRQHandler_451:
-        LDR.N    R0,??DataTable3_5  ;; 0x40026440
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_IRQHandler_452
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_448
-??HAL_DMA_IRQHandler_452:
-        LDR.N    R0,??DataTable3_6  ;; 0x400260a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_IRQHandler_453
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_448
-??HAL_DMA_IRQHandler_453:
-        LDR.N    R0,??DataTable3_7  ;; 0x400264a0
-        CMP      R2,R0
-        BNE.N    ??HAL_DMA_IRQHandler_454
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_448
-??HAL_DMA_IRQHandler_454:
-        MOV      R0,#+134217728
-??HAL_DMA_IRQHandler_448:
-        LDR.N    R1,??HAL_DMA_IRQHandler_247  ;; 0x40026000
-        STR      R0,[R1, #+8]
+        B.N      ??HAL_DMA_IRQHandler_627
+??HAL_DMA_IRQHandler_631:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_428  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_632
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_IRQHandler_627
+??HAL_DMA_IRQHandler_632:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_428+0x14  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_633
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_IRQHandler_627
+??HAL_DMA_IRQHandler_633:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_445  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_634
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_IRQHandler_627
+??HAL_DMA_IRQHandler_634:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_445+0x4  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_635
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_627
+??HAL_DMA_IRQHandler_635:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_445+0x8  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_636
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_627
+??HAL_DMA_IRQHandler_636:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_445+0xC  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_637
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_627
+??HAL_DMA_IRQHandler_637:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_445+0x10  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_638
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_627
+??HAL_DMA_IRQHandler_638:
+        MOVS     R0,#+134217728
+??HAL_DMA_IRQHandler_627:
+        LDR.W    R1,??DataTable3_3  ;; 0x40026008
+        STR      R0,[R1, #+0]
 //  813 
 //  814         /* Current memory buffer used is Memory 1 */
 //  815         if((hdma->Instance->CR & DMA_SxCR_CT) == 0)
-??HAL_DMA_IRQHandler_425:
+??HAL_DMA_IRQHandler_597:
         LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+0]
-        LSLS     R1,R1,#+12
-        BMI.N    ??HAL_DMA_IRQHandler_455
+        LDR      R0,[R0, #+0]
+        LSLS     R0,R0,#+12
+        BMI.N    ??HAL_DMA_IRQHandler_639
 //  816         {
 //  817           if(hdma->XferM1CpltCallback != NULL)
-        ADD      R0,R4,#+52
-        LDR      R1,[R0, #+16]
-        MOVS     R0,R1
-        BEQ.W    ??HAL_DMA_IRQHandler_413
+        LDR      R0,[R4, #+68]
+        CMP      R0,#+0
+        BEQ.W    ??HAL_DMA_IRQHandler_581
 //  818           {
 //  819             /* Transfer complete Callback for memory1 */
 //  820             hdma->XferM1CpltCallback(hdma);
-        MOV      R0,R4
-        POP      {R2,R4-R9,LR}
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI R6 SameValue
-          CFI R7 SameValue
-          CFI R8 SameValue
-          CFI R9 SameValue
-          CFI R14 SameValue
-          CFI CFA R13+0
+        MOVS     R0,R4
+        LDR      R1,[R4, #+68]
           CFI FunCall
-        ANOTE "tailcall"
-        BX       R1
-          CFI R4 Frame(CFA, -28)
-          CFI R5 Frame(CFA, -24)
-          CFI R6 Frame(CFA, -20)
-          CFI R7 Frame(CFA, -16)
-          CFI R8 Frame(CFA, -12)
-          CFI R9 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+32
+        BLX      R1
+        B.N      ??HAL_DMA_IRQHandler_581
+        DATA
+??HAL_DMA_IRQHandler_428:
+        DC32     0x40026428
+        DC32     0x40026010
+        DC32     0x40026410
+        DC32     0x40026070
+        DC32     0x40026470
+        DC32     0x40026088
+        THUMB
 //  821           }
 //  822         }
 //  823         /* Current memory buffer used is Memory 0 */
 //  824         else if((hdma->Instance->CR & DMA_SxCR_CT) != 0) 
-??HAL_DMA_IRQHandler_455:
+??HAL_DMA_IRQHandler_639:
+        LDR      R0,[R4, #+0]
         LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+12
-        BPL.W    ??HAL_DMA_IRQHandler_413
+        BPL.W    ??HAL_DMA_IRQHandler_581
 //  825         {
 //  826           if(hdma->XferCpltCallback != NULL)
-        ADD      R0,R4,#+52
-        LDR      R1,[R0, #+8]
-        MOVS     R0,R1
-        BEQ.W    ??HAL_DMA_IRQHandler_413
+        LDR      R0,[R4, #+60]
+        CMP      R0,#+0
+        BEQ.W    ??HAL_DMA_IRQHandler_581
 //  827           {
 //  828             /* Transfer complete Callback for memory0 */
 //  829             hdma->XferCpltCallback(hdma);
-        MOV      R0,R4
-        POP      {R2,R4-R9,LR}
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI R6 SameValue
-          CFI R7 SameValue
-          CFI R8 SameValue
-          CFI R9 SameValue
-          CFI R14 SameValue
-          CFI CFA R13+0
+        MOVS     R0,R4
+        LDR      R1,[R4, #+60]
           CFI FunCall
-        ANOTE "tailcall"
-        BX       R1
-          CFI R4 Frame(CFA, -28)
-          CFI R5 Frame(CFA, -24)
-          CFI R6 Frame(CFA, -20)
-          CFI R7 Frame(CFA, -16)
-          CFI R8 Frame(CFA, -12)
-          CFI R9 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+32
+        BLX      R1
+        B.N      ??HAL_DMA_IRQHandler_581
 //  830           }
 //  831         }
 //  832       }
@@ -8975,393 +12677,573 @@ HAL_DMA_IRQHandler:
 //  834       else
 //  835       {
 //  836         if((hdma->Instance->CR & DMA_SxCR_CIRC) == 0)
-??HAL_DMA_IRQHandler_414:
-        LDR      R0,[R1, #+0]
+??HAL_DMA_IRQHandler_582:
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+23
-        BMI.N    ??HAL_DMA_IRQHandler_456
+        BMI.N    ??HAL_DMA_IRQHandler_640
 //  837         {
 //  838           /* Disable the transfer complete interrupt */
 //  839           __HAL_DMA_DISABLE_IT(hdma, DMA_IT_TC);
-        LDR      R0,[R1, #+0]
-        BIC      R0,R0,#0x10
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+0]
+        BICS     R0,R0,#0x10
+        LDR      R1,[R4, #+0]
         STR      R0,[R1, #+0]
 //  840         }
 //  841         /* Clear the transfer complete flag */
 //  842         __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_TC_FLAG_INDEX(hdma));
-??HAL_DMA_IRQHandler_456:
+??HAL_DMA_IRQHandler_640:
         LDR      R0,[R4, #+0]
-        CMP      R0,R9
-        BCC.N    ??HAL_DMA_IRQHandler_457
-        CMP      R0,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_458
-        CMP      R0,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_458
-        LDR.N    R1,??DataTable3_8  ;; 0x40026070
+        LDR.N    R1,??HAL_DMA_IRQHandler_467  ;; 0x40026459
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_458
-        LDR.N    R1,??DataTable3_9  ;; 0x40026470
+        BCC.N    ??HAL_DMA_IRQHandler_641
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable3_10  ;; 0x40026010
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_459
-??HAL_DMA_IRQHandler_458:
+        BNE.N    ??HAL_DMA_IRQHandler_642
         MOVS     R0,#+32
-        B.N      ??HAL_DMA_IRQHandler_460
-??HAL_DMA_IRQHandler_459:
-        LDR.N    R1,??DataTable3  ;; 0x40026028
+        B.N      ??HAL_DMA_IRQHandler_643
+??HAL_DMA_IRQHandler_642:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable3_11  ;; 0x40026410
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_461
-        LDR.N    R1,??DataTable3_1  ;; 0x40026428
+        BNE.N    ??HAL_DMA_IRQHandler_644
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_IRQHandler_643
+??HAL_DMA_IRQHandler_644:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable3_12  ;; 0x40026070
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_461
-        LDR.N    R1,??DataTable3_2  ;; 0x40026088
+        BNE.N    ??HAL_DMA_IRQHandler_645
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_IRQHandler_643
+??HAL_DMA_IRQHandler_645:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable3_13  ;; 0x40026470
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_461
-        LDR.N    R1,??DataTable3_3  ;; 0x40026488
+        BNE.N    ??HAL_DMA_IRQHandler_646
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_IRQHandler_643
+??HAL_DMA_IRQHandler_646:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable3_9  ;; 0x40026028
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_462
-??HAL_DMA_IRQHandler_461:
+        BNE.N    ??HAL_DMA_IRQHandler_647
         MOV      R0,#+2048
-        B.N      ??HAL_DMA_IRQHandler_460
-??HAL_DMA_IRQHandler_462:
-        LDR.N    R1,??DataTable3_4  ;; 0x40026040
+        B.N      ??HAL_DMA_IRQHandler_643
+??HAL_DMA_IRQHandler_647:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable3_14  ;; 0x40026428
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_463
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_460
-??HAL_DMA_IRQHandler_463:
-        LDR.N    R1,??DataTable3_5  ;; 0x40026440
+        BNE.N    ??HAL_DMA_IRQHandler_648
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_IRQHandler_643
+??HAL_DMA_IRQHandler_648:
+        LDR      R0,[R4, #+0]
+        LDR.W    R1,??DataTable3_15  ;; 0x40026088
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_464
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_460
-??HAL_DMA_IRQHandler_464:
-        LDR.N    R1,??DataTable3_6  ;; 0x400260a0
+        BNE.N    ??HAL_DMA_IRQHandler_649
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_IRQHandler_643
+??HAL_DMA_IRQHandler_649:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_445  ;; 0x40026488
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_465
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_460
-??HAL_DMA_IRQHandler_465:
-        LDR.N    R1,??DataTable3_7  ;; 0x400264a0
+        BNE.N    ??HAL_DMA_IRQHandler_650
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_IRQHandler_643
+??HAL_DMA_IRQHandler_650:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_445+0x4  ;; 0x40026040
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_466
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_460
+        BNE.N    ??HAL_DMA_IRQHandler_651
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_643
+??HAL_DMA_IRQHandler_651:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_445+0x8  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_652
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_643
+??HAL_DMA_IRQHandler_652:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_445+0xC  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_653
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_643
+??HAL_DMA_IRQHandler_653:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_445+0x10  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_654
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_643
+??HAL_DMA_IRQHandler_654:
+        MOVS     R0,#+134217728
+??HAL_DMA_IRQHandler_643:
+        LDR.N    R1,??DataTable3_8  ;; 0x4002640c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_IRQHandler_655
         Nop      
         DATA
-??HAL_DMA_IRQHandler_247:
-        DC32     0x40026000
+??HAL_DMA_IRQHandler_445:
+        DC32     0x40026488
+        DC32     0x40026040
+        DC32     0x40026440
+        DC32     0x400260a0
+        DC32     0x400264a0
         THUMB
-??HAL_DMA_IRQHandler_466:
-        MOV      R0,#+134217728
-??HAL_DMA_IRQHandler_460:
-        STR      R0,[R5, #+12]
-        B.N      ??HAL_DMA_IRQHandler_467
-??HAL_DMA_IRQHandler_457:
-        CMP      R0,R6
-        BCC.N    ??HAL_DMA_IRQHandler_468
-        CMP      R0,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_469
-        CMP      R0,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_469
-        LDR.N    R1,??DataTable3_8  ;; 0x40026070
+??HAL_DMA_IRQHandler_641:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??HAL_DMA_IRQHandler_483  ;; 0x400260b9
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_469
-        LDR.N    R1,??DataTable3_9  ;; 0x40026470
+        BCC.N    ??HAL_DMA_IRQHandler_656
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_10  ;; 0x40026010
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_470
-??HAL_DMA_IRQHandler_469:
+        BNE.N    ??HAL_DMA_IRQHandler_657
         MOVS     R0,#+32
-        B.N      ??HAL_DMA_IRQHandler_471
-??HAL_DMA_IRQHandler_470:
-        LDR.N    R1,??DataTable3  ;; 0x40026028
+        B.N      ??HAL_DMA_IRQHandler_658
+??HAL_DMA_IRQHandler_657:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_11  ;; 0x40026410
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_472
-        LDR.N    R1,??DataTable3_1  ;; 0x40026428
+        BNE.N    ??HAL_DMA_IRQHandler_659
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_IRQHandler_658
+??HAL_DMA_IRQHandler_659:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_12  ;; 0x40026070
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_472
-        LDR.N    R1,??DataTable3_2  ;; 0x40026088
+        BNE.N    ??HAL_DMA_IRQHandler_660
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_IRQHandler_658
+??HAL_DMA_IRQHandler_660:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_13  ;; 0x40026470
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_472
-        LDR.N    R1,??DataTable3_3  ;; 0x40026488
+        BNE.N    ??HAL_DMA_IRQHandler_661
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_IRQHandler_658
+??HAL_DMA_IRQHandler_661:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_9  ;; 0x40026028
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_473
-??HAL_DMA_IRQHandler_472:
+        BNE.N    ??HAL_DMA_IRQHandler_662
         MOV      R0,#+2048
-        B.N      ??HAL_DMA_IRQHandler_471
-??HAL_DMA_IRQHandler_473:
-        LDR.N    R1,??DataTable3_4  ;; 0x40026040
+        B.N      ??HAL_DMA_IRQHandler_658
+??HAL_DMA_IRQHandler_662:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_14  ;; 0x40026428
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_474
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_471
-??HAL_DMA_IRQHandler_474:
-        LDR.N    R1,??DataTable3_5  ;; 0x40026440
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_475
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_471
-??HAL_DMA_IRQHandler_475:
-        LDR.N    R1,??DataTable3_6  ;; 0x400260a0
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_476
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_471
-??HAL_DMA_IRQHandler_476:
-        LDR.N    R1,??DataTable3_7  ;; 0x400264a0
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_477
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_471
-??HAL_DMA_IRQHandler_477:
-        MOV      R0,#+134217728
-??HAL_DMA_IRQHandler_471:
-        STR      R0,[R5, #+8]
-        B.N      ??HAL_DMA_IRQHandler_467
-??HAL_DMA_IRQHandler_468:
-        LDR.N    R1,??HAL_DMA_IRQHandler_269  ;; 0x40026059
-        CMP      R0,R1
-        BCC.N    ??HAL_DMA_IRQHandler_478
-        CMP      R0,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_479
-        CMP      R0,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_479
-        LDR.N    R1,??DataTable3_8  ;; 0x40026070
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_479
-        LDR.N    R1,??DataTable3_9  ;; 0x40026470
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_480
-??HAL_DMA_IRQHandler_479:
-        MOVS     R0,#+32
-        B.N      ??HAL_DMA_IRQHandler_481
-??HAL_DMA_IRQHandler_480:
-        LDR.N    R1,??DataTable3  ;; 0x40026028
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_482
-        LDR.N    R1,??DataTable3_1  ;; 0x40026428
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_482
-        LDR.N    R1,??DataTable3_2  ;; 0x40026088
-        CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_482
-        LDR.N    R1,??DataTable3_3  ;; 0x40026488
-        CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_483
-??HAL_DMA_IRQHandler_482:
+        BNE.N    ??HAL_DMA_IRQHandler_663
         MOV      R0,#+2048
-        B.N      ??HAL_DMA_IRQHandler_481
-??HAL_DMA_IRQHandler_483:
-        LDR.N    R1,??DataTable3_4  ;; 0x40026040
+        B.N      ??HAL_DMA_IRQHandler_658
+??HAL_DMA_IRQHandler_663:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_15  ;; 0x40026088
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_484
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_481
-??HAL_DMA_IRQHandler_484:
-        LDR.N    R1,??DataTable3_5  ;; 0x40026440
+        BNE.N    ??HAL_DMA_IRQHandler_664
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_IRQHandler_658
+??HAL_DMA_IRQHandler_664:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_16  ;; 0x40026488
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_485
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_481
-??HAL_DMA_IRQHandler_485:
-        LDR.N    R1,??DataTable3_6  ;; 0x400260a0
+        BNE.N    ??HAL_DMA_IRQHandler_665
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_IRQHandler_658
+??HAL_DMA_IRQHandler_665:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_17  ;; 0x40026040
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_486
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_481
-??HAL_DMA_IRQHandler_486:
-        LDR.N    R1,??DataTable3_7  ;; 0x400264a0
+        BNE.N    ??HAL_DMA_IRQHandler_666
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_658
+??HAL_DMA_IRQHandler_666:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_18  ;; 0x40026440
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_487
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_481
-??HAL_DMA_IRQHandler_487:
-        MOV      R0,#+134217728
-??HAL_DMA_IRQHandler_481:
-        LDR.N    R1,??DataTable3_10  ;; 0x40026000
-        STR      R0,[R1, #+12]
-        B.N      ??HAL_DMA_IRQHandler_467
-??HAL_DMA_IRQHandler_478:
-        CMP      R0,R8
-        BEQ.N    ??HAL_DMA_IRQHandler_488
-        CMP      R0,R7
-        BEQ.N    ??HAL_DMA_IRQHandler_488
-        LDR.N    R1,??DataTable3_8  ;; 0x40026070
+        BNE.N    ??HAL_DMA_IRQHandler_667
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_658
+??HAL_DMA_IRQHandler_667:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_19  ;; 0x400260a0
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_488
-        LDR.N    R1,??DataTable3_9  ;; 0x40026470
+        BNE.N    ??HAL_DMA_IRQHandler_668
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_658
+??HAL_DMA_IRQHandler_668:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_20  ;; 0x400264a0
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_489
-??HAL_DMA_IRQHandler_488:
-        MOVS     R0,#+32
-        B.N      ??HAL_DMA_IRQHandler_490
+        BNE.N    ??HAL_DMA_IRQHandler_669
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_658
+??HAL_DMA_IRQHandler_669:
+        MOVS     R0,#+134217728
+??HAL_DMA_IRQHandler_658:
+        LDR.N    R1,??DataTable3  ;; 0x40026408
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_IRQHandler_655
+        Nop      
         DATA
-??HAL_DMA_IRQHandler_269:
-        DC32     0x40026059
+??HAL_DMA_IRQHandler_467:
+        DC32     0x40026459
         THUMB
-??HAL_DMA_IRQHandler_489:
-        LDR.N    R1,??DataTable3  ;; 0x40026028
+??HAL_DMA_IRQHandler_656:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_1  ;; 0x40026059
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_491
-        LDR.N    R1,??DataTable3_1  ;; 0x40026428
+        BCC.N    ??HAL_DMA_IRQHandler_670
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_10  ;; 0x40026010
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_491
-        LDR.N    R1,??DataTable3_2  ;; 0x40026088
+        BNE.N    ??HAL_DMA_IRQHandler_671
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_IRQHandler_672
+??HAL_DMA_IRQHandler_671:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_11  ;; 0x40026410
         CMP      R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_491
-        LDR.N    R1,??DataTable3_3  ;; 0x40026488
+        BNE.N    ??HAL_DMA_IRQHandler_673
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_IRQHandler_672
+??HAL_DMA_IRQHandler_673:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_12  ;; 0x40026070
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_492
-??HAL_DMA_IRQHandler_491:
+        BNE.N    ??HAL_DMA_IRQHandler_674
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_IRQHandler_672
+??HAL_DMA_IRQHandler_674:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_13  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_675
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_IRQHandler_672
+??HAL_DMA_IRQHandler_675:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_9  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_676
         MOV      R0,#+2048
-        B.N      ??HAL_DMA_IRQHandler_490
-??HAL_DMA_IRQHandler_492:
-        LDR.N    R1,??DataTable3_4  ;; 0x40026040
+        B.N      ??HAL_DMA_IRQHandler_672
+??HAL_DMA_IRQHandler_676:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_14  ;; 0x40026428
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_493
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_490
-??HAL_DMA_IRQHandler_493:
-        LDR.N    R1,??DataTable3_5  ;; 0x40026440
+        BNE.N    ??HAL_DMA_IRQHandler_677
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_IRQHandler_672
+??HAL_DMA_IRQHandler_677:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_15  ;; 0x40026088
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_494
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_490
-??HAL_DMA_IRQHandler_494:
-        LDR.N    R1,??DataTable3_6  ;; 0x400260a0
+        BNE.N    ??HAL_DMA_IRQHandler_678
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_IRQHandler_672
+??HAL_DMA_IRQHandler_678:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_16  ;; 0x40026488
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_495
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_490
-??HAL_DMA_IRQHandler_495:
-        LDR.N    R1,??DataTable3_7  ;; 0x400264a0
+        BNE.N    ??HAL_DMA_IRQHandler_679
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_IRQHandler_672
+??HAL_DMA_IRQHandler_679:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_17  ;; 0x40026040
         CMP      R0,R1
-        BNE.N    ??HAL_DMA_IRQHandler_496
-        MOV      R0,#+2097152
-        B.N      ??HAL_DMA_IRQHandler_490
-??HAL_DMA_IRQHandler_496:
-        MOV      R0,#+134217728
-??HAL_DMA_IRQHandler_490:
-        LDR.N    R1,??DataTable3_10  ;; 0x40026000
-        STR      R0,[R1, #+8]
+        BNE.N    ??HAL_DMA_IRQHandler_680
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_672
+??HAL_DMA_IRQHandler_680:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_18  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_681
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_672
+??HAL_DMA_IRQHandler_681:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_19  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_682
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_672
+??HAL_DMA_IRQHandler_682:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_20  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_683
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_672
+??HAL_DMA_IRQHandler_683:
+        MOVS     R0,#+134217728
+??HAL_DMA_IRQHandler_672:
+        LDR.N    R1,??DataTable3_2  ;; 0x4002600c
+        STR      R0,[R1, #+0]
+        B.N      ??HAL_DMA_IRQHandler_655
+??HAL_DMA_IRQHandler_670:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_10  ;; 0x40026010
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_684
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_IRQHandler_685
+??HAL_DMA_IRQHandler_684:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_11  ;; 0x40026410
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_686
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_IRQHandler_685
+??HAL_DMA_IRQHandler_686:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_12  ;; 0x40026070
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_687
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_IRQHandler_685
+??HAL_DMA_IRQHandler_687:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_13  ;; 0x40026470
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_688
+        MOVS     R0,#+32
+        B.N      ??HAL_DMA_IRQHandler_685
+??HAL_DMA_IRQHandler_688:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_9  ;; 0x40026028
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_689
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_IRQHandler_685
+??HAL_DMA_IRQHandler_689:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_14  ;; 0x40026428
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_690
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_IRQHandler_685
+??HAL_DMA_IRQHandler_690:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_15  ;; 0x40026088
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_691
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_IRQHandler_685
+        DATA
+??HAL_DMA_IRQHandler_483:
+        DC32     0x400260b9
+        THUMB
+??HAL_DMA_IRQHandler_691:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_16  ;; 0x40026488
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_692
+        MOV      R0,#+2048
+        B.N      ??HAL_DMA_IRQHandler_685
+??HAL_DMA_IRQHandler_692:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_17  ;; 0x40026040
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_693
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_685
+??HAL_DMA_IRQHandler_693:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_18  ;; 0x40026440
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_694
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_685
+??HAL_DMA_IRQHandler_694:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_19  ;; 0x400260a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_695
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_685
+??HAL_DMA_IRQHandler_695:
+        LDR      R0,[R4, #+0]
+        LDR.N    R1,??DataTable3_20  ;; 0x400264a0
+        CMP      R0,R1
+        BNE.N    ??HAL_DMA_IRQHandler_696
+        MOVS     R0,#+2097152
+        B.N      ??HAL_DMA_IRQHandler_685
+??HAL_DMA_IRQHandler_696:
+        MOVS     R0,#+134217728
+??HAL_DMA_IRQHandler_685:
+        LDR.N    R1,??DataTable3_3  ;; 0x40026008
+        STR      R0,[R1, #+0]
 //  843 
 //  844         /* Update error code */
 //  845         hdma->ErrorCode |= HAL_DMA_ERROR_NONE;
-??HAL_DMA_IRQHandler_467:
-        ADD      R0,R4,#+52
-        LDR      R1,[R0, #+24]
-        STR      R1,[R0, #+24]
+??HAL_DMA_IRQHandler_655:
+        LDR      R0,[R4, #+76]
+        STR      R0,[R4, #+76]
 //  846 
 //  847         /* Change the DMA state */
 //  848         hdma->State = HAL_DMA_STATE_READY_MEM0;
-        MOVS     R1,#+17
-        STRB     R1,[R0, #+1]
+        MOVS     R0,#+17
+        STRB     R0,[R4, #+53]
 //  849 
 //  850         /* Process Unlocked */
 //  851         __HAL_UNLOCK(hdma);      
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+0]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 //  852 
 //  853         if(hdma->XferCpltCallback != NULL)
-        LDR      R1,[R0, #+8]
-        MOVS     R0,R1
-        BEQ.N    ??HAL_DMA_IRQHandler_413
+        LDR      R0,[R4, #+60]
+        CMP      R0,#+0
+        BEQ.N    ??HAL_DMA_IRQHandler_581
 //  854         {
 //  855           /* Transfer complete callback */
 //  856           hdma->XferCpltCallback(hdma);
-        MOV      R0,R4
-        POP      {R2,R4-R9,LR}
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI R6 SameValue
-          CFI R7 SameValue
-          CFI R8 SameValue
-          CFI R9 SameValue
-          CFI R14 SameValue
-          CFI CFA R13+0
+        MOVS     R0,R4
+        LDR      R1,[R4, #+60]
           CFI FunCall
-        ANOTE "tailcall"
-        BX       R1
-          CFI R4 Frame(CFA, -28)
-          CFI R5 Frame(CFA, -24)
-          CFI R6 Frame(CFA, -20)
-          CFI R7 Frame(CFA, -16)
-          CFI R8 Frame(CFA, -12)
-          CFI R9 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+32
+        BLX      R1
 //  857         }
 //  858       }
 //  859     }
 //  860   }
 //  861 }
-??HAL_DMA_IRQHandler_413:
-        POP      {R0,R4-R9,PC}    ;; return
+??HAL_DMA_IRQHandler_581:
+        POP      {R4,PC}          ;; return
           CFI EndBlock cfiBlock7
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable3:
-        DC32     0x40026028
+        DC32     0x40026408
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable3_1:
-        DC32     0x40026428
+        DC32     0x40026059
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable3_2:
-        DC32     0x40026088
+        DC32     0x4002600c
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable3_3:
-        DC32     0x40026488
+        DC32     0x40026008
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable3_4:
-        DC32     0x40026040
+        DC32     0x40026404
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable3_5:
-        DC32     0x40026440
+        DC32     0x40026400
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable3_6:
-        DC32     0x400260a0
+        DC32     0x40026004
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable3_7:
-        DC32     0x400264a0
+        DC32     0x40026000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable3_8:
-        DC32     0x40026070
+        DC32     0x4002640c
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable3_9:
-        DC32     0x40026470
+        DC32     0x40026028
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable3_10:
-        DC32     0x40026000
+        DC32     0x40026010
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable3_11:
+        DC32     0x40026410
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable3_12:
+        DC32     0x40026070
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable3_13:
+        DC32     0x40026470
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable3_14:
+        DC32     0x40026428
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable3_15:
+        DC32     0x40026088
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable3_16:
+        DC32     0x40026488
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable3_17:
+        DC32     0x40026040
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable3_18:
+        DC32     0x40026440
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable3_19:
+        DC32     0x400260a0
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable3_20:
+        DC32     0x400264a0
 //  862 
 //  863 /**
 //  864   * @}
@@ -9456,9 +13338,9 @@ HAL_DMA_GetError:
 //  920 
 //  921 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 17 292 bytes in section .text
+// 25 374 bytes in section .text
 // 
-// 17 292 bytes of CODE memory
+// 25 374 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

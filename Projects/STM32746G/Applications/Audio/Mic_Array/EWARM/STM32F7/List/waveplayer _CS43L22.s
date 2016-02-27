@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Feb/2016  00:32:51
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Feb/2016  12:00:28
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -17,9 +17,10 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_unroll --no_inline --no_tbaa --no_scheduling --debug
-//        --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config
-//        "D:\Program Files (x86)\IAR Systems\Embedded Workbench
+//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+//        --no_clustering --no_scheduling --debug --endian=little
+//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
+//        (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
@@ -50,7 +51,7 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Om --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
@@ -272,9 +273,9 @@ TimingDelay:
 //   73   /* Start playing */
 //   74   AudioPlayStart = 1;
 WavePlayBack:
-        MOVS     R0,#+1
-        LDR.N    R1,??DataTable4
-        STRB     R0,[R1, #+0]
+        MOVS     R1,#+1
+        LDR.N    R2,??DataTable4
+        STRB     R1,[R2, #+0]
 //   75 
 //   76 #if defined MEDIA_IntFLASH 
 //   77   
@@ -417,14 +418,22 @@ WavePlayBack:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock1 Using cfiCommon0
           CFI Function WavePlayerPauseResume
-          CFI FunCall AUDIO_PauseResume
         THUMB
 //  211 void WavePlayerPauseResume(uint8_t state)
 //  212 { 
-//  213   AUDIO_PauseResume(state);   
 WavePlayerPauseResume:
-        B.W      AUDIO_PauseResume
+        PUSH     {R4,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        MOVS     R4,R0
+//  213   AUDIO_PauseResume(state);   
+        UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+        MOVS     R0,R4
+          CFI FunCall AUDIO_PauseResume
+        BL       AUDIO_PauseResume
 //  214 }
+        POP      {R4,PC}          ;; return
           CFI EndBlock cfiBlock1
 //  215 
 //  216 /**
@@ -440,15 +449,19 @@ WavePlayerPauseResume:
 //  221 uint8_t WaveplayerCtrlVolume(uint8_t vol)
 //  222 { 
 WaveplayerCtrlVolume:
-        PUSH     {R7,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
+        MOVS     R4,R0
 //  223   AUDIO_VolumeCtl(vol);
+        MOVS     R0,R4
+        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
           CFI FunCall AUDIO_VolumeCtl
         BL       AUDIO_VolumeCtl
 //  224   return 0;
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        POP      {R4,PC}          ;; return
 //  225 }
           CFI EndBlock cfiBlock2
 //  226 
@@ -465,12 +478,16 @@ WaveplayerCtrlVolume:
         THUMB
 //  233 void WavePlayerStop(void)
 //  234 { 
-//  235   AUDIO_Stop(CODEC_PDWN_SW);
 WavePlayerStop:
+        PUSH     {R7,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+8
+//  235   AUDIO_Stop(CODEC_PDWN_SW);
         MOVS     R0,#+2
           CFI FunCall AUDIO_Stop
-        B.W      AUDIO_Stop
+        BL       AUDIO_Stop
 //  236 }
+        POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock3
 //  237  
 //  238 /**
@@ -486,14 +503,16 @@ WavePlayerStop:
 //  243 int WavePlayerInit(uint32_t AudioFreq)
 //  244 { 
 WavePlayerInit:
-        PUSH     {R7,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
+        MOVS     R4,R0
 //  245 
 //  246   
 //  247   /* Initialize the Audio codec and all related peripherals (I2S, I2C, IOExpander, IOs...) */  
 //  248   AUDIO_Init(OUTPUT_DEVICE_AUTO, 80, AudioFreq );  
-        MOV      R2,R0
+        MOVS     R2,R4
         MOVS     R1,#+80
         MOVS     R0,#+4
           CFI FunCall AUDIO_Init
@@ -501,7 +520,7 @@ WavePlayerInit:
 //  249   
 //  250   return 0;
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        POP      {R4,PC}          ;; return
 //  251 }
           CFI EndBlock cfiBlock4
 //  252 
@@ -519,16 +538,23 @@ WavePlayerInit:
 //  259 uint32_t AudioFlashPlay(uint16_t* pBuffer, uint32_t FullSize, uint32_t StartAdd)
 //  260 { 
 AudioFlashPlay:
-        PUSH     {R7,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI CFA R13+8
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
+        MOVS     R4,R0
+        MOVS     R5,R1
+        MOVS     R6,R2
 //  261   AUDIO_Play((uint16_t*)pBuffer, (FullSize - StartAdd));
-        SUBS     R1,R1,R2
+        SUBS     R1,R5,R6
+        MOVS     R0,R4
           CFI FunCall AUDIO_Play
         BL       AUDIO_Play
 //  262   return 0;
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        POP      {R4-R6,PC}       ;; return
 //  263 }
           CFI EndBlock cfiBlock5
 //  264 
@@ -608,14 +634,15 @@ Delay:
         PUSH     {R0}
           CFI CFA R13+4
 //  303   TimingDelay = nTime;
-        LDR.N    R0,??DataTable4_1
-        LDR      R1,[SP, #+0]
-        STR      R1,[R0, #+0]
+        LDR      R0,[SP, #+0]
+        LDR.N    R1,??DataTable4_1
+        STR      R0,[R1, #+0]
 //  304   
 //  305   while(TimingDelay != 0);
 ??Delay_0:
-        LDR      R1,[R0, #+0]
-        CMP      R1,#+0
+        LDR.N    R0,??DataTable4_1
+        LDR      R0,[R0, #+0]
+        CMP      R0,#+0
         BNE.N    ??Delay_0
 //  306 }
         ADD      SP,SP,#+4
@@ -639,14 +666,16 @@ Delay:
 //  315   if (TimingDelay != 0x00)
 TimingDelay_Decrement:
         LDR.N    R0,??DataTable4_1
-        LDR      R1,[R0, #+0]
-        CMP      R1,#+0
+        LDR      R0,[R0, #+0]
+        CMP      R0,#+0
         BEQ.N    ??TimingDelay_Decrement_0
 //  316   { 
 //  317     TimingDelay--;
-        LDR      R1,[R0, #+0]
-        SUBS     R1,R1,#+1
-        STR      R1,[R0, #+0]
+        LDR.N    R0,??DataTable4_1
+        LDR      R0,[R0, #+0]
+        SUBS     R0,R0,#+1
+        LDR.N    R1,??DataTable4_1
+        STR      R0,[R1, #+0]
 //  318   }
 //  319 }
 ??TimingDelay_Decrement_0:
@@ -662,50 +691,70 @@ TimingDelay_Decrement:
 //  322 void I2S3_Init(uint32_t AudioFreq)
 //  323 {
 I2S3_Init:
-        SUB      SP,SP,#+8
+        PUSH     {R4,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
+        SUB      SP,SP,#+8
+          CFI CFA R13+16
+        MOVS     R4,R0
 //  324 
 //  325   // static I2S_HandleTypeDef hi2s3;
 //  326   /* Enable the CODEC_I2S peripheral clock */
 //  327   __HAL_RCC_SPI3_CLK_ENABLE();
+        LDR.N    R0,??DataTable4_2  ;; 0x40023840
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x8000
         LDR.N    R1,??DataTable4_2  ;; 0x40023840
-        LDR      R2,[R1, #+0]
-        ORR      R2,R2,#0x8000
-        STR      R2,[R1, #+0]
-        LDR      R1,[R1, #+0]
-        AND      R1,R1,#0x8000
-        STR      R1,[SP, #+0]
-        LDR      R1,[SP, #+0]
+        STR      R0,[R1, #+0]
+        LDR.N    R0,??DataTable4_2  ;; 0x40023840
+        LDR      R0,[R0, #+0]
+        ANDS     R0,R0,#0x8000
+        STR      R0,[SP, #+0]
+        LDR      R0,[SP, #+0]
 //  328 
 //  329   hi2s3.Instance = SPI3;
-        LDR.N    R1,??DataTable4_3
-        LDR.N    R2,??DataTable4_4  ;; 0x40003c00
-        STR      R2,[R1, #+0]
+        LDR.N    R0,??DataTable4_3  ;; 0x40003c00
+        LDR.N    R1,??DataTable4_4
+        STR      R0,[R1, #+0]
 //  330   /* Disable I2S3 peripheral to allow access to I2S internal registers */
 //  331   __HAL_I2S_DISABLE(&hi2s3);
-        LDR      R3,[R2, #+28]
-        BIC      R3,R3,#0x400
-        STR      R3,[R2, #+28]
+        LDR.N    R0,??DataTable4_4
+        LDR      R0,[R0, #+0]
+        LDR      R0,[R0, #+28]
+        BICS     R0,R0,#0x400
+        LDR.N    R1,??DataTable4_4
+        LDR      R1,[R1, #+0]
+        STR      R0,[R1, #+28]
 //  332   
 //  333   hi2s3.Init.Standard = I2S_STANDARD;//I2S_STANDARD_PHILIPS
-        MOVS     R2,#+0
-        STR      R2,[R1, #+8]
+        MOVS     R0,#+0
+        LDR.N    R1,??DataTable4_4
+        STR      R0,[R1, #+8]
 //  334   hi2s3.Init.DataFormat = I2S_DATAFORMAT_16B;
-        STR      R2,[R1, #+12]
+        MOVS     R0,#+0
+        LDR.N    R1,??DataTable4_4
+        STR      R0,[R1, #+12]
 //  335   hi2s3.Init.AudioFreq = AudioFreq;
-        STR      R0,[R1, #+20]
+        LDR.N    R0,??DataTable4_4
+        STR      R4,[R0, #+20]
 //  336   hi2s3.Init.CPOL = I2S_CPOL_LOW;
-        MOV      R0,R2
+        MOVS     R0,#+0
+        LDR.N    R1,??DataTable4_4
         STR      R0,[R1, #+24]
 //  337   hi2s3.Init.ClockSource = I2S_CLOCK_SYSCLK;
         MOVS     R0,#+2
+        LDR.N    R1,??DataTable4_4
         STR      R0,[R1, #+28]
 //  338   hi2s3.Init.Mode = I2S_MODE_MASTER_TX;
         MOV      R0,#+512
+        LDR.N    R1,??DataTable4_4
         STR      R0,[R1, #+4]
 //  339 
 //  340 #ifdef CODEC_MCLK_ENABLED
 //  341   hi2s3.Init.MCLKOutput = I2S_MCLKOUTPUT_ENABLE;
+        MOV      R0,#+512
+        LDR.N    R1,??DataTable4_4
         STR      R0,[R1, #+16]
 //  342 #elif defined(CODEC_MCLK_DISABLED)
 //  343   hi2s3.Init.MCLKOutput = I2S_MCLKOUTPUT_DISABLE;
@@ -715,11 +764,9 @@ I2S3_Init:
 //  347   
 //  348   /* Initialize the I2S peripheral with the structure above */
 //  349   HAL_I2S_Init(&hi2s3);
-        MOV      R0,R1
-        ADD      SP,SP,#+8
-          CFI CFA R13+0
+        LDR.N    R0,??DataTable4_4
           CFI FunCall HAL_I2S_Init
-        B.W      HAL_I2S_Init
+        BL       HAL_I2S_Init
 //  350   
 //  351 
 //  352   /* Enable I2S peripheral */    
@@ -729,6 +776,7 @@ I2S3_Init:
 //  356 
 //  357 
 //  358 }
+        POP      {R0,R1,R4,PC}    ;; return
           CFI EndBlock cfiBlock11
 //  359 
 //  360 
@@ -746,69 +794,92 @@ SPI3_Init:
           CFI CFA R13+8
         SUB      SP,SP,#+8
           CFI CFA R13+16
+        MOVS     R4,R0
 //  363 
 //  364   // static I2S_HandleTypeDef hi2s3;
 //  365   /* Enable the CODEC_I2S peripheral clock */
 //  366   __SPI3_CLK_ENABLE();
         LDR.N    R0,??DataTable4_2  ;; 0x40023840
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x8000
-        STR      R1,[R0, #+0]
         LDR      R0,[R0, #+0]
-        AND      R0,R0,#0x8000
+        ORRS     R0,R0,#0x8000
+        LDR.N    R1,??DataTable4_2  ;; 0x40023840
+        STR      R0,[R1, #+0]
+        LDR.N    R0,??DataTable4_2  ;; 0x40023840
+        LDR      R0,[R0, #+0]
+        ANDS     R0,R0,#0x8000
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
 //  367 
 //  368   hspi3.Instance = SPI3;
-        LDR.N    R4,??DataTable4_5
-        LDR.N    R0,??DataTable4_4  ;; 0x40003c00
-        STR      R0,[R4, #+0]
+        LDR.N    R0,??DataTable4_3  ;; 0x40003c00
+        LDR.N    R1,??DataTable4_5
+        STR      R0,[R1, #+0]
 //  369   hspi3.Init.Mode = SPI_MODE_MASTER;
         MOV      R0,#+260
-        STR      R0,[R4, #+4]
+        LDR.N    R1,??DataTable4_5
+        STR      R0,[R1, #+4]
 //  370   hspi3.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
         MOVS     R0,#+24
-        STR      R0,[R4, #+28]
+        LDR.N    R1,??DataTable4_5
+        STR      R0,[R1, #+28]
 //  371   hspi3.Init.Direction = SPI_DIRECTION_1LINE;
         MOV      R0,#+32768
-        STR      R0,[R4, #+8]
+        LDR.N    R1,??DataTable4_5
+        STR      R0,[R1, #+8]
 //  372   hspi3.Init.DataSize = SPI_DATASIZE_16BIT;
         MOV      R0,#+3840
-        STR      R0,[R4, #+12]
+        LDR.N    R1,??DataTable4_5
+        STR      R0,[R1, #+12]
 //  373   hspi3.Init.CLKPolarity = SPI_POLARITY_LOW;
         MOVS     R0,#+0
-        STR      R0,[R4, #+16]
+        LDR.N    R1,??DataTable4_5
+        STR      R0,[R1, #+16]
 //  374   hspi3.Init.CLKPhase = SPI_PHASE_1EDGE;
-        STR      R0,[R4, #+20]
+        MOVS     R0,#+0
+        LDR.N    R1,??DataTable4_5
+        STR      R0,[R1, #+20]
 //  375   hspi3.Init.NSS = SPI_NSS_SOFT;//SPI_NSS_HARD_INPUT
         MOV      R0,#+512
-        STR      R0,[R4, #+24]
+        LDR.N    R1,??DataTable4_5
+        STR      R0,[R1, #+24]
 //  376   hspi3.Init.FirstBit = SPI_FIRSTBIT_MSB;
         MOVS     R0,#+0
-        STR      R0,[R4, #+32]
+        LDR.N    R1,??DataTable4_5
+        STR      R0,[R1, #+32]
 //  377   hspi3.Init.TIMode = SPI_TIMODE_DISABLE;
-        STR      R0,[R4, #+36]
+        MOVS     R0,#+0
+        LDR.N    R1,??DataTable4_5
+        STR      R0,[R1, #+36]
 //  378   hspi3.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLED;
-        STR      R0,[R4, #+40]
+        MOVS     R0,#+0
+        LDR.N    R1,??DataTable4_5
+        STR      R0,[R1, #+40]
 //  379   hspi3.Init.CRCPolynomial = 7;
         MOVS     R0,#+7
-        STR      R0,[R4, #+44]
+        LDR.N    R1,??DataTable4_5
+        STR      R0,[R1, #+44]
 //  380   hspi3.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
         MOVS     R0,#+0
-        STR      R0,[R4, #+48]
+        LDR.N    R1,??DataTable4_5
+        STR      R0,[R1, #+48]
 //  381   hspi3.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
-        STR      R0,[R4, #+52]
+        MOVS     R0,#+0
+        LDR.N    R1,??DataTable4_5
+        STR      R0,[R1, #+52]
 //  382   //hspi4.RxISR = SPI5_CallBack;
 //  383   HAL_SPI_Init(&hspi3);
-        MOV      R0,R4
+        LDR.N    R0,??DataTable4_5
           CFI FunCall HAL_SPI_Init
         BL       HAL_SPI_Init
 //  384   
 //  385   __HAL_SPI_ENABLE(&hspi3);
-        LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x40
-        STR      R1,[R0, #+0]
+        LDR.N    R0,??DataTable4_5
+        LDR      R0,[R0, #+0]
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x40
+        LDR.N    R1,??DataTable4_5
+        LDR      R1,[R1, #+0]
+        STR      R0,[R1, #+0]
 //  386   
 //  387 
 //  388   /* The I2S peripheral will be enabled only in the AUDIO_Play() function 
@@ -840,13 +911,13 @@ SPI3_Init:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable4_3:
-        DC32     hi2s3
+        DC32     0x40003c00
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable4_4:
-        DC32     0x40003c00
+        DC32     hi2s3
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -862,12 +933,16 @@ SPI3_Init:
         THUMB
 //  394 void AUDIO_InitApplication(void)
 //  395 {
-//  396   WavePlayerInit(AUDIO_FREQ);
 AUDIO_InitApplication:
+        PUSH     {R7,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+8
+//  396   WavePlayerInit(AUDIO_FREQ);
         MOV      R0,#+16000
           CFI FunCall WavePlayerInit
-        B.N      WavePlayerInit
+        BL       WavePlayerInit
 //  397 }
+        POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock13
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
@@ -888,9 +963,9 @@ AUDIO_InitApplication:
 // 
 // 189 bytes in section .bss
 //   1 byte  in section .data
-// 296 bytes in section .text
+// 420 bytes in section .text
 // 
-// 296 bytes of CODE memory
+// 420 bytes of CODE memory
 // 190 bytes of DATA memory
 //
 //Errors: none

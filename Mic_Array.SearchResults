@@ -1,2 +1,5 @@
----- extern uint16_t AUDIO_SAMPLE[]; Matches (1 in 1 files) ----
-waveplayer _CS43L22.c (projects\stm32746g\applications\audio\mic_array\src):extern uint16_t AUDIO_SAMPLE[];
+---- StartRecMic7_8 Matches (4 in 3 files) ----
+Main.c (projects\stm32746g\applications\audio\mic_array\src):                                 StartRecMic7_8();
+Waverecorder.c (projects\stm32746g\applications\audio\mic_array\src):  StartRecMic7_8();
+Waverecorder.c (projects\stm32746g\applications\audio\mic_array\src):void StartRecMic7_8 (void)
+Waverecorder.h (projects\stm32746g\applications\audio\mic_array\inc):void StartRecMic7_8 (void);

@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       27/Feb/2016  00:32:43
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       27/Feb/2016  12:00:21
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -16,10 +16,11 @@
 #        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 #        -o
 #        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-#        --no_unroll --no_inline --no_tbaa --no_scheduling --debug
-#        --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config
-#        "D:\Program Files (x86)\IAR Systems\Embedded Workbench
-#        7.3\arm\INC\c\DLib_Config_Full.h" -I
+#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+#        --no_clustering --no_scheduling --debug --endian=little
+#        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\INC\c\DLib_Config_Full.h"
+#        -I
 #        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 #        -I
 #        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
@@ -49,7 +50,7 @@
 #        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
 #        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -Om --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -On --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7
 #    List file    =  
@@ -270,9 +271,10 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
     163          
     164            cntOS++;
    \   00000006   0x....             LDR.N    R0,??DataTable4
-   \   00000008   0x6801             LDR      R1,[R0, #+0]
-   \   0000000A   0x1C49             ADDS     R1,R1,#+1
-   \   0000000C   0x6001             STR      R1,[R0, #+0]
+   \   00000008   0x6800             LDR      R0,[R0, #+0]
+   \   0000000A   0x1C40             ADDS     R0,R0,#+1
+   \   0000000C   0x....             LDR.N    R1,??DataTable4
+   \   0000000E   0x6008             STR      R0,[R1, #+0]
     165          #if USB_STREAMING
     166            //if(cntOS%2==0)
     167            //{
@@ -280,21 +282,24 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
     169            //}
     170          #endif   
     171            if (cntOS==10)
-   \   0000000E   0x290A             CMP      R1,#+10
-   \   00000010   0xD104             BNE.N    ??SysTick_Handler_0
+   \   00000010   0x....             LDR.N    R0,??DataTable4
+   \   00000012   0x6800             LDR      R0,[R0, #+0]
+   \   00000014   0x280A             CMP      R0,#+10
+   \   00000016   0xD105             BNE.N    ??SysTick_Handler_0
     172            {
     173                cntOS=0;
-   \   00000012   0x2100             MOVS     R1,#+0
-   \   00000014   0x6001             STR      R1,[R0, #+0]
+   \   00000018   0x2000             MOVS     R0,#+0
+   \   0000001A   0x....             LDR.N    R1,??DataTable4
+   \   0000001C   0x6008             STR      R0,[R1, #+0]
     174                flg10ms = 1;
-   \   00000016   0x2001             MOVS     R0,#+1
-   \   00000018   0x....             LDR.N    R1,??DataTable4_1
-   \   0000001A   0x7008             STRB     R0,[R1, #+0]
+   \   0000001E   0x2001             MOVS     R0,#+1
+   \   00000020   0x....             LDR.N    R1,??DataTable4_1
+   \   00000022   0x7008             STRB     R0,[R1, #+0]
     175            }
     176            	
     177          }
    \                     ??SysTick_Handler_0: (+1)
-   \   0000001C   0xBD01             POP      {R0,PC}          ;; return
+   \   00000024   0xBD01             POP      {R0,PC}          ;; return
     178          
 
    \                                 In section .text, align 2, keep-with-next
@@ -309,45 +314,51 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
    \                                 In section .text, align 2, keep-with-next
     184          void USART3_IRQHandler(void)
     185          {
-    186            HAL_UART_IRQHandler(&huart3);
    \                     USART3_IRQHandler: (+1)
-   \   00000000   0x....             LDR.N    R0,??DataTable4_2
-   \   00000002   0x.... 0x....      B.W      HAL_UART_IRQHandler
+   \   00000000   0xB580             PUSH     {R7,LR}
+    186            HAL_UART_IRQHandler(&huart3);
+   \   00000002   0x....             LDR.N    R0,??DataTable4_2
+   \   00000004   0x.... 0x....      BL       HAL_UART_IRQHandler
     187          }
+   \   00000008   0xBD01             POP      {R0,PC}          ;; return
     188          
     189          
 
    \                                 In section .text, align 2, keep-with-next
     190          void I2C1_EV_IRQHandler(void)
     191          {
+   \                     I2C1_EV_IRQHandler: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
     192            /* USER CODE BEGIN I2C1_EV_IRQn 0 */
     193          
     194            /* USER CODE END I2C1_EV_IRQn 0 */
     195            HAL_I2C_EV_IRQHandler(&hi2c1);
-   \                     I2C1_EV_IRQHandler: (+1)
-   \   00000000   0x....             LDR.N    R0,??DataTable4_3
-   \   00000002   0x.... 0x....      B.W      HAL_I2C_EV_IRQHandler
+   \   00000002   0x....             LDR.N    R0,??DataTable4_3
+   \   00000004   0x.... 0x....      BL       HAL_I2C_EV_IRQHandler
     196            /* USER CODE BEGIN I2C1_EV_IRQn 1 */
     197          
     198            /* USER CODE END I2C1_EV_IRQn 1 */
     199          }
+   \   00000008   0xBD01             POP      {R0,PC}          ;; return
     200          
     201          
 
    \                                 In section .text, align 2, keep-with-next
     202          void I2C2_EV_IRQHandler(void)
     203          {
+   \                     I2C2_EV_IRQHandler: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
     204            /* USER CODE BEGIN I2C1_EV_IRQn 0 */
     205          
     206            /* USER CODE END I2C1_EV_IRQn 0 */
     207            HAL_I2C_EV_IRQHandler(&hi2c2);
-   \                     I2C2_EV_IRQHandler: (+1)
-   \   00000000   0x....             LDR.N    R0,??DataTable4_4
-   \   00000002   0x.... 0x....      B.W      HAL_I2C_EV_IRQHandler
+   \   00000002   0x....             LDR.N    R0,??DataTable4_4
+   \   00000004   0x.... 0x....      BL       HAL_I2C_EV_IRQHandler
     208            /* USER CODE BEGIN I2C1_EV_IRQn 1 */
     209          
     210            /* USER CODE END I2C1_EV_IRQn 1 */
     211          }
+   \   00000008   0xBD01             POP      {R0,PC}          ;; return
     212          
     213          
     214          
@@ -374,12 +385,14 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
     233          void OTG_HS_IRQHandler(void)
     234          #endif
     235          {
+   \                     OTG_FS_IRQHandler: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
     236            //sop1hc HAL_HCD_IRQHandler(&hhcd);
     237            HAL_PCD_IRQHandler(&hpcd);
-   \                     OTG_FS_IRQHandler: (+1)
-   \   00000000   0x....             LDR.N    R0,??DataTable4_5
-   \   00000002   0x.... 0x....      B.W      HAL_PCD_IRQHandler
+   \   00000002   0x....             LDR.N    R0,??DataTable4_5
+   \   00000004   0x.... 0x....      BL       HAL_PCD_IRQHandler
     238          }
+   \   00000008   0xBD01             POP      {R0,PC}          ;; return
     239          
     240          /**
     241            * @brief This function handles DMA2 Stream 4 interrupt request.
@@ -453,20 +466,20 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
        0   DMA2_Stream7_IRQHandler
        0   DebugMon_Handler
        0   HardFault_Handler
-       0   I2C1_EV_IRQHandler
-         0   -> HAL_I2C_EV_IRQHandler
-       0   I2C2_EV_IRQHandler
-         0   -> HAL_I2C_EV_IRQHandler
+       8   I2C1_EV_IRQHandler
+         8   -> HAL_I2C_EV_IRQHandler
+       8   I2C2_EV_IRQHandler
+         8   -> HAL_I2C_EV_IRQHandler
        0   MemManage_Handler
        0   NMI_Handler
-       0   OTG_FS_IRQHandler
-         0   -> HAL_PCD_IRQHandler
+       8   OTG_FS_IRQHandler
+         8   -> HAL_PCD_IRQHandler
        0   PendSV_Handler
        0   SVC_Handler
        8   SysTick_Handler
          8   -> HAL_IncTick
-       0   USART3_IRQHandler
-         0   -> HAL_UART_IRQHandler
+       8   USART3_IRQHandler
+         8   -> HAL_UART_IRQHandler
        0   USART6_IRQHandler
        0   UsageFault_Handler
 
@@ -486,24 +499,24 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
        2  DMA2_Stream7_IRQHandler
        2  DebugMon_Handler
        2  HardFault_Handler
-       6  I2C1_EV_IRQHandler
-       6  I2C2_EV_IRQHandler
+      10  I2C1_EV_IRQHandler
+      10  I2C2_EV_IRQHandler
        2  MemManage_Handler
        2  NMI_Handler
-       6  OTG_FS_IRQHandler
+      10  OTG_FS_IRQHandler
        2  PendSV_Handler
        2  SVC_Handler
-      30  SysTick_Handler
-       6  USART3_IRQHandler
+      38  SysTick_Handler
+      10  USART3_IRQHandler
        2  USART6_IRQHandler
        2  UsageFault_Handler
        4  cntOS
 
  
    4 bytes in section .bss
- 100 bytes in section .text
+ 124 bytes in section .text
  
- 100 bytes of CODE memory
+ 124 bytes of CODE memory
    4 bytes of DATA memory
 
 Errors: none

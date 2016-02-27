@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Feb/2016  00:32:45
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Feb/2016  12:00:23
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -16,9 +16,10 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_unroll --no_inline --no_tbaa --no_scheduling --debug
-//        --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config
-//        "D:\Program Files (x86)\IAR Systems\Embedded Workbench
+//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+//        --no_clustering --no_scheduling --debug --endian=little
+//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
+//        (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
@@ -49,7 +50,7 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Om --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
@@ -213,7 +214,19 @@ USBD_AUDIO_fops:
 //   83 /* This table maps the audio device class setting in 1/256 dB to a
 //   84 * linear 0-64 scaling used in pdm_filter.c. It is computed as
 //   85 * 256*20*log10(index/64). */
+
+        SECTION `.rodata`:CONST:REORDER:NOROOT(2)
+        DATA
 //   86 const int16_t vol_table[65] =
+vol_table:
+        DC16 -32768, -9248, -7706, -6805, -6165, -5669, -5264, -4921, -4624
+        DC16 -4362, -4128, -3916, -3722, -3544, -3379, -3226, -3083, -2948
+        DC16 -2821, -2700, -2586, -2478, -2374, -2276, -2184, -2090, -2003
+        DC16 -1919, -1838, -1760, -1685, -1612, -1541, -1473, -1406, -1342
+        DC16 -1279, -1218, -1159, -1101, -1045, -990, -937, -884, -833, -783
+        DC16 -734, -687, -640, -594, -549, -505, -462, -419, -378, -337, -297
+        DC16 -256, -219, -181, -144, -107, -71, -48, 0
+        DC8 0, 0
 //   87 { 0x8000, 0xDBE0, 0xE1E6, 0xE56B, 0xE7EB, 0xE9DB, 0xEB70, 0xECC7,
 //   88 0xEDF0, 0xEEF6, 0xEFE0, 0xF0B4, 0xF176, 0xF228, 0xF2CD, 0xF366,
 //   89 0xF3F5, 0xF47C, 0xF4FB, 0xF574, 0xF5E6, 0xF652, 0xF6BA, 0xF71C,
@@ -241,10 +254,11 @@ USBD_AUDIO_fops:
         THUMB
 //  106 static int8_t Audio_Init(uint32_t  AudioFreq, uint32_t BitRes, uint32_t ChnlNbr)
 //  107 {
+Audio_Init:
+        MOVS     R3,R0
 //  108 #ifndef DISABLE_USB_DRIVEN_ACQUISITION 
 //  109   //return BSP_AUDIO_IN_Init(AudioFreq, BitRes, ChnlNbr);
 //  110 	return 0;
-Audio_Init:
         MOVS     R0,#+0
         BX       LR               ;; return
 //  111 #endif
@@ -264,8 +278,9 @@ Audio_Init:
         THUMB
 //  119 static int8_t Audio_DeInit(uint32_t options)
 //  120 {
-//  121   return AUDIO_OK;
 Audio_DeInit:
+        MOVS     R1,R0
+//  121   return AUDIO_OK;
         MOVS     R0,#+0
         BX       LR               ;; return
 //  122 }
@@ -312,49 +327,51 @@ Audio_Record:
 //  147 static int8_t Audio_VolumeCtl(int16_t Volume)
 //  148 {
 Audio_VolumeCtl:
-        PUSH     {R3-R7,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+24
-        MOV      R4,R0
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
+        MOVS     R4,R0
 //  149   /* Call low layer volume setting function */
 //  150   int j;
 //  151   
 //  152   j = 0;
-        MOVS     R5,#+0
-        ADR.W    R6,vol_table
-        B.N      ??Audio_VolumeCtl_0
+        MOVS     R0,#+0
+        MOVS     R5,R0
 //  153   /* Find the setting nearest to the desired setting */
 //  154   while(j<64 &&
 //  155         abs(Volume-vol_table[j]) > abs(Volume-vol_table[j+1])) {
-//  156           j++;
-??Audio_VolumeCtl_1:
-        ADDS     R5,R5,#+1
-//  157         }
 ??Audio_VolumeCtl_0:
         CMP      R5,#+64
-        BGE.N    ??Audio_VolumeCtl_2
-        ADD      R0,R6,R5, LSL #+1
+        BGE.N    ??Audio_VolumeCtl_1
+        SXTH     R4,R4            ;; SignExt  R4,R4,#+16,#+16
+        LDR.N    R0,??DataTable1
+        ADDS     R0,R0,R5, LSL #+1
         LDRSH    R0,[R0, #+2]
         SUBS     R0,R4,R0
           CFI FunCall abs
         BL       abs
-        MOV      R7,R0
-        LDRSH    R0,[R6, R5, LSL #+1]
+        MOVS     R6,R0
+        SXTH     R4,R4            ;; SignExt  R4,R4,#+16,#+16
+        LDR.N    R0,??DataTable1
+        LDRSH    R0,[R0, R5, LSL #+1]
         SUBS     R0,R4,R0
           CFI FunCall abs
         BL       abs
-        CMP      R7,R0
-        BLT.N    ??Audio_VolumeCtl_1
+        CMP      R6,R0
+        BGE.N    ??Audio_VolumeCtl_1
+//  156           j++;
+        ADDS     R5,R5,#+1
+        B.N      ??Audio_VolumeCtl_0
+//  157         }
 //  158   /* Now do the volume adjustment */
 //  159   //return BSP_AUDIO_IN_SetVolume((uint8_t)j);
 //  160   return 0;
-??Audio_VolumeCtl_2:
+??Audio_VolumeCtl_1:
         MOVS     R0,#+0
-        POP      {R1,R4-R7,PC}    ;; return
+        POP      {R4-R6,PC}       ;; return
 //  161   
 //  162   
 //  163 }
@@ -373,8 +390,9 @@ Audio_VolumeCtl:
         THUMB
 //  170 static int8_t Audio_MuteCtl(uint8_t cmd)
 //  171 {
-//  172   return AUDIO_OK;
 Audio_MuteCtl:
+        MOVS     R1,R0
+//  172   return AUDIO_OK;
         MOVS     R0,#+0
         BX       LR               ;; return
 //  173 }
@@ -460,8 +478,9 @@ Audio_Resume:
         THUMB
 //  217 static int8_t Audio_CommandMgr(uint8_t cmd)
 //  218 {
-//  219   return AUDIO_OK;
 Audio_CommandMgr:
+        MOVS     R1,R0
+//  219   return AUDIO_OK;
         MOVS     R0,#+0
         BX       LR               ;; return
 //  220 }
@@ -483,35 +502,37 @@ Audio_CommandMgr:
         THUMB
 //  231 void Send_Audio_to_USB(int16_t * audioData, uint16_t PCMSamples)
 //  232 {
+Send_Audio_to_USB:
+        PUSH     {R3-R5,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+16
+        MOVS     R4,R0
+        MOVS     R5,R1
 //  233   
 //  234   USBD_AUDIO_Data_Transfer(&hUSBDDevice, (int16_t *)audioData, PCMSamples);
-Send_Audio_to_USB:
-        MOV      R2,R1
-        MOV      R1,R0
-        LDR.N    R0,??DataTable1
+        MOVS     R2,R5
+        UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+        MOVS     R1,R4
+        LDR.N    R0,??DataTable1_1
           CFI FunCall USBD_AUDIO_Data_Transfer
-        B.W      USBD_AUDIO_Data_Transfer
+        BL       USBD_AUDIO_Data_Transfer
 //  235 }
+        POP      {R0,R4,R5,PC}    ;; return
           CFI EndBlock cfiBlock9
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable1:
-        DC32     hUSBDDevice
+        DC32     vol_table
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-vol_table:
-        DC16 -32768, -9248, -7706, -6805, -6165, -5669, -5264, -4921, -4624
-        DC16 -4362, -4128, -3916, -3722, -3544, -3379, -3226, -3083, -2948
-        DC16 -2821, -2700, -2586, -2478, -2374, -2276, -2184, -2090, -2003
-        DC16 -1919, -1838, -1760, -1685, -1612, -1541, -1473, -1406, -1342
-        DC16 -1279, -1218, -1159, -1101, -1045, -990, -937, -884, -833, -783
-        DC16 -734, -687, -640, -594, -549, -505, -462, -419, -378, -337, -297
-        DC16 -256, -219, -181, -144, -107, -71, -48, 0
-        DC8 0, 0
+??DataTable1_1:
+        DC32     hUSBDDevice
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -537,10 +558,12 @@ vol_table:
 //  245 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
 //  36 bytes in section .data
-// 230 bytes in section .text
+// 132 bytes in section .rodata
+// 126 bytes in section .text
 // 
-// 230 bytes of CODE memory
-//  36 bytes of DATA memory
+// 126 bytes of CODE  memory
+// 132 bytes of CONST memory
+//  36 bytes of DATA  memory
 //
 //Errors: none
 //Warnings: none

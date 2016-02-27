@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Feb/2016  00:32:37
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Feb/2016  12:00:17
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -16,9 +16,10 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_unroll --no_inline --no_tbaa --no_scheduling --debug
-//        --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config
-//        "D:\Program Files (x86)\IAR Systems\Embedded Workbench
+//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+//        --no_clustering --no_scheduling --debug --endian=little
+//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
+//        (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
@@ -49,7 +50,7 @@
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Om --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
@@ -258,13 +259,16 @@
 //  120   __HAL_RCC_PWR_FORCE_RESET();
 HAL_PWR_DeInit:
         LDR.N    R0,??DataTable15  ;; 0x40023820
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x10000000
-        STR      R1,[R0, #+0]
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x10000000
+        LDR.N    R1,??DataTable15  ;; 0x40023820
+        STR      R0,[R1, #+0]
 //  121   __HAL_RCC_PWR_RELEASE_RESET();
-        LDR      R1,[R0, #+0]
-        BIC      R1,R1,#0x10000000
-        STR      R1,[R0, #+0]
+        LDR.N    R0,??DataTable15  ;; 0x40023820
+        LDR      R0,[R0, #+0]
+        BICS     R0,R0,#0x10000000
+        LDR.N    R1,??DataTable15  ;; 0x40023820
+        STR      R0,[R1, #+0]
 //  122 }
         BX       LR               ;; return
           CFI EndBlock cfiBlock0
@@ -288,9 +292,10 @@ HAL_PWR_DeInit:
 //  134   SET_BIT(PWR->CR1, PWR_CR1_DBP);
 HAL_PWR_EnableBkUpAccess:
         LDR.N    R0,??DataTable15_1  ;; 0x40007000
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x100
-        STR      R1,[R0, #+0]
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x100
+        LDR.N    R1,??DataTable15_1  ;; 0x40007000
+        STR      R0,[R1, #+0]
 //  135 }
         BX       LR               ;; return
           CFI EndBlock cfiBlock1
@@ -314,9 +319,10 @@ HAL_PWR_EnableBkUpAccess:
 //  147 	CLEAR_BIT(PWR->CR1, PWR_CR1_DBP);
 HAL_PWR_DisableBkUpAccess:
         LDR.N    R0,??DataTable15_1  ;; 0x40007000
-        LDR      R1,[R0, #+0]
-        BIC      R1,R1,#0x100
-        STR      R1,[R0, #+0]
+        LDR      R0,[R0, #+0]
+        BICS     R0,R0,#0x100
+        LDR.N    R1,??DataTable15_1  ;; 0x40007000
+        STR      R0,[R1, #+0]
 //  148 }
         BX       LR               ;; return
           CFI EndBlock cfiBlock2
@@ -465,79 +471,95 @@ HAL_PWR_DisableBkUpAccess:
 //  285   MODIFY_REG(PWR->CR1, PWR_CR1_PLS, sConfigPVD->PVDLevel);
 HAL_PWR_ConfigPVD:
         LDR.N    R1,??DataTable15_1  ;; 0x40007000
-        LDR      R2,[R1, #+0]
-        BIC      R2,R2,#0xE0
-        LDR      R3,[R0, #+0]
-        ORRS     R2,R3,R2
-        STR      R2,[R1, #+0]
+        LDR      R1,[R1, #+0]
+        BICS     R1,R1,#0xE0
+        LDR      R2,[R0, #+0]
+        ORRS     R1,R2,R1
+        LDR.N    R2,??DataTable15_1  ;; 0x40007000
+        STR      R1,[R2, #+0]
 //  286   
 //  287   /* Clear any previous config. Keep it clear if no event or IT mode is selected */
 //  288   __HAL_PWR_PVD_EXTI_DISABLE_EVENT();
-        LDR.N    R1,??DataTable15_2  ;; 0x40013c00
-        LDR      R2,[R1, #+4]
-        BIC      R2,R2,#0x10000
-        STR      R2,[R1, #+4]
+        LDR.N    R1,??DataTable15_2  ;; 0x40013c04
+        LDR      R1,[R1, #+0]
+        BICS     R1,R1,#0x10000
+        LDR.N    R2,??DataTable15_2  ;; 0x40013c04
+        STR      R1,[R2, #+0]
 //  289   __HAL_PWR_PVD_EXTI_DISABLE_IT();
-        LDR      R2,[R1, #+0]
-        BIC      R2,R2,#0x10000
-        STR      R2,[R1, #+0]
+        LDR.N    R1,??DataTable15_3  ;; 0x40013c00
+        LDR      R1,[R1, #+0]
+        BICS     R1,R1,#0x10000
+        LDR.N    R2,??DataTable15_3  ;; 0x40013c00
+        STR      R1,[R2, #+0]
 //  290   __HAL_PWR_PVD_EXTI_DISABLE_RISING_EDGE();
-        LDR      R2,[R1, #+8]
-        BIC      R2,R2,#0x10000
-        STR      R2,[R1, #+8]
+        LDR.N    R1,??DataTable15_4  ;; 0x40013c08
+        LDR      R1,[R1, #+0]
+        BICS     R1,R1,#0x10000
+        LDR.N    R2,??DataTable15_4  ;; 0x40013c08
+        STR      R1,[R2, #+0]
 //  291   __HAL_PWR_PVD_EXTI_DISABLE_FALLING_EDGE(); 
-        LDR      R2,[R1, #+12]
-        BIC      R2,R2,#0x10000
-        STR      R2,[R1, #+12]
+        LDR.N    R1,??DataTable15_5  ;; 0x40013c0c
+        LDR      R1,[R1, #+0]
+        BICS     R1,R1,#0x10000
+        LDR.N    R2,??DataTable15_5  ;; 0x40013c0c
+        STR      R1,[R2, #+0]
 //  292 
 //  293   /* Configure interrupt mode */
 //  294   if((sConfigPVD->Mode & PVD_MODE_IT) == PVD_MODE_IT)
-        LDR      R2,[R0, #+4]
-        LSLS     R2,R2,#+15
+        LDR      R1,[R0, #+4]
+        LSLS     R1,R1,#+15
         BPL.N    ??HAL_PWR_ConfigPVD_0
 //  295   {
 //  296     __HAL_PWR_PVD_EXTI_ENABLE_IT();
-        LDR      R2,[R1, #+0]
-        ORR      R2,R2,#0x10000
-        STR      R2,[R1, #+0]
+        LDR.N    R1,??DataTable15_3  ;; 0x40013c00
+        LDR      R1,[R1, #+0]
+        ORRS     R1,R1,#0x10000
+        LDR.N    R2,??DataTable15_3  ;; 0x40013c00
+        STR      R1,[R2, #+0]
 //  297   }
 //  298   
 //  299   /* Configure event mode */
 //  300   if((sConfigPVD->Mode & PVD_MODE_EVT) == PVD_MODE_EVT)
 ??HAL_PWR_ConfigPVD_0:
-        LDR      R2,[R0, #+4]
-        LSLS     R2,R2,#+14
+        LDR      R1,[R0, #+4]
+        LSLS     R1,R1,#+14
         BPL.N    ??HAL_PWR_ConfigPVD_1
 //  301   {
 //  302     __HAL_PWR_PVD_EXTI_ENABLE_EVENT();
-        LDR      R2,[R1, #+4]
-        ORR      R2,R2,#0x10000
-        STR      R2,[R1, #+4]
+        LDR.N    R1,??DataTable15_2  ;; 0x40013c04
+        LDR      R1,[R1, #+0]
+        ORRS     R1,R1,#0x10000
+        LDR.N    R2,??DataTable15_2  ;; 0x40013c04
+        STR      R1,[R2, #+0]
 //  303   }
 //  304   
 //  305   /* Configure the edge */
 //  306   if((sConfigPVD->Mode & PVD_RISING_EDGE) == PVD_RISING_EDGE)
 ??HAL_PWR_ConfigPVD_1:
-        LDRB     R2,[R0, #+4]
-        LSLS     R2,R2,#+31
+        LDRB     R1,[R0, #+4]
+        LSLS     R1,R1,#+31
         BPL.N    ??HAL_PWR_ConfigPVD_2
 //  307   {
 //  308     __HAL_PWR_PVD_EXTI_ENABLE_RISING_EDGE();
-        LDR      R2,[R1, #+8]
-        ORR      R2,R2,#0x10000
-        STR      R2,[R1, #+8]
+        LDR.N    R1,??DataTable15_4  ;; 0x40013c08
+        LDR      R1,[R1, #+0]
+        ORRS     R1,R1,#0x10000
+        LDR.N    R2,??DataTable15_4  ;; 0x40013c08
+        STR      R1,[R2, #+0]
 //  309   }
 //  310   
 //  311   if((sConfigPVD->Mode & PVD_FALLING_EDGE) == PVD_FALLING_EDGE)
 ??HAL_PWR_ConfigPVD_2:
-        LDRB     R0,[R0, #+4]
-        LSLS     R0,R0,#+30
+        LDRB     R1,[R0, #+4]
+        LSLS     R1,R1,#+30
         BPL.N    ??HAL_PWR_ConfigPVD_3
 //  312   {
 //  313     __HAL_PWR_PVD_EXTI_ENABLE_FALLING_EDGE();
-        LDR      R0,[R1, #+12]
-        ORR      R0,R0,#0x10000
-        STR      R0,[R1, #+12]
+        LDR.N    R1,??DataTable15_5  ;; 0x40013c0c
+        LDR      R1,[R1, #+0]
+        ORRS     R1,R1,#0x10000
+        LDR.N    R2,??DataTable15_5  ;; 0x40013c0c
+        STR      R1,[R2, #+0]
 //  314   }
 //  315 }
 ??HAL_PWR_ConfigPVD_3:
@@ -560,9 +582,10 @@ HAL_PWR_ConfigPVD:
 //  324 	SET_BIT(PWR->CR1, PWR_CR1_PVDE);
 HAL_PWR_EnablePVD:
         LDR.N    R0,??DataTable15_1  ;; 0x40007000
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x10
-        STR      R1,[R0, #+0]
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x10
+        LDR.N    R1,??DataTable15_1  ;; 0x40007000
+        STR      R0,[R1, #+0]
 //  325 }
         BX       LR               ;; return
           CFI EndBlock cfiBlock4
@@ -583,9 +606,10 @@ HAL_PWR_EnablePVD:
 //  334 	CLEAR_BIT(PWR->CR1, PWR_CR1_PVDE);
 HAL_PWR_DisablePVD:
         LDR.N    R0,??DataTable15_1  ;; 0x40007000
-        LDR      R1,[R0, #+0]
-        BIC      R1,R1,#0x10
-        STR      R1,[R0, #+0]
+        LDR      R0,[R0, #+0]
+        BICS     R0,R0,#0x10
+        LDR.N    R1,??DataTable15_1  ;; 0x40007000
+        STR      R0,[R1, #+0]
 //  335 }
         BX       LR               ;; return
           CFI EndBlock cfiBlock5
@@ -620,19 +644,23 @@ HAL_PWR_DisablePVD:
 //  358   /* Enable wake-up pin */
 //  359   SET_BIT(PWR->CSR2, (PWR_EWUP_MASK & WakeUpPinPolarity));
 HAL_PWR_EnableWakeUpPin:
-        AND      R1,R0,#0x3F00
-        LDR.N    R2,??DataTable15_3  ;; 0x40007008
-        LDR      R3,[R2, #+4]
-        ORRS     R3,R1,R3
-        STR      R3,[R2, #+4]
+        LDR.N    R1,??DataTable15_6  ;; 0x4000700c
+        LDR      R1,[R1, #+0]
+        ANDS     R2,R0,#0x3F00
+        ORRS     R1,R2,R1
+        LDR.N    R2,??DataTable15_6  ;; 0x4000700c
+        STR      R1,[R2, #+0]
 //  360 	
 //  361   /* Specifies the Wake-Up pin polarity for the event detection
 //  362     (rising or falling edge) */
 //  363   MODIFY_REG(PWR->CR2, (PWR_EWUP_MASK & WakeUpPinPolarity), (WakeUpPinPolarity >> 0x06));
-        LDR      R3,[R2, #+0]
-        BIC      R1,R3,R1
-        ORR      R0,R1,R0, LSR #+6
-        STR      R0,[R2, #+0]
+        LDR.N    R1,??DataTable15_7  ;; 0x40007008
+        LDR      R1,[R1, #+0]
+        ANDS     R2,R0,#0x3F00
+        BICS     R1,R1,R2
+        ORRS     R1,R1,R0, LSR #+6
+        LDR.N    R2,??DataTable15_7  ;; 0x40007008
+        STR      R1,[R2, #+0]
 //  364 }
         BX       LR               ;; return
           CFI EndBlock cfiBlock6
@@ -661,10 +689,11 @@ HAL_PWR_EnableWakeUpPin:
 //  381 
 //  382   CLEAR_BIT(PWR->CSR2, WakeUpPinx);
 HAL_PWR_DisableWakeUpPin:
-        LDR.N    R1,??DataTable15_4  ;; 0x4000700c
-        LDR      R2,[R1, #+0]
-        BIC      R0,R2,R0
-        STR      R0,[R1, #+0]
+        LDR.N    R1,??DataTable15_6  ;; 0x4000700c
+        LDR      R1,[R1, #+0]
+        BICS     R1,R1,R0
+        LDR.N    R2,??DataTable15_6  ;; 0x4000700c
+        STR      R1,[R2, #+0]
 //  383 }
         BX       LR               ;; return
           CFI EndBlock cfiBlock7
@@ -704,20 +733,22 @@ HAL_PWR_DisableWakeUpPin:
 //  411   /* Clear SLEEPDEEP bit of Cortex System Control Register */
 //  412   CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPDEEP_Msk));
 HAL_PWR_EnterSLEEPMode:
-        LDR.N    R0,??DataTable15_5  ;; 0xe000ed10
-        LDR      R2,[R0, #+0]
-        BIC      R2,R2,#0x4
-        STR      R2,[R0, #+0]
+        LDR.N    R2,??DataTable15_8  ;; 0xe000ed10
+        LDR      R2,[R2, #+0]
+        BICS     R2,R2,#0x4
+        LDR.N    R3,??DataTable15_8  ;; 0xe000ed10
+        STR      R2,[R3, #+0]
 //  413 
 //  414   /* Select SLEEP mode entry -------------------------------------------------*/
 //  415   if(SLEEPEntry == PWR_SLEEPENTRY_WFI)
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
         CMP      R1,#+1
         BNE.N    ??HAL_PWR_EnterSLEEPMode_0
 //  416   {   
 //  417     /* Request Wait For Interrupt */
 //  418     __WFI();
         WFI      
-        BX       LR
+        B.N      ??HAL_PWR_EnterSLEEPMode_1
 //  419   }
 //  420   else
 //  421   {
@@ -731,6 +762,7 @@ HAL_PWR_EnterSLEEPMode:
         WFE      
 //  426   }
 //  427 }
+??HAL_PWR_EnterSLEEPMode_1:
         BX       LR               ;; return
           CFI EndBlock cfiBlock8
 //  428 
@@ -761,7 +793,12 @@ HAL_PWR_EnterSLEEPMode:
         THUMB
 //  448 void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
 //  449 {
+HAL_PWR_EnterSTOPMode:
+        PUSH     {R4}
+          CFI R4 Frame(CFA, -4)
+          CFI CFA R13+4
 //  450   uint32_t tmpreg = 0;
+        MOVS     R2,#+0
 //  451   
 //  452   /* Check the parameters */
 //  453   assert_param(IS_PWR_REGULATOR(Regulator));
@@ -769,30 +806,34 @@ HAL_PWR_EnterSLEEPMode:
 //  455   
 //  456   /* Select the regulator state in Stop mode ---------------------------------*/
 //  457   tmpreg = PWR->CR1;
-HAL_PWR_EnterSTOPMode:
-        LDR.N    R2,??DataTable15_1  ;; 0x40007000
-        LDR      R3,[R2, #+0]
+        LDR.N    R3,??DataTable15_1  ;; 0x40007000
+        LDR      R3,[R3, #+0]
+        MOVS     R2,R3
 //  458   /* Clear PDDS and LPDS bits */
 //  459   tmpreg &= (uint32_t)~(PWR_CR1_PDDS | PWR_CR1_LPDS);
+        LSRS     R2,R2,#+2
+        LSLS     R2,R2,#+2
 //  460   
 //  461   /* Set LPDS, MRLVDS and LPLVDS bits according to Regulator value */
 //  462   tmpreg |= Regulator;
+        ORRS     R2,R0,R2
 //  463   
 //  464   /* Store the new value */
 //  465   PWR->CR1 = tmpreg;
-        LSRS     R3,R3,#+2
-        ORRS     R0,R0,R3, LSL #+2
-        STR      R0,[R2, #+0]
+        LDR.N    R3,??DataTable15_1  ;; 0x40007000
+        STR      R2,[R3, #+0]
 //  466   
 //  467   /* Set SLEEPDEEP bit of Cortex System Control Register */
 //  468   SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
-        LDR.N    R0,??DataTable15_5  ;; 0xe000ed10
-        LDR      R2,[R0, #+0]
-        ORR      R2,R2,#0x4
-        STR      R2,[R0, #+0]
+        LDR.N    R3,??DataTable15_8  ;; 0xe000ed10
+        LDR      R3,[R3, #+0]
+        ORRS     R3,R3,#0x4
+        LDR.N    R4,??DataTable15_8  ;; 0xe000ed10
+        STR      R3,[R4, #+0]
 //  469   
 //  470   /* Select Stop mode entry --------------------------------------------------*/
 //  471   if(STOPEntry == PWR_STOPENTRY_WFI)
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
         CMP      R1,#+1
         BNE.N    ??HAL_PWR_EnterSTOPMode_0
 //  472   {   
@@ -815,10 +856,15 @@ HAL_PWR_EnterSTOPMode:
 //  483   /* Reset SLEEPDEEP bit of Cortex System Control Register */
 //  484   SCB->SCR &= (uint32_t)~((uint32_t)SCB_SCR_SLEEPDEEP_Msk);  
 ??HAL_PWR_EnterSTOPMode_1:
-        LDR      R1,[R0, #+0]
-        BIC      R1,R1,#0x4
-        STR      R1,[R0, #+0]
+        LDR.N    R3,??DataTable15_8  ;; 0xe000ed10
+        LDR      R3,[R3, #+0]
+        BICS     R3,R3,#0x4
+        LDR.N    R4,??DataTable15_8  ;; 0xe000ed10
+        STR      R3,[R4, #+0]
 //  485 }
+        POP      {R4}
+          CFI R4 SameValue
+          CFI CFA R13+0
         BX       LR               ;; return
           CFI EndBlock cfiBlock9
 //  486 
@@ -844,16 +890,18 @@ HAL_PWR_EnterSTOPMode:
 //  500   PWR->CR1 |= PWR_CR1_PDDS;
 HAL_PWR_EnterSTANDBYMode:
         LDR.N    R0,??DataTable15_1  ;; 0x40007000
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x2
-        STR      R1,[R0, #+0]
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x2
+        LDR.N    R1,??DataTable15_1  ;; 0x40007000
+        STR      R0,[R1, #+0]
 //  501   
 //  502   /* Set SLEEPDEEP bit of Cortex System Control Register */
 //  503   SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
-        LDR.N    R0,??DataTable15_5  ;; 0xe000ed10
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x4
-        STR      R1,[R0, #+0]
+        LDR.N    R0,??DataTable15_8  ;; 0xe000ed10
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x4
+        LDR.N    R1,??DataTable15_8  ;; 0xe000ed10
+        STR      R0,[R1, #+0]
 //  504   
 //  505   /* This option is used to ensure that store operations are completed */
 //  506 #if defined ( __CC_ARM)
@@ -879,14 +927,13 @@ HAL_PWR_EnterSTANDBYMode:
 //  518 void HAL_PWR_PVD_IRQHandler(void)
 //  519 {
 HAL_PWR_PVD_IRQHandler:
-        PUSH     {R4,LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
 //  520   /* Check PWR Exti flag */
 //  521   if(__HAL_PWR_PVD_EXTI_GET_FLAG() != RESET)
-        LDR.N    R4,??DataTable15_6  ;; 0x40013c14
-        LDR      R0,[R4, #+0]
+        LDR.N    R0,??DataTable15_9  ;; 0x40013c14
+        LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+15
         BPL.N    ??HAL_PWR_PVD_IRQHandler_0
 //  522   {
@@ -897,12 +944,13 @@ HAL_PWR_PVD_IRQHandler:
 //  525     
 //  526     /* Clear PWR Exti pending bit */
 //  527     __HAL_PWR_PVD_EXTI_CLEAR_FLAG();
-        MOV      R0,#+65536
-        STR      R0,[R4, #+0]
+        MOVS     R0,#+65536
+        LDR.N    R1,??DataTable15_9  ;; 0x40013c14
+        STR      R0,[R1, #+0]
 //  528   }
 //  529 }
 ??HAL_PWR_PVD_IRQHandler_0:
-        POP      {R4,PC}          ;; return
+        POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock11
 //  530 
 //  531 /**
@@ -944,10 +992,11 @@ HAL_PWR_PVDCallback:
 //  552   /* Set SLEEPONEXIT bit of Cortex System Control Register */
 //  553   SET_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPONEXIT_Msk));
 HAL_PWR_EnableSleepOnExit:
-        LDR.N    R0,??DataTable15_5  ;; 0xe000ed10
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x2
-        STR      R1,[R0, #+0]
+        LDR.N    R0,??DataTable15_8  ;; 0xe000ed10
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x2
+        LDR.N    R1,??DataTable15_8  ;; 0xe000ed10
+        STR      R0,[R1, #+0]
 //  554 }
         BX       LR               ;; return
           CFI EndBlock cfiBlock13
@@ -969,10 +1018,11 @@ HAL_PWR_EnableSleepOnExit:
 //  564   /* Clear SLEEPONEXIT bit of Cortex System Control Register */
 //  565   CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPONEXIT_Msk));
 HAL_PWR_DisableSleepOnExit:
-        LDR.N    R0,??DataTable15_5  ;; 0xe000ed10
-        LDR      R1,[R0, #+0]
-        BIC      R1,R1,#0x2
-        STR      R1,[R0, #+0]
+        LDR.N    R0,??DataTable15_8  ;; 0xe000ed10
+        LDR      R0,[R0, #+0]
+        BICS     R0,R0,#0x2
+        LDR.N    R1,??DataTable15_8  ;; 0xe000ed10
+        STR      R0,[R1, #+0]
 //  566 }
         BX       LR               ;; return
           CFI EndBlock cfiBlock14
@@ -994,10 +1044,11 @@ HAL_PWR_DisableSleepOnExit:
 //  576   /* Set SEVONPEND bit of Cortex System Control Register */
 //  577   SET_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SEVONPEND_Msk));
 HAL_PWR_EnableSEVOnPend:
-        LDR.N    R0,??DataTable15_5  ;; 0xe000ed10
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x10
-        STR      R1,[R0, #+0]
+        LDR.N    R0,??DataTable15_8  ;; 0xe000ed10
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x10
+        LDR.N    R1,??DataTable15_8  ;; 0xe000ed10
+        STR      R0,[R1, #+0]
 //  578 }
         BX       LR               ;; return
           CFI EndBlock cfiBlock15
@@ -1019,10 +1070,11 @@ HAL_PWR_EnableSEVOnPend:
 //  588   /* Clear SEVONPEND bit of Cortex System Control Register */
 //  589   CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SEVONPEND_Msk));
 HAL_PWR_DisableSEVOnPend:
-        LDR.N    R0,??DataTable15_5  ;; 0xe000ed10
-        LDR      R1,[R0, #+0]
-        BIC      R1,R1,#0x10
-        STR      R1,[R0, #+0]
+        LDR.N    R0,??DataTable15_8  ;; 0xe000ed10
+        LDR      R0,[R0, #+0]
+        BICS     R0,R0,#0x10
+        LDR.N    R1,??DataTable15_8  ;; 0xe000ed10
+        STR      R0,[R1, #+0]
 //  590 }
         BX       LR               ;; return
           CFI EndBlock cfiBlock16
@@ -1043,30 +1095,48 @@ HAL_PWR_DisableSEVOnPend:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable15_2:
-        DC32     0x40013c00
+        DC32     0x40013c04
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable15_3:
-        DC32     0x40007008
+        DC32     0x40013c00
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable15_4:
-        DC32     0x4000700c
+        DC32     0x40013c08
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable15_5:
-        DC32     0xe000ed10
+        DC32     0x40013c0c
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable15_6:
+        DC32     0x4000700c
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable15_7:
+        DC32     0x40007008
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable15_8:
+        DC32     0xe000ed10
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable15_9:
         DC32     0x40013c14
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
@@ -1101,9 +1171,9 @@ HAL_PWR_DisableSEVOnPend:
 //  608 
 //  609 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 408 bytes in section .text
+// 510 bytes in section .text
 // 
-// 408 bytes of CODE memory
+// 510 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

@@ -762,6 +762,16 @@ void SPI6_IRQHandler(void)
 
 void MIC1TO6_Init(void)
 {
+	SPI5_Init();
+	SPI6_Init();
+	StartRecMic7_8();
+	while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
+	while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
+	while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
+	while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
+    HAL_Delay(2);
+
+
   while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
   while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
   I2S1_Init(); /* I2S1   --> SDO12 */
@@ -772,10 +782,7 @@ void MIC1TO6_Init(void)
   while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
   SPI4_Init(); /* SPI4   --> SDO56 */
 
-  SPI5_Init();
-  SPI6_Init();
 
-  //StartRecMic7_8();
 }
 
 void StartRecMic7_8 (void)
@@ -944,7 +951,7 @@ void SPI5_Init(void)
   hspi5.Init.Mode = SPI_MODE_SLAVE;
   hspi5.Init.Direction = SPI_DIRECTION_2LINES_RXONLY;//SPI_DIRECTION_2LINES_RXONLY
   hspi5.Init.DataSize = SPI_DATASIZE_16BIT;
-  hspi5.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi5.Init.CLKPolarity = SPI_POLARITY_HIGH;
   hspi5.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi5.Init.NSS = SPI_NSS_SOFT;//SPI_NSS_HARD_INPUT
   hspi5.Init.FirstBit = SPI_FIRSTBIT_MSB;
@@ -972,7 +979,7 @@ void SPI6_Init(void)
   hspi6.Init.Mode = SPI_MODE_SLAVE;
   hspi6.Init.Direction = SPI_DIRECTION_2LINES_RXONLY;//SPI_DIRECTION_2LINES_RXONLY
   hspi6.Init.DataSize = SPI_DATASIZE_16BIT;
-  hspi6.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi6.Init.CLKPolarity = SPI_POLARITY_HIGH;
   hspi6.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi6.Init.NSS = SPI_NSS_SOFT;//SPI_NSS_HARD_INPUT
   hspi6.Init.FirstBit = SPI_FIRSTBIT_MSB;
@@ -1519,6 +1526,11 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
 
 void PDM2PCMSDO78(void)
 {
+
+uint8_t buffer_switch_tmp;
+
+buffer_switch_tmp = buffer_switch;
+
 /*-------------------------------------------------------------------------------------------------------------
 			  
 	Sequence  Record Data					  Processing Data				  Player Data
@@ -1540,36 +1552,84 @@ void PDM2PCMSDO78(void)
 	            if(swtSDO7==0x01)
 	            {
 	                pDataMic7[i%64] = HTONS(TestSDO7[i]);
+					pDataMic8[i%64] = HTONS(TestSDO8[i]);
 	            }
 	            else
 	            {
 	               pDataMic7[i%64] = HTONS(TestSDO7_1[i]);
+				   pDataMic8[i%64] = HTONS(TestSDO8_1[i]);
 
 	            }
 
 	            /* PDM conversion for frame of 64 inputs, 16 outputs */
 	            if (i%64==63)
 	            {
+					/* Put them in processing phase */
 	              /* Recording Audio Data */						 
-	              switch (buffer_switch)
+	              switch (buffer_switch_tmp)
 	              {
-	                case BUF1_PLAY:								
+				    case BUF1_PLAY:								
 	                      PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer2.bufMIC7 + (i/64)*16), 150 ,
 	                      (PDMFilter_InitStruct *)&Filter[0]);
-	                      break;
+                          PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer2.bufMIC8 + (i/64)*16), 150 ,
+                          (PDMFilter_InitStruct *)&Filter[1]);						  
+	                      break;	              
 	                case BUF2_PLAY:
-	                        PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer3.bufMIC7 + (i/64)*16), 150 ,
-	                        (PDMFilter_InitStruct *)&Filter[0]);	
+		                  PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer3.bufMIC7 + (i/64)*16), 150 ,
+		                  (PDMFilter_InitStruct *)&Filter[0]);	
+                          PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer3.bufMIC8 + (i/64)*16), 150 ,
+                          (PDMFilter_InitStruct *)&Filter[1]);							
 	                        break;
 	                case BUF3_PLAY:
 	                        PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer1.bufMIC7 + (i/64)*16), 150 ,
-	                        (PDMFilter_InitStruct *)&Filter[0]);									
+	                        (PDMFilter_InitStruct *)&Filter[0]);	
+							PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer1.bufMIC8 + (i/64)*16), 150 ,
+							(PDMFilter_InitStruct *)&Filter[1]);	
 	                         break;
+
 	                default:
 	                         break; 
 	              }
 		        }
 	      }//if (WaveRecord_flgSDO7Finish==1)
+
+  	      switch (buffer_switch_tmp)
+          {
+			case BUF1_PLAY:								
+				Buffer2.bufMIC7[0]=Buffer2.bufMIC7[4];
+				Buffer2.bufMIC7[1]=Buffer2.bufMIC7[5];
+				Buffer2.bufMIC7[2]=Buffer2.bufMIC7[6];
+				Buffer2.bufMIC7[3]=Buffer2.bufMIC7[7];				
+				Buffer2.bufMIC8[0]=Buffer2.bufMIC8[4];
+				Buffer2.bufMIC8[1]=Buffer2.bufMIC8[5];
+				Buffer2.bufMIC8[2]=Buffer2.bufMIC8[6];
+				Buffer2.bufMIC8[3]=Buffer2.bufMIC8[7];				
+			    break;	              
+			case BUF2_PLAY:	
+				Buffer3.bufMIC7[0]=Buffer3.bufMIC7[4];
+				Buffer3.bufMIC7[1]=Buffer3.bufMIC7[5];
+				Buffer3.bufMIC7[2]=Buffer3.bufMIC7[6];
+				Buffer3.bufMIC7[3]=Buffer3.bufMIC7[7];				
+				Buffer3.bufMIC8[0]=Buffer3.bufMIC8[4];
+				Buffer3.bufMIC8[1]=Buffer3.bufMIC8[5];
+				Buffer3.bufMIC8[2]=Buffer3.bufMIC8[6];
+				Buffer3.bufMIC8[3]=Buffer3.bufMIC8[7];
+
+			    break;
+			case BUF3_PLAY:
+				Buffer1.bufMIC7[0]=Buffer1.bufMIC7[4];
+				Buffer1.bufMIC7[1]=Buffer1.bufMIC7[5];
+				Buffer1.bufMIC7[2]=Buffer1.bufMIC7[6];
+				Buffer1.bufMIC7[3]=Buffer1.bufMIC7[7];				
+				Buffer1.bufMIC8[0]=Buffer1.bufMIC8[4];
+				Buffer1.bufMIC8[1]=Buffer1.bufMIC8[5];
+				Buffer1.bufMIC8[2]=Buffer1.bufMIC8[6];
+				Buffer1.bufMIC8[3]=Buffer1.bufMIC8[7];
+
+			    break;
+			default:
+			         break; 
+          }
 
 #if 0
             /* Recording Audio Data */						 
@@ -1615,7 +1675,7 @@ void PDM2PCMSDO78(void)
 	                break; 
 	        }
 	    
-#endif
+
      }
     
 
@@ -1658,7 +1718,7 @@ void PDM2PCMSDO78(void)
                       }		
                    }					 
 		}
-#if 0                
+               
           /* Recording Audio Data */						 
           switch (buffer_switch)
           {

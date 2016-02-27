@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       27/Feb/2016  00:32:29
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       27/Feb/2016  12:00:10
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -16,10 +16,11 @@
 #        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 #        -o
 #        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-#        --no_unroll --no_inline --no_tbaa --no_scheduling --debug
-#        --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config
-#        "D:\Program Files (x86)\IAR Systems\Embedded Workbench
-#        7.3\arm\INC\c\DLib_Config_Full.h" -I
+#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+#        --no_clustering --no_scheduling --debug --endian=little
+#        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\INC\c\DLib_Config_Full.h"
+#        -I
 #        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 #        -I
 #        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
@@ -49,7 +50,7 @@
 #        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
 #        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -Om --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -On --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7
 #    List file    =  
@@ -151,7 +152,7 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
      89            */
      90          
 
-   \                                 In section .text, align 4, keep-with-next
+   \                                 In section .rodata, align 4
      91          const uint32_t GPIO_PIN[LEDn] = {LED1_PIN, LED2_PIN};
    \                     GPIO_PIN:
    \   00000000   0x00000400         DC32 1024, 2048
@@ -168,7 +169,7 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
      95                                                KEY_BUTTON_GPIO_PORT};
      96          
 
-   \                                 In section .text, align 4, keep-with-next
+   \                                 In section .rodata, align 4
      97          const uint16_t BUTTON_PIN[BUTTONn] = {WAKEUP_BUTTON_PIN,
    \                     BUTTON_PIN:
    \   00000000   0x0800 0x0800      DC16 2048, 2048, 2048
@@ -178,7 +179,7 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
      99                                                KEY_BUTTON_PIN};
     100          
 
-   \                                 In section .text, align 4, keep-with-next
+   \                                 In section .rodata, align 4
     101          const uint16_t BUTTON_IRQn[BUTTONn] = {WAKEUP_BUTTON_EXTI_IRQn,
    \                     BUTTON_IRQn:
    \   00000000   0x0028 0x0028      DC16 40, 40, 40
@@ -193,34 +194,38 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
    \                     COM_USART:
    \   00000000   0x40011000         DC32 40011000H
     106          
+
+   \                                 In section .data, align 4
     107          GPIO_TypeDef* COM_TX_PORT[COMn] = {DISCOVERY_COM1_TX_GPIO_PORT};
    \                     COM_TX_PORT:
-   \   00000004   0x40020000         DC32 40020000H
+   \   00000000   0x40020000         DC32 40020000H
     108          
+
+   \                                 In section .data, align 4
     109          GPIO_TypeDef* COM_RX_PORT[COMn] = {DISCOVERY_COM1_RX_GPIO_PORT};
    \                     COM_RX_PORT:
-   \   00000008   0x40020400         DC32 40020400H
+   \   00000000   0x40020400         DC32 40020400H
     110          
 
-   \                                 In section .text, align 4, keep-with-next
+   \                                 In section .rodata, align 2
     111          const uint16_t COM_TX_PIN[COMn] = {DISCOVERY_COM1_TX_PIN};
    \                     COM_TX_PIN:
    \   00000000   0x0200             DC16 512
     112          
 
-   \                                 In section .text, align 4, keep-with-next
+   \                                 In section .rodata, align 2
     113          const uint16_t COM_RX_PIN[COMn] = {DISCOVERY_COM1_RX_PIN};
    \                     COM_RX_PIN:
    \   00000000   0x0080             DC16 128
     114          
 
-   \                                 In section .text, align 4, keep-with-next
+   \                                 In section .rodata, align 2
     115          const uint16_t COM_TX_AF[COMn] = {DISCOVERY_COM1_TX_AF};
    \                     COM_TX_AF:
    \   00000000   0x0007             DC16 7
     116          
 
-   \                                 In section .text, align 4, keep-with-next
+   \                                 In section .rodata, align 2
     117          const uint16_t COM_RX_AF[COMn] = {DISCOVERY_COM1_RX_AF};
    \                     COM_RX_AF:
    \   00000000   0x0007             DC16 7
@@ -293,7 +298,7 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
     174          {
     175            return __STM32746G_DISCO_BSP_VERSION;
    \                     BSP_GetVersion: (+1)
-   \   00000000   0xF04F 0x7080      MOV      R0,#+16777216
+   \   00000000   0xF05F 0x7080      MOVS     R0,#+16777216
    \   00000004   0x4770             BX       LR               ;; return
     176          }
     177          
@@ -311,101 +316,120 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
    \                     BSP_LED_Init: (+1)
    \   00000000   0xB530             PUSH     {R4,R5,LR}
    \   00000002   0xB087             SUB      SP,SP,#+28
+   \   00000004   0x0004             MOVS     R4,R0
     187            GPIO_InitTypeDef  gpio_init_structure;
     188            GPIO_TypeDef*     gpio_led;
     189          
     190            if (Led == LED1)
-   \   00000004   0x2800             CMP      R0,#+0
-   \   00000006   0xD11F             BNE.N    ??BSP_LED_Init_0
+   \   00000006   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000008   0x2C00             CMP      R4,#+0
+   \   0000000A   0xD12C             BNE.N    ??BSP_LED_Init_0
     191            {
     192              gpio_led = LED1_GPIO_PORT;
+   \   0000000C   0x.... 0x....      LDR.W    R0,??DataTable24  ;; 0x40022000
+   \   00000010   0x0005             MOVS     R5,R0
     193              /* Enable the GPIO_LED clock */
     194              LED1_GPIO_CLK_ENABLE();
-   \   00000008   0x.... 0x....      LDR.W    R1,??DataTable31  ;; 0x40023830
-   \   0000000C   0x6808             LDR      R0,[R1, #+0]
-   \   0000000E   0xF440 0x7080      ORR      R0,R0,#0x100
-   \   00000012   0x6008             STR      R0,[R1, #+0]
-   \   00000014   0x6808             LDR      R0,[R1, #+0]
-   \   00000016   0xF400 0x7080      AND      R0,R0,#0x100
-   \   0000001A   0x9000             STR      R0,[SP, #+0]
-   \   0000001C   0x9800             LDR      R0,[SP, #+0]
+   \   00000012   0x.... 0x....      LDR.W    R0,??DataTable24_1  ;; 0x40023830
+   \   00000016   0x6800             LDR      R0,[R0, #+0]
+   \   00000018   0xF450 0x7080      ORRS     R0,R0,#0x100
+   \   0000001C   0x.... 0x....      LDR.W    R1,??DataTable24_1  ;; 0x40023830
+   \   00000020   0x6008             STR      R0,[R1, #+0]
+   \   00000022   0x.... 0x....      LDR.W    R0,??DataTable24_1  ;; 0x40023830
+   \   00000026   0x6800             LDR      R0,[R0, #+0]
+   \   00000028   0xF410 0x7080      ANDS     R0,R0,#0x100
+   \   0000002C   0x9000             STR      R0,[SP, #+0]
+   \   0000002E   0x9800             LDR      R0,[SP, #+0]
     195          
     196              /* Configure the GPIO_LED pin */
     197              gpio_init_structure.Pin = GPIO_PIN[Led];
-   \   0000001E   0xF44F 0x6080      MOV      R0,#+1024
-   \   00000022   0x9001             STR      R0,[SP, #+4]
+   \   00000030   0x.... 0x....      LDR.W    R0,??DataTable24_2
+   \   00000034   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000036   0xF850 0x0024      LDR      R0,[R0, R4, LSL #+2]
+   \   0000003A   0x9001             STR      R0,[SP, #+4]
     198              gpio_init_structure.Mode = GPIO_MODE_OUTPUT_PP;
-   \   00000024   0x2001             MOVS     R0,#+1
-   \   00000026   0x9002             STR      R0,[SP, #+8]
+   \   0000003C   0x2001             MOVS     R0,#+1
+   \   0000003E   0x9002             STR      R0,[SP, #+8]
     199              gpio_init_structure.Pull = GPIO_PULLUP;
-   \   00000028   0x9003             STR      R0,[SP, #+12]
+   \   00000040   0x2001             MOVS     R0,#+1
+   \   00000042   0x9003             STR      R0,[SP, #+12]
     200              gpio_init_structure.Speed = GPIO_SPEED_HIGH;
-   \   0000002A   0x2003             MOVS     R0,#+3
-   \   0000002C   0x9004             STR      R0,[SP, #+16]
+   \   00000044   0x2003             MOVS     R0,#+3
+   \   00000046   0x9004             STR      R0,[SP, #+16]
     201            
     202              HAL_GPIO_Init(gpio_led, &gpio_init_structure);
-   \   0000002E   0x.... 0x....      LDR.W    R5,??DataTable31_1  ;; 0x40022000
-   \   00000032   0xA901             ADD      R1,SP,#+4
-   \   00000034   0x4628             MOV      R0,R5
-   \   00000036   0x.... 0x....      BL       HAL_GPIO_Init
+   \   00000048   0xA901             ADD      R1,SP,#+4
+   \   0000004A   0x0028             MOVS     R0,R5
+   \   0000004C   0x.... 0x....      BL       HAL_GPIO_Init
     203              
     204              /* By default, turn off LED */
     205              HAL_GPIO_WritePin(gpio_led, GPIO_PIN[Led], GPIO_PIN_RESET);
-   \   0000003A   0x2200             MOVS     R2,#+0
-   \   0000003C   0xF44F 0x6180      MOV      R1,#+1024
-   \   00000040   0x4628             MOV      R0,R5
-   \   00000042   0x.... 0x....      BL       HAL_GPIO_WritePin
-   \   00000046   0xE022             B.N      ??BSP_LED_Init_1
+   \   00000050   0x2200             MOVS     R2,#+0
+   \   00000052   0x.... 0x....      LDR.W    R0,??DataTable24_2
+   \   00000056   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000058   0xF850 0x1024      LDR      R1,[R0, R4, LSL #+2]
+   \   0000005C   0xB289             UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
+   \   0000005E   0x0028             MOVS     R0,R5
+   \   00000060   0x.... 0x....      BL       HAL_GPIO_WritePin
+   \   00000064   0xE02E             B.N      ??BSP_LED_Init_1
     206            }
     207            else if (Led == LED2)
    \                     ??BSP_LED_Init_0: (+1)
-   \   00000048   0x2801             CMP      R0,#+1
-   \   0000004A   0xD120             BNE.N    ??BSP_LED_Init_1
+   \   00000066   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000068   0x2C01             CMP      R4,#+1
+   \   0000006A   0xD12B             BNE.N    ??BSP_LED_Init_1
     208            {
     209              gpio_led = LED2_GPIO_PORT;
+   \   0000006C   0x.... 0x....      LDR.W    R0,??DataTable24  ;; 0x40022000
+   \   00000070   0x0005             MOVS     R5,R0
     210              /* Enable the GPIO_LED clock */
     211              LED2_GPIO_CLK_ENABLE();
-   \   0000004C   0x.... 0x....      LDR.W    R1,??DataTable31  ;; 0x40023830
-   \   00000050   0x680A             LDR      R2,[R1, #+0]
-   \   00000052   0xF442 0x7280      ORR      R2,R2,#0x100
-   \   00000056   0x600A             STR      R2,[R1, #+0]
-   \   00000058   0x6809             LDR      R1,[R1, #+0]
-   \   0000005A   0xF401 0x7180      AND      R1,R1,#0x100
-   \   0000005E   0x9100             STR      R1,[SP, #+0]
-   \   00000060   0x9900             LDR      R1,[SP, #+0]
-   \   00000062   0x.... 0x....      ADR.W    R1,GPIO_PIN
-   \   00000066   0xF851 0x4020      LDR      R4,[R1, R0, LSL #+2]
-   \   0000006A   0x9401             STR      R4,[SP, #+4]
+   \   00000072   0x.... 0x....      LDR.W    R0,??DataTable24_1  ;; 0x40023830
+   \   00000076   0x6800             LDR      R0,[R0, #+0]
+   \   00000078   0xF450 0x7080      ORRS     R0,R0,#0x100
+   \   0000007C   0x.... 0x....      LDR.W    R1,??DataTable24_1  ;; 0x40023830
+   \   00000080   0x6008             STR      R0,[R1, #+0]
+   \   00000082   0x.... 0x....      LDR.W    R0,??DataTable24_1  ;; 0x40023830
+   \   00000086   0x6800             LDR      R0,[R0, #+0]
+   \   00000088   0xF410 0x7080      ANDS     R0,R0,#0x100
+   \   0000008C   0x9000             STR      R0,[SP, #+0]
+   \   0000008E   0x9800             LDR      R0,[SP, #+0]
     212          
     213              /* Configure the GPIO_LED pin */
     214              gpio_init_structure.Pin = GPIO_PIN[Led];
+   \   00000090   0x.... 0x....      LDR.W    R0,??DataTable24_2
+   \   00000094   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000096   0xF850 0x0024      LDR      R0,[R0, R4, LSL #+2]
+   \   0000009A   0x9001             STR      R0,[SP, #+4]
     215              gpio_init_structure.Mode = GPIO_MODE_OUTPUT_PP;
-   \   0000006C   0x2001             MOVS     R0,#+1
-   \   0000006E   0x9002             STR      R0,[SP, #+8]
+   \   0000009C   0x2001             MOVS     R0,#+1
+   \   0000009E   0x9002             STR      R0,[SP, #+8]
     216              gpio_init_structure.Pull = GPIO_PULLUP;
-   \   00000070   0x9003             STR      R0,[SP, #+12]
+   \   000000A0   0x2001             MOVS     R0,#+1
+   \   000000A2   0x9003             STR      R0,[SP, #+12]
     217              gpio_init_structure.Speed = GPIO_SPEED_HIGH;
-   \   00000072   0x2003             MOVS     R0,#+3
-   \   00000074   0x9004             STR      R0,[SP, #+16]
+   \   000000A4   0x2003             MOVS     R0,#+3
+   \   000000A6   0x9004             STR      R0,[SP, #+16]
     218            
     219              HAL_GPIO_Init(gpio_led, &gpio_init_structure);
-   \   00000076   0x.... 0x....      LDR.W    R5,??DataTable31_1  ;; 0x40022000
-   \   0000007A   0xA901             ADD      R1,SP,#+4
-   \   0000007C   0x4628             MOV      R0,R5
-   \   0000007E   0x.... 0x....      BL       HAL_GPIO_Init
+   \   000000A8   0xA901             ADD      R1,SP,#+4
+   \   000000AA   0x0028             MOVS     R0,R5
+   \   000000AC   0x.... 0x....      BL       HAL_GPIO_Init
     220              
     221              /* By default, turn off LED */
     222              HAL_GPIO_WritePin(gpio_led, GPIO_PIN[Led], GPIO_PIN_SET);
-   \   00000082   0x2201             MOVS     R2,#+1
-   \   00000084   0x4621             MOV      R1,R4
-   \   00000086   0xB289             UXTH     R1,R1
-   \   00000088   0x4628             MOV      R0,R5
-   \   0000008A   0x.... 0x....      BL       HAL_GPIO_WritePin
+   \   000000B0   0x2201             MOVS     R2,#+1
+   \   000000B2   0x.... 0x....      LDR.W    R0,??DataTable24_2
+   \   000000B6   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   000000B8   0xF850 0x1024      LDR      R1,[R0, R4, LSL #+2]
+   \   000000BC   0xB289             UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
+   \   000000BE   0x0028             MOVS     R0,R5
+   \   000000C0   0x.... 0x....      BL       HAL_GPIO_WritePin
     223            }
     224          }
    \                     ??BSP_LED_Init_1: (+1)
-   \   0000008E   0xB007             ADD      SP,SP,#+28
-   \   00000090   0xBD30             POP      {R4,R5,PC}       ;; return
+   \   000000C4   0xB007             ADD      SP,SP,#+28
+   \   000000C6   0xBD30             POP      {R4,R5,PC}       ;; return
     225          
     226          /**
     227            * @brief  DeInit LEDs.
@@ -420,57 +444,74 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
     234          void BSP_LED_DeInit(Led_TypeDef Led)
     235          {
    \                     BSP_LED_DeInit: (+1)
-   \   00000000   0xB538             PUSH     {R3-R5,LR}
-   \   00000002   0x0004             MOVS     R4,R0
+   \   00000000   0xB530             PUSH     {R4,R5,LR}
+   \   00000002   0xB085             SUB      SP,SP,#+20
+   \   00000004   0x0004             MOVS     R4,R0
     236            GPIO_InitTypeDef  gpio_init_structure;
     237            GPIO_TypeDef*     gpio_led;
     238          
     239            if (Led == LED1)
-   \   00000004   0xD10C             BNE.N    ??BSP_LED_DeInit_0
+   \   00000006   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000008   0x2C00             CMP      R4,#+0
+   \   0000000A   0xD116             BNE.N    ??BSP_LED_DeInit_0
     240            {
     241              gpio_led = LED1_GPIO_PORT;
+   \   0000000C   0x.... 0x....      LDR.W    R0,??DataTable24  ;; 0x40022000
+   \   00000010   0x0005             MOVS     R5,R0
     242              /* Turn off LED */
     243              HAL_GPIO_WritePin(gpio_led, GPIO_PIN[Led], GPIO_PIN_RESET);
-   \   00000006   0x.... 0x....      LDR.W    R5,??DataTable31_1  ;; 0x40022000
-   \   0000000A   0x2200             MOVS     R2,#+0
-   \   0000000C   0xF44F 0x6180      MOV      R1,#+1024
-   \   00000010   0x4628             MOV      R0,R5
-   \   00000012   0x.... 0x....      BL       HAL_GPIO_WritePin
+   \   00000012   0x2200             MOVS     R2,#+0
+   \   00000014   0x.... 0x....      LDR.W    R0,??DataTable24_2
+   \   00000018   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000001A   0xF850 0x1024      LDR      R1,[R0, R4, LSL #+2]
+   \   0000001E   0xB289             UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
+   \   00000020   0x0028             MOVS     R0,R5
+   \   00000022   0x.... 0x....      BL       HAL_GPIO_WritePin
     244              /* Configure the GPIO_LED pin */
     245              gpio_init_structure.Pin = GPIO_PIN[Led];
+   \   00000026   0x.... 0x....      LDR.W    R0,??DataTable24_2
+   \   0000002A   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000002C   0xF850 0x0024      LDR      R0,[R0, R4, LSL #+2]
+   \   00000030   0x9000             STR      R0,[SP, #+0]
     246              HAL_GPIO_DeInit(gpio_led, gpio_init_structure.Pin);
-   \   00000016   0xF44F 0x6180      MOV      R1,#+1024
-   \   0000001A   0x4628             MOV      R0,R5
-   \   0000001C   0x.... 0x....      BL       HAL_GPIO_DeInit
+   \   00000032   0x9900             LDR      R1,[SP, #+0]
+   \   00000034   0x0028             MOVS     R0,R5
+   \   00000036   0x.... 0x....      BL       HAL_GPIO_DeInit
     247            }
     248            
     249            if (Led == LED2)
    \                     ??BSP_LED_DeInit_0: (+1)
-   \   00000020   0x2C01             CMP      R4,#+1
-   \   00000022   0xD111             BNE.N    ??BSP_LED_DeInit_1
-   \   00000024   0x.... 0x....      ADR.W    R0,GPIO_PIN
-   \   00000028   0xF850 0x4024      LDR      R4,[R0, R4, LSL #+2]
-   \   0000002C   0x.... 0x....      LDR.W    R5,??DataTable31_1  ;; 0x40022000
-   \   00000030   0x2200             MOVS     R2,#+0
-   \   00000032   0x4621             MOV      R1,R4
-   \   00000034   0xB289             UXTH     R1,R1
-   \   00000036   0x4628             MOV      R0,R5
+   \   0000003A   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000003C   0x2C01             CMP      R4,#+1
+   \   0000003E   0xD116             BNE.N    ??BSP_LED_DeInit_1
     250            {
     251              gpio_led = LED2_GPIO_PORT;
+   \   00000040   0x.... 0x....      LDR.W    R0,??DataTable24  ;; 0x40022000
+   \   00000044   0x0005             MOVS     R5,R0
     252              /* Turn off LED */
     253              HAL_GPIO_WritePin(gpio_led, GPIO_PIN[Led], GPIO_PIN_RESET);
-   \   00000038   0x.... 0x....      BL       HAL_GPIO_WritePin
+   \   00000046   0x2200             MOVS     R2,#+0
+   \   00000048   0x.... 0x....      LDR.W    R0,??DataTable24_2
+   \   0000004C   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000004E   0xF850 0x1024      LDR      R1,[R0, R4, LSL #+2]
+   \   00000052   0xB289             UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
+   \   00000054   0x0028             MOVS     R0,R5
+   \   00000056   0x.... 0x....      BL       HAL_GPIO_WritePin
     254              /* Configure the GPIO_LED pin */
     255              gpio_init_structure.Pin = GPIO_PIN[Led];
+   \   0000005A   0x.... 0x....      LDR.W    R0,??DataTable24_2
+   \   0000005E   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000060   0xF850 0x0024      LDR      R0,[R0, R4, LSL #+2]
+   \   00000064   0x9000             STR      R0,[SP, #+0]
     256              HAL_GPIO_DeInit(gpio_led, gpio_init_structure.Pin);
-   \   0000003C   0x4621             MOV      R1,R4
-   \   0000003E   0x4628             MOV      R0,R5
-   \   00000040   0xE8BD 0x4034      POP      {R2,R4,R5,LR}
-   \   00000044   0x.... 0x....      B.W      HAL_GPIO_DeInit
+   \   00000066   0x9900             LDR      R1,[SP, #+0]
+   \   00000068   0x0028             MOVS     R0,R5
+   \   0000006A   0x.... 0x....      BL       HAL_GPIO_DeInit
     257            }
     258          }
    \                     ??BSP_LED_DeInit_1: (+1)
-   \   00000048   0xBD31             POP      {R0,R4,R5,PC}    ;; return
+   \   0000006E   0xB005             ADD      SP,SP,#+20
+   \   00000070   0xBD30             POP      {R4,R5,PC}       ;; return
     259          
     260          /**
     261            * @brief  Turns selected LED On.
@@ -484,39 +525,49 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
     267          void BSP_LED_On(Led_TypeDef Led)
     268          {
    \                     BSP_LED_On: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
    \   00000002   0x0004             MOVS     R4,R0
     269            GPIO_TypeDef*     gpio_led;
     270          
     271            if (Led == LED1)	/* Switch On LED connected to GPIO */
-   \   00000004   0xD106             BNE.N    ??BSP_LED_On_0
+   \   00000004   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000006   0x2C00             CMP      R4,#+0
+   \   00000008   0xD10C             BNE.N    ??BSP_LED_On_0
     272            {
     273              gpio_led = LED1_GPIO_PORT;
+   \   0000000A   0x.... 0x....      LDR.W    R0,??DataTable24  ;; 0x40022000
+   \   0000000E   0x0005             MOVS     R5,R0
     274              HAL_GPIO_WritePin(gpio_led, GPIO_PIN[Led], GPIO_PIN_SET);
-   \   00000006   0x2201             MOVS     R2,#+1
-   \   00000008   0xF44F 0x6180      MOV      R1,#+1024
-   \   0000000C   0x.... 0x....      LDR.W    R0,??DataTable31_1  ;; 0x40022000
-   \   00000010   0x.... 0x....      BL       HAL_GPIO_WritePin
+   \   00000010   0x2201             MOVS     R2,#+1
+   \   00000012   0x.... 0x....      LDR.W    R0,??DataTable24_2
+   \   00000016   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000018   0xF850 0x1024      LDR      R1,[R0, R4, LSL #+2]
+   \   0000001C   0xB289             UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
+   \   0000001E   0x0028             MOVS     R0,R5
+   \   00000020   0x.... 0x....      BL       HAL_GPIO_WritePin
     275            }
     276            
     277            if (Led == LED2)	/* Switch On LED connected to GPIO */
    \                     ??BSP_LED_On_0: (+1)
-   \   00000014   0x2C01             CMP      R4,#+1
-   \   00000016   0xD10B             BNE.N    ??BSP_LED_On_1
+   \   00000024   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000026   0x2C01             CMP      R4,#+1
+   \   00000028   0xD10C             BNE.N    ??BSP_LED_On_1
     278            {
     279              gpio_led = LED2_GPIO_PORT;
+   \   0000002A   0x.... 0x....      LDR.W    R0,??DataTable24  ;; 0x40022000
+   \   0000002E   0x0005             MOVS     R5,R0
     280              HAL_GPIO_WritePin(gpio_led, GPIO_PIN[Led], GPIO_PIN_SET);
-   \   00000018   0x2201             MOVS     R2,#+1
-   \   0000001A   0x.... 0x....      ADR.W    R0,GPIO_PIN
-   \   0000001E   0xF850 0x1024      LDR      R1,[R0, R4, LSL #+2]
-   \   00000022   0xB289             UXTH     R1,R1
-   \   00000024   0x.... 0x....      LDR.W    R0,??DataTable31_1  ;; 0x40022000
-   \   00000028   0xE8BD 0x4010      POP      {R4,LR}
-   \   0000002C   0x.... 0x....      B.W      HAL_GPIO_WritePin
+   \   00000030   0x2201             MOVS     R2,#+1
+   \   00000032   0x.... 0x....      LDR.W    R0,??DataTable24_2
+   \   00000036   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000038   0xF850 0x1024      LDR      R1,[R0, R4, LSL #+2]
+   \   0000003C   0xB289             UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
+   \   0000003E   0x0028             MOVS     R0,R5
+   \   00000040   0x.... 0x....      BL       HAL_GPIO_WritePin
     281            }
     282          }
    \                     ??BSP_LED_On_1: (+1)
-   \   00000030   0xBD10             POP      {R4,PC}          ;; return
+   \   00000044   0xBD31             POP      {R0,R4,R5,PC}    ;; return
     283          
     284          /**
     285            * @brief  Turns selected LED Off. 
@@ -530,39 +581,49 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
     291          void BSP_LED_Off(Led_TypeDef Led)
     292          {
    \                     BSP_LED_Off: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
    \   00000002   0x0004             MOVS     R4,R0
     293            GPIO_TypeDef*     gpio_led;
     294          
     295            if (Led == LED1) /* Switch Off LED connected to GPIO */
-   \   00000004   0xD106             BNE.N    ??BSP_LED_Off_0
+   \   00000004   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000006   0x2C00             CMP      R4,#+0
+   \   00000008   0xD10C             BNE.N    ??BSP_LED_Off_0
     296            {
     297              gpio_led = LED1_GPIO_PORT;
+   \   0000000A   0x.... 0x....      LDR.W    R0,??DataTable24  ;; 0x40022000
+   \   0000000E   0x0005             MOVS     R5,R0
     298              HAL_GPIO_WritePin(gpio_led, GPIO_PIN[Led], GPIO_PIN_RESET);
-   \   00000006   0x2200             MOVS     R2,#+0
-   \   00000008   0xF44F 0x6180      MOV      R1,#+1024
-   \   0000000C   0x.... 0x....      LDR.W    R0,??DataTable31_1  ;; 0x40022000
-   \   00000010   0x.... 0x....      BL       HAL_GPIO_WritePin
+   \   00000010   0x2200             MOVS     R2,#+0
+   \   00000012   0x.... 0x....      LDR.W    R0,??DataTable24_2
+   \   00000016   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000018   0xF850 0x1024      LDR      R1,[R0, R4, LSL #+2]
+   \   0000001C   0xB289             UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
+   \   0000001E   0x0028             MOVS     R0,R5
+   \   00000020   0x.... 0x....      BL       HAL_GPIO_WritePin
     299            }
     300            
     301            if (Led == LED2) /* Switch Off LED connected to GPIO */
    \                     ??BSP_LED_Off_0: (+1)
-   \   00000014   0x2C01             CMP      R4,#+1
-   \   00000016   0xD10B             BNE.N    ??BSP_LED_Off_1
+   \   00000024   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000026   0x2C01             CMP      R4,#+1
+   \   00000028   0xD10C             BNE.N    ??BSP_LED_Off_1
     302            {
     303              gpio_led = LED2_GPIO_PORT;
+   \   0000002A   0x.... 0x....      LDR.W    R0,??DataTable24  ;; 0x40022000
+   \   0000002E   0x0005             MOVS     R5,R0
     304              HAL_GPIO_WritePin(gpio_led, GPIO_PIN[Led], GPIO_PIN_RESET);
-   \   00000018   0x2200             MOVS     R2,#+0
-   \   0000001A   0x.... 0x....      ADR.W    R0,GPIO_PIN
-   \   0000001E   0xF850 0x1024      LDR      R1,[R0, R4, LSL #+2]
-   \   00000022   0xB289             UXTH     R1,R1
-   \   00000024   0x.... 0x....      LDR.W    R0,??DataTable31_1  ;; 0x40022000
-   \   00000028   0xE8BD 0x4010      POP      {R4,LR}
-   \   0000002C   0x.... 0x....      B.W      HAL_GPIO_WritePin
+   \   00000030   0x2200             MOVS     R2,#+0
+   \   00000032   0x.... 0x....      LDR.W    R0,??DataTable24_2
+   \   00000036   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000038   0xF850 0x1024      LDR      R1,[R0, R4, LSL #+2]
+   \   0000003C   0xB289             UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
+   \   0000003E   0x0028             MOVS     R0,R5
+   \   00000040   0x.... 0x....      BL       HAL_GPIO_WritePin
     305            }
     306          }
    \                     ??BSP_LED_Off_1: (+1)
-   \   00000030   0xBD10             POP      {R4,PC}          ;; return
+   \   00000044   0xBD31             POP      {R0,R4,R5,PC}    ;; return
     307          
     308          /**
     309            * @brief  Toggles the selected LED.
@@ -576,37 +637,47 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
     315          void BSP_LED_Toggle(Led_TypeDef Led)
     316          {
    \                     BSP_LED_Toggle: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
    \   00000002   0x0004             MOVS     R4,R0
     317            GPIO_TypeDef*     gpio_led;
     318          
     319            if (Led == LED1)	/* Toggle LED connected to GPIO */
-   \   00000004   0xD105             BNE.N    ??BSP_LED_Toggle_0
+   \   00000004   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000006   0x2C00             CMP      R4,#+0
+   \   00000008   0xD10B             BNE.N    ??BSP_LED_Toggle_0
     320            {
     321              gpio_led = LED1_GPIO_PORT;
+   \   0000000A   0x.... 0x....      LDR.W    R0,??DataTable24  ;; 0x40022000
+   \   0000000E   0x0005             MOVS     R5,R0
     322              HAL_GPIO_TogglePin(gpio_led, GPIO_PIN[Led]);
-   \   00000006   0xF44F 0x6180      MOV      R1,#+1024
-   \   0000000A   0x.... 0x....      LDR.W    R0,??DataTable31_1  ;; 0x40022000
-   \   0000000E   0x.... 0x....      BL       HAL_GPIO_TogglePin
+   \   00000010   0x.... 0x....      LDR.W    R0,??DataTable24_2
+   \   00000014   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000016   0xF850 0x1024      LDR      R1,[R0, R4, LSL #+2]
+   \   0000001A   0xB289             UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
+   \   0000001C   0x0028             MOVS     R0,R5
+   \   0000001E   0x.... 0x....      BL       HAL_GPIO_TogglePin
     323            }
     324            
     325            if (Led == LED2)	/* Toggle LED connected to GPIO */
    \                     ??BSP_LED_Toggle_0: (+1)
-   \   00000012   0x2C01             CMP      R4,#+1
-   \   00000014   0xD10A             BNE.N    ??BSP_LED_Toggle_1
+   \   00000022   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000024   0x2C01             CMP      R4,#+1
+   \   00000026   0xD10B             BNE.N    ??BSP_LED_Toggle_1
     326            {
     327              gpio_led = LED2_GPIO_PORT;
+   \   00000028   0x.... 0x....      LDR.W    R0,??DataTable24  ;; 0x40022000
+   \   0000002C   0x0005             MOVS     R5,R0
     328              HAL_GPIO_TogglePin(gpio_led, GPIO_PIN[Led]);
-   \   00000016   0x.... 0x....      ADR.W    R0,GPIO_PIN
-   \   0000001A   0xF850 0x1024      LDR      R1,[R0, R4, LSL #+2]
-   \   0000001E   0xB289             UXTH     R1,R1
-   \   00000020   0x.... 0x....      LDR.W    R0,??DataTable31_1  ;; 0x40022000
-   \   00000024   0xE8BD 0x4010      POP      {R4,LR}
-   \   00000028   0x.... 0x....      B.W      HAL_GPIO_TogglePin
+   \   0000002E   0x.... 0x....      LDR.W    R0,??DataTable24_2
+   \   00000032   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000034   0xF850 0x1024      LDR      R1,[R0, R4, LSL #+2]
+   \   00000038   0xB289             UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
+   \   0000003A   0x0028             MOVS     R0,R5
+   \   0000003C   0x.... 0x....      BL       HAL_GPIO_TogglePin
     329            }
     330          }
    \                     ??BSP_LED_Toggle_1: (+1)
-   \   0000002C   0xBD10             POP      {R4,PC}          ;; return
+   \   00000040   0xBD31             POP      {R0,R4,R5,PC}    ;; return
     331          
     332          /**
     333            * @brief  Configures button GPIO and EXTI Line.
@@ -630,120 +701,149 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
     349          void BSP_PB_Init(Button_TypeDef Button, ButtonMode_TypeDef ButtonMode)
     350          {
    \                     BSP_PB_Init: (+1)
-   \   00000000   0xB570             PUSH     {R4-R6,LR}
-   \   00000002   0xB086             SUB      SP,SP,#+24
-   \   00000004   0x4604             MOV      R4,R0
-   \   00000006   0x460E             MOV      R6,R1
+   \   00000000   0xB530             PUSH     {R4,R5,LR}
+   \   00000002   0xB087             SUB      SP,SP,#+28
+   \   00000004   0x0004             MOVS     R4,R0
+   \   00000006   0x000D             MOVS     R5,R1
     351            GPIO_InitTypeDef gpio_init_structure;
     352            
     353            /* Enable the BUTTON clock */
     354            BUTTONx_GPIO_CLK_ENABLE(Button);
-   \   00000008   0x.... 0x....      LDR.W    R0,??DataTable31  ;; 0x40023830
-   \   0000000C   0x2C00             CMP      R4,#+0
-   \   0000000E   0xD109             BNE.N    ??BSP_PB_Init_0
-   \   00000010   0x6801             LDR      R1,[R0, #+0]
-   \   00000012   0xF441 0x7180      ORR      R1,R1,#0x100
-   \   00000016   0x6001             STR      R1,[R0, #+0]
-   \   00000018   0x6800             LDR      R0,[R0, #+0]
-   \   0000001A   0xF400 0x7080      AND      R0,R0,#0x100
-   \   0000001E   0x9000             STR      R0,[SP, #+0]
-   \   00000020   0x9800             LDR      R0,[SP, #+0]
-   \   00000022   0xE008             B.N      ??BSP_PB_Init_1
+   \   00000008   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000000A   0x2C00             CMP      R4,#+0
+   \   0000000C   0xD10F             BNE.N    ??BSP_PB_Init_0
+   \   0000000E   0x.... 0x....      LDR.W    R0,??DataTable24_1  ;; 0x40023830
+   \   00000012   0x6800             LDR      R0,[R0, #+0]
+   \   00000014   0xF450 0x7080      ORRS     R0,R0,#0x100
+   \   00000018   0x.... 0x....      LDR.W    R1,??DataTable24_1  ;; 0x40023830
+   \   0000001C   0x6008             STR      R0,[R1, #+0]
+   \   0000001E   0x.... 0x....      LDR.W    R0,??DataTable24_1  ;; 0x40023830
+   \   00000022   0x6800             LDR      R0,[R0, #+0]
+   \   00000024   0xF410 0x7080      ANDS     R0,R0,#0x100
+   \   00000028   0x9000             STR      R0,[SP, #+0]
+   \   0000002A   0x9800             LDR      R0,[SP, #+0]
+   \   0000002C   0xE021             B.N      ??BSP_PB_Init_1
    \                     ??BSP_PB_Init_0: (+1)
-   \   00000024   0x6801             LDR      R1,[R0, #+0]
-   \   00000026   0xF441 0x7180      ORR      R1,R1,#0x100
-   \   0000002A   0x6001             STR      R1,[R0, #+0]
-   \   0000002C   0x6800             LDR      R0,[R0, #+0]
-   \   0000002E   0xF400 0x7080      AND      R0,R0,#0x100
-   \   00000032   0x9000             STR      R0,[SP, #+0]
-   \   00000034   0x9800             LDR      R0,[SP, #+0]
+   \   0000002E   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000030   0x2C01             CMP      R4,#+1
+   \   00000032   0xD10F             BNE.N    ??BSP_PB_Init_2
+   \   00000034   0x.... 0x....      LDR.W    R0,??DataTable24_1  ;; 0x40023830
+   \   00000038   0x6800             LDR      R0,[R0, #+0]
+   \   0000003A   0xF450 0x7080      ORRS     R0,R0,#0x100
+   \   0000003E   0x.... 0x....      LDR.W    R1,??DataTable24_1  ;; 0x40023830
+   \   00000042   0x6008             STR      R0,[R1, #+0]
+   \   00000044   0x.... 0x....      LDR.W    R0,??DataTable24_1  ;; 0x40023830
+   \   00000048   0x6800             LDR      R0,[R0, #+0]
+   \   0000004A   0xF410 0x7080      ANDS     R0,R0,#0x100
+   \   0000004E   0x9000             STR      R0,[SP, #+0]
+   \   00000050   0x9800             LDR      R0,[SP, #+0]
+   \   00000052   0xE00E             B.N      ??BSP_PB_Init_1
+   \                     ??BSP_PB_Init_2: (+1)
+   \   00000054   0x.... 0x....      LDR.W    R0,??DataTable24_1  ;; 0x40023830
+   \   00000058   0x6800             LDR      R0,[R0, #+0]
+   \   0000005A   0xF450 0x7080      ORRS     R0,R0,#0x100
+   \   0000005E   0x.... 0x....      LDR.W    R1,??DataTable24_1  ;; 0x40023830
+   \   00000062   0x6008             STR      R0,[R1, #+0]
+   \   00000064   0x.... 0x....      LDR.W    R0,??DataTable24_1  ;; 0x40023830
+   \   00000068   0x6800             LDR      R0,[R0, #+0]
+   \   0000006A   0xF410 0x7080      ANDS     R0,R0,#0x100
+   \   0000006E   0x9000             STR      R0,[SP, #+0]
+   \   00000070   0x9800             LDR      R0,[SP, #+0]
     355            
     356            if(ButtonMode == BUTTON_MODE_GPIO)
    \                     ??BSP_PB_Init_1: (+1)
-   \   00000036   0x2E00             CMP      R6,#+0
-   \   00000038   0xD111             BNE.N    ??BSP_PB_Init_2
+   \   00000072   0xB2ED             UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+   \   00000074   0x2D00             CMP      R5,#+0
+   \   00000076   0xD113             BNE.N    ??BSP_PB_Init_3
     357            {
     358              /* Configure Button pin as input */
     359              gpio_init_structure.Pin = BUTTON_PIN[Button];
-   \   0000003A   0x4625             MOV      R5,R4
-   \   0000003C   0x.... 0x....      ADR.W    R0,BUTTON_PIN
-   \   00000040   0xF830 0x0015      LDRH     R0,[R0, R5, LSL #+1]
-   \   00000044   0x9001             STR      R0,[SP, #+4]
+   \   00000078   0x.... 0x....      LDR.W    R0,??DataTable24_3
+   \   0000007C   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000007E   0xF830 0x0014      LDRH     R0,[R0, R4, LSL #+1]
+   \   00000082   0x9001             STR      R0,[SP, #+4]
     360              gpio_init_structure.Mode = GPIO_MODE_INPUT;
-   \   00000046   0x2000             MOVS     R0,#+0
-   \   00000048   0x9002             STR      R0,[SP, #+8]
+   \   00000084   0x2000             MOVS     R0,#+0
+   \   00000086   0x9002             STR      R0,[SP, #+8]
     361              gpio_init_structure.Pull = GPIO_NOPULL;
-   \   0000004A   0x9003             STR      R0,[SP, #+12]
+   \   00000088   0x2000             MOVS     R0,#+0
+   \   0000008A   0x9003             STR      R0,[SP, #+12]
     362              gpio_init_structure.Speed = GPIO_SPEED_FAST;
-   \   0000004C   0x2002             MOVS     R0,#+2
-   \   0000004E   0x9004             STR      R0,[SP, #+16]
+   \   0000008C   0x2002             MOVS     R0,#+2
+   \   0000008E   0x9004             STR      R0,[SP, #+16]
     363              HAL_GPIO_Init(BUTTON_PORT[Button], &gpio_init_structure);
-   \   00000050   0xA901             ADD      R1,SP,#+4
-   \   00000052   0x.... 0x....      LDR.W    R0,??DataTable31_2
-   \   00000056   0xF850 0x0025      LDR      R0,[R0, R5, LSL #+2]
-   \   0000005A   0x.... 0x....      BL       HAL_GPIO_Init
+   \   00000090   0xA901             ADD      R1,SP,#+4
+   \   00000092   0x.... 0x....      LDR.W    R0,??DataTable24_4
+   \   00000096   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000098   0xF850 0x0024      LDR      R0,[R0, R4, LSL #+2]
+   \   0000009C   0x.... 0x....      BL       HAL_GPIO_Init
     364            }
     365            
     366            if(ButtonMode == BUTTON_MODE_EXTI)
-   \                     ??BSP_PB_Init_2: (+1)
-   \   0000005E   0x2E01             CMP      R6,#+1
-   \   00000060   0xD127             BNE.N    ??BSP_PB_Init_3
+   \                     ??BSP_PB_Init_3: (+1)
+   \   000000A0   0xB2ED             UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+   \   000000A2   0x2D01             CMP      R5,#+1
+   \   000000A4   0xD12D             BNE.N    ??BSP_PB_Init_4
     367            {
     368              /* Configure Button pin as input with External interrupt */
     369              gpio_init_structure.Pin = BUTTON_PIN[Button];
-   \   00000062   0x4625             MOV      R5,R4
-   \   00000064   0x.... 0x....      ADR.W    R0,BUTTON_PIN
-   \   00000068   0xF830 0x0015      LDRH     R0,[R0, R5, LSL #+1]
-   \   0000006C   0x9001             STR      R0,[SP, #+4]
+   \   000000A6   0x.... 0x....      LDR.W    R0,??DataTable24_3
+   \   000000AA   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   000000AC   0xF830 0x0014      LDRH     R0,[R0, R4, LSL #+1]
+   \   000000B0   0x9001             STR      R0,[SP, #+4]
     370              gpio_init_structure.Pull = GPIO_NOPULL;
-   \   0000006E   0x2000             MOVS     R0,#+0
-   \   00000070   0x9003             STR      R0,[SP, #+12]
+   \   000000B2   0x2000             MOVS     R0,#+0
+   \   000000B4   0x9003             STR      R0,[SP, #+12]
     371              gpio_init_structure.Speed = GPIO_SPEED_FAST;
-   \   00000072   0x2002             MOVS     R0,#+2
-   \   00000074   0x9004             STR      R0,[SP, #+16]
+   \   000000B6   0x2002             MOVS     R0,#+2
+   \   000000B8   0x9004             STR      R0,[SP, #+16]
     372              
     373              if(Button != BUTTON_WAKEUP)
-   \   00000076   0x2C00             CMP      R4,#+0
-   \   00000078   0xD003             BEQ.N    ??BSP_PB_Init_4
+   \   000000BA   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   000000BC   0x2C00             CMP      R4,#+0
+   \   000000BE   0xD003             BEQ.N    ??BSP_PB_Init_5
     374              {
     375                gpio_init_structure.Mode = GPIO_MODE_IT_FALLING; 
-   \   0000007A   0x.... 0x....      LDR.W    R0,??DataTable31_3  ;; 0x10210000
-   \   0000007E   0x9002             STR      R0,[SP, #+8]
-   \   00000080   0xE002             B.N      ??BSP_PB_Init_5
+   \   000000C0   0x.... 0x....      LDR.W    R0,??DataTable24_5  ;; 0x10210000
+   \   000000C4   0x9002             STR      R0,[SP, #+8]
+   \   000000C6   0xE002             B.N      ??BSP_PB_Init_6
     376              }
     377              else
     378              {
     379                gpio_init_structure.Mode = GPIO_MODE_IT_RISING;
-   \                     ??BSP_PB_Init_4: (+1)
-   \   00000082   0x.... 0x....      LDR.W    R0,??DataTable31_4  ;; 0x10110000
-   \   00000086   0x9002             STR      R0,[SP, #+8]
+   \                     ??BSP_PB_Init_5: (+1)
+   \   000000C8   0x.... 0x....      LDR.W    R0,??DataTable24_6  ;; 0x10110000
+   \   000000CC   0x9002             STR      R0,[SP, #+8]
     380              }
     381              
     382              HAL_GPIO_Init(BUTTON_PORT[Button], &gpio_init_structure);
-   \                     ??BSP_PB_Init_5: (+1)
-   \   00000088   0xA901             ADD      R1,SP,#+4
-   \   0000008A   0x.... 0x....      LDR.W    R0,??DataTable31_2
-   \   0000008E   0xF850 0x0025      LDR      R0,[R0, R5, LSL #+2]
-   \   00000092   0x.... 0x....      BL       HAL_GPIO_Init
-   \   00000096   0x.... 0x....      ADR.W    R0,BUTTON_IRQn
-   \   0000009A   0xF830 0x4015      LDRH     R4,[R0, R5, LSL #+1]
-   \   0000009E   0x2200             MOVS     R2,#+0
-   \   000000A0   0x210F             MOVS     R1,#+15
-   \   000000A2   0x4620             MOV      R0,R4
-   \   000000A4   0xB240             SXTB     R0,R0
+   \                     ??BSP_PB_Init_6: (+1)
+   \   000000CE   0xA901             ADD      R1,SP,#+4
+   \   000000D0   0x.... 0x....      LDR.W    R0,??DataTable24_4
+   \   000000D4   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   000000D6   0xF850 0x0024      LDR      R0,[R0, R4, LSL #+2]
+   \   000000DA   0x.... 0x....      BL       HAL_GPIO_Init
     383              
     384              /* Enable and set Button EXTI Interrupt to the lowest priority */
     385              HAL_NVIC_SetPriority((IRQn_Type)(BUTTON_IRQn[Button]), 0x0F, 0x00);
-   \   000000A6   0x.... 0x....      BL       HAL_NVIC_SetPriority
+   \   000000DE   0x2200             MOVS     R2,#+0
+   \   000000E0   0x210F             MOVS     R1,#+15
+   \   000000E2   0x.... 0x....      LDR.W    R0,??DataTable24_7
+   \   000000E6   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   000000E8   0xF830 0x0014      LDRH     R0,[R0, R4, LSL #+1]
+   \   000000EC   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   000000EE   0x.... 0x....      BL       HAL_NVIC_SetPriority
     386              HAL_NVIC_EnableIRQ((IRQn_Type)(BUTTON_IRQn[Button]));
-   \   000000AA   0x4620             MOV      R0,R4
-   \   000000AC   0xB240             SXTB     R0,R0
-   \   000000AE   0x.... 0x....      BL       HAL_NVIC_EnableIRQ
+   \   000000F2   0x.... 0x....      LDR.W    R0,??DataTable24_7
+   \   000000F6   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   000000F8   0xF830 0x0014      LDRH     R0,[R0, R4, LSL #+1]
+   \   000000FC   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   000000FE   0x.... 0x....      BL       HAL_NVIC_EnableIRQ
     387            }
     388          }
-   \                     ??BSP_PB_Init_3: (+1)
-   \   000000B2   0xB006             ADD      SP,SP,#+24
-   \   000000B4   0xBD70             POP      {R4-R6,PC}       ;; return
+   \                     ??BSP_PB_Init_4: (+1)
+   \   00000102   0xB007             ADD      SP,SP,#+28
+   \   00000104   0xBD30             POP      {R4,R5,PC}       ;; return
     389          
     390          /**
     391            * @brief  Push Button DeInit.
@@ -764,23 +864,30 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
     404          {
    \                     BSP_PB_DeInit: (+1)
    \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x4604             MOV      R4,R0
+   \   00000002   0xB086             SUB      SP,SP,#+24
+   \   00000004   0x0004             MOVS     R4,R0
     405              GPIO_InitTypeDef gpio_init_structure;
     406          
     407              gpio_init_structure.Pin = BUTTON_PIN[Button];
+   \   00000006   0x.... 0x....      LDR.W    R0,??DataTable24_3
+   \   0000000A   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000000C   0xF830 0x0014      LDRH     R0,[R0, R4, LSL #+1]
+   \   00000010   0x9000             STR      R0,[SP, #+0]
     408              HAL_NVIC_DisableIRQ((IRQn_Type)(BUTTON_IRQn[Button]));
-   \   00000004   0x.... 0x....      ADR.W    R0,BUTTON_IRQn
-   \   00000008   0xF830 0x0014      LDRH     R0,[R0, R4, LSL #+1]
-   \   0000000C   0xB240             SXTB     R0,R0
-   \   0000000E   0x.... 0x....      BL       HAL_NVIC_DisableIRQ
+   \   00000012   0x.... 0x....      LDR.W    R0,??DataTable24_7
+   \   00000016   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000018   0xF830 0x0014      LDRH     R0,[R0, R4, LSL #+1]
+   \   0000001C   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   0000001E   0x.... 0x....      BL       HAL_NVIC_DisableIRQ
     409              HAL_GPIO_DeInit(BUTTON_PORT[Button], gpio_init_structure.Pin);
-   \   00000012   0x.... 0x....      ADR.W    R0,BUTTON_PIN
-   \   00000016   0xF830 0x1014      LDRH     R1,[R0, R4, LSL #+1]
-   \   0000001A   0x.... 0x....      LDR.W    R0,??DataTable31_2
-   \   0000001E   0xF850 0x0024      LDR      R0,[R0, R4, LSL #+2]
-   \   00000022   0xE8BD 0x4010      POP      {R4,LR}
-   \   00000026   0x.... 0x....      B.W      HAL_GPIO_DeInit
+   \   00000022   0x9900             LDR      R1,[SP, #+0]
+   \   00000024   0x.... 0x....      LDR.W    R0,??DataTable24_4
+   \   00000028   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000002A   0xF850 0x0024      LDR      R0,[R0, R4, LSL #+2]
+   \   0000002E   0x.... 0x....      BL       HAL_GPIO_DeInit
     410          }
+   \   00000032   0xB006             ADD      SP,SP,#+24
+   \   00000034   0xBD10             POP      {R4,PC}          ;; return
     411          
     412          
     413          /**
@@ -799,13 +906,18 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
    \                                 In section .text, align 2, keep-with-next
     425          uint32_t BSP_PB_GetState(Button_TypeDef Button)
     426          {
-    427            return HAL_GPIO_ReadPin(BUTTON_PORT[Button], BUTTON_PIN[Button]);
    \                     BSP_PB_GetState: (+1)
-   \   00000000   0x.... 0x....      ADR.W    R1,BUTTON_PIN
-   \   00000004   0xF831 0x1010      LDRH     R1,[R1, R0, LSL #+1]
-   \   00000008   0x.... 0x....      LDR.W    R2,??DataTable31_2
-   \   0000000C   0xF852 0x0020      LDR      R0,[R2, R0, LSL #+2]
-   \   00000010   0x.... 0x....      B.W      HAL_GPIO_ReadPin
+   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+    427            return HAL_GPIO_ReadPin(BUTTON_PORT[Button], BUTTON_PIN[Button]);
+   \   00000004   0x.... 0x....      LDR.W    R0,??DataTable24_3
+   \   00000008   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000000A   0xF830 0x1014      LDRH     R1,[R0, R4, LSL #+1]
+   \   0000000E   0x.... 0x....      LDR.W    R0,??DataTable24_4
+   \   00000012   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000014   0xF850 0x0024      LDR      R0,[R0, R4, LSL #+2]
+   \   00000018   0x.... 0x....      BL       HAL_GPIO_ReadPin
+   \   0000001C   0xBD10             POP      {R4,PC}          ;; return
     428          }
     429          
     430          /**
@@ -823,100 +935,121 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
     440          void BSP_COM_Init(COM_TypeDef COM, UART_HandleTypeDef *huart)
     441          {
    \                     BSP_COM_Init: (+1)
-   \   00000000   0xB570             PUSH     {R4-R6,LR}
-   \   00000002   0xB086             SUB      SP,SP,#+24
-   \   00000004   0x4605             MOV      R5,R0
-   \   00000006   0x460C             MOV      R4,R1
+   \   00000000   0xB530             PUSH     {R4,R5,LR}
+   \   00000002   0xB087             SUB      SP,SP,#+28
+   \   00000004   0x0004             MOVS     R4,R0
+   \   00000006   0x000D             MOVS     R5,R1
     442            GPIO_InitTypeDef gpio_init_structure;
     443          
     444            /* Enable GPIO clock */
     445            DISCOVERY_COMx_TX_GPIO_CLK_ENABLE(COM);
-   \   00000008   0x2D00             CMP      R5,#+0
-   \   0000000A   0xD120             BNE.N    ??BSP_COM_Init_0
-   \   0000000C   0x.... 0x....      LDR.W    R0,??DataTable31  ;; 0x40023830
-   \   00000010   0x6801             LDR      R1,[R0, #+0]
-   \   00000012   0xF041 0x0101      ORR      R1,R1,#0x1
-   \   00000016   0x6001             STR      R1,[R0, #+0]
-   \   00000018   0x6800             LDR      R0,[R0, #+0]
-   \   0000001A   0xF000 0x0001      AND      R0,R0,#0x1
-   \   0000001E   0x9000             STR      R0,[SP, #+0]
-   \   00000020   0x9800             LDR      R0,[SP, #+0]
+   \   00000008   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000000A   0x2C00             CMP      R4,#+0
+   \   0000000C   0xD10E             BNE.N    ??BSP_COM_Init_0
+   \   0000000E   0x.... 0x....      LDR.W    R0,??DataTable24_1  ;; 0x40023830
+   \   00000012   0x6800             LDR      R0,[R0, #+0]
+   \   00000014   0xF050 0x0001      ORRS     R0,R0,#0x1
+   \   00000018   0x.... 0x....      LDR.W    R1,??DataTable24_1  ;; 0x40023830
+   \   0000001C   0x6008             STR      R0,[R1, #+0]
+   \   0000001E   0x.... 0x....      LDR.W    R0,??DataTable24_1  ;; 0x40023830
+   \   00000022   0x6800             LDR      R0,[R0, #+0]
+   \   00000024   0xF010 0x0001      ANDS     R0,R0,#0x1
+   \   00000028   0x9000             STR      R0,[SP, #+0]
+   \   0000002A   0x9800             LDR      R0,[SP, #+0]
     446            DISCOVERY_COMx_RX_GPIO_CLK_ENABLE(COM);
-   \   00000022   0xD114             BNE.N    ??BSP_COM_Init_0
-   \   00000024   0x....             LDR.N    R0,??DataTable31  ;; 0x40023830
-   \   00000026   0x6801             LDR      R1,[R0, #+0]
-   \   00000028   0xF041 0x0102      ORR      R1,R1,#0x2
-   \   0000002C   0x6001             STR      R1,[R0, #+0]
-   \   0000002E   0x6800             LDR      R0,[R0, #+0]
-   \   00000030   0xF000 0x0002      AND      R0,R0,#0x2
-   \   00000034   0x9000             STR      R0,[SP, #+0]
-   \   00000036   0x9800             LDR      R0,[SP, #+0]
+   \                     ??BSP_COM_Init_0: (+1)
+   \   0000002C   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000002E   0x2C00             CMP      R4,#+0
+   \   00000030   0xD10E             BNE.N    ??BSP_COM_Init_1
+   \   00000032   0x.... 0x....      LDR.W    R0,??DataTable24_1  ;; 0x40023830
+   \   00000036   0x6800             LDR      R0,[R0, #+0]
+   \   00000038   0xF050 0x0002      ORRS     R0,R0,#0x2
+   \   0000003C   0x.... 0x....      LDR.W    R1,??DataTable24_1  ;; 0x40023830
+   \   00000040   0x6008             STR      R0,[R1, #+0]
+   \   00000042   0x.... 0x....      LDR.W    R0,??DataTable24_1  ;; 0x40023830
+   \   00000046   0x6800             LDR      R0,[R0, #+0]
+   \   00000048   0xF010 0x0002      ANDS     R0,R0,#0x2
+   \   0000004C   0x9000             STR      R0,[SP, #+0]
+   \   0000004E   0x9800             LDR      R0,[SP, #+0]
     447          
     448            /* Enable USART clock */
     449            DISCOVERY_COMx_CLK_ENABLE(COM);
    \                     ??BSP_COM_Init_1: (+1)
-   \   00000038   0xD109             BNE.N    ??BSP_COM_Init_0
-   \   0000003A   0x....             LDR.N    R0,??DataTable31  ;; 0x40023830
-   \   0000003C   0x6941             LDR      R1,[R0, #+20]
-   \   0000003E   0xF041 0x0110      ORR      R1,R1,#0x10
-   \   00000042   0x6141             STR      R1,[R0, #+20]
-   \   00000044   0x6940             LDR      R0,[R0, #+20]
-   \   00000046   0xF000 0x0010      AND      R0,R0,#0x10
-   \   0000004A   0x9000             STR      R0,[SP, #+0]
-   \   0000004C   0x9800             LDR      R0,[SP, #+0]
+   \   00000050   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000052   0x2C00             CMP      R4,#+0
+   \   00000054   0xD10E             BNE.N    ??BSP_COM_Init_2
+   \   00000056   0x.... 0x....      LDR.W    R0,??DataTable24_8  ;; 0x40023844
+   \   0000005A   0x6800             LDR      R0,[R0, #+0]
+   \   0000005C   0xF050 0x0010      ORRS     R0,R0,#0x10
+   \   00000060   0x.... 0x....      LDR.W    R1,??DataTable24_8  ;; 0x40023844
+   \   00000064   0x6008             STR      R0,[R1, #+0]
+   \   00000066   0x.... 0x....      LDR.W    R0,??DataTable24_8  ;; 0x40023844
+   \   0000006A   0x6800             LDR      R0,[R0, #+0]
+   \   0000006C   0xF010 0x0010      ANDS     R0,R0,#0x10
+   \   00000070   0x9000             STR      R0,[SP, #+0]
+   \   00000072   0x9800             LDR      R0,[SP, #+0]
     450          
     451            /* Configure USART Tx as alternate function */
     452            gpio_init_structure.Pin = COM_TX_PIN[COM];
-   \                     ??BSP_COM_Init_0: (+1)
-   \   0000004E   0x.... 0x....      ADR.W    R0,COM_TX_PIN
-   \   00000052   0xF830 0x0015      LDRH     R0,[R0, R5, LSL #+1]
-   \   00000056   0x9001             STR      R0,[SP, #+4]
+   \                     ??BSP_COM_Init_2: (+1)
+   \   00000074   0x.... 0x....      LDR.W    R0,??DataTable24_9
+   \   00000078   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000007A   0xF830 0x0014      LDRH     R0,[R0, R4, LSL #+1]
+   \   0000007E   0x9001             STR      R0,[SP, #+4]
     453            gpio_init_structure.Mode = GPIO_MODE_AF_PP;
-   \   00000058   0x2002             MOVS     R0,#+2
-   \   0000005A   0x9002             STR      R0,[SP, #+8]
+   \   00000080   0x2002             MOVS     R0,#+2
+   \   00000082   0x9002             STR      R0,[SP, #+8]
     454            gpio_init_structure.Speed = GPIO_SPEED_FAST;
-   \   0000005C   0x9004             STR      R0,[SP, #+16]
+   \   00000084   0x2002             MOVS     R0,#+2
+   \   00000086   0x9004             STR      R0,[SP, #+16]
     455            gpio_init_structure.Pull = GPIO_PULLUP;
-   \   0000005E   0x2001             MOVS     R0,#+1
-   \   00000060   0x9003             STR      R0,[SP, #+12]
+   \   00000088   0x2001             MOVS     R0,#+1
+   \   0000008A   0x9003             STR      R0,[SP, #+12]
     456            gpio_init_structure.Alternate = COM_TX_AF[COM];
-   \   00000062   0x.... 0x....      ADR.W    R0,COM_TX_AF
-   \   00000066   0xF830 0x0015      LDRH     R0,[R0, R5, LSL #+1]
-   \   0000006A   0x9005             STR      R0,[SP, #+20]
+   \   0000008C   0x.... 0x....      LDR.W    R0,??DataTable24_10
+   \   00000090   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000092   0xF830 0x0014      LDRH     R0,[R0, R4, LSL #+1]
+   \   00000096   0x9005             STR      R0,[SP, #+20]
     457            HAL_GPIO_Init(COM_TX_PORT[COM], &gpio_init_structure);
-   \   0000006C   0x....             LDR.N    R0,??DataTable31_5
-   \   0000006E   0xEB00 0x0685      ADD      R6,R0,R5, LSL #+2
-   \   00000072   0xA901             ADD      R1,SP,#+4
-   \   00000074   0x6870             LDR      R0,[R6, #+4]
-   \   00000076   0x.... 0x....      BL       HAL_GPIO_Init
+   \   00000098   0xA901             ADD      R1,SP,#+4
+   \   0000009A   0x.... 0x....      LDR.W    R0,??DataTable24_11
+   \   0000009E   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   000000A0   0xF850 0x0024      LDR      R0,[R0, R4, LSL #+2]
+   \   000000A4   0x.... 0x....      BL       HAL_GPIO_Init
     458          
     459            /* Configure USART Rx as alternate function */
     460            gpio_init_structure.Pin = COM_RX_PIN[COM];
-   \   0000007A   0x.... 0x....      ADR.W    R0,COM_RX_PIN
-   \   0000007E   0xF830 0x0015      LDRH     R0,[R0, R5, LSL #+1]
-   \   00000082   0x9001             STR      R0,[SP, #+4]
+   \   000000A8   0x.... 0x....      LDR.W    R0,??DataTable24_12
+   \   000000AC   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   000000AE   0xF830 0x0014      LDRH     R0,[R0, R4, LSL #+1]
+   \   000000B2   0x9001             STR      R0,[SP, #+4]
     461            gpio_init_structure.Mode = GPIO_MODE_AF_PP;
-   \   00000084   0x2002             MOVS     R0,#+2
-   \   00000086   0x9002             STR      R0,[SP, #+8]
+   \   000000B4   0x2002             MOVS     R0,#+2
+   \   000000B6   0x9002             STR      R0,[SP, #+8]
     462            gpio_init_structure.Alternate = COM_RX_AF[COM];
-   \   00000088   0x.... 0x....      ADR.W    R0,COM_RX_AF
-   \   0000008C   0xF830 0x0015      LDRH     R0,[R0, R5, LSL #+1]
-   \   00000090   0x9005             STR      R0,[SP, #+20]
+   \   000000B8   0x.... 0x....      LDR.W    R0,??DataTable24_13
+   \   000000BC   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   000000BE   0xF830 0x0014      LDRH     R0,[R0, R4, LSL #+1]
+   \   000000C2   0x9005             STR      R0,[SP, #+20]
     463            HAL_GPIO_Init(COM_RX_PORT[COM], &gpio_init_structure);
-   \   00000092   0xA901             ADD      R1,SP,#+4
-   \   00000094   0x68B0             LDR      R0,[R6, #+8]
-   \   00000096   0x.... 0x....      BL       HAL_GPIO_Init
+   \   000000C4   0xA901             ADD      R1,SP,#+4
+   \   000000C6   0x.... 0x....      LDR.W    R0,??DataTable24_14
+   \   000000CA   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   000000CC   0xF850 0x0024      LDR      R0,[R0, R4, LSL #+2]
+   \   000000D0   0x.... 0x....      BL       HAL_GPIO_Init
     464          
     465            /* USART configuration */
     466            huart->Instance = COM_USART[COM];
-   \   0000009A   0x6830             LDR      R0,[R6, #+0]
-   \   0000009C   0x6020             STR      R0,[R4, #+0]
+   \   000000D4   0x.... 0x....      LDR.W    R0,??DataTable24_15
+   \   000000D8   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   000000DA   0xF850 0x0024      LDR      R0,[R0, R4, LSL #+2]
+   \   000000DE   0x6028             STR      R0,[R5, #+0]
     467            HAL_UART_Init(huart);
-   \   0000009E   0x4620             MOV      R0,R4
-   \   000000A0   0x.... 0x....      BL       HAL_UART_Init
+   \   000000E0   0x0028             MOVS     R0,R5
+   \   000000E2   0x.... 0x....      BL       HAL_UART_Init
     468          }
-   \   000000A4   0xB006             ADD      SP,SP,#+24
-   \   000000A6   0xBD70             POP      {R4-R6,PC}       ;; return
+   \   000000E6   0xB007             ADD      SP,SP,#+28
+   \   000000E8   0xBD30             POP      {R4,R5,PC}       ;; return
     469          
     470          /**
     471            * @brief  DeInit COM port.
@@ -933,25 +1066,32 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
     480          void BSP_COM_DeInit(COM_TypeDef COM, UART_HandleTypeDef *huart)
     481          {
    \                     BSP_COM_DeInit: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x4604             MOV      R4,R0
-   \   00000004   0x4608             MOV      R0,R1
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
     482            /* USART configuration */
     483            huart->Instance = COM_USART[COM];
-   \   00000006   0x....             LDR.N    R1,??DataTable31_5
-   \   00000008   0xF851 0x1024      LDR      R1,[R1, R4, LSL #+2]
-   \   0000000C   0x6001             STR      R1,[R0, #+0]
+   \   00000006   0x.... 0x....      LDR.W    R0,??DataTable24_15
+   \   0000000A   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000000C   0xF850 0x0024      LDR      R0,[R0, R4, LSL #+2]
+   \   00000010   0x6028             STR      R0,[R5, #+0]
     484            HAL_UART_DeInit(huart);
-   \   0000000E   0x.... 0x....      BL       HAL_UART_DeInit
+   \   00000012   0x0028             MOVS     R0,R5
+   \   00000014   0x.... 0x....      BL       HAL_UART_DeInit
     485          
     486            /* Enable USART clock */
     487            DISCOVERY_COMx_CLK_DISABLE(COM);
-   \   00000012   0x2C00             CMP      R4,#+0
-   \   00000014   0xD104             BNE.N    ??BSP_COM_DeInit_0
-   \   00000016   0x....             LDR.N    R0,??DataTable31_6  ;; 0x40023844
-   \   00000018   0x6801             LDR      R1,[R0, #+0]
-   \   0000001A   0xF021 0x0110      BIC      R1,R1,#0x10
-   \   0000001E   0x6001             STR      R1,[R0, #+0]
+   \   00000018   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000001A   0x2C00             CMP      R4,#+0
+   \   0000001C   0xD108             BNE.N    ??BSP_COM_DeInit_0
+   \   0000001E   0x.... 0x....      LDR.W    R0,??DataTable24_8  ;; 0x40023844
+   \   00000022   0x6800             LDR      R0,[R0, #+0]
+   \   00000024   0xF030 0x0010      BICS     R0,R0,#0x10
+   \   00000028   0x.... 0x....      LDR.W    R1,??DataTable24_8  ;; 0x40023844
+   \   0000002C   0x6008             STR      R0,[R1, #+0]
+   \   0000002E   0xE000             B.N      ??BSP_COM_DeInit_1
+   \                     ??BSP_COM_DeInit_0: (+1)
+   \   00000030   0x2000             MOVS     R0,#+0
     488          
     489            /* DeInit GPIO pins can be done in the application 
     490               (by surcharging this __weak function) */
@@ -959,8 +1099,8 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
     492            /* GPIO pins clock, DMA clock can be shut down in the application 
     493               by surcharging this __weak function */
     494          }
-   \                     ??BSP_COM_DeInit_0: (+1)
-   \   00000020   0xBD10             POP      {R4,PC}          ;; return
+   \                     ??BSP_COM_DeInit_1: (+1)
+   \   00000032   0xBD31             POP      {R0,R4,R5,PC}    ;; return
     495          
     496          /*******************************************************************************
     497                                      BUS OPERATIONS
@@ -977,103 +1117,112 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
     506          static void I2Cx_MspInit(I2C_HandleTypeDef *i2c_handler)
     507          {
    \                     I2Cx_MspInit: (+1)
-   \   00000000   0xB570             PUSH     {R4-R6,LR}
+   \   00000000   0xB510             PUSH     {R4,LR}
    \   00000002   0xB086             SUB      SP,SP,#+24
+   \   00000004   0x0004             MOVS     R4,R0
     508            GPIO_InitTypeDef  gpio_init_structure;
     509            
     510            if (i2c_handler == (I2C_HandleTypeDef*)(&hI2cAudioHandler))
-   \   00000004   0x....             LDR.N    R4,??DataTable31_7  ;; 0x40023820
-   \   00000006   0xF44F 0x7580      MOV      R5,#+256
-   \   0000000A   0x....             LDR.N    R1,??DataTable31_8
-   \   0000000C   0x4288             CMP      R0,R1
-   \   0000000E   0x6920             LDR      R0,[R4, #+16]
-   \   00000010   0xD13D             BNE.N    ??I2Cx_MspInit_0
+   \   00000006   0x.... 0x....      LDR.W    R0,??DataTable24_16
+   \   0000000A   0x4284             CMP      R4,R0
+   \   0000000C   0xD155             BNE.N    ??I2Cx_MspInit_0
     511            {
     512              /* AUDIO and LCD I2C MSP init */
     513          
     514              /*** Configure the GPIOs ***/
     515              /* Enable GPIO clock */
     516              DISCOVERY_AUDIO_I2Cx_SCL_SDA_GPIO_CLK_ENABLE();
-   \   00000012   0xF040 0x0080      ORR      R0,R0,#0x80
-   \   00000016   0x6120             STR      R0,[R4, #+16]
-   \   00000018   0x6920             LDR      R0,[R4, #+16]
-   \   0000001A   0xF000 0x0080      AND      R0,R0,#0x80
-   \   0000001E   0x9000             STR      R0,[SP, #+0]
-   \   00000020   0x9800             LDR      R0,[SP, #+0]
+   \   0000000E   0x.... 0x....      LDR.W    R0,??DataTable24_1  ;; 0x40023830
+   \   00000012   0x6800             LDR      R0,[R0, #+0]
+   \   00000014   0xF050 0x0080      ORRS     R0,R0,#0x80
+   \   00000018   0x.... 0x....      LDR.W    R1,??DataTable24_1  ;; 0x40023830
+   \   0000001C   0x6008             STR      R0,[R1, #+0]
+   \   0000001E   0x.... 0x....      LDR.W    R0,??DataTable24_1  ;; 0x40023830
+   \   00000022   0x6800             LDR      R0,[R0, #+0]
+   \   00000024   0xF010 0x0080      ANDS     R0,R0,#0x80
+   \   00000028   0x9000             STR      R0,[SP, #+0]
+   \   0000002A   0x9800             LDR      R0,[SP, #+0]
     517          
     518              /* Configure I2C Tx as alternate function */
     519              gpio_init_structure.Pin = DISCOVERY_AUDIO_I2Cx_SCL_PIN;
-   \   00000022   0x2080             MOVS     R0,#+128
-   \   00000024   0x9001             STR      R0,[SP, #+4]
+   \   0000002C   0x2080             MOVS     R0,#+128
+   \   0000002E   0x9001             STR      R0,[SP, #+4]
     520              gpio_init_structure.Mode = GPIO_MODE_AF_OD;
-   \   00000026   0x2012             MOVS     R0,#+18
-   \   00000028   0x9002             STR      R0,[SP, #+8]
+   \   00000030   0x2012             MOVS     R0,#+18
+   \   00000032   0x9002             STR      R0,[SP, #+8]
     521              gpio_init_structure.Pull = GPIO_NOPULL;
-   \   0000002A   0x2000             MOVS     R0,#+0
-   \   0000002C   0x9003             STR      R0,[SP, #+12]
+   \   00000034   0x2000             MOVS     R0,#+0
+   \   00000036   0x9003             STR      R0,[SP, #+12]
     522              gpio_init_structure.Speed = GPIO_SPEED_FAST;
-   \   0000002E   0x2002             MOVS     R0,#+2
-   \   00000030   0x9004             STR      R0,[SP, #+16]
+   \   00000038   0x2002             MOVS     R0,#+2
+   \   0000003A   0x9004             STR      R0,[SP, #+16]
     523              gpio_init_structure.Alternate = DISCOVERY_AUDIO_I2Cx_SCL_SDA_AF;
-   \   00000032   0x2004             MOVS     R0,#+4
-   \   00000034   0x9005             STR      R0,[SP, #+20]
+   \   0000003C   0x2004             MOVS     R0,#+4
+   \   0000003E   0x9005             STR      R0,[SP, #+20]
     524              HAL_GPIO_Init(DISCOVERY_AUDIO_I2Cx_SCL_SDA_GPIO_PORT, &gpio_init_structure);
-   \   00000036   0x....             LDR.N    R6,??DataTable31_9  ;; 0x40021c00
-   \   00000038   0xA901             ADD      R1,SP,#+4
-   \   0000003A   0x4630             MOV      R0,R6
-   \   0000003C   0x.... 0x....      BL       HAL_GPIO_Init
+   \   00000040   0xA901             ADD      R1,SP,#+4
+   \   00000042   0x.... 0x....      LDR.W    R0,??DataTable24_17  ;; 0x40021c00
+   \   00000046   0x.... 0x....      BL       HAL_GPIO_Init
     525          
     526              /* Configure I2C Rx as alternate function */
     527              gpio_init_structure.Pin = DISCOVERY_AUDIO_I2Cx_SDA_PIN;
-   \   00000040   0x9501             STR      R5,[SP, #+4]
+   \   0000004A   0xF44F 0x7080      MOV      R0,#+256
+   \   0000004E   0x9001             STR      R0,[SP, #+4]
     528              HAL_GPIO_Init(DISCOVERY_AUDIO_I2Cx_SCL_SDA_GPIO_PORT, &gpio_init_structure);
-   \   00000042   0xA901             ADD      R1,SP,#+4
-   \   00000044   0x4630             MOV      R0,R6
-   \   00000046   0x.... 0x....      BL       HAL_GPIO_Init
+   \   00000050   0xA901             ADD      R1,SP,#+4
+   \   00000052   0x.... 0x....      LDR.W    R0,??DataTable24_17  ;; 0x40021c00
+   \   00000056   0x.... 0x....      BL       HAL_GPIO_Init
     529          
     530              /*** Configure the I2C peripheral ***/
     531              /* Enable I2C clock */
     532              DISCOVERY_AUDIO_I2Cx_CLK_ENABLE();
-   \   0000004A   0x6A20             LDR      R0,[R4, #+32]
-   \   0000004C   0xF440 0x0000      ORR      R0,R0,#0x800000
-   \   00000050   0x6220             STR      R0,[R4, #+32]
-   \   00000052   0x6A20             LDR      R0,[R4, #+32]
-   \   00000054   0xF400 0x0000      AND      R0,R0,#0x800000
-   \   00000058   0x9000             STR      R0,[SP, #+0]
-   \   0000005A   0x9800             LDR      R0,[SP, #+0]
+   \   0000005A   0x.... 0x....      LDR.W    R0,??DataTable24_18  ;; 0x40023840
+   \   0000005E   0x6800             LDR      R0,[R0, #+0]
+   \   00000060   0xF450 0x0000      ORRS     R0,R0,#0x800000
+   \   00000064   0x.... 0x....      LDR.W    R1,??DataTable24_18  ;; 0x40023840
+   \   00000068   0x6008             STR      R0,[R1, #+0]
+   \   0000006A   0x.... 0x....      LDR.W    R0,??DataTable24_18  ;; 0x40023840
+   \   0000006E   0x6800             LDR      R0,[R0, #+0]
+   \   00000070   0xF410 0x0000      ANDS     R0,R0,#0x800000
+   \   00000074   0x9000             STR      R0,[SP, #+0]
+   \   00000076   0x9800             LDR      R0,[SP, #+0]
     533          
     534              /* Force the I2C peripheral clock reset */
     535              DISCOVERY_AUDIO_I2Cx_FORCE_RESET();
-   \   0000005C   0x6820             LDR      R0,[R4, #+0]
-   \   0000005E   0xF440 0x0000      ORR      R0,R0,#0x800000
-   \   00000062   0x6020             STR      R0,[R4, #+0]
+   \   00000078   0x.... 0x....      LDR.W    R0,??DataTable24_19  ;; 0x40023820
+   \   0000007C   0x6800             LDR      R0,[R0, #+0]
+   \   0000007E   0xF450 0x0000      ORRS     R0,R0,#0x800000
+   \   00000082   0x.... 0x....      LDR.W    R1,??DataTable24_19  ;; 0x40023820
+   \   00000086   0x6008             STR      R0,[R1, #+0]
     536          
     537              /* Release the I2C peripheral clock reset */
     538              DISCOVERY_AUDIO_I2Cx_RELEASE_RESET();
-   \   00000064   0x6820             LDR      R0,[R4, #+0]
-   \   00000066   0xF420 0x0000      BIC      R0,R0,#0x800000
-   \   0000006A   0x6020             STR      R0,[R4, #+0]
+   \   00000088   0x.... 0x....      LDR.W    R0,??DataTable24_19  ;; 0x40023820
+   \   0000008C   0x6800             LDR      R0,[R0, #+0]
+   \   0000008E   0xF430 0x0000      BICS     R0,R0,#0x800000
+   \   00000092   0x.... 0x....      LDR.W    R1,??DataTable24_19  ;; 0x40023820
+   \   00000096   0x6008             STR      R0,[R1, #+0]
     539          
     540              /* Enable and set I2Cx Interrupt to a lower priority */
     541              HAL_NVIC_SetPriority(DISCOVERY_AUDIO_I2Cx_EV_IRQn, 0x05, 0);
-   \   0000006C   0x2200             MOVS     R2,#+0
-   \   0000006E   0x2105             MOVS     R1,#+5
-   \   00000070   0x2048             MOVS     R0,#+72
-   \   00000072   0x.... 0x....      BL       HAL_NVIC_SetPriority
+   \   00000098   0x2200             MOVS     R2,#+0
+   \   0000009A   0x2105             MOVS     R1,#+5
+   \   0000009C   0x2048             MOVS     R0,#+72
+   \   0000009E   0x.... 0x....      BL       HAL_NVIC_SetPriority
     542              HAL_NVIC_EnableIRQ(DISCOVERY_AUDIO_I2Cx_EV_IRQn);
-   \   00000076   0x2048             MOVS     R0,#+72
-   \   00000078   0x.... 0x....      BL       HAL_NVIC_EnableIRQ
+   \   000000A2   0x2048             MOVS     R0,#+72
+   \   000000A4   0x.... 0x....      BL       HAL_NVIC_EnableIRQ
     543          
     544              /* Enable and set I2Cx Interrupt to a lower priority */
     545              HAL_NVIC_SetPriority(DISCOVERY_AUDIO_I2Cx_ER_IRQn, 0x05, 0);
-   \   0000007C   0x2200             MOVS     R2,#+0
-   \   0000007E   0x2105             MOVS     R1,#+5
-   \   00000080   0x2049             MOVS     R0,#+73
-   \   00000082   0x.... 0x....      BL       HAL_NVIC_SetPriority
+   \   000000A8   0x2200             MOVS     R2,#+0
+   \   000000AA   0x2105             MOVS     R1,#+5
+   \   000000AC   0x2049             MOVS     R0,#+73
+   \   000000AE   0x.... 0x....      BL       HAL_NVIC_SetPriority
     546              HAL_NVIC_EnableIRQ(DISCOVERY_AUDIO_I2Cx_ER_IRQn);
-   \   00000086   0x2049             MOVS     R0,#+73
-   \   00000088   0x.... 0x....      BL       HAL_NVIC_EnableIRQ
-   \   0000008C   0xE03D             B.N      ??I2Cx_MspInit_1
+   \   000000B2   0x2049             MOVS     R0,#+73
+   \   000000B4   0x.... 0x....      BL       HAL_NVIC_EnableIRQ
+   \   000000B8   0xE04A             B.N      ??I2Cx_MspInit_1
     547            }
     548            else
     549            {
@@ -1083,90 +1232,101 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
     553              /* Enable GPIO clock */
     554              DISCOVERY_EXT_I2Cx_SCL_SDA_GPIO_CLK_ENABLE();
    \                     ??I2Cx_MspInit_0: (+1)
-   \   0000008E   0xF040 0x0002      ORR      R0,R0,#0x2
-   \   00000092   0x6120             STR      R0,[R4, #+16]
-   \   00000094   0x6920             LDR      R0,[R4, #+16]
-   \   00000096   0xF000 0x0002      AND      R0,R0,#0x2
-   \   0000009A   0x9000             STR      R0,[SP, #+0]
-   \   0000009C   0x9800             LDR      R0,[SP, #+0]
+   \   000000BA   0x....             LDR.N    R0,??DataTable24_1  ;; 0x40023830
+   \   000000BC   0x6800             LDR      R0,[R0, #+0]
+   \   000000BE   0xF050 0x0002      ORRS     R0,R0,#0x2
+   \   000000C2   0x....             LDR.N    R1,??DataTable24_1  ;; 0x40023830
+   \   000000C4   0x6008             STR      R0,[R1, #+0]
+   \   000000C6   0x....             LDR.N    R0,??DataTable24_1  ;; 0x40023830
+   \   000000C8   0x6800             LDR      R0,[R0, #+0]
+   \   000000CA   0xF010 0x0002      ANDS     R0,R0,#0x2
+   \   000000CE   0x9000             STR      R0,[SP, #+0]
+   \   000000D0   0x9800             LDR      R0,[SP, #+0]
     555          
     556              /* Configure I2C Tx as alternate function */
     557              gpio_init_structure.Pin = DISCOVERY_EXT_I2Cx_SCL_PIN;
-   \   0000009E   0x9501             STR      R5,[SP, #+4]
+   \   000000D2   0xF44F 0x7080      MOV      R0,#+256
+   \   000000D6   0x9001             STR      R0,[SP, #+4]
     558              gpio_init_structure.Mode = GPIO_MODE_AF_OD;
-   \   000000A0   0x2012             MOVS     R0,#+18
-   \   000000A2   0x9002             STR      R0,[SP, #+8]
+   \   000000D8   0x2012             MOVS     R0,#+18
+   \   000000DA   0x9002             STR      R0,[SP, #+8]
     559              gpio_init_structure.Pull = GPIO_NOPULL;
-   \   000000A4   0x2000             MOVS     R0,#+0
-   \   000000A6   0x9003             STR      R0,[SP, #+12]
+   \   000000DC   0x2000             MOVS     R0,#+0
+   \   000000DE   0x9003             STR      R0,[SP, #+12]
     560              gpio_init_structure.Speed = GPIO_SPEED_FAST;
-   \   000000A8   0x2002             MOVS     R0,#+2
-   \   000000AA   0x9004             STR      R0,[SP, #+16]
+   \   000000E0   0x2002             MOVS     R0,#+2
+   \   000000E2   0x9004             STR      R0,[SP, #+16]
     561              gpio_init_structure.Alternate = DISCOVERY_EXT_I2Cx_SCL_SDA_AF;
-   \   000000AC   0x2004             MOVS     R0,#+4
-   \   000000AE   0x9005             STR      R0,[SP, #+20]
+   \   000000E4   0x2004             MOVS     R0,#+4
+   \   000000E6   0x9005             STR      R0,[SP, #+20]
     562              HAL_GPIO_Init(DISCOVERY_EXT_I2Cx_SCL_SDA_GPIO_PORT, &gpio_init_structure);
-   \   000000B0   0x....             LDR.N    R5,??DataTable31_10  ;; 0x40020400
-   \   000000B2   0xA901             ADD      R1,SP,#+4
-   \   000000B4   0x4628             MOV      R0,R5
-   \   000000B6   0x.... 0x....      BL       HAL_GPIO_Init
+   \   000000E8   0xA901             ADD      R1,SP,#+4
+   \   000000EA   0x.... 0x....      LDR.W    R0,??DataTable24_20  ;; 0x40020400
+   \   000000EE   0x.... 0x....      BL       HAL_GPIO_Init
     563          
     564              /* Configure I2C Rx as alternate function */
     565              gpio_init_structure.Pin = DISCOVERY_EXT_I2Cx_SDA_PIN;
-   \   000000BA   0xF44F 0x7000      MOV      R0,#+512
-   \   000000BE   0x9001             STR      R0,[SP, #+4]
+   \   000000F2   0xF44F 0x7000      MOV      R0,#+512
+   \   000000F6   0x9001             STR      R0,[SP, #+4]
     566              HAL_GPIO_Init(DISCOVERY_EXT_I2Cx_SCL_SDA_GPIO_PORT, &gpio_init_structure);
-   \   000000C0   0xA901             ADD      R1,SP,#+4
-   \   000000C2   0x4628             MOV      R0,R5
-   \   000000C4   0x.... 0x....      BL       HAL_GPIO_Init
+   \   000000F8   0xA901             ADD      R1,SP,#+4
+   \   000000FA   0x....             LDR.N    R0,??DataTable24_20  ;; 0x40020400
+   \   000000FC   0x.... 0x....      BL       HAL_GPIO_Init
     567          
     568              /*** Configure the I2C peripheral ***/
     569              /* Enable I2C clock */
     570              DISCOVERY_EXT_I2Cx_CLK_ENABLE();
-   \   000000C8   0x6A20             LDR      R0,[R4, #+32]
-   \   000000CA   0xF440 0x1000      ORR      R0,R0,#0x200000
-   \   000000CE   0x6220             STR      R0,[R4, #+32]
-   \   000000D0   0x6A20             LDR      R0,[R4, #+32]
-   \   000000D2   0xF400 0x1000      AND      R0,R0,#0x200000
-   \   000000D6   0x9000             STR      R0,[SP, #+0]
-   \   000000D8   0x9800             LDR      R0,[SP, #+0]
+   \   00000100   0x....             LDR.N    R0,??DataTable24_18  ;; 0x40023840
+   \   00000102   0x6800             LDR      R0,[R0, #+0]
+   \   00000104   0xF450 0x1000      ORRS     R0,R0,#0x200000
+   \   00000108   0x....             LDR.N    R1,??DataTable24_18  ;; 0x40023840
+   \   0000010A   0x6008             STR      R0,[R1, #+0]
+   \   0000010C   0x....             LDR.N    R0,??DataTable24_18  ;; 0x40023840
+   \   0000010E   0x6800             LDR      R0,[R0, #+0]
+   \   00000110   0xF410 0x1000      ANDS     R0,R0,#0x200000
+   \   00000114   0x9000             STR      R0,[SP, #+0]
+   \   00000116   0x9800             LDR      R0,[SP, #+0]
     571          
     572              /* Force the I2C peripheral clock reset */
     573              DISCOVERY_EXT_I2Cx_FORCE_RESET();
-   \   000000DA   0x6820             LDR      R0,[R4, #+0]
-   \   000000DC   0xF440 0x1000      ORR      R0,R0,#0x200000
-   \   000000E0   0x6020             STR      R0,[R4, #+0]
+   \   00000118   0x....             LDR.N    R0,??DataTable24_19  ;; 0x40023820
+   \   0000011A   0x6800             LDR      R0,[R0, #+0]
+   \   0000011C   0xF450 0x1000      ORRS     R0,R0,#0x200000
+   \   00000120   0x....             LDR.N    R1,??DataTable24_19  ;; 0x40023820
+   \   00000122   0x6008             STR      R0,[R1, #+0]
     574          
     575              /* Release the I2C peripheral clock reset */
     576              DISCOVERY_EXT_I2Cx_RELEASE_RESET();
-   \   000000E2   0x6820             LDR      R0,[R4, #+0]
-   \   000000E4   0xF420 0x1000      BIC      R0,R0,#0x200000
-   \   000000E8   0x6020             STR      R0,[R4, #+0]
+   \   00000124   0x....             LDR.N    R0,??DataTable24_19  ;; 0x40023820
+   \   00000126   0x6800             LDR      R0,[R0, #+0]
+   \   00000128   0xF430 0x1000      BICS     R0,R0,#0x200000
+   \   0000012C   0x....             LDR.N    R1,??DataTable24_19  ;; 0x40023820
+   \   0000012E   0x6008             STR      R0,[R1, #+0]
     577          
     578              /* Enable and set I2Cx Interrupt to a lower priority */
     579              HAL_NVIC_SetPriority(DISCOVERY_EXT_I2Cx_EV_IRQn, 0x05, 0);
-   \   000000EA   0x2200             MOVS     R2,#+0
-   \   000000EC   0x2105             MOVS     R1,#+5
-   \   000000EE   0x201F             MOVS     R0,#+31
-   \   000000F0   0x.... 0x....      BL       HAL_NVIC_SetPriority
+   \   00000130   0x2200             MOVS     R2,#+0
+   \   00000132   0x2105             MOVS     R1,#+5
+   \   00000134   0x201F             MOVS     R0,#+31
+   \   00000136   0x.... 0x....      BL       HAL_NVIC_SetPriority
     580              HAL_NVIC_EnableIRQ(DISCOVERY_EXT_I2Cx_EV_IRQn);
-   \   000000F4   0x201F             MOVS     R0,#+31
-   \   000000F6   0x.... 0x....      BL       HAL_NVIC_EnableIRQ
+   \   0000013A   0x201F             MOVS     R0,#+31
+   \   0000013C   0x.... 0x....      BL       HAL_NVIC_EnableIRQ
     581          
     582              /* Enable and set I2Cx Interrupt to a lower priority */
     583              HAL_NVIC_SetPriority(DISCOVERY_EXT_I2Cx_ER_IRQn, 0x05, 0);
-   \   000000FA   0x2200             MOVS     R2,#+0
-   \   000000FC   0x2105             MOVS     R1,#+5
-   \   000000FE   0x2020             MOVS     R0,#+32
-   \   00000100   0x.... 0x....      BL       HAL_NVIC_SetPriority
+   \   00000140   0x2200             MOVS     R2,#+0
+   \   00000142   0x2105             MOVS     R1,#+5
+   \   00000144   0x2020             MOVS     R0,#+32
+   \   00000146   0x.... 0x....      BL       HAL_NVIC_SetPriority
     584              HAL_NVIC_EnableIRQ(DISCOVERY_EXT_I2Cx_ER_IRQn);
-   \   00000104   0x2020             MOVS     R0,#+32
-   \   00000106   0x.... 0x....      BL       HAL_NVIC_EnableIRQ
+   \   0000014A   0x2020             MOVS     R0,#+32
+   \   0000014C   0x.... 0x....      BL       HAL_NVIC_EnableIRQ
     585            }
     586          }
    \                     ??I2Cx_MspInit_1: (+1)
-   \   0000010A   0xB006             ADD      SP,SP,#+24
-   \   0000010C   0xBD70             POP      {R4-R6,PC}       ;; return
+   \   00000150   0xB006             ADD      SP,SP,#+24
+   \   00000152   0xBD10             POP      {R4,PC}          ;; return
     587          
     588          /**
     589            * @brief  Initializes I2C HAL.
@@ -1179,63 +1339,66 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
     594          {
    \                     I2Cx_Init: (+1)
    \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x4604             MOV      R4,R0
+   \   00000002   0x0004             MOVS     R4,R0
     595            if(HAL_I2C_GetState(i2c_handler) == HAL_I2C_STATE_RESET)
-   \   00000004   0x.... 0x....      BL       HAL_I2C_GetState
-   \   00000008   0x2800             CMP      R0,#+0
-   \   0000000A   0xD11A             BNE.N    ??I2Cx_Init_0
+   \   00000004   0x0020             MOVS     R0,R4
+   \   00000006   0x.... 0x....      BL       HAL_I2C_GetState
+   \   0000000A   0x2800             CMP      R0,#+0
+   \   0000000C   0xD11B             BNE.N    ??I2Cx_Init_0
     596            {
     597              if (i2c_handler == (I2C_HandleTypeDef*)(&hI2cAudioHandler))
-   \   0000000C   0x....             LDR.N    R0,??DataTable31_8
-   \   0000000E   0x4284             CMP      R4,R0
-   \   00000010   0xD102             BNE.N    ??I2Cx_Init_1
+   \   0000000E   0x....             LDR.N    R0,??DataTable24_16
+   \   00000010   0x4284             CMP      R4,R0
+   \   00000012   0xD102             BNE.N    ??I2Cx_Init_1
     598              {
     599                /* Audio and LCD I2C configuration */
     600                i2c_handler->Instance = DISCOVERY_AUDIO_I2Cx;
-   \   00000012   0x....             LDR.N    R0,??DataTable31_11  ;; 0x40005c00
-   \   00000014   0x6020             STR      R0,[R4, #+0]
-   \   00000016   0xE001             B.N      ??I2Cx_Init_2
+   \   00000014   0x....             LDR.N    R0,??DataTable24_21  ;; 0x40005c00
+   \   00000016   0x6020             STR      R0,[R4, #+0]
+   \   00000018   0xE001             B.N      ??I2Cx_Init_2
     601              }
     602              else
     603              {
     604                /* External, camera and Arduino connector  I2C configuration */
     605                i2c_handler->Instance = DISCOVERY_EXT_I2Cx;
    \                     ??I2Cx_Init_1: (+1)
-   \   00000018   0x....             LDR.N    R0,??DataTable31_12  ;; 0x40005400
-   \   0000001A   0x6020             STR      R0,[R4, #+0]
+   \   0000001A   0x....             LDR.N    R0,??DataTable24_22  ;; 0x40005400
+   \   0000001C   0x6020             STR      R0,[R4, #+0]
     606              }
     607              i2c_handler->Init.Timing           = DISCOVERY_I2Cx_TIMING;
    \                     ??I2Cx_Init_2: (+1)
-   \   0000001C   0x....             LDR.N    R0,??DataTable31_13  ;; 0x40912732
-   \   0000001E   0x6060             STR      R0,[R4, #+4]
+   \   0000001E   0x....             LDR.N    R0,??DataTable24_23  ;; 0x40912732
+   \   00000020   0x6060             STR      R0,[R4, #+4]
     608              i2c_handler->Init.OwnAddress1      = 0;
-   \   00000020   0x2000             MOVS     R0,#+0
-   \   00000022   0x60A0             STR      R0,[R4, #+8]
+   \   00000022   0x2000             MOVS     R0,#+0
+   \   00000024   0x60A0             STR      R0,[R4, #+8]
     609              i2c_handler->Init.AddressingMode   = I2C_ADDRESSINGMODE_7BIT;
-   \   00000024   0x2001             MOVS     R0,#+1
-   \   00000026   0x60E0             STR      R0,[R4, #+12]
+   \   00000026   0x2001             MOVS     R0,#+1
+   \   00000028   0x60E0             STR      R0,[R4, #+12]
     610              i2c_handler->Init.DualAddressMode  = I2C_DUALADDRESS_DISABLE;
-   \   00000028   0x2000             MOVS     R0,#+0
-   \   0000002A   0x6120             STR      R0,[R4, #+16]
+   \   0000002A   0x2000             MOVS     R0,#+0
+   \   0000002C   0x6120             STR      R0,[R4, #+16]
     611              i2c_handler->Init.OwnAddress2      = 0;
-   \   0000002C   0x6160             STR      R0,[R4, #+20]
+   \   0000002E   0x2000             MOVS     R0,#+0
+   \   00000030   0x6160             STR      R0,[R4, #+20]
     612              i2c_handler->Init.GeneralCallMode  = I2C_GENERALCALL_DISABLE;
-   \   0000002E   0x61E0             STR      R0,[R4, #+28]
+   \   00000032   0x2000             MOVS     R0,#+0
+   \   00000034   0x61E0             STR      R0,[R4, #+28]
     613              i2c_handler->Init.NoStretchMode    = I2C_NOSTRETCH_DISABLE;
-   \   00000030   0x6220             STR      R0,[R4, #+32]
+   \   00000036   0x2000             MOVS     R0,#+0
+   \   00000038   0x6220             STR      R0,[R4, #+32]
     614          
     615              /* Init the I2C */
     616              I2Cx_MspInit(i2c_handler);
-   \   00000032   0x4620             MOV      R0,R4
-   \   00000034   0x.... 0x....      BL       I2Cx_MspInit
+   \   0000003A   0x0020             MOVS     R0,R4
+   \   0000003C   0x.... 0x....      BL       I2Cx_MspInit
     617              HAL_I2C_Init(i2c_handler);
-   \   00000038   0x4620             MOV      R0,R4
-   \   0000003A   0xE8BD 0x4010      POP      {R4,LR}
-   \   0000003E   0x.... 0x....      B.W      HAL_I2C_Init
+   \   00000040   0x0020             MOVS     R0,R4
+   \   00000042   0x.... 0x....      BL       HAL_I2C_Init
     618            }
     619          }
    \                     ??I2Cx_Init_0: (+1)
-   \   00000042   0xBD10             POP      {R4,PC}          ;; return
+   \   00000046   0xBD10             POP      {R4,PC}          ;; return
     620          
     621          /**
     622            * @brief  Reads multiple data.
@@ -1257,38 +1420,54 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
     636                                                     uint16_t Length)
     637          {
    \                     I2Cx_ReadMultiple: (+1)
-   \   00000000   0xB570             PUSH     {R4-R6,LR}
-   \   00000002   0xB084             SUB      SP,SP,#+16
-   \   00000004   0x4604             MOV      R4,R0
-   \   00000006   0x460D             MOV      R5,R1
+   \   00000000   0xE92D 0x47F0      PUSH     {R4-R10,LR}
+   \   00000004   0xB084             SUB      SP,SP,#+16
+   \   00000006   0x0005             MOVS     R5,R0
+   \   00000008   0x000E             MOVS     R6,R1
+   \   0000000A   0x0017             MOVS     R7,R2
+   \   0000000C   0x4698             MOV      R8,R3
+   \   0000000E   0xF8DD 0x9030      LDR      R9,[SP, #+48]
+   \   00000012   0x9C0D             LDR      R4,[SP, #+52]
     638            HAL_StatusTypeDef status = HAL_OK;
+   \   00000014   0xF05F 0x0A00      MOVS     R10,#+0
     639          
     640            status = HAL_I2C_Mem_Read(i2c_handler, Addr, (uint16_t)Reg, MemAddress, Buffer, Length, 1000);
-   \   00000008   0xF44F 0x707A      MOV      R0,#+1000
-   \   0000000C   0x9002             STR      R0,[SP, #+8]
-   \   0000000E   0x9809             LDR      R0,[SP, #+36]
-   \   00000010   0x9001             STR      R0,[SP, #+4]
-   \   00000012   0x9808             LDR      R0,[SP, #+32]
-   \   00000014   0x9000             STR      R0,[SP, #+0]
-   \   00000016   0x4620             MOV      R0,R4
-   \   00000018   0x.... 0x....      BL       HAL_I2C_Mem_Read
-   \   0000001C   0x0006             MOVS     R6,R0
+   \   00000018   0xF44F 0x707A      MOV      R0,#+1000
+   \   0000001C   0x9002             STR      R0,[SP, #+8]
+   \   0000001E   0x0020             MOVS     R0,R4
+   \   00000020   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000022   0x9001             STR      R0,[SP, #+4]
+   \   00000024   0xF8CD 0x9000      STR      R9,[SP, #+0]
+   \   00000028   0x4643             MOV      R3,R8
+   \   0000002A   0xB29B             UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
+   \   0000002C   0x003A             MOVS     R2,R7
+   \   0000002E   0xB292             UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+   \   00000030   0xB2F6             UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+   \   00000032   0x0031             MOVS     R1,R6
+   \   00000034   0xB289             UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
+   \   00000036   0x0028             MOVS     R0,R5
+   \   00000038   0x.... 0x....      BL       HAL_I2C_Mem_Read
+   \   0000003C   0x4682             MOV      R10,R0
     641          
     642            /* Check the communication status */
     643            if(status != HAL_OK)
-   \   0000001E   0xD003             BEQ.N    ??I2Cx_ReadMultiple_0
+   \   0000003E   0xFA5F 0xFA8A      UXTB     R10,R10          ;; ZeroExt  R10,R10,#+24,#+24
+   \   00000042   0xF1BA 0x0F00      CMP      R10,#+0
+   \   00000046   0xD004             BEQ.N    ??I2Cx_ReadMultiple_0
     644            {
     645              /* I2C error occurred */
     646              I2Cx_Error(i2c_handler, Addr);
-   \   00000020   0x4629             MOV      R1,R5
-   \   00000022   0x4620             MOV      R0,R4
-   \   00000024   0x.... 0x....      BL       I2Cx_Error
+   \   00000048   0x0031             MOVS     R1,R6
+   \   0000004A   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   0000004C   0x0028             MOVS     R0,R5
+   \   0000004E   0x.... 0x....      BL       I2Cx_Error
     647            }
     648            return status;    
    \                     ??I2Cx_ReadMultiple_0: (+1)
-   \   00000028   0x4630             MOV      R0,R6
-   \   0000002A   0xB004             ADD      SP,SP,#+16
-   \   0000002C   0xBD70             POP      {R4-R6,PC}       ;; return
+   \   00000052   0x4650             MOV      R0,R10
+   \   00000054   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000056   0xB004             ADD      SP,SP,#+16
+   \   00000058   0xE8BD 0x87F0      POP      {R4-R10,PC}      ;; return
     649          }
     650          
     651          /**
@@ -1311,38 +1490,54 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
     666                                                      uint16_t Length)
     667          {
    \                     I2Cx_WriteMultiple: (+1)
-   \   00000000   0xB570             PUSH     {R4-R6,LR}
-   \   00000002   0xB084             SUB      SP,SP,#+16
-   \   00000004   0x4604             MOV      R4,R0
-   \   00000006   0x460D             MOV      R5,R1
+   \   00000000   0xE92D 0x47F0      PUSH     {R4-R10,LR}
+   \   00000004   0xB084             SUB      SP,SP,#+16
+   \   00000006   0x0005             MOVS     R5,R0
+   \   00000008   0x000E             MOVS     R6,R1
+   \   0000000A   0x0017             MOVS     R7,R2
+   \   0000000C   0x4698             MOV      R8,R3
+   \   0000000E   0xF8DD 0x9030      LDR      R9,[SP, #+48]
+   \   00000012   0x9C0D             LDR      R4,[SP, #+52]
     668            HAL_StatusTypeDef status = HAL_OK;
+   \   00000014   0xF05F 0x0A00      MOVS     R10,#+0
     669            
     670            status = HAL_I2C_Mem_Write(i2c_handler, Addr, (uint16_t)Reg, MemAddress, Buffer, Length, 1000);
-   \   00000008   0xF44F 0x707A      MOV      R0,#+1000
-   \   0000000C   0x9002             STR      R0,[SP, #+8]
-   \   0000000E   0x9809             LDR      R0,[SP, #+36]
-   \   00000010   0x9001             STR      R0,[SP, #+4]
-   \   00000012   0x9808             LDR      R0,[SP, #+32]
-   \   00000014   0x9000             STR      R0,[SP, #+0]
-   \   00000016   0x4620             MOV      R0,R4
-   \   00000018   0x.... 0x....      BL       HAL_I2C_Mem_Write
-   \   0000001C   0x0006             MOVS     R6,R0
+   \   00000018   0xF44F 0x707A      MOV      R0,#+1000
+   \   0000001C   0x9002             STR      R0,[SP, #+8]
+   \   0000001E   0x0020             MOVS     R0,R4
+   \   00000020   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000022   0x9001             STR      R0,[SP, #+4]
+   \   00000024   0xF8CD 0x9000      STR      R9,[SP, #+0]
+   \   00000028   0x4643             MOV      R3,R8
+   \   0000002A   0xB29B             UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
+   \   0000002C   0x003A             MOVS     R2,R7
+   \   0000002E   0xB292             UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+   \   00000030   0xB2F6             UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+   \   00000032   0x0031             MOVS     R1,R6
+   \   00000034   0xB289             UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
+   \   00000036   0x0028             MOVS     R0,R5
+   \   00000038   0x.... 0x....      BL       HAL_I2C_Mem_Write
+   \   0000003C   0x4682             MOV      R10,R0
     671            
     672            /* Check the communication status */
     673            if(status != HAL_OK)
-   \   0000001E   0xD003             BEQ.N    ??I2Cx_WriteMultiple_0
+   \   0000003E   0xFA5F 0xFA8A      UXTB     R10,R10          ;; ZeroExt  R10,R10,#+24,#+24
+   \   00000042   0xF1BA 0x0F00      CMP      R10,#+0
+   \   00000046   0xD004             BEQ.N    ??I2Cx_WriteMultiple_0
     674            {
     675              /* Re-Initiaize the I2C Bus */
     676              I2Cx_Error(i2c_handler, Addr);
-   \   00000020   0x4629             MOV      R1,R5
-   \   00000022   0x4620             MOV      R0,R4
-   \   00000024   0x.... 0x....      BL       I2Cx_Error
+   \   00000048   0x0031             MOVS     R1,R6
+   \   0000004A   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   0000004C   0x0028             MOVS     R0,R5
+   \   0000004E   0x.... 0x....      BL       I2Cx_Error
     677            }
     678            return status;
    \                     ??I2Cx_WriteMultiple_0: (+1)
-   \   00000028   0x4630             MOV      R0,R6
-   \   0000002A   0xB004             ADD      SP,SP,#+16
-   \   0000002C   0xBD70             POP      {R4-R6,PC}       ;; return
+   \   00000052   0x4650             MOV      R0,R10
+   \   00000054   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000056   0xB004             ADD      SP,SP,#+16
+   \   00000058   0xE8BD 0x87F0      POP      {R4-R10,PC}      ;; return
     679          }
     680          
     681          /**
@@ -1357,10 +1552,19 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
    \                                 In section .text, align 2, keep-with-next
     689          static HAL_StatusTypeDef I2Cx_IsDeviceReady(I2C_HandleTypeDef *i2c_handler, uint16_t DevAddress, uint32_t Trials)
     690          { 
-    691            return (HAL_I2C_IsDeviceReady(i2c_handler, DevAddress, Trials, 1000));
    \                     I2Cx_IsDeviceReady: (+1)
-   \   00000000   0xF44F 0x737A      MOV      R3,#+1000
-   \   00000004   0x.... 0x....      B.W      HAL_I2C_IsDeviceReady
+   \   00000000   0xB570             PUSH     {R4-R6,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
+   \   00000006   0x0016             MOVS     R6,R2
+    691            return (HAL_I2C_IsDeviceReady(i2c_handler, DevAddress, Trials, 1000));
+   \   00000008   0xF44F 0x737A      MOV      R3,#+1000
+   \   0000000C   0x0032             MOVS     R2,R6
+   \   0000000E   0x0029             MOVS     R1,R5
+   \   00000010   0xB289             UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
+   \   00000012   0x0020             MOVS     R0,R4
+   \   00000014   0x.... 0x....      BL       HAL_I2C_IsDeviceReady
+   \   00000018   0xBD70             POP      {R4-R6,PC}       ;; return
     692          }
     693          
     694          /**
@@ -1374,18 +1578,20 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
     700          static void I2Cx_Error(I2C_HandleTypeDef *i2c_handler, uint8_t Addr)
     701          {
    \                     I2Cx_Error: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x4604             MOV      R4,R0
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
     702            /* De-initialize the I2C communication bus */
     703            HAL_I2C_DeInit(i2c_handler);
-   \   00000004   0x.... 0x....      BL       HAL_I2C_DeInit
+   \   00000006   0x0020             MOVS     R0,R4
+   \   00000008   0x.... 0x....      BL       HAL_I2C_DeInit
     704            
     705            /* Re-Initialize the I2C communication bus */
     706            I2Cx_Init(i2c_handler);
-   \   00000008   0x4620             MOV      R0,R4
-   \   0000000A   0xE8BD 0x4010      POP      {R4,LR}
-   \   0000000E   0x....             B.N      I2Cx_Init
+   \   0000000C   0x0020             MOVS     R0,R4
+   \   0000000E   0x.... 0x....      BL       I2Cx_Init
     707          }
+   \   00000012   0xBD31             POP      {R0,R4,R5,PC}    ;; return
     708          
     709          /*******************************************************************************
     710                                      LINK OPERATIONS
@@ -1401,11 +1607,13 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
    \                                 In section .text, align 2, keep-with-next
     719          void AUDIO_IO_Init(void) 
     720          {
-    721            I2Cx_Init(&hI2cAudioHandler);
    \                     AUDIO_IO_Init: (+1)
-   \   00000000   0x....             LDR.N    R0,??DataTable31_8
-   \   00000002   0x....             B.N      I2Cx_Init
+   \   00000000   0xB580             PUSH     {R7,LR}
+    721            I2Cx_Init(&hI2cAudioHandler);
+   \   00000002   0x....             LDR.N    R0,??DataTable24_16
+   \   00000004   0x.... 0x....      BL       I2Cx_Init
     722          }
+   \   00000008   0xBD01             POP      {R0,PC}          ;; return
     723          
     724          /**
     725            * @brief  Deinitializes Audio low level.
@@ -1431,29 +1639,38 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
     739          void AUDIO_IO_Write(uint8_t Addr, uint16_t Reg, uint16_t Value)
     740          {
    \                     AUDIO_IO_Write: (+1)
-   \   00000000   0xB507             PUSH     {R0-R2,LR}
+   \   00000000   0xB574             PUSH     {R2,R4-R6,LR}
+   \   00000002   0xB083             SUB      SP,SP,#+12
+   \   00000004   0x0004             MOVS     R4,R0
+   \   00000006   0x000D             MOVS     R5,R1
     741            uint16_t tmp = Value;
+   \   00000008   0xF8BD 0x600C      LDRH     R6,[SP, #+12]
     742            
     743            Value = ((uint16_t)(tmp >> 8) & 0x00FF);
+   \   0000000C   0x0030             MOVS     R0,R6
+   \   0000000E   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000010   0x0A00             LSRS     R0,R0,#+8
+   \   00000012   0xF8AD 0x000C      STRH     R0,[SP, #+12]
     744            
     745            Value |= ((uint16_t)(tmp << 8)& 0xFF00);
-   \   00000002   0x4613             MOV      R3,R2
-   \   00000004   0x021B             LSLS     R3,R3,#+8
-   \   00000006   0xEA43 0x2212      ORR      R2,R3,R2, LSR #+8
-   \   0000000A   0xF8AD 0x2008      STRH     R2,[SP, #+8]
+   \   00000016   0xF8BD 0x000C      LDRH     R0,[SP, #+12]
+   \   0000001A   0xEA50 0x2006      ORRS     R0,R0,R6, LSL #+8
+   \   0000001E   0xF8AD 0x000C      STRH     R0,[SP, #+12]
     746            
     747            I2Cx_WriteMultiple(&hI2cAudioHandler, Addr, Reg, I2C_MEMADD_SIZE_16BIT,(uint8_t*)&Value, 2);
-   \   0000000E   0x2202             MOVS     R2,#+2
-   \   00000010   0x9201             STR      R2,[SP, #+4]
-   \   00000012   0xAA02             ADD      R2,SP,#+8
-   \   00000014   0x9200             STR      R2,[SP, #+0]
-   \   00000016   0x2302             MOVS     R3,#+2
-   \   00000018   0x460A             MOV      R2,R1
-   \   0000001A   0x4601             MOV      R1,R0
-   \   0000001C   0x....             LDR.N    R0,??DataTable31_8
-   \   0000001E   0x.... 0x....      BL       I2Cx_WriteMultiple
+   \   00000022   0x2002             MOVS     R0,#+2
+   \   00000024   0x9001             STR      R0,[SP, #+4]
+   \   00000026   0xA803             ADD      R0,SP,#+12
+   \   00000028   0x9000             STR      R0,[SP, #+0]
+   \   0000002A   0x2302             MOVS     R3,#+2
+   \   0000002C   0x002A             MOVS     R2,R5
+   \   0000002E   0xB292             UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+   \   00000030   0x0021             MOVS     R1,R4
+   \   00000032   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   00000034   0x....             LDR.N    R0,??DataTable24_16
+   \   00000036   0x.... 0x....      BL       I2Cx_WriteMultiple
     748          }
-   \   00000022   0xBD07             POP      {R0-R2,PC}       ;; return
+   \   0000003A   0xBD7F             POP      {R0-R6,PC}       ;; return
     749          
     750          /**
     751            * @brief  Reads a single data.
@@ -1466,35 +1683,45 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
     756          uint16_t AUDIO_IO_Read(uint8_t Addr, uint16_t Reg)
     757          {
    \                     AUDIO_IO_Read: (+1)
-   \   00000000   0xB5E0             PUSH     {R5-R7,LR}
+   \   00000000   0xB570             PUSH     {R4-R6,LR}
+   \   00000002   0xB084             SUB      SP,SP,#+16
+   \   00000004   0x0004             MOVS     R4,R0
+   \   00000006   0x000D             MOVS     R5,R1
     758            uint16_t read_value = 0, tmp = 0;
-   \   00000002   0x2200             MOVS     R2,#+0
-   \   00000004   0xF8AD 0x2008      STRH     R2,[SP, #+8]
+   \   00000008   0x2000             MOVS     R0,#+0
+   \   0000000A   0xF8AD 0x0008      STRH     R0,[SP, #+8]
+   \   0000000E   0x2600             MOVS     R6,#+0
     759            
     760            I2Cx_ReadMultiple(&hI2cAudioHandler, Addr, Reg, I2C_MEMADD_SIZE_16BIT, (uint8_t*)&read_value, 2);
-   \   00000008   0x2202             MOVS     R2,#+2
-   \   0000000A   0x9201             STR      R2,[SP, #+4]
-   \   0000000C   0xAA02             ADD      R2,SP,#+8
-   \   0000000E   0x9200             STR      R2,[SP, #+0]
-   \   00000010   0x2302             MOVS     R3,#+2
-   \   00000012   0x460A             MOV      R2,R1
-   \   00000014   0x4601             MOV      R1,R0
-   \   00000016   0x....             LDR.N    R0,??DataTable31_8
-   \   00000018   0x.... 0x....      BL       I2Cx_ReadMultiple
+   \   00000010   0x2002             MOVS     R0,#+2
+   \   00000012   0x9001             STR      R0,[SP, #+4]
+   \   00000014   0xA802             ADD      R0,SP,#+8
+   \   00000016   0x9000             STR      R0,[SP, #+0]
+   \   00000018   0x2302             MOVS     R3,#+2
+   \   0000001A   0x002A             MOVS     R2,R5
+   \   0000001C   0xB292             UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+   \   0000001E   0x0021             MOVS     R1,R4
+   \   00000020   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   00000022   0x....             LDR.N    R0,??DataTable24_16
+   \   00000024   0x.... 0x....      BL       I2Cx_ReadMultiple
     761            
     762            tmp = ((uint16_t)(read_value >> 8) & 0x00FF);
+   \   00000028   0xF8BD 0x0008      LDRH     R0,[SP, #+8]
+   \   0000002C   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000002E   0x0A00             LSRS     R0,R0,#+8
+   \   00000030   0x0006             MOVS     R6,R0
     763            
     764            tmp |= ((uint16_t)(read_value << 8)& 0xFF00);
+   \   00000032   0xF8BD 0x0008      LDRH     R0,[SP, #+8]
+   \   00000036   0xEA56 0x2600      ORRS     R6,R6,R0, LSL #+8
     765            
     766            read_value = tmp;
+   \   0000003A   0xF8AD 0x6008      STRH     R6,[SP, #+8]
     767            
     768            return read_value;
-   \   0000001C   0xF8BD 0x0008      LDRH     R0,[SP, #+8]
-   \   00000020   0x4601             MOV      R1,R0
-   \   00000022   0x0209             LSLS     R1,R1,#+8
-   \   00000024   0xEA41 0x2010      ORR      R0,R1,R0, LSR #+8
-   \   00000028   0xB280             UXTH     R0,R0
-   \   0000002A   0xBD0E             POP      {R1-R3,PC}       ;; return
+   \   0000003E   0xF8BD 0x0008      LDRH     R0,[SP, #+8]
+   \   00000042   0xB004             ADD      SP,SP,#+16
+   \   00000044   0xBD70             POP      {R4-R6,PC}       ;; return
     769          }
     770          
     771          /**
@@ -1506,10 +1733,14 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
    \                                 In section .text, align 2, keep-with-next
     776          void AUDIO_IO_Delay(uint32_t Delay)
     777          {
-    778            HAL_Delay(Delay);
    \                     AUDIO_IO_Delay: (+1)
-   \   00000000   0x.... 0x....      B.W      HAL_Delay
+   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+    778            HAL_Delay(Delay);
+   \   00000004   0x0020             MOVS     R0,R4
+   \   00000006   0x.... 0x....      BL       HAL_Delay
     779          }
+   \   0000000A   0xBD10             POP      {R4,PC}          ;; return
     780          
     781          /********************************* LINK CAMERA ********************************/
     782          
@@ -1521,11 +1752,13 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
    \                                 In section .text, align 2, keep-with-next
     787          void CAMERA_IO_Init(void) 
     788          {
-    789            I2Cx_Init(&hI2cExtHandler);
    \                     CAMERA_IO_Init: (+1)
-   \   00000000   0x....             LDR.N    R0,??DataTable31_14
-   \   00000002   0x....             B.N      I2Cx_Init
+   \   00000000   0xB580             PUSH     {R7,LR}
+    789            I2Cx_Init(&hI2cExtHandler);
+   \   00000002   0x....             LDR.N    R0,??DataTable24_24
+   \   00000004   0x.... 0x....      BL       I2Cx_Init
     790          }
+   \   00000008   0xBD01             POP      {R0,PC}          ;; return
     791          
     792          /**
     793            * @brief  Camera writes single data.
@@ -1539,19 +1772,24 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
     799          void CAMERA_IO_Write(uint8_t Addr, uint8_t Reg, uint8_t Value)
     800          {
    \                     CAMERA_IO_Write: (+1)
-   \   00000000   0xB507             PUSH     {R0-R2,LR}
+   \   00000000   0xB537             PUSH     {R0-R2,R4,R5,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
     801            I2Cx_WriteMultiple(&hI2cExtHandler, Addr, (uint16_t)Reg, I2C_MEMADD_SIZE_8BIT,(uint8_t*)&Value, 1);
-   \   00000002   0x2201             MOVS     R2,#+1
-   \   00000004   0x9201             STR      R2,[SP, #+4]
-   \   00000006   0xAA02             ADD      R2,SP,#+8
-   \   00000008   0x9200             STR      R2,[SP, #+0]
-   \   0000000A   0x2301             MOVS     R3,#+1
-   \   0000000C   0x460A             MOV      R2,R1
-   \   0000000E   0x4601             MOV      R1,R0
-   \   00000010   0x....             LDR.N    R0,??DataTable31_14
-   \   00000012   0x.... 0x....      BL       I2Cx_WriteMultiple
+   \   00000006   0x2001             MOVS     R0,#+1
+   \   00000008   0x9001             STR      R0,[SP, #+4]
+   \   0000000A   0xA802             ADD      R0,SP,#+8
+   \   0000000C   0x9000             STR      R0,[SP, #+0]
+   \   0000000E   0x2301             MOVS     R3,#+1
+   \   00000010   0xB2ED             UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+   \   00000012   0x002A             MOVS     R2,R5
+   \   00000014   0xB292             UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+   \   00000016   0x0021             MOVS     R1,R4
+   \   00000018   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   0000001A   0x....             LDR.N    R0,??DataTable24_24
+   \   0000001C   0x.... 0x....      BL       I2Cx_WriteMultiple
     802          }
-   \   00000016   0xBD07             POP      {R0-R2,PC}       ;; return
+   \   00000020   0xBD37             POP      {R0-R2,R4,R5,PC}  ;; return
     803          
     804          /**
     805            * @brief  Camera reads single data.
@@ -1564,25 +1802,30 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
     810          uint8_t CAMERA_IO_Read(uint8_t Addr, uint8_t Reg)
     811          {
    \                     CAMERA_IO_Read: (+1)
-   \   00000000   0xB5E0             PUSH     {R5-R7,LR}
+   \   00000000   0xB53E             PUSH     {R1-R5,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
     812            uint8_t read_value = 0;
-   \   00000002   0x2200             MOVS     R2,#+0
-   \   00000004   0xF88D 0x2008      STRB     R2,[SP, #+8]
+   \   00000006   0x2000             MOVS     R0,#+0
+   \   00000008   0xF88D 0x0008      STRB     R0,[SP, #+8]
     813          
     814            I2Cx_ReadMultiple(&hI2cExtHandler, Addr, Reg, I2C_MEMADD_SIZE_8BIT, (uint8_t*)&read_value, 1);
-   \   00000008   0x2201             MOVS     R2,#+1
-   \   0000000A   0x9201             STR      R2,[SP, #+4]
-   \   0000000C   0xAA02             ADD      R2,SP,#+8
-   \   0000000E   0x9200             STR      R2,[SP, #+0]
-   \   00000010   0x2301             MOVS     R3,#+1
-   \   00000012   0x460A             MOV      R2,R1
-   \   00000014   0x4601             MOV      R1,R0
-   \   00000016   0x....             LDR.N    R0,??DataTable31_14
-   \   00000018   0x.... 0x....      BL       I2Cx_ReadMultiple
+   \   0000000C   0x2001             MOVS     R0,#+1
+   \   0000000E   0x9001             STR      R0,[SP, #+4]
+   \   00000010   0xA802             ADD      R0,SP,#+8
+   \   00000012   0x9000             STR      R0,[SP, #+0]
+   \   00000014   0x2301             MOVS     R3,#+1
+   \   00000016   0xB2ED             UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+   \   00000018   0x002A             MOVS     R2,R5
+   \   0000001A   0xB292             UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+   \   0000001C   0x0021             MOVS     R1,R4
+   \   0000001E   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   00000020   0x....             LDR.N    R0,??DataTable24_24
+   \   00000022   0x.... 0x....      BL       I2Cx_ReadMultiple
     815          
     816            return read_value;
-   \   0000001C   0xF89D 0x0008      LDRB     R0,[SP, #+8]
-   \   00000020   0xBD0E             POP      {R1-R3,PC}       ;; return
+   \   00000026   0xF89D 0x0008      LDRB     R0,[SP, #+8]
+   \   0000002A   0xBD3E             POP      {R1-R5,PC}       ;; return
     817          }
     818          
     819          /**
@@ -1594,10 +1837,14 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
    \                                 In section .text, align 2, keep-with-next
     824          void CAMERA_Delay(uint32_t Delay)
     825          {
-    826            HAL_Delay(Delay);
    \                     CAMERA_Delay: (+1)
-   \   00000000   0x.... 0x....      B.W      HAL_Delay
+   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+    826            HAL_Delay(Delay);
+   \   00000004   0x0020             MOVS     R0,R4
+   \   00000006   0x.... 0x....      BL       HAL_Delay
     827          }
+   \   0000000A   0xBD10             POP      {R4,PC}          ;; return
     828          
     829          /******************************** LINK I2C EEPROM *****************************/
     830          
@@ -1609,11 +1856,13 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
    \                                 In section .text, align 2, keep-with-next
     835          void EEPROM_IO_Init(void)
     836          {
-    837            I2Cx_Init(&hI2cExtHandler);
    \                     EEPROM_IO_Init: (+1)
-   \   00000000   0x....             LDR.N    R0,??DataTable31_14
-   \   00000002   0x....             B.N      I2Cx_Init
+   \   00000000   0xB580             PUSH     {R7,LR}
+    837            I2Cx_Init(&hI2cExtHandler);
+   \   00000002   0x....             LDR.N    R0,??DataTable24_24
+   \   00000004   0x.... 0x....      BL       I2Cx_Init
     838          }
+   \   00000008   0xBD01             POP      {R0,PC}          ;; return
     839          
     840          /**
     841            * @brief  Write data to I2C EEPROM driver in using DMA channel.
@@ -1628,19 +1877,25 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
     848          HAL_StatusTypeDef EEPROM_IO_WriteData(uint16_t DevAddress, uint16_t MemAddress, uint8_t* pBuffer, uint32_t BufferSize)
     849          {
    \                     EEPROM_IO_WriteData: (+1)
-   \   00000000   0xB500             PUSH     {LR}
+   \   00000000   0xB5F0             PUSH     {R4-R7,LR}
    \   00000002   0xB083             SUB      SP,SP,#+12
+   \   00000004   0x0004             MOVS     R4,R0
+   \   00000006   0x000D             MOVS     R5,R1
+   \   00000008   0x0016             MOVS     R6,R2
+   \   0000000A   0x001F             MOVS     R7,R3
     850            return (I2Cx_WriteMultiple(&hI2cExtHandler, DevAddress, MemAddress, I2C_MEMADD_SIZE_16BIT, pBuffer, BufferSize));
-   \   00000004   0xB29B             UXTH     R3,R3
-   \   00000006   0x9301             STR      R3,[SP, #+4]
-   \   00000008   0x9200             STR      R2,[SP, #+0]
-   \   0000000A   0x2302             MOVS     R3,#+2
-   \   0000000C   0x460A             MOV      R2,R1
-   \   0000000E   0x4601             MOV      R1,R0
-   \   00000010   0xB2C9             UXTB     R1,R1
-   \   00000012   0x....             LDR.N    R0,??DataTable31_14
-   \   00000014   0x.... 0x....      BL       I2Cx_WriteMultiple
-   \   00000018   0xBD0E             POP      {R1-R3,PC}       ;; return
+   \   0000000C   0x0038             MOVS     R0,R7
+   \   0000000E   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000010   0x9001             STR      R0,[SP, #+4]
+   \   00000012   0x9600             STR      R6,[SP, #+0]
+   \   00000014   0x2302             MOVS     R3,#+2
+   \   00000016   0x002A             MOVS     R2,R5
+   \   00000018   0xB292             UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+   \   0000001A   0x0021             MOVS     R1,R4
+   \   0000001C   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   0000001E   0x....             LDR.N    R0,??DataTable24_24
+   \   00000020   0x.... 0x....      BL       I2Cx_WriteMultiple
+   \   00000024   0xBDFE             POP      {R1-R7,PC}       ;; return
     851          }
     852          
     853          /**
@@ -1656,19 +1911,25 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
     861          HAL_StatusTypeDef EEPROM_IO_ReadData(uint16_t DevAddress, uint16_t MemAddress, uint8_t* pBuffer, uint32_t BufferSize)
     862          {
    \                     EEPROM_IO_ReadData: (+1)
-   \   00000000   0xB500             PUSH     {LR}
+   \   00000000   0xB5F0             PUSH     {R4-R7,LR}
    \   00000002   0xB083             SUB      SP,SP,#+12
+   \   00000004   0x0004             MOVS     R4,R0
+   \   00000006   0x000D             MOVS     R5,R1
+   \   00000008   0x0016             MOVS     R6,R2
+   \   0000000A   0x001F             MOVS     R7,R3
     863            return (I2Cx_ReadMultiple(&hI2cExtHandler, DevAddress, MemAddress, I2C_MEMADD_SIZE_16BIT, pBuffer, BufferSize));
-   \   00000004   0xB29B             UXTH     R3,R3
-   \   00000006   0x9301             STR      R3,[SP, #+4]
-   \   00000008   0x9200             STR      R2,[SP, #+0]
-   \   0000000A   0x2302             MOVS     R3,#+2
-   \   0000000C   0x460A             MOV      R2,R1
-   \   0000000E   0x4601             MOV      R1,R0
-   \   00000010   0xB2C9             UXTB     R1,R1
-   \   00000012   0x....             LDR.N    R0,??DataTable31_14
-   \   00000014   0x.... 0x....      BL       I2Cx_ReadMultiple
-   \   00000018   0xBD0E             POP      {R1-R3,PC}       ;; return
+   \   0000000C   0x0038             MOVS     R0,R7
+   \   0000000E   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000010   0x9001             STR      R0,[SP, #+4]
+   \   00000012   0x9600             STR      R6,[SP, #+0]
+   \   00000014   0x2302             MOVS     R3,#+2
+   \   00000016   0x002A             MOVS     R2,R5
+   \   00000018   0xB292             UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+   \   0000001A   0x0021             MOVS     R1,R4
+   \   0000001C   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   0000001E   0x....             LDR.N    R0,??DataTable24_24
+   \   00000020   0x.... 0x....      BL       I2Cx_ReadMultiple
+   \   00000024   0xBDFE             POP      {R1-R7,PC}       ;; return
     864          }
     865          
     866          /**
@@ -1682,12 +1943,17 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
    \                                 In section .text, align 2, keep-with-next
     873          HAL_StatusTypeDef EEPROM_IO_IsDeviceReady(uint16_t DevAddress, uint32_t Trials)
     874          { 
-    875            return (I2Cx_IsDeviceReady(&hI2cExtHandler, DevAddress, Trials));
    \                     EEPROM_IO_IsDeviceReady: (+1)
-   \   00000000   0x460A             MOV      R2,R1
-   \   00000002   0x4601             MOV      R1,R0
-   \   00000004   0x....             LDR.N    R0,??DataTable31_14
-   \   00000006   0x....             B.N      I2Cx_IsDeviceReady
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
+    875            return (I2Cx_IsDeviceReady(&hI2cExtHandler, DevAddress, Trials));
+   \   00000006   0x002A             MOVS     R2,R5
+   \   00000008   0x0021             MOVS     R1,R4
+   \   0000000A   0xB289             UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
+   \   0000000C   0x....             LDR.N    R0,??DataTable24_24
+   \   0000000E   0x.... 0x....      BL       I2Cx_IsDeviceReady
+   \   00000012   0xBD32             POP      {R1,R4,R5,PC}    ;; return
     876          }
     877          
     878          /********************************* LINK TOUCHSCREEN *********************************/
@@ -1700,11 +1966,13 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
    \                                 In section .text, align 2, keep-with-next
     884          void TS_IO_Init(void)
     885          {
-    886            I2Cx_Init(&hI2cAudioHandler);
    \                     TS_IO_Init: (+1)
-   \   00000000   0x....             LDR.N    R0,??DataTable31_8
-   \   00000002   0x....             B.N      I2Cx_Init
+   \   00000000   0xB580             PUSH     {R7,LR}
+    886            I2Cx_Init(&hI2cAudioHandler);
+   \   00000002   0x....             LDR.N    R0,??DataTable24_16
+   \   00000004   0x.... 0x....      BL       I2Cx_Init
     887          }
+   \   00000008   0xBD01             POP      {R0,PC}          ;; return
     888          
     889          /**
     890            * @brief  Writes a single data.
@@ -1718,19 +1986,24 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
     896          void TS_IO_Write(uint8_t Addr, uint8_t Reg, uint8_t Value)
     897          {
    \                     TS_IO_Write: (+1)
-   \   00000000   0xB507             PUSH     {R0-R2,LR}
+   \   00000000   0xB537             PUSH     {R0-R2,R4,R5,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
     898            I2Cx_WriteMultiple(&hI2cAudioHandler, Addr, (uint16_t)Reg, I2C_MEMADD_SIZE_8BIT,(uint8_t*)&Value, 1);
-   \   00000002   0x2201             MOVS     R2,#+1
-   \   00000004   0x9201             STR      R2,[SP, #+4]
-   \   00000006   0xAA02             ADD      R2,SP,#+8
-   \   00000008   0x9200             STR      R2,[SP, #+0]
-   \   0000000A   0x2301             MOVS     R3,#+1
-   \   0000000C   0x460A             MOV      R2,R1
-   \   0000000E   0x4601             MOV      R1,R0
-   \   00000010   0x....             LDR.N    R0,??DataTable31_8
-   \   00000012   0x.... 0x....      BL       I2Cx_WriteMultiple
+   \   00000006   0x2001             MOVS     R0,#+1
+   \   00000008   0x9001             STR      R0,[SP, #+4]
+   \   0000000A   0xA802             ADD      R0,SP,#+8
+   \   0000000C   0x9000             STR      R0,[SP, #+0]
+   \   0000000E   0x2301             MOVS     R3,#+1
+   \   00000010   0xB2ED             UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+   \   00000012   0x002A             MOVS     R2,R5
+   \   00000014   0xB292             UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+   \   00000016   0x0021             MOVS     R1,R4
+   \   00000018   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   0000001A   0x....             LDR.N    R0,??DataTable24_16
+   \   0000001C   0x.... 0x....      BL       I2Cx_WriteMultiple
     899          }
-   \   00000016   0xBD07             POP      {R0-R2,PC}       ;; return
+   \   00000020   0xBD37             POP      {R0-R2,R4,R5,PC}  ;; return
     900          
     901          /**
     902            * @brief  Reads a single data.
@@ -1743,25 +2016,30 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
     907          uint8_t TS_IO_Read(uint8_t Addr, uint8_t Reg)
     908          {
    \                     TS_IO_Read: (+1)
-   \   00000000   0xB5E0             PUSH     {R5-R7,LR}
+   \   00000000   0xB53E             PUSH     {R1-R5,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
     909            uint8_t read_value = 0;
-   \   00000002   0x2200             MOVS     R2,#+0
-   \   00000004   0xF88D 0x2008      STRB     R2,[SP, #+8]
+   \   00000006   0x2000             MOVS     R0,#+0
+   \   00000008   0xF88D 0x0008      STRB     R0,[SP, #+8]
     910          
     911            I2Cx_ReadMultiple(&hI2cAudioHandler, Addr, Reg, I2C_MEMADD_SIZE_8BIT, (uint8_t*)&read_value, 1);
-   \   00000008   0x2201             MOVS     R2,#+1
-   \   0000000A   0x9201             STR      R2,[SP, #+4]
-   \   0000000C   0xAA02             ADD      R2,SP,#+8
-   \   0000000E   0x9200             STR      R2,[SP, #+0]
-   \   00000010   0x2301             MOVS     R3,#+1
-   \   00000012   0x460A             MOV      R2,R1
-   \   00000014   0x4601             MOV      R1,R0
-   \   00000016   0x....             LDR.N    R0,??DataTable31_8
-   \   00000018   0x.... 0x....      BL       I2Cx_ReadMultiple
+   \   0000000C   0x2001             MOVS     R0,#+1
+   \   0000000E   0x9001             STR      R0,[SP, #+4]
+   \   00000010   0xA802             ADD      R0,SP,#+8
+   \   00000012   0x9000             STR      R0,[SP, #+0]
+   \   00000014   0x2301             MOVS     R3,#+1
+   \   00000016   0xB2ED             UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+   \   00000018   0x002A             MOVS     R2,R5
+   \   0000001A   0xB292             UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+   \   0000001C   0x0021             MOVS     R1,R4
+   \   0000001E   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   00000020   0x....             LDR.N    R0,??DataTable24_16
+   \   00000022   0x.... 0x....      BL       I2Cx_ReadMultiple
     912          
     913            return read_value;
-   \   0000001C   0xF89D 0x0008      LDRB     R0,[SP, #+8]
-   \   00000020   0xBD0E             POP      {R1-R3,PC}       ;; return
+   \   00000026   0xF89D 0x0008      LDRB     R0,[SP, #+8]
+   \   0000002A   0xBD3E             POP      {R1-R5,PC}       ;; return
     914          }
     915          
     916          /**
@@ -1773,69 +2051,113 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
    \                                 In section .text, align 2, keep-with-next
     921          void TS_IO_Delay(uint32_t Delay)
     922          {
-    923            HAL_Delay(Delay);
    \                     TS_IO_Delay: (+1)
-   \   00000000   0x.... 0x....      B.W      HAL_Delay
+   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+    923            HAL_Delay(Delay);
+   \   00000004   0x0020             MOVS     R0,R4
+   \   00000006   0x.... 0x....      BL       HAL_Delay
     924          }
+   \   0000000A   0xBD10             POP      {R4,PC}          ;; return
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable31:
-   \   00000000   0x40023830         DC32     0x40023830
-
-   \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable31_1:
+   \                     ??DataTable24:
    \   00000000   0x40022000         DC32     0x40022000
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable31_2:
+   \                     ??DataTable24_1:
+   \   00000000   0x40023830         DC32     0x40023830
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable24_2:
+   \   00000000   0x........         DC32     GPIO_PIN
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable24_3:
+   \   00000000   0x........         DC32     BUTTON_PIN
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable24_4:
    \   00000000   0x........         DC32     BUTTON_PORT
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable31_3:
+   \                     ??DataTable24_5:
    \   00000000   0x10210000         DC32     0x10210000
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable31_4:
+   \                     ??DataTable24_6:
    \   00000000   0x10110000         DC32     0x10110000
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable31_5:
-   \   00000000   0x........         DC32     COM_USART
+   \                     ??DataTable24_7:
+   \   00000000   0x........         DC32     BUTTON_IRQn
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable31_6:
+   \                     ??DataTable24_8:
    \   00000000   0x40023844         DC32     0x40023844
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable31_7:
-   \   00000000   0x40023820         DC32     0x40023820
+   \                     ??DataTable24_9:
+   \   00000000   0x........         DC32     COM_TX_PIN
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable31_8:
+   \                     ??DataTable24_10:
+   \   00000000   0x........         DC32     COM_TX_AF
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable24_11:
+   \   00000000   0x........         DC32     COM_TX_PORT
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable24_12:
+   \   00000000   0x........         DC32     COM_RX_PIN
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable24_13:
+   \   00000000   0x........         DC32     COM_RX_AF
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable24_14:
+   \   00000000   0x........         DC32     COM_RX_PORT
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable24_15:
+   \   00000000   0x........         DC32     COM_USART
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable24_16:
    \   00000000   0x........         DC32     hI2cAudioHandler
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable31_9:
+   \                     ??DataTable24_17:
    \   00000000   0x40021C00         DC32     0x40021c00
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable31_10:
+   \                     ??DataTable24_18:
+   \   00000000   0x40023840         DC32     0x40023840
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable24_19:
+   \   00000000   0x40023820         DC32     0x40023820
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable24_20:
    \   00000000   0x40020400         DC32     0x40020400
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable31_11:
+   \                     ??DataTable24_21:
    \   00000000   0x40005C00         DC32     0x40005c00
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable31_12:
+   \                     ??DataTable24_22:
    \   00000000   0x40005400         DC32     0x40005400
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable31_13:
+   \                     ??DataTable24_23:
    \   00000000   0x40912732         DC32     0x40912732
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable31_14:
+   \                     ??DataTable24_24:
    \   00000000   0x........         DC32     hI2cExtHandler
     925          
     926          /**
@@ -1861,164 +2183,172 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\BSP\ST
    .cstack Function
    ------- --------
        0   AUDIO_IO_DeInit
-       0   AUDIO_IO_Delay
-         0   -> HAL_Delay
-       0   AUDIO_IO_Init
-         0   -> I2Cx_Init
-      16   AUDIO_IO_Read
-        16   -> I2Cx_ReadMultiple
-      16   AUDIO_IO_Write
-        16   -> I2Cx_WriteMultiple
-       8   BSP_COM_DeInit
-         8   -> HAL_UART_DeInit
+       8   AUDIO_IO_Delay
+         8   -> HAL_Delay
+       8   AUDIO_IO_Init
+         8   -> I2Cx_Init
+      32   AUDIO_IO_Read
+        32   -> I2Cx_ReadMultiple
+      32   AUDIO_IO_Write
+        32   -> I2Cx_WriteMultiple
+      16   BSP_COM_DeInit
+        16   -> HAL_UART_DeInit
       40   BSP_COM_Init
         40   -> HAL_GPIO_Init
         40   -> HAL_UART_Init
        0   BSP_GetVersion
-      16   BSP_LED_DeInit
-         0   -> HAL_GPIO_DeInit
-        16   -> HAL_GPIO_DeInit
-        16   -> HAL_GPIO_WritePin
+      32   BSP_LED_DeInit
+        32   -> HAL_GPIO_DeInit
+        32   -> HAL_GPIO_WritePin
       40   BSP_LED_Init
         40   -> HAL_GPIO_Init
         40   -> HAL_GPIO_WritePin
-       8   BSP_LED_Off
-         0   -> HAL_GPIO_WritePin
-         8   -> HAL_GPIO_WritePin
-       8   BSP_LED_On
-         0   -> HAL_GPIO_WritePin
-         8   -> HAL_GPIO_WritePin
-       8   BSP_LED_Toggle
-         0   -> HAL_GPIO_TogglePin
-         8   -> HAL_GPIO_TogglePin
-       8   BSP_PB_DeInit
-         0   -> HAL_GPIO_DeInit
-         8   -> HAL_NVIC_DisableIRQ
-       0   BSP_PB_GetState
-         0   -> HAL_GPIO_ReadPin
+      16   BSP_LED_Off
+        16   -> HAL_GPIO_WritePin
+      16   BSP_LED_On
+        16   -> HAL_GPIO_WritePin
+      16   BSP_LED_Toggle
+        16   -> HAL_GPIO_TogglePin
+      32   BSP_PB_DeInit
+        32   -> HAL_GPIO_DeInit
+        32   -> HAL_NVIC_DisableIRQ
+       8   BSP_PB_GetState
+         8   -> HAL_GPIO_ReadPin
       40   BSP_PB_Init
         40   -> HAL_GPIO_Init
         40   -> HAL_NVIC_EnableIRQ
         40   -> HAL_NVIC_SetPriority
-       0   CAMERA_Delay
-         0   -> HAL_Delay
-       0   CAMERA_IO_Init
-         0   -> I2Cx_Init
-      16   CAMERA_IO_Read
-        16   -> I2Cx_ReadMultiple
-      16   CAMERA_IO_Write
-        16   -> I2Cx_WriteMultiple
-       0   EEPROM_IO_Init
-         0   -> I2Cx_Init
-       0   EEPROM_IO_IsDeviceReady
-         0   -> I2Cx_IsDeviceReady
-      16   EEPROM_IO_ReadData
-        16   -> I2Cx_ReadMultiple
-      16   EEPROM_IO_WriteData
-        16   -> I2Cx_WriteMultiple
-       8   I2Cx_Error
-         8   -> HAL_I2C_DeInit
-         0   -> I2Cx_Init
+       8   CAMERA_Delay
+         8   -> HAL_Delay
+       8   CAMERA_IO_Init
+         8   -> I2Cx_Init
+      24   CAMERA_IO_Read
+        24   -> I2Cx_ReadMultiple
+      24   CAMERA_IO_Write
+        24   -> I2Cx_WriteMultiple
+       8   EEPROM_IO_Init
+         8   -> I2Cx_Init
+      16   EEPROM_IO_IsDeviceReady
+        16   -> I2Cx_IsDeviceReady
+      32   EEPROM_IO_ReadData
+        32   -> I2Cx_ReadMultiple
+      32   EEPROM_IO_WriteData
+        32   -> I2Cx_WriteMultiple
+      16   I2Cx_Error
+        16   -> HAL_I2C_DeInit
+        16   -> I2Cx_Init
        8   I2Cx_Init
          8   -> HAL_I2C_GetState
-         0   -> HAL_I2C_Init
+         8   -> HAL_I2C_Init
          8   -> I2Cx_MspInit
-       0   I2Cx_IsDeviceReady
-         0   -> HAL_I2C_IsDeviceReady
-      40   I2Cx_MspInit
-        40   -> HAL_GPIO_Init
-        40   -> HAL_NVIC_EnableIRQ
-        40   -> HAL_NVIC_SetPriority
-      32   I2Cx_ReadMultiple
-        32   -> HAL_I2C_Mem_Read
-        32   -> I2Cx_Error
-      32   I2Cx_WriteMultiple
-        32   -> HAL_I2C_Mem_Write
-        32   -> I2Cx_Error
-       0   TS_IO_Delay
-         0   -> HAL_Delay
-       0   TS_IO_Init
-         0   -> I2Cx_Init
-      16   TS_IO_Read
-        16   -> I2Cx_ReadMultiple
-      16   TS_IO_Write
-        16   -> I2Cx_WriteMultiple
+      16   I2Cx_IsDeviceReady
+        16   -> HAL_I2C_IsDeviceReady
+      32   I2Cx_MspInit
+        32   -> HAL_GPIO_Init
+        32   -> HAL_NVIC_EnableIRQ
+        32   -> HAL_NVIC_SetPriority
+      48   I2Cx_ReadMultiple
+        48   -> HAL_I2C_Mem_Read
+        48   -> I2Cx_Error
+      48   I2Cx_WriteMultiple
+        48   -> HAL_I2C_Mem_Write
+        48   -> I2Cx_Error
+       8   TS_IO_Delay
+         8   -> HAL_Delay
+       8   TS_IO_Init
+         8   -> I2Cx_Init
+      24   TS_IO_Read
+        24   -> I2Cx_ReadMultiple
+      24   TS_IO_Write
+        24   -> I2Cx_WriteMultiple
 
 
    Section sizes:
 
    Bytes  Function/Label
    -----  --------------
-       4  ??DataTable31
-       4  ??DataTable31_1
-       4  ??DataTable31_10
-       4  ??DataTable31_11
-       4  ??DataTable31_12
-       4  ??DataTable31_13
-       4  ??DataTable31_14
-       4  ??DataTable31_2
-       4  ??DataTable31_3
-       4  ??DataTable31_4
-       4  ??DataTable31_5
-       4  ??DataTable31_6
-       4  ??DataTable31_7
-       4  ??DataTable31_8
-       4  ??DataTable31_9
+       4  ??DataTable24
+       4  ??DataTable24_1
+       4  ??DataTable24_10
+       4  ??DataTable24_11
+       4  ??DataTable24_12
+       4  ??DataTable24_13
+       4  ??DataTable24_14
+       4  ??DataTable24_15
+       4  ??DataTable24_16
+       4  ??DataTable24_17
+       4  ??DataTable24_18
+       4  ??DataTable24_19
+       4  ??DataTable24_2
+       4  ??DataTable24_20
+       4  ??DataTable24_21
+       4  ??DataTable24_22
+       4  ??DataTable24_23
+       4  ??DataTable24_24
+       4  ??DataTable24_3
+       4  ??DataTable24_4
+       4  ??DataTable24_5
+       4  ??DataTable24_6
+       4  ??DataTable24_7
+       4  ??DataTable24_8
+       4  ??DataTable24_9
        2  AUDIO_IO_DeInit
-       4  AUDIO_IO_Delay
-       4  AUDIO_IO_Init
-      44  AUDIO_IO_Read
-      36  AUDIO_IO_Write
-      34  BSP_COM_DeInit
-     168  BSP_COM_Init
+      12  AUDIO_IO_Delay
+      10  AUDIO_IO_Init
+      70  AUDIO_IO_Read
+      60  AUDIO_IO_Write
+      52  BSP_COM_DeInit
+     234  BSP_COM_Init
        6  BSP_GetVersion
-      74  BSP_LED_DeInit
-     146  BSP_LED_Init
-      50  BSP_LED_Off
-      50  BSP_LED_On
-      46  BSP_LED_Toggle
-      42  BSP_PB_DeInit
-      20  BSP_PB_GetState
-     182  BSP_PB_Init
+     114  BSP_LED_DeInit
+     200  BSP_LED_Init
+      70  BSP_LED_Off
+      70  BSP_LED_On
+      66  BSP_LED_Toggle
+      54  BSP_PB_DeInit
+      30  BSP_PB_GetState
+     262  BSP_PB_Init
        8  BUTTON_IRQn
        8  BUTTON_PIN
       12  BUTTON_PORT
-       4  CAMERA_Delay
-       4  CAMERA_IO_Init
-      34  CAMERA_IO_Read
-      24  CAMERA_IO_Write
+      12  CAMERA_Delay
+      10  CAMERA_IO_Init
+      44  CAMERA_IO_Read
+      34  CAMERA_IO_Write
        2  COM_RX_AF
        2  COM_RX_PIN
+       4  COM_RX_PORT
        2  COM_TX_AF
        2  COM_TX_PIN
-      12  COM_USART
-          COM_TX_PORT
-          COM_RX_PORT
-       4  EEPROM_IO_Init
-       8  EEPROM_IO_IsDeviceReady
-      26  EEPROM_IO_ReadData
-      26  EEPROM_IO_WriteData
+       4  COM_TX_PORT
+       4  COM_USART
+      10  EEPROM_IO_Init
+      20  EEPROM_IO_IsDeviceReady
+      38  EEPROM_IO_ReadData
+      38  EEPROM_IO_WriteData
        8  GPIO_PIN
-      16  I2Cx_Error
-      68  I2Cx_Init
-       8  I2Cx_IsDeviceReady
-     270  I2Cx_MspInit
-      46  I2Cx_ReadMultiple
-      46  I2Cx_WriteMultiple
-       4  TS_IO_Delay
-       4  TS_IO_Init
-      34  TS_IO_Read
-      24  TS_IO_Write
+      20  I2Cx_Error
+      72  I2Cx_Init
+      26  I2Cx_IsDeviceReady
+     340  I2Cx_MspInit
+      92  I2Cx_ReadMultiple
+      92  I2Cx_WriteMultiple
+      12  TS_IO_Delay
+      10  TS_IO_Init
+      44  TS_IO_Read
+      34  TS_IO_Write
       60  hI2cAudioHandler
       60  hI2cExtHandler
 
  
    120 bytes in section .bss
     24 bytes in section .data
- 1 650 bytes in section .text
+    32 bytes in section .rodata
+ 2 360 bytes in section .text
  
- 1 650 bytes of CODE memory
-   144 bytes of DATA memory
+ 2 360 bytes of CODE  memory
+    32 bytes of CONST memory
+   144 bytes of DATA  memory
 
 Errors: none
 Warnings: none
