@@ -52,7 +52,7 @@
 
 
 
-#define DEBUG           0
+#define DEBUG           1
 //#define MAIN_RECORD
 #define MAIN_CRSCORR    0
 #define MAIN_FFT        0
@@ -72,7 +72,7 @@
 #define INTERRUPT_PRI_AUDIOOUT  5
 #define INTERRUPT_PRI_SDO7      4
 #define INTERRUPT_PRI_SDO8      7
-#define INTERRUPT_PRI_DMA       3
+#define INTERRUPT_PRI_DMA       0
 #define INTERRUPT_PRI_EXT_LRCK  6
 
 

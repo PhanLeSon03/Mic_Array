@@ -457,7 +457,7 @@ int main(void)
 
                     /* This calculation happens once time in power cycles */
                     /* After 5 times of full frame recieved interrupt */
-               if ((cntStrt==5)||(cntStrt==8)||(cntStrt==7))
+               if ((cntStrt>=5))
                {
 				   if ((WaveRecord_flgIni<200))
 				   {
@@ -470,16 +470,7 @@ int main(void)
                       }
 					  WaveRecord_flgIni++;
 						
-				   }
-	               else if (WaveRecord_flgIni<255)
-	               {
-	                   
-	               }
-				   else
-				   {
-
-				   }
-					   
+				   }   
 		       }
 	
 		/* USB Host Background task */

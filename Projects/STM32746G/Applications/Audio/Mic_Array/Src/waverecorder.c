@@ -144,7 +144,7 @@ uint16_t vRawSens1,vRawSens2,vRawSens4,vRawSens3,vRawSens5,vRawSens6;
 __IO int16_t SPI1_stNipple,I2S1_stNipple, I2S2_stNipple,SPI4_stNipple;
 __IO uint16_t iSDO12,iSDO34,iSDO56;
 __IO uint8_t swtSDO7,swtSDO8;
-__IO uint8_t WaveRecord_flgSDO7Finish,WaveRecord_flgSDO8Finish;
+__IO uint8_t WaveRecord_flgSDO7Finish, WaveRecord_flgSDO8Finish;
 __IO uint8_t I2S1_stPosShft,I2S2_stPosShft,SPI4_stPosShft;
 __IO uint8_t I2S2_stLR, I2S2_stLROld;
 
@@ -553,7 +553,7 @@ void SPI4_IRQHandler(void)
         test =  SPI_I2S_ReceiveData(SPI4);
 
         /* Left-Right Mic data */
-        Main_stLR= HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4);
+        //Main_stLR= HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4);
 
         /* STM32F746 read data from STA321MP, the data is shifted few bit     */
         /* Data from STA321MP is 32bit formart                                */
@@ -563,7 +563,7 @@ void SPI4_IRQHandler(void)
         /* ---------------------------+++++++++++++++++++++++++++++++---------*/
         /*                  ______DATAL_____              ______DATAR_____    */
         /*                  _____vRawSens5__              ______vRawSens6_    */       
-	if (Main_stLR==GPIO_PIN_SET)
+	if (I2S2_stLR==GPIO_PIN_SET)
 	{
             if (Main_stLROld==GPIO_PIN_SET)
             {
@@ -659,7 +659,7 @@ void SPI4_IRQHandler(void)
 #endif
 
 	/* Update Old value */	  
-	Main_stLROld=Main_stLR;	  
+	Main_stLROld=I2S2_stLR;	  
      
   }      
 }
@@ -1445,7 +1445,12 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
     {
 
     }
-    else if (hspi->Instance==SPI5)
+	else
+	{
+
+	}
+
+    if (hspi->Instance==SPI5)
     {
         swtSDO7^=0x01;
         WaveRecord_flgSDO7Finish = 1;
@@ -1456,7 +1461,8 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
         else
         {
             HAL_SPI_Receive_DMA(&hspi5,( uint8_t *)TestSDO7,4*AUDIO_OUT_BUFFER_SIZE);
-        }        
+        }  
+	;
     }
     else
     {
@@ -1519,6 +1525,7 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
         HAL_SPI_Receive_DMA(&hspi6,( uint8_t *)TestSDO8,4*AUDIO_OUT_BUFFER_SIZE);
 
     }
+	
 #endif
 
   }
@@ -1549,49 +1556,39 @@ buffer_switch_tmp = buffer_switch;
 
 		for (uint16_t i=0; i< 4*AUDIO_OUT_BUFFER_SIZE;i++)
 		{
-	            if(swtSDO7==0x01)
-	            {
-	                pDataMic7[i%64] = HTONS(TestSDO7[i]);
-					pDataMic8[i%64] = HTONS(TestSDO8[i]);
-	            }
-	            else
-	            {
-	               pDataMic7[i%64] = HTONS(TestSDO7_1[i]);
-				   pDataMic8[i%64] = HTONS(TestSDO8_1[i]);
+	        if(swtSDO7==0x01)
+	        {
+	            pDataMic7[i%64] = HTONS(TestSDO7[i]);					
+	        }
+	        else
+	        {
+	           pDataMic7[i%64] = HTONS(TestSDO7_1[i]);
+	        }
 
-	            }
-
-	            /* PDM conversion for frame of 64 inputs, 16 outputs */
-	            if (i%64==63)
-	            {
-					/* Put them in processing phase */
-	              /* Recording Audio Data */						 
-	              switch (buffer_switch_tmp)
-	              {
-				    case BUF1_PLAY:								
-	                      PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer2.bufMIC7 + (i/64)*16), 150 ,
-	                      (PDMFilter_InitStruct *)&Filter[0]);
-                          PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer2.bufMIC8 + (i/64)*16), 150 ,
-                          (PDMFilter_InitStruct *)&Filter[1]);						  
-	                      break;	              
-	                case BUF2_PLAY:
-		                  PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer3.bufMIC7 + (i/64)*16), 150 ,
-		                  (PDMFilter_InitStruct *)&Filter[0]);	
-                          PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer3.bufMIC8 + (i/64)*16), 150 ,
-                          (PDMFilter_InitStruct *)&Filter[1]);							
-	                        break;
-	                case BUF3_PLAY:
-	                        PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer1.bufMIC7 + (i/64)*16), 150 ,
-	                        (PDMFilter_InitStruct *)&Filter[0]);	
-							PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer1.bufMIC8 + (i/64)*16), 150 ,
-							(PDMFilter_InitStruct *)&Filter[1]);	
-	                         break;
-
-	                default:
-	                         break; 
-	              }
-		        }
-	      }//if (WaveRecord_flgSDO7Finish==1)
+	        /* PDM conversion for frame of 64 inputs, 16 outputs */
+	        if (i%64==63)
+	        {
+				/* Put them in processing phase */
+	          /* Recording Audio Data */						 
+	          switch (buffer_switch_tmp)
+	          {
+			    case BUF1_PLAY:								
+                  PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer2.bufMIC7 + (i/64)*16), 150 ,
+                  (PDMFilter_InitStruct *)&Filter[0]);						  
+                  break;	              
+	            case BUF2_PLAY:
+					PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer3.bufMIC7 + (i/64)*16), 150 ,
+					(PDMFilter_InitStruct *)&Filter[0]);							
+					break;
+	            case BUF3_PLAY:
+					PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer1.bufMIC7 + (i/64)*16), 150 ,
+					(PDMFilter_InitStruct *)&Filter[0]);		
+					break;
+	            default:
+	                break; 
+	          }
+	        }
+	     }
 
   	      switch (buffer_switch_tmp)
           {
@@ -1599,38 +1596,24 @@ buffer_switch_tmp = buffer_switch;
 				Buffer2.bufMIC7[0]=Buffer2.bufMIC7[4];
 				Buffer2.bufMIC7[1]=Buffer2.bufMIC7[5];
 				Buffer2.bufMIC7[2]=Buffer2.bufMIC7[6];
-				Buffer2.bufMIC7[3]=Buffer2.bufMIC7[7];				
-				Buffer2.bufMIC8[0]=Buffer2.bufMIC8[4];
-				Buffer2.bufMIC8[1]=Buffer2.bufMIC8[5];
-				Buffer2.bufMIC8[2]=Buffer2.bufMIC8[6];
-				Buffer2.bufMIC8[3]=Buffer2.bufMIC8[7];				
+				Buffer2.bufMIC7[3]=Buffer2.bufMIC7[7];								
 			    break;	              
 			case BUF2_PLAY:	
 				Buffer3.bufMIC7[0]=Buffer3.bufMIC7[4];
 				Buffer3.bufMIC7[1]=Buffer3.bufMIC7[5];
 				Buffer3.bufMIC7[2]=Buffer3.bufMIC7[6];
 				Buffer3.bufMIC7[3]=Buffer3.bufMIC7[7];				
-				Buffer3.bufMIC8[0]=Buffer3.bufMIC8[4];
-				Buffer3.bufMIC8[1]=Buffer3.bufMIC8[5];
-				Buffer3.bufMIC8[2]=Buffer3.bufMIC8[6];
-				Buffer3.bufMIC8[3]=Buffer3.bufMIC8[7];
-
 			    break;
 			case BUF3_PLAY:
 				Buffer1.bufMIC7[0]=Buffer1.bufMIC7[4];
 				Buffer1.bufMIC7[1]=Buffer1.bufMIC7[5];
 				Buffer1.bufMIC7[2]=Buffer1.bufMIC7[6];
 				Buffer1.bufMIC7[3]=Buffer1.bufMIC7[7];				
-				Buffer1.bufMIC8[0]=Buffer1.bufMIC8[4];
-				Buffer1.bufMIC8[1]=Buffer1.bufMIC8[5];
-				Buffer1.bufMIC8[2]=Buffer1.bufMIC8[6];
-				Buffer1.bufMIC8[3]=Buffer1.bufMIC8[7];
-
 			    break;
 			default:
 			         break; 
           }
-
+	}
 #if 0
             /* Recording Audio Data */						 
 		    switch (buffer_switch)//buffer_switch
@@ -1678,6 +1661,7 @@ buffer_switch_tmp = buffer_switch;
 
      }
     
+#endif	
 
 	/* Data in Mic8 finished recording */
 	if (WaveRecord_flgSDO8Finish==1)
@@ -1723,36 +1707,18 @@ buffer_switch_tmp = buffer_switch;
           switch (buffer_switch)
           {
               case BUF1_PLAY: 	
-                      /* Update for left-right channel */
-                      for (int16_t i=AUDIO_OUT_BUFFER_SIZE-1; i>1;i--)
-                      {
-                          Buffer2.bufMIC8[2*i+1]=  Buffer2.bufMIC8[i];
-                          Buffer2.bufMIC8[2*i] = Buffer2.bufMIC8[i];
-                      }
 					  Buffer2.bufMIC8[0] = Buffer2.bufMIC8[4];
 					  Buffer2.bufMIC8[1] = Buffer2.bufMIC8[5];
 					  Buffer2.bufMIC8[2] = Buffer2.bufMIC8[6];
 					  Buffer2.bufMIC8[3] = Buffer2.bufMIC8[7];
                       break;
               case BUF2_PLAY:
-                      /* Update for left-right channel */
-                      for (int16_t i=AUDIO_OUT_BUFFER_SIZE-1; i>1;i--)
-                      {
-                          Buffer3.bufMIC8[2*i+1]= Buffer3.bufMIC8[i];
-						  Buffer3.bufMIC8[2*i]= Buffer3.bufMIC8[i];;	
-                      }
   					  Buffer3.bufMIC8[0] = Buffer3.bufMIC8[4];
 					  Buffer3.bufMIC8[1] = Buffer3.bufMIC8[5];
 					  Buffer3.bufMIC8[2] = Buffer3.bufMIC8[6];
 					  Buffer3.bufMIC8[3] = Buffer3.bufMIC8[7];
                       break;
               case BUF3_PLAY:
-                    /* Update for left-right channel */
-                    for (int16_t i=AUDIO_OUT_BUFFER_SIZE-1; i>1;i--)
-                    {					
-                        Buffer1.bufMIC8[2*i+1]= Buffer1.bufMIC8[i];
-                        Buffer1.bufMIC8[2*i]= Buffer1.bufMIC8[i];
-                    }
   					  Buffer1.bufMIC8[0] = Buffer1.bufMIC8[4];
 					  Buffer1.bufMIC8[1] = Buffer1.bufMIC8[5];
 					  Buffer1.bufMIC8[2] = Buffer1.bufMIC8[6];
@@ -1761,7 +1727,7 @@ buffer_switch_tmp = buffer_switch;
               default:
                     break; 
           }                
-#endif		  
+	  
    }//if (WaveRecord_flgSDO8Finish==1)
 }
 
