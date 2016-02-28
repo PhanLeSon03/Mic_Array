@@ -468,11 +468,12 @@ int main(void)
                            SPI4_stPosShft = MAX(SPI4_stPosShft,i+1);
                         }
                       }
+					  WaveRecord_flgIni++;
 						
 				   }
 	               else if (WaveRecord_flgIni<255)
 	               {
-	                   WaveRecord_flgIni++;
+	                   
 	               }
 				   else
 				   {

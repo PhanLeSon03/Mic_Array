@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Feb/2016  21:29:23
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      28/Feb/2016  13:28:23
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -681,7 +681,7 @@ FFT_Update:
 //  122       
 //  123       /* Hafl buffer is filled in by I2S data stream in */
 //  124       if((flgDlyUpd==0))
-        LDR.W    R0,??DataTable15_4
+        LDR.W    R0,??DataTable16_1
         LDRB     R0,[R0, #+0]
         CMP      R0,#+0
         BNE.W    ??FFT_Update_0
@@ -691,13 +691,13 @@ FFT_Update:
         BL       PDM2PCMSDO78
 //  127             //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_15); 
 //  128             FactorUpd(&FacMic); 
-        LDR.W    R0,??DataTable16_1
+        LDR.W    R0,??DataTable16_2
           CFI FunCall FactorUpd
         BL       FactorUpd
 //  129             //STM_EVAL_LEDOn(LED3);
 //  130             flgDlyUpd = 1; 
         MOVS     R0,#+1
-        LDR.W    R1,??DataTable15_4
+        LDR.W    R1,??DataTable16_1
         STRB     R0,[R1, #+0]
 //  131 /*-------------------------------------------------------------------------------------------------------------
 //  132 			  
@@ -711,7 +711,7 @@ FFT_Update:
 //  140  ---------------------------------------------------------------------------------------------------------------*/
 //  141             /* Processing Data */
 //  142 			switch (buffer_switch)
-        LDR.W    R0,??DataTable15_5
+        LDR.W    R0,??DataTable15_4
         LDRB     R0,[R0, #+0]
         CMP      R0,#+0
         BEQ.N    ??FFT_Update_1
@@ -751,40 +751,40 @@ FFT_Update:
 //  172 					idxLatency78 = CrssCor(Buffer3.bufMIC7, Buffer3.bufMIC8, AUDIO_OUT_BUFFER_SIZE);
 ??FFT_Update_1:
         MOV      R2,#+1024
-        LDR.W    R1,??DataTable15_6
-        LDR.W    R0,??DataTable15_7
+        LDR.W    R1,??DataTable15_5
+        LDR.W    R0,??DataTable15_6
           CFI FunCall CrssCor
         BL       CrssCor
-        LDR.W    R1,??DataTable16_2
+        LDR.W    R1,??DataTable16_3
         STRH     R0,[R1, #+0]
 //  173                     idxLatency14 = CrssCor(Buffer3.bufMIC1, Buffer3.bufMIC4, AUDIO_OUT_BUFFER_SIZE);
         MOV      R2,#+1024
-        LDR.W    R1,??DataTable15_8
-        LDR.W    R0,??DataTable16_3
+        LDR.W    R1,??DataTable15_7
+        LDR.W    R0,??DataTable16_4
           CFI FunCall CrssCor
         BL       CrssCor
-        LDR.W    R1,??DataTable16_4
+        LDR.W    R1,??DataTable16_5
         STRH     R0,[R1, #+0]
 //  174 					idxLatency25 = CrssCor(Buffer3.bufMIC2, Buffer3.bufMIC5, AUDIO_OUT_BUFFER_SIZE);
         MOV      R2,#+1024
-        LDR.W    R1,??DataTable16_5
-        LDR.W    R0,??DataTable16_6
+        LDR.W    R1,??DataTable16_6
+        LDR.W    R0,??DataTable16_7
           CFI FunCall CrssCor
         BL       CrssCor
-        LDR.W    R1,??DataTable16_7
+        LDR.W    R1,??DataTable16_8
         STRH     R0,[R1, #+0]
 //  175 					idxLatency63 = CrssCor(Buffer3.bufMIC6, Buffer3.bufMIC3, AUDIO_OUT_BUFFER_SIZE);
         MOV      R2,#+1024
-        LDR.W    R1,??DataTable16_8
-        LDR.W    R0,??DataTable16_9
+        LDR.W    R1,??DataTable16_9
+        LDR.W    R0,??DataTable16_10
           CFI FunCall CrssCor
         BL       CrssCor
-        LDR.W    R1,??DataTable16_10
+        LDR.W    R1,??DataTable16_11
         STRH     R0,[R1, #+0]
 //  176 
 //  177 
 //  178                     SumDelay(&Buffer3);
-        LDR.W    R0,??DataTable16_3
+        LDR.W    R0,??DataTable16_4
           CFI FunCall SumDelay
         BL       SumDelay
 //  179 #endif
@@ -824,41 +824,41 @@ FFT_Update:
 //  212                   idxLatency78 = CrssCor(Buffer1.bufMIC7, Buffer1.bufMIC8, AUDIO_OUT_BUFFER_SIZE);	
 ??FFT_Update_3:
         MOV      R2,#+1024
-        LDR.W    R1,??DataTable16_11
-        LDR.W    R0,??DataTable16_12
+        LDR.W    R1,??DataTable16_12
+        LDR.W    R0,??DataTable16_13
           CFI FunCall CrssCor
         BL       CrssCor
-        LDR.W    R1,??DataTable16_2
+        LDR.W    R1,??DataTable16_3
         STRH     R0,[R1, #+0]
 //  213                   idxLatency14 = CrssCor(Buffer1.bufMIC1, Buffer1.bufMIC4, AUDIO_OUT_BUFFER_SIZE);
         MOV      R2,#+1024
-        LDR.W    R1,??DataTable16_13
-        LDR.W    R0,??DataTable16_14
+        LDR.W    R1,??DataTable16_14
+        LDR.W    R0,??DataTable16_15
           CFI FunCall CrssCor
         BL       CrssCor
-        LDR.W    R1,??DataTable16_4
+        LDR.W    R1,??DataTable16_5
         STRH     R0,[R1, #+0]
 //  214                   idxLatency25 = CrssCor(Buffer1.bufMIC2, Buffer1.bufMIC5, AUDIO_OUT_BUFFER_SIZE);
         MOV      R2,#+1024
-        LDR.W    R1,??DataTable16_15
-        LDR.W    R0,??DataTable16_16
+        LDR.W    R1,??DataTable16_16
+        LDR.W    R0,??DataTable16_17
           CFI FunCall CrssCor
         BL       CrssCor
-        LDR.W    R1,??DataTable16_7
+        LDR.W    R1,??DataTable16_8
         STRH     R0,[R1, #+0]
 //  215                   idxLatency63 = CrssCor(Buffer1.bufMIC6, Buffer1.bufMIC3, AUDIO_OUT_BUFFER_SIZE);
         MOV      R2,#+1024
-        LDR.W    R1,??DataTable16_17
-        LDR.W    R0,??DataTable16_18
+        LDR.W    R1,??DataTable16_18
+        LDR.W    R0,??DataTable16_19
           CFI FunCall CrssCor
         BL       CrssCor
-        LDR.W    R1,??DataTable16_10
+        LDR.W    R1,??DataTable16_11
         STRH     R0,[R1, #+0]
 //  216 
 //  217 
 //  218 
 //  219                   SumDelay(&Buffer1);
-        LDR.W    R0,??DataTable16_14
+        LDR.W    R0,??DataTable16_15
           CFI FunCall SumDelay
         BL       SumDelay
 //  220 #endif
@@ -899,39 +899,39 @@ FFT_Update:
 //  254 					idxLatency78 = CrssCor(Buffer2.bufMIC7, Buffer2.bufMIC8, AUDIO_OUT_BUFFER_SIZE);
 ??FFT_Update_2:
         MOV      R2,#+1024
-        LDR.W    R1,??DataTable16_19
-        LDR.W    R0,??DataTable16_20
+        LDR.W    R1,??DataTable16_20
+        LDR.W    R0,??DataTable16_21
           CFI FunCall CrssCor
         BL       CrssCor
-        LDR.W    R1,??DataTable16_2
+        LDR.W    R1,??DataTable16_3
         STRH     R0,[R1, #+0]
 //  255 					idxLatency14 = CrssCor(Buffer2.bufMIC1, Buffer2.bufMIC4, AUDIO_OUT_BUFFER_SIZE);
         MOV      R2,#+1024
-        LDR.W    R1,??DataTable16_21
-        LDR.W    R0,??DataTable16_22
+        LDR.W    R1,??DataTable16_22
+        LDR.W    R0,??DataTable16_23
           CFI FunCall CrssCor
         BL       CrssCor
-        LDR.W    R1,??DataTable16_4
+        LDR.W    R1,??DataTable16_5
         STRH     R0,[R1, #+0]
 //  256 					idxLatency25 = CrssCor(Buffer2.bufMIC2, Buffer2.bufMIC5, AUDIO_OUT_BUFFER_SIZE);
         MOV      R2,#+1024
-        LDR.W    R1,??DataTable16_23
-        LDR.W    R0,??DataTable16_24
+        LDR.W    R1,??DataTable16_24
+        LDR.W    R0,??DataTable16_25
           CFI FunCall CrssCor
         BL       CrssCor
-        LDR.W    R1,??DataTable16_7
+        LDR.W    R1,??DataTable16_8
         STRH     R0,[R1, #+0]
 //  257 					idxLatency63 = CrssCor(Buffer2.bufMIC6, Buffer2.bufMIC3, AUDIO_OUT_BUFFER_SIZE);
         MOV      R2,#+1024
-        LDR.W    R1,??DataTable16_25
-        LDR.W    R0,??DataTable16_26
+        LDR.W    R1,??DataTable16_26
+        LDR.W    R0,??DataTable16_27
           CFI FunCall CrssCor
         BL       CrssCor
-        LDR.W    R1,??DataTable16_10
+        LDR.W    R1,??DataTable16_11
         STRH     R0,[R1, #+0]
 //  258 
 //  259                      SumDelay(&Buffer2);
-        LDR.W    R0,??DataTable16_22
+        LDR.W    R0,??DataTable16_23
           CFI FunCall SumDelay
         BL       SumDelay
 //  260 #endif
@@ -980,7 +980,7 @@ Audio_Play_Out:
 //  286 	3-------  Buffer2                         Buffer3                           Buffer1 
 //  287  ---------------------------------------------------------------------------------------------------------------*/
 //  288     switch (buffer_switch)
-        LDR.W    R0,??DataTable15_5
+        LDR.W    R0,??DataTable15_4
         LDRB     R0,[R0, #+0]
         CMP      R0,#+0
         BEQ.N    ??Audio_Play_Out_0
@@ -994,8 +994,8 @@ Audio_Play_Out:
 //  292 	    Audio_MAL_Play((uint32_t)&Buffer3.bufMIC3[idxFrmPDMMic8*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000)] , 2*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
 ??Audio_Play_Out_0:
         MOVS     R1,#+64
-        LDR.W    R0,??DataTable16_3
-        LDR.W    R2,??DataTable16_27
+        LDR.W    R0,??DataTable16_4
+        LDR.W    R2,??DataTable16_28
         LDRH     R2,[R2, #+0]
         MOVS     R3,#+64
         MLA      R0,R3,R2,R0
@@ -1011,8 +1011,8 @@ Audio_Play_Out:
 //  297 	    Audio_MAL_Play((uint32_t)&Buffer1.bufMIC3[idxFrmPDMMic8*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000)], 2*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
 ??Audio_Play_Out_2:
         MOVS     R1,#+64
-        LDR.W    R0,??DataTable16_14
-        LDR.W    R2,??DataTable16_27
+        LDR.W    R0,??DataTable16_15
+        LDR.W    R2,??DataTable16_28
         LDRH     R2,[R2, #+0]
         MOVS     R3,#+64
         MLA      R0,R3,R2,R0
@@ -1028,8 +1028,8 @@ Audio_Play_Out:
 //  302         Audio_MAL_Play((uint32_t)&Buffer2.bufMIC3[idxFrmPDMMic8*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000)] ,2*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
 ??Audio_Play_Out_1:
         MOVS     R1,#+64
-        LDR.W    R0,??DataTable16_22
-        LDR.W    R2,??DataTable16_27
+        LDR.W    R0,??DataTable16_23
+        LDR.W    R2,??DataTable16_28
         LDRH     R2,[R2, #+0]
         MOVS     R3,#+64
         MLA      R0,R3,R2,R0
@@ -1048,7 +1048,7 @@ Audio_Play_Out:
 //  310     AudioUSBSend(idxFrmPDMMic8);
 ??Audio_Play_Out_3:
 ??Audio_Play_Out_4:
-        LDR.W    R0,??DataTable16_27
+        LDR.W    R0,??DataTable16_28
         LDRH     R0,[R0, #+0]
           CFI FunCall AudioUSBSend
         BL       AudioUSBSend
@@ -1056,19 +1056,16 @@ Audio_Play_Out:
 //  312 
 //  313 	/* if player is finished for curent buffer                                  */ 
 //  314 	if (++idxFrmPDMMic8 == AUDIO_OUT_BUFFER_SIZE/(AUDIO_SAMPLING_FREQUENCY/1000))
-        LDR.W    R0,??DataTable16_27
+        LDR.W    R0,??DataTable16_28
         LDRH     R0,[R0, #+0]
         ADDS     R0,R0,#+1
-        LDR.W    R1,??DataTable16_27
+        LDR.W    R1,??DataTable16_28
         STRH     R0,[R1, #+0]
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         CMP      R0,#+64
         BNE.N    ??Audio_Play_Out_5
 //  315 	{
 //  316 	   RESET_IDX
-        MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_28
-        STRH     R0,[R1, #+0]
         MOVS     R0,#+0
         LDR.W    R1,??DataTable16_29
         STRH     R0,[R1, #+0]
@@ -1091,18 +1088,21 @@ Audio_Play_Out:
         LDR.W    R1,??DataTable16_35
         STRH     R0,[R1, #+0]
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable15_4
+        LDR.W    R1,??DataTable16_36
+        STRH     R0,[R1, #+0]
+        MOVS     R0,#+0
+        LDR.W    R1,??DataTable16_1
         STRB     R0,[R1, #+0]
 //  317        WaveRec_idxTest=0;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_36
+        LDR.W    R1,??DataTable16_37
         STRH     R0,[R1, #+0]
 //  318        idxFrmPDMMic8=0;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_27
+        LDR.W    R1,??DataTable16_28
         STRH     R0,[R1, #+0]
 //  319             switch (buffer_switch)
-        LDR.W    R0,??DataTable15_5
+        LDR.W    R0,??DataTable15_4
         LDRB     R0,[R0, #+0]
         CMP      R0,#+0
         BEQ.N    ??Audio_Play_Out_6
@@ -1116,7 +1116,7 @@ Audio_Play_Out:
 //  323                   buffer_switch = BUF3_PLAY;
 ??Audio_Play_Out_6:
         MOVS     R0,#+2
-        LDR.W    R1,??DataTable15_5
+        LDR.W    R1,??DataTable15_4
         STRB     R0,[R1, #+0]
 //  324                   break;
         B.N      ??Audio_Play_Out_10
@@ -1125,7 +1125,7 @@ Audio_Play_Out:
 //  327                   buffer_switch = BUF1_PLAY;        
 ??Audio_Play_Out_8:
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable15_5
+        LDR.W    R1,??DataTable15_4
         STRB     R0,[R1, #+0]
 //  328                   break;
         B.N      ??Audio_Play_Out_10
@@ -1134,7 +1134,7 @@ Audio_Play_Out:
 //  331                   buffer_switch = BUF2_PLAY;
 ??Audio_Play_Out_7:
         MOVS     R0,#+1
-        LDR.W    R1,??DataTable15_5
+        LDR.W    R1,??DataTable15_4
         STRB     R0,[R1, #+0]
 //  332                   break;
         B.N      ??Audio_Play_Out_10
@@ -1144,14 +1144,14 @@ Audio_Play_Out:
 //  336           if (cntStrt<100) cntStrt++;
 ??Audio_Play_Out_9:
 ??Audio_Play_Out_10:
-        LDR.W    R0,??DataTable16_37
+        LDR.W    R0,??DataTable16_38
         LDRH     R0,[R0, #+0]
         CMP      R0,#+100
         BGE.N    ??Audio_Play_Out_5
-        LDR.W    R0,??DataTable16_37
+        LDR.W    R0,??DataTable16_38
         LDRH     R0,[R0, #+0]
         ADDS     R0,R0,#+1
-        LDR.W    R1,??DataTable16_37
+        LDR.W    R1,??DataTable16_38
         STRH     R0,[R1, #+0]
 //  337 
 //  338 		 /* Tongle status to switch the USB audio buffer out */
@@ -1236,35 +1236,35 @@ main:
 //  383 
 //  384     /* ---------PA4: LCCKO-------------*/
 //  385     __GPIOA_CLK_ENABLE();
-        LDR.W    R0,??DataTable16_38  ;; 0x40023830
+        LDR.W    R0,??DataTable16_39  ;; 0x40023830
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x1
-        LDR.W    R1,??DataTable16_38  ;; 0x40023830
+        LDR.W    R1,??DataTable16_39  ;; 0x40023830
         STR      R0,[R1, #+0]
-        LDR.W    R0,??DataTable16_38  ;; 0x40023830
+        LDR.W    R0,??DataTable16_39  ;; 0x40023830
         LDR      R0,[R0, #+0]
         ANDS     R0,R0,#0x1
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
 //  386     GPIO_INS.Pin = GPIO_PIN_4;
         MOVS     R0,#+16
-        LDR.W    R1,??DataTable16_39
+        LDR.W    R1,??DataTable16_40
         STR      R0,[R1, #+0]
 //  387     GPIO_INS.Mode =GPIO_MODE_IT_RISING;
-        LDR.W    R0,??DataTable16_40  ;; 0x10110000
-        LDR.W    R1,??DataTable16_39
+        LDR.W    R0,??DataTable16_41  ;; 0x10110000
+        LDR.W    R1,??DataTable16_40
         STR      R0,[R1, #+4]
 //  388     GPIO_INS.Pull =GPIO_NOPULL;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_39
+        LDR.W    R1,??DataTable16_40
         STR      R0,[R1, #+8]
 //  389     GPIO_INS.Speed =GPIO_SPEED_HIGH;
         MOVS     R0,#+3
-        LDR.W    R1,??DataTable16_39
+        LDR.W    R1,??DataTable16_40
         STR      R0,[R1, #+12]
 //  390     HAL_GPIO_Init(GPIOA,&GPIO_INS);
-        LDR.W    R1,??DataTable16_39
-        LDR.W    R0,??DataTable16_41  ;; 0x40020000
+        LDR.W    R1,??DataTable16_40
+        LDR.W    R0,??DataTable16_42  ;; 0x40020000
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 //  391 
@@ -1283,43 +1283,43 @@ main:
 //  396 
 //  397     /*---------PE3: POWER DOWN-----------------*/
 //  398     __GPIOE_CLK_ENABLE();
-        LDR.W    R0,??DataTable16_38  ;; 0x40023830
+        LDR.W    R0,??DataTable16_39  ;; 0x40023830
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x10
-        LDR.W    R1,??DataTable16_38  ;; 0x40023830
+        LDR.W    R1,??DataTable16_39  ;; 0x40023830
         STR      R0,[R1, #+0]
-        LDR.W    R0,??DataTable16_38  ;; 0x40023830
+        LDR.W    R0,??DataTable16_39  ;; 0x40023830
         LDR      R0,[R0, #+0]
         ANDS     R0,R0,#0x10
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
 //  399     GPIO_INS.Pin = GPIO_PIN_3;
         MOVS     R0,#+8
-        LDR.W    R1,??DataTable16_39
+        LDR.W    R1,??DataTable16_40
         STR      R0,[R1, #+0]
 //  400     GPIO_INS.Mode = GPIO_MODE_OUTPUT_PP;
         MOVS     R0,#+1
-        LDR.W    R1,??DataTable16_39
+        LDR.W    R1,??DataTable16_40
         STR      R0,[R1, #+4]
 //  401     GPIO_INS.Pull = GPIO_PULLUP;
         MOVS     R0,#+1
-        LDR.W    R1,??DataTable16_39
+        LDR.W    R1,??DataTable16_40
         STR      R0,[R1, #+8]
 //  402     GPIO_INS.Speed = GPIO_SPEED_HIGH;
         MOVS     R0,#+3
-        LDR.W    R1,??DataTable16_39
+        LDR.W    R1,??DataTable16_40
         STR      R0,[R1, #+12]
 //  403 
 //  404     HAL_GPIO_Init(GPIOE, &GPIO_INS);
-        LDR.W    R1,??DataTable16_39
-        LDR.W    R0,??DataTable16_42  ;; 0x40021000
+        LDR.W    R1,??DataTable16_40
+        LDR.W    R0,??DataTable16_43  ;; 0x40021000
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 //  405   
 //  406     HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_RESET);
         MOVS     R2,#+0
         MOVS     R1,#+8
-        LDR.W    R0,??DataTable16_42  ;; 0x40021000
+        LDR.W    R0,??DataTable16_43  ;; 0x40021000
           CFI FunCall HAL_GPIO_WritePin
         BL       HAL_GPIO_WritePin
 //  407 
@@ -1357,7 +1357,7 @@ main:
 //  427 
 //  428     buffer_switch = BUF3_PLAY;		 /* record data to buffer1 */
         MOVS     R0,#+2
-        LDR.W    R1,??DataTable15_5
+        LDR.W    R1,??DataTable15_4
         STRB     R0,[R1, #+0]
 //  429     MIC1TO6_Init();
           CFI FunCall MIC1TO6_Init
@@ -1368,31 +1368,31 @@ main:
 //  433 	USBD_AUDIO_Init_Microphone_Descriptor(&hUSBDDevice, 2*AUDIO_SAMPLING_FREQUENCY, AUDIO_CHANNELS);
         MOVS     R2,#+2
         MOV      R1,#+32000
-        LDR.W    R0,??DataTable16_43
+        LDR.W    R0,??DataTable16_44
           CFI FunCall USBD_AUDIO_Init_Microphone_Descriptor
         BL       USBD_AUDIO_Init_Microphone_Descriptor
 //  434 	/* Init Device Library */
 //  435 	USBD_Init(&hUSBDDevice, &AUDIO_Desc, 0);
         MOVS     R2,#+0
-        LDR.W    R1,??DataTable16_44
-        LDR.W    R0,??DataTable16_43
+        LDR.W    R1,??DataTable16_45
+        LDR.W    R0,??DataTable16_44
           CFI FunCall USBD_Init
         BL       USBD_Init
 //  436 	/* Add Supported Class */
 //  437 	USBD_RegisterClass(&hUSBDDevice, &USBD_AUDIO);
-        LDR.W    R1,??DataTable16_45
-        LDR.W    R0,??DataTable16_43
+        LDR.W    R1,??DataTable16_46
+        LDR.W    R0,??DataTable16_44
           CFI FunCall USBD_RegisterClass
         BL       USBD_RegisterClass
 //  438 	/* Add Interface callbacks for AUDIO Class */  
 //  439 	USBD_AUDIO_RegisterInterface(&hUSBDDevice, &USBD_AUDIO_fops);
-        LDR.W    R1,??DataTable16_46
-        LDR.W    R0,??DataTable16_43
+        LDR.W    R1,??DataTable16_47
+        LDR.W    R0,??DataTable16_44
           CFI FunCall USBD_AUDIO_RegisterInterface
         BL       USBD_AUDIO_RegisterInterface
 //  440 	/* Start Device Process */
 //  441 	USBD_Start(&hUSBDDevice);
-        LDR.W    R0,??DataTable16_43
+        LDR.W    R0,??DataTable16_44
           CFI FunCall USBD_Start
         BL       USBD_Start
 //  442 
@@ -1417,22 +1417,22 @@ main:
 //  459                     /* After 5 times of full frame recieved interrupt */
 //  460                if ((cntStrt==5)||(cntStrt==8)||(cntStrt==7))
 ??main_0:
-        LDR.W    R0,??DataTable16_37
+        LDR.W    R0,??DataTable16_38
         LDRH     R0,[R0, #+0]
         CMP      R0,#+5
         BEQ.N    ??main_1
-        LDR.W    R0,??DataTable16_37
+        LDR.W    R0,??DataTable16_38
         LDRH     R0,[R0, #+0]
         CMP      R0,#+8
         BEQ.N    ??main_1
-        LDR.W    R0,??DataTable16_37
+        LDR.W    R0,??DataTable16_38
         LDRH     R0,[R0, #+0]
         CMP      R0,#+7
         BNE.N    ??main_2
 //  461                {
 //  462 				   if ((WaveRecord_flgIni<200))
 ??main_1:
-        LDR.W    R0,??DataTable16_47
+        LDR.W    R0,??DataTable16_48
         LDRB     R0,[R0, #+0]
         CMP      R0,#+200
         BGE.N    ??main_3
@@ -1442,300 +1442,299 @@ main:
 ??main_4:
         UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
         CMP      R0,#+16
-        BGE.N    ??main_2
+        BGE.N    ??main_5
 //  465                       {
 //  466                         if (ValBit(SPI4_stNipple,i)!=0) 
-        LDR.W    R1,??DataTable16_48
+        LDR.W    R1,??DataTable16_49
         LDRSH    R1,[R1, #+0]
         ASRS     R1,R1,R0
         LSLS     R1,R1,#+31
-        BPL.N    ??main_5
+        BPL.N    ??main_6
 //  467                         {
 //  468                            SPI4_stPosShft = MAX(SPI4_stPosShft,i+1);
         UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable16_49
+        LDR.W    R2,??DataTable16_50
         LDRB     R2,[R2, #+0]
         CMP      R1,R2
-        BGE.N    ??main_6
-        LDR.W    R1,??DataTable16_49
+        BGE.N    ??main_7
+        LDR.W    R1,??DataTable16_50
         LDRB     R1,[R1, #+0]
-        B.N      ??main_7
-??main_6:
-        ADDS     R1,R0,#+1
+        B.N      ??main_8
 ??main_7:
-        LDR.W    R2,??DataTable16_49
+        ADDS     R1,R0,#+1
+??main_8:
+        LDR.W    R2,??DataTable16_50
         STRB     R1,[R2, #+0]
 //  469                         }
 //  470                       }
-??main_5:
+??main_6:
         ADDS     R0,R0,#+1
         B.N      ??main_4
-//  471 						
-//  472 				   }
-//  473 	               else if (WaveRecord_flgIni<255)
-??main_3:
-        LDR.W    R0,??DataTable16_47
-        LDRB     R0,[R0, #+0]
-        CMP      R0,#+255
-        BEQ.N    ??main_2
-//  474 	               {
-//  475 	                   WaveRecord_flgIni++;
-        LDR.W    R0,??DataTable16_47
+//  471 					  WaveRecord_flgIni++;
+??main_5:
+        LDR.W    R0,??DataTable16_48
         LDRB     R0,[R0, #+0]
         ADDS     R0,R0,#+1
-        LDR.W    R1,??DataTable16_47
+        LDR.W    R1,??DataTable16_48
         STRB     R0,[R1, #+0]
-//  476 	               }
-//  477 				   else
-//  478 				   {
-//  479 
-//  480 				   }
-//  481 					   
-//  482 		       }
-//  483 	
-//  484 		/* USB Host Background task */
-//  485 		//USBH_Process(&hUSBHost);
-//  486 
-//  487 		/* AUDIO Menu Process */
-//  488 		//AUDIO_MenuProcess();
-//  489 		
-//  490 		FFT_Update(); 
+        B.N      ??main_2
+//  472 						
+//  473 				   }
+//  474 	               else if (WaveRecord_flgIni<255)
+//  475 	               {
+//  476 	                   
+//  477 	               }
+//  478 				   else
+//  479 				   {
+//  480 
+//  481 				   }
+//  482 					   
+//  483 		       }
+//  484 	
+//  485 		/* USB Host Background task */
+//  486 		//USBH_Process(&hUSBHost);
+//  487 
+//  488 		/* AUDIO Menu Process */
+//  489 		//AUDIO_MenuProcess();
+//  490 		
+//  491 		FFT_Update(); 
+??main_3:
 ??main_2:
           CFI FunCall FFT_Update
         BL       FFT_Update
-//  491 
-//  492 		if (flg10ms==1)
-        LDR.W    R0,??DataTable16_50
+//  492 
+//  493 		if (flg10ms==1)
+        LDR.W    R0,??DataTable16_51
         LDRB     R0,[R0, #+0]
         CMP      R0,#+1
         BNE.N    ??main_0
-//  493 		{
-//  494 		    flg10ms=0;		   		      
+//  494 		{
+//  495 		    flg10ms=0;		   		      
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_50
+        LDR.W    R1,??DataTable16_51
         STRB     R0,[R1, #+0]
-//  495 	         cntTime200++;
-        LDR.W    R0,??DataTable16_51
+//  496 	         cntTime200++;
+        LDR.W    R0,??DataTable16_52
         LDRH     R0,[R0, #+0]
         ADDS     R0,R0,#+1
-        LDR.W    R1,??DataTable16_51
+        LDR.W    R1,??DataTable16_52
         STRH     R0,[R1, #+0]
-//  496 	         if (cntTime200==40)
-        LDR.W    R0,??DataTable16_51
+//  497 	         if (cntTime200==40)
+        LDR.W    R0,??DataTable16_52
         LDRH     R0,[R0, #+0]
         CMP      R0,#+40
         BNE.N    ??main_0
-//  497 	         {
-//  498 	 
-//  499 #if (DEBUG)
-//  500 
-//  501                     //if ((idxLatency14!=0)||(idxLatency25!=0)||(idxLatency36!=0))
-//  502                     {
-//  503                         int16_t test[5];
-//  504                         static uint8_t flagNotMin;
-//  505                         test[0] = 0;
-//  506                         test[1]= idxLatency63;
-//  507                         test[2]= idxLatency14;
-//  508                         test[3]= idxLatency25;
-//  509 						test[4]= idxLatency78;
-//  510 
+//  498 	         {
+//  499 	 
+//  500 #if (DEBUG)
+//  501 
+//  502                     //if ((idxLatency14!=0)||(idxLatency25!=0)||(idxLatency36!=0))
+//  503                     {
+//  504                         int16_t test[5];
+//  505                         static uint8_t flagNotMin;
+//  506                         test[0] = 0;
+//  507                         test[1]= idxLatency63;
+//  508                         test[2]= idxLatency14;
+//  509                         test[3]= idxLatency25;
+//  510 						test[4]= idxLatency78;
 //  511 
-//  512                         if (EnergySound<2)
-//  513                         {
-//  514                                 //sprintf((char *)pUARTBuf,"No Speech:%d  \r\n",EnergySound);
-//  515                                 //HAL_UART_Transmit_IT(&huart3,pUARTBuf,30); 
-//  516                         }
-//  517                         else
-//  518                         {
-//  519                              sprintf((char *)pUARTBuf,"%d:%d:%d:%d ",idxLatency63,idxLatency14,idxLatency25,idxLatency78);
-//  520                              flagNotMin=0 ;
-//  521 
-//  522                               if (test[3]>0)
-//  523                               {
-//  524                                  if((test[1]<=0)&&(test[4]<=0))
-//  525                                  {
-//  526                                       flagNotMin=1 ;
-//  527                                       sprintf((char *)(pUARTBuf+15),"Close Mic 2\r\n");
-//  528                                  }
-//  529                               }
-//  530                               else if (test[3]<-2)
-//  531                               {
-//  532                                   if((test[1]>1)&&(test[4]>1))
-//  533                                   {
-//  534                                     flagNotMin=1 ;
-//  535                                     sprintf((char *)(pUARTBuf+15),"Clsoe Mic 5\r\n");
-//  536                                   }
-//  537 
-//  538                               }
-//  539                               else
-//  540                               {
-//  541                               }	
-//  542 							
-//  543 			    if (test[2]>2)
-//  544                       	    {
-//  545                       	       if((test[1]>=-1)&&(test[3]<=-3))
-//  546                       	       {
-//  547                                  flagNotMin=1 ;
-//  548                                  sprintf((char *)(pUARTBuf+15),"Clsoe Mic 4\r\n");
-//  549                       	       }
-//  550                       	    }
-//  551                             else if (test[2]<=-1)
-//  552                             {
-//  553                                if((test[1]<=-2)&&(test[3]>=0))
-//  554                       	       {
-//  555                                      flagNotMin=1 ;
-//  556                                      sprintf((char *)(pUARTBuf+15),"Clsoe Mic 1\r\n");
-//  557                                }
-//  558                             }
-//  559                             else
-//  560                             {
-//  561 
-//  562                             }
-//  563 
-//  564 						   
-//  565                             if (test[1]>=0)
-//  566                       	    {
-//  567                       	       if((test[2]>1)&&(test[4]<= 0))
-//  568                       	       {
-//  569 								 flagNotMin=1 ;
-//  570 								 sprintf((char *)(pUARTBuf+15),"Clsoe Mic 3\r\n");
-//  571                       	       }
-//  572 
-//  573                       	    }
-//  574                             else if (test[1]<=-3)
-//  575                             {
-//  576                                if((test[2]<=0)&&(test[4]>=2))
-//  577                       	       {
-//  578                                    flagNotMin=1 ;
-//  579                                    sprintf((char *)(pUARTBuf+15),"Clsoe Mic 6\r\n");
-//  580                                }
-//  581 
-//  582                             }
-//  583                             else
-//  584                             {
-//  585 
-//  586                             }
-//  587 
+//  512 
+//  513                         if (EnergySound<2)
+//  514                         {
+//  515                                 //sprintf((char *)pUARTBuf,"No Speech:%d  \r\n",EnergySound);
+//  516                                 //HAL_UART_Transmit_IT(&huart3,pUARTBuf,30); 
+//  517                         }
+//  518                         else
+//  519                         {
+//  520                              sprintf((char *)pUARTBuf,"%d:%d:%d:%d ",idxLatency63,idxLatency14,idxLatency25,idxLatency78);
+//  521                              flagNotMin=0 ;
+//  522 
+//  523                               if (test[3]>0)
+//  524                               {
+//  525                                  if((test[1]<=0)&&(test[4]<=0))
+//  526                                  {
+//  527                                       flagNotMin=1 ;
+//  528                                       sprintf((char *)(pUARTBuf+15),"Close Mic 2\r\n");
+//  529                                  }
+//  530                               }
+//  531                               else if (test[3]<-2)
+//  532                               {
+//  533                                   if((test[1]>1)&&(test[4]>1))
+//  534                                   {
+//  535                                     flagNotMin=1 ;
+//  536                                     sprintf((char *)(pUARTBuf+15),"Clsoe Mic 5\r\n");
+//  537                                   }
+//  538 
+//  539                               }
+//  540                               else
+//  541                               {
+//  542                               }	
+//  543 							
+//  544 			    if (test[2]>2)
+//  545                       	    {
+//  546                       	       if((test[1]>=-1)&&(test[3]<=-3))
+//  547                       	       {
+//  548                                  flagNotMin=1 ;
+//  549                                  sprintf((char *)(pUARTBuf+15),"Clsoe Mic 4\r\n");
+//  550                       	       }
+//  551                       	    }
+//  552                             else if (test[2]<=-1)
+//  553                             {
+//  554                                if((test[1]<=-2)&&(test[3]>=0))
+//  555                       	       {
+//  556                                      flagNotMin=1 ;
+//  557                                      sprintf((char *)(pUARTBuf+15),"Clsoe Mic 1\r\n");
+//  558                                }
+//  559                             }
+//  560                             else
+//  561                             {
+//  562 
+//  563                             }
+//  564 
+//  565 						   
+//  566                             if (test[1]>=0)
+//  567                       	    {
+//  568                       	       if((test[2]>1)&&(test[4]<= 0))
+//  569                       	       {
+//  570 								 flagNotMin=1 ;
+//  571 								 sprintf((char *)(pUARTBuf+15),"Clsoe Mic 3\r\n");
+//  572                       	       }
+//  573 
+//  574                       	    }
+//  575                             else if (test[1]<=-3)
+//  576                             {
+//  577                                if((test[2]<=0)&&(test[4]>=2))
+//  578                       	       {
+//  579                                    flagNotMin=1 ;
+//  580                                    sprintf((char *)(pUARTBuf+15),"Clsoe Mic 6\r\n");
+//  581                                }
+//  582 
+//  583                             }
+//  584                             else
+//  585                             {
+//  586 
+//  587                             }
 //  588 
-//  589                             if ((test[4]<=-1))
-//  590                             {
-//  591                                 if ((test[1]>=-1)&&(test[3]>-0))
-//  592                                 {
-//  593                                   sprintf((char *)(pUARTBuf+15),"Clsoe Mic 7\r\n");
-//  594                                   flagNotMin=1 ;
-//  595                                	}
-//  596                             }
-//  597                           else if (test[4]>=3)
-//  598                           {
-//  599                               if ((test[1]<-1)&&(test[3]<-2))
-//  600                              {
-//  601                                   sprintf((char *)(pUARTBuf+15),"Clsoe Mic 8\r\n");
-//  602                                   flagNotMin=1 ;
-//  603                              }
-//  604 
-//  605                           }
-//  606                           else
-//  607                           {
-//  608 
-//  609                           }
-//  610 
+//  589 
+//  590                             if ((test[4]<=-1))
+//  591                             {
+//  592                                 if ((test[1]>=-1)&&(test[3]>-0))
+//  593                                 {
+//  594                                   sprintf((char *)(pUARTBuf+15),"Clsoe Mic 7\r\n");
+//  595                                   flagNotMin=1 ;
+//  596                                	}
+//  597                             }
+//  598                           else if (test[4]>=3)
+//  599                           {
+//  600                               if ((test[1]<-1)&&(test[3]<-2))
+//  601                              {
+//  602                                   sprintf((char *)(pUARTBuf+15),"Clsoe Mic 8\r\n");
+//  603                                   flagNotMin=1 ;
+//  604                              }
+//  605 
+//  606                           }
+//  607                           else
+//  608                           {
+//  609 
+//  610                           }
 //  611 
-//  612 			  if (flagNotMin==0) sprintf((char *)(pUARTBuf+15),"----------- \r\n");
-//  613 									
-//  614                           //HAL_UART_Transmit_IT(&huart3,pUARTBuf,15);
-//  615                           SrvB_Debound(&flgS2Ins,&flgS2Flt, flgS2,2);
-//  616                           SrvB_Debound(&flgS3Ins,&flgS3Flt, flgS3,2);
-//  617                           SrvB_Debound(&flgS4Ins,&flgS4Flt, flgS4,2);
-//  618 
-//  619                           stDir = (flgS2Flt<<2)|(flgS3Flt<<1)|(flgS4Flt); 
-//  620                            switch (8)
-//  621                            {
-//  622                                case 0:
-//  623                                         sprintf((char *)(pUARTBuf+15),"Direction 0 \r\n");
-//  624                                                  
-//  625                                     break;
-//  626                                case 1:
-//  627                                         sprintf((char *)(pUARTBuf+15),"Direction 1 \r\n");
-//  628                                         
-//  629                                     break;
-//  630                                case 2:
-//  631                                         sprintf((char *)(pUARTBuf+15),"Direction 2 \r\n");
-//  632                                          
-//  633                                     break;
-//  634                                         
-//  635                                case 3:
-//  636                                         sprintf((char *)(pUARTBuf+15),"Direction 3 \r\n");
-//  637                                  
-//  638                                     break;
-//  639                                case 4:
-//  640                                         sprintf((char *)(pUARTBuf+15),"Direction 4 \r\n");
-//  641                                                  
-//  642                                     break;
-//  643                                 case 5:
-//  644                                         sprintf((char *)(pUARTBuf+15),"Direction 5 \r\n");
-//  645                                          
-//  646                                     break;
-//  647                                 case 6:
-//  648                                         sprintf((char *)(pUARTBuf+15),"Direction 6 \r\n");
-//  649                                  
-//  650                                     break;
-//  651                                 case 7:
-//  652                                         sprintf((char *)(pUARTBuf+15),"Direction 7 \r\n");
-//  653                                          
-//  654                                     break;
-//  655                                  default:
-//  656                                     break;
-//  657                            }
-//  658 
-//  659                            HAL_UART_Transmit_IT(&huart3,pUARTBuf,15+15);		
-//  660                          }
-//  661                     }
-//  662 
-//  663 #endif
-//  664 	   	            cntTime200=0;
+//  612 
+//  613 			  if (flagNotMin==0) sprintf((char *)(pUARTBuf+15),"----------- \r\n");
+//  614 									
+//  615                           //HAL_UART_Transmit_IT(&huart3,pUARTBuf,15);
+//  616                           SrvB_Debound(&flgS2Ins,&flgS2Flt, flgS2,2);
+//  617                           SrvB_Debound(&flgS3Ins,&flgS3Flt, flgS3,2);
+//  618                           SrvB_Debound(&flgS4Ins,&flgS4Flt, flgS4,2);
+//  619 
+//  620                           stDir = (flgS2Flt<<2)|(flgS3Flt<<1)|(flgS4Flt); 
+//  621                            switch (8)
+//  622                            {
+//  623                                case 0:
+//  624                                         sprintf((char *)(pUARTBuf+15),"Direction 0 \r\n");
+//  625                                                  
+//  626                                     break;
+//  627                                case 1:
+//  628                                         sprintf((char *)(pUARTBuf+15),"Direction 1 \r\n");
+//  629                                         
+//  630                                     break;
+//  631                                case 2:
+//  632                                         sprintf((char *)(pUARTBuf+15),"Direction 2 \r\n");
+//  633                                          
+//  634                                     break;
+//  635                                         
+//  636                                case 3:
+//  637                                         sprintf((char *)(pUARTBuf+15),"Direction 3 \r\n");
+//  638                                  
+//  639                                     break;
+//  640                                case 4:
+//  641                                         sprintf((char *)(pUARTBuf+15),"Direction 4 \r\n");
+//  642                                                  
+//  643                                     break;
+//  644                                 case 5:
+//  645                                         sprintf((char *)(pUARTBuf+15),"Direction 5 \r\n");
+//  646                                          
+//  647                                     break;
+//  648                                 case 6:
+//  649                                         sprintf((char *)(pUARTBuf+15),"Direction 6 \r\n");
+//  650                                  
+//  651                                     break;
+//  652                                 case 7:
+//  653                                         sprintf((char *)(pUARTBuf+15),"Direction 7 \r\n");
+//  654                                          
+//  655                                     break;
+//  656                                  default:
+//  657                                     break;
+//  658                            }
+//  659 
+//  660                            HAL_UART_Transmit_IT(&huart3,pUARTBuf,15+15);		
+//  661                          }
+//  662                     }
+//  663 
+//  664 #endif
+//  665 	   	            cntTime200=0;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_51
+        LDR.W    R1,??DataTable16_52
         STRH     R0,[R1, #+0]
         B.N      ??main_0
-//  665         } //(cntTime200==40)
-//  666       }//if (flg10ms==1)	
-//  667   }
-//  668 }
+//  666         } //(cntTime200==40)
+//  667       }//if (flg10ms==1)	
+//  668   }
+//  669 }
           CFI EndBlock cfiBlock4
-//  669 
-//  670 /**
-//  671   * @brief  Toggle Leds.
-//  672   * @param  None
-//  673   * @retval None
-//  674   */
+//  670 
+//  671 /**
+//  672   * @brief  Toggle Leds.
+//  673   * @param  None
+//  674   * @retval None
+//  675   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock5 Using cfiCommon0
           CFI Function Toggle_Leds
           CFI NoCalls
         THUMB
-//  675 void Toggle_Leds(void)
-//  676 {
-//  677   static uint32_t ticks = 0;
-//  678 
-//  679   if (ticks++ > 200)
+//  676 void Toggle_Leds(void)
+//  677 {
+//  678   static uint32_t ticks = 0;
+//  679 
+//  680   if (ticks++ > 200)
 Toggle_Leds:
-        LDR.W    R0,??DataTable16_52
+        LDR.W    R0,??DataTable16_53
         LDR      R0,[R0, #+0]
         ADDS     R1,R0,#+1
-        LDR.W    R2,??DataTable16_52
+        LDR.W    R2,??DataTable16_53
         STR      R1,[R2, #+0]
         CMP      R0,#+201
         BCC.N    ??Toggle_Leds_0
-//  680   {
-//  681     //BSP_LED_Toggle(LED1);
-//  682     ticks = 0;
+//  681   {
+//  682     //BSP_LED_Toggle(LED1);
+//  683     ticks = 0;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_52
+        LDR.W    R1,??DataTable16_53
         STR      R0,[R1, #+0]
-//  683   }
-//  684 }
+//  684   }
+//  685 }
 ??Toggle_Leds_0:
         BX       LR               ;; return
           CFI EndBlock cfiBlock5
@@ -1744,65 +1743,65 @@ Toggle_Leds:
         DATA
 ??ticks:
         DS8 4
-//  685 
 //  686 
-//  687 /**
-//  688   * @brief  User Process
-//  689   * @param  phost: Host Handle
-//  690   * @param  id: Host Library user message ID
-//  691   * @retval None
-//  692   */
-//  693 static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8_t id)
-//  694 {
-//  695   switch(id)
-//  696   { 
-//  697   case HOST_USER_SELECT_CONFIGURATION:
-//  698     break;
-//  699     
-//  700   case HOST_USER_DISCONNECTION:
-//  701     appli_state = APPLICATION_DISCONNECT;
-//  702     break;
-//  703 
-//  704   case HOST_USER_CLASS_ACTIVE:
-//  705     appli_state = APPLICATION_READY;
-//  706     break;
-//  707  
-//  708   case HOST_USER_CONNECTION:
-//  709     appli_state = APPLICATION_START;
-//  710     break;
-//  711    
-//  712   default:
-//  713     break; 
-//  714   }
-//  715 }
-//  716 
-//  717 /**
-//  718   * @brief  System Clock Configuration
-//  719   *         The system Clock is configured as follow : 
-//  720   *            System Clock source            = PLL (HSE)
-//  721   *            SYSCLK(Hz)                     = 216000000
-//  722   *            HCLK(Hz)                       = 216000000
-//  723   *            AHB Prescaler                  = 1
-//  724   *            APB1 Prescaler                 = 4
-//  725   *            APB2 Prescaler                 = 2
-//  726   *            HSE Frequency(Hz)              = 25000000
-//  727   *            PLL_M                          = 25
-//  728   *            PLL_N                          = 432
-//  729   *            PLL_P                          = 2
-//  730   *            PLL_Q                          = 9
-//  731   *            VDD(V)                         = 3.3
-//  732   *            Main regulator output voltage  = Scale1 mode
-//  733   *            Flash Latency(WS)              = 7
-//  734   * @param  None
-//  735   * @retval None
-//  736   */
+//  687 
+//  688 /**
+//  689   * @brief  User Process
+//  690   * @param  phost: Host Handle
+//  691   * @param  id: Host Library user message ID
+//  692   * @retval None
+//  693   */
+//  694 static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8_t id)
+//  695 {
+//  696   switch(id)
+//  697   { 
+//  698   case HOST_USER_SELECT_CONFIGURATION:
+//  699     break;
+//  700     
+//  701   case HOST_USER_DISCONNECTION:
+//  702     appli_state = APPLICATION_DISCONNECT;
+//  703     break;
+//  704 
+//  705   case HOST_USER_CLASS_ACTIVE:
+//  706     appli_state = APPLICATION_READY;
+//  707     break;
+//  708  
+//  709   case HOST_USER_CONNECTION:
+//  710     appli_state = APPLICATION_START;
+//  711     break;
+//  712    
+//  713   default:
+//  714     break; 
+//  715   }
+//  716 }
+//  717 
+//  718 /**
+//  719   * @brief  System Clock Configuration
+//  720   *         The system Clock is configured as follow : 
+//  721   *            System Clock source            = PLL (HSE)
+//  722   *            SYSCLK(Hz)                     = 216000000
+//  723   *            HCLK(Hz)                       = 216000000
+//  724   *            AHB Prescaler                  = 1
+//  725   *            APB1 Prescaler                 = 4
+//  726   *            APB2 Prescaler                 = 2
+//  727   *            HSE Frequency(Hz)              = 25000000
+//  728   *            PLL_M                          = 25
+//  729   *            PLL_N                          = 432
+//  730   *            PLL_P                          = 2
+//  731   *            PLL_Q                          = 9
+//  732   *            VDD(V)                         = 3.3
+//  733   *            Main regulator output voltage  = Scale1 mode
+//  734   *            Flash Latency(WS)              = 7
+//  735   * @param  None
+//  736   * @retval None
+//  737   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock6 Using cfiCommon0
           CFI Function SystemClock_Config
         THUMB
-//  737 static void SystemClock_Config(void)
-//  738 {
+//  738 static void SystemClock_Config(void)
+//  739 {
 SystemClock_Config:
         PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
@@ -1810,170 +1809,170 @@ SystemClock_Config:
           CFI CFA R13+8
         SUB      SP,SP,#+200
           CFI CFA R13+208
-//  739   RCC_ClkInitTypeDef RCC_ClkInitStruct;
-//  740   RCC_OscInitTypeDef RCC_OscInitStruct;
-//  741   RCC_PeriphCLKInitTypeDef PeriphClkInitStruct;
-//  742   HAL_StatusTypeDef ret = HAL_OK;
+//  740   RCC_ClkInitTypeDef RCC_ClkInitStruct;
+//  741   RCC_OscInitTypeDef RCC_OscInitStruct;
+//  742   RCC_PeriphCLKInitTypeDef PeriphClkInitStruct;
+//  743   HAL_StatusTypeDef ret = HAL_OK;
         MOVS     R4,#+0
-//  743 
-//  744   /* Enable HSE Oscillator and activate PLL with HSE as source */
-//  745   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+//  744 
+//  745   /* Enable HSE Oscillator and activate PLL with HSE as source */
+//  746   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
         MOVS     R0,#+1
         STR      R0,[SP, #+152]
-//  746   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+//  747   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
         MOVS     R0,#+65536
         STR      R0,[SP, #+156]
-//  747   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+//  748   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
         MOVS     R0,#+2
         STR      R0,[SP, #+176]
-//  748   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+//  749   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
         MOVS     R0,#+4194304
         STR      R0,[SP, #+180]
-//  749   RCC_OscInitStruct.PLL.PLLM = 25;
+//  750   RCC_OscInitStruct.PLL.PLLM = 25;
         MOVS     R0,#+25
         STR      R0,[SP, #+184]
-//  750   RCC_OscInitStruct.PLL.PLLN = 432;  
+//  751   RCC_OscInitStruct.PLL.PLLN = 432;  
         MOV      R0,#+432
         STR      R0,[SP, #+188]
-//  751   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+//  752   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
         MOVS     R0,#+2
         STR      R0,[SP, #+192]
-//  752   RCC_OscInitStruct.PLL.PLLQ = 9;
+//  753   RCC_OscInitStruct.PLL.PLLQ = 9;
         MOVS     R0,#+9
         STR      R0,[SP, #+196]
-//  753 
-//  754   ret = HAL_RCC_OscConfig(&RCC_OscInitStruct);
+//  754 
+//  755   ret = HAL_RCC_OscConfig(&RCC_OscInitStruct);
         ADD      R0,SP,#+152
           CFI FunCall HAL_RCC_OscConfig
         BL       HAL_RCC_OscConfig
         MOVS     R4,R0
-//  755   if(ret != HAL_OK)
-//  756   {
-//  757     //while(1) { ; }
-//  758   }
-//  759 
-//  760   /* Activate the OverDrive to reach the 216 MHz Frequency */
-//  761   ret = HAL_PWREx_EnableOverDrive();
+//  756   if(ret != HAL_OK)
+//  757   {
+//  758     //while(1) { ; }
+//  759   }
+//  760 
+//  761   /* Activate the OverDrive to reach the 216 MHz Frequency */
+//  762   ret = HAL_PWREx_EnableOverDrive();
           CFI FunCall HAL_PWREx_EnableOverDrive
         BL       HAL_PWREx_EnableOverDrive
         MOVS     R4,R0
-//  762   if(ret != HAL_OK)
-//  763   {
-//  764     //while(1) { ; }
-//  765   }
-//  766 
-//  767   /* Select PLLSAI output as USB clock source */
-//  768   PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_CLK48 ;
+//  763   if(ret != HAL_OK)
+//  764   {
+//  765     //while(1) { ; }
+//  766   }
+//  767 
+//  768   /* Select PLLSAI output as USB clock source */
+//  769   PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_CLK48 ;
         MOVS     R0,#+2097152
         STR      R0,[SP, #+20]
-//  769   PeriphClkInitStruct.Clk48ClockSelection = RCC_CLK48SOURCE_PLLSAIP;
+//  770   PeriphClkInitStruct.Clk48ClockSelection = RCC_CLK48SOURCE_PLLSAIP;
         MOVS     R0,#+134217728
         STR      R0,[SP, #+144]
-//  770 
-//  771   
-//  772   PeriphClkInitStruct.PLLSAI.PLLSAIN = 192;
+//  771 
+//  772   
+//  773   PeriphClkInitStruct.PLLSAI.PLLSAIN = 192;
         MOVS     R0,#+192
         STR      R0,[SP, #+40]
-//  773   PeriphClkInitStruct.PLLSAI.PLLSAIQ = 4; 
+//  774   PeriphClkInitStruct.PLLSAI.PLLSAIQ = 4; 
         MOVS     R0,#+4
         STR      R0,[SP, #+44]
-//  774   PeriphClkInitStruct.PLLSAI.PLLSAIP = RCC_PLLSAIP_DIV4;
+//  775   PeriphClkInitStruct.PLLSAI.PLLSAIP = RCC_PLLSAIP_DIV4;
         MOVS     R0,#+1
         STR      R0,[SP, #+52]
-//  775   PeriphClkInitStruct.PLLSAI.PLLSAIR = 2;
+//  776   PeriphClkInitStruct.PLLSAI.PLLSAIR = 2;
         MOVS     R0,#+2
         STR      R0,[SP, #+48]
-//  776 
 //  777 
-//  778   ret = HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct);
+//  778 
+//  779   ret = HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct);
         ADD      R0,SP,#+20
           CFI FunCall HAL_RCCEx_PeriphCLKConfig
         BL       HAL_RCCEx_PeriphCLKConfig
         MOVS     R4,R0
-//  779   
-//  780   if(ret != HAL_OK)
-//  781   {
-//  782     //while(1) { ; }
-//  783   }
-//  784   
-//  785   /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2 clocks dividers */
-//  786   RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);
+//  780   
+//  781   if(ret != HAL_OK)
+//  782   {
+//  783     //while(1) { ; }
+//  784   }
+//  785   
+//  786   /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2 clocks dividers */
+//  787   RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);
         MOVS     R0,#+15
         STR      R0,[SP, #+0]
-//  787   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+//  788   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
         MOVS     R0,#+2
         STR      R0,[SP, #+4]
-//  788   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV2;
+//  789   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV2;
         MOVS     R0,#+128
         STR      R0,[SP, #+8]
-//  789   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;  
+//  790   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;  
         MOV      R0,#+5120
         STR      R0,[SP, #+12]
-//  790   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
+//  791   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
         MOV      R0,#+4096
         STR      R0,[SP, #+16]
-//  791 
-//  792   ret = HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_7);
+//  792 
+//  793   ret = HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_7);
         MOVS     R1,#+7
         MOV      R0,SP
           CFI FunCall HAL_RCC_ClockConfig
         BL       HAL_RCC_ClockConfig
         MOVS     R4,R0
-//  793   if(ret != HAL_OK)
-//  794   {
-//  795     //while(1) { ; }
-//  796   }
-//  797   
-//  798  //sop1hc 344/7 = 49.142 MHz
-//  799   PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SAI2|RCC_PERIPHCLK_I2S;
-        LDR.W    R0,??DataTable16_53  ;; 0x100001
+//  794   if(ret != HAL_OK)
+//  795   {
+//  796     //while(1) { ; }
+//  797   }
+//  798   
+//  799  //sop1hc 344/7 = 49.142 MHz
+//  800   PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SAI2|RCC_PERIPHCLK_I2S;
+        LDR.W    R0,??DataTable16_54  ;; 0x100001
         STR      R0,[SP, #+20]
-//  800   PeriphClkInitStruct.Sai2ClockSelection = RCC_SAI2CLKSOURCE_PLLI2S;
+//  801   PeriphClkInitStruct.Sai2ClockSelection = RCC_SAI2CLKSOURCE_PLLI2S;
         MOVS     R0,#+4194304
         STR      R0,[SP, #+84]
-//  801   PeriphClkInitStruct.I2sClockSelection = RCC_I2SCLKSOURCE_PLLI2S;
+//  802   PeriphClkInitStruct.I2sClockSelection = RCC_I2SCLKSOURCE_PLLI2S;
         MOVS     R0,#+0
         STR      R0,[SP, #+72]
-//  802   PeriphClkInitStruct.PLLI2S.PLLI2SP = 8;
+//  803   PeriphClkInitStruct.PLLI2S.PLLI2SP = 8;
         MOVS     R0,#+8
         STR      R0,[SP, #+36]
-//  803   PeriphClkInitStruct.PLLI2S.PLLI2SN = 344;//244
+//  804   PeriphClkInitStruct.PLLI2S.PLLI2SN = 344;//244
         MOV      R0,#+344
         STR      R0,[SP, #+24]
-//  804   PeriphClkInitStruct.PLLI2S.PLLI2SQ = 7;
+//  805   PeriphClkInitStruct.PLLI2S.PLLI2SQ = 7;
         MOVS     R0,#+7
         STR      R0,[SP, #+32]
-//  805   PeriphClkInitStruct.PLLI2S.PLLI2SR = 7;
+//  806   PeriphClkInitStruct.PLLI2S.PLLI2SR = 7;
         MOVS     R0,#+7
         STR      R0,[SP, #+28]
-//  806   PeriphClkInitStruct.PLLI2SDivQ = 1;
+//  807   PeriphClkInitStruct.PLLI2SDivQ = 1;
         MOVS     R0,#+1
         STR      R0,[SP, #+56]
-//  807   HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct);	
+//  808   HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct);	
         ADD      R0,SP,#+20
           CFI FunCall HAL_RCCEx_PeriphCLKConfig
         BL       HAL_RCCEx_PeriphCLKConfig
-//  808 }
+//  809 }
         ADD      SP,SP,#+200
           CFI CFA R13+8
         POP      {R4,PC}          ;; return
           CFI EndBlock cfiBlock6
-//  809 
-//  810 /**
-//  811   * @brief  Clock Config.
-//  812   * @param  hsai: might be required to set audio peripheral predivider if any.
-//  813   * @param  AudioFreq: Audio frequency used to play the audio stream.
-//  814   * @note   This API is called by BSP_AUDIO_OUT_Init() and BSP_AUDIO_OUT_SetFrequency()
-//  815   *         Being __weak it can be overwritten by the application     
-//  816   * @retval None
-//  817   */
+//  810 
+//  811 /**
+//  812   * @brief  Clock Config.
+//  813   * @param  hsai: might be required to set audio peripheral predivider if any.
+//  814   * @param  AudioFreq: Audio frequency used to play the audio stream.
+//  815   * @note   This API is called by BSP_AUDIO_OUT_Init() and BSP_AUDIO_OUT_SetFrequency()
+//  816   *         Being __weak it can be overwritten by the application     
+//  817   * @retval None
+//  818   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock7 Using cfiCommon0
           CFI Function BSP_AUDIO_OUT_ClockConfig
         THUMB
-//  818 void BSP_AUDIO_OUT_ClockConfig(uint32_t AudioFreq, void *Params)
-//  819 {
+//  819 void BSP_AUDIO_OUT_ClockConfig(uint32_t AudioFreq, void *Params)
+//  820 {
 BSP_AUDIO_OUT_ClockConfig:
         PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
@@ -1984,15 +1983,15 @@ BSP_AUDIO_OUT_ClockConfig:
           CFI CFA R13+144
         MOVS     R4,R0
         MOVS     R5,R1
-//  820   RCC_PeriphCLKInitTypeDef RCC_ExCLKInitStruct;
-//  821 
-//  822   HAL_RCCEx_GetPeriphCLKConfig(&RCC_ExCLKInitStruct);
+//  821   RCC_PeriphCLKInitTypeDef RCC_ExCLKInitStruct;
+//  822 
+//  823   HAL_RCCEx_GetPeriphCLKConfig(&RCC_ExCLKInitStruct);
         MOV      R0,SP
           CFI FunCall HAL_RCCEx_GetPeriphCLKConfig
         BL       HAL_RCCEx_GetPeriphCLKConfig
-//  823   
-//  824   /* Set the PLL configuration according to the audio frequency */
-//  825   if((AudioFreq == AUDIO_FREQUENCY_11K) || (AudioFreq == AUDIO_FREQUENCY_22K) || (AudioFreq == AUDIO_FREQUENCY_44K))
+//  824   
+//  825   /* Set the PLL configuration according to the audio frequency */
+//  826   if((AudioFreq == AUDIO_FREQUENCY_11K) || (AudioFreq == AUDIO_FREQUENCY_22K) || (AudioFreq == AUDIO_FREQUENCY_44K))
         MOVW     R0,#+11025
         CMP      R4,R0
         BEQ.N    ??BSP_AUDIO_OUT_ClockConfig_0
@@ -2002,133 +2001,133 @@ BSP_AUDIO_OUT_ClockConfig:
         MOVW     R0,#+44100
         CMP      R4,R0
         BNE.N    ??BSP_AUDIO_OUT_ClockConfig_1
-//  826   {
-//  827     /* Configure PLLSAI prescalers */
-//  828     /* PLLI2S_VCO: VCO_429M
-//  829     SAI_CLK(first level) = PLLI2S_VCO/PLLSAIQ = 429/2 = 214.5 Mhz
-//  830     SAI_CLK_x = SAI_CLK(first level)/PLLI2SDivQ = 214.5/19 = 11.289 Mhz */
-//  831     RCC_ExCLKInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SAI2;
+//  827   {
+//  828     /* Configure PLLSAI prescalers */
+//  829     /* PLLI2S_VCO: VCO_429M
+//  830     SAI_CLK(first level) = PLLI2S_VCO/PLLSAIQ = 429/2 = 214.5 Mhz
+//  831     SAI_CLK_x = SAI_CLK(first level)/PLLI2SDivQ = 214.5/19 = 11.289 Mhz */
+//  832     RCC_ExCLKInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SAI2;
 ??BSP_AUDIO_OUT_ClockConfig_0:
         MOVS     R0,#+1048576
         STR      R0,[SP, #+0]
-//  832     RCC_ExCLKInitStruct.Sai2ClockSelection = RCC_SAI2CLKSOURCE_PLLI2S;
+//  833     RCC_ExCLKInitStruct.Sai2ClockSelection = RCC_SAI2CLKSOURCE_PLLI2S;
         MOVS     R0,#+4194304
         STR      R0,[SP, #+64]
-//  833     RCC_ExCLKInitStruct.PLLI2S.PLLI2SP = 8;
+//  834     RCC_ExCLKInitStruct.PLLI2S.PLLI2SP = 8;
         MOVS     R0,#+8
         STR      R0,[SP, #+16]
-//  834     RCC_ExCLKInitStruct.PLLI2S.PLLI2SN = 429;
+//  835     RCC_ExCLKInitStruct.PLLI2S.PLLI2SN = 429;
         MOVW     R0,#+429
         STR      R0,[SP, #+4]
-//  835     RCC_ExCLKInitStruct.PLLI2S.PLLI2SQ = 2;
+//  836     RCC_ExCLKInitStruct.PLLI2S.PLLI2SQ = 2;
         MOVS     R0,#+2
         STR      R0,[SP, #+12]
-//  836     RCC_ExCLKInitStruct.PLLI2SDivQ = 19;
+//  837     RCC_ExCLKInitStruct.PLLI2SDivQ = 19;
         MOVS     R0,#+19
         STR      R0,[SP, #+36]
-//  837     HAL_RCCEx_PeriphCLKConfig(&RCC_ExCLKInitStruct);
+//  838     HAL_RCCEx_PeriphCLKConfig(&RCC_ExCLKInitStruct);
         MOV      R0,SP
           CFI FunCall HAL_RCCEx_PeriphCLKConfig
         BL       HAL_RCCEx_PeriphCLKConfig
         B.N      ??BSP_AUDIO_OUT_ClockConfig_2
-//  838   }
-//  839   else /* AUDIO_FREQUENCY_8K, AUDIO_FREQUENCY_16K, AUDIO_FREQUENCY_48K), AUDIO_FREQUENCY_96K */
-//  840   {
-//  841     /* SAI clock config
-//  842     PLLI2S_VCO: VCO_344M
-//  843     SAI_CLK(first level) = PLLI2S_VCO/PLLSAIQ = 344/7 = 49.142 Mhz
-//  844     SAI_CLK_x = SAI_CLK(first level)/PLLI2SDivQ = 49.142/1 = 49.142 Mhz */
-//  845     RCC_ExCLKInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SAI2;
+//  839   }
+//  840   else /* AUDIO_FREQUENCY_8K, AUDIO_FREQUENCY_16K, AUDIO_FREQUENCY_48K), AUDIO_FREQUENCY_96K */
+//  841   {
+//  842     /* SAI clock config
+//  843     PLLI2S_VCO: VCO_344M
+//  844     SAI_CLK(first level) = PLLI2S_VCO/PLLSAIQ = 344/7 = 49.142 Mhz
+//  845     SAI_CLK_x = SAI_CLK(first level)/PLLI2SDivQ = 49.142/1 = 49.142 Mhz */
+//  846     RCC_ExCLKInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SAI2;
 ??BSP_AUDIO_OUT_ClockConfig_1:
         MOVS     R0,#+1048576
         STR      R0,[SP, #+0]
-//  846     RCC_ExCLKInitStruct.Sai2ClockSelection = RCC_SAI2CLKSOURCE_PLLI2S;
+//  847     RCC_ExCLKInitStruct.Sai2ClockSelection = RCC_SAI2CLKSOURCE_PLLI2S;
         MOVS     R0,#+4194304
         STR      R0,[SP, #+64]
-//  847 	//RCC_ExCLKInitStruct.I2sClockSelection = RCC_I2SCLKSOURCE_PLLI2S;
-//  848 //    RCC_ExCLKInitStruct.PLLI2S.PLLI2SP = 8;
-//  849     RCC_ExCLKInitStruct.PLLI2S.PLLI2SN = 344;//244
+//  848 	//RCC_ExCLKInitStruct.I2sClockSelection = RCC_I2SCLKSOURCE_PLLI2S;
+//  849 //    RCC_ExCLKInitStruct.PLLI2S.PLLI2SP = 8;
+//  850     RCC_ExCLKInitStruct.PLLI2S.PLLI2SN = 344;//244
         MOV      R0,#+344
         STR      R0,[SP, #+4]
-//  850     RCC_ExCLKInitStruct.PLLI2S.PLLI2SQ = 7;
+//  851     RCC_ExCLKInitStruct.PLLI2S.PLLI2SQ = 7;
         MOVS     R0,#+7
         STR      R0,[SP, #+12]
-//  851 	//RCC_ExCLKInitStruct.PLLI2S.PLLI2SR = 1;
-//  852     RCC_ExCLKInitStruct.PLLI2SDivQ = 1;
+//  852 	//RCC_ExCLKInitStruct.PLLI2S.PLLI2SR = 1;
+//  853     RCC_ExCLKInitStruct.PLLI2SDivQ = 1;
         MOVS     R0,#+1
         STR      R0,[SP, #+36]
-//  853     HAL_RCCEx_PeriphCLKConfig(&RCC_ExCLKInitStruct);
+//  854     HAL_RCCEx_PeriphCLKConfig(&RCC_ExCLKInitStruct);
         MOV      R0,SP
           CFI FunCall HAL_RCCEx_PeriphCLKConfig
         BL       HAL_RCCEx_PeriphCLKConfig
-//  854   }
-//  855   
-//  856 }
+//  855   }
+//  856   
+//  857 }
 ??BSP_AUDIO_OUT_ClockConfig_2:
         ADD      SP,SP,#+132
           CFI CFA R13+12
         POP      {R4,R5,PC}       ;; return
           CFI EndBlock cfiBlock7
-//  857 
 //  858 
 //  859 
-//  860 #ifdef  USE_FULL_ASSERT
-//  861 /**
-//  862   * @brief  Reports the name of the source file and the source line number
-//  863   *         where the assert_param error has occurred.
-//  864   * @param  file: pointer to the source file name
-//  865   * @param  line: assert_param error line source number
-//  866   * @retval None
-//  867   */
-//  868 void assert_failed(uint8_t* file, uint32_t line)
-//  869 { 
-//  870   /* User can add his own implementation to report the file name and line number,
-//  871      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-//  872 
-//  873   /* Infinite loop */
-//  874   while (1)
-//  875   {
-//  876   }
-//  877 }
-//  878 #endif
-//  879 
-//  880 /**
-//  881   * @brief  CPU L1-Cache enable.
-//  882   * @param  None
-//  883   * @retval None
-//  884   */
+//  860 
+//  861 #ifdef  USE_FULL_ASSERT
+//  862 /**
+//  863   * @brief  Reports the name of the source file and the source line number
+//  864   *         where the assert_param error has occurred.
+//  865   * @param  file: pointer to the source file name
+//  866   * @param  line: assert_param error line source number
+//  867   * @retval None
+//  868   */
+//  869 void assert_failed(uint8_t* file, uint32_t line)
+//  870 { 
+//  871   /* User can add his own implementation to report the file name and line number,
+//  872      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+//  873 
+//  874   /* Infinite loop */
+//  875   while (1)
+//  876   {
+//  877   }
+//  878 }
+//  879 #endif
+//  880 
+//  881 /**
+//  882   * @brief  CPU L1-Cache enable.
+//  883   * @param  None
+//  884   * @retval None
+//  885   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock8 Using cfiCommon0
           CFI Function CPU_CACHE_Enable
         THUMB
-//  885 static void CPU_CACHE_Enable(void)
-//  886 {
+//  886 static void CPU_CACHE_Enable(void)
+//  887 {
 CPU_CACHE_Enable:
         PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+8
-//  887   /* Enable I-Cache */
-//  888   SCB_EnableICache();
+//  888   /* Enable I-Cache */
+//  889   SCB_EnableICache();
           CFI FunCall SCB_EnableICache
         BL       SCB_EnableICache
-//  889 
-//  890   /* Enable D-Cache */
-//  891   SCB_EnableDCache();
+//  890 
+//  891   /* Enable D-Cache */
+//  892   SCB_EnableDCache();
           CFI FunCall SCB_EnableDCache
         BL       SCB_EnableDCache
-//  892 }
+//  893 }
         POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock8
-//  893 
 //  894 
+//  895 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock9 Using cfiCommon0
           CFI Function HAL_I2C_MspInit
         THUMB
-//  895 void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
-//  896 {
+//  896 void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
+//  897 {
 HAL_I2C_MspInit:
         PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
@@ -2137,234 +2136,234 @@ HAL_I2C_MspInit:
         SUB      SP,SP,#+24
           CFI CFA R13+32
         MOVS     R4,R0
-//  897 
-//  898   GPIO_InitTypeDef GPIO_InitStruct;
-//  899     
-//  900   if(hi2c->Instance==I2C1)
+//  898 
+//  899   GPIO_InitTypeDef GPIO_InitStruct;
+//  900     
+//  901   if(hi2c->Instance==I2C1)
         LDR      R0,[R4, #+0]
-        LDR.W    R1,??DataTable16_54  ;; 0x40005400
+        LDR.W    R1,??DataTable16_55  ;; 0x40005400
         CMP      R0,R1
         BNE.N    ??HAL_I2C_MspInit_0
-//  901   {
-//  902 	/* USER CODE BEGIN I2C1_MspInit 0 */
-//  903 
-//  904 	/*##-1- Configure the I2C clock source. The clock is derived from the SYSCLK #*/
-//  905 	//RCC_PeriphCLKInitStruct.PeriphClockSelection = RCC_PERIPHCLK_I2C1;
-//  906 	//RCC_PeriphCLKInitStruct.I2c1ClockSelection = RCC_I2C1CLKSOURCE_PCLK1;
-//  907 	//HAL_RCCEx_PeriphCLKConfig(&RCC_PeriphCLKInitStruct);
-//  908 
-//  909 	/*##-2- Enable peripherals and GPIO Clocks #################################*/
-//  910 	/* Enable GPIO TX/RX clock */
-//  911 	__HAL_RCC_GPIOB_CLK_ENABLE();
-        LDR.W    R0,??DataTable16_38  ;; 0x40023830
+//  902   {
+//  903 	/* USER CODE BEGIN I2C1_MspInit 0 */
+//  904 
+//  905 	/*##-1- Configure the I2C clock source. The clock is derived from the SYSCLK #*/
+//  906 	//RCC_PeriphCLKInitStruct.PeriphClockSelection = RCC_PERIPHCLK_I2C1;
+//  907 	//RCC_PeriphCLKInitStruct.I2c1ClockSelection = RCC_I2C1CLKSOURCE_PCLK1;
+//  908 	//HAL_RCCEx_PeriphCLKConfig(&RCC_PeriphCLKInitStruct);
+//  909 
+//  910 	/*##-2- Enable peripherals and GPIO Clocks #################################*/
+//  911 	/* Enable GPIO TX/RX clock */
+//  912 	__HAL_RCC_GPIOB_CLK_ENABLE();
+        LDR.W    R0,??DataTable16_39  ;; 0x40023830
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x2
-        LDR.W    R1,??DataTable16_38  ;; 0x40023830
+        LDR.W    R1,??DataTable16_39  ;; 0x40023830
         STR      R0,[R1, #+0]
-        LDR.W    R0,??DataTable16_38  ;; 0x40023830
+        LDR.W    R0,??DataTable16_39  ;; 0x40023830
         LDR      R0,[R0, #+0]
         ANDS     R0,R0,#0x2
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
-//  912 
-//  913 	/**I2C1 GPIO Configuration	
-//  914 	PB6	  ------> I2C1_SCL (PB6)
-//  915 	PB7	  ------> I2C1_SDA (PB7) 
-//  916 	*/
-//  917 	GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7;
+//  913 
+//  914 	/**I2C1 GPIO Configuration	
+//  915 	PB6	  ------> I2C1_SCL (PB6)
+//  916 	PB7	  ------> I2C1_SDA (PB7) 
+//  917 	*/
+//  918 	GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7;
         MOVS     R0,#+192
         STR      R0,[SP, #+4]
-//  918 	GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
+//  919 	GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
         MOVS     R0,#+18
         STR      R0,[SP, #+8]
-//  919 	GPIO_InitStruct.Pull = GPIO_PULLUP;
+//  920 	GPIO_InitStruct.Pull = GPIO_PULLUP;
         MOVS     R0,#+1
         STR      R0,[SP, #+12]
-//  920 	GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+//  921 	GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
         MOVS     R0,#+3
         STR      R0,[SP, #+16]
-//  921 	GPIO_InitStruct.Alternate = GPIO_AF4_I2C1;
+//  922 	GPIO_InitStruct.Alternate = GPIO_AF4_I2C1;
         MOVS     R0,#+4
         STR      R0,[SP, #+20]
-//  922 	HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+//  923 	HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
         ADD      R1,SP,#+4
-        LDR.W    R0,??DataTable16_55  ;; 0x40020400
+        LDR.W    R0,??DataTable16_56  ;; 0x40020400
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
-//  923 
-//  924 	/* Peripheral clock enable */
-//  925 	__HAL_RCC_I2C1_CLK_ENABLE();
-        LDR.W    R0,??DataTable16_56  ;; 0x40023840
+//  924 
+//  925 	/* Peripheral clock enable */
+//  926 	__HAL_RCC_I2C1_CLK_ENABLE();
+        LDR.W    R0,??DataTable16_57  ;; 0x40023840
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x200000
-        LDR.W    R1,??DataTable16_56  ;; 0x40023840
+        LDR.W    R1,??DataTable16_57  ;; 0x40023840
         STR      R0,[R1, #+0]
-        LDR.W    R0,??DataTable16_56  ;; 0x40023840
+        LDR.W    R0,??DataTable16_57  ;; 0x40023840
         LDR      R0,[R0, #+0]
         ANDS     R0,R0,#0x200000
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
-//  926 	/* Peripheral interrupt init*/
-//  927 	HAL_NVIC_SetPriority(I2C1_EV_IRQn, 3, 0);
+//  927 	/* Peripheral interrupt init*/
+//  928 	HAL_NVIC_SetPriority(I2C1_EV_IRQn, 3, 0);
         MOVS     R2,#+0
         MOVS     R1,#+3
         MOVS     R0,#+31
           CFI FunCall HAL_NVIC_SetPriority
         BL       HAL_NVIC_SetPriority
-//  928 	HAL_NVIC_EnableIRQ(I2C1_EV_IRQn);
+//  929 	HAL_NVIC_EnableIRQ(I2C1_EV_IRQn);
         MOVS     R0,#+31
           CFI FunCall HAL_NVIC_EnableIRQ
         BL       HAL_NVIC_EnableIRQ
         B.N      ??HAL_I2C_MspInit_1
-//  929 
-//  930   }
-//  931   else if(hi2c->Instance==I2C2)
+//  930 
+//  931   }
+//  932   else if(hi2c->Instance==I2C2)
 ??HAL_I2C_MspInit_0:
         LDR      R0,[R4, #+0]
-        LDR.W    R1,??DataTable16_57  ;; 0x40005800
+        LDR.W    R1,??DataTable16_58  ;; 0x40005800
         CMP      R0,R1
         BNE.N    ??HAL_I2C_MspInit_1
-//  932   {
-//  933   /* USER CODE BEGIN I2C2_MspInit 0 */
-//  934 
-//  935   /* USER CODE END I2C2_MspInit 0 */
-//  936   
-//  937     /**I2C2 GPIO Configuration    
-//  938     PB10     ------> I2C2_SCL
-//  939     PB11     ------> I2C2_SDA 
-//  940     */
-//  941     __HAL_RCC_GPIOB_CLK_ENABLE();
-        LDR.W    R0,??DataTable16_38  ;; 0x40023830
+//  933   {
+//  934   /* USER CODE BEGIN I2C2_MspInit 0 */
+//  935 
+//  936   /* USER CODE END I2C2_MspInit 0 */
+//  937   
+//  938     /**I2C2 GPIO Configuration    
+//  939     PB10     ------> I2C2_SCL
+//  940     PB11     ------> I2C2_SDA 
+//  941     */
+//  942     __HAL_RCC_GPIOB_CLK_ENABLE();
+        LDR.W    R0,??DataTable16_39  ;; 0x40023830
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x2
-        LDR.W    R1,??DataTable16_38  ;; 0x40023830
+        LDR.W    R1,??DataTable16_39  ;; 0x40023830
         STR      R0,[R1, #+0]
-        LDR.W    R0,??DataTable16_38  ;; 0x40023830
+        LDR.W    R0,??DataTable16_39  ;; 0x40023830
         LDR      R0,[R0, #+0]
         ANDS     R0,R0,#0x2
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
-//  942     
-//  943     GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_11;
+//  943     
+//  944     GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_11;
         MOV      R0,#+3072
         STR      R0,[SP, #+4]
-//  944     GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
+//  945     GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
         MOVS     R0,#+18
         STR      R0,[SP, #+8]
-//  945     GPIO_InitStruct.Pull = GPIO_NOPULL;
+//  946     GPIO_InitStruct.Pull = GPIO_NOPULL;
         MOVS     R0,#+0
         STR      R0,[SP, #+12]
-//  946     GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+//  947     GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
         MOVS     R0,#+3
         STR      R0,[SP, #+16]
-//  947     GPIO_InitStruct.Alternate = GPIO_AF4_I2C2;
+//  948     GPIO_InitStruct.Alternate = GPIO_AF4_I2C2;
         MOVS     R0,#+4
         STR      R0,[SP, #+20]
-//  948     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+//  949     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
         ADD      R1,SP,#+4
-        LDR.W    R0,??DataTable16_55  ;; 0x40020400
+        LDR.W    R0,??DataTable16_56  ;; 0x40020400
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
-//  949 
-//  950     /* Peripheral clock enable */
-//  951     __HAL_RCC_I2C2_CLK_ENABLE();
-        LDR.W    R0,??DataTable16_56  ;; 0x40023840
+//  950 
+//  951     /* Peripheral clock enable */
+//  952     __HAL_RCC_I2C2_CLK_ENABLE();
+        LDR.W    R0,??DataTable16_57  ;; 0x40023840
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x400000
-        LDR.W    R1,??DataTable16_56  ;; 0x40023840
+        LDR.W    R1,??DataTable16_57  ;; 0x40023840
         STR      R0,[R1, #+0]
-        LDR.W    R0,??DataTable16_56  ;; 0x40023840
+        LDR.W    R0,??DataTable16_57  ;; 0x40023840
         LDR      R0,[R0, #+0]
         ANDS     R0,R0,#0x400000
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
-//  952     /* Peripheral interrupt init*/
-//  953     //HAL_NVIC_SetPriority(I2C2_EV_IRQn, 3, 1);
-//  954     //HAL_NVIC_EnableIRQ(I2C2_EV_IRQn);
-//  955   }
-//  956 
-//  957 }
+//  953     /* Peripheral interrupt init*/
+//  954     //HAL_NVIC_SetPriority(I2C2_EV_IRQn, 3, 1);
+//  955     //HAL_NVIC_EnableIRQ(I2C2_EV_IRQn);
+//  956   }
+//  957 
+//  958 }
 ??HAL_I2C_MspInit_1:
         ADD      SP,SP,#+24
           CFI CFA R13+8
         POP      {R4,PC}          ;; return
           CFI EndBlock cfiBlock9
-//  958 
-//  959 /*---------------------------------------------------*/
-//  960 /*   UART                                            */
-//  961 /* UART4 init function */
+//  959 
+//  960 /*---------------------------------------------------*/
+//  961 /*   UART                                            */
+//  962 /* UART4 init function */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock10 Using cfiCommon0
           CFI Function USART3_Init
         THUMB
-//  962 void USART3_Init(void)
-//  963 {
+//  963 void USART3_Init(void)
+//  964 {
 USART3_Init:
         PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+8
-//  964 
-//  965   huart3.Instance = USART3;
-        LDR.W    R0,??DataTable16_58  ;; 0x40004800
-        LDR.W    R1,??DataTable16_59
+//  965 
+//  966   huart3.Instance = USART3;
+        LDR.W    R0,??DataTable16_59  ;; 0x40004800
+        LDR.W    R1,??DataTable16_60
         STR      R0,[R1, #+0]
-//  966   huart3.Init.BaudRate = 115200;
+//  967   huart3.Init.BaudRate = 115200;
         MOVS     R0,#+115200
-        LDR.W    R1,??DataTable16_59
+        LDR.W    R1,??DataTable16_60
         STR      R0,[R1, #+4]
-//  967   huart3.Init.WordLength = UART_WORDLENGTH_8B;
+//  968   huart3.Init.WordLength = UART_WORDLENGTH_8B;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_59
+        LDR.W    R1,??DataTable16_60
         STR      R0,[R1, #+8]
-//  968   huart3.Init.StopBits = UART_STOPBITS_1;
+//  969   huart3.Init.StopBits = UART_STOPBITS_1;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_59
+        LDR.W    R1,??DataTable16_60
         STR      R0,[R1, #+12]
-//  969   huart3.Init.Parity = UART_PARITY_NONE;
+//  970   huart3.Init.Parity = UART_PARITY_NONE;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_59
+        LDR.W    R1,??DataTable16_60
         STR      R0,[R1, #+16]
-//  970   huart3.Init.Mode = UART_MODE_TX_RX;
+//  971   huart3.Init.Mode = UART_MODE_TX_RX;
         MOVS     R0,#+12
-        LDR.W    R1,??DataTable16_59
+        LDR.W    R1,??DataTable16_60
         STR      R0,[R1, #+20]
-//  971   huart3.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+//  972   huart3.Init.HwFlowCtl = UART_HWCONTROL_NONE;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_59
+        LDR.W    R1,??DataTable16_60
         STR      R0,[R1, #+24]
-//  972   huart3.Init.OverSampling = UART_OVERSAMPLING_16;
+//  973   huart3.Init.OverSampling = UART_OVERSAMPLING_16;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_59
+        LDR.W    R1,??DataTable16_60
         STR      R0,[R1, #+28]
-//  973   huart3.Init.OneBitSampling = UART_ONEBIT_SAMPLING_DISABLED ;
+//  974   huart3.Init.OneBitSampling = UART_ONEBIT_SAMPLING_DISABLED ;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_59
+        LDR.W    R1,??DataTable16_60
         STR      R0,[R1, #+32]
-//  974   huart3.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+//  975   huart3.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_59
+        LDR.W    R1,??DataTable16_60
         STR      R0,[R1, #+36]
-//  975   HAL_UART_Init(&huart3);
-        LDR.W    R0,??DataTable16_59
+//  976   HAL_UART_Init(&huart3);
+        LDR.W    R0,??DataTable16_60
           CFI FunCall HAL_UART_Init
         BL       HAL_UART_Init
-//  976 
-//  977   //HAL_NVIC_SetPriority(USART3_IRQn, 1, 1);
-//  978   //HAL_NVIC_EnableIRQ(USART3_IRQn);
-//  979 
-//  980 }
+//  977 
+//  978   //HAL_NVIC_SetPriority(USART3_IRQn, 1, 1);
+//  979   //HAL_NVIC_EnableIRQ(USART3_IRQn);
+//  980 
+//  981 }
         POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock10
-//  981 
 //  982 
+//  983 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock11 Using cfiCommon0
           CFI Function HAL_UART_MspInit
         THUMB
-//  983 void HAL_UART_MspInit(UART_HandleTypeDef *huart)
-//  984 {
+//  984 void HAL_UART_MspInit(UART_HandleTypeDef *huart)
+//  985 {
 HAL_UART_MspInit:
         PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
@@ -2373,399 +2372,399 @@ HAL_UART_MspInit:
         SUB      SP,SP,#+24
           CFI CFA R13+32
         MOVS     R4,R0
-//  985 
-//  986   GPIO_InitTypeDef GPIO_InitStruct;
-//  987   if(huart->Instance==USART3)
+//  986 
+//  987   GPIO_InitTypeDef GPIO_InitStruct;
+//  988   if(huart->Instance==USART3)
         LDR      R0,[R4, #+0]
-        LDR.W    R1,??DataTable16_58  ;; 0x40004800
+        LDR.W    R1,??DataTable16_59  ;; 0x40004800
         CMP      R0,R1
         BNE.N    ??HAL_UART_MspInit_0
-//  988   {
-//  989 
+//  989   {
 //  990 
-//  991   /* USER CODE END UART4_MspInit 0 */
-//  992     /* Peripheral clock enable */
-//  993     __USART3_CLK_ENABLE();
-        LDR.W    R0,??DataTable16_56  ;; 0x40023840
+//  991 
+//  992   /* USER CODE END UART4_MspInit 0 */
+//  993     /* Peripheral clock enable */
+//  994     __USART3_CLK_ENABLE();
+        LDR.W    R0,??DataTable16_57  ;; 0x40023840
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x40000
-        LDR.W    R1,??DataTable16_56  ;; 0x40023840
+        LDR.W    R1,??DataTable16_57  ;; 0x40023840
         STR      R0,[R1, #+0]
-        LDR.W    R0,??DataTable16_56  ;; 0x40023840
+        LDR.W    R0,??DataTable16_57  ;; 0x40023840
         LDR      R0,[R0, #+0]
         ANDS     R0,R0,#0x40000
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
-//  994     __GPIOC_CLK_ENABLE();
-        LDR.W    R0,??DataTable16_38  ;; 0x40023830
+//  995     __GPIOC_CLK_ENABLE();
+        LDR.W    R0,??DataTable16_39  ;; 0x40023830
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x4
-        LDR.W    R1,??DataTable16_38  ;; 0x40023830
+        LDR.W    R1,??DataTable16_39  ;; 0x40023830
         STR      R0,[R1, #+0]
-        LDR.W    R0,??DataTable16_38  ;; 0x40023830
+        LDR.W    R0,??DataTable16_39  ;; 0x40023830
         LDR      R0,[R0, #+0]
         ANDS     R0,R0,#0x4
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
-//  995   
-//  996     /**UART4 GPIO Configuration    
-//  997     PC10     ------> USART3_TX
-//  998     PC11     ------> USART3_RX
-//  999     */
-// 1000     GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_11;
+//  996   
+//  997     /**UART4 GPIO Configuration    
+//  998     PC10     ------> USART3_TX
+//  999     PC11     ------> USART3_RX
+// 1000     */
+// 1001     GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_11;
         MOV      R0,#+3072
         STR      R0,[SP, #+4]
-// 1001     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+// 1002     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
         MOVS     R0,#+2
         STR      R0,[SP, #+8]
-// 1002     GPIO_InitStruct.Pull = GPIO_PULLUP;
+// 1003     GPIO_InitStruct.Pull = GPIO_PULLUP;
         MOVS     R0,#+1
         STR      R0,[SP, #+12]
-// 1003     GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+// 1004     GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
         MOVS     R0,#+3
         STR      R0,[SP, #+16]
-// 1004     GPIO_InitStruct.Alternate = GPIO_AF7_USART3;
+// 1005     GPIO_InitStruct.Alternate = GPIO_AF7_USART3;
         MOVS     R0,#+7
         STR      R0,[SP, #+20]
-// 1005     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+// 1006     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
         ADD      R1,SP,#+4
-        LDR.W    R0,??DataTable16_60  ;; 0x40020800
+        LDR.W    R0,??DataTable16_61  ;; 0x40020800
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
-// 1006 
-// 1007     /* NVIC for USART */
-// 1008     HAL_NVIC_SetPriority(USART3_IRQn, 7, 1);
+// 1007 
+// 1008     /* NVIC for USART */
+// 1009     HAL_NVIC_SetPriority(USART3_IRQn, 7, 1);
         MOVS     R2,#+1
         MOVS     R1,#+7
         MOVS     R0,#+39
           CFI FunCall HAL_NVIC_SetPriority
         BL       HAL_NVIC_SetPriority
-// 1009     HAL_NVIC_EnableIRQ(USART3_IRQn);
+// 1010     HAL_NVIC_EnableIRQ(USART3_IRQn);
         MOVS     R0,#+39
           CFI FunCall HAL_NVIC_EnableIRQ
         BL       HAL_NVIC_EnableIRQ
-// 1010 
-// 1011   }
-// 1012 
-// 1013 }
+// 1011 
+// 1012   }
+// 1013 
+// 1014 }
 ??HAL_UART_MspInit_0:
         ADD      SP,SP,#+24
           CFI CFA R13+8
         POP      {R4,PC}          ;; return
           CFI EndBlock cfiBlock11
-// 1014 
 // 1015 
 // 1016 
+// 1017 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock12 Using cfiCommon0
           CFI Function EXTI4_IRQHandler
         THUMB
-// 1017 void EXTI4_IRQHandler(void)
-// 1018 {
+// 1018 void EXTI4_IRQHandler(void)
+// 1019 {
 EXTI4_IRQHandler:
         PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+8
-// 1019     /* EXTI line interrupt detected */
-// 1020   if(__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_4) != RESET)
-        LDR.W    R0,??DataTable16_61  ;; 0x40013c14
+// 1020     /* EXTI line interrupt detected */
+// 1021   if(__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_4) != RESET)
+        LDR.W    R0,??DataTable16_62  ;; 0x40013c14
         LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+27
         BPL.N    ??EXTI4_IRQHandler_0
-// 1021   {
-// 1022     
-// 1023      if (cntRisingEXTI==20)
-        LDR.W    R0,??DataTable16_62
+// 1022   {
+// 1023     
+// 1024      if (cntRisingEXTI==20)
+        LDR.W    R0,??DataTable16_63
         LDRH     R0,[R0, #+0]
         CMP      R0,#+20
         BNE.N    ??EXTI4_IRQHandler_1
-// 1024      {
-// 1025     	/*--------------Enable read PCM data --------------------*/   
-// 1026         //flgDlyUpd = 1;  
-// 1027         //__HAL_SPI_ENABLE_IT(&hspi5, (SPI_IT_RXNE| SPI_IT_ERR));
-// 1028 		//__HAL_UNLOCK(&hspi5);
-// 1029         //__HAL_SPI_ENABLE(&hspi5);
-// 1030         cntRisingEXTI=0;
+// 1025      {
+// 1026     	/*--------------Enable read PCM data --------------------*/   
+// 1027         //flgDlyUpd = 1;  
+// 1028         //__HAL_SPI_ENABLE_IT(&hspi5, (SPI_IT_RXNE| SPI_IT_ERR));
+// 1029 		//__HAL_UNLOCK(&hspi5);
+// 1030         //__HAL_SPI_ENABLE(&hspi5);
+// 1031         cntRisingEXTI=0;
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_62
+        LDR.W    R1,??DataTable16_63
         STRH     R0,[R1, #+0]
-// 1031 
-// 1032         /*Disable external interrupt */
-// 1033         HAL_NVIC_DisableIRQ((IRQn_Type)(EXTI4_IRQn));
+// 1032 
+// 1033         /*Disable external interrupt */
+// 1034         HAL_NVIC_DisableIRQ((IRQn_Type)(EXTI4_IRQn));
         MOVS     R0,#+10
           CFI FunCall HAL_NVIC_DisableIRQ
         BL       HAL_NVIC_DisableIRQ
         B.N      ??EXTI4_IRQHandler_2
-// 1034         //HAL_GPIO_DeInit(GPIOB,GPIO_PIN_4);
-// 1035      }
-// 1036      else
-// 1037      {
-// 1038         cntRisingEXTI++;
+// 1035         //HAL_GPIO_DeInit(GPIOB,GPIO_PIN_4);
+// 1036      }
+// 1037      else
+// 1038      {
+// 1039         cntRisingEXTI++;
 ??EXTI4_IRQHandler_1:
-        LDR.W    R0,??DataTable16_62
+        LDR.W    R0,??DataTable16_63
         LDRH     R0,[R0, #+0]
         ADDS     R0,R0,#+1
-        LDR.W    R1,??DataTable16_62
+        LDR.W    R1,??DataTable16_63
         STRH     R0,[R1, #+0]
-// 1039         //__HAL_SPI_DISABLE(&hspi5);
-// 1040      }
-// 1041      
-// 1042       __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_4);
+// 1040         //__HAL_SPI_DISABLE(&hspi5);
+// 1041      }
+// 1042      
+// 1043       __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_4);
 ??EXTI4_IRQHandler_2:
         MOVS     R0,#+16
-        LDR.W    R1,??DataTable16_61  ;; 0x40013c14
+        LDR.W    R1,??DataTable16_62  ;; 0x40013c14
         STR      R0,[R1, #+0]
-// 1043 
-// 1044   }
-// 1045 }
+// 1044 
+// 1045   }
+// 1046 }
 ??EXTI4_IRQHandler_0:
         POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock12
-// 1046               
+// 1047               
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock13 Using cfiCommon0
           CFI Function EXTI15_10_IRQHandler
           CFI NoCalls
         THUMB
-// 1047 void EXTI15_10_IRQHandler(void)
-// 1048 {
-// 1049 
-// 1050 }
+// 1048 void EXTI15_10_IRQHandler(void)
+// 1049 {
+// 1050 
+// 1051 }
 EXTI15_10_IRQHandler:
         BX       LR               ;; return
           CFI EndBlock cfiBlock13
-// 1051 
-// 1052 /* Events for Button Press */
+// 1052 
+// 1053 /* Events for Button Press */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock14 Using cfiCommon0
           CFI Function EXTI9_5_IRQHandler
         THUMB
-// 1053 void EXTI9_5_IRQHandler(void)
-// 1054 {
+// 1054 void EXTI9_5_IRQHandler(void)
+// 1055 {
 EXTI9_5_IRQHandler:
         PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+8
-// 1055 
-// 1056   /* EXTI line interrupt detected */
-// 1057   if(__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_8) != RESET)
-        LDR.W    R0,??DataTable16_61  ;; 0x40013c14
+// 1056 
+// 1057   /* EXTI line interrupt detected */
+// 1058   if(__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_8) != RESET)
+        LDR.W    R0,??DataTable16_62  ;; 0x40013c14
         LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+23
         BPL.N    ??EXTI9_5_IRQHandler_0
-// 1058   {
-// 1059 	  btnSW2 = 1;
+// 1059   {
+// 1060 	  btnSW2 = 1;
         MOVS     R0,#+1
-        LDR.W    R1,??DataTable16_63
+        LDR.W    R1,??DataTable16_64
         STRB     R0,[R1, #+0]
-// 1060 	  if ((++cntBtnPress)==8) cntBtnPress=0;
-        LDR.W    R0,??DataTable16_64
+// 1061 	  if ((++cntBtnPress)==8) cntBtnPress=0;
+        LDR.W    R0,??DataTable16_65
         LDRB     R0,[R0, #+0]
         ADDS     R0,R0,#+1
-        LDR.W    R1,??DataTable16_64
+        LDR.W    R1,??DataTable16_65
         STRB     R0,[R1, #+0]
         UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
         CMP      R0,#+8
         BNE.N    ??EXTI9_5_IRQHandler_1
         MOVS     R0,#+0
-        LDR.W    R1,??DataTable16_64
+        LDR.W    R1,??DataTable16_65
         STRB     R0,[R1, #+0]
-// 1061 	  BSP_LED_Toggle(LED2);
+// 1062 	  BSP_LED_Toggle(LED2);
 ??EXTI9_5_IRQHandler_1:
         MOVS     R0,#+1
           CFI FunCall BSP_LED_Toggle
         BL       BSP_LED_Toggle
-// 1062 	  __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_8);
+// 1063 	  __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_8);
         MOV      R0,#+256
-        LDR.W    R1,??DataTable16_61  ;; 0x40013c14
+        LDR.W    R1,??DataTable16_62  ;; 0x40013c14
         STR      R0,[R1, #+0]
-// 1063 
-// 1064   }
-// 1065 
+// 1064 
+// 1065   }
 // 1066 
-// 1067   /* EXTI line interrupt detected */
-// 1068   if(__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_9) != RESET)
+// 1067 
+// 1068   /* EXTI line interrupt detected */
+// 1069   if(__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_9) != RESET)
 ??EXTI9_5_IRQHandler_0:
-        LDR.W    R0,??DataTable16_61  ;; 0x40013c14
+        LDR.W    R0,??DataTable16_62  ;; 0x40013c14
         LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+22
         BPL.N    ??EXTI9_5_IRQHandler_2
-// 1069   {
-// 1070 		btnSW1 = 1;
+// 1070   {
+// 1071 		btnSW1 = 1;
         MOVS     R0,#+1
-        LDR.W    R1,??DataTable16_65
-        STRB     R0,[R1, #+0]
-// 1071 		Command_index^=0x01;
-        LDR.W    R0,??DataTable16_66
-        LDRB     R0,[R0, #+0]
-        EORS     R0,R0,#0x1
         LDR.W    R1,??DataTable16_66
         STRB     R0,[R1, #+0]
-// 1072 		BSP_LED_Toggle(LED1);
+// 1072 		Command_index^=0x01;
+        LDR.W    R0,??DataTable16_67
+        LDRB     R0,[R0, #+0]
+        EORS     R0,R0,#0x1
+        LDR.W    R1,??DataTable16_67
+        STRB     R0,[R1, #+0]
+// 1073 		BSP_LED_Toggle(LED1);
         MOVS     R0,#+0
           CFI FunCall BSP_LED_Toggle
         BL       BSP_LED_Toggle
-// 1073 
-// 1074 	   __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_9);
+// 1074 
+// 1075 	   __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_9);
         MOV      R0,#+512
-        LDR.W    R1,??DataTable16_61  ;; 0x40013c14
+        LDR.W    R1,??DataTable16_62  ;; 0x40013c14
         STR      R0,[R1, #+0]
-// 1075   }
-// 1076 
-// 1077 }
+// 1076   }
+// 1077 
+// 1078 }
 ??EXTI9_5_IRQHandler_2:
         POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock14
-// 1078 
 // 1079 
+// 1080 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock15 Using cfiCommon0
           CFI Function DFT_Init
         THUMB
-// 1080 void DFT_Init(void)
-// 1081 {
+// 1081 void DFT_Init(void)
+// 1082 {
 DFT_Init:
         PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+8
-// 1082 #if MAIN_CRSCORR
-// 1083 		arm_rfft_init_q15(&RealFFT_Ins,(uint32_t)128,(uint32_t)0,(uint32_t)1);
-// 1084 		arm_rfft_init_q15(&RealIFFT_Ins,(uint32_t)128,(uint32_t)1,(uint32_t)1);
-// 1085 #endif  
-// 1086 		/* Initialize the CFFT/CIFFT module */	
-// 1087 		arm_rfft_init_f32(&S1,&SS1, 512,  0, 1); 
+// 1083 #if MAIN_CRSCORR
+// 1084 		arm_rfft_init_q15(&RealFFT_Ins,(uint32_t)128,(uint32_t)0,(uint32_t)1);
+// 1085 		arm_rfft_init_q15(&RealIFFT_Ins,(uint32_t)128,(uint32_t)1,(uint32_t)1);
+// 1086 #endif  
+// 1087 		/* Initialize the CFFT/CIFFT module */	
+// 1088 		arm_rfft_init_f32(&S1,&SS1, 512,  0, 1); 
         MOVS     R0,#+1
         STR      R0,[SP, #+0]
         MOVS     R3,#+0
         MOV      R2,#+512
-        LDR.W    R1,??DataTable16_67
-        LDR.W    R0,??DataTable16_68
+        LDR.W    R1,??DataTable16_68
+        LDR.W    R0,??DataTable16_69
           CFI FunCall arm_rfft_init_f32
         BL       arm_rfft_init_f32
-// 1088 		arm_rfft_init_f32(&S2,&SS2, 512,  0, 1); 
+// 1089 		arm_rfft_init_f32(&S2,&SS2, 512,  0, 1); 
         MOVS     R0,#+1
         STR      R0,[SP, #+0]
         MOVS     R3,#+0
         MOV      R2,#+512
-        LDR.W    R1,??DataTable16_69
-        LDR.W    R0,??DataTable16_70
+        LDR.W    R1,??DataTable16_70
+        LDR.W    R0,??DataTable16_71
           CFI FunCall arm_rfft_init_f32
         BL       arm_rfft_init_f32
-// 1089 		arm_rfft_init_f32(&S3,&SS3, 512,  0, 1); 
+// 1090 		arm_rfft_init_f32(&S3,&SS3, 512,  0, 1); 
         MOVS     R0,#+1
         STR      R0,[SP, #+0]
         MOVS     R3,#+0
         MOV      R2,#+512
-        LDR.W    R1,??DataTable16_71
-        LDR.W    R0,??DataTable16_72
+        LDR.W    R1,??DataTable16_72
+        LDR.W    R0,??DataTable16_73
           CFI FunCall arm_rfft_init_f32
         BL       arm_rfft_init_f32
-// 1090 		arm_rfft_init_f32(&S4,&SS4, 512,  0, 1);
+// 1091 		arm_rfft_init_f32(&S4,&SS4, 512,  0, 1);
         MOVS     R0,#+1
         STR      R0,[SP, #+0]
         MOVS     R3,#+0
         MOV      R2,#+512
-        LDR.W    R1,??DataTable16_73
-        LDR.W    R0,??DataTable16_74
+        LDR.W    R1,??DataTable16_74
+        LDR.W    R0,??DataTable16_75
           CFI FunCall arm_rfft_init_f32
         BL       arm_rfft_init_f32
-// 1091 		arm_rfft_init_f32(&IS,&ISS, 512,  1, 1);
+// 1092 		arm_rfft_init_f32(&IS,&ISS, 512,  1, 1);
         MOVS     R0,#+1
         STR      R0,[SP, #+0]
         MOVS     R3,#+1
         MOV      R2,#+512
-        LDR.W    R1,??DataTable16_75
-        LDR.W    R0,??DataTable16_76
+        LDR.W    R1,??DataTable16_76
+        LDR.W    R0,??DataTable16_77
           CFI FunCall arm_rfft_init_f32
         BL       arm_rfft_init_f32
-// 1092 
-// 1093 		//arm_rfft_fast_init_f32(&S1, 512);
-// 1094                 //arm_rfft_fast_init_f32(&S2, 512);
-// 1095 		//arm_rfft_fast_init_f32(&S3, 512);
-// 1096 		//arm_rfft_fast_init_f32(&S4, 512);
-// 1097 		//arm_rfft_fast_init_f32(&IS, 512);
-// 1098 }
+// 1093 
+// 1094 		//arm_rfft_fast_init_f32(&S1, 512);
+// 1095                 //arm_rfft_fast_init_f32(&S2, 512);
+// 1096 		//arm_rfft_fast_init_f32(&S3, 512);
+// 1097 		//arm_rfft_fast_init_f32(&S4, 512);
+// 1098 		//arm_rfft_fast_init_f32(&IS, 512);
+// 1099 }
         POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock15
-// 1099 
 // 1100 
+// 1101 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock16 Using cfiCommon0
           CFI Function SumDelay
           CFI NoCalls
         THUMB
-// 1101 void SumDelay(Mic_Array_Data *BufferIn)
-// 1102 {
+// 1102 void SumDelay(Mic_Array_Data *BufferIn)
+// 1103 {
 SumDelay:
         PUSH     {R4,R5}
           CFI R5 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-// 1103            //if (idxLatency12>idxLatency13)
-// 1104            // {
-// 1105            //     if (idxLatency13 > idxLatency14)
-// 1106            //     {
-// 1107            //         /* MIC2 --> MIC3 --> MIC4 */
-// 1108            //     }
-// 1109            //             else if (idxLatency14 > idxLatency12)
-// 1110            //             {
-// 1111            //        /* MIC4-->MIC2-->MIC3  */
-// 1112            //            }
-// 1113            //             else
-// 1114            //             {
-// 1115            //       /* MIC2-->MIC4-->MIC3  */
-// 1116            //             }
-// 1117            // }
-// 1118            //else // idxLatency13>idxLatency12
-// 1119            //     {
-// 1120            //    if (idxLatency12 > idxLatency14)
-// 1121            //    {
-// 1122            //        //MIC3 --> MIC2 --> MIC4 
-// 1123            //    }
-// 1124            //        else if (idxLatency14 > idxLatency13)
-// 1125            //        {
-// 1126            //        //MIC4 --> MIC3 --> MIC2
-// 1127            //        }
-// 1128            //        else
-// 1129            //        {
-// 1130            //        //MIC3 --> MIC4 --> MIC2
-// 1131 	   //	   }
-// 1132 	   //}
-// 1133 
-// 1134 	
-// 1135 	for(uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
+// 1104            //if (idxLatency12>idxLatency13)
+// 1105            // {
+// 1106            //     if (idxLatency13 > idxLatency14)
+// 1107            //     {
+// 1108            //         /* MIC2 --> MIC3 --> MIC4 */
+// 1109            //     }
+// 1110            //             else if (idxLatency14 > idxLatency12)
+// 1111            //             {
+// 1112            //        /* MIC4-->MIC2-->MIC3  */
+// 1113            //            }
+// 1114            //             else
+// 1115            //             {
+// 1116            //       /* MIC2-->MIC4-->MIC3  */
+// 1117            //             }
+// 1118            // }
+// 1119            //else // idxLatency13>idxLatency12
+// 1120            //     {
+// 1121            //    if (idxLatency12 > idxLatency14)
+// 1122            //    {
+// 1123            //        //MIC3 --> MIC2 --> MIC4 
+// 1124            //    }
+// 1125            //        else if (idxLatency14 > idxLatency13)
+// 1126            //        {
+// 1127            //        //MIC4 --> MIC3 --> MIC2
+// 1128            //        }
+// 1129            //        else
+// 1130            //        {
+// 1131            //        //MIC3 --> MIC4 --> MIC2
+// 1132 	   //	   }
+// 1133 	   //}
+// 1134 
+// 1135 	
+// 1136 	for(uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
         MOVS     R1,#+0
 ??SumDelay_0:
         UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
         CMP      R1,#+1024
         BGE.W    ??SumDelay_1
-// 1136 	{
-// 1137 
-// 1138 		 if (i%2==0)
+// 1137 	{
+// 1138 
+// 1139 		 if (i%2==0)
         UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
         MOVS     R2,#+2
         SDIV     R3,R1,R2
         MLS      R3,R3,R2,R1
         CMP      R3,#+0
         BNE.N    ??SumDelay_2
-// 1139 		 {
-// 1140                     bufferSum[i] = (uint16_t)(BufferIn->bufMIC1[i]*FacMic.facMIC1 + 
-// 1141                     BufferIn->bufMIC2[(((i-idxLatency12)>0)?(i-idxLatency12):0)]*FacMic.facMIC2 + 
-// 1142                     BufferIn->bufMIC3[(((i-idxLatency13)>0)?(i-idxLatency13):0)]*FacMic.facMIC3 + 
-// 1143                     BufferIn->bufMIC4[(((i-idxLatency14)>0)?(i-idxLatency14):0)]*FacMic.facMIC4); 		
+// 1140 		 {
+// 1141                     bufferSum[i] = (uint16_t)(BufferIn->bufMIC1[i]*FacMic.facMIC1 + 
+// 1142                     BufferIn->bufMIC2[(((i-idxLatency12)>0)?(i-idxLatency12):0)]*FacMic.facMIC2 + 
+// 1143                     BufferIn->bufMIC3[(((i-idxLatency13)>0)?(i-idxLatency13):0)]*FacMic.facMIC3 + 
+// 1144                     BufferIn->bufMIC4[(((i-idxLatency14)>0)?(i-idxLatency14):0)]*FacMic.facMIC4); 		
         UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        LDR.W    R2,??DataTable16_77
+        LDR.W    R2,??DataTable16_78
         LDRSH    R2,[R2, #+0]
         SUBS     R2,R1,R2
         CMP      R2,#+1
         BLT.N    ??SumDelay_3
         UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        LDR.W    R2,??DataTable16_77
+        LDR.W    R2,??DataTable16_78
         LDRSH    R2,[R2, #+0]
         SUBS     R2,R1,R2
         B.N      ??SumDelay_4
@@ -2773,13 +2772,13 @@ SumDelay:
         MOVS     R2,#+0
 ??SumDelay_4:
         UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        LDR.N    R3,??DataTable16_78
+        LDR.N    R3,??DataTable16_79
         LDRSH    R3,[R3, #+0]
         SUBS     R3,R1,R3
         CMP      R3,#+1
         BLT.N    ??SumDelay_5
         UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        LDR.N    R3,??DataTable16_78
+        LDR.N    R3,??DataTable16_79
         LDRSH    R3,[R3, #+0]
         SUBS     R3,R1,R3
         B.N      ??SumDelay_6
@@ -2787,13 +2786,13 @@ SumDelay:
         MOVS     R3,#+0
 ??SumDelay_6:
         UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        LDR.N    R4,??DataTable16_4
+        LDR.N    R4,??DataTable16_5
         LDRSH    R4,[R4, #+0]
         SUBS     R4,R1,R4
         CMP      R4,#+1
         BLT.N    ??SumDelay_7
         UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        LDR.N    R4,??DataTable16_4
+        LDR.N    R4,??DataTable16_5
         LDRSH    R4,[R4, #+0]
         SUBS     R4,R1,R4
         B.N      ??SumDelay_8
@@ -2804,7 +2803,7 @@ SumDelay:
         LDRSH    R5,[R0, R1, LSL #+1]
         VMOV     S0,R5
         VCVT.F32.S32 S0,S0
-        LDR.N    R5,??DataTable16_1
+        LDR.N    R5,??DataTable16_2
         VLDR     S1,[R5, #0]
         VMUL.F32 S0,S0,S1
         ADDS     R2,R0,R2, LSL #+1
@@ -2812,7 +2811,7 @@ SumDelay:
         LDRSH    R2,[R5, R2]
         VMOV     S1,R2
         VCVT.F32.S32 S1,S1
-        LDR.N    R2,??DataTable16_1
+        LDR.N    R2,??DataTable16_2
         VLDR     S2,[R2, #+4]
         VMLA.F32 S0,S1,S2
         ADDS     R2,R0,R3, LSL #+1
@@ -2820,7 +2819,7 @@ SumDelay:
         LDRSH    R2,[R3, R2]
         VMOV     S1,R2
         VCVT.F32.S32 S1,S1
-        LDR.N    R2,??DataTable16_1
+        LDR.N    R2,??DataTable16_2
         VLDR     S2,[R2, #+8]
         VMLA.F32 S0,S1,S2
         ADDS     R2,R0,R4, LSL #+1
@@ -2828,33 +2827,33 @@ SumDelay:
         LDRSH    R2,[R3, R2]
         VMOV     S1,R2
         VCVT.F32.S32 S1,S1
-        LDR.N    R2,??DataTable16_1
+        LDR.N    R2,??DataTable16_2
         VLDR     S2,[R2, #+12]
         VMLA.F32 S0,S1,S2
         VCVT.S32.F32 S0,S0
         VMOV     R2,S0
-        LDR.N    R3,??DataTable16_79
+        LDR.N    R3,??DataTable16_80
         UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
         STRH     R2,[R3, R1, LSL #+1]
         B.N      ??SumDelay_9
-// 1144 		 }
-// 1145 		 else
-// 1146 		 {
-// 1147                      bufferSum[i] = (uint16_t)(BufferIn->bufMIC3[i]);
+// 1145 		 }
+// 1146 		 else
+// 1147 		 {
+// 1148                      bufferSum[i] = (uint16_t)(BufferIn->bufMIC3[i]);
 ??SumDelay_2:
         UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
         ADDS     R2,R0,R1, LSL #+1
         MOVW     R3,#+8232
         LDRH     R2,[R3, R2]
-        LDR.N    R3,??DataTable16_79
+        LDR.N    R3,??DataTable16_80
         UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
         STRH     R2,[R3, R1, LSL #+1]
-// 1148 		 }
-// 1149 	}
+// 1149 		 }
+// 1150 	}
 ??SumDelay_9:
         ADDS     R1,R1,#+1
         B.N      ??SumDelay_0
-// 1150 }
+// 1151 }
 ??SumDelay_1:
         POP      {R4,R5}
           CFI R4 SameValue
@@ -2862,140 +2861,140 @@ SumDelay:
           CFI CFA R13+0
         BX       LR               ;; return
           CFI EndBlock cfiBlock16
-// 1151 
 // 1152 
+// 1153 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock17 Using cfiCommon0
           CFI Function ButtonInit
         THUMB
-// 1153 void ButtonInit(void)
-// 1154 {
+// 1154 void ButtonInit(void)
+// 1155 {
 ButtonInit:
         PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+8
-// 1155     /* PI8: SW2 */
-// 1156 	/* PI9: SW1 */
-// 1157 	 /* ----------------------*/
-// 1158 	 __GPIOB_CLK_ENABLE();
-        LDR.N    R0,??DataTable16_38  ;; 0x40023830
+// 1156     /* PI8: SW2 */
+// 1157 	/* PI9: SW1 */
+// 1158 	 /* ----------------------*/
+// 1159 	 __GPIOB_CLK_ENABLE();
+        LDR.N    R0,??DataTable16_39  ;; 0x40023830
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x2
-        LDR.N    R1,??DataTable16_38  ;; 0x40023830
+        LDR.N    R1,??DataTable16_39  ;; 0x40023830
         STR      R0,[R1, #+0]
-        LDR.N    R0,??DataTable16_38  ;; 0x40023830
+        LDR.N    R0,??DataTable16_39  ;; 0x40023830
         LDR      R0,[R0, #+0]
         ANDS     R0,R0,#0x2
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
-// 1159 	GPIO_INS.Pin = GPIO_PIN_8|GPIO_PIN_9;
+// 1160 	GPIO_INS.Pin = GPIO_PIN_8|GPIO_PIN_9;
         MOV      R0,#+768
-        LDR.N    R1,??DataTable16_39
+        LDR.N    R1,??DataTable16_40
         STR      R0,[R1, #+0]
-// 1160 	GPIO_INS.Mode =GPIO_MODE_IT_RISING;
-        LDR.N    R0,??DataTable16_40  ;; 0x10110000
-        LDR.N    R1,??DataTable16_39
+// 1161 	GPIO_INS.Mode =GPIO_MODE_IT_RISING;
+        LDR.N    R0,??DataTable16_41  ;; 0x10110000
+        LDR.N    R1,??DataTable16_40
         STR      R0,[R1, #+4]
-// 1161 	GPIO_INS.Pull =GPIO_NOPULL;
+// 1162 	GPIO_INS.Pull =GPIO_NOPULL;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable16_39
+        LDR.N    R1,??DataTable16_40
         STR      R0,[R1, #+8]
-// 1162 	GPIO_INS.Speed =GPIO_SPEED_HIGH;
+// 1163 	GPIO_INS.Speed =GPIO_SPEED_HIGH;
         MOVS     R0,#+3
-        LDR.N    R1,??DataTable16_39
+        LDR.N    R1,??DataTable16_40
         STR      R0,[R1, #+12]
-// 1163 	HAL_GPIO_Init(GPIOI,&GPIO_INS);
-        LDR.N    R1,??DataTable16_39
-        LDR.N    R0,??DataTable16_80  ;; 0x40022000
+// 1164 	HAL_GPIO_Init(GPIOI,&GPIO_INS);
+        LDR.N    R1,??DataTable16_40
+        LDR.N    R0,??DataTable16_81  ;; 0x40022000
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
-// 1164 	
-// 1165 	/* Enable and set Button EXTI Interrupt to the lowest priority */
-// 1166 	HAL_NVIC_SetPriority((IRQn_Type)EXTI9_5_IRQn, 0x0F, 0x00);
+// 1165 	
+// 1166 	/* Enable and set Button EXTI Interrupt to the lowest priority */
+// 1167 	HAL_NVIC_SetPriority((IRQn_Type)EXTI9_5_IRQn, 0x0F, 0x00);
         MOVS     R2,#+0
         MOVS     R1,#+15
         MOVS     R0,#+23
           CFI FunCall HAL_NVIC_SetPriority
         BL       HAL_NVIC_SetPriority
-// 1167 	HAL_NVIC_EnableIRQ((IRQn_Type)EXTI9_5_IRQn);
+// 1168 	HAL_NVIC_EnableIRQ((IRQn_Type)EXTI9_5_IRQn);
         MOVS     R0,#+23
           CFI FunCall HAL_NVIC_EnableIRQ
         BL       HAL_NVIC_EnableIRQ
-// 1168 	/*-----------------------*/
-// 1169 
-// 1170 }
+// 1169 	/*-----------------------*/
+// 1170 
+// 1171 }
         POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock17
-// 1171 
 // 1172 
-// 1173 /* I2C2 init function */
+// 1173 
+// 1174 /* I2C2 init function */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock18 Using cfiCommon0
           CFI Function MX_I2C2_Init
         THUMB
-// 1174 void MX_I2C2_Init(void)
-// 1175 {
+// 1175 void MX_I2C2_Init(void)
+// 1176 {
 MX_I2C2_Init:
         PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+8
-// 1176    __HAL_I2C_DISABLE(&hi2c2);
-        LDR.N    R0,??DataTable16_81
+// 1177    __HAL_I2C_DISABLE(&hi2c2);
+        LDR.N    R0,??DataTable16_82
         LDR      R0,[R0, #+0]
         LDR      R0,[R0, #+0]
         LSRS     R0,R0,#+1
         LSLS     R0,R0,#+1
-        LDR.N    R1,??DataTable16_81
+        LDR.N    R1,??DataTable16_82
         LDR      R1,[R1, #+0]
         STR      R0,[R1, #+0]
-// 1177   hi2c2.Instance = I2C2;
-        LDR.N    R0,??DataTable16_57  ;; 0x40005800
-        LDR.N    R1,??DataTable16_81
+// 1178   hi2c2.Instance = I2C2;
+        LDR.N    R0,??DataTable16_58  ;; 0x40005800
+        LDR.N    R1,??DataTable16_82
         STR      R0,[R1, #+0]
-// 1178   hi2c2.Init.Timing =0x00A0689A ;//I2C_TIMING  0x00303D5D 0x00A0689A
-        LDR.N    R0,??DataTable16_82  ;; 0xa0689a
-        LDR.N    R1,??DataTable16_81
+// 1179   hi2c2.Init.Timing =0x00A0689A ;//I2C_TIMING  0x00303D5D 0x00A0689A
+        LDR.N    R0,??DataTable16_83  ;; 0xa0689a
+        LDR.N    R1,??DataTable16_82
         STR      R0,[R1, #+4]
-// 1179   hi2c2.Init.OwnAddress1 = 0;
+// 1180   hi2c2.Init.OwnAddress1 = 0;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable16_81
+        LDR.N    R1,??DataTable16_82
         STR      R0,[R1, #+8]
-// 1180   hi2c2.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+// 1181   hi2c2.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
         MOVS     R0,#+1
-        LDR.N    R1,??DataTable16_81
+        LDR.N    R1,??DataTable16_82
         STR      R0,[R1, #+12]
-// 1181   hi2c2.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+// 1182   hi2c2.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable16_81
+        LDR.N    R1,??DataTable16_82
         STR      R0,[R1, #+16]
-// 1182   hi2c2.Init.OwnAddress2 = 0;
+// 1183   hi2c2.Init.OwnAddress2 = 0;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable16_81
+        LDR.N    R1,??DataTable16_82
         STR      R0,[R1, #+20]
-// 1183   hi2c2.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
+// 1184   hi2c2.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable16_81
+        LDR.N    R1,??DataTable16_82
         STR      R0,[R1, #+24]
-// 1184   hi2c2.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+// 1185   hi2c2.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable16_81
+        LDR.N    R1,??DataTable16_82
         STR      R0,[R1, #+28]
-// 1185   hi2c2.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+// 1186   hi2c2.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable16_81
+        LDR.N    R1,??DataTable16_82
         STR      R0,[R1, #+32]
-// 1186   HAL_I2C_Init(&hi2c2);
-        LDR.N    R0,??DataTable16_81
+// 1187   HAL_I2C_Init(&hi2c2);
+        LDR.N    R0,??DataTable16_82
           CFI FunCall HAL_I2C_Init
         BL       HAL_I2C_Init
-// 1187 
-// 1188     /**Configure Analogue filter 
-// 1189     */
-// 1190   //HAL_I2CEx_AnalogFilter_Config(&hi2c2, I2C_ANALOGFILTER_ENABLE);
-// 1191 
-// 1192 }
+// 1188 
+// 1189     /**Configure Analogue filter 
+// 1190     */
+// 1191   //HAL_I2CEx_AnalogFilter_Config(&hi2c2, I2C_ANALOGFILTER_ENABLE);
+// 1192 
+// 1193 }
         POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock18
 
@@ -3027,82 +3026,73 @@ MX_I2C2_Init:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable15_4:
-        DC32     flgDlyUpd
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable15_5:
         DC32     buffer_switch
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable15_6:
+??DataTable15_5:
         DC32     Buffer3+0x708C
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable15_7:
+??DataTable15_6:
         DC32     Buffer3+0x6078
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable15_8:
+??DataTable15_7:
         DC32     Buffer3+0x303C
-// 1193 
+// 1194 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock19 Using cfiCommon0
           CFI Function HAL_I2S_TxCpltCallback
         THUMB
-// 1194  void HAL_I2S_TxCpltCallback(I2S_HandleTypeDef *hi2s)
-// 1195 {  
+// 1195  void HAL_I2S_TxCpltCallback(I2S_HandleTypeDef *hi2s)
+// 1196 {  
 HAL_I2S_TxCpltCallback:
         PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
         MOVS     R4,R0
-// 1196   Audio_Play_Out();  
+// 1197   Audio_Play_Out();  
           CFI FunCall Audio_Play_Out
         BL       Audio_Play_Out
-// 1197 }
+// 1198 }
         POP      {R4,PC}          ;; return
           CFI EndBlock cfiBlock19
-// 1198 
+// 1199 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock20 Using cfiCommon0
           CFI Function StartPlay
         THUMB
-// 1199  uint8_t StartPlay(void)
-// 1200  {
+// 1200  uint8_t StartPlay(void)
+// 1201  {
 StartPlay:
         PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+8
-// 1201 	while (1)
-// 1202 	{
-// 1203 		 /* there is data in the buffer */	
-// 1204 		 if((WaveRec_idxSens1>=(AUDIO_OUT_BUFFER_SIZE-1))&&(stFrstFrmStore<3))
+// 1202 	while (1)
+// 1203 	{
+// 1204 		 /* there is data in the buffer */	
+// 1205 		 if((WaveRec_idxSens1>=(AUDIO_OUT_BUFFER_SIZE-1))&&(stFrstFrmStore<3))
 ??StartPlay_0:
-        LDR.N    R0,??DataTable16_28
+        LDR.N    R0,??DataTable16_29
         LDRH     R0,[R0, #+0]
         MOVW     R1,#+1023
         CMP      R0,R1
         BLT.N    ??StartPlay_0
-        LDR.N    R0,??DataTable16_83
+        LDR.N    R0,??DataTable16_84
         LDRB     R0,[R0, #+0]
         CMP      R0,#+3
         BGE.N    ??StartPlay_0
-// 1205 		 {
-// 1206 			 RESET_IDX
-        MOVS     R0,#+0
-        LDR.N    R1,??DataTable16_28
-        STRH     R0,[R1, #+0]
+// 1206 		 {
+// 1207 			 RESET_IDX
         MOVS     R0,#+0
         LDR.N    R1,??DataTable16_29
         STRH     R0,[R1, #+0]
@@ -3125,66 +3115,69 @@ StartPlay:
         LDR.N    R1,??DataTable16_35
         STRH     R0,[R1, #+0]
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable16_84
+        LDR.N    R1,??DataTable16_36
+        STRH     R0,[R1, #+0]
+        MOVS     R0,#+0
+        LDR.N    R1,??DataTable16_1
         STRB     R0,[R1, #+0]
-// 1207 			 /* this is just run 1 time after 1st frame of I2S data full */
-// 1208 			 if ((stFrstFrmStore<3))
-        LDR.N    R0,??DataTable16_83
+// 1208 			 /* this is just run 1 time after 1st frame of I2S data full */
+// 1209 			 if ((stFrstFrmStore<3))
+        LDR.N    R0,??DataTable16_84
         LDRB     R0,[R0, #+0]
         CMP      R0,#+3
         BGE.N    ??StartPlay_0
-// 1209 			 {
-// 1210                              stFrstFrmStore++;
-        LDR.N    R0,??DataTable16_83
+// 1210 			 {
+// 1211                              stFrstFrmStore++;
+        LDR.N    R0,??DataTable16_84
         LDRB     R0,[R0, #+0]
         ADDS     R0,R0,#+1
-        LDR.N    R1,??DataTable16_83
+        LDR.N    R1,??DataTable16_84
         STRB     R0,[R1, #+0]
-// 1211              
-// 1212                              buffer_switch = BUF2_PLAY; /* record data to buffer3 */
+// 1212              
+// 1213                              buffer_switch = BUF2_PLAY; /* record data to buffer3 */
         MOVS     R0,#+1
         LDR.N    R1,??DataTable16_85
         STRB     R0,[R1, #+0]
-// 1213              
-// 1214                              if (stFrstFrmStore==2)
-        LDR.N    R0,??DataTable16_83
+// 1214              
+// 1215                              if (stFrstFrmStore==2)
+        LDR.N    R0,??DataTable16_84
         LDRB     R0,[R0, #+0]
         CMP      R0,#+2
         BNE.N    ??StartPlay_0
-// 1215                              {
-// 1216                                  
-// 1217          
-// 1218                                  /*------------------------PLAYER------------------------------------------*/
-// 1219                                  Audio_MAL_Play((uint32_t)Buffer1.bufMIC1,2*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
+// 1216                              {
+// 1217                                  
+// 1218          
+// 1219                                  /*------------------------PLAYER------------------------------------------*/
+// 1220                                  Audio_MAL_Play((uint32_t)Buffer1.bufMIC1,2*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
         MOVS     R1,#+64
-        LDR.N    R0,??DataTable16_14
+        LDR.N    R0,??DataTable16_15
           CFI FunCall Audio_MAL_Play
         BL       Audio_MAL_Play
-// 1220                                  /*------------------------------------------------------------------------*/				 
-// 1221                                  buffer_switch = BUF1_PLAY;
+// 1221                                  /*------------------------------------------------------------------------*/				 
+// 1222                                  buffer_switch = BUF1_PLAY;
         MOVS     R0,#+0
         LDR.N    R1,??DataTable16_85
         STRB     R0,[R1, #+0]
-// 1222 								 uint16_t tdelay=100;
+// 1223 								 uint16_t tdelay=100;
         MOVS     R1,#+100
-// 1223 								 while(tdelay--);
+// 1224 								 while(tdelay--);
 ??StartPlay_1:
         MOVS     R0,R1
         SUBS     R1,R0,#+1
         UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
         CMP      R0,#+0
         BNE.N    ??StartPlay_1
-// 1224                                  //StartRecMic7_8();
-// 1225                                  return 0;		 
+// 1225                                  //StartRecMic7_8();
+// 1226                                  return 0;		 
         MOVS     R0,#+0
         POP      {R1,PC}          ;; return
-// 1226                              }				 
-// 1227                      
-// 1228 			 }
-// 1229 		 
-// 1230 		 }
-// 1231 	}
-// 1232  }
+// 1227                              }				 
+// 1228                      
+// 1229 			 }
+// 1230 		 
+// 1231 		 }
+// 1232 	}
+// 1233  }
           CFI EndBlock cfiBlock20
 
         SECTION `.text`:CODE:NOROOT(2)
@@ -3197,505 +3190,505 @@ StartPlay:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_1:
-        DC32     FacMic
+        DC32     flgDlyUpd
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_2:
-        DC32     idxLatency78
+        DC32     FacMic
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_3:
-        DC32     Buffer3
+        DC32     idxLatency78
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_4:
-        DC32     idxLatency14
+        DC32     Buffer3
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_5:
-        DC32     Buffer3+0x4050
+        DC32     idxLatency14
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_6:
-        DC32     Buffer3+0x1014
+        DC32     Buffer3+0x4050
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_7:
-        DC32     idxLatency25
+        DC32     Buffer3+0x1014
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_8:
-        DC32     Buffer3+0x2028
+        DC32     idxLatency25
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_9:
-        DC32     Buffer3+0x5064
+        DC32     Buffer3+0x2028
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_10:
-        DC32     idxLatency63
+        DC32     Buffer3+0x5064
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_11:
-        DC32     Buffer1+0x708C
+        DC32     idxLatency63
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_12:
-        DC32     Buffer1+0x6078
+        DC32     Buffer1+0x708C
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_13:
-        DC32     Buffer1+0x303C
+        DC32     Buffer1+0x6078
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_14:
-        DC32     Buffer1
+        DC32     Buffer1+0x303C
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_15:
-        DC32     Buffer1+0x4050
+        DC32     Buffer1
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_16:
-        DC32     Buffer1+0x1014
+        DC32     Buffer1+0x4050
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_17:
-        DC32     Buffer1+0x2028
+        DC32     Buffer1+0x1014
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_18:
-        DC32     Buffer1+0x5064
+        DC32     Buffer1+0x2028
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_19:
-        DC32     Buffer2+0x708C
+        DC32     Buffer1+0x5064
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_20:
-        DC32     Buffer2+0x6078
+        DC32     Buffer2+0x708C
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_21:
-        DC32     Buffer2+0x303C
+        DC32     Buffer2+0x6078
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_22:
-        DC32     Buffer2
+        DC32     Buffer2+0x303C
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_23:
-        DC32     Buffer2+0x4050
+        DC32     Buffer2
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_24:
-        DC32     Buffer2+0x1014
+        DC32     Buffer2+0x4050
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_25:
-        DC32     Buffer2+0x2028
+        DC32     Buffer2+0x1014
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_26:
-        DC32     Buffer2+0x5064
+        DC32     Buffer2+0x2028
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_27:
-        DC32     idxFrmPDMMic8
+        DC32     Buffer2+0x5064
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_28:
-        DC32     WaveRec_idxSens1
+        DC32     idxFrmPDMMic8
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_29:
-        DC32     WaveRec_idxSens2
+        DC32     WaveRec_idxSens1
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_30:
-        DC32     idxSPI5DataBuf3
+        DC32     WaveRec_idxSens2
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_31:
-        DC32     WaveRec_idxSens3
+        DC32     idxSPI5DataBuf3
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_32:
-        DC32     WaveRec_idxSens4
+        DC32     WaveRec_idxSens3
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_33:
-        DC32     I2S2_idxTmp
+        DC32     WaveRec_idxSens4
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_34:
-        DC32     WaveRec_idxSens5
+        DC32     I2S2_idxTmp
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_35:
-        DC32     WaveRec_idxSens6
+        DC32     WaveRec_idxSens5
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_36:
-        DC32     WaveRec_idxTest
+        DC32     WaveRec_idxSens6
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_37:
-        DC32     cntStrt
+        DC32     WaveRec_idxTest
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_38:
-        DC32     0x40023830
+        DC32     cntStrt
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_39:
-        DC32     GPIO_INS
+        DC32     0x40023830
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_40:
-        DC32     0x10110000
+        DC32     GPIO_INS
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_41:
-        DC32     0x40020000
+        DC32     0x10110000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_42:
-        DC32     0x40021000
+        DC32     0x40020000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_43:
-        DC32     hUSBDDevice
+        DC32     0x40021000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_44:
-        DC32     AUDIO_Desc
+        DC32     hUSBDDevice
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_45:
-        DC32     USBD_AUDIO
+        DC32     AUDIO_Desc
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_46:
-        DC32     USBD_AUDIO_fops
+        DC32     USBD_AUDIO
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_47:
-        DC32     WaveRecord_flgIni
+        DC32     USBD_AUDIO_fops
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_48:
-        DC32     SPI4_stNipple
+        DC32     WaveRecord_flgIni
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_49:
-        DC32     SPI4_stPosShft
+        DC32     SPI4_stNipple
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_50:
-        DC32     flg10ms
+        DC32     SPI4_stPosShft
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_51:
-        DC32     cntTime200
+        DC32     flg10ms
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_52:
-        DC32     ??ticks
+        DC32     cntTime200
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_53:
-        DC32     0x100001
+        DC32     ??ticks
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_54:
-        DC32     0x40005400
+        DC32     0x100001
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_55:
-        DC32     0x40020400
+        DC32     0x40005400
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_56:
-        DC32     0x40023840
+        DC32     0x40020400
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_57:
-        DC32     0x40005800
+        DC32     0x40023840
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_58:
-        DC32     0x40004800
+        DC32     0x40005800
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_59:
-        DC32     huart3
+        DC32     0x40004800
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_60:
-        DC32     0x40020800
+        DC32     huart3
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_61:
-        DC32     0x40013c14
+        DC32     0x40020800
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_62:
-        DC32     cntRisingEXTI
+        DC32     0x40013c14
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_63:
-        DC32     btnSW2
+        DC32     cntRisingEXTI
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_64:
-        DC32     cntBtnPress
+        DC32     btnSW2
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_65:
-        DC32     btnSW1
+        DC32     cntBtnPress
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_66:
-        DC32     Command_index
+        DC32     btnSW1
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_67:
-        DC32     SS1
+        DC32     Command_index
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_68:
-        DC32     `S1`
+        DC32     SS1
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_69:
-        DC32     SS2
+        DC32     `S1`
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_70:
-        DC32     `S2`
+        DC32     SS2
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_71:
-        DC32     SS3
+        DC32     `S2`
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_72:
-        DC32     `S3`
+        DC32     SS3
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_73:
-        DC32     SS4
+        DC32     `S3`
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_74:
-        DC32     `S4`
+        DC32     SS4
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_75:
-        DC32     ISS
+        DC32     `S4`
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_76:
-        DC32     IS
+        DC32     ISS
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_77:
-        DC32     idxLatency12
+        DC32     IS
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_78:
-        DC32     idxLatency13
+        DC32     idxLatency12
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_79:
-        DC32     bufferSum
+        DC32     idxLatency13
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_80:
-        DC32     0x40022000
+        DC32     bufferSum
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_81:
-        DC32     hi2c2
+        DC32     0x40022000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_82:
-        DC32     0xa0689a
+        DC32     hi2c2
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_83:
-        DC32     stFrstFrmStore
+        DC32     0xa0689a
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_84:
-        DC32     flgDlyUpd
+        DC32     stFrstFrmStore
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -3715,13 +3708,13 @@ StartPlay:
         SECTION_TYPE SHT_PROGBITS, 0
 
         END
-// 1233 /*****************************END OF FILE**************************************/
+// 1234 /*****************************END OF FILE**************************************/
 // 
 // 8 949 bytes in section .bss
 //    22 bytes in section .data
-// 3 332 bytes in section .text
+// 3 320 bytes in section .text
 // 
-// 3 332 bytes of CODE memory
+// 3 320 bytes of CODE memory
 // 8 971 bytes of DATA memory
 //
 //Errors: none

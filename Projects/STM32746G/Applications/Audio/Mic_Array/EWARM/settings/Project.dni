@@ -2,7 +2,7 @@
 stlinkserialNo=391C0B1F
 stlinkfoundProbes=
 [DebugChecksum]
-Checksum=987087705
+Checksum=1497437960
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -117,8 +117,7 @@ mode=0
 [Breakpoints2]
 Bp0=_ 0 "EMUL_DATA" "AudioFlashPlay" 0 0 0 0 4294967295
 Bp1=_ 0 "EMUL_DATA" "HAL_DMA_IRQHandler" 0 0 0 0 4294967295
-Bp2=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Src\main.c}.490.3" 0 0 1 "" 0 "" 0
-Count=3
+Count=2
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
