@@ -29,7 +29,7 @@ extern DMA_HandleTypeDef     DmaHandle;
 
 extern SAI_HandleTypeDef         haudio_out_sai;
 extern uint8_t WaveRecord_flgIni;
-extern uint32_t EnergySound;
+extern uint32_t EnergySound,EnergyError;
 extern I2C_HandleTypeDef hi2c2;
 extern __IO uint16_t cntStrt;
 extern __IO int16_t SPI1_stNipple,I2S1_stNipple, I2S2_stNipple,SPI4_stNipple;
@@ -74,6 +74,10 @@ uint16_t cntTime200;
 
 uint8_t buffer_switch = 1;
 uint8_t Command_index=1;
+
+float fir256Coff[DSP_NUMCOFFHANNIING];
+//int16_t PreCalcBuff[129][256];
+
 
 #if MAIN_CRSCORR
 arm_rfft_instance_q15 RealFFT_Ins, RealIFFT_Ins;
@@ -143,37 +147,31 @@ inline static void FFT_Update(void)
 			{             
 			    case BUF1_PLAY:
 #if MAIN_CRSCORR
-					for (uint16_t i=0; i<(_MAX_SS/_MAX_SS);i++)
-					{
-					    //uint16_t i=0;
-						arm_rfft_q15(&RealFFT_Ins,    (q15_t *)&buffer3[i*128],    (q15_t *)&bufferFFT[i*256]);
-						arm_rfft_q15(&RealFFT_Ins,    (q15_t *)&buffer3_1[i*128],   (q15_t *)&bufferFFT_1[i*256]);
-					
-						arm_add_q15((q15_t *)&bufferFFT[i*256],    (q15_t *)&bufferFFT_1[i*256],    (q15_t *)&bufferFFTSum[i*256],2*128);
-					
-						//for (uint16_t j=0; j<256;j++)
-						//{
-						//	  bufferFFTSum[i*256+j]<<=6;
-						//}
-						
-						arm_rfft_q15(&RealIFFT_Ins,    (q15_t *)&bufferFFTSum[i*256],    (q15_t *)&bufferSum[i*128]);
-					}
+                            for (uint16_t i=0; i<(_MAX_SS/_MAX_SS);i++)
+                            {
+                                //uint16_t i=0;
+                                    arm_rfft_q15(&RealFFT_Ins,    (q15_t *)&buffer3[i*128],    (q15_t *)&bufferFFT[i*256]);
+                                    arm_rfft_q15(&RealFFT_Ins,    (q15_t *)&buffer3_1[i*128],   (q15_t *)&bufferFFT_1[i*256]);
+                            
+                                    arm_add_q15((q15_t *)&bufferFFT[i*256],    (q15_t *)&bufferFFT_1[i*256],    (q15_t *)&bufferFFTSum[i*256],2*128);
+                            
+                                    //for (uint16_t j=0; j<256;j++)
+                                    //{
+                                    //	  bufferFFTSum[i*256+j]<<=6;
+                                    //}
+                                    
+                                    arm_rfft_q15(&RealIFFT_Ins,    (q15_t *)&bufferFFTSum[i*256],    (q15_t *)&bufferSum[i*128]);
+                            }
 #elif MAIN_FFT
                     /* Summing in Buffer3 */
                     Delay_Sum_FFT(&Buffer3,&FacMic,(int16_t *)bufferSum, 512);
-			 	   //FFT_SUM((int16_t *)buffer3, (int16_t * )buffer3_1,fbuffer, 1024);	
-			 	   
-
+                    //FFT_SUM((int16_t *)buffer3, (int16_t * )buffer3_1,fbuffer, 1024);				 	   
 #else
-
-                    //idxLatency13 = CrssCor(Buffer3.bufMIC1, Buffer3.bufMIC3, AUDIO_OUT_BUFFER_SIZE/2);
-                    //idxLatency12 = CrssCor(Buffer3.bufMIC1, Buffer3.bufMIC2, AUDIO_OUT_BUFFER_SIZE/2);
-
-					idxLatency78 = CrssCor(Buffer3.bufMIC7, Buffer3.bufMIC8, AUDIO_OUT_BUFFER_SIZE);
-                    idxLatency14 = CrssCor(Buffer3.bufMIC1, Buffer3.bufMIC4, AUDIO_OUT_BUFFER_SIZE);
-					idxLatency25 = CrssCor(Buffer3.bufMIC2, Buffer3.bufMIC5, AUDIO_OUT_BUFFER_SIZE);
-					idxLatency63 = CrssCor(Buffer3.bufMIC6, Buffer3.bufMIC3, AUDIO_OUT_BUFFER_SIZE);
-
+                    idxLatency78 = CrssCor(Buffer3.bufMIC7+AUDIO_OUT_BUFFER_SIZE/4, Buffer3.bufMIC8+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2);
+                    idxLatency14 = CrssCor(Buffer3.bufMIC1+AUDIO_OUT_BUFFER_SIZE/4, Buffer3.bufMIC4+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2);
+                    idxLatency25 = CrssCor(Buffer3.bufMIC5+AUDIO_OUT_BUFFER_SIZE/4, Buffer3.bufMIC2+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2);
+                    idxLatency63 = CrssCor(Buffer3.bufMIC6+AUDIO_OUT_BUFFER_SIZE/4, Buffer3.bufMIC3+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2);
+                   
 
                     SumDelay(&Buffer3);
 #endif
@@ -184,79 +182,75 @@ inline static void FFT_Update(void)
 #if MAIN_CRSCORR
                      for (uint16_t i=0; i<(_MAX_SS/128);i++)
                      { 
-                         //uint16_t i=0;
-				         arm_rfft_q15(&RealFFT_Ins,(q15_t *)&buffer1[i*128],(q15_t *)&bufferFFT[i*256]);
-	           		     arm_rfft_q15(&RealFFT_Ins,(q15_t *)&buffer1_1[i*128],(q15_t *)&bufferFFT_1[i*256]);
+                        //uint16_t i=0;
+                        arm_rfft_q15(&RealFFT_Ins,(q15_t *)&buffer1[i*128],(q15_t *)&bufferFFT[i*256]);
+                        arm_rfft_q15(&RealFFT_Ins,(q15_t *)&buffer1_1[i*128],(q15_t *)&bufferFFT_1[i*256]);
 
-						 arm_add_q15((q15_t *)&bufferFFT[i*256],    (q15_t *)&bufferFFT_1[i*256],    (q15_t *)&bufferFFTSum[i*256],
-						 	          2*128);
+                        arm_add_q15((q15_t *)&bufferFFT[i*256],    (q15_t *)&bufferFFT_1[i*256],    (q15_t *)&bufferFFTSum[i*256],
+                                        2*128);
 
-						 //for (uint16_t j=0; j<256;j++)
-						 //{
-						//	   bufferFFTSum[i*256+j]<<=6;
-						 //}
+                        //for (uint16_t j=0; j<256;j++)
+                        //{
+                        //	   bufferFFTSum[i*256+j]<<=6;
+                        //}
 
-						 
-	                     arm_rfft_q15(&RealIFFT_Ins,(q15_t *)&bufferFFTSum[i*256],(q15_t *)&bufferSum[i*128]);
+
+                        arm_rfft_q15(&RealIFFT_Ins,(q15_t *)&bufferFFTSum[i*256],(q15_t *)&bufferSum[i*128]);
                      }
 #elif MAIN_FFT
-					/* Summing in Buffer1 */	 
-					Delay_Sum_FFT(&Buffer1, &FacMic,(int16_t * )bufferSum,512);
-					//FFT_SUM((int16_t *)buffer1, (int16_t * )buffer1_1,fbuffer, 1024);
+                    /* Summing in Buffer1 */	 
+                    Delay_Sum_FFT(&Buffer1, &FacMic,(int16_t * )bufferSum,512);
+                    //FFT_SUM((int16_t *)buffer1, (int16_t * )buffer1_1,fbuffer, 1024);
 
 #else
                 
                   //idxLatency13 = CrssCor(Buffer1.bufMIC1, Buffer1.bufMIC3, AUDIO_OUT_BUFFER_SIZE/2); 
                   //idxLatency12 = CrssCor(Buffer1.bufMIC1, Buffer1.bufMIC2, AUDIO_OUT_BUFFER_SIZE/2);
 		
-                  idxLatency78 = CrssCor(Buffer1.bufMIC7, Buffer1.bufMIC8, AUDIO_OUT_BUFFER_SIZE);	
-                  idxLatency14 = CrssCor(Buffer1.bufMIC1, Buffer1.bufMIC4, AUDIO_OUT_BUFFER_SIZE);
-                  idxLatency25 = CrssCor(Buffer1.bufMIC2, Buffer1.bufMIC5, AUDIO_OUT_BUFFER_SIZE);
-                  idxLatency63 = CrssCor(Buffer1.bufMIC6, Buffer1.bufMIC3, AUDIO_OUT_BUFFER_SIZE);
+                  idxLatency78 = CrssCor(Buffer1.bufMIC7+AUDIO_OUT_BUFFER_SIZE/4, Buffer1.bufMIC8+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2);	
+                  idxLatency14 = CrssCor(Buffer1.bufMIC1+AUDIO_OUT_BUFFER_SIZE/4, Buffer1.bufMIC4+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2);
+                  idxLatency25 = CrssCor(Buffer1.bufMIC5+AUDIO_OUT_BUFFER_SIZE/4, Buffer1.bufMIC2+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2);
+                  idxLatency63 = CrssCor(Buffer1.bufMIC6+AUDIO_OUT_BUFFER_SIZE/4, Buffer1.bufMIC3+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2);
 
 
 
                   SumDelay(&Buffer1);
 #endif
-					break;
+	    break;
 					
-				case BUF3_PLAY:
+	   case BUF3_PLAY:
 #if MAIN_CRSCORR
-					for (uint16_t i=0; i<(_MAX_SS/128);i++)
-					{
-						
-						arm_rfft_q15(&RealFFT_Ins,(q15_t *)&buffer2[i*128],(q15_t *)&bufferFFT[i*256]);
-						arm_rfft_q15(&RealFFT_Ins,(q15_t *)&buffer2_1[i*128],(q15_t *)&bufferFFT_1[i*256]);
-					
-						arm_add_q15((q15_t *)&bufferFFT[i*256],    (q15_t *)&bufferFFT_1[i*256],	(q15_t *)&bufferFFTSum[i*256],
-									 2*128);
-					
-						//for (uint16_t j=0; j<256;j++)
-						//{
-					    //   bufferFFTSum[i*256+j]<<=6;
-					    //}
-					
-						
-						arm_rfft_q15(&RealIFFT_Ins,(q15_t *)&bufferFFTSum[i*256],(q15_t *)&bufferSum[i*128]);
-					}
+          for (uint16_t i=0; i<(_MAX_SS/128);i++)
+          {
+              arm_rfft_q15(&RealFFT_Ins,(q15_t *)&buffer2[i*128],(q15_t *)&bufferFFT[i*256]);
+              arm_rfft_q15(&RealFFT_Ins,(q15_t *)&buffer2_1[i*128],(q15_t *)&bufferFFT_1[i*256]);
 
+              arm_add_q15((q15_t *)&bufferFFT[i*256],    (q15_t *)&bufferFFT_1[i*256],	(q15_t *)&bufferFFTSum[i*256],
+                                 2*128);
+
+              //for (uint16_t j=0; j<256;j++)
+              //{
+              //   bufferFFTSum[i*256+j]<<=6;
+              //}
+
+
+              arm_rfft_q15(&RealIFFT_Ins,(q15_t *)&bufferFFTSum[i*256],(q15_t *)&bufferSum[i*128]);
+          }
 #elif MAIN_FFT
-					/* Summing in Buffer2 */
-                                        Delay_Sum_FFT(&Buffer2,&FacMic, (int16_t * )bufferSum, 512);
-                                       //FFT_SUM((int16_t *)buffer2, (int16_t * )buffer2_1,fbuffer, 1024);
-
-					
+        /* Summing in Buffer2 */
+        Delay_Sum_FFT(&Buffer2,&FacMic, (int16_t * )bufferSum, 512);
+        //FFT_SUM((int16_t *)buffer2, (int16_t * )buffer2_1,fbuffer, 1024);				
 #else
 
-					//idxLatency13 = CrssCor(Buffer2.bufMIC1, Buffer2.bufMIC3, AUDIO_OUT_BUFFER_SIZE/2); 
-                    //idxLatency12 = CrssCor(Buffer2.bufMIC1, Buffer2.bufMIC2, AUDIO_OUT_BUFFER_SIZE/2);
+                                      //idxLatency13 = CrssCor(Buffer2.bufMIC1, Buffer2.bufMIC3, AUDIO_OUT_BUFFER_SIZE/2); 
+                                      //idxLatency12 = CrssCor(Buffer2.bufMIC1, Buffer2.bufMIC2, AUDIO_OUT_BUFFER_SIZE/2);
 
-					idxLatency78 = CrssCor(Buffer2.bufMIC7, Buffer2.bufMIC8, AUDIO_OUT_BUFFER_SIZE);
-					idxLatency14 = CrssCor(Buffer2.bufMIC1, Buffer2.bufMIC4, AUDIO_OUT_BUFFER_SIZE);
-					idxLatency25 = CrssCor(Buffer2.bufMIC2, Buffer2.bufMIC5, AUDIO_OUT_BUFFER_SIZE);
-					idxLatency63 = CrssCor(Buffer2.bufMIC6, Buffer2.bufMIC3, AUDIO_OUT_BUFFER_SIZE);
+                                      idxLatency78 = CrssCor(Buffer2.bufMIC7+AUDIO_OUT_BUFFER_SIZE/4, Buffer2.bufMIC8+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2);
+                                      idxLatency14 = CrssCor(Buffer2.bufMIC1+AUDIO_OUT_BUFFER_SIZE/4, Buffer2.bufMIC4+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2);
+                                      idxLatency25 = CrssCor(Buffer2.bufMIC5+AUDIO_OUT_BUFFER_SIZE/4, Buffer2.bufMIC2+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2);
+                                      idxLatency63 = CrssCor(Buffer2.bufMIC6+AUDIO_OUT_BUFFER_SIZE/4, Buffer2.bufMIC3+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2);
 
-                     SumDelay(&Buffer2);
+                                      SumDelay(&Buffer2);
 #endif
 					break;
 					
@@ -314,8 +308,8 @@ inline static void Audio_Play_Out(void)
 	if (++idxFrmPDMMic8 == AUDIO_OUT_BUFFER_SIZE/(AUDIO_SAMPLING_FREQUENCY/1000))
 	{
 	   RESET_IDX
-       WaveRec_idxTest=0;
-       idxFrmPDMMic8=0;
+           WaveRec_idxTest=0;
+           idxFrmPDMMic8=0;
             switch (buffer_switch)
             {
                 case BUF1_PLAY:
@@ -450,6 +444,10 @@ int main(void)
 	//test GIT //USBH_Start(&hUSBHost); 					  
 #endif 
 
+    Window(fir256Coff);
+	EnergyNoiseCalc(AUDIO_OUT_BUFFER_SIZE/2);
+
+    //Precalculation(Coef,PreCalcBuff);
     StartPlay();
     while (1)
     {
@@ -459,19 +457,18 @@ int main(void)
                     /* After 5 times of full frame recieved interrupt */
                if ((cntStrt>=5))
                {
-				   if ((WaveRecord_flgIni<200))
-				   {
-                      for(char i=0;i<16;i++)
-                      {
-                        if (ValBit(SPI4_stNipple,i)!=0) 
-                        {
-                           SPI4_stPosShft = MAX(SPI4_stPosShft,i+1);
-                        }
-                      }
-					  WaveRecord_flgIni++;
-						
-				   }   
-		       }
+		      if ((WaveRecord_flgIni<200))
+		      {
+                          for(char i=0;i<16;i++)
+                          {
+                              if (ValBit(SPI4_stNipple,i)!=0) 
+                              {
+                                  SPI4_stPosShft = MAX(SPI4_stPosShft,i+1);
+                             }
+                          }
+		          WaveRecord_flgIni++;			
+		      }   
+		 }
 	
 		/* USB Host Background task */
 		//USBH_Process(&hUSBHost);
@@ -489,8 +486,10 @@ int main(void)
 	         {
 	 
 #if (DEBUG)
-
-                    //if ((idxLatency14!=0)||(idxLatency25!=0)||(idxLatency36!=0))
+                   uint32_t tmpSNR;
+                   tmpSNR = (uint32_t)(EnergySound/EnergyError);
+                   
+                    if (tmpSNR>10)
                     {
                         int16_t test[5];
                         static uint8_t flagNotMin;
@@ -498,17 +497,9 @@ int main(void)
                         test[1]= idxLatency63;
                         test[2]= idxLatency14;
                         test[3]= idxLatency25;
-						test[4]= idxLatency78;
-
-
-                        if (EnergySound<2)
+			            test[4]= idxLatency78;                        
                         {
-                                //sprintf((char *)pUARTBuf,"No Speech:%d  \r\n",EnergySound);
-                                //HAL_UART_Transmit_IT(&huart3,pUARTBuf,30); 
-                        }
-                        else
-                        {
-                             sprintf((char *)pUARTBuf,"%d:%d:%d:%d ",idxLatency63,idxLatency14,idxLatency25,idxLatency78);
+                             sprintf((char *)pUARTBuf,"%d:%d:%d:%d(%d)",idxLatency63,idxLatency14,idxLatency25,idxLatency78,tmpSNR);
                              flagNotMin=0 ;
 
                               if (test[3]>0)
@@ -558,8 +549,8 @@ int main(void)
                       	    {
                       	       if((test[2]>1)&&(test[4]<= 0))
                       	       {
-								 flagNotMin=1 ;
-								 sprintf((char *)(pUARTBuf+15),"Clsoe Mic 3\r\n");
+                                 flagNotMin=1 ;
+                                 sprintf((char *)(pUARTBuf+15),"Clsoe Mic 3\r\n");
                       	       }
 
                       	    }
@@ -650,7 +641,7 @@ int main(void)
 
                            HAL_UART_Transmit_IT(&huart3,pUARTBuf,15+15);		
                          }
-                    }
+                    }//if(SNR)
 
 #endif
 	   	            cntTime200=0;

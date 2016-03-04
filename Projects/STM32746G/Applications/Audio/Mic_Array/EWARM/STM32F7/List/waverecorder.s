@@ -1,60 +1,60 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      28/Feb/2016  17:31:24
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      04/Mar/2016  17:12:05
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\waverecorder.c
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\waverecorder.c
 //    Command line =  
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\waverecorder.c
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\waverecorder.c
 //        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 //        USE_IOEXPANDER -D USE_USB_FS -lC
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -lA
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
 //        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
 //        --no_clustering --no_scheduling --debug --endian=little
 //        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
 //        -On --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7
 //    List file    =  
-//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\waverecorder.s
+//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\waverecorder.s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -220,7 +220,7 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
         
-// H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\waverecorder.c
+// D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\waverecorder.c
 //    1 
 //    2 /* Includes ------------------------------------------------------------------*/
 //    3 #include "waverecorder.h" 
@@ -5082,84 +5082,85 @@ PDM2PCMSDO78:
 // 1613 			default:
 // 1614 			         break; 
 // 1615           }
-// 1616 	}
-// 1617 #if 0
-// 1618             /* Recording Audio Data */						 
-// 1619 		    switch (buffer_switch)//buffer_switch
-// 1620 		    {
-// 1621 		        case BUF1_PLAY:								
-// 1622 					        /* Update for left-right channel */
-// 1623 			        for (int16_t i=AUDIO_OUT_BUFFER_SIZE-1; i>1;i--)
-// 1624 			        {
-// 1625 	                    Buffer2.bufMIC7[2*i+1]=  Buffer2.bufMIC7[i];
-// 1626                         Buffer2.bufMIC7[2*i] = Buffer2.bufMIC7[i];
-// 1627 			        }
-// 1628 					  Buffer2.bufMIC7[0] = Buffer2.bufMIC7[4];
-// 1629 					  Buffer2.bufMIC7[1] = Buffer2.bufMIC7[5];
-// 1630 					  Buffer2.bufMIC7[2] = Buffer2.bufMIC7[6];
-// 1631 					  Buffer2.bufMIC7[3] = Buffer2.bufMIC7[7];
-// 1632 			            break;
-// 1633 			     case BUF2_PLAY:
-// 1634 			        /* Update for left-right channel */
-// 1635 			        for (int16_t i=AUDIO_OUT_BUFFER_SIZE-1; i>1;i--)
-// 1636 			        {				 	
-// 1637 		                Buffer3.bufMIC7[2*i+1]= Buffer3.bufMIC7[i];
-// 1638 		                Buffer3.bufMIC7[2*i]= Buffer3.bufMIC7[i];;	
-// 1639 			        }
-// 1640 					  Buffer3.bufMIC7[0] = Buffer3.bufMIC7[4];
-// 1641 					  Buffer3.bufMIC7[1] = Buffer3.bufMIC7[5];
-// 1642 					  Buffer3.bufMIC7[2] = Buffer3.bufMIC7[6];
-// 1643 					  Buffer3.bufMIC7[3] = Buffer3.bufMIC7[7];					
-// 1644 	                break;
-// 1645 	            case BUF3_PLAY:
-// 1646 			        /* Update for left-right channel */
-// 1647 			        for (int16_t i=AUDIO_OUT_BUFFER_SIZE-1; i>1;i--)
-// 1648 			        {					
-// 1649 	                    Buffer1.bufMIC7[2*i+1]= Buffer1.bufMIC7[i];
-// 1650 	                    Buffer1.bufMIC7[2*i]= Buffer1.bufMIC7[i];;	
-// 1651 			        }
-// 1652 					  Buffer1.bufMIC7[0] = Buffer1.bufMIC7[4];
-// 1653 					  Buffer1.bufMIC7[1] = Buffer1.bufMIC7[5];
-// 1654 					  Buffer1.bufMIC7[2] = Buffer1.bufMIC7[6];
-// 1655 					  Buffer1.bufMIC7[3] = Buffer1.bufMIC7[7];						
-// 1656 	                break;
-// 1657 	            default:
-// 1658 	                break; 
-// 1659 	        }
-// 1660 	    
-// 1661 
-// 1662      }
-// 1663     
-// 1664 #endif	
-// 1665 
-// 1666 	/* Data in Mic8 finished recording */
-// 1667 	if (WaveRecord_flgSDO8Finish==1)
+// 1616           
+// 1617 	}
+// 1618 #if 0
+// 1619             /* Recording Audio Data */						 
+// 1620 		    switch (buffer_switch)//buffer_switch
+// 1621 		    {
+// 1622 		        case BUF1_PLAY:								
+// 1623 					        /* Update for left-right channel */
+// 1624 			        for (int16_t i=AUDIO_OUT_BUFFER_SIZE-1; i>1;i--)
+// 1625 			        {
+// 1626 	                    Buffer2.bufMIC7[2*i+1]=  Buffer2.bufMIC7[i];
+// 1627                         Buffer2.bufMIC7[2*i] = Buffer2.bufMIC7[i];
+// 1628 			        }
+// 1629 					  Buffer2.bufMIC7[0] = Buffer2.bufMIC7[4];
+// 1630 					  Buffer2.bufMIC7[1] = Buffer2.bufMIC7[5];
+// 1631 					  Buffer2.bufMIC7[2] = Buffer2.bufMIC7[6];
+// 1632 					  Buffer2.bufMIC7[3] = Buffer2.bufMIC7[7];
+// 1633 			            break;
+// 1634 			     case BUF2_PLAY:
+// 1635 			        /* Update for left-right channel */
+// 1636 			        for (int16_t i=AUDIO_OUT_BUFFER_SIZE-1; i>1;i--)
+// 1637 			        {				 	
+// 1638 		                Buffer3.bufMIC7[2*i+1]= Buffer3.bufMIC7[i];
+// 1639 		                Buffer3.bufMIC7[2*i]= Buffer3.bufMIC7[i];;	
+// 1640 			        }
+// 1641 					  Buffer3.bufMIC7[0] = Buffer3.bufMIC7[4];
+// 1642 					  Buffer3.bufMIC7[1] = Buffer3.bufMIC7[5];
+// 1643 					  Buffer3.bufMIC7[2] = Buffer3.bufMIC7[6];
+// 1644 					  Buffer3.bufMIC7[3] = Buffer3.bufMIC7[7];					
+// 1645 	                break;
+// 1646 	            case BUF3_PLAY:
+// 1647 			        /* Update for left-right channel */
+// 1648 			        for (int16_t i=AUDIO_OUT_BUFFER_SIZE-1; i>1;i--)
+// 1649 			        {					
+// 1650 	                    Buffer1.bufMIC7[2*i+1]= Buffer1.bufMIC7[i];
+// 1651 	                    Buffer1.bufMIC7[2*i]= Buffer1.bufMIC7[i];;	
+// 1652 			        }
+// 1653 					  Buffer1.bufMIC7[0] = Buffer1.bufMIC7[4];
+// 1654 					  Buffer1.bufMIC7[1] = Buffer1.bufMIC7[5];
+// 1655 					  Buffer1.bufMIC7[2] = Buffer1.bufMIC7[6];
+// 1656 					  Buffer1.bufMIC7[3] = Buffer1.bufMIC7[7];						
+// 1657 	                break;
+// 1658 	            default:
+// 1659 	                break; 
+// 1660 	        }
+// 1661 	    
+// 1662 
+// 1663      }
+// 1664     
+// 1665 #endif	
+// 1666 
+// 1667 	/* Data in Mic8 finished recording */
+// 1668 	if (WaveRecord_flgSDO8Finish==1)
 ??PDM2PCMSDO78_13:
 ??PDM2PCMSDO78_0:
         LDR.N    R0,??DataTable19_33
         LDRB     R0,[R0, #+0]
         CMP      R0,#+1
         BNE.W    ??PDM2PCMSDO78_14
-// 1668 	{
-// 1669 		WaveRecord_flgSDO8Finish=0;
+// 1669 	{
+// 1670 		WaveRecord_flgSDO8Finish=0;
         MOVS     R0,#+0
         LDR.N    R1,??DataTable19_33
         STRB     R0,[R1, #+0]
-// 1670 		
-// 1671 		for (uint16_t i=0; i< 4*AUDIO_OUT_BUFFER_SIZE;i++)
+// 1671 		
+// 1672 		for (uint16_t i=0; i< 4*AUDIO_OUT_BUFFER_SIZE;i++)
         MOVS     R5,#+0
 ??PDM2PCMSDO78_15:
         UXTH     R5,R5            ;; ZeroExt  R5,R5,#+16,#+16
         CMP      R5,#+4096
         BGE.N    ??PDM2PCMSDO78_16
-// 1672 		{
-// 1673                   if(swtSDO8==0x01)
+// 1673 		{
+// 1674                   if(swtSDO8==0x01)
         LDR.N    R0,??DataTable19_39
         LDRB     R0,[R0, #+0]
         CMP      R0,#+1
         BNE.N    ??PDM2PCMSDO78_17
-// 1674                   {
-// 1675                      pDataMic8[i%64] = HTONS(TestSDO8[i]);
+// 1675                   {
+// 1676                      pDataMic8[i%64] = HTONS(TestSDO8[i]);
         LDR.N    R0,??DataTable19_36
         UXTH     R5,R5            ;; ZeroExt  R5,R5,#+16,#+16
         LDRH     R0,[R0, R5, LSL #+1]
@@ -5176,10 +5177,10 @@ PDM2PCMSDO78:
         MLS      R3,R3,R2,R5
         STRH     R0,[R1, R3, LSL #+1]
         B.N      ??PDM2PCMSDO78_18
-// 1676                   }
-// 1677                   else
-// 1678                   {
-// 1679                      pDataMic8[i%64] = HTONS(TestSDO8_1[i]);
+// 1677                   }
+// 1678                   else
+// 1679                   {
+// 1680                      pDataMic8[i%64] = HTONS(TestSDO8_1[i]);
 ??PDM2PCMSDO78_17:
         LDR.N    R0,??DataTable19_34
         UXTH     R5,R5            ;; ZeroExt  R5,R5,#+16,#+16
@@ -5196,10 +5197,10 @@ PDM2PCMSDO78:
         SDIV     R3,R5,R2
         MLS      R3,R3,R2,R5
         STRH     R0,[R1, R3, LSL #+1]
-// 1680                   }
-// 1681 		
-// 1682                   /* PDM conversion for frame of 64 inputs, 16 outputs */
-// 1683                   if (i%64==63)
+// 1681                   }
+// 1682 		
+// 1683                   /* PDM conversion for frame of 64 inputs, 16 outputs */
+// 1684                   if (i%64==63)
 ??PDM2PCMSDO78_18:
         UXTH     R5,R5            ;; ZeroExt  R5,R5,#+16,#+16
         MOVS     R0,#+64
@@ -5207,9 +5208,9 @@ PDM2PCMSDO78:
         MLS      R1,R1,R0,R5
         CMP      R1,#+63
         BNE.N    ??PDM2PCMSDO78_19
-// 1684                   {
-// 1685                       /* Recording Audio Data */						 
-// 1686                       switch (buffer_switch)
+// 1685                   {
+// 1686                       /* Recording Audio Data */						 
+// 1687                       switch (buffer_switch)
         LDR.N    R0,??DataTable19_13
         LDRB     R0,[R0, #+0]
         CMP      R0,#+0
@@ -5218,10 +5219,10 @@ PDM2PCMSDO78:
         BEQ.N    ??PDM2PCMSDO78_21
         BCC.N    ??PDM2PCMSDO78_22
         B.N      ??PDM2PCMSDO78_23
-// 1687                       {
-// 1688                               case BUF1_PLAY: 							
-// 1689                                       PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer2.bufMIC8 + (i/64)*16), 150 ,
-// 1690                                       (PDMFilter_InitStruct *)&Filter[1]);
+// 1688                       {
+// 1689                               case BUF1_PLAY: 							
+// 1690                                       PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer2.bufMIC8 + (i/64)*16), 150 ,
+// 1691                                       (PDMFilter_InitStruct *)&Filter[1]);
 ??PDM2PCMSDO78_20:
         LDR.N    R3,??DataTable19_41
         MOVS     R2,#+150
@@ -5235,11 +5236,11 @@ PDM2PCMSDO78:
         LDR.N    R0,??DataTable19_40
           CFI FunCall PDM_Filter_64_LSB
         BL       PDM_Filter_64_LSB
-// 1691                                       break;
+// 1692                                       break;
         B.N      ??PDM2PCMSDO78_19
-// 1692                               case BUF2_PLAY:
-// 1693                                       PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer3.bufMIC8 + (i/64)*16), 150 ,
-// 1694                                       (PDMFilter_InitStruct *)&Filter[1]);	
+// 1693                               case BUF2_PLAY:
+// 1694                                       PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer3.bufMIC8 + (i/64)*16), 150 ,
+// 1695                                       (PDMFilter_InitStruct *)&Filter[1]);	
 ??PDM2PCMSDO78_22:
         LDR.N    R3,??DataTable19_41
         MOVS     R2,#+150
@@ -5253,11 +5254,11 @@ PDM2PCMSDO78:
         LDR.N    R0,??DataTable19_40
           CFI FunCall PDM_Filter_64_LSB
         BL       PDM_Filter_64_LSB
-// 1695                                       break;
+// 1696                                       break;
         B.N      ??PDM2PCMSDO78_19
-// 1696                               case BUF3_PLAY:
-// 1697                                       PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer1.bufMIC8 + (i/64)*16), 150 ,
-// 1698                                       (PDMFilter_InitStruct *)&Filter[1]);									
+// 1697                               case BUF3_PLAY:
+// 1698                                       PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer1.bufMIC8 + (i/64)*16), 150 ,
+// 1699                                       (PDMFilter_InitStruct *)&Filter[1]);									
 ??PDM2PCMSDO78_21:
         LDR.N    R3,??DataTable19_41
         MOVS     R2,#+150
@@ -5271,20 +5272,20 @@ PDM2PCMSDO78:
         LDR.N    R0,??DataTable19_40
           CFI FunCall PDM_Filter_64_LSB
         BL       PDM_Filter_64_LSB
-// 1699                                        break;
+// 1700                                        break;
         B.N      ??PDM2PCMSDO78_19
-// 1700                               default:
-// 1701                                        break; 
-// 1702                       }		
-// 1703                    }					 
-// 1704 		}
+// 1701                               default:
+// 1702                                        break; 
+// 1703                       }		
+// 1704                    }					 
+// 1705 		}
 ??PDM2PCMSDO78_23:
 ??PDM2PCMSDO78_19:
         ADDS     R5,R5,#+1
         B.N      ??PDM2PCMSDO78_15
-// 1705                
-// 1706           /* Recording Audio Data */						 
-// 1707           switch (buffer_switch)
+// 1706                
+// 1707           					 
+// 1708           switch (buffer_switch)
 ??PDM2PCMSDO78_16:
         LDR.N    R0,??DataTable19_13
         LDRB     R0,[R0, #+0]
@@ -5294,9 +5295,9 @@ PDM2PCMSDO78:
         BEQ.N    ??PDM2PCMSDO78_25
         BCC.N    ??PDM2PCMSDO78_26
         B.N      ??PDM2PCMSDO78_27
-// 1708           {
-// 1709               case BUF1_PLAY: 	
-// 1710 					  Buffer2.bufMIC8[0] = Buffer2.bufMIC8[4];
+// 1709           {
+// 1710               case BUF1_PLAY: 	
+// 1711 					  Buffer2.bufMIC8[0] = Buffer2.bufMIC8[4];
 ??PDM2PCMSDO78_24:
         LDR.N    R0,??DataTable19_15  ;; 0xc00080a0
         MOVW     R1,#+28820
@@ -5304,31 +5305,31 @@ PDM2PCMSDO78:
         LDR.N    R1,??DataTable19_15  ;; 0xc00080a0
         MOVW     R2,#+28812
         STRH     R0,[R2, R1]
-// 1711 					  Buffer2.bufMIC8[1] = Buffer2.bufMIC8[5];
+// 1712 					  Buffer2.bufMIC8[1] = Buffer2.bufMIC8[5];
         LDR.N    R0,??DataTable19_15  ;; 0xc00080a0
         MOVW     R1,#+28822
         LDRH     R0,[R1, R0]
         LDR.N    R1,??DataTable19_15  ;; 0xc00080a0
         MOVW     R2,#+28814
         STRH     R0,[R2, R1]
-// 1712 					  Buffer2.bufMIC8[2] = Buffer2.bufMIC8[6];
+// 1713 					  Buffer2.bufMIC8[2] = Buffer2.bufMIC8[6];
         LDR.N    R0,??DataTable19_15  ;; 0xc00080a0
         MOVW     R1,#+28824
         LDRH     R0,[R1, R0]
         LDR.N    R1,??DataTable19_15  ;; 0xc00080a0
         MOVW     R2,#+28816
         STRH     R0,[R2, R1]
-// 1713 					  Buffer2.bufMIC8[3] = Buffer2.bufMIC8[7];
+// 1714 					  Buffer2.bufMIC8[3] = Buffer2.bufMIC8[7];
         LDR.N    R0,??DataTable19_15  ;; 0xc00080a0
         MOVW     R1,#+28826
         LDRH     R0,[R1, R0]
         LDR.N    R1,??DataTable19_15  ;; 0xc00080a0
         MOVW     R2,#+28818
         STRH     R0,[R2, R1]
-// 1714                       break;
+// 1715                       break;
         B.N      ??PDM2PCMSDO78_14
-// 1715               case BUF2_PLAY:
-// 1716   					  Buffer3.bufMIC8[0] = Buffer3.bufMIC8[4];
+// 1716               case BUF2_PLAY:
+// 1717   					  Buffer3.bufMIC8[0] = Buffer3.bufMIC8[4];
 ??PDM2PCMSDO78_26:
         LDR.N    R0,??DataTable19_25  ;; 0xc0010140
         MOVW     R1,#+28820
@@ -5336,31 +5337,31 @@ PDM2PCMSDO78:
         LDR.N    R1,??DataTable19_25  ;; 0xc0010140
         MOVW     R2,#+28812
         STRH     R0,[R2, R1]
-// 1717 					  Buffer3.bufMIC8[1] = Buffer3.bufMIC8[5];
+// 1718 					  Buffer3.bufMIC8[1] = Buffer3.bufMIC8[5];
         LDR.N    R0,??DataTable19_25  ;; 0xc0010140
         MOVW     R1,#+28822
         LDRH     R0,[R1, R0]
         LDR.N    R1,??DataTable19_25  ;; 0xc0010140
         MOVW     R2,#+28814
         STRH     R0,[R2, R1]
-// 1718 					  Buffer3.bufMIC8[2] = Buffer3.bufMIC8[6];
+// 1719 					  Buffer3.bufMIC8[2] = Buffer3.bufMIC8[6];
         LDR.N    R0,??DataTable19_25  ;; 0xc0010140
         MOVW     R1,#+28824
         LDRH     R0,[R1, R0]
         LDR.N    R1,??DataTable19_25  ;; 0xc0010140
         MOVW     R2,#+28816
         STRH     R0,[R2, R1]
-// 1719 					  Buffer3.bufMIC8[3] = Buffer3.bufMIC8[7];
+// 1720 					  Buffer3.bufMIC8[3] = Buffer3.bufMIC8[7];
         LDR.N    R0,??DataTable19_25  ;; 0xc0010140
         MOVW     R1,#+28826
         LDRH     R0,[R1, R0]
         LDR.N    R1,??DataTable19_25  ;; 0xc0010140
         MOVW     R2,#+28818
         STRH     R0,[R2, R1]
-// 1720                       break;
+// 1721                       break;
         B.N      ??PDM2PCMSDO78_14
-// 1721               case BUF3_PLAY:
-// 1722   					  Buffer1.bufMIC8[0] = Buffer1.bufMIC8[4];
+// 1722               case BUF3_PLAY:
+// 1723   					  Buffer1.bufMIC8[0] = Buffer1.bufMIC8[4];
 ??PDM2PCMSDO78_25:
         MOVW     R0,#+28820
         SUBS     R0,R0,#+1073741824
@@ -5368,33 +5369,32 @@ PDM2PCMSDO78:
         MOVW     R1,#+28812
         SUBS     R1,R1,#+1073741824
         STRH     R0,[R1, #+0]
-// 1723 					  Buffer1.bufMIC8[1] = Buffer1.bufMIC8[5];
+// 1724 					  Buffer1.bufMIC8[1] = Buffer1.bufMIC8[5];
         MOVW     R0,#+28822
         SUBS     R0,R0,#+1073741824
         LDRH     R0,[R0, #+0]
         MOVW     R1,#+28814
         SUBS     R1,R1,#+1073741824
         STRH     R0,[R1, #+0]
-// 1724 					  Buffer1.bufMIC8[2] = Buffer1.bufMIC8[6];
+// 1725 					  Buffer1.bufMIC8[2] = Buffer1.bufMIC8[6];
         MOVW     R0,#+28824
         SUBS     R0,R0,#+1073741824
         LDRH     R0,[R0, #+0]
         MOVW     R1,#+28816
         SUBS     R1,R1,#+1073741824
         STRH     R0,[R1, #+0]
-// 1725 					  Buffer1.bufMIC8[3] = Buffer1.bufMIC8[7];
+// 1726 					  Buffer1.bufMIC8[3] = Buffer1.bufMIC8[7];
         MOVW     R0,#+28826
         SUBS     R0,R0,#+1073741824
         LDRH     R0,[R0, #+0]
         MOVW     R1,#+28818
         SUBS     R1,R1,#+1073741824
         STRH     R0,[R1, #+0]
-// 1726                     break;
+// 1727                     break;
         B.N      ??PDM2PCMSDO78_14
-// 1727               default:
-// 1728                     break; 
-// 1729           }                
-// 1730 	  
+// 1728               default:
+// 1729                     break; 
+// 1730           }                	  
 // 1731    }//if (WaveRecord_flgSDO8Finish==1)
 // 1732 }
 ??PDM2PCMSDO78_27:

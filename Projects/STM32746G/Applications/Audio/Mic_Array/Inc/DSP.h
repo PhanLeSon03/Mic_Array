@@ -14,7 +14,8 @@ n: nth of sampke output_iterator
 K (captial): number of cofficience of FIR filter: 256 , this is as much as possible depend of the resource of MCU
 
 ************************************************************************************************************************/
-#define DSP_NUMCOFF           64
+#define DSP_NUMCOFF         64
+#define DSP_NUMCOFFHANNIING  512
 
 #define DSP_NUMBYTECONV (DSP_NUMCOFF>>3)  /* Number of input sample bytes uses for 1 convolution */
 
@@ -40,6 +41,7 @@ void Std_MatCorr(int16_t* vDataIn, float *Out, uint16_t numLen);
 void Delay_Sum_FFT(const Mic_Array_Data * MicData, Mic_Array_Coef_f *coefMics,int16_t * stBufOut, int16_t lenFFT);
 void FFT_SUM(int16_t * stBuf1, int16_t * stBuf2,float *fBufOut, uint16_t lenFFT);
 void FactorUpd(Mic_Array_Coef_f * facMic);
+int32_t EnergyNoiseCalc(uint16_t numLen);
 
 
 #define RFFT_INT(stBuf,S,bufferFFT)                                           \

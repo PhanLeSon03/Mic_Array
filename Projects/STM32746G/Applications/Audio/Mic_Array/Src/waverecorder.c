@@ -1613,6 +1613,7 @@ buffer_switch_tmp = buffer_switch;
 			default:
 			         break; 
           }
+          
 	}
 #if 0
             /* Recording Audio Data */						 
@@ -1703,7 +1704,7 @@ buffer_switch_tmp = buffer_switch;
                    }					 
 		}
                
-          /* Recording Audio Data */						 
+          					 
           switch (buffer_switch)
           {
               case BUF1_PLAY: 	
@@ -1726,8 +1727,7 @@ buffer_switch_tmp = buffer_switch;
                     break;
               default:
                     break; 
-          }                
-	  
+          }                	  
    }//if (WaveRecord_flgSDO8Finish==1)
 }
 
