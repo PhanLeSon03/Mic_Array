@@ -1,66 +1,64 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       04/Mar/2016  17:12:04
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       05/Mar/2016  17:13:52
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
 #    Endian       =  little
 #    Source file  =  
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\usbh_conf.c
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\usbh_conf.c
 #    Command line =  
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\usbh_conf.c
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\usbh_conf.c
 #        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 #        USE_IOEXPANDER -D USE_USB_FS -lC
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 #        -lA
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 #        -o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-#        --no_clustering --no_scheduling --debug --endian=little
-#        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\INC\c\DLib_Config_Full.h"
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+#        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
+#        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        7.3\arm\INC\c\DLib_Config_Full.h" -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
-#        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+#        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
-#        ARM_MATH_CM7
+#        ARM_MATH_CM7 --relaxed_fp
 #    List file    =  
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\usbh_conf.lst
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\usbh_conf.lst
 #    Object file  =  
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbh_conf.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbh_conf.o
 #
 ###############################################################################
 
-D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\usbh_conf.c
+H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\usbh_conf.c
       1          /**
       2            ******************************************************************************
       3            * @file    Audio/Audio_playback_and_record/Src/usbh_conf.c
@@ -122,163 +120,110 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
      53          void HAL_HCD_MspInit(HCD_HandleTypeDef *hhcd)
      54          {
    \                     HAL_HCD_MspInit: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0xB088             SUB      SP,SP,#+32
-   \   00000004   0x0004             MOVS     R4,R0
+   \   00000000   0xB530             PUSH     {R4,R5,LR}
+   \   00000002   0xB087             SUB      SP,SP,#+28
      55            GPIO_InitTypeDef  GPIO_InitStruct;
      56            
      57            if(hhcd->Instance == USB_OTG_FS)
-   \   00000006   0x6820             LDR      R0,[R4, #+0]
-   \   00000008   0xF1B0 0x4FA0      CMP      R0,#+1342177280
-   \   0000000C   0xD15F             BNE.N    ??HAL_HCD_MspInit_0
+   \   00000004   0x6800             LDR      R0,[R0, #+0]
+   \   00000006   0xF1B0 0x4FA0      CMP      R0,#+1342177280
+   \   0000000A   0xD144             BNE.N    ??HAL_HCD_MspInit_0
      58            {
      59              /* Configure USB FS GPIOs */
      60              __HAL_RCC_GPIOA_CLK_ENABLE();
-   \   0000000E   0x.... 0x....      LDR.W    R0,??DataTable5  ;; 0x40023830
-   \   00000012   0x6800             LDR      R0,[R0, #+0]
-   \   00000014   0xF050 0x0001      ORRS     R0,R0,#0x1
-   \   00000018   0x.... 0x....      LDR.W    R1,??DataTable5  ;; 0x40023830
-   \   0000001C   0x6008             STR      R0,[R1, #+0]
-   \   0000001E   0x.... 0x....      LDR.W    R0,??DataTable5  ;; 0x40023830
-   \   00000022   0x6800             LDR      R0,[R0, #+0]
-   \   00000024   0xF010 0x0001      ANDS     R0,R0,#0x1
-   \   00000028   0x9000             STR      R0,[SP, #+0]
-   \   0000002A   0x9800             LDR      R0,[SP, #+0]
+   \   0000000C   0x....             LDR.N    R4,??DataTable5  ;; 0x40023830
      61              __HAL_RCC_GPIOD_CLK_ENABLE();
-   \   0000002C   0x.... 0x....      LDR.W    R0,??DataTable5  ;; 0x40023830
-   \   00000030   0x6800             LDR      R0,[R0, #+0]
-   \   00000032   0xF050 0x0008      ORRS     R0,R0,#0x8
-   \   00000036   0x.... 0x....      LDR.W    R1,??DataTable5  ;; 0x40023830
-   \   0000003A   0x6008             STR      R0,[R1, #+0]
-   \   0000003C   0x.... 0x....      LDR.W    R0,??DataTable5  ;; 0x40023830
-   \   00000040   0x6800             LDR      R0,[R0, #+0]
-   \   00000042   0xF010 0x0008      ANDS     R0,R0,#0x8
-   \   00000046   0x9000             STR      R0,[SP, #+0]
-   \   00000048   0x9800             LDR      R0,[SP, #+0]
      62              
      63              GPIO_InitStruct.Pin = (GPIO_PIN_11 | GPIO_PIN_12);
-   \   0000004A   0xF44F 0x50C0      MOV      R0,#+6144
-   \   0000004E   0x9001             STR      R0,[SP, #+4]
      64              GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-   \   00000050   0x2002             MOVS     R0,#+2
-   \   00000052   0x9002             STR      R0,[SP, #+8]
      65              GPIO_InitStruct.Pull = GPIO_NOPULL;
-   \   00000054   0x2000             MOVS     R0,#+0
-   \   00000056   0x9003             STR      R0,[SP, #+12]
      66              GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-   \   00000058   0x2003             MOVS     R0,#+3
-   \   0000005A   0x9004             STR      R0,[SP, #+16]
      67              GPIO_InitStruct.Alternate = GPIO_AF10_OTG_FS;
-   \   0000005C   0x200A             MOVS     R0,#+10
-   \   0000005E   0x9005             STR      R0,[SP, #+20]
      68              HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); 
-   \   00000060   0xA901             ADD      R1,SP,#+4
-   \   00000062   0x.... 0x....      LDR.W    R0,??DataTable5_1  ;; 0x40020000
-   \   00000066   0x.... 0x....      BL       HAL_GPIO_Init
+   \   0000000E   0xA901             ADD      R1,SP,#+4
+   \   00000010   0x6820             LDR      R0,[R4, #+0]
+   \   00000012   0xF040 0x0001      ORR      R0,R0,#0x1
+   \   00000016   0x6020             STR      R0,[R4, #+0]
+   \   00000018   0x6820             LDR      R0,[R4, #+0]
+   \   0000001A   0xF000 0x0001      AND      R0,R0,#0x1
+   \   0000001E   0x9000             STR      R0,[SP, #+0]
+   \   00000020   0x9800             LDR      R0,[SP, #+0]
+   \   00000022   0x6820             LDR      R0,[R4, #+0]
+   \   00000024   0xF040 0x0008      ORR      R0,R0,#0x8
+   \   00000028   0x6020             STR      R0,[R4, #+0]
+   \   0000002A   0x6820             LDR      R0,[R4, #+0]
+   \   0000002C   0xF000 0x0008      AND      R0,R0,#0x8
+   \   00000030   0x9000             STR      R0,[SP, #+0]
+   \   00000032   0x9800             LDR      R0,[SP, #+0]
+   \   00000034   0xF44F 0x50C0      MOV      R0,#+6144
+   \   00000038   0x9001             STR      R0,[SP, #+4]
+   \   0000003A   0x2002             MOVS     R0,#+2
+   \   0000003C   0x9002             STR      R0,[SP, #+8]
+   \   0000003E   0x2000             MOVS     R0,#+0
+   \   00000040   0x9003             STR      R0,[SP, #+12]
+   \   00000042   0x2003             MOVS     R0,#+3
+   \   00000044   0x9004             STR      R0,[SP, #+16]
+   \   00000046   0x200A             MOVS     R0,#+10
+   \   00000048   0x9005             STR      R0,[SP, #+20]
+   \   0000004A   0x....             LDR.N    R0,??DataTable5_1  ;; 0x40020000
+   \   0000004C   0x.... 0x....      BL       HAL_GPIO_Init
      69              
      70              /* Configure POWER_SWITCH IO pin */
      71              GPIO_InitStruct.Pin = GPIO_PIN_5;
-   \   0000006A   0x2020             MOVS     R0,#+32
-   \   0000006C   0x9001             STR      R0,[SP, #+4]
+   \   00000050   0x2020             MOVS     R0,#+32
      72              GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-   \   0000006E   0x2002             MOVS     R0,#+2
-   \   00000070   0x9002             STR      R0,[SP, #+8]
      73              GPIO_InitStruct.Pull = GPIO_NOPULL;
-   \   00000072   0x2000             MOVS     R0,#+0
-   \   00000074   0x9003             STR      R0,[SP, #+12]
      74              HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
-   \   00000076   0xA901             ADD      R1,SP,#+4
-   \   00000078   0x.... 0x....      LDR.W    R0,??DataTable5_2  ;; 0x40020c00
-   \   0000007C   0x.... 0x....      BL       HAL_GPIO_Init
+   \   00000052   0xA901             ADD      R1,SP,#+4
+   \   00000054   0x9001             STR      R0,[SP, #+4]
+   \   00000056   0x2002             MOVS     R0,#+2
+   \   00000058   0x9002             STR      R0,[SP, #+8]
+   \   0000005A   0x2000             MOVS     R0,#+0
+   \   0000005C   0x9003             STR      R0,[SP, #+12]
+   \   0000005E   0x....             LDR.N    R0,??DataTable5_2  ;; 0x40020c00
+   \   00000060   0x.... 0x....      BL       HAL_GPIO_Init
      75              
      76              /* Enable USB FS Clocks */ 
      77              __HAL_RCC_USB_OTG_FS_CLK_ENABLE();
-   \   00000080   0x.... 0x....      LDR.W    R0,??DataTable5_3  ;; 0x40023834
-   \   00000084   0x6800             LDR      R0,[R0, #+0]
-   \   00000086   0xF050 0x0080      ORRS     R0,R0,#0x80
-   \   0000008A   0x.... 0x....      LDR.W    R1,??DataTable5_3  ;; 0x40023834
-   \   0000008E   0x6008             STR      R0,[R1, #+0]
-   \   00000090   0x.... 0x....      LDR.W    R0,??DataTable5_3  ;; 0x40023834
-   \   00000094   0x6800             LDR      R0,[R0, #+0]
-   \   00000096   0xF010 0x0080      ANDS     R0,R0,#0x80
-   \   0000009A   0x9006             STR      R0,[SP, #+24]
-   \   0000009C   0x9806             LDR      R0,[SP, #+24]
-   \   0000009E   0x.... 0x....      LDR.W    R0,??DataTable5_4  ;; 0x40023844
-   \   000000A2   0x6800             LDR      R0,[R0, #+0]
-   \   000000A4   0xF450 0x4080      ORRS     R0,R0,#0x4000
-   \   000000A8   0x.... 0x....      LDR.W    R1,??DataTable5_4  ;; 0x40023844
-   \   000000AC   0x6008             STR      R0,[R1, #+0]
-   \   000000AE   0x.... 0x....      LDR.W    R0,??DataTable5_4  ;; 0x40023844
-   \   000000B2   0x6800             LDR      R0,[R0, #+0]
-   \   000000B4   0xF410 0x4080      ANDS     R0,R0,#0x4000
-   \   000000B8   0x9000             STR      R0,[SP, #+0]
-   \   000000BA   0x9800             LDR      R0,[SP, #+0]
+   \   00000064   0x6860             LDR      R0,[R4, #+4]
      78              
      79              /* Set USBFS Interrupt to the lowest priority */
      80              HAL_NVIC_SetPriority(OTG_FS_IRQn, 6, 0);
-   \   000000BC   0x2200             MOVS     R2,#+0
-   \   000000BE   0x2106             MOVS     R1,#+6
-   \   000000C0   0x2043             MOVS     R0,#+67
-   \   000000C2   0x.... 0x....      BL       HAL_NVIC_SetPriority
+   \   00000066   0x2200             MOVS     R2,#+0
+   \   00000068   0x2106             MOVS     R1,#+6
+   \   0000006A   0xF040 0x0080      ORR      R0,R0,#0x80
+   \   0000006E   0x6060             STR      R0,[R4, #+4]
+   \   00000070   0x6860             LDR      R0,[R4, #+4]
+   \   00000072   0xF000 0x0080      AND      R0,R0,#0x80
+   \   00000076   0x9000             STR      R0,[SP, #+0]
+   \   00000078   0x9800             LDR      R0,[SP, #+0]
+   \   0000007A   0x6960             LDR      R0,[R4, #+20]
+   \   0000007C   0xF440 0x4080      ORR      R0,R0,#0x4000
+   \   00000080   0x6160             STR      R0,[R4, #+20]
+   \   00000082   0x6960             LDR      R0,[R4, #+20]
+   \   00000084   0xF400 0x4080      AND      R0,R0,#0x4000
+   \   00000088   0x9000             STR      R0,[SP, #+0]
+   \   0000008A   0x9800             LDR      R0,[SP, #+0]
+   \   0000008C   0x2043             MOVS     R0,#+67
+   \   0000008E   0x.... 0x....      BL       HAL_NVIC_SetPriority
      81              
      82              /* Enable USBFS Interrupt */
      83              HAL_NVIC_EnableIRQ(OTG_FS_IRQn);
-   \   000000C6   0x2043             MOVS     R0,#+67
-   \   000000C8   0x.... 0x....      BL       HAL_NVIC_EnableIRQ
-   \   000000CC   0xE0A0             B.N      ??HAL_HCD_MspInit_1
+   \   00000092   0x2043             MOVS     R0,#+67
+   \   00000094   0xE080             B.N      ??HAL_HCD_MspInit_1
      84            } 
      85            else if(hhcd->Instance == USB_OTG_HS)
    \                     ??HAL_HCD_MspInit_0: (+1)
-   \   000000CE   0x6820             LDR      R0,[R4, #+0]
-   \   000000D0   0x.... 0x....      LDR.W    R1,??DataTable5_5  ;; 0x40040000
-   \   000000D4   0x4288             CMP      R0,R1
-   \   000000D6   0xF040 0x809B      BNE.W    ??HAL_HCD_MspInit_1
+   \   00000096   0x....             LDR.N    R1,??DataTable5_3  ;; 0x40040000
+   \   00000098   0x4288             CMP      R0,R1
+   \   0000009A   0xF040 0x807F      BNE.W    ??HAL_HCD_MspInit_2
      86            {
      87              /* Configure USB HS GPIOs */
      88              __HAL_RCC_GPIOA_CLK_ENABLE();
-   \   000000DA   0x.... 0x....      LDR.W    R0,??DataTable5  ;; 0x40023830
-   \   000000DE   0x6800             LDR      R0,[R0, #+0]
-   \   000000E0   0xF050 0x0001      ORRS     R0,R0,#0x1
-   \   000000E4   0x.... 0x....      LDR.W    R1,??DataTable5  ;; 0x40023830
-   \   000000E8   0x6008             STR      R0,[R1, #+0]
-   \   000000EA   0x.... 0x....      LDR.W    R0,??DataTable5  ;; 0x40023830
-   \   000000EE   0x6800             LDR      R0,[R0, #+0]
-   \   000000F0   0xF010 0x0001      ANDS     R0,R0,#0x1
-   \   000000F4   0x9000             STR      R0,[SP, #+0]
-   \   000000F6   0x9800             LDR      R0,[SP, #+0]
+   \   0000009E   0x....             LDR.N    R4,??DataTable5  ;; 0x40023830
      89              __HAL_RCC_GPIOB_CLK_ENABLE();
-   \   000000F8   0x.... 0x....      LDR.W    R0,??DataTable5  ;; 0x40023830
-   \   000000FC   0x6800             LDR      R0,[R0, #+0]
-   \   000000FE   0xF050 0x0002      ORRS     R0,R0,#0x2
-   \   00000102   0x.... 0x....      LDR.W    R1,??DataTable5  ;; 0x40023830
-   \   00000106   0x6008             STR      R0,[R1, #+0]
-   \   00000108   0x.... 0x....      LDR.W    R0,??DataTable5  ;; 0x40023830
-   \   0000010C   0x6800             LDR      R0,[R0, #+0]
-   \   0000010E   0xF010 0x0002      ANDS     R0,R0,#0x2
-   \   00000112   0x9000             STR      R0,[SP, #+0]
-   \   00000114   0x9800             LDR      R0,[SP, #+0]
      90              __HAL_RCC_GPIOC_CLK_ENABLE();
-   \   00000116   0x.... 0x....      LDR.W    R0,??DataTable5  ;; 0x40023830
-   \   0000011A   0x6800             LDR      R0,[R0, #+0]
-   \   0000011C   0xF050 0x0004      ORRS     R0,R0,#0x4
-   \   00000120   0x.... 0x....      LDR.W    R1,??DataTable5  ;; 0x40023830
-   \   00000124   0x6008             STR      R0,[R1, #+0]
-   \   00000126   0x.... 0x....      LDR.W    R0,??DataTable5  ;; 0x40023830
-   \   0000012A   0x6800             LDR      R0,[R0, #+0]
-   \   0000012C   0xF010 0x0004      ANDS     R0,R0,#0x4
-   \   00000130   0x9000             STR      R0,[SP, #+0]
-   \   00000132   0x9800             LDR      R0,[SP, #+0]
      91              __HAL_RCC_GPIOH_CLK_ENABLE();
-   \   00000134   0x.... 0x....      LDR.W    R0,??DataTable5  ;; 0x40023830
-   \   00000138   0x6800             LDR      R0,[R0, #+0]
-   \   0000013A   0xF050 0x0080      ORRS     R0,R0,#0x80
-   \   0000013E   0x.... 0x....      LDR.W    R1,??DataTable5  ;; 0x40023830
-   \   00000142   0x6008             STR      R0,[R1, #+0]
-   \   00000144   0x.... 0x....      LDR.W    R0,??DataTable5  ;; 0x40023830
-   \   00000148   0x6800             LDR      R0,[R0, #+0]
-   \   0000014A   0xF010 0x0080      ANDS     R0,R0,#0x80
-   \   0000014E   0x9000             STR      R0,[SP, #+0]
-   \   00000150   0x9800             LDR      R0,[SP, #+0]
      92          	
      93              /* CLK */
      94          	//sop1hc
@@ -291,138 +236,162 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     101              
     102              /* D0 */
     103              GPIO_InitStruct.Pin = GPIO_PIN_3;
-   \   00000152   0x2008             MOVS     R0,#+8
-   \   00000154   0x9001             STR      R0,[SP, #+4]
     104              GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-   \   00000156   0x2002             MOVS     R0,#+2
-   \   00000158   0x9002             STR      R0,[SP, #+8]
     105              GPIO_InitStruct.Pull = GPIO_NOPULL;
-   \   0000015A   0x2000             MOVS     R0,#+0
-   \   0000015C   0x9003             STR      R0,[SP, #+12]
     106              GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-   \   0000015E   0x2003             MOVS     R0,#+3
-   \   00000160   0x9004             STR      R0,[SP, #+16]
     107              GPIO_InitStruct.Alternate = GPIO_AF10_OTG_HS;
-   \   00000162   0x200A             MOVS     R0,#+10
-   \   00000164   0x9005             STR      R0,[SP, #+20]
     108              HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); 
-   \   00000166   0xA901             ADD      R1,SP,#+4
-   \   00000168   0x....             LDR.N    R0,??DataTable5_1  ;; 0x40020000
-   \   0000016A   0x.... 0x....      BL       HAL_GPIO_Init
+   \   000000A0   0xA901             ADD      R1,SP,#+4
+   \   000000A2   0x....             LDR.N    R5,??DataTable5_4  ;; 0x40020800
+   \   000000A4   0x6820             LDR      R0,[R4, #+0]
+   \   000000A6   0xF040 0x0001      ORR      R0,R0,#0x1
+   \   000000AA   0x6020             STR      R0,[R4, #+0]
+   \   000000AC   0x6820             LDR      R0,[R4, #+0]
+   \   000000AE   0xF000 0x0001      AND      R0,R0,#0x1
+   \   000000B2   0x9000             STR      R0,[SP, #+0]
+   \   000000B4   0x9800             LDR      R0,[SP, #+0]
+   \   000000B6   0x6820             LDR      R0,[R4, #+0]
+   \   000000B8   0xF040 0x0002      ORR      R0,R0,#0x2
+   \   000000BC   0x6020             STR      R0,[R4, #+0]
+   \   000000BE   0x6820             LDR      R0,[R4, #+0]
+   \   000000C0   0xF000 0x0002      AND      R0,R0,#0x2
+   \   000000C4   0x9000             STR      R0,[SP, #+0]
+   \   000000C6   0x9800             LDR      R0,[SP, #+0]
+   \   000000C8   0x6820             LDR      R0,[R4, #+0]
+   \   000000CA   0xF040 0x0004      ORR      R0,R0,#0x4
+   \   000000CE   0x6020             STR      R0,[R4, #+0]
+   \   000000D0   0x6820             LDR      R0,[R4, #+0]
+   \   000000D2   0xF000 0x0004      AND      R0,R0,#0x4
+   \   000000D6   0x9000             STR      R0,[SP, #+0]
+   \   000000D8   0x9800             LDR      R0,[SP, #+0]
+   \   000000DA   0x6820             LDR      R0,[R4, #+0]
+   \   000000DC   0xF040 0x0080      ORR      R0,R0,#0x80
+   \   000000E0   0x6020             STR      R0,[R4, #+0]
+   \   000000E2   0x6820             LDR      R0,[R4, #+0]
+   \   000000E4   0xF000 0x0080      AND      R0,R0,#0x80
+   \   000000E8   0x9000             STR      R0,[SP, #+0]
+   \   000000EA   0x9800             LDR      R0,[SP, #+0]
+   \   000000EC   0x2008             MOVS     R0,#+8
+   \   000000EE   0x9001             STR      R0,[SP, #+4]
+   \   000000F0   0x2002             MOVS     R0,#+2
+   \   000000F2   0x9002             STR      R0,[SP, #+8]
+   \   000000F4   0x2000             MOVS     R0,#+0
+   \   000000F6   0x9003             STR      R0,[SP, #+12]
+   \   000000F8   0x2003             MOVS     R0,#+3
+   \   000000FA   0x9004             STR      R0,[SP, #+16]
+   \   000000FC   0x200A             MOVS     R0,#+10
+   \   000000FE   0x9005             STR      R0,[SP, #+20]
+   \   00000100   0x....             LDR.N    R0,??DataTable5_1  ;; 0x40020000
+   \   00000102   0x.... 0x....      BL       HAL_GPIO_Init
     109              
     110              /* D1 D2 D3 D4 D5 D6 D7 */
     111              GPIO_InitStruct.Pin = GPIO_PIN_0  | GPIO_PIN_1  | GPIO_PIN_5 |\
     112                GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13;
-   \   0000016E   0xF643 0x4023      MOVW     R0,#+15395
-   \   00000172   0x9001             STR      R0,[SP, #+4]
+   \   00000106   0xF643 0x4023      MOVW     R0,#+15395
     113              GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-   \   00000174   0x2002             MOVS     R0,#+2
-   \   00000176   0x9002             STR      R0,[SP, #+8]
     114              GPIO_InitStruct.Pull = GPIO_NOPULL;
-   \   00000178   0x2000             MOVS     R0,#+0
-   \   0000017A   0x9003             STR      R0,[SP, #+12]
     115              GPIO_InitStruct.Alternate = GPIO_AF10_OTG_HS;
-   \   0000017C   0x200A             MOVS     R0,#+10
-   \   0000017E   0x9005             STR      R0,[SP, #+20]
     116              HAL_GPIO_Init(GPIOB, &GPIO_InitStruct); 
-   \   00000180   0xA901             ADD      R1,SP,#+4
-   \   00000182   0x....             LDR.N    R0,??DataTable5_6  ;; 0x40020400
-   \   00000184   0x.... 0x....      BL       HAL_GPIO_Init
+   \   0000010A   0xA901             ADD      R1,SP,#+4
+   \   0000010C   0x9001             STR      R0,[SP, #+4]
+   \   0000010E   0x2002             MOVS     R0,#+2
+   \   00000110   0x9002             STR      R0,[SP, #+8]
+   \   00000112   0x2000             MOVS     R0,#+0
+   \   00000114   0x9003             STR      R0,[SP, #+12]
+   \   00000116   0x200A             MOVS     R0,#+10
+   \   00000118   0x9005             STR      R0,[SP, #+20]
+   \   0000011A   0x....             LDR.N    R0,??DataTable5_5  ;; 0x40020400
+   \   0000011C   0x.... 0x....      BL       HAL_GPIO_Init
     117              
     118              /* STP */     
     119              GPIO_InitStruct.Pin = GPIO_PIN_0;
-   \   00000188   0x2001             MOVS     R0,#+1
-   \   0000018A   0x9001             STR      R0,[SP, #+4]
+   \   00000120   0x2001             MOVS     R0,#+1
     120              GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-   \   0000018C   0x2002             MOVS     R0,#+2
-   \   0000018E   0x9002             STR      R0,[SP, #+8]
     121              GPIO_InitStruct.Pull = GPIO_NOPULL;
-   \   00000190   0x2000             MOVS     R0,#+0
-   \   00000192   0x9003             STR      R0,[SP, #+12]
     122              GPIO_InitStruct.Alternate = GPIO_AF10_OTG_HS;
-   \   00000194   0x200A             MOVS     R0,#+10
-   \   00000196   0x9005             STR      R0,[SP, #+20]
     123              HAL_GPIO_Init(GPIOC, &GPIO_InitStruct); 
-   \   00000198   0xA901             ADD      R1,SP,#+4
-   \   0000019A   0x....             LDR.N    R0,??DataTable5_7  ;; 0x40020800
-   \   0000019C   0x.... 0x....      BL       HAL_GPIO_Init
+   \   00000122   0xA901             ADD      R1,SP,#+4
+   \   00000124   0x9001             STR      R0,[SP, #+4]
+   \   00000126   0x2002             MOVS     R0,#+2
+   \   00000128   0x9002             STR      R0,[SP, #+8]
+   \   0000012A   0x2000             MOVS     R0,#+0
+   \   0000012C   0x9003             STR      R0,[SP, #+12]
+   \   0000012E   0x200A             MOVS     R0,#+10
+   \   00000130   0x9005             STR      R0,[SP, #+20]
+   \   00000132   0x4628             MOV      R0,R5
+   \   00000134   0x.... 0x....      BL       HAL_GPIO_Init
     124              
     125              /* NXT */ 
     126              GPIO_InitStruct.Pin = GPIO_PIN_4;
-   \   000001A0   0x2010             MOVS     R0,#+16
-   \   000001A2   0x9001             STR      R0,[SP, #+4]
+   \   00000138   0x2010             MOVS     R0,#+16
     127              GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-   \   000001A4   0x2002             MOVS     R0,#+2
-   \   000001A6   0x9002             STR      R0,[SP, #+8]
     128              GPIO_InitStruct.Pull = GPIO_NOPULL;
-   \   000001A8   0x2000             MOVS     R0,#+0
-   \   000001AA   0x9003             STR      R0,[SP, #+12]
     129              GPIO_InitStruct.Alternate = GPIO_AF10_OTG_HS;
-   \   000001AC   0x200A             MOVS     R0,#+10
-   \   000001AE   0x9005             STR      R0,[SP, #+20]
     130              HAL_GPIO_Init(GPIOH, &GPIO_InitStruct);
-   \   000001B0   0xA901             ADD      R1,SP,#+4
-   \   000001B2   0x....             LDR.N    R0,??DataTable5_8  ;; 0x40021c00
-   \   000001B4   0x.... 0x....      BL       HAL_GPIO_Init
+   \   0000013A   0xA901             ADD      R1,SP,#+4
+   \   0000013C   0x9001             STR      R0,[SP, #+4]
+   \   0000013E   0x2002             MOVS     R0,#+2
+   \   00000140   0x9002             STR      R0,[SP, #+8]
+   \   00000142   0x2000             MOVS     R0,#+0
+   \   00000144   0x9003             STR      R0,[SP, #+12]
+   \   00000146   0x200A             MOVS     R0,#+10
+   \   00000148   0x9005             STR      R0,[SP, #+20]
+   \   0000014A   0x....             LDR.N    R0,??DataTable5_6  ;; 0x40021c00
+   \   0000014C   0x.... 0x....      BL       HAL_GPIO_Init
     131              
     132              /* DIR */
     133              GPIO_InitStruct.Pin = GPIO_PIN_2;
-   \   000001B8   0x2004             MOVS     R0,#+4
-   \   000001BA   0x9001             STR      R0,[SP, #+4]
+   \   00000150   0x2004             MOVS     R0,#+4
     134              GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-   \   000001BC   0x2002             MOVS     R0,#+2
-   \   000001BE   0x9002             STR      R0,[SP, #+8]
     135              GPIO_InitStruct.Pull = GPIO_NOPULL;
-   \   000001C0   0x2000             MOVS     R0,#+0
-   \   000001C2   0x9003             STR      R0,[SP, #+12]
     136              GPIO_InitStruct.Alternate = GPIO_AF10_OTG_HS;
-   \   000001C4   0x200A             MOVS     R0,#+10
-   \   000001C6   0x9005             STR      R0,[SP, #+20]
     137              HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-   \   000001C8   0xA901             ADD      R1,SP,#+4
-   \   000001CA   0x....             LDR.N    R0,??DataTable5_7  ;; 0x40020800
-   \   000001CC   0x.... 0x....      BL       HAL_GPIO_Init
+   \   00000152   0xA901             ADD      R1,SP,#+4
+   \   00000154   0x9001             STR      R0,[SP, #+4]
+   \   00000156   0x2002             MOVS     R0,#+2
+   \   00000158   0x9002             STR      R0,[SP, #+8]
+   \   0000015A   0x2000             MOVS     R0,#+0
+   \   0000015C   0x9003             STR      R0,[SP, #+12]
+   \   0000015E   0x200A             MOVS     R0,#+10
+   \   00000160   0x9005             STR      R0,[SP, #+20]
+   \   00000162   0x4628             MOV      R0,R5
+   \   00000164   0x.... 0x....      BL       HAL_GPIO_Init
     138              __HAL_RCC_USB_OTG_HS_ULPI_CLK_ENABLE();
-   \   000001D0   0x....             LDR.N    R0,??DataTable5  ;; 0x40023830
-   \   000001D2   0x6800             LDR      R0,[R0, #+0]
-   \   000001D4   0xF050 0x4080      ORRS     R0,R0,#0x40000000
-   \   000001D8   0x....             LDR.N    R1,??DataTable5  ;; 0x40023830
-   \   000001DA   0x6008             STR      R0,[R1, #+0]
-   \   000001DC   0x....             LDR.N    R0,??DataTable5  ;; 0x40023830
-   \   000001DE   0x6800             LDR      R0,[R0, #+0]
-   \   000001E0   0xF010 0x4080      ANDS     R0,R0,#0x40000000
-   \   000001E4   0x9000             STR      R0,[SP, #+0]
-   \   000001E6   0x9800             LDR      R0,[SP, #+0]
+   \   00000168   0x6820             LDR      R0,[R4, #+0]
     139          
     140              /* Enable USB HS Clocks */ 
     141              __HAL_RCC_USB_OTG_HS_CLK_ENABLE();
-   \   000001E8   0x....             LDR.N    R0,??DataTable5  ;; 0x40023830
-   \   000001EA   0x6800             LDR      R0,[R0, #+0]
-   \   000001EC   0xF050 0x5000      ORRS     R0,R0,#0x20000000
-   \   000001F0   0x....             LDR.N    R1,??DataTable5  ;; 0x40023830
-   \   000001F2   0x6008             STR      R0,[R1, #+0]
-   \   000001F4   0x....             LDR.N    R0,??DataTable5  ;; 0x40023830
-   \   000001F6   0x6800             LDR      R0,[R0, #+0]
-   \   000001F8   0xF010 0x5000      ANDS     R0,R0,#0x20000000
-   \   000001FC   0x9000             STR      R0,[SP, #+0]
-   \   000001FE   0x9800             LDR      R0,[SP, #+0]
     142              
     143              /* Set USBHS Interrupt to the lowest priority */
     144              HAL_NVIC_SetPriority(OTG_HS_IRQn, 6, 0);
-   \   00000200   0x2200             MOVS     R2,#+0
-   \   00000202   0x2106             MOVS     R1,#+6
-   \   00000204   0x204D             MOVS     R0,#+77
-   \   00000206   0x.... 0x....      BL       HAL_NVIC_SetPriority
+   \   0000016A   0x2200             MOVS     R2,#+0
+   \   0000016C   0x2106             MOVS     R1,#+6
+   \   0000016E   0xF040 0x4080      ORR      R0,R0,#0x40000000
+   \   00000172   0x6020             STR      R0,[R4, #+0]
+   \   00000174   0x6820             LDR      R0,[R4, #+0]
+   \   00000176   0xF000 0x4080      AND      R0,R0,#0x40000000
+   \   0000017A   0x9000             STR      R0,[SP, #+0]
+   \   0000017C   0x9800             LDR      R0,[SP, #+0]
+   \   0000017E   0x6820             LDR      R0,[R4, #+0]
+   \   00000180   0xF040 0x5000      ORR      R0,R0,#0x20000000
+   \   00000184   0x6020             STR      R0,[R4, #+0]
+   \   00000186   0x6820             LDR      R0,[R4, #+0]
+   \   00000188   0xF000 0x5000      AND      R0,R0,#0x20000000
+   \   0000018C   0x9000             STR      R0,[SP, #+0]
+   \   0000018E   0x9800             LDR      R0,[SP, #+0]
+   \   00000190   0x204D             MOVS     R0,#+77
+   \   00000192   0x.... 0x....      BL       HAL_NVIC_SetPriority
     145              
     146              /* Enable USBHS Interrupt */
     147              HAL_NVIC_EnableIRQ(OTG_HS_IRQn);
-   \   0000020A   0x204D             MOVS     R0,#+77
-   \   0000020C   0x.... 0x....      BL       HAL_NVIC_EnableIRQ
+   \   00000196   0x204D             MOVS     R0,#+77
+   \                     ??HAL_HCD_MspInit_1: (+1)
+   \   00000198   0x.... 0x....      BL       HAL_NVIC_EnableIRQ
     148            }   
     149          }
-   \                     ??HAL_HCD_MspInit_1: (+1)
-   \   00000210   0xB008             ADD      SP,SP,#+32
-   \   00000212   0xBD10             POP      {R4,PC}          ;; return
+   \                     ??HAL_HCD_MspInit_2: (+1)
+   \   0000019C   0xB007             ADD      SP,SP,#+28
+   \   0000019E   0xBD30             POP      {R4,R5,PC}       ;; return
     150          
     151          /**
     152            * @brief  DeInitializes the HCD MSP.
@@ -435,48 +404,41 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     157          {
     158            if(hhcd->Instance == USB_OTG_FS)
    \                     HAL_HCD_MspDeInit: (+1)
-   \   00000000   0x6801             LDR      R1,[R0, #+0]
-   \   00000002   0xF1B1 0x4FA0      CMP      R1,#+1342177280
-   \   00000006   0xD10C             BNE.N    ??HAL_HCD_MspDeInit_0
+   \   00000000   0x6800             LDR      R0,[R0, #+0]
+   \   00000002   0xF1B0 0x4FA0      CMP      R0,#+1342177280
+   \   00000006   0xD109             BNE.N    ??HAL_HCD_MspDeInit_0
     159            {  
     160              /* Disable USB FS Clocks */ 
     161              __HAL_RCC_USB_OTG_FS_CLK_DISABLE();
-   \   00000008   0x....             LDR.N    R1,??DataTable5_3  ;; 0x40023834
-   \   0000000A   0x6809             LDR      R1,[R1, #+0]
-   \   0000000C   0xF031 0x0180      BICS     R1,R1,#0x80
-   \   00000010   0x....             LDR.N    R2,??DataTable5_3  ;; 0x40023834
-   \   00000012   0x6011             STR      R1,[R2, #+0]
-   \   00000014   0x....             LDR.N    R1,??DataTable5_4  ;; 0x40023844
-   \   00000016   0x6809             LDR      R1,[R1, #+0]
-   \   00000018   0xF431 0x4180      BICS     R1,R1,#0x4000
-   \   0000001C   0x....             LDR.N    R2,??DataTable5_4  ;; 0x40023844
-   \   0000001E   0x6011             STR      R1,[R2, #+0]
-   \   00000020   0xE00F             B.N      ??HAL_HCD_MspDeInit_1
+   \   00000008   0x....             LDR.N    R0,??DataTable5  ;; 0x40023830
+   \   0000000A   0x6841             LDR      R1,[R0, #+4]
+   \   0000000C   0xF021 0x0180      BIC      R1,R1,#0x80
+   \   00000010   0x6041             STR      R1,[R0, #+4]
+   \   00000012   0x6941             LDR      R1,[R0, #+20]
+   \   00000014   0xF421 0x4180      BIC      R1,R1,#0x4000
+   \   00000018   0x6141             STR      R1,[R0, #+20]
+   \   0000001A   0x4770             BX       LR
     162            }
     163            else if(hhcd->Instance == USB_OTG_HS)
    \                     ??HAL_HCD_MspDeInit_0: (+1)
-   \   00000022   0x6801             LDR      R1,[R0, #+0]
-   \   00000024   0x....             LDR.N    R2,??DataTable5_5  ;; 0x40040000
-   \   00000026   0x4291             CMP      R1,R2
-   \   00000028   0xD10B             BNE.N    ??HAL_HCD_MspDeInit_1
+   \   0000001C   0x....             LDR.N    R1,??DataTable5_3  ;; 0x40040000
+   \   0000001E   0x4288             CMP      R0,R1
+   \   00000020   0xD108             BNE.N    ??HAL_HCD_MspDeInit_1
     164            {  
     165              /* Disable USB HS Clocks */ 
     166              __HAL_RCC_USB_OTG_HS_CLK_DISABLE();
-   \   0000002A   0x....             LDR.N    R1,??DataTable5  ;; 0x40023830
-   \   0000002C   0x6809             LDR      R1,[R1, #+0]
-   \   0000002E   0xF031 0x5100      BICS     R1,R1,#0x20000000
-   \   00000032   0x....             LDR.N    R2,??DataTable5  ;; 0x40023830
-   \   00000034   0x6011             STR      R1,[R2, #+0]
+   \   00000022   0x....             LDR.N    R0,??DataTable5  ;; 0x40023830
+   \   00000024   0x6801             LDR      R1,[R0, #+0]
+   \   00000026   0xF021 0x5100      BIC      R1,R1,#0x20000000
+   \   0000002A   0x6001             STR      R1,[R0, #+0]
     167              __HAL_RCC_USB_OTG_HS_ULPI_CLK_DISABLE();
-   \   00000036   0x....             LDR.N    R1,??DataTable5  ;; 0x40023830
-   \   00000038   0x6809             LDR      R1,[R1, #+0]
-   \   0000003A   0xF031 0x4180      BICS     R1,R1,#0x40000000
-   \   0000003E   0x....             LDR.N    R2,??DataTable5  ;; 0x40023830
-   \   00000040   0x6011             STR      R1,[R2, #+0]
+   \   0000002C   0x6801             LDR      R1,[R0, #+0]
+   \   0000002E   0xF021 0x4180      BIC      R1,R1,#0x40000000
+   \   00000032   0x6001             STR      R1,[R0, #+0]
     168            }  
     169          }
    \                     ??HAL_HCD_MspDeInit_1: (+1)
-   \   00000042   0x4770             BX       LR               ;; return
+   \   00000034   0x4770             BX       LR               ;; return
     170          
     171          /*******************************************************************************
     172                                 LL Driver Callbacks (HCD -> USB Host Library)
@@ -491,14 +453,11 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \                                 In section .text, align 2, keep-with-next
     180          void HAL_HCD_SOF_Callback(HCD_HandleTypeDef *hhcd)
     181          {
-   \                     HAL_HCD_SOF_Callback: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x0004             MOVS     R4,R0
     182            USBH_LL_IncTimer (hhcd->pData);
-   \   00000004   0xF8D4 0x0290      LDR      R0,[R4, #+656]
-   \   00000008   0x.... 0x....      BL       USBH_LL_IncTimer
+   \                     HAL_HCD_SOF_Callback: (+1)
+   \   00000000   0xF8D0 0x0290      LDR      R0,[R0, #+656]
+   \   00000004   0x.... 0x....      B.W      USBH_LL_IncTimer
     183          }
-   \   0000000C   0xBD10             POP      {R4,PC}          ;; return
     184          
     185          /**
     186            * @brief  Connect callback.
@@ -509,14 +468,11 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \                                 In section .text, align 2, keep-with-next
     190          void HAL_HCD_Connect_Callback(HCD_HandleTypeDef *hhcd)
     191          {
-   \                     HAL_HCD_Connect_Callback: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x0004             MOVS     R4,R0
     192            USBH_LL_Connect(hhcd->pData);
-   \   00000004   0xF8D4 0x0290      LDR      R0,[R4, #+656]
-   \   00000008   0x.... 0x....      BL       USBH_LL_Connect
+   \                     HAL_HCD_Connect_Callback: (+1)
+   \   00000000   0xF8D0 0x0290      LDR      R0,[R0, #+656]
+   \   00000004   0x.... 0x....      B.W      USBH_LL_Connect
     193          }
-   \   0000000C   0xBD10             POP      {R4,PC}          ;; return
     194          
     195          /**
     196            * @brief  Disconnect callback.
@@ -527,14 +483,11 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \                                 In section .text, align 2, keep-with-next
     200          void HAL_HCD_Disconnect_Callback(HCD_HandleTypeDef *hhcd)
     201          {
-   \                     HAL_HCD_Disconnect_Callback: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x0004             MOVS     R4,R0
     202            USBH_LL_Disconnect(hhcd->pData);
-   \   00000004   0xF8D4 0x0290      LDR      R0,[R4, #+656]
-   \   00000008   0x.... 0x....      BL       USBH_LL_Disconnect
+   \                     HAL_HCD_Disconnect_Callback: (+1)
+   \   00000000   0xF8D0 0x0290      LDR      R0,[R0, #+656]
+   \   00000004   0x.... 0x....      B.W      USBH_LL_Disconnect
     203          } 
-   \   0000000C   0xBD10             POP      {R4,PC}          ;; return
     204          
     205          
     206          /**
@@ -567,55 +520,45 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     227          USBH_StatusTypeDef USBH_LL_Init(USBH_HandleTypeDef *phost)
     228          {
    \                     USBH_LL_Init: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x0004             MOVS     R4,R0
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000002   0x4604             MOV      R4,R0
     229          #ifdef USE_USB_FS  
     230            /* Set the LL driver parameters */
     231            hhcd.Instance = USB_OTG_FS;
-   \   00000004   0xF05F 0x40A0      MOVS     R0,#+1342177280
-   \   00000008   0x....             LDR.N    R1,??DataTable5_9
-   \   0000000A   0x6008             STR      R0,[R1, #+0]
+   \   00000004   0x....             LDR.N    R5,??DataTable5_7
+   \   00000006   0xF04F 0x40A0      MOV      R0,#+1342177280
     232            hhcd.Init.Host_channels = 11; 
-   \   0000000C   0x200B             MOVS     R0,#+11
-   \   0000000E   0x....             LDR.N    R1,??DataTable5_9
-   \   00000010   0x6088             STR      R0,[R1, #+8]
     233            hhcd.Init.dma_enable = 0;
-   \   00000012   0x2000             MOVS     R0,#+0
-   \   00000014   0x....             LDR.N    R1,??DataTable5_9
-   \   00000016   0x6108             STR      R0,[R1, #+16]
     234            hhcd.Init.low_power_enable = 0;
-   \   00000018   0x2000             MOVS     R0,#+0
-   \   0000001A   0x....             LDR.N    R1,??DataTable5_9
-   \   0000001C   0x6208             STR      R0,[R1, #+32]
     235            hhcd.Init.phy_itface = HCD_PHY_EMBEDDED; 
-   \   0000001E   0x2002             MOVS     R0,#+2
-   \   00000020   0x....             LDR.N    R1,??DataTable5_9
-   \   00000022   0x6188             STR      R0,[R1, #+24]
     236            hhcd.Init.Sof_enable = 0;
-   \   00000024   0x2000             MOVS     R0,#+0
-   \   00000026   0x....             LDR.N    R1,??DataTable5_9
-   \   00000028   0x61C8             STR      R0,[R1, #+28]
     237            hhcd.Init.speed = HCD_SPEED_FULL;
-   \   0000002A   0x2003             MOVS     R0,#+3
-   \   0000002C   0x....             LDR.N    R1,??DataTable5_9
-   \   0000002E   0x60C8             STR      R0,[R1, #+12]
     238            hhcd.Init.vbus_sensing_enable = 0;
-   \   00000030   0x2000             MOVS     R0,#+0
-   \   00000032   0x....             LDR.N    R1,??DataTable5_9
-   \   00000034   0x6288             STR      R0,[R1, #+40]
     239            
     240            /* Link the driver to the stack */
     241            hhcd.pData = phost;
-   \   00000036   0x....             LDR.N    R0,??DataTable5_9
-   \   00000038   0xF8C0 0x4290      STR      R4,[R0, #+656]
+   \   0000000A   0xF8C5 0x4290      STR      R4,[R5, #+656]
+   \   0000000E   0x6028             STR      R0,[R5, #+0]
+   \   00000010   0x200B             MOVS     R0,#+11
+   \   00000012   0x60A8             STR      R0,[R5, #+8]
+   \   00000014   0x2000             MOVS     R0,#+0
+   \   00000016   0x6128             STR      R0,[R5, #+16]
+   \   00000018   0x6228             STR      R0,[R5, #+32]
+   \   0000001A   0x2002             MOVS     R0,#+2
+   \   0000001C   0x61A8             STR      R0,[R5, #+24]
+   \   0000001E   0x2000             MOVS     R0,#+0
+   \   00000020   0x61E8             STR      R0,[R5, #+28]
+   \   00000022   0x2003             MOVS     R0,#+3
+   \   00000024   0x60E8             STR      R0,[R5, #+12]
+   \   00000026   0x2000             MOVS     R0,#+0
+   \   00000028   0x62A8             STR      R0,[R5, #+40]
     242            phost->pData = &hhcd;
-   \   0000003C   0x....             LDR.N    R0,??DataTable5_9
-   \   0000003E   0xF8C4 0x02B0      STR      R0,[R4, #+688]
     243            
     244            /* Initialize the LL Driver */
     245            HAL_HCD_Init(&hhcd);
-   \   00000042   0x....             LDR.N    R0,??DataTable5_9
-   \   00000044   0x.... 0x....      BL       HAL_HCD_Init
+   \   0000002A   0x4628             MOV      R0,R5
+   \   0000002C   0xF8C4 0x52B0      STR      R5,[R4, #+688]
+   \   00000030   0x.... 0x....      BL       HAL_HCD_Init
     246          #endif 
     247          #ifdef USE_USB_HS  
     248            /* Set the LL driver parameters */
@@ -637,15 +580,15 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     264          #endif /*USE_USB_HS*/ 
     265          
     266            USBH_LL_SetTimer(phost, HAL_HCD_GetCurrentFrame(&hhcd));
-   \   00000048   0x....             LDR.N    R0,??DataTable5_9
-   \   0000004A   0x.... 0x....      BL       HAL_HCD_GetCurrentFrame
-   \   0000004E   0x0001             MOVS     R1,R0
-   \   00000050   0x0020             MOVS     R0,R4
-   \   00000052   0x.... 0x....      BL       USBH_LL_SetTimer
+   \   00000034   0x4628             MOV      R0,R5
+   \   00000036   0x.... 0x....      BL       HAL_HCD_GetCurrentFrame
+   \   0000003A   0x4601             MOV      R1,R0
+   \   0000003C   0x4620             MOV      R0,R4
+   \   0000003E   0x.... 0x....      BL       USBH_LL_SetTimer
     267            
     268            return USBH_OK;
-   \   00000056   0x2000             MOVS     R0,#+0
-   \   00000058   0xBD10             POP      {R4,PC}          ;; return
+   \   00000042   0x2000             MOVS     R0,#+0
+   \   00000044   0xBD32             POP      {R1,R4,R5,PC}    ;; return
     269          }
     270          
     271          /**
@@ -658,14 +601,13 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     276          USBH_StatusTypeDef USBH_LL_DeInit(USBH_HandleTypeDef *phost)
     277          {
    \                     USBH_LL_DeInit: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x0004             MOVS     R4,R0
+   \   00000000   0xB580             PUSH     {R7,LR}
     278            HAL_HCD_DeInit(phost->pData);
-   \   00000004   0xF8D4 0x02B0      LDR      R0,[R4, #+688]
-   \   00000008   0x.... 0x....      BL       HAL_HCD_DeInit
+   \   00000002   0xF8D0 0x02B0      LDR      R0,[R0, #+688]
+   \   00000006   0x.... 0x....      BL       HAL_HCD_DeInit
     279            return USBH_OK; 
-   \   0000000C   0x2000             MOVS     R0,#+0
-   \   0000000E   0xBD10             POP      {R4,PC}          ;; return
+   \   0000000A   0x2000             MOVS     R0,#+0
+   \   0000000C   0xBD02             POP      {R1,PC}          ;; return
     280          }
     281          
     282          /**
@@ -678,14 +620,13 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     287          USBH_StatusTypeDef USBH_LL_Start(USBH_HandleTypeDef *phost)
     288          {
    \                     USBH_LL_Start: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x0004             MOVS     R4,R0
+   \   00000000   0xB580             PUSH     {R7,LR}
     289            HAL_HCD_Start(phost->pData);
-   \   00000004   0xF8D4 0x02B0      LDR      R0,[R4, #+688]
-   \   00000008   0x.... 0x....      BL       HAL_HCD_Start
+   \   00000002   0xF8D0 0x02B0      LDR      R0,[R0, #+688]
+   \   00000006   0x.... 0x....      BL       HAL_HCD_Start
     290            return USBH_OK; 
-   \   0000000C   0x2000             MOVS     R0,#+0
-   \   0000000E   0xBD10             POP      {R4,PC}          ;; return
+   \   0000000A   0x2000             MOVS     R0,#+0
+   \   0000000C   0xBD02             POP      {R1,PC}          ;; return
     291          }
     292          
     293          /**
@@ -698,14 +639,13 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     298          USBH_StatusTypeDef USBH_LL_Stop(USBH_HandleTypeDef *phost)
     299          {
    \                     USBH_LL_Stop: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x0004             MOVS     R4,R0
+   \   00000000   0xB580             PUSH     {R7,LR}
     300            HAL_HCD_Stop(phost->pData);
-   \   00000004   0xF8D4 0x02B0      LDR      R0,[R4, #+688]
-   \   00000008   0x.... 0x....      BL       HAL_HCD_Stop
+   \   00000002   0xF8D0 0x02B0      LDR      R0,[R0, #+688]
+   \   00000006   0x.... 0x....      BL       HAL_HCD_Stop
     301            return USBH_OK; 
-   \   0000000C   0x2000             MOVS     R0,#+0
-   \   0000000E   0xBD10             POP      {R4,PC}          ;; return
+   \   0000000A   0x2000             MOVS     R0,#+0
+   \   0000000C   0xBD02             POP      {R1,PC}          ;; return
     302          }
     303          
     304          /**
@@ -718,57 +658,41 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     309          USBH_SpeedTypeDef USBH_LL_GetSpeed(USBH_HandleTypeDef *phost)
     310          {
    \                     USBH_LL_GetSpeed: (+1)
-   \   00000000   0xB538             PUSH     {R3-R5,LR}
-   \   00000002   0x0004             MOVS     R4,R0
+   \   00000000   0xB510             PUSH     {R4,LR}
     311            USBH_SpeedTypeDef speed = USBH_SPEED_FULL;
-   \   00000004   0x2501             MOVS     R5,#+1
     312            
     313            switch (HAL_HCD_GetCurrentSpeed(phost->pData))
-   \   00000006   0xF8D4 0x02B0      LDR      R0,[R4, #+688]
-   \   0000000A   0x.... 0x....      BL       HAL_HCD_GetCurrentSpeed
-   \   0000000E   0x2800             CMP      R0,#+0
-   \   00000010   0xD003             BEQ.N    ??USBH_LL_GetSpeed_0
-   \   00000012   0x2802             CMP      R0,#+2
-   \   00000014   0xD007             BEQ.N    ??USBH_LL_GetSpeed_1
-   \   00000016   0xD303             BCC.N    ??USBH_LL_GetSpeed_2
-   \   00000018   0xE008             B.N      ??USBH_LL_GetSpeed_3
+   \   00000002   0xF8D0 0x02B0      LDR      R0,[R0, #+688]
+   \   00000006   0x2401             MOVS     R4,#+1
+   \   00000008   0x.... 0x....      BL       HAL_HCD_GetCurrentSpeed
+   \   0000000C   0xB118             CBZ.N    R0,??USBH_LL_GetSpeed_0
+   \   0000000E   0x2802             CMP      R0,#+2
+   \   00000010   0xBF08             IT       EQ 
+   \   00000012   0x2402             MOVEQ    R4,#+2
     314            {
     315            case 0: 
     316              speed = USBH_SPEED_HIGH;
-   \                     ??USBH_LL_GetSpeed_0: (+1)
-   \   0000001A   0x2000             MOVS     R0,#+0
-   \   0000001C   0x0005             MOVS     R5,R0
     317              break;
-   \   0000001E   0xE007             B.N      ??USBH_LL_GetSpeed_4
     318              
     319            case 1: 
     320              speed = USBH_SPEED_FULL;    
-   \                     ??USBH_LL_GetSpeed_2: (+1)
-   \   00000020   0x2001             MOVS     R0,#+1
-   \   00000022   0x0005             MOVS     R5,R0
     321              break;
-   \   00000024   0xE004             B.N      ??USBH_LL_GetSpeed_4
     322              
     323            case 2: 
     324              speed = USBH_SPEED_LOW;   
-   \                     ??USBH_LL_GetSpeed_1: (+1)
-   \   00000026   0x2002             MOVS     R0,#+2
-   \   00000028   0x0005             MOVS     R5,R0
+   \   00000014   0xE000             B.N      ??USBH_LL_GetSpeed_1
+   \                     ??USBH_LL_GetSpeed_0: (+1)
+   \   00000016   0x2400             MOVS     R4,#+0
     325              break;
-   \   0000002A   0xE001             B.N      ??USBH_LL_GetSpeed_4
     326              
     327            default:  
     328              speed = USBH_SPEED_FULL;    
-   \                     ??USBH_LL_GetSpeed_3: (+1)
-   \   0000002C   0x2001             MOVS     R0,#+1
-   \   0000002E   0x0005             MOVS     R5,R0
     329              break;    
     330            }
     331            return speed;
-   \                     ??USBH_LL_GetSpeed_4: (+1)
-   \   00000030   0x0028             MOVS     R0,R5
-   \   00000032   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-   \   00000034   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+   \                     ??USBH_LL_GetSpeed_1: (+1)
+   \   00000018   0x4620             MOV      R0,R4
+   \   0000001A   0xBD10             POP      {R4,PC}          ;; return
     332          }
     333          
     334          /**
@@ -781,14 +705,13 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     339          USBH_StatusTypeDef USBH_LL_ResetPort (USBH_HandleTypeDef *phost) 
     340          {
    \                     USBH_LL_ResetPort: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x0004             MOVS     R4,R0
+   \   00000000   0xB580             PUSH     {R7,LR}
     341            HAL_HCD_ResetPort(phost->pData);
-   \   00000004   0xF8D4 0x02B0      LDR      R0,[R4, #+688]
-   \   00000008   0x.... 0x....      BL       HAL_HCD_ResetPort
+   \   00000002   0xF8D0 0x02B0      LDR      R0,[R0, #+688]
+   \   00000006   0x.... 0x....      BL       HAL_HCD_ResetPort
     342            return USBH_OK; 
-   \   0000000C   0x2000             MOVS     R0,#+0
-   \   0000000E   0xBD10             POP      {R4,PC}          ;; return
+   \   0000000A   0x2000             MOVS     R0,#+0
+   \   0000000C   0xBD02             POP      {R1,PC}          ;; return
     343          }
     344          
     345          /**
@@ -801,16 +724,10 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \                                 In section .text, align 2, keep-with-next
     351          uint32_t USBH_LL_GetLastXferSize(USBH_HandleTypeDef *phost, uint8_t pipe)  
     352          {
-   \                     USBH_LL_GetLastXferSize: (+1)
-   \   00000000   0xB538             PUSH     {R3-R5,LR}
-   \   00000002   0x0004             MOVS     R4,R0
-   \   00000004   0x000D             MOVS     R5,R1
     353            return HAL_HCD_HC_GetXferCount(phost->pData, pipe);
-   \   00000006   0x0029             MOVS     R1,R5
-   \   00000008   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-   \   0000000A   0xF8D4 0x02B0      LDR      R0,[R4, #+688]
-   \   0000000E   0x.... 0x....      BL       HAL_HCD_HC_GetXferCount
-   \   00000012   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+   \                     USBH_LL_GetLastXferSize: (+1)
+   \   00000000   0xF8D0 0x02B0      LDR      R0,[R0, #+688]
+   \   00000004   0x.... 0x....      B.W      HAL_HCD_HC_GetXferCount
     354          }
     355          
     356          /**
@@ -835,15 +752,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     373                                              uint16_t mps)
     374          {
    \                     USBH_LL_OpenPipe: (+1)
-   \   00000000   0xE92D 0x47F0      PUSH     {R4-R10,LR}
-   \   00000004   0xB084             SUB      SP,SP,#+16
-   \   00000006   0x0007             MOVS     R7,R0
-   \   00000008   0x4688             MOV      R8,R1
-   \   0000000A   0x4691             MOV      R9,R2
-   \   0000000C   0x469A             MOV      R10,R3
-   \   0000000E   0x9C0C             LDR      R4,[SP, #+48]
-   \   00000010   0x9E0D             LDR      R6,[SP, #+52]
-   \   00000012   0x9D0E             LDR      R5,[SP, #+56]
+   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000002   0xB084             SUB      SP,SP,#+16
     375            HAL_HCD_HC_Init(phost->pData,
     376                            pipe,
     377                            epnum,
@@ -851,28 +761,23 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     379                            speed,
     380                            ep_type,
     381                            mps);
-   \   00000014   0x0028             MOVS     R0,R5
-   \   00000016   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-   \   00000018   0x9002             STR      R0,[SP, #+8]
-   \   0000001A   0x0030             MOVS     R0,R6
-   \   0000001C   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-   \   0000001E   0x9001             STR      R0,[SP, #+4]
-   \   00000020   0x0020             MOVS     R0,R4
-   \   00000022   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-   \   00000024   0x9000             STR      R0,[SP, #+0]
-   \   00000026   0x4653             MOV      R3,R10
-   \   00000028   0xB2DB             UXTB     R3,R3            ;; ZeroExt  R3,R3,#+24,#+24
-   \   0000002A   0x464A             MOV      R2,R9
-   \   0000002C   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
-   \   0000002E   0x4641             MOV      R1,R8
-   \   00000030   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-   \   00000032   0xF8D7 0x02B0      LDR      R0,[R7, #+688]
-   \   00000036   0x.... 0x....      BL       HAL_HCD_HC_Init
+   \   00000004   0x9C08             LDR      R4,[SP, #+32]
+   \   00000006   0x9402             STR      R4,[SP, #+8]
+   \   00000008   0x9C07             LDR      R4,[SP, #+28]
+   \   0000000A   0x9401             STR      R4,[SP, #+4]
+   \   0000000C   0x9C06             LDR      R4,[SP, #+24]
+   \   0000000E   0x9400             STR      R4,[SP, #+0]
+   \   00000010   0xF8D0 0x02B0      LDR      R0,[R0, #+688]
+   \   00000014   0x.... 0x....      BL       HAL_HCD_HC_Init
     382            return USBH_OK; 
-   \   0000003A   0x2000             MOVS     R0,#+0
-   \   0000003C   0xB004             ADD      SP,SP,#+16
-   \   0000003E   0xE8BD 0x87F0      POP      {R4-R10,PC}      ;; return
+   \   00000018   0x....             B.N      ?Subroutine0
     383          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine0: (+1)
+   \   00000000   0x2000             MOVS     R0,#+0
+   \   00000002   0xB004             ADD      SP,SP,#+16
+   \   00000004   0xBD10             POP      {R4,PC}          ;; return
     384          
     385          /**
     386            * @brief  Closes a pipe of the Low Level Driver.
@@ -885,17 +790,13 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     391          USBH_StatusTypeDef USBH_LL_ClosePipe(USBH_HandleTypeDef *phost, uint8_t pipe)   
     392          {
    \                     USBH_LL_ClosePipe: (+1)
-   \   00000000   0xB538             PUSH     {R3-R5,LR}
-   \   00000002   0x0004             MOVS     R4,R0
-   \   00000004   0x000D             MOVS     R5,R1
+   \   00000000   0xB580             PUSH     {R7,LR}
     393            HAL_HCD_HC_Halt(phost->pData, pipe);
-   \   00000006   0x0029             MOVS     R1,R5
-   \   00000008   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-   \   0000000A   0xF8D4 0x02B0      LDR      R0,[R4, #+688]
-   \   0000000E   0x.... 0x....      BL       HAL_HCD_HC_Halt
+   \   00000002   0xF8D0 0x02B0      LDR      R0,[R0, #+688]
+   \   00000006   0x.... 0x....      BL       HAL_HCD_HC_Halt
     394            return USBH_OK; 
-   \   00000012   0x2000             MOVS     R0,#+0
-   \   00000014   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+   \   0000000A   0x2000             MOVS     R0,#+0
+   \   0000000C   0xBD02             POP      {R1,PC}          ;; return
     395          }
     396          
     397          /**
@@ -937,16 +838,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     431                                               uint8_t do_ping) 
     432          {
    \                     USBH_LL_SubmitURB: (+1)
-   \   00000000   0xE92D 0x4FF0      PUSH     {R4-R11,LR}
-   \   00000004   0xB085             SUB      SP,SP,#+20
-   \   00000006   0x0007             MOVS     R7,R0
-   \   00000008   0x4688             MOV      R8,R1
-   \   0000000A   0x4691             MOV      R9,R2
-   \   0000000C   0x469A             MOV      R10,R3
-   \   0000000E   0x9C0E             LDR      R4,[SP, #+56]
-   \   00000010   0xF8DD 0xB03C      LDR      R11,[SP, #+60]
-   \   00000014   0x9D10             LDR      R5,[SP, #+64]
-   \   00000016   0x9E11             LDR      R6,[SP, #+68]
+   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000002   0xB084             SUB      SP,SP,#+16
     433            HAL_HCD_HC_SubmitRequest(phost->pData,
     434                                     pipe, 
     435                                     direction,
@@ -955,28 +848,19 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     438                                     pbuff, 
     439                                     length,
     440                                     do_ping);
-   \   00000018   0x0030             MOVS     R0,R6
-   \   0000001A   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-   \   0000001C   0x9003             STR      R0,[SP, #+12]
-   \   0000001E   0x0028             MOVS     R0,R5
-   \   00000020   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-   \   00000022   0x9002             STR      R0,[SP, #+8]
-   \   00000024   0xF8CD 0xB004      STR      R11,[SP, #+4]
-   \   00000028   0x0020             MOVS     R0,R4
-   \   0000002A   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-   \   0000002C   0x9000             STR      R0,[SP, #+0]
-   \   0000002E   0x4653             MOV      R3,R10
-   \   00000030   0xB2DB             UXTB     R3,R3            ;; ZeroExt  R3,R3,#+24,#+24
-   \   00000032   0x464A             MOV      R2,R9
-   \   00000034   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
-   \   00000036   0x4641             MOV      R1,R8
-   \   00000038   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-   \   0000003A   0xF8D7 0x02B0      LDR      R0,[R7, #+688]
-   \   0000003E   0x.... 0x....      BL       HAL_HCD_HC_SubmitRequest
+   \   00000004   0x9C09             LDR      R4,[SP, #+36]
+   \   00000006   0x9403             STR      R4,[SP, #+12]
+   \   00000008   0x9C08             LDR      R4,[SP, #+32]
+   \   0000000A   0x9402             STR      R4,[SP, #+8]
+   \   0000000C   0x9C07             LDR      R4,[SP, #+28]
+   \   0000000E   0x9401             STR      R4,[SP, #+4]
+   \   00000010   0x9C06             LDR      R4,[SP, #+24]
+   \   00000012   0x9400             STR      R4,[SP, #+0]
+   \   00000014   0xF8D0 0x02B0      LDR      R0,[R0, #+688]
+   \   00000018   0x.... 0x....      BL       HAL_HCD_HC_SubmitRequest
     441            return USBH_OK;   
-   \   00000042   0x2000             MOVS     R0,#+0
-   \   00000044   0xB005             ADD      SP,SP,#+20
-   \   00000046   0xE8BD 0x8FF0      POP      {R4-R11,PC}      ;; return
+   \   0000001C                      REQUIRE ?Subroutine0
+   \   0000001C                      ;; // Fall through to label ?Subroutine0
     442          }
     443          
     444          /**
@@ -997,16 +881,10 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \                                 In section .text, align 2, keep-with-next
     458          USBH_URBStateTypeDef USBH_LL_GetURBState(USBH_HandleTypeDef *phost, uint8_t pipe) 
     459          {
-   \                     USBH_LL_GetURBState: (+1)
-   \   00000000   0xB538             PUSH     {R3-R5,LR}
-   \   00000002   0x0004             MOVS     R4,R0
-   \   00000004   0x000D             MOVS     R5,R1
     460            return (USBH_URBStateTypeDef)HAL_HCD_HC_GetURBState (phost->pData, pipe);
-   \   00000006   0x0029             MOVS     R1,R5
-   \   00000008   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-   \   0000000A   0xF8D4 0x02B0      LDR      R0,[R4, #+688]
-   \   0000000E   0x.... 0x....      BL       HAL_HCD_HC_GetURBState
-   \   00000012   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+   \                     USBH_LL_GetURBState: (+1)
+   \   00000000   0xF8D0 0x02B0      LDR      R0,[R0, #+688]
+   \   00000004   0x.... 0x....      B.W      HAL_HCD_HC_GetURBState
     461          }
     462          
     463          /**
@@ -1022,41 +900,32 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \                                 In section .text, align 2, keep-with-next
     472          USBH_StatusTypeDef USBH_LL_DriverVBUS(USBH_HandleTypeDef *phost, uint8_t state)
     473          {
-   \                     USBH_LL_DriverVBUS: (+1)
-   \   00000000   0xB538             PUSH     {R3-R5,LR}
-   \   00000002   0x0004             MOVS     R4,R0
-   \   00000004   0x000D             MOVS     R5,R1
     474          #ifdef USE_USB_FS
     475            if(state == 0)
-   \   00000006   0xB2ED             UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
-   \   00000008   0x2D00             CMP      R5,#+0
-   \   0000000A   0xD105             BNE.N    ??USBH_LL_DriverVBUS_0
+   \                     USBH_LL_DriverVBUS: (+1)
+   \   00000000   0x2900             CMP      R1,#+0
+   \   00000002   0x....             LDR.N    R0,??DataTable5_2  ;; 0x40020c00
+   \   00000004   0xB580             PUSH     {R7,LR}
+   \   00000006   0xBF0C             ITE      EQ 
+   \   00000008   0x2201             MOVEQ    R2,#+1
+   \   0000000A   0x2200             MOVNE    R2,#+0
     476            {
     477              HAL_GPIO_WritePin(GPIOD, GPIO_PIN_5, GPIO_PIN_SET);
-   \   0000000C   0x2201             MOVS     R2,#+1
-   \   0000000E   0x2120             MOVS     R1,#+32
-   \   00000010   0x....             LDR.N    R0,??DataTable5_2  ;; 0x40020c00
-   \   00000012   0x.... 0x....      BL       HAL_GPIO_WritePin
-   \   00000016   0xE004             B.N      ??USBH_LL_DriverVBUS_1
     478            }
     479            else
     480            {
     481              HAL_GPIO_WritePin(GPIOD, GPIO_PIN_5, GPIO_PIN_RESET);
-   \                     ??USBH_LL_DriverVBUS_0: (+1)
-   \   00000018   0x2200             MOVS     R2,#+0
-   \   0000001A   0x2120             MOVS     R1,#+32
-   \   0000001C   0x....             LDR.N    R0,??DataTable5_2  ;; 0x40020c00
-   \   0000001E   0x.... 0x....      BL       HAL_GPIO_WritePin
+   \   0000000C   0x2120             MOVS     R1,#+32
+   \   0000000E   0x.... 0x....      BL       HAL_GPIO_WritePin
     482            }
     483            
     484            HAL_Delay(200);
-   \                     ??USBH_LL_DriverVBUS_1: (+1)
-   \   00000022   0x20C8             MOVS     R0,#+200
-   \   00000024   0x.... 0x....      BL       HAL_Delay
+   \   00000012   0x20C8             MOVS     R0,#+200
+   \   00000014   0x.... 0x....      BL       HAL_Delay
     485          #endif /* USE_USB_FS */
     486            return USBH_OK;  
-   \   00000028   0x2000             MOVS     R0,#+0
-   \   0000002A   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+   \   00000018   0x2000             MOVS     R0,#+0
+   \   0000001A   0xBD02             POP      {R1,PC}          ;; return
     487          }
     488          
     489          /**
@@ -1070,41 +939,26 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \                                 In section .text, align 2, keep-with-next
     496          USBH_StatusTypeDef USBH_LL_SetToggle(USBH_HandleTypeDef *phost, uint8_t pipe, uint8_t toggle)   
     497          {
-   \                     USBH_LL_SetToggle: (+1)
-   \   00000000   0xB410             PUSH     {R4}
-   \   00000002   0x0003             MOVS     R3,R0
     498            if(hhcd.hc[pipe].ep_is_in)
-   \   00000004   0x....             LDR.N    R0,??DataTable5_9
-   \   00000006   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-   \   00000008   0x2428             MOVS     R4,#+40
-   \   0000000A   0xFB04 0x0001      MLA      R0,R4,R1,R0
-   \   0000000E   0xF890 0x0037      LDRB     R0,[R0, #+55]
-   \   00000012   0x2800             CMP      R0,#+0
-   \   00000014   0xD007             BEQ.N    ??USBH_LL_SetToggle_0
+   \                     USBH_LL_SetToggle: (+1)
+   \   00000000   0xEB01 0x0381      ADD      R3,R1,R1, LSL #+2
+   \   00000004   0x....             LDR.N    R0,??DataTable5_7
+   \   00000006   0xEB00 0x00C3      ADD      R0,R0,R3, LSL #+3
+   \   0000000A   0xF810 0x1F37      LDRB     R1,[R0, #+55]!
+   \   0000000E   0x2900             CMP      R1,#+0
+   \   00000010   0xBF14             ITE      NE 
+   \   00000012   0x7542             STRBNE   R2,[R0, #+21]
+   \   00000014   0x7582             STRBEQ   R2,[R0, #+22]
     499            {
     500              hhcd.hc[pipe].toggle_in = toggle;
-   \   00000016   0x....             LDR.N    R0,??DataTable5_9
-   \   00000018   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-   \   0000001A   0x2428             MOVS     R4,#+40
-   \   0000001C   0xFB04 0x0001      MLA      R0,R4,R1,R0
-   \   00000020   0xF880 0x204C      STRB     R2,[R0, #+76]
-   \   00000024   0xE006             B.N      ??USBH_LL_SetToggle_1
     501            }
     502            else
     503            {
     504              hhcd.hc[pipe].toggle_out = toggle;
-   \                     ??USBH_LL_SetToggle_0: (+1)
-   \   00000026   0x....             LDR.N    R0,??DataTable5_9
-   \   00000028   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-   \   0000002A   0x2428             MOVS     R4,#+40
-   \   0000002C   0xFB04 0x0001      MLA      R0,R4,R1,R0
-   \   00000030   0xF880 0x204D      STRB     R2,[R0, #+77]
     505            }
     506            return USBH_OK; 
-   \                     ??USBH_LL_SetToggle_1: (+1)
-   \   00000034   0x2000             MOVS     R0,#+0
-   \   00000036   0xBC10             POP      {R4}
-   \   00000038   0x4770             BX       LR               ;; return
+   \   00000016   0x2000             MOVS     R0,#+0
+   \   00000018   0x4770             BX       LR               ;; return
     507          }
     508          
     509          /**
@@ -1117,46 +971,27 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \                                 In section .text, align 2, keep-with-next
     515          uint8_t USBH_LL_GetToggle(USBH_HandleTypeDef *phost, uint8_t pipe)   
     516          {
-   \                     USBH_LL_GetToggle: (+1)
-   \   00000000   0xB410             PUSH     {R4}
-   \   00000002   0x0002             MOVS     R2,R0
     517            uint8_t toggle = 0;
-   \   00000004   0x2000             MOVS     R0,#+0
     518            
     519            if(hhcd.hc[pipe].ep_is_in)
-   \   00000006   0x....             LDR.N    R3,??DataTable5_9
-   \   00000008   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-   \   0000000A   0x2428             MOVS     R4,#+40
-   \   0000000C   0xFB04 0x3301      MLA      R3,R4,R1,R3
-   \   00000010   0xF893 0x3037      LDRB     R3,[R3, #+55]
-   \   00000014   0x2B00             CMP      R3,#+0
-   \   00000016   0xD008             BEQ.N    ??USBH_LL_GetToggle_0
+   \                     USBH_LL_GetToggle: (+1)
+   \   00000000   0xEB01 0x0281      ADD      R2,R1,R1, LSL #+2
+   \   00000004   0x....             LDR.N    R0,??DataTable5_7
+   \   00000006   0xEB00 0x00C2      ADD      R0,R0,R2, LSL #+3
+   \   0000000A   0xF810 0x1F37      LDRB     R1,[R0, #+55]!
+   \   0000000E   0x2900             CMP      R1,#+0
+   \   00000010   0xBF14             ITE      NE 
+   \   00000012   0x7D40             LDRBNE   R0,[R0, #+21]
+   \   00000014   0x7D80             LDRBEQ   R0,[R0, #+22]
     520            {
     521              toggle = hhcd.hc[pipe].toggle_in;
-   \   00000018   0x....             LDR.N    R3,??DataTable5_9
-   \   0000001A   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-   \   0000001C   0x2428             MOVS     R4,#+40
-   \   0000001E   0xFB04 0x3301      MLA      R3,R4,R1,R3
-   \   00000022   0xF893 0x304C      LDRB     R3,[R3, #+76]
-   \   00000026   0x0018             MOVS     R0,R3
-   \   00000028   0xE007             B.N      ??USBH_LL_GetToggle_1
     522            }
     523            else
     524            {
     525              toggle = hhcd.hc[pipe].toggle_out;
-   \                     ??USBH_LL_GetToggle_0: (+1)
-   \   0000002A   0x....             LDR.N    R3,??DataTable5_9
-   \   0000002C   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-   \   0000002E   0x2428             MOVS     R4,#+40
-   \   00000030   0xFB04 0x3301      MLA      R3,R4,R1,R3
-   \   00000034   0xF893 0x304D      LDRB     R3,[R3, #+77]
-   \   00000038   0x0018             MOVS     R0,R3
+   \   00000016   0x4770             BX       LR
     526            }
     527            return toggle; 
-   \                     ??USBH_LL_GetToggle_1: (+1)
-   \   0000003A   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-   \   0000003C   0xBC10             POP      {R4}
-   \   0000003E   0x4770             BX       LR               ;; return
     528          }
     529          
     530          /**
@@ -1168,14 +1003,10 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \                                 In section .text, align 2, keep-with-next
     535          void USBH_Delay(uint32_t Delay)
     536          {
-   \                     USBH_Delay: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x0004             MOVS     R4,R0
     537            HAL_Delay(Delay);  
-   \   00000004   0x0020             MOVS     R0,R4
-   \   00000006   0x.... 0x....      BL       HAL_Delay
+   \                     USBH_Delay: (+1)
+   \   00000000   0x.... 0x....      B.W      HAL_Delay
     538          }
-   \   0000000A   0xBD10             POP      {R4,PC}          ;; return
 
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable5:
@@ -1191,30 +1022,22 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
 
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable5_3:
-   \   00000000   0x40023834         DC32     0x40023834
-
-   \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable5_4:
-   \   00000000   0x40023844         DC32     0x40023844
-
-   \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable5_5:
    \   00000000   0x40040000         DC32     0x40040000
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable5_6:
-   \   00000000   0x40020400         DC32     0x40020400
-
-   \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable5_7:
+   \                     ??DataTable5_4:
    \   00000000   0x40020800         DC32     0x40020800
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable5_8:
+   \                     ??DataTable5_5:
+   \   00000000   0x40020400         DC32     0x40020400
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_6:
    \   00000000   0x40021C00         DC32     0x40021c00
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable5_9:
+   \                     ??DataTable5_7:
    \   00000000   0x........         DC32     hhcd
     539          
     540          /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
@@ -1223,49 +1046,49 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
 
    .cstack Function
    ------- --------
-       8   HAL_HCD_Connect_Callback
-         8   -> USBH_LL_Connect
-       8   HAL_HCD_Disconnect_Callback
-         8   -> USBH_LL_Disconnect
+       0   HAL_HCD_Connect_Callback
+         0   -> USBH_LL_Connect
+       0   HAL_HCD_Disconnect_Callback
+         0   -> USBH_LL_Disconnect
        0   HAL_HCD_HC_NotifyURBChange_Callback
        0   HAL_HCD_MspDeInit
       40   HAL_HCD_MspInit
         40   -> HAL_GPIO_Init
         40   -> HAL_NVIC_EnableIRQ
         40   -> HAL_NVIC_SetPriority
-       8   HAL_HCD_SOF_Callback
-         8   -> USBH_LL_IncTimer
-       8   USBH_Delay
-         8   -> HAL_Delay
-      16   USBH_LL_ClosePipe
-        16   -> HAL_HCD_HC_Halt
+       0   HAL_HCD_SOF_Callback
+         0   -> USBH_LL_IncTimer
+       0   USBH_Delay
+         0   -> HAL_Delay
+       8   USBH_LL_ClosePipe
+         8   -> HAL_HCD_HC_Halt
        8   USBH_LL_DeInit
          8   -> HAL_HCD_DeInit
-      16   USBH_LL_DriverVBUS
-        16   -> HAL_Delay
-        16   -> HAL_GPIO_WritePin
-      16   USBH_LL_GetLastXferSize
-        16   -> HAL_HCD_HC_GetXferCount
-      16   USBH_LL_GetSpeed
-        16   -> HAL_HCD_GetCurrentSpeed
-       4   USBH_LL_GetToggle
-      16   USBH_LL_GetURBState
-        16   -> HAL_HCD_HC_GetURBState
-       8   USBH_LL_Init
-         8   -> HAL_HCD_GetCurrentFrame
-         8   -> HAL_HCD_Init
-         8   -> USBH_LL_SetTimer
-      48   USBH_LL_OpenPipe
-        48   -> HAL_HCD_HC_Init
+       8   USBH_LL_DriverVBUS
+         8   -> HAL_Delay
+         8   -> HAL_GPIO_WritePin
+       0   USBH_LL_GetLastXferSize
+         0   -> HAL_HCD_HC_GetXferCount
+       8   USBH_LL_GetSpeed
+         8   -> HAL_HCD_GetCurrentSpeed
+       0   USBH_LL_GetToggle
+       0   USBH_LL_GetURBState
+         0   -> HAL_HCD_HC_GetURBState
+      16   USBH_LL_Init
+        16   -> HAL_HCD_GetCurrentFrame
+        16   -> HAL_HCD_Init
+        16   -> USBH_LL_SetTimer
+      24   USBH_LL_OpenPipe
+        24   -> HAL_HCD_HC_Init
        8   USBH_LL_ResetPort
          8   -> HAL_HCD_ResetPort
-       4   USBH_LL_SetToggle
+       0   USBH_LL_SetToggle
        8   USBH_LL_Start
          8   -> HAL_HCD_Start
        8   USBH_LL_Stop
          8   -> HAL_HCD_Stop
-      56   USBH_LL_SubmitURB
-        56   -> HAL_HCD_HC_SubmitRequest
+      24   USBH_LL_SubmitURB
+        24   -> HAL_HCD_HC_SubmitRequest
 
 
    Section sizes:
@@ -1280,37 +1103,36 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
        4  ??DataTable5_5
        4  ??DataTable5_6
        4  ??DataTable5_7
-       4  ??DataTable5_8
-       4  ??DataTable5_9
-      14  HAL_HCD_Connect_Callback
-      14  HAL_HCD_Disconnect_Callback
+       6  ?Subroutine0
+       8  HAL_HCD_Connect_Callback
+       8  HAL_HCD_Disconnect_Callback
        2  HAL_HCD_HC_NotifyURBChange_Callback
-      68  HAL_HCD_MspDeInit
-     532  HAL_HCD_MspInit
-      14  HAL_HCD_SOF_Callback
-      12  USBH_Delay
-      22  USBH_LL_ClosePipe
-      16  USBH_LL_DeInit
-      44  USBH_LL_DriverVBUS
-      20  USBH_LL_GetLastXferSize
-      54  USBH_LL_GetSpeed
-      64  USBH_LL_GetToggle
-      20  USBH_LL_GetURBState
-      90  USBH_LL_Init
-      66  USBH_LL_OpenPipe
-      16  USBH_LL_ResetPort
-      58  USBH_LL_SetToggle
-      16  USBH_LL_Start
-      16  USBH_LL_Stop
-      74  USBH_LL_SubmitURB
+      54  HAL_HCD_MspDeInit
+     416  HAL_HCD_MspInit
+       8  HAL_HCD_SOF_Callback
+       4  USBH_Delay
+      14  USBH_LL_ClosePipe
+      14  USBH_LL_DeInit
+      28  USBH_LL_DriverVBUS
+       8  USBH_LL_GetLastXferSize
+      28  USBH_LL_GetSpeed
+      24  USBH_LL_GetToggle
+       8  USBH_LL_GetURBState
+      70  USBH_LL_Init
+      26  USBH_LL_OpenPipe
+      14  USBH_LL_ResetPort
+      26  USBH_LL_SetToggle
+      14  USBH_LL_Start
+      14  USBH_LL_Stop
+      28  USBH_LL_SubmitURB
      660  hhcd
 
  
-   660 bytes in section .bss
- 1 272 bytes in section .text
+ 660 bytes in section .bss
+ 854 bytes in section .text
  
- 1 272 bytes of CODE memory
-   660 bytes of DATA memory
+ 854 bytes of CODE memory
+ 660 bytes of DATA memory
 
 Errors: none
 Warnings: none

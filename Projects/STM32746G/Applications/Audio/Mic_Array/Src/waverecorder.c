@@ -5,35 +5,11 @@
 //#include "stm32f7xx_hal_spi.h"
 #include "stm32f7xx_hal.h"
 #include "pdm_filter.h"
+#include "DSP.h"
 
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-#define TOUCH_RECORD_XMIN       300
-#define TOUCH_RECORD_XMAX       340
-#define TOUCH_RECORD_YMIN       212
-#define TOUCH_RECORD_YMAX       252
-
-#define TOUCH_STOP_XMIN         205
-#define TOUCH_STOP_XMAX         245
-#define TOUCH_STOP_YMIN         212
-#define TOUCH_STOP_YMAX         252
-
-#define TOUCH_PAUSE_XMIN        125
-#define TOUCH_PAUSE_XMAX        149
-#define TOUCH_PAUSE_YMIN        212
-#define TOUCH_PAUSE_YMAX        252
-
-#define TOUCH_VOL_MINUS_XMIN    20
-#define TOUCH_VOL_MINUS_XMAX    70
-#define TOUCH_VOL_MINUS_YMIN    212
-#define TOUCH_VOL_MINUS_YMAX    252
-
-#define TOUCH_VOL_PLUS_XMIN     402
-#define TOUCH_VOL_PLUS_XMAX     452
-#define TOUCH_VOL_PLUS_YMIN     212
-#define TOUCH_VOL_PLUS_YMAX     252
-
 
 
 /* SPI Configuration defines */
@@ -1452,17 +1428,7 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
 
     if (hspi->Instance==SPI5)
     {
-        swtSDO7^=0x01;
-        WaveRecord_flgSDO7Finish = 1;
-        if (swtSDO7==0x01)
-        {
-            HAL_SPI_Receive_DMA(&hspi5,( uint8_t *)TestSDO7_1,4*AUDIO_OUT_BUFFER_SIZE);
-        }
-        else
-        {
-            HAL_SPI_Receive_DMA(&hspi5,( uint8_t *)TestSDO7,4*AUDIO_OUT_BUFFER_SIZE);
-        }  
-	;
+        MIC7Rec();
     }
     else
     {
@@ -1514,17 +1480,7 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
 
 
 #else
-    swtSDO8^=0x01;
-    WaveRecord_flgSDO8Finish = 1;
-    if (swtSDO8==0x01)
-    {
-        HAL_SPI_Receive_DMA(&hspi6,( uint8_t *)TestSDO8_1,4*AUDIO_OUT_BUFFER_SIZE);
-    }
-    else
-    {
-        HAL_SPI_Receive_DMA(&hspi6,( uint8_t *)TestSDO8,4*AUDIO_OUT_BUFFER_SIZE);
-
-    }
+    MIC8Rec();
 	
 #endif
 
@@ -1533,7 +1489,7 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
 
 void PDM2PCMSDO78(void)
 {
-
+static int16_t Mic7LPOld,Mic8LPOld;
 uint8_t buffer_switch_tmp;
 
 buffer_switch_tmp = buffer_switch;
@@ -1554,9 +1510,11 @@ buffer_switch_tmp = buffer_switch;
     {
         WaveRecord_flgSDO7Finish=0;
 
+        uint8_t swtSDO7_tmp;
+        swtSDO7_tmp = swtSDO7;
 		for (uint16_t i=0; i< 4*AUDIO_OUT_BUFFER_SIZE;i++)
 		{
-	        if(swtSDO7==0x01)
+	        if(swtSDO7_tmp==0x01)
 	        {
 	            pDataMic7[i%64] = HTONS(TestSDO7[i]);					
 	        }
@@ -1589,31 +1547,49 @@ buffer_switch_tmp = buffer_switch;
 	          }
 	        }
 	     }
-
-  	      switch (buffer_switch_tmp)
-          {
-			case BUF1_PLAY:								
-				Buffer2.bufMIC7[0]=Buffer2.bufMIC7[4];
-				Buffer2.bufMIC7[1]=Buffer2.bufMIC7[5];
-				Buffer2.bufMIC7[2]=Buffer2.bufMIC7[6];
-				Buffer2.bufMIC7[3]=Buffer2.bufMIC7[7];								
-			    break;	              
-			case BUF2_PLAY:	
-				Buffer3.bufMIC7[0]=Buffer3.bufMIC7[4];
-				Buffer3.bufMIC7[1]=Buffer3.bufMIC7[5];
-				Buffer3.bufMIC7[2]=Buffer3.bufMIC7[6];
-				Buffer3.bufMIC7[3]=Buffer3.bufMIC7[7];				
+        /* LowPass Filter 
+              dT = 1/16000
+              K = T/dT  => T = dT*K = 1/16000*2 = 1/fc => fc = 8000
+		*/						 
+		switch (buffer_switch)
+		{
+			case BUF1_PLAY: 
+				LowPassIIR(Buffer2.bufMIC7 ,Buffer2.bufMIC7 ,&Mic7LPOld,AUDIO_OUT_BUFFER_SIZE,4);
+			    break;
+			case BUF2_PLAY:
+				LowPassIIR(Buffer3.bufMIC7 ,Buffer3.bufMIC7 ,&Mic7LPOld,AUDIO_OUT_BUFFER_SIZE,4);
 			    break;
 			case BUF3_PLAY:
-				Buffer1.bufMIC7[0]=Buffer1.bufMIC7[4];
-				Buffer1.bufMIC7[1]=Buffer1.bufMIC7[5];
-				Buffer1.bufMIC7[2]=Buffer1.bufMIC7[6];
-				Buffer1.bufMIC7[3]=Buffer1.bufMIC7[7];				
+			    LowPassIIR(Buffer1.bufMIC7 ,Buffer1.bufMIC7 ,&Mic7LPOld,AUDIO_OUT_BUFFER_SIZE,4);						
 			    break;
 			default:
-			         break; 
-          }
-          
+			break; 
+		}
+
+   switch (buffer_switch_tmp)
+  {
+	case BUF1_PLAY:								
+		Buffer2.bufMIC7[0]=Buffer2.bufMIC7[4];
+		Buffer2.bufMIC7[1]=Buffer2.bufMIC7[5];
+		Buffer2.bufMIC7[2]=Buffer2.bufMIC7[6];
+		Buffer2.bufMIC7[3]=Buffer2.bufMIC7[7];								
+	    break;	              
+	case BUF2_PLAY:	
+		Buffer3.bufMIC7[0]=Buffer3.bufMIC7[4];
+		Buffer3.bufMIC7[1]=Buffer3.bufMIC7[5];
+		Buffer3.bufMIC7[2]=Buffer3.bufMIC7[6];
+		Buffer3.bufMIC7[3]=Buffer3.bufMIC7[7];				
+	    break;
+	case BUF3_PLAY:
+		Buffer1.bufMIC7[0]=Buffer1.bufMIC7[4];
+		Buffer1.bufMIC7[1]=Buffer1.bufMIC7[5];
+		Buffer1.bufMIC7[2]=Buffer1.bufMIC7[6];
+		Buffer1.bufMIC7[3]=Buffer1.bufMIC7[7];				
+	    break;
+	default:
+	         break; 
+  }
+
 	}
 #if 0
             /* Recording Audio Data */						 
@@ -1668,10 +1644,11 @@ buffer_switch_tmp = buffer_switch;
 	if (WaveRecord_flgSDO8Finish==1)
 	{
 		WaveRecord_flgSDO8Finish=0;
-		
+		uint8_t swtSDO8_tmp;
+		swtSDO8_tmp = swtSDO8;
 		for (uint16_t i=0; i< 4*AUDIO_OUT_BUFFER_SIZE;i++)
 		{
-                  if(swtSDO8==0x01)
+                  if(swtSDO8_tmp==0x01)
                   {
                      pDataMic8[i%64] = HTONS(TestSDO8[i]);
                   }
@@ -1703,7 +1680,25 @@ buffer_switch_tmp = buffer_switch;
                       }		
                    }					 
 		}
-               
+
+        /* LowPass Filter 
+              dT = 1/16000
+              K = T/dT  => T = dT*K = 1/16000*2 = 1/fc => fc = 8000
+		*/						 
+		switch (buffer_switch)
+		{
+			case BUF1_PLAY: 
+				LowPassIIR(Buffer2.bufMIC8 ,Buffer2.bufMIC8 ,&Mic8LPOld,AUDIO_OUT_BUFFER_SIZE,4);
+			    break;
+			case BUF2_PLAY:
+				LowPassIIR(Buffer3.bufMIC8 ,Buffer3.bufMIC8 ,&Mic8LPOld,AUDIO_OUT_BUFFER_SIZE,4);
+			    break;
+			case BUF3_PLAY:
+			    LowPassIIR(Buffer1.bufMIC8 ,Buffer1.bufMIC8 ,&Mic8LPOld,AUDIO_OUT_BUFFER_SIZE,4);						
+			    break;
+			default:
+			break; 
+		}
           					 
           switch (buffer_switch)
           {
@@ -1731,5 +1726,35 @@ buffer_switch_tmp = buffer_switch;
    }//if (WaveRecord_flgSDO8Finish==1)
 }
 
+void MIC7Rec (void)
+{
+	swtSDO7^=0x01;
+	WaveRecord_flgSDO7Finish = 1;
+	if (swtSDO7==0x01)
+	{
+		HAL_SPI_Receive_DMA(&hspi5,( uint8_t *)TestSDO7_1,4*AUDIO_OUT_BUFFER_SIZE);
+	}
+	else
+	{
+		HAL_SPI_Receive_DMA(&hspi5,( uint8_t *)TestSDO7,4*AUDIO_OUT_BUFFER_SIZE);
+	} 
+
+}
+
+void MIC8Rec (void)
+{
+     swtSDO8^=0x01;
+    WaveRecord_flgSDO8Finish = 1;
+    if (swtSDO8==0x01)
+    {
+        HAL_SPI_Receive_DMA(&hspi6,( uint8_t *)TestSDO8_1,4*AUDIO_OUT_BUFFER_SIZE);
+    }
+    else
+    {
+        HAL_SPI_Receive_DMA(&hspi6,( uint8_t *)TestSDO8,4*AUDIO_OUT_BUFFER_SIZE);
+
+    }
+
+}
 
 

@@ -1,60 +1,58 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      04/Mar/2016  17:12:04
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      05/Mar/2016  17:13:54
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_ioreq.c
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_ioreq.c
 //    Command line =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_ioreq.c
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_ioreq.c
 //        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 //        USE_IOEXPANDER -D USE_USB_FS -lC
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -lA
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-//        --no_clustering --no_scheduling --debug --endian=little
-//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-//        (x86)\IAR Systems\Embedded Workbench
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
+//        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
-//        ARM_MATH_CM7
+//        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\usbh_ioreq.s
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\usbh_ioreq.s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -125,7 +123,7 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
         
-// D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_ioreq.c
+// H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_ioreq.c
 //    1 /** 
 //    2   ******************************************************************************
 //    3   * @file    usbh_ioreq.c 
@@ -229,21 +227,20 @@
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock0 Using cfiCommon0
           CFI Function USBH_CtlSendSetup
+          CFI NoCalls
         THUMB
 //  100 USBH_StatusTypeDef USBH_CtlSendSetup (USBH_HandleTypeDef *phost, 
 //  101                                 uint8_t *buff, 
 //  102                                 uint8_t pipe_num)
 //  103 {
 USBH_CtlSendSetup:
-        PUSH     {R0-R6,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+32
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        MOV      R4,R2
+        SUB      SP,SP,#+16
+          CFI CFA R13+24
 //  104 
 //  105   USBH_LL_SubmitURB (phost,                     /* Driver handle    */
 //  106                           pipe_num,             /* Pipe index       */
@@ -253,25 +250,17 @@ USBH_CtlSendSetup:
 //  110                           buff,                 /* data buffer      */
 //  111                           USBH_SETUP_PKT_SIZE,  /* data length      */ 
 //  112                           0);
-        MOVS     R0,#+0
-        STR      R0,[SP, #+12]
-        MOVS     R0,#+8
-        STR      R0,[SP, #+8]
-        STR      R5,[SP, #+4]
-        MOVS     R0,#+0
-        STR      R0,[SP, #+0]
+        MOVS     R2,#+0
+        STR      R1,[SP, #+4]
+        STR      R2,[SP, #+12]
+        MOVS     R2,#+8
+        MOVS     R1,#+0
+        STR      R2,[SP, #+8]
+        STR      R1,[SP, #+0]
         MOVS     R3,#+0
         MOVS     R2,#+0
-        MOVS     R1,R6
-        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-        MOVS     R0,R4
-          CFI FunCall USBH_LL_SubmitURB
-        BL       USBH_LL_SubmitURB
+        B.N      ??Subroutine0_0
 //  113   return USBH_OK;  
-        MOVS     R0,#+0
-        ADD      SP,SP,#+16
-          CFI CFA R13+16
-        POP      {R4-R6,PC}       ;; return
 //  114 }
           CFI EndBlock cfiBlock0
 //  115 
@@ -289,6 +278,7 @@ USBH_CtlSendSetup:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock1 Using cfiCommon0
           CFI Function USBH_CtlSendData
+          CFI NoCalls
         THUMB
 //  126 USBH_StatusTypeDef USBH_CtlSendData (USBH_HandleTypeDef *phost, 
 //  127                                 uint8_t *buff, 
@@ -297,27 +287,21 @@ USBH_CtlSendSetup:
 //  130                                 uint8_t do_ping )
 //  131 {
 USBH_CtlSendData:
-        PUSH     {R0-R8,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R8 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -20)
-          CFI R4 Frame(CFA, -24)
-          CFI CFA R13+40
-        MOVS     R5,R0
-        MOVS     R6,R1
-        MOV      R8,R2
-        MOVS     R7,R3
-        LDR      R4,[SP, #+40]
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
+        SUB      SP,SP,#+20
+          CFI CFA R13+32
+        MOV      R4,R3
 //  132   if(phost->device.speed != USBH_SPEED_HIGH)
-        LDRB     R0,[R5, #+541]
-        CMP      R0,#+0
-        BEQ.N    ??USBH_CtlSendData_0
+        LDRB     R5,[R0, #+541]
+        LDR      R3,[SP, #+32]
+        CBZ.N    R5,??USBH_CtlSendData_0
 //  133   {
 //  134     do_ping = 0;
-        MOVS     R0,#+0
-        MOVS     R4,R0
+        MOVS     R3,#+0
 //  135   }
 //  136   
 //  137   USBH_LL_SubmitURB (phost,                     /* Driver handle    */
@@ -329,28 +313,13 @@ USBH_CtlSendData:
 //  143                           length,               /* data length      */ 
 //  144                           do_ping);             /* do ping (HS Only)*/
 ??USBH_CtlSendData_0:
-        MOVS     R0,R4
-        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-        STR      R0,[SP, #+12]
-        MOV      R0,R8
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        STR      R0,[SP, #+8]
-        STR      R6,[SP, #+4]
-        MOVS     R0,#+1
-        STR      R0,[SP, #+0]
+        STR      R1,[SP, #+4]
+        MOVS     R1,#+1
+        STR      R3,[SP, #+12]
         MOVS     R3,#+0
-        MOVS     R2,#+0
-        MOVS     R1,R7
-        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-        MOVS     R0,R5
-          CFI FunCall USBH_LL_SubmitURB
-        BL       USBH_LL_SubmitURB
+        B.N      ?Subroutine1
 //  145   
 //  146   return USBH_OK;
-        MOVS     R0,#+0
-        ADD      SP,SP,#+16
-          CFI CFA R13+24
-        POP      {R4-R8,PC}       ;; return
 //  147 }
           CFI EndBlock cfiBlock1
 //  148 
@@ -368,6 +337,7 @@ USBH_CtlSendData:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock2 Using cfiCommon0
           CFI Function USBH_CtlReceiveData
+          CFI NoCalls
         THUMB
 //  159 USBH_StatusTypeDef USBH_CtlReceiveData(USBH_HandleTypeDef *phost, 
 //  160                                 uint8_t* buff, 
@@ -375,19 +345,13 @@ USBH_CtlSendData:
 //  162                                 uint8_t pipe_num)
 //  163 {
 USBH_CtlReceiveData:
-        PUSH     {R4-R7,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+20
-        SUB      SP,SP,#+20
-          CFI CFA R13+40
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
-        MOVS     R7,R3
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        MOV      R4,R3
+        SUB      SP,SP,#+16
+          CFI CFA R13+24
 //  164   USBH_LL_SubmitURB (phost,                     /* Driver handle    */
 //  165                           pipe_num,             /* Pipe index       */
 //  166                           1,                    /* Direction : IN   */
@@ -396,26 +360,15 @@ USBH_CtlReceiveData:
 //  169                           buff,                 /* data buffer      */
 //  170                           length,               /* data length      */ 
 //  171                           0);
-        MOVS     R0,#+0
-        STR      R0,[SP, #+12]
-        MOVS     R0,R6
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        STR      R0,[SP, #+8]
-        STR      R5,[SP, #+4]
-        MOVS     R0,#+1
-        STR      R0,[SP, #+0]
+        STR      R1,[SP, #+4]
+        MOVS     R1,#+1
         MOVS     R3,#+0
+        STR      R2,[SP, #+8]
+        STR      R1,[SP, #+0]
         MOVS     R2,#+1
-        MOVS     R1,R7
-        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-        MOVS     R0,R4
-          CFI FunCall USBH_LL_SubmitURB
-        BL       USBH_LL_SubmitURB
+        STR      R3,[SP, #+12]
+        B.N      ??Subroutine0_0
 //  172   return USBH_OK;
-        MOVS     R0,#+0
-        ADD      SP,SP,#+20
-          CFI CFA R13+20
-        POP      {R4-R7,PC}       ;; return
 //  173   
 //  174 }
           CFI EndBlock cfiBlock2
@@ -434,6 +387,7 @@ USBH_CtlReceiveData:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock3 Using cfiCommon0
           CFI Function USBH_BulkSendData
+          CFI NoCalls
         THUMB
 //  186 USBH_StatusTypeDef USBH_BulkSendData (USBH_HandleTypeDef *phost, 
 //  187                                 uint8_t *buff, 
@@ -442,27 +396,21 @@ USBH_CtlReceiveData:
 //  190                                 uint8_t do_ping )
 //  191 { 
 USBH_BulkSendData:
-        PUSH     {R0-R8,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R8 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -20)
-          CFI R4 Frame(CFA, -24)
-          CFI CFA R13+40
-        MOVS     R5,R0
-        MOVS     R6,R1
-        MOV      R8,R2
-        MOVS     R7,R3
-        LDR      R4,[SP, #+40]
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
+        SUB      SP,SP,#+20
+          CFI CFA R13+32
+        MOV      R4,R3
 //  192   if(phost->device.speed != USBH_SPEED_HIGH)
-        LDRB     R0,[R5, #+541]
-        CMP      R0,#+0
-        BEQ.N    ??USBH_BulkSendData_0
+        LDRB     R5,[R0, #+541]
+        LDR      R3,[SP, #+32]
+        CBZ.N    R5,??USBH_BulkSendData_0
 //  193   {
 //  194     do_ping = 0;
-        MOVS     R0,#+0
-        MOVS     R4,R0
+        MOVS     R3,#+0
 //  195   }
 //  196   
 //  197   USBH_LL_SubmitURB (phost,                     /* Driver handle    */
@@ -474,29 +422,37 @@ USBH_BulkSendData:
 //  203                           length,               /* data length      */  
 //  204                           do_ping);             /* do ping (HS Only)*/
 ??USBH_BulkSendData_0:
-        MOVS     R0,R4
-        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-        STR      R0,[SP, #+12]
-        MOV      R0,R8
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        STR      R0,[SP, #+8]
-        STR      R6,[SP, #+4]
-        MOVS     R0,#+1
-        STR      R0,[SP, #+0]
+        STR      R1,[SP, #+4]
+        MOVS     R1,#+1
+        STR      R3,[SP, #+12]
         MOVS     R3,#+2
-        MOVS     R2,#+0
-        MOVS     R1,R7
-        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-        MOVS     R0,R5
-          CFI FunCall USBH_LL_SubmitURB
-        BL       USBH_LL_SubmitURB
-//  205   return USBH_OK;
-        MOVS     R0,#+0
-        ADD      SP,SP,#+16
-          CFI CFA R13+24
-        POP      {R4-R8,PC}       ;; return
-//  206 }
           CFI EndBlock cfiBlock3
+        REQUIRE ?Subroutine1
+        ;; // Fall through to label ?Subroutine1
+//  205   return USBH_OK;
+//  206 }
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock4 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+32
+          CFI R4 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+        THUMB
+?Subroutine1:
+        STR      R2,[SP, #+8]
+        MOVS     R2,#+0
+        STR      R1,[SP, #+0]
+        MOV      R1,R4
+          CFI FunCall USBH_CtlSendData USBH_LL_SubmitURB
+          CFI FunCall USBH_BulkSendData USBH_LL_SubmitURB
+        BL       USBH_LL_SubmitURB
+        MOVS     R0,#+0
+        ADD      SP,SP,#+20
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
+          CFI EndBlock cfiBlock4
 //  207 
 //  208 
 //  209 /**
@@ -510,8 +466,9 @@ USBH_BulkSendData:
 //  217   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock4 Using cfiCommon0
+          CFI Block cfiBlock5 Using cfiCommon0
           CFI Function USBH_BulkReceiveData
+          CFI NoCalls
         THUMB
 //  218 USBH_StatusTypeDef USBH_BulkReceiveData(USBH_HandleTypeDef *phost, 
 //  219                                 uint8_t *buff, 
@@ -519,19 +476,13 @@ USBH_BulkSendData:
 //  221                                 uint8_t pipe_num)
 //  222 {
 USBH_BulkReceiveData:
-        PUSH     {R4-R7,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+20
-        SUB      SP,SP,#+20
-          CFI CFA R13+40
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
-        MOVS     R7,R3
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        MOV      R4,R3
+        SUB      SP,SP,#+16
+          CFI CFA R13+24
 //  223   USBH_LL_SubmitURB (phost,                     /* Driver handle    */
 //  224                           pipe_num,             /* Pipe index       */
 //  225                           1,                    /* Direction : IN   */
@@ -540,28 +491,16 @@ USBH_BulkReceiveData:
 //  228                           buff,                 /* data buffer      */
 //  229                           length,               /* data length      */  
 //  230                           0);
-        MOVS     R0,#+0
-        STR      R0,[SP, #+12]
-        MOVS     R0,R6
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        STR      R0,[SP, #+8]
-        STR      R5,[SP, #+4]
-        MOVS     R0,#+1
-        STR      R0,[SP, #+0]
+        STR      R1,[SP, #+4]
+        MOVS     R3,#+0
+        MOVS     R1,#+1
+        STR      R3,[SP, #+12]
+        STR      R2,[SP, #+8]
         MOVS     R3,#+2
-        MOVS     R2,#+1
-        MOVS     R1,R7
-        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-        MOVS     R0,R4
-          CFI FunCall USBH_LL_SubmitURB
-        BL       USBH_LL_SubmitURB
+        B.N      ?Subroutine0
 //  231   return USBH_OK;
-        MOVS     R0,#+0
-        ADD      SP,SP,#+20
-          CFI CFA R13+20
-        POP      {R4-R7,PC}       ;; return
 //  232 }
-          CFI EndBlock cfiBlock4
+          CFI EndBlock cfiBlock5
 //  233 
 //  234 
 //  235 /**
@@ -575,8 +514,9 @@ USBH_BulkReceiveData:
 //  243   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock5 Using cfiCommon0
+          CFI Block cfiBlock6 Using cfiCommon0
           CFI Function USBH_InterruptReceiveData
+          CFI NoCalls
         THUMB
 //  244 USBH_StatusTypeDef USBH_InterruptReceiveData(USBH_HandleTypeDef *phost, 
 //  245                                 uint8_t *buff, 
@@ -584,19 +524,13 @@ USBH_BulkReceiveData:
 //  247                                 uint8_t pipe_num)
 //  248 {
 USBH_InterruptReceiveData:
-        PUSH     {R4-R7,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+20
-        SUB      SP,SP,#+20
-          CFI CFA R13+40
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
-        MOVS     R7,R3
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        MOV      R4,R3
+        SUB      SP,SP,#+16
+          CFI CFA R13+24
 //  249   USBH_LL_SubmitURB (phost,                     /* Driver handle    */
 //  250                           pipe_num,             /* Pipe index       */
 //  251                           1,                    /* Direction : IN   */
@@ -605,30 +539,44 @@ USBH_InterruptReceiveData:
 //  254                           buff,                 /* data buffer      */
 //  255                           length,               /* data length      */  
 //  256                           0); 
-        MOVS     R0,#+0
-        STR      R0,[SP, #+12]
-        UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
-        MOVS     R0,R6
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        STR      R0,[SP, #+8]
-        STR      R5,[SP, #+4]
-        MOVS     R0,#+1
-        STR      R0,[SP, #+0]
+        STR      R1,[SP, #+4]
+        MOVS     R3,#+0
+        MOVS     R1,#+1
+        STR      R3,[SP, #+12]
+        STR      R2,[SP, #+8]
         MOVS     R3,#+3
-        MOVS     R2,#+1
-        MOVS     R1,R7
-        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-        MOVS     R0,R4
-          CFI FunCall USBH_LL_SubmitURB
-        BL       USBH_LL_SubmitURB
+          CFI EndBlock cfiBlock6
+        REQUIRE ?Subroutine0
+        ;; // Fall through to label ?Subroutine0
 //  257   
 //  258   return USBH_OK;
-        MOVS     R0,#+0
-        ADD      SP,SP,#+20
-          CFI CFA R13+20
-        POP      {R4-R7,PC}       ;; return
 //  259 }
-          CFI EndBlock cfiBlock5
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock7 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+24
+          CFI R4 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+        THUMB
+?Subroutine0:
+        STR      R1,[SP, #+0]
+        MOVS     R2,#+1
+??Subroutine0_0:
+        MOV      R1,R4
+          CFI FunCall USBH_BulkReceiveData USBH_LL_SubmitURB
+          CFI FunCall USBH_InterruptReceiveData USBH_LL_SubmitURB
+          CFI FunCall USBH_CtlSendSetup USBH_LL_SubmitURB
+          CFI FunCall USBH_CtlReceiveData USBH_LL_SubmitURB
+          CFI FunCall USBH_InterruptSendData USBH_LL_SubmitURB
+          CFI FunCall USBH_IsocReceiveData USBH_LL_SubmitURB
+          CFI FunCall USBH_IsocSendData USBH_LL_SubmitURB
+        BL       USBH_LL_SubmitURB
+        MOVS     R0,#+0
+        ADD      SP,SP,#+16
+          CFI CFA R13+8
+        POP      {R4,PC}          ;; return
+          CFI EndBlock cfiBlock7
 //  260 
 //  261 /**
 //  262   * @brief  USBH_InterruptSendData
@@ -641,8 +589,9 @@ USBH_InterruptReceiveData:
 //  269   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock6 Using cfiCommon0
+          CFI Block cfiBlock8 Using cfiCommon0
           CFI Function USBH_InterruptSendData
+          CFI NoCalls
         THUMB
 //  270 USBH_StatusTypeDef USBH_InterruptSendData(USBH_HandleTypeDef *phost, 
 //  271                                 uint8_t *buff, 
@@ -650,19 +599,13 @@ USBH_InterruptReceiveData:
 //  273                                 uint8_t pipe_num)
 //  274 {
 USBH_InterruptSendData:
-        PUSH     {R4-R7,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+20
-        SUB      SP,SP,#+20
-          CFI CFA R13+40
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
-        MOVS     R7,R3
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        MOV      R4,R3
+        SUB      SP,SP,#+16
+          CFI CFA R13+24
 //  275   USBH_LL_SubmitURB (phost,                     /* Driver handle    */
 //  276                           pipe_num,             /* Pipe index       */
 //  277                           0,                    /* Direction : OUT   */
@@ -671,30 +614,19 @@ USBH_InterruptSendData:
 //  280                           buff,                 /* data buffer      */
 //  281                           length,               /* data length      */  
 //  282                           0);  
-        MOVS     R0,#+0
-        STR      R0,[SP, #+12]
-        UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
-        MOVS     R0,R6
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        STR      R0,[SP, #+8]
-        STR      R5,[SP, #+4]
-        MOVS     R0,#+1
-        STR      R0,[SP, #+0]
+        STR      R1,[SP, #+4]
+        MOVS     R3,#+0
+        MOVS     R1,#+1
+        STR      R3,[SP, #+12]
+        STR      R2,[SP, #+8]
         MOVS     R3,#+3
+        STR      R1,[SP, #+0]
         MOVS     R2,#+0
-        MOVS     R1,R7
-        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-        MOVS     R0,R4
-          CFI FunCall USBH_LL_SubmitURB
-        BL       USBH_LL_SubmitURB
+        B.N      ??Subroutine0_0
 //  283   
 //  284   return USBH_OK;
-        MOVS     R0,#+0
-        ADD      SP,SP,#+20
-          CFI CFA R13+20
-        POP      {R4-R7,PC}       ;; return
 //  285 }
-          CFI EndBlock cfiBlock6
+          CFI EndBlock cfiBlock8
 //  286 
 //  287 /**
 //  288   * @brief  USBH_IsocReceiveData
@@ -707,8 +639,9 @@ USBH_InterruptSendData:
 //  295   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock7 Using cfiCommon0
+          CFI Block cfiBlock9 Using cfiCommon0
           CFI Function USBH_IsocReceiveData
+          CFI NoCalls
         THUMB
 //  296 USBH_StatusTypeDef USBH_IsocReceiveData(USBH_HandleTypeDef *phost, 
 //  297                                 uint8_t *buff, 
@@ -716,19 +649,13 @@ USBH_InterruptSendData:
 //  299                                 uint8_t pipe_num)
 //  300 {    
 USBH_IsocReceiveData:
-        PUSH     {R4-R7,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+20
-        SUB      SP,SP,#+20
-          CFI CFA R13+40
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
-        MOVS     R7,R3
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        MOV      R4,R3
+        SUB      SP,SP,#+16
+          CFI CFA R13+24
 //  301   USBH_LL_SubmitURB (phost,                     /* Driver handle    */
 //  302                           pipe_num,             /* Pipe index       */
 //  303                           1,                    /* Direction : IN   */
@@ -737,30 +664,21 @@ USBH_IsocReceiveData:
 //  306                           buff,                 /* data buffer      */
 //  307                           length,               /* data length      */
 //  308                           0);
-        MOVS     R0,#+0
-        STR      R0,[SP, #+12]
-        MOVS     R0,R6
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        STR      R0,[SP, #+8]
-        STR      R5,[SP, #+4]
-        MOVS     R0,#+1
-        STR      R0,[SP, #+0]
+        STR      R1,[SP, #+4]
+        MOVS     R3,#+0
+        UXTH     R2,R2
+        MOVS     R1,#+1
+        STR      R3,[SP, #+12]
         MOVS     R3,#+1
+        STR      R2,[SP, #+8]
         MOVS     R2,#+1
-        MOVS     R1,R7
-        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-        MOVS     R0,R4
-          CFI FunCall USBH_LL_SubmitURB
-        BL       USBH_LL_SubmitURB
+        STR      R1,[SP, #+0]
+        B.N      ??Subroutine0_0
 //  309 
 //  310   
 //  311   return USBH_OK;
-        MOVS     R0,#+0
-        ADD      SP,SP,#+20
-          CFI CFA R13+20
-        POP      {R4-R7,PC}       ;; return
 //  312 }
-          CFI EndBlock cfiBlock7
+          CFI EndBlock cfiBlock9
 //  313 
 //  314 /**
 //  315   * @brief  USBH_IsocSendData
@@ -773,8 +691,9 @@ USBH_IsocReceiveData:
 //  322   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock8 Using cfiCommon0
+          CFI Block cfiBlock10 Using cfiCommon0
           CFI Function USBH_IsocSendData
+          CFI NoCalls
         THUMB
 //  323 USBH_StatusTypeDef USBH_IsocSendData(USBH_HandleTypeDef *phost, 
 //  324                                 uint8_t *buff, 
@@ -782,19 +701,13 @@ USBH_IsocReceiveData:
 //  326                                 uint8_t pipe_num)
 //  327 {
 USBH_IsocSendData:
-        PUSH     {R4-R7,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+20
-        SUB      SP,SP,#+20
-          CFI CFA R13+40
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
-        MOVS     R7,R3
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        MOV      R4,R3
+        SUB      SP,SP,#+16
+          CFI CFA R13+24
 //  328   USBH_LL_SubmitURB (phost,                     /* Driver handle    */
 //  329                           pipe_num,             /* Pipe index       */
 //  330                           0,                    /* Direction : OUT   */
@@ -803,29 +716,20 @@ USBH_IsocSendData:
 //  333                           buff,                 /* data buffer      */
 //  334                           length,               /* data length      */ 
 //  335                           0);
-        MOVS     R0,#+0
-        STR      R0,[SP, #+12]
-        MOVS     R0,R6
-        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-        STR      R0,[SP, #+8]
-        STR      R5,[SP, #+4]
-        MOVS     R0,#+1
-        STR      R0,[SP, #+0]
+        STR      R1,[SP, #+4]
+        MOVS     R3,#+0
+        UXTH     R2,R2
+        MOVS     R1,#+1
+        STR      R3,[SP, #+12]
         MOVS     R3,#+1
+        STR      R2,[SP, #+8]
         MOVS     R2,#+0
-        MOVS     R1,R7
-        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-        MOVS     R0,R4
-          CFI FunCall USBH_LL_SubmitURB
-        BL       USBH_LL_SubmitURB
+        STR      R1,[SP, #+0]
+        B.N      ??Subroutine0_0
 //  336   
 //  337   return USBH_OK;
-        MOVS     R0,#+0
-        ADD      SP,SP,#+20
-          CFI CFA R13+20
-        POP      {R4-R7,PC}       ;; return
 //  338 }
-          CFI EndBlock cfiBlock8
+          CFI EndBlock cfiBlock10
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -860,9 +764,9 @@ USBH_IsocSendData:
 //  357 
 //  358 
 // 
-// 466 bytes in section .text
+// 246 bytes in section .text
 // 
-// 466 bytes of CODE memory
+// 246 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

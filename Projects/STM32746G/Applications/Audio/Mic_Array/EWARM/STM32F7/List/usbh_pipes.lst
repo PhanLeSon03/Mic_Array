@@ -1,66 +1,64 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       04/Mar/2016  17:12:04
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       05/Mar/2016  17:13:56
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
 #    Endian       =  little
 #    Source file  =  
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_pipes.c
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_pipes.c
 #    Command line =  
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_pipes.c
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_pipes.c
 #        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 #        USE_IOEXPANDER -D USE_USB_FS -lC
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 #        -lA
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 #        -o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-#        --no_clustering --no_scheduling --debug --endian=little
-#        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\INC\c\DLib_Config_Full.h"
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+#        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
+#        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        7.3\arm\INC\c\DLib_Config_Full.h" -I
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
-#        -I
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+#        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
-#        ARM_MATH_CM7
+#        ARM_MATH_CM7 --relaxed_fp
 #    List file    =  
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\usbh_pipes.lst
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\usbh_pipes.lst
 #    Object file  =  
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbh_pipes.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbh_pipes.o
 #
 ###############################################################################
 
-D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_pipes.c
+H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_pipes.c
       1          /**
       2            ******************************************************************************
       3            * @file    usbh_pipes.c
@@ -164,15 +162,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
      99                                      uint16_t mps)
     100          {
    \                     USBH_OpenPipe: (+1)
-   \   00000000   0xE92D 0x47F0      PUSH     {R4-R10,LR}
-   \   00000004   0xB084             SUB      SP,SP,#+16
-   \   00000006   0x0007             MOVS     R7,R0
-   \   00000008   0x4688             MOV      R8,R1
-   \   0000000A   0x4691             MOV      R9,R2
-   \   0000000C   0x469A             MOV      R10,R3
-   \   0000000E   0x9C0C             LDR      R4,[SP, #+48]
-   \   00000010   0x9E0D             LDR      R6,[SP, #+52]
-   \   00000012   0x9D0E             LDR      R5,[SP, #+56]
+   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000002   0xB084             SUB      SP,SP,#+16
     101          
     102            USBH_LL_OpenPipe(phost,
     103                                  pipe_num,
@@ -181,28 +172,18 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     106                                  speed,
     107                                  ep_type,
     108                                  mps);
-   \   00000014   0x0028             MOVS     R0,R5
-   \   00000016   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-   \   00000018   0x9002             STR      R0,[SP, #+8]
-   \   0000001A   0x0030             MOVS     R0,R6
-   \   0000001C   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-   \   0000001E   0x9001             STR      R0,[SP, #+4]
-   \   00000020   0x0020             MOVS     R0,R4
-   \   00000022   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-   \   00000024   0x9000             STR      R0,[SP, #+0]
-   \   00000026   0x4653             MOV      R3,R10
-   \   00000028   0xB2DB             UXTB     R3,R3            ;; ZeroExt  R3,R3,#+24,#+24
-   \   0000002A   0x464A             MOV      R2,R9
-   \   0000002C   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
-   \   0000002E   0x4641             MOV      R1,R8
-   \   00000030   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-   \   00000032   0x0038             MOVS     R0,R7
-   \   00000034   0x.... 0x....      BL       USBH_LL_OpenPipe
+   \   00000004   0x9C08             LDR      R4,[SP, #+32]
+   \   00000006   0x9402             STR      R4,[SP, #+8]
+   \   00000008   0x9C07             LDR      R4,[SP, #+28]
+   \   0000000A   0x9401             STR      R4,[SP, #+4]
+   \   0000000C   0x9C06             LDR      R4,[SP, #+24]
+   \   0000000E   0x9400             STR      R4,[SP, #+0]
+   \   00000010   0x.... 0x....      BL       USBH_LL_OpenPipe
     109            
     110            return USBH_OK; 
-   \   00000038   0x2000             MOVS     R0,#+0
-   \   0000003A   0xB004             ADD      SP,SP,#+16
-   \   0000003C   0xE8BD 0x87F0      POP      {R4-R10,PC}      ;; return
+   \   00000014   0x2000             MOVS     R0,#+0
+   \   00000016   0xB004             ADD      SP,SP,#+16
+   \   00000018   0xBD10             POP      {R4,PC}          ;; return
     111          
     112          }
     113          
@@ -219,19 +200,14 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     122                                      uint8_t pipe_num)
     123          {
    \                     USBH_ClosePipe: (+1)
-   \   00000000   0xB538             PUSH     {R3-R5,LR}
-   \   00000002   0x0004             MOVS     R4,R0
-   \   00000004   0x000D             MOVS     R5,R1
+   \   00000000   0xB580             PUSH     {R7,LR}
     124          
     125            USBH_LL_ClosePipe(phost, pipe_num);
-   \   00000006   0x0029             MOVS     R1,R5
-   \   00000008   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-   \   0000000A   0x0020             MOVS     R0,R4
-   \   0000000C   0x.... 0x....      BL       USBH_LL_ClosePipe
+   \   00000002   0x.... 0x....      BL       USBH_LL_ClosePipe
     126            
     127            return USBH_OK; 
-   \   00000010   0x2000             MOVS     R0,#+0
-   \   00000012   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+   \   00000006   0x2000             MOVS     R0,#+0
+   \   00000008   0xBD02             POP      {R1,PC}          ;; return
     128          
     129          }
     130          
@@ -246,35 +222,38 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
    \                                 In section .text, align 2, keep-with-next
     138          uint8_t USBH_AllocPipe  (USBH_HandleTypeDef *phost, uint8_t ep_addr)
     139          {
-   \                     USBH_AllocPipe: (+1)
-   \   00000000   0xB570             PUSH     {R4-R6,LR}
-   \   00000002   0x0004             MOVS     R4,R0
-   \   00000004   0x000D             MOVS     R5,R1
     140            uint16_t pipe;
     141            
     142            pipe =  USBH_GetFreePipe(phost);
-   \   00000006   0x0020             MOVS     R0,R4
-   \   00000008   0x.... 0x....      BL       USBH_GetFreePipe
-   \   0000000C   0x0006             MOVS     R6,R0
+   \                     USBH_AllocPipe: (+1)
+   \   00000000   0x2200             MOVS     R2,#+0
+   \   00000002   0xF500 0x731B      ADD      R3,R0,#+620
+   \                     ??USBH_AllocPipe_0: (+1)
+   \   00000006   0xF853 0xCB04      LDR      R12,[R3], #+4
+   \   0000000A   0xEA5F 0x4C0C      LSLS     R12,R12,#+16
+   \   0000000E   0xD506             BPL.N    ??USBH_AllocPipe_1
+   \   00000010   0x1C52             ADDS     R2,R2,#+1
+   \   00000012   0xB2D2             UXTB     R2,R2
+   \   00000014   0x2A0B             CMP      R2,#+11
+   \   00000016   0xDBF6             BLT.N    ??USBH_AllocPipe_0
+   \   00000018   0xF64F 0x72FF      MOVW     R2,#+65535
+   \   0000001C   0xE009             B.N      ??USBH_AllocPipe_2
     143          
     144            if (pipe != 0xFFFF)
-   \   0000000E   0xB2B6             UXTH     R6,R6            ;; ZeroExt  R6,R6,#+16,#+16
-   \   00000010   0xF64F 0x70FF      MOVW     R0,#+65535
-   \   00000014   0x4286             CMP      R6,R0
-   \   00000016   0xD007             BEQ.N    ??USBH_AllocPipe_0
+   \                     ??USBH_AllocPipe_1: (+1)
+   \   0000001E   0xF64F 0x73FF      MOVW     R3,#+65535
+   \   00000022   0x429A             CMP      R2,R3
+   \   00000024   0xD005             BEQ.N    ??USBH_AllocPipe_2
     145            {
     146          	phost->Pipes[pipe] = 0x8000 | ep_addr;
-   \   00000018   0xB2ED             UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
-   \   0000001A   0xF455 0x4000      ORRS     R0,R5,#0x8000
-   \   0000001E   0xB2B6             UXTH     R6,R6            ;; ZeroExt  R6,R6,#+16,#+16
-   \   00000020   0xEB14 0x0186      ADDS     R1,R4,R6, LSL #+2
-   \   00000024   0xF8C1 0x026C      STR      R0,[R1, #+620]
+   \   00000026   0xEB00 0x0082      ADD      R0,R0,R2, LSL #+2
+   \   0000002A   0xF441 0x4100      ORR      R1,R1,#0x8000
+   \   0000002E   0xF8C0 0x126C      STR      R1,[R0, #+620]
     147            }
     148            return pipe;
-   \                     ??USBH_AllocPipe_0: (+1)
-   \   00000028   0x0030             MOVS     R0,R6
-   \   0000002A   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-   \   0000002C   0xBD70             POP      {R4-R6,PC}       ;; return
+   \                     ??USBH_AllocPipe_2: (+1)
+   \   00000032   0xB2D0             UXTB     R0,R2
+   \   00000034   0x4770             BX       LR               ;; return
     149          }
     150          
     151          /**
@@ -288,27 +267,22 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
    \                                 In section .text, align 2, keep-with-next
     158          USBH_StatusTypeDef USBH_FreePipe  (USBH_HandleTypeDef *phost, uint8_t idx)
     159          {
-   \                     USBH_FreePipe: (+1)
-   \   00000000   0x0002             MOVS     R2,R0
     160             if(idx < 11)
-   \   00000002   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-   \   00000004   0x290B             CMP      R1,#+11
-   \   00000006   0xDA0B             BGE.N    ??USBH_FreePipe_0
+   \                     USBH_FreePipe: (+1)
+   \   00000000   0x290B             CMP      R1,#+11
+   \   00000002   0xDA07             BGE.N    ??USBH_FreePipe_0
     161             {
     162          	 phost->Pipes[idx] &= 0x7FFF;
-   \   00000008   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-   \   0000000A   0xEB12 0x0081      ADDS     R0,R2,R1, LSL #+2
-   \   0000000E   0xF8D0 0x026C      LDR      R0,[R0, #+620]
-   \   00000012   0x0440             LSLS     R0,R0,#+17       ;; ZeroExtS R0,R0,#+17,#+17
-   \   00000014   0x0C40             LSRS     R0,R0,#+17
-   \   00000016   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-   \   00000018   0xEB12 0x0381      ADDS     R3,R2,R1, LSL #+2
-   \   0000001C   0xF8C3 0x026C      STR      R0,[R3, #+620]
+   \   00000004   0xEB00 0x0081      ADD      R0,R0,R1, LSL #+2
+   \   00000008   0xF8D0 0x126C      LDR      R1,[R0, #+620]
+   \   0000000C   0x0449             LSLS     R1,R1,#+17
+   \   0000000E   0x0C49             LSRS     R1,R1,#+17
+   \   00000010   0xF8C0 0x126C      STR      R1,[R0, #+620]
     163             }
     164             return USBH_OK;
    \                     ??USBH_FreePipe_0: (+1)
-   \   00000020   0x2000             MOVS     R0,#+0
-   \   00000022   0x4770             BX       LR               ;; return
+   \   00000014   0x2000             MOVS     R0,#+0
+   \   00000016   0x4770             BX       LR               ;; return
     165          }
     166          
     167          /**
@@ -317,45 +291,18 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     170            *         Get a free Pipe number for allocation to a device endpoint
     171            * @retval idx: Free Pipe number
     172            */
-
-   \                                 In section .text, align 2, keep-with-next
     173          static uint16_t USBH_GetFreePipe (USBH_HandleTypeDef *phost)
     174          {
-   \                     USBH_GetFreePipe: (+1)
-   \   00000000   0x0001             MOVS     R1,R0
     175            uint8_t idx = 0;
-   \   00000002   0x2200             MOVS     R2,#+0
     176            
     177            for (idx = 0 ; idx < 11 ; idx++)
-   \   00000004   0x2000             MOVS     R0,#+0
-   \   00000006   0x0002             MOVS     R2,R0
-   \                     ??USBH_GetFreePipe_0: (+1)
-   \   00000008   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
-   \   0000000A   0x2A0B             CMP      R2,#+11
-   \   0000000C   0xDA0C             BGE.N    ??USBH_GetFreePipe_1
     178            {
     179          	if ((phost->Pipes[idx] & 0x8000) == 0)
-   \   0000000E   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
-   \   00000010   0xEB11 0x0082      ADDS     R0,R1,R2, LSL #+2
-   \   00000014   0xF8D0 0x026C      LDR      R0,[R0, #+620]
-   \   00000018   0x0400             LSLS     R0,R0,#+16
-   \   0000001A   0xD403             BMI.N    ??USBH_GetFreePipe_2
     180          	{
     181          	   return idx;
-   \   0000001C   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
-   \   0000001E   0x0010             MOVS     R0,R2
-   \   00000020   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
-   \   00000022   0xE003             B.N      ??USBH_GetFreePipe_3
     182          	} 
     183            }
-   \                     ??USBH_GetFreePipe_2: (+1)
-   \   00000024   0x1C52             ADDS     R2,R2,#+1
-   \   00000026   0xE7EF             B.N      ??USBH_GetFreePipe_0
     184            return 0xFFFF;
-   \                     ??USBH_GetFreePipe_1: (+1)
-   \   00000028   0xF64F 0x70FF      MOVW     R0,#+65535
-   \                     ??USBH_GetFreePipe_3: (+1)
-   \   0000002C   0x4770             BX       LR               ;; return
     185          }
     186          /**
     187          * @}
@@ -381,30 +328,27 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
 
    .cstack Function
    ------- --------
-      16   USBH_AllocPipe
-        16   -> USBH_GetFreePipe
-      16   USBH_ClosePipe
-        16   -> USBH_LL_ClosePipe
+       0   USBH_AllocPipe
+       8   USBH_ClosePipe
+         8   -> USBH_LL_ClosePipe
        0   USBH_FreePipe
-       0   USBH_GetFreePipe
-      48   USBH_OpenPipe
-        48   -> USBH_LL_OpenPipe
+      24   USBH_OpenPipe
+        24   -> USBH_LL_OpenPipe
 
 
    Section sizes:
 
    Bytes  Function/Label
    -----  --------------
-      46  USBH_AllocPipe
-      20  USBH_ClosePipe
-      36  USBH_FreePipe
-      46  USBH_GetFreePipe
-      64  USBH_OpenPipe
+      54  USBH_AllocPipe
+      10  USBH_ClosePipe
+      24  USBH_FreePipe
+      26  USBH_OpenPipe
 
  
- 212 bytes in section .text
+ 114 bytes in section .text
  
- 212 bytes of CODE memory
+ 114 bytes of CODE memory
 
 Errors: none
 Warnings: none

@@ -1,82 +1,82 @@
 ###############################################################################
 #
-# IAR ELF Linker V7.50.2.10312/W32 for ARM                04/Mar/2016  17:12:05
+# IAR ELF Linker V7.50.2.10312/W32 for ARM                05/Mar/2016  17:13:58
 # Copyright 2007-2015 IAR Systems AB.
 #
 #    Output file  =  
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Exe\Project.out
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Exe\Project.out
 #    Map file     =  
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\Project.map
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\Project.map
 #    Command line =  
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\audio_application.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\audio_codec.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\DSP.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\ff.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\ft5336.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32_Audio\Addons\PDM\libPDMFilter_CM7_IAR.a
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\main.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\sta321mp.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\startup_stm32f746xx.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32746g_discovery.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32746g_discovery_lcd.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32746g_discovery_sdram.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32746g_discovery_ts.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_cortex.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_dma.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_dma2d.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_dma_ex.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_flash.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_flash_ex.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_gpio.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_hcd.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_i2c.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_i2c_ex.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_i2s.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_ltdc.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_pcd.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_pcd_ex.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_pwr.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_pwr_ex.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_rcc.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_rcc_ex.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_sai.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_sai_ex.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_sdram.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_spi.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_sram.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_tim.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_tim_ex.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_uart.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_it.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_ll_fmc.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_ll_usb.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\system_stm32f7xx.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbd_audio_if.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbd_audio_in.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbd_conf_f4.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbd_core.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbd_ctlreq.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbd_desc.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbd_ioreq.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbh_conf.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbh_core.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbh_ctlreq.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbh_diskio.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbh_ioreq.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbh_msc.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbh_msc_bot.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbh_msc_scsi.o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbh_pipes.o
-#        "D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\waveplayer
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\audio_application.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\audio_codec.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\DSP.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\ff.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\ft5336.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Middlewares\ST\STM32_Audio\Addons\PDM\libPDMFilter_CM7_IAR.a
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\main.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\sta321mp.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\startup_stm32f746xx.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32746g_discovery.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32746g_discovery_lcd.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32746g_discovery_sdram.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32746g_discovery_ts.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_cortex.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_dma.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_dma2d.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_dma_ex.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_flash.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_flash_ex.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_gpio.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_hcd.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_i2c.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_i2c_ex.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_i2s.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_ltdc.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_pcd.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_pcd_ex.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_pwr.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_pwr_ex.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_rcc.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_rcc_ex.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_sai.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_sai_ex.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_sdram.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_spi.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_sram.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_tim.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_tim_ex.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_uart.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_it.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_ll_fmc.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_ll_usb.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\system_stm32f7xx.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbd_audio_if.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbd_audio_in.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbd_conf_f4.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbd_core.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbd_ctlreq.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbd_desc.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbd_ioreq.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbh_conf.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbh_core.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbh_ctlreq.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbh_diskio.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbh_ioreq.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbh_msc.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbh_msc_bot.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbh_msc_scsi.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbh_pipes.o
+#        "H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\waveplayer
 #        _CS43L22.o"
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\waverecorder.o
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\waverecorder.o
 #        --redirect _Printf=_PrintfSmall --redirect _Scanf=_ScanfSmall -o
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Exe\Project.out
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Exe\Project.out
 #        --map
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\Project.map
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\Project.map
 #        --config
-#        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\Project.icf
+#        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\Project.icf
 #        --semihosting --entry __iar_program_start --no_exceptions "D:\Program
 #        Files (x86)\IAR Systems\Embedded Workbench
 #        7.3\arm\CMSIS\Lib\IAR\iar_cortexM7ls_math.a" --vfe
@@ -109,358 +109,253 @@ __dlib_dynamic_initialization = normal
   .intvec             ro code  0x08000000    0x1c8  startup_stm32f746xx.o [1]
                              - 0x080001c8    0x1c8
 
-"P1":                                      0x2bf0f
+"P1":                                      0x25c9c
   .rodata             const    0x080001c8   0x8800  arm_common_tables.o [4]
   .text               ro code  0x080089c8   0x8078  arm_rfft_init_f32.o [4]
   .text               ro code  0x08010a40     0xb0  arm_cfft_radix4_init_f32.o [4]
   .rodata             const    0x08010af0   0x8000  arm_rfft_init_f32.o [4]
-  .text               ro code  0x08018af0   0x395c  stm32f7xx_hal_dma.o [1]
-  .text               ro code  0x0801c44c   0x1640  waverecorder.o [1]
-  .text               ro code  0x0801da8c    0x26c  stm32f7xx_hal_gpio.o [1]
-  .text               ro code  0x0801dcf8    0x550  pdm_filter.o [5]
-  .text               ro code  0x0801e248     0x7c  stm32f7xx_hal.o [1]
-  .text               ro code  0x0801e2c4    0x852  stm32f7xx_hal_spi.o [1]
-  .text               ro code  0x0801eb16      0xa  xsprout.o [3]
-  .text               ro code  0x0801eb20    0x1a4  stm32f7xx_hal_i2s.o [1]
-  .text               ro code  0x0801ecc4    0x164  stm32f7xx_hal_cortex.o [1]
-  .text               ro code  0x0801ee28     0x1c  FltCmpEq.o [6]
-  .text               ro code  0x0801ee44      0xe  U32ToFlt.o [6]
-  .text               ro code  0x0801ee54     0x24  FltCmpLe.o [6]
-  .text               ro code  0x0801ee78     0x12  FltMul.o [6]
-  .text               ro code  0x0801ee8c     0x4e  FltToDbl.o [6]
-  .text               ro code  0x0801eedc     0x30  I32ToDbl.o [6]
-  .text               ro code  0x0801ef0c    0x256  DblDiv.o [6]
-  .text               ro code  0x0801f164     0xe8  DblAdd.o [6]
-  .text               ro code  0x0801f24c     0x4c  DblToI32.o [6]
-  .text               ro code  0x0801f298    0x1a2  DblMul.o [6]
-  .text               ro code  0x0801f43c     0x90  DblToFlt.o [6]
-  .text               ro code  0x0801f4cc    0x450  xsin.o [6]
-  .text               ro code  0x0801f91c    0x180  DblSub.o [6]
-  .text               ro code  0x0801fa9c     0xf0  sqrt.o [6]
-  .text               ro code  0x0801fb8c    0x8b0  stm32f7xx_hal_rcc.o [1]
-  .text               ro code  0x0802043c   0x108c  audio_codec.o [1]
-  .text               ro code  0x080214c8     0x2e  DblCmpLe.o [6]
-  .text               ro code  0x080214f8     0x2e  DblCmpGe.o [6]
-  .text               ro code  0x08021528      0xc  errno.o [3]
-  .text               ro code  0x08021534    0x168  xquad.o [6]
-  .text               ro code  0x0802169c      0xc  iarEdom.o [7]
-  .text               ro code  0x080216a8    0xff4  main.o [1]
-  .text               ro code  0x0802269c    0xad8  stm32f7xx_hal_i2c.o [1]
-  .text               ro code  0x08023174     0x98  waveplayer _CS43L22.o [1]
-  .text               ro code  0x0802320c     0x84  stm32f7xx_hal_i2c_ex.o [1]
-  .text               ro code  0x08023290      0x2  xtls.o [3]
-  .text               ro code  0x08023292     0x7a  xdint.o [6]
-  .text               ro code  0x0802330c     0x20  DblCmpEq.o [6]
-  .text               ro code  0x0802332c    0x1a8  fmod.o [6]
-  .text               ro code  0x080234d4    0x234  DSP.o [1]
-  .text               ro code  0x08023708    0x270  audio_application.o [1]
-  .text               ro code  0x08023978    0x36c  stm32746g_discovery_sdram.o [1]
-  .text               ro code  0x08023ce4    0x118  stm32746g_discovery.o [1]
-  .text               ro code  0x08023dfc    0x910  sta321mp.o [1]
-  .text               ro code  0x0802470c    0xac8  usbd_audio_in.o [1]
-  .text               ro code  0x080251d4    0x346  usbd_core.o [1]
-  .text               ro code  0x0802551c     0x34  sprintf.o [3]
-  .text               ro code  0x08025550     0x32  main.o [1]
-  .text               ro code  0x08025584    0x926  stm32f7xx_hal_uart.o [1]
-  .text               ro code  0x08025eac     0x84  stm32f7xx_hal_pwr_ex.o [1]
-  .text               ro code  0x08025f30    0x8a0  stm32f7xx_hal_rcc_ex.o [1]
-  .text               ro code  0x080267d0     0x12  cos.o [6]
-  .text               ro code  0x080267e4   0x14f0  dlmalloc.o [3]
-  .text               ro code  0x08027cd4    0x132  I64DivMod.o [7]
-  .text               ro code  0x08027e08     0x80  usbd_audio_if.o [1]
-  .text               ro code  0x08027e88     0xac  stm32f7xx_hal_sdram.o [1]
-  .text               ro code  0x08027f34    0x350  usbd_conf_f4.o [1]
-  .text               ro code  0x08028284    0x65e  usbd_ctlreq.o [1]
-  .text               ro code  0x080288e2     0xbc  usbd_ioreq.o [1]
-  .text               ro code  0x080289a0     0x66  ABImemset.o [7]
-  .text               ro code  0x08028a08     0x76  ABImemcpy_unaligned.o [7]
-  .text               ro code  0x08028a80    0x7c4  xprintfsmall.o [3]
-  .text               ro code  0x08029244     0x18  main.o [1]
-  .text               ro code  0x0802925c      0x6  abort.o [3]
-  .text               ro code  0x08029264     0x2c  xgetmemchunk.o [3]
-  .text               ro code  0x08029290      0x2  I64DivZer.o [7]
-  .text               ro code  0x08029292      0x8  abs.o [3]
-  .text               ro code  0x0802929c    0x17c  stm32f7xx_ll_fmc.o [1]
-  .text               ro code  0x08029418    0xa7a  stm32f7xx_hal_pcd.o [1]
-  .text               ro code  0x08029e94     0x98  stm32f7xx_hal_pcd_ex.o [1]
-  .text               ro code  0x08029f2c     0x20  xmbtowc.o [3]
-  .text               ro code  0x08029f4c     0x16  strchr.o [7]
-  .text               ro code  0x08029f64     0x36  strlen.o [7]
-  .text               ro code  0x08029f9c     0x58  memchr.o [7]
-  .text               ro code  0x08029ff4      0xa  xmbcurmax.o [3]
-  .text               ro code  0x08029ffe     0x1a  xwctomb.o [3]
-  .text               ro code  0x0802a018     0x14  exit.o [8]
-  .text               ro code  0x0802a02c    0xd50  stm32f7xx_ll_usb.o [1]
-  .text               ro code  0x0802ad7c     0x14  setlocale.o [3]
-  .text               ro code  0x0802ad90     0x60  xencoding_sb.o [3]
-  .text               ro code  0x0802adf0     0x30  iarttio.o [8]
-  .text               ro code  0x0802ae20      0x8  XShttio.o [3]
-  .rodata             const    0x0802ae28    0x800  DSP.o [1]
-  .text               ro code  0x0802b628    0x1c4  lz77_init.o [7]
-  .text               ro code  0x0802b7ec     0xe8  usbd_desc.o [1]
-  .rodata             const    0x0802b8d4     0x84  usbd_audio_if.o [1]
-  .text               ro code  0x0802b958     0x7c  stm32f7xx_it.o [1]
-  .text               ro code  0x0802b9d4     0x6c  system_stm32f7xx.o [1]
-  .text               ro code  0x0802ba40     0x40  zero_init3.o [7]
-  .text               ro code  0x0802ba80     0x28  data_init.o [7]
-  .rodata             const    0x0802baa8     0x24  usbd_desc.o [1]
-  .rodata             const    0x0802bacc     0x24  usbd_desc.o [1]
-  .text               ro code  0x0802baf0     0x22  fpinit_M.o [6]
-  .iar.init_table     const    0x0802bb14     0x34  - Linker created -
-  .text               ro code  0x0802bb48     0x1a  cmain.o [7]
-  .text               ro code  0x0802bb62      0x4  low_level_init.o [3]
-  .text               ro code  0x0802bb66      0x4  exit.o [3]
-  .text               ro code  0x0802bb6c      0xa  cexit.o [7]
-  .rodata             const    0x0802bb78     0x14  usbd_desc.o [1]
-  .rodata             const    0x0802bb8c     0x10  main.o [1]
-  .rodata             const    0x0802bb9c     0x10  main.o [1]
-  .rodata             const    0x0802bbac     0x10  main.o [1]
-  .rodata             const    0x0802bbbc     0x10  main.o [1]
-  .rodata             const    0x0802bbcc     0x10  main.o [1]
-  .rodata             const    0x0802bbdc     0x10  main.o [1]
-  .rodata             const    0x0802bbec     0x10  main.o [1]
-  .rodata             const    0x0802bbfc     0x10  main.o [1]
-  .rodata             const    0x0802bc0c     0x10  main.o [1]
-  .rodata             const    0x0802bc1c     0x10  main.o [1]
-  .rodata             const    0x0802bc2c     0x10  stm32f7xx_hal_rcc.o [1]
-  .rodata             const    0x0802bc3c     0x10  usbd_desc.o [1]
-  .rodata             const    0x0802bc4c     0x10  usbd_desc.o [1]
-  .rodata             const    0x0802bc5c     0x10  usbd_desc.o [1]
-  .rodata             const    0x0802bc6c     0x10  usbd_desc.o [1]
-  .text               ro code  0x0802bc7c     0x10  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bc8c      0xc  cstartup_M.o [7]
-  .rodata             const    0x0802bc98      0x8  stm32746g_discovery.o [1]
-  .text               ro code  0x0802bca0      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bca4      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bca8      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bcac      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bcb0      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bcb4      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bcb8      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bcbc      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bcc0      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bcc4      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bcc8      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bccc      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bcd0      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bcd4      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bcd8      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bcdc      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bce0      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bce4      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bce8      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bcec      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bcf0      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bcf4      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bcf8      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bcfc      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd00      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd04      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd08      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd0c      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd10      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd14      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd18      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd1c      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd20      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd24      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd28      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd2c      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd30      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd34      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd38      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd3c      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd40      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd44      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd48      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd4c      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd50      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd54      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd58      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd5c      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd60      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd64      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd68      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd6c      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd70      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd74      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd78      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd7c      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd80      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd84      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd88      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd8c      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd90      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd94      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd98      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bd9c      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bda0      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bda4      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bda8      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bdac      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bdb0      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bdb4      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bdb8      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bdbc      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bdc0      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bdc4      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bdc8      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bdcc      0x4  startup_stm32f746xx.o [1]
-  .text               ro code  0x0802bdd0      0x4  startup_stm32f746xx.o [1]
-  .rodata             const    0x0802bdd4      0x0  zero_init3.o [7]
-  .rodata             const    0x0802bdd4      0x0  lz77_init.o [7]
-  Initializer bytes   const    0x0802bdd4    0x303  <for P3 s0>
-                             - 0x0802c0d7  0x2bf0f
+  .text               ro code  0x08018af0   0x14f0  dlmalloc.o [3]
+  .text               ro code  0x08019fe0      0x6  abort.o [3]
+  .text               ro code  0x08019fe6      0xa  xsprout.o [3]
+  .text               ro code  0x08019ff0     0x2c  xgetmemchunk.o [3]
+  .text               ro code  0x0801a01c     0x14  exit.o [8]
+  .text               ro code  0x0801a030     0x30  iarttio.o [8]
+  .text               ro code  0x0801a060      0x8  XShttio.o [3]
+  .text               ro code  0x0801a068    0xfe8  stm32f7xx_hal_dma.o [1]
+  .text               ro code  0x0801b050    0xda0  waverecorder.o [1]
+  .text               ro code  0x0801bdf0    0x224  stm32f7xx_hal_gpio.o [1]
+  .text               ro code  0x0801c014    0x550  pdm_filter.o [5]
+  .text               ro code  0x0801c564    0x7f4  stm32f7xx_hal_spi.o [1]
+  .text               ro code  0x0801cd58     0x78  stm32f7xx_hal.o [1]
+  .text               ro code  0x0801cdd0    0x10c  stm32f7xx_hal_i2s.o [1]
+  .text               ro code  0x0801cedc     0xcc  stm32f7xx_hal_cortex.o [1]
+  .text               ro code  0x0801cfa8    0xa84  DSP.o [1]
+  .text               ro code  0x0801da2c     0x1c  FltCmpEq.o [6]
+  .text               ro code  0x0801da48      0xe  U32ToFlt.o [6]
+  .text               ro code  0x0801da58     0x24  FltCmpLe.o [6]
+  .text               ro code  0x0801da7c     0x12  FltMul.o [6]
+  .text               ro code  0x0801da90     0x4e  FltToDbl.o [6]
+  .text               ro code  0x0801dae0     0x30  I32ToDbl.o [6]
+  .text               ro code  0x0801db10    0x256  DblDiv.o [6]
+  .text               ro code  0x0801dd68     0xe8  DblAdd.o [6]
+  .text               ro code  0x0801de50     0x4c  DblToI32.o [6]
+  .text               ro code  0x0801de9c    0x1a2  DblMul.o [6]
+  .text               ro code  0x0801e040     0x90  DblToFlt.o [6]
+  .text               ro code  0x0801e0d0    0x462  xsin.o [6]
+  .text               ro code  0x0801e534    0x180  DblSub.o [6]
+  .text               ro code  0x0801e6b4     0xf0  sqrt.o [6]
+  .text               ro code  0x0801e7a4    0x5c8  stm32f7xx_hal_rcc.o [1]
+  .text               ro code  0x0801ed6c    0x850  audio_codec.o [1]
+  .text               ro code  0x0801f5bc    0x132  I64DivMod.o [7]
+  .text               ro code  0x0801f6f0     0x2e  DblCmpLe.o [6]
+  .text               ro code  0x0801f720     0x2e  DblCmpGe.o [6]
+  .text               ro code  0x0801f750      0xc  errno.o [3]
+  .text               ro code  0x0801f75c    0x168  xquad.o [6]
+  .text               ro code  0x0801f8c4      0xc  iarEdom.o [7]
+  .text               ro code  0x0801f8d0    0xac8  main.o [1]
+  .text               ro code  0x08020398    0x890  stm32f7xx_hal_i2c.o [1]
+  .text               ro code  0x08020c28     0x60  waveplayer _CS43L22.o [1]
+  .text               ro code  0x08020c88     0x6e  stm32f7xx_hal_i2c_ex.o [1]
+  .text               ro code  0x08020cf8      0x2  I64DivZer.o [7]
+  .text               ro code  0x08020cfa      0x2  xtls.o [3]
+  .text               ro code  0x08020cfc     0x7a  xdint.o [6]
+  .text               ro code  0x08020d78     0x20  DblCmpEq.o [6]
+  .text               ro code  0x08020d98    0x1a8  fmod.o [6]
+  .text               ro code  0x08020f40    0x150  audio_application.o [1]
+  .text               ro code  0x08021090    0x5a0  stm32f7xx_hal_rcc_ex.o [1]
+  .text               ro code  0x08021630    0x280  stm32746g_discovery_sdram.o [1]
+  .text               ro code  0x080218b0     0xc4  stm32746g_discovery.o [1]
+  .text               ro code  0x08021974    0x6f0  sta321mp.o [1]
+  .text               ro code  0x08022064    0x6c4  usbd_audio_in.o [1]
+  .text               ro code  0x08022728    0x258  usbd_core.o [1]
+  .text               ro code  0x08022980     0x34  sprintf.o [3]
+  .text               ro code  0x080229b4    0x69e  stm32f7xx_hal_uart.o [1]
+  .text               ro code  0x08023054     0x6c  stm32f7xx_hal_pwr_ex.o [1]
+  .text               ro code  0x080230c0     0xe0  usbd_audio_if.o [1]
+  .text               ro code  0x080231a0     0x8a  stm32f7xx_hal_sdram.o [1]
+  .text               ro code  0x0802322c    0x216  usbd_conf_f4.o [1]
+  .text               ro code  0x08023442     0x68  usbd_ioreq.o [1]
+  .text               ro code  0x080234ac    0x422  usbd_ctlreq.o [1]
+  .text               ro code  0x080238d0      0x6  ABImemclr.o [7]
+  .text               ro code  0x080238d8     0x76  ABImemcpy_unaligned.o [7]
+  .text               ro code  0x08023950    0x7c4  xprintfsmall.o [3]
+  .text               ro code  0x08024114    0x14c  stm32f7xx_ll_fmc.o [1]
+  .text               ro code  0x08024260    0x7e0  stm32f7xx_hal_pcd.o [1]
+  .text               ro code  0x08024a40     0x70  stm32f7xx_hal_pcd_ex.o [1]
+  .text               ro code  0x08024ab0     0x5e  ABImemset.o [7]
+  .text               ro code  0x08024b0e     0x20  xmbtowc.o [3]
+  .text               ro code  0x08024b30     0x16  strchr.o [7]
+  .text               ro code  0x08024b48     0x36  strlen.o [7]
+  .text               ro code  0x08024b80     0x58  memchr.o [7]
+  .text               ro code  0x08024bd8      0xa  xmbcurmax.o [3]
+  .text               ro code  0x08024be2     0x1a  xwctomb.o [3]
+  .text               ro code  0x08024bfc    0x8e4  stm32f7xx_ll_usb.o [1]
+  .text               ro code  0x080254e0     0x14  setlocale.o [3]
+  .text               ro code  0x080254f4     0x60  xencoding_sb.o [3]
+  .text               ro code  0x08025554    0x1c4  lz77_init.o [7]
+  .text               ro code  0x08025718    0x11c  usbd_desc.o [1]
+  .text               ro code  0x08025834     0x64  stm32f7xx_it.o [1]
+  .text               ro code  0x08025898     0x50  system_stm32f7xx.o [1]
+  .text               ro code  0x080258e8     0x40  zero_init3.o [7]
+  .text               ro code  0x08025928     0x28  data_init.o [7]
+  .text               ro code  0x08025950     0x22  fpinit_M.o [6]
+  .iar.init_table     const    0x08025974     0x34  - Linker created -
+  .text               ro code  0x080259a8     0x1a  cmain.o [7]
+  .text               ro code  0x080259c2      0x4  low_level_init.o [3]
+  .text               ro code  0x080259c6      0x4  exit.o [3]
+  .text               ro code  0x080259cc      0xa  cexit.o [7]
+  .text               ro code  0x080259d8     0x10  startup_stm32f746xx.o [1]
+  .text               ro code  0x080259e8      0xc  cstartup_M.o [7]
+  .text               ro code  0x080259f4      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x080259f8      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x080259fc      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a00      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a04      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a08      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a0c      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a10      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a14      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a18      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a1c      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a20      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a24      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a28      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a2c      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a30      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a34      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a38      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a3c      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a40      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a44      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a48      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a4c      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a50      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a54      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a58      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a5c      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a60      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a64      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a68      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a6c      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a70      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a74      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a78      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a7c      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a80      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a84      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a88      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a8c      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a90      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a94      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a98      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025a9c      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025aa0      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025aa4      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025aa8      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025aac      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025ab0      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025ab4      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025ab8      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025abc      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025ac0      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025ac4      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025ac8      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025acc      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025ad0      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025ad4      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025ad8      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025adc      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025ae0      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025ae4      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025ae8      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025aec      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025af0      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025af4      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025af8      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025afc      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025b00      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025b04      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025b08      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025b0c      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025b10      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025b14      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025b18      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025b1c      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025b20      0x4  startup_stm32f746xx.o [1]
+  .text               ro code  0x08025b24      0x4  startup_stm32f746xx.o [1]
+  .rodata             const    0x08025b28      0x0  zero_init3.o [7]
+  .rodata             const    0x08025b28      0x0  lz77_init.o [7]
+  Initializer bytes   const    0x08025b28    0x33c  <for P3 s0>
+                             - 0x08025e64  0x25c9c
 
-"P3", part 1 of 3:                           0x49d
-  P3 s0                        0x20000000    0x49d  <Init block>
-    .data             inited   0x20000000    0x304  pdm_filter.o [5]
-    __DLIB_PERTHREAD  inited   0x20000304     0x74  setlocale.o [3]
-    .data             inited   0x20000378     0x50  sta321mp.o [1]
-    .data             inited   0x200003c8     0x38  usbd_audio_in.o [1]
-    .data             inited   0x20000400     0x24  sta321mp.o [1]
-    .data             inited   0x20000424     0x24  usbd_audio_if.o [1]
-    .data             inited   0x20000448     0x1c  usbd_desc.o [1]
-    .data             inited   0x20000464     0x14  usbd_desc.o [1]
-    .data             inited   0x20000478      0xc  usbd_audio_in.o [1]
-    .data             inited   0x20000484      0x8  XShttio.o [3]
-    .data             inited   0x2000048c      0x4  system_stm32f7xx.o [1]
-    .data             inited   0x20000490      0x4  usbd_desc.o [1]
-    __DLIB_PERTHREAD  inited   0x20000494      0x4  errno.o [3]
-    .data             inited   0x20000498      0x1  audio_codec.o [1]
-    .data             inited   0x20000499      0x1  main.o [1]
-    .data             inited   0x2000049a      0x1  main.o [1]
-    .data             inited   0x2000049b      0x1  stm32746g_discovery_sdram.o [1]
-    .data             inited   0x2000049c      0x1  waveplayer _CS43L22.o [1]
-                             - 0x2000049d    0x49d
+"P3", part 1 of 3:                          0x1069
+  P3 s0                        0x20000000   0x1069  <Init block>
+    .data             inited   0x20000000    0xb08  main.o [1]
+    .data             inited   0x20000b08    0x304  pdm_filter.o [5]
+    .data             inited   0x20000e0c     0x78  sta321mp.o [1]
+    __DLIB_PERTHREAD  inited   0x20000e84     0x74  setlocale.o [3]
+    .data             inited   0x20000ef8     0x64  stm32746g_discovery_sdram.o [1]
+    .data             inited   0x20000f5c     0x4c  audio_codec.o [1]
+    .data             inited   0x20000fa8     0x38  usbd_audio_in.o [1]
+    .data             inited   0x20000fe0     0x24  usbd_audio_if.o [1]
+    .data             inited   0x20001004     0x1c  usbd_desc.o [1]
+    .data             inited   0x20001020     0x14  system_stm32f7xx.o [1]
+    .data             inited   0x20001034     0x14  usbd_desc.o [1]
+    .data             inited   0x20001048      0xc  usbd_audio_in.o [1]
+    .data             inited   0x20001054      0x8  XShttio.o [3]
+    .data             inited   0x2000105c      0x4  main.o [1]
+    .data             inited   0x20001060      0x4  usbd_desc.o [1]
+    __DLIB_PERTHREAD  inited   0x20001064      0x4  errno.o [3]
+    .data             inited   0x20001068      0x1  waveplayer _CS43L22.o [1]
+                             - 0x20001069   0x1069
 
-"P3", part 2 of 3:                          0xa2ec
-  .bss                zero     0x200004a0   0x2000  waverecorder.o [1]
-  .bss                zero     0x200024a0   0x2000  waverecorder.o [1]
-  .bss                zero     0x200044a0   0x2000  waverecorder.o [1]
-  .bss                zero     0x200064a0   0x2000  waverecorder.o [1]
-  .bss                zero     0x200084a0    0x800  main.o [1]
-  .bss                zero     0x20008ca0    0x800  main.o [1]
-  .bss                zero     0x200094a0    0x3c0  usbd_conf_f4.o [1]
-  .bss                zero     0x20009860    0x224  main.o [1]
-  .bss                zero     0x20009a84    0x1d8  dlmalloc.o [3]
-  .bss                zero     0x20009c5c    0x180  usbd_audio_in.o [1]
-  .bss                zero     0x20009ddc     0xc8  usbd_desc.o [1]
-  .bss                zero     0x20009ea4     0x80  main.o [1]
-  .bss                zero     0x20009f24     0x80  waverecorder.o [1]
-  .bss                zero     0x20009fa4     0x80  waverecorder.o [1]
-  .bss                zero     0x2000a024     0x78  usbd_audio_in.o [1]
-  .bss                zero     0x2000a09c     0x70  main.o [1]
-  .bss                zero     0x2000a10c     0x68  waverecorder.o [1]
-  .bss                zero     0x2000a174     0x64  main.o [1]
-  .bss                zero     0x2000a1d8     0x64  usbd_audio_in.o [1]
-  .bss                zero     0x2000a23c     0x64  waverecorder.o [1]
-  .bss                zero     0x2000a2a0     0x64  waverecorder.o [1]
-  .bss                zero     0x2000a304     0x50  audio_codec.o [1]
-  .bss                zero     0x2000a354     0x50  stm32746g_discovery_sdram.o [1]
-  .bss                zero     0x2000a3a4     0x50  waverecorder.o [1]
-  .bss                zero     0x2000a3f4     0x50  waverecorder.o [1]
-  .bss                zero     0x2000a444     0x40  waveplayer _CS43L22.o [1]
-  .bss                zero     0x2000a484     0x40  waverecorder.o [1]
-  .bss                zero     0x2000a4c4     0x40  waverecorder.o [1]
-  .bss                zero     0x2000a504     0x3c  audio_codec.o [1]
-  .bss                zero     0x2000a540     0x3c  audio_codec.o [1]
-  .bss                zero     0x2000a57c     0x34  stm32746g_discovery_sdram.o [1]
-  .bss                zero     0x2000a5b0     0x1c  stm32746g_discovery_sdram.o [1]
-  .bss                zero     0x2000a5cc     0x18  main.o [1]
-  .bss                zero     0x2000a5e4     0x18  main.o [1]
-  .bss                zero     0x2000a5fc     0x18  main.o [1]
-  .bss                zero     0x2000a614     0x18  main.o [1]
-  .bss                zero     0x2000a62c     0x18  main.o [1]
-  .bss                zero     0x2000a644     0x18  main.o [1]
-  .bss                zero     0x2000a65c     0x18  dlmalloc.o [3]
-  .bss                zero     0x2000a674     0x14  main.o [1]
-  .bss                zero     0x2000a688     0x14  main.o [1]
-  .bss                zero     0x2000a69c     0x14  main.o [1]
-  .bss                zero     0x2000a6b0     0x14  main.o [1]
-  .bss                zero     0x2000a6c4     0x14  main.o [1]
-  .bss                zero     0x2000a6d8     0x14  main.o [1]
-  .bss                zero     0x2000a6ec     0x10  sta321mp.o [1]
-  .bss                zero     0x2000a6fc     0x10  stm32746g_discovery_sdram.o [1]
-  .bss                zero     0x2000a70c      0x4  DSP.o [1]
-  .bss                zero     0x2000a710      0x4  DSP.o [1]
-  .bss                zero     0x2000a714      0x4  stm32f7xx_hal.o [1]
-  .bss                zero     0x2000a718      0x4  stm32f7xx_it.o [1]
-  .bss                zero     0x2000a71c      0x4  waverecorder.o [1]
-  .bss                zero     0x2000a720      0x4  waverecorder.o [1]
-  .bss                zero     0x2000a724      0x4  xgetmemchunk.o [3]
-  .bss                zero     0x2000a728      0x2  main.o [1]
-  .bss                zero     0x2000a72a      0x2  main.o [1]
-  .bss                zero     0x2000a72c      0x2  main.o [1]
-  .bss                zero     0x2000a72e      0x2  main.o [1]
-  .bss                zero     0x2000a730      0x2  main.o [1]
-  .bss                zero     0x2000a732      0x2  main.o [1]
-  .bss                zero     0x2000a734      0x2  main.o [1]
-  .bss                zero     0x2000a736      0x2  main.o [1]
-  .bss                zero     0x2000a738      0x2  main.o [1]
-  .bss                zero     0x2000a73a      0x2  main.o [1]
-  .bss                zero     0x2000a73c      0x2  main.o [1]
-  .bss                zero     0x2000a73e      0x2  main.o [1]
-  .bss                zero     0x2000a740      0x2  main.o [1]
-  .bss                zero     0x2000a742      0x2  main.o [1]
-  .bss                zero     0x2000a744      0x2  main.o [1]
-  .bss                zero     0x2000a746      0x2  main.o [1]
-  .bss                zero     0x2000a748      0x2  sta321mp.o [1]
-  .bss                zero     0x2000a74a      0x2  usbd_audio_in.o [1]
-  .bss                zero     0x2000a74c      0x2  waverecorder.o [1]
-  .bss                zero     0x2000a74e      0x2  waverecorder.o [1]
-  .bss                zero     0x2000a750      0x2  waverecorder.o [1]
-  .bss                zero     0x2000a752      0x2  waverecorder.o [1]
-  .bss                zero     0x2000a754      0x2  waverecorder.o [1]
-  .bss                zero     0x2000a756      0x2  waverecorder.o [1]
-  .bss                zero     0x2000a758      0x2  waverecorder.o [1]
-  .bss                zero     0x2000a75a      0x2  waverecorder.o [1]
-  .bss                zero     0x2000a75c      0x2  waverecorder.o [1]
-  .bss                zero     0x2000a75e      0x2  waverecorder.o [1]
-  .bss                zero     0x2000a760      0x2  waverecorder.o [1]
-  .bss                zero     0x2000a762      0x2  waverecorder.o [1]
-  .bss                zero     0x2000a764      0x2  waverecorder.o [1]
-  .bss                zero     0x2000a766      0x2  waverecorder.o [1]
-  .bss                zero     0x2000a768      0x2  waverecorder.o [1]
-  .bss                zero     0x2000a76a      0x2  waverecorder.o [1]
-  .bss                zero     0x2000a76c      0x1  audio_application.o [1]
-  .bss                zero     0x2000a76d      0x1  audio_codec.o [1]
-  .bss                zero     0x2000a76e      0x1  main.o [1]
-  .bss                zero     0x2000a76f      0x1  main.o [1]
-  .bss                zero     0x2000a770      0x1  main.o [1]
-  .bss                zero     0x2000a771      0x1  main.o [1]
-  .bss                zero     0x2000a772      0x1  main.o [1]
-  .bss                zero     0x2000a773      0x1  main.o [1]
-  .bss                zero     0x2000a774      0x1  main.o [1]
-  .bss                zero     0x2000a775      0x1  main.o [1]
-  .bss                zero     0x2000a776      0x1  main.o [1]
-  .bss                zero     0x2000a777      0x1  main.o [1]
-  .bss                zero     0x2000a778      0x1  main.o [1]
-  .bss                zero     0x2000a779      0x1  main.o [1]
-  .bss                zero     0x2000a77a      0x1  main.o [1]
-  .bss                zero     0x2000a77b      0x1  main.o [1]
-  .bss                zero     0x2000a77c      0x1  main.o [1]
-  .bss                zero     0x2000a77d      0x1  main.o [1]
-  .bss                zero     0x2000a77e      0x1  main.o [1]
-  .bss                zero     0x2000a77f      0x1  usbd_ctlreq.o [1]
-  .bss                zero     0x2000a780      0x1  waverecorder.o [1]
-  .bss                zero     0x2000a781      0x1  waverecorder.o [1]
-  .bss                zero     0x2000a782      0x1  waverecorder.o [1]
-  .bss                zero     0x2000a783      0x1  waverecorder.o [1]
-  .bss                zero     0x2000a784      0x1  waverecorder.o [1]
-  .bss                zero     0x2000a785      0x1  waverecorder.o [1]
-  .bss                zero     0x2000a786      0x1  waverecorder.o [1]
-  .bss                zero     0x2000a787      0x1  waverecorder.o [1]
-  .bss                zero     0x2000a788      0x1  waverecorder.o [1]
-  .bss                zero     0x2000a789      0x1  waverecorder.o [1]
-                             - 0x2000a78a   0xa2ea
+"P3", part 2 of 3:                          0x9754
+  .bss                zero     0x2000106c   0x2000  waverecorder.o [1]
+  .bss                zero     0x2000306c   0x2000  waverecorder.o [1]
+  .bss                zero     0x2000506c   0x2000  waverecorder.o [1]
+  .bss                zero     0x2000706c   0x2000  waverecorder.o [1]
+  .bss                zero     0x2000906c    0x804  main.o [1]
+  .bss                zero     0x20009870    0x3c0  usbd_conf_f4.o [1]
+  .bss                zero     0x20009c30    0x1e4  usbd_audio_in.o [1]
+  .bss                zero     0x20009e14    0x1d8  dlmalloc.o [3]
+  .bss                zero     0x20009fec     0xdc  main.o [1]
+  .bss                zero     0x2000a0c8     0xc8  usbd_desc.o [1]
+  .bss                zero     0x2000a190     0x80  waverecorder.o [1]
+  .bss                zero     0x2000a210     0x80  waverecorder.o [1]
+  .bss                zero     0x2000a290     0x7a  usbd_audio_in.o [1]
+  .bss                zero     0x2000a30a      0x2  main.o [1]
+  .bss                zero     0x2000a30c     0x70  main.o [1]
+  .bss                zero     0x2000a37c     0x70  waverecorder.o [1]
+  .bss                zero     0x2000a3ec     0x6c  waverecorder.o [1]
+  .bss                zero     0x2000a458     0x6c  waverecorder.o [1]
+  .bss                zero     0x2000a4c4     0x64  main.o [1]
+  .bss                zero     0x2000a528     0x5c  waverecorder.o [1]
+  .bss                zero     0x2000a584     0x50  audio_codec.o [1]
+  .bss                zero     0x2000a5d4     0x50  stm32746g_discovery_sdram.o [1]
+  .bss                zero     0x2000a624     0x50  waverecorder.o [1]
+  .bss                zero     0x2000a674     0x50  waverecorder.o [1]
+  .bss                zero     0x2000a6c4     0x40  waveplayer _CS43L22.o [1]
+  .bss                zero     0x2000a704     0x40  waverecorder.o [1]
+  .bss                zero     0x2000a744     0x3c  audio_codec.o [1]
+  .bss                zero     0x2000a780     0x18  dlmalloc.o [3]
+  .bss                zero     0x2000a798     0x10  sta321mp.o [1]
+  .bss                zero     0x2000a7a8      0x4  DSP.o [1]
+  .bss                zero     0x2000a7ac      0x4  stm32f7xx_hal.o [1]
+  .bss                zero     0x2000a7b0      0x4  stm32f7xx_it.o [1]
+  .bss                zero     0x2000a7b4      0x4  xgetmemchunk.o [3]
+  .bss                zero     0x2000a7b8      0x2  waverecorder.o [1]
+  .bss                zero     0x2000a7ba      0x2  waverecorder.o [1]
+  .bss                zero     0x2000a7bc      0x1  audio_application.o [1]
+  .bss                zero     0x2000a7bd      0x1  usbd_ctlreq.o [1]
+  .bss                zero     0x2000a7be      0x1  waverecorder.o [1]
+                             - 0x2000a7bf   0x9753
 
 "P3", part 3 of 3:                          0x4000
-  CSTACK                       0x2000a790   0x2000  <Block>
-    CSTACK            uninit   0x2000a790   0x2000  <Block tail>
-  HEAP                         0x2000c790   0x2000  <Block>
-    HEAP              uninit   0x2000c790   0x2000  <Block tail>
-                             - 0x2000e790   0x4000
+  CSTACK                       0x2000a7c0   0x2000  <Block>
+    CSTACK            uninit   0x2000a7c0   0x2000  <Block tail>
+  HEAP                         0x2000c7c0   0x2000  <Block>
+    HEAP              uninit   0x2000c7c0   0x2000  <Block tail>
+                             - 0x2000e7c0   0x4000
 
 Absolute sections:                         0x201e0
   .bss                zero     0xc0000000   0x80a0  waverecorder.o [1]
@@ -478,15 +373,15 @@ Absolute sections:                         0x201e0
           Address     Size
           -------     ----
 Zero (__iar_zero_init3)
-    2 destination ranges, total size 0x2a4ca:
-          0x200004a0   0xa2ea
+    2 destination ranges, total size 0x29933:
+          0x2000106c   0x9753
           0xc0000000  0x201e0
 
 Copy/lz77 (__iar_lz77_init3)
-    1 source range, total size 0x303 (65% of destination):
-          0x0802bdd4    0x303
-    1 destination range, total size 0x49d:
-          0x20000000    0x49d
+    1 source range, total size 0x33c (19% of destination):
+          0x08025b28    0x33c
+    1 destination range, total size 0x1069:
+          0x20000000   0x1069
 
 
 
@@ -497,59 +392,58 @@ Copy/lz77 (__iar_lz77_init3)
     Module                       ro code  ro data  rw data  rw data
                                                              (abs)
     ------                       -------  -------  -------  -------
-D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj: [1]
-    DSP.o                            564    2 048        8
-    audio_application.o              624                 1   32 768
-    audio_codec.o                  4 236        1      202
-    main.o                         4 158      161    5 299
-    sta321mp.o                     2 320       76      134
+H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj: [1]
+    DSP.o                          2 692                 4
+    audio_application.o              336                 1   32 768
+    audio_codec.o                  2 128       15      216
+    main.o                         2 760      557    5 314
+    sta321mp.o                     1 776       24      136
     startup_stm32f746xx.o            780
-    stm32746g_discovery.o            280        8
-    stm32746g_discovery_sdram.o      876        1      177
-    stm32f7xx_hal.o                  124                 4
-    stm32f7xx_hal_cortex.o           356
-    stm32f7xx_hal_dma.o           14 684
-    stm32f7xx_hal_gpio.o             620
-    stm32f7xx_hal_i2c.o            2 776
-    stm32f7xx_hal_i2c_ex.o           132
-    stm32f7xx_hal_i2s.o              420
-    stm32f7xx_hal_pcd.o            2 682
-    stm32f7xx_hal_pcd_ex.o           152
-    stm32f7xx_hal_pwr_ex.o           132
-    stm32f7xx_hal_rcc.o            2 224       16
-    stm32f7xx_hal_rcc_ex.o         2 208
-    stm32f7xx_hal_sdram.o            172
-    stm32f7xx_hal_spi.o            2 130
-    stm32f7xx_hal_uart.o           2 342
-    stm32f7xx_it.o                   124                 4
-    stm32f7xx_ll_fmc.o               380
-    stm32f7xx_ll_usb.o             3 408
-    system_stm32f7xx.o               108        3        4
-    usbd_audio_if.o                  128      155       36
-    usbd_audio_in.o                2 760       45      674
-    usbd_conf_f4.o                   848               960
-    usbd_core.o                      838
-    usbd_ctlreq.o                  1 630                 1
-    usbd_desc.o                      232      190      252
-    usbd_ioreq.o                     188
-    waveplayer _CS43L22.o            152        1       65
-    waverecorder.o                 5 696            33 666   98 784
+    stm32746g_discovery.o            196
+    stm32746g_discovery_sdram.o      640       19      180
+    stm32f7xx_hal.o                  120                 4
+    stm32f7xx_hal_cortex.o           204
+    stm32f7xx_hal_dma.o            4 072
+    stm32f7xx_hal_gpio.o             548
+    stm32f7xx_hal_i2c.o            2 192
+    stm32f7xx_hal_i2c_ex.o           110
+    stm32f7xx_hal_i2s.o              268
+    stm32f7xx_hal_pcd.o            2 016
+    stm32f7xx_hal_pcd_ex.o           112
+    stm32f7xx_hal_pwr_ex.o           108
+    stm32f7xx_hal_rcc.o            1 480
+    stm32f7xx_hal_rcc_ex.o         1 440
+    stm32f7xx_hal_sdram.o            138
+    stm32f7xx_hal_spi.o            2 036
+    stm32f7xx_hal_uart.o           1 694
+    stm32f7xx_it.o                   100                 4
+    stm32f7xx_ll_fmc.o               332
+    stm32f7xx_ll_usb.o             2 276
+    system_stm32f7xx.o                80        4       20
+    usbd_audio_if.o                  224        8       36
+    usbd_audio_in.o                1 732       13      674
+    usbd_conf_f4.o                   534               960
+    usbd_core.o                      600
+    usbd_ctlreq.o                  1 058                 1
+    usbd_desc.o                      284       10      252
+    usbd_ioreq.o                     104
+    waveplayer _CS43L22.o             96        1       65
+    waverecorder.o                 3 488            33 673   98 784
     ---------------------------------------------------------------
-    Total:                        61 484    2 705   41 487  131 552
+    Total:                        38 754      651   41 540  131 552
 
 command line: [2]
     ---------------------------------------------------------------
     Total:
 
 dl7M_tlf.a: [3]
-    XShttio.o                          8        5        8
+    XShttio.o                          8        2        8
     abort.o                            6
-    abs.o                              8
     dlmalloc.o                     5 360               496
-    errno.o                           12        2        4
+    errno.o                           12                 4
     exit.o                             4
     low_level_init.o                   4
-    setlocale.o                       20       76      116
+    setlocale.o                       20       23      116
     sprintf.o                         52
     xencoding_sb.o                    96
     xgetmemchunk.o                    44                 4
@@ -560,7 +454,7 @@ dl7M_tlf.a: [3]
     xtls.o                             2
     xwctomb.o                         26
     ---------------------------------------------------------------
-    Total:                         7 682       83      628
+    Total:                         7 674       25      628
 
 iar_cortexM7ls_math.a: [4]
     arm_cfft_radix4_init_f32.o       176
@@ -570,9 +464,9 @@ iar_cortexM7ls_math.a: [4]
     Total:                        33 064   67 584
 
 libPDMFilter_CM7_IAR.a: [5]
-    pdm_filter.o                   1 360      503      772
+    pdm_filter.o                   1 360      152      772
     ---------------------------------------------------------------
-    Total:                         1 360      503      772
+    Total:                         1 360      152      772
 
 m7M_tls.a: [6]
     DblAdd.o                         232
@@ -590,19 +484,19 @@ m7M_tls.a: [6]
     FltToDbl.o                        78
     I32ToDbl.o                        48
     U32ToFlt.o                        14
-    cos.o                             18
     fmod.o                           424
     fpinit_M.o                        34
     sqrt.o                           240
     xdint.o                          122
     xquad.o                          360
-    xsin.o                         1 104
+    xsin.o                         1 122
     ---------------------------------------------------------------
     Total:                         4 500
 
 rt7M_tl.a: [7]
+    ABImemclr.o                        6
     ABImemcpy_unaligned.o            118
-    ABImemset.o                      102
+    ABImemset.o                       94
     I64DivMod.o                      306
     I64DivZer.o                        2
     cexit.o                           10
@@ -616,7 +510,7 @@ rt7M_tl.a: [7]
     strlen.o                          54
     zero_init3.o                      64
     ---------------------------------------------------------------
-    Total:                         1 308
+    Total:                         1 306
 
 shb_l.a: [8]
     exit.o                            20
@@ -624,10 +518,10 @@ shb_l.a: [8]
     ---------------------------------------------------------------
     Total:                            68
 
-    Gaps                              42        4
+    Gaps                              44        2
     Linker created                             52   16 384
 -------------------------------------------------------------------
-    Grand Total:                 109 508   70 931   59 271  131 552
+    Grand Total:                  86 770   68 466   59 324  131 552
 
 
 *******************************************************************************
@@ -636,681 +530,627 @@ shb_l.a: [8]
 
 Entry                      Address    Size  Type      Object
 -----                      -------    ----  ----      ------
-.iar.init_table$$Base   0x0802bb14           --   Gb  - Linker created -
-.iar.init_table$$Limit  0x0802bb48           --   Gb  - Linker created -
-?main                   0x0802bb49          Code  Gb  cmain.o [7]
-ADD_U8                  0x08029245    0x18  Code  Gb  main.o [1]
-APBAHBPrescTable        0x0802bc2c    0x10  Data  Gb  stm32f7xx_hal_rcc.o [1]
-AUDIO_Desc              0x20000448    0x1c  Data  Gb  usbd_desc.o [1]
-AUDIO_Init              0x0802043d    0x38  Code  Gb  audio_codec.o [1]
-AUDIO_InitApplication   0x08023201     0xc  Code  Gb  waveplayer _CS43L22.o [1]
-AUDIO_REQ_GetCurrent    0x08024a97    0x30  Code  Lc  usbd_audio_in.o [1]
-AUDIO_REQ_GetMaximum    0x08024a31    0x22  Code  Lc  usbd_audio_in.o [1]
-AUDIO_REQ_GetMinimum    0x08024a53    0x22  Code  Lc  usbd_audio_in.o [1]
-AUDIO_REQ_GetResolution
-                        0x08024a75    0x22  Code  Lc  usbd_audio_in.o [1]
-AUDIO_REQ_SetCurrent    0x08024ac7    0x34  Code  Lc  usbd_audio_in.o [1]
-AudioPlayerUpd          0x08023739   0x222  Code  Gb  audio_application.o [1]
-AudioUSBSend            0x08023709    0x30  Code  Gb  audio_application.o [1]
-Audio_CommandMgr        0x08027e65     0x6  Code  Lc  usbd_audio_if.o [1]
-Audio_DeInit            0x08027e0f     0x6  Code  Lc  usbd_audio_if.o [1]
-Audio_Init              0x08027e09     0x6  Code  Lc  usbd_audio_if.o [1]
-Audio_MAL_Play          0x08021059    0xbc  Code  Gb  audio_codec.o [1]
-Audio_MuteCtl           0x08027e53     0x6  Code  Lc  usbd_audio_if.o [1]
-Audio_Pause             0x08027e5d     0x4  Code  Lc  usbd_audio_if.o [1]
-Audio_Play_Out          0x08021897   0x12e  Code  Lc  main.o [1]
-Audio_Record            0x08027e15     0x4  Code  Lc  usbd_audio_if.o [1]
-Audio_Resume            0x08027e61     0x4  Code  Lc  usbd_audio_if.o [1]
-Audio_Stop              0x08027e59     0x4  Code  Lc  usbd_audio_if.o [1]
-Audio_VolumeCtl         0x08027e19    0x3a  Code  Lc  usbd_audio_if.o [1]
-BSP_AUDIO_OUT_ClockConfig
-                        0x08021edb    0x70  Code  Gb  main.o [1]
-BSP_LED_Init            0x08023ce5    0xc8  Code  Gb  stm32746g_discovery.o [1]
-BSP_LED_Toggle          0x08023dad    0x42  Code  Gb  stm32746g_discovery.o [1]
-BSP_SDRAM_Init          0x08023979    0xd6  Code  Gb  stm32746g_discovery_sdram.o [1]
-BSP_SDRAM_Initialization_sequence
-                        0x08023a4f    0xb0  Code  Gb  stm32746g_discovery_sdram.o [1]
-BSP_SDRAM_MspInit       0x08023aff   0x1a8  Code  Wk  stm32746g_discovery_sdram.o [1]
+.iar.init_table$$Base   0x08025974           --   Gb  - Linker created -
+.iar.init_table$$Limit  0x080259a8           --   Gb  - Linker created -
+?main                   0x080259a9          Code  Gb  cmain.o [7]
+AHBPrescTable           0x20001020    0x10  Data  Gb  system_stm32f7xx.o [1]
+APBAHBPrescTable        0x0801ed5c    0x10  Data  Gb  stm32f7xx_hal_rcc.o [1]
+AUDIO_Desc              0x20001004    0x1c  Data  Gb  usbd_desc.o [1]
+AUDIO_Init              0x0801ed6d    0x26  Code  Gb  audio_codec.o [1]
+AUDIO_InitApplication   0x08020c7d     0xc  Code  Gb  waveplayer _CS43L22.o [1]
+AudioPlayerUpd          0x08020f59   0x11a  Code  Gb  audio_application.o [1]
+AudioRemSize            0x20000fa0     0x4  Data  Gb  audio_codec.o [1]
+AudioTotalSize          0x20000f9c     0x4  Data  Gb  audio_codec.o [1]
+AudioUSBSend            0x08020f41    0x18  Code  Gb  audio_application.o [1]
+Audio_CommandMgr        0x08023109     0x4  Code  Lc  usbd_audio_if.o [1]
+Audio_DeInit            0x080230c5     0x4  Code  Lc  usbd_audio_if.o [1]
+Audio_Init              0x080230c1     0x4  Code  Lc  usbd_audio_if.o [1]
+Audio_MAL_Play          0x0801f243    0x58  Code  Gb  audio_codec.o [1]
+Audio_MuteCtl           0x080230f9     0x4  Code  Lc  usbd_audio_if.o [1]
+Audio_Pause             0x08023101     0x4  Code  Lc  usbd_audio_if.o [1]
+Audio_Record            0x080230c9     0x4  Code  Lc  usbd_audio_if.o [1]
+Audio_Resume            0x08023105     0x4  Code  Lc  usbd_audio_if.o [1]
+Audio_Stop              0x080230fd     0x4  Code  Lc  usbd_audio_if.o [1]
+Audio_VolumeCtl         0x080230cd    0x2c  Code  Lc  usbd_audio_if.o [1]
+BSP_LED_Init            0x080218b1    0x86  Code  Gb  stm32746g_discovery.o [1]
+BSP_LED_Toggle          0x08021937    0x2e  Code  Gb  stm32746g_discovery.o [1]
+BSP_SDRAM_Init          0x08021631    0xfa  Code  Gb  stm32746g_discovery_sdram.o [1]
+BSP_SDRAM_MspInit       0x0802172b   0x15a  Code  Wk  stm32746g_discovery_sdram.o [1]
 Buffer1                 0xc0000000  0x80a0  Data  Gb  waverecorder.o [1]
 Buffer2                 0xc00080a0  0x80a0  Data  Gb  waverecorder.o [1]
 Buffer3                 0xc0010140  0x80a0  Data  Gb  waverecorder.o [1]
-BusFault_Handler        0x0802b95f     0x2  Code  Gb  stm32f7xx_it.o [1]
-ButtonInit              0x080223ed    0x4e  Code  Gb  main.o [1]
-CPU_CACHE_Enable        0x08021f4b     0xc  Code  Lc  main.o [1]
-CSTACK$$Base            0x2000a790           --   Gb  - Linker created -
-CSTACK$$Limit           0x2000c790           --   Gb  - Linker created -
-Codec_AudioInterface_Init
-                        0x08020fc5     0xc  Code  Lc  audio_codec.o [1]
-Codec_CtrlInterface_Init
-                        0x08020fbd     0x8  Code  Lc  audio_codec.o [1]
-Codec_GPIO_Init         0x08020fd1    0x40  Code  Lc  audio_codec.o [1]
-Codec_Init              0x08020d93    0xf6  Code  Lc  audio_codec.o [1]
-Codec_ReadRegister      0x08020f59    0x64  Code  Lc  audio_codec.o [1]
-Codec_Reset             0x08020eed    0x24  Code  Lc  audio_codec.o [1]
+BusFault_Handler        0x0802583b     0x2  Code  Gb  stm32f7xx_it.o [1]
+ButtonInit              0x0802013f    0x48  Code  Gb  main.o [1]
+CSTACK$$Base            0x2000a7c0           --   Gb  - Linker created -
+CSTACK$$Limit           0x2000c7c0           --   Gb  - Linker created -
+Codec_Init              0x0801ef7b   0x1ee  Code  Lc  audio_codec.o [1]
+Codec_Reset             0x0801f1df    0x34  Code  Lc  audio_codec.o [1]
 Codec_TIMEOUT_UserCallback
-                        0x08023187     0x4  Code  Gb  waveplayer _CS43L22.o [1]
-Codec_VolumeCtrl        0x08020e89    0x64  Code  Lc  audio_codec.o [1]
-Codec_WriteRegister     0x08020f13    0x3e  Code  Lc  audio_codec.o [1]
-Command                 0x2000a6fc    0x10  Data  Lc  stm32746g_discovery_sdram.o [1]
-Command_index           0x2000049a     0x1  Data  Gb  main.o [1]
-CrssCor                 0x08023557   0x128  Code  Gb  DSP.o [1]
-DFT_Init                0x08022215    0x72  Code  Gb  main.o [1]
+                        0x08020c29     0x4  Code  Gb  waveplayer _CS43L22.o [1]
+Codec_VolumeCtrl        0x0801f169    0x76  Code  Lc  audio_codec.o [1]
+Codec_WriteRegister     0x0801f213     0xc  Code  Lc  audio_codec.o [1]
+Command                 0x20000f4c    0x10  Data  Lc  stm32746g_discovery_sdram.o [1]
+Command_index           0x2000105f     0x1  Data  Gb  main.o [1]
+CrssCor                 0x0801d0d5   0x100  Code  Gb  DSP.o [1]
+CrssCorVal14            0x20000058     0x4  Data  Gb  main.o [1]
+CrssCorVal25            0x2000005c     0x4  Data  Gb  main.o [1]
+CrssCorVal63            0x20000060     0x4  Data  Gb  main.o [1]
+CrssCorVal78            0x20000054     0x4  Data  Gb  main.o [1]
+CurrentPos              0x20000fa4     0x4  Data  Gb  audio_codec.o [1]
+DFT_Init                0x0801fff7    0x74  Code  Gb  main.o [1]
 DMA1_Stream0_IRQHandler
-                        0x08020d87     0x2  Code  Gb  audio_codec.o [1]
+                        0x0801ef6f     0x2  Code  Gb  audio_codec.o [1]
 DMA1_Stream7_IRQHandler
-                        0x08020475   0x912  Code  Gb  audio_codec.o [1]
+                        0x0801ed93   0x1dc  Code  Gb  audio_codec.o [1]
 DMA2_Stream4_IRQHandler
-                        0x0802b9d1     0x2  Code  Gb  stm32f7xx_it.o [1]
+                        0x08025895     0x2  Code  Gb  stm32f7xx_it.o [1]
 DMA2_Stream5_IRQHandler
-                        0x0801d51f     0xc  Code  Gb  waverecorder.o [1]
+                        0x0801ba8d     0x8  Code  Gb  waverecorder.o [1]
 DMA2_Stream6_IRQHandler
-                        0x0801d531     0xc  Code  Gb  waverecorder.o [1]
+                        0x0801ba95     0x8  Code  Gb  waverecorder.o [1]
 DMA2_Stream7_IRQHandler
-                        0x0802b9d3     0x2  Code  Gb  stm32f7xx_it.o [1]
-DMA_SetConfig           0x08018af1    0x2e  Code  Gb  stm32f7xx_hal_dma.o [1]
-DebugMon_Handler        0x0802b965     0x2  Code  Gb  stm32f7xx_it.o [1]
-Delay                   0x08021045    0x14  Code  Lc  audio_codec.o [1]
-DmaHandle               0x2000a304    0x50  Data  Gb  audio_codec.o [1]
-EXTI15_10_IRQHandler    0x08022171     0x2  Code  Gb  main.o [1]
-EXTI4_IRQHandler        0x08022121    0x3e  Code  Gb  main.o [1]
-EXTI9_5_IRQHandler      0x08022173    0x74  Code  Gb  main.o [1]
-EnergyError             0x2000a710     0x4  Data  Gb  DSP.o [1]
-EnergyNoiseCalc         0x080236a3    0x4c  Code  Gb  DSP.o [1]
-EnergySound             0x2000a70c     0x4  Data  Gb  DSP.o [1]
-FFT_Update              0x08021737   0x160  Code  Lc  main.o [1]
-FMC_SDRAM_Init          0x0802929d    0x7c  Code  Gb  stm32f7xx_ll_fmc.o [1]
+                        0x08025897     0x2  Code  Gb  stm32f7xx_it.o [1]
+DebugMon_Handler        0x08025841     0x2  Code  Gb  stm32f7xx_it.o [1]
+DmaHandle               0x2000a584    0x50  Data  Gb  audio_codec.o [1]
+EXTI15_10_IRQHandler    0x0801ffa7     0x2  Code  Gb  main.o [1]
+EXTI4_IRQHandler        0x0801ff7d    0x2a  Code  Gb  main.o [1]
+EXTI9_5_IRQHandler      0x0801ffa9    0x4e  Code  Gb  main.o [1]
+EnergyError             0x2000a7a8     0x4  Data  Gb  DSP.o [1]
+EnergyNoiseCalc         0x0801d1f1    0x2e  Code  Gb  DSP.o [1]
+FFT_Update              0x0801f8d1    0xae  Code  Lc  main.o [1]
+FMC_SDRAM_Init          0x08024115    0x74  Code  Gb  stm32f7xx_ll_fmc.o [1]
 FMC_SDRAM_ProgramRefreshRate
-                        0x0802940b     0xe  Code  Gb  stm32f7xx_ll_fmc.o [1]
-FMC_SDRAM_SendCommand   0x080293b7    0x54  Code  Gb  stm32f7xx_ll_fmc.o [1]
-FMC_SDRAM_Timing_Init   0x08029319    0x9e  Code  Gb  stm32f7xx_ll_fmc.o [1]
-FacMic                  0x2000a5cc    0x18  Data  Gb  main.o [1]
-FactorUpd               0x08023689    0x1a  Code  Gb  DSP.o [1]
-Filter                  0x2000a10c    0x68  Data  Gb  waverecorder.o [1]
-GPIO_INS                0x2000a674    0x14  Data  Gb  main.o [1]
-GPIO_PIN                0x0802bc98     0x8  Data  Gb  stm32746g_discovery.o [1]
-HAL_DMA_DeInit          0x08018ba1   0xfe8  Code  Gb  stm32f7xx_hal_dma.o [1]
-HAL_DMA_IRQHandler      0x08019c61  0x2798  Code  Gb  stm32f7xx_hal_dma.o [1]
-HAL_DMA_Init            0x08018b1f    0x7c  Code  Gb  stm32f7xx_hal_dma.o [1]
-HAL_DMA_Start_IT        0x08019bd9    0x86  Code  Gb  stm32f7xx_hal_dma.o [1]
-HAL_Delay               0x0801e2a3    0x1a  Code  Wk  stm32f7xx_hal.o [1]
-HAL_GPIO_Init           0x0801da8d   0x1f6  Code  Gb  stm32f7xx_hal_gpio.o [1]
-HAL_GPIO_ReadPin        0x0801dc83    0x18  Code  Gb  stm32f7xx_hal_gpio.o [1]
-HAL_GPIO_TogglePin      0x0801dcaf     0xa  Code  Gb  stm32f7xx_hal_gpio.o [1]
-HAL_GPIO_WritePin       0x0801dc9b    0x14  Code  Gb  stm32f7xx_hal_gpio.o [1]
-HAL_GetTick             0x0801e29d     0x6  Code  Wk  stm32f7xx_hal.o [1]
+                        0x08024255     0xc  Code  Gb  stm32f7xx_ll_fmc.o [1]
+FMC_SDRAM_SendCommand   0x08024205    0x50  Code  Gb  stm32f7xx_ll_fmc.o [1]
+FMC_SDRAM_Timing_Init   0x08024189    0x7c  Code  Gb  stm32f7xx_ll_fmc.o [1]
+FacMic                  0x2000003c    0x18  Data  Gb  main.o [1]
+FactorUpd               0x0801d1db    0x16  Code  Gb  DSP.o [1]
+Filter                  0x2000a380    0x68  Data  Gb  waverecorder.o [1]
+GPIO_INS                0x20000028    0x14  Data  Gb  main.o [1]
+GPIO_PIN                0x0802196c     0x8  Data  Gb  stm32746g_discovery.o [1]
+HAL_DMA_DeInit          0x0801a0d7   0x3da  Code  Gb  stm32f7xx_hal_dma.o [1]
+HAL_DMA_IRQHandler      0x0801a589   0xa78  Code  Gb  stm32f7xx_hal_dma.o [1]
+HAL_DMA_Init            0x0801a069    0x6e  Code  Gb  stm32f7xx_hal_dma.o [1]
+HAL_DMA_Start_IT        0x0801a501    0x88  Code  Gb  stm32f7xx_hal_dma.o [1]
+HAL_Delay               0x0801cdaf    0x18  Code  Wk  stm32f7xx_hal.o [1]
+HAL_GPIO_Init           0x0801bdf1   0x1d0  Code  Gb  stm32f7xx_hal_gpio.o [1]
+HAL_GPIO_ReadPin        0x0801bfc1     0xe  Code  Gb  stm32f7xx_hal_gpio.o [1]
+HAL_GPIO_TogglePin      0x0801bfd7     0x8  Code  Gb  stm32f7xx_hal_gpio.o [1]
+HAL_GPIO_WritePin       0x0801bfcf     0x8  Code  Gb  stm32f7xx_hal_gpio.o [1]
+HAL_GetTick             0x0801cda9     0x6  Code  Wk  stm32f7xx_hal.o [1]
 HAL_I2CEx_ConfigAnalogFilter
-                        0x0802320d    0x84  Code  Gb  stm32f7xx_hal_i2c_ex.o [1]
-HAL_I2C_EV_IRQHandler   0x08022a15   0x12e  Code  Gb  stm32f7xx_hal_i2c.o [1]
-HAL_I2C_ErrorCallback   0x08022b4f     0x2  Code  Wk  stm32f7xx_hal_i2c.o [1]
-HAL_I2C_GetError        0x08022b51     0x4  Code  Gb  stm32f7xx_hal_i2c.o [1]
-HAL_I2C_Init            0x0802269d    0xbc  Code  Gb  stm32f7xx_hal_i2c.o [1]
+                        0x08020c89    0x50  Code  Gb  stm32f7xx_hal_i2c_ex.o [1]
+HAL_I2C_EV_IRQHandler   0x080206f1    0xfe  Code  Gb  stm32f7xx_hal_i2c.o [1]
+HAL_I2C_ErrorCallback   0x080207fb     0x2  Code  Wk  stm32f7xx_hal_i2c.o [1]
+HAL_I2C_GetError        0x080207fd     0x4  Code  Gb  stm32f7xx_hal_i2c.o [1]
+HAL_I2C_Init            0x08020399    0x9e  Code  Gb  stm32f7xx_hal_i2c.o [1]
 HAL_I2C_MasterRxCpltCallback
-                        0x08022b45     0x2  Code  Wk  stm32f7xx_hal_i2c.o [1]
+                        0x080207f1     0x2  Code  Wk  stm32f7xx_hal_i2c.o [1]
 HAL_I2C_MasterTxCpltCallback
-                        0x08022b43     0x2  Code  Wk  stm32f7xx_hal_i2c.o [1]
-HAL_I2C_Master_Receive  0x080228b7   0x158  Code  Gb  stm32f7xx_hal_i2c.o [1]
+                        0x080207ef     0x2  Code  Wk  stm32f7xx_hal_i2c.o [1]
+HAL_I2C_Master_Receive  0x08020585   0x134  Code  Gb  stm32f7xx_hal_i2c.o [1]
 HAL_I2C_Master_Transmit
-                        0x08022759   0x15e  Code  Gb  stm32f7xx_hal_i2c.o [1]
+                        0x08020437   0x14e  Code  Gb  stm32f7xx_hal_i2c.o [1]
 HAL_I2C_MemRxCpltCallback
-                        0x08022b4d     0x2  Code  Wk  stm32f7xx_hal_i2c.o [1]
+                        0x080207f9     0x2  Code  Wk  stm32f7xx_hal_i2c.o [1]
 HAL_I2C_MemTxCpltCallback
-                        0x08022b4b     0x2  Code  Wk  stm32f7xx_hal_i2c.o [1]
-HAL_I2C_MspInit         0x08021f57    0xe6  Code  Gb  main.o [1]
+                        0x080207f7     0x2  Code  Wk  stm32f7xx_hal_i2c.o [1]
+HAL_I2C_MspInit         0x0801fe2d    0xbc  Code  Gb  main.o [1]
 HAL_I2C_SlaveRxCpltCallback
-                        0x08022b49     0x2  Code  Wk  stm32f7xx_hal_i2c.o [1]
+                        0x080207f5     0x2  Code  Wk  stm32f7xx_hal_i2c.o [1]
 HAL_I2C_SlaveTxCpltCallback
-                        0x08022b47     0x2  Code  Wk  stm32f7xx_hal_i2c.o [1]
-HAL_I2S_Init            0x0801eb21   0x126  Code  Gb  stm32f7xx_hal_i2s.o [1]
-HAL_I2S_MspInit         0x08021139   0x2f0  Code  Gb  audio_codec.o [1]
-HAL_I2S_TxCpltCallback  0x080224bd     0xa  Code  Gb  main.o [1]
-HAL_IncTick             0x0801e291     0xc  Code  Wk  stm32f7xx_hal.o [1]
-HAL_Init                0x0801e249    0x22  Code  Gb  stm32f7xx_hal.o [1]
-HAL_InitTick            0x0801e26d    0x24  Code  Wk  stm32f7xx_hal.o [1]
-HAL_MspInit             0x0801e26b     0x2  Code  Wk  stm32f7xx_hal.o [1]
-HAL_NVIC_DisableIRQ     0x0801ede9     0xe  Code  Gb  stm32f7xx_hal_cortex.o [1]
-HAL_NVIC_EnableIRQ      0x0801eddb     0xe  Code  Gb  stm32f7xx_hal_cortex.o [1]
-HAL_NVIC_SetPriority    0x0801edb5    0x26  Code  Gb  stm32f7xx_hal_cortex.o [1]
+                        0x080207f3     0x2  Code  Wk  stm32f7xx_hal_i2c.o [1]
+HAL_I2S_Init            0x0801cdd1    0xf2  Code  Gb  stm32f7xx_hal_i2s.o [1]
+HAL_I2S_MspInit         0x0801f29b   0x264  Code  Gb  audio_codec.o [1]
+HAL_I2S_TxCpltCallback  0x080201b3    0x86  Code  Gb  main.o [1]
+HAL_IncTick             0x0801cd9f     0xa  Code  Wk  stm32f7xx_hal.o [1]
+HAL_Init                0x0801cd59    0x20  Code  Gb  stm32f7xx_hal.o [1]
+HAL_InitTick            0x0801cd7b    0x24  Code  Wk  stm32f7xx_hal.o [1]
+HAL_MspInit             0x0801cd79     0x2  Code  Wk  stm32f7xx_hal.o [1]
+HAL_NVIC_DisableIRQ     0x0801cf55     0xa  Code  Gb  stm32f7xx_hal_cortex.o [1]
+HAL_NVIC_EnableIRQ      0x0801cf49     0xc  Code  Gb  stm32f7xx_hal_cortex.o [1]
+HAL_NVIC_SetPriority    0x0801cef7    0x52  Code  Gb  stm32f7xx_hal_cortex.o [1]
 HAL_NVIC_SetPriorityGrouping
-                        0x0801eda9     0xc  Code  Gb  stm32f7xx_hal_cortex.o [1]
-HAL_PCDEx_ActivateLPM   0x08029f03    0x28  Code  Gb  stm32f7xx_hal_pcd_ex.o [1]
-HAL_PCDEx_LPM_Callback  0x08029f2b     0x2  Code  Wk  stm32f7xx_hal_pcd_ex.o [1]
-HAL_PCDEx_SetRxFiFo     0x08029ef7     0xc  Code  Gb  stm32f7xx_hal_pcd_ex.o [1]
-HAL_PCDEx_SetTxFiFo     0x08029e95    0x62  Code  Gb  stm32f7xx_hal_pcd_ex.o [1]
+                        0x0801cedd    0x1a  Code  Gb  stm32f7xx_hal_cortex.o [1]
+HAL_PCDEx_ActivateLPM   0x08024a87    0x22  Code  Gb  stm32f7xx_hal_pcd_ex.o [1]
+HAL_PCDEx_LPM_Callback  0x08024aaf     0x2  Code  Wk  stm32f7xx_hal_pcd_ex.o [1]
+HAL_PCDEx_SetRxFiFo     0x08024a7f     0x8  Code  Gb  stm32f7xx_hal_pcd_ex.o [1]
+HAL_PCDEx_SetTxFiFo     0x08024a41    0x3e  Code  Gb  stm32f7xx_hal_pcd_ex.o [1]
 HAL_PCD_ConnectCallback
-                        0x080280bd     0xe  Code  Gb  usbd_conf_f4.o [1]
+                        0x0802331f     0x8  Code  Gb  usbd_conf_f4.o [1]
 HAL_PCD_DataInStageCallback
-                        0x08028015    0x1e  Code  Gb  usbd_conf_f4.o [1]
+                        0x080232c5    0x12  Code  Gb  usbd_conf_f4.o [1]
 HAL_PCD_DataOutStageCallback
-                        0x08027ff5    0x20  Code  Gb  usbd_conf_f4.o [1]
+                        0x080232b1    0x14  Code  Gb  usbd_conf_f4.o [1]
 HAL_PCD_DisconnectCallback
-                        0x080280cb     0xe  Code  Gb  usbd_conf_f4.o [1]
-HAL_PCD_EP_Close        0x08029b57    0x62  Code  Gb  stm32f7xx_hal_pcd.o [1]
-HAL_PCD_EP_ClrStall     0x08029d31    0x62  Code  Gb  stm32f7xx_hal_pcd.o [1]
-HAL_PCD_EP_Flush        0x08029d93    0x3c  Code  Gb  stm32f7xx_hal_pcd.o [1]
-HAL_PCD_EP_Open         0x08029abd    0x9a  Code  Gb  stm32f7xx_hal_pcd.o [1]
-HAL_PCD_EP_Receive      0x08029bb9    0x82  Code  Gb  stm32f7xx_hal_pcd.o [1]
-HAL_PCD_EP_SetStall     0x08029cbb    0x76  Code  Gb  stm32f7xx_hal_pcd.o [1]
-HAL_PCD_EP_Transmit     0x08029c3b    0x80  Code  Gb  stm32f7xx_hal_pcd.o [1]
-HAL_PCD_IRQHandler      0x0802956f   0x522  Code  Gb  stm32f7xx_hal_pcd.o [1]
+                        0x08023327     0x8  Code  Gb  usbd_conf_f4.o [1]
+HAL_PCD_EP_Close        0x080247f5    0x40  Code  Gb  stm32f7xx_hal_pcd.o [1]
+HAL_PCD_EP_ClrStall     0x08024929    0x4e  Code  Gb  stm32f7xx_hal_pcd.o [1]
+HAL_PCD_EP_Flush        0x08024977    0x2c  Code  Gb  stm32f7xx_hal_pcd.o [1]
+HAL_PCD_EP_Open         0x080247a1    0x54  Code  Gb  stm32f7xx_hal_pcd.o [1]
+HAL_PCD_EP_Receive      0x08024835    0x3c  Code  Gb  stm32f7xx_hal_pcd.o [1]
+HAL_PCD_EP_SetStall     0x080248cd    0x5c  Code  Gb  stm32f7xx_hal_pcd.o [1]
+HAL_PCD_EP_Transmit     0x08024871    0x3a  Code  Gb  stm32f7xx_hal_pcd.o [1]
+HAL_PCD_IRQHandler      0x08024343   0x438  Code  Gb  stm32f7xx_hal_pcd.o [1]
 HAL_PCD_ISOINIncompleteCallback
-                        0x080280a9    0x14  Code  Gb  usbd_conf_f4.o [1]
+                        0x08023317     0x8  Code  Gb  usbd_conf_f4.o [1]
 HAL_PCD_ISOOUTIncompleteCallback
-                        0x08028095    0x14  Code  Gb  usbd_conf_f4.o [1]
-HAL_PCD_Init            0x08029419   0x12a  Code  Gb  stm32f7xx_hal_pcd.o [1]
-HAL_PCD_MspInit         0x08027f5b    0x88  Code  Gb  usbd_conf_f4.o [1]
-HAL_PCD_ResetCallback   0x08028041    0x38  Code  Gb  usbd_conf_f4.o [1]
-HAL_PCD_ResumeCallback  0x08028087     0xe  Code  Gb  usbd_conf_f4.o [1]
-HAL_PCD_SOFCallback     0x08028033     0xe  Code  Gb  usbd_conf_f4.o [1]
-HAL_PCD_SetAddress      0x08029a91    0x2c  Code  Gb  stm32f7xx_hal_pcd.o [1]
+                        0x0802330f     0x8  Code  Gb  usbd_conf_f4.o [1]
+HAL_PCD_Init            0x08024261    0xbe  Code  Gb  stm32f7xx_hal_pcd.o [1]
+HAL_PCD_MspInit         0x0802322d    0x78  Code  Gb  usbd_conf_f4.o [1]
+HAL_PCD_ResetCallback   0x080232df    0x20  Code  Gb  usbd_conf_f4.o [1]
+HAL_PCD_ResumeCallback  0x08023307     0x8  Code  Gb  usbd_conf_f4.o [1]
+HAL_PCD_SOFCallback     0x080232d7     0x8  Code  Gb  usbd_conf_f4.o [1]
+HAL_PCD_SetAddress      0x08024783    0x1e  Code  Gb  stm32f7xx_hal_pcd.o [1]
 HAL_PCD_SetupStageCallback
-                        0x08027fe3    0x12  Code  Gb  usbd_conf_f4.o [1]
-HAL_PCD_Start           0x08029543    0x2c  Code  Gb  stm32f7xx_hal_pcd.o [1]
+                        0x080232a5     0xc  Code  Gb  usbd_conf_f4.o [1]
+HAL_PCD_Start           0x0802431f    0x24  Code  Gb  stm32f7xx_hal_pcd.o [1]
 HAL_PCD_SuspendCallback
-                        0x08028079     0xe  Code  Gb  usbd_conf_f4.o [1]
+                        0x080232ff     0x8  Code  Gb  usbd_conf_f4.o [1]
 HAL_PWREx_EnableOverDrive
-                        0x08025ead    0x76  Code  Gb  stm32f7xx_hal_pwr_ex.o [1]
+                        0x08023055    0x64  Code  Gb  stm32f7xx_hal_pwr_ex.o [1]
 HAL_RCCEx_GetPeriphCLKConfig
-                        0x080265d9   0x1c6  Code  Gb  stm32f7xx_hal_rcc_ex.o [1]
+                        0x080214fb   0x11a  Code  Gb  stm32f7xx_hal_rcc_ex.o [1]
 HAL_RCCEx_PeriphCLKConfig
-                        0x08025f31   0x6a8  Code  Gb  stm32f7xx_hal_rcc_ex.o [1]
-HAL_RCC_ClockConfig     0x080200a5   0x256  Code  Gb  stm32f7xx_hal_rcc.o [1]
-HAL_RCC_GetHCLKFreq     0x0802039f    0x28  Code  Gb  stm32f7xx_hal_rcc.o [1]
-HAL_RCC_GetPCLK1Freq    0x080203c7    0x20  Code  Gb  stm32f7xx_hal_rcc.o [1]
-HAL_RCC_GetPCLK2Freq    0x080203e7    0x20  Code  Gb  stm32f7xx_hal_rcc.o [1]
+                        0x08021091   0x46a  Code  Gb  stm32f7xx_hal_rcc_ex.o [1]
+HAL_RCC_ClockConfig     0x0801eacb   0x1c2  Code  Gb  stm32f7xx_hal_rcc.o [1]
+HAL_RCC_GetHCLKFreq     0x0801ecd3    0x1e  Code  Gb  stm32f7xx_hal_rcc.o [1]
+HAL_RCC_GetPCLK1Freq    0x0801ecf1    0x24  Code  Gb  stm32f7xx_hal_rcc.o [1]
+HAL_RCC_GetPCLK2Freq    0x0801ed15    0x22  Code  Gb  stm32f7xx_hal_rcc.o [1]
 HAL_RCC_GetSysClockFreq
-                        0x080202fb    0xa4  Code  Gb  stm32f7xx_hal_rcc.o [1]
-HAL_RCC_OscConfig       0x0801fb8d   0x518  Code  Gb  stm32f7xx_hal_rcc.o [1]
-HAL_SDRAM_Init          0x08027e89    0x44  Code  Gb  stm32f7xx_hal_sdram.o [1]
-HAL_SDRAM_MspInit       0x08027ecd     0x2  Code  Wk  stm32f7xx_hal_sdram.o [1]
+                        0x0801ec8d    0x46  Code  Gb  stm32f7xx_hal_rcc.o [1]
+HAL_RCC_OscConfig       0x0801e7a5   0x326  Code  Gb  stm32f7xx_hal_rcc.o [1]
+HAL_SDRAM_Init          0x080231a1    0x3a  Code  Gb  stm32f7xx_hal_sdram.o [1]
+HAL_SDRAM_MspInit       0x080231db     0x2  Code  Wk  stm32f7xx_hal_sdram.o [1]
 HAL_SDRAM_ProgramRefreshRate
-                        0x08027f0b    0x2a  Code  Gb  stm32f7xx_hal_sdram.o [1]
-HAL_SDRAM_SendCommand   0x08027ecf    0x3c  Code  Gb  stm32f7xx_hal_sdram.o [1]
-HAL_SPI_ErrorCallback   0x0801e701     0x2  Code  Wk  stm32f7xx_hal_spi.o [1]
-HAL_SPI_Init            0x0801e2c5    0xd8  Code  Gb  stm32f7xx_hal_spi.o [1]
-HAL_SPI_MspInit         0x0801cf05   0x5ca  Code  Gb  waverecorder.o [1]
-HAL_SPI_Receive_DMA     0x0801e39d   0x14c  Code  Gb  stm32f7xx_hal_spi.o [1]
-HAL_SPI_RxCpltCallback  0x0801d54d    0xaa  Code  Gb  waverecorder.o [1]
+                        0x08023209    0x22  Code  Gb  stm32f7xx_hal_sdram.o [1]
+HAL_SDRAM_SendCommand   0x080231dd    0x2c  Code  Gb  stm32f7xx_hal_sdram.o [1]
+HAL_SPI_ErrorCallback   0x0801c88f     0x2  Code  Wk  stm32f7xx_hal_spi.o [1]
+HAL_SPI_Init            0x0801c565    0xb2  Code  Gb  stm32f7xx_hal_spi.o [1]
+HAL_SPI_MspInit         0x0801b681   0x402  Code  Gb  waverecorder.o [1]
+HAL_SPI_Receive_DMA     0x0801c61d    0xfa  Code  Gb  stm32f7xx_hal_spi.o [1]
+HAL_SPI_RxCpltCallback  0x0801bab9    0x62  Code  Gb  waverecorder.o [1]
 HAL_SPI_RxHalfCpltCallback
-                        0x0801e6fd     0x2  Code  Wk  stm32f7xx_hal_spi.o [1]
+                        0x0801c88b     0x2  Code  Wk  stm32f7xx_hal_spi.o [1]
 HAL_SPI_TransmitReceive_DMA
-                        0x0801e4e9   0x212  Code  Gb  stm32f7xx_hal_spi.o [1]
+                        0x0801c717   0x172  Code  Gb  stm32f7xx_hal_spi.o [1]
 HAL_SPI_TxRxCpltCallback
-                        0x0801e6fb     0x2  Code  Wk  stm32f7xx_hal_spi.o [1]
+                        0x0801c889     0x2  Code  Wk  stm32f7xx_hal_spi.o [1]
 HAL_SPI_TxRxHalfCpltCallback
-                        0x0801e6ff     0x2  Code  Wk  stm32f7xx_hal_spi.o [1]
-HAL_SYSTICK_Config      0x0801edf7     0xc  Code  Gb  stm32f7xx_hal_cortex.o [1]
-HAL_UART_ErrorCallback  0x0802585d     0x2  Code  Wk  stm32f7xx_hal_uart.o [1]
-HAL_UART_IRQHandler     0x08025683    0xf8  Code  Gb  stm32f7xx_hal_uart.o [1]
-HAL_UART_Init           0x08025585    0x7e  Code  Gb  stm32f7xx_hal_uart.o [1]
-HAL_UART_MspInit        0x0802209d    0x80  Code  Gb  main.o [1]
+                        0x0801c88d     0x2  Code  Wk  stm32f7xx_hal_spi.o [1]
+HAL_SYSTICK_Config      0x0801cf67    0x22  Code  Gb  stm32f7xx_hal_cortex.o [1]
+HAL_UART_ErrorCallback  0x08022b83     0x2  Code  Wk  stm32f7xx_hal_uart.o [1]
+HAL_UART_IRQHandler     0x08022a7d   0x102  Code  Gb  stm32f7xx_hal_uart.o [1]
+HAL_UART_Init           0x080229b5    0x50  Code  Gb  stm32f7xx_hal_uart.o [1]
+HAL_UART_MspInit        0x0801ff13    0x6a  Code  Gb  main.o [1]
 HAL_UART_RxCpltCallback
-                        0x0802585b     0x2  Code  Wk  stm32f7xx_hal_uart.o [1]
-HAL_UART_Transmit_IT    0x08025603    0x80  Code  Gb  stm32f7xx_hal_uart.o [1]
+                        0x08022b81     0x2  Code  Wk  stm32f7xx_hal_uart.o [1]
+HAL_UART_Transmit_IT    0x08022a1b    0x5a  Code  Gb  stm32f7xx_hal_uart.o [1]
 HAL_UART_TxCpltCallback
-                        0x08025859     0x2  Code  Wk  stm32f7xx_hal_uart.o [1]
-HEAP$$Base              0x2000c790           --   Gb  - Linker created -
-HEAP$$Limit             0x2000e790           --   Gb  - Linker created -
-HardFault_Handler       0x0802b95b     0x2  Code  Gb  stm32f7xx_it.o [1]
-I2C1_EV_IRQHandler      0x0802b99b     0xa  Code  Gb  stm32f7xx_it.o [1]
-I2C2_EV_IRQHandler      0x0802b9a5     0xa  Code  Gb  stm32f7xx_it.o [1]
+                        0x08022b7f     0x2  Code  Wk  stm32f7xx_hal_uart.o [1]
+HEAP$$Base              0x2000c7c0           --   Gb  - Linker created -
+HEAP$$Limit             0x2000e7c0           --   Gb  - Linker created -
+HardFault_Handler       0x08025837     0x2  Code  Gb  stm32f7xx_it.o [1]
+I2C1_EV_IRQHandler      0x08025869     0x6  Code  Gb  stm32f7xx_it.o [1]
+I2C2_EV_IRQHandler      0x0802586f     0x6  Code  Gb  stm32f7xx_it.o [1]
 I2C_IsAcknowledgeFailed
-                        0x080230a3    0x9e  Code  Lc  stm32f7xx_hal_i2c.o [1]
-I2C_MasterReceive_ISR   0x08022ca9   0x152  Code  Lc  stm32f7xx_hal_i2c.o [1]
-I2C_MasterTransmit_ISR  0x08022b55   0x152  Code  Lc  stm32f7xx_hal_i2c.o [1]
-I2C_SlaveReceive_ISR    0x08022ebd    0xae  Code  Lc  stm32f7xx_hal_i2c.o [1]
-I2C_SlaveTransmit_ISR   0x08022dfb    0xc2  Code  Lc  stm32f7xx_hal_i2c.o [1]
-I2C_TransferConfig      0x08023141    0x2a  Code  Lc  stm32f7xx_hal_i2c.o [1]
-I2C_WaitOnFlagUntilTimeout
-                        0x08022f71    0x8e  Code  Lc  stm32f7xx_hal_i2c.o [1]
+                        0x08020b77    0x84  Code  Lc  stm32f7xx_hal_i2c.o [1]
+I2C_MasterReceive_ISR   0x08020905   0x100  Code  Lc  stm32f7xx_hal_i2c.o [1]
+I2C_MasterTransmit_ISR  0x08020801   0x102  Code  Lc  stm32f7xx_hal_i2c.o [1]
+I2C_SlaveReceive_ISR    0x08020a9f    0x86  Code  Lc  stm32f7xx_hal_i2c.o [1]
+I2C_SlaveTransmit_ISR   0x08020a0b    0x94  Code  Lc  stm32f7xx_hal_i2c.o [1]
+I2C_TransferConfig      0x08020bfb    0x20  Code  Lc  stm32f7xx_hal_i2c.o [1]
 I2C_WaitOnSTOPFlagUntilTimeout
-                        0x08023053    0x50  Code  Lc  stm32f7xx_hal_i2c.o [1]
-I2C_WaitOnTXISFlagUntilTimeout
-                        0x08022fff    0x54  Code  Lc  stm32f7xx_hal_i2c.o [1]
-I2S1_Init               0x0801cbdd    0x5e  Code  Lc  waverecorder.o [1]
-I2S2_Init               0x0801cc3b    0x5e  Code  Lc  waverecorder.o [1]
-I2S2_idxTmp             0x2000a72c     0x2  Data  Gb  main.o [1]
-I2S2_stLR               0x2000a786     0x1  Data  Gb  waverecorder.o [1]
-I2S2_stLROld            0x2000a787     0x1  Data  Gb  waverecorder.o [1]
-I2S2_stNipple           0x2000a768     0x2  Data  Gb  waverecorder.o [1]
-I2S3_Init               0x0802318b    0x68  Code  Gb  waveplayer _CS43L22.o [1]
-I2S_GetClockFreq        0x0801ec47    0x66  Code  Lc  stm32f7xx_hal_i2s.o [1]
-IS                      0x2000a644    0x18  Data  Gb  main.o [1]
-ISS                     0x2000a6d8    0x14  Data  Gb  main.o [1]
-InStream_Read           0x0802b629    0x22  Code  Lc  lz77_init.o [7]
-IsocInBuffDummy         0x20009c5c   0x180  Data  Lc  usbd_audio_in.o [1]
-LoadInt                 0x08028eb1    0x4c  Code  Lc  xprintfsmall.o [3]
-MIC1TO6_Init            0x0801cafb    0xae  Code  Gb  waverecorder.o [1]
-MX_I2C1_Init            0x0802142d    0x48  Code  Gb  audio_codec.o [1]
-MX_I2C2_Init            0x0802245d    0x50  Code  Gb  main.o [1]
-MemManage_Handler       0x0802b95d     0x2  Code  Gb  stm32f7xx_it.o [1]
-NMI_Handler             0x0802b959     0x2  Code  Gb  stm32f7xx_it.o [1]
-NVIC_DisableIRQ         0x0801ed01    0x14  Code  Lc  stm32f7xx_hal_cortex.o [1]
-NVIC_EnableIRQ          0x0801eced    0x14  Code  Lc  stm32f7xx_hal_cortex.o [1]
-NVIC_EncodePriority     0x0801ed3b    0x3e  Code  Lc  stm32f7xx_hal_cortex.o [1]
-NVIC_GetPriorityGrouping
-                        0x0801ece3     0xa  Code  Lc  stm32f7xx_hal_cortex.o [1]
-NVIC_SetPriority        0x0801ed15    0x26  Code  Lc  stm32f7xx_hal_cortex.o [1]
-NVIC_SetPriority        0x08027f35    0x26  Code  Lc  usbd_conf_f4.o [1]
-NVIC_SetPriorityGrouping
-                        0x0801ecc5    0x1e  Code  Lc  stm32f7xx_hal_cortex.o [1]
-NoiseBG                 0x0802ae28   0x800  Data  Gb  DSP.o [1]
-OTG_FS_IRQHandler       0x0802b9af     0xa  Code  Gb  stm32f7xx_it.o [1]
-OutStream_Write         0x0802b64b    0x40  Code  Lc  lz77_init.o [7]
-OutputDev               0x2000a76d     0x1  Data  Gb  audio_codec.o [1]
-PCD_WriteEmptyTxFifo    0x08029dcf    0xc4  Code  Lc  stm32f7xx_hal_pcd.o [1]
+                        0x08020b2b    0x34  Code  Lc  stm32f7xx_hal_i2c.o [1]
+I2S2_idxTmp             0x20000012     0x2  Data  Gb  main.o [1]
+I2S2_stLR               0x2000a52a     0x1  Data  Gb  waverecorder.o [1]
+I2S2_stLROld            0x2000a52b     0x1  Data  Gb  waverecorder.o [1]
+I2S2_stNipple           0x2000a53e     0x2  Data  Gb  waverecorder.o [1]
+I2S3_Init               0x08020c2d    0x42  Code  Gb  waveplayer _CS43L22.o [1]
+IS                      0x2000a0b0    0x18  Data  Gb  main.o [1]
+ISS                     0x2000a03c    0x14  Data  Gb  main.o [1]
+InStream_Read           0x08025555    0x22  Code  Lc  lz77_init.o [7]
+IsocInBuffDummy         0x20009c94   0x180  Data  Lc  usbd_audio_in.o [1]
+LoadInt                 0x08023d81    0x4c  Code  Lc  xprintfsmall.o [3]
+LowPassIIR              0x0801cfa9    0x9c  Code  Gb  DSP.o [1]
+MIC1TO6_Init            0x0801b427   0x134  Code  Gb  waverecorder.o [1]
+MX_I2C1_Init            0x0801f509    0x32  Code  Gb  audio_codec.o [1]
+MX_I2C2_Init            0x08020187    0x2c  Code  Gb  main.o [1]
+MemManage_Handler       0x08025839     0x2  Code  Gb  stm32f7xx_it.o [1]
+NMI_Handler             0x08025835     0x2  Code  Gb  stm32f7xx_it.o [1]
+NoiseBG                 0x0801d22c   0x800  Data  Gb  DSP.o [1]
+OTG_FS_IRQHandler       0x08025875     0x6  Code  Gb  stm32f7xx_it.o [1]
+OutStream_Write         0x08025577    0x40  Code  Lc  lz77_init.o [7]
+OutputDev               0x20000f5c     0x1  Data  Gb  audio_codec.o [1]
+PCD_WriteEmptyTxFifo    0x080249a3    0x9e  Code  Lc  stm32f7xx_hal_pcd.o [1]
 PCM_Buffer1             0xc00181e0  0x4000  Data  Gb  audio_application.o [1]
 PCM_Buffer2             0xc001c1e0  0x4000  Data  Gb  audio_application.o [1]
-PDM2PCMSDO78            0x0801d629   0x3f0  Code  Gb  waverecorder.o [1]
-PDM_Filter_64_LSB       0x0801def9   0x31e  Code  Gb  pdm_filter.o [5]
-PDM_Filter_Init         0x0801dcf9   0x1fe  Code  Gb  pdm_filter.o [5]
-PendSV_Handler          0x0802b967     0x2  Code  Gb  stm32f7xx_it.o [1]
-Region$$Table$$Base     0x0802bb14           --   Gb  - Linker created -
-Region$$Table$$Limit    0x0802bb48           --   Gb  - Linker created -
-S1                      0x2000a5e4    0x18  Data  Gb  main.o [1]
-S2                      0x2000a5fc    0x18  Data  Gb  main.o [1]
-S3                      0x2000a614    0x18  Data  Gb  main.o [1]
-S4                      0x2000a62c    0x18  Data  Gb  main.o [1]
-SCB_EnableDCache        0x080216d3    0x64  Code  Lc  main.o [1]
-SCB_EnableICache        0x080216a9    0x2a  Code  Lc  main.o [1]
-SPI1_IRQHandler         0x0801c44d   0x180  Code  Gb  waverecorder.o [1]
-SPI1_stNipple           0x2000a766     0x2  Data  Gb  waverecorder.o [1]
-SPI2_IRQHandler         0x0801c5cd   0x184  Code  Gb  waverecorder.o [1]
-SPI3_IRQHandler         0x08020d89     0xa  Code  Gb  audio_codec.o [1]
-SPI4_IRQHandler         0x0801c751   0x1de  Code  Gb  waverecorder.o [1]
-SPI4_Init               0x0801cc99    0x7e  Code  Gb  waverecorder.o [1]
-SPI4_stNipple           0x2000a76a     0x2  Data  Gb  waverecorder.o [1]
-SPI4_stPosShft          0x2000a785     0x1  Data  Gb  waverecorder.o [1]
-SPI5_IRQHandler         0x0801c92f    0xec  Code  Gb  waverecorder.o [1]
-SPI5_Init               0x0801cd17    0xfa  Code  Gb  waverecorder.o [1]
-SPI6_IRQHandler         0x0801ca1b    0xe0  Code  Gb  waverecorder.o [1]
-SPI6_Init               0x0801ce19    0x7c  Code  Gb  waverecorder.o [1]
-SPI_DMAError            0x0801e8d9    0x28  Code  Lc  stm32f7xx_hal_spi.o [1]
-SPI_DMAHalfReceiveCplt  0x0801e8b9     0xe  Code  Lc  stm32f7xx_hal_spi.o [1]
+PDM2PCMSDO78            0x0801bb41   0x220  Code  Gb  waverecorder.o [1]
+PDM_Filter_64_LSB       0x0801c215   0x31e  Code  Gb  pdm_filter.o [5]
+PDM_Filter_Init         0x0801c015   0x1fe  Code  Gb  pdm_filter.o [5]
+PendSV_Handler          0x08025843     0x2  Code  Gb  stm32f7xx_it.o [1]
+Region$$Table$$Base     0x08025974           --   Gb  - Linker created -
+Region$$Table$$Limit    0x080259a8           --   Gb  - Linker created -
+S1                      0x2000a050    0x18  Data  Gb  main.o [1]
+S2                      0x2000a068    0x18  Data  Gb  main.o [1]
+S3                      0x2000a080    0x18  Data  Gb  main.o [1]
+S4                      0x2000a098    0x18  Data  Gb  main.o [1]
+SPI1_IRQHandler         0x0801b051    0xe8  Code  Gb  waverecorder.o [1]
+SPI1_stNipple           0x2000a53c     0x2  Data  Gb  waverecorder.o [1]
+SPI2_IRQHandler         0x0801b139    0xfe  Code  Gb  waverecorder.o [1]
+SPI3_IRQHandler         0x0801ef71     0xa  Code  Gb  audio_codec.o [1]
+SPI4_IRQHandler         0x0801b237   0x10a  Code  Gb  waverecorder.o [1]
+SPI4_Init               0x0801b55b    0x56  Code  Gb  waverecorder.o [1]
+SPI4_stNipple           0x2000a540     0x2  Data  Gb  waverecorder.o [1]
+SPI4_stPosShft          0x2000a529     0x1  Data  Gb  waverecorder.o [1]
+SPI5_IRQHandler         0x0801b341    0x76  Code  Gb  waverecorder.o [1]
+SPI5_Init               0x0801b5b1    0x88  Code  Gb  waverecorder.o [1]
+SPI6_IRQHandler         0x0801b3b7    0x70  Code  Gb  waverecorder.o [1]
+SPI6_Init               0x0801b639     0x2  Code  Gb  waverecorder.o [1]
+SPI_DMAError            0x0801cb81    0x1c  Code  Lc  stm32f7xx_hal_spi.o [1]
+SPI_DMAHalfReceiveCplt  0x0801cb69     0xa  Code  Lc  stm32f7xx_hal_spi.o [1]
 SPI_DMAHalfTransmitReceiveCplt
-                        0x0801e8c9     0xe  Code  Lc  stm32f7xx_hal_spi.o [1]
-SPI_DMAReceiveCplt      0x0801e705    0xe4  Code  Lc  stm32f7xx_hal_spi.o [1]
+                        0x0801cb75     0xa  Code  Lc  stm32f7xx_hal_spi.o [1]
+SPI_DMAReceiveCplt      0x0801c891   0x16c  Code  Lc  stm32f7xx_hal_spi.o [1]
 SPI_DMATransmitReceiveCplt
-                        0x0801e7e9    0xd0  Code  Lc  stm32f7xx_hal_spi.o [1]
-SPI_EndRxTransaction    0x0801ea4d    0x68  Code  Lc  stm32f7xx_hal_spi.o [1]
-SPI_EndRxTxTransaction  0x0801eab5    0x62  Code  Lc  stm32f7xx_hal_spi.o [1]
-SPI_I2S_ReceiveData     0x0801d519     0x6  Code  Lc  waverecorder.o [1]
+                        0x0801c9fd   0x164  Code  Lc  stm32f7xx_hal_spi.o [1]
+SPI_EndRxTransaction    0x0801cccb    0x50  Code  Lc  stm32f7xx_hal_spi.o [1]
+SPI_EndRxTxTransaction  0x0801cd1b    0x3e  Code  Lc  stm32f7xx_hal_spi.o [1]
 SPI_WaitFifoStateUntilTimeout
-                        0x0801e99b    0xb2  Code  Lc  stm32f7xx_hal_spi.o [1]
+                        0x0801cc2d    0x9e  Code  Lc  stm32f7xx_hal_spi.o [1]
 SPI_WaitFlagStateUntilTimeout
-                        0x0801e901    0x9a  Code  Lc  stm32f7xx_hal_spi.o [1]
-SS1                     0x2000a688    0x14  Data  Gb  main.o [1]
-SS2                     0x2000a69c    0x14  Data  Gb  main.o [1]
-SS3                     0x2000a6b0    0x14  Data  Gb  main.o [1]
-SS4                     0x2000a6c4    0x14  Data  Gb  main.o [1]
-STA321MP_DefautLoad     0x080246af    0x2c  Code  Lc  sta321mp.o [1]
-STA321MP_Ini            0x08023dfd   0x254  Code  Gb  sta321mp.o [1]
-STACoefSet              0x080240ad   0x332  Code  Gb  sta321mp.o [1]
-SVC_Handler             0x0802b963     0x2  Code  Gb  stm32f7xx_it.o [1]
-Send_Audio_to_USB       0x08027e6b    0x14  Code  Gb  usbd_audio_if.o [1]
-SetCoefValue            0x0802448d    0x6a  Code  Gb  sta321mp.o [1]
-SrvB_Debound            0x08025551    0x32  Code  Gb  main.o [1]
-StartPlay               0x080224c7    0x8a  Code  Gb  main.o [1]
-StartRecMic7_8          0x0801cba9    0x34  Code  Gb  waverecorder.o [1]
-SumDelay                0x080222d1   0x10c  Code  Gb  main.o [1]
-SysTick_Config          0x0801ed79    0x30  Code  Lc  stm32f7xx_hal_cortex.o [1]
-SysTick_Handler         0x0802b969    0x26  Code  Gb  stm32f7xx_it.o [1]
-SystemClock_Config      0x08021e2b    0xb0  Code  Lc  main.o [1]
-SystemCoreClock         0x2000048c     0x4  Data  Gb  system_stm32f7xx.o [1]
-SystemInit              0x0802b9d5    0x4c  Code  Gb  system_stm32f7xx.o [1]
-T0                      0x20000004   0x100  Data  Gb  pdm_filter.o [5]
-T1                      0x20000104   0x100  Data  Gb  pdm_filter.o [5]
-T2                      0x20000204   0x100  Data  Gb  pdm_filter.o [5]
-TestSDO7                0x200004a0  0x2000  Data  Gb  waverecorder.o [1]
-TestSDO7_1              0x200044a0  0x2000  Data  Gb  waverecorder.o [1]
-TestSDO8                0x200024a0  0x2000  Data  Gb  waverecorder.o [1]
-TestSDO8_1              0x200064a0  0x2000  Data  Gb  waverecorder.o [1]
-Timing                  0x2000a5b0    0x1c  Data  Lc  stm32746g_discovery_sdram.o [1]
-UART_AdvFeatureConfig   0x08025d79    0xda  Code  Gb  stm32f7xx_hal_uart.o [1]
-UART_CheckIdleState     0x08025e53    0x58  Code  Gb  stm32f7xx_hal_uart.o [1]
-UART_EndTransmit_IT     0x0802590b    0x3c  Code  Lc  stm32f7xx_hal_uart.o [1]
-UART_Receive_IT         0x08025947    0xa6  Code  Lc  stm32f7xx_hal_uart.o [1]
-UART_SetConfig          0x080259ed   0x35c  Code  Gb  stm32f7xx_hal_uart.o [1]
-UART_Transmit_IT        0x0802585f    0xac  Code  Lc  stm32f7xx_hal_uart.o [1]
-UART_WaitOnFlagUntilTimeout
-                        0x0802577b    0xde  Code  Gb  stm32f7xx_hal_uart.o [1]
-USART3_IRQHandler       0x0802b991     0xa  Code  Gb  stm32f7xx_it.o [1]
-USART3_Init             0x0802203d    0x60  Code  Gb  main.o [1]
-USART6_IRQHandler       0x0802b98f     0x2  Code  Gb  stm32f7xx_it.o [1]
-USBD_AUDIO              0x200003c8    0x38  Data  Gb  usbd_audio_in.o [1]
-USBD_AUDIO_CfgDesc      0x2000a024    0x78  Data  Lc  usbd_audio_in.o [1]
+                        0x0801cba5    0x88  Code  Lc  stm32f7xx_hal_spi.o [1]
+SS1                     0x20009fec    0x14  Data  Gb  main.o [1]
+SS2                     0x2000a000    0x14  Data  Gb  main.o [1]
+SS3                     0x2000a014    0x14  Data  Gb  main.o [1]
+SS4                     0x2000a028    0x14  Data  Gb  main.o [1]
+STA321MP_Ini            0x08021975   0x212  Code  Gb  sta321mp.o [1]
+STACoefSet              0x08021bdd   0x1c4  Code  Gb  sta321mp.o [1]
+SVC_Handler             0x0802583f     0x2  Code  Gb  stm32f7xx_it.o [1]
+Send_Audio_to_USB       0x0802310d     0xa  Code  Gb  usbd_audio_if.o [1]
+SetCoefValue            0x08021ec7    0x5e  Code  Gb  sta321mp.o [1]
+StartPlay               0x08020239    0x44  Code  Gb  main.o [1]
+SumDelay                0x0802006b    0xd4  Code  Gb  main.o [1]
+SysTick_Handler         0x08025845    0x1c  Code  Gb  stm32f7xx_it.o [1]
+SystemClock_Config      0x0801fd8d    0xa0  Code  Lc  main.o [1]
+SystemCoreClock         0x20001030     0x4  Data  Gb  system_stm32f7xx.o [1]
+SystemInit              0x08025899    0x3a  Code  Gb  system_stm32f7xx.o [1]
+T0                      0x20000b0c   0x100  Data  Gb  pdm_filter.o [5]
+T1                      0x20000c0c   0x100  Data  Gb  pdm_filter.o [5]
+T2                      0x20000d0c   0x100  Data  Gb  pdm_filter.o [5]
+TestSDO7                0x2000106c  0x2000  Data  Gb  waverecorder.o [1]
+TestSDO7_1              0x2000506c  0x2000  Data  Gb  waverecorder.o [1]
+TestSDO8                0x2000306c  0x2000  Data  Gb  waverecorder.o [1]
+TestSDO8_1              0x2000706c  0x2000  Data  Gb  waverecorder.o [1]
+Timing                  0x20000f30    0x1c  Data  Lc  stm32746g_discovery_sdram.o [1]
+UART_AdvFeatureConfig   0x08022ef9    0xc6  Code  Gb  stm32f7xx_hal_uart.o [1]
+UART_CheckIdleState     0x08022fbf    0x94  Code  Gb  stm32f7xx_hal_uart.o [1]
+UART_Receive_IT         0x08022c55    0x84  Code  Lc  stm32f7xx_hal_uart.o [1]
+UART_SetConfig          0x08022cd9   0x1ee  Code  Gb  stm32f7xx_hal_uart.o [1]
+UART_Transmit_IT        0x08022b85    0xd0  Code  Lc  stm32f7xx_hal_uart.o [1]
+USART3_IRQHandler       0x08025863     0x6  Code  Gb  stm32f7xx_it.o [1]
+USART3_Init             0x0801fee9    0x2a  Code  Gb  main.o [1]
+USART6_IRQHandler       0x08025861     0x2  Code  Gb  stm32f7xx_it.o [1]
+USBD_AUDIO              0x20000fa8    0x38  Data  Gb  usbd_audio_in.o [1]
+USBD_AUDIO_CfgDesc      0x2000a290    0x78  Data  Lc  usbd_audio_in.o [1]
 USBD_AUDIO_ConfigStrDescriptor
-                        0x0802b861    0x26  Code  Gb  usbd_desc.o [1]
-USBD_AUDIO_DataIn       0x080248a1   0x122  Code  Lc  usbd_audio_in.o [1]
-USBD_AUDIO_DataOut      0x08024a1f     0x6  Code  Lc  usbd_audio_in.o [1]
+                        0x08025763     0xc  Code  Gb  usbd_desc.o [1]
+USBD_AUDIO_DataIn       0x080221e5    0xc4  Code  Lc  usbd_audio_in.o [1]
+USBD_AUDIO_DataOut      0x080222f1     0x4  Code  Lc  usbd_audio_in.o [1]
 USBD_AUDIO_Data_Transfer
-                        0x08024afb   0x186  Code  Gb  usbd_audio_in.o [1]
-USBD_AUDIO_DeInit       0x0802478b    0x2c  Code  Lc  usbd_audio_in.o [1]
+                        0x080222ff    0xd8  Code  Gb  usbd_audio_in.o [1]
+USBD_AUDIO_DeInit       0x080220cd    0x26  Code  Lc  usbd_audio_in.o [1]
 USBD_AUDIO_DeviceDescriptor
-                        0x0802b7ed     0xa  Code  Gb  usbd_desc.o [1]
+                        0x08025719     0x8  Code  Gb  usbd_desc.o [1]
 USBD_AUDIO_DeviceQualifierDesc
-                        0x20000478     0xc  Data  Lc  usbd_audio_in.o [1]
-USBD_AUDIO_EP0_RxReady  0x080249c3    0x44  Code  Lc  usbd_audio_in.o [1]
-USBD_AUDIO_EP0_TxReady  0x08024a07     0x6  Code  Lc  usbd_audio_in.o [1]
-USBD_AUDIO_GetCfgDesc   0x08024895     0xc  Code  Lc  usbd_audio_in.o [1]
+                        0x20001048     0xc  Data  Lc  usbd_audio_in.o [1]
+USBD_AUDIO_EP0_RxReady  0x080222a9    0x38  Code  Lc  usbd_audio_in.o [1]
+USBD_AUDIO_EP0_TxReady  0x080222e1     0x4  Code  Lc  usbd_audio_in.o [1]
+USBD_AUDIO_GetCfgDesc   0x080221db     0xa  Code  Lc  usbd_audio_in.o [1]
 USBD_AUDIO_GetDeviceQualifierDesc
-                        0x08024a25     0xc  Code  Lc  usbd_audio_in.o [1]
-USBD_AUDIO_Init         0x0802470d    0x7e  Code  Lc  usbd_audio_in.o [1]
+                        0x080222f5     0xa  Code  Lc  usbd_audio_in.o [1]
+USBD_AUDIO_Init         0x08022065    0x68  Code  Lc  usbd_audio_in.o [1]
 USBD_AUDIO_Init_Microphone_Descriptor
-                        0x08024c8f   0x52e  Code  Gb  usbd_audio_in.o [1]
+                        0x080223e1   0x330  Code  Gb  usbd_audio_in.o [1]
 USBD_AUDIO_InterfaceStrDescriptor
-                        0x0802b887    0x26  Code  Gb  usbd_desc.o [1]
+                        0x0802577d    0x12  Code  Gb  usbd_desc.o [1]
 USBD_AUDIO_IsoINIncomplete
-                        0x08024a13     0x6  Code  Lc  usbd_audio_in.o [1]
+                        0x080222e9     0x4  Code  Lc  usbd_audio_in.o [1]
 USBD_AUDIO_IsoOutIncomplete
-                        0x08024a19     0x6  Code  Lc  usbd_audio_in.o [1]
+                        0x080222ed     0x4  Code  Lc  usbd_audio_in.o [1]
 USBD_AUDIO_LangIDStrDescriptor
-                        0x0802b7f7     0xa  Code  Gb  usbd_desc.o [1]
+                        0x08025721     0x8  Code  Gb  usbd_desc.o [1]
 USBD_AUDIO_ManufacturerStrDescriptor
-                        0x0802b827    0x14  Code  Gb  usbd_desc.o [1]
+                        0x0802573f     0xe  Code  Gb  usbd_desc.o [1]
 USBD_AUDIO_ProductStrDescriptor
-                        0x0802b801    0x26  Code  Gb  usbd_desc.o [1]
+                        0x08025729    0x16  Code  Gb  usbd_desc.o [1]
 USBD_AUDIO_RegisterInterface
-                        0x08024c81     0xe  Code  Gb  usbd_audio_in.o [1]
-USBD_AUDIO_SOF          0x08024a0d     0x6  Code  Lc  usbd_audio_in.o [1]
+                        0x080223d7     0xa  Code  Gb  usbd_audio_in.o [1]
+USBD_AUDIO_SOF          0x080222e5     0x4  Code  Lc  usbd_audio_in.o [1]
 USBD_AUDIO_SerialStrDescriptor
-                        0x0802b83b    0x26  Code  Gb  usbd_desc.o [1]
-USBD_AUDIO_Setup        0x080247b7    0xde  Code  Lc  usbd_audio_in.o [1]
-USBD_AUDIO_fops         0x20000424    0x24  Data  Gb  usbd_audio_if.o [1]
-USBD_ClrClassConfig     0x08025267    0x18  Code  Gb  usbd_core.o [1]
-USBD_ClrFeature         0x0802880f    0x3a  Code  Lc  usbd_ctlreq.o [1]
-USBD_CtlContinueRx      0x08028951    0x1a  Code  Gb  usbd_ioreq.o [1]
+                        0x0802574d    0x16  Code  Gb  usbd_desc.o [1]
+USBD_AUDIO_Setup        0x080220f3    0xe8  Code  Lc  usbd_audio_in.o [1]
+USBD_AUDIO_fops         0x20000fe0    0x24  Data  Gb  usbd_audio_if.o [1]
+USBD_ClrClassConfig     0x0802277f     0x8  Code  Gb  usbd_core.o [1]
+USBD_CtlContinueRx      0x0802347f     0x6  Code  Gb  usbd_ioreq.o [1]
 USBD_CtlContinueSendData
-                        0x0802890b    0x1a  Code  Gb  usbd_ioreq.o [1]
-USBD_CtlError           0x08028871    0x18  Code  Gb  usbd_ctlreq.o [1]
-USBD_CtlPrepareRx       0x08028925    0x2c  Code  Gb  usbd_ioreq.o [1]
-USBD_CtlReceiveStatus   0x08028985    0x1a  Code  Gb  usbd_ioreq.o [1]
-USBD_CtlSendData        0x080288e3    0x28  Code  Gb  usbd_ioreq.o [1]
-USBD_CtlSendStatus      0x0802896b    0x1a  Code  Gb  usbd_ioreq.o [1]
-USBD_GetConfig          0x08028761    0x4c  Code  Lc  usbd_ctlreq.o [1]
-USBD_GetDescriptor      0x080284bd   0x164  Code  Lc  usbd_ctlreq.o [1]
-USBD_GetLen             0x080288cf    0x14  Code  Lc  usbd_ctlreq.o [1]
-USBD_GetStatus          0x080287ad    0x3c  Code  Lc  usbd_ctlreq.o [1]
-USBD_GetString          0x08028889    0x46  Code  Gb  usbd_ctlreq.o [1]
-USBD_Init               0x080251d5    0x38  Code  Gb  usbd_core.o [1]
-USBD_LL_ClearStallEP    0x080281e9    0x16  Code  Gb  usbd_conf_f4.o [1]
-USBD_LL_CloseEP         0x080281a7    0x16  Code  Gb  usbd_conf_f4.o [1]
-USBD_LL_DataInStage     0x08025377    0xe2  Code  Gb  usbd_core.o [1]
-USBD_LL_DataOutStage    0x080252e9    0x8e  Code  Gb  usbd_core.o [1]
-USBD_LL_DevConnected    0x080254f9     0x6  Code  Gb  usbd_core.o [1]
+                        0x08023459     0x6  Code  Gb  usbd_ioreq.o [1]
+USBD_CtlError           0x08023873    0x16  Code  Gb  usbd_ctlreq.o [1]
+USBD_CtlPrepareRx       0x08023469    0x16  Code  Gb  usbd_ioreq.o [1]
+USBD_CtlReceiveStatus   0x0802349d     0xe  Code  Gb  usbd_ioreq.o [1]
+USBD_CtlSendData        0x08023443    0x16  Code  Gb  usbd_ioreq.o [1]
+USBD_CtlSendStatus      0x0802348f     0xe  Code  Gb  usbd_ioreq.o [1]
+USBD_GetDescriptor      0x0802373d   0x10e  Code  Lc  usbd_ctlreq.o [1]
+USBD_GetString          0x08023889    0x46  Code  Gb  usbd_ctlreq.o [1]
+USBD_Init               0x08022729    0x26  Code  Gb  usbd_core.o [1]
+USBD_LL_ClearStallEP    0x080233ed     0xe  Code  Gb  usbd_conf_f4.o [1]
+USBD_LL_CloseEP         0x080233c3     0xe  Code  Gb  usbd_conf_f4.o [1]
+USBD_LL_DataInStage     0x08022841    0xa2  Code  Gb  usbd_core.o [1]
+USBD_LL_DataOutStage    0x080227dd    0x64  Code  Gb  usbd_core.o [1]
+USBD_LL_DevConnected    0x08022965     0x4  Code  Gb  usbd_core.o [1]
 USBD_LL_DevDisconnected
-                        0x080254ff    0x1c  Code  Gb  usbd_core.o [1]
-USBD_LL_FlushEP         0x080281bd    0x16  Code  Gb  usbd_conf_f4.o [1]
-USBD_LL_Init            0x080280d9    0x7e  Code  Gb  usbd_conf_f4.o [1]
-USBD_LL_IsStallEP       0x080281ff    0x30  Code  Gb  usbd_conf_f4.o [1]
+                        0x08022969    0x10  Code  Gb  usbd_core.o [1]
+USBD_LL_FlushEP         0x080233d1     0xe  Code  Gb  usbd_conf_f4.o [1]
+USBD_LL_Init            0x0802332f    0x60  Code  Gb  usbd_conf_f4.o [1]
+USBD_LL_IsStallEP       0x080233fb    0x1e  Code  Gb  usbd_conf_f4.o [1]
 USBD_LL_IsoINIncomplete
-                        0x080254ed     0x6  Code  Gb  usbd_core.o [1]
+                        0x0802295d     0x4  Code  Gb  usbd_core.o [1]
 USBD_LL_IsoOUTIncomplete
-                        0x080254f3     0x6  Code  Gb  usbd_core.o [1]
-USBD_LL_OpenEP          0x08028185    0x22  Code  Gb  usbd_conf_f4.o [1]
-USBD_LL_PrepareReceive  0x08028265    0x20  Code  Gb  usbd_conf_f4.o [1]
-USBD_LL_Reset           0x08025459    0x46  Code  Gb  usbd_core.o [1]
-USBD_LL_Resume          0x080254bb     0xe  Code  Gb  usbd_core.o [1]
-USBD_LL_SOF             0x080254c9    0x24  Code  Gb  usbd_core.o [1]
-USBD_LL_SetSpeed        0x0802549f     0x8  Code  Gb  usbd_core.o [1]
-USBD_LL_SetUSBAddress   0x0802822f    0x16  Code  Gb  usbd_conf_f4.o [1]
-USBD_LL_SetupStage      0x0802527f    0x6a  Code  Gb  usbd_core.o [1]
-USBD_LL_StallEP         0x080281d3    0x16  Code  Gb  usbd_conf_f4.o [1]
-USBD_LL_Start           0x08028175    0x10  Code  Gb  usbd_conf_f4.o [1]
-USBD_LL_Suspend         0x080254a7    0x14  Code  Gb  usbd_core.o [1]
-USBD_LL_Transmit        0x08028245    0x20  Code  Gb  usbd_conf_f4.o [1]
-USBD_LangIDDesc         0x20000490     0x4  Data  Gb  usbd_desc.o [1]
-USBD_ParseSetupRequest  0x08028849    0x28  Code  Gb  usbd_ctlreq.o [1]
-USBD_RegisterClass      0x0802520d    0x1a  Code  Gb  usbd_core.o [1]
-USBD_RunTestMode        0x08025235     0x6  Code  Gb  usbd_core.o [1]
-USBD_SetAddress         0x08028621    0x60  Code  Lc  usbd_ctlreq.o [1]
-USBD_SetClassConfig     0x0802523b    0x2c  Code  Gb  usbd_core.o [1]
-USBD_SetConfig          0x08028681    0xda  Code  Lc  usbd_ctlreq.o [1]
-USBD_SetFeature         0x080287e9    0x26  Code  Lc  usbd_ctlreq.o [1]
-USBD_Start              0x08025227     0xe  Code  Gb  usbd_core.o [1]
-USBD_StdDevReq          0x08028285    0x7c  Code  Gb  usbd_ctlreq.o [1]
-USBD_StdEPReq           0x0802834d   0x170  Code  Gb  usbd_ctlreq.o [1]
-USBD_StdItfReq          0x08028301    0x4c  Code  Gb  usbd_ctlreq.o [1]
-USBD_StrDesc            0x20009ddc    0xc8  Data  Gb  usbd_desc.o [1]
-USB_ActivateEndpoint    0x0802a355    0xc4  Code  Gb  stm32f7xx_ll_usb.o [1]
-USB_ActivateSetup       0x0802ac97    0x44  Code  Gb  stm32f7xx_ll_usb.o [1]
-USB_CoreInit            0x0802a02d    0x6e  Code  Gb  stm32f7xx_ll_usb.o [1]
-USB_CoreReset           0x0802ad33    0x38  Code  Lc  stm32f7xx_ll_usb.o [1]
-USB_DeactivateEndpoint  0x0802a419    0xaa  Code  Gb  stm32f7xx_ll_usb.o [1]
-USB_DevConnect          0x0802abcb    0x1e  Code  Gb  stm32f7xx_ll_usb.o [1]
-USB_DevDisconnect       0x0802abe9    0x1e  Code  Gb  stm32f7xx_ll_usb.o [1]
-USB_DevInit             0x0802a0ed   0x1c0  Code  Gb  stm32f7xx_ll_usb.o [1]
-USB_DisableGlobalInt    0x0802a0a9     0xe  Code  Gb  stm32f7xx_ll_usb.o [1]
-USB_EP0StartXfer        0x0802a80d   0x1ec  Code  Gb  stm32f7xx_ll_usb.o [1]
-USB_EP0_OutStart        0x0802acdb    0x58  Code  Gb  stm32f7xx_ll_usb.o [1]
-USB_EPClearStall        0x0802ab09    0x96  Code  Gb  stm32f7xx_ll_usb.o [1]
-USB_EPSetStall          0x0802aa6b    0x9e  Code  Gb  stm32f7xx_ll_usb.o [1]
-USB_EPStartXfer         0x0802a4c3   0x342  Code  Gb  stm32f7xx_ll_usb.o [1]
-USB_EnableGlobalInt     0x0802a09b     0xe  Code  Gb  stm32f7xx_ll_usb.o [1]
-USB_FlushRxFifo         0x0802a2d1    0x20  Code  Gb  stm32f7xx_ll_usb.o [1]
-USB_FlushTxFifo         0x0802a2ad    0x24  Code  Gb  stm32f7xx_ll_usb.o [1]
-USB_GetDevSpeed         0x0802a307    0x4e  Code  Gb  stm32f7xx_ll_usb.o [1]
-USB_GetMode             0x0802ac8f     0x8  Code  Gb  stm32f7xx_ll_usb.o [1]
+                        0x08022961     0x4  Code  Gb  usbd_core.o [1]
+USBD_LL_OpenEP          0x080233af    0x14  Code  Gb  usbd_conf_f4.o [1]
+USBD_LL_PrepareReceive  0x08023435     0xe  Code  Gb  usbd_conf_f4.o [1]
+USBD_LL_Reset           0x080228e3    0x42  Code  Gb  usbd_core.o [1]
+USBD_LL_Resume          0x08022937     0x6  Code  Gb  usbd_core.o [1]
+USBD_LL_SOF             0x08022943    0x1a  Code  Gb  usbd_core.o [1]
+USBD_LL_SetSpeed        0x08022925     0x6  Code  Gb  usbd_core.o [1]
+USBD_LL_SetUSBAddress   0x08023419     0xe  Code  Gb  usbd_conf_f4.o [1]
+USBD_LL_SetupStage      0x08022787    0x56  Code  Gb  usbd_core.o [1]
+USBD_LL_StallEP         0x080233df     0xe  Code  Gb  usbd_conf_f4.o [1]
+USBD_LL_Start           0x080233a1     0xe  Code  Gb  usbd_conf_f4.o [1]
+USBD_LL_Suspend         0x0802292b     0xc  Code  Gb  usbd_core.o [1]
+USBD_LL_Transmit        0x08023427     0xe  Code  Gb  usbd_conf_f4.o [1]
+USBD_LangIDDesc         0x20001060     0x4  Data  Gb  usbd_desc.o [1]
+USBD_ParseSetupRequest  0x0802384b    0x28  Code  Gb  usbd_ctlreq.o [1]
+USBD_RegisterClass      0x0802274f    0x10  Code  Gb  usbd_core.o [1]
+USBD_SetClassConfig     0x08022769    0x16  Code  Gb  usbd_core.o [1]
+USBD_Start              0x0802275f     0xa  Code  Gb  usbd_core.o [1]
+USBD_StdDevReq          0x080234ad   0x14e  Code  Gb  usbd_ctlreq.o [1]
+USBD_StdEPReq           0x0802363f    0xfe  Code  Gb  usbd_ctlreq.o [1]
+USBD_StdItfReq          0x08023601    0x3e  Code  Gb  usbd_ctlreq.o [1]
+USBD_StrDesc            0x2000a0c8    0xc8  Data  Gb  usbd_desc.o [1]
+USB_ActivateEndpoint    0x08024e85    0x7c  Code  Gb  stm32f7xx_ll_usb.o [1]
+USB_ActivateSetup       0x0802545d    0x2e  Code  Gb  stm32f7xx_ll_usb.o [1]
+USB_CoreInit            0x08024bfd    0xa0  Code  Gb  stm32f7xx_ll_usb.o [1]
+USB_DeactivateEndpoint  0x08024f01    0x62  Code  Gb  stm32f7xx_ll_usb.o [1]
+USB_DevConnect          0x080253d7     0xe  Code  Gb  stm32f7xx_ll_usb.o [1]
+USB_DevDisconnect       0x080253e5     0xc  Code  Gb  stm32f7xx_ll_usb.o [1]
+USB_DevInit             0x08024cd7   0x142  Code  Gb  stm32f7xx_ll_usb.o [1]
+USB_DisableGlobalInt    0x08024ca5     0x6  Code  Gb  stm32f7xx_ll_usb.o [1]
+USB_EP0StartXfer        0x0802518b   0x134  Code  Gb  stm32f7xx_ll_usb.o [1]
+USB_EP0_OutStart        0x0802548b    0x30  Code  Gb  stm32f7xx_ll_usb.o [1]
+USB_EPClearStall        0x08025361    0x5a  Code  Gb  stm32f7xx_ll_usb.o [1]
+USB_EPSetStall          0x08025313    0x4e  Code  Gb  stm32f7xx_ll_usb.o [1]
+USB_EPStartXfer         0x08024f69   0x222  Code  Gb  stm32f7xx_ll_usb.o [1]
+USB_EnableGlobalInt     0x08024c9d     0x8  Code  Gb  stm32f7xx_ll_usb.o [1]
+USB_FlushRxFifo         0x08024e37    0x1a  Code  Gb  stm32f7xx_ll_usb.o [1]
+USB_FlushTxFifo         0x08024e19    0x1e  Code  Gb  stm32f7xx_ll_usb.o [1]
+USB_GetDevSpeed         0x08024e51    0x34  Code  Gb  stm32f7xx_ll_usb.o [1]
+USB_GetMode             0x08025455     0x8  Code  Gb  stm32f7xx_ll_usb.o [1]
 USB_ReadDevAllInEpInterrupt
-                        0x0802ac2b    0x16  Code  Gb  stm32f7xx_ll_usb.o [1]
+                        0x08025413     0xe  Code  Gb  stm32f7xx_ll_usb.o [1]
 USB_ReadDevAllOutEpInterrupt
-                        0x0802ac15    0x16  Code  Gb  stm32f7xx_ll_usb.o [1]
+                        0x08025405     0xe  Code  Gb  stm32f7xx_ll_usb.o [1]
 USB_ReadDevInEPInterrupt
-                        0x0802ac5b    0x34  Code  Gb  stm32f7xx_ll_usb.o [1]
+                        0x08025435    0x20  Code  Gb  stm32f7xx_ll_usb.o [1]
 USB_ReadDevOutEPInterrupt
-                        0x0802ac41    0x1a  Code  Gb  stm32f7xx_ll_usb.o [1]
-USB_ReadInterrupts      0x0802ac07     0xe  Code  Gb  stm32f7xx_ll_usb.o [1]
-USB_ReadPacket          0x0802aa3f    0x2c  Code  Gb  stm32f7xx_ll_usb.o [1]
-USB_SetCurrentMode      0x0802a0b7    0x36  Code  Gb  stm32f7xx_ll_usb.o [1]
-USB_SetDevAddress       0x0802ab9f    0x2c  Code  Gb  stm32f7xx_ll_usb.o [1]
-USB_SetDevSpeed         0x0802a2f1    0x16  Code  Gb  stm32f7xx_ll_usb.o [1]
-USB_WritePacket         0x0802a9f9    0x46  Code  Gb  stm32f7xx_ll_usb.o [1]
-UsageFault_Handler      0x0802b961     0x2  Code  Gb  stm32f7xx_it.o [1]
-VOL_CUR                 0x2000a74a     0x2  Data  Lc  usbd_audio_in.o [1]
-Volume                  0x20000498     0x1  Data  Gb  audio_codec.o [1]
-WavePlayerInit          0x08023175    0x12  Code  Gb  waveplayer _CS43L22.o [1]
-WaveRec_idxSens1        0x2000a72e     0x2  Data  Gb  main.o [1]
-WaveRec_idxSens2        0x2000a730     0x2  Data  Gb  main.o [1]
-WaveRec_idxSens3        0x2000a72a     0x2  Data  Gb  main.o [1]
-WaveRec_idxSens4        0x2000a728     0x2  Data  Gb  main.o [1]
-WaveRec_idxSens5        0x2000a732     0x2  Data  Gb  main.o [1]
-WaveRec_idxSens6        0x2000a734     0x2  Data  Gb  main.o [1]
-WaveRec_idxTest         0x2000a750     0x2  Data  Gb  waverecorder.o [1]
-WaveRecord_flgIni       0x2000a780     0x1  Data  Gb  waverecorder.o [1]
+                        0x08025421    0x14  Code  Gb  stm32f7xx_ll_usb.o [1]
+USB_ReadInterrupts      0x080253fd     0x8  Code  Gb  stm32f7xx_ll_usb.o [1]
+USB_ReadPacket          0x080252f5    0x1e  Code  Gb  stm32f7xx_ll_usb.o [1]
+USB_SetCurrentMode      0x08024cb1    0x26  Code  Gb  stm32f7xx_ll_usb.o [1]
+USB_SetDevAddress       0x080253bb    0x12  Code  Gb  stm32f7xx_ll_usb.o [1]
+USB_WritePacket         0x080252c7    0x2e  Code  Gb  stm32f7xx_ll_usb.o [1]
+UsageFault_Handler      0x0802583d     0x2  Code  Gb  stm32f7xx_it.o [1]
+VOL_CUR                 0x2000a308     0x2  Data  Lc  usbd_audio_in.o [1]
+Volume                  0x20000f5d     0x1  Data  Gb  audio_codec.o [1]
+WaveRec_idxSens1        0x20000014     0x2  Data  Gb  main.o [1]
+WaveRec_idxSens2        0x20000016     0x2  Data  Gb  main.o [1]
+WaveRec_idxSens3        0x20000010     0x2  Data  Gb  main.o [1]
+WaveRec_idxSens4        0x2000000e     0x2  Data  Gb  main.o [1]
+WaveRec_idxSens5        0x20000018     0x2  Data  Gb  main.o [1]
+WaveRec_idxSens6        0x2000001a     0x2  Data  Gb  main.o [1]
+WaveRec_idxTest         0x2000a52e     0x2  Data  Gb  waverecorder.o [1]
+WaveRecord_flgIni       0x2000a7be     0x1  Data  Gb  waverecorder.o [1]
+WaveRecord_flgInt       0x2000a528     0x1  Data  Gb  waverecorder.o [1]
 WaveRecord_flgSDO7Finish
-                        0x2000a783     0x1  Data  Gb  waverecorder.o [1]
+                        0x2000a37e     0x1  Data  Gb  waverecorder.o [1]
 WaveRecord_flgSDO8Finish
-                        0x2000a784     0x1  Data  Gb  waverecorder.o [1]
-Window                  0x080234d5    0x82  Code  Gb  DSP.o [1]
-WriteCoef               0x080243df    0xae  Code  Gb  sta321mp.o [1]
-WriteSTAByte            0x08024051    0x5c  Code  Gb  sta321mp.o [1]
-_EncodingSb_Mbtowc      0x0802adab    0x30  Code  Gb  xencoding_sb.o [3]
-_EncodingSb_Wctomb      0x0802ad91    0x1a  Code  Gb  xencoding_sb.o [3]
-_IsdstStr               0x20000308     0x4  Data  Gb  setlocale.o [3]
-_LitobSmall             0x0802912f    0xce  Code  Lc  xprintfsmall.o [3]
-_LocaleEncoding         0x0802ad7d     0xe  Code  Gb  setlocale.o [3]
-_LocaleReturnString     0x20000328    0x50  Data  Lc  setlocale.o [3]
-_Locale_Profile         0x2000030c    0x1c  Data  Gb  setlocale.o [3]
-_Mbtowc                 0x08029f2d    0x20  Code  Gb  xmbtowc.o [3]
-_PrintfSmall            0x08028a81   0x430  Code  Gb  xprintfsmall.o [3]
-_PutcharsSmall          0x080291fd    0x2e  Code  Lc  xprintfsmall.o [3]
-_PutstrSmall            0x08028efd   0x228  Code  Lc  xprintfsmall.o [3]
-_SProut                 0x0801eb17     0xa  Code  Gb  xsprout.o [3]
-_TzoneStr               0x20000304     0x4  Data  Gb  setlocale.o [3]
-_Wctomb                 0x08029fff    0x1a  Code  Gb  xwctomb.o [3]
-__aeabi_cdcmpeq         0x0802330d          Code  Gb  DblCmpEq.o [6]
-__aeabi_cdcmple         0x080214c9          Code  Gb  DblCmpLe.o [6]
-__aeabi_cdrcmple        0x080214f9          Code  Gb  DblCmpGe.o [6]
-__aeabi_cfcmpeq         0x0801ee29          Code  Gb  FltCmpEq.o [6]
-__aeabi_cfcmple         0x0801ee55          Code  Gb  FltCmpLe.o [6]
-__aeabi_d2f             0x0801f43d          Code  Gb  DblToFlt.o [6]
-__aeabi_d2iz            0x0801f24d          Code  Gb  DblToI32.o [6]
-__aeabi_dadd            0x0801f165          Code  Gb  DblAdd.o [6]
-__aeabi_ddiv            0x0801ef0d          Code  Gb  DblDiv.o [6]
-__aeabi_dmul            0x0801f299          Code  Gb  DblMul.o [6]
-__aeabi_dsub            0x0801f91d          Code  Gb  DblSub.o [6]
-__aeabi_errno_addr      0x08021529     0x6  Code  Gb  errno.o [3]
-__aeabi_f2d             0x0801ee8d          Code  Gb  FltToDbl.o [6]
-__aeabi_fmul            0x0801ee79    0x12  Code  Gb  FltMul.o [6]
-__aeabi_i2d             0x0801eedd          Code  Gb  I32ToDbl.o [6]
-__aeabi_ldiv0           0x08029291          Code  Gb  I64DivZer.o [7]
-__aeabi_ldivmod         0x08027cd5          Code  Gb  I64DivMod.o [7]
-__aeabi_memset          0x080289a1          Code  Gb  ABImemset.o [7]
-__aeabi_ui2d            0x0801eef1          Code  Gb  I32ToDbl.o [6]
-__aeabi_ui2f            0x0801ee45     0xe  Code  Gb  U32ToFlt.o [6]
-__aeabi_uldivmod        0x08027d19          Code  Gb  I64DivMod.o [7]
-__cmain                 0x0802bb49          Code  Gb  cmain.o [7]
-__data_GetMemChunk      0x08029265    0x2c  Code  Gb  xgetmemchunk.o [3]
-__exit                  0x0802a019    0x14  Code  Gb  exit.o [8]
-__iar_Dint              0x08023293    0x7a  Code  Gb  xdint.o [6]
-__iar_Errno             0x20000494     0x4  Data  Gb  errno.o [3]
-__iar_Mbcurmax          0x08029ff5     0xa  Code  Gb  xmbcurmax.o [3]
-__iar_Memchr            0x08029f9d          Code  Gb  memchr.o [7]
-__iar_Memset            0x080289a1          Code  Gb  ABImemset.o [7]
-__iar_Memset_word       0x080289a9          Code  Gb  ABImemset.o [7]
-__iar_Quad              0x08021535   0x12c  Code  Gb  xquad.o [6]
-__iar_Sin               0x0801f4cd   0x3b2  Code  Gb  xsin.o [6]
-__iar_Strchr            0x08029f4d          Code  Gb  strchr.o [7]
-__iar_close_ttio        0x0802adf1    0x2e  Code  Gb  iarttio.o [8]
-__iar_d2uiz             0x0801f279          Code  Gb  DblToI32.o [6]
-__iar_dadd              0x0801f179          Code  Gb  DblAdd.o [6]
-__iar_data_init3        0x0802ba81    0x28  Code  Gb  data_init.o [7]
-__iar_dlfree            0x080277bb   0x510  Code  Gb  dlmalloc.o [3]
+                        0x2000a37f     0x1  Data  Gb  waverecorder.o [1]
+Window                  0x0801d045    0x6e  Code  Gb  DSP.o [1]
+WriteCoef               0x08021da1   0x126  Code  Gb  sta321mp.o [1]
+WriteSTAByte            0x08021b87    0x56  Code  Gb  sta321mp.o [1]
+_EncodingSb_Mbtowc      0x0802550f    0x30  Code  Gb  xencoding_sb.o [3]
+_EncodingSb_Wctomb      0x080254f5    0x1a  Code  Gb  xencoding_sb.o [3]
+_IsdstStr               0x20000e88     0x4  Data  Gb  setlocale.o [3]
+_LitobSmall             0x08023fff    0xce  Code  Lc  xprintfsmall.o [3]
+_LocaleEncoding         0x080254e1     0xe  Code  Gb  setlocale.o [3]
+_LocaleReturnString     0x20000ea8    0x50  Data  Lc  setlocale.o [3]
+_Locale_Profile         0x20000e8c    0x1c  Data  Gb  setlocale.o [3]
+_Mbtowc                 0x08024b0f    0x20  Code  Gb  xmbtowc.o [3]
+_PrintfSmall            0x08023951   0x430  Code  Gb  xprintfsmall.o [3]
+_PutcharsSmall          0x080240cd    0x2e  Code  Lc  xprintfsmall.o [3]
+_PutstrSmall            0x08023dcd   0x228  Code  Lc  xprintfsmall.o [3]
+_SProut                 0x08019fe7     0xa  Code  Gb  xsprout.o [3]
+_TzoneStr               0x20000e84     0x4  Data  Gb  setlocale.o [3]
+_Wctomb                 0x08024be3    0x1a  Code  Gb  xwctomb.o [3]
+__aeabi_cdcmpeq         0x08020d79          Code  Gb  DblCmpEq.o [6]
+__aeabi_cdcmple         0x0801f6f1          Code  Gb  DblCmpLe.o [6]
+__aeabi_cdrcmple        0x0801f721          Code  Gb  DblCmpGe.o [6]
+__aeabi_cfcmpeq         0x0801da2d          Code  Gb  FltCmpEq.o [6]
+__aeabi_cfcmple         0x0801da59          Code  Gb  FltCmpLe.o [6]
+__aeabi_d2f             0x0801e041          Code  Gb  DblToFlt.o [6]
+__aeabi_d2iz            0x0801de51          Code  Gb  DblToI32.o [6]
+__aeabi_dadd            0x0801dd69          Code  Gb  DblAdd.o [6]
+__aeabi_ddiv            0x0801db11          Code  Gb  DblDiv.o [6]
+__aeabi_dmul            0x0801de9d          Code  Gb  DblMul.o [6]
+__aeabi_dsub            0x0801e535          Code  Gb  DblSub.o [6]
+__aeabi_errno_addr      0x0801f751     0x6  Code  Gb  errno.o [3]
+__aeabi_f2d             0x0801da91          Code  Gb  FltToDbl.o [6]
+__aeabi_fmul            0x0801da7d    0x12  Code  Gb  FltMul.o [6]
+__aeabi_i2d             0x0801dae1          Code  Gb  I32ToDbl.o [6]
+__aeabi_ldiv0           0x08020cf9          Code  Gb  I64DivZer.o [7]
+__aeabi_ldivmod         0x0801f5bd          Code  Gb  I64DivMod.o [7]
+__aeabi_memclr          0x080238d1          Code  Gb  ABImemclr.o [7]
+__aeabi_ui2d            0x0801daf5          Code  Gb  I32ToDbl.o [6]
+__aeabi_ui2f            0x0801da49     0xe  Code  Gb  U32ToFlt.o [6]
+__aeabi_uldivmod        0x0801f601          Code  Gb  I64DivMod.o [7]
+__cmain                 0x080259a9          Code  Gb  cmain.o [7]
+__data_GetMemChunk      0x08019ff1    0x2c  Code  Gb  xgetmemchunk.o [3]
+__exit                  0x0801a01d    0x14  Code  Gb  exit.o [8]
+__iar_Dint              0x08020cfd    0x7a  Code  Gb  xdint.o [6]
+__iar_Errno             0x20001064     0x4  Data  Gb  errno.o [3]
+__iar_Mbcurmax          0x08024bd9     0xa  Code  Gb  xmbcurmax.o [3]
+__iar_Memchr            0x08024b81          Code  Gb  memchr.o [7]
+__iar_Memset_word       0x08024ab1          Code  Gb  ABImemset.o [7]
+__iar_Quad              0x0801f75d   0x12c  Code  Gb  xquad.o [6]
+__iar_Sin               0x0801e0d1   0x3b2  Code  Gb  xsin.o [6]
+__iar_Strchr            0x08024b31          Code  Gb  strchr.o [7]
+__iar_close_ttio        0x0801a031    0x2e  Code  Gb  iarttio.o [8]
+__iar_d2uiz             0x0801de7d          Code  Gb  DblToI32.o [6]
+__iar_dadd              0x0801dd7d          Code  Gb  DblAdd.o [6]
+__iar_data_init3        0x08025929    0x28  Code  Gb  data_init.o [7]
+__iar_dlfree            0x08019ac7   0x510  Code  Gb  dlmalloc.o [3]
 __iar_dlib_perthread_access
-                        0x08023291     0x2  Code  Gb  xtls.o [3]
-__iar_dlmalloc          0x08027505   0x2aa  Code  Gb  dlmalloc.o [3]
-__iar_dsub              0x0801f931          Code  Gb  DblSub.o [6]
-__iar_dsubStart         0x0801f943          Code  Gb  DblSub.o [6]
-__iar_edom              0x0802169d          Code  Gb  iarEdom.o [7]
-__iar_fmod              0x0802332d          Code  Gb  fmod.o [6]
-__iar_fmodl             0x0802332d          Code  Gb  fmod.o [6]
-__iar_init_vfp          0x0802baf1          Code  Gb  fpinit_M.o [6]
-__iar_lookup_ttioh      0x0802ae21     0x8  Code  Gb  XShttio.o [3]
-__iar_lz77_init3        0x0802b68b   0x162  Code  Gb  lz77_init.o [7]
-__iar_program_start     0x0802bc8d          Code  Gb  cstartup_M.o [7]
-__iar_sqrt              0x0801fa9d          Code  Gb  sqrt.o [6]
-__iar_ttio_handles      0x20000484     0x8  Data  Lc  XShttio.o [3]
-__iar_ui2d              0x0801eef5          Code  Gb  I32ToDbl.o [6]
+                        0x08020cfb     0x2  Code  Gb  xtls.o [3]
+__iar_dlmalloc          0x08019811   0x2aa  Code  Gb  dlmalloc.o [3]
+__iar_dsub              0x0801e549          Code  Gb  DblSub.o [6]
+__iar_dsubStart         0x0801e55b          Code  Gb  DblSub.o [6]
+__iar_edom              0x0801f8c5          Code  Gb  iarEdom.o [7]
+__iar_fmod              0x08020d99          Code  Gb  fmod.o [6]
+__iar_fmodl             0x08020d99          Code  Gb  fmod.o [6]
+__iar_init_vfp          0x08025951          Code  Gb  fpinit_M.o [6]
+__iar_lookup_ttioh      0x0801a061     0x8  Code  Gb  XShttio.o [3]
+__iar_lz77_init3        0x080255b7   0x162  Code  Gb  lz77_init.o [7]
+__iar_program_start     0x080259e9          Code  Gb  cstartup_M.o [7]
+__iar_sqrt              0x0801e6b5          Code  Gb  sqrt.o [6]
+__iar_ttio_handles      0x20001054     0x8  Data  Lc  XShttio.o [3]
+__iar_ui2d              0x0801daf9          Code  Gb  I32ToDbl.o [6]
 __iar_unaligned___aeabi_memcpy
-                        0x08028a09          Code  Gb  ABImemcpy_unaligned.o [7]
+                        0x080238d9          Code  Gb  ABImemcpy_unaligned.o [7]
 __iar_unaligned___aeabi_memcpy4
-                        0x08028a29          Code  Gb  ABImemcpy_unaligned.o [7]
+                        0x080238f9          Code  Gb  ABImemcpy_unaligned.o [7]
 __iar_unaligned___aeabi_memcpy8
-                        0x08028a29          Code  Gb  ABImemcpy_unaligned.o [7]
-__iar_vfp_cos           0x080267d1    0x12  Code  Gb  cos.o [6]
-__iar_zero_init3        0x0802ba41    0x40  Code  Gb  zero_init3.o [7]
-__low_level_init        0x0802bb63     0x4  Code  Gb  low_level_init.o [3]
+                        0x080238f9          Code  Gb  ABImemcpy_unaligned.o [7]
+__iar_vfp___iar_Sin     0x0801e521    0x12  Code  Gb  xsin.o [6]
+__iar_zero_init3        0x080258e9    0x40  Code  Gb  zero_init3.o [7]
+__low_level_init        0x080259c3     0x4  Code  Gb  low_level_init.o [3]
 __vector_table          0x08000000          Data  Gb  startup_stm32f746xx.o [1]
-_call_main              0x0802bb55          Code  Gb  cmain.o [7]
-_exit                   0x0802bb6d          Code  Gb  cexit.o [7]
-_gm_                    0x20009a84   0x1d8  Data  Lc  dlmalloc.o [3]
-_main                   0x0802bb5f          Code  Gb  cmain.o [7]
-abort                   0x0802925d     0x6  Code  Gb  abort.o [3]
-abs                     0x08029293     0x8  Code  Gb  abs.o [3]
+_call_main              0x080259b5          Code  Gb  cmain.o [7]
+_exit                   0x080259cd          Code  Gb  cexit.o [7]
+_gm_                    0x20009e14   0x1d8  Data  Lc  dlmalloc.o [3]
+_main                   0x080259bf          Code  Gb  cmain.o [7]
+abort                   0x08019fe1     0x6  Code  Gb  abort.o [3]
 armBitRevTable          0x080001c8   0x800  Data  Gb  arm_common_tables.o [4]
 arm_cfft_radix4_init_f32
                         0x08010a41    0xb0  Code  Gb  arm_cfft_radix4_init_f32.o [4]
 arm_rfft_init_f32       0x080089c9    0x72  Code  Gb  arm_rfft_init_f32.o [4]
-btnSW1                  0x2000a76e     0x1  Data  Gb  main.o [1]
-btnSW2                  0x2000a76f     0x1  Data  Gb  main.o [1]
-bufCoefBiquad           0x2000a6ec    0x10  Data  Gb  sta321mp.o [1]
-bufPCMSens7             0x2000a71c     0x4  Data  Gb  waverecorder.o [1]
-bufPCMSens8             0x2000a720     0x4  Data  Gb  waverecorder.o [1]
-bufferSum               0x200084a0   0x800  Data  Gb  main.o [1]
-buffer_switch           0x20000499     0x1  Data  Gb  main.o [1]
-cntBtnPress             0x2000a771     0x1  Data  Gb  main.o [1]
-cntOS                   0x2000a718     0x4  Data  Gb  stm32f7xx_it.o [1]
-cntPos                  0x2000a754     0x2  Data  Gb  waverecorder.o [1]
-cntPos7                 0x2000a756     0x2  Data  Gb  waverecorder.o [1]
-cntRisingEXTI           0x2000a738     0x2  Data  Gb  main.o [1]
-cntStrt                 0x2000a758     0x2  Data  Gb  waverecorder.o [1]
-cntTime200              0x2000a746     0x2  Data  Gb  main.o [1]
-exit                    0x0802bb67     0x4  Code  Gb  exit.o [3]
-fir256Coff              0x20008ca0   0x800  Data  Gb  main.o [1]
-flg10ms                 0x2000a773     0x1  Data  Gb  main.o [1]
-flgDlyUpd               0x2000a770     0x1  Data  Gb  main.o [1]
-flgS2                   0x2000a775     0x1  Data  Gb  main.o [1]
-flgS2Flt                0x2000a778     0x1  Data  Gb  main.o [1]
-flgS2Ins                0x2000a77b     0x1  Data  Gb  main.o [1]
-flgS3                   0x2000a776     0x1  Data  Gb  main.o [1]
-flgS3Flt                0x2000a779     0x1  Data  Gb  main.o [1]
-flgS3Ins                0x2000a77c     0x1  Data  Gb  main.o [1]
-flgS4                   0x2000a777     0x1  Data  Gb  main.o [1]
-flgS4Flt                0x2000a77a     0x1  Data  Gb  main.o [1]
-flgS4Ins                0x2000a77d     0x1  Data  Gb  main.o [1]
-fmod                    0x0802332d          Code  Gb  fmod.o [6]
-fmodl                   0x0802332d          Code  Gb  fmod.o [6]
-hUSBDDevice             0x20009860   0x224  Data  Gb  main.o [1]
-hUSBDDeviceDesc         0x20000464    0x14  Data  Gb  usbd_desc.o [1]
-haudioInstance          0x2000a1d8    0x64  Data  Lc  usbd_audio_in.o [1]
-hdma_spi5_rx            0x2000a3a4    0x50  Data  Gb  waverecorder.o [1]
-hdma_spi6_rx            0x2000a3f4    0x50  Data  Gb  waverecorder.o [1]
-hi2c1                   0x2000a504    0x3c  Data  Gb  audio_codec.o [1]
-hi2c2                   0x2000a540    0x3c  Data  Gb  audio_codec.o [1]
-hi2s1                   0x2000a484    0x40  Data  Gb  waverecorder.o [1]
-hi2s2                   0x2000a4c4    0x40  Data  Gb  waverecorder.o [1]
-hi2s3                   0x2000a444    0x40  Data  Gb  waveplayer _CS43L22.o [1]
-hpcd                    0x200094a0   0x3c0  Data  Gb  usbd_conf_f4.o [1]
-hspi4                   0x2000a174    0x64  Data  Gb  main.o [1]
-hspi5                   0x2000a23c    0x64  Data  Gb  waverecorder.o [1]
-hspi6                   0x2000a2a0    0x64  Data  Gb  waverecorder.o [1]
-huart3                  0x2000a09c    0x70  Data  Gb  main.o [1]
-idxFrmPDMMic8           0x2000a752     0x2  Data  Gb  waverecorder.o [1]
-idxLatency12            0x2000a73c     0x2  Data  Gb  main.o [1]
-idxLatency13            0x2000a73a     0x2  Data  Gb  main.o [1]
-idxLatency14            0x2000a73e     0x2  Data  Gb  main.o [1]
-idxLatency25            0x2000a740     0x2  Data  Gb  main.o [1]
-idxLatency63            0x2000a742     0x2  Data  Gb  main.o [1]
-idxLatency78            0x2000a744     0x2  Data  Gb  main.o [1]
-idxMic7                 0x2000a74e     0x2  Data  Gb  waverecorder.o [1]
-idxMic8                 0x2000a74c     0x2  Data  Gb  waverecorder.o [1]
-idxSPI5DataBuf3         0x2000a736     0x2  Data  Gb  main.o [1]
-init_mparams            0x080267ff    0x32  Code  Lc  dlmalloc.o [3]
-init_top                0x08026831    0x34  Code  Lc  dlmalloc.o [3]
-main                    0x080219c5   0x466  Code  Gb  main.o [1]
-memchr                  0x08029f9d          Code  Gb  memchr.o [7]
-mparams                 0x2000a65c    0x18  Data  Lc  dlmalloc.o [3]
-pDataMic7               0x20009fa4    0x80  Data  Gb  waverecorder.o [1]
-pDataMic8               0x20009f24    0x80  Data  Gb  waverecorder.o [1]
-pUARTBuf                0x20009ea4    0x80  Data  Gb  main.o [1]
-pcSTAComnd              0x20000378    0x50  Data  Gb  sta321mp.o [1]
-pcSTAComnd1             0x2000a748     0x2  Data  Gb  sta321mp.o [1]
-pcSTAComnd2             0x20000400    0x24  Data  Gb  sta321mp.o [1]
-prepend_alloc           0x08026865   0x36c  Code  Lc  dlmalloc.o [3]
+btnSW1                  0x2000105c     0x1  Data  Gb  main.o [1]
+btnSW2                  0x2000105d     0x1  Data  Gb  main.o [1]
+bufCoefBiquad           0x2000a798    0x10  Data  Gb  sta321mp.o [1]
+bufPCMSens7             0x2000a4c0     0x4  Data  Gb  waverecorder.o [1]
+bufPCMSens8             0x2000a454     0x4  Data  Gb  waverecorder.o [1]
+bufferSum               0x2000906c   0x800  Data  Gb  main.o [1]
+buffer_switch           0x20000003     0x1  Data  Gb  main.o [1]
+cntBtnPress             0x2000105e     0x1  Data  Gb  main.o [1]
+cntOS                   0x2000a7b0     0x4  Data  Gb  stm32f7xx_it.o [1]
+cntPos                  0x2000a3ee     0x2  Data  Gb  waverecorder.o [1]
+cntPos7                 0x2000a45a     0x2  Data  Gb  waverecorder.o [1]
+cntRisingEXTI           0x2000a30a     0x2  Data  Gb  main.o [1]
+cntStrt                 0x2000a7ba     0x2  Data  Gb  waverecorder.o [1]
+cntTime200              0x20000026     0x2  Data  Gb  main.o [1]
+exit                    0x080259c7     0x4  Code  Gb  exit.o [3]
+fir256Coff              0x20000288   0x800  Data  Gb  main.o [1]
+flg10ms                 0x20000002     0x1  Data  Gb  main.o [1]
+flgDlyUpd               0x20000000     0x1  Data  Gb  main.o [1]
+flgS2                   0x20000005     0x1  Data  Gb  main.o [1]
+flgS2Flt                0x20000008     0x1  Data  Gb  main.o [1]
+flgS2Ins                0x2000000b     0x1  Data  Gb  main.o [1]
+flgS3                   0x20000006     0x1  Data  Gb  main.o [1]
+flgS3Flt                0x20000009     0x1  Data  Gb  main.o [1]
+flgS3Ins                0x2000000c     0x1  Data  Gb  main.o [1]
+flgS4                   0x20000007     0x1  Data  Gb  main.o [1]
+flgS4Flt                0x2000000a     0x1  Data  Gb  main.o [1]
+flgS4Ins                0x2000000d     0x1  Data  Gb  main.o [1]
+fmod                    0x08020d99          Code  Gb  fmod.o [6]
+fmodl                   0x08020d99          Code  Gb  fmod.o [6]
+hUSBDDevice             0x20000064   0x224  Data  Gb  main.o [1]
+hUSBDDeviceDesc         0x20001034    0x14  Data  Gb  usbd_desc.o [1]
+haudioInstance          0x20009c30    0x64  Data  Lc  usbd_audio_in.o [1]
+hdma_spi5_rx            0x2000a624    0x50  Data  Gb  waverecorder.o [1]
+hdma_spi6_rx            0x2000a674    0x50  Data  Gb  waverecorder.o [1]
+hi2c1                   0x20000f60    0x3c  Data  Gb  audio_codec.o [1]
+hi2c2                   0x2000a744    0x3c  Data  Gb  audio_codec.o [1]
+hi2s1                   0x2000a544    0x40  Data  Gb  waverecorder.o [1]
+hi2s2                   0x2000a704    0x40  Data  Gb  waverecorder.o [1]
+hi2s3                   0x2000a6c4    0x40  Data  Gb  waveplayer _CS43L22.o [1]
+hpcd                    0x20009870   0x3c0  Data  Gb  usbd_conf_f4.o [1]
+hspi4                   0x2000a4c4    0x64  Data  Gb  main.o [1]
+hspi5                   0x2000a3f0    0x64  Data  Gb  waverecorder.o [1]
+hspi6                   0x2000a45c    0x64  Data  Gb  waverecorder.o [1]
+huart3                  0x2000a30c    0x70  Data  Gb  main.o [1]
+idxFrmPDMMic8           0x2000a7b8     0x2  Data  Gb  waverecorder.o [1]
+idxLatency12            0x2000986e     0x2  Data  Gb  main.o [1]
+idxLatency13            0x2000986c     0x2  Data  Gb  main.o [1]
+idxLatency14            0x2000001e     0x2  Data  Gb  main.o [1]
+idxLatency25            0x20000020     0x2  Data  Gb  main.o [1]
+idxLatency63            0x20000022     0x2  Data  Gb  main.o [1]
+idxLatency78            0x20000024     0x2  Data  Gb  main.o [1]
+idxMic7                 0x2000a458     0x2  Data  Gb  waverecorder.o [1]
+idxMic8                 0x2000a3ec     0x2  Data  Gb  waverecorder.o [1]
+idxSPI5DataBuf3         0x2000001c     0x2  Data  Gb  main.o [1]
+init_mparams            0x08018b0b    0x32  Code  Lc  dlmalloc.o [3]
+init_top                0x08018b3d    0x34  Code  Lc  dlmalloc.o [3]
+main                    0x0801f97f   0x40e  Code  Gb  main.o [1]
+memchr                  0x08024b81          Code  Gb  memchr.o [7]
+mparams                 0x2000a780    0x18  Data  Lc  dlmalloc.o [3]
+pDataMic7               0x2000a210    0x80  Data  Gb  waverecorder.o [1]
+pDataMic8               0x2000a190    0x80  Data  Gb  waverecorder.o [1]
+pUARTBuf                0x20000a88    0x80  Data  Gb  main.o [1]
+pcSTAComnd              0x20000e0c    0x50  Data  Gb  sta321mp.o [1]
+pcSTAComnd1             0x20000e5c     0x2  Data  Gb  sta321mp.o [1]
+pcSTAComnd2             0x20000e60    0x24  Data  Gb  sta321mp.o [1]
+prepend_alloc           0x08018b71   0x36c  Code  Lc  dlmalloc.o [3]
 realCoefA               0x08008a40  0x8000  Data  Lc  arm_rfft_init_f32.o [4]
 realCoefB               0x08010af0  0x8000  Data  Lc  arm_rfft_init_f32.o [4]
-sdramHandle             0x2000a57c    0x34  Data  Lc  stm32746g_discovery_sdram.o [1]
-segment_holding         0x080267e5    0x1a  Code  Lc  dlmalloc.o [3]
-sprintf                 0x0802551d    0x34  Code  Gb  sprintf.o [3]
-sqrt                    0x0801fa9d          Code  Gb  sqrt.o [6]
-sqrtl                   0x0801fa9d          Code  Gb  sqrt.o [6]
-stDir                   0x2000a774     0x1  Data  Gb  main.o [1]
-stFrstFrmStore          0x2000a772     0x1  Data  Gb  main.o [1]
-sta321mp_biquad         0x0802454f   0x160  Code  Lc  sta321mp.o [1]
-sta321mp_mixer          0x080244f7    0x2a  Code  Lc  sta321mp.o [1]
-sta321mp_postscale      0x08024539    0x16  Code  Lc  sta321mp.o [1]
-sta321mp_prescale       0x08024521    0x18  Code  Lc  sta321mp.o [1]
-stm32_crc               0x20000000     0x4  Data  Gb  pdm_filter.o [5]
-strchr                  0x08029f4d          Code  Gb  strchr.o [7]
-strlen                  0x08029f65          Code  Gb  strlen.o [7]
-swtBufUSBOut            0x2000a76c     0x1  Data  Gb  audio_application.o [1]
-swtSDO7                 0x2000a781     0x1  Data  Gb  waverecorder.o [1]
-swtSDO8                 0x2000a782     0x1  Data  Gb  waverecorder.o [1]
-sys_alloc               0x08026bd1   0x386  Code  Lc  dlmalloc.o [3]
-tmalloc_large           0x08026f65   0x390  Code  Lc  dlmalloc.o [3]
-tmalloc_small           0x080272f5   0x210  Code  Lc  dlmalloc.o [3]
+sdramHandle             0x20000efc    0x34  Data  Lc  stm32746g_discovery_sdram.o [1]
+segment_holding         0x08018af1    0x1a  Code  Lc  dlmalloc.o [3]
+sprintf                 0x08022981    0x34  Code  Gb  sprintf.o [3]
+sqrt                    0x0801e6b5          Code  Gb  sqrt.o [6]
+sqrtl                   0x0801e6b5          Code  Gb  sqrt.o [6]
+stDir                   0x20000004     0x1  Data  Gb  main.o [1]
+stFrstFrmStore          0x20000001     0x1  Data  Gb  main.o [1]
+sta321mp_biquad         0x08021f25   0x114  Code  Lc  sta321mp.o [1]
+stm32_crc               0x20000b08     0x4  Data  Gb  pdm_filter.o [5]
+strchr                  0x08024b31          Code  Gb  strchr.o [7]
+strlen                  0x08024b49          Code  Gb  strlen.o [7]
+swtBufUSBOut            0x2000a7bc     0x1  Data  Gb  audio_application.o [1]
+swtSDO7                 0x2000a37c     0x1  Data  Gb  waverecorder.o [1]
+swtSDO8                 0x2000a37d     0x1  Data  Gb  waverecorder.o [1]
+sys_alloc               0x08018edd   0x386  Code  Lc  dlmalloc.o [3]
+tmalloc_large           0x08019271   0x390  Code  Lc  dlmalloc.o [3]
+tmalloc_small           0x08019601   0x210  Code  Lc  dlmalloc.o [3]
 twiddleCoef_4096        0x080009c8  0x8000  Data  Gb  arm_common_tables.o [4]
-uwTick                  0x2000a714     0x4  Data  Lc  stm32f7xx_hal.o [1]
-vRawSens1               0x2000a75a     0x2  Data  Gb  waverecorder.o [1]
-vRawSens2               0x2000a75c     0x2  Data  Gb  waverecorder.o [1]
-vRawSens3               0x2000a760     0x2  Data  Gb  waverecorder.o [1]
-vRawSens4               0x2000a75e     0x2  Data  Gb  waverecorder.o [1]
-vRawSens5               0x2000a762     0x2  Data  Gb  waverecorder.o [1]
-vRawSens6               0x2000a764     0x2  Data  Gb  waverecorder.o [1]
-vol_table               0x0802b8d4    0x84  Data  Gb  usbd_audio_if.o [1]
-volume                  0x2000049c     0x1  Data  Gb  waveplayer _CS43L22.o [1]
+uwTick                  0x2000a7ac     0x4  Data  Lc  stm32f7xx_hal.o [1]
+vRawSens1               0x2000a530     0x2  Data  Gb  waverecorder.o [1]
+vRawSens2               0x2000a532     0x2  Data  Gb  waverecorder.o [1]
+vRawSens3               0x2000a536     0x2  Data  Gb  waverecorder.o [1]
+vRawSens4               0x2000a534     0x2  Data  Gb  waverecorder.o [1]
+vRawSens5               0x2000a538     0x2  Data  Gb  waverecorder.o [1]
+vRawSens6               0x2000a53a     0x2  Data  Gb  waverecorder.o [1]
+vol_table               0x0802311c    0x84  Data  Gb  usbd_audio_if.o [1]
+volume                  0x20001068     0x1  Data  Gb  waveplayer _CS43L22.o [1]
 
 
-[1] = D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+[1] = H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
 [2] = command line
 [3] = dl7M_tlf.a
 [4] = iar_cortexM7ls_math.a
@@ -1319,9 +1159,9 @@ volume                  0x2000049c     0x1  Data  Gb  waveplayer _CS43L22.o [1]
 [7] = rt7M_tl.a
 [8] = shb_l.a
 
-  109 508 bytes of readonly  code memory
-   70 931 bytes of readonly  data memory
-   59 271 bytes of readwrite data memory (+ 131 552 absolute)
+  86 770 bytes of readonly  code memory
+  68 466 bytes of readonly  data memory
+  59 324 bytes of readwrite data memory (+ 131 552 absolute)
 
 Errors: none
 Warnings: none

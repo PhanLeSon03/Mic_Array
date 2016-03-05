@@ -34,7 +34,7 @@ void LowPassIIR(int16_t *Input, int16_t *Output,int16_t *OutOld, uint16_t Size, 
 void LowPass(int16_t *Input, int16_t *Output, uint16_t Size, uint16_t K);
 void LowPass2ndOder(int16_t *Input, int16_t *Output, uint16_t Size);
 void LowPass2ndOder_1(int16_t *Input, int16_t *Output, uint16_t Size);
-int8_t CrssCor(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen );
+int8_t CrssCor(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen, uint32_t * CrssCorVal );
 void Std_CrssCor(int16_t * vDataIn1, int16_t * vDataIn2, float *Out,uint16_t numLen );
 void Std_AutoCorr(int16_t * vDataIn,float *Out, uint16_t numLen );
 void Std_MatCorr(int16_t* vDataIn, float *Out, uint16_t numLen);

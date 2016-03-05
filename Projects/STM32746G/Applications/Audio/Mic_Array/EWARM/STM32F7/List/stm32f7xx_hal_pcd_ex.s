@@ -1,60 +1,58 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      04/Mar/2016  17:12:02
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      05/Mar/2016  17:13:37
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_pcd_ex.c
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_pcd_ex.c
 //    Command line =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_pcd_ex.c
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_pcd_ex.c
 //        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 //        USE_IOEXPANDER -D USE_USB_FS -lC
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -lA
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-//        --no_clustering --no_scheduling --debug --endian=little
-//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-//        (x86)\IAR Systems\Embedded Workbench
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
+//        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
-//        ARM_MATH_CM7
+//        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
-//        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_pcd_ex.s
+//        H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_pcd_ex.s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -118,7 +116,7 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
         
-// D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_pcd_ex.c
+// H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_pcd_ex.c
 //    1 /**
 //    2   ******************************************************************************
 //    3   * @file    stm32f7xx_hal_pcd_ex.c
@@ -219,11 +217,8 @@ HAL_PCDEx_SetTxFiFo:
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
           CFI CFA R13+12
-        MOVS     R3,R0
 //   89   uint8_t i = 0;
-        MOVS     R4,#+0
 //   90   uint32_t Tx_Offset = 0;
-        MOVS     R5,#+0
 //   91 
 //   92   /*  TXn min size = 16 words. (n  : Transmit FIFO index)
 //   93       When a TxFIFO is not used, the Configuration should be as follows: 
@@ -236,58 +231,43 @@ HAL_PCDEx_SetTxFiFo:
 //  100      When DMA is used 3n * FIFO locations should be reserved for internal DMA registers */
 //  101   
 //  102   Tx_Offset = hpcd->Instance->GRXFSIZ;
-        LDR      R0,[R3, #+0]
-        LDR      R0,[R0, #+36]
-        MOVS     R5,R0
+        LDR      R0,[R0, #+0]
+        LDR      R3,[R0, #+36]
 //  103   
 //  104   if(fifo == 0)
-        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-        CMP      R1,#+0
-        BNE.N    ??HAL_PCDEx_SetTxFiFo_0
+        CBNZ.N   R1,??HAL_PCDEx_SetTxFiFo_0
 //  105   {
 //  106     hpcd->Instance->DIEPTXF0_HNPTXFSIZ = (size << 16) | Tx_Offset;
-        UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
-        ORRS     R0,R5,R2, LSL #+16
-        LDR      R6,[R3, #+0]
-        STR      R0,[R6, #+40]
+        ORR      R1,R3,R2, LSL #+16
+        STR      R1,[R0, #+40]
         B.N      ??HAL_PCDEx_SetTxFiFo_1
 //  107   }
 //  108   else
 //  109   {
 //  110     Tx_Offset += (hpcd->Instance->DIEPTXF0_HNPTXFSIZ) >> 16;
 ??HAL_PCDEx_SetTxFiFo_0:
-        LDR      R0,[R3, #+0]
-        LDR      R0,[R0, #+40]
-        ADDS     R5,R5,R0, LSR #+16
+        LDR      R4,[R0, #+40]
+        ADD      R3,R3,R4, LSR #+16
 //  111     for (i = 0; i < (fifo - 1); i++)
-        MOVS     R0,#+0
-        MOVS     R4,R0
-??HAL_PCDEx_SetTxFiFo_2:
-        UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
-        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-        SUBS     R0,R1,#+1
-        CMP      R4,R0
-        BGE.N    ??HAL_PCDEx_SetTxFiFo_3
+        SUBS     R4,R1,#+1
+        CMP      R4,#+1
+        BLT.N    ??HAL_PCDEx_SetTxFiFo_2
+        ADD      R5,R0,#+260
 //  112     {
 //  113       Tx_Offset += (hpcd->Instance->DIEPTXF[i] >> 16);
-        LDR      R0,[R3, #+0]
-        UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
-        ADDS     R0,R0,R4, LSL #+2
-        LDR      R0,[R0, #+260]
-        ADDS     R5,R5,R0, LSR #+16
+??HAL_PCDEx_SetTxFiFo_3:
+        LDR      R6,[R5], #+4
 //  114     }
-        ADDS     R4,R4,#+1
-        B.N      ??HAL_PCDEx_SetTxFiFo_2
+        SUBS     R4,R4,#+1
+        ADD      R3,R3,R6, LSR #+16
+        BNE.N    ??HAL_PCDEx_SetTxFiFo_3
 //  115     
 //  116     /* Multiply Tx_Size by 2 to get higher performance */
 //  117     hpcd->Instance->DIEPTXF[fifo - 1] = (size << 16) | Tx_Offset;
-??HAL_PCDEx_SetTxFiFo_3:
-        LDR      R0,[R3, #+0]
-        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-        ADDS     R0,R0,R1, LSL #+2
-        UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
-        ORRS     R6,R5,R2, LSL #+16
-        STR      R6,[R0, #+256]
+??HAL_PCDEx_SetTxFiFo_2:
+        ORR      R2,R3,R2, LSL #+16
+        ADD      R0,R0,R1, LSL #+2
+        STR      R2,[R0, #+256]
 //  118     
 //  119   }
 //  120   
@@ -317,11 +297,9 @@ HAL_PCDEx_SetTxFiFo:
         THUMB
 //  130 HAL_StatusTypeDef HAL_PCDEx_SetRxFiFo(PCD_HandleTypeDef *hpcd, uint16_t size)
 //  131 {
-HAL_PCDEx_SetRxFiFo:
-        MOVS     R2,R0
 //  132   hpcd->Instance->GRXFSIZ = size;
-        UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
-        LDR      R0,[R2, #+0]
+HAL_PCDEx_SetRxFiFo:
+        LDR      R0,[R0, #+0]
         STR      R1,[R0, #+36]
 //  133   
 //  134   return HAL_OK;
@@ -343,30 +321,28 @@ HAL_PCDEx_SetRxFiFo:
         THUMB
 //  142 HAL_StatusTypeDef HAL_PCDEx_ActivateLPM(PCD_HandleTypeDef *hpcd)
 //  143 {
-HAL_PCDEx_ActivateLPM:
-        MOVS     R1,R0
 //  144   USB_OTG_GlobalTypeDef *USBx = hpcd->Instance;  
-        LDR      R2,[R1, #+0]
+HAL_PCDEx_ActivateLPM:
+        LDR      R1,[R0, #+0]
 //  145   
 //  146   hpcd->lpm_active = ENABLE;
-        MOVS     R0,#+1
-        STR      R0,[R1, #+952]
+        ADD      R0,R0,#+944
+        MOVS     R2,#+1
+        STR      R2,[R0, #+8]
 //  147   hpcd->LPM_State = LPM_L0;
-        MOVS     R0,#+0
-        STRB     R0,[R1, #+944]
+        MOVS     R2,#+0
+        STRB     R2,[R0, #+0]
 //  148   USBx->GINTMSK |= USB_OTG_GINTMSK_LPMINTM;
-        LDR      R0,[R2, #+24]
-        ORRS     R0,R0,#0x8000000
-        STR      R0,[R2, #+24]
+        LDR      R0,[R1, #+24]
+        ORR      R0,R0,#0x8000000
+        STR      R0,[R1, #+24]
 //  149   USBx->GLPMCFG |= (USB_OTG_GLPMCFG_LPMEN | USB_OTG_GLPMCFG_LPMACK | USB_OTG_GLPMCFG_ENBESL);
-        LDR      R0,[R2, #+84]
+        LDR      R0,[R1, #+84]
         ORR      R0,R0,#0x10000000
-        ORRS     R0,R0,#0x3
-        STR      R0,[R2, #+84]
+        ORR      R0,R0,#0x3
+        B.N      ?Subroutine0
 //  150   
 //  151   return HAL_OK;  
-        MOVS     R0,#+0
-        BX       LR               ;; return
 //  152 }
           CFI EndBlock cfiBlock2
 //  153 
@@ -376,42 +352,50 @@ HAL_PCDEx_ActivateLPM:
 //  157   * @retval HAL status
 //  158   */
 
-        SECTION `.text`:CODE:NOROOT(1)
+        SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock3 Using cfiCommon0
           CFI Function HAL_PCDEx_DeActivateLPM
           CFI NoCalls
         THUMB
 //  159 HAL_StatusTypeDef HAL_PCDEx_DeActivateLPM(PCD_HandleTypeDef *hpcd)
 //  160 {
-HAL_PCDEx_DeActivateLPM:
-        MOVS     R1,R0
 //  161   USB_OTG_GlobalTypeDef *USBx = hpcd->Instance;  
-        LDR      R2,[R1, #+0]
+HAL_PCDEx_DeActivateLPM:
+        LDR      R1,[R0, #+0]
 //  162   
 //  163   hpcd->lpm_active = DISABLE;
-        MOVS     R0,#+0
-        STR      R0,[R1, #+952]
+        MOVS     R2,#+0
+        STR      R2,[R0, #+952]
 //  164   USBx->GINTMSK &= ~USB_OTG_GINTMSK_LPMINTM;
-        LDR      R0,[R2, #+24]
-        BICS     R0,R0,#0x8000000
-        STR      R0,[R2, #+24]
 //  165   USBx->GLPMCFG &= ~(USB_OTG_GLPMCFG_LPMEN | USB_OTG_GLPMCFG_LPMACK | USB_OTG_GLPMCFG_ENBESL);
-        LDR      R0,[R2, #+84]
-        LDR.N    R3,??DataTable0  ;; 0xeffffffc
-        ANDS     R0,R3,R0
-        STR      R0,[R2, #+84]
+        LDR.N    R2,??HAL_PCDEx_DeActivateLPM_0  ;; 0xeffffffc
+        B.N      ??HAL_PCDEx_DeActivateLPM_1
+        DATA
+??HAL_PCDEx_DeActivateLPM_0:
+        DC32     0xeffffffc
+        THUMB
+??HAL_PCDEx_DeActivateLPM_1:
+        LDR      R0,[R1, #+24]
+        BIC      R0,R0,#0x8000000
+        STR      R0,[R1, #+24]
+        LDR      R0,[R1, #+84]
+        ANDS     R0,R2,R0
+          CFI EndBlock cfiBlock3
+        REQUIRE ?Subroutine0
+        ;; // Fall through to label ?Subroutine0
 //  166   
 //  167   return HAL_OK;  
+//  168 }
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock4 Using cfiCommon0
+          CFI NoFunction
+        THUMB
+?Subroutine0:
+        STR      R0,[R1, #+84]
         MOVS     R0,#+0
         BX       LR               ;; return
-//  168 }
-          CFI EndBlock cfiBlock3
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable0:
-        DC32     0xeffffffc
+          CFI EndBlock cfiBlock4
 //  169 
 //  170 /**
 //  171   * @brief  HAL_PCDEx_LPM_Callback : Send LPM message to user layer
@@ -421,7 +405,7 @@ HAL_PCDEx_DeActivateLPM:
 //  175   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock4 Using cfiCommon0
+          CFI Block cfiBlock5 Using cfiCommon0
           CFI Function HAL_PCDEx_LPM_Callback
           CFI NoCalls
         THUMB
@@ -430,7 +414,7 @@ HAL_PCDEx_DeActivateLPM:
 //  178 }
 HAL_PCDEx_LPM_Callback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock4
+          CFI EndBlock cfiBlock5
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -464,9 +448,9 @@ HAL_PCDEx_LPM_Callback:
 //  196 
 //  197 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 186 bytes in section .text
+// 140 bytes in section .text
 // 
-// 186 bytes of CODE memory
+// 140 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

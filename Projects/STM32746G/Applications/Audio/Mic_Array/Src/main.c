@@ -49,6 +49,7 @@ uint8_t  pI2CData[20]= {0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160
 uint8_t  pI2CRx[10];
 uint16_t BufferTest[2*AUDIO_OUT_BUFFER_SIZE];
 uint16_t bufferSum[AUDIO_OUT_BUFFER_SIZE];
+uint32_t CrssCorVal78,CrssCorVal14,CrssCorVal25,CrssCorVal63;
 
 __IO uint16_t  WaveRec_idxSens4,WaveRec_idxSens3,I2S2_idxTmp;
 __IO uint16_t  WaveRec_idxSens1,WaveRec_idxSens2;
@@ -123,11 +124,11 @@ uint8_t StartPlay(void);
 inline static void FFT_Update(void)
 {
 
-      
+      PDM2PCMSDO78();      
       /* Hafl buffer is filled in by I2S data stream in */
       if((flgDlyUpd==0))
       {
-            PDM2PCMSDO78();
+            
             //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_15); 
             FactorUpd(&FacMic); 
             //STM_EVAL_LEDOn(LED3);
@@ -167,10 +168,10 @@ inline static void FFT_Update(void)
                     Delay_Sum_FFT(&Buffer3,&FacMic,(int16_t *)bufferSum, 512);
                     //FFT_SUM((int16_t *)buffer3, (int16_t * )buffer3_1,fbuffer, 1024);				 	   
 #else
-                    idxLatency78 = CrssCor(Buffer3.bufMIC7+AUDIO_OUT_BUFFER_SIZE/4, Buffer3.bufMIC8+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2);
-                    idxLatency14 = CrssCor(Buffer3.bufMIC1+AUDIO_OUT_BUFFER_SIZE/4, Buffer3.bufMIC4+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2);
-                    idxLatency25 = CrssCor(Buffer3.bufMIC5+AUDIO_OUT_BUFFER_SIZE/4, Buffer3.bufMIC2+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2);
-                    idxLatency63 = CrssCor(Buffer3.bufMIC6+AUDIO_OUT_BUFFER_SIZE/4, Buffer3.bufMIC3+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2);
+                    idxLatency78 = CrssCor(Buffer3.bufMIC7+AUDIO_OUT_BUFFER_SIZE/4, Buffer3.bufMIC8+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal78);
+                    idxLatency14 = CrssCor(Buffer3.bufMIC1+AUDIO_OUT_BUFFER_SIZE/4, Buffer3.bufMIC4+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal14);
+                    idxLatency25 = CrssCor(Buffer3.bufMIC5+AUDIO_OUT_BUFFER_SIZE/4, Buffer3.bufMIC2+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal25);
+                    idxLatency63 = CrssCor(Buffer3.bufMIC6+AUDIO_OUT_BUFFER_SIZE/4, Buffer3.bufMIC3+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal63);
                    
 
                     SumDelay(&Buffer3);
@@ -207,10 +208,10 @@ inline static void FFT_Update(void)
                   //idxLatency13 = CrssCor(Buffer1.bufMIC1, Buffer1.bufMIC3, AUDIO_OUT_BUFFER_SIZE/2); 
                   //idxLatency12 = CrssCor(Buffer1.bufMIC1, Buffer1.bufMIC2, AUDIO_OUT_BUFFER_SIZE/2);
 		
-                  idxLatency78 = CrssCor(Buffer1.bufMIC7+AUDIO_OUT_BUFFER_SIZE/4, Buffer1.bufMIC8+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2);	
-                  idxLatency14 = CrssCor(Buffer1.bufMIC1+AUDIO_OUT_BUFFER_SIZE/4, Buffer1.bufMIC4+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2);
-                  idxLatency25 = CrssCor(Buffer1.bufMIC5+AUDIO_OUT_BUFFER_SIZE/4, Buffer1.bufMIC2+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2);
-                  idxLatency63 = CrssCor(Buffer1.bufMIC6+AUDIO_OUT_BUFFER_SIZE/4, Buffer1.bufMIC3+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2);
+                  idxLatency78 = CrssCor(Buffer1.bufMIC7+AUDIO_OUT_BUFFER_SIZE/4, Buffer1.bufMIC8+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal78);	
+                  idxLatency14 = CrssCor(Buffer1.bufMIC1+AUDIO_OUT_BUFFER_SIZE/4, Buffer1.bufMIC4+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal14);
+                  idxLatency25 = CrssCor(Buffer1.bufMIC5+AUDIO_OUT_BUFFER_SIZE/4, Buffer1.bufMIC2+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal25);
+                  idxLatency63 = CrssCor(Buffer1.bufMIC6+AUDIO_OUT_BUFFER_SIZE/4, Buffer1.bufMIC3+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal63);
 
 
 
@@ -242,15 +243,15 @@ inline static void FFT_Update(void)
         //FFT_SUM((int16_t *)buffer2, (int16_t * )buffer2_1,fbuffer, 1024);				
 #else
 
-                                      //idxLatency13 = CrssCor(Buffer2.bufMIC1, Buffer2.bufMIC3, AUDIO_OUT_BUFFER_SIZE/2); 
-                                      //idxLatency12 = CrssCor(Buffer2.bufMIC1, Buffer2.bufMIC2, AUDIO_OUT_BUFFER_SIZE/2);
+          //idxLatency13 = CrssCor(Buffer2.bufMIC1, Buffer2.bufMIC3, AUDIO_OUT_BUFFER_SIZE/2); 
+          //idxLatency12 = CrssCor(Buffer2.bufMIC1, Buffer2.bufMIC2, AUDIO_OUT_BUFFER_SIZE/2);
 
-                                      idxLatency78 = CrssCor(Buffer2.bufMIC7+AUDIO_OUT_BUFFER_SIZE/4, Buffer2.bufMIC8+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2);
-                                      idxLatency14 = CrssCor(Buffer2.bufMIC1+AUDIO_OUT_BUFFER_SIZE/4, Buffer2.bufMIC4+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2);
-                                      idxLatency25 = CrssCor(Buffer2.bufMIC5+AUDIO_OUT_BUFFER_SIZE/4, Buffer2.bufMIC2+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2);
-                                      idxLatency63 = CrssCor(Buffer2.bufMIC6+AUDIO_OUT_BUFFER_SIZE/4, Buffer2.bufMIC3+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2);
+          idxLatency78 = CrssCor(Buffer2.bufMIC7+AUDIO_OUT_BUFFER_SIZE/4, Buffer2.bufMIC8+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal78);
+          idxLatency14 = CrssCor(Buffer2.bufMIC1+AUDIO_OUT_BUFFER_SIZE/4, Buffer2.bufMIC4+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal14);
+          idxLatency25 = CrssCor(Buffer2.bufMIC5+AUDIO_OUT_BUFFER_SIZE/4, Buffer2.bufMIC2+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal25);
+          idxLatency63 = CrssCor(Buffer2.bufMIC6+AUDIO_OUT_BUFFER_SIZE/4, Buffer2.bufMIC3+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal63);
 
-                                      SumDelay(&Buffer2);
+          SumDelay(&Buffer2);
 #endif
 					break;
 					
@@ -307,7 +308,9 @@ inline static void Audio_Play_Out(void)
 	/* if player is finished for curent buffer                                  */ 
 	if (++idxFrmPDMMic8 == AUDIO_OUT_BUFFER_SIZE/(AUDIO_SAMPLING_FREQUENCY/1000))
 	{
-	   RESET_IDX
+	       RESET_IDX
+		   //MIC7Rec();
+		   //MIC8Rec();
            WaveRec_idxTest=0;
            idxFrmPDMMic8=0;
             switch (buffer_switch)
@@ -486,113 +489,142 @@ int main(void)
 	         {
 	 
 #if (DEBUG)
-                   uint32_t tmpSNR;
-                   tmpSNR = (uint32_t)(EnergySound/EnergyError);
-                   
-                    if (tmpSNR>10)
+                   uint32_t tmpSNR63,tmpSNR14,tmpSNR78,tmpSNR25;
+                   tmpSNR78 = (uint32_t)(CrssCorVal78/EnergyError);
+                   tmpSNR25 = (uint32_t)(CrssCorVal25/EnergyError);
+				   tmpSNR14 = (uint32_t)(CrssCorVal14/EnergyError);
+				   tmpSNR63 = (uint32_t)(CrssCorVal63/EnergyError);
+                    //if (tmpSNR>10)
                     {
                         int16_t test[5];
                         static uint8_t flagNotMin;
                         test[0] = 0;
-                        test[1]= idxLatency63;
-                        test[2]= idxLatency14;
-                        test[3]= idxLatency25;
-			            test[4]= idxLatency78;                        
-                        {
-                             sprintf((char *)pUARTBuf,"%d:%d:%d:%d(%d)",idxLatency63,idxLatency14,idxLatency25,idxLatency78,tmpSNR);
-                             flagNotMin=0 ;
+						if (CrssCorVal63/EnergyError>10)						
+                            test[1]= idxLatency63;
+						else
+							test[1] = 0;
 
+						if (CrssCorVal14/EnergyError>10)
+                            test[2]= idxLatency14;
+						else
+							test[2] =0;
+
+						if (CrssCorVal25/EnergyError > 10)
+                            test[3]= idxLatency25;
+						else
+							test[3] = 0;
+
+                        if (CrssCorVal78/EnergyError>10)
+						    test[4]= idxLatency78;                        
+						else
+							test[4]= 2;
+
+						if (((tmpSNR63>10))||((tmpSNR14>10))||((tmpSNR25>10))||((tmpSNR78>10)))
+                        {
+                             sprintf((char *)pUARTBuf,"%d:%d:%d:%d",idxLatency63,idxLatency14,idxLatency25,idxLatency78);
+                             flagNotMin=0 ;
+                             
                               if (test[3]>0)
                               {
-                                 if((test[1]<=0)&&(test[4]<=0))
-                                 {
-                                      flagNotMin=1 ;
-                                      sprintf((char *)(pUARTBuf+15),"Close Mic 2\r\n");
-                                 }
+                                      sprintf((char *)(pUARTBuf+15),"Close Mic 5\r\n"); 
+									  flagNotMin=1;
                               }
-                              else if (test[3]<-2)
+                              else if (test[3]<0)
                               {
-                                  if((test[1]>1)&&(test[4]>1))
-                                  {
-                                    flagNotMin=1 ;
-                                    sprintf((char *)(pUARTBuf+15),"Clsoe Mic 5\r\n");
-                                  }
+                                    sprintf((char *)(pUARTBuf+15),"Clsoe Mic 2\r\n");
+									flagNotMin=1;
 
                               }
                               else
                               {
+                                   
                               }	
-							
-			    if (test[2]>2)
-                      	    {
-                      	       if((test[1]>=-1)&&(test[3]<=-3))
-                      	       {
-                                 flagNotMin=1 ;
-                                 sprintf((char *)(pUARTBuf+15),"Clsoe Mic 4\r\n");
-                      	       }
-                      	    }
-                            else if (test[2]<=-1)
-                            {
-                               if((test[1]<=-2)&&(test[3]>=0))
-                      	       {
-                                     flagNotMin=1 ;
-                                     sprintf((char *)(pUARTBuf+15),"Clsoe Mic 1\r\n");
-                               }
-                            }
-                            else
-                            {
 
-                            }
+						
+				                if (test[2]>0)
+		                  	    {
+		                  	       if((CrssCorVal14>CrssCorVal25)||(flagNotMin==0))
+		                  	       {
+		                             sprintf((char *)(pUARTBuf+15),"Clsoe Mic 4\r\n");
+									 flagNotMin=2;
+		                  	       }
+		                  	    }
+		                        else if (test[2]<0)
+		                        {
+		                            if((CrssCorVal14>CrssCorVal25)||(flagNotMin==0))
+		                            {
+		                              sprintf((char *)(pUARTBuf+15),"Clsoe Mic 1\r\n");                             
+									  flagNotMin=2;
+		                            }
+		                        }
+		                        else
+		                        {
+
+		                        }
 
 						   
-                            if (test[1]>=0)
-                      	    {
-                      	       if((test[2]>1)&&(test[4]<= 0))
-                      	       {
-                                 flagNotMin=1 ;
-                                 sprintf((char *)(pUARTBuf+15),"Clsoe Mic 3\r\n");
-                      	       }
+		                        if (test[1]>0)
+		                  	    {
+		                  	       if((((CrssCorVal63>CrssCorVal25)&&(flagNotMin==1))||(flagNotMin==0))||((CrssCorVal63>CrssCorVal14)&&(flagNotMin==2)))
+		                  	       {
+								     sprintf((char *)(pUARTBuf+15),"Clsoe Mic 3\r\n");
+								     flagNotMin=3;
+		                  	       }
+		                  	    }
+		                        else if (test[1]<0)
+		                        {
+		                             if((((CrssCorVal63>CrssCorVal25)&&(flagNotMin==1))||(flagNotMin==0))||((CrssCorVal63>CrssCorVal14)&&(flagNotMin==2)))
+		                             {
+		                               sprintf((char *)(pUARTBuf+15),"Clsoe Mic 6\r\n"); 
+									   flagNotMin=3;
+		                             }
+		                        }
+		                        else
+		                        {
 
-                      	    }
-                            else if (test[1]<=-3)
-                            {
-                               if((test[2]<=0)&&(test[4]>=2))
-                      	       {
-                                   flagNotMin=1 ;
-                                   sprintf((char *)(pUARTBuf+15),"Clsoe Mic 6\r\n");
-                               }
-
-                            }
-                            else
-                            {
-
-                            }
+		                        }
 
 
-                            if ((test[4]<=-1))
-                            {
-                                if ((test[1]>=-1)&&(test[3]>-0))
-                                {
-                                  sprintf((char *)(pUARTBuf+15),"Clsoe Mic 7\r\n");
-                                  flagNotMin=1 ;
-                               	}
-                            }
-                          else if (test[4]>=3)
-                          {
-                              if ((test[1]<-1)&&(test[3]<-2))
-                             {
-                                  sprintf((char *)(pUARTBuf+15),"Clsoe Mic 8\r\n");
-                                  flagNotMin=1 ;
-                             }
+	                            if ((test[4]>3))
+	                            {
+	                                if ((flagNotMin==0))                                     
+	                                    sprintf((char *)(pUARTBuf+15),"Clsoe Mic 7\r\n");
+								    else if ((flagNotMin==1))
+										if (CrssCorVal78>CrssCorVal25)
+											sprintf((char *)(pUARTBuf+15),"Clsoe Mic 7\r\n");
+								    else if ((flagNotMin==2))
+										if (CrssCorVal78>CrssCorVal14)
+											sprintf((char *)(pUARTBuf+15),"Clsoe Mic 7\r\n");	
+								    else if ((flagNotMin==3))
+										if (CrssCorVal78>CrssCorVal63)
+											sprintf((char *)(pUARTBuf+15),"Clsoe Mic 7\r\n");
+									else
+										;
+									
+	                            }
+	                            else if (test<=0)
+	                            {
+	                                if ((flagNotMin==0))                                     
+	                                    sprintf((char *)(pUARTBuf+15),"Clsoe Mic 8\r\n");
+								    else if ((flagNotMin==1))
+										if (CrssCorVal78>CrssCorVal25)
+											sprintf((char *)(pUARTBuf+15),"Clsoe Mic 8\r\n");
+								    else if ((flagNotMin==2))
+										if (CrssCorVal78>CrssCorVal14)
+											sprintf((char *)(pUARTBuf+15),"Clsoe Mic 8\r\n");	
+								    else if ((flagNotMin==3))
+										if (CrssCorVal78>CrssCorVal63)
+											sprintf((char *)(pUARTBuf+15),"Clsoe Mic 8\r\n");
+									else
+										;
+									
+	                            }                          
+	                            else
+	                            {
+	                            }
 
-                          }
-                          else
-                          {
 
-                          }
-
-
-			  if (flagNotMin==0) sprintf((char *)(pUARTBuf+15),"----------- \r\n");
+			  //if (flagNotMin==0) sprintf((char *)(pUARTBuf+15),"----------- \r\n");
 									
                           //HAL_UART_Transmit_IT(&huart3,pUARTBuf,15);
                           SrvB_Debound(&flgS2Ins,&flgS2Flt, flgS2,2);
@@ -600,46 +632,9 @@ int main(void)
                           SrvB_Debound(&flgS4Ins,&flgS4Flt, flgS4,2);
 
                           stDir = (flgS2Flt<<2)|(flgS3Flt<<1)|(flgS4Flt); 
-                           switch (8)
-                           {
-                               case 0:
-                                        sprintf((char *)(pUARTBuf+15),"Direction 0 \r\n");
-                                                 
-                                    break;
-                               case 1:
-                                        sprintf((char *)(pUARTBuf+15),"Direction 1 \r\n");
-                                        
-                                    break;
-                               case 2:
-                                        sprintf((char *)(pUARTBuf+15),"Direction 2 \r\n");
-                                         
-                                    break;
-                                        
-                               case 3:
-                                        sprintf((char *)(pUARTBuf+15),"Direction 3 \r\n");
-                                 
-                                    break;
-                               case 4:
-                                        sprintf((char *)(pUARTBuf+15),"Direction 4 \r\n");
-                                                 
-                                    break;
-                                case 5:
-                                        sprintf((char *)(pUARTBuf+15),"Direction 5 \r\n");
-                                         
-                                    break;
-                                case 6:
-                                        sprintf((char *)(pUARTBuf+15),"Direction 6 \r\n");
-                                 
-                                    break;
-                                case 7:
-                                        sprintf((char *)(pUARTBuf+15),"Direction 7 \r\n");
-                                         
-                                    break;
-                                 default:
-                                    break;
-                           }
-
-                           HAL_UART_Transmit_IT(&huart3,pUARTBuf,15+15);		
+                         
+                           sprintf((char *)(pUARTBuf+30),"%d:%d:%d:%d",tmpSNR63,tmpSNR14,tmpSNR25,tmpSNR78);
+                           HAL_UART_Transmit_IT(&huart3,pUARTBuf,15+15+15);		
                          }
                     }//if(SNR)
 
