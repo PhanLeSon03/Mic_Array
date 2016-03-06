@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      07/Mar/2016  01:51:55
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      07/Mar/2016  02:22:26
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -77,7 +77,6 @@
         EXTERN Buffer1
         EXTERN Buffer2
         EXTERN Buffer3
-        EXTERN EnergyError
         EXTERN EnergyNoiseCalc
         EXTERN FactorUpd
         EXTERN GCC_PHAT
@@ -902,7 +901,7 @@ main:
         BL       BSP_LED_Init
 //  378   BSP_LED_Init(LED2);
         MOVS     R0,#+1
-        ADD      R7,SP,#+32
+        ADD      R7,SP,#+16
           CFI FunCall BSP_LED_Init
         BL       BSP_LED_Init
 //  379 
@@ -1096,8 +1095,8 @@ main:
 //  462     StartPlay();
           CFI FunCall StartPlay
         BL       StartPlay
-        ADD      R0,SP,#+32
-        STR      R0,[SP, #+28]
+        ADD      R0,SP,#+16
+        STR      R0,[SP, #+12]
         ADDW     R0,R4,#+2700
         STR      R0,[SP, #+8]
         B.N      ??main_2
@@ -1148,27 +1147,27 @@ main:
 //  507                         int16_t test[5];
 //  508                         static uint8_t flagNotMin;
 //  509                         test[0] = 0;
-//  510 						if (CrssCorVal63/EnergyError>10)						
+//  510 						if (CrssCorVal63>10)						
 //  511                             test[1]= idxLatency63;
 //  512 						else
 //  513 							test[1] = 0;
 //  514 
-//  515 						if (CrssCorVal14/EnergyError>10)
+//  515 						if (CrssCorVal14>10)
 //  516                             test[2]= idxLatency14;
 //  517 						else
 //  518 							test[2] =0;
 //  519 
-//  520 						if (CrssCorVal25/EnergyError > 10)
+//  520 						if (CrssCorVal25 > 10)
 //  521                             test[3]= idxLatency25;
 //  522 						else
 //  523 							test[3] = 0;
 //  524 
-//  525                         if (CrssCorVal78/EnergyError>10)
+//  525                         if (CrssCorVal78>10)
 //  526 						    test[4]= idxLatency78;                        
 //  527 						else
 //  528 							test[4]= 2;
 //  529 
-//  530 						//if (((tmpSNR63>10))||((tmpSNR14>10))||((tmpSNR25>10))||((tmpSNR78>10)))
+//  530 						if (((CrssCorVal63>10))||((CrssCorVal14>10))||((CrssCorVal25>10))||((CrssCorVal78>10)))
 //  531                         {
 ??main_3:
         MOVS     R0,#+0
@@ -1292,18 +1291,18 @@ main:
         LDRB     R1,[R4, #+9]
         LDRB     R0,[R4, #+8]
 //  643                          
-//  644                            sprintf((char *)(pUARTBuf+30),"%d:%d:%d:%d\n\r\n\r",tmpSNR63,tmpSNR14,tmpSNR25,tmpSNR78);
-        LDR      R3,[SP, #+16]
-        LDR      R2,[SP, #+12]
+//  644                            sprintf((char *)(pUARTBuf+30),"%d:%d:%d:%d\n\r\n\r",CrssCorVal63,CrssCorVal14,CrssCorVal25,CrssCorVal78);
+        LDR      R3,[R4, #+92]
+        LDR      R2,[R4, #+100]
         LSLS     R1,R1,#+1
         ORR      R0,R1,R0, LSL #+2
         LDRB     R1,[R4, #+10]
         ORRS     R0,R1,R0
         ADR.W    R1,?_10
         STRB     R0,[R4, #+4]
-        LDR      R0,[SP, #+24]
+        LDR      R0,[R4, #+88]
         STR      R0,[SP, #+4]
-        LDR      R0,[SP, #+20]
+        LDR      R0,[R4, #+96]
         STR      R0,[SP, #+0]
         ADDW     R0,R4,#+2730
           CFI FunCall sprintf
@@ -1319,35 +1318,36 @@ main:
 //  648 
 //  649 #endif
 //  650 	   	            cntTime200=0;
+??main_5:
         MOVS     R0,#+0
         STRH     R0,[R4, #+40]
 ??main_2:
         LDR.W    R0,??DataTable25_17
         LDRH     R0,[R0, #+0]
         CMP      R0,#+5
-        BLT.N    ??main_5
+        BLT.N    ??main_6
         LDRB     R0,[R10, #+0]
         CMP      R0,#+200
-        BGE.N    ??main_5
+        BGE.N    ??main_6
         MOVS     R1,#+0
-??main_6:
+??main_7:
         LDRSH    R2,[R9, #+0]
         ASRS     R2,R2,R1
         LSLS     R2,R2,#+31
-        BPL.N    ??main_7
+        BPL.N    ??main_8
         LDRB     R3,[R8, #+0]
         ADDS     R2,R1,#+1
         CMP      R2,R3
         IT       LT 
         LDRBLT   R2,[R8, #+0]
         STRB     R2,[R8, #+0]
-??main_7:
+??main_8:
         ADDS     R1,R1,#+1
         CMP      R1,#+16
-        BLT.N    ??main_6
+        BLT.N    ??main_7
         ADDS     R0,R0,#+1
         STRB     R0,[R10, #+0]
-??main_5:
+??main_6:
           CFI FunCall FFT_Update
         BL       FFT_Update
         LDRB     R0,[R4, #+2]
@@ -1361,48 +1361,47 @@ main:
         UXTH     R0,R0
         CMP      R0,#+40
         BNE.N    ??main_2
-        LDR.W    R0,??DataTable25_18
-        LDR      R1,[R4, #+96]
-        LDR      R2,[R4, #+92]
-        LDR      R12,[R4, #+100]
-        LDR      R3,[R0, #+0]
-        LDR      R0,[R4, #+88]
-        MOV      LR,#+0
-        UDIV     R0,R0,R3
-        UDIV     R1,R1,R3
-        UDIV     R2,R2,R3
-        UDIV     R3,R12,R3
-        CMP      R3,#+11
-        STR      R0,[SP, #+24]
-        STR      R1,[SP, #+20]
-        STR      R2,[SP, #+16]
-        STR      R3,[SP, #+12]
-        STRH     LR,[SP, #+32]
-        ITTE     CS 
-        LDRHCS   R3,[R4, #+36]
-        STRHCS   R3,[R7, #+2]
-        STRHCC   LR,[R7, #+2]
-        CMP      R2,#+11
-        ITTE     CS 
-        LDRHCS   R2,[R4, #+32]
-        STRHCS   R2,[R7, #+4]
-        STRHCC   LR,[R7, #+4]
-        CMP      R1,#+11
-        ITTE     CS 
-        LDRHCS   R1,[R4, #+34]
-        STRHCS   R1,[R7, #+6]
-        STRHCC   LR,[R7, #+6]
-        LDRSH    R1,[R4, #+38]
+        MOVS     R0,#+0
+        STRH     R0,[SP, #+16]
+        LDR      R0,[R4, #+100]
         CMP      R0,#+11
-        ITEE     CS 
-        STRHCS   R1,[R7, #+8]
-        MOVCC    R0,#+2
-        STRHCC   R0,[R7, #+8]
-        LDRSH    R0,[R4, #+34]
+        ITE      CS 
+        LDRHCS   R1,[R4, #+36]
+        MOVCC    R1,#+0
+        STRH     R1,[R7, #+2]
+        LDR      R1,[R4, #+92]
+        CMP      R1,#+11
+        ITE      CS 
+        LDRHCS   R2,[R4, #+32]
+        MOVCC    R2,#+0
+        STRH     R2,[R7, #+4]
+        LDR      R2,[R4, #+96]
+        CMP      R2,#+11
+        ITE      CS 
+        LDRHCS   R3,[R4, #+34]
+        MOVCC    R3,#+0
+        STRH     R3,[R7, #+6]
+        LDR      R3,[R4, #+88]
+        CMP      R3,#+11
+        ITE      CS 
+        LDRHCS   R12,[R4, #+38]
+        MOVCC    R12,#+2
+        CMP      R0,#+11
+        STRH     R12,[R7, #+8]
+        IT       CC 
+        CMPCC    R1,#+11
+        BCS.N    ??main_9
+        CMP      R2,#+11
+        IT       CC 
+        CMPCC    R3,#+11
+        BCC.N    ??main_5
+??main_9:
+        LDRSH    R0,[R4, #+38]
         LDRSH    R3,[R4, #+32]
         LDRSH    R2,[R4, #+36]
-        STR      R1,[SP, #+4]
         ADR.W    R1,?_0
+        STR      R0,[SP, #+4]
+        LDRSH    R0,[R4, #+34]
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+8]
           CFI FunCall sprintf
@@ -1417,139 +1416,139 @@ main:
         CMP      R0,#+1
         IT       GE 
         ADRGE.W  R1,?_2
-        BGE.N    ??main_8
+        BGE.N    ??main_10
         CMP      R0,#+0
-        BPL.N    ??main_9
+        BPL.N    ??main_11
         ADR.W    R1,?_3
-??main_8:
+??main_10:
         MOV      R0,R11
           CFI FunCall sprintf
         BL       sprintf
         MOVS     R0,#+1
         STRB     R0,[R4, #+14]
-??main_9:
+??main_11:
         LDRSH    R0,[R7, #+4]
         CMP      R0,#+1
-        BLT.N    ??main_10
+        BLT.N    ??main_12
         LDR      R0,[R4, #+96]
         LDR      R1,[R4, #+92]
         CMP      R0,R1
-        BCC.N    ??main_11
+        BCC.N    ??main_13
         LDRB     R0,[R4, #+14]
-        CBNZ.N   R0,??main_12
-??main_11:
-        ADR.W    R1,?_4
-        B.N      ??main_13
-??main_10:
-        CMP      R0,#+0
-        BPL.N    ??main_12
-        LDR      R0,[R4, #+96]
-        LDR      R1,[R4, #+92]
-        CMP      R0,R1
-        BCC.N    ??main_14
-        LDRB     R0,[R4, #+14]
-        CBNZ.N   R0,??main_12
-??main_14:
-        ADR.W    R1,?_5
+        CBNZ.N   R0,??main_14
 ??main_13:
+        ADR.W    R1,?_4
+        B.N      ??main_15
+??main_12:
+        CMP      R0,#+0
+        BPL.N    ??main_14
+        LDR      R0,[R4, #+96]
+        LDR      R1,[R4, #+92]
+        CMP      R0,R1
+        BCC.N    ??main_16
+        LDRB     R0,[R4, #+14]
+        CBNZ.N   R0,??main_14
+??main_16:
+        ADR.W    R1,?_5
+??main_15:
         MOV      R0,R11
           CFI FunCall sprintf
         BL       sprintf
         MOVS     R0,#+2
         STRB     R0,[R4, #+14]
-??main_12:
+??main_14:
         LDRSH    R0,[R7, #+2]
         CMP      R0,#+1
-        BLT.N    ??main_15
+        BLT.N    ??main_17
         LDR      R1,[R4, #+100]
         LDR      R2,[R4, #+96]
         LDRB     R0,[R4, #+14]
-        CMP      R2,R1
-        BCS.N    ??main_16
-        CMP      R0,#+1
-        BEQ.N    ??main_17
-??main_16:
-        CBZ.N    R0,??main_17
-        LDR      R2,[R4, #+92]
         CMP      R2,R1
         BCS.N    ??main_18
-        CMP      R0,#+2
-        BNE.N    ??main_18
-??main_17:
-        ADR.W    R1,?_6
-        B.N      ??main_19
-??main_15:
-        CMP      R0,#+0
-        BPL.N    ??main_18
-        LDR      R1,[R4, #+100]
-        LDR      R2,[R4, #+96]
-        LDRB     R0,[R4, #+14]
+        CMP      R0,#+1
+        BEQ.N    ??main_19
+??main_18:
+        CBZ.N    R0,??main_19
+        LDR      R2,[R4, #+92]
         CMP      R2,R1
         BCS.N    ??main_20
+        CMP      R0,#+2
+        BNE.N    ??main_20
+??main_19:
+        ADR.W    R1,?_6
+        B.N      ??main_21
+??main_17:
+        CMP      R0,#+0
+        BPL.N    ??main_20
+        LDR      R1,[R4, #+100]
+        LDR      R2,[R4, #+96]
+        LDRB     R0,[R4, #+14]
+        CMP      R2,R1
+        BCS.N    ??main_22
         CMP      R0,#+1
-        BEQ.N    ??main_21
-??main_20:
-        CBZ.N    R0,??main_21
+        BEQ.N    ??main_23
+??main_22:
+        CBZ.N    R0,??main_23
         LDR      R2,[R4, #+92]
         CMP      R2,R1
-        BCS.N    ??main_18
+        BCS.N    ??main_20
         CMP      R0,#+2
-        BNE.N    ??main_18
-??main_21:
+        BNE.N    ??main_20
+??main_23:
         ADR.W    R1,?_7
-??main_19:
+??main_21:
         MOV      R0,R11
           CFI FunCall sprintf
         BL       sprintf
         MOVS     R0,#+3
         STRB     R0,[R4, #+14]
-??main_18:
+??main_20:
         LDRSH    R0,[R7, #+8]
         CMP      R0,#+4
-        BLT.N    ??main_22
+        BLT.N    ??main_24
         LDRB     R0,[R4, #+14]
-        CBNZ.N   R0,??main_23
-        MOV      R1,R6
-        B.N      ??main_24
-??main_23:
-        CMP      R0,#+1
-        BNE.N    ??main_25
-        LDR      R0,[R4, #+96]
-        LDR      R1,[R4, #+88]
-        CMP      R0,R1
-        BCS.N    ??main_25
-        MOV      R1,R6
-        B.N      ??main_24
-??main_22:
-        LDR      R0,[SP, #+28]
         CBNZ.N   R0,??main_25
-        LDRB     R0,[R4, #+14]
-        CBZ.N    R0,??main_26
+        MOV      R1,R6
+        B.N      ??main_26
+??main_25:
         CMP      R0,#+1
-        BNE.N    ??main_25
+        BNE.N    ??main_27
         LDR      R0,[R4, #+96]
         LDR      R1,[R4, #+88]
         CMP      R0,R1
-        BCS.N    ??main_25
-??main_26:
-        MOV      R1,R5
+        BCS.N    ??main_27
+        MOV      R1,R6
+        B.N      ??main_26
 ??main_24:
+        LDR      R0,[SP, #+12]
+        CBNZ.N   R0,??main_27
+        LDRB     R0,[R4, #+14]
+        CBZ.N    R0,??main_28
+        CMP      R0,#+1
+        BNE.N    ??main_27
+        LDR      R0,[R4, #+96]
+        LDR      R1,[R4, #+88]
+        CMP      R0,R1
+        BCS.N    ??main_27
+??main_28:
+        MOV      R1,R5
+??main_26:
         MOV      R0,R11
           CFI FunCall sprintf
         BL       sprintf
-??main_25:
+??main_27:
         LDRB     R0,[R4, #+5]
         LDRB     R1,[R4, #+8]
         CMP      R0,R1
-        BEQ.N    ??main_27
+        BEQ.N    ??main_29
         LDRB     R1,[R4, #+11]
         CMP      R1,#+255
-        BEQ.N    ??main_28
+        BEQ.N    ??main_30
         ADDS     R1,R1,#+1
-        B.N      ??main_28
-??main_27:
+        B.N      ??main_30
+??main_29:
         MOVS     R1,#+0
-??main_28:
+??main_30:
         STRB     R1,[R4, #+11]
         LDRB     R1,[R4, #+11]
         CMP      R1,#+3
@@ -1558,15 +1557,15 @@ main:
         LDRB     R0,[R4, #+6]
         LDRB     R1,[R4, #+9]
         CMP      R0,R1
-        BEQ.N    ??main_29
+        BEQ.N    ??main_31
         LDRB     R1,[R4, #+12]
         CMP      R1,#+255
-        BEQ.N    ??main_30
+        BEQ.N    ??main_32
         ADDS     R1,R1,#+1
-        B.N      ??main_30
-??main_29:
+        B.N      ??main_32
+??main_31:
         MOVS     R1,#+0
-??main_30:
+??main_32:
         STRB     R1,[R4, #+12]
         LDRB     R1,[R4, #+12]
         CMP      R1,#+3
@@ -1867,7 +1866,7 @@ Command_index:
 //  664 
 //  665   if (ticks++ > 200)
 Toggle_Leds:
-        LDR.W    R0,??DataTable25_19
+        LDR.W    R0,??DataTable25_18
         LDR      R1,[R0, #+0]
         ADDS     R2,R1,#+1
         CMP      R1,#+201
@@ -2063,7 +2062,7 @@ SystemClock_Config:
 //  783   
 //  784  //sop1hc 344/7 = 49.142 MHz
 //  785   PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SAI2|RCC_PERIPHCLK_I2S;
-        LDR.W    R0,??DataTable25_20  ;; 0x100001
+        LDR.W    R0,??DataTable25_19  ;; 0x100001
 //  786   PeriphClkInitStruct.Sai2ClockSelection = RCC_SAI2CLKSOURCE_PLLI2S;
         STR      R4,[SP, #+84]
         STR      R0,[SP, #+20]
@@ -2253,7 +2252,7 @@ HAL_I2C_MspInit:
 //  885     
 //  886   if(hi2c->Instance==I2C1)
         LDR      R0,[R0, #+0]
-        LDR.W    R1,??DataTable25_21  ;; 0x40005400
+        LDR.W    R1,??DataTable25_20  ;; 0x40005400
         CMP      R0,R1
         BNE.N    ??HAL_I2C_MspInit_0
 //  887   {
@@ -2297,7 +2296,7 @@ HAL_I2C_MspInit:
         STR      R0,[SP, #+16]
         MOVS     R0,#+4
         STR      R0,[SP, #+20]
-        LDR.W    R0,??DataTable25_22  ;; 0x40020400
+        LDR.W    R0,??DataTable25_21  ;; 0x40020400
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 //  909 
@@ -2355,7 +2354,7 @@ HAL_I2C_MspInit:
         POP      {R4,PC}
           CFI CFA R13+32
 ??HAL_I2C_MspInit_0:
-        LDR.W    R1,??DataTable25_23  ;; 0x40005800
+        LDR.W    R1,??DataTable25_22  ;; 0x40005800
         CMP      R0,R1
         BNE.N    ??HAL_I2C_MspInit_1
         LDR.W    R4,??DataTable25_6  ;; 0x40023830
@@ -2377,7 +2376,7 @@ HAL_I2C_MspInit:
         STR      R0,[SP, #+16]
         MOVS     R0,#+4
         STR      R0,[SP, #+20]
-        LDR.W    R0,??DataTable25_22  ;; 0x40020400
+        LDR.W    R0,??DataTable25_21  ;; 0x40020400
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
         LDR      R0,[R4, #+16]
@@ -2407,7 +2406,7 @@ HAL_I2C_MspInit:
 //  951   huart3.Instance = USART3;
 USART3_Init:
         LDR.W    R0,??DataTable25_16
-        LDR.W    R1,??DataTable25_24  ;; 0x40004800
+        LDR.W    R1,??DataTable25_23  ;; 0x40004800
         STR      R1,[R0, #+0]
 //  952   huart3.Init.BaudRate = 115200;
         MOV      R1,#+115200
@@ -2454,7 +2453,7 @@ USART3_Init:
 //  973   if(huart->Instance==USART3)
 HAL_UART_MspInit:
         LDR      R0,[R0, #+0]
-        LDR.W    R1,??DataTable25_24  ;; 0x40004800
+        LDR.W    R1,??DataTable25_23  ;; 0x40004800
         CMP      R0,R1
         BEQ.N    ??HAL_UART_MspInit_0
         BX       LR
@@ -2508,7 +2507,7 @@ HAL_UART_MspInit:
         STR      R0,[SP, #+16]
         MOVS     R0,#+7
         STR      R0,[SP, #+20]
-        LDR.W    R0,??DataTable25_25  ;; 0x40020800
+        LDR.W    R0,??DataTable25_24  ;; 0x40020800
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 //  992 
@@ -2548,14 +2547,14 @@ EXTI4_IRQHandler:
           CFI CFA R13+8
 // 1005     /* EXTI line interrupt detected */
 // 1006   if(__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_4) != RESET)
-        LDR.N    R4,??DataTable25_26  ;; 0x40013c14
+        LDR.N    R4,??DataTable25_25  ;; 0x40013c14
         LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+27
         BPL.N    ??EXTI4_IRQHandler_0
 // 1007   {
 // 1008     
 // 1009      if (cntRisingEXTI==20)
-        LDR.N    R0,??DataTable25_27
+        LDR.N    R0,??DataTable25_26
         LDRH     R1,[R0, #+0]
         CMP      R1,#+20
         BNE.N    ??EXTI4_IRQHandler_1
@@ -2628,13 +2627,13 @@ EXTI9_5_IRQHandler:
 // 1041 
 // 1042   /* EXTI line interrupt detected */
 // 1043   if(__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_8) != RESET)
-        LDR.N    R4,??DataTable25_26  ;; 0x40013c14
+        LDR.N    R4,??DataTable25_25  ;; 0x40013c14
         LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+23
         BPL.N    ??EXTI9_5_IRQHandler_0
 // 1044   {
 // 1045 	  btnSW2 = 1;
-        LDR.N    R0,??DataTable25_28
+        LDR.N    R0,??DataTable25_27
         MOVS     R1,#+1
         STRB     R1,[R0, #+1]
 // 1046 	  if ((++cntBtnPress)==8) cntBtnPress=0;
@@ -2665,7 +2664,7 @@ EXTI9_5_IRQHandler:
         BPL.N    ??EXTI9_5_IRQHandler_1
 // 1055   {
 // 1056 		btnSW1 = 1;
-        LDR.N    R0,??DataTable25_28
+        LDR.N    R0,??DataTable25_27
         MOVS     R1,#+1
         STRB     R1,[R0, #+0]
 // 1057 		Command_index^=0x01;
@@ -2709,7 +2708,7 @@ DFT_Init:
 // 1072 		/* Initialize the CFFT/CIFFT module */
 // 1073 		arm_rfft_init_f32(&S,&SS, 512,  0, 1);
         MOVS     R0,#+1
-        LDR.N    R4,??DataTable25_29
+        LDR.N    R4,??DataTable25_28
         STR      R0,[SP, #+0]
         MOVS     R3,#+0
         MOV      R2,#+512
@@ -2827,7 +2826,7 @@ SumDelay:
 // 1121 	
 // 1122 	for(uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
         MOVS     R1,#+0
-        LDR.N    R3,??DataTable25_30
+        LDR.N    R3,??DataTable25_29
         ADD      R4,R3,#+2048
         LDR.W    R8,??DataTable25
         LDRSH    R2,[R4, #+2]
@@ -2950,7 +2949,7 @@ ButtonInit:
         STR      R1,[R0, #+56]
 // 1150 	HAL_GPIO_Init(GPIOI,&GPIO_INS);
         ADD      R1,R0,#+44
-        LDR.N    R0,??DataTable25_31  ;; 0x40022000
+        LDR.N    R0,??DataTable25_30  ;; 0x40022000
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 // 1151 	
@@ -2984,17 +2983,17 @@ ButtonInit:
 // 1162 {
 // 1163    __HAL_I2C_DISABLE(&hi2c2);
 MX_I2C2_Init:
-        LDR.N    R0,??DataTable25_32
+        LDR.N    R0,??DataTable25_31
         LDR      R1,[R0, #+0]
         LDR      R2,[R1, #+0]
         LSRS     R2,R2,#+1
         LSLS     R2,R2,#+1
         STR      R2,[R1, #+0]
 // 1164   hi2c2.Instance = I2C2;
-        LDR.N    R1,??DataTable25_23  ;; 0x40005800
+        LDR.N    R1,??DataTable25_22  ;; 0x40005800
         STR      R1,[R0, #+0]
 // 1165   hi2c2.Init.Timing =0x00A0689A ;//I2C_TIMING  0x00303D5D 0x00A0689A
-        LDR.N    R1,??DataTable25_33  ;; 0xa0689a
+        LDR.N    R1,??DataTable25_32  ;; 0xa0689a
         STR      R1,[R0, #+4]
 // 1166   hi2c2.Init.OwnAddress1 = 0;
         MOVS     R1,#+0
@@ -3039,7 +3038,7 @@ HAL_I2S_TxCpltCallback:
           CFI CFA R13+16
 // 1183   Audio_Play_Out();  
         LDR.N    R5,??DataTable25
-        LDR.N    R4,??DataTable25_34
+        LDR.N    R4,??DataTable25_33
         LDRB     R0,[R5, #+3]
         CBZ.N    R0,??HAL_I2S_TxCpltCallback_0
         CMP      R0,#+2
@@ -3075,7 +3074,7 @@ HAL_I2S_TxCpltCallback:
         CMP      R0,#+64
         BNE.N    ??HAL_I2S_TxCpltCallback_5
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable25_35
+        LDR.N    R1,??DataTable25_34
         STRH     R0,[R5, #+22]
         STRH     R0,[R5, #+24]
         STRH     R0,[R5, #+30]
@@ -3307,108 +3306,102 @@ StartPlay:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable25_18:
-        DC32     EnergyError
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable25_19:
         DC32     ??ticks
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable25_20:
+??DataTable25_19:
         DC32     0x100001
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable25_21:
+??DataTable25_20:
         DC32     0x40005400
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable25_22:
+??DataTable25_21:
         DC32     0x40020400
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable25_23:
+??DataTable25_22:
         DC32     0x40005800
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable25_24:
+??DataTable25_23:
         DC32     0x40004800
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable25_25:
+??DataTable25_24:
         DC32     0x40020800
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable25_26:
+??DataTable25_25:
         DC32     0x40013c14
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable25_27:
+??DataTable25_26:
         DC32     cntRisingEXTI
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable25_28:
+??DataTable25_27:
         DC32     btnSW1
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable25_29:
+??DataTable25_28:
         DC32     SS
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable25_30:
+??DataTable25_29:
         DC32     bufferSum
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable25_31:
+??DataTable25_30:
         DC32     0x40022000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable25_32:
+??DataTable25_31:
         DC32     hi2c2
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable25_33:
+??DataTable25_32:
         DC32     0xa0689a
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable25_34:
+??DataTable25_33:
         DC32     idxFrmPDMMic8
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable25_35:
+??DataTable25_34:
         DC32     WaveRec_idxTest
 
         SECTION `.text`:CODE:NOROOT(2)
@@ -3503,10 +3496,10 @@ StartPlay:
 // 
 // 8 373 bytes in section .bss
 // 2 852 bytes in section .data
-// 2 968 bytes in section .text
+// 2 946 bytes in section .text
 // 
-//  2 968 bytes of CODE memory
+//  2 946 bytes of CODE memory
 // 11 225 bytes of DATA memory
 //
 //Errors: none
-//Warnings: 1
+//Warnings: 5

@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       07/Mar/2016  01:51:55
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       07/Mar/2016  02:22:26
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -654,7 +654,7 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
    \   000000AE   0x.... 0x....      BL       BSP_LED_Init
     378            BSP_LED_Init(LED2);
    \   000000B2   0x2001             MOVS     R0,#+1
-   \   000000B4   0xAF08             ADD      R7,SP,#+32
+   \   000000B4   0xAF04             ADD      R7,SP,#+16
    \   000000B6   0x.... 0x....      BL       BSP_LED_Init
     379          
     380            /* Button Initialization */
@@ -825,8 +825,8 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
     461              //Precalculation(Coef,PreCalcBuff);
     462              StartPlay();
    \   000001BE   0x.... 0x....      BL       StartPlay
-   \   000001C2   0xA808             ADD      R0,SP,#+32
-   \   000001C4   0x9007             STR      R0,[SP, #+28]
+   \   000001C2   0xA804             ADD      R0,SP,#+16
+   \   000001C4   0x9003             STR      R0,[SP, #+12]
    \   000001C6   0xF604 0x208C      ADDW     R0,R4,#+2700
    \   000001CA   0x9002             STR      R0,[SP, #+8]
    \   000001CC   0xE021             B.N      ??main_2
@@ -868,6 +868,23 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
     498          	 
     499          #if (DEBUG)
     500                             uint32_t tmpSNR63,tmpSNR14,tmpSNR78,tmpSNR25;
+                                             ^
+Warning[Pe550]: variable "tmpSNR63" was set but never used
+
+                     uint32_t tmpSNR63,tmpSNR14,tmpSNR78,tmpSNR25;
+                                       ^
+"H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\main.c",500  Warning[Pe550]: 
+          variable "tmpSNR14" was set but never used
+
+                     uint32_t tmpSNR63,tmpSNR14,tmpSNR78,tmpSNR25;
+                                                ^
+"H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\main.c",500  Warning[Pe550]: 
+          variable "tmpSNR78" was set but never used
+
+                     uint32_t tmpSNR63,tmpSNR14,tmpSNR78,tmpSNR25;
+                                                         ^
+"H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\main.c",500  Warning[Pe550]: 
+          variable "tmpSNR25" was set but never used
     501                             tmpSNR78 = (uint32_t)(CrssCorVal78/EnergyError);
     502                             tmpSNR25 = (uint32_t)(CrssCorVal25/EnergyError);
     503          				   tmpSNR14 = (uint32_t)(CrssCorVal14/EnergyError);
@@ -877,27 +894,27 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
     507                                  int16_t test[5];
     508                                  static uint8_t flagNotMin;
     509                                  test[0] = 0;
-    510          						if (CrssCorVal63/EnergyError>10)						
+    510          						if (CrssCorVal63>10)						
     511                                      test[1]= idxLatency63;
     512          						else
     513          							test[1] = 0;
     514          
-    515          						if (CrssCorVal14/EnergyError>10)
+    515          						if (CrssCorVal14>10)
     516                                      test[2]= idxLatency14;
     517          						else
     518          							test[2] =0;
     519          
-    520          						if (CrssCorVal25/EnergyError > 10)
+    520          						if (CrssCorVal25 > 10)
     521                                      test[3]= idxLatency25;
     522          						else
     523          							test[3] = 0;
     524          
-    525                                  if (CrssCorVal78/EnergyError>10)
+    525                                  if (CrssCorVal78>10)
     526          						    test[4]= idxLatency78;                        
     527          						else
     528          							test[4]= 2;
     529          
-    530          						//if (((tmpSNR63>10))||((tmpSNR14>10))||((tmpSNR25>10))||((tmpSNR78>10)))
+    530          						if (((CrssCorVal63>10))||((CrssCorVal14>10))||((CrssCorVal25>10))||((CrssCorVal78>10)))
     531                                  {
    \                     ??main_3: (+1)
    \   000001CE   0x2000             MOVS     R0,#+0
@@ -1021,18 +1038,18 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
    \   000001DA   0x7A61             LDRB     R1,[R4, #+9]
    \   000001DC   0x7A20             LDRB     R0,[R4, #+8]
     643                                   
-    644                                     sprintf((char *)(pUARTBuf+30),"%d:%d:%d:%d\n\r\n\r",tmpSNR63,tmpSNR14,tmpSNR25,tmpSNR78);
-   \   000001DE   0x9B04             LDR      R3,[SP, #+16]
-   \   000001E0   0x9A03             LDR      R2,[SP, #+12]
+    644                                     sprintf((char *)(pUARTBuf+30),"%d:%d:%d:%d\n\r\n\r",CrssCorVal63,CrssCorVal14,CrssCorVal25,CrssCorVal78);
+   \   000001DE   0x6DE3             LDR      R3,[R4, #+92]
+   \   000001E0   0x6E62             LDR      R2,[R4, #+100]
    \   000001E2   0x0049             LSLS     R1,R1,#+1
    \   000001E4   0xEA41 0x0080      ORR      R0,R1,R0, LSL #+2
    \   000001E8   0x7AA1             LDRB     R1,[R4, #+10]
    \   000001EA   0x4308             ORRS     R0,R1,R0
    \   000001EC   0x.... 0x....      ADR.W    R1,?_10
    \   000001F0   0x7120             STRB     R0,[R4, #+4]
-   \   000001F2   0x9806             LDR      R0,[SP, #+24]
+   \   000001F2   0x6DA0             LDR      R0,[R4, #+88]
    \   000001F4   0x9001             STR      R0,[SP, #+4]
-   \   000001F6   0x9805             LDR      R0,[SP, #+20]
+   \   000001F6   0x6E20             LDR      R0,[R4, #+96]
    \   000001F8   0x9000             STR      R0,[SP, #+0]
    \   000001FA   0xF604 0x20AA      ADDW     R0,R4,#+2730
    \   000001FE   0x.... 0x....      BL       sprintf
@@ -1046,35 +1063,36 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
     648          
     649          #endif
     650          	   	            cntTime200=0;
+   \                     ??main_5: (+1)
    \   0000020E   0x2000             MOVS     R0,#+0
    \   00000210   0x8520             STRH     R0,[R4, #+40]
    \                     ??main_2: (+1)
    \   00000212   0x.... 0x....      LDR.W    R0,??DataTable25_17
    \   00000216   0x8800             LDRH     R0,[R0, #+0]
    \   00000218   0x2805             CMP      R0,#+5
-   \   0000021A   0xDB18             BLT.N    ??main_5
+   \   0000021A   0xDB18             BLT.N    ??main_6
    \   0000021C   0xF89A 0x0000      LDRB     R0,[R10, #+0]
    \   00000220   0x28C8             CMP      R0,#+200
-   \   00000222   0xDA14             BGE.N    ??main_5
+   \   00000222   0xDA14             BGE.N    ??main_6
    \   00000224   0x2100             MOVS     R1,#+0
-   \                     ??main_6: (+1)
+   \                     ??main_7: (+1)
    \   00000226   0xF9B9 0x2000      LDRSH    R2,[R9, #+0]
    \   0000022A   0x410A             ASRS     R2,R2,R1
    \   0000022C   0x07D2             LSLS     R2,R2,#+31
-   \   0000022E   0xD508             BPL.N    ??main_7
+   \   0000022E   0xD508             BPL.N    ??main_8
    \   00000230   0xF898 0x3000      LDRB     R3,[R8, #+0]
    \   00000234   0x1C4A             ADDS     R2,R1,#+1
    \   00000236   0x429A             CMP      R2,R3
    \   00000238   0xBFB8             IT       LT 
    \   0000023A   0xF898 0x2000      LDRBLT   R2,[R8, #+0]
    \   0000023E   0xF888 0x2000      STRB     R2,[R8, #+0]
-   \                     ??main_7: (+1)
+   \                     ??main_8: (+1)
    \   00000242   0x1C49             ADDS     R1,R1,#+1
    \   00000244   0x2910             CMP      R1,#+16
-   \   00000246   0xDBEE             BLT.N    ??main_6
+   \   00000246   0xDBEE             BLT.N    ??main_7
    \   00000248   0x1C40             ADDS     R0,R0,#+1
    \   0000024A   0xF88A 0x0000      STRB     R0,[R10, #+0]
-   \                     ??main_5: (+1)
+   \                     ??main_6: (+1)
    \   0000024E   0x.... 0x....      BL       FFT_Update
    \   00000252   0x78A0             LDRB     R0,[R4, #+2]
    \   00000254   0x2801             CMP      R0,#+1
@@ -1087,220 +1105,219 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
    \   00000262   0xB280             UXTH     R0,R0
    \   00000264   0x2828             CMP      R0,#+40
    \   00000266   0xD1D4             BNE.N    ??main_2
-   \   00000268   0x.... 0x....      LDR.W    R0,??DataTable25_18
-   \   0000026C   0x6E21             LDR      R1,[R4, #+96]
-   \   0000026E   0x6DE2             LDR      R2,[R4, #+92]
-   \   00000270   0xF8D4 0xC064      LDR      R12,[R4, #+100]
-   \   00000274   0x6803             LDR      R3,[R0, #+0]
-   \   00000276   0x6DA0             LDR      R0,[R4, #+88]
-   \   00000278   0xF04F 0x0E00      MOV      LR,#+0
-   \   0000027C   0xFBB0 0xF0F3      UDIV     R0,R0,R3
-   \   00000280   0xFBB1 0xF1F3      UDIV     R1,R1,R3
-   \   00000284   0xFBB2 0xF2F3      UDIV     R2,R2,R3
-   \   00000288   0xFBBC 0xF3F3      UDIV     R3,R12,R3
-   \   0000028C   0x2B0B             CMP      R3,#+11
-   \   0000028E   0x9006             STR      R0,[SP, #+24]
-   \   00000290   0x9105             STR      R1,[SP, #+20]
-   \   00000292   0x9204             STR      R2,[SP, #+16]
-   \   00000294   0x9303             STR      R3,[SP, #+12]
-   \   00000296   0xF8AD 0xE020      STRH     LR,[SP, #+32]
-   \   0000029A   0xBF26             ITTE     CS 
-   \   0000029C   0x8CA3             LDRHCS   R3,[R4, #+36]
-   \   0000029E   0x807B             STRHCS   R3,[R7, #+2]
-   \   000002A0   0xF8A7 0xE002      STRHCC   LR,[R7, #+2]
-   \   000002A4   0x2A0B             CMP      R2,#+11
-   \   000002A6   0xBF26             ITTE     CS 
-   \   000002A8   0x8C22             LDRHCS   R2,[R4, #+32]
-   \   000002AA   0x80BA             STRHCS   R2,[R7, #+4]
-   \   000002AC   0xF8A7 0xE004      STRHCC   LR,[R7, #+4]
-   \   000002B0   0x290B             CMP      R1,#+11
-   \   000002B2   0xBF26             ITTE     CS 
-   \   000002B4   0x8C61             LDRHCS   R1,[R4, #+34]
-   \   000002B6   0x80F9             STRHCS   R1,[R7, #+6]
-   \   000002B8   0xF8A7 0xE006      STRHCC   LR,[R7, #+6]
-   \   000002BC   0xF9B4 0x1026      LDRSH    R1,[R4, #+38]
-   \   000002C0   0x280B             CMP      R0,#+11
-   \   000002C2   0xBF2E             ITEE     CS 
-   \   000002C4   0x8139             STRHCS   R1,[R7, #+8]
-   \   000002C6   0x2002             MOVCC    R0,#+2
-   \   000002C8   0x8138             STRHCC   R0,[R7, #+8]
-   \   000002CA   0xF9B4 0x0022      LDRSH    R0,[R4, #+34]
-   \   000002CE   0xF9B4 0x3020      LDRSH    R3,[R4, #+32]
-   \   000002D2   0xF9B4 0x2024      LDRSH    R2,[R4, #+36]
-   \   000002D6   0x9101             STR      R1,[SP, #+4]
-   \   000002D8   0x.... 0x....      ADR.W    R1,?_0
-   \   000002DC   0x9000             STR      R0,[SP, #+0]
-   \   000002DE   0x9802             LDR      R0,[SP, #+8]
-   \   000002E0   0x.... 0x....      BL       sprintf
-   \   000002E4   0x2000             MOVS     R0,#+0
-   \   000002E6   0x.... 0x....      ADR.W    R1,?_1
-   \   000002EA   0x73A0             STRB     R0,[R4, #+14]
-   \   000002EC   0x4658             MOV      R0,R11
-   \   000002EE   0x.... 0x....      BL       sprintf
-   \   000002F2   0xF9B7 0x0006      LDRSH    R0,[R7, #+6]
-   \   000002F6   0x2801             CMP      R0,#+1
-   \   000002F8   0xBFA8             IT       GE 
-   \   000002FA   0x.... 0x....      ADRGE.W  R1,?_2
-   \   000002FE   0xDA03             BGE.N    ??main_8
-   \   00000300   0x2800             CMP      R0,#+0
-   \   00000302   0xD506             BPL.N    ??main_9
-   \   00000304   0x.... 0x....      ADR.W    R1,?_3
-   \                     ??main_8: (+1)
-   \   00000308   0x4658             MOV      R0,R11
-   \   0000030A   0x.... 0x....      BL       sprintf
-   \   0000030E   0x2001             MOVS     R0,#+1
-   \   00000310   0x73A0             STRB     R0,[R4, #+14]
+   \   00000268   0x2000             MOVS     R0,#+0
+   \   0000026A   0xF8AD 0x0010      STRH     R0,[SP, #+16]
+   \   0000026E   0x6E60             LDR      R0,[R4, #+100]
+   \   00000270   0x280B             CMP      R0,#+11
+   \   00000272   0xBF2C             ITE      CS 
+   \   00000274   0x8CA1             LDRHCS   R1,[R4, #+36]
+   \   00000276   0x2100             MOVCC    R1,#+0
+   \   00000278   0x8079             STRH     R1,[R7, #+2]
+   \   0000027A   0x6DE1             LDR      R1,[R4, #+92]
+   \   0000027C   0x290B             CMP      R1,#+11
+   \   0000027E   0xBF2C             ITE      CS 
+   \   00000280   0x8C22             LDRHCS   R2,[R4, #+32]
+   \   00000282   0x2200             MOVCC    R2,#+0
+   \   00000284   0x80BA             STRH     R2,[R7, #+4]
+   \   00000286   0x6E22             LDR      R2,[R4, #+96]
+   \   00000288   0x2A0B             CMP      R2,#+11
+   \   0000028A   0xBF2C             ITE      CS 
+   \   0000028C   0x8C63             LDRHCS   R3,[R4, #+34]
+   \   0000028E   0x2300             MOVCC    R3,#+0
+   \   00000290   0x80FB             STRH     R3,[R7, #+6]
+   \   00000292   0x6DA3             LDR      R3,[R4, #+88]
+   \   00000294   0x2B0B             CMP      R3,#+11
+   \   00000296   0xBF2C             ITE      CS 
+   \   00000298   0xF8B4 0xC026      LDRHCS   R12,[R4, #+38]
+   \   0000029C   0xF04F 0x0C02      MOVCC    R12,#+2
+   \   000002A0   0x280B             CMP      R0,#+11
+   \   000002A2   0xF8A7 0xC008      STRH     R12,[R7, #+8]
+   \   000002A6   0xBF38             IT       CC 
+   \   000002A8   0x290B             CMPCC    R1,#+11
+   \   000002AA   0xD203             BCS.N    ??main_9
+   \   000002AC   0x2A0B             CMP      R2,#+11
+   \   000002AE   0xBF38             IT       CC 
+   \   000002B0   0x2B0B             CMPCC    R3,#+11
+   \   000002B2   0xD3AC             BCC.N    ??main_5
    \                     ??main_9: (+1)
-   \   00000312   0xF9B7 0x0004      LDRSH    R0,[R7, #+4]
-   \   00000316   0x2801             CMP      R0,#+1
-   \   00000318   0xDB08             BLT.N    ??main_10
-   \   0000031A   0x6E20             LDR      R0,[R4, #+96]
-   \   0000031C   0x6DE1             LDR      R1,[R4, #+92]
-   \   0000031E   0x4288             CMP      R0,R1
-   \   00000320   0xD301             BCC.N    ??main_11
-   \   00000322   0x7BA0             LDRB     R0,[R4, #+14]
-   \   00000324   0xB988             CBNZ.N   R0,??main_12
-   \                     ??main_11: (+1)
-   \   00000326   0x.... 0x....      ADR.W    R1,?_4
-   \   0000032A   0xE009             B.N      ??main_13
+   \   000002B4   0xF9B4 0x0026      LDRSH    R0,[R4, #+38]
+   \   000002B8   0xF9B4 0x3020      LDRSH    R3,[R4, #+32]
+   \   000002BC   0xF9B4 0x2024      LDRSH    R2,[R4, #+36]
+   \   000002C0   0x.... 0x....      ADR.W    R1,?_0
+   \   000002C4   0x9001             STR      R0,[SP, #+4]
+   \   000002C6   0xF9B4 0x0022      LDRSH    R0,[R4, #+34]
+   \   000002CA   0x9000             STR      R0,[SP, #+0]
+   \   000002CC   0x9802             LDR      R0,[SP, #+8]
+   \   000002CE   0x.... 0x....      BL       sprintf
+   \   000002D2   0x2000             MOVS     R0,#+0
+   \   000002D4   0x.... 0x....      ADR.W    R1,?_1
+   \   000002D8   0x73A0             STRB     R0,[R4, #+14]
+   \   000002DA   0x4658             MOV      R0,R11
+   \   000002DC   0x.... 0x....      BL       sprintf
+   \   000002E0   0xF9B7 0x0006      LDRSH    R0,[R7, #+6]
+   \   000002E4   0x2801             CMP      R0,#+1
+   \   000002E6   0xBFA8             IT       GE 
+   \   000002E8   0x.... 0x....      ADRGE.W  R1,?_2
+   \   000002EC   0xDA03             BGE.N    ??main_10
+   \   000002EE   0x2800             CMP      R0,#+0
+   \   000002F0   0xD506             BPL.N    ??main_11
+   \   000002F2   0x.... 0x....      ADR.W    R1,?_3
    \                     ??main_10: (+1)
-   \   0000032C   0x2800             CMP      R0,#+0
-   \   0000032E   0xD50C             BPL.N    ??main_12
-   \   00000330   0x6E20             LDR      R0,[R4, #+96]
-   \   00000332   0x6DE1             LDR      R1,[R4, #+92]
-   \   00000334   0x4288             CMP      R0,R1
-   \   00000336   0xD301             BCC.N    ??main_14
-   \   00000338   0x7BA0             LDRB     R0,[R4, #+14]
-   \   0000033A   0xB930             CBNZ.N   R0,??main_12
-   \                     ??main_14: (+1)
-   \   0000033C   0x.... 0x....      ADR.W    R1,?_5
+   \   000002F6   0x4658             MOV      R0,R11
+   \   000002F8   0x.... 0x....      BL       sprintf
+   \   000002FC   0x2001             MOVS     R0,#+1
+   \   000002FE   0x73A0             STRB     R0,[R4, #+14]
+   \                     ??main_11: (+1)
+   \   00000300   0xF9B7 0x0004      LDRSH    R0,[R7, #+4]
+   \   00000304   0x2801             CMP      R0,#+1
+   \   00000306   0xDB08             BLT.N    ??main_12
+   \   00000308   0x6E20             LDR      R0,[R4, #+96]
+   \   0000030A   0x6DE1             LDR      R1,[R4, #+92]
+   \   0000030C   0x4288             CMP      R0,R1
+   \   0000030E   0xD301             BCC.N    ??main_13
+   \   00000310   0x7BA0             LDRB     R0,[R4, #+14]
+   \   00000312   0xB988             CBNZ.N   R0,??main_14
    \                     ??main_13: (+1)
-   \   00000340   0x4658             MOV      R0,R11
-   \   00000342   0x.... 0x....      BL       sprintf
-   \   00000346   0x2002             MOVS     R0,#+2
-   \   00000348   0x73A0             STRB     R0,[R4, #+14]
+   \   00000314   0x.... 0x....      ADR.W    R1,?_4
+   \   00000318   0xE009             B.N      ??main_15
    \                     ??main_12: (+1)
-   \   0000034A   0xF9B7 0x0002      LDRSH    R0,[R7, #+2]
-   \   0000034E   0x2801             CMP      R0,#+1
-   \   00000350   0xDB0F             BLT.N    ??main_15
-   \   00000352   0x6E61             LDR      R1,[R4, #+100]
-   \   00000354   0x6E22             LDR      R2,[R4, #+96]
-   \   00000356   0x7BA0             LDRB     R0,[R4, #+14]
-   \   00000358   0x428A             CMP      R2,R1
-   \   0000035A   0xD201             BCS.N    ??main_16
-   \   0000035C   0x2801             CMP      R0,#+1
-   \   0000035E   0xD005             BEQ.N    ??main_17
+   \   0000031A   0x2800             CMP      R0,#+0
+   \   0000031C   0xD50C             BPL.N    ??main_14
+   \   0000031E   0x6E20             LDR      R0,[R4, #+96]
+   \   00000320   0x6DE1             LDR      R1,[R4, #+92]
+   \   00000322   0x4288             CMP      R0,R1
+   \   00000324   0xD301             BCC.N    ??main_16
+   \   00000326   0x7BA0             LDRB     R0,[R4, #+14]
+   \   00000328   0xB930             CBNZ.N   R0,??main_14
    \                     ??main_16: (+1)
-   \   00000360   0xB120             CBZ.N    R0,??main_17
-   \   00000362   0x6DE2             LDR      R2,[R4, #+92]
-   \   00000364   0x428A             CMP      R2,R1
-   \   00000366   0xD21A             BCS.N    ??main_18
-   \   00000368   0x2802             CMP      R0,#+2
-   \   0000036A   0xD118             BNE.N    ??main_18
-   \                     ??main_17: (+1)
-   \   0000036C   0x.... 0x....      ADR.W    R1,?_6
-   \   00000370   0xE010             B.N      ??main_19
+   \   0000032A   0x.... 0x....      ADR.W    R1,?_5
    \                     ??main_15: (+1)
-   \   00000372   0x2800             CMP      R0,#+0
-   \   00000374   0xD513             BPL.N    ??main_18
-   \   00000376   0x6E61             LDR      R1,[R4, #+100]
-   \   00000378   0x6E22             LDR      R2,[R4, #+96]
-   \   0000037A   0x7BA0             LDRB     R0,[R4, #+14]
-   \   0000037C   0x428A             CMP      R2,R1
-   \   0000037E   0xD201             BCS.N    ??main_20
-   \   00000380   0x2801             CMP      R0,#+1
-   \   00000382   0xD005             BEQ.N    ??main_21
-   \                     ??main_20: (+1)
-   \   00000384   0xB120             CBZ.N    R0,??main_21
-   \   00000386   0x6DE2             LDR      R2,[R4, #+92]
-   \   00000388   0x428A             CMP      R2,R1
-   \   0000038A   0xD208             BCS.N    ??main_18
-   \   0000038C   0x2802             CMP      R0,#+2
-   \   0000038E   0xD106             BNE.N    ??main_18
-   \                     ??main_21: (+1)
-   \   00000390   0x.... 0x....      ADR.W    R1,?_7
-   \                     ??main_19: (+1)
-   \   00000394   0x4658             MOV      R0,R11
-   \   00000396   0x.... 0x....      BL       sprintf
-   \   0000039A   0x2003             MOVS     R0,#+3
-   \   0000039C   0x73A0             STRB     R0,[R4, #+14]
+   \   0000032E   0x4658             MOV      R0,R11
+   \   00000330   0x.... 0x....      BL       sprintf
+   \   00000334   0x2002             MOVS     R0,#+2
+   \   00000336   0x73A0             STRB     R0,[R4, #+14]
+   \                     ??main_14: (+1)
+   \   00000338   0xF9B7 0x0002      LDRSH    R0,[R7, #+2]
+   \   0000033C   0x2801             CMP      R0,#+1
+   \   0000033E   0xDB0F             BLT.N    ??main_17
+   \   00000340   0x6E61             LDR      R1,[R4, #+100]
+   \   00000342   0x6E22             LDR      R2,[R4, #+96]
+   \   00000344   0x7BA0             LDRB     R0,[R4, #+14]
+   \   00000346   0x428A             CMP      R2,R1
+   \   00000348   0xD201             BCS.N    ??main_18
+   \   0000034A   0x2801             CMP      R0,#+1
+   \   0000034C   0xD005             BEQ.N    ??main_19
    \                     ??main_18: (+1)
-   \   0000039E   0xF9B7 0x0008      LDRSH    R0,[R7, #+8]
-   \   000003A2   0x2804             CMP      R0,#+4
-   \   000003A4   0xDB0B             BLT.N    ??main_22
-   \   000003A6   0x7BA0             LDRB     R0,[R4, #+14]
-   \   000003A8   0xB908             CBNZ.N   R0,??main_23
-   \   000003AA   0x4631             MOV      R1,R6
-   \   000003AC   0xE012             B.N      ??main_24
-   \                     ??main_23: (+1)
-   \   000003AE   0x2801             CMP      R0,#+1
-   \   000003B0   0xD113             BNE.N    ??main_25
-   \   000003B2   0x6E20             LDR      R0,[R4, #+96]
-   \   000003B4   0x6DA1             LDR      R1,[R4, #+88]
-   \   000003B6   0x4288             CMP      R0,R1
-   \   000003B8   0xD20F             BCS.N    ??main_25
-   \   000003BA   0x4631             MOV      R1,R6
-   \   000003BC   0xE00A             B.N      ??main_24
+   \   0000034E   0xB120             CBZ.N    R0,??main_19
+   \   00000350   0x6DE2             LDR      R2,[R4, #+92]
+   \   00000352   0x428A             CMP      R2,R1
+   \   00000354   0xD21A             BCS.N    ??main_20
+   \   00000356   0x2802             CMP      R0,#+2
+   \   00000358   0xD118             BNE.N    ??main_20
+   \                     ??main_19: (+1)
+   \   0000035A   0x.... 0x....      ADR.W    R1,?_6
+   \   0000035E   0xE010             B.N      ??main_21
+   \                     ??main_17: (+1)
+   \   00000360   0x2800             CMP      R0,#+0
+   \   00000362   0xD513             BPL.N    ??main_20
+   \   00000364   0x6E61             LDR      R1,[R4, #+100]
+   \   00000366   0x6E22             LDR      R2,[R4, #+96]
+   \   00000368   0x7BA0             LDRB     R0,[R4, #+14]
+   \   0000036A   0x428A             CMP      R2,R1
+   \   0000036C   0xD201             BCS.N    ??main_22
+   \   0000036E   0x2801             CMP      R0,#+1
+   \   00000370   0xD005             BEQ.N    ??main_23
    \                     ??main_22: (+1)
-   \   000003BE   0x9807             LDR      R0,[SP, #+28]
-   \   000003C0   0xB958             CBNZ.N   R0,??main_25
-   \   000003C2   0x7BA0             LDRB     R0,[R4, #+14]
-   \   000003C4   0xB128             CBZ.N    R0,??main_26
-   \   000003C6   0x2801             CMP      R0,#+1
-   \   000003C8   0xD107             BNE.N    ??main_25
-   \   000003CA   0x6E20             LDR      R0,[R4, #+96]
-   \   000003CC   0x6DA1             LDR      R1,[R4, #+88]
-   \   000003CE   0x4288             CMP      R0,R1
-   \   000003D0   0xD203             BCS.N    ??main_25
-   \                     ??main_26: (+1)
-   \   000003D2   0x4629             MOV      R1,R5
-   \                     ??main_24: (+1)
-   \   000003D4   0x4658             MOV      R0,R11
-   \   000003D6   0x.... 0x....      BL       sprintf
+   \   00000372   0xB120             CBZ.N    R0,??main_23
+   \   00000374   0x6DE2             LDR      R2,[R4, #+92]
+   \   00000376   0x428A             CMP      R2,R1
+   \   00000378   0xD208             BCS.N    ??main_20
+   \   0000037A   0x2802             CMP      R0,#+2
+   \   0000037C   0xD106             BNE.N    ??main_20
+   \                     ??main_23: (+1)
+   \   0000037E   0x.... 0x....      ADR.W    R1,?_7
+   \                     ??main_21: (+1)
+   \   00000382   0x4658             MOV      R0,R11
+   \   00000384   0x.... 0x....      BL       sprintf
+   \   00000388   0x2003             MOVS     R0,#+3
+   \   0000038A   0x73A0             STRB     R0,[R4, #+14]
+   \                     ??main_20: (+1)
+   \   0000038C   0xF9B7 0x0008      LDRSH    R0,[R7, #+8]
+   \   00000390   0x2804             CMP      R0,#+4
+   \   00000392   0xDB0B             BLT.N    ??main_24
+   \   00000394   0x7BA0             LDRB     R0,[R4, #+14]
+   \   00000396   0xB908             CBNZ.N   R0,??main_25
+   \   00000398   0x4631             MOV      R1,R6
+   \   0000039A   0xE012             B.N      ??main_26
    \                     ??main_25: (+1)
-   \   000003DA   0x7960             LDRB     R0,[R4, #+5]
-   \   000003DC   0x7A21             LDRB     R1,[R4, #+8]
-   \   000003DE   0x4288             CMP      R0,R1
-   \   000003E0   0xD004             BEQ.N    ??main_27
-   \   000003E2   0x7AE1             LDRB     R1,[R4, #+11]
-   \   000003E4   0x29FF             CMP      R1,#+255
-   \   000003E6   0xD002             BEQ.N    ??main_28
-   \   000003E8   0x1C49             ADDS     R1,R1,#+1
-   \   000003EA   0xE000             B.N      ??main_28
-   \                     ??main_27: (+1)
-   \   000003EC   0x2100             MOVS     R1,#+0
+   \   0000039C   0x2801             CMP      R0,#+1
+   \   0000039E   0xD113             BNE.N    ??main_27
+   \   000003A0   0x6E20             LDR      R0,[R4, #+96]
+   \   000003A2   0x6DA1             LDR      R1,[R4, #+88]
+   \   000003A4   0x4288             CMP      R0,R1
+   \   000003A6   0xD20F             BCS.N    ??main_27
+   \   000003A8   0x4631             MOV      R1,R6
+   \   000003AA   0xE00A             B.N      ??main_26
+   \                     ??main_24: (+1)
+   \   000003AC   0x9803             LDR      R0,[SP, #+12]
+   \   000003AE   0xB958             CBNZ.N   R0,??main_27
+   \   000003B0   0x7BA0             LDRB     R0,[R4, #+14]
+   \   000003B2   0xB128             CBZ.N    R0,??main_28
+   \   000003B4   0x2801             CMP      R0,#+1
+   \   000003B6   0xD107             BNE.N    ??main_27
+   \   000003B8   0x6E20             LDR      R0,[R4, #+96]
+   \   000003BA   0x6DA1             LDR      R1,[R4, #+88]
+   \   000003BC   0x4288             CMP      R0,R1
+   \   000003BE   0xD203             BCS.N    ??main_27
    \                     ??main_28: (+1)
-   \   000003EE   0x72E1             STRB     R1,[R4, #+11]
-   \   000003F0   0x7AE1             LDRB     R1,[R4, #+11]
-   \   000003F2   0x2903             CMP      R1,#+3
-   \   000003F4   0xBF28             IT       CS 
-   \   000003F6   0x7220             STRBCS   R0,[R4, #+8]
-   \   000003F8   0x79A0             LDRB     R0,[R4, #+6]
-   \   000003FA   0x7A61             LDRB     R1,[R4, #+9]
-   \   000003FC   0x4288             CMP      R0,R1
-   \   000003FE   0xD004             BEQ.N    ??main_29
-   \   00000400   0x7B21             LDRB     R1,[R4, #+12]
-   \   00000402   0x29FF             CMP      R1,#+255
-   \   00000404   0xD002             BEQ.N    ??main_30
-   \   00000406   0x1C49             ADDS     R1,R1,#+1
-   \   00000408   0xE000             B.N      ??main_30
+   \   000003C0   0x4629             MOV      R1,R5
+   \                     ??main_26: (+1)
+   \   000003C2   0x4658             MOV      R0,R11
+   \   000003C4   0x.... 0x....      BL       sprintf
+   \                     ??main_27: (+1)
+   \   000003C8   0x7960             LDRB     R0,[R4, #+5]
+   \   000003CA   0x7A21             LDRB     R1,[R4, #+8]
+   \   000003CC   0x4288             CMP      R0,R1
+   \   000003CE   0xD004             BEQ.N    ??main_29
+   \   000003D0   0x7AE1             LDRB     R1,[R4, #+11]
+   \   000003D2   0x29FF             CMP      R1,#+255
+   \   000003D4   0xD002             BEQ.N    ??main_30
+   \   000003D6   0x1C49             ADDS     R1,R1,#+1
+   \   000003D8   0xE000             B.N      ??main_30
    \                     ??main_29: (+1)
-   \   0000040A   0x2100             MOVS     R1,#+0
+   \   000003DA   0x2100             MOVS     R1,#+0
    \                     ??main_30: (+1)
-   \   0000040C   0x7321             STRB     R1,[R4, #+12]
-   \   0000040E   0x7B21             LDRB     R1,[R4, #+12]
-   \   00000410   0x2903             CMP      R1,#+3
-   \   00000412   0xBF28             IT       CS 
-   \   00000414   0x7260             STRBCS   R0,[R4, #+9]
-   \   00000416   0x79E1             LDRB     R1,[R4, #+7]
-   \   00000418   0x7AA0             LDRB     R0,[R4, #+10]
-   \   0000041A   0x4281             CMP      R1,R0
-   \   0000041C   0xF43F 0xAED7      BEQ.W    ??main_3
-   \   00000420   0x7B60             LDRB     R0,[R4, #+13]
-   \   00000422   0x28FF             CMP      R0,#+255
-   \   00000424   0xF43F 0xAED4      BEQ.W    ??main_4
-   \   00000428   0x1C40             ADDS     R0,R0,#+1
-   \   0000042A   0xE6D1             B.N      ??main_4
+   \   000003DC   0x72E1             STRB     R1,[R4, #+11]
+   \   000003DE   0x7AE1             LDRB     R1,[R4, #+11]
+   \   000003E0   0x2903             CMP      R1,#+3
+   \   000003E2   0xBF28             IT       CS 
+   \   000003E4   0x7220             STRBCS   R0,[R4, #+8]
+   \   000003E6   0x79A0             LDRB     R0,[R4, #+6]
+   \   000003E8   0x7A61             LDRB     R1,[R4, #+9]
+   \   000003EA   0x4288             CMP      R0,R1
+   \   000003EC   0xD004             BEQ.N    ??main_31
+   \   000003EE   0x7B21             LDRB     R1,[R4, #+12]
+   \   000003F0   0x29FF             CMP      R1,#+255
+   \   000003F2   0xD002             BEQ.N    ??main_32
+   \   000003F4   0x1C49             ADDS     R1,R1,#+1
+   \   000003F6   0xE000             B.N      ??main_32
+   \                     ??main_31: (+1)
+   \   000003F8   0x2100             MOVS     R1,#+0
+   \                     ??main_32: (+1)
+   \   000003FA   0x7321             STRB     R1,[R4, #+12]
+   \   000003FC   0x7B21             LDRB     R1,[R4, #+12]
+   \   000003FE   0x2903             CMP      R1,#+3
+   \   00000400   0xBF28             IT       CS 
+   \   00000402   0x7260             STRBCS   R0,[R4, #+9]
+   \   00000404   0x79E1             LDRB     R1,[R4, #+7]
+   \   00000406   0x7AA0             LDRB     R0,[R4, #+10]
+   \   00000408   0x4281             CMP      R1,R0
+   \   0000040A   0xF43F 0xAEE0      BEQ.W    ??main_3
+   \   0000040E   0x7B60             LDRB     R0,[R4, #+13]
+   \   00000410   0x28FF             CMP      R0,#+255
+   \   00000412   0xF43F 0xAEDD      BEQ.W    ??main_4
+   \   00000416   0x1C40             ADDS     R0,R0,#+1
+   \   00000418   0xE6DA             B.N      ??main_4
     651                  } //(cntTime200==40)
     652                }//if (flg10ms==1)	
     653            }
@@ -2802,7 +2819,7 @@ H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32
     664          
     665            if (ticks++ > 200)
    \                     Toggle_Leds: (+1)
-   \   00000000   0x.... 0x....      LDR.W    R0,??DataTable25_19
+   \   00000000   0x.... 0x....      LDR.W    R0,??DataTable25_18
    \   00000004   0x6801             LDR      R1,[R0, #+0]
    \   00000006   0x1C4A             ADDS     R2,R1,#+1
    \   00000008   0x29C9             CMP      R1,#+201
@@ -2987,7 +3004,7 @@ Warning[Pe177]: function "USBH_UserProcess" was declared but never referenced
     783            
     784           //sop1hc 344/7 = 49.142 MHz
     785            PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SAI2|RCC_PERIPHCLK_I2S;
-   \   00000076   0x.... 0x....      LDR.W    R0,??DataTable25_20  ;; 0x100001
+   \   00000076   0x.... 0x....      LDR.W    R0,??DataTable25_19  ;; 0x100001
     786            PeriphClkInitStruct.Sai2ClockSelection = RCC_SAI2CLKSOURCE_PLLI2S;
    \   0000007A   0x9415             STR      R4,[SP, #+84]
    \   0000007C   0x9005             STR      R0,[SP, #+20]
@@ -3156,7 +3173,7 @@ Warning[Pe177]: function "USBH_UserProcess" was declared but never referenced
     885              
     886            if(hi2c->Instance==I2C1)
    \   00000004   0x6800             LDR      R0,[R0, #+0]
-   \   00000006   0x.... 0x....      LDR.W    R1,??DataTable25_21  ;; 0x40005400
+   \   00000006   0x.... 0x....      LDR.W    R1,??DataTable25_20  ;; 0x40005400
    \   0000000A   0x4288             CMP      R0,R1
    \   0000000C   0xD12C             BNE.N    ??HAL_I2C_MspInit_0
     887            {
@@ -3200,7 +3217,7 @@ Warning[Pe177]: function "USBH_UserProcess" was declared but never referenced
    \   00000034   0x9004             STR      R0,[SP, #+16]
    \   00000036   0x2004             MOVS     R0,#+4
    \   00000038   0x9005             STR      R0,[SP, #+20]
-   \   0000003A   0x.... 0x....      LDR.W    R0,??DataTable25_22  ;; 0x40020400
+   \   0000003A   0x.... 0x....      LDR.W    R0,??DataTable25_21  ;; 0x40020400
    \   0000003E   0x.... 0x....      BL       HAL_GPIO_Init
     909          
     910          	/* Peripheral clock enable */
@@ -3253,7 +3270,7 @@ Warning[Pe177]: function "USBH_UserProcess" was declared but never referenced
    \   00000064   0xB006             ADD      SP,SP,#+24
    \   00000066   0xBD10             POP      {R4,PC}
    \                     ??HAL_I2C_MspInit_0: (+1)
-   \   00000068   0x.... 0x....      LDR.W    R1,??DataTable25_23  ;; 0x40005800
+   \   00000068   0x.... 0x....      LDR.W    R1,??DataTable25_22  ;; 0x40005800
    \   0000006C   0x4288             CMP      R0,R1
    \   0000006E   0xD123             BNE.N    ??HAL_I2C_MspInit_1
    \   00000070   0x.... 0x....      LDR.W    R4,??DataTable25_6  ;; 0x40023830
@@ -3275,7 +3292,7 @@ Warning[Pe177]: function "USBH_UserProcess" was declared but never referenced
    \   00000098   0x9004             STR      R0,[SP, #+16]
    \   0000009A   0x2004             MOVS     R0,#+4
    \   0000009C   0x9005             STR      R0,[SP, #+20]
-   \   0000009E   0x.... 0x....      LDR.W    R0,??DataTable25_22  ;; 0x40020400
+   \   0000009E   0x.... 0x....      LDR.W    R0,??DataTable25_21  ;; 0x40020400
    \   000000A2   0x.... 0x....      BL       HAL_GPIO_Init
    \   000000A6   0x6920             LDR      R0,[R4, #+16]
    \   000000A8   0xF440 0x0080      ORR      R0,R0,#0x400000
@@ -3299,7 +3316,7 @@ Warning[Pe177]: function "USBH_UserProcess" was declared but never referenced
     951            huart3.Instance = USART3;
    \                     USART3_Init: (+1)
    \   00000000   0x.... 0x....      LDR.W    R0,??DataTable25_16
-   \   00000004   0x.... 0x....      LDR.W    R1,??DataTable25_24  ;; 0x40004800
+   \   00000004   0x.... 0x....      LDR.W    R1,??DataTable25_23  ;; 0x40004800
    \   00000008   0x6001             STR      R1,[R0, #+0]
     952            huart3.Init.BaudRate = 115200;
    \   0000000A   0xF44F 0x31E1      MOV      R1,#+115200
@@ -3341,7 +3358,7 @@ Warning[Pe177]: function "USBH_UserProcess" was declared but never referenced
     973            if(huart->Instance==USART3)
    \                     HAL_UART_MspInit: (+1)
    \   00000000   0x6800             LDR      R0,[R0, #+0]
-   \   00000002   0x.... 0x....      LDR.W    R1,??DataTable25_24  ;; 0x40004800
+   \   00000002   0x.... 0x....      LDR.W    R1,??DataTable25_23  ;; 0x40004800
    \   00000006   0x4288             CMP      R0,R1
    \   00000008   0xD000             BEQ.N    ??HAL_UART_MspInit_0
    \   0000000A   0x4770             BX       LR
@@ -3392,7 +3409,7 @@ Warning[Pe177]: function "USBH_UserProcess" was declared but never referenced
    \   0000004A   0x9004             STR      R0,[SP, #+16]
    \   0000004C   0x2007             MOVS     R0,#+7
    \   0000004E   0x9005             STR      R0,[SP, #+20]
-   \   00000050   0x.... 0x....      LDR.W    R0,??DataTable25_25  ;; 0x40020800
+   \   00000050   0x.... 0x....      LDR.W    R0,??DataTable25_24  ;; 0x40020800
    \   00000054   0x.... 0x....      BL       HAL_GPIO_Init
     992          
     993              /* NVIC for USART */
@@ -3421,14 +3438,14 @@ Warning[Pe177]: function "USBH_UserProcess" was declared but never referenced
    \   00000000   0xB510             PUSH     {R4,LR}
    1005              /* EXTI line interrupt detected */
    1006            if(__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_4) != RESET)
-   \   00000002   0x....             LDR.N    R4,??DataTable25_26  ;; 0x40013c14
+   \   00000002   0x....             LDR.N    R4,??DataTable25_25  ;; 0x40013c14
    \   00000004   0x6820             LDR      R0,[R4, #+0]
    \   00000006   0x06C0             LSLS     R0,R0,#+27
    \   00000008   0xD50E             BPL.N    ??EXTI4_IRQHandler_0
    1007            {
    1008              
    1009               if (cntRisingEXTI==20)
-   \   0000000A   0x....             LDR.N    R0,??DataTable25_27
+   \   0000000A   0x....             LDR.N    R0,??DataTable25_26
    \   0000000C   0x8801             LDRH     R1,[R0, #+0]
    \   0000000E   0x2914             CMP      R1,#+20
    \   00000010   0xD105             BNE.N    ??EXTI4_IRQHandler_1
@@ -3488,13 +3505,13 @@ Warning[Pe177]: function "USBH_UserProcess" was declared but never referenced
    1041          
    1042            /* EXTI line interrupt detected */
    1043            if(__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_8) != RESET)
-   \   00000002   0x....             LDR.N    R4,??DataTable25_26  ;; 0x40013c14
+   \   00000002   0x....             LDR.N    R4,??DataTable25_25  ;; 0x40013c14
    \   00000004   0x6820             LDR      R0,[R4, #+0]
    \   00000006   0x05C0             LSLS     R0,R0,#+23
    \   00000008   0xD510             BPL.N    ??EXTI9_5_IRQHandler_0
    1044            {
    1045          	  btnSW2 = 1;
-   \   0000000A   0x....             LDR.N    R0,??DataTable25_28
+   \   0000000A   0x....             LDR.N    R0,??DataTable25_27
    \   0000000C   0x2101             MOVS     R1,#+1
    \   0000000E   0x7041             STRB     R1,[R0, #+1]
    1046          	  if ((++cntBtnPress)==8) cntBtnPress=0;
@@ -3524,7 +3541,7 @@ Warning[Pe177]: function "USBH_UserProcess" was declared but never referenced
    \   00000030   0xD50C             BPL.N    ??EXTI9_5_IRQHandler_1
    1055            {
    1056          		btnSW1 = 1;
-   \   00000032   0x....             LDR.N    R0,??DataTable25_28
+   \   00000032   0x....             LDR.N    R0,??DataTable25_27
    \   00000034   0x2101             MOVS     R1,#+1
    \   00000036   0x7001             STRB     R1,[R0, #+0]
    1057          		Command_index^=0x01;
@@ -3559,7 +3576,7 @@ Warning[Pe177]: function "USBH_UserProcess" was declared but never referenced
    1072          		/* Initialize the CFFT/CIFFT module */
    1073          		arm_rfft_init_f32(&S,&SS, 512,  0, 1);
    \   00000004   0x2001             MOVS     R0,#+1
-   \   00000006   0x....             LDR.N    R4,??DataTable25_29
+   \   00000006   0x....             LDR.N    R4,??DataTable25_28
    \   00000008   0x9000             STR      R0,[SP, #+0]
    \   0000000A   0x2300             MOVS     R3,#+0
    \   0000000C   0xF44F 0x7200      MOV      R2,#+512
@@ -3656,7 +3673,7 @@ Warning[Pe177]: function "USBH_UserProcess" was declared but never referenced
    1121          	
    1122          	for(uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
    \   00000004   0x2100             MOVS     R1,#+0
-   \   00000006   0x....             LDR.N    R3,??DataTable25_30
+   \   00000006   0x....             LDR.N    R3,??DataTable25_29
    \   00000008   0xF503 0x6400      ADD      R4,R3,#+2048
    \   0000000C   0x.... 0x....      LDR.W    R8,??DataTable25
    \   00000010   0xF9B4 0x2002      LDRSH    R2,[R4, #+2]
@@ -3773,7 +3790,7 @@ Warning[Pe177]: function "USBH_UserProcess" was declared but never referenced
    \   00000028   0x6381             STR      R1,[R0, #+56]
    1150          	HAL_GPIO_Init(GPIOI,&GPIO_INS);
    \   0000002A   0xF100 0x012C      ADD      R1,R0,#+44
-   \   0000002E   0x....             LDR.N    R0,??DataTable25_31  ;; 0x40022000
+   \   0000002E   0x....             LDR.N    R0,??DataTable25_30  ;; 0x40022000
    \   00000030   0x.... 0x....      BL       HAL_GPIO_Init
    1151          	
    1152          	/* Enable and set Button EXTI Interrupt to the lowest priority */
@@ -3798,17 +3815,17 @@ Warning[Pe177]: function "USBH_UserProcess" was declared but never referenced
    1162          {
    1163             __HAL_I2C_DISABLE(&hi2c2);
    \                     MX_I2C2_Init: (+1)
-   \   00000000   0x....             LDR.N    R0,??DataTable25_32
+   \   00000000   0x....             LDR.N    R0,??DataTable25_31
    \   00000002   0x6801             LDR      R1,[R0, #+0]
    \   00000004   0x680A             LDR      R2,[R1, #+0]
    \   00000006   0x0852             LSRS     R2,R2,#+1
    \   00000008   0x0052             LSLS     R2,R2,#+1
    \   0000000A   0x600A             STR      R2,[R1, #+0]
    1164            hi2c2.Instance = I2C2;
-   \   0000000C   0x....             LDR.N    R1,??DataTable25_23  ;; 0x40005800
+   \   0000000C   0x....             LDR.N    R1,??DataTable25_22  ;; 0x40005800
    \   0000000E   0x6001             STR      R1,[R0, #+0]
    1165            hi2c2.Init.Timing =0x00A0689A ;//I2C_TIMING  0x00303D5D 0x00A0689A
-   \   00000010   0x....             LDR.N    R1,??DataTable25_33  ;; 0xa0689a
+   \   00000010   0x....             LDR.N    R1,??DataTable25_32  ;; 0xa0689a
    \   00000012   0x6041             STR      R1,[R0, #+4]
    1166            hi2c2.Init.OwnAddress1 = 0;
    \   00000014   0x2100             MOVS     R1,#+0
@@ -3844,7 +3861,7 @@ Warning[Pe177]: function "USBH_UserProcess" was declared but never referenced
    \   00000000   0xB538             PUSH     {R3-R5,LR}
    1183            Audio_Play_Out();  
    \   00000002   0x....             LDR.N    R5,??DataTable25
-   \   00000004   0x....             LDR.N    R4,??DataTable25_34
+   \   00000004   0x....             LDR.N    R4,??DataTable25_33
    \   00000006   0x78E8             LDRB     R0,[R5, #+3]
    \   00000008   0xB148             CBZ.N    R0,??HAL_I2S_TxCpltCallback_0
    \   0000000A   0x2802             CMP      R0,#+2
@@ -3878,7 +3895,7 @@ Warning[Pe177]: function "USBH_UserProcess" was declared but never referenced
    \   00000040   0x2840             CMP      R0,#+64
    \   00000042   0xD11F             BNE.N    ??HAL_I2S_TxCpltCallback_5
    \   00000044   0x2000             MOVS     R0,#+0
-   \   00000046   0x....             LDR.N    R1,??DataTable25_35
+   \   00000046   0x....             LDR.N    R1,??DataTable25_34
    \   00000048   0x82E8             STRH     R0,[R5, #+22]
    \   0000004A   0x8328             STRH     R0,[R5, #+24]
    \   0000004C   0x83E8             STRH     R0,[R5, #+30]
@@ -4063,74 +4080,70 @@ Warning[Pe177]: function "USBH_UserProcess" was declared but never referenced
 
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable25_18:
-   \   00000000   0x........         DC32     EnergyError
-
-   \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable25_19:
    \   00000000   0x........         DC32     ??ticks
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable25_20:
+   \                     ??DataTable25_19:
    \   00000000   0x00100001         DC32     0x100001
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable25_21:
+   \                     ??DataTable25_20:
    \   00000000   0x40005400         DC32     0x40005400
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable25_22:
+   \                     ??DataTable25_21:
    \   00000000   0x40020400         DC32     0x40020400
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable25_23:
+   \                     ??DataTable25_22:
    \   00000000   0x40005800         DC32     0x40005800
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable25_24:
+   \                     ??DataTable25_23:
    \   00000000   0x40004800         DC32     0x40004800
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable25_25:
+   \                     ??DataTable25_24:
    \   00000000   0x40020800         DC32     0x40020800
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable25_26:
+   \                     ??DataTable25_25:
    \   00000000   0x40013C14         DC32     0x40013c14
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable25_27:
+   \                     ??DataTable25_26:
    \   00000000   0x........         DC32     cntRisingEXTI
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable25_28:
+   \                     ??DataTable25_27:
    \   00000000   0x........         DC32     btnSW1
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable25_29:
+   \                     ??DataTable25_28:
    \   00000000   0x........         DC32     SS
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable25_30:
+   \                     ??DataTable25_29:
    \   00000000   0x........         DC32     bufferSum
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable25_31:
+   \                     ??DataTable25_30:
    \   00000000   0x40022000         DC32     0x40022000
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable25_32:
+   \                     ??DataTable25_31:
    \   00000000   0x........         DC32     hi2c2
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable25_33:
+   \                     ??DataTable25_32:
    \   00000000   0x00A0689A         DC32     0xa0689a
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable25_34:
+   \                     ??DataTable25_33:
    \   00000000   0x........         DC32     idxFrmPDMMic8
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable25_35:
+   \                     ??DataTable25_34:
    \   00000000   0x........         DC32     WaveRec_idxTest
 
    \                                 In section .text, align 4, keep-with-next
@@ -4369,7 +4382,6 @@ Warning[Pe177]: function "USBH_UserProcess" was declared but never referenced
        4  ??DataTable25_32
        4  ??DataTable25_33
        4  ??DataTable25_34
-       4  ??DataTable25_35
        4  ??DataTable25_4
        4  ??DataTable25_5
        4  ??DataTable25_6
@@ -4471,7 +4483,7 @@ Warning[Pe177]: function "USBH_UserProcess" was declared but never referenced
      100  hspi4
      112  huart3
        1  idxDec
-    1068  main
+    1050  main
       20  pI2CData
       12  pI2CRx
        4  ticks
@@ -4479,10 +4491,10 @@ Warning[Pe177]: function "USBH_UserProcess" was declared but never referenced
  
  8 373 bytes in section .bss
  2 852 bytes in section .data
- 2 968 bytes in section .text
+ 2 946 bytes in section .text
  
-  2 968 bytes of CODE memory
+  2 946 bytes of CODE memory
  11 225 bytes of DATA memory
 
 Errors: none
-Warnings: 1
+Warnings: 5

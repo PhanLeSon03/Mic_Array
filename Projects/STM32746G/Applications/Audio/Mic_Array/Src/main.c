@@ -507,27 +507,27 @@ int main(void)
                         int16_t test[5];
                         static uint8_t flagNotMin;
                         test[0] = 0;
-						if (CrssCorVal63/EnergyError>10)						
+						if (CrssCorVal63>10)						
                             test[1]= idxLatency63;
 						else
 							test[1] = 0;
 
-						if (CrssCorVal14/EnergyError>10)
+						if (CrssCorVal14>10)
                             test[2]= idxLatency14;
 						else
 							test[2] =0;
 
-						if (CrssCorVal25/EnergyError > 10)
+						if (CrssCorVal25 > 10)
                             test[3]= idxLatency25;
 						else
 							test[3] = 0;
 
-                        if (CrssCorVal78/EnergyError>10)
+                        if (CrssCorVal78>10)
 						    test[4]= idxLatency78;                        
 						else
 							test[4]= 2;
 
-						//if (((tmpSNR63>10))||((tmpSNR14>10))||((tmpSNR25>10))||((tmpSNR78>10)))
+						if (((CrssCorVal63>10))||((CrssCorVal14>10))||((CrssCorVal25>10))||((CrssCorVal78>10)))
                         {
                              sprintf((char *)pUARTBuf,"%d:%d:%d:%d  ",idxLatency63,idxLatency14,idxLatency25,idxLatency78);
                              flagNotMin=0 ;
@@ -641,7 +641,7 @@ int main(void)
 
                           stDir = (flgS2Flt<<2)|(flgS3Flt<<1)|(flgS4Flt); 
                          
-                           sprintf((char *)(pUARTBuf+30),"%d:%d:%d:%d\n\r\n\r",tmpSNR63,tmpSNR14,tmpSNR25,tmpSNR78);
+                           sprintf((char *)(pUARTBuf+30),"%d:%d:%d:%d\n\r\n\r",CrssCorVal63,CrssCorVal14,CrssCorVal25,CrssCorVal78);
                            HAL_UART_Transmit_IT(&huart3,pUARTBuf,15+15+15);		
                          }
                     }//if(SNR)

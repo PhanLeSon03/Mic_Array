@@ -1075,7 +1075,7 @@ int16_t GCC_PHAT(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen, uint32
 	/* Output normalize */
 	for (uint16_t i=0; i<2*numLen;i++)
 	{
-       vDataIn_FFT[i] = vDataIn2_FFT[i]/vDataIn1_FFT[i%2];
+       vDataIn_FFT[i] = vDataIn2_FFT[i]/(vDataIn1_FFT[i%2]+0.0001);
 	}
 
 	/* Invert FFT */
@@ -1084,11 +1084,17 @@ int16_t GCC_PHAT(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen, uint32
     FFTShift(vDataIn,vDataOut,numLen); 
 	
     arm_max_f32(vDataOut,numLen,&ValMax,&idxArgMax);
-	*CrssCorVal = (uint32_t)ValMax;
+	
 	if (((int16_t)(idxArgMax-numLen/2)>-8)&&((int16_t)(idxArgMax-numLen/2)<8))
+	{
+		*CrssCorVal = (uint32_t)ValMax;
 	    return (int16_t)(idxArgMax-numLen/2);
-	else 
+	}
+	else
+	{
+		*CrssCorVal = 0;
 		return 255;
+	}
 }
 
 /** COPY from Wooters

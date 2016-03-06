@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      07/Mar/2016  01:51:53
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      07/Mar/2016  02:19:28
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -1008,7 +1008,7 @@ LowPass2ndOder:
 //  394         uint16_t i;
 //  395 	 
 //  396     for(i=0; i<Size; i++)
-        LDR.W    R4,??DataTable14_1
+        LDR.W    R4,??DataTable13_1
         MOVS     R5,#+0
         MOVS     R3,#+0
         LDRSH    R8,[R4, #+2]
@@ -1237,7 +1237,7 @@ LowPassIIR:
           CFI R5 Frame(CFA, -24)
           CFI R4 Frame(CFA, -28)
           CFI CFA R13+32
-        LDR.W    R5,??DataTable16_2  ;; 0xffff8000
+        LDR.W    R5,??DataTable16_1  ;; 0xffff8000
         MOVW     R8,#+32767
         LDR      R4,[SP, #+32]
 //  467 	{
@@ -1588,7 +1588,7 @@ Window:
           CFI FunCall __aeabi_dmul
         BL       __aeabi_dmul
         MOVS     R2,#+0
-        LDR.W    R3,??DataTable16_14  ;; 0x407ff000
+        LDR.W    R3,??DataTable16_15  ;; 0x407ff000
           CFI FunCall __aeabi_ddiv
         BL       __aeabi_ddiv
         VMOV     D0,R0,R1
@@ -1795,7 +1795,7 @@ PDM2PCM:
 ??PDM2PCM_0:
         LDR      R6,[SP, #+4]
         MOVS     R4,#+0
-        LDR.W    R7,??DataTable16_15
+        LDR.W    R7,??DataTable16_16
         MOV      R12,R2
         ADDS     R6,R0,R6
         MOV      LR,#+8
@@ -1915,7 +1915,7 @@ PDM2PCM:
 //  695 
 //  696 		for (uint16_t i=0; i< (DSP_NUMBYTECONV/2); i++)
         LDR      R7,[SP, #+4]
-        LDR.W    R6,??DataTable16_15
+        LDR.W    R6,??DataTable16_16
         MOV      R12,#+4
         ADDS     R7,R0,R7
         SUBS     R7,R7,#+5
@@ -1987,7 +1987,7 @@ Precalculation:
           CFI CFA R13+12
 //  736     for (uint8_t i = 0; i < 129; i++)  /* from byte 0th to byth 7th of data input */
         MOVS     R2,#+129
-        LDR.W    R3,??DataTable16_2  ;; 0xffff8000
+        LDR.W    R3,??DataTable16_1  ;; 0xffff8000
         MOVW     R5,#+32767
 //  737 	{ 
 //  738 
@@ -2721,7 +2721,7 @@ Delay_Sum_FFT:
         STR      R0,[SP, #+0]
         LDR      R1,[SP, #+0]
         MOV      R0,#+1024
-        LDR.W    R9,??DataTable16_3
+        LDR.W    R9,??DataTable16_2
         MOVS     R7,#+0
         SDIV     R0,R0,R1
         STR      R0,[SP, #+20]
@@ -2731,7 +2731,7 @@ Delay_Sum_FFT:
         STR      R0,[SP, #+16]
         ADD      R0,R9,#+12288
         ADDS     R0,R0,#+120
-        LDR.W    R11,??DataTable16_4
+        LDR.W    R11,??DataTable16_3
         STR      R0,[SP, #+12]
         ADD      R0,R9,#+8192
         ADDS     R0,R0,#+80
@@ -2795,7 +2795,7 @@ Delay_Sum_FFT:
         ADD      R0,R9,R0, LSL #+2
         ADD      R2,R0,#+37376
         ADDS     R2,R2,#+208
-        LDR.W    R0,??DataTable16_5
+        LDR.W    R0,??DataTable16_4
           CFI FunCall arm_rfft_f32
         BL       arm_rfft_f32
 ??Delay_Sum_FFT_0:
@@ -2819,7 +2819,7 @@ Delay_Sum_FFT:
 ??Delay_Sum_FFT_4:
         MOV      R2,R9
         MOV      R1,R11
-        LDR.W    R0,??DataTable16_6
+        LDR.W    R0,??DataTable16_5
           CFI FunCall arm_rfft_f32
         BL       arm_rfft_f32
         CMP      R6,#+1
@@ -2840,7 +2840,7 @@ Delay_Sum_FFT:
 ??Delay_Sum_FFT_6:
         LDR      R2,[SP, #+4]
         MOV      R1,R11
-        LDR.W    R0,??DataTable16_7
+        LDR.W    R0,??DataTable16_6
           CFI FunCall arm_rfft_f32
         BL       arm_rfft_f32
         CMP      R6,#+1
@@ -2862,7 +2862,7 @@ Delay_Sum_FFT:
 ??Delay_Sum_FFT_8:
         LDR      R2,[SP, #+8]
         MOV      R1,R11
-        LDR.W    R0,??DataTable16_8
+        LDR.W    R0,??DataTable16_7
           CFI FunCall arm_rfft_f32
         BL       arm_rfft_f32
         CMP      R6,#+1
@@ -2884,7 +2884,7 @@ Delay_Sum_FFT:
 ??Delay_Sum_FFT_10:
         LDR      R2,[SP, #+12]
         MOV      R1,R11
-        LDR.N    R0,??DataTable16_9
+        LDR.W    R0,??DataTable16_8
           CFI FunCall arm_rfft_f32
         BL       arm_rfft_f32
         MOVS     R0,#+0
@@ -3055,7 +3055,7 @@ EnergyNoiseCalc:
 // 1046 	EnergyError = SumError/numLen;
 ??EnergyNoiseCalc_0:
         MOVS     R3,#+0
-        LDR.N    R4,??DataTable16_16
+        LDR.N    R4,??DataTable16_17
           CFI FunCall __aeabi_ldivmod
         BL       __aeabi_ldivmod
         STR      R0,[R4, #+0]
@@ -3071,47 +3071,57 @@ EnergyNoiseCalc:
         DATA
 ??DataTable13:
         DC32     ??Out_Old
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable13_1:
+        DC32     ??InOld
 // 1051 
 // 1052 /* Generalized Cross Correlation with Phase Transform (GCC-PHAT)  */
 // 1053 /* Input: data from 2 microphones in time domain, length of data       */
 // 1054 /* Output: Generlize Cross Correlation value                                    */
 
-        SECTION `.text`:CODE:NOROOT(1)
+        SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock23 Using cfiCommon0
           CFI Function GCC_PHAT
         THUMB
 // 1055 int16_t GCC_PHAT(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen, uint32_t * CrssCorVal )
 // 1056 {
 GCC_PHAT:
-        PUSH     {R2-R10,LR}
+        PUSH     {R4-R8,R10,R11,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R10 Frame(CFA, -8)
-          CFI R9 Frame(CFA, -12)
+          CFI R11 Frame(CFA, -8)
+          CFI R10 Frame(CFA, -12)
           CFI R8 Frame(CFA, -16)
           CFI R7 Frame(CFA, -20)
           CFI R6 Frame(CFA, -24)
           CFI R5 Frame(CFA, -28)
           CFI R4 Frame(CFA, -32)
+          CFI CFA R13+32
+        MOVS     R4,R2
+        MOV      R6,R1
+        VPUSH    {D8}
+          CFI D8 Frame(CFA, -40)
           CFI CFA R13+40
-        MOV      R5,R2
+        SUB      SP,SP,#+16
+          CFI CFA R13+56
+        MOV      R7,R3
 // 1057     uint32_t idxArgMax;
 // 1058     float ValMax;
 // 1059 
 // 1060 	/* Fourier Transform for Data In 1 */
 // 1061 	RFFT_GCC(vDataIn1,S,vDataIn1_FFT,numLen);
-        MOVS     R7,R5
-        MOV      R4,R1
-        MOV      R6,R3
-        LDR.W    R8,??DataTable16_4
+        LDR.W    R8,??DataTable16_3
         BEQ.N    ??GCC_PHAT_0
         MOV      R1,R8
-        LDR.N    R2,??DataTable16_10
-        MOV      R3,R5
+        LDR.N    R2,??DataTable16_11
+        MOV      R3,R4
 ??GCC_PHAT_1:
-        LDRSH    R12,[R0], #+2
+        LDRSH    R5,[R0], #+2
         VLDR     S1,[R2, #0]
         ADDS     R2,R2,#+4
-        VMOV     S0,R12
+        VMOV     S0,R5
         VCVT.F32.S32 S0,S0
         VMUL.F32 S0,S0,S1
         VSTR     S0,[R1, #0]
@@ -3119,22 +3129,22 @@ GCC_PHAT:
         SUBS     R3,R3,#+1
         BNE.N    ??GCC_PHAT_1
 ??GCC_PHAT_0:
-        LDR.W    R9,??DataTable16_11
-        LDR.W    R10,??DataTable16_12
-        MOV      R2,R10
+        LDR.W    R10,??DataTable16_9
+        LDR.N    R5,??DataTable16_10
+        MOV      R2,R5
         MOV      R1,R8
-        MOV      R0,R9
+        MOV      R0,R10
           CFI FunCall arm_rfft_f32
         BL       arm_rfft_f32
 // 1062 	
 // 1063     /* Fourier Trnasform for Data In 2 */
 // 1064 	RFFT_GCC(vDataIn2,S,vDataIn2_FFT,numLen);
-        CBZ.N    R5,??GCC_PHAT_2
+        CBZ.N    R4,??GCC_PHAT_2
         MOV      R0,R8
-        LDR.N    R1,??DataTable16_10
-        MOV      R2,R5
+        LDR.N    R1,??DataTable16_11
+        MOV      R2,R4
 ??GCC_PHAT_3:
-        LDRSH    R3,[R4], #+2
+        LDRSH    R3,[R6], #+2
         VLDR     S1,[R1, #0]
         ADDS     R1,R1,#+4
         VMOV     S0,R3
@@ -3145,105 +3155,149 @@ GCC_PHAT:
         SUBS     R2,R2,#+1
         BNE.N    ??GCC_PHAT_3
 ??GCC_PHAT_2:
-        ADD      R4,R10,#+4096
-        MOV      R2,R4
+        ADD      R6,R5,#+4096
+        MOV      R2,R6
         MOV      R1,R8
-        MOV      R0,R9
+        MOV      R0,R10
           CFI FunCall arm_rfft_f32
         BL       arm_rfft_f32
 // 1065 
 // 1066 	/* Complex conjugate for Datat 2 FFT */
 // 1067 	arm_cmplx_conj_f32(vDataIn2_FFT,vDataIn2_FFT_CJ, numLen);
-        ADD      R8,R10,#+12288
-        MOV      R2,R5
+        ADD      R8,R5,#+12288
+        MOV      R2,R4
         MOV      R1,R8
-        MOV      R0,R4
+        MOV      R0,R6
           CFI FunCall arm_cmplx_conj_f32
         BL       arm_cmplx_conj_f32
 // 1068     
 // 1069 	/* cross spectra  */
 // 1070 	arm_cmplx_mult_cmplx_f32(vDataIn1_FFT,vDataIn2_FFT_CJ,vDataIn2_FFT,numLen); /* vDataIn2_FFT is  using at the destination output to save the memory */
-        MOV      R3,R5
-        MOV      R2,R4
+        MOV      R3,R4
+        MOV      R2,R6
         MOV      R1,R8
-        MOV      R0,R10
+        MOV      R0,R5
           CFI FunCall arm_cmplx_mult_cmplx_f32
         BL       arm_cmplx_mult_cmplx_f32
 // 1071 
 // 1072     /* magnitude */
 // 1073 	arm_cmplx_mag_f32(vDataIn2_FFT,vDataIn1_FFT, numLen); /* vDataIn1_FFT is  using at the destination output to save the memory */
-        MOV      R2,R5
-        MOV      R1,R10
-        MOV      R0,R4
+        MOV      R2,R4
+        MOV      R1,R5
+        MOV      R0,R6
+        MOVS     R6,#+0
           CFI FunCall arm_cmplx_mag_f32
         BL       arm_cmplx_mag_f32
 // 1074 
 // 1075 	/* Output normalize */
 // 1076 	for (uint16_t i=0; i<2*numLen;i++)
-        MOVS     R0,#+0
+        LSLS     R0,R4,#+1
+        STR      R0,[SP, #+8]
+        VLDR.W   D8,??DataTable16_12
         B.N      ??GCC_PHAT_4
 // 1077 	{
-// 1078        vDataIn_FFT[i] = vDataIn2_FFT[i]/vDataIn1_FFT[i%2];
+// 1078        vDataIn_FFT[i] = vDataIn2_FFT[i]/(vDataIn1_FFT[i%2]+0.0001);
 ??GCC_PHAT_5:
-        ADD      R2,R10,R0, LSL #+2
-        ADD      R3,R2,#+4096
-        ADD      R2,R2,#+8192
-        VLDR     S0,[R3, #0]
-        ADD      R3,R0,R0, LSR #+31
-        ASRS     R3,R3,#+1
-        SUB      R3,R0,R3, LSL #+1
+        ADD      R8,R5,R6, LSL #+2
+        ADD      R0,R8,#+4096
+        LDR      R0,[R0, #+0]
+          CFI FunCall __aeabi_f2d
+        BL       __aeabi_f2d
+        MOV      R10,R0
+        ADD      R0,R6,R6, LSR #+31
+        MOV      R11,R1
+        ASRS     R0,R0,#+1
+        SUB      R0,R6,R0, LSL #+1
 // 1079 	}
-        ADDS     R0,R0,#+1
-        UXTH     R0,R0
-        ADD      R3,R10,R3, LSL #+2
-        VLDR     S1,[R3, #0]
-        VDIV.F32 S0,S0,S1
-        VSTR     S0,[R2, #0]
+        ADDS     R6,R6,#+1
+        LDR      R0,[R5, R0, LSL #+2]
+        UXTH     R6,R6
+          CFI FunCall __aeabi_f2d
+        BL       __aeabi_f2d
+        VMOV     R2,R3,D8
+          CFI FunCall __aeabi_dadd
+        BL       __aeabi_dadd
+        MOV      R2,R0
+        MOV      R3,R1
+        MOV      R0,R10
+        MOV      R1,R11
+          CFI FunCall __aeabi_ddiv
+        BL       __aeabi_ddiv
+          CFI FunCall __aeabi_d2f
+        BL       __aeabi_d2f
+        ADD      R1,R8,#+8192
+        STR      R0,[R1, #+0]
 ??GCC_PHAT_4:
-        CMP      R0,R5, LSL #+1
+        LDR      R0,[SP, #+8]
+        CMP      R6,R0
         BLT.N    ??GCC_PHAT_5
 // 1080 
 // 1081 	/* Invert FFT */
 // 1082     arm_rfft_f32(&IS, (float *)vDataIn_FFT, (float *)vDataIn);
-        ADD      R4,R10,#+20480
-        MOV      R2,R4
-        ADD      R1,R10,#+8192
-        LDR.N    R0,??DataTable16_5
+        ADD      R6,R5,#+20480
+        MOV      R2,R6
+        ADD      R1,R5,#+8192
+        LDR.N    R0,??DataTable16_4
           CFI FunCall arm_rfft_f32
         BL       arm_rfft_f32
 // 1083 
 // 1084     FFTShift(vDataIn,vDataOut,numLen); 
-        ADD      R8,R10,#+16384
-        MOV      R2,R5
-        MOV      R1,R8
-        MOV      R0,R4
+        ADD      R5,R5,#+16384
+        MOV      R2,R4
+        MOV      R1,R5
+        MOV      R0,R6
           CFI FunCall FFTShift
         BL       FFTShift
 // 1085 	
 // 1086     arm_max_f32(vDataOut,numLen,&ValMax,&idxArgMax);
-        ADD      R3,SP,#+4
-        MOV      R2,SP
-        MOV      R1,R5
-        MOV      R0,R8
+        MOV      R3,SP
+        ADD      R2,SP,#+4
+        MOV      R1,R4
+        MOV      R0,R5
           CFI FunCall arm_max_f32
         BL       arm_max_f32
-// 1087 	*CrssCorVal = (uint32_t)ValMax;
-        VLDR     S0,[SP, #+0]
-        VCVT.U32.F32 S0,S0
-        VSTR     S0,[R6, #0]
-// 1088 	if (((int16_t)(idxArgMax-numLen/2)>-8)&&((int16_t)(idxArgMax-numLen/2)<8))
-        LDR      R0,[SP, #+4]
-        SUB      R0,R0,R5, LSR #+1
-        SXTH     R0,R0
-        ADDS     R1,R0,#+7
+        LDR      R1,[SP, #+0]
+        SUB      R1,R1,R4, LSR #+1
+        SXTH     R1,R1
+        ADDS     R1,R1,#+7
         CMP      R1,#+15
-        IT       CS 
-        MOVCS    R0,#+255
-// 1089 	    return (int16_t)(idxArgMax-numLen/2);
-// 1090 	else 
-// 1091 		return 255;
-        POP      {R1,R2,R4-R10,PC}  ;; return
-// 1092 }
+        BCS.N    ??GCC_PHAT_6
+// 1087 	
+// 1088 	if (((int16_t)(idxArgMax-numLen/2)>-8)&&((int16_t)(idxArgMax-numLen/2)<8))
+// 1089 	{
+// 1090 		*CrssCorVal = (uint32_t)ValMax;
+        VLDR     S0,[SP, #+4]
+        VCVT.U32.F32 S0,S0
+        VSTR     S0,[R7, #0]
+// 1091 	    return (int16_t)(idxArgMax-numLen/2);
+        LDR      R1,[SP, #+0]
+        ADD      SP,SP,#+16
+          CFI CFA R13+40
+        SUB      R0,R1,R4, LSR #+1
+        VPOP     {D8}
+          CFI D8 SameValue
+          CFI CFA R13+32
+        SXTH     R0,R0
+        POP      {R4-R8,R10,R11,PC}
+          CFI D8 Frame(CFA, -40)
+          CFI CFA R13+56
+// 1092 	}
+// 1093 	else
+// 1094 	{
+// 1095 		*CrssCorVal = 0;
+??GCC_PHAT_6:
+        MOVS     R0,#+0
+        STR      R0,[R7, #+0]
+// 1096 		return 255;
+        ADD      SP,SP,#+16
+          CFI CFA R13+40
+        MOVS     R0,#+255
+        VPOP     {D8}
+          CFI D8 SameValue
+          CFI CFA R13+32
+        POP      {R4-R8,R10,R11,PC}  ;; return
+// 1097 	}
+// 1098 }
           CFI EndBlock cfiBlock23
 
         SECTION `.text`:CODE:NOROOT(2)
@@ -3251,26 +3305,20 @@ GCC_PHAT:
         DATA
 ??DataTable14:
         DC32     0xffff8000
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable14_1:
-        DC32     ??InOld
-// 1093 
-// 1094 /** COPY from Wooters
-// 1095  * Shift the output of an FFT.
-// 1096  *
-// 1097  * The index of the mid-point in the output will be located at: ceil(_N/2)
-// 1098  * @ingroup GCC
-// 1099  */
+// 1099 
+// 1100 /** COPY from Wooters
+// 1101  * Shift the output of an FFT.
+// 1102  *
+// 1103  * The index of the mid-point in the output will be located at: ceil(_N/2)
+// 1104  * @ingroup GCC
+// 1105  */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock24 Using cfiCommon0
           CFI Function FFTShift
         THUMB
-// 1100 void FFTShift(const float * const in, float * const out, const uint16_t N)
-// 1101 {
+// 1106 void FFTShift(const float * const in, float * const out, const uint16_t N)
+// 1107 {
 FFTShift:
         PUSH     {R3-R7,LR}
           CFI R14 Frame(CFA, -4)
@@ -3282,13 +3330,13 @@ FFTShift:
         MOV      R4,R0
         MOV      R6,R2
         MOV      R5,R1
-// 1102   /* mid-point of out[] will be located at index ceil(N/2) */
-// 1103   uint16_t xx = (uint16_t) floor((int16_t) N/2.0);
+// 1108   /* mid-point of out[] will be located at index ceil(N/2) */
+// 1109   uint16_t xx = (uint16_t) floor((int16_t) N/2.0);
         SXTH     R0,R6
           CFI FunCall __aeabi_i2d
         BL       __aeabi_i2d
         MOVS     R2,#+0
-        LDR.N    R3,??DataTable16_17  ;; 0x3fe00000
+        LDR.N    R3,??DataTable16_18  ;; 0x3fe00000
           CFI FunCall __aeabi_dmul
         BL       __aeabi_dmul
         VMOV     D0,R0,R1
@@ -3298,18 +3346,18 @@ FFTShift:
           CFI FunCall __aeabi_d2iz
         BL       __aeabi_d2iz
         UXTH     R7,R0
-// 1104 
-// 1105   /* Copy last half of in[] to first half of out[] */
-// 1106   memcpy(out,&in[xx],sizeof(float)*(N-xx));
+// 1110 
+// 1111   /* Copy last half of in[] to first half of out[] */
+// 1112   memcpy(out,&in[xx],sizeof(float)*(N-xx));
         SUBS     R0,R6,R7
         LSLS     R2,R0,#+2
         ADD      R1,R4,R7, LSL #+2
         MOV      R0,R5
           CFI FunCall __aeabi_memcpy
         BL       __aeabi_memcpy
-// 1107 
-// 1108   /* Copy first half of in[] to end of out[] */
-// 1109   memcpy(&out[N-xx],in,sizeof(float)*xx);
+// 1113 
+// 1114   /* Copy first half of in[] to end of out[] */
+// 1115   memcpy(&out[N-xx],in,sizeof(float)*xx);
         SUBS     R0,R6,R7
         LSLS     R2,R7,#+2
         MOV      R1,R4
@@ -3323,7 +3371,7 @@ FFTShift:
           CFI CFA R13+0
           CFI FunCall __aeabi_memcpy
         B.W      __aeabi_memcpy
-// 1110 }
+// 1116 }
           CFI EndBlock cfiBlock24
 
         SECTION `.text`:CODE:NOROOT(2)
@@ -3337,31 +3385,31 @@ FFTShift:
         DATA
 ??DataTable15_1:
         DC32     ??InOld_1
-// 1111 
-// 1112 
-// 1113 /** COPY from Wooters
-// 1114  * Compute the entropy of the given vector of values. This actually
-// 1115  * returns a "normalized" entropy value in which the entropy of the
-// 1116  * distribution is divided by the maximum entropy possible for that
-// 1117  * distribution. That away, the return value is always between 0.0 and
-// 1118  * 1.0.
-// 1119  *
-// 1120  * @param a Pointer to an array of doubles representing the distribution.
-// 1121  * @param N The length of the array \a a[]
-// 1122  * @param clip Since negative values in the input array can cause
-// 1123  * problems when computing the entropy, we need to decide how to
-// 1124  * handle them. If \a clip is true, then negative values in \a a[] will
-// 1125  * be ignored. If it is false, then all values in \a a[] will be squared
-// 1126  * and the entropy will be computed over the a^2.
-// 1127  *
-// 1128  */
+// 1117 
+// 1118 
+// 1119 /** COPY from Wooters
+// 1120  * Compute the entropy of the given vector of values. This actually
+// 1121  * returns a "normalized" entropy value in which the entropy of the
+// 1122  * distribution is divided by the maximum entropy possible for that
+// 1123  * distribution. That away, the return value is always between 0.0 and
+// 1124  * 1.0.
+// 1125  *
+// 1126  * @param a Pointer to an array of doubles representing the distribution.
+// 1127  * @param N The length of the array \a a[]
+// 1128  * @param clip Since negative values in the input array can cause
+// 1129  * problems when computing the entropy, we need to decide how to
+// 1130  * handle them. If \a clip is true, then negative values in \a a[] will
+// 1131  * be ignored. If it is false, then all values in \a a[] will be squared
+// 1132  * and the entropy will be computed over the a^2.
+// 1133  *
+// 1134  */
 
         SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock25 Using cfiCommon0
           CFI Function MD_entropy
         THUMB
-// 1129 float MD_entropy(const float* const a, uint16_t N, const uint8_t clip) 
-// 1130 {
+// 1135 float MD_entropy(const float* const a, uint16_t N, const uint8_t clip) 
+// 1136 {
 MD_entropy:
         PUSH     {R3-R11,LR}
           CFI R14 Frame(CFA, -4)
@@ -3375,7 +3423,7 @@ MD_entropy:
           CFI R4 Frame(CFA, -36)
           CFI CFA R13+40
         MOV      R7,R1
-// 1131   if (N <= 1) return 0.0;
+// 1137   if (N <= 1) return 0.0;
         CMP      R7,#+2
         VPUSH    {D8-D11}
           CFI D11 Frame(CFA, -48)
@@ -3386,10 +3434,10 @@ MD_entropy:
         MOV      R10,R0
         MOV      R6,R2
         IT       LT 
-        VLDRLT.W S0,??DataTable16_1  ;; 0x0
+        VLDRLT.W S0,??DataTable16_14  ;; 0x0
         BLT.W    ??MD_entropy_0
-// 1132 
-// 1133   float maxe = -log2(1.0/(float)N); /* max entropy */
+// 1138 
+// 1139   float maxe = -log2(1.0/(float)N); /* max entropy */
         VMOV     S0,R7
         MOV      R4,#-1
         VCVT.F32.U32 S0,S0
@@ -3408,23 +3456,23 @@ MD_entropy:
         BL       __iar_Log
         VMOV     R0,R1,D0
         EOR      R1,R1,#0x80000000
-// 1134   float ent = 0.0;
-        VLDR.W   S18,??DataTable16_1  ;; 0x0
+// 1140   float ent = 0.0;
+        VLDR.W   S18,??DataTable16_14  ;; 0x0
           CFI FunCall __aeabi_d2f
         BL       __aeabi_d2f
         VMOV     S16,R0
-// 1135   float tot = 0.0;
-        VLDR.W   S17,??DataTable16_1  ;; 0x0
-// 1136   uint16_t i;
-// 1137   float p;
-// 1138 
-// 1139   if (clip) 
+// 1141   float tot = 0.0;
+        VLDR.W   S17,??DataTable16_14  ;; 0x0
+// 1142   uint16_t i;
+// 1143   float p;
+// 1144 
+// 1145   if (clip) 
         CBZ.N    R6,??MD_entropy_1
         MOV      R4,R10
         MOV      R5,R7
-        VLDR.W   D10,??DataTable16_18
-// 1140   {
-// 1141     for (i=0;i<N;i++) tot += (a[i]<0.0) ? 0.0 : a[i];
+        VLDR.W   D10,??DataTable16_19
+// 1146   {
+// 1147     for (i=0;i<N;i++) tot += (a[i]<0.0) ? 0.0 : a[i];
 ??MD_entropy_2:
         VLDR     S0,[R4, #0]
         VCMP.F32 S0,#0.0
@@ -3452,54 +3500,54 @@ MD_entropy:
         VMOV     S17,R0
         BNE.N    ??MD_entropy_2
         B.N      ??MD_entropy_5
-// 1142   } 
+// 1148   } 
 ??MD_entropy_1:
         MOV      R0,R10
         MOV      R1,R7
-// 1143   else
-// 1144   {
-// 1145     for (i=0;i<N;i++) tot += a[i]*a[i]; /* use a^2 */
+// 1149   else
+// 1150   {
+// 1151     for (i=0;i<N;i++) tot += a[i]*a[i]; /* use a^2 */
 ??MD_entropy_6:
         VLDR     S0,[R0, #0]
         ADDS     R0,R0,#+4
         SUBS     R1,R1,#+1
         VMLA.F32 S17,S0,S0
         BNE.N    ??MD_entropy_6
-// 1146   }
-// 1147 
-// 1148   if (tot==0.0) return maxe;
+// 1152   }
+// 1153 
+// 1154   if (tot==0.0) return maxe;
 ??MD_entropy_5:
         VCMP.F32 S17,#0.0
         FMSTAT   
         IT       EQ 
         VMOVEQ.F32 S0,S16
         BEQ.N    ??MD_entropy_0
-// 1149 
-// 1150   for (i=0;i<N;i++)
-// 1151   {
-// 1152     if (a[i] == 0.0) continue;
+// 1155 
+// 1156   for (i=0;i<N;i++)
+// 1157   {
+// 1158     if (a[i] == 0.0) continue;
 ??MD_entropy_7:
         VLDR     S0,[R10, #0]
         VCMP.F32 S0,#0.0
         FMSTAT   
         BEQ.N    ??MD_entropy_8
-// 1153     if (clip && (a[i] < 0.0)) continue;
+// 1159     if (clip && (a[i] < 0.0)) continue;
         CBZ.N    R6,??MD_entropy_9
         VCMP.F32 S0,#0.0
         FMSTAT   
         BMI.N    ??MD_entropy_8
-// 1154 
-// 1155     if (clip)
-// 1156       p = a[i]/tot; /* prob of a[i] */
+// 1160 
+// 1161     if (clip)
+// 1162       p = a[i]/tot; /* prob of a[i] */
         B.N      ??MD_entropy_10
-// 1157     else
-// 1158       p = (a[i]*a[i])/tot; /* no clipping, so prob a[i]^2 */
+// 1163     else
+// 1164       p = (a[i]*a[i])/tot; /* no clipping, so prob a[i]^2 */
 ??MD_entropy_9:
         VMUL.F32 S0,S0,S0
 ??MD_entropy_10:
         VDIV.F32 S19,S0,S17
-// 1159 
-// 1160     ent += p * log2(p);
+// 1165 
+// 1166     ent += p * log2(p);
         VMOV     R0,S18
         MOV      R11,#-1
           CFI FunCall __aeabi_f2d
@@ -3530,13 +3578,13 @@ MD_entropy:
           CFI FunCall __aeabi_d2f
         BL       __aeabi_d2f
         VMOV     S18,R0
-// 1161   }
+// 1167   }
 ??MD_entropy_8:
         SUBS     R7,R7,#+1
         ADD      R10,R10,#+4
         BNE.N    ??MD_entropy_7
-// 1162 
-// 1163   return -ent/maxe;
+// 1168 
+// 1169   return -ent/maxe;
         VDIV.F32 S0,S18,S16
         VNEG.F32 S0,S0
 ??MD_entropy_0:
@@ -3547,7 +3595,7 @@ MD_entropy:
           CFI D11 SameValue
           CFI CFA R13+40
         POP      {R0,R4-R11,PC}   ;; return
-// 1164 }
+// 1170 }
           CFI EndBlock cfiBlock25
 
         SECTION `.text`:CODE:NOROOT(2)
@@ -3560,73 +3608,73 @@ MD_entropy:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_1:
-        DC32     0x0
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_2:
         DC32     0xffff8000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_3:
+??DataTable16_2:
         DC32     DataFFT
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_4:
+??DataTable16_3:
         DC32     fbuffer
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_5:
+??DataTable16_4:
         DC32     IS
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_6:
+??DataTable16_5:
         DC32     `S1`
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_7:
+??DataTable16_6:
         DC32     `S2`
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_8:
+??DataTable16_7:
         DC32     `S3`
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_9:
+??DataTable16_8:
         DC32     `S4`
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_10:
-        DC32     fir256Coff
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16_11:
+??DataTable16_9:
         DC32     S
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16_12:
+??DataTable16_10:
         DC32     vDataIn1_FFT
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable16_11:
+        DC32     fir256Coff
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable16_12:
+        DC32     0xEB1C432D,0x3F1A36E2
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -3638,30 +3686,36 @@ MD_entropy:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_14:
-        DC32     0x407ff000
+        DC32     0x0
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_15:
-        DC32     ??Initial_Array
+        DC32     0x407ff000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_16:
-        DC32     EnergyError
+        DC32     ??Initial_Array
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_17:
-        DC32     0x3fe00000
+        DC32     EnergyError
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable16_18:
+        DC32     0x3fe00000
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable16_19:
         DC32     0x0,0x0
 
         SECTION `.text`:CODE:NOROOT(2)
@@ -3768,12 +3822,12 @@ NoiseBG:
         SECTION_TYPE SHT_PROGBITS, 0
 
         END
-// 1165 
+// 1171 
 // 
 // 71 454 bytes in section .bss
-//  6 690 bytes in section .text
+//  6 762 bytes in section .text
 // 
-//  6 690 bytes of CODE memory
+//  6 762 bytes of CODE memory
 // 71 454 bytes of DATA memory
 //
 //Errors: none
