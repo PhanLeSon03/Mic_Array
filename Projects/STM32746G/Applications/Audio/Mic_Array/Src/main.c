@@ -1,3 +1,11 @@
+/*****************************************************************************
+  *    Author: Phan Le Son                                                                                           
+  *    Company: Autonomous.ai                                            
+  *    email: plson03@gmail.com
+  *****************************************************************************/
+
+
+
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "DSP.h"
@@ -84,8 +92,8 @@ float fir256Coff[DSP_NUMCOFFHANNIING];
 arm_rfft_instance_q15 RealFFT_Ins, RealIFFT_Ins;
 #endif
 
-arm_cfft_radix4_instance_f32 SS1,SS2,SS3,SS4,ISS; 
-arm_rfft_instance_f32 S1,S2,S3,S4,IS;
+arm_cfft_radix4_instance_f32 SS,SS1,SS2,SS3,SS4,ISS; 
+arm_rfft_instance_f32 S,S1,S2,S3,S4,IS;
 
 //arm_rfft_fast_instance_f32 S1,S2,S3,S4,IS;
 
@@ -168,10 +176,10 @@ inline static void FFT_Update(void)
                     Delay_Sum_FFT(&Buffer3,&FacMic,(int16_t *)bufferSum, 512);
                     //FFT_SUM((int16_t *)buffer3, (int16_t * )buffer3_1,fbuffer, 1024);				 	   
 #else
-                    idxLatency78 = CrssCor(Buffer3.bufMIC7+AUDIO_OUT_BUFFER_SIZE/4, Buffer3.bufMIC8+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal78);
-                    idxLatency14 = CrssCor(Buffer3.bufMIC1+AUDIO_OUT_BUFFER_SIZE/4, Buffer3.bufMIC4+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal14);
-                    idxLatency25 = CrssCor(Buffer3.bufMIC5+AUDIO_OUT_BUFFER_SIZE/4, Buffer3.bufMIC2+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal25);
-                    idxLatency63 = CrssCor(Buffer3.bufMIC6+AUDIO_OUT_BUFFER_SIZE/4, Buffer3.bufMIC3+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal63);
+                    idxLatency78 = GCC_PHAT(Buffer3.bufMIC7+AUDIO_OUT_BUFFER_SIZE/4, Buffer3.bufMIC8+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal78);
+                    idxLatency14 = GCC_PHAT(Buffer3.bufMIC1+AUDIO_OUT_BUFFER_SIZE/4, Buffer3.bufMIC4+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal14);
+                    idxLatency25 = GCC_PHAT(Buffer3.bufMIC5+AUDIO_OUT_BUFFER_SIZE/4, Buffer3.bufMIC2+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal25);
+                    idxLatency63 = GCC_PHAT(Buffer3.bufMIC6+AUDIO_OUT_BUFFER_SIZE/4, Buffer3.bufMIC3+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal63);
                    
 
                     SumDelay(&Buffer3);
@@ -208,10 +216,10 @@ inline static void FFT_Update(void)
                   //idxLatency13 = CrssCor(Buffer1.bufMIC1, Buffer1.bufMIC3, AUDIO_OUT_BUFFER_SIZE/2); 
                   //idxLatency12 = CrssCor(Buffer1.bufMIC1, Buffer1.bufMIC2, AUDIO_OUT_BUFFER_SIZE/2);
 		
-                  idxLatency78 = CrssCor(Buffer1.bufMIC7+AUDIO_OUT_BUFFER_SIZE/4, Buffer1.bufMIC8+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal78);	
-                  idxLatency14 = CrssCor(Buffer1.bufMIC1+AUDIO_OUT_BUFFER_SIZE/4, Buffer1.bufMIC4+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal14);
-                  idxLatency25 = CrssCor(Buffer1.bufMIC5+AUDIO_OUT_BUFFER_SIZE/4, Buffer1.bufMIC2+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal25);
-                  idxLatency63 = CrssCor(Buffer1.bufMIC6+AUDIO_OUT_BUFFER_SIZE/4, Buffer1.bufMIC3+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal63);
+                  idxLatency78 = GCC_PHAT(Buffer1.bufMIC7+AUDIO_OUT_BUFFER_SIZE/4, Buffer1.bufMIC8+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal78);	
+                  idxLatency14 = GCC_PHAT(Buffer1.bufMIC1+AUDIO_OUT_BUFFER_SIZE/4, Buffer1.bufMIC4+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal14);
+                  idxLatency25 = GCC_PHAT(Buffer1.bufMIC5+AUDIO_OUT_BUFFER_SIZE/4, Buffer1.bufMIC2+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal25);
+                  idxLatency63 = GCC_PHAT(Buffer1.bufMIC6+AUDIO_OUT_BUFFER_SIZE/4, Buffer1.bufMIC3+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal63);
 
 
 
@@ -246,10 +254,10 @@ inline static void FFT_Update(void)
           //idxLatency13 = CrssCor(Buffer2.bufMIC1, Buffer2.bufMIC3, AUDIO_OUT_BUFFER_SIZE/2); 
           //idxLatency12 = CrssCor(Buffer2.bufMIC1, Buffer2.bufMIC2, AUDIO_OUT_BUFFER_SIZE/2);
 
-          idxLatency78 = CrssCor(Buffer2.bufMIC7+AUDIO_OUT_BUFFER_SIZE/4, Buffer2.bufMIC8+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal78);
-          idxLatency14 = CrssCor(Buffer2.bufMIC1+AUDIO_OUT_BUFFER_SIZE/4, Buffer2.bufMIC4+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal14);
-          idxLatency25 = CrssCor(Buffer2.bufMIC5+AUDIO_OUT_BUFFER_SIZE/4, Buffer2.bufMIC2+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal25);
-          idxLatency63 = CrssCor(Buffer2.bufMIC6+AUDIO_OUT_BUFFER_SIZE/4, Buffer2.bufMIC3+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal63);
+          idxLatency78 = GCC_PHAT(Buffer2.bufMIC7+AUDIO_OUT_BUFFER_SIZE/4, Buffer2.bufMIC8+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal78);
+          idxLatency14 = GCC_PHAT(Buffer2.bufMIC1+AUDIO_OUT_BUFFER_SIZE/4, Buffer2.bufMIC4+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal14);
+          idxLatency25 = GCC_PHAT(Buffer2.bufMIC5+AUDIO_OUT_BUFFER_SIZE/4, Buffer2.bufMIC2+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal25);
+          idxLatency63 = GCC_PHAT(Buffer2.bufMIC6+AUDIO_OUT_BUFFER_SIZE/4, Buffer2.bufMIC3+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal63);
 
           SumDelay(&Buffer2);
 #endif
@@ -519,11 +527,11 @@ int main(void)
 						else
 							test[4]= 2;
 
-						if (((tmpSNR63>10))||((tmpSNR14>10))||((tmpSNR25>10))||((tmpSNR78>10)))
+						//if (((tmpSNR63>10))||((tmpSNR14>10))||((tmpSNR25>10))||((tmpSNR78>10)))
                         {
-                             sprintf((char *)pUARTBuf,"%d:%d:%d:%d",idxLatency63,idxLatency14,idxLatency25,idxLatency78);
+                             sprintf((char *)pUARTBuf,"%d:%d:%d:%d  ",idxLatency63,idxLatency14,idxLatency25,idxLatency78);
                              flagNotMin=0 ;
-                             
+                              sprintf((char *)(pUARTBuf+15),"----------\r\n");
                               if (test[3]>0)
                               {
                                       sprintf((char *)(pUARTBuf+15),"Close Mic 5\r\n"); 
@@ -590,13 +598,13 @@ int main(void)
 	                                if ((flagNotMin==0))                                     
 	                                    sprintf((char *)(pUARTBuf+15),"Clsoe Mic 7\r\n");
 								    else if ((flagNotMin==1))
-										if (CrssCorVal78>CrssCorVal25)
+										if ((CrssCorVal78>CrssCorVal25))
 											sprintf((char *)(pUARTBuf+15),"Clsoe Mic 7\r\n");
 								    else if ((flagNotMin==2))
-										if (CrssCorVal78>CrssCorVal14)
+										if ((CrssCorVal78>CrssCorVal14))
 											sprintf((char *)(pUARTBuf+15),"Clsoe Mic 7\r\n");	
 								    else if ((flagNotMin==3))
-										if (CrssCorVal78>CrssCorVal63)
+										if ((CrssCorVal78>CrssCorVal63))
 											sprintf((char *)(pUARTBuf+15),"Clsoe Mic 7\r\n");
 									else
 										;
@@ -607,13 +615,13 @@ int main(void)
 	                                if ((flagNotMin==0))                                     
 	                                    sprintf((char *)(pUARTBuf+15),"Clsoe Mic 8\r\n");
 								    else if ((flagNotMin==1))
-										if (CrssCorVal78>CrssCorVal25)
+										if ((CrssCorVal78>CrssCorVal25))
 											sprintf((char *)(pUARTBuf+15),"Clsoe Mic 8\r\n");
 								    else if ((flagNotMin==2))
-										if (CrssCorVal78>CrssCorVal14)
+										if ((CrssCorVal78>CrssCorVal14))
 											sprintf((char *)(pUARTBuf+15),"Clsoe Mic 8\r\n");	
 								    else if ((flagNotMin==3))
-										if (CrssCorVal78>CrssCorVal63)
+										if ((CrssCorVal78>CrssCorVal63))
 											sprintf((char *)(pUARTBuf+15),"Clsoe Mic 8\r\n");
 									else
 										;
@@ -633,7 +641,7 @@ int main(void)
 
                           stDir = (flgS2Flt<<2)|(flgS3Flt<<1)|(flgS4Flt); 
                          
-                           sprintf((char *)(pUARTBuf+30),"%d:%d:%d:%d",tmpSNR63,tmpSNR14,tmpSNR25,tmpSNR78);
+                           sprintf((char *)(pUARTBuf+30),"%d:%d:%d:%d\n\r\n\r",tmpSNR63,tmpSNR14,tmpSNR25,tmpSNR78);
                            HAL_UART_Transmit_IT(&huart3,pUARTBuf,15+15+15);		
                          }
                     }//if(SNR)
@@ -1061,7 +1069,8 @@ void DFT_Init(void)
 		arm_rfft_init_q15(&RealFFT_Ins,(uint32_t)128,(uint32_t)0,(uint32_t)1);
 		arm_rfft_init_q15(&RealIFFT_Ins,(uint32_t)128,(uint32_t)1,(uint32_t)1);
 #endif  
-		/* Initialize the CFFT/CIFFT module */	
+		/* Initialize the CFFT/CIFFT module */
+		arm_rfft_init_f32(&S,&SS, 512,  0, 1);
 		arm_rfft_init_f32(&S1,&SS1, 512,  0, 1); 
 		arm_rfft_init_f32(&S2,&SS2, 512,  0, 1); 
 		arm_rfft_init_f32(&S3,&SS3, 512,  0, 1); 

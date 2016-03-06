@@ -42,20 +42,38 @@ void Delay_Sum_FFT(const Mic_Array_Data * MicData, Mic_Array_Coef_f *coefMics,in
 void FFT_SUM(int16_t * stBuf1, int16_t * stBuf2,float *fBufOut, uint16_t lenFFT);
 void FactorUpd(Mic_Array_Coef_f * facMic);
 int32_t EnergyNoiseCalc(uint16_t numLen);
+int16_t GCC_PHAT(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen, uint32_t * CrssCorVal );
+float MD_entropy(const float* const a, uint16_t N, const uint8_t clip) ;
+void FFTShift(const float * const in, float * const out, const uint16_t N);
 
 
-#define RFFT_INT(stBuf,S,bufferFFT)                                           \
-       {                                                                      \
-	   for(uint16_t j=0;j<lenFFT;j++)                                      \
-	   {                                                                   \
-	      _value = (int32_t)stBuf[iFrm*lenFFT+j];                          \
-	   	   fbuffer[j]=(float)(_value*1.0f);                            \
-	   }                                                                   \
+
+#define RFFT_INT(stBuf,S,bufferFFT)                                            \
+       {                                                                       \
+	   for(uint16_t j=0;j<lenFFT;j++)                                          \
+	   {                                                                       \
+	      _value = (int32_t)stBuf[iFrm*lenFFT+j];                              \
+	   	   fbuffer[j]=(float)(_value*1.0f);                                    \
+	   }                                                                       \
          arm_rfft_f32(&(S), (float *)fbuffer, (float *)(bufferFFT));           \
        }
-       
+
+/* FFT transform */
+#define RFFT_GCC(stBuf,S,bufferFFT,Len)                                        \
+       {                                                                       \
+	   for(uint16_t j=0;j<Len;j++)                                             \
+	   {                                                                       \
+	       fbuffer[j]=(float)(stBuf[j]*fir256Coff[j]);                         \
+	   }                                                                       \
+       arm_rfft_f32(&(S), (float *)fbuffer, (float *)(bufferFFT));             \
+       }
+	   
 #endif /* __DSP_H */
 
+
+       
+
+	
 
 
 

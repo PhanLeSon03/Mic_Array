@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      05/Mar/2016  17:13:57
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      07/Mar/2016  01:52:25
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -145,50 +145,56 @@
           CFI EndCommon cfiCommon0
         
 // H:\PhanLeSon\ActivNoise\Microphone\F7\Mic_Array_Project\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\waveplayer _CS43L22.c
-//    1 /* Includes ------------------------------------------------------------------*/
-//    2 #include "main.h"
-//    3 
-//    4 /** @addtogroup STM32F4-Discovery_Audio_Player_Recorder
-//    5 * @{
-//    6 */ 
-//    7 
-//    8 /* Private typedef -----------------------------------------------------------*/
-//    9 /* Private define ------------------------------------------------------------*/
-//   10 /* Private macro -------------------------------------------------------------*/
-//   11 /* Private variables ---------------------------------------------------------*/
-//   12 #if defined MEDIA_USB_KEY
-//   13  extern __IO uint8_t Command_index;
-//   14  static uint32_t wavelen = 0;
-//   15  static char* WaveFileName ;
-//   16  static __IO uint32_t SpeechDataOffset = 0x00;
-//   17 
-//   18  __IO ErrorCode WaveFileStatus = Unvalid_RIFF_ID;
-//   19  UINT BytesRead;
-//   20  WAVE_FormatTypeDef WAVE_Format;
-//   21  uint16_t buffer1[2*_MAX_SS] ={0x00};
-//   22  uint16_t buffer2[2*_MAX_SS] ={0x00};
+//    1 /*******************************************************************************
+//    2   *    Author: Phan Le Son (porting from ST Lib                                                                                           
+//    3   *    Company: Autonomous.ai                                            
+//    4   *    email: plson03@gmail.com
+//    5   *****************************************************************************/
+//    6 
+//    7 /* Includes ------------------------------------------------------------------*/
+//    8 #include "main.h"
+//    9 
+//   10 /** @addtogroup STM32F4-Discovery_Audio_Player_Recorder
+//   11 * @{
+//   12 */ 
+//   13 
+//   14 /* Private typedef -----------------------------------------------------------*/
+//   15 /* Private define ------------------------------------------------------------*/
+//   16 /* Private macro -------------------------------------------------------------*/
+//   17 /* Private variables ---------------------------------------------------------*/
+//   18 #if defined MEDIA_USB_KEY
+//   19  extern __IO uint8_t Command_index;
+//   20  static uint32_t wavelen = 0;
+//   21  static char* WaveFileName ;
+//   22  static __IO uint32_t SpeechDataOffset = 0x00;
 //   23 
-//   24 
-//   25  extern FATFS fatfs;
-//   26  extern FIL file;
-//   27  extern FIL fileR;
-//   28  extern DIR dir;
-//   29  extern FILINFO fno;
-//   30  extern uint16_t *CurrentPos;
-//   31  extern USB_OTG_CORE_HANDLE USB_OTG_Core;
-//   32  extern uint8_t WaveRecStatus;
-//   33 #endif
-//   34 extern uint8_t buffer_switch;
+//   24  __IO ErrorCode WaveFileStatus = Unvalid_RIFF_ID;
+//   25  UINT BytesRead;
+//   26  WAVE_FormatTypeDef WAVE_Format;
+//   27  uint16_t buffer1[2*_MAX_SS] ={0x00};
+//   28  uint16_t buffer2[2*_MAX_SS] ={0x00};
+//   29 
+//   30 
+//   31  extern FATFS fatfs;
+//   32  extern FIL file;
+//   33  extern FIL fileR;
+//   34  extern DIR dir;
+//   35  extern FILINFO fno;
+//   36  extern uint16_t *CurrentPos;
+//   37  extern USB_OTG_CORE_HANDLE USB_OTG_Core;
+//   38  extern uint8_t WaveRecStatus;
+//   39 #endif
+//   40 extern uint8_t buffer_switch;
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
-//   35 __IO uint32_t XferCplt = 0;
+//   41 __IO uint32_t XferCplt = 0;
 XferCplt:
         DS8 4
 
         SECTION `.data`:DATA:REORDER:NOROOT(0)
         DATA
-//   36 __IO uint8_t volume = 80, AudioPlayStart = 0; //sop1hc: 70
+//   42 __IO uint8_t volume = 80, AudioPlayStart = 0; //sop1hc: 70
 volume:
         DC8 80
 
@@ -199,295 +205,295 @@ AudioPlayStart:
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
-//   37 __IO uint32_t WaveCounter;
+//   43 __IO uint32_t WaveCounter;
 WaveCounter:
         DS8 4
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
-//   38 uint8_t Buffer[6];
+//   44 uint8_t Buffer[6];
 Buffer:
         DS8 8
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
-//   39 __IO uint32_t WaveDataLength = 0;
+//   45 __IO uint32_t WaveDataLength = 0;
 WaveDataLength:
         DS8 4
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
-//   40 I2S_HandleTypeDef     hi2s3;
+//   46 I2S_HandleTypeDef     hi2s3;
 hi2s3:
         DS8 64
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
-//   41 SPI_HandleTypeDef     hspi3;
+//   47 SPI_HandleTypeDef     hspi3;
 hspi3:
         DS8 100
-//   42 
+//   48 
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
-//   43 static __IO uint32_t TimingDelay;
+//   49 static __IO uint32_t TimingDelay;
 TimingDelay:
         DS8 4
-//   44 
-//   45 /* Private function prototypes -----------------------------------------------*/
-//   46 /* Private functions ---------------------------------------------------------*/
-//   47 
-//   48 /**
-//   49   * @brief  Play wave from a mass storge
-//   50   * @param  AudioFreq: Audio Sampling Frequency
-//   51   * @retval None
-//   52 */
+//   50 
+//   51 /* Private function prototypes -----------------------------------------------*/
+//   52 /* Private functions ---------------------------------------------------------*/
 //   53 
+//   54 /**
+//   55   * @brief  Play wave from a mass storge
+//   56   * @param  AudioFreq: Audio Sampling Frequency
+//   57   * @retval None
+//   58 */
+//   59 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock0 Using cfiCommon0
           CFI Function WavePlayBack
           CFI NoCalls
         THUMB
-//   54 void WavePlayBack(uint32_t AudioFreq)
-//   55 { 
-//   56   /* 
-//   57   Normal mode description:
-//   58   Start playing the audio file (using DMA stream) .
-//   59   Using this mode, the application can run other tasks in parallel since 
-//   60   the DMA is handling the Audio Transfer instead of the CPU.
-//   61   The only task remaining for the CPU will be the management of the DMA 
-//   62   Transfer Complete interrupt or the Half Transfer Complete interrupt in 
-//   63   order to load again the buffer and to calculate the remaining data.  
-//   64   Circular mode description:
-//   65   Start playing the file from a circular buffer, once the DMA is enabled it 
-//   66   always run. User has to fill periodically the buffer with the audio data 
-//   67   using Transfer complete and/or half transfer complete interrupts callbacks 
-//   68   (EVAL_AUDIO_TransferComplete_CallBack() or EVAL_AUDIO_HalfTransfer_CallBack()...
-//   69   In this case the audio data file is smaller than the DMA max buffer 
-//   70   size 65535 so there is no need to load buffer continuously or manage the 
-//   71   transfer complete or Half transfer interrupts callbacks. */  
-//   72   
-//   73   /* Start playing */
-//   74   AudioPlayStart = 1;
+//   60 void WavePlayBack(uint32_t AudioFreq)
+//   61 { 
+//   62   /* 
+//   63   Normal mode description:
+//   64   Start playing the audio file (using DMA stream) .
+//   65   Using this mode, the application can run other tasks in parallel since 
+//   66   the DMA is handling the Audio Transfer instead of the CPU.
+//   67   The only task remaining for the CPU will be the management of the DMA 
+//   68   Transfer Complete interrupt or the Half Transfer Complete interrupt in 
+//   69   order to load again the buffer and to calculate the remaining data.  
+//   70   Circular mode description:
+//   71   Start playing the file from a circular buffer, once the DMA is enabled it 
+//   72   always run. User has to fill periodically the buffer with the audio data 
+//   73   using Transfer complete and/or half transfer complete interrupts callbacks 
+//   74   (EVAL_AUDIO_TransferComplete_CallBack() or EVAL_AUDIO_HalfTransfer_CallBack()...
+//   75   In this case the audio data file is smaller than the DMA max buffer 
+//   76   size 65535 so there is no need to load buffer continuously or manage the 
+//   77   transfer complete or Half transfer interrupts callbacks. */  
+//   78   
+//   79   /* Start playing */
+//   80   AudioPlayStart = 1;
 WavePlayBack:
         MOVS     R0,#+1
         LDR.N    R1,??DataTable4
         STRB     R0,[R1, #+0]
-//   75 
-//   76 #if defined MEDIA_IntFLASH 
-//   77   
-//   78   /* Initialize wave player (Codec, DMA, I2C) */
-//   79   WavePlayerInit(AudioFreq); //1 sop1hc: Audio Sampling Frequency: 48000??
-//   80   
-//   81   /* Play on */
-//   82   //AudioFlashPlay((uint16_t*)(AUDIO_SAMPLE + AUIDO_START_ADDRESS),AUDIO_FILE_SZE,AUIDO_START_ADDRESS);
-//   83   // AUDIO_SAMPLE: Data
-//   84   //AUIDO_START_ADDRESS = 58: Offset ralative to audio file header size
-//   85   //AUDIO_FILE_SZE = 990000
+//   81 
+//   82 #if defined MEDIA_IntFLASH 
+//   83   
+//   84   /* Initialize wave player (Codec, DMA, I2C) */
+//   85   WavePlayerInit(AudioFreq); //1 sop1hc: Audio Sampling Frequency: 48000??
 //   86   
-//   87   
-//   88   /* LED Blue Start toggling */
-//   89   LED_Toggle = 6;
-//   90   
-//   91   /* Infinite loop */
-//   92   while(1)
-//   93   { 
-//   94     /* check on the repeate status */
-//   95     if (RepeatState == 0)
-//   96     {
-//   97       if (PauseResumeStatus == 0)
-//   98       {
-//   99         /* LED Blue Stop Toggling */
-//  100         LED_Toggle = 0;
-//  101         /* Pause playing */
-//  102         WavePlayerPauseResume(PauseResumeStatus);
-//  103         PauseResumeStatus = 2;
-//  104       }
-//  105       else if (PauseResumeStatus == 1)
-//  106       {
-//  107         /* LED Blue Toggling */
-//  108         LED_Toggle = 6;
-//  109         /* Resume playing */
-//  110         WavePlayerPauseResume(PauseResumeStatus);
-//  111         PauseResumeStatus = 2;
-//  112       }
-//  113     }
-//  114     else
-//  115     {
-//  116       /* Stop playing */
-//  117       WavePlayerStop();
-//  118       /* Green LED toggling */
-//  119       LED_Toggle = 4;
-//  120     }
-//  121   }
-//  122   
-//  123 #elif defined MEDIA_USB_KEY
-//  124   /* Initialize wave player (Codec, DMA, I2C) */
-//  125   WavePlayerInit(AudioFreq);
-//  126   AudioRemSize   = 0; 
-//  127 
-//  128   /* Get Data from USB Key */
-//  129   f_lseek(&fileR, WaveCounter);
-//  130   f_read (&fileR, buffer1, _MAX_SS, &BytesRead); 
-//  131   f_read (&fileR, buffer2, _MAX_SS, &BytesRead);
-//  132  
-//  133   /* Start playing wave */
-//  134   Audio_MAL_Play((uint16_t *)buffer1, _MAX_SS);
-//  135   buffer_switch = 1;
-//  136   XferCplt = 0;
-//  137   LED_Toggle = 6;
-//  138   PauseResumeStatus = 1;
-//  139   Count = 0;
-//  140  
-//  141   while((WaveDataLength != 0) &&  HCD_IsDeviceConnected(&USB_OTG_Core))
-//  142   { 
-//  143     /* Test on the command: Playing */
-//  144     if (Command_index == 0)
-//  145     { 
-//  146       /* wait for DMA transfert complete */
-//  147       while((XferCplt == 0) &&  HCD_IsDeviceConnected(&USB_OTG_Core))
-//  148       {
-//  149         if (PauseResumeStatus == 0)
-//  150         {
-//  151           /* Pause Playing wave */
-//  152           LED_Toggle = 0;
-//  153           WavePlayerPauseResume(PauseResumeStatus);
-//  154           PauseResumeStatus = 2;
-//  155         }
-//  156         else if (PauseResumeStatus == 1)
-//  157         {
-//  158           LED_Toggle = 6;
-//  159           /* Resume Playing wave */
-//  160           WavePlayerPauseResume(PauseResumeStatus);
-//  161           PauseResumeStatus = 2;
-//  162         }  
-//  163       }
-//  164       XferCplt = 0;
-//  165 
-//  166       if(buffer_switch == 0)
-//  167       {
-//  168         /* Play data from buffer1 */
-//  169         Audio_MAL_Play((uint16_t)buffer1, _MAX_SS);
-//  170         /* Store data in buffer2 */
-//  171         f_read (&fileR, buffer2, _MAX_SS, &BytesRead);
-//  172         buffer_switch = 1;
-//  173       }
-//  174       else 
-//  175       {   
-//  176         /* Play data from buffer2 */
-//  177         Audio_MAL_Play((uint16_t)buffer2, _MAX_SS);
-//  178         /* Store data in buffer1 */
-//  179         f_read (&fileR, buffer1, _MAX_SS, &BytesRead);
-//  180         buffer_switch = 0;
-//  181       } 
-//  182     }
-//  183     else 
-//  184     {
-//  185       WavePlayerStop();
-//  186       WaveDataLength = 0;
-//  187       RepeatState =0;
-//  188       break;
-//  189     }
-//  190   }
-//  191 #if defined PLAY_REPEAT_OFF 
-//  192   RepeatState = 1;
-//  193   WavePlayerStop();
-//  194   if (Command_index == 0)
-//  195     LED_Toggle = 4;
-//  196 #else 
-//  197   LED_Toggle = 7;
-//  198   RepeatState = 0;
-//  199   AudioPlayStart = 0;
-//  200   WavePlayerStop();
-//  201 #endif
-//  202 #endif 
-//  203 
-//  204 }
+//   87   /* Play on */
+//   88   //AudioFlashPlay((uint16_t*)(AUDIO_SAMPLE + AUIDO_START_ADDRESS),AUDIO_FILE_SZE,AUIDO_START_ADDRESS);
+//   89   // AUDIO_SAMPLE: Data
+//   90   //AUIDO_START_ADDRESS = 58: Offset ralative to audio file header size
+//   91   //AUDIO_FILE_SZE = 990000
+//   92   
+//   93   
+//   94   /* LED Blue Start toggling */
+//   95   LED_Toggle = 6;
+//   96   
+//   97   /* Infinite loop */
+//   98   while(1)
+//   99   { 
+//  100     /* check on the repeate status */
+//  101     if (RepeatState == 0)
+//  102     {
+//  103       if (PauseResumeStatus == 0)
+//  104       {
+//  105         /* LED Blue Stop Toggling */
+//  106         LED_Toggle = 0;
+//  107         /* Pause playing */
+//  108         WavePlayerPauseResume(PauseResumeStatus);
+//  109         PauseResumeStatus = 2;
+//  110       }
+//  111       else if (PauseResumeStatus == 1)
+//  112       {
+//  113         /* LED Blue Toggling */
+//  114         LED_Toggle = 6;
+//  115         /* Resume playing */
+//  116         WavePlayerPauseResume(PauseResumeStatus);
+//  117         PauseResumeStatus = 2;
+//  118       }
+//  119     }
+//  120     else
+//  121     {
+//  122       /* Stop playing */
+//  123       WavePlayerStop();
+//  124       /* Green LED toggling */
+//  125       LED_Toggle = 4;
+//  126     }
+//  127   }
+//  128   
+//  129 #elif defined MEDIA_USB_KEY
+//  130   /* Initialize wave player (Codec, DMA, I2C) */
+//  131   WavePlayerInit(AudioFreq);
+//  132   AudioRemSize   = 0; 
+//  133 
+//  134   /* Get Data from USB Key */
+//  135   f_lseek(&fileR, WaveCounter);
+//  136   f_read (&fileR, buffer1, _MAX_SS, &BytesRead); 
+//  137   f_read (&fileR, buffer2, _MAX_SS, &BytesRead);
+//  138  
+//  139   /* Start playing wave */
+//  140   Audio_MAL_Play((uint16_t *)buffer1, _MAX_SS);
+//  141   buffer_switch = 1;
+//  142   XferCplt = 0;
+//  143   LED_Toggle = 6;
+//  144   PauseResumeStatus = 1;
+//  145   Count = 0;
+//  146  
+//  147   while((WaveDataLength != 0) &&  HCD_IsDeviceConnected(&USB_OTG_Core))
+//  148   { 
+//  149     /* Test on the command: Playing */
+//  150     if (Command_index == 0)
+//  151     { 
+//  152       /* wait for DMA transfert complete */
+//  153       while((XferCplt == 0) &&  HCD_IsDeviceConnected(&USB_OTG_Core))
+//  154       {
+//  155         if (PauseResumeStatus == 0)
+//  156         {
+//  157           /* Pause Playing wave */
+//  158           LED_Toggle = 0;
+//  159           WavePlayerPauseResume(PauseResumeStatus);
+//  160           PauseResumeStatus = 2;
+//  161         }
+//  162         else if (PauseResumeStatus == 1)
+//  163         {
+//  164           LED_Toggle = 6;
+//  165           /* Resume Playing wave */
+//  166           WavePlayerPauseResume(PauseResumeStatus);
+//  167           PauseResumeStatus = 2;
+//  168         }  
+//  169       }
+//  170       XferCplt = 0;
+//  171 
+//  172       if(buffer_switch == 0)
+//  173       {
+//  174         /* Play data from buffer1 */
+//  175         Audio_MAL_Play((uint16_t)buffer1, _MAX_SS);
+//  176         /* Store data in buffer2 */
+//  177         f_read (&fileR, buffer2, _MAX_SS, &BytesRead);
+//  178         buffer_switch = 1;
+//  179       }
+//  180       else 
+//  181       {   
+//  182         /* Play data from buffer2 */
+//  183         Audio_MAL_Play((uint16_t)buffer2, _MAX_SS);
+//  184         /* Store data in buffer1 */
+//  185         f_read (&fileR, buffer1, _MAX_SS, &BytesRead);
+//  186         buffer_switch = 0;
+//  187       } 
+//  188     }
+//  189     else 
+//  190     {
+//  191       WavePlayerStop();
+//  192       WaveDataLength = 0;
+//  193       RepeatState =0;
+//  194       break;
+//  195     }
+//  196   }
+//  197 #if defined PLAY_REPEAT_OFF 
+//  198   RepeatState = 1;
+//  199   WavePlayerStop();
+//  200   if (Command_index == 0)
+//  201     LED_Toggle = 4;
+//  202 #else 
+//  203   LED_Toggle = 7;
+//  204   RepeatState = 0;
+//  205   AudioPlayStart = 0;
+//  206   WavePlayerStop();
+//  207 #endif
+//  208 #endif 
+//  209 
+//  210 }
         BX       LR               ;; return
           CFI EndBlock cfiBlock0
-//  205 
-//  206 /**
-//  207   * @brief  Pause or Resume a played wave
-//  208   * @param  state: if it is equal to 0 pause Playing else resume playing
-//  209   * @retval None
-//  210   */
+//  211 
+//  212 /**
+//  213   * @brief  Pause or Resume a played wave
+//  214   * @param  state: if it is equal to 0 pause Playing else resume playing
+//  215   * @retval None
+//  216   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock1 Using cfiCommon0
           CFI Function WavePlayerPauseResume
           CFI FunCall AUDIO_PauseResume
         THUMB
-//  211 void WavePlayerPauseResume(uint8_t state)
-//  212 { 
-//  213   AUDIO_PauseResume(state);   
+//  217 void WavePlayerPauseResume(uint8_t state)
+//  218 { 
+//  219   AUDIO_PauseResume(state);   
 WavePlayerPauseResume:
         B.W      AUDIO_PauseResume
-//  214 }
+//  220 }
           CFI EndBlock cfiBlock1
-//  215 
-//  216 /**
-//  217   * @brief  Configure the volune
-//  218   * @param  vol: volume value
-//  219   * @retval None
-//  220   */
+//  221 
+//  222 /**
+//  223   * @brief  Configure the volune
+//  224   * @param  vol: volume value
+//  225   * @retval None
+//  226   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock2 Using cfiCommon0
           CFI Function WaveplayerCtrlVolume
         THUMB
-//  221 uint8_t WaveplayerCtrlVolume(uint8_t vol)
-//  222 { 
+//  227 uint8_t WaveplayerCtrlVolume(uint8_t vol)
+//  228 { 
 WaveplayerCtrlVolume:
         PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+8
-//  223   AUDIO_VolumeCtl(vol);
+//  229   AUDIO_VolumeCtl(vol);
           CFI FunCall AUDIO_VolumeCtl
         BL       AUDIO_VolumeCtl
-//  224   return 0;
+//  230   return 0;
         MOVS     R0,#+0
         POP      {R1,PC}          ;; return
-//  225 }
+//  231 }
           CFI EndBlock cfiBlock2
-//  226 
-//  227 
-//  228 /**
-//  229   * @brief  Stop playing wave
-//  230   * @param  None
-//  231   * @retval None
-//  232   */
+//  232 
+//  233 
+//  234 /**
+//  235   * @brief  Stop playing wave
+//  236   * @param  None
+//  237   * @retval None
+//  238   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock3 Using cfiCommon0
           CFI Function WavePlayerStop
         THUMB
-//  233 void WavePlayerStop(void)
-//  234 { 
-//  235   AUDIO_Stop(CODEC_PDWN_SW);
+//  239 void WavePlayerStop(void)
+//  240 { 
+//  241   AUDIO_Stop(CODEC_PDWN_SW);
 WavePlayerStop:
         MOVS     R0,#+2
           CFI FunCall AUDIO_Stop
         B.W      AUDIO_Stop
-//  236 }
+//  242 }
           CFI EndBlock cfiBlock3
-//  237  
-//  238 /**
-//  239 * @brief  Initializes the wave player
-//  240 * @param  AudioFreq: Audio sampling frequency
-//  241 * @retval None
-//  242 */
+//  243  
+//  244 /**
+//  245 * @brief  Initializes the wave player
+//  246 * @param  AudioFreq: Audio sampling frequency
+//  247 * @retval None
+//  248 */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock4 Using cfiCommon0
           CFI Function WavePlayerInit
         THUMB
-//  243 int WavePlayerInit(uint32_t AudioFreq)
-//  244 { 
-//  245 
-//  246   
-//  247   /* Initialize the Audio codec and all related peripherals (I2S, I2C, IOExpander, IOs...) */  
-//  248   AUDIO_Init(OUTPUT_DEVICE_AUTO, 80, AudioFreq );  
+//  249 int WavePlayerInit(uint32_t AudioFreq)
+//  250 { 
+//  251 
+//  252   
+//  253   /* Initialize the Audio codec and all related peripherals (I2S, I2C, IOExpander, IOs...) */  
+//  254   AUDIO_Init(OUTPUT_DEVICE_AUTO, 80, AudioFreq );  
 WavePlayerInit:
         MOV      R2,R0
         MOVS     R1,#+80
@@ -497,172 +503,172 @@ WavePlayerInit:
         MOVS     R0,#+4
           CFI FunCall AUDIO_Init
         BL       AUDIO_Init
-//  249   
-//  250   return 0;
+//  255   
+//  256   return 0;
         MOVS     R0,#+0
         POP      {R1,PC}          ;; return
-//  251 }
+//  257 }
           CFI EndBlock cfiBlock4
-//  252 
-//  253 
-//  254 /**
-//  255 * @brief  Play wave file from internal Flash
-//  256 * @param  None
-//  257 * @retval None
-//  258 */
+//  258 
+//  259 
+//  260 /**
+//  261 * @brief  Play wave file from internal Flash
+//  262 * @param  None
+//  263 * @retval None
+//  264 */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock5 Using cfiCommon0
           CFI Function AudioFlashPlay
         THUMB
-//  259 uint32_t AudioFlashPlay(uint16_t* pBuffer, uint32_t FullSize, uint32_t StartAdd)
-//  260 { 
+//  265 uint32_t AudioFlashPlay(uint16_t* pBuffer, uint32_t FullSize, uint32_t StartAdd)
+//  266 { 
 AudioFlashPlay:
         PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+8
-//  261   AUDIO_Play((uint16_t*)pBuffer, (FullSize - StartAdd));
+//  267   AUDIO_Play((uint16_t*)pBuffer, (FullSize - StartAdd));
         SUBS     R1,R1,R2
           CFI FunCall AUDIO_Play
         BL       AUDIO_Play
-//  262   return 0;
+//  268   return 0;
         MOVS     R0,#+0
         POP      {R1,PC}          ;; return
-//  263 }
+//  269 }
           CFI EndBlock cfiBlock5
-//  264 
+//  270 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock6 Using cfiCommon0
           CFI Function TC_Callback
           CFI NoCalls
         THUMB
-//  265 void TC_Callback(struct __DMA_HandleTypeDef * hdma)
-//  266 {	
-//  267       /* Replay from the beginning */
-//  268    
-//  269 }
+//  271 void TC_Callback(struct __DMA_HandleTypeDef * hdma)
+//  272 {	
+//  273       /* Replay from the beginning */
+//  274    
+//  275 }
 TC_Callback:
         BX       LR               ;; return
           CFI EndBlock cfiBlock6
-//  270 
-//  271 /**
-//  272 * @brief  Manages the DMA Half Transfer complete interrupt.
-//  273 * @param  None
-//  274 * @retval None
-//  275 */
+//  276 
+//  277 /**
+//  278 * @brief  Manages the DMA Half Transfer complete interrupt.
+//  279 * @param  None
+//  280 * @retval None
+//  281 */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock7 Using cfiCommon0
           CFI Function AUDIO_HalfTransfer_CallBack
           CFI NoCalls
         THUMB
-//  276 void AUDIO_HalfTransfer_CallBack(uint32_t pBuffer, uint32_t Size)
-//  277 {  
-//  278 
-//  279 }
+//  282 void AUDIO_HalfTransfer_CallBack(uint32_t pBuffer, uint32_t Size)
+//  283 {  
+//  284 
+//  285 }
 AUDIO_HalfTransfer_CallBack:
         BX       LR               ;; return
           CFI EndBlock cfiBlock7
-//  280 
-//  281 
-//  282 
-//  283 #ifndef USE_DEFAULT_TIMEOUT_CALLBACK
-//  284 /**
-//  285   * @brief  Basic management of the timeout situation.
-//  286   * @param  None.
-//  287   * @retval None.
-//  288   */
+//  286 
+//  287 
+//  288 
+//  289 #ifndef USE_DEFAULT_TIMEOUT_CALLBACK
+//  290 /**
+//  291   * @brief  Basic management of the timeout situation.
+//  292   * @param  None.
+//  293   * @retval None.
+//  294   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock8 Using cfiCommon0
           CFI Function Codec_TIMEOUT_UserCallback
           CFI NoCalls
         THUMB
-//  289 uint32_t Codec_TIMEOUT_UserCallback(void)
-//  290 {   
-//  291   return (0);
+//  295 uint32_t Codec_TIMEOUT_UserCallback(void)
+//  296 {   
+//  297   return (0);
 Codec_TIMEOUT_UserCallback:
         MOVS     R0,#+0
         BX       LR               ;; return
-//  292 }
+//  298 }
           CFI EndBlock cfiBlock8
-//  293 #endif /* USE_DEFAULT_TIMEOUT_CALLBACK */
-//  294 /*----------------------------------------------------------------------------*/
-//  295 
-//  296 /**
-//  297   * @brief  Inserts a delay time.
-//  298   * @param  nTime: specifies the delay time length, in 10 ms.
-//  299   * @retval None
-//  300   */
+//  299 #endif /* USE_DEFAULT_TIMEOUT_CALLBACK */
+//  300 /*----------------------------------------------------------------------------*/
+//  301 
+//  302 /**
+//  303   * @brief  Inserts a delay time.
+//  304   * @param  nTime: specifies the delay time length, in 10 ms.
+//  305   * @retval None
+//  306   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock9 Using cfiCommon0
           CFI Function Delay
           CFI NoCalls
         THUMB
-//  301 void Delay(__IO uint32_t nTime)
-//  302 {
+//  307 void Delay(__IO uint32_t nTime)
+//  308 {
 Delay:
         PUSH     {R0}
           CFI CFA R13+4
-//  303   TimingDelay = nTime;
+//  309   TimingDelay = nTime;
         LDR.N    R0,??DataTable4_1
         LDR      R1,[SP, #+0]
         STR      R1,[R0, #+0]
-//  304   
-//  305   while(TimingDelay != 0);
+//  310   
+//  311   while(TimingDelay != 0);
 ??Delay_0:
         LDR      R1,[R0, #+0]
         CMP      R1,#+0
         BNE.N    ??Delay_0
-//  306 }
+//  312 }
         ADD      SP,SP,#+4
           CFI CFA R13+0
         BX       LR               ;; return
           CFI EndBlock cfiBlock9
-//  307 
-//  308 /**
-//  309   * @brief  Decrements the TimingDelay variable.
-//  310   * @param  None
-//  311   * @retval None
-//  312   */
+//  313 
+//  314 /**
+//  315   * @brief  Decrements the TimingDelay variable.
+//  316   * @param  None
+//  317   * @retval None
+//  318   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock10 Using cfiCommon0
           CFI Function TimingDelay_Decrement
           CFI NoCalls
         THUMB
-//  313 void TimingDelay_Decrement(void)
-//  314 {
-//  315   if (TimingDelay != 0x00)
+//  319 void TimingDelay_Decrement(void)
+//  320 {
+//  321   if (TimingDelay != 0x00)
 TimingDelay_Decrement:
         LDR.N    R0,??DataTable4_1
         LDR      R1,[R0, #+0]
         CBZ.N    R1,??TimingDelay_Decrement_0
-//  316   { 
-//  317     TimingDelay--;
+//  322   { 
+//  323     TimingDelay--;
         LDR      R1,[R0, #+0]
         SUBS     R1,R1,#+1
         STR      R1,[R0, #+0]
-//  318   }
-//  319 }
+//  324   }
+//  325 }
 ??TimingDelay_Decrement_0:
         BX       LR               ;; return
           CFI EndBlock cfiBlock10
-//  320 
-//  321 
+//  326 
+//  327 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock11 Using cfiCommon0
           CFI Function I2S3_Init
         THUMB
-//  322 void I2S3_Init(uint32_t AudioFreq)
-//  323 {
-//  324 
-//  325   // static I2S_HandleTypeDef hi2s3;
-//  326   /* Enable the CODEC_I2S peripheral clock */
-//  327   __HAL_RCC_SPI3_CLK_ENABLE();
+//  328 void I2S3_Init(uint32_t AudioFreq)
+//  329 {
+//  330 
+//  331   // static I2S_HandleTypeDef hi2s3;
+//  332   /* Enable the CODEC_I2S peripheral clock */
+//  333   __HAL_RCC_SPI3_CLK_ENABLE();
 I2S3_Init:
         LDR.N    R1,??DataTable4_2  ;; 0x40023840
         SUB      SP,SP,#+8
@@ -671,85 +677,85 @@ I2S3_Init:
         ORR      R2,R2,#0x8000
         STR      R2,[R1, #+0]
         LDR      R1,[R1, #+0]
-//  328 
-//  329   hi2s3.Instance = SPI3;
+//  334 
+//  335   hi2s3.Instance = SPI3;
         LDR.N    R2,??DataTable4_3  ;; 0x40003c00
         AND      R1,R1,#0x8000
         STR      R1,[SP, #+0]
         LDR      R1,[SP, #+0]
         LDR.N    R1,??DataTable4_4
         STR      R2,[R1, #+0]
-//  330   /* Disable I2S3 peripheral to allow access to I2S internal registers */
-//  331   __HAL_I2S_DISABLE(&hi2s3);
+//  336   /* Disable I2S3 peripheral to allow access to I2S internal registers */
+//  337   __HAL_I2S_DISABLE(&hi2s3);
         LDR      R3,[R2, #+28]
         BIC      R3,R3,#0x400
         STR      R3,[R2, #+28]
-//  332   
-//  333   hi2s3.Init.Standard = I2S_STANDARD;//I2S_STANDARD_PHILIPS
+//  338   
+//  339   hi2s3.Init.Standard = I2S_STANDARD;//I2S_STANDARD_PHILIPS
         MOVS     R2,#+0
-//  334   hi2s3.Init.DataFormat = I2S_DATAFORMAT_16B;
-//  335   hi2s3.Init.AudioFreq = AudioFreq;
+//  340   hi2s3.Init.DataFormat = I2S_DATAFORMAT_16B;
+//  341   hi2s3.Init.AudioFreq = AudioFreq;
         STR      R0,[R1, #+20]
-//  336   hi2s3.Init.CPOL = I2S_CPOL_LOW;
-//  337   hi2s3.Init.ClockSource = I2S_CLOCK_SYSCLK;
+//  342   hi2s3.Init.CPOL = I2S_CPOL_LOW;
+//  343   hi2s3.Init.ClockSource = I2S_CLOCK_SYSCLK;
         MOVS     R0,#+2
         STR      R0,[R1, #+28]
-//  338   hi2s3.Init.Mode = I2S_MODE_MASTER_TX;
+//  344   hi2s3.Init.Mode = I2S_MODE_MASTER_TX;
         MOV      R0,#+512
         STR      R2,[R1, #+8]
         STR      R2,[R1, #+12]
         STR      R2,[R1, #+24]
         STR      R0,[R1, #+4]
-//  339 
-//  340 #ifdef CODEC_MCLK_ENABLED
-//  341   hi2s3.Init.MCLKOutput = I2S_MCLKOUTPUT_ENABLE;
+//  345 
+//  346 #ifdef CODEC_MCLK_ENABLED
+//  347   hi2s3.Init.MCLKOutput = I2S_MCLKOUTPUT_ENABLE;
         STR      R0,[R1, #+16]
-//  342 #elif defined(CODEC_MCLK_DISABLED)
-//  343   hi2s3.Init.MCLKOutput = I2S_MCLKOUTPUT_DISABLE;
-//  344 #else
-//  345 #error "No selection for the MCLK output has been defined !"
-//  346 #endif /* CODEC_MCLK_ENABLED */
-//  347   
-//  348   /* Initialize the I2S peripheral with the structure above */
-//  349   HAL_I2S_Init(&hi2s3);
+//  348 #elif defined(CODEC_MCLK_DISABLED)
+//  349   hi2s3.Init.MCLKOutput = I2S_MCLKOUTPUT_DISABLE;
+//  350 #else
+//  351 #error "No selection for the MCLK output has been defined !"
+//  352 #endif /* CODEC_MCLK_ENABLED */
+//  353   
+//  354   /* Initialize the I2S peripheral with the structure above */
+//  355   HAL_I2S_Init(&hi2s3);
         MOV      R0,R1
         ADD      SP,SP,#+8
           CFI CFA R13+0
           CFI FunCall HAL_I2S_Init
         B.W      HAL_I2S_Init
-//  350   
-//  351 
-//  352   /* Enable I2S peripheral */    
-//  353   //__HAL_I2S_ENABLE(&hi2s3);
-//  354       /* Enable the Peripheral */
-//  355   //__HAL_DMA_ENABLE(&DmaHandle);
-//  356 
+//  356   
 //  357 
-//  358 }
+//  358   /* Enable I2S peripheral */    
+//  359   //__HAL_I2S_ENABLE(&hi2s3);
+//  360       /* Enable the Peripheral */
+//  361   //__HAL_DMA_ENABLE(&DmaHandle);
+//  362 
+//  363 
+//  364 }
           CFI EndBlock cfiBlock11
-//  359 
-//  360 
+//  365 
+//  366 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock12 Using cfiCommon0
           CFI Function SPI3_Init
         THUMB
-//  361 void SPI3_Init(uint32_t AudioFreq)
-//  362 {
+//  367 void SPI3_Init(uint32_t AudioFreq)
+//  368 {
 SPI3_Init:
         PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-//  363 
-//  364   // static I2S_HandleTypeDef hi2s3;
-//  365   /* Enable the CODEC_I2S peripheral clock */
-//  366   __SPI3_CLK_ENABLE();
+//  369 
+//  370   // static I2S_HandleTypeDef hi2s3;
+//  371   /* Enable the CODEC_I2S peripheral clock */
+//  372   __SPI3_CLK_ENABLE();
         LDR.N    R0,??DataTable4_2  ;; 0x40023840
         SUB      SP,SP,#+8
           CFI CFA R13+16
-//  367 
-//  368   hspi3.Instance = SPI3;
+//  373 
+//  374   hspi3.Instance = SPI3;
         LDR.N    R4,??DataTable4_5
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x8000
@@ -760,58 +766,58 @@ SPI3_Init:
         LDR      R0,[SP, #+0]
         LDR.N    R0,??DataTable4_3  ;; 0x40003c00
         STR      R0,[R4, #+0]
-//  369   hspi3.Init.Mode = SPI_MODE_MASTER;
+//  375   hspi3.Init.Mode = SPI_MODE_MASTER;
         MOV      R0,#+260
         STR      R0,[R4, #+4]
-//  370   hspi3.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
+//  376   hspi3.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
         MOVS     R0,#+24
         STR      R0,[R4, #+28]
-//  371   hspi3.Init.Direction = SPI_DIRECTION_1LINE;
+//  377   hspi3.Init.Direction = SPI_DIRECTION_1LINE;
         MOV      R0,#+32768
         STR      R0,[R4, #+8]
-//  372   hspi3.Init.DataSize = SPI_DATASIZE_16BIT;
+//  378   hspi3.Init.DataSize = SPI_DATASIZE_16BIT;
         MOV      R0,#+3840
         STR      R0,[R4, #+12]
-//  373   hspi3.Init.CLKPolarity = SPI_POLARITY_LOW;
+//  379   hspi3.Init.CLKPolarity = SPI_POLARITY_LOW;
         MOVS     R0,#+0
         STR      R0,[R4, #+16]
-//  374   hspi3.Init.CLKPhase = SPI_PHASE_1EDGE;
+//  380   hspi3.Init.CLKPhase = SPI_PHASE_1EDGE;
         STR      R0,[R4, #+20]
-//  375   hspi3.Init.NSS = SPI_NSS_SOFT;//SPI_NSS_HARD_INPUT
+//  381   hspi3.Init.NSS = SPI_NSS_SOFT;//SPI_NSS_HARD_INPUT
         MOV      R0,#+512
         STR      R0,[R4, #+24]
-//  376   hspi3.Init.FirstBit = SPI_FIRSTBIT_MSB;
+//  382   hspi3.Init.FirstBit = SPI_FIRSTBIT_MSB;
         MOVS     R0,#+0
         STR      R0,[R4, #+32]
-//  377   hspi3.Init.TIMode = SPI_TIMODE_DISABLE;
+//  383   hspi3.Init.TIMode = SPI_TIMODE_DISABLE;
         STR      R0,[R4, #+36]
-//  378   hspi3.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLED;
+//  384   hspi3.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLED;
         STR      R0,[R4, #+40]
-//  379   hspi3.Init.CRCPolynomial = 7;
+//  385   hspi3.Init.CRCPolynomial = 7;
         MOVS     R0,#+7
         STR      R0,[R4, #+44]
-//  380   hspi3.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
+//  386   hspi3.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
         MOVS     R0,#+0
         STR      R0,[R4, #+48]
-//  381   hspi3.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
+//  387   hspi3.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
         STR      R0,[R4, #+52]
-//  382   //hspi4.RxISR = SPI5_CallBack;
-//  383   HAL_SPI_Init(&hspi3);
+//  388   //hspi4.RxISR = SPI5_CallBack;
+//  389   HAL_SPI_Init(&hspi3);
         MOV      R0,R4
           CFI FunCall HAL_SPI_Init
         BL       HAL_SPI_Init
-//  384   
-//  385   __HAL_SPI_ENABLE(&hspi3);
+//  390   
+//  391   __HAL_SPI_ENABLE(&hspi3);
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x40
         STR      R1,[R0, #+0]
-//  386   
-//  387 
-//  388   /* The I2S peripheral will be enabled only in the AUDIO_Play() function 
-//  389        or by user functions if DMA mode not enabled */
-//  390 
-//  391 }
+//  392   
+//  393 
+//  394   /* The I2S peripheral will be enabled only in the AUDIO_Play() function 
+//  395        or by user functions if DMA mode not enabled */
+//  396 
+//  397 }
         POP      {R0,R1,R4,PC}    ;; return
           CFI EndBlock cfiBlock12
 
@@ -850,23 +856,23 @@ SPI3_Init:
         DATA
 ??DataTable4_5:
         DC32     hspi3
-//  392 
-//  393 
+//  398 
+//  399 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock13 Using cfiCommon0
           CFI Function AUDIO_InitApplication
         THUMB
-//  394 void AUDIO_InitApplication(void)
-//  395 {
-//  396   WavePlayerInit(AUDIO_FREQ);
+//  400 void AUDIO_InitApplication(void)
+//  401 {
+//  402   WavePlayerInit(AUDIO_FREQ);
 AUDIO_InitApplication:
         MOV      R2,#+16000
         MOVS     R1,#+80
         MOVS     R0,#+4
           CFI FunCall AUDIO_Init
         B.W      AUDIO_Init
-//  397 }
+//  403 }
           CFI EndBlock cfiBlock13
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
@@ -881,9 +887,9 @@ AUDIO_InitApplication:
         SECTION_TYPE SHT_PROGBITS, 0
 
         END
-//  398 
-//  399 
-//  400 
+//  404 
+//  405 
+//  406 
 // 
 // 189 bytes in section .bss
 //   1 byte  in section .data

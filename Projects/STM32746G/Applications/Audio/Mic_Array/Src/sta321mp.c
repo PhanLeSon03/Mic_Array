@@ -1,4 +1,9 @@
-/* Author: Phan Le Son                   */
+/*****************************************************************************
+  *    Author: Phan Le Son                                                                                           
+  *    Company: Autonomous.ai                                            
+  *    email: plson03@gmail.com
+  *****************************************************************************/
+
 /* Description: Driver for STA321MP */
 
 #include "sta321mp.h"

@@ -1,7 +1,16 @@
+/*****************************************************************************
+  *    Author: Phan Le Son                                                                                           
+  *    Company: Autonomous.ai                                            
+  *    email: plson03@gmail.com
+  *****************************************************************************/
+
+
+
 #include "DSP.h"
 #include "main.h"
 #include <math.h>
 #include <stdlib.h>
+//#include <complex.h>
 #include "arm_math.h"
 
 
@@ -211,8 +220,8 @@ https://github.com/piratfm/codec2_m4f/tree/master/lib
 extern arm_rfft_instance_q15 RealFFT_Ins, RealIFFT_Ins;
 #endif
 
-extern arm_cfft_radix4_instance_f32 SS1,SS2,SS3,SS4,ISS; 
-extern arm_rfft_instance_f32 S1,S2,S3,S4,IS;
+extern arm_cfft_radix4_instance_f32 SS,SS1,SS2,SS3,SS4,ISS; 
+extern arm_rfft_instance_f32 S,S1,S2,S3,S4,IS;
 //extern arm_rfft_fast_instance_f32 S1,S2,S3,S4,IS;
 
 /*------------------------------------------------------------------------------------------------------------*/
@@ -223,6 +232,14 @@ float fbufferOut[AUDIO_OUT_BUFFER_SIZE+100];    //storage the output buffer in f
 float fbuffer[AUDIO_OUT_BUFFER_SIZE+100];       //storage the input buffer in float type
 Mic_Array_Data_f  DataFFT;                  //storage DFT's coefficients for microphones
 uint32_t EnergySound,EnergyError;
+
+float vDataIn1_FFT[AUDIO_OUT_BUFFER_SIZE];
+float vDataIn2_FFT[AUDIO_OUT_BUFFER_SIZE];
+float vDataIn2_FFT_CJ[AUDIO_OUT_BUFFER_SIZE];
+float vDataIn_FFT[AUDIO_OUT_BUFFER_SIZE];
+float vDataOut[AUDIO_OUT_BUFFER_SIZE];
+float vDataIn[AUDIO_OUT_BUFFER_SIZE];
+
 /*------------------------------------------------------------------------------------------------------------*/
 /* Discreate Fourier Transform */
 void DFT (float *x, float *Out, int N)
@@ -553,7 +570,7 @@ void Window(float *fir64Coff)
         fir64Coff[i] = (float)(512);
 		//Hanning Window (less noise than hamming?
         fir64Coff[i] *= 0.5f * (
-		                       1.0f - cos((2.0f * PI * i)/ (DSP_NUMCOFFHANNIING - 1.0f))  
+		                       1.0f - cos((2.0f * PI * i)/ ((float)DSP_NUMCOFFHANNIING - 1.0f))  
 		                      );
 
         //Hamming Window
@@ -1032,5 +1049,117 @@ int32_t EnergyNoiseCalc(uint16_t numLen)
 
 }
 
+/* Generalized Cross Correlation with Phase Transform (GCC-PHAT)  */
+/* Input: data from 2 microphones in time domain, length of data       */
+/* Output: Generlize Cross Correlation value                                    */
+int16_t GCC_PHAT(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen, uint32_t * CrssCorVal )
+{
+    uint32_t idxArgMax;
+    float ValMax;
 
+	/* Fourier Transform for Data In 1 */
+	RFFT_GCC(vDataIn1,S,vDataIn1_FFT,numLen);
+	
+    /* Fourier Trnasform for Data In 2 */
+	RFFT_GCC(vDataIn2,S,vDataIn2_FFT,numLen);
+
+	/* Complex conjugate for Datat 2 FFT */
+	arm_cmplx_conj_f32(vDataIn2_FFT,vDataIn2_FFT_CJ, numLen);
+    
+	/* cross spectra  */
+	arm_cmplx_mult_cmplx_f32(vDataIn1_FFT,vDataIn2_FFT_CJ,vDataIn2_FFT,numLen); /* vDataIn2_FFT is  using at the destination output to save the memory */
+
+    /* magnitude */
+	arm_cmplx_mag_f32(vDataIn2_FFT,vDataIn1_FFT, numLen); /* vDataIn1_FFT is  using at the destination output to save the memory */
+
+	/* Output normalize */
+	for (uint16_t i=0; i<2*numLen;i++)
+	{
+       vDataIn_FFT[i] = vDataIn2_FFT[i]/vDataIn1_FFT[i%2];
+	}
+
+	/* Invert FFT */
+    arm_rfft_f32(&IS, (float *)vDataIn_FFT, (float *)vDataIn);
+
+    FFTShift(vDataIn,vDataOut,numLen); 
+	
+    arm_max_f32(vDataOut,numLen,&ValMax,&idxArgMax);
+	*CrssCorVal = (uint32_t)ValMax;
+	if (((int16_t)(idxArgMax-numLen/2)>-8)&&((int16_t)(idxArgMax-numLen/2)<8))
+	    return (int16_t)(idxArgMax-numLen/2);
+	else 
+		return 255;
+}
+
+/** COPY from Wooters
+ * Shift the output of an FFT.
+ *
+ * The index of the mid-point in the output will be located at: ceil(_N/2)
+ * @ingroup GCC
+ */
+void FFTShift(const float * const in, float * const out, const uint16_t N)
+{
+  /* mid-point of out[] will be located at index ceil(N/2) */
+  uint16_t xx = (uint16_t) floor((int16_t) N/2.0);
+
+  /* Copy last half of in[] to first half of out[] */
+  memcpy(out,&in[xx],sizeof(float)*(N-xx));
+
+  /* Copy first half of in[] to end of out[] */
+  memcpy(&out[N-xx],in,sizeof(float)*xx);
+}
+
+
+/** COPY from Wooters
+ * Compute the entropy of the given vector of values. This actually
+ * returns a "normalized" entropy value in which the entropy of the
+ * distribution is divided by the maximum entropy possible for that
+ * distribution. That away, the return value is always between 0.0 and
+ * 1.0.
+ *
+ * @param a Pointer to an array of doubles representing the distribution.
+ * @param N The length of the array \a a[]
+ * @param clip Since negative values in the input array can cause
+ * problems when computing the entropy, we need to decide how to
+ * handle them. If \a clip is true, then negative values in \a a[] will
+ * be ignored. If it is false, then all values in \a a[] will be squared
+ * and the entropy will be computed over the a^2.
+ *
+ */
+float MD_entropy(const float* const a, uint16_t N, const uint8_t clip) 
+{
+  if (N <= 1) return 0.0;
+
+  float maxe = -log2(1.0/(float)N); /* max entropy */
+  float ent = 0.0;
+  float tot = 0.0;
+  uint16_t i;
+  float p;
+
+  if (clip) 
+  {
+    for (i=0;i<N;i++) tot += (a[i]<0.0) ? 0.0 : a[i];
+  } 
+  else
+  {
+    for (i=0;i<N;i++) tot += a[i]*a[i]; /* use a^2 */
+  }
+
+  if (tot==0.0) return maxe;
+
+  for (i=0;i<N;i++)
+  {
+    if (a[i] == 0.0) continue;
+    if (clip && (a[i] < 0.0)) continue;
+
+    if (clip)
+      p = a[i]/tot; /* prob of a[i] */
+    else
+      p = (a[i]*a[i])/tot; /* no clipping, so prob a[i]^2 */
+
+    ent += p * log2(p);
+  }
+
+  return -ent/maxe;
+}
 
