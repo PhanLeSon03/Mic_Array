@@ -92,10 +92,10 @@ float fir256Coff[DSP_NUMCOFFHANNIING];
 arm_rfft_instance_q15 RealFFT_Ins, RealIFFT_Ins;
 #endif
 
-arm_cfft_radix4_instance_f32 SS,SS1,SS2,SS3,SS4,ISS; 
-arm_rfft_instance_f32 S,S1,S2,S3,S4,IS;
+//arm_cfft_radix4_instance_f32 SS_GCC1,SS_GCC2,SS1,SS2,SS3,SS4,ISS,ISS_GCC; 
+//arm_rfft_instance_f32 S_GCC1,S_GCC2,S1,S2,S3,S4,IS,IS_GCC;
 
-//arm_rfft_fast_instance_f32 S1,S2,S3,S4,IS;
+arm_rfft_fast_instance_f32 S_GCC1,S_GCC2,S1,S2,S3,S4,IS,IS_GCC;
 
 
 #if (DEBUG)
@@ -176,10 +176,10 @@ inline static void FFT_Update(void)
                     Delay_Sum_FFT(&Buffer3,&FacMic,(int16_t *)bufferSum, 512);
                     //FFT_SUM((int16_t *)buffer3, (int16_t * )buffer3_1,fbuffer, 1024);				 	   
 #else
-                    idxLatency78 = GCC_PHAT(Buffer3.bufMIC7+AUDIO_OUT_BUFFER_SIZE/4, Buffer3.bufMIC8+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal78);
-                    idxLatency14 = GCC_PHAT(Buffer3.bufMIC1+AUDIO_OUT_BUFFER_SIZE/4, Buffer3.bufMIC4+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal14);
-                    idxLatency25 = GCC_PHAT(Buffer3.bufMIC5+AUDIO_OUT_BUFFER_SIZE/4, Buffer3.bufMIC2+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal25);
-                    idxLatency63 = GCC_PHAT(Buffer3.bufMIC6+AUDIO_OUT_BUFFER_SIZE/4, Buffer3.bufMIC3+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal63);
+                    idxLatency78 = GCC_PHAT(Buffer3.bufMIC7, Buffer3.bufMIC8, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal78);
+                    idxLatency14 = GCC_PHAT(Buffer3.bufMIC1, Buffer3.bufMIC4, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal14);
+                    idxLatency25 = GCC_PHAT(Buffer3.bufMIC5, Buffer3.bufMIC2, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal25);
+                    idxLatency63 = GCC_PHAT(Buffer3.bufMIC6, Buffer3.bufMIC3, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal63);
                    
 
                     SumDelay(&Buffer3);
@@ -216,12 +216,10 @@ inline static void FFT_Update(void)
                   //idxLatency13 = CrssCor(Buffer1.bufMIC1, Buffer1.bufMIC3, AUDIO_OUT_BUFFER_SIZE/2); 
                   //idxLatency12 = CrssCor(Buffer1.bufMIC1, Buffer1.bufMIC2, AUDIO_OUT_BUFFER_SIZE/2);
 		
-                  idxLatency78 = GCC_PHAT(Buffer1.bufMIC7+AUDIO_OUT_BUFFER_SIZE/4, Buffer1.bufMIC8+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal78);	
-                  idxLatency14 = GCC_PHAT(Buffer1.bufMIC1+AUDIO_OUT_BUFFER_SIZE/4, Buffer1.bufMIC4+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal14);
-                  idxLatency25 = GCC_PHAT(Buffer1.bufMIC5+AUDIO_OUT_BUFFER_SIZE/4, Buffer1.bufMIC2+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal25);
-                  idxLatency63 = GCC_PHAT(Buffer1.bufMIC6+AUDIO_OUT_BUFFER_SIZE/4, Buffer1.bufMIC3+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal63);
-
-
+                  idxLatency78 = GCC_PHAT(Buffer1.bufMIC7, Buffer1.bufMIC8, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal78);	
+                  idxLatency14 = GCC_PHAT(Buffer1.bufMIC1, Buffer1.bufMIC4, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal14);
+                  idxLatency25 = GCC_PHAT(Buffer1.bufMIC5, Buffer1.bufMIC2, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal25);
+                  idxLatency63 = GCC_PHAT(Buffer1.bufMIC6, Buffer1.bufMIC3, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal63);
 
                   SumDelay(&Buffer1);
 #endif
@@ -254,10 +252,10 @@ inline static void FFT_Update(void)
           //idxLatency13 = CrssCor(Buffer2.bufMIC1, Buffer2.bufMIC3, AUDIO_OUT_BUFFER_SIZE/2); 
           //idxLatency12 = CrssCor(Buffer2.bufMIC1, Buffer2.bufMIC2, AUDIO_OUT_BUFFER_SIZE/2);
 
-          idxLatency78 = GCC_PHAT(Buffer2.bufMIC7+AUDIO_OUT_BUFFER_SIZE/4, Buffer2.bufMIC8+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal78);
-          idxLatency14 = GCC_PHAT(Buffer2.bufMIC1+AUDIO_OUT_BUFFER_SIZE/4, Buffer2.bufMIC4+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal14);
-          idxLatency25 = GCC_PHAT(Buffer2.bufMIC5+AUDIO_OUT_BUFFER_SIZE/4, Buffer2.bufMIC2+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal25);
-          idxLatency63 = GCC_PHAT(Buffer2.bufMIC6+AUDIO_OUT_BUFFER_SIZE/4, Buffer2.bufMIC3+AUDIO_OUT_BUFFER_SIZE/4, AUDIO_OUT_BUFFER_SIZE/2,&CrssCorVal63);
+          idxLatency78 = GCC_PHAT(Buffer2.bufMIC7, Buffer2.bufMIC8, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal78);
+          idxLatency14 = GCC_PHAT(Buffer2.bufMIC1, Buffer2.bufMIC4, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal14);
+          idxLatency25 = GCC_PHAT(Buffer2.bufMIC5, Buffer2.bufMIC2, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal25);
+          idxLatency63 = GCC_PHAT(Buffer2.bufMIC6, Buffer2.bufMIC3, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal63);
 
           SumDelay(&Buffer2);
 #endif
@@ -507,27 +505,12 @@ int main(void)
                         int16_t test[5];
                         static uint8_t flagNotMin;
                         test[0] = 0;
-						if (CrssCorVal63>10)						
-                            test[1]= idxLatency63;
-						else
-							test[1] = 0;
+						test[1]= idxLatency63;
+                    	test[2]= idxLatency14;
+						test[3]= idxLatency25;
+						test[4]= idxLatency78;                        
 
-						if (CrssCorVal14>10)
-                            test[2]= idxLatency14;
-						else
-							test[2] =0;
-
-						if (CrssCorVal25 > 10)
-                            test[3]= idxLatency25;
-						else
-							test[3] = 0;
-
-                        if (CrssCorVal78>10)
-						    test[4]= idxLatency78;                        
-						else
-							test[4]= 2;
-
-						if (((CrssCorVal63>10))||((CrssCorVal14>10))||((CrssCorVal25>10))||((CrssCorVal78>10)))
+						//if (((CrssCorVal63>5))||((CrssCorVal14>5))||((CrssCorVal25>5))||((CrssCorVal78>5)))
                         {
                              sprintf((char *)pUARTBuf,"%d:%d:%d:%d  ",idxLatency63,idxLatency14,idxLatency25,idxLatency78);
                              flagNotMin=0 ;
@@ -1070,18 +1053,23 @@ void DFT_Init(void)
 		arm_rfft_init_q15(&RealIFFT_Ins,(uint32_t)128,(uint32_t)1,(uint32_t)1);
 #endif  
 		/* Initialize the CFFT/CIFFT module */
-		arm_rfft_init_f32(&S,&SS, 512,  0, 1);
-		arm_rfft_init_f32(&S1,&SS1, 512,  0, 1); 
-		arm_rfft_init_f32(&S2,&SS2, 512,  0, 1); 
-		arm_rfft_init_f32(&S3,&SS3, 512,  0, 1); 
-		arm_rfft_init_f32(&S4,&SS4, 512,  0, 1);
-		arm_rfft_init_f32(&IS,&ISS, 512,  1, 1);
+		//arm_rfft_init_f32(&S_GCC1,&SS_GCC1, 512,  0, 1);
+		//arm_rfft_init_f32(&S_GCC2,&SS_GCC2, 512,  0, 1);
+		//arm_rfft_init_f32(&S1,&SS1, 512,  0, 1); 
+		//arm_rfft_init_f32(&S2,&SS2, 512,  0, 1); 
+		//arm_rfft_init_f32(&S3,&SS3, 512,  0, 1); 
+		//arm_rfft_init_f32(&S4,&SS4, 512,  0, 1);
+		//arm_rfft_init_f32(&IS,&ISS, 512,  1, 1);
+		//arm_rfft_init_f32(&IS_GCC,&ISS_GCC, 512,  1, 1);
 
-		//arm_rfft_fast_init_f32(&S1, 512);
-                //arm_rfft_fast_init_f32(&S2, 512);
-		//arm_rfft_fast_init_f32(&S3, 512);
-		//arm_rfft_fast_init_f32(&S4, 512);
-		//arm_rfft_fast_init_f32(&IS, 512);
+		arm_rfft_fast_init_f32(&S1, 512);
+        arm_rfft_fast_init_f32(&S2, 512);
+		arm_rfft_fast_init_f32(&S3, 512);
+		arm_rfft_fast_init_f32(&S4, 512);
+		arm_rfft_fast_init_f32(&IS, 512);
+		arm_rfft_fast_init_f32(&S_GCC1, 1024);
+    	arm_rfft_fast_init_f32(&S_GCC2, 1024);
+		arm_rfft_fast_init_f32(&IS_GCC, 1024);
 }
 
 

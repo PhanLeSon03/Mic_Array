@@ -15,7 +15,7 @@ K (captial): number of cofficience of FIR filter: 256 , this is as much as possi
 
 ************************************************************************************************************************/
 #define DSP_NUMCOFF         64
-#define DSP_NUMCOFFHANNIING  512
+#define DSP_NUMCOFFHANNIING  1024
 
 #define DSP_NUMBYTECONV (DSP_NUMCOFF>>3)  /* Number of input sample bytes uses for 1 convolution */
 
@@ -55,7 +55,7 @@ void FFTShift(const float * const in, float * const out, const uint16_t N);
 	      _value = (int32_t)stBuf[iFrm*lenFFT+j];                              \
 	   	   fbuffer[j]=(float)(_value*1.0f);                                    \
 	   }                                                                       \
-         arm_rfft_f32(&(S), (float *)fbuffer, (float *)(bufferFFT));           \
+         arm_rfft_fast_f32(&(S), (float *)fbuffer, (float *)(bufferFFT),0);           \
        }
 
 /* FFT transform */
@@ -65,7 +65,7 @@ void FFTShift(const float * const in, float * const out, const uint16_t N);
 	   {                                                                       \
 	       fbuffer[j]=(float)(stBuf[j]*fir256Coff[j]);                         \
 	   }                                                                       \
-       arm_rfft_f32(&(S), (float *)fbuffer, (float *)(bufferFFT));             \
+       arm_rfft_fast_f32(&(S), (float *)fbuffer, (float *)(bufferFFT),0);      \
        }
 	   
 #endif /* __DSP_H */

@@ -220,9 +220,11 @@ https://github.com/piratfm/codec2_m4f/tree/master/lib
 extern arm_rfft_instance_q15 RealFFT_Ins, RealIFFT_Ins;
 #endif
 
-extern arm_cfft_radix4_instance_f32 SS,SS1,SS2,SS3,SS4,ISS; 
-extern arm_rfft_instance_f32 S,S1,S2,S3,S4,IS;
-//extern arm_rfft_fast_instance_f32 S1,S2,S3,S4,IS;
+//extern arm_cfft_radix4_instance_f32 SS_GCC1,SS_GCC2,SS1,SS2,SS3,SS4,ISS,ISS_GCC; 
+//extern arm_rfft_instance_f32         S_GCC1,S_GCC2,S1,S2,S3,S4,IS,IS_GCC;
+
+extern arm_rfft_fast_instance_f32 S_GCC1,S_GCC2,S1,S2,S3,S4,IS,IS_GCC;
+
 
 /*------------------------------------------------------------------------------------------------------------*/
 /*--------------------- VARIABLES-----------------------------------------------------------------------------*/
@@ -233,12 +235,12 @@ float fbuffer[AUDIO_OUT_BUFFER_SIZE+100];       //storage the input buffer in fl
 Mic_Array_Data_f  DataFFT;                  //storage DFT's coefficients for microphones
 uint32_t EnergySound,EnergyError;
 
-float vDataIn1_FFT[AUDIO_OUT_BUFFER_SIZE];
-float vDataIn2_FFT[AUDIO_OUT_BUFFER_SIZE];
-float vDataIn2_FFT_CJ[AUDIO_OUT_BUFFER_SIZE];
-float vDataIn_FFT[AUDIO_OUT_BUFFER_SIZE];
-float vDataOut[AUDIO_OUT_BUFFER_SIZE];
-float vDataIn[AUDIO_OUT_BUFFER_SIZE];
+float vDataIn1_FFT[2*AUDIO_OUT_BUFFER_SIZE];
+float vDataIn2_FFT[2*AUDIO_OUT_BUFFER_SIZE];
+float vDataIn2_FFT_CJ[2*AUDIO_OUT_BUFFER_SIZE];
+float vDataIn_FFT[2*AUDIO_OUT_BUFFER_SIZE];
+float vDataOut[2*AUDIO_OUT_BUFFER_SIZE];
+float vDataIn[2*AUDIO_OUT_BUFFER_SIZE];
 
 /*------------------------------------------------------------------------------------------------------------*/
 /* Discreate Fourier Transform */
@@ -567,7 +569,7 @@ void Window(float *fir64Coff)
     for (int i = 0; i < DSP_NUMCOFFHANNIING; i++) //DSP_NUMCOFF
 	{
         //fir64Coff[i] = (double_t)((1 << 10)-1);
-        fir64Coff[i] = (float)(512);
+        fir64Coff[i] = (float)(1023);
 		//Hanning Window (less noise than hamming?
         fir64Coff[i] *= 0.5f * (
 		                       1.0f - cos((2.0f * PI * i)/ ((float)DSP_NUMCOFFHANNIING - 1.0f))  
@@ -971,7 +973,7 @@ void Delay_Sum_FFT(const Mic_Array_Data * MicData, Mic_Array_Coef_f *coefMics,in
           }
 
           /* Revert FFT*/
-          arm_rfft_f32(&IS, (float *)bufferFFTSum, (float *)&fbufferOut[iFrm*lenFFT]);
+          arm_rfft_fast_f32(&IS, (float *)bufferFFTSum, (float *)&fbufferOut[iFrm*lenFFT],1);
           //arm_rfft_fast_f32(&IS, (float *)bufferFFTSum, (float *)&fbufferOut[iFrm*lenFFT], 1);
 	}
 
@@ -1058,10 +1060,10 @@ int16_t GCC_PHAT(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen, uint32
     float ValMax;
 
 	/* Fourier Transform for Data In 1 */
-	RFFT_GCC(vDataIn1,S,vDataIn1_FFT,numLen);
+	RFFT_GCC(vDataIn1,S_GCC1,vDataIn1_FFT,numLen);
 	
     /* Fourier Trnasform for Data In 2 */
-	RFFT_GCC(vDataIn2,S,vDataIn2_FFT,numLen);
+	RFFT_GCC(vDataIn2,S_GCC2,vDataIn2_FFT,numLen);
 
 	/* Complex conjugate for Datat 2 FFT */
 	arm_cmplx_conj_f32(vDataIn2_FFT,vDataIn2_FFT_CJ, numLen);
@@ -1075,11 +1077,11 @@ int16_t GCC_PHAT(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen, uint32
 	/* Output normalize */
 	for (uint16_t i=0; i<2*numLen;i++)
 	{
-       vDataIn_FFT[i] = vDataIn2_FFT[i]/(vDataIn1_FFT[i%2]+0.0001);
+	    vDataIn_FFT[i] = vDataIn2_FFT[i]/MAX(vDataIn1_FFT[i%2],0.000001);
 	}
 
-	/* Invert FFT */
-    arm_rfft_f32(&IS, (float *)vDataIn_FFT, (float *)vDataIn);
+    /* Invert FFT */
+    arm_rfft_fast_f32(&IS_GCC, (float *)vDataIn_FFT, (float *)vDataIn,1);
 
     FFTShift(vDataIn,vDataOut,numLen); 
 	
@@ -1092,8 +1094,8 @@ int16_t GCC_PHAT(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen, uint32
 	}
 	else
 	{
-		*CrssCorVal = 0;
-		return 255;
+	   *CrssCorVal = 0;
+		return 0;
 	}
 }
 
