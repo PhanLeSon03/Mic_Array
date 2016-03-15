@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       08/Mar/2016  16:10:16
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       15/Mar/2016  18:17:12
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7 --relaxed_fp
 #    List file    =  
@@ -244,7 +244,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     181          HAL_StatusTypeDef HAL_DMA2D_Init(DMA2D_HandleTypeDef *hdma2d)
     182          { 
    \                     HAL_DMA2D_Init: (+1)
-   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000000   0xB510             PUSH     {R4,LR}
    \   00000002   0x0004             MOVS     R4,R0
     183            uint32_t tmp = 0;
     184          
@@ -254,7 +254,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     187            {
     188               return HAL_ERROR;
    \   00000006   0x2001             MOVS     R0,#+1
-   \   00000008   0xBD32             POP      {R1,R4,R5,PC}
+   \   00000008   0xBD10             POP      {R4,PC}
     189            }
     190          
     191            /* Check the parameters */
@@ -265,13 +265,12 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     196          
     197            if(hdma2d->State == HAL_DMA2D_STATE_RESET)
    \                     ??HAL_DMA2D_Init_0: (+1)
-   \   0000000A   0xF104 0x0538      ADD      R5,R4,#+56
-   \   0000000E   0x7868             LDRB     R0,[R5, #+1]
-   \   00000010   0xB918             CBNZ.N   R0,??HAL_DMA2D_Init_1
+   \   0000000A   0xF894 0x0039      LDRB     R0,[R4, #+57]
+   \   0000000E   0xB920             CBNZ.N   R0,??HAL_DMA2D_Init_1
     198            {
     199              /* Allocate lock resource and initialize it */
     200              hdma2d->Lock = HAL_UNLOCKED;
-   \   00000012   0x7028             STRB     R0,[R5, #+0]
+   \   00000010   0xF884 0x0038      STRB     R0,[R4, #+56]
     201              /* Init the low level hardware */
     202              HAL_DMA2D_MspInit(hdma2d);
    \   00000014   0x4620             MOV      R0,R4
@@ -282,13 +281,13 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     206            hdma2d->State = HAL_DMA2D_STATE_BUSY;  
    \                     ??HAL_DMA2D_Init_1: (+1)
    \   0000001A   0x2002             MOVS     R0,#+2
-   \   0000001C   0x7068             STRB     R0,[R5, #+1]
+   \   0000001C   0xF884 0x0039      STRB     R0,[R4, #+57]
     207          
     208          /* DMA2D CR register configuration -------------------------------------------*/
     209            /* Get the CR register value */
     210            tmp = hdma2d->Instance->CR;
-   \   0000001E   0x6820             LDR      R0,[R4, #+0]
-   \   00000020   0x6801             LDR      R1,[R0, #+0]
+   \   00000020   0x6820             LDR      R0,[R4, #+0]
+   \   00000022   0x6801             LDR      R1,[R0, #+0]
     211          
     212            /* Clear Mode bits */
     213            tmp &= (uint32_t)~DMA2D_CR_MODE;
@@ -298,16 +297,16 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     217          
     218            /* Write to DMA2D CR register */
     219            hdma2d->Instance->CR = tmp;
-   \   00000022   0x6862             LDR      R2,[R4, #+4]
-   \   00000024   0xF421 0x3140      BIC      R1,R1,#0x30000
-   \   00000028   0x4311             ORRS     R1,R2,R1
-   \   0000002A   0x6001             STR      R1,[R0, #+0]
+   \   00000024   0x6862             LDR      R2,[R4, #+4]
+   \   00000026   0xF421 0x3140      BIC      R1,R1,#0x30000
+   \   0000002A   0x4311             ORRS     R1,R2,R1
+   \   0000002C   0x6001             STR      R1,[R0, #+0]
     220          
     221          /* DMA2D OPFCCR register configuration ---------------------------------------*/
     222            /* Get the OPFCCR register value */
     223            tmp = hdma2d->Instance->OPFCCR;
-   \   0000002C   0x6820             LDR      R0,[R4, #+0]
-   \   0000002E   0x6B41             LDR      R1,[R0, #+52]
+   \   0000002E   0x6820             LDR      R0,[R4, #+0]
+   \   00000030   0x6B41             LDR      R1,[R0, #+52]
     224          
     225            /* Clear Color Mode bits */
     226            tmp &= (uint32_t)~DMA2D_OPFCCR_CM;
@@ -317,16 +316,16 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     230          
     231            /* Write to DMA2D OPFCCR register */
     232            hdma2d->Instance->OPFCCR = tmp;
-   \   00000030   0x68A2             LDR      R2,[R4, #+8]
-   \   00000032   0x08C9             LSRS     R1,R1,#+3
-   \   00000034   0xEA42 0x01C1      ORR      R1,R2,R1, LSL #+3
-   \   00000038   0x6341             STR      R1,[R0, #+52]
+   \   00000032   0x68A2             LDR      R2,[R4, #+8]
+   \   00000034   0x08C9             LSRS     R1,R1,#+3
+   \   00000036   0xEA42 0x01C1      ORR      R1,R2,R1, LSL #+3
+   \   0000003A   0x6341             STR      R1,[R0, #+52]
     233          
     234          /* DMA2D OOR register configuration ------------------------------------------*/  
     235            /* Get the OOR register value */
     236            tmp = hdma2d->Instance->OOR;
-   \   0000003A   0x6820             LDR      R0,[R4, #+0]
-   \   0000003C   0x6C01             LDR      R1,[R0, #+64]
+   \   0000003C   0x6820             LDR      R0,[R4, #+0]
+   \   0000003E   0x6C01             LDR      R1,[R0, #+64]
     237          
     238            /* Clear Offset bits */
     239            tmp &= (uint32_t)~DMA2D_OOR_LO;
@@ -336,24 +335,24 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     243          
     244            /* Write to DMA2D OOR register */
     245            hdma2d->Instance->OOR = tmp;
-   \   0000003E   0x68E2             LDR      R2,[R4, #+12]
-   \   00000040   0x0B89             LSRS     R1,R1,#+14
-   \   00000042   0xEA42 0x3181      ORR      R1,R2,R1, LSL #+14
-   \   00000046   0x6401             STR      R1,[R0, #+64]
+   \   00000040   0x68E2             LDR      R2,[R4, #+12]
+   \   00000042   0x0B89             LSRS     R1,R1,#+14
+   \   00000044   0xEA42 0x3181      ORR      R1,R2,R1, LSL #+14
+   \   00000048   0x6401             STR      R1,[R0, #+64]
     246          
     247            /* Update error code */
     248            hdma2d->ErrorCode = HAL_DMA2D_ERROR_NONE;
-   \   00000048   0x2000             MOVS     R0,#+0
-   \   0000004A   0x6068             STR      R0,[R5, #+4]
+   \   0000004A   0x2000             MOVS     R0,#+0
+   \   0000004C   0x63E0             STR      R0,[R4, #+60]
     249          
     250            /* Initialize the DMA2D state*/
     251            hdma2d->State  = HAL_DMA2D_STATE_READY;
-   \   0000004C   0x2001             MOVS     R0,#+1
-   \   0000004E   0x7068             STRB     R0,[R5, #+1]
+   \   0000004E   0x2001             MOVS     R0,#+1
+   \   00000050   0xF884 0x0039      STRB     R0,[R4, #+57]
     252          
     253            return HAL_OK;
-   \   00000050   0x2000             MOVS     R0,#+0
-   \   00000052   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+   \   00000054   0x2000             MOVS     R0,#+0
+   \   00000056   0xBD10             POP      {R4,PC}          ;; return
     254          }
     255          
     256          /**
@@ -387,21 +386,19 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     274          
     275            /* Update error code */
     276            hdma2d->ErrorCode = HAL_DMA2D_ERROR_NONE;
-   \   0000000E   0xF104 0x0038      ADD      R0,R4,#+56
-   \   00000012   0x2100             MOVS     R1,#+0
-   \   00000014   0x6041             STR      R1,[R0, #+4]
+   \   0000000E   0x2000             MOVS     R0,#+0
+   \   00000010   0x63E0             STR      R0,[R4, #+60]
     277          
     278            /* Initialize the DMA2D state*/
     279            hdma2d->State  = HAL_DMA2D_STATE_RESET;
-   \   00000016   0x7041             STRB     R1,[R0, #+1]
+   \   00000012   0xF884 0x0039      STRB     R0,[R4, #+57]
     280          
     281            /* Release Lock */
     282            __HAL_UNLOCK(hdma2d);
-   \   00000018   0x7001             STRB     R1,[R0, #+0]
+   \   00000016   0xF884 0x0038      STRB     R0,[R4, #+56]
     283          
     284            return HAL_OK;
-   \   0000001A   0x2000             MOVS     R0,#+0
-   \   0000001C   0xBD10             POP      {R4,PC}          ;; return
+   \   0000001A   0xBD10             POP      {R4,PC}          ;; return
     285          }
     286          
     287          /**
@@ -486,24 +483,23 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     356          HAL_StatusTypeDef HAL_DMA2D_Start(DMA2D_HandleTypeDef *hdma2d, uint32_t pdata, uint32_t DstAddress, uint32_t Width,  uint32_t Height)
     357          {
    \                     HAL_DMA2D_Start: (+1)
-   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000000   0xB530             PUSH     {R4,R5,LR}
    \   00000002   0x4604             MOV      R4,R0
+   \   00000004   0xB081             SUB      SP,SP,#+4
     358            /* Process locked */
     359            __HAL_LOCK(hdma2d);
-   \   00000004   0xF104 0x0038      ADD      R0,R4,#+56
-   \   00000008   0x7805             LDRB     R5,[R0, #+0]
-   \   0000000A   0x2D01             CMP      R5,#+1
-   \   0000000C   0xD101             BNE.N    ??HAL_DMA2D_Start_0
-   \   0000000E   0x2002             MOVS     R0,#+2
-   \   00000010   0xBD32             POP      {R1,R4,R5,PC}
-   \                     ??HAL_DMA2D_Start_0: (+1)
-   \   00000012   0x2501             MOVS     R5,#+1
-   \   00000014   0x7005             STRB     R5,[R0, #+0]
+   \   00000006   0xF894 0x0038      LDRB     R0,[R4, #+56]
+   \   0000000A   0x2801             CMP      R0,#+1
+   \   0000000C   0xBF08             IT       EQ 
+   \   0000000E   0x2002             MOVEQ    R0,#+2
+   \   00000010   0xD015             BEQ.N    ??HAL_DMA2D_Start_0
+   \   00000012   0x2001             MOVS     R0,#+1
+   \   00000014   0xF884 0x0038      STRB     R0,[R4, #+56]
     360          
     361            /* Change DMA2D peripheral state */
     362            hdma2d->State = HAL_DMA2D_STATE_BUSY;
-   \   00000016   0x2502             MOVS     R5,#+2
-   \   00000018   0x7045             STRB     R5,[R0, #+1]
+   \   00000018   0x2002             MOVS     R0,#+2
+   \   0000001A   0xF884 0x0039      STRB     R0,[R4, #+57]
     363          
     364            /* Check the parameters */
     365            assert_param(IS_DMA2D_LINE(Height));
@@ -511,44 +507,32 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     367          
     368            /* Disable the Peripheral */
     369            __HAL_DMA2D_DISABLE(hdma2d);
-   \   0000001A   0x6820             LDR      R0,[R4, #+0]
-   \   0000001C   0x6805             LDR      R5,[R0, #+0]
-   \   0000001E   0x086D             LSRS     R5,R5,#+1
-   \   00000020   0x006D             LSLS     R5,R5,#+1
-   \   00000022   0x6005             STR      R5,[R0, #+0]
+   \   0000001E   0x6820             LDR      R0,[R4, #+0]
+   \   00000020   0x6805             LDR      R5,[R0, #+0]
+   \   00000022   0x086D             LSRS     R5,R5,#+1
+   \   00000024   0x006D             LSLS     R5,R5,#+1
+   \   00000026   0x6005             STR      R5,[R0, #+0]
     370          
     371            /* Configure the source, destination address and the data size */
     372            DMA2D_SetConfig(hdma2d, pdata, DstAddress, Width, Height);
-   \   00000024   0x9804             LDR      R0,[SP, #+16]
-   \   00000026   0x....             B.N      ?Subroutine0
+   \   00000028   0x9804             LDR      R0,[SP, #+16]
+   \   0000002A   0x9000             STR      R0,[SP, #+0]
+   \   0000002C   0x4620             MOV      R0,R4
+   \   0000002E   0x.... 0x....      BL       DMA2D_SetConfig
     373          
     374            /* Enable the Peripheral */
     375            __HAL_DMA2D_ENABLE(hdma2d);
+   \   00000032   0x6820             LDR      R0,[R4, #+0]
+   \   00000034   0x6801             LDR      R1,[R0, #+0]
+   \   00000036   0xF041 0x0101      ORR      R1,R1,#0x1
+   \   0000003A   0x6001             STR      R1,[R0, #+0]
     376          
     377            return HAL_OK;
+   \   0000003C   0x2000             MOVS     R0,#+0
+   \                     ??HAL_DMA2D_Start_0: (+1)
+   \   0000003E   0xB001             ADD      SP,SP,#+4
+   \   00000040   0xBD30             POP      {R4,R5,PC}       ;; return
     378          }
-
-   \                                 In section .text, align 2, keep-with-next
-   \                     ?Subroutine0: (+1)
-   \   00000000   0x9000             STR      R0,[SP, #+0]
-   \   00000002   0x4620             MOV      R0,R4
-   \   00000004   0x.... 0x....      BL       DMA2D_SetConfig
-   \   00000008                      REQUIRE ??Subroutine1_0
-   \   00000008                      ;; // Fall through to label ??Subroutine1_0
-
-   \                                 In section .text, align 2, keep-with-next
-   \                     ??Subroutine1_0: (+1)
-   \   00000000   0x6820             LDR      R0,[R4, #+0]
-   \   00000002   0x6801             LDR      R1,[R0, #+0]
-   \   00000004   0xF041 0x0101      ORR      R1,R1,#0x1
-   \   00000008                      REQUIRE ??Subroutine2_0
-   \   00000008                      ;; // Fall through to label ??Subroutine2_0
-
-   \                                 In section .text, align 2, keep-with-next
-   \                     ??Subroutine2_0: (+1)
-   \   00000000   0x6001             STR      R1,[R0, #+0]
-   \   00000002   0x2000             MOVS     R0,#+0
-   \   00000004   0xBD32             POP      {R1,R4,R5,PC}    ;; return
     379          
     380          /**
     381            * @brief  Start the DMA2D Transfer with interrupt enabled.
@@ -568,24 +552,23 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     393          HAL_StatusTypeDef HAL_DMA2D_Start_IT(DMA2D_HandleTypeDef *hdma2d, uint32_t pdata, uint32_t DstAddress, uint32_t Width,  uint32_t Height)
     394          {
    \                     HAL_DMA2D_Start_IT: (+1)
-   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000000   0xB530             PUSH     {R4,R5,LR}
    \   00000002   0x4604             MOV      R4,R0
+   \   00000004   0xB081             SUB      SP,SP,#+4
     395            /* Process locked */
     396            __HAL_LOCK(hdma2d);
-   \   00000004   0xF104 0x0038      ADD      R0,R4,#+56
-   \   00000008   0x7805             LDRB     R5,[R0, #+0]
-   \   0000000A   0x2D01             CMP      R5,#+1
-   \   0000000C   0xD101             BNE.N    ??HAL_DMA2D_Start_IT_0
-   \   0000000E   0x2002             MOVS     R0,#+2
-   \   00000010   0xBD32             POP      {R1,R4,R5,PC}
-   \                     ??HAL_DMA2D_Start_IT_0: (+1)
-   \   00000012   0x2501             MOVS     R5,#+1
-   \   00000014   0x7005             STRB     R5,[R0, #+0]
+   \   00000006   0xF894 0x0038      LDRB     R0,[R4, #+56]
+   \   0000000A   0x2801             CMP      R0,#+1
+   \   0000000C   0xBF08             IT       EQ 
+   \   0000000E   0x2002             MOVEQ    R0,#+2
+   \   00000010   0xD024             BEQ.N    ??HAL_DMA2D_Start_IT_0
+   \   00000012   0x2001             MOVS     R0,#+1
+   \   00000014   0xF884 0x0038      STRB     R0,[R4, #+56]
     397          
     398            /* Change DMA2D peripheral state */
     399            hdma2d->State = HAL_DMA2D_STATE_BUSY;
-   \   00000016   0x2502             MOVS     R5,#+2
-   \   00000018   0x7045             STRB     R5,[R0, #+1]
+   \   00000018   0x2002             MOVS     R0,#+2
+   \   0000001A   0xF884 0x0039      STRB     R0,[R4, #+57]
     400          
     401            /* Check the parameters */
     402            assert_param(IS_DMA2D_LINE(Height));
@@ -593,48 +576,52 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     404          
     405            /* Disable the Peripheral */
     406            __HAL_DMA2D_DISABLE(hdma2d);
-   \   0000001A   0x6820             LDR      R0,[R4, #+0]
-   \   0000001C   0x6805             LDR      R5,[R0, #+0]
-   \   0000001E   0x086D             LSRS     R5,R5,#+1
-   \   00000020   0x006D             LSLS     R5,R5,#+1
-   \   00000022   0x6005             STR      R5,[R0, #+0]
+   \   0000001E   0x6820             LDR      R0,[R4, #+0]
+   \   00000020   0x6805             LDR      R5,[R0, #+0]
+   \   00000022   0x086D             LSRS     R5,R5,#+1
+   \   00000024   0x006D             LSLS     R5,R5,#+1
+   \   00000026   0x6005             STR      R5,[R0, #+0]
     407          
     408            /* Configure the source, destination address and the data size */
     409            DMA2D_SetConfig(hdma2d, pdata, DstAddress, Width, Height);
-   \   00000024   0x9804             LDR      R0,[SP, #+16]
-   \   00000026   0x9000             STR      R0,[SP, #+0]
-   \   00000028   0x4620             MOV      R0,R4
-   \   0000002A   0x.... 0x....      BL       DMA2D_SetConfig
+   \   00000028   0x9804             LDR      R0,[SP, #+16]
+   \   0000002A   0x9000             STR      R0,[SP, #+0]
+   \   0000002C   0x4620             MOV      R0,R4
+   \   0000002E   0x.... 0x....      BL       DMA2D_SetConfig
     410          
     411            /* Enable the transfer complete interrupt */
     412            __HAL_DMA2D_ENABLE_IT(hdma2d, DMA2D_IT_TC);
-   \   0000002E   0x6820             LDR      R0,[R4, #+0]
-   \   00000030   0x6801             LDR      R1,[R0, #+0]
-   \   00000032   0xF441 0x7100      ORR      R1,R1,#0x200
-   \   00000036   0x6001             STR      R1,[R0, #+0]
+   \   00000032   0x6820             LDR      R0,[R4, #+0]
+   \   00000034   0x6801             LDR      R1,[R0, #+0]
+   \   00000036   0xF441 0x7100      ORR      R1,R1,#0x200
+   \   0000003A   0x6001             STR      R1,[R0, #+0]
     413          
     414            /* Enable the transfer Error interrupt */
     415            __HAL_DMA2D_ENABLE_IT(hdma2d, DMA2D_IT_TE);
-   \   00000038   0x6820             LDR      R0,[R4, #+0]
-   \   0000003A   0x6801             LDR      R1,[R0, #+0]
-   \   0000003C   0xF441 0x7180      ORR      R1,R1,#0x100
-   \   00000040   0x6001             STR      R1,[R0, #+0]
+   \   0000003C   0x6820             LDR      R0,[R4, #+0]
+   \   0000003E   0x6801             LDR      R1,[R0, #+0]
+   \   00000040   0xF441 0x7180      ORR      R1,R1,#0x100
+   \   00000044   0x6001             STR      R1,[R0, #+0]
     416          
     417            /* Enable the Peripheral */
     418            __HAL_DMA2D_ENABLE(hdma2d);
-   \   00000042   0x6820             LDR      R0,[R4, #+0]
-   \   00000044   0x6801             LDR      R1,[R0, #+0]
-   \   00000046   0xF041 0x0101      ORR      R1,R1,#0x1
-   \   0000004A   0x6001             STR      R1,[R0, #+0]
+   \   00000046   0x6820             LDR      R0,[R4, #+0]
+   \   00000048   0x6801             LDR      R1,[R0, #+0]
+   \   0000004A   0xF041 0x0101      ORR      R1,R1,#0x1
+   \   0000004E   0x6001             STR      R1,[R0, #+0]
     419          
     420            /* Enable the configuration error interrupt */
     421            __HAL_DMA2D_ENABLE_IT(hdma2d, DMA2D_IT_CE);
-   \   0000004C   0x6820             LDR      R0,[R4, #+0]
-   \   0000004E   0x6801             LDR      R1,[R0, #+0]
-   \   00000050   0xF441 0x5100      ORR      R1,R1,#0x2000
-   \   00000054   0x....             B.N      ??Subroutine2_0
+   \   00000050   0x6820             LDR      R0,[R4, #+0]
+   \   00000052   0x6801             LDR      R1,[R0, #+0]
+   \   00000054   0xF441 0x5100      ORR      R1,R1,#0x2000
+   \   00000058   0x6001             STR      R1,[R0, #+0]
     422          
     423            return HAL_OK;
+   \   0000005A   0x2000             MOVS     R0,#+0
+   \                     ??HAL_DMA2D_Start_IT_0: (+1)
+   \   0000005C   0xB001             ADD      SP,SP,#+4
+   \   0000005E   0xBD30             POP      {R4,R5,PC}       ;; return
     424          }
     425          
     426          /**
@@ -653,26 +640,25 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     437          HAL_StatusTypeDef HAL_DMA2D_BlendingStart(DMA2D_HandleTypeDef *hdma2d, uint32_t SrcAddress1, uint32_t  SrcAddress2, uint32_t DstAddress, uint32_t Width,  uint32_t Height)
     438          {
    \                     HAL_DMA2D_BlendingStart: (+1)
-   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000000   0xB530             PUSH     {R4,R5,LR}
    \   00000002   0x4604             MOV      R4,R0
    \   00000004   0x4610             MOV      R0,R2
-   \   00000006   0x461A             MOV      R2,R3
+   \   00000006   0xB081             SUB      SP,SP,#+4
+   \   00000008   0x461A             MOV      R2,R3
     439            /* Process locked */
     440            __HAL_LOCK(hdma2d);
-   \   00000008   0xF104 0x0338      ADD      R3,R4,#+56
-   \   0000000C   0x781D             LDRB     R5,[R3, #+0]
-   \   0000000E   0x2D01             CMP      R5,#+1
-   \   00000010   0xD101             BNE.N    ??HAL_DMA2D_BlendingStart_0
-   \   00000012   0x2002             MOVS     R0,#+2
-   \   00000014   0xBD32             POP      {R1,R4,R5,PC}
-   \                     ??HAL_DMA2D_BlendingStart_0: (+1)
-   \   00000016   0x2501             MOVS     R5,#+1
-   \   00000018   0x701D             STRB     R5,[R3, #+0]
+   \   0000000A   0xF894 0x3038      LDRB     R3,[R4, #+56]
+   \   0000000E   0x2B01             CMP      R3,#+1
+   \   00000010   0xBF08             IT       EQ 
+   \   00000012   0x2002             MOVEQ    R0,#+2
+   \   00000014   0xD018             BEQ.N    ??HAL_DMA2D_BlendingStart_0
+   \   00000016   0x2301             MOVS     R3,#+1
+   \   00000018   0xF884 0x3038      STRB     R3,[R4, #+56]
     441          
     442            /* Change DMA2D peripheral state */
     443            hdma2d->State = HAL_DMA2D_STATE_BUSY; 
-   \   0000001A   0x2502             MOVS     R5,#+2
-   \   0000001C   0x705D             STRB     R5,[R3, #+1]
+   \   0000001C   0x2302             MOVS     R3,#+2
+   \   0000001E   0xF884 0x3039      STRB     R3,[R4, #+57]
     444          
     445            /* Check the parameters */
     446            assert_param(IS_DMA2D_LINE(Height));
@@ -680,28 +666,37 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     448          
     449            /* Disable the Peripheral */
     450            __HAL_DMA2D_DISABLE(hdma2d);
-   \   0000001E   0x6823             LDR      R3,[R4, #+0]
-   \   00000020   0x681D             LDR      R5,[R3, #+0]
-   \   00000022   0x086D             LSRS     R5,R5,#+1
-   \   00000024   0x006D             LSLS     R5,R5,#+1
-   \   00000026   0x601D             STR      R5,[R3, #+0]
+   \   00000022   0x6823             LDR      R3,[R4, #+0]
+   \   00000024   0x681D             LDR      R5,[R3, #+0]
+   \   00000026   0x086D             LSRS     R5,R5,#+1
+   \   00000028   0x006D             LSLS     R5,R5,#+1
+   \   0000002A   0x601D             STR      R5,[R3, #+0]
     451          
     452            /* Configure DMA2D Stream source2 address */
     453            hdma2d->Instance->BGMAR = SrcAddress2;
-   \   00000028   0x6823             LDR      R3,[R4, #+0]
-   \   0000002A   0x6158             STR      R0,[R3, #+20]
+   \   0000002C   0x6823             LDR      R3,[R4, #+0]
+   \   0000002E   0x6158             STR      R0,[R3, #+20]
     454          
     455            /* Configure the source, destination address and the data size */
     456            DMA2D_SetConfig(hdma2d, SrcAddress1, DstAddress, Width, Height);
-   \   0000002C   0x9805             LDR      R0,[SP, #+20]
-   \   0000002E   0x9B04             LDR      R3,[SP, #+16]
-   \   00000030                      REQUIRE ?Subroutine0
-   \   00000030                      ;; // Fall through to label ?Subroutine0
+   \   00000030   0x9805             LDR      R0,[SP, #+20]
+   \   00000032   0x9B04             LDR      R3,[SP, #+16]
+   \   00000034   0x9000             STR      R0,[SP, #+0]
+   \   00000036   0x4620             MOV      R0,R4
+   \   00000038   0x.... 0x....      BL       DMA2D_SetConfig
     457          
     458            /* Enable the Peripheral */
     459            __HAL_DMA2D_ENABLE(hdma2d);
+   \   0000003C   0x6820             LDR      R0,[R4, #+0]
+   \   0000003E   0x6801             LDR      R1,[R0, #+0]
+   \   00000040   0xF041 0x0101      ORR      R1,R1,#0x1
+   \   00000044   0x6001             STR      R1,[R0, #+0]
     460          
     461            return HAL_OK;
+   \   00000046   0x2000             MOVS     R0,#+0
+   \                     ??HAL_DMA2D_BlendingStart_0: (+1)
+   \   00000048   0xB001             ADD      SP,SP,#+4
+   \   0000004A   0xBD30             POP      {R4,R5,PC}       ;; return
     462          }
     463          
     464          /**
@@ -720,26 +715,25 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     475          HAL_StatusTypeDef HAL_DMA2D_BlendingStart_IT(DMA2D_HandleTypeDef *hdma2d, uint32_t SrcAddress1, uint32_t  SrcAddress2, uint32_t DstAddress, uint32_t Width,  uint32_t Height)
     476          {
    \                     HAL_DMA2D_BlendingStart_IT: (+1)
-   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000000   0xB530             PUSH     {R4,R5,LR}
    \   00000002   0x4604             MOV      R4,R0
    \   00000004   0x4610             MOV      R0,R2
-   \   00000006   0x461A             MOV      R2,R3
+   \   00000006   0xB081             SUB      SP,SP,#+4
+   \   00000008   0x461A             MOV      R2,R3
     477            /* Process locked */
     478            __HAL_LOCK(hdma2d);
-   \   00000008   0xF104 0x0338      ADD      R3,R4,#+56
-   \   0000000C   0x781D             LDRB     R5,[R3, #+0]
-   \   0000000E   0x2D01             CMP      R5,#+1
-   \   00000010   0xD101             BNE.N    ??HAL_DMA2D_BlendingStart_IT_0
-   \   00000012   0x2002             MOVS     R0,#+2
-   \   00000014   0xBD32             POP      {R1,R4,R5,PC}
-   \                     ??HAL_DMA2D_BlendingStart_IT_0: (+1)
-   \   00000016   0x2501             MOVS     R5,#+1
-   \   00000018   0x701D             STRB     R5,[R3, #+0]
+   \   0000000A   0xF894 0x3038      LDRB     R3,[R4, #+56]
+   \   0000000E   0x2B01             CMP      R3,#+1
+   \   00000010   0xBF08             IT       EQ 
+   \   00000012   0x2002             MOVEQ    R0,#+2
+   \   00000014   0xD027             BEQ.N    ??HAL_DMA2D_BlendingStart_IT_0
+   \   00000016   0x2301             MOVS     R3,#+1
+   \   00000018   0xF884 0x3038      STRB     R3,[R4, #+56]
     479          
     480            /* Change DMA2D peripheral state */
     481            hdma2d->State = HAL_DMA2D_STATE_BUSY;
-   \   0000001A   0x2502             MOVS     R5,#+2
-   \   0000001C   0x705D             STRB     R5,[R3, #+1]
+   \   0000001C   0x2302             MOVS     R3,#+2
+   \   0000001E   0xF884 0x3039      STRB     R3,[R4, #+57]
     482          
     483            /* Check the parameters */
     484            assert_param(IS_DMA2D_LINE(Height));
@@ -747,51 +741,58 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     486          
     487            /* Disable the Peripheral */
     488            __HAL_DMA2D_DISABLE(hdma2d);
-   \   0000001E   0x6823             LDR      R3,[R4, #+0]
-   \   00000020   0x681D             LDR      R5,[R3, #+0]
-   \   00000022   0x086D             LSRS     R5,R5,#+1
-   \   00000024   0x006D             LSLS     R5,R5,#+1
-   \   00000026   0x601D             STR      R5,[R3, #+0]
+   \   00000022   0x6823             LDR      R3,[R4, #+0]
+   \   00000024   0x681D             LDR      R5,[R3, #+0]
+   \   00000026   0x086D             LSRS     R5,R5,#+1
+   \   00000028   0x006D             LSLS     R5,R5,#+1
+   \   0000002A   0x601D             STR      R5,[R3, #+0]
     489           
     490            /* Configure DMA2D Stream source2 address */
     491            hdma2d->Instance->BGMAR = SrcAddress2;
-   \   00000028   0x6823             LDR      R3,[R4, #+0]
-   \   0000002A   0x6158             STR      R0,[R3, #+20]
+   \   0000002C   0x6823             LDR      R3,[R4, #+0]
+   \   0000002E   0x6158             STR      R0,[R3, #+20]
     492          
     493            /* Configure the source, destination address and the data size */
     494            DMA2D_SetConfig(hdma2d, SrcAddress1, DstAddress, Width, Height);
-   \   0000002C   0x9805             LDR      R0,[SP, #+20]
-   \   0000002E   0x9B04             LDR      R3,[SP, #+16]
-   \   00000030   0x9000             STR      R0,[SP, #+0]
-   \   00000032   0x4620             MOV      R0,R4
-   \   00000034   0x.... 0x....      BL       DMA2D_SetConfig
+   \   00000030   0x9805             LDR      R0,[SP, #+20]
+   \   00000032   0x9B04             LDR      R3,[SP, #+16]
+   \   00000034   0x9000             STR      R0,[SP, #+0]
+   \   00000036   0x4620             MOV      R0,R4
+   \   00000038   0x.... 0x....      BL       DMA2D_SetConfig
     495          
     496            /* Enable the configuration error interrupt */
     497            __HAL_DMA2D_ENABLE_IT(hdma2d, DMA2D_IT_CE);
-   \   00000038   0x6820             LDR      R0,[R4, #+0]
-   \   0000003A   0x6801             LDR      R1,[R0, #+0]
-   \   0000003C   0xF441 0x5100      ORR      R1,R1,#0x2000
-   \   00000040   0x6001             STR      R1,[R0, #+0]
+   \   0000003C   0x6820             LDR      R0,[R4, #+0]
+   \   0000003E   0x6801             LDR      R1,[R0, #+0]
+   \   00000040   0xF441 0x5100      ORR      R1,R1,#0x2000
+   \   00000044   0x6001             STR      R1,[R0, #+0]
     498          
     499            /* Enable the transfer complete interrupt */
     500            __HAL_DMA2D_ENABLE_IT(hdma2d, DMA2D_IT_TC);
-   \   00000042   0x6820             LDR      R0,[R4, #+0]
-   \   00000044   0x6801             LDR      R1,[R0, #+0]
-   \   00000046   0xF441 0x7100      ORR      R1,R1,#0x200
-   \   0000004A   0x6001             STR      R1,[R0, #+0]
+   \   00000046   0x6820             LDR      R0,[R4, #+0]
+   \   00000048   0x6801             LDR      R1,[R0, #+0]
+   \   0000004A   0xF441 0x7100      ORR      R1,R1,#0x200
+   \   0000004E   0x6001             STR      R1,[R0, #+0]
     501          
     502            /* Enable the transfer Error interrupt */
     503            __HAL_DMA2D_ENABLE_IT(hdma2d, DMA2D_IT_TE);
-   \   0000004C   0x6820             LDR      R0,[R4, #+0]
-   \   0000004E   0x6801             LDR      R1,[R0, #+0]
-   \   00000050   0xF441 0x7180      ORR      R1,R1,#0x100
-   \   00000054   0x6001             STR      R1,[R0, #+0]
+   \   00000050   0x6820             LDR      R0,[R4, #+0]
+   \   00000052   0x6801             LDR      R1,[R0, #+0]
+   \   00000054   0xF441 0x7180      ORR      R1,R1,#0x100
+   \   00000058   0x6001             STR      R1,[R0, #+0]
     504          
     505            /* Enable the Peripheral */
     506            __HAL_DMA2D_ENABLE(hdma2d);
-   \   00000056   0x....             B.N      ??Subroutine1_0
+   \   0000005A   0x6820             LDR      R0,[R4, #+0]
+   \   0000005C   0x6801             LDR      R1,[R0, #+0]
+   \   0000005E   0xF041 0x0101      ORR      R1,R1,#0x1
+   \   00000062   0x6001             STR      R1,[R0, #+0]
     507          
     508            return HAL_OK;
+   \   00000064   0x2000             MOVS     R0,#+0
+   \                     ??HAL_DMA2D_BlendingStart_IT_0: (+1)
+   \   00000066   0xB001             ADD      SP,SP,#+4
+   \   00000068   0xBD30             POP      {R4,R5,PC}       ;; return
     509          }
     510          
     511          /**
@@ -839,20 +840,19 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     531              {
     532                /* Update error code */
     533                hdma2d->ErrorCode |= HAL_DMA2D_ERROR_TIMEOUT;
-   \   0000002A   0xF104 0x0038      ADD      R0,R4,#+56
-   \   0000002E   0x6841             LDR      R1,[R0, #+4]
-   \   00000030   0xF041 0x0120      ORR      R1,R1,#0x20
-   \   00000034   0x6041             STR      R1,[R0, #+4]
+   \   0000002A   0x6BE0             LDR      R0,[R4, #+60]
+   \   0000002C   0xF040 0x0020      ORR      R0,R0,#0x20
+   \   00000030   0x63E0             STR      R0,[R4, #+60]
     534                
     535                /* Change the DMA2D state */
     536                hdma2d->State= HAL_DMA2D_STATE_TIMEOUT;
-   \   00000036   0x2103             MOVS     R1,#+3
-   \   00000038   0x7041             STRB     R1,[R0, #+1]
+   \   00000032   0x2003             MOVS     R0,#+3
+   \   00000034   0xF884 0x0039      STRB     R0,[R4, #+57]
     537                
     538                /* Process Unlocked */
     539                __HAL_UNLOCK(hdma2d);
-   \   0000003A   0x2100             MOVS     R1,#+0
-   \   0000003C   0x7001             STRB     R1,[R0, #+0]
+   \   00000038   0x2000             MOVS     R0,#+0
+   \   0000003A   0xF884 0x0038      STRB     R0,[R4, #+56]
     540                
     541                return HAL_TIMEOUT;
    \   0000003E   0x2003             MOVS     R0,#+3
@@ -862,14 +862,13 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     544            /* Process Unlocked */
     545            __HAL_UNLOCK(hdma2d);
    \                     ??HAL_DMA2D_Abort_1: (+1)
-   \   00000042   0xF104 0x0038      ADD      R0,R4,#+56
-   \   00000046   0x2100             MOVS     R1,#+0
-   \   00000048   0x7001             STRB     R1,[R0, #+0]
+   \   00000042   0x2000             MOVS     R0,#+0
+   \   00000044   0xF884 0x0038      STRB     R0,[R4, #+56]
     546          
     547            /* Change the DMA2D state*/
     548            hdma2d->State = HAL_DMA2D_STATE_READY;
-   \   0000004A   0x2101             MOVS     R1,#+1
-   \   0000004C   0x7041             STRB     R1,[R0, #+1]
+   \   00000048   0x2001             MOVS     R0,#+1
+   \   0000004A   0xF884 0x0039      STRB     R0,[R4, #+57]
     549          
     550            return HAL_OK;
    \   0000004E   0x2000             MOVS     R0,#+0
@@ -995,7 +994,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   00000006   0x6820             LDR      R0,[R4, #+0]
    \   00000008   0x6800             LDR      R0,[R0, #+0]
    \   0000000A   0x07C0             LSLS     R0,R0,#+31
-   \   0000000C   0xD52C             BPL.N    ??HAL_DMA2D_PollForTransfer_0
+   \   0000000C   0xD526             BPL.N    ??HAL_DMA2D_PollForTransfer_0
     620            {
     621             /* Get tick */
     622             tickstart = HAL_GetTick();
@@ -1007,7 +1006,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   00000014   0x6820             LDR      R0,[R4, #+0]
    \   00000016   0x6841             LDR      R1,[R0, #+4]
    \   00000018   0x0789             LSLS     R1,R1,#+30
-   \   0000001A   0xD425             BMI.N    ??HAL_DMA2D_PollForTransfer_0
+   \   0000001A   0xD41F             BMI.N    ??HAL_DMA2D_PollForTransfer_0
     625              {
     626                tmp  = __HAL_DMA2D_GET_FLAG(hdma2d, DMA2D_FLAG_CE);
    \   0000001C   0x6841             LDR      R1,[R0, #+4]
@@ -1018,7 +1017,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   00000020   0x0689             LSLS     R1,R1,#+26
    \   00000022   0xD401             BMI.N    ??HAL_DMA2D_PollForTransfer_2
    \   00000024   0x07D1             LSLS     R1,R2,#+31
-   \   00000026   0xD50B             BPL.N    ??HAL_DMA2D_PollForTransfer_3
+   \   00000026   0xD50C             BPL.N    ??HAL_DMA2D_PollForTransfer_3
     630                {
     631                  /* Clear the transfer and configuration error flags */
     632                  __HAL_DMA2D_CLEAR_FLAG(hdma2d, DMA2D_FLAG_CE);
@@ -1032,156 +1031,144 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     634          
     635                  /* Change DMA2D state */
     636                  hdma2d->State= HAL_DMA2D_STATE_ERROR;
-   \   00000032   0xF104 0x0038      ADD      R0,R4,#+56
-   \   00000036   0x2104             MOVS     R1,#+4
-   \   00000038   0x7041             STRB     R1,[R0, #+1]
+   \   00000032   0x2004             MOVS     R0,#+4
+   \   00000034   0xF884 0x0039      STRB     R0,[R4, #+57]
     637          
     638                  /* Process unlocked */
     639                  __HAL_UNLOCK(hdma2d);
-   \   0000003A   0x2100             MOVS     R1,#+0
-   \   0000003C   0x7001             STRB     R1,[R0, #+0]
+   \   00000038   0x2000             MOVS     R0,#+0
+   \   0000003A   0xF884 0x0038      STRB     R0,[R4, #+56]
     640                  
     641                  return HAL_ERROR;
-   \   0000003E   0xE027             B.N      ??HAL_DMA2D_PollForTransfer_4
     642                }
     643                /* Check for the Timeout */
     644                if(Timeout != HAL_MAX_DELAY)
-   \                     ??HAL_DMA2D_PollForTransfer_3: (+1)
-   \   00000040   0xF115 0x0F01      CMN      R5,#+1
-   \   00000044   0xD0E6             BEQ.N    ??HAL_DMA2D_PollForTransfer_1
     645                {
     646                  if((Timeout == 0)||((HAL_GetTick() - tickstart ) > Timeout))
-   \   00000046   0xB125             CBZ.N    R5,??HAL_DMA2D_PollForTransfer_5
-   \   00000048   0x.... 0x....      BL       HAL_GetTick
-   \   0000004C   0x1B80             SUBS     R0,R0,R6
-   \   0000004E   0x4285             CMP      R5,R0
-   \   00000050   0xD2E0             BCS.N    ??HAL_DMA2D_PollForTransfer_1
     647                  {
     648                    /* Process unlocked */
     649                    __HAL_UNLOCK(hdma2d);
-   \                     ??HAL_DMA2D_PollForTransfer_5: (+1)
-   \   00000052   0xF104 0x0038      ADD      R0,R4,#+56
-   \   00000056   0x2100             MOVS     R1,#+0
-   \   00000058   0x7001             STRB     R1,[R0, #+0]
     650                  
     651                    /* Update error code */
     652                    hdma2d->ErrorCode |= HAL_DMA2D_ERROR_TIMEOUT;
-   \   0000005A   0x6841             LDR      R1,[R0, #+4]
-   \   0000005C   0xF041 0x0120      ORR      R1,R1,#0x20
-   \   00000060   0x6041             STR      R1,[R0, #+4]
     653          
     654                    /* Change the DMA2D state */
     655                    hdma2d->State= HAL_DMA2D_STATE_TIMEOUT;
-   \   00000062   0x2103             MOVS     R1,#+3
-   \   00000064   0x7041             STRB     R1,[R0, #+1]
     656                    
     657                    return HAL_TIMEOUT;
-   \   00000066   0xE033             B.N      ??HAL_DMA2D_PollForTransfer_6
     658                  }
     659                }        
     660              }
     661            }
     662            /* Polling for CLUT loading */
     663            if((hdma2d->Instance->FGPFCCR & DMA2D_FGPFCCR_START) != 0)
-   \                     ??HAL_DMA2D_PollForTransfer_0: (+1)
-   \   00000068   0x6820             LDR      R0,[R4, #+0]
-   \   0000006A   0x69C0             LDR      R0,[R0, #+28]
-   \   0000006C   0x0680             LSLS     R0,R0,#+26
-   \   0000006E   0xD523             BPL.N    ??HAL_DMA2D_PollForTransfer_7
     664            {
     665              /* Get tick */
     666              tickstart = HAL_GetTick();
-   \   00000070   0x.... 0x....      BL       HAL_GetTick
-   \   00000074   0x4606             MOV      R6,R0
     667             
     668              while(__HAL_DMA2D_GET_FLAG(hdma2d, DMA2D_FLAG_CTC) == RESET)
-   \                     ??HAL_DMA2D_PollForTransfer_8: (+1)
-   \   00000076   0x6820             LDR      R0,[R4, #+0]
-   \   00000078   0x6841             LDR      R1,[R0, #+4]
-   \   0000007A   0x06C9             LSLS     R1,R1,#+27
-   \   0000007C   0xD41C             BMI.N    ??HAL_DMA2D_PollForTransfer_7
     669              {
     670                if((__HAL_DMA2D_GET_FLAG(hdma2d, DMA2D_FLAG_CAE) != RESET))
-   \   0000007E   0x6841             LDR      R1,[R0, #+4]
-   \   00000080   0x0709             LSLS     R1,R1,#+28
-   \   00000082   0xD507             BPL.N    ??HAL_DMA2D_PollForTransfer_9
     671                {      
     672                  /* Clear the transfer and configuration error flags */
     673                  __HAL_DMA2D_CLEAR_FLAG(hdma2d, DMA2D_FLAG_CAE);
-   \   00000084   0x2108             MOVS     R1,#+8
-   \   00000086   0x6081             STR      R1,[R0, #+8]
     674                  
     675                  /* Change DMA2D state */
     676                  hdma2d->State= HAL_DMA2D_STATE_ERROR;
-   \   00000088   0x2004             MOVS     R0,#+4
-   \   0000008A   0xF104 0x0138      ADD      R1,R4,#+56
-   \   0000008E   0x7048             STRB     R0,[R1, #+1]
     677                  
     678                  return HAL_ERROR;      
+   \   0000003E   0x2001             MOVS     R0,#+1
+   \   00000040   0xBD70             POP      {R4-R6,PC}
+   \                     ??HAL_DMA2D_PollForTransfer_3: (+1)
+   \   00000042   0xF115 0x0F01      CMN      R5,#+1
+   \   00000046   0xD0E5             BEQ.N    ??HAL_DMA2D_PollForTransfer_1
+   \   00000048   0xB125             CBZ.N    R5,??HAL_DMA2D_PollForTransfer_4
+   \   0000004A   0x.... 0x....      BL       HAL_GetTick
+   \   0000004E   0x1B80             SUBS     R0,R0,R6
+   \   00000050   0x4285             CMP      R5,R0
+   \   00000052   0xD2DF             BCS.N    ??HAL_DMA2D_PollForTransfer_1
    \                     ??HAL_DMA2D_PollForTransfer_4: (+1)
-   \   00000090   0x2001             MOVS     R0,#+1
-   \   00000092   0xBD70             POP      {R4-R6,PC}
+   \   00000054   0x2000             MOVS     R0,#+0
+   \   00000056   0xF884 0x0038      STRB     R0,[R4, #+56]
+   \   0000005A   0xE01D             B.N      ??HAL_DMA2D_PollForTransfer_5
+   \                     ??HAL_DMA2D_PollForTransfer_0: (+1)
+   \   0000005C   0x6820             LDR      R0,[R4, #+0]
+   \   0000005E   0x69C0             LDR      R0,[R0, #+28]
+   \   00000060   0x0680             LSLS     R0,R0,#+26
+   \   00000062   0xD521             BPL.N    ??HAL_DMA2D_PollForTransfer_6
+   \   00000064   0x.... 0x....      BL       HAL_GetTick
+   \   00000068   0x4606             MOV      R6,R0
+   \                     ??HAL_DMA2D_PollForTransfer_7: (+1)
+   \   0000006A   0x6820             LDR      R0,[R4, #+0]
+   \   0000006C   0x6841             LDR      R1,[R0, #+4]
+   \   0000006E   0x06C9             LSLS     R1,R1,#+27
+   \   00000070   0xD41A             BMI.N    ??HAL_DMA2D_PollForTransfer_6
+   \   00000072   0x6841             LDR      R1,[R0, #+4]
+   \   00000074   0x0709             LSLS     R1,R1,#+28
+   \   00000076   0xD506             BPL.N    ??HAL_DMA2D_PollForTransfer_8
+   \   00000078   0x2108             MOVS     R1,#+8
+   \   0000007A   0x6081             STR      R1,[R0, #+8]
+   \   0000007C   0x2004             MOVS     R0,#+4
+   \   0000007E   0xF884 0x0039      STRB     R0,[R4, #+57]
+   \   00000082   0x2001             MOVS     R0,#+1
+   \   00000084   0xBD70             POP      {R4-R6,PC}
     679                }      
     680                /* Check for the Timeout */
     681                if(Timeout != HAL_MAX_DELAY)
-   \                     ??HAL_DMA2D_PollForTransfer_9: (+1)
-   \   00000094   0xF115 0x0F01      CMN      R5,#+1
-   \   00000098   0xD0ED             BEQ.N    ??HAL_DMA2D_PollForTransfer_8
+   \                     ??HAL_DMA2D_PollForTransfer_8: (+1)
+   \   00000086   0xF115 0x0F01      CMN      R5,#+1
+   \   0000008A   0xD0EE             BEQ.N    ??HAL_DMA2D_PollForTransfer_7
     682                {
     683                  if((Timeout == 0)||((HAL_GetTick() - tickstart ) > Timeout))
-   \   0000009A   0xB125             CBZ.N    R5,??HAL_DMA2D_PollForTransfer_10
-   \   0000009C   0x.... 0x....      BL       HAL_GetTick
-   \   000000A0   0x1B80             SUBS     R0,R0,R6
-   \   000000A2   0x4285             CMP      R5,R0
-   \   000000A4   0xD2E7             BCS.N    ??HAL_DMA2D_PollForTransfer_8
+   \   0000008C   0xB125             CBZ.N    R5,??HAL_DMA2D_PollForTransfer_5
+   \   0000008E   0x.... 0x....      BL       HAL_GetTick
+   \   00000092   0x1B80             SUBS     R0,R0,R6
+   \   00000094   0x4285             CMP      R5,R0
+   \   00000096   0xD2E8             BCS.N    ??HAL_DMA2D_PollForTransfer_7
     684                  {
     685                    /* Update error code */
     686                    hdma2d->ErrorCode |= HAL_DMA2D_ERROR_TIMEOUT;
-   \                     ??HAL_DMA2D_PollForTransfer_10: (+1)
-   \   000000A6   0xF104 0x0038      ADD      R0,R4,#+56
-   \   000000AA   0x6841             LDR      R1,[R0, #+4]
-   \   000000AC   0xF041 0x0120      ORR      R1,R1,#0x20
-   \   000000B0   0x6041             STR      R1,[R0, #+4]
+   \                     ??HAL_DMA2D_PollForTransfer_5: (+1)
+   \   00000098   0x6BE0             LDR      R0,[R4, #+60]
+   \   0000009A   0xF040 0x0020      ORR      R0,R0,#0x20
+   \   0000009E   0x63E0             STR      R0,[R4, #+60]
     687              
     688                    /* Change the DMA2D state */
     689                    hdma2d->State= HAL_DMA2D_STATE_TIMEOUT;
-   \   000000B2   0x2103             MOVS     R1,#+3
-   \   000000B4   0x7041             STRB     R1,[R0, #+1]
+   \   000000A0   0x2003             MOVS     R0,#+3
+   \   000000A2   0xF884 0x0039      STRB     R0,[R4, #+57]
     690                    
     691                    return HAL_TIMEOUT;
-   \   000000B6   0xE00B             B.N      ??HAL_DMA2D_PollForTransfer_6
+   \   000000A6   0xBD70             POP      {R4-R6,PC}
     692                  }
     693                }      
     694              }
     695            }
     696            /* Clear the transfer complete flag */
     697            __HAL_DMA2D_CLEAR_FLAG(hdma2d, DMA2D_FLAG_TC);
-   \                     ??HAL_DMA2D_PollForTransfer_7: (+1)
-   \   000000B8   0x6821             LDR      R1,[R4, #+0]
-   \   000000BA   0x2002             MOVS     R0,#+2
-   \   000000BC   0x6088             STR      R0,[R1, #+8]
+   \                     ??HAL_DMA2D_PollForTransfer_6: (+1)
+   \   000000A8   0x6821             LDR      R1,[R4, #+0]
+   \   000000AA   0x2002             MOVS     R0,#+2
+   \   000000AC   0x6088             STR      R0,[R1, #+8]
     698            
     699            /* Clear the CLUT loading flag */
     700            __HAL_DMA2D_CLEAR_FLAG(hdma2d, DMA2D_FLAG_CTC);  
-   \   000000BE   0x6821             LDR      R1,[R4, #+0]
-   \   000000C0   0x2010             MOVS     R0,#+16
-   \   000000C2   0x6088             STR      R0,[R1, #+8]
+   \   000000AE   0x6821             LDR      R1,[R4, #+0]
+   \   000000B0   0x2010             MOVS     R0,#+16
+   \   000000B2   0x6088             STR      R0,[R1, #+8]
     701            
     702            /* Change DMA2D state */
     703            hdma2d->State = HAL_DMA2D_STATE_READY;
-   \   000000C4   0xF104 0x0038      ADD      R0,R4,#+56
-   \   000000C8   0x2101             MOVS     R1,#+1
-   \   000000CA   0x7041             STRB     R1,[R0, #+1]
+   \   000000B4   0x2001             MOVS     R0,#+1
+   \   000000B6   0xF884 0x0039      STRB     R0,[R4, #+57]
     704            
     705            /* Process unlocked */
     706            __HAL_UNLOCK(hdma2d);
-   \   000000CC   0x2100             MOVS     R1,#+0
-   \   000000CE   0x7001             STRB     R1,[R0, #+0]
+   \   000000BA   0x2000             MOVS     R0,#+0
+   \   000000BC   0xF884 0x0038      STRB     R0,[R4, #+56]
     707            
     708            return HAL_OK;
-   \                     ??HAL_DMA2D_PollForTransfer_6: (+1)
-   \   000000D0   0x4608             MOV      R0,R1
-   \   000000D2   0xBD70             POP      {R4-R6,PC}       ;; return
+   \   000000C0   0xBD70             POP      {R4-R6,PC}       ;; return
     709          }
     710          /**
     711            * @brief  Handles DMA2D interrupt request.
@@ -1216,29 +1203,28 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     725          
     726                /* Update error code */
     727                hdma2d->ErrorCode |= HAL_DMA2D_ERROR_TE;
-   \   0000001A   0xF104 0x0038      ADD      R0,R4,#+56
-   \   0000001E   0x6841             LDR      R1,[R0, #+4]
-   \   00000020   0xF041 0x0101      ORR      R1,R1,#0x1
-   \   00000024   0x6041             STR      R1,[R0, #+4]
+   \   0000001A   0x6BE0             LDR      R0,[R4, #+60]
+   \   0000001C   0xF040 0x0001      ORR      R0,R0,#0x1
+   \   00000020   0x63E0             STR      R0,[R4, #+60]
     728              
     729                /* Clear the transfer error flag */
     730                __HAL_DMA2D_CLEAR_FLAG(hdma2d, DMA2D_FLAG_TE);
-   \   00000026   0x6822             LDR      R2,[R4, #+0]
-   \   00000028   0x2101             MOVS     R1,#+1
-   \   0000002A   0x6091             STR      R1,[R2, #+8]
+   \   00000022   0x6821             LDR      R1,[R4, #+0]
+   \   00000024   0x2001             MOVS     R0,#+1
+   \   00000026   0x6088             STR      R0,[R1, #+8]
     731          
     732                /* Change DMA2D state */
     733                hdma2d->State = HAL_DMA2D_STATE_ERROR;
-   \   0000002C   0x2104             MOVS     R1,#+4
-   \   0000002E   0x7041             STRB     R1,[R0, #+1]
+   \   00000028   0x2004             MOVS     R0,#+4
+   \   0000002A   0xF884 0x0039      STRB     R0,[R4, #+57]
     734          
     735                /* Process Unlocked */
     736                __HAL_UNLOCK(hdma2d);       
-   \   00000030   0x2100             MOVS     R1,#+0
-   \   00000032   0x7001             STRB     R1,[R0, #+0]
+   \   0000002E   0x2000             MOVS     R0,#+0
     737                
     738                if(hdma2d->XferErrorCallback != NULL)
-   \   00000034   0x6961             LDR      R1,[R4, #+20]
+   \   00000030   0x6961             LDR      R1,[R4, #+20]
+   \   00000032   0xF884 0x0038      STRB     R0,[R4, #+56]
    \   00000036   0x0008             MOVS     R0,R1
    \   00000038   0xBF1C             ITT      NE 
     739                {
@@ -1276,23 +1262,22 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     755          
     756                /* Update error code */
     757                hdma2d->ErrorCode |= HAL_DMA2D_ERROR_CE;    
-   \   0000005A   0xF104 0x0038      ADD      R0,R4,#+56
-   \   0000005E   0x6841             LDR      R1,[R0, #+4]
-   \   00000060   0xF041 0x0102      ORR      R1,R1,#0x2
-   \   00000064   0x6041             STR      R1,[R0, #+4]
+   \   0000005A   0x6BE0             LDR      R0,[R4, #+60]
+   \   0000005C   0xF040 0x0002      ORR      R0,R0,#0x2
+   \   00000060   0x63E0             STR      R0,[R4, #+60]
     758              
     759                /* Change DMA2D state */
     760                hdma2d->State = HAL_DMA2D_STATE_ERROR;
-   \   00000066   0x2104             MOVS     R1,#+4
-   \   00000068   0x7041             STRB     R1,[R0, #+1]
+   \   00000062   0x2004             MOVS     R0,#+4
+   \   00000064   0xF884 0x0039      STRB     R0,[R4, #+57]
     761          
     762                /* Process Unlocked */
     763                __HAL_UNLOCK(hdma2d);       
-   \   0000006A   0x2100             MOVS     R1,#+0
-   \   0000006C   0x7001             STRB     R1,[R0, #+0]
+   \   00000068   0x2000             MOVS     R0,#+0
     764                
     765                if(hdma2d->XferErrorCallback != NULL)
-   \   0000006E   0x6961             LDR      R1,[R4, #+20]
+   \   0000006A   0x6961             LDR      R1,[R4, #+20]
+   \   0000006C   0xF884 0x0038      STRB     R0,[R4, #+56]
    \   00000070   0x0008             MOVS     R0,R1
    \   00000072   0xBF1C             ITT      NE 
     766                {
@@ -1330,22 +1315,21 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     782          
     783                /* Update error code */
     784                hdma2d->ErrorCode |= HAL_DMA2D_ERROR_NONE;    
-   \   00000094   0xF104 0x0038      ADD      R0,R4,#+56
-   \   00000098   0x6841             LDR      R1,[R0, #+4]
-   \   0000009A   0x6041             STR      R1,[R0, #+4]
+   \   00000094   0x6BE0             LDR      R0,[R4, #+60]
+   \   00000096   0x63E0             STR      R0,[R4, #+60]
     785              
     786                /* Change DMA2D state */
     787                hdma2d->State = HAL_DMA2D_STATE_READY;
-   \   0000009C   0x2101             MOVS     R1,#+1
-   \   0000009E   0x7041             STRB     R1,[R0, #+1]
+   \   00000098   0x2001             MOVS     R0,#+1
+   \   0000009A   0xF884 0x0039      STRB     R0,[R4, #+57]
     788              
     789                /* Process Unlocked */
     790                __HAL_UNLOCK(hdma2d);       
-   \   000000A0   0x2100             MOVS     R1,#+0
-   \   000000A2   0x7001             STRB     R1,[R0, #+0]
+   \   0000009E   0x2000             MOVS     R0,#+0
     791                
     792                if(hdma2d->XferCpltCallback != NULL)
-   \   000000A4   0x6921             LDR      R1,[R4, #+16]
+   \   000000A0   0x6921             LDR      R1,[R4, #+16]
+   \   000000A2   0xF884 0x0038      STRB     R0,[R4, #+56]
    \   000000A6   0x0008             MOVS     R0,R1
    \   000000A8   0xD003             BEQ.N    ??HAL_DMA2D_IRQHandler_2
     793                {
@@ -1396,23 +1380,22 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                                 In section .text, align 2, keep-with-next
     832          HAL_StatusTypeDef HAL_DMA2D_ConfigLayer(DMA2D_HandleTypeDef *hdma2d, uint32_t LayerIdx)
     833          { 
-    834            DMA2D_LayerCfgTypeDef *pLayerCfg = &hdma2d->LayerCfg[LayerIdx];
    \                     HAL_DMA2D_ConfigLayer: (+1)
-   \   00000000   0xEB00 0x1201      ADD      R2,R0,R1, LSL #+4
-   \   00000004   0xB470             PUSH     {R4-R6}
-   \   00000006   0xF102 0x0318      ADD      R3,R2,#+24
+   \   00000000   0xB430             PUSH     {R4,R5}
+    834            DMA2D_LayerCfgTypeDef *pLayerCfg = &hdma2d->LayerCfg[LayerIdx];
+   \   00000002   0xEB00 0x1201      ADD      R2,R0,R1, LSL #+4
     835            
     836            uint32_t tmp = 0;
     837            
     838            /* Process locked */
     839            __HAL_LOCK(hdma2d);
-   \   0000000A   0xF100 0x0238      ADD      R2,R0,#+56
-   \   0000000E   0x7814             LDRB     R4,[R2, #+0]
-   \   00000010   0x2C01             CMP      R4,#+1
-   \   00000012   0xBF08             IT       EQ 
-   \   00000014   0x2002             MOVEQ    R0,#+2
-   \   00000016   0xD05A             BEQ.N    ??HAL_DMA2D_ConfigLayer_0
-   \   00000018   0x2401             MOVS     R4,#+1
+   \   00000006   0xF890 0x3038      LDRB     R3,[R0, #+56]
+   \   0000000A   0x3218             ADDS     R2,R2,#+24
+   \   0000000C   0x2B01             CMP      R3,#+1
+   \   0000000E   0xBF08             IT       EQ 
+   \   00000010   0x2002             MOVEQ    R0,#+2
+   \   00000012   0xD05F             BEQ.N    ??HAL_DMA2D_ConfigLayer_0
+   \   00000014   0x2301             MOVS     R3,#+1
     840            
     841            /* Change DMA2D peripheral state */
     842            hdma2d->State = HAL_DMA2D_STATE_BUSY; 
@@ -1431,36 +1414,36 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     855            
     856            /* Configure the background DMA2D layer */
     857            if(LayerIdx == 0)
-   \   0000001A   0x....             LDR.N    R6,??DataTable2  ;; 0xfcfff0
-   \   0000001C   0x7014             STRB     R4,[R2, #+0]
-   \   0000001E   0x2402             MOVS     R4,#+2
-   \   00000020   0x7054             STRB     R4,[R2, #+1]
-   \   00000022   0x685D             LDR      R5,[R3, #+4]
-   \   00000024   0x6804             LDR      R4,[R0, #+0]
+   \   00000016   0x....             LDR.N    R5,??DataTable2  ;; 0xfcfff0
+   \   00000018   0xF880 0x3038      STRB     R3,[R0, #+56]
+   \   0000001C   0x2302             MOVS     R3,#+2
+   \   0000001E   0xF880 0x3039      STRB     R3,[R0, #+57]
+   \   00000022   0x6854             LDR      R4,[R2, #+4]
+   \   00000024   0x6803             LDR      R3,[R0, #+0]
    \   00000026   0xBB39             CBNZ.N   R1,??HAL_DMA2D_ConfigLayer_1
     858            {
     859              /* DMA2D BGPFCR register configuration -----------------------------------*/
     860              /* Get the BGPFCCR register value */
     861              tmp = hdma2d->Instance->BGPFCCR;
-   \   00000028   0x6A61             LDR      R1,[R4, #+36]
+   \   00000028   0x6A59             LDR      R1,[R3, #+36]
     862              
     863              /* Clear Input color mode, alpha value and alpha mode bits */
     864              tmp &= (uint32_t)~(DMA2D_BGPFCCR_CM | DMA2D_BGPFCCR_AM | DMA2D_BGPFCCR_ALPHA); 
-   \   0000002A   0x4031             ANDS     R1,R6,R1
+   \   0000002A   0x4029             ANDS     R1,R5,R1
     865              
     866              if ((pLayerCfg->InputColorMode == CM_A4) || (pLayerCfg->InputColorMode == CM_A8))
-   \   0000002C   0x2D0A             CMP      R5,#+10
+   \   0000002C   0x2C0A             CMP      R4,#+10
    \   0000002E   0xBF18             IT       NE 
-   \   00000030   0x2D09             CMPNE    R5,#+9
+   \   00000030   0x2C09             CMPNE    R4,#+9
    \   00000032   0xD107             BNE.N    ??HAL_DMA2D_ConfigLayer_2
     867              {
     868                /* Prepare the value to be wrote to the BGPFCCR register */
     869                tmp |= (pLayerCfg->InputColorMode | (pLayerCfg->AlphaMode << 16) | ((pLayerCfg->InputAlpha) & 0xFF000000));
-   \   00000034   0x689E             LDR      R6,[R3, #+8]
-   \   00000036   0xEA45 0x4506      ORR      R5,R5,R6, LSL #+16
-   \   0000003A   0x68DE             LDR      R6,[R3, #+12]
-   \   0000003C   0xF006 0x467F      AND      R6,R6,#0xFF000000
-   \   00000040   0x4335             ORRS     R5,R6,R5
+   \   00000034   0x6895             LDR      R5,[R2, #+8]
+   \   00000036   0xEA44 0x4405      ORR      R4,R4,R5, LSL #+16
+   \   0000003A   0x68D5             LDR      R5,[R2, #+12]
+   \   0000003C   0xF005 0x457F      AND      R5,R5,#0xFF000000
+   \   00000040   0x432C             ORRS     R4,R5,R4
    \   00000042   0xE005             B.N      ??HAL_DMA2D_ConfigLayer_3
     870              }
     871              else
@@ -1468,23 +1451,23 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     873                /* Prepare the value to be wrote to the BGPFCCR register */
     874                tmp |= (pLayerCfg->InputColorMode | (pLayerCfg->AlphaMode << 16) | (pLayerCfg->InputAlpha << 24));
    \                     ??HAL_DMA2D_ConfigLayer_2: (+1)
-   \   00000044   0x689E             LDR      R6,[R3, #+8]
-   \   00000046   0xEA45 0x4506      ORR      R5,R5,R6, LSL #+16
-   \   0000004A   0x68DE             LDR      R6,[R3, #+12]
-   \   0000004C   0xEA45 0x6506      ORR      R5,R5,R6, LSL #+24
+   \   00000044   0x6895             LDR      R5,[R2, #+8]
+   \   00000046   0xEA44 0x4405      ORR      R4,R4,R5, LSL #+16
+   \   0000004A   0x68D5             LDR      R5,[R2, #+12]
+   \   0000004C   0xEA44 0x6405      ORR      R4,R4,R5, LSL #+24
    \                     ??HAL_DMA2D_ConfigLayer_3: (+1)
-   \   00000050   0x4329             ORRS     R1,R5,R1
+   \   00000050   0x4321             ORRS     R1,R4,R1
     875              }
     876              
     877              /* Write to DMA2D BGPFCCR register */
     878              hdma2d->Instance->BGPFCCR = tmp; 
-   \   00000052   0x6261             STR      R1,[R4, #+36]
+   \   00000052   0x6259             STR      R1,[R3, #+36]
     879              
     880              /* DMA2D BGOR register configuration -------------------------------------*/  
     881              /* Get the BGOR register value */
     882              tmp = hdma2d->Instance->BGOR;
    \   00000054   0x6801             LDR      R1,[R0, #+0]
-   \   00000056   0x698C             LDR      R4,[R1, #+24]
+   \   00000056   0x698B             LDR      R3,[R1, #+24]
     883              
     884              /* Clear colors bits */
     885              tmp &= (uint32_t)~DMA2D_BGOR_LO; 
@@ -1494,13 +1477,13 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     889              
     890              /* Write to DMA2D BGOR register */
     891              hdma2d->Instance->BGOR = tmp;
-   \   00000058   0x681D             LDR      R5,[R3, #+0]
-   \   0000005A   0x0BA4             LSRS     R4,R4,#+14
-   \   0000005C   0xEA45 0x3484      ORR      R4,R5,R4, LSL #+14
-   \   00000060   0x618C             STR      R4,[R1, #+24]
+   \   00000058   0x6814             LDR      R4,[R2, #+0]
+   \   0000005A   0x0B9B             LSRS     R3,R3,#+14
+   \   0000005C   0xEA44 0x3383      ORR      R3,R4,R3, LSL #+14
+   \   00000060   0x618B             STR      R3,[R1, #+24]
     892              
     893              if ((pLayerCfg->InputColorMode == CM_A4) || (pLayerCfg->InputColorMode == CM_A8))
-   \   00000062   0x6859             LDR      R1,[R3, #+4]
+   \   00000062   0x6851             LDR      R1,[R2, #+4]
    \   00000064   0x290A             CMP      R1,#+10
    \   00000066   0xBF18             IT       NE 
    \   00000068   0x2909             CMPNE    R1,#+9
@@ -1511,11 +1494,11 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     897              
     898                /* Write to DMA2D BGCOLR register */
     899                hdma2d->Instance->BGCOLR = tmp;
-   \   0000006C   0x68D9             LDR      R1,[R3, #+12]
-   \   0000006E   0x6800             LDR      R0,[R0, #+0]
+   \   0000006C   0x68D1             LDR      R1,[R2, #+12]
+   \   0000006E   0x6802             LDR      R2,[R0, #+0]
    \   00000070   0x0209             LSLS     R1,R1,#+8
    \   00000072   0x0A09             LSRS     R1,R1,#+8
-   \   00000074   0x6281             STR      R1,[R0, #+40]
+   \   00000074   0x6291             STR      R1,[R2, #+40]
    \   00000076   0xE026             B.N      ??HAL_DMA2D_ConfigLayer_4
     900              }    
     901            }
@@ -1526,25 +1509,25 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     906              /* Get the FGPFCCR register value */
     907              tmp = hdma2d->Instance->FGPFCCR;
    \                     ??HAL_DMA2D_ConfigLayer_1: (+1)
-   \   00000078   0x69E1             LDR      R1,[R4, #+28]
+   \   00000078   0x69D9             LDR      R1,[R3, #+28]
     908              
     909              /* Clear Input color mode, alpha value and alpha mode bits */
     910              tmp &= (uint32_t)~(DMA2D_FGPFCCR_CM | DMA2D_FGPFCCR_AM | DMA2D_FGPFCCR_ALPHA); 
-   \   0000007A   0x4031             ANDS     R1,R6,R1
+   \   0000007A   0x4029             ANDS     R1,R5,R1
     911              
     912              if ((pLayerCfg->InputColorMode == CM_A4) || (pLayerCfg->InputColorMode == CM_A8))
-   \   0000007C   0x2D0A             CMP      R5,#+10
+   \   0000007C   0x2C0A             CMP      R4,#+10
    \   0000007E   0xBF18             IT       NE 
-   \   00000080   0x2D09             CMPNE    R5,#+9
+   \   00000080   0x2C09             CMPNE    R4,#+9
    \   00000082   0xD107             BNE.N    ??HAL_DMA2D_ConfigLayer_5
     913              {
     914                /* Prepare the value to be wrote to the FGPFCCR register */
     915                tmp |= (pLayerCfg->InputColorMode | (pLayerCfg->AlphaMode << 16) | ((pLayerCfg->InputAlpha) & 0xFF000000));
-   \   00000084   0x689E             LDR      R6,[R3, #+8]
-   \   00000086   0xEA45 0x4506      ORR      R5,R5,R6, LSL #+16
-   \   0000008A   0x68DE             LDR      R6,[R3, #+12]
-   \   0000008C   0xF006 0x467F      AND      R6,R6,#0xFF000000
-   \   00000090   0x4335             ORRS     R5,R6,R5
+   \   00000084   0x6895             LDR      R5,[R2, #+8]
+   \   00000086   0xEA44 0x4405      ORR      R4,R4,R5, LSL #+16
+   \   0000008A   0x68D5             LDR      R5,[R2, #+12]
+   \   0000008C   0xF005 0x457F      AND      R5,R5,#0xFF000000
+   \   00000090   0x432C             ORRS     R4,R5,R4
    \   00000092   0xE005             B.N      ??HAL_DMA2D_ConfigLayer_6
     916              }
     917              else
@@ -1552,23 +1535,23 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     919                /* Prepare the value to be wrote to the FGPFCCR register */
     920                tmp |= (pLayerCfg->InputColorMode | (pLayerCfg->AlphaMode << 16) | (pLayerCfg->InputAlpha << 24));
    \                     ??HAL_DMA2D_ConfigLayer_5: (+1)
-   \   00000094   0x689E             LDR      R6,[R3, #+8]
-   \   00000096   0xEA45 0x4506      ORR      R5,R5,R6, LSL #+16
-   \   0000009A   0x68DE             LDR      R6,[R3, #+12]
-   \   0000009C   0xEA45 0x6506      ORR      R5,R5,R6, LSL #+24
+   \   00000094   0x6895             LDR      R5,[R2, #+8]
+   \   00000096   0xEA44 0x4405      ORR      R4,R4,R5, LSL #+16
+   \   0000009A   0x68D5             LDR      R5,[R2, #+12]
+   \   0000009C   0xEA44 0x6405      ORR      R4,R4,R5, LSL #+24
    \                     ??HAL_DMA2D_ConfigLayer_6: (+1)
-   \   000000A0   0x4329             ORRS     R1,R5,R1
+   \   000000A0   0x4321             ORRS     R1,R4,R1
     921              }
     922              
     923              /* Write to DMA2D FGPFCCR register */
     924              hdma2d->Instance->FGPFCCR = tmp; 
-   \   000000A2   0x61E1             STR      R1,[R4, #+28]
+   \   000000A2   0x61D9             STR      R1,[R3, #+28]
     925              
     926              /* DMA2D FGOR register configuration -------------------------------------*/  
     927              /* Get the FGOR register value */
     928              tmp = hdma2d->Instance->FGOR;
    \   000000A4   0x6801             LDR      R1,[R0, #+0]
-   \   000000A6   0x690C             LDR      R4,[R1, #+16]
+   \   000000A6   0x690B             LDR      R3,[R1, #+16]
     929              
     930              /* Clear colors bits */
     931              tmp &= (uint32_t)~DMA2D_FGOR_LO; 
@@ -1578,13 +1561,13 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     935              
     936              /* Write to DMA2D FGOR register */
     937              hdma2d->Instance->FGOR = tmp;
-   \   000000A8   0x681D             LDR      R5,[R3, #+0]
-   \   000000AA   0x0BA4             LSRS     R4,R4,#+14
-   \   000000AC   0xEA45 0x3484      ORR      R4,R5,R4, LSL #+14
-   \   000000B0   0x610C             STR      R4,[R1, #+16]
+   \   000000A8   0x6814             LDR      R4,[R2, #+0]
+   \   000000AA   0x0B9B             LSRS     R3,R3,#+14
+   \   000000AC   0xEA44 0x3383      ORR      R3,R4,R3, LSL #+14
+   \   000000B0   0x610B             STR      R3,[R1, #+16]
     938             
     939              if ((pLayerCfg->InputColorMode == CM_A4) || (pLayerCfg->InputColorMode == CM_A8))
-   \   000000B2   0x6859             LDR      R1,[R3, #+4]
+   \   000000B2   0x6851             LDR      R1,[R2, #+4]
    \   000000B4   0x290A             CMP      R1,#+10
    \   000000B6   0xBF18             IT       NE 
    \   000000B8   0x2909             CMPNE    R1,#+9
@@ -1595,28 +1578,29 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     943              
     944                /* Write to DMA2D FGCOLR register */
     945                hdma2d->Instance->FGCOLR = tmp;
-   \   000000BC   0x68D9             LDR      R1,[R3, #+12]
-   \   000000BE   0x6800             LDR      R0,[R0, #+0]
+   \   000000BC   0x68D1             LDR      R1,[R2, #+12]
+   \   000000BE   0x6802             LDR      R2,[R0, #+0]
    \   000000C0   0x0209             LSLS     R1,R1,#+8
    \   000000C2   0x0A09             LSRS     R1,R1,#+8
-   \   000000C4   0x6201             STR      R1,[R0, #+32]
+   \   000000C4   0x6211             STR      R1,[R2, #+32]
     946              }   
     947            }    
     948            /* Initialize the DMA2D state*/
     949            hdma2d->State  = HAL_DMA2D_STATE_READY;
    \                     ??HAL_DMA2D_ConfigLayer_4: (+1)
-   \   000000C6   0x2001             MOVS     R0,#+1
-   \   000000C8   0x7050             STRB     R0,[R2, #+1]
+   \   000000C6   0x2101             MOVS     R1,#+1
+   \   000000C8   0xF880 0x1039      STRB     R1,[R0, #+57]
     950            
     951            /* Process unlocked */
     952            __HAL_UNLOCK(hdma2d);  
-   \   000000CA   0x2000             MOVS     R0,#+0
-   \   000000CC   0x7010             STRB     R0,[R2, #+0]
+   \   000000CC   0x2100             MOVS     R1,#+0
+   \   000000CE   0xF880 0x1038      STRB     R1,[R0, #+56]
     953            
     954            return HAL_OK;
+   \   000000D2   0x2000             MOVS     R0,#+0
    \                     ??HAL_DMA2D_ConfigLayer_0: (+1)
-   \   000000CE   0xBC70             POP      {R4-R6}
-   \   000000D0   0x4770             BX       LR               ;; return
+   \   000000D4   0xBC30             POP      {R4,R5}
+   \   000000D6   0x4770             BX       LR               ;; return
     955          }
     956          
     957          /**
@@ -1648,7 +1632,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   00000002   0x6800             LDR      R0,[R0, #+0]
    \   00000004   0x....             LDR.N    R4,??DataTable2_1  ;; 0xffff00ef
    \   00000006   0x9D02             LDR      R5,[SP, #+8]
-   \   00000008   0xB945             CBNZ.N   R5,??HAL_DMA2D_ConfigCLUT_0
+   \   00000008   0xB955             CBNZ.N   R5,??HAL_DMA2D_ConfigCLUT_0
     979            {
     980              /* Get the BGCMAR register value */
     981              tmp = hdma2d->Instance->BGCMAR;
@@ -1683,15 +1667,12 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   00000012   0x4311             ORRS     R1,R2,R1
    \   00000014   0xEA41 0x4103      ORR      R1,R1,R3, LSL #+16
    \   00000018   0x6241             STR      R1,[R0, #+36]
-   \   0000001A   0xE007             B.N      ??HAL_DMA2D_ConfigCLUT_1
    1006            }
    1007            /* Configure the CLUT of the foreground DMA2D layer */
    1008            else
    1009            {
    1010              /* Get the FGCMAR register value */
    1011              tmp = hdma2d->Instance->FGCMAR;
-   \                     ??HAL_DMA2D_ConfigCLUT_0: (+1)
-   \   0000001C   0x6AC5             LDR      R5,[R0, #+44]
    1012          
    1013              /* Clear CLUT address bits */
    1014              tmp &= (uint32_t)~DMA2D_FGCMAR_MA; 
@@ -1701,11 +1682,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    1018            
    1019              /* Write to DMA2D FGCMAR register */
    1020              hdma2d->Instance->FGCMAR = tmp;
-   \   0000001E   0x62C1             STR      R1,[R0, #+44]
    1021              
    1022              /* Get the FGPFCCR register value */
    1023              tmp = hdma2d->Instance->FGPFCCR;
-   \   00000020   0x69C1             LDR      R1,[R0, #+28]
    1024          
    1025              /* Clear CLUT size and CLUT address bits */
    1026              tmp &= (uint32_t)~(DMA2D_FGPFCCR_CS | DMA2D_FGPFCCR_CCM); 
@@ -1718,17 +1697,23 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    1033            
    1034              /* Write to DMA2D FGPFCCR register */
    1035              hdma2d->Instance->FGPFCCR = tmp;    
-   \   00000022   0x4021             ANDS     R1,R4,R1
-   \   00000024   0x4311             ORRS     R1,R2,R1
-   \   00000026   0xEA41 0x2103      ORR      R1,R1,R3, LSL #+8
-   \   0000002A   0x61C1             STR      R1,[R0, #+28]
    1036            }
    1037            
    1038            return HAL_OK;
-   \                     ??HAL_DMA2D_ConfigCLUT_1: (+1)
-   \   0000002C   0x2000             MOVS     R0,#+0
-   \   0000002E   0xBC30             POP      {R4,R5}
-   \   00000030   0x4770             BX       LR               ;; return
+   \   0000001A   0x2000             MOVS     R0,#+0
+   \   0000001C   0xBC30             POP      {R4,R5}
+   \   0000001E   0x4770             BX       LR
+   \                     ??HAL_DMA2D_ConfigCLUT_0: (+1)
+   \   00000020   0x6AC5             LDR      R5,[R0, #+44]
+   \   00000022   0x62C1             STR      R1,[R0, #+44]
+   \   00000024   0x69C1             LDR      R1,[R0, #+28]
+   \   00000026   0x4021             ANDS     R1,R4,R1
+   \   00000028   0x4311             ORRS     R1,R2,R1
+   \   0000002A   0xEA41 0x2103      ORR      R1,R1,R3, LSL #+8
+   \   0000002E   0x61C1             STR      R1,[R0, #+28]
+   \   00000030   0x2000             MOVS     R0,#+0
+   \   00000032   0xBC30             POP      {R4,R5}
+   \   00000034   0x4770             BX       LR               ;; return
    1039          }
    1040          
    1041          /**
@@ -1750,29 +1735,29 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    1055            if(LayerIdx == 0)
    \                     HAL_DMA2D_EnableCLUT: (+1)
    \   00000000   0x6800             LDR      R0,[R0, #+0]
-   \   00000002   0xB921             CBNZ.N   R1,??HAL_DMA2D_EnableCLUT_0
+   \   00000002   0xB929             CBNZ.N   R1,??HAL_DMA2D_EnableCLUT_0
    1056            {
    1057              /* Enable the CLUT loading for the background */
    1058              hdma2d->Instance->BGPFCCR |= DMA2D_BGPFCCR_START;
    \   00000004   0x6A41             LDR      R1,[R0, #+36]
    \   00000006   0xF041 0x0120      ORR      R1,R1,#0x20
    \   0000000A   0x6241             STR      R1,[R0, #+36]
-   \   0000000C   0xE003             B.N      ??HAL_DMA2D_EnableCLUT_1
    1059            }
    1060            else
    1061            {
    1062              /* Enable the CLUT loading for the foreground */
    1063              hdma2d->Instance->FGPFCCR |= DMA2D_FGPFCCR_START;
-   \                     ??HAL_DMA2D_EnableCLUT_0: (+1)
-   \   0000000E   0x69C1             LDR      R1,[R0, #+28]
-   \   00000010   0xF041 0x0120      ORR      R1,R1,#0x20
-   \   00000014   0x61C1             STR      R1,[R0, #+28]
    1064            }
    1065            
    1066            return HAL_OK;
-   \                     ??HAL_DMA2D_EnableCLUT_1: (+1)
-   \   00000016   0x2000             MOVS     R0,#+0
-   \   00000018   0x4770             BX       LR               ;; return
+   \   0000000C   0x2000             MOVS     R0,#+0
+   \   0000000E   0x4770             BX       LR
+   \                     ??HAL_DMA2D_EnableCLUT_0: (+1)
+   \   00000010   0x69C1             LDR      R1,[R0, #+28]
+   \   00000012   0xF041 0x0120      ORR      R1,R1,#0x20
+   \   00000016   0x61C1             STR      R1,[R0, #+28]
+   \   00000018   0x2000             MOVS     R0,#+0
+   \   0000001A   0x4770             BX       LR               ;; return
    1067          }
    1068          
    1069          /**
@@ -1794,29 +1779,29 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    1083            if(LayerIdx == 0)
    \                     HAL_DMA2D_DisableCLUT: (+1)
    \   00000000   0x6800             LDR      R0,[R0, #+0]
-   \   00000002   0xB921             CBNZ.N   R1,??HAL_DMA2D_DisableCLUT_0
+   \   00000002   0xB929             CBNZ.N   R1,??HAL_DMA2D_DisableCLUT_0
    1084            {
    1085              /* Disable the CLUT loading for the background */
    1086              hdma2d->Instance->BGPFCCR &= ~DMA2D_BGPFCCR_START;
    \   00000004   0x6A41             LDR      R1,[R0, #+36]
    \   00000006   0xF021 0x0120      BIC      R1,R1,#0x20
    \   0000000A   0x6241             STR      R1,[R0, #+36]
-   \   0000000C   0xE003             B.N      ??HAL_DMA2D_DisableCLUT_1
    1087            }
    1088            else
    1089            {
    1090              /* Disable the CLUT loading for the foreground */
    1091              hdma2d->Instance->FGPFCCR &= ~DMA2D_FGPFCCR_START;
-   \                     ??HAL_DMA2D_DisableCLUT_0: (+1)
-   \   0000000E   0x69C1             LDR      R1,[R0, #+28]
-   \   00000010   0xF021 0x0120      BIC      R1,R1,#0x20
-   \   00000014   0x61C1             STR      R1,[R0, #+28]
    1092            } 
    1093            
    1094            return HAL_OK;
-   \                     ??HAL_DMA2D_DisableCLUT_1: (+1)
-   \   00000016   0x2000             MOVS     R0,#+0
-   \   00000018   0x4770             BX       LR               ;; return
+   \   0000000C   0x2000             MOVS     R0,#+0
+   \   0000000E   0x4770             BX       LR
+   \                     ??HAL_DMA2D_DisableCLUT_0: (+1)
+   \   00000010   0x69C1             LDR      R1,[R0, #+28]
+   \   00000012   0xF021 0x0120      BIC      R1,R1,#0x20
+   \   00000016   0x61C1             STR      R1,[R0, #+28]
+   \   00000018   0x2000             MOVS     R0,#+0
+   \   0000001A   0x4770             BX       LR               ;; return
    1095          }
    1096          
    1097          /**
@@ -1834,41 +1819,41 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    1107            /* Process locked */
    1108            __HAL_LOCK(hdma2d);
    \                     HAL_DMA2D_ProgramLineEvent: (+1)
-   \   00000000   0xF810 0x2F38      LDRB     R2,[R0, #+56]!
+   \   00000000   0xF890 0x2038      LDRB     R2,[R0, #+56]
    \   00000004   0x2A01             CMP      R2,#+1
    \   00000006   0xD101             BNE.N    ??HAL_DMA2D_ProgramLineEvent_0
    \   00000008   0x2002             MOVS     R0,#+2
    \   0000000A   0x4770             BX       LR
    \                     ??HAL_DMA2D_ProgramLineEvent_0: (+1)
    \   0000000C   0x2201             MOVS     R2,#+1
-   \   0000000E   0x7002             STRB     R2,[R0, #+0]
+   \   0000000E   0xF880 0x2038      STRB     R2,[R0, #+56]
    1109            
    1110            /* Change DMA2D peripheral state */
    1111            hdma2d->State = HAL_DMA2D_STATE_BUSY;
-   \   00000010   0x2202             MOVS     R2,#+2
-   \   00000012   0x7042             STRB     R2,[R0, #+1]
+   \   00000012   0x2202             MOVS     R2,#+2
+   \   00000014   0xF880 0x2039      STRB     R2,[R0, #+57]
    1112            
    1113            /* Check the parameters */
    1114            assert_param(IS_DMA2D_LineWatermark(Line));
    1115          
    1116            /* Sets the Line watermark configuration */
    1117            DMA2D->LWR = (uint32_t)Line;
-   \   00000014   0x....             LDR.N    R2,??DataTable2_2  ;; 0x4002b048
-   \   00000016   0x6011             STR      R1,[R2, #+0]
+   \   00000018   0x....             LDR.N    R2,??DataTable2_2  ;; 0x4002b048
+   \   0000001A   0x6011             STR      R1,[R2, #+0]
    1118            
    1119            /* Initialize the DMA2D state*/
    1120            hdma2d->State = HAL_DMA2D_STATE_READY;
-   \   00000018   0x2101             MOVS     R1,#+1
-   \   0000001A   0x7041             STRB     R1,[R0, #+1]
+   \   0000001C   0x2101             MOVS     R1,#+1
+   \   0000001E   0xF880 0x1039      STRB     R1,[R0, #+57]
    1121            
    1122            /* Process unlocked */
    1123            __HAL_UNLOCK(hdma2d);  
-   \   0000001C   0x2100             MOVS     R1,#+0
-   \   0000001E   0x7001             STRB     R1,[R0, #+0]
+   \   00000022   0x2100             MOVS     R1,#+0
+   \   00000024   0xF880 0x1038      STRB     R1,[R0, #+56]
    1124            
    1125            return HAL_OK;  
-   \   00000020   0x2000             MOVS     R0,#+0
-   \   00000022   0x4770             BX       LR               ;; return
+   \   00000028   0x2000             MOVS     R0,#+0
+   \   0000002A   0x4770             BX       LR               ;; return
    1126          }
    1127          
    1128          /**
@@ -1967,7 +1952,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    1202            if (hdma2d->Init.Mode == DMA2D_R2M)
    \   0000000E   0x6842             LDR      R2,[R0, #+4]
    \   00000010   0xF5B2 0x3F40      CMP      R2,#+196608
-   \   00000014   0xD134             BNE.N    ??DMA2D_SetConfig_0
+   \   00000014   0xD13F             BNE.N    ??DMA2D_SetConfig_0
    1203            {    
    1204              tmp1 = pdata & DMA2D_OCOLR_ALPHA_1;
    1205              tmp2 = pdata & DMA2D_OCOLR_RED_1;
@@ -1981,58 +1966,31 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   0000001C   0xF401 0x037F      AND      R3,R1,#0xFF0000
    \   00000020   0xF401 0x457F      AND      R5,R1,#0xFF00
    \   00000024   0xB2C9             UXTB     R1,R1
-   \   00000026   0xB918             CBNZ.N   R0,??DMA2D_SetConfig_1
+   \   00000026   0xB930             CBNZ.N   R0,??DMA2D_SetConfig_1
    1211              {
    1212                tmp = (tmp3 | tmp2 | tmp1| tmp4);
    \   00000028   0xEA43 0x0005      ORR      R0,R3,R5
    \   0000002C   0x4310             ORRS     R0,R2,R0
-   \   0000002E   0xE003             B.N      ??DMA2D_SetConfig_2
+   \   0000002E   0x4308             ORRS     R0,R1,R0
    1213              }
    1214              else if (hdma2d->Init.ColorMode == DMA2D_RGB888)
-   \                     ??DMA2D_SetConfig_1: (+1)
-   \   00000030   0x2801             CMP      R0,#+1
-   \   00000032   0xD103             BNE.N    ??DMA2D_SetConfig_3
    1215              {
    1216                tmp = (tmp3 | tmp2 | tmp4);  
-   \   00000034   0xEA43 0x0005      ORR      R0,R3,R5
-   \                     ??DMA2D_SetConfig_2: (+1)
-   \   00000038   0x4308             ORRS     R0,R1,R0
-   \   0000003A   0xE01E             B.N      ??DMA2D_SetConfig_4
    1217              }
    1218              else if (hdma2d->Init.ColorMode == DMA2D_RGB565)
-   \                     ??DMA2D_SetConfig_3: (+1)
-   \   0000003C   0x2802             CMP      R0,#+2
-   \   0000003E   0xD105             BNE.N    ??DMA2D_SetConfig_5
    1219              {
    1220                tmp2 = (tmp2 >> 19);
    1221                tmp3 = (tmp3 >> 10);
    1222                tmp4 = (tmp4 >> 3 );
    1223                tmp  = ((tmp3 << 5) | (tmp2 << 11) | tmp4); 
-   \   00000040   0x0CDA             LSRS     R2,R3,#+19
-   \   00000042   0x0AA8             LSRS     R0,R5,#+10
-   \   00000044   0x02D2             LSLS     R2,R2,#+11
-   \   00000046   0xEA42 0x1040      ORR      R0,R2,R0, LSL #+5
-   \   0000004A   0xE009             B.N      ??DMA2D_SetConfig_6
    1224              }
    1225              else if (hdma2d->Init.ColorMode == DMA2D_ARGB1555)
-   \                     ??DMA2D_SetConfig_5: (+1)
-   \   0000004C   0x2803             CMP      R0,#+3
-   \   0000004E   0xD10A             BNE.N    ??DMA2D_SetConfig_7
    1226              { 
    1227                tmp1 = (tmp1 >> 31);
    1228                tmp2 = (tmp2 >> 19);
    1229                tmp3 = (tmp3 >> 11);
    1230                tmp4 = (tmp4 >> 3 );      
    1231                tmp  = ((tmp3 << 5) | (tmp2 << 10) | (tmp1 << 15) | tmp4);    
-   \   00000050   0x0CDB             LSRS     R3,R3,#+19
-   \   00000052   0x0AE8             LSRS     R0,R5,#+11
-   \   00000054   0x029B             LSLS     R3,R3,#+10
-   \   00000056   0x0FD2             LSRS     R2,R2,#+31
-   \   00000058   0xEA43 0x1040      ORR      R0,R3,R0, LSL #+5
-   \   0000005C   0xEA40 0x30C2      ORR      R0,R0,R2, LSL #+15
-   \                     ??DMA2D_SetConfig_6: (+1)
-   \   00000060   0xEA40 0x00D1      ORR      R0,R0,R1, LSR #+3
-   \   00000064   0xE009             B.N      ??DMA2D_SetConfig_4
    1232              } 
    1233              else /* DMA2D_CMode = DMA2D_ARGB4444 */
    1234              {
@@ -2041,19 +1999,10 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    1237                tmp3 = (tmp3 >> 12);
    1238                tmp4 = (tmp4 >> 4 );
    1239                tmp  = ((tmp3 << 4) | (tmp2 << 8) | (tmp1 << 12) | tmp4);
-   \                     ??DMA2D_SetConfig_7: (+1)
-   \   00000066   0x0D1B             LSRS     R3,R3,#+20
-   \   00000068   0x0B28             LSRS     R0,R5,#+12
-   \   0000006A   0x021B             LSLS     R3,R3,#+8
-   \   0000006C   0x0F12             LSRS     R2,R2,#+28
-   \   0000006E   0xEA43 0x1000      ORR      R0,R3,R0, LSL #+4
-   \   00000072   0xEA40 0x3002      ORR      R0,R0,R2, LSL #+12
-   \   00000076   0xEA40 0x1011      ORR      R0,R0,R1, LSR #+4
    1240              }    
    1241              /* Write to DMA2D OCOLR register */
    1242              hdma2d->Instance->OCOLR = tmp;
-   \                     ??DMA2D_SetConfig_4: (+1)
-   \   0000007A   0x63A0             STR      R0,[R4, #+56]
+   \   00000030   0x63A0             STR      R0,[R4, #+56]
    1243            } 
    1244            else /* M2M, M2M_PFC or M2M_Blending DMA2D Mode */
    1245            {
@@ -2061,12 +2010,55 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    1247              hdma2d->Instance->FGMAR = pdata;
    1248            }
    1249          }
-   \   0000007C   0xBC30             POP      {R4,R5}
-   \   0000007E   0x4770             BX       LR
+   \   00000032   0xBC30             POP      {R4,R5}
+   \   00000034   0x4770             BX       LR
+   \                     ??DMA2D_SetConfig_1: (+1)
+   \   00000036   0x2801             CMP      R0,#+1
+   \   00000038   0xD105             BNE.N    ??DMA2D_SetConfig_2
+   \   0000003A   0xEA43 0x0005      ORR      R0,R3,R5
+   \   0000003E   0x4308             ORRS     R0,R1,R0
+   \   00000040   0x63A0             STR      R0,[R4, #+56]
+   \   00000042   0xBC30             POP      {R4,R5}
+   \   00000044   0x4770             BX       LR
+   \                     ??DMA2D_SetConfig_2: (+1)
+   \   00000046   0x2802             CMP      R0,#+2
+   \   00000048   0xD109             BNE.N    ??DMA2D_SetConfig_3
+   \   0000004A   0x0CDA             LSRS     R2,R3,#+19
+   \   0000004C   0x0AA8             LSRS     R0,R5,#+10
+   \   0000004E   0x02D2             LSLS     R2,R2,#+11
+   \   00000050   0xEA42 0x1040      ORR      R0,R2,R0, LSL #+5
+   \   00000054   0xEA40 0x00D1      ORR      R0,R0,R1, LSR #+3
+   \   00000058   0x63A0             STR      R0,[R4, #+56]
+   \   0000005A   0xBC30             POP      {R4,R5}
+   \   0000005C   0x4770             BX       LR
+   \                     ??DMA2D_SetConfig_3: (+1)
+   \   0000005E   0x2803             CMP      R0,#+3
+   \   00000060   0xD10C             BNE.N    ??DMA2D_SetConfig_4
+   \   00000062   0x0CDB             LSRS     R3,R3,#+19
+   \   00000064   0x0AE8             LSRS     R0,R5,#+11
+   \   00000066   0x029B             LSLS     R3,R3,#+10
+   \   00000068   0x0FD2             LSRS     R2,R2,#+31
+   \   0000006A   0xEA43 0x1040      ORR      R0,R3,R0, LSL #+5
+   \   0000006E   0xEA40 0x30C2      ORR      R0,R0,R2, LSL #+15
+   \   00000072   0xEA40 0x00D1      ORR      R0,R0,R1, LSR #+3
+   \   00000076   0x63A0             STR      R0,[R4, #+56]
+   \   00000078   0xBC30             POP      {R4,R5}
+   \   0000007A   0x4770             BX       LR
+   \                     ??DMA2D_SetConfig_4: (+1)
+   \   0000007C   0x0D1B             LSRS     R3,R3,#+20
+   \   0000007E   0x0B28             LSRS     R0,R5,#+12
+   \   00000080   0x021B             LSLS     R3,R3,#+8
+   \   00000082   0x0F12             LSRS     R2,R2,#+28
+   \   00000084   0xEA43 0x1000      ORR      R0,R3,R0, LSL #+4
+   \   00000088   0xEA40 0x3002      ORR      R0,R0,R2, LSL #+12
+   \   0000008C   0xEA40 0x1011      ORR      R0,R0,R1, LSR #+4
+   \   00000090   0x63A0             STR      R0,[R4, #+56]
+   \   00000092   0xBC30             POP      {R4,R5}
+   \   00000094   0x4770             BX       LR
    \                     ??DMA2D_SetConfig_0: (+1)
-   \   00000080   0x60E1             STR      R1,[R4, #+12]
-   \   00000082   0xBC30             POP      {R4,R5}
-   \   00000084   0x4770             BX       LR               ;; return
+   \   00000096   0x60E1             STR      R1,[R4, #+12]
+   \   00000098   0xBC30             POP      {R4,R5}
+   \   0000009A   0x4770             BX       LR               ;; return
 
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable2:
@@ -2106,7 +2098,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
       16   HAL_DMA2D_BlendingStart_IT
         16   -> DMA2D_SetConfig
        8   HAL_DMA2D_ConfigCLUT
-      12   HAL_DMA2D_ConfigLayer
+       8   HAL_DMA2D_ConfigLayer
        8   HAL_DMA2D_DeInit
          8   -> HAL_DMA2D_MspDeInit
        0   HAL_DMA2D_DisableCLUT
@@ -2116,8 +2108,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
        8   HAL_DMA2D_IRQHandler
          0   -- Indirect call
          8   -- Indirect call
-      16   HAL_DMA2D_Init
-        16   -> HAL_DMA2D_MspInit
+       8   HAL_DMA2D_Init
+         8   -> HAL_DMA2D_MspInit
        0   HAL_DMA2D_MspDeInit
        0   HAL_DMA2D_MspInit
       16   HAL_DMA2D_PollForTransfer
@@ -2139,35 +2131,32 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
        4  ??DataTable2
        4  ??DataTable2_1
        4  ??DataTable2_2
-       8  ??Subroutine1_0
-       6  ??Subroutine2_0
-       8  ?Subroutine0
-     134  DMA2D_SetConfig
+     156  DMA2D_SetConfig
       82  HAL_DMA2D_Abort
-      48  HAL_DMA2D_BlendingStart
-      88  HAL_DMA2D_BlendingStart_IT
-      50  HAL_DMA2D_ConfigCLUT
-     210  HAL_DMA2D_ConfigLayer
-      30  HAL_DMA2D_DeInit
-      26  HAL_DMA2D_DisableCLUT
-      26  HAL_DMA2D_EnableCLUT
+      76  HAL_DMA2D_BlendingStart
+     106  HAL_DMA2D_BlendingStart_IT
+      54  HAL_DMA2D_ConfigCLUT
+     216  HAL_DMA2D_ConfigLayer
+      28  HAL_DMA2D_DeInit
+      28  HAL_DMA2D_DisableCLUT
+      28  HAL_DMA2D_EnableCLUT
        4  HAL_DMA2D_GetError
        6  HAL_DMA2D_GetState
      180  HAL_DMA2D_IRQHandler
-      84  HAL_DMA2D_Init
+      88  HAL_DMA2D_Init
        2  HAL_DMA2D_MspDeInit
        2  HAL_DMA2D_MspInit
-     212  HAL_DMA2D_PollForTransfer
-      36  HAL_DMA2D_ProgramLineEvent
+     194  HAL_DMA2D_PollForTransfer
+      44  HAL_DMA2D_ProgramLineEvent
       20  HAL_DMA2D_Resume
-      40  HAL_DMA2D_Start
-      86  HAL_DMA2D_Start_IT
+      66  HAL_DMA2D_Start
+      96  HAL_DMA2D_Start_IT
       68  HAL_DMA2D_Suspend
 
  
- 1 468 bytes in section .text
+ 1 556 bytes in section .text
  
- 1 468 bytes of CODE memory
+ 1 556 bytes of CODE memory
 
 Errors: none
 Warnings: none

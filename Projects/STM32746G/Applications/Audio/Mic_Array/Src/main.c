@@ -53,11 +53,8 @@ SPI_HandleTypeDef hspi4;
 GPIO_InitTypeDef GPIO_INS;
 Mic_Array_Coef_f FacMic;
 	  
-uint8_t  pI2CData[20]= {0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190};
-uint8_t  pI2CRx[10];
-uint16_t BufferTest[2*AUDIO_OUT_BUFFER_SIZE];
-uint16_t bufferSum[AUDIO_OUT_BUFFER_SIZE];
-uint32_t CrssCorVal78,CrssCorVal14,CrssCorVal25,CrssCorVal63;
+uint16_t bufferSum[6*AUDIO_OUT_BUFFER_SIZE+10];
+float CrssCorVal78,CrssCorVal14,CrssCorVal25,CrssCorVal63;
 
 __IO uint16_t  WaveRec_idxSens4,WaveRec_idxSens3,I2S2_idxTmp;
 __IO uint16_t  WaveRec_idxSens1,WaveRec_idxSens2;
@@ -92,10 +89,10 @@ float fir256Coff[DSP_NUMCOFFHANNIING];
 arm_rfft_instance_q15 RealFFT_Ins, RealIFFT_Ins;
 #endif
 
-//arm_cfft_radix4_instance_f32 SS_GCC1,SS_GCC2,SS1,SS2,SS3,SS4,ISS,ISS_GCC; 
-//arm_rfft_instance_f32 S_GCC1,S_GCC2,S1,S2,S3,S4,IS,IS_GCC;
+//arm_cfft_radix4_instance_f32 SS,SS1,SS2,SS3,SS4,ISS; 
+//arm_rfft_instance_f32 S,S1,S2,S3,S4,IS;
 
-arm_rfft_fast_instance_f32 S_GCC1,S_GCC2,S1,S2,S3,S4,IS,IS_GCC;
+arm_rfft_fast_instance_f32 S,S1,S2,S3,S4,IS;
 
 
 #if (DEBUG)
@@ -221,6 +218,8 @@ inline static void FFT_Update(void)
                   idxLatency25 = GCC_PHAT(Buffer1.bufMIC5, Buffer1.bufMIC2, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal25);
                   idxLatency63 = GCC_PHAT(Buffer1.bufMIC6, Buffer1.bufMIC3, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal63);
 
+
+
                   SumDelay(&Buffer1);
 #endif
 	    break;
@@ -286,27 +285,9 @@ inline static void Audio_Play_Out(void)
 			  
 	3-------  Buffer2                         Buffer3                           Buffer1 
  ---------------------------------------------------------------------------------------------------------------*/
-    switch (buffer_switch)
-    {
-      case BUF1_PLAY:
-        /* Play data from buffer1 */
-	    Audio_MAL_Play((uint32_t)&Buffer3.bufMIC3[idxFrmPDMMic8*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000)] , 2*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
+    Audio_MAL_Play((uint32_t)&bufferSum[idxFrmPDMMic8*AUDIO_CHANNELS*(3*AUDIO_SAMPLING_FREQUENCY/1000)], 2*3*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
+    //Audio_MAL_Play((uint32_t)&bufferSum, 2*3*AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE);
 
-        break;
-      case BUF2_PLAY:
-        /* Play data from buffer2 */
-	    Audio_MAL_Play((uint32_t)&Buffer1.bufMIC3[idxFrmPDMMic8*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000)], 2*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
-        
-        break;
-      case BUF3_PLAY:
-        /* Play data from buffer1 */
-        Audio_MAL_Play((uint32_t)&Buffer2.bufMIC3[idxFrmPDMMic8*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000)] ,2*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
-
-        break;
-      default:
-        break;
-    }
-    
 #if USB_STREAMING
     AudioUSBSend(idxFrmPDMMic8);
 #endif
@@ -363,15 +344,14 @@ int main(void)
        - Global MSP (MCU Support Package) initialization
      */   
   HAL_Init();
-  
   /* Configure the system clock to 216 MHz */
   //Test_SystemClock_Config(); 
   SystemClock_Config();
   BSP_AUDIO_OUT_ClockConfig(AUDIO_FREQ, NULL);
-  
+#if EXT_RAM  
   /* Initialize the SDRAM */
   BSP_SDRAM_Init();
-
+#endif
   BSP_LED_Init(LED1);
   BSP_LED_Init(LED2);
 
@@ -381,14 +361,13 @@ int main(void)
 
   
   /* Init TS module */
-  //BSP_TS_Init(BSP_LCD_GetXSize(), BSP_LCD_GetYSize());
    DFT_Init();	
 
-    /* ---------PA4: LCCKO-------------*/
+    /* ---------PA4: LCCKO(I2S2)-------------*/
     __GPIOA_CLK_ENABLE();
     GPIO_INS.Pin = GPIO_PIN_4;
     GPIO_INS.Mode =GPIO_MODE_IT_RISING;
-    GPIO_INS.Pull =GPIO_NOPULL;
+    GPIO_INS.Pull =GPIO_PULLUP;
     GPIO_INS.Speed =GPIO_SPEED_HIGH;
     HAL_GPIO_Init(GPIOA,&GPIO_INS);
 
@@ -396,6 +375,24 @@ int main(void)
     HAL_NVIC_SetPriority((IRQn_Type)EXTI4_IRQn, INTERRUPT_PRI_EXT_LRCK, 0);
     HAL_NVIC_EnableIRQ((IRQn_Type)EXTI4_IRQn);
     /*-----------------------*/
+
+     /* ---------PB12: LCCKO (I2S2)-------------*/
+    __GPIOB_CLK_ENABLE();
+    GPIO_INS.Pin = GPIO_PIN_12;
+    GPIO_INS.Mode =GPIO_MODE_INPUT;
+    GPIO_INS.Pull =GPIO_PULLUP;
+    GPIO_INS.Speed =GPIO_SPEED_HIGH;
+    HAL_GPIO_Init(GPIOB,&GPIO_INS);
+    /*-----------------------------------------*/
+
+    /* ---------PE4: LCCKO --------------------*/
+    __GPIOE_CLK_ENABLE();
+    GPIO_INS.Pin = GPIO_PIN_4;
+    GPIO_INS.Mode =GPIO_MODE_INPUT;
+    GPIO_INS.Pull =GPIO_PULLUP;
+    GPIO_INS.Speed =GPIO_SPEED_HIGH;
+    HAL_GPIO_Init(GPIOE,&GPIO_INS);
+    /*-----------------------------------------*/
 
     /*---------PE3: POWER DOWN-----------------*/
     __GPIOE_CLK_ENABLE();
@@ -405,9 +402,9 @@ int main(void)
     GPIO_INS.Speed = GPIO_SPEED_HIGH;
 
     HAL_GPIO_Init(GPIOE, &GPIO_INS);
-  
-    HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_RESET);
 
+    HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_RESET);
+    //HAL_Delay(300);
     /*----------------------------------------*/
 
 #if (DEBUG)  
@@ -430,7 +427,7 @@ int main(void)
 
     buffer_switch = BUF3_PLAY;		 /* record data to buffer1 */
     MIC1TO6_Init();
-
+    BSP_LED_Toggle(LED1);
 #if (USB_STREAMING)	
 	/* Initialize USB descriptor basing on channels number and sampling frequency */
 	USBD_AUDIO_Init_Microphone_Descriptor(&hUSBDDevice, 2*AUDIO_SAMPLING_FREQUENCY, AUDIO_CHANNELS);
@@ -452,7 +449,6 @@ int main(void)
 	/* Start Host Process */
 	//test GIT //USBH_Start(&hUSBHost); 					  
 #endif 
-
     Window(fir256Coff);
 	EnergyNoiseCalc(AUDIO_OUT_BUFFER_SIZE/2);
 
@@ -505,12 +501,27 @@ int main(void)
                         int16_t test[5];
                         static uint8_t flagNotMin;
                         test[0] = 0;
-						test[1]= idxLatency63;
-                    	test[2]= idxLatency14;
-						test[3]= idxLatency25;
-						test[4]= idxLatency78;                        
+						if (CrssCorVal63>10)						
+                            test[1]= idxLatency63;
+						else
+							test[1] = 0;
 
-						//if (((CrssCorVal63>5))||((CrssCorVal14>5))||((CrssCorVal25>5))||((CrssCorVal78>5)))
+						if (CrssCorVal14>10)
+                            test[2]= idxLatency14;
+						else
+							test[2] =0;
+
+						if (CrssCorVal25 > 10)
+                            test[3]= idxLatency25;
+						else
+							test[3] = 0;
+
+                        if (CrssCorVal78>10)
+						    test[4]= idxLatency78;                        
+						else
+							test[4]= 2;
+
+						if (((CrssCorVal63>10))||((CrssCorVal14>10))||((CrssCorVal25>10))||((CrssCorVal78>10)))
                         {
                              sprintf((char *)pUARTBuf,"%d:%d:%d:%d  ",idxLatency63,idxLatency14,idxLatency25,idxLatency78);
                              flagNotMin=0 ;
@@ -1053,102 +1064,96 @@ void DFT_Init(void)
 		arm_rfft_init_q15(&RealIFFT_Ins,(uint32_t)128,(uint32_t)1,(uint32_t)1);
 #endif  
 		/* Initialize the CFFT/CIFFT module */
-		//arm_rfft_init_f32(&S_GCC1,&SS_GCC1, 512,  0, 1);
-		//arm_rfft_init_f32(&S_GCC2,&SS_GCC2, 512,  0, 1);
+		//arm_rfft_init_f32(&S,&SS, 512,  0, 1);
 		//arm_rfft_init_f32(&S1,&SS1, 512,  0, 1); 
 		//arm_rfft_init_f32(&S2,&SS2, 512,  0, 1); 
 		//arm_rfft_init_f32(&S3,&SS3, 512,  0, 1); 
 		//arm_rfft_init_f32(&S4,&SS4, 512,  0, 1);
 		//arm_rfft_init_f32(&IS,&ISS, 512,  1, 1);
-		//arm_rfft_init_f32(&IS_GCC,&ISS_GCC, 512,  1, 1);
+		
 
-		arm_rfft_fast_init_f32(&S1, 512);
-        arm_rfft_fast_init_f32(&S2, 512);
-		arm_rfft_fast_init_f32(&S3, 512);
-		arm_rfft_fast_init_f32(&S4, 512);
-		arm_rfft_fast_init_f32(&IS, 512);
-		arm_rfft_fast_init_f32(&S_GCC1, 1024);
-    	arm_rfft_fast_init_f32(&S_GCC2, 1024);
-		arm_rfft_fast_init_f32(&IS_GCC, 1024);
+		//arm_rfft_fast_init_f32(&S1, 512);
+        //arm_rfft_fast_init_f32(&S2, 512);
+		//arm_rfft_fast_init_f32(&S3, 512);
+		//arm_rfft_fast_init_f32(&S4, 512);
+		//arm_rfft_fast_init_f32(&IS, 512);
+		arm_rfft_fast_init_f32(&S, 1024);
 }
 
 
 void SumDelay(Mic_Array_Data *BufferIn)
 {
-           //if (idxLatency12>idxLatency13)
-           // {
-           //     if (idxLatency13 > idxLatency14)
-           //     {
-           //         /* MIC2 --> MIC3 --> MIC4 */
-           //     }
-           //             else if (idxLatency14 > idxLatency12)
-           //             {
-           //        /* MIC4-->MIC2-->MIC3  */
-           //            }
-           //             else
-           //             {
-           //       /* MIC2-->MIC4-->MIC3  */
-           //             }
-           // }
-           //else // idxLatency13>idxLatency12
-           //     {
-           //    if (idxLatency12 > idxLatency14)
-           //    {
-           //        //MIC3 --> MIC2 --> MIC4 
-           //    }
-           //        else if (idxLatency14 > idxLatency13)
-           //        {
-           //        //MIC4 --> MIC3 --> MIC2
-           //        }
-           //        else
-           //        {
-           //        //MIC3 --> MIC4 --> MIC2
-	   //	   }
-	   //}
-
+    //if (idxLatency12>idxLatency13)
+    // {
+    //     if (idxLatency13 > idxLatency14)
+    //     {
+    //         /* MIC2 --> MIC3 --> MIC4 */
+    //     }
+    //             else if (idxLatency14 > idxLatency12)
+    //             {
+    //        /* MIC4-->MIC2-->MIC3  */
+    //            }
+    //             else
+    //             {
+    //       /* MIC2-->MIC4-->MIC3  */
+    //             }
+    // }
+    //else // idxLatency13>idxLatency12
+    //     {
+    //    if (idxLatency12 > idxLatency14)
+    //    {
+    //        //MIC3 --> MIC2 --> MIC4 
+    //    }
+    //        else if (idxLatency14 > idxLatency13)
+    //        {
+    //        //MIC4 --> MIC3 --> MIC2
+    //        }
+    //        else
+    //        {
+    //        //MIC3 --> MIC4 --> MIC2
+    //	   }
+    //}
 	
-	for(uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
-	{
-
-		 if (i%2==0)
-		 {
-                    bufferSum[i] = (uint16_t)(BufferIn->bufMIC1[i]*FacMic.facMIC1 + 
-                    BufferIn->bufMIC2[(((i-idxLatency12)>0)?(i-idxLatency12):0)]*FacMic.facMIC2 + 
-                    BufferIn->bufMIC3[(((i-idxLatency13)>0)?(i-idxLatency13):0)]*FacMic.facMIC3 + 
-                    BufferIn->bufMIC4[(((i-idxLatency14)>0)?(i-idxLatency14):0)]*FacMic.facMIC4); 		
-		 }
-		 else
-		 {
-                     bufferSum[i] = (uint16_t)(BufferIn->bufMIC3[i]);
-		 }
-	}
+    for(uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
+    {
+      bufferSum[6*i] = (uint16_t)(BufferIn->bufMIC1[i]*FacMic.facMIC1 + 
+      BufferIn->bufMIC2[i]*FacMic.facMIC2 + 
+      BufferIn->bufMIC3[i]*FacMic.facMIC3 + 
+      BufferIn->bufMIC4[i]*FacMic.facMIC4); 		
+      bufferSum[6*i+1] = bufferSum[6*i];
+	  bufferSum[6*i+2] = bufferSum[6*i];
+	  bufferSum[6*i+3] = bufferSum[6*i];
+	  bufferSum[6*i+4] = bufferSum[6*i];
+	  bufferSum[6*i+5] = bufferSum[6*i];
+    }
+  
+    
 }
 
 
 void ButtonInit(void)
 {
-    /* PI8: SW2 */
-	/* PI9: SW1 */
-	 /* ----------------------*/
-	 __GPIOB_CLK_ENABLE();
-	GPIO_INS.Pin = GPIO_PIN_8|GPIO_PIN_9;
-	GPIO_INS.Mode =GPIO_MODE_IT_RISING;
-	GPIO_INS.Pull =GPIO_NOPULL;
-	GPIO_INS.Speed =GPIO_SPEED_HIGH;
-	HAL_GPIO_Init(GPIOI,&GPIO_INS);
-	
-	/* Enable and set Button EXTI Interrupt to the lowest priority */
-	HAL_NVIC_SetPriority((IRQn_Type)EXTI9_5_IRQn, 0x0F, 0x00);
-	HAL_NVIC_EnableIRQ((IRQn_Type)EXTI9_5_IRQn);
-	/*-----------------------*/
+  /* PI8: SW2 */
+  /* PI9: SW1 */
+  /* ----------------------*/
+  __GPIOB_CLK_ENABLE();
+  GPIO_INS.Pin = GPIO_PIN_8|GPIO_PIN_9;
+  GPIO_INS.Mode =GPIO_MODE_IT_RISING;
+  GPIO_INS.Pull =GPIO_NOPULL;
+  GPIO_INS.Speed =GPIO_SPEED_HIGH;
+  HAL_GPIO_Init(GPIOI,&GPIO_INS);
 
+  /* Enable and set Button EXTI Interrupt to the lowest priority */
+  HAL_NVIC_SetPriority((IRQn_Type)EXTI9_5_IRQn, 0x0F, 0x00);
+  HAL_NVIC_EnableIRQ((IRQn_Type)EXTI9_5_IRQn);
+  /*-----------------------*/
 }
 
 
 /* I2C2 init function */
 void MX_I2C2_Init(void)
 {
-   __HAL_I2C_DISABLE(&hi2c2);
+  __HAL_I2C_DISABLE(&hi2c2);
   hi2c2.Instance = I2C2;
   hi2c2.Init.Timing =0x00A0689A ;//I2C_TIMING  0x00303D5D 0x00A0689A
   hi2c2.Init.OwnAddress1 = 0;
@@ -1160,8 +1165,8 @@ void MX_I2C2_Init(void)
   hi2c2.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
   HAL_I2C_Init(&hi2c2);
 
-    /**Configure Analogue filter 
-    */
+  /**Configure Analogue filter 
+  */
   //HAL_I2CEx_AnalogFilter_Config(&hi2c2, I2C_ANALOGFILTER_ENABLE);
 
 }
@@ -1191,7 +1196,7 @@ void MX_I2C2_Init(void)
                                  
          
                                  /*------------------------PLAYER------------------------------------------*/
-                                 Audio_MAL_Play((uint32_t)Buffer1.bufMIC1,2*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
+                                 Audio_MAL_Play((uint32_t)bufferSum,2*3*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
                                  /*------------------------------------------------------------------------*/				 
                                  buffer_switch = BUF1_PLAY;
 								 uint16_t tdelay=100;

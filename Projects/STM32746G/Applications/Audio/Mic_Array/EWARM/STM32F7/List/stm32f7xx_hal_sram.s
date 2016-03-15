@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      08/Mar/2016  16:10:18
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      15/Mar/2016  18:17:14
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -303,13 +303,12 @@ HAL_SRAM_Init:
 //  146   
 //  147   if(hsram->State == HAL_SRAM_STATE_RESET)
 ??HAL_SRAM_Init_0:
-        ADD      R0,R4,#+68
-        LDRB     R1,[R0, #+1]
-        CBNZ.N   R1,??HAL_SRAM_Init_1
+        LDRB     R0,[R4, #+69]
+        CBNZ.N   R0,??HAL_SRAM_Init_1
 //  148   {  
 //  149     /* Allocate lock resource and initialize it */
 //  150     hsram->Lock = HAL_UNLOCKED;
-        STRB     R1,[R0, #+0]
+        STRB     R0,[R4, #+68]
 //  151     /* Initialize the low level hardware (MSP) */
 //  152     HAL_SRAM_MspInit(hsram);
         MOV      R0,R4
@@ -389,16 +388,14 @@ HAL_SRAM_DeInit:
         BL       FMC_NORSRAM_DeInit
 //  183 
 //  184   hsram->State = HAL_SRAM_STATE_RESET;
-        ADD      R0,R4,#+68
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+1]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+69]
 //  185   
 //  186   /* Release Lock */
 //  187   __HAL_UNLOCK(hsram);
-        STRB     R1,[R0, #+0]
+        STRB     R0,[R4, #+68]
 //  188 
 //  189   return HAL_OK;
-        MOVS     R0,#+0
         POP      {R4,PC}          ;; return
 //  190 }
           CFI EndBlock cfiBlock1
@@ -519,33 +516,31 @@ HAL_SRAM_DMA_XferErrorCallback:
 //  269   * @retval HAL status
 //  270   */
 
-        SECTION `.text`:CODE:NOROOT(1)
+        SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock6 Using cfiCommon0
           CFI Function HAL_SRAM_Read_8b
           CFI NoCalls
         THUMB
 //  271 HAL_StatusTypeDef HAL_SRAM_Read_8b(SRAM_HandleTypeDef *hsram, uint32_t *pAddress, uint8_t *pDstBuffer, uint32_t BufferSize)
 //  272 {
-HAL_SRAM_Read_8b:
-        PUSH     {R4}
-          CFI R4 Frame(CFA, -4)
-          CFI CFA R13+4
 //  273   __IO uint8_t * psramaddress = (uint8_t *)pAddress;
 //  274   
 //  275   /* Process Locked */
 //  276   __HAL_LOCK(hsram);
-        LDRB     R4,[R0, #+68]!
-        CMP      R4,#+1
-        IT       EQ 
-        MOVEQ    R0,#+2
-        BEQ.N    ??HAL_SRAM_Read_8b_0
-        MOVS     R4,#+1
-        STRB     R4,[R0, #+0]
+HAL_SRAM_Read_8b:
+        LDRB     R12,[R0, #+68]
+        CMP      R12,#+1
+        BNE.N    ??HAL_SRAM_Read_8b_0
+        MOVS     R0,#+2
+        BX       LR
+??HAL_SRAM_Read_8b_0:
+        MOV      R12,#+1
+        STRB     R12,[R0, #+68]
 //  277   
 //  278   /* Update the SRAM controller state */
 //  279   hsram->State = HAL_SRAM_STATE_BUSY;  
-        MOVS     R4,#+2
-        STRB     R4,[R0, #+1]
+        MOV      R12,#+2
+        STRB     R12,[R0, #+69]
         CBZ.N    R3,??HAL_SRAM_Read_8b_1
 //  280   
 //  281   /* Read data from memory */
@@ -553,31 +548,27 @@ HAL_SRAM_Read_8b:
 //  283   {
 //  284     *pDstBuffer = *(__IO uint8_t *)psramaddress;
 ??HAL_SRAM_Read_8b_2:
-        LDRB     R4,[R1], #+1
+        LDRB     R12,[R1], #+1
 //  285     pDstBuffer++;
 //  286     psramaddress++;
 //  287   }
         SUBS     R3,R3,#+1
-        STRB     R4,[R2], #+1
+        STRB     R12,[R2], #+1
         BNE.N    ??HAL_SRAM_Read_8b_2
 //  288   
 //  289   /* Update the SRAM controller state */
 //  290   hsram->State = HAL_SRAM_STATE_READY;    
 ??HAL_SRAM_Read_8b_1:
         MOVS     R1,#+1
-        STRB     R1,[R0, #+1]
+        STRB     R1,[R0, #+69]
 //  291 
 //  292   /* Process unlocked */
 //  293   __HAL_UNLOCK(hsram); 
         MOVS     R1,#+0
-        STRB     R1,[R0, #+0]
+        STRB     R1,[R0, #+68]
 //  294     
 //  295   return HAL_OK;   
         MOVS     R0,#+0
-??HAL_SRAM_Read_8b_0:
-        POP      {R4}
-          CFI R4 SameValue
-          CFI CFA R13+0
         BX       LR               ;; return
 //  296 }
           CFI EndBlock cfiBlock6
@@ -592,7 +583,7 @@ HAL_SRAM_Read_8b:
 //  305   * @retval HAL status
 //  306   */
 
-        SECTION `.text`:CODE:NOROOT(1)
+        SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock7 Using cfiCommon0
           CFI Function HAL_SRAM_Write_8b
           CFI NoCalls
@@ -604,65 +595,60 @@ HAL_SRAM_Read_8b:
 //  311   /* Check the SRAM controller state */
 //  312   if(hsram->State == HAL_SRAM_STATE_PROTECTED)
 HAL_SRAM_Write_8b:
-        ADDS     R0,R0,#+68
-        PUSH     {R4}
-          CFI R4 Frame(CFA, -4)
-          CFI CFA R13+4
-        LDRB     R4,[R0, #+1]
-        CMP      R4,#+4
-        IT       EQ 
-        MOVEQ    R0,#+1
+        LDRB     R12,[R0, #+69]
+        CMP      R12,#+4
+        BNE.N    ??HAL_SRAM_Write_8b_0
 //  313   {
 //  314     return  HAL_ERROR; 
-        BEQ.N    ??HAL_SRAM_Write_8b_0
+        MOVS     R0,#+1
+        BX       LR
 //  315   }
 //  316   
 //  317   /* Process Locked */
 //  318   __HAL_LOCK(hsram);
-        LDRB     R4,[R0, #+0]
-        CMP      R4,#+1
-        IT       EQ 
-        MOVEQ    R0,#+2
-        BEQ.N    ??HAL_SRAM_Write_8b_0
-        MOVS     R4,#+1
-        STRB     R4,[R0, #+0]
+??HAL_SRAM_Write_8b_0:
+        LDRB     R12,[R0, #+68]
+        CMP      R12,#+1
+        BNE.N    ??HAL_SRAM_Write_8b_1
+        MOVS     R0,#+2
+        BX       LR
+??HAL_SRAM_Write_8b_1:
+        MOV      R12,#+1
+        STRB     R12,[R0, #+68]
 //  319   
 //  320   /* Update the SRAM controller state */
 //  321   hsram->State = HAL_SRAM_STATE_BUSY; 
-        MOVS     R4,#+2
-        STRB     R4,[R0, #+1]
-        CBZ.N    R3,??HAL_SRAM_Write_8b_1
+        MOV      R12,#+2
+        STRB     R12,[R0, #+69]
+        CBZ.N    R3,??HAL_SRAM_Write_8b_2
+        Nop      
 //  322 
 //  323   /* Write data to memory */
 //  324   for(; BufferSize != 0; BufferSize--)
 //  325   {
 //  326     *(__IO uint8_t *)psramaddress = *pSrcBuffer; 
-??HAL_SRAM_Write_8b_2:
-        LDRB     R4,[R2], #+1
+??HAL_SRAM_Write_8b_3:
+        LDRB     R12,[R2], #+1
 //  327     pSrcBuffer++;
 //  328     psramaddress++;    
 //  329   }    
         SUBS     R3,R3,#+1
-        STRB     R4,[R1], #+1
-        BNE.N    ??HAL_SRAM_Write_8b_2
+        STRB     R12,[R1], #+1
+        BNE.N    ??HAL_SRAM_Write_8b_3
 //  330 
 //  331   /* Update the SRAM controller state */
 //  332   hsram->State = HAL_SRAM_STATE_READY; 
-??HAL_SRAM_Write_8b_1:
+??HAL_SRAM_Write_8b_2:
         MOVS     R1,#+1
-        STRB     R1,[R0, #+1]
+        STRB     R1,[R0, #+69]
 //  333   
 //  334   /* Process unlocked */
 //  335   __HAL_UNLOCK(hsram);
         MOVS     R1,#+0
-        STRB     R1,[R0, #+0]
+        STRB     R1,[R0, #+68]
 //  336     
 //  337   return HAL_OK;   
         MOVS     R0,#+0
-??HAL_SRAM_Write_8b_0:
-        POP      {R4}
-          CFI R4 SameValue
-          CFI CFA R13+0
         BX       LR               ;; return
 //  338 }
           CFI EndBlock cfiBlock7
@@ -677,33 +663,31 @@ HAL_SRAM_Write_8b:
 //  347   * @retval HAL status
 //  348   */
 
-        SECTION `.text`:CODE:NOROOT(1)
+        SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock8 Using cfiCommon0
           CFI Function HAL_SRAM_Read_16b
           CFI NoCalls
         THUMB
 //  349 HAL_StatusTypeDef HAL_SRAM_Read_16b(SRAM_HandleTypeDef *hsram, uint32_t *pAddress, uint16_t *pDstBuffer, uint32_t BufferSize)
 //  350 {
-HAL_SRAM_Read_16b:
-        PUSH     {R4}
-          CFI R4 Frame(CFA, -4)
-          CFI CFA R13+4
 //  351   __IO uint16_t * psramaddress = (uint16_t *)pAddress;
 //  352   
 //  353   /* Process Locked */
 //  354   __HAL_LOCK(hsram);
-        LDRB     R4,[R0, #+68]!
-        CMP      R4,#+1
-        IT       EQ 
-        MOVEQ    R0,#+2
-        BEQ.N    ??HAL_SRAM_Read_16b_0
-        MOVS     R4,#+1
-        STRB     R4,[R0, #+0]
+HAL_SRAM_Read_16b:
+        LDRB     R12,[R0, #+68]
+        CMP      R12,#+1
+        BNE.N    ??HAL_SRAM_Read_16b_0
+        MOVS     R0,#+2
+        BX       LR
+??HAL_SRAM_Read_16b_0:
+        MOV      R12,#+1
+        STRB     R12,[R0, #+68]
 //  355   
 //  356   /* Update the SRAM controller state */
 //  357   hsram->State = HAL_SRAM_STATE_BUSY;  
-        MOVS     R4,#+2
-        STRB     R4,[R0, #+1]
+        MOV      R12,#+2
+        STRB     R12,[R0, #+69]
         CBZ.N    R3,??HAL_SRAM_Read_16b_1
 //  358   
 //  359   /* Read data from memory */
@@ -711,31 +695,27 @@ HAL_SRAM_Read_16b:
 //  361   {
 //  362     *pDstBuffer = *(__IO uint16_t *)psramaddress;
 ??HAL_SRAM_Read_16b_2:
-        LDRH     R4,[R1], #+2
+        LDRH     R12,[R1], #+2
 //  363     pDstBuffer++;
 //  364     psramaddress++;
 //  365   }
         SUBS     R3,R3,#+1
-        STRH     R4,[R2], #+2
+        STRH     R12,[R2], #+2
         BNE.N    ??HAL_SRAM_Read_16b_2
 //  366   
 //  367   /* Update the SRAM controller state */
 //  368   hsram->State = HAL_SRAM_STATE_READY;    
 ??HAL_SRAM_Read_16b_1:
         MOVS     R1,#+1
-        STRB     R1,[R0, #+1]
+        STRB     R1,[R0, #+69]
 //  369 
 //  370   /* Process unlocked */
 //  371   __HAL_UNLOCK(hsram); 
         MOVS     R1,#+0
-        STRB     R1,[R0, #+0]
+        STRB     R1,[R0, #+68]
 //  372     
 //  373   return HAL_OK;  
         MOVS     R0,#+0
-??HAL_SRAM_Read_16b_0:
-        POP      {R4}
-          CFI R4 SameValue
-          CFI CFA R13+0
         BX       LR               ;; return
 //  374 }
           CFI EndBlock cfiBlock8
@@ -750,7 +730,7 @@ HAL_SRAM_Read_16b:
 //  383   * @retval HAL status
 //  384   */
 
-        SECTION `.text`:CODE:NOROOT(1)
+        SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock9 Using cfiCommon0
           CFI Function HAL_SRAM_Write_16b
           CFI NoCalls
@@ -762,65 +742,60 @@ HAL_SRAM_Read_16b:
 //  389   /* Check the SRAM controller state */
 //  390   if(hsram->State == HAL_SRAM_STATE_PROTECTED)
 HAL_SRAM_Write_16b:
-        ADDS     R0,R0,#+68
-        PUSH     {R4}
-          CFI R4 Frame(CFA, -4)
-          CFI CFA R13+4
-        LDRB     R4,[R0, #+1]
-        CMP      R4,#+4
-        IT       EQ 
-        MOVEQ    R0,#+1
+        LDRB     R12,[R0, #+69]
+        CMP      R12,#+4
+        BNE.N    ??HAL_SRAM_Write_16b_0
 //  391   {
 //  392     return  HAL_ERROR; 
-        BEQ.N    ??HAL_SRAM_Write_16b_0
+        MOVS     R0,#+1
+        BX       LR
 //  393   }
 //  394   
 //  395   /* Process Locked */
 //  396   __HAL_LOCK(hsram);
-        LDRB     R4,[R0, #+0]
-        CMP      R4,#+1
-        IT       EQ 
-        MOVEQ    R0,#+2
-        BEQ.N    ??HAL_SRAM_Write_16b_0
-        MOVS     R4,#+1
-        STRB     R4,[R0, #+0]
+??HAL_SRAM_Write_16b_0:
+        LDRB     R12,[R0, #+68]
+        CMP      R12,#+1
+        BNE.N    ??HAL_SRAM_Write_16b_1
+        MOVS     R0,#+2
+        BX       LR
+??HAL_SRAM_Write_16b_1:
+        MOV      R12,#+1
+        STRB     R12,[R0, #+68]
 //  397   
 //  398   /* Update the SRAM controller state */
 //  399   hsram->State = HAL_SRAM_STATE_BUSY; 
-        MOVS     R4,#+2
-        STRB     R4,[R0, #+1]
-        CBZ.N    R3,??HAL_SRAM_Write_16b_1
+        MOV      R12,#+2
+        STRB     R12,[R0, #+69]
+        CBZ.N    R3,??HAL_SRAM_Write_16b_2
+        Nop      
 //  400 
 //  401   /* Write data to memory */
 //  402   for(; BufferSize != 0; BufferSize--)
 //  403   {
 //  404     *(__IO uint16_t *)psramaddress = *pSrcBuffer; 
-??HAL_SRAM_Write_16b_2:
-        LDRH     R4,[R2], #+2
+??HAL_SRAM_Write_16b_3:
+        LDRH     R12,[R2], #+2
 //  405     pSrcBuffer++;
 //  406     psramaddress++;    
 //  407   }    
         SUBS     R3,R3,#+1
-        STRH     R4,[R1], #+2
-        BNE.N    ??HAL_SRAM_Write_16b_2
+        STRH     R12,[R1], #+2
+        BNE.N    ??HAL_SRAM_Write_16b_3
 //  408 
 //  409   /* Update the SRAM controller state */
 //  410   hsram->State = HAL_SRAM_STATE_READY; 
-??HAL_SRAM_Write_16b_1:
+??HAL_SRAM_Write_16b_2:
         MOVS     R1,#+1
-        STRB     R1,[R0, #+1]
+        STRB     R1,[R0, #+69]
 //  411   
 //  412   /* Process unlocked */
 //  413   __HAL_UNLOCK(hsram);
         MOVS     R1,#+0
-        STRB     R1,[R0, #+0]
+        STRB     R1,[R0, #+68]
 //  414     
 //  415   return HAL_OK;  
         MOVS     R0,#+0
-??HAL_SRAM_Write_16b_0:
-        POP      {R4}
-          CFI R4 SameValue
-          CFI CFA R13+0
         BX       LR               ;; return
 //  416 }
           CFI EndBlock cfiBlock9
@@ -835,31 +810,29 @@ HAL_SRAM_Write_16b:
 //  425   * @retval HAL status
 //  426   */
 
-        SECTION `.text`:CODE:NOROOT(1)
+        SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock10 Using cfiCommon0
           CFI Function HAL_SRAM_Read_32b
           CFI NoCalls
         THUMB
 //  427 HAL_StatusTypeDef HAL_SRAM_Read_32b(SRAM_HandleTypeDef *hsram, uint32_t *pAddress, uint32_t *pDstBuffer, uint32_t BufferSize)
 //  428 {
-HAL_SRAM_Read_32b:
-        PUSH     {R4}
-          CFI R4 Frame(CFA, -4)
-          CFI CFA R13+4
 //  429   /* Process Locked */
 //  430   __HAL_LOCK(hsram);
-        LDRB     R4,[R0, #+68]!
-        CMP      R4,#+1
-        IT       EQ 
-        MOVEQ    R0,#+2
-        BEQ.N    ??HAL_SRAM_Read_32b_0
-        MOVS     R4,#+1
-        STRB     R4,[R0, #+0]
+HAL_SRAM_Read_32b:
+        LDRB     R12,[R0, #+68]
+        CMP      R12,#+1
+        BNE.N    ??HAL_SRAM_Read_32b_0
+        MOVS     R0,#+2
+        BX       LR
+??HAL_SRAM_Read_32b_0:
+        MOV      R12,#+1
+        STRB     R12,[R0, #+68]
 //  431   
 //  432   /* Update the SRAM controller state */
 //  433   hsram->State = HAL_SRAM_STATE_BUSY;  
-        MOVS     R4,#+2
-        STRB     R4,[R0, #+1]
+        MOV      R12,#+2
+        STRB     R12,[R0, #+69]
         CBZ.N    R3,??HAL_SRAM_Read_32b_1
 //  434   
 //  435   /* Read data from memory */
@@ -867,31 +840,27 @@ HAL_SRAM_Read_32b:
 //  437   {
 //  438     *pDstBuffer = *(__IO uint32_t *)pAddress;
 ??HAL_SRAM_Read_32b_2:
-        LDR      R4,[R1], #+4
+        LDR      R12,[R1], #+4
 //  439     pDstBuffer++;
 //  440     pAddress++;
 //  441   }
         SUBS     R3,R3,#+1
-        STR      R4,[R2], #+4
+        STR      R12,[R2], #+4
         BNE.N    ??HAL_SRAM_Read_32b_2
 //  442   
 //  443   /* Update the SRAM controller state */
 //  444   hsram->State = HAL_SRAM_STATE_READY;    
 ??HAL_SRAM_Read_32b_1:
         MOVS     R1,#+1
-        STRB     R1,[R0, #+1]
+        STRB     R1,[R0, #+69]
 //  445 
 //  446   /* Process unlocked */
 //  447   __HAL_UNLOCK(hsram); 
         MOVS     R1,#+0
-        STRB     R1,[R0, #+0]
+        STRB     R1,[R0, #+68]
 //  448     
 //  449   return HAL_OK;  
         MOVS     R0,#+0
-??HAL_SRAM_Read_32b_0:
-        POP      {R4}
-          CFI R4 SameValue
-          CFI CFA R13+0
         BX       LR               ;; return
 //  450 }
           CFI EndBlock cfiBlock10
@@ -906,7 +875,7 @@ HAL_SRAM_Read_32b:
 //  459   * @retval HAL status
 //  460   */
 
-        SECTION `.text`:CODE:NOROOT(1)
+        SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock11 Using cfiCommon0
           CFI Function HAL_SRAM_Write_32b
           CFI NoCalls
@@ -916,65 +885,60 @@ HAL_SRAM_Read_32b:
 //  463   /* Check the SRAM controller state */
 //  464   if(hsram->State == HAL_SRAM_STATE_PROTECTED)
 HAL_SRAM_Write_32b:
-        ADDS     R0,R0,#+68
-        PUSH     {R4}
-          CFI R4 Frame(CFA, -4)
-          CFI CFA R13+4
-        LDRB     R4,[R0, #+1]
-        CMP      R4,#+4
-        IT       EQ 
-        MOVEQ    R0,#+1
+        LDRB     R12,[R0, #+69]
+        CMP      R12,#+4
+        BNE.N    ??HAL_SRAM_Write_32b_0
 //  465   {
 //  466     return  HAL_ERROR; 
-        BEQ.N    ??HAL_SRAM_Write_32b_0
+        MOVS     R0,#+1
+        BX       LR
 //  467   }
 //  468   
 //  469   /* Process Locked */
 //  470   __HAL_LOCK(hsram);
-        LDRB     R4,[R0, #+0]
-        CMP      R4,#+1
-        IT       EQ 
-        MOVEQ    R0,#+2
-        BEQ.N    ??HAL_SRAM_Write_32b_0
-        MOVS     R4,#+1
-        STRB     R4,[R0, #+0]
+??HAL_SRAM_Write_32b_0:
+        LDRB     R12,[R0, #+68]
+        CMP      R12,#+1
+        BNE.N    ??HAL_SRAM_Write_32b_1
+        MOVS     R0,#+2
+        BX       LR
+??HAL_SRAM_Write_32b_1:
+        MOV      R12,#+1
+        STRB     R12,[R0, #+68]
 //  471   
 //  472   /* Update the SRAM controller state */
 //  473   hsram->State = HAL_SRAM_STATE_BUSY; 
-        MOVS     R4,#+2
-        STRB     R4,[R0, #+1]
-        CBZ.N    R3,??HAL_SRAM_Write_32b_1
+        MOV      R12,#+2
+        STRB     R12,[R0, #+69]
+        CBZ.N    R3,??HAL_SRAM_Write_32b_2
+        Nop      
 //  474 
 //  475   /* Write data to memory */
 //  476   for(; BufferSize != 0; BufferSize--)
 //  477   {
 //  478     *(__IO uint32_t *)pAddress = *pSrcBuffer; 
-??HAL_SRAM_Write_32b_2:
-        LDR      R4,[R2], #+4
+??HAL_SRAM_Write_32b_3:
+        LDR      R12,[R2], #+4
 //  479     pSrcBuffer++;
 //  480     pAddress++;    
 //  481   }    
         SUBS     R3,R3,#+1
-        STR      R4,[R1], #+4
-        BNE.N    ??HAL_SRAM_Write_32b_2
+        STR      R12,[R1], #+4
+        BNE.N    ??HAL_SRAM_Write_32b_3
 //  482 
 //  483   /* Update the SRAM controller state */
 //  484   hsram->State = HAL_SRAM_STATE_READY; 
-??HAL_SRAM_Write_32b_1:
+??HAL_SRAM_Write_32b_2:
         MOVS     R1,#+1
-        STRB     R1,[R0, #+1]
+        STRB     R1,[R0, #+69]
 //  485   
 //  486   /* Process unlocked */
 //  487   __HAL_UNLOCK(hsram);
         MOVS     R1,#+0
-        STRB     R1,[R0, #+0]
+        STRB     R1,[R0, #+68]
 //  488     
 //  489   return HAL_OK;   
         MOVS     R0,#+0
-??HAL_SRAM_Write_32b_0:
-        POP      {R4}
-          CFI R4 SameValue
-          CFI CFA R13+0
         BX       LR               ;; return
 //  490 }
           CFI EndBlock cfiBlock11
@@ -996,56 +960,60 @@ HAL_SRAM_Write_32b:
 //  501 HAL_StatusTypeDef HAL_SRAM_Read_DMA(SRAM_HandleTypeDef *hsram, uint32_t *pAddress, uint32_t *pDstBuffer, uint32_t BufferSize)
 //  502 {
 HAL_SRAM_Read_DMA:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
+        MOV      R4,R0
+        SUB      SP,SP,#+4
           CFI CFA R13+16
 //  503   /* Process Locked */
 //  504   __HAL_LOCK(hsram);  
-        ADD      R4,R0,#+68
-        LDRB     R0,[R4, #+0]
+        LDRB     R0,[R4, #+68]
         CMP      R0,#+1
-        BNE.N    ??HAL_SRAM_Read_DMA_0
-        MOVS     R0,#+2
-        POP      {R1,R4,R5,PC}
-??HAL_SRAM_Read_DMA_0:
+        IT       EQ 
+        MOVEQ    R0,#+2
+        BEQ.N    ??HAL_SRAM_Read_DMA_0
         MOVS     R0,#+1
-        STRB     R0,[R4, #+0]
+        STRB     R0,[R4, #+68]
 //  505   
 //  506   /* Update the SRAM controller state */
 //  507   hsram->State = HAL_SRAM_STATE_BUSY;   
         MOVS     R0,#+2
-        STRB     R0,[R4, #+1]
+        STRB     R0,[R4, #+69]
 //  508   
 //  509   /* Configure DMA user callbacks */
 //  510   hsram->hdma->XferCpltCallback  = HAL_SRAM_DMA_XferCpltCallback;
-        LDR      R5,[R4, #+4]
+        LDR      R5,[R4, #+72]
         LDR.N    R0,??DataTable1
         STR      R0,[R5, #+60]
 //  511   hsram->hdma->XferErrorCallback = HAL_SRAM_DMA_XferErrorCallback;
-        LDR      R5,[R4, #+4]
+        LDR      R5,[R4, #+72]
         LDR.N    R0,??DataTable1_1
         STR      R0,[R5, #+72]
 //  512 
 //  513   /* Enable the DMA Stream */
 //  514   HAL_DMA_Start_IT(hsram->hdma, (uint32_t)pAddress, (uint32_t)pDstBuffer, (uint32_t)BufferSize);
-        LDR      R0,[R4, #+4]
+        LDR      R0,[R4, #+72]
           CFI FunCall HAL_DMA_Start_IT
         BL       HAL_DMA_Start_IT
 //  515   
 //  516   /* Update the SRAM controller state */
 //  517   hsram->State = HAL_SRAM_STATE_READY; 
         MOVS     R0,#+1
-        STRB     R0,[R4, #+1]
+        STRB     R0,[R4, #+69]
 //  518   
 //  519   /* Process unlocked */
 //  520   __HAL_UNLOCK(hsram);  
         MOVS     R0,#+0
-        STRB     R0,[R4, #+0]
+        STRB     R0,[R4, #+68]
 //  521   
 //  522   return HAL_OK; 
-        POP      {R1,R4,R5,PC}    ;; return
+??HAL_SRAM_Read_DMA_0:
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
 //  523 }
           CFI EndBlock cfiBlock12
 //  524 
@@ -1066,71 +1034,74 @@ HAL_SRAM_Read_DMA:
 //  534 HAL_StatusTypeDef HAL_SRAM_Write_DMA(SRAM_HandleTypeDef *hsram, uint32_t *pAddress, uint32_t *pSrcBuffer, uint32_t BufferSize)
 //  535 {
 HAL_SRAM_Write_DMA:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
+        MOV      R4,R0
+        SUB      SP,SP,#+4
           CFI CFA R13+16
+        MOV      R0,R2
 //  536   /* Check the SRAM controller state */
 //  537   if(hsram->State == HAL_SRAM_STATE_PROTECTED)
-        ADD      R5,R0,#+68
-        MOV      R4,R2
-        LDRB     R0,[R5, #+1]
-        CMP      R0,#+4
-        BNE.N    ??HAL_SRAM_Write_DMA_0
+        LDRB     R2,[R4, #+69]
+        CMP      R2,#+4
+        IT       EQ 
+        MOVEQ    R0,#+1
 //  538   {
 //  539     return  HAL_ERROR; 
-        MOVS     R0,#+1
-        POP      {R1,R4,R5,PC}
+        BEQ.N    ??HAL_SRAM_Write_DMA_0
 //  540   }
 //  541   
 //  542   /* Process Locked */
 //  543   __HAL_LOCK(hsram);
-??HAL_SRAM_Write_DMA_0:
-        LDRB     R0,[R5, #+0]
-        CMP      R0,#+1
-        BNE.N    ??HAL_SRAM_Write_DMA_1
-        MOVS     R0,#+2
-        POP      {R1,R4,R5,PC}
-??HAL_SRAM_Write_DMA_1:
-        MOVS     R0,#+1
-        STRB     R0,[R5, #+0]
+        LDRB     R2,[R4, #+68]
+        CMP      R2,#+1
+        IT       EQ 
+        MOVEQ    R0,#+2
+        BEQ.N    ??HAL_SRAM_Write_DMA_0
+        MOVS     R2,#+1
+        STRB     R2,[R4, #+68]
 //  544   
 //  545   /* Update the SRAM controller state */
 //  546   hsram->State = HAL_SRAM_STATE_BUSY; 
-        MOVS     R0,#+2
-        STRB     R0,[R5, #+1]
+        MOVS     R2,#+2
+        STRB     R2,[R4, #+69]
 //  547   
 //  548   /* Configure DMA user callbacks */
 //  549   hsram->hdma->XferCpltCallback  = HAL_SRAM_DMA_XferCpltCallback;
-        LDR      R2,[R5, #+4]
-        LDR.N    R0,??DataTable1
-        STR      R0,[R2, #+60]
+        LDR      R5,[R4, #+72]
+        LDR.N    R2,??DataTable1
+        STR      R2,[R5, #+60]
 //  550   hsram->hdma->XferErrorCallback = HAL_SRAM_DMA_XferErrorCallback;
-        LDR      R2,[R5, #+4]
-        LDR.N    R0,??DataTable1_1
-        STR      R0,[R2, #+72]
+        LDR      R5,[R4, #+72]
+        LDR.N    R2,??DataTable1_1
+        STR      R2,[R5, #+72]
 //  551 
 //  552   /* Enable the DMA Stream */
 //  553   HAL_DMA_Start_IT(hsram->hdma, (uint32_t)pSrcBuffer, (uint32_t)pAddress, (uint32_t)BufferSize);
         MOV      R2,R1
-        LDR      R0,[R5, #+4]
-        MOV      R1,R4
+        MOV      R1,R0
+        LDR      R0,[R4, #+72]
           CFI FunCall HAL_DMA_Start_IT
         BL       HAL_DMA_Start_IT
 //  554   
 //  555   /* Update the SRAM controller state */
 //  556   hsram->State = HAL_SRAM_STATE_READY;  
         MOVS     R0,#+1
-        STRB     R0,[R5, #+1]
+        STRB     R0,[R4, #+69]
 //  557   
 //  558   /* Process unlocked */
 //  559   __HAL_UNLOCK(hsram);  
         MOVS     R0,#+0
-        STRB     R0,[R5, #+0]
+        STRB     R0,[R4, #+68]
 //  560   
 //  561   return HAL_OK;
-        POP      {R1,R4,R5,PC}    ;; return
+??HAL_SRAM_Write_DMA_0:
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
 //  562 }
           CFI EndBlock cfiBlock13
 
@@ -1183,34 +1154,37 @@ HAL_SRAM_WriteOperation_Enable:
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
+        MOV      R4,R0
 //  591   /* Process Locked */
 //  592   __HAL_LOCK(hsram);
-        ADD      R4,R0,#+68
-        LDRB     R1,[R4, #+0]
-        CMP      R1,#+1
+        LDRB     R0,[R4, #+68]
+        CMP      R0,#+1
         BNE.N    ??HAL_SRAM_WriteOperation_Enable_0
         MOVS     R0,#+2
         POP      {R4,PC}
 ??HAL_SRAM_WriteOperation_Enable_0:
-        MOVS     R1,#+1
-        STRB     R1,[R4, #+0]
+        MOVS     R0,#+1
 //  593 
 //  594   /* Enable write operation */
 //  595   FMC_NORSRAM_WriteOperation_Enable(hsram->Instance, hsram->Init.NSBank); 
-        LDR      R1,[R0, #+8]
-        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+8]
+        STRB     R0,[R4, #+68]
+        LDR      R0,[R4, #+0]
           CFI FunCall FMC_NORSRAM_WriteOperation_Enable
         BL       FMC_NORSRAM_WriteOperation_Enable
 //  596   
 //  597   /* Update the SRAM controller state */
 //  598   hsram->State = HAL_SRAM_STATE_READY;
         MOVS     R0,#+1
-        B.N      ?Subroutine0
+        STRB     R0,[R4, #+69]
 //  599   
 //  600   /* Process unlocked */
 //  601   __HAL_UNLOCK(hsram); 
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+68]
 //  602   
 //  603   return HAL_OK;  
+        POP      {R4,PC}          ;; return
 //  604 }
           CFI EndBlock cfiBlock14
 //  605 
@@ -1232,56 +1206,44 @@ HAL_SRAM_WriteOperation_Disable:
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
+        MOV      R4,R0
 //  614   /* Process Locked */
 //  615   __HAL_LOCK(hsram);
-        ADD      R4,R0,#+68
-        LDRB     R1,[R4, #+0]
-        CMP      R1,#+1
+        LDRB     R0,[R4, #+68]
+        CMP      R0,#+1
         BNE.N    ??HAL_SRAM_WriteOperation_Disable_0
         MOVS     R0,#+2
         POP      {R4,PC}
 ??HAL_SRAM_WriteOperation_Disable_0:
-        MOVS     R1,#+1
-        STRB     R1,[R4, #+0]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+68]
 //  616 
 //  617   /* Update the SRAM controller state */
 //  618   hsram->State = HAL_SRAM_STATE_BUSY;
-        MOVS     R1,#+2
-        STRB     R1,[R4, #+1]
+        MOVS     R0,#+2
+        STRB     R0,[R4, #+69]
 //  619     
 //  620   /* Disable write operation */
 //  621   FMC_NORSRAM_WriteOperation_Disable(hsram->Instance, hsram->Init.NSBank); 
-        LDR      R1,[R0, #+8]
-        LDR      R0,[R0, #+0]
+        LDR      R1,[R4, #+8]
+        LDR      R0,[R4, #+0]
           CFI FunCall FMC_NORSRAM_WriteOperation_Disable
         BL       FMC_NORSRAM_WriteOperation_Disable
 //  622   
 //  623   /* Update the SRAM controller state */
 //  624   hsram->State = HAL_SRAM_STATE_PROTECTED;
         MOVS     R0,#+4
-          CFI EndBlock cfiBlock15
-        REQUIRE ?Subroutine0
-        ;; // Fall through to label ?Subroutine0
+        STRB     R0,[R4, #+69]
 //  625   
 //  626   /* Process unlocked */
 //  627   __HAL_UNLOCK(hsram); 
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+68]
 //  628   
 //  629   return HAL_OK;  
-//  630 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock16 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+8
-          CFI R4 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine0:
-        STRB     R0,[R4, #+1]
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+0]
         POP      {R4,PC}          ;; return
-          CFI EndBlock cfiBlock16
+//  630 }
+          CFI EndBlock cfiBlock15
 //  631 
 //  632 /**
 //  633   * @}
@@ -1310,7 +1272,7 @@ HAL_SRAM_WriteOperation_Disable:
 //  656   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock17 Using cfiCommon0
+          CFI Block cfiBlock16 Using cfiCommon0
           CFI Function HAL_SRAM_GetState
           CFI NoCalls
         THUMB
@@ -1321,7 +1283,7 @@ HAL_SRAM_GetState:
         LDRB     R0,[R0, #+69]
         BX       LR               ;; return
 //  660 }
-          CFI EndBlock cfiBlock17
+          CFI EndBlock cfiBlock16
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -1354,9 +1316,9 @@ HAL_SRAM_GetState:
 //  677 
 //  678 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 660 bytes in section .text
+// 782 bytes in section .text
 // 
-// 660 bytes of CODE memory
+// 782 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

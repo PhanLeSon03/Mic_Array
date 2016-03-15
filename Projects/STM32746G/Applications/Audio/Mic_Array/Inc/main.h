@@ -50,7 +50,7 @@
 #include "usbd_audio_if.h" 
 #include "audio_application.h"
 
-
+#define EXT_RAM         1
 #define DEBUG           1
 //#define MAIN_RECORD
 #define MAIN_CRSCORR    0

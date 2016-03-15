@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      08/Mar/2016  16:10:21
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      15/Mar/2016  18:17:17
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -49,7 +49,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -445,15 +445,19 @@ WavePlayerPauseResume:
 //  227 uint8_t WaveplayerCtrlVolume(uint8_t vol)
 //  228 { 
 WaveplayerCtrlVolume:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  229   AUDIO_VolumeCtl(vol);
           CFI FunCall AUDIO_VolumeCtl
         BL       AUDIO_VolumeCtl
 //  230   return 0;
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 //  231 }
           CFI EndBlock cfiBlock2
 //  232 
@@ -490,23 +494,27 @@ WavePlayerStop:
         THUMB
 //  249 int WavePlayerInit(uint32_t AudioFreq)
 //  250 { 
+WavePlayerInit:
+        PUSH     {LR}
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
 //  251 
 //  252   
 //  253   /* Initialize the Audio codec and all related peripherals (I2S, I2C, IOExpander, IOs...) */  
 //  254   AUDIO_Init(OUTPUT_DEVICE_AUTO, 80, AudioFreq );  
-WavePlayerInit:
         MOV      R2,R0
-        MOVS     R1,#+80
-        PUSH     {R7,LR}
-          CFI R14 Frame(CFA, -4)
+        SUB      SP,SP,#+4
           CFI CFA R13+8
+        MOVS     R1,#+80
         MOVS     R0,#+4
           CFI FunCall AUDIO_Init
         BL       AUDIO_Init
 //  255   
 //  256   return 0;
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 //  257 }
           CFI EndBlock cfiBlock4
 //  258 
@@ -524,8 +532,10 @@ WavePlayerInit:
 //  265 uint32_t AudioFlashPlay(uint16_t* pBuffer, uint32_t FullSize, uint32_t StartAdd)
 //  266 { 
 AudioFlashPlay:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  267   AUDIO_Play((uint16_t*)pBuffer, (FullSize - StartAdd));
         SUBS     R1,R1,R2
@@ -533,7 +543,9 @@ AudioFlashPlay:
         BL       AUDIO_Play
 //  268   return 0;
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 //  269 }
           CFI EndBlock cfiBlock5
 //  270 
@@ -818,7 +830,9 @@ SPI3_Init:
 //  395        or by user functions if DMA mode not enabled */
 //  396 
 //  397 }
-        POP      {R0,R1,R4,PC}    ;; return
+        ADD      SP,SP,#+8
+          CFI CFA R13+8
+        POP      {R4,PC}          ;; return
           CFI EndBlock cfiBlock12
 
         SECTION `.text`:CODE:NOROOT(2)
@@ -865,9 +879,9 @@ SPI3_Init:
         THUMB
 //  400 void AUDIO_InitApplication(void)
 //  401 {
-//  402   WavePlayerInit(AUDIO_FREQ);
+//  402   WavePlayerInit(3*AUDIO_FREQ);
 AUDIO_InitApplication:
-        MOV      R2,#+16000
+        MOVW     R2,#+48000
         MOVS     R1,#+80
         MOVS     R0,#+4
           CFI FunCall AUDIO_Init
@@ -893,9 +907,9 @@ AUDIO_InitApplication:
 // 
 // 189 bytes in section .bss
 //   1 byte  in section .data
-// 298 bytes in section .text
+// 312 bytes in section .text
 // 
-// 298 bytes of CODE memory
+// 312 bytes of CODE memory
 // 190 bytes of DATA memory
 //
 //Errors: none

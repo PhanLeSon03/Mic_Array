@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      08/Mar/2016  16:10:18
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      15/Mar/2016  18:17:13
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -359,14 +359,14 @@
 //  219   /* Set HSION bit */
 //  220   SET_BIT(RCC->CR, RCC_CR_HSION | RCC_CR_HSITRIM_4); 
 HAL_RCC_DeInit:
-        LDR.W    R0,??DataTable12  ;; 0x40023800
+        LDR.W    R0,??DataTable13  ;; 0x40023800
 //  221   
 //  222   /* Reset CFGR register */
 //  223   CLEAR_REG(RCC->CFGR);
 //  224   
 //  225   /* Reset HSEON, CSSON, PLLON, PLLI2S */
 //  226   CLEAR_BIT(RCC->CR, RCC_CR_HSEON | RCC_CR_CSSON | RCC_CR_PLLON| RCC_CR_PLLI2SON); 
-        LDR.W    R2,??DataTable12_1  ;; 0xfaf6ffff
+        LDR.W    R2,??DataTable13_1  ;; 0xfaf6ffff
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x81
         STR      R1,[R0, #+0]
@@ -378,24 +378,23 @@ HAL_RCC_DeInit:
 //  228   /* Reset PLLCFGR register */
 //  229   CLEAR_REG(RCC->PLLCFGR);
 //  230   SET_BIT(RCC->PLLCFGR, RCC_PLLCFGR_PLLM_4 | RCC_PLLCFGR_PLLN_6 | RCC_PLLCFGR_PLLN_7 | RCC_PLLCFGR_PLLQ_2); 
-        LDR.W    R2,??DataTable12_2  ;; 0x4003010
+        LDR.W    R2,??DataTable13_2  ;; 0x4003010
         STR      R1,[R0, #+0]
         MOVS     R1,#+0
         STR      R1,[R0, #+4]
         LDR      R1,[R0, #+4]
         ORRS     R1,R2,R1
+        STR      R1,[R0, #+4]
 //  231   
 //  232   /* Reset PLLI2SCFGR register */
 //  233   CLEAR_REG(RCC->PLLI2SCFGR);
-        MOVS     R2,#+0
-        STR      R1,[R0, #+4]
-        LDR.W    R1,??DataTable12_3  ;; 0x40023884
-        STR      R2,[R1, #+0]
+        MOVS     R1,#+0
+        STR      R1,[R0, #+132]
 //  234   SET_BIT(RCC->PLLI2SCFGR,  RCC_PLLI2SCFGR_PLLI2SN_6 | RCC_PLLI2SCFGR_PLLI2SN_7 | RCC_PLLI2SCFGR_PLLI2SR_1);
-        LDR      R2,[R1, #+0]
-        ORR      R2,R2,#0x20000000
-        ORR      R2,R2,#0x3000
-        STR      R2,[R1, #+0]
+        LDR      R1,[R0, #+132]
+        ORR      R1,R1,#0x20000000
+        ORR      R1,R1,#0x3000
+        STR      R1,[R0, #+132]
 //  235   
 //  236   /* Reset HSEBYP bit */
 //  237   CLEAR_BIT(RCC->CR, RCC_CR_HSEBYP);
@@ -427,14 +426,16 @@ HAL_RCC_DeInit:
 //  251 HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
 //  252 {
 HAL_RCC_OscConfig:
-        PUSH     {R3-R7,LR}
+        PUSH     {R4-R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI R7 Frame(CFA, -8)
           CFI R6 Frame(CFA, -12)
           CFI R5 Frame(CFA, -16)
           CFI R4 Frame(CFA, -20)
-          CFI CFA R13+24
+          CFI CFA R13+20
         MOV      R4,R0
+        SUB      SP,SP,#+4
+          CFI CFA R13+24
 //  253   uint32_t tickstart = 0;  
 //  254  
 //  255   /* Check the parameters */
@@ -442,7 +443,7 @@ HAL_RCC_OscConfig:
 //  257   
 //  258   /*------------------------------- HSE Configuration ------------------------*/ 
 //  259   if(((RCC_OscInitStruct->OscillatorType) & RCC_OSCILLATORTYPE_HSE) == RCC_OSCILLATORTYPE_HSE)
-        LDR.W    R5,??DataTable12  ;; 0x40023800
+        LDR.W    R5,??DataTable13  ;; 0x40023800
         LDRB     R0,[R4, #+0]
         LSLS     R0,R0,#+31
         BPL.N    ??HAL_RCC_OscConfig_0
@@ -780,7 +781,10 @@ HAL_RCC_OscConfig:
 //  573       return HAL_ERROR;
 ??HAL_RCC_OscConfig_3:
         MOVS     R0,#+1
-        POP      {R1,R4-R7,PC}
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
 //  574     }
 ??HAL_RCC_OscConfig_2:
         LDR      R0,[R5, #+0]
@@ -805,42 +809,46 @@ HAL_RCC_OscConfig:
         SUBS     R0,R0,R6
         CMP      R0,R7
         BCC.N    ??HAL_RCC_OscConfig_4
-        B.N      ??HAL_RCC_OscConfig_6
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
 ??HAL_RCC_OscConfig_5:
         LDR      R0,[R5, #+0]
         BIC      R0,R0,#0x10000
         STR      R0,[R5, #+0]
         LDR      R0,[R4, #+4]
         CMP      R0,#+65536
-        BNE.N    ??HAL_RCC_OscConfig_7
+        BNE.N    ??HAL_RCC_OscConfig_6
         LDR      R0,[R5, #+0]
         BIC      R0,R0,#0x40000
         STR      R0,[R5, #+0]
         LDR      R0,[R5, #+0]
         ORR      R0,R0,#0x10000
-        B.N      ??HAL_RCC_OscConfig_8
-??HAL_RCC_OscConfig_7:
+        B.N      ??HAL_RCC_OscConfig_7
+??HAL_RCC_OscConfig_6:
         CMP      R0,#+327680
         LDR      R0,[R5, #+0]
-        BNE.N    ??HAL_RCC_OscConfig_9
+        BNE.N    ??HAL_RCC_OscConfig_8
         ORR      R0,R0,#0x40000
         STR      R0,[R5, #+0]
         LDR      R0,[R5, #+0]
         ORR      R0,R0,#0x10000
-        B.N      ??HAL_RCC_OscConfig_8
-??HAL_RCC_OscConfig_9:
+        B.N      ??HAL_RCC_OscConfig_7
+??HAL_RCC_OscConfig_8:
         BIC      R0,R0,#0x40000
         STR      R0,[R5, #+0]
         LDR      R0,[R5, #+0]
         BIC      R0,R0,#0x10000
-??HAL_RCC_OscConfig_8:
+??HAL_RCC_OscConfig_7:
         STR      R0,[R5, #+0]
         LDR      R0,[R4, #+4]
-        CBZ.N    R0,??HAL_RCC_OscConfig_10
+        CBZ.N    R0,??HAL_RCC_OscConfig_9
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         MOV      R6,R0
-??HAL_RCC_OscConfig_11:
+??HAL_RCC_OscConfig_10:
         LDR      R0,[R5, #+0]
         LSLS     R0,R0,#+14
         BMI.N    ??HAL_RCC_OscConfig_0
@@ -848,13 +856,17 @@ HAL_RCC_OscConfig:
         BL       HAL_GetTick
         SUBS     R0,R0,R6
         CMP      R0,R7
-        BCC.N    ??HAL_RCC_OscConfig_11
-        B.N      ??HAL_RCC_OscConfig_6
-??HAL_RCC_OscConfig_10:
+        BCC.N    ??HAL_RCC_OscConfig_10
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
+??HAL_RCC_OscConfig_9:
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         MOV      R6,R0
-??HAL_RCC_OscConfig_12:
+??HAL_RCC_OscConfig_11:
         LDR      R0,[R5, #+0]
         LSLS     R0,R0,#+14
         BPL.N    ??HAL_RCC_OscConfig_0
@@ -862,64 +874,93 @@ HAL_RCC_OscConfig:
         BL       HAL_GetTick
         SUBS     R0,R0,R6
         CMP      R0,R7
-        BCC.N    ??HAL_RCC_OscConfig_12
-        B.N      ??HAL_RCC_OscConfig_6
+        BCC.N    ??HAL_RCC_OscConfig_11
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
 ??HAL_RCC_OscConfig_0:
         LDRB     R0,[R4, #+0]
         LSLS     R0,R0,#+30
-        BPL.N    ??HAL_RCC_OscConfig_13
+        BPL.N    ??HAL_RCC_OscConfig_12
         LDR      R0,[R5, #+8]
         TST      R0,#0xC
-        BEQ.N    ??HAL_RCC_OscConfig_14
+        BEQ.N    ??HAL_RCC_OscConfig_13
         LDR      R0,[R5, #+8]
         AND      R0,R0,#0xC
         CMP      R0,#+8
-        BNE.N    ??HAL_RCC_OscConfig_15
+        BNE.N    ??HAL_RCC_OscConfig_14
         LDR      R0,[R5, #+4]
         LSLS     R0,R0,#+9
-        BMI.N    ??HAL_RCC_OscConfig_15
-??HAL_RCC_OscConfig_14:
+        BMI.N    ??HAL_RCC_OscConfig_14
+??HAL_RCC_OscConfig_13:
         LDR      R0,[R5, #+0]
         LSLS     R0,R0,#+30
-        BPL.N    ??HAL_RCC_OscConfig_16
+        BPL.N    ??HAL_RCC_OscConfig_15
         LDR      R0,[R4, #+12]
         CMP      R0,#+1
         BNE.N    ??HAL_RCC_OscConfig_3
-??HAL_RCC_OscConfig_16:
+??HAL_RCC_OscConfig_15:
         LDR      R0,[R5, #+0]
         LDR      R1,[R4, #+16]
         BIC      R0,R0,#0xF8
         ORR      R0,R0,R1, LSL #+3
         STR      R0,[R5, #+0]
-??HAL_RCC_OscConfig_13:
+??HAL_RCC_OscConfig_12:
         LDRB     R0,[R4, #+0]
         LSLS     R0,R0,#+28
-        BPL.N    ??HAL_RCC_OscConfig_17
+        BPL.N    ??HAL_RCC_OscConfig_16
         LDR      R0,[R4, #+20]
         CMP      R0,#+0
         LDR      R0,[R5, #+116]
-        BEQ.N    ??HAL_RCC_OscConfig_18
+        BEQ.N    ??HAL_RCC_OscConfig_17
         ORR      R0,R0,#0x1
         STR      R0,[R5, #+116]
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         MOV      R6,R0
-??HAL_RCC_OscConfig_19:
+??HAL_RCC_OscConfig_18:
         LDR      R0,[R5, #+116]
         LSLS     R0,R0,#+30
-        BMI.N    ??HAL_RCC_OscConfig_17
+        BMI.N    ??HAL_RCC_OscConfig_16
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         SUBS     R0,R0,R6
         CMP      R0,#+101
-        BCC.N    ??HAL_RCC_OscConfig_19
-        B.N      ??HAL_RCC_OscConfig_6
-??HAL_RCC_OscConfig_15:
+        BCC.N    ??HAL_RCC_OscConfig_18
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
+??HAL_RCC_OscConfig_14:
         LDR      R0,[R4, #+12]
         CMP      R0,#+0
         LDR      R0,[R5, #+0]
-        BEQ.N    ??HAL_RCC_OscConfig_20
+        BEQ.N    ??HAL_RCC_OscConfig_19
         ORR      R0,R0,#0x1
+        STR      R0,[R5, #+0]
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R6,R0
+??HAL_RCC_OscConfig_20:
+        LDR      R0,[R5, #+0]
+        LSLS     R0,R0,#+30
+        BMI.N    ??HAL_RCC_OscConfig_15
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R6
+        CMP      R0,#+101
+        BCC.N    ??HAL_RCC_OscConfig_20
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
+??HAL_RCC_OscConfig_19:
+        LSRS     R0,R0,#+1
+        LSLS     R0,R0,#+1
         STR      R0,[R5, #+0]
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
@@ -927,53 +968,44 @@ HAL_RCC_OscConfig:
 ??HAL_RCC_OscConfig_21:
         LDR      R0,[R5, #+0]
         LSLS     R0,R0,#+30
-        BMI.N    ??HAL_RCC_OscConfig_16
+        BPL.N    ??HAL_RCC_OscConfig_12
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         SUBS     R0,R0,R6
         CMP      R0,#+101
         BCC.N    ??HAL_RCC_OscConfig_21
-        B.N      ??HAL_RCC_OscConfig_6
-??HAL_RCC_OscConfig_20:
-        LSRS     R0,R0,#+1
-        LSLS     R0,R0,#+1
-        STR      R0,[R5, #+0]
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        MOV      R6,R0
-??HAL_RCC_OscConfig_22:
-        LDR      R0,[R5, #+0]
-        LSLS     R0,R0,#+30
-        BPL.N    ??HAL_RCC_OscConfig_13
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUBS     R0,R0,R6
-        CMP      R0,#+101
-        BCC.N    ??HAL_RCC_OscConfig_22
-        B.N      ??HAL_RCC_OscConfig_6
-??HAL_RCC_OscConfig_18:
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
+??HAL_RCC_OscConfig_17:
         LSRS     R0,R0,#+1
         LSLS     R0,R0,#+1
         STR      R0,[R5, #+116]
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         MOV      R6,R0
-??HAL_RCC_OscConfig_23:
+??HAL_RCC_OscConfig_22:
         LDR      R0,[R5, #+116]
         LSLS     R0,R0,#+30
-        BPL.N    ??HAL_RCC_OscConfig_17
+        BPL.N    ??HAL_RCC_OscConfig_16
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         SUBS     R0,R0,R6
         CMP      R0,#+101
-        BCC.N    ??HAL_RCC_OscConfig_23
-        B.N      ??HAL_RCC_OscConfig_6
-??HAL_RCC_OscConfig_17:
+        BCC.N    ??HAL_RCC_OscConfig_22
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
+??HAL_RCC_OscConfig_16:
         LDRB     R0,[R4, #+0]
         LSLS     R0,R0,#+29
-        BPL.N    ??HAL_RCC_OscConfig_24
+        BPL.N    ??HAL_RCC_OscConfig_23
         LDR      R0,[R5, #+64]
-        LDR.W    R7,??DataTable12_4  ;; 0x40007000
+        LDR.W    R7,??DataTable13_3  ;; 0x40007000
         ORR      R0,R0,#0x10000000
         STR      R0,[R5, #+64]
         LDR      R0,[R5, #+64]
@@ -986,17 +1018,21 @@ HAL_RCC_OscConfig:
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         MOV      R6,R0
-??HAL_RCC_OscConfig_25:
+??HAL_RCC_OscConfig_24:
         LDR      R0,[R7, #+0]
         LSLS     R0,R0,#+23
-        BMI.N    ??HAL_RCC_OscConfig_26
+        BMI.N    ??HAL_RCC_OscConfig_25
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         SUBS     R0,R0,R6
         CMP      R0,#+101
-        BCC.N    ??HAL_RCC_OscConfig_25
-        B.N      ??HAL_RCC_OscConfig_6
-??HAL_RCC_OscConfig_26:
+        BCC.N    ??HAL_RCC_OscConfig_24
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
+??HAL_RCC_OscConfig_25:
         LDR      R0,[R5, #+112]
         MOVW     R7,#+5001
         LSRS     R0,R0,#+1
@@ -1012,80 +1048,92 @@ HAL_RCC_OscConfig:
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         MOV      R6,R0
-??HAL_RCC_OscConfig_27:
+??HAL_RCC_OscConfig_26:
         LDR      R0,[R5, #+112]
         LSLS     R0,R0,#+30
-        BPL.N    ??HAL_RCC_OscConfig_28
+        BPL.N    ??HAL_RCC_OscConfig_27
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         SUBS     R0,R0,R6
         CMP      R0,R7
-        BCC.N    ??HAL_RCC_OscConfig_27
-        B.N      ??HAL_RCC_OscConfig_6
-??HAL_RCC_OscConfig_28:
+        BCC.N    ??HAL_RCC_OscConfig_26
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
+??HAL_RCC_OscConfig_27:
         LDR      R0,[R5, #+112]
         LSRS     R0,R0,#+1
         LSLS     R0,R0,#+1
         STR      R0,[R5, #+112]
         LDR      R0,[R4, #+8]
         CMP      R0,#+1
-        BNE.N    ??HAL_RCC_OscConfig_29
+        BNE.N    ??HAL_RCC_OscConfig_28
         LDR      R0,[R5, #+112]
         BIC      R0,R0,#0x4
         STR      R0,[R5, #+112]
         LDR      R0,[R5, #+112]
         ORR      R0,R0,#0x1
-        B.N      ??HAL_RCC_OscConfig_30
-??HAL_RCC_OscConfig_29:
+        B.N      ??HAL_RCC_OscConfig_29
+??HAL_RCC_OscConfig_28:
         CMP      R0,#+5
         LDR      R0,[R5, #+112]
-        BNE.N    ??HAL_RCC_OscConfig_31
+        BNE.N    ??HAL_RCC_OscConfig_30
         ORR      R0,R0,#0x4
         STR      R0,[R5, #+112]
         LDR      R0,[R5, #+112]
         ORR      R0,R0,#0x1
-        B.N      ??HAL_RCC_OscConfig_30
-??HAL_RCC_OscConfig_31:
+        B.N      ??HAL_RCC_OscConfig_29
+??HAL_RCC_OscConfig_30:
         BIC      R0,R0,#0x4
         STR      R0,[R5, #+112]
         LDR      R0,[R5, #+112]
         LSRS     R0,R0,#+1
         LSLS     R0,R0,#+1
-??HAL_RCC_OscConfig_30:
+??HAL_RCC_OscConfig_29:
         STR      R0,[R5, #+112]
         LDR      R0,[R4, #+8]
-        CBZ.N    R0,??HAL_RCC_OscConfig_32
+        CBZ.N    R0,??HAL_RCC_OscConfig_31
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R6,R0
+??HAL_RCC_OscConfig_32:
+        LDR      R0,[R5, #+112]
+        LSLS     R0,R0,#+30
+        BMI.N    ??HAL_RCC_OscConfig_23
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R6
+        CMP      R0,R7
+        BCC.N    ??HAL_RCC_OscConfig_32
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
+??HAL_RCC_OscConfig_31:
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         MOV      R6,R0
 ??HAL_RCC_OscConfig_33:
         LDR      R0,[R5, #+112]
         LSLS     R0,R0,#+30
-        BMI.N    ??HAL_RCC_OscConfig_24
+        BPL.N    ??HAL_RCC_OscConfig_23
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         SUBS     R0,R0,R6
         CMP      R0,R7
         BCC.N    ??HAL_RCC_OscConfig_33
-        B.N      ??HAL_RCC_OscConfig_6
-??HAL_RCC_OscConfig_32:
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        MOV      R6,R0
-??HAL_RCC_OscConfig_34:
-        LDR      R0,[R5, #+112]
-        LSLS     R0,R0,#+30
-        BPL.N    ??HAL_RCC_OscConfig_24
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUBS     R0,R0,R6
-        CMP      R0,R7
-        BCC.N    ??HAL_RCC_OscConfig_34
-        B.N      ??HAL_RCC_OscConfig_6
-??HAL_RCC_OscConfig_24:
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
+??HAL_RCC_OscConfig_23:
         LDR      R0,[R4, #+24]
         CMP      R0,#+0
-        BEQ.N    ??HAL_RCC_OscConfig_35
+        BEQ.N    ??HAL_RCC_OscConfig_34
         LDR      R1,[R5, #+8]
         AND      R1,R1,#0xC
         CMP      R1,#+8
@@ -1094,21 +1142,25 @@ HAL_RCC_OscConfig:
         LDR      R0,[R5, #+0]
         BIC      R0,R0,#0x1000000
         STR      R0,[R5, #+0]
-        BNE.N    ??HAL_RCC_OscConfig_36
+        BNE.N    ??HAL_RCC_OscConfig_35
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         MOV      R6,R0
-??HAL_RCC_OscConfig_37:
+??HAL_RCC_OscConfig_36:
         LDR      R0,[R5, #+0]
         LSLS     R0,R0,#+6
-        BPL.N    ??HAL_RCC_OscConfig_38
+        BPL.N    ??HAL_RCC_OscConfig_37
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         SUBS     R0,R0,R6
         CMP      R0,#+101
-        BCC.N    ??HAL_RCC_OscConfig_37
-        B.N      ??HAL_RCC_OscConfig_6
-??HAL_RCC_OscConfig_38:
+        BCC.N    ??HAL_RCC_OscConfig_36
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
+??HAL_RCC_OscConfig_37:
         LDR      R0,[R4, #+32]
         LDR      R1,[R4, #+36]
         ORR      R0,R0,R1, LSL #+6
@@ -1129,37 +1181,45 @@ HAL_RCC_OscConfig:
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         MOV      R6,R0
+??HAL_RCC_OscConfig_38:
+        LDR      R0,[R5, #+0]
+        LSLS     R0,R0,#+6
+        BMI.N    ??HAL_RCC_OscConfig_34
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R6
+        CMP      R0,#+101
+        BCC.N    ??HAL_RCC_OscConfig_38
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
+??HAL_RCC_OscConfig_35:
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R6,R0
 ??HAL_RCC_OscConfig_39:
         LDR      R0,[R5, #+0]
         LSLS     R0,R0,#+6
-        BMI.N    ??HAL_RCC_OscConfig_35
+        BPL.N    ??HAL_RCC_OscConfig_34
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         SUBS     R0,R0,R6
         CMP      R0,#+101
         BCC.N    ??HAL_RCC_OscConfig_39
-        B.N      ??HAL_RCC_OscConfig_6
-??HAL_RCC_OscConfig_36:
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        MOV      R6,R0
-??HAL_RCC_OscConfig_40:
-        LDR      R0,[R5, #+0]
-        LSLS     R0,R0,#+6
-        BPL.N    ??HAL_RCC_OscConfig_35
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUBS     R0,R0,R6
-        CMP      R0,#+101
-        BCC.N    ??HAL_RCC_OscConfig_40
-??HAL_RCC_OscConfig_6:
         MOVS     R0,#+3
-        POP      {R1,R4-R7,PC}
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
 //  575   }
 //  576   return HAL_OK;
-??HAL_RCC_OscConfig_35:
+??HAL_RCC_OscConfig_34:
         MOVS     R0,#+0
-        POP      {R1,R4-R7,PC}    ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}       ;; return
 //  577 }
           CFI EndBlock cfiBlock1
 //  578  
@@ -1197,14 +1257,13 @@ HAL_RCC_OscConfig:
 //  605 HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, uint32_t FLatency)
 //  606 {
 HAL_RCC_ClockConfig:
-        PUSH     {R4-R8,LR}
+        PUSH     {R4-R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R8 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -20)
-          CFI R4 Frame(CFA, -24)
-          CFI CFA R13+24
+          CFI R7 Frame(CFA, -8)
+          CFI R6 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -16)
+          CFI R4 Frame(CFA, -20)
+          CFI CFA R13+20
 //  607   uint32_t tickstart = 0;
 //  608  
 //  609   /* Check the parameters */
@@ -1217,27 +1276,29 @@ HAL_RCC_ClockConfig:
 //  616   
 //  617   /* Increasing the CPU frequency */
 //  618   if(FLatency > (FLASH->ACR & FLASH_ACR_LATENCY))
-        LDR.W    R7,??DataTable12_5  ;; 0x40023c00
+        LDR.W    R5,??DataTable13  ;; 0x40023800
+        SUB      SP,SP,#+4
+          CFI CFA R13+24
         MOV      R4,R0
-        MOV      R8,R1
-        LDR      R0,[R7, #+0]
+        MOV      R6,R1
+        LDR      R0,[R5, #+1024]
         AND      R0,R0,#0xF
-        CMP      R0,R8
+        CMP      R0,R6
         BCS.N    ??HAL_RCC_ClockConfig_0
 //  619   {    
 //  620     /* Program the new number of wait states to the LATENCY bits in the FLASH_ACR register */
 //  621     __HAL_FLASH_SET_LATENCY(FLatency);
-        LDR      R0,[R7, #+0]
+        LDR      R0,[R5, #+1024]
         LSRS     R0,R0,#+4
-        ORR      R0,R8,R0, LSL #+4
-        STR      R0,[R7, #+0]
+        ORR      R0,R6,R0, LSL #+4
+        STR      R0,[R5, #+1024]
 //  622     
 //  623     /* Check that the new number of wait states is taken into account to access the Flash
 //  624     memory by reading the FLASH_ACR register */
 //  625     if((FLASH->ACR & FLASH_ACR_LATENCY) != FLatency)
-        LDR      R0,[R7, #+0]
+        LDR      R0,[R5, #+1024]
         AND      R0,R0,#0xF
-        CMP      R0,R8
+        CMP      R0,R6
         BNE.W    ??HAL_RCC_ClockConfig_1
 //  626     {
 //  627       return HAL_ERROR;
@@ -1246,7 +1307,6 @@ HAL_RCC_ClockConfig:
 //  630     /*-------------------------- HCLK Configuration --------------------------*/
 //  631     if(((RCC_ClkInitStruct->ClockType) & RCC_CLOCKTYPE_HCLK) == RCC_CLOCKTYPE_HCLK)
         LDRB     R0,[R4, #+0]
-        LDR.W    R5,??DataTable12  ;; 0x40023800
         LSLS     R0,R0,#+30
         BPL.N    ??HAL_RCC_ClockConfig_2
 //  632     {
@@ -1295,7 +1355,6 @@ HAL_RCC_ClockConfig:
         LSLS     R1,R1,#+6
 ??HAL_RCC_ClockConfig_5:
         BMI.N    ??HAL_RCC_ClockConfig_7
-        B.N      ??HAL_RCC_ClockConfig_1
 //  656         {
 //  657           return HAL_ERROR;
 //  658         }
@@ -1305,71 +1364,30 @@ HAL_RCC_ClockConfig:
 //  662       {
 //  663         /* Check the HSI ready flag */  
 //  664         if(__HAL_RCC_GET_FLAG(RCC_FLAG_HSIRDY) == RESET)
-??HAL_RCC_ClockConfig_6:
-        LSLS     R1,R1,#+30
-        BPL.W    ??HAL_RCC_ClockConfig_1
 //  665         {
 //  666           return HAL_ERROR;
 //  667         }
 //  668       }
 //  669 
 //  670       __HAL_RCC_SYSCLK_CONFIG(RCC_ClkInitStruct->SYSCLKSource);
-??HAL_RCC_ClockConfig_7:
-        LDR      R1,[R5, #+8]
-        LSRS     R1,R1,#+2
-        ORR      R0,R0,R1, LSL #+2
-        STR      R0,[R5, #+8]
 //  671       /* Get Start Tick*/
 //  672       tickstart = HAL_GetTick();
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        MOV      R6,R0
 //  673       
 //  674       if(RCC_ClkInitStruct->SYSCLKSource == RCC_SYSCLKSOURCE_HSE)
-        LDR      R0,[R4, #+4]
-        CMP      R0,#+1
-        BNE.N    ??HAL_RCC_ClockConfig_8
 //  675       {
 //  676         while (__HAL_RCC_GET_SYSCLK_SOURCE() != RCC_SYSCLKSOURCE_STATUS_HSE)
-??HAL_RCC_ClockConfig_9:
-        LDR      R0,[R5, #+8]
-        AND      R0,R0,#0xC
-        CMP      R0,#+4
-        BEQ.W    ??HAL_RCC_ClockConfig_3
 //  677         {
 //  678           if((HAL_GetTick() - tickstart ) > CLOCKSWITCH_TIMEOUT_VALUE)
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUBS     R0,R0,R6
-        MOVW     R1,#+5001
-        CMP      R0,R1
-        BCC.N    ??HAL_RCC_ClockConfig_9
-        B.N      ??HAL_RCC_ClockConfig_10
 //  679           {
 //  680             return HAL_TIMEOUT;
 //  681           }
 //  682         }
 //  683       }
 //  684       else if(RCC_ClkInitStruct->SYSCLKSource == RCC_SYSCLKSOURCE_PLLCLK)
-??HAL_RCC_ClockConfig_8:
-        CMP      R0,#+2
-        BNE.N    ??HAL_RCC_ClockConfig_11
 //  685       {
 //  686         while (__HAL_RCC_GET_SYSCLK_SOURCE() != RCC_SYSCLKSOURCE_STATUS_PLLCLK)
-??HAL_RCC_ClockConfig_12:
-        LDR      R0,[R5, #+8]
-        AND      R0,R0,#0xC
-        CMP      R0,#+8
-        BEQ.N    ??HAL_RCC_ClockConfig_3
 //  687         {
 //  688           if((HAL_GetTick() - tickstart ) > CLOCKSWITCH_TIMEOUT_VALUE)
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUBS     R0,R0,R6
-        MOVW     R1,#+5001
-        CMP      R0,R1
-        BCC.N    ??HAL_RCC_ClockConfig_12
-        B.N      ??HAL_RCC_ClockConfig_10
 //  689           {
 //  690             return HAL_TIMEOUT;
 //  691           }
@@ -1378,19 +1396,8 @@ HAL_RCC_ClockConfig:
 //  694       else
 //  695       {
 //  696         while(__HAL_RCC_GET_SYSCLK_SOURCE() != RCC_SYSCLKSOURCE_STATUS_HSI)
-??HAL_RCC_ClockConfig_11:
-        LDR      R0,[R5, #+8]
-        TST      R0,#0xC
-        BEQ.N    ??HAL_RCC_ClockConfig_3
 //  697         {
 //  698           if((HAL_GetTick() - tickstart ) > CLOCKSWITCH_TIMEOUT_VALUE)
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUBS     R0,R0,R6
-        MOVW     R1,#+5001
-        CMP      R0,R1
-        BCC.N    ??HAL_RCC_ClockConfig_11
-        B.N      ??HAL_RCC_ClockConfig_10
 //  699           {
 //  700             return HAL_TIMEOUT;
 //  701           }
@@ -1403,59 +1410,30 @@ HAL_RCC_ClockConfig:
 //  708   {
 //  709     /*-------------------------- HCLK Configuration --------------------------*/
 //  710     if(((RCC_ClkInitStruct->ClockType) & RCC_CLOCKTYPE_HCLK) == RCC_CLOCKTYPE_HCLK)
-??HAL_RCC_ClockConfig_0:
-        LDRB     R0,[R4, #+0]
-        LSLS     R0,R0,#+30
-        BPL.N    ??HAL_RCC_ClockConfig_13
 //  711     {
 //  712       assert_param(IS_RCC_HCLK(RCC_ClkInitStruct->AHBCLKDivider));
 //  713       MODIFY_REG(RCC->CFGR, RCC_CFGR_HPRE, RCC_ClkInitStruct->AHBCLKDivider);
-        LDR.N    R5,??DataTable12  ;; 0x40023800
-        LDR      R0,[R5, #+8]
-        LDR      R1,[R4, #+8]
-        BIC      R0,R0,#0xF0
-        ORRS     R0,R1,R0
-        STR      R0,[R5, #+8]
 //  714     }
 //  715 
 //  716     /*------------------------- SYSCLK Configuration -------------------------*/
 //  717     if(((RCC_ClkInitStruct->ClockType) & RCC_CLOCKTYPE_SYSCLK) == RCC_CLOCKTYPE_SYSCLK)
-??HAL_RCC_ClockConfig_13:
-        LDRB     R0,[R4, #+0]
-        LSLS     R0,R0,#+31
-        BPL.N    ??HAL_RCC_ClockConfig_14
 //  718     {    
 //  719       assert_param(IS_RCC_SYSCLKSOURCE(RCC_ClkInitStruct->SYSCLKSource));
 //  720       
 //  721       /* HSE is selected as System Clock Source */
 //  722       if(RCC_ClkInitStruct->SYSCLKSource == RCC_SYSCLKSOURCE_HSE)
-        LDR      R0,[R4, #+4]
-        LDR.N    R5,??DataTable12  ;; 0x40023800
-        CMP      R0,#+1
-        BNE.N    ??HAL_RCC_ClockConfig_15
 //  723       {
 //  724         /* Check the HSE ready flag */  
 //  725         if(__HAL_RCC_GET_FLAG(RCC_FLAG_HSERDY) == RESET)
-        LDR      R1,[R5, #+0]
-        LSLS     R1,R1,#+14
-        B.N      ??HAL_RCC_ClockConfig_16
 //  726         {
 //  727           return HAL_ERROR;
 //  728         }
 //  729       }
 //  730       /* PLL is selected as System Clock Source */
 //  731       else if(RCC_ClkInitStruct->SYSCLKSource == RCC_SYSCLKSOURCE_PLLCLK)
-??HAL_RCC_ClockConfig_15:
-        CMP      R0,#+2
-        LDR      R1,[R5, #+0]
-        BNE.N    ??HAL_RCC_ClockConfig_17
 //  732       {
 //  733         /* Check the PLL ready flag */  
 //  734         if(__HAL_RCC_GET_FLAG(RCC_FLAG_PLLRDY) == RESET)
-        LSLS     R1,R1,#+6
-??HAL_RCC_ClockConfig_16:
-        BMI.N    ??HAL_RCC_ClockConfig_18
-        B.N      ??HAL_RCC_ClockConfig_1
 //  735         {
 //  736           return HAL_ERROR;
 //  737         }
@@ -1465,70 +1443,29 @@ HAL_RCC_ClockConfig:
 //  741       {
 //  742         /* Check the HSI ready flag */  
 //  743         if(__HAL_RCC_GET_FLAG(RCC_FLAG_HSIRDY) == RESET)
-??HAL_RCC_ClockConfig_17:
-        LSLS     R1,R1,#+30
-        BPL.N    ??HAL_RCC_ClockConfig_1
 //  744         {
 //  745           return HAL_ERROR;
 //  746         }
 //  747       }
 //  748       __HAL_RCC_SYSCLK_CONFIG(RCC_ClkInitStruct->SYSCLKSource);
-??HAL_RCC_ClockConfig_18:
-        LDR      R1,[R5, #+8]
-        LSRS     R1,R1,#+2
-        ORR      R0,R0,R1, LSL #+2
-        STR      R0,[R5, #+8]
 //  749       /* Get Start Tick*/
 //  750       tickstart = HAL_GetTick();
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        MOV      R6,R0
 //  751       
 //  752       if(RCC_ClkInitStruct->SYSCLKSource == RCC_SYSCLKSOURCE_HSE)
-        LDR      R0,[R4, #+4]
-        CMP      R0,#+1
-        BNE.N    ??HAL_RCC_ClockConfig_19
 //  753       {
 //  754         while (__HAL_RCC_GET_SYSCLK_SOURCE() != RCC_SYSCLKSOURCE_STATUS_HSE)
-??HAL_RCC_ClockConfig_20:
-        LDR      R0,[R5, #+8]
-        AND      R0,R0,#0xC
-        CMP      R0,#+4
-        BEQ.N    ??HAL_RCC_ClockConfig_14
 //  755         {
 //  756           if((HAL_GetTick() - tickstart ) > CLOCKSWITCH_TIMEOUT_VALUE)
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUBS     R0,R0,R6
-        MOVW     R1,#+5001
-        CMP      R0,R1
-        BCC.N    ??HAL_RCC_ClockConfig_20
-        B.N      ??HAL_RCC_ClockConfig_10
 //  757           {
 //  758             return HAL_TIMEOUT;
 //  759           } 
 //  760         }
 //  761       }
 //  762       else if(RCC_ClkInitStruct->SYSCLKSource == RCC_SYSCLKSOURCE_PLLCLK)
-??HAL_RCC_ClockConfig_19:
-        CMP      R0,#+2
-        BNE.N    ??HAL_RCC_ClockConfig_21
 //  763       {
 //  764         while (__HAL_RCC_GET_SYSCLK_SOURCE() != RCC_SYSCLKSOURCE_STATUS_PLLCLK)
-??HAL_RCC_ClockConfig_22:
-        LDR      R0,[R5, #+8]
-        AND      R0,R0,#0xC
-        CMP      R0,#+8
-        BEQ.N    ??HAL_RCC_ClockConfig_14
 //  765         {
 //  766           if((HAL_GetTick() - tickstart ) > CLOCKSWITCH_TIMEOUT_VALUE)
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUBS     R0,R0,R6
-        MOVW     R1,#+5001
-        CMP      R0,R1
-        BCC.N    ??HAL_RCC_ClockConfig_22
-        B.N      ??HAL_RCC_ClockConfig_10
 //  767           {
 //  768             return HAL_TIMEOUT;
 //  769           } 
@@ -1537,23 +1474,10 @@ HAL_RCC_ClockConfig:
 //  772       else
 //  773       {
 //  774         while(__HAL_RCC_GET_SYSCLK_SOURCE() != RCC_SYSCLKSOURCE_STATUS_HSI)
-??HAL_RCC_ClockConfig_21:
-        LDR      R0,[R5, #+8]
-        TST      R0,#0xC
-        BEQ.N    ??HAL_RCC_ClockConfig_14
 //  775         {
 //  776           if((HAL_GetTick() - tickstart ) > CLOCKSWITCH_TIMEOUT_VALUE)
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUBS     R0,R0,R6
-        MOVW     R1,#+5001
-        CMP      R0,R1
-        BCC.N    ??HAL_RCC_ClockConfig_21
 //  777           {
 //  778             return HAL_TIMEOUT;
-??HAL_RCC_ClockConfig_10:
-        MOVS     R0,#+3
-        POP      {R4-R8,PC}
 //  779           }
 //  780         }
 //  781       }
@@ -1561,24 +1485,191 @@ HAL_RCC_ClockConfig:
 //  783     
 //  784     /* Program the new number of wait states to the LATENCY bits in the FLASH_ACR register */
 //  785     __HAL_FLASH_SET_LATENCY(FLatency);
-??HAL_RCC_ClockConfig_14:
-        LDR      R0,[R7, #+0]
-        LSRS     R0,R0,#+4
-        ORR      R0,R8,R0, LSL #+4
-        STR      R0,[R7, #+0]
 //  786     
 //  787     /* Check that the new number of wait states is taken into account to access the Flash
 //  788     memory by reading the FLASH_ACR register */
 //  789     if((FLASH->ACR & FLASH_ACR_LATENCY) != FLatency)
-        LDR      R0,[R7, #+0]
-        AND      R0,R0,#0xF
-        CMP      R0,R8
-        BEQ.N    ??HAL_RCC_ClockConfig_3
 //  790     {
 //  791       return HAL_ERROR;
+        MOVS     R0,#+1
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
+??HAL_RCC_ClockConfig_6:
+        LSLS     R1,R1,#+30
+        BPL.W    ??HAL_RCC_ClockConfig_1
+??HAL_RCC_ClockConfig_7:
+        LDR      R1,[R5, #+8]
+        LSRS     R1,R1,#+2
+        ORR      R0,R0,R1, LSL #+2
+        STR      R0,[R5, #+8]
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R7,R0
+        LDR      R0,[R4, #+4]
+        CMP      R0,#+1
+        BNE.N    ??HAL_RCC_ClockConfig_8
+??HAL_RCC_ClockConfig_9:
+        LDR      R0,[R5, #+8]
+        AND      R0,R0,#0xC
+        CMP      R0,#+4
+        BEQ.W    ??HAL_RCC_ClockConfig_3
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R7
+        MOVW     R1,#+5001
+        CMP      R0,R1
+        BCC.N    ??HAL_RCC_ClockConfig_9
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
+??HAL_RCC_ClockConfig_8:
+        CMP      R0,#+2
+        BNE.N    ??HAL_RCC_ClockConfig_10
+??HAL_RCC_ClockConfig_11:
+        LDR      R0,[R5, #+8]
+        AND      R0,R0,#0xC
+        CMP      R0,#+8
+        BEQ.N    ??HAL_RCC_ClockConfig_3
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R7
+        MOVW     R1,#+5001
+        CMP      R0,R1
+        BCC.N    ??HAL_RCC_ClockConfig_11
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
+??HAL_RCC_ClockConfig_10:
+        LDR      R0,[R5, #+8]
+        TST      R0,#0xC
+        BEQ.N    ??HAL_RCC_ClockConfig_3
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R7
+        MOVW     R1,#+5001
+        CMP      R0,R1
+        BCC.N    ??HAL_RCC_ClockConfig_10
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
+??HAL_RCC_ClockConfig_0:
+        LDRB     R0,[R4, #+0]
+        LSLS     R0,R0,#+30
+        BPL.N    ??HAL_RCC_ClockConfig_12
+        LDR      R0,[R5, #+8]
+        LDR      R1,[R4, #+8]
+        BIC      R0,R0,#0xF0
+        ORRS     R0,R1,R0
+        STR      R0,[R5, #+8]
+??HAL_RCC_ClockConfig_12:
+        LDRB     R0,[R4, #+0]
+        LSLS     R0,R0,#+31
+        BPL.N    ??HAL_RCC_ClockConfig_13
+        LDR      R0,[R4, #+4]
+        CMP      R0,#+1
+        BNE.N    ??HAL_RCC_ClockConfig_14
+        LDR      R1,[R5, #+0]
+        LSLS     R1,R1,#+14
+        B.N      ??HAL_RCC_ClockConfig_15
+??HAL_RCC_ClockConfig_14:
+        CMP      R0,#+2
+        LDR      R1,[R5, #+0]
+        BNE.N    ??HAL_RCC_ClockConfig_16
+        LSLS     R1,R1,#+6
+??HAL_RCC_ClockConfig_15:
+        BMI.N    ??HAL_RCC_ClockConfig_17
+        MOVS     R0,#+1
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
+??HAL_RCC_ClockConfig_16:
+        LSLS     R1,R1,#+30
+        BPL.N    ??HAL_RCC_ClockConfig_1
+??HAL_RCC_ClockConfig_17:
+        LDR      R1,[R5, #+8]
+        LSRS     R1,R1,#+2
+        ORR      R0,R0,R1, LSL #+2
+        STR      R0,[R5, #+8]
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R7,R0
+        LDR      R0,[R4, #+4]
+        CMP      R0,#+1
+        BNE.N    ??HAL_RCC_ClockConfig_18
+??HAL_RCC_ClockConfig_19:
+        LDR      R0,[R5, #+8]
+        AND      R0,R0,#0xC
+        CMP      R0,#+4
+        BEQ.N    ??HAL_RCC_ClockConfig_13
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R7
+        MOVW     R1,#+5001
+        CMP      R0,R1
+        BCC.N    ??HAL_RCC_ClockConfig_19
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
+??HAL_RCC_ClockConfig_18:
+        CMP      R0,#+2
+        BNE.N    ??HAL_RCC_ClockConfig_20
+??HAL_RCC_ClockConfig_21:
+        LDR      R0,[R5, #+8]
+        AND      R0,R0,#0xC
+        CMP      R0,#+8
+        BEQ.N    ??HAL_RCC_ClockConfig_13
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R7
+        MOVW     R1,#+5001
+        CMP      R0,R1
+        BCC.N    ??HAL_RCC_ClockConfig_21
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
+??HAL_RCC_ClockConfig_20:
+        LDR      R0,[R5, #+8]
+        TST      R0,#0xC
+        BEQ.N    ??HAL_RCC_ClockConfig_13
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R7
+        MOVW     R1,#+5001
+        CMP      R0,R1
+        BCC.N    ??HAL_RCC_ClockConfig_20
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
+??HAL_RCC_ClockConfig_13:
+        LDR      R0,[R5, #+1024]
+        LSRS     R0,R0,#+4
+        ORR      R0,R6,R0, LSL #+4
+        STR      R0,[R5, #+1024]
+        LDR      R0,[R5, #+1024]
+        AND      R0,R0,#0xF
+        CMP      R0,R6
+        BEQ.N    ??HAL_RCC_ClockConfig_3
 ??HAL_RCC_ClockConfig_1:
         MOVS     R0,#+1
-        POP      {R4-R8,PC}
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
 //  792     }
 //  793  }
 //  794 
@@ -1587,11 +1678,10 @@ HAL_RCC_ClockConfig:
 ??HAL_RCC_ClockConfig_3:
         LDRB     R0,[R4, #+0]
         LSLS     R0,R0,#+29
-        BPL.N    ??HAL_RCC_ClockConfig_23
+        BPL.N    ??HAL_RCC_ClockConfig_22
 //  797   {
 //  798     assert_param(IS_RCC_PCLK(RCC_ClkInitStruct->APB1CLKDivider));
 //  799     MODIFY_REG(RCC->CFGR, RCC_CFGR_PPRE1, RCC_ClkInitStruct->APB1CLKDivider);
-        LDR.N    R5,??DataTable12  ;; 0x40023800
         LDR      R0,[R5, #+8]
         LDR      R1,[R4, #+12]
         BIC      R0,R0,#0x1C00
@@ -1601,14 +1691,13 @@ HAL_RCC_ClockConfig:
 //  801   
 //  802   /*-------------------------- PCLK2 Configuration ---------------------------*/ 
 //  803   if(((RCC_ClkInitStruct->ClockType) & RCC_CLOCKTYPE_PCLK2) == RCC_CLOCKTYPE_PCLK2)
-??HAL_RCC_ClockConfig_23:
+??HAL_RCC_ClockConfig_22:
         LDRB     R0,[R4, #+0]
         LSLS     R0,R0,#+28
-        BPL.N    ??HAL_RCC_ClockConfig_24
+        BPL.N    ??HAL_RCC_ClockConfig_23
 //  804   {
 //  805     assert_param(IS_RCC_PCLK(RCC_ClkInitStruct->APB2CLKDivider));
 //  806     MODIFY_REG(RCC->CFGR, RCC_CFGR_PPRE2, ((RCC_ClkInitStruct->APB2CLKDivider) << 3));
-        LDR.N    R5,??DataTable12  ;; 0x40023800
         LDR      R0,[R5, #+8]
         LDR      R1,[R4, #+16]
         BIC      R0,R0,#0xE000
@@ -1618,14 +1707,16 @@ HAL_RCC_ClockConfig:
 //  808 
 //  809   /* Configure the source of time base considering new system clocks settings*/
 //  810   HAL_InitTick (TICK_INT_PRIORITY);//TICK_INT_PRIORITY
-??HAL_RCC_ClockConfig_24:
+??HAL_RCC_ClockConfig_23:
         MOVS     R0,#+7
           CFI FunCall HAL_InitTick
         BL       HAL_InitTick
 //  811   
 //  812   return HAL_OK;
         MOVS     R0,#+0
-        POP      {R4-R8,PC}       ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}       ;; return
 //  813 }
           CFI EndBlock cfiBlock2
 //  814 
@@ -1694,7 +1785,7 @@ HAL_RCC_MCOConfig:
 //  865   assert_param(IS_RCC_MCODIV(RCC_MCODiv));
 //  866   /* RCC_MCO1 */
 //  867   if(RCC_MCOx == RCC_MCO1)
-        LDR.N    R6,??DataTable12_6  ;; 0x40023808
+        LDR.N    R6,??DataTable13_4  ;; 0x40023808
         SUB      SP,SP,#+24
           CFI CFA R13+40
         CMP      R0,#+0
@@ -1731,7 +1822,7 @@ HAL_RCC_MCOConfig:
         MOVS     R0,#+0
         STR      R0,[SP, #+12]
         STR      R0,[SP, #+20]
-        LDR.N    R0,??DataTable12_7  ;; 0x40020000
+        LDR.N    R0,??DataTable13_5  ;; 0x40020000
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 //  881     
@@ -1741,7 +1832,7 @@ HAL_RCC_MCOConfig:
         BIC      R0,R0,#0x7600000
         ORRS     R0,R4,R0
         ORRS     R0,R5,R0
-        B.N      ??HAL_RCC_MCOConfig_1
+        STR      R0,[R6, #+0]
 //  884   }
 //  885   else
 //  886   {
@@ -1749,8 +1840,6 @@ HAL_RCC_MCOConfig:
 //  888     
 //  889     /* MCO2 Clock Enable */
 //  890     MCO2_CLK_ENABLE();
-??HAL_RCC_MCOConfig_0:
-        ORR      R0,R0,#0x4
 //  891     
 //  892     /* Configure the MCO2 pin in alternate function mode */
 //  893     GPIO_InitStruct.Pin = MCO2_PIN;
@@ -1759,6 +1848,17 @@ HAL_RCC_MCOConfig:
 //  896     GPIO_InitStruct.Pull = GPIO_NOPULL;
 //  897     GPIO_InitStruct.Alternate = GPIO_AF0_MCO;
 //  898     HAL_GPIO_Init(MCO2_GPIO_PORT, &GPIO_InitStruct);
+//  899     
+//  900     /* Mask MCO2 and MCO2PRE[2:0] bits then Select MCO2 clock source and prescaler */
+//  901     MODIFY_REG(RCC->CFGR, (RCC_CFGR_MCO2 | RCC_CFGR_MCO2PRE), (RCC_MCOSource | (RCC_MCODiv << 3)));
+//  902   }
+//  903 }
+        ADD      SP,SP,#+24
+          CFI CFA R13+16
+        POP      {R4-R6,PC}
+          CFI CFA R13+40
+??HAL_RCC_MCOConfig_0:
+        ORR      R0,R0,#0x4
         ADD      R1,SP,#+4
         STR      R0,[R6, #+40]
         LDR      R0,[R6, #+40]
@@ -1774,20 +1874,14 @@ HAL_RCC_MCOConfig:
         MOVS     R0,#+0
         STR      R0,[SP, #+12]
         STR      R0,[SP, #+20]
-        LDR.N    R0,??DataTable12_8  ;; 0x40020800
+        LDR.N    R0,??DataTable13_6  ;; 0x40020800
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
-//  899     
-//  900     /* Mask MCO2 and MCO2PRE[2:0] bits then Select MCO2 clock source and prescaler */
-//  901     MODIFY_REG(RCC->CFGR, (RCC_CFGR_MCO2 | RCC_CFGR_MCO2PRE), (RCC_MCOSource | (RCC_MCODiv << 3)));
         LDR      R0,[R6, #+0]
         LSLS     R0,R0,#+5
         ORRS     R0,R4,R0, LSR #+5
         ORR      R0,R0,R5, LSL #+3
-??HAL_RCC_MCOConfig_1:
         STR      R0,[R6, #+0]
-//  902   }
-//  903 }
         ADD      SP,SP,#+24
           CFI CFA R13+16
         POP      {R4-R6,PC}       ;; return
@@ -1812,7 +1906,7 @@ HAL_RCC_MCOConfig:
 //  915 {
 //  916   SET_BIT(RCC->CR, RCC_CR_CSSON);
 HAL_RCC_EnableCSS:
-        LDR.N    R0,??DataTable12  ;; 0x40023800
+        LDR.N    R0,??DataTable13  ;; 0x40023800
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x80000
         STR      R1,[R0, #+0]
@@ -1834,7 +1928,7 @@ HAL_RCC_EnableCSS:
 //  924 {
 //  925   CLEAR_BIT(RCC->CR, RCC_CR_CSSON);
 HAL_RCC_DisableCSS:
-        LDR.N    R0,??DataTable12  ;; 0x40023800
+        LDR.N    R0,??DataTable13  ;; 0x40023800
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x80000
         STR      R1,[R0, #+0]
@@ -1886,14 +1980,13 @@ HAL_RCC_DisableCSS:
 //  963   /* Get SYSCLK source -------------------------------------------------------*/
 //  964   switch (RCC->CFGR & RCC_CFGR_SWS)
 HAL_RCC_GetSysClockFreq:
-        LDR.N    R0,??DataTable12_9  ;; 0x40023804
+        LDR.N    R0,??DataTable13_7  ;; 0x40023804
         LDR      R1,[R0, #+4]
         AND      R1,R1,#0xC
         CMP      R1,#+4
         BEQ.N    ??HAL_RCC_GetSysClockFreq_0
         CMP      R1,#+8
         BEQ.N    ??HAL_RCC_GetSysClockFreq_1
-        B.N      ??HAL_RCC_GetSysClockFreq_2
 //  965   {
 //  966     case RCC_SYSCLKSOURCE_STATUS_HSI:  /* HSI used as system clock source */
 //  967     {
@@ -1903,25 +1996,14 @@ HAL_RCC_GetSysClockFreq:
 //  971     case RCC_SYSCLKSOURCE_STATUS_HSE:  /* HSE used as system clock  source */
 //  972     {
 //  973       sysclockfreq = HSE_VALUE;
-??HAL_RCC_GetSysClockFreq_0:
-        LDR.N    R0,??DataTable12_10  ;; 0x17d7840
 //  974       break;
-        BX       LR
 //  975     }
 //  976     case RCC_SYSCLKSOURCE_STATUS_PLLCLK:  /* PLL used as system clock  source */
 //  977     {
 //  978       /* PLL_VCO = (HSE_VALUE or HSI_VALUE / PLLM) * PLLN
 //  979       SYSCLK = PLL_VCO / PLLP */
 //  980       pllm = RCC->PLLCFGR & RCC_PLLCFGR_PLLM;
-??HAL_RCC_GetSysClockFreq_1:
-        LDR      R1,[R0, #+0]
 //  981       if (__HAL_RCC_GET_PLL_OSCSOURCE() != RCC_PLLCFGR_PLLSRC_HSI)
-        LDR      R2,[R0, #+0]
-        LSLS     R2,R2,#+9
-        AND      R1,R1,#0x3F
-        ITE      MI 
-        LDRMI.N  R2,??DataTable12_10  ;; 0x17d7840
-        LDRPL.N  R2,??DataTable12_11  ;; 0xf42400
 //  982       {
 //  983         /* HSE used as PLL clock source */
 //  984         pllvco = ((HSE_VALUE / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> POSITION_VAL(RCC_PLLCFGR_PLLN)));
@@ -1930,32 +2012,42 @@ HAL_RCC_GetSysClockFreq:
 //  987       {
 //  988         /* HSI used as PLL clock source */
 //  989         pllvco = ((HSI_VALUE / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> POSITION_VAL(RCC_PLLCFGR_PLLN)));    
-        UDIV     R1,R2,R1
-        LDR      R2,[R0, #+0]
 //  990       }
 //  991       pllp = ((((RCC->PLLCFGR & RCC_PLLCFGR_PLLP) >> POSITION_VAL(RCC_PLLCFGR_PLLP)) + 1 ) *2);
-        LDR      R0,[R0, #+0]
-        UBFX     R2,R2,#+6,#+9
 //  992       
 //  993       sysclockfreq = pllvco/pllp;
-        UBFX     R0,R0,#+16,#+2
-        MULS     R1,R2,R1
-        ADDS     R0,R0,#+1
-        LSLS     R0,R0,#+1
-        UDIV     R0,R1,R0
 //  994       break;
-        BX       LR
 //  995     }
 //  996     default:
 //  997     {
 //  998       sysclockfreq = HSI_VALUE;
-??HAL_RCC_GetSysClockFreq_2:
-        LDR.N    R0,??DataTable12_11  ;; 0xf42400
+        LDR.N    R0,??DataTable13_8  ;; 0xf42400
 //  999       break;
 // 1000     }
 // 1001   }
 // 1002   return sysclockfreq;
-        BX       LR               ;; return
+        BX       LR
+??HAL_RCC_GetSysClockFreq_0:
+        LDR.N    R0,??DataTable13_9  ;; 0x17d7840
+        BX       LR
+??HAL_RCC_GetSysClockFreq_1:
+        LDR      R1,[R0, #+0]
+        LDR      R2,[R0, #+0]
+        LSLS     R2,R2,#+9
+        AND      R1,R1,#0x3F
+        ITE      MI 
+        LDRMI.N  R2,??DataTable13_9  ;; 0x17d7840
+        LDRPL.N  R2,??DataTable13_8  ;; 0xf42400
+        UDIV     R1,R2,R1
+        LDR      R2,[R0, #+0]
+        LDR      R0,[R0, #+0]
+        UBFX     R2,R2,#+6,#+9
+        UBFX     R0,R0,#+16,#+2
+        MULS     R1,R1,R2
+        ADDS     R0,R0,#+1
+        LSLS     R0,R0,#+1
+        UDIV     R0,R1,R0
+        BX       LR
 // 1003 }
           CFI EndBlock cfiBlock6
 // 1004 
@@ -1976,15 +2068,17 @@ HAL_RCC_GetSysClockFreq:
 // 1014 uint32_t HAL_RCC_GetHCLKFreq(void)
 // 1015 {
 HAL_RCC_GetHCLKFreq:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 // 1016   SystemCoreClock = HAL_RCC_GetSysClockFreq() >> APBAHBPrescTable[(RCC->CFGR & RCC_CFGR_HPRE)>> POSITION_VAL(RCC_CFGR_HPRE)];
           CFI FunCall HAL_RCC_GetSysClockFreq
         BL       HAL_RCC_GetSysClockFreq
-        LDR.N    R3,??DataTable12_6  ;; 0x40023808
+        LDR.N    R3,??DataTable13_4  ;; 0x40023808
         ADR.W    R2,APBAHBPrescTable
-        LDR.N    R1,??DataTable12_12
+        LDR.N    R1,??DataTable13_10
         LDR      R3,[R3, #+0]
         UBFX     R3,R3,#+4,#+4
         LDRB     R2,[R3, R2]
@@ -1992,7 +2086,9 @@ HAL_RCC_GetHCLKFreq:
         STR      R0,[R1, #+0]
 // 1017   return SystemCoreClock;
         LDR      R0,[R1, #+0]
-        POP      {R1,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 // 1018 }
           CFI EndBlock cfiBlock7
 // 1019 
@@ -2018,9 +2114,9 @@ HAL_RCC_GetPCLK1Freq:
 // 1029   return (HAL_RCC_GetHCLKFreq() >> APBAHBPrescTable[(RCC->CFGR & RCC_CFGR_PPRE1)>> POSITION_VAL(RCC_CFGR_PPRE1)]);
           CFI FunCall HAL_RCC_GetSysClockFreq
         BL       HAL_RCC_GetSysClockFreq
-        LDR.N    R3,??DataTable12_6  ;; 0x40023808
+        LDR.N    R3,??DataTable13_4  ;; 0x40023808
         ADR.W    R2,APBAHBPrescTable
-        LDR.N    R1,??DataTable12_12
+        LDR.N    R1,??DataTable13_10
         LDR      R4,[R3, #+0]
         UBFX     R4,R4,#+4,#+4
         LDRB     R4,[R4, R2]
@@ -2029,7 +2125,9 @@ HAL_RCC_GetPCLK1Freq:
         LDR      R0,[R1, #+0]
         LDR      R1,[R3, #+0]
         UBFX     R1,R1,#+10,#+3
-        B.N      ?Subroutine0
+        LDRB     R1,[R1, R2]
+        LSRS     R0,R0,R1
+        POP      {R4,PC}          ;; return
 // 1030 }
           CFI EndBlock cfiBlock8
 // 1031 
@@ -2055,9 +2153,9 @@ HAL_RCC_GetPCLK2Freq:
 // 1041   return (HAL_RCC_GetHCLKFreq()>> APBAHBPrescTable[(RCC->CFGR & RCC_CFGR_PPRE2)>> POSITION_VAL(RCC_CFGR_PPRE2)]);
           CFI FunCall HAL_RCC_GetSysClockFreq
         BL       HAL_RCC_GetSysClockFreq
-        LDR.N    R3,??DataTable12_6  ;; 0x40023808
+        LDR.N    R3,??DataTable13_4  ;; 0x40023808
         ADR.W    R2,APBAHBPrescTable
-        LDR.N    R1,??DataTable12_12
+        LDR.N    R1,??DataTable13_10
         LDR      R4,[R3, #+0]
         UBFX     R4,R4,#+4,#+4
         LDRB     R4,[R4, R2]
@@ -2066,23 +2164,11 @@ HAL_RCC_GetPCLK2Freq:
         LDR      R0,[R1, #+0]
         LDR      R1,[R3, #+0]
         UBFX     R1,R1,#+13,#+3
-          CFI EndBlock cfiBlock9
-        REQUIRE ?Subroutine0
-        ;; // Fall through to label ?Subroutine0
-// 1042 } 
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock10 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+8
-          CFI R4 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine0:
         LDRB     R1,[R1, R2]
         LSRS     R0,R0,R1
         POP      {R4,PC}          ;; return
-          CFI EndBlock cfiBlock10
+// 1042 } 
+          CFI EndBlock cfiBlock9
 // 1043 
 // 1044 /**
 // 1045   * @brief  Configures the RCC_OscInitStruct according to the internal 
@@ -2093,7 +2179,7 @@ HAL_RCC_GetPCLK2Freq:
 // 1050   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock11 Using cfiCommon0
+          CFI Block cfiBlock10 Using cfiCommon0
           CFI Function HAL_RCC_GetOscConfig
           CFI NoCalls
         THUMB
@@ -2107,7 +2193,7 @@ HAL_RCC_GetOscConfig:
 // 1055   
 // 1056   /* Get the HSE configuration -----------------------------------------------*/
 // 1057   if((RCC->CR &RCC_CR_HSEBYP) == RCC_CR_HSEBYP)
-        LDR.N    R1,??DataTable12  ;; 0x40023800
+        LDR.N    R1,??DataTable13  ;; 0x40023800
         LDR      R2,[R1, #+0]
         LSLS     R2,R2,#+13
         IT       MI 
@@ -2237,7 +2323,7 @@ HAL_RCC_GetOscConfig:
         STR      R1,[R0, #+44]
 // 1120 }
         BX       LR               ;; return
-          CFI EndBlock cfiBlock11
+          CFI EndBlock cfiBlock10
 // 1121 
 // 1122 /**
 // 1123   * @brief  Configures the RCC_ClkInitStruct according to the internal 
@@ -2249,7 +2335,7 @@ HAL_RCC_GetOscConfig:
 // 1129   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock12 Using cfiCommon0
+          CFI Block cfiBlock11 Using cfiCommon0
           CFI Function HAL_RCC_GetClockConfig
           CFI NoCalls
         THUMB
@@ -2263,7 +2349,7 @@ HAL_RCC_GetClockConfig:
 // 1134    
 // 1135   /* Get the SYSCLK configuration --------------------------------------------*/ 
 // 1136   RCC_ClkInitStruct->SYSCLKSource = (uint32_t)(RCC->CFGR & RCC_CFGR_SW);
-        LDR.N    R2,??DataTable12_6  ;; 0x40023808
+        LDR.N    R2,??DataTable13_4  ;; 0x40023808
         LDR      R3,[R2, #+0]
         AND      R3,R3,#0x3
         STR      R3,[R0, #+4]
@@ -2282,20 +2368,19 @@ HAL_RCC_GetClockConfig:
 // 1143   
 // 1144   /* Get the APB2 configuration ----------------------------------------------*/ 
 // 1145   RCC_ClkInitStruct->APB2CLKDivider = (uint32_t)((RCC->CFGR & RCC_CFGR_PPRE2) >> 3);
-        LDR      R2,[R2, #+0]
-        LSRS     R2,R2,#+3
-        AND      R2,R2,#0x1C00
-        STR      R2,[R0, #+16]
+        LDR      R3,[R2, #+0]
+        LSRS     R3,R3,#+3
+        AND      R3,R3,#0x1C00
+        STR      R3,[R0, #+16]
 // 1146   
 // 1147   /* Get the Flash Wait State (Latency) configuration ------------------------*/   
 // 1148   *pFLatency = (uint32_t)(FLASH->ACR & FLASH_ACR_LATENCY); 
-        LDR.N    R0,??DataTable12_5  ;; 0x40023c00
-        LDR      R0,[R0, #+0]
+        LDR      R0,[R2, #+1016]
         AND      R0,R0,#0xF
         STR      R0,[R1, #+0]
 // 1149 }
         BX       LR               ;; return
-          CFI EndBlock cfiBlock12
+          CFI EndBlock cfiBlock11
 // 1150 
 // 1151 /**
 // 1152   * @brief This function handles the RCC CSS interrupt request.
@@ -2304,7 +2389,7 @@ HAL_RCC_GetClockConfig:
 // 1155   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock13 Using cfiCommon0
+          CFI Block cfiBlock12 Using cfiCommon0
           CFI Function HAL_RCC_NMI_IRQHandler
         THUMB
 // 1156 void HAL_RCC_NMI_IRQHandler(void)
@@ -2316,7 +2401,7 @@ HAL_RCC_NMI_IRQHandler:
           CFI CFA R13+8
 // 1158   /* Check RCC CSSF flag  */
 // 1159   if(__HAL_RCC_GET_IT(RCC_IT_CSS))
-        LDR.N    R4,??DataTable12_13  ;; 0x4002380c
+        LDR.N    R4,??DataTable13_11  ;; 0x4002380c
         LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+24
         BPL.N    ??HAL_RCC_NMI_IRQHandler_0
@@ -2334,90 +2419,78 @@ HAL_RCC_NMI_IRQHandler:
 // 1167 }
 ??HAL_RCC_NMI_IRQHandler_0:
         POP      {R4,PC}          ;; return
-          CFI EndBlock cfiBlock13
+          CFI EndBlock cfiBlock12
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable12:
+??DataTable13:
         DC32     0x40023800
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable12_1:
+??DataTable13_1:
         DC32     0xfaf6ffff
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable12_2:
+??DataTable13_2:
         DC32     0x4003010
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable12_3:
-        DC32     0x40023884
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable12_4:
+??DataTable13_3:
         DC32     0x40007000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable12_5:
-        DC32     0x40023c00
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable12_6:
+??DataTable13_4:
         DC32     0x40023808
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable12_7:
+??DataTable13_5:
         DC32     0x40020000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable12_8:
+??DataTable13_6:
         DC32     0x40020800
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable12_9:
+??DataTable13_7:
         DC32     0x40023804
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable12_10:
-        DC32     0x17d7840
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable12_11:
+??DataTable13_8:
         DC32     0xf42400
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable12_12:
+??DataTable13_9:
+        DC32     0x17d7840
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable13_10:
         DC32     SystemCoreClock
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable12_13:
+??DataTable13_11:
         DC32     0x4002380c
 // 1168 
 // 1169 /**
@@ -2426,7 +2499,7 @@ HAL_RCC_NMI_IRQHandler:
 // 1172   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock14 Using cfiCommon0
+          CFI Block cfiBlock13 Using cfiCommon0
           CFI Function HAL_RCC_CSSCallback
           CFI NoCalls
         THUMB
@@ -2438,7 +2511,7 @@ HAL_RCC_NMI_IRQHandler:
 // 1178 }
 HAL_RCC_CSSCallback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock14
+          CFI EndBlock cfiBlock13
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -2478,9 +2551,9 @@ APBAHBPrescTable:
 // 1196 
 // 1197 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 1 968 bytes in section .text
+// 2 062 bytes in section .text
 // 
-// 1 968 bytes of CODE memory
+// 2 062 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

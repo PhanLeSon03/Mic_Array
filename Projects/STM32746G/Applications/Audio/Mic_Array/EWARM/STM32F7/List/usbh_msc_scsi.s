@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      08/Mar/2016  16:10:21
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      15/Mar/2016  18:17:16
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -235,26 +235,24 @@
 //  105                                                 uint8_t lun)
 //  106 {
 USBH_MSC_SCSI_TestUnitReady:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
         MOV      R2,R0
 //  107   USBH_StatusTypeDef    error = USBH_FAIL ;
         MOVS     R0,#+2
 //  108   MSC_HandleTypeDef *MSC_Handle =  (MSC_HandleTypeDef *) phost->pActiveClass->pData;
         LDR      R3,[R2, #+612]
-        LDR      R3,[R3, #+28]
+        LDR      R4,[R3, #+28]
 //  109   
 //  110   switch(MSC_Handle->hbot.cmd_state)
-        ADD      R4,R3,#+80
-        LDRB     R5,[R4, #+2]
-        CMP      R5,#+1
+        LDRB     R3,[R4, #+82]
+        CMP      R3,#+1
         BEQ.N    ??USBH_MSC_SCSI_TestUnitReady_0
-        CMP      R5,#+2
+        CMP      R3,#+2
         BEQ.N    ??USBH_MSC_SCSI_TestUnitReady_1
-        POP      {R1,R4,R5,PC}
+        POP      {R4,PC}
 //  111   {
 //  112   case BOT_CMD_SEND:  
 //  113     
@@ -267,35 +265,34 @@ USBH_MSC_SCSI_TestUnitReady:
 //  118     
 //  119     USBH_memset(MSC_Handle->hbot.cbw.field.CB, 0, CBW_CB_LENGTH);
         MOVS     R1,#+16
-        STR      R0,[R4, #+12]
-        STRB     R0,[R4, #+16]
+        STR      R0,[R4, #+92]
+        STRB     R0,[R4, #+96]
         MOVS     R0,#+10
-        STRB     R0,[R4, #+18]
-        ADD      R0,R3,#+99
+        STRB     R0,[R4, #+98]
+        ADD      R0,R4,#+99
           CFI FunCall __aeabi_memclr
         BL       __aeabi_memclr
 //  120     MSC_Handle->hbot.cbw.field.CB[0]  = OPCODE_TEST_UNIT_READY; 
         MOVS     R0,#+0
-        STRB     R0,[R4, #+19]
+        STRB     R0,[R4, #+99]
 //  121     
 //  122     MSC_Handle->hbot.state = BOT_SEND_CBW;
         MOVS     R0,#+1
-        STRB     R0,[R4, #+0]
+        STRB     R0,[R4, #+80]
 //  123     MSC_Handle->hbot.cmd_state = BOT_CMD_WAIT;
         MOVS     R0,#+2
-        STRB     R0,[R4, #+2]
+        STRB     R0,[R4, #+82]
 //  124     error = USBH_BUSY; 
         MOVS     R0,#+1
 //  125     break;
-        POP      {R1,R4,R5,PC}
+        POP      {R4,PC}
 //  126     
 //  127   case BOT_CMD_WAIT: 
 //  128     error = USBH_MSC_BOT_Process(phost, lun);
 ??USBH_MSC_SCSI_TestUnitReady_1:
         MOV      R0,R2
-        POP      {R2,R4,R5,LR}
+        POP      {R4,LR}
           CFI R4 SameValue
-          CFI R5 SameValue
           CFI R14 SameValue
           CFI CFA R13+0
           CFI FunCall USBH_MSC_BOT_Process
@@ -328,96 +325,55 @@ USBH_MSC_SCSI_TestUnitReady:
 //  148                                                SCSI_CapacityTypeDef *capacity)
 //  149 {
 USBH_MSC_SCSI_ReadCapacity:
-        PUSH     {R3-R7,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+24
-        MOV      R7,R2
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
+        MOV      R6,R2
 //  150   USBH_StatusTypeDef    error = USBH_BUSY ;
 //  151   MSC_HandleTypeDef *MSC_Handle =  (MSC_HandleTypeDef *) phost->pActiveClass->pData;
         LDR      R2,[R0, #+612]
         MOVS     R4,#+1
-        LDR      R6,[R2, #+28]
+        LDR      R5,[R2, #+28]
 //  152   
 //  153   switch(MSC_Handle->hbot.cmd_state)
-        ADD      R5,R6,#+80
-        LDRB     R2,[R5, #+2]
+        LDRB     R2,[R5, #+82]
         CMP      R2,#+1
         BEQ.N    ??USBH_MSC_SCSI_ReadCapacity_0
         CMP      R2,#+2
         BEQ.N    ??USBH_MSC_SCSI_ReadCapacity_1
-        B.N      ??USBH_MSC_SCSI_ReadCapacity_2
 //  154   {
 //  155   case BOT_CMD_SEND:  
 //  156     
 //  157     /*Prepare the CBW and relevent field*/
 //  158     MSC_Handle->hbot.cbw.field.DataTransferLength = DATA_LEN_READ_CAPACITY10;
-??USBH_MSC_SCSI_ReadCapacity_0:
-        MOVS     R0,#+8
 //  159     MSC_Handle->hbot.cbw.field.Flags = USB_EP_DIR_IN;
 //  160     MSC_Handle->hbot.cbw.field.CBLength = CBW_LENGTH;
 //  161     
 //  162     USBH_memset(MSC_Handle->hbot.cbw.field.CB, 0, CBW_CB_LENGTH);
-        MOVS     R1,#+16
-        STR      R0,[R5, #+12]
-        MOVS     R0,#+128
-        STRB     R0,[R5, #+16]
-        MOVS     R0,#+10
-        STRB     R0,[R5, #+18]
-        ADD      R0,R6,#+99
-          CFI FunCall __aeabi_memclr
-        BL       __aeabi_memclr
 //  163     MSC_Handle->hbot.cbw.field.CB[0]  = OPCODE_READ_CAPACITY10; 
-        MOVS     R0,#+37
 //  164     
 //  165     MSC_Handle->hbot.state = BOT_SEND_CBW;
-        STRB     R4,[R5, #+0]
-        STRB     R0,[R5, #+19]
 //  166     
 //  167     MSC_Handle->hbot.cmd_state = BOT_CMD_WAIT;
-        MOVS     R0,#+2
-        STRB     R0,[R5, #+2]
 //  168     MSC_Handle->hbot.pbuf = (uint8_t *)MSC_Handle->hbot.data;
-        ADD      R0,R6,#+16
-        STR      R0,[R5, #+60]
 //  169     error = USBH_BUSY; 
 //  170     break;
-        B.N      ??USBH_MSC_SCSI_ReadCapacity_2
 //  171     
 //  172   case BOT_CMD_WAIT: 
 //  173     
 //  174     error = USBH_MSC_BOT_Process(phost, lun);
-??USBH_MSC_SCSI_ReadCapacity_1:
-          CFI FunCall USBH_MSC_BOT_Process
-        BL       USBH_MSC_BOT_Process
-        MOVS     R4,R0
 //  175     
 //  176     if(error == USBH_OK)
-        BNE.N    ??USBH_MSC_SCSI_ReadCapacity_2
 //  177     {
 //  178       /*assign the capacity*/
 //  179       capacity->block_nbr = MSC_Handle->hbot.pbuf[3] | (MSC_Handle->hbot.pbuf[2] << 8) |\ 
 //  180                            (MSC_Handle->hbot.pbuf[1] << 16) | (MSC_Handle->hbot.pbuf[0] << 24);
-        LDR      R0,[R5, #+60]
-        LDRB     R1,[R0, #+3]
-        LDRB     R2,[R0, #+2]
-        ORR      R1,R1,R2, LSL #+8
-        LDRB     R2,[R0, #+1]
-        LDRB     R0,[R0, #+0]
-        ORR      R1,R1,R2, LSL #+16
-        ORR      R0,R1,R0, LSL #+24
-        STR      R0,[R7, #+0]
 //  181 
 //  182       /*assign the page length*/
 //  183       capacity->block_size = MSC_Handle->hbot.pbuf[7] | (MSC_Handle->hbot.pbuf[6] << 8); 
-        LDR      R0,[R5, #+60]
-        LDRB     R1,[R0, #+7]
-        LDRB     R0,[R0, #+6]
-        ORR      R0,R1,R0, LSL #+8
-        STRH     R0,[R7, #+4]
 //  184     }
 //  185     break;
 //  186     
@@ -426,9 +382,50 @@ USBH_MSC_SCSI_ReadCapacity:
 //  189   }
 //  190   
 //  191   return error;
+        MOV      R0,R4
+        POP      {R4-R6,PC}
+??USBH_MSC_SCSI_ReadCapacity_0:
+        MOVS     R0,#+8
+        MOVS     R1,#+16
+        STR      R0,[R5, #+92]
+        MOVS     R0,#+128
+        STRB     R0,[R5, #+96]
+        MOVS     R0,#+10
+        STRB     R0,[R5, #+98]
+        ADD      R0,R5,#+99
+          CFI FunCall __aeabi_memclr
+        BL       __aeabi_memclr
+        MOVS     R0,#+37
+        STRB     R4,[R5, #+80]
+        STRB     R0,[R5, #+99]
+        MOVS     R0,#+2
+        STRB     R0,[R5, #+82]
+        ADD      R0,R5,#+16
+        STR      R0,[R5, #+140]
+        MOV      R0,R4
+        POP      {R4-R6,PC}
+??USBH_MSC_SCSI_ReadCapacity_1:
+          CFI FunCall USBH_MSC_BOT_Process
+        BL       USBH_MSC_BOT_Process
+        MOVS     R4,R0
+        BNE.N    ??USBH_MSC_SCSI_ReadCapacity_2
+        LDR      R0,[R5, #+140]
+        LDRB     R1,[R0, #+3]
+        LDRB     R2,[R0, #+2]
+        ORR      R1,R1,R2, LSL #+8
+        LDRB     R2,[R0, #+1]
+        LDRB     R0,[R0, #+0]
+        ORR      R1,R1,R2, LSL #+16
+        ORR      R0,R1,R0, LSL #+24
+        STR      R0,[R6, #+0]
+        LDR      R0,[R5, #+140]
+        LDRB     R1,[R0, #+7]
+        LDRB     R0,[R0, #+6]
+        ORR      R0,R1,R0, LSL #+8
+        STRH     R0,[R6, #+4]
 ??USBH_MSC_SCSI_ReadCapacity_2:
         MOV      R0,R4
-        POP      {R1,R4-R7,PC}    ;; return
+        POP      {R4-R6,PC}       ;; return
 //  192 }
           CFI EndBlock cfiBlock1
 //  193 
@@ -450,135 +447,65 @@ USBH_MSC_SCSI_ReadCapacity:
 //  204                                                SCSI_StdInquiryDataTypeDef *inquiry)
 //  205 {
 USBH_MSC_SCSI_Inquiry:
-        PUSH     {R4-R8,LR}
+        PUSH     {R4-R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R8 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -20)
-          CFI R4 Frame(CFA, -24)
+          CFI R7 Frame(CFA, -8)
+          CFI R6 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -16)
+          CFI R4 Frame(CFA, -20)
+          CFI CFA R13+20
+        SUB      SP,SP,#+4
           CFI CFA R13+24
         MOV      R4,R1
 //  206   USBH_StatusTypeDef    error = USBH_FAIL ;
 //  207   MSC_HandleTypeDef *MSC_Handle =  (MSC_HandleTypeDef *) phost->pActiveClass->pData;
         LDR      R1,[R0, #+612]
-        MOVS     R5,#+2
-        MOV      R7,R2
-        LDR      R8,[R1, #+28]
+        MOVS     R7,#+2
+        MOV      R6,R2
+        LDR      R5,[R1, #+28]
 //  208   switch(MSC_Handle->hbot.cmd_state)
-        ADD      R6,R8,#+80
-        LDRB     R1,[R6, #+2]
+        LDRB     R1,[R5, #+82]
         CMP      R1,#+1
         BEQ.N    ??USBH_MSC_SCSI_Inquiry_0
         CMP      R1,#+2
         BEQ.N    ??USBH_MSC_SCSI_Inquiry_1
-        B.N      ??USBH_MSC_SCSI_Inquiry_2
 //  209   {
 //  210   case BOT_CMD_SEND:  
 //  211     
 //  212     /*Prepare the CBW and relevent field*/
 //  213     MSC_Handle->hbot.cbw.field.DataTransferLength = DATA_LEN_INQUIRY;
-??USBH_MSC_SCSI_Inquiry_0:
-        MOVS     R0,#+36
 //  214     MSC_Handle->hbot.cbw.field.Flags = USB_EP_DIR_IN;
 //  215     MSC_Handle->hbot.cbw.field.CBLength = CBW_LENGTH;
 //  216     
 //  217     USBH_memset(MSC_Handle->hbot.cbw.field.CB, 0, CBW_LENGTH);
-        MOVS     R1,#+10
-        STR      R0,[R6, #+12]
-        MOVS     R0,#+128
-        STRB     R0,[R6, #+16]
-        MOVS     R0,#+10
-        STRB     R0,[R6, #+18]
-        ADD      R0,R8,#+99
-          CFI FunCall __aeabi_memclr
-        BL       __aeabi_memclr
 //  218     MSC_Handle->hbot.cbw.field.CB[0]  = OPCODE_INQUIRY; 
-        MOVS     R0,#+18
-        STRB     R0,[R6, #+19]
 //  219     MSC_Handle->hbot.cbw.field.CB[1]  = (lun << 5);    
-        LSLS     R0,R4,#+5
-        STRB     R0,[R6, #+20]
 //  220     MSC_Handle->hbot.cbw.field.CB[2]  = 0;    
-        MOVS     R0,#+0
-        STRB     R0,[R6, #+21]
 //  221     MSC_Handle->hbot.cbw.field.CB[3]  = 0;    
-        STRB     R0,[R6, #+22]
 //  222     MSC_Handle->hbot.cbw.field.CB[4]  = 0x24;    
-        MOVS     R0,#+36
-        STRB     R0,[R6, #+23]
 //  223     MSC_Handle->hbot.cbw.field.CB[5]  = 0;    
-        MOVS     R0,#+0
-        STRB     R0,[R6, #+24]
 //  224         
 //  225     MSC_Handle->hbot.state = BOT_SEND_CBW;
-        MOVS     R0,#+1
-        STRB     R0,[R6, #+0]
 //  226 
 //  227     MSC_Handle->hbot.cmd_state = BOT_CMD_WAIT;
 //  228     MSC_Handle->hbot.pbuf = (uint8_t *)MSC_Handle->hbot.data;
-        ADD      R0,R8,#+16
-        STRB     R5,[R6, #+2]
 //  229     error = USBH_BUSY; 
-        MOVS     R5,#+1
-        STR      R0,[R6, #+60]
 //  230     break;
-        B.N      ??USBH_MSC_SCSI_Inquiry_2
 //  231     
 //  232   case BOT_CMD_WAIT: 
 //  233     
 //  234     error = USBH_MSC_BOT_Process(phost, lun);
-??USBH_MSC_SCSI_Inquiry_1:
-        MOV      R1,R4
-          CFI FunCall USBH_MSC_BOT_Process
-        BL       USBH_MSC_BOT_Process
-        MOVS     R5,R0
 //  235     
 //  236     if(error == USBH_OK)
-        BNE.N    ??USBH_MSC_SCSI_Inquiry_2
 //  237     {
 //  238       USBH_memset(inquiry, 0, sizeof(SCSI_StdInquiryDataTypeDef));
-        MOVS     R1,#+34
-        MOV      R0,R7
-          CFI FunCall __aeabi_memclr
-        BL       __aeabi_memclr
 //  239       /*assign Inquiry Data */
 //  240       inquiry->DeviceType = MSC_Handle->hbot.pbuf[0] & 0x1F;
-        LDR      R0,[R6, #+60]
 //  241       inquiry->PeripheralQualifier = MSC_Handle->hbot.pbuf[0] >> 5;  
 //  242       inquiry->RemovableMedia = (MSC_Handle->hbot.pbuf[1] & 0x80)== 0x80;
 //  243       USBH_memcpy (inquiry->vendor_id, &MSC_Handle->hbot.pbuf[8], 8);
-        MOVS     R2,#+8
-        LDRB     R0,[R0, #+0]
-        AND      R0,R0,#0x1F
-        STRB     R0,[R7, #+1]
-        LDR      R0,[R6, #+60]
-        LDRB     R0,[R0, #+0]
-        LSRS     R0,R0,#+5
-        STRB     R0,[R7, #+0]
-        LDR      R0,[R6, #+60]
-        LDRB     R0,[R0, #+1]
-        LSRS     R0,R0,#+7
-        STRB     R0,[R7, #+2]
-        LDR      R0,[R6, #+60]
-        ADD      R1,R0,#+8
-        ADDS     R0,R7,#+3
-          CFI FunCall __aeabi_memcpy
-        BL       __aeabi_memcpy
 //  244       USBH_memcpy (inquiry->product_id, &MSC_Handle->hbot.pbuf[16], 16);
-        LDR      R0,[R6, #+60]
-        MOVS     R2,#+16
-        ADD      R1,R0,#+16
-        ADD      R0,R7,#+12
-          CFI FunCall __aeabi_memcpy
-        BL       __aeabi_memcpy
 //  245       USBH_memcpy (inquiry->revision_id, &MSC_Handle->hbot.pbuf[32], 4);    
-        LDR      R0,[R6, #+60]
-        MOVS     R2,#+4
-        ADD      R1,R0,#+32
-        ADD      R0,R7,#+29
-          CFI FunCall __aeabi_memcpy
-        BL       __aeabi_memcpy
 //  246     }
 //  247     break;
 //  248     
@@ -587,9 +514,89 @@ USBH_MSC_SCSI_Inquiry:
 //  251   }
 //  252   
 //  253   return error;
+        MOV      R0,R7
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
+??USBH_MSC_SCSI_Inquiry_0:
+        MOVS     R0,#+36
+        MOVS     R1,#+10
+        STR      R0,[R5, #+92]
+        MOVS     R0,#+128
+        STRB     R0,[R5, #+96]
+        MOVS     R0,#+10
+        STRB     R0,[R5, #+98]
+        ADD      R0,R5,#+99
+          CFI FunCall __aeabi_memclr
+        BL       __aeabi_memclr
+        MOVS     R0,#+18
+        STRB     R7,[R5, #+82]
+        STRB     R0,[R5, #+99]
+        LSLS     R0,R4,#+5
+        STRB     R0,[R5, #+100]
+        MOVS     R0,#+0
+        STRB     R0,[R5, #+101]
+        MOVS     R7,#+1
+        STRB     R0,[R5, #+102]
+        MOVS     R0,#+36
+        STRB     R0,[R5, #+103]
+        MOVS     R0,#+0
+        STRB     R0,[R5, #+104]
+        MOVS     R0,#+1
+        STRB     R0,[R5, #+80]
+        ADD      R0,R5,#+16
+        STR      R0,[R5, #+140]
+        MOV      R0,R7
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
+??USBH_MSC_SCSI_Inquiry_1:
+        MOV      R1,R4
+          CFI FunCall USBH_MSC_BOT_Process
+        BL       USBH_MSC_BOT_Process
+        MOVS     R7,R0
+        BNE.N    ??USBH_MSC_SCSI_Inquiry_2
+        MOVS     R1,#+34
+        MOV      R0,R6
+          CFI FunCall __aeabi_memclr
+        BL       __aeabi_memclr
+        LDR      R0,[R5, #+140]
+        MOVS     R2,#+8
+        LDRB     R0,[R0, #+0]
+        AND      R0,R0,#0x1F
+        STRB     R0,[R6, #+1]
+        LDR      R0,[R5, #+140]
+        LDRB     R0,[R0, #+0]
+        LSRS     R0,R0,#+5
+        STRB     R0,[R6, #+0]
+        LDR      R0,[R5, #+140]
+        LDRB     R0,[R0, #+1]
+        LSRS     R0,R0,#+7
+        STRB     R0,[R6, #+2]
+        LDR      R0,[R5, #+140]
+        ADD      R1,R0,#+8
+        ADDS     R0,R6,#+3
+          CFI FunCall __aeabi_memcpy
+        BL       __aeabi_memcpy
+        LDR      R0,[R5, #+140]
+        MOVS     R2,#+16
+        ADD      R1,R0,#+16
+        ADD      R0,R6,#+12
+          CFI FunCall __aeabi_memcpy
+        BL       __aeabi_memcpy
+        LDR      R0,[R5, #+140]
+        MOVS     R2,#+4
+        ADD      R1,R0,#+32
+        ADD      R0,R6,#+29
+          CFI FunCall __aeabi_memcpy
+        BL       __aeabi_memcpy
 ??USBH_MSC_SCSI_Inquiry_2:
-        MOV      R0,R5
-        POP      {R4-R8,PC}       ;; return
+        MOV      R0,R7
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}       ;; return
 //  254 }
           CFI EndBlock cfiBlock2
 //  255 
@@ -611,30 +618,28 @@ USBH_MSC_SCSI_Inquiry:
 //  266                                                SCSI_SenseTypeDef *sense_data)
 //  267 {
 USBH_MSC_SCSI_RequestSense:
-        PUSH     {R3-R7,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+24
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
         MOV      R4,R1
         MOV      R3,R0
 //  268   USBH_StatusTypeDef    error = USBH_FAIL ;
         MOVS     R0,#+2
-        MOV      R7,R2
+        MOV      R6,R2
 //  269   MSC_HandleTypeDef *MSC_Handle =  (MSC_HandleTypeDef *) phost->pActiveClass->pData;
         LDR      R1,[R3, #+612]
         LDR      R5,[R1, #+28]
 //  270   
 //  271   switch(MSC_Handle->hbot.cmd_state)
-        ADD      R6,R5,#+80
-        LDRB     R1,[R6, #+2]
+        LDRB     R1,[R5, #+82]
         CMP      R1,#+1
         BEQ.N    ??USBH_MSC_SCSI_RequestSense_0
         CMP      R1,#+2
         BEQ.N    ??USBH_MSC_SCSI_RequestSense_1
-        POP      {R1,R4-R7,PC}
+        POP      {R4-R6,PC}
 //  272   {
 //  273   case BOT_CMD_SEND:  
 //  274     
@@ -647,45 +652,45 @@ USBH_MSC_SCSI_RequestSense:
 //  279     
 //  280     USBH_memset(MSC_Handle->hbot.cbw.field.CB, 0, CBW_CB_LENGTH);
         MOVS     R1,#+16
-        STR      R0,[R6, #+12]
+        STR      R0,[R5, #+92]
         MOVS     R0,#+128
-        STRB     R0,[R6, #+16]
+        STRB     R0,[R5, #+96]
         MOVS     R0,#+10
-        STRB     R0,[R6, #+18]
+        STRB     R0,[R5, #+98]
         ADD      R0,R5,#+99
           CFI FunCall __aeabi_memclr
         BL       __aeabi_memclr
 //  281     MSC_Handle->hbot.cbw.field.CB[0]  = OPCODE_REQUEST_SENSE; 
         MOVS     R0,#+3
-        STRB     R0,[R6, #+19]
+        STRB     R0,[R5, #+99]
 //  282     MSC_Handle->hbot.cbw.field.CB[1]  = (lun << 5); 
         LSLS     R0,R4,#+5
-        STRB     R0,[R6, #+20]
+        STRB     R0,[R5, #+100]
 //  283     MSC_Handle->hbot.cbw.field.CB[2]  = 0; 
         MOVS     R0,#+0
-        STRB     R0,[R6, #+21]
+        STRB     R0,[R5, #+101]
 //  284     MSC_Handle->hbot.cbw.field.CB[3]  = 0; 
-        STRB     R0,[R6, #+22]
+        STRB     R0,[R5, #+102]
 //  285     MSC_Handle->hbot.cbw.field.CB[4]  = DATA_LEN_REQUEST_SENSE;
         MOVS     R0,#+14
-        STRB     R0,[R6, #+23]
+        STRB     R0,[R5, #+103]
 //  286     MSC_Handle->hbot.cbw.field.CB[5]  = 0;       
         MOVS     R0,#+0
-        STRB     R0,[R6, #+24]
+        STRB     R0,[R5, #+104]
 //  287     
 //  288     MSC_Handle->hbot.state = BOT_SEND_CBW;
         MOVS     R0,#+1
-        STRB     R0,[R6, #+0]
+        STRB     R0,[R5, #+80]
 //  289     MSC_Handle->hbot.cmd_state = BOT_CMD_WAIT;
         MOVS     R0,#+2
-        STRB     R0,[R6, #+2]
+        STRB     R0,[R5, #+82]
 //  290     MSC_Handle->hbot.pbuf = (uint8_t *)MSC_Handle->hbot.data;
         ADD      R0,R5,#+16
-        STR      R0,[R6, #+60]
+        STR      R0,[R5, #+140]
 //  291     error = USBH_BUSY; 
         MOVS     R0,#+1
 //  292     break;
-        POP      {R1,R4-R7,PC}
+        POP      {R4-R6,PC}
 //  293     
 //  294   case BOT_CMD_WAIT: 
 //  295     
@@ -700,18 +705,18 @@ USBH_MSC_SCSI_RequestSense:
         CBNZ.N   R0,??USBH_MSC_SCSI_RequestSense_2
 //  299     {
 //  300       sense_data->key  = MSC_Handle->hbot.pbuf[2] & 0x0F;  
-        LDR      R1,[R6, #+60]
+        LDR      R1,[R5, #+140]
         LDRB     R1,[R1, #+2]
         AND      R1,R1,#0xF
-        STRB     R1,[R7, #+0]
+        STRB     R1,[R6, #+0]
 //  301       sense_data->asc  = MSC_Handle->hbot.pbuf[12];
-        LDR      R1,[R6, #+60]
+        LDR      R1,[R5, #+140]
         LDRB     R1,[R1, #+12]
-        STRB     R1,[R7, #+1]
+        STRB     R1,[R6, #+1]
 //  302       sense_data->ascq = MSC_Handle->hbot.pbuf[13];
-        LDR      R1,[R6, #+60]
+        LDR      R1,[R5, #+140]
         LDRB     R1,[R1, #+13]
-        STRB     R1,[R7, #+2]
+        STRB     R1,[R6, #+2]
 //  303     }
 //  304     break;
 //  305     
@@ -721,7 +726,7 @@ USBH_MSC_SCSI_RequestSense:
 //  309   
 //  310   return error;
 ??USBH_MSC_SCSI_RequestSense_2:
-        POP      {R1,R4-R7,PC}    ;; return
+        POP      {R4-R6,PC}       ;; return
 //  311 }
           CFI EndBlock cfiBlock3
 //  312 
@@ -747,12 +752,11 @@ USBH_MSC_SCSI_RequestSense:
 //  327                                      uint32_t length)
 //  328 {
 USBH_MSC_SCSI_Write:
-        PUSH     {R1,R2,R4-R6,LR}
+        PUSH     {R2,R4,R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+24
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+16
         MOV      R4,R3
         MOV      R2,R0
 //  329   USBH_StatusTypeDef    error = USBH_FAIL ;
@@ -760,40 +764,24 @@ USBH_MSC_SCSI_Write:
 //  330 
 //  331   MSC_HandleTypeDef *MSC_Handle =  (MSC_HandleTypeDef *) phost->pActiveClass->pData;
         LDR      R3,[R2, #+612]
-        LDR      R3,[R3, #+28]
+        LDR      R5,[R3, #+28]
 //  332   
 //  333   switch(MSC_Handle->hbot.cmd_state)
-        ADD      R5,R3,#+80
-        LDRB     R6,[R5, #+2]
-        CMP      R6,#+1
+        LDRB     R3,[R5, #+82]
+        CMP      R3,#+1
         BEQ.N    ??USBH_MSC_SCSI_Write_0
-        CMP      R6,#+2
+        CMP      R3,#+2
         BEQ.N    ??USBH_MSC_SCSI_Write_1
-        POP      {R1,R2,R4-R6,PC}
 //  334   {
 //  335   case BOT_CMD_SEND:  
 //  336     
 //  337     /*Prepare the CBW and relevent field*/
 //  338     MSC_Handle->hbot.cbw.field.DataTransferLength = length * 512;
-??USBH_MSC_SCSI_Write_0:
-        LDR      R0,[SP, #+24]
 //  339     MSC_Handle->hbot.cbw.field.Flags = USB_EP_DIR_OUT;
 //  340     MSC_Handle->hbot.cbw.field.CBLength = CBW_LENGTH;
 //  341     
 //  342     USBH_memset(MSC_Handle->hbot.cbw.field.CB, 0, CBW_CB_LENGTH);
-        MOVS     R1,#+16
-        LSLS     R0,R0,#+9
-        STR      R0,[R5, #+12]
-        MOVS     R0,#+0
-        STRB     R0,[R5, #+16]
-        MOVS     R0,#+10
-        STRB     R0,[R5, #+18]
-        ADD      R0,R3,#+99
-          CFI FunCall __aeabi_memclr
-        BL       __aeabi_memclr
 //  343     MSC_Handle->hbot.cbw.field.CB[0]  = OPCODE_WRITE10; 
-        MOVS     R0,#+42
-        B.N      ?Subroutine1
 //  344     
 //  345     /*logical block address*/
 //  346     MSC_Handle->hbot.cbw.field.CB[2]  = (((uint8_t*)&address)[3]);
@@ -815,8 +803,6 @@ USBH_MSC_SCSI_Write:
 //  362     
 //  363   case BOT_CMD_WAIT: 
 //  364     error = USBH_MSC_BOT_Process(phost, lun);
-??USBH_MSC_SCSI_Write_1:
-        B.N      ?Subroutine0
 //  365     break;
 //  366     
 //  367   default:
@@ -824,6 +810,57 @@ USBH_MSC_SCSI_Write:
 //  369   }
 //  370   
 //  371   return error;
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
+??USBH_MSC_SCSI_Write_0:
+        LDR      R0,[SP, #+16]
+        MOVS     R1,#+16
+        LSLS     R0,R0,#+9
+        STR      R0,[R5, #+92]
+        MOVS     R0,#+0
+        STRB     R0,[R5, #+96]
+        MOVS     R0,#+10
+        STRB     R0,[R5, #+98]
+        ADD      R0,R5,#+99
+          CFI FunCall __aeabi_memclr
+        BL       __aeabi_memclr
+        MOVS     R0,#+42
+        STRB     R0,[R5, #+99]
+        LDRB     R0,[SP, #+3]
+        STRB     R0,[R5, #+101]
+        LDRB     R0,[SP, #+2]
+        STRB     R0,[R5, #+102]
+        LDRB     R0,[SP, #+1]
+        STRB     R0,[R5, #+103]
+        LDRB     R0,[SP, #+0]
+        STRB     R0,[R5, #+104]
+        LDRB     R0,[SP, #+17]
+        STRB     R0,[R5, #+106]
+        LDRB     R0,[SP, #+16]
+        STR      R4,[R5, #+140]
+        STRB     R0,[R5, #+107]
+        MOVS     R0,#+1
+        STRB     R0,[R5, #+80]
+        MOVS     R0,#+2
+        STRB     R0,[R5, #+82]
+        MOVS     R0,#+1
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
+??USBH_MSC_SCSI_Write_1:
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        MOV      R0,R2
+        POP      {R4,R5,LR}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R14 SameValue
+          CFI CFA R13+0
+          CFI FunCall USBH_MSC_BOT_Process
+        B.W      USBH_MSC_BOT_Process
 //  372 }
           CFI EndBlock cfiBlock4
 //  373 
@@ -849,52 +886,35 @@ USBH_MSC_SCSI_Write:
 //  388                                      uint32_t length)
 //  389 {
 USBH_MSC_SCSI_Read:
-        PUSH     {R1,R2,R4-R6,LR}
+        PUSH     {R2,R4,R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+24
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+16
         MOV      R4,R3
         MOV      R2,R0
 //  390   USBH_StatusTypeDef    error = USBH_FAIL ;
         MOVS     R0,#+2
 //  391   MSC_HandleTypeDef *MSC_Handle = (MSC_HandleTypeDef *) phost->pActiveClass->pData;
         LDR      R3,[R2, #+612]
-        LDR      R3,[R3, #+28]
+        LDR      R5,[R3, #+28]
 //  392   
 //  393   switch(MSC_Handle->hbot.cmd_state)
-        ADD      R5,R3,#+80
-        LDRB     R6,[R5, #+2]
-        CMP      R6,#+1
+        LDRB     R3,[R5, #+82]
+        CMP      R3,#+1
         BEQ.N    ??USBH_MSC_SCSI_Read_0
-        CMP      R6,#+2
+        CMP      R3,#+2
         BEQ.N    ??USBH_MSC_SCSI_Read_1
-        POP      {R1,R2,R4-R6,PC}
 //  394   {
 //  395   case BOT_CMD_SEND:  
 //  396     
 //  397     /*Prepare the CBW and relevent field*/
 //  398     MSC_Handle->hbot.cbw.field.DataTransferLength = length * 512;
-??USBH_MSC_SCSI_Read_0:
-        LDR      R0,[SP, #+24]
 //  399     MSC_Handle->hbot.cbw.field.Flags = USB_EP_DIR_IN;
 //  400     MSC_Handle->hbot.cbw.field.CBLength = CBW_LENGTH;
 //  401     
 //  402     USBH_memset(MSC_Handle->hbot.cbw.field.CB, 0, CBW_CB_LENGTH);
-        MOVS     R1,#+16
-        LSLS     R0,R0,#+9
-        STR      R0,[R5, #+12]
-        MOVS     R0,#+128
-        STRB     R0,[R5, #+16]
-        MOVS     R0,#+10
-        STRB     R0,[R5, #+18]
-        ADD      R0,R3,#+99
-          CFI FunCall __aeabi_memclr
-        BL       __aeabi_memclr
 //  403     MSC_Handle->hbot.cbw.field.CB[0]  = OPCODE_READ10; 
-        MOVS     R0,#+40
-        B.N      ?Subroutine1
 //  404     
 //  405     /*logical block address*/
 //  406     MSC_Handle->hbot.cbw.field.CB[2]  = (((uint8_t*)&address)[3]);
@@ -916,8 +936,6 @@ USBH_MSC_SCSI_Read:
 //  422     
 //  423   case BOT_CMD_WAIT: 
 //  424     error = USBH_MSC_BOT_Process(phost, lun);
-??USBH_MSC_SCSI_Read_1:
-        B.N      ?Subroutine0
 //  425     break;
 //  426     
 //  427   default:
@@ -925,62 +943,59 @@ USBH_MSC_SCSI_Read:
 //  429   }
 //  430   
 //  431   return error;
-//  432 }
-          CFI EndBlock cfiBlock5
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock6 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+24
-          CFI R4 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine1:
-        STRB     R0,[R5, #+19]
-        LDRB     R0,[SP, #+7]
-        STRB     R0,[R5, #+21]
-        LDRB     R0,[SP, #+6]
-        STRB     R0,[R5, #+22]
-        LDRB     R0,[SP, #+5]
-        STRB     R0,[R5, #+23]
-        LDRB     R0,[SP, #+4]
-        STRB     R0,[R5, #+24]
-        LDRB     R0,[SP, #+25]
-        STRB     R0,[R5, #+26]
-        LDRB     R0,[SP, #+24]
-        STR      R4,[R5, #+60]
-        STRB     R0,[R5, #+27]
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
+??USBH_MSC_SCSI_Read_0:
+        LDR      R0,[SP, #+16]
+        MOVS     R1,#+16
+        LSLS     R0,R0,#+9
+        STR      R0,[R5, #+92]
+        MOVS     R0,#+128
+        STRB     R0,[R5, #+96]
+        MOVS     R0,#+10
+        STRB     R0,[R5, #+98]
+        ADD      R0,R5,#+99
+          CFI FunCall __aeabi_memclr
+        BL       __aeabi_memclr
+        MOVS     R0,#+40
+        STRB     R0,[R5, #+99]
+        LDRB     R0,[SP, #+3]
+        STRB     R0,[R5, #+101]
+        LDRB     R0,[SP, #+2]
+        STRB     R0,[R5, #+102]
+        LDRB     R0,[SP, #+1]
+        STRB     R0,[R5, #+103]
+        LDRB     R0,[SP, #+0]
+        STRB     R0,[R5, #+104]
+        LDRB     R0,[SP, #+17]
+        STRB     R0,[R5, #+106]
+        LDRB     R0,[SP, #+16]
+        STR      R4,[R5, #+140]
+        STRB     R0,[R5, #+107]
         MOVS     R0,#+1
-        STRB     R0,[R5, #+0]
+        STRB     R0,[R5, #+80]
         MOVS     R0,#+2
-        STRB     R0,[R5, #+2]
+        STRB     R0,[R5, #+82]
         MOVS     R0,#+1
-        POP      {R1,R2,R4-R6,PC}
-          CFI EndBlock cfiBlock6
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock7 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+24
-          CFI R4 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine0:
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
+??USBH_MSC_SCSI_Read_1:
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
         MOV      R0,R2
-        POP      {R2-R6,LR}
-          CFI CFA R13+0
+        POP      {R4,R5,LR}
           CFI R4 SameValue
           CFI R5 SameValue
-          CFI R6 SameValue
           CFI R14 SameValue
-          CFI FunCall USBH_MSC_SCSI_Write USBH_MSC_BOT_Process
-          CFI FunCall USBH_MSC_SCSI_Read USBH_MSC_BOT_Process
+          CFI CFA R13+0
+          CFI FunCall USBH_MSC_BOT_Process
         B.W      USBH_MSC_BOT_Process
-          CFI EndBlock cfiBlock7
+//  432 }
+          CFI EndBlock cfiBlock5
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -1021,9 +1036,9 @@ USBH_MSC_SCSI_Read:
 //  457 
 //  458 
 // 
-// 690 bytes in section .text
+// 890 bytes in section .text
 // 
-// 690 bytes of CODE memory
+// 890 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

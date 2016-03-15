@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       08/Mar/2016  16:10:20
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       15/Mar/2016  18:17:15
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7 --relaxed_fp
 #    List file    =  
@@ -159,52 +159,54 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
      96          USBD_StatusTypeDef USBD_Init(USBD_HandleTypeDef *pdev, USBD_DescriptorsTypeDef *pdesc, uint8_t id)
      97          {
    \                     USBD_Init: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
+   \   00000000   0xB500             PUSH     {LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
      98            /* Check whether the USB Host handle is valid */
      99            if(pdev == NULL)
-   \   00000002   0xB908             CBNZ.N   R0,??USBD_Init_0
+   \   00000004   0xB910             CBNZ.N   R0,??USBD_Init_0
     100            {
     101              USBD_ErrLog("Invalid Device handle");
     102              return USBD_FAIL; 
-   \   00000004   0x2002             MOVS     R0,#+2
-   \   00000006   0xBD10             POP      {R4,PC}
+   \   00000006   0x2002             MOVS     R0,#+2
+   \   00000008   0xB001             ADD      SP,SP,#+4
+   \   0000000A   0xBD00             POP      {PC}
     103            }
     104            
     105            /* Unlink previous class*/
     106            if(pdev->pClass != NULL)
    \                     ??USBD_Init_0: (+1)
-   \   00000008   0xF500 0x73FE      ADD      R3,R0,#+508
-   \   0000000C   0x699C             LDR      R4,[R3, #+24]
-   \   0000000E   0xB10C             CBZ.N    R4,??USBD_Init_1
+   \   0000000C   0xF8D0 0x3214      LDR      R3,[R0, #+532]
+   \   00000010   0xB113             CBZ.N    R3,??USBD_Init_1
     107            {
     108              pdev->pClass = NULL;
-   \   00000010   0x2400             MOVS     R4,#+0
-   \   00000012   0x619C             STR      R4,[R3, #+24]
+   \   00000012   0x2300             MOVS     R3,#+0
+   \   00000014   0xF8C0 0x3214      STR      R3,[R0, #+532]
     109            }
     110            
     111            /* Assign USBD Descriptors */
     112            if(pdesc != NULL)
    \                     ??USBD_Init_1: (+1)
-   \   00000014   0xB101             CBZ.N    R1,??USBD_Init_2
+   \   00000018   0xB109             CBZ.N    R1,??USBD_Init_2
     113            {
     114              pdev->pDesc = pdesc;
-   \   00000016   0x6159             STR      R1,[R3, #+20]
+   \   0000001A   0xF8C0 0x1210      STR      R1,[R0, #+528]
     115            }
     116            
     117            /* Set Device initial State */
     118            pdev->dev_state  = USBD_STATE_DEFAULT;
    \                     ??USBD_Init_2: (+1)
-   \   00000018   0x2101             MOVS     R1,#+1
-   \   0000001A   0x7019             STRB     R1,[R3, #+0]
+   \   0000001E   0x2101             MOVS     R1,#+1
+   \   00000020   0xF880 0x11FC      STRB     R1,[R0, #+508]
     119            pdev->id = id;
-   \   0000001C   0x7002             STRB     R2,[R0, #+0]
+   \   00000024   0x7002             STRB     R2,[R0, #+0]
     120            /* Initialize low level driver */
     121            USBD_LL_Init(pdev);
-   \   0000001E   0x.... 0x....      BL       USBD_LL_Init
+   \   00000026   0x.... 0x....      BL       USBD_LL_Init
     122            
     123            return USBD_OK; 
-   \   00000022   0x2000             MOVS     R0,#+0
-   \   00000024   0xBD10             POP      {R4,PC}          ;; return
+   \   0000002A   0x2000             MOVS     R0,#+0
+   \   0000002C   0xB001             ADD      SP,SP,#+4
+   \   0000002E   0xBD00             POP      {PC}             ;; return
     124          }
     125          
     126          /**
@@ -222,15 +224,14 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
    \   00000002   0x4604             MOV      R4,R0
     134            /* Set Default State */
     135            pdev->dev_state  = USBD_STATE_DEFAULT;
-   \   00000004   0xF504 0x72FE      ADD      R2,R4,#+508
-   \   00000008   0x2001             MOVS     R0,#+1
-   \   0000000A   0x7010             STRB     R0,[R2, #+0]
+   \   00000004   0x2001             MOVS     R0,#+1
+   \   00000006   0xF884 0x01FC      STRB     R0,[R4, #+508]
     136            
     137            /* Free Class Resources */
     138            pdev->pClass->DeInit(pdev, pdev->dev_config);  
-   \   0000000C   0x6992             LDR      R2,[R2, #+24]
-   \   0000000E   0x6861             LDR      R1,[R4, #+4]
-   \   00000010   0x4620             MOV      R0,R4
+   \   0000000A   0x4620             MOV      R0,R4
+   \   0000000C   0xF8D4 0x2214      LDR      R2,[R4, #+532]
+   \   00000010   0x6861             LDR      R1,[R4, #+4]
    \   00000012   0x6852             LDR      R2,[R2, #+4]
    \   00000014   0xB2C9             UXTB     R1,R1
    \   00000016   0x4790             BLX      R2
@@ -297,15 +298,17 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     181          USBD_StatusTypeDef  USBD_Start  (USBD_HandleTypeDef *pdev)
     182          {
    \                     USBD_Start: (+1)
-   \   00000000   0xB580             PUSH     {R7,LR}
+   \   00000000   0xB500             PUSH     {LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
     183            
     184            /* Start the low level driver  */
     185            USBD_LL_Start(pdev); 
-   \   00000002   0x.... 0x....      BL       USBD_LL_Start
+   \   00000004   0x.... 0x....      BL       USBD_LL_Start
     186            
     187            return USBD_OK;  
-   \   00000006   0x2000             MOVS     R0,#+0
-   \   00000008   0xBD02             POP      {R1,PC}          ;; return
+   \   00000008   0x2000             MOVS     R0,#+0
+   \   0000000A   0xB001             ADD      SP,SP,#+4
+   \   0000000C   0xBD00             POP      {PC}             ;; return
     188          }
     189          
     190          /**
@@ -405,20 +408,18 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     249          USBD_StatusTypeDef USBD_ClrClassConfig(USBD_HandleTypeDef  *pdev, uint8_t cfgidx)
     250          {
    \                     USBD_ClrClassConfig: (+1)
-   \   00000000   0xB580             PUSH     {R7,LR}
+   \   00000000   0xB500             PUSH     {LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
     251            /* Clear configuration  and De-initialize the Class process*/
     252            pdev->pClass->DeInit(pdev, cfgidx);  
-   \   00000002   0xF8D0 0x2214      LDR      R2,[R0, #+532]
-   \   00000006   0x....             B.N      ?Subroutine1
+   \   00000004   0xF8D0 0x2214      LDR      R2,[R0, #+532]
+   \   00000008   0x6852             LDR      R2,[R2, #+4]
+   \   0000000A   0x4790             BLX      R2
     253            return USBD_OK;
+   \   0000000C   0x2000             MOVS     R0,#+0
+   \   0000000E   0xB001             ADD      SP,SP,#+4
+   \   00000010   0xBD00             POP      {PC}             ;; return
     254          }
-
-   \                                 In section .text, align 2, keep-with-next
-   \                     ?Subroutine1: (+1)
-   \   00000000   0x6852             LDR      R2,[R2, #+4]
-   \   00000002   0x4790             BLX      R2
-   \   00000004   0x2000             MOVS     R0,#+0
-   \   00000006   0xBD02             POP      {R1,PC}          ;; return
     255          
     256          
     257          /**
@@ -432,70 +433,70 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     263          USBD_StatusTypeDef USBD_LL_SetupStage(USBD_HandleTypeDef *pdev, uint8_t *psetup)
     264          {
    \                     USBD_LL_SetupStage: (+1)
-   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000000   0xB510             PUSH     {R4,LR}
    \   00000002   0x4604             MOV      R4,R0
     265          
     266            USBD_ParseSetupRequest(&pdev->request, psetup);
-   \   00000004   0xF504 0x7502      ADD      R5,R4,#+520
-   \   00000008   0x4628             MOV      R0,R5
-   \   0000000A   0x.... 0x....      BL       USBD_ParseSetupRequest
+   \   00000004   0xF504 0x7002      ADD      R0,R4,#+520
+   \   00000008   0x.... 0x....      BL       USBD_ParseSetupRequest
     267            
     268            pdev->ep0_state = USBD_EP0_SETUP;
-   \   0000000E   0xF504 0x70FA      ADD      R0,R4,#+500
-   \   00000012   0x2101             MOVS     R1,#+1
-   \   00000014   0x6001             STR      R1,[R0, #+0]
+   \   0000000C   0x2001             MOVS     R0,#+1
+   \   0000000E   0xF8C4 0x01F4      STR      R0,[R4, #+500]
     269            pdev->ep0_data_len = pdev->request.wLength;
-   \   00000016   0x8B41             LDRH     R1,[R0, #+26]
-   \   00000018   0x6041             STR      R1,[R0, #+4]
+   \   00000012   0xF8B4 0x020E      LDRH     R0,[R4, #+526]
+   \   00000016   0xF8C4 0x01F8      STR      R0,[R4, #+504]
     270            
     271            switch (pdev->request.bmRequest & 0x1F) 
-   \   0000001A   0x7D00             LDRB     R0,[R0, #+20]
-   \   0000001C   0xF010 0x011F      ANDS     R1,R0,#0x1F
-   \   00000020   0xD003             BEQ.N    ??USBD_LL_SetupStage_0
-   \   00000022   0x2902             CMP      R1,#+2
-   \   00000024   0xD00B             BEQ.N    ??USBD_LL_SetupStage_1
-   \   00000026   0xD305             BCC.N    ??USBD_LL_SetupStage_2
-   \   00000028   0xE00E             B.N      ??USBD_LL_SetupStage_3
+   \   0000001A   0xF894 0x0208      LDRB     R0,[R4, #+520]
+   \   0000001E   0xF010 0x011F      ANDS     R1,R0,#0x1F
+   \   00000022   0xD003             BEQ.N    ??USBD_LL_SetupStage_0
+   \   00000024   0x2902             CMP      R1,#+2
+   \   00000026   0xD00F             BEQ.N    ??USBD_LL_SetupStage_1
+   \   00000028   0xD307             BCC.N    ??USBD_LL_SetupStage_2
+   \   0000002A   0xE014             B.N      ??USBD_LL_SetupStage_3
     272            {
     273            case USB_REQ_RECIPIENT_DEVICE:   
     274              USBD_StdDevReq (pdev, &pdev->request);
    \                     ??USBD_LL_SetupStage_0: (+1)
-   \   0000002A   0x4629             MOV      R1,R5
-   \   0000002C   0x4620             MOV      R0,R4
-   \   0000002E   0x.... 0x....      BL       USBD_StdDevReq
+   \   0000002C   0xF504 0x7102      ADD      R1,R4,#+520
+   \   00000030   0x4620             MOV      R0,R4
+   \   00000032   0x.... 0x....      BL       USBD_StdDevReq
     275              break;
-   \   00000032   0xE00E             B.N      ??USBD_LL_SetupStage_4
     276              
     277            case USB_REQ_RECIPIENT_INTERFACE:     
     278              USBD_StdItfReq(pdev, &pdev->request);
-   \                     ??USBD_LL_SetupStage_2: (+1)
-   \   00000034   0x4629             MOV      R1,R5
-   \   00000036   0x4620             MOV      R0,R4
-   \   00000038   0x.... 0x....      BL       USBD_StdItfReq
     279              break;
-   \   0000003C   0xE009             B.N      ??USBD_LL_SetupStage_4
     280              
     281            case USB_REQ_RECIPIENT_ENDPOINT:        
     282              USBD_StdEPReq(pdev, &pdev->request);   
-   \                     ??USBD_LL_SetupStage_1: (+1)
-   \   0000003E   0x4629             MOV      R1,R5
-   \   00000040   0x4620             MOV      R0,R4
-   \   00000042   0x.... 0x....      BL       USBD_StdEPReq
     283              break;
-   \   00000046   0xE004             B.N      ??USBD_LL_SetupStage_4
     284              
     285            default:           
     286              USBD_LL_StallEP(pdev , pdev->request.bmRequest & 0x80);
-   \                     ??USBD_LL_SetupStage_3: (+1)
-   \   00000048   0xF000 0x0180      AND      R1,R0,#0x80
-   \   0000004C   0x4620             MOV      R0,R4
-   \   0000004E   0x.... 0x....      BL       USBD_LL_StallEP
     287              break;
     288            }  
     289            return USBD_OK;  
-   \                     ??USBD_LL_SetupStage_4: (+1)
+   \   00000036   0x2000             MOVS     R0,#+0
+   \   00000038   0xBD10             POP      {R4,PC}
+   \                     ??USBD_LL_SetupStage_2: (+1)
+   \   0000003A   0xF504 0x7102      ADD      R1,R4,#+520
+   \   0000003E   0x4620             MOV      R0,R4
+   \   00000040   0x.... 0x....      BL       USBD_StdItfReq
+   \   00000044   0x2000             MOVS     R0,#+0
+   \   00000046   0xBD10             POP      {R4,PC}
+   \                     ??USBD_LL_SetupStage_1: (+1)
+   \   00000048   0xF504 0x7102      ADD      R1,R4,#+520
+   \   0000004C   0x4620             MOV      R0,R4
+   \   0000004E   0x.... 0x....      BL       USBD_StdEPReq
    \   00000052   0x2000             MOVS     R0,#+0
-   \   00000054   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+   \   00000054   0xBD10             POP      {R4,PC}
+   \                     ??USBD_LL_SetupStage_3: (+1)
+   \   00000056   0xF000 0x0180      AND      R1,R0,#0x80
+   \   0000005A   0x4620             MOV      R0,R4
+   \   0000005C   0x.... 0x....      BL       USBD_LL_StallEP
+   \   00000060   0x2000             MOVS     R0,#+0
+   \   00000062   0xBD10             POP      {R4,PC}          ;; return
     290          }
     291          
     292          /**
@@ -510,89 +511,90 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     299          USBD_StatusTypeDef USBD_LL_DataOutStage(USBD_HandleTypeDef *pdev , uint8_t epnum, uint8_t *pdata)
     300          {
    \                     USBD_LL_DataOutStage: (+1)
-   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000000   0xB510             PUSH     {R4,LR}
    \   00000002   0x4604             MOV      R4,R0
    \   00000004   0x4610             MOV      R0,R2
     301            USBD_EndpointTypeDef    *pep;
     302            
     303            if(epnum == 0) 
-   \   00000006   0xF504 0x73FA      ADD      R3,R4,#+500
-   \   0000000A   0xBB01             CBNZ.N   R1,??USBD_LL_DataOutStage_0
+   \   00000006   0xBB29             CBNZ.N   R1,??USBD_LL_DataOutStage_0
     304            {
     305              pep = &pdev->ep_out[0];
     306              
     307              if ( pdev->ep0_state == USBD_EP0_DATA_OUT)
-   \   0000000C   0x681A             LDR      R2,[R3, #+0]
-   \   0000000E   0xF504 0x7182      ADD      R1,R4,#+260
-   \   00000012   0x2A03             CMP      R2,#+3
-   \   00000014   0xD124             BNE.N    ??USBD_LL_DataOutStage_1
+   \   00000008   0xF8D4 0x21F4      LDR      R2,[R4, #+500]
+   \   0000000C   0xF504 0x7182      ADD      R1,R4,#+260
+   \   00000010   0x2A03             CMP      R2,#+3
+   \   00000012   0xD12A             BNE.N    ??USBD_LL_DataOutStage_1
     308              {
     309                if(pep->rem_length > pep->maxpacket)
-   \   00000016   0x688D             LDR      R5,[R1, #+8]
-   \   00000018   0x68CA             LDR      R2,[R1, #+12]
-   \   0000001A   0x42AA             CMP      R2,R5
-   \   0000001C   0xD20A             BCS.N    ??USBD_LL_DataOutStage_2
+   \   00000014   0x688B             LDR      R3,[R1, #+8]
+   \   00000016   0x68CA             LDR      R2,[R1, #+12]
+   \   00000018   0x429A             CMP      R2,R3
+   \   0000001A   0xD20B             BCS.N    ??USBD_LL_DataOutStage_2
     310                {
     311                  pep->rem_length -=  pep->maxpacket;
-   \   0000001E   0x1AAB             SUBS     R3,R5,R2
+   \   0000001C   0x1A9B             SUBS     R3,R3,R2
     312                 
     313                  USBD_CtlContinueRx (pdev, 
     314                                      pdata,
     315                                      MIN(pep->rem_length ,pep->maxpacket));
-   \   00000020   0x4293             CMP      R3,R2
-   \   00000022   0x608B             STR      R3,[R1, #+8]
-   \   00000024   0x4601             MOV      R1,R0
-   \   00000026   0x4620             MOV      R0,R4
-   \   00000028   0xBF38             IT       CC 
-   \   0000002A   0x461A             MOVCC    R2,R3
-   \   0000002C   0xB292             UXTH     R2,R2
-   \   0000002E   0x.... 0x....      BL       USBD_CtlContinueRx
-   \   00000032   0xE015             B.N      ??USBD_LL_DataOutStage_1
+   \   0000001E   0x4293             CMP      R3,R2
+   \   00000020   0x608B             STR      R3,[R1, #+8]
+   \   00000022   0x4601             MOV      R1,R0
+   \   00000024   0x4620             MOV      R0,R4
+   \   00000026   0xBF38             IT       CC 
+   \   00000028   0x461A             MOVCC    R2,R3
+   \   0000002A   0xB292             UXTH     R2,R2
+   \   0000002C   0x.... 0x....      BL       USBD_CtlContinueRx
     316                }
     317                else
     318                {
     319                  if((pdev->pClass->EP0_RxReady != NULL)&&
     320                     (pdev->dev_state == USBD_STATE_CONFIGURED))
-   \                     ??USBD_LL_DataOutStage_2: (+1)
-   \   00000034   0x6A18             LDR      R0,[R3, #+32]
-   \   00000036   0x6901             LDR      R1,[R0, #+16]
-   \   00000038   0x0008             MOVS     R0,R1
-   \   0000003A   0xD004             BEQ.N    ??USBD_LL_DataOutStage_3
-   \   0000003C   0x7A18             LDRB     R0,[R3, #+8]
-   \   0000003E   0x2803             CMP      R0,#+3
-   \   00000040   0xBF04             ITT      EQ 
     321                  {
     322                    pdev->pClass->EP0_RxReady(pdev); 
-   \   00000042   0x4620             MOVEQ    R0,R4
-   \   00000044   0x4788             BLXEQ    R1
     323                  }
     324                  USBD_CtlSendStatus(pdev);
-   \                     ??USBD_LL_DataOutStage_3: (+1)
-   \   00000046   0x4620             MOV      R0,R4
-   \   00000048   0x.... 0x....      BL       USBD_CtlSendStatus
-   \   0000004C   0xE008             B.N      ??USBD_LL_DataOutStage_1
     325                }
     326              }
     327            }
     328            else if((pdev->pClass->DataOut != NULL)&&
     329                    (pdev->dev_state == USBD_STATE_CONFIGURED))
-   \                     ??USBD_LL_DataOutStage_0: (+1)
-   \   0000004E   0x6A18             LDR      R0,[R3, #+32]
-   \   00000050   0x6982             LDR      R2,[R0, #+24]
-   \   00000052   0x0010             MOVS     R0,R2
-   \   00000054   0xD004             BEQ.N    ??USBD_LL_DataOutStage_1
-   \   00000056   0x7A18             LDRB     R0,[R3, #+8]
-   \   00000058   0x2803             CMP      R0,#+3
-   \   0000005A   0xBF04             ITT      EQ 
     330            {
     331              pdev->pClass->DataOut(pdev, epnum); 
-   \   0000005C   0x4620             MOVEQ    R0,R4
-   \   0000005E   0x4790             BLXEQ    R2
     332            }  
     333            return USBD_OK;
+   \   00000030   0x2000             MOVS     R0,#+0
+   \   00000032   0xBD10             POP      {R4,PC}
+   \                     ??USBD_LL_DataOutStage_2: (+1)
+   \   00000034   0xF8D4 0x0214      LDR      R0,[R4, #+532]
+   \   00000038   0x6901             LDR      R1,[R0, #+16]
+   \   0000003A   0x0008             MOVS     R0,R1
+   \   0000003C   0xD005             BEQ.N    ??USBD_LL_DataOutStage_3
+   \   0000003E   0xF894 0x01FC      LDRB     R0,[R4, #+508]
+   \   00000042   0x2803             CMP      R0,#+3
+   \   00000044   0xBF04             ITT      EQ 
+   \   00000046   0x4620             MOVEQ    R0,R4
+   \   00000048   0x4788             BLXEQ    R1
+   \                     ??USBD_LL_DataOutStage_3: (+1)
+   \   0000004A   0x4620             MOV      R0,R4
+   \   0000004C   0x.... 0x....      BL       USBD_CtlSendStatus
+   \   00000050   0x2000             MOVS     R0,#+0
+   \   00000052   0xBD10             POP      {R4,PC}
+   \                     ??USBD_LL_DataOutStage_0: (+1)
+   \   00000054   0xF8D4 0x0214      LDR      R0,[R4, #+532]
+   \   00000058   0x6982             LDR      R2,[R0, #+24]
+   \   0000005A   0x0010             MOVS     R0,R2
+   \   0000005C   0xD005             BEQ.N    ??USBD_LL_DataOutStage_1
+   \   0000005E   0xF894 0x01FC      LDRB     R0,[R4, #+508]
+   \   00000062   0x2803             CMP      R0,#+3
+   \   00000064   0xBF04             ITT      EQ 
+   \   00000066   0x4620             MOVEQ    R0,R4
+   \   00000068   0x4790             BLXEQ    R2
    \                     ??USBD_LL_DataOutStage_1: (+1)
-   \   00000060   0x2000             MOVS     R0,#+0
-   \   00000062   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+   \   0000006A   0x2000             MOVS     R0,#+0
+   \   0000006C   0xBD10             POP      {R4,PC}          ;; return
     334          }
     335          
     336          /**
@@ -607,51 +609,50 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     343          USBD_StatusTypeDef USBD_LL_DataInStage(USBD_HandleTypeDef *pdev ,uint8_t epnum, uint8_t *pdata)
     344          {
    \                     USBD_LL_DataInStage: (+1)
-   \   00000000   0xB538             PUSH     {R3-R5,LR}
+   \   00000000   0xB510             PUSH     {R4,LR}
     345            USBD_EndpointTypeDef    *pep;
     346              
     347            if(epnum == 0) 
    \   00000002   0x2900             CMP      R1,#+0
-   \   00000004   0x4605             MOV      R5,R0
+   \   00000004   0x4604             MOV      R4,R0
    \   00000006   0x4610             MOV      R0,R2
-   \   00000008   0xF505 0x74FA      ADD      R4,R5,#+500
-   \   0000000C   0xD13E             BNE.N    ??USBD_LL_DataInStage_0
+   \   00000008   0xD146             BNE.N    ??USBD_LL_DataInStage_0
     348            {
     349              pep = &pdev->ep_in[0];
     350              
     351              if ( pdev->ep0_state == USBD_EP0_DATA_IN)
-   \   0000000E   0x6822             LDR      R2,[R4, #+0]
-   \   00000010   0xF105 0x0114      ADD      R1,R5,#+20
-   \   00000014   0x2A02             CMP      R2,#+2
-   \   00000016   0xD133             BNE.N    ??USBD_LL_DataInStage_1
+   \   0000000A   0xF8D4 0x21F4      LDR      R2,[R4, #+500]
+   \   0000000E   0xF104 0x0114      ADD      R1,R4,#+20
+   \   00000012   0x2A02             CMP      R2,#+2
+   \   00000014   0xD137             BNE.N    ??USBD_LL_DataInStage_1
     352              {
     353                if(pep->rem_length > pep->maxpacket)
-   \   00000018   0x688A             LDR      R2,[R1, #+8]
-   \   0000001A   0x68CB             LDR      R3,[R1, #+12]
-   \   0000001C   0x4293             CMP      R3,R2
-   \   0000001E   0xD20A             BCS.N    ??USBD_LL_DataInStage_2
+   \   00000016   0x688A             LDR      R2,[R1, #+8]
+   \   00000018   0x68CB             LDR      R3,[R1, #+12]
+   \   0000001A   0x4293             CMP      R3,R2
+   \   0000001C   0xD20A             BCS.N    ??USBD_LL_DataInStage_2
     354                {
     355                  pep->rem_length -=  pep->maxpacket;
-   \   00000020   0x1AD2             SUBS     R2,R2,R3
-   \   00000022   0x608A             STR      R2,[R1, #+8]
+   \   0000001E   0x1AD2             SUBS     R2,R2,R3
+   \   00000020   0x608A             STR      R2,[R1, #+8]
     356                  
     357                  USBD_CtlContinueSendData (pdev, 
     358                                            pdata, 
     359                                            pep->rem_length);
-   \   00000024   0x4601             MOV      R1,R0
-   \   00000026   0xB292             UXTH     R2,R2
-   \   00000028   0x4628             MOV      R0,R5
-   \   0000002A   0x.... 0x....      BL       USBD_CtlContinueSendData
+   \   00000022   0x4601             MOV      R1,R0
+   \   00000024   0xB292             UXTH     R2,R2
+   \   00000026   0x4620             MOV      R0,R4
+   \   00000028   0x.... 0x....      BL       USBD_CtlContinueSendData
     360                  
     361                  /* Prepare endpoint for premature end of transfer */
     362                  USBD_LL_PrepareReceive (pdev,
     363                                          0,
     364                                          NULL,
     365                                          0);  
-   \   0000002E   0x2300             MOVS     R3,#+0
-   \   00000030   0x2200             MOVS     R2,#+0
-   \   00000032   0x2100             MOVS     R1,#+0
-   \   00000034   0xE014             B.N      ??USBD_LL_DataInStage_3
+   \   0000002C   0x2300             MOVS     R3,#+0
+   \   0000002E   0x2200             MOVS     R2,#+0
+   \   00000030   0x2100             MOVS     R1,#+0
+   \   00000032   0xE016             B.N      ??USBD_LL_DataInStage_3
     366                }
     367                else
     368                { /* last packet is MPS multiple, so send ZLP packet */
@@ -659,21 +660,21 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     370                     (pep->total_length >= pep->maxpacket) &&
     371                       (pep->total_length < pdev->ep0_data_len ))
    \                     ??USBD_LL_DataInStage_2: (+1)
-   \   00000036   0x6848             LDR      R0,[R1, #+4]
-   \   00000038   0xFBB0 0xF1F3      UDIV     R1,R0,R3
-   \   0000003C   0xFB03 0x0111      MLS      R1,R3,R1,R0
-   \   00000040   0xB991             CBNZ.N   R1,??USBD_LL_DataInStage_4
-   \   00000042   0x4298             CMP      R0,R3
-   \   00000044   0xD310             BCC.N    ??USBD_LL_DataInStage_4
-   \   00000046   0x6861             LDR      R1,[R4, #+4]
+   \   00000034   0x6848             LDR      R0,[R1, #+4]
+   \   00000036   0xFBB0 0xF1F3      UDIV     R1,R0,R3
+   \   0000003A   0xFB03 0x0111      MLS      R1,R3,R1,R0
+   \   0000003E   0xB9A1             CBNZ.N   R1,??USBD_LL_DataInStage_4
+   \   00000040   0x4298             CMP      R0,R3
+   \   00000042   0xD312             BCC.N    ??USBD_LL_DataInStage_4
+   \   00000044   0xF8D4 0x11F8      LDR      R1,[R4, #+504]
    \   00000048   0x4288             CMP      R0,R1
-   \   0000004A   0xD20D             BCS.N    ??USBD_LL_DataInStage_4
+   \   0000004A   0xD20E             BCS.N    ??USBD_LL_DataInStage_4
     372                  {
     373                    
     374                    USBD_CtlContinueSendData(pdev , NULL, 0);
    \   0000004C   0x2200             MOVS     R2,#+0
    \   0000004E   0x2100             MOVS     R1,#+0
-   \   00000050   0x4628             MOV      R0,R5
+   \   00000050   0x4620             MOV      R0,R4
    \   00000052   0x.... 0x....      BL       USBD_CtlContinueSendData
     375                    pdev->ep0_data_len = 0;
    \   00000056   0x2000             MOVS     R0,#+0
@@ -684,70 +685,71 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     380                                          NULL,
     381                                          0);
    \   00000058   0x2300             MOVS     R3,#+0
-   \   0000005A   0x6060             STR      R0,[R4, #+4]
-   \   0000005C   0x2200             MOVS     R2,#+0
-   \   0000005E   0x2100             MOVS     R1,#+0
+   \   0000005A   0xF8C4 0x01F8      STR      R0,[R4, #+504]
+   \   0000005E   0x2200             MOVS     R2,#+0
+   \   00000060   0x2100             MOVS     R1,#+0
    \                     ??USBD_LL_DataInStage_3: (+1)
-   \   00000060   0x4628             MOV      R0,R5
-   \   00000062   0x.... 0x....      BL       USBD_LL_PrepareReceive
-   \   00000066   0xE00B             B.N      ??USBD_LL_DataInStage_1
+   \   00000062   0x4620             MOV      R0,R4
+   \   00000064   0x.... 0x....      BL       USBD_LL_PrepareReceive
+   \   00000068   0xE00D             B.N      ??USBD_LL_DataInStage_1
     382                  }
     383                  else
     384                  {
     385                    if((pdev->pClass->EP0_TxSent != NULL)&&
     386                       (pdev->dev_state == USBD_STATE_CONFIGURED))
    \                     ??USBD_LL_DataInStage_4: (+1)
-   \   00000068   0x6A20             LDR      R0,[R4, #+32]
-   \   0000006A   0x68C1             LDR      R1,[R0, #+12]
-   \   0000006C   0x0008             MOVS     R0,R1
-   \   0000006E   0xD004             BEQ.N    ??USBD_LL_DataInStage_5
-   \   00000070   0x7A20             LDRB     R0,[R4, #+8]
-   \   00000072   0x2803             CMP      R0,#+3
-   \   00000074   0xBF04             ITT      EQ 
+   \   0000006A   0xF8D4 0x0214      LDR      R0,[R4, #+532]
+   \   0000006E   0x68C1             LDR      R1,[R0, #+12]
+   \   00000070   0x0008             MOVS     R0,R1
+   \   00000072   0xD005             BEQ.N    ??USBD_LL_DataInStage_5
+   \   00000074   0xF894 0x01FC      LDRB     R0,[R4, #+508]
+   \   00000078   0x2803             CMP      R0,#+3
+   \   0000007A   0xBF04             ITT      EQ 
     387                    {
     388                      pdev->pClass->EP0_TxSent(pdev); 
-   \   00000076   0x4628             MOVEQ    R0,R5
-   \   00000078   0x4788             BLXEQ    R1
+   \   0000007C   0x4620             MOVEQ    R0,R4
+   \   0000007E   0x4788             BLXEQ    R1
     389                    }          
     390                    USBD_CtlReceiveStatus(pdev);
    \                     ??USBD_LL_DataInStage_5: (+1)
-   \   0000007A   0x4628             MOV      R0,R5
-   \   0000007C   0x.... 0x....      BL       USBD_CtlReceiveStatus
+   \   00000080   0x4620             MOV      R0,R4
+   \   00000082   0x.... 0x....      BL       USBD_CtlReceiveStatus
     391                  }
     392                }
     393              }
     394              if (pdev->dev_test_mode == 1)
    \                     ??USBD_LL_DataInStage_1: (+1)
-   \   00000080   0x7B20             LDRB     R0,[R4, #+12]
-   \   00000082   0x2801             CMP      R0,#+1
-   \   00000084   0xD10B             BNE.N    ??USBD_LL_DataInStage_6
+   \   00000086   0xF894 0x0200      LDRB     R0,[R4, #+512]
+   \   0000008A   0x2801             CMP      R0,#+1
+   \   0000008C   0xD10F             BNE.N    ??USBD_LL_DataInStage_6
     395              {
     396                USBD_RunTestMode(pdev); 
     397                pdev->dev_test_mode = 0;
-   \   00000086   0x2000             MOVS     R0,#+0
-   \   00000088   0x7320             STRB     R0,[R4, #+12]
-   \   0000008A   0xE008             B.N      ??USBD_LL_DataInStage_6
+   \   0000008E   0x2000             MOVS     R0,#+0
+   \   00000090   0xF884 0x0200      STRB     R0,[R4, #+512]
     398              }
     399            }
     400            else if((pdev->pClass->DataIn != NULL)&& 
     401                    (pdev->dev_state == USBD_STATE_CONFIGURED))
-   \                     ??USBD_LL_DataInStage_0: (+1)
-   \   0000008C   0x6A20             LDR      R0,[R4, #+32]
-   \   0000008E   0x6942             LDR      R2,[R0, #+20]
-   \   00000090   0x0010             MOVS     R0,R2
-   \   00000092   0xD004             BEQ.N    ??USBD_LL_DataInStage_6
-   \   00000094   0x7A20             LDRB     R0,[R4, #+8]
-   \   00000096   0x2803             CMP      R0,#+3
-   \   00000098   0xBF04             ITT      EQ 
     402            {
     403              pdev->pClass->DataIn(pdev, epnum); 
-   \   0000009A   0x4628             MOVEQ    R0,R5
-   \   0000009C   0x4790             BLXEQ    R2
     404            }  
     405            return USBD_OK;
+   \   00000094   0x2000             MOVS     R0,#+0
+   \   00000096   0xBD10             POP      {R4,PC}
+   \                     ??USBD_LL_DataInStage_0: (+1)
+   \   00000098   0xF8D4 0x0214      LDR      R0,[R4, #+532]
+   \   0000009C   0x6942             LDR      R2,[R0, #+20]
+   \   0000009E   0x0010             MOVS     R0,R2
+   \   000000A0   0xD005             BEQ.N    ??USBD_LL_DataInStage_6
+   \   000000A2   0xF894 0x01FC      LDRB     R0,[R4, #+508]
+   \   000000A6   0x2803             CMP      R0,#+3
+   \   000000A8   0xBF04             ITT      EQ 
+   \   000000AA   0x4620             MOVEQ    R0,R4
+   \   000000AC   0x4790             BLXEQ    R2
    \                     ??USBD_LL_DataInStage_6: (+1)
-   \   0000009E   0x2000             MOVS     R0,#+0
-   \   000000A0   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+   \   000000AE   0x2000             MOVS     R0,#+0
+   \   000000B0   0xBD10             POP      {R4,PC}          ;; return
     406          }
     407          
     408          /**
@@ -790,21 +792,19 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
    \   0000001C   0x.... 0x....      BL       USBD_LL_OpenEP
     430            
     431            pdev->ep_in[0].maxpacket = USB_MAX_EP0_SIZE;
-   \   00000020   0x1D20             ADDS     R0,R4,#+4
-   \   00000022   0x2140             MOVS     R1,#+64
-   \   00000024   0x61C1             STR      R1,[R0, #+28]
+   \   00000020   0x2040             MOVS     R0,#+64
+   \   00000022   0x6220             STR      R0,[R4, #+32]
     432            /* Upon Reset call user call back */
     433            pdev->dev_state = USBD_STATE_DEFAULT;
-   \   00000026   0xF504 0x72FE      ADD      R2,R4,#+508
-   \   0000002A   0x2101             MOVS     R1,#+1
-   \   0000002C   0x7011             STRB     R1,[R2, #+0]
+   \   00000024   0x2001             MOVS     R0,#+1
+   \   00000026   0xF884 0x01FC      STRB     R0,[R4, #+508]
     434            
     435            if (pdev->pClassData) 
-   \   0000002E   0x69D1             LDR      R1,[R2, #+28]
-   \   00000030   0xB129             CBZ.N    R1,??USBD_LL_Reset_0
+   \   0000002A   0xF8D4 0x0218      LDR      R0,[R4, #+536]
+   \   0000002E   0xB130             CBZ.N    R0,??USBD_LL_Reset_0
     436              pdev->pClass->DeInit(pdev, pdev->dev_config);  
-   \   00000032   0x6992             LDR      R2,[R2, #+24]
-   \   00000034   0x6801             LDR      R1,[R0, #+0]
+   \   00000030   0xF8D4 0x2214      LDR      R2,[R4, #+532]
+   \   00000034   0x6861             LDR      R1,[R4, #+4]
    \   00000036   0x4620             MOV      R0,R4
    \   00000038   0xB2C9             UXTB     R1,R1
    \   0000003A   0x6852             LDR      R2,[R2, #+4]
@@ -851,20 +851,15 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     465          {
     466            pdev->dev_old_state =  pdev->dev_state;
    \                     USBD_LL_Suspend: (+1)
-   \   00000000   0xF500 0x70FE      ADD      R0,R0,#+508
-   \   00000004   0x7801             LDRB     R1,[R0, #+0]
-   \   00000006   0x7041             STRB     R1,[R0, #+1]
+   \   00000000   0xF890 0x11FC      LDRB     R1,[R0, #+508]
+   \   00000004   0xF880 0x11FD      STRB     R1,[R0, #+509]
     467            pdev->dev_state  = USBD_STATE_SUSPENDED;
    \   00000008   0x2104             MOVS     R1,#+4
-   \   0000000A   0x....             B.N      ?Subroutine0
+   \   0000000A   0xF880 0x11FC      STRB     R1,[R0, #+508]
     468            return USBD_OK;
+   \   0000000E   0x2000             MOVS     R0,#+0
+   \   00000010   0x4770             BX       LR               ;; return
     469          }
-
-   \                                 In section .text, align 2, keep-with-next
-   \                     ?Subroutine0: (+1)
-   \   00000000   0x7001             STRB     R1,[R0, #+0]
-   \   00000002   0x2000             MOVS     R0,#+0
-   \   00000004   0x4770             BX       LR               ;; return
     470          
     471          /**
     472          * @brief  USBD_Resume 
@@ -879,11 +874,11 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     479          {
     480            pdev->dev_state = pdev->dev_old_state;  
    \                     USBD_LL_Resume: (+1)
-   \   00000000   0xF500 0x70FE      ADD      R0,R0,#+508
-   \   00000004   0x7841             LDRB     R1,[R0, #+1]
-   \   00000006                      REQUIRE ?Subroutine0
-   \   00000006                      ;; // Fall through to label ?Subroutine0
+   \   00000000   0xF890 0x11FD      LDRB     R1,[R0, #+509]
+   \   00000004   0xF880 0x11FC      STRB     R1,[R0, #+508]
     481            return USBD_OK;
+   \   00000008   0x2000             MOVS     R0,#+0
+   \   0000000A   0x4770             BX       LR               ;; return
     482          }
     483          
     484          /**
@@ -897,28 +892,29 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
    \                                 In section .text, align 2, keep-with-next
     491          USBD_StatusTypeDef USBD_LL_SOF(USBD_HandleTypeDef  *pdev)
     492          {
-    493            if(pdev->dev_state == USBD_STATE_CONFIGURED)
    \                     USBD_LL_SOF: (+1)
-   \   00000000   0xF500 0x71FE      ADD      R1,R0,#+508
-   \   00000004   0xB580             PUSH     {R7,LR}
-   \   00000006   0x780A             LDRB     R2,[R1, #+0]
-   \   00000008   0x2A03             CMP      R2,#+3
-   \   0000000A   0xD104             BNE.N    ??USBD_LL_SOF_0
-   \   0000000C   0x6989             LDR      R1,[R1, #+24]
-   \   0000000E   0x69C9             LDR      R1,[R1, #+28]
-   \   00000010   0x000A             MOVS     R2,R1
-   \   00000012   0xBF18             IT       NE 
+   \   00000000   0xB500             PUSH     {LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
+    493            if(pdev->dev_state == USBD_STATE_CONFIGURED)
+   \   00000004   0xF890 0x11FC      LDRB     R1,[R0, #+508]
+   \   00000008   0x2903             CMP      R1,#+3
+   \   0000000A   0xD105             BNE.N    ??USBD_LL_SOF_0
+   \   0000000C   0xF8D0 0x1214      LDR      R1,[R0, #+532]
+   \   00000010   0x69C9             LDR      R1,[R1, #+28]
+   \   00000012   0x000A             MOVS     R2,R1
+   \   00000014   0xBF18             IT       NE 
     494            {
     495              if(pdev->pClass->SOF != NULL)
     496              {
     497                pdev->pClass->SOF(pdev);
-   \   00000014   0x4788             BLXNE    R1
+   \   00000016   0x4788             BLXNE    R1
     498              }
     499            }
     500            return USBD_OK;
    \                     ??USBD_LL_SOF_0: (+1)
-   \   00000016   0x2000             MOVS     R0,#+0
-   \   00000018   0xBD02             POP      {R1,PC}          ;; return
+   \   00000018   0x2000             MOVS     R0,#+0
+   \   0000001A   0xB001             ADD      SP,SP,#+4
+   \   0000001C   0xBD00             POP      {PC}             ;; return
     501          }
     502          
     503          /**
@@ -980,20 +976,23 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
     542          USBD_StatusTypeDef USBD_LL_DevDisconnected(USBD_HandleTypeDef  *pdev)
     543          {
    \                     USBD_LL_DevDisconnected: (+1)
-   \   00000000   0xB580             PUSH     {R7,LR}
+   \   00000000   0xB500             PUSH     {LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
     544            /* Free Class Resources */
     545            pdev->dev_state = USBD_STATE_DEFAULT;
-   \   00000002   0xF500 0x72FE      ADD      R2,R0,#+508
-   \   00000006   0x2101             MOVS     R1,#+1
-   \   00000008   0x7011             STRB     R1,[R2, #+0]
+   \   00000004   0x2101             MOVS     R1,#+1
     546            pdev->pClass->DeInit(pdev, pdev->dev_config);  
-   \   0000000A   0x6841             LDR      R1,[R0, #+4]
-   \   0000000C   0x6992             LDR      R2,[R2, #+24]
-   \   0000000E   0xB2C9             UXTB     R1,R1
-   \   00000010                      REQUIRE ?Subroutine1
-   \   00000010                      ;; // Fall through to label ?Subroutine1
+   \   00000006   0xF8D0 0x2214      LDR      R2,[R0, #+532]
+   \   0000000A   0xF880 0x11FC      STRB     R1,[R0, #+508]
+   \   0000000E   0x6841             LDR      R1,[R0, #+4]
+   \   00000010   0x6852             LDR      R2,[R2, #+4]
+   \   00000012   0xB2C9             UXTB     R1,R1
+   \   00000014   0x4790             BLX      R2
     547             
     548            return USBD_OK;
+   \   00000016   0x2000             MOVS     R0,#+0
+   \   00000018   0xB001             ADD      SP,SP,#+4
+   \   0000001A   0xBD00             POP      {PC}             ;; return
     549          }
     550          /**
     551          * @}
@@ -1024,15 +1023,15 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
          8   -> USBD_LL_Stop
        8   USBD_Init
          8   -> USBD_LL_Init
-      16   USBD_LL_DataInStage
-        16   -- Indirect call
-        16   -> USBD_CtlContinueSendData
-        16   -> USBD_CtlReceiveStatus
-        16   -> USBD_LL_PrepareReceive
-      16   USBD_LL_DataOutStage
-        16   -- Indirect call
-        16   -> USBD_CtlContinueRx
-        16   -> USBD_CtlSendStatus
+       8   USBD_LL_DataInStage
+         8   -- Indirect call
+         8   -> USBD_CtlContinueSendData
+         8   -> USBD_CtlReceiveStatus
+         8   -> USBD_LL_PrepareReceive
+       8   USBD_LL_DataOutStage
+         8   -- Indirect call
+         8   -> USBD_CtlContinueRx
+         8   -> USBD_CtlSendStatus
        0   USBD_LL_DevConnected
        8   USBD_LL_DevDisconnected
          8   -- Indirect call
@@ -1045,12 +1044,12 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
        8   USBD_LL_SOF
          8   -- Indirect call
        0   USBD_LL_SetSpeed
-      16   USBD_LL_SetupStage
-        16   -> USBD_LL_StallEP
-        16   -> USBD_ParseSetupRequest
-        16   -> USBD_StdDevReq
-        16   -> USBD_StdEPReq
-        16   -> USBD_StdItfReq
+       8   USBD_LL_SetupStage
+         8   -> USBD_LL_StallEP
+         8   -> USBD_ParseSetupRequest
+         8   -> USBD_StdDevReq
+         8   -> USBD_StdEPReq
+         8   -> USBD_StdItfReq
        0   USBD_LL_Suspend
        0   USBD_RegisterClass
        0   USBD_RunTestMode
@@ -1067,33 +1066,31 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
 
    Bytes  Function/Label
    -----  --------------
-       6  ?Subroutine0
-       8  ?Subroutine1
-       8  USBD_ClrClassConfig
+      18  USBD_ClrClassConfig
       40  USBD_DeInit
-      38  USBD_Init
-     162  USBD_LL_DataInStage
-     100  USBD_LL_DataOutStage
+      48  USBD_Init
+     178  USBD_LL_DataInStage
+     110  USBD_LL_DataOutStage
        4  USBD_LL_DevConnected
-      16  USBD_LL_DevDisconnected
+      28  USBD_LL_DevDisconnected
        4  USBD_LL_IsoINIncomplete
        4  USBD_LL_IsoOUTIncomplete
       66  USBD_LL_Reset
-       6  USBD_LL_Resume
-      26  USBD_LL_SOF
+      12  USBD_LL_Resume
+      30  USBD_LL_SOF
        6  USBD_LL_SetSpeed
-      86  USBD_LL_SetupStage
-      12  USBD_LL_Suspend
+     100  USBD_LL_SetupStage
+      18  USBD_LL_Suspend
       16  USBD_RegisterClass
        4  USBD_RunTestMode
       22  USBD_SetClassConfig
-      10  USBD_Start
+      14  USBD_Start
       26  USBD_Stop
 
  
- 670 bytes in section .text
+ 748 bytes in section .text
  
- 670 bytes of CODE memory
+ 748 bytes of CODE memory
 
 Errors: none
 Warnings: none

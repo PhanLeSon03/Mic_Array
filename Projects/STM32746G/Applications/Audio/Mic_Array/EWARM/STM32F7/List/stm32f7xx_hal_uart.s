@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      08/Mar/2016  16:10:19
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      15/Mar/2016  18:17:14
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -387,11 +387,10 @@
 //  227 HAL_StatusTypeDef HAL_UART_Init(UART_HandleTypeDef *huart)
 //  228 {
 HAL_UART_Init:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
         MOVS     R4,R0
 //  229   /* Check the UART handle allocation */
 //  230   if(huart == NULL)
@@ -412,13 +411,12 @@ HAL_UART_Init:
 //  244   }
 //  245   
 //  246   if(huart->State == HAL_UART_STATE_RESET)
-        ADD      R5,R4,#+104
-        LDRB     R0,[R5, #+1]
+        LDRB     R0,[R4, #+105]
         CBNZ.N   R0,??HAL_UART_Init_1
 //  247   {
 //  248     /* Allocate lock resource and initialize it */
 //  249     huart->Lock = HAL_UNLOCKED;
-        STRB     R0,[R5, #+0]
+        STRB     R0,[R4, #+104]
 //  250 
 //  251     /* Init the low level hardware : GPIO, CLOCK */
 //  252     HAL_UART_MspInit(huart);
@@ -430,7 +428,7 @@ HAL_UART_Init:
 //  255   huart->State = HAL_UART_STATE_BUSY;
 ??HAL_UART_Init_1:
         MOVS     R0,#+2
-        STRB     R0,[R5, #+1]
+        STRB     R0,[R4, #+105]
 //  256 
 //  257   /* Disable the Peripheral */
 //  258   __HAL_UART_DISABLE(huart);
@@ -451,7 +449,7 @@ HAL_UART_Init:
 //  263     return HAL_ERROR;
 ??HAL_UART_Init_0:
         MOVS     R0,#+1
-        POP      {R1,R4,R5,PC}
+        POP      {R4,PC}
 //  264   }
 //  265 
 //  266   if (huart->AdvancedInit.AdvFeatureInit != UART_ADVFEATURE_NO_INIT)
@@ -478,13 +476,24 @@ HAL_UART_Init:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+8]
         BIC      R1,R1,#0x2A
-        B.N      ?Subroutine0
+        STR      R1,[R0, #+8]
 //  276 
 //  277   /* Enable the Peripheral */
 //  278   __HAL_UART_ENABLE(huart);
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x1
+        STR      R1,[R0, #+0]
 //  279 
 //  280   /* TEACK and/or REACK to check before moving huart->State to Ready */
 //  281   return (UART_CheckIdleState(huart));
+        MOV      R0,R4
+        POP      {R4,LR}
+          CFI R4 SameValue
+          CFI R14 SameValue
+          CFI CFA R13+0
+          CFI FunCall UART_CheckIdleState
+        B.W      UART_CheckIdleState
 //  282 }
           CFI EndBlock cfiBlock0
 //  283 
@@ -502,11 +511,10 @@ HAL_UART_Init:
 //  290 HAL_StatusTypeDef HAL_HalfDuplex_Init(UART_HandleTypeDef *huart)
 //  291 {
 HAL_HalfDuplex_Init:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
         MOVS     R4,R0
 //  292   /* Check the UART handle allocation */
 //  293   if(huart == NULL)
@@ -516,13 +524,12 @@ HAL_HalfDuplex_Init:
 //  296   }
 //  297   
 //  298   if(huart->State == HAL_UART_STATE_RESET)
-        ADD      R5,R4,#+104
-        LDRB     R0,[R5, #+1]
+        LDRB     R0,[R4, #+105]
         CBNZ.N   R0,??HAL_HalfDuplex_Init_1
 //  299   {
 //  300     /* Allocate lock resource and initialize it */
 //  301     huart->Lock = HAL_UNLOCKED;
-        STRB     R0,[R5, #+0]
+        STRB     R0,[R4, #+104]
 //  302     /* Init the low level hardware : GPIO, CLOCK */
 //  303     HAL_UART_MspInit(huart);
         MOV      R0,R4
@@ -533,7 +540,7 @@ HAL_HalfDuplex_Init:
 //  306   huart->State = HAL_UART_STATE_BUSY;
 ??HAL_HalfDuplex_Init_1:
         MOVS     R0,#+2
-        STRB     R0,[R5, #+1]
+        STRB     R0,[R4, #+105]
 //  307 
 //  308   /* Disable the Peripheral */
 //  309   __HAL_UART_DISABLE(huart);
@@ -554,7 +561,7 @@ HAL_HalfDuplex_Init:
 //  314     return HAL_ERROR;
 ??HAL_HalfDuplex_Init_0:
         MOVS     R0,#+1
-        POP      {R1,R4,R5,PC}
+        POP      {R4,PC}
 //  315   }
 //  316 
 //  317   if (huart->AdvancedInit.AdvFeatureInit != UART_ADVFEATURE_NO_INIT)
@@ -588,41 +595,26 @@ HAL_HalfDuplex_Init:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+8]
         ORR      R1,R1,#0x8
-          CFI EndBlock cfiBlock1
-        REQUIRE ?Subroutine0
-        ;; // Fall through to label ?Subroutine0
+        STR      R1,[R0, #+8]
 //  330 
 //  331   /* Enable the Peripheral */
 //  332   __HAL_UART_ENABLE(huart);
-//  333 
-//  334   /* TEACK and/or REACK to check before moving huart->State to Ready */
-//  335   return (UART_CheckIdleState(huart));
-//  336 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock2 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+16
-          CFI R4 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine0:
-        STR      R1,[R0, #+8]
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x1
         STR      R1,[R0, #+0]
+//  333 
+//  334   /* TEACK and/or REACK to check before moving huart->State to Ready */
+//  335   return (UART_CheckIdleState(huart));
         MOV      R0,R4
-        POP      {R1,R4,R5,LR}
-          CFI CFA R13+0
+        POP      {R4,LR}
           CFI R4 SameValue
-          CFI R5 SameValue
           CFI R14 SameValue
-          CFI FunCall HAL_UART_Init UART_CheckIdleState
-          CFI FunCall HAL_HalfDuplex_Init UART_CheckIdleState
+          CFI CFA R13+0
+          CFI FunCall UART_CheckIdleState
         B.W      UART_CheckIdleState
-          CFI EndBlock cfiBlock2
+//  336 }
+          CFI EndBlock cfiBlock1
 //  337 
 //  338 
 //  339 /**
@@ -637,19 +629,20 @@ HAL_HalfDuplex_Init:
 //  348   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock3 Using cfiCommon0
+          CFI Block cfiBlock2 Using cfiCommon0
           CFI Function HAL_LIN_Init
         THUMB
 //  349 HAL_StatusTypeDef HAL_LIN_Init(UART_HandleTypeDef *huart, uint32_t BreakDetectLength)
 //  350 {
 HAL_LIN_Init:
-        PUSH     {R4-R6,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+16
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
         MOVS     R4,R0
+        SUB      SP,SP,#+4
+          CFI CFA R13+16
         MOV      R5,R1
 //  351   /* Check the UART handle allocation */
 //  352   if(huart == NULL)
@@ -664,13 +657,12 @@ HAL_LIN_Init:
 //  360   assert_param(IS_LIN_WORD_LENGTH(huart->Init.WordLength));
 //  361   	
 //  362   if(huart->State == HAL_UART_STATE_RESET)
-        ADD      R6,R4,#+104
-        LDRB     R0,[R6, #+1]
+        LDRB     R0,[R4, #+105]
         CBNZ.N   R0,??HAL_LIN_Init_1
 //  363   {  
 //  364     /* Allocate lock resource and initialize it */
 //  365     huart->Lock = HAL_UNLOCKED; 
-        STRB     R0,[R6, #+0]
+        STRB     R0,[R4, #+104]
 //  366     /* Init the low level hardware : GPIO, CLOCK */
 //  367     HAL_UART_MspInit(huart);
         MOV      R0,R4
@@ -681,7 +673,7 @@ HAL_LIN_Init:
 //  370   huart->State = HAL_UART_STATE_BUSY;
 ??HAL_LIN_Init_1:
         MOVS     R0,#+2
-        STRB     R0,[R6, #+1]
+        STRB     R0,[R4, #+105]
 //  371   
 //  372   /* Disable the Peripheral */
 //  373   __HAL_UART_DISABLE(huart);
@@ -702,7 +694,10 @@ HAL_LIN_Init:
 //  378     return HAL_ERROR;
 ??HAL_LIN_Init_0:
         MOVS     R0,#+1
-        POP      {R4-R6,PC}
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
 //  379   } 
 //  380   
 //  381   if (huart->AdvancedInit.AdvFeatureInit != UART_ADVFEATURE_NO_INIT)
@@ -756,16 +751,17 @@ HAL_LIN_Init:
 //  401   /* TEACK and/or REACK to check before moving huart->State to Ready */
 //  402   return (UART_CheckIdleState(huart));
         MOV      R0,R4
-        POP      {R4-R6,LR}
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,LR}
           CFI R4 SameValue
           CFI R5 SameValue
-          CFI R6 SameValue
           CFI R14 SameValue
           CFI CFA R13+0
           CFI FunCall UART_CheckIdleState
         B.W      UART_CheckIdleState
 //  403 }
-          CFI EndBlock cfiBlock3
+          CFI EndBlock cfiBlock2
 //  404 
 //  405 
 //  406 
@@ -787,19 +783,18 @@ HAL_LIN_Init:
 //  422   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock4 Using cfiCommon0
+          CFI Block cfiBlock3 Using cfiCommon0
           CFI Function HAL_MultiProcessor_Init
         THUMB
 //  423 HAL_StatusTypeDef HAL_MultiProcessor_Init(UART_HandleTypeDef *huart, uint8_t Address, uint32_t WakeUpMethod)
 //  424 {
 HAL_MultiProcessor_Init:
-        PUSH     {R3-R7,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+24
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
         MOVS     R4,R0
         MOV      R6,R1
         MOV      R5,R2
@@ -814,13 +809,12 @@ HAL_MultiProcessor_Init:
 //  432   assert_param(IS_UART_WAKEUPMETHOD(WakeUpMethod));
 //  433   
 //  434   if(huart->State == HAL_UART_STATE_RESET)
-        ADD      R7,R4,#+104
-        LDRB     R0,[R7, #+1]
+        LDRB     R0,[R4, #+105]
         CBNZ.N   R0,??HAL_MultiProcessor_Init_1
 //  435   { 
 //  436     /* Allocate lock resource and initialize it */
 //  437     huart->Lock = HAL_UNLOCKED;  
-        STRB     R0,[R7, #+0]
+        STRB     R0,[R4, #+104]
 //  438     /* Init the low level hardware : GPIO, CLOCK */
 //  439     HAL_UART_MspInit(huart);
         MOV      R0,R4
@@ -831,7 +825,7 @@ HAL_MultiProcessor_Init:
 //  442   huart->State = HAL_UART_STATE_BUSY;
 ??HAL_MultiProcessor_Init_1:
         MOVS     R0,#+2
-        STRB     R0,[R7, #+1]
+        STRB     R0,[R4, #+105]
 //  443   
 //  444   /* Disable the Peripheral */
 //  445   __HAL_UART_DISABLE(huart);
@@ -852,7 +846,7 @@ HAL_MultiProcessor_Init:
 //  450     return HAL_ERROR;
 ??HAL_MultiProcessor_Init_0:
         MOVS     R0,#+1
-        POP      {R1,R4-R7,PC}
+        POP      {R4-R6,PC}
 //  451   } 
 //  452   
 //  453   if (huart->AdvancedInit.AdvFeatureInit != UART_ADVFEATURE_NO_INIT)
@@ -914,17 +908,16 @@ HAL_MultiProcessor_Init:
 //  476   /* TEACK and/or REACK to check before moving huart->State to Ready */
 //  477   return (UART_CheckIdleState(huart));
         MOV      R0,R4
-        POP      {R1,R4-R7,LR}
+        POP      {R4-R6,LR}
           CFI R4 SameValue
           CFI R5 SameValue
           CFI R6 SameValue
-          CFI R7 SameValue
           CFI R14 SameValue
           CFI CFA R13+0
           CFI FunCall UART_CheckIdleState
         B.W      UART_CheckIdleState
 //  478 }
-          CFI EndBlock cfiBlock4
+          CFI EndBlock cfiBlock3
 //  479 
 //  480 
 //  481 
@@ -936,7 +929,7 @@ HAL_MultiProcessor_Init:
 //  487   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock5 Using cfiCommon0
+          CFI Block cfiBlock4 Using cfiCommon0
           CFI Function HAL_UART_DeInit
         THUMB
 //  488 HAL_StatusTypeDef HAL_UART_DeInit(UART_HandleTypeDef *huart)
@@ -946,9 +939,10 @@ HAL_UART_DeInit:
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
+        MOVS     R4,R0
 //  490   /* Check the UART handle allocation */
 //  491   if(huart == NULL)
-        CBNZ.N   R0,??HAL_UART_DeInit_0
+        BNE.N    ??HAL_UART_DeInit_0
 //  492   {
 //  493     return HAL_ERROR;
         MOVS     R0,#+1
@@ -960,48 +954,48 @@ HAL_UART_DeInit:
 //  498 
 //  499   huart->State = HAL_UART_STATE_BUSY;
 ??HAL_UART_DeInit_0:
-        ADD      R4,R0,#+104
-        MOVS     R1,#+2
-        STRB     R1,[R4, #+1]
+        MOVS     R0,#+2
+        STRB     R0,[R4, #+105]
 //  500   
 //  501   /* Disable the Peripheral */
 //  502   __HAL_UART_DISABLE(huart);
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
-        LDR      R2,[R1, #+0]
-        LSRS     R2,R2,#+1
-        LSLS     R2,R2,#+1
-        STR      R2,[R1, #+0]
+        LSRS     R1,R1,#+1
+        LSLS     R1,R1,#+1
+        STR      R1,[R0, #+0]
 //  503   
 //  504   huart->Instance->CR1 = 0x0;
-        LDR      R2,[R0, #+0]
-        MOVS     R1,#+0
-        STR      R1,[R2, #+0]
+        LDR      R1,[R4, #+0]
+        MOVS     R0,#+0
+        STR      R0,[R1, #+0]
 //  505   huart->Instance->CR2 = 0x0;
-        LDR      R2,[R0, #+0]
-        STR      R1,[R2, #+4]
+        LDR      R1,[R4, #+0]
+        STR      R0,[R1, #+4]
 //  506   huart->Instance->CR3 = 0x0;
-        LDR      R2,[R0, #+0]
-        STR      R1,[R2, #+8]
+        LDR      R1,[R4, #+0]
+        STR      R0,[R1, #+8]
 //  507   
 //  508   /* DeInit the low level hardware */
 //  509   HAL_UART_MspDeInit(huart);
+        MOV      R0,R4
           CFI FunCall HAL_UART_MspDeInit
         BL       HAL_UART_MspDeInit
 //  510 
 //  511   huart->ErrorCode = HAL_UART_ERROR_NONE;
         MOVS     R0,#+0
-        STR      R0,[R4, #+4]
+        STR      R0,[R4, #+108]
 //  512   huart->State = HAL_UART_STATE_RESET;
-        STRB     R0,[R4, #+1]
+        STRB     R0,[R4, #+105]
 //  513   
 //  514   /* Process Unlock */
 //  515   __HAL_UNLOCK(huart);
-        STRB     R0,[R4, #+0]
+        STRB     R0,[R4, #+104]
 //  516   
 //  517   return HAL_OK;
         POP      {R4,PC}          ;; return
 //  518 }
-          CFI EndBlock cfiBlock5
+          CFI EndBlock cfiBlock4
 //  519 
 //  520 /**
 //  521   * @brief UART MSP Init
@@ -1010,7 +1004,7 @@ HAL_UART_DeInit:
 //  524   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock6 Using cfiCommon0
+          CFI Block cfiBlock5 Using cfiCommon0
           CFI Function HAL_UART_MspInit
           CFI NoCalls
         THUMB
@@ -1022,7 +1016,7 @@ HAL_UART_DeInit:
 //  530 }
 HAL_UART_MspInit:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock6
+          CFI EndBlock cfiBlock5
 //  531 
 //  532 /**
 //  533   * @brief UART MSP DeInit
@@ -1031,7 +1025,7 @@ HAL_UART_MspInit:
 //  536   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock7 Using cfiCommon0
+          CFI Block cfiBlock6 Using cfiCommon0
           CFI Function HAL_UART_MspDeInit
           CFI NoCalls
         THUMB
@@ -1043,7 +1037,7 @@ HAL_UART_MspInit:
 //  542 }
 HAL_UART_MspDeInit:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock7
+          CFI EndBlock cfiBlock6
 //  543 
 //  544 /**
 //  545   * @}
@@ -1115,31 +1109,31 @@ HAL_UART_MspDeInit:
 //  611   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock8 Using cfiCommon0
+          CFI Block cfiBlock7 Using cfiCommon0
           CFI Function HAL_UART_Transmit
         THUMB
 //  612 HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout)
 //  613 {
 HAL_UART_Transmit:
-        PUSH     {R4-R8,LR}
+        PUSH     {R4-R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R8 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -20)
-          CFI R4 Frame(CFA, -24)
-          CFI CFA R13+24
+          CFI R7 Frame(CFA, -8)
+          CFI R6 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -16)
+          CFI R4 Frame(CFA, -20)
+          CFI CFA R13+20
         MOV      R4,R0
+        SUB      SP,SP,#+4
+          CFI CFA R13+24
+        MOV      R6,R1
+        MOV      R5,R3
 //  614    uint16_t* tmp;
 //  615 
 //  616   if((huart->State == HAL_UART_STATE_READY) || (huart->State == HAL_UART_STATE_BUSY_RX))
-        ADD      R5,R4,#+80
-        MOV      R6,R1
-        MOV      R7,R3
-        LDRB     R0,[R5, #+25]
+        LDRB     R0,[R4, #+105]
         CMP      R0,#+1
         ITT      NE 
-        LDRBNE   R0,[R5, #+25]
+        LDRBNE   R0,[R4, #+105]
         CMPNE    R0,#+34
         BNE.N    ??HAL_UART_Transmit_0
 //  617   {
@@ -1155,18 +1149,18 @@ HAL_UART_Transmit:
 //  622 
 //  623     /* Process Locked */
 //  624     __HAL_LOCK(huart);
-        LDRB     R0,[R5, #+24]
+        LDRB     R0,[R4, #+104]
         CMP      R0,#+1
         BEQ.N    ??HAL_UART_Transmit_0
         MOVS     R0,#+1
-        STRB     R0,[R5, #+24]
+        STRB     R0,[R4, #+104]
 //  625 
 //  626     huart->ErrorCode = HAL_UART_ERROR_NONE;
         MOVS     R0,#+0
-        STR      R0,[R5, #+28]
+        STR      R0,[R4, #+108]
 //  627     /* Check if a non-blocking receive process is ongoing or not */
 //  628     if(huart->State == HAL_UART_STATE_BUSY_RX) 
-        LDRB     R0,[R5, #+25]
+        LDRB     R0,[R4, #+105]
         CMP      R0,#+34
         ITE      EQ 
         MOVEQ    R0,#+50
@@ -1177,13 +1171,13 @@ HAL_UART_Transmit:
 //  632     else
 //  633     {
 //  634       huart->State = HAL_UART_STATE_BUSY_TX;
-        STRB     R0,[R5, #+25]
+        STRB     R0,[R4, #+105]
 //  635     }
 //  636 
 //  637     huart->TxXferSize = Size;
-        STRH     R2,[R5, #+0]
+        STRH     R2,[R4, #+80]
 //  638     huart->TxXferCount = Size;
-        STRH     R2,[R5, #+2]
+        STRH     R2,[R4, #+82]
         B.N      ??HAL_UART_Transmit_2
 //  639     while(huart->TxXferCount > 0)
 //  640     {
@@ -1200,25 +1194,26 @@ HAL_UART_Transmit:
         STR      R1,[R0, #+40]
 //  650         pData += 2;
 ??HAL_UART_Transmit_2:
-        LDRH     R0,[R5, #+2]
-        CBZ.N    R0,??HAL_UART_Transmit_4
+        LDRH     R0,[R4, #+82]
+        CMP      R0,#+0
+        BEQ.N    ??HAL_UART_Transmit_4
         SUBS     R0,R0,#+1
-        STRH     R0,[R5, #+2]
+        STRH     R0,[R4, #+82]
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R8,R0
+        MOV      R7,R0
 ??HAL_UART_Transmit_5:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+28]
         LSLS     R1,R1,#+24
         BMI.N    ??HAL_UART_Transmit_6
-        CMN      R7,#+1
+        CMN      R5,#+1
         BEQ.N    ??HAL_UART_Transmit_5
-        CBZ.N    R7,??HAL_UART_Transmit_7
+        CBZ.N    R5,??HAL_UART_Transmit_7
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUB      R0,R0,R8
-        CMP      R0,R7
+        SUBS     R0,R0,R7
+        CMP      R0,R5
         BCC.N    ??HAL_UART_Transmit_5
 ??HAL_UART_Transmit_7:
         LDR      R0,[R4, #+0]
@@ -1239,10 +1234,24 @@ HAL_UART_Transmit:
         LSLS     R1,R1,#+1
         STR      R1,[R0, #+8]
         MOVS     R0,#+1
-        STRB     R0,[R5, #+25]
+        STRB     R0,[R4, #+105]
         MOVS     R0,#+0
-        STRB     R0,[R5, #+24]
-        B.N      ??HAL_UART_Transmit_8
+        STRB     R0,[R4, #+104]
+//  651       }
+//  652       else
+//  653       {
+//  654         huart->Instance->TDR = (*pData++ & (uint8_t)0xFF);
+//  655       }
+//  656     }
+//  657     if(UART_WaitOnFlagUntilTimeout(huart, UART_FLAG_TC, RESET, Timeout) != HAL_OK)  
+//  658     { 
+//  659       return HAL_TIMEOUT;
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
+//  660     }
 ??HAL_UART_Transmit_6:
         LDR      R1,[R4, #+8]
         CMP      R1,#+4096
@@ -1254,31 +1263,30 @@ HAL_UART_Transmit:
         LDRHEQ   R1,[R6], #+2
         LSLEQ    R1,R1,#+23
         LSREQ    R1,R1,#+23
-//  651       }
-//  652       else
-//  653       {
-//  654         huart->Instance->TDR = (*pData++ & (uint8_t)0xFF);
         B.N      ??HAL_UART_Transmit_3
-//  655       }
-//  656     }
-//  657     if(UART_WaitOnFlagUntilTimeout(huart, UART_FLAG_TC, RESET, Timeout) != HAL_OK)  
 ??HAL_UART_Transmit_4:
-        MOV      R3,R7
-        MOVS     R2,#+0
-        MOVS     R1,#+64
-        MOV      R0,R4
-          CFI FunCall UART_WaitOnFlagUntilTimeout
-        BL       UART_WaitOnFlagUntilTimeout
-        CBZ.N    R0,??HAL_UART_Transmit_9
-//  658     { 
-//  659       return HAL_TIMEOUT;
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R6,R0
 ??HAL_UART_Transmit_8:
-        B.N      ?Subroutine2
-//  660     }
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+28]
+        LSLS     R0,R0,#+25
+        BMI.N    ??HAL_UART_Transmit_9
+        CMN      R5,#+1
+        BEQ.N    ??HAL_UART_Transmit_8
+        CMP      R5,#+0
+        BEQ.N    ??HAL_UART_Transmit_7
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R6
+        CMP      R0,R5
+        BCC.N    ??HAL_UART_Transmit_8
+        B.N      ??HAL_UART_Transmit_7
 //  661     /* Check if a non-blocking receive Process is ongoing or not */
 //  662     if(huart->State == HAL_UART_STATE_BUSY_TX_RX) 
 ??HAL_UART_Transmit_9:
-        LDRB     R0,[R5, #+25]
+        LDRB     R0,[R4, #+105]
         CMP      R0,#+50
         ITE      EQ 
         MOVEQ    R0,#+34
@@ -1289,16 +1297,19 @@ HAL_UART_Transmit:
 //  666     else
 //  667     {
 //  668       huart->State = HAL_UART_STATE_READY;
-        STRB     R0,[R5, #+25]
+        STRB     R0,[R4, #+105]
 //  669     }
 //  670 
 //  671     /* Process Unlocked */
 //  672     __HAL_UNLOCK(huart);
         MOVS     R0,#+0
-        STRB     R0,[R5, #+24]
+        STRB     R0,[R4, #+104]
 //  673 
 //  674     return HAL_OK;
-        POP      {R4-R8,PC}
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
 //  675   }
 //  676   else
 //  677   {
@@ -1306,10 +1317,12 @@ HAL_UART_Transmit:
 ??HAL_UART_Transmit_0:
         MOVS     R0,#+2
 ??HAL_UART_Transmit_1:
-        POP      {R4-R8,PC}       ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}       ;; return
 //  679   }
 //  680 }
-          CFI EndBlock cfiBlock8
+          CFI EndBlock cfiBlock7
 //  681 
 //  682 /**
 //  683   * @brief Receive an amount of data in blocking mode 
@@ -1321,35 +1334,33 @@ HAL_UART_Transmit:
 //  689   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock9 Using cfiCommon0
+          CFI Block cfiBlock8 Using cfiCommon0
           CFI Function HAL_UART_Receive
         THUMB
 //  690 HAL_StatusTypeDef HAL_UART_Receive(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout)
 //  691 {
 HAL_UART_Receive:
-        PUSH     {R3-R9,LR}
+        PUSH     {R4-R8,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R9 Frame(CFA, -8)
-          CFI R8 Frame(CFA, -12)
-          CFI R7 Frame(CFA, -16)
-          CFI R6 Frame(CFA, -20)
-          CFI R5 Frame(CFA, -24)
-          CFI R4 Frame(CFA, -28)
-          CFI CFA R13+32
+          CFI R8 Frame(CFA, -8)
+          CFI R7 Frame(CFA, -12)
+          CFI R6 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -20)
+          CFI R4 Frame(CFA, -24)
+          CFI CFA R13+24
         MOV      R4,R0
+        MOV      R5,R1
+        MOV      R6,R3
 //  692   uint16_t* tmp;
 //  693   uint16_t uhMask;
 //  694 
 //  695   if((huart->State == HAL_UART_STATE_READY) || (huart->State == HAL_UART_STATE_BUSY_TX))
-        ADD      R7,R4,#+88
-        MOV      R5,R1
-        MOV      R8,R3
-        LDRB     R0,[R7, #+17]
+        LDRB     R0,[R4, #+105]
         CMP      R0,#+1
         ITT      NE 
-        LDRBNE   R0,[R7, #+17]
+        LDRBNE   R0,[R4, #+105]
         CMPNE    R0,#+18
-        BNE.N    ??HAL_UART_Receive_0
+        BNE.W    ??HAL_UART_Receive_0
 //  696   {
 //  697     if((pData == NULL ) || (Size == 0))
         CMP      R5,#+0
@@ -1358,23 +1369,23 @@ HAL_UART_Receive:
         MOVEQ    R0,#+1
 //  698     {
 //  699       return  HAL_ERROR;
-        BEQ.N    ??HAL_UART_Receive_1
+        BEQ.W    ??HAL_UART_Receive_1
 //  700     }
 //  701 
 //  702     /* Process Locked */
 //  703     __HAL_LOCK(huart);
-        LDRB     R0,[R7, #+16]
+        LDRB     R0,[R4, #+104]
         CMP      R0,#+1
-        BEQ.N    ??HAL_UART_Receive_0
+        BEQ.W    ??HAL_UART_Receive_0
         MOVS     R0,#+1
-        STRB     R0,[R7, #+16]
+        STRB     R0,[R4, #+104]
 //  704 
 //  705     huart->ErrorCode = HAL_UART_ERROR_NONE;
         MOVS     R0,#+0
-        STR      R0,[R7, #+20]
+        STR      R0,[R4, #+108]
 //  706     /* Check if a non-blocking transmit process is ongoing or not */
 //  707     if(huart->State == HAL_UART_STATE_BUSY_TX)
-        LDRB     R0,[R7, #+17]
+        LDRB     R0,[R4, #+105]
         CMP      R0,#+18
         ITE      EQ 
         MOVEQ    R0,#+50
@@ -1385,18 +1396,18 @@ HAL_UART_Receive:
 //  711     else
 //  712     {
 //  713       huart->State = HAL_UART_STATE_BUSY_RX;
-        STRB     R0,[R7, #+17]
+        STRB     R0,[R4, #+105]
 //  714     }
 //  715 
 //  716     huart->RxXferSize = Size; 
-        STRH     R2,[R7, #+0]
 //  717     huart->RxXferCount = Size;
-        STRH     R2,[R7, #+2]
 //  718 
 //  719     /* Computation of UART mask to apply to RDR register */
 //  720     UART_MASK_COMPUTATION(huart);
         LDR      R0,[R4, #+8]
+        STRH     R2,[R4, #+88]
         CMP      R0,#+4096
+        STRH     R2,[R4, #+90]
         BNE.N    ??HAL_UART_Receive_2
         LDR      R0,[R4, #+16]
         CMP      R0,#+0
@@ -1421,10 +1432,10 @@ HAL_UART_Receive:
         MOVEQ    R0,#+127
         MOVNE    R0,#+63
 ??HAL_UART_Receive_3:
-        STRH     R0,[R7, #+4]
+        STRH     R0,[R4, #+92]
 //  721     uhMask = huart->Mask;
 ??HAL_UART_Receive_5:
-        LDRH     R6,[R7, #+4]
+        LDRH     R7,[R4, #+92]
         B.N      ??HAL_UART_Receive_6
 //  722 
 //  723     /* as long as data have to be received */
@@ -1441,32 +1452,31 @@ HAL_UART_Receive:
 //  734         *tmp = (uint16_t)(huart->Instance->RDR & uhMask);
 ??HAL_UART_Receive_7:
         LDR      R0,[R0, #+36]
-        ANDS     R0,R6,R0
+        ANDS     R0,R7,R0
         STRH     R0,[R5], #+2
 //  735         pData +=2; 
 //  736       }
 ??HAL_UART_Receive_6:
-        LDRH     R0,[R7, #+2]
+        LDRH     R0,[R4, #+90]
         CMP      R0,#+0
         BEQ.N    ??HAL_UART_Receive_8
         SUBS     R0,R0,#+1
-        STRH     R0,[R7, #+2]
+        STRH     R0,[R4, #+90]
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R9,R0
+        MOV      R8,R0
 ??HAL_UART_Receive_9:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+28]
         LSLS     R1,R1,#+26
         BMI.N    ??HAL_UART_Receive_10
-        CMN      R8,#+1
+        CMN      R6,#+1
         BEQ.N    ??HAL_UART_Receive_9
-        CMP      R8,#+0
-        BEQ.N    ??HAL_UART_Receive_11
+        CBZ.N    R6,??HAL_UART_Receive_11
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUB      R0,R0,R9
-        CMP      R0,R8
+        SUB      R0,R0,R8
+        CMP      R0,R6
         BCC.N    ??HAL_UART_Receive_9
 ??HAL_UART_Receive_11:
         LDR      R0,[R4, #+0]
@@ -1487,11 +1497,11 @@ HAL_UART_Receive:
         LSLS     R1,R1,#+1
         STR      R1,[R0, #+8]
         MOVS     R0,#+1
-        STRB     R0,[R7, #+17]
+        STRB     R0,[R4, #+105]
         MOVS     R0,#+0
-        STRB     R0,[R7, #+16]
+        STRB     R0,[R4, #+104]
         MOVS     R0,#+3
-        POP      {R1,R4-R9,PC}
+        POP      {R4-R8,PC}
 ??HAL_UART_Receive_10:
         LDR      R1,[R4, #+8]
         CMP      R1,#+4096
@@ -1503,7 +1513,7 @@ HAL_UART_Receive:
 //  738       {
 //  739         *pData++ = (uint8_t)(huart->Instance->RDR & (uint8_t)uhMask); 
         LDR      R0,[R0, #+36]
-        ANDS     R0,R6,R0
+        ANDS     R0,R7,R0
         STRB     R0,[R5], #+1
         B.N      ??HAL_UART_Receive_6
 //  740       }
@@ -1512,7 +1522,7 @@ HAL_UART_Receive:
 //  743     /* Check if a non-blocking transmit Process is ongoing or not */
 //  744     if(huart->State == HAL_UART_STATE_BUSY_TX_RX) 
 ??HAL_UART_Receive_8:
-        LDRB     R0,[R7, #+17]
+        LDRB     R0,[R4, #+105]
         CMP      R0,#+50
         ITE      EQ 
         MOVEQ    R0,#+18
@@ -1523,15 +1533,15 @@ HAL_UART_Receive:
 //  748     else
 //  749     {
 //  750       huart->State = HAL_UART_STATE_READY;
-        STRB     R0,[R7, #+17]
+        STRB     R0,[R4, #+105]
 //  751     }
 //  752     /* Process Unlocked */
 //  753     __HAL_UNLOCK(huart);
         MOVS     R0,#+0
-        STRB     R0,[R7, #+16]
+        STRB     R0,[R4, #+104]
 //  754 
 //  755     return HAL_OK;
-        POP      {R1,R4-R9,PC}
+        POP      {R4-R8,PC}
 //  756   }
 //  757   else
 //  758   {
@@ -1539,10 +1549,10 @@ HAL_UART_Receive:
 ??HAL_UART_Receive_0:
         MOVS     R0,#+2
 ??HAL_UART_Receive_1:
-        POP      {R1,R4-R9,PC}    ;; return
+        POP      {R4-R8,PC}       ;; return
 //  760   }
 //  761 }
-          CFI EndBlock cfiBlock9
+          CFI EndBlock cfiBlock8
 //  762 
 //  763 /**
 //  764   * @brief Send an amount of data in interrupt mode 
@@ -1553,7 +1563,7 @@ HAL_UART_Receive:
 //  769   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock10 Using cfiCommon0
+          CFI Block cfiBlock9 Using cfiCommon0
           CFI Function HAL_UART_Transmit_IT
           CFI NoCalls
         THUMB
@@ -1561,48 +1571,46 @@ HAL_UART_Receive:
 //  771 {  
 //  772   if((huart->State == HAL_UART_STATE_READY) || (huart->State == HAL_UART_STATE_BUSY_RX))
 HAL_UART_Transmit_IT:
-        ADD      R3,R0,#+80
-        PUSH     {R4}
-          CFI R4 Frame(CFA, -4)
-          CFI CFA R13+4
-        LDRB     R4,[R3, #+25]
-        CMP      R4,#+1
+        LDRB     R3,[R0, #+105]
+        CMP      R3,#+1
         ITT      NE 
-        LDRBNE   R4,[R3, #+25]
-        CMPNE    R4,#+34
+        LDRBNE   R3,[R0, #+105]
+        CMPNE    R3,#+34
         BNE.N    ??HAL_UART_Transmit_IT_0
 //  773   {
 //  774     if((pData == NULL ) || (Size == 0)) 
         CMP      R1,#+0
-        ITE      NE 
+        IT       NE 
         CMPNE    R2,#+0
-        MOVEQ    R0,#+1
+        BNE.N    ??HAL_UART_Transmit_IT_1
 //  775     {
 //  776       return HAL_ERROR;
-        BEQ.N    ??HAL_UART_Transmit_IT_1
+        MOVS     R0,#+1
+        BX       LR
 //  777     }
 //  778     
 //  779     /* Process Locked */
 //  780     __HAL_LOCK(huart);
-        LDRB     R4,[R3, #+24]
-        CMP      R4,#+1
+??HAL_UART_Transmit_IT_1:
+        LDRB     R3,[R0, #+104]
+        CMP      R3,#+1
         BEQ.N    ??HAL_UART_Transmit_IT_0
-        MOVS     R4,#+1
-        STRB     R4,[R3, #+24]
+        MOVS     R3,#+1
 //  781     
 //  782     huart->pTxBuffPtr = pData;
         STR      R1,[R0, #+76]
+        STRB     R3,[R0, #+104]
 //  783     huart->TxXferSize = Size;
 //  784     huart->TxXferCount = Size;
 //  785     
 //  786     huart->ErrorCode = HAL_UART_ERROR_NONE;
         MOVS     R1,#+0
-        STRH     R2,[R3, #+0]
-        STRH     R2,[R3, #+2]
-        STR      R1,[R3, #+28]
+        STRH     R2,[R0, #+80]
+        STRH     R2,[R0, #+82]
+        STR      R1,[R0, #+108]
 //  787     /* Check if a receive process is ongoing or not */
 //  788     if(huart->State == HAL_UART_STATE_BUSY_RX) 
-        LDRB     R1,[R3, #+25]
+        LDRB     R1,[R0, #+105]
         CMP      R1,#+34
         ITE      EQ 
         MOVEQ    R1,#+50
@@ -1613,7 +1621,7 @@ HAL_UART_Transmit_IT:
 //  792     else
 //  793     {
 //  794       huart->State = HAL_UART_STATE_BUSY_TX;
-        STRB     R1,[R3, #+25]
+        STRB     R1,[R0, #+105]
 //  795     }
 //  796     
 //  797     /* Enable the UART Error Interrupt: (Frame error, noise error, overrun error) */
@@ -1626,30 +1634,28 @@ HAL_UART_Transmit_IT:
 //  800     /* Process Unlocked */
 //  801     __HAL_UNLOCK(huart);    
         MOVS     R1,#+0
-        STRB     R1,[R3, #+24]
+        STRB     R1,[R0, #+104]
 //  802     
 //  803     /* Enable the UART Transmit Data Register Empty Interrupt */
 //  804     __HAL_UART_ENABLE_IT(huart, UART_IT_TXE);
         LDR      R0,[R0, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x80
-        B.N      ?Subroutine4
+        STR      R1,[R0, #+0]
 //  805     
 //  806     return HAL_OK;
+        MOVS     R0,#+0
+        BX       LR
 //  807   }
 //  808   else
 //  809   {
 //  810     return HAL_BUSY;   
 ??HAL_UART_Transmit_IT_0:
         MOVS     R0,#+2
-??HAL_UART_Transmit_IT_1:
-        POP      {R4}
-          CFI R4 SameValue
-          CFI CFA R13+0
         BX       LR               ;; return
 //  811   }
 //  812 }
-          CFI EndBlock cfiBlock10
+          CFI EndBlock cfiBlock9
 //  813 
 //  814 /**
 //  815   * @brief Receive an amount of data in interrupt mode 
@@ -1660,7 +1666,7 @@ HAL_UART_Transmit_IT:
 //  820   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock11 Using cfiCommon0
+          CFI Block cfiBlock10 Using cfiCommon0
           CFI Function HAL_UART_Receive_IT
           CFI NoCalls
         THUMB
@@ -1668,46 +1674,44 @@ HAL_UART_Transmit_IT:
 //  822 {
 //  823   if((huart->State == HAL_UART_STATE_READY) || (huart->State == HAL_UART_STATE_BUSY_TX))
 HAL_UART_Receive_IT:
-        ADD      R3,R0,#+88
-        PUSH     {R4}
-          CFI R4 Frame(CFA, -4)
-          CFI CFA R13+4
-        LDRB     R4,[R3, #+17]
-        CMP      R4,#+1
+        LDRB     R3,[R0, #+105]
+        CMP      R3,#+1
         ITT      NE 
-        LDRBNE   R4,[R3, #+17]
-        CMPNE    R4,#+18
+        LDRBNE   R3,[R0, #+105]
+        CMPNE    R3,#+18
         BNE.N    ??HAL_UART_Receive_IT_0
 //  824   {
 //  825     if((pData == NULL ) || (Size == 0)) 
         CMP      R1,#+0
-        ITE      NE 
+        IT       NE 
         CMPNE    R2,#+0
-        MOVEQ    R0,#+1
+        BNE.N    ??HAL_UART_Receive_IT_1
 //  826     {
 //  827       return HAL_ERROR;
-        BEQ.N    ??HAL_UART_Receive_IT_1
+        MOVS     R0,#+1
+        BX       LR
 //  828     }
 //  829 
 //  830     /* Process Locked */
 //  831     __HAL_LOCK(huart);
-        LDRB     R4,[R3, #+16]
-        CMP      R4,#+1
+??HAL_UART_Receive_IT_1:
+        LDRB     R3,[R0, #+104]
+        CMP      R3,#+1
         BEQ.N    ??HAL_UART_Receive_IT_0
-        MOVS     R4,#+1
-        STRB     R4,[R3, #+16]
 //  832 
 //  833     huart->pRxBuffPtr = pData;
         STR      R1,[R0, #+84]
+        MOVS     R3,#+1
 //  834     huart->RxXferSize = Size;
-        STRH     R2,[R3, #+0]
 //  835     huart->RxXferCount = Size;
-        STRH     R2,[R3, #+2]
 //  836 
 //  837     /* Computation of UART mask to apply to RDR register */
 //  838     UART_MASK_COMPUTATION(huart);
         LDR      R1,[R0, #+8]
+        STRB     R3,[R0, #+104]
+        STRH     R2,[R0, #+88]
         CMP      R1,#+4096
+        STRH     R2,[R0, #+90]
         BNE.N    ??HAL_UART_Receive_IT_2
         LDR      R1,[R0, #+16]
         CMP      R1,#+0
@@ -1732,15 +1736,15 @@ HAL_UART_Receive_IT:
         MOVEQ    R1,#+127
         MOVNE    R1,#+63
 ??HAL_UART_Receive_IT_3:
-        STRH     R1,[R3, #+4]
+        STRH     R1,[R0, #+92]
 //  839 
 //  840     huart->ErrorCode = HAL_UART_ERROR_NONE;
 ??HAL_UART_Receive_IT_5:
         MOVS     R1,#+0
-        STR      R1,[R3, #+20]
+        STR      R1,[R0, #+108]
 //  841     /* Check if a transmit process is ongoing or not */
 //  842     if(huart->State == HAL_UART_STATE_BUSY_TX) 
-        LDRB     R1,[R3, #+17]
+        LDRB     R1,[R0, #+105]
         CMP      R1,#+18
         ITE      EQ 
         MOVEQ    R1,#+50
@@ -1751,7 +1755,7 @@ HAL_UART_Receive_IT:
 //  846     else
 //  847     {
 //  848       huart->State = HAL_UART_STATE_BUSY_RX;
-        STRB     R1,[R3, #+17]
+        STRB     R1,[R0, #+105]
 //  849     }
 //  850 
 //  851     /* Enable the UART Parity Error Interrupt */
@@ -1771,45 +1775,28 @@ HAL_UART_Receive_IT:
 //  857     /* Process Unlocked */
 //  858     __HAL_UNLOCK(huart);
         MOVS     R1,#+0
-        STRB     R1,[R3, #+16]
+        STRB     R1,[R0, #+104]
 //  859 
 //  860     /* Enable the UART Data Register not empty Interrupt */
 //  861     __HAL_UART_ENABLE_IT(huart, UART_IT_RXNE);
         LDR      R0,[R0, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x20
-        B.N      ?Subroutine4
+        STR      R1,[R0, #+0]
 //  862 
 //  863     return HAL_OK;
+        MOVS     R0,#+0
+        BX       LR
 //  864   }
 //  865   else
 //  866   {
 //  867     return HAL_BUSY; 
 ??HAL_UART_Receive_IT_0:
         MOVS     R0,#+2
-??HAL_UART_Receive_IT_1:
-        POP      {R4}
-          CFI R4 SameValue
-          CFI CFA R13+0
         BX       LR               ;; return
 //  868   }
 //  869 }
-          CFI EndBlock cfiBlock11
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock12 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+4
-          CFI R4 Frame(CFA, -4)
-        THUMB
-?Subroutine4:
-        STR      R1,[R0, #+0]
-        MOVS     R0,#+0
-        POP      {R4}
-          CFI CFA R13+0
-          CFI R4 SameValue
-        BX       LR
-          CFI EndBlock cfiBlock12
+          CFI EndBlock cfiBlock10
 //  870 
 //  871 /**
 //  872   * @brief Send an amount of data in DMA mode 
@@ -1820,26 +1807,24 @@ HAL_UART_Receive_IT:
 //  877   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock13 Using cfiCommon0
+          CFI Block cfiBlock11 Using cfiCommon0
           CFI Function HAL_UART_Transmit_DMA
         THUMB
 //  878 HAL_StatusTypeDef HAL_UART_Transmit_DMA(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size)
 //  879 {
 HAL_UART_Transmit_DMA:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
-        MOV      R5,R0
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        MOV      R4,R0
 //  880   uint32_t *tmp;
 //  881   
 //  882   if((huart->State == HAL_UART_STATE_READY) || (huart->State == HAL_UART_STATE_BUSY_RX))
-        ADD      R4,R5,#+80
-        LDRB     R0,[R4, #+25]
+        LDRB     R0,[R4, #+105]
         CMP      R0,#+1
         ITT      NE 
-        LDRBNE   R0,[R4, #+25]
+        LDRBNE   R0,[R4, #+105]
         CMPNE    R0,#+34
         BNE.N    ??HAL_UART_Transmit_DMA_0
 //  883   {
@@ -1851,31 +1836,31 @@ HAL_UART_Transmit_DMA:
 //  885     {
 //  886       return HAL_ERROR;
         MOVS     R0,#+1
-        POP      {R1,R4,R5,PC}
+        POP      {R4,PC}
 //  887     }
 //  888     
 //  889     /* Process Locked */
 //  890     __HAL_LOCK(huart);
 ??HAL_UART_Transmit_DMA_1:
-        LDRB     R0,[R4, #+24]
+        LDRB     R0,[R4, #+104]
         CMP      R0,#+1
         BEQ.N    ??HAL_UART_Transmit_DMA_0
         MOVS     R0,#+1
-        STRB     R0,[R4, #+24]
 //  891     
 //  892     huart->pTxBuffPtr = pData;
+        STR      R1,[R4, #+76]
+        STRB     R0,[R4, #+104]
 //  893     huart->TxXferSize = Size;
 //  894     huart->TxXferCount = Size; 
 //  895     
 //  896     huart->ErrorCode = HAL_UART_ERROR_NONE;
         MOVS     R0,#+0
-        STR      R1,[R5, #+76]
-        STRH     R2,[R4, #+0]
-        STRH     R2,[R4, #+2]
-        STR      R0,[R4, #+28]
+        STRH     R2,[R4, #+80]
+        STRH     R2,[R4, #+82]
+        STR      R0,[R4, #+108]
 //  897     /* Check if a receive process is ongoing or not */
 //  898     if(huart->State == HAL_UART_STATE_BUSY_RX) 
-        LDRB     R0,[R4, #+25]
+        LDRB     R0,[R4, #+105]
         CMP      R0,#+34
         ITE      EQ 
         MOVEQ    R0,#+50
@@ -1886,40 +1871,40 @@ HAL_UART_Transmit_DMA:
 //  902     else
 //  903     {
 //  904       huart->State = HAL_UART_STATE_BUSY_TX;
-        STRB     R0,[R4, #+25]
+        STRB     R0,[R4, #+105]
 //  905     }
 //  906     
 //  907     /* Set the UART DMA transfer complete callback */
 //  908     huart->hdmatx->XferCpltCallback = UART_DMATransmitCplt;
-        LDR      R3,[R4, #+16]
+        LDR      R3,[R4, #+96]
         ADR.W    R0,UART_DMATransmitCplt
         STR      R0,[R3, #+60]
 //  909     
 //  910     /* Set the UART DMA Half transfer complete callback */
 //  911     huart->hdmatx->XferHalfCpltCallback = UART_DMATxHalfCplt;
-        LDR      R3,[R4, #+16]
+        LDR      R3,[R4, #+96]
         ADR.W    R0,UART_DMATxHalfCplt
         STR      R0,[R3, #+64]
 //  912     
 //  913     /* Set the DMA error callback */
 //  914     huart->hdmatx->XferErrorCallback = UART_DMAError;
-        LDR      R3,[R4, #+16]
+        LDR      R3,[R4, #+96]
         ADR.W    R0,UART_DMAError
         STR      R0,[R3, #+72]
 //  915 
 //  916     /* Enable the UART transmit DMA channel */
 //  917     tmp = (uint32_t*)&pData;
 //  918     HAL_DMA_Start_IT(huart->hdmatx, *(uint32_t*)tmp, (uint32_t)&huart->Instance->TDR, Size);
-        LDR      R0,[R5, #+0]
+        LDR      R0,[R4, #+0]
         MOV      R3,R2
         ADD      R2,R0,#+40
-        LDR      R0,[R4, #+16]
+        LDR      R0,[R4, #+96]
           CFI FunCall HAL_DMA_Start_IT
         BL       HAL_DMA_Start_IT
 //  919 
 //  920     /* Clear the TC flag in the SR register by writing 0 to it */
 //  921     __HAL_UART_CLEAR_IT(huart, UART_FLAG_TC);
-        LDR      R1,[R5, #+0]
+        LDR      R1,[R4, #+0]
         MVN      R0,#+64
         STR      R0,[R1, #+32]
 //  922 
@@ -1927,7 +1912,7 @@ HAL_UART_Transmit_DMA:
 //  924     /* Enable the DMA transfer for transmit request by setting the DMAT bit
 //  925        in the UART CR3 register */
 //  926     huart->Instance->CR3 |= USART_CR3_DMAT;
-        LDR      R0,[R5, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+8]
         ORR      R1,R1,#0x80
         STR      R1,[R0, #+8]
@@ -1935,20 +1920,20 @@ HAL_UART_Transmit_DMA:
 //  928     /* Process Unlocked */
 //  929     __HAL_UNLOCK(huart);
         MOVS     R0,#+0
-        STRB     R0,[R4, #+24]
+        STRB     R0,[R4, #+104]
 //  930     
 //  931     return HAL_OK;
-        POP      {R1,R4,R5,PC}
+        POP      {R4,PC}
 //  932   }
 //  933   else
 //  934   {
 //  935     return HAL_BUSY;   
 ??HAL_UART_Transmit_DMA_0:
         MOVS     R0,#+2
-        POP      {R1,R4,R5,PC}    ;; return
+        POP      {R4,PC}          ;; return
 //  936   }
 //  937 }
-          CFI EndBlock cfiBlock13
+          CFI EndBlock cfiBlock11
 //  938 
 //  939 /**
 //  940   * @brief Receive an amount of data in DMA mode 
@@ -1961,26 +1946,24 @@ HAL_UART_Transmit_DMA:
 //  947   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock14 Using cfiCommon0
+          CFI Block cfiBlock12 Using cfiCommon0
           CFI Function HAL_UART_Receive_DMA
         THUMB
 //  948 HAL_StatusTypeDef HAL_UART_Receive_DMA(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size)
 //  949 {
 HAL_UART_Receive_DMA:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
-        MOV      R5,R0
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        MOV      R4,R0
 //  950   uint32_t *tmp;
 //  951   
 //  952   if((huart->State == HAL_UART_STATE_READY) || (huart->State == HAL_UART_STATE_BUSY_TX))
-        ADD      R4,R5,#+88
-        LDRB     R0,[R4, #+17]
+        LDRB     R0,[R4, #+105]
         CMP      R0,#+1
         ITT      NE 
-        LDRBNE   R0,[R4, #+17]
+        LDRBNE   R0,[R4, #+105]
         CMPNE    R0,#+18
         BNE.N    ??HAL_UART_Receive_DMA_0
 //  953   {
@@ -1992,29 +1975,29 @@ HAL_UART_Receive_DMA:
 //  955     {
 //  956       return HAL_ERROR;
         MOVS     R0,#+1
-        POP      {R1,R4,R5,PC}
+        POP      {R4,PC}
 //  957     }
 //  958     
 //  959     /* Process Locked */
 //  960     __HAL_LOCK(huart);
 ??HAL_UART_Receive_DMA_1:
-        LDRB     R0,[R4, #+16]
+        LDRB     R0,[R4, #+104]
         CMP      R0,#+1
         BEQ.N    ??HAL_UART_Receive_DMA_0
         MOVS     R0,#+1
-        STRB     R0,[R4, #+16]
 //  961     
 //  962     huart->pRxBuffPtr = pData;
+        STR      R1,[R4, #+84]
+        STRB     R0,[R4, #+104]
 //  963     huart->RxXferSize = Size;
 //  964     
 //  965     huart->ErrorCode = HAL_UART_ERROR_NONE;
         MOVS     R0,#+0
-        STR      R1,[R5, #+84]
-        STRH     R2,[R4, #+0]
-        STR      R0,[R4, #+20]
+        STRH     R2,[R4, #+88]
+        STR      R0,[R4, #+108]
 //  966     /* Check if a transmit process is ongoing or not */
 //  967     if(huart->State == HAL_UART_STATE_BUSY_TX) 
-        LDRB     R0,[R4, #+17]
+        LDRB     R0,[R4, #+105]
         CMP      R0,#+18
         ITE      EQ 
         MOVEQ    R0,#+50
@@ -2025,24 +2008,24 @@ HAL_UART_Receive_DMA:
 //  971     else
 //  972     {
 //  973       huart->State = HAL_UART_STATE_BUSY_RX;
-        STRB     R0,[R4, #+17]
+        STRB     R0,[R4, #+105]
 //  974     }
 //  975     
 //  976     /* Set the UART DMA transfer complete callback */
 //  977     huart->hdmarx->XferCpltCallback = UART_DMAReceiveCplt;
-        LDR      R3,[R4, #+12]
+        LDR      R3,[R4, #+100]
         ADR.W    R0,UART_DMAReceiveCplt
         STR      R0,[R3, #+60]
 //  978     
 //  979     /* Set the UART DMA Half transfer complete callback */
 //  980     huart->hdmarx->XferHalfCpltCallback = UART_DMARxHalfCplt;
-        LDR      R3,[R4, #+12]
+        LDR      R3,[R4, #+100]
         ADR.W    R0,UART_DMARxHalfCplt
         STR      R0,[R3, #+64]
 //  981     
 //  982     /* Set the DMA error callback */
 //  983     huart->hdmarx->XferErrorCallback = UART_DMAError;
-        LDR      R3,[R4, #+12]
+        LDR      R3,[R4, #+100]
         ADR.W    R0,UART_DMAError
         STR      R0,[R3, #+72]
 //  984 
@@ -2050,17 +2033,17 @@ HAL_UART_Receive_DMA:
 //  986     tmp = (uint32_t*)&pData;
 //  987     HAL_DMA_Start_IT(huart->hdmarx, (uint32_t)&huart->Instance->RDR, *(uint32_t*)tmp, Size);
         MOV      R3,R2
-        LDR      R0,[R5, #+0]
+        LDR      R0,[R4, #+0]
         MOV      R2,R1
         ADD      R1,R0,#+36
-        LDR      R0,[R4, #+12]
+        LDR      R0,[R4, #+100]
           CFI FunCall HAL_DMA_Start_IT
         BL       HAL_DMA_Start_IT
 //  988 
 //  989     /* Enable the DMA transfer for the receiver request by setting the DMAR bit 
 //  990        in the UART CR3 register */
 //  991      huart->Instance->CR3 |= USART_CR3_DMAR;
-        LDR      R0,[R5, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+8]
         ORR      R1,R1,#0x40
         STR      R1,[R0, #+8]
@@ -2068,20 +2051,20 @@ HAL_UART_Receive_DMA:
 //  993      /* Process Unlocked */
 //  994      __HAL_UNLOCK(huart);
         MOVS     R0,#+0
-        STRB     R0,[R4, #+16]
+        STRB     R0,[R4, #+104]
 //  995      
 //  996     return HAL_OK;
-        POP      {R1,R4,R5,PC}
+        POP      {R4,PC}
 //  997   }
 //  998   else
 //  999   {
 // 1000     return HAL_BUSY; 
 ??HAL_UART_Receive_DMA_0:
         MOVS     R0,#+2
-        POP      {R1,R4,R5,PC}    ;; return
+        POP      {R4,PC}          ;; return
 // 1001   }
 // 1002 }
-          CFI EndBlock cfiBlock14
+          CFI EndBlock cfiBlock12
 // 1003 
 // 1004 /**
 // 1005   * @brief Pauses the DMA Transfer.
@@ -2090,7 +2073,7 @@ HAL_UART_Receive_DMA:
 // 1008   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock15 Using cfiCommon0
+          CFI Block cfiBlock13 Using cfiCommon0
           CFI Function HAL_UART_DMAPause
           CFI NoCalls
         THUMB
@@ -2099,71 +2082,68 @@ HAL_UART_Receive_DMA:
 // 1011   /* Process Locked */
 // 1012   __HAL_LOCK(huart);
 HAL_UART_DMAPause:
-        ADD      R1,R0,#+104
-        LDRB     R2,[R1, #+0]
-        CMP      R2,#+1
+        LDRB     R1,[R0, #+104]
+        CMP      R1,#+1
         BNE.N    ??HAL_UART_DMAPause_0
         MOVS     R0,#+2
         BX       LR
 ??HAL_UART_DMAPause_0:
-        MOVS     R2,#+1
-        STRB     R2,[R1, #+0]
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+104]
 // 1013   
 // 1014   if(huart->State == HAL_UART_STATE_BUSY_TX)
-        LDRB     R2,[R1, #+1]
-        CMP      R2,#+18
+        LDRB     R1,[R0, #+105]
+        CMP      R1,#+18
         BNE.N    ??HAL_UART_DMAPause_1
 // 1015   {
 // 1016     /* Disable the UART DMA Tx request */
 // 1017     huart->Instance->CR3 &= (uint32_t)(~USART_CR3_DMAT);
-        LDR      R2,[R0, #+0]
-        LDR      R0,[R2, #+8]
-        BIC      R0,R0,#0x80
+        LDR      R1,[R0, #+0]
+        LDR      R2,[R1, #+8]
+        BIC      R2,R2,#0x80
         B.N      ??HAL_UART_DMAPause_2
 // 1018   }
 // 1019   else if(huart->State == HAL_UART_STATE_BUSY_RX)
 ??HAL_UART_DMAPause_1:
-        LDRB     R2,[R1, #+1]
-        CMP      R2,#+34
-        BNE.N    ??HAL_UART_DMAPause_3
+        LDRB     R1,[R0, #+105]
+        CMP      R1,#+34
+        BEQ.N    ??HAL_UART_DMAPause_3
 // 1020   {
 // 1021     /* Disable the UART DMA Rx request */
 // 1022     huart->Instance->CR3 &= (uint32_t)(~USART_CR3_DMAR);
-        LDR      R2,[R0, #+0]
-        LDR      R0,[R2, #+8]
-        BIC      R0,R0,#0x40
-??HAL_UART_DMAPause_2:
-        STR      R0,[R2, #+8]
-        B.N      ??HAL_UART_DMAPause_4
 // 1023   }
 // 1024   else if(huart->State == HAL_UART_STATE_BUSY_TX_RX)
-??HAL_UART_DMAPause_3:
-        LDRB     R2,[R1, #+1]
-        CMP      R2,#+50
+        LDRB     R1,[R0, #+105]
+        CMP      R1,#+50
         BNE.N    ??HAL_UART_DMAPause_4
 // 1025   {
 // 1026     /* Disable the UART DMA Tx request */
 // 1027     huart->Instance->CR3 &= (uint32_t)(~USART_CR3_DMAT);
-        LDR      R2,[R0, #+0]
-        LDR      R3,[R2, #+8]
-        BIC      R3,R3,#0x80
-        STR      R3,[R2, #+8]
+        LDR      R1,[R0, #+0]
+        LDR      R2,[R1, #+8]
+        BIC      R2,R2,#0x80
+        STR      R2,[R1, #+8]
 // 1028     /* Disable the UART DMA Rx request */
 // 1029     huart->Instance->CR3 &= (uint32_t)(~USART_CR3_DMAR);
-        LDR      R0,[R0, #+0]
-        LDR      R2,[R0, #+8]
+??HAL_UART_DMAPause_3:
+        LDR      R1,[R0, #+0]
+        LDR      R2,[R1, #+8]
         BIC      R2,R2,#0x40
-        STR      R2,[R0, #+8]
+??HAL_UART_DMAPause_2:
+        STR      R2,[R1, #+8]
 // 1030   }
 // 1031   
 // 1032   /* Process Unlocked */
 // 1033   __HAL_UNLOCK(huart);
 ??HAL_UART_DMAPause_4:
-        B.W      ??Subroutine3_1
+        MOVS     R1,#+0
+        STRB     R1,[R0, #+104]
 // 1034 
 // 1035   return HAL_OK; 
+        MOVS     R0,#+0
+        BX       LR               ;; return
 // 1036 }
-          CFI EndBlock cfiBlock15
+          CFI EndBlock cfiBlock13
 // 1037 
 // 1038 /**
 // 1039   * @brief Resumes the DMA Transfer.
@@ -2172,7 +2152,7 @@ HAL_UART_DMAPause:
 // 1042   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock16 Using cfiCommon0
+          CFI Block cfiBlock14 Using cfiCommon0
           CFI Function HAL_UART_DMAResume
           CFI NoCalls
         THUMB
@@ -2181,27 +2161,26 @@ HAL_UART_DMAPause:
 // 1045   /* Process Locked */
 // 1046   __HAL_LOCK(huart);
 HAL_UART_DMAResume:
-        ADD      R1,R0,#+104
-        LDRB     R2,[R1, #+0]
-        CMP      R2,#+1
+        LDRB     R1,[R0, #+104]
+        CMP      R1,#+1
         BNE.N    ??HAL_UART_DMAResume_0
         MOVS     R0,#+2
         BX       LR
 ??HAL_UART_DMAResume_0:
-        MOVS     R2,#+1
-        STRB     R2,[R1, #+0]
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+104]
 // 1047 
 // 1048   if(huart->State == HAL_UART_STATE_BUSY_TX)
-        LDRB     R2,[R1, #+1]
-        CMP      R2,#+18
+        LDRB     R1,[R0, #+105]
+        CMP      R1,#+18
         BEQ.N    ??HAL_UART_DMAResume_1
 // 1049   {
 // 1050     /* Enable the UART DMA Tx request */
 // 1051     huart->Instance->CR3 |= USART_CR3_DMAT;
 // 1052   }
 // 1053   else if(huart->State == HAL_UART_STATE_BUSY_RX)
-        LDRB     R2,[R1, #+1]
-        CMP      R2,#+34
+        LDRB     R1,[R0, #+105]
+        CMP      R1,#+34
         BNE.N    ??HAL_UART_DMAResume_2
 // 1054   {
 // 1055 		/* Clear the Overrun flag before resuming the Rx transfer*/
@@ -2219,7 +2198,7 @@ HAL_UART_DMAResume:
 // 1060   }
 // 1061   else if(huart->State == HAL_UART_STATE_BUSY_TX_RX)
 ??HAL_UART_DMAResume_2:
-        LDRB     R1,[R1, #+1]
+        LDRB     R1,[R0, #+105]
         CMP      R1,#+50
         BNE.N    ??HAL_UART_DMAResume_4
 // 1062   {
@@ -2266,7 +2245,7 @@ HAL_UART_DMAResume:
         MOVS     R0,#+0
         BX       LR               ;; return
 // 1081 }
-          CFI EndBlock cfiBlock16
+          CFI EndBlock cfiBlock14
 // 1082 
 // 1083 /**
 // 1084   * @brief Stops the DMA Transfer.
@@ -2275,7 +2254,7 @@ HAL_UART_DMAResume:
 // 1087   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock17 Using cfiCommon0
+          CFI Block cfiBlock15 Using cfiCommon0
           CFI Function HAL_UART_DMAStop
         THUMB
 // 1088 HAL_StatusTypeDef HAL_UART_DMAStop(UART_HandleTypeDef *huart)
@@ -2334,7 +2313,7 @@ HAL_UART_DMAStop:
         MOVS     R0,#+0
         POP      {R4,PC}          ;; return
 // 1115 }
-          CFI EndBlock cfiBlock17
+          CFI EndBlock cfiBlock15
 // 1116 
 // 1117 /**
 // 1118   * @brief This function handles UART interrupt request.
@@ -2343,7 +2322,7 @@ HAL_UART_DMAStop:
 // 1121   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock18 Using cfiCommon0
+          CFI Block cfiBlock16 Using cfiCommon0
           CFI Function HAL_UART_IRQHandler
         THUMB
 // 1122 void HAL_UART_IRQHandler(UART_HandleTypeDef *huart)
@@ -2542,7 +2521,7 @@ HAL_UART_IRQHandler:
 // 1191 }
 ??HAL_UART_IRQHandler_7:
         POP      {R4,PC}          ;; return
-          CFI EndBlock cfiBlock18
+          CFI EndBlock cfiBlock16
 // 1192 
 // 1193 
 // 1194 /**
@@ -2555,7 +2534,7 @@ HAL_UART_IRQHandler:
 // 1201   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock19 Using cfiCommon0
+          CFI Block cfiBlock17 Using cfiCommon0
           CFI Function UART_WaitOnFlagUntilTimeout
         THUMB
 // 1202 HAL_StatusTypeDef UART_WaitOnFlagUntilTimeout(UART_HandleTypeDef *huart, uint32_t Flag, FlagStatus Status, uint32_t Timeout)
@@ -2669,17 +2648,17 @@ UART_WaitOnFlagUntilTimeout:
         STR      R1,[R0, #+8]
 // 1246           
 // 1247           huart->State= HAL_UART_STATE_READY;
-        ADD      R0,R4,#+104
-        MOVS     R1,#+1
-        STRB     R1,[R0, #+1]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+105]
 // 1248           
 // 1249           /* Process Unlocked */
 // 1250           __HAL_UNLOCK(huart);
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+0]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+104]
 // 1251           
 // 1252           return HAL_TIMEOUT;
-        B.N      ?Subroutine2
+        MOVS     R0,#+3
+        POP      {R4-R8,PC}
 // 1253         }
 // 1254       }
 // 1255     }
@@ -2689,23 +2668,7 @@ UART_WaitOnFlagUntilTimeout:
         MOVS     R0,#+0
         POP      {R4-R8,PC}       ;; return
 // 1258 }
-          CFI EndBlock cfiBlock19
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock20 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+24
-          CFI R4 Frame(CFA, -24)
-          CFI R5 Frame(CFA, -20)
-          CFI R6 Frame(CFA, -16)
-          CFI R7 Frame(CFA, -12)
-          CFI R8 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine2:
-        MOVS     R0,#+3
-        POP      {R4-R8,PC}
-          CFI EndBlock cfiBlock20
+          CFI EndBlock cfiBlock17
 // 1259 
 // 1260 
 // 1261 
@@ -2716,14 +2679,16 @@ UART_WaitOnFlagUntilTimeout:
 // 1266   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock21 Using cfiCommon0
+          CFI Block cfiBlock18 Using cfiCommon0
           CFI Function UART_DMATransmitCplt
         THUMB
 // 1267 static void UART_DMATransmitCplt(DMA_HandleTypeDef *hdma)     
 // 1268 {
 UART_DMATransmitCplt:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 // 1269   UART_HandleTypeDef* huart = ( UART_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
         LDR      R1,[R0, #+56]
@@ -2752,20 +2717,25 @@ UART_DMATransmitCplt:
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x40
         STR      R1,[R0, #+0]
-        POP      {R0,PC}
 // 1282   }
 // 1283   /* DMA Circular mode */
 // 1284   else
 // 1285   {
 // 1286     HAL_UART_TxCpltCallback(huart);
+// 1287   }
+// 1288 }
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}
+          CFI CFA R13+8
 ??UART_DMATransmitCplt_0:
         MOV      R0,R1
           CFI FunCall HAL_UART_TxCpltCallback
         BL       HAL_UART_TxCpltCallback
-// 1287   }
-// 1288 }
-        POP      {R0,PC}          ;; return
-          CFI EndBlock cfiBlock21
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
+          CFI EndBlock cfiBlock18
 // 1289 
 // 1290 /**
 // 1291   * @brief DMA UART transmit process half complete callback 
@@ -2774,14 +2744,16 @@ UART_DMATransmitCplt:
 // 1294   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock22 Using cfiCommon0
+          CFI Block cfiBlock19 Using cfiCommon0
           CFI Function UART_DMATxHalfCplt
         THUMB
 // 1295 static void UART_DMATxHalfCplt(DMA_HandleTypeDef *hdma)
 // 1296 {
 UART_DMATxHalfCplt:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 // 1297   UART_HandleTypeDef* huart = (UART_HandleTypeDef*)((DMA_HandleTypeDef*)hdma)->Parent;
 // 1298 
@@ -2790,8 +2762,10 @@ UART_DMATxHalfCplt:
           CFI FunCall HAL_UART_TxHalfCpltCallback
         BL       HAL_UART_TxHalfCpltCallback
 // 1300 }
-        POP      {R0,PC}          ;; return
-          CFI EndBlock cfiBlock22
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
+          CFI EndBlock cfiBlock19
 // 1301 
 // 1302 /**
 // 1303   * @brief DMA UART receive process complete callback 
@@ -2800,14 +2774,16 @@ UART_DMATxHalfCplt:
 // 1306   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock23 Using cfiCommon0
+          CFI Block cfiBlock20 Using cfiCommon0
           CFI Function UART_DMAReceiveCplt
         THUMB
 // 1307 static void UART_DMAReceiveCplt(DMA_HandleTypeDef *hdma)  
 // 1308 {
 UART_DMAReceiveCplt:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 // 1309   UART_HandleTypeDef* huart = ( UART_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
         LDR      R1,[R0, #+56]
@@ -2820,32 +2796,31 @@ UART_DMAReceiveCplt:
         BMI.N    ??UART_DMAReceiveCplt_0
 // 1313   { 
 // 1314     huart->RxXferCount = 0;
-        ADD      R0,R1,#+90
-        MOVS     R2,#+0
-        STRH     R2,[R0, #+0]
+        MOVS     R0,#+0
+        STRH     R0,[R1, #+90]
 // 1315     
 // 1316     /* Disable the DMA transfer for the receiver request by setting the DMAR bit 
 // 1317     in the UART CR3 register */
 // 1318     huart->Instance->CR3 &= (uint32_t)~((uint32_t)USART_CR3_DMAR);
-        LDR      R2,[R1, #+0]
-        LDR      R3,[R2, #+8]
-        BIC      R3,R3,#0x40
-        STR      R3,[R2, #+8]
+        LDR      R0,[R1, #+0]
+        LDR      R2,[R0, #+8]
+        BIC      R2,R2,#0x40
+        STR      R2,[R0, #+8]
 // 1319     
 // 1320     /* Check if a transmit Process is ongoing or not */
 // 1321     if(huart->State == HAL_UART_STATE_BUSY_TX_RX) 
-        LDRB     R2,[R0, #+15]
-        CMP      R2,#+50
+        LDRB     R0,[R1, #+105]
+        CMP      R0,#+50
         ITE      EQ 
-        MOVEQ    R2,#+18
-        MOVNE    R2,#+1
+        MOVEQ    R0,#+18
+        MOVNE    R0,#+1
 // 1322     {
 // 1323       huart->State = HAL_UART_STATE_BUSY_TX;
 // 1324     }
 // 1325     else
 // 1326     {
 // 1327       huart->State = HAL_UART_STATE_READY;
-        STRB     R2,[R0, #+15]
+        STRB     R0,[R1, #+105]
 // 1328     }
 // 1329   }
 // 1330   HAL_UART_RxCpltCallback(huart);
@@ -2854,8 +2829,10 @@ UART_DMAReceiveCplt:
           CFI FunCall HAL_UART_RxCpltCallback
         BL       HAL_UART_RxCpltCallback
 // 1331 }
-        POP      {R0,PC}          ;; return
-          CFI EndBlock cfiBlock23
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
+          CFI EndBlock cfiBlock20
 // 1332 
 // 1333 /**
 // 1334   * @brief DMA UART receive process half complete callback 
@@ -2864,14 +2841,16 @@ UART_DMAReceiveCplt:
 // 1337   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock24 Using cfiCommon0
+          CFI Block cfiBlock21 Using cfiCommon0
           CFI Function UART_DMARxHalfCplt
         THUMB
 // 1338 static void UART_DMARxHalfCplt(DMA_HandleTypeDef *hdma)
 // 1339 {
 UART_DMARxHalfCplt:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 // 1340   UART_HandleTypeDef* huart = (UART_HandleTypeDef*)((DMA_HandleTypeDef*)hdma)->Parent;
 // 1341 
@@ -2880,8 +2859,10 @@ UART_DMARxHalfCplt:
           CFI FunCall HAL_UART_RxHalfCpltCallback
         BL       HAL_UART_RxHalfCpltCallback
 // 1343 }
-        POP      {R0,PC}          ;; return
-          CFI EndBlock cfiBlock24
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
+          CFI EndBlock cfiBlock21
 // 1344 
 // 1345 /**
 // 1346   * @brief DMA UART communication error callback 
@@ -2890,26 +2871,27 @@ UART_DMARxHalfCplt:
 // 1349   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock25 Using cfiCommon0
+          CFI Block cfiBlock22 Using cfiCommon0
           CFI Function UART_DMAError
         THUMB
 // 1350 static void UART_DMAError(DMA_HandleTypeDef *hdma)   
 // 1351 {
 UART_DMAError:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 // 1352   UART_HandleTypeDef* huart = ( UART_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
         LDR      R0,[R0, #+56]
 // 1353   huart->RxXferCount = 0;
-        MOVS     R2,#+0
-        ADD      R1,R0,#+82
-        STRH     R2,[R1, #+8]
+        MOVS     R1,#+0
+        STRH     R1,[R0, #+90]
 // 1354   huart->TxXferCount = 0;
-        STRH     R2,[R1, #+0]
+        STRH     R1,[R0, #+82]
 // 1355   huart->State= HAL_UART_STATE_READY;
-        MOVS     R2,#+1
-        STRB     R2,[R1, #+23]
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+105]
 // 1356   huart->ErrorCode |= HAL_UART_ERROR_DMA;
         LDR      R1,[R0, #+108]
         ORR      R1,R1,#0x10
@@ -2918,8 +2900,10 @@ UART_DMAError:
           CFI FunCall HAL_UART_ErrorCallback
         BL       HAL_UART_ErrorCallback
 // 1358 }
-        POP      {R0,PC}          ;; return
-          CFI EndBlock cfiBlock25
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
+          CFI EndBlock cfiBlock22
 // 1359 
 // 1360 /**
 // 1361   * @brief Tx Transfer completed callbacks
@@ -2928,7 +2912,7 @@ UART_DMAError:
 // 1364   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock26 Using cfiCommon0
+          CFI Block cfiBlock23 Using cfiCommon0
           CFI Function HAL_UART_TxCpltCallback
           CFI NoCalls
         THUMB
@@ -2940,7 +2924,7 @@ UART_DMAError:
 // 1370 }
 HAL_UART_TxCpltCallback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock26
+          CFI EndBlock cfiBlock23
 // 1371 
 // 1372 /**
 // 1373   * @brief  Tx Half Transfer completed callbacks.
@@ -2949,7 +2933,7 @@ HAL_UART_TxCpltCallback:
 // 1376   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock27 Using cfiCommon0
+          CFI Block cfiBlock24 Using cfiCommon0
           CFI Function HAL_UART_TxHalfCpltCallback
           CFI NoCalls
         THUMB
@@ -2961,7 +2945,7 @@ HAL_UART_TxCpltCallback:
 // 1382 }
 HAL_UART_TxHalfCpltCallback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock27
+          CFI EndBlock cfiBlock24
 // 1383 
 // 1384 /**
 // 1385   * @brief Rx Transfer completed callbacks
@@ -2970,7 +2954,7 @@ HAL_UART_TxHalfCpltCallback:
 // 1388   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock28 Using cfiCommon0
+          CFI Block cfiBlock25 Using cfiCommon0
           CFI Function HAL_UART_RxCpltCallback
           CFI NoCalls
         THUMB
@@ -2982,7 +2966,7 @@ HAL_UART_TxHalfCpltCallback:
 // 1394 }
 HAL_UART_RxCpltCallback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock28
+          CFI EndBlock cfiBlock25
 // 1395 
 // 1396 /**
 // 1397   * @brief  Rx Half Transfer completed callbacks.
@@ -2991,7 +2975,7 @@ HAL_UART_RxCpltCallback:
 // 1400   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock29 Using cfiCommon0
+          CFI Block cfiBlock26 Using cfiCommon0
           CFI Function HAL_UART_RxHalfCpltCallback
           CFI NoCalls
         THUMB
@@ -3003,7 +2987,7 @@ HAL_UART_RxCpltCallback:
 // 1406 }
 HAL_UART_RxHalfCpltCallback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock29
+          CFI EndBlock cfiBlock26
 // 1407 
 // 1408 /**
 // 1409   * @brief UART error callbacks
@@ -3012,7 +2996,7 @@ HAL_UART_RxHalfCpltCallback:
 // 1412   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock30 Using cfiCommon0
+          CFI Block cfiBlock27 Using cfiCommon0
           CFI Function HAL_UART_ErrorCallback
           CFI NoCalls
         THUMB
@@ -3024,7 +3008,7 @@ HAL_UART_RxHalfCpltCallback:
 // 1418 }
 HAL_UART_ErrorCallback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock30
+          CFI EndBlock cfiBlock27
 // 1419 
 // 1420 /**
 // 1421   * @brief Send an amount of data in interrupt mode 
@@ -3035,34 +3019,32 @@ HAL_UART_ErrorCallback:
 // 1426   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock31 Using cfiCommon0
+          CFI Block cfiBlock28 Using cfiCommon0
           CFI Function UART_Transmit_IT
         THUMB
 // 1427 static HAL_StatusTypeDef UART_Transmit_IT(UART_HandleTypeDef *huart)
 // 1428 {
 UART_Transmit_IT:
-        PUSH     {R3-R7,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+24
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
         MOV      R4,R0
 // 1429   uint16_t* tmp;
 // 1430 
 // 1431   if ((huart->State == HAL_UART_STATE_BUSY_TX) || (huart->State == HAL_UART_STATE_BUSY_TX_RX))
-        ADD      R5,R4,#+82
-        LDRB     R0,[R5, #+23]
+        LDRB     R0,[R4, #+105]
         CMP      R0,#+18
         ITT      NE 
-        LDRBNE   R0,[R5, #+23]
+        LDRBNE   R0,[R4, #+105]
         CMPNE    R0,#+50
         BNE.N    ??UART_Transmit_IT_0
 // 1432   {
 // 1433 
 // 1434     if(huart->TxXferCount == 0)
-        LDRH     R0,[R5, #+0]
+        LDRH     R0,[R4, #+82]
         CMP      R0,#+0
         BNE.N    ??UART_Transmit_IT_1
 // 1435     {
@@ -3075,7 +3057,7 @@ UART_Transmit_IT:
 // 1438 
 // 1439       /* Check if a receive Process is ongoing or not */
 // 1440       if(huart->State == HAL_UART_STATE_BUSY_TX_RX) 
-        LDRB     R0,[R5, #+23]
+        LDRB     R0,[R4, #+105]
         CMP      R0,#+50
         IT       EQ 
         MOVEQ    R0,#+34
@@ -3096,15 +3078,15 @@ UART_Transmit_IT:
 // 1449         huart->State = HAL_UART_STATE_READY;
         MOVS     R0,#+1
 ??UART_Transmit_IT_2:
-        STRB     R0,[R5, #+23]
+        STRB     R0,[R4, #+105]
 // 1450       }
 // 1451       
 // 1452       /* Wait on TC flag to be able to start a second transfer */
 // 1453       if(UART_WaitOnFlagUntilTimeout(huart, UART_FLAG_TC, RESET, HAL_UART_TIMEOUT_VALUE) != HAL_OK)
-        MVN      R7,#-33554432
+        MVN      R6,#-33554432
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R6,R0
+        MOV      R5,R0
 ??UART_Transmit_IT_3:
         LDR      R0,[R4, #+0]
         LDR      R0,[R0, #+28]
@@ -3112,8 +3094,8 @@ UART_Transmit_IT:
         BMI.N    ??UART_Transmit_IT_4
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUBS     R0,R0,R6
-        CMP      R0,R7
+        SUBS     R0,R0,R5
+        CMP      R0,R6
         BCC.N    ??UART_Transmit_IT_3
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
@@ -3133,13 +3115,13 @@ UART_Transmit_IT:
         LSLS     R1,R1,#+1
         STR      R1,[R0, #+8]
         MOVS     R0,#+1
-        STRB     R0,[R5, #+23]
+        STRB     R0,[R4, #+105]
         MOVS     R0,#+0
-        STRB     R0,[R5, #+22]
+        STRB     R0,[R4, #+104]
 // 1454       { 
 // 1455         return HAL_TIMEOUT;
         MOVS     R0,#+3
-        POP      {R1,R4-R7,PC}
+        POP      {R4-R6,PC}
 // 1456       }
 // 1457 
 // 1458       HAL_UART_TxCpltCallback(huart);
@@ -3149,55 +3131,55 @@ UART_Transmit_IT:
         BL       HAL_UART_TxCpltCallback
 // 1459 
 // 1460       return HAL_OK;
-        B.N      ??UART_Transmit_IT_5
 // 1461     }
 // 1462     else
 // 1463     {
 // 1464       if ((huart->Init.WordLength == UART_WORDLENGTH_9B) && (huart->Init.Parity == UART_PARITY_NONE))
+// 1465       {
+// 1466         tmp = (uint16_t*) huart->pTxBuffPtr;
+// 1467         huart->Instance->TDR = (*tmp & (uint16_t)0x01FF);
+// 1468         huart->pTxBuffPtr += 2;
+// 1469       } 
+// 1470       else
+// 1471       {
+// 1472         huart->Instance->TDR = (uint8_t)(*huart->pTxBuffPtr++ & (uint8_t)0xFF);
+// 1473       }
+// 1474 
+// 1475       huart->TxXferCount--;
+// 1476       
+// 1477       return HAL_OK;
+        MOVS     R0,#+0
+        POP      {R4-R6,PC}
 ??UART_Transmit_IT_1:
         LDR      R0,[R4, #+8]
         CMP      R0,#+4096
         ITT      EQ 
         LDREQ    R0,[R4, #+16]
         CMPEQ    R0,#+0
-        BNE.N    ??UART_Transmit_IT_6
-// 1465       {
-// 1466         tmp = (uint16_t*) huart->pTxBuffPtr;
-// 1467         huart->Instance->TDR = (*tmp & (uint16_t)0x01FF);
+        BNE.N    ??UART_Transmit_IT_5
         LDR      R0,[R4, #+76]
         LDR      R1,[R4, #+0]
         LDRH     R0,[R0, #+0]
         LSLS     R0,R0,#+23
         LSRS     R0,R0,#+23
         STR      R0,[R1, #+40]
-// 1468         huart->pTxBuffPtr += 2;
         LDR      R0,[R4, #+76]
         ADDS     R0,R0,#+2
         STR      R0,[R4, #+76]
-        B.N      ??UART_Transmit_IT_7
-// 1469       } 
-// 1470       else
-// 1471       {
-// 1472         huart->Instance->TDR = (uint8_t)(*huart->pTxBuffPtr++ & (uint8_t)0xFF);
-??UART_Transmit_IT_6:
+        B.N      ??UART_Transmit_IT_6
+??UART_Transmit_IT_5:
         LDR      R0,[R4, #+76]
         ADDS     R1,R0,#+1
         STR      R1,[R4, #+76]
         LDRB     R0,[R0, #+0]
         LDR      R1,[R4, #+0]
         STR      R0,[R1, #+40]
-// 1473       }
-// 1474 
-// 1475       huart->TxXferCount--;
-??UART_Transmit_IT_7:
-        LDRH     R0,[R5, #+0]
+??UART_Transmit_IT_6:
+        LDRH     R0,[R4, #+82]
         SUBS     R0,R0,#+1
-        STRH     R0,[R5, #+0]
-// 1476       
-// 1477       return HAL_OK;
-??UART_Transmit_IT_5:
+        STRH     R0,[R4, #+82]
         MOVS     R0,#+0
-        POP      {R1,R4-R7,PC}
+        POP      {R4-R6,PC}
 // 1478     }
 // 1479   }
 // 1480   else
@@ -3205,10 +3187,10 @@ UART_Transmit_IT:
 // 1482     return HAL_BUSY;   
 ??UART_Transmit_IT_0:
         MOVS     R0,#+2
-        POP      {R1,R4-R7,PC}    ;; return
+        POP      {R4-R6,PC}       ;; return
 // 1483   }
 // 1484 }
-          CFI EndBlock cfiBlock31
+          CFI EndBlock cfiBlock28
 // 1485 
 // 1486 /**
 // 1487   * @brief  Wrap up transmission in non-blocking mode.
@@ -3248,84 +3230,84 @@ UART_Transmit_IT:
 // 1521   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock32 Using cfiCommon0
+          CFI Block cfiBlock29 Using cfiCommon0
           CFI Function UART_Receive_IT
         THUMB
 // 1522 static HAL_StatusTypeDef UART_Receive_IT(UART_HandleTypeDef *huart)
 // 1523 {
+UART_Receive_IT:
+        PUSH     {LR}
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
+          CFI CFA R13+8
 // 1524   uint16_t* tmp;
 // 1525   uint16_t uhMask = huart->Mask;
-UART_Receive_IT:
-        ADD      R1,R0,#+90
-        PUSH     {R4,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        LDRH     R2,[R1, #+2]
+        LDRH     R1,[R0, #+92]
 // 1526 
 // 1527   if((huart->State == HAL_UART_STATE_BUSY_RX) || (huart->State == HAL_UART_STATE_BUSY_TX_RX))
-        LDRB     R3,[R1, #+15]
-        CMP      R3,#+34
+        LDRB     R2,[R0, #+105]
+        CMP      R2,#+34
         ITT      NE 
-        LDRBNE   R3,[R1, #+15]
-        CMPNE    R3,#+50
+        LDRBNE   R2,[R0, #+105]
+        CMPNE    R2,#+50
         BNE.N    ??UART_Receive_IT_0
 // 1528   {
 // 1529     
 // 1530     if ((huart->Init.WordLength == UART_WORDLENGTH_9B) && (huart->Init.Parity == UART_PARITY_NONE))
-        LDR      R3,[R0, #+8]
-        CMP      R3,#+4096
+        LDR      R2,[R0, #+8]
+        CMP      R2,#+4096
         ITT      EQ 
-        LDREQ    R3,[R0, #+16]
-        CMPEQ    R3,#+0
+        LDREQ    R2,[R0, #+16]
+        CMPEQ    R2,#+0
         BNE.N    ??UART_Receive_IT_1
 // 1531     {
 // 1532       tmp = (uint16_t*) huart->pRxBuffPtr ;
 // 1533       *tmp = (uint16_t)(huart->Instance->RDR & uhMask);
-        LDR      R3,[R0, #+0]
-        LDR      R3,[R3, #+36]
-        ANDS     R2,R2,R3
-        LDR      R3,[R0, #+84]
-        STRH     R2,[R3, #+0]
-// 1534       huart->pRxBuffPtr +=2;
+        LDR      R2,[R0, #+0]
+        LDR      R2,[R2, #+36]
+        ANDS     R1,R1,R2
         LDR      R2,[R0, #+84]
-        ADDS     R2,R2,#+2
-        STR      R2,[R0, #+84]
+        STRH     R1,[R2, #+0]
+// 1534       huart->pRxBuffPtr +=2;
+        LDR      R1,[R0, #+84]
+        ADDS     R1,R1,#+2
+        STR      R1,[R0, #+84]
         B.N      ??UART_Receive_IT_2
 // 1535     }
 // 1536     else
 // 1537     {
 // 1538       *huart->pRxBuffPtr++ = (uint8_t)(huart->Instance->RDR & (uint8_t)uhMask); 
 ??UART_Receive_IT_1:
-        LDR      R3,[R0, #+84]
-        ADDS     R4,R3,#+1
-        STR      R4,[R0, #+84]
-        LDR      R4,[R0, #+0]
-        LDR      R4,[R4, #+36]
-        ANDS     R2,R2,R4
-        STRB     R2,[R3, #+0]
+        LDR      R2,[R0, #+84]
+        ADDS     R3,R2,#+1
+        STR      R3,[R0, #+84]
+        LDR      R3,[R0, #+0]
+        LDR      R3,[R3, #+36]
+        ANDS     R1,R1,R3
+        STRB     R1,[R2, #+0]
 // 1539     }
 // 1540 
 // 1541     if(--huart->RxXferCount == 0)
 ??UART_Receive_IT_2:
-        LDRH     R2,[R1, #+0]
-        SUBS     R2,R2,#+1
-        STRH     R2,[R1, #+0]
-        UXTH     R2,R2
-        CBNZ.N   R2,??UART_Receive_IT_3
+        LDRH     R1,[R0, #+90]
+        SUBS     R1,R1,#+1
+        STRH     R1,[R0, #+90]
+        UXTH     R1,R1
+        CBNZ.N   R1,??UART_Receive_IT_3
 // 1542     {
 // 1543       __HAL_UART_DISABLE_IT(huart, UART_IT_RXNE);
-        LDR      R2,[R0, #+0]
-        LDR      R3,[R2, #+0]
-        BIC      R3,R3,#0x20
-        STR      R3,[R2, #+0]
+        LDR      R1,[R0, #+0]
+        LDR      R2,[R1, #+0]
+        BIC      R2,R2,#0x20
+        STR      R2,[R1, #+0]
 // 1544 
 // 1545       /* Check if a transmit Process is ongoing or not */
 // 1546       if(huart->State == HAL_UART_STATE_BUSY_TX_RX) 
-        LDRB     R2,[R1, #+15]
-        CMP      R2,#+50
+        LDRB     R1,[R0, #+105]
+        CMP      R1,#+50
         IT       EQ 
-        MOVEQ    R2,#+18
+        MOVEQ    R1,#+18
 // 1547       {
 // 1548         huart->State = HAL_UART_STATE_BUSY_TX;
         BEQ.N    ??UART_Receive_IT_4
@@ -3334,23 +3316,23 @@ UART_Receive_IT:
 // 1551       {
 // 1552         /* Disable the UART Parity Error Interrupt */
 // 1553         __HAL_UART_DISABLE_IT(huart, UART_IT_PE);
-        LDR      R2,[R0, #+0]
-        LDR      R3,[R2, #+0]
-        BIC      R3,R3,#0x100
-        STR      R3,[R2, #+0]
+        LDR      R1,[R0, #+0]
+        LDR      R2,[R1, #+0]
+        BIC      R2,R2,#0x100
+        STR      R2,[R1, #+0]
 // 1554 
 // 1555         /* Disable the UART Error Interrupt: (Frame error, noise error, overrun error) */
 // 1556         __HAL_UART_DISABLE_IT(huart, UART_IT_ERR);
-        LDR      R2,[R0, #+0]
-        LDR      R3,[R2, #+8]
-        LSRS     R3,R3,#+1
-        LSLS     R3,R3,#+1
-        STR      R3,[R2, #+8]
+        LDR      R1,[R0, #+0]
+        LDR      R2,[R1, #+8]
+        LSRS     R2,R2,#+1
+        LSLS     R2,R2,#+1
+        STR      R2,[R1, #+8]
 // 1557 
 // 1558         huart->State = HAL_UART_STATE_READY;
-        MOVS     R2,#+1
+        MOVS     R1,#+1
 ??UART_Receive_IT_4:
-        STRB     R2,[R1, #+15]
+        STRB     R1,[R0, #+105]
 // 1559       }
 // 1560       
 // 1561       HAL_UART_RxCpltCallback(huart);
@@ -3363,17 +3345,22 @@ UART_Receive_IT:
 // 1566     return HAL_OK;
 ??UART_Receive_IT_3:
         MOVS     R0,#+0
-        POP      {R4,PC}
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}
+          CFI CFA R13+8
 // 1567   }
 // 1568   else
 // 1569   {
 // 1570     return HAL_BUSY; 
 ??UART_Receive_IT_0:
         MOVS     R0,#+2
-        POP      {R4,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 // 1571   }
 // 1572 }
-          CFI EndBlock cfiBlock32
+          CFI EndBlock cfiBlock29
 // 1573 
 // 1574 /**
 // 1575   * @}
@@ -3411,41 +3398,43 @@ UART_Receive_IT:
 // 1607   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock33 Using cfiCommon0
+          CFI Block cfiBlock30 Using cfiCommon0
           CFI Function HAL_MultiProcessor_EnableMuteMode
-          CFI NoCalls
         THUMB
 // 1608 HAL_StatusTypeDef HAL_MultiProcessor_EnableMuteMode(UART_HandleTypeDef *huart)
 // 1609 {  
 // 1610   /* Process Locked */
 // 1611   __HAL_LOCK(huart);
 HAL_MultiProcessor_EnableMuteMode:
-        ADD      R1,R0,#+104
-        LDRB     R2,[R1, #+0]
-        CMP      R2,#+1
+        LDRB     R1,[R0, #+104]
+        CMP      R1,#+1
         BNE.N    ??HAL_MultiProcessor_EnableMuteMode_0
         MOVS     R0,#+2
         BX       LR
 ??HAL_MultiProcessor_EnableMuteMode_0:
-        MOVS     R2,#+1
-        STRB     R2,[R1, #+0]
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+104]
 // 1612   
 // 1613   huart->State = HAL_UART_STATE_BUSY;
-        MOVS     R2,#+2
-        STRB     R2,[R1, #+1]
+        MOVS     R1,#+2
+        STRB     R1,[R0, #+105]
 // 1614   
 // 1615   /* Enable USART mute mode by setting the MME bit in the CR1 register */
 // 1616   huart->Instance->CR1 |= USART_CR1_MME;
-        LDR      R2,[R0, #+0]
-        LDR      R3,[R2, #+0]
-        ORR      R3,R3,#0x2000
-        B.N      ?Subroutine1
+        LDR      R1,[R0, #+0]
+        LDR      R2,[R1, #+0]
+        ORR      R2,R2,#0x2000
+        STR      R2,[R1, #+0]
 // 1617   
 // 1618   huart->State = HAL_UART_STATE_READY;
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+105]
 // 1619   
 // 1620   return (UART_CheckIdleState(huart));
+          CFI FunCall UART_CheckIdleState
+        B.N      UART_CheckIdleState
 // 1621 }
-          CFI EndBlock cfiBlock33
+          CFI EndBlock cfiBlock30
 // 1622 
 // 1623 /**
 // 1624   * @brief Disable UART mute mode (doesn't mean it actually wakes up the software,
@@ -3455,55 +3444,43 @@ HAL_MultiProcessor_EnableMuteMode:
 // 1628   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock34 Using cfiCommon0
+          CFI Block cfiBlock31 Using cfiCommon0
           CFI Function HAL_MultiProcessor_DisableMuteMode
-          CFI NoCalls
         THUMB
 // 1629 HAL_StatusTypeDef HAL_MultiProcessor_DisableMuteMode(UART_HandleTypeDef *huart)
 // 1630 { 
 // 1631   /* Process Locked */
 // 1632   __HAL_LOCK(huart);
 HAL_MultiProcessor_DisableMuteMode:
-        ADD      R1,R0,#+104
-        LDRB     R2,[R1, #+0]
-        CMP      R2,#+1
+        LDRB     R1,[R0, #+104]
+        CMP      R1,#+1
         BNE.N    ??HAL_MultiProcessor_DisableMuteMode_0
         MOVS     R0,#+2
         BX       LR
 ??HAL_MultiProcessor_DisableMuteMode_0:
-        MOVS     R2,#+1
-        STRB     R2,[R1, #+0]
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+104]
 // 1633   
 // 1634   huart->State = HAL_UART_STATE_BUSY;
-        MOVS     R2,#+2
-        STRB     R2,[R1, #+1]
+        MOVS     R1,#+2
+        STRB     R1,[R0, #+105]
 // 1635   
 // 1636    /* Disable USART mute mode by clearing the MME bit in the CR1 register */
 // 1637   huart->Instance->CR1 &= ~(USART_CR1_MME);
-        LDR      R2,[R0, #+0]
-        LDR      R3,[R2, #+0]
-        BIC      R3,R3,#0x2000
-          CFI EndBlock cfiBlock34
-        REQUIRE ?Subroutine1
-        ;; // Fall through to label ?Subroutine1
+        LDR      R1,[R0, #+0]
+        LDR      R2,[R1, #+0]
+        BIC      R2,R2,#0x2000
+        STR      R2,[R1, #+0]
 // 1638   
 // 1639   huart->State = HAL_UART_STATE_READY;
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+105]
 // 1640   
 // 1641   return (UART_CheckIdleState(huart));
-// 1642 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock35 Using cfiCommon0
-          CFI NoFunction
-        THUMB
-?Subroutine1:
-        STR      R3,[R2, #+0]
-        MOVS     R2,#+1
-        STRB     R2,[R1, #+1]
-          CFI FunCall HAL_MultiProcessor_EnableMuteMode UART_CheckIdleState
-          CFI FunCall HAL_MultiProcessor_DisableMuteMode UART_CheckIdleState
+          CFI FunCall UART_CheckIdleState
         B.N      UART_CheckIdleState
-          CFI EndBlock cfiBlock35
+// 1642 }
+          CFI EndBlock cfiBlock31
 // 1643 
 // 1644 /**
 // 1645   * @brief Enter UART mute mode (means UART actually enters mute mode).
@@ -3513,7 +3490,7 @@ HAL_MultiProcessor_DisableMuteMode:
 // 1649   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock36 Using cfiCommon0
+          CFI Block cfiBlock32 Using cfiCommon0
           CFI Function HAL_MultiProcessor_EnterMuteMode
           CFI NoCalls
         THUMB
@@ -3527,7 +3504,7 @@ HAL_MultiProcessor_EnterMuteMode:
         STR      R1,[R0, #+24]
 // 1653 }
         BX       LR               ;; return
-          CFI EndBlock cfiBlock36
+          CFI EndBlock cfiBlock32
 // 1654 
 // 1655 
 // 1656 
@@ -3538,7 +3515,7 @@ HAL_MultiProcessor_EnterMuteMode:
 // 1661   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock37 Using cfiCommon0
+          CFI Block cfiBlock33 Using cfiCommon0
           CFI Function HAL_UART_GetState
           CFI NoCalls
         THUMB
@@ -3549,7 +3526,7 @@ HAL_UART_GetState:
         LDRB     R0,[R0, #+105]
         BX       LR               ;; return
 // 1665 }
-          CFI EndBlock cfiBlock37
+          CFI EndBlock cfiBlock33
 // 1666 
 // 1667 /**
 // 1668 * @brief  Return the UART error code
@@ -3559,7 +3536,7 @@ HAL_UART_GetState:
 // 1672 */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock38 Using cfiCommon0
+          CFI Block cfiBlock34 Using cfiCommon0
           CFI Function HAL_UART_GetError
           CFI NoCalls
         THUMB
@@ -3570,7 +3547,7 @@ HAL_UART_GetError:
         LDR      R0,[R0, #+108]
         BX       LR               ;; return
 // 1676 }
-          CFI EndBlock cfiBlock38
+          CFI EndBlock cfiBlock34
 // 1677 
 // 1678 /**
 // 1679   * @brief Configure the UART peripheral 
@@ -3579,7 +3556,7 @@ HAL_UART_GetError:
 // 1682   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock39 Using cfiCommon0
+          CFI Block cfiBlock35 Using cfiCommon0
           CFI Function UART_SetConfig
         THUMB
 // 1683 HAL_StatusTypeDef UART_SetConfig(UART_HandleTypeDef *huart)
@@ -3617,20 +3594,20 @@ UART_SetConfig:
 // 1708   tmpreg = (uint32_t)huart->Init.WordLength | huart->Init.Parity | huart->Init.Mode | huart->Init.OverSampling ;
 // 1709   MODIFY_REG(huart->Instance->CR1, UART_CR1_FIELDS, tmpreg);
         LDR.N    R6,??DataTable0  ;; 0xefff69f3
-        MOV      R4,R0
+        MOV      R5,R0
         MOVS     R0,#+16
         MOVS     R1,#+0
-        LDR      R2,[R4, #+0]
-        MOVS     R5,#+0
+        LDR      R2,[R5, #+0]
+        MOVS     R4,#+0
         LDR      R3,[R2, #+0]
         ANDS     R3,R6,R3
-        LDR      R6,[R4, #+8]
+        LDR      R6,[R5, #+8]
         ORRS     R3,R6,R3
-        LDR      R6,[R4, #+16]
+        LDR      R6,[R5, #+16]
         ORRS     R3,R6,R3
-        LDR      R6,[R4, #+20]
+        LDR      R6,[R5, #+20]
         ORRS     R3,R6,R3
-        LDR      R6,[R4, #+28]
+        LDR      R6,[R5, #+28]
         ORRS     R3,R6,R3
         STR      R3,[R2, #+0]
 // 1710 
@@ -3639,7 +3616,7 @@ UART_SetConfig:
 // 1713    * to huart->Init.StopBits value */
 // 1714   MODIFY_REG(huart->Instance->CR2, USART_CR2_STOP, huart->Init.StopBits);
         LDR      R3,[R2, #+4]
-        LDR      R6,[R4, #+12]
+        LDR      R6,[R5, #+12]
         BIC      R3,R3,#0x3000
         ORRS     R3,R6,R3
         STR      R3,[R2, #+4]
@@ -3653,10 +3630,10 @@ UART_SetConfig:
 // 1722   tmpreg = (uint32_t)huart->Init.HwFlowCtl | huart->Init.OneBitSampling ;
 // 1723   MODIFY_REG(huart->Instance->CR3, (USART_CR3_RTSE | USART_CR3_CTSE | USART_CR3_ONEBIT), tmpreg);
         LDR      R3,[R2, #+8]
-        LDR      R6,[R4, #+24]
+        LDR      R6,[R5, #+24]
         BIC      R3,R3,#0xB00
         ORRS     R3,R6,R3
-        LDR      R6,[R4, #+32]
+        LDR      R6,[R5, #+32]
         ORRS     R3,R6,R3
         STR      R3,[R2, #+8]
 // 1724   
@@ -3664,282 +3641,297 @@ UART_SetConfig:
 // 1726   UART_GETCLOCKSOURCE(huart, clocksource);
         LDR.N    R3,??DataTable0_1  ;; 0x40011000
         CMP      R2,R3
-        BNE.N    ??UART_SetConfig_3
+        BNE.N    ??UART_SetConfig_4
         LDR.N    R3,??DataTable0_2  ;; 0x40023890
         LDR      R3,[R3, #+0]
         AND      R3,R3,#0x3
         CMP      R3,#+3
-        BHI.N    ??UART_SetConfig_4
+        BHI.N    ??UART_SetConfig_5
         TBB      [PC, R3]
         DATA
 ??UART_SetConfig_0:
-        DC8      0x67,0x14,0x2,0x24
+        DC8      0x71,0x17,0x2,0x28
         THUMB
-??UART_SetConfig_5:
+??UART_SetConfig_6:
         MOVS     R0,#+2
-        B.N      ??UART_SetConfig_4
-??UART_SetConfig_3:
+        B.N      ??UART_SetConfig_5
+??UART_SetConfig_4:
         LDR.N    R3,??DataTable0_3  ;; 0x40004400
         CMP      R2,R3
-        BNE.N    ??UART_SetConfig_6
+        BNE.N    ??UART_SetConfig_7
         LDR.N    R3,??DataTable0_2  ;; 0x40023890
         LDR      R3,[R3, #+0]
-        ANDS     R3,R3,#0xC
-        BEQ.W    ??UART_SetConfig_7
-        CMP      R3,#+4
-        BEQ.N    ??UART_SetConfig_8
-        CMP      R3,#+8
-        BEQ.N    ??UART_SetConfig_5
+        AND      R3,R3,#0xC
         CMP      R3,#+12
-??UART_SetConfig_9:
-        BEQ.N    ??UART_SetConfig_10
-        B.N      ??UART_SetConfig_4
+        BHI.N    ??UART_SetConfig_5
+        TBB      [PC, R3]
+        DATA
+??UART_SetConfig_1:
+        DC8      0x89,0x1A,0x1A,0x1A
+        DC8      0x8,0x1A,0x1A,0x1A
+        DC8      0x7,0x1A,0x1A,0x1A
+        DC8      0x19,0x0
+        THUMB
 ??UART_SetConfig_8:
+        B.N      ??UART_SetConfig_6
+??UART_SetConfig_9:
         MOVS     R0,#+4
-        B.N      ??UART_SetConfig_4
-??UART_SetConfig_6:
+        B.N      ??UART_SetConfig_5
+??UART_SetConfig_7:
         LDR.N    R3,??DataTable0_4  ;; 0x40004800
         CMP      R2,R3
-        BNE.N    ??UART_SetConfig_11
+        BNE.N    ??UART_SetConfig_10
         LDR.N    R3,??DataTable0_2  ;; 0x40023890
         LDR      R3,[R3, #+0]
         ANDS     R3,R3,#0x30
-        BEQ.N    ??UART_SetConfig_7
+        BEQ.W    ??UART_SetConfig_11
         CMP      R3,#+16
-        BEQ.N    ??UART_SetConfig_8
+        BEQ.N    ??UART_SetConfig_9
         CMP      R3,#+32
-        BEQ.N    ??UART_SetConfig_5
+        BEQ.N    ??UART_SetConfig_6
         CMP      R3,#+48
-        BNE.N    ??UART_SetConfig_4
-??UART_SetConfig_10:
+        BNE.N    ??UART_SetConfig_5
+??UART_SetConfig_12:
         MOVS     R0,#+8
 // 1727 
 // 1728   /* Check UART Over Sampling to set Baud Rate Register */
 // 1729   if (huart->Init.OverSampling == UART_OVERSAMPLING_8)
-??UART_SetConfig_4:
-        LDR      R3,[R4, #+28]
+??UART_SetConfig_5:
+        LDR      R3,[R5, #+28]
         CMP      R3,#+32768
-        BNE.W    ??UART_SetConfig_12
+        BNE.W    ??UART_SetConfig_13
 // 1730   { 
 // 1731     switch (clocksource)
         CMP      R0,#+8
-        BHI.N    ??UART_SetConfig_13
+        BHI.W    ??UART_SetConfig_14
         TBB      [PC, R0]
         DATA
-??UART_SetConfig_1:
-        DC8      0x5,0x61,0x65,0x71
-        DC8      0x67,0x71,0x71,0x71
-        DC8      0x6B,0x0
+??UART_SetConfig_2:
+        DC8      0x5,0x67,0x6E,0x80
+        DC8      0x73,0x80,0x80,0x80
+        DC8      0x7A,0x0
           CFI FunCall HAL_RCC_GetPCLK1Freq
         THUMB
 // 1732     {
 // 1733     case UART_CLOCKSOURCE_PCLK1:
 // 1734         usartdiv = (uint16_t)(UART_DIV_SAMPLING8(HAL_RCC_GetPCLK1Freq(), huart->Init.BaudRate));
-??UART_SetConfig_14:
+??UART_SetConfig_15:
         BL       HAL_RCC_GetPCLK1Freq
+        LDR      R1,[R5, #+4]
         LSLS     R0,R0,#+1
-        B.N      ??UART_SetConfig_15
-??UART_SetConfig_11:
+        UDIV     R1,R0,R1
+// 1735       break;
+// 1736     case UART_CLOCKSOURCE_PCLK2:
+// 1737         usartdiv = (uint16_t)(UART_DIV_SAMPLING8(HAL_RCC_GetPCLK2Freq(), huart->Init.BaudRate));
+// 1738       break;
+// 1739     case UART_CLOCKSOURCE_HSI:
+// 1740         usartdiv = (uint16_t)(UART_DIV_SAMPLING8(HSI_VALUE, huart->Init.BaudRate)); 
+// 1741       break;
+// 1742     case UART_CLOCKSOURCE_SYSCLK:
+// 1743         usartdiv = (uint16_t)(UART_DIV_SAMPLING8(HAL_RCC_GetSysClockFreq(), huart->Init.BaudRate));
+// 1744       break;
+// 1745     case UART_CLOCKSOURCE_LSE:
+// 1746         usartdiv = (uint16_t)(UART_DIV_SAMPLING8(LSE_VALUE, huart->Init.BaudRate)); 
+// 1747       break;
+        B.N      ??UART_SetConfig_16
+??UART_SetConfig_10:
         LDR.N    R3,??DataTable0_5  ;; 0x40004c00
-        CMP      R2,R3
-        BNE.N    ??UART_SetConfig_16
-        LDR.N    R3,??DataTable0_2  ;; 0x40023890
-        LDR      R3,[R3, #+0]
-        ANDS     R3,R3,#0xC0
-        BEQ.N    ??UART_SetConfig_7
-        CMP      R3,#+64
-        BEQ.N    ??UART_SetConfig_8
-        CMP      R3,#+128
-        BEQ.N    ??UART_SetConfig_5
-        CMP      R3,#+192
-        B.N      ??UART_SetConfig_9
-??UART_SetConfig_16:
-        LDR.N    R3,??DataTable0_6  ;; 0x40005000
         CMP      R2,R3
         BNE.N    ??UART_SetConfig_17
         LDR.N    R3,??DataTable0_2  ;; 0x40023890
         LDR      R3,[R3, #+0]
-        ANDS     R3,R3,#0x300
-        BEQ.N    ??UART_SetConfig_7
-        CMP      R3,#+256
-        BEQ.N    ??UART_SetConfig_8
-        CMP      R3,#+512
-        BEQ.N    ??UART_SetConfig_5
-        CMP      R3,#+768
-        B.N      ??UART_SetConfig_9
+        ANDS     R3,R3,#0xC0
+        BEQ.N    ??UART_SetConfig_11
+        CMP      R3,#+64
+        BEQ.N    ??UART_SetConfig_9
+        CMP      R3,#+128
+        BEQ.N    ??UART_SetConfig_6
+        CMP      R3,#+192
+??UART_SetConfig_18:
+        BEQ.N    ??UART_SetConfig_12
+        B.N      ??UART_SetConfig_5
 ??UART_SetConfig_17:
-        LDR.N    R3,??DataTable0_7  ;; 0x40011400
+        LDR.N    R3,??DataTable0_6  ;; 0x40005000
         CMP      R2,R3
-        BNE.N    ??UART_SetConfig_18
+        BNE.N    ??UART_SetConfig_19
         LDR.N    R3,??DataTable0_2  ;; 0x40023890
         LDR      R3,[R3, #+0]
-        ANDS     R3,R3,#0xC00
-        BEQ.N    ??UART_SetConfig_19
-        CMP      R3,#+1024
-        BEQ.N    ??UART_SetConfig_8
-        CMP      R3,#+2048
-        BEQ.N    ??UART_SetConfig_5
-        CMP      R3,#+3072
-        B.N      ??UART_SetConfig_9
+        ANDS     R3,R3,#0x300
+        BEQ.N    ??UART_SetConfig_11
+        CMP      R3,#+256
+        BEQ.N    ??UART_SetConfig_9
+        CMP      R3,#+512
+        BEQ.N    ??UART_SetConfig_6
+        CMP      R3,#+768
+        B.N      ??UART_SetConfig_18
 ??UART_SetConfig_19:
-        MOVS     R0,#+1
-        B.N      ??UART_SetConfig_4
-??UART_SetConfig_18:
-        LDR.N    R3,??DataTable0_8  ;; 0x40007800
+        LDR.N    R3,??DataTable0_7  ;; 0x40011400
         CMP      R2,R3
         BNE.N    ??UART_SetConfig_20
         LDR.N    R3,??DataTable0_2  ;; 0x40023890
         LDR      R3,[R3, #+0]
-        ANDS     R3,R3,#0x3000
-        BEQ.N    ??UART_SetConfig_7
-        CMP      R3,#+4096
-        BEQ.N    ??UART_SetConfig_8
-        CMP      R3,#+8192
-        BEQ.W    ??UART_SetConfig_5
-        CMP      R3,#+12288
-        B.N      ??UART_SetConfig_9
+        ANDS     R3,R3,#0xC00
+        BEQ.N    ??UART_SetConfig_21
+        CMP      R3,#+1024
+        BEQ.N    ??UART_SetConfig_9
+        CMP      R3,#+2048
+        BEQ.W    ??UART_SetConfig_6
+        CMP      R3,#+3072
+        B.N      ??UART_SetConfig_18
+??UART_SetConfig_21:
+        MOVS     R0,#+1
+        B.N      ??UART_SetConfig_5
 ??UART_SetConfig_20:
+        LDR.N    R3,??DataTable0_8  ;; 0x40007800
+        CMP      R2,R3
+        BNE.N    ??UART_SetConfig_22
+        LDR.N    R3,??DataTable0_2  ;; 0x40023890
+        LDR      R3,[R3, #+0]
+        ANDS     R3,R3,#0x3000
+        BEQ.N    ??UART_SetConfig_11
+        CMP      R3,#+4096
+        BEQ.N    ??UART_SetConfig_9
+        CMP      R3,#+8192
+        BEQ.W    ??UART_SetConfig_6
+        CMP      R3,#+12288
+        B.N      ??UART_SetConfig_18
+??UART_SetConfig_22:
         LDR.N    R3,??DataTable0_9  ;; 0x40007c00
         CMP      R2,R3
-        BNE.N    ??UART_SetConfig_4
+        BNE.N    ??UART_SetConfig_5
         LDR.N    R3,??DataTable0_2  ;; 0x40023890
         LDR      R3,[R3, #+0]
         ANDS     R3,R3,#0xC000
-        BEQ.N    ??UART_SetConfig_7
+        BEQ.N    ??UART_SetConfig_11
         CMP      R3,#+16384
-        BEQ.N    ??UART_SetConfig_8
+        BEQ.W    ??UART_SetConfig_9
         CMP      R3,#+32768
-        BEQ.W    ??UART_SetConfig_5
+        BEQ.W    ??UART_SetConfig_6
         CMP      R3,#+49152
-        B.N      ??UART_SetConfig_9
-??UART_SetConfig_7:
+        B.N      ??UART_SetConfig_18
+??UART_SetConfig_11:
         MOVS     R0,#+0
-        B.N      ??UART_SetConfig_4
-// 1735       break;
-// 1736     case UART_CLOCKSOURCE_PCLK2:
-// 1737         usartdiv = (uint16_t)(UART_DIV_SAMPLING8(HAL_RCC_GetPCLK2Freq(), huart->Init.BaudRate));
-??UART_SetConfig_21:
+        B.N      ??UART_SetConfig_5
+??UART_SetConfig_23:
           CFI FunCall HAL_RCC_GetPCLK2Freq
         BL       HAL_RCC_GetPCLK2Freq
+        LDR      R1,[R5, #+4]
         LSLS     R0,R0,#+1
-        B.N      ??UART_SetConfig_15
-// 1738       break;
-// 1739     case UART_CLOCKSOURCE_HSI:
-// 1740         usartdiv = (uint16_t)(UART_DIV_SAMPLING8(HSI_VALUE, huart->Init.BaudRate)); 
-??UART_SetConfig_22:
+        UDIV     R1,R0,R1
+        B.N      ??UART_SetConfig_16
+??UART_SetConfig_24:
+        LDR      R1,[R5, #+4]
         LDR.N    R0,??DataTable0_10  ;; 0x1e84800
-        B.N      ??UART_SetConfig_15
-// 1741       break;
-// 1742     case UART_CLOCKSOURCE_SYSCLK:
-// 1743         usartdiv = (uint16_t)(UART_DIV_SAMPLING8(HAL_RCC_GetSysClockFreq(), huart->Init.BaudRate));
-??UART_SetConfig_23:
+        UDIV     R1,R0,R1
+        B.N      ??UART_SetConfig_16
+??UART_SetConfig_25:
           CFI FunCall HAL_RCC_GetSysClockFreq
         BL       HAL_RCC_GetSysClockFreq
+        LDR      R1,[R5, #+4]
         LSLS     R0,R0,#+1
-        B.N      ??UART_SetConfig_15
-// 1744       break;
-// 1745     case UART_CLOCKSOURCE_LSE:
-// 1746         usartdiv = (uint16_t)(UART_DIV_SAMPLING8(LSE_VALUE, huart->Init.BaudRate)); 
-??UART_SetConfig_24:
-        MOV      R0,#+65536
-??UART_SetConfig_15:
-        LDR      R1,[R4, #+4]
         UDIV     R1,R0,R1
-// 1747       break;
-        B.N      ??UART_SetConfig_25
+        B.N      ??UART_SetConfig_16
+??UART_SetConfig_26:
+        LDR      R1,[R5, #+4]
+        MOV      R0,#+65536
+        UDIV     R1,R0,R1
+        B.N      ??UART_SetConfig_16
 // 1748       case UART_CLOCKSOURCE_UNDEFINED:                
 // 1749     default:
 // 1750         ret = HAL_ERROR; 
-??UART_SetConfig_13:
-        MOVS     R5,#+1
+??UART_SetConfig_14:
+        MOVS     R4,#+1
 // 1751       break;
 // 1752     }
 // 1753     
 // 1754     brrtemp = usartdiv & 0xFFF0;
 // 1755     brrtemp |= (uint16_t)((usartdiv & (uint16_t)0x000F) >> 1U);
 // 1756     huart->Instance->BRR = brrtemp;
-??UART_SetConfig_25:
+??UART_SetConfig_16:
         MOVW     R0,#+65520
         ANDS     R0,R0,R1
         UBFX     R1,R1,#+1,#+3
         ORRS     R0,R1,R0
-        B.N      ??UART_SetConfig_26
+        LDR      R1,[R5, #+0]
+        STR      R0,[R1, #+12]
 // 1757   }
 // 1758   else
 // 1759   {
 // 1760     switch (clocksource)
-??UART_SetConfig_12:
-        CMP      R0,#+8
-        BHI.N    ??UART_SetConfig_27
-        TBB      [PC, R0]
-        DATA
-??UART_SetConfig_2:
-        DC8      0x5,0x8,0xB,0x1E
-        DC8      0xD,0x1E,0x1E,0x1E
-        DC8      0x16,0x0
-          CFI FunCall HAL_RCC_GetPCLK1Freq
-        THUMB
 // 1761     {
 // 1762     case UART_CLOCKSOURCE_PCLK1: 
 // 1763         huart->Instance->BRR = (uint16_t)(UART_DIV_SAMPLING16(HAL_RCC_GetPCLK1Freq(), huart->Init.BaudRate));
-??UART_SetConfig_28:
-        BL       HAL_RCC_GetPCLK1Freq
-        B.N      ??UART_SetConfig_29
 // 1764       break;
 // 1765     case UART_CLOCKSOURCE_PCLK2: 
 // 1766         huart->Instance->BRR = (uint16_t)(UART_DIV_SAMPLING16(HAL_RCC_GetPCLK2Freq(), huart->Init.BaudRate));
-??UART_SetConfig_30:
-          CFI FunCall HAL_RCC_GetPCLK2Freq
-        BL       HAL_RCC_GetPCLK2Freq
-        B.N      ??UART_SetConfig_29
 // 1767       break;
 // 1768     case UART_CLOCKSOURCE_HSI: 
 // 1769         huart->Instance->BRR = (uint16_t)(UART_DIV_SAMPLING16(HSI_VALUE, huart->Init.BaudRate)); 
-??UART_SetConfig_31:
-        LDR.N    R0,??DataTable0_11  ;; 0xf42400
-        B.N      ??UART_SetConfig_32
 // 1770       break; 
 // 1771     case UART_CLOCKSOURCE_SYSCLK:  
 // 1772         huart->Instance->BRR = (uint16_t)(UART_DIV_SAMPLING16(HAL_RCC_GetSysClockFreq(), huart->Init.BaudRate));
-??UART_SetConfig_33:
-          CFI FunCall HAL_RCC_GetSysClockFreq
-        BL       HAL_RCC_GetSysClockFreq
-??UART_SetConfig_29:
-        LDR      R1,[R4, #+4]
-        UDIV     R0,R0,R1
-        UXTH     R0,R0
-??UART_SetConfig_26:
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+12]
 // 1773       break;  
-        B.N      ??UART_SetConfig_34
 // 1774     case UART_CLOCKSOURCE_LSE:
 // 1775         huart->Instance->BRR = (uint16_t)(UART_DIV_SAMPLING16(LSE_VALUE, huart->Init.BaudRate)); 
-??UART_SetConfig_35:
-        MOV      R0,#+32768
-??UART_SetConfig_32:
-        LDR      R1,[R4, #+4]
-        UDIV     R0,R0,R1
-        UXTH     R0,R0
-        STR      R0,[R2, #+12]
 // 1776       break;
-        B.N      ??UART_SetConfig_34
 // 1777       case UART_CLOCKSOURCE_UNDEFINED:                
 // 1778     default:
 // 1779         ret = HAL_ERROR; 
-??UART_SetConfig_27:
-        MOVS     R5,#+1
 // 1780       break;
 // 1781     }
 // 1782   }
 // 1783 
 // 1784   return ret;   
+        MOV      R0,R4
+        POP      {R4-R6,PC}
+??UART_SetConfig_13:
+        CMP      R0,#+8
+        BHI.N    ??UART_SetConfig_27
+        TBB      [PC, R0]
+        DATA
+??UART_SetConfig_3:
+        DC8      0x5,0x8,0xB,0x20
+        DC8      0xD,0x20,0x20,0x20
+        DC8      0x17,0x0
+          CFI FunCall HAL_RCC_GetPCLK1Freq
+        THUMB
+??UART_SetConfig_28:
+        BL       HAL_RCC_GetPCLK1Freq
+        B.N      ??UART_SetConfig_29
+??UART_SetConfig_30:
+          CFI FunCall HAL_RCC_GetPCLK2Freq
+        BL       HAL_RCC_GetPCLK2Freq
+        B.N      ??UART_SetConfig_29
+??UART_SetConfig_31:
+        LDR.N    R0,??DataTable0_11  ;; 0xf42400
+        B.N      ??UART_SetConfig_32
+??UART_SetConfig_33:
+          CFI FunCall HAL_RCC_GetSysClockFreq
+        BL       HAL_RCC_GetSysClockFreq
+??UART_SetConfig_29:
+        LDR      R1,[R5, #+4]
+        UDIV     R0,R0,R1
+        LDR      R1,[R5, #+0]
+        UXTH     R0,R0
+        STR      R0,[R1, #+12]
+        MOV      R0,R4
+        POP      {R4-R6,PC}
 ??UART_SetConfig_34:
-        MOV      R0,R5
+        MOV      R0,#+32768
+??UART_SetConfig_32:
+        LDR      R1,[R5, #+4]
+        UDIV     R0,R0,R1
+        UXTH     R0,R0
+        STR      R0,[R2, #+12]
+        MOV      R0,R4
+        POP      {R4-R6,PC}
+??UART_SetConfig_27:
+        MOVS     R4,#+1
+        MOV      R0,R4
         POP      {R4-R6,PC}       ;; return
 // 1785 
 // 1786 }
-          CFI EndBlock cfiBlock39
+          CFI EndBlock cfiBlock35
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -4021,7 +4013,7 @@ UART_SetConfig:
 // 1793   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock40 Using cfiCommon0
+          CFI Block cfiBlock36 Using cfiCommon0
           CFI Function UART_AdvFeatureConfig
           CFI NoCalls
         THUMB
@@ -4182,7 +4174,7 @@ UART_AdvFeatureConfig:
 // 1860 }
 ??UART_AdvFeatureConfig_7:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock40
+          CFI EndBlock cfiBlock36
 // 1861 
 // 1862 
 // 1863 
@@ -4193,29 +4185,27 @@ UART_AdvFeatureConfig:
 // 1868   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock41 Using cfiCommon0
+          CFI Block cfiBlock37 Using cfiCommon0
           CFI Function UART_CheckIdleState
         THUMB
 // 1869 HAL_StatusTypeDef UART_CheckIdleState(UART_HandleTypeDef *huart)
 // 1870 {
 UART_CheckIdleState:
-        PUSH     {R3-R7,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+24
-        MOV      R5,R0
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
+        MOV      R4,R0
 // 1871   /* Initialize the UART ErrorCode */
 // 1872   huart->ErrorCode = HAL_UART_ERROR_NONE;
-        ADD      R4,R5,#+104
         MOVS     R0,#+0
-        STR      R0,[R4, #+4]
+        STR      R0,[R4, #+108]
 // 1873   
 // 1874   /* Check if the Transmitter is enabled */
 // 1875   if((huart->Instance->CR1 & USART_CR1_TE) == USART_CR1_TE)
-        LDR      R0,[R5, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+28
         BPL.N    ??UART_CheckIdleState_0
@@ -4224,17 +4214,17 @@ UART_CheckIdleState:
 // 1878     if(UART_WaitOnFlagUntilTimeout(huart, USART_ISR_TEACK, RESET, HAL_UART_TIMEOUT_VALUE) != HAL_OK)  
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R7,R0
-        MVN      R6,#-33554432
+        MOV      R6,R0
+        MVN      R5,#-33554432
 ??UART_CheckIdleState_1:
-        LDR      R0,[R5, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R0,[R0, #+28]
         LSLS     R0,R0,#+10
         BMI.N    ??UART_CheckIdleState_0
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUBS     R0,R0,R7
-        CMP      R0,R6
+        SUBS     R0,R0,R6
+        CMP      R0,R5
         BCC.N    ??UART_CheckIdleState_1
         B.N      ??UART_CheckIdleState_2
 // 1879     {
@@ -4245,7 +4235,7 @@ UART_CheckIdleState:
 // 1884   /* Check if the Receiver is enabled */
 // 1885   if((huart->Instance->CR1 & USART_CR1_RE) == USART_CR1_RE)
 ??UART_CheckIdleState_0:
-        LDR      R0,[R5, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+29
         BPL.N    ??UART_CheckIdleState_3
@@ -4254,45 +4244,45 @@ UART_CheckIdleState:
 // 1888     if(UART_WaitOnFlagUntilTimeout(huart, USART_ISR_REACK, RESET,  HAL_UART_TIMEOUT_VALUE) != HAL_OK)  
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R7,R0
-        MVN      R6,#-33554432
+        MOV      R6,R0
+        MVN      R5,#-33554432
 ??UART_CheckIdleState_4:
-        LDR      R0,[R5, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R0,[R0, #+28]
         LSLS     R0,R0,#+9
         BMI.N    ??UART_CheckIdleState_3
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUBS     R0,R0,R7
-        CMP      R0,R6
+        SUBS     R0,R0,R6
+        CMP      R0,R5
         BCC.N    ??UART_CheckIdleState_4
 ??UART_CheckIdleState_2:
-        LDR      R0,[R5, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x80
         STR      R1,[R0, #+0]
-        LDR      R0,[R5, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x20
         STR      R1,[R0, #+0]
-        LDR      R0,[R5, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x100
         STR      R1,[R0, #+0]
-        LDR      R0,[R5, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+8]
         LSRS     R1,R1,#+1
         LSLS     R1,R1,#+1
         STR      R1,[R0, #+8]
         MOVS     R0,#+1
-        STRB     R0,[R4, #+1]
+        STRB     R0,[R4, #+105]
         MOVS     R0,#+0
-        STRB     R0,[R4, #+0]
+        STRB     R0,[R4, #+104]
 // 1889     { 
 // 1890       /* Timeout Occurred */
 // 1891       return HAL_TIMEOUT;
         MOVS     R0,#+3
-        POP      {R1,R4-R7,PC}
+        POP      {R4-R6,PC}
 // 1892     }
 // 1893   }
 // 1894   
@@ -4300,17 +4290,17 @@ UART_CheckIdleState:
 // 1896   huart->State= HAL_UART_STATE_READY;
 ??UART_CheckIdleState_3:
         MOVS     R0,#+1
-        STRB     R0,[R4, #+1]
+        STRB     R0,[R4, #+105]
 // 1897     
 // 1898   /* Process Unlocked */
 // 1899   __HAL_UNLOCK(huart);
         MOVS     R0,#+0
-        STRB     R0,[R4, #+0]
+        STRB     R0,[R4, #+104]
 // 1900   
 // 1901   return HAL_OK;
-        POP      {R1,R4-R7,PC}    ;; return
+        POP      {R4-R6,PC}       ;; return
 // 1902 }
-          CFI EndBlock cfiBlock41
+          CFI EndBlock cfiBlock37
 // 1903 
 // 1904 /**
 // 1905   * @brief  Enables the UART transmitter and disables the UART receiver.
@@ -4320,7 +4310,7 @@ UART_CheckIdleState:
 // 1909   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock42 Using cfiCommon0
+          CFI Block cfiBlock38 Using cfiCommon0
           CFI Function HAL_HalfDuplex_EnableTransmitter
           CFI NoCalls
         THUMB
@@ -4329,39 +4319,44 @@ UART_CheckIdleState:
 // 1912   /* Process Locked */
 // 1913   __HAL_LOCK(huart);
 HAL_HalfDuplex_EnableTransmitter:
-        ADD      R1,R0,#+104
-        LDRB     R2,[R1, #+0]
-        CMP      R2,#+1
+        LDRB     R1,[R0, #+104]
+        CMP      R1,#+1
         BNE.N    ??HAL_HalfDuplex_EnableTransmitter_0
         MOVS     R0,#+2
         BX       LR
 ??HAL_HalfDuplex_EnableTransmitter_0:
-        MOVS     R2,#+1
-        STRB     R2,[R1, #+0]
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+104]
 // 1914   huart->State = HAL_UART_STATE_BUSY;
-        MOVS     R2,#+2
-        STRB     R2,[R1, #+1]
+        MOVS     R1,#+2
+        STRB     R1,[R0, #+105]
 // 1915   
 // 1916   /* Clear TE and RE bits */
 // 1917   CLEAR_BIT(huart->Instance->CR1, (USART_CR1_TE | USART_CR1_RE));
-        LDR      R2,[R0, #+0]
-        LDR      R3,[R2, #+0]
-        BIC      R3,R3,#0xC
-        STR      R3,[R2, #+0]
+        LDR      R1,[R0, #+0]
+        LDR      R2,[R1, #+0]
+        BIC      R2,R2,#0xC
+        STR      R2,[R1, #+0]
 // 1918   /* Enable the USART's transmit interface by setting the TE bit in the USART CR1 register */
 // 1919   SET_BIT(huart->Instance->CR1, USART_CR1_TE);
-        LDR      R0,[R0, #+0]
-        LDR      R2,[R0, #+0]
+        LDR      R1,[R0, #+0]
+        LDR      R2,[R1, #+0]
         ORR      R2,R2,#0x8
-        B.N      ?Subroutine3
+        STR      R2,[R1, #+0]
 // 1920  
 // 1921   huart->State= HAL_UART_STATE_READY;
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+105]
 // 1922   /* Process Unlocked */
 // 1923   __HAL_UNLOCK(huart);
+        MOVS     R1,#+0
+        STRB     R1,[R0, #+104]
 // 1924   
 // 1925   return HAL_OK;
+        MOVS     R0,#+0
+        BX       LR               ;; return
 // 1926 }
-          CFI EndBlock cfiBlock42
+          CFI EndBlock cfiBlock38
 // 1927 
 // 1928 /**
 // 1929   * @brief  Enables the UART receiver and disables the UART transmitter.
@@ -4370,7 +4365,7 @@ HAL_HalfDuplex_EnableTransmitter:
 // 1932   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock43 Using cfiCommon0
+          CFI Block cfiBlock39 Using cfiCommon0
           CFI Function HAL_HalfDuplex_EnableReceiver
           CFI NoCalls
         THUMB
@@ -4379,55 +4374,44 @@ HAL_HalfDuplex_EnableTransmitter:
 // 1935   /* Process Locked */
 // 1936   __HAL_LOCK(huart);
 HAL_HalfDuplex_EnableReceiver:
-        ADD      R1,R0,#+104
-        LDRB     R2,[R1, #+0]
-        CMP      R2,#+1
+        LDRB     R1,[R0, #+104]
+        CMP      R1,#+1
         BNE.N    ??HAL_HalfDuplex_EnableReceiver_0
         MOVS     R0,#+2
         BX       LR
 ??HAL_HalfDuplex_EnableReceiver_0:
-        MOVS     R2,#+1
-        STRB     R2,[R1, #+0]
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+104]
 // 1937   huart->State = HAL_UART_STATE_BUSY;
-        MOVS     R2,#+2
-        STRB     R2,[R1, #+1]
+        MOVS     R1,#+2
+        STRB     R1,[R0, #+105]
 // 1938 
 // 1939   /* Clear TE and RE bits */
 // 1940   CLEAR_BIT(huart->Instance->CR1, (USART_CR1_TE | USART_CR1_RE));
-        LDR      R2,[R0, #+0]
-        LDR      R3,[R2, #+0]
-        BIC      R3,R3,#0xC
-        STR      R3,[R2, #+0]
+        LDR      R1,[R0, #+0]
+        LDR      R2,[R1, #+0]
+        BIC      R2,R2,#0xC
+        STR      R2,[R1, #+0]
 // 1941   /* Enable the USART's receive interface by setting the RE bit in the USART CR1 register */
 // 1942   SET_BIT(huart->Instance->CR1, USART_CR1_RE);
-        LDR      R0,[R0, #+0]
-        LDR      R2,[R0, #+0]
+        LDR      R1,[R0, #+0]
+        LDR      R2,[R1, #+0]
         ORR      R2,R2,#0x4
-          CFI EndBlock cfiBlock43
-        REQUIRE ?Subroutine3
-        ;; // Fall through to label ?Subroutine3
+        STR      R2,[R1, #+0]
 // 1943 
 // 1944   huart->State = HAL_UART_STATE_READY;
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+105]
 // 1945   /* Process Unlocked */
 // 1946   __HAL_UNLOCK(huart);
+        MOVS     R1,#+0
+        STRB     R1,[R0, #+104]
 // 1947 
 // 1948   return HAL_OK;
-// 1949 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock44 Using cfiCommon0
-          CFI NoFunction
-        THUMB
-?Subroutine3:
-        STR      R2,[R0, #+0]
-??Subroutine3_0:
-        MOVS     R0,#+1
-        STRB     R0,[R1, #+1]
-??Subroutine3_1:
         MOVS     R0,#+0
-        STRB     R0,[R1, #+0]
         BX       LR               ;; return
-          CFI EndBlock cfiBlock44
+// 1949 }
+          CFI EndBlock cfiBlock39
 // 1950 
 // 1951 
 // 1952 /**
@@ -4437,7 +4421,7 @@ HAL_HalfDuplex_EnableReceiver:
 // 1956   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock45 Using cfiCommon0
+          CFI Block cfiBlock40 Using cfiCommon0
           CFI Function HAL_LIN_SendBreak
           CFI NoCalls
         THUMB
@@ -4449,36 +4433,40 @@ HAL_HalfDuplex_EnableReceiver:
 // 1962   /* Process Locked */
 // 1963   __HAL_LOCK(huart);
 HAL_LIN_SendBreak:
-        ADD      R1,R0,#+104
-        LDRB     R2,[R1, #+0]
-        CMP      R2,#+1
+        LDRB     R1,[R0, #+104]
+        CMP      R1,#+1
         BNE.N    ??HAL_LIN_SendBreak_0
         MOVS     R0,#+2
         BX       LR
 ??HAL_LIN_SendBreak_0:
-        MOVS     R2,#+1
-        STRB     R2,[R1, #+0]
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+104]
 // 1964   
 // 1965   huart->State = HAL_UART_STATE_BUSY;
-        MOVS     R2,#+2
-        STRB     R2,[R1, #+1]
+        MOVS     R1,#+2
+        STRB     R1,[R0, #+105]
 // 1966   
 // 1967   /* Send break characters */
 // 1968   huart->Instance->RQR |= UART_SENDBREAK_REQUEST;  
-        LDR      R0,[R0, #+0]
-        LDR      R2,[R0, #+24]
+        LDR      R1,[R0, #+0]
+        LDR      R2,[R1, #+24]
         ORR      R2,R2,#0x2
-        STR      R2,[R0, #+24]
+        STR      R2,[R1, #+24]
 // 1969  
 // 1970   huart->State = HAL_UART_STATE_READY;
-        B.N      ??Subroutine3_0
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+105]
 // 1971   
 // 1972   /* Process Unlocked */
 // 1973   __HAL_UNLOCK(huart);
+        MOVS     R1,#+0
+        STRB     R1,[R0, #+104]
 // 1974   
 // 1975   return HAL_OK; 
+        MOVS     R0,#+0
+        BX       LR               ;; return
 // 1976 }
-          CFI EndBlock cfiBlock45
+          CFI EndBlock cfiBlock40
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -4513,9 +4501,9 @@ HAL_LIN_SendBreak:
 // 1995 
 // 1996 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 3 774 bytes in section .text
+// 4 120 bytes in section .text
 // 
-// 3 774 bytes of CODE memory
+// 4 120 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

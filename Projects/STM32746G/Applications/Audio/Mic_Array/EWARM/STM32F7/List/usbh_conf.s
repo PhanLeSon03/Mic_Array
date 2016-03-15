@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      08/Mar/2016  16:10:20
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      15/Mar/2016  18:17:16
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -667,47 +667,49 @@ HAL_HCD_HC_NotifyURBChange_Callback:
 //  227 USBH_StatusTypeDef USBH_LL_Init(USBH_HandleTypeDef *phost)
 //  228 {
 USBH_LL_Init:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
+          CFI CFA R13+12
         MOV      R4,R0
+        SUB      SP,SP,#+4
+          CFI CFA R13+16
 //  229 #ifdef USE_USB_FS  
 //  230   /* Set the LL driver parameters */
 //  231   hhcd.Instance = USB_OTG_FS;
         LDR.N    R5,??DataTable5_7
         MOV      R0,#+1342177280
+        STR      R0,[R5, #+0]
 //  232   hhcd.Init.Host_channels = 11; 
+        MOVS     R0,#+11
+        STR      R0,[R5, #+8]
 //  233   hhcd.Init.dma_enable = 0;
+        MOVS     R0,#+0
+        STR      R0,[R5, #+16]
 //  234   hhcd.Init.low_power_enable = 0;
+        STR      R0,[R5, #+32]
 //  235   hhcd.Init.phy_itface = HCD_PHY_EMBEDDED; 
+        MOVS     R0,#+2
+        STR      R0,[R5, #+24]
 //  236   hhcd.Init.Sof_enable = 0;
+        MOVS     R0,#+0
+        STR      R0,[R5, #+28]
 //  237   hhcd.Init.speed = HCD_SPEED_FULL;
+        MOVS     R0,#+3
+        STR      R0,[R5, #+12]
 //  238   hhcd.Init.vbus_sensing_enable = 0;
+        MOVS     R0,#+0
+        STR      R0,[R5, #+40]
 //  239   
 //  240   /* Link the driver to the stack */
 //  241   hhcd.pData = phost;
-        STR      R4,[R5, #+656]
-        STR      R0,[R5, #+0]
-        MOVS     R0,#+11
-        STR      R0,[R5, #+8]
-        MOVS     R0,#+0
-        STR      R0,[R5, #+16]
-        STR      R0,[R5, #+32]
-        MOVS     R0,#+2
-        STR      R0,[R5, #+24]
-        MOVS     R0,#+0
-        STR      R0,[R5, #+28]
-        MOVS     R0,#+3
-        STR      R0,[R5, #+12]
-        MOVS     R0,#+0
-        STR      R0,[R5, #+40]
 //  242   phost->pData = &hhcd;
 //  243   
 //  244   /* Initialize the LL Driver */
 //  245   HAL_HCD_Init(&hhcd);
         MOV      R0,R5
+        STR      R4,[R5, #+656]
         STR      R5,[R4, #+688]
           CFI FunCall HAL_HCD_Init
         BL       HAL_HCD_Init
@@ -742,7 +744,9 @@ USBH_LL_Init:
 //  267   
 //  268   return USBH_OK;
         MOVS     R0,#+0
-        POP      {R1,R4,R5,PC}    ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
 //  269 }
           CFI EndBlock cfiBlock6
 //  270 
@@ -759,8 +763,10 @@ USBH_LL_Init:
 //  276 USBH_StatusTypeDef USBH_LL_DeInit(USBH_HandleTypeDef *phost)
 //  277 {
 USBH_LL_DeInit:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  278   HAL_HCD_DeInit(phost->pData);
         LDR      R0,[R0, #+688]
@@ -768,7 +774,9 @@ USBH_LL_DeInit:
         BL       HAL_HCD_DeInit
 //  279   return USBH_OK; 
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 //  280 }
           CFI EndBlock cfiBlock7
 //  281 
@@ -785,8 +793,10 @@ USBH_LL_DeInit:
 //  287 USBH_StatusTypeDef USBH_LL_Start(USBH_HandleTypeDef *phost)
 //  288 {
 USBH_LL_Start:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  289   HAL_HCD_Start(phost->pData);
         LDR      R0,[R0, #+688]
@@ -794,7 +804,9 @@ USBH_LL_Start:
         BL       HAL_HCD_Start
 //  290   return USBH_OK; 
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 //  291 }
           CFI EndBlock cfiBlock8
 //  292 
@@ -811,8 +823,10 @@ USBH_LL_Start:
 //  298 USBH_StatusTypeDef USBH_LL_Stop(USBH_HandleTypeDef *phost)
 //  299 {
 USBH_LL_Stop:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  300   HAL_HCD_Stop(phost->pData);
         LDR      R0,[R0, #+688]
@@ -820,7 +834,9 @@ USBH_LL_Stop:
         BL       HAL_HCD_Stop
 //  301   return USBH_OK; 
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 //  302 }
           CFI EndBlock cfiBlock9
 //  303 
@@ -863,9 +879,6 @@ USBH_LL_GetSpeed:
 //  322     
 //  323   case 2: 
 //  324     speed = USBH_SPEED_LOW;   
-        B.N      ??USBH_LL_GetSpeed_1
-??USBH_LL_GetSpeed_0:
-        MOVS     R4,#+0
 //  325     break;
 //  326     
 //  327   default:  
@@ -873,7 +886,10 @@ USBH_LL_GetSpeed:
 //  329     break;    
 //  330   }
 //  331   return speed;
-??USBH_LL_GetSpeed_1:
+        MOV      R0,R4
+        POP      {R4,PC}
+??USBH_LL_GetSpeed_0:
+        MOVS     R4,#+0
         MOV      R0,R4
         POP      {R4,PC}          ;; return
 //  332 }
@@ -892,8 +908,10 @@ USBH_LL_GetSpeed:
 //  339 USBH_StatusTypeDef USBH_LL_ResetPort (USBH_HandleTypeDef *phost) 
 //  340 {
 USBH_LL_ResetPort:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  341   HAL_HCD_ResetPort(phost->pData);
         LDR      R0,[R0, #+688]
@@ -901,7 +919,9 @@ USBH_LL_ResetPort:
         BL       HAL_HCD_ResetPort
 //  342   return USBH_OK; 
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 //  343 }
           CFI EndBlock cfiBlock11
 //  344 
@@ -974,7 +994,10 @@ USBH_LL_OpenPipe:
           CFI FunCall HAL_HCD_HC_Init
         BL       HAL_HCD_HC_Init
 //  382   return USBH_OK; 
-        B.N      ?Subroutine0
+        MOVS     R0,#+0
+        ADD      SP,SP,#+16
+          CFI CFA R13+8
+        POP      {R4,PC}          ;; return
 //  383 }
           CFI EndBlock cfiBlock13
 //  384 
@@ -992,8 +1015,10 @@ USBH_LL_OpenPipe:
 //  391 USBH_StatusTypeDef USBH_LL_ClosePipe(USBH_HandleTypeDef *phost, uint8_t pipe)   
 //  392 {
 USBH_LL_ClosePipe:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  393   HAL_HCD_HC_Halt(phost->pData, pipe);
         LDR      R0,[R0, #+688]
@@ -1001,7 +1026,9 @@ USBH_LL_ClosePipe:
         BL       HAL_HCD_HC_Halt
 //  394   return USBH_OK; 
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 //  395 }
           CFI EndBlock cfiBlock14
 //  396 
@@ -1073,24 +1100,12 @@ USBH_LL_SubmitURB:
           CFI FunCall HAL_HCD_HC_SubmitRequest
         BL       HAL_HCD_HC_SubmitRequest
 //  441   return USBH_OK;   
-          CFI EndBlock cfiBlock15
-        REQUIRE ?Subroutine0
-        ;; // Fall through to label ?Subroutine0
-//  442 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock16 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+24
-          CFI R4 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine0:
         MOVS     R0,#+0
         ADD      SP,SP,#+16
           CFI CFA R13+8
         POP      {R4,PC}          ;; return
-          CFI EndBlock cfiBlock16
+//  442 }
+          CFI EndBlock cfiBlock15
 //  443 
 //  444 /**
 //  445   * @brief  Gets a URB state from the low level driver.
@@ -1108,7 +1123,7 @@ USBH_LL_SubmitURB:
 //  457   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock17 Using cfiCommon0
+          CFI Block cfiBlock16 Using cfiCommon0
           CFI Function USBH_LL_GetURBState
         THUMB
 //  458 USBH_URBStateTypeDef USBH_LL_GetURBState(USBH_HandleTypeDef *phost, uint8_t pipe) 
@@ -1119,7 +1134,7 @@ USBH_LL_GetURBState:
           CFI FunCall HAL_HCD_HC_GetURBState
         B.W      HAL_HCD_HC_GetURBState
 //  461 }
-          CFI EndBlock cfiBlock17
+          CFI EndBlock cfiBlock16
 //  462 
 //  463 /**
 //  464   * @brief  Drives VBUS.
@@ -1132,7 +1147,7 @@ USBH_LL_GetURBState:
 //  471   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock18 Using cfiCommon0
+          CFI Block cfiBlock17 Using cfiCommon0
           CFI Function USBH_LL_DriverVBUS
         THUMB
 //  472 USBH_StatusTypeDef USBH_LL_DriverVBUS(USBH_HandleTypeDef *phost, uint8_t state)
@@ -1142,8 +1157,10 @@ USBH_LL_GetURBState:
 USBH_LL_DriverVBUS:
         CMP      R1,#+0
         LDR.N    R0,??DataTable5_2  ;; 0x40020c00
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
         ITE      EQ 
         MOVEQ    R2,#+1
@@ -1166,9 +1183,11 @@ USBH_LL_DriverVBUS:
 //  485 #endif /* USE_USB_FS */
 //  486   return USBH_OK;  
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 //  487 }
-          CFI EndBlock cfiBlock18
+          CFI EndBlock cfiBlock17
 //  488 
 //  489 /**
 //  490   * @brief  Sets toggle for a pipe.
@@ -1179,7 +1198,7 @@ USBH_LL_DriverVBUS:
 //  495   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock19 Using cfiCommon0
+          CFI Block cfiBlock18 Using cfiCommon0
           CFI Function USBH_LL_SetToggle
           CFI NoCalls
         THUMB
@@ -1190,11 +1209,11 @@ USBH_LL_SetToggle:
         ADD      R3,R1,R1, LSL #+2
         LDR.N    R0,??DataTable5_7
         ADD      R0,R0,R3, LSL #+3
-        LDRB     R1,[R0, #+55]!
+        LDRB     R1,[R0, #+55]
         CMP      R1,#+0
         ITE      NE 
-        STRBNE   R2,[R0, #+21]
-        STRBEQ   R2,[R0, #+22]
+        STRBNE   R2,[R0, #+76]
+        STRBEQ   R2,[R0, #+77]
 //  499   {
 //  500     hhcd.hc[pipe].toggle_in = toggle;
 //  501   }
@@ -1206,7 +1225,7 @@ USBH_LL_SetToggle:
         MOVS     R0,#+0
         BX       LR               ;; return
 //  507 }
-          CFI EndBlock cfiBlock19
+          CFI EndBlock cfiBlock18
 //  508 
 //  509 /**
 //  510   * @brief  Returns the current toggle of a pipe.
@@ -1216,7 +1235,7 @@ USBH_LL_SetToggle:
 //  514   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock20 Using cfiCommon0
+          CFI Block cfiBlock19 Using cfiCommon0
           CFI Function USBH_LL_GetToggle
           CFI NoCalls
         THUMB
@@ -1229,11 +1248,11 @@ USBH_LL_GetToggle:
         ADD      R2,R1,R1, LSL #+2
         LDR.N    R0,??DataTable5_7
         ADD      R0,R0,R2, LSL #+3
-        LDRB     R1,[R0, #+55]!
+        LDRB     R1,[R0, #+55]
         CMP      R1,#+0
         ITE      NE 
-        LDRBNE   R0,[R0, #+21]
-        LDRBEQ   R0,[R0, #+22]
+        LDRBNE   R0,[R0, #+76]
+        LDRBEQ   R0,[R0, #+77]
 //  520   {
 //  521     toggle = hhcd.hc[pipe].toggle_in;
 //  522   }
@@ -1244,7 +1263,7 @@ USBH_LL_GetToggle:
 //  526   }
 //  527   return toggle; 
 //  528 }
-          CFI EndBlock cfiBlock20
+          CFI EndBlock cfiBlock19
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -1301,7 +1320,7 @@ USBH_LL_GetToggle:
 //  534   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock21 Using cfiCommon0
+          CFI Block cfiBlock20 Using cfiCommon0
           CFI Function USBH_Delay
           CFI FunCall HAL_Delay
         THUMB
@@ -1311,7 +1330,7 @@ USBH_LL_GetToggle:
 USBH_Delay:
         B.W      HAL_Delay
 //  538 }
-          CFI EndBlock cfiBlock21
+          CFI EndBlock cfiBlock20
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -1329,9 +1348,9 @@ USBH_Delay:
 //  540 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
 // 660 bytes in section .bss
-// 854 bytes in section .text
+// 896 bytes in section .text
 // 
-// 854 bytes of CODE memory
+// 896 bytes of CODE memory
 // 660 bytes of DATA memory
 //
 //Errors: none

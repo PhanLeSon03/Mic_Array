@@ -220,11 +220,9 @@ https://github.com/piratfm/codec2_m4f/tree/master/lib
 extern arm_rfft_instance_q15 RealFFT_Ins, RealIFFT_Ins;
 #endif
 
-//extern arm_cfft_radix4_instance_f32 SS_GCC1,SS_GCC2,SS1,SS2,SS3,SS4,ISS,ISS_GCC; 
-//extern arm_rfft_instance_f32         S_GCC1,S_GCC2,S1,S2,S3,S4,IS,IS_GCC;
-
-extern arm_rfft_fast_instance_f32 S_GCC1,S_GCC2,S1,S2,S3,S4,IS,IS_GCC;
-
+//extern arm_cfft_radix4_instance_f32 SS,SS1,SS2,SS3,SS4,ISS; 
+//extern arm_rfft_instance_f32 S,S1,S2,S3,S4,IS;
+extern arm_rfft_fast_instance_f32 S,S1,S2,S3,S4,IS;
 
 /*------------------------------------------------------------------------------------------------------------*/
 /*--------------------- VARIABLES-----------------------------------------------------------------------------*/
@@ -280,8 +278,8 @@ void rDFT(int N, int cycles, float *IN, float *out)
 		    xOfn += IN[2*m]*arm_cos_f32(2*PI*cycles*(float)m*(float)n/(float)N);
 		    xOfn -= IN[2*m+1]*arm_sin_f32(2*PI*cycles*(float)m*(float)n/(float)N);
 
-                    xOfn_m += IN[2*m]*arm_cos_f32(2*PI*cycles*(float)m*(float)n/(float)N);
-                    xOfn_m += IN[2*m+1]*arm_sin_f32(2*PI*cycles*(float)m*(float)n/(float)N);
+                    xOfn_m += IN[2*m]*arm_sin_f32(2*PI*cycles*(float)m*(float)n/(float)N);
+                    xOfn_m += IN[2*m+1]*arm_cos_f32(2*PI*cycles*(float)m*(float)n/(float)N);
 		}
 
 	    xOfn /= N;
@@ -569,7 +567,7 @@ void Window(float *fir64Coff)
     for (int i = 0; i < DSP_NUMCOFFHANNIING; i++) //DSP_NUMCOFF
 	{
         //fir64Coff[i] = (double_t)((1 << 10)-1);
-        fir64Coff[i] = (float)(1023);
+        fir64Coff[i] = (float)(DSP_NUMCOFFHANNIING);
 		//Hanning Window (less noise than hamming?
         fir64Coff[i] *= 0.5f * (
 		                       1.0f - cos((2.0f * PI * i)/ ((float)DSP_NUMCOFFHANNIING - 1.0f))  
@@ -1054,16 +1052,16 @@ int32_t EnergyNoiseCalc(uint16_t numLen)
 /* Generalized Cross Correlation with Phase Transform (GCC-PHAT)  */
 /* Input: data from 2 microphones in time domain, length of data       */
 /* Output: Generlize Cross Correlation value                                    */
-int16_t GCC_PHAT(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen, uint32_t * CrssCorVal )
+int16_t GCC_PHAT(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen, float * CrssCorVal )
 {
     uint32_t idxArgMax;
     float ValMax;
 
 	/* Fourier Transform for Data In 1 */
-	RFFT_GCC(vDataIn1,S_GCC1,vDataIn1_FFT,numLen);
+	RFFT_GCC(vDataIn1,S,vDataIn1_FFT,numLen);
 	
     /* Fourier Trnasform for Data In 2 */
-	RFFT_GCC(vDataIn2,S_GCC2,vDataIn2_FFT,numLen);
+	RFFT_GCC(vDataIn2,S,vDataIn2_FFT,numLen);
 
 	/* Complex conjugate for Datat 2 FFT */
 	arm_cmplx_conj_f32(vDataIn2_FFT,vDataIn2_FFT_CJ, numLen);
@@ -1077,25 +1075,30 @@ int16_t GCC_PHAT(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen, uint32
 	/* Output normalize */
 	for (uint16_t i=0; i<2*numLen;i++)
 	{
-	    vDataIn_FFT[i] = vDataIn2_FFT[i]/MAX(vDataIn1_FFT[i%2],0.000001);
+       vDataIn_FFT[i] = vDataIn2_FFT[i]/MAX(vDataIn1_FFT[i%2],0.000001);
 	}
 
-    /* Invert FFT */
-    arm_rfft_fast_f32(&IS_GCC, (float *)vDataIn_FFT, (float *)vDataIn,1);
+	/* Invert FFT */
+    arm_rfft_fast_f32(&S, (float *)vDataIn_FFT, (float *)vDataIn,1);
 
+	/*Get Real component */
+	for (uint16_t i=0; i<2*numLen;i=i+2)
+	{
+      vDataIn[i%2] = vDataIn[i];
+	}    
     FFTShift(vDataIn,vDataOut,numLen); 
 	
     arm_max_f32(vDataOut,numLen,&ValMax,&idxArgMax);
 	
 	if (((int16_t)(idxArgMax-numLen/2)>-8)&&((int16_t)(idxArgMax-numLen/2)<8))
 	{
-		*CrssCorVal = (uint32_t)ValMax;
+		*CrssCorVal = ValMax;
 	    return (int16_t)(idxArgMax-numLen/2);
 	}
 	else
 	{
-	   *CrssCorVal = 0;
-		return 0;
+		*CrssCorVal = 0;
+		return 255;
 	}
 }
 

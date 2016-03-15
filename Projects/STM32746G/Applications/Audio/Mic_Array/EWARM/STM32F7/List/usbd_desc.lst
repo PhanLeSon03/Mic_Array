@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       08/Mar/2016  16:10:20
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       15/Mar/2016  18:17:16
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7 --relaxed_fp
 #    List file    =  
@@ -96,10 +96,10 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
      35          #define USBD_VID                      0x0483
      36          #define USBD_PID                      0x5730
      37          #define USBD_LANGID_STRING            0x409
-     38          #define USBD_MANUFACTURER_STRING      "STMicroelectronics"
-     39          #define USBD_PRODUCT_HS_STRING        "STM32 AUDIO Streaming in HS Mode"
+     38          #define USBD_MANUFACTURER_STRING      "AUTONOMOUS"
+     39          #define USBD_PRODUCT_HS_STRING        "AUTONOMOUS MICROPHONE ARRAY"
      40          #define USBD_SERIALNUMBER_HS_STRING   "00000000034E"
-     41          #define USBD_PRODUCT_FS_STRING        "STM32 AUDIO Streaming in FS Mode"
+     41          #define USBD_PRODUCT_FS_STRING        "AUTONOMOUS MICROPHONE ARRAY"
      42          #define USBD_SERIALNUMBER_FS_STRING   "00000000034F"
      43          #define USBD_CONFIGURATION_HS_STRING  "AUDIO Config"
      44          #define USBD_INTERFACE_HS_STRING      "AUDIO Interface"
@@ -253,34 +253,25 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \                                 In section .text, align 2, keep-with-next
     145          uint8_t *USBD_AUDIO_ProductStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
     146          {
-    147            if(speed == 0)
    \                     USBD_AUDIO_ProductStrDescriptor: (+1)
-   \   00000000   0x2800             CMP      R0,#+0
-   \   00000002   0x460A             MOV      R2,R1
-   \   00000004   0xB510             PUSH     {R4,LR}
-   \   00000006   0x....             LDR.N    R4,??DataTable12_2
-   \   00000008   0x4621             MOV      R1,R4
-   \   0000000A   0xBF0C             ITE      EQ 
-   \   0000000C   0x.... 0x....      ADREQ.W  R0,?_0
-   \   00000010   0x.... 0x....      ADRNE.W  R0,?_1
+   \   00000000   0xB510             PUSH     {R4,LR}
+    147            if(speed == 0)
+   \   00000002   0x....             LDR.N    R4,??DataTable12_2
+   \   00000004   0x460A             MOV      R2,R1
+   \   00000006   0x.... 0x....      ADR.W    R0,?_0
+   \   0000000A   0x4621             MOV      R1,R4
     148            {   
     149              USBD_GetString((uint8_t *)USBD_PRODUCT_HS_STRING, USBD_StrDesc, length);
     150            }
     151            else
     152            {
     153              USBD_GetString((uint8_t *)USBD_PRODUCT_FS_STRING, USBD_StrDesc, length);    
-   \   00000014   0x....             B.N      ??Subroutine0_0
+   \   0000000C   0x.... 0x....      BL       USBD_GetString
     154            }
     155            return USBD_StrDesc;
+   \   00000010   0x4620             MOV      R0,R4
+   \   00000012   0xBD10             POP      {R4,PC}          ;; return
     156          }
-
-   \                                 In section .text, align 2, keep-with-next
-   \                     ?Subroutine0: (+1)
-   \   00000000   0x4621             MOV      R1,R4
-   \                     ??Subroutine0_0: (+1)
-   \   00000002   0x.... 0x....      BL       USBD_GetString
-   \   00000006   0x4620             MOV      R0,R4
-   \   00000008   0xBD10             POP      {R4,PC}          ;; return
     157          
     158          /**
     159            * @brief  Returns the manufacturer string descriptor. 
@@ -298,9 +289,11 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \   00000002   0x....             LDR.N    R4,??DataTable12_2
    \   00000004   0x460A             MOV      R2,R1
    \   00000006   0x4621             MOV      R1,R4
-   \   00000008   0x.... 0x....      ADR.W    R0,?_2
-   \   0000000C   0x....             B.N      ??Subroutine0_0
+   \   00000008   0x.... 0x....      ADR.W    R0,?_1
+   \   0000000C   0x.... 0x....      BL       USBD_GetString
     167            return USBD_StrDesc;
+   \   00000010   0x4620             MOV      R0,R4
+   \   00000012   0xBD10             POP      {R4,PC}          ;; return
     168          }
     169          
     170          /**
@@ -321,17 +314,19 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \   00000006   0x....             LDR.N    R4,??DataTable12_2
    \   00000008   0x4621             MOV      R1,R4
    \   0000000A   0xBF0C             ITE      EQ 
-   \   0000000C   0x.... 0x....      ADREQ.W  R0,?_3
-   \   00000010   0x.... 0x....      ADRNE.W  R0,?_4
+   \   0000000C   0x.... 0x....      ADREQ.W  R0,?_2
+   \   00000010   0x.... 0x....      ADRNE.W  R0,?_3
     179            {    
     180              USBD_GetString((uint8_t *)USBD_SERIALNUMBER_HS_STRING, USBD_StrDesc, length);
     181            }
     182            else
     183            {
     184              USBD_GetString((uint8_t *)USBD_SERIALNUMBER_FS_STRING, USBD_StrDesc, length);
-   \   00000014   0x....             B.N      ??Subroutine0_0
+   \   00000014   0x.... 0x....      BL       USBD_GetString
     185            }
     186            return USBD_StrDesc;
+   \   00000018   0x4620             MOV      R0,R4
+   \   0000001A   0xBD10             POP      {R4,PC}          ;; return
     187          }
     188          
     189          /**
@@ -349,16 +344,19 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     197            if(speed == USBD_SPEED_HIGH)
    \   00000002   0x....             LDR.N    R4,??DataTable12_2
    \   00000004   0x460A             MOV      R2,R1
-   \   00000006   0x.... 0x....      ADR.W    R0,?_5
-   \   0000000A   0x....             B.N      ?Subroutine0
+   \   00000006   0x.... 0x....      ADR.W    R0,?_4
+   \   0000000A   0x4621             MOV      R1,R4
     198            {  
     199              USBD_GetString((uint8_t *)USBD_CONFIGURATION_HS_STRING, USBD_StrDesc, length);
     200            }
     201            else
     202            {
     203              USBD_GetString((uint8_t *)USBD_CONFIGURATION_FS_STRING, USBD_StrDesc, length); 
+   \   0000000C   0x.... 0x....      BL       USBD_GetString
     204            }
     205            return USBD_StrDesc;  
+   \   00000010   0x4620             MOV      R0,R4
+   \   00000012   0xBD10             POP      {R4,PC}          ;; return
     206          }
     207          
     208          /**
@@ -368,30 +366,27 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     212            * @retval Pointer to descriptor buffer
     213            */
 
-   \                                 In section .text, align 4, keep-with-next
+   \                                 In section .text, align 2, keep-with-next
     214          uint8_t *USBD_AUDIO_InterfaceStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
     215          {
    \                     USBD_AUDIO_InterfaceStrDescriptor: (+1)
    \   00000000   0xB510             PUSH     {R4,LR}
     216            if(speed == 0)
-   \   00000002   0x4C01             LDR.N    R4,??USBD_AUDIO_InterfaceStrDescriptor_0
-   \   00000004   0xE002             B.N      ??USBD_AUDIO_InterfaceStrDescriptor_1
-   \   00000006   0xBF00             Nop      
-   \                     ??USBD_AUDIO_InterfaceStrDescriptor_0:
-   \   00000008   0x........         DC32     USBD_StrDesc
-   \                     ??USBD_AUDIO_InterfaceStrDescriptor_1: (+1)
-   \   0000000C   0x460A             MOV      R2,R1
-   \   0000000E   0x.... 0x....      ADR.W    R0,?_6
-   \   00000012                      REQUIRE ?Subroutine0
-   \   00000012                      ;; // Fall through to label ?Subroutine0
+   \   00000002   0x....             LDR.N    R4,??DataTable12_2
+   \   00000004   0x460A             MOV      R2,R1
+   \   00000006   0x.... 0x....      ADR.W    R0,?_5
+   \   0000000A   0x4621             MOV      R1,R4
     217            {
     218              USBD_GetString((uint8_t *)USBD_INTERFACE_HS_STRING, USBD_StrDesc, length);
     219            }
     220            else
     221            {
     222              USBD_GetString((uint8_t *)USBD_INTERFACE_FS_STRING, USBD_StrDesc, length);
+   \   0000000C   0x.... 0x....      BL       USBD_GetString
     223            }
     224            return USBD_StrDesc;  
+   \   00000010   0x4620             MOV      R0,R4
+   \   00000012   0xBD10             POP      {R4,PC}          ;; return
     225          }
 
    \                                 In section .text, align 4, keep-with-next
@@ -408,64 +403,33 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
 
    \                                 In section .text, align 4, keep-with-next
    \                     ?_0:
-   \   00000000   0x53 0x54          DC8 "STM32 AUDIO Streaming in HS Mode"
-   \              0x4D 0x33    
-   \              0x32 0x20    
-   \              0x41 0x55    
-   \              0x44 0x49    
-   \              0x4F 0x20    
-   \              0x53 0x74    
-   \              0x72 0x65    
-   \              0x61 0x6D    
-   \              0x69 0x6E    
-   \              0x67 0x20    
-   \              0x69 0x6E    
-   \              0x20 0x48    
-   \              0x53 0x20    
-   \              0x4D 0x6F    
-   \              0x64 0x65    
-   \              0x00         
-   \   00000021   0x00 0x00          DC8 0, 0, 0
-   \              0x00         
+   \   00000000   0x41 0x55          DC8 "AUTONOMOUS MICROPHONE ARRAY"
+   \              0x54 0x4F    
+   \              0x4E 0x4F    
+   \              0x4D 0x4F    
+   \              0x55 0x53    
+   \              0x20 0x4D    
+   \              0x49 0x43    
+   \              0x52 0x4F    
+   \              0x50 0x48    
+   \              0x4F 0x4E    
+   \              0x45 0x20    
+   \              0x41 0x52    
+   \              0x52 0x41    
+   \              0x59 0x00    
 
    \                                 In section .text, align 4, keep-with-next
    \                     ?_1:
-   \   00000000   0x53 0x54          DC8 "STM32 AUDIO Streaming in FS Mode"
-   \              0x4D 0x33    
-   \              0x32 0x20    
-   \              0x41 0x55    
-   \              0x44 0x49    
-   \              0x4F 0x20    
-   \              0x53 0x74    
-   \              0x72 0x65    
-   \              0x61 0x6D    
-   \              0x69 0x6E    
-   \              0x67 0x20    
-   \              0x69 0x6E    
-   \              0x20 0x46    
-   \              0x53 0x20    
-   \              0x4D 0x6F    
-   \              0x64 0x65    
+   \   00000000   0x41 0x55          DC8 "AUTONOMOUS"
+   \              0x54 0x4F    
+   \              0x4E 0x4F    
+   \              0x4D 0x4F    
+   \              0x55 0x53    
    \              0x00         
-   \   00000021   0x00 0x00          DC8 0, 0, 0
-   \              0x00         
+   \   0000000B   0x00               DC8 0
 
    \                                 In section .text, align 4, keep-with-next
    \                     ?_2:
-   \   00000000   0x53 0x54          DC8 "STMicroelectronics"
-   \              0x4D 0x69    
-   \              0x63 0x72    
-   \              0x6F 0x65    
-   \              0x6C 0x65    
-   \              0x63 0x74    
-   \              0x72 0x6F    
-   \              0x6E 0x69    
-   \              0x63 0x73    
-   \              0x00         
-   \   00000013   0x00               DC8 0
-
-   \                                 In section .text, align 4, keep-with-next
-   \                     ?_3:
    \   00000000   0x30 0x30          DC8 "00000000034E"
    \              0x30 0x30    
    \              0x30 0x30    
@@ -477,7 +441,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \              0x00         
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ?_4:
+   \                     ?_3:
    \   00000000   0x30 0x30          DC8 "00000000034F"
    \              0x30 0x30    
    \              0x30 0x30    
@@ -489,7 +453,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \              0x00         
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ?_5:
+   \                     ?_4:
    \   00000000   0x41 0x55          DC8 "AUDIO Config"
    \              0x44 0x49    
    \              0x4F 0x20    
@@ -501,7 +465,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \              0x00         
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ?_6:
+   \                     ?_5:
    \   00000000   0x41 0x55          DC8 "AUDIO Interface"
    \              0x44 0x49    
    \              0x4F 0x20    
@@ -538,22 +502,20 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
        4  ??DataTable12
        4  ??DataTable12_1
        4  ??DataTable12_2
-      10  ?Subroutine0
-      36  ?_0
-      36  ?_1
-      20  ?_2
+      28  ?_0
+      12  ?_1
+      16  ?_2
       16  ?_3
       16  ?_4
       16  ?_5
-      16  ?_6
       28  AUDIO_Desc
-      12  USBD_AUDIO_ConfigStrDescriptor
+      20  USBD_AUDIO_ConfigStrDescriptor
        8  USBD_AUDIO_DeviceDescriptor
-      18  USBD_AUDIO_InterfaceStrDescriptor
+      20  USBD_AUDIO_InterfaceStrDescriptor
        8  USBD_AUDIO_LangIDStrDescriptor
-      14  USBD_AUDIO_ManufacturerStrDescriptor
-      22  USBD_AUDIO_ProductStrDescriptor
-      22  USBD_AUDIO_SerialStrDescriptor
+      20  USBD_AUDIO_ManufacturerStrDescriptor
+      20  USBD_AUDIO_ProductStrDescriptor
+      28  USBD_AUDIO_SerialStrDescriptor
        4  USBD_LangIDDesc
      200  USBD_StrDesc
       20  hUSBDDeviceDesc
@@ -561,9 +523,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
  
  200 bytes in section .bss
   52 bytes in section .data
- 282 bytes in section .text
+ 240 bytes in section .text
  
- 282 bytes of CODE memory
+ 240 bytes of CODE memory
  252 bytes of DATA memory
 
 Errors: none

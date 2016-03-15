@@ -152,22 +152,27 @@ uint8_t  pcSTAComnd3[6]={/* Pre-setting */
 0x00//	Reg[85h]<=00h (00000000b)	OTP readback 2/2
 };    
 
+GPIO_InitTypeDef GPIO_STA;
 uint8_t bufCoefBiquad[15];
 void STA321MP_Ini(void)
 {
 
-      // __GPIOA_CLK_ENABLE();
-      //GPIO_INS.Pin = GPIO_PIN_8;
-      //GPIO_INS.Mode = GPIO_MODE_OUTPUT_PP;
-      //GPIO_INS.Pull = GPIO_PULLUP;
-      //GPIO_INS.Speed = GPIO_SPEED_LOW;
-      //HAL_GPIO_Init(GPIOA, &GPIO_INS);
-      //HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
-      HAL_Delay(300);
-      //HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
+     __GPIOC_CLK_ENABLE();
+     GPIO_STA.Pin = GPIO_PIN_0;
+     GPIO_STA.Mode = GPIO_MODE_OUTPUT_PP;
+     GPIO_STA.Pull = GPIO_PULLUP;
+     GPIO_STA.Speed = GPIO_SPEED_LOW;
+     HAL_GPIO_Init(GPIOC, &GPIO_STA);
 
-	  
-      HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET);
+
+
+	 HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
+     HAL_Delay(300);
+     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
+     HAL_Delay(300);
+
+	  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET);
+	  //HAL_Delay(300);	 
 
       STA321MP_DefautLoad();
       pcSTAComnd[0] = 0x98;//PDM_I_EN;          // PDM_CLK =  12.288 /4 = 3.072 Mhz  XTI = PLL/8 = 12.288 MHz		                       
@@ -303,7 +308,6 @@ void STA321MP_Ini(void)
 		 {
              ;
 		 }
-	     //HAL_I2C_Master_Receive_IT(&hi2c2, 0x40, pI2CRx, 4);
 	     while(HAL_I2C_Master_Receive(&hi2c2,STA_ADDR_1R,pBufOut,Len,1000)!=HAL_OK)
 	     {
               ;

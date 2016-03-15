@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      08/Mar/2016  16:10:17
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      15/Mar/2016  18:17:12
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -315,7 +315,7 @@
 //  187 void HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, GPIO_InitTypeDef *GPIO_Init)
 //  188 {
 HAL_GPIO_Init:
-        PUSH     {R3-R11,LR}
+        PUSH     {R4-R11,LR}
           CFI R14 Frame(CFA, -4)
           CFI R11 Frame(CFA, -8)
           CFI R10 Frame(CFA, -12)
@@ -325,6 +325,8 @@ HAL_GPIO_Init:
           CFI R6 Frame(CFA, -28)
           CFI R5 Frame(CFA, -32)
           CFI R4 Frame(CFA, -36)
+          CFI CFA R13+36
+        SUB      SP,SP,#+4
           CFI CFA R13+40
         MOV      R2,R0
 //  189   uint32_t position = 0x00;
@@ -616,7 +618,9 @@ HAL_GPIO_Init:
         CMP      R3,#+16
         BCC.W    ??HAL_GPIO_Init_0
 //  303 }
-        POP      {R0,R4-R11,PC}   ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}      ;; return
           CFI EndBlock cfiBlock0
 //  304 
 //  305 /**
@@ -627,7 +631,7 @@ HAL_GPIO_Init:
 //  310   * @retval None
 //  311   */
 
-        SECTION `.text`:CODE:NOROOT(1)
+        SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock1 Using cfiCommon0
           CFI Function HAL_GPIO_DeInit
           CFI NoCalls
@@ -658,7 +662,7 @@ HAL_GPIO_DeInit:
 //  323   for(position = 0; position < GPIO_NUMBER; position++)
         MOVS     R1,#+0
         MOVS     R2,#+0
-        LDR.N    R3,??DataTable2  ;; 0x40013c00
+        LDR.W    R3,??DataTable2
         LDR.W    R8,??DataTable2_3  ;; 0x40020000
         LDR.W    R9,??DataTable2_1  ;; 0x40013808
         MOV      R10,#+15
@@ -816,7 +820,9 @@ HAL_GPIO_DeInit:
         CMP      R1,#+16
         BCC.W    ??HAL_GPIO_DeInit_0
 //  367 }
-        POP      {R0,R4-R11,PC}   ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}      ;; return
           CFI EndBlock cfiBlock1
 //  368 
 //  369 /**
@@ -1038,8 +1044,10 @@ HAL_GPIO_EXTI_IRQHandler:
 //  504   {
 //  505     __HAL_GPIO_EXTI_CLEAR_IT(GPIO_Pin);
 ??HAL_GPIO_EXTI_IRQHandler_0:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
         STR      R0,[R2, #+0]
 //  506     HAL_GPIO_EXTI_Callback(GPIO_Pin);
@@ -1047,7 +1055,9 @@ HAL_GPIO_EXTI_IRQHandler:
         BL       HAL_GPIO_EXTI_Callback
 //  507   }
 //  508 }
-        POP      {R0,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
           CFI EndBlock cfiBlock6
 
         SECTION `.text`:CODE:NOROOT(2)
@@ -1188,9 +1198,9 @@ HAL_GPIO_EXTI_Callback:
 //  539 
 //  540 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 922 bytes in section .text
+// 934 bytes in section .text
 // 
-// 922 bytes of CODE memory
+// 934 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

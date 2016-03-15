@@ -42,7 +42,7 @@ void Delay_Sum_FFT(const Mic_Array_Data * MicData, Mic_Array_Coef_f *coefMics,in
 void FFT_SUM(int16_t * stBuf1, int16_t * stBuf2,float *fBufOut, uint16_t lenFFT);
 void FactorUpd(Mic_Array_Coef_f * facMic);
 int32_t EnergyNoiseCalc(uint16_t numLen);
-int16_t GCC_PHAT(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen, uint32_t * CrssCorVal );
+int16_t GCC_PHAT(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen, float * CrssCorVal );
 float MD_entropy(const float* const a, uint16_t N, const uint8_t clip) ;
 void FFTShift(const float * const in, float * const out, const uint16_t N);
 
@@ -55,7 +55,7 @@ void FFTShift(const float * const in, float * const out, const uint16_t N);
 	      _value = (int32_t)stBuf[iFrm*lenFFT+j];                              \
 	   	   fbuffer[j]=(float)(_value*1.0f);                                    \
 	   }                                                                       \
-         arm_rfft_fast_f32(&(S), (float *)fbuffer, (float *)(bufferFFT),0);           \
+         arm_rfft_fast_f32(&(S), (float *)fbuffer, (float *)(bufferFFT),0);    \
        }
 
 /* FFT transform */
@@ -63,7 +63,7 @@ void FFTShift(const float * const in, float * const out, const uint16_t N);
        {                                                                       \
 	   for(uint16_t j=0;j<Len;j++)                                             \
 	   {                                                                       \
-	       fbuffer[j]=(float)(stBuf[j]*fir256Coff[j]);                         \
+	       fbuffer[j]=(float)(stBuf[j]*1.0f);                                  \
 	   }                                                                       \
        arm_rfft_fast_f32(&(S), (float *)fbuffer, (float *)(bufferFFT),0);      \
        }

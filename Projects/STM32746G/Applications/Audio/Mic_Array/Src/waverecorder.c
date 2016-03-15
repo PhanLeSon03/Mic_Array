@@ -86,13 +86,13 @@ extern __IO uint32_t XferCplt;
 extern __IO uint16_t  idxSPI5DataBuf3;
 #endif
 
-__IO int16_t TestSDO12[4*AUDIO_OUT_BUFFER_SIZE];
-__IO int16_t TestSDO34[4*AUDIO_OUT_BUFFER_SIZE];
-__IO int16_t TestSDO56[4*AUDIO_OUT_BUFFER_SIZE];
-__IO uint16_t TestSDO7[4*AUDIO_OUT_BUFFER_SIZE];
-__IO uint16_t TestSDO8[4*AUDIO_OUT_BUFFER_SIZE];
-__IO uint16_t TestSDO7_1[4*AUDIO_OUT_BUFFER_SIZE];
-__IO uint16_t TestSDO8_1[4*AUDIO_OUT_BUFFER_SIZE];
+int16_t TestSDO12[4*AUDIO_OUT_BUFFER_SIZE];
+int16_t TestSDO34[4*AUDIO_OUT_BUFFER_SIZE];
+int16_t TestSDO56[4*AUDIO_OUT_BUFFER_SIZE];
+uint16_t TestSDO7[4*AUDIO_OUT_BUFFER_SIZE];
+uint16_t TestSDO8[4*AUDIO_OUT_BUFFER_SIZE];
+uint16_t TestSDO7_1[4*AUDIO_OUT_BUFFER_SIZE];
+uint16_t TestSDO8_1[4*AUDIO_OUT_BUFFER_SIZE];
 __IO uint16_t  WaveRec_idxTest;
 
 
@@ -137,11 +137,17 @@ static uint16_t SPI_I2S_ReceiveData(SPI_TypeDef* SPIx);
 static void I2S1_Init(void);
 static void I2S2_Init(void);
 
+#if EXT_RAM
 #pragma location=SDRAM_BANK_ADDR
+#endif
 Mic_Array_Data Buffer1;
+#if EXT_RAM
 #pragma location= (SDRAM_BANK_ADDR+ BUFFER_SIZE_BYTE)
+#endif
 Mic_Array_Data Buffer2;
+#if EXT_RAM
 #pragma location= (SDRAM_BANK_ADDR+ BUFFER_SIZE_BYTE + BUFFER_SIZE_BYTE)
+#endif
 Mic_Array_Data Buffer3;
 
 void SPI1_Ini(void)
@@ -240,7 +246,7 @@ SPI_I2S_ReceiveData(SPI1);
 
 void SPI1_IRQHandler(void)
 {  
-      uint16_t tmpTest;
+      int16_t tmpTest;
 	  static uint8_t stLR,stLROld;
 	
 	  /* SPI in mode Receiver ----------------------------------------------------*/
@@ -251,71 +257,61 @@ void SPI1_IRQHandler(void)
 	  {
 	
 
-	   tmpTest =  SPI_I2S_ReceiveData(SPI1);
+	   tmpTest =  (int16_t)SPI_I2S_ReceiveData(SPI1);
 	
 	   /* Left-Right Mic data */
 	   //stLR= HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4);
 	
 		if (I2S2_stLR==GPIO_PIN_SET)
 		{
-			if (stLROld==GPIO_PIN_RESET)
-			{
-				SPI1_stNipple = (tmpTest);
-
-			}
-			else
-			{
-				 vRawSens1 = (tmpTest);
-   		         WaveRec_idxTest++;
+		       if((stLROld==GPIO_PIN_SET)&&(WaveRec_idxSens1<2*AUDIO_OUT_BUFFER_SIZE))  
+		       {
+				   vRawSens1 = (tmpTest);
+			       WaveRec_idxTest++;
 				   /* Recording Audio Data */						 
 				   switch (buffer_switch)
 				   {
-							case BUF1_PLAY:
-									Buffer2.bufMIC1[WaveRec_idxSens1++] = vRawSens1;								
-									break;
-							case BUF2_PLAY:
-									Buffer3.bufMIC1[WaveRec_idxSens1++] = vRawSens1;
-									break;
-							case BUF3_PLAY:
-									Buffer1.bufMIC1[WaveRec_idxSens1++] = vRawSens1;									
-									break;
-							default:
-									break; 
+						case BUF1_PLAY:
+								Buffer2.bufMIC1[WaveRec_idxSens1++] = vRawSens1;								
+								break;
+						case BUF2_PLAY:
+								Buffer3.bufMIC1[WaveRec_idxSens1++] = vRawSens1;
+								break;
+						case BUF3_PLAY:
+								Buffer1.bufMIC1[WaveRec_idxSens1++] = vRawSens1;									
+								break;
+						default:
+								break; 
 				   
 				   	}
-			}
+		       	}
 		}
 		else
-		{
-			if (stLROld==GPIO_PIN_SET)
+		{		
+			if ((stLROld==GPIO_PIN_RESET)&&(WaveRec_idxSens1<2*AUDIO_OUT_BUFFER_SIZE))  
 			{
-			  SPI1_stNipple = (tmpTest);  
+				vRawSens2 = (tmpTest);
+				WaveRec_idxTest++;
+				/* Recording Audio Data */						 
+				switch (buffer_switch)
+				{
+					case BUF1_PLAY:
+						Buffer2.bufMIC2[WaveRec_idxSens2++] = vRawSens2;								
+						break;
+					case BUF2_PLAY:
+						Buffer3.bufMIC2[WaveRec_idxSens2++] = vRawSens2;
+						break;
+					case BUF3_PLAY:
+						Buffer1.bufMIC2[WaveRec_idxSens2++] = vRawSens2;									
+						break;
+					default:
+						break; 
 
+				}
 			}
-			else
-			{
-			  vRawSens2 = (tmpTest);
- 	          WaveRec_idxTest++;
-			  	   /* Recording Audio Data */						 
-				   switch (buffer_switch)
-				   {
-							case BUF1_PLAY:
-									Buffer2.bufMIC2[WaveRec_idxSens2++] = vRawSens2;								
-									break;
-							case BUF2_PLAY:
-									Buffer3.bufMIC2[WaveRec_idxSens2++] = vRawSens2;
-									break;
-							case BUF3_PLAY:
-									Buffer1.bufMIC2[WaveRec_idxSens2++] = vRawSens2;									
-									break;
-							default:
-									break; 
-				   
-				   	}
-			  }
-
-			} 	
-		}
+		
+		} 	
+	}
 	   
 
 #if 0
@@ -390,7 +386,7 @@ void SPI1_IRQHandler(void)
 
 void SPI2_IRQHandler(void)
 {      
-    uint16_t app;
+    int16_t app;
     
 
   /* Check if data are available in SPI Data register */
@@ -401,63 +397,55 @@ void SPI2_IRQHandler(void)
    	  )
    {
     
-     app = SPI_I2S_ReceiveData(SPI2);   
+     app = (int16_t)SPI_I2S_ReceiveData(SPI2);   
      //SPI_I2S_SendData(SPI2, 3333);
 
 	 I2S2_stLR= HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4);
 
 	 if (I2S2_stLR==GPIO_PIN_SET)
 	 {
-        if (I2S2_stLROld==GPIO_PIN_SET)
-        {
-            I2S2_stNipple = app;           
-        }
-		else
-		{
-
-			 vRawSens3 = app;
-			switch (buffer_switch)
+		
+			if ((I2S2_stLROld==GPIO_PIN_SET)&&(WaveRec_idxSens3<2*AUDIO_OUT_BUFFER_SIZE)) 
 			{
-				case BUF1_PLAY:
-					Buffer2.bufMIC3[WaveRec_idxSens3++] = vRawSens3;								
-					break;
-				case BUF2_PLAY:
-					Buffer3.bufMIC3[WaveRec_idxSens3++] = vRawSens3;
-					break;
-				case BUF3_PLAY:
-					Buffer1.bufMIC3[WaveRec_idxSens3++] = vRawSens3;									
-					break;
-				default:
-					break; 
+				vRawSens3 = app;
+				switch (buffer_switch)
+				{
+					case BUF1_PLAY:
+						Buffer2.bufMIC3[WaveRec_idxSens3++] = vRawSens3;								
+						break;
+					case BUF2_PLAY:
+						Buffer3.bufMIC3[WaveRec_idxSens3++] = vRawSens3;
+						break;
+					case BUF3_PLAY:
+						Buffer1.bufMIC3[WaveRec_idxSens3++] = vRawSens3;									
+						break;
+					default:
+						break; 
+				}
 			}
 
-		}
+		
 	 }
 	 else
 	 {
-        if (I2S2_stLROld==GPIO_PIN_RESET)
-        {
-            I2S2_stNipple = app;
-
-        }
-		else
-		{
-            vRawSens4 =app;
-			switch (buffer_switch)
-			{	 
-				case BUF1_PLAY:
-					Buffer2.bufMIC4[WaveRec_idxSens4++] = vRawSens4;								
-					break;
-				case BUF2_PLAY:
-					Buffer3.bufMIC4[WaveRec_idxSens4++] = vRawSens4;
-					break;
-				case BUF3_PLAY:
-					Buffer1.bufMIC4[WaveRec_idxSens4++] = vRawSens4;									
-					break;
-				default:
-					break; 
-			}
-		}
+            if ((I2S2_stLROld==GPIO_PIN_RESET)&&(WaveRec_idxSens4<2*AUDIO_OUT_BUFFER_SIZE))   
+            {
+				vRawSens4 =app;
+				switch (buffer_switch)
+				{	 
+					case BUF1_PLAY:
+						Buffer2.bufMIC4[WaveRec_idxSens4++] = vRawSens4;								
+						break;
+					case BUF2_PLAY:
+						Buffer3.bufMIC4[WaveRec_idxSens4++] = vRawSens4;
+						break;
+					case BUF3_PLAY:
+						Buffer1.bufMIC4[WaveRec_idxSens4++] = vRawSens4;									
+						break;
+					default:
+						break; 
+				}
+            }
 	 }
 
 
@@ -489,26 +477,25 @@ void SPI2_IRQHandler(void)
 		 switch (buffer_switch)
 		 {
 			  case BUF1_PLAY:
-                  if (WaveRec_idxSens3<=WaveRec_idxSens4) 
-                      Buffer2.bufMIC3[WaveRec_idxSens3++] = vRawSens3;
-				  else
-                      Buffer2.bufMIC4[WaveRec_idxSens4++] = vRawSens4;			  
-
-				  break;
+                          if (WaveRec_idxSens3<=WaveRec_idxSens4) 
+                              Buffer2.bufMIC3[WaveRec_idxSens3++] = vRawSens3;
+                          else
+                              Buffer2.bufMIC4[WaveRec_idxSens4++] = vRawSens4;			  
+			  break;                     
 			  case BUF2_PLAY:
-                  if (WaveRec_idxSens3<=WaveRec_idxSens4) 
-                      Buffer3.bufMIC3[WaveRec_idxSens3++] = vRawSens3;
-				  else
-                      Buffer3.bufMIC4[WaveRec_idxSens4++] = vRawSens4;			   
+                          if (WaveRec_idxSens3<=WaveRec_idxSens4) 
+                              Buffer3.bufMIC3[WaveRec_idxSens3++] = vRawSens3;
+                          else
+                              Buffer3.bufMIC4[WaveRec_idxSens4++] = vRawSens4;			   
 				  break;
 			  case BUF3_PLAY:
-                  if (WaveRec_idxSens3<=WaveRec_idxSens4) 
-                      Buffer1.bufMIC3[WaveRec_idxSens3++] = vRawSens3;
-				  else
-                      Buffer1.bufMIC4[WaveRec_idxSens4++] = vRawSens4;
-				  break;
+                          if (WaveRec_idxSens3<=WaveRec_idxSens4) 
+                             Buffer1.bufMIC3[WaveRec_idxSens3++] = vRawSens3;
+		          else
+                             Buffer1.bufMIC4[WaveRec_idxSens4++] = vRawSens4;
+		          break;
 			  default:
-				  break; 
+			     break; 
 		 }
 		
 	 }          
@@ -673,7 +660,7 @@ void SPI5_IRQHandler(void)
 
    uint16_t test;
    test =  SPI_I2S_ReceiveData(SPI5);
-   SPI5->DR = 3333;
+   //SPI5->DR = 3333;
 
   pDataMic8[idxMic8++] =	HTONS(test);
   
@@ -715,7 +702,7 @@ void SPI6_IRQHandler(void)
 
      uint16_t test;
      test =  SPI_I2S_ReceiveData(SPI6);
-     SPI6->DR = 3333;
+     //SPI6->DR = 3333;
 
     pDataMic7[idxMic7++] =	HTONS(test);
 
@@ -745,24 +732,24 @@ void SPI6_IRQHandler(void)
 
 void MIC1TO6_Init(void)
 {
-	SPI5_Init();
-	SPI6_Init();
-	StartRecMic7_8();
-	while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
-	while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
-	while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
-	while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
-    HAL_Delay(2);
+  SPI5_Init();
+  SPI6_Init();
+  StartRecMic7_8();
+  //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
+  //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
+  //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
+  //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
+  //HAL_Delay(2);
 
 
-  while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
-  while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
+  //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
+  //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
   I2S1_Init(); /* I2S1   --> SDO12 */
-  while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
-  while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
+  //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
+  //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
   I2S2_Init(); /* I2S2   --> SDO34 */
-  while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
-  while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
+  //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
+  //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
   SPI4_Init(); /* SPI4   --> SDO56 */
 
 
@@ -792,8 +779,8 @@ static void I2S1_Init(void)
   hi2s1.Init.DataFormat = I2S_DATAFORMAT_16B;
   hi2s1.Init.MCLKOutput = I2S_MCLKOUTPUT_DISABLE;
   hi2s1.Init.AudioFreq = I2S_AUDIOFREQ_16K;
-  hi2s1.Init.CPOL = I2S_CPOL_HIGH;
-  hi2s1.Init.ClockSource = I2S_CLOCK_EXTERNAL;
+  hi2s1.Init.CPOL = I2S_CPOL_LOW;
+  hi2s1.Init.ClockSource = I2S_CLOCK_SYSCLK;
   HAL_I2S_Init(&hi2s1);
 
   /* Enable TXE and ERR interrupt */
@@ -841,7 +828,7 @@ static void I2S2_Init(void)
  hi2s2.Init.MCLKOutput = I2S_MCLKOUTPUT_DISABLE;
  hi2s2.Init.AudioFreq = I2S_AUDIOFREQ_16K;
  hi2s2.Init.CPOL = I2S_CPOL_LOW;
- hi2s2.Init.ClockSource = I2S_CLOCK_EXTERNAL;
+ hi2s2.Init.ClockSource = I2S_CLOCK_SYSCLK;
 
  HAL_I2S_Init(&hi2s2);
  /* Enable TXE and ERR interrupt */

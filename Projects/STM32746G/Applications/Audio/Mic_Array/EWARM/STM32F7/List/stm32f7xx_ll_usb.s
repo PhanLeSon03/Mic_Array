@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      08/Mar/2016  16:10:20
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      15/Mar/2016  18:17:15
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -278,7 +278,7 @@ USB_CoreInit:
 //  105 
 //  106     /* Init The ULPI Interface */
 //  107     USBx->GUSBCFG &= ~(USB_OTG_GUSBCFG_TSDPS | USB_OTG_GUSBCFG_ULPIFSLS | USB_OTG_GUSBCFG_PHYSEL);
-        LDR.W    R2,??DataTable7  ;; 0xffbdffbf
+        LDR.W    R2,??DataTable8  ;; 0xffbdffbf
         BIC      R1,R1,#0x10000
         STR      R1,[R0, #+56]
         LDR      R1,[R0, #+12]
@@ -303,7 +303,7 @@ USB_CoreInit:
 //  115     /* Reset after a PHY select  */
 //  116     USB_CoreReset(USBx); 
 ??USB_CoreInit_1:
-        LDR.W    R1,??DataTable7_1  ;; 0x30d41
+        LDR.W    R1,??DataTable8_1  ;; 0x30d41
         MOV      R2,R1
 ??USB_CoreInit_2:
         SUBS     R2,R2,#+1
@@ -334,7 +334,7 @@ USB_CoreInit:
 //  123     
 //  124     /* Reset after a PHY select and set Host mode */
 //  125     USB_CoreReset(USBx);
-        LDR.W    R1,??DataTable7_1  ;; 0x30d41
+        LDR.W    R1,??DataTable8_1  ;; 0x30d41
         MOV      R2,R1
 ??USB_CoreInit_5:
         SUBS     R2,R2,#+1
@@ -402,8 +402,10 @@ USB_CoreInit:
 USB_EnableGlobalInt:
         LDR      R1,[R0, #+8]
         ORR      R1,R1,#0x1
-        B.N      ?Subroutine2
+        STR      R1,[R0, #+8]
 //  149   return HAL_OK;
+        MOVS     R0,#+0
+        BX       LR               ;; return
 //  150 }
           CFI EndBlock cfiBlock1
 //  151 
@@ -427,21 +429,12 @@ USB_DisableGlobalInt:
         LDR      R1,[R0, #+8]
         LSRS     R1,R1,#+1
         LSLS     R1,R1,#+1
-          CFI EndBlock cfiBlock2
-        REQUIRE ?Subroutine2
-        ;; // Fall through to label ?Subroutine2
-//  162   return HAL_OK;
-//  163 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock3 Using cfiCommon0
-          CFI NoFunction
-        THUMB
-?Subroutine2:
         STR      R1,[R0, #+8]
+//  162   return HAL_OK;
         MOVS     R0,#+0
         BX       LR               ;; return
-          CFI EndBlock cfiBlock3
+//  163 }
+          CFI EndBlock cfiBlock2
 //  164    
 //  165 /**
 //  166   * @brief  USB_SetCurrentMode : Set functional mode
@@ -455,15 +448,16 @@ USB_DisableGlobalInt:
 //  174   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock4 Using cfiCommon0
+          CFI Block cfiBlock3 Using cfiCommon0
           CFI Function USB_SetCurrentMode
-          CFI NoCalls
         THUMB
 //  175 HAL_StatusTypeDef USB_SetCurrentMode(USB_OTG_GlobalTypeDef *USBx , USB_OTG_ModeTypeDef mode)
 //  176 {
 USB_SetCurrentMode:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  177   USBx->GUSBCFG &= ~(USB_OTG_GUSBCFG_FHMOD | USB_OTG_GUSBCFG_FDMOD); 
         LDR      R2,[R0, #+12]
@@ -492,11 +486,16 @@ USB_SetCurrentMode:
 //  187   HAL_Delay(50);
 ??USB_SetCurrentMode_2:
         MOVS     R0,#+50
-        B.W      ??Subroutine6_0
+          CFI FunCall HAL_Delay
+        BL       HAL_Delay
 //  188   
 //  189   return HAL_OK;
+        MOVS     R0,#+0
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 //  190 }
-          CFI EndBlock cfiBlock4
+          CFI EndBlock cfiBlock3
 //  191 
 //  192 /**
 //  193   * @brief  USB_DevInit : Initializes the USB_OTG controller registers 
@@ -507,8 +506,8 @@ USB_SetCurrentMode:
 //  198   * @retval HAL status
 //  199   */
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock5 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock4 Using cfiCommon0
           CFI Function USB_DevInit
           CFI NoCalls
         THUMB
@@ -603,7 +602,7 @@ USB_DevInit:
 //  243   USB_FlushTxFifo(USBx , 0x10); /* all Tx FIFOs */
         MOV      R4,#+1056
         STR      R4,[R0, #+16]
-        LDR.W    R4,??DataTable7_1  ;; 0x30d41
+        LDR.W    R4,??DataTable8_1  ;; 0x30d41
         MOV      R5,R4
 ??USB_DevInit_3:
         SUBS     R5,R5,#+1
@@ -671,7 +670,7 @@ USB_DevInit:
         SUBS     R7,R7,#+1
         BNE.N    ??USB_DevInit_8
         ADD      R3,R0,#+2816
-        LDR      R6,[SP, #+20]
+        LDR.W    R6,[SP, #+20]
 //  267   
 //  268   for (i = 0; i < cfg.dev_endpoints; i++)
 //  269   {
@@ -752,7 +751,7 @@ USB_DevInit:
 //  310                     USB_OTG_GINTMSK_PXFRM_IISOOXFRM | USB_OTG_GINTMSK_WUIM);
 ??USB_DevInit_11:
         LDR      R2,[R0, #+24]
-        LDR.W    R3,??DataTable10_1  ;; 0x803c3800
+        LDR.W    R3,??DataTable11  ;; 0x803c3800
         ORRS     R2,R3,R2
         STR      R2,[R0, #+24]
 //  311   
@@ -789,7 +788,7 @@ USB_DevInit:
         MOVS     R0,#+0
         LDR      PC,[SP], #+16    ;; return
 //  323 }
-          CFI EndBlock cfiBlock5
+          CFI EndBlock cfiBlock4
 //  324 
 //  325 
 //  326 /**
@@ -802,7 +801,7 @@ USB_DevInit:
 //  333   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock6 Using cfiCommon0
+          CFI Block cfiBlock5 Using cfiCommon0
           CFI Function USB_FlushTxFifo
           CFI NoCalls
         THUMB
@@ -839,7 +838,7 @@ USB_FlushTxFifo:
         MOVS     R0,#+0
         BX       LR               ;; return
 //  350 }
-          CFI EndBlock cfiBlock6
+          CFI EndBlock cfiBlock5
 //  351 
 //  352 
 //  353 /**
@@ -849,7 +848,7 @@ USB_FlushTxFifo:
 //  357   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock7 Using cfiCommon0
+          CFI Block cfiBlock6 Using cfiCommon0
           CFI Function USB_FlushRxFifo
           CFI NoCalls
         THUMB
@@ -885,7 +884,7 @@ USB_FlushRxFifo:
         MOVS     R0,#+0
         BX       LR               ;; return
 //  374 }
-          CFI EndBlock cfiBlock7
+          CFI EndBlock cfiBlock6
 //  375 
 //  376 /**
 //  377   * @brief  USB_SetDevSpeed :Initializes the DevSpd field of DCFG register 
@@ -901,7 +900,7 @@ USB_FlushRxFifo:
 //  387   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock8 Using cfiCommon0
+          CFI Block cfiBlock7 Using cfiCommon0
           CFI Function USB_SetDevSpeed
           CFI NoCalls
         THUMB
@@ -910,10 +909,14 @@ USB_FlushRxFifo:
 //  390   USBx_DEVICE->DCFG |= speed;
 USB_SetDevSpeed:
         ADD      R0,R0,#+2048
-        B.N      ?Subroutine0
+        LDR      R2,[R0, #+0]
+        ORRS     R1,R1,R2
+        STR      R1,[R0, #+0]
 //  391   return HAL_OK;
+        MOVS     R0,#+0
+        BX       LR               ;; return
 //  392 }
-          CFI EndBlock cfiBlock8
+          CFI EndBlock cfiBlock7
 //  393 
 //  394 /**
 //  395   * @brief  USB_GetDevSpeed :Return the  Dev Speed 
@@ -926,7 +929,7 @@ USB_SetDevSpeed:
 //  402   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock9 Using cfiCommon0
+          CFI Block cfiBlock8 Using cfiCommon0
           CFI Function USB_GetDevSpeed
           CFI NoCalls
         THUMB
@@ -973,7 +976,7 @@ USB_GetDevSpeed:
         MOV      R0,R1
         BX       LR               ;; return
 //  422 }
-          CFI EndBlock cfiBlock9
+          CFI EndBlock cfiBlock8
 //  423 
 //  424 /**
 //  425   * @brief  Activate and configure an endpoint
@@ -983,29 +986,26 @@ USB_GetDevSpeed:
 //  429   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock10 Using cfiCommon0
+          CFI Block cfiBlock9 Using cfiCommon0
           CFI Function USB_ActivateEndpoint
           CFI NoCalls
         THUMB
 //  430 HAL_StatusTypeDef USB_ActivateEndpoint(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep)
 //  431 {
-USB_ActivateEndpoint:
-        PUSH     {R4}
-          CFI R4 Frame(CFA, -4)
-          CFI CFA R13+4
 //  432   if (ep->is_in == 1)
-        LDRSB    R4,[R1, #+0]
+USB_ActivateEndpoint:
+        LDRSB    R12,[R1, #+0]
         MOVS     R3,#+1
         ADD      R2,R0,#+2048
-        LSLS     R3,R3,R4
-        LDRB     R4,[R1, #+1]
-        CMP      R4,#+1
-        LDR      R4,[R2, #+28]
+        LSL      R3,R3,R12
+        LDRB     R12,[R1, #+1]
+        CMP      R12,#+1
+        LDR      R12,[R2, #+28]
         BNE.N    ??USB_ActivateEndpoint_0
 //  433   {
 //  434    USBx_DEVICE->DAINTMSK |= USB_OTG_DAINTMSK_IEPM & ((1 << (ep->num)));
         UXTH     R3,R3
-        ORRS     R3,R3,R4
+        ORR      R3,R3,R12
         STR      R3,[R2, #+28]
 //  435    
 //  436     if (((USBx_INEP(ep->num)->DIEPCTL) & USB_OTG_DIEPCTL_USBAEP) == 0)
@@ -1019,11 +1019,11 @@ USB_ActivateEndpoint:
 //  438       USBx_INEP(ep->num)->DIEPCTL |= ((ep->maxpacket & USB_OTG_DIEPCTL_MPSIZ ) | (ep->type << 18 ) |\ 
 //  439         ((ep->num) << 22 ) | (USB_OTG_DIEPCTL_SD0PID_SEVNFRM) | (USB_OTG_DIEPCTL_USBAEP)); 
         LDR      R3,[R0, #+0]
-        LDR      R4,[R1, #+8]
+        LDR      R12,[R1, #+8]
         LDRB     R1,[R1, #+3]
-        LSLS     R4,R4,#+21
-        LSRS     R4,R4,#+21
-        ORR      R1,R4,R1, LSL #+18
+        LSL      R12,R12,#+21
+        LSR      R12,R12,#+21
+        ORR      R1,R12,R1, LSL #+18
         ORR      R1,R1,R2, LSL #+22
         ORR      R1,R1,#0x10000000
         ORR      R1,R1,#0x8000
@@ -1036,7 +1036,7 @@ USB_ActivateEndpoint:
 //  444   {
 //  445      USBx_DEVICE->DAINTMSK |= USB_OTG_DAINTMSK_OEPM & ((1 << (ep->num)) << 16);
 ??USB_ActivateEndpoint_0:
-        ORR      R3,R4,R3, LSL #+16
+        ORR      R3,R12,R3, LSL #+16
         STR      R3,[R2, #+28]
 //  446      
 //  447     if (((USBx_OUTEP(ep->num)->DOEPCTL) & USB_OTG_DOEPCTL_USBAEP) == 0)
@@ -1064,9 +1064,10 @@ USB_ActivateEndpoint:
 //  452   }
 //  453   return HAL_OK;
 ??USB_ActivateEndpoint_1:
-        B.N      ?Subroutine3
+        MOVS     R0,#+0
+        BX       LR               ;; return
 //  454 }
-          CFI EndBlock cfiBlock10
+          CFI EndBlock cfiBlock9
 //  455 /**
 //  456   * @brief  Activate and configure a dedicated endpoint
 //  457   * @param  USBx : Selected device
@@ -1075,7 +1076,7 @@ USB_ActivateEndpoint:
 //  460   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock11 Using cfiCommon0
+          CFI Block cfiBlock10 Using cfiCommon0
           CFI Function USB_ActivateDedicatedEndpoint
           CFI NoCalls
         THUMB
@@ -1098,7 +1099,7 @@ USB_ActivateDedicatedEndpoint:
         ADD      R3,R0,R2, LSL #+5
         BNE.N    ??USB_ActivateDedicatedEndpoint_0
         ADD      R4,R3,#+2304
-        LDR.W    R3,??DataTable10_2  ;; 0x10008000
+        LDR.W    R3,??DataTable11_1  ;; 0x10008000
         LDR      R5,[R4, #+0]
         LSLS     R5,R5,#+16
         BMI.N    ??USB_ActivateDedicatedEndpoint_1
@@ -1123,7 +1124,7 @@ USB_ActivateDedicatedEndpoint:
 //  475     debug  |= ((ep->maxpacket & USB_OTG_DIEPCTL_MPSIZ ) | (ep->type << 18 ) |\ 
 //  476         ((ep->num) << 22 ) | (USB_OTG_DIEPCTL_SD0PID_SEVNFRM) | (USB_OTG_DIEPCTL_USBAEP)); 
 ??USB_ActivateDedicatedEndpoint_1:
-        LDR.W    R2,??DataTable10_3
+        LDR.W    R2,??DataTable11_2
 //  477     
 //  478    USBx_DEVICE->DEACHMSK |= USB_OTG_DAINTMSK_IEPM & ((1 << (ep->num)));
         ADD      R0,R0,#+2048
@@ -1144,19 +1145,43 @@ USB_ActivateDedicatedEndpoint:
         LSL      R1,R3,R1
         UXTH     R1,R1
         ORRS     R1,R1,R2
-        B.N      ??USB_ActivateDedicatedEndpoint_2
+        STR      R1,[R0, #+60]
 //  479   }
-??USB_ActivateDedicatedEndpoint_0:
-        ADD      R3,R3,#+2816
-        LDR      R4,[R3, #+0]
-        LSLS     R4,R4,#+16
-        BMI.N    ??USB_ActivateDedicatedEndpoint_3
 //  480   else
 //  481   {
 //  482     if (((USBx_OUTEP(ep->num)->DOEPCTL) & USB_OTG_DOEPCTL_USBAEP) == 0)
 //  483     {
 //  484       USBx_OUTEP(ep->num)->DOEPCTL |= ((ep->maxpacket & USB_OTG_DOEPCTL_MPSIZ ) | (ep->type << 18 ) |\ 
 //  485         ((ep->num) << 22 ) | (USB_OTG_DOEPCTL_USBAEP));
+//  486       
+//  487       debug = (uint32_t)(((uint32_t )USBx) + USB_OTG_OUT_ENDPOINT_BASE + (0)*USB_OTG_EP_REG_SIZE);
+//  488       debug = (uint32_t )&USBx_OUTEP(ep->num)->DOEPCTL;
+//  489       debug |= ((ep->maxpacket & USB_OTG_DOEPCTL_MPSIZ ) | (ep->type << 18 ) |\ 
+//  490         ((ep->num) << 22 ) | (USB_OTG_DOEPCTL_USBAEP)); 
+//  491     } 
+//  492     
+//  493      USBx_DEVICE->DEACHMSK |= USB_OTG_DAINTMSK_OEPM & ((1 << (ep->num)) << 16);
+//  494   }
+//  495 
+//  496   return HAL_OK;
+        MOVS     R0,#+0
+        POP      {R4-R7}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI CFA R13+0
+        BX       LR
+          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -12)
+          CFI R6 Frame(CFA, -8)
+          CFI R7 Frame(CFA, -4)
+          CFI CFA R13+16
+??USB_ActivateDedicatedEndpoint_0:
+        ADD      R3,R3,#+2816
+        LDR      R4,[R3, #+0]
+        LSLS     R4,R4,#+16
+        BMI.N    ??USB_ActivateDedicatedEndpoint_2
         LDR      R4,[R3, #+0]
         LDR      R5,[R1, #+8]
         LDRB     R6,[R1, #+3]
@@ -1167,18 +1192,13 @@ USB_ActivateDedicatedEndpoint:
         ORR      R2,R2,#0x8000
         ORRS     R2,R2,R4
         STR      R2,[R3, #+0]
-//  486       
-//  487       debug = (uint32_t)(((uint32_t )USBx) + USB_OTG_OUT_ENDPOINT_BASE + (0)*USB_OTG_EP_REG_SIZE);
-        LDR.W    R2,??DataTable10_3
+        LDR.W    R2,??DataTable11_2
         ADD      R3,R0,#+2816
         STR      R3,[R2, #+0]
-//  488       debug = (uint32_t )&USBx_OUTEP(ep->num)->DOEPCTL;
         LDRB     R3,[R1, #+0]
         ADD      R3,R0,R3, LSL #+5
         ADD      R3,R3,#+2816
         STR      R3,[R2, #+0]
-//  489       debug |= ((ep->maxpacket & USB_OTG_DOEPCTL_MPSIZ ) | (ep->type << 18 ) |\ 
-//  490         ((ep->num) << 22 ) | (USB_OTG_DOEPCTL_USBAEP)); 
         LDR      R3,[R2, #+0]
         LDR      R4,[R1, #+8]
         LDRB     R5,[R1, #+3]
@@ -1190,24 +1210,24 @@ USB_ActivateDedicatedEndpoint:
         ORR      R4,R4,#0x8000
         ORRS     R3,R4,R3
         STR      R3,[R2, #+0]
-//  491     } 
-//  492     
-//  493      USBx_DEVICE->DEACHMSK |= USB_OTG_DAINTMSK_OEPM & ((1 << (ep->num)) << 16);
-??USB_ActivateDedicatedEndpoint_3:
+??USB_ActivateDedicatedEndpoint_2:
         ADD      R0,R0,#+2048
         MOVS     R3,#+1
         LDR      R2,[R0, #+60]
         LDRSB    R1,[R1, #+0]
         LSL      R1,R3,R1
         ORR      R1,R2,R1, LSL #+16
-??USB_ActivateDedicatedEndpoint_2:
         STR      R1,[R0, #+60]
-//  494   }
-//  495 
-//  496   return HAL_OK;
-        B.W      ?Subroutine4
+        MOVS     R0,#+0
+        POP      {R4-R7}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI CFA R13+0
+        BX       LR               ;; return
 //  497 }
-          CFI EndBlock cfiBlock11
+          CFI EndBlock cfiBlock10
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
@@ -1221,7 +1241,7 @@ USB_ActivateDedicatedEndpoint:
 //  503   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock12 Using cfiCommon0
+          CFI Block cfiBlock11 Using cfiCommon0
           CFI Function USB_DeactivateEndpoint
           CFI NoCalls
         THUMB
@@ -1280,11 +1300,17 @@ USB_DeactivateEndpoint:
 ??USB_DeactivateEndpoint_1:
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x8000
+        STR      R1,[R0, #+0]
 //  519   }
-        B.N      ?Subroutine1
 //  520   return HAL_OK;
+        MOVS     R0,#+0
+        POP      {R4,R5}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI CFA R13+0
+        BX       LR               ;; return
 //  521 }
-          CFI EndBlock cfiBlock12
+          CFI EndBlock cfiBlock11
 //  522 
 //  523 /**
 //  524   * @brief  De-activate and de-initialize a dedicated endpoint
@@ -1294,29 +1320,26 @@ USB_DeactivateEndpoint:
 //  528   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock13 Using cfiCommon0
+          CFI Block cfiBlock12 Using cfiCommon0
           CFI Function USB_DeactivateDedicatedEndpoint
           CFI NoCalls
         THUMB
 //  529 HAL_StatusTypeDef USB_DeactivateDedicatedEndpoint(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep)
 //  530 {
-USB_DeactivateDedicatedEndpoint:
-        PUSH     {R4}
-          CFI R4 Frame(CFA, -4)
-          CFI CFA R13+4
 //  531   /* Read DEPCTLn register */
 //  532   if (ep->is_in == 1)
-        LDRB     R4,[R1, #+1]
+USB_DeactivateDedicatedEndpoint:
+        LDRB     R12,[R1, #+1]
         LDRB     R2,[R1, #+0]
         ADD      R3,R0,R2, LSL #+5
         MOVS     R2,#+1
         ADD      R0,R0,#+2048
-        CMP      R4,#+1
+        CMP      R12,#+1
         BNE.N    ??USB_DeactivateDedicatedEndpoint_0
         ADD      R3,R3,#+2304
-        LDR      R4,[R3, #+0]
-        BIC      R4,R4,#0x8000
-        STR      R4,[R3, #+0]
+        LDR      R12,[R3, #+0]
+        BIC      R12,R12,#0x8000
+        STR      R12,[R3, #+0]
 //  533   {
 //  534    USBx_INEP(ep->num)->DIEPCTL &= ~ USB_OTG_DIEPCTL_USBAEP;
 //  535    USBx_DEVICE->DAINTMSK &= ~(USB_OTG_DAINTMSK_IEPM & ((1 << (ep->num))));
@@ -1325,43 +1348,30 @@ USB_DeactivateDedicatedEndpoint:
         LSL      R1,R2,R1
         UXTH     R1,R1
         BIC      R1,R3,R1
-        B.N      ??USB_DeactivateDedicatedEndpoint_1
+        STR      R1,[R0, #+28]
 //  536   }
-??USB_DeactivateDedicatedEndpoint_0:
-        ADD      R3,R3,#+2816
-        LDR      R4,[R3, #+0]
-        BIC      R4,R4,#0x8000
-        STR      R4,[R3, #+0]
 //  537   else
 //  538   {
 //  539      USBx_OUTEP(ep->num)->DOEPCTL &= ~USB_OTG_DOEPCTL_USBAEP; 
 //  540      USBx_DEVICE->DAINTMSK &= ~(USB_OTG_DAINTMSK_OEPM & ((1 << (ep->num)) << 16));
+//  541   }
+//  542   return HAL_OK;
+        MOVS     R0,#+0
+        BX       LR
+??USB_DeactivateDedicatedEndpoint_0:
+        ADD      R3,R3,#+2816
+        LDR      R12,[R3, #+0]
+        BIC      R12,R12,#0x8000
+        STR      R12,[R3, #+0]
         LDR      R3,[R0, #+28]
         LDRSB    R1,[R1, #+0]
         LSL      R1,R2,R1
         BIC      R1,R3,R1, LSL #+16
-??USB_DeactivateDedicatedEndpoint_1:
         STR      R1,[R0, #+28]
-//  541   }
-//  542   return HAL_OK;
-          CFI EndBlock cfiBlock13
-        REQUIRE ?Subroutine3
-        ;; // Fall through to label ?Subroutine3
-//  543 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock14 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+4
-          CFI R4 Frame(CFA, -4)
-        THUMB
-?Subroutine3:
         MOVS     R0,#+0
-        POP      {R4}
-          CFI CFA R13+0
-          CFI R4 SameValue
         BX       LR               ;; return
-          CFI EndBlock cfiBlock14
+//  543 }
+          CFI EndBlock cfiBlock12
 //  544 
 //  545 /**
 //  546   * @brief  USB_EPStartXfer : setup and starts a transfer over an EP
@@ -1374,8 +1384,8 @@ USB_DeactivateDedicatedEndpoint:
 //  553   * @retval HAL status
 //  554   */
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock15 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock13 Using cfiCommon0
           CFI Function USB_EPStartXfer
           CFI NoCalls
         THUMB
@@ -1395,7 +1405,7 @@ USB_EPStartXfer:
         LDRB     R3,[R1, #+0]
         CMP      R5,#+1
         ADD      R4,R0,R3, LSL #+5
-        LDR.W    R3,??DataTable10_4  ;; 0xe007ffff
+        LDR.W    R3,??DataTable11_3  ;; 0xe007ffff
         BNE.W    ??USB_EPStartXfer_0
         LDR      R5,[R1, #+20]
         ADD      R4,R4,#+2304
@@ -1454,7 +1464,7 @@ USB_EPStartXfer:
         ADDS     R6,R4,R6
         SUBS     R6,R6,#+1
         UDIV     R4,R6,R4
-        LDR.W    R6,??DataTable10_5  ;; 0x1ff80000
+        LDR.W    R6,??DataTable11_4  ;; 0x1ff80000
         AND      R4,R6,R4, LSL #+19
         ORRS     R4,R4,R5
         STR      R4,[R3, #+16]
@@ -1582,7 +1592,7 @@ USB_EPStartXfer:
         ASRS     R2,R1,#+1
         ADD      R1,R1,R2, LSR #+30
         ASRS     R1,R1,#+2
-        BEQ.N    ??USB_EPStartXfer_8
+        BEQ.W    ??USB_EPStartXfer_8
         ADD      R0,R0,R3, LSL #+12
         ADD      R0,R0,#+4096
 ??USB_EPStartXfer_9:
@@ -1590,15 +1600,8 @@ USB_EPStartXfer:
         SUBS     R1,R1,#+1
         STR      R2,[R0, #+0]
         BNE.N    ??USB_EPStartXfer_9
-        B.N      ??USB_EPStartXfer_8
 //  622     }    
 //  623   }
-??USB_EPStartXfer_0:
-        ADD      R4,R4,#+2816
-        LDR      R5,[R4, #+16]
-        LSRS     R5,R5,#+19
-        LSLS     R5,R5,#+19
-        STR      R5,[R4, #+16]
 //  624   else /* OUT endpoint */
 //  625   {
 //  626     /* Program the transfer size and packet count as follows:
@@ -1607,49 +1610,88 @@ USB_EPStartXfer:
 //  629     */  
 //  630     USBx_OUTEP(ep->num)->DOEPTSIZ &= ~(USB_OTG_DOEPTSIZ_XFRSIZ); 
 //  631     USBx_OUTEP(ep->num)->DOEPTSIZ &= ~(USB_OTG_DOEPTSIZ_PKTCNT); 
+//  632       
+//  633     if (ep->xfer_len == 0)
+//  634     {
+//  635       USBx_OUTEP(ep->num)->DOEPTSIZ |= (USB_OTG_DOEPTSIZ_XFRSIZ & ep->maxpacket);
+//  636       USBx_OUTEP(ep->num)->DOEPTSIZ |= (USB_OTG_DOEPTSIZ_PKTCNT & (1 << 19)) ;      
+//  637     }
+//  638     else
+//  639     {
+//  640       pktcnt = (ep->xfer_len + ep->maxpacket -1)/ ep->maxpacket; 
+//  641       USBx_OUTEP(ep->num)->DOEPTSIZ |= (USB_OTG_DOEPTSIZ_PKTCNT & (pktcnt << 19));
+//  642       USBx_OUTEP(ep->num)->DOEPTSIZ |= (USB_OTG_DOEPTSIZ_XFRSIZ & (ep->maxpacket * pktcnt)); 
+//  643     }
+//  644 
+//  645     if (dma == 1)
+//  646     {
+//  647       USBx_OUTEP(ep->num)->DOEPDMA = (uint32_t)ep->xfer_buff;
+//  648     }
+//  649     
+//  650     if (ep->type == EP_TYPE_ISOC)
+//  651     {
+//  652       if ((USBx_DEVICE->DSTS & ( 1 << 8 )) == 0)
+//  653       {
+//  654         USBx_OUTEP(ep->num)->DOEPCTL |= USB_OTG_DOEPCTL_SODDFRM;
+//  655       }
+//  656       else
+//  657       {
+//  658         USBx_OUTEP(ep->num)->DOEPCTL |= USB_OTG_DOEPCTL_SD0PID_SEVNFRM;
+//  659       }
+//  660     }
+//  661     /* EP enable */
+//  662     USBx_OUTEP(ep->num)->DOEPCTL |= (USB_OTG_DOEPCTL_CNAK | USB_OTG_DOEPCTL_EPENA);
+//  663   }
+//  664   return HAL_OK;
+        MOVS     R0,#+0
+        POP      {R4-R6}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI CFA R13+0
+        BX       LR
+          CFI R4 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -8)
+          CFI R6 Frame(CFA, -4)
+          CFI CFA R13+12
+??USB_EPStartXfer_0:
+        ADD      R4,R4,#+2816
+        LDR      R5,[R4, #+16]
+        LSRS     R5,R5,#+19
+        LSLS     R5,R5,#+19
+        STR      R5,[R4, #+16]
         LDRB     R4,[R1, #+0]
         ADD      R4,R0,R4, LSL #+5
         ADD      R4,R4,#+2816
         LDR      R5,[R4, #+16]
         ANDS     R3,R3,R5
         STR      R3,[R4, #+16]
-//  632       
-//  633     if (ep->xfer_len == 0)
         LDRB     R3,[R1, #+0]
         LDR      R5,[R1, #+20]
         LDR      R4,[R1, #+8]
         ADD      R3,R0,R3, LSL #+5
         ADD      R3,R3,#+2816
         CBNZ.N   R5,??USB_EPStartXfer_10
-//  634     {
-//  635       USBx_OUTEP(ep->num)->DOEPTSIZ |= (USB_OTG_DOEPTSIZ_XFRSIZ & ep->maxpacket);
         LDR      R5,[R3, #+16]
         LSLS     R4,R4,#+13
         ORRS     R4,R5,R4, LSR #+13
         STR      R4,[R3, #+16]
-//  636       USBx_OUTEP(ep->num)->DOEPTSIZ |= (USB_OTG_DOEPTSIZ_PKTCNT & (1 << 19)) ;      
         LDRB     R3,[R1, #+0]
         ADD      R3,R0,R3, LSL #+5
         ADD      R3,R3,#+2816
         LDR      R4,[R3, #+16]
         ORR      R4,R4,#0x80000
         B.N      ??USB_EPStartXfer_11
-//  637     }
-//  638     else
-//  639     {
-//  640       pktcnt = (ep->xfer_len + ep->maxpacket -1)/ ep->maxpacket; 
 ??USB_EPStartXfer_10:
         ADDS     R5,R4,R5
         SUBS     R5,R5,#+1
         UDIV     R4,R5,R4
         UXTH     R4,R4
-//  641       USBx_OUTEP(ep->num)->DOEPTSIZ |= (USB_OTG_DOEPTSIZ_PKTCNT & (pktcnt << 19));
-        LDR.W    R6,??DataTable10_5  ;; 0x1ff80000
+        LDR.W    R6,??DataTable11_4  ;; 0x1ff80000
         LDR      R5,[R3, #+16]
         AND      R6,R6,R4, LSL #+19
         ORRS     R5,R6,R5
         STR      R5,[R3, #+16]
-//  642       USBx_OUTEP(ep->num)->DOEPTSIZ |= (USB_OTG_DOEPTSIZ_XFRSIZ & (ep->maxpacket * pktcnt)); 
         LDRB     R3,[R1, #+0]
         ADD      R3,R0,R3, LSL #+5
         ADD      R3,R3,#+2816
@@ -1658,29 +1700,19 @@ USB_EPStartXfer:
         MULS     R4,R4,R6
         LSLS     R4,R4,#+13
         ORRS     R4,R5,R4, LSR #+13
-//  643     }
-//  644 
-//  645     if (dma == 1)
 ??USB_EPStartXfer_11:
         CMP      R2,#+1
         STR      R4,[R3, #+16]
         BNE.N    ??USB_EPStartXfer_12
-//  646     {
-//  647       USBx_OUTEP(ep->num)->DOEPDMA = (uint32_t)ep->xfer_buff;
         LDRB     R2,[R1, #+0]
         LDR      R3,[R1, #+12]
         ADD      R2,R0,R2, LSL #+5
         ADD      R2,R2,#+2816
         STR      R3,[R2, #+20]
-//  648     }
-//  649     
-//  650     if (ep->type == EP_TYPE_ISOC)
 ??USB_EPStartXfer_12:
         LDRB     R2,[R1, #+3]
         CMP      R2,#+1
         BNE.N    ??USB_EPStartXfer_13
-//  651     {
-//  652       if ((USBx_DEVICE->DSTS & ( 1 << 8 )) == 0)
         LDRB     R2,[R1, #+0]
         ADD      R3,R0,#+2048
         ADD      R2,R0,R2, LSL #+5
@@ -1691,17 +1723,7 @@ USB_EPStartXfer:
         ITE      PL 
         ORRPL    R3,R3,#0x20000000
         ORRMI    R3,R3,#0x10000000
-//  653       {
-//  654         USBx_OUTEP(ep->num)->DOEPCTL |= USB_OTG_DOEPCTL_SODDFRM;
-//  655       }
-//  656       else
-//  657       {
-//  658         USBx_OUTEP(ep->num)->DOEPCTL |= USB_OTG_DOEPCTL_SD0PID_SEVNFRM;
         STR      R3,[R2, #+0]
-//  659       }
-//  660     }
-//  661     /* EP enable */
-//  662     USBx_OUTEP(ep->num)->DOEPCTL |= (USB_OTG_DOEPCTL_CNAK | USB_OTG_DOEPCTL_EPENA);
 ??USB_EPStartXfer_13:
         LDRB     R1,[R1, #+0]
         ADD      R0,R0,R1, LSL #+5
@@ -1709,8 +1731,6 @@ USB_EPStartXfer:
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x84000000
         STR      R1,[R0, #+0]
-//  663   }
-//  664   return HAL_OK;
 ??USB_EPStartXfer_8:
         MOVS     R0,#+0
         POP      {R4-R6}
@@ -1720,7 +1740,7 @@ USB_EPStartXfer:
           CFI CFA R13+0
         BX       LR               ;; return
 //  665 }
-          CFI EndBlock cfiBlock15
+          CFI EndBlock cfiBlock13
 //  666 
 //  667 /**
 //  668   * @brief  USB_EP0StartXfer : setup and starts a transfer over the EP  0
@@ -1734,7 +1754,7 @@ USB_EPStartXfer:
 //  676   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock16 Using cfiCommon0
+          CFI Block cfiBlock14 Using cfiCommon0
           CFI Function USB_EP0StartXfer
           CFI NoCalls
         THUMB
@@ -1751,7 +1771,7 @@ USB_EP0StartXfer:
         LDRB     R3,[R1, #+0]
         CMP      R5,#+1
         ADD      R4,R0,R3, LSL #+5
-        LDR.W    R3,??DataTable10_4  ;; 0xe007ffff
+        LDR.W    R3,??DataTable11_3  ;; 0xe007ffff
         BNE.N    ??USB_EP0StartXfer_0
         LDR      R5,[R1, #+20]
         ADD      R4,R4,#+2304
@@ -1841,17 +1861,25 @@ USB_EP0StartXfer:
         ADD      R2,R0,R2, LSL #+5
         ADD      R2,R2,#+2304
         STR      R3,[R2, #+20]
-        B.N      ??USB_EP0StartXfer_4
 //  711     }
 //  712     else
 //  713     {
 //  714       /* Enable the Tx FIFO Empty Interrupt for this EP */
 //  715       if (ep->xfer_len > 0)
-??USB_EP0StartXfer_3:
-        LDR      R2,[R1, #+20]
-        CBZ.N    R2,??USB_EP0StartXfer_4
 //  716       {
 //  717         USBx_DEVICE->DIEPEMPMSK |= 1 << (ep->num);
+//  718       }
+//  719     }
+//  720     
+//  721     /* EP enable, IN data in FIFO */
+//  722     USBx_INEP(ep->num)->DIEPCTL |= (USB_OTG_DIEPCTL_CNAK | USB_OTG_DIEPCTL_EPENA);   
+        LDRB     R1,[R1, #+0]
+        ADD      R0,R0,R1, LSL #+5
+        ADD      R0,R0,#+2304
+        B.N      ??USB_EP0StartXfer_4
+??USB_EP0StartXfer_3:
+        LDR      R2,[R1, #+20]
+        CBZ.N    R2,??USB_EP0StartXfer_5
         ADD      R2,R0,#+2048
         MOVS     R4,#+1
         LDR      R3,[R2, #+52]
@@ -1859,16 +1887,11 @@ USB_EP0StartXfer:
         LSLS     R4,R4,R5
         ORRS     R3,R4,R3
         STR      R3,[R2, #+52]
-//  718       }
-//  719     }
-//  720     
-//  721     /* EP enable, IN data in FIFO */
-//  722     USBx_INEP(ep->num)->DIEPCTL |= (USB_OTG_DIEPCTL_CNAK | USB_OTG_DIEPCTL_EPENA);   
-??USB_EP0StartXfer_4:
+??USB_EP0StartXfer_5:
         LDRB     R1,[R1, #+0]
         ADD      R0,R0,R1, LSL #+5
         ADD      R0,R0,#+2304
-        B.N      ??USB_EP0StartXfer_5
+        B.N      ??USB_EP0StartXfer_4
 //  723   }
 ??USB_EP0StartXfer_0:
         ADD      R4,R4,#+2816
@@ -1937,33 +1960,20 @@ USB_EP0StartXfer:
         LDRB     R1,[R1, #+0]
         ADD      R0,R0,R1, LSL #+5
         ADD      R0,R0,#+2816
-??USB_EP0StartXfer_5:
+??USB_EP0StartXfer_4:
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x84000000
-//  749   }
-          CFI EndBlock cfiBlock16
-        REQUIRE ?Subroutine1
-        ;; // Fall through to label ?Subroutine1
-//  750   return HAL_OK;
-//  751 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock17 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+8
-          CFI R4 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -4)
-        THUMB
-?Subroutine1:
         STR      R1,[R0, #+0]
-??Subroutine1_0:
+//  749   }
+//  750   return HAL_OK;
         MOVS     R0,#+0
         POP      {R4,R5}
-          CFI CFA R13+0
           CFI R4 SameValue
           CFI R5 SameValue
+          CFI CFA R13+0
         BX       LR               ;; return
-          CFI EndBlock cfiBlock17
+//  751 }
+          CFI EndBlock cfiBlock14
 //  752 
 //  753 /**
 //  754   * @brief  USB_WritePacket : Writes a packet into the Tx FIFO associated 
@@ -1979,8 +1989,8 @@ USB_EP0StartXfer:
 //  764   * @retval HAL status
 //  765   */
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock18 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock15 Using cfiCommon0
           CFI Function USB_WritePacket
           CFI NoCalls
         THUMB
@@ -2002,7 +2012,7 @@ USB_WritePacket:
         ADD      R3,R3,R12, LSR #+30
         ASRS     R3,R3,#+2
 //  773     for (i = 0; i < count32b; i++, src += 4)
-        BEQ.N    ??USB_WritePacket_0
+        BEQ.W    ??USB_WritePacket_0
         ADD      R0,R0,R2, LSL #+12
         ADD      R0,R0,#+4096
 //  774     {
@@ -2016,9 +2026,12 @@ USB_WritePacket:
 //  777   }
 //  778   return HAL_OK;
 ??USB_WritePacket_0:
-        B.N      ?Subroutine5
+        MOVS     R0,#+0
+        ADD      SP,SP,#+4
+          CFI CFA R13+0
+        BX       LR               ;; return
 //  779 }
-          CFI EndBlock cfiBlock18
+          CFI EndBlock cfiBlock15
 //  780 
 //  781 /**
 //  782   * @brief  USB_ReadPacket : read a packet from the Tx FIFO associated 
@@ -2035,7 +2048,7 @@ USB_WritePacket:
 //  793   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock19 Using cfiCommon0
+          CFI Block cfiBlock16 Using cfiCommon0
           CFI Function USB_ReadPacket
           CFI NoCalls
         THUMB
@@ -2066,7 +2079,7 @@ USB_ReadPacket:
         MOV      R0,R1
         BX       LR               ;; return
 //  805 }
-          CFI EndBlock cfiBlock19
+          CFI EndBlock cfiBlock16
 //  806 
 //  807 /**
 //  808   * @brief  USB_EPSetStall : set a stall condition over an EP
@@ -2076,7 +2089,7 @@ USB_ReadPacket:
 //  812   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock20 Using cfiCommon0
+          CFI Block cfiBlock17 Using cfiCommon0
           CFI Function USB_EPSetStall
           CFI NoCalls
         THUMB
@@ -2130,11 +2143,13 @@ USB_EPSetStall:
 ??USB_EPSetStall_2:
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x200000
+        STR      R1,[R0, #+0]
 //  830   }
-        B.N      ??Subroutine0_0
 //  831   return HAL_OK;
+        MOVS     R0,#+0
+        BX       LR               ;; return
 //  832 }
-          CFI EndBlock cfiBlock20
+          CFI EndBlock cfiBlock17
 //  833 
 //  834 
 //  835 /**
@@ -2145,7 +2160,7 @@ USB_EPSetStall:
 //  840   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock21 Using cfiCommon0
+          CFI Block cfiBlock18 Using cfiCommon0
           CFI Function USB_EPClearStall
           CFI NoCalls
         THUMB
@@ -2208,7 +2223,7 @@ USB_EPClearStall:
         MOVS     R0,#+0
         BX       LR               ;; return
 //  860 }
-          CFI EndBlock cfiBlock21
+          CFI EndBlock cfiBlock18
 //  861 
 //  862 /**
 //  863   * @brief  USB_StopDevice : Stop the usb device mode
@@ -2217,7 +2232,7 @@ USB_EPClearStall:
 //  866   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock22 Using cfiCommon0
+          CFI Block cfiBlock19 Using cfiCommon0
           CFI Function USB_StopDevice
           CFI NoCalls
         THUMB
@@ -2285,9 +2300,14 @@ USB_StopDevice:
 //  887   
 //  888   return HAL_OK;
 ??USB_StopDevice_4:
-        B.N      ??Subroutine1_0
+        MOVS     R0,#+0
+        POP      {R4,R5}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI CFA R13+0
+        BX       LR               ;; return
 //  889 }
-          CFI EndBlock cfiBlock22
+          CFI EndBlock cfiBlock19
 //  890 
 //  891 /**
 //  892   * @brief  USB_SetDevAddress : Stop the usb device mode
@@ -2298,7 +2318,7 @@ USB_StopDevice:
 //  897   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock23 Using cfiCommon0
+          CFI Block cfiBlock20 Using cfiCommon0
           CFI Function USB_SetDevAddress
           CFI NoCalls
         THUMB
@@ -2313,25 +2333,15 @@ USB_SetDevAddress:
         LDR      R2,[R0, #+0]
         BIC      R2,R2,#0x7F0
         STR      R2,[R0, #+0]
-          CFI EndBlock cfiBlock23
-        REQUIRE ?Subroutine0
-        ;; // Fall through to label ?Subroutine0
-//  902   
-//  903   return HAL_OK;  
-//  904 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock24 Using cfiCommon0
-          CFI NoFunction
-        THUMB
-?Subroutine0:
         LDR      R2,[R0, #+0]
         ORRS     R1,R1,R2
-??Subroutine0_0:
         STR      R1,[R0, #+0]
+//  902   
+//  903   return HAL_OK;  
         MOVS     R0,#+0
         BX       LR               ;; return
-          CFI EndBlock cfiBlock24
+//  904 }
+          CFI EndBlock cfiBlock20
 //  905 
 //  906 /**
 //  907   * @brief  USB_DevConnect : Connect the USB device by enabling the pull-up/pull-down
@@ -2340,26 +2350,34 @@ USB_SetDevAddress:
 //  910   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock25 Using cfiCommon0
+          CFI Block cfiBlock21 Using cfiCommon0
           CFI Function USB_DevConnect
-          CFI NoCalls
         THUMB
 //  911 HAL_StatusTypeDef  USB_DevConnect (USB_OTG_GlobalTypeDef *USBx)
 //  912 {
-//  913   USBx_DEVICE->DCTL &= ~USB_OTG_DCTL_SDIS ;
 USB_DevConnect:
-        ADD      R0,R0,#+2048
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+//  913   USBx_DEVICE->DCTL &= ~USB_OTG_DCTL_SDIS ;
+        ADD      R0,R0,#+2048
+        SUB      SP,SP,#+4
           CFI CFA R13+8
         LDR      R1,[R0, #+4]
         BIC      R1,R1,#0x2
-        B.N      ?Subroutine6
+        STR      R1,[R0, #+4]
 //  914   HAL_Delay(3);
+        MOVS     R0,#+3
+          CFI FunCall HAL_Delay
+        BL       HAL_Delay
 //  915   
 //  916   return HAL_OK;  
+        MOVS     R0,#+0
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 //  917 }
-          CFI EndBlock cfiBlock25
+          CFI EndBlock cfiBlock21
 //  918 
 //  919 /**
 //  920   * @brief  USB_DevDisconnect : Disconnect the USB device by disabling the pull-up/pull-down
@@ -2368,45 +2386,34 @@ USB_DevConnect:
 //  923   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock26 Using cfiCommon0
+          CFI Block cfiBlock22 Using cfiCommon0
           CFI Function USB_DevDisconnect
-          CFI NoCalls
         THUMB
 //  924 HAL_StatusTypeDef  USB_DevDisconnect (USB_OTG_GlobalTypeDef *USBx)
 //  925 {
-//  926   USBx_DEVICE->DCTL |= USB_OTG_DCTL_SDIS ;
 USB_DevDisconnect:
-        ADD      R0,R0,#+2048
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+//  926   USBx_DEVICE->DCTL |= USB_OTG_DCTL_SDIS ;
+        ADD      R0,R0,#+2048
+        SUB      SP,SP,#+4
           CFI CFA R13+8
         LDR      R1,[R0, #+4]
         ORR      R1,R1,#0x2
-          CFI EndBlock cfiBlock26
-        REQUIRE ?Subroutine6
-        ;; // Fall through to label ?Subroutine6
+        STR      R1,[R0, #+4]
 //  927   HAL_Delay(3);
+        MOVS     R0,#+3
+          CFI FunCall HAL_Delay
+        BL       HAL_Delay
 //  928   
 //  929   return HAL_OK;  
-//  930 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock27 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+8
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine6:
-        STR      R1,[R0, #+4]
-        MOVS     R0,#+3
-??Subroutine6_0:
-          CFI FunCall USB_DevConnect HAL_Delay
-          CFI FunCall USB_DevDisconnect HAL_Delay
-          CFI FunCall USB_SetCurrentMode HAL_Delay
-        BL       HAL_Delay
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
-          CFI EndBlock cfiBlock27
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
+//  930 }
+          CFI EndBlock cfiBlock22
 //  931 
 //  932 /**
 //  933   * @brief  USB_ReadInterrupts: return the global USB interrupt status
@@ -2415,7 +2422,7 @@ USB_DevDisconnect:
 //  936   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock28 Using cfiCommon0
+          CFI Block cfiBlock23 Using cfiCommon0
           CFI Function USB_ReadInterrupts
           CFI NoCalls
         THUMB
@@ -2432,7 +2439,7 @@ USB_ReadInterrupts:
         ANDS     R0,R0,R1
         BX       LR               ;; return
 //  944 }
-          CFI EndBlock cfiBlock28
+          CFI EndBlock cfiBlock23
 //  945 
 //  946 /**
 //  947   * @brief  USB_ReadDevAllOutEpInterrupt: return the USB device OUT endpoints interrupt status
@@ -2441,7 +2448,7 @@ USB_ReadInterrupts:
 //  950   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock29 Using cfiCommon0
+          CFI Block cfiBlock24 Using cfiCommon0
           CFI Function USB_ReadDevAllOutEpInterrupt
           CFI NoCalls
         THUMB
@@ -2459,7 +2466,7 @@ USB_ReadDevAllOutEpInterrupt:
         LSRS     R0,R0,#+16
         BX       LR               ;; return
 //  957 }
-          CFI EndBlock cfiBlock29
+          CFI EndBlock cfiBlock24
 //  958 
 //  959 /**
 //  960   * @brief  USB_ReadDevAllInEpInterrupt: return the USB device IN endpoints interrupt status
@@ -2468,7 +2475,7 @@ USB_ReadDevAllOutEpInterrupt:
 //  963   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock30 Using cfiCommon0
+          CFI Block cfiBlock25 Using cfiCommon0
           CFI Function USB_ReadDevAllInEpInterrupt
           CFI NoCalls
         THUMB
@@ -2486,7 +2493,7 @@ USB_ReadDevAllInEpInterrupt:
         UXTH     R0,R0
         BX       LR               ;; return
 //  970 }
-          CFI EndBlock cfiBlock30
+          CFI EndBlock cfiBlock25
 //  971 
 //  972 /**
 //  973   * @brief  Returns Device OUT EP Interrupt register
@@ -2497,7 +2504,7 @@ USB_ReadDevAllInEpInterrupt:
 //  978   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock31 Using cfiCommon0
+          CFI Block cfiBlock26 Using cfiCommon0
           CFI Function USB_ReadDevOutEPInterrupt
           CFI NoCalls
         THUMB
@@ -2516,7 +2523,7 @@ USB_ReadDevOutEPInterrupt:
         ANDS     R0,R0,R1
         BX       LR               ;; return
 //  985 }
-          CFI EndBlock cfiBlock31
+          CFI EndBlock cfiBlock26
 //  986 
 //  987 /**
 //  988   * @brief  Returns Device IN EP Interrupt register
@@ -2527,7 +2534,7 @@ USB_ReadDevOutEPInterrupt:
 //  993   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock32 Using cfiCommon0
+          CFI Block cfiBlock27 Using cfiCommon0
           CFI Function USB_ReadDevInEPInterrupt
           CFI NoCalls
         THUMB
@@ -2553,7 +2560,7 @@ USB_ReadDevInEPInterrupt:
         ANDS     R0,R1,R0
         BX       LR               ;; return
 // 1003 }
-          CFI EndBlock cfiBlock32
+          CFI EndBlock cfiBlock27
 // 1004 
 // 1005 /**
 // 1006   * @brief  USB_ClearInterrupts: clear a USB interrupt
@@ -2563,7 +2570,7 @@ USB_ReadDevInEPInterrupt:
 // 1010   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock33 Using cfiCommon0
+          CFI Block cfiBlock28 Using cfiCommon0
           CFI Function USB_ClearInterrupts
           CFI NoCalls
         THUMB
@@ -2576,7 +2583,7 @@ USB_ClearInterrupts:
         STR      R1,[R0, #+20]
 // 1014 }
         BX       LR               ;; return
-          CFI EndBlock cfiBlock33
+          CFI EndBlock cfiBlock28
 // 1015 
 // 1016 /**
 // 1017   * @brief  Returns USB core mode
@@ -2588,7 +2595,7 @@ USB_ClearInterrupts:
 // 1023   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock34 Using cfiCommon0
+          CFI Block cfiBlock29 Using cfiCommon0
           CFI Function USB_GetMode
           CFI NoCalls
         THUMB
@@ -2600,7 +2607,7 @@ USB_GetMode:
         AND      R0,R0,#0x1
         BX       LR               ;; return
 // 1027 }
-          CFI EndBlock cfiBlock34
+          CFI EndBlock cfiBlock29
 // 1028 
 // 1029 
 // 1030 /**
@@ -2610,7 +2617,7 @@ USB_GetMode:
 // 1034   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock35 Using cfiCommon0
+          CFI Block cfiBlock30 Using cfiCommon0
           CFI Function USB_ActivateSetup
           CFI NoCalls
         THUMB
@@ -2647,7 +2654,7 @@ USB_ActivateSetup:
         MOVS     R0,#+0
         BX       LR               ;; return
 // 1047 }
-          CFI EndBlock cfiBlock35
+          CFI EndBlock cfiBlock30
 // 1048 
 // 1049 
 // 1050 /**
@@ -2662,7 +2669,7 @@ USB_ActivateSetup:
 // 1059   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock36 Using cfiCommon0
+          CFI Block cfiBlock31 Using cfiCommon0
           CFI Function USB_EP0_OutStart
           CFI NoCalls
         THUMB
@@ -2703,7 +2710,7 @@ USB_EP0_OutStart:
         MOVS     R0,#+0
         BX       LR               ;; return
 // 1075 }
-          CFI EndBlock cfiBlock36
+          CFI EndBlock cfiBlock31
 // 1076 
 // 1077 
 // 1078 /**
@@ -2752,7 +2759,7 @@ USB_EP0_OutStart:
 // 1121   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock37 Using cfiCommon0
+          CFI Block cfiBlock32 Using cfiCommon0
           CFI Function USB_HostInit
         THUMB
 // 1122 HAL_StatusTypeDef USB_HostInit (USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef cfg)
@@ -2812,7 +2819,7 @@ USB_HostInit:
 // 1144   USB_FlushTxFifo(USBx, 0x10 ); /* all Tx FIFOs */
         MOV      R1,#+1056
         STR      R1,[R4, #+16]
-        LDR.N    R1,??DataTable7_1  ;; 0x30d41
+        LDR.N    R1,??DataTable8_1  ;; 0x30d41
         MOV      R2,R1
 ??USB_HostInit_2:
         SUBS     R2,R2,#+1
@@ -2890,16 +2897,15 @@ USB_HostInit:
 // 1167   {
 // 1168     /* set Rx FIFO size */
 // 1169     USBx->GRXFSIZ  = (uint32_t )0x80; 
-        LDR.W    R0,??DataTable10_6  ;; 0x50000024
+        LDR.W    R0,??DataTable11_5  ;; 0x50000024
         MOVS     R1,#+128
         STR      R1,[R0, #+0]
 // 1170     USBx->DIEPTXF0_HNPTXFSIZ = (uint32_t )(((0x60 << 16)& USB_OTG_NPTXFD) | 0x80);
-        LDR.W    R1,??DataTable10_7  ;; 0x600080
+        LDR.W    R1,??DataTable11_6  ;; 0x600080
         STR      R1,[R0, #+4]
 // 1171     USBx->HPTXFSIZ = (uint32_t )(((0x40 << 16)& USB_OTG_HPTXFSIZ_PTXFD) | 0xE0);
-        LDR.W    R0,??DataTable10_8  ;; 0x4000e0
-        LDR.W    R1,??DataTable10_9  ;; 0x50000100
-        STR      R0,[R1, #+0]
+        LDR.W    R1,??DataTable11_7  ;; 0x4000e0
+        STR      R1,[R0, #+220]
         B.N      ??USB_HostInit_10
 // 1172 
 // 1173   }
@@ -2912,10 +2918,10 @@ USB_HostInit:
         MOV      R0,#+512
         STR      R0,[R4, #+36]
 // 1179     USBx->DIEPTXF0_HNPTXFSIZ = (uint32_t )(((0x100 << 16)& USB_OTG_NPTXFD) | 0x200);
-        LDR.W    R0,??DataTable10_10  ;; 0x1000200
+        LDR.W    R0,??DataTable11_8  ;; 0x1000200
         STR      R0,[R4, #+40]
 // 1180     USBx->HPTXFSIZ = (uint32_t )(((0xE0 << 16)& USB_OTG_HPTXFSIZ_PTXFD) | 0x300);
-        LDR.W    R0,??DataTable10_11  ;; 0xe00300
+        LDR.W    R0,??DataTable11_9  ;; 0xe00300
         STR      R0,[R4, #+256]
 // 1181   }
 // 1182   
@@ -2937,30 +2943,32 @@ USB_HostInit:
 // 1192                     USB_OTG_GINTMSK_PXFRM_IISOOXFRM  | USB_OTG_GINTMSK_WUIM);
 ??USB_HostInit_11:
         LDR      R0,[R4, #+24]
-        LDR.W    R1,??DataTable10_12  ;; 0xa3200008
+        LDR.W    R1,??DataTable11_10  ;; 0xa3200008
         ORRS     R0,R1,R0
         STR      R0,[R4, #+24]
 // 1193 
 // 1194   return HAL_OK;
-        MOVS     R0,#+0
-        POP      {R1,R2,R4,R5}
+        ADD      SP,SP,#+8
+          CFI CFA R13+24
+        POP      {R4,R5}
           CFI R4 SameValue
           CFI R5 SameValue
           CFI CFA R13+16
+        MOVS     R0,#+0
         LDR      PC,[SP], #+16    ;; return
 // 1195 }
-          CFI EndBlock cfiBlock37
+          CFI EndBlock cfiBlock32
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable7:
+??DataTable8:
         DC32     0xffbdffbf
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable7_1:
+??DataTable8_1:
         DC32     0x30d41
 // 1196 
 // 1197 /**
@@ -2975,7 +2983,7 @@ USB_HostInit:
 // 1206   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock38 Using cfiCommon0
+          CFI Block cfiBlock33 Using cfiCommon0
           CFI Function USB_InitFSLSPClkSel
           CFI NoCalls
         THUMB
@@ -3016,7 +3024,7 @@ USB_InitFSLSPClkSel:
         MOVS     R0,#+0
         BX       LR               ;; return
 // 1221 }
-          CFI EndBlock cfiBlock38
+          CFI EndBlock cfiBlock33
 // 1222 
 // 1223 /**
 // 1224 * @brief  USB_OTG_ResetPort : Reset Host Port
@@ -3027,7 +3035,7 @@ USB_InitFSLSPClkSel:
 // 1229   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock39 Using cfiCommon0
+          CFI Block cfiBlock34 Using cfiCommon0
           CFI Function USB_ResetPort
         THUMB
 // 1230 HAL_StatusTypeDef USB_ResetPort(USB_OTG_GlobalTypeDef *USBx)
@@ -3066,9 +3074,11 @@ USB_ResetPort:
         STR      R0,[R4, #+0]
 // 1242   return HAL_OK;
         MOVS     R0,#+0
-        POP      {R1,R2,R4,PC}    ;; return
+        ADD      SP,SP,#+8
+          CFI CFA R13+8
+        POP      {R4,PC}          ;; return
 // 1243 }
-          CFI EndBlock cfiBlock39
+          CFI EndBlock cfiBlock34
 // 1244 
 // 1245 /**
 // 1246   * @brief  USB_DriveVbus : activate or de-activate vbus
@@ -3080,7 +3090,7 @@ USB_ResetPort:
 // 1252 */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock40 Using cfiCommon0
+          CFI Block cfiBlock35 Using cfiCommon0
           CFI Function USB_DriveVbus
           CFI NoCalls
         THUMB
@@ -3113,38 +3123,32 @@ USB_DriveVbus:
         ORR      R1,R1,#0x1000
         STR      R1,[R0, #+0]
         LDR      R0,[SP, #+0]
-        B.N      ??USB_DriveVbus_1
 // 1264   }
 // 1265   if (((hprt0 & USB_OTG_HPRT_PPWR) == USB_OTG_HPRT_PPWR) && (state == 0 ))
+// 1266   {
+// 1267     USBx_HPRT0 = ((~USB_OTG_HPRT_PPWR) & hprt0); 
+// 1268   }
+// 1269   return HAL_OK; 
+        MOVS     R0,#+0
+        ADD      SP,SP,#+4
+          CFI CFA R13+0
+        BX       LR
+          CFI CFA R13+4
 ??USB_DriveVbus_0:
         LDR      R2,[SP, #+0]
         LSLS     R2,R2,#+19
         BPL.N    ??USB_DriveVbus_1
         CBNZ.N   R1,??USB_DriveVbus_1
-// 1266   {
-// 1267     USBx_HPRT0 = ((~USB_OTG_HPRT_PPWR) & hprt0); 
         LDR      R1,[SP, #+0]
         BIC      R1,R1,#0x1000
         STR      R1,[R0, #+0]
-// 1268   }
-// 1269   return HAL_OK; 
 ??USB_DriveVbus_1:
-          CFI EndBlock cfiBlock40
-        REQUIRE ?Subroutine5
-        ;; // Fall through to label ?Subroutine5
-// 1270 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock41 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+4
-        THUMB
-?Subroutine5:
         MOVS     R0,#+0
         ADD      SP,SP,#+4
           CFI CFA R13+0
         BX       LR               ;; return
-          CFI EndBlock cfiBlock41
+// 1270 }
+          CFI EndBlock cfiBlock35
 // 1271 
 // 1272 /**
 // 1273   * @brief  Return Host Core speed
@@ -3157,7 +3161,7 @@ USB_DriveVbus:
 // 1280   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock42 Using cfiCommon0
+          CFI Block cfiBlock36 Using cfiCommon0
           CFI Function USB_GetHostSpeed
           CFI NoCalls
         THUMB
@@ -3179,7 +3183,7 @@ USB_GetHostSpeed:
         UBFX     R0,R0,#+17,#+2
         BX       LR               ;; return
 // 1287 }
-          CFI EndBlock cfiBlock42
+          CFI EndBlock cfiBlock36
 // 1288 
 // 1289 /**
 // 1290   * @brief  Return Host Current Frame number
@@ -3188,7 +3192,7 @@ USB_GetHostSpeed:
 // 1293 */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock43 Using cfiCommon0
+          CFI Block cfiBlock37 Using cfiCommon0
           CFI Function USB_GetCurrentFrame
           CFI NoCalls
         THUMB
@@ -3201,7 +3205,7 @@ USB_GetCurrentFrame:
         UXTH     R0,R0
         BX       LR               ;; return
 // 1297 }
-          CFI EndBlock cfiBlock43
+          CFI EndBlock cfiBlock37
 // 1298 
 // 1299 /**
 // 1300   * @brief  Initialize a host channel
@@ -3229,7 +3233,7 @@ USB_GetCurrentFrame:
 // 1322   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock44 Using cfiCommon0
+          CFI Block cfiBlock38 Using cfiCommon0
           CFI Function USB_HC_Init
           CFI NoCalls
         THUMB
@@ -3406,30 +3410,16 @@ USB_HC_Init:
 // 1408 
 // 1409   return HAL_OK; 
 ??USB_HC_Init_7:
-          CFI EndBlock cfiBlock44
-        REQUIRE ?Subroutine4
-        ;; // Fall through to label ?Subroutine4
-// 1410 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock45 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+16
-          CFI R4 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -4)
-        THUMB
-?Subroutine4:
         MOVS     R0,#+0
         POP      {R4-R7}
-          CFI CFA R13+0
           CFI R4 SameValue
           CFI R5 SameValue
           CFI R6 SameValue
           CFI R7 SameValue
+          CFI CFA R13+0
         BX       LR               ;; return
-          CFI EndBlock cfiBlock45
+// 1410 }
+          CFI EndBlock cfiBlock38
 // 1411 
 // 1412 /**
 // 1413   * @brief  Start a transfer over a host channel
@@ -3448,7 +3438,7 @@ USB_HC_Init:
 // 1426 #endif /* __CC_ARM */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock46 Using cfiCommon0
+          CFI Block cfiBlock39 Using cfiCommon0
           CFI Function USB_HC_StartXfer
           CFI NoCalls
         THUMB
@@ -3485,16 +3475,118 @@ USB_HC_StartXfer:
         LDRB     R0,[R1, #+1]
         ADD      R0,R3,R0, LSL #+5
         ADD      R4,R0,#+1280
-        LDR.N    R0,??DataTable10_13  ;; 0x80080000
+        LDR.N    R0,??DataTable11_11  ;; 0x80080000
         STR      R0,[R4, #+16]
         LDR      R0,[R4, #+0]
         BIC      R0,R0,#0x40000000
         ORR      R0,R0,#0x80000000
         STR      R0,[R4, #+0]
 // 1440       return HAL_OK;
-        B.N      ??USB_HC_StartXfer_3
 // 1441     }
 // 1442     else if(dma == 1)
+// 1443     {
+// 1444       USBx_HC(hc->ch_num)->HCINTMSK &= ~(USB_OTG_HCINTMSK_NYET | USB_OTG_HCINTMSK_ACKM);
+// 1445       hc->do_ping = 0;
+// 1446     }
+// 1447   }
+// 1448   
+// 1449   /* Compute the expected number of packets associated to the transfer */
+// 1450   if (hc->xfer_len > 0)
+// 1451   {
+// 1452     num_packets = (hc->xfer_len + hc->max_packet - 1) / hc->max_packet;
+// 1453     
+// 1454     if (num_packets > max_hc_pkt_count)
+// 1455     {
+// 1456       num_packets = max_hc_pkt_count;
+// 1457       hc->xfer_len = num_packets * hc->max_packet;
+// 1458     }
+// 1459   }
+// 1460   else
+// 1461   {
+// 1462     num_packets = 1;
+// 1463   }
+// 1464   if (hc->ep_is_in)
+// 1465   {
+// 1466     hc->xfer_len = num_packets * hc->max_packet;
+// 1467   }
+// 1468   
+// 1469   
+// 1470   
+// 1471   /* Initialize the HCTSIZn register */
+// 1472   USBx_HC(hc->ch_num)->HCTSIZ = (((hc->xfer_len) & USB_OTG_HCTSIZ_XFRSIZ)) |\ 
+// 1473     ((num_packets << 19) & USB_OTG_HCTSIZ_PKTCNT) |\ 
+// 1474       (((hc->data_pid) << 29) & USB_OTG_HCTSIZ_DPID);
+// 1475   
+// 1476   if (dma)
+// 1477   {
+// 1478     /* xfer_buff MUST be 32-bits aligned */
+// 1479     USBx_HC(hc->ch_num)->HCDMA = (uint32_t)hc->xfer_buff;
+// 1480   }
+// 1481   
+// 1482   is_oddframe = (USBx_HOST->HFNUM & 0x01) ? 0 : 1;
+// 1483   USBx_HC(hc->ch_num)->HCCHAR &= ~USB_OTG_HCCHAR_ODDFRM;
+// 1484   USBx_HC(hc->ch_num)->HCCHAR |= (is_oddframe << 29);
+// 1485   
+// 1486   /* Set host channel enable */
+// 1487   tmpreg = USBx_HC(hc->ch_num)->HCCHAR;
+// 1488   tmpreg &= ~USB_OTG_HCCHAR_CHDIS;
+// 1489   tmpreg |= USB_OTG_HCCHAR_CHENA;
+// 1490   USBx_HC(hc->ch_num)->HCCHAR = tmpreg;
+// 1491   
+// 1492   if (dma == 0) /* Slave mode */
+// 1493   {  
+// 1494     if((hc->ep_is_in == 0) && (hc->xfer_len > 0))
+// 1495     {
+// 1496       switch(hc->ep_type) 
+// 1497       {
+// 1498         /* Non periodic transfer */
+// 1499       case EP_TYPE_CTRL:
+// 1500       case EP_TYPE_BULK:
+// 1501         
+// 1502         len_words = (hc->xfer_len + 3) / 4;
+// 1503         
+// 1504         /* check if there is enough space in FIFO space */
+// 1505         if(len_words > (USBx->HNPTXSTS & 0xFFFF))
+// 1506         {
+// 1507           /* need to process data in nptxfempty interrupt */
+// 1508           USBx->GINTMSK |= USB_OTG_GINTMSK_NPTXFEM;
+// 1509         }
+// 1510         break;
+// 1511         /* Periodic transfer */
+// 1512       case EP_TYPE_INTR:
+// 1513       case EP_TYPE_ISOC:
+// 1514         len_words = (hc->xfer_len + 3) / 4;
+// 1515         /* check if there is enough space in FIFO space */
+// 1516         if(len_words > (USBx_HOST->HPTXSTS & 0xFFFF)) /* split the transfer */
+// 1517         {
+// 1518           /* need to process data in ptxfempty interrupt */
+// 1519           USBx->GINTMSK |= USB_OTG_GINTMSK_PTXFEM;          
+// 1520         }
+// 1521         break;
+// 1522         
+// 1523       default:
+// 1524         break;
+// 1525       }
+// 1526       
+// 1527       /* Write packet into the Tx FIFO. */
+// 1528       USB_WritePacket(USBx, hc->xfer_buff, hc->ch_num, hc->xfer_len, 0);
+// 1529     }
+// 1530   }
+// 1531   
+// 1532   return HAL_OK;
+        MOVS     R0,#+0
+        POP      {R4-R7}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI CFA R13+0
+        BX       LR
+          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -12)
+          CFI R6 Frame(CFA, -8)
+          CFI R7 Frame(CFA, -4)
+          CFI CFA R13+16
 ??USB_HC_StartXfer_2:
         CMP      R2,#+1
         BNE.N    ??USB_HC_StartXfer_1
@@ -3504,65 +3596,33 @@ USB_HC_StartXfer:
         LDR      R5,[R4, #+12]
         BIC      R5,R5,#0x60
         STR      R5,[R4, #+12]
-// 1443     {
-// 1444       USBx_HC(hc->ch_num)->HCINTMSK &= ~(USB_OTG_HCINTMSK_NYET | USB_OTG_HCINTMSK_ACKM);
-// 1445       hc->do_ping = 0;
         MOVS     R4,#+0
         STRB     R4,[R1, #+5]
-// 1446     }
-// 1447   }
-// 1448   
-// 1449   /* Compute the expected number of packets associated to the transfer */
-// 1450   if (hc->xfer_len > 0)
 ??USB_HC_StartXfer_1:
         LDR      R4,[R1, #+16]
-        CBZ.N    R4,??USB_HC_StartXfer_4
-// 1451   {
-// 1452     num_packets = (hc->xfer_len + hc->max_packet - 1) / hc->max_packet;
+        CBZ.N    R4,??USB_HC_StartXfer_3
         LDRH     R5,[R1, #+8]
         ADDS     R4,R5,R4
         SUBS     R4,R4,#+1
         UDIV     R4,R4,R5
         UXTH     R4,R4
-// 1453     
-// 1454     if (num_packets > max_hc_pkt_count)
         CMP      R4,#+256
-        BLE.N    ??USB_HC_StartXfer_5
-// 1455     {
-// 1456       num_packets = max_hc_pkt_count;
-// 1457       hc->xfer_len = num_packets * hc->max_packet;
+        BLE.N    ??USB_HC_StartXfer_4
         LSLS     R5,R5,#+8
         MOV      R4,#+256
         STR      R5,[R1, #+16]
-        B.N      ??USB_HC_StartXfer_5
-// 1458     }
-// 1459   }
-// 1460   else
-// 1461   {
-// 1462     num_packets = 1;
-??USB_HC_StartXfer_4:
+        B.N      ??USB_HC_StartXfer_4
+??USB_HC_StartXfer_3:
         MOVS     R4,#+1
-// 1463   }
-// 1464   if (hc->ep_is_in)
-??USB_HC_StartXfer_5:
+??USB_HC_StartXfer_4:
         LDRB     R5,[R1, #+3]
-        CBZ.N    R5,??USB_HC_StartXfer_6
-// 1465   {
-// 1466     hc->xfer_len = num_packets * hc->max_packet;
+        CBZ.N    R5,??USB_HC_StartXfer_5
         LDRH     R5,[R1, #+8]
         MULS     R5,R5,R4
         STR      R5,[R1, #+16]
-// 1467   }
-// 1468   
-// 1469   
-// 1470   
-// 1471   /* Initialize the HCTSIZn register */
-// 1472   USBx_HC(hc->ch_num)->HCTSIZ = (((hc->xfer_len) & USB_OTG_HCTSIZ_XFRSIZ)) |\ 
-// 1473     ((num_packets << 19) & USB_OTG_HCTSIZ_PKTCNT) |\ 
-// 1474       (((hc->data_pid) << 29) & USB_OTG_HCTSIZ_DPID);
-??USB_HC_StartXfer_6:
+??USB_HC_StartXfer_5:
         LDR      R6,[R1, #+16]
-        LDR.N    R7,??DataTable10_5  ;; 0x1ff80000
+        LDR.N    R7,??DataTable11_4  ;; 0x1ff80000
         AND      R4,R7,R4, LSL #+19
         LDRB     R5,[R1, #+1]
         LSLS     R6,R6,#+13
@@ -3573,29 +3633,19 @@ USB_HC_StartXfer:
         AND      R6,R6,#0x60000000
         ADD      R5,R5,#+1280
         ORRS     R4,R6,R4
-// 1475   
-// 1476   if (dma)
         CMP      R2,#+0
         STR      R4,[R5, #+16]
-        BEQ.N    ??USB_HC_StartXfer_7
-// 1477   {
-// 1478     /* xfer_buff MUST be 32-bits aligned */
-// 1479     USBx_HC(hc->ch_num)->HCDMA = (uint32_t)hc->xfer_buff;
+        BEQ.N    ??USB_HC_StartXfer_6
         LDRB     R4,[R1, #+1]
         LDR      R5,[R1, #+12]
         ADD      R4,R3,R4, LSL #+5
         ADD      R4,R4,#+1280
         STR      R5,[R4, #+20]
-// 1480   }
-// 1481   
-// 1482   is_oddframe = (USBx_HOST->HFNUM & 0x01) ? 0 : 1;
-??USB_HC_StartXfer_7:
+??USB_HC_StartXfer_6:
         ADD      R4,R3,#+1024
         LDR      R5,[R4, #+8]
-// 1483   USBx_HC(hc->ch_num)->HCCHAR &= ~USB_OTG_HCCHAR_ODDFRM;
         LDRB     R6,[R1, #+1]
         ADD      R6,R3,R6, LSL #+5
-// 1484   USBx_HC(hc->ch_num)->HCCHAR |= (is_oddframe << 29);
         AND      R5,R5,#0x1
         EOR      R5,R5,#0x1
         ADD      R6,R6,#+1280
@@ -3608,31 +3658,19 @@ USB_HC_StartXfer:
         LDR      R7,[R6, #+0]
         ORR      R5,R7,R5, LSL #+29
         STR      R5,[R6, #+0]
-// 1485   
-// 1486   /* Set host channel enable */
-// 1487   tmpreg = USBx_HC(hc->ch_num)->HCCHAR;
         LDRB     R5,[R1, #+1]
         ADD      R5,R3,R5, LSL #+5
         ADD      R5,R5,#+1280
         LDR      R6,[R5, #+0]
-// 1488   tmpreg &= ~USB_OTG_HCCHAR_CHDIS;
-// 1489   tmpreg |= USB_OTG_HCCHAR_CHENA;
-// 1490   USBx_HC(hc->ch_num)->HCCHAR = tmpreg;
         BIC      R6,R6,#0x40000000
         ORR      R6,R6,#0x80000000
         STR      R6,[R5, #+0]
-// 1491   
-// 1492   if (dma == 0) /* Slave mode */
         ITT      EQ 
         LDRBEQ   R2,[R1, #+3]
         CMPEQ    R2,#+0
-// 1493   {  
-// 1494     if((hc->ep_is_in == 0) && (hc->xfer_len > 0))
-        BNE.N    ??USB_HC_StartXfer_3
+        BNE.N    ??USB_HC_StartXfer_7
         LDR      R2,[R1, #+16]
-        CBZ.N    R2,??USB_HC_StartXfer_3
-// 1495     {
-// 1496       switch(hc->ep_type) 
+        CBZ.N    R2,??USB_HC_StartXfer_7
         LDRB     R5,[R1, #+7]
         CMP      R5,#+3
         BHI.N    ??USB_HC_StartXfer_8
@@ -3641,15 +3679,6 @@ USB_HC_StartXfer:
 ??USB_HC_StartXfer_0:
         DC8      0x2,0xD,0x2,0xD
         THUMB
-// 1497       {
-// 1498         /* Non periodic transfer */
-// 1499       case EP_TYPE_CTRL:
-// 1500       case EP_TYPE_BULK:
-// 1501         
-// 1502         len_words = (hc->xfer_len + 3) / 4;
-// 1503         
-// 1504         /* check if there is enough space in FIFO space */
-// 1505         if(len_words > (USBx->HNPTXSTS & 0xFFFF))
 ??USB_HC_StartXfer_9:
         LDR      R4,[R0, #+44]
         ADDS     R2,R2,#+3
@@ -3657,20 +3686,9 @@ USB_HC_StartXfer:
         UXTH     R4,R4
         CMP      R4,R2, LSR #+16
         BCS.N    ??USB_HC_StartXfer_8
-// 1506         {
-// 1507           /* need to process data in nptxfempty interrupt */
-// 1508           USBx->GINTMSK |= USB_OTG_GINTMSK_NPTXFEM;
         LDR      R2,[R0, #+24]
         ORR      R2,R2,#0x20
         B.N      ??USB_HC_StartXfer_10
-// 1509         }
-// 1510         break;
-// 1511         /* Periodic transfer */
-// 1512       case EP_TYPE_INTR:
-// 1513       case EP_TYPE_ISOC:
-// 1514         len_words = (hc->xfer_len + 3) / 4;
-// 1515         /* check if there is enough space in FIFO space */
-// 1516         if(len_words > (USBx_HOST->HPTXSTS & 0xFFFF)) /* split the transfer */
 ??USB_HC_StartXfer_11:
         LDR      R4,[R4, #+16]
         ADDS     R2,R2,#+3
@@ -3678,22 +3696,10 @@ USB_HC_StartXfer:
         UXTH     R4,R4
         CMP      R4,R2, LSR #+16
         BCS.N    ??USB_HC_StartXfer_8
-// 1517         {
-// 1518           /* need to process data in ptxfempty interrupt */
-// 1519           USBx->GINTMSK |= USB_OTG_GINTMSK_PTXFEM;          
         LDR      R2,[R0, #+24]
         ORR      R2,R2,#0x4000000
 ??USB_HC_StartXfer_10:
         STR      R2,[R0, #+24]
-// 1520         }
-// 1521         break;
-// 1522         
-// 1523       default:
-// 1524         break;
-// 1525       }
-// 1526       
-// 1527       /* Write packet into the Tx FIFO. */
-// 1528       USB_WritePacket(USBx, hc->xfer_buff, hc->ch_num, hc->xfer_len, 0);
 ??USB_HC_StartXfer_8:
         LDRB     R0,[R1, #+1]
         LDR      R2,[R1, #+12]
@@ -3702,7 +3708,7 @@ USB_HC_StartXfer:
         ASRS     R4,R1,#+1
         ADD      R1,R1,R4, LSR #+30
         ASRS     R1,R1,#+2
-        BEQ.N    ??USB_HC_StartXfer_3
+        BEQ.N    ??USB_HC_StartXfer_7
         ADD      R0,R3,R0, LSL #+12
         ADD      R0,R0,#+4096
 ??USB_HC_StartXfer_12:
@@ -3710,14 +3716,23 @@ USB_HC_StartXfer:
         SUBS     R1,R1,#+1
         STR      R3,[R0, #+0]
         BNE.N    ??USB_HC_StartXfer_12
-// 1529     }
-// 1530   }
-// 1531   
-// 1532   return HAL_OK;
-??USB_HC_StartXfer_3:
-        B.N      ?Subroutine4
+??USB_HC_StartXfer_7:
+        MOVS     R0,#+0
+        POP      {R4-R7}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI CFA R13+0
+        BX       LR               ;; return
 // 1533 }
-          CFI EndBlock cfiBlock46
+          CFI EndBlock cfiBlock39
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable9:
+        DC32     0x30d41
 // 1534 
 // 1535 /**
 // 1536   * @brief Read all host channel interrupts status
@@ -3726,7 +3741,7 @@ USB_HC_StartXfer:
 // 1539   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock47 Using cfiCommon0
+          CFI Block cfiBlock40 Using cfiCommon0
           CFI Function USB_HC_ReadInterrupt
           CFI NoCalls
         THUMB
@@ -3739,7 +3754,7 @@ USB_HC_ReadInterrupt:
         UXTH     R0,R0
         BX       LR               ;; return
 // 1543 }
-          CFI EndBlock cfiBlock47
+          CFI EndBlock cfiBlock40
 // 1544 
 // 1545 /**
 // 1546   * @brief  Halt a host channel
@@ -3750,7 +3765,7 @@ USB_HC_ReadInterrupt:
 // 1551   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock48 Using cfiCommon0
+          CFI Block cfiBlock41 Using cfiCommon0
           CFI Function USB_HC_Halt
           CFI NoCalls
         THUMB
@@ -3831,23 +3846,24 @@ USB_HC_Halt:
         LDR      R2,[R1, #+0]
         CMP      R2,#+0
         BMI.N    ??USB_HC_Halt_1
-        B.N      ??USB_HC_Halt_2
 // 1597     }
 // 1598     else
 // 1599     {
 // 1600        USBx_HC(hc_num)->HCCHAR |= USB_OTG_HCCHAR_CHENA; 
-??USB_HC_Halt_0:
-        ORR      R0,R0,#0x80000000
-        STR      R0,[R1, #+0]
 // 1601     }
 // 1602   }
 // 1603   
 // 1604   return HAL_OK;
+        MOVS     R0,#+0
+        BX       LR
+??USB_HC_Halt_0:
+        ORR      R0,R0,#0x80000000
+        STR      R0,[R1, #+0]
 ??USB_HC_Halt_2:
         MOVS     R0,#+0
         BX       LR               ;; return
 // 1605 }
-          CFI EndBlock cfiBlock48
+          CFI EndBlock cfiBlock41
 // 1606 
 // 1607 /**
 // 1608   * @brief  Initiate Do Ping protocol
@@ -3858,7 +3874,7 @@ USB_HC_Halt:
 // 1613   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock49 Using cfiCommon0
+          CFI Block cfiBlock42 Using cfiCommon0
           CFI Function USB_DoPing
           CFI NoCalls
         THUMB
@@ -3871,7 +3887,7 @@ USB_HC_Halt:
 // 1620                                 USB_OTG_HCTSIZ_DOPING;
 USB_DoPing:
         ADD      R0,R0,R1, LSL #+5
-        LDR.N    R1,??DataTable10_13  ;; 0x80080000
+        LDR.N    R1,??DataTable11_11  ;; 0x80080000
         ADD      R0,R0,#+1280
         STR      R1,[R0, #+16]
 // 1621   
@@ -3883,17 +3899,19 @@ USB_DoPing:
 // 1626   USBx_HC(ch_num)->HCCHAR = tmpreg;
         BIC      R1,R1,#0x40000000
         ORR      R1,R1,#0x80000000
-        B.N      ??Subroutine0_0
+        STR      R1,[R0, #+0]
 // 1627   
 // 1628   return HAL_OK;  
+        MOVS     R0,#+0
+        BX       LR               ;; return
 // 1629 }
-          CFI EndBlock cfiBlock49
+          CFI EndBlock cfiBlock42
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable9:
-        DC32     0x30d41
+??DataTable10:
+        DC32     0x800100
 // 1630 
 // 1631 /**
 // 1632   * @brief  Stop Host Core
@@ -3902,7 +3920,7 @@ USB_DoPing:
 // 1635   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock50 Using cfiCommon0
+          CFI Block cfiBlock43 Using cfiCommon0
           CFI Function USB_StopHost
           CFI NoCalls
         THUMB
@@ -3930,7 +3948,7 @@ USB_StopHost:
 // 1645   USB_FlushTxFifo(USBx, 0x10);
         MOV      R2,#+1056
         STR      R2,[R0, #+16]
-        LDR.N    R2,??DataTable10_14  ;; 0x30d41
+        LDR.N    R2,??DataTable11_12  ;; 0x30d41
         MOV      R3,R2
 ??USB_StopHost_0:
         SUBS     R3,R3,#+1
@@ -4023,98 +4041,93 @@ USB_StopHost:
         ORR      R1,R1,#0x1
         STR      R1,[R0, #+8]
 // 1684   return HAL_OK;  
-        B.N      ?Subroutine4
+        MOVS     R0,#+0
+        POP      {R4-R7}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI CFA R13+0
+        BX       LR               ;; return
 // 1685 }
-          CFI EndBlock cfiBlock50
+          CFI EndBlock cfiBlock43
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10:
-        DC32     0x800100
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable10_1:
+??DataTable11:
         DC32     0x803c3800
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_2:
+??DataTable11_1:
         DC32     0x10008000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_3:
+??DataTable11_2:
         DC32     ??debug
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_4:
+??DataTable11_3:
         DC32     0xe007ffff
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_5:
+??DataTable11_4:
         DC32     0x1ff80000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_6:
+??DataTable11_5:
         DC32     0x50000024
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_7:
+??DataTable11_6:
         DC32     0x600080
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_8:
+??DataTable11_7:
         DC32     0x4000e0
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_9:
-        DC32     0x50000100
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable10_10:
+??DataTable11_8:
         DC32     0x1000200
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_11:
+??DataTable11_9:
         DC32     0xe00300
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_12:
+??DataTable11_10:
         DC32     0xa3200008
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_13:
+??DataTable11_11:
         DC32     0x80080000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable10_14:
+??DataTable11_12:
         DC32     0x30d41
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
@@ -4142,9 +4155,9 @@ USB_StopHost:
 // 1696 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
 //     4 bytes in section .bss
-// 3 932 bytes in section .text
+// 4 064 bytes in section .text
 // 
-// 3 932 bytes of CODE memory
+// 4 064 bytes of CODE memory
 //     4 bytes of DATA memory
 //
 //Errors: none

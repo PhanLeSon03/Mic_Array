@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      08/Mar/2016  16:10:20
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      15/Mar/2016  18:17:15
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -266,15 +266,9 @@
 //  135 * @{
 //  136 */ 
 //  137 /* This dummy buffer with 0 values will be sent when there is no availble data */
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
-        DATA
 //  138 static uint8_t IsocInBuffDummy[48*4*2]; 
 //  139 static  int16_t VOL_CUR;
 //  140 static USBD_AUDIO_HandleTypeDef haudioInstance;
-haudioInstance:
-        DS8 100
-        DS8 384
 //  141 
 
         SECTION `.data`:DATA:REORDER:NOROOT(2)
@@ -290,6 +284,12 @@ USBD_AUDIO:
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
+haudioInstance:
+        DS8 100
+        DS8 120
+        DS8 2
+        DS8 2
+        DS8 384
 //  143 {
 //  144   USBD_AUDIO_Init,
 //  145   USBD_AUDIO_DeInit,
@@ -310,9 +310,6 @@ USBD_AUDIO:
 //  160 /* USB AUDIO device Configuration Descriptor */
 //  161 /* NOTE: This descriptor has to be filled using the Descriptor Initialization function */
 //  162 __ALIGN_BEGIN static uint8_t USBD_AUDIO_CfgDesc[USB_AUDIO_CONFIG_DESC_SIZ + 9] __ALIGN_END;
-USBD_AUDIO_CfgDesc:
-        DS8 120
-        DS8 2
 //  163 
 //  164 /* USB Standard Device Descriptor */
 
@@ -379,8 +376,7 @@ USBD_AUDIO_Init:
 //  203   USBD_AUDIO_HandleTypeDef   *haudio;
 //  204   pdev->pClassData = &haudioInstance;
 ??USBD_AUDIO_Init_0:
-        ADD      R3,R4,#+536
-        STR      R5,[R3, #+0]
+        STR      R5,[R4, #+536]
 //  205   haudio = (USBD_AUDIO_HandleTypeDef *)pdev->pClassData;
 //  206   uint16_t packet_dim = haudio->paketDimension;
 //  207   uint16_t wr_rd_offset = (AUDIO_IN_PACKET_NUM/2) * haudio->dataAmount / haudio->paketDimension;
@@ -400,7 +396,7 @@ USBD_AUDIO_Init:
         MOVS     R0,#+0
         STRH     R0,[R5, #+22]
         STRH     R0,[R5, #+12]
-        LDR      R3,[R3, #+4]
+        LDR      R3,[R4, #+540]
         LDRB     R2,[R5, #+4]
         LDR      R0,[R5, #+8]
         LDR      R3,[R3, #+0]
@@ -429,7 +425,7 @@ USBD_AUDIO_Init:
 //  223                    IsocInBuffDummy,                        
 //  224                    packet_dim);      
         MOV      R3,R6
-        ADD      R2,R5,#+100
+        ADD      R2,R5,#+224
         MOVS     R1,#+129
         MOV      R0,R4
           CFI FunCall USBD_LL_Transmit
@@ -472,12 +468,11 @@ USBD_AUDIO_DeInit:
         BL       USBD_LL_CloseEP
 //  242   /* DeInit  physical Interface components */
 //  243   if(pdev->pClassData != NULL)
-        ADD      R1,R4,#+536
-        LDR      R0,[R1, #+0]
+        LDR      R0,[R4, #+536]
         CBZ.N    R0,??USBD_AUDIO_DeInit_0
 //  244   {
 //  245     ((USBD_AUDIO_ItfTypeDef *)pdev->pUserData)->DeInit(0);
-        LDR      R1,[R1, #+4]
+        LDR      R1,[R4, #+540]
         MOVS     R0,#+0
         LDR      R1,[R1, #+4]
           CFI FunCall
@@ -510,12 +505,14 @@ USBD_AUDIO_DeInit:
 //  259                                   USBD_SetupReqTypedef *req)
 //  260 {
 USBD_AUDIO_Setup:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
+          CFI CFA R13+12
         MOV      R4,R1
+        SUB      SP,SP,#+4
+          CFI CFA R13+16
 //  261   USBD_AUDIO_HandleTypeDef   *haudio;
 //  262   uint16_t len;
 //  263   uint8_t *pbuf;
@@ -549,15 +546,15 @@ USBD_AUDIO_Setup:
 //  273     case AUDIO_REQ_GET_CUR:
 //  274       AUDIO_REQ_GetCurrent(pdev, req);
 ??USBD_AUDIO_Setup_3:
-        LDR.W    R2,??DataTable8_1
-        ADD      R1,R5,#+29
-        LDRH     R3,[R2, #+120]
-        STRB     R3,[R1, #+0]
-        LDRSH    R2,[R2, #+120]
-        LSLS     R2,R2,#+16
-        LSRS     R2,R2,#+24
-        STRB     R2,[R1, #+1]
+        LDR.W    R1,??DataTable8
+        LDRH     R2,[R1, #+220]
+        STRB     R2,[R5, #+29]
+        LDRSH    R1,[R1, #+220]
+        LSLS     R1,R1,#+16
+        LSRS     R1,R1,#+24
+        STRB     R1,[R5, #+30]
         LDRH     R2,[R4, #+6]
+        ADD      R1,R5,#+29
         B.N      ??USBD_AUDIO_Setup_8
 //  275       break;
 //  276       
@@ -567,52 +564,51 @@ USBD_AUDIO_Setup:
         LDRH     R2,[R4, #+6]
         CMP      R2,#+0
         BEQ.N    ??USBD_AUDIO_Setup_1
-        LDR.W    R1,??DataTable8_2
+        LDR.W    R1,??DataTable8_1
           CFI FunCall USBD_CtlPrepareRx
         BL       USBD_CtlPrepareRx
         MOVS     R0,#+1
         STRB     R0,[R5, #+28]
-        LDRH     R1,[R4, #+6]
-        ADD      R0,R5,#+93
-        STRB     R1,[R0, #+0]
-        LDRH     R1,[R4, #+4]
-        LSRS     R1,R1,#+8
-        STRB     R1,[R0, #+1]
+        LDRH     R0,[R4, #+6]
+        STRB     R0,[R5, #+93]
+        LDRH     R0,[R4, #+4]
+        LSRS     R0,R0,#+8
+        STRB     R0,[R5, #+94]
         B.N      ??USBD_AUDIO_Setup_1
 //  279       break;
 //  280       
 //  281     case AUDIO_REQ_GET_MIN:
 //  282       AUDIO_REQ_GetMinimum(pdev, req);
 ??USBD_AUDIO_Setup_4:
-        ADD      R1,R5,#+29
-        MOVS     R2,#+224
-        STRB     R2,[R1, #+0]
-        MOVS     R2,#+219
-        STRB     R2,[R5, #+30]
+        MOVS     R1,#+224
+        STRB     R1,[R5, #+29]
+        MOVS     R1,#+219
+        STRB     R1,[R5, #+30]
         LDRH     R2,[R4, #+6]
+        ADD      R1,R5,#+29
         B.N      ??USBD_AUDIO_Setup_8
 //  283       break;
 //  284       
 //  285     case AUDIO_REQ_GET_MAX:
 //  286       AUDIO_REQ_GetMaximum(pdev, req);
 ??USBD_AUDIO_Setup_5:
-        ADD      R1,R5,#+29
-        MOVS     R2,#+0
-        STRB     R2,[R1, #+0]
-        STRB     R2,[R5, #+30]
+        MOVS     R1,#+0
+        STRB     R1,[R5, #+29]
+        STRB     R1,[R5, #+30]
         LDRH     R2,[R4, #+6]
+        ADD      R1,R5,#+29
         B.N      ??USBD_AUDIO_Setup_8
 //  287       break;
 //  288       
 //  289     case AUDIO_REQ_GET_RES:
 //  290       AUDIO_REQ_GetResolution(pdev, req);
 ??USBD_AUDIO_Setup_6:
-        ADD      R1,R5,#+29
-        MOVS     R2,#+35
-        STRB     R2,[R1, #+0]
-        MOVS     R2,#+0
-        STRB     R2,[R5, #+30]
+        MOVS     R1,#+35
+        STRB     R1,[R5, #+29]
+        MOVS     R1,#+0
+        STRB     R1,[R5, #+30]
         LDRH     R2,[R4, #+6]
+        ADD      R1,R5,#+29
         B.N      ??USBD_AUDIO_Setup_8
 //  291       break;
 //  292       
@@ -624,7 +620,10 @@ USBD_AUDIO_Setup:
         BL       USBD_CtlError
 //  295       return USBD_FAIL;
         MOVS     R0,#+2
-        POP      {R1,R4,R5,PC}
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
 //  296     }
 //  297     break; 
 //  298     
@@ -657,7 +656,7 @@ USBD_AUDIO_Setup:
 //  310         USBD_CtlSendData (pdev, 
 //  311                           pbuf,
 //  312                           len);
-        LDR.W    R1,??DataTable8_3
+        LDR.W    R1,??DataTable8_2
         CMP      R2,#+10
         IT       GE 
         MOVGE    R2,#+9
@@ -704,7 +703,9 @@ USBD_AUDIO_Setup:
 //  335   return ret;
 ??USBD_AUDIO_Setup_1:
         MOVS     R0,#+0
-        POP      {R1,R4,R5,PC}    ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
 //  336 }
           CFI EndBlock cfiBlock2
 //  337 
@@ -727,7 +728,7 @@ USBD_AUDIO_GetCfgDesc:
         MOVS     R1,#+118
         STRH     R1,[R0, #+0]
 //  347   return USBD_AUDIO_CfgDesc;
-        LDR.W    R0,??DataTable8_1
+        LDR.W    R0,??DataTable8_3
         BX       LR               ;; return
 //  348 }
           CFI EndBlock cfiBlock3
@@ -748,22 +749,20 @@ USBD_AUDIO_GetCfgDesc:
 //  358                                   uint8_t epnum)
 //  359 {
 USBD_AUDIO_DataIn:
-        PUSH     {R3-R11,LR}
+        PUSH     {R4-R10,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R11 Frame(CFA, -8)
-          CFI R10 Frame(CFA, -12)
-          CFI R9 Frame(CFA, -16)
-          CFI R8 Frame(CFA, -20)
-          CFI R7 Frame(CFA, -24)
-          CFI R6 Frame(CFA, -28)
-          CFI R5 Frame(CFA, -32)
-          CFI R4 Frame(CFA, -36)
-          CFI CFA R13+40
-        MOV      R8,R0
+          CFI R10 Frame(CFA, -8)
+          CFI R9 Frame(CFA, -12)
+          CFI R8 Frame(CFA, -16)
+          CFI R7 Frame(CFA, -20)
+          CFI R6 Frame(CFA, -24)
+          CFI R5 Frame(CFA, -28)
+          CFI R4 Frame(CFA, -32)
+          CFI CFA R13+32
+        MOV      R9,R0
 //  360   
 //  361   USBD_AUDIO_HandleTypeDef   *haudio;
 //  362   haudio = pdev->pClassData;
-        ADD      R5,R8,#+536
 //  363   uint32_t length_usb_pck;
 //  364   uint16_t app;
 //  365   uint16_t IsocInWr_app = haudio->wr_ptr;
@@ -775,131 +774,132 @@ USBD_AUDIO_DataIn:
         MOVS     R0,#+0
 //  371   if (epnum == (AUDIO_IN_EP & 0x7F))
         CMP      R1,#+1
-        LDR      R6,[R5, #+0]
-        LDRH     R4,[R6, #+18]
-        LDRH     R7,[R6, #+24]
-        LDRH     R11,[R6, #+14]
-        LDRB     R9,[R6, #+4]
-        MOV      R10,R4
-        STRH     R0,[R6, #+12]
+        LDR      R5,[R9, #+536]
+        LDRH     R6,[R5, #+18]
+        LDRH     R4,[R5, #+24]
+        LDRH     R7,[R5, #+14]
+        LDRB     R10,[R5, #+4]
+        MOV      R8,R6
+        STRH     R0,[R5, #+12]
         BNE.N    ??USBD_AUDIO_DataIn_0
 //  372   {    
 //  373     if (haudio->state == STATE_USB_IDLE) 
-        LDRB     R0,[R6, #+20]
+        LDRB     R0,[R5, #+20]
         CMP      R0,#+1
         BNE.N    ??USBD_AUDIO_DataIn_1
 //  374     {
 //  375       haudio->state=STATE_USB_REQUESTS_STARTED;
         MOVS     R0,#+2
-        STRB     R0,[R6, #+20]
+        STRB     R0,[R5, #+20]
 //  376       ((USBD_AUDIO_ItfTypeDef *)pdev->pUserData)->Record();      
-        LDR      R0,[R5, #+4]
+        LDR      R0,[R9, #+540]
         LDR      R0,[R0, #+8]
           CFI FunCall
         BLX      R0
 //  377     }    
 //  378     if (haudio->state == STATE_USB_BUFFER_WRITE_STARTED)   
 ??USBD_AUDIO_DataIn_1:
-        LDRB     R0,[R6, #+20]
+        LDRB     R0,[R5, #+20]
         CMP      R0,#+3
         BNE.N    ??USBD_AUDIO_DataIn_2
 //  379     {      
 //  380       haudio->rd_ptr = haudio->rd_ptr % (true_dim);              
-        LDRH     R0,[R6, #+22]
-        SDIV     R1,R0,R11
-        MLS      R0,R11,R1,R0
-        STRH     R0,[R6, #+22]
+        LDRH     R0,[R5, #+22]
+        SDIV     R1,R0,R7
+        MLS      R0,R7,R1,R0
+        STRH     R0,[R5, #+22]
 //  381       if(IsocInWr_app<haudio->rd_ptr){
-        LDRH     R1,[R6, #+22]
+        LDRH     R1,[R5, #+22]
         MOV      R0,R1
-        CMP      R7,R0
+        CMP      R4,R0
         ITTE     LT 
-        SUBLT    R1,R11,R1
-        ADDLT    R7,R7,R1
-        SUBGE    R7,R7,R1
+        SUBLT    R1,R7,R1
+        ADDLT    R4,R4,R1
+        SUBGE    R4,R4,R1
 //  382         app = ((true_dim) - haudio->rd_ptr) +  IsocInWr_app;
 //  383       }else{
 //  384         app = IsocInWr_app - haudio->rd_ptr;
 //  385       }        
 //  386       if(app >= (packet_dim*haudio->upper_treshold)){       
-        LDRB     R1,[R6, #+26]
-        UXTH     R7,R7
-        MULS     R1,R1,R4
-        CMP      R7,R1
+        LDRB     R1,[R5, #+26]
+        UXTH     R4,R4
+        MULS     R1,R1,R6
+        CMP      R4,R1
         IT       GE 
-        ADDGE    R10,R10,R9, LSL #+1
+        ADDGE    R8,R8,R10, LSL #+1
 //  387         length_usb_pck += channels*2;
         BGE.N    ??USBD_AUDIO_DataIn_3
 //  388       }else if(app <= (packet_dim*haudio->lower_treshold)){
-        LDRB     R1,[R6, #+27]
-        MULS     R1,R1,R4
-        CMP      R1,R7
+        LDRB     R1,[R5, #+27]
+        MULS     R1,R1,R6
+        CMP      R1,R4
         IT       GE 
-        SUBGE    R10,R10,R9, LSL #+1
+        SUBGE    R8,R8,R10, LSL #+1
 //  389         length_usb_pck -= channels*2;
 //  390       }     
 //  391       USBD_LL_Transmit (pdev,AUDIO_IN_EP,
 //  392                         (uint8_t*)(&haudio->buffer[haudio->rd_ptr]),
 //  393                         length_usb_pck);      
 ??USBD_AUDIO_DataIn_3:
-        LDR      R1,[R6, #+96]
-        UXTH     R3,R10
+        LDR      R1,[R5, #+96]
+        UXTH     R3,R8
         ADDS     R2,R0,R1
         MOVS     R1,#+129
-        MOV      R0,R8
+        MOV      R0,R9
           CFI FunCall USBD_LL_Transmit
         BL       USBD_LL_Transmit
 //  394       haudio->rd_ptr += length_usb_pck;      
-        LDRH     R0,[R6, #+22]
+        LDRH     R0,[R5, #+22]
 //  395 
 //  396       if(app < haudio->buffer_length/10)
         MOVS     R1,#+10
-        ADD      R0,R10,R0
-        STRH     R0,[R6, #+22]
-        LDRH     R0,[R6, #+14]
+        ADD      R0,R8,R0
+        STRH     R0,[R5, #+22]
+        LDRH     R0,[R5, #+14]
         SDIV     R0,R0,R1
-        CMP      R7,R0
+        CMP      R4,R0
         BGE.N    ??USBD_AUDIO_DataIn_0
 //  397       {
 //  398         ((USBD_AUDIO_ItfTypeDef *)pdev->pUserData)->Stop();
-        LDR      R0,[R5, #+4]
+        LDR      R0,[R9, #+540]
         LDR      R0,[R0, #+20]
           CFI FunCall
         BLX      R0
 //  399         haudio->state = STATE_USB_IDLE; 
         MOVS     R0,#+1
-        STRB     R0,[R6, #+20]
+        STRB     R0,[R5, #+20]
 //  400         haudio->timeout=0;
         MOVS     R0,#+0
-        STRH     R0,[R6, #+12]
+        STRH     R0,[R5, #+12]
 //  401         memset(haudio->buffer,0,(haudio->buffer_length + haudio->dataAmount));
-        LDRH     R0,[R6, #+14]
-        LDRH     R1,[R6, #+16]
+        LDRH     R0,[R5, #+14]
+        LDRH     R1,[R5, #+16]
         UXTAH    R1,R1,R0
-        LDR      R0,[R6, #+96]
+        LDR      R0,[R5, #+96]
           CFI FunCall __aeabi_memclr
         BL       __aeabi_memclr
 //  402       }       
 //  403     }
-        B.N      ??USBD_AUDIO_DataIn_0
 //  404     else 
 //  405     {      
 //  406       USBD_LL_Transmit (pdev,AUDIO_IN_EP,
 //  407                         IsocInBuffDummy,
 //  408                         length_usb_pck);      
-??USBD_AUDIO_DataIn_2:
-        MOV      R3,R10
-        LDR.W    R2,??DataTable8_4
-        MOVS     R1,#+129
-        MOV      R0,R8
-          CFI FunCall USBD_LL_Transmit
-        BL       USBD_LL_Transmit
 //  409     }    
 //  410   }
 //  411   return USBD_OK;
+        MOVS     R0,#+0
+        POP      {R4-R10,PC}
+??USBD_AUDIO_DataIn_2:
+        MOV      R3,R8
+        LDR.W    R2,??DataTable8_4
+        MOVS     R1,#+129
+        MOV      R0,R9
+          CFI FunCall USBD_LL_Transmit
+        BL       USBD_LL_Transmit
 ??USBD_AUDIO_DataIn_0:
         MOVS     R0,#+0
-        POP      {R1,R4-R11,PC}   ;; return
+        POP      {R4-R10,PC}      ;; return
 //  412 }
           CFI EndBlock cfiBlock4
 //  413 
@@ -917,52 +917,49 @@ USBD_AUDIO_DataIn:
         THUMB
 //  421 static uint8_t  USBD_AUDIO_EP0_RxReady (USBD_HandleTypeDef *pdev)
 //  422 {  
+USBD_AUDIO_EP0_RxReady:
+        MOV      R1,R0
+        PUSH     {R4,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
 //  423   USBD_AUDIO_HandleTypeDef   *haudio;
 //  424   haudio = pdev->pClassData;  
-USBD_AUDIO_EP0_RxReady:
-        ADD      R1,R0,#+536
-        PUSH     {R3-R5,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
-        LDR      R0,[R1, #+0]
+        LDR      R4,[R1, #+536]
 //  425   if (haudio->control.cmd == AUDIO_REQ_SET_CUR)
-        ADD      R4,R0,#+28
-        LDRB     R2,[R4, #+0]
-        CMP      R2,#+1
-        ITTT     EQ 
-        ADDEQ    R5,R0,#+93
-        LDRBEQ   R0,[R5, #+1]
+        LDRB     R0,[R4, #+28]
+        CMP      R0,#+1
+        ITT      EQ 
+        LDRBEQ   R0,[R4, #+94]
         CMPEQ    R0,#+2
 //  426   {    
 //  427     if (haudio->control.unit == AUDIO_OUT_STREAMING_CTRL)
         BNE.N    ??USBD_AUDIO_EP0_RxReady_0
 //  428     {
 //  429       ((USBD_AUDIO_ItfTypeDef *)pdev->pUserData)->VolumeCtl(VOL_CUR);    
-        LDR.W    R0,??DataTable8_1
-        LDR      R1,[R1, #+4]
-        LDRSH    R0,[R0, #+120]
+        LDR.W    R0,??DataTable8
+        LDR      R1,[R1, #+540]
+        LDRSH    R0,[R0, #+220]
         LDR      R1,[R1, #+12]
           CFI FunCall
         BLX      R1
 //  430       
 //  431       haudio->control.cmd = 0;
         MOVS     R0,#+0
-        STRB     R0,[R4, #+0]
+        STRB     R0,[R4, #+28]
 //  432       haudio->control.len = 0;
-        STRB     R0,[R5, #+0]
+        STRB     R0,[R4, #+93]
 //  433       haudio->control.unit = 0;
-        STRB     R0,[R5, #+1]
+        STRB     R0,[R4, #+94]
 //  434       haudio->control.data[0]=0;
-        STRB     R0,[R4, #+1]
+        STRB     R0,[R4, #+29]
 //  435       haudio->control.data[0]=0;
 //  436     }
 //  437   }    
 //  438   return USBD_OK;
 ??USBD_AUDIO_EP0_RxReady_0:
         MOVS     R0,#+0
-        POP      {R1,R4,R5,PC}    ;; return
+        POP      {R4,PC}          ;; return
 //  439 }
           CFI EndBlock cfiBlock5
 //  440 /**
@@ -1227,69 +1224,73 @@ USBD_AUDIO_GetDeviceQualifierDesc:
 //  632 uint8_t  USBD_AUDIO_Data_Transfer(USBD_HandleTypeDef *pdev, int16_t * audioData, uint16_t PCMSamples)
 //  633 {
 USBD_AUDIO_Data_Transfer:
-        PUSH     {R3-R7,LR}
+        PUSH     {R4-R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI R7 Frame(CFA, -8)
           CFI R6 Frame(CFA, -12)
           CFI R5 Frame(CFA, -16)
           CFI R4 Frame(CFA, -20)
+          CFI CFA R13+20
+        MOV      R7,R1
+        SUB      SP,SP,#+4
           CFI CFA R13+24
-        MOV      R5,R1
 //  634   
 //  635   USBD_AUDIO_HandleTypeDef   *haudio;
 //  636   haudio = (USBD_AUDIO_HandleTypeDef *)pdev->pClassData;
-        ADD      R1,R0,#+536
 //  637   
 //  638   if(haudioInstance.state==STATE_USB_WAITING_FOR_INIT){    
-        LDR.W    R0,??DataTable8
-        LDR      R4,[R1, #+0]
-        LDRB     R0,[R0, #+20]
-        CBNZ.N   R0,??USBD_AUDIO_Data_Transfer_0
+        LDR.W    R1,??DataTable8
+        LDR      R4,[R0, #+536]
+        LDRB     R1,[R1, #+20]
+        CBNZ.N   R1,??USBD_AUDIO_Data_Transfer_0
 //  639     return USBD_BUSY;    
         MOVS     R0,#+1
-        POP      {R1,R4-R7,PC}
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
 //  640   }  
 //  641   uint16_t dataAmount = PCMSamples * 2; /*Bytes*/
 ??USBD_AUDIO_Data_Transfer_0:
-        LSLS     R6,R2,#+1
+        LSLS     R5,R2,#+1
 //  642   uint16_t true_dim = haudio->buffer_length;
 //  643   uint16_t current_data_Amount = haudio->dataAmount;
 //  644   uint16_t packet_dim = haudio->paketDimension;
 //  645   
 //  646   if(haudio->state==STATE_USB_REQUESTS_STARTED  || current_data_Amount!=dataAmount){   
         LDRB     R2,[R4, #+20]
-        UXTH     R6,R6
-        LDRH     R7,[R4, #+14]
-        LDRH     R0,[R4, #+18]
+        UXTH     R5,R5
+        LDRH     R6,[R4, #+14]
+        LDRH     R1,[R4, #+18]
         CMP      R2,#+2
         BEQ.N    ??USBD_AUDIO_Data_Transfer_1
         LDRH     R3,[R4, #+16]
-        CMP      R3,R6
+        CMP      R3,R5
         BEQ.N    ??USBD_AUDIO_Data_Transfer_2
 //  647     
 //  648     /*USB parameters definition, based on the amount of data passed*/
 //  649     haudio->dataAmount=dataAmount;                  
 //  650     uint16_t wr_rd_offset = (AUDIO_IN_PACKET_NUM/2) * dataAmount / packet_dim; 
 ??USBD_AUDIO_Data_Transfer_1:
-        ADD      R1,R6,R6, LSL #+1
-        STRH     R6,[R4, #+16]
-        SDIV     R1,R1,R0
-        UXTH     R1,R1
+        ADD      R0,R5,R5, LSL #+1
+        STRH     R5,[R4, #+16]
+        SDIV     R0,R0,R1
+        UXTH     R0,R0
 //  651     haudio->wr_ptr=wr_rd_offset * packet_dim;
-        SMULBB   R2,R1,R0
+        SMULBB   R2,R0,R1
         STRH     R2,[R4, #+24]
 //  652     haudio->rd_ptr = 0;
         MOVS     R2,#+0
         STRH     R2,[R4, #+22]
 //  653     haudio->upper_treshold = wr_rd_offset + 1;
-        ADDS     R2,R1,#+1
+        ADDS     R2,R0,#+1
 //  654     haudio->lower_treshold = wr_rd_offset - 1;
-        SUBS     R1,R1,#+1
+        SUBS     R0,R0,#+1
         STRB     R2,[R4, #+26]
-        STRB     R1,[R4, #+27]
+        STRB     R0,[R4, #+27]
 //  655     haudio->buffer_length = (packet_dim * (dataAmount / packet_dim) * AUDIO_IN_PACKET_NUM);
-        SDIV     R1,R6,R0
-        SMULBB   R0,R0,R1
+        SDIV     R0,R5,R1
+        SMULBB   R0,R1,R0
         ADD      R1,R0,R0, LSL #+1
         LSLS     R0,R1,#+1
         STRH     R0,[R4, #+14]
@@ -1316,7 +1317,10 @@ USBD_AUDIO_Data_Transfer:
 //  664     {
 //  665       return USBD_FAIL;       
         MOVS     R0,#+2
-        POP      {R1,R4-R7,PC}
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
 //  666     }
 //  667     memset(haudio->buffer,0,(haudio->buffer_length + haudio->dataAmount));
 ??USBD_AUDIO_Data_Transfer_4:
@@ -1336,16 +1340,16 @@ USBD_AUDIO_Data_Transfer:
         CMP      R2,#+3
         BNE.N    ??USBD_AUDIO_Data_Transfer_5
 //  672     if(haudio->timeout++==TIMEOUT_VALUE){
-        LDRSH    R0,[R4, #+12]
-        ADDS     R2,R0,#+1
-        CMP      R0,#+200
+        LDRSH    R1,[R4, #+12]
+        ADDS     R2,R1,#+1
+        CMP      R1,#+200
         STRH     R2,[R4, #+12]
         BNE.N    ??USBD_AUDIO_Data_Transfer_6
 //  673       haudio->state=STATE_USB_IDLE;
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+20]
+        MOVS     R1,#+1
+        STRB     R1,[R4, #+20]
 //  674       ((USBD_AUDIO_ItfTypeDef *)pdev->pUserData)->Stop();   
-        LDR      R0,[R1, #+4]
+        LDR      R0,[R0, #+540]
         LDR      R0,[R0, #+20]
           CFI FunCall
         BLX      R0
@@ -1357,28 +1361,28 @@ USBD_AUDIO_Data_Transfer:
 ??USBD_AUDIO_Data_Transfer_6:
         LDRH     R3,[R4, #+24]
         LDR      R0,[R4, #+96]
-        MOV      R2,R6
-        MOV      R1,R5
+        MOV      R2,R5
+        MOV      R1,R7
         ADDS     R0,R3,R0
           CFI FunCall __aeabi_memcpy
         BL       __aeabi_memcpy
 //  678     haudio->wr_ptr += dataAmount;
         LDRH     R0,[R4, #+24]
-        ADDS     R0,R6,R0
+        ADDS     R0,R5,R0
         STRH     R0,[R4, #+24]
 //  679     haudio->wr_ptr = haudio->wr_ptr % (true_dim);    
         UXTH     R0,R0
-        SDIV     R1,R0,R7
-        MLS      R0,R7,R1,R0
+        SDIV     R1,R0,R6
+        MLS      R0,R6,R1,R0
         STRH     R0,[R4, #+24]
 //  680     if((haudio->wr_ptr-dataAmount) == 0){
         LDRH     R0,[R4, #+24]
-        SUBS     R0,R0,R6
+        SUBS     R0,R0,R5
         BNE.N    ??USBD_AUDIO_Data_Transfer_5
 //  681       memcpy((uint8_t *)(((uint8_t *)haudio->buffer)+true_dim),(uint8_t *)haudio->buffer, dataAmount);
         LDR      R1,[R4, #+96]
-        MOV      R2,R6
-        ADDS     R0,R7,R1
+        MOV      R2,R5
+        ADDS     R0,R6,R1
           CFI FunCall __aeabi_memcpy
         BL       __aeabi_memcpy
 //  682     }
@@ -1386,7 +1390,9 @@ USBD_AUDIO_Data_Transfer:
 //  684   return USBD_OK;  
 ??USBD_AUDIO_Data_Transfer_5:
         MOVS     R0,#+0
-        POP      {R1,R4-R7,PC}    ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}       ;; return
 //  685 }
           CFI EndBlock cfiBlock12
 //  686 
@@ -1435,26 +1441,27 @@ USBD_AUDIO_RegisterInterface:
 //  710 void USBD_AUDIO_Init_Microphone_Descriptor(USBD_HandleTypeDef   *pdev, uint32_t samplingFrequency, uint8_t Channels)
 //  711 {
 USBD_AUDIO_Init_Microphone_Descriptor:
-        PUSH     {R4-R6}
-          CFI R6 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
+        PUSH     {R4-R7}
+          CFI R7 Frame(CFA, -4)
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
 //  712   uint16_t index;
 //  713   uint8_t AUDIO_CONTROLS;   
 //  714   USBD_AUDIO_CfgDesc[0] = 0x09;                                                /* bLength */
-        LDR.N    R3,??DataTable8_1
-        MOVS     R0,#+9
-        STRB     R0,[R3, #+0]
+        LDR.W    R0,??DataTable8
+        MOVS     R3,#+9
+        STRB     R3,[R0, #+100]
 //  715   USBD_AUDIO_CfgDesc[1] = 0x02;                                                /* bDescriptorType */
-        MOVS     R0,#+2
-        STRB     R0,[R3, #+1]
+        MOVS     R3,#+2
+        STRB     R3,[R0, #+101]
 //  716   USBD_AUDIO_CfgDesc[2] = ((USB_AUDIO_CONFIG_DESC_SIZ+Channels-1)&0xff);       /* wTotalLength */
-        ADD      R0,R2,#+108
-        STRB     R0,[R3, #+2]
+        ADD      R3,R2,#+108
+        STRB     R3,[R0, #+102]
 //  717   USBD_AUDIO_CfgDesc[3] = ((USB_AUDIO_CONFIG_DESC_SIZ+Channels-1)>>8);
-        MOV      R0,R2
-        ADD      R4,R0,#+108
+        MOV      R3,R2
+        ADD      R4,R3,#+108
         LSLS     R4,R4,#+16
         LSRS     R4,R4,#+24
 //  718   USBD_AUDIO_CfgDesc[4] = 0x02;                                                /* bNumInterfaces */
@@ -1490,69 +1497,70 @@ USBD_AUDIO_Init_Microphone_Descriptor:
 //  748   USBD_AUDIO_CfgDesc[31] = 0x01;                                               /* wTerminalType AUDIO_TERMINAL_USB_MICROPHONE   0x0201 */
 //  749   USBD_AUDIO_CfgDesc[32] = 0x02;
 //  750   USBD_AUDIO_CfgDesc[33] = 0x00;                                               /* bAssocTerminal */
-        MOVS     R5,#+0
-        STRB     R4,[R3, #+3]
-        MOVS     R4,#+2
-        STRB     R4,[R3, #+4]
-        MOVS     R4,#+1
-        STRB     R4,[R3, #+5]
-        MOVS     R4,#+0
-        STRB     R4,[R3, #+6]
-        MOVS     R4,#+128
-        STRB     R4,[R3, #+7]
-        MOVS     R4,#+50
-        STRB     R4,[R3, #+8]
-        MOVS     R4,#+9
-        STRB     R4,[R3, #+9]
-        MOVS     R4,#+4
-        STRB     R4,[R3, #+10]
-        MOVS     R4,#+0
-        STRB     R4,[R3, #+11]
-        STRH     R4,[R3, #+12]
-        MOVS     R4,#+1
-        STRB     R4,[R3, #+14]
-        STRB     R4,[R3, #+15]
-        MOVS     R4,#+0
-        STRH     R4,[R3, #+16]
-        MOVS     R4,#+9
-        STRB     R4,[R3, #+18]
-        MOVS     R4,#+36
-        STRB     R4,[R3, #+19]
-        MOVS     R4,#+1
-        STRB     R4,[R3, #+20]
-        MOVS     R4,#+0
-        STRB     R4,[R3, #+21]
-        MOVS     R4,#+1
-        STRB     R4,[R3, #+22]
-        ADD      R4,R2,#+37
-        STRB     R4,[R3, #+23]
-        MOVS     R4,#+0
-        STRB     R4,[R3, #+24]
-        MOVS     R4,#+1
-        STRB     R4,[R3, #+25]
-        STRB     R4,[R3, #+26]
-        MOVS     R4,#+12
-        STRB     R4,[R3, #+27]
-        MOVS     R4,#+36
-        STRB     R4,[R3, #+28]
-        MOVS     R4,#+2
-        STRB     R4,[R3, #+29]
-        MOVS     R4,#+1
-        STRB     R4,[R3, #+30]
-        STRB     R4,[R3, #+31]
-        MOVS     R4,#+2
-        STRB     R4,[R3, #+32]
-        ADD      R4,R3,#+33
 //  751   USBD_AUDIO_CfgDesc[34] = Channels;                                           /* bNrChannels */   
+        STRB     R2,[R0, #+134]
+        STRB     R4,[R0, #+103]
+        MOVS     R4,#+2
+        STRB     R4,[R0, #+104]
+        MOVS     R4,#+1
+        STRB     R4,[R0, #+105]
+        MOVS     R4,#+0
+        STRB     R4,[R0, #+106]
+        MOVS     R4,#+128
+        STRB     R4,[R0, #+107]
+        MOVS     R4,#+50
+        STRB     R4,[R0, #+108]
+        MOVS     R4,#+9
+        STRB     R4,[R0, #+109]
+        MOVS     R4,#+4
+        STRB     R4,[R0, #+110]
+        MOVS     R4,#+0
+        STRB     R4,[R0, #+111]
+        STRB     R4,[R0, #+112]
+        STRB     R4,[R0, #+113]
+        MOVS     R4,#+1
+        STRB     R4,[R0, #+114]
+        STRB     R4,[R0, #+115]
+        MOVS     R4,#+0
+        STRB     R4,[R0, #+116]
+        STRB     R4,[R0, #+117]
+        MOVS     R4,#+9
+        STRB     R4,[R0, #+118]
+        MOVS     R4,#+36
+        STRB     R4,[R0, #+119]
+        MOVS     R4,#+1
+        STRB     R4,[R0, #+120]
+        MOVS     R4,#+0
+        STRB     R4,[R0, #+121]
+        MOVS     R4,#+1
+        STRB     R4,[R0, #+122]
+        ADD      R4,R2,#+37
+        STRB     R4,[R0, #+123]
+        MOVS     R4,#+0
+        STRB     R4,[R0, #+124]
+        MOVS     R4,#+1
+        STRB     R4,[R0, #+125]
+        STRB     R4,[R0, #+126]
+        MOVS     R4,#+12
+        STRB     R4,[R0, #+127]
+        MOVS     R4,#+36
+        STRB     R4,[R0, #+128]
+        MOVS     R4,#+2
+        STRB     R4,[R0, #+129]
+        MOVS     R4,#+1
+        STRB     R4,[R0, #+130]
+        STRB     R4,[R0, #+131]
+        MOVS     R4,#+2
+        STRB     R4,[R0, #+132]
+        MOVS     R4,#+0
 //  752   if(Channels != 2)
         CMP      R2,#+2
-        STRB     R5,[R4, #+0]
-        STRB     R2,[R4, #+1]
+        STRB     R4,[R0, #+133]
         BEQ.N    ??USBD_AUDIO_Init_Microphone_Descriptor_0
 //  753   {
 //  754     USBD_AUDIO_CfgDesc[35] = 0x00;                                             /* wChannelConfig 0x0000  Mono */
-        MOVS     R6,#+0
-        STRB     R6,[R4, #+2]
+        MOVS     R5,#+0
+        STRB     R5,[R0, #+135]
 //  755     USBD_AUDIO_CfgDesc[36] = 0x00;
         B.N      ??USBD_AUDIO_Init_Microphone_Descriptor_1
 //  756   }
@@ -1560,48 +1568,48 @@ USBD_AUDIO_Init_Microphone_Descriptor:
 //  758   {
 //  759     USBD_AUDIO_CfgDesc[35] = 0x03;                                             /* wChannelConfig 0x0003  Stereo */
 ??USBD_AUDIO_Init_Microphone_Descriptor_0:
-        MOVS     R6,#+3
-        STRB     R6,[R4, #+2]
+        MOVS     R5,#+3
+        STRB     R5,[R0, #+135]
 //  760     USBD_AUDIO_CfgDesc[36] = 0x00;
-        MOVS     R6,#+0
+        MOVS     R5,#+0
 ??USBD_AUDIO_Init_Microphone_Descriptor_1:
-        STRB     R6,[R4, #+3]
+        STRB     R5,[R0, #+136]
 //  761   }   
 //  762   USBD_AUDIO_CfgDesc[37] = 0x00;                                               /* iChannelNames */
-        STRB     R6,[R4, #+4]
+        STRB     R5,[R0, #+137]
 //  763   USBD_AUDIO_CfgDesc[38] = 0x00;                                               /* iTerminal */   
-        STRB     R6,[R4, #+5]
+        STRB     R5,[R0, #+138]
 //  764   /* USB Microphone Audio Feature Unit Descriptor */
 //  765   USBD_AUDIO_CfgDesc[39] = 0x07+Channels+1;                                    /* bLength */
-        ADD      R6,R2,#+8
-        STRB     R6,[R4, #+6]
+        ADD      R5,R2,#+8
+        STRB     R5,[R0, #+139]
 //  766   USBD_AUDIO_CfgDesc[40] = AUDIO_INTERFACE_DESCRIPTOR_TYPE;                    /* bDescriptorType */
-        MOVS     R6,#+36
-        STRB     R6,[R4, #+7]
+        MOVS     R5,#+36
+        STRB     R5,[R0, #+140]
 //  767   USBD_AUDIO_CfgDesc[41] = AUDIO_CONTROL_FEATURE_UNIT;                         /* bDescriptorSubtype */
-        MOVS     R6,#+6
-        STRB     R6,[R4, #+8]
+        MOVS     R5,#+6
+        STRB     R5,[R0, #+141]
 //  768   USBD_AUDIO_CfgDesc[42] = 0x02;                                               /* bUnitID */
-        MOVS     R6,#+2
-        STRB     R6,[R4, #+9]
+        MOVS     R5,#+2
+        STRB     R5,[R0, #+142]
 //  769   USBD_AUDIO_CfgDesc[43] = 0x01;                                               /* bSourceID */
-        MOVS     R6,#+1
-        STRB     R6,[R4, #+10]
+        MOVS     R5,#+1
+        STRB     R5,[R0, #+143]
 //  770   USBD_AUDIO_CfgDesc[44] = 0x01;                                               /* bControlSize */   
-        STRB     R6,[R4, #+11]
+        STRB     R5,[R0, #+144]
 //  771   index = 47;   
-        MOVS     R6,#+47
+        MOVS     R5,#+47
 //  772   if(Channels == 1)
         CMP      R2,#+1
         BNE.N    ??USBD_AUDIO_Init_Microphone_Descriptor_2
 //  773   {
 //  774     AUDIO_CONTROLS = (0x02);     
 //  775     USBD_AUDIO_CfgDesc[45] = AUDIO_CONTROLS;
-        MOVS     R5,#+2
-        STRB     R5,[R4, #+12]
+        MOVS     R4,#+2
+        STRB     R4,[R0, #+145]
 //  776     USBD_AUDIO_CfgDesc[46] = 0x00;     
-        MOVS     R5,#+0
-        STRB     R5,[R4, #+13]
+        MOVS     R4,#+0
+        STRB     R4,[R0, #+146]
         B.N      ??USBD_AUDIO_Init_Microphone_Descriptor_3
 //  777   }
 //  778   else
@@ -1610,23 +1618,24 @@ USBD_AUDIO_Init_Microphone_Descriptor:
 //  781     USBD_AUDIO_CfgDesc[45] = 0x00;
 //  782     USBD_AUDIO_CfgDesc[46] = AUDIO_CONTROLS;
 ??USBD_AUDIO_Init_Microphone_Descriptor_2:
-        MOVS     R6,#+2
-        STRB     R5,[R4, #+12]
-        STRB     R6,[R4, #+13]
+        MOVS     R5,#+2
+        STRB     R4,[R0, #+145]
+        STRB     R5,[R0, #+146]
 //  783     USBD_AUDIO_CfgDesc[index] = AUDIO_CONTROLS;
-        STRB     R6,[R4, #+14]
+        STRB     R5,[R0, #+147]
 //  784     index++;
-        MOVS     R6,#+48
+        MOVS     R5,#+48
 //  785   }   
 //  786   if(Channels > 2)
         CMP      R2,#+3
         BLT.N    ??USBD_AUDIO_Init_Microphone_Descriptor_4
 //  787   {
 //  788     USBD_AUDIO_CfgDesc[index] = AUDIO_CONTROLS;
-        MOVS     R6,#+2
-        STRB     R6,[R4, #+15]
+        MOVS     R5,#+2
+        ADD      R6,R0,#+48
+        STRB     R5,[R6, #+100]
 //  789     index++;
-        MOVS     R6,#+49
+        MOVS     R5,#+49
 //  790   }   
 //  791   if(Channels > 3)
 ??USBD_AUDIO_Init_Microphone_Descriptor_4:
@@ -1634,10 +1643,11 @@ USBD_AUDIO_Init_Microphone_Descriptor:
         BLT.N    ??USBD_AUDIO_Init_Microphone_Descriptor_5
 //  792   {
 //  793     USBD_AUDIO_CfgDesc[index] = AUDIO_CONTROLS;
-        MOVS     R4,#+2
-        STRB     R4,[R6, R3]
+        MOVS     R6,#+2
+        ADDS     R7,R5,R0
+        STRB     R6,[R7, #+100]
 //  794     index++;
-        ADDS     R6,R6,#+1
+        ADDS     R5,R5,#+1
 //  795   }   
 //  796   if(Channels > 4)
 ??USBD_AUDIO_Init_Microphone_Descriptor_5:
@@ -1645,11 +1655,12 @@ USBD_AUDIO_Init_Microphone_Descriptor:
         BLT.N    ??USBD_AUDIO_Init_Microphone_Descriptor_6
 //  797   {
 //  798     USBD_AUDIO_CfgDesc[index] = AUDIO_CONTROLS;
-        MOVS     R4,#+2
-        UXTH     R6,R6
-        STRB     R4,[R6, R3]
+        UXTH     R5,R5
+        MOVS     R6,#+2
+        ADDS     R7,R5,R0
 //  799     index++;
-        ADDS     R6,R6,#+1
+        ADDS     R5,R5,#+1
+        STRB     R6,[R7, #+100]
 //  800   }   
 //  801   if(Channels > 5)
 ??USBD_AUDIO_Init_Microphone_Descriptor_6:
@@ -1657,11 +1668,12 @@ USBD_AUDIO_Init_Microphone_Descriptor:
         BLT.N    ??USBD_AUDIO_Init_Microphone_Descriptor_7
 //  802   {
 //  803     USBD_AUDIO_CfgDesc[index] = AUDIO_CONTROLS;
-        MOVS     R4,#+2
-        UXTH     R6,R6
-        STRB     R4,[R6, R3]
+        UXTH     R5,R5
+        MOVS     R6,#+2
+        ADDS     R7,R5,R0
 //  804     index++;
-        ADDS     R6,R6,#+1
+        ADDS     R5,R5,#+1
+        STRB     R6,[R7, #+100]
 //  805   }   
 //  806   if(Channels > 6)
 ??USBD_AUDIO_Init_Microphone_Descriptor_7:
@@ -1669,11 +1681,12 @@ USBD_AUDIO_Init_Microphone_Descriptor:
         BLT.N    ??USBD_AUDIO_Init_Microphone_Descriptor_8
 //  807   {
 //  808     USBD_AUDIO_CfgDesc[index] = AUDIO_CONTROLS;
-        MOVS     R4,#+2
-        UXTH     R6,R6
-        STRB     R4,[R6, R3]
+        UXTH     R5,R5
+        MOVS     R6,#+2
+        ADDS     R7,R5,R0
 //  809     index++;
-        ADDS     R6,R6,#+1
+        ADDS     R5,R5,#+1
+        STRB     R6,[R7, #+100]
 //  810   }   
 //  811   if(Channels > 7)
 ??USBD_AUDIO_Init_Microphone_Descriptor_8:
@@ -1681,360 +1694,424 @@ USBD_AUDIO_Init_Microphone_Descriptor:
         BLT.N    ??USBD_AUDIO_Init_Microphone_Descriptor_3
 //  812   {
 //  813     USBD_AUDIO_CfgDesc[index] = AUDIO_CONTROLS;
+        UXTH     R5,R5
         MOVS     R4,#+2
-        UXTH     R6,R6
-        STRB     R4,[R6, R3]
+        ADDS     R6,R5,R0
 //  814     index++;
-        ADDS     R6,R6,#+1
+        ADDS     R5,R5,#+1
+        STRB     R4,[R6, #+100]
 //  815   }   
 //  816   USBD_AUDIO_CfgDesc[index] = 0x00;                                            /* iTerminal */
 ??USBD_AUDIO_Init_Microphone_Descriptor_3:
-        UXTH     R6,R6
+        UXTH     R5,R5
+        MOVS     R4,#+0
+        ADDS     R6,R5,R0
+        STRB     R4,[R6, #+100]
 //  817   index++;   
-        ADDS     R4,R6,#+1
-        STRB     R5,[R6, R3]
+        ADDS     R4,R5,#+1
 //  818   /*USB Microphone Output Terminal Descriptor */
 //  819   USBD_AUDIO_CfgDesc[index++] = 0x09;                                          /* bLength */
+        UXTH     R4,R4
         MOVS     R5,#+9
-        UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  820   USBD_AUDIO_CfgDesc[index++] = AUDIO_INTERFACE_DESCRIPTOR_TYPE;               /* bDescriptorType */
+        UXTH     R4,R4
         MOVS     R5,#+36
-        UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  821   USBD_AUDIO_CfgDesc[index++] = AUDIO_CONTROL_OUTPUT_TERMINAL;                 /* bDescriptorSubtype */
-        MOVS     R5,#+3
         UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        MOVS     R5,#+3
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  822   USBD_AUDIO_CfgDesc[index++] = 0x03;                                          /* bTerminalID */
         UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  823   USBD_AUDIO_CfgDesc[index++] = 0x01;                                          /* wTerminalType AUDIO_TERMINAL_USB_STREAMING 0x0101*/
-        MOVS     R5,#+1
         UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        MOVS     R5,#+1
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  824   USBD_AUDIO_CfgDesc[index++] = 0x01;
         UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  825   USBD_AUDIO_CfgDesc[index++] = 0x00;
-        MOVS     R5,#+0
         UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        MOVS     R5,#+0
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  826   USBD_AUDIO_CfgDesc[index++] = 0x02;
+        UXTH     R4,R4
         MOVS     R5,#+2
-        UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  827   USBD_AUDIO_CfgDesc[index++] = 0x00;   
-        MOVS     R5,#+0
         UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        MOVS     R5,#+0
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  828   /* USB Microphone Standard AS Interface Descriptor - Audio Streaming Zero Bandwith */
 //  829   /* Interface 1, Alternate Setting 0                                             */
 //  830   USBD_AUDIO_CfgDesc[index++] = 9;                                             /* bLength */
+        UXTH     R4,R4
         MOVS     R5,#+9
-        UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  831   USBD_AUDIO_CfgDesc[index++] = USB_INTERFACE_DESCRIPTOR_TYPE;                 /* bDescriptorType */
+        UXTH     R4,R4
         MOVS     R5,#+4
-        UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  832   USBD_AUDIO_CfgDesc[index++] = 0x01;                                          /* bInterfaceNumber */
+        UXTH     R4,R4
         MOVS     R5,#+1
-        UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  833   USBD_AUDIO_CfgDesc[index++] = 0x00;                                          /* bAlternateSetting */
-        MOVS     R5,#+0
         UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        MOVS     R5,#+0
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  834   USBD_AUDIO_CfgDesc[index++] = 0x00;                                          /* bNumEndpoints */
         UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  835   USBD_AUDIO_CfgDesc[index++] = USB_DEVICE_CLASS_AUDIO;                        /* bInterfaceClass */
+        UXTH     R4,R4
         MOVS     R5,#+1
-        UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  836   USBD_AUDIO_CfgDesc[index++] = AUDIO_SUBCLASS_AUDIOSTREAMING;                 /* bInterfaceSubClass */
+        UXTH     R4,R4
         MOVS     R5,#+2
-        UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  837   USBD_AUDIO_CfgDesc[index++] = AUDIO_PROTOCOL_UNDEFINED;                      /* bInterfaceProtocol */
-        MOVS     R5,#+0
         UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        MOVS     R5,#+0
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  838   USBD_AUDIO_CfgDesc[index++] = 0x00;   
         UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  839   /* USB Microphone Standard AS Interface Descriptor - Audio Streaming Operational */
 //  840   /* Interface 1, Alternate Setting 1                                           */
 //  841   USBD_AUDIO_CfgDesc[index++] = 9;                                             /* bLength */
+        UXTH     R4,R4
         MOVS     R5,#+9
-        UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  842   USBD_AUDIO_CfgDesc[index++] = USB_INTERFACE_DESCRIPTOR_TYPE;                 /* bDescriptorType */
+        UXTH     R4,R4
         MOVS     R5,#+4
-        UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  843   USBD_AUDIO_CfgDesc[index++] = 0x01;                                          /* bInterfaceNumber */
-        MOVS     R5,#+1
         UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        MOVS     R5,#+1
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  844   USBD_AUDIO_CfgDesc[index++] = 0x01;                                          /* bAlternateSetting */
         UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  845   USBD_AUDIO_CfgDesc[index++] = 0x01;                                          /* bNumEndpoints */
         UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  846   USBD_AUDIO_CfgDesc[index++] = USB_DEVICE_CLASS_AUDIO;                        /* bInterfaceClass */
         UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  847   USBD_AUDIO_CfgDesc[index++] = AUDIO_SUBCLASS_AUDIOSTREAMING;                 /* bInterfaceSubClass */
+        UXTH     R4,R4
         MOVS     R5,#+2
-        UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  848   USBD_AUDIO_CfgDesc[index++] = AUDIO_PROTOCOL_UNDEFINED;                      /* bInterfaceProtocol */
-        MOVS     R5,#+0
         UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        MOVS     R5,#+0
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  849   USBD_AUDIO_CfgDesc[index++] = 0x00;                                          /* iInterface */   
         UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  850   /* USB Microphone Audio Streaming Interface Descriptor */
 //  851   USBD_AUDIO_CfgDesc[index++] = AUDIO_STREAMING_INTERFACE_DESC_SIZE;           /* bLength */
+        UXTH     R4,R4
         MOVS     R5,#+7
-        UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  852   USBD_AUDIO_CfgDesc[index++] = AUDIO_INTERFACE_DESCRIPTOR_TYPE;               /* bDescriptorType */
+        UXTH     R4,R4
         MOVS     R5,#+36
-        UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  853   USBD_AUDIO_CfgDesc[index++] = AUDIO_STREAMING_GENERAL;                       /* bDescriptorSubtype */
-        MOVS     R5,#+1
         UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        MOVS     R5,#+1
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  854   USBD_AUDIO_CfgDesc[index++] = 0x03;                                          /* bTerminalLink */
+        UXTH     R4,R4
         MOVS     R5,#+3
-        UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  855   USBD_AUDIO_CfgDesc[index++] = 0x01;                                          /* bDelay */
-        MOVS     R5,#+1
         UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        MOVS     R5,#+1
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  856   USBD_AUDIO_CfgDesc[index++] = 0x01;                                          /* wFormatTag AUDIO_FORMAT_PCM  0x0001*/
         UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  857   USBD_AUDIO_CfgDesc[index++] = 0x00;                
-        MOVS     R5,#+0
         UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        MOVS     R5,#+0
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  858   /* USB Microphone Audio Type I Format Interface Descriptor */                
 //  859   USBD_AUDIO_CfgDesc[index++] = 0x0B;                                          /* bLength */
+        UXTH     R4,R4
         MOVS     R5,#+11
-        UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  860   USBD_AUDIO_CfgDesc[index++] = AUDIO_INTERFACE_DESCRIPTOR_TYPE;               /* bDescriptorType */
+        UXTH     R4,R4
         MOVS     R5,#+36
-        UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  861   USBD_AUDIO_CfgDesc[index++] = AUDIO_STREAMING_FORMAT_TYPE;                   /* bDescriptorSubtype */
+        UXTH     R4,R4
         MOVS     R5,#+2
-        UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  862   USBD_AUDIO_CfgDesc[index++] = AUDIO_FORMAT_TYPE_I;                           /* bFormatType */
-        MOVS     R5,#+1
         UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        MOVS     R5,#+1
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  863   USBD_AUDIO_CfgDesc[index++] = Channels;                                      /* bNrChannels */
         UXTH     R4,R4
+        ADDS     R5,R4,R0
+        ADDS     R4,R4,#+1
+        STRB     R2,[R5, #+100]
 //  864   USBD_AUDIO_CfgDesc[index++] = 0x02;                                          /* bSubFrameSize */
+        UXTH     R4,R4
         MOVS     R5,#+2
-        STRB     R2,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
-        UXTH     R4,R4
-        STRB     R5,[R4, R3]
-        ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  865   USBD_AUDIO_CfgDesc[index++] = 16;                                            /* bBitResolution */
+        UXTH     R4,R4
         MOVS     R5,#+16
-        UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  866   USBD_AUDIO_CfgDesc[index++] = 0x01;                                           /* bSamFreqType */
-        MOVS     R5,#+1
         UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        MOVS     R5,#+1
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  867   USBD_AUDIO_CfgDesc[index++] = samplingFrequency&0xff;                        /* tSamFreq 8000 = 0x1F40 */
         UXTH     R4,R4
+        ADDS     R5,R4,R0
+        ADDS     R4,R4,#+1
+        STRB     R1,[R5, #+100]
 //  868   USBD_AUDIO_CfgDesc[index++] = (samplingFrequency>>8)&0xff;
+        UXTH     R4,R4
         LSRS     R5,R1,#+8
-        STRB     R1,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
-        UXTH     R4,R4
-        STRB     R5,[R4, R3]
-        ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  869   USBD_AUDIO_CfgDesc[index++] = samplingFrequency>>16;   
-        LSRS     R5,R1,#+16
         UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        LSRS     R5,R1,#+16
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  870   /* Endpoint 1 - Standard Descriptor */
 //  871   USBD_AUDIO_CfgDesc[index++] =  AUDIO_STANDARD_ENDPOINT_DESC_SIZE;            /* bLength */
+        UXTH     R4,R4
         MOVS     R5,#+9
-        UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  872   USBD_AUDIO_CfgDesc[index++] = 0x05;                                          /* bDescriptorType */
-        MOVS     R5,#+5
         UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        MOVS     R5,#+5
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  873   USBD_AUDIO_CfgDesc[index++] = AUDIO_IN_EP;                                   /* bEndpointAddress 1 in endpoint*/
+        UXTH     R4,R4
         MOVS     R5,#+129
-        UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        ADDS     R6,R4,R0
         ADDS     R4,R4,#+1
+        STRB     R5,[R6, #+100]
 //  874   USBD_AUDIO_CfgDesc[index++] = 0x05;                                          /* bmAttributes */
-        MOVS     R5,#+5
         UXTH     R4,R4
-        STRB     R5,[R4, R3]
+        MOVS     R5,#+5
+        ADDS     R6,R4,R0
+        STRB     R5,[R6, #+100]
         ADDS     R5,R4,#+1
 //  875   USBD_AUDIO_CfgDesc[index++] = ((samplingFrequency/1000+2)*Channels*2)&0xFF; //(AUDIO_OUT_BUFFER_SIZE*Channels*2+2)&0xFF;// /* wMaxPacketSize */ 
         MOV      R4,#+1000
         UXTH     R5,R5
         UDIV     R4,R1,R4
         ADDS     R6,R4,#+2
+        ADDS     R7,R5,R0
+        SMULBB   R6,R6,R2
+        ADDS     R5,R5,#+1
 //  876   USBD_AUDIO_CfgDesc[index++] = ((samplingFrequency/1000+2)*Channels*2)>>8;//(AUDIO_OUT_BUFFER_SIZE*Channels*2+2)>>8;// 
+        UXTH     R5,R5
+        LSLS     R6,R6,#+1
+        STRB     R6,[R7, #+100]
+        ADDS     R6,R4,#+2
+        MULS     R6,R6,R2
+        ADDS     R7,R5,R0
+        ADDS     R5,R5,#+1
+        LSRS     R6,R6,#+7
+        STRB     R6,[R7, #+100]
 //  877   USBD_AUDIO_CfgDesc[index++] = 0x01;                                          /* bInterval */
+        MOVS     R6,#+1
+        UXTH     R5,R5
+        ADDS     R7,R5,R0
+        ADDS     R5,R5,#+1
+        STRB     R6,[R7, #+100]
 //  878   USBD_AUDIO_CfgDesc[index++] = 0x00;                                          /* bRefresh */
+        UXTH     R5,R5
+        MOVS     R6,#+0
+        ADDS     R7,R5,R0
+        ADDS     R5,R5,#+1
+        STRB     R6,[R7, #+100]
 //  879   USBD_AUDIO_CfgDesc[index++] = 0x00;                                          /* bSynchAddress */   
+        UXTH     R5,R5
+        ADDS     R7,R5,R0
+        ADDS     R5,R5,#+1
+        STRB     R6,[R7, #+100]
 //  880   /* Endpoint - Audio Streaming Descriptor*/
 //  881   USBD_AUDIO_CfgDesc[index++] = AUDIO_STREAMING_ENDPOINT_DESC_SIZE;            /* bLength */
+        UXTH     R5,R5
+        MOVS     R6,#+7
+        ADDS     R7,R5,R0
+        ADDS     R5,R5,#+1
+        STRB     R6,[R7, #+100]
 //  882   USBD_AUDIO_CfgDesc[index++] = AUDIO_ENDPOINT_DESCRIPTOR_TYPE;                /* bDescriptorType */
+        UXTH     R5,R5
+        MOVS     R6,#+37
+        ADDS     R7,R5,R0
+        ADDS     R5,R5,#+1
+        STRB     R6,[R7, #+100]
 //  883   USBD_AUDIO_CfgDesc[index++] = AUDIO_ENDPOINT_GENERAL;                        /* bDescriptor */
+        UXTH     R5,R5
+        MOVS     R6,#+1
+        ADDS     R7,R5,R0
+        ADDS     R5,R5,#+1
+        STRB     R6,[R7, #+100]
 //  884   USBD_AUDIO_CfgDesc[index++] = 0x00;                                          /* bmAttributes */
+        UXTH     R5,R5
+        MOVS     R6,#+0
+        ADDS     R7,R5,R0
+        ADDS     R5,R5,#+1
+        STRB     R6,[R7, #+100]
 //  885   USBD_AUDIO_CfgDesc[index++] = 0x00;                                          /* bLockDelayUnits */
+        UXTH     R5,R5
+        ADDS     R7,R5,R0
+        ADDS     R5,R5,#+1
+        STRB     R6,[R7, #+100]
 //  886   USBD_AUDIO_CfgDesc[index++] = 0x00;                                          /* wLockDelay */
+        UXTH     R5,R5
+        ADDS     R7,R5,R0
 //  887   USBD_AUDIO_CfgDesc[index++] = 0x00;    
+        ADDS     R5,R5,#+1
+        UXTH     R5,R5
 //  888     
 //  889   haudioInstance.paketDimension = (samplingFrequency/1000*Channels*2);//AUDIO_OUT_BUFFER_SIZE*2*Channels;//
-        SMULBB   R0,R4,R0
-        SMULBB   R6,R6,R2
-        LSLS     R0,R0,#+1
-        LSLS     R6,R6,#+1
-        STRB     R6,[R5, R3]
-        ADDS     R6,R4,#+2
-        MULS     R6,R2,R6
-        ADDS     R5,R5,#+1
-        UXTH     R5,R5
-        LSRS     R6,R6,#+7
-        STRB     R6,[R5, R3]
-        ADDS     R5,R5,#+1
-        MOVS     R6,#+1
-        UXTH     R5,R5
-        STRB     R6,[R5, R3]
-        ADDS     R5,R5,#+1
-        MOVS     R6,#+0
-        UXTH     R5,R5
-        STRB     R6,[R5, R3]
-        ADDS     R5,R5,#+1
-        UXTH     R5,R5
-        STRB     R6,[R5, R3]
-        ADDS     R5,R5,#+1
-        MOVS     R6,#+7
-        UXTH     R5,R5
-        STRB     R6,[R5, R3]
-        ADDS     R5,R5,#+1
-        MOVS     R6,#+37
-        UXTH     R5,R5
-        STRB     R6,[R5, R3]
-        ADDS     R5,R5,#+1
-        MOVS     R6,#+1
-        UXTH     R5,R5
-        STRB     R6,[R5, R3]
-        ADDS     R5,R5,#+1
-        MOVS     R6,#+0
-        UXTH     R5,R5
-        STRB     R6,[R5, R3]
-        ADDS     R5,R5,#+1
-        UXTH     R5,R5
-        STRB     R6,[R5, R3]
-        ADDS     R5,R5,#+1
-        UXTH     R5,R5
-        STRB     R6,[R5, R3]
-        ADDS     R5,R5,#+1
-        UXTH     R5,R5
-        STRB     R6,[R5, R3]
-        LDR.N    R3,??DataTable8
-        STRH     R0,[R3, #+18]
+        SMULBB   R3,R4,R3
+        STRB     R6,[R7, #+100]
+        ADDS     R5,R5,R0
+        STRB     R6,[R5, #+100]
+        LSLS     R3,R3,#+1
+        STRH     R3,[R0, #+18]
 //  890   haudioInstance.frequency=samplingFrequency;
+        STR      R1,[R0, #+8]
 //  891   haudioInstance.buffer_length = haudioInstance.paketDimension * AUDIO_IN_PACKET_NUM;
-        LDRH     R0,[R3, #+18]
-        STR      R1,[R3, #+8]
+        LDRH     R1,[R0, #+18]
 //  892   haudioInstance.channels=Channels;  
-        STRB     R2,[R3, #+4]
+        STRB     R2,[R0, #+4]
 //  893   haudioInstance.upper_treshold = 5;
 //  894   haudioInstance.lower_treshold = 2;
 //  895   haudioInstance.state = STATE_USB_WAITING_FOR_INIT;
-        STRB     R6,[R3, #+20]
-        ADD      R1,R0,R0, LSL #+1
+        STRB     R6,[R0, #+20]
+        ADD      R3,R1,R1, LSL #+1
 //  896   haudioInstance.wr_ptr = 3 * haudioInstance.paketDimension;
 //  897   haudioInstance.rd_ptr = 0;  
-        STRH     R6,[R3, #+22]
+        STRH     R6,[R0, #+22]
 //  898   haudioInstance.dataAmount=0;
-        STRH     R6,[R3, #+16]
-        LSLS     R0,R1,#+1
+        STRH     R6,[R0, #+16]
+        LSLS     R1,R3,#+1
 //  899   haudioInstance.buffer = 0;
-        STR      R6,[R3, #+96]
-        STRH     R0,[R3, #+14]
-        MOVS     R0,#+5
-        STRB     R0,[R3, #+26]
-        MOVS     R0,#+2
-        STRB     R0,[R3, #+27]
-        LDRH     R0,[R3, #+18]
-        ADD      R0,R0,R0, LSL #+1
-        STRH     R0,[R3, #+24]
+        STR      R6,[R0, #+96]
+        STRH     R1,[R0, #+14]
+        MOVS     R1,#+5
+        STRB     R1,[R0, #+26]
+        MOVS     R1,#+2
+        STRB     R1,[R0, #+27]
+        LDRH     R1,[R0, #+18]
+        ADD      R1,R1,R1, LSL #+1
+        STRH     R1,[R0, #+24]
 //  900 }
-        POP      {R4-R6}
+        POP      {R4-R7}
           CFI R4 SameValue
           CFI R5 SameValue
           CFI R6 SameValue
+          CFI R7 SameValue
           CFI CFA R13+0
         BX       LR               ;; return
           CFI EndBlock cfiBlock14
@@ -2049,25 +2126,25 @@ USBD_AUDIO_Init_Microphone_Descriptor:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable8_1:
-        DC32     USBD_AUDIO_CfgDesc
+        DC32     haudioInstance+0xDC
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable8_2:
-        DC32     USBD_AUDIO_CfgDesc+0x78
+        DC32     haudioInstance+0x76
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable8_3:
-        DC32     USBD_AUDIO_CfgDesc+0x12
+        DC32     haudioInstance+0x64
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable8_4:
-        DC32     haudioInstance+0x64
+        DC32     haudioInstance+0xE0
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -2104,12 +2181,12 @@ USBD_AUDIO_Init_Microphone_Descriptor:
 //  915 
 //  916 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-//   606 bytes in section .bss
+//   608 bytes in section .bss
 //    68 bytes in section .data
-// 1 732 bytes in section .text
+// 2 124 bytes in section .text
 // 
-// 1 732 bytes of CODE memory
-//   674 bytes of DATA memory
+// 2 124 bytes of CODE memory
+//   676 bytes of DATA memory
 //
 //Errors: none
 //Warnings: none

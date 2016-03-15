@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       08/Mar/2016  16:10:14
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       15/Mar/2016  18:17:08
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7 --relaxed_fp
 #    List file    =  
@@ -77,195 +77,201 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
      16          /** @defgroup AUDIO_APPLICATION_Exported_Variables 
      17          * @{
      18          */
-     19          #pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE)
+     19          #if EXT_RAM
+     20          #pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE)
+     21          #endif
 
    \                                 In section .bss, at 0xc00181e0
-     20          int16_t PCM_Buffer1[8*AUDIO_OUT_BUFFER_SIZE];
+     22          int16_t PCM_Buffer1[8*AUDIO_OUT_BUFFER_SIZE];
    \                     PCM_Buffer1:
    \   00000000                      DS8 16384
-     21          #pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE+2*8*AUDIO_OUT_BUFFER_SIZE)
+     23          #if EXT_RAM
+     24          #pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE+2*8*AUDIO_OUT_BUFFER_SIZE)
+     25          #endif
 
    \                                 In section .bss, at 0xc001c1e0
-     22          int16_t PCM_Buffer2[8*AUDIO_OUT_BUFFER_SIZE];//AUDIO_CHANNELS
+     26          int16_t PCM_Buffer2[8*AUDIO_OUT_BUFFER_SIZE];//AUDIO_CHANNELS
    \                     PCM_Buffer2:
    \   00000000                      DS8 16384
-     23          #pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE+4*8*AUDIO_OUT_BUFFER_SIZE)
+     27          #if EXT_RAM
+     28          #pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE+4*8*AUDIO_OUT_BUFFER_SIZE)
+     29          #endif
 
    \                                 In section .bss, at 0xc00201e0
-     24          int16_t PCM_Buffer3[8*AUDIO_OUT_BUFFER_SIZE];
+     30          int16_t PCM_Buffer3[8*AUDIO_OUT_BUFFER_SIZE];
    \                     PCM_Buffer3:
    \   00000000                      DS8 16384
-     25          
+     31          
 
    \                                 In section .bss, align 2
-     26          __IO uint16_t cntFrm;
+     32          __IO uint16_t cntFrm;
    \                     cntFrm:
    \   00000000                      DS8 2
 
    \                                 In section .bss, align 1
-     27          __IO uint8_t  swtBufUSBOut;
+     33          __IO uint8_t  swtBufUSBOut;
    \                     swtBufUSBOut:
    \   00000000                      DS8 1
-     28          
-     29          extern uint8_t buffer_switch;
-     30          extern Mic_Array_Data Buffer1,Buffer2,Buffer3;
-     31          extern __IO uint8_t   cntBtnPress;
-     32          
-     33          
      34          
+     35          extern uint8_t buffer_switch;
+     36          extern Mic_Array_Data Buffer1,Buffer2,Buffer3;
+     37          extern __IO uint8_t   cntBtnPress;
+     38          
+     39          
+     40          
 
    \                                 In section .text, align 2, keep-with-next
-     35          void AudioUSBSend(uint16_t idxFrm) /* This function called every ms */
-     36          {
-     37          #if 0
-     38          	switch (cntBtnPress)
-     39          			{
-     40          			  case 0:
-     41          				  switch (buffer_switch)
-     42          				  {
-     43          					case BUF1_PLAY:
-     44          					  Send_Audio_to_USB((int16_t *)&Buffer1.bufMIC1[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
-     45          					  break;
-     46          					case BUF2_PLAY:
-     47          					  Send_Audio_to_USB((int16_t *)&Buffer2.bufMIC1[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
-     48          					  break;
-     49          					case BUF3_PLAY:
-     50          					  Send_Audio_to_USB((int16_t *)&Buffer3.bufMIC1[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+     41          void AudioUSBSend(uint16_t idxFrm) /* This function called every ms */
+     42          {
+     43          #if 0
+     44          	switch (cntBtnPress)
+     45          			{
+     46          			  case 0:
+     47          				  switch (buffer_switch)
+     48          				  {
+     49          					case BUF1_PLAY:
+     50          					  Send_Audio_to_USB((int16_t *)&Buffer1.bufMIC1[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
      51          					  break;
-     52          					default:
-     53          					  break;
-     54          				  }   
-     55          
-     56          					break;
-     57          			  case 1:
-     58          				  switch (buffer_switch)
-     59          				  {
-     60          					case BUF1_PLAY:
-     61          					  Send_Audio_to_USB((int16_t *)&Buffer1.bufMIC2[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
-     62          					  break;
-     63          					case BUF2_PLAY:
-     64          					  Send_Audio_to_USB((int16_t *)&Buffer2.bufMIC2[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
-     65          					  break;
-     66          					case BUF3_PLAY:
-     67          					  Send_Audio_to_USB((int16_t *)&Buffer3.bufMIC2[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+     52          					case BUF2_PLAY:
+     53          					  Send_Audio_to_USB((int16_t *)&Buffer2.bufMIC1[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+     54          					  break;
+     55          					case BUF3_PLAY:
+     56          					  Send_Audio_to_USB((int16_t *)&Buffer3.bufMIC1[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+     57          					  break;
+     58          					default:
+     59          					  break;
+     60          				  }   
+     61          
+     62          					break;
+     63          			  case 1:
+     64          				  switch (buffer_switch)
+     65          				  {
+     66          					case BUF1_PLAY:
+     67          					  Send_Audio_to_USB((int16_t *)&Buffer1.bufMIC2[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
      68          					  break;
-     69          					default:
-     70          					  break;
-     71          				  }   
-     72          
-     73          					break;
-     74          			  case 2:
-     75          				  switch (buffer_switch)
-     76          				  {
-     77          					case BUF1_PLAY:
-     78          					  Send_Audio_to_USB((int16_t *)&Buffer1.bufMIC3[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
-     79          					  break;
-     80          					case BUF2_PLAY:
-     81          					  Send_Audio_to_USB((int16_t *)&Buffer2.bufMIC3[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
-     82          					  break;
-     83          					case BUF3_PLAY:
-     84          					  Send_Audio_to_USB((int16_t *)&Buffer3.bufMIC3[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+     69          					case BUF2_PLAY:
+     70          					  Send_Audio_to_USB((int16_t *)&Buffer2.bufMIC2[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+     71          					  break;
+     72          					case BUF3_PLAY:
+     73          					  Send_Audio_to_USB((int16_t *)&Buffer3.bufMIC2[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+     74          					  break;
+     75          					default:
+     76          					  break;
+     77          				  }   
+     78          
+     79          					break;
+     80          			  case 2:
+     81          				  switch (buffer_switch)
+     82          				  {
+     83          					case BUF1_PLAY:
+     84          					  Send_Audio_to_USB((int16_t *)&Buffer1.bufMIC3[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
      85          					  break;
-     86          					default:
-     87          					  break;
-     88          				  }   
-     89          
-     90          					break;
-     91          			  case 3:
-     92          				  switch (buffer_switch)
-     93          				  {
-     94          					case BUF1_PLAY:
-     95          					  Send_Audio_to_USB((int16_t *)&Buffer1.bufMIC4[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
-     96          					  break;
-     97          					case BUF2_PLAY:
-     98          					  Send_Audio_to_USB((int16_t *)&Buffer2.bufMIC4[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
-     99          					  break;
-    100          					case BUF3_PLAY:
-    101          					  Send_Audio_to_USB((int16_t *)&Buffer3.bufMIC4[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+     86          					case BUF2_PLAY:
+     87          					  Send_Audio_to_USB((int16_t *)&Buffer2.bufMIC3[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+     88          					  break;
+     89          					case BUF3_PLAY:
+     90          					  Send_Audio_to_USB((int16_t *)&Buffer3.bufMIC3[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+     91          					  break;
+     92          					default:
+     93          					  break;
+     94          				  }   
+     95          
+     96          					break;
+     97          			  case 3:
+     98          				  switch (buffer_switch)
+     99          				  {
+    100          					case BUF1_PLAY:
+    101          					  Send_Audio_to_USB((int16_t *)&Buffer1.bufMIC4[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
     102          					  break;
-    103          					default:
-    104          					  break;
-    105          				  }   
-    106          
-    107          					break;
-    108          			  case 4:
-    109          				  switch (buffer_switch)
-    110          				  {
-    111          					case BUF1_PLAY:
-    112          					  Send_Audio_to_USB((int16_t *)&Buffer1.bufMIC5[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
-    113          					  break;
-    114          					case BUF2_PLAY:
-    115          					  Send_Audio_to_USB((int16_t *)&Buffer2.bufMIC5[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
-    116          					  break;
-    117          					case BUF3_PLAY:
-    118          					  Send_Audio_to_USB((int16_t *)&Buffer3.bufMIC5[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+    103          					case BUF2_PLAY:
+    104          					  Send_Audio_to_USB((int16_t *)&Buffer2.bufMIC4[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+    105          					  break;
+    106          					case BUF3_PLAY:
+    107          					  Send_Audio_to_USB((int16_t *)&Buffer3.bufMIC4[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+    108          					  break;
+    109          					default:
+    110          					  break;
+    111          				  }   
+    112          
+    113          					break;
+    114          			  case 4:
+    115          				  switch (buffer_switch)
+    116          				  {
+    117          					case BUF1_PLAY:
+    118          					  Send_Audio_to_USB((int16_t *)&Buffer1.bufMIC5[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
     119          					  break;
-    120          					default:
-    121          					  break;
-    122          				  }   
-    123          
-    124          				  break;
-    125          			  case 5:
-    126          				  switch (buffer_switch)
-    127          				  {
-    128          					case BUF1_PLAY:
-    129          					  Send_Audio_to_USB((int16_t *)&Buffer1.bufMIC6[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
-    130          					  break;
-    131          					case BUF2_PLAY:
-    132          					  Send_Audio_to_USB((int16_t *)&Buffer2.bufMIC6[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
-    133          					  break;
-    134          					case BUF3_PLAY:
-    135          					  Send_Audio_to_USB((int16_t *)&Buffer3.bufMIC6[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+    120          					case BUF2_PLAY:
+    121          					  Send_Audio_to_USB((int16_t *)&Buffer2.bufMIC5[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+    122          					  break;
+    123          					case BUF3_PLAY:
+    124          					  Send_Audio_to_USB((int16_t *)&Buffer3.bufMIC5[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+    125          					  break;
+    126          					default:
+    127          					  break;
+    128          				  }   
+    129          
+    130          				  break;
+    131          			  case 5:
+    132          				  switch (buffer_switch)
+    133          				  {
+    134          					case BUF1_PLAY:
+    135          					  Send_Audio_to_USB((int16_t *)&Buffer1.bufMIC6[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
     136          					  break;
-    137          					default:
-    138          					  break;
-    139          				  }   
-    140          
-    141          				  break;
-    142          			  case 6:
-    143          				  switch (buffer_switch)
-    144          				  {
-    145          					case BUF1_PLAY:
-    146          					  Send_Audio_to_USB((int16_t *)&Buffer1.bufMIC7[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
-    147          					  break;
-    148          					case BUF2_PLAY:
-    149          					  Send_Audio_to_USB((int16_t *)&Buffer2.bufMIC7[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
-    150          					  break;
-    151          					case BUF3_PLAY:
-    152          					  Send_Audio_to_USB((int16_t *)&Buffer3.bufMIC7[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+    137          					case BUF2_PLAY:
+    138          					  Send_Audio_to_USB((int16_t *)&Buffer2.bufMIC6[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+    139          					  break;
+    140          					case BUF3_PLAY:
+    141          					  Send_Audio_to_USB((int16_t *)&Buffer3.bufMIC6[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+    142          					  break;
+    143          					default:
+    144          					  break;
+    145          				  }   
+    146          
+    147          				  break;
+    148          			  case 6:
+    149          				  switch (buffer_switch)
+    150          				  {
+    151          					case BUF1_PLAY:
+    152          					  Send_Audio_to_USB((int16_t *)&Buffer1.bufMIC7[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
     153          					  break;
-    154          					default:
-    155          					  break;
-    156          				  }   
-    157          
-    158          				  break;
-    159          			  case 7:
-    160          				  switch (buffer_switch)
-    161          				  {
-    162          					case BUF1_PLAY:
-    163          					  Send_Audio_to_USB((int16_t *)&Buffer1.bufMIC8[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
-    164          					  break;
-    165          					case BUF2_PLAY:
-    166          					  Send_Audio_to_USB((int16_t *)&Buffer2.bufMIC8[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
-    167          					  break;
-    168          					case BUF3_PLAY:
-    169          					  Send_Audio_to_USB((int16_t *)&Buffer3.bufMIC8[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+    154          					case BUF2_PLAY:
+    155          					  Send_Audio_to_USB((int16_t *)&Buffer2.bufMIC7[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+    156          					  break;
+    157          					case BUF3_PLAY:
+    158          					  Send_Audio_to_USB((int16_t *)&Buffer3.bufMIC7[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+    159          					  break;
+    160          					default:
+    161          					  break;
+    162          				  }   
+    163          
+    164          				  break;
+    165          			  case 7:
+    166          				  switch (buffer_switch)
+    167          				  {
+    168          					case BUF1_PLAY:
+    169          					  Send_Audio_to_USB((int16_t *)&Buffer1.bufMIC8[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
     170          					  break;
-    171          					default:
-    172          					  break;
-    173          				  }   
-    174          
-    175          				  break;
-    176          			  default:
-    177          				   break;
-    178          			}
-    179          
+    171          					case BUF2_PLAY:
+    172          					  Send_Audio_to_USB((int16_t *)&Buffer2.bufMIC8[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+    173          					  break;
+    174          					case BUF3_PLAY:
+    175          					  Send_Audio_to_USB((int16_t *)&Buffer3.bufMIC8[(AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS*idxFrm], (AUDIO_SAMPLING_FREQUENCY/1000)*AUDIO_CHANNELS);
+    176          					  break;
+    177          					default:
+    178          					  break;
+    179          				  }   
     180          
-    181          #else
-    182              //Send_Audio_to_USB((int16_t *)PCM_Buffer1, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS);
-    183              
-    184              (swtBufUSBOut)?Send_Audio_to_USB((int16_t *)&PCM_Buffer2[(2*AUDIO_SAMPLING_FREQUENCY/1000)*2*idxFrm], (2*AUDIO_SAMPLING_FREQUENCY/1000)*2)://AUDIO_CHANNELS
-    185                             Send_Audio_to_USB((int16_t *)&PCM_Buffer1[(2*AUDIO_SAMPLING_FREQUENCY/1000)*2*idxFrm], (2*AUDIO_SAMPLING_FREQUENCY/1000)*2);//AUDIO_CHANNELS
+    181          				  break;
+    182          			  default:
+    183          				   break;
+    184          			}
+    185          
+    186          
+    187          #else
+    188              //Send_Audio_to_USB((int16_t *)PCM_Buffer1, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS);
+    189              
+    190              (swtBufUSBOut)?Send_Audio_to_USB((int16_t *)&PCM_Buffer2[(2*AUDIO_SAMPLING_FREQUENCY/1000)*2*idxFrm], (2*AUDIO_SAMPLING_FREQUENCY/1000)*2)://AUDIO_CHANNELS
+    191                             Send_Audio_to_USB((int16_t *)&PCM_Buffer1[(2*AUDIO_SAMPLING_FREQUENCY/1000)*2*idxFrm], (2*AUDIO_SAMPLING_FREQUENCY/1000)*2);//AUDIO_CHANNELS
    \                     AudioUSBSend: (+1)
    \   00000000   0x....             LDR.N    R1,??DataTable1
    \   00000002   0x7809             LDRB     R1,[R1, #+0]
@@ -279,375 +285,375 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \   00000014   0x.... 0x....      B.W      Send_Audio_to_USB
    \   00000018                      REQUIRE PCM_Buffer2
    \   00000018                      REQUIRE PCM_Buffer1
-    186          #endif			   
-    187          }
-    188          
-    189          /* This function should be called after data processing */
+    192          #endif			   
+    193          }
+    194          
+    195          /* This function should be called after data processing */
 
-   \                                 In section .text, align 2, keep-with-next
-    190          void AudioPlayerUpd(void) /* This function called with period of 64ms */
-    191          {
-    192          #if (!0)
-    193          	switch (buffer_switch)
+   \                                 In section .text, align 4, keep-with-next
+    196          void AudioPlayerUpd(void) /* This function called with period of 64ms */
+    197          {
+    198          #if (!0)
+    199          	switch (buffer_switch)
    \                     AudioPlayerUpd: (+1)
    \   00000000   0x....             LDR.N    R0,??DataTable1_3
    \   00000002   0xE92D 0x41F0      PUSH     {R4-R8,LR}
    \   00000006   0x7800             LDRB     R0,[R0, #+0]
    \   00000008   0xB118             CBZ.N    R0,??AudioPlayerUpd_0
    \   0000000A   0x2802             CMP      R0,#+2
-   \   0000000C   0xD055             BEQ.N    ??AudioPlayerUpd_1
-   \   0000000E   0xD32A             BCC.N    ??AudioPlayerUpd_2
-   \   00000010   0xE07C             B.N      ??AudioPlayerUpd_3
-    194              {
-    195                case BUF1_PLAY:
-    196          		for (uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
+   \   0000000C   0xD058             BEQ.N    ??AudioPlayerUpd_1
+   \   0000000E   0xD32B             BCC.N    ??AudioPlayerUpd_2
+   \   00000010   0xE081             B.N      ??AudioPlayerUpd_3
+    200              {
+    201                case BUF1_PLAY:
+    202          		for (uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
    \                     ??AudioPlayerUpd_0: (+1)
    \   00000012   0x2300             MOVS     R3,#+0
    \   00000014   0x....             LDR.N    R4,??DataTable1_4
    \   00000016   0x....             LDR.N    R0,??DataTable1
    \   00000018   0x....             LDR.N    R1,??DataTable1_1  ;; 0xc001c1e0
    \   0000001A   0x....             LDR.N    R2,??DataTable1_2  ;; 0xc00181e0
-    197          		{
-    198          		  if (i%2==0)
+    203          		{
+    204          		  if (i%2==0)
    \                     ??AudioPlayerUpd_4: (+1)
    \   0000001C   0xEB03 0x75D3      ADD      R5,R3,R3, LSR #+31
    \   00000020   0x106D             ASRS     R5,R5,#+1
    \   00000022   0xEBB3 0x0645      SUBS     R6,R3,R5, LSL #+1
-   \   00000026   0xD118             BNE.N    ??AudioPlayerUpd_5
-    199          		  {
-    200          			  for(uint8_t j=0;j<8;j++)//AUDIO_CHANNELS
+   \   00000026   0xD119             BNE.N    ??AudioPlayerUpd_5
+    205          		  {
+    206          			  for(uint8_t j=0;j<8;j++)//AUDIO_CHANNELS
    \   00000028   0xEB02 0x1605      ADD      R6,R2,R5, LSL #+4
-   \   0000002C   0x46A0             MOV      R8,R4
-   \   0000002E   0xEB01 0x1505      ADD      R5,R1,R5, LSL #+4
-   \   00000032   0xF04F 0x0C08      MOV      R12,#+8
-    201          			  {
-    202          				  (swtBufUSBOut)?(PCM_Buffer1[8*(i/2)+j] = (int16_t)*(&Buffer3.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i)):
-    203          								  (PCM_Buffer2[8*(i/2)+j] = (int16_t)*(&Buffer3.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i));
+   \   0000002C   0xEA4F 0x0804      MOV.W    R8,R4
+   \   00000030   0xEB01 0x1505      ADD      R5,R1,R5, LSL #+4
+   \   00000034   0xF04F 0x0C08      MOV      R12,#+8
+    207          			  {
+    208          				  (swtBufUSBOut)?(PCM_Buffer1[8*(i/2)+j] = (int16_t)*(&Buffer3.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i)):
+    209          								  (PCM_Buffer2[8*(i/2)+j] = (int16_t)*(&Buffer3.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i));
    \                     ??AudioPlayerUpd_6: (+1)
-   \   00000036   0xF9B8 0xE000      LDRSH    LR,[R8, #+0]
-   \   0000003A   0x7807             LDRB     R7,[R0, #+0]
-    204          
-    205          			  }
-   \   0000003C   0xF508 0x5880      ADD      R8,R8,#+4096
-   \   00000040   0xF108 0x0814      ADD      R8,R8,#+20
-   \   00000044   0x2F00             CMP      R7,#+0
-   \   00000046   0xBF14             ITE      NE 
-   \   00000048   0xF8A6 0xE000      STRHNE   LR,[R6, #+0]
-   \   0000004C   0xF8A5 0xE000      STRHEQ   LR,[R5, #+0]
-   \   00000050   0x1CAD             ADDS     R5,R5,#+2
-   \   00000052   0x1CB6             ADDS     R6,R6,#+2
-   \   00000054   0xF1BC 0x0C01      SUBS     R12,R12,#+1
-   \   00000058   0xD1ED             BNE.N    ??AudioPlayerUpd_6
-    206          		  }
-    207          		}
+   \   00000038   0xF9B8 0xE000      LDRSH    LR,[R8, #+0]
+   \   0000003C   0x7807             LDRB     R7,[R0, #+0]
+    210          
+    211          			  }
+   \   0000003E   0xF508 0x5880      ADD      R8,R8,#+4096
+   \   00000042   0xF108 0x0814      ADD      R8,R8,#+20
+   \   00000046   0x2F00             CMP      R7,#+0
+   \   00000048   0xBF14             ITE      NE 
+   \   0000004A   0xF8A6 0xE000      STRHNE   LR,[R6, #+0]
+   \   0000004E   0xF8A5 0xE000      STRHEQ   LR,[R5, #+0]
+   \   00000052   0x1CAD             ADDS     R5,R5,#+2
+   \   00000054   0x1CB6             ADDS     R6,R6,#+2
+   \   00000056   0xF1BC 0x0C01      SUBS     R12,R12,#+1
+   \   0000005A   0xD1ED             BNE.N    ??AudioPlayerUpd_6
+    212          		  }
+    213          		}
    \                     ??AudioPlayerUpd_5: (+1)
-   \   0000005A   0x1C5B             ADDS     R3,R3,#+1
-   \   0000005C   0x1CA4             ADDS     R4,R4,#+2
-   \   0000005E   0xF5B3 0x6F80      CMP      R3,#+1024
-   \   00000062   0xDA53             BGE.N    ??AudioPlayerUpd_3
-   \   00000064   0xE7DA             B.N      ??AudioPlayerUpd_4
-    208                  break;    
-    209                case BUF2_PLAY:
-    210          	  	for (uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
+   \   0000005C   0x1C5B             ADDS     R3,R3,#+1
+   \   0000005E   0x1CA4             ADDS     R4,R4,#+2
+   \   00000060   0xF5B3 0x6F80      CMP      R3,#+1024
+   \   00000064   0xDA57             BGE.N    ??AudioPlayerUpd_3
+   \   00000066   0xE7D9             B.N      ??AudioPlayerUpd_4
+    214                  break;    
+    215                case BUF2_PLAY:
+    216          	  	for (uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
    \                     ??AudioPlayerUpd_2: (+1)
-   \   00000066   0x2300             MOVS     R3,#+0
-   \   00000068   0x....             LDR.N    R4,??DataTable1_5
-   \   0000006A   0x....             LDR.N    R0,??DataTable1
-   \   0000006C   0x....             LDR.N    R1,??DataTable1_1  ;; 0xc001c1e0
-   \   0000006E   0x....             LDR.N    R2,??DataTable1_2  ;; 0xc00181e0
-    211           	  	{
-    212           	  	    if (i%2==0)
+   \   00000068   0x2300             MOVS     R3,#+0
+   \   0000006A   0x....             LDR.N    R4,??DataTable1_5
+   \   0000006C   0x....             LDR.N    R0,??DataTable1
+   \   0000006E   0x....             LDR.N    R1,??DataTable1_1  ;; 0xc001c1e0
+   \   00000070   0x.... 0x....      LDR.W    R2,??DataTable1_2
+    217           	  	{
+    218           	  	    if (i%2==0)
    \                     ??AudioPlayerUpd_7: (+1)
-   \   00000070   0xEB03 0x75D3      ADD      R5,R3,R3, LSR #+31
-   \   00000074   0x106D             ASRS     R5,R5,#+1
-   \   00000076   0xEBB3 0x0645      SUBS     R6,R3,R5, LSL #+1
-   \   0000007A   0xD118             BNE.N    ??AudioPlayerUpd_8
-    213           	  	    {
-    214                          for(uint8_t j=0;j<8;j++)//AUDIO_CHANNELS
-   \   0000007C   0xEB02 0x1605      ADD      R6,R2,R5, LSL #+4
-   \   00000080   0x46A0             MOV      R8,R4
-   \   00000082   0xEB01 0x1505      ADD      R5,R1,R5, LSL #+4
-   \   00000086   0xF04F 0x0C08      MOV      R12,#+8
-    215                          {
-    216                              (swtBufUSBOut)?(PCM_Buffer1[8*(i/2)+j] = (int16_t)*(&Buffer1.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i)):
-    217          						            (PCM_Buffer2[8*(i/2)+j] = (int16_t)*(&Buffer1.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i));
+   \   00000074   0xEB03 0x75D3      ADD      R5,R3,R3, LSR #+31
+   \   00000078   0x106D             ASRS     R5,R5,#+1
+   \   0000007A   0xEBB3 0x0645      SUBS     R6,R3,R5, LSL #+1
+   \   0000007E   0xD119             BNE.N    ??AudioPlayerUpd_8
+    219           	  	    {
+    220                          for(uint8_t j=0;j<8;j++)//AUDIO_CHANNELS
+   \   00000080   0xEB02 0x1605      ADD      R6,R2,R5, LSL #+4
+   \   00000084   0xEA4F 0x0804      MOV.W    R8,R4
+   \   00000088   0xEB01 0x1505      ADD      R5,R1,R5, LSL #+4
+   \   0000008C   0xF04F 0x0C08      MOV      R12,#+8
+    221                          {
+    222                              (swtBufUSBOut)?(PCM_Buffer1[8*(i/2)+j] = (int16_t)*(&Buffer1.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i)):
+    223          						            (PCM_Buffer2[8*(i/2)+j] = (int16_t)*(&Buffer1.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i));
    \                     ??AudioPlayerUpd_9: (+1)
-   \   0000008A   0xF9B8 0xE000      LDRSH    LR,[R8, #+0]
-   \   0000008E   0x7807             LDRB     R7,[R0, #+0]
-    218                          }
-   \   00000090   0xF508 0x5880      ADD      R8,R8,#+4096
-   \   00000094   0xF108 0x0814      ADD      R8,R8,#+20
-   \   00000098   0x2F00             CMP      R7,#+0
-   \   0000009A   0xBF14             ITE      NE 
-   \   0000009C   0xF8A6 0xE000      STRHNE   LR,[R6, #+0]
-   \   000000A0   0xF8A5 0xE000      STRHEQ   LR,[R5, #+0]
-   \   000000A4   0x1CAD             ADDS     R5,R5,#+2
-   \   000000A6   0x1CB6             ADDS     R6,R6,#+2
-   \   000000A8   0xF1BC 0x0C01      SUBS     R12,R12,#+1
-   \   000000AC   0xD1ED             BNE.N    ??AudioPlayerUpd_9
-    219           	  	    }
-    220          		}
+   \   00000090   0xF9B8 0xE000      LDRSH    LR,[R8, #+0]
+   \   00000094   0x7807             LDRB     R7,[R0, #+0]
+    224                          }
+   \   00000096   0xF508 0x5880      ADD      R8,R8,#+4096
+   \   0000009A   0xF108 0x0814      ADD      R8,R8,#+20
+   \   0000009E   0x2F00             CMP      R7,#+0
+   \   000000A0   0xBF14             ITE      NE 
+   \   000000A2   0xF8A6 0xE000      STRHNE   LR,[R6, #+0]
+   \   000000A6   0xF8A5 0xE000      STRHEQ   LR,[R5, #+0]
+   \   000000AA   0x1CAD             ADDS     R5,R5,#+2
+   \   000000AC   0x1CB6             ADDS     R6,R6,#+2
+   \   000000AE   0xF1BC 0x0C01      SUBS     R12,R12,#+1
+   \   000000B2   0xD1ED             BNE.N    ??AudioPlayerUpd_9
+    225           	  	    }
+    226          		}
    \                     ??AudioPlayerUpd_8: (+1)
-   \   000000AE   0x1C5B             ADDS     R3,R3,#+1
-   \   000000B0   0x1CA4             ADDS     R4,R4,#+2
-   \   000000B2   0xF5B3 0x6F80      CMP      R3,#+1024
-   \   000000B6   0xDA29             BGE.N    ??AudioPlayerUpd_3
-   \   000000B8   0xE7DA             B.N      ??AudioPlayerUpd_7
-    221          		
-    222                  break;
-    223                case BUF3_PLAY:
-    224          	  	for (uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
+   \   000000B4   0x1C5B             ADDS     R3,R3,#+1
+   \   000000B6   0x1CA4             ADDS     R4,R4,#+2
+   \   000000B8   0xF5B3 0x6F80      CMP      R3,#+1024
+   \   000000BC   0xDA2B             BGE.N    ??AudioPlayerUpd_3
+   \   000000BE   0xE7D9             B.N      ??AudioPlayerUpd_7
+    227          		
+    228                  break;
+    229                case BUF3_PLAY:
+    230          	  	for (uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
    \                     ??AudioPlayerUpd_1: (+1)
-   \   000000BA   0x2300             MOVS     R3,#+0
-   \   000000BC   0x....             LDR.N    R4,??DataTable1_6
-   \   000000BE   0x....             LDR.N    R0,??DataTable1
-   \   000000C0   0x....             LDR.N    R1,??DataTable1_1  ;; 0xc001c1e0
-   \   000000C2   0x....             LDR.N    R2,??DataTable1_2  ;; 0xc00181e0
-    225           	  	{
-    226           	  	    if (i%2==0)
+   \   000000C0   0x2300             MOVS     R3,#+0
+   \   000000C2   0x....             LDR.N    R4,??DataTable1_6
+   \   000000C4   0x....             LDR.N    R0,??DataTable1
+   \   000000C6   0x....             LDR.N    R1,??DataTable1_1  ;; 0xc001c1e0
+   \   000000C8   0x.... 0x....      LDR.W    R2,??DataTable1_2
+    231           	  	{
+    232           	  	    if (i%2==0)
    \                     ??AudioPlayerUpd_10: (+1)
-   \   000000C4   0xEB03 0x75D3      ADD      R5,R3,R3, LSR #+31
-   \   000000C8   0x106D             ASRS     R5,R5,#+1
-   \   000000CA   0xEBB3 0x0645      SUBS     R6,R3,R5, LSL #+1
-   \   000000CE   0xD118             BNE.N    ??AudioPlayerUpd_11
-    227           	  	    {
-    228          	 	  	    for(uint8_t j=0;j<8;j++)//AUDIO_CHANNELS
-   \   000000D0   0xEB02 0x1605      ADD      R6,R2,R5, LSL #+4
-   \   000000D4   0x46A0             MOV      R8,R4
-   \   000000D6   0xEB01 0x1505      ADD      R5,R1,R5, LSL #+4
-   \   000000DA   0xF04F 0x0C08      MOV      R12,#+8
-    229          	 	  	    {
-    230                                      (swtBufUSBOut)?(PCM_Buffer1[8*(i/2)+j] = (int16_t)*(&Buffer2.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i)):
-    231          								            (PCM_Buffer2[8*(i/2)+j] = (int16_t)*(&Buffer2.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i));	                
+   \   000000CC   0xEB03 0x75D3      ADD      R5,R3,R3, LSR #+31
+   \   000000D0   0x106D             ASRS     R5,R5,#+1
+   \   000000D2   0xEBB3 0x0645      SUBS     R6,R3,R5, LSL #+1
+   \   000000D6   0xD119             BNE.N    ??AudioPlayerUpd_11
+    233           	  	    {
+    234          	 	  	    for(uint8_t j=0;j<8;j++)//AUDIO_CHANNELS
+   \   000000D8   0xEB02 0x1605      ADD      R6,R2,R5, LSL #+4
+   \   000000DC   0xEA4F 0x0804      MOV.W    R8,R4
+   \   000000E0   0xEB01 0x1505      ADD      R5,R1,R5, LSL #+4
+   \   000000E4   0xF04F 0x0C08      MOV      R12,#+8
+    235          	 	  	    {
+    236                                      (swtBufUSBOut)?(PCM_Buffer1[8*(i/2)+j] = (int16_t)*(&Buffer2.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i)):
+    237          								            (PCM_Buffer2[8*(i/2)+j] = (int16_t)*(&Buffer2.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i));	                
    \                     ??AudioPlayerUpd_12: (+1)
-   \   000000DE   0xF9B8 0xE000      LDRSH    LR,[R8, #+0]
-   \   000000E2   0x7807             LDRB     R7,[R0, #+0]
-    232          	 	  	    }
-   \   000000E4   0xF508 0x5880      ADD      R8,R8,#+4096
-   \   000000E8   0xF108 0x0814      ADD      R8,R8,#+20
-   \   000000EC   0x2F00             CMP      R7,#+0
-   \   000000EE   0xBF14             ITE      NE 
-   \   000000F0   0xF8A6 0xE000      STRHNE   LR,[R6, #+0]
-   \   000000F4   0xF8A5 0xE000      STRHEQ   LR,[R5, #+0]
-   \   000000F8   0x1CAD             ADDS     R5,R5,#+2
-   \   000000FA   0x1CB6             ADDS     R6,R6,#+2
-   \   000000FC   0xF1BC 0x0C01      SUBS     R12,R12,#+1
-   \   00000100   0xD1ED             BNE.N    ??AudioPlayerUpd_12
-    233           	  	    }
-    234          		}	  	
+   \   000000E8   0xF9B8 0xE000      LDRSH    LR,[R8, #+0]
+   \   000000EC   0x7807             LDRB     R7,[R0, #+0]
+    238          	 	  	    }
+   \   000000EE   0xF508 0x5880      ADD      R8,R8,#+4096
+   \   000000F2   0xF108 0x0814      ADD      R8,R8,#+20
+   \   000000F6   0x2F00             CMP      R7,#+0
+   \   000000F8   0xBF14             ITE      NE 
+   \   000000FA   0xF8A6 0xE000      STRHNE   LR,[R6, #+0]
+   \   000000FE   0xF8A5 0xE000      STRHEQ   LR,[R5, #+0]
+   \   00000102   0x1CAD             ADDS     R5,R5,#+2
+   \   00000104   0x1CB6             ADDS     R6,R6,#+2
+   \   00000106   0xF1BC 0x0C01      SUBS     R12,R12,#+1
+   \   0000010A   0xD1ED             BNE.N    ??AudioPlayerUpd_12
+    239           	  	    }
+    240          		}	  	
    \                     ??AudioPlayerUpd_11: (+1)
-   \   00000102   0x1C5B             ADDS     R3,R3,#+1
-   \   00000104   0x1CA4             ADDS     R4,R4,#+2
-   \   00000106   0xF5B3 0x6F80      CMP      R3,#+1024
-   \   0000010A   0xDBDB             BLT.N    ??AudioPlayerUpd_10
-    235                  break;
-    236                default:
-    237                  break;
-    238              }
-    239          
-    240          	swtBufUSBOut^=0x01;
-   \                     ??AudioPlayerUpd_3: (+1)
-   \   0000010C   0x....             LDR.N    R0,??DataTable1
-   \   0000010E   0x7801             LDRB     R1,[R0, #+0]
-   \   00000110   0xF081 0x0101      EOR      R1,R1,#0x1
-   \   00000114   0x7001             STRB     R1,[R0, #+0]
-    241          #else
-    242          
-    243          swtBufUSBOut^=0x01;
-    244          
+   \   0000010C   0x1C5B             ADDS     R3,R3,#+1
+   \   0000010E   0x1CA4             ADDS     R4,R4,#+2
+   \   00000110   0xF5B3 0x6F80      CMP      R3,#+1024
+   \   00000114   0xDBDA             BLT.N    ??AudioPlayerUpd_10
+    241                  break;
+    242                default:
+    243                  break;
+    244              }
     245          
-    246          /*-------------------------------------------------------------------------------------------------------------
-    247          			  
-    248          	Sequence  Record Data                     Processing Data                 Player Data
-    249          			  
-    250          	1-------  Buffer1                         Buffer2                         Buffer3
-    251          			  
-    252          	2-------  Buffer3                         Buffer1                         Buffer2		  
+    246          	swtBufUSBOut^=0x01;
+   \                     ??AudioPlayerUpd_3: (+1)
+   \   00000116   0x....             LDR.N    R0,??DataTable1
+   \   00000118   0x7801             LDRB     R1,[R0, #+0]
+   \   0000011A   0xF081 0x0101      EOR      R1,R1,#0x1
+   \   0000011E   0x7001             STRB     R1,[R0, #+0]
+    247          #else
+    248          
+    249          swtBufUSBOut^=0x01;
+    250          
+    251          
+    252          /*-------------------------------------------------------------------------------------------------------------
     253          			  
-    254          	3-------  Buffer2                         Buffer3                         Buffer1 
-    255           ---------------------------------------------------------------------------------------------------------------*/
-    256          
-    257          switch (buffer_switch)
-    258          {
-    259          	case BUF1_PLAY:
-    260          		  switch (cntBtnPress)
-    261          		  {
-    262          			case 0:
-    263          				  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-    264          				  { 		   
-    265          						   (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC1[i]):(PCM_Buffer2[i] = Buffer3.bufMIC1[i]);
-    266          				  }
-    267          				  break;
-    268          			case 1:
+    254          	Sequence  Record Data                     Processing Data                 Player Data
+    255          			  
+    256          	1-------  Buffer1                         Buffer2                         Buffer3
+    257          			  
+    258          	2-------  Buffer3                         Buffer1                         Buffer2		  
+    259          			  
+    260          	3-------  Buffer2                         Buffer3                         Buffer1 
+    261           ---------------------------------------------------------------------------------------------------------------*/
+    262          
+    263          switch (buffer_switch)
+    264          {
+    265          	case BUF1_PLAY:
+    266          		  switch (cntBtnPress)
+    267          		  {
+    268          			case 0:
     269          				  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
     270          				  { 		   
-    271          							(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC2[i]):(PCM_Buffer2[i] = Buffer3.bufMIC2[i]);
+    271          						   (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC1[i]):(PCM_Buffer2[i] = Buffer3.bufMIC1[i]);
     272          				  }
     273          				  break;
-    274          			case 2:
+    274          			case 1:
     275          				  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-    276          				  {
-    277          					  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC3[i]):(PCM_Buffer2[i] = Buffer3.bufMIC3[i]);
+    276          				  { 		   
+    277          							(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC2[i]):(PCM_Buffer2[i] = Buffer3.bufMIC2[i]);
     278          				  }
     279          				  break;
-    280          			case 3:
+    280          			case 2:
     281          				  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-    282          				  { 		 
-    283          					  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC4[i]):(PCM_Buffer2[i] = Buffer3.bufMIC4[i]);
+    282          				  {
+    283          					  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC3[i]):(PCM_Buffer2[i] = Buffer3.bufMIC3[i]);
     284          				  }
     285          				  break;
-    286          			case 4:
-    287          				for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-    288          				{		   
-    289          					(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC5[i]):(PCM_Buffer2[i] = Buffer3.bufMIC5[i]);
-    290          				}
-    291          				break;
-    292          			case 5:
+    286          			case 3:
+    287          				  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+    288          				  { 		 
+    289          					  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC4[i]):(PCM_Buffer2[i] = Buffer3.bufMIC4[i]);
+    290          				  }
+    291          				  break;
+    292          			case 4:
     293          				for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
     294          				{		   
-    295          					(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC6[i]):(PCM_Buffer2[i] = Buffer3.bufMIC6[i]);
+    295          					(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC5[i]):(PCM_Buffer2[i] = Buffer3.bufMIC5[i]);
     296          				}
     297          				break;
-    298          			case 6:
+    298          			case 5:
     299          				for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-    300          				{
-    301          					(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC7[i]):(PCM_Buffer2[i] = Buffer3.bufMIC7[i]);
+    300          				{		   
+    301          					(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC6[i]):(PCM_Buffer2[i] = Buffer3.bufMIC6[i]);
     302          				}
     303          				break;
-    304          			case 7:
+    304          			case 6:
     305          				for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
     306          				{
-    307          					(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC8[i]):(PCM_Buffer2[i] = Buffer3.bufMIC8[i]);
+    307          					(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC7[i]):(PCM_Buffer2[i] = Buffer3.bufMIC7[i]);
     308          				}
     309          				break;
-    310          			default:
-    311          				 break;
-    312          		  } 					  
-    313          	  break;
-    314          
-    315            case BUF2_PLAY:
-    316          	  switch (cntBtnPress)
-    317          	  {
-    318          		case 0:
-    319          			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-    320          			  { 		   
-    321          					   (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC1[i]):(PCM_Buffer2[i] = Buffer1.bufMIC1[i]);
-    322          			  }
-    323          			  break;
-    324          		case 1:
+    310          			case 7:
+    311          				for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+    312          				{
+    313          					(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC8[i]):(PCM_Buffer2[i] = Buffer3.bufMIC8[i]);
+    314          				}
+    315          				break;
+    316          			default:
+    317          				 break;
+    318          		  } 					  
+    319          	  break;
+    320          
+    321            case BUF2_PLAY:
+    322          	  switch (cntBtnPress)
+    323          	  {
+    324          		case 0:
     325          			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
     326          			  { 		   
-    327          						(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC2[i]):(PCM_Buffer2[i] = Buffer1.bufMIC2[i]);
+    327          					   (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC1[i]):(PCM_Buffer2[i] = Buffer1.bufMIC1[i]);
     328          			  }
     329          			  break;
-    330          		case 2:
+    330          		case 1:
     331          			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-    332          			  {
-    333          				  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC3[i]):(PCM_Buffer2[i] = Buffer1.bufMIC3[i]);
+    332          			  { 		   
+    333          						(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC2[i]):(PCM_Buffer2[i] = Buffer1.bufMIC2[i]);
     334          			  }
     335          			  break;
-    336          		case 3:
+    336          		case 2:
     337          			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-    338          			  { 		 
-    339          				  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC4[i]):(PCM_Buffer2[i] = Buffer1.bufMIC4[i]);
+    338          			  {
+    339          				  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC3[i]):(PCM_Buffer2[i] = Buffer1.bufMIC3[i]);
     340          			  }
     341          			  break;
-    342          		case 4:
-    343          			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-    344          			{		   
-    345          				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC5[i]):(PCM_Buffer2[i] = Buffer1.bufMIC5[i]);
-    346          			}
-    347          			break;
-    348          		case 5:
+    342          		case 3:
+    343          			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+    344          			  { 		 
+    345          				  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC4[i]):(PCM_Buffer2[i] = Buffer1.bufMIC4[i]);
+    346          			  }
+    347          			  break;
+    348          		case 4:
     349          			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
     350          			{		   
-    351          				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC6[i]):(PCM_Buffer2[i] = Buffer1.bufMIC6[i]);
+    351          				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC5[i]):(PCM_Buffer2[i] = Buffer1.bufMIC5[i]);
     352          			}
     353          			break;
-    354          		case 6:
+    354          		case 5:
     355          			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-    356          			{
-    357          				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC7[i]):(PCM_Buffer2[i] = Buffer1.bufMIC7[i]);
+    356          			{		   
+    357          				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC6[i]):(PCM_Buffer2[i] = Buffer1.bufMIC6[i]);
     358          			}
     359          			break;
-    360          		case 7:
+    360          		case 6:
     361          			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
     362          			{
-    363          				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC8[i]):(PCM_Buffer2[i] = Buffer1.bufMIC8[i]);
+    363          				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC7[i]):(PCM_Buffer2[i] = Buffer1.bufMIC7[i]);
     364          			}
     365          			break;
-    366          		default:
-    367          			 break;
-    368          	  }
-    369          	  
-    370           
-    371            
-    372          	break;
-    373            case BUF3_PLAY:
-    374          	  switch (cntBtnPress)
-    375          	  {
-    376          		case 0:
-    377          			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-    378          			  { 		   
-    379          					   (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC1[i]):(PCM_Buffer2[i] = Buffer2.bufMIC1[i]);
-    380          			  }
-    381          			  break;
-    382          		case 1:
+    366          		case 7:
+    367          			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+    368          			{
+    369          				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC8[i]):(PCM_Buffer2[i] = Buffer1.bufMIC8[i]);
+    370          			}
+    371          			break;
+    372          		default:
+    373          			 break;
+    374          	  }
+    375          	  
+    376           
+    377            
+    378          	break;
+    379            case BUF3_PLAY:
+    380          	  switch (cntBtnPress)
+    381          	  {
+    382          		case 0:
     383          			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
     384          			  { 		   
-    385          						(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC2[i]):(PCM_Buffer2[i] = Buffer2.bufMIC2[i]);
+    385          					   (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC1[i]):(PCM_Buffer2[i] = Buffer2.bufMIC1[i]);
     386          			  }
     387          			  break;
-    388          		case 2:
+    388          		case 1:
     389          			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-    390          			  {
-    391          				  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC3[i]):(PCM_Buffer2[i] = Buffer2.bufMIC3[i]);
+    390          			  { 		   
+    391          						(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC2[i]):(PCM_Buffer2[i] = Buffer2.bufMIC2[i]);
     392          			  }
     393          			  break;
-    394          		case 3:
+    394          		case 2:
     395          			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-    396          			  { 		 
-    397          				  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC4[i]):(PCM_Buffer2[i] = Buffer2.bufMIC4[i]);
+    396          			  {
+    397          				  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC3[i]):(PCM_Buffer2[i] = Buffer2.bufMIC3[i]);
     398          			  }
     399          			  break;
-    400          		case 4:
-    401          			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-    402          			{		   
-    403          				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC5[i]):(PCM_Buffer2[i] = Buffer2.bufMIC5[i]);
-    404          			}
-    405          			break;
-    406          		case 5:
+    400          		case 3:
+    401          			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+    402          			  { 		 
+    403          				  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC4[i]):(PCM_Buffer2[i] = Buffer2.bufMIC4[i]);
+    404          			  }
+    405          			  break;
+    406          		case 4:
     407          			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
     408          			{		   
-    409          				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC6[i]):(PCM_Buffer2[i] = Buffer2.bufMIC6[i]);
+    409          				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC5[i]):(PCM_Buffer2[i] = Buffer2.bufMIC5[i]);
     410          			}
     411          			break;
-    412          		case 6:
+    412          		case 5:
     413          			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-    414          			{
-    415          				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC7[i]):(PCM_Buffer2[i] = Buffer2.bufMIC7[i]);
+    414          			{		   
+    415          				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC6[i]):(PCM_Buffer2[i] = Buffer2.bufMIC6[i]);
     416          			}
     417          			break;
-    418          		case 7:
+    418          		case 6:
     419          			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
     420          			{
-    421          				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC8[i]):(PCM_Buffer2[i] = Buffer2.bufMIC8[i]);
+    421          				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC7[i]):(PCM_Buffer2[i] = Buffer2.bufMIC7[i]);
     422          			}
     423          			break;
-    424          		default:
-    425          			 break;
-    426          	  }
-    427          		  
-    428          	break;
-    429            default:
-    430          	break;
-    431          }
-    432          #endif
-    433          
-    434          }
-   \   00000116   0xE8BD 0x81F0      POP      {R4-R8,PC}       ;; return
-   \   0000011A                      REQUIRE PCM_Buffer1
-   \   0000011A                      REQUIRE PCM_Buffer2
+    424          		case 7:
+    425          			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+    426          			{
+    427          				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC8[i]):(PCM_Buffer2[i] = Buffer2.bufMIC8[i]);
+    428          			}
+    429          			break;
+    430          		default:
+    431          			 break;
+    432          	  }
+    433          		  
+    434          	break;
+    435            default:
+    436          	break;
+    437          }
+    438          #endif
+    439          
+    440          }
+   \   00000120   0xE8BD 0x81F0      POP      {R4-R8,PC}       ;; return
+   \   00000124                      REQUIRE PCM_Buffer1
+   \   00000124                      REQUIRE PCM_Buffer2
 
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable1:
@@ -676,9 +682,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable1_6:
    \   00000000   0x........         DC32     Buffer2
-    435          
-    436          
-    437          
+    441          
+    442          
+    443          
 
    Maximum stack usage in bytes:
 
@@ -700,7 +706,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
        4  ??DataTable1_4
        4  ??DataTable1_5
        4  ??DataTable1_6
-     282  AudioPlayerUpd
+     292  AudioPlayerUpd
       24  AudioUSBSend
    16384  PCM_Buffer1
    16384  PCM_Buffer2
@@ -711,9 +717,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
  
       3 bytes in section .bss
  49 152 bytes in section .bss  (abs)
-    334 bytes in section .text
+    344 bytes in section .text
  
-    334 bytes of CODE memory
+    344 bytes of CODE memory
  49 155 bytes of DATA memory
 
 Errors: none

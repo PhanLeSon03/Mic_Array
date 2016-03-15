@@ -16,11 +16,17 @@
 /** @defgroup AUDIO_APPLICATION_Exported_Variables 
 * @{
 */
+#if EXT_RAM
 #pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE)
+#endif
 int16_t PCM_Buffer1[8*AUDIO_OUT_BUFFER_SIZE];
+#if EXT_RAM
 #pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE+2*8*AUDIO_OUT_BUFFER_SIZE)
+#endif
 int16_t PCM_Buffer2[8*AUDIO_OUT_BUFFER_SIZE];//AUDIO_CHANNELS
+#if EXT_RAM
 #pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE+4*8*AUDIO_OUT_BUFFER_SIZE)
+#endif
 int16_t PCM_Buffer3[8*AUDIO_OUT_BUFFER_SIZE];
 
 __IO uint16_t cntFrm;

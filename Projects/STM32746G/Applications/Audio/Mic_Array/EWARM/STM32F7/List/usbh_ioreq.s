@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      08/Mar/2016  16:10:21
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      15/Mar/2016  18:17:16
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -227,7 +227,6 @@
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock0 Using cfiCommon0
           CFI Function USBH_CtlSendSetup
-          CFI NoCalls
         THUMB
 //  100 USBH_StatusTypeDef USBH_CtlSendSetup (USBH_HandleTypeDef *phost, 
 //  101                                 uint8_t *buff, 
@@ -259,8 +258,14 @@ USBH_CtlSendSetup:
         STR      R1,[SP, #+0]
         MOVS     R3,#+0
         MOVS     R2,#+0
-        B.N      ??Subroutine0_0
+        MOV      R1,R4
+          CFI FunCall USBH_LL_SubmitURB
+        BL       USBH_LL_SubmitURB
 //  113   return USBH_OK;  
+        MOVS     R0,#+0
+        ADD      SP,SP,#+16
+          CFI CFA R13+8
+        POP      {R4,PC}          ;; return
 //  114 }
           CFI EndBlock cfiBlock0
 //  115 
@@ -278,7 +283,6 @@ USBH_CtlSendSetup:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock1 Using cfiCommon0
           CFI Function USBH_CtlSendData
-          CFI NoCalls
         THUMB
 //  126 USBH_StatusTypeDef USBH_CtlSendData (USBH_HandleTypeDef *phost, 
 //  127                                 uint8_t *buff, 
@@ -317,9 +321,18 @@ USBH_CtlSendData:
         MOVS     R1,#+1
         STR      R3,[SP, #+12]
         MOVS     R3,#+0
-        B.N      ?Subroutine1
+        STR      R2,[SP, #+8]
+        MOVS     R2,#+0
+        STR      R1,[SP, #+0]
+        MOV      R1,R4
+          CFI FunCall USBH_LL_SubmitURB
+        BL       USBH_LL_SubmitURB
 //  145   
 //  146   return USBH_OK;
+        MOVS     R0,#+0
+        ADD      SP,SP,#+20
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
 //  147 }
           CFI EndBlock cfiBlock1
 //  148 
@@ -337,7 +350,6 @@ USBH_CtlSendData:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock2 Using cfiCommon0
           CFI Function USBH_CtlReceiveData
-          CFI NoCalls
         THUMB
 //  159 USBH_StatusTypeDef USBH_CtlReceiveData(USBH_HandleTypeDef *phost, 
 //  160                                 uint8_t* buff, 
@@ -367,8 +379,14 @@ USBH_CtlReceiveData:
         STR      R1,[SP, #+0]
         MOVS     R2,#+1
         STR      R3,[SP, #+12]
-        B.N      ??Subroutine0_0
+        MOV      R1,R4
+          CFI FunCall USBH_LL_SubmitURB
+        BL       USBH_LL_SubmitURB
 //  172   return USBH_OK;
+        MOVS     R0,#+0
+        ADD      SP,SP,#+16
+          CFI CFA R13+8
+        POP      {R4,PC}          ;; return
 //  173   
 //  174 }
           CFI EndBlock cfiBlock2
@@ -387,7 +405,6 @@ USBH_CtlReceiveData:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock3 Using cfiCommon0
           CFI Function USBH_BulkSendData
-          CFI NoCalls
         THUMB
 //  186 USBH_StatusTypeDef USBH_BulkSendData (USBH_HandleTypeDef *phost, 
 //  187                                 uint8_t *buff, 
@@ -426,33 +443,19 @@ USBH_BulkSendData:
         MOVS     R1,#+1
         STR      R3,[SP, #+12]
         MOVS     R3,#+2
-          CFI EndBlock cfiBlock3
-        REQUIRE ?Subroutine1
-        ;; // Fall through to label ?Subroutine1
-//  205   return USBH_OK;
-//  206 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock4 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+32
-          CFI R4 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine1:
         STR      R2,[SP, #+8]
         MOVS     R2,#+0
         STR      R1,[SP, #+0]
         MOV      R1,R4
-          CFI FunCall USBH_CtlSendData USBH_LL_SubmitURB
-          CFI FunCall USBH_BulkSendData USBH_LL_SubmitURB
+          CFI FunCall USBH_LL_SubmitURB
         BL       USBH_LL_SubmitURB
+//  205   return USBH_OK;
         MOVS     R0,#+0
         ADD      SP,SP,#+20
           CFI CFA R13+12
         POP      {R4,R5,PC}       ;; return
-          CFI EndBlock cfiBlock4
+//  206 }
+          CFI EndBlock cfiBlock3
 //  207 
 //  208 
 //  209 /**
@@ -466,9 +469,8 @@ USBH_BulkSendData:
 //  217   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock5 Using cfiCommon0
+          CFI Block cfiBlock4 Using cfiCommon0
           CFI Function USBH_BulkReceiveData
-          CFI NoCalls
         THUMB
 //  218 USBH_StatusTypeDef USBH_BulkReceiveData(USBH_HandleTypeDef *phost, 
 //  219                                 uint8_t *buff, 
@@ -497,10 +499,18 @@ USBH_BulkReceiveData:
         STR      R3,[SP, #+12]
         STR      R2,[SP, #+8]
         MOVS     R3,#+2
-        B.N      ?Subroutine0
+        STR      R1,[SP, #+0]
+        MOVS     R2,#+1
+        MOV      R1,R4
+          CFI FunCall USBH_LL_SubmitURB
+        BL       USBH_LL_SubmitURB
 //  231   return USBH_OK;
+        MOVS     R0,#+0
+        ADD      SP,SP,#+16
+          CFI CFA R13+8
+        POP      {R4,PC}          ;; return
 //  232 }
-          CFI EndBlock cfiBlock5
+          CFI EndBlock cfiBlock4
 //  233 
 //  234 
 //  235 /**
@@ -514,9 +524,8 @@ USBH_BulkReceiveData:
 //  243   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock6 Using cfiCommon0
+          CFI Block cfiBlock5 Using cfiCommon0
           CFI Function USBH_InterruptReceiveData
-          CFI NoCalls
         THUMB
 //  244 USBH_StatusTypeDef USBH_InterruptReceiveData(USBH_HandleTypeDef *phost, 
 //  245                                 uint8_t *buff, 
@@ -545,38 +554,19 @@ USBH_InterruptReceiveData:
         STR      R3,[SP, #+12]
         STR      R2,[SP, #+8]
         MOVS     R3,#+3
-          CFI EndBlock cfiBlock6
-        REQUIRE ?Subroutine0
-        ;; // Fall through to label ?Subroutine0
-//  257   
-//  258   return USBH_OK;
-//  259 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock7 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+24
-          CFI R4 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine0:
         STR      R1,[SP, #+0]
         MOVS     R2,#+1
-??Subroutine0_0:
         MOV      R1,R4
-          CFI FunCall USBH_BulkReceiveData USBH_LL_SubmitURB
-          CFI FunCall USBH_InterruptReceiveData USBH_LL_SubmitURB
-          CFI FunCall USBH_CtlSendSetup USBH_LL_SubmitURB
-          CFI FunCall USBH_CtlReceiveData USBH_LL_SubmitURB
-          CFI FunCall USBH_InterruptSendData USBH_LL_SubmitURB
-          CFI FunCall USBH_IsocReceiveData USBH_LL_SubmitURB
-          CFI FunCall USBH_IsocSendData USBH_LL_SubmitURB
+          CFI FunCall USBH_LL_SubmitURB
         BL       USBH_LL_SubmitURB
+//  257   
+//  258   return USBH_OK;
         MOVS     R0,#+0
         ADD      SP,SP,#+16
           CFI CFA R13+8
         POP      {R4,PC}          ;; return
-          CFI EndBlock cfiBlock7
+//  259 }
+          CFI EndBlock cfiBlock5
 //  260 
 //  261 /**
 //  262   * @brief  USBH_InterruptSendData
@@ -589,9 +579,8 @@ USBH_InterruptReceiveData:
 //  269   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock8 Using cfiCommon0
+          CFI Block cfiBlock6 Using cfiCommon0
           CFI Function USBH_InterruptSendData
-          CFI NoCalls
         THUMB
 //  270 USBH_StatusTypeDef USBH_InterruptSendData(USBH_HandleTypeDef *phost, 
 //  271                                 uint8_t *buff, 
@@ -622,11 +611,17 @@ USBH_InterruptSendData:
         MOVS     R3,#+3
         STR      R1,[SP, #+0]
         MOVS     R2,#+0
-        B.N      ??Subroutine0_0
+        MOV      R1,R4
+          CFI FunCall USBH_LL_SubmitURB
+        BL       USBH_LL_SubmitURB
 //  283   
 //  284   return USBH_OK;
+        MOVS     R0,#+0
+        ADD      SP,SP,#+16
+          CFI CFA R13+8
+        POP      {R4,PC}          ;; return
 //  285 }
-          CFI EndBlock cfiBlock8
+          CFI EndBlock cfiBlock6
 //  286 
 //  287 /**
 //  288   * @brief  USBH_IsocReceiveData
@@ -639,9 +634,8 @@ USBH_InterruptSendData:
 //  295   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock9 Using cfiCommon0
+          CFI Block cfiBlock7 Using cfiCommon0
           CFI Function USBH_IsocReceiveData
-          CFI NoCalls
         THUMB
 //  296 USBH_StatusTypeDef USBH_IsocReceiveData(USBH_HandleTypeDef *phost, 
 //  297                                 uint8_t *buff, 
@@ -673,12 +667,18 @@ USBH_IsocReceiveData:
         STR      R2,[SP, #+8]
         MOVS     R2,#+1
         STR      R1,[SP, #+0]
-        B.N      ??Subroutine0_0
+        MOV      R1,R4
+          CFI FunCall USBH_LL_SubmitURB
+        BL       USBH_LL_SubmitURB
 //  309 
 //  310   
 //  311   return USBH_OK;
+        MOVS     R0,#+0
+        ADD      SP,SP,#+16
+          CFI CFA R13+8
+        POP      {R4,PC}          ;; return
 //  312 }
-          CFI EndBlock cfiBlock9
+          CFI EndBlock cfiBlock7
 //  313 
 //  314 /**
 //  315   * @brief  USBH_IsocSendData
@@ -691,9 +691,8 @@ USBH_IsocReceiveData:
 //  322   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock10 Using cfiCommon0
+          CFI Block cfiBlock8 Using cfiCommon0
           CFI Function USBH_IsocSendData
-          CFI NoCalls
         THUMB
 //  323 USBH_StatusTypeDef USBH_IsocSendData(USBH_HandleTypeDef *phost, 
 //  324                                 uint8_t *buff, 
@@ -725,11 +724,17 @@ USBH_IsocSendData:
         STR      R2,[SP, #+8]
         MOVS     R2,#+0
         STR      R1,[SP, #+0]
-        B.N      ??Subroutine0_0
+        MOV      R1,R4
+          CFI FunCall USBH_LL_SubmitURB
+        BL       USBH_LL_SubmitURB
 //  336   
 //  337   return USBH_OK;
+        MOVS     R0,#+0
+        ADD      SP,SP,#+16
+          CFI CFA R13+8
+        POP      {R4,PC}          ;; return
 //  338 }
-          CFI EndBlock cfiBlock10
+          CFI EndBlock cfiBlock8
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -764,9 +769,9 @@ USBH_IsocSendData:
 //  357 
 //  358 
 // 
-// 246 bytes in section .text
+// 326 bytes in section .text
 // 
-// 246 bytes of CODE memory
+// 326 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

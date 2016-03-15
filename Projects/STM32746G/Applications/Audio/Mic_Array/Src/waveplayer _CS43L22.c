@@ -399,7 +399,7 @@ void SPI3_Init(uint32_t AudioFreq)
 
 void AUDIO_InitApplication(void)
 {
-  WavePlayerInit(AUDIO_FREQ);
+  WavePlayerInit(3*AUDIO_FREQ);
 }
 
 

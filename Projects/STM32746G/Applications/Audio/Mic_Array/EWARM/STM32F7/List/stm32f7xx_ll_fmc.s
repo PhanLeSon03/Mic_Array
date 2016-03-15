@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      08/Mar/2016  16:10:19
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      15/Mar/2016  18:17:15
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -344,7 +344,7 @@ FMC_NORSRAM_Init:
 //  195                     Init->ContinuousClock      |\ 
 //  196                     Init->PageSize             |\ 
 //  197                     Init->WriteFifo);
-        LDR.N    R5,??DataTable1  ;; 0xffc00480
+        LDR.N    R5,??DataTable2  ;; 0xffc00480
         LDR      R2,[R1, #+0]
         LDR      R4,[R0, R2, LSL #+2]
         LDR      R3,[R1, #+8]
@@ -523,9 +523,6 @@ FMC_NORSRAM_DeInit:
 //  282   tmpr = Device->BTCR[Bank + 1];
 FMC_NORSRAM_Timing_Init:
         ADD      R2,R0,R2, LSL #+2
-        PUSH     {R4}
-          CFI R4 Frame(CFA, -4)
-          CFI CFA R13+4
         LDR      R3,[R2, #+4]
 //  283 
 //  284   /* Clear ADDSET, ADDHLD, DATAST, BUSTURN, CLKDIV, DATLAT and ACCMOD bits */
@@ -544,23 +541,23 @@ FMC_NORSRAM_Timing_Init:
 //  297                     );
 //  298   
 //  299   Device->BTCR[Bank + 1] = tmpr;
-        LDR      R4,[R1, #+0]
+        LDR      R12,[R1, #+0]
         AND      R3,R3,#0xC0000000
-        ORRS     R3,R4,R3
-        LDR      R4,[R1, #+4]
-        ORR      R3,R3,R4, LSL #+4
-        LDR      R4,[R1, #+8]
-        ORR      R3,R3,R4, LSL #+8
-        LDR      R4,[R1, #+12]
-        ORR      R3,R3,R4, LSL #+16
-        LDR      R4,[R1, #+16]
-        SUBS     R4,R4,#+1
-        ORR      R3,R3,R4, LSL #+20
-        LDR      R4,[R1, #+20]
-        SUBS     R4,R4,#+2
-        ORR      R3,R3,R4, LSL #+24
-        LDR      R4,[R1, #+24]
-        ORRS     R3,R4,R3
+        ORR      R3,R12,R3
+        LDR      R12,[R1, #+4]
+        ORR      R3,R3,R12, LSL #+4
+        LDR      R12,[R1, #+8]
+        ORR      R3,R3,R12, LSL #+8
+        LDR      R12,[R1, #+12]
+        ORR      R3,R3,R12, LSL #+16
+        LDR      R12,[R1, #+16]
+        SUB      R12,R12,#+1
+        ORR      R3,R3,R12, LSL #+20
+        LDR      R12,[R1, #+20]
+        SUB      R12,R12,#+2
+        ORR      R3,R3,R12, LSL #+24
+        LDR      R12,[R1, #+24]
+        ORR      R3,R12,R3
         STR      R3,[R2, #+4]
 //  300   
 //  301   /* Configure Clock division value (in NORSRAM bank 1) when continuous clock is enabled */
@@ -582,7 +579,8 @@ FMC_NORSRAM_Timing_Init:
 //  308   
 //  309   return HAL_OK;   
 ??FMC_NORSRAM_Timing_Init_0:
-        B.N      ?Subroutine1
+        MOVS     R0,#+0
+        BX       LR               ;; return
 //  310 }
           CFI EndBlock cfiBlock2
 //  311 
@@ -611,9 +609,6 @@ FMC_NORSRAM_Timing_Init:
 //  328   if(ExtendedMode == FMC_EXTENDED_MODE_ENABLE)
 FMC_NORSRAM_Extended_Timing_Init:
         CMP      R3,#+16384
-        PUSH     {R4}
-          CFI R4 Frame(CFA, -4)
-          CFI CFA R13+4
         BNE.N    ??FMC_NORSRAM_Extended_Timing_Init_0
 //  329   {
 //  330     /* Check the parameters */
@@ -642,48 +637,35 @@ FMC_NORSRAM_Extended_Timing_Init:
 //  353 
 //  354     Device->BWTR[Bank] = tmpr;
         LDR      R3,[R0, R2, LSL #+2]
-        LDR.N    R4,??DataTable1_1  ;; 0xcff00000
-        ANDS     R3,R4,R3
-        LDR      R4,[R1, #+0]
-        ORRS     R3,R4,R3
-        LDR      R4,[R1, #+4]
-        ORR      R3,R3,R4, LSL #+4
-        LDR      R4,[R1, #+8]
-        ORR      R3,R3,R4, LSL #+8
-        LDR      R4,[R1, #+12]
+        LDR.W    R12,??DataTable2_1  ;; 0xcff00000
+        AND      R3,R12,R3
+        LDR      R12,[R1, #+0]
+        ORR      R3,R12,R3
+        LDR      R12,[R1, #+4]
+        ORR      R3,R3,R12, LSL #+4
+        LDR      R12,[R1, #+8]
+        ORR      R3,R3,R12, LSL #+8
+        LDR      R12,[R1, #+12]
         LDR      R1,[R1, #+24]
-        ORR      R3,R3,R4, LSL #+16
+        ORR      R3,R3,R12, LSL #+16
         ORRS     R1,R1,R3
-        B.N      ??FMC_NORSRAM_Extended_Timing_Init_1
+        STR      R1,[R0, R2, LSL #+2]
 //  355   }
 //  356   else
 //  357   {
 //  358     Device->BWTR[Bank] = 0x0FFFFFFF;
-??FMC_NORSRAM_Extended_Timing_Init_0:
-        MVN      R1,#-268435456
-??FMC_NORSRAM_Extended_Timing_Init_1:
-        STR      R1,[R0, R2, LSL #+2]
 //  359   }   
 //  360   
 //  361   return HAL_OK;  
-          CFI EndBlock cfiBlock3
-        REQUIRE ?Subroutine1
-        ;; // Fall through to label ?Subroutine1
-//  362 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock4 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+4
-          CFI R4 Frame(CFA, -4)
-        THUMB
-?Subroutine1:
         MOVS     R0,#+0
-        POP      {R4}
-          CFI CFA R13+0
-          CFI R4 SameValue
+        BX       LR
+??FMC_NORSRAM_Extended_Timing_Init_0:
+        MVN      R1,#-268435456
+        STR      R1,[R0, R2, LSL #+2]
+        MOVS     R0,#+0
         BX       LR               ;; return
-          CFI EndBlock cfiBlock4
+//  362 }
+          CFI EndBlock cfiBlock3
 //  363 /**
 //  364   * @}
 //  365   */
@@ -711,7 +693,7 @@ FMC_NORSRAM_Extended_Timing_Init:
 //  387   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock5 Using cfiCommon0
+          CFI Block cfiBlock4 Using cfiCommon0
           CFI Function FMC_NORSRAM_WriteOperation_Enable
           CFI NoCalls
         THUMB
@@ -726,11 +708,13 @@ FMC_NORSRAM_Extended_Timing_Init:
 FMC_NORSRAM_WriteOperation_Enable:
         LDR      R2,[R0, R1, LSL #+2]
         ORR      R2,R2,#0x1000
-        B.N      ?Subroutine0
+        STR      R2,[R0, R1, LSL #+2]
 //  396 
 //  397   return HAL_OK;  
+        MOVS     R0,#+0
+        BX       LR               ;; return
 //  398 }
-          CFI EndBlock cfiBlock5
+          CFI EndBlock cfiBlock4
 //  399 
 //  400 /**
 //  401   * @brief  Disables dynamically FMC_NORSRAM write operation.
@@ -740,7 +724,7 @@ FMC_NORSRAM_WriteOperation_Enable:
 //  405   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock6 Using cfiCommon0
+          CFI Block cfiBlock5 Using cfiCommon0
           CFI Function FMC_NORSRAM_WriteOperation_Disable
           CFI NoCalls
         THUMB
@@ -755,22 +739,13 @@ FMC_NORSRAM_WriteOperation_Enable:
 FMC_NORSRAM_WriteOperation_Disable:
         LDR      R2,[R0, R1, LSL #+2]
         BIC      R2,R2,#0x1000
-          CFI EndBlock cfiBlock6
-        REQUIRE ?Subroutine0
-        ;; // Fall through to label ?Subroutine0
+        STR      R2,[R0, R1, LSL #+2]
 //  414 
 //  415   return HAL_OK;  
-//  416 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock7 Using cfiCommon0
-          CFI NoFunction
-        THUMB
-?Subroutine0:
-        STR      R2,[R0, R1, LSL #+2]
         MOVS     R0,#+0
         BX       LR               ;; return
-          CFI EndBlock cfiBlock7
+//  416 }
+          CFI EndBlock cfiBlock5
 //  417 
 //  418 /**
 //  419   * @}
@@ -831,7 +806,7 @@ FMC_NORSRAM_WriteOperation_Disable:
 //  474   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock8 Using cfiCommon0
+          CFI Block cfiBlock6 Using cfiCommon0
           CFI Function FMC_NAND_Init
           CFI NoCalls
         THUMB
@@ -869,7 +844,7 @@ FMC_NORSRAM_WriteOperation_Disable:
 //  506     Device->PCR  = tmpr;
 FMC_NAND_Init:
         LDR      R2,[R0, #+0]
-        LDR.N    R3,??DataTable1_2  ;; 0xfff00181
+        LDR.N    R3,??DataTable2_2  ;; 0xfff00181
         ANDS     R2,R3,R2
         LDR      R3,[R1, #+4]
         ORRS     R2,R3,R2
@@ -884,29 +859,31 @@ FMC_NAND_Init:
         ORR      R2,R2,R3, LSL #+9
         ORR      R1,R2,R1, LSL #+13
         ORR      R1,R1,#0x8
-        B.N      ?Subroutine2
+        STR      R1,[R0, #+0]
 //  507   
 //  508   return HAL_OK;
+        MOVS     R0,#+0
+        BX       LR               ;; return
 //  509 
 //  510 }
-          CFI EndBlock cfiBlock8
+          CFI EndBlock cfiBlock6
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1:
+??DataTable2:
         DC32     0xffc00480
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1_1:
+??DataTable2_1:
         DC32     0xcff00000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1_2:
+??DataTable2_2:
         DC32     0xfff00181
 //  511 
 //  512 /**
@@ -919,7 +896,7 @@ FMC_NAND_Init:
 //  519   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock9 Using cfiCommon0
+          CFI Block cfiBlock7 Using cfiCommon0
           CFI Function FMC_NAND_CommonSpace_Timing_Init
           CFI NoCalls
         THUMB
@@ -965,7 +942,7 @@ FMC_NAND_CommonSpace_Timing_Init:
         MOVS     R0,#+0
         BX       LR               ;; return
 //  549 }
-          CFI EndBlock cfiBlock9
+          CFI EndBlock cfiBlock7
 //  550 
 //  551 /**
 //  552   * @brief  Initializes the FMC_NAND Attribute space Timing according to the specified
@@ -977,7 +954,7 @@ FMC_NAND_CommonSpace_Timing_Init:
 //  558   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock10 Using cfiCommon0
+          CFI Block cfiBlock8 Using cfiCommon0
           CFI Function FMC_NAND_AttributeSpace_Timing_Init
           CFI NoCalls
         THUMB
@@ -1016,11 +993,13 @@ FMC_NAND_AttributeSpace_Timing_Init:
         LDR      R1,[R1, #+12]
         ORR      R2,R2,R3, LSL #+16
         ORR      R1,R2,R1, LSL #+24
-        B.N      ?Subroutine3
+        STR      R1,[R0, #+12]
 //  585   
 //  586   return HAL_OK;
+        MOVS     R0,#+0
+        BX       LR               ;; return
 //  587 }
-          CFI EndBlock cfiBlock10
+          CFI EndBlock cfiBlock8
 //  588 
 //  589 /**
 //  590   * @brief  DeInitializes the FMC_NAND device 
@@ -1030,7 +1009,7 @@ FMC_NAND_AttributeSpace_Timing_Init:
 //  594   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock11 Using cfiCommon0
+          CFI Block cfiBlock9 Using cfiCommon0
           CFI Function FMC_NAND_DeInit
           CFI NoCalls
         THUMB
@@ -1058,22 +1037,13 @@ FMC_NAND_DeInit:
         MOV      R1,#-50529028
         STR      R1,[R0, #+8]
 //  608     Device->PATT = 0xFCFCFCFC; 
-          CFI EndBlock cfiBlock11
-        REQUIRE ?Subroutine3
-        ;; // Fall through to label ?Subroutine3
+        STR      R1,[R0, #+12]
 //  609   
 //  610   return HAL_OK;
-//  611 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock12 Using cfiCommon0
-          CFI NoFunction
-        THUMB
-?Subroutine3:
-        STR      R1,[R0, #+12]
         MOVS     R0,#+0
         BX       LR               ;; return
-          CFI EndBlock cfiBlock12
+//  611 }
+          CFI EndBlock cfiBlock9
 //  612 
 //  613 /**
 //  614   * @}
@@ -1103,7 +1073,7 @@ FMC_NAND_DeInit:
 //  638   */    
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock13 Using cfiCommon0
+          CFI Block cfiBlock10 Using cfiCommon0
           CFI Function FMC_NAND_ECC_Enable
           CFI NoCalls
         THUMB
@@ -1118,22 +1088,13 @@ FMC_NAND_DeInit:
 FMC_NAND_ECC_Enable:
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x40
-          CFI EndBlock cfiBlock13
-        REQUIRE ?Subroutine2
-        ;; // Fall through to label ?Subroutine2
+        STR      R1,[R0, #+0]
 //  647   
 //  648   return HAL_OK;  
-//  649 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock14 Using cfiCommon0
-          CFI NoFunction
-        THUMB
-?Subroutine2:
-        STR      R1,[R0, #+0]
         MOVS     R0,#+0
         BX       LR               ;; return
-          CFI EndBlock cfiBlock14
+//  649 }
+          CFI EndBlock cfiBlock10
 //  650 
 //  651 
 //  652 /**
@@ -1144,7 +1105,7 @@ FMC_NAND_ECC_Enable:
 //  657   */  
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock15 Using cfiCommon0
+          CFI Block cfiBlock11 Using cfiCommon0
           CFI Function FMC_NAND_ECC_Disable
           CFI NoCalls
         THUMB
@@ -1159,11 +1120,13 @@ FMC_NAND_ECC_Enable:
 FMC_NAND_ECC_Disable:
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x40
-        B.N      ?Subroutine2
+        STR      R1,[R0, #+0]
 //  666 
 //  667   return HAL_OK;  
+        MOVS     R0,#+0
+        BX       LR               ;; return
 //  668 }
-          CFI EndBlock cfiBlock15
+          CFI EndBlock cfiBlock11
 //  669 
 //  670 /**
 //  671   * @brief  Disables dynamically FMC_NAND ECC feature.
@@ -1175,18 +1138,20 @@ FMC_NAND_ECC_Disable:
 //  677   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock16 Using cfiCommon0
+          CFI Block cfiBlock12 Using cfiCommon0
           CFI Function FMC_NAND_GetECC
         THUMB
 //  678 HAL_StatusTypeDef FMC_NAND_GetECC(FMC_NAND_TypeDef *Device, uint32_t *ECCval, uint32_t Bank, uint32_t Timeout)
 //  679 {
 FMC_NAND_GetECC:
-        PUSH     {R3-R7,LR}
+        PUSH     {R4-R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI R7 Frame(CFA, -8)
           CFI R6 Frame(CFA, -12)
           CFI R5 Frame(CFA, -16)
           CFI R4 Frame(CFA, -20)
+          CFI CFA R13+20
+        SUB      SP,SP,#+4
           CFI CFA R13+24
         MOV      R4,R0
         MOV      R5,R1
@@ -1226,7 +1191,10 @@ FMC_NAND_GetECC:
 //  697         return HAL_TIMEOUT;
 ??FMC_NAND_GetECC_2:
         MOVS     R0,#+3
-        POP      {R1,R4-R7,PC}
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
 //  698       }
 //  699     }  
 //  700   }
@@ -1239,9 +1207,11 @@ FMC_NAND_GetECC:
 //  704 
 //  705   return HAL_OK;  
         MOVS     R0,#+0
-        POP      {R1,R4-R7,PC}    ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}       ;; return
 //  706 }
-          CFI EndBlock cfiBlock16
+          CFI EndBlock cfiBlock12
 //  707 
 //  708 /**
 //  709   * @}
@@ -1299,7 +1269,7 @@ FMC_NAND_GetECC:
 //  761   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock17 Using cfiCommon0
+          CFI Block cfiBlock13 Using cfiCommon0
           CFI Function FMC_SDRAM_Init
           CFI NoCalls
         THUMB
@@ -1376,7 +1346,6 @@ FMC_SDRAM_Init:
         ORRS     R2,R3,R2
         ORR      R1,R2,R1, LSL #+15
         STR      R1,[R0, #+0]
-        B.N      ??FMC_SDRAM_Init_1
 //  801   }
 //  802   else /* FMC_Bank2_SDRAM */                      
 //  803   {
@@ -1404,10 +1373,16 @@ FMC_SDRAM_Init:
 //  825                        Init->InternalBankNumber |\ 
 //  826                        Init->CASLatency         |\ 
 //  827                        Init->WriteProtection);
-??FMC_SDRAM_Init_0:
-        LDR      R9,[R0, #+4]
 //  828 
 //  829     Device->SDCR[FMC_SDRAM_BANK1] = tmpr1;
+//  830     Device->SDCR[FMC_SDRAM_BANK2] = tmpr2;
+//  831   }  
+//  832   
+//  833   return HAL_OK;
+        MOVS     R0,#+0
+        POP      {R4-R9,PC}
+??FMC_SDRAM_Init_0:
+        LDR      R9,[R0, #+4]
         LSRS     R1,R1,#+15
         ORR      R1,R4,R1, LSL #+15
         LSR      R9,R9,#+15
@@ -1420,16 +1395,11 @@ FMC_SDRAM_Init:
         ORRS     R6,R6,R7
         ORRS     R5,R5,R6
         STR      R1,[R0, #+0]
-//  830     Device->SDCR[FMC_SDRAM_BANK2] = tmpr2;
         STR      R5,[R0, #+4]
-//  831   }  
-//  832   
-//  833   return HAL_OK;
-??FMC_SDRAM_Init_1:
         MOVS     R0,#+0
         POP      {R4-R9,PC}       ;; return
 //  834 }
-          CFI EndBlock cfiBlock17
+          CFI EndBlock cfiBlock13
 //  835 
 //  836 /**
 //  837   * @brief  Initializes the FMC_SDRAM device timing according to the specified
@@ -1441,7 +1411,7 @@ FMC_SDRAM_Init:
 //  843   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock18 Using cfiCommon0
+          CFI Block cfiBlock14 Using cfiCommon0
           CFI Function FMC_SDRAM_Timing_Init
           CFI NoCalls
         THUMB
@@ -1513,13 +1483,10 @@ FMC_SDRAM_Timing_Init:
         ORR      R2,R2,R4, LSL #+20
         ORRS     R1,R2,R1
         STR      R1,[R0, #+8]
-        B.N      ??FMC_SDRAM_Timing_Init_1
 //  878   }
 //  879   else /* FMC_Bank2_SDRAM */
 //  880   {  
 //  881     tmpr1 = Device->SDTR[FMC_SDRAM_BANK2];
-??FMC_SDRAM_Timing_Init_0:
-        LDR      R1,[R0, #+12]
 //  882     
 //  883     /* Clear TMRD, TXSR, TRAS, TRC, TWR, TRP and TRCD bits */
 //  884     tmpr1 &= ((uint32_t)~(FMC_SDTR1_TMRD  | FMC_SDTR1_TXSR | FMC_SDTR1_TRAS | \ 
@@ -1540,9 +1507,17 @@ FMC_SDRAM_Timing_Init:
 //  899                           FMC_SDTR1_TRCD));
 //  900     tmpr2 |= (uint32_t)((((Timing->RowCycleDelay)-1) << 12)       |\ 
 //  901                         (((Timing->RPDelay)-1) << 20)); 
-        LDR      R2,[R0, #+8]
 //  902 
 //  903     Device->SDTR[FMC_SDRAM_BANK2] = tmpr1;
+//  904     Device->SDTR[FMC_SDRAM_BANK1] = tmpr2;
+//  905   }   
+//  906   
+//  907   return HAL_OK;
+        MOVS     R0,#+0
+        POP      {R4-R7,PC}
+??FMC_SDRAM_Timing_Init_0:
+        LDR      R1,[R0, #+12]
+        LDR      R2,[R0, #+8]
         AND      R1,R1,#0xF0000000
         ORR      R1,LR,R1
         ORR      R1,R1,R12, LSL #+4
@@ -1553,16 +1528,11 @@ FMC_SDRAM_Timing_Init:
         ORR      R1,R1,R5, LSL #+16
         ORR      R1,R1,R3, LSL #+24
         STR      R1,[R0, #+12]
-//  904     Device->SDTR[FMC_SDRAM_BANK1] = tmpr2;
         STR      R2,[R0, #+8]
-//  905   }   
-//  906   
-//  907   return HAL_OK;
-??FMC_SDRAM_Timing_Init_1:
         MOVS     R0,#+0
         POP      {R4-R7,PC}       ;; return
 //  908 }
-          CFI EndBlock cfiBlock18
+          CFI EndBlock cfiBlock14
 //  909 
 //  910 /**
 //  911   * @brief  DeInitializes the FMC_SDRAM peripheral 
@@ -1571,7 +1541,7 @@ FMC_SDRAM_Timing_Init:
 //  914   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock19 Using cfiCommon0
+          CFI Block cfiBlock15 Using cfiCommon0
           CFI Function FMC_SDRAM_DeInit
           CFI NoCalls
         THUMB
@@ -1602,7 +1572,7 @@ FMC_SDRAM_DeInit:
         MOVS     R0,#+0
         BX       LR               ;; return
 //  929 }
-          CFI EndBlock cfiBlock19
+          CFI EndBlock cfiBlock15
 //  930 
 //  931 /**
 //  932   * @}
@@ -1631,7 +1601,7 @@ FMC_SDRAM_DeInit:
 //  955   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock20 Using cfiCommon0
+          CFI Block cfiBlock16 Using cfiCommon0
           CFI Function FMC_SDRAM_WriteProtection_Enable
           CFI NoCalls
         THUMB
@@ -1646,11 +1616,13 @@ FMC_SDRAM_DeInit:
 FMC_SDRAM_WriteProtection_Enable:
         LDR      R2,[R0, R1, LSL #+2]
         ORR      R2,R2,#0x200
-        B.N      ?Subroutine0
+        STR      R2,[R0, R1, LSL #+2]
 //  964   
 //  965   return HAL_OK;  
+        MOVS     R0,#+0
+        BX       LR               ;; return
 //  966 }
-          CFI EndBlock cfiBlock20
+          CFI EndBlock cfiBlock16
 //  967 
 //  968 /**
 //  969   * @brief  Disables dynamically FMC_SDRAM write protection.
@@ -1659,7 +1631,7 @@ FMC_SDRAM_WriteProtection_Enable:
 //  972   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock21 Using cfiCommon0
+          CFI Block cfiBlock17 Using cfiCommon0
           CFI Function FMC_SDRAM_WriteProtection_Disable
           CFI NoCalls
         THUMB
@@ -1674,11 +1646,13 @@ FMC_SDRAM_WriteProtection_Enable:
 FMC_SDRAM_WriteProtection_Disable:
         LDR      R2,[R0, R1, LSL #+2]
         BIC      R2,R2,#0x200
-        B.N      ?Subroutine0
+        STR      R2,[R0, R1, LSL #+2]
 //  981   
 //  982   return HAL_OK;
+        MOVS     R0,#+0
+        BX       LR               ;; return
 //  983 }
-          CFI EndBlock cfiBlock21
+          CFI EndBlock cfiBlock17
 //  984   
 //  985 /**
 //  986   * @brief  Send Command to the FMC SDRAM bank
@@ -1690,7 +1664,7 @@ FMC_SDRAM_WriteProtection_Disable:
 //  992   */  
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock22 Using cfiCommon0
+          CFI Block cfiBlock18 Using cfiCommon0
           CFI Function FMC_SDRAM_SendCommand
         THUMB
 //  993 HAL_StatusTypeDef FMC_SDRAM_SendCommand(FMC_SDRAM_TypeDef *Device, FMC_SDRAM_CommandTypeDef *Command, uint32_t Timeout)
@@ -1766,22 +1740,30 @@ FMC_SDRAM_SendCommand:
 // 1025         return HAL_TIMEOUT;
 ??FMC_SDRAM_SendCommand_2:
         MOVS     R0,#+3
-        POP      {R1,R2,R4-R6,PC}
+        ADD      SP,SP,#+8
+          CFI CFA R13+16
+        POP      {R4-R6,PC}
+          CFI CFA R13+24
 // 1026       }
 // 1027     }     
 // 1028     
 // 1029     return HAL_ERROR;
 ??FMC_SDRAM_SendCommand_1:
         MOVS     R0,#+1
-        POP      {R1,R2,R4-R6,PC}
+        ADD      SP,SP,#+8
+          CFI CFA R13+16
+        POP      {R4-R6,PC}
+          CFI CFA R13+24
 // 1030   }
 // 1031   
 // 1032   return HAL_OK;  
 ??FMC_SDRAM_SendCommand_0:
         MOVS     R0,#+0
-        POP      {R1,R2,R4-R6,PC}  ;; return
+        ADD      SP,SP,#+8
+          CFI CFA R13+16
+        POP      {R4-R6,PC}       ;; return
 // 1033 }
-          CFI EndBlock cfiBlock22
+          CFI EndBlock cfiBlock18
 // 1034 
 // 1035 /**
 // 1036   * @brief  Program the SDRAM Memory Refresh rate.
@@ -1791,7 +1773,7 @@ FMC_SDRAM_SendCommand:
 // 1040   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock23 Using cfiCommon0
+          CFI Block cfiBlock19 Using cfiCommon0
           CFI Function FMC_SDRAM_ProgramRefreshRate
           CFI NoCalls
         THUMB
@@ -1812,7 +1794,7 @@ FMC_SDRAM_ProgramRefreshRate:
         MOVS     R0,#+0
         BX       LR               ;; return
 // 1051 }
-          CFI EndBlock cfiBlock23
+          CFI EndBlock cfiBlock19
 // 1052 
 // 1053 /**
 // 1054   * @brief  Set the Number of consecutive SDRAM Memory auto Refresh commands.
@@ -1822,7 +1804,7 @@ FMC_SDRAM_ProgramRefreshRate:
 // 1058   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock24 Using cfiCommon0
+          CFI Block cfiBlock20 Using cfiCommon0
           CFI Function FMC_SDRAM_SetAutoRefreshNumber
           CFI NoCalls
         THUMB
@@ -1843,7 +1825,7 @@ FMC_SDRAM_SetAutoRefreshNumber:
         MOVS     R0,#+0
         BX       LR               ;; return
 // 1069 }
-          CFI EndBlock cfiBlock24
+          CFI EndBlock cfiBlock20
 // 1070 
 // 1071 /**
 // 1072   * @brief  Returns the indicated FMC SDRAM bank mode status.
@@ -1856,7 +1838,7 @@ FMC_SDRAM_SetAutoRefreshNumber:
 // 1079   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock25 Using cfiCommon0
+          CFI Block cfiBlock21 Using cfiCommon0
           CFI Function FMC_SDRAM_GetModeStatus
           CFI NoCalls
         THUMB
@@ -1888,7 +1870,7 @@ FMC_SDRAM_GetModeStatus:
 // 1099   return tmpreg;
         BX       LR               ;; return
 // 1100 }
-          CFI EndBlock cfiBlock25
+          CFI EndBlock cfiBlock21
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -1926,9 +1908,9 @@ FMC_SDRAM_GetModeStatus:
 // 1122 
 // 1123 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 950 bytes in section .text
+// 1 036 bytes in section .text
 // 
-// 950 bytes of CODE memory
+// 1 036 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

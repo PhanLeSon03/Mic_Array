@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      08/Mar/2016  16:10:16
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      15/Mar/2016  18:17:11
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -322,17 +322,17 @@ BSP_TS_Init:
         MOVS     R0,#+112
           CFI FunCall
         BLX      R1
-        B.N      ??BSP_TS_Init_1
 //  160   }
 //  161   else
 //  162   {
 //  163     status = TS_DEVICE_NOT_FOUND;
-??BSP_TS_Init_0:
-        MOVS     R4,#+3
 //  164   }
 //  165 
 //  166   return status;
-??BSP_TS_Init_1:
+        MOV      R0,R4
+        POP      {R4-R6,PC}
+??BSP_TS_Init_0:
+        MOVS     R4,#+3
         MOV      R0,R4
         POP      {R4-R6,PC}       ;; return
 //  167 }
@@ -492,11 +492,11 @@ BSP_TS_GetState:
         SUB      SP,SP,#+72
           CFI CFA R13+112
         LDR      R1,[R1, #+8]
-        MOVS     R4,#+0
-        STR      R4,[SP, #+16]
+        MOV      R8,#+0
+        STR      R8,[SP, #+16]
         LDRB     R0,[R0, #+1]
-        STR      R4,[SP, #+12]
-        STR      R4,[SP, #+8]
+        STR      R8,[SP, #+12]
+        STR      R8,[SP, #+8]
         LDR      R1,[R1, #+16]
 //  235 #endif /* TS_MULTI_TOUCH_SUPPORTED == 1 */
 //  236 
@@ -512,221 +512,202 @@ BSP_TS_GetState:
         BEQ.W    ??BSP_TS_GetState_1
 //  241   {
 //  242     for(index=0; index < TS_State->touchDetected; index++)
-        LDR      R0,[SP, #+72]
-        ADD      R10,SP,#+20
-        ADD      R7,R0,#+22
-        ADD      R9,SP,#+32
-        ADDS     R6,R0,#+2
-        LDR.N    R0,??DataTable5_4
-        ADD      R5,SP,#+56
-        ADD      R11,SP,#+44
-        STR      R0,[SP, #+4]
-        LDR.W    R8,??DataTable5_5
-        B.N      ??BSP_TS_GetState_2
+        LDR      R1,[SP, #+72]
+        ADD      R9,SP,#+20
+        ADD      R5,R1,#+22
+        ADD      R10,SP,#+32
+        ADDS     R7,R1,#+2
+        CMP      R0,#+0
+        LDR.N    R1,??DataTable5_4
+        ADD      R4,SP,#+56
+        ADD      R6,SP,#+44
+        STR.W    R1,[SP, #+4]
+        LDR.W    R11,??DataTable5_5
+        BEQ.W    ??BSP_TS_GetState_2
 //  243     {
 //  244       /* Get each touch coordinates */
 //  245       tsDriver->GetXY(I2cAddress, &(brute_x[index]), &(brute_y[index]));
+??BSP_TS_GetState_3:
+        LDR.N    R3,??DataTable5_1
+        LDR.N    R0,??DataTable5_1
+        MOV      R2,R9
+        MOV      R1,R10
+        LDR      R3,[R3, #+8]
+        LDRB     R0,[R0, #+1]
+        LDR      R3,[R3, #+20]
+          CFI FunCall
+        BLX      R3
 //  246 
 //  247       if(tsOrientation == TS_SWAP_NONE)
+        LDR.N    R0,??DataTable5_1
+        LDRB     R0,[R0, #+0]
+        CMP      R0,#+1
+        BNE.N    ??BSP_TS_GetState_4
 //  248       {
 //  249         x[index] = brute_x[index];
+        LDRH     R1,[R10, #+0]
+        STRH     R1,[R4, #+0]
 //  250         y[index] = brute_y[index];
+        LDRH     R1,[R9, #+0]
+        STRH     R1,[R6, #+0]
 //  251       }
 //  252 
 //  253       if(tsOrientation & TS_SWAP_X)
+??BSP_TS_GetState_4:
+        LSLS     R1,R0,#+30
+        BPL.N    ??BSP_TS_GetState_5
 //  254       {
 //  255         x[index] = 4096 - brute_x[index];
+        LDRH     R1,[R10, #+0]
+        RSB      R1,R1,#+4096
+        STRH     R1,[R4, #+0]
 //  256       }
 //  257 
 //  258       if(tsOrientation & TS_SWAP_Y)
+??BSP_TS_GetState_5:
+        LSLS     R1,R0,#+29
+        BPL.N    ??BSP_TS_GetState_6
 //  259       {
 //  260         y[index] = 4096 - brute_y[index];
+        LDRH     R1,[R9, #+0]
+        RSB      R1,R1,#+4096
+        STRH     R1,[R6, #+0]
 //  261       }
 //  262 
 //  263       if(tsOrientation & TS_SWAP_XY)
+??BSP_TS_GetState_6:
+        LSLS     R0,R0,#+28
+        BPL.N    ??BSP_TS_GetState_7
 //  264       {
 //  265         y[index] = brute_x[index];
+        LDRH     R0,[R10, #+0]
+        STRH     R0,[R6, #+0]
 //  266         x[index] = brute_y[index];
+        LDRH     R0,[R9, #+0]
+        STRH     R0,[R4, #+0]
 //  267       }
 //  268 
 //  269       x_diff = x[index] > _x[index]? (x[index] - _x[index]): (_x[index] - x[index]);
+??BSP_TS_GetState_7:
+        LDR      R2,[SP, #+4]
+        LDRH     R1,[R4, #+0]
+        LDR      R2,[R2, #+0]
+        CMP      R2,R1
+        ITE      CC 
+        SUBCC    R12,R1,R2
+        SUBCS    R12,R2,R1
 //  270       y_diff = y[index] > _y[index]? (y[index] - _y[index]): (_y[index] - y[index]);
+        LDRH     R2,[R6, #+0]
+        LDR      LR,[R11, #+0]
+        CMP      LR,R2
+        ITE      CC 
+        SUBCC    LR,R2,LR
+        SUBCS    LR,LR,R2
 //  271 
 //  272       if ((x_diff + y_diff) > 5)
+        UXTH     LR,LR
+        UXTAH    R12,LR,R12
+        CMP      R12,#+6
+        BLT.N    ??BSP_TS_GetState_8
 //  273       {
 //  274         _x[index] = x[index];
+        LDR      R12,[SP, #+4]
+        STR      R1,[R12, #+0]
 //  275         _y[index] = y[index];
+        STR      R2,[R11, #+0]
 //  276       }
 //  277 
 //  278       if(I2cAddress == FT5336_I2C_SLAVE_ADDRESS)
+??BSP_TS_GetState_8:
+        LDR.N    R0,??DataTable5_1
+        LDRB     R0,[R0, #+1]
+        CMP      R0,#+112
+        BNE.N    ??BSP_TS_GetState_9
 //  279       {
 //  280         TS_State->touchX[index] = x[index];
+        STRH     R1,[R7, #+0]
 //  281         TS_State->touchY[index] = y[index];
+        STRH     R2,[R7, #+10]
+        B.N      ??BSP_TS_GetState_10
 //  282       }
 //  283       else
 //  284       {
 //  285         /* 2^12 = 4096 : indexes are expressed on a dynamic of 4096 */
 //  286         TS_State->touchX[index] = (tsXBoundary * _x[index]) >> 12;
+??BSP_TS_GetState_9:
+        LDR.N    R1,??DataTable5_1
+        LDR      R2,[SP, #+4]
+        LDRH     R1,[R1, #+2]
+        LDR      R2,[R2, #+0]
+        MULS     R1,R1,R2
+        LSRS     R1,R1,#+12
+        STRH     R1,[R7, #+0]
 //  287         TS_State->touchY[index] = (tsYBoundary * _y[index]) >> 12;
+        LDR.N    R1,??DataTable5_1
+        LDR      R2,[R11, #+0]
+        LDRH     R1,[R1, #+4]
+        MULS     R1,R1,R2
+        LSRS     R1,R1,#+12
+        STRH     R1,[R7, #+10]
 //  288       }
 //  289 
 //  290 #if (TS_MULTI_TOUCH_SUPPORTED == 1)
 //  291 
 //  292       /* Get touch info related to the current touch */
 //  293       ft5336_TS_GetTouchInfo(I2cAddress, index, &weight, &area, &event);
-//  294 
-//  295       /* Update TS_State structure */
-//  296       TS_State->touchWeight[index] = weight;
-//  297       TS_State->touchArea[index]   = area;
-//  298 
-//  299       /* Remap touch event */
-//  300       switch(event)
-//  301       {
-//  302         case FT5336_TOUCH_EVT_FLAG_PRESS_DOWN	:
-//  303           TS_State->touchEventId[index] = TOUCH_EVENT_PRESS_DOWN;
-//  304           break;
-//  305         case FT5336_TOUCH_EVT_FLAG_LIFT_UP :
-//  306           TS_State->touchEventId[index] = TOUCH_EVENT_LIFT_UP;
-//  307           break;
-//  308         case FT5336_TOUCH_EVT_FLAG_CONTACT :
-//  309           TS_State->touchEventId[index] = TOUCH_EVENT_CONTACT;
-//  310           break;
-//  311         case FT5336_TOUCH_EVT_FLAG_NO_EVENT :
-//  312           TS_State->touchEventId[index] = TOUCH_EVENT_NO_EVT;
-??BSP_TS_GetState_3:
-        MOVS     R0,#+0
-??BSP_TS_GetState_4:
-        STRB     R0,[R7, #+5]
-//  313           break;
-??BSP_TS_GetState_5:
-        LDR      R0,[SP, #+4]
-        ADDS     R4,R4,#+1
-        ADD      R8,R8,#+4
-        ADDS     R6,R6,#+2
-        ADDS     R0,R0,#+4
-        ADD      R11,R11,#+2
-        STR      R0,[SP, #+4]
-        ADDS     R5,R5,#+2
-        ADD      R9,R9,#+2
-        ADD      R10,R10,#+2
-        ADDS     R7,R7,#+1
-??BSP_TS_GetState_2:
-        LDR      R0,[SP, #+72]
-        LDRB     R0,[R0, #+0]
-        CMP      R4,R0
-        BCS.W    ??BSP_TS_GetState_6
-        LDR.N    R3,??DataTable5_1
-        LDR.N    R0,??DataTable5_1
-        MOV      R2,R10
-        MOV      R1,R9
-        LDR      R3,[R3, #+8]
-        LDRB     R0,[R0, #+1]
-        LDR      R3,[R3, #+20]
-          CFI FunCall
-        BLX      R3
-        LDR.N    R0,??DataTable5_1
-        LDRB     R0,[R0, #+0]
-        CMP      R0,#+1
-        BNE.N    ??BSP_TS_GetState_7
-        LDRH     R1,[R9, #+0]
-        STRH     R1,[R5, #+0]
-        LDRH     R1,[R10, #+0]
-        STRH     R1,[R11, #+0]
-??BSP_TS_GetState_7:
-        LSLS     R1,R0,#+30
-        BPL.N    ??BSP_TS_GetState_8
-        LDRH     R1,[R9, #+0]
-        RSB      R1,R1,#+4096
-        STRH     R1,[R5, #+0]
-??BSP_TS_GetState_8:
-        LSLS     R1,R0,#+29
-        BPL.N    ??BSP_TS_GetState_9
-        LDRH     R1,[R10, #+0]
-        RSB      R1,R1,#+4096
-        STRH     R1,[R11, #+0]
-??BSP_TS_GetState_9:
-        LSLS     R0,R0,#+28
-        BPL.N    ??BSP_TS_GetState_10
-        LDRH     R0,[R9, #+0]
-        STRH     R0,[R11, #+0]
-        LDRH     R0,[R10, #+0]
-        STRH     R0,[R5, #+0]
 ??BSP_TS_GetState_10:
-        LDR      R2,[SP, #+4]
-        LDRH     R1,[R5, #+0]
-        LDR      R2,[R2, #+0]
-        CMP      R2,R1
-        ITE      CC 
-        SUBCC    R12,R1,R2
-        SUBCS    R12,R2,R1
-        LDRH     R2,[R11, #+0]
-        LDR      LR,[R8, #+0]
-        CMP      LR,R2
-        ITE      CC 
-        SUBCC    LR,R2,LR
-        SUBCS    LR,LR,R2
-        UXTH     LR,LR
-        UXTAH    R12,LR,R12
-        CMP      R12,#+6
-        BLT.N    ??BSP_TS_GetState_11
-        LDR      R12,[SP, #+4]
-        STR      R1,[R12, #+0]
-        STR      R2,[R8, #+0]
-??BSP_TS_GetState_11:
-        LDR.N    R0,??DataTable5_1
-        LDRB     R0,[R0, #+1]
-        CMP      R0,#+112
-        BNE.N    ??BSP_TS_GetState_12
-        STRH     R1,[R6, #+0]
-        STRH     R2,[R6, #+10]
-        B.N      ??BSP_TS_GetState_13
-??BSP_TS_GetState_12:
-        LDR.N    R1,??DataTable5_1
-        LDR      R2,[SP, #+4]
-        LDRH     R1,[R1, #+2]
-        LDR      R2,[R2, #+0]
-        MULS     R1,R2,R1
-        LSRS     R1,R1,#+12
-        STRH     R1,[R6, #+0]
-        LDR.N    R1,??DataTable5_1
-        LDR      R2,[R8, #+0]
-        LDRH     R1,[R1, #+4]
-        MULS     R1,R2,R1
-        LSRS     R1,R1,#+12
-        STRH     R1,[R6, #+10]
-??BSP_TS_GetState_13:
         ADD      R1,SP,#+8
         ADD      R3,SP,#+12
         STR      R1,[SP, #+0]
         ADD      R2,SP,#+16
-        MOV      R1,R4
+        MOV      R1,R8
           CFI FunCall ft5336_TS_GetTouchInfo
         BL       ft5336_TS_GetTouchInfo
+//  294 
+//  295       /* Update TS_State structure */
+//  296       TS_State->touchWeight[index] = weight;
         LDR      R0,[SP, #+16]
-        STRB     R0,[R7, #+0]
+        STRB     R0,[R5, #+0]
+//  297       TS_State->touchArea[index]   = area;
         LDR      R0,[SP, #+12]
-        STRB     R0,[R7, #+10]
+        STRB     R0,[R5, #+10]
+//  298 
+//  299       /* Remap touch event */
+//  300       switch(event)
         LDR      R0,[SP, #+8]
         CMP      R0,#+3
-        BHI.W    ??BSP_TS_GetState_5
+        BHI.N    ??BSP_TS_GetState_11
         TBB      [PC, R0]
         DATA
 ??BSP_TS_GetState_0:
-        DC8      0x4,0x6,0x8,0x3
+        DC8      0x2,0x4,0x6,0x8
         THUMB
-??BSP_TS_GetState_14:
-        B.N      ??BSP_TS_GetState_5
-??BSP_TS_GetState_15:
-        B.N      ??BSP_TS_GetState_3
-??BSP_TS_GetState_16:
+//  301       {
+//  302         case FT5336_TOUCH_EVT_FLAG_PRESS_DOWN	:
+//  303           TS_State->touchEventId[index] = TOUCH_EVENT_PRESS_DOWN;
+??BSP_TS_GetState_12:
         MOVS     R0,#+1
-        B.N      ??BSP_TS_GetState_4
-??BSP_TS_GetState_17:
+        B.N      ??BSP_TS_GetState_13
+//  304           break;
+//  305         case FT5336_TOUCH_EVT_FLAG_LIFT_UP :
+//  306           TS_State->touchEventId[index] = TOUCH_EVENT_LIFT_UP;
+??BSP_TS_GetState_14:
         MOVS     R0,#+2
-        B.N      ??BSP_TS_GetState_4
-??BSP_TS_GetState_18:
+        B.N      ??BSP_TS_GetState_13
+//  307           break;
+//  308         case FT5336_TOUCH_EVT_FLAG_CONTACT :
+//  309           TS_State->touchEventId[index] = TOUCH_EVENT_CONTACT;
+??BSP_TS_GetState_15:
         MOVS     R0,#+3
-        B.N      ??BSP_TS_GetState_4
+        B.N      ??BSP_TS_GetState_13
+//  310           break;
+//  311         case FT5336_TOUCH_EVT_FLAG_NO_EVENT :
+//  312           TS_State->touchEventId[index] = TOUCH_EVENT_NO_EVT;
+??BSP_TS_GetState_16:
+        MOVS     R0,#+0
+??BSP_TS_GetState_13:
+        STRB     R0,[R5, #+5]
+//  313           break;
 //  314         default :
 //  315           ts_status = TS_ERROR;
 //  316           break;
@@ -735,22 +716,38 @@ BSP_TS_GetState:
 //  319 #endif /* TS_MULTI_TOUCH_SUPPORTED == 1 */
 //  320 
 //  321     } /* of for(index=0; index < TS_State->touchDetected; index++) */
+??BSP_TS_GetState_11:
+        LDR      R0,[SP, #+4]
+        ADD      R8,R8,#+1
+        ADDS     R7,R7,#+2
+        ADDS     R6,R6,#+2
+        ADDS     R0,R0,#+4
+        ADDS     R4,R4,#+2
+        STR      R0,[SP, #+4]
+        LDR      R0,[SP, #+72]
+        ADDS     R5,R5,#+1
+        ADD      R11,R11,#+4
+        ADD      R10,R10,#+2
+        ADD      R9,R9,#+2
+        LDRB     R0,[R0, #+0]
+        CMP      R8,R0
+        BCC.W    ??BSP_TS_GetState_3
 //  322 
 //  323 #if (TS_MULTI_TOUCH_SUPPORTED == 1)
 //  324     /* Get gesture Id */
 //  325     ts_status = BSP_TS_Get_GestureId(TS_State);
-??BSP_TS_GetState_6:
+??BSP_TS_GetState_2:
         LDR      R0,[SP, #+72]
           CFI FunCall BSP_TS_Get_GestureId
         BL       BSP_TS_Get_GestureId
-        MOV      R4,R0
+        MOV      R8,R0
 //  326 #endif /* TS_MULTI_TOUCH_SUPPORTED == 1 */
 //  327 
 //  328   } /* end of if(TS_State->touchDetected != 0) */
 //  329 
 //  330   return (ts_status);
 ??BSP_TS_GetState_1:
-        MOV      R0,R4
+        MOV      R0,R8
         ADD      SP,SP,#+76
           CFI CFA R13+36
         POP      {R4-R11,PC}      ;; return
@@ -783,21 +780,23 @@ tsOrientation:
 //  339 uint8_t BSP_TS_Get_GestureId(TS_StateTypeDef *TS_State)
 //  340 {
 BSP_TS_Get_GestureId:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
+          CFI CFA R13+12
         MOV      R4,R0
+        SUB      SP,SP,#+4
+          CFI CFA R13+16
 //  341   uint32_t gestureId = 0;
         MOVS     R0,#+0
-        STR      R0,[SP, #+0]
 //  342   uint8_t  ts_status = TS_OK;
 //  343 
 //  344   /* Get gesture Id */
 //  345   ft5336_TS_GetGestureID(I2cAddress, &gestureId);
-        LDR.N    R0,??DataTable5_1
         MOV      R1,SP
+        STR      R0,[SP, #+0]
+        LDR.N    R0,??DataTable5_1
         MOVS     R5,#+0
         LDRB     R0,[R0, #+1]
           CFI FunCall ft5336_TS_GetGestureID
@@ -828,51 +827,81 @@ BSP_TS_Get_GestureId:
 //  354       TS_State->gestureId = GEST_ID_MOVE_UP;
 ??BSP_TS_Get_GestureId_1:
         MOVS     R0,#+1
-        B.N      ??BSP_TS_Get_GestureId_0
+        STR      R0,[R4, #+40]
 //  355       break;
 //  356     case FT5336_GEST_ID_MOVE_RIGHT :
 //  357       TS_State->gestureId = GEST_ID_MOVE_RIGHT;
-??BSP_TS_Get_GestureId_2:
-        MOVS     R0,#+2
-        B.N      ??BSP_TS_Get_GestureId_0
 //  358       break;
 //  359     case FT5336_GEST_ID_MOVE_DOWN :
 //  360       TS_State->gestureId = GEST_ID_MOVE_DOWN;
-??BSP_TS_Get_GestureId_3:
-        MOVS     R0,#+3
-        B.N      ??BSP_TS_Get_GestureId_0
 //  361       break;
 //  362     case FT5336_GEST_ID_MOVE_LEFT :
 //  363       TS_State->gestureId = GEST_ID_MOVE_LEFT;
-??BSP_TS_Get_GestureId_4:
-        MOVS     R0,#+4
-        B.N      ??BSP_TS_Get_GestureId_0
 //  364       break;
 //  365     case FT5336_GEST_ID_ZOOM_IN :
 //  366       TS_State->gestureId = GEST_ID_ZOOM_IN;
-??BSP_TS_Get_GestureId_5:
-        MOVS     R0,#+5
-        B.N      ??BSP_TS_Get_GestureId_0
 //  367       break;
 //  368     case FT5336_GEST_ID_ZOOM_OUT :
 //  369       TS_State->gestureId = GEST_ID_ZOOM_OUT;
-??BSP_TS_Get_GestureId_6:
-        MOVS     R0,#+6
-??BSP_TS_Get_GestureId_0:
-        STR      R0,[R4, #+40]
 //  370       break;
-        B.N      ??BSP_TS_Get_GestureId_8
 //  371     default :
 //  372       ts_status = TS_ERROR;
-??BSP_TS_Get_GestureId_7:
-        MOVS     R5,#+1
 //  373       break;
 //  374   } /* of switch(gestureId) */
 //  375 
 //  376   return(ts_status);
-??BSP_TS_Get_GestureId_8:
         MOV      R0,R5
-        POP      {R1,R4,R5,PC}    ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
+??BSP_TS_Get_GestureId_2:
+        MOVS     R0,#+2
+        STR      R0,[R4, #+40]
+        MOV      R0,R5
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
+??BSP_TS_Get_GestureId_3:
+        MOVS     R0,#+3
+        STR      R0,[R4, #+40]
+        MOV      R0,R5
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
+??BSP_TS_Get_GestureId_4:
+        MOVS     R0,#+4
+        STR      R0,[R4, #+40]
+        MOV      R0,R5
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
+??BSP_TS_Get_GestureId_5:
+        MOVS     R0,#+5
+        STR      R0,[R4, #+40]
+        MOV      R0,R5
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
+??BSP_TS_Get_GestureId_6:
+        MOVS     R0,#+6
+??BSP_TS_Get_GestureId_0:
+        STR      R0,[R4, #+40]
+        MOV      R0,R5
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
+??BSP_TS_Get_GestureId_7:
+        MOVS     R5,#+1
+        MOV      R0,R5
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
 //  377 }
           CFI EndBlock cfiBlock5
 //  378 #endif /* TS_MULTI_TOUCH_SUPPORTED == 1 */
@@ -1040,9 +1069,9 @@ BSP_TS_ResetTouchData:
 //  447 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
 //  52 bytes in section .bss
-// 662 bytes in section .text
+// 700 bytes in section .text
 // 
-// 662 bytes of CODE memory
+// 700 bytes of CODE memory
 //  52 bytes of DATA memory
 //
 //Errors: none

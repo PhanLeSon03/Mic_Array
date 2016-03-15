@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      08/Mar/2016  16:10:16
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      15/Mar/2016  18:17:11
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -305,13 +305,15 @@ uwTick:
         THUMB
 //  154 HAL_StatusTypeDef HAL_Init(void)
 //  155 {
+HAL_Init:
+        PUSH     {LR}
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
 //  156   /* Configure Flash prefetch and Instruction cache through ART accelerator */ 
 //  157 #if (ART_ACCLERATOR_ENABLE != 0)
 //  158    __HAL_FLASH_ART_ENABLE();
-HAL_Init:
-        LDR.N    R0,??DataTable13  ;; 0x40023c00
-        PUSH     {R7,LR}
-          CFI R14 Frame(CFA, -4)
+        LDR.N    R0,??DataTable17  ;; 0x40023c00
+        SUB      SP,SP,#+4
           CFI CFA R13+8
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x200
@@ -338,7 +340,9 @@ HAL_Init:
 //  170   /* Return function status */
 //  171   return HAL_OK;
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 //  172 }
           CFI EndBlock cfiBlock0
 //  173 
@@ -355,16 +359,18 @@ HAL_Init:
 //  179 HAL_StatusTypeDef HAL_DeInit(void)
 //  180 {
 HAL_DeInit:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  181   /* Reset of all peripherals */
 //  182   __HAL_RCC_APB1_FORCE_RESET();
-        LDR.N    R0,??DataTable13_1  ;; 0x40023810
+        LDR.N    R0,??DataTable17_1  ;; 0x40023810
         MOV      R1,#-1
-        STR      R1,[R0, #+16]
 //  183   __HAL_RCC_APB1_RELEASE_RESET();
         MOVS     R2,#+0
+        STR      R1,[R0, #+16]
         STR      R2,[R0, #+16]
 //  184 
 //  185   __HAL_RCC_APB2_FORCE_RESET();
@@ -395,7 +401,9 @@ HAL_DeInit:
 //  200   /* Return function status */
 //  201   return HAL_OK;
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 //  202 }
           CFI EndBlock cfiBlock1
 //  203 
@@ -538,7 +546,7 @@ HAL_InitTick:
 //  291 {
 //  292   uwTick++;
 HAL_IncTick:
-        LDR.N    R0,??DataTable13_2
+        LDR.N    R0,??DataTable17_2
         LDR      R1,[R0, #+0]
         ADDS     R1,R1,#+1
         STR      R1,[R0, #+0]
@@ -562,7 +570,7 @@ HAL_IncTick:
 //  302 {
 //  303   return uwTick;
 HAL_GetTick:
-        LDR.N    R0,??DataTable13_2
+        LDR.N    R0,??DataTable17_2
         LDR      R0,[R0, #+0]
         BX       LR               ;; return
 //  304 }
@@ -580,7 +588,7 @@ HAL_GetTick:
 //  315   * @retval None
 //  316   */
 
-        SECTION `.text`:CODE:NOROOT(1)
+        SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock7 Using cfiCommon0
           CFI Function HAL_Delay
         THUMB
@@ -597,7 +605,7 @@ HAL_Delay:
 //  320   tickstart = HAL_GetTick();
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R4,R0
+        MOV.W    R4,R0
 //  321   while((HAL_GetTick() - tickstart) < Delay)
 ??HAL_Delay_0:
           CFI FunCall HAL_GetTick
@@ -609,7 +617,9 @@ HAL_Delay:
 //  322   {
 //  323   }
 //  324 }
-        POP      {R0,R1,R4,PC}    ;; return
+        ADD      SP,SP,#+8
+          CFI CFA R13+8
+        POP      {R4,PC}          ;; return
           CFI EndBlock cfiBlock7
 //  325 
 //  326 /**
@@ -633,9 +643,12 @@ HAL_Delay:
 //  338   /* Disable SysTick Interrupt */
 //  339   SysTick->CTRL &= ~SysTick_CTRL_TICKINT_Msk;
 HAL_SuspendTick:
-        LDR.N    R0,??DataTable13_3  ;; 0xe000e010
-        B.N      ?Subroutine1
+        LDR.N    R0,??DataTable17_3  ;; 0xe000e010
+        LDR      R1,[R0, #+0]
+        BIC      R1,R1,#0x2
+        STR      R1,[R0, #+0]
 //  340 }
+        BX       LR               ;; return
           CFI EndBlock cfiBlock8
 //  341 
 //  342 /**
@@ -659,9 +672,12 @@ HAL_SuspendTick:
 //  354   /* Enable SysTick Interrupt */
 //  355   SysTick->CTRL  |= SysTick_CTRL_TICKINT_Msk;
 HAL_ResumeTick:
-        LDR.N    R0,??DataTable13_3  ;; 0xe000e010
-        B.N      ?Subroutine2
+        LDR.N    R0,??DataTable17_3  ;; 0xe000e010
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x2
+        STR      R1,[R0, #+0]
 //  356 }
+        BX       LR               ;; return
           CFI EndBlock cfiBlock9
 //  357 
 //  358 /**
@@ -697,7 +713,7 @@ HAL_GetHalVersion:
 //  372 {
 //  373    return((DBGMCU->IDCODE) >> 16);
 HAL_GetREVID:
-        LDR.N    R0,??DataTable13_4  ;; 0xe0042000
+        LDR.N    R0,??DataTable17_4  ;; 0xe0042000
         LDR      R0,[R0, #+0]
         LSRS     R0,R0,#+16
         BX       LR               ;; return
@@ -718,7 +734,7 @@ HAL_GetREVID:
 //  381 {
 //  382    return((DBGMCU->IDCODE) & IDCODE_DEVID_MASK);
 HAL_GetDEVID:
-        LDR.N    R0,??DataTable13_4  ;; 0xe0042000
+        LDR.N    R0,??DataTable17_4  ;; 0xe0042000
         LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+20
         LSRS     R0,R0,#+20
@@ -740,9 +756,12 @@ HAL_GetDEVID:
 //  390 {
 //  391   SET_BIT(DBGMCU->CR, DBGMCU_CR_DBG_SLEEP);
 HAL_DBGMCU_EnableDBGSleepMode:
-        LDR.N    R0,??DataTable13_5  ;; 0xe0042004
-        B.N      ?Subroutine3
+        LDR.N    R0,??DataTable17_5  ;; 0xe0042004
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x1
+        STR      R1,[R0, #+0]
 //  392 }
+        BX       LR               ;; return
           CFI EndBlock cfiBlock13
 //  393 
 //  394 /**
@@ -759,9 +778,13 @@ HAL_DBGMCU_EnableDBGSleepMode:
 //  399 {
 //  400   CLEAR_BIT(DBGMCU->CR, DBGMCU_CR_DBG_SLEEP);
 HAL_DBGMCU_DisableDBGSleepMode:
-        LDR.N    R0,??DataTable13_5  ;; 0xe0042004
-        B.N      ?Subroutine0
+        LDR.N    R0,??DataTable17_5  ;; 0xe0042004
+        LDR      R1,[R0, #+0]
+        LSRS     R1,R1,#+1
+        LSLS     R1,R1,#+1
+        STR      R1,[R0, #+0]
 //  401 }
+        BX       LR               ;; return
           CFI EndBlock cfiBlock14
 //  402 
 //  403 /**
@@ -778,22 +801,13 @@ HAL_DBGMCU_DisableDBGSleepMode:
 //  408 {
 //  409   SET_BIT(DBGMCU->CR, DBGMCU_CR_DBG_STOP);
 HAL_DBGMCU_EnableDBGStopMode:
-        LDR.N    R0,??DataTable13_5  ;; 0xe0042004
-          CFI EndBlock cfiBlock15
-        REQUIRE ?Subroutine2
-        ;; // Fall through to label ?Subroutine2
-//  410 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock16 Using cfiCommon0
-          CFI NoFunction
-        THUMB
-?Subroutine2:
+        LDR.N    R0,??DataTable17_5  ;; 0xe0042004
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x2
         STR      R1,[R0, #+0]
+//  410 }
         BX       LR               ;; return
-          CFI EndBlock cfiBlock16
+          CFI EndBlock cfiBlock15
 //  411 
 //  412 /**
 //  413   * @brief  Disable the Debug Module during STOP mode
@@ -801,7 +815,7 @@ HAL_DBGMCU_EnableDBGStopMode:
 //  415   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock17 Using cfiCommon0
+          CFI Block cfiBlock16 Using cfiCommon0
           CFI Function HAL_DBGMCU_DisableDBGStopMode
           CFI NoCalls
         THUMB
@@ -809,22 +823,13 @@ HAL_DBGMCU_EnableDBGStopMode:
 //  417 {
 //  418   CLEAR_BIT(DBGMCU->CR, DBGMCU_CR_DBG_STOP);
 HAL_DBGMCU_DisableDBGStopMode:
-        LDR.N    R0,??DataTable13_5  ;; 0xe0042004
-          CFI EndBlock cfiBlock17
-        REQUIRE ?Subroutine1
-        ;; // Fall through to label ?Subroutine1
-//  419 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock18 Using cfiCommon0
-          CFI NoFunction
-        THUMB
-?Subroutine1:
+        LDR.N    R0,??DataTable17_5  ;; 0xe0042004
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x2
         STR      R1,[R0, #+0]
+//  419 }
         BX       LR               ;; return
-          CFI EndBlock cfiBlock18
+          CFI EndBlock cfiBlock16
 //  420 
 //  421 /**
 //  422   * @brief  Enable the Debug Module during STANDBY mode
@@ -832,7 +837,7 @@ HAL_DBGMCU_DisableDBGStopMode:
 //  424   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock19 Using cfiCommon0
+          CFI Block cfiBlock17 Using cfiCommon0
           CFI Function HAL_DBGMCU_EnableDBGStandbyMode
           CFI NoCalls
         THUMB
@@ -840,13 +845,13 @@ HAL_DBGMCU_DisableDBGStopMode:
 //  426 {
 //  427   SET_BIT(DBGMCU->CR, DBGMCU_CR_DBG_STANDBY);
 HAL_DBGMCU_EnableDBGStandbyMode:
-        LDR.N    R0,??DataTable13_5  ;; 0xe0042004
+        LDR.N    R0,??DataTable17_5  ;; 0xe0042004
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x4
         STR      R1,[R0, #+0]
 //  428 }
         BX       LR               ;; return
-          CFI EndBlock cfiBlock19
+          CFI EndBlock cfiBlock17
 //  429 
 //  430 /**
 //  431   * @brief  Disable the Debug Module during STANDBY mode
@@ -854,7 +859,7 @@ HAL_DBGMCU_EnableDBGStandbyMode:
 //  433   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock20 Using cfiCommon0
+          CFI Block cfiBlock18 Using cfiCommon0
           CFI Function HAL_DBGMCU_DisableDBGStandbyMode
           CFI NoCalls
         THUMB
@@ -862,13 +867,13 @@ HAL_DBGMCU_EnableDBGStandbyMode:
 //  435 {
 //  436   CLEAR_BIT(DBGMCU->CR, DBGMCU_CR_DBG_STANDBY);
 HAL_DBGMCU_DisableDBGStandbyMode:
-        LDR.N    R0,??DataTable13_5  ;; 0xe0042004
+        LDR.N    R0,??DataTable17_5  ;; 0xe0042004
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x4
         STR      R1,[R0, #+0]
 //  437 }
         BX       LR               ;; return
-          CFI EndBlock cfiBlock20
+          CFI EndBlock cfiBlock18
 //  438 
 //  439 /**
 //  440   * @brief  Enables the I/O Compensation Cell.
@@ -878,7 +883,7 @@ HAL_DBGMCU_DisableDBGStandbyMode:
 //  444   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock21 Using cfiCommon0
+          CFI Block cfiBlock19 Using cfiCommon0
           CFI Function HAL_EnableCompensationCell
           CFI NoCalls
         THUMB
@@ -886,22 +891,13 @@ HAL_DBGMCU_DisableDBGStandbyMode:
 //  446 {
 //  447   SYSCFG->CMPCR |= SYSCFG_CMPCR_CMP_PD;
 HAL_EnableCompensationCell:
-        LDR.N    R0,??DataTable13_6  ;; 0x40013820
-          CFI EndBlock cfiBlock21
-        REQUIRE ?Subroutine3
-        ;; // Fall through to label ?Subroutine3
-//  448 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock22 Using cfiCommon0
-          CFI NoFunction
-        THUMB
-?Subroutine3:
+        LDR.N    R0,??DataTable17_6  ;; 0x40013820
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x1
         STR      R1,[R0, #+0]
+//  448 }
         BX       LR               ;; return
-          CFI EndBlock cfiBlock22
+          CFI EndBlock cfiBlock19
 //  449 
 //  450 /**
 //  451   * @brief  Power-down the I/O Compensation Cell.
@@ -911,7 +907,7 @@ HAL_EnableCompensationCell:
 //  455   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock23 Using cfiCommon0
+          CFI Block cfiBlock20 Using cfiCommon0
           CFI Function HAL_DisableCompensationCell
           CFI NoCalls
         THUMB
@@ -919,23 +915,14 @@ HAL_EnableCompensationCell:
 //  457 {
 //  458   SYSCFG->CMPCR &= (uint32_t)~((uint32_t)SYSCFG_CMPCR_CMP_PD);
 HAL_DisableCompensationCell:
-        LDR.N    R0,??DataTable13_6  ;; 0x40013820
-          CFI EndBlock cfiBlock23
-        REQUIRE ?Subroutine0
-        ;; // Fall through to label ?Subroutine0
-//  459 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock24 Using cfiCommon0
-          CFI NoFunction
-        THUMB
-?Subroutine0:
+        LDR.N    R0,??DataTable17_6  ;; 0x40013820
         LDR      R1,[R0, #+0]
         LSRS     R1,R1,#+1
         LSLS     R1,R1,#+1
         STR      R1,[R0, #+0]
+//  459 }
         BX       LR               ;; return
-          CFI EndBlock cfiBlock24
+          CFI EndBlock cfiBlock20
 //  460 
 //  461 /**
 //  462   * @brief  Enables the FMC Memory Mapping Swapping.
@@ -947,7 +934,7 @@ HAL_DisableCompensationCell:
 //  468   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock25 Using cfiCommon0
+          CFI Block cfiBlock21 Using cfiCommon0
           CFI Function HAL_EnableFMCMemorySwapping
           CFI NoCalls
         THUMB
@@ -955,13 +942,13 @@ HAL_DisableCompensationCell:
 //  470 {
 //  471   SYSCFG->MEMRMP |= SYSCFG_MEMRMP_SWP_FMC_0;
 HAL_EnableFMCMemorySwapping:
-        LDR.N    R0,??DataTable13_7  ;; 0x40013800
+        LDR.N    R0,??DataTable17_7  ;; 0x40013800
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x400
         STR      R1,[R0, #+0]
 //  472 }
         BX       LR               ;; return
-          CFI EndBlock cfiBlock25
+          CFI EndBlock cfiBlock21
 //  473 
 //  474 /**
 //  475   * @brief  Disables the FMC Memory Mapping Swapping
@@ -973,7 +960,7 @@ HAL_EnableFMCMemorySwapping:
 //  481   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock26 Using cfiCommon0
+          CFI Block cfiBlock22 Using cfiCommon0
           CFI Function HAL_DisableFMCMemorySwapping
           CFI NoCalls
         THUMB
@@ -982,60 +969,60 @@ HAL_EnableFMCMemorySwapping:
 //  484 
 //  485   SYSCFG->MEMRMP &= (uint32_t)~((uint32_t)SYSCFG_MEMRMP_SWP_FMC);
 HAL_DisableFMCMemorySwapping:
-        LDR.N    R0,??DataTable13_7  ;; 0x40013800
+        LDR.N    R0,??DataTable17_7  ;; 0x40013800
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0xC00
         STR      R1,[R0, #+0]
 //  486 }
         BX       LR               ;; return
-          CFI EndBlock cfiBlock26
+          CFI EndBlock cfiBlock22
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable13:
+??DataTable17:
         DC32     0x40023c00
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable13_1:
+??DataTable17_1:
         DC32     0x40023810
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable13_2:
+??DataTable17_2:
         DC32     uwTick
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable13_3:
+??DataTable17_3:
         DC32     0xe000e010
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable13_4:
+??DataTable17_4:
         DC32     0xe0042000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable13_5:
+??DataTable17_5:
         DC32     0xe0042004
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable13_6:
+??DataTable17_6:
         DC32     0x40013820
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable13_7:
+??DataTable17_7:
         DC32     0x40013800
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
@@ -1070,9 +1057,9 @@ HAL_DisableFMCMemorySwapping:
 //  504 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
 //   4 bytes in section .bss
-// 318 bytes in section .text
+// 362 bytes in section .text
 // 
-// 318 bytes of CODE memory
+// 362 bytes of CODE memory
 //   4 bytes of DATA memory
 //
 //Errors: none

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      08/Mar/2016  16:10:20
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      15/Mar/2016  18:17:15
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -755,8 +755,10 @@ USBD_LL_Init:
 //  265 USBD_StatusTypeDef  USBD_LL_DeInit (USBD_HandleTypeDef *pdev)
 //  266 {
 USBD_LL_DeInit:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  267   HAL_PCD_DeInit(pdev->pData);
         LDR      R0,[R0, #+544]
@@ -764,7 +766,9 @@ USBD_LL_DeInit:
         BL       HAL_PCD_DeInit
 //  268   return USBD_OK; 
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 //  269 }
           CFI EndBlock cfiBlock14
 //  270 
@@ -782,8 +786,10 @@ USBD_LL_DeInit:
 //  277 USBD_StatusTypeDef  USBD_LL_Start(USBD_HandleTypeDef *pdev)
 //  278 {
 USBD_LL_Start:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  279   HAL_PCD_Start(pdev->pData);
         LDR      R0,[R0, #+544]
@@ -791,7 +797,9 @@ USBD_LL_Start:
         BL       HAL_PCD_Start
 //  280   return USBD_OK; 
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 //  281 }
           CFI EndBlock cfiBlock15
 //  282 
@@ -809,8 +817,10 @@ USBD_LL_Start:
 //  289 USBD_StatusTypeDef  USBD_LL_Stop (USBD_HandleTypeDef *pdev)
 //  290 {
 USBD_LL_Stop:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  291   HAL_PCD_Stop(pdev->pData);
         LDR      R0,[R0, #+544]
@@ -818,7 +828,9 @@ USBD_LL_Stop:
         BL       HAL_PCD_Stop
 //  292   return USBD_OK; 
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 //  293 }
           CFI EndBlock cfiBlock16
 //  294 
@@ -878,8 +890,10 @@ USBD_LL_OpenEP:
 //  324 USBD_StatusTypeDef  USBD_LL_CloseEP (USBD_HandleTypeDef *pdev, uint8_t ep_addr)   
 //  325 {
 USBD_LL_CloseEP:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  326   HAL_PCD_EP_Close(pdev->pData, ep_addr);
         LDR      R0,[R0, #+544]
@@ -887,7 +901,9 @@ USBD_LL_CloseEP:
         BL       HAL_PCD_EP_Close
 //  327   return USBD_OK; 
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 //  328 }
           CFI EndBlock cfiBlock18
 //  329 
@@ -906,8 +922,10 @@ USBD_LL_CloseEP:
 //  337 USBD_StatusTypeDef  USBD_LL_FlushEP (USBD_HandleTypeDef *pdev, uint8_t ep_addr)   
 //  338 {
 USBD_LL_FlushEP:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  339   HAL_PCD_EP_Flush(pdev->pData, ep_addr);
         LDR      R0,[R0, #+544]
@@ -915,7 +933,9 @@ USBD_LL_FlushEP:
         BL       HAL_PCD_EP_Flush
 //  340   return USBD_OK; 
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 //  341 }
           CFI EndBlock cfiBlock19
 //  342 
@@ -934,8 +954,10 @@ USBD_LL_FlushEP:
 //  350 USBD_StatusTypeDef  USBD_LL_StallEP (USBD_HandleTypeDef *pdev, uint8_t ep_addr)   
 //  351 {
 USBD_LL_StallEP:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  352   HAL_PCD_EP_SetStall(pdev->pData, ep_addr);
         LDR      R0,[R0, #+544]
@@ -943,7 +965,9 @@ USBD_LL_StallEP:
         BL       HAL_PCD_EP_SetStall
 //  353   return USBD_OK; 
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 //  354 }
           CFI EndBlock cfiBlock20
 //  355 
@@ -962,8 +986,10 @@ USBD_LL_StallEP:
 //  363 USBD_StatusTypeDef  USBD_LL_ClearStallEP (USBD_HandleTypeDef *pdev, uint8_t ep_addr)   
 //  364 {
 USBD_LL_ClearStallEP:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  365   HAL_PCD_EP_ClrStall(pdev->pData, ep_addr);  
         LDR      R0,[R0, #+544]
@@ -971,7 +997,9 @@ USBD_LL_ClearStallEP:
         BL       HAL_PCD_EP_ClrStall
 //  366   return USBD_OK; 
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 //  367 }
           CFI EndBlock cfiBlock21
 //  368 
@@ -1027,8 +1055,10 @@ USBD_LL_IsStallEP:
 //  396 USBD_StatusTypeDef  USBD_LL_SetUSBAddress (USBD_HandleTypeDef *pdev, uint8_t dev_addr)   
 //  397 {
 USBD_LL_SetUSBAddress:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  398   HAL_PCD_SetAddress(pdev->pData, dev_addr);
         LDR      R0,[R0, #+544]
@@ -1036,7 +1066,9 @@ USBD_LL_SetUSBAddress:
         BL       HAL_PCD_SetAddress
 //  399   return USBD_OK; 
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 //  400 }
           CFI EndBlock cfiBlock23
 //  401 
@@ -1060,8 +1092,10 @@ USBD_LL_SetUSBAddress:
 //  414                                       uint16_t  size)
 //  415 {
 USBD_LL_Transmit:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  416   HAL_PCD_EP_Transmit(pdev->pData, ep_addr, pbuf, size);
         LDR      R0,[R0, #+544]
@@ -1069,7 +1103,9 @@ USBD_LL_Transmit:
         BL       HAL_PCD_EP_Transmit
 //  417   return USBD_OK;   
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 //  418 }
           CFI EndBlock cfiBlock24
 //  419 
@@ -1093,8 +1129,10 @@ USBD_LL_Transmit:
 //  432                                            uint16_t  size)
 //  433 {
 USBD_LL_PrepareReceive:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  434   HAL_PCD_EP_Receive(pdev->pData, ep_addr, pbuf, size);
         LDR      R0,[R0, #+544]
@@ -1102,7 +1140,9 @@ USBD_LL_PrepareReceive:
         BL       HAL_PCD_EP_Receive
 //  435   return USBD_OK;   
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 //  436 }
           CFI EndBlock cfiBlock25
 //  437 
@@ -1164,9 +1204,9 @@ USBD_LL_Delay:
 //  461 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
 // 960 bytes in section .bss
-// 604 bytes in section .text
+// 644 bytes in section .text
 // 
-// 604 bytes of CODE memory
+// 644 bytes of CODE memory
 // 960 bytes of DATA memory
 //
 //Errors: none

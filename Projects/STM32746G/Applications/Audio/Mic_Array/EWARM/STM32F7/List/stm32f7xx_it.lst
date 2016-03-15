@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       08/Mar/2016  16:10:19
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       15/Mar/2016  18:17:15
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7 --relaxed_fp
 #    List file    =  
@@ -262,15 +262,16 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     159          void SysTick_Handler(void)
     160          {
    \                     SysTick_Handler: (+1)
-   \   00000000   0xB580             PUSH     {R7,LR}
+   \   00000000   0xB500             PUSH     {LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
     161            HAL_IncTick(); 
-   \   00000002   0x.... 0x....      BL       HAL_IncTick
+   \   00000004   0x.... 0x....      BL       HAL_IncTick
     162            //Toggle_Leds();
     163          
     164            cntOS++;
-   \   00000006   0x....             LDR.N    R0,??DataTable4
-   \   00000008   0x6801             LDR      R1,[R0, #+0]
-   \   0000000A   0x1C49             ADDS     R1,R1,#+1
+   \   00000008   0x....             LDR.N    R0,??DataTable4
+   \   0000000A   0x6801             LDR      R1,[R0, #+0]
+   \   0000000C   0x1C49             ADDS     R1,R1,#+1
     165          #if USB_STREAMING
     166            //if(cntOS%2==0)
     167            //{
@@ -278,21 +279,22 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     169            //}
     170          #endif   
     171            if (cntOS==10)
-   \   0000000C   0x290A             CMP      R1,#+10
-   \   0000000E   0xD103             BNE.N    ??SysTick_Handler_0
+   \   0000000E   0x290A             CMP      R1,#+10
+   \   00000010   0xD103             BNE.N    ??SysTick_Handler_0
     172            {
     173                cntOS=0;
     174                flg10ms = 1;
-   \   00000010   0x2201             MOVS     R2,#+1
-   \   00000012   0x....             LDR.N    R3,??DataTable4_1
-   \   00000014   0x2100             MOVS     R1,#+0
-   \   00000016   0x701A             STRB     R2,[R3, #+0]
+   \   00000012   0x2201             MOVS     R2,#+1
+   \   00000014   0x....             LDR.N    R3,??DataTable4_1
+   \   00000016   0x2100             MOVS     R1,#+0
+   \   00000018   0x701A             STRB     R2,[R3, #+0]
    \                     ??SysTick_Handler_0: (+1)
-   \   00000018   0x6001             STR      R1,[R0, #+0]
+   \   0000001A   0x6001             STR      R1,[R0, #+0]
     175            }
     176            	
     177          }
-   \   0000001A   0xBD01             POP      {R0,PC}          ;; return
+   \   0000001C   0xB001             ADD      SP,SP,#+4
+   \   0000001E   0xBD00             POP      {PC}             ;; return
     178          
 
    \                                 In section .text, align 2, keep-with-next
@@ -491,18 +493,18 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
        6  OTG_FS_IRQHandler
        2  PendSV_Handler
        2  SVC_Handler
-      28  SysTick_Handler
+      32  SysTick_Handler
        6  USART3_IRQHandler
        2  USART6_IRQHandler
        2  UsageFault_Handler
        4  cntOS
 
  
-  4 bytes in section .bss
- 98 bytes in section .text
+   4 bytes in section .bss
+ 102 bytes in section .text
  
- 98 bytes of CODE memory
-  4 bytes of DATA memory
+ 102 bytes of CODE memory
+   4 bytes of DATA memory
 
 Errors: none
 Warnings: none

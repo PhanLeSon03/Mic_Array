@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      08/Mar/2016  16:10:18
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      15/Mar/2016  18:17:13
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -272,21 +272,23 @@ SAI_BlockSynchroConfig:
         LDR      R0,[R0, #+0]
         LDR.N    R2,??DataTable1  ;; 0x40015804
         CMP      R0,R2
-        ITTET    NE 
+        ITT      NE 
         LDRNE.N  R2,??DataTable1_1  ;; 0x40015824
         CMPNE    R0,R2
+        ITTEE    EQ 
         LDREQ.N  R0,??DataTable1_2  ;; 0x40015800
-        LDRNE.N  R0,??DataTable1_3  ;; 0x40015c00
+        STREQ    R1,[R0, #+0]
+        LDRNE.N  R0,??DataTable1_2  ;; 0x40015800
+        STRNE    R1,[R0, #+1024]
 //  131   {
 //  132     SAI1->GCR = tmpregisterGCR;
 //  133   }
 //  134   else 
 //  135   {
 //  136     SAI2->GCR = tmpregisterGCR;
-        STR      R1,[R0, #+0]
+        BX       LR
 //  137   }
 //  138 }
-        BX       LR               ;; return
           CFI EndBlock cfiBlock0
 //  139   /**
 //  140   * @brief  Get SAI Input Clock based on SAI source clock selection
@@ -346,12 +348,6 @@ SAI_GetInputClock:
 ??DataTable1_2:
         DC32     0x40015800
 
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_3:
-        DC32     0x40015c00
-
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
@@ -384,9 +380,9 @@ SAI_GetInputClock:
 //  178 
 //  179 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 86 bytes in section .text
+// 88 bytes in section .text
 // 
-// 86 bytes of CODE memory
+// 88 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none
