@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      16/Mar/2016  13:41:17
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      16/Mar/2016  16:45:44
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -1146,9 +1146,9 @@ main:
         BL       BSP_LED_Toggle
 //  465 #if (USB_STREAMING)	
 //  466 	/* Initialize USB descriptor basing on channels number and sampling frequency */
-//  467 	USBD_AUDIO_Init_Microphone_Descriptor(&hUSBDDevice, 2*AUDIO_SAMPLING_FREQUENCY, AUDIO_CHANNELS);
+//  467 	USBD_AUDIO_Init_Microphone_Descriptor(&hUSBDDevice, 4*AUDIO_SAMPLING_FREQUENCY, AUDIO_CHANNELS);
         MOVS     R2,#+2
-        MOV      R1,#+32000
+        MOV      R1,#+64000
         ADD      R0,R4,#+216
           CFI FunCall USBD_AUDIO_Init_Microphone_Descriptor
         BL       USBD_AUDIO_Init_Microphone_Descriptor

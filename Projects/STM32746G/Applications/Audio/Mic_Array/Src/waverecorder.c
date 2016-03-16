@@ -1558,7 +1558,7 @@ buffer_switch_tmp = buffer_switch;
 			break; 
 		}
 
-   switch (buffer_switch_tmp)
+   switch (buffer_switch_tmp)//buffer_switch_tmp
   {
 	case BUF1_PLAY:								
 		Buffer2.bufMIC7[0]=Buffer2.bufMIC7[4];
@@ -1692,7 +1692,7 @@ buffer_switch_tmp = buffer_switch;
 			break; 
 		}
           					 
-          switch (buffer_switch)
+          switch (buffer_switch)//buffer_switch
           {
               case BUF1_PLAY: 	
 					  Buffer2.bufMIC8[0] = Buffer2.bufMIC8[4];

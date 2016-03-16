@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       16/Mar/2016  13:41:17
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       16/Mar/2016  16:45:44
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -864,9 +864,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \   000001C8   0x.... 0x....      BL       BSP_LED_Toggle
     465          #if (USB_STREAMING)	
     466          	/* Initialize USB descriptor basing on channels number and sampling frequency */
-    467          	USBD_AUDIO_Init_Microphone_Descriptor(&hUSBDDevice, 2*AUDIO_SAMPLING_FREQUENCY, AUDIO_CHANNELS);
+    467          	USBD_AUDIO_Init_Microphone_Descriptor(&hUSBDDevice, 4*AUDIO_SAMPLING_FREQUENCY, AUDIO_CHANNELS);
    \   000001CC   0x2202             MOVS     R2,#+2
-   \   000001CE   0xF44F 0x41FA      MOV      R1,#+32000
+   \   000001CE   0xF44F 0x417A      MOV      R1,#+64000
    \   000001D2   0xF104 0x00D8      ADD      R0,R4,#+216
    \   000001D6   0x.... 0x....      BL       USBD_AUDIO_Init_Microphone_Descriptor
     468          	/* Init Device Library */

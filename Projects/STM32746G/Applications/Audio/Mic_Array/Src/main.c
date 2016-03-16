@@ -464,7 +464,7 @@ int main(void)
     BSP_LED_Toggle(LED1);
 #if (USB_STREAMING)	
 	/* Initialize USB descriptor basing on channels number and sampling frequency */
-	USBD_AUDIO_Init_Microphone_Descriptor(&hUSBDDevice, 2*AUDIO_SAMPLING_FREQUENCY, AUDIO_CHANNELS);
+	USBD_AUDIO_Init_Microphone_Descriptor(&hUSBDDevice, 4*AUDIO_SAMPLING_FREQUENCY, AUDIO_CHANNELS);
 	/* Init Device Library */
 	USBD_Init(&hUSBDDevice, &AUDIO_Desc, 0);
 	/* Add Supported Class */

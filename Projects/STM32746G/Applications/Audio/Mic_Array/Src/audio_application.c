@@ -187,8 +187,8 @@ void AudioUSBSend(uint16_t idxFrm) /* This function called every ms */
 #else
     //Send_Audio_to_USB((int16_t *)PCM_Buffer1, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS);
     
-    (swtBufUSBOut)?Send_Audio_to_USB((int16_t *)&PCM_Buffer2[(2*2*AUDIO_SAMPLING_FREQUENCY/1000)*2*idxFrm], (2*2*AUDIO_SAMPLING_FREQUENCY/1000)*2)://AUDIO_CHANNELS
-                   Send_Audio_to_USB((int16_t *)&PCM_Buffer1[(2*2*AUDIO_SAMPLING_FREQUENCY/1000)*2*idxFrm], (2*2*AUDIO_SAMPLING_FREQUENCY/1000)*2);//AUDIO_CHANNELS
+    (swtBufUSBOut)?Send_Audio_to_USB((int16_t *)&PCM_Buffer2[(8*AUDIO_SAMPLING_FREQUENCY/1000)*2*idxFrm], (8*AUDIO_SAMPLING_FREQUENCY/1000)*2)://AUDIO_CHANNELS
+                   Send_Audio_to_USB((int16_t *)&PCM_Buffer1[(8*AUDIO_SAMPLING_FREQUENCY/1000)*2*idxFrm], (8*AUDIO_SAMPLING_FREQUENCY/1000)*2);//AUDIO_CHANNELS
 #endif			   
 }
 
@@ -201,12 +201,12 @@ void AudioPlayerUpd(void) /* This function called with period of 64ms */
       case BUF1_PLAY:
 		for (uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
 		{
-		  if (i%2==0)
+		  //if (i%2==0)
 		  {
 			  for(uint8_t j=0;j<8;j++)//AUDIO_CHANNELS
 			  {
-				  (swtBufUSBOut)?(PCM_Buffer1[8*(i/2)+j] = (int16_t)*(&Buffer3.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i)):
-								  (PCM_Buffer2[8*(i/2)+j] = (int16_t)*(&Buffer3.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i));
+				  (swtBufUSBOut)?(PCM_Buffer1[8*(i)+j] = (int16_t)*(&Buffer3.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i)):
+								  (PCM_Buffer2[8*(i)+j] = (int16_t)*(&Buffer3.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i));
 
 			  }
 		  }
@@ -215,12 +215,12 @@ void AudioPlayerUpd(void) /* This function called with period of 64ms */
       case BUF2_PLAY:
 	  	for (uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
  	  	{
- 	  	    if (i%2==0)
+ 	  	    //if (i%2==0)
  	  	    {
                 for(uint8_t j=0;j<8;j++)//AUDIO_CHANNELS
                 {
-                    (swtBufUSBOut)?(PCM_Buffer1[8*(i/2)+j] = (int16_t)*(&Buffer1.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i)):
-						            (PCM_Buffer2[8*(i/2)+j] = (int16_t)*(&Buffer1.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i));
+                    (swtBufUSBOut)?(PCM_Buffer1[8*(i)+j] = (int16_t)*(&Buffer1.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i)):
+						            (PCM_Buffer2[8*(i)+j] = (int16_t)*(&Buffer1.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i));
                 }
  	  	    }
 		}
@@ -229,12 +229,12 @@ void AudioPlayerUpd(void) /* This function called with period of 64ms */
       case BUF3_PLAY:
 	  	for (uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
  	  	{
- 	  	    if (i%2==0)
+ 	  	    //if (i%2==0)
  	  	    {
 	 	  	    for(uint8_t j=0;j<8;j++)//AUDIO_CHANNELS
 	 	  	    {
-                            (swtBufUSBOut)?(PCM_Buffer1[8*(i/2)+j] = (int16_t)*(&Buffer2.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i)):
-								            (PCM_Buffer2[8*(i/2)+j] = (int16_t)*(&Buffer2.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i));	                
+                            (swtBufUSBOut)?(PCM_Buffer1[8*(i)+j] = (int16_t)*(&Buffer2.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i)):
+								            (PCM_Buffer2[8*(i)+j] = (int16_t)*(&Buffer2.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i));	                
 	 	  	    }
  	  	    }
 		}	  	

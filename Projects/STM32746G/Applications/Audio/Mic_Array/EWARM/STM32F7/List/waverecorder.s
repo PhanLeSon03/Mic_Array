@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      16/Mar/2016  13:41:23
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      16/Mar/2016  16:45:50
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -3591,7 +3591,7 @@ PDM2PCMSDO78:
 // 1558 			break; 
 // 1559 		}
 // 1560 
-// 1561    switch (buffer_switch_tmp)
+// 1561    switch (buffer_switch_tmp)//buffer_switch_tmp
 ??PDM2PCMSDO78_10:
         LDR      R0,[SP, #+4]
         CBZ.N    R0,??PDM2PCMSDO78_13
@@ -3848,7 +3848,7 @@ PDM2PCMSDO78:
 // 1692 			break; 
 // 1693 		}
 // 1694           					 
-// 1695           switch (buffer_switch)
+// 1695           switch (buffer_switch)//buffer_switch
 ??PDM2PCMSDO78_27:
         LDR.N    R0,??DataTable20_23
         LDRB     R0,[R0, #+0]
