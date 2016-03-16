@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      15/Mar/2016  18:17:08
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      16/Mar/2016  13:41:15
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -345,18 +345,18 @@ swtBufUSBOut:
 //  187 #else
 //  188     //Send_Audio_to_USB((int16_t *)PCM_Buffer1, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS);
 //  189     
-//  190     (swtBufUSBOut)?Send_Audio_to_USB((int16_t *)&PCM_Buffer2[(2*AUDIO_SAMPLING_FREQUENCY/1000)*2*idxFrm], (2*AUDIO_SAMPLING_FREQUENCY/1000)*2)://AUDIO_CHANNELS
-//  191                    Send_Audio_to_USB((int16_t *)&PCM_Buffer1[(2*AUDIO_SAMPLING_FREQUENCY/1000)*2*idxFrm], (2*AUDIO_SAMPLING_FREQUENCY/1000)*2);//AUDIO_CHANNELS
+//  190     (swtBufUSBOut)?Send_Audio_to_USB((int16_t *)&PCM_Buffer2[(2*2*AUDIO_SAMPLING_FREQUENCY/1000)*2*idxFrm], (2*2*AUDIO_SAMPLING_FREQUENCY/1000)*2)://AUDIO_CHANNELS
+//  191                    Send_Audio_to_USB((int16_t *)&PCM_Buffer1[(2*2*AUDIO_SAMPLING_FREQUENCY/1000)*2*idxFrm], (2*2*AUDIO_SAMPLING_FREQUENCY/1000)*2);//AUDIO_CHANNELS
 AudioUSBSend:
         LDR.N    R1,??DataTable1
         LDRB     R1,[R1, #+0]
         CMP      R1,#+0
         ITTEE    NE 
-        MOVNE    R1,#+64
+        MOVNE    R1,#+128
         LDRNE.N  R2,??DataTable1_1  ;; 0xc001c1e0
-        MOVEQ    R1,#+64
+        MOVEQ    R1,#+128
         LDREQ.N  R2,??DataTable1_2  ;; 0xc00181e0
-        ADD      R0,R2,R0, LSL #+7
+        ADD      R0,R2,R0, LSL #+8
           CFI FunCall Send_Audio_to_USB
         B.W      Send_Audio_to_USB
           CFI EndBlock cfiBlock0

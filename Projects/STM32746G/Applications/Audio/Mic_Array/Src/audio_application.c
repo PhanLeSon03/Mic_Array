@@ -187,8 +187,8 @@ void AudioUSBSend(uint16_t idxFrm) /* This function called every ms */
 #else
     //Send_Audio_to_USB((int16_t *)PCM_Buffer1, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS);
     
-    (swtBufUSBOut)?Send_Audio_to_USB((int16_t *)&PCM_Buffer2[(2*AUDIO_SAMPLING_FREQUENCY/1000)*2*idxFrm], (2*AUDIO_SAMPLING_FREQUENCY/1000)*2)://AUDIO_CHANNELS
-                   Send_Audio_to_USB((int16_t *)&PCM_Buffer1[(2*AUDIO_SAMPLING_FREQUENCY/1000)*2*idxFrm], (2*AUDIO_SAMPLING_FREQUENCY/1000)*2);//AUDIO_CHANNELS
+    (swtBufUSBOut)?Send_Audio_to_USB((int16_t *)&PCM_Buffer2[(2*2*AUDIO_SAMPLING_FREQUENCY/1000)*2*idxFrm], (2*2*AUDIO_SAMPLING_FREQUENCY/1000)*2)://AUDIO_CHANNELS
+                   Send_Audio_to_USB((int16_t *)&PCM_Buffer1[(2*2*AUDIO_SAMPLING_FREQUENCY/1000)*2*idxFrm], (2*2*AUDIO_SAMPLING_FREQUENCY/1000)*2);//AUDIO_CHANNELS
 #endif			   
 }
 

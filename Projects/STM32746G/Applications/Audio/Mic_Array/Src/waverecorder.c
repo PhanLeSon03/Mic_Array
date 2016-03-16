@@ -403,32 +403,30 @@ void SPI2_IRQHandler(void)
 	 I2S2_stLR= HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4);
 
 	 if (I2S2_stLR==GPIO_PIN_SET)
-	 {
-		
-			if ((I2S2_stLROld==GPIO_PIN_SET)&&(WaveRec_idxSens3<2*AUDIO_OUT_BUFFER_SIZE)) 
+	 {		
+		if ((I2S2_stLROld==GPIO_PIN_RESET)&&(WaveRec_idxSens3<2*AUDIO_OUT_BUFFER_SIZE)) 
+		{
+			vRawSens3 = app;
+			switch (buffer_switch)
 			{
-				vRawSens3 = app;
-				switch (buffer_switch)
-				{
-					case BUF1_PLAY:
-						Buffer2.bufMIC3[WaveRec_idxSens3++] = vRawSens3;								
-						break;
-					case BUF2_PLAY:
-						Buffer3.bufMIC3[WaveRec_idxSens3++] = vRawSens3;
-						break;
-					case BUF3_PLAY:
-						Buffer1.bufMIC3[WaveRec_idxSens3++] = vRawSens3;									
-						break;
-					default:
-						break; 
-				}
+				case BUF1_PLAY:
+					Buffer2.bufMIC3[WaveRec_idxSens3++] = vRawSens3;								
+					break;
+				case BUF2_PLAY:
+					Buffer3.bufMIC3[WaveRec_idxSens3++] = vRawSens3;
+					break;
+				case BUF3_PLAY:
+					Buffer1.bufMIC3[WaveRec_idxSens3++] = vRawSens3;									
+					break;
+				default:
+					break; 
 			}
-
+		}
 		
 	 }
 	 else
 	 {
-            if ((I2S2_stLROld==GPIO_PIN_RESET)&&(WaveRec_idxSens4<2*AUDIO_OUT_BUFFER_SIZE))   
+            if ((I2S2_stLROld==GPIO_PIN_SET)&&(WaveRec_idxSens4<2*AUDIO_OUT_BUFFER_SIZE))   
             {
 				vRawSens4 =app;
 				switch (buffer_switch)
@@ -523,7 +521,7 @@ void SPI4_IRQHandler(void)
         test =  SPI_I2S_ReceiveData(SPI4);
 
         /* Left-Right Mic data */
-        //Main_stLR= HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4);
+        Main_stLR= HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4);
 
         /* STM32F746 read data from STA321MP, the data is shifted few bit     */
         /* Data from STA321MP is 32bit formart                                */
@@ -533,7 +531,7 @@ void SPI4_IRQHandler(void)
         /* ---------------------------+++++++++++++++++++++++++++++++---------*/
         /*                  ______DATAL_____              ______DATAR_____    */
         /*                  _____vRawSens5__              ______vRawSens6_    */       
-	if (I2S2_stLR==GPIO_PIN_SET)
+	if (Main_stLR==GPIO_PIN_SET)
 	{
             if (Main_stLROld==GPIO_PIN_SET)
             {
@@ -629,7 +627,7 @@ void SPI4_IRQHandler(void)
 #endif
 
 	/* Update Old value */	  
-	Main_stLROld=I2S2_stLR;	  
+	Main_stLROld=Main_stLR;	  
      
   }      
 }
@@ -732,9 +730,6 @@ void SPI6_IRQHandler(void)
 
 void MIC1TO6_Init(void)
 {
-  SPI5_Init();
-  SPI6_Init();
-  StartRecMic7_8();
   //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
   //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
   //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
@@ -751,6 +746,9 @@ void MIC1TO6_Init(void)
   //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
   //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
   SPI4_Init(); /* SPI4   --> SDO56 */
+  SPI5_Init();
+  SPI6_Init();
+  StartRecMic7_8();
 
 
 }

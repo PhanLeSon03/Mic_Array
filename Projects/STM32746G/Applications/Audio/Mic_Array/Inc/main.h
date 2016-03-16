@@ -65,7 +65,7 @@
 #define BUFFER_SIZE_BYTE                (0x000080A0)                       
 
 
-#define INTERRUPT_PRI_SDO12     1
+#define INTERRUPT_PRI_SDO12     0
 #define INTERRUPT_PRI_SDO34     1
 #define INTERRUPT_PRI_SDO56     2
 #define INTERRUPT_PRI_AUDIOOUT  5
@@ -79,7 +79,7 @@
 #define AUDIO_CHANNELS 				            2
 #define AUDIO_SAMPLING_FREQUENCY 		            16000
 
-
+#define COEFLOWPASS_MIC                            8
 #define AUDIO_OUT_BUFFER_SIZE                      1024
 #define AUDIO_FREQ                                 16000
 #define AUDIO_IN_PCM_BUFFER_SIZE                   2*2304 /* buffer size in half-word */

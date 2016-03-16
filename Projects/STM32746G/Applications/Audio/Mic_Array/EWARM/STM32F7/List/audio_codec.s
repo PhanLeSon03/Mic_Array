@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      15/Mar/2016  18:17:09
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      16/Mar/2016  13:41:15
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -3084,7 +3084,7 @@ HAL_I2S_MspInit:
 // 1254   /* Peripheral interrupt init*/
 // 1255     HAL_NVIC_SetPriority(SPI1_IRQn, INTERRUPT_PRI_SDO12, 0);
         MOVS     R2,#+0
-        MOVS     R1,#+1
+        MOVS     R1,#+0
         MOVS     R0,#+35
           CFI FunCall HAL_NVIC_SetPriority
         BL       HAL_NVIC_SetPriority

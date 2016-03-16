@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       15/Mar/2016  18:17:09
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       16/Mar/2016  13:41:15
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -2734,7 +2734,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    1254            /* Peripheral interrupt init*/
    1255              HAL_NVIC_SetPriority(SPI1_IRQn, INTERRUPT_PRI_SDO12, 0);
    \   0000007E   0x2200             MOVS     R2,#+0
-   \   00000080   0x2101             MOVS     R1,#+1
+   \   00000080   0x2100             MOVS     R1,#+0
    \   00000082   0x2023             MOVS     R0,#+35
    \   00000084   0x.... 0x....      BL       HAL_NVIC_SetPriority
    1256              HAL_NVIC_EnableIRQ(SPI1_IRQn);
