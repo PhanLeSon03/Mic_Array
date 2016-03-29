@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      16/Mar/2016  16:45:46
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      29/Mar/2016  20:10:38
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -16,8 +16,10 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
-//        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
+//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+//        --no_clustering --no_scheduling --debug --endian=little
+//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
+//        (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
@@ -48,7 +50,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -287,51 +289,52 @@
 //  153 HAL_StatusTypeDef HAL_PWREx_EnableBkUpReg(void)
 //  154 {
 HAL_PWREx_EnableBkUpReg:
-        PUSH     {R4-R6,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+16
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
 //  155   uint32_t tickstart = 0;
+        MOVS     R4,#+0
 //  156 
 //  157   /* Enable Backup regulator */
 //  158   PWR->CSR1 |= PWR_CSR1_BRE;
-        LDR.N    R4,??DataTable12  ;; 0x40007004
-        MOVW     R6,#+1001
-        LDR      R0,[R4, #+0]
-        ORR      R0,R0,#0x200
-        STR      R0,[R4, #+0]
+        LDR.N    R0,??DataTable12  ;; 0x40007004
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x200
+        LDR.N    R1,??DataTable12  ;; 0x40007004
+        STR      R0,[R1, #+0]
 //  159 
 //  160   /* Get tick */
 //  161   tickstart = HAL_GetTick();
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R5,R0
+        MOVS     R4,R0
 //  162 
 //  163   /* Wait till Backup regulator ready flag is set */  
 //  164   while(__HAL_PWR_GET_FLAG(PWR_FLAG_BRR) == RESET)
 ??HAL_PWREx_EnableBkUpReg_0:
-        LDR      R0,[R4, #+0]
+        LDR.N    R0,??DataTable12  ;; 0x40007004
+        LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+28
         BMI.N    ??HAL_PWREx_EnableBkUpReg_1
 //  165   {
 //  166     if((HAL_GetTick() - tickstart ) > PWR_BKPREG_TIMEOUT_VALUE)
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUBS     R0,R0,R5
-        CMP      R0,R6
-        BCC.N    ??HAL_PWREx_EnableBkUpReg_0
+        SUBS     R0,R0,R4
+        CMP      R0,#+1000
+        BLS.N    ??HAL_PWREx_EnableBkUpReg_0
 //  167     {
 //  168       return HAL_TIMEOUT;
         MOVS     R0,#+3
-        POP      {R4-R6,PC}
+        B.N      ??HAL_PWREx_EnableBkUpReg_2
 //  169     } 
 //  170   }
 //  171   return HAL_OK;
 ??HAL_PWREx_EnableBkUpReg_1:
         MOVS     R0,#+0
-        POP      {R4-R6,PC}       ;; return
+??HAL_PWREx_EnableBkUpReg_2:
+        POP      {R4,PC}          ;; return
 //  172 }
           CFI EndBlock cfiBlock0
 //  173 
@@ -347,51 +350,52 @@ HAL_PWREx_EnableBkUpReg:
 //  178 HAL_StatusTypeDef HAL_PWREx_DisableBkUpReg(void)
 //  179 {
 HAL_PWREx_DisableBkUpReg:
-        PUSH     {R4-R6,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+16
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
 //  180   uint32_t tickstart = 0;
+        MOVS     R4,#+0
 //  181   
 //  182   /* Disable Backup regulator */
 //  183   PWR->CSR1 &= (uint32_t)~((uint32_t)PWR_CSR1_BRE);
-        LDR.N    R4,??DataTable12  ;; 0x40007004
-        MOVW     R6,#+1001
-        LDR      R0,[R4, #+0]
-        BIC      R0,R0,#0x200
-        STR      R0,[R4, #+0]
+        LDR.N    R0,??DataTable12  ;; 0x40007004
+        LDR      R0,[R0, #+0]
+        BICS     R0,R0,#0x200
+        LDR.N    R1,??DataTable12  ;; 0x40007004
+        STR      R0,[R1, #+0]
 //  184 
 //  185   /* Get tick */
 //  186   tickstart = HAL_GetTick();
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R5,R0
+        MOVS     R4,R0
 //  187 
 //  188   /* Wait till Backup regulator ready flag is set */  
 //  189   while(__HAL_PWR_GET_FLAG(PWR_FLAG_BRR) != RESET)
 ??HAL_PWREx_DisableBkUpReg_0:
-        LDR      R0,[R4, #+0]
+        LDR.N    R0,??DataTable12  ;; 0x40007004
+        LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+28
         BPL.N    ??HAL_PWREx_DisableBkUpReg_1
 //  190   {
 //  191     if((HAL_GetTick() - tickstart ) > PWR_BKPREG_TIMEOUT_VALUE)
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUBS     R0,R0,R5
-        CMP      R0,R6
-        BCC.N    ??HAL_PWREx_DisableBkUpReg_0
+        SUBS     R0,R0,R4
+        CMP      R0,#+1000
+        BLS.N    ??HAL_PWREx_DisableBkUpReg_0
 //  192     {
 //  193       return HAL_TIMEOUT;
         MOVS     R0,#+3
-        POP      {R4-R6,PC}
+        B.N      ??HAL_PWREx_DisableBkUpReg_2
 //  194     } 
 //  195   }
 //  196   return HAL_OK;
 ??HAL_PWREx_DisableBkUpReg_1:
         MOVS     R0,#+0
-        POP      {R4-R6,PC}       ;; return
+??HAL_PWREx_DisableBkUpReg_2:
+        POP      {R4,PC}          ;; return
 //  197 }
           CFI EndBlock cfiBlock1
 //  198 
@@ -411,9 +415,10 @@ HAL_PWREx_DisableBkUpReg:
 //  206   PWR->CR1 |= PWR_CR1_FPDS;
 HAL_PWREx_EnableFlashPowerDown:
         LDR.N    R0,??DataTable12_1  ;; 0x40007000
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x200
-        STR      R1,[R0, #+0]
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x200
+        LDR.N    R1,??DataTable12_1  ;; 0x40007000
+        STR      R0,[R1, #+0]
 //  207 }
         BX       LR               ;; return
           CFI EndBlock cfiBlock2
@@ -434,9 +439,10 @@ HAL_PWREx_EnableFlashPowerDown:
 //  216   PWR->CR1 &= (uint32_t)~((uint32_t)PWR_CR1_FPDS);
 HAL_PWREx_DisableFlashPowerDown:
         LDR.N    R0,??DataTable12_1  ;; 0x40007000
-        LDR      R1,[R0, #+0]
-        BIC      R1,R1,#0x200
-        STR      R1,[R0, #+0]
+        LDR      R0,[R0, #+0]
+        BICS     R0,R0,#0x200
+        LDR.N    R1,??DataTable12_1  ;; 0x40007000
+        STR      R0,[R1, #+0]
 //  217 }
         BX       LR               ;; return
           CFI EndBlock cfiBlock3
@@ -457,9 +463,10 @@ HAL_PWREx_DisableFlashPowerDown:
 //  226   PWR->CR1 |= PWR_CR1_MRUDS;
 HAL_PWREx_EnableMainRegulatorLowVoltage:
         LDR.N    R0,??DataTable12_1  ;; 0x40007000
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x800
-        STR      R1,[R0, #+0]
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x800
+        LDR.N    R1,??DataTable12_1  ;; 0x40007000
+        STR      R0,[R1, #+0]
 //  227 }
         BX       LR               ;; return
           CFI EndBlock cfiBlock4
@@ -480,9 +487,10 @@ HAL_PWREx_EnableMainRegulatorLowVoltage:
 //  236   PWR->CR1 &= (uint32_t)~((uint32_t)PWR_CR1_MRUDS);
 HAL_PWREx_DisableMainRegulatorLowVoltage:
         LDR.N    R0,??DataTable12_1  ;; 0x40007000
-        LDR      R1,[R0, #+0]
-        BIC      R1,R1,#0x800
-        STR      R1,[R0, #+0]
+        LDR      R0,[R0, #+0]
+        BICS     R0,R0,#0x800
+        LDR.N    R1,??DataTable12_1  ;; 0x40007000
+        STR      R0,[R1, #+0]
 //  237 }
         BX       LR               ;; return
           CFI EndBlock cfiBlock5
@@ -503,9 +511,10 @@ HAL_PWREx_DisableMainRegulatorLowVoltage:
 //  246   PWR->CR1 |= PWR_CR1_LPUDS;
 HAL_PWREx_EnableLowRegulatorLowVoltage:
         LDR.N    R0,??DataTable12_1  ;; 0x40007000
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x400
-        STR      R1,[R0, #+0]
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x400
+        LDR.N    R1,??DataTable12_1  ;; 0x40007000
+        STR      R0,[R1, #+0]
 //  247 }
         BX       LR               ;; return
           CFI EndBlock cfiBlock6
@@ -526,9 +535,10 @@ HAL_PWREx_EnableLowRegulatorLowVoltage:
 //  256   PWR->CR1 &= (uint32_t)~((uint32_t)PWR_CR1_LPUDS);
 HAL_PWREx_DisableLowRegulatorLowVoltage:
         LDR.N    R0,??DataTable12_1  ;; 0x40007000
-        LDR      R1,[R0, #+0]
-        BIC      R1,R1,#0x400
-        STR      R1,[R0, #+0]
+        LDR      R0,[R0, #+0]
+        BICS     R0,R0,#0x400
+        LDR.N    R1,??DataTable12_1  ;; 0x40007000
+        STR      R0,[R1, #+0]
 //  257 }
         BX       LR               ;; return
           CFI EndBlock cfiBlock7
@@ -551,102 +561,100 @@ HAL_PWREx_DisableLowRegulatorLowVoltage:
 //  269 HAL_StatusTypeDef HAL_PWREx_EnableOverDrive(void)
 //  270 {
 HAL_PWREx_EnableOverDrive:
-        PUSH     {R4-R6,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        SUB      SP,SP,#+8
           CFI CFA R13+16
 //  271   uint32_t tickstart = 0;
+        MOVS     R4,#+0
 //  272 
 //  273   __HAL_RCC_PWR_CLK_ENABLE();
         LDR.N    R0,??DataTable12_2  ;; 0x40023840
-        SUB      SP,SP,#+8
-          CFI CFA R13+24
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x10000000
+        LDR.N    R1,??DataTable12_2  ;; 0x40023840
+        STR      R0,[R1, #+0]
+        LDR.N    R0,??DataTable12_2  ;; 0x40023840
+        LDR      R0,[R0, #+0]
+        ANDS     R0,R0,#0x10000000
+        STR      R0,[SP, #+0]
+        LDR      R0,[SP, #+0]
 //  274   
 //  275   /* Enable the Over-drive to extend the clock frequency to 216 MHz */
 //  276   __HAL_PWR_OVERDRIVE_ENABLE();
-        LDR.N    R4,??DataTable12_1  ;; 0x40007000
-        MOVW     R6,#+1001
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x10000000
-        STR      R1,[R0, #+0]
+        LDR.N    R0,??DataTable12_1  ;; 0x40007000
         LDR      R0,[R0, #+0]
-        AND      R0,R0,#0x10000000
-        STR      R0,[SP, #+0]
-        LDR      R0,[SP, #+0]
-        LDR      R0,[R4, #+0]
-        ORR      R0,R0,#0x10000
-        STR      R0,[R4, #+0]
+        ORRS     R0,R0,#0x10000
+        LDR.N    R1,??DataTable12_1  ;; 0x40007000
+        STR      R0,[R1, #+0]
 //  277 
 //  278   /* Get tick */
 //  279   tickstart = HAL_GetTick();
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R5,R0
+        MOVS     R4,R0
 //  280 
 //  281   while(!__HAL_PWR_GET_FLAG(PWR_FLAG_ODRDY))
 ??HAL_PWREx_EnableOverDrive_0:
-        LDR      R0,[R4, #+4]
+        LDR.N    R0,??DataTable12  ;; 0x40007004
+        LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+15
         BMI.N    ??HAL_PWREx_EnableOverDrive_1
 //  282   {
 //  283     if((HAL_GetTick() - tickstart ) > PWR_OVERDRIVE_TIMEOUT_VALUE)
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUBS     R0,R0,R5
-        CMP      R0,R6
-        BCC.N    ??HAL_PWREx_EnableOverDrive_0
+        SUBS     R0,R0,R4
+        CMP      R0,#+1000
+        BLS.N    ??HAL_PWREx_EnableOverDrive_0
 //  284     {
 //  285       return HAL_TIMEOUT;
+        MOVS     R0,#+3
+        B.N      ??HAL_PWREx_EnableOverDrive_2
 //  286     }
 //  287   }
 //  288   
 //  289   /* Enable the Over-drive switch */
 //  290   __HAL_PWR_OVERDRIVESWITCHING_ENABLE();
+??HAL_PWREx_EnableOverDrive_1:
+        LDR.N    R0,??DataTable12_1  ;; 0x40007000
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x20000
+        LDR.N    R1,??DataTable12_1  ;; 0x40007000
+        STR      R0,[R1, #+0]
 //  291 
 //  292   /* Get tick */
 //  293   tickstart = HAL_GetTick();
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOVS     R4,R0
 //  294 
 //  295   while(!__HAL_PWR_GET_FLAG(PWR_FLAG_ODSWRDY))
+??HAL_PWREx_EnableOverDrive_3:
+        LDR.N    R0,??DataTable12  ;; 0x40007004
+        LDR      R0,[R0, #+0]
+        LSLS     R0,R0,#+14
+        BMI.N    ??HAL_PWREx_EnableOverDrive_4
 //  296   {
 //  297     if((HAL_GetTick() - tickstart ) > PWR_OVERDRIVE_TIMEOUT_VALUE)
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R4
+        CMP      R0,#+1000
+        BLS.N    ??HAL_PWREx_EnableOverDrive_3
 //  298     {
 //  299       return HAL_TIMEOUT;
         MOVS     R0,#+3
-        ADD      SP,SP,#+8
-          CFI CFA R13+16
-        POP      {R4-R6,PC}
-          CFI CFA R13+24
-??HAL_PWREx_EnableOverDrive_1:
-        LDR      R0,[R4, #+0]
-        ORR      R0,R0,#0x20000
-        STR      R0,[R4, #+0]
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        MOV      R5,R0
-??HAL_PWREx_EnableOverDrive_2:
-        LDR      R0,[R4, #+4]
-        LSLS     R0,R0,#+14
-        BMI.N    ??HAL_PWREx_EnableOverDrive_3
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUBS     R0,R0,R5
-        CMP      R0,R6
-        BCC.N    ??HAL_PWREx_EnableOverDrive_2
-        MOVS     R0,#+3
-        ADD      SP,SP,#+8
-          CFI CFA R13+16
-        POP      {R4-R6,PC}
-          CFI CFA R13+24
+        B.N      ??HAL_PWREx_EnableOverDrive_2
 //  300     }
 //  301   } 
 //  302   return HAL_OK;
-??HAL_PWREx_EnableOverDrive_3:
+??HAL_PWREx_EnableOverDrive_4:
         MOVS     R0,#+0
-        ADD      SP,SP,#+8
-          CFI CFA R13+16
-        POP      {R4-R6,PC}       ;; return
+??HAL_PWREx_EnableOverDrive_2:
+        POP      {R1,R2,R4,PC}    ;; return
 //  303 }
           CFI EndBlock cfiBlock8
 //  304 
@@ -668,103 +676,101 @@ HAL_PWREx_EnableOverDrive:
 //  315 HAL_StatusTypeDef HAL_PWREx_DisableOverDrive(void)
 //  316 {
 HAL_PWREx_DisableOverDrive:
-        PUSH     {R4-R6,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        SUB      SP,SP,#+8
           CFI CFA R13+16
 //  317   uint32_t tickstart = 0;
+        MOVS     R4,#+0
 //  318   
 //  319   __HAL_RCC_PWR_CLK_ENABLE();
         LDR.N    R0,??DataTable12_2  ;; 0x40023840
-        SUB      SP,SP,#+8
-          CFI CFA R13+24
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x10000000
+        LDR.N    R1,??DataTable12_2  ;; 0x40023840
+        STR      R0,[R1, #+0]
+        LDR.N    R0,??DataTable12_2  ;; 0x40023840
+        LDR      R0,[R0, #+0]
+        ANDS     R0,R0,#0x10000000
+        STR      R0,[SP, #+0]
+        LDR      R0,[SP, #+0]
 //  320     
 //  321   /* Disable the Over-drive switch */
 //  322   __HAL_PWR_OVERDRIVESWITCHING_DISABLE();
-        LDR.N    R4,??DataTable12_1  ;; 0x40007000
-        MOVW     R6,#+1001
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x10000000
-        STR      R1,[R0, #+0]
+        LDR.N    R0,??DataTable12_1  ;; 0x40007000
         LDR      R0,[R0, #+0]
-        AND      R0,R0,#0x10000000
-        STR      R0,[SP, #+0]
-        LDR      R0,[SP, #+0]
-        LDR      R0,[R4, #+0]
-        BIC      R0,R0,#0x20000
-        STR      R0,[R4, #+0]
+        BICS     R0,R0,#0x20000
+        LDR.N    R1,??DataTable12_1  ;; 0x40007000
+        STR      R0,[R1, #+0]
 //  323   
 //  324   /* Get tick */
 //  325   tickstart = HAL_GetTick();
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R5,R0
+        MOVS     R4,R0
 //  326  
 //  327   while(__HAL_PWR_GET_FLAG(PWR_FLAG_ODSWRDY))
 ??HAL_PWREx_DisableOverDrive_0:
-        LDR      R0,[R4, #+4]
+        LDR.N    R0,??DataTable12  ;; 0x40007004
+        LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+14
         BPL.N    ??HAL_PWREx_DisableOverDrive_1
 //  328   {
 //  329     if((HAL_GetTick() - tickstart ) > PWR_OVERDRIVE_TIMEOUT_VALUE)
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUBS     R0,R0,R5
-        CMP      R0,R6
-        BCC.N    ??HAL_PWREx_DisableOverDrive_0
+        SUBS     R0,R0,R4
+        CMP      R0,#+1000
+        BLS.N    ??HAL_PWREx_DisableOverDrive_0
 //  330     {
 //  331       return HAL_TIMEOUT;
+        MOVS     R0,#+3
+        B.N      ??HAL_PWREx_DisableOverDrive_2
 //  332     }
 //  333   } 
 //  334   
 //  335   /* Disable the Over-drive */
 //  336   __HAL_PWR_OVERDRIVE_DISABLE();
+??HAL_PWREx_DisableOverDrive_1:
+        LDR.N    R0,??DataTable12_1  ;; 0x40007000
+        LDR      R0,[R0, #+0]
+        BICS     R0,R0,#0x10000
+        LDR.N    R1,??DataTable12_1  ;; 0x40007000
+        STR      R0,[R1, #+0]
 //  337 
 //  338   /* Get tick */
 //  339   tickstart = HAL_GetTick();
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOVS     R4,R0
 //  340 
 //  341   while(__HAL_PWR_GET_FLAG(PWR_FLAG_ODRDY))
+??HAL_PWREx_DisableOverDrive_3:
+        LDR.N    R0,??DataTable12  ;; 0x40007004
+        LDR      R0,[R0, #+0]
+        LSLS     R0,R0,#+15
+        BPL.N    ??HAL_PWREx_DisableOverDrive_4
 //  342   {
 //  343     if((HAL_GetTick() - tickstart ) > PWR_OVERDRIVE_TIMEOUT_VALUE)
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R4
+        CMP      R0,#+1000
+        BLS.N    ??HAL_PWREx_DisableOverDrive_3
 //  344     {
 //  345       return HAL_TIMEOUT;
         MOVS     R0,#+3
-        ADD      SP,SP,#+8
-          CFI CFA R13+16
-        POP      {R4-R6,PC}
-          CFI CFA R13+24
-??HAL_PWREx_DisableOverDrive_1:
-        LDR      R0,[R4, #+0]
-        BIC      R0,R0,#0x10000
-        STR      R0,[R4, #+0]
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        MOV      R5,R0
-??HAL_PWREx_DisableOverDrive_2:
-        LDR      R0,[R4, #+4]
-        LSLS     R0,R0,#+15
-        BPL.N    ??HAL_PWREx_DisableOverDrive_3
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUBS     R0,R0,R5
-        CMP      R0,R6
-        BCC.N    ??HAL_PWREx_DisableOverDrive_2
-        MOVS     R0,#+3
-        ADD      SP,SP,#+8
-          CFI CFA R13+16
-        POP      {R4-R6,PC}
-          CFI CFA R13+24
+        B.N      ??HAL_PWREx_DisableOverDrive_2
 //  346     }
 //  347   }
 //  348   
 //  349   return HAL_OK;
-??HAL_PWREx_DisableOverDrive_3:
+??HAL_PWREx_DisableOverDrive_4:
         MOVS     R0,#+0
-        ADD      SP,SP,#+8
-          CFI CFA R13+16
-        POP      {R4-R6,PC}       ;; return
+??HAL_PWREx_DisableOverDrive_2:
+        POP      {R1,R2,R4,PC}    ;; return
 //  350 }
           CFI EndBlock cfiBlock9
 //  351 
@@ -813,17 +819,19 @@ HAL_PWREx_DisableOverDrive:
 //  389 HAL_StatusTypeDef HAL_PWREx_EnterUnderDriveSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
 //  390 {
 HAL_PWREx_EnterUnderDriveSTOPMode:
-        PUSH     {R4-R8,LR}
+        PUSH     {R3-R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R8 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -20)
-          CFI R4 Frame(CFA, -24)
+          CFI R7 Frame(CFA, -8)
+          CFI R6 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -16)
+          CFI R4 Frame(CFA, -20)
           CFI CFA R13+24
-        MOV      R5,R0
+        MOVS     R4,R0
+        MOVS     R5,R1
 //  391   uint32_t tempreg = 0;
+        MOVS     R6,#+0
 //  392   uint32_t tickstart = 0;
+        MOVS     R7,#+0
 //  393   
 //  394   /* Check the parameters */
 //  395   assert_param(IS_PWR_REGULATOR_UNDERDRIVE(Regulator));
@@ -832,42 +840,44 @@ HAL_PWREx_EnterUnderDriveSTOPMode:
 //  398   /* Enable Power ctrl clock */
 //  399   __HAL_RCC_PWR_CLK_ENABLE();
         LDR.N    R0,??DataTable12_2  ;; 0x40023840
-        SUB      SP,SP,#+8
-          CFI CFA R13+32
-        MOV      R4,R1
-        LDR      R1,[R0, #+0]
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x10000000
+        LDR.N    R1,??DataTable12_2  ;; 0x40023840
+        STR      R0,[R1, #+0]
+        LDR.N    R0,??DataTable12_2  ;; 0x40023840
+        LDR      R0,[R0, #+0]
+        ANDS     R0,R0,#0x10000000
+        STR      R0,[SP, #+0]
+        LDR      R0,[SP, #+0]
 //  400   /* Enable the Under-drive Mode ---------------------------------------------*/
 //  401   /* Clear Under-drive flag */
 //  402   __HAL_PWR_CLEAR_ODRUDR_FLAG();
-        LDR.N    R6,??DataTable12_1  ;; 0x40007000
+        LDR.N    R0,??DataTable12  ;; 0x40007004
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0xC0000
+        LDR.N    R1,??DataTable12  ;; 0x40007004
+        STR      R0,[R1, #+0]
 //  403   
 //  404   /* Enable the Under-drive */ 
 //  405   __HAL_PWR_UNDERDRIVE_ENABLE();
-        MOVW     R8,#+1001
-        ORR      R1,R1,#0x10000000
-        STR      R1,[R0, #+0]
+        LDR.N    R0,??DataTable12_1  ;; 0x40007000
         LDR      R0,[R0, #+0]
-        AND      R0,R0,#0x10000000
-        STR      R0,[SP, #+0]
-        LDR      R0,[SP, #+0]
-        LDR      R0,[R6, #+4]
-        ORR      R0,R0,#0xC0000
-        STR      R0,[R6, #+4]
-        LDR      R0,[R6, #+0]
-        ORR      R0,R0,#0xC0000
-        STR      R0,[R6, #+0]
+        ORRS     R0,R0,#0xC0000
+        LDR.N    R1,??DataTable12_1  ;; 0x40007000
+        STR      R0,[R1, #+0]
 //  406 
 //  407   /* Get tick */
 //  408   tickstart = HAL_GetTick();
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R7,R0
+        MOVS     R7,R0
 //  409 
 //  410   /* Wait for UnderDrive mode is ready */
 //  411   while(__HAL_PWR_GET_FLAG(PWR_FLAG_UDRDY))
 ??HAL_PWREx_EnterUnderDriveSTOPMode_0:
-        LDR      R0,[R6, #+4]
-        AND      R0,R0,#0xC0000
+        LDR.N    R0,??DataTable12  ;; 0x40007004
+        LDR      R0,[R0, #+0]
+        ANDS     R0,R0,#0xC0000
         CMP      R0,#+786432
         BNE.N    ??HAL_PWREx_EnterUnderDriveSTOPMode_1
 //  412   {
@@ -875,68 +885,74 @@ HAL_PWREx_EnterUnderDriveSTOPMode:
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         SUBS     R0,R0,R7
-        CMP      R0,R8
-        BCC.N    ??HAL_PWREx_EnterUnderDriveSTOPMode_0
+        CMP      R0,#+1000
+        BLS.N    ??HAL_PWREx_EnterUnderDriveSTOPMode_0
 //  414     {
 //  415       return HAL_TIMEOUT;
         MOVS     R0,#+3
-        ADD      SP,SP,#+8
-          CFI CFA R13+24
-        POP      {R4-R8,PC}
-          CFI CFA R13+32
+        B.N      ??HAL_PWREx_EnterUnderDriveSTOPMode_2
 //  416     }
 //  417   }
 //  418   
 //  419   /* Select the regulator state in STOP mode ---------------------------------*/
 //  420   tempreg = PWR->CR1;
 ??HAL_PWREx_EnterUnderDriveSTOPMode_1:
-        LDR      R0,[R6, #+0]
+        LDR.N    R0,??DataTable12_1  ;; 0x40007000
+        LDR      R0,[R0, #+0]
+        MOVS     R6,R0
 //  421   /* Clear PDDS, LPDS, MRLUDS and LPLUDS bits */
 //  422   tempreg &= (uint32_t)~(PWR_CR1_PDDS | PWR_CR1_LPDS | PWR_CR1_LPUDS | PWR_CR1_MRUDS);
+        LDR.N    R0,??DataTable12_3  ;; 0xfffff3fc
+        ANDS     R6,R0,R6
 //  423   
 //  424   /* Set LPDS, MRLUDS and LPLUDS bits according to PWR_Regulator value */
 //  425   tempreg |= Regulator;
+        ORRS     R6,R4,R6
 //  426   
 //  427   /* Store the new value */
 //  428   PWR->CR1 = tempreg;
-        LDR.N    R1,??DataTable12_3  ;; 0xfffff3fc
-        ANDS     R0,R1,R0
-        ORRS     R0,R5,R0
-        STR      R0,[R6, #+0]
+        LDR.N    R0,??DataTable12_1  ;; 0x40007000
+        STR      R6,[R0, #+0]
 //  429   
 //  430   /* Set SLEEPDEEP bit of Cortex System Control Register */
 //  431   SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
         LDR.N    R0,??DataTable12_4  ;; 0xe000ed10
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x4
+        LDR.N    R1,??DataTable12_4  ;; 0xe000ed10
+        STR      R0,[R1, #+0]
 //  432   
 //  433   /* Select STOP mode entry --------------------------------------------------*/
 //  434   if(STOPEntry == PWR_SLEEPENTRY_WFI)
-        CMP      R4,#+1
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x4
-        STR      R1,[R0, #+0]
-        ITE      EQ 
-        WFIEQ    
-        WFENE    
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        CMP      R5,#+1
+        BNE.N    ??HAL_PWREx_EnterUnderDriveSTOPMode_3
 //  435   {   
 //  436     /* Request Wait For Interrupt */
 //  437     __WFI();
+        WFI      
+        B.N      ??HAL_PWREx_EnterUnderDriveSTOPMode_4
 //  438   }
 //  439   else
 //  440   {
 //  441     /* Request Wait For Event */
 //  442     __WFE();
+??HAL_PWREx_EnterUnderDriveSTOPMode_3:
+        WFE      
 //  443   }
 //  444   /* Reset SLEEPDEEP bit of Cortex System Control Register */
 //  445   SCB->SCR &= (uint32_t)~((uint32_t)SCB_SCR_SLEEPDEEP_Msk);
-        LDR      R1,[R0, #+0]
-        BIC      R1,R1,#0x4
-        STR      R1,[R0, #+0]
+??HAL_PWREx_EnterUnderDriveSTOPMode_4:
+        LDR.N    R0,??DataTable12_4  ;; 0xe000ed10
+        LDR      R0,[R0, #+0]
+        BICS     R0,R0,#0x4
+        LDR.N    R1,??DataTable12_4  ;; 0xe000ed10
+        STR      R0,[R1, #+0]
 //  446 
 //  447   return HAL_OK;  
         MOVS     R0,#+0
-        ADD      SP,SP,#+8
-          CFI CFA R13+24
-        POP      {R4-R8,PC}       ;; return
+??HAL_PWREx_EnterUnderDriveSTOPMode_2:
+        POP      {R1,R4-R7,PC}    ;; return
 //  448 }
           CFI EndBlock cfiBlock10
 //  449 
@@ -957,7 +973,7 @@ HAL_PWREx_EnterUnderDriveSTOPMode:
 HAL_PWREx_GetVoltageRange:
         LDR.N    R0,??DataTable12_1  ;; 0x40007000
         LDR      R0,[R0, #+0]
-        AND      R0,R0,#0xC000
+        ANDS     R0,R0,#0xC000
         BX       LR               ;; return
 //  458 }
           CFI EndBlock cfiBlock11
@@ -997,145 +1013,144 @@ HAL_PWREx_GetVoltageRange:
 //  487 HAL_StatusTypeDef HAL_PWREx_ControlVoltageScaling(uint32_t VoltageScaling)
 //  488 {
 HAL_PWREx_ControlVoltageScaling:
-        PUSH     {R4-R7,LR}
+        PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+20
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+16
+        MOVS     R4,R0
 //  489   uint32_t tickstart = 0;
+        MOVS     R5,#+0
 //  490 
 //  491   assert_param(IS_PWR_REGULATOR_VOLTAGE(VoltageScaling));
 //  492 
 //  493   /* Enable Power ctrl clock */
 //  494   __HAL_RCC_PWR_CLK_ENABLE();
-        LDR.N    R4,??DataTable12_5  ;; 0x40023800
-        SUB      SP,SP,#+4
-          CFI CFA R13+24
-        MOV      R5,R0
-        LDR      R0,[R4, #+64]
-        ORR      R0,R0,#0x10000000
-        STR      R0,[R4, #+64]
-        LDR      R0,[R4, #+64]
-        AND      R0,R0,#0x10000000
+        LDR.N    R0,??DataTable12_2  ;; 0x40023840
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x10000000
+        LDR.N    R1,??DataTable12_2  ;; 0x40023840
+        STR      R0,[R1, #+0]
+        LDR.N    R0,??DataTable12_2  ;; 0x40023840
+        LDR      R0,[R0, #+0]
+        ANDS     R0,R0,#0x10000000
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
 //  495 
 //  496   /* Check if the PLL is used as system clock or not */
 //  497   if(__HAL_RCC_GET_SYSCLK_SOURCE() != RCC_CFGR_SWS_PLL)
-        LDR      R0,[R4, #+8]
-        AND      R0,R0,#0xC
+        LDR.N    R0,??DataTable12_5  ;; 0x40023808
+        LDR      R0,[R0, #+0]
+        ANDS     R0,R0,#0xC
         CMP      R0,#+8
         BEQ.N    ??HAL_PWREx_ControlVoltageScaling_0
 //  498   {
 //  499     /* Disable the main PLL */
 //  500     __HAL_RCC_PLL_DISABLE();
-        LDR      R0,[R4, #+0]
-        BIC      R0,R0,#0x1000000
-        STR      R0,[R4, #+0]
+        LDR.N    R0,??DataTable12_6  ;; 0x40023800
+        LDR      R0,[R0, #+0]
+        BICS     R0,R0,#0x1000000
+        LDR.N    R1,??DataTable12_6  ;; 0x40023800
+        STR      R0,[R1, #+0]
 //  501     
 //  502     /* Get Start Tick */
 //  503     tickstart = HAL_GetTick();    
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R7,R0
+        MOVS     R5,R0
 //  504     /* Wait till PLL is disabled */  
 //  505     while(__HAL_RCC_GET_FLAG(RCC_FLAG_PLLRDY) != RESET)
 ??HAL_PWREx_ControlVoltageScaling_1:
-        LDR      R0,[R4, #+0]
+        LDR.N    R0,??DataTable12_6  ;; 0x40023800
+        LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+6
         BPL.N    ??HAL_PWREx_ControlVoltageScaling_2
 //  506     {
 //  507       if((HAL_GetTick() - tickstart ) > PLL_TIMEOUT_VALUE)
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUBS     R0,R0,R7
+        SUBS     R0,R0,R5
         CMP      R0,#+101
         BCC.N    ??HAL_PWREx_ControlVoltageScaling_1
 //  508       {
 //  509         return HAL_TIMEOUT;
+        MOVS     R0,#+3
+        B.N      ??HAL_PWREx_ControlVoltageScaling_3
 //  510       }
 //  511     }
 //  512     
 //  513     /* Set Range */
 //  514     __HAL_PWR_VOLTAGESCALING_CONFIG(VoltageScaling);
+??HAL_PWREx_ControlVoltageScaling_2:
+        LDR.N    R0,??DataTable12_1  ;; 0x40007000
+        LDR      R0,[R0, #+0]
+        BICS     R0,R0,#0xC000
+        ORRS     R0,R4,R0
+        LDR.N    R1,??DataTable12_1  ;; 0x40007000
+        STR      R0,[R1, #+0]
+        LDR.N    R0,??DataTable12_1  ;; 0x40007000
+        LDR      R0,[R0, #+0]
+        ANDS     R0,R0,#0xC000
+        STR      R0,[SP, #+0]
+        LDR      R0,[SP, #+0]
 //  515     
 //  516     /* Enable the main PLL */
 //  517     __HAL_RCC_PLL_ENABLE();
+        LDR.N    R0,??DataTable12_6  ;; 0x40023800
+        LDR      R0,[R0, #+0]
+        ORRS     R0,R0,#0x1000000
+        LDR.N    R1,??DataTable12_6  ;; 0x40023800
+        STR      R0,[R1, #+0]
 //  518     
 //  519     /* Get Start Tick */
 //  520     tickstart = HAL_GetTick();
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOVS     R5,R0
 //  521     /* Wait till PLL is ready */  
 //  522     while(__HAL_RCC_GET_FLAG(RCC_FLAG_PLLRDY) == RESET)
+??HAL_PWREx_ControlVoltageScaling_4:
+        LDR.N    R0,??DataTable12_6  ;; 0x40023800
+        LDR      R0,[R0, #+0]
+        LSLS     R0,R0,#+6
+        BMI.N    ??HAL_PWREx_ControlVoltageScaling_5
 //  523     {
 //  524       if((HAL_GetTick() - tickstart ) > PLL_TIMEOUT_VALUE)
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R0,#+101
+        BCC.N    ??HAL_PWREx_ControlVoltageScaling_4
 //  525       {
 //  526         return HAL_TIMEOUT;
+        MOVS     R0,#+3
+        B.N      ??HAL_PWREx_ControlVoltageScaling_3
 //  527       } 
 //  528     }
 //  529     
 //  530     /* Get Start Tick */
 //  531     tickstart = HAL_GetTick();
+??HAL_PWREx_ControlVoltageScaling_5:
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOVS     R5,R0
 //  532     while((__HAL_PWR_GET_FLAG(PWR_FLAG_VOSRDY) == RESET))
+??HAL_PWREx_ControlVoltageScaling_6:
+        LDR.N    R0,??DataTable12  ;; 0x40007004
+        LDR      R0,[R0, #+0]
+        LSLS     R0,R0,#+17
+        BMI.N    ??HAL_PWREx_ControlVoltageScaling_7
 //  533     {
 //  534       if((HAL_GetTick() - tickstart ) > PWR_VOSRDY_TIMEOUT_VALUE)
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R0,#+1000
+        BLS.N    ??HAL_PWREx_ControlVoltageScaling_6
 //  535       {
 //  536         return HAL_TIMEOUT;
         MOVS     R0,#+3
-        ADD      SP,SP,#+4
-          CFI CFA R13+20
-        POP      {R4-R7,PC}
-          CFI CFA R13+24
-??HAL_PWREx_ControlVoltageScaling_2:
-        LDR.N    R6,??DataTable12_1  ;; 0x40007000
-        LDR      R0,[R6, #+0]
-        BIC      R0,R0,#0xC000
-        ORRS     R0,R5,R0
-        STR      R0,[R6, #+0]
-        LDR      R0,[R6, #+0]
-        AND      R0,R0,#0xC000
-        STR      R0,[SP, #+0]
-        LDR      R0,[SP, #+0]
-        LDR      R0,[R4, #+0]
-        ORR      R0,R0,#0x1000000
-        STR      R0,[R4, #+0]
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        MOV      R7,R0
-??HAL_PWREx_ControlVoltageScaling_3:
-        LDR      R0,[R4, #+0]
-        LSLS     R0,R0,#+6
-        BMI.N    ??HAL_PWREx_ControlVoltageScaling_4
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUBS     R0,R0,R7
-        CMP      R0,#+101
-        BCC.N    ??HAL_PWREx_ControlVoltageScaling_3
-        MOVS     R0,#+3
-        ADD      SP,SP,#+4
-          CFI CFA R13+20
-        POP      {R4-R7,PC}
-          CFI CFA R13+24
-??HAL_PWREx_ControlVoltageScaling_4:
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        MOV      R7,R0
-        MOVW     R4,#+1001
-??HAL_PWREx_ControlVoltageScaling_5:
-        LDR      R0,[R6, #+4]
-        LSLS     R0,R0,#+17
-        BMI.N    ??HAL_PWREx_ControlVoltageScaling_6
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUBS     R0,R0,R7
-        CMP      R0,R4
-        BCC.N    ??HAL_PWREx_ControlVoltageScaling_5
-        MOVS     R0,#+3
-        ADD      SP,SP,#+4
-          CFI CFA R13+20
-        POP      {R4-R7,PC}
-          CFI CFA R13+24
+        B.N      ??HAL_PWREx_ControlVoltageScaling_3
 //  537       } 
 //  538     }
 //  539   }
@@ -1144,17 +1159,13 @@ HAL_PWREx_ControlVoltageScaling:
 //  542     return HAL_ERROR;
 //  543   }
 //  544   return HAL_OK;
-??HAL_PWREx_ControlVoltageScaling_6:
+??HAL_PWREx_ControlVoltageScaling_7:
         MOVS     R0,#+0
-        ADD      SP,SP,#+4
-          CFI CFA R13+20
-        POP      {R4-R7,PC}
-          CFI CFA R13+24
+        B.N      ??HAL_PWREx_ControlVoltageScaling_3
 ??HAL_PWREx_ControlVoltageScaling_0:
         MOVS     R0,#+1
-        ADD      SP,SP,#+4
-          CFI CFA R13+20
-        POP      {R4-R7,PC}       ;; return
+??HAL_PWREx_ControlVoltageScaling_3:
+        POP      {R1,R4,R5,PC}    ;; return
 //  545 }
           CFI EndBlock cfiBlock12
 
@@ -1192,6 +1203,12 @@ HAL_PWREx_ControlVoltageScaling:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable12_5:
+        DC32     0x40023808
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable12_6:
         DC32     0x40023800
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
@@ -1226,9 +1243,9 @@ HAL_PWREx_ControlVoltageScaling:
 //  563 
 //  564 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 720 bytes in section .text
+// 794 bytes in section .text
 // 
-// 720 bytes of CODE memory
+// 794 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

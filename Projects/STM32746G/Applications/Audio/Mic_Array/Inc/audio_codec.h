@@ -219,6 +219,7 @@ uint32_t AUDIO_Mute(uint32_t Command);
 void Audio_MAL_Play(uint32_t Addr, uint16_t Size);
 void DAC_Config(void);
 void codec_sendBeep(void);
+void   Audio_MAL_Stop(void);;
 
 
 /* User Callbacks: user has to implement these functions in his code if

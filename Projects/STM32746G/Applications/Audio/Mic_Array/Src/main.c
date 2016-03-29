@@ -319,7 +319,7 @@ inline static void Audio_Play_Out(void)
 			  
 	3-------  Buffer2                         Buffer3                           Buffer1 
  ---------------------------------------------------------------------------------------------------------------*/
-    Audio_MAL_Play((uint32_t)&bufferSum[idxFrmPDMMic8*AUDIO_CHANNELS*(6*AUDIO_SAMPLING_FREQUENCY/1000)], 2*6*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
+    //Audio_MAL_Play((uint32_t)&bufferSum[idxFrmPDMMic8*AUDIO_CHANNELS*(6*AUDIO_SAMPLING_FREQUENCY/1000)], 2*6*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
     //Audio_MAL_Play((uint32_t)&bufferSum, 2*3*AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE);
 
 #if USB_STREAMING
@@ -446,6 +446,28 @@ int main(void)
     USART3_Init();
 #endif
 
+#if (USB_STREAMING)	
+		/* Initialize USB descriptor basing on channels number and sampling frequency */
+		USBD_AUDIO_Init_Microphone_Descriptor(&hUSBDDevice, 4*AUDIO_SAMPLING_FREQUENCY, AUDIO_CHANNELS);
+		/* Init Device Library */
+		USBD_Init(&hUSBDDevice, &AUDIO_Desc, 0);
+		/* Add Supported Class */
+		USBD_RegisterClass(&hUSBDDevice, &USBD_AUDIO);
+		/* Add Interface callbacks for AUDIO Class */  
+		USBD_AUDIO_RegisterInterface(&hUSBDDevice, &USBD_AUDIO_fops);
+		/* Start Device Process */
+		USBD_Start(&hUSBDDevice);
+	
+		/* Init Host Library */
+		//test GIT //USBH_Init(&hUSBHost, USBH_UserProcess, 0);
+	
+		/* Add Supported Class */
+		//test GIT //USBH_RegisterClass(&hUSBHost, USBH_MSC_CLASS);
+		
+		/* Start Host Process */
+		//test GIT //USBH_Start(&hUSBHost); 					  
+#endif 
+
 					  
 
     /*----------------------------------------*/
@@ -460,29 +482,9 @@ int main(void)
     BSP_LED_Toggle(LED2);
 
     buffer_switch = BUF3_PLAY;		 /* record data to buffer1 */
-    MIC1TO6_Init();
+    MIC1TO8_Init();
     BSP_LED_Toggle(LED1);
-#if (USB_STREAMING)	
-	/* Initialize USB descriptor basing on channels number and sampling frequency */
-	USBD_AUDIO_Init_Microphone_Descriptor(&hUSBDDevice, 4*AUDIO_SAMPLING_FREQUENCY, AUDIO_CHANNELS);
-	/* Init Device Library */
-	USBD_Init(&hUSBDDevice, &AUDIO_Desc, 0);
-	/* Add Supported Class */
-	USBD_RegisterClass(&hUSBDDevice, &USBD_AUDIO);
-	/* Add Interface callbacks for AUDIO Class */  
-	USBD_AUDIO_RegisterInterface(&hUSBDDevice, &USBD_AUDIO_fops);
-	/* Start Device Process */
-	USBD_Start(&hUSBDDevice);
 
-	/* Init Host Library */
-	//test GIT //USBH_Init(&hUSBHost, USBH_UserProcess, 0);
-
-	/* Add Supported Class */
-	//test GIT //USBH_RegisterClass(&hUSBHost, USBH_MSC_CLASS);
-	
-	/* Start Host Process */
-	//test GIT //USBH_Start(&hUSBHost); 					  
-#endif 
     Window(fir256Coff);
 	EnergyNoiseCalc(AUDIO_OUT_BUFFER_SIZE/2);
 
@@ -492,19 +494,19 @@ int main(void)
     {
 
 
-                    /* This calculation happens once time in power cycles */
-                    /* After 5 times of full frame recieved interrupt */
+                /* This calculation happens once time in power cycles */
+                /* After 5 times of full frame recieved interrupt */
                if ((cntStrt>=5))
                {
 		      if ((WaveRecord_flgIni<200))
 		      {
-                          for(char i=0;i<16;i++)
-                          {
-                              if (ValBit(SPI4_stNipple,i)!=0) 
-                              {
-                                  SPI4_stPosShft = MAX(SPI4_stPosShft,i+1);
-                             }
-                          }
+                  for(char i=0;i<16;i++)
+                  {
+                     if (ValBit(SPI4_stNipple,i)!=0) 
+                     {
+                          SPI4_stPosShft = MAX(SPI4_stPosShft,i+1);
+                     }
+                  }
 		          WaveRecord_flgIni++;			
 		      }   
 		 }
@@ -761,7 +763,7 @@ static void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 25;
-  RCC_OscInitStruct.PLL.PLLN = 432;  
+  RCC_OscInitStruct.PLL.PLLN = 432;  // 432
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 9;
 
@@ -1207,11 +1209,13 @@ void MX_I2C2_Init(void)
 
  void HAL_I2S_TxCpltCallback(I2S_HandleTypeDef *hi2s)
 {  
-  Audio_Play_Out();  
+  //Audio_Play_Out();  
+  Audio_MAL_Play((uint32_t)&bufferSum[AUDIO_CHANNELS*(6*AUDIO_SAMPLING_FREQUENCY/1000)], 2*6*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
 }
 
  uint8_t StartPlay(void)
  {
+ #if 0
 	while (1)
 	{
 		 /* there is data in the buffer */	
@@ -1230,7 +1234,7 @@ void MX_I2C2_Init(void)
                                  
          
                                  /*------------------------PLAYER------------------------------------------*/
-                                 Audio_MAL_Play((uint32_t)bufferSum,2*3*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
+                                 Audio_MAL_Play((uint32_t)bufferSum,2*6*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
                                  /*------------------------------------------------------------------------*/				 
                                  buffer_switch = BUF1_PLAY;
 								 uint16_t tdelay=100;
@@ -1243,5 +1247,15 @@ void MX_I2C2_Init(void)
 		 
 		 }
 	}
+#endif	
+	         
+	 /*------------------------PLAYER------------------------------------------*/
+	 Audio_MAL_Play((uint32_t)bufferSum,2*6*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
+	 /*------------------------------------------------------------------------*/	
  }
+
+void SubFrameFinished(void)
+{
+    Audio_Play_Out();
+}
 /*****************************END OF FILE**************************************/

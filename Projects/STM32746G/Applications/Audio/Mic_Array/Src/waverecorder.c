@@ -284,6 +284,8 @@ void SPI1_IRQHandler(void)
 								break; 
 				   
 				   	}
+                                   
+                    
 		       	}
 		}
 		else
@@ -307,10 +309,13 @@ void SPI1_IRQHandler(void)
 					default:
 						break; 
 
-				}
+			   }
+
 			}
 		
 		} 	
+
+		
 	}
 	   
 
@@ -611,6 +616,8 @@ void SPI4_IRQHandler(void)
                          default:
                              break;
                      }
+
+					  if ((WaveRec_idxSens6 % (2*AUDIO_SAMPLING_FREQUENCY/1000)==0)) SubFrameFinished();
                }
           }		
 	}
@@ -728,8 +735,10 @@ void SPI6_IRQHandler(void)
 
 
 
-void MIC1TO6_Init(void)
+void MIC1TO8_Init(void)
 {
+
+
   //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
   //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
   //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
@@ -749,6 +758,7 @@ void MIC1TO6_Init(void)
   SPI5_Init();
   SPI6_Init();
   StartRecMic7_8();
+
 
 
 }
@@ -1523,15 +1533,15 @@ buffer_switch_tmp = buffer_switch;
 	          switch (buffer_switch_tmp)
 	          {
 			    case BUF1_PLAY:								
-                  PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer2.bufMIC7 + (i/64)*16), 150 ,
+                  PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer2.bufMIC7 + (i/64)*16), 54 ,
                   (PDMFilter_InitStruct *)&Filter[0]);						  
                   break;	              
 	            case BUF2_PLAY:
-					PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer3.bufMIC7 + (i/64)*16), 150 ,
+					PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer3.bufMIC7 + (i/64)*16), 54 ,
 					(PDMFilter_InitStruct *)&Filter[0]);							
 					break;
 	            case BUF3_PLAY:
-					PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer1.bufMIC7 + (i/64)*16), 150 ,
+					PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer1.bufMIC7 + (i/64)*16), 54 ,
 					(PDMFilter_InitStruct *)&Filter[0]);		
 					break;
 	            default:
@@ -1656,15 +1666,15 @@ buffer_switch_tmp = buffer_switch;
                       switch (buffer_switch)
                       {
                               case BUF1_PLAY: 							
-                                      PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer2.bufMIC8 + (i/64)*16), 150 ,
+                                      PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer2.bufMIC8 + (i/64)*16), 54 ,
                                       (PDMFilter_InitStruct *)&Filter[1]);
                                       break;
                               case BUF2_PLAY:
-                                      PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer3.bufMIC8 + (i/64)*16), 150 ,
+                                      PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer3.bufMIC8 + (i/64)*16), 54 ,
                                       (PDMFilter_InitStruct *)&Filter[1]);	
                                       break;
                               case BUF3_PLAY:
-                                      PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer1.bufMIC8 + (i/64)*16), 150 ,
+                                      PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer1.bufMIC8 + (i/64)*16), 54 ,
                                       (PDMFilter_InitStruct *)&Filter[1]);									
                                        break;
                               default:

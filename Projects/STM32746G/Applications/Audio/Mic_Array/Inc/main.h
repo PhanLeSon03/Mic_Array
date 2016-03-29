@@ -51,7 +51,7 @@
 #include "audio_application.h"
 
 #define EXT_RAM         1
-#define DEBUG           1
+#define DEBUG           0
 //#define MAIN_RECORD
 #define MAIN_CRSCORR    0
 #define MAIN_FFT        0
@@ -285,6 +285,8 @@ void DFT_Init(void);
 void SumDelay(Mic_Array_Data *BufferIn);
 void ButtonInit(void);
 void  BSP_AUDIO_OUT_ClockConfig(uint32_t AudioFreq, void *Params);
+void SubFrameFinished(void);
+
 
 #define RESET_IDX   {                                                           \
 WaveRec_idxSens1 = 0; /* reset position store data in buffer for sensor 1*/     \

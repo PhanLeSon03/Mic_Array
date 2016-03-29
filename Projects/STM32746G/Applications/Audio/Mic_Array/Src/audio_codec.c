@@ -170,7 +170,7 @@ static void     DMA_Cmd(DMA_Stream_TypeDef* DMAy_Streamx, FunctionalState NewSta
 static void     SPI_I2S_DMACmd(SPI_TypeDef* SPIx, uint16_t SPI_I2S_DMAReq, FunctionalState NewState);
 static void     Audio_MAL_DeInit(void);
 static void     Audio_MAL_PauseResume(uint32_t Cmd, uint32_t Addr);
-static void     Audio_MAL_Stop(void);
+
 /*----------------------------------------------------------------------------*/
 
 /**
@@ -1037,7 +1037,7 @@ static void Audio_MAL_PauseResume(uint32_t Cmd, uint32_t Addr)
   * @param  None
   * @retval None
   */
-static void Audio_MAL_Stop(void)
+void Audio_MAL_Stop(void)
 {   
   /* Stop the Transfer on the I2S side: Stop and disable the DMA stream */
   //DMA_Cmd(AUDIO_I2S_DMA_STREAM, DISABLE);

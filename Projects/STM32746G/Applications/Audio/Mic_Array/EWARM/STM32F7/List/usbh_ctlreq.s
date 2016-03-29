@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      16/Mar/2016  16:45:49
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      29/Mar/2016  20:10:40
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -16,8 +16,10 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
-//        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
+//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+//        --no_clustering --no_scheduling --debug --endian=little
+//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
+//        (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
@@ -48,7 +50,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -256,8 +258,10 @@ USBH_Get_DevDesc:
           CFI R5 Frame(CFA, -12)
           CFI R4 Frame(CFA, -16)
           CFI CFA R13+16
-        MOV      R4,R0
-        MOV      R5,R1
+        SUB      SP,SP,#+8
+          CFI CFA R13+24
+        MOVS     R4,R0
+        MOVS     R5,R1
 //  114   USBH_StatusTypeDef status;
 //  115   
 //  116   if((status = USBH_GetDescriptor(phost,
@@ -265,39 +269,36 @@ USBH_Get_DevDesc:
 //  118                                   USB_DESC_DEVICE, 
 //  119                                   phost->device.Data,
 //  120                                   length)) == USBH_OK)
-        MOV      R2,R5
-        ADD      R1,R4,#+28
-        LDRB     R0,[R4, #+2]
-        CMP      R0,#+1
-        BNE.N    ??USBH_Get_DevDesc_0
-        MOVS     R0,#+128
-        STRH     R2,[R4, #+22]
-        STRB     R0,[R4, #+16]
-        MOVS     R0,#+6
-        STRB     R0,[R4, #+17]
-        MOV      R0,#+256
-        STRH     R0,[R4, #+18]
-        MOVS     R0,#+0
-        STRH     R0,[R4, #+20]
-??USBH_Get_DevDesc_0:
-        MOV      R0,R4
-          CFI FunCall USBH_CtlReq
-        BL       USBH_CtlReq
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R0,R5
+        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+        STR      R0,[SP, #+0]
+        ADDS     R3,R4,#+28
+        MOV      R2,#+256
+        MOVS     R1,#+0
+        MOVS     R0,R4
+          CFI FunCall USBH_GetDescriptor
+        BL       USBH_GetDescriptor
         MOVS     R6,R0
-        BNE.N    ??USBH_Get_DevDesc_1
+        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+        CMP      R0,#+0
+        BNE.N    ??USBH_Get_DevDesc_0
 //  121   {
 //  122     /* Commands successfully sent and Response Received */       
 //  123     USBH_ParseDevDesc(&phost->device.DevDesc, phost->device.Data, length);
-        MOV      R2,R5
-        ADD      R1,R4,#+28
-        ADD      R0,R4,#+544
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        MOVS     R2,R5
+        UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+        ADDS     R1,R4,#+28
+        ADDS     R0,R4,#+544
           CFI FunCall USBH_ParseDevDesc
         BL       USBH_ParseDevDesc
 //  124   }
 //  125   return status;      
-??USBH_Get_DevDesc_1:
-        MOV      R0,R6
-        POP      {R4-R6,PC}       ;; return
+??USBH_Get_DevDesc_0:
+        MOVS     R0,R6
+        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+        POP      {R1,R2,R4-R6,PC}  ;; return
 //  126 }
           CFI EndBlock cfiBlock0
 //  127 
@@ -320,69 +321,61 @@ USBH_Get_DevDesc:
 //  139 
 //  140 {
 USBH_Get_CfgDesc:
-        PUSH     {R4-R7,LR}
+        PUSH     {R3-R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI R7 Frame(CFA, -8)
           CFI R6 Frame(CFA, -12)
           CFI R5 Frame(CFA, -16)
           CFI R4 Frame(CFA, -20)
-          CFI CFA R13+20
-        SUB      SP,SP,#+4
           CFI CFA R13+24
-        MOV      R4,R0
-        MOV      R5,R1
+        MOVS     R4,R0
+        MOVS     R5,R1
 //  141   USBH_StatusTypeDef status;
 //  142   uint8_t *pData;
 //  143 #if (USBH_KEEP_CFG_DESCRIPTOR == 1)  
 //  144   pData = phost->device.CfgDesc_Raw;
 //  145 #else
 //  146   pData = phost->device.Data;
-        ADD      R6,R4,#+28
+        ADDS     R0,R4,#+28
+        MOVS     R7,R0
 //  147 #endif  
 //  148   if((status = USBH_GetDescriptor(phost,
 //  149                                   USB_REQ_RECIPIENT_DEVICE | USB_REQ_TYPE_STANDARD,                          
 //  150                                   USB_DESC_CONFIGURATION, 
 //  151                                   pData,
 //  152                                   length)) == USBH_OK)
-        LDRB     R0,[R4, #+2]
-        CMP      R0,#+1
+        MOVS     R0,R5
+        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+        STR      R0,[SP, #+0]
+        MOVS     R3,R7
+        MOV      R2,#+512
+        MOVS     R1,#+0
+        MOVS     R0,R4
+          CFI FunCall USBH_GetDescriptor
+        BL       USBH_GetDescriptor
+        MOVS     R6,R0
+        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+        CMP      R0,#+0
         BNE.N    ??USBH_Get_CfgDesc_0
-        MOVS     R0,#+128
-        STRH     R5,[R4, #+22]
-        STRB     R0,[R4, #+16]
-        MOVS     R0,#+6
-        STRB     R0,[R4, #+17]
-        MOV      R0,#+512
-        STRH     R0,[R4, #+18]
-        MOVS     R0,#+0
-        STRH     R0,[R4, #+20]
-??USBH_Get_CfgDesc_0:
-        MOV      R2,R5
-        MOV      R1,R6
-        MOV      R0,R4
-          CFI FunCall USBH_CtlReq
-        BL       USBH_CtlReq
-        MOVS     R7,R0
-        BNE.N    ??USBH_Get_CfgDesc_1
 //  153   {
 //  154     
 //  155     /* Commands successfully sent and Response Received  */       
 //  156     USBH_ParseCfgDesc (&phost->device.CfgDesc,
 //  157                        pData,
 //  158                        length); 
-        MOV      R2,R5
-        MOV      R1,R6
+        MOVS     R2,R5
+        UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+        MOVS     R1,R7
         ADDW     R0,R4,#+562
           CFI FunCall USBH_ParseCfgDesc
         BL       USBH_ParseCfgDesc
 //  159     
 //  160   }
 //  161   return status;
-??USBH_Get_CfgDesc_1:
-        MOV      R0,R7
-        ADD      SP,SP,#+4
-          CFI CFA R13+20
-        POP      {R4-R7,PC}       ;; return
+??USBH_Get_CfgDesc_0:
+        MOVS     R0,R6
+        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+        POP      {R1,R4-R7,PC}    ;; return
 //  162 }
           CFI EndBlock cfiBlock1
 //  163 
@@ -408,70 +401,56 @@ USBH_Get_CfgDesc:
 //  178                                 uint16_t length)
 //  179 {
 USBH_Get_StringDesc:
-        PUSH     {R4-R6,LR}
+        PUSH     {R4-R8,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+16
-        MOV      R4,R2
+          CFI R8 Frame(CFA, -8)
+          CFI R7 Frame(CFA, -12)
+          CFI R6 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -20)
+          CFI R4 Frame(CFA, -24)
+          CFI CFA R13+24
+        SUB      SP,SP,#+8
+          CFI CFA R13+32
+        MOVS     R4,R0
+        MOVS     R5,R1
+        MOVS     R6,R2
+        MOVS     R7,R3
 //  180   USBH_StatusTypeDef status;
 //  181   if((status = USBH_GetDescriptor(phost,
 //  182                                   USB_REQ_RECIPIENT_DEVICE | USB_REQ_TYPE_STANDARD,                                    
 //  183                                   USB_DESC_STRING | string_index, 
 //  184                                   phost->device.Data,
 //  185                                   length)) == USBH_OK)
-        LDRB     R2,[R0, #+2]
-        MOV      R5,R3
-        ADD      R6,R0,#+28
-        CMP      R2,#+1
-        BNE.N    ??USBH_Get_StringDesc_0
-        MOVS     R2,#+128
-        ORR      R1,R1,#0x300
-        STRB     R2,[R0, #+16]
-        MOVS     R2,#+6
-        STRH     R1,[R0, #+18]
-        MOVW     R1,#+1033
-        STRB     R2,[R0, #+17]
-        STRH     R1,[R0, #+20]
-        STRH     R5,[R0, #+22]
-??USBH_Get_StringDesc_0:
-        MOV      R2,R5
-        MOV      R1,R6
-          CFI FunCall USBH_CtlReq
-        BL       USBH_CtlReq
+        MOVS     R0,R7
+        UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+        STR      R0,[SP, #+0]
+        ADDS     R3,R4,#+28
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        ORRS     R2,R5,#0x300
+        UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+        MOVS     R1,#+0
+        MOVS     R0,R4
+          CFI FunCall USBH_GetDescriptor
+        BL       USBH_GetDescriptor
+        MOV      R8,R0
+        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
         CMP      R0,#+0
-        ITT      EQ 
-        LDRBEQ   R1,[R6, #+1]
-        CMPEQ    R1,#+3
+        BNE.N    ??USBH_Get_StringDesc_0
 //  186   {
 //  187     /* Commands successfully sent and Response Received  */       
 //  188     USBH_ParseStringDesc(phost->device.Data,buff, length);    
-        BNE.N    ??USBH_Get_StringDesc_1
-        LDRB     R1,[R6, #+0]
-        SUBS     R2,R1,#+2
-        CMP      R5,R2
-        ITT      GE 
-        SUBGE    R5,R1,#+2
-        UXTHGE   R5,R5
-        ADDS     R6,R6,#+2
-        MOVS     R1,#+0
-        CMP      R5,#+1
-        BLT.N    ??USBH_Get_StringDesc_2
-??USBH_Get_StringDesc_3:
-        LDRB     R2,[R1, R6]
-        ADDS     R1,R1,#+2
-        UXTH     R1,R1
-        CMP      R1,R5
-        STRB     R2,[R4], #+1
-        BLT.N    ??USBH_Get_StringDesc_3
-??USBH_Get_StringDesc_2:
-        MOVS     R1,#+0
-        STRB     R1,[R4, #+0]
+        MOVS     R2,R7
+        UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+        MOVS     R1,R6
+        ADDS     R0,R4,#+28
+          CFI FunCall USBH_ParseStringDesc
+        BL       USBH_ParseStringDesc
 //  189   }
 //  190   return status;
-??USBH_Get_StringDesc_1:
-        POP      {R4-R6,PC}       ;; return
+??USBH_Get_StringDesc_0:
+        MOV      R0,R8
+        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+        POP      {R1,R2,R4-R8,PC}  ;; return
 //  191 }
           CFI EndBlock cfiBlock2
 //  192 
@@ -498,86 +477,64 @@ USBH_Get_StringDesc:
 //  208                                uint16_t length )
 //  209 { 
 USBH_GetDescriptor:
-        PUSH     {R4,R5,LR}
+        PUSH     {R4-R8,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
-        MOV      R5,R0
-        SUB      SP,SP,#+4
-          CFI CFA R13+16
+          CFI R8 Frame(CFA, -8)
+          CFI R7 Frame(CFA, -12)
+          CFI R6 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -20)
+          CFI R4 Frame(CFA, -24)
+          CFI CFA R13+24
+        MOVS     R5,R0
+        MOVS     R6,R1
+        MOVS     R7,R2
+        MOV      R8,R3
+        LDR      R4,[SP, #+24]
 //  210   if(phost->RequestState == CMD_SEND)
         LDRB     R0,[R5, #+2]
-        LDR      R4,[SP, #+16]
         CMP      R0,#+1
         BNE.N    ??USBH_GetDescriptor_0
 //  211   {
 //  212     phost->Control.setup.b.bmRequestType = USB_D2H | req_type;
-        ORR      R0,R1,#0x80
-//  213     phost->Control.setup.b.bRequest = USB_REQ_GET_DESCRIPTOR;
-//  214     phost->Control.setup.b.wValue.w = value_idx;
-        STRH     R2,[R5, #+18]
+        ORRS     R0,R6,#0x80
         STRB     R0,[R5, #+16]
+//  213     phost->Control.setup.b.bRequest = USB_REQ_GET_DESCRIPTOR;
         MOVS     R0,#+6
         STRB     R0,[R5, #+17]
+//  214     phost->Control.setup.b.wValue.w = value_idx;
+        STRH     R7,[R5, #+18]
 //  215     
 //  216     if ((value_idx & 0xff00) == USB_DESC_STRING)
-        AND      R0,R2,#0xFF00
+        UXTH     R7,R7            ;; ZeroExt  R7,R7,#+16,#+16
+        ANDS     R0,R7,#0xFF00
         CMP      R0,#+768
-        ITE      EQ 
-        MOVWEQ   R0,#+1033
-        MOVNE    R0,#+0
+        BNE.N    ??USBH_GetDescriptor_1
 //  217     {
 //  218       phost->Control.setup.b.wIndex.w = 0x0409;
+        MOVW     R0,#+1033
+        STRH     R0,[R5, #+20]
+        B.N      ??USBH_GetDescriptor_2
 //  219     }
 //  220     else
 //  221     {
 //  222       phost->Control.setup.b.wIndex.w = 0;
+??USBH_GetDescriptor_1:
+        MOVS     R0,#+0
         STRH     R0,[R5, #+20]
 //  223     }
 //  224     phost->Control.setup.b.wLength.w = length; 
+??USBH_GetDescriptor_2:
         STRH     R4,[R5, #+22]
 //  225   }
 //  226   return USBH_CtlReq(phost, buff , length );     
 ??USBH_GetDescriptor_0:
-        LDRB     R1,[R5, #+2]
-        MOVS     R0,#+1
-        CMP      R1,#+1
-        BEQ.N    ??USBH_GetDescriptor_1
-        CMP      R1,#+2
-        BNE.N    ??USBH_GetDescriptor_2
-        MOV      R0,R5
-          CFI FunCall USBH_HandleControl
-        BL       USBH_HandleControl
-        CBNZ.N   R0,??USBH_GetDescriptor_3
-        MOVS     R1,#+1
-        STRB     R1,[R5, #+2]
-        MOVS     R1,#+0
-        STRB     R1,[R5, #+24]
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}
-          CFI CFA R13+16
-??USBH_GetDescriptor_3:
-        CMP      R0,#+2
-        BNE.N    ??USBH_GetDescriptor_2
-        MOVS     R0,#+1
-        STRB     R0,[R5, #+2]
-        MOVS     R0,#+2
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}
-          CFI CFA R13+16
-??USBH_GetDescriptor_1:
-        STRB     R1,[R5, #+24]
-        MOVS     R1,#+2
-        STR      R3,[R5, #+8]
-        STRH     R4,[R5, #+12]
-        STRB     R1,[R5, #+2]
-??USBH_GetDescriptor_2:
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}       ;; return
+        MOVS     R2,R4
+        UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+        MOV      R1,R8
+        MOVS     R0,R5
+          CFI FunCall USBH_CtlReq
+        BL       USBH_CtlReq
+        POP      {R4-R8,PC}       ;; return
 //  227 }
           CFI EndBlock cfiBlock3
 //  228 
@@ -597,11 +554,13 @@ USBH_GetDescriptor:
 //  237                                    uint8_t DeviceAddress)
 //  238 {
 USBH_SetAddress:
-        PUSH     {R4,LR}
+        PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOV      R4,R0
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+16
+        MOVS     R4,R0
+        MOVS     R5,R1
 //  239   if(phost->RequestState == CMD_SEND)
         LDRB     R0,[R4, #+2]
         CMP      R0,#+1
@@ -610,53 +569,30 @@ USBH_SetAddress:
 //  241     phost->Control.setup.b.bmRequestType = USB_H2D | USB_REQ_RECIPIENT_DEVICE | \ 
 //  242       USB_REQ_TYPE_STANDARD;
         MOVS     R0,#+0
+        STRB     R0,[R4, #+16]
 //  243     
 //  244     phost->Control.setup.b.bRequest = USB_REQ_SET_ADDRESS;
-//  245     
-//  246     phost->Control.setup.b.wValue.w = (uint16_t)DeviceAddress;
-        STRH     R1,[R4, #+18]
-        STRB     R0,[R4, #+16]
         MOVS     R0,#+5
         STRB     R0,[R4, #+17]
+//  245     
+//  246     phost->Control.setup.b.wValue.w = (uint16_t)DeviceAddress;
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        STRH     R5,[R4, #+18]
 //  247     phost->Control.setup.b.wIndex.w = 0;
         MOVS     R0,#+0
         STRH     R0,[R4, #+20]
 //  248     phost->Control.setup.b.wLength.w = 0;
+        MOVS     R0,#+0
         STRH     R0,[R4, #+22]
 //  249   }
 //  250   return USBH_CtlReq(phost, 0 , 0 );
 ??USBH_SetAddress_0:
-        LDRB     R1,[R4, #+2]
-        MOVS     R0,#+1
-        CMP      R1,#+1
-        BEQ.N    ??USBH_SetAddress_1
-        CMP      R1,#+2
-        BNE.N    ??USBH_SetAddress_2
-        MOV      R0,R4
-          CFI FunCall USBH_HandleControl
-        BL       USBH_HandleControl
-        CBNZ.N   R0,??USBH_SetAddress_3
-        MOVS     R1,#+1
-        STRB     R1,[R4, #+2]
+        MOVS     R2,#+0
         MOVS     R1,#+0
-        STRB     R1,[R4, #+24]
-        POP      {R4,PC}
-??USBH_SetAddress_3:
-        CMP      R0,#+2
-        BNE.N    ??USBH_SetAddress_2
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+2]
-        MOVS     R0,#+2
-        POP      {R4,PC}
-??USBH_SetAddress_1:
-        MOVS     R1,#+0
-        STRB     R0,[R4, #+24]
-        STR      R1,[R4, #+8]
-        STRH     R1,[R4, #+12]
-        MOVS     R1,#+2
-        STRB     R1,[R4, #+2]
-??USBH_SetAddress_2:
-        POP      {R4,PC}          ;; return
+        MOVS     R0,R4
+          CFI FunCall USBH_CtlReq
+        BL       USBH_CtlReq
+        POP      {R1,R4,R5,PC}    ;; return
 //  251 }
           CFI EndBlock cfiBlock4
 //  252 
@@ -676,11 +612,13 @@ USBH_SetAddress:
 //  261                                uint16_t cfg_idx)
 //  262 {
 USBH_SetCfg:
-        PUSH     {R4,LR}
+        PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOV      R4,R0
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+16
+        MOVS     R4,R0
+        MOVS     R5,R1
 //  263   if(phost->RequestState == CMD_SEND)
         LDRB     R0,[R4, #+2]
         CMP      R0,#+1
@@ -689,52 +627,28 @@ USBH_SetCfg:
 //  265     phost->Control.setup.b.bmRequestType = USB_H2D | USB_REQ_RECIPIENT_DEVICE |\ 
 //  266       USB_REQ_TYPE_STANDARD;
         MOVS     R0,#+0
-//  267     phost->Control.setup.b.bRequest = USB_REQ_SET_CONFIGURATION;
-//  268     phost->Control.setup.b.wValue.w = cfg_idx;
-        STRH     R1,[R4, #+18]
         STRB     R0,[R4, #+16]
+//  267     phost->Control.setup.b.bRequest = USB_REQ_SET_CONFIGURATION;
         MOVS     R0,#+9
         STRB     R0,[R4, #+17]
+//  268     phost->Control.setup.b.wValue.w = cfg_idx;
+        STRH     R5,[R4, #+18]
 //  269     phost->Control.setup.b.wIndex.w = 0;
         MOVS     R0,#+0
         STRH     R0,[R4, #+20]
 //  270     phost->Control.setup.b.wLength.w = 0; 
+        MOVS     R0,#+0
         STRH     R0,[R4, #+22]
 //  271   }
 //  272   
 //  273   return USBH_CtlReq(phost, 0 , 0 );      
 ??USBH_SetCfg_0:
-        LDRB     R1,[R4, #+2]
-        MOVS     R0,#+1
-        CMP      R1,#+1
-        BEQ.N    ??USBH_SetCfg_1
-        CMP      R1,#+2
-        BNE.N    ??USBH_SetCfg_2
-        MOV      R0,R4
-          CFI FunCall USBH_HandleControl
-        BL       USBH_HandleControl
-        CBNZ.N   R0,??USBH_SetCfg_3
-        MOVS     R1,#+1
-        STRB     R1,[R4, #+2]
+        MOVS     R2,#+0
         MOVS     R1,#+0
-        STRB     R1,[R4, #+24]
-        POP      {R4,PC}
-??USBH_SetCfg_3:
-        CMP      R0,#+2
-        BNE.N    ??USBH_SetCfg_2
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+2]
-        MOVS     R0,#+2
-        POP      {R4,PC}
-??USBH_SetCfg_1:
-        MOVS     R1,#+0
-        STRB     R0,[R4, #+24]
-        STR      R1,[R4, #+8]
-        STRH     R1,[R4, #+12]
-        MOVS     R1,#+2
-        STRB     R1,[R4, #+2]
-??USBH_SetCfg_2:
-        POP      {R4,PC}          ;; return
+        MOVS     R0,R4
+          CFI FunCall USBH_CtlReq
+        BL       USBH_CtlReq
+        POP      {R1,R4,R5,PC}    ;; return
 //  274 }
           CFI EndBlock cfiBlock5
 //  275 
@@ -754,11 +668,15 @@ USBH_SetCfg:
 //  284                         uint8_t ep_num, uint8_t altSetting)
 //  285 {
 USBH_SetInterface:
-        PUSH     {R4,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOV      R4,R0
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
+        MOVS     R4,R0
+        MOVS     R5,R1
+        MOVS     R6,R2
 //  286   
 //  287   if(phost->RequestState == CMD_SEND)
         LDRB     R0,[R4, #+2]
@@ -767,52 +685,30 @@ USBH_SetInterface:
 //  288   {
 //  289     phost->Control.setup.b.bmRequestType = USB_H2D | USB_REQ_RECIPIENT_INTERFACE | \ 
 //  290       USB_REQ_TYPE_STANDARD;
+        MOVS     R0,#+1
         STRB     R0,[R4, #+16]
 //  291     
 //  292     phost->Control.setup.b.bRequest = USB_REQ_SET_INTERFACE;
         MOVS     R0,#+11
         STRB     R0,[R4, #+17]
 //  293     phost->Control.setup.b.wValue.w = altSetting;
+        UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+        STRH     R6,[R4, #+18]
 //  294     phost->Control.setup.b.wIndex.w = ep_num;
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        STRH     R5,[R4, #+20]
 //  295     phost->Control.setup.b.wLength.w = 0;           
         MOVS     R0,#+0
-        STRH     R2,[R4, #+18]
-        STRH     R1,[R4, #+20]
         STRH     R0,[R4, #+22]
 //  296   }
 //  297   return USBH_CtlReq(phost, 0 , 0 );     
 ??USBH_SetInterface_0:
-        LDRB     R1,[R4, #+2]
-        MOVS     R0,#+1
-        CMP      R1,#+1
-        BEQ.N    ??USBH_SetInterface_1
-        CMP      R1,#+2
-        BNE.N    ??USBH_SetInterface_2
-        MOV      R0,R4
-          CFI FunCall USBH_HandleControl
-        BL       USBH_HandleControl
-        CBNZ.N   R0,??USBH_SetInterface_3
-        MOVS     R1,#+1
-        STRB     R1,[R4, #+2]
+        MOVS     R2,#+0
         MOVS     R1,#+0
-        STRB     R1,[R4, #+24]
-        POP      {R4,PC}
-??USBH_SetInterface_3:
-        CMP      R0,#+2
-        BNE.N    ??USBH_SetInterface_2
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+2]
-        MOVS     R0,#+2
-        POP      {R4,PC}
-??USBH_SetInterface_1:
-        MOVS     R1,#+0
-        STRB     R0,[R4, #+24]
-        STR      R1,[R4, #+8]
-        STRH     R1,[R4, #+12]
-        MOVS     R1,#+2
-        STRB     R1,[R4, #+2]
-??USBH_SetInterface_2:
-        POP      {R4,PC}          ;; return
+        MOVS     R0,R4
+          CFI FunCall USBH_CtlReq
+        BL       USBH_CtlReq
+        POP      {R4-R6,PC}       ;; return
 //  298 }
           CFI EndBlock cfiBlock6
 //  299 
@@ -833,11 +729,13 @@ USBH_SetInterface:
 //  309                                    uint8_t ep_num) 
 //  310 {
 USBH_ClrFeature:
-        PUSH     {R4,LR}
+        PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOV      R4,R0
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+16
+        MOVS     R4,R0
+        MOVS     R5,R1
 //  311   if(phost->RequestState == CMD_SEND)
         LDRB     R0,[R4, #+2]
         CMP      R0,#+1
@@ -847,52 +745,29 @@ USBH_ClrFeature:
 //  314       USB_REQ_RECIPIENT_ENDPOINT |
 //  315         USB_REQ_TYPE_STANDARD;
         MOVS     R0,#+2
+        STRB     R0,[R4, #+16]
 //  316     
 //  317     phost->Control.setup.b.bRequest = USB_REQ_CLEAR_FEATURE;
-//  318     phost->Control.setup.b.wValue.w = FEATURE_SELECTOR_ENDPOINT;
-//  319     phost->Control.setup.b.wIndex.w = ep_num;
-        STRH     R1,[R4, #+20]
-        STRB     R0,[R4, #+16]
         MOVS     R0,#+1
         STRB     R0,[R4, #+17]
+//  318     phost->Control.setup.b.wValue.w = FEATURE_SELECTOR_ENDPOINT;
         MOVS     R0,#+0
         STRH     R0,[R4, #+18]
+//  319     phost->Control.setup.b.wIndex.w = ep_num;
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        STRH     R5,[R4, #+20]
 //  320     phost->Control.setup.b.wLength.w = 0;           
+        MOVS     R0,#+0
         STRH     R0,[R4, #+22]
 //  321   }
 //  322   return USBH_CtlReq(phost, 0 , 0 );   
 ??USBH_ClrFeature_0:
-        LDRB     R1,[R4, #+2]
-        MOVS     R0,#+1
-        CMP      R1,#+1
-        BEQ.N    ??USBH_ClrFeature_1
-        CMP      R1,#+2
-        BNE.N    ??USBH_ClrFeature_2
-        MOV      R0,R4
-          CFI FunCall USBH_HandleControl
-        BL       USBH_HandleControl
-        CBNZ.N   R0,??USBH_ClrFeature_3
-        MOVS     R1,#+1
-        STRB     R1,[R4, #+2]
+        MOVS     R2,#+0
         MOVS     R1,#+0
-        STRB     R1,[R4, #+24]
-        POP      {R4,PC}
-??USBH_ClrFeature_3:
-        CMP      R0,#+2
-        BNE.N    ??USBH_ClrFeature_2
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+2]
-        MOVS     R0,#+2
-        POP      {R4,PC}
-??USBH_ClrFeature_1:
-        MOVS     R1,#+0
-        STRB     R0,[R4, #+24]
-        STR      R1,[R4, #+8]
-        STRH     R1,[R4, #+12]
-        MOVS     R1,#+2
-        STRB     R1,[R4, #+2]
-??USBH_ClrFeature_2:
-        POP      {R4,PC}          ;; return
+        MOVS     R0,R4
+          CFI FunCall USBH_CtlReq
+        BL       USBH_CtlReq
+        POP      {R1,R4,R5,PC}    ;; return
 //  323 }
           CFI EndBlock cfiBlock7
 //  324 
@@ -914,66 +789,77 @@ USBH_ClrFeature:
 //  334                                 uint8_t *buf, 
 //  335                                 uint16_t length)
 //  336 {
-//  337   dev_desc->bLength            = *(uint8_t  *) (buf +  0);
 USBH_ParseDevDesc:
+        PUSH     {R4}
+          CFI R4 Frame(CFA, -4)
+          CFI CFA R13+4
+//  337   dev_desc->bLength            = *(uint8_t  *) (buf +  0);
         LDRB     R3,[R1, #+0]
-//  338   dev_desc->bDescriptorType    = *(uint8_t  *) (buf +  1);
-//  339   dev_desc->bcdUSB             = LE16 (buf +  2);
-//  340   dev_desc->bDeviceClass       = *(uint8_t  *) (buf +  4);
-//  341   dev_desc->bDeviceSubClass    = *(uint8_t  *) (buf +  5);
-//  342   dev_desc->bDeviceProtocol    = *(uint8_t  *) (buf +  6);
-//  343   dev_desc->bMaxPacketSize     = *(uint8_t  *) (buf +  7);
-//  344   
-//  345   if (length > 8)
-        CMP      R2,#+9
         STRB     R3,[R0, #+0]
+//  338   dev_desc->bDescriptorType    = *(uint8_t  *) (buf +  1);
         LDRB     R3,[R1, #+1]
         STRB     R3,[R0, #+1]
+//  339   dev_desc->bcdUSB             = LE16 (buf +  2);
         LDRB     R3,[R1, #+2]
-        LDRB     R12,[R1, #+3]
-        ADD      R3,R3,R12, LSL #+8
+        LDRB     R4,[R1, #+3]
+        LSLS     R4,R4,#+8
+        ADDS     R3,R4,R3
         STRH     R3,[R0, #+2]
+//  340   dev_desc->bDeviceClass       = *(uint8_t  *) (buf +  4);
         LDRB     R3,[R1, #+4]
         STRB     R3,[R0, #+4]
+//  341   dev_desc->bDeviceSubClass    = *(uint8_t  *) (buf +  5);
         LDRB     R3,[R1, #+5]
         STRB     R3,[R0, #+5]
+//  342   dev_desc->bDeviceProtocol    = *(uint8_t  *) (buf +  6);
         LDRB     R3,[R1, #+6]
         STRB     R3,[R0, #+6]
+//  343   dev_desc->bMaxPacketSize     = *(uint8_t  *) (buf +  7);
         LDRB     R3,[R1, #+7]
         STRB     R3,[R0, #+7]
+//  344   
+//  345   if (length > 8)
+        UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+        CMP      R2,#+9
         BLT.N    ??USBH_ParseDevDesc_0
 //  346   { /* For 1st time after device connection, Host may issue only 8 bytes for 
 //  347     Device Descriptor Length  */
 //  348     dev_desc->idVendor           = LE16 (buf +  8);
-        LDRB     R2,[R1, #+8]
-        LDRB     R3,[R1, #+9]
-        ADD      R2,R2,R3, LSL #+8
-        STRH     R2,[R0, #+8]
+        LDRB     R3,[R1, #+8]
+        LDRB     R4,[R1, #+9]
+        LSLS     R4,R4,#+8
+        ADDS     R3,R4,R3
+        STRH     R3,[R0, #+8]
 //  349     dev_desc->idProduct          = LE16 (buf + 10);
-        LDRB     R2,[R1, #+10]
-        LDRB     R3,[R1, #+11]
-        ADD      R2,R2,R3, LSL #+8
-        STRH     R2,[R0, #+10]
+        LDRB     R3,[R1, #+10]
+        LDRB     R4,[R1, #+11]
+        LSLS     R4,R4,#+8
+        ADDS     R3,R4,R3
+        STRH     R3,[R0, #+10]
 //  350     dev_desc->bcdDevice          = LE16 (buf + 12);
-        LDRB     R2,[R1, #+12]
-        LDRB     R3,[R1, #+13]
-        ADD      R2,R2,R3, LSL #+8
-        STRH     R2,[R0, #+12]
+        LDRB     R3,[R1, #+12]
+        LDRB     R4,[R1, #+13]
+        LSLS     R4,R4,#+8
+        ADDS     R3,R4,R3
+        STRH     R3,[R0, #+12]
 //  351     dev_desc->iManufacturer      = *(uint8_t  *) (buf + 14);
-        LDRB     R2,[R1, #+14]
-        STRB     R2,[R0, #+14]
+        LDRB     R3,[R1, #+14]
+        STRB     R3,[R0, #+14]
 //  352     dev_desc->iProduct           = *(uint8_t  *) (buf + 15);
-        LDRB     R2,[R1, #+15]
-        STRB     R2,[R0, #+15]
+        LDRB     R3,[R1, #+15]
+        STRB     R3,[R0, #+15]
 //  353     dev_desc->iSerialNumber      = *(uint8_t  *) (buf + 16);
-        LDRB     R2,[R1, #+16]
-        STRB     R2,[R0, #+16]
+        LDRB     R3,[R1, #+16]
+        STRB     R3,[R0, #+16]
 //  354     dev_desc->bNumConfigurations = *(uint8_t  *) (buf + 17);
-        LDRB     R1,[R1, #+17]
-        STRB     R1,[R0, #+17]
+        LDRB     R3,[R1, #+17]
+        STRB     R3,[R0, #+17]
 //  355   }
 //  356 }
 ??USBH_ParseDevDesc_0:
+        POP      {R4}
+          CFI R4 SameValue
+          CFI CFA R13+0
         BX       LR               ;; return
           CFI EndBlock cfiBlock8
 //  357 
@@ -989,167 +875,174 @@ USBH_ParseDevDesc:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock9 Using cfiCommon0
           CFI Function USBH_ParseCfgDesc
-          CFI NoCalls
         THUMB
 //  366 static void USBH_ParseCfgDesc (USBH_CfgDescTypeDef* cfg_desc,
 //  367                                uint8_t *buf, 
 //  368                                uint16_t length)
 //  369 {  
 USBH_ParseCfgDesc:
-        PUSH     {R4-R7,LR}
+        PUSH     {R3-R11,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+20
+          CFI R11 Frame(CFA, -8)
+          CFI R10 Frame(CFA, -12)
+          CFI R9 Frame(CFA, -16)
+          CFI R8 Frame(CFA, -20)
+          CFI R7 Frame(CFA, -24)
+          CFI R6 Frame(CFA, -28)
+          CFI R5 Frame(CFA, -32)
+          CFI R4 Frame(CFA, -36)
+          CFI CFA R13+40
+        MOVS     R4,R0
+        MOVS     R5,R1
+        MOVS     R6,R2
 //  370   USBH_InterfaceDescTypeDef    *pif ;
 //  371   USBH_EpDescTypeDef           *pep;  
 //  372   USBH_DescHeader_t             *pdesc = (USBH_DescHeader_t *)buf;
+        MOV      R9,R5
 //  373   uint16_t                      ptr;
 //  374   int8_t                        if_ix = 0;
+        MOVS     R10,#+0
 //  375   int8_t                        ep_ix = 0;  
+        MOVS     R11,#+0
 //  376   
 //  377   pdesc   = (USBH_DescHeader_t *)buf;
+        MOV      R9,R5
 //  378   
 //  379   /* Parse configuration descriptor */
 //  380   cfg_desc->bLength             = *(uint8_t  *) (buf + 0);
-        LDRB     R4,[R1, #+0]
-        MOVS     R3,#+0
+        LDRB     R0,[R5, #+0]
+        STRB     R0,[R4, #+0]
 //  381   cfg_desc->bDescriptorType     = *(uint8_t  *) (buf + 1);
+        LDRB     R0,[R5, #+1]
+        STRB     R0,[R4, #+1]
 //  382   cfg_desc->wTotalLength        = LE16 (buf + 2);
+        LDRB     R0,[R5, #+2]
+        LDRB     R1,[R5, #+3]
+        LSLS     R1,R1,#+8
+        ADDS     R0,R1,R0
+        STRH     R0,[R4, #+2]
 //  383   cfg_desc->bNumInterfaces      = *(uint8_t  *) (buf + 4);
+        LDRB     R0,[R5, #+4]
+        STRB     R0,[R4, #+4]
 //  384   cfg_desc->bConfigurationValue = *(uint8_t  *) (buf + 5);
+        LDRB     R0,[R5, #+5]
+        STRB     R0,[R4, #+5]
 //  385   cfg_desc->iConfiguration      = *(uint8_t  *) (buf + 6);
+        LDRB     R0,[R5, #+6]
+        STRB     R0,[R4, #+6]
 //  386   cfg_desc->bmAttributes        = *(uint8_t  *) (buf + 7);
+        LDRB     R0,[R5, #+7]
+        STRB     R0,[R4, #+7]
 //  387   cfg_desc->bMaxPower           = *(uint8_t  *) (buf + 8);    
+        LDRB     R0,[R5, #+8]
+        STRB     R0,[R4, #+8]
 //  388   
 //  389   
 //  390   if (length > USB_CONFIGURATION_DESC_SIZE)
-        CMP      R2,#+10
-        STRB     R4,[R0, #+0]
-        LDRB     R4,[R1, #+1]
-        STRB     R4,[R0, #+1]
-        LDRB     R4,[R1, #+2]
-        LDRB     R5,[R1, #+3]
-        ADD      R4,R4,R5, LSL #+8
-        STRH     R4,[R0, #+2]
-        LDRB     R4,[R1, #+4]
-        STRB     R4,[R0, #+4]
-        LDRB     R4,[R1, #+5]
-        STRB     R4,[R0, #+5]
-        LDRB     R4,[R1, #+6]
-        STRB     R4,[R0, #+6]
-        LDRB     R4,[R1, #+7]
-        STRB     R4,[R0, #+7]
-        LDRB     R4,[R1, #+8]
-        STRB     R4,[R0, #+8]
+        UXTH     R6,R6            ;; ZeroExt  R6,R6,#+16,#+16
+        CMP      R6,#+10
         BLT.N    ??USBH_ParseCfgDesc_0
 //  391   {
 //  392     ptr = USB_LEN_CFG_DESC;
-        MOVS     R2,#+9
+        MOVS     R0,#+9
+        STRH     R0,[SP, #+0]
 //  393     pif = (USBH_InterfaceDescTypeDef *)0;
-??USBH_ParseCfgDesc_1:
-        LDRH     R4,[R0, #+2]
-        UXTH     R2,R2
-        CMP      R2,R4
-        BCS.N    ??USBH_ParseCfgDesc_0
+        MOVS     R0,#+0
+        MOVS     R7,R0
 //  394     
 //  395     
 //  396     while ((if_ix < USBH_MAX_NUM_INTERFACES ) && (ptr < cfg_desc->wTotalLength))
+??USBH_ParseCfgDesc_1:
+        SXTB     R10,R10          ;; SignExt  R10,R10,#+24,#+24
+        CMP      R10,#+1
+        BGE.N    ??USBH_ParseCfgDesc_0
+        LDRH     R0,[SP, #+0]
+        LDRH     R1,[R4, #+2]
+        CMP      R0,R1
+        BCS.N    ??USBH_ParseCfgDesc_0
 //  397     {
 //  398       pdesc = USBH_GetNextDesc((uint8_t *)pdesc, &ptr);
-        LDRB     R4,[R1, #+0]
-        ADDS     R1,R4,R1
-        UXTAB    R2,R2,R4
+        MOV      R1,SP
+        MOV      R0,R9
+          CFI FunCall USBH_GetNextDesc
+        BL       USBH_GetNextDesc
+        MOV      R9,R0
 //  399       if (pdesc->bDescriptorType   == USB_DESC_TYPE_INTERFACE) 
-        LDRB     R4,[R1, #+1]
-        CMP      R4,#+4
+        LDRB     R0,[R9, #+1]
+        CMP      R0,#+4
         BNE.N    ??USBH_ParseCfgDesc_1
 //  400       {
 //  401         pif = &cfg_desc->Itf_Desc[if_ix];
-        ADD      R4,R3,R3, LSL #+4
+        SXTB     R10,R10          ;; SignExt  R10,R10,#+24,#+24
+        MOVS     R0,#+34
+        SMLABB   R0,R10,R0,R4
+        ADDS     R0,R0,#+10
+        MOVS     R7,R0
 //  402         USBH_ParseInterfaceDesc (pif, (uint8_t *)pdesc);            
-        LDRB     R6,[R1, #+0]
-        ADD      R4,R0,R4, LSL #+1
-        ADD      R5,R4,#+10
-        STRB     R6,[R5, #+0]
-        LDRB     R6,[R1, #+1]
-        STRB     R6,[R5, #+1]
-        LDRB     R6,[R1, #+2]
-        STRB     R6,[R5, #+2]
-        LDRB     R6,[R1, #+3]
-        STRB     R6,[R5, #+3]
-        LDRB     R6,[R1, #+4]
-        STRB     R6,[R5, #+4]
-        LDRB     R6,[R1, #+5]
-        STRB     R6,[R5, #+5]
-        LDRB     R6,[R1, #+6]
-        STRB     R6,[R5, #+6]
-        LDRB     R6,[R1, #+7]
-        STRB     R6,[R5, #+7]
-        LDRB     R6,[R1, #+8]
-        STRB     R6,[R5, #+8]
+        MOV      R1,R9
+        MOVS     R0,R7
+          CFI FunCall USBH_ParseInterfaceDesc
+        BL       USBH_ParseInterfaceDesc
 //  403         
 //  404         ep_ix = 0;
-        MOVS     R6,#+0
+        MOVS     R0,#+0
+        MOV      R11,R0
 //  405         pep = (USBH_EpDescTypeDef *)0;        
-        B.N      ??USBH_ParseCfgDesc_2
+        MOVS     R0,#+0
+        MOV      R8,R0
 //  406         while ((ep_ix < pif->bNumEndpoints) && (ptr < cfg_desc->wTotalLength))
+??USBH_ParseCfgDesc_2:
+        MOV      R0,R11
+        SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+        LDRB     R1,[R7, #+4]
+        SXTH     R0,R0            ;; SignExt  R0,R0,#+16,#+16
+        SXTH     R1,R1            ;; SignExt  R1,R1,#+16,#+16
+        CMP      R0,R1
+        BGE.N    ??USBH_ParseCfgDesc_3
+        LDRH     R0,[SP, #+0]
+        LDRH     R1,[R4, #+2]
+        CMP      R0,R1
+        BCS.N    ??USBH_ParseCfgDesc_3
 //  407         {
 //  408           pdesc = USBH_GetNextDesc((uint8_t*) pdesc, &ptr);
-??USBH_ParseCfgDesc_3:
-        LDRB     R7,[R1, #+0]
-        ADDS     R1,R7,R1
-        UXTAB    R2,R2,R7
+        MOV      R1,SP
+        MOV      R0,R9
+          CFI FunCall USBH_GetNextDesc
+        BL       USBH_GetNextDesc
+        MOV      R9,R0
 //  409           if (pdesc->bDescriptorType   == USB_DESC_TYPE_ENDPOINT) 
-        LDRB     R7,[R1, #+1]
-        CMP      R7,#+5
+        LDRB     R0,[R9, #+1]
+        CMP      R0,#+5
         BNE.N    ??USBH_ParseCfgDesc_2
 //  410           {  
 //  411             pep = &cfg_desc->Itf_Desc[if_ix].Ep_Desc[ep_ix];
+        SXTB     R10,R10          ;; SignExt  R10,R10,#+24,#+24
+        MOVS     R0,#+34
+        SMLABB   R0,R10,R0,R4
+        SXTB     R11,R11          ;; SignExt  R11,R11,#+24,#+24
+        ADDS     R0,R0,R11, LSL #+3
+        ADDS     R0,R0,#+20
+        MOV      R8,R0
 //  412             USBH_ParseEPDesc (pep, (uint8_t *)pdesc);
-        SXTB     R6,R6
-        LDRB     R12,[R1, #+0]
-        ADD      R7,R4,R6, LSL #+3
+        MOV      R1,R9
+        MOV      R0,R8
+          CFI FunCall USBH_ParseEPDesc
+        BL       USBH_ParseEPDesc
 //  413             ep_ix++;
-        ADDS     R6,R6,#+1
-        STRB     R12,[R7, #+20]!
-        LDRB     R12,[R1, #+1]
-        STRB     R12,[R7, #+1]
-        LDRB     R12,[R1, #+2]
-        STRB     R12,[R7, #+2]
-        LDRB     R12,[R1, #+3]
-        STRB     R12,[R7, #+3]
-        LDRB     R12,[R1, #+4]
-        LDRB     LR,[R1, #+5]
-        ADD      R12,R12,LR, LSL #+8
-        STRH     R12,[R7, #+4]
-        LDRB     R12,[R1, #+6]
-        STRB     R12,[R7, #+6]
+        ADDS     R11,R11,#+1
+        B.N      ??USBH_ParseCfgDesc_2
 //  414           }
 //  415         }
-??USBH_ParseCfgDesc_2:
-        LDRB     R12,[R5, #+4]
-        SXTB     R7,R6
-        CMP      R7,R12
-        BGE.N    ??USBH_ParseCfgDesc_4
-        LDRH     R7,[R0, #+2]
-        UXTH     R2,R2
-        CMP      R2,R7
-        BCC.N    ??USBH_ParseCfgDesc_3
 //  416         if_ix++;
-??USBH_ParseCfgDesc_4:
-        ADDS     R3,R3,#+1
-        SXTB     R3,R3
+??USBH_ParseCfgDesc_3:
+        ADDS     R10,R10,#+1
+        B.N      ??USBH_ParseCfgDesc_1
 //  417       }
 //  418     }
-        CMP      R3,#+1
-        BLT.N    ??USBH_ParseCfgDesc_1
 //  419   }  
 //  420 }
 ??USBH_ParseCfgDesc_0:
-        POP      {R4-R7,PC}       ;; return
+        POP      {R0,R4-R11,PC}   ;; return
           CFI EndBlock cfiBlock9
 //  421 
 //  422 
@@ -1161,19 +1054,46 @@ USBH_ParseCfgDesc:
 //  428   * @param  buf: Buffer where the descriptor data is available
 //  429   * @retval None
 //  430   */
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock10 Using cfiCommon0
+          CFI Function USBH_ParseInterfaceDesc
+          CFI NoCalls
+        THUMB
 //  431 static void  USBH_ParseInterfaceDesc (USBH_InterfaceDescTypeDef *if_descriptor, 
 //  432                                       uint8_t *buf)
 //  433 {
 //  434   if_descriptor->bLength            = *(uint8_t  *) (buf + 0);
+USBH_ParseInterfaceDesc:
+        LDRB     R2,[R1, #+0]
+        STRB     R2,[R0, #+0]
 //  435   if_descriptor->bDescriptorType    = *(uint8_t  *) (buf + 1);
+        LDRB     R2,[R1, #+1]
+        STRB     R2,[R0, #+1]
 //  436   if_descriptor->bInterfaceNumber   = *(uint8_t  *) (buf + 2);
+        LDRB     R2,[R1, #+2]
+        STRB     R2,[R0, #+2]
 //  437   if_descriptor->bAlternateSetting  = *(uint8_t  *) (buf + 3);
+        LDRB     R2,[R1, #+3]
+        STRB     R2,[R0, #+3]
 //  438   if_descriptor->bNumEndpoints      = *(uint8_t  *) (buf + 4);
+        LDRB     R2,[R1, #+4]
+        STRB     R2,[R0, #+4]
 //  439   if_descriptor->bInterfaceClass    = *(uint8_t  *) (buf + 5);
+        LDRB     R2,[R1, #+5]
+        STRB     R2,[R0, #+5]
 //  440   if_descriptor->bInterfaceSubClass = *(uint8_t  *) (buf + 6);
+        LDRB     R2,[R1, #+6]
+        STRB     R2,[R0, #+6]
 //  441   if_descriptor->bInterfaceProtocol = *(uint8_t  *) (buf + 7);
+        LDRB     R2,[R1, #+7]
+        STRB     R2,[R0, #+7]
 //  442   if_descriptor->iInterface         = *(uint8_t  *) (buf + 8);
+        LDRB     R2,[R1, #+8]
+        STRB     R2,[R0, #+8]
 //  443 }
+        BX       LR               ;; return
+          CFI EndBlock cfiBlock10
 //  444 
 //  445 /**
 //  446   * @brief  USBH_ParseEPDesc 
@@ -1182,17 +1102,41 @@ USBH_ParseCfgDesc:
 //  449   * @param  buf: Buffer where the parsed descriptor stored
 //  450   * @retval None
 //  451   */
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock11 Using cfiCommon0
+          CFI Function USBH_ParseEPDesc
+          CFI NoCalls
+        THUMB
 //  452 static void  USBH_ParseEPDesc (USBH_EpDescTypeDef  *ep_descriptor, 
 //  453                                uint8_t *buf)
 //  454 {
 //  455   
 //  456   ep_descriptor->bLength          = *(uint8_t  *) (buf + 0);
+USBH_ParseEPDesc:
+        LDRB     R2,[R1, #+0]
+        STRB     R2,[R0, #+0]
 //  457   ep_descriptor->bDescriptorType  = *(uint8_t  *) (buf + 1);
+        LDRB     R2,[R1, #+1]
+        STRB     R2,[R0, #+1]
 //  458   ep_descriptor->bEndpointAddress = *(uint8_t  *) (buf + 2);
+        LDRB     R2,[R1, #+2]
+        STRB     R2,[R0, #+2]
 //  459   ep_descriptor->bmAttributes     = *(uint8_t  *) (buf + 3);
+        LDRB     R2,[R1, #+3]
+        STRB     R2,[R0, #+3]
 //  460   ep_descriptor->wMaxPacketSize   = LE16 (buf + 4);
+        LDRB     R2,[R1, #+4]
+        LDRB     R3,[R1, #+5]
+        LSLS     R3,R3,#+8
+        ADDS     R2,R3,R2
+        STRH     R2,[R0, #+4]
 //  461   ep_descriptor->bInterval        = *(uint8_t  *) (buf + 6);
+        LDRB     R2,[R1, #+6]
+        STRB     R2,[R0, #+6]
 //  462 }
+        BX       LR               ;; return
+          CFI EndBlock cfiBlock11
 //  463 
 //  464 /**
 //  465   * @brief  USBH_ParseStringDesc 
@@ -1202,10 +1146,21 @@ USBH_ParseCfgDesc:
 //  469   * @param  length: Length of the descriptor
 //  470   * @retval None
 //  471   */
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock12 Using cfiCommon0
+          CFI Function USBH_ParseStringDesc
+          CFI NoCalls
+        THUMB
 //  472 static void USBH_ParseStringDesc (uint8_t* psrc, 
 //  473                                   uint8_t* pdest, 
 //  474                                   uint16_t length)
 //  475 {
+USBH_ParseStringDesc:
+        PUSH     {R4,R5}
+          CFI R5 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
 //  476   uint16_t strlength;
 //  477   uint16_t idx;
 //  478   
@@ -1217,20 +1172,58 @@ USBH_ParseCfgDesc:
 //  484   from the device */
 //  485   
 //  486   if ( psrc[1] == USB_DESC_TYPE_STRING)
+        LDRB     R5,[R0, #+1]
+        CMP      R5,#+3
+        BNE.N    ??USBH_ParseStringDesc_0
 //  487   { /* Make sure the Descriptor is String Type */
 //  488     
 //  489     /* psrc[0] contains Size of Descriptor, subtract 2 to get the length of string */      
 //  490     strlength = ( ( (psrc[0]-2) <= length) ? (psrc[0]-2) :length); 
+        UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+        LDRB     R5,[R0, #+0]
+        SUBS     R5,R5,#+2
+        CMP      R2,R5
+        BLT.N    ??USBH_ParseStringDesc_1
+        LDRB     R3,[R0, #+0]
+        SUBS     R3,R3,#+2
+        B.N      ??USBH_ParseStringDesc_2
+??USBH_ParseStringDesc_1:
+        MOVS     R3,R2
 //  491     psrc += 2; /* Adjust the offset ignoring the String Len and Descriptor type */
+??USBH_ParseStringDesc_2:
+        ADDS     R0,R0,#+2
 //  492     
 //  493     for (idx = 0; idx < strlength; idx+=2 )
+        MOVS     R5,#+0
+        MOVS     R4,R5
+??USBH_ParseStringDesc_3:
+        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+        UXTH     R3,R3            ;; ZeroExt  R3,R3,#+16,#+16
+        CMP      R4,R3
+        BCS.N    ??USBH_ParseStringDesc_4
 //  494     {/* Copy Only the string and ignore the UNICODE ID, hence add the src */
 //  495       *pdest =  psrc[idx];
+        UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+        LDRB     R5,[R4, R0]
+        STRB     R5,[R1, #+0]
 //  496       pdest++;
+        ADDS     R1,R1,#+1
 //  497     }  
+        ADDS     R4,R4,#+2
+        B.N      ??USBH_ParseStringDesc_3
 //  498     *pdest = 0; /* mark end of string */  
+??USBH_ParseStringDesc_4:
+        MOVS     R5,#+0
+        STRB     R5,[R1, #+0]
 //  499   }
 //  500 }
+??USBH_ParseStringDesc_0:
+        POP      {R4,R5}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI CFA R13+0
+        BX       LR               ;; return
+          CFI EndBlock cfiBlock12
 //  501 
 //  502 /**
 //  503   * @brief  USBH_GetNextDesc 
@@ -1241,29 +1234,37 @@ USBH_ParseCfgDesc:
 //  508   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock10 Using cfiCommon0
+          CFI Block cfiBlock13 Using cfiCommon0
           CFI Function USBH_GetNextDesc
           CFI NoCalls
         THUMB
 //  509 USBH_DescHeader_t  *USBH_GetNextDesc (uint8_t   *pbuf, uint16_t  *ptr)
 //  510 {
+USBH_GetNextDesc:
+        PUSH     {R4}
+          CFI R4 Frame(CFA, -4)
+          CFI CFA R13+4
+        MOVS     R2,R0
 //  511   USBH_DescHeader_t  *pnext;
 //  512  
 //  513   *ptr += ((USBH_DescHeader_t *)pbuf)->bLength;  
-USBH_GetNextDesc:
-        LDRH     R2,[R1, #+0]
-        LDRB     R3,[R0, #+0]
-        UXTAB    R2,R2,R3
-        STRH     R2,[R1, #+0]
+        LDRH     R3,[R1, #+0]
+        LDRB     R4,[R2, #+0]
+        UXTAB    R3,R3,R4
+        STRH     R3,[R1, #+0]
 //  514   pnext = (USBH_DescHeader_t *)((uint8_t *)pbuf + \ 
 //  515          ((USBH_DescHeader_t *)pbuf)->bLength);
+        LDRB     R3,[R2, #+0]
+        ADDS     R3,R3,R2
+        MOVS     R0,R3
 //  516  
 //  517   return(pnext);
-        LDRB     R1,[R0, #+0]
-        ADDS     R0,R1,R0
+        POP      {R4}
+          CFI R4 SameValue
+          CFI CFA R13+0
         BX       LR               ;; return
 //  518 }
-          CFI EndBlock cfiBlock10
+          CFI EndBlock cfiBlock13
 //  519 
 //  520 
 //  521 /**
@@ -1278,7 +1279,7 @@ USBH_GetNextDesc:
 //  530   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock11 Using cfiCommon0
+          CFI Block cfiBlock14 Using cfiCommon0
           CFI Function USBH_CtlReq
         THUMB
 //  531 USBH_StatusTypeDef USBH_CtlReq     (USBH_HandleTypeDef *phost, 
@@ -1286,65 +1287,80 @@ USBH_GetNextDesc:
 //  533                              uint16_t            length)
 //  534 {
 USBH_CtlReq:
-        PUSH     {R4,LR}
+        PUSH     {R3-R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOV      R4,R0
+          CFI R7 Frame(CFA, -8)
+          CFI R6 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -16)
+          CFI R4 Frame(CFA, -20)
+          CFI CFA R13+24
+        MOVS     R4,R0
+        MOVS     R5,R1
+        MOVS     R6,R2
 //  535   USBH_StatusTypeDef status;
 //  536   status = USBH_BUSY;
         MOVS     R0,#+1
+        MOVS     R7,R0
 //  537   
 //  538   switch (phost->RequestState)
-        LDRB     R3,[R4, #+2]
-        CMP      R3,#+1
+        LDRB     R0,[R4, #+2]
+        CMP      R0,#+1
         BEQ.N    ??USBH_CtlReq_0
-        CMP      R3,#+2
+        CMP      R0,#+2
         BEQ.N    ??USBH_CtlReq_1
-        POP      {R4,PC}
+        B.N      ??USBH_CtlReq_2
 //  539   {
 //  540   case CMD_SEND:
 //  541     /* Start a SETUP transfer */
 //  542     phost->Control.buff = buff; 
 ??USBH_CtlReq_0:
-        STR      R1,[R4, #+8]
+        STR      R5,[R4, #+8]
 //  543     phost->Control.length = length;
+        STRH     R6,[R4, #+12]
 //  544     phost->Control.state = CTRL_SETUP;  
-//  545     phost->RequestState = CMD_WAIT;
-        MOVS     R1,#+2
-        STRH     R2,[R4, #+12]
+        MOVS     R0,#+1
         STRB     R0,[R4, #+24]
-        STRB     R1,[R4, #+2]
+//  545     phost->RequestState = CMD_WAIT;
+        MOVS     R0,#+2
+        STRB     R0,[R4, #+2]
 //  546     status = USBH_BUSY;
+        MOVS     R0,#+1
+        MOVS     R7,R0
 //  547 #if (USBH_USE_OS == 1)
 //  548     osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
 //  549 #endif      
 //  550     break;
-        POP      {R4,PC}
+        B.N      ??USBH_CtlReq_3
 //  551     
 //  552   case CMD_WAIT:
 //  553     status = USBH_HandleControl(phost);
 ??USBH_CtlReq_1:
-        MOV      R0,R4
+        MOVS     R0,R4
           CFI FunCall USBH_HandleControl
         BL       USBH_HandleControl
+        MOVS     R7,R0
 //  554      if (status == USBH_OK) 
-        CBNZ.N   R0,??USBH_CtlReq_2
+        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+        CMP      R7,#+0
+        BNE.N    ??USBH_CtlReq_4
 //  555     {
 //  556       /* Commands successfully sent and Response Received  */       
 //  557       phost->RequestState = CMD_SEND;
-        MOVS     R1,#+1
-        STRB     R1,[R4, #+2]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+2]
 //  558       phost->Control.state =CTRL_IDLE;  
-        MOVS     R1,#+0
-        STRB     R1,[R4, #+24]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+24]
 //  559       status = USBH_OK;      
-        POP      {R4,PC}
+        MOVS     R0,#+0
+        MOVS     R7,R0
+        B.N      ??USBH_CtlReq_5
 //  560     }
 //  561     else if  (status == USBH_FAIL)
-??USBH_CtlReq_2:
-        CMP      R0,#+2
-        BNE.N    ??USBH_CtlReq_3
+??USBH_CtlReq_4:
+        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+        CMP      R7,#+2
+        BNE.N    ??USBH_CtlReq_5
 //  562     {
 //  563       /* Failure Mode */
 //  564       phost->RequestState = CMD_SEND;
@@ -1352,17 +1368,23 @@ USBH_CtlReq:
         STRB     R0,[R4, #+2]
 //  565       status = USBH_FAIL;
         MOVS     R0,#+2
+        MOVS     R7,R0
 //  566     }   
 //  567     break;
+??USBH_CtlReq_5:
+        B.N      ??USBH_CtlReq_3
 //  568     
 //  569   default:
 //  570     break; 
 //  571   }
 //  572   return status;
+??USBH_CtlReq_2:
 ??USBH_CtlReq_3:
-        POP      {R4,PC}          ;; return
+        MOVS     R0,R7
+        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+        POP      {R1,R4-R7,PC}    ;; return
 //  573 }
-          CFI EndBlock cfiBlock11
+          CFI EndBlock cfiBlock14
 //  574 
 //  575 /**
 //  576   * @brief  USBH_HandleControl
@@ -1371,76 +1393,112 @@ USBH_CtlReq:
 //  579   * @retval USBH Status
 //  580   */
 
-        SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock12 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock15 Using cfiCommon0
           CFI Function USBH_HandleControl
         THUMB
 //  581 static USBH_StatusTypeDef USBH_HandleControl (USBH_HandleTypeDef *phost)
 //  582 {
 USBH_HandleControl:
-        PUSH     {R4,R5,LR}
+        PUSH     {R3-R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
-        MOV      R5,R0
-        SUB      SP,SP,#+4
-          CFI CFA R13+16
+          CFI R7 Frame(CFA, -8)
+          CFI R6 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -16)
+          CFI R4 Frame(CFA, -20)
+          CFI CFA R13+24
+        MOVS     R4,R0
 //  583   uint8_t direction;  
 //  584   USBH_StatusTypeDef status = USBH_BUSY;
-        MOVS     R4,#+1
+        MOVS     R6,#+1
 //  585   USBH_URBStateTypeDef URB_Status = USBH_URB_IDLE;
+        MOVS     R7,#+0
 //  586   
 //  587   switch (phost->Control.state)
-        LDRB     R0,[R5, #+24]
-        SUBS     R0,R0,#+1
-        CMP      R0,#+10
-        BHI.W    ??USBH_HandleControl_1
-        TBB      [PC, R0]
-        DATA
-??USBH_HandleControl_0:
-        DC8      0x6,0x11,0x2D,0x3B
-        DC8      0x49,0x58,0x71,0x7F
-        DC8      0x93,0xA2,0xB9,0x0
-        THUMB
+        LDRB     R0,[R4, #+24]
+        CMP      R0,#+1
+        BEQ.N    ??USBH_HandleControl_0
+        BCC.W    ??USBH_HandleControl_1
+        CMP      R0,#+3
+        BEQ.N    ??USBH_HandleControl_2
+        BCC.N    ??USBH_HandleControl_3
+        CMP      R0,#+5
+        BEQ.N    ??USBH_HandleControl_4
+        BCC.N    ??USBH_HandleControl_5
+        CMP      R0,#+7
+        BEQ.W    ??USBH_HandleControl_6
+        BCC.N    ??USBH_HandleControl_7
+        CMP      R0,#+9
+        BEQ.W    ??USBH_HandleControl_8
+        BCC.W    ??USBH_HandleControl_9
+        CMP      R0,#+11
+        BEQ.W    ??USBH_HandleControl_10
+        BCC.W    ??USBH_HandleControl_11
+        B.N      ??USBH_HandleControl_1
 //  588   {
 //  589   case CTRL_SETUP:
 //  590     /* send a SETUP packet */
 //  591     USBH_CtlSendSetup     (phost, 
 //  592 	                   (uint8_t *)phost->Control.setup.d8 , 
 //  593 	                   phost->Control.pipe_out); 
-??USBH_HandleControl_2:
-        LDRB     R2,[R5, #+5]
-        ADD      R1,R5,#+16
-        MOV      R0,R5
+??USBH_HandleControl_0:
+        LDRB     R2,[R4, #+5]
+        ADDS     R1,R4,#+16
+        MOVS     R0,R4
           CFI FunCall USBH_CtlSendSetup
         BL       USBH_CtlSendSetup
 //  594     
 //  595     phost->Control.state = CTRL_SETUP_WAIT; 
         MOVS     R0,#+2
-        STRB     R0,[R5, #+24]
+        STRB     R0,[R4, #+24]
 //  596     break; 
+        B.N      ??USBH_HandleControl_12
 //  597     
 //  598   case CTRL_SETUP_WAIT:
 //  599     
 //  600     URB_Status = USBH_LL_GetURBState(phost, phost->Control.pipe_out); 
+??USBH_HandleControl_3:
+        LDRB     R1,[R4, #+5]
+        MOVS     R0,R4
+          CFI FunCall USBH_LL_GetURBState
+        BL       USBH_LL_GetURBState
+        MOVS     R7,R0
 //  601     /* case SETUP packet sent successfully */
 //  602     if(URB_Status == USBH_URB_DONE)
+        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+        CMP      R7,#+1
+        BNE.N    ??USBH_HandleControl_13
 //  603     { 
 //  604       direction = (phost->Control.setup.b.bmRequestType & USB_REQ_DIR_MASK);
+        LDRB     R0,[R4, #+16]
+        ANDS     R0,R0,#0x80
+        MOVS     R5,R0
 //  605       
 //  606       /* check if there is a data stage */
 //  607       if (phost->Control.setup.b.wLength.w != 0 )
+        LDRH     R0,[R4, #+22]
+        CMP      R0,#+0
+        BEQ.N    ??USBH_HandleControl_14
 //  608       {        
 //  609         if (direction == USB_D2H)
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        CMP      R5,#+128
+        BNE.N    ??USBH_HandleControl_15
 //  610         {
 //  611           /* Data Direction is IN */
 //  612           phost->Control.state = CTRL_DATA_IN;
+        MOVS     R0,#+3
+        STRB     R0,[R4, #+24]
+        B.N      ??USBH_HandleControl_16
 //  613         }
 //  614         else
 //  615         {
 //  616           /* Data Direction is OUT */
 //  617           phost->Control.state = CTRL_DATA_OUT;
+??USBH_HandleControl_15:
+        MOVS     R0,#+5
+        STRB     R0,[R4, #+24]
+        B.N      ??USBH_HandleControl_16
 //  618         } 
 //  619       }
 //  620       /* No DATA stage */
@@ -1448,14 +1506,25 @@ USBH_HandleControl:
 //  622       {
 //  623         /* If there is No Data Transfer Stage */
 //  624         if (direction == USB_D2H)
+??USBH_HandleControl_14:
+        UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+        CMP      R5,#+128
+        BNE.N    ??USBH_HandleControl_17
 //  625         {
 //  626           /* Data Direction is IN */
 //  627           phost->Control.state = CTRL_STATUS_OUT;
+        MOVS     R0,#+9
+        STRB     R0,[R4, #+24]
+        B.N      ??USBH_HandleControl_16
 //  628         }
 //  629         else
 //  630         {
 //  631           /* Data Direction is OUT */
 //  632           phost->Control.state = CTRL_STATUS_IN;
+??USBH_HandleControl_17:
+        MOVS     R0,#+7
+        STRB     R0,[R4, #+24]
+        B.N      ??USBH_HandleControl_16
 //  633         } 
 //  634       }          
 //  635 #if (USBH_USE_OS == 1)
@@ -1463,33 +1532,64 @@ USBH_HandleControl:
 //  637 #endif
 //  638     }
 //  639     else if(URB_Status == USBH_URB_ERROR)
+??USBH_HandleControl_13:
+        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+        CMP      R7,#+4
+        BNE.N    ??USBH_HandleControl_16
 //  640     {
 //  641       phost->Control.state = CTRL_ERROR;
+        MOVS     R0,#+11
+        STRB     R0,[R4, #+24]
 //  642 #if (USBH_USE_OS == 1)
 //  643     osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
 //  644 #endif      
 //  645     }    
 //  646     break;
+??USBH_HandleControl_16:
+        B.N      ??USBH_HandleControl_12
 //  647     
 //  648   case CTRL_DATA_IN:  
 //  649     /* Issue an IN token */ 
 //  650      phost->Control.timer = phost->Timer;
+??USBH_HandleControl_2:
+        LDR      R0,[R4, #+680]
+        STRH     R0,[R4, #+14]
 //  651     USBH_CtlReceiveData(phost,
 //  652                         phost->Control.buff, 
 //  653                         phost->Control.length,
 //  654                         phost->Control.pipe_in);
+        LDRB     R3,[R4, #+4]
+        LDRH     R2,[R4, #+12]
+        LDR      R1,[R4, #+8]
+        MOVS     R0,R4
+          CFI FunCall USBH_CtlReceiveData
+        BL       USBH_CtlReceiveData
 //  655  
 //  656     phost->Control.state = CTRL_DATA_IN_WAIT;
+        MOVS     R0,#+4
+        STRB     R0,[R4, #+24]
 //  657     break;    
+        B.N      ??USBH_HandleControl_12
 //  658     
 //  659   case CTRL_DATA_IN_WAIT:
 //  660     
 //  661     URB_Status = USBH_LL_GetURBState(phost , phost->Control.pipe_in); 
+??USBH_HandleControl_5:
+        LDRB     R1,[R4, #+4]
+        MOVS     R0,R4
+          CFI FunCall USBH_LL_GetURBState
+        BL       USBH_LL_GetURBState
+        MOVS     R7,R0
 //  662     
 //  663     /* check is DATA packet transferred successfully */
 //  664     if  (URB_Status == USBH_URB_DONE)
+        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+        CMP      R7,#+1
+        BNE.N    ??USBH_HandleControl_18
 //  665     { 
 //  666       phost->Control.state = CTRL_STATUS_OUT;
+        MOVS     R0,#+9
+        STRB     R0,[R4, #+24]
 //  667 #if (USBH_USE_OS == 1)
 //  668     osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
 //  669 #endif      
@@ -1497,22 +1597,37 @@ USBH_HandleControl:
 //  671    
 //  672     /* manage error cases*/
 //  673     if  (URB_Status == USBH_URB_STALL) 
+??USBH_HandleControl_18:
+        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+        CMP      R7,#+5
+        BNE.N    ??USBH_HandleControl_19
 //  674     { 
 //  675       /* In stall case, return to previous machine state*/
 //  676       status = USBH_NOT_SUPPORTED;
+        MOVS     R0,#+3
+        MOVS     R6,R0
+        B.N      ??USBH_HandleControl_20
 //  677 #if (USBH_USE_OS == 1)
 //  678     osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
 //  679 #endif      
 //  680     }   
 //  681     else if (URB_Status == USBH_URB_ERROR)
+??USBH_HandleControl_19:
+        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+        CMP      R7,#+4
+        BNE.N    ??USBH_HandleControl_20
 //  682     {
 //  683       /* Device error */
 //  684       phost->Control.state = CTRL_ERROR;  
+        MOVS     R0,#+11
+        STRB     R0,[R4, #+24]
 //  685 #if (USBH_USE_OS == 1)
 //  686     osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
 //  687 #endif      
 //  688     }
 //  689     break;
+??USBH_HandleControl_20:
+        B.N      ??USBH_HandleControl_12
 //  690     
 //  691   case CTRL_DATA_OUT:
 //  692     
@@ -1521,17 +1636,43 @@ USBH_HandleControl:
 //  695                       phost->Control.length , 
 //  696                       phost->Control.pipe_out,
 //  697                       1);
+??USBH_HandleControl_4:
+        MOVS     R0,#+1
+        STR      R0,[SP, #+0]
+        LDRB     R3,[R4, #+5]
+        LDRH     R2,[R4, #+12]
+        LDR      R1,[R4, #+8]
+        MOVS     R0,R4
+          CFI FunCall USBH_CtlSendData
+        BL       USBH_CtlSendData
 //  698      phost->Control.timer = phost->Timer;
+        LDR      R0,[R4, #+680]
+        STRH     R0,[R4, #+14]
 //  699     phost->Control.state = CTRL_DATA_OUT_WAIT;
+        MOVS     R0,#+6
+        STRB     R0,[R4, #+24]
 //  700     break;
+        B.N      ??USBH_HandleControl_12
 //  701     
 //  702   case CTRL_DATA_OUT_WAIT:
 //  703     
 //  704     URB_Status = USBH_LL_GetURBState(phost , phost->Control.pipe_out);     
+??USBH_HandleControl_7:
+        LDRB     R1,[R4, #+5]
+        MOVS     R0,R4
+          CFI FunCall USBH_LL_GetURBState
+        BL       USBH_LL_GetURBState
+        MOVS     R7,R0
 //  705     
 //  706     if  (URB_Status == USBH_URB_DONE)
+        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+        CMP      R7,#+1
+        BNE.N    ??USBH_HandleControl_21
 //  707     { /* If the Setup Pkt is sent successful, then change the state */
 //  708       phost->Control.state = CTRL_STATUS_IN;
+        MOVS     R0,#+7
+        STRB     R0,[R4, #+24]
+        B.N      ??USBH_HandleControl_22
 //  709 #if (USBH_USE_OS == 1)
 //  710       osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
 //  711 #endif      
@@ -1539,34 +1680,60 @@ USBH_HandleControl:
 //  713     
 //  714     /* handle error cases */
 //  715     else if  (URB_Status == USBH_URB_STALL) 
+??USBH_HandleControl_21:
+        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+        CMP      R7,#+5
+        BNE.N    ??USBH_HandleControl_23
 //  716     { 
 //  717       /* In stall case, return to previous machine state*/
 //  718       phost->Control.state = CTRL_STALLED; 
+        MOVS     R0,#+12
+        STRB     R0,[R4, #+24]
 //  719       status = USBH_NOT_SUPPORTED;
+        MOVS     R0,#+3
+        MOVS     R6,R0
+        B.N      ??USBH_HandleControl_22
 //  720 #if (USBH_USE_OS == 1)
 //  721     osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
 //  722 #endif      
 //  723     } 
 //  724     else if  (URB_Status == USBH_URB_NOTREADY)
+??USBH_HandleControl_23:
+        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+        CMP      R7,#+2
+        BNE.N    ??USBH_HandleControl_24
 //  725     { 
 //  726       /* Nack received from device */
 //  727       phost->Control.state = CTRL_DATA_OUT;
+        MOVS     R0,#+5
+        STRB     R0,[R4, #+24]
+        B.N      ??USBH_HandleControl_22
 //  728       
 //  729 #if (USBH_USE_OS == 1)
 //  730     osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
 //  731 #endif      
 //  732     }    
 //  733     else if (URB_Status == USBH_URB_ERROR)
+??USBH_HandleControl_24:
+        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+        CMP      R7,#+4
+        BNE.N    ??USBH_HandleControl_22
 //  734     {
 //  735       /* device error */
 //  736       phost->Control.state = CTRL_ERROR;  
+        MOVS     R0,#+11
+        STRB     R0,[R4, #+24]
 //  737       status = USBH_FAIL;    
+        MOVS     R0,#+2
+        MOVS     R6,R0
 //  738       
 //  739 #if (USBH_USE_OS == 1)
 //  740     osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
 //  741 #endif      
 //  742     } 
 //  743     break;
+??USBH_HandleControl_22:
+        B.N      ??USBH_HandleControl_12
 //  744     
 //  745     
 //  746   case CTRL_STATUS_IN:
@@ -1575,41 +1742,82 @@ USBH_HandleControl:
 //  749                          0,
 //  750                          0,
 //  751                          phost->Control.pipe_in);
+??USBH_HandleControl_6:
+        LDRB     R3,[R4, #+4]
+        MOVS     R2,#+0
+        MOVS     R1,#+0
+        MOVS     R0,R4
+          CFI FunCall USBH_CtlReceiveData
+        BL       USBH_CtlReceiveData
 //  752     phost->Control.timer = phost->Timer;
+        LDR      R0,[R4, #+680]
+        STRH     R0,[R4, #+14]
 //  753     phost->Control.state = CTRL_STATUS_IN_WAIT;
+        MOVS     R0,#+8
+        STRB     R0,[R4, #+24]
 //  754     
 //  755     break;
+        B.N      ??USBH_HandleControl_12
 //  756     
 //  757   case CTRL_STATUS_IN_WAIT:
 //  758     
 //  759     URB_Status = USBH_LL_GetURBState(phost , phost->Control.pipe_in); 
+??USBH_HandleControl_9:
+        LDRB     R1,[R4, #+4]
+        MOVS     R0,R4
+          CFI FunCall USBH_LL_GetURBState
+        BL       USBH_LL_GetURBState
+        MOVS     R7,R0
 //  760     
 //  761     if  ( URB_Status == USBH_URB_DONE)
+        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+        CMP      R7,#+1
+        BNE.N    ??USBH_HandleControl_25
 //  762     { /* Control transfers completed, Exit the State Machine */
 //  763       phost->Control.state = CTRL_COMPLETE;
+        MOVS     R0,#+13
+        STRB     R0,[R4, #+24]
 //  764       status = USBH_OK;
+        MOVS     R0,#+0
+        MOVS     R6,R0
+        B.N      ??USBH_HandleControl_26
 //  765 #if (USBH_USE_OS == 1)
 //  766     osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
 //  767 #endif      
 //  768     }
 //  769     
 //  770     else if (URB_Status == USBH_URB_ERROR)
+??USBH_HandleControl_25:
+        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+        CMP      R7,#+4
+        BNE.N    ??USBH_HandleControl_27
 //  771     {
 //  772       phost->Control.state = CTRL_ERROR;
+        MOVS     R0,#+11
+        STRB     R0,[R4, #+24]
+        B.N      ??USBH_HandleControl_26
 //  773 #if (USBH_USE_OS == 1)
 //  774     osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
 //  775 #endif      
 //  776     }
 //  777      else if(URB_Status == USBH_URB_STALL)
+??USBH_HandleControl_27:
+        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+        CMP      R7,#+5
+        BNE.N    ??USBH_HandleControl_26
 //  778     {
 //  779       /* Control transfers completed, Exit the State Machine */
 //  780       status = USBH_NOT_SUPPORTED;
+        MOVS     R0,#+3
+        MOVS     R6,R0
 //  781       
 //  782 #if (USBH_USE_OS == 1)
 //  783     osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
 //  784 #endif      
 //  785     }
 //  786     break;
+??USBH_HandleControl_26:
+        B.N      ??USBH_HandleControl_12
 //  787     
 //  788   case CTRL_STATUS_OUT:
 //  789     USBH_CtlSendData (phost,
@@ -1617,39 +1825,82 @@ USBH_HandleControl:
 //  791                       0,
 //  792                       phost->Control.pipe_out,
 //  793                       1);
+??USBH_HandleControl_8:
+        MOVS     R0,#+1
+        STR      R0,[SP, #+0]
+        LDRB     R3,[R4, #+5]
+        MOVS     R2,#+0
+        MOVS     R1,#+0
+        MOVS     R0,R4
+          CFI FunCall USBH_CtlSendData
+        BL       USBH_CtlSendData
 //  794      phost->Control.timer = phost->Timer;
+        LDR      R0,[R4, #+680]
+        STRH     R0,[R4, #+14]
 //  795     phost->Control.state = CTRL_STATUS_OUT_WAIT;
+        MOVS     R0,#+10
+        STRB     R0,[R4, #+24]
 //  796     break;
+        B.N      ??USBH_HandleControl_12
 //  797     
 //  798   case CTRL_STATUS_OUT_WAIT: 
 //  799     
 //  800     URB_Status = USBH_LL_GetURBState(phost , phost->Control.pipe_out);  
+??USBH_HandleControl_11:
+        LDRB     R1,[R4, #+5]
+        MOVS     R0,R4
+          CFI FunCall USBH_LL_GetURBState
+        BL       USBH_LL_GetURBState
+        MOVS     R7,R0
 //  801     if  (URB_Status == USBH_URB_DONE)
+        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+        CMP      R7,#+1
+        BNE.N    ??USBH_HandleControl_28
 //  802     { 
 //  803       status = USBH_OK;      
+        MOVS     R0,#+0
+        MOVS     R6,R0
 //  804       phost->Control.state = CTRL_COMPLETE; 
+        MOVS     R0,#+13
+        STRB     R0,[R4, #+24]
+        B.N      ??USBH_HandleControl_29
 //  805       
 //  806 #if (USBH_USE_OS == 1)
 //  807     osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
 //  808 #endif      
 //  809     }
 //  810     else if  (URB_Status == USBH_URB_NOTREADY)
+??USBH_HandleControl_28:
+        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+        CMP      R7,#+2
+        BNE.N    ??USBH_HandleControl_30
 //  811     { 
 //  812       phost->Control.state = CTRL_STATUS_OUT;
+        MOVS     R0,#+9
+        STRB     R0,[R4, #+24]
+        B.N      ??USBH_HandleControl_29
 //  813       
 //  814 #if (USBH_USE_OS == 1)
 //  815     osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
 //  816 #endif      
 //  817     }      
 //  818     else if (URB_Status == USBH_URB_ERROR)
+??USBH_HandleControl_30:
+        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
+        CMP      R7,#+4
+        BNE.N    ??USBH_HandleControl_29
 //  819     {
 //  820       phost->Control.state = CTRL_ERROR; 
+        MOVS     R0,#+11
+        STRB     R0,[R4, #+24]
 //  821       
 //  822 #if (USBH_USE_OS == 1)
 //  823     osMessagePut ( phost->os_event, USBH_CONTROL_EVENT, 0);
 //  824 #endif      
 //  825     }
 //  826     break;
+??USBH_HandleControl_29:
+        B.N      ??USBH_HandleControl_12
 //  827     
 //  828   case CTRL_ERROR:
 //  829     /* 
@@ -1661,296 +1912,88 @@ USBH_HandleControl:
 //  835     accepted.
 //  836     */
 //  837     if (++ phost->Control.errorcount <= USBH_MAX_ERROR_COUNT)
+??USBH_HandleControl_10:
+        LDRB     R0,[R4, #+25]
+        ADDS     R0,R0,#+1
+        STRB     R0,[R4, #+25]
+        LDRB     R0,[R4, #+25]
+        CMP      R0,#+3
+        BGE.N    ??USBH_HandleControl_31
 //  838     {
 //  839       /* try to recover control */
 //  840       USBH_LL_Stop(phost);
+        MOVS     R0,R4
+          CFI FunCall USBH_LL_Stop
+        BL       USBH_LL_Stop
 //  841          
 //  842       /* Do the transmission again, starting from SETUP Packet */
 //  843       phost->Control.state = CTRL_SETUP; 
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+24]
 //  844       phost->RequestState = CMD_SEND;
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+2]
+        B.N      ??USBH_HandleControl_32
 //  845     }
 //  846     else
 //  847     {
 //  848       phost->pUser(phost, HOST_USER_UNRECOVERED_ERROR);
+??USBH_HandleControl_31:
+        MOVS     R1,#+6
+        MOVS     R0,R4
+        LDR      R2,[R4, #+692]
+          CFI FunCall
+        BLX      R2
 //  849       phost->Control.errorcount = 0;
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+25]
 //  850       USBH_ErrLog("Control error");
+        LDR.N    R0,??DataTable0_1
+          CFI FunCall printf
+        BL       printf
+        LDR.N    R0,??DataTable0_2
+          CFI FunCall printf
+        BL       printf
+        ADR.N    R0,??DataTable0  ;; "\n"
+          CFI FunCall printf
+        BL       printf
 //  851       status = USBH_FAIL;
+        MOVS     R0,#+2
+        MOVS     R6,R0
 //  852     }
 //  853     break;
+??USBH_HandleControl_32:
+        B.N      ??USBH_HandleControl_12
 //  854     
 //  855   default:
 //  856     break;
 //  857   }
 //  858   return status;
-        MOV      R0,R4
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}
-          CFI CFA R13+16
-??USBH_HandleControl_3:
-        LDRB     R1,[R5, #+5]
-        MOV      R0,R5
-          CFI FunCall USBH_LL_GetURBState
-        BL       USBH_LL_GetURBState
-        CMP      R0,#+1
-        BNE.W    ??USBH_HandleControl_4
-        LDRB     R0,[R5, #+16]
-        LDRH     R1,[R5, #+22]
-        AND      R0,R0,#0x80
-        CBZ.N    R1,??USBH_HandleControl_5
-        CMP      R0,#+128
-        ITE      NE 
-        MOVNE    R0,#+5
-        MOVEQ    R0,#+3
-        STRB     R0,[R5, #+24]
-        MOV      R0,R4
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}
-          CFI CFA R13+16
-??USBH_HandleControl_5:
-        CMP      R0,#+128
-        ITE      NE 
-        MOVNE    R0,#+7
-        MOVEQ    R0,#+9
-        STRB     R0,[R5, #+24]
-        MOV      R0,R4
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}
-          CFI CFA R13+16
-??USBH_HandleControl_6:
-        LDR      R0,[R5, #+680]
-        LDRB     R3,[R5, #+4]
-        LDRH     R2,[R5, #+12]
-        LDR      R1,[R5, #+8]
-        STRH     R0,[R5, #+14]
-        MOV      R0,R5
-          CFI FunCall USBH_CtlReceiveData
-        BL       USBH_CtlReceiveData
-        MOVS     R0,#+4
-        STRB     R0,[R5, #+24]
-        MOV      R0,R4
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}
-          CFI CFA R13+16
-??USBH_HandleControl_7:
-        LDRB     R1,[R5, #+4]
-        MOV      R0,R5
-          CFI FunCall USBH_LL_GetURBState
-        BL       USBH_LL_GetURBState
-        CMP      R0,#+1
-        IT       EQ 
-        MOVEQ    R0,#+9
-        BEQ.N    ??USBH_HandleControl_8
-        CMP      R0,#+5
-        BNE.N    ??USBH_HandleControl_4
-        MOVS     R4,#+3
-        MOV      R0,R4
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}
-          CFI CFA R13+16
-??USBH_HandleControl_9:
-        STR      R4,[SP, #+0]
-        LDRB     R3,[R5, #+5]
-        LDRH     R2,[R5, #+12]
-        LDR      R1,[R5, #+8]
-        MOV      R0,R5
-          CFI FunCall USBH_CtlSendData
-        BL       USBH_CtlSendData
-        LDR      R0,[R5, #+680]
-        STRH     R0,[R5, #+14]
-        MOVS     R0,#+6
-        STRB     R0,[R5, #+24]
-        MOV      R0,R4
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}
-          CFI CFA R13+16
-??USBH_HandleControl_10:
-        LDRB     R1,[R5, #+5]
-        MOV      R0,R5
-          CFI FunCall USBH_LL_GetURBState
-        BL       USBH_LL_GetURBState
-        CMP      R0,#+1
-        IT       EQ 
-        MOVEQ    R0,#+7
-        BEQ.N    ??USBH_HandleControl_8
-        CMP      R0,#+5
-        BNE.N    ??USBH_HandleControl_11
-        MOVS     R0,#+12
-        MOVS     R4,#+3
-        STRB     R0,[R5, #+24]
-        MOV      R0,R4
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}
-          CFI CFA R13+16
-??USBH_HandleControl_11:
-        CMP      R0,#+2
-        IT       EQ 
-        MOVEQ    R0,#+5
-        BEQ.N    ??USBH_HandleControl_8
-        CMP      R0,#+4
-        BNE.N    ??USBH_HandleControl_1
-        MOVS     R0,#+11
-        STRB     R0,[R5, #+24]
-        B.N      ??USBH_HandleControl_12
-??USBH_HandleControl_13:
-        LDRB     R3,[R5, #+4]
-        MOVS     R2,#+0
-        MOVS     R1,#+0
-        MOV      R0,R5
-          CFI FunCall USBH_CtlReceiveData
-        BL       USBH_CtlReceiveData
-        LDR      R0,[R5, #+680]
-        STRH     R0,[R5, #+14]
-        MOVS     R0,#+8
-        STRB     R0,[R5, #+24]
-        MOV      R0,R4
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}
-          CFI CFA R13+16
-??USBH_HandleControl_14:
-        LDRB     R1,[R5, #+4]
-        MOV      R0,R5
-          CFI FunCall USBH_LL_GetURBState
-        BL       USBH_LL_GetURBState
-        CMP      R0,#+1
-        BNE.N    ??USBH_HandleControl_15
-        MOVS     R0,#+13
-        MOVS     R4,#+0
-        STRB     R0,[R5, #+24]
-        MOV      R0,R4
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}
-          CFI CFA R13+16
-??USBH_HandleControl_15:
-        CMP      R0,#+4
-        BEQ.N    ??USBH_HandleControl_16
-        CMP      R0,#+5
-        BNE.N    ??USBH_HandleControl_1
-        MOVS     R4,#+3
-        MOV      R0,R4
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}
-          CFI CFA R13+16
-??USBH_HandleControl_17:
-        STR      R4,[SP, #+0]
-        LDRB     R3,[R5, #+5]
-        MOVS     R2,#+0
-        MOVS     R1,#+0
-        MOV      R0,R5
-          CFI FunCall USBH_CtlSendData
-        BL       USBH_CtlSendData
-        LDR      R0,[R5, #+680]
-        STRH     R0,[R5, #+14]
-        MOVS     R0,#+10
-        STRB     R0,[R5, #+24]
-        MOV      R0,R4
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}
-          CFI CFA R13+16
-??USBH_HandleControl_18:
-        LDRB     R1,[R5, #+5]
-        MOV      R0,R5
-          CFI FunCall USBH_LL_GetURBState
-        BL       USBH_LL_GetURBState
-        CMP      R0,#+1
-        BNE.N    ??USBH_HandleControl_19
-        MOVS     R0,#+13
-        MOVS     R4,#+0
-        STRB     R0,[R5, #+24]
-        MOV      R0,R4
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}
-          CFI CFA R13+16
-??USBH_HandleControl_19:
-        CMP      R0,#+2
-        IT       EQ 
-        MOVEQ    R0,#+9
-        BEQ.N    ??USBH_HandleControl_8
-??USBH_HandleControl_4:
-        CMP      R0,#+4
-        BNE.N    ??USBH_HandleControl_1
-??USBH_HandleControl_16:
-        MOVS     R0,#+11
-??USBH_HandleControl_8:
-        STRB     R0,[R5, #+24]
-        MOV      R0,R4
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}
-          CFI CFA R13+16
-??USBH_HandleControl_20:
-        LDRB     R0,[R5, #+25]
-        ADDS     R0,R0,#+1
-        STRB     R0,[R5, #+25]
-        UXTB     R0,R0
-        CMP      R0,#+3
-        BGE.N    ??USBH_HandleControl_21
-        MOV      R0,R5
-          CFI FunCall USBH_LL_Stop
-        BL       USBH_LL_Stop
-        STRB     R4,[R5, #+24]
-        MOV      R0,R4
-        STRB     R4,[R5, #+2]
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}
-          CFI CFA R13+16
-??USBH_HandleControl_21:
-        LDR      R2,[R5, #+692]
-        MOVS     R1,#+6
-        MOV      R0,R5
-          CFI FunCall
-        BLX      R2
-        MOVS     R0,#+0
-        STRB     R0,[R5, #+25]
-        ADR.W    R0,?_0
-          CFI FunCall printf
-        BL       printf
-        ADR.W    R0,?_1
-          CFI FunCall printf
-        BL       printf
-        ADR.N    R0,??DataTable3  ;; "\n"
-          CFI FunCall printf
-        BL       printf
-??USBH_HandleControl_12:
-        MOVS     R4,#+2
 ??USBH_HandleControl_1:
-        MOV      R0,R4
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}       ;; return
+??USBH_HandleControl_12:
+        MOVS     R0,R6
+        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+        POP      {R1,R4-R7,PC}    ;; return
 //  859 }
-          CFI EndBlock cfiBlock12
+          CFI EndBlock cfiBlock15
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable3:
+??DataTable0:
         DC8      "\n",0x0,0x0
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-?_0:
-        DC8 "ERROR: "
+??DataTable0_1:
+        DC32     ?_0
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-?_1:
-        DC8 "Control error"
-        DC8 0, 0
+??DataTable0_2:
+        DC32     ?_1
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -1963,9 +2006,19 @@ USBH_HandleControl:
         SECTION __DLIB_PERTHREAD_init:DATA:REORDER:NOROOT(0)
         SECTION_TYPE SHT_PROGBITS, 0
 
-        SECTION `.rodata`:CONST:NOROOT(1)
+        SECTION `.rodata`:CONST:REORDER:NOROOT(2)
         DATA
-?_2:
+?_0:
+        DC8 "ERROR: "
+
+        SECTION `.rodata`:CONST:REORDER:NOROOT(2)
+        DATA
+?_1:
+        DC8 "Control error"
+        DC8 0, 0
+
+        SECTION `.rodata`:CONST:REORDER:NOROOT(1)
+        DATA
         DC8 "\012"
 
         END
@@ -1992,11 +2045,11 @@ USBH_HandleControl:
 //  880 
 //  881 
 // 
-//     2 bytes in section .rodata
-// 1 548 bytes in section .text
+//    26 bytes in section .rodata
+// 1 568 bytes in section .text
 // 
-// 1 548 bytes of CODE  memory
-//     2 bytes of CONST memory
+// 1 568 bytes of CODE  memory
+//    26 bytes of CONST memory
 //
 //Errors: none
 //Warnings: none

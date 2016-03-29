@@ -28,7 +28,7 @@ void Audio_Streaming_Ini(void);
 void Audio_Streaming(void);
 void SPI1_Ini(void);
 void mySPI_SendData(uint8_t adress, uint8_t data);
-void MIC1TO6_Init(void);
+void MIC1TO8_Init(void);
 void I2S_Proc(void);
 void SPI1_IRQHandler(void);
 void SPI2_IRQHandler(void);
