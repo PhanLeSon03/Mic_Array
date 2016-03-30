@@ -2,7 +2,7 @@
 
 <project>
   <fileVersion>2</fileVersion>
-  <fileChecksum>2756337293</fileChecksum>
+  <fileChecksum>252388858</fileChecksum>
   <configuration>
     <name>STM32F7-DISCO</name>
     <outputs>
@@ -525,7 +525,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 48 304 159 218 463 140 363 187 372 308 148 267 72 355 291 113 28 64 30 23 190 188 466 299 415 52 67 147 208 319 271 295 320 464 472 57 405 412 110 339 35 352 273 337 246 390 220 134 241 330 210 396 282 380 365 465 406 186 127 93 377 126 311 375 99 328 90 92 202 213 74 336 361 285 164 176 51 75 232 121 345 388 98 66 132 87 332 79 392 162 404 317 141 154 254</file>
+          <file> 48 304 159 463 218 363 187 372 308 148 267 380 365 406 113 28 64 30 23 190 188 396 466 299 415 52 67 147 208 319 140 282 465 186 127 93 377 464 472 57 405 412 110 339 35 352 273 337 246 390 220 134 241 330 210 72 271 295 355 291 320 126 311 375 99 328 90 92 202 213 74 336 361 285 164 176 51 75 232 121 345 388 98 66 132 87 332 79 392 162 404 317 141 154 254</file>
         </tool>
         <tool>
           <name>ICCARM</name>
@@ -552,7 +552,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 412 93 30 218 464 159 465 176 304 57 147 337 90 377 113 472 405 79 52 319 164 404 141 127 28 311 140 72 48 466 299 372 463 396 332 67 208 186 246 392 317 154 148 110 320 126 271 375 99 328 92 202 213 74 132 87 190 267 188 187 406 64 162 232 254 121 345 282 380 365 388 98 66 336 363 361 339 35 308 352 390 220 134 241 330 210 295 355 291 285 51 415 273 23 75</file>
+          <file> 159 218 30 140 110 465 176 35 352 134 337 282 363 339 246 164 404 141 127 28 148 147 320 121 308 220 330 186 392 113 317 154 311 90 93 377 345 380 365 388 98 66 64 336 361 52 390 299 241 210 406 463 162 232 254 188 126 72 271 304 464 48 375 472 99 466 328 57 92 405 202 213 412 74 372 396 132 87 332 79 190 67 267 208 187 319 295 355 291 285 51 415 273 23 75</file>
         </tool>
         <tool>
           <name>ICCARM</name>
@@ -579,7 +579,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 52 282 465 377 113 159 140 162 220 98 30 330 66 332 154 337 196 221 246 134 186 127 93 218 388 79 90 379 390 299 241 210 396 380 365 406 463 126 132 87 64 392 404 317 141 311 232 254 291 190 67 267 147 188 208 187 319 72 271 295 355 148 320 121 345 304 464 48 375 472 99 466 328 57 28 92 405 202 213 412 74 372 110 336 363 361 339 35 308 352 285 164 176 51 415 273 23 75 88 81</file>
+          <file> 90 337 336 51 159 380 52 218 415 220 345 311 74 465 330 99 202 148 308 113 75 232 187 88 221 246 134 72 140 355 291 375 328 92 213 361 285 164 176 273 67 110 23 377 379 30 390 299 241 210 64 271 295 147 320 121 304 464 48 472 466 57 28 405 412 372 463 363 339 35 352 190 267 188 208 319 396 282 365 406 186 127 93 126 388 98 66 132 87 332 79 392 162 404 317 141 154 254 196 81</file>
         </tool>
         <tool>
           <name>ICCARM</name>
@@ -606,7 +606,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 140 159 196 52 213 218 273 337 319 328 164 291 147 72 355 375 92 361 285 176 67 110 23 2 208 345 311 99 90 202 74 148 336 308 380 465 113 51 415 75 232 187 129 463 190 267 188 64 271 295 320 121 304 464 48 472 466 57 28 405 299 412 372 363 339 35 352 30 398 127 81 112 221 246 390 220 134 241 330 210 396 282 365 406 186 93 377 126 388 98 66 132 87 332 79 392 162 404 317 141 154 254 379 88</file>
+          <file> 337 196 187 66 465 463 140 332 154 267 282 377 113 98 159 30 162 52 2 190 188 186 127 93 218 388 79 246 90 129 67 147 208 319 396 380 365 406 126 132 87 64 392 404 317 141 311 232 254 379 81 112 221 390 220 299 134 241 330 210 72 271 295 355 148 291 320 121 345 304 464 48 375 472 99 466 328 57 28 92 405 202 213 412 74 372 110 336 363 361 339 35 308 352 285 164 176 51 415 273 23 75 398 88</file>
         </tool>
         <tool>
           <name>ICCARM</name>
@@ -633,7 +633,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 140 375 52 92 218 328 213 159 319 176 67 90 311 99 202 74 148 113 282 87 147 465 164 273 127 463 464 48 472 466 57 28 405 299 412 372 93 377 121 132 208 186 30 51 415 154 337 291 98 66 320 345 380 365 388 396 332 79 190 267 188 187 406 64 232 254 134 126 72 271 304 110 336 363 361 339 35 308 352 246 390 220 241 330 210 295 355 285 392 162 404 317 141 23 75</file>
+          <file> 336 375 159 246 92 218 328 213 64 52 176 67 90 311 99 202 74 148 113 308 134 465 164 273 127 463 464 48 472 466 57 28 405 299 412 372 93 377 126 271 361 220 330 186 140 30 51 415 154 337 291 98 66 147 320 72 304 110 363 339 35 352 390 241 210 406 232 254 121 345 282 380 365 388 396 132 87 332 79 190 267 188 208 187 319 295 355 285 392 162 404 317 141 23 75</file>
         </tool>
         <tool>
           <name>ICCARM</name>
@@ -660,7 +660,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 463 365 406 113 220 380 66 465 330 218 332 246 134 396 345 98 159 140 30 162 52 154 337 390 299 241 210 282 186 127 93 377 388 79 90 318 190 67 267 147 188 208 187 319 64 72 271 295 355 148 291 320 121 132 87 392 404 317 141 311 232 254 126 304 464 48 375 472 99 466 328 57 28 92 405 202 213 412 74 372 110 336 363 361 339 35 308 352 285 164 176 51 415 273 23 75</file>
+          <file> 148 295 320 220 147 66 465 330 332 246 134 64 271 345 98 159 140 30 162 52 154 337 390 299 241 210 218 72 355 291 388 79 93 90 127 318 463 190 67 267 188 208 187 319 396 282 380 365 406 186 377 113 121 132 87 392 404 317 141 311 232 254 126 304 464 48 375 472 99 466 328 57 28 92 405 202 213 412 74 372 110 336 363 361 339 35 308 352 285 164 176 51 415 273 23 75</file>
         </tool>
         <tool>
           <name>ICCARM</name>
@@ -687,7 +687,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 299 246 110 466 463 93 159 337 48 28 372 218 52 176 67 127 464 472 57 405 412 377 345 388 79 134 355 291 164 273 23 75 232 311 375 99 328 90 92 202 213 74 148 113 380 365 396 332 140 220 330 465 30 51 415 187 154 98 66 147 320 121 282 132 87 64 390 241 210 295 126 72 271 304 336 363 361 339 35 308 352 285 254 190 267 188 208 319 406 186 392 162 404 317 141</file>
+          <file> 299 218 159 190 110 466 463 93 304 337 48 28 372 35 352 140 52 176 67 127 464 472 57 405 412 377 113 363 339 188 355 291 164 273 23 75 232 311 375 99 328 90 92 202 213 74 148 72 308 64 154 267 187 465 30 51 415 98 66 147 320 126 271 336 361 380 285 254 208 319 295 210 121 345 282 365 388 396 132 87 332 79 246 390 220 134 241 330 406 186 392 162 404 317 141</file>
         </tool>
         <tool>
           <name>ICCARM</name>
@@ -822,7 +822,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 375 396 23 134 110 246 92 361 285 52 176 67 220 330 380 365 218 406 463 113 328 213 159 164 273 337 291 30 390 299 241 210 140 282 465 186 127 93 377 126 311 99 90 202 74 148 336 308 51 415 75 232 187 190 267 147 188 208 319 64 72 271 295 355 320 304 464 48 472 466 57 28 405 412 372 363 339 35 352 121 345 388 98 66 132 87 332 79 392 162 404 317 141 154 254</file>
+          <file> 375 64 23 134 271 110 246 92 361 285 52 176 67 220 330 295 148 147 320 328 213 159 164 273 337 291 30 390 299 241 210 218 72 140 355 126 311 99 90 202 74 336 308 380 465 113 51 415 75 232 187 463 190 267 188 208 319 396 282 365 406 186 127 93 377 304 464 48 472 466 57 28 405 412 372 363 339 35 352 121 345 388 98 66 132 87 332 79 392 162 404 317 141 154 254</file>
         </tool>
         <tool>
           <name>ICCARM</name>
@@ -849,7 +849,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 186 140 127 213 159 134 273 337 246 93 328 164 52 291 81 220 330 282 465 377 375 92 361 285 176 67 110 23 30 390 299 241 210 396 380 365 218 406 463 113 126 311 99 90 202 74 148 336 308 51 415 75 232 187 2 190 267 147 188 208 319 64 72 271 295 355 320 304 464 48 472 466 57 28 405 412 372 363 339 35 352 129 121 345 388 98 66 132 87 332 79 392 162 404 317 141 154 254</file>
+          <file> 213 159 220 273 337 330 218 328 164 52 291 81 246 134 72 140 355 375 92 361 285 176 67 110 23 30 390 299 241 210 64 271 295 148 147 320 126 311 99 90 202 74 336 308 380 465 113 51 415 75 232 187 127 2 463 190 267 188 208 319 396 282 365 406 186 93 377 304 464 48 472 466 57 28 405 412 372 363 339 35 352 129 121 345 388 98 66 132 87 332 79 392 162 404 317 141 154 254</file>
         </tool>
         <tool>
           <name>ICCARM</name>
@@ -1855,7 +1855,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 66 159 299 282 87 113 98 30 291 93 140 64 210 465 51 415 52 254 154 147 320 121 218 132 23 390 241 355 164 176 273 67 110 337 330 75 232 463 127 464 311 48 375 472 99 466 328 57 90 28 92 405 202 213 412 74 372 148 377 345 380 365 388 396 332 79 246 220 134 295 187 126 72 271 304 336 363 361 339 35 308 352 285 190 267 188 208 319 406 186 392 162 404 317 141</file>
+          <file> 66 308 147 113 98 30 291 93 159 64 336 380 218 52 319 465 51 415 254 154 320 126 271 361 285 67 208 355 164 176 273 110 337 330 23 75 232 463 127 464 311 48 375 472 99 466 328 57 90 28 92 405 202 299 213 412 74 372 148 377 140 72 304 363 339 35 352 190 267 188 187 295 121 345 282 365 388 396 132 87 332 79 246 390 220 134 241 210 406 186 392 162 404 317 141</file>
         </tool>
         <tool>
           <name>ICCARM</name>
@@ -2125,6 +2125,246 @@
         </tool>
       </inputs>
     </file>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\Src\audio_application.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\Src\audio_codec.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\Src\DSP.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\Src\main.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\Src\sta321mp.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\Src\stm32f7xx_it.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\Src\usbd_audio_if.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\Src\usbd_conf_f4.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\Src\usbd_desc.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\Src\usbh_conf.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\Src\usbh_diskio.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\Src\waveplayer _CS43L22.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\Src\waverecorder.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\BSP\Components\ft5336\ft5336.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\stm32746g_discovery.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\stm32746g_discovery_lcd.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\stm32746g_discovery_sdram.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\stm32746g_discovery_ts.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\Src\system_stm32f7xx.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_cortex.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_dma.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_dma2d.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_dma_ex.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_flash.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_flash_ex.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_gpio.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_hcd.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_i2c.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_i2c_ex.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_i2s.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_ltdc.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_pcd.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_pcd_ex.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_pwr.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_pwr_ex.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_rcc.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_rcc_ex.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_sai.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_sai_ex.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_sdram.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_spi.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_sram.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_tim.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_tim_ex.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_uart.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_ll_fmc.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_ll_usb.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\ff.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src\usbh_msc.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Src\usbd_audio_in.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src\usbh_msc_bot.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src\usbh_msc_scsi.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_core.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_ctlreq.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_ioreq.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_pipes.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Src\usbd_core.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Src\usbd_ctlreq.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Src\usbd_ioreq.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
   </configuration>
 </project>
 

@@ -190,10 +190,10 @@ inline static void FFT_Update(void)
                     //LowPassIIR(Buffer3.bufMIC7,Buffer3.bufMIC7,LowPass_Mic7Old,AUDIO_OUT_BUFFER_SIZE,COEFLOWPASS_MIC);
                     //LowPassIIR(Buffer3.bufMIC8,Buffer3.bufMIC8,LowPass_Mic8Old,AUDIO_OUT_BUFFER_SIZE,COEFLOWPASS_MIC);
 
-                    idxLatency78 = GCC_PHAT(Buffer3.bufMIC7, Buffer3.bufMIC8, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal78);
-                    idxLatency14 = GCC_PHAT(Buffer3.bufMIC1, Buffer3.bufMIC4, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal14);
-                    idxLatency25 = GCC_PHAT(Buffer3.bufMIC5, Buffer3.bufMIC2, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal25);
-                    idxLatency63 = GCC_PHAT(Buffer3.bufMIC6, Buffer3.bufMIC3, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal63);
+                    //idxLatency78 = GCC_PHAT(Buffer3.bufMIC7, Buffer3.bufMIC8, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal78);
+                    //idxLatency14 = GCC_PHAT(Buffer3.bufMIC1, Buffer3.bufMIC4, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal14);
+                    //idxLatency25 = GCC_PHAT(Buffer3.bufMIC5, Buffer3.bufMIC2, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal25);
+                    //idxLatency63 = GCC_PHAT(Buffer3.bufMIC6, Buffer3.bufMIC3, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal63);
                    
 
                     SumDelay(&Buffer3);
@@ -238,10 +238,10 @@ inline static void FFT_Update(void)
 					//LowPassIIR(Buffer1.bufMIC7,Buffer1.bufMIC7,LowPass_Mic7Old,AUDIO_OUT_BUFFER_SIZE,COEFLOWPASS_MIC);
 					//LowPassIIR(Buffer1.bufMIC8,Buffer1.bufMIC8,LowPass_Mic8Old,AUDIO_OUT_BUFFER_SIZE,COEFLOWPASS_MIC);
 					
-                  idxLatency78 = GCC_PHAT(Buffer1.bufMIC7, Buffer1.bufMIC8, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal78);	
-                  idxLatency14 = GCC_PHAT(Buffer1.bufMIC1, Buffer1.bufMIC4, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal14);
-                  idxLatency25 = GCC_PHAT(Buffer1.bufMIC5, Buffer1.bufMIC2, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal25);
-                  idxLatency63 = GCC_PHAT(Buffer1.bufMIC6, Buffer1.bufMIC3, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal63);
+                  //idxLatency78 = GCC_PHAT(Buffer1.bufMIC7, Buffer1.bufMIC8, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal78);	
+                  //idxLatency14 = GCC_PHAT(Buffer1.bufMIC1, Buffer1.bufMIC4, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal14);
+                  //idxLatency25 = GCC_PHAT(Buffer1.bufMIC5, Buffer1.bufMIC2, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal25);
+                  //idxLatency63 = GCC_PHAT(Buffer1.bufMIC6, Buffer1.bufMIC3, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal63);
 
 
 
@@ -285,10 +285,10 @@ inline static void FFT_Update(void)
 		  //LowPassIIR(Buffer2.bufMIC7,Buffer2.bufMIC7,LowPass_Mic7Old,AUDIO_OUT_BUFFER_SIZE,COEFLOWPASS_MIC);
 		  //LowPassIIR(Buffer2.bufMIC8,Buffer2.bufMIC8,LowPass_Mic8Old,AUDIO_OUT_BUFFER_SIZE,COEFLOWPASS_MIC);
 
-          idxLatency78 = GCC_PHAT(Buffer2.bufMIC7, Buffer2.bufMIC8, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal78);
-          idxLatency14 = GCC_PHAT(Buffer2.bufMIC1, Buffer2.bufMIC4, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal14);
-          idxLatency25 = GCC_PHAT(Buffer2.bufMIC5, Buffer2.bufMIC2, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal25);
-          idxLatency63 = GCC_PHAT(Buffer2.bufMIC6, Buffer2.bufMIC3, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal63);
+          //idxLatency78 = GCC_PHAT(Buffer2.bufMIC7, Buffer2.bufMIC8, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal78);
+          //idxLatency14 = GCC_PHAT(Buffer2.bufMIC1, Buffer2.bufMIC4, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal14);
+          //idxLatency25 = GCC_PHAT(Buffer2.bufMIC5, Buffer2.bufMIC2, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal25);
+          //idxLatency63 = GCC_PHAT(Buffer2.bufMIC6, Buffer2.bufMIC3, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal63);
 
           SumDelay(&Buffer2);
 #endif
@@ -325,9 +325,9 @@ inline static void Audio_Play_Out(void)
 #if USB_STREAMING
     AudioUSBSend(idxFrmPDMMic8);
 #endif
-
+    ++idxFrmPDMMic8;
 	/* if player is finished for curent buffer                                  */ 
-	if (++idxFrmPDMMic8 == AUDIO_OUT_BUFFER_SIZE/(2*AUDIO_SAMPLING_FREQUENCY/1000))
+	if (idxFrmPDMMic8 == AUDIO_OUT_BUFFER_SIZE/(AUDIO_SAMPLING_FREQUENCY/1000))
 	{
 	       RESET_IDX
 		   //MIC7Rec();
@@ -468,7 +468,9 @@ int main(void)
 		//test GIT //USBH_Start(&hUSBHost); 					  
 #endif 
 
-					  
+   AUDIO_InitApplication();
+ 
+ 					  
 
     /*----------------------------------------*/
     MX_I2C2_Init(); //for STA321MP
@@ -478,7 +480,6 @@ int main(void)
 #ifdef CS43L22_PLAY
     AUDIO_InitApplication();
 #endif
-    AUDIO_InitApplication();
     BSP_LED_Toggle(LED2);
 
     buffer_switch = BUF3_PLAY;		 /* record data to buffer1 */
@@ -487,9 +488,10 @@ int main(void)
 
     Window(fir256Coff);
 	EnergyNoiseCalc(AUDIO_OUT_BUFFER_SIZE/2);
+	StartPlay();
 
     //Precalculation(Coef,PreCalcBuff);
-    StartPlay();
+
     while (1)
     {
 
@@ -1210,7 +1212,13 @@ void MX_I2C2_Init(void)
  void HAL_I2S_TxCpltCallback(I2S_HandleTypeDef *hi2s)
 {  
   //Audio_Play_Out();  
-  Audio_MAL_Play((uint32_t)&bufferSum[AUDIO_CHANNELS*(6*AUDIO_SAMPLING_FREQUENCY/1000)], 2*6*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
+  #if (AUDIO_OUT_STREAM_NORMAL)
+      Audio_MAL_Play((uint32_t)&bufferSum[AUDIO_CHANNELS*(6*AUDIO_SAMPLING_FREQUENCY/1000)], 2*6*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
+  #else
+
+  #endif  
+
+  
 }
 
  uint8_t StartPlay(void)
@@ -1248,10 +1256,16 @@ void MX_I2C2_Init(void)
 		 }
 	}
 #endif	
-	         
+     StartRecMic7_8();	         
 	 /*------------------------PLAYER------------------------------------------*/
 	 Audio_MAL_Play((uint32_t)bufferSum,2*6*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
 	 /*------------------------------------------------------------------------*/	
+	 WaveRec_idxSens1 = 0;
+	 WaveRec_idxSens2 = 0;
+	 WaveRec_idxSens3 = 0;
+	 WaveRec_idxSens4 = 0;
+	 WaveRec_idxSens5 = 0;
+	 WaveRec_idxSens6 = 0; 
  }
 
 void SubFrameFinished(void)

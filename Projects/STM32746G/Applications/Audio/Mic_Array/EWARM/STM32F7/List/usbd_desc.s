@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      29/Mar/2016  20:10:39
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      30/Mar/2016  19:08:27
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -16,10 +16,8 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-//        --no_clustering --no_scheduling --debug --endian=little
-//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-//        (x86)\IAR Systems\Embedded Workbench
+//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
+//        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
@@ -50,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -279,13 +277,12 @@ USBD_StrDesc:
         THUMB
 //  121 uint8_t *USBD_AUDIO_DeviceDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 //  122 {
-USBD_AUDIO_DeviceDescriptor:
-        MOVS     R2,R0
 //  123   *length = sizeof(hUSBDDeviceDesc);
+USBD_AUDIO_DeviceDescriptor:
         MOVS     R0,#+18
         STRH     R0,[R1, #+0]
 //  124   return hUSBDDeviceDesc;
-        LDR.N    R0,??DataTable6
+        LDR.N    R0,??DataTable12
         BX       LR               ;; return
 //  125 }
           CFI EndBlock cfiBlock0
@@ -304,13 +301,12 @@ USBD_AUDIO_DeviceDescriptor:
         THUMB
 //  133 uint8_t *USBD_AUDIO_LangIDStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 //  134 {
-USBD_AUDIO_LangIDStrDescriptor:
-        MOVS     R2,R0
 //  135   *length = sizeof(USBD_LangIDDesc);  
+USBD_AUDIO_LangIDStrDescriptor:
         MOVS     R0,#+4
         STRH     R0,[R1, #+0]
 //  136   return USBD_LangIDDesc;
-        LDR.N    R0,??DataTable6_1
+        LDR.N    R0,??DataTable12_1
         BX       LR               ;; return
 //  137 }
           CFI EndBlock cfiBlock1
@@ -329,40 +325,27 @@ USBD_AUDIO_LangIDStrDescriptor:
 //  145 uint8_t *USBD_AUDIO_ProductStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 //  146 {
 USBD_AUDIO_ProductStrDescriptor:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
-        MOVS     R4,R0
-        MOVS     R5,R1
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
 //  147   if(speed == 0)
-        UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
-        CMP      R4,#+0
-        BNE.N    ??USBD_AUDIO_ProductStrDescriptor_0
+        LDR.N    R4,??DataTable12_2
+        MOV      R2,R1
+        ADR.W    R0,?_0
+        MOV      R1,R4
 //  148   {   
 //  149     USBD_GetString((uint8_t *)USBD_PRODUCT_HS_STRING, USBD_StrDesc, length);
-        MOVS     R2,R5
-        LDR.N    R1,??DataTable6_2
-        LDR.N    R0,??DataTable6_3
-          CFI FunCall USBD_GetString
-        BL       USBD_GetString
-        B.N      ??USBD_AUDIO_ProductStrDescriptor_1
 //  150   }
 //  151   else
 //  152   {
 //  153     USBD_GetString((uint8_t *)USBD_PRODUCT_FS_STRING, USBD_StrDesc, length);    
-??USBD_AUDIO_ProductStrDescriptor_0:
-        MOVS     R2,R5
-        LDR.N    R1,??DataTable6_2
-        LDR.N    R0,??DataTable6_3
           CFI FunCall USBD_GetString
         BL       USBD_GetString
 //  154   }
 //  155   return USBD_StrDesc;
-??USBD_AUDIO_ProductStrDescriptor_1:
-        LDR.N    R0,??DataTable6_2
-        POP      {R1,R4,R5,PC}    ;; return
+        MOV      R0,R4
+        POP      {R4,PC}          ;; return
 //  156 }
           CFI EndBlock cfiBlock2
 //  157 
@@ -380,22 +363,20 @@ USBD_AUDIO_ProductStrDescriptor:
 //  164 uint8_t *USBD_AUDIO_ManufacturerStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 //  165 {
 USBD_AUDIO_ManufacturerStrDescriptor:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
-        MOVS     R4,R0
-        MOVS     R5,R1
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
 //  166   USBD_GetString((uint8_t *)USBD_MANUFACTURER_STRING, USBD_StrDesc, length);
-        MOVS     R2,R5
-        LDR.N    R1,??DataTable6_2
-        LDR.N    R0,??DataTable6_4
+        LDR.N    R4,??DataTable12_2
+        MOV      R2,R1
+        MOV      R1,R4
+        ADR.W    R0,?_1
           CFI FunCall USBD_GetString
         BL       USBD_GetString
 //  167   return USBD_StrDesc;
-        LDR.N    R0,??DataTable6_2
-        POP      {R1,R4,R5,PC}    ;; return
+        MOV      R0,R4
+        POP      {R4,PC}          ;; return
 //  168 }
           CFI EndBlock cfiBlock3
 //  169 
@@ -412,41 +393,31 @@ USBD_AUDIO_ManufacturerStrDescriptor:
         THUMB
 //  176 uint8_t *USBD_AUDIO_SerialStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 //  177 {
-USBD_AUDIO_SerialStrDescriptor:
-        PUSH     {R3-R5,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
-        MOVS     R4,R0
-        MOVS     R5,R1
 //  178   if(speed == USBD_SPEED_HIGH)
-        UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
-        CMP      R4,#+0
-        BNE.N    ??USBD_AUDIO_SerialStrDescriptor_0
+USBD_AUDIO_SerialStrDescriptor:
+        CMP      R0,#+0
+        MOV      R2,R1
+        PUSH     {R4,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        LDR.N    R4,??DataTable12_2
+        MOV      R1,R4
+        ITE      EQ 
+        ADREQ.W  R0,?_2
+        ADRNE.W  R0,?_3
 //  179   {    
 //  180     USBD_GetString((uint8_t *)USBD_SERIALNUMBER_HS_STRING, USBD_StrDesc, length);
-        MOVS     R2,R5
-        LDR.N    R1,??DataTable6_2
-        LDR.N    R0,??DataTable6_5
-          CFI FunCall USBD_GetString
-        BL       USBD_GetString
-        B.N      ??USBD_AUDIO_SerialStrDescriptor_1
 //  181   }
 //  182   else
 //  183   {
 //  184     USBD_GetString((uint8_t *)USBD_SERIALNUMBER_FS_STRING, USBD_StrDesc, length);
-??USBD_AUDIO_SerialStrDescriptor_0:
-        MOVS     R2,R5
-        LDR.N    R1,??DataTable6_2
-        LDR.N    R0,??DataTable6_6
           CFI FunCall USBD_GetString
         BL       USBD_GetString
 //  185   }
 //  186   return USBD_StrDesc;
-??USBD_AUDIO_SerialStrDescriptor_1:
-        LDR.N    R0,??DataTable6_2
-        POP      {R1,R4,R5,PC}    ;; return
+        MOV      R0,R4
+        POP      {R4,PC}          ;; return
 //  187 }
           CFI EndBlock cfiBlock4
 //  188 
@@ -464,40 +435,27 @@ USBD_AUDIO_SerialStrDescriptor:
 //  195 uint8_t *USBD_AUDIO_ConfigStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 //  196 {
 USBD_AUDIO_ConfigStrDescriptor:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
-        MOVS     R4,R0
-        MOVS     R5,R1
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
 //  197   if(speed == USBD_SPEED_HIGH)
-        UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
-        CMP      R4,#+0
-        BNE.N    ??USBD_AUDIO_ConfigStrDescriptor_0
+        LDR.N    R4,??DataTable12_2
+        MOV      R2,R1
+        ADR.W    R0,?_4
+        MOV      R1,R4
 //  198   {  
 //  199     USBD_GetString((uint8_t *)USBD_CONFIGURATION_HS_STRING, USBD_StrDesc, length);
-        MOVS     R2,R5
-        LDR.N    R1,??DataTable6_2
-        LDR.N    R0,??DataTable6_7
-          CFI FunCall USBD_GetString
-        BL       USBD_GetString
-        B.N      ??USBD_AUDIO_ConfigStrDescriptor_1
 //  200   }
 //  201   else
 //  202   {
 //  203     USBD_GetString((uint8_t *)USBD_CONFIGURATION_FS_STRING, USBD_StrDesc, length); 
-??USBD_AUDIO_ConfigStrDescriptor_0:
-        MOVS     R2,R5
-        LDR.N    R1,??DataTable6_2
-        LDR.N    R0,??DataTable6_7
           CFI FunCall USBD_GetString
         BL       USBD_GetString
 //  204   }
 //  205   return USBD_StrDesc;  
-??USBD_AUDIO_ConfigStrDescriptor_1:
-        LDR.N    R0,??DataTable6_2
-        POP      {R1,R4,R5,PC}    ;; return
+        MOV      R0,R4
+        POP      {R4,PC}          ;; return
 //  206 }
           CFI EndBlock cfiBlock5
 //  207 
@@ -515,96 +473,87 @@ USBD_AUDIO_ConfigStrDescriptor:
 //  214 uint8_t *USBD_AUDIO_InterfaceStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 //  215 {
 USBD_AUDIO_InterfaceStrDescriptor:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
-        MOVS     R4,R0
-        MOVS     R5,R1
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
 //  216   if(speed == 0)
-        UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
-        CMP      R4,#+0
-        BNE.N    ??USBD_AUDIO_InterfaceStrDescriptor_0
+        LDR.N    R4,??DataTable12_2
+        MOV      R2,R1
+        ADR.W    R0,?_5
+        MOV      R1,R4
 //  217   {
 //  218     USBD_GetString((uint8_t *)USBD_INTERFACE_HS_STRING, USBD_StrDesc, length);
-        MOVS     R2,R5
-        LDR.N    R1,??DataTable6_2
-        LDR.N    R0,??DataTable6_8
-          CFI FunCall USBD_GetString
-        BL       USBD_GetString
-        B.N      ??USBD_AUDIO_InterfaceStrDescriptor_1
 //  219   }
 //  220   else
 //  221   {
 //  222     USBD_GetString((uint8_t *)USBD_INTERFACE_FS_STRING, USBD_StrDesc, length);
-??USBD_AUDIO_InterfaceStrDescriptor_0:
-        MOVS     R2,R5
-        LDR.N    R1,??DataTable6_2
-        LDR.N    R0,??DataTable6_8
           CFI FunCall USBD_GetString
         BL       USBD_GetString
 //  223   }
 //  224   return USBD_StrDesc;  
-??USBD_AUDIO_InterfaceStrDescriptor_1:
-        LDR.N    R0,??DataTable6_2
-        POP      {R1,R4,R5,PC}    ;; return
+        MOV      R0,R4
+        POP      {R4,PC}          ;; return
 //  225 }
           CFI EndBlock cfiBlock6
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable6:
+??DataTable12:
         DC32     hUSBDDeviceDesc
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable6_1:
+??DataTable12_1:
         DC32     USBD_LangIDDesc
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable6_2:
+??DataTable12_2:
         DC32     USBD_StrDesc
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable6_3:
-        DC32     ?_0
+?_0:
+        DC8 "AUTONOMOUS MICROPHONE ARRAY"
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable6_4:
-        DC32     ?_1
+?_1:
+        DC8 "AUTONOMOUS"
+        DC8 0
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable6_5:
-        DC32     ?_2
+?_2:
+        DC8 "00000000034E"
+        DC8 0, 0, 0
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable6_6:
-        DC32     ?_3
+?_3:
+        DC8 "00000000034F"
+        DC8 0, 0, 0
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable6_7:
-        DC32     ?_4
+?_4:
+        DC8 "AUDIO Config"
+        DC8 0, 0, 0
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable6_8:
-        DC32     ?_5
+?_5:
+        DC8 "AUDIO Interface"
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -617,52 +566,16 @@ USBD_AUDIO_InterfaceStrDescriptor:
         SECTION __DLIB_PERTHREAD_init:DATA:REORDER:NOROOT(0)
         SECTION_TYPE SHT_PROGBITS, 0
 
-        SECTION `.rodata`:CONST:REORDER:NOROOT(2)
-        DATA
-?_0:
-        DC8 "AUTONOMOUS MICROPHONE ARRAY"
-
-        SECTION `.rodata`:CONST:REORDER:NOROOT(2)
-        DATA
-?_1:
-        DC8 "AUTONOMOUS"
-        DC8 0
-
-        SECTION `.rodata`:CONST:REORDER:NOROOT(2)
-        DATA
-?_2:
-        DC8 "00000000034E"
-        DC8 0, 0, 0
-
-        SECTION `.rodata`:CONST:REORDER:NOROOT(2)
-        DATA
-?_3:
-        DC8 "00000000034F"
-        DC8 0, 0, 0
-
-        SECTION `.rodata`:CONST:REORDER:NOROOT(2)
-        DATA
-?_4:
-        DC8 "AUDIO Config"
-        DC8 0, 0, 0
-
-        SECTION `.rodata`:CONST:REORDER:NOROOT(2)
-        DATA
-?_5:
-        DC8 "AUDIO Interface"
-
         END
 //  226 
 //  227 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
 // 200 bytes in section .bss
 //  52 bytes in section .data
-// 104 bytes in section .rodata
-// 228 bytes in section .text
+// 240 bytes in section .text
 // 
-// 228 bytes of CODE  memory
-// 104 bytes of CONST memory
-// 252 bytes of DATA  memory
+// 240 bytes of CODE memory
+// 252 bytes of DATA memory
 //
 //Errors: none
 //Warnings: none

@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       29/Mar/2016  20:10:38
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       30/Mar/2016  19:08:25
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -16,11 +16,9 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 #        -o
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-#        --no_clustering --no_scheduling --debug --endian=little
-#        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\INC\c\DLib_Config_Full.h"
-#        -I
+#        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
+#        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        7.3\arm\INC\c\DLib_Config_Full.h" -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
@@ -50,7 +48,7 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7 --relaxed_fp
 #    List file    =  
@@ -206,70 +204,64 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                     HAL_SRAM_Init: (+1)
    \   00000000   0xB570             PUSH     {R4-R6,LR}
    \   00000002   0x0004             MOVS     R4,R0
-   \   00000004   0x000D             MOVS     R5,R1
-   \   00000006   0x0016             MOVS     R6,R2
+   \   00000004   0x460D             MOV      R5,R1
+   \   00000006   0x4616             MOV      R6,R2
     141            /* Check the SRAM handle parameter */
     142            if(hsram == NULL)
-   \   00000008   0x2C00             CMP      R4,#+0
-   \   0000000A   0xD101             BNE.N    ??HAL_SRAM_Init_0
+   \   00000008   0xD101             BNE.N    ??HAL_SRAM_Init_0
     143            {
     144               return HAL_ERROR;
-   \   0000000C   0x2001             MOVS     R0,#+1
-   \   0000000E   0xE024             B.N      ??HAL_SRAM_Init_1
+   \   0000000A   0x2001             MOVS     R0,#+1
+   \   0000000C   0xBD70             POP      {R4-R6,PC}
     145            }
     146            
     147            if(hsram->State == HAL_SRAM_STATE_RESET)
    \                     ??HAL_SRAM_Init_0: (+1)
-   \   00000010   0xF894 0x0045      LDRB     R0,[R4, #+69]
-   \   00000014   0x2800             CMP      R0,#+0
-   \   00000016   0xD105             BNE.N    ??HAL_SRAM_Init_2
+   \   0000000E   0xF894 0x0045      LDRB     R0,[R4, #+69]
+   \   00000012   0xB920             CBNZ.N   R0,??HAL_SRAM_Init_1
     148            {  
     149              /* Allocate lock resource and initialize it */
     150              hsram->Lock = HAL_UNLOCKED;
-   \   00000018   0x2000             MOVS     R0,#+0
-   \   0000001A   0xF884 0x0044      STRB     R0,[R4, #+68]
+   \   00000014   0xF884 0x0044      STRB     R0,[R4, #+68]
     151              /* Initialize the low level hardware (MSP) */
     152              HAL_SRAM_MspInit(hsram);
-   \   0000001E   0x0020             MOVS     R0,R4
-   \   00000020   0x.... 0x....      BL       HAL_SRAM_MspInit
+   \   00000018   0x4620             MOV      R0,R4
+   \   0000001A   0x.... 0x....      BL       HAL_SRAM_MspInit
     153            }
     154            
     155            /* Initialize SRAM control Interface */
     156            FMC_NORSRAM_Init(hsram->Instance, &(hsram->Init));
-   \                     ??HAL_SRAM_Init_2: (+1)
-   \   00000024   0xF114 0x0108      ADDS     R1,R4,#+8
-   \   00000028   0x6820             LDR      R0,[R4, #+0]
-   \   0000002A   0x.... 0x....      BL       FMC_NORSRAM_Init
+   \                     ??HAL_SRAM_Init_1: (+1)
+   \   0000001E   0x6820             LDR      R0,[R4, #+0]
+   \   00000020   0xF104 0x0108      ADD      R1,R4,#+8
+   \   00000024   0x.... 0x....      BL       FMC_NORSRAM_Init
     157          
     158            /* Initialize SRAM timing Interface */
     159            FMC_NORSRAM_Timing_Init(hsram->Instance, Timing, hsram->Init.NSBank); 
-   \   0000002E   0x68A2             LDR      R2,[R4, #+8]
-   \   00000030   0x0029             MOVS     R1,R5
-   \   00000032   0x6820             LDR      R0,[R4, #+0]
-   \   00000034   0x.... 0x....      BL       FMC_NORSRAM_Timing_Init
+   \   00000028   0x68A2             LDR      R2,[R4, #+8]
+   \   0000002A   0x6820             LDR      R0,[R4, #+0]
+   \   0000002C   0x4629             MOV      R1,R5
+   \   0000002E   0x.... 0x....      BL       FMC_NORSRAM_Timing_Init
     160          
     161            /* Initialize SRAM extended mode timing Interface */
     162            FMC_NORSRAM_Extended_Timing_Init(hsram->Extended, ExtTiming, hsram->Init.NSBank,  hsram->Init.ExtendedMode);  
-   \   00000038   0x6AE3             LDR      R3,[R4, #+44]
-   \   0000003A   0x68A2             LDR      R2,[R4, #+8]
-   \   0000003C   0x0031             MOVS     R1,R6
-   \   0000003E   0x6860             LDR      R0,[R4, #+4]
-   \   00000040   0x.... 0x....      BL       FMC_NORSRAM_Extended_Timing_Init
+   \   00000032   0x6AE3             LDR      R3,[R4, #+44]
+   \   00000034   0x68A2             LDR      R2,[R4, #+8]
+   \   00000036   0x6860             LDR      R0,[R4, #+4]
+   \   00000038   0x4631             MOV      R1,R6
+   \   0000003A   0x.... 0x....      BL       FMC_NORSRAM_Extended_Timing_Init
     163            
     164            /* Enable the NORSRAM device */
     165            __FMC_NORSRAM_ENABLE(hsram->Instance, hsram->Init.NSBank); 
-   \   00000044   0x6820             LDR      R0,[R4, #+0]
-   \   00000046   0x68A1             LDR      R1,[R4, #+8]
-   \   00000048   0xF850 0x0021      LDR      R0,[R0, R1, LSL #+2]
-   \   0000004C   0xF050 0x0001      ORRS     R0,R0,#0x1
-   \   00000050   0x6821             LDR      R1,[R4, #+0]
-   \   00000052   0x68A2             LDR      R2,[R4, #+8]
-   \   00000054   0xF841 0x0022      STR      R0,[R1, R2, LSL #+2]
+   \   0000003E   0x6821             LDR      R1,[R4, #+0]
+   \   00000040   0x68A0             LDR      R0,[R4, #+8]
+   \   00000042   0xF851 0x2020      LDR      R2,[R1, R0, LSL #+2]
+   \   00000046   0xF042 0x0201      ORR      R2,R2,#0x1
+   \   0000004A   0xF841 0x2020      STR      R2,[R1, R0, LSL #+2]
     166            
     167            return HAL_OK;
-   \   00000058   0x2000             MOVS     R0,#+0
-   \                     ??HAL_SRAM_Init_1: (+1)
-   \   0000005A   0xBD70             POP      {R4-R6,PC}       ;; return
+   \   0000004E   0x2000             MOVS     R0,#+0
+   \   00000050   0xBD70             POP      {R4-R6,PC}       ;; return
     168          }
     169          
     170          /**
@@ -284,31 +276,28 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     177          { 
    \                     HAL_SRAM_DeInit: (+1)
    \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x0004             MOVS     R4,R0
+   \   00000002   0x4604             MOV      R4,R0
     178            /* De-Initialize the low level hardware (MSP) */
     179            HAL_SRAM_MspDeInit(hsram);
-   \   00000004   0x0020             MOVS     R0,R4
-   \   00000006   0x.... 0x....      BL       HAL_SRAM_MspDeInit
+   \   00000004   0x.... 0x....      BL       HAL_SRAM_MspDeInit
     180             
     181            /* Configure the SRAM registers with their reset values */
     182            FMC_NORSRAM_DeInit(hsram->Instance, hsram->Extended, hsram->Init.NSBank);
-   \   0000000A   0x68A2             LDR      R2,[R4, #+8]
-   \   0000000C   0x6861             LDR      R1,[R4, #+4]
-   \   0000000E   0x6820             LDR      R0,[R4, #+0]
-   \   00000010   0x.... 0x....      BL       FMC_NORSRAM_DeInit
+   \   00000008   0x68A2             LDR      R2,[R4, #+8]
+   \   0000000A   0x6861             LDR      R1,[R4, #+4]
+   \   0000000C   0x6820             LDR      R0,[R4, #+0]
+   \   0000000E   0x.... 0x....      BL       FMC_NORSRAM_DeInit
     183          
     184            hsram->State = HAL_SRAM_STATE_RESET;
-   \   00000014   0x2000             MOVS     R0,#+0
-   \   00000016   0xF884 0x0045      STRB     R0,[R4, #+69]
+   \   00000012   0x2000             MOVS     R0,#+0
+   \   00000014   0xF884 0x0045      STRB     R0,[R4, #+69]
     185            
     186            /* Release Lock */
     187            __HAL_UNLOCK(hsram);
-   \   0000001A   0x2000             MOVS     R0,#+0
-   \   0000001C   0xF884 0x0044      STRB     R0,[R4, #+68]
+   \   00000018   0xF884 0x0044      STRB     R0,[R4, #+68]
     188          
     189            return HAL_OK;
-   \   00000020   0x2000             MOVS     R0,#+0
-   \   00000022   0xBD10             POP      {R4,PC}          ;; return
+   \   0000001C   0xBD10             POP      {R4,PC}          ;; return
     190          }
     191          
     192          /**
@@ -407,64 +396,56 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     269            * @retval HAL status
     270            */
 
-   \                                 In section .text, align 2, keep-with-next
+   \                                 In section .text, align 4, keep-with-next
     271          HAL_StatusTypeDef HAL_SRAM_Read_8b(SRAM_HandleTypeDef *hsram, uint32_t *pAddress, uint8_t *pDstBuffer, uint32_t BufferSize)
     272          {
-   \                     HAL_SRAM_Read_8b: (+1)
-   \   00000000   0xB430             PUSH     {R4,R5}
-   \   00000002   0x0004             MOVS     R4,R0
     273            __IO uint8_t * psramaddress = (uint8_t *)pAddress;
-   \   00000004   0x000D             MOVS     R5,R1
     274            
     275            /* Process Locked */
     276            __HAL_LOCK(hsram);
-   \   00000006   0xF894 0x0044      LDRB     R0,[R4, #+68]
-   \   0000000A   0x2801             CMP      R0,#+1
-   \   0000000C   0xD101             BNE.N    ??HAL_SRAM_Read_8b_0
-   \   0000000E   0x2002             MOVS     R0,#+2
-   \   00000010   0xE014             B.N      ??HAL_SRAM_Read_8b_1
+   \                     HAL_SRAM_Read_8b: (+1)
+   \   00000000   0xF890 0xC044      LDRB     R12,[R0, #+68]
+   \   00000004   0xF1BC 0x0F01      CMP      R12,#+1
+   \   00000008   0xD101             BNE.N    ??HAL_SRAM_Read_8b_0
+   \   0000000A   0x2002             MOVS     R0,#+2
+   \   0000000C   0x4770             BX       LR
    \                     ??HAL_SRAM_Read_8b_0: (+1)
-   \   00000012   0x2001             MOVS     R0,#+1
-   \   00000014   0xF884 0x0044      STRB     R0,[R4, #+68]
+   \   0000000E   0xF04F 0x0C01      MOV      R12,#+1
+   \   00000012   0xF880 0xC044      STRB     R12,[R0, #+68]
     277            
     278            /* Update the SRAM controller state */
     279            hsram->State = HAL_SRAM_STATE_BUSY;  
-   \   00000018   0x2002             MOVS     R0,#+2
-   \   0000001A   0xF884 0x0045      STRB     R0,[R4, #+69]
+   \   00000016   0xF04F 0x0C02      MOV      R12,#+2
+   \   0000001A   0xF880 0xC045      STRB     R12,[R0, #+69]
+   \   0000001E   0xB12B             CBZ.N    R3,??HAL_SRAM_Read_8b_1
     280            
     281            /* Read data from memory */
     282            for(; BufferSize != 0; BufferSize--)
-   \                     ??HAL_SRAM_Read_8b_2: (+1)
-   \   0000001E   0x2B00             CMP      R3,#+0
-   \   00000020   0xD005             BEQ.N    ??HAL_SRAM_Read_8b_3
     283            {
     284              *pDstBuffer = *(__IO uint8_t *)psramaddress;
-   \   00000022   0x7828             LDRB     R0,[R5, #+0]
-   \   00000024   0x7010             STRB     R0,[R2, #+0]
+   \                     ??HAL_SRAM_Read_8b_2: (+1)
+   \   00000020   0xF811 0xCB01      LDRB     R12,[R1], #+1
     285              pDstBuffer++;
-   \   00000026   0x1C52             ADDS     R2,R2,#+1
     286              psramaddress++;
-   \   00000028   0x1C6D             ADDS     R5,R5,#+1
     287            }
-   \   0000002A   0x1E5B             SUBS     R3,R3,#+1
-   \   0000002C   0xE7F7             B.N      ??HAL_SRAM_Read_8b_2
+   \   00000024   0x1E5B             SUBS     R3,R3,#+1
+   \   00000026   0xF802 0xCB01      STRB     R12,[R2], #+1
+   \   0000002A   0xD1F9             BNE.N    ??HAL_SRAM_Read_8b_2
     288            
     289            /* Update the SRAM controller state */
     290            hsram->State = HAL_SRAM_STATE_READY;    
-   \                     ??HAL_SRAM_Read_8b_3: (+1)
-   \   0000002E   0x2001             MOVS     R0,#+1
-   \   00000030   0xF884 0x0045      STRB     R0,[R4, #+69]
+   \                     ??HAL_SRAM_Read_8b_1: (+1)
+   \   0000002C   0x2101             MOVS     R1,#+1
+   \   0000002E   0xF880 0x1045      STRB     R1,[R0, #+69]
     291          
     292            /* Process unlocked */
     293            __HAL_UNLOCK(hsram); 
-   \   00000034   0x2000             MOVS     R0,#+0
-   \   00000036   0xF884 0x0044      STRB     R0,[R4, #+68]
+   \   00000032   0x2100             MOVS     R1,#+0
+   \   00000034   0xF880 0x1044      STRB     R1,[R0, #+68]
     294              
     295            return HAL_OK;   
-   \   0000003A   0x2000             MOVS     R0,#+0
-   \                     ??HAL_SRAM_Read_8b_1: (+1)
-   \   0000003C   0xBC30             POP      {R4,R5}
-   \   0000003E   0x4770             BX       LR               ;; return
+   \   00000038   0x2000             MOVS     R0,#+0
+   \   0000003A   0x4770             BX       LR               ;; return
     296          }
     297          
     298          /**
@@ -477,75 +458,68 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     305            * @retval HAL status
     306            */
 
-   \                                 In section .text, align 2, keep-with-next
+   \                                 In section .text, align 4, keep-with-next
     307          HAL_StatusTypeDef HAL_SRAM_Write_8b(SRAM_HandleTypeDef *hsram, uint32_t *pAddress, uint8_t *pSrcBuffer, uint32_t BufferSize)
     308          {
-   \                     HAL_SRAM_Write_8b: (+1)
-   \   00000000   0xB430             PUSH     {R4,R5}
-   \   00000002   0x0004             MOVS     R4,R0
     309            __IO uint8_t * psramaddress = (uint8_t *)pAddress;
-   \   00000004   0x000D             MOVS     R5,R1
     310            
     311            /* Check the SRAM controller state */
     312            if(hsram->State == HAL_SRAM_STATE_PROTECTED)
-   \   00000006   0xF894 0x0045      LDRB     R0,[R4, #+69]
-   \   0000000A   0x2804             CMP      R0,#+4
-   \   0000000C   0xD101             BNE.N    ??HAL_SRAM_Write_8b_0
+   \                     HAL_SRAM_Write_8b: (+1)
+   \   00000000   0xF890 0xC045      LDRB     R12,[R0, #+69]
+   \   00000004   0xF1BC 0x0F04      CMP      R12,#+4
+   \   00000008   0xD101             BNE.N    ??HAL_SRAM_Write_8b_0
     313            {
     314              return  HAL_ERROR; 
-   \   0000000E   0x2001             MOVS     R0,#+1
-   \   00000010   0xE01A             B.N      ??HAL_SRAM_Write_8b_1
+   \   0000000A   0x2001             MOVS     R0,#+1
+   \   0000000C   0x4770             BX       LR
     315            }
     316            
     317            /* Process Locked */
     318            __HAL_LOCK(hsram);
    \                     ??HAL_SRAM_Write_8b_0: (+1)
-   \   00000012   0xF894 0x0044      LDRB     R0,[R4, #+68]
-   \   00000016   0x2801             CMP      R0,#+1
-   \   00000018   0xD101             BNE.N    ??HAL_SRAM_Write_8b_2
-   \   0000001A   0x2002             MOVS     R0,#+2
-   \   0000001C   0xE014             B.N      ??HAL_SRAM_Write_8b_1
-   \                     ??HAL_SRAM_Write_8b_2: (+1)
-   \   0000001E   0x2001             MOVS     R0,#+1
-   \   00000020   0xF884 0x0044      STRB     R0,[R4, #+68]
+   \   0000000E   0xF890 0xC044      LDRB     R12,[R0, #+68]
+   \   00000012   0xF1BC 0x0F01      CMP      R12,#+1
+   \   00000016   0xD101             BNE.N    ??HAL_SRAM_Write_8b_1
+   \   00000018   0x2002             MOVS     R0,#+2
+   \   0000001A   0x4770             BX       LR
+   \                     ??HAL_SRAM_Write_8b_1: (+1)
+   \   0000001C   0xF04F 0x0C01      MOV      R12,#+1
+   \   00000020   0xF880 0xC044      STRB     R12,[R0, #+68]
     319            
     320            /* Update the SRAM controller state */
     321            hsram->State = HAL_SRAM_STATE_BUSY; 
-   \   00000024   0x2002             MOVS     R0,#+2
-   \   00000026   0xF884 0x0045      STRB     R0,[R4, #+69]
+   \   00000024   0xF04F 0x0C02      MOV      R12,#+2
+   \   00000028   0xF880 0xC045      STRB     R12,[R0, #+69]
+   \   0000002C   0xB133             CBZ.N    R3,??HAL_SRAM_Write_8b_2
+   \   0000002E   0xBF00             Nop      
     322          
     323            /* Write data to memory */
     324            for(; BufferSize != 0; BufferSize--)
-   \                     ??HAL_SRAM_Write_8b_3: (+1)
-   \   0000002A   0x2B00             CMP      R3,#+0
-   \   0000002C   0xD005             BEQ.N    ??HAL_SRAM_Write_8b_4
     325            {
     326              *(__IO uint8_t *)psramaddress = *pSrcBuffer; 
-   \   0000002E   0x7810             LDRB     R0,[R2, #+0]
-   \   00000030   0x7028             STRB     R0,[R5, #+0]
+   \                     ??HAL_SRAM_Write_8b_3: (+1)
+   \   00000030   0xF812 0xCB01      LDRB     R12,[R2], #+1
     327              pSrcBuffer++;
-   \   00000032   0x1C52             ADDS     R2,R2,#+1
     328              psramaddress++;    
-   \   00000034   0x1C6D             ADDS     R5,R5,#+1
     329            }    
-   \   00000036   0x1E5B             SUBS     R3,R3,#+1
-   \   00000038   0xE7F7             B.N      ??HAL_SRAM_Write_8b_3
+   \   00000034   0x1E5B             SUBS     R3,R3,#+1
+   \   00000036   0xF801 0xCB01      STRB     R12,[R1], #+1
+   \   0000003A   0xD1F9             BNE.N    ??HAL_SRAM_Write_8b_3
     330          
     331            /* Update the SRAM controller state */
     332            hsram->State = HAL_SRAM_STATE_READY; 
-   \                     ??HAL_SRAM_Write_8b_4: (+1)
-   \   0000003A   0x2001             MOVS     R0,#+1
-   \   0000003C   0xF884 0x0045      STRB     R0,[R4, #+69]
+   \                     ??HAL_SRAM_Write_8b_2: (+1)
+   \   0000003C   0x2101             MOVS     R1,#+1
+   \   0000003E   0xF880 0x1045      STRB     R1,[R0, #+69]
     333            
     334            /* Process unlocked */
     335            __HAL_UNLOCK(hsram);
-   \   00000040   0x2000             MOVS     R0,#+0
-   \   00000042   0xF884 0x0044      STRB     R0,[R4, #+68]
+   \   00000042   0x2100             MOVS     R1,#+0
+   \   00000044   0xF880 0x1044      STRB     R1,[R0, #+68]
     336              
     337            return HAL_OK;   
-   \   00000046   0x2000             MOVS     R0,#+0
-   \                     ??HAL_SRAM_Write_8b_1: (+1)
-   \   00000048   0xBC30             POP      {R4,R5}
+   \   00000048   0x2000             MOVS     R0,#+0
    \   0000004A   0x4770             BX       LR               ;; return
     338          }
     339          
@@ -559,64 +533,56 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     347            * @retval HAL status
     348            */
 
-   \                                 In section .text, align 2, keep-with-next
+   \                                 In section .text, align 4, keep-with-next
     349          HAL_StatusTypeDef HAL_SRAM_Read_16b(SRAM_HandleTypeDef *hsram, uint32_t *pAddress, uint16_t *pDstBuffer, uint32_t BufferSize)
     350          {
-   \                     HAL_SRAM_Read_16b: (+1)
-   \   00000000   0xB430             PUSH     {R4,R5}
-   \   00000002   0x0004             MOVS     R4,R0
     351            __IO uint16_t * psramaddress = (uint16_t *)pAddress;
-   \   00000004   0x000D             MOVS     R5,R1
     352            
     353            /* Process Locked */
     354            __HAL_LOCK(hsram);
-   \   00000006   0xF894 0x0044      LDRB     R0,[R4, #+68]
-   \   0000000A   0x2801             CMP      R0,#+1
-   \   0000000C   0xD101             BNE.N    ??HAL_SRAM_Read_16b_0
-   \   0000000E   0x2002             MOVS     R0,#+2
-   \   00000010   0xE014             B.N      ??HAL_SRAM_Read_16b_1
+   \                     HAL_SRAM_Read_16b: (+1)
+   \   00000000   0xF890 0xC044      LDRB     R12,[R0, #+68]
+   \   00000004   0xF1BC 0x0F01      CMP      R12,#+1
+   \   00000008   0xD101             BNE.N    ??HAL_SRAM_Read_16b_0
+   \   0000000A   0x2002             MOVS     R0,#+2
+   \   0000000C   0x4770             BX       LR
    \                     ??HAL_SRAM_Read_16b_0: (+1)
-   \   00000012   0x2001             MOVS     R0,#+1
-   \   00000014   0xF884 0x0044      STRB     R0,[R4, #+68]
+   \   0000000E   0xF04F 0x0C01      MOV      R12,#+1
+   \   00000012   0xF880 0xC044      STRB     R12,[R0, #+68]
     355            
     356            /* Update the SRAM controller state */
     357            hsram->State = HAL_SRAM_STATE_BUSY;  
-   \   00000018   0x2002             MOVS     R0,#+2
-   \   0000001A   0xF884 0x0045      STRB     R0,[R4, #+69]
+   \   00000016   0xF04F 0x0C02      MOV      R12,#+2
+   \   0000001A   0xF880 0xC045      STRB     R12,[R0, #+69]
+   \   0000001E   0xB12B             CBZ.N    R3,??HAL_SRAM_Read_16b_1
     358            
     359            /* Read data from memory */
     360            for(; BufferSize != 0; BufferSize--)
-   \                     ??HAL_SRAM_Read_16b_2: (+1)
-   \   0000001E   0x2B00             CMP      R3,#+0
-   \   00000020   0xD005             BEQ.N    ??HAL_SRAM_Read_16b_3
     361            {
     362              *pDstBuffer = *(__IO uint16_t *)psramaddress;
-   \   00000022   0x8828             LDRH     R0,[R5, #+0]
-   \   00000024   0x8010             STRH     R0,[R2, #+0]
+   \                     ??HAL_SRAM_Read_16b_2: (+1)
+   \   00000020   0xF831 0xCB02      LDRH     R12,[R1], #+2
     363              pDstBuffer++;
-   \   00000026   0x1C92             ADDS     R2,R2,#+2
     364              psramaddress++;
-   \   00000028   0x1CAD             ADDS     R5,R5,#+2
     365            }
-   \   0000002A   0x1E5B             SUBS     R3,R3,#+1
-   \   0000002C   0xE7F7             B.N      ??HAL_SRAM_Read_16b_2
+   \   00000024   0x1E5B             SUBS     R3,R3,#+1
+   \   00000026   0xF822 0xCB02      STRH     R12,[R2], #+2
+   \   0000002A   0xD1F9             BNE.N    ??HAL_SRAM_Read_16b_2
     366            
     367            /* Update the SRAM controller state */
     368            hsram->State = HAL_SRAM_STATE_READY;    
-   \                     ??HAL_SRAM_Read_16b_3: (+1)
-   \   0000002E   0x2001             MOVS     R0,#+1
-   \   00000030   0xF884 0x0045      STRB     R0,[R4, #+69]
+   \                     ??HAL_SRAM_Read_16b_1: (+1)
+   \   0000002C   0x2101             MOVS     R1,#+1
+   \   0000002E   0xF880 0x1045      STRB     R1,[R0, #+69]
     369          
     370            /* Process unlocked */
     371            __HAL_UNLOCK(hsram); 
-   \   00000034   0x2000             MOVS     R0,#+0
-   \   00000036   0xF884 0x0044      STRB     R0,[R4, #+68]
+   \   00000032   0x2100             MOVS     R1,#+0
+   \   00000034   0xF880 0x1044      STRB     R1,[R0, #+68]
     372              
     373            return HAL_OK;  
-   \   0000003A   0x2000             MOVS     R0,#+0
-   \                     ??HAL_SRAM_Read_16b_1: (+1)
-   \   0000003C   0xBC30             POP      {R4,R5}
-   \   0000003E   0x4770             BX       LR               ;; return
+   \   00000038   0x2000             MOVS     R0,#+0
+   \   0000003A   0x4770             BX       LR               ;; return
     374          }
     375          
     376          /**
@@ -629,75 +595,68 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     383            * @retval HAL status
     384            */
 
-   \                                 In section .text, align 2, keep-with-next
+   \                                 In section .text, align 4, keep-with-next
     385          HAL_StatusTypeDef HAL_SRAM_Write_16b(SRAM_HandleTypeDef *hsram, uint32_t *pAddress, uint16_t *pSrcBuffer, uint32_t BufferSize)
     386          {
-   \                     HAL_SRAM_Write_16b: (+1)
-   \   00000000   0xB430             PUSH     {R4,R5}
-   \   00000002   0x0004             MOVS     R4,R0
     387            __IO uint16_t * psramaddress = (uint16_t *)pAddress; 
-   \   00000004   0x000D             MOVS     R5,R1
     388            
     389            /* Check the SRAM controller state */
     390            if(hsram->State == HAL_SRAM_STATE_PROTECTED)
-   \   00000006   0xF894 0x0045      LDRB     R0,[R4, #+69]
-   \   0000000A   0x2804             CMP      R0,#+4
-   \   0000000C   0xD101             BNE.N    ??HAL_SRAM_Write_16b_0
+   \                     HAL_SRAM_Write_16b: (+1)
+   \   00000000   0xF890 0xC045      LDRB     R12,[R0, #+69]
+   \   00000004   0xF1BC 0x0F04      CMP      R12,#+4
+   \   00000008   0xD101             BNE.N    ??HAL_SRAM_Write_16b_0
     391            {
     392              return  HAL_ERROR; 
-   \   0000000E   0x2001             MOVS     R0,#+1
-   \   00000010   0xE01A             B.N      ??HAL_SRAM_Write_16b_1
+   \   0000000A   0x2001             MOVS     R0,#+1
+   \   0000000C   0x4770             BX       LR
     393            }
     394            
     395            /* Process Locked */
     396            __HAL_LOCK(hsram);
    \                     ??HAL_SRAM_Write_16b_0: (+1)
-   \   00000012   0xF894 0x0044      LDRB     R0,[R4, #+68]
-   \   00000016   0x2801             CMP      R0,#+1
-   \   00000018   0xD101             BNE.N    ??HAL_SRAM_Write_16b_2
-   \   0000001A   0x2002             MOVS     R0,#+2
-   \   0000001C   0xE014             B.N      ??HAL_SRAM_Write_16b_1
-   \                     ??HAL_SRAM_Write_16b_2: (+1)
-   \   0000001E   0x2001             MOVS     R0,#+1
-   \   00000020   0xF884 0x0044      STRB     R0,[R4, #+68]
+   \   0000000E   0xF890 0xC044      LDRB     R12,[R0, #+68]
+   \   00000012   0xF1BC 0x0F01      CMP      R12,#+1
+   \   00000016   0xD101             BNE.N    ??HAL_SRAM_Write_16b_1
+   \   00000018   0x2002             MOVS     R0,#+2
+   \   0000001A   0x4770             BX       LR
+   \                     ??HAL_SRAM_Write_16b_1: (+1)
+   \   0000001C   0xF04F 0x0C01      MOV      R12,#+1
+   \   00000020   0xF880 0xC044      STRB     R12,[R0, #+68]
     397            
     398            /* Update the SRAM controller state */
     399            hsram->State = HAL_SRAM_STATE_BUSY; 
-   \   00000024   0x2002             MOVS     R0,#+2
-   \   00000026   0xF884 0x0045      STRB     R0,[R4, #+69]
+   \   00000024   0xF04F 0x0C02      MOV      R12,#+2
+   \   00000028   0xF880 0xC045      STRB     R12,[R0, #+69]
+   \   0000002C   0xB133             CBZ.N    R3,??HAL_SRAM_Write_16b_2
+   \   0000002E   0xBF00             Nop      
     400          
     401            /* Write data to memory */
     402            for(; BufferSize != 0; BufferSize--)
-   \                     ??HAL_SRAM_Write_16b_3: (+1)
-   \   0000002A   0x2B00             CMP      R3,#+0
-   \   0000002C   0xD005             BEQ.N    ??HAL_SRAM_Write_16b_4
     403            {
     404              *(__IO uint16_t *)psramaddress = *pSrcBuffer; 
-   \   0000002E   0x8810             LDRH     R0,[R2, #+0]
-   \   00000030   0x8028             STRH     R0,[R5, #+0]
+   \                     ??HAL_SRAM_Write_16b_3: (+1)
+   \   00000030   0xF832 0xCB02      LDRH     R12,[R2], #+2
     405              pSrcBuffer++;
-   \   00000032   0x1C92             ADDS     R2,R2,#+2
     406              psramaddress++;    
-   \   00000034   0x1CAD             ADDS     R5,R5,#+2
     407            }    
-   \   00000036   0x1E5B             SUBS     R3,R3,#+1
-   \   00000038   0xE7F7             B.N      ??HAL_SRAM_Write_16b_3
+   \   00000034   0x1E5B             SUBS     R3,R3,#+1
+   \   00000036   0xF821 0xCB02      STRH     R12,[R1], #+2
+   \   0000003A   0xD1F9             BNE.N    ??HAL_SRAM_Write_16b_3
     408          
     409            /* Update the SRAM controller state */
     410            hsram->State = HAL_SRAM_STATE_READY; 
-   \                     ??HAL_SRAM_Write_16b_4: (+1)
-   \   0000003A   0x2001             MOVS     R0,#+1
-   \   0000003C   0xF884 0x0045      STRB     R0,[R4, #+69]
+   \                     ??HAL_SRAM_Write_16b_2: (+1)
+   \   0000003C   0x2101             MOVS     R1,#+1
+   \   0000003E   0xF880 0x1045      STRB     R1,[R0, #+69]
     411            
     412            /* Process unlocked */
     413            __HAL_UNLOCK(hsram);
-   \   00000040   0x2000             MOVS     R0,#+0
-   \   00000042   0xF884 0x0044      STRB     R0,[R4, #+68]
+   \   00000042   0x2100             MOVS     R1,#+0
+   \   00000044   0xF880 0x1044      STRB     R1,[R0, #+68]
     414              
     415            return HAL_OK;  
-   \   00000046   0x2000             MOVS     R0,#+0
-   \                     ??HAL_SRAM_Write_16b_1: (+1)
-   \   00000048   0xBC30             POP      {R4,R5}
+   \   00000048   0x2000             MOVS     R0,#+0
    \   0000004A   0x4770             BX       LR               ;; return
     416          }
     417          
@@ -711,61 +670,54 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     425            * @retval HAL status
     426            */
 
-   \                                 In section .text, align 2, keep-with-next
+   \                                 In section .text, align 4, keep-with-next
     427          HAL_StatusTypeDef HAL_SRAM_Read_32b(SRAM_HandleTypeDef *hsram, uint32_t *pAddress, uint32_t *pDstBuffer, uint32_t BufferSize)
     428          {
-   \                     HAL_SRAM_Read_32b: (+1)
-   \   00000000   0xB410             PUSH     {R4}
-   \   00000002   0x0004             MOVS     R4,R0
     429            /* Process Locked */
     430            __HAL_LOCK(hsram);
-   \   00000004   0xF894 0x0044      LDRB     R0,[R4, #+68]
-   \   00000008   0x2801             CMP      R0,#+1
-   \   0000000A   0xD101             BNE.N    ??HAL_SRAM_Read_32b_0
-   \   0000000C   0x2002             MOVS     R0,#+2
-   \   0000000E   0xE014             B.N      ??HAL_SRAM_Read_32b_1
+   \                     HAL_SRAM_Read_32b: (+1)
+   \   00000000   0xF890 0xC044      LDRB     R12,[R0, #+68]
+   \   00000004   0xF1BC 0x0F01      CMP      R12,#+1
+   \   00000008   0xD101             BNE.N    ??HAL_SRAM_Read_32b_0
+   \   0000000A   0x2002             MOVS     R0,#+2
+   \   0000000C   0x4770             BX       LR
    \                     ??HAL_SRAM_Read_32b_0: (+1)
-   \   00000010   0x2001             MOVS     R0,#+1
-   \   00000012   0xF884 0x0044      STRB     R0,[R4, #+68]
+   \   0000000E   0xF04F 0x0C01      MOV      R12,#+1
+   \   00000012   0xF880 0xC044      STRB     R12,[R0, #+68]
     431            
     432            /* Update the SRAM controller state */
     433            hsram->State = HAL_SRAM_STATE_BUSY;  
-   \   00000016   0x2002             MOVS     R0,#+2
-   \   00000018   0xF884 0x0045      STRB     R0,[R4, #+69]
+   \   00000016   0xF04F 0x0C02      MOV      R12,#+2
+   \   0000001A   0xF880 0xC045      STRB     R12,[R0, #+69]
+   \   0000001E   0xB12B             CBZ.N    R3,??HAL_SRAM_Read_32b_1
     434            
     435            /* Read data from memory */
     436            for(; BufferSize != 0; BufferSize--)
-   \                     ??HAL_SRAM_Read_32b_2: (+1)
-   \   0000001C   0x2B00             CMP      R3,#+0
-   \   0000001E   0xD005             BEQ.N    ??HAL_SRAM_Read_32b_3
     437            {
     438              *pDstBuffer = *(__IO uint32_t *)pAddress;
-   \   00000020   0x6808             LDR      R0,[R1, #+0]
-   \   00000022   0x6010             STR      R0,[R2, #+0]
+   \                     ??HAL_SRAM_Read_32b_2: (+1)
+   \   00000020   0xF851 0xCB04      LDR      R12,[R1], #+4
     439              pDstBuffer++;
-   \   00000024   0x1D12             ADDS     R2,R2,#+4
     440              pAddress++;
-   \   00000026   0x1D09             ADDS     R1,R1,#+4
     441            }
-   \   00000028   0x1E5B             SUBS     R3,R3,#+1
-   \   0000002A   0xE7F7             B.N      ??HAL_SRAM_Read_32b_2
+   \   00000024   0x1E5B             SUBS     R3,R3,#+1
+   \   00000026   0xF842 0xCB04      STR      R12,[R2], #+4
+   \   0000002A   0xD1F9             BNE.N    ??HAL_SRAM_Read_32b_2
     442            
     443            /* Update the SRAM controller state */
     444            hsram->State = HAL_SRAM_STATE_READY;    
-   \                     ??HAL_SRAM_Read_32b_3: (+1)
-   \   0000002C   0x2001             MOVS     R0,#+1
-   \   0000002E   0xF884 0x0045      STRB     R0,[R4, #+69]
+   \                     ??HAL_SRAM_Read_32b_1: (+1)
+   \   0000002C   0x2101             MOVS     R1,#+1
+   \   0000002E   0xF880 0x1045      STRB     R1,[R0, #+69]
     445          
     446            /* Process unlocked */
     447            __HAL_UNLOCK(hsram); 
-   \   00000032   0x2000             MOVS     R0,#+0
-   \   00000034   0xF884 0x0044      STRB     R0,[R4, #+68]
+   \   00000032   0x2100             MOVS     R1,#+0
+   \   00000034   0xF880 0x1044      STRB     R1,[R0, #+68]
     448              
     449            return HAL_OK;  
    \   00000038   0x2000             MOVS     R0,#+0
-   \                     ??HAL_SRAM_Read_32b_1: (+1)
-   \   0000003A   0xBC10             POP      {R4}
-   \   0000003C   0x4770             BX       LR               ;; return
+   \   0000003A   0x4770             BX       LR               ;; return
     450          }
     451          
     452          /**
@@ -778,73 +730,67 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     459            * @retval HAL status
     460            */
 
-   \                                 In section .text, align 2, keep-with-next
+   \                                 In section .text, align 4, keep-with-next
     461          HAL_StatusTypeDef HAL_SRAM_Write_32b(SRAM_HandleTypeDef *hsram, uint32_t *pAddress, uint32_t *pSrcBuffer, uint32_t BufferSize)
     462          {
-   \                     HAL_SRAM_Write_32b: (+1)
-   \   00000000   0xB410             PUSH     {R4}
-   \   00000002   0x0004             MOVS     R4,R0
     463            /* Check the SRAM controller state */
     464            if(hsram->State == HAL_SRAM_STATE_PROTECTED)
-   \   00000004   0xF894 0x0045      LDRB     R0,[R4, #+69]
-   \   00000008   0x2804             CMP      R0,#+4
-   \   0000000A   0xD101             BNE.N    ??HAL_SRAM_Write_32b_0
+   \                     HAL_SRAM_Write_32b: (+1)
+   \   00000000   0xF890 0xC045      LDRB     R12,[R0, #+69]
+   \   00000004   0xF1BC 0x0F04      CMP      R12,#+4
+   \   00000008   0xD101             BNE.N    ??HAL_SRAM_Write_32b_0
     465            {
     466              return  HAL_ERROR; 
-   \   0000000C   0x2001             MOVS     R0,#+1
-   \   0000000E   0xE01A             B.N      ??HAL_SRAM_Write_32b_1
+   \   0000000A   0x2001             MOVS     R0,#+1
+   \   0000000C   0x4770             BX       LR
     467            }
     468            
     469            /* Process Locked */
     470            __HAL_LOCK(hsram);
    \                     ??HAL_SRAM_Write_32b_0: (+1)
-   \   00000010   0xF894 0x0044      LDRB     R0,[R4, #+68]
-   \   00000014   0x2801             CMP      R0,#+1
-   \   00000016   0xD101             BNE.N    ??HAL_SRAM_Write_32b_2
+   \   0000000E   0xF890 0xC044      LDRB     R12,[R0, #+68]
+   \   00000012   0xF1BC 0x0F01      CMP      R12,#+1
+   \   00000016   0xD101             BNE.N    ??HAL_SRAM_Write_32b_1
    \   00000018   0x2002             MOVS     R0,#+2
-   \   0000001A   0xE014             B.N      ??HAL_SRAM_Write_32b_1
-   \                     ??HAL_SRAM_Write_32b_2: (+1)
-   \   0000001C   0x2001             MOVS     R0,#+1
-   \   0000001E   0xF884 0x0044      STRB     R0,[R4, #+68]
+   \   0000001A   0x4770             BX       LR
+   \                     ??HAL_SRAM_Write_32b_1: (+1)
+   \   0000001C   0xF04F 0x0C01      MOV      R12,#+1
+   \   00000020   0xF880 0xC044      STRB     R12,[R0, #+68]
     471            
     472            /* Update the SRAM controller state */
     473            hsram->State = HAL_SRAM_STATE_BUSY; 
-   \   00000022   0x2002             MOVS     R0,#+2
-   \   00000024   0xF884 0x0045      STRB     R0,[R4, #+69]
+   \   00000024   0xF04F 0x0C02      MOV      R12,#+2
+   \   00000028   0xF880 0xC045      STRB     R12,[R0, #+69]
+   \   0000002C   0xB133             CBZ.N    R3,??HAL_SRAM_Write_32b_2
+   \   0000002E   0xBF00             Nop      
     474          
     475            /* Write data to memory */
     476            for(; BufferSize != 0; BufferSize--)
-   \                     ??HAL_SRAM_Write_32b_3: (+1)
-   \   00000028   0x2B00             CMP      R3,#+0
-   \   0000002A   0xD005             BEQ.N    ??HAL_SRAM_Write_32b_4
     477            {
     478              *(__IO uint32_t *)pAddress = *pSrcBuffer; 
-   \   0000002C   0x6810             LDR      R0,[R2, #+0]
-   \   0000002E   0x6008             STR      R0,[R1, #+0]
+   \                     ??HAL_SRAM_Write_32b_3: (+1)
+   \   00000030   0xF852 0xCB04      LDR      R12,[R2], #+4
     479              pSrcBuffer++;
-   \   00000030   0x1D12             ADDS     R2,R2,#+4
     480              pAddress++;    
-   \   00000032   0x1D09             ADDS     R1,R1,#+4
     481            }    
    \   00000034   0x1E5B             SUBS     R3,R3,#+1
-   \   00000036   0xE7F7             B.N      ??HAL_SRAM_Write_32b_3
+   \   00000036   0xF841 0xCB04      STR      R12,[R1], #+4
+   \   0000003A   0xD1F9             BNE.N    ??HAL_SRAM_Write_32b_3
     482          
     483            /* Update the SRAM controller state */
     484            hsram->State = HAL_SRAM_STATE_READY; 
-   \                     ??HAL_SRAM_Write_32b_4: (+1)
-   \   00000038   0x2001             MOVS     R0,#+1
-   \   0000003A   0xF884 0x0045      STRB     R0,[R4, #+69]
+   \                     ??HAL_SRAM_Write_32b_2: (+1)
+   \   0000003C   0x2101             MOVS     R1,#+1
+   \   0000003E   0xF880 0x1045      STRB     R1,[R0, #+69]
     485            
     486            /* Process unlocked */
     487            __HAL_UNLOCK(hsram);
-   \   0000003E   0x2000             MOVS     R0,#+0
-   \   00000040   0xF884 0x0044      STRB     R0,[R4, #+68]
+   \   00000042   0x2100             MOVS     R1,#+0
+   \   00000044   0xF880 0x1044      STRB     R1,[R0, #+68]
     488              
     489            return HAL_OK;   
-   \   00000044   0x2000             MOVS     R0,#+0
-   \                     ??HAL_SRAM_Write_32b_1: (+1)
-   \   00000046   0xBC10             POP      {R4}
-   \   00000048   0x4770             BX       LR               ;; return
+   \   00000048   0x2000             MOVS     R0,#+0
+   \   0000004A   0x4770             BX       LR               ;; return
     490          }
     491          
     492          /**
@@ -861,59 +807,53 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     501          HAL_StatusTypeDef HAL_SRAM_Read_DMA(SRAM_HandleTypeDef *hsram, uint32_t *pAddress, uint32_t *pDstBuffer, uint32_t BufferSize)
     502          {
    \                     HAL_SRAM_Read_DMA: (+1)
-   \   00000000   0xB5F8             PUSH     {R3-R7,LR}
-   \   00000002   0x0004             MOVS     R4,R0
-   \   00000004   0x000D             MOVS     R5,R1
-   \   00000006   0x0016             MOVS     R6,R2
-   \   00000008   0x001F             MOVS     R7,R3
+   \   00000000   0xB530             PUSH     {R4,R5,LR}
+   \   00000002   0x4604             MOV      R4,R0
+   \   00000004   0xB081             SUB      SP,SP,#+4
     503            /* Process Locked */
     504            __HAL_LOCK(hsram);  
-   \   0000000A   0xF894 0x0044      LDRB     R0,[R4, #+68]
-   \   0000000E   0x2801             CMP      R0,#+1
-   \   00000010   0xD101             BNE.N    ??HAL_SRAM_Read_DMA_0
-   \   00000012   0x2002             MOVS     R0,#+2
-   \   00000014   0xE018             B.N      ??HAL_SRAM_Read_DMA_1
-   \                     ??HAL_SRAM_Read_DMA_0: (+1)
-   \   00000016   0x2001             MOVS     R0,#+1
-   \   00000018   0xF884 0x0044      STRB     R0,[R4, #+68]
+   \   00000006   0xF894 0x0044      LDRB     R0,[R4, #+68]
+   \   0000000A   0x2801             CMP      R0,#+1
+   \   0000000C   0xBF08             IT       EQ 
+   \   0000000E   0x2002             MOVEQ    R0,#+2
+   \   00000010   0xD014             BEQ.N    ??HAL_SRAM_Read_DMA_0
+   \   00000012   0x2001             MOVS     R0,#+1
+   \   00000014   0xF884 0x0044      STRB     R0,[R4, #+68]
     505            
     506            /* Update the SRAM controller state */
     507            hsram->State = HAL_SRAM_STATE_BUSY;   
-   \   0000001C   0x2002             MOVS     R0,#+2
-   \   0000001E   0xF884 0x0045      STRB     R0,[R4, #+69]
+   \   00000018   0x2002             MOVS     R0,#+2
+   \   0000001A   0xF884 0x0045      STRB     R0,[R4, #+69]
     508            
     509            /* Configure DMA user callbacks */
     510            hsram->hdma->XferCpltCallback  = HAL_SRAM_DMA_XferCpltCallback;
-   \   00000022   0x....             LDR.N    R0,??DataTable1
-   \   00000024   0x6CA1             LDR      R1,[R4, #+72]
-   \   00000026   0x63C8             STR      R0,[R1, #+60]
+   \   0000001E   0x6CA5             LDR      R5,[R4, #+72]
+   \   00000020   0x....             LDR.N    R0,??DataTable1
+   \   00000022   0x63E8             STR      R0,[R5, #+60]
     511            hsram->hdma->XferErrorCallback = HAL_SRAM_DMA_XferErrorCallback;
-   \   00000028   0x....             LDR.N    R0,??DataTable1_1
-   \   0000002A   0x6CA1             LDR      R1,[R4, #+72]
-   \   0000002C   0x6488             STR      R0,[R1, #+72]
+   \   00000024   0x6CA5             LDR      R5,[R4, #+72]
+   \   00000026   0x....             LDR.N    R0,??DataTable1_1
+   \   00000028   0x64A8             STR      R0,[R5, #+72]
     512          
     513            /* Enable the DMA Stream */
     514            HAL_DMA_Start_IT(hsram->hdma, (uint32_t)pAddress, (uint32_t)pDstBuffer, (uint32_t)BufferSize);
-   \   0000002E   0x003B             MOVS     R3,R7
-   \   00000030   0x0032             MOVS     R2,R6
-   \   00000032   0x0029             MOVS     R1,R5
-   \   00000034   0x6CA0             LDR      R0,[R4, #+72]
-   \   00000036   0x.... 0x....      BL       HAL_DMA_Start_IT
+   \   0000002A   0x6CA0             LDR      R0,[R4, #+72]
+   \   0000002C   0x.... 0x....      BL       HAL_DMA_Start_IT
     515            
     516            /* Update the SRAM controller state */
     517            hsram->State = HAL_SRAM_STATE_READY; 
-   \   0000003A   0x2001             MOVS     R0,#+1
-   \   0000003C   0xF884 0x0045      STRB     R0,[R4, #+69]
+   \   00000030   0x2001             MOVS     R0,#+1
+   \   00000032   0xF884 0x0045      STRB     R0,[R4, #+69]
     518            
     519            /* Process unlocked */
     520            __HAL_UNLOCK(hsram);  
-   \   00000040   0x2000             MOVS     R0,#+0
-   \   00000042   0xF884 0x0044      STRB     R0,[R4, #+68]
+   \   00000036   0x2000             MOVS     R0,#+0
+   \   00000038   0xF884 0x0044      STRB     R0,[R4, #+68]
     521            
     522            return HAL_OK; 
-   \   00000046   0x2000             MOVS     R0,#+0
-   \                     ??HAL_SRAM_Read_DMA_1: (+1)
-   \   00000048   0xBDF2             POP      {R1,R4-R7,PC}    ;; return
+   \                     ??HAL_SRAM_Read_DMA_0: (+1)
+   \   0000003C   0xB001             ADD      SP,SP,#+4
+   \   0000003E   0xBD30             POP      {R4,R5,PC}       ;; return
     523          }
     524          
     525          /**
@@ -930,71 +870,67 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     534          HAL_StatusTypeDef HAL_SRAM_Write_DMA(SRAM_HandleTypeDef *hsram, uint32_t *pAddress, uint32_t *pSrcBuffer, uint32_t BufferSize)
     535          {
    \                     HAL_SRAM_Write_DMA: (+1)
-   \   00000000   0xB5F8             PUSH     {R3-R7,LR}
-   \   00000002   0x0004             MOVS     R4,R0
-   \   00000004   0x000D             MOVS     R5,R1
-   \   00000006   0x0016             MOVS     R6,R2
-   \   00000008   0x001F             MOVS     R7,R3
+   \   00000000   0xB530             PUSH     {R4,R5,LR}
+   \   00000002   0x4604             MOV      R4,R0
+   \   00000004   0xB081             SUB      SP,SP,#+4
+   \   00000006   0x4610             MOV      R0,R2
     536            /* Check the SRAM controller state */
     537            if(hsram->State == HAL_SRAM_STATE_PROTECTED)
-   \   0000000A   0xF894 0x0045      LDRB     R0,[R4, #+69]
-   \   0000000E   0x2804             CMP      R0,#+4
-   \   00000010   0xD101             BNE.N    ??HAL_SRAM_Write_DMA_0
+   \   00000008   0xF894 0x2045      LDRB     R2,[R4, #+69]
+   \   0000000C   0x2A04             CMP      R2,#+4
+   \   0000000E   0xBF08             IT       EQ 
+   \   00000010   0x2001             MOVEQ    R0,#+1
     538            {
     539              return  HAL_ERROR; 
-   \   00000012   0x2001             MOVS     R0,#+1
-   \   00000014   0xE01E             B.N      ??HAL_SRAM_Write_DMA_1
+   \   00000012   0xD01C             BEQ.N    ??HAL_SRAM_Write_DMA_0
     540            }
     541            
     542            /* Process Locked */
     543            __HAL_LOCK(hsram);
-   \                     ??HAL_SRAM_Write_DMA_0: (+1)
-   \   00000016   0xF894 0x0044      LDRB     R0,[R4, #+68]
-   \   0000001A   0x2801             CMP      R0,#+1
-   \   0000001C   0xD101             BNE.N    ??HAL_SRAM_Write_DMA_2
-   \   0000001E   0x2002             MOVS     R0,#+2
-   \   00000020   0xE018             B.N      ??HAL_SRAM_Write_DMA_1
-   \                     ??HAL_SRAM_Write_DMA_2: (+1)
-   \   00000022   0x2001             MOVS     R0,#+1
-   \   00000024   0xF884 0x0044      STRB     R0,[R4, #+68]
+   \   00000014   0xF894 0x2044      LDRB     R2,[R4, #+68]
+   \   00000018   0x2A01             CMP      R2,#+1
+   \   0000001A   0xBF08             IT       EQ 
+   \   0000001C   0x2002             MOVEQ    R0,#+2
+   \   0000001E   0xD016             BEQ.N    ??HAL_SRAM_Write_DMA_0
+   \   00000020   0x2201             MOVS     R2,#+1
+   \   00000022   0xF884 0x2044      STRB     R2,[R4, #+68]
     544            
     545            /* Update the SRAM controller state */
     546            hsram->State = HAL_SRAM_STATE_BUSY; 
-   \   00000028   0x2002             MOVS     R0,#+2
-   \   0000002A   0xF884 0x0045      STRB     R0,[R4, #+69]
+   \   00000026   0x2202             MOVS     R2,#+2
+   \   00000028   0xF884 0x2045      STRB     R2,[R4, #+69]
     547            
     548            /* Configure DMA user callbacks */
     549            hsram->hdma->XferCpltCallback  = HAL_SRAM_DMA_XferCpltCallback;
-   \   0000002E   0x....             LDR.N    R0,??DataTable1
-   \   00000030   0x6CA1             LDR      R1,[R4, #+72]
-   \   00000032   0x63C8             STR      R0,[R1, #+60]
+   \   0000002C   0x6CA5             LDR      R5,[R4, #+72]
+   \   0000002E   0x....             LDR.N    R2,??DataTable1
+   \   00000030   0x63EA             STR      R2,[R5, #+60]
     550            hsram->hdma->XferErrorCallback = HAL_SRAM_DMA_XferErrorCallback;
-   \   00000034   0x....             LDR.N    R0,??DataTable1_1
-   \   00000036   0x6CA1             LDR      R1,[R4, #+72]
-   \   00000038   0x6488             STR      R0,[R1, #+72]
+   \   00000032   0x6CA5             LDR      R5,[R4, #+72]
+   \   00000034   0x....             LDR.N    R2,??DataTable1_1
+   \   00000036   0x64AA             STR      R2,[R5, #+72]
     551          
     552            /* Enable the DMA Stream */
     553            HAL_DMA_Start_IT(hsram->hdma, (uint32_t)pSrcBuffer, (uint32_t)pAddress, (uint32_t)BufferSize);
-   \   0000003A   0x003B             MOVS     R3,R7
-   \   0000003C   0x002A             MOVS     R2,R5
-   \   0000003E   0x0031             MOVS     R1,R6
-   \   00000040   0x6CA0             LDR      R0,[R4, #+72]
-   \   00000042   0x.... 0x....      BL       HAL_DMA_Start_IT
+   \   00000038   0x460A             MOV      R2,R1
+   \   0000003A   0x4601             MOV      R1,R0
+   \   0000003C   0x6CA0             LDR      R0,[R4, #+72]
+   \   0000003E   0x.... 0x....      BL       HAL_DMA_Start_IT
     554            
     555            /* Update the SRAM controller state */
     556            hsram->State = HAL_SRAM_STATE_READY;  
-   \   00000046   0x2001             MOVS     R0,#+1
-   \   00000048   0xF884 0x0045      STRB     R0,[R4, #+69]
+   \   00000042   0x2001             MOVS     R0,#+1
+   \   00000044   0xF884 0x0045      STRB     R0,[R4, #+69]
     557            
     558            /* Process unlocked */
     559            __HAL_UNLOCK(hsram);  
-   \   0000004C   0x2000             MOVS     R0,#+0
-   \   0000004E   0xF884 0x0044      STRB     R0,[R4, #+68]
+   \   00000048   0x2000             MOVS     R0,#+0
+   \   0000004A   0xF884 0x0044      STRB     R0,[R4, #+68]
     560            
     561            return HAL_OK;
-   \   00000052   0x2000             MOVS     R0,#+0
-   \                     ??HAL_SRAM_Write_DMA_1: (+1)
-   \   00000054   0xBDF2             POP      {R1,R4-R7,PC}    ;; return
+   \                     ??HAL_SRAM_Write_DMA_0: (+1)
+   \   0000004E   0xB001             ADD      SP,SP,#+4
+   \   00000050   0xBD30             POP      {R4,R5,PC}       ;; return
     562          }
     563          
     564          /**
@@ -1028,21 +964,21 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     590          {
    \                     HAL_SRAM_WriteOperation_Enable: (+1)
    \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x0004             MOVS     R4,R0
+   \   00000002   0x4604             MOV      R4,R0
     591            /* Process Locked */
     592            __HAL_LOCK(hsram);
    \   00000004   0xF894 0x0044      LDRB     R0,[R4, #+68]
    \   00000008   0x2801             CMP      R0,#+1
    \   0000000A   0xD101             BNE.N    ??HAL_SRAM_WriteOperation_Enable_0
    \   0000000C   0x2002             MOVS     R0,#+2
-   \   0000000E   0xE00D             B.N      ??HAL_SRAM_WriteOperation_Enable_1
+   \   0000000E   0xBD10             POP      {R4,PC}
    \                     ??HAL_SRAM_WriteOperation_Enable_0: (+1)
    \   00000010   0x2001             MOVS     R0,#+1
-   \   00000012   0xF884 0x0044      STRB     R0,[R4, #+68]
     593          
     594            /* Enable write operation */
     595            FMC_NORSRAM_WriteOperation_Enable(hsram->Instance, hsram->Init.NSBank); 
-   \   00000016   0x68A1             LDR      R1,[R4, #+8]
+   \   00000012   0x68A1             LDR      R1,[R4, #+8]
+   \   00000014   0xF884 0x0044      STRB     R0,[R4, #+68]
    \   00000018   0x6820             LDR      R0,[R4, #+0]
    \   0000001A   0x.... 0x....      BL       FMC_NORSRAM_WriteOperation_Enable
     596            
@@ -1057,9 +993,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   00000026   0xF884 0x0044      STRB     R0,[R4, #+68]
     602            
     603            return HAL_OK;  
-   \   0000002A   0x2000             MOVS     R0,#+0
-   \                     ??HAL_SRAM_WriteOperation_Enable_1: (+1)
-   \   0000002C   0xBD10             POP      {R4,PC}          ;; return
+   \   0000002A   0xBD10             POP      {R4,PC}          ;; return
     604          }
     605          
     606          /**
@@ -1074,14 +1008,14 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     613          {
    \                     HAL_SRAM_WriteOperation_Disable: (+1)
    \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x0004             MOVS     R4,R0
+   \   00000002   0x4604             MOV      R4,R0
     614            /* Process Locked */
     615            __HAL_LOCK(hsram);
    \   00000004   0xF894 0x0044      LDRB     R0,[R4, #+68]
    \   00000008   0x2801             CMP      R0,#+1
    \   0000000A   0xD101             BNE.N    ??HAL_SRAM_WriteOperation_Disable_0
    \   0000000C   0x2002             MOVS     R0,#+2
-   \   0000000E   0xE010             B.N      ??HAL_SRAM_WriteOperation_Disable_1
+   \   0000000E   0xBD10             POP      {R4,PC}
    \                     ??HAL_SRAM_WriteOperation_Disable_0: (+1)
    \   00000010   0x2001             MOVS     R0,#+1
    \   00000012   0xF884 0x0044      STRB     R0,[R4, #+68]
@@ -1108,9 +1042,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   0000002C   0xF884 0x0044      STRB     R0,[R4, #+68]
     628            
     629            return HAL_OK;  
-   \   00000030   0x2000             MOVS     R0,#+0
-   \                     ??HAL_SRAM_WriteOperation_Disable_1: (+1)
-   \   00000032   0xBD10             POP      {R4,PC}          ;; return
+   \   00000030   0xBD10             POP      {R4,PC}          ;; return
     630          }
     631          
     632          /**
@@ -1191,20 +1123,20 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
         16   -> HAL_SRAM_MspInit
        0   HAL_SRAM_MspDeInit
        0   HAL_SRAM_MspInit
-       8   HAL_SRAM_Read_16b
-       4   HAL_SRAM_Read_32b
-       8   HAL_SRAM_Read_8b
-      24   HAL_SRAM_Read_DMA
-        24   -> HAL_DMA_Start_IT
+       0   HAL_SRAM_Read_16b
+       0   HAL_SRAM_Read_32b
+       0   HAL_SRAM_Read_8b
+      16   HAL_SRAM_Read_DMA
+        16   -> HAL_DMA_Start_IT
        8   HAL_SRAM_WriteOperation_Disable
          8   -> FMC_NORSRAM_WriteOperation_Disable
        8   HAL_SRAM_WriteOperation_Enable
          8   -> FMC_NORSRAM_WriteOperation_Enable
-       8   HAL_SRAM_Write_16b
-       4   HAL_SRAM_Write_32b
-       8   HAL_SRAM_Write_8b
-      24   HAL_SRAM_Write_DMA
-        24   -> HAL_DMA_Start_IT
+       0   HAL_SRAM_Write_16b
+       0   HAL_SRAM_Write_32b
+       0   HAL_SRAM_Write_8b
+      16   HAL_SRAM_Write_DMA
+        16   -> HAL_DMA_Start_IT
 
 
    Section sizes:
@@ -1215,26 +1147,26 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
        4  ??DataTable1_1
        2  HAL_SRAM_DMA_XferCpltCallback
        2  HAL_SRAM_DMA_XferErrorCallback
-      36  HAL_SRAM_DeInit
+      30  HAL_SRAM_DeInit
        6  HAL_SRAM_GetState
-      92  HAL_SRAM_Init
+      82  HAL_SRAM_Init
        2  HAL_SRAM_MspDeInit
        2  HAL_SRAM_MspInit
-      64  HAL_SRAM_Read_16b
-      62  HAL_SRAM_Read_32b
-      64  HAL_SRAM_Read_8b
-      74  HAL_SRAM_Read_DMA
-      52  HAL_SRAM_WriteOperation_Disable
-      46  HAL_SRAM_WriteOperation_Enable
+      60  HAL_SRAM_Read_16b
+      60  HAL_SRAM_Read_32b
+      60  HAL_SRAM_Read_8b
+      64  HAL_SRAM_Read_DMA
+      50  HAL_SRAM_WriteOperation_Disable
+      44  HAL_SRAM_WriteOperation_Enable
       76  HAL_SRAM_Write_16b
-      74  HAL_SRAM_Write_32b
+      76  HAL_SRAM_Write_32b
       76  HAL_SRAM_Write_8b
-      86  HAL_SRAM_Write_DMA
+      82  HAL_SRAM_Write_DMA
 
  
- 824 bytes in section .text
+ 782 bytes in section .text
  
- 824 bytes of CODE memory
+ 782 bytes of CODE memory
 
 Errors: none
 Warnings: none

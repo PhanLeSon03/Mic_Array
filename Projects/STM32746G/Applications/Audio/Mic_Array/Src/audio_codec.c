@@ -1376,7 +1376,11 @@ void HAL_I2S_MspInit(I2S_HandleTypeDef *hi2s)
 	  DmaHandle.Init.MemInc = DMA_MINC_ENABLE;
 	  DmaHandle.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
       DmaHandle.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD; 
+#if  (AUDIO_OUT_STREAM_NORMAL)
 	  DmaHandle.Init.Mode = DMA_NORMAL;
+#else
+      DmaHandle.Init.Mode = DMA_CIRCULAR;
+#endif
       DmaHandle.Init.Priority = DMA_PRIORITY_HIGH; 
 	  DmaHandle.Init.FIFOMode = DMA_FIFOMODE_ENABLE;//DMA_FIFOMODE_DISABLE
       DmaHandle.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;

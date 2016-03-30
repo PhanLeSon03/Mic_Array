@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      29/Mar/2016  20:10:40
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      30/Mar/2016  19:08:28
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -16,10 +16,8 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-//        --no_clustering --no_scheduling --debug --endian=little
-//        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-//        (x86)\IAR Systems\Embedded Workbench
+//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
+//        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
@@ -50,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -243,38 +241,28 @@
         THUMB
 //  109 USBH_StatusTypeDef USBH_MSC_BOT_REQ_Reset(USBH_HandleTypeDef *phost)
 //  110 {
-USBH_MSC_BOT_REQ_Reset:
-        PUSH     {R4,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOVS     R4,R0
 //  111   
 //  112   phost->Control.setup.b.bmRequestType = USB_H2D | USB_REQ_TYPE_CLASS | \ 
 //  113                               USB_REQ_RECIPIENT_INTERFACE;
-        MOVS     R0,#+33
-        STRB     R0,[R4, #+16]
+USBH_MSC_BOT_REQ_Reset:
+        MOVS     R1,#+33
 //  114   
 //  115   phost->Control.setup.b.bRequest = USB_REQ_BOT_RESET;
-        MOVS     R0,#+255
-        STRB     R0,[R4, #+17]
 //  116   phost->Control.setup.b.wValue.w = 0;
-        MOVS     R0,#+0
-        STRH     R0,[R4, #+18]
 //  117   phost->Control.setup.b.wIndex.w = 0;
-        MOVS     R0,#+0
-        STRH     R0,[R4, #+20]
 //  118   phost->Control.setup.b.wLength.w = 0;           
-        MOVS     R0,#+0
-        STRH     R0,[R4, #+22]
 //  119   
 //  120   return USBH_CtlReq(phost, 0 , 0 );  
         MOVS     R2,#+0
+        STRB     R1,[R0, #+16]
+        MOVS     R1,#+255
+        STRB     R1,[R0, #+17]
         MOVS     R1,#+0
-        MOVS     R0,R4
+        STRH     R1,[R0, #+18]
+        STRH     R1,[R0, #+20]
+        STRH     R1,[R0, #+22]
           CFI FunCall USBH_CtlReq
-        BL       USBH_CtlReq
-        POP      {R4,PC}          ;; return
+        B.W      USBH_CtlReq
 //  121 }
           CFI EndBlock cfiBlock0
 //  122 
@@ -292,39 +280,27 @@ USBH_MSC_BOT_REQ_Reset:
         THUMB
 //  130 USBH_StatusTypeDef USBH_MSC_BOT_REQ_GetMaxLUN(USBH_HandleTypeDef *phost, uint8_t *Maxlun)
 //  131 {
-USBH_MSC_BOT_REQ_GetMaxLUN:
-        PUSH     {R3-R5,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
-        MOVS     R4,R0
-        MOVS     R5,R1
 //  132   phost->Control.setup.b.bmRequestType = USB_D2H | USB_REQ_TYPE_CLASS | \ 
 //  133                               USB_REQ_RECIPIENT_INTERFACE;
-        MOVS     R0,#+161
-        STRB     R0,[R4, #+16]
+USBH_MSC_BOT_REQ_GetMaxLUN:
+        MOVS     R2,#+161
+        STRB     R2,[R0, #+16]
 //  134   
 //  135   phost->Control.setup.b.bRequest = USB_REQ_GET_MAX_LUN;
-        MOVS     R0,#+254
-        STRB     R0,[R4, #+17]
+        MOVS     R2,#+254
+        STRB     R2,[R0, #+17]
 //  136   phost->Control.setup.b.wValue.w = 0;
-        MOVS     R0,#+0
-        STRH     R0,[R4, #+18]
+        MOVS     R2,#+0
+        STRH     R2,[R0, #+18]
 //  137   phost->Control.setup.b.wIndex.w = 0;
-        MOVS     R0,#+0
-        STRH     R0,[R4, #+20]
+        STRH     R2,[R0, #+20]
 //  138   phost->Control.setup.b.wLength.w = 1;           
-        MOVS     R0,#+1
-        STRH     R0,[R4, #+22]
+        MOVS     R2,#+1
+        STRH     R2,[R0, #+22]
 //  139   
 //  140   return USBH_CtlReq(phost, Maxlun , 1 ); 
-        MOVS     R2,#+1
-        MOVS     R1,R5
-        MOVS     R0,R4
           CFI FunCall USBH_CtlReq
-        BL       USBH_CtlReq
-        POP      {R1,R4,R5,PC}    ;; return
+        B.W      USBH_CtlReq
 //  141 }
           CFI EndBlock cfiBlock1
 //  142 
@@ -344,25 +320,23 @@ USBH_MSC_BOT_REQ_GetMaxLUN:
         THUMB
 //  151 USBH_StatusTypeDef USBH_MSC_BOT_Init(USBH_HandleTypeDef *phost)
 //  152 {
-USBH_MSC_BOT_Init:
-        MOVS     R1,R0
 //  153   
 //  154   MSC_HandleTypeDef *MSC_Handle =  (MSC_HandleTypeDef *) phost->pActiveClass->pData;
-        LDR      R0,[R1, #+612]
-        LDR      R2,[R0, #+28]
+USBH_MSC_BOT_Init:
+        LDR      R0,[R0, #+612]
 //  155   
 //  156   MSC_Handle->hbot.cbw.field.Signature = BOT_CBW_SIGNATURE;
-        LDR.W    R0,??DataTable1  ;; 0x43425355
-        STR      R0,[R2, #+84]
+        LDR.N    R1,??DataTable1  ;; 0x43425355
+        LDR      R0,[R0, #+28]
+        STR      R1,[R0, #+84]
 //  157   MSC_Handle->hbot.cbw.field.Tag = BOT_CBW_TAG;
-        LDR.W    R0,??DataTable1_1  ;; 0x20304050
-        STR      R0,[R2, #+88]
+        LDR.N    R1,??DataTable1_1  ;; 0x20304050
+        STR      R1,[R0, #+88]
 //  158   MSC_Handle->hbot.state = BOT_SEND_CBW;    
-        MOVS     R0,#+1
-        STRB     R0,[R2, #+80]
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+80]
 //  159   MSC_Handle->hbot.cmd_state = BOT_CMD_SEND;   
-        MOVS     R0,#+1
-        STRB     R0,[R2, #+82]
+        STRB     R1,[R0, #+82]
 //  160   
 //  161   return USBH_OK;
         MOVS     R0,#+0
@@ -380,136 +354,106 @@ USBH_MSC_BOT_Init:
 //  171   * @retval USBH Status
 //  172   */
 
-        SECTION `.text`:CODE:NOROOT(1)
+        SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock3 Using cfiCommon0
           CFI Function USBH_MSC_BOT_Process
         THUMB
 //  173 USBH_StatusTypeDef USBH_MSC_BOT_Process (USBH_HandleTypeDef *phost, uint8_t lun)
 //  174 {
 USBH_MSC_BOT_Process:
-        PUSH     {R3-R11,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R11 Frame(CFA, -8)
-          CFI R10 Frame(CFA, -12)
-          CFI R9 Frame(CFA, -16)
-          CFI R8 Frame(CFA, -20)
-          CFI R7 Frame(CFA, -24)
-          CFI R6 Frame(CFA, -28)
-          CFI R5 Frame(CFA, -32)
-          CFI R4 Frame(CFA, -36)
-          CFI CFA R13+40
-        MOVS     R4,R0
-        MOVS     R5,R1
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
+        MOV      R5,R0
+        SUB      SP,SP,#+8
+          CFI CFA R13+24
 //  175   USBH_StatusTypeDef   status = USBH_BUSY;
-        MOVS     R6,#+1
+        MOVS     R4,#+1
+        LDR      R0,[R5, #+612]
+        LDR      R0,[R0, #+28]
 //  176   USBH_StatusTypeDef   error  = USBH_BUSY;  
-        MOVS     R7,#+1
 //  177   BOT_CSWStatusTypeDef CSW_Status = BOT_CSW_CMD_FAILED;
-        MOVS     R8,#+1
 //  178   USBH_URBStateTypeDef URB_Status = USBH_URB_IDLE;
-        MOVS     R9,#+0
 //  179   MSC_HandleTypeDef *MSC_Handle =  (MSC_HandleTypeDef *) phost->pActiveClass->pData;
-        LDR      R0,[R4, #+612]
-        LDR      R10,[R0, #+28]
 //  180   uint8_t toggle = 0;
-        MOVS     R11,#+0
 //  181   
 //  182   switch (MSC_Handle->hbot.state)
-        LDRB     R0,[R10, #+80]
-        CMP      R0,#+1
-        BEQ.N    ??USBH_MSC_BOT_Process_0
-        BCC.W    ??USBH_MSC_BOT_Process_1
-        CMP      R0,#+3
-        BEQ.N    ??USBH_MSC_BOT_Process_2
-        BCC.N    ??USBH_MSC_BOT_Process_3
-        CMP      R0,#+5
-        BEQ.W    ??USBH_MSC_BOT_Process_4
-        BCC.N    ??USBH_MSC_BOT_Process_5
-        CMP      R0,#+7
-        BEQ.W    ??USBH_MSC_BOT_Process_6
-        BCC.W    ??USBH_MSC_BOT_Process_7
-        CMP      R0,#+9
-        BEQ.W    ??USBH_MSC_BOT_Process_8
-        BCC.W    ??USBH_MSC_BOT_Process_9
-        CMP      R0,#+11
-        BEQ.W    ??USBH_MSC_BOT_Process_10
-        BCC.W    ??USBH_MSC_BOT_Process_11
-        B.N      ??USBH_MSC_BOT_Process_1
+        ADDS     R6,R0,#+4
+        LDRB     R2,[R6, #+76]
+        SUBS     R2,R2,#+1
+        CMP      R2,#+10
+        BHI.W    ??USBH_MSC_BOT_Process_1
+        TBB      [PC, R2]
+        DATA
+??USBH_MSC_BOT_Process_0:
+        DC8      0x6,0x11,0x2D,0x36
+        DC8      0x54,0x5E,0x84,0x8D
+        DC8      0xB5,0xC0,0xDB,0x0
+        THUMB
 //  183   {
 //  184   case BOT_SEND_CBW:
 //  185     MSC_Handle->hbot.cbw.field.LUN = lun;
-??USBH_MSC_BOT_Process_0:
-        STRB     R5,[R10, #+97]
+??USBH_MSC_BOT_Process_2:
+        STRB     R1,[R6, #+93]
 //  186     MSC_Handle->hbot.state = BOT_SEND_CBW_WAIT;    
-        MOVS     R0,#+2
-        STRB     R0,[R10, #+80]
+        MOVS     R1,#+2
+        STRB     R1,[R6, #+76]
 //  187     USBH_BulkSendData (phost,
 //  188                        MSC_Handle->hbot.cbw.data, 
 //  189                        BOT_CBW_LENGTH, 
 //  190                        MSC_Handle->OutPipe,
 //  191                        1);
-        MOVS     R0,#+1
-        STR      R0,[SP, #+0]
-        LDRB     R3,[R10, #+5]
         MOVS     R2,#+31
-        ADDS     R1,R10,#+84
-        MOVS     R0,R4
-          CFI FunCall USBH_BulkSendData
-        BL       USBH_BulkSendData
+        STR      R4,[SP, #+0]
+        LDRB     R3,[R6, #+1]
+        ADD      R1,R0,#+84
+        B.N      ??USBH_MSC_BOT_Process_3
 //  192     
 //  193     break;
-        B.N      ??USBH_MSC_BOT_Process_12
 //  194     
 //  195   case BOT_SEND_CBW_WAIT:
 //  196     
 //  197     URB_Status = USBH_LL_GetURBState(phost, MSC_Handle->OutPipe); 
-??USBH_MSC_BOT_Process_3:
-        LDRB     R1,[R10, #+5]
-        MOVS     R0,R4
+??USBH_MSC_BOT_Process_4:
+        LDRB     R1,[R6, #+1]
+        MOV      R0,R5
           CFI FunCall USBH_LL_GetURBState
         BL       USBH_LL_GetURBState
-        MOV      R9,R0
 //  198     
 //  199     if(URB_Status == USBH_URB_DONE)
-        UXTB     R9,R9            ;; ZeroExt  R9,R9,#+24,#+24
-        CMP      R9,#+1
-        BNE.N    ??USBH_MSC_BOT_Process_13
+        CMP      R0,#+1
+        BNE.N    ??USBH_MSC_BOT_Process_5
 //  200     { 
 //  201       if ( MSC_Handle->hbot.cbw.field.DataTransferLength != 0 )
-        LDR      R0,[R10, #+92]
+        LDR      R0,[R6, #+88]
         CMP      R0,#+0
-        BEQ.N    ??USBH_MSC_BOT_Process_14
+        BEQ.W    ??USBH_MSC_BOT_Process_6
 //  202       {
 //  203         /* If there is Data Transfer Stage */
 //  204         if (((MSC_Handle->hbot.cbw.field.Flags) & USB_REQ_DIR_MASK) == USB_D2H)
-        LDRB     R0,[R10, #+96]
+        LDRB     R0,[R6, #+92]
         LSLS     R0,R0,#+24
-        BPL.N    ??USBH_MSC_BOT_Process_15
+        ITE      PL 
+        MOVPL    R0,#+5
+        MOVMI    R0,#+3
 //  205         {
 //  206           /* Data Direction is IN */
 //  207           MSC_Handle->hbot.state = BOT_DATA_IN;
-        MOVS     R0,#+3
-        STRB     R0,[R10, #+80]
-        B.N      ??USBH_MSC_BOT_Process_16
 //  208         }
 //  209         else
 //  210         {
 //  211           /* Data Direction is OUT */
 //  212           MSC_Handle->hbot.state = BOT_DATA_OUT;
-??USBH_MSC_BOT_Process_15:
-        MOVS     R0,#+5
-        STRB     R0,[R10, #+80]
-        B.N      ??USBH_MSC_BOT_Process_16
+        B.N      ??USBH_MSC_BOT_Process_7
 //  213         } 
 //  214       }
 //  215       
 //  216       else
 //  217       {/* If there is NO Data Transfer Stage */
 //  218         MSC_Handle->hbot.state = BOT_RECEIVE_CSW;
-??USBH_MSC_BOT_Process_14:
-        MOVS     R0,#+7
-        STRB     R0,[R10, #+80]
-        B.N      ??USBH_MSC_BOT_Process_16
 //  219       }
 //  220 #if (USBH_USE_OS == 1)
 //  221     osMessagePut ( phost->os_event, USBH_URB_EVENT, 0);
@@ -517,36 +461,30 @@ USBH_MSC_BOT_Process:
 //  223     
 //  224     }   
 //  225     else if(URB_Status == USBH_URB_NOTREADY)
-??USBH_MSC_BOT_Process_13:
-        UXTB     R9,R9            ;; ZeroExt  R9,R9,#+24,#+24
-        CMP      R9,#+2
-        BNE.N    ??USBH_MSC_BOT_Process_17
+??USBH_MSC_BOT_Process_5:
+        CMP      R0,#+2
+        IT       EQ 
+        STRBEQ   R4,[R6, #+76]
 //  226     {
 //  227       /* Re-send CBW */
 //  228       MSC_Handle->hbot.state = BOT_SEND_CBW;
-        MOVS     R0,#+1
-        STRB     R0,[R10, #+80]
-        B.N      ??USBH_MSC_BOT_Process_16
+        BEQ.W    ??USBH_MSC_BOT_Process_1
 //  229 #if (USBH_USE_OS == 1)
 //  230     osMessagePut ( phost->os_event, USBH_URB_EVENT, 0);
 //  231 #endif       
 //  232     }     
 //  233     else if(URB_Status == USBH_URB_STALL)
-??USBH_MSC_BOT_Process_17:
-        UXTB     R9,R9            ;; ZeroExt  R9,R9,#+24,#+24
-        CMP      R9,#+5
-        BNE.N    ??USBH_MSC_BOT_Process_16
+        CMP      R0,#+5
+        BNE.W    ??USBH_MSC_BOT_Process_1
 //  234     {
 //  235       MSC_Handle->hbot.state  = BOT_ERROR_OUT;
         MOVS     R0,#+10
-        STRB     R0,[R10, #+80]
+        B.N      ??USBH_MSC_BOT_Process_7
 //  236 #if (USBH_USE_OS == 1)
 //  237     osMessagePut ( phost->os_event, USBH_URB_EVENT, 0);
 //  238 #endif       
 //  239     }
 //  240     break;
-??USBH_MSC_BOT_Process_16:
-        B.N      ??USBH_MSC_BOT_Process_12
 //  241     
 //  242   case BOT_DATA_IN:   
 //  243     /* Send first packet */        
@@ -554,107 +492,81 @@ USBH_MSC_BOT_Process:
 //  245                           MSC_Handle->hbot.pbuf, 
 //  246                           MSC_Handle->InEpSize , 
 //  247                           MSC_Handle->InPipe);
-??USBH_MSC_BOT_Process_2:
-        LDRB     R3,[R10, #+4]
-        LDRH     R2,[R10, #+10]
-        LDR      R1,[R10, #+140]
-        MOVS     R0,R4
+??USBH_MSC_BOT_Process_8:
+        LDRB     R3,[R6, #+0]
+        LDRH     R2,[R6, #+6]
+        LDR      R1,[R6, #+136]
+        MOV      R0,R5
           CFI FunCall USBH_BulkReceiveData
         BL       USBH_BulkReceiveData
 //  248     
 //  249     MSC_Handle->hbot.state  = BOT_DATA_IN_WAIT;
         MOVS     R0,#+4
-        STRB     R0,[R10, #+80]
+        B.N      ??USBH_MSC_BOT_Process_7
 //  250     
 //  251     break;   
-        B.N      ??USBH_MSC_BOT_Process_12
 //  252     
 //  253   case BOT_DATA_IN_WAIT:  
 //  254     
 //  255     URB_Status = USBH_LL_GetURBState(phost, MSC_Handle->InPipe); 
-??USBH_MSC_BOT_Process_5:
-        LDRB     R1,[R10, #+4]
-        MOVS     R0,R4
+??USBH_MSC_BOT_Process_9:
+        LDRB     R1,[R6, #+0]
+        MOV      R0,R5
           CFI FunCall USBH_LL_GetURBState
         BL       USBH_LL_GetURBState
-        MOV      R9,R0
 //  256     
 //  257     if(URB_Status == USBH_URB_DONE) 
-        UXTB     R9,R9            ;; ZeroExt  R9,R9,#+24,#+24
-        CMP      R9,#+1
-        BNE.N    ??USBH_MSC_BOT_Process_18
+        CMP      R0,#+1
+        BNE.N    ??USBH_MSC_BOT_Process_10
 //  258     {
 //  259       /* Adjust Data pointer and data length */
 //  260       if(MSC_Handle->hbot.cbw.field.DataTransferLength > MSC_Handle->InEpSize)
-        LDRH     R0,[R10, #+10]
-        LDR      R1,[R10, #+92]
-        CMP      R0,R1
-        BCS.N    ??USBH_MSC_BOT_Process_19
+        LDRH     R2,[R6, #+6]
+        LDR      R3,[R6, #+88]
+        CMP      R2,R3
+        BCS.N    ??USBH_MSC_BOT_Process_11
 //  261       {
 //  262           MSC_Handle->hbot.pbuf += MSC_Handle->InEpSize;
-        LDR      R0,[R10, #+140]
-        LDRH     R1,[R10, #+10]
-        ADDS     R0,R1,R0
-        STR      R0,[R10, #+140]
+        LDR      R1,[R6, #+136]
+        ADDS     R1,R2,R1
 //  263           MSC_Handle->hbot.cbw.field.DataTransferLength -= MSC_Handle->InEpSize;  
-        LDR      R0,[R10, #+92]
-        LDRH     R1,[R10, #+10]
-        SUBS     R0,R0,R1
-        STR      R0,[R10, #+92]
-        B.N      ??USBH_MSC_BOT_Process_20
+        SUBS     R0,R3,R2
+        STR      R1,[R6, #+136]
+        STR      R0,[R6, #+88]
 //  264       }
 //  265       else
 //  266       {
 //  267         MSC_Handle->hbot.cbw.field.DataTransferLength = 0;
-??USBH_MSC_BOT_Process_19:
-        MOVS     R0,#+0
-        STR      R0,[R10, #+92]
 //  268       }
 //  269         
 //  270       /* More Data To be Received */
 //  271       if(MSC_Handle->hbot.cbw.field.DataTransferLength > 0)
-??USBH_MSC_BOT_Process_20:
-        LDR      R0,[R10, #+92]
-        CMP      R0,#+0
-        BEQ.N    ??USBH_MSC_BOT_Process_21
+        BEQ.N    ??USBH_MSC_BOT_Process_6
 //  272       {
 //  273         /* Send next packet */        
 //  274         USBH_BulkReceiveData (phost,
 //  275                               MSC_Handle->hbot.pbuf, 
 //  276                               MSC_Handle->InEpSize , 
 //  277                               MSC_Handle->InPipe);
-        LDRB     R3,[R10, #+4]
-        LDRH     R2,[R10, #+10]
-        LDR      R1,[R10, #+140]
-        MOVS     R0,R4
+        LDRB     R3,[R6, #+0]
+        MOV      R0,R5
           CFI FunCall USBH_BulkReceiveData
         BL       USBH_BulkReceiveData
-        B.N      ??USBH_MSC_BOT_Process_22
 //  278         
 //  279       }
 //  280       else
 //  281       {
 //  282         /* If value was 0, and successful transfer, then change the state */
 //  283         MSC_Handle->hbot.state  = BOT_RECEIVE_CSW;
-??USBH_MSC_BOT_Process_21:
-        MOVS     R0,#+7
-        STRB     R0,[R10, #+80]
-        B.N      ??USBH_MSC_BOT_Process_22
 //  284 #if (USBH_USE_OS == 1)
 //  285         osMessagePut ( phost->os_event, USBH_URB_EVENT, 0);
 //  286 #endif 
 //  287       }
 //  288     }
 //  289     else if(URB_Status == USBH_URB_STALL)
-??USBH_MSC_BOT_Process_18:
-        UXTB     R9,R9            ;; ZeroExt  R9,R9,#+24,#+24
-        CMP      R9,#+5
-        BNE.N    ??USBH_MSC_BOT_Process_22
 //  290     {
 //  291       /* This is Data IN Stage STALL Condition */
 //  292       MSC_Handle->hbot.state  = BOT_ERROR_IN;
-        MOVS     R0,#+9
-        STRB     R0,[R10, #+80]
 //  293       
 //  294       /* Refer to USB Mass-Storage Class : BOT (www.usb.org) 
 //  295       6.7.2 Host expects to receive data from the device
@@ -668,8 +580,6 @@ USBH_MSC_BOT_Process:
 //  303 #endif       
 //  304     }     
 //  305     break;  
-??USBH_MSC_BOT_Process_22:
-        B.N      ??USBH_MSC_BOT_Process_12
 //  306     
 //  307   case BOT_DATA_OUT:
 //  308     
@@ -678,94 +588,40 @@ USBH_MSC_BOT_Process:
 //  311                        MSC_Handle->OutEpSize , 
 //  312                        MSC_Handle->OutPipe,
 //  313                        1);
-??USBH_MSC_BOT_Process_4:
-        MOVS     R0,#+1
-        STR      R0,[SP, #+0]
-        LDRB     R3,[R10, #+5]
-        LDRH     R2,[R10, #+8]
-        LDR      R1,[R10, #+140]
-        MOVS     R0,R4
-          CFI FunCall USBH_BulkSendData
-        BL       USBH_BulkSendData
 //  314     
 //  315     
 //  316     MSC_Handle->hbot.state  = BOT_DATA_OUT_WAIT;
-        MOVS     R0,#+6
-        STRB     R0,[R10, #+80]
 //  317     break;
-        B.N      ??USBH_MSC_BOT_Process_12
 //  318     
 //  319   case BOT_DATA_OUT_WAIT:
 //  320     URB_Status = USBH_LL_GetURBState(phost, MSC_Handle->OutPipe);     
-??USBH_MSC_BOT_Process_7:
-        LDRB     R1,[R10, #+5]
-        MOVS     R0,R4
-          CFI FunCall USBH_LL_GetURBState
-        BL       USBH_LL_GetURBState
-        MOV      R9,R0
 //  321     
 //  322     if(URB_Status == USBH_URB_DONE)
-        UXTB     R9,R9            ;; ZeroExt  R9,R9,#+24,#+24
-        CMP      R9,#+1
-        BNE.N    ??USBH_MSC_BOT_Process_23
 //  323     {
 //  324       /* Adjust Data pointer and data length */
 //  325       if(MSC_Handle->hbot.cbw.field.DataTransferLength > MSC_Handle->OutEpSize)
-        LDRH     R0,[R10, #+8]
-        LDR      R1,[R10, #+92]
-        CMP      R0,R1
-        BCS.N    ??USBH_MSC_BOT_Process_24
 //  326       {
 //  327           MSC_Handle->hbot.pbuf += MSC_Handle->OutEpSize;
-        LDR      R0,[R10, #+140]
-        LDRH     R1,[R10, #+8]
-        ADDS     R0,R1,R0
-        STR      R0,[R10, #+140]
 //  328           MSC_Handle->hbot.cbw.field.DataTransferLength -= MSC_Handle->OutEpSize; 
-        LDR      R0,[R10, #+92]
-        LDRH     R1,[R10, #+8]
-        SUBS     R0,R0,R1
-        STR      R0,[R10, #+92]
-        B.N      ??USBH_MSC_BOT_Process_25
 //  329       }
 //  330       else
 //  331       {
 //  332         MSC_Handle->hbot.cbw.field.DataTransferLength = 0;
-??USBH_MSC_BOT_Process_24:
-        MOVS     R0,#+0
-        STR      R0,[R10, #+92]
 //  333       } 
 //  334       
 //  335       /* More Data To be Sent */
 //  336       if(MSC_Handle->hbot.cbw.field.DataTransferLength > 0)
-??USBH_MSC_BOT_Process_25:
-        LDR      R0,[R10, #+92]
-        CMP      R0,#+0
-        BEQ.N    ??USBH_MSC_BOT_Process_26
 //  337       {
 //  338         USBH_BulkSendData (phost,
 //  339                            MSC_Handle->hbot.pbuf, 
 //  340                            MSC_Handle->OutEpSize , 
 //  341                            MSC_Handle->OutPipe,
 //  342                            1);
-        MOVS     R0,#+1
-        STR      R0,[SP, #+0]
-        LDRB     R3,[R10, #+5]
-        LDRH     R2,[R10, #+8]
-        LDR      R1,[R10, #+140]
-        MOVS     R0,R4
-          CFI FunCall USBH_BulkSendData
-        BL       USBH_BulkSendData
-        B.N      ??USBH_MSC_BOT_Process_27
 //  343       }
 //  344       else
 //  345       {
 //  346         /* If value was 0, and successful transfer, then change the state */
 //  347         MSC_Handle->hbot.state  = BOT_RECEIVE_CSW;
-??USBH_MSC_BOT_Process_26:
-        MOVS     R0,#+7
-        STRB     R0,[R10, #+80]
-        B.N      ??USBH_MSC_BOT_Process_27
 //  348       }  
 //  349 #if (USBH_USE_OS == 1)
 //  350     osMessagePut ( phost->os_event, USBH_URB_EVENT, 0);
@@ -773,30 +629,17 @@ USBH_MSC_BOT_Process:
 //  352     }
 //  353     
 //  354     else if(URB_Status == USBH_URB_NOTREADY)
-??USBH_MSC_BOT_Process_23:
-        UXTB     R9,R9            ;; ZeroExt  R9,R9,#+24,#+24
-        CMP      R9,#+2
-        BNE.N    ??USBH_MSC_BOT_Process_28
 //  355     {
 //  356       /* Resend same data */      
 //  357       MSC_Handle->hbot.state  = BOT_DATA_OUT;
-        MOVS     R0,#+5
-        STRB     R0,[R10, #+80]
-        B.N      ??USBH_MSC_BOT_Process_27
 //  358 #if (USBH_USE_OS == 1)
 //  359     osMessagePut ( phost->os_event, USBH_URB_EVENT, 0);
 //  360 #endif       
 //  361     }
 //  362     
 //  363     else if(URB_Status == USBH_URB_STALL)
-??USBH_MSC_BOT_Process_28:
-        UXTB     R9,R9            ;; ZeroExt  R9,R9,#+24,#+24
-        CMP      R9,#+5
-        BNE.N    ??USBH_MSC_BOT_Process_27
 //  364     {
 //  365       MSC_Handle->hbot.state  = BOT_ERROR_OUT;
-        MOVS     R0,#+10
-        STRB     R0,[R10, #+80]
 //  366       
 //  367       /* Refer to USB Mass-Storage Class : BOT (www.usb.org) 
 //  368       6.7.3 Ho - Host expects to send data to the device
@@ -809,8 +652,6 @@ USBH_MSC_BOT_Process:
 //  375 #endif       
 //  376     }
 //  377     break;
-??USBH_MSC_BOT_Process_27:
-        B.N      ??USBH_MSC_BOT_Process_12
 //  378     
 //  379   case BOT_RECEIVE_CSW:
 //  380     
@@ -818,460 +659,266 @@ USBH_MSC_BOT_Process:
 //  382                           MSC_Handle->hbot.csw.data, 
 //  383                           BOT_CSW_LENGTH , 
 //  384                           MSC_Handle->InPipe);
-??USBH_MSC_BOT_Process_6:
-        LDRB     R3,[R10, #+4]
-        MOVS     R2,#+13
-        ADDS     R1,R10,#+120
-        MOVS     R0,R4
-          CFI FunCall USBH_BulkReceiveData
-        BL       USBH_BulkReceiveData
 //  385     
 //  386     MSC_Handle->hbot.state  = BOT_RECEIVE_CSW_WAIT;
-        MOVS     R0,#+8
-        STRB     R0,[R10, #+80]
 //  387     break;
-        B.N      ??USBH_MSC_BOT_Process_12
 //  388     
 //  389   case BOT_RECEIVE_CSW_WAIT:
 //  390     
 //  391     URB_Status = USBH_LL_GetURBState(phost, MSC_Handle->InPipe); 
-??USBH_MSC_BOT_Process_9:
-        LDRB     R1,[R10, #+4]
-        MOVS     R0,R4
-          CFI FunCall USBH_LL_GetURBState
-        BL       USBH_LL_GetURBState
-        MOV      R9,R0
 //  392     
 //  393     /* Decode CSW */
 //  394     if(URB_Status == USBH_URB_DONE)
-        UXTB     R9,R9            ;; ZeroExt  R9,R9,#+24,#+24
-        CMP      R9,#+1
-        BNE.N    ??USBH_MSC_BOT_Process_29
 //  395     {
 //  396       MSC_Handle->hbot.state = BOT_SEND_CBW;    
-        MOVS     R0,#+1
-        STRB     R0,[R10, #+80]
 //  397       MSC_Handle->hbot.cmd_state = BOT_CMD_SEND;        
-        MOVS     R0,#+1
-        STRB     R0,[R10, #+82]
 //  398       CSW_Status = USBH_MSC_DecodeCSW(phost);
-        MOVS     R0,R4
-          CFI FunCall USBH_MSC_DecodeCSW
-        BL       USBH_MSC_DecodeCSW
-        MOV      R8,R0
 //  399       
 //  400       if(CSW_Status == BOT_CSW_CMD_PASSED)
-        UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
-        CMP      R8,#+0
-        BNE.N    ??USBH_MSC_BOT_Process_30
 //  401       {
 //  402         status = USBH_OK;
-        MOVS     R0,#+0
-        MOVS     R6,R0
-        B.N      ??USBH_MSC_BOT_Process_31
 //  403       }
 //  404       else
 //  405       {
 //  406         status = USBH_FAIL;
-??USBH_MSC_BOT_Process_30:
-        MOVS     R0,#+2
-        MOVS     R6,R0
-        B.N      ??USBH_MSC_BOT_Process_31
 //  407       }
 //  408 #if (USBH_USE_OS == 1)
 //  409       osMessagePut ( phost->os_event, USBH_URB_EVENT, 0);
 //  410 #endif       
 //  411     }
 //  412     else if(URB_Status == USBH_URB_STALL)     
-??USBH_MSC_BOT_Process_29:
-        UXTB     R9,R9            ;; ZeroExt  R9,R9,#+24,#+24
-        CMP      R9,#+5
-        BNE.N    ??USBH_MSC_BOT_Process_31
 //  413     {
 //  414       MSC_Handle->hbot.state  = BOT_ERROR_IN;
-        MOVS     R0,#+9
-        STRB     R0,[R10, #+80]
 //  415 #if (USBH_USE_OS == 1)
 //  416       osMessagePut ( phost->os_event, USBH_URB_EVENT, 0);
 //  417 #endif       
 //  418     }
 //  419     break;
-??USBH_MSC_BOT_Process_31:
-        B.N      ??USBH_MSC_BOT_Process_12
 //  420     
 //  421   case BOT_ERROR_IN: 
 //  422     error = USBH_MSC_BOT_Abort(phost, lun, BOT_DIR_IN);
-??USBH_MSC_BOT_Process_8:
-        MOVS     R2,#+0
-        MOVS     R1,R5
-        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-        MOVS     R0,R4
-          CFI FunCall USBH_MSC_BOT_Abort
-        BL       USBH_MSC_BOT_Abort
-        MOVS     R7,R0
 //  423     
 //  424     if (error == USBH_OK)
-        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
-        CMP      R7,#+0
-        BNE.N    ??USBH_MSC_BOT_Process_32
 //  425     {
 //  426       MSC_Handle->hbot.state = BOT_RECEIVE_CSW;
-        MOVS     R0,#+7
-        STRB     R0,[R10, #+80]
-        B.N      ??USBH_MSC_BOT_Process_33
 //  427     }
 //  428     else if (error == USBH_UNRECOVERED_ERROR)
-??USBH_MSC_BOT_Process_32:
-        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
-        CMP      R7,#+4
-        BNE.N    ??USBH_MSC_BOT_Process_33
 //  429     {
 //  430       /* This means that there is a STALL Error limit, Do Reset Recovery */
 //  431       MSC_Handle->hbot.state = BOT_UNRECOVERED_ERROR;
-        MOVS     R0,#+11
-        STRB     R0,[R10, #+80]
 //  432     }
 //  433     break;
-??USBH_MSC_BOT_Process_33:
-        B.N      ??USBH_MSC_BOT_Process_12
 //  434     
 //  435   case BOT_ERROR_OUT: 
 //  436     error = USBH_MSC_BOT_Abort(phost, lun, BOT_DIR_OUT);
-??USBH_MSC_BOT_Process_11:
-        MOVS     R2,#+1
-        MOVS     R1,R5
-        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-        MOVS     R0,R4
-          CFI FunCall USBH_MSC_BOT_Abort
-        BL       USBH_MSC_BOT_Abort
-        MOVS     R7,R0
 //  437     
 //  438     if ( error == USBH_OK)
-        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
-        CMP      R7,#+0
-        BNE.N    ??USBH_MSC_BOT_Process_34
 //  439     { 
 //  440       
 //  441       toggle = USBH_LL_GetToggle(phost, MSC_Handle->OutPipe); 
-        LDRB     R1,[R10, #+5]
-        MOVS     R0,R4
-          CFI FunCall USBH_LL_GetToggle
-        BL       USBH_LL_GetToggle
-        MOV      R11,R0
 //  442       USBH_LL_SetToggle(phost, MSC_Handle->OutPipe, 1- toggle);   
-        RSBS     R2,R11,#+1
-        UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
-        LDRB     R1,[R10, #+5]
-        MOVS     R0,R4
-          CFI FunCall USBH_LL_SetToggle
-        BL       USBH_LL_SetToggle
 //  443       USBH_LL_SetToggle(phost, MSC_Handle->InPipe, 0);  
-        MOVS     R2,#+0
-        LDRB     R1,[R10, #+4]
-        MOVS     R0,R4
-          CFI FunCall USBH_LL_SetToggle
-        BL       USBH_LL_SetToggle
 //  444       MSC_Handle->hbot.state = BOT_ERROR_IN;        
-        MOVS     R0,#+9
-        STRB     R0,[R10, #+80]
-        B.N      ??USBH_MSC_BOT_Process_35
 //  445     }
 //  446     else if (error == USBH_UNRECOVERED_ERROR)
-??USBH_MSC_BOT_Process_34:
-        UXTB     R7,R7            ;; ZeroExt  R7,R7,#+24,#+24
-        CMP      R7,#+4
-        BNE.N    ??USBH_MSC_BOT_Process_35
 //  447     {
 //  448       MSC_Handle->hbot.state = BOT_UNRECOVERED_ERROR;
-        MOVS     R0,#+11
-        STRB     R0,[R10, #+80]
 //  449     }
 //  450     break;
-??USBH_MSC_BOT_Process_35:
-        B.N      ??USBH_MSC_BOT_Process_12
 //  451     
 //  452     
 //  453   case BOT_UNRECOVERED_ERROR: 
 //  454     status = USBH_MSC_BOT_REQ_Reset(phost);
-??USBH_MSC_BOT_Process_10:
-        MOVS     R0,R4
-          CFI FunCall USBH_MSC_BOT_REQ_Reset
-        BL       USBH_MSC_BOT_REQ_Reset
-        MOVS     R6,R0
 //  455     if ( status == USBH_OK)
-        UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
-        CMP      R6,#+0
-        BNE.N    ??USBH_MSC_BOT_Process_36
 //  456     {
 //  457       MSC_Handle->hbot.state = BOT_SEND_CBW; 
-        MOVS     R0,#+1
-        STRB     R0,[R10, #+80]
 //  458     }
 //  459     break;
-??USBH_MSC_BOT_Process_36:
-        B.N      ??USBH_MSC_BOT_Process_12
 //  460     
 //  461   default:      
 //  462     break;
 //  463   }
 //  464   return status;
-??USBH_MSC_BOT_Process_1:
-??USBH_MSC_BOT_Process_12:
-        MOVS     R0,R6
-        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-        POP      {R1,R4-R11,PC}   ;; return
-//  465 }
-          CFI EndBlock cfiBlock3
-//  466 
-//  467 /**
-//  468   * @brief  USBH_MSC_BOT_Abort 
-//  469   *         The function handle the BOT Abort process.
-//  470   * @param  phost: Host handle
-//  471   * @param  lun: Logical Unit Number
-//  472   * @param  dir: direction (0: out / 1 : in)
-//  473   * @retval USBH Status
-//  474   */
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock4 Using cfiCommon0
-          CFI Function USBH_MSC_BOT_Abort
-        THUMB
-//  475 static USBH_StatusTypeDef USBH_MSC_BOT_Abort(USBH_HandleTypeDef *phost, uint8_t lun, uint8_t dir)
-//  476 {
-USBH_MSC_BOT_Abort:
-        PUSH     {R4-R8,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R8 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -20)
-          CFI R4 Frame(CFA, -24)
-          CFI CFA R13+24
-        MOVS     R4,R0
-        MOVS     R5,R1
-        MOVS     R6,R2
-//  477   USBH_StatusTypeDef status = USBH_FAIL;
-        MOVS     R7,#+2
-//  478   MSC_HandleTypeDef *MSC_Handle =  (MSC_HandleTypeDef *) phost->pActiveClass->pData;
-        LDR      R0,[R4, #+612]
-        LDR      R8,[R0, #+28]
-//  479   
-//  480   switch (dir)
-        UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
-        CMP      R6,#+0
-        BEQ.N    ??USBH_MSC_BOT_Abort_0
-        CMP      R6,#+1
-        BEQ.N    ??USBH_MSC_BOT_Abort_1
-        B.N      ??USBH_MSC_BOT_Abort_2
-//  481   {
-//  482   case BOT_DIR_IN :
-//  483     /* send ClrFeture on Bulk IN endpoint */
-//  484     status = USBH_ClrFeature(phost, MSC_Handle->InEp);
-??USBH_MSC_BOT_Abort_0:
-        LDRB     R1,[R8, #+7]
-        MOVS     R0,R4
-          CFI FunCall USBH_ClrFeature
-        BL       USBH_ClrFeature
-        MOVS     R7,R0
-//  485     
-//  486     break;
-        B.N      ??USBH_MSC_BOT_Abort_3
-//  487     
-//  488   case BOT_DIR_OUT :
-//  489     /*send ClrFeature on Bulk OUT endpoint */
-//  490     status = USBH_ClrFeature(phost, MSC_Handle->OutEp);
-??USBH_MSC_BOT_Abort_1:
-        LDRB     R1,[R8, #+6]
-        MOVS     R0,R4
-          CFI FunCall USBH_ClrFeature
-        BL       USBH_ClrFeature
-        MOVS     R7,R0
-//  491     break;
-        B.N      ??USBH_MSC_BOT_Abort_3
-//  492     
-//  493   default:
-//  494     break;
-//  495   }
-//  496   return status;
-??USBH_MSC_BOT_Abort_2:
-??USBH_MSC_BOT_Abort_3:
-        MOVS     R0,R7
-        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-        POP      {R4-R8,PC}       ;; return
-//  497 }
-          CFI EndBlock cfiBlock4
-//  498 
-//  499 /**
-//  500   * @brief  USBH_MSC_BOT_DecodeCSW
-//  501   *         This function decodes the CSW received by the device and updates the
-//  502   *         same to upper layer.
-//  503   * @param  phost: Host handle
-//  504   * @retval USBH Status
-//  505   * @notes
-//  506   *     Refer to USB Mass-Storage Class : BOT (www.usb.org)
-//  507   *    6.3.1 Valid CSW Conditions :
-//  508   *     The host shall consider the CSW valid when:
-//  509   *     1. dCSWSignature is equal to 53425355h
-//  510   *     2. the CSW is 13 (Dh) bytes in length,
-//  511   *     3. dCSWTag matches the dCBWTag from the corresponding CBW.
-//  512   */
-//  513 
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock5 Using cfiCommon0
-          CFI Function USBH_MSC_DecodeCSW
-        THUMB
-//  514 static BOT_CSWStatusTypeDef USBH_MSC_DecodeCSW(USBH_HandleTypeDef *phost)
-//  515 {
-USBH_MSC_DecodeCSW:
-        PUSH     {R4-R6,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
+        MOV      R0,R4
+        ADD      SP,SP,#+8
           CFI CFA R13+16
-        MOVS     R4,R0
-//  516   MSC_HandleTypeDef *MSC_Handle =  (MSC_HandleTypeDef *) phost->pActiveClass->pData;
-        LDR      R0,[R4, #+612]
-        LDR      R5,[R0, #+28]
-//  517   BOT_CSWStatusTypeDef status = BOT_CSW_CMD_FAILED;
-        MOVS     R6,#+1
-//  518   
-//  519     /*Checking if the transfer length is different than 13*/    
-//  520     if(USBH_LL_GetLastXferSize(phost, MSC_Handle->InPipe) != BOT_CSW_LENGTH)
-        LDRB     R1,[R5, #+4]
-        MOVS     R0,R4
+        POP      {R4-R6,PC}
+          CFI CFA R13+24
+??USBH_MSC_BOT_Process_10:
+        CMP      R0,#+5
+        BNE.W    ??USBH_MSC_BOT_Process_1
+        MOVS     R0,#+9
+        B.N      ??USBH_MSC_BOT_Process_7
+??USBH_MSC_BOT_Process_12:
+        STR      R4,[SP, #+0]
+        LDRB     R3,[R6, #+1]
+        LDRH     R2,[R6, #+4]
+        LDR      R1,[R6, #+136]
+        MOV      R0,R5
+          CFI FunCall USBH_BulkSendData
+        BL       USBH_BulkSendData
+        MOVS     R0,#+6
+        B.N      ??USBH_MSC_BOT_Process_7
+??USBH_MSC_BOT_Process_13:
+        LDRB     R1,[R6, #+1]
+        MOV      R0,R5
+          CFI FunCall USBH_LL_GetURBState
+        BL       USBH_LL_GetURBState
+        CMP      R0,#+1
+        BNE.N    ??USBH_MSC_BOT_Process_14
+        LDRH     R2,[R6, #+4]
+        LDR      R3,[R6, #+88]
+        CMP      R2,R3
+        BCS.N    ??USBH_MSC_BOT_Process_11
+        LDR      R1,[R6, #+136]
+        ADDS     R1,R2,R1
+        SUBS     R0,R3,R2
+        STR      R1,[R6, #+136]
+        STR      R0,[R6, #+88]
+        BEQ.N    ??USBH_MSC_BOT_Process_6
+        STR      R4,[SP, #+0]
+        LDRB     R3,[R6, #+1]
+??USBH_MSC_BOT_Process_3:
+        MOV      R0,R5
+          CFI FunCall USBH_BulkSendData
+        BL       USBH_BulkSendData
+        MOV      R0,R4
+        ADD      SP,SP,#+8
+          CFI CFA R13+16
+        POP      {R4-R6,PC}
+          CFI CFA R13+24
+??USBH_MSC_BOT_Process_11:
+        MOVS     R0,#+0
+        STR      R0,[R6, #+88]
+        MOVS     R0,#+7
+        B.N      ??USBH_MSC_BOT_Process_7
+??USBH_MSC_BOT_Process_14:
+        CMP      R0,#+2
+        IT       EQ 
+        MOVEQ    R0,#+5
+        BEQ.N    ??USBH_MSC_BOT_Process_7
+        CMP      R0,#+5
+        BNE.N    ??USBH_MSC_BOT_Process_1
+        MOVS     R0,#+10
+        B.N      ??USBH_MSC_BOT_Process_7
+??USBH_MSC_BOT_Process_15:
+        LDRB     R3,[R6, #+0]
+        ADD      R1,R0,#+120
+        MOVS     R2,#+13
+        MOV      R0,R5
+          CFI FunCall USBH_BulkReceiveData
+        BL       USBH_BulkReceiveData
+        MOVS     R0,#+8
+        B.N      ??USBH_MSC_BOT_Process_7
+??USBH_MSC_BOT_Process_16:
+        LDRB     R1,[R6, #+0]
+        MOV      R0,R5
+          CFI FunCall USBH_LL_GetURBState
+        BL       USBH_LL_GetURBState
+        CMP      R0,#+1
+        BNE.N    ??USBH_MSC_BOT_Process_17
+        STRB     R0,[R6, #+76]
+        STRB     R0,[R6, #+78]
+        LDR      R0,[R5, #+612]
+        LDR      R4,[R0, #+28]
+        MOV      R0,R5
+        LDRB     R1,[R4, #+4]
           CFI FunCall USBH_LL_GetLastXferSize
         BL       USBH_LL_GetLastXferSize
         CMP      R0,#+13
-        BEQ.N    ??USBH_MSC_DecodeCSW_0
-//  521     {
-//  522       /*(4) Hi > Dn (Host expects to receive data from the device,
-//  523       Device intends to transfer no data)
-//  524       (5) Hi > Di (Host expects to receive data from the device,
-//  525       Device intends to send data to the host)
-//  526       (9) Ho > Dn (Host expects to send data to the device,
-//  527       Device intends to transfer no data)
-//  528       (11) Ho > Do  (Host expects to send data to the device,
-//  529       Device intends to receive data from the host)*/
-//  530       
-//  531       
-//  532       status = BOT_CSW_PHASE_ERROR;
-        MOVS     R0,#+2
-        MOVS     R6,R0
-        B.N      ??USBH_MSC_DecodeCSW_1
-//  533     }
-//  534     else
-//  535     { /* CSW length is Correct */
-//  536       
-//  537       /* Check validity of the CSW Signature and CSWStatus */
-//  538       if(MSC_Handle->hbot.csw.field.Signature == BOT_CSW_SIGNATURE)
-??USBH_MSC_DecodeCSW_0:
-        LDR      R0,[R5, #+120]
-        LDR.N    R1,??DataTable1_2  ;; 0x53425355
+        ITTT     EQ 
+        LDREQ    R0,[R4, #+120]
+        LDREQ.N  R1,??DataTable1_2  ;; 0x53425355
+        CMPEQ    R0,R1
+        BNE.N    ??USBH_MSC_BOT_Process_18
+        LDR      R0,[R4, #+124]
+        LDR      R1,[R4, #+88]
         CMP      R0,R1
-        BNE.N    ??USBH_MSC_DecodeCSW_2
-//  539       {/* Check Condition 1. dCSWSignature is equal to 53425355h */
-//  540         
-//  541         if(MSC_Handle->hbot.csw.field.Tag == MSC_Handle->hbot.cbw.field.Tag)
-        LDR      R0,[R5, #+124]
-        LDR      R1,[R5, #+88]
-        CMP      R0,R1
-        BNE.N    ??USBH_MSC_DecodeCSW_1
-//  542         {
-//  543           /* Check Condition 3. dCSWTag matches the dCBWTag from the 
-//  544           corresponding CBW */
-//  545 
-//  546           if(MSC_Handle->hbot.csw.field.Status == 0) 
-        LDRB     R0,[R5, #+132]
-        CMP      R0,#+0
-        BNE.N    ??USBH_MSC_DecodeCSW_3
-//  547           {
-//  548             /* Refer to USB Mass-Storage Class : BOT (www.usb.org) 
-//  549             
-//  550             Hn Host expects no data transfers
-//  551             Hi Host expects to receive data from the device
-//  552             Ho Host expects to send data to the device
-//  553             
-//  554             Dn Device intends to transfer no data
-//  555             Di Device intends to send data to the host
-//  556             Do Device intends to receive data from the host
-//  557             
-//  558             Section 6.7 
-//  559             (1) Hn = Dn (Host expects no data transfers,
-//  560             Device intends to transfer no data)
-//  561             (6) Hi = Di (Host expects to receive data from the device,
-//  562             Device intends to send data to the host)
-//  563             (12) Ho = Do (Host expects to send data to the device, 
-//  564             Device intends to receive data from the host)
-//  565             
-//  566             */
-//  567             
-//  568             status = BOT_CSW_CMD_PASSED;
+        ITTT     EQ 
+        LDRBEQ   R0,[R4, #+132]
+        CMPEQ    R0,#+0
+        MOVEQ    R4,#+0
+        BEQ.N    ??USBH_MSC_BOT_Process_1
+??USBH_MSC_BOT_Process_18:
+        MOVS     R4,#+2
+        MOV      R0,R4
+        ADD      SP,SP,#+8
+          CFI CFA R13+16
+        POP      {R4-R6,PC}
+          CFI CFA R13+24
+??USBH_MSC_BOT_Process_17:
+        CMP      R0,#+5
+        BNE.N    ??USBH_MSC_BOT_Process_1
+        MOVS     R0,#+9
+        B.N      ??USBH_MSC_BOT_Process_7
+??USBH_MSC_BOT_Process_19:
+        LDRB     R1,[R0, #+7]
+        MOV      R0,R5
+          CFI FunCall USBH_ClrFeature
+        BL       USBH_ClrFeature
+        CBNZ.N   R0,??USBH_MSC_BOT_Process_20
+??USBH_MSC_BOT_Process_6:
+        MOVS     R0,#+7
+        B.N      ??USBH_MSC_BOT_Process_7
+??USBH_MSC_BOT_Process_20:
+        CMP      R0,#+4
+        BNE.N    ??USBH_MSC_BOT_Process_1
+        MOVS     R0,#+11
+        B.N      ??USBH_MSC_BOT_Process_7
+??USBH_MSC_BOT_Process_21:
+        LDRB     R1,[R0, #+6]
+        MOV      R0,R5
+          CFI FunCall USBH_ClrFeature
+        BL       USBH_ClrFeature
+        CBNZ.N   R0,??USBH_MSC_BOT_Process_22
+        LDRB     R1,[R6, #+1]
+        MOV      R0,R5
+          CFI FunCall USBH_LL_GetToggle
+        BL       USBH_LL_GetToggle
+        LDRB     R1,[R6, #+1]
+        RSB      R2,R0,#+1
+        UXTB     R2,R2
+        MOV      R0,R5
+          CFI FunCall USBH_LL_SetToggle
+        BL       USBH_LL_SetToggle
+        LDRB     R1,[R6, #+0]
+        MOVS     R2,#+0
+        MOV      R0,R5
+          CFI FunCall USBH_LL_SetToggle
+        BL       USBH_LL_SetToggle
+        MOVS     R0,#+9
+        B.N      ??USBH_MSC_BOT_Process_7
+??USBH_MSC_BOT_Process_22:
+        CMP      R0,#+4
+        BNE.N    ??USBH_MSC_BOT_Process_1
+        MOVS     R0,#+11
+        B.N      ??USBH_MSC_BOT_Process_7
+??USBH_MSC_BOT_Process_23:
+        MOVS     R0,#+33
+        MOVS     R2,#+0
+        STRB     R0,[R5, #+16]
+        MOVS     R0,#+255
+        STRB     R0,[R5, #+17]
         MOVS     R0,#+0
-        MOVS     R6,R0
-        B.N      ??USBH_MSC_DecodeCSW_1
-//  569           }
-//  570           else if(MSC_Handle->hbot.csw.field.Status == 1)
-??USBH_MSC_DecodeCSW_3:
-        LDRB     R0,[R5, #+132]
-        CMP      R0,#+1
-        BNE.N    ??USBH_MSC_DecodeCSW_4
-//  571           {
-//  572             status = BOT_CSW_CMD_FAILED;
+        STRH     R0,[R5, #+18]
+        MOVS     R1,#+0
+        STRH     R0,[R5, #+20]
+        STRH     R0,[R5, #+22]
+        MOV      R0,R5
+          CFI FunCall USBH_CtlReq
+        BL       USBH_CtlReq
+        MOVS     R4,R0
+        BNE.N    ??USBH_MSC_BOT_Process_1
         MOVS     R0,#+1
-        MOVS     R6,R0
-        B.N      ??USBH_MSC_DecodeCSW_1
-//  573           }
-//  574           
-//  575           else if(MSC_Handle->hbot.csw.field.Status == 2)
-??USBH_MSC_DecodeCSW_4:
-        LDRB     R0,[R5, #+132]
-        CMP      R0,#+2
-        BNE.N    ??USBH_MSC_DecodeCSW_1
-//  576           { 
-//  577             /* Refer to USB Mass-Storage Class : BOT (www.usb.org) 
-//  578             Section 6.7 
-//  579             (2) Hn < Di ( Host expects no data transfers, 
-//  580             Device intends to send data to the host)
-//  581             (3) Hn < Do ( Host expects no data transfers, 
-//  582             Device intends to receive data from the host)
-//  583             (7) Hi < Di ( Host expects to receive data from the device, 
-//  584             Device intends to send data to the host)
-//  585             (8) Hi <> Do ( Host expects to receive data from the device, 
-//  586             Device intends to receive data from the host)
-//  587             (10) Ho <> Di (Host expects to send data to the device,
-//  588             Di Device intends to send data to the host)
-//  589             (13) Ho < Do (Host expects to send data to the device, 
-//  590             Device intends to receive data from the host)
-//  591             */
-//  592             
-//  593             status = BOT_CSW_PHASE_ERROR;
-        MOVS     R0,#+2
-        MOVS     R6,R0
-        B.N      ??USBH_MSC_DecodeCSW_1
-//  594           }
-//  595         } /* CSW Tag Matching is Checked  */
-//  596       } /* CSW Signature Correct Checking */
-//  597       else
-//  598       {
-//  599         /* If the CSW Signature is not valid, We sall return the Phase Error to
-//  600         Upper Layers for Reset Recovery */
-//  601         
-//  602         status = BOT_CSW_PHASE_ERROR;
-??USBH_MSC_DecodeCSW_2:
-        MOVS     R0,#+2
-        MOVS     R6,R0
-//  603       }
-//  604     } /* CSW Length Check*/
-//  605     
-//  606   return status;
-??USBH_MSC_DecodeCSW_1:
-        MOVS     R0,R6
-        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+??USBH_MSC_BOT_Process_7:
+        STRB     R0,[R6, #+76]
+??USBH_MSC_BOT_Process_1:
+        MOV      R0,R4
+        ADD      SP,SP,#+8
+          CFI CFA R13+16
         POP      {R4-R6,PC}       ;; return
-//  607 }
-          CFI EndBlock cfiBlock5
+//  465 }
+          CFI EndBlock cfiBlock3
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -1303,6 +950,148 @@ USBH_MSC_DecodeCSW:
         SECTION_TYPE SHT_PROGBITS, 0
 
         END
+//  466 
+//  467 /**
+//  468   * @brief  USBH_MSC_BOT_Abort 
+//  469   *         The function handle the BOT Abort process.
+//  470   * @param  phost: Host handle
+//  471   * @param  lun: Logical Unit Number
+//  472   * @param  dir: direction (0: out / 1 : in)
+//  473   * @retval USBH Status
+//  474   */
+//  475 static USBH_StatusTypeDef USBH_MSC_BOT_Abort(USBH_HandleTypeDef *phost, uint8_t lun, uint8_t dir)
+//  476 {
+//  477   USBH_StatusTypeDef status = USBH_FAIL;
+//  478   MSC_HandleTypeDef *MSC_Handle =  (MSC_HandleTypeDef *) phost->pActiveClass->pData;
+//  479   
+//  480   switch (dir)
+//  481   {
+//  482   case BOT_DIR_IN :
+//  483     /* send ClrFeture on Bulk IN endpoint */
+//  484     status = USBH_ClrFeature(phost, MSC_Handle->InEp);
+//  485     
+//  486     break;
+//  487     
+//  488   case BOT_DIR_OUT :
+//  489     /*send ClrFeature on Bulk OUT endpoint */
+//  490     status = USBH_ClrFeature(phost, MSC_Handle->OutEp);
+//  491     break;
+//  492     
+//  493   default:
+//  494     break;
+//  495   }
+//  496   return status;
+//  497 }
+//  498 
+//  499 /**
+//  500   * @brief  USBH_MSC_BOT_DecodeCSW
+//  501   *         This function decodes the CSW received by the device and updates the
+//  502   *         same to upper layer.
+//  503   * @param  phost: Host handle
+//  504   * @retval USBH Status
+//  505   * @notes
+//  506   *     Refer to USB Mass-Storage Class : BOT (www.usb.org)
+//  507   *    6.3.1 Valid CSW Conditions :
+//  508   *     The host shall consider the CSW valid when:
+//  509   *     1. dCSWSignature is equal to 53425355h
+//  510   *     2. the CSW is 13 (Dh) bytes in length,
+//  511   *     3. dCSWTag matches the dCBWTag from the corresponding CBW.
+//  512   */
+//  513 
+//  514 static BOT_CSWStatusTypeDef USBH_MSC_DecodeCSW(USBH_HandleTypeDef *phost)
+//  515 {
+//  516   MSC_HandleTypeDef *MSC_Handle =  (MSC_HandleTypeDef *) phost->pActiveClass->pData;
+//  517   BOT_CSWStatusTypeDef status = BOT_CSW_CMD_FAILED;
+//  518   
+//  519     /*Checking if the transfer length is different than 13*/    
+//  520     if(USBH_LL_GetLastXferSize(phost, MSC_Handle->InPipe) != BOT_CSW_LENGTH)
+//  521     {
+//  522       /*(4) Hi > Dn (Host expects to receive data from the device,
+//  523       Device intends to transfer no data)
+//  524       (5) Hi > Di (Host expects to receive data from the device,
+//  525       Device intends to send data to the host)
+//  526       (9) Ho > Dn (Host expects to send data to the device,
+//  527       Device intends to transfer no data)
+//  528       (11) Ho > Do  (Host expects to send data to the device,
+//  529       Device intends to receive data from the host)*/
+//  530       
+//  531       
+//  532       status = BOT_CSW_PHASE_ERROR;
+//  533     }
+//  534     else
+//  535     { /* CSW length is Correct */
+//  536       
+//  537       /* Check validity of the CSW Signature and CSWStatus */
+//  538       if(MSC_Handle->hbot.csw.field.Signature == BOT_CSW_SIGNATURE)
+//  539       {/* Check Condition 1. dCSWSignature is equal to 53425355h */
+//  540         
+//  541         if(MSC_Handle->hbot.csw.field.Tag == MSC_Handle->hbot.cbw.field.Tag)
+//  542         {
+//  543           /* Check Condition 3. dCSWTag matches the dCBWTag from the 
+//  544           corresponding CBW */
+//  545 
+//  546           if(MSC_Handle->hbot.csw.field.Status == 0) 
+//  547           {
+//  548             /* Refer to USB Mass-Storage Class : BOT (www.usb.org) 
+//  549             
+//  550             Hn Host expects no data transfers
+//  551             Hi Host expects to receive data from the device
+//  552             Ho Host expects to send data to the device
+//  553             
+//  554             Dn Device intends to transfer no data
+//  555             Di Device intends to send data to the host
+//  556             Do Device intends to receive data from the host
+//  557             
+//  558             Section 6.7 
+//  559             (1) Hn = Dn (Host expects no data transfers,
+//  560             Device intends to transfer no data)
+//  561             (6) Hi = Di (Host expects to receive data from the device,
+//  562             Device intends to send data to the host)
+//  563             (12) Ho = Do (Host expects to send data to the device, 
+//  564             Device intends to receive data from the host)
+//  565             
+//  566             */
+//  567             
+//  568             status = BOT_CSW_CMD_PASSED;
+//  569           }
+//  570           else if(MSC_Handle->hbot.csw.field.Status == 1)
+//  571           {
+//  572             status = BOT_CSW_CMD_FAILED;
+//  573           }
+//  574           
+//  575           else if(MSC_Handle->hbot.csw.field.Status == 2)
+//  576           { 
+//  577             /* Refer to USB Mass-Storage Class : BOT (www.usb.org) 
+//  578             Section 6.7 
+//  579             (2) Hn < Di ( Host expects no data transfers, 
+//  580             Device intends to send data to the host)
+//  581             (3) Hn < Do ( Host expects no data transfers, 
+//  582             Device intends to receive data from the host)
+//  583             (7) Hi < Di ( Host expects to receive data from the device, 
+//  584             Device intends to send data to the host)
+//  585             (8) Hi <> Do ( Host expects to receive data from the device, 
+//  586             Device intends to receive data from the host)
+//  587             (10) Ho <> Di (Host expects to send data to the device,
+//  588             Di Device intends to send data to the host)
+//  589             (13) Ho < Do (Host expects to send data to the device, 
+//  590             Device intends to receive data from the host)
+//  591             */
+//  592             
+//  593             status = BOT_CSW_PHASE_ERROR;
+//  594           }
+//  595         } /* CSW Tag Matching is Checked  */
+//  596       } /* CSW Signature Correct Checking */
+//  597       else
+//  598       {
+//  599         /* If the CSW Signature is not valid, We sall return the Phase Error to
+//  600         Upper Layers for Reset Recovery */
+//  601         
+//  602         status = BOT_CSW_PHASE_ERROR;
+//  603       }
+//  604     } /* CSW Length Check*/
+//  605     
+//  606   return status;
+//  607 }
 //  608 
 //  609 
 //  610 /**
@@ -1330,9 +1119,9 @@ USBH_MSC_DecodeCSW:
 //  632 
 //  633 
 // 
-// 1 094 bytes in section .text
+// 596 bytes in section .text
 // 
-// 1 094 bytes of CODE memory
+// 596 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

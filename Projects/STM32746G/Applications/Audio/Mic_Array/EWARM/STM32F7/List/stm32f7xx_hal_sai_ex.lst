@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       29/Mar/2016  20:10:38
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       30/Mar/2016  19:08:24
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -16,11 +16,9 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 #        -o
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-#        --no_clustering --no_scheduling --debug --endian=little
-#        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\INC\c\DLib_Config_Full.h"
-#        -I
+#        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
+#        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        7.3\arm\INC\c\DLib_Config_Full.h" -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
@@ -50,7 +48,7 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7 --relaxed_fp
 #    List file    =  
@@ -172,82 +170,64 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     107          void SAI_BlockSynchroConfig(SAI_HandleTypeDef *hsai)
     108          {
     109            uint32_t tmpregisterGCR = 0;
-   \                     SAI_BlockSynchroConfig: (+1)
-   \   00000000   0x2100             MOVS     R1,#+0
     110           
     111            /* This setting must be done with both audio block (A & B) disabled     */
     112            switch(hsai->Init.SynchroExt)
-   \   00000002   0x68C2             LDR      R2,[R0, #+12]
-   \   00000004   0x2A00             CMP      R2,#+0
-   \   00000006   0xD006             BEQ.N    ??SAI_BlockSynchroConfig_0
-   \   00000008   0x2A01             CMP      R2,#+1
-   \   0000000A   0xD007             BEQ.N    ??SAI_BlockSynchroConfig_1
-   \   0000000C   0x2A02             CMP      R2,#+2
-   \   0000000E   0xD008             BEQ.N    ??SAI_BlockSynchroConfig_2
-   \   00000010   0x2A04             CMP      R2,#+4
-   \   00000012   0xD009             BEQ.N    ??SAI_BlockSynchroConfig_3
-   \   00000014   0xE00B             B.N      ??SAI_BlockSynchroConfig_4
+   \                     SAI_BlockSynchroConfig: (+1)
+   \   00000000   0x68C2             LDR      R2,[R0, #+12]
+   \   00000002   0x2100             MOVS     R1,#+0
+   \   00000004   0x2A01             CMP      R2,#+1
+   \   00000006   0xD005             BEQ.N    ??SAI_BlockSynchroConfig_0
+   \   00000008   0x2A02             CMP      R2,#+2
+   \   0000000A   0xD005             BEQ.N    ??SAI_BlockSynchroConfig_1
+   \   0000000C   0x2A04             CMP      R2,#+4
+   \   0000000E   0xBF08             IT       EQ 
+   \   00000010   0x2120             MOVEQ    R1,#+32
     113            {
     114            case SAI_SYNCEXT_DISABLE :
     115              tmpregisterGCR = 0;
-   \                     ??SAI_BlockSynchroConfig_0: (+1)
-   \   00000016   0x2200             MOVS     R2,#+0
-   \   00000018   0x0011             MOVS     R1,R2
     116              break;
-   \   0000001A   0xE008             B.N      ??SAI_BlockSynchroConfig_5
     117            case SAI_SYNCEXT_IN_ENABLE :
     118              tmpregisterGCR = SAI_GCR_SYNCIN_0;
-   \                     ??SAI_BlockSynchroConfig_1: (+1)
-   \   0000001C   0x2201             MOVS     R2,#+1
-   \   0000001E   0x0011             MOVS     R1,R2
     119              break;
-   \   00000020   0xE005             B.N      ??SAI_BlockSynchroConfig_5
     120            case SAI_SYNCEXT_OUTBLOCKA_ENABLE :
     121              tmpregisterGCR = SAI_GCR_SYNCOUT_0;
-   \                     ??SAI_BlockSynchroConfig_2: (+1)
-   \   00000022   0x2210             MOVS     R2,#+16
-   \   00000024   0x0011             MOVS     R1,R2
     122              break;
-   \   00000026   0xE002             B.N      ??SAI_BlockSynchroConfig_5
     123            case SAI_SYNCEXT_OUTBLOCKB_ENABLE :
     124              tmpregisterGCR = SAI_GCR_SYNCOUT_1;
-   \                     ??SAI_BlockSynchroConfig_3: (+1)
-   \   00000028   0x2220             MOVS     R2,#+32
-   \   0000002A   0x0011             MOVS     R1,R2
+   \   00000012   0xE002             B.N      ??SAI_BlockSynchroConfig_2
+   \                     ??SAI_BlockSynchroConfig_0: (+1)
+   \   00000014   0x2101             MOVS     R1,#+1
+   \   00000016   0xE000             B.N      ??SAI_BlockSynchroConfig_2
+   \                     ??SAI_BlockSynchroConfig_1: (+1)
+   \   00000018   0x2110             MOVS     R1,#+16
     125              break;
-   \   0000002C   0xE7FF             B.N      ??SAI_BlockSynchroConfig_5
     126            default :
     127              break;
     128            }
     129            
     130            if((hsai->Instance == SAI1_Block_A) || (hsai->Instance == SAI1_Block_B))
-   \                     ??SAI_BlockSynchroConfig_4: (+1)
-   \                     ??SAI_BlockSynchroConfig_5: (+1)
-   \   0000002E   0x6802             LDR      R2,[R0, #+0]
-   \   00000030   0x....             LDR.N    R3,??DataTable1  ;; 0x40015804
-   \   00000032   0x429A             CMP      R2,R3
-   \   00000034   0xD003             BEQ.N    ??SAI_BlockSynchroConfig_6
-   \   00000036   0x6802             LDR      R2,[R0, #+0]
-   \   00000038   0x....             LDR.N    R3,??DataTable1_1  ;; 0x40015824
-   \   0000003A   0x429A             CMP      R2,R3
-   \   0000003C   0xD102             BNE.N    ??SAI_BlockSynchroConfig_7
+   \                     ??SAI_BlockSynchroConfig_2: (+1)
+   \   0000001A   0x6800             LDR      R0,[R0, #+0]
+   \   0000001C   0x....             LDR.N    R2,??DataTable1  ;; 0x40015804
+   \   0000001E   0x4290             CMP      R0,R2
+   \   00000020   0xBF1C             ITT      NE 
+   \   00000022   0x....             LDRNE.N  R2,??DataTable1_1  ;; 0x40015824
+   \   00000024   0x4290             CMPNE    R0,R2
+   \   00000026   0xBF07             ITTEE    EQ 
+   \   00000028   0x....             LDREQ.N  R0,??DataTable1_2  ;; 0x40015800
+   \   0000002A   0x6001             STREQ    R1,[R0, #+0]
+   \   0000002C   0x....             LDRNE.N  R0,??DataTable1_2  ;; 0x40015800
+   \   0000002E   0xF8C0 0x1400      STRNE    R1,[R0, #+1024]
     131            {
     132              SAI1->GCR = tmpregisterGCR;
-   \                     ??SAI_BlockSynchroConfig_6: (+1)
-   \   0000003E   0x....             LDR.N    R2,??DataTable1_2  ;; 0x40015800
-   \   00000040   0x6011             STR      R1,[R2, #+0]
-   \   00000042   0xE001             B.N      ??SAI_BlockSynchroConfig_8
     133            }
     134            else 
     135            {
     136              SAI2->GCR = tmpregisterGCR;
-   \                     ??SAI_BlockSynchroConfig_7: (+1)
-   \   00000044   0x....             LDR.N    R2,??DataTable1_3  ;; 0x40015c00
-   \   00000046   0x6011             STR      R1,[R2, #+0]
+   \   00000032   0x4770             BX       LR
     137            }
     138          }
-   \                     ??SAI_BlockSynchroConfig_8: (+1)
-   \   00000048   0x4770             BX       LR               ;; return
     139            /**
     140            * @brief  Get SAI Input Clock based on SAI source clock selection
     141            * @param  hsai: pointer to a SAI_HandleTypeDef structure that contains
@@ -258,43 +238,29 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                                 In section .text, align 2, keep-with-next
     145          uint32_t SAI_GetInputClock(SAI_HandleTypeDef *hsai)   
     146          {
-   \                     SAI_GetInputClock: (+1)
-   \   00000000   0xB538             PUSH     {R3-R5,LR}
-   \   00000002   0x0004             MOVS     R4,R0
     147            /* This variable used to store the SAI_CK_x (value in Hz) */
     148            uint32_t saiclocksource = 0;
-   \   00000004   0x2500             MOVS     R5,#+0
     149          
     150            if ((hsai->Instance == SAI1_Block_A) || (hsai->Instance == SAI1_Block_B))
-   \   00000006   0x6820             LDR      R0,[R4, #+0]
-   \   00000008   0x....             LDR.N    R1,??DataTable1  ;; 0x40015804
-   \   0000000A   0x4288             CMP      R0,R1
-   \   0000000C   0xD003             BEQ.N    ??SAI_GetInputClock_0
-   \   0000000E   0x6820             LDR      R0,[R4, #+0]
-   \   00000010   0x....             LDR.N    R1,??DataTable1_1  ;; 0x40015824
-   \   00000012   0x4288             CMP      R0,R1
-   \   00000014   0xD105             BNE.N    ??SAI_GetInputClock_1
+   \                     SAI_GetInputClock: (+1)
+   \   00000000   0x6800             LDR      R0,[R0, #+0]
+   \   00000002   0x....             LDR.N    R1,??DataTable1  ;; 0x40015804
+   \   00000004   0x4288             CMP      R0,R1
+   \   00000006   0xBF1B             ITTET    NE 
+   \   00000008   0x....             LDRNE.N  R1,??DataTable1_1  ;; 0x40015824
+   \   0000000A   0x4288             CMPNE    R0,R1
+   \   0000000C   0xF44F 0x2000      MOVEQ    R0,#+524288
+   \   00000010   0xF44F 0x1080      MOVNE    R0,#+1048576
     151            {
     152              saiclocksource = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SAI1);
-   \                     ??SAI_GetInputClock_0: (+1)
-   \   00000016   0xF45F 0x2000      MOVS     R0,#+524288
-   \   0000001A   0x.... 0x....      BL       HAL_RCCEx_GetPeriphCLKFreq
-   \   0000001E   0x0005             MOVS     R5,R0
-   \   00000020   0xE004             B.N      ??SAI_GetInputClock_2
     153            }
     154            else /* SAI2_Block_A || SAI2_Block_B*/
     155            {
     156              saiclocksource = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SAI2); 
-   \                     ??SAI_GetInputClock_1: (+1)
-   \   00000022   0xF45F 0x1080      MOVS     R0,#+1048576
-   \   00000026   0x.... 0x....      BL       HAL_RCCEx_GetPeriphCLKFreq
-   \   0000002A   0x0005             MOVS     R5,R0
+   \   00000014   0x.... 0x....      B.W      HAL_RCCEx_GetPeriphCLKFreq
     157            }
     158            /* the return result is the value of SAI clock */
     159            return saiclocksource;        
-   \                     ??SAI_GetInputClock_2: (+1)
-   \   0000002C   0x0028             MOVS     R0,R5
-   \   0000002E   0xBD32             POP      {R1,R4,R5,PC}    ;; return
     160          }
 
    \                                 In section .text, align 4, keep-with-next
@@ -308,10 +274,6 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable1_2:
    \   00000000   0x40015800         DC32     0x40015800
-
-   \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable1_3:
-   \   00000000   0x40015C00         DC32     0x40015c00
     161          
     162          /**
     163            * @}
@@ -337,8 +299,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    .cstack Function
    ------- --------
        0   SAI_BlockSynchroConfig
-      16   SAI_GetInputClock
-        16   -> HAL_RCCEx_GetPeriphCLKFreq
+       0   SAI_GetInputClock
+         0   -> HAL_RCCEx_GetPeriphCLKFreq
 
 
    Section sizes:
@@ -348,14 +310,13 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
        4  ??DataTable1
        4  ??DataTable1_1
        4  ??DataTable1_2
-       4  ??DataTable1_3
-      74  SAI_BlockSynchroConfig
-      48  SAI_GetInputClock
+      52  SAI_BlockSynchroConfig
+      24  SAI_GetInputClock
 
  
- 138 bytes in section .text
+ 88 bytes in section .text
  
- 138 bytes of CODE memory
+ 88 bytes of CODE memory
 
 Errors: none
 Warnings: none

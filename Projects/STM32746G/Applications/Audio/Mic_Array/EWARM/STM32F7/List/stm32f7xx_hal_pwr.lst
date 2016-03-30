@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       29/Mar/2016  20:10:38
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       30/Mar/2016  19:08:24
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -16,11 +16,9 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 #        -o
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-#        --no_clustering --no_scheduling --debug --endian=little
-#        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\INC\c\DLib_Config_Full.h"
-#        -I
+#        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
+#        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        7.3\arm\INC\c\DLib_Config_Full.h" -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
@@ -50,7 +48,7 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7 --relaxed_fp
 #    List file    =  
@@ -185,18 +183,15 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     120            __HAL_RCC_PWR_FORCE_RESET();
    \                     HAL_PWR_DeInit: (+1)
    \   00000000   0x....             LDR.N    R0,??DataTable15  ;; 0x40023820
-   \   00000002   0x6800             LDR      R0,[R0, #+0]
-   \   00000004   0xF050 0x5080      ORRS     R0,R0,#0x10000000
-   \   00000008   0x....             LDR.N    R1,??DataTable15  ;; 0x40023820
-   \   0000000A   0x6008             STR      R0,[R1, #+0]
+   \   00000002   0x6801             LDR      R1,[R0, #+0]
+   \   00000004   0xF041 0x5180      ORR      R1,R1,#0x10000000
+   \   00000008   0x6001             STR      R1,[R0, #+0]
     121            __HAL_RCC_PWR_RELEASE_RESET();
-   \   0000000C   0x....             LDR.N    R0,??DataTable15  ;; 0x40023820
-   \   0000000E   0x6800             LDR      R0,[R0, #+0]
-   \   00000010   0xF030 0x5080      BICS     R0,R0,#0x10000000
-   \   00000014   0x....             LDR.N    R1,??DataTable15  ;; 0x40023820
-   \   00000016   0x6008             STR      R0,[R1, #+0]
+   \   0000000A   0x6801             LDR      R1,[R0, #+0]
+   \   0000000C   0xF021 0x5180      BIC      R1,R1,#0x10000000
+   \   00000010   0x6001             STR      R1,[R0, #+0]
     122          }
-   \   00000018   0x4770             BX       LR               ;; return
+   \   00000012   0x4770             BX       LR               ;; return
     123          
     124          /**
     125            * @brief Enables access to the backup domain (RTC registers, RTC 
@@ -213,12 +208,11 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     134            SET_BIT(PWR->CR1, PWR_CR1_DBP);
    \                     HAL_PWR_EnableBkUpAccess: (+1)
    \   00000000   0x....             LDR.N    R0,??DataTable15_1  ;; 0x40007000
-   \   00000002   0x6800             LDR      R0,[R0, #+0]
-   \   00000004   0xF450 0x7080      ORRS     R0,R0,#0x100
-   \   00000008   0x....             LDR.N    R1,??DataTable15_1  ;; 0x40007000
-   \   0000000A   0x6008             STR      R0,[R1, #+0]
+   \   00000002   0x6801             LDR      R1,[R0, #+0]
+   \   00000004   0xF441 0x7180      ORR      R1,R1,#0x100
+   \   00000008   0x6001             STR      R1,[R0, #+0]
     135          }
-   \   0000000C   0x4770             BX       LR               ;; return
+   \   0000000A   0x4770             BX       LR               ;; return
     136          
     137          /**
     138            * @brief Disables access to the backup domain (RTC registers, RTC 
@@ -235,12 +229,11 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     147          	CLEAR_BIT(PWR->CR1, PWR_CR1_DBP);
    \                     HAL_PWR_DisableBkUpAccess: (+1)
    \   00000000   0x....             LDR.N    R0,??DataTable15_1  ;; 0x40007000
-   \   00000002   0x6800             LDR      R0,[R0, #+0]
-   \   00000004   0xF430 0x7080      BICS     R0,R0,#0x100
-   \   00000008   0x....             LDR.N    R1,??DataTable15_1  ;; 0x40007000
-   \   0000000A   0x6008             STR      R0,[R1, #+0]
+   \   00000002   0x6801             LDR      R1,[R0, #+0]
+   \   00000004   0xF421 0x7180      BIC      R1,R1,#0x100
+   \   00000008   0x6001             STR      R1,[R0, #+0]
     148          }
-   \   0000000C   0x4770             BX       LR               ;; return
+   \   0000000A   0x4770             BX       LR               ;; return
     149          
     150          /**
     151            * @}
@@ -382,99 +375,83 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     285            MODIFY_REG(PWR->CR1, PWR_CR1_PLS, sConfigPVD->PVDLevel);
    \                     HAL_PWR_ConfigPVD: (+1)
    \   00000000   0x....             LDR.N    R1,??DataTable15_1  ;; 0x40007000
-   \   00000002   0x6809             LDR      R1,[R1, #+0]
-   \   00000004   0xF031 0x01E0      BICS     R1,R1,#0xE0
-   \   00000008   0x6802             LDR      R2,[R0, #+0]
-   \   0000000A   0x4311             ORRS     R1,R2,R1
-   \   0000000C   0x....             LDR.N    R2,??DataTable15_1  ;; 0x40007000
-   \   0000000E   0x6011             STR      R1,[R2, #+0]
+   \   00000002   0x680A             LDR      R2,[R1, #+0]
+   \   00000004   0x6803             LDR      R3,[R0, #+0]
+   \   00000006   0xF022 0x02E0      BIC      R2,R2,#0xE0
+   \   0000000A   0x431A             ORRS     R2,R3,R2
+   \   0000000C   0x600A             STR      R2,[R1, #+0]
     286            
     287            /* Clear any previous config. Keep it clear if no event or IT mode is selected */
     288            __HAL_PWR_PVD_EXTI_DISABLE_EVENT();
-   \   00000010   0x....             LDR.N    R1,??DataTable15_2  ;; 0x40013c04
-   \   00000012   0x6809             LDR      R1,[R1, #+0]
-   \   00000014   0xF431 0x3180      BICS     R1,R1,#0x10000
-   \   00000018   0x....             LDR.N    R2,??DataTable15_2  ;; 0x40013c04
-   \   0000001A   0x6011             STR      R1,[R2, #+0]
+   \   0000000E   0x....             LDR.N    R1,??DataTable15_2  ;; 0x40013c00
+   \   00000010   0x684A             LDR      R2,[R1, #+4]
+   \   00000012   0xF422 0x3280      BIC      R2,R2,#0x10000
+   \   00000016   0x604A             STR      R2,[R1, #+4]
     289            __HAL_PWR_PVD_EXTI_DISABLE_IT();
-   \   0000001C   0x....             LDR.N    R1,??DataTable15_3  ;; 0x40013c00
-   \   0000001E   0x6809             LDR      R1,[R1, #+0]
-   \   00000020   0xF431 0x3180      BICS     R1,R1,#0x10000
-   \   00000024   0x....             LDR.N    R2,??DataTable15_3  ;; 0x40013c00
-   \   00000026   0x6011             STR      R1,[R2, #+0]
+   \   00000018   0x680A             LDR      R2,[R1, #+0]
+   \   0000001A   0xF422 0x3280      BIC      R2,R2,#0x10000
+   \   0000001E   0x600A             STR      R2,[R1, #+0]
     290            __HAL_PWR_PVD_EXTI_DISABLE_RISING_EDGE();
-   \   00000028   0x....             LDR.N    R1,??DataTable15_4  ;; 0x40013c08
-   \   0000002A   0x6809             LDR      R1,[R1, #+0]
-   \   0000002C   0xF431 0x3180      BICS     R1,R1,#0x10000
-   \   00000030   0x....             LDR.N    R2,??DataTable15_4  ;; 0x40013c08
-   \   00000032   0x6011             STR      R1,[R2, #+0]
+   \   00000020   0x688A             LDR      R2,[R1, #+8]
+   \   00000022   0xF422 0x3280      BIC      R2,R2,#0x10000
+   \   00000026   0x608A             STR      R2,[R1, #+8]
     291            __HAL_PWR_PVD_EXTI_DISABLE_FALLING_EDGE(); 
-   \   00000034   0x....             LDR.N    R1,??DataTable15_5  ;; 0x40013c0c
-   \   00000036   0x6809             LDR      R1,[R1, #+0]
-   \   00000038   0xF431 0x3180      BICS     R1,R1,#0x10000
-   \   0000003C   0x....             LDR.N    R2,??DataTable15_5  ;; 0x40013c0c
-   \   0000003E   0x6011             STR      R1,[R2, #+0]
+   \   00000028   0x68CA             LDR      R2,[R1, #+12]
+   \   0000002A   0xF422 0x3280      BIC      R2,R2,#0x10000
+   \   0000002E   0x60CA             STR      R2,[R1, #+12]
     292          
     293            /* Configure interrupt mode */
     294            if((sConfigPVD->Mode & PVD_MODE_IT) == PVD_MODE_IT)
-   \   00000040   0x6841             LDR      R1,[R0, #+4]
-   \   00000042   0x03C9             LSLS     R1,R1,#+15
-   \   00000044   0xD505             BPL.N    ??HAL_PWR_ConfigPVD_0
+   \   00000030   0x6842             LDR      R2,[R0, #+4]
+   \   00000032   0x03D2             LSLS     R2,R2,#+15
+   \   00000034   0xD503             BPL.N    ??HAL_PWR_ConfigPVD_0
     295            {
     296              __HAL_PWR_PVD_EXTI_ENABLE_IT();
-   \   00000046   0x....             LDR.N    R1,??DataTable15_3  ;; 0x40013c00
-   \   00000048   0x6809             LDR      R1,[R1, #+0]
-   \   0000004A   0xF451 0x3180      ORRS     R1,R1,#0x10000
-   \   0000004E   0x....             LDR.N    R2,??DataTable15_3  ;; 0x40013c00
-   \   00000050   0x6011             STR      R1,[R2, #+0]
+   \   00000036   0x680A             LDR      R2,[R1, #+0]
+   \   00000038   0xF442 0x3280      ORR      R2,R2,#0x10000
+   \   0000003C   0x600A             STR      R2,[R1, #+0]
     297            }
     298            
     299            /* Configure event mode */
     300            if((sConfigPVD->Mode & PVD_MODE_EVT) == PVD_MODE_EVT)
    \                     ??HAL_PWR_ConfigPVD_0: (+1)
-   \   00000052   0x6841             LDR      R1,[R0, #+4]
-   \   00000054   0x0389             LSLS     R1,R1,#+14
-   \   00000056   0xD505             BPL.N    ??HAL_PWR_ConfigPVD_1
+   \   0000003E   0x6842             LDR      R2,[R0, #+4]
+   \   00000040   0x0392             LSLS     R2,R2,#+14
+   \   00000042   0xD503             BPL.N    ??HAL_PWR_ConfigPVD_1
     301            {
     302              __HAL_PWR_PVD_EXTI_ENABLE_EVENT();
-   \   00000058   0x....             LDR.N    R1,??DataTable15_2  ;; 0x40013c04
-   \   0000005A   0x6809             LDR      R1,[R1, #+0]
-   \   0000005C   0xF451 0x3180      ORRS     R1,R1,#0x10000
-   \   00000060   0x....             LDR.N    R2,??DataTable15_2  ;; 0x40013c04
-   \   00000062   0x6011             STR      R1,[R2, #+0]
+   \   00000044   0x684A             LDR      R2,[R1, #+4]
+   \   00000046   0xF442 0x3280      ORR      R2,R2,#0x10000
+   \   0000004A   0x604A             STR      R2,[R1, #+4]
     303            }
     304            
     305            /* Configure the edge */
     306            if((sConfigPVD->Mode & PVD_RISING_EDGE) == PVD_RISING_EDGE)
    \                     ??HAL_PWR_ConfigPVD_1: (+1)
-   \   00000064   0x7901             LDRB     R1,[R0, #+4]
-   \   00000066   0x07C9             LSLS     R1,R1,#+31
-   \   00000068   0xD505             BPL.N    ??HAL_PWR_ConfigPVD_2
+   \   0000004C   0x7902             LDRB     R2,[R0, #+4]
+   \   0000004E   0x07D2             LSLS     R2,R2,#+31
+   \   00000050   0xD503             BPL.N    ??HAL_PWR_ConfigPVD_2
     307            {
     308              __HAL_PWR_PVD_EXTI_ENABLE_RISING_EDGE();
-   \   0000006A   0x....             LDR.N    R1,??DataTable15_4  ;; 0x40013c08
-   \   0000006C   0x6809             LDR      R1,[R1, #+0]
-   \   0000006E   0xF451 0x3180      ORRS     R1,R1,#0x10000
-   \   00000072   0x....             LDR.N    R2,??DataTable15_4  ;; 0x40013c08
-   \   00000074   0x6011             STR      R1,[R2, #+0]
+   \   00000052   0x688A             LDR      R2,[R1, #+8]
+   \   00000054   0xF442 0x3280      ORR      R2,R2,#0x10000
+   \   00000058   0x608A             STR      R2,[R1, #+8]
     309            }
     310            
     311            if((sConfigPVD->Mode & PVD_FALLING_EDGE) == PVD_FALLING_EDGE)
    \                     ??HAL_PWR_ConfigPVD_2: (+1)
-   \   00000076   0x7901             LDRB     R1,[R0, #+4]
-   \   00000078   0x0789             LSLS     R1,R1,#+30
-   \   0000007A   0xD505             BPL.N    ??HAL_PWR_ConfigPVD_3
+   \   0000005A   0x7900             LDRB     R0,[R0, #+4]
+   \   0000005C   0x0780             LSLS     R0,R0,#+30
+   \   0000005E   0xD503             BPL.N    ??HAL_PWR_ConfigPVD_3
     312            {
     313              __HAL_PWR_PVD_EXTI_ENABLE_FALLING_EDGE();
-   \   0000007C   0x....             LDR.N    R1,??DataTable15_5  ;; 0x40013c0c
-   \   0000007E   0x6809             LDR      R1,[R1, #+0]
-   \   00000080   0xF451 0x3180      ORRS     R1,R1,#0x10000
-   \   00000084   0x....             LDR.N    R2,??DataTable15_5  ;; 0x40013c0c
-   \   00000086   0x6011             STR      R1,[R2, #+0]
+   \   00000060   0x68C8             LDR      R0,[R1, #+12]
+   \   00000062   0xF440 0x3080      ORR      R0,R0,#0x10000
+   \   00000066   0x60C8             STR      R0,[R1, #+12]
     314            }
     315          }
    \                     ??HAL_PWR_ConfigPVD_3: (+1)
-   \   00000088   0x4770             BX       LR               ;; return
+   \   00000068   0x4770             BX       LR               ;; return
     316          
     317          /**
     318            * @brief Enables the Power Voltage Detector(PVD).
@@ -488,12 +465,11 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     324          	SET_BIT(PWR->CR1, PWR_CR1_PVDE);
    \                     HAL_PWR_EnablePVD: (+1)
    \   00000000   0x....             LDR.N    R0,??DataTable15_1  ;; 0x40007000
-   \   00000002   0x6800             LDR      R0,[R0, #+0]
-   \   00000004   0xF050 0x0010      ORRS     R0,R0,#0x10
-   \   00000008   0x....             LDR.N    R1,??DataTable15_1  ;; 0x40007000
-   \   0000000A   0x6008             STR      R0,[R1, #+0]
+   \   00000002   0x6801             LDR      R1,[R0, #+0]
+   \   00000004   0xF041 0x0110      ORR      R1,R1,#0x10
+   \   00000008   0x6001             STR      R1,[R0, #+0]
     325          }
-   \   0000000C   0x4770             BX       LR               ;; return
+   \   0000000A   0x4770             BX       LR               ;; return
     326          
     327          /**
     328            * @brief Disables the Power Voltage Detector(PVD).
@@ -507,12 +483,11 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     334          	CLEAR_BIT(PWR->CR1, PWR_CR1_PVDE);
    \                     HAL_PWR_DisablePVD: (+1)
    \   00000000   0x....             LDR.N    R0,??DataTable15_1  ;; 0x40007000
-   \   00000002   0x6800             LDR      R0,[R0, #+0]
-   \   00000004   0xF030 0x0010      BICS     R0,R0,#0x10
-   \   00000008   0x....             LDR.N    R1,??DataTable15_1  ;; 0x40007000
-   \   0000000A   0x6008             STR      R0,[R1, #+0]
+   \   00000002   0x6801             LDR      R1,[R0, #+0]
+   \   00000004   0xF021 0x0110      BIC      R1,R1,#0x10
+   \   00000008   0x6001             STR      R1,[R0, #+0]
     335          }
-   \   0000000C   0x4770             BX       LR               ;; return
+   \   0000000A   0x4770             BX       LR               ;; return
     336          
     337          /**
     338            * @brief Enable the WakeUp PINx functionality.
@@ -540,25 +515,21 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     358            /* Enable wake-up pin */
     359            SET_BIT(PWR->CSR2, (PWR_EWUP_MASK & WakeUpPinPolarity));
    \                     HAL_PWR_EnableWakeUpPin: (+1)
-   \   00000000   0x....             LDR.N    R1,??DataTable15_6  ;; 0x4000700c
-   \   00000002   0x6809             LDR      R1,[R1, #+0]
-   \   00000004   0xF410 0x527C      ANDS     R2,R0,#0x3F00
-   \   00000008   0x4311             ORRS     R1,R2,R1
-   \   0000000A   0x....             LDR.N    R2,??DataTable15_6  ;; 0x4000700c
-   \   0000000C   0x6011             STR      R1,[R2, #+0]
+   \   00000000   0x....             LDR.N    R2,??DataTable15_3  ;; 0x40007008
+   \   00000002   0xF400 0x517C      AND      R1,R0,#0x3F00
+   \   00000006   0x6853             LDR      R3,[R2, #+4]
+   \   00000008   0x430B             ORRS     R3,R1,R3
+   \   0000000A   0x6053             STR      R3,[R2, #+4]
     360          	
     361            /* Specifies the Wake-Up pin polarity for the event detection
     362              (rising or falling edge) */
     363            MODIFY_REG(PWR->CR2, (PWR_EWUP_MASK & WakeUpPinPolarity), (WakeUpPinPolarity >> 0x06));
-   \   0000000E   0x....             LDR.N    R1,??DataTable15_7  ;; 0x40007008
-   \   00000010   0x6809             LDR      R1,[R1, #+0]
-   \   00000012   0xF410 0x527C      ANDS     R2,R0,#0x3F00
-   \   00000016   0x4391             BICS     R1,R1,R2
-   \   00000018   0xEA51 0x1190      ORRS     R1,R1,R0, LSR #+6
-   \   0000001C   0x....             LDR.N    R2,??DataTable15_7  ;; 0x40007008
-   \   0000001E   0x6011             STR      R1,[R2, #+0]
+   \   0000000C   0x6813             LDR      R3,[R2, #+0]
+   \   0000000E   0xEA23 0x0101      BIC      R1,R3,R1
+   \   00000012   0xEA41 0x1090      ORR      R0,R1,R0, LSR #+6
+   \   00000016   0x6010             STR      R0,[R2, #+0]
     364          }
-   \   00000020   0x4770             BX       LR               ;; return
+   \   00000018   0x4770             BX       LR               ;; return
     365          
     366          /**
     367            * @brief Disables the WakeUp PINx functionality.
@@ -580,11 +551,10 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     381          
     382            CLEAR_BIT(PWR->CSR2, WakeUpPinx);
    \                     HAL_PWR_DisableWakeUpPin: (+1)
-   \   00000000   0x....             LDR.N    R1,??DataTable15_6  ;; 0x4000700c
-   \   00000002   0x6809             LDR      R1,[R1, #+0]
-   \   00000004   0x4381             BICS     R1,R1,R0
-   \   00000006   0x....             LDR.N    R2,??DataTable15_6  ;; 0x4000700c
-   \   00000008   0x6011             STR      R1,[R2, #+0]
+   \   00000000   0x....             LDR.N    R1,??DataTable15_4  ;; 0x4000700c
+   \   00000002   0x680A             LDR      R2,[R1, #+0]
+   \   00000004   0xEA22 0x0000      BIC      R0,R2,R0
+   \   00000008   0x6008             STR      R0,[R1, #+0]
     383          }
    \   0000000A   0x4770             BX       LR               ;; return
     384            
@@ -619,37 +589,32 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     411            /* Clear SLEEPDEEP bit of Cortex System Control Register */
     412            CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPDEEP_Msk));
    \                     HAL_PWR_EnterSLEEPMode: (+1)
-   \   00000000   0x....             LDR.N    R2,??DataTable15_8  ;; 0xe000ed10
-   \   00000002   0x6812             LDR      R2,[R2, #+0]
-   \   00000004   0xF032 0x0204      BICS     R2,R2,#0x4
-   \   00000008   0x....             LDR.N    R3,??DataTable15_8  ;; 0xe000ed10
-   \   0000000A   0x601A             STR      R2,[R3, #+0]
+   \   00000000   0x....             LDR.N    R0,??DataTable15_5  ;; 0xe000ed10
     413          
     414            /* Select SLEEP mode entry -------------------------------------------------*/
     415            if(SLEEPEntry == PWR_SLEEPENTRY_WFI)
-   \   0000000C   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-   \   0000000E   0x2901             CMP      R1,#+1
-   \   00000010   0xD101             BNE.N    ??HAL_PWR_EnterSLEEPMode_0
+   \   00000002   0x2901             CMP      R1,#+1
+   \   00000004   0x6802             LDR      R2,[R0, #+0]
+   \   00000006   0xF022 0x0204      BIC      R2,R2,#0x4
+   \   0000000A   0x6002             STR      R2,[R0, #+0]
+   \   0000000C   0xBF0F             ITEEE    EQ 
+   \   0000000E   0xBF30             WFIEQ    
+   \   00000010   0xBF40             SEVNE    
+   \   00000012   0xBF20             WFENE    
+   \   00000014   0xBF20             WFENE    
     416            {   
     417              /* Request Wait For Interrupt */
     418              __WFI();
-   \   00000012   0xBF30             WFI      
-   \   00000014   0xE002             B.N      ??HAL_PWR_EnterSLEEPMode_1
     419            }
     420            else
     421            {
     422              /* Request Wait For Event */
     423              __SEV();
-   \                     ??HAL_PWR_EnterSLEEPMode_0: (+1)
-   \   00000016   0xBF40             SEV      
     424              __WFE();
-   \   00000018   0xBF20             WFE      
     425              __WFE();
-   \   0000001A   0xBF20             WFE      
+   \   00000016   0x4770             BX       LR
     426            }
     427          }
-   \                     ??HAL_PWR_EnterSLEEPMode_1: (+1)
-   \   0000001C   0x4770             BX       LR               ;; return
     428          
     429          /**
     430            * @brief Enters Stop mode. 
@@ -674,10 +639,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                                 In section .text, align 2, keep-with-next
     448          void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
     449          {
-   \                     HAL_PWR_EnterSTOPMode: (+1)
-   \   00000000   0xB410             PUSH     {R4}
     450            uint32_t tmpreg = 0;
-   \   00000002   0x2200             MOVS     R2,#+0
     451            
     452            /* Check the parameters */
     453            assert_param(IS_PWR_REGULATOR(Regulator));
@@ -685,64 +647,54 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     455            
     456            /* Select the regulator state in Stop mode ---------------------------------*/
     457            tmpreg = PWR->CR1;
-   \   00000004   0x....             LDR.N    R3,??DataTable15_1  ;; 0x40007000
-   \   00000006   0x681B             LDR      R3,[R3, #+0]
-   \   00000008   0x001A             MOVS     R2,R3
+   \                     HAL_PWR_EnterSTOPMode: (+1)
+   \   00000000   0x....             LDR.N    R2,??DataTable15_1  ;; 0x40007000
+   \   00000002   0x6813             LDR      R3,[R2, #+0]
     458            /* Clear PDDS and LPDS bits */
     459            tmpreg &= (uint32_t)~(PWR_CR1_PDDS | PWR_CR1_LPDS);
-   \   0000000A   0x0892             LSRS     R2,R2,#+2
-   \   0000000C   0x0092             LSLS     R2,R2,#+2
     460            
     461            /* Set LPDS, MRLVDS and LPLVDS bits according to Regulator value */
     462            tmpreg |= Regulator;
-   \   0000000E   0x4302             ORRS     R2,R0,R2
     463            
     464            /* Store the new value */
     465            PWR->CR1 = tmpreg;
-   \   00000010   0x....             LDR.N    R3,??DataTable15_1  ;; 0x40007000
-   \   00000012   0x601A             STR      R2,[R3, #+0]
+   \   00000004   0x089B             LSRS     R3,R3,#+2
     466            
     467            /* Set SLEEPDEEP bit of Cortex System Control Register */
     468            SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
-   \   00000014   0x....             LDR.N    R3,??DataTable15_8  ;; 0xe000ed10
-   \   00000016   0x681B             LDR      R3,[R3, #+0]
-   \   00000018   0xF053 0x0304      ORRS     R3,R3,#0x4
-   \   0000001C   0x....             LDR.N    R4,??DataTable15_8  ;; 0xe000ed10
-   \   0000001E   0x6023             STR      R3,[R4, #+0]
     469            
     470            /* Select Stop mode entry --------------------------------------------------*/
     471            if(STOPEntry == PWR_STOPENTRY_WFI)
-   \   00000020   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
-   \   00000022   0x2901             CMP      R1,#+1
-   \   00000024   0xD101             BNE.N    ??HAL_PWR_EnterSTOPMode_0
+   \   00000006   0x2901             CMP      R1,#+1
+   \   00000008   0xEA40 0x0083      ORR      R0,R0,R3, LSL #+2
+   \   0000000C   0x6010             STR      R0,[R2, #+0]
+   \   0000000E   0x....             LDR.N    R0,??DataTable15_5  ;; 0xe000ed10
+   \   00000010   0x6802             LDR      R2,[R0, #+0]
+   \   00000012   0xF042 0x0204      ORR      R2,R2,#0x4
+   \   00000016   0x6002             STR      R2,[R0, #+0]
+   \   00000018   0xBF0F             ITEEE    EQ 
+   \   0000001A   0xBF30             WFIEQ    
+   \   0000001C   0xBF40             SEVNE    
+   \   0000001E   0xBF20             WFENE    
+   \   00000020   0xBF20             WFENE    
     472            {   
     473              /* Request Wait For Interrupt */
     474              __WFI();
-   \   00000026   0xBF30             WFI      
-   \   00000028   0xE002             B.N      ??HAL_PWR_EnterSTOPMode_1
     475            }
     476            else
     477            {
     478              /* Request Wait For Event */
     479              __SEV();
-   \                     ??HAL_PWR_EnterSTOPMode_0: (+1)
-   \   0000002A   0xBF40             SEV      
     480              __WFE();
-   \   0000002C   0xBF20             WFE      
     481              __WFE();
-   \   0000002E   0xBF20             WFE      
     482            }
     483            /* Reset SLEEPDEEP bit of Cortex System Control Register */
     484            SCB->SCR &= (uint32_t)~((uint32_t)SCB_SCR_SLEEPDEEP_Msk);  
-   \                     ??HAL_PWR_EnterSTOPMode_1: (+1)
-   \   00000030   0x....             LDR.N    R3,??DataTable15_8  ;; 0xe000ed10
-   \   00000032   0x681B             LDR      R3,[R3, #+0]
-   \   00000034   0xF033 0x0304      BICS     R3,R3,#0x4
-   \   00000038   0x....             LDR.N    R4,??DataTable15_8  ;; 0xe000ed10
-   \   0000003A   0x6023             STR      R3,[R4, #+0]
+   \   00000022   0x6801             LDR      R1,[R0, #+0]
+   \   00000024   0xF021 0x0104      BIC      R1,R1,#0x4
+   \   00000028   0x6001             STR      R1,[R0, #+0]
     485          }
-   \   0000003C   0xBC10             POP      {R4}
-   \   0000003E   0x4770             BX       LR               ;; return
+   \   0000002A   0x4770             BX       LR               ;; return
     486          
     487          /**
     488            * @brief Enters Standby mode.
@@ -762,18 +714,16 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     500            PWR->CR1 |= PWR_CR1_PDDS;
    \                     HAL_PWR_EnterSTANDBYMode: (+1)
    \   00000000   0x....             LDR.N    R0,??DataTable15_1  ;; 0x40007000
-   \   00000002   0x6800             LDR      R0,[R0, #+0]
-   \   00000004   0xF050 0x0002      ORRS     R0,R0,#0x2
-   \   00000008   0x....             LDR.N    R1,??DataTable15_1  ;; 0x40007000
-   \   0000000A   0x6008             STR      R0,[R1, #+0]
+   \   00000002   0x6801             LDR      R1,[R0, #+0]
+   \   00000004   0xF041 0x0102      ORR      R1,R1,#0x2
+   \   00000008   0x6001             STR      R1,[R0, #+0]
     501            
     502            /* Set SLEEPDEEP bit of Cortex System Control Register */
     503            SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
-   \   0000000C   0x....             LDR.N    R0,??DataTable15_8  ;; 0xe000ed10
-   \   0000000E   0x6800             LDR      R0,[R0, #+0]
-   \   00000010   0xF050 0x0004      ORRS     R0,R0,#0x4
-   \   00000014   0x....             LDR.N    R1,??DataTable15_8  ;; 0xe000ed10
-   \   00000016   0x6008             STR      R0,[R1, #+0]
+   \   0000000A   0x....             LDR.N    R0,??DataTable15_5  ;; 0xe000ed10
+   \   0000000C   0x6801             LDR      R1,[R0, #+0]
+   \   0000000E   0xF041 0x0104      ORR      R1,R1,#0x4
+   \   00000012   0x6001             STR      R1,[R0, #+0]
     504            
     505            /* This option is used to ensure that store operations are completed */
     506          #if defined ( __CC_ARM)
@@ -781,9 +731,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     508          #endif
     509            /* Request Wait For Interrupt */
     510            __WFI();
-   \   00000018   0xBF30             WFI      
+   \   00000014   0xBF30             WFI      
     511          }
-   \   0000001A   0x4770             BX       LR               ;; return
+   \   00000016   0x4770             BX       LR               ;; return
     512          
     513          /**
     514            * @brief This function handles the PWR PVD interrupt request.
@@ -795,13 +745,13 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     518          void HAL_PWR_PVD_IRQHandler(void)
     519          {
    \                     HAL_PWR_PVD_IRQHandler: (+1)
-   \   00000000   0xB580             PUSH     {R7,LR}
+   \   00000000   0xB510             PUSH     {R4,LR}
     520            /* Check PWR Exti flag */
     521            if(__HAL_PWR_PVD_EXTI_GET_FLAG() != RESET)
-   \   00000002   0x....             LDR.N    R0,??DataTable15_9  ;; 0x40013c14
-   \   00000004   0x6800             LDR      R0,[R0, #+0]
+   \   00000002   0x....             LDR.N    R4,??DataTable15_6  ;; 0x40013c14
+   \   00000004   0x6820             LDR      R0,[R4, #+0]
    \   00000006   0x03C0             LSLS     R0,R0,#+15
-   \   00000008   0xD505             BPL.N    ??HAL_PWR_PVD_IRQHandler_0
+   \   00000008   0xD504             BPL.N    ??HAL_PWR_PVD_IRQHandler_0
     522            {
     523              /* PWR PVD interrupt user callback */
     524              HAL_PWR_PVDCallback();
@@ -809,13 +759,12 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     525              
     526              /* Clear PWR Exti pending bit */
     527              __HAL_PWR_PVD_EXTI_CLEAR_FLAG();
-   \   0000000E   0xF45F 0x3080      MOVS     R0,#+65536
-   \   00000012   0x....             LDR.N    R1,??DataTable15_9  ;; 0x40013c14
-   \   00000014   0x6008             STR      R0,[R1, #+0]
+   \   0000000E   0xF44F 0x3080      MOV      R0,#+65536
+   \   00000012   0x6020             STR      R0,[R4, #+0]
     528            }
     529          }
    \                     ??HAL_PWR_PVD_IRQHandler_0: (+1)
-   \   00000016   0xBD01             POP      {R0,PC}          ;; return
+   \   00000014   0xBD10             POP      {R4,PC}          ;; return
     530          
     531          /**
     532            * @brief  PWR PVD interrupt callback
@@ -847,13 +796,12 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     552            /* Set SLEEPONEXIT bit of Cortex System Control Register */
     553            SET_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPONEXIT_Msk));
    \                     HAL_PWR_EnableSleepOnExit: (+1)
-   \   00000000   0x....             LDR.N    R0,??DataTable15_8  ;; 0xe000ed10
-   \   00000002   0x6800             LDR      R0,[R0, #+0]
-   \   00000004   0xF050 0x0002      ORRS     R0,R0,#0x2
-   \   00000008   0x....             LDR.N    R1,??DataTable15_8  ;; 0xe000ed10
-   \   0000000A   0x6008             STR      R0,[R1, #+0]
+   \   00000000   0x....             LDR.N    R0,??DataTable15_5  ;; 0xe000ed10
+   \   00000002   0x6801             LDR      R1,[R0, #+0]
+   \   00000004   0xF041 0x0102      ORR      R1,R1,#0x2
+   \   00000008   0x6001             STR      R1,[R0, #+0]
     554          }
-   \   0000000C   0x4770             BX       LR               ;; return
+   \   0000000A   0x4770             BX       LR               ;; return
     555          
     556          /**
     557            * @brief Disables Sleep-On-Exit feature when returning from Handler mode to Thread mode. 
@@ -868,13 +816,12 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     564            /* Clear SLEEPONEXIT bit of Cortex System Control Register */
     565            CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPONEXIT_Msk));
    \                     HAL_PWR_DisableSleepOnExit: (+1)
-   \   00000000   0x....             LDR.N    R0,??DataTable15_8  ;; 0xe000ed10
-   \   00000002   0x6800             LDR      R0,[R0, #+0]
-   \   00000004   0xF030 0x0002      BICS     R0,R0,#0x2
-   \   00000008   0x....             LDR.N    R1,??DataTable15_8  ;; 0xe000ed10
-   \   0000000A   0x6008             STR      R0,[R1, #+0]
+   \   00000000   0x....             LDR.N    R0,??DataTable15_5  ;; 0xe000ed10
+   \   00000002   0x6801             LDR      R1,[R0, #+0]
+   \   00000004   0xF021 0x0102      BIC      R1,R1,#0x2
+   \   00000008   0x6001             STR      R1,[R0, #+0]
     566          }
-   \   0000000C   0x4770             BX       LR               ;; return
+   \   0000000A   0x4770             BX       LR               ;; return
     567          
     568          /**
     569            * @brief Enables CORTEX M4 SEVONPEND bit. 
@@ -889,13 +836,12 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     576            /* Set SEVONPEND bit of Cortex System Control Register */
     577            SET_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SEVONPEND_Msk));
    \                     HAL_PWR_EnableSEVOnPend: (+1)
-   \   00000000   0x....             LDR.N    R0,??DataTable15_8  ;; 0xe000ed10
-   \   00000002   0x6800             LDR      R0,[R0, #+0]
-   \   00000004   0xF050 0x0010      ORRS     R0,R0,#0x10
-   \   00000008   0x....             LDR.N    R1,??DataTable15_8  ;; 0xe000ed10
-   \   0000000A   0x6008             STR      R0,[R1, #+0]
+   \   00000000   0x....             LDR.N    R0,??DataTable15_5  ;; 0xe000ed10
+   \   00000002   0x6801             LDR      R1,[R0, #+0]
+   \   00000004   0xF041 0x0110      ORR      R1,R1,#0x10
+   \   00000008   0x6001             STR      R1,[R0, #+0]
     578          }
-   \   0000000C   0x4770             BX       LR               ;; return
+   \   0000000A   0x4770             BX       LR               ;; return
     579          
     580          /**
     581            * @brief Disables CORTEX M4 SEVONPEND bit. 
@@ -910,13 +856,12 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     588            /* Clear SEVONPEND bit of Cortex System Control Register */
     589            CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SEVONPEND_Msk));
    \                     HAL_PWR_DisableSEVOnPend: (+1)
-   \   00000000   0x....             LDR.N    R0,??DataTable15_8  ;; 0xe000ed10
-   \   00000002   0x6800             LDR      R0,[R0, #+0]
-   \   00000004   0xF030 0x0010      BICS     R0,R0,#0x10
-   \   00000008   0x....             LDR.N    R1,??DataTable15_8  ;; 0xe000ed10
-   \   0000000A   0x6008             STR      R0,[R1, #+0]
+   \   00000000   0x....             LDR.N    R0,??DataTable15_5  ;; 0xe000ed10
+   \   00000002   0x6801             LDR      R1,[R0, #+0]
+   \   00000004   0xF021 0x0110      BIC      R1,R1,#0x10
+   \   00000008   0x6001             STR      R1,[R0, #+0]
     590          }
-   \   0000000C   0x4770             BX       LR               ;; return
+   \   0000000A   0x4770             BX       LR               ;; return
 
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable15:
@@ -928,34 +873,22 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
 
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable15_2:
-   \   00000000   0x40013C04         DC32     0x40013c04
-
-   \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable15_3:
    \   00000000   0x40013C00         DC32     0x40013c00
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable15_4:
-   \   00000000   0x40013C08         DC32     0x40013c08
-
-   \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable15_5:
-   \   00000000   0x40013C0C         DC32     0x40013c0c
-
-   \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable15_6:
-   \   00000000   0x4000700C         DC32     0x4000700c
-
-   \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable15_7:
+   \                     ??DataTable15_3:
    \   00000000   0x40007008         DC32     0x40007008
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable15_8:
+   \                     ??DataTable15_4:
+   \   00000000   0x4000700C         DC32     0x4000700c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable15_5:
    \   00000000   0xE000ED10         DC32     0xe000ed10
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable15_9:
+   \                     ??DataTable15_6:
    \   00000000   0x40013C14         DC32     0x40013c14
     591          
     592          /**
@@ -995,7 +928,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
        0   HAL_PWR_EnableWakeUpPin
        0   HAL_PWR_EnterSLEEPMode
        0   HAL_PWR_EnterSTANDBYMode
-       4   HAL_PWR_EnterSTOPMode
+       0   HAL_PWR_EnterSTOPMode
        0   HAL_PWR_PVDCallback
        8   HAL_PWR_PVD_IRQHandler
          8   -> HAL_PWR_PVDCallback
@@ -1012,31 +945,28 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
        4  ??DataTable15_4
        4  ??DataTable15_5
        4  ??DataTable15_6
-       4  ??DataTable15_7
-       4  ??DataTable15_8
-       4  ??DataTable15_9
-     138  HAL_PWR_ConfigPVD
-      26  HAL_PWR_DeInit
-      14  HAL_PWR_DisableBkUpAccess
-      14  HAL_PWR_DisablePVD
-      14  HAL_PWR_DisableSEVOnPend
-      14  HAL_PWR_DisableSleepOnExit
+     106  HAL_PWR_ConfigPVD
+      20  HAL_PWR_DeInit
+      12  HAL_PWR_DisableBkUpAccess
+      12  HAL_PWR_DisablePVD
+      12  HAL_PWR_DisableSEVOnPend
+      12  HAL_PWR_DisableSleepOnExit
       12  HAL_PWR_DisableWakeUpPin
-      14  HAL_PWR_EnableBkUpAccess
-      14  HAL_PWR_EnablePVD
-      14  HAL_PWR_EnableSEVOnPend
-      14  HAL_PWR_EnableSleepOnExit
-      34  HAL_PWR_EnableWakeUpPin
-      30  HAL_PWR_EnterSLEEPMode
-      28  HAL_PWR_EnterSTANDBYMode
-      64  HAL_PWR_EnterSTOPMode
+      12  HAL_PWR_EnableBkUpAccess
+      12  HAL_PWR_EnablePVD
+      12  HAL_PWR_EnableSEVOnPend
+      12  HAL_PWR_EnableSleepOnExit
+      26  HAL_PWR_EnableWakeUpPin
+      24  HAL_PWR_EnterSLEEPMode
+      24  HAL_PWR_EnterSTANDBYMode
+      44  HAL_PWR_EnterSTOPMode
        2  HAL_PWR_PVDCallback
-      24  HAL_PWR_PVD_IRQHandler
+      22  HAL_PWR_PVD_IRQHandler
 
  
- 510 bytes in section .text
+ 404 bytes in section .text
  
- 510 bytes of CODE memory
+ 404 bytes of CODE memory
 
 Errors: none
 Warnings: none

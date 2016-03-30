@@ -2,7 +2,7 @@
 stlinkserialNo=391C0B1F
 stlinkfoundProbes=
 [DebugChecksum]
-Checksum=1247754125
+Checksum=-1403281357
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0

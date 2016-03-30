@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       29/Mar/2016  20:10:40
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       30/Mar/2016  19:08:28
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -17,11 +17,9 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 #        -o
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
-#        --no_clustering --no_scheduling --debug --endian=little
-#        --cpu=Cortex-M7 -e --fpu=VFPv5_sp --dlib_config "D:\Program Files
-#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\INC\c\DLib_Config_Full.h"
-#        -I
+#        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
+#        --dlib_config "D:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        7.3\arm\INC\c\DLib_Config_Full.h" -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
@@ -51,7 +49,7 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -On --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7 --relaxed_fp
 #    List file    =  
@@ -183,9 +181,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
      79            /* Start playing */
      80            AudioPlayStart = 1;
    \                     WavePlayBack: (+1)
-   \   00000000   0x2101             MOVS     R1,#+1
-   \   00000002   0x....             LDR.N    R2,??DataTable4
-   \   00000004   0x7011             STRB     R1,[R2, #+0]
+   \   00000000   0x2001             MOVS     R0,#+1
+   \   00000002   0x....             LDR.N    R1,??DataTable4
+   \   00000004   0x7008             STRB     R0,[R1, #+0]
      81          
      82          #if defined MEDIA_IntFLASH 
      83            
@@ -327,15 +325,10 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \                                 In section .text, align 2, keep-with-next
     217          void WavePlayerPauseResume(uint8_t state)
     218          { 
-   \                     WavePlayerPauseResume: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x0004             MOVS     R4,R0
     219            AUDIO_PauseResume(state);   
-   \   00000004   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
-   \   00000006   0x0020             MOVS     R0,R4
-   \   00000008   0x.... 0x....      BL       AUDIO_PauseResume
+   \                     WavePlayerPauseResume: (+1)
+   \   00000000   0x.... 0x....      B.W      AUDIO_PauseResume
     220          }
-   \   0000000C   0xBD10             POP      {R4,PC}          ;; return
     221          
     222          /**
     223            * @brief  Configure the volune
@@ -347,15 +340,14 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     227          uint8_t WaveplayerCtrlVolume(uint8_t vol)
     228          { 
    \                     WaveplayerCtrlVolume: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x0004             MOVS     R4,R0
+   \   00000000   0xB500             PUSH     {LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
     229            AUDIO_VolumeCtl(vol);
-   \   00000004   0x0020             MOVS     R0,R4
-   \   00000006   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
-   \   00000008   0x.... 0x....      BL       AUDIO_VolumeCtl
+   \   00000004   0x.... 0x....      BL       AUDIO_VolumeCtl
     230            return 0;
-   \   0000000C   0x2000             MOVS     R0,#+0
-   \   0000000E   0xBD10             POP      {R4,PC}          ;; return
+   \   00000008   0x2000             MOVS     R0,#+0
+   \   0000000A   0xB001             ADD      SP,SP,#+4
+   \   0000000C   0xBD00             POP      {PC}             ;; return
     231          }
     232          
     233          
@@ -368,13 +360,11 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \                                 In section .text, align 2, keep-with-next
     239          void WavePlayerStop(void)
     240          { 
-   \                     WavePlayerStop: (+1)
-   \   00000000   0xB580             PUSH     {R7,LR}
     241            AUDIO_Stop(CODEC_PDWN_SW);
-   \   00000002   0x2002             MOVS     R0,#+2
-   \   00000004   0x.... 0x....      BL       AUDIO_Stop
+   \                     WavePlayerStop: (+1)
+   \   00000000   0x2002             MOVS     R0,#+2
+   \   00000002   0x.... 0x....      B.W      AUDIO_Stop
     242          }
-   \   00000008   0xBD01             POP      {R0,PC}          ;; return
     243           
     244          /**
     245          * @brief  Initializes the wave player
@@ -386,20 +376,21 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     249          int WavePlayerInit(uint32_t AudioFreq)
     250          { 
    \                     WavePlayerInit: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0x0004             MOVS     R4,R0
+   \   00000000   0xB500             PUSH     {LR}
     251          
     252            
     253            /* Initialize the Audio codec and all related peripherals (I2S, I2C, IOExpander, IOs...) */  
     254            AUDIO_Init(OUTPUT_DEVICE_AUTO, 80, AudioFreq );  
-   \   00000004   0x0022             MOVS     R2,R4
+   \   00000002   0x4602             MOV      R2,R0
+   \   00000004   0xB081             SUB      SP,SP,#+4
    \   00000006   0x2150             MOVS     R1,#+80
    \   00000008   0x2004             MOVS     R0,#+4
    \   0000000A   0x.... 0x....      BL       AUDIO_Init
     255            
     256            return 0;
    \   0000000E   0x2000             MOVS     R0,#+0
-   \   00000010   0xBD10             POP      {R4,PC}          ;; return
+   \   00000010   0xB001             ADD      SP,SP,#+4
+   \   00000012   0xBD00             POP      {PC}             ;; return
     257          }
     258          
     259          
@@ -413,17 +404,15 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     265          uint32_t AudioFlashPlay(uint16_t* pBuffer, uint32_t FullSize, uint32_t StartAdd)
     266          { 
    \                     AudioFlashPlay: (+1)
-   \   00000000   0xB570             PUSH     {R4-R6,LR}
-   \   00000002   0x0004             MOVS     R4,R0
-   \   00000004   0x000D             MOVS     R5,R1
-   \   00000006   0x0016             MOVS     R6,R2
+   \   00000000   0xB500             PUSH     {LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
     267            AUDIO_Play((uint16_t*)pBuffer, (FullSize - StartAdd));
-   \   00000008   0x1BA9             SUBS     R1,R5,R6
-   \   0000000A   0x0020             MOVS     R0,R4
-   \   0000000C   0x.... 0x....      BL       AUDIO_Play
+   \   00000004   0x1A89             SUBS     R1,R1,R2
+   \   00000006   0x.... 0x....      BL       AUDIO_Play
     268            return 0;
-   \   00000010   0x2000             MOVS     R0,#+0
-   \   00000012   0xBD70             POP      {R4-R6,PC}       ;; return
+   \   0000000A   0x2000             MOVS     R0,#+0
+   \   0000000C   0xB001             ADD      SP,SP,#+4
+   \   0000000E   0xBD00             POP      {PC}             ;; return
     269          }
     270          
 
@@ -482,19 +471,18 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \                     Delay: (+1)
    \   00000000   0xB401             PUSH     {R0}
     309            TimingDelay = nTime;
-   \   00000002   0x9800             LDR      R0,[SP, #+0]
-   \   00000004   0x....             LDR.N    R1,??DataTable4_1
-   \   00000006   0x6008             STR      R0,[R1, #+0]
+   \   00000002   0x....             LDR.N    R0,??DataTable4_1
+   \   00000004   0x9900             LDR      R1,[SP, #+0]
+   \   00000006   0x6001             STR      R1,[R0, #+0]
     310            
     311            while(TimingDelay != 0);
    \                     ??Delay_0: (+1)
-   \   00000008   0x....             LDR.N    R0,??DataTable4_1
-   \   0000000A   0x6800             LDR      R0,[R0, #+0]
-   \   0000000C   0x2800             CMP      R0,#+0
-   \   0000000E   0xD1FB             BNE.N    ??Delay_0
+   \   00000008   0x6801             LDR      R1,[R0, #+0]
+   \   0000000A   0x2900             CMP      R1,#+0
+   \   0000000C   0xD1FC             BNE.N    ??Delay_0
     312          }
-   \   00000010   0xB001             ADD      SP,SP,#+4
-   \   00000012   0x4770             BX       LR               ;; return
+   \   0000000E   0xB001             ADD      SP,SP,#+4
+   \   00000010   0x4770             BX       LR               ;; return
     313          
     314          /**
     315            * @brief  Decrements the TimingDelay variable.
@@ -508,88 +496,67 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     321            if (TimingDelay != 0x00)
    \                     TimingDelay_Decrement: (+1)
    \   00000000   0x....             LDR.N    R0,??DataTable4_1
-   \   00000002   0x6800             LDR      R0,[R0, #+0]
-   \   00000004   0x2800             CMP      R0,#+0
-   \   00000006   0xD004             BEQ.N    ??TimingDelay_Decrement_0
+   \   00000002   0x6801             LDR      R1,[R0, #+0]
+   \   00000004   0xB111             CBZ.N    R1,??TimingDelay_Decrement_0
     322            { 
     323              TimingDelay--;
-   \   00000008   0x....             LDR.N    R0,??DataTable4_1
-   \   0000000A   0x6800             LDR      R0,[R0, #+0]
-   \   0000000C   0x1E40             SUBS     R0,R0,#+1
-   \   0000000E   0x....             LDR.N    R1,??DataTable4_1
-   \   00000010   0x6008             STR      R0,[R1, #+0]
+   \   00000006   0x6801             LDR      R1,[R0, #+0]
+   \   00000008   0x1E49             SUBS     R1,R1,#+1
+   \   0000000A   0x6001             STR      R1,[R0, #+0]
     324            }
     325          }
    \                     ??TimingDelay_Decrement_0: (+1)
-   \   00000012   0x4770             BX       LR               ;; return
+   \   0000000C   0x4770             BX       LR               ;; return
     326          
     327          
 
    \                                 In section .text, align 2, keep-with-next
     328          void I2S3_Init(uint32_t AudioFreq)
     329          {
-   \                     I2S3_Init: (+1)
-   \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0xB082             SUB      SP,SP,#+8
-   \   00000004   0x0004             MOVS     R4,R0
     330          
     331            // static I2S_HandleTypeDef hi2s3;
     332            /* Enable the CODEC_I2S peripheral clock */
     333            __HAL_RCC_SPI3_CLK_ENABLE();
-   \   00000006   0x....             LDR.N    R0,??DataTable4_2  ;; 0x40023840
-   \   00000008   0x6800             LDR      R0,[R0, #+0]
-   \   0000000A   0xF450 0x4000      ORRS     R0,R0,#0x8000
-   \   0000000E   0x....             LDR.N    R1,??DataTable4_2  ;; 0x40023840
-   \   00000010   0x6008             STR      R0,[R1, #+0]
-   \   00000012   0x....             LDR.N    R0,??DataTable4_2  ;; 0x40023840
-   \   00000014   0x6800             LDR      R0,[R0, #+0]
-   \   00000016   0xF410 0x4000      ANDS     R0,R0,#0x8000
-   \   0000001A   0x9000             STR      R0,[SP, #+0]
-   \   0000001C   0x9800             LDR      R0,[SP, #+0]
+   \                     I2S3_Init: (+1)
+   \   00000000   0x....             LDR.N    R1,??DataTable4_2  ;; 0x40023840
+   \   00000002   0xB082             SUB      SP,SP,#+8
+   \   00000004   0x680A             LDR      R2,[R1, #+0]
+   \   00000006   0xF442 0x4200      ORR      R2,R2,#0x8000
+   \   0000000A   0x600A             STR      R2,[R1, #+0]
+   \   0000000C   0x6809             LDR      R1,[R1, #+0]
     334          
     335            hi2s3.Instance = SPI3;
-   \   0000001E   0x....             LDR.N    R0,??DataTable4_3  ;; 0x40003c00
-   \   00000020   0x....             LDR.N    R1,??DataTable4_4
-   \   00000022   0x6008             STR      R0,[R1, #+0]
+   \   0000000E   0x....             LDR.N    R2,??DataTable4_3  ;; 0x40003c00
+   \   00000010   0xF401 0x4100      AND      R1,R1,#0x8000
+   \   00000014   0x9100             STR      R1,[SP, #+0]
+   \   00000016   0x9900             LDR      R1,[SP, #+0]
+   \   00000018   0x....             LDR.N    R1,??DataTable4_4
+   \   0000001A   0x600A             STR      R2,[R1, #+0]
     336            /* Disable I2S3 peripheral to allow access to I2S internal registers */
     337            __HAL_I2S_DISABLE(&hi2s3);
-   \   00000024   0x....             LDR.N    R0,??DataTable4_4
-   \   00000026   0x6800             LDR      R0,[R0, #+0]
-   \   00000028   0x69C0             LDR      R0,[R0, #+28]
-   \   0000002A   0xF430 0x6080      BICS     R0,R0,#0x400
-   \   0000002E   0x....             LDR.N    R1,??DataTable4_4
-   \   00000030   0x6809             LDR      R1,[R1, #+0]
-   \   00000032   0x61C8             STR      R0,[R1, #+28]
+   \   0000001C   0x69D3             LDR      R3,[R2, #+28]
+   \   0000001E   0xF423 0x6380      BIC      R3,R3,#0x400
+   \   00000022   0x61D3             STR      R3,[R2, #+28]
     338            
     339            hi2s3.Init.Standard = I2S_STANDARD;//I2S_STANDARD_PHILIPS
-   \   00000034   0x2000             MOVS     R0,#+0
-   \   00000036   0x....             LDR.N    R1,??DataTable4_4
-   \   00000038   0x6088             STR      R0,[R1, #+8]
+   \   00000024   0x2200             MOVS     R2,#+0
     340            hi2s3.Init.DataFormat = I2S_DATAFORMAT_16B;
-   \   0000003A   0x2000             MOVS     R0,#+0
-   \   0000003C   0x....             LDR.N    R1,??DataTable4_4
-   \   0000003E   0x60C8             STR      R0,[R1, #+12]
     341            hi2s3.Init.AudioFreq = AudioFreq;
-   \   00000040   0x....             LDR.N    R0,??DataTable4_4
-   \   00000042   0x6144             STR      R4,[R0, #+20]
+   \   00000026   0x6148             STR      R0,[R1, #+20]
     342            hi2s3.Init.CPOL = I2S_CPOL_LOW;
-   \   00000044   0x2000             MOVS     R0,#+0
-   \   00000046   0x....             LDR.N    R1,??DataTable4_4
-   \   00000048   0x6188             STR      R0,[R1, #+24]
     343            hi2s3.Init.ClockSource = I2S_CLOCK_SYSCLK;
-   \   0000004A   0x2002             MOVS     R0,#+2
-   \   0000004C   0x....             LDR.N    R1,??DataTable4_4
-   \   0000004E   0x61C8             STR      R0,[R1, #+28]
+   \   00000028   0x2002             MOVS     R0,#+2
+   \   0000002A   0x61C8             STR      R0,[R1, #+28]
     344            hi2s3.Init.Mode = I2S_MODE_MASTER_TX;
-   \   00000050   0xF44F 0x7000      MOV      R0,#+512
-   \   00000054   0x....             LDR.N    R1,??DataTable4_4
-   \   00000056   0x6048             STR      R0,[R1, #+4]
+   \   0000002C   0xF44F 0x7000      MOV      R0,#+512
+   \   00000030   0x608A             STR      R2,[R1, #+8]
+   \   00000032   0x60CA             STR      R2,[R1, #+12]
+   \   00000034   0x618A             STR      R2,[R1, #+24]
+   \   00000036   0x6048             STR      R0,[R1, #+4]
     345          
     346          #ifdef CODEC_MCLK_ENABLED
     347            hi2s3.Init.MCLKOutput = I2S_MCLKOUTPUT_ENABLE;
-   \   00000058   0xF44F 0x7000      MOV      R0,#+512
-   \   0000005C   0x....             LDR.N    R1,??DataTable4_4
-   \   0000005E   0x6108             STR      R0,[R1, #+16]
+   \   00000038   0x6108             STR      R0,[R1, #+16]
     348          #elif defined(CODEC_MCLK_DISABLED)
     349            hi2s3.Init.MCLKOutput = I2S_MCLKOUTPUT_DISABLE;
     350          #else
@@ -598,8 +565,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     353            
     354            /* Initialize the I2S peripheral with the structure above */
     355            HAL_I2S_Init(&hi2s3);
-   \   00000060   0x....             LDR.N    R0,??DataTable4_4
-   \   00000062   0x.... 0x....      BL       HAL_I2S_Init
+   \   0000003A   0x4608             MOV      R0,R1
+   \   0000003C   0xB002             ADD      SP,SP,#+8
+   \   0000003E   0x.... 0x....      B.W      HAL_I2S_Init
     356            
     357          
     358            /* Enable I2S peripheral */    
@@ -609,7 +577,6 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     362          
     363          
     364          }
-   \   00000066   0xBD13             POP      {R0,R1,R4,PC}    ;; return
     365          
     366          
 
@@ -618,112 +585,90 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     368          {
    \                     SPI3_Init: (+1)
    \   00000000   0xB510             PUSH     {R4,LR}
-   \   00000002   0xB082             SUB      SP,SP,#+8
-   \   00000004   0x0004             MOVS     R4,R0
     369          
     370            // static I2S_HandleTypeDef hi2s3;
     371            /* Enable the CODEC_I2S peripheral clock */
     372            __SPI3_CLK_ENABLE();
-   \   00000006   0x....             LDR.N    R0,??DataTable4_2  ;; 0x40023840
-   \   00000008   0x6800             LDR      R0,[R0, #+0]
-   \   0000000A   0xF450 0x4000      ORRS     R0,R0,#0x8000
-   \   0000000E   0x....             LDR.N    R1,??DataTable4_2  ;; 0x40023840
-   \   00000010   0x6008             STR      R0,[R1, #+0]
-   \   00000012   0x....             LDR.N    R0,??DataTable4_2  ;; 0x40023840
-   \   00000014   0x6800             LDR      R0,[R0, #+0]
-   \   00000016   0xF410 0x4000      ANDS     R0,R0,#0x8000
-   \   0000001A   0x9000             STR      R0,[SP, #+0]
-   \   0000001C   0x9800             LDR      R0,[SP, #+0]
+   \   00000002   0x....             LDR.N    R0,??DataTable4_2  ;; 0x40023840
+   \   00000004   0xB082             SUB      SP,SP,#+8
     373          
     374            hspi3.Instance = SPI3;
-   \   0000001E   0x....             LDR.N    R0,??DataTable4_3  ;; 0x40003c00
-   \   00000020   0x....             LDR.N    R1,??DataTable4_5
-   \   00000022   0x6008             STR      R0,[R1, #+0]
+   \   00000006   0x....             LDR.N    R4,??DataTable4_5
+   \   00000008   0x6801             LDR      R1,[R0, #+0]
+   \   0000000A   0xF441 0x4100      ORR      R1,R1,#0x8000
+   \   0000000E   0x6001             STR      R1,[R0, #+0]
+   \   00000010   0x6800             LDR      R0,[R0, #+0]
+   \   00000012   0xF400 0x4000      AND      R0,R0,#0x8000
+   \   00000016   0x9000             STR      R0,[SP, #+0]
+   \   00000018   0x9800             LDR      R0,[SP, #+0]
+   \   0000001A   0x....             LDR.N    R0,??DataTable4_3  ;; 0x40003c00
+   \   0000001C   0x6020             STR      R0,[R4, #+0]
     375            hspi3.Init.Mode = SPI_MODE_MASTER;
-   \   00000024   0xF44F 0x7082      MOV      R0,#+260
-   \   00000028   0x....             LDR.N    R1,??DataTable4_5
-   \   0000002A   0x6048             STR      R0,[R1, #+4]
+   \   0000001E   0xF44F 0x7082      MOV      R0,#+260
+   \   00000022   0x6060             STR      R0,[R4, #+4]
     376            hspi3.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
-   \   0000002C   0x2018             MOVS     R0,#+24
-   \   0000002E   0x....             LDR.N    R1,??DataTable4_5
-   \   00000030   0x61C8             STR      R0,[R1, #+28]
+   \   00000024   0x2018             MOVS     R0,#+24
+   \   00000026   0x61E0             STR      R0,[R4, #+28]
     377            hspi3.Init.Direction = SPI_DIRECTION_1LINE;
-   \   00000032   0xF44F 0x4000      MOV      R0,#+32768
-   \   00000036   0x....             LDR.N    R1,??DataTable4_5
-   \   00000038   0x6088             STR      R0,[R1, #+8]
+   \   00000028   0xF44F 0x4000      MOV      R0,#+32768
+   \   0000002C   0x60A0             STR      R0,[R4, #+8]
     378            hspi3.Init.DataSize = SPI_DATASIZE_16BIT;
-   \   0000003A   0xF44F 0x6070      MOV      R0,#+3840
-   \   0000003E   0x....             LDR.N    R1,??DataTable4_5
-   \   00000040   0x60C8             STR      R0,[R1, #+12]
+   \   0000002E   0xF44F 0x6070      MOV      R0,#+3840
+   \   00000032   0x60E0             STR      R0,[R4, #+12]
     379            hspi3.Init.CLKPolarity = SPI_POLARITY_LOW;
-   \   00000042   0x2000             MOVS     R0,#+0
-   \   00000044   0x....             LDR.N    R1,??DataTable4_5
-   \   00000046   0x6108             STR      R0,[R1, #+16]
+   \   00000034   0x2000             MOVS     R0,#+0
+   \   00000036   0x6120             STR      R0,[R4, #+16]
     380            hspi3.Init.CLKPhase = SPI_PHASE_1EDGE;
-   \   00000048   0x2000             MOVS     R0,#+0
-   \   0000004A   0x....             LDR.N    R1,??DataTable4_5
-   \   0000004C   0x6148             STR      R0,[R1, #+20]
+   \   00000038   0x6160             STR      R0,[R4, #+20]
     381            hspi3.Init.NSS = SPI_NSS_SOFT;//SPI_NSS_HARD_INPUT
-   \   0000004E   0xF44F 0x7000      MOV      R0,#+512
-   \   00000052   0x....             LDR.N    R1,??DataTable4_5
-   \   00000054   0x6188             STR      R0,[R1, #+24]
+   \   0000003A   0xF44F 0x7000      MOV      R0,#+512
+   \   0000003E   0x61A0             STR      R0,[R4, #+24]
     382            hspi3.Init.FirstBit = SPI_FIRSTBIT_MSB;
-   \   00000056   0x2000             MOVS     R0,#+0
-   \   00000058   0x....             LDR.N    R1,??DataTable4_5
-   \   0000005A   0x6208             STR      R0,[R1, #+32]
+   \   00000040   0x2000             MOVS     R0,#+0
+   \   00000042   0x6220             STR      R0,[R4, #+32]
     383            hspi3.Init.TIMode = SPI_TIMODE_DISABLE;
-   \   0000005C   0x2000             MOVS     R0,#+0
-   \   0000005E   0x....             LDR.N    R1,??DataTable4_5
-   \   00000060   0x6248             STR      R0,[R1, #+36]
+   \   00000044   0x6260             STR      R0,[R4, #+36]
     384            hspi3.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLED;
-   \   00000062   0x2000             MOVS     R0,#+0
-   \   00000064   0x....             LDR.N    R1,??DataTable4_5
-   \   00000066   0x6288             STR      R0,[R1, #+40]
+   \   00000046   0x62A0             STR      R0,[R4, #+40]
     385            hspi3.Init.CRCPolynomial = 7;
-   \   00000068   0x2007             MOVS     R0,#+7
-   \   0000006A   0x....             LDR.N    R1,??DataTable4_5
-   \   0000006C   0x62C8             STR      R0,[R1, #+44]
+   \   00000048   0x2007             MOVS     R0,#+7
+   \   0000004A   0x62E0             STR      R0,[R4, #+44]
     386            hspi3.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
-   \   0000006E   0x2000             MOVS     R0,#+0
-   \   00000070   0x....             LDR.N    R1,??DataTable4_5
-   \   00000072   0x6308             STR      R0,[R1, #+48]
+   \   0000004C   0x2000             MOVS     R0,#+0
+   \   0000004E   0x6320             STR      R0,[R4, #+48]
     387            hspi3.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
-   \   00000074   0x2000             MOVS     R0,#+0
-   \   00000076   0x....             LDR.N    R1,??DataTable4_5
-   \   00000078   0x6348             STR      R0,[R1, #+52]
+   \   00000050   0x6360             STR      R0,[R4, #+52]
     388            //hspi4.RxISR = SPI5_CallBack;
     389            HAL_SPI_Init(&hspi3);
-   \   0000007A   0x....             LDR.N    R0,??DataTable4_5
-   \   0000007C   0x.... 0x....      BL       HAL_SPI_Init
+   \   00000052   0x4620             MOV      R0,R4
+   \   00000054   0x.... 0x....      BL       HAL_SPI_Init
     390            
     391            __HAL_SPI_ENABLE(&hspi3);
-   \   00000080   0x....             LDR.N    R0,??DataTable4_5
-   \   00000082   0x6800             LDR      R0,[R0, #+0]
-   \   00000084   0x6800             LDR      R0,[R0, #+0]
-   \   00000086   0xF050 0x0040      ORRS     R0,R0,#0x40
-   \   0000008A   0x....             LDR.N    R1,??DataTable4_5
-   \   0000008C   0x6809             LDR      R1,[R1, #+0]
-   \   0000008E   0x6008             STR      R0,[R1, #+0]
+   \   00000058   0x6820             LDR      R0,[R4, #+0]
+   \   0000005A   0x6801             LDR      R1,[R0, #+0]
+   \   0000005C   0xF041 0x0140      ORR      R1,R1,#0x40
+   \   00000060   0x6001             STR      R1,[R0, #+0]
     392            
     393          
     394            /* The I2S peripheral will be enabled only in the AUDIO_Play() function 
     395                 or by user functions if DMA mode not enabled */
     396          
     397          }
-   \   00000090   0xBD13             POP      {R0,R1,R4,PC}    ;; return
+   \   00000062   0xB002             ADD      SP,SP,#+8
+   \   00000064   0xBD10             POP      {R4,PC}          ;; return
     398          
     399          
 
    \                                 In section .text, align 2, keep-with-next
     400          void AUDIO_InitApplication(void)
     401          {
-   \                     AUDIO_InitApplication: (+1)
-   \   00000000   0xB580             PUSH     {R7,LR}
     402            WavePlayerInit(3*AUDIO_FREQ);
-   \   00000002   0xF64B 0x3080      MOVW     R0,#+48000
-   \   00000006   0x.... 0x....      BL       WavePlayerInit
+   \                     AUDIO_InitApplication: (+1)
+   \   00000000   0xF64B 0x3280      MOVW     R2,#+48000
+   \   00000004   0x2150             MOVS     R1,#+80
+   \   00000006   0x2004             MOVS     R0,#+4
+   \   00000008   0x.... 0x....      B.W      AUDIO_Init
     403          }
-   \   0000000A   0xBD01             POP      {R0,PC}          ;; return
 
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable4:
@@ -757,14 +702,14 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    .cstack Function
    ------- --------
        0   AUDIO_HalfTransfer_CallBack
-       8   AUDIO_InitApplication
-         8   -> WavePlayerInit
-      16   AudioFlashPlay
-        16   -> AUDIO_Play
+       0   AUDIO_InitApplication
+         0   -> AUDIO_Init
+       8   AudioFlashPlay
+         8   -> AUDIO_Play
        0   Codec_TIMEOUT_UserCallback
        4   Delay
-      16   I2S3_Init
-        16   -> HAL_I2S_Init
+       8   I2S3_Init
+         0   -> HAL_I2S_Init
       16   SPI3_Init
         16   -> HAL_SPI_Init
        0   TC_Callback
@@ -772,10 +717,10 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
        0   WavePlayBack
        8   WavePlayerInit
          8   -> AUDIO_Init
-       8   WavePlayerPauseResume
-         8   -> AUDIO_PauseResume
-       8   WavePlayerStop
-         8   -> AUDIO_Stop
+       0   WavePlayerPauseResume
+         0   -> AUDIO_PauseResume
+       0   WavePlayerStop
+         0   -> AUDIO_Stop
        8   WaveplayerCtrlVolume
          8   -> AUDIO_VolumeCtl
 
@@ -792,23 +737,23 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
        4  ??DataTable4_5
        2  AUDIO_HalfTransfer_CallBack
       12  AUDIO_InitApplication
-      20  AudioFlashPlay
+      16  AudioFlashPlay
        1  AudioPlayStart
        8  Buffer
        4  Codec_TIMEOUT_UserCallback
-      20  Delay
-     104  I2S3_Init
-     146  SPI3_Init
+      18  Delay
+      66  I2S3_Init
+     102  SPI3_Init
        2  TC_Callback
        4  TimingDelay
-      20  TimingDelay_Decrement
+      14  TimingDelay_Decrement
        4  WaveCounter
        4  WaveDataLength
        8  WavePlayBack
-      18  WavePlayerInit
-      14  WavePlayerPauseResume
-      10  WavePlayerStop
-      16  WaveplayerCtrlVolume
+      20  WavePlayerInit
+       4  WavePlayerPauseResume
+       6  WavePlayerStop
+      14  WaveplayerCtrlVolume
        4  XferCplt
       64  hi2s3
      100  hspi3
@@ -817,9 +762,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
  
  189 bytes in section .bss
    1 byte  in section .data
- 420 bytes in section .text
+ 312 bytes in section .text
  
- 420 bytes of CODE memory
+ 312 bytes of CODE memory
  190 bytes of DATA memory
 
 Errors: none

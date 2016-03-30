@@ -50,12 +50,13 @@
 #include "usbd_audio_if.h" 
 #include "audio_application.h"
 
-#define EXT_RAM         1
-#define DEBUG           0
+#define EXT_RAM                 1
+#define DEBUG                   0
 //#define MAIN_RECORD
-#define MAIN_CRSCORR    0
-#define MAIN_FFT        0
-#define USB_STREAMING   1
+#define MAIN_CRSCORR            0
+#define MAIN_FFT                0
+#define USB_STREAMING           1
+#define AUDIO_OUT_STREAM_NORMAL 0
 //#define CS43L22_PLAY     /* Audio Play out via CS43L22 */
 
 /* Exported Defines ----------------------------------------------------------*/
@@ -289,14 +290,14 @@ void SubFrameFinished(void);
 
 
 #define RESET_IDX   {                                                           \
-WaveRec_idxSens1 = 0; /* reset position store data in buffer for sensor 1*/     \
-WaveRec_idxSens2 = 0; /* reset position store data in buffer for sensor 2*/     \
+WaveRec_idxSens1 = WaveRec_idxSens1 % AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 1*/     \
+WaveRec_idxSens2 = WaveRec_idxSens2 % AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 2*/     \
 idxSPI5DataBuf3 = 0; /* reset position store data in temporary buffer */        \
-WaveRec_idxSens3 = 0; /* reset position store data in buffer for sensor 3 */    \
-WaveRec_idxSens4 = 0; /* reset position store data in buffer for sensor 4 */    \
+WaveRec_idxSens3 = WaveRec_idxSens3 % AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 3 */    \
+WaveRec_idxSens4 = WaveRec_idxSens4 % AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 4 */    \
 I2S2_idxTmp = 0; /* reset position store data in temporary buffer */            \
-WaveRec_idxSens5 = 0; /* reset position store data in buffer for sensor 3 */	\
-WaveRec_idxSens6 = 0; /* reset position store data in buffer for sensor 4 */	\
+WaveRec_idxSens5 = WaveRec_idxSens5 % AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 3 */	\
+WaveRec_idxSens6 = WaveRec_idxSens6 % AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 4 */	\
 flgDlyUpd=0;                                                                    \
 }
 
