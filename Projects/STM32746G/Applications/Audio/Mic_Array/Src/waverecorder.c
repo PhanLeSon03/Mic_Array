@@ -94,6 +94,7 @@ uint16_t TestSDO8[4*AUDIO_OUT_BUFFER_SIZE];
 uint16_t TestSDO7_1[4*AUDIO_OUT_BUFFER_SIZE];
 uint16_t TestSDO8_1[4*AUDIO_OUT_BUFFER_SIZE];
 __IO uint16_t  WaveRec_idxTest;
+__IO uint8_t flgRacing;
 
 
 SPI_HandleTypeDef hspi1,hspi2;
@@ -274,38 +275,43 @@ void SPI1_IRQHandler(void)
 					   switch (buffer_switch)
 					   {
 							case BUF1_PLAY:
-									Buffer2.bufMIC1[WaveRec_idxSens1] = vRawSens1;								
+									Buffer2.bufMIC1[WaveRec_idxSens1] = vRawSens1;//vRawSens1;								
 									break;
 							case BUF2_PLAY:
-									Buffer3.bufMIC1[WaveRec_idxSens1] = vRawSens1;
+									Buffer3.bufMIC1[WaveRec_idxSens1] = vRawSens1;//vRawSens1;
 									break;
 							case BUF3_PLAY:
-									Buffer1.bufMIC1[WaveRec_idxSens1] = vRawSens1;									
+									Buffer1.bufMIC1[WaveRec_idxSens1] = vRawSens1;//vRawSens1;									
 									break;
 							default:
 									break; 
 					   
 					   }
+					  
 					}
 					else
 					{
 						switch (buffer_switch)
 						{
 						    case BUF1_PLAY:
-						                    Buffer1.bufMIC1[WaveRec_idxSens1%AUDIO_OUT_BUFFER_SIZE] = vRawSens1;								
+						                    Buffer1.bufMIC1[WaveRec_idxSens1%AUDIO_OUT_BUFFER_SIZE] = vRawSens1;//vRawSens1;									
 						                    break;
 						    case BUF2_PLAY:
-						                    Buffer2.bufMIC1[WaveRec_idxSens1%AUDIO_OUT_BUFFER_SIZE] = vRawSens1;
+						                    Buffer2.bufMIC1[WaveRec_idxSens1%AUDIO_OUT_BUFFER_SIZE] = vRawSens1;//vRawSens1;	
 						                    break;
 						    case BUF3_PLAY:
-						                    Buffer3.bufMIC1[WaveRec_idxSens1%AUDIO_OUT_BUFFER_SIZE] = vRawSens1;									
+						                    Buffer3.bufMIC1[WaveRec_idxSens1%AUDIO_OUT_BUFFER_SIZE] = vRawSens1;//vRawSens1;										
 						                    break;
 						    default:
 						                    break; 
 						}
 					}
-					WaveRec_idxSens1++;
-                    
+
+					 WaveRec_idxSens1++;
+
+			if ((WaveRec_idxSens1 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x01;
+
+			if (flgRacing==0x3F)  SubFrameFinished();                    
 		       	}
 		}
 		else
@@ -332,6 +338,7 @@ void SPI1_IRQHandler(void)
 							break; 
 
 				        }
+					
                  }
                  else
                  {
@@ -355,7 +362,11 @@ void SPI1_IRQHandler(void)
 
 			       }
 
-			       WaveRec_idxSens2++;
+				    WaveRec_idxSens2++;
+
+			if ((WaveRec_idxSens2 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x02;
+
+			if (flgRacing==0x3F)  SubFrameFinished();			      
 					
 
 			  }
@@ -475,6 +486,7 @@ void SPI2_IRQHandler(void)
 					default:
 						break; 
 				}
+				
 			}
 			else
 			{
@@ -494,7 +506,12 @@ void SPI2_IRQHandler(void)
 				}
 			}
 
-			WaveRec_idxSens3++;
+		    WaveRec_idxSens3++;
+
+			if ((WaveRec_idxSens3 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x04;
+
+			if (flgRacing==0x3F)  SubFrameFinished();
+			
 		}
 		
 	 }
@@ -519,6 +536,8 @@ void SPI2_IRQHandler(void)
 	                        default:
 	                                break; 
 	                    }
+
+						
                   }
                   else
                   {
@@ -537,7 +556,11 @@ void SPI2_IRQHandler(void)
                                   break; 
                       }
                     }
-                    WaveRec_idxSens4++;
+				  WaveRec_idxSens4++;
+
+			if ((WaveRec_idxSens4 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x08;
+			if (flgRacing==0x3F)  SubFrameFinished();				  
+                    
             }
 	 }//else
 
@@ -662,6 +685,8 @@ void SPI4_IRQHandler(void)
                          default:
                              break;
                      }
+
+					
                }
                else
                {
@@ -684,7 +709,11 @@ void SPI4_IRQHandler(void)
                          break;
                  }
                }
-	          WaveRec_idxSens5++;
+
+			    WaveRec_idxSens5++;
+			if ((WaveRec_idxSens5 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x10;
+
+			if (flgRacing==0x3F)  SubFrameFinished();				
 	   }
         }
 	else
@@ -727,6 +756,7 @@ void SPI4_IRQHandler(void)
                              break;
                      }
 
+
 					  
                }
                else
@@ -751,9 +781,13 @@ void SPI4_IRQHandler(void)
                    }
 
                 }
-                WaveRec_idxSens6++;
-		
-               if ((WaveRec_idxSens6 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) SubFrameFinished();
+               
+		       
+			   WaveRec_idxSens6++;
+			if ((WaveRec_idxSens6 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x20;
+
+			if (flgRacing==0x3F)  SubFrameFinished();			   
+               
           }		
 	}
 #if 0
@@ -1699,29 +1733,6 @@ buffer_switch_tmp = buffer_switch;
 			break; 
 		}
 
-   switch (buffer_switch_tmp)//buffer_switch_tmp
-  {
-	case BUF1_PLAY:								
-		Buffer2.bufMIC7[0]=Buffer2.bufMIC7[4];
-		Buffer2.bufMIC7[1]=Buffer2.bufMIC7[5];
-		Buffer2.bufMIC7[2]=Buffer2.bufMIC7[6];
-		Buffer2.bufMIC7[3]=Buffer2.bufMIC7[7];								
-	    break;	              
-	case BUF2_PLAY:	
-		Buffer3.bufMIC7[0]=Buffer3.bufMIC7[4];
-		Buffer3.bufMIC7[1]=Buffer3.bufMIC7[5];
-		Buffer3.bufMIC7[2]=Buffer3.bufMIC7[6];
-		Buffer3.bufMIC7[3]=Buffer3.bufMIC7[7];				
-	    break;
-	case BUF3_PLAY:
-		Buffer1.bufMIC7[0]=Buffer1.bufMIC7[4];
-		Buffer1.bufMIC7[1]=Buffer1.bufMIC7[5];
-		Buffer1.bufMIC7[2]=Buffer1.bufMIC7[6];
-		Buffer1.bufMIC7[3]=Buffer1.bufMIC7[7];				
-	    break;
-	default:
-	         break; 
-  }
 
 	}
 #if 0
@@ -1833,29 +1844,7 @@ buffer_switch_tmp = buffer_switch;
 			break; 
 		}
           					 
-          switch (buffer_switch)//buffer_switch
-          {
-              case BUF1_PLAY: 	
-					  Buffer2.bufMIC8[0] = Buffer2.bufMIC8[4];
-					  Buffer2.bufMIC8[1] = Buffer2.bufMIC8[5];
-					  Buffer2.bufMIC8[2] = Buffer2.bufMIC8[6];
-					  Buffer2.bufMIC8[3] = Buffer2.bufMIC8[7];
-                      break;
-              case BUF2_PLAY:
-  					  Buffer3.bufMIC8[0] = Buffer3.bufMIC8[4];
-					  Buffer3.bufMIC8[1] = Buffer3.bufMIC8[5];
-					  Buffer3.bufMIC8[2] = Buffer3.bufMIC8[6];
-					  Buffer3.bufMIC8[3] = Buffer3.bufMIC8[7];
-                      break;
-              case BUF3_PLAY:
-  					  Buffer1.bufMIC8[0] = Buffer1.bufMIC8[4];
-					  Buffer1.bufMIC8[1] = Buffer1.bufMIC8[5];
-					  Buffer1.bufMIC8[2] = Buffer1.bufMIC8[6];
-					  Buffer1.bufMIC8[3] = Buffer1.bufMIC8[7];
-                    break;
-              default:
-                    break; 
-          }                	  
+               	  
    }//if (WaveRecord_flgSDO8Finish==1)
 }
 

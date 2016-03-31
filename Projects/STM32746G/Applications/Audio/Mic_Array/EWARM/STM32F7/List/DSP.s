@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      30/Mar/2016  19:08:19
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      31/Mar/2016  20:53:42
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -2716,7 +2716,7 @@ Delay_Sum_FFT:
           CFI CFA R13+32
         SUB      SP,SP,#+4
           CFI CFA R13+36
-        MOV      R4,R0
+        MOV      R9,R0
         PUSH     {R2}
           CFI CFA R13+40
         MOV      R6,R3
@@ -2730,23 +2730,22 @@ Delay_Sum_FFT:
         STR      R0,[SP, #+0]
         LDR      R1,[SP, #+0]
         MOV      R0,#+1024
-        LDR.W    R9,??DataTable18_3
+        LDR.W    R4,??DataTable18_3
         SDIV     R0,R0,R1
         STR      R0,[SP, #+4]
-        ADD      R0,R9,#+33024
+        ADD      R0,R4,#+33024
         ADDS     R0,R0,#+64
-        MOVS     R7,#+0
+        MOVW     R5,#+4136
         STR      R0,[SP, #+20]
-        ADD      R0,R9,#+12288
+        ADD      R0,R4,#+12288
         ADDS     R0,R0,#+120
-        MOVW     R5,#+4116
+        MOVS     R7,#+0
         STR      R0,[SP, #+16]
-        ADD      R0,R9,#+8192
+        ADD      R0,R4,#+8192
         ADDS     R0,R0,#+80
         LDR.W    R11,??DataTable18_4
         STR      R0,[SP, #+12]
-        ADD      R0,R9,#+4096
-        ADDS     R0,R0,#+40
+        ADDS     R0,R5,R4
         STR      R0,[SP, #+8]
         LDR      R0,[SP, #+4]
         CMP      R0,#+1
@@ -2759,7 +2758,7 @@ Delay_Sum_FFT:
         MUL      R0,R6,R7
         MOV      R1,R11
         MOV.W    R2,R6
-        ADD      R0,R4,R0, LSL #+1
+        ADD      R0,R9,R0, LSL #+1
 ??Delay_Sum_FFT_3:
         LDRSH    R3,[R0], #+2
         VMOV     S0,R3
@@ -2770,7 +2769,7 @@ Delay_Sum_FFT:
         BNE.N    ??Delay_Sum_FFT_3
 ??Delay_Sum_FFT_2:
         MOVS     R3,#+0
-        MOV      R2,R9
+        MOV      R2,R4
         MOV      R1,R11
         LDR.W    R0,??DataTable18_5
           CFI FunCall arm_rfft_fast_f32
@@ -2781,8 +2780,8 @@ Delay_Sum_FFT:
         MUL      R0,R6,R7
         MOV      R1,R11
         MOV      R2,R6
-        ADD      R0,R4,R0, LSL #+1
-        ADDS.W   R0,R5,R0
+        ADD      R0,R9,R0, LSL #+1
+        ADD      R0,R0,#+2048
 ??Delay_Sum_FFT_5:
         LDRSH    R3,[R0], #+2
         VMOV     S0,R3
@@ -2804,9 +2803,8 @@ Delay_Sum_FFT:
         MUL      R0,R6,R7
         MOV      R1,R11
         MOV      R2,R6
-        ADD      R0,R4,R0, LSL #+1
-        ADD      R0,R0,#+8192
-        ADDS.W   R0,R0,#+40
+        ADD      R0,R9,R0, LSL #+1
+        ADD      R0,R0,#+4096
 ??Delay_Sum_FFT_7:
         LDRSH    R3,[R0], #+2
         VMOV     S0,R3
@@ -2828,9 +2826,8 @@ Delay_Sum_FFT:
         MUL      R0,R6,R7
         MOV      R1,R11
         MOV      R2,R6
-        ADD      R0,R4,R0, LSL #+1
-        ADD      R0,R0,#+12288
-        ADDS.W   R0,R0,#+60
+        ADD      R0,R9,R0, LSL #+1
+        ADD      R0,R0,#+6144
 ??Delay_Sum_FFT_9:
         LDRSH    R3,[R0], #+2
         VMOV     S0,R3
@@ -2860,16 +2857,15 @@ Delay_Sum_FFT:
 //  969                                 (DataFFT.bufMIC3[ii]*coefMics->facMIC3) +
 //  970                                 (DataFFT.bufMIC4[ii]*coefMics->facMIC4)); 
 ??Delay_Sum_FFT_11:
-        ADD      R1,R9,R0, LSL #+2
+        ADD      R2,R4,R0, LSL #+2
         VLDR     S1,[R10, #0]
-        ADD      R2,R9,R0, LSL #+2
+        ADD      R1,R4,R0, LSL #+2
         VLDR     S2,[R10, #+4]
 //  971           }
         ADDS     R0,R0,#+1
         UXTH     R0,R0
         VLDR     S0,[R2, #0]
-        ADD      R2,R1,#+4096
-        ADDS     R2,R2,#+40
+        ADDS     R2,R5,R1
         VMUL.F32 S0,S0,S1
         VLDR     S1,[R2, #0]
         ADD      R2,R1,#+8192
@@ -2897,7 +2893,7 @@ Delay_Sum_FFT:
         LDR      R1,[SP, #+20]
         MOVS     R3,#+1
         ADDS     R7,R7,#+1
-        ADD      R0,R9,R0, LSL #+2
+        ADD      R0,R4,R0, LSL #+2
         UXTH     R7,R7
         ADD      R2,R0,#+37376
         ADDS     R2,R2,#+208
@@ -2921,12 +2917,12 @@ Delay_Sum_FFT:
 ??Delay_Sum_FFT_12:
         ASRS     R2,R0,#+1
         BIC      R1,R0,#0x1
-        ADD      R2,R9,R2, LSL #+2
-        ADDS     R1,R1,R4
+        ADD      R2,R4,R2, LSL #+2
+        ADD      R1,R1,R9
         LDR      R3,[SP, #+24]
         ADD      R2,R2,#+37376
         ADDS     R2,R2,#+208
-        LDRSH    R1,[R5, R1]
+        LDRSH    R1,[R1, #+2048]
         VLDR     S0,[R2, #0]
         VCVT.S32.F32 S0,S0
         VMOV     R2,S0
@@ -3857,9 +3853,9 @@ NoiseBG:
 // 1176 
 // 
 // 96 030 bytes in section .bss
-//  6 892 bytes in section .text
+//  6 878 bytes in section .text
 // 
-//  6 892 bytes of CODE memory
+//  6 878 bytes of CODE memory
 // 96 030 bytes of DATA memory
 //
 //Errors: none

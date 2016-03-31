@@ -50,7 +50,7 @@
 #include "usbd_audio_if.h" 
 #include "audio_application.h"
 
-#define EXT_RAM                 1
+#define EXT_RAM                 0
 #define DEBUG                   0
 //#define MAIN_RECORD
 #define MAIN_CRSCORR            0
@@ -223,14 +223,14 @@ typedef enum {
 }AUDIO_ErrorTypeDef;
 
 typedef struct  {
-int16_t bufMIC1[2*AUDIO_OUT_BUFFER_SIZE+10];
-int16_t bufMIC2[2*AUDIO_OUT_BUFFER_SIZE+10];
-int16_t bufMIC3[2*AUDIO_OUT_BUFFER_SIZE+10];
-int16_t bufMIC4[2*AUDIO_OUT_BUFFER_SIZE+10];
-int16_t bufMIC5[2*AUDIO_OUT_BUFFER_SIZE+10];
-int16_t bufMIC6[2*AUDIO_OUT_BUFFER_SIZE+10];
-int16_t bufMIC7[2*AUDIO_OUT_BUFFER_SIZE+10];
-int16_t bufMIC8[2*AUDIO_OUT_BUFFER_SIZE+10];
+int16_t bufMIC1[AUDIO_OUT_BUFFER_SIZE];
+int16_t bufMIC2[AUDIO_OUT_BUFFER_SIZE];
+int16_t bufMIC3[AUDIO_OUT_BUFFER_SIZE];
+int16_t bufMIC4[AUDIO_OUT_BUFFER_SIZE];
+int16_t bufMIC5[AUDIO_OUT_BUFFER_SIZE];
+int16_t bufMIC6[AUDIO_OUT_BUFFER_SIZE];
+int16_t bufMIC7[AUDIO_OUT_BUFFER_SIZE];
+int16_t bufMIC8[AUDIO_OUT_BUFFER_SIZE];
 
 
 }Mic_Array_Data;
@@ -290,14 +290,14 @@ void SubFrameFinished(void);
 
 
 #define RESET_IDX   {                                                           \
-WaveRec_idxSens1 = WaveRec_idxSens1 % AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 1*/     \
-WaveRec_idxSens2 = WaveRec_idxSens2 % AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 2*/     \
+WaveRec_idxSens1 = WaveRec_idxSens1%AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 1*/     \
+WaveRec_idxSens2 = WaveRec_idxSens2%AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 2*/     \
 idxSPI5DataBuf3 = 0; /* reset position store data in temporary buffer */        \
-WaveRec_idxSens3 = WaveRec_idxSens3 % AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 3 */    \
-WaveRec_idxSens4 = WaveRec_idxSens4 % AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 4 */    \
+WaveRec_idxSens3 = WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 3 */    \
+WaveRec_idxSens4 = WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 4 */    \
 I2S2_idxTmp = 0; /* reset position store data in temporary buffer */            \
-WaveRec_idxSens5 = WaveRec_idxSens5 % AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 3 */	\
-WaveRec_idxSens6 = WaveRec_idxSens6 % AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 4 */	\
+WaveRec_idxSens5 = WaveRec_idxSens5%AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 3 */	\
+WaveRec_idxSens6 = WaveRec_idxSens6%AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 4 */	\
 flgDlyUpd=0;                                                                    \
 }
 

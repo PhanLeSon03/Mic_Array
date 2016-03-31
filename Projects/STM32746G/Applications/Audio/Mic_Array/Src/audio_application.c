@@ -193,6 +193,17 @@ void AudioUSBSend(uint16_t idxFrm) /* This function called every ms */
 }
 
 /* This function should be called after data processing */
+/*-------------------------------------------------------------------------------------------------------------
+			  
+	Sequence  Record Data                     Processing Data                 Player Data
+			  
+	1-------  Buffer1                         Buffer2                         Buffer3
+			  
+	2-------  Buffer3                         Buffer1                         Buffer2		  
+			  
+	3-------  Buffer2                         Buffer3                         Buffer1 
+ ---------------------------------------------------------------------------------------------------------------*/
+
 void AudioPlayerUpd(void) /* This function called with period of 64ms */
 {
 #if (!0)
@@ -201,42 +212,92 @@ void AudioPlayerUpd(void) /* This function called with period of 64ms */
       case BUF1_PLAY:
 		for (uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
 		{
-		  //if (i%2==0)
-		  {
-			  for(uint8_t j=0;j<8;j++)//AUDIO_CHANNELS
-			  {
-				  (swtBufUSBOut)?(PCM_Buffer1[8*(i)+j] = (int16_t)*(&Buffer3.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i)):
-								  (PCM_Buffer2[8*(i)+j] = (int16_t)*(&Buffer3.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i));
+           if (swtBufUSBOut)
+           {
+			   PCM_Buffer1[8*(i)  ]= Buffer1.bufMIC1[i];
+			   PCM_Buffer1[8*(i)+1]= Buffer1.bufMIC2[i];
+			   PCM_Buffer1[8*(i)+2]= Buffer1.bufMIC3[i];
+			   PCM_Buffer1[8*(i)+3]= Buffer1.bufMIC4[i];
+			   PCM_Buffer1[8*(i)+4]= Buffer1.bufMIC5[i];
+			   PCM_Buffer1[8*(i)+5]= Buffer1.bufMIC6[i];
+			   PCM_Buffer1[8*(i)+6]= Buffer1.bufMIC7[i];
+			   PCM_Buffer1[8*(i)+7]= Buffer1.bufMIC8[i];
 
-			  }
-		  }
+           }
+		   else
+		   {
+		  PCM_Buffer2[8*(i)  ]= Buffer1.bufMIC1[i];
+		  PCM_Buffer2[8*(i)+1]= Buffer1.bufMIC2[i];
+		  PCM_Buffer2[8*(i)+2]= Buffer1.bufMIC3[i];
+		  PCM_Buffer2[8*(i)+3]= Buffer1.bufMIC4[i];
+		  PCM_Buffer2[8*(i)+4]= Buffer1.bufMIC5[i];
+		  PCM_Buffer2[8*(i)+5]= Buffer1.bufMIC6[i];
+		  PCM_Buffer2[8*(i)+6]= Buffer1.bufMIC7[i];
+		  PCM_Buffer2[8*(i)+7]= Buffer1.bufMIC8[i];		   
+		   }
+
+		  
 		}
         break;    
       case BUF2_PLAY:
 	  	for (uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
  	  	{
- 	  	    //if (i%2==0)
- 	  	    {
-                for(uint8_t j=0;j<8;j++)//AUDIO_CHANNELS
-                {
-                    (swtBufUSBOut)?(PCM_Buffer1[8*(i)+j] = (int16_t)*(&Buffer1.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i)):
-						            (PCM_Buffer2[8*(i)+j] = (int16_t)*(&Buffer1.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i));
-                }
- 	  	    }
+           if (swtBufUSBOut)
+           {
+			   PCM_Buffer1[8*(i)  ]= Buffer2.bufMIC1[i];
+			   PCM_Buffer1[8*(i)+1]= Buffer2.bufMIC2[i];
+			   PCM_Buffer1[8*(i)+2]= Buffer2.bufMIC3[i];
+			   PCM_Buffer1[8*(i)+3]= Buffer2.bufMIC4[i];
+			   PCM_Buffer1[8*(i)+4]= Buffer2.bufMIC5[i];
+			   PCM_Buffer1[8*(i)+5]= Buffer2.bufMIC6[i];
+			   PCM_Buffer1[8*(i)+6]= Buffer2.bufMIC7[i];
+			   PCM_Buffer1[8*(i)+7]= Buffer2.bufMIC8[i];
+
+           }
+		   else
+		   {
+			PCM_Buffer2[8*(i)  ]= Buffer2.bufMIC1[i];
+			PCM_Buffer2[8*(i)+1]= Buffer2.bufMIC2[i];
+			PCM_Buffer2[8*(i)+2]= Buffer2.bufMIC3[i];
+			PCM_Buffer2[8*(i)+3]= Buffer2.bufMIC4[i];
+			PCM_Buffer2[8*(i)+4]= Buffer2.bufMIC5[i];
+			PCM_Buffer2[8*(i)+5]= Buffer2.bufMIC6[i];
+			PCM_Buffer2[8*(i)+6]= Buffer2.bufMIC7[i];
+			PCM_Buffer2[8*(i)+7]= Buffer2.bufMIC8[i];		   
+		   }
+
+
 		}
 		
         break;
       case BUF3_PLAY:
 	  	for (uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
  	  	{
- 	  	    //if (i%2==0)
- 	  	    {
-	 	  	    for(uint8_t j=0;j<8;j++)//AUDIO_CHANNELS
-	 	  	    {
-                            (swtBufUSBOut)?(PCM_Buffer1[8*(i)+j] = (int16_t)*(&Buffer2.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i)):
-								            (PCM_Buffer2[8*(i)+j] = (int16_t)*(&Buffer2.bufMIC1[0] + AUDIO_SIZE_ELEMENT*j + i));	                
-	 	  	    }
- 	  	    }
+           if (swtBufUSBOut)
+           {
+			   PCM_Buffer1[8*(i)  ]= Buffer3.bufMIC1[i];
+			   PCM_Buffer1[8*(i)+1]= Buffer3.bufMIC2[i];
+			   PCM_Buffer1[8*(i)+2]= Buffer3.bufMIC3[i];
+			   PCM_Buffer1[8*(i)+3]= Buffer3.bufMIC4[i];
+			   PCM_Buffer1[8*(i)+4]= Buffer3.bufMIC5[i];
+			   PCM_Buffer1[8*(i)+5]= Buffer3.bufMIC6[i];
+			   PCM_Buffer1[8*(i)+6]= Buffer3.bufMIC7[i];
+			   PCM_Buffer1[8*(i)+7]= Buffer3.bufMIC8[i];
+
+           }
+		   else
+		   {
+				PCM_Buffer2[8*(i)  ]= Buffer3.bufMIC1[i];
+				PCM_Buffer2[8*(i)+1]= Buffer3.bufMIC2[i];
+				PCM_Buffer2[8*(i)+2]= Buffer3.bufMIC3[i];
+				PCM_Buffer2[8*(i)+3]= Buffer3.bufMIC4[i];
+				PCM_Buffer2[8*(i)+4]= Buffer3.bufMIC5[i];
+				PCM_Buffer2[8*(i)+5]= Buffer3.bufMIC6[i];
+				PCM_Buffer2[8*(i)+6]= Buffer3.bufMIC7[i];
+				PCM_Buffer2[8*(i)+7]= Buffer3.bufMIC8[i];		   
+		   } 	  	
+
+
 		}	  	
         break;
       default:
@@ -248,17 +309,6 @@ void AudioPlayerUpd(void) /* This function called with period of 64ms */
 
 swtBufUSBOut^=0x01;
 
-
-/*-------------------------------------------------------------------------------------------------------------
-			  
-	Sequence  Record Data                     Processing Data                 Player Data
-			  
-	1-------  Buffer1                         Buffer2                         Buffer3
-			  
-	2-------  Buffer3                         Buffer1                         Buffer2		  
-			  
-	3-------  Buffer2                         Buffer3                         Buffer1 
- ---------------------------------------------------------------------------------------------------------------*/
 
 switch (buffer_switch)
 {

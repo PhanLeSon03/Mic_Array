@@ -67,7 +67,7 @@ __IO uint8_t   cntBtnPress;
 
 extern __IO uint16_t  WaveRec_idxTest;
 extern __IO uint8_t  swtBufUSBOut;
-
+extern __IO uint8_t flgRacing;
 /* Buffer used for reception */
 uint8_t aRxBuffer[1024];
 uint8_t idxDec,stFrstFrmStore;
@@ -321,10 +321,12 @@ inline static void Audio_Play_Out(void)
  ---------------------------------------------------------------------------------------------------------------*/
     //Audio_MAL_Play((uint32_t)&bufferSum[idxFrmPDMMic8*AUDIO_CHANNELS*(6*AUDIO_SAMPLING_FREQUENCY/1000)], 2*6*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
     //Audio_MAL_Play((uint32_t)&bufferSum, 2*3*AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE);
+    flgRacing=0;
 
 #if USB_STREAMING
-    AudioUSBSend(idxFrmPDMMic8);
+			  AudioUSBSend(idxFrmPDMMic8);
 #endif
+
     ++idxFrmPDMMic8;
 	/* if player is finished for curent buffer                                  */ 
 	if (idxFrmPDMMic8 == AUDIO_OUT_BUFFER_SIZE/(AUDIO_SAMPLING_FREQUENCY/1000))
@@ -351,11 +353,15 @@ inline static void Audio_Play_Out(void)
                 default:
                   break;
             }
+
+			
           if (cntStrt<100) cntStrt++;
+
 
 		 /* Tongle status to switch the USB audio buffer out */
 
-	}			   
+	}			 
+
 }
 
 
@@ -1266,6 +1272,10 @@ void MX_I2C2_Init(void)
 	 WaveRec_idxSens4 = 0;
 	 WaveRec_idxSens5 = 0;
 	 WaveRec_idxSens6 = 0; 
+	 idxFrmPDMMic8 = 0;
+	 buffer_switch = BUF1_PLAY;
+     //AudioUSBSend(idxFrmPDMMic8);	 
+	 
  }
 
 void SubFrameFinished(void)
