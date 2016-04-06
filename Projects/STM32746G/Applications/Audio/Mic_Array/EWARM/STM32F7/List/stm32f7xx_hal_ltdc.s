@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      31/Mar/2016  20:53:46
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      06/Apr/2016  18:05:31
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -140,8 +140,8 @@
 //    2   ******************************************************************************
 //    3   * @file    stm32f7xx_hal_ltdc.c
 //    4   * @author  MCD Application Team
-//    5   * @version V1.0.1
-//    6   * @date    25-June-2015
+//    5   * @version V1.0.4
+//    6   * @date    09-December-2015
 //    7   * @brief   LTDC HAL module driver.
 //    8   *          This file provides firmware functions to manage the following 
 //    9   *          functionalities of the LTDC peripheral:
@@ -240,7 +240,7 @@
 //  102 /** @addtogroup STM32F7xx_HAL_Driver
 //  103   * @{
 //  104   */
-//  105 #if defined(STM32F756xx) || defined(STM32F746xx)
+//  105 #if defined (STM32F746xx) || defined (STM32F756xx)
 //  106 
 //  107 /** @defgroup LTDC LTDC
 //  108   * @brief LTDC HAL module driver
@@ -549,305 +549,317 @@ HAL_LTDC_DeInit:
         THUMB
 //  264 __weak void HAL_LTDC_MspInit(LTDC_HandleTypeDef* hltdc)
 //  265 {
-//  266   /* NOTE : This function Should not be modified, when the callback is needed,
-//  267             the HAL_LTDC_MspInit could be implemented in the user file
-//  268    */ 
-//  269 }
+//  266   /* Prevent unused argument(s) compilation warning */
+//  267   UNUSED(hltdc);
+//  268   
+//  269   /* NOTE : This function Should not be modified, when the callback is needed,
+//  270             the HAL_LTDC_MspInit could be implemented in the user file
+//  271    */ 
+//  272 }
 HAL_LTDC_MspInit:
         BX       LR               ;; return
           CFI EndBlock cfiBlock2
-//  270 
-//  271 /**
-//  272   * @brief  DeInitializes the LTDC MSP.
-//  273   * @param  hltdc : pointer to a LTDC_HandleTypeDef structure that contains
-//  274   *                the configuration information for the LTDC.
-//  275   * @retval None
-//  276   */
+//  273 
+//  274 /**
+//  275   * @brief  DeInitializes the LTDC MSP.
+//  276   * @param  hltdc : pointer to a LTDC_HandleTypeDef structure that contains
+//  277   *                the configuration information for the LTDC.
+//  278   * @retval None
+//  279   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock3 Using cfiCommon0
           CFI Function HAL_LTDC_MspDeInit
           CFI NoCalls
         THUMB
-//  277 __weak void HAL_LTDC_MspDeInit(LTDC_HandleTypeDef* hltdc)
-//  278 {
-//  279   /* NOTE : This function Should not be modified, when the callback is needed,
-//  280             the HAL_LTDC_MspDeInit could be implemented in the user file
-//  281    */
-//  282 }
+//  280 __weak void HAL_LTDC_MspDeInit(LTDC_HandleTypeDef* hltdc)
+//  281 {
+//  282   /* Prevent unused argument(s) compilation warning */
+//  283   UNUSED(hltdc);
+//  284   
+//  285   /* NOTE : This function Should not be modified, when the callback is needed,
+//  286             the HAL_LTDC_MspDeInit could be implemented in the user file
+//  287    */
+//  288 }
 HAL_LTDC_MspDeInit:
         BX       LR               ;; return
           CFI EndBlock cfiBlock3
-//  283 
-//  284 /**
-//  285   * @}
-//  286   */
-//  287   
-//  288 /** @defgroup LTDC_Exported_Functions_Group2 IO operation functions 
-//  289  *  @brief   IO operation functions  
-//  290  *
-//  291 @verbatim
-//  292  ===============================================================================
-//  293                       #####  IO operation functions  #####
-//  294  ===============================================================================  
-//  295     [..]  This section provides function allowing to:
-//  296       (+) Handle LTDC interrupt request
-//  297 
-//  298 @endverbatim
-//  299   * @{
-//  300   */
-//  301 /**
-//  302   * @brief  Handles LTDC interrupt request.
-//  303   * @param  hltdc: pointer to a LTDC_HandleTypeDef structure that contains
-//  304   *                the configuration information for the LTDC.  
-//  305   * @retval HAL status
+//  289 
+//  290 /**
+//  291   * @}
+//  292   */
+//  293   
+//  294 /** @defgroup LTDC_Exported_Functions_Group2 IO operation functions 
+//  295  *  @brief   IO operation functions  
+//  296  *
+//  297 @verbatim
+//  298  ===============================================================================
+//  299                       #####  IO operation functions  #####
+//  300  ===============================================================================  
+//  301     [..]  This section provides function allowing to:
+//  302       (+) Handle LTDC interrupt request
+//  303 
+//  304 @endverbatim
+//  305   * @{
 //  306   */
+//  307 /**
+//  308   * @brief  Handles LTDC interrupt request.
+//  309   * @param  hltdc: pointer to a LTDC_HandleTypeDef structure that contains
+//  310   *                the configuration information for the LTDC.  
+//  311   * @retval HAL status
+//  312   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock4 Using cfiCommon0
           CFI Function HAL_LTDC_IRQHandler
         THUMB
-//  307 void HAL_LTDC_IRQHandler(LTDC_HandleTypeDef *hltdc)
-//  308 {
+//  313 void HAL_LTDC_IRQHandler(LTDC_HandleTypeDef *hltdc)
+//  314 {
 HAL_LTDC_IRQHandler:
         PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
         MOV      R4,R0
-//  309   /* Transfer Error Interrupt management ***************************************/
-//  310   if(__HAL_LTDC_GET_FLAG(hltdc, LTDC_FLAG_TE) != RESET)
+//  315   /* Transfer Error Interrupt management ***************************************/
+//  316   if(__HAL_LTDC_GET_FLAG(hltdc, LTDC_FLAG_TE) != RESET)
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+56]
         LSLS     R1,R1,#+29
         BPL.N    ??HAL_LTDC_IRQHandler_0
-//  311   {
-//  312     if(__HAL_LTDC_GET_IT_SOURCE(hltdc, LTDC_IT_TE) != RESET)
+//  317   {
+//  318     if(__HAL_LTDC_GET_IT_SOURCE(hltdc, LTDC_IT_TE) != RESET)
         LDR      R1,[R0, #+56]
         LSLS     R1,R1,#+29
         BPL.N    ??HAL_LTDC_IRQHandler_0
-//  313     {
-//  314       /* Disable the transfer Error interrupt */
-//  315       __HAL_LTDC_DISABLE_IT(hltdc, LTDC_IT_TE);
+//  319     {
+//  320       /* Disable the transfer Error interrupt */
+//  321       __HAL_LTDC_DISABLE_IT(hltdc, LTDC_IT_TE);
         LDR      R1,[R0, #+52]
         BIC      R1,R1,#0x4
         STR      R1,[R0, #+52]
-//  316 
-//  317       /* Clear the transfer error flag */
-//  318       __HAL_LTDC_CLEAR_FLAG(hltdc, LTDC_FLAG_TE);
+//  322 
+//  323       /* Clear the transfer error flag */
+//  324       __HAL_LTDC_CLEAR_FLAG(hltdc, LTDC_FLAG_TE);
         LDR      R1,[R4, #+0]
         MOVS     R0,#+4
         STR      R0,[R1, #+60]
-//  319 
-//  320       /* Update error code */
-//  321       hltdc->ErrorCode |= HAL_LTDC_ERROR_TE;
+//  325 
+//  326       /* Update error code */
+//  327       hltdc->ErrorCode |= HAL_LTDC_ERROR_TE;
         LDR      R0,[R4, #+164]
         ORR      R0,R0,#0x1
         STR      R0,[R4, #+164]
-//  322 
-//  323       /* Change LTDC state */
-//  324       hltdc->State = HAL_LTDC_STATE_ERROR;
+//  328 
+//  329       /* Change LTDC state */
+//  330       hltdc->State = HAL_LTDC_STATE_ERROR;
         MOVS     R0,#+4
         STRB     R0,[R4, #+161]
-//  325 
-//  326       /* Process unlocked */
-//  327       __HAL_UNLOCK(hltdc);
+//  331 
+//  332       /* Process unlocked */
+//  333       __HAL_UNLOCK(hltdc);
         MOVS     R0,#+0
         STRB     R0,[R4, #+160]
-//  328 
-//  329       /* Transfer error Callback */
-//  330       HAL_LTDC_ErrorCallback(hltdc);
+//  334 
+//  335       /* Transfer error Callback */
+//  336       HAL_LTDC_ErrorCallback(hltdc);
         MOV      R0,R4
           CFI FunCall HAL_LTDC_ErrorCallback
         BL       HAL_LTDC_ErrorCallback
-//  331     }
-//  332   }
-//  333   /* FIFO underrun Interrupt management ***************************************/
-//  334   if(__HAL_LTDC_GET_FLAG(hltdc, LTDC_FLAG_FU) != RESET)
+//  337     }
+//  338   }
+//  339   /* FIFO underrun Interrupt management ***************************************/
+//  340   if(__HAL_LTDC_GET_FLAG(hltdc, LTDC_FLAG_FU) != RESET)
 ??HAL_LTDC_IRQHandler_0:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+56]
         LSLS     R1,R1,#+30
         BPL.N    ??HAL_LTDC_IRQHandler_1
-//  335   {
-//  336     if(__HAL_LTDC_GET_IT_SOURCE(hltdc, LTDC_IT_FU) != RESET)
+//  341   {
+//  342     if(__HAL_LTDC_GET_IT_SOURCE(hltdc, LTDC_IT_FU) != RESET)
         LDR      R1,[R0, #+56]
         LSLS     R1,R1,#+30
         BPL.N    ??HAL_LTDC_IRQHandler_1
-//  337     {
-//  338       /* Disable the FIFO underrun interrupt */
-//  339       __HAL_LTDC_DISABLE_IT(hltdc, LTDC_IT_FU);
+//  343     {
+//  344       /* Disable the FIFO underrun interrupt */
+//  345       __HAL_LTDC_DISABLE_IT(hltdc, LTDC_IT_FU);
         LDR      R1,[R0, #+52]
         BIC      R1,R1,#0x2
         STR      R1,[R0, #+52]
-//  340 
-//  341       /* Clear the FIFO underrun flag */
-//  342       __HAL_LTDC_CLEAR_FLAG(hltdc, LTDC_FLAG_FU);
+//  346 
+//  347       /* Clear the FIFO underrun flag */
+//  348       __HAL_LTDC_CLEAR_FLAG(hltdc, LTDC_FLAG_FU);
         LDR      R1,[R4, #+0]
         MOVS     R0,#+2
         STR      R0,[R1, #+60]
-//  343 
-//  344       /* Update error code */
-//  345       hltdc->ErrorCode |= HAL_LTDC_ERROR_FU;
+//  349 
+//  350       /* Update error code */
+//  351       hltdc->ErrorCode |= HAL_LTDC_ERROR_FU;
         LDR      R0,[R4, #+164]
         ORR      R0,R0,#0x2
         STR      R0,[R4, #+164]
-//  346 
-//  347       /* Change LTDC state */
-//  348       hltdc->State = HAL_LTDC_STATE_ERROR;
+//  352 
+//  353       /* Change LTDC state */
+//  354       hltdc->State = HAL_LTDC_STATE_ERROR;
         MOVS     R0,#+4
         STRB     R0,[R4, #+161]
-//  349 
-//  350       /* Process unlocked */
-//  351       __HAL_UNLOCK(hltdc);
+//  355 
+//  356       /* Process unlocked */
+//  357       __HAL_UNLOCK(hltdc);
         MOVS     R0,#+0
         STRB     R0,[R4, #+160]
-//  352       
-//  353       /* Transfer error Callback */
-//  354       HAL_LTDC_ErrorCallback(hltdc);
+//  358       
+//  359       /* Transfer error Callback */
+//  360       HAL_LTDC_ErrorCallback(hltdc);
         MOV      R0,R4
           CFI FunCall HAL_LTDC_ErrorCallback
         BL       HAL_LTDC_ErrorCallback
-//  355     }
-//  356   }
-//  357   /* Line Interrupt management ************************************************/
-//  358   if(__HAL_LTDC_GET_FLAG(hltdc, LTDC_FLAG_LI) != RESET)
+//  361     }
+//  362   }
+//  363   /* Line Interrupt management ************************************************/
+//  364   if(__HAL_LTDC_GET_FLAG(hltdc, LTDC_FLAG_LI) != RESET)
 ??HAL_LTDC_IRQHandler_1:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+56]
         LSLS     R1,R1,#+31
         BPL.N    ??HAL_LTDC_IRQHandler_2
-//  359   {
-//  360     if(__HAL_LTDC_GET_IT_SOURCE(hltdc, LTDC_IT_LI) != RESET)
+//  365   {
+//  366     if(__HAL_LTDC_GET_IT_SOURCE(hltdc, LTDC_IT_LI) != RESET)
         LDR      R1,[R0, #+56]
         LSLS     R1,R1,#+31
         BPL.N    ??HAL_LTDC_IRQHandler_2
-//  361     {
-//  362       /* Disable the Line interrupt */
-//  363       __HAL_LTDC_DISABLE_IT(hltdc, LTDC_IT_LI);
+//  367     {
+//  368       /* Disable the Line interrupt */
+//  369       __HAL_LTDC_DISABLE_IT(hltdc, LTDC_IT_LI);
         LDR      R1,[R0, #+52]
         LSRS     R1,R1,#+1
         LSLS     R1,R1,#+1
         STR      R1,[R0, #+52]
-//  364 
-//  365       /* Clear the Line interrupt flag */  
-//  366       __HAL_LTDC_CLEAR_FLAG(hltdc, LTDC_FLAG_LI);
+//  370 
+//  371       /* Clear the Line interrupt flag */  
+//  372       __HAL_LTDC_CLEAR_FLAG(hltdc, LTDC_FLAG_LI);
         LDR      R1,[R4, #+0]
         MOVS     R0,#+1
         STR      R0,[R1, #+60]
-//  367 
-//  368       /* Change LTDC state */
-//  369       hltdc->State = HAL_LTDC_STATE_READY;
+//  373 
+//  374       /* Change LTDC state */
+//  375       hltdc->State = HAL_LTDC_STATE_READY;
         STRB     R0,[R4, #+161]
-//  370 
-//  371       /* Process unlocked */
-//  372       __HAL_UNLOCK(hltdc);
+//  376 
+//  377       /* Process unlocked */
+//  378       __HAL_UNLOCK(hltdc);
         MOVS     R0,#+0
         STRB     R0,[R4, #+160]
-//  373 
-//  374       /* Line interrupt Callback */
-//  375       HAL_LTDC_LineEvenCallback(hltdc);
+//  379 
+//  380       /* Line interrupt Callback */
+//  381       HAL_LTDC_LineEvenCallback(hltdc);
         MOV      R0,R4
           CFI FunCall HAL_LTDC_LineEventCallback
         BL       HAL_LTDC_LineEventCallback
-//  376     }
-//  377   }
-//  378 }
+//  382     }
+//  383   }
+//  384 }
 ??HAL_LTDC_IRQHandler_2:
         POP      {R4,PC}          ;; return
           CFI EndBlock cfiBlock4
-//  379 
-//  380 /**
-//  381   * @brief  Error LTDC callback.
-//  382   * @param  hltdc: pointer to a LTDC_HandleTypeDef structure that contains
-//  383   *                the configuration information for the LTDC.
-//  384   * @retval None
-//  385   */
+//  385 
+//  386 /**
+//  387   * @brief  Error LTDC callback.
+//  388   * @param  hltdc: pointer to a LTDC_HandleTypeDef structure that contains
+//  389   *                the configuration information for the LTDC.
+//  390   * @retval None
+//  391   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock5 Using cfiCommon0
           CFI Function HAL_LTDC_ErrorCallback
           CFI NoCalls
         THUMB
-//  386 __weak void HAL_LTDC_ErrorCallback(LTDC_HandleTypeDef *hltdc)
-//  387 {
-//  388   /* NOTE : This function Should not be modified, when the callback is needed,
-//  389             the HAL_LTDC_ErrorCallback could be implemented in the user file
-//  390    */
-//  391 }
+//  392 __weak void HAL_LTDC_ErrorCallback(LTDC_HandleTypeDef *hltdc)
+//  393 {
+//  394   /* Prevent unused argument(s) compilation warning */
+//  395   UNUSED(hltdc);
+//  396   
+//  397   /* NOTE : This function Should not be modified, when the callback is needed,
+//  398             the HAL_LTDC_ErrorCallback could be implemented in the user file
+//  399    */
+//  400 }
 HAL_LTDC_ErrorCallback:
         BX       LR               ;; return
           CFI EndBlock cfiBlock5
-//  392 
-//  393 /**
-//  394   * @brief  Line Event callback.
-//  395   * @param  hltdc: pointer to a LTDC_HandleTypeDef structure that contains
-//  396   *                the configuration information for the LTDC.
-//  397   * @retval None
-//  398   */
+//  401 
+//  402 /**
+//  403   * @brief  Line Event callback.
+//  404   * @param  hltdc: pointer to a LTDC_HandleTypeDef structure that contains
+//  405   *                the configuration information for the LTDC.
+//  406   * @retval None
+//  407   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock6 Using cfiCommon0
           CFI Function HAL_LTDC_LineEventCallback
           CFI NoCalls
         THUMB
-//  399 __weak void HAL_LTDC_LineEvenCallback(LTDC_HandleTypeDef *hltdc)
-//  400 {
-//  401   /* NOTE : This function Should not be modified, when the callback is needed,
-//  402             the HAL_LTDC_LineEvenCallback could be implemented in the user file
-//  403    */
-//  404 }
+//  408 __weak void HAL_LTDC_LineEvenCallback(LTDC_HandleTypeDef *hltdc)
+//  409 {
+//  410   /* Prevent unused argument(s) compilation warning */
+//  411   UNUSED(hltdc);
+//  412   
+//  413   /* NOTE : This function Should not be modified, when the callback is needed,
+//  414             the HAL_LTDC_LineEvenCallback could be implemented in the user file
+//  415    */
+//  416 }
 HAL_LTDC_LineEventCallback:
         BX       LR               ;; return
           CFI EndBlock cfiBlock6
-//  405 
-//  406 /**
-//  407   * @}
-//  408   */
-//  409 
-//  410 /** @defgroup LTDC_Exported_Functions_Group3 Peripheral Control functions
-//  411  *  @brief    Peripheral Control functions 
-//  412  *
-//  413 @verbatim   
-//  414  ===============================================================================
-//  415                     ##### Peripheral Control functions #####
-//  416  ===============================================================================  
-//  417     [..]  This section provides functions allowing to:
-//  418       (+) Configure the LTDC foreground or/and background parameters.
-//  419       (+) Set the active layer.
-//  420       (+) Configure the color keying.
-//  421       (+) Configure the C-LUT.
-//  422       (+) Enable / Disable the color keying.
-//  423       (+) Enable / Disable the C-LUT.
-//  424       (+) Update the layer position.
-//  425       (+) Update the layer size.
-//  426       (+) Update pixel format on the fly. 
-//  427       (+) Update transparency on the fly.
-//  428       (+) Update address on the fly.
-//  429 
-//  430 @endverbatim
-//  431   * @{
-//  432   */
-//  433 
-//  434 /**
-//  435   * @brief  Configure the LTDC Layer according to the specified
-//  436   *         parameters in the LTDC_InitTypeDef and create the associated handle.
-//  437   * @param  hltdc:     pointer to a LTDC_HandleTypeDef structure that contains
-//  438   *                    the configuration information for the LTDC.
-//  439   * @param  pLayerCfg: pointer to a LTDC_LayerCfgTypeDef structure that contains
-//  440   *                    the configuration information for the Layer.
-//  441   * @param  LayerIdx:  LTDC Layer index.
-//  442   *                    This parameter can be one of the following values:
-//  443   *                    0 or 1
-//  444   * @retval HAL status
-//  445   */
+//  417 
+//  418 /**
+//  419   * @}
+//  420   */
+//  421 
+//  422 /** @defgroup LTDC_Exported_Functions_Group3 Peripheral Control functions
+//  423  *  @brief    Peripheral Control functions 
+//  424  *
+//  425 @verbatim   
+//  426  ===============================================================================
+//  427                     ##### Peripheral Control functions #####
+//  428  ===============================================================================  
+//  429     [..]  This section provides functions allowing to:
+//  430       (+) Configure the LTDC foreground or/and background parameters.
+//  431       (+) Set the active layer.
+//  432       (+) Configure the color keying.
+//  433       (+) Configure the C-LUT.
+//  434       (+) Enable / Disable the color keying.
+//  435       (+) Enable / Disable the C-LUT.
+//  436       (+) Update the layer position.
+//  437       (+) Update the layer size.
+//  438       (+) Update pixel format on the fly. 
+//  439       (+) Update transparency on the fly.
+//  440       (+) Update address on the fly.
+//  441 
+//  442 @endverbatim
+//  443   * @{
+//  444   */
+//  445 
+//  446 /**
+//  447   * @brief  Configure the LTDC Layer according to the specified
+//  448   *         parameters in the LTDC_InitTypeDef and create the associated handle.
+//  449   * @param  hltdc:     pointer to a LTDC_HandleTypeDef structure that contains
+//  450   *                    the configuration information for the LTDC.
+//  451   * @param  pLayerCfg: pointer to a LTDC_LayerCfgTypeDef structure that contains
+//  452   *                    the configuration information for the Layer.
+//  453   * @param  LayerIdx:  LTDC Layer index.
+//  454   *                    This parameter can be one of the following values:
+//  455   *                    0 or 1
+//  456   * @retval HAL status
+//  457   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock7 Using cfiCommon0
           CFI Function HAL_LTDC_ConfigLayer
         THUMB
-//  446 HAL_StatusTypeDef HAL_LTDC_ConfigLayer(LTDC_HandleTypeDef *hltdc, LTDC_LayerCfgTypeDef *pLayerCfg, uint32_t LayerIdx)
-//  447 {   
+//  458 HAL_StatusTypeDef HAL_LTDC_ConfigLayer(LTDC_HandleTypeDef *hltdc, LTDC_LayerCfgTypeDef *pLayerCfg, uint32_t LayerIdx)
+//  459 {   
 HAL_LTDC_ConfigLayer:
         PUSH     {R4-R8,LR}
           CFI R14 Frame(CFA, -4)
@@ -858,8 +870,8 @@ HAL_LTDC_ConfigLayer:
           CFI R4 Frame(CFA, -24)
           CFI CFA R13+24
         MOV      R4,R0
-//  448   /* Process locked */
-//  449   __HAL_LOCK(hltdc);
+//  460   /* Process locked */
+//  461   __HAL_LOCK(hltdc);
         LDRB     R0,[R4, #+160]
         CMP      R0,#+1
         IT       EQ 
@@ -867,27 +879,27 @@ HAL_LTDC_ConfigLayer:
         BEQ.N    ??HAL_LTDC_ConfigLayer_0
         MOVS     R0,#+1
         STRB     R0,[R4, #+160]
-//  450   
-//  451   /* Change LTDC peripheral state */
-//  452   hltdc->State = HAL_LTDC_STATE_BUSY;
+//  462   
+//  463   /* Change LTDC peripheral state */
+//  464   hltdc->State = HAL_LTDC_STATE_BUSY;
         MOVS     R0,#+2
         STRB     R0,[R4, #+161]
-//  453 
-//  454   /* Check the parameters */
-//  455   assert_param(IS_LTDC_LAYER(LayerIdx));
-//  456   assert_param(IS_LTDC_PIXEL_FORMAT(pLayerCfg->PixelFormat));
-//  457   assert_param(IS_LTDC_BLENDING_FACTOR1(pLayerCfg->BlendingFactor1));
-//  458   assert_param(IS_LTDC_BLENDING_FACTOR2(pLayerCfg->BlendingFactor2));
-//  459   assert_param(IS_LTDC_HCONFIGST(pLayerCfg->WindowX0));
-//  460   assert_param(IS_LTDC_HCONFIGSP(pLayerCfg->WindowX1));
-//  461   assert_param(IS_LTDC_VCONFIGST(pLayerCfg->WindowY0));
-//  462   assert_param(IS_LTDC_VCONFIGSP(pLayerCfg->WindowY1));
-//  463   assert_param(IS_LTDC_ALPHA(pLayerCfg->Alpha0));
-//  464   assert_param(IS_LTDC_CFBLL(pLayerCfg->ImageWidth));
-//  465   assert_param(IS_LTDC_CFBLNBR(pLayerCfg->ImageHeight));
-//  466 
-//  467   /* Copy new layer configuration into handle structure */
-//  468   hltdc->LayerCfg[LayerIdx] = *pLayerCfg;  
+//  465 
+//  466   /* Check the parameters */
+//  467   assert_param(IS_LTDC_LAYER(LayerIdx));
+//  468   assert_param(IS_LTDC_PIXEL_FORMAT(pLayerCfg->PixelFormat));
+//  469   assert_param(IS_LTDC_BLENDING_FACTOR1(pLayerCfg->BlendingFactor1));
+//  470   assert_param(IS_LTDC_BLENDING_FACTOR2(pLayerCfg->BlendingFactor2));
+//  471   assert_param(IS_LTDC_HCONFIGST(pLayerCfg->WindowX0));
+//  472   assert_param(IS_LTDC_HCONFIGSP(pLayerCfg->WindowX1));
+//  473   assert_param(IS_LTDC_VCONFIGST(pLayerCfg->WindowY0));
+//  474   assert_param(IS_LTDC_VCONFIGSP(pLayerCfg->WindowY1));
+//  475   assert_param(IS_LTDC_ALPHA(pLayerCfg->Alpha0));
+//  476   assert_param(IS_LTDC_CFBLL(pLayerCfg->ImageWidth));
+//  477   assert_param(IS_LTDC_CFBLNBR(pLayerCfg->ImageHeight));
+//  478 
+//  479   /* Copy new layer configuration into handle structure */
+//  480   hltdc->LayerCfg[LayerIdx] = *pLayerCfg;  
         MOVS     R0,#+52
         MLA      R0,R0,R2,R4
         LDM      R1!,{R3,R5-R8,R12,LR}
@@ -896,54 +908,54 @@ HAL_LTDC_ConfigLayer:
         LDM      R1!,{R3,R5-R7,R12,LR}
         STM      R0!,{R3,R5-R7,R12,LR}
         SUBS     R1,R1,#+52
-//  469 
-//  470   /* Configure the LTDC Layer */  
-//  471   LTDC_SetConfig(hltdc, pLayerCfg, LayerIdx);
+//  481 
+//  482   /* Configure the LTDC Layer */  
+//  483   LTDC_SetConfig(hltdc, pLayerCfg, LayerIdx);
         MOV      R0,R4
           CFI FunCall LTDC_SetConfig
         BL       LTDC_SetConfig
-//  472 
-//  473   /* Sets the Reload type */
-//  474   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
+//  484 
+//  485   /* Sets the Reload type */
+//  486   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
         LDR      R1,[R4, #+0]
         MOVS     R0,#+1
         STR      R0,[R1, #+36]
-//  475 
-//  476   /* Initialize the LTDC state*/
-//  477   hltdc->State  = HAL_LTDC_STATE_READY;
+//  487 
+//  488   /* Initialize the LTDC state*/
+//  489   hltdc->State  = HAL_LTDC_STATE_READY;
         STRB     R0,[R4, #+161]
-//  478 
-//  479   /* Process unlocked */
-//  480   __HAL_UNLOCK(hltdc);
+//  490 
+//  491   /* Process unlocked */
+//  492   __HAL_UNLOCK(hltdc);
         MOVS     R0,#+0
         STRB     R0,[R4, #+160]
-//  481 
-//  482   return HAL_OK;
+//  493 
+//  494   return HAL_OK;
 ??HAL_LTDC_ConfigLayer_0:
         POP      {R4-R8,PC}       ;; return
-//  483 }
+//  495 }
           CFI EndBlock cfiBlock7
-//  484 
-//  485 /**
-//  486   * @brief  Configure the color keying.
-//  487   * @param  hltdc:    pointer to a LTDC_HandleTypeDef structure that contains
-//  488   *                   the configuration information for the LTDC.
-//  489   * @param  RGBValue: the color key value
-//  490   * @param  LayerIdx:  LTDC Layer index.
-//  491   *                   This parameter can be one of the following values:
-//  492   *                   0 or 1
-//  493   * @retval HAL status
-//  494   */
+//  496 
+//  497 /**
+//  498   * @brief  Configure the color keying.
+//  499   * @param  hltdc:    pointer to a LTDC_HandleTypeDef structure that contains
+//  500   *                   the configuration information for the LTDC.
+//  501   * @param  RGBValue: the color key value
+//  502   * @param  LayerIdx:  LTDC Layer index.
+//  503   *                   This parameter can be one of the following values:
+//  504   *                   0 or 1
+//  505   * @retval HAL status
+//  506   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock8 Using cfiCommon0
           CFI Function HAL_LTDC_ConfigColorKeying
           CFI NoCalls
         THUMB
-//  495 HAL_StatusTypeDef HAL_LTDC_ConfigColorKeying(LTDC_HandleTypeDef *hltdc, uint32_t RGBValue, uint32_t LayerIdx)
-//  496 {
-//  497   /* Process locked */
-//  498   __HAL_LOCK(hltdc);
+//  507 HAL_StatusTypeDef HAL_LTDC_ConfigColorKeying(LTDC_HandleTypeDef *hltdc, uint32_t RGBValue, uint32_t LayerIdx)
+//  508 {
+//  509   /* Process locked */
+//  510   __HAL_LOCK(hltdc);
 HAL_LTDC_ConfigColorKeying:
         LDRB     R3,[R0, #+160]
         CMP      R3,#+1
@@ -953,69 +965,69 @@ HAL_LTDC_ConfigColorKeying:
 ??HAL_LTDC_ConfigColorKeying_0:
         MOVS     R3,#+1
         STRB     R3,[R0, #+160]
-//  499 
-//  500   /* Change LTDC peripheral state */
-//  501   hltdc->State = HAL_LTDC_STATE_BUSY;
+//  511 
+//  512   /* Change LTDC peripheral state */
+//  513   hltdc->State = HAL_LTDC_STATE_BUSY;
         MOVS     R3,#+2
         STRB     R3,[R0, #+161]
-//  502 
-//  503   /* Check the parameters */
-//  504   assert_param(IS_LTDC_LAYER(LayerIdx));
-//  505 
-//  506   /* Configures the default color values */
-//  507   LTDC_LAYER(hltdc, LayerIdx)->CKCR &=  ~(LTDC_LxCKCR_CKBLUE | LTDC_LxCKCR_CKGREEN | LTDC_LxCKCR_CKRED);
+//  514 
+//  515   /* Check the parameters */
+//  516   assert_param(IS_LTDC_LAYER(LayerIdx));
+//  517 
+//  518   /* Configures the default color values */
+//  519   LTDC_LAYER(hltdc, LayerIdx)->CKCR &=  ~(LTDC_LxCKCR_CKBLUE | LTDC_LxCKCR_CKGREEN | LTDC_LxCKCR_CKRED);
         LDR      R3,[R0, #+0]
         ADD      R3,R3,R2, LSL #+7
         ADDS     R3,R3,#+132
         LDR      R12,[R3, #+12]
         AND      R12,R12,#0xFF000000
         STR      R12,[R3, #+12]
-//  508   LTDC_LAYER(hltdc, LayerIdx)->CKCR  = RGBValue;
+//  520   LTDC_LAYER(hltdc, LayerIdx)->CKCR  = RGBValue;
         LDR      R3,[R0, #+0]
         ADD      R2,R3,R2, LSL #+7
         ADDS     R2,R2,#+132
         STR      R1,[R2, #+12]
-//  509 
-//  510   /* Sets the Reload type */
-//  511   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
+//  521 
+//  522   /* Sets the Reload type */
+//  523   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
         LDR      R2,[R0, #+0]
         MOVS     R1,#+1
         STR      R1,[R2, #+36]
-//  512 
-//  513   /* Change the LTDC state*/
-//  514   hltdc->State = HAL_LTDC_STATE_READY;
+//  524 
+//  525   /* Change the LTDC state*/
+//  526   hltdc->State = HAL_LTDC_STATE_READY;
         STRB     R1,[R0, #+161]
-//  515 
-//  516   /* Process unlocked */
-//  517   __HAL_UNLOCK(hltdc);
+//  527 
+//  528   /* Process unlocked */
+//  529   __HAL_UNLOCK(hltdc);
         MOVS     R1,#+0
         STRB     R1,[R0, #+160]
-//  518 
-//  519   return HAL_OK;
+//  530 
+//  531   return HAL_OK;
         MOVS     R0,#+0
         BX       LR               ;; return
-//  520 }
+//  532 }
           CFI EndBlock cfiBlock8
-//  521 
-//  522 /**
-//  523   * @brief  Load the color lookup table.
-//  524   * @param  hltdc:    pointer to a LTDC_HandleTypeDef structure that contains
-//  525   *                   the configuration information for the LTDC.
-//  526   * @param  pCLUT:    pointer to the color lookup table address.
-//  527   * @param  CLUTSize: the color lookup table size.  
-//  528   * @param  LayerIdx:  LTDC Layer index.
-//  529   *                   This parameter can be one of the following values:
-//  530   *                   0 or 1
-//  531   * @retval HAL status
-//  532   */
+//  533 
+//  534 /**
+//  535   * @brief  Load the color lookup table.
+//  536   * @param  hltdc:    pointer to a LTDC_HandleTypeDef structure that contains
+//  537   *                   the configuration information for the LTDC.
+//  538   * @param  pCLUT:    pointer to the color lookup table address.
+//  539   * @param  CLUTSize: the color lookup table size.  
+//  540   * @param  LayerIdx:  LTDC Layer index.
+//  541   *                   This parameter can be one of the following values:
+//  542   *                   0 or 1
+//  543   * @retval HAL status
+//  544   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock9 Using cfiCommon0
           CFI Function HAL_LTDC_ConfigCLUT
           CFI NoCalls
         THUMB
-//  533 HAL_StatusTypeDef HAL_LTDC_ConfigCLUT(LTDC_HandleTypeDef *hltdc, uint32_t *pCLUT, uint32_t CLUTSize, uint32_t LayerIdx)
-//  534 {
+//  545 HAL_StatusTypeDef HAL_LTDC_ConfigCLUT(LTDC_HandleTypeDef *hltdc, uint32_t *pCLUT, uint32_t CLUTSize, uint32_t LayerIdx)
+//  546 {
 HAL_LTDC_ConfigCLUT:
         PUSH     {R4-R7}
           CFI R7 Frame(CFA, -4)
@@ -1023,12 +1035,12 @@ HAL_LTDC_ConfigCLUT:
           CFI R5 Frame(CFA, -12)
           CFI R4 Frame(CFA, -16)
           CFI CFA R13+16
-//  535   uint32_t tmp = 0;
-//  536   uint32_t counter = 0;
-//  537   uint32_t pcounter = 0;
-//  538 
-//  539   /* Process locked */
-//  540   __HAL_LOCK(hltdc);
+//  547   uint32_t tmp = 0;
+//  548   uint32_t counter = 0;
+//  549   uint32_t pcounter = 0;
+//  550 
+//  551   /* Process locked */
+//  552   __HAL_LOCK(hltdc);
         LDRB     R5,[R0, #+160]
         MOVS     R4,#+0
         CMP      R5,#+1
@@ -1037,21 +1049,21 @@ HAL_LTDC_ConfigCLUT:
         BEQ.N    ??HAL_LTDC_ConfigCLUT_0
         MOVS     R5,#+1
         STRB     R5,[R0, #+160]
-//  541 
-//  542   /* Change LTDC peripheral state */
-//  543   hltdc->State = HAL_LTDC_STATE_BUSY;  
+//  553 
+//  554   /* Change LTDC peripheral state */
+//  555   hltdc->State = HAL_LTDC_STATE_BUSY;  
         MOVS     R5,#+2
         STRB     R5,[R0, #+161]
-//  544 
-//  545   /* Check the parameters */
-//  546   assert_param(IS_LTDC_LAYER(LayerIdx)); 
-//  547 
-//  548   for(counter = 0; (counter < CLUTSize); counter++)
+//  556 
+//  557   /* Check the parameters */
+//  558   assert_param(IS_LTDC_LAYER(LayerIdx)); 
+//  559 
+//  560   for(counter = 0; (counter < CLUTSize); counter++)
         CBZ.N    R2,??HAL_LTDC_ConfigCLUT_1
         MOVS     R5,#+52
         MLA      R5,R5,R3,R0
-//  549   {
-//  550     if(hltdc->LayerCfg[LayerIdx].PixelFormat == LTDC_PIXEL_FORMAT_AL44)
+//  561   {
+//  562     if(hltdc->LayerCfg[LayerIdx].PixelFormat == LTDC_PIXEL_FORMAT_AL44)
 ??HAL_LTDC_ConfigCLUT_2:
         LDR      R6,[R1, #+0]
         LDR      R7,[R5, #+72]
@@ -1062,40 +1074,40 @@ HAL_LTDC_ConfigCLUT:
         ADDEQ    R7,R4,R4, LSL #+4
         ORREQ    R6,R6,R7, LSL #+24
         ORRNE    R6,R6,R4, LSL #+24
-//  551     {
-//  552       tmp  = (((counter + 16*counter) << 24) | ((uint32_t)(*pCLUT) & 0xFF) | ((uint32_t)(*pCLUT) & 0xFF00) | ((uint32_t)(*pCLUT) & 0xFF0000));
-//  553     }
-//  554     else
-//  555     { 
-//  556       tmp  = ((counter << 24) | ((uint32_t)(*pCLUT) & 0xFF) | ((uint32_t)(*pCLUT) & 0xFF00) | ((uint32_t)(*pCLUT) & 0xFF0000));
-//  557     }
-//  558     pcounter = (uint32_t)pCLUT + sizeof(*pCLUT);
-//  559     pCLUT = (uint32_t *)pcounter;
-//  560 
-//  561     /* Specifies the C-LUT address and RGB value */
-//  562     LTDC_LAYER(hltdc, LayerIdx)->CLUTWR  = tmp;
+//  563     {
+//  564       tmp  = (((counter + 16*counter) << 24) | ((uint32_t)(*pCLUT) & 0xFF) | ((uint32_t)(*pCLUT) & 0xFF00) | ((uint32_t)(*pCLUT) & 0xFF0000));
+//  565     }
+//  566     else
+//  567     { 
+//  568       tmp  = ((counter << 24) | ((uint32_t)(*pCLUT) & 0xFF) | ((uint32_t)(*pCLUT) & 0xFF00) | ((uint32_t)(*pCLUT) & 0xFF0000));
+//  569     }
+//  570     pcounter = (uint32_t)pCLUT + sizeof(*pCLUT);
+//  571     pCLUT = (uint32_t *)pcounter;
+//  572 
+//  573     /* Specifies the C-LUT address and RGB value */
+//  574     LTDC_LAYER(hltdc, LayerIdx)->CLUTWR  = tmp;
         LDR      R7,[R0, #+0]
         ADDS     R1,R1,#+4
-//  563   }
+//  575   }
         ADDS     R4,R4,#+1
         ADD      R7,R7,R3, LSL #+7
         ADDS     R7,R7,#+132
         CMP      R4,R2
         STR      R6,[R7, #+64]
         BCC.N    ??HAL_LTDC_ConfigCLUT_2
-//  564   
-//  565   /* Change the LTDC state*/
-//  566   hltdc->State = HAL_LTDC_STATE_READY; 
+//  576   
+//  577   /* Change the LTDC state*/
+//  578   hltdc->State = HAL_LTDC_STATE_READY; 
 ??HAL_LTDC_ConfigCLUT_1:
         MOVS     R1,#+1
         STRB     R1,[R0, #+161]
-//  567 
-//  568   /* Process unlocked */
-//  569   __HAL_UNLOCK(hltdc);  
+//  579 
+//  580   /* Process unlocked */
+//  581   __HAL_UNLOCK(hltdc);  
         MOVS     R1,#+0
         STRB     R1,[R0, #+160]
-//  570 
-//  571   return HAL_OK;
+//  582 
+//  583   return HAL_OK;
         MOVS     R0,#+0
 ??HAL_LTDC_ConfigCLUT_0:
         POP      {R4-R7}
@@ -1105,28 +1117,28 @@ HAL_LTDC_ConfigCLUT:
           CFI R7 SameValue
           CFI CFA R13+0
         BX       LR               ;; return
-//  572 }
+//  584 }
           CFI EndBlock cfiBlock9
-//  573 
-//  574 /**
-//  575   * @brief  Enable the color keying.
-//  576   * @param  hltdc:    pointer to a LTDC_HandleTypeDef structure that contains
-//  577   *                   the configuration information for the LTDC.
-//  578   * @param  LayerIdx:  LTDC Layer index.
-//  579   *                   This parameter can be one of the following values:
-//  580   *                   0 or 1
-//  581   * @retval  HAL status
-//  582   */
+//  585 
+//  586 /**
+//  587   * @brief  Enable the color keying.
+//  588   * @param  hltdc:    pointer to a LTDC_HandleTypeDef structure that contains
+//  589   *                   the configuration information for the LTDC.
+//  590   * @param  LayerIdx:  LTDC Layer index.
+//  591   *                   This parameter can be one of the following values:
+//  592   *                   0 or 1
+//  593   * @retval  HAL status
+//  594   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock10 Using cfiCommon0
           CFI Function HAL_LTDC_EnableColorKeying
           CFI NoCalls
         THUMB
-//  583 HAL_StatusTypeDef HAL_LTDC_EnableColorKeying(LTDC_HandleTypeDef *hltdc, uint32_t LayerIdx)
-//  584 {  
-//  585   /* Process locked */
-//  586   __HAL_LOCK(hltdc);
+//  595 HAL_StatusTypeDef HAL_LTDC_EnableColorKeying(LTDC_HandleTypeDef *hltdc, uint32_t LayerIdx)
+//  596 {  
+//  597   /* Process locked */
+//  598   __HAL_LOCK(hltdc);
 HAL_LTDC_EnableColorKeying:
         LDRB     R2,[R0, #+160]
         CMP      R2,#+1
@@ -1136,63 +1148,63 @@ HAL_LTDC_EnableColorKeying:
 ??HAL_LTDC_EnableColorKeying_0:
         MOVS     R2,#+1
         STRB     R2,[R0, #+160]
-//  587 
-//  588   /* Change LTDC peripheral state */
-//  589   hltdc->State = HAL_LTDC_STATE_BUSY;
+//  599 
+//  600   /* Change LTDC peripheral state */
+//  601   hltdc->State = HAL_LTDC_STATE_BUSY;
         MOVS     R2,#+2
         STRB     R2,[R0, #+161]
-//  590 
-//  591   /* Check the parameters */
-//  592   assert_param(IS_LTDC_LAYER(LayerIdx));
-//  593 
-//  594   /* Enable LTDC color keying by setting COLKEN bit */
-//  595   LTDC_LAYER(hltdc, LayerIdx)->CR |= (uint32_t)LTDC_LxCR_COLKEN;
+//  602 
+//  603   /* Check the parameters */
+//  604   assert_param(IS_LTDC_LAYER(LayerIdx));
+//  605 
+//  606   /* Enable LTDC color keying by setting COLKEN bit */
+//  607   LTDC_LAYER(hltdc, LayerIdx)->CR |= (uint32_t)LTDC_LxCR_COLKEN;
         LDR      R2,[R0, #+0]
         ADD      R1,R2,R1, LSL #+7
         LDR      R2,[R1, #+132]!
         ORR      R2,R2,#0x2
         STR      R2,[R1, #+0]
-//  596 
-//  597   /* Sets the Reload type */
-//  598   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
+//  608 
+//  609   /* Sets the Reload type */
+//  610   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
         LDR      R2,[R0, #+0]
         MOVS     R1,#+1
         STR      R1,[R2, #+36]
-//  599 
-//  600   /* Change the LTDC state*/
-//  601   hltdc->State = HAL_LTDC_STATE_READY; 
+//  611 
+//  612   /* Change the LTDC state*/
+//  613   hltdc->State = HAL_LTDC_STATE_READY; 
         STRB     R1,[R0, #+161]
-//  602 
-//  603   /* Process unlocked */
-//  604   __HAL_UNLOCK(hltdc);
+//  614 
+//  615   /* Process unlocked */
+//  616   __HAL_UNLOCK(hltdc);
         MOVS     R1,#+0
         STRB     R1,[R0, #+160]
-//  605 
-//  606   return HAL_OK;  
+//  617 
+//  618   return HAL_OK;  
         MOVS     R0,#+0
         BX       LR               ;; return
-//  607 }
+//  619 }
           CFI EndBlock cfiBlock10
-//  608   
-//  609 /**
-//  610   * @brief  Disable the color keying.
-//  611   * @param  hltdc:    pointer to a LTDC_HandleTypeDef structure that contains
-//  612   *                   the configuration information for the LTDC.
-//  613   * @param  LayerIdx:  LTDC Layer index.
-//  614   *                   This parameter can be one of the following values:
-//  615   *                   0 or 1
-//  616   * @retval  HAL status
-//  617   */
+//  620   
+//  621 /**
+//  622   * @brief  Disable the color keying.
+//  623   * @param  hltdc:    pointer to a LTDC_HandleTypeDef structure that contains
+//  624   *                   the configuration information for the LTDC.
+//  625   * @param  LayerIdx:  LTDC Layer index.
+//  626   *                   This parameter can be one of the following values:
+//  627   *                   0 or 1
+//  628   * @retval  HAL status
+//  629   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock11 Using cfiCommon0
           CFI Function HAL_LTDC_DisableColorKeying
           CFI NoCalls
         THUMB
-//  618 HAL_StatusTypeDef HAL_LTDC_DisableColorKeying(LTDC_HandleTypeDef *hltdc, uint32_t LayerIdx)
-//  619 {
-//  620   /* Process locked */
-//  621   __HAL_LOCK(hltdc);
+//  630 HAL_StatusTypeDef HAL_LTDC_DisableColorKeying(LTDC_HandleTypeDef *hltdc, uint32_t LayerIdx)
+//  631 {
+//  632   /* Process locked */
+//  633   __HAL_LOCK(hltdc);
 HAL_LTDC_DisableColorKeying:
         LDRB     R2,[R0, #+160]
         CMP      R2,#+1
@@ -1202,64 +1214,64 @@ HAL_LTDC_DisableColorKeying:
 ??HAL_LTDC_DisableColorKeying_0:
         MOVS     R2,#+1
         STRB     R2,[R0, #+160]
-//  622 
-//  623   /* Change LTDC peripheral state */
-//  624   hltdc->State = HAL_LTDC_STATE_BUSY;
+//  634 
+//  635   /* Change LTDC peripheral state */
+//  636   hltdc->State = HAL_LTDC_STATE_BUSY;
         MOVS     R2,#+2
         STRB     R2,[R0, #+161]
-//  625 
-//  626   /* Check the parameters */
-//  627   assert_param(IS_LTDC_LAYER(LayerIdx));
-//  628 
-//  629   /* Disable LTDC color keying by setting COLKEN bit */
-//  630   LTDC_LAYER(hltdc, LayerIdx)->CR &= ~(uint32_t)LTDC_LxCR_COLKEN;
+//  637 
+//  638   /* Check the parameters */
+//  639   assert_param(IS_LTDC_LAYER(LayerIdx));
+//  640 
+//  641   /* Disable LTDC color keying by setting COLKEN bit */
+//  642   LTDC_LAYER(hltdc, LayerIdx)->CR &= ~(uint32_t)LTDC_LxCR_COLKEN;
         LDR      R2,[R0, #+0]
         ADD      R1,R2,R1, LSL #+7
         LDR      R2,[R1, #+132]!
         BIC      R2,R2,#0x2
         STR      R2,[R1, #+0]
-//  631 
-//  632   /* Sets the Reload type */
-//  633   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
+//  643 
+//  644   /* Sets the Reload type */
+//  645   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
         LDR      R2,[R0, #+0]
         MOVS     R1,#+1
         STR      R1,[R2, #+36]
-//  634 
-//  635   /* Change the LTDC state*/
-//  636   hltdc->State = HAL_LTDC_STATE_READY; 
+//  646 
+//  647   /* Change the LTDC state*/
+//  648   hltdc->State = HAL_LTDC_STATE_READY; 
         STRB     R1,[R0, #+161]
-//  637 
-//  638   /* Process unlocked */
-//  639   __HAL_UNLOCK(hltdc);
+//  649 
+//  650   /* Process unlocked */
+//  651   __HAL_UNLOCK(hltdc);
         MOVS     R1,#+0
         STRB     R1,[R0, #+160]
-//  640 
-//  641   return HAL_OK;
+//  652 
+//  653   return HAL_OK;
         MOVS     R0,#+0
         BX       LR               ;; return
-//  642 }
+//  654 }
           CFI EndBlock cfiBlock11
-//  643 
-//  644 /**
-//  645   * @brief  Enable the color lookup table.
-//  646   * @param  hltdc:    pointer to a LTDC_HandleTypeDef structure that contains
-//  647   *                   the configuration information for the LTDC.
-//  648   * @param  LayerIdx:  LTDC Layer index.
-//  649   *                   This parameter can be one of the following values:
-//  650   *                   0 or 1
-//  651   * @retval  HAL status
-//  652   */
+//  655 
+//  656 /**
+//  657   * @brief  Enable the color lookup table.
+//  658   * @param  hltdc:    pointer to a LTDC_HandleTypeDef structure that contains
+//  659   *                   the configuration information for the LTDC.
+//  660   * @param  LayerIdx:  LTDC Layer index.
+//  661   *                   This parameter can be one of the following values:
+//  662   *                   0 or 1
+//  663   * @retval  HAL status
+//  664   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock12 Using cfiCommon0
           CFI Function HAL_LTDC_EnableCLUT
           CFI NoCalls
         THUMB
-//  653 HAL_StatusTypeDef HAL_LTDC_EnableCLUT(LTDC_HandleTypeDef *hltdc, uint32_t LayerIdx)
-//  654 {
-//  655 
-//  656   /* Process locked */
-//  657   __HAL_LOCK(hltdc);
+//  665 HAL_StatusTypeDef HAL_LTDC_EnableCLUT(LTDC_HandleTypeDef *hltdc, uint32_t LayerIdx)
+//  666 {
+//  667 
+//  668   /* Process locked */
+//  669   __HAL_LOCK(hltdc);
 HAL_LTDC_EnableCLUT:
         LDRB     R2,[R0, #+160]
         CMP      R2,#+1
@@ -1269,64 +1281,64 @@ HAL_LTDC_EnableCLUT:
 ??HAL_LTDC_EnableCLUT_0:
         MOVS     R2,#+1
         STRB     R2,[R0, #+160]
-//  658 
-//  659   /* Change LTDC peripheral state */
-//  660   hltdc->State = HAL_LTDC_STATE_BUSY;
+//  670 
+//  671   /* Change LTDC peripheral state */
+//  672   hltdc->State = HAL_LTDC_STATE_BUSY;
         MOVS     R2,#+2
         STRB     R2,[R0, #+161]
-//  661 
-//  662   /* Check the parameters */
-//  663   assert_param(IS_LTDC_LAYER(LayerIdx));
-//  664 
-//  665   /* Disable LTDC color lookup table by setting CLUTEN bit */
-//  666   LTDC_LAYER(hltdc, LayerIdx)->CR |= (uint32_t)LTDC_LxCR_CLUTEN;
+//  673 
+//  674   /* Check the parameters */
+//  675   assert_param(IS_LTDC_LAYER(LayerIdx));
+//  676 
+//  677   /* Disable LTDC color lookup table by setting CLUTEN bit */
+//  678   LTDC_LAYER(hltdc, LayerIdx)->CR |= (uint32_t)LTDC_LxCR_CLUTEN;
         LDR      R2,[R0, #+0]
         ADD      R1,R2,R1, LSL #+7
         LDR      R2,[R1, #+132]!
         ORR      R2,R2,#0x10
         STR      R2,[R1, #+0]
-//  667 
-//  668   /* Sets the Reload type */
-//  669   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
+//  679 
+//  680   /* Sets the Reload type */
+//  681   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
         LDR      R2,[R0, #+0]
         MOVS     R1,#+1
         STR      R1,[R2, #+36]
-//  670 
-//  671   /* Change the LTDC state*/
-//  672   hltdc->State = HAL_LTDC_STATE_READY; 
+//  682 
+//  683   /* Change the LTDC state*/
+//  684   hltdc->State = HAL_LTDC_STATE_READY; 
         STRB     R1,[R0, #+161]
-//  673 
-//  674   /* Process unlocked */
-//  675   __HAL_UNLOCK(hltdc);
+//  685 
+//  686   /* Process unlocked */
+//  687   __HAL_UNLOCK(hltdc);
         MOVS     R1,#+0
         STRB     R1,[R0, #+160]
-//  676 
-//  677   return HAL_OK;
+//  688 
+//  689   return HAL_OK;
         MOVS     R0,#+0
         BX       LR               ;; return
-//  678 }
+//  690 }
           CFI EndBlock cfiBlock12
-//  679 
-//  680 /**
-//  681   * @brief  Disable the color lookup table.
-//  682   * @param  hltdc:    pointer to a LTDC_HandleTypeDef structure that contains
-//  683   *                   the configuration information for the LTDC.
-//  684   * @param  LayerIdx:  LTDC Layer index.
-//  685   *                   This parameter can be one of the following values:
-//  686   *                   0 or 1   
-//  687   * @retval  HAL status
-//  688   */
+//  691 
+//  692 /**
+//  693   * @brief  Disable the color lookup table.
+//  694   * @param  hltdc:    pointer to a LTDC_HandleTypeDef structure that contains
+//  695   *                   the configuration information for the LTDC.
+//  696   * @param  LayerIdx:  LTDC Layer index.
+//  697   *                   This parameter can be one of the following values:
+//  698   *                   0 or 1   
+//  699   * @retval  HAL status
+//  700   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock13 Using cfiCommon0
           CFI Function HAL_LTDC_DisableCLUT
           CFI NoCalls
         THUMB
-//  689 HAL_StatusTypeDef HAL_LTDC_DisableCLUT(LTDC_HandleTypeDef *hltdc, uint32_t LayerIdx)
-//  690 {
-//  691  
-//  692   /* Process locked */
-//  693   __HAL_LOCK(hltdc);
+//  701 HAL_StatusTypeDef HAL_LTDC_DisableCLUT(LTDC_HandleTypeDef *hltdc, uint32_t LayerIdx)
+//  702 {
+//  703  
+//  704   /* Process locked */
+//  705   __HAL_LOCK(hltdc);
 HAL_LTDC_DisableCLUT:
         LDRB     R2,[R0, #+160]
         CMP      R2,#+1
@@ -1336,61 +1348,61 @@ HAL_LTDC_DisableCLUT:
 ??HAL_LTDC_DisableCLUT_0:
         MOVS     R2,#+1
         STRB     R2,[R0, #+160]
-//  694 
-//  695   /* Change LTDC peripheral state */
-//  696   hltdc->State = HAL_LTDC_STATE_BUSY;
+//  706 
+//  707   /* Change LTDC peripheral state */
+//  708   hltdc->State = HAL_LTDC_STATE_BUSY;
         MOVS     R2,#+2
         STRB     R2,[R0, #+161]
-//  697 
-//  698   /* Check the parameters */
-//  699   assert_param(IS_LTDC_LAYER(LayerIdx));
-//  700 
-//  701   /* Disable LTDC color lookup table by setting CLUTEN bit */
-//  702   LTDC_LAYER(hltdc, LayerIdx)->CR &= ~(uint32_t)LTDC_LxCR_CLUTEN;
+//  709 
+//  710   /* Check the parameters */
+//  711   assert_param(IS_LTDC_LAYER(LayerIdx));
+//  712 
+//  713   /* Disable LTDC color lookup table by setting CLUTEN bit */
+//  714   LTDC_LAYER(hltdc, LayerIdx)->CR &= ~(uint32_t)LTDC_LxCR_CLUTEN;
         LDR      R2,[R0, #+0]
         ADD      R1,R2,R1, LSL #+7
         LDR      R2,[R1, #+132]!
         BIC      R2,R2,#0x10
         STR      R2,[R1, #+0]
-//  703 
-//  704   /* Sets the Reload type */
-//  705   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
+//  715 
+//  716   /* Sets the Reload type */
+//  717   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
         LDR      R2,[R0, #+0]
         MOVS     R1,#+1
         STR      R1,[R2, #+36]
-//  706 
-//  707   /* Change the LTDC state*/
-//  708   hltdc->State = HAL_LTDC_STATE_READY; 
+//  718 
+//  719   /* Change the LTDC state*/
+//  720   hltdc->State = HAL_LTDC_STATE_READY; 
         STRB     R1,[R0, #+161]
-//  709 
-//  710   /* Process unlocked */
-//  711   __HAL_UNLOCK(hltdc);
+//  721 
+//  722   /* Process unlocked */
+//  723   __HAL_UNLOCK(hltdc);
         MOVS     R1,#+0
         STRB     R1,[R0, #+160]
-//  712 
-//  713   return HAL_OK;
+//  724 
+//  725   return HAL_OK;
         MOVS     R0,#+0
         BX       LR               ;; return
-//  714 }
+//  726 }
           CFI EndBlock cfiBlock13
-//  715 
-//  716 /**
-//  717   * @brief  Enables Dither.
-//  718   * @param  hltdc: pointer to a LTDC_HandleTypeDef structure that contains
-//  719   *                the configuration information for the LTDC.
-//  720   * @retval  HAL status
-//  721   */
-//  722 
+//  727 
+//  728 /**
+//  729   * @brief  Enables Dither.
+//  730   * @param  hltdc: pointer to a LTDC_HandleTypeDef structure that contains
+//  731   *                the configuration information for the LTDC.
+//  732   * @retval  HAL status
+//  733   */
+//  734 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock14 Using cfiCommon0
           CFI Function HAL_LTDC_EnableDither
           CFI NoCalls
         THUMB
-//  723 HAL_StatusTypeDef HAL_LTDC_EnableDither(LTDC_HandleTypeDef *hltdc)
-//  724 {
-//  725   /* Process locked */
-//  726   __HAL_LOCK(hltdc);
+//  735 HAL_StatusTypeDef HAL_LTDC_EnableDither(LTDC_HandleTypeDef *hltdc)
+//  736 {
+//  737   /* Process locked */
+//  738   __HAL_LOCK(hltdc);
 HAL_LTDC_EnableDither:
         LDRB     R1,[R0, #+160]
         CMP      R1,#+1
@@ -1400,52 +1412,52 @@ HAL_LTDC_EnableDither:
 ??HAL_LTDC_EnableDither_0:
         MOVS     R1,#+1
         STRB     R1,[R0, #+160]
-//  727 
-//  728   /* Change LTDC peripheral state */
-//  729   hltdc->State = HAL_LTDC_STATE_BUSY;
+//  739 
+//  740   /* Change LTDC peripheral state */
+//  741   hltdc->State = HAL_LTDC_STATE_BUSY;
         MOVS     R1,#+2
         STRB     R1,[R0, #+161]
-//  730 
-//  731   /* Enable Dither by setting DTEN bit */
-//  732   LTDC->GCR |= (uint32_t)LTDC_GCR_DTEN;
+//  742 
+//  743   /* Enable Dither by setting DTEN bit */
+//  744   LTDC->GCR |= (uint32_t)LTDC_GCR_DTEN;
         LDR.N    R1,??DataTable4_1  ;; 0x40016818
         LDR      R2,[R1, #+0]
         ORR      R2,R2,#0x10000
         STR      R2,[R1, #+0]
-//  733 
-//  734   /* Change the LTDC state*/
-//  735   hltdc->State = HAL_LTDC_STATE_READY; 
+//  745 
+//  746   /* Change the LTDC state*/
+//  747   hltdc->State = HAL_LTDC_STATE_READY; 
         MOVS     R1,#+1
         STRB     R1,[R0, #+161]
-//  736 
-//  737   /* Process unlocked */
-//  738   __HAL_UNLOCK(hltdc);
+//  748 
+//  749   /* Process unlocked */
+//  750   __HAL_UNLOCK(hltdc);
         MOVS     R1,#+0
         STRB     R1,[R0, #+160]
-//  739 
-//  740   return HAL_OK;
+//  751 
+//  752   return HAL_OK;
         MOVS     R0,#+0
         BX       LR               ;; return
-//  741 }
+//  753 }
           CFI EndBlock cfiBlock14
-//  742 
-//  743 /**
-//  744   * @brief  Disables Dither.
-//  745   * @param  hltdc: pointer to a LTDC_HandleTypeDef structure that contains
-//  746   *                the configuration information for the LTDC.
-//  747   * @retval  HAL status
-//  748   */
-//  749 
+//  754 
+//  755 /**
+//  756   * @brief  Disables Dither.
+//  757   * @param  hltdc: pointer to a LTDC_HandleTypeDef structure that contains
+//  758   *                the configuration information for the LTDC.
+//  759   * @retval  HAL status
+//  760   */
+//  761 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock15 Using cfiCommon0
           CFI Function HAL_LTDC_DisableDither
           CFI NoCalls
         THUMB
-//  750 HAL_StatusTypeDef HAL_LTDC_DisableDither(LTDC_HandleTypeDef *hltdc)
-//  751 {
-//  752   /* Process locked */
-//  753   __HAL_LOCK(hltdc);
+//  762 HAL_StatusTypeDef HAL_LTDC_DisableDither(LTDC_HandleTypeDef *hltdc)
+//  763 {
+//  764   /* Process locked */
+//  765   __HAL_LOCK(hltdc);
 HAL_LTDC_DisableDither:
         LDRB     R1,[R0, #+160]
         CMP      R1,#+1
@@ -1455,53 +1467,53 @@ HAL_LTDC_DisableDither:
 ??HAL_LTDC_DisableDither_0:
         MOVS     R1,#+1
         STRB     R1,[R0, #+160]
-//  754 
-//  755   /* Change LTDC peripheral state */
-//  756   hltdc->State = HAL_LTDC_STATE_BUSY;
+//  766 
+//  767   /* Change LTDC peripheral state */
+//  768   hltdc->State = HAL_LTDC_STATE_BUSY;
         MOVS     R1,#+2
         STRB     R1,[R0, #+161]
-//  757 
-//  758   /* Disable Dither by setting DTEN bit */
-//  759   LTDC->GCR &= ~(uint32_t)LTDC_GCR_DTEN;
+//  769 
+//  770   /* Disable Dither by setting DTEN bit */
+//  771   LTDC->GCR &= ~(uint32_t)LTDC_GCR_DTEN;
         LDR.N    R1,??DataTable4_1  ;; 0x40016818
         LDR      R2,[R1, #+0]
         BIC      R2,R2,#0x10000
         STR      R2,[R1, #+0]
-//  760 
-//  761   /* Change the LTDC state*/
-//  762   hltdc->State = HAL_LTDC_STATE_READY;
+//  772 
+//  773   /* Change the LTDC state*/
+//  774   hltdc->State = HAL_LTDC_STATE_READY;
         MOVS     R1,#+1
         STRB     R1,[R0, #+161]
-//  763 
-//  764   /* Process unlocked */
-//  765   __HAL_UNLOCK(hltdc);
+//  775 
+//  776   /* Process unlocked */
+//  777   __HAL_UNLOCK(hltdc);
         MOVS     R1,#+0
         STRB     R1,[R0, #+160]
-//  766 
-//  767   return HAL_OK;
+//  778 
+//  779   return HAL_OK;
         MOVS     R0,#+0
         BX       LR               ;; return
-//  768 }
+//  780 }
           CFI EndBlock cfiBlock15
-//  769 
-//  770 /**
-//  771   * @brief  Set the LTDC window size.
-//  772   * @param  hltdc:    pointer to a LTDC_HandleTypeDef structure that contains
-//  773   *                   the configuration information for the LTDC.
-//  774   * @param  XSize:    LTDC Pixel per line
-//  775   * @param  YSize:    LTDC Line number
-//  776   * @param  LayerIdx:  LTDC Layer index.
-//  777   *                   This parameter can be one of the following values:
-//  778   *                   0 or 1
-//  779   * @retval  HAL status
-//  780   */
+//  781 
+//  782 /**
+//  783   * @brief  Set the LTDC window size.
+//  784   * @param  hltdc:    pointer to a LTDC_HandleTypeDef structure that contains
+//  785   *                   the configuration information for the LTDC.
+//  786   * @param  XSize:    LTDC Pixel per line
+//  787   * @param  YSize:    LTDC Line number
+//  788   * @param  LayerIdx:  LTDC Layer index.
+//  789   *                   This parameter can be one of the following values:
+//  790   *                   0 or 1
+//  791   * @retval  HAL status
+//  792   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock16 Using cfiCommon0
           CFI Function HAL_LTDC_SetWindowSize
         THUMB
-//  781 HAL_StatusTypeDef HAL_LTDC_SetWindowSize(LTDC_HandleTypeDef *hltdc, uint32_t XSize, uint32_t YSize, uint32_t LayerIdx) 
-//  782 {
+//  793 HAL_StatusTypeDef HAL_LTDC_SetWindowSize(LTDC_HandleTypeDef *hltdc, uint32_t XSize, uint32_t YSize, uint32_t LayerIdx) 
+//  794 {
 HAL_LTDC_SetWindowSize:
         PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
@@ -1511,34 +1523,34 @@ HAL_LTDC_SetWindowSize:
         MOV      R4,R0
         SUB      SP,SP,#+4
           CFI CFA R13+16
-//  783   LTDC_LayerCfgTypeDef *pLayerCfg;
-//  784 
-//  785   /* Process locked */
-//  786   __HAL_LOCK(hltdc);
+//  795   LTDC_LayerCfgTypeDef *pLayerCfg;
+//  796 
+//  797   /* Process locked */
+//  798   __HAL_LOCK(hltdc);
         LDRB     R0,[R4, #+160]
         CMP      R0,#+1
         IT       EQ 
         MOVEQ    R0,#+2
         BEQ.N    ??HAL_LTDC_SetWindowSize_0
         MOVS     R0,#+1
-//  787 
-//  788   /* Change LTDC peripheral state */
-//  789   hltdc->State = HAL_LTDC_STATE_BUSY; 
-//  790 
-//  791   /* Get layer configuration from handle structure */
-//  792   pLayerCfg = &hltdc->LayerCfg[LayerIdx];
-//  793 
-//  794   /* Check the parameters (Layers parameters)*/
-//  795   assert_param(IS_LTDC_LAYER(LayerIdx));
-//  796   assert_param(IS_LTDC_HCONFIGST(pLayerCfg->WindowX0));
-//  797   assert_param(IS_LTDC_HCONFIGSP(pLayerCfg->WindowX1));
-//  798   assert_param(IS_LTDC_VCONFIGST(pLayerCfg->WindowY0));
-//  799   assert_param(IS_LTDC_VCONFIGSP(pLayerCfg->WindowY1));
-//  800   assert_param(IS_LTDC_CFBLL(XSize));
-//  801   assert_param(IS_LTDC_CFBLNBR(YSize));
+//  799 
+//  800   /* Change LTDC peripheral state */
+//  801   hltdc->State = HAL_LTDC_STATE_BUSY; 
 //  802 
-//  803   /* update horizontal start/stop */
-//  804   pLayerCfg->WindowX0 = 0;
+//  803   /* Get layer configuration from handle structure */
+//  804   pLayerCfg = &hltdc->LayerCfg[LayerIdx];
+//  805 
+//  806   /* Check the parameters (Layers parameters)*/
+//  807   assert_param(IS_LTDC_LAYER(LayerIdx));
+//  808   assert_param(IS_LTDC_HCONFIGST(pLayerCfg->WindowX0));
+//  809   assert_param(IS_LTDC_HCONFIGSP(pLayerCfg->WindowX1));
+//  810   assert_param(IS_LTDC_VCONFIGST(pLayerCfg->WindowY0));
+//  811   assert_param(IS_LTDC_VCONFIGSP(pLayerCfg->WindowY1));
+//  812   assert_param(IS_LTDC_CFBLL(XSize));
+//  813   assert_param(IS_LTDC_CFBLNBR(YSize));
+//  814 
+//  815   /* update horizontal start/stop */
+//  816   pLayerCfg->WindowX0 = 0;
         MOVS     R5,#+0
         STRB     R0,[R4, #+160]
         MOVS     R0,#+2
@@ -1546,22 +1558,22 @@ HAL_LTDC_SetWindowSize:
         MOVS     R0,#+52
         MLA      R0,R0,R3,R4
         STR      R5,[R0, #+56]!
-//  805   pLayerCfg->WindowX1 = XSize + pLayerCfg->WindowX0;
+//  817   pLayerCfg->WindowX1 = XSize + pLayerCfg->WindowX0;
         STR      R1,[R0, #+4]
-//  806 
-//  807   /* update vertical start/stop */  
-//  808   pLayerCfg->WindowY0 = 0;
-//  809   pLayerCfg->WindowY1 = YSize + pLayerCfg->WindowY0;
-//  810 
-//  811   /* Reconfigures the color frame buffer pitch in byte */
-//  812   pLayerCfg->ImageWidth = XSize;
+//  818 
+//  819   /* update vertical start/stop */  
+//  820   pLayerCfg->WindowY0 = 0;
+//  821   pLayerCfg->WindowY1 = YSize + pLayerCfg->WindowY0;
+//  822 
+//  823   /* Reconfigures the color frame buffer pitch in byte */
+//  824   pLayerCfg->ImageWidth = XSize;
         STR      R1,[R0, #+40]
-//  813 
-//  814   /* Reconfigures the frame buffer line number */
-//  815   pLayerCfg->ImageHeight = YSize;
-//  816 
-//  817   /* Set LTDC parameters */
-//  818   LTDC_SetConfig(hltdc, pLayerCfg, LayerIdx);
+//  825 
+//  826   /* Reconfigures the frame buffer line number */
+//  827   pLayerCfg->ImageHeight = YSize;
+//  828 
+//  829   /* Set LTDC parameters */
+//  830   LTDC_SetConfig(hltdc, pLayerCfg, LayerIdx);
         MOV      R1,R0
         STR      R5,[R0, #+8]
         STR      R2,[R0, #+12]
@@ -1570,48 +1582,48 @@ HAL_LTDC_SetWindowSize:
         MOV      R0,R4
           CFI FunCall LTDC_SetConfig
         BL       LTDC_SetConfig
-//  819 
-//  820   /* Sets the Reload type */
-//  821   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
+//  831 
+//  832   /* Sets the Reload type */
+//  833   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
         LDR      R1,[R4, #+0]
         MOVS     R0,#+1
         STR      R0,[R1, #+36]
-//  822 
-//  823   /* Change the LTDC state*/
-//  824   hltdc->State = HAL_LTDC_STATE_READY;
+//  834 
+//  835   /* Change the LTDC state*/
+//  836   hltdc->State = HAL_LTDC_STATE_READY;
         STRB     R0,[R4, #+161]
-//  825 
-//  826   /* Process unlocked */
-//  827   __HAL_UNLOCK(hltdc);
+//  837 
+//  838   /* Process unlocked */
+//  839   __HAL_UNLOCK(hltdc);
         MOVS     R0,#+0
         STRB     R0,[R4, #+160]
-//  828 
-//  829   return HAL_OK;
+//  840 
+//  841   return HAL_OK;
 ??HAL_LTDC_SetWindowSize_0:
         ADD      SP,SP,#+4
           CFI CFA R13+12
         POP      {R4,R5,PC}       ;; return
-//  830 }
+//  842 }
           CFI EndBlock cfiBlock16
-//  831 
-//  832 /**
-//  833   * @brief  Set the LTDC window position.
-//  834   * @param  hltdc:    pointer to a LTDC_HandleTypeDef structure that contains
-//  835   *                   the configuration information for the LTDC.
-//  836   * @param  X0:       LTDC window X offset
-//  837   * @param  Y0:       LTDC window Y offset
-//  838   * @param  LayerIdx:  LTDC Layer index.
-//  839   *                         This parameter can be one of the following values:
-//  840   *                         0 or 1
-//  841   * @retval  HAL status
-//  842   */
+//  843 
+//  844 /**
+//  845   * @brief  Set the LTDC window position.
+//  846   * @param  hltdc:    pointer to a LTDC_HandleTypeDef structure that contains
+//  847   *                   the configuration information for the LTDC.
+//  848   * @param  X0:       LTDC window X offset
+//  849   * @param  Y0:       LTDC window Y offset
+//  850   * @param  LayerIdx:  LTDC Layer index.
+//  851   *                         This parameter can be one of the following values:
+//  852   *                         0 or 1
+//  853   * @retval  HAL status
+//  854   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock17 Using cfiCommon0
           CFI Function HAL_LTDC_SetWindowPosition
         THUMB
-//  843 HAL_StatusTypeDef HAL_LTDC_SetWindowPosition(LTDC_HandleTypeDef *hltdc, uint32_t X0, uint32_t Y0, uint32_t LayerIdx)
-//  844 {
+//  855 HAL_StatusTypeDef HAL_LTDC_SetWindowPosition(LTDC_HandleTypeDef *hltdc, uint32_t X0, uint32_t Y0, uint32_t LayerIdx)
+//  856 {
 HAL_LTDC_SetWindowPosition:
         PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
@@ -1621,10 +1633,10 @@ HAL_LTDC_SetWindowPosition:
         MOV      R4,R0
         SUB      SP,SP,#+4
           CFI CFA R13+16
-//  845   LTDC_LayerCfgTypeDef *pLayerCfg;
-//  846   
-//  847   /* Process locked */
-//  848   __HAL_LOCK(hltdc);
+//  857   LTDC_LayerCfgTypeDef *pLayerCfg;
+//  858   
+//  859   /* Process locked */
+//  860   __HAL_LOCK(hltdc);
         LDRB     R0,[R4, #+160]
         CMP      R0,#+1
         IT       EQ 
@@ -1632,98 +1644,98 @@ HAL_LTDC_SetWindowPosition:
         BEQ.N    ??HAL_LTDC_SetWindowPosition_0
         MOVS     R0,#+1
         STRB     R0,[R4, #+160]
-//  849 
-//  850   /* Change LTDC peripheral state */
-//  851   hltdc->State = HAL_LTDC_STATE_BUSY;
+//  861 
+//  862   /* Change LTDC peripheral state */
+//  863   hltdc->State = HAL_LTDC_STATE_BUSY;
         MOVS     R0,#+2
         STRB     R0,[R4, #+161]
-//  852 
-//  853   /* Get layer configuration from handle structure */
-//  854   pLayerCfg = &hltdc->LayerCfg[LayerIdx];
+//  864 
+//  865   /* Get layer configuration from handle structure */
+//  866   pLayerCfg = &hltdc->LayerCfg[LayerIdx];
         MOVS     R0,#+52
         MLA      R0,R0,R3,R4
-//  855 
-//  856   /* Check the parameters */
-//  857   assert_param(IS_LTDC_LAYER(LayerIdx));
-//  858   assert_param(IS_LTDC_HCONFIGST(pLayerCfg->WindowX0));
-//  859   assert_param(IS_LTDC_HCONFIGSP(pLayerCfg->WindowX1));
-//  860   assert_param(IS_LTDC_VCONFIGST(pLayerCfg->WindowY0));
-//  861   assert_param(IS_LTDC_VCONFIGSP(pLayerCfg->WindowY1));
-//  862 
-//  863   /* update horizontal start/stop */
-//  864   pLayerCfg->WindowX0 = X0;
+//  867 
+//  868   /* Check the parameters */
+//  869   assert_param(IS_LTDC_LAYER(LayerIdx));
+//  870   assert_param(IS_LTDC_HCONFIGST(pLayerCfg->WindowX0));
+//  871   assert_param(IS_LTDC_HCONFIGSP(pLayerCfg->WindowX1));
+//  872   assert_param(IS_LTDC_VCONFIGST(pLayerCfg->WindowY0));
+//  873   assert_param(IS_LTDC_VCONFIGSP(pLayerCfg->WindowY1));
+//  874 
+//  875   /* update horizontal start/stop */
+//  876   pLayerCfg->WindowX0 = X0;
         STR      R1,[R0, #+56]!
-//  865   pLayerCfg->WindowX1 = X0 + pLayerCfg->ImageWidth;
-//  866 
-//  867   /* update vertical start/stop */
-//  868   pLayerCfg->WindowY0 = Y0;
+//  877   pLayerCfg->WindowX1 = X0 + pLayerCfg->ImageWidth;
+//  878 
+//  879   /* update vertical start/stop */
+//  880   pLayerCfg->WindowY0 = Y0;
         STR      R2,[R0, #+8]
         LDR      R5,[R0, #+40]
         ADDS     R1,R5,R1
         STR      R1,[R0, #+4]
-//  869   pLayerCfg->WindowY1 = Y0 + pLayerCfg->ImageHeight;
+//  881   pLayerCfg->WindowY1 = Y0 + pLayerCfg->ImageHeight;
         LDR      R1,[R0, #+44]
         ADDS     R1,R1,R2
-//  870 
-//  871   /* Set LTDC parameters */
-//  872   LTDC_SetConfig(hltdc, pLayerCfg, LayerIdx);
+//  882 
+//  883   /* Set LTDC parameters */
+//  884   LTDC_SetConfig(hltdc, pLayerCfg, LayerIdx);
         MOV      R2,R3
         STR      R1,[R0, #+12]
         MOV      R1,R0
         MOV      R0,R4
           CFI FunCall LTDC_SetConfig
         BL       LTDC_SetConfig
-//  873 
-//  874   /* Sets the Reload type */
-//  875   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
+//  885 
+//  886   /* Sets the Reload type */
+//  887   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
         LDR      R1,[R4, #+0]
         MOVS     R0,#+1
         STR      R0,[R1, #+36]
-//  876 
-//  877   /* Change the LTDC state*/
-//  878   hltdc->State = HAL_LTDC_STATE_READY;
+//  888 
+//  889   /* Change the LTDC state*/
+//  890   hltdc->State = HAL_LTDC_STATE_READY;
         STRB     R0,[R4, #+161]
-//  879 
-//  880   /* Process unlocked */
-//  881   __HAL_UNLOCK(hltdc);
+//  891 
+//  892   /* Process unlocked */
+//  893   __HAL_UNLOCK(hltdc);
         MOVS     R0,#+0
         STRB     R0,[R4, #+160]
-//  882 
-//  883   return HAL_OK;
+//  894 
+//  895   return HAL_OK;
 ??HAL_LTDC_SetWindowPosition_0:
         ADD      SP,SP,#+4
           CFI CFA R13+12
         POP      {R4,R5,PC}       ;; return
-//  884 }
+//  896 }
           CFI EndBlock cfiBlock17
-//  885 
-//  886 /**
-//  887   * @brief  Reconfigure the pixel format.
-//  888   * @param  hltdc:       pointer to a LTDC_HandleTypeDef structure that contains
-//  889   *                      the configuration information for the LTDC.
-//  890   * @param  Pixelformat: new pixel format value.
-//  891   * @param  LayerIdx:    LTDC Layer index.
-//  892   *                      This parameter can be one of the following values:
-//  893   *                      0 or 1.
-//  894   * @retval  HAL status
-//  895   */
+//  897 
+//  898 /**
+//  899   * @brief  Reconfigure the pixel format.
+//  900   * @param  hltdc:       pointer to a LTDC_HandleTypeDef structure that contains
+//  901   *                      the configuration information for the LTDC.
+//  902   * @param  Pixelformat: new pixel format value.
+//  903   * @param  LayerIdx:    LTDC Layer index.
+//  904   *                      This parameter can be one of the following values:
+//  905   *                      0 or 1.
+//  906   * @retval  HAL status
+//  907   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock18 Using cfiCommon0
           CFI Function HAL_LTDC_SetPixelFormat
         THUMB
-//  896 HAL_StatusTypeDef HAL_LTDC_SetPixelFormat(LTDC_HandleTypeDef *hltdc, uint32_t Pixelformat, uint32_t LayerIdx)
-//  897 {
+//  908 HAL_StatusTypeDef HAL_LTDC_SetPixelFormat(LTDC_HandleTypeDef *hltdc, uint32_t Pixelformat, uint32_t LayerIdx)
+//  909 {
 HAL_LTDC_SetPixelFormat:
         PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
         MOV      R4,R0
-//  898   LTDC_LayerCfgTypeDef *pLayerCfg;
-//  899 
-//  900   /* Process locked */
-//  901   __HAL_LOCK(hltdc);
+//  910   LTDC_LayerCfgTypeDef *pLayerCfg;
+//  911 
+//  912   /* Process locked */
+//  913   __HAL_LOCK(hltdc);
         LDRB     R0,[R4, #+160]
         CMP      R0,#+1
         BNE.N    ??HAL_LTDC_SetPixelFormat_0
@@ -1732,80 +1744,80 @@ HAL_LTDC_SetPixelFormat:
 ??HAL_LTDC_SetPixelFormat_0:
         MOVS     R0,#+1
         STRB     R0,[R4, #+160]
-//  902 
-//  903   /* Change LTDC peripheral state */
-//  904   hltdc->State = HAL_LTDC_STATE_BUSY;
+//  914 
+//  915   /* Change LTDC peripheral state */
+//  916   hltdc->State = HAL_LTDC_STATE_BUSY;
         MOVS     R0,#+2
         STRB     R0,[R4, #+161]
-//  905 
-//  906   /* Check the parameters */
-//  907   assert_param(IS_LTDC_LAYER(LayerIdx));
-//  908   assert_param(IS_LTDC_PIXEL_FORMAT(Pixelformat));
-//  909 
-//  910   /* Get layer configuration from handle structure */
-//  911   pLayerCfg = &hltdc->LayerCfg[LayerIdx];  
+//  917 
+//  918   /* Check the parameters */
+//  919   assert_param(IS_LTDC_LAYER(LayerIdx));
+//  920   assert_param(IS_LTDC_PIXEL_FORMAT(Pixelformat));
+//  921 
+//  922   /* Get layer configuration from handle structure */
+//  923   pLayerCfg = &hltdc->LayerCfg[LayerIdx];  
         MOVS     R0,#+52
         MLA      R0,R0,R2,R4
         ADDS     R0,R0,#+56
-//  912 
-//  913   /* Reconfigure the pixel format */
-//  914   pLayerCfg->PixelFormat = Pixelformat;
+//  924 
+//  925   /* Reconfigure the pixel format */
+//  926   pLayerCfg->PixelFormat = Pixelformat;
         STR      R1,[R0, #+16]
-//  915 
-//  916   /* Set LTDC parameters */
-//  917   LTDC_SetConfig(hltdc, pLayerCfg, LayerIdx);   
+//  927 
+//  928   /* Set LTDC parameters */
+//  929   LTDC_SetConfig(hltdc, pLayerCfg, LayerIdx);   
         MOV      R1,R0
         MOV      R0,R4
           CFI FunCall LTDC_SetConfig
         BL       LTDC_SetConfig
-//  918 
-//  919   /* Sets the Reload type */
-//  920   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
+//  930 
+//  931   /* Sets the Reload type */
+//  932   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
         LDR      R1,[R4, #+0]
         MOVS     R0,#+1
         STR      R0,[R1, #+36]
-//  921 
-//  922   /* Change the LTDC state*/
-//  923   hltdc->State = HAL_LTDC_STATE_READY;
+//  933 
+//  934   /* Change the LTDC state*/
+//  935   hltdc->State = HAL_LTDC_STATE_READY;
         STRB     R0,[R4, #+161]
-//  924 
-//  925   /* Process unlocked */
-//  926   __HAL_UNLOCK(hltdc);
+//  936 
+//  937   /* Process unlocked */
+//  938   __HAL_UNLOCK(hltdc);
         MOVS     R0,#+0
         STRB     R0,[R4, #+160]
-//  927 
-//  928   return HAL_OK;
+//  939 
+//  940   return HAL_OK;
         POP      {R4,PC}          ;; return
-//  929 }
+//  941 }
           CFI EndBlock cfiBlock18
-//  930 
-//  931 /**
-//  932   * @brief  Reconfigure the layer alpha value.
-//  933   * @param  hltdc:    pointer to a LTDC_HandleTypeDef structure that contains
-//  934   *                   the configuration information for the LTDC.
-//  935   * @param  Alpha:    new alpha value.
-//  936   * @param  LayerIdx:  LTDC Layer index.
-//  937   *                   This parameter can be one of the following values:
-//  938   *                   0 or 1
-//  939   * @retval  HAL status
-//  940   */
+//  942 
+//  943 /**
+//  944   * @brief  Reconfigure the layer alpha value.
+//  945   * @param  hltdc:    pointer to a LTDC_HandleTypeDef structure that contains
+//  946   *                   the configuration information for the LTDC.
+//  947   * @param  Alpha:    new alpha value.
+//  948   * @param  LayerIdx:  LTDC Layer index.
+//  949   *                   This parameter can be one of the following values:
+//  950   *                   0 or 1
+//  951   * @retval  HAL status
+//  952   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock19 Using cfiCommon0
           CFI Function HAL_LTDC_SetAlpha
         THUMB
-//  941 HAL_StatusTypeDef HAL_LTDC_SetAlpha(LTDC_HandleTypeDef *hltdc, uint32_t Alpha, uint32_t LayerIdx)
-//  942 {
+//  953 HAL_StatusTypeDef HAL_LTDC_SetAlpha(LTDC_HandleTypeDef *hltdc, uint32_t Alpha, uint32_t LayerIdx)
+//  954 {
 HAL_LTDC_SetAlpha:
         PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
         MOV      R4,R0
-//  943   LTDC_LayerCfgTypeDef *pLayerCfg;
-//  944 
-//  945   /* Process locked */
-//  946   __HAL_LOCK(hltdc);
+//  955   LTDC_LayerCfgTypeDef *pLayerCfg;
+//  956 
+//  957   /* Process locked */
+//  958   __HAL_LOCK(hltdc);
         LDRB     R0,[R4, #+160]
         CMP      R0,#+1
         BNE.N    ??HAL_LTDC_SetAlpha_0
@@ -1814,79 +1826,79 @@ HAL_LTDC_SetAlpha:
 ??HAL_LTDC_SetAlpha_0:
         MOVS     R0,#+1
         STRB     R0,[R4, #+160]
-//  947 
-//  948   /* Change LTDC peripheral state */
-//  949   hltdc->State = HAL_LTDC_STATE_BUSY;
+//  959 
+//  960   /* Change LTDC peripheral state */
+//  961   hltdc->State = HAL_LTDC_STATE_BUSY;
         MOVS     R0,#+2
         STRB     R0,[R4, #+161]
-//  950 
-//  951   /* Check the parameters */
-//  952   assert_param(IS_LTDC_ALPHA(Alpha));
-//  953   assert_param(IS_LTDC_LAYER(LayerIdx));
-//  954 
-//  955   /* Get layer configuration from handle structure */
-//  956   pLayerCfg = &hltdc->LayerCfg[LayerIdx];
+//  962 
+//  963   /* Check the parameters */
+//  964   assert_param(IS_LTDC_ALPHA(Alpha));
+//  965   assert_param(IS_LTDC_LAYER(LayerIdx));
+//  966 
+//  967   /* Get layer configuration from handle structure */
+//  968   pLayerCfg = &hltdc->LayerCfg[LayerIdx];
         MOVS     R0,#+52
         MLA      R0,R0,R2,R4
         ADDS     R0,R0,#+56
-//  957 
-//  958   /* Reconfigure the Alpha value */
-//  959   pLayerCfg->Alpha = Alpha;
+//  969 
+//  970   /* Reconfigure the Alpha value */
+//  971   pLayerCfg->Alpha = Alpha;
         STR      R1,[R0, #+20]
-//  960 
-//  961   /* Set LTDC parameters */
-//  962   LTDC_SetConfig(hltdc, pLayerCfg, LayerIdx);
+//  972 
+//  973   /* Set LTDC parameters */
+//  974   LTDC_SetConfig(hltdc, pLayerCfg, LayerIdx);
         MOV      R1,R0
         MOV      R0,R4
           CFI FunCall LTDC_SetConfig
         BL       LTDC_SetConfig
-//  963 
-//  964   /* Sets the Reload type */
-//  965   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
+//  975 
+//  976   /* Sets the Reload type */
+//  977   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
         LDR      R1,[R4, #+0]
         MOVS     R0,#+1
         STR      R0,[R1, #+36]
-//  966 
-//  967   /* Change the LTDC state*/
-//  968   hltdc->State = HAL_LTDC_STATE_READY;
+//  978 
+//  979   /* Change the LTDC state*/
+//  980   hltdc->State = HAL_LTDC_STATE_READY;
         STRB     R0,[R4, #+161]
-//  969 
-//  970   /* Process unlocked */
-//  971   __HAL_UNLOCK(hltdc);
+//  981 
+//  982   /* Process unlocked */
+//  983   __HAL_UNLOCK(hltdc);
         MOVS     R0,#+0
         STRB     R0,[R4, #+160]
-//  972 
-//  973   return HAL_OK;
+//  984 
+//  985   return HAL_OK;
         POP      {R4,PC}          ;; return
-//  974 }
+//  986 }
           CFI EndBlock cfiBlock19
-//  975 /**
-//  976   * @brief  Reconfigure the frame buffer Address.
-//  977   * @param  hltdc:    pointer to a LTDC_HandleTypeDef structure that contains
-//  978   *                   the configuration information for the LTDC.
-//  979   * @param  Address:  new address value.
-//  980   * @param  LayerIdx: LTDC Layer index.
-//  981   *                   This parameter can be one of the following values:
-//  982   *                   0 or 1.
-//  983   * @retval  HAL status
-//  984   */
+//  987 /**
+//  988   * @brief  Reconfigure the frame buffer Address.
+//  989   * @param  hltdc:    pointer to a LTDC_HandleTypeDef structure that contains
+//  990   *                   the configuration information for the LTDC.
+//  991   * @param  Address:  new address value.
+//  992   * @param  LayerIdx: LTDC Layer index.
+//  993   *                   This parameter can be one of the following values:
+//  994   *                   0 or 1.
+//  995   * @retval  HAL status
+//  996   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock20 Using cfiCommon0
           CFI Function HAL_LTDC_SetAddress
         THUMB
-//  985 HAL_StatusTypeDef HAL_LTDC_SetAddress(LTDC_HandleTypeDef *hltdc, uint32_t Address, uint32_t LayerIdx)
-//  986 {
+//  997 HAL_StatusTypeDef HAL_LTDC_SetAddress(LTDC_HandleTypeDef *hltdc, uint32_t Address, uint32_t LayerIdx)
+//  998 {
 HAL_LTDC_SetAddress:
         PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
         MOV      R4,R0
-//  987   LTDC_LayerCfgTypeDef *pLayerCfg;
-//  988 
-//  989   /* Process locked */
-//  990   __HAL_LOCK(hltdc);
+//  999   LTDC_LayerCfgTypeDef *pLayerCfg;
+// 1000 
+// 1001   /* Process locked */
+// 1002   __HAL_LOCK(hltdc);
         LDRB     R0,[R4, #+160]
         CMP      R0,#+1
         BNE.N    ??HAL_LTDC_SetAddress_0
@@ -1895,69 +1907,69 @@ HAL_LTDC_SetAddress:
 ??HAL_LTDC_SetAddress_0:
         MOVS     R0,#+1
         STRB     R0,[R4, #+160]
-//  991 
-//  992   /* Change LTDC peripheral state */
-//  993   hltdc->State = HAL_LTDC_STATE_BUSY;
+// 1003 
+// 1004   /* Change LTDC peripheral state */
+// 1005   hltdc->State = HAL_LTDC_STATE_BUSY;
         MOVS     R0,#+2
         STRB     R0,[R4, #+161]
-//  994 
-//  995   /* Check the parameters */
-//  996   assert_param(IS_LTDC_LAYER(LayerIdx));
-//  997 
-//  998   /* Get layer configuration from handle structure */
-//  999   pLayerCfg = &hltdc->LayerCfg[LayerIdx];
+// 1006 
+// 1007   /* Check the parameters */
+// 1008   assert_param(IS_LTDC_LAYER(LayerIdx));
+// 1009 
+// 1010   /* Get layer configuration from handle structure */
+// 1011   pLayerCfg = &hltdc->LayerCfg[LayerIdx];
         MOVS     R0,#+52
         MLA      R0,R0,R2,R4
         ADDS     R0,R0,#+56
-// 1000 
-// 1001   /* Reconfigure the Address */
-// 1002   pLayerCfg->FBStartAdress = Address;
+// 1012 
+// 1013   /* Reconfigure the Address */
+// 1014   pLayerCfg->FBStartAdress = Address;
         STR      R1,[R0, #+36]
-// 1003 
-// 1004   /* Set LTDC parameters */
-// 1005   LTDC_SetConfig(hltdc, pLayerCfg, LayerIdx);
+// 1015 
+// 1016   /* Set LTDC parameters */
+// 1017   LTDC_SetConfig(hltdc, pLayerCfg, LayerIdx);
         MOV      R1,R0
         MOV      R0,R4
           CFI FunCall LTDC_SetConfig
         BL       LTDC_SetConfig
-// 1006 
-// 1007   /* Sets the Reload type */
-// 1008   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
+// 1018 
+// 1019   /* Sets the Reload type */
+// 1020   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
         LDR      R1,[R4, #+0]
         MOVS     R0,#+1
         STR      R0,[R1, #+36]
-// 1009 
-// 1010   /* Change the LTDC state*/
-// 1011   hltdc->State = HAL_LTDC_STATE_READY;
+// 1021 
+// 1022   /* Change the LTDC state*/
+// 1023   hltdc->State = HAL_LTDC_STATE_READY;
         STRB     R0,[R4, #+161]
-// 1012 
-// 1013   /* Process unlocked */
-// 1014   __HAL_UNLOCK(hltdc);
+// 1024 
+// 1025   /* Process unlocked */
+// 1026   __HAL_UNLOCK(hltdc);
         MOVS     R0,#+0
         STRB     R0,[R4, #+160]
-// 1015 
-// 1016   return HAL_OK;
+// 1027 
+// 1028   return HAL_OK;
         POP      {R4,PC}          ;; return
-// 1017 }
+// 1029 }
           CFI EndBlock cfiBlock20
-// 1018 
-// 1019 /**
-// 1020   * @brief  Define the position of the line interrupt .
-// 1021   * @param  hltdc:             pointer to a LTDC_HandleTypeDef structure that contains
-// 1022   *                            the configuration information for the LTDC.
-// 1023   * @param  Line:   Line Interrupt Position.
-// 1024   * @retval  HAL status
-// 1025   */
+// 1030 
+// 1031 /**
+// 1032   * @brief  Define the position of the line interrupt .
+// 1033   * @param  hltdc:             pointer to a LTDC_HandleTypeDef structure that contains
+// 1034   *                            the configuration information for the LTDC.
+// 1035   * @param  Line:   Line Interrupt Position.
+// 1036   * @retval  HAL status
+// 1037   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock21 Using cfiCommon0
           CFI Function HAL_LTDC_ProgramLineEvent
           CFI NoCalls
         THUMB
-// 1026 HAL_StatusTypeDef HAL_LTDC_ProgramLineEvent(LTDC_HandleTypeDef *hltdc, uint32_t Line)
-// 1027 {
-// 1028   /* Process locked */
-// 1029   __HAL_LOCK(hltdc);
+// 1038 HAL_StatusTypeDef HAL_LTDC_ProgramLineEvent(LTDC_HandleTypeDef *hltdc, uint32_t Line)
+// 1039 {
+// 1040   /* Process locked */
+// 1041   __HAL_LOCK(hltdc);
 HAL_LTDC_ProgramLineEvent:
         LDRB     R2,[R0, #+160]
         CMP      R2,#+1
@@ -1967,141 +1979,141 @@ HAL_LTDC_ProgramLineEvent:
 ??HAL_LTDC_ProgramLineEvent_0:
         MOVS     R2,#+1
         STRB     R2,[R0, #+160]
-// 1030 
-// 1031   /* Change LTDC peripheral state */
-// 1032   hltdc->State = HAL_LTDC_STATE_BUSY;
+// 1042 
+// 1043   /* Change LTDC peripheral state */
+// 1044   hltdc->State = HAL_LTDC_STATE_BUSY;
         MOVS     R2,#+2
         STRB     R2,[R0, #+161]
-// 1033 
-// 1034   /* Check the parameters */
-// 1035   assert_param(IS_LTDC_LIPOS(Line));
-// 1036 
-// 1037   /* Enable the Line interrupt */
-// 1038   __HAL_LTDC_ENABLE_IT(hltdc, LTDC_IT_LI);
+// 1045 
+// 1046   /* Check the parameters */
+// 1047   assert_param(IS_LTDC_LIPOS(Line));
+// 1048 
+// 1049   /* Enable the Line interrupt */
+// 1050   __HAL_LTDC_ENABLE_IT(hltdc, LTDC_IT_LI);
         LDR      R2,[R0, #+0]
         LDR      R3,[R2, #+52]
         ORR      R3,R3,#0x1
         STR      R3,[R2, #+52]
-// 1039 
-// 1040   /* Sets the Line Interrupt position */
-// 1041   LTDC->LIPCR = (uint32_t)Line;
+// 1051 
+// 1052   /* Sets the Line Interrupt position */
+// 1053   LTDC->LIPCR = (uint32_t)Line;
         LDR.N    R2,??DataTable4_2  ;; 0x40016840
         STR      R1,[R2, #+0]
-// 1042 
-// 1043   /* Change the LTDC state*/
-// 1044   hltdc->State = HAL_LTDC_STATE_READY;
+// 1054 
+// 1055   /* Change the LTDC state*/
+// 1056   hltdc->State = HAL_LTDC_STATE_READY;
         MOVS     R1,#+1
         STRB     R1,[R0, #+161]
-// 1045 
-// 1046   /* Process unlocked */
-// 1047   __HAL_UNLOCK(hltdc);
+// 1057 
+// 1058   /* Process unlocked */
+// 1059   __HAL_UNLOCK(hltdc);
         MOVS     R1,#+0
         STRB     R1,[R0, #+160]
-// 1048 
-// 1049   return HAL_OK;
+// 1060 
+// 1061   return HAL_OK;
         MOVS     R0,#+0
         BX       LR               ;; return
-// 1050 }
+// 1062 }
           CFI EndBlock cfiBlock21
-// 1051 
-// 1052 /**
-// 1053   * @}
-// 1054   */
-// 1055 
-// 1056 /** @defgroup LTDC_Exported_Functions_Group4 Peripheral State and Errors functions
-// 1057  *  @brief    Peripheral State and Errors functions 
-// 1058  *
-// 1059 @verbatim   
-// 1060  ===============================================================================
-// 1061                   ##### Peripheral State and Errors functions #####
-// 1062  ===============================================================================  
-// 1063     [..]
-// 1064     This subsection provides functions allowing to
-// 1065       (+) Check the LTDC state.
-// 1066       (+) Get error code.  
+// 1063 
+// 1064 /**
+// 1065   * @}
+// 1066   */
 // 1067 
-// 1068 @endverbatim
-// 1069   * @{
-// 1070   */ 
-// 1071 
-// 1072 /**
-// 1073   * @brief  Return the LTDC state
-// 1074   * @param  hltdc: pointer to a LTDC_HandleTypeDef structure that contains
-// 1075   *                the configuration information for the LTDC.
-// 1076   * @retval HAL state
-// 1077   */
+// 1068 /** @defgroup LTDC_Exported_Functions_Group4 Peripheral State and Errors functions
+// 1069  *  @brief    Peripheral State and Errors functions 
+// 1070  *
+// 1071 @verbatim   
+// 1072  ===============================================================================
+// 1073                   ##### Peripheral State and Errors functions #####
+// 1074  ===============================================================================  
+// 1075     [..]
+// 1076     This subsection provides functions allowing to
+// 1077       (+) Check the LTDC state.
+// 1078       (+) Get error code.  
+// 1079 
+// 1080 @endverbatim
+// 1081   * @{
+// 1082   */ 
+// 1083 
+// 1084 /**
+// 1085   * @brief  Return the LTDC state
+// 1086   * @param  hltdc: pointer to a LTDC_HandleTypeDef structure that contains
+// 1087   *                the configuration information for the LTDC.
+// 1088   * @retval HAL state
+// 1089   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock22 Using cfiCommon0
           CFI Function HAL_LTDC_GetState
           CFI NoCalls
         THUMB
-// 1078 HAL_LTDC_StateTypeDef HAL_LTDC_GetState(LTDC_HandleTypeDef *hltdc)
-// 1079 {
-// 1080   return hltdc->State;
+// 1090 HAL_LTDC_StateTypeDef HAL_LTDC_GetState(LTDC_HandleTypeDef *hltdc)
+// 1091 {
+// 1092   return hltdc->State;
 HAL_LTDC_GetState:
         LDRB     R0,[R0, #+161]
         BX       LR               ;; return
-// 1081 }
+// 1093 }
           CFI EndBlock cfiBlock22
-// 1082 
-// 1083 /**
-// 1084 * @brief  Return the LTDC error code
-// 1085 * @param  hltdc : pointer to a LTDC_HandleTypeDef structure that contains
-// 1086   *               the configuration information for the LTDC.
-// 1087 * @retval LTDC Error Code
-// 1088 */
+// 1094 
+// 1095 /**
+// 1096 * @brief  Return the LTDC error code
+// 1097 * @param  hltdc : pointer to a LTDC_HandleTypeDef structure that contains
+// 1098   *               the configuration information for the LTDC.
+// 1099 * @retval LTDC Error Code
+// 1100 */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock23 Using cfiCommon0
           CFI Function HAL_LTDC_GetError
           CFI NoCalls
         THUMB
-// 1089 uint32_t HAL_LTDC_GetError(LTDC_HandleTypeDef *hltdc)
-// 1090 {
-// 1091   return hltdc->ErrorCode;
+// 1101 uint32_t HAL_LTDC_GetError(LTDC_HandleTypeDef *hltdc)
+// 1102 {
+// 1103   return hltdc->ErrorCode;
 HAL_LTDC_GetError:
         LDR      R0,[R0, #+164]
         BX       LR               ;; return
-// 1092 }
+// 1104 }
           CFI EndBlock cfiBlock23
-// 1093 
-// 1094 /**
-// 1095   * @}
-// 1096   */
-// 1097 
-// 1098 /**
-// 1099   * @brief  Configures the LTDC peripheral 
-// 1100   * @param  hltdc   :  Pointer to a LTDC_HandleTypeDef structure that contains
-// 1101   *                   the configuration information for the LTDC.
-// 1102   * @param  pLayerCfg: Pointer LTDC Layer Configuration structure
-// 1103   * @param  LayerIdx:  LTDC Layer index.
-// 1104   *                    This parameter can be one of the following values: 0 or 1
-// 1105   * @retval None
-// 1106   */
+// 1105 
+// 1106 /**
+// 1107   * @}
+// 1108   */
+// 1109 
+// 1110 /**
+// 1111   * @brief  Configures the LTDC peripheral 
+// 1112   * @param  hltdc   :  Pointer to a LTDC_HandleTypeDef structure that contains
+// 1113   *                   the configuration information for the LTDC.
+// 1114   * @param  pLayerCfg: Pointer LTDC Layer Configuration structure
+// 1115   * @param  LayerIdx:  LTDC Layer index.
+// 1116   *                    This parameter can be one of the following values: 0 or 1
+// 1117   * @retval None
+// 1118   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock24 Using cfiCommon0
           CFI Function LTDC_SetConfig
           CFI NoCalls
         THUMB
-// 1107 static void LTDC_SetConfig(LTDC_HandleTypeDef *hltdc, LTDC_LayerCfgTypeDef *pLayerCfg, uint32_t LayerIdx)
-// 1108 {
+// 1119 static void LTDC_SetConfig(LTDC_HandleTypeDef *hltdc, LTDC_LayerCfgTypeDef *pLayerCfg, uint32_t LayerIdx)
+// 1120 {
 LTDC_SetConfig:
         PUSH     {R4,R5}
           CFI R5 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-// 1109   uint32_t tmp = 0;
-// 1110   uint32_t tmp1 = 0;
-// 1111   uint32_t tmp2 = 0;
-// 1112 
-// 1113   /* Configures the horizontal start and stop position */
-// 1114   tmp = ((pLayerCfg->WindowX1 + ((hltdc->Instance->BPCR & LTDC_BPCR_AHBP) >> 16)) << 16);
+// 1121   uint32_t tmp = 0;
+// 1122   uint32_t tmp1 = 0;
+// 1123   uint32_t tmp2 = 0;
+// 1124 
+// 1125   /* Configures the horizontal start and stop position */
+// 1126   tmp = ((pLayerCfg->WindowX1 + ((hltdc->Instance->BPCR & LTDC_BPCR_AHBP) >> 16)) << 16);
         LDR      R0,[R0, #+0]
         LDR      R3,[R1, #+4]
         LDR      R4,[R0, #+12]
-// 1115   LTDC_LAYER(hltdc, LayerIdx)->WHPCR &= ~(LTDC_LxWHPCR_WHSTPOS | LTDC_LxWHPCR_WHSPPOS);
+// 1127   LTDC_LAYER(hltdc, LayerIdx)->WHPCR &= ~(LTDC_LxWHPCR_WHSTPOS | LTDC_LxWHPCR_WHSPPOS);
         ADD      R2,R0,R2, LSL #+7
         UBFX     R4,R4,#+16,#+12
         ADDS     R3,R4,R3
@@ -2109,7 +2121,7 @@ LTDC_SetConfig:
         LDR      R4,[R2, #+4]
         AND      R4,R4,#0xF000
         STR      R4,[R2, #+4]
-// 1116   LTDC_LAYER(hltdc, LayerIdx)->WHPCR = ((pLayerCfg->WindowX0 + ((hltdc->Instance->BPCR & LTDC_BPCR_AHBP) >> 16) + 1) | tmp);
+// 1128   LTDC_LAYER(hltdc, LayerIdx)->WHPCR = ((pLayerCfg->WindowX0 + ((hltdc->Instance->BPCR & LTDC_BPCR_AHBP) >> 16) + 1) | tmp);
         LDR      R4,[R1, #+0]
         LDR      R5,[R0, #+12]
         UBFX     R5,R5,#+16,#+12
@@ -2117,18 +2129,18 @@ LTDC_SetConfig:
         ADDS     R4,R4,#+1
         ORR      R3,R4,R3, LSL #+16
         STR      R3,[R2, #+4]
-// 1117 
-// 1118   /* Configures the vertical start and stop position */
-// 1119   tmp = ((pLayerCfg->WindowY1 + (hltdc->Instance->BPCR & LTDC_BPCR_AVBP)) << 16);
+// 1129 
+// 1130   /* Configures the vertical start and stop position */
+// 1131   tmp = ((pLayerCfg->WindowY1 + (hltdc->Instance->BPCR & LTDC_BPCR_AVBP)) << 16);
         LDR      R3,[R1, #+12]
         LDR      R4,[R0, #+12]
         LSLS     R4,R4,#+21
         ADDS     R3,R3,R4, LSR #+21
-// 1120   LTDC_LAYER(hltdc, LayerIdx)->WVPCR &= ~(LTDC_LxWVPCR_WVSTPOS | LTDC_LxWVPCR_WVSPPOS);
+// 1132   LTDC_LAYER(hltdc, LayerIdx)->WVPCR &= ~(LTDC_LxWVPCR_WVSTPOS | LTDC_LxWVPCR_WVSPPOS);
         LDR      R4,[R2, #+8]
         AND      R4,R4,#0xF000
         STR      R4,[R2, #+8]
-// 1121   LTDC_LAYER(hltdc, LayerIdx)->WVPCR  = ((pLayerCfg->WindowY0 + (hltdc->Instance->BPCR & LTDC_BPCR_AVBP) + 1) | tmp);  
+// 1133   LTDC_LAYER(hltdc, LayerIdx)->WVPCR  = ((pLayerCfg->WindowY0 + (hltdc->Instance->BPCR & LTDC_BPCR_AVBP) + 1) | tmp);  
         LDR      R4,[R1, #+8]
         LDR      R0,[R0, #+12]
         LSLS     R0,R0,#+21
@@ -2136,39 +2148,39 @@ LTDC_SetConfig:
         ADDS     R0,R0,#+1
         ORR      R0,R0,R3, LSL #+16
         STR      R0,[R2, #+8]
-// 1122 
-// 1123   /* Specifies the pixel format */
-// 1124   LTDC_LAYER(hltdc, LayerIdx)->PFCR &= ~(LTDC_LxPFCR_PF);
+// 1134 
+// 1135   /* Specifies the pixel format */
+// 1136   LTDC_LAYER(hltdc, LayerIdx)->PFCR &= ~(LTDC_LxPFCR_PF);
         LDR      R0,[R2, #+16]
         LSRS     R0,R0,#+3
         LSLS     R0,R0,#+3
         STR      R0,[R2, #+16]
-// 1125   LTDC_LAYER(hltdc, LayerIdx)->PFCR = (pLayerCfg->PixelFormat);
+// 1137   LTDC_LAYER(hltdc, LayerIdx)->PFCR = (pLayerCfg->PixelFormat);
         LDR      R0,[R1, #+16]
         STR      R0,[R2, #+16]
-// 1126 
-// 1127   /* Configures the default color values */
-// 1128   tmp = ((uint32_t)(pLayerCfg->Backcolor.Green) << 8);
+// 1138 
+// 1139   /* Configures the default color values */
+// 1140   tmp = ((uint32_t)(pLayerCfg->Backcolor.Green) << 8);
         LDRB     R0,[R1, #+49]
-// 1129   tmp1 = ((uint32_t)(pLayerCfg->Backcolor.Red) << 16);
+// 1141   tmp1 = ((uint32_t)(pLayerCfg->Backcolor.Red) << 16);
         LDRB     R3,[R1, #+50]
-// 1130   tmp2 = (pLayerCfg->Alpha0 << 24);  
+// 1142   tmp2 = (pLayerCfg->Alpha0 << 24);  
         LDR      R4,[R1, #+24]
-// 1131   LTDC_LAYER(hltdc, LayerIdx)->DCCR &= ~(LTDC_LxDCCR_DCBLUE | LTDC_LxDCCR_DCGREEN | LTDC_LxDCCR_DCRED | LTDC_LxDCCR_DCALPHA);
+// 1143   LTDC_LAYER(hltdc, LayerIdx)->DCCR &= ~(LTDC_LxDCCR_DCBLUE | LTDC_LxDCCR_DCGREEN | LTDC_LxDCCR_DCRED | LTDC_LxDCCR_DCALPHA);
         LDR      R5,[R2, #+24]
         MOVS     R5,#+0
         STR      R5,[R2, #+24]
-// 1132   LTDC_LAYER(hltdc, LayerIdx)->DCCR = (pLayerCfg->Backcolor.Blue | tmp | tmp1 | tmp2); 
+// 1144   LTDC_LAYER(hltdc, LayerIdx)->DCCR = (pLayerCfg->Backcolor.Blue | tmp | tmp1 | tmp2); 
         LDRB     R5,[R1, #+48]
         ORR      R0,R5,R0, LSL #+8
         ORR      R0,R0,R3, LSL #+16
-// 1133 
-// 1134   /* Specifies the constant alpha value */
-// 1135   LTDC_LAYER(hltdc, LayerIdx)->CACR &= ~(LTDC_LxCACR_CONSTA);
-// 1136   LTDC_LAYER(hltdc, LayerIdx)->CACR = (pLayerCfg->Alpha);
-// 1137 
-// 1138   /* Specifies the blending factors */
-// 1139   LTDC_LAYER(hltdc, LayerIdx)->BFCR &= ~(LTDC_LxBFCR_BF2 | LTDC_LxBFCR_BF1);
+// 1145 
+// 1146   /* Specifies the constant alpha value */
+// 1147   LTDC_LAYER(hltdc, LayerIdx)->CACR &= ~(LTDC_LxCACR_CONSTA);
+// 1148   LTDC_LAYER(hltdc, LayerIdx)->CACR = (pLayerCfg->Alpha);
+// 1149 
+// 1150   /* Specifies the blending factors */
+// 1151   LTDC_LAYER(hltdc, LayerIdx)->BFCR &= ~(LTDC_LxBFCR_BF2 | LTDC_LxBFCR_BF1);
         LDR.N    R3,??DataTable4_3  ;; 0xfffff8f8
         ORR      R0,R0,R4, LSL #+24
         STR      R0,[R2, #+24]
@@ -2181,42 +2193,42 @@ LTDC_SetConfig:
         LDR      R0,[R2, #+28]
         ANDS     R0,R3,R0
         STR      R0,[R2, #+28]
-// 1140   LTDC_LAYER(hltdc, LayerIdx)->BFCR = (pLayerCfg->BlendingFactor1 | pLayerCfg->BlendingFactor2);
+// 1152   LTDC_LAYER(hltdc, LayerIdx)->BFCR = (pLayerCfg->BlendingFactor1 | pLayerCfg->BlendingFactor2);
         LDR      R0,[R1, #+28]
         LDR      R3,[R1, #+32]
         ORRS     R0,R3,R0
         STR      R0,[R2, #+28]
-// 1141 
-// 1142   /* Configures the color frame buffer start address */
-// 1143   LTDC_LAYER(hltdc, LayerIdx)->CFBAR &= ~(LTDC_LxCFBAR_CFBADD);
+// 1153 
+// 1154   /* Configures the color frame buffer start address */
+// 1155   LTDC_LAYER(hltdc, LayerIdx)->CFBAR &= ~(LTDC_LxCFBAR_CFBADD);
         LDR      R0,[R2, #+40]
         MOVS     R0,#+0
         STR      R0,[R2, #+40]
-// 1144   LTDC_LAYER(hltdc, LayerIdx)->CFBAR = (pLayerCfg->FBStartAdress);
+// 1156   LTDC_LAYER(hltdc, LayerIdx)->CFBAR = (pLayerCfg->FBStartAdress);
         LDR      R0,[R1, #+36]
         STR      R0,[R2, #+40]
-// 1145 
-// 1146   if(pLayerCfg->PixelFormat == LTDC_PIXEL_FORMAT_ARGB8888)
+// 1157 
+// 1158   if(pLayerCfg->PixelFormat == LTDC_PIXEL_FORMAT_ARGB8888)
         LDR      R0,[R1, #+16]
         CBNZ.N   R0,??LTDC_SetConfig_0
-// 1147   {
-// 1148     tmp = 4;
+// 1159   {
+// 1160     tmp = 4;
         MOVS     R0,#+4
         B.N      ??LTDC_SetConfig_1
-// 1149   }
-// 1150   else if (pLayerCfg->PixelFormat == LTDC_PIXEL_FORMAT_RGB888)
+// 1161   }
+// 1162   else if (pLayerCfg->PixelFormat == LTDC_PIXEL_FORMAT_RGB888)
 ??LTDC_SetConfig_0:
         CMP      R0,#+1
         IT       EQ 
         MOVEQ    R0,#+3
-// 1151   {
-// 1152     tmp = 3;
+// 1163   {
+// 1164     tmp = 3;
         BEQ.N    ??LTDC_SetConfig_1
-// 1153   }
-// 1154   else if((pLayerCfg->PixelFormat == LTDC_PIXEL_FORMAT_ARGB4444) || \ 
-// 1155     (pLayerCfg->PixelFormat == LTDC_PIXEL_FORMAT_RGB565)   || \ 
-// 1156       (pLayerCfg->PixelFormat == LTDC_PIXEL_FORMAT_ARGB1555) || \ 
-// 1157         (pLayerCfg->PixelFormat == LTDC_PIXEL_FORMAT_AL88))
+// 1165   }
+// 1166   else if((pLayerCfg->PixelFormat == LTDC_PIXEL_FORMAT_ARGB4444) || \ 
+// 1167     (pLayerCfg->PixelFormat == LTDC_PIXEL_FORMAT_RGB565)   || \ 
+// 1168       (pLayerCfg->PixelFormat == LTDC_PIXEL_FORMAT_ARGB1555) || \ 
+// 1169         (pLayerCfg->PixelFormat == LTDC_PIXEL_FORMAT_AL88))
         CMP      R0,#+4
         IT       NE 
         CMPNE    R0,#+2
@@ -2225,26 +2237,26 @@ LTDC_SetConfig:
         IT       NE 
         CMPNE    R0,#+7
         BNE.N    ??LTDC_SetConfig_3
-// 1158   {
-// 1159     tmp = 2;
+// 1170   {
+// 1171     tmp = 2;
 ??LTDC_SetConfig_2:
         MOVS     R0,#+2
         B.N      ??LTDC_SetConfig_1
-// 1160   }
-// 1161   else
-// 1162   {
-// 1163     tmp = 1;
+// 1172   }
+// 1173   else
+// 1174   {
+// 1175     tmp = 1;
 ??LTDC_SetConfig_3:
         MOVS     R0,#+1
-// 1164   }
-// 1165 
-// 1166   /* Configures the color frame buffer pitch in byte */
-// 1167   LTDC_LAYER(hltdc, LayerIdx)->CFBLR  &= ~(LTDC_LxCFBLR_CFBLL | LTDC_LxCFBLR_CFBP);
+// 1176   }
+// 1177 
+// 1178   /* Configures the color frame buffer pitch in byte */
+// 1179   LTDC_LAYER(hltdc, LayerIdx)->CFBLR  &= ~(LTDC_LxCFBLR_CFBLL | LTDC_LxCFBLR_CFBP);
 ??LTDC_SetConfig_1:
         LDR      R3,[R2, #+44]
         AND      R3,R3,#0xE000E000
         STR      R3,[R2, #+44]
-// 1168   LTDC_LAYER(hltdc, LayerIdx)->CFBLR  = (((pLayerCfg->ImageWidth * tmp) << 16) | (((pLayerCfg->WindowX1 - pLayerCfg->WindowX0) * tmp)  + 3));
+// 1180   LTDC_LAYER(hltdc, LayerIdx)->CFBLR  = (((pLayerCfg->ImageWidth * tmp) << 16) | (((pLayerCfg->WindowX1 - pLayerCfg->WindowX0) * tmp)  + 3));
         LDR      R3,[R1, #+40]
         LDR      R4,[R1, #+4]
         LDR      R5,[R1, #+0]
@@ -2254,23 +2266,23 @@ LTDC_SetConfig:
         ADDS     R0,R0,#+3
         ORR      R0,R0,R3, LSL #+16
         STR      R0,[R2, #+44]
-// 1169 
-// 1170   /* Configures the frame buffer line number */
-// 1171   LTDC_LAYER(hltdc, LayerIdx)->CFBLNR  &= ~(LTDC_LxCFBLNR_CFBLNBR);
+// 1181 
+// 1182   /* Configures the frame buffer line number */
+// 1183   LTDC_LAYER(hltdc, LayerIdx)->CFBLNR  &= ~(LTDC_LxCFBLNR_CFBLNBR);
         LDR      R0,[R2, #+48]
         LSRS     R0,R0,#+11
         LSLS     R0,R0,#+11
         STR      R0,[R2, #+48]
-// 1172   LTDC_LAYER(hltdc, LayerIdx)->CFBLNR  = (pLayerCfg->ImageHeight);
+// 1184   LTDC_LAYER(hltdc, LayerIdx)->CFBLNR  = (pLayerCfg->ImageHeight);
         LDR      R0,[R1, #+44]
         STR      R0,[R2, #+48]
-// 1173 
-// 1174   /* Enable LTDC_Layer by setting LEN bit */  
-// 1175   LTDC_LAYER(hltdc, LayerIdx)->CR |= (uint32_t)LTDC_LxCR_LEN;
+// 1185 
+// 1186   /* Enable LTDC_Layer by setting LEN bit */  
+// 1187   LTDC_LAYER(hltdc, LayerIdx)->CR |= (uint32_t)LTDC_LxCR_LEN;
         LDR      R0,[R2, #+0]
         ORR      R0,R0,#0x1
         STR      R0,[R2, #+0]
-// 1176 }
+// 1188 }
         POP      {R4,R5}
           CFI R4 SameValue
           CFI R5 SameValue
@@ -2314,23 +2326,23 @@ LTDC_SetConfig:
         SECTION_TYPE SHT_PROGBITS, 0
 
         END
-// 1177 
-// 1178 /**
-// 1179   * @}
-// 1180   */
-// 1181 
-// 1182 #endif /* HAL_LTDC_MODULE_ENABLED */
-// 1183 
-// 1184 /**
-// 1185   * @}
-// 1186   */
-// 1187 #endif /* STM32F756xx || STM32F746xx */
-// 1188 
-// 1189 /**
-// 1190   * @}
-// 1191   */
-// 1192 
-// 1193 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+// 1189 
+// 1190 /**
+// 1191   * @}
+// 1192   */
+// 1193 
+// 1194 #endif /* HAL_LTDC_MODULE_ENABLED */
+// 1195 
+// 1196 /**
+// 1197   * @}
+// 1198   */
+// 1199 #endif /* STM32F746xx || STM32F756xx */
+// 1200 
+// 1201 /**
+// 1202   * @}
+// 1203   */
+// 1204 
+// 1205 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
 // 1 738 bytes in section .text
 // 

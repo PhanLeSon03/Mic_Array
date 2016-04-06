@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      31/Mar/2016  20:53:45
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      06/Apr/2016  18:05:30
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -138,8 +138,8 @@
 //    2   ******************************************************************************
 //    3   * @file    stm32f7xx_hal_dma2d.c
 //    4   * @author  MCD Application Team
-//    5   * @version V1.0.1
-//    6   * @date    25-June-2015
+//    5   * @version V1.0.4
+//    6   * @date    09-December-2015
 //    7   * @brief   DMA2D HAL module driver.
 //    8   *          This file provides firmware functions to manage the following 
 //    9   *          functionalities of the DMA2D peripheral:
@@ -506,86 +506,92 @@ HAL_DMA2D_DeInit:
         THUMB
 //  293 __weak void HAL_DMA2D_MspInit(DMA2D_HandleTypeDef* hdma2d)
 //  294 {
-//  295   /* NOTE : This function Should not be modified, when the callback is needed,
-//  296             the HAL_DMA2D_MspInit could be implemented in the user file
-//  297    */ 
-//  298 }
+//  295   /* Prevent unused argument(s) compilation warning */
+//  296   UNUSED(hdma2d);
+//  297  
+//  298   /* NOTE : This function Should not be modified, when the callback is needed,
+//  299             the HAL_DMA2D_MspInit could be implemented in the user file
+//  300    */ 
+//  301 }
 HAL_DMA2D_MspInit:
         BX       LR               ;; return
           CFI EndBlock cfiBlock2
-//  299 
-//  300 /**
-//  301   * @brief  DeInitializes the DMA2D MSP.
-//  302   * @param  hdma2d: pointer to a DMA2D_HandleTypeDef structure that contains
-//  303   *                 the configuration information for the DMA2D.
-//  304   * @retval None
-//  305   */
+//  302 
+//  303 /**
+//  304   * @brief  DeInitializes the DMA2D MSP.
+//  305   * @param  hdma2d: pointer to a DMA2D_HandleTypeDef structure that contains
+//  306   *                 the configuration information for the DMA2D.
+//  307   * @retval None
+//  308   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock3 Using cfiCommon0
           CFI Function HAL_DMA2D_MspDeInit
           CFI NoCalls
         THUMB
-//  306 __weak void HAL_DMA2D_MspDeInit(DMA2D_HandleTypeDef* hdma2d)
-//  307 {
-//  308   /* NOTE : This function Should not be modified, when the callback is needed,
-//  309             the HAL_DMA2D_MspDeInit could be implemented in the user file
-//  310    */ 
-//  311 }
+//  309 __weak void HAL_DMA2D_MspDeInit(DMA2D_HandleTypeDef* hdma2d)
+//  310 {
+//  311   /* Prevent unused argument(s) compilation warning */
+//  312   UNUSED(hdma2d);
+//  313  
+//  314   /* NOTE : This function Should not be modified, when the callback is needed,
+//  315             the HAL_DMA2D_MspDeInit could be implemented in the user file
+//  316    */ 
+//  317 }
 HAL_DMA2D_MspDeInit:
         BX       LR               ;; return
           CFI EndBlock cfiBlock3
-//  312 
-//  313 /**
-//  314   * @}
-//  315   */
-//  316 
-//  317 /** @defgroup DMA2D_Group2 IO operation functions 
-//  318  *  @brief   IO operation functions  
-//  319  *
-//  320 @verbatim   
-//  321  ===============================================================================
-//  322                       #####  IO operation functions  #####
-//  323  ===============================================================================  
-//  324     [..]  This section provides functions allowing to:
-//  325       (+) Configure the pdata, destination address and data size and 
-//  326           Start DMA2D transfer.
-//  327       (+) Configure the source for foreground and background, destination address 
-//  328           and data size and Start MultiBuffer DMA2D transfer.
-//  329       (+) Configure the pdata, destination address and data size and 
-//  330           Start DMA2D transfer with interrupt.
-//  331       (+) Configure the source for foreground and background, destination address 
-//  332           and data size and Start MultiBuffer DMA2D transfer with interrupt.
-//  333       (+) Abort DMA2D transfer.
-//  334       (+) Suspend DMA2D transfer.
-//  335       (+) Continue DMA2D transfer. 
-//  336       (+) Poll for transfer complete.
-//  337       (+) handle DMA2D interrupt request.
-//  338         
-//  339 @endverbatim
-//  340   * @{
-//  341   */
-//  342 
-//  343 /**
-//  344   * @brief  Start the DMA2D Transfer.
-//  345   * @param  hdma2d:     pointer to a DMA2D_HandleTypeDef structure that contains
-//  346   *                     the configuration information for the DMA2D.  
-//  347   * @param  pdata:      Configure the source memory Buffer address if 
-//  348   *                     the memory to memory or memory to memory with pixel format 
-//  349   *                     conversion DMA2D mode is selected, and configure 
-//  350   *                     the color value if register to memory DMA2D mode is selected.
-//  351   * @param  DstAddress: The destination memory Buffer address.
-//  352   * @param  Width:      The width of data to be transferred from source to destination.
-//  353   * @param  Height:      The height of data to be transferred from source to destination.
-//  354   * @retval HAL status
-//  355   */
+//  318 
+//  319 /**
+//  320   * @}
+//  321   */
+//  322 
+//  323 /** @defgroup DMA2D_Group2 IO operation functions 
+//  324  *  @brief   IO operation functions  
+//  325  *
+//  326 @verbatim   
+//  327  ===============================================================================
+//  328                       #####  IO operation functions  #####
+//  329  ===============================================================================  
+//  330     [..]  This section provides functions allowing to:
+//  331       (+) Configure the pdata, destination address and data size and 
+//  332           Start DMA2D transfer.
+//  333       (+) Configure the source for foreground and background, destination address 
+//  334           and data size and Start MultiBuffer DMA2D transfer.
+//  335       (+) Configure the pdata, destination address and data size and 
+//  336           Start DMA2D transfer with interrupt.
+//  337       (+) Configure the source for foreground and background, destination address 
+//  338           and data size and Start MultiBuffer DMA2D transfer with interrupt.
+//  339       (+) Abort DMA2D transfer.
+//  340       (+) Suspend DMA2D transfer.
+//  341       (+) Continue DMA2D transfer. 
+//  342       (+) Poll for transfer complete.
+//  343       (+) handle DMA2D interrupt request.
+//  344         
+//  345 @endverbatim
+//  346   * @{
+//  347   */
+//  348 
+//  349 /**
+//  350   * @brief  Start the DMA2D Transfer.
+//  351   * @param  hdma2d:     pointer to a DMA2D_HandleTypeDef structure that contains
+//  352   *                     the configuration information for the DMA2D.  
+//  353   * @param  pdata:      Configure the source memory Buffer address if 
+//  354   *                     the memory to memory or memory to memory with pixel format 
+//  355   *                     conversion DMA2D mode is selected, and configure 
+//  356   *                     the color value if register to memory DMA2D mode is selected.
+//  357   * @param  DstAddress: The destination memory Buffer address.
+//  358   * @param  Width:      The width of data to be transferred from source to destination.
+//  359   * @param  Height:      The height of data to be transferred from source to destination.
+//  360   * @retval HAL status
+//  361   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock4 Using cfiCommon0
           CFI Function HAL_DMA2D_Start
         THUMB
-//  356 HAL_StatusTypeDef HAL_DMA2D_Start(DMA2D_HandleTypeDef *hdma2d, uint32_t pdata, uint32_t DstAddress, uint32_t Width,  uint32_t Height)
-//  357 {
+//  362 HAL_StatusTypeDef HAL_DMA2D_Start(DMA2D_HandleTypeDef *hdma2d, uint32_t pdata, uint32_t DstAddress, uint32_t Width,  uint32_t Height)
+//  363 {
 HAL_DMA2D_Start:
         PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
@@ -595,8 +601,8 @@ HAL_DMA2D_Start:
         MOV      R4,R0
         SUB      SP,SP,#+4
           CFI CFA R13+16
-//  358   /* Process locked */
-//  359   __HAL_LOCK(hdma2d);
+//  364   /* Process locked */
+//  365   __HAL_LOCK(hdma2d);
         LDRB     R0,[R4, #+56]
         CMP      R0,#+1
         IT       EQ 
@@ -604,68 +610,68 @@ HAL_DMA2D_Start:
         BEQ.N    ??HAL_DMA2D_Start_0
         MOVS     R0,#+1
         STRB     R0,[R4, #+56]
-//  360 
-//  361   /* Change DMA2D peripheral state */
-//  362   hdma2d->State = HAL_DMA2D_STATE_BUSY;
+//  366 
+//  367   /* Change DMA2D peripheral state */
+//  368   hdma2d->State = HAL_DMA2D_STATE_BUSY;
         MOVS     R0,#+2
         STRB     R0,[R4, #+57]
-//  363 
-//  364   /* Check the parameters */
-//  365   assert_param(IS_DMA2D_LINE(Height));
-//  366   assert_param(IS_DMA2D_PIXEL(Width));
-//  367 
-//  368   /* Disable the Peripheral */
-//  369   __HAL_DMA2D_DISABLE(hdma2d);
+//  369 
+//  370   /* Check the parameters */
+//  371   assert_param(IS_DMA2D_LINE(Height));
+//  372   assert_param(IS_DMA2D_PIXEL(Width));
+//  373 
+//  374   /* Disable the Peripheral */
+//  375   __HAL_DMA2D_DISABLE(hdma2d);
         LDR      R0,[R4, #+0]
         LDR      R5,[R0, #+0]
         LSRS     R5,R5,#+1
         LSLS     R5,R5,#+1
         STR      R5,[R0, #+0]
-//  370 
-//  371   /* Configure the source, destination address and the data size */
-//  372   DMA2D_SetConfig(hdma2d, pdata, DstAddress, Width, Height);
+//  376 
+//  377   /* Configure the source, destination address and the data size */
+//  378   DMA2D_SetConfig(hdma2d, pdata, DstAddress, Width, Height);
         LDR      R0,[SP, #+16]
         STR      R0,[SP, #+0]
         MOV      R0,R4
           CFI FunCall DMA2D_SetConfig
         BL       DMA2D_SetConfig
-//  373 
-//  374   /* Enable the Peripheral */
-//  375   __HAL_DMA2D_ENABLE(hdma2d);
+//  379 
+//  380   /* Enable the Peripheral */
+//  381   __HAL_DMA2D_ENABLE(hdma2d);
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x1
         STR      R1,[R0, #+0]
-//  376 
-//  377   return HAL_OK;
+//  382 
+//  383   return HAL_OK;
         MOVS     R0,#+0
 ??HAL_DMA2D_Start_0:
         ADD      SP,SP,#+4
           CFI CFA R13+12
         POP      {R4,R5,PC}       ;; return
-//  378 }
+//  384 }
           CFI EndBlock cfiBlock4
-//  379 
-//  380 /**
-//  381   * @brief  Start the DMA2D Transfer with interrupt enabled.
-//  382   * @param  hdma2d:     pointer to a DMA2D_HandleTypeDef structure that contains
-//  383   *                     the configuration information for the DMA2D.  
-//  384   * @param  pdata:      Configure the source memory Buffer address if 
-//  385   *                     the memory to memory or memory to memory with pixel format 
-//  386   *                     conversion DMA2D mode is selected, and configure 
-//  387   *                     the color value if register to memory DMA2D mode is selected.
-//  388   * @param  DstAddress: The destination memory Buffer address.
-//  389   * @param  Width:      The width of data to be transferred from source to destination.
-//  390   * @param  Height:     The height of data to be transferred from source to destination.
-//  391   * @retval HAL status
-//  392   */
+//  385 
+//  386 /**
+//  387   * @brief  Start the DMA2D Transfer with interrupt enabled.
+//  388   * @param  hdma2d:     pointer to a DMA2D_HandleTypeDef structure that contains
+//  389   *                     the configuration information for the DMA2D.  
+//  390   * @param  pdata:      Configure the source memory Buffer address if 
+//  391   *                     the memory to memory or memory to memory with pixel format 
+//  392   *                     conversion DMA2D mode is selected, and configure 
+//  393   *                     the color value if register to memory DMA2D mode is selected.
+//  394   * @param  DstAddress: The destination memory Buffer address.
+//  395   * @param  Width:      The width of data to be transferred from source to destination.
+//  396   * @param  Height:     The height of data to be transferred from source to destination.
+//  397   * @retval HAL status
+//  398   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock5 Using cfiCommon0
           CFI Function HAL_DMA2D_Start_IT
         THUMB
-//  393 HAL_StatusTypeDef HAL_DMA2D_Start_IT(DMA2D_HandleTypeDef *hdma2d, uint32_t pdata, uint32_t DstAddress, uint32_t Width,  uint32_t Height)
-//  394 {
+//  399 HAL_StatusTypeDef HAL_DMA2D_Start_IT(DMA2D_HandleTypeDef *hdma2d, uint32_t pdata, uint32_t DstAddress, uint32_t Width,  uint32_t Height)
+//  400 {
 HAL_DMA2D_Start_IT:
         PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
@@ -675,8 +681,8 @@ HAL_DMA2D_Start_IT:
         MOV      R4,R0
         SUB      SP,SP,#+4
           CFI CFA R13+16
-//  395   /* Process locked */
-//  396   __HAL_LOCK(hdma2d);
+//  401   /* Process locked */
+//  402   __HAL_LOCK(hdma2d);
         LDRB     R0,[R4, #+56]
         CMP      R0,#+1
         IT       EQ 
@@ -684,87 +690,87 @@ HAL_DMA2D_Start_IT:
         BEQ.N    ??HAL_DMA2D_Start_IT_0
         MOVS     R0,#+1
         STRB     R0,[R4, #+56]
-//  397 
-//  398   /* Change DMA2D peripheral state */
-//  399   hdma2d->State = HAL_DMA2D_STATE_BUSY;
+//  403 
+//  404   /* Change DMA2D peripheral state */
+//  405   hdma2d->State = HAL_DMA2D_STATE_BUSY;
         MOVS     R0,#+2
         STRB     R0,[R4, #+57]
-//  400 
-//  401   /* Check the parameters */
-//  402   assert_param(IS_DMA2D_LINE(Height));
-//  403   assert_param(IS_DMA2D_PIXEL(Width));
-//  404 
-//  405   /* Disable the Peripheral */
-//  406   __HAL_DMA2D_DISABLE(hdma2d);
+//  406 
+//  407   /* Check the parameters */
+//  408   assert_param(IS_DMA2D_LINE(Height));
+//  409   assert_param(IS_DMA2D_PIXEL(Width));
+//  410 
+//  411   /* Disable the Peripheral */
+//  412   __HAL_DMA2D_DISABLE(hdma2d);
         LDR      R0,[R4, #+0]
         LDR      R5,[R0, #+0]
         LSRS     R5,R5,#+1
         LSLS     R5,R5,#+1
         STR      R5,[R0, #+0]
-//  407 
-//  408   /* Configure the source, destination address and the data size */
-//  409   DMA2D_SetConfig(hdma2d, pdata, DstAddress, Width, Height);
+//  413 
+//  414   /* Configure the source, destination address and the data size */
+//  415   DMA2D_SetConfig(hdma2d, pdata, DstAddress, Width, Height);
         LDR      R0,[SP, #+16]
         STR      R0,[SP, #+0]
         MOV      R0,R4
           CFI FunCall DMA2D_SetConfig
         BL       DMA2D_SetConfig
-//  410 
-//  411   /* Enable the transfer complete interrupt */
-//  412   __HAL_DMA2D_ENABLE_IT(hdma2d, DMA2D_IT_TC);
+//  416 
+//  417   /* Enable the transfer complete interrupt */
+//  418   __HAL_DMA2D_ENABLE_IT(hdma2d, DMA2D_IT_TC);
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x200
         STR      R1,[R0, #+0]
-//  413 
-//  414   /* Enable the transfer Error interrupt */
-//  415   __HAL_DMA2D_ENABLE_IT(hdma2d, DMA2D_IT_TE);
+//  419 
+//  420   /* Enable the transfer Error interrupt */
+//  421   __HAL_DMA2D_ENABLE_IT(hdma2d, DMA2D_IT_TE);
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x100
         STR      R1,[R0, #+0]
-//  416 
-//  417   /* Enable the Peripheral */
-//  418   __HAL_DMA2D_ENABLE(hdma2d);
+//  422 
+//  423   /* Enable the Peripheral */
+//  424   __HAL_DMA2D_ENABLE(hdma2d);
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x1
         STR      R1,[R0, #+0]
-//  419 
-//  420   /* Enable the configuration error interrupt */
-//  421   __HAL_DMA2D_ENABLE_IT(hdma2d, DMA2D_IT_CE);
+//  425 
+//  426   /* Enable the configuration error interrupt */
+//  427   __HAL_DMA2D_ENABLE_IT(hdma2d, DMA2D_IT_CE);
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x2000
         STR      R1,[R0, #+0]
-//  422 
-//  423   return HAL_OK;
+//  428 
+//  429   return HAL_OK;
         MOVS     R0,#+0
 ??HAL_DMA2D_Start_IT_0:
         ADD      SP,SP,#+4
           CFI CFA R13+12
         POP      {R4,R5,PC}       ;; return
-//  424 }
+//  430 }
           CFI EndBlock cfiBlock5
-//  425 
-//  426 /**
-//  427   * @brief  Start the multi-source DMA2D Transfer.
-//  428   * @param  hdma2d:      pointer to a DMA2D_HandleTypeDef structure that contains
-//  429   *                      the configuration information for the DMA2D.  
-//  430   * @param  SrcAddress1: The source memory Buffer address of the foreground layer.
-//  431   * @param  SrcAddress2: The source memory Buffer address of the background layer.
-//  432   * @param  DstAddress:  The destination memory Buffer address
-//  433   * @param  Width:       The width of data to be transferred from source to destination.
-//  434   * @param  Height:      The height of data to be transferred from source to destination.
-//  435   * @retval HAL status
-//  436   */
+//  431 
+//  432 /**
+//  433   * @brief  Start the multi-source DMA2D Transfer.
+//  434   * @param  hdma2d:      pointer to a DMA2D_HandleTypeDef structure that contains
+//  435   *                      the configuration information for the DMA2D.  
+//  436   * @param  SrcAddress1: The source memory Buffer address of the foreground layer.
+//  437   * @param  SrcAddress2: The source memory Buffer address of the background layer.
+//  438   * @param  DstAddress:  The destination memory Buffer address
+//  439   * @param  Width:       The width of data to be transferred from source to destination.
+//  440   * @param  Height:      The height of data to be transferred from source to destination.
+//  441   * @retval HAL status
+//  442   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock6 Using cfiCommon0
           CFI Function HAL_DMA2D_BlendingStart
         THUMB
-//  437 HAL_StatusTypeDef HAL_DMA2D_BlendingStart(DMA2D_HandleTypeDef *hdma2d, uint32_t SrcAddress1, uint32_t  SrcAddress2, uint32_t DstAddress, uint32_t Width,  uint32_t Height)
-//  438 {
+//  443 HAL_StatusTypeDef HAL_DMA2D_BlendingStart(DMA2D_HandleTypeDef *hdma2d, uint32_t SrcAddress1, uint32_t  SrcAddress2, uint32_t DstAddress, uint32_t Width,  uint32_t Height)
+//  444 {
 HAL_DMA2D_BlendingStart:
         PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
@@ -776,8 +782,8 @@ HAL_DMA2D_BlendingStart:
         SUB      SP,SP,#+4
           CFI CFA R13+16
         MOV      R2,R3
-//  439   /* Process locked */
-//  440   __HAL_LOCK(hdma2d);
+//  445   /* Process locked */
+//  446   __HAL_LOCK(hdma2d);
         LDRB     R3,[R4, #+56]
         CMP      R3,#+1
         IT       EQ 
@@ -785,72 +791,72 @@ HAL_DMA2D_BlendingStart:
         BEQ.N    ??HAL_DMA2D_BlendingStart_0
         MOVS     R3,#+1
         STRB     R3,[R4, #+56]
-//  441 
-//  442   /* Change DMA2D peripheral state */
-//  443   hdma2d->State = HAL_DMA2D_STATE_BUSY; 
+//  447 
+//  448   /* Change DMA2D peripheral state */
+//  449   hdma2d->State = HAL_DMA2D_STATE_BUSY; 
         MOVS     R3,#+2
         STRB     R3,[R4, #+57]
-//  444 
-//  445   /* Check the parameters */
-//  446   assert_param(IS_DMA2D_LINE(Height));
-//  447   assert_param(IS_DMA2D_PIXEL(Width));
-//  448 
-//  449   /* Disable the Peripheral */
-//  450   __HAL_DMA2D_DISABLE(hdma2d);
+//  450 
+//  451   /* Check the parameters */
+//  452   assert_param(IS_DMA2D_LINE(Height));
+//  453   assert_param(IS_DMA2D_PIXEL(Width));
+//  454 
+//  455   /* Disable the Peripheral */
+//  456   __HAL_DMA2D_DISABLE(hdma2d);
         LDR      R3,[R4, #+0]
         LDR      R5,[R3, #+0]
         LSRS     R5,R5,#+1
         LSLS     R5,R5,#+1
         STR      R5,[R3, #+0]
-//  451 
-//  452   /* Configure DMA2D Stream source2 address */
-//  453   hdma2d->Instance->BGMAR = SrcAddress2;
+//  457 
+//  458   /* Configure DMA2D Stream source2 address */
+//  459   hdma2d->Instance->BGMAR = SrcAddress2;
         LDR      R3,[R4, #+0]
         STR      R0,[R3, #+20]
-//  454 
-//  455   /* Configure the source, destination address and the data size */
-//  456   DMA2D_SetConfig(hdma2d, SrcAddress1, DstAddress, Width, Height);
+//  460 
+//  461   /* Configure the source, destination address and the data size */
+//  462   DMA2D_SetConfig(hdma2d, SrcAddress1, DstAddress, Width, Height);
         LDR      R0,[SP, #+20]
         LDR      R3,[SP, #+16]
         STR      R0,[SP, #+0]
         MOV      R0,R4
           CFI FunCall DMA2D_SetConfig
         BL       DMA2D_SetConfig
-//  457 
-//  458   /* Enable the Peripheral */
-//  459   __HAL_DMA2D_ENABLE(hdma2d);
+//  463 
+//  464   /* Enable the Peripheral */
+//  465   __HAL_DMA2D_ENABLE(hdma2d);
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x1
         STR      R1,[R0, #+0]
-//  460 
-//  461   return HAL_OK;
+//  466 
+//  467   return HAL_OK;
         MOVS     R0,#+0
 ??HAL_DMA2D_BlendingStart_0:
         ADD      SP,SP,#+4
           CFI CFA R13+12
         POP      {R4,R5,PC}       ;; return
-//  462 }
+//  468 }
           CFI EndBlock cfiBlock6
-//  463 
-//  464 /**
-//  465   * @brief  Start the multi-source DMA2D Transfer with interrupt enabled.
-//  466   * @param  hdma2d:     pointer to a DMA2D_HandleTypeDef structure that contains
-//  467   *                     the configuration information for the DMA2D.  
-//  468   * @param  SrcAddress1: The source memory Buffer address of the foreground layer.
-//  469   * @param  SrcAddress2: The source memory Buffer address of the background layer.
-//  470   * @param  DstAddress:  The destination memory Buffer address.
-//  471   * @param  Width:       The width of data to be transferred from source to destination.
-//  472   * @param  Height:      The height of data to be transferred from source to destination.
-//  473   * @retval HAL status
-//  474   */
+//  469 
+//  470 /**
+//  471   * @brief  Start the multi-source DMA2D Transfer with interrupt enabled.
+//  472   * @param  hdma2d:     pointer to a DMA2D_HandleTypeDef structure that contains
+//  473   *                     the configuration information for the DMA2D.  
+//  474   * @param  SrcAddress1: The source memory Buffer address of the foreground layer.
+//  475   * @param  SrcAddress2: The source memory Buffer address of the background layer.
+//  476   * @param  DstAddress:  The destination memory Buffer address.
+//  477   * @param  Width:       The width of data to be transferred from source to destination.
+//  478   * @param  Height:      The height of data to be transferred from source to destination.
+//  479   * @retval HAL status
+//  480   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock7 Using cfiCommon0
           CFI Function HAL_DMA2D_BlendingStart_IT
         THUMB
-//  475 HAL_StatusTypeDef HAL_DMA2D_BlendingStart_IT(DMA2D_HandleTypeDef *hdma2d, uint32_t SrcAddress1, uint32_t  SrcAddress2, uint32_t DstAddress, uint32_t Width,  uint32_t Height)
-//  476 {
+//  481 HAL_StatusTypeDef HAL_DMA2D_BlendingStart_IT(DMA2D_HandleTypeDef *hdma2d, uint32_t SrcAddress1, uint32_t  SrcAddress2, uint32_t DstAddress, uint32_t Width,  uint32_t Height)
+//  482 {
 HAL_DMA2D_BlendingStart_IT:
         PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
@@ -862,8 +868,8 @@ HAL_DMA2D_BlendingStart_IT:
         SUB      SP,SP,#+4
           CFI CFA R13+16
         MOV      R2,R3
-//  477   /* Process locked */
-//  478   __HAL_LOCK(hdma2d);
+//  483   /* Process locked */
+//  484   __HAL_LOCK(hdma2d);
         LDRB     R3,[R4, #+56]
         CMP      R3,#+1
         IT       EQ 
@@ -871,88 +877,88 @@ HAL_DMA2D_BlendingStart_IT:
         BEQ.N    ??HAL_DMA2D_BlendingStart_IT_0
         MOVS     R3,#+1
         STRB     R3,[R4, #+56]
-//  479 
-//  480   /* Change DMA2D peripheral state */
-//  481   hdma2d->State = HAL_DMA2D_STATE_BUSY;
+//  485 
+//  486   /* Change DMA2D peripheral state */
+//  487   hdma2d->State = HAL_DMA2D_STATE_BUSY;
         MOVS     R3,#+2
         STRB     R3,[R4, #+57]
-//  482 
-//  483   /* Check the parameters */
-//  484   assert_param(IS_DMA2D_LINE(Height));
-//  485   assert_param(IS_DMA2D_PIXEL(Width));
-//  486 
-//  487   /* Disable the Peripheral */
-//  488   __HAL_DMA2D_DISABLE(hdma2d);
+//  488 
+//  489   /* Check the parameters */
+//  490   assert_param(IS_DMA2D_LINE(Height));
+//  491   assert_param(IS_DMA2D_PIXEL(Width));
+//  492 
+//  493   /* Disable the Peripheral */
+//  494   __HAL_DMA2D_DISABLE(hdma2d);
         LDR      R3,[R4, #+0]
         LDR      R5,[R3, #+0]
         LSRS     R5,R5,#+1
         LSLS     R5,R5,#+1
         STR      R5,[R3, #+0]
-//  489  
-//  490   /* Configure DMA2D Stream source2 address */
-//  491   hdma2d->Instance->BGMAR = SrcAddress2;
+//  495  
+//  496   /* Configure DMA2D Stream source2 address */
+//  497   hdma2d->Instance->BGMAR = SrcAddress2;
         LDR      R3,[R4, #+0]
         STR      R0,[R3, #+20]
-//  492 
-//  493   /* Configure the source, destination address and the data size */
-//  494   DMA2D_SetConfig(hdma2d, SrcAddress1, DstAddress, Width, Height);
+//  498 
+//  499   /* Configure the source, destination address and the data size */
+//  500   DMA2D_SetConfig(hdma2d, SrcAddress1, DstAddress, Width, Height);
         LDR      R0,[SP, #+20]
         LDR      R3,[SP, #+16]
         STR      R0,[SP, #+0]
         MOV      R0,R4
           CFI FunCall DMA2D_SetConfig
         BL       DMA2D_SetConfig
-//  495 
-//  496   /* Enable the configuration error interrupt */
-//  497   __HAL_DMA2D_ENABLE_IT(hdma2d, DMA2D_IT_CE);
+//  501 
+//  502   /* Enable the configuration error interrupt */
+//  503   __HAL_DMA2D_ENABLE_IT(hdma2d, DMA2D_IT_CE);
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x2000
         STR      R1,[R0, #+0]
-//  498 
-//  499   /* Enable the transfer complete interrupt */
-//  500   __HAL_DMA2D_ENABLE_IT(hdma2d, DMA2D_IT_TC);
+//  504 
+//  505   /* Enable the transfer complete interrupt */
+//  506   __HAL_DMA2D_ENABLE_IT(hdma2d, DMA2D_IT_TC);
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x200
         STR      R1,[R0, #+0]
-//  501 
-//  502   /* Enable the transfer Error interrupt */
-//  503   __HAL_DMA2D_ENABLE_IT(hdma2d, DMA2D_IT_TE);
+//  507 
+//  508   /* Enable the transfer Error interrupt */
+//  509   __HAL_DMA2D_ENABLE_IT(hdma2d, DMA2D_IT_TE);
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x100
         STR      R1,[R0, #+0]
-//  504 
-//  505   /* Enable the Peripheral */
-//  506   __HAL_DMA2D_ENABLE(hdma2d);
+//  510 
+//  511   /* Enable the Peripheral */
+//  512   __HAL_DMA2D_ENABLE(hdma2d);
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x1
         STR      R1,[R0, #+0]
-//  507 
-//  508   return HAL_OK;
+//  513 
+//  514   return HAL_OK;
         MOVS     R0,#+0
 ??HAL_DMA2D_BlendingStart_IT_0:
         ADD      SP,SP,#+4
           CFI CFA R13+12
         POP      {R4,R5,PC}       ;; return
-//  509 }
+//  515 }
           CFI EndBlock cfiBlock7
-//  510 
-//  511 /**
-//  512   * @brief  Abort the DMA2D Transfer.
-//  513   * @param  hdma2d : pointer to a DMA2D_HandleTypeDef structure that contains
-//  514   *                  the configuration information for the DMA2D.
-//  515   * @retval HAL status
-//  516   */
+//  516 
+//  517 /**
+//  518   * @brief  Abort the DMA2D Transfer.
+//  519   * @param  hdma2d : pointer to a DMA2D_HandleTypeDef structure that contains
+//  520   *                  the configuration information for the DMA2D.
+//  521   * @retval HAL status
+//  522   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock8 Using cfiCommon0
           CFI Function HAL_DMA2D_Abort
         THUMB
-//  517 HAL_StatusTypeDef HAL_DMA2D_Abort(DMA2D_HandleTypeDef *hdma2d)
-//  518 {
+//  523 HAL_StatusTypeDef HAL_DMA2D_Abort(DMA2D_HandleTypeDef *hdma2d)
+//  524 {
 HAL_DMA2D_Abort:
         PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
@@ -961,89 +967,89 @@ HAL_DMA2D_Abort:
           CFI R4 Frame(CFA, -16)
           CFI CFA R13+16
         MOV      R4,R0
-//  519   uint32_t tickstart = 0;
-//  520 
-//  521   /* Disable the DMA2D */
-//  522   __HAL_DMA2D_DISABLE(hdma2d);
+//  525   uint32_t tickstart = 0;
+//  526 
+//  527   /* Disable the DMA2D */
+//  528   __HAL_DMA2D_DISABLE(hdma2d);
         MOVW     R6,#+1001
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         LSRS     R1,R1,#+1
         LSLS     R1,R1,#+1
         STR      R1,[R0, #+0]
-//  523 
-//  524   /* Get tick */
-//  525   tickstart = HAL_GetTick();
+//  529 
+//  530   /* Get tick */
+//  531   tickstart = HAL_GetTick();
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         MOV      R5,R0
-//  526 
-//  527   /* Check if the DMA2D is effectively disabled */
-//  528   while((hdma2d->Instance->CR & DMA2D_CR_START) != 0)
+//  532 
+//  533   /* Check if the DMA2D is effectively disabled */
+//  534   while((hdma2d->Instance->CR & DMA2D_CR_START) != 0)
 ??HAL_DMA2D_Abort_0:
         LDR      R0,[R4, #+0]
         LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+31
         BPL.N    ??HAL_DMA2D_Abort_1
-//  529   {
-//  530     if((HAL_GetTick() - tickstart ) > HAL_TIMEOUT_DMA2D_ABORT)
+//  535   {
+//  536     if((HAL_GetTick() - tickstart ) > HAL_TIMEOUT_DMA2D_ABORT)
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         SUBS     R0,R0,R5
         CMP      R0,R6
         BCC.N    ??HAL_DMA2D_Abort_0
-//  531     {
-//  532       /* Update error code */
-//  533       hdma2d->ErrorCode |= HAL_DMA2D_ERROR_TIMEOUT;
+//  537     {
+//  538       /* Update error code */
+//  539       hdma2d->ErrorCode |= HAL_DMA2D_ERROR_TIMEOUT;
         LDR      R0,[R4, #+60]
         ORR      R0,R0,#0x20
         STR      R0,[R4, #+60]
-//  534       
-//  535       /* Change the DMA2D state */
-//  536       hdma2d->State= HAL_DMA2D_STATE_TIMEOUT;
+//  540       
+//  541       /* Change the DMA2D state */
+//  542       hdma2d->State= HAL_DMA2D_STATE_TIMEOUT;
         MOVS     R0,#+3
         STRB     R0,[R4, #+57]
-//  537       
-//  538       /* Process Unlocked */
-//  539       __HAL_UNLOCK(hdma2d);
+//  543       
+//  544       /* Process Unlocked */
+//  545       __HAL_UNLOCK(hdma2d);
         MOVS     R0,#+0
         STRB     R0,[R4, #+56]
-//  540       
-//  541       return HAL_TIMEOUT;
+//  546       
+//  547       return HAL_TIMEOUT;
         MOVS     R0,#+3
         POP      {R4-R6,PC}
-//  542     }
-//  543   }
-//  544   /* Process Unlocked */
-//  545   __HAL_UNLOCK(hdma2d);
+//  548     }
+//  549   }
+//  550   /* Process Unlocked */
+//  551   __HAL_UNLOCK(hdma2d);
 ??HAL_DMA2D_Abort_1:
         MOVS     R0,#+0
         STRB     R0,[R4, #+56]
-//  546 
-//  547   /* Change the DMA2D state*/
-//  548   hdma2d->State = HAL_DMA2D_STATE_READY;
+//  552 
+//  553   /* Change the DMA2D state*/
+//  554   hdma2d->State = HAL_DMA2D_STATE_READY;
         MOVS     R0,#+1
         STRB     R0,[R4, #+57]
-//  549 
-//  550   return HAL_OK;
+//  555 
+//  556   return HAL_OK;
         MOVS     R0,#+0
         POP      {R4-R6,PC}       ;; return
-//  551 }
+//  557 }
           CFI EndBlock cfiBlock8
-//  552 
-//  553 /**
-//  554   * @brief  Suspend the DMA2D Transfer.
-//  555   * @param  hdma2d: pointer to a DMA2D_HandleTypeDef structure that contains
-//  556   *                 the configuration information for the DMA2D. 
-//  557   * @retval HAL status
-//  558   */
+//  558 
+//  559 /**
+//  560   * @brief  Suspend the DMA2D Transfer.
+//  561   * @param  hdma2d: pointer to a DMA2D_HandleTypeDef structure that contains
+//  562   *                 the configuration information for the DMA2D. 
+//  563   * @retval HAL status
+//  564   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock9 Using cfiCommon0
           CFI Function HAL_DMA2D_Suspend
         THUMB
-//  559 HAL_StatusTypeDef HAL_DMA2D_Suspend(DMA2D_HandleTypeDef *hdma2d)
-//  560 {
+//  565 HAL_StatusTypeDef HAL_DMA2D_Suspend(DMA2D_HandleTypeDef *hdma2d)
+//  566 {
 HAL_DMA2D_Suspend:
         PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
@@ -1052,111 +1058,111 @@ HAL_DMA2D_Suspend:
           CFI R4 Frame(CFA, -16)
           CFI CFA R13+16
         MOV      R4,R0
-//  561   uint32_t tickstart = 0;
-//  562 
-//  563   /* Suspend the DMA2D transfer */
-//  564   hdma2d->Instance->CR |= DMA2D_CR_SUSP;
+//  567   uint32_t tickstart = 0;
+//  568 
+//  569   /* Suspend the DMA2D transfer */
+//  570   hdma2d->Instance->CR |= DMA2D_CR_SUSP;
         MOVW     R6,#+1001
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x2
         STR      R1,[R0, #+0]
-//  565 
-//  566   /* Get tick */
-//  567   tickstart = HAL_GetTick();
+//  571 
+//  572   /* Get tick */
+//  573   tickstart = HAL_GetTick();
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         MOV      R5,R0
-//  568 
-//  569   /* Check if the DMA2D is effectively suspended */
-//  570   while((hdma2d->Instance->CR & DMA2D_CR_SUSP) != DMA2D_CR_SUSP)
+//  574 
+//  575   /* Check if the DMA2D is effectively suspended */
+//  576   while((hdma2d->Instance->CR & DMA2D_CR_SUSP) != DMA2D_CR_SUSP)
 ??HAL_DMA2D_Suspend_0:
         LDR      R0,[R4, #+0]
         LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+30
         BMI.N    ??HAL_DMA2D_Suspend_1
-//  571   {
-//  572     if((HAL_GetTick() - tickstart ) > HAL_TIMEOUT_DMA2D_SUSPEND)
+//  577   {
+//  578     if((HAL_GetTick() - tickstart ) > HAL_TIMEOUT_DMA2D_SUSPEND)
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         SUBS     R0,R0,R5
         CMP      R0,R6
         BCC.N    ??HAL_DMA2D_Suspend_0
-//  573     {
-//  574       /* Update error code */
-//  575       hdma2d->ErrorCode |= HAL_DMA2D_ERROR_TIMEOUT;
+//  579     {
+//  580       /* Update error code */
+//  581       hdma2d->ErrorCode |= HAL_DMA2D_ERROR_TIMEOUT;
         LDR      R0,[R4, #+60]
         ORR      R0,R0,#0x20
         STR      R0,[R4, #+60]
-//  576       
-//  577       /* Change the DMA2D state */
-//  578       hdma2d->State= HAL_DMA2D_STATE_TIMEOUT;
+//  582       
+//  583       /* Change the DMA2D state */
+//  584       hdma2d->State= HAL_DMA2D_STATE_TIMEOUT;
         MOVS     R0,#+3
         STRB     R0,[R4, #+57]
-//  579       
-//  580       return HAL_TIMEOUT;
+//  585       
+//  586       return HAL_TIMEOUT;
         POP      {R4-R6,PC}
-//  581     }
-//  582   }
-//  583   /* Change the DMA2D state*/
-//  584   hdma2d->State = HAL_DMA2D_STATE_SUSPEND;
+//  587     }
+//  588   }
+//  589   /* Change the DMA2D state*/
+//  590   hdma2d->State = HAL_DMA2D_STATE_SUSPEND;
 ??HAL_DMA2D_Suspend_1:
         MOVS     R0,#+5
         STRB     R0,[R4, #+57]
-//  585 
-//  586   return HAL_OK;
+//  591 
+//  592   return HAL_OK;
         MOVS     R0,#+0
         POP      {R4-R6,PC}       ;; return
-//  587 }
+//  593 }
           CFI EndBlock cfiBlock9
-//  588 
-//  589 /**
-//  590   * @brief  Resume the DMA2D Transfer.
-//  591   * @param  hdma2d: pointer to a DMA2D_HandleTypeDef structure that contains
-//  592   *                 the configuration information for the DMA2D.  
-//  593   * @retval HAL status
-//  594   */
+//  594 
+//  595 /**
+//  596   * @brief  Resume the DMA2D Transfer.
+//  597   * @param  hdma2d: pointer to a DMA2D_HandleTypeDef structure that contains
+//  598   *                 the configuration information for the DMA2D.  
+//  599   * @retval HAL status
+//  600   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock10 Using cfiCommon0
           CFI Function HAL_DMA2D_Resume
           CFI NoCalls
         THUMB
-//  595 HAL_StatusTypeDef HAL_DMA2D_Resume(DMA2D_HandleTypeDef *hdma2d)
-//  596 {
-//  597   /* Resume the DMA2D transfer */
-//  598   hdma2d->Instance->CR &= ~DMA2D_CR_SUSP;
+//  601 HAL_StatusTypeDef HAL_DMA2D_Resume(DMA2D_HandleTypeDef *hdma2d)
+//  602 {
+//  603   /* Resume the DMA2D transfer */
+//  604   hdma2d->Instance->CR &= ~DMA2D_CR_SUSP;
 HAL_DMA2D_Resume:
         LDR      R1,[R0, #+0]
         LDR      R2,[R1, #+0]
         BIC      R2,R2,#0x2
         STR      R2,[R1, #+0]
-//  599 
-//  600   /* Change the DMA2D state*/
-//  601   hdma2d->State = HAL_DMA2D_STATE_BUSY;
+//  605 
+//  606   /* Change the DMA2D state*/
+//  607   hdma2d->State = HAL_DMA2D_STATE_BUSY;
         MOVS     R1,#+2
         STRB     R1,[R0, #+57]
-//  602 
-//  603   return HAL_OK;
+//  608 
+//  609   return HAL_OK;
         MOVS     R0,#+0
         BX       LR               ;; return
-//  604 }
+//  610 }
           CFI EndBlock cfiBlock10
-//  605 
-//  606 /**
-//  607   * @brief  Polling for transfer complete or CLUT loading.
-//  608   * @param  hdma2d: pointer to a DMA2D_HandleTypeDef structure that contains
-//  609   *                 the configuration information for the DMA2D. 
-//  610   * @param  Timeout: Timeout duration
-//  611   * @retval HAL status
-//  612   */
+//  611 
+//  612 /**
+//  613   * @brief  Polling for transfer complete or CLUT loading.
+//  614   * @param  hdma2d: pointer to a DMA2D_HandleTypeDef structure that contains
+//  615   *                 the configuration information for the DMA2D. 
+//  616   * @param  Timeout: Timeout duration
+//  617   * @retval HAL status
+//  618   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock11 Using cfiCommon0
           CFI Function HAL_DMA2D_PollForTransfer
         THUMB
-//  613 HAL_StatusTypeDef HAL_DMA2D_PollForTransfer(DMA2D_HandleTypeDef *hdma2d, uint32_t Timeout)
-//  614 {
+//  619 HAL_StatusTypeDef HAL_DMA2D_PollForTransfer(DMA2D_HandleTypeDef *hdma2d, uint32_t Timeout)
+//  620 {
 HAL_DMA2D_PollForTransfer:
         PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
@@ -1166,98 +1172,98 @@ HAL_DMA2D_PollForTransfer:
           CFI CFA R13+16
         MOV      R4,R0
         MOV      R5,R1
-//  615   uint32_t tmp, tmp1;
-//  616   uint32_t tickstart = 0;
-//  617 
-//  618   /* Polling for DMA2D transfer */
-//  619   if((hdma2d->Instance->CR & DMA2D_CR_START) != 0)
+//  621   uint32_t tmp, tmp1;
+//  622   uint32_t tickstart = 0;
+//  623 
+//  624   /* Polling for DMA2D transfer */
+//  625   if((hdma2d->Instance->CR & DMA2D_CR_START) != 0)
         LDR      R0,[R4, #+0]
         LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+31
         BPL.N    ??HAL_DMA2D_PollForTransfer_0
-//  620   {
-//  621    /* Get tick */
-//  622    tickstart = HAL_GetTick();
+//  626   {
+//  627    /* Get tick */
+//  628    tickstart = HAL_GetTick();
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         MOV      R6,R0
-//  623 
-//  624     while(__HAL_DMA2D_GET_FLAG(hdma2d, DMA2D_FLAG_TC) == RESET)
+//  629 
+//  630     while(__HAL_DMA2D_GET_FLAG(hdma2d, DMA2D_FLAG_TC) == RESET)
 ??HAL_DMA2D_PollForTransfer_1:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
         LSLS     R1,R1,#+30
         BMI.N    ??HAL_DMA2D_PollForTransfer_0
-//  625     {
-//  626       tmp  = __HAL_DMA2D_GET_FLAG(hdma2d, DMA2D_FLAG_CE);
+//  631     {
+//  632       tmp  = __HAL_DMA2D_GET_FLAG(hdma2d, DMA2D_FLAG_CE);
         LDR      R1,[R0, #+4]
-//  627       tmp1 = __HAL_DMA2D_GET_FLAG(hdma2d, DMA2D_FLAG_TE);
+//  633       tmp1 = __HAL_DMA2D_GET_FLAG(hdma2d, DMA2D_FLAG_TE);
         LDR      R2,[R0, #+4]
-//  628 
-//  629       if((tmp != RESET) || (tmp1 != RESET))
+//  634 
+//  635       if((tmp != RESET) || (tmp1 != RESET))
         LSLS     R1,R1,#+26
         BMI.N    ??HAL_DMA2D_PollForTransfer_2
         LSLS     R1,R2,#+31
         BPL.N    ??HAL_DMA2D_PollForTransfer_3
-//  630       {
-//  631         /* Clear the transfer and configuration error flags */
-//  632         __HAL_DMA2D_CLEAR_FLAG(hdma2d, DMA2D_FLAG_CE);
+//  636       {
+//  637         /* Clear the transfer and configuration error flags */
+//  638         __HAL_DMA2D_CLEAR_FLAG(hdma2d, DMA2D_FLAG_CE);
 ??HAL_DMA2D_PollForTransfer_2:
         MOVS     R1,#+32
         STR      R1,[R0, #+8]
-//  633         __HAL_DMA2D_CLEAR_FLAG(hdma2d, DMA2D_FLAG_TE);
+//  639         __HAL_DMA2D_CLEAR_FLAG(hdma2d, DMA2D_FLAG_TE);
         LDR      R1,[R4, #+0]
         MOVS     R0,#+1
         STR      R0,[R1, #+8]
-//  634 
-//  635         /* Change DMA2D state */
-//  636         hdma2d->State= HAL_DMA2D_STATE_ERROR;
+//  640 
+//  641         /* Change DMA2D state */
+//  642         hdma2d->State= HAL_DMA2D_STATE_ERROR;
         MOVS     R0,#+4
         STRB     R0,[R4, #+57]
-//  637 
-//  638         /* Process unlocked */
-//  639         __HAL_UNLOCK(hdma2d);
+//  643 
+//  644         /* Process unlocked */
+//  645         __HAL_UNLOCK(hdma2d);
         MOVS     R0,#+0
         STRB     R0,[R4, #+56]
-//  640         
-//  641         return HAL_ERROR;
-//  642       }
-//  643       /* Check for the Timeout */
-//  644       if(Timeout != HAL_MAX_DELAY)
-//  645       {
-//  646         if((Timeout == 0)||((HAL_GetTick() - tickstart ) > Timeout))
-//  647         {
-//  648           /* Process unlocked */
-//  649           __HAL_UNLOCK(hdma2d);
-//  650         
-//  651           /* Update error code */
-//  652           hdma2d->ErrorCode |= HAL_DMA2D_ERROR_TIMEOUT;
-//  653 
-//  654           /* Change the DMA2D state */
-//  655           hdma2d->State= HAL_DMA2D_STATE_TIMEOUT;
-//  656           
-//  657           return HAL_TIMEOUT;
-//  658         }
-//  659       }        
-//  660     }
-//  661   }
-//  662   /* Polling for CLUT loading */
-//  663   if((hdma2d->Instance->FGPFCCR & DMA2D_FGPFCCR_START) != 0)
-//  664   {
-//  665     /* Get tick */
-//  666     tickstart = HAL_GetTick();
-//  667    
-//  668     while(__HAL_DMA2D_GET_FLAG(hdma2d, DMA2D_FLAG_CTC) == RESET)
-//  669     {
-//  670       if((__HAL_DMA2D_GET_FLAG(hdma2d, DMA2D_FLAG_CAE) != RESET))
-//  671       {      
-//  672         /* Clear the transfer and configuration error flags */
-//  673         __HAL_DMA2D_CLEAR_FLAG(hdma2d, DMA2D_FLAG_CAE);
-//  674         
-//  675         /* Change DMA2D state */
-//  676         hdma2d->State= HAL_DMA2D_STATE_ERROR;
-//  677         
-//  678         return HAL_ERROR;      
+//  646         
+//  647         return HAL_ERROR;
+//  648       }
+//  649       /* Check for the Timeout */
+//  650       if(Timeout != HAL_MAX_DELAY)
+//  651       {
+//  652         if((Timeout == 0)||((HAL_GetTick() - tickstart ) > Timeout))
+//  653         {
+//  654           /* Process unlocked */
+//  655           __HAL_UNLOCK(hdma2d);
+//  656         
+//  657           /* Update error code */
+//  658           hdma2d->ErrorCode |= HAL_DMA2D_ERROR_TIMEOUT;
+//  659 
+//  660           /* Change the DMA2D state */
+//  661           hdma2d->State= HAL_DMA2D_STATE_TIMEOUT;
+//  662           
+//  663           return HAL_TIMEOUT;
+//  664         }
+//  665       }        
+//  666     }
+//  667   }
+//  668   /* Polling for CLUT loading */
+//  669   if((hdma2d->Instance->FGPFCCR & DMA2D_FGPFCCR_START) != 0)
+//  670   {
+//  671     /* Get tick */
+//  672     tickstart = HAL_GetTick();
+//  673    
+//  674     while(__HAL_DMA2D_GET_FLAG(hdma2d, DMA2D_FLAG_CTC) == RESET)
+//  675     {
+//  676       if((__HAL_DMA2D_GET_FLAG(hdma2d, DMA2D_FLAG_CAE) != RESET))
+//  677       {      
+//  678         /* Clear the transfer and configuration error flags */
+//  679         __HAL_DMA2D_CLEAR_FLAG(hdma2d, DMA2D_FLAG_CAE);
+//  680         
+//  681         /* Change DMA2D state */
+//  682         hdma2d->State= HAL_DMA2D_STATE_ERROR;
+//  683         
+//  684         return HAL_ERROR;      
         MOVS     R0,#+1
         POP      {R4-R6,PC}
 ??HAL_DMA2D_PollForTransfer_3:
@@ -1295,239 +1301,239 @@ HAL_DMA2D_PollForTransfer:
         STRB     R0,[R4, #+57]
         MOVS     R0,#+1
         POP      {R4-R6,PC}
-//  679       }      
-//  680       /* Check for the Timeout */
-//  681       if(Timeout != HAL_MAX_DELAY)
+//  685       }      
+//  686       /* Check for the Timeout */
+//  687       if(Timeout != HAL_MAX_DELAY)
 ??HAL_DMA2D_PollForTransfer_8:
         CMN      R5,#+1
         BEQ.N    ??HAL_DMA2D_PollForTransfer_7
-//  682       {
-//  683         if((Timeout == 0)||((HAL_GetTick() - tickstart ) > Timeout))
+//  688       {
+//  689         if((Timeout == 0)||((HAL_GetTick() - tickstart ) > Timeout))
         CBZ.N    R5,??HAL_DMA2D_PollForTransfer_5
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         SUBS     R0,R0,R6
         CMP      R5,R0
         BCS.N    ??HAL_DMA2D_PollForTransfer_7
-//  684         {
-//  685           /* Update error code */
-//  686           hdma2d->ErrorCode |= HAL_DMA2D_ERROR_TIMEOUT;
+//  690         {
+//  691           /* Update error code */
+//  692           hdma2d->ErrorCode |= HAL_DMA2D_ERROR_TIMEOUT;
 ??HAL_DMA2D_PollForTransfer_5:
         LDR      R0,[R4, #+60]
         ORR      R0,R0,#0x20
         STR      R0,[R4, #+60]
-//  687     
-//  688           /* Change the DMA2D state */
-//  689           hdma2d->State= HAL_DMA2D_STATE_TIMEOUT;
+//  693     
+//  694           /* Change the DMA2D state */
+//  695           hdma2d->State= HAL_DMA2D_STATE_TIMEOUT;
         MOVS     R0,#+3
         STRB     R0,[R4, #+57]
-//  690           
-//  691           return HAL_TIMEOUT;
+//  696           
+//  697           return HAL_TIMEOUT;
         POP      {R4-R6,PC}
-//  692         }
-//  693       }      
-//  694     }
-//  695   }
-//  696   /* Clear the transfer complete flag */
-//  697   __HAL_DMA2D_CLEAR_FLAG(hdma2d, DMA2D_FLAG_TC);
+//  698         }
+//  699       }      
+//  700     }
+//  701   }
+//  702   /* Clear the transfer complete flag */
+//  703   __HAL_DMA2D_CLEAR_FLAG(hdma2d, DMA2D_FLAG_TC);
 ??HAL_DMA2D_PollForTransfer_6:
         LDR      R1,[R4, #+0]
         MOVS     R0,#+2
         STR      R0,[R1, #+8]
-//  698   
-//  699   /* Clear the CLUT loading flag */
-//  700   __HAL_DMA2D_CLEAR_FLAG(hdma2d, DMA2D_FLAG_CTC);  
+//  704   
+//  705   /* Clear the CLUT loading flag */
+//  706   __HAL_DMA2D_CLEAR_FLAG(hdma2d, DMA2D_FLAG_CTC);  
         LDR      R1,[R4, #+0]
         MOVS     R0,#+16
         STR      R0,[R1, #+8]
-//  701   
-//  702   /* Change DMA2D state */
-//  703   hdma2d->State = HAL_DMA2D_STATE_READY;
+//  707   
+//  708   /* Change DMA2D state */
+//  709   hdma2d->State = HAL_DMA2D_STATE_READY;
         MOVS     R0,#+1
         STRB     R0,[R4, #+57]
-//  704   
-//  705   /* Process unlocked */
-//  706   __HAL_UNLOCK(hdma2d);
+//  710   
+//  711   /* Process unlocked */
+//  712   __HAL_UNLOCK(hdma2d);
         MOVS     R0,#+0
         STRB     R0,[R4, #+56]
-//  707   
-//  708   return HAL_OK;
+//  713   
+//  714   return HAL_OK;
         POP      {R4-R6,PC}       ;; return
-//  709 }
+//  715 }
           CFI EndBlock cfiBlock11
-//  710 /**
-//  711   * @brief  Handles DMA2D interrupt request.
-//  712   * @param  hdma2d: pointer to a DMA2D_HandleTypeDef structure that contains
-//  713   *                 the configuration information for the DMA2D.  
-//  714   * @retval HAL status
-//  715   */
+//  716 /**
+//  717   * @brief  Handles DMA2D interrupt request.
+//  718   * @param  hdma2d: pointer to a DMA2D_HandleTypeDef structure that contains
+//  719   *                 the configuration information for the DMA2D.  
+//  720   * @retval HAL status
+//  721   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock12 Using cfiCommon0
           CFI Function HAL_DMA2D_IRQHandler
         THUMB
-//  716 void HAL_DMA2D_IRQHandler(DMA2D_HandleTypeDef *hdma2d)
-//  717 {    
+//  722 void HAL_DMA2D_IRQHandler(DMA2D_HandleTypeDef *hdma2d)
+//  723 {    
 HAL_DMA2D_IRQHandler:
         PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
         MOV      R4,R0
-//  718   /* Transfer Error Interrupt management ***************************************/
-//  719   if(__HAL_DMA2D_GET_FLAG(hdma2d, DMA2D_FLAG_TE) != RESET)
+//  724   /* Transfer Error Interrupt management ***************************************/
+//  725   if(__HAL_DMA2D_GET_FLAG(hdma2d, DMA2D_FLAG_TE) != RESET)
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
         LSLS     R1,R1,#+31
         BPL.N    ??HAL_DMA2D_IRQHandler_0
-//  720   {
-//  721     if(__HAL_DMA2D_GET_IT_SOURCE(hdma2d, DMA2D_IT_TE) != RESET)
+//  726   {
+//  727     if(__HAL_DMA2D_GET_IT_SOURCE(hdma2d, DMA2D_IT_TE) != RESET)
         LDR      R1,[R0, #+0]
         LSLS     R1,R1,#+23
         BPL.N    ??HAL_DMA2D_IRQHandler_0
-//  722     {
-//  723       /* Disable the transfer Error interrupt */
-//  724       __HAL_DMA2D_DISABLE_IT(hdma2d, DMA2D_IT_TE);  
+//  728     {
+//  729       /* Disable the transfer Error interrupt */
+//  730       __HAL_DMA2D_DISABLE_IT(hdma2d, DMA2D_IT_TE);  
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x100
         STR      R1,[R0, #+0]
-//  725 
-//  726       /* Update error code */
-//  727       hdma2d->ErrorCode |= HAL_DMA2D_ERROR_TE;
+//  731 
+//  732       /* Update error code */
+//  733       hdma2d->ErrorCode |= HAL_DMA2D_ERROR_TE;
         LDR      R0,[R4, #+60]
         ORR      R0,R0,#0x1
         STR      R0,[R4, #+60]
-//  728     
-//  729       /* Clear the transfer error flag */
-//  730       __HAL_DMA2D_CLEAR_FLAG(hdma2d, DMA2D_FLAG_TE);
+//  734     
+//  735       /* Clear the transfer error flag */
+//  736       __HAL_DMA2D_CLEAR_FLAG(hdma2d, DMA2D_FLAG_TE);
         LDR      R1,[R4, #+0]
         MOVS     R0,#+1
         STR      R0,[R1, #+8]
-//  731 
-//  732       /* Change DMA2D state */
-//  733       hdma2d->State = HAL_DMA2D_STATE_ERROR;
+//  737 
+//  738       /* Change DMA2D state */
+//  739       hdma2d->State = HAL_DMA2D_STATE_ERROR;
         MOVS     R0,#+4
         STRB     R0,[R4, #+57]
-//  734 
-//  735       /* Process Unlocked */
-//  736       __HAL_UNLOCK(hdma2d);       
+//  740 
+//  741       /* Process Unlocked */
+//  742       __HAL_UNLOCK(hdma2d);       
         MOVS     R0,#+0
-//  737       
-//  738       if(hdma2d->XferErrorCallback != NULL)
+//  743       
+//  744       if(hdma2d->XferErrorCallback != NULL)
         LDR      R1,[R4, #+20]
         STRB     R0,[R4, #+56]
         MOVS     R0,R1
         ITT      NE 
-//  739       {
-//  740         /* Transfer error Callback */
-//  741         hdma2d->XferErrorCallback(hdma2d);
+//  745       {
+//  746         /* Transfer error Callback */
+//  747         hdma2d->XferErrorCallback(hdma2d);
         MOVNE    R0,R4
           CFI FunCall
         BLXNE    R1
-//  742       }
-//  743     }
-//  744   }
-//  745   /* Configuration Error Interrupt management **********************************/
-//  746   if(__HAL_DMA2D_GET_FLAG(hdma2d, DMA2D_FLAG_CE) != RESET)
+//  748       }
+//  749     }
+//  750   }
+//  751   /* Configuration Error Interrupt management **********************************/
+//  752   if(__HAL_DMA2D_GET_FLAG(hdma2d, DMA2D_FLAG_CE) != RESET)
 ??HAL_DMA2D_IRQHandler_0:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
         LSLS     R1,R1,#+26
         BPL.N    ??HAL_DMA2D_IRQHandler_1
-//  747   {
-//  748     if(__HAL_DMA2D_GET_IT_SOURCE(hdma2d, DMA2D_IT_CE) != RESET)
+//  753   {
+//  754     if(__HAL_DMA2D_GET_IT_SOURCE(hdma2d, DMA2D_IT_CE) != RESET)
         LDR      R1,[R0, #+0]
         LSLS     R1,R1,#+18
         BPL.N    ??HAL_DMA2D_IRQHandler_1
-//  749     {
-//  750       /* Disable the Configuration Error interrupt */
-//  751       __HAL_DMA2D_DISABLE_IT(hdma2d, DMA2D_IT_CE);
+//  755     {
+//  756       /* Disable the Configuration Error interrupt */
+//  757       __HAL_DMA2D_DISABLE_IT(hdma2d, DMA2D_IT_CE);
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x2000
         STR      R1,[R0, #+0]
-//  752   
-//  753       /* Clear the Configuration error flag */
-//  754       __HAL_DMA2D_CLEAR_FLAG(hdma2d, DMA2D_FLAG_CE);
+//  758   
+//  759       /* Clear the Configuration error flag */
+//  760       __HAL_DMA2D_CLEAR_FLAG(hdma2d, DMA2D_FLAG_CE);
         LDR      R1,[R4, #+0]
         MOVS     R0,#+32
         STR      R0,[R1, #+8]
-//  755 
-//  756       /* Update error code */
-//  757       hdma2d->ErrorCode |= HAL_DMA2D_ERROR_CE;    
+//  761 
+//  762       /* Update error code */
+//  763       hdma2d->ErrorCode |= HAL_DMA2D_ERROR_CE;    
         LDR      R0,[R4, #+60]
         ORR      R0,R0,#0x2
         STR      R0,[R4, #+60]
-//  758     
-//  759       /* Change DMA2D state */
-//  760       hdma2d->State = HAL_DMA2D_STATE_ERROR;
+//  764     
+//  765       /* Change DMA2D state */
+//  766       hdma2d->State = HAL_DMA2D_STATE_ERROR;
         MOVS     R0,#+4
         STRB     R0,[R4, #+57]
-//  761 
-//  762       /* Process Unlocked */
-//  763       __HAL_UNLOCK(hdma2d);       
+//  767 
+//  768       /* Process Unlocked */
+//  769       __HAL_UNLOCK(hdma2d);       
         MOVS     R0,#+0
-//  764       
-//  765       if(hdma2d->XferErrorCallback != NULL)
+//  770       
+//  771       if(hdma2d->XferErrorCallback != NULL)
         LDR      R1,[R4, #+20]
         STRB     R0,[R4, #+56]
         MOVS     R0,R1
         ITT      NE 
-//  766       {
-//  767         /* Transfer error Callback */
-//  768         hdma2d->XferErrorCallback(hdma2d);
+//  772       {
+//  773         /* Transfer error Callback */
+//  774         hdma2d->XferErrorCallback(hdma2d);
         MOVNE    R0,R4
           CFI FunCall
         BLXNE    R1
-//  769       }
-//  770     }
-//  771   }
-//  772   /* Transfer Complete Interrupt management ************************************/
-//  773   if(__HAL_DMA2D_GET_FLAG(hdma2d, DMA2D_FLAG_TC) != RESET)
+//  775       }
+//  776     }
+//  777   }
+//  778   /* Transfer Complete Interrupt management ************************************/
+//  779   if(__HAL_DMA2D_GET_FLAG(hdma2d, DMA2D_FLAG_TC) != RESET)
 ??HAL_DMA2D_IRQHandler_1:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
         LSLS     R1,R1,#+30
         BPL.N    ??HAL_DMA2D_IRQHandler_2
-//  774   {
-//  775     if(__HAL_DMA2D_GET_IT_SOURCE(hdma2d, DMA2D_IT_TC) != RESET)
+//  780   {
+//  781     if(__HAL_DMA2D_GET_IT_SOURCE(hdma2d, DMA2D_IT_TC) != RESET)
         LDR      R1,[R0, #+0]
         LSLS     R1,R1,#+22
         BPL.N    ??HAL_DMA2D_IRQHandler_2
-//  776     { 
-//  777       /* Disable the transfer complete interrupt */
-//  778       __HAL_DMA2D_DISABLE_IT(hdma2d, DMA2D_IT_TC);
+//  782     { 
+//  783       /* Disable the transfer complete interrupt */
+//  784       __HAL_DMA2D_DISABLE_IT(hdma2d, DMA2D_IT_TC);
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x200
         STR      R1,[R0, #+0]
-//  779   
-//  780       /* Clear the transfer complete flag */  
-//  781       __HAL_DMA2D_CLEAR_FLAG(hdma2d, DMA2D_FLAG_TC);
+//  785   
+//  786       /* Clear the transfer complete flag */  
+//  787       __HAL_DMA2D_CLEAR_FLAG(hdma2d, DMA2D_FLAG_TC);
         LDR      R1,[R4, #+0]
         MOVS     R0,#+2
         STR      R0,[R1, #+8]
-//  782 
-//  783       /* Update error code */
-//  784       hdma2d->ErrorCode |= HAL_DMA2D_ERROR_NONE;    
+//  788 
+//  789       /* Update error code */
+//  790       hdma2d->ErrorCode |= HAL_DMA2D_ERROR_NONE;    
         LDR      R0,[R4, #+60]
         STR      R0,[R4, #+60]
-//  785     
-//  786       /* Change DMA2D state */
-//  787       hdma2d->State = HAL_DMA2D_STATE_READY;
+//  791     
+//  792       /* Change DMA2D state */
+//  793       hdma2d->State = HAL_DMA2D_STATE_READY;
         MOVS     R0,#+1
         STRB     R0,[R4, #+57]
-//  788     
-//  789       /* Process Unlocked */
-//  790       __HAL_UNLOCK(hdma2d);       
+//  794     
+//  795       /* Process Unlocked */
+//  796       __HAL_UNLOCK(hdma2d);       
         MOVS     R0,#+0
-//  791       
-//  792       if(hdma2d->XferCpltCallback != NULL)
+//  797       
+//  798       if(hdma2d->XferCpltCallback != NULL)
         LDR      R1,[R4, #+16]
         STRB     R0,[R4, #+56]
         MOVS     R0,R1
         BEQ.N    ??HAL_DMA2D_IRQHandler_2
-//  793       {
-//  794         /* Transfer complete Callback */
-//  795         hdma2d->XferCpltCallback(hdma2d);
+//  799       {
+//  800         /* Transfer complete Callback */
+//  801         hdma2d->XferCpltCallback(hdma2d);
         MOV      R0,R4
         POP      {R4,LR}
           CFI R4 SameValue
@@ -1539,65 +1545,65 @@ HAL_DMA2D_IRQHandler:
           CFI R4 Frame(CFA, -8)
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+8
-//  796       }         
-//  797     }
-//  798   }
-//  799 } 
+//  802       }         
+//  803     }
+//  804   }
+//  805 } 
 ??HAL_DMA2D_IRQHandler_2:
         POP      {R4,PC}          ;; return
           CFI EndBlock cfiBlock12
-//  800 
-//  801 /**
-//  802   * @}
-//  803   */
-//  804 
-//  805 /** @defgroup DMA2D_Group3 Peripheral Control functions
-//  806  *  @brief    Peripheral Control functions 
-//  807  *
-//  808 @verbatim   
-//  809  ===============================================================================
-//  810                     ##### Peripheral Control functions #####
-//  811  ===============================================================================  
-//  812     [..]  This section provides functions allowing to:
-//  813       (+) Configure the DMA2D foreground or/and background parameters.
-//  814       (+) Configure the DMA2D CLUT transfer.
-//  815       (+) Enable DMA2D CLUT.
-//  816       (+) Disable DMA2D CLUT.
-//  817       (+) Configure the line watermark
-//  818 
-//  819 @endverbatim
-//  820   * @{
-//  821   */
-//  822 /**
-//  823   * @brief  Configure the DMA2D Layer according to the specified
-//  824   *         parameters in the DMA2D_InitTypeDef and create the associated handle.
-//  825   * @param  hdma2d: pointer to a DMA2D_HandleTypeDef structure that contains
-//  826   *                 the configuration information for the DMA2D.
-//  827   * @param  LayerIdx: DMA2D Layer index.
-//  828   *                   This parameter can be one of the following values:
-//  829   *                   0(background) / 1(foreground)
-//  830   * @retval HAL status
-//  831   */
+//  806 
+//  807 /**
+//  808   * @}
+//  809   */
+//  810 
+//  811 /** @defgroup DMA2D_Group3 Peripheral Control functions
+//  812  *  @brief    Peripheral Control functions 
+//  813  *
+//  814 @verbatim   
+//  815  ===============================================================================
+//  816                     ##### Peripheral Control functions #####
+//  817  ===============================================================================  
+//  818     [..]  This section provides functions allowing to:
+//  819       (+) Configure the DMA2D foreground or/and background parameters.
+//  820       (+) Configure the DMA2D CLUT transfer.
+//  821       (+) Enable DMA2D CLUT.
+//  822       (+) Disable DMA2D CLUT.
+//  823       (+) Configure the line watermark
+//  824 
+//  825 @endverbatim
+//  826   * @{
+//  827   */
+//  828 /**
+//  829   * @brief  Configure the DMA2D Layer according to the specified
+//  830   *         parameters in the DMA2D_InitTypeDef and create the associated handle.
+//  831   * @param  hdma2d: pointer to a DMA2D_HandleTypeDef structure that contains
+//  832   *                 the configuration information for the DMA2D.
+//  833   * @param  LayerIdx: DMA2D Layer index.
+//  834   *                   This parameter can be one of the following values:
+//  835   *                   0(background) / 1(foreground)
+//  836   * @retval HAL status
+//  837   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock13 Using cfiCommon0
           CFI Function HAL_DMA2D_ConfigLayer
           CFI NoCalls
         THUMB
-//  832 HAL_StatusTypeDef HAL_DMA2D_ConfigLayer(DMA2D_HandleTypeDef *hdma2d, uint32_t LayerIdx)
-//  833 { 
+//  838 HAL_StatusTypeDef HAL_DMA2D_ConfigLayer(DMA2D_HandleTypeDef *hdma2d, uint32_t LayerIdx)
+//  839 { 
 HAL_DMA2D_ConfigLayer:
         PUSH     {R4,R5}
           CFI R5 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-//  834   DMA2D_LayerCfgTypeDef *pLayerCfg = &hdma2d->LayerCfg[LayerIdx];
+//  840   DMA2D_LayerCfgTypeDef *pLayerCfg = &hdma2d->LayerCfg[LayerIdx];
         ADD      R2,R0,R1, LSL #+4
-//  835   
-//  836   uint32_t tmp = 0;
-//  837   
-//  838   /* Process locked */
-//  839   __HAL_LOCK(hdma2d);
+//  841   
+//  842   uint32_t tmp = 0;
+//  843   
+//  844   /* Process locked */
+//  845   __HAL_LOCK(hdma2d);
         LDRB     R3,[R0, #+56]
         ADDS     R2,R2,#+24
         CMP      R3,#+1
@@ -1605,24 +1611,24 @@ HAL_DMA2D_ConfigLayer:
         MOVEQ    R0,#+2
         BEQ.N    ??HAL_DMA2D_ConfigLayer_0
         MOVS     R3,#+1
-//  840   
-//  841   /* Change DMA2D peripheral state */
-//  842   hdma2d->State = HAL_DMA2D_STATE_BUSY; 
-//  843   
-//  844   /* Check the parameters */
-//  845   assert_param(IS_DMA2D_LAYER(LayerIdx));  
-//  846   assert_param(IS_DMA2D_OFFSET(pLayerCfg->InputOffset));  
-//  847   if(hdma2d->Init.Mode != DMA2D_R2M)
-//  848   {  
-//  849     assert_param(IS_DMA2D_INPUT_COLOR_MODE(pLayerCfg->InputColorMode));
-//  850     if(hdma2d->Init.Mode != DMA2D_M2M)
-//  851     {
-//  852       assert_param(IS_DMA2D_ALPHA_MODE(pLayerCfg->AlphaMode));
-//  853     }
-//  854   }
-//  855   
-//  856   /* Configure the background DMA2D layer */
-//  857   if(LayerIdx == 0)
+//  846   
+//  847   /* Change DMA2D peripheral state */
+//  848   hdma2d->State = HAL_DMA2D_STATE_BUSY; 
+//  849   
+//  850   /* Check the parameters */
+//  851   assert_param(IS_DMA2D_LAYER(LayerIdx));  
+//  852   assert_param(IS_DMA2D_OFFSET(pLayerCfg->InputOffset));  
+//  853   if(hdma2d->Init.Mode != DMA2D_R2M)
+//  854   {  
+//  855     assert_param(IS_DMA2D_INPUT_COLOR_MODE(pLayerCfg->InputColorMode));
+//  856     if(hdma2d->Init.Mode != DMA2D_M2M)
+//  857     {
+//  858       assert_param(IS_DMA2D_ALPHA_MODE(pLayerCfg->AlphaMode));
+//  859     }
+//  860   }
+//  861   
+//  862   /* Configure the background DMA2D layer */
+//  863   if(LayerIdx == 0)
         LDR.N    R5,??DataTable2  ;; 0xfcfff0
         STRB     R3,[R0, #+56]
         MOVS     R3,#+2
@@ -1630,35 +1636,35 @@ HAL_DMA2D_ConfigLayer:
         LDR      R4,[R2, #+4]
         LDR      R3,[R0, #+0]
         CBNZ.N   R1,??HAL_DMA2D_ConfigLayer_1
-//  858   {
-//  859     /* DMA2D BGPFCR register configuration -----------------------------------*/
-//  860     /* Get the BGPFCCR register value */
-//  861     tmp = hdma2d->Instance->BGPFCCR;
+//  864   {
+//  865     /* DMA2D BGPFCR register configuration -----------------------------------*/
+//  866     /* Get the BGPFCCR register value */
+//  867     tmp = hdma2d->Instance->BGPFCCR;
         LDR      R1,[R3, #+36]
-//  862     
-//  863     /* Clear Input color mode, alpha value and alpha mode bits */
-//  864     tmp &= (uint32_t)~(DMA2D_BGPFCCR_CM | DMA2D_BGPFCCR_AM | DMA2D_BGPFCCR_ALPHA); 
+//  868     
+//  869     /* Clear Input color mode, alpha value and alpha mode bits */
+//  870     tmp &= (uint32_t)~(DMA2D_BGPFCCR_CM | DMA2D_BGPFCCR_AM | DMA2D_BGPFCCR_ALPHA); 
         ANDS     R1,R5,R1
-//  865     
-//  866     if ((pLayerCfg->InputColorMode == CM_A4) || (pLayerCfg->InputColorMode == CM_A8))
+//  871     
+//  872     if ((pLayerCfg->InputColorMode == CM_A4) || (pLayerCfg->InputColorMode == CM_A8))
         CMP      R4,#+10
         IT       NE 
         CMPNE    R4,#+9
         BNE.N    ??HAL_DMA2D_ConfigLayer_2
-//  867     {
-//  868       /* Prepare the value to be wrote to the BGPFCCR register */
-//  869       tmp |= (pLayerCfg->InputColorMode | (pLayerCfg->AlphaMode << 16) | ((pLayerCfg->InputAlpha) & 0xFF000000));
+//  873     {
+//  874       /* Prepare the value to be wrote to the BGPFCCR register */
+//  875       tmp |= (pLayerCfg->InputColorMode | (pLayerCfg->AlphaMode << 16) | ((pLayerCfg->InputAlpha) & 0xFF000000));
         LDR      R5,[R2, #+8]
         ORR      R4,R4,R5, LSL #+16
         LDR      R5,[R2, #+12]
         AND      R5,R5,#0xFF000000
         ORRS     R4,R5,R4
         B.N      ??HAL_DMA2D_ConfigLayer_3
-//  870     }
-//  871     else
-//  872     {
-//  873       /* Prepare the value to be wrote to the BGPFCCR register */
-//  874       tmp |= (pLayerCfg->InputColorMode | (pLayerCfg->AlphaMode << 16) | (pLayerCfg->InputAlpha << 24));
+//  876     }
+//  877     else
+//  878     {
+//  879       /* Prepare the value to be wrote to the BGPFCCR register */
+//  880       tmp |= (pLayerCfg->InputColorMode | (pLayerCfg->AlphaMode << 16) | (pLayerCfg->InputAlpha << 24));
 ??HAL_DMA2D_ConfigLayer_2:
         LDR      R5,[R2, #+8]
         ORR      R4,R4,R5, LSL #+16
@@ -1666,83 +1672,83 @@ HAL_DMA2D_ConfigLayer:
         ORR      R4,R4,R5, LSL #+24
 ??HAL_DMA2D_ConfigLayer_3:
         ORRS     R1,R4,R1
-//  875     }
-//  876     
-//  877     /* Write to DMA2D BGPFCCR register */
-//  878     hdma2d->Instance->BGPFCCR = tmp; 
+//  881     }
+//  882     
+//  883     /* Write to DMA2D BGPFCCR register */
+//  884     hdma2d->Instance->BGPFCCR = tmp; 
         STR      R1,[R3, #+36]
-//  879     
-//  880     /* DMA2D BGOR register configuration -------------------------------------*/  
-//  881     /* Get the BGOR register value */
-//  882     tmp = hdma2d->Instance->BGOR;
+//  885     
+//  886     /* DMA2D BGOR register configuration -------------------------------------*/  
+//  887     /* Get the BGOR register value */
+//  888     tmp = hdma2d->Instance->BGOR;
         LDR      R1,[R0, #+0]
         LDR      R3,[R1, #+24]
-//  883     
-//  884     /* Clear colors bits */
-//  885     tmp &= (uint32_t)~DMA2D_BGOR_LO; 
-//  886     
-//  887     /* Prepare the value to be wrote to the BGOR register */
-//  888     tmp |= pLayerCfg->InputOffset;
 //  889     
-//  890     /* Write to DMA2D BGOR register */
-//  891     hdma2d->Instance->BGOR = tmp;
+//  890     /* Clear colors bits */
+//  891     tmp &= (uint32_t)~DMA2D_BGOR_LO; 
+//  892     
+//  893     /* Prepare the value to be wrote to the BGOR register */
+//  894     tmp |= pLayerCfg->InputOffset;
+//  895     
+//  896     /* Write to DMA2D BGOR register */
+//  897     hdma2d->Instance->BGOR = tmp;
         LDR      R4,[R2, #+0]
         LSRS     R3,R3,#+14
         ORR      R3,R4,R3, LSL #+14
         STR      R3,[R1, #+24]
-//  892     
-//  893     if ((pLayerCfg->InputColorMode == CM_A4) || (pLayerCfg->InputColorMode == CM_A8))
+//  898     
+//  899     if ((pLayerCfg->InputColorMode == CM_A4) || (pLayerCfg->InputColorMode == CM_A8))
         LDR      R1,[R2, #+4]
         CMP      R1,#+10
         IT       NE 
         CMPNE    R1,#+9
         BNE.N    ??HAL_DMA2D_ConfigLayer_4
-//  894     {
-//  895       /* Prepare the value to be wrote to the BGCOLR register */
-//  896       tmp = ((pLayerCfg->InputAlpha) & 0x00FFFFFF);
-//  897     
-//  898       /* Write to DMA2D BGCOLR register */
-//  899       hdma2d->Instance->BGCOLR = tmp;
+//  900     {
+//  901       /* Prepare the value to be wrote to the BGCOLR register */
+//  902       tmp = ((pLayerCfg->InputAlpha) & 0x00FFFFFF);
+//  903     
+//  904       /* Write to DMA2D BGCOLR register */
+//  905       hdma2d->Instance->BGCOLR = tmp;
         LDR      R1,[R2, #+12]
         LDR      R2,[R0, #+0]
         LSLS     R1,R1,#+8
         LSRS     R1,R1,#+8
         STR      R1,[R2, #+40]
         B.N      ??HAL_DMA2D_ConfigLayer_4
-//  900     }    
-//  901   }
-//  902   /* Configure the foreground DMA2D layer */
-//  903   else
-//  904   {
-//  905     /* DMA2D FGPFCR register configuration -----------------------------------*/
-//  906     /* Get the FGPFCCR register value */
-//  907     tmp = hdma2d->Instance->FGPFCCR;
+//  906     }    
+//  907   }
+//  908   /* Configure the foreground DMA2D layer */
+//  909   else
+//  910   {
+//  911     /* DMA2D FGPFCR register configuration -----------------------------------*/
+//  912     /* Get the FGPFCCR register value */
+//  913     tmp = hdma2d->Instance->FGPFCCR;
 ??HAL_DMA2D_ConfigLayer_1:
         LDR      R1,[R3, #+28]
-//  908     
-//  909     /* Clear Input color mode, alpha value and alpha mode bits */
-//  910     tmp &= (uint32_t)~(DMA2D_FGPFCCR_CM | DMA2D_FGPFCCR_AM | DMA2D_FGPFCCR_ALPHA); 
+//  914     
+//  915     /* Clear Input color mode, alpha value and alpha mode bits */
+//  916     tmp &= (uint32_t)~(DMA2D_FGPFCCR_CM | DMA2D_FGPFCCR_AM | DMA2D_FGPFCCR_ALPHA); 
         ANDS     R1,R5,R1
-//  911     
-//  912     if ((pLayerCfg->InputColorMode == CM_A4) || (pLayerCfg->InputColorMode == CM_A8))
+//  917     
+//  918     if ((pLayerCfg->InputColorMode == CM_A4) || (pLayerCfg->InputColorMode == CM_A8))
         CMP      R4,#+10
         IT       NE 
         CMPNE    R4,#+9
         BNE.N    ??HAL_DMA2D_ConfigLayer_5
-//  913     {
-//  914       /* Prepare the value to be wrote to the FGPFCCR register */
-//  915       tmp |= (pLayerCfg->InputColorMode | (pLayerCfg->AlphaMode << 16) | ((pLayerCfg->InputAlpha) & 0xFF000000));
+//  919     {
+//  920       /* Prepare the value to be wrote to the FGPFCCR register */
+//  921       tmp |= (pLayerCfg->InputColorMode | (pLayerCfg->AlphaMode << 16) | ((pLayerCfg->InputAlpha) & 0xFF000000));
         LDR      R5,[R2, #+8]
         ORR      R4,R4,R5, LSL #+16
         LDR      R5,[R2, #+12]
         AND      R5,R5,#0xFF000000
         ORRS     R4,R5,R4
         B.N      ??HAL_DMA2D_ConfigLayer_6
-//  916     }
-//  917     else
-//  918     {
-//  919       /* Prepare the value to be wrote to the FGPFCCR register */
-//  920       tmp |= (pLayerCfg->InputColorMode | (pLayerCfg->AlphaMode << 16) | (pLayerCfg->InputAlpha << 24));
+//  922     }
+//  923     else
+//  924     {
+//  925       /* Prepare the value to be wrote to the FGPFCCR register */
+//  926       tmp |= (pLayerCfg->InputColorMode | (pLayerCfg->AlphaMode << 16) | (pLayerCfg->InputAlpha << 24));
 ??HAL_DMA2D_ConfigLayer_5:
         LDR      R5,[R2, #+8]
         ORR      R4,R4,R5, LSL #+16
@@ -1750,62 +1756,62 @@ HAL_DMA2D_ConfigLayer:
         ORR      R4,R4,R5, LSL #+24
 ??HAL_DMA2D_ConfigLayer_6:
         ORRS     R1,R4,R1
-//  921     }
-//  922     
-//  923     /* Write to DMA2D FGPFCCR register */
-//  924     hdma2d->Instance->FGPFCCR = tmp; 
+//  927     }
+//  928     
+//  929     /* Write to DMA2D FGPFCCR register */
+//  930     hdma2d->Instance->FGPFCCR = tmp; 
         STR      R1,[R3, #+28]
-//  925     
-//  926     /* DMA2D FGOR register configuration -------------------------------------*/  
-//  927     /* Get the FGOR register value */
-//  928     tmp = hdma2d->Instance->FGOR;
+//  931     
+//  932     /* DMA2D FGOR register configuration -------------------------------------*/  
+//  933     /* Get the FGOR register value */
+//  934     tmp = hdma2d->Instance->FGOR;
         LDR      R1,[R0, #+0]
         LDR      R3,[R1, #+16]
-//  929     
-//  930     /* Clear colors bits */
-//  931     tmp &= (uint32_t)~DMA2D_FGOR_LO; 
-//  932     
-//  933     /* Prepare the value to be wrote to the FGOR register */
-//  934     tmp |= pLayerCfg->InputOffset;
 //  935     
-//  936     /* Write to DMA2D FGOR register */
-//  937     hdma2d->Instance->FGOR = tmp;
+//  936     /* Clear colors bits */
+//  937     tmp &= (uint32_t)~DMA2D_FGOR_LO; 
+//  938     
+//  939     /* Prepare the value to be wrote to the FGOR register */
+//  940     tmp |= pLayerCfg->InputOffset;
+//  941     
+//  942     /* Write to DMA2D FGOR register */
+//  943     hdma2d->Instance->FGOR = tmp;
         LDR      R4,[R2, #+0]
         LSRS     R3,R3,#+14
         ORR      R3,R4,R3, LSL #+14
         STR      R3,[R1, #+16]
-//  938    
-//  939     if ((pLayerCfg->InputColorMode == CM_A4) || (pLayerCfg->InputColorMode == CM_A8))
+//  944    
+//  945     if ((pLayerCfg->InputColorMode == CM_A4) || (pLayerCfg->InputColorMode == CM_A8))
         LDR      R1,[R2, #+4]
         CMP      R1,#+10
         IT       NE 
         CMPNE    R1,#+9
         BNE.N    ??HAL_DMA2D_ConfigLayer_4
-//  940     {
-//  941       /* Prepare the value to be wrote to the FGCOLR register */
-//  942       tmp = ((pLayerCfg->InputAlpha) & 0x00FFFFFF);
-//  943     
-//  944       /* Write to DMA2D FGCOLR register */
-//  945       hdma2d->Instance->FGCOLR = tmp;
+//  946     {
+//  947       /* Prepare the value to be wrote to the FGCOLR register */
+//  948       tmp = ((pLayerCfg->InputAlpha) & 0x00FFFFFF);
+//  949     
+//  950       /* Write to DMA2D FGCOLR register */
+//  951       hdma2d->Instance->FGCOLR = tmp;
         LDR      R1,[R2, #+12]
         LDR      R2,[R0, #+0]
         LSLS     R1,R1,#+8
         LSRS     R1,R1,#+8
         STR      R1,[R2, #+32]
-//  946     }   
-//  947   }    
-//  948   /* Initialize the DMA2D state*/
-//  949   hdma2d->State  = HAL_DMA2D_STATE_READY;
+//  952     }   
+//  953   }    
+//  954   /* Initialize the DMA2D state*/
+//  955   hdma2d->State  = HAL_DMA2D_STATE_READY;
 ??HAL_DMA2D_ConfigLayer_4:
         MOVS     R1,#+1
         STRB     R1,[R0, #+57]
-//  950   
-//  951   /* Process unlocked */
-//  952   __HAL_UNLOCK(hdma2d);  
+//  956   
+//  957   /* Process unlocked */
+//  958   __HAL_UNLOCK(hdma2d);  
         MOVS     R1,#+0
         STRB     R1,[R0, #+56]
-//  953   
-//  954   return HAL_OK;
+//  959   
+//  960   return HAL_OK;
         MOVS     R0,#+0
 ??HAL_DMA2D_ConfigLayer_0:
         POP      {R4,R5}
@@ -1813,113 +1819,113 @@ HAL_DMA2D_ConfigLayer:
           CFI R5 SameValue
           CFI CFA R13+0
         BX       LR               ;; return
-//  955 }
+//  961 }
           CFI EndBlock cfiBlock13
-//  956 
-//  957 /**
-//  958   * @brief  Configure the DMA2D CLUT Transfer.
-//  959   * @param  hdma2d:   pointer to a DMA2D_HandleTypeDef structure that contains
-//  960   *                   the configuration information for the DMA2D.
-//  961   * @param  CLUTCfg:  pointer to a DMA2D_CLUTCfgTypeDef structure that contains
-//  962   *                   the configuration information for the color look up table.
-//  963   * @param  LayerIdx: DMA2D Layer index.
-//  964   *                   This parameter can be one of the following values:
-//  965   *                   0(background) / 1(foreground)
-//  966   * @retval HAL status
-//  967   */
+//  962 
+//  963 /**
+//  964   * @brief  Configure the DMA2D CLUT Transfer.
+//  965   * @param  hdma2d:   pointer to a DMA2D_HandleTypeDef structure that contains
+//  966   *                   the configuration information for the DMA2D.
+//  967   * @param  CLUTCfg:  pointer to a DMA2D_CLUTCfgTypeDef structure that contains
+//  968   *                   the configuration information for the color look up table.
+//  969   * @param  LayerIdx: DMA2D Layer index.
+//  970   *                   This parameter can be one of the following values:
+//  971   *                   0(background) / 1(foreground)
+//  972   * @retval HAL status
+//  973   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock14 Using cfiCommon0
           CFI Function HAL_DMA2D_ConfigCLUT
           CFI NoCalls
         THUMB
-//  968 HAL_StatusTypeDef HAL_DMA2D_ConfigCLUT(DMA2D_HandleTypeDef *hdma2d, DMA2D_CLUTCfgTypeDef CLUTCfg, uint32_t LayerIdx)
-//  969 {
+//  974 HAL_StatusTypeDef HAL_DMA2D_ConfigCLUT(DMA2D_HandleTypeDef *hdma2d, DMA2D_CLUTCfgTypeDef CLUTCfg, uint32_t LayerIdx)
+//  975 {
 HAL_DMA2D_ConfigCLUT:
         PUSH     {R4,R5}
           CFI R5 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-//  970   uint32_t tmp = 0, tmp1 = 0;
-//  971 
-//  972   /* Check the parameters */
-//  973   assert_param(IS_DMA2D_LAYER(LayerIdx));   
-//  974   assert_param(IS_DMA2D_CLUT_CM(CLUTCfg.CLUTColorMode));
-//  975   assert_param(IS_DMA2D_CLUT_SIZE(CLUTCfg.Size));
-//  976   
-//  977   /* Configure the CLUT of the background DMA2D layer */
-//  978   if(LayerIdx == 0)
+//  976   uint32_t tmp = 0, tmp1 = 0;
+//  977 
+//  978   /* Check the parameters */
+//  979   assert_param(IS_DMA2D_LAYER(LayerIdx));   
+//  980   assert_param(IS_DMA2D_CLUT_CM(CLUTCfg.CLUTColorMode));
+//  981   assert_param(IS_DMA2D_CLUT_SIZE(CLUTCfg.Size));
+//  982   
+//  983   /* Configure the CLUT of the background DMA2D layer */
+//  984   if(LayerIdx == 0)
         LDR      R0,[R0, #+0]
         LDR.N    R4,??DataTable2_1  ;; 0xffff00ef
         LDR      R5,[SP, #+8]
         CBNZ.N   R5,??HAL_DMA2D_ConfigCLUT_0
-//  979   {
-//  980     /* Get the BGCMAR register value */
-//  981     tmp = hdma2d->Instance->BGCMAR;
+//  985   {
+//  986     /* Get the BGCMAR register value */
+//  987     tmp = hdma2d->Instance->BGCMAR;
         LDR      R5,[R0, #+48]
-//  982 
-//  983     /* Clear CLUT address bits */
-//  984     tmp &= (uint32_t)~DMA2D_BGCMAR_MA; 
-//  985   
-//  986     /* Prepare the value to be wrote to the BGCMAR register */
-//  987     tmp |= (uint32_t)CLUTCfg.pCLUT;
-//  988   
-//  989     /* Write to DMA2D BGCMAR register */
-//  990     hdma2d->Instance->BGCMAR = tmp;
+//  988 
+//  989     /* Clear CLUT address bits */
+//  990     tmp &= (uint32_t)~DMA2D_BGCMAR_MA; 
+//  991   
+//  992     /* Prepare the value to be wrote to the BGCMAR register */
+//  993     tmp |= (uint32_t)CLUTCfg.pCLUT;
+//  994   
+//  995     /* Write to DMA2D BGCMAR register */
+//  996     hdma2d->Instance->BGCMAR = tmp;
         STR      R1,[R0, #+48]
-//  991     
-//  992     /* Get the BGPFCCR register value */
-//  993     tmp = hdma2d->Instance->BGPFCCR;
+//  997     
+//  998     /* Get the BGPFCCR register value */
+//  999     tmp = hdma2d->Instance->BGPFCCR;
         LDR      R1,[R0, #+36]
-//  994 
-//  995     /* Clear CLUT size and CLUT address bits */
-//  996     tmp &= (uint32_t)~(DMA2D_BGPFCCR_CS | DMA2D_BGPFCCR_CCM); 
-//  997 
-//  998     /* Get the CLUT size */
-//  999     tmp1 = CLUTCfg.Size << 16;
-// 1000     
-// 1001     /* Prepare the value to be wrote to the BGPFCCR register */
-// 1002     tmp |= (CLUTCfg.CLUTColorMode | tmp1);
-// 1003   
-// 1004     /* Write to DMA2D BGPFCCR register */
-// 1005     hdma2d->Instance->BGPFCCR = tmp;       
+// 1000 
+// 1001     /* Clear CLUT size and CLUT address bits */
+// 1002     tmp &= (uint32_t)~(DMA2D_BGPFCCR_CS | DMA2D_BGPFCCR_CCM); 
+// 1003 
+// 1004     /* Get the CLUT size */
+// 1005     tmp1 = CLUTCfg.Size << 16;
+// 1006     
+// 1007     /* Prepare the value to be wrote to the BGPFCCR register */
+// 1008     tmp |= (CLUTCfg.CLUTColorMode | tmp1);
+// 1009   
+// 1010     /* Write to DMA2D BGPFCCR register */
+// 1011     hdma2d->Instance->BGPFCCR = tmp;       
         ANDS     R1,R4,R1
         ORRS     R1,R2,R1
         ORR      R1,R1,R3, LSL #+16
         STR      R1,[R0, #+36]
-// 1006   }
-// 1007   /* Configure the CLUT of the foreground DMA2D layer */
-// 1008   else
-// 1009   {
-// 1010     /* Get the FGCMAR register value */
-// 1011     tmp = hdma2d->Instance->FGCMAR;
-// 1012 
-// 1013     /* Clear CLUT address bits */
-// 1014     tmp &= (uint32_t)~DMA2D_FGCMAR_MA; 
-// 1015   
-// 1016     /* Prepare the value to be wrote to the FGCMAR register */
-// 1017     tmp |= (uint32_t)CLUTCfg.pCLUT;
-// 1018   
-// 1019     /* Write to DMA2D FGCMAR register */
-// 1020     hdma2d->Instance->FGCMAR = tmp;
-// 1021     
-// 1022     /* Get the FGPFCCR register value */
-// 1023     tmp = hdma2d->Instance->FGPFCCR;
-// 1024 
-// 1025     /* Clear CLUT size and CLUT address bits */
-// 1026     tmp &= (uint32_t)~(DMA2D_FGPFCCR_CS | DMA2D_FGPFCCR_CCM); 
-// 1027 
-// 1028     /* Get the CLUT size */
-// 1029     tmp1 = CLUTCfg.Size << 8;
-// 1030     
-// 1031     /* Prepare the value to be wrote to the FGPFCCR register */
-// 1032     tmp |= (CLUTCfg.CLUTColorMode | tmp1);
-// 1033   
-// 1034     /* Write to DMA2D FGPFCCR register */
-// 1035     hdma2d->Instance->FGPFCCR = tmp;    
-// 1036   }
-// 1037   
-// 1038   return HAL_OK;
+// 1012   }
+// 1013   /* Configure the CLUT of the foreground DMA2D layer */
+// 1014   else
+// 1015   {
+// 1016     /* Get the FGCMAR register value */
+// 1017     tmp = hdma2d->Instance->FGCMAR;
+// 1018 
+// 1019     /* Clear CLUT address bits */
+// 1020     tmp &= (uint32_t)~DMA2D_FGCMAR_MA; 
+// 1021   
+// 1022     /* Prepare the value to be wrote to the FGCMAR register */
+// 1023     tmp |= (uint32_t)CLUTCfg.pCLUT;
+// 1024   
+// 1025     /* Write to DMA2D FGCMAR register */
+// 1026     hdma2d->Instance->FGCMAR = tmp;
+// 1027     
+// 1028     /* Get the FGPFCCR register value */
+// 1029     tmp = hdma2d->Instance->FGPFCCR;
+// 1030 
+// 1031     /* Clear CLUT size and CLUT address bits */
+// 1032     tmp &= (uint32_t)~(DMA2D_FGPFCCR_CS | DMA2D_FGPFCCR_CCM); 
+// 1033 
+// 1034     /* Get the CLUT size */
+// 1035     tmp1 = CLUTCfg.Size << 8;
+// 1036     
+// 1037     /* Prepare the value to be wrote to the FGPFCCR register */
+// 1038     tmp |= (CLUTCfg.CLUTColorMode | tmp1);
+// 1039   
+// 1040     /* Write to DMA2D FGPFCCR register */
+// 1041     hdma2d->Instance->FGPFCCR = tmp;    
+// 1042   }
+// 1043   
+// 1044   return HAL_OK;
         MOVS     R0,#+0
         POP      {R4,R5}
           CFI R4 SameValue
@@ -1943,47 +1949,47 @@ HAL_DMA2D_ConfigCLUT:
           CFI R5 SameValue
           CFI CFA R13+0
         BX       LR               ;; return
-// 1039 }
+// 1045 }
           CFI EndBlock cfiBlock14
-// 1040 
-// 1041 /**
-// 1042   * @brief  Enable the DMA2D CLUT Transfer.
-// 1043   * @param  hdma2d:   pointer to a DMA2D_HandleTypeDef structure that contains
-// 1044   *                   the configuration information for the DMA2D.
-// 1045   * @param  LayerIdx: DMA2D Layer index.
-// 1046   *                   This parameter can be one of the following values:
-// 1047   *                   0(background) / 1(foreground)
-// 1048   * @retval HAL status
-// 1049   */
+// 1046 
+// 1047 /**
+// 1048   * @brief  Enable the DMA2D CLUT Transfer.
+// 1049   * @param  hdma2d:   pointer to a DMA2D_HandleTypeDef structure that contains
+// 1050   *                   the configuration information for the DMA2D.
+// 1051   * @param  LayerIdx: DMA2D Layer index.
+// 1052   *                   This parameter can be one of the following values:
+// 1053   *                   0(background) / 1(foreground)
+// 1054   * @retval HAL status
+// 1055   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock15 Using cfiCommon0
           CFI Function HAL_DMA2D_EnableCLUT
           CFI NoCalls
         THUMB
-// 1050 HAL_StatusTypeDef HAL_DMA2D_EnableCLUT(DMA2D_HandleTypeDef *hdma2d, uint32_t LayerIdx)
-// 1051 {  
-// 1052   /* Check the parameters */
-// 1053   assert_param(IS_DMA2D_LAYER(LayerIdx));
-// 1054   
-// 1055   if(LayerIdx == 0)
+// 1056 HAL_StatusTypeDef HAL_DMA2D_EnableCLUT(DMA2D_HandleTypeDef *hdma2d, uint32_t LayerIdx)
+// 1057 {  
+// 1058   /* Check the parameters */
+// 1059   assert_param(IS_DMA2D_LAYER(LayerIdx));
+// 1060   
+// 1061   if(LayerIdx == 0)
 HAL_DMA2D_EnableCLUT:
         LDR      R0,[R0, #+0]
         CBNZ.N   R1,??HAL_DMA2D_EnableCLUT_0
-// 1056   {
-// 1057     /* Enable the CLUT loading for the background */
-// 1058     hdma2d->Instance->BGPFCCR |= DMA2D_BGPFCCR_START;
+// 1062   {
+// 1063     /* Enable the CLUT loading for the background */
+// 1064     hdma2d->Instance->BGPFCCR |= DMA2D_BGPFCCR_START;
         LDR      R1,[R0, #+36]
         ORR      R1,R1,#0x20
         STR      R1,[R0, #+36]
-// 1059   }
-// 1060   else
-// 1061   {
-// 1062     /* Enable the CLUT loading for the foreground */
-// 1063     hdma2d->Instance->FGPFCCR |= DMA2D_FGPFCCR_START;
-// 1064   }
-// 1065   
-// 1066   return HAL_OK;
+// 1065   }
+// 1066   else
+// 1067   {
+// 1068     /* Enable the CLUT loading for the foreground */
+// 1069     hdma2d->Instance->FGPFCCR |= DMA2D_FGPFCCR_START;
+// 1070   }
+// 1071   
+// 1072   return HAL_OK;
         MOVS     R0,#+0
         BX       LR
 ??HAL_DMA2D_EnableCLUT_0:
@@ -1992,47 +1998,47 @@ HAL_DMA2D_EnableCLUT:
         STR      R1,[R0, #+28]
         MOVS     R0,#+0
         BX       LR               ;; return
-// 1067 }
+// 1073 }
           CFI EndBlock cfiBlock15
-// 1068 
-// 1069 /**
-// 1070   * @brief  Disable the DMA2D CLUT Transfer.
-// 1071   * @param  hdma2d:   pointer to a DMA2D_HandleTypeDef structure that contains
-// 1072   *                   the configuration information for the DMA2D.
-// 1073   * @param  LayerIdx: DMA2D Layer index.
-// 1074   *                   This parameter can be one of the following values:
-// 1075   *                   0(background) / 1(foreground)
-// 1076   * @retval HAL status
-// 1077   */
+// 1074 
+// 1075 /**
+// 1076   * @brief  Disable the DMA2D CLUT Transfer.
+// 1077   * @param  hdma2d:   pointer to a DMA2D_HandleTypeDef structure that contains
+// 1078   *                   the configuration information for the DMA2D.
+// 1079   * @param  LayerIdx: DMA2D Layer index.
+// 1080   *                   This parameter can be one of the following values:
+// 1081   *                   0(background) / 1(foreground)
+// 1082   * @retval HAL status
+// 1083   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock16 Using cfiCommon0
           CFI Function HAL_DMA2D_DisableCLUT
           CFI NoCalls
         THUMB
-// 1078 HAL_StatusTypeDef HAL_DMA2D_DisableCLUT(DMA2D_HandleTypeDef *hdma2d, uint32_t LayerIdx)
-// 1079 {
-// 1080   /* Check the parameters */
-// 1081   assert_param(IS_DMA2D_LAYER(LayerIdx));
-// 1082   
-// 1083   if(LayerIdx == 0)
+// 1084 HAL_StatusTypeDef HAL_DMA2D_DisableCLUT(DMA2D_HandleTypeDef *hdma2d, uint32_t LayerIdx)
+// 1085 {
+// 1086   /* Check the parameters */
+// 1087   assert_param(IS_DMA2D_LAYER(LayerIdx));
+// 1088   
+// 1089   if(LayerIdx == 0)
 HAL_DMA2D_DisableCLUT:
         LDR      R0,[R0, #+0]
         CBNZ.N   R1,??HAL_DMA2D_DisableCLUT_0
-// 1084   {
-// 1085     /* Disable the CLUT loading for the background */
-// 1086     hdma2d->Instance->BGPFCCR &= ~DMA2D_BGPFCCR_START;
+// 1090   {
+// 1091     /* Disable the CLUT loading for the background */
+// 1092     hdma2d->Instance->BGPFCCR &= ~DMA2D_BGPFCCR_START;
         LDR      R1,[R0, #+36]
         BIC      R1,R1,#0x20
         STR      R1,[R0, #+36]
-// 1087   }
-// 1088   else
-// 1089   {
-// 1090     /* Disable the CLUT loading for the foreground */
-// 1091     hdma2d->Instance->FGPFCCR &= ~DMA2D_FGPFCCR_START;
-// 1092   } 
-// 1093   
-// 1094   return HAL_OK;
+// 1093   }
+// 1094   else
+// 1095   {
+// 1096     /* Disable the CLUT loading for the foreground */
+// 1097     hdma2d->Instance->FGPFCCR &= ~DMA2D_FGPFCCR_START;
+// 1098   } 
+// 1099   
+// 1100   return HAL_OK;
         MOVS     R0,#+0
         BX       LR
 ??HAL_DMA2D_DisableCLUT_0:
@@ -2041,27 +2047,27 @@ HAL_DMA2D_DisableCLUT:
         STR      R1,[R0, #+28]
         MOVS     R0,#+0
         BX       LR               ;; return
-// 1095 }
+// 1101 }
           CFI EndBlock cfiBlock16
-// 1096 
-// 1097 /**
-// 1098   * @brief  Define the configuration of the line watermark .
-// 1099   * @param  hdma2d: pointer to a DMA2D_HandleTypeDef structure that contains
-// 1100   *                 the configuration information for the DMA2D.
-// 1101   * @param  Line:   Line Watermark configuration.
-// 1102   * @retval HAL status
-// 1103   */
-// 1104 
+// 1102 
+// 1103 /**
+// 1104   * @brief  Define the configuration of the line watermark .
+// 1105   * @param  hdma2d: pointer to a DMA2D_HandleTypeDef structure that contains
+// 1106   *                 the configuration information for the DMA2D.
+// 1107   * @param  Line:   Line Watermark configuration.
+// 1108   * @retval HAL status
+// 1109   */
+// 1110 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock17 Using cfiCommon0
           CFI Function HAL_DMA2D_ProgramLineEvent
           CFI NoCalls
         THUMB
-// 1105 HAL_StatusTypeDef HAL_DMA2D_ProgramLineEvent(DMA2D_HandleTypeDef *hdma2d, uint32_t Line)
-// 1106 {
-// 1107   /* Process locked */
-// 1108   __HAL_LOCK(hdma2d);
+// 1111 HAL_StatusTypeDef HAL_DMA2D_ProgramLineEvent(DMA2D_HandleTypeDef *hdma2d, uint32_t Line)
+// 1112 {
+// 1113   /* Process locked */
+// 1114   __HAL_LOCK(hdma2d);
 HAL_DMA2D_ProgramLineEvent:
         LDRB     R2,[R0, #+56]
         CMP      R2,#+1
@@ -2071,34 +2077,34 @@ HAL_DMA2D_ProgramLineEvent:
 ??HAL_DMA2D_ProgramLineEvent_0:
         MOVS     R2,#+1
         STRB     R2,[R0, #+56]
-// 1109   
-// 1110   /* Change DMA2D peripheral state */
-// 1111   hdma2d->State = HAL_DMA2D_STATE_BUSY;
+// 1115   
+// 1116   /* Change DMA2D peripheral state */
+// 1117   hdma2d->State = HAL_DMA2D_STATE_BUSY;
         MOVS     R2,#+2
         STRB     R2,[R0, #+57]
-// 1112   
-// 1113   /* Check the parameters */
-// 1114   assert_param(IS_DMA2D_LineWatermark(Line));
-// 1115 
-// 1116   /* Sets the Line watermark configuration */
-// 1117   DMA2D->LWR = (uint32_t)Line;
+// 1118   
+// 1119   /* Check the parameters */
+// 1120   assert_param(IS_DMA2D_LineWatermark(Line));
+// 1121 
+// 1122   /* Sets the Line watermark configuration */
+// 1123   DMA2D->LWR = (uint32_t)Line;
         LDR.N    R2,??DataTable2_2  ;; 0x4002b048
         STR      R1,[R2, #+0]
-// 1118   
-// 1119   /* Initialize the DMA2D state*/
-// 1120   hdma2d->State = HAL_DMA2D_STATE_READY;
+// 1124   
+// 1125   /* Initialize the DMA2D state*/
+// 1126   hdma2d->State = HAL_DMA2D_STATE_READY;
         MOVS     R1,#+1
         STRB     R1,[R0, #+57]
-// 1121   
-// 1122   /* Process unlocked */
-// 1123   __HAL_UNLOCK(hdma2d);  
+// 1127   
+// 1128   /* Process unlocked */
+// 1129   __HAL_UNLOCK(hdma2d);  
         MOVS     R1,#+0
         STRB     R1,[R0, #+56]
-// 1124   
-// 1125   return HAL_OK;  
+// 1130   
+// 1131   return HAL_OK;  
         MOVS     R0,#+0
         BX       LR               ;; return
-// 1126 }
+// 1132 }
           CFI EndBlock cfiBlock17
 
         SECTION `.text`:CODE:NOROOT(2)
@@ -2118,178 +2124,178 @@ HAL_DMA2D_ProgramLineEvent:
         DATA
 ??DataTable2_2:
         DC32     0x4002b048
-// 1127 
-// 1128 /**
-// 1129   * @}
-// 1130   */
-// 1131 
-// 1132 /** @defgroup DMA2D_Group4 Peripheral State functions
-// 1133  *  @brief    Peripheral State functions 
-// 1134  *
-// 1135 @verbatim   
-// 1136  ===============================================================================
-// 1137                   ##### Peripheral State and Errors functions #####
-// 1138  ===============================================================================  
-// 1139     [..]
-// 1140     This subsection provides functions allowing to :
-// 1141       (+) Check the DMA2D state
-// 1142       (+) Get error code  
-// 1143 
-// 1144 @endverbatim
-// 1145   * @{
-// 1146   */ 
-// 1147 
-// 1148 /**
-// 1149   * @brief  Return the DMA2D state
-// 1150   * @param  hdma2d: pointer to a DMA2D_HandleTypeDef structure that contains
-// 1151   *                 the configuration information for the DMA2D.  
-// 1152   * @retval HAL state
-// 1153   */
+// 1133 
+// 1134 /**
+// 1135   * @}
+// 1136   */
+// 1137 
+// 1138 /** @defgroup DMA2D_Group4 Peripheral State functions
+// 1139  *  @brief    Peripheral State functions 
+// 1140  *
+// 1141 @verbatim   
+// 1142  ===============================================================================
+// 1143                   ##### Peripheral State and Errors functions #####
+// 1144  ===============================================================================  
+// 1145     [..]
+// 1146     This subsection provides functions allowing to :
+// 1147       (+) Check the DMA2D state
+// 1148       (+) Get error code  
+// 1149 
+// 1150 @endverbatim
+// 1151   * @{
+// 1152   */ 
+// 1153 
+// 1154 /**
+// 1155   * @brief  Return the DMA2D state
+// 1156   * @param  hdma2d: pointer to a DMA2D_HandleTypeDef structure that contains
+// 1157   *                 the configuration information for the DMA2D.  
+// 1158   * @retval HAL state
+// 1159   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock18 Using cfiCommon0
           CFI Function HAL_DMA2D_GetState
           CFI NoCalls
         THUMB
-// 1154 HAL_DMA2D_StateTypeDef HAL_DMA2D_GetState(DMA2D_HandleTypeDef *hdma2d)
-// 1155 {  
-// 1156   return hdma2d->State;
+// 1160 HAL_DMA2D_StateTypeDef HAL_DMA2D_GetState(DMA2D_HandleTypeDef *hdma2d)
+// 1161 {  
+// 1162   return hdma2d->State;
 HAL_DMA2D_GetState:
         LDRB     R0,[R0, #+57]
         BX       LR               ;; return
-// 1157 }
+// 1163 }
           CFI EndBlock cfiBlock18
-// 1158 
-// 1159 /**
-// 1160   * @brief  Return the DMA2D error code
-// 1161   * @param  hdma2d : pointer to a DMA2D_HandleTypeDef structure that contains
-// 1162   *               the configuration information for DMA2D.
-// 1163   * @retval DMA2D Error Code
-// 1164   */
+// 1164 
+// 1165 /**
+// 1166   * @brief  Return the DMA2D error code
+// 1167   * @param  hdma2d : pointer to a DMA2D_HandleTypeDef structure that contains
+// 1168   *               the configuration information for DMA2D.
+// 1169   * @retval DMA2D Error Code
+// 1170   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock19 Using cfiCommon0
           CFI Function HAL_DMA2D_GetError
           CFI NoCalls
         THUMB
-// 1165 uint32_t HAL_DMA2D_GetError(DMA2D_HandleTypeDef *hdma2d)
-// 1166 {
-// 1167   return hdma2d->ErrorCode;
+// 1171 uint32_t HAL_DMA2D_GetError(DMA2D_HandleTypeDef *hdma2d)
+// 1172 {
+// 1173   return hdma2d->ErrorCode;
 HAL_DMA2D_GetError:
         LDR      R0,[R0, #+60]
         BX       LR               ;; return
-// 1168 }
+// 1174 }
           CFI EndBlock cfiBlock19
-// 1169 
-// 1170 /**
-// 1171   * @}
-// 1172   */
-// 1173 
-// 1174 
-// 1175 /**
-// 1176   * @brief  Set the DMA2D Transfer parameter.
-// 1177   * @param  hdma2d:     pointer to a DMA2D_HandleTypeDef structure that contains
-// 1178   *                     the configuration information for the specified DMA2D.  
-// 1179   * @param  pdata:      The source memory Buffer address
-// 1180   * @param  DstAddress: The destination memory Buffer address
-// 1181   * @param  Width:      The width of data to be transferred from source to destination.
-// 1182   * @param  Height:     The height of data to be transferred from source to destination.
-// 1183   * @retval HAL status
-// 1184   */
+// 1175 
+// 1176 /**
+// 1177   * @}
+// 1178   */
+// 1179 
+// 1180 
+// 1181 /**
+// 1182   * @brief  Set the DMA2D Transfer parameter.
+// 1183   * @param  hdma2d:     pointer to a DMA2D_HandleTypeDef structure that contains
+// 1184   *                     the configuration information for the specified DMA2D.  
+// 1185   * @param  pdata:      The source memory Buffer address
+// 1186   * @param  DstAddress: The destination memory Buffer address
+// 1187   * @param  Width:      The width of data to be transferred from source to destination.
+// 1188   * @param  Height:     The height of data to be transferred from source to destination.
+// 1189   * @retval HAL status
+// 1190   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock20 Using cfiCommon0
           CFI Function DMA2D_SetConfig
           CFI NoCalls
         THUMB
-// 1185 static void DMA2D_SetConfig(DMA2D_HandleTypeDef *hdma2d, uint32_t pdata, uint32_t DstAddress, uint32_t Width, uint32_t Height)
-// 1186 {  
+// 1191 static void DMA2D_SetConfig(DMA2D_HandleTypeDef *hdma2d, uint32_t pdata, uint32_t DstAddress, uint32_t Width, uint32_t Height)
+// 1192 {  
 DMA2D_SetConfig:
         PUSH     {R4,R5}
           CFI R5 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-// 1187   uint32_t tmp = 0;
-// 1188   uint32_t tmp1 = 0;
-// 1189   uint32_t tmp2 = 0;
-// 1190   uint32_t tmp3 = 0;
-// 1191   uint32_t tmp4 = 0;
-// 1192   
-// 1193   tmp = Width << 16;
-// 1194   
-// 1195   /* Configure DMA2D data size */
-// 1196   hdma2d->Instance->NLR = (Height | tmp);
+// 1193   uint32_t tmp = 0;
+// 1194   uint32_t tmp1 = 0;
+// 1195   uint32_t tmp2 = 0;
+// 1196   uint32_t tmp3 = 0;
+// 1197   uint32_t tmp4 = 0;
+// 1198   
+// 1199   tmp = Width << 16;
+// 1200   
+// 1201   /* Configure DMA2D data size */
+// 1202   hdma2d->Instance->NLR = (Height | tmp);
         LDR      R4,[R0, #+0]
         LDR      R5,[SP, #+8]
         ORR      R3,R5,R3, LSL #+16
         STR      R3,[R4, #+68]
-// 1197   
-// 1198   /* Configure DMA2D destination address */
-// 1199   hdma2d->Instance->OMAR = DstAddress;
+// 1203   
+// 1204   /* Configure DMA2D destination address */
+// 1205   hdma2d->Instance->OMAR = DstAddress;
         STR      R2,[R4, #+60]
-// 1200  
-// 1201   /* Register to memory DMA2D mode selected */
-// 1202   if (hdma2d->Init.Mode == DMA2D_R2M)
+// 1206  
+// 1207   /* Register to memory DMA2D mode selected */
+// 1208   if (hdma2d->Init.Mode == DMA2D_R2M)
         LDR      R2,[R0, #+4]
         CMP      R2,#+196608
         BNE.N    ??DMA2D_SetConfig_0
-// 1203   {    
-// 1204     tmp1 = pdata & DMA2D_OCOLR_ALPHA_1;
-// 1205     tmp2 = pdata & DMA2D_OCOLR_RED_1;
-// 1206     tmp3 = pdata & DMA2D_OCOLR_GREEN_1;
-// 1207     tmp4 = pdata & DMA2D_OCOLR_BLUE_1;
-// 1208     
-// 1209     /* Prepare the value to be wrote to the OCOLR register according to the color mode */
-// 1210     if (hdma2d->Init.ColorMode == DMA2D_ARGB8888)
+// 1209   {    
+// 1210     tmp1 = pdata & DMA2D_OCOLR_ALPHA_1;
+// 1211     tmp2 = pdata & DMA2D_OCOLR_RED_1;
+// 1212     tmp3 = pdata & DMA2D_OCOLR_GREEN_1;
+// 1213     tmp4 = pdata & DMA2D_OCOLR_BLUE_1;
+// 1214     
+// 1215     /* Prepare the value to be wrote to the OCOLR register according to the color mode */
+// 1216     if (hdma2d->Init.ColorMode == DMA2D_ARGB8888)
         LDR      R0,[R0, #+8]
         AND      R2,R1,#0xFF000000
         AND      R3,R1,#0xFF0000
         AND      R5,R1,#0xFF00
         UXTB     R1,R1
         CBNZ.N   R0,??DMA2D_SetConfig_1
-// 1211     {
-// 1212       tmp = (tmp3 | tmp2 | tmp1| tmp4);
+// 1217     {
+// 1218       tmp = (tmp3 | tmp2 | tmp1| tmp4);
         ORR      R0,R3,R5
         ORRS     R0,R2,R0
         ORRS     R0,R1,R0
-// 1213     }
-// 1214     else if (hdma2d->Init.ColorMode == DMA2D_RGB888)
-// 1215     {
-// 1216       tmp = (tmp3 | tmp2 | tmp4);  
-// 1217     }
-// 1218     else if (hdma2d->Init.ColorMode == DMA2D_RGB565)
-// 1219     {
-// 1220       tmp2 = (tmp2 >> 19);
-// 1221       tmp3 = (tmp3 >> 10);
-// 1222       tmp4 = (tmp4 >> 3 );
-// 1223       tmp  = ((tmp3 << 5) | (tmp2 << 11) | tmp4); 
-// 1224     }
-// 1225     else if (hdma2d->Init.ColorMode == DMA2D_ARGB1555)
-// 1226     { 
-// 1227       tmp1 = (tmp1 >> 31);
-// 1228       tmp2 = (tmp2 >> 19);
-// 1229       tmp3 = (tmp3 >> 11);
-// 1230       tmp4 = (tmp4 >> 3 );      
-// 1231       tmp  = ((tmp3 << 5) | (tmp2 << 10) | (tmp1 << 15) | tmp4);    
-// 1232     } 
-// 1233     else /* DMA2D_CMode = DMA2D_ARGB4444 */
-// 1234     {
-// 1235       tmp1 = (tmp1 >> 28);
-// 1236       tmp2 = (tmp2 >> 20);
-// 1237       tmp3 = (tmp3 >> 12);
-// 1238       tmp4 = (tmp4 >> 4 );
-// 1239       tmp  = ((tmp3 << 4) | (tmp2 << 8) | (tmp1 << 12) | tmp4);
-// 1240     }    
-// 1241     /* Write to DMA2D OCOLR register */
-// 1242     hdma2d->Instance->OCOLR = tmp;
+// 1219     }
+// 1220     else if (hdma2d->Init.ColorMode == DMA2D_RGB888)
+// 1221     {
+// 1222       tmp = (tmp3 | tmp2 | tmp4);  
+// 1223     }
+// 1224     else if (hdma2d->Init.ColorMode == DMA2D_RGB565)
+// 1225     {
+// 1226       tmp2 = (tmp2 >> 19);
+// 1227       tmp3 = (tmp3 >> 10);
+// 1228       tmp4 = (tmp4 >> 3 );
+// 1229       tmp  = ((tmp3 << 5) | (tmp2 << 11) | tmp4); 
+// 1230     }
+// 1231     else if (hdma2d->Init.ColorMode == DMA2D_ARGB1555)
+// 1232     { 
+// 1233       tmp1 = (tmp1 >> 31);
+// 1234       tmp2 = (tmp2 >> 19);
+// 1235       tmp3 = (tmp3 >> 11);
+// 1236       tmp4 = (tmp4 >> 3 );      
+// 1237       tmp  = ((tmp3 << 5) | (tmp2 << 10) | (tmp1 << 15) | tmp4);    
+// 1238     } 
+// 1239     else /* DMA2D_CMode = DMA2D_ARGB4444 */
+// 1240     {
+// 1241       tmp1 = (tmp1 >> 28);
+// 1242       tmp2 = (tmp2 >> 20);
+// 1243       tmp3 = (tmp3 >> 12);
+// 1244       tmp4 = (tmp4 >> 4 );
+// 1245       tmp  = ((tmp3 << 4) | (tmp2 << 8) | (tmp1 << 12) | tmp4);
+// 1246     }    
+// 1247     /* Write to DMA2D OCOLR register */
+// 1248     hdma2d->Instance->OCOLR = tmp;
         STR      R0,[R4, #+56]
-// 1243   } 
-// 1244   else /* M2M, M2M_PFC or M2M_Blending DMA2D Mode */
-// 1245   {
-// 1246     /* Configure DMA2D source address */
-// 1247     hdma2d->Instance->FGMAR = pdata;
-// 1248   }
-// 1249 }
+// 1249   } 
+// 1250   else /* M2M, M2M_PFC or M2M_Blending DMA2D Mode */
+// 1251   {
+// 1252     /* Configure DMA2D source address */
+// 1253     hdma2d->Instance->FGMAR = pdata;
+// 1254   }
+// 1255 }
         POP      {R4,R5}
           CFI R4 SameValue
           CFI R5 SameValue
@@ -2386,20 +2392,20 @@ DMA2D_SetConfig:
         SECTION_TYPE SHT_PROGBITS, 0
 
         END
-// 1250 
-// 1251 /**
-// 1252   * @}
-// 1253   */
-// 1254 #endif /* HAL_DMA2D_MODULE_ENABLED */
-// 1255 /**
-// 1256   * @}
-// 1257   */
-// 1258 
-// 1259 /**
-// 1260   * @}
-// 1261   */
-// 1262 
-// 1263 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+// 1256 
+// 1257 /**
+// 1258   * @}
+// 1259   */
+// 1260 #endif /* HAL_DMA2D_MODULE_ENABLED */
+// 1261 /**
+// 1262   * @}
+// 1263   */
+// 1264 
+// 1265 /**
+// 1266   * @}
+// 1267   */
+// 1268 
+// 1269 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
 // 1 556 bytes in section .text
 // 

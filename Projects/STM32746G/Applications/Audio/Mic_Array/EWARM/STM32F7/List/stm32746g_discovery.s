@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      31/Mar/2016  20:53:44
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      06/Apr/2016  18:05:29
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -412,6 +412,7 @@ BSP_LED_Init:
 //  193     /* Enable the GPIO_LED clock */
 //  194     LED1_GPIO_CLK_ENABLE();
         LDR.W    R1,??DataTable31  ;; 0x40023830
+        STR      R0,[SP, #+0]
 //  195 
 //  196     /* Configure the GPIO_LED pin */
 //  197     gpio_init_structure.Pin = GPIO_PIN[Led];
@@ -454,7 +455,7 @@ BSP_LED_Init:
 //  209     gpio_led = LED2_GPIO_PORT;
 //  210     /* Enable the GPIO_LED clock */
 //  211     LED2_GPIO_CLK_ENABLE();
-        LDR.W    R1,??DataTable31  ;; 0x40023830
+        MOVS     R1,#+0
 //  212 
 //  213     /* Configure the GPIO_LED pin */
 //  214     gpio_init_structure.Pin = GPIO_PIN[Led];
@@ -464,6 +465,8 @@ BSP_LED_Init:
 //  218   
 //  219     HAL_GPIO_Init(gpio_led, &gpio_init_structure);
         LDR.W    R5,??DataTable31_1  ;; 0x40022000
+        STR      R1,[SP, #+0]
+        LDR.W    R1,??DataTable31  ;; 0x40023830
         LDR      R2,[R1, #+0]
         ORR      R2,R2,#0x100
         STR      R2,[R1, #+0]
@@ -802,24 +805,16 @@ BSP_PB_Init:
           CFI R4 Frame(CFA, -16)
           CFI CFA R13+16
         MOVS     R4,R0
+        MOV      R6,R1
         SUB      SP,SP,#+24
           CFI CFA R13+40
-        MOV      R6,R1
 //  351   GPIO_InitTypeDef gpio_init_structure;
 //  352   
 //  353   /* Enable the BUTTON clock */
 //  354   BUTTONx_GPIO_CLK_ENABLE(Button);
         LDR.W    R0,??DataTable31  ;; 0x40023830
-        BNE.N    ??BSP_PB_Init_0
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x100
-        STR      R1,[R0, #+0]
-        LDR      R0,[R0, #+0]
-        AND      R0,R0,#0x100
-        STR      R0,[SP, #+0]
-        LDR      R0,[SP, #+0]
-        B.N      ??BSP_PB_Init_1
-??BSP_PB_Init_0:
+        MOVS     R1,#+0
+        STR      R1,[SP, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x100
         STR      R1,[R0, #+0]
@@ -829,8 +824,7 @@ BSP_PB_Init:
         LDR      R0,[SP, #+0]
 //  355   
 //  356   if(ButtonMode == BUTTON_MODE_GPIO)
-??BSP_PB_Init_1:
-        CBNZ.N   R6,??BSP_PB_Init_2
+        CBNZ.N   R6,??BSP_PB_Init_0
 //  357   {
 //  358     /* Configure Button pin as input */
 //  359     gpio_init_structure.Pin = BUTTON_PIN[Button];
@@ -855,9 +849,9 @@ BSP_PB_Init:
 //  364   }
 //  365   
 //  366   if(ButtonMode == BUTTON_MODE_EXTI)
-??BSP_PB_Init_2:
+??BSP_PB_Init_0:
         CMP      R6,#+1
-        BNE.N    ??BSP_PB_Init_3
+        BNE.N    ??BSP_PB_Init_1
 //  367   {
 //  368     /* Configure Button pin as input with External interrupt */
 //  369     gpio_init_structure.Pin = BUTTON_PIN[Button];
@@ -908,7 +902,7 @@ BSP_PB_Init:
         BL       HAL_NVIC_EnableIRQ
 //  387   }
 //  388 }
-??BSP_PB_Init_3:
+??BSP_PB_Init_1:
         ADD      SP,SP,#+24
           CFI CFA R13+16
         POP      {R4-R6,PC}       ;; return
@@ -1027,6 +1021,7 @@ BSP_COM_Init:
 //  444   /* Enable GPIO clock */
 //  445   DISCOVERY_COMx_TX_GPIO_CLK_ENABLE(COM);
         BNE.N    ??BSP_COM_Init_0
+        STR      R0,[SP, #+0]
         LDR.W    R0,??DataTable31  ;; 0x40023830
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x1
@@ -1036,6 +1031,8 @@ BSP_COM_Init:
         STR      R1,[SP, #+0]
         LDR      R1,[SP, #+0]
 //  446   DISCOVERY_COMx_RX_GPIO_CLK_ENABLE(COM);
+        MOVS     R1,#+0
+        STR      R1,[SP, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x2
         STR      R1,[R0, #+0]
@@ -1046,6 +1043,8 @@ BSP_COM_Init:
 //  447 
 //  448   /* Enable USART clock */
 //  449   DISCOVERY_COMx_CLK_ENABLE(COM);
+        MOVS     R1,#+0
+        STR      R1,[SP, #+0]
         LDR      R1,[R0, #+20]
         ORR      R1,R1,#0x10
         STR      R1,[R0, #+20]
@@ -1180,23 +1179,22 @@ BSP_COM_DeInit:
         THUMB
 //  506 static void I2Cx_MspInit(I2C_HandleTypeDef *i2c_handler)
 //  507 {
+//  508   GPIO_InitTypeDef  gpio_init_structure;
+//  509   
+//  510   if (i2c_handler == (I2C_HandleTypeDef*)(&hI2cAudioHandler))
 I2Cx_MspInit:
+        LDR.N    R1,??DataTable31_7
+        CMP      R0,R1
         PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
           CFI R6 Frame(CFA, -8)
           CFI R5 Frame(CFA, -12)
           CFI R4 Frame(CFA, -16)
           CFI CFA R13+16
-//  508   GPIO_InitTypeDef  gpio_init_structure;
-//  509   
-//  510   if (i2c_handler == (I2C_HandleTypeDef*)(&hI2cAudioHandler))
-        LDR.N    R4,??DataTable31_7  ;; 0x40023820
-        LDR.N    R1,??DataTable31_8
         SUB      SP,SP,#+24
           CFI CFA R13+40
-        CMP      R0,R1
+        LDR.N    R4,??DataTable31_8  ;; 0x40023820
         MOV      R5,#+256
-        LDR      R0,[R4, #+16]
         BNE.N    ??I2Cx_MspInit_0
 //  511   {
 //  512     /* AUDIO and LCD I2C MSP init */
@@ -1204,7 +1202,7 @@ I2Cx_MspInit:
 //  514     /*** Configure the GPIOs ***/
 //  515     /* Enable GPIO clock */
 //  516     DISCOVERY_AUDIO_I2Cx_SCL_SDA_GPIO_CLK_ENABLE();
-        ORR      R0,R0,#0x80
+        MOVS     R0,#+0
 //  517 
 //  518     /* Configure I2C Tx as alternate function */
 //  519     gpio_init_structure.Pin = DISCOVERY_AUDIO_I2Cx_SCL_PIN;
@@ -1214,9 +1212,12 @@ I2Cx_MspInit:
 //  523     gpio_init_structure.Alternate = DISCOVERY_AUDIO_I2Cx_SCL_SDA_AF;
 //  524     HAL_GPIO_Init(DISCOVERY_AUDIO_I2Cx_SCL_SDA_GPIO_PORT, &gpio_init_structure);
         LDR.N    R6,??DataTable31_9  ;; 0x40021c00
-        STR      R0,[R4, #+16]
+        STR      R0,[SP, #+0]
         LDR      R0,[R4, #+16]
         ADD      R1,SP,#+4
+        ORR      R0,R0,#0x80
+        STR      R0,[R4, #+16]
+        LDR      R0,[R4, #+16]
         AND      R0,R0,#0x80
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
@@ -1246,7 +1247,7 @@ I2Cx_MspInit:
 //  530     /*** Configure the I2C peripheral ***/
 //  531     /* Enable I2C clock */
 //  532     DISCOVERY_AUDIO_I2Cx_CLK_ENABLE();
-        LDR      R0,[R4, #+32]
+        MOVS     R0,#+0
 //  533 
 //  534     /* Force the I2C peripheral clock reset */
 //  535     DISCOVERY_AUDIO_I2Cx_FORCE_RESET();
@@ -1257,6 +1258,8 @@ I2Cx_MspInit:
 //  540     /* Enable and set I2Cx Interrupt to a lower priority */
 //  541     HAL_NVIC_SetPriority(DISCOVERY_AUDIO_I2Cx_EV_IRQn, 0x05, 0);
         MOVS     R2,#+0
+        STR      R0,[SP, #+0]
+        LDR      R0,[R4, #+32]
         MOVS     R1,#+5
         ORR      R0,R0,#0x800000
         STR      R0,[R4, #+32]
@@ -1297,7 +1300,7 @@ I2Cx_MspInit:
 //  553     /* Enable GPIO clock */
 //  554     DISCOVERY_EXT_I2Cx_SCL_SDA_GPIO_CLK_ENABLE();
 ??I2Cx_MspInit_0:
-        ORR      R0,R0,#0x2
+        MOVS     R0,#+0
 //  555 
 //  556     /* Configure I2C Tx as alternate function */
 //  557     gpio_init_structure.Pin = DISCOVERY_EXT_I2Cx_SCL_PIN;
@@ -1307,6 +1310,9 @@ I2Cx_MspInit:
 //  561     gpio_init_structure.Alternate = DISCOVERY_EXT_I2Cx_SCL_SDA_AF;
 //  562     HAL_GPIO_Init(DISCOVERY_EXT_I2Cx_SCL_SDA_GPIO_PORT, &gpio_init_structure);
         ADD      R1,SP,#+4
+        STR      R0,[SP, #+0]
+        LDR      R0,[R4, #+16]
+        ORR      R0,R0,#0x2
         STR      R0,[R4, #+16]
         LDR      R0,[R4, #+16]
         AND      R0,R0,#0x2
@@ -1339,7 +1345,7 @@ I2Cx_MspInit:
 //  568     /*** Configure the I2C peripheral ***/
 //  569     /* Enable I2C clock */
 //  570     DISCOVERY_EXT_I2Cx_CLK_ENABLE();
-        LDR      R0,[R4, #+32]
+        MOVS     R0,#+0
 //  571 
 //  572     /* Force the I2C peripheral clock reset */
 //  573     DISCOVERY_EXT_I2Cx_FORCE_RESET();
@@ -1350,6 +1356,8 @@ I2Cx_MspInit:
 //  578     /* Enable and set I2Cx Interrupt to a lower priority */
 //  579     HAL_NVIC_SetPriority(DISCOVERY_EXT_I2Cx_EV_IRQn, 0x05, 0);
         MOVS     R2,#+0
+        STR      R0,[SP, #+0]
+        LDR      R0,[R4, #+32]
         MOVS     R1,#+5
         ORR      R0,R0,#0x200000
         STR      R0,[R4, #+32]
@@ -1414,7 +1422,7 @@ I2Cx_Init:
         CBNZ.N   R0,??I2Cx_Init_0
 //  596   {
 //  597     if (i2c_handler == (I2C_HandleTypeDef*)(&hI2cAudioHandler))
-        LDR.N    R1,??DataTable31_8
+        LDR.N    R1,??DataTable31_7
         LDR.N    R0,??DataTable31_11  ;; 0x40005400
         CMP      R4,R1
         IT       EQ 
@@ -1577,7 +1585,7 @@ I2Cx_Init:
 //  720 {
 //  721   I2Cx_Init(&hI2cAudioHandler);
 AUDIO_IO_Init:
-        LDR.N    R0,??DataTable31_8
+        LDR.N    R0,??DataTable31_7
           CFI FunCall I2Cx_Init
         B.N      I2Cx_Init
 //  722 }
@@ -1630,7 +1638,7 @@ AUDIO_IO_Write:
           CFI CFA R13+24
 //  746   
 //  747   I2Cx_WriteMultiple(&hI2cAudioHandler, Addr, Reg, I2C_MEMADD_SIZE_16BIT,(uint8_t*)&Value, 2);
-        LDR.N    R4,??DataTable31_8
+        LDR.N    R4,??DataTable31_7
         MOVS     R3,#+2
         STRH     R2,[SP, #+12]
         MOV      R2,#+1000
@@ -1690,7 +1698,7 @@ AUDIO_IO_Read:
         ADD      R2,SP,#+12
         STR      R2,[SP, #+0]
         MOV      R2,R1
-        LDR.N    R4,??DataTable31_8
+        LDR.N    R4,??DataTable31_7
         MOV      R1,R0
         MOVS     R3,#+2
         MOV      R0,R4
@@ -2050,7 +2058,7 @@ EEPROM_IO_IsDeviceReady:
 //  885 {
 //  886   I2Cx_Init(&hI2cAudioHandler);
 TS_IO_Init:
-        LDR.N    R0,??DataTable31_8
+        LDR.N    R0,??DataTable31_7
           CFI FunCall I2Cx_Init
         B.N      I2Cx_Init
 //  887 }
@@ -2085,7 +2093,7 @@ TS_IO_Write:
         ADD      R2,SP,#+12
         STR      R2,[SP, #+0]
         MOV      R2,R1
-        LDR.N    R4,??DataTable31_8
+        LDR.N    R4,??DataTable31_7
         MOV      R1,R0
         MOVS     R3,#+1
         MOV      R0,R4
@@ -2137,7 +2145,7 @@ TS_IO_Read:
         ADD      R2,SP,#+12
         STR      R2,[SP, #+0]
         MOV      R2,R1
-        LDR.N    R4,??DataTable31_8
+        LDR.N    R4,??DataTable31_7
         MOV      R1,R0
         MOVS     R3,#+1
         MOV      R0,R4
@@ -2206,13 +2214,13 @@ TS_IO_Read:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable31_7:
-        DC32     0x40023820
+        DC32     hI2cAudioHandler
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable31_8:
-        DC32     hI2cAudioHandler
+        DC32     0x40023820
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -2340,9 +2348,9 @@ COM_RX_AF:
 // 
 //   120 bytes in section .bss
 //    24 bytes in section .data
-// 1 702 bytes in section .text
+// 1 718 bytes in section .text
 // 
-// 1 702 bytes of CODE memory
+// 1 718 bytes of CODE memory
 //   144 bytes of DATA memory
 //
 //Errors: none

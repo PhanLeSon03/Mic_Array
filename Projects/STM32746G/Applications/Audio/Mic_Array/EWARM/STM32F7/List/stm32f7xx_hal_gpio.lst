@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       31/Mar/2016  20:53:45
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       06/Apr/2016  18:05:30
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -63,8 +63,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
       2            ******************************************************************************
       3            * @file    stm32f7xx_hal_gpio.c
       4            * @author  MCD Application Team
-      5            * @version V1.0.1
-      6            * @date    25-June-2015
+      5            * @version V1.0.4
+      6            * @date    09-December-2015
       7            * @brief   GPIO HAL module driver.
       8            *          This file provides firmware functions to manage the following 
       9            *          functionalities of the General Purpose Input/Output (GPIO) peripheral:
@@ -285,7 +285,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     207          
     208              if(iocurrent == ioposition)
    \   00000026   0x4580             CMP      R8,R0
-   \   00000028   0xF040 0x80CC      BNE.W    ??HAL_GPIO_Init_1
+   \   00000028   0xF040 0x80CE      BNE.W    ??HAL_GPIO_Init_1
     209              {
     210                /*--------------------- GPIO Mode Configuration ------------------------*/
     211                /* In case of Alternate function mode selection */
@@ -394,156 +394,158 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     257                if((GPIO_Init->Mode & EXTI_MODE) == EXTI_MODE)
    \   000000C8   0x6848             LDR      R0,[R1, #+4]
    \   000000CA   0x00C0             LSLS     R0,R0,#+3
-   \   000000CC   0xD57A             BPL.N    ??HAL_GPIO_Init_1
+   \   000000CC   0xD57C             BPL.N    ??HAL_GPIO_Init_1
     258                {
     259                  /* Enable SYSCFG Clock */
     260                  __HAL_RCC_SYSCFG_CLK_ENABLE();
-   \   000000CE   0x6838             LDR      R0,[R7, #+0]
+   \   000000CE   0x2000             MOVS     R0,#+0
     261          
     262                  temp = SYSCFG->EXTICR[position >> 2];
     263                  temp &= ~(((uint32_t)0x0F) << (4 * (position & 0x03)));
    \   000000D0   0xF003 0x0C03      AND      R12,R3,#0x3
-   \   000000D4   0xEA4F 0x0C8C      LSL      R12,R12,#+2
-   \   000000D8   0xFA0E 0xF60C      LSL      R6,LR,R12
-   \   000000DC   0xF440 0x4080      ORR      R0,R0,#0x4000
-   \   000000E0   0x6038             STR      R0,[R7, #+0]
-   \   000000E2   0x6838             LDR      R0,[R7, #+0]
-   \   000000E4   0xF400 0x4080      AND      R0,R0,#0x4000
-   \   000000E8   0x9000             STR      R0,[SP, #+0]
-   \   000000EA   0x9800             LDR      R0,[SP, #+0]
-   \   000000EC   0x0898             LSRS     R0,R3,#+2
-   \   000000EE   0xF85A 0x5020      LDR      R5,[R10, R0, LSL #+2]
-   \   000000F2   0x43B5             BICS     R5,R5,R6
+   \   000000D4   0x9000             STR      R0,[SP, #+0]
+   \   000000D6   0x6838             LDR      R0,[R7, #+0]
+   \   000000D8   0xEA4F 0x0C8C      LSL      R12,R12,#+2
+   \   000000DC   0xFA0E 0xF60C      LSL      R6,LR,R12
+   \   000000E0   0xF440 0x4080      ORR      R0,R0,#0x4000
+   \   000000E4   0x6038             STR      R0,[R7, #+0]
+   \   000000E6   0x6838             LDR      R0,[R7, #+0]
+   \   000000E8   0xF400 0x4080      AND      R0,R0,#0x4000
+   \   000000EC   0x9000             STR      R0,[SP, #+0]
+   \   000000EE   0x9800             LDR      R0,[SP, #+0]
+   \   000000F0   0x0898             LSRS     R0,R3,#+2
+   \   000000F2   0xF85A 0x5020      LDR      R5,[R10, R0, LSL #+2]
+   \   000000F6   0x43B5             BICS     R5,R5,R6
     264                  temp |= ((uint32_t)(GPIO_GET_INDEX(GPIOx)) << (4 * (position & 0x03)));
-   \   000000F4   0x....             LDR.N    R6,??DataTable2_3  ;; 0x40020000
-   \   000000F6   0x42B2             CMP      R2,R6
-   \   000000F8   0xBF08             IT       EQ 
-   \   000000FA   0x2600             MOVEQ    R6,#+0
-   \   000000FC   0xD02C             BEQ.N    ??HAL_GPIO_Init_5
-   \   000000FE   0x....             LDR.N    R6,??DataTable2_4  ;; 0x40020400
-   \   00000100   0x42B2             CMP      R2,R6
-   \   00000102   0xBF08             IT       EQ 
-   \   00000104   0x2601             MOVEQ    R6,#+1
-   \   00000106   0xD027             BEQ.N    ??HAL_GPIO_Init_5
-   \   00000108   0x....             LDR.N    R6,??DataTable2_5  ;; 0x40020800
-   \   0000010A   0x42B2             CMP      R2,R6
-   \   0000010C   0xBF08             IT       EQ 
-   \   0000010E   0x2602             MOVEQ    R6,#+2
-   \   00000110   0xD022             BEQ.N    ??HAL_GPIO_Init_5
-   \   00000112   0x....             LDR.N    R6,??DataTable2_6  ;; 0x40020c00
-   \   00000114   0x42B2             CMP      R2,R6
-   \   00000116   0xBF08             IT       EQ 
-   \   00000118   0x2603             MOVEQ    R6,#+3
-   \   0000011A   0xD01D             BEQ.N    ??HAL_GPIO_Init_5
-   \   0000011C   0x....             LDR.N    R6,??DataTable2_7  ;; 0x40021000
-   \   0000011E   0x42B2             CMP      R2,R6
-   \   00000120   0xBF08             IT       EQ 
-   \   00000122   0x2604             MOVEQ    R6,#+4
-   \   00000124   0xD018             BEQ.N    ??HAL_GPIO_Init_5
-   \   00000126   0x....             LDR.N    R6,??DataTable2_8  ;; 0x40021400
-   \   00000128   0x42B2             CMP      R2,R6
-   \   0000012A   0xBF08             IT       EQ 
-   \   0000012C   0x2605             MOVEQ    R6,#+5
-   \   0000012E   0xD013             BEQ.N    ??HAL_GPIO_Init_5
-   \   00000130   0x....             LDR.N    R6,??DataTable2_9  ;; 0x40021800
-   \   00000132   0x42B2             CMP      R2,R6
-   \   00000134   0xBF08             IT       EQ 
-   \   00000136   0x2606             MOVEQ    R6,#+6
-   \   00000138   0xD00E             BEQ.N    ??HAL_GPIO_Init_5
-   \   0000013A   0x....             LDR.N    R6,??DataTable2_10  ;; 0x40021c00
-   \   0000013C   0x42B2             CMP      R2,R6
-   \   0000013E   0xBF08             IT       EQ 
-   \   00000140   0x2607             MOVEQ    R6,#+7
-   \   00000142   0xD009             BEQ.N    ??HAL_GPIO_Init_5
-   \   00000144   0x....             LDR.N    R6,??DataTable2_11  ;; 0x40022000
-   \   00000146   0x42B2             CMP      R2,R6
-   \   00000148   0xBF08             IT       EQ 
-   \   0000014A   0x2608             MOVEQ    R6,#+8
-   \   0000014C   0xD004             BEQ.N    ??HAL_GPIO_Init_5
-   \   0000014E   0x....             LDR.N    R6,??DataTable2_12  ;; 0x40022400
-   \   00000150   0x42B2             CMP      R2,R6
-   \   00000152   0xBF0C             ITE      EQ 
-   \   00000154   0x2609             MOVEQ    R6,#+9
-   \   00000156   0x260A             MOVNE    R6,#+10
+   \   000000F8   0x....             LDR.N    R6,??DataTable2_3  ;; 0x40020000
+   \   000000FA   0x42B2             CMP      R2,R6
+   \   000000FC   0xBF08             IT       EQ 
+   \   000000FE   0x2600             MOVEQ    R6,#+0
+   \   00000100   0xD02C             BEQ.N    ??HAL_GPIO_Init_5
+   \   00000102   0x....             LDR.N    R6,??DataTable2_4  ;; 0x40020400
+   \   00000104   0x42B2             CMP      R2,R6
+   \   00000106   0xBF08             IT       EQ 
+   \   00000108   0x2601             MOVEQ    R6,#+1
+   \   0000010A   0xD027             BEQ.N    ??HAL_GPIO_Init_5
+   \   0000010C   0x....             LDR.N    R6,??DataTable2_5  ;; 0x40020800
+   \   0000010E   0x42B2             CMP      R2,R6
+   \   00000110   0xBF08             IT       EQ 
+   \   00000112   0x2602             MOVEQ    R6,#+2
+   \   00000114   0xD022             BEQ.N    ??HAL_GPIO_Init_5
+   \   00000116   0x....             LDR.N    R6,??DataTable2_6  ;; 0x40020c00
+   \   00000118   0x42B2             CMP      R2,R6
+   \   0000011A   0xBF08             IT       EQ 
+   \   0000011C   0x2603             MOVEQ    R6,#+3
+   \   0000011E   0xD01D             BEQ.N    ??HAL_GPIO_Init_5
+   \   00000120   0x....             LDR.N    R6,??DataTable2_7  ;; 0x40021000
+   \   00000122   0x42B2             CMP      R2,R6
+   \   00000124   0xBF08             IT       EQ 
+   \   00000126   0x2604             MOVEQ    R6,#+4
+   \   00000128   0xD018             BEQ.N    ??HAL_GPIO_Init_5
+   \   0000012A   0x....             LDR.N    R6,??DataTable2_8  ;; 0x40021400
+   \   0000012C   0x42B2             CMP      R2,R6
+   \   0000012E   0xBF08             IT       EQ 
+   \   00000130   0x2605             MOVEQ    R6,#+5
+   \   00000132   0xD013             BEQ.N    ??HAL_GPIO_Init_5
+   \   00000134   0x....             LDR.N    R6,??DataTable2_9  ;; 0x40021800
+   \   00000136   0x42B2             CMP      R2,R6
+   \   00000138   0xBF08             IT       EQ 
+   \   0000013A   0x2606             MOVEQ    R6,#+6
+   \   0000013C   0xD00E             BEQ.N    ??HAL_GPIO_Init_5
+   \   0000013E   0x....             LDR.N    R6,??DataTable2_10  ;; 0x40021c00
+   \   00000140   0x42B2             CMP      R2,R6
+   \   00000142   0xBF08             IT       EQ 
+   \   00000144   0x2607             MOVEQ    R6,#+7
+   \   00000146   0xD009             BEQ.N    ??HAL_GPIO_Init_5
+   \   00000148   0x....             LDR.N    R6,??DataTable2_11  ;; 0x40022000
+   \   0000014A   0x42B2             CMP      R2,R6
+   \   0000014C   0xBF08             IT       EQ 
+   \   0000014E   0x2608             MOVEQ    R6,#+8
+   \   00000150   0xD004             BEQ.N    ??HAL_GPIO_Init_5
+   \   00000152   0x....             LDR.N    R6,??DataTable2_12  ;; 0x40022400
+   \   00000154   0x42B2             CMP      R2,R6
+   \   00000156   0xBF0C             ITE      EQ 
+   \   00000158   0x2609             MOVEQ    R6,#+9
+   \   0000015A   0x260A             MOVNE    R6,#+10
     265                  SYSCFG->EXTICR[position >> 2] = temp;
    \                     ??HAL_GPIO_Init_5: (+1)
-   \   00000158   0xFA06 0xFC0C      LSL      R12,R6,R12
-   \   0000015C   0xEA4C 0x0C05      ORR      R12,R12,R5
-   \   00000160   0xF84A 0xC020      STR      R12,[R10, R0, LSL #+2]
+   \   0000015C   0xFA06 0xFC0C      LSL      R12,R6,R12
+   \   00000160   0xEA4C 0x0C05      ORR      R12,R12,R5
+   \   00000164   0xF84A 0xC020      STR      R12,[R10, R0, LSL #+2]
     266          
     267                  /* Clear EXTI line configuration */
     268                  temp = EXTI->IMR;
-   \   00000164   0xF8D9 0xC000      LDR      R12,[R9, #+0]
+   \   00000168   0xF8D9 0xC000      LDR      R12,[R9, #+0]
     269                  temp &= ~((uint32_t)iocurrent);
     270                  if((GPIO_Init->Mode & GPIO_MODE_IT) == GPIO_MODE_IT)
-   \   00000168   0x684D             LDR      R5,[R1, #+4]
-   \   0000016A   0xEA6F 0x0008      MVN      R0,R8
-   \   0000016E   0xEA00 0x0C0C      AND      R12,R0,R12
-   \   00000172   0x03ED             LSLS     R5,R5,#+15
-   \   00000174   0xBF48             IT       MI 
-   \   00000176   0xEA48 0x0C0C      ORRMI    R12,R8,R12
+   \   0000016C   0x684D             LDR      R5,[R1, #+4]
+   \   0000016E   0xEA6F 0x0008      MVN      R0,R8
+   \   00000172   0xEA00 0x0C0C      AND      R12,R0,R12
+   \   00000176   0x03ED             LSLS     R5,R5,#+15
+   \   00000178   0xBF48             IT       MI 
+   \   0000017A   0xEA48 0x0C0C      ORRMI    R12,R8,R12
     271                  {
     272                    temp |= iocurrent;
     273                  }
     274                  EXTI->IMR = temp;
-   \   0000017A   0xF8C9 0xC000      STR      R12,[R9, #+0]
+   \   0000017E   0xF8C9 0xC000      STR      R12,[R9, #+0]
     275          
     276                  temp = EXTI->EMR;
-   \   0000017E   0xF8D9 0xC004      LDR      R12,[R9, #+4]
+   \   00000182   0xF8D9 0xC004      LDR      R12,[R9, #+4]
     277                  temp &= ~((uint32_t)iocurrent);
     278                  if((GPIO_Init->Mode & GPIO_MODE_EVT) == GPIO_MODE_EVT)
-   \   00000182   0x684D             LDR      R5,[R1, #+4]
-   \   00000184   0xEA00 0x0C0C      AND      R12,R0,R12
-   \   00000188   0x03AD             LSLS     R5,R5,#+14
-   \   0000018A   0xBF48             IT       MI 
-   \   0000018C   0xEA48 0x0C0C      ORRMI    R12,R8,R12
+   \   00000186   0x684D             LDR      R5,[R1, #+4]
+   \   00000188   0xEA00 0x0C0C      AND      R12,R0,R12
+   \   0000018C   0x03AD             LSLS     R5,R5,#+14
+   \   0000018E   0xBF48             IT       MI 
+   \   00000190   0xEA48 0x0C0C      ORRMI    R12,R8,R12
     279                  {
     280                    temp |= iocurrent;
     281                  }
     282                  EXTI->EMR = temp;
-   \   00000190   0xF8C9 0xC004      STR      R12,[R9, #+4]
+   \   00000194   0xF8C9 0xC004      STR      R12,[R9, #+4]
     283          
     284                  /* Clear Rising Falling edge configuration */
     285                  temp = EXTI->RTSR;
-   \   00000194   0xF8D9 0xC008      LDR      R12,[R9, #+8]
+   \   00000198   0xF8D9 0xC008      LDR      R12,[R9, #+8]
     286                  temp &= ~((uint32_t)iocurrent);
     287                  if((GPIO_Init->Mode & RISING_EDGE) == RISING_EDGE)
-   \   00000198   0x684D             LDR      R5,[R1, #+4]
-   \   0000019A   0xEA00 0x0C0C      AND      R12,R0,R12
-   \   0000019E   0x02ED             LSLS     R5,R5,#+11
-   \   000001A0   0xBF48             IT       MI 
-   \   000001A2   0xEA48 0x0C0C      ORRMI    R12,R8,R12
+   \   0000019C   0x684D             LDR      R5,[R1, #+4]
+   \   0000019E   0xEA00 0x0C0C      AND      R12,R0,R12
+   \   000001A2   0x02ED             LSLS     R5,R5,#+11
+   \   000001A4   0xBF48             IT       MI 
+   \   000001A6   0xEA48 0x0C0C      ORRMI    R12,R8,R12
     288                  {
     289                    temp |= iocurrent;
     290                  }
     291                  EXTI->RTSR = temp;
-   \   000001A6   0xF8C9 0xC008      STR      R12,[R9, #+8]
+   \   000001AA   0xF8C9 0xC008      STR      R12,[R9, #+8]
     292          
     293                  temp = EXTI->FTSR;
-   \   000001AA   0xF8D9 0xC00C      LDR      R12,[R9, #+12]
+   \   000001AE   0xF8D9 0xC00C      LDR      R12,[R9, #+12]
     294                  temp &= ~((uint32_t)iocurrent);
-   \   000001AE   0xEA00 0x000C      AND      R0,R0,R12
+   \   000001B2   0xEA00 0x000C      AND      R0,R0,R12
     295                  if((GPIO_Init->Mode & FALLING_EDGE) == FALLING_EDGE)
-   \   000001B2   0xF8D1 0xC004      LDR      R12,[R1, #+4]
-   \   000001B6   0xEA5F 0x2C8C      LSLS     R12,R12,#+10
-   \   000001BA   0xBF48             IT       MI 
-   \   000001BC   0xEA48 0x0000      ORRMI    R0,R8,R0
+   \   000001B6   0xF8D1 0xC004      LDR      R12,[R1, #+4]
+   \   000001BA   0xEA5F 0x2C8C      LSLS     R12,R12,#+10
+   \   000001BE   0xBF48             IT       MI 
+   \   000001C0   0xEA48 0x0000      ORRMI    R0,R8,R0
     296                  {
     297                    temp |= iocurrent;
     298                  }
     299                  EXTI->FTSR = temp;
-   \   000001C0   0xF8C9 0x000C      STR      R0,[R9, #+12]
+   \   000001C4   0xF8C9 0x000C      STR      R0,[R9, #+12]
     300                }
     301              }
     302            }
    \                     ??HAL_GPIO_Init_1: (+1)
-   \   000001C4   0x1C5B             ADDS     R3,R3,#+1
-   \   000001C6   0x1CA4             ADDS     R4,R4,#+2
-   \   000001C8   0x2B10             CMP      R3,#+16
-   \   000001CA   0xF4FF 0xAF26      BCC.W    ??HAL_GPIO_Init_0
+   \   000001C8   0x1C5B             ADDS     R3,R3,#+1
+   \   000001CA   0x1CA4             ADDS     R4,R4,#+2
+   \   000001CC   0x2B10             CMP      R3,#+16
+   \   000001CE   0xF4FF 0xAF24      BCC.W    ??HAL_GPIO_Init_0
     303          }
-   \   000001CE   0xB001             ADD      SP,SP,#+4
-   \   000001D0   0xE8BD 0x8FF0      POP      {R4-R11,PC}      ;; return
+   \   000001D2   0xB001             ADD      SP,SP,#+4
+   \   000001D4   0xE8BD 0x8FF0      POP      {R4-R11,PC}      ;; return
     304          
     305          /**
     306            * @brief  De-initializes the GPIOx peripheral registers to their default reset values.
@@ -944,10 +946,13 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                                 In section .text, align 2, keep-with-next
     515          __weak void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     516          {
-    517            /* NOTE: This function Should not be modified, when the callback is needed,
-    518                     the HAL_GPIO_EXTI_Callback could be implemented in the user file
-    519             */
-    520          }
+    517            /* Prevent unused argument(s) compilation warning */
+    518            UNUSED(GPIO_Pin);
+    519            
+    520            /* NOTE: This function Should not be modified, when the callback is needed,
+    521                     the HAL_GPIO_EXTI_Callback could be implemented in the user file
+    522             */
+    523          }
    \                     HAL_GPIO_EXTI_Callback: (+1)
    \   00000000   0x4770             BX       LR               ;; return
 
@@ -1006,26 +1011,26 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable2_13:
    \   00000000   0x40013C14         DC32     0x40013c14
-    521          
-    522          /**
-    523            * @}
-    524            */
-    525          
-    526          
-    527          /**
-    528            * @}
-    529            */
-    530          
-    531          #endif /* HAL_GPIO_MODULE_ENABLED */
-    532          /**
-    533            * @}
-    534            */
-    535          
-    536          /**
-    537            * @}
-    538            */
-    539          
-    540          /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+    524          
+    525          /**
+    526            * @}
+    527            */
+    528          
+    529          
+    530          /**
+    531            * @}
+    532            */
+    533          
+    534          #endif /* HAL_GPIO_MODULE_ENABLED */
+    535          /**
+    536            * @}
+    537            */
+    538          
+    539          /**
+    540            * @}
+    541            */
+    542          
+    543          /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 
    Maximum stack usage in bytes:
 
@@ -1063,16 +1068,16 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
      310  HAL_GPIO_DeInit
        2  HAL_GPIO_EXTI_Callback
       24  HAL_GPIO_EXTI_IRQHandler
-     468  HAL_GPIO_Init
+     472  HAL_GPIO_Init
       44  HAL_GPIO_LockPin
       14  HAL_GPIO_ReadPin
        8  HAL_GPIO_TogglePin
        8  HAL_GPIO_WritePin
 
  
- 934 bytes in section .text
+ 938 bytes in section .text
  
- 934 bytes of CODE memory
+ 938 bytes of CODE memory
 
 Errors: none
 Warnings: none

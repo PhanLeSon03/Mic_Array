@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      31/Mar/2016  20:53:45
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      06/Apr/2016  18:05:30
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -124,8 +124,8 @@
 //    2   ******************************************************************************
 //    3   * @file    stm32f7xx_hal_gpio.c
 //    4   * @author  MCD Application Team
-//    5   * @version V1.0.1
-//    6   * @date    25-June-2015
+//    5   * @version V1.0.4
+//    6   * @date    09-December-2015
 //    7   * @brief   GPIO HAL module driver.
 //    8   *          This file provides firmware functions to manage the following 
 //    9   *          functionalities of the General Purpose Input/Output (GPIO) peripheral:
@@ -474,11 +474,13 @@ HAL_GPIO_Init:
 //  258       {
 //  259         /* Enable SYSCFG Clock */
 //  260         __HAL_RCC_SYSCFG_CLK_ENABLE();
-        LDR      R0,[R7, #+0]
+        MOVS     R0,#+0
 //  261 
 //  262         temp = SYSCFG->EXTICR[position >> 2];
 //  263         temp &= ~(((uint32_t)0x0F) << (4 * (position & 0x03)));
         AND      R12,R3,#0x3
+        STR      R0,[SP, #+0]
+        LDR      R0,[R7, #+0]
         LSL      R12,R12,#+2
         LSL      R6,LR,R12
         ORR      R0,R0,#0x4000
@@ -1157,10 +1159,13 @@ HAL_GPIO_EXTI_IRQHandler:
         THUMB
 //  515 __weak void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 //  516 {
-//  517   /* NOTE: This function Should not be modified, when the callback is needed,
-//  518            the HAL_GPIO_EXTI_Callback could be implemented in the user file
-//  519    */
-//  520 }
+//  517   /* Prevent unused argument(s) compilation warning */
+//  518   UNUSED(GPIO_Pin);
+//  519   
+//  520   /* NOTE: This function Should not be modified, when the callback is needed,
+//  521            the HAL_GPIO_EXTI_Callback could be implemented in the user file
+//  522    */
+//  523 }
 HAL_GPIO_EXTI_Callback:
         BX       LR               ;; return
           CFI EndBlock cfiBlock7
@@ -1177,30 +1182,30 @@ HAL_GPIO_EXTI_Callback:
         SECTION_TYPE SHT_PROGBITS, 0
 
         END
-//  521 
-//  522 /**
-//  523   * @}
-//  524   */
-//  525 
-//  526 
-//  527 /**
-//  528   * @}
-//  529   */
-//  530 
-//  531 #endif /* HAL_GPIO_MODULE_ENABLED */
-//  532 /**
-//  533   * @}
-//  534   */
-//  535 
-//  536 /**
-//  537   * @}
-//  538   */
-//  539 
-//  540 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+//  524 
+//  525 /**
+//  526   * @}
+//  527   */
+//  528 
+//  529 
+//  530 /**
+//  531   * @}
+//  532   */
+//  533 
+//  534 #endif /* HAL_GPIO_MODULE_ENABLED */
+//  535 /**
+//  536   * @}
+//  537   */
+//  538 
+//  539 /**
+//  540   * @}
+//  541   */
+//  542 
+//  543 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 934 bytes in section .text
+// 938 bytes in section .text
 // 
-// 934 bytes of CODE memory
+// 938 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

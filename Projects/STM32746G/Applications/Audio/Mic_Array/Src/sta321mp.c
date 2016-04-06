@@ -186,9 +186,7 @@ void STA321MP_Ini(void)
       D7     D6      D5     D4     D3     D2     D1     D0
       MPC  CSZ4  CSZ3 CSZ2 CSZ1 CSZ0 OM1 OM0
       11111110
-
       OM0-OM1: FFX output mode
-
       CSZ[4:0] Compensating pulse size
       */
       ////pcSTAComnd[0] = 0xFE;  
@@ -295,7 +293,7 @@ void STA321MP_Ini(void)
 
 		  /*##-3- Wait for the end of the transfer ###################################*/  
 		  /*  Before starting a new communication transfer, you need to check the current   
-		      state of the peripheral; if it’s busy you need to wait for the end of current
+		      state of the peripheral; if it?s busy you need to wait for the end of current
 		      transfer before starting a new one.
 		      For simplicity reasons, this example is just waiting till the end of the
 		      transfer, but application may perform other tasks while transfer operation
@@ -695,4 +693,3 @@ static void STA321MP_DefautLoad(void)
 	  WriteSTAByte(0x80,pcSTAComnd2,6);
 	  
 }
-

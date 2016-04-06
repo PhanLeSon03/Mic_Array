@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      31/Mar/2016  20:53:49
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      06/Apr/2016  18:05:34
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -244,9 +244,11 @@ HAL_PCD_MspInit:
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-        LDR.N    R4,??DataTable2  ;; 0x40023830
         SUB      SP,SP,#+24
           CFI CFA R13+32
+        MOVS     R0,#+0
+        LDR.N    R4,??DataTable2  ;; 0x40023830
+        STR      R0,[SP, #+0]
 //   51     
 //   52     /* Configure DM DP Pins */
 //   53     GPIO_InitStruct.Pin = GPIO_PIN_11 | GPIO_PIN_12;
@@ -279,11 +281,13 @@ HAL_PCD_MspInit:
 //   59     
 //   60     /* Enable USB FS Clocks */ 
 //   61     __USB_OTG_FS_CLK_ENABLE();
-        LDR      R0,[R4, #+4]
+        MOVS     R0,#+0
 //   62     
 //   63     /* Set USBFS Interrupt to the lowest priority */
 //   64     HAL_NVIC_SetPriority(OTG_FS_IRQn, 5, 0);
         MOVS     R2,#+0
+        STR      R0,[SP, #+0]
+        LDR      R0,[R4, #+4]
         MOVS     R1,#+5
         ORR      R0,R0,#0x80
         STR      R0,[R4, #+4]
@@ -291,6 +295,8 @@ HAL_PCD_MspInit:
         AND      R0,R0,#0x80
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR      R0,[R4, #+20]
         ORR      R0,R0,#0x4000
         STR      R0,[R4, #+20]
@@ -339,9 +345,6 @@ HAL_PCD_MspDeInit:
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x80
         STR      R1,[R0, #+0]
-        LDR      R1,[R0, #+16]
-        BIC      R1,R1,#0x4000
-        STR      R1,[R0, #+16]
 //   82   }
 //   83 }
 ??HAL_PCD_MspDeInit_0:
@@ -1204,9 +1207,9 @@ USBD_LL_Delay:
 //  461 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
 // 960 bytes in section .bss
-// 644 bytes in section .text
+// 648 bytes in section .text
 // 
-// 644 bytes of CODE memory
+// 648 bytes of CODE memory
 // 960 bytes of DATA memory
 //
 //Errors: none

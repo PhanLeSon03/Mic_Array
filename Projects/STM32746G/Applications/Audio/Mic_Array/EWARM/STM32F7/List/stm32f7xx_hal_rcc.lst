@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       31/Mar/2016  20:53:47
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       06/Apr/2016  18:05:32
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -63,8 +63,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
       2            ******************************************************************************
       3            * @file    stm32f7xx_hal_rcc.c
       4            * @author  MCD Application Team
-      5            * @version V1.0.1
-      6            * @date    25-June-2015
+      5            * @version V1.0.4
+      6            * @date    09-December-2015
       7            * @brief   RCC HAL module driver.
       8            *          This file provides firmware functions to manage the following 
       9            *          functionalities of the Reset and Clock Control (RCC) peripheral:
@@ -896,194 +896,196 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                     ??HAL_RCC_OscConfig_16: (+1)
    \   000001CA   0x7820             LDRB     R0,[R4, #+0]
    \   000001CC   0x0740             LSLS     R0,R0,#+29
-   \   000001CE   0xD576             BPL.N    ??HAL_RCC_OscConfig_23
-   \   000001D0   0x6C28             LDR      R0,[R5, #+64]
+   \   000001CE   0xD578             BPL.N    ??HAL_RCC_OscConfig_23
+   \   000001D0   0x2000             MOVS     R0,#+0
    \   000001D2   0x.... 0x....      LDR.W    R7,??DataTable13_3  ;; 0x40007000
-   \   000001D6   0xF040 0x5080      ORR      R0,R0,#0x10000000
-   \   000001DA   0x6428             STR      R0,[R5, #+64]
-   \   000001DC   0x6C28             LDR      R0,[R5, #+64]
-   \   000001DE   0xF000 0x5080      AND      R0,R0,#0x10000000
-   \   000001E2   0x9000             STR      R0,[SP, #+0]
-   \   000001E4   0x9800             LDR      R0,[SP, #+0]
-   \   000001E6   0x6838             LDR      R0,[R7, #+0]
-   \   000001E8   0xF440 0x7080      ORR      R0,R0,#0x100
-   \   000001EC   0x6038             STR      R0,[R7, #+0]
-   \   000001EE   0x.... 0x....      BL       HAL_GetTick
-   \   000001F2   0x4606             MOV      R6,R0
+   \   000001D6   0x9000             STR      R0,[SP, #+0]
+   \   000001D8   0x6C28             LDR      R0,[R5, #+64]
+   \   000001DA   0xF040 0x5080      ORR      R0,R0,#0x10000000
+   \   000001DE   0x6428             STR      R0,[R5, #+64]
+   \   000001E0   0x6C28             LDR      R0,[R5, #+64]
+   \   000001E2   0xF000 0x5080      AND      R0,R0,#0x10000000
+   \   000001E6   0x9000             STR      R0,[SP, #+0]
+   \   000001E8   0x9800             LDR      R0,[SP, #+0]
+   \   000001EA   0x6838             LDR      R0,[R7, #+0]
+   \   000001EC   0xF440 0x7080      ORR      R0,R0,#0x100
+   \   000001F0   0x6038             STR      R0,[R7, #+0]
+   \   000001F2   0x.... 0x....      BL       HAL_GetTick
+   \   000001F6   0x4606             MOV      R6,R0
    \                     ??HAL_RCC_OscConfig_24: (+1)
-   \   000001F4   0x6838             LDR      R0,[R7, #+0]
-   \   000001F6   0x05C0             LSLS     R0,R0,#+23
-   \   000001F8   0xD407             BMI.N    ??HAL_RCC_OscConfig_25
-   \   000001FA   0x.... 0x....      BL       HAL_GetTick
-   \   000001FE   0x1B80             SUBS     R0,R0,R6
-   \   00000200   0x2865             CMP      R0,#+101
-   \   00000202   0xD3F7             BCC.N    ??HAL_RCC_OscConfig_24
-   \   00000204   0x2003             MOVS     R0,#+3
-   \   00000206   0xB001             ADD      SP,SP,#+4
-   \   00000208   0xBDF0             POP      {R4-R7,PC}
+   \   000001F8   0x6838             LDR      R0,[R7, #+0]
+   \   000001FA   0x05C0             LSLS     R0,R0,#+23
+   \   000001FC   0xD407             BMI.N    ??HAL_RCC_OscConfig_25
+   \   000001FE   0x.... 0x....      BL       HAL_GetTick
+   \   00000202   0x1B80             SUBS     R0,R0,R6
+   \   00000204   0x2865             CMP      R0,#+101
+   \   00000206   0xD3F7             BCC.N    ??HAL_RCC_OscConfig_24
+   \   00000208   0x2003             MOVS     R0,#+3
+   \   0000020A   0xB001             ADD      SP,SP,#+4
+   \   0000020C   0xBDF0             POP      {R4-R7,PC}
    \                     ??HAL_RCC_OscConfig_25: (+1)
-   \   0000020A   0x6F28             LDR      R0,[R5, #+112]
-   \   0000020C   0xF241 0x3789      MOVW     R7,#+5001
-   \   00000210   0x0840             LSRS     R0,R0,#+1
-   \   00000212   0x0040             LSLS     R0,R0,#+1
-   \   00000214   0x6728             STR      R0,[R5, #+112]
-   \   00000216   0x6F28             LDR      R0,[R5, #+112]
-   \   00000218   0xF020 0x0004      BIC      R0,R0,#0x4
-   \   0000021C   0x6728             STR      R0,[R5, #+112]
-   \   0000021E   0x6F28             LDR      R0,[R5, #+112]
-   \   00000220   0x0840             LSRS     R0,R0,#+1
-   \   00000222   0x0040             LSLS     R0,R0,#+1
-   \   00000224   0x6728             STR      R0,[R5, #+112]
-   \   00000226   0x.... 0x....      BL       HAL_GetTick
-   \   0000022A   0x4606             MOV      R6,R0
+   \   0000020E   0x6F28             LDR      R0,[R5, #+112]
+   \   00000210   0xF241 0x3789      MOVW     R7,#+5001
+   \   00000214   0x0840             LSRS     R0,R0,#+1
+   \   00000216   0x0040             LSLS     R0,R0,#+1
+   \   00000218   0x6728             STR      R0,[R5, #+112]
+   \   0000021A   0x6F28             LDR      R0,[R5, #+112]
+   \   0000021C   0xF020 0x0004      BIC      R0,R0,#0x4
+   \   00000220   0x6728             STR      R0,[R5, #+112]
+   \   00000222   0x6F28             LDR      R0,[R5, #+112]
+   \   00000224   0x0840             LSRS     R0,R0,#+1
+   \   00000226   0x0040             LSLS     R0,R0,#+1
+   \   00000228   0x6728             STR      R0,[R5, #+112]
+   \   0000022A   0x.... 0x....      BL       HAL_GetTick
+   \   0000022E   0x4606             MOV      R6,R0
    \                     ??HAL_RCC_OscConfig_26: (+1)
-   \   0000022C   0x6F28             LDR      R0,[R5, #+112]
-   \   0000022E   0x0780             LSLS     R0,R0,#+30
-   \   00000230   0xD507             BPL.N    ??HAL_RCC_OscConfig_27
-   \   00000232   0x.... 0x....      BL       HAL_GetTick
-   \   00000236   0x1B80             SUBS     R0,R0,R6
-   \   00000238   0x42B8             CMP      R0,R7
-   \   0000023A   0xD3F7             BCC.N    ??HAL_RCC_OscConfig_26
-   \   0000023C   0x2003             MOVS     R0,#+3
-   \   0000023E   0xB001             ADD      SP,SP,#+4
-   \   00000240   0xBDF0             POP      {R4-R7,PC}
+   \   00000230   0x6F28             LDR      R0,[R5, #+112]
+   \   00000232   0x0780             LSLS     R0,R0,#+30
+   \   00000234   0xD507             BPL.N    ??HAL_RCC_OscConfig_27
+   \   00000236   0x.... 0x....      BL       HAL_GetTick
+   \   0000023A   0x1B80             SUBS     R0,R0,R6
+   \   0000023C   0x42B8             CMP      R0,R7
+   \   0000023E   0xD3F7             BCC.N    ??HAL_RCC_OscConfig_26
+   \   00000240   0x2003             MOVS     R0,#+3
+   \   00000242   0xB001             ADD      SP,SP,#+4
+   \   00000244   0xBDF0             POP      {R4-R7,PC}
    \                     ??HAL_RCC_OscConfig_27: (+1)
-   \   00000242   0x6F28             LDR      R0,[R5, #+112]
-   \   00000244   0x0840             LSRS     R0,R0,#+1
-   \   00000246   0x0040             LSLS     R0,R0,#+1
-   \   00000248   0x6728             STR      R0,[R5, #+112]
-   \   0000024A   0x68A0             LDR      R0,[R4, #+8]
-   \   0000024C   0x2801             CMP      R0,#+1
-   \   0000024E   0xD107             BNE.N    ??HAL_RCC_OscConfig_28
-   \   00000250   0x6F28             LDR      R0,[R5, #+112]
-   \   00000252   0xF020 0x0004      BIC      R0,R0,#0x4
-   \   00000256   0x6728             STR      R0,[R5, #+112]
-   \   00000258   0x6F28             LDR      R0,[R5, #+112]
-   \   0000025A   0xF040 0x0001      ORR      R0,R0,#0x1
-   \   0000025E   0xE00F             B.N      ??HAL_RCC_OscConfig_29
+   \   00000246   0x6F28             LDR      R0,[R5, #+112]
+   \   00000248   0x0840             LSRS     R0,R0,#+1
+   \   0000024A   0x0040             LSLS     R0,R0,#+1
+   \   0000024C   0x6728             STR      R0,[R5, #+112]
+   \   0000024E   0x68A0             LDR      R0,[R4, #+8]
+   \   00000250   0x2801             CMP      R0,#+1
+   \   00000252   0xD107             BNE.N    ??HAL_RCC_OscConfig_28
+   \   00000254   0x6F28             LDR      R0,[R5, #+112]
+   \   00000256   0xF020 0x0004      BIC      R0,R0,#0x4
+   \   0000025A   0x6728             STR      R0,[R5, #+112]
+   \   0000025C   0x6F28             LDR      R0,[R5, #+112]
+   \   0000025E   0xF040 0x0001      ORR      R0,R0,#0x1
+   \   00000262   0xE00F             B.N      ??HAL_RCC_OscConfig_29
    \                     ??HAL_RCC_OscConfig_28: (+1)
-   \   00000260   0x2805             CMP      R0,#+5
-   \   00000262   0x6F28             LDR      R0,[R5, #+112]
-   \   00000264   0xD106             BNE.N    ??HAL_RCC_OscConfig_30
-   \   00000266   0xF040 0x0004      ORR      R0,R0,#0x4
-   \   0000026A   0x6728             STR      R0,[R5, #+112]
-   \   0000026C   0x6F28             LDR      R0,[R5, #+112]
-   \   0000026E   0xF040 0x0001      ORR      R0,R0,#0x1
-   \   00000272   0xE005             B.N      ??HAL_RCC_OscConfig_29
+   \   00000264   0x2805             CMP      R0,#+5
+   \   00000266   0x6F28             LDR      R0,[R5, #+112]
+   \   00000268   0xD106             BNE.N    ??HAL_RCC_OscConfig_30
+   \   0000026A   0xF040 0x0004      ORR      R0,R0,#0x4
+   \   0000026E   0x6728             STR      R0,[R5, #+112]
+   \   00000270   0x6F28             LDR      R0,[R5, #+112]
+   \   00000272   0xF040 0x0001      ORR      R0,R0,#0x1
+   \   00000276   0xE005             B.N      ??HAL_RCC_OscConfig_29
    \                     ??HAL_RCC_OscConfig_30: (+1)
-   \   00000274   0xF020 0x0004      BIC      R0,R0,#0x4
-   \   00000278   0x6728             STR      R0,[R5, #+112]
-   \   0000027A   0x6F28             LDR      R0,[R5, #+112]
-   \   0000027C   0x0840             LSRS     R0,R0,#+1
-   \   0000027E   0x0040             LSLS     R0,R0,#+1
+   \   00000278   0xF020 0x0004      BIC      R0,R0,#0x4
+   \   0000027C   0x6728             STR      R0,[R5, #+112]
+   \   0000027E   0x6F28             LDR      R0,[R5, #+112]
+   \   00000280   0x0840             LSRS     R0,R0,#+1
+   \   00000282   0x0040             LSLS     R0,R0,#+1
    \                     ??HAL_RCC_OscConfig_29: (+1)
-   \   00000280   0x6728             STR      R0,[R5, #+112]
-   \   00000282   0x68A0             LDR      R0,[R4, #+8]
-   \   00000284   0xB168             CBZ.N    R0,??HAL_RCC_OscConfig_31
-   \   00000286   0x.... 0x....      BL       HAL_GetTick
-   \   0000028A   0x4606             MOV      R6,R0
+   \   00000284   0x6728             STR      R0,[R5, #+112]
+   \   00000286   0x68A0             LDR      R0,[R4, #+8]
+   \   00000288   0xB168             CBZ.N    R0,??HAL_RCC_OscConfig_31
+   \   0000028A   0x.... 0x....      BL       HAL_GetTick
+   \   0000028E   0x4606             MOV      R6,R0
    \                     ??HAL_RCC_OscConfig_32: (+1)
-   \   0000028C   0x6F28             LDR      R0,[R5, #+112]
-   \   0000028E   0x0780             LSLS     R0,R0,#+30
-   \   00000290   0xD415             BMI.N    ??HAL_RCC_OscConfig_23
-   \   00000292   0x.... 0x....      BL       HAL_GetTick
-   \   00000296   0x1B80             SUBS     R0,R0,R6
-   \   00000298   0x42B8             CMP      R0,R7
-   \   0000029A   0xD3F7             BCC.N    ??HAL_RCC_OscConfig_32
-   \   0000029C   0x2003             MOVS     R0,#+3
-   \   0000029E   0xB001             ADD      SP,SP,#+4
-   \   000002A0   0xBDF0             POP      {R4-R7,PC}
+   \   00000290   0x6F28             LDR      R0,[R5, #+112]
+   \   00000292   0x0780             LSLS     R0,R0,#+30
+   \   00000294   0xD415             BMI.N    ??HAL_RCC_OscConfig_23
+   \   00000296   0x.... 0x....      BL       HAL_GetTick
+   \   0000029A   0x1B80             SUBS     R0,R0,R6
+   \   0000029C   0x42B8             CMP      R0,R7
+   \   0000029E   0xD3F7             BCC.N    ??HAL_RCC_OscConfig_32
+   \   000002A0   0x2003             MOVS     R0,#+3
+   \   000002A2   0xB001             ADD      SP,SP,#+4
+   \   000002A4   0xBDF0             POP      {R4-R7,PC}
    \                     ??HAL_RCC_OscConfig_31: (+1)
-   \   000002A2   0x.... 0x....      BL       HAL_GetTick
-   \   000002A6   0x4606             MOV      R6,R0
+   \   000002A6   0x.... 0x....      BL       HAL_GetTick
+   \   000002AA   0x4606             MOV      R6,R0
    \                     ??HAL_RCC_OscConfig_33: (+1)
-   \   000002A8   0x6F28             LDR      R0,[R5, #+112]
-   \   000002AA   0x0780             LSLS     R0,R0,#+30
-   \   000002AC   0xD507             BPL.N    ??HAL_RCC_OscConfig_23
-   \   000002AE   0x.... 0x....      BL       HAL_GetTick
-   \   000002B2   0x1B80             SUBS     R0,R0,R6
-   \   000002B4   0x42B8             CMP      R0,R7
-   \   000002B6   0xD3F7             BCC.N    ??HAL_RCC_OscConfig_33
-   \   000002B8   0x2003             MOVS     R0,#+3
-   \   000002BA   0xB001             ADD      SP,SP,#+4
-   \   000002BC   0xBDF0             POP      {R4-R7,PC}
+   \   000002AC   0x6F28             LDR      R0,[R5, #+112]
+   \   000002AE   0x0780             LSLS     R0,R0,#+30
+   \   000002B0   0xD507             BPL.N    ??HAL_RCC_OscConfig_23
+   \   000002B2   0x.... 0x....      BL       HAL_GetTick
+   \   000002B6   0x1B80             SUBS     R0,R0,R6
+   \   000002B8   0x42B8             CMP      R0,R7
+   \   000002BA   0xD3F7             BCC.N    ??HAL_RCC_OscConfig_33
+   \   000002BC   0x2003             MOVS     R0,#+3
+   \   000002BE   0xB001             ADD      SP,SP,#+4
+   \   000002C0   0xBDF0             POP      {R4-R7,PC}
    \                     ??HAL_RCC_OscConfig_23: (+1)
-   \   000002BE   0x69A0             LDR      R0,[R4, #+24]
-   \   000002C0   0x2800             CMP      R0,#+0
-   \   000002C2   0xD04B             BEQ.N    ??HAL_RCC_OscConfig_34
-   \   000002C4   0x68A9             LDR      R1,[R5, #+8]
-   \   000002C6   0xF001 0x010C      AND      R1,R1,#0xC
-   \   000002CA   0x2908             CMP      R1,#+8
-   \   000002CC   0xF43F 0xAEB3      BEQ.W    ??HAL_RCC_OscConfig_3
-   \   000002D0   0x2802             CMP      R0,#+2
-   \   000002D2   0x6828             LDR      R0,[R5, #+0]
-   \   000002D4   0xF020 0x7080      BIC      R0,R0,#0x1000000
-   \   000002D8   0x6028             STR      R0,[R5, #+0]
-   \   000002DA   0xD131             BNE.N    ??HAL_RCC_OscConfig_35
-   \   000002DC   0x.... 0x....      BL       HAL_GetTick
-   \   000002E0   0x4606             MOV      R6,R0
+   \   000002C2   0x69A0             LDR      R0,[R4, #+24]
+   \   000002C4   0x2800             CMP      R0,#+0
+   \   000002C6   0xD04B             BEQ.N    ??HAL_RCC_OscConfig_34
+   \   000002C8   0x68A9             LDR      R1,[R5, #+8]
+   \   000002CA   0xF001 0x010C      AND      R1,R1,#0xC
+   \   000002CE   0x2908             CMP      R1,#+8
+   \   000002D0   0xF43F 0xAEB1      BEQ.W    ??HAL_RCC_OscConfig_3
+   \   000002D4   0x2802             CMP      R0,#+2
+   \   000002D6   0x6828             LDR      R0,[R5, #+0]
+   \   000002D8   0xF020 0x7080      BIC      R0,R0,#0x1000000
+   \   000002DC   0x6028             STR      R0,[R5, #+0]
+   \   000002DE   0xD131             BNE.N    ??HAL_RCC_OscConfig_35
+   \   000002E0   0x.... 0x....      BL       HAL_GetTick
+   \   000002E4   0x4606             MOV      R6,R0
    \                     ??HAL_RCC_OscConfig_36: (+1)
-   \   000002E2   0x6828             LDR      R0,[R5, #+0]
-   \   000002E4   0x0180             LSLS     R0,R0,#+6
-   \   000002E6   0xD507             BPL.N    ??HAL_RCC_OscConfig_37
-   \   000002E8   0x.... 0x....      BL       HAL_GetTick
-   \   000002EC   0x1B80             SUBS     R0,R0,R6
-   \   000002EE   0x2865             CMP      R0,#+101
-   \   000002F0   0xD3F7             BCC.N    ??HAL_RCC_OscConfig_36
-   \   000002F2   0x2003             MOVS     R0,#+3
-   \   000002F4   0xB001             ADD      SP,SP,#+4
-   \   000002F6   0xBDF0             POP      {R4-R7,PC}
+   \   000002E6   0x6828             LDR      R0,[R5, #+0]
+   \   000002E8   0x0180             LSLS     R0,R0,#+6
+   \   000002EA   0xD507             BPL.N    ??HAL_RCC_OscConfig_37
+   \   000002EC   0x.... 0x....      BL       HAL_GetTick
+   \   000002F0   0x1B80             SUBS     R0,R0,R6
+   \   000002F2   0x2865             CMP      R0,#+101
+   \   000002F4   0xD3F7             BCC.N    ??HAL_RCC_OscConfig_36
+   \   000002F6   0x2003             MOVS     R0,#+3
+   \   000002F8   0xB001             ADD      SP,SP,#+4
+   \   000002FA   0xBDF0             POP      {R4-R7,PC}
    \                     ??HAL_RCC_OscConfig_37: (+1)
-   \   000002F8   0x6A20             LDR      R0,[R4, #+32]
-   \   000002FA   0x6A61             LDR      R1,[R4, #+36]
-   \   000002FC   0xEA40 0x1081      ORR      R0,R0,R1, LSL #+6
-   \   00000300   0x6AA1             LDR      R1,[R4, #+40]
-   \   00000302   0x1E89             SUBS     R1,R1,#+2
-   \   00000304   0x03C9             LSLS     R1,R1,#+15
-   \   00000306   0x0C09             LSRS     R1,R1,#+16
-   \   00000308   0xEA40 0x4001      ORR      R0,R0,R1, LSL #+16
-   \   0000030C   0x69E1             LDR      R1,[R4, #+28]
-   \   0000030E   0x4308             ORRS     R0,R1,R0
-   \   00000310   0x6AE1             LDR      R1,[R4, #+44]
-   \   00000312   0xEA40 0x6001      ORR      R0,R0,R1, LSL #+24
-   \   00000316   0xF040 0x5000      ORR      R0,R0,#0x20000000
-   \   0000031A   0x6068             STR      R0,[R5, #+4]
-   \   0000031C   0x6828             LDR      R0,[R5, #+0]
-   \   0000031E   0xF040 0x7080      ORR      R0,R0,#0x1000000
-   \   00000322   0x6028             STR      R0,[R5, #+0]
-   \   00000324   0x.... 0x....      BL       HAL_GetTick
-   \   00000328   0x4606             MOV      R6,R0
+   \   000002FC   0x6A20             LDR      R0,[R4, #+32]
+   \   000002FE   0x6A61             LDR      R1,[R4, #+36]
+   \   00000300   0xEA40 0x1081      ORR      R0,R0,R1, LSL #+6
+   \   00000304   0x6AA1             LDR      R1,[R4, #+40]
+   \   00000306   0x1E89             SUBS     R1,R1,#+2
+   \   00000308   0x03C9             LSLS     R1,R1,#+15
+   \   0000030A   0x0C09             LSRS     R1,R1,#+16
+   \   0000030C   0xEA40 0x4001      ORR      R0,R0,R1, LSL #+16
+   \   00000310   0x69E1             LDR      R1,[R4, #+28]
+   \   00000312   0x4308             ORRS     R0,R1,R0
+   \   00000314   0x6AE1             LDR      R1,[R4, #+44]
+   \   00000316   0xEA40 0x6001      ORR      R0,R0,R1, LSL #+24
+   \   0000031A   0xF040 0x5000      ORR      R0,R0,#0x20000000
+   \   0000031E   0x6068             STR      R0,[R5, #+4]
+   \   00000320   0x6828             LDR      R0,[R5, #+0]
+   \   00000322   0xF040 0x7080      ORR      R0,R0,#0x1000000
+   \   00000326   0x6028             STR      R0,[R5, #+0]
+   \   00000328   0x.... 0x....      BL       HAL_GetTick
+   \   0000032C   0x4606             MOV      R6,R0
    \                     ??HAL_RCC_OscConfig_38: (+1)
-   \   0000032A   0x6828             LDR      R0,[R5, #+0]
-   \   0000032C   0x0180             LSLS     R0,R0,#+6
-   \   0000032E   0xD415             BMI.N    ??HAL_RCC_OscConfig_34
-   \   00000330   0x.... 0x....      BL       HAL_GetTick
-   \   00000334   0x1B80             SUBS     R0,R0,R6
-   \   00000336   0x2865             CMP      R0,#+101
-   \   00000338   0xD3F7             BCC.N    ??HAL_RCC_OscConfig_38
-   \   0000033A   0x2003             MOVS     R0,#+3
-   \   0000033C   0xB001             ADD      SP,SP,#+4
-   \   0000033E   0xBDF0             POP      {R4-R7,PC}
+   \   0000032E   0x6828             LDR      R0,[R5, #+0]
+   \   00000330   0x0180             LSLS     R0,R0,#+6
+   \   00000332   0xD415             BMI.N    ??HAL_RCC_OscConfig_34
+   \   00000334   0x.... 0x....      BL       HAL_GetTick
+   \   00000338   0x1B80             SUBS     R0,R0,R6
+   \   0000033A   0x2865             CMP      R0,#+101
+   \   0000033C   0xD3F7             BCC.N    ??HAL_RCC_OscConfig_38
+   \   0000033E   0x2003             MOVS     R0,#+3
+   \   00000340   0xB001             ADD      SP,SP,#+4
+   \   00000342   0xBDF0             POP      {R4-R7,PC}
    \                     ??HAL_RCC_OscConfig_35: (+1)
-   \   00000340   0x.... 0x....      BL       HAL_GetTick
-   \   00000344   0x4606             MOV      R6,R0
+   \   00000344   0x.... 0x....      BL       HAL_GetTick
+   \   00000348   0x4606             MOV      R6,R0
    \                     ??HAL_RCC_OscConfig_39: (+1)
-   \   00000346   0x6828             LDR      R0,[R5, #+0]
-   \   00000348   0x0180             LSLS     R0,R0,#+6
-   \   0000034A   0xD507             BPL.N    ??HAL_RCC_OscConfig_34
-   \   0000034C   0x.... 0x....      BL       HAL_GetTick
-   \   00000350   0x1B80             SUBS     R0,R0,R6
-   \   00000352   0x2865             CMP      R0,#+101
-   \   00000354   0xD3F7             BCC.N    ??HAL_RCC_OscConfig_39
-   \   00000356   0x2003             MOVS     R0,#+3
-   \   00000358   0xB001             ADD      SP,SP,#+4
-   \   0000035A   0xBDF0             POP      {R4-R7,PC}
+   \   0000034A   0x6828             LDR      R0,[R5, #+0]
+   \   0000034C   0x0180             LSLS     R0,R0,#+6
+   \   0000034E   0xD507             BPL.N    ??HAL_RCC_OscConfig_34
+   \   00000350   0x.... 0x....      BL       HAL_GetTick
+   \   00000354   0x1B80             SUBS     R0,R0,R6
+   \   00000356   0x2865             CMP      R0,#+101
+   \   00000358   0xD3F7             BCC.N    ??HAL_RCC_OscConfig_39
+   \   0000035A   0x2003             MOVS     R0,#+3
+   \   0000035C   0xB001             ADD      SP,SP,#+4
+   \   0000035E   0xBDF0             POP      {R4-R7,PC}
     575            }
     576            return HAL_OK;
    \                     ??HAL_RCC_OscConfig_34: (+1)
-   \   0000035C   0x2000             MOVS     R0,#+0
-   \   0000035E   0xB001             ADD      SP,SP,#+4
-   \   00000360   0xBDF0             POP      {R4-R7,PC}       ;; return
+   \   00000360   0x2000             MOVS     R0,#+0
+   \   00000362   0xB001             ADD      SP,SP,#+4
+   \   00000364   0xBDF0             POP      {R4-R7,PC}       ;; return
     577          }
     578           
     579          /**
@@ -1533,7 +1535,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     807            }
     808          
     809            /* Configure the source of time base considering new system clocks settings*/
-    810            HAL_InitTick (TICK_INT_PRIORITY);//TICK_INT_PRIORITY
+    810            HAL_InitTick (TICK_INT_PRIORITY);
    \                     ??HAL_RCC_ClockConfig_23: (+1)
    \   000001D4   0x2007             MOVS     R0,#+7
    \   000001D6   0x.... 0x....      BL       HAL_InitTick
@@ -1595,25 +1597,24 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     861          {
    \                     HAL_RCC_MCOConfig: (+1)
    \   00000000   0xB570             PUSH     {R4-R6,LR}
+   \   00000002   0xB086             SUB      SP,SP,#+24
+   \   00000004   0x460C             MOV      R4,R1
+   \   00000006   0x4615             MOV      R5,R2
     862            GPIO_InitTypeDef GPIO_InitStruct;
     863            /* Check the parameters */
     864            assert_param(IS_RCC_MCO(RCC_MCOx));
     865            assert_param(IS_RCC_MCODIV(RCC_MCODiv));
     866            /* RCC_MCO1 */
     867            if(RCC_MCOx == RCC_MCO1)
-   \   00000002   0x....             LDR.N    R6,??DataTable13_4  ;; 0x40023808
-   \   00000004   0xB086             SUB      SP,SP,#+24
-   \   00000006   0x2800             CMP      R0,#+0
-   \   00000008   0x460C             MOV      R4,R1
-   \   0000000A   0x4615             MOV      R5,R2
-   \   0000000C   0x6AB0             LDR      R0,[R6, #+40]
-   \   0000000E   0xD11D             BNE.N    ??HAL_RCC_MCOConfig_0
+   \   00000008   0x....             LDR.N    R6,??DataTable13_4  ;; 0x40023808
+   \   0000000A   0xB9F8             CBNZ.N   R0,??HAL_RCC_MCOConfig_0
     868            {
     869              assert_param(IS_RCC_MCO1SOURCE(RCC_MCOSource));
     870              
     871              /* MCO1 Clock Enable */
     872              MCO1_CLK_ENABLE();
-   \   00000010   0xF040 0x0001      ORR      R0,R0,#0x1
+   \   0000000C   0x9000             STR      R0,[SP, #+0]
+   \   0000000E   0x6AB0             LDR      R0,[R6, #+40]
     873              
     874              /* Configure the MCO1 pin in alternate function mode */    
     875              GPIO_InitStruct.Pin = MCO1_PIN;
@@ -1622,7 +1623,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     878              GPIO_InitStruct.Pull = GPIO_NOPULL;
     879              GPIO_InitStruct.Alternate = GPIO_AF0_MCO;
     880              HAL_GPIO_Init(MCO1_GPIO_PORT, &GPIO_InitStruct);
-   \   00000014   0xA901             ADD      R1,SP,#+4
+   \   00000010   0xA901             ADD      R1,SP,#+4
+   \   00000012   0xF040 0x0001      ORR      R0,R0,#0x1
    \   00000016   0x62B0             STR      R0,[R6, #+40]
    \   00000018   0x6AB0             LDR      R0,[R6, #+40]
    \   0000001A   0xF000 0x0001      AND      R0,R0,#0x1
@@ -1670,31 +1672,34 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   00000048   0xB006             ADD      SP,SP,#+24
    \   0000004A   0xBD70             POP      {R4-R6,PC}
    \                     ??HAL_RCC_MCOConfig_0: (+1)
-   \   0000004C   0xF040 0x0004      ORR      R0,R0,#0x4
-   \   00000050   0xA901             ADD      R1,SP,#+4
-   \   00000052   0x62B0             STR      R0,[R6, #+40]
-   \   00000054   0x6AB0             LDR      R0,[R6, #+40]
-   \   00000056   0xF000 0x0004      AND      R0,R0,#0x4
-   \   0000005A   0x9000             STR      R0,[SP, #+0]
-   \   0000005C   0x9800             LDR      R0,[SP, #+0]
-   \   0000005E   0xF44F 0x7000      MOV      R0,#+512
-   \   00000062   0x9001             STR      R0,[SP, #+4]
-   \   00000064   0x2002             MOVS     R0,#+2
-   \   00000066   0x9002             STR      R0,[SP, #+8]
-   \   00000068   0x2003             MOVS     R0,#+3
-   \   0000006A   0x9004             STR      R0,[SP, #+16]
-   \   0000006C   0x2000             MOVS     R0,#+0
-   \   0000006E   0x9003             STR      R0,[SP, #+12]
-   \   00000070   0x9005             STR      R0,[SP, #+20]
-   \   00000072   0x....             LDR.N    R0,??DataTable13_6  ;; 0x40020800
-   \   00000074   0x.... 0x....      BL       HAL_GPIO_Init
-   \   00000078   0x6830             LDR      R0,[R6, #+0]
-   \   0000007A   0x0140             LSLS     R0,R0,#+5
-   \   0000007C   0xEA54 0x1050      ORRS     R0,R4,R0, LSR #+5
-   \   00000080   0xEA40 0x00C5      ORR      R0,R0,R5, LSL #+3
-   \   00000084   0x6030             STR      R0,[R6, #+0]
-   \   00000086   0xB006             ADD      SP,SP,#+24
-   \   00000088   0xBD70             POP      {R4-R6,PC}       ;; return
+   \   0000004C   0x2000             MOVS     R0,#+0
+   \   0000004E   0xA901             ADD      R1,SP,#+4
+   \   00000050   0x9000             STR      R0,[SP, #+0]
+   \   00000052   0x6AB0             LDR      R0,[R6, #+40]
+   \   00000054   0xF040 0x0004      ORR      R0,R0,#0x4
+   \   00000058   0x62B0             STR      R0,[R6, #+40]
+   \   0000005A   0x6AB0             LDR      R0,[R6, #+40]
+   \   0000005C   0xF000 0x0004      AND      R0,R0,#0x4
+   \   00000060   0x9000             STR      R0,[SP, #+0]
+   \   00000062   0x9800             LDR      R0,[SP, #+0]
+   \   00000064   0xF44F 0x7000      MOV      R0,#+512
+   \   00000068   0x9001             STR      R0,[SP, #+4]
+   \   0000006A   0x2002             MOVS     R0,#+2
+   \   0000006C   0x9002             STR      R0,[SP, #+8]
+   \   0000006E   0x2003             MOVS     R0,#+3
+   \   00000070   0x9004             STR      R0,[SP, #+16]
+   \   00000072   0x2000             MOVS     R0,#+0
+   \   00000074   0x9003             STR      R0,[SP, #+12]
+   \   00000076   0x9005             STR      R0,[SP, #+20]
+   \   00000078   0x....             LDR.N    R0,??DataTable13_6  ;; 0x40020800
+   \   0000007A   0x.... 0x....      BL       HAL_GPIO_Init
+   \   0000007E   0x6830             LDR      R0,[R6, #+0]
+   \   00000080   0x0140             LSLS     R0,R0,#+5
+   \   00000082   0xEA54 0x1050      ORRS     R0,R4,R0, LSR #+5
+   \   00000086   0xEA40 0x00C5      ORR      R0,R0,R5, LSL #+3
+   \   0000008A   0x6030             STR      R0,[R6, #+0]
+   \   0000008C   0xB006             ADD      SP,SP,#+24
+   \   0000008E   0xBD70             POP      {R4-R6,PC}       ;; return
     904          
     905          /**
     906            * @brief  Enables the Clock Security System.
@@ -2310,14 +2315,14 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
       40  HAL_RCC_GetPCLK1Freq
       40  HAL_RCC_GetPCLK2Freq
       68  HAL_RCC_GetSysClockFreq
-     138  HAL_RCC_MCOConfig
+     144  HAL_RCC_MCOConfig
       20  HAL_RCC_NMI_IRQHandler
-     866  HAL_RCC_OscConfig
+     870  HAL_RCC_OscConfig
 
  
- 2 062 bytes in section .text
+ 2 072 bytes in section .text
  
- 2 062 bytes of CODE memory
+ 2 072 bytes of CODE memory
 
 Errors: none
 Warnings: none

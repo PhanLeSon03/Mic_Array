@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      31/Mar/2016  20:53:46
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      06/Apr/2016  18:05:31
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -121,8 +121,8 @@
 //    2   ******************************************************************************
 //    3   * @file    stm32f7xx_hal_pcd_ex.c
 //    4   * @author  MCD Application Team
-//    5   * @version V1.0.1
-//    6   * @date    25-June-2015
+//    5   * @version V1.0.4
+//    6   * @date    09-December-2015
 //    7   * @brief   PCD HAL module driver.
 //    8   *          This file provides firmware functions to manage the following 
 //    9   *          functionalities of the USB Peripheral Controller:
@@ -178,7 +178,7 @@
 //   59 /* Private functions ---------------------------------------------------------*/
 //   60 /* Exported functions --------------------------------------------------------*/
 //   61 
-//   62 /** @defgroup PCDEx_Exported_Functions PCDEx Exported Functions
+//   62 /** @defgroup PCDEx_Exported_Functions PCD Extended Exported Functions
 //   63   * @{
 //   64   */
 //   65 
@@ -237,7 +237,7 @@ HAL_PCDEx_SetTxFiFo:
 //  104   if(fifo == 0)
         CBNZ.N   R1,??HAL_PCDEx_SetTxFiFo_0
 //  105   {
-//  106     hpcd->Instance->DIEPTXF0_HNPTXFSIZ = (size << 16) | Tx_Offset;
+//  106     hpcd->Instance->DIEPTXF0_HNPTXFSIZ = (uint32_t)(((uint32_t)size << 16) | Tx_Offset);
         ORR      R1,R3,R2, LSL #+16
         STR      R1,[R0, #+40]
 //  107   }
@@ -250,11 +250,10 @@ HAL_PCDEx_SetTxFiFo:
 //  114     }
 //  115     
 //  116     /* Multiply Tx_Size by 2 to get higher performance */
-//  117     hpcd->Instance->DIEPTXF[fifo - 1] = (size << 16) | Tx_Offset;
-//  118     
-//  119   }
-//  120   
-//  121   return HAL_OK;
+//  117     hpcd->Instance->DIEPTXF[fifo - 1] = (uint32_t)(((uint32_t)size << 16) | Tx_Offset);
+//  118   }
+//  119   
+//  120   return HAL_OK;
         MOVS     R0,#+0
         POP      {R4-R6}
           CFI R4 SameValue
@@ -289,95 +288,95 @@ HAL_PCDEx_SetTxFiFo:
           CFI R6 SameValue
           CFI CFA R13+0
         BX       LR               ;; return
-//  122 }
+//  121 }
           CFI EndBlock cfiBlock0
-//  123 
-//  124 /**
-//  125   * @brief  Set Rx FIFO
-//  126   * @param  hpcd: PCD handle
-//  127   * @param  size: Size of Rx fifo
-//  128   * @retval HAL status
-//  129   */
+//  122 
+//  123 /**
+//  124   * @brief  Set Rx FIFO
+//  125   * @param  hpcd: PCD handle
+//  126   * @param  size: Size of Rx fifo
+//  127   * @retval HAL status
+//  128   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock1 Using cfiCommon0
           CFI Function HAL_PCDEx_SetRxFiFo
           CFI NoCalls
         THUMB
-//  130 HAL_StatusTypeDef HAL_PCDEx_SetRxFiFo(PCD_HandleTypeDef *hpcd, uint16_t size)
-//  131 {
-//  132   hpcd->Instance->GRXFSIZ = size;
+//  129 HAL_StatusTypeDef HAL_PCDEx_SetRxFiFo(PCD_HandleTypeDef *hpcd, uint16_t size)
+//  130 {
+//  131   hpcd->Instance->GRXFSIZ = size;
 HAL_PCDEx_SetRxFiFo:
         LDR      R0,[R0, #+0]
         STR      R1,[R0, #+36]
-//  133   
-//  134   return HAL_OK;
+//  132   
+//  133   return HAL_OK;
         MOVS     R0,#+0
         BX       LR               ;; return
-//  135 }
+//  134 }
           CFI EndBlock cfiBlock1
-//  136 
-//  137 /**
-//  138   * @brief  HAL_PCDEx_ActivateLPM : active LPM Feature
-//  139   * @param  hpcd: PCD handle
-//  140   * @retval HAL status
-//  141   */
+//  135 
+//  136 /**
+//  137   * @brief  Activate LPM Feature
+//  138   * @param  hpcd: PCD handle
+//  139   * @retval HAL status
+//  140   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock2 Using cfiCommon0
           CFI Function HAL_PCDEx_ActivateLPM
           CFI NoCalls
         THUMB
-//  142 HAL_StatusTypeDef HAL_PCDEx_ActivateLPM(PCD_HandleTypeDef *hpcd)
-//  143 {
-//  144   USB_OTG_GlobalTypeDef *USBx = hpcd->Instance;  
+//  141 HAL_StatusTypeDef HAL_PCDEx_ActivateLPM(PCD_HandleTypeDef *hpcd)
+//  142 {
+//  143   USB_OTG_GlobalTypeDef *USBx = hpcd->Instance;  
 HAL_PCDEx_ActivateLPM:
         LDR      R1,[R0, #+0]
-//  145   
-//  146   hpcd->lpm_active = ENABLE;
+//  144   
+//  145   hpcd->lpm_active = ENABLE;
         MOVS     R2,#+1
         STR      R2,[R0, #+952]
-//  147   hpcd->LPM_State = LPM_L0;
+//  146   hpcd->LPM_State = LPM_L0;
         MOVS     R2,#+0
         STRB     R2,[R0, #+944]
-//  148   USBx->GINTMSK |= USB_OTG_GINTMSK_LPMINTM;
+//  147   USBx->GINTMSK |= USB_OTG_GINTMSK_LPMINTM;
         LDR      R0,[R1, #+24]
         ORR      R0,R0,#0x8000000
         STR      R0,[R1, #+24]
-//  149   USBx->GLPMCFG |= (USB_OTG_GLPMCFG_LPMEN | USB_OTG_GLPMCFG_LPMACK | USB_OTG_GLPMCFG_ENBESL);
+//  148   USBx->GLPMCFG |= (USB_OTG_GLPMCFG_LPMEN | USB_OTG_GLPMCFG_LPMACK | USB_OTG_GLPMCFG_ENBESL);
         LDR      R0,[R1, #+84]
         ORR      R0,R0,#0x10000000
         ORR      R0,R0,#0x3
         STR      R0,[R1, #+84]
-//  150   
-//  151   return HAL_OK;  
+//  149   
+//  150   return HAL_OK;  
         MOVS     R0,#+0
         BX       LR               ;; return
-//  152 }
+//  151 }
           CFI EndBlock cfiBlock2
-//  153 
-//  154 /**
-//  155   * @brief  HAL_PCDEx_DeActivateLPM : de-active LPM feature
-//  156   * @param  hpcd: PCD handle
-//  157   * @retval HAL status
-//  158   */
+//  152 
+//  153 /**
+//  154   * @brief  DeActivate LPM feature.
+//  155   * @param  hpcd: PCD handle
+//  156   * @retval HAL status
+//  157   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock3 Using cfiCommon0
           CFI Function HAL_PCDEx_DeActivateLPM
           CFI NoCalls
         THUMB
-//  159 HAL_StatusTypeDef HAL_PCDEx_DeActivateLPM(PCD_HandleTypeDef *hpcd)
-//  160 {
-//  161   USB_OTG_GlobalTypeDef *USBx = hpcd->Instance;  
+//  158 HAL_StatusTypeDef HAL_PCDEx_DeActivateLPM(PCD_HandleTypeDef *hpcd)
+//  159 {
+//  160   USB_OTG_GlobalTypeDef *USBx = hpcd->Instance;  
 HAL_PCDEx_DeActivateLPM:
         LDR      R1,[R0, #+0]
-//  162   
-//  163   hpcd->lpm_active = DISABLE;
+//  161   
+//  162   hpcd->lpm_active = DISABLE;
         MOVS     R2,#+0
         STR      R2,[R0, #+952]
-//  164   USBx->GINTMSK &= ~USB_OTG_GINTMSK_LPMINTM;
-//  165   USBx->GLPMCFG &= ~(USB_OTG_GLPMCFG_LPMEN | USB_OTG_GLPMCFG_LPMACK | USB_OTG_GLPMCFG_ENBESL);
+//  163   USBx->GINTMSK &= ~USB_OTG_GINTMSK_LPMINTM;
+//  164   USBx->GLPMCFG &= ~(USB_OTG_GLPMCFG_LPMEN | USB_OTG_GLPMCFG_LPMACK | USB_OTG_GLPMCFG_ENBESL);
         LDR.N    R2,??DataTable0  ;; 0xeffffffc
         LDR      R0,[R1, #+24]
         BIC      R0,R0,#0x8000000
@@ -385,11 +384,11 @@ HAL_PCDEx_DeActivateLPM:
         LDR      R0,[R1, #+84]
         ANDS     R0,R2,R0
         STR      R0,[R1, #+84]
-//  166   
-//  167   return HAL_OK;  
+//  165   
+//  166   return HAL_OK;  
         MOVS     R0,#+0
         BX       LR               ;; return
-//  168 }
+//  167 }
           CFI EndBlock cfiBlock3
 
         SECTION `.text`:CODE:NOROOT(2)
@@ -397,22 +396,29 @@ HAL_PCDEx_DeActivateLPM:
         DATA
 ??DataTable0:
         DC32     0xeffffffc
-//  169 
-//  170 /**
-//  171   * @brief  HAL_PCDEx_LPM_Callback : Send LPM message to user layer
-//  172   * @param  hpcd: PCD handle
-//  173   * @param  msg: LPM message
-//  174   * @retval HAL status
-//  175   */
+//  168 
+//  169 /**
+//  170   * @brief  Send LPM message to user layer callback.
+//  171   * @param  hpcd: PCD handle
+//  172   * @param  msg: LPM message
+//  173   * @retval HAL status
+//  174   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock4 Using cfiCommon0
           CFI Function HAL_PCDEx_LPM_Callback
           CFI NoCalls
         THUMB
-//  176 __weak void HAL_PCDEx_LPM_Callback(PCD_HandleTypeDef *hpcd, PCD_LPM_MsgTypeDef msg)
-//  177 {
-//  178 }
+//  175 __weak void HAL_PCDEx_LPM_Callback(PCD_HandleTypeDef *hpcd, PCD_LPM_MsgTypeDef msg)
+//  176 {
+//  177   /* Prevent unused argument(s) compilation warning */
+//  178   UNUSED(hpcd);
+//  179   UNUSED(msg);
+//  180   
+//  181   /* NOTE : This function Should not be modified, when the callback is needed,
+//  182             the HAL_PCDEx_LPM_Callback could be implemented in the user file
+//  183    */	
+//  184 }
 HAL_PCDEx_LPM_Callback:
         BX       LR               ;; return
           CFI EndBlock cfiBlock4
@@ -429,25 +435,25 @@ HAL_PCDEx_LPM_Callback:
         SECTION_TYPE SHT_PROGBITS, 0
 
         END
-//  179 
-//  180 /**
-//  181   * @}
-//  182   */
-//  183 
-//  184 /**
-//  185   * @}
-//  186   */
-//  187 
-//  188 #endif /* HAL_PCD_MODULE_ENABLED */
-//  189 /**
-//  190   * @}
-//  191   */
-//  192 
-//  193 /**
-//  194   * @}
-//  195   */
-//  196 
-//  197 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+//  185 
+//  186 /**
+//  187   * @}
+//  188   */
+//  189 
+//  190 /**
+//  191   * @}
+//  192   */
+//  193 
+//  194 #endif /* HAL_PCD_MODULE_ENABLED */
+//  195 /**
+//  196   * @}
+//  197   */
+//  198 
+//  199 /**
+//  200   * @}
+//  201   */
+//  202 
+//  203 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
 // 146 bytes in section .text
 // 

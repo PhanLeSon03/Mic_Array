@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      31/Mar/2016  20:53:48
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      06/Apr/2016  18:05:33
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -140,8 +140,8 @@
 //    2   ******************************************************************************
 //    3   * @file    stm32f7xx_ll_fmc.c
 //    4   * @author  MCD Application Team
-//    5   * @version V1.0.1
-//    6   * @date    25-June-2015
+//    5   * @version V1.0.4
+//    6   * @date    09-December-2015
 //    7   * @brief   FMC Low Layer HAL module driver.
 //    8   *    
 //    9   *          This file provides firmware functions to manage the following 
@@ -1720,14 +1720,15 @@ FMC_SDRAM_SendCommand:
 // 1016 
 // 1017   /* wait until command is send */
 // 1018   while(HAL_IS_BIT_SET(Device->SDSR, FMC_SDSR_BUSY))
+??FMC_SDRAM_SendCommand_0:
         LDR      R0,[R4, #+24]
         LSLS     R0,R0,#+26
-        BPL.N    ??FMC_SDRAM_SendCommand_0
+        BPL.N    ??FMC_SDRAM_SendCommand_1
 // 1019   {
 // 1020     /* Check for the Timeout */
 // 1021     if(Timeout != HAL_MAX_DELAY)
         CMN      R5,#+1
-        BEQ.N    ??FMC_SDRAM_SendCommand_1
+        BEQ.N    ??FMC_SDRAM_SendCommand_0
 // 1022     {
 // 1023       if((Timeout == 0)||((HAL_GetTick() - tickstart ) > Timeout))
         CBZ.N    R5,??FMC_SDRAM_SendCommand_2
@@ -1735,7 +1736,7 @@ FMC_SDRAM_SendCommand:
         BL       HAL_GetTick
         SUBS     R0,R0,R6
         CMP      R5,R0
-        BCS.N    ??FMC_SDRAM_SendCommand_1
+        BCS.N    ??FMC_SDRAM_SendCommand_0
 // 1024       {
 // 1025         return HAL_TIMEOUT;
 ??FMC_SDRAM_SendCommand_2:
@@ -1746,130 +1747,122 @@ FMC_SDRAM_SendCommand:
           CFI CFA R13+24
 // 1026       }
 // 1027     }     
-// 1028     
-// 1029     return HAL_ERROR;
+// 1028   }
+// 1029   
+// 1030   return HAL_OK;  
 ??FMC_SDRAM_SendCommand_1:
-        MOVS     R0,#+1
-        ADD      SP,SP,#+8
-          CFI CFA R13+16
-        POP      {R4-R6,PC}
-          CFI CFA R13+24
-// 1030   }
-// 1031   
-// 1032   return HAL_OK;  
-??FMC_SDRAM_SendCommand_0:
         MOVS     R0,#+0
         ADD      SP,SP,#+8
           CFI CFA R13+16
         POP      {R4-R6,PC}       ;; return
-// 1033 }
+// 1031 }
           CFI EndBlock cfiBlock18
-// 1034 
-// 1035 /**
-// 1036   * @brief  Program the SDRAM Memory Refresh rate.
-// 1037   * @param  Device: Pointer to SDRAM device instance  
-// 1038   * @param  RefreshRate: The SDRAM refresh rate value.       
-// 1039   * @retval HAL state
-// 1040   */
+// 1032 
+// 1033 /**
+// 1034   * @brief  Program the SDRAM Memory Refresh rate.
+// 1035   * @param  Device: Pointer to SDRAM device instance  
+// 1036   * @param  RefreshRate: The SDRAM refresh rate value.       
+// 1037   * @retval HAL state
+// 1038   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock19 Using cfiCommon0
           CFI Function FMC_SDRAM_ProgramRefreshRate
           CFI NoCalls
         THUMB
-// 1041 HAL_StatusTypeDef FMC_SDRAM_ProgramRefreshRate(FMC_SDRAM_TypeDef *Device, uint32_t RefreshRate)
-// 1042 {
-// 1043   /* Check the parameters */
-// 1044   assert_param(IS_FMC_SDRAM_DEVICE(Device));
-// 1045   assert_param(IS_FMC_REFRESH_RATE(RefreshRate));
-// 1046   
-// 1047   /* Set the refresh rate in command register */
-// 1048   Device->SDRTR |= (RefreshRate<<1);
+// 1039 HAL_StatusTypeDef FMC_SDRAM_ProgramRefreshRate(FMC_SDRAM_TypeDef *Device, uint32_t RefreshRate)
+// 1040 {
+// 1041   /* Check the parameters */
+// 1042   assert_param(IS_FMC_SDRAM_DEVICE(Device));
+// 1043   assert_param(IS_FMC_REFRESH_RATE(RefreshRate));
+// 1044   
+// 1045   /* Set the refresh rate in command register */
+// 1046   Device->SDRTR |= (RefreshRate<<1);
 FMC_SDRAM_ProgramRefreshRate:
         LDR      R2,[R0, #+20]
         ORR      R1,R2,R1, LSL #+1
         STR      R1,[R0, #+20]
-// 1049   
-// 1050   return HAL_OK;   
+// 1047   
+// 1048   return HAL_OK;   
         MOVS     R0,#+0
         BX       LR               ;; return
-// 1051 }
+// 1049 }
           CFI EndBlock cfiBlock19
-// 1052 
-// 1053 /**
-// 1054   * @brief  Set the Number of consecutive SDRAM Memory auto Refresh commands.
-// 1055   * @param  Device: Pointer to SDRAM device instance  
-// 1056   * @param  AutoRefreshNumber: Specifies the auto Refresh number.       
-// 1057   * @retval None
-// 1058   */
+// 1050 
+// 1051 /**
+// 1052   * @brief  Set the Number of consecutive SDRAM Memory auto Refresh commands.
+// 1053   * @param  Device: Pointer to SDRAM device instance  
+// 1054   * @param  AutoRefreshNumber: Specifies the auto Refresh number.       
+// 1055   * @retval None
+// 1056   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock20 Using cfiCommon0
           CFI Function FMC_SDRAM_SetAutoRefreshNumber
           CFI NoCalls
         THUMB
-// 1059 HAL_StatusTypeDef FMC_SDRAM_SetAutoRefreshNumber(FMC_SDRAM_TypeDef *Device, uint32_t AutoRefreshNumber)
-// 1060 {
-// 1061   /* Check the parameters */
-// 1062   assert_param(IS_FMC_SDRAM_DEVICE(Device));
-// 1063   assert_param(IS_FMC_AUTOREFRESH_NUMBER(AutoRefreshNumber));
-// 1064   
-// 1065   /* Set the Auto-refresh number in command register */
-// 1066   Device->SDCMR |= (AutoRefreshNumber << 5); 
+// 1057 HAL_StatusTypeDef FMC_SDRAM_SetAutoRefreshNumber(FMC_SDRAM_TypeDef *Device, uint32_t AutoRefreshNumber)
+// 1058 {
+// 1059   /* Check the parameters */
+// 1060   assert_param(IS_FMC_SDRAM_DEVICE(Device));
+// 1061   assert_param(IS_FMC_AUTOREFRESH_NUMBER(AutoRefreshNumber));
+// 1062   
+// 1063   /* Set the Auto-refresh number in command register */
+// 1064   Device->SDCMR |= (AutoRefreshNumber << 5); 
 FMC_SDRAM_SetAutoRefreshNumber:
         LDR      R2,[R0, #+16]
         ORR      R1,R2,R1, LSL #+5
         STR      R1,[R0, #+16]
-// 1067 
-// 1068   return HAL_OK;  
+// 1065 
+// 1066   return HAL_OK;  
         MOVS     R0,#+0
         BX       LR               ;; return
-// 1069 }
+// 1067 }
           CFI EndBlock cfiBlock20
-// 1070 
-// 1071 /**
-// 1072   * @brief  Returns the indicated FMC SDRAM bank mode status.
-// 1073   * @param  Device: Pointer to SDRAM device instance  
-// 1074   * @param  Bank: Defines the FMC SDRAM bank. This parameter can be 
-// 1075   *                     FMC_Bank1_SDRAM or FMC_Bank2_SDRAM. 
-// 1076   * @retval The FMC SDRAM bank mode status, could be on of the following values:
-// 1077   *         FMC_SDRAM_NORMAL_MODE, FMC_SDRAM_SELF_REFRESH_MODE or 
-// 1078   *         FMC_SDRAM_POWER_DOWN_MODE.           
-// 1079   */
+// 1068 
+// 1069 /**
+// 1070   * @brief  Returns the indicated FMC SDRAM bank mode status.
+// 1071   * @param  Device: Pointer to SDRAM device instance  
+// 1072   * @param  Bank: Defines the FMC SDRAM bank. This parameter can be 
+// 1073   *                     FMC_Bank1_SDRAM or FMC_Bank2_SDRAM. 
+// 1074   * @retval The FMC SDRAM bank mode status, could be on of the following values:
+// 1075   *         FMC_SDRAM_NORMAL_MODE, FMC_SDRAM_SELF_REFRESH_MODE or 
+// 1076   *         FMC_SDRAM_POWER_DOWN_MODE.           
+// 1077   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock21 Using cfiCommon0
           CFI Function FMC_SDRAM_GetModeStatus
           CFI NoCalls
         THUMB
-// 1080 uint32_t FMC_SDRAM_GetModeStatus(FMC_SDRAM_TypeDef *Device, uint32_t Bank)
-// 1081 {
-// 1082   uint32_t tmpreg = 0;
-// 1083   
-// 1084   /* Check the parameters */
-// 1085   assert_param(IS_FMC_SDRAM_DEVICE(Device));
-// 1086   assert_param(IS_FMC_SDRAM_BANK(Bank));
-// 1087 
-// 1088   /* Get the corresponding bank mode */
-// 1089   if(Bank == FMC_SDRAM_BANK1)
+// 1078 uint32_t FMC_SDRAM_GetModeStatus(FMC_SDRAM_TypeDef *Device, uint32_t Bank)
+// 1079 {
+// 1080   uint32_t tmpreg = 0;
+// 1081   
+// 1082   /* Check the parameters */
+// 1083   assert_param(IS_FMC_SDRAM_DEVICE(Device));
+// 1084   assert_param(IS_FMC_SDRAM_BANK(Bank));
+// 1085 
+// 1086   /* Get the corresponding bank mode */
+// 1087   if(Bank == FMC_SDRAM_BANK1)
 FMC_SDRAM_GetModeStatus:
         LDR      R0,[R0, #+24]
         CMP      R1,#+0
         IT       NE 
         LSRNE    R0,R0,#+2
-// 1090   {
-// 1091     tmpreg = (uint32_t)(Device->SDSR & FMC_SDSR_MODES1); 
-// 1092   }
-// 1093   else
-// 1094   {
-// 1095     tmpreg = ((uint32_t)(Device->SDSR & FMC_SDSR_MODES2) >> 2);
+// 1088   {
+// 1089     tmpreg = (uint32_t)(Device->SDSR & FMC_SDSR_MODES1); 
+// 1090   }
+// 1091   else
+// 1092   {
+// 1093     tmpreg = ((uint32_t)(Device->SDSR & FMC_SDSR_MODES2) >> 2);
         AND      R0,R0,#0x6
-// 1096   }
-// 1097   
-// 1098   /* Return the mode status */
-// 1099   return tmpreg;
+// 1094   }
+// 1095   
+// 1096   /* Return the mode status */
+// 1097   return tmpreg;
         BX       LR               ;; return
-// 1100 }
+// 1098 }
           CFI EndBlock cfiBlock21
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
@@ -1884,33 +1877,33 @@ FMC_SDRAM_GetModeStatus:
         SECTION_TYPE SHT_PROGBITS, 0
 
         END
-// 1101 
-// 1102 /**
-// 1103   * @}
-// 1104   */
-// 1105 
-// 1106 /**
-// 1107   * @}
-// 1108   */
-// 1109 
-// 1110 /**
-// 1111   * @}
-// 1112   */
-// 1113 #endif /* HAL_SRAM_MODULE_ENABLED || HAL_NOR_MODULE_ENABLED || HAL_NAND_MODULE_ENABLED || HAL_SDRAM_MODULE_ENABLED */
-// 1114 
-// 1115 /**
-// 1116   * @}
-// 1117   */
-// 1118 
-// 1119 /**
-// 1120   * @}
-// 1121   */
-// 1122 
-// 1123 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+// 1099 
+// 1100 /**
+// 1101   * @}
+// 1102   */
+// 1103 
+// 1104 /**
+// 1105   * @}
+// 1106   */
+// 1107 
+// 1108 /**
+// 1109   * @}
+// 1110   */
+// 1111 #endif /* HAL_SRAM_MODULE_ENABLED || HAL_NOR_MODULE_ENABLED || HAL_NAND_MODULE_ENABLED || HAL_SDRAM_MODULE_ENABLED */
+// 1112 
+// 1113 /**
+// 1114   * @}
+// 1115   */
+// 1116 
+// 1117 /**
+// 1118   * @}
+// 1119   */
+// 1120 
+// 1121 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 1 036 bytes in section .text
+// 1 030 bytes in section .text
 // 
-// 1 036 bytes of CODE memory
+// 1 030 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

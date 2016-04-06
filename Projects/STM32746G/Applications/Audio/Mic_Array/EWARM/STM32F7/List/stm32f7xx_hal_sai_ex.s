@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      31/Mar/2016  20:53:47
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      06/Apr/2016  18:05:32
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -120,8 +120,8 @@
 //    2   ******************************************************************************
 //    3   * @file    stm32f7xx_hal_sai_ex.c
 //    4   * @author  MCD Application Team
-//    5   * @version V1.0.1
-//    6   * @date    25-June-2015
+//    5   * @version V1.0.4
+//    6   * @date    09-December-2015
 //    7   * @brief   SAI Extension HAL module driver.
 //    8   *          This file provides firmware functions to manage the following 
 //    9   *          functionalities of SAI extension peripheral:
@@ -240,37 +240,39 @@ SAI_BlockSynchroConfig:
         CMP      R2,#+1
         BEQ.N    ??SAI_BlockSynchroConfig_0
         CMP      R2,#+2
-        BEQ.N    ??SAI_BlockSynchroConfig_1
-        CMP      R2,#+4
         IT       EQ 
         MOVEQ    R1,#+32
 //  113   {
-//  114   case SAI_SYNCEXT_DISABLE :
-//  115     tmpregisterGCR = 0;
-//  116     break;
-//  117   case SAI_SYNCEXT_IN_ENABLE :
-//  118     tmpregisterGCR = SAI_GCR_SYNCIN_0;
-//  119     break;
-//  120   case SAI_SYNCEXT_OUTBLOCKA_ENABLE :
-//  121     tmpregisterGCR = SAI_GCR_SYNCOUT_0;
-//  122     break;
-//  123   case SAI_SYNCEXT_OUTBLOCKB_ENABLE :
-//  124     tmpregisterGCR = SAI_GCR_SYNCOUT_1;
-        B.N      ??SAI_BlockSynchroConfig_2
+//  114     case SAI_SYNCEXT_DISABLE :
+//  115       tmpregisterGCR = 0;
+//  116       break;
+//  117     case SAI_SYNCEXT_OUTBLOCKA_ENABLE :
+//  118       tmpregisterGCR = SAI_GCR_SYNCOUT_0;
+//  119       break;
+//  120     case SAI_SYNCEXT_OUTBLOCKB_ENABLE :
+//  121       tmpregisterGCR = SAI_GCR_SYNCOUT_1;
+        B.N      ??SAI_BlockSynchroConfig_1
 ??SAI_BlockSynchroConfig_0:
-        MOVS     R1,#+1
-        B.N      ??SAI_BlockSynchroConfig_2
-??SAI_BlockSynchroConfig_1:
         MOVS     R1,#+16
+//  122       break;
+//  123   default:
+//  124     tmpregisterGCR = 0;
 //  125     break;
-//  126   default :
-//  127     break;
-//  128   }
-//  129   
-//  130   if((hsai->Instance == SAI1_Block_A) || (hsai->Instance == SAI1_Block_B))
-??SAI_BlockSynchroConfig_2:
-        LDR      R0,[R0, #+0]
+//  126   }
+//  127     
+//  128   if((hsai->Init.Synchro) == SAI_SYNCHRONOUS_EXT_SAI2)
+??SAI_BlockSynchroConfig_1:
+        LDR      R2,[R0, #+8]
+        CMP      R2,#+3
+//  129   {
+//  130         tmpregisterGCR |= SAI_GCR_SYNCIN_0;
+//  131   }
+//  132   
+//  133   if((hsai->Instance == SAI1_Block_A) || (hsai->Instance == SAI1_Block_B))
         LDR.N    R2,??DataTable1  ;; 0x40015804
+        IT       EQ 
+        ORREQ    R1,R1,#0x1
+        LDR      R0,[R0, #+0]
         CMP      R0,R2
         ITT      NE 
         LDRNE.N  R2,??DataTable1_1  ;; 0x40015824
@@ -280,33 +282,33 @@ SAI_BlockSynchroConfig:
         STREQ    R1,[R0, #+0]
         LDRNE.N  R0,??DataTable1_2  ;; 0x40015800
         STRNE    R1,[R0, #+1024]
-//  131   {
-//  132     SAI1->GCR = tmpregisterGCR;
-//  133   }
-//  134   else 
-//  135   {
-//  136     SAI2->GCR = tmpregisterGCR;
+//  134   {
+//  135     SAI1->GCR = tmpregisterGCR;
+//  136   }
+//  137   else 
+//  138   {
+//  139     SAI2->GCR = tmpregisterGCR;
         BX       LR
-//  137   }
-//  138 }
+//  140   }
+//  141 }
           CFI EndBlock cfiBlock0
-//  139   /**
-//  140   * @brief  Get SAI Input Clock based on SAI source clock selection
-//  141   * @param  hsai: pointer to a SAI_HandleTypeDef structure that contains
-//  142   *               the configuration information for SAI module.   
-//  143   * @retval SAI Clock Input 
-//  144   */
+//  142   /**
+//  143   * @brief  Get SAI Input Clock based on SAI source clock selection
+//  144   * @param  hsai: pointer to a SAI_HandleTypeDef structure that contains
+//  145   *               the configuration information for SAI module.   
+//  146   * @retval SAI Clock Input 
+//  147   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock1 Using cfiCommon0
           CFI Function SAI_GetInputClock
         THUMB
-//  145 uint32_t SAI_GetInputClock(SAI_HandleTypeDef *hsai)   
-//  146 {
-//  147   /* This variable used to store the SAI_CK_x (value in Hz) */
-//  148   uint32_t saiclocksource = 0;
-//  149 
-//  150   if ((hsai->Instance == SAI1_Block_A) || (hsai->Instance == SAI1_Block_B))
+//  148 uint32_t SAI_GetInputClock(SAI_HandleTypeDef *hsai)   
+//  149 {
+//  150   /* This variable used to store the SAI_CK_x (value in Hz) */
+//  151   uint32_t saiclocksource = 0;
+//  152 
+//  153   if ((hsai->Instance == SAI1_Block_A) || (hsai->Instance == SAI1_Block_B))
 SAI_GetInputClock:
         LDR      R0,[R0, #+0]
         LDR.N    R1,??DataTable1  ;; 0x40015804
@@ -316,18 +318,18 @@ SAI_GetInputClock:
         CMPNE    R0,R1
         MOVEQ    R0,#+524288
         MOVNE    R0,#+1048576
-//  151   {
-//  152     saiclocksource = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SAI1);
-//  153   }
-//  154   else /* SAI2_Block_A || SAI2_Block_B*/
-//  155   {
-//  156     saiclocksource = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SAI2); 
+//  154   {
+//  155     saiclocksource = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SAI1);
+//  156   }
+//  157   else /* SAI2_Block_A || SAI2_Block_B*/
+//  158   {
+//  159     saiclocksource = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SAI2); 
           CFI FunCall HAL_RCCEx_GetPeriphCLKFreq
         B.W      HAL_RCCEx_GetPeriphCLKFreq
-//  157   }
-//  158   /* the return result is the value of SAI clock */
-//  159   return saiclocksource;        
-//  160 }
+//  160   }
+//  161   /* the return result is the value of SAI clock */
+//  162   return saiclocksource;        
+//  163 }
           CFI EndBlock cfiBlock1
 
         SECTION `.text`:CODE:NOROOT(2)
@@ -360,29 +362,29 @@ SAI_GetInputClock:
         SECTION_TYPE SHT_PROGBITS, 0
 
         END
-//  161 
-//  162 /**
-//  163   * @}
-//  164   */
-//  165 
-//  166 /**
-//  167   * @}
-//  168   */
-//  169 
-//  170 #endif /* HAL_SAI_MODULE_ENABLED */
-//  171 /**
-//  172   * @}
-//  173   */
-//  174 
-//  175 /**
-//  176   * @}
-//  177   */
-//  178 
-//  179 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+//  164 
+//  165 /**
+//  166   * @}
+//  167   */
+//  168 
+//  169 /**
+//  170   * @}
+//  171   */
+//  172 
+//  173 #endif /* HAL_SAI_MODULE_ENABLED */
+//  174 /**
+//  175   * @}
+//  176   */
+//  177 
+//  178 /**
+//  179   * @}
+//  180   */
+//  181 
+//  182 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 88 bytes in section .text
+// 90 bytes in section .text
 // 
-// 88 bytes of CODE memory
+// 90 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

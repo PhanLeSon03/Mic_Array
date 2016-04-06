@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      31/Mar/2016  20:53:46
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      06/Apr/2016  18:05:31
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -141,8 +141,8 @@
 //    2   ******************************************************************************
 //    3   * @file    stm32f7xx_hal_i2s.c
 //    4   * @author  MCD Application Team
-//    5   * @version V1.0.1
-//    6   * @date    25-June-2015
+//    5   * @version V1.0.4
+//    6   * @date    09-December-2015
 //    7   * @brief   I2S HAL module driver.
 //    8   *          This file provides firmware functions to manage the following 
 //    9   *          functionalities of the Integrated Interchip Sound (I2S) peripheral:
@@ -713,104 +713,110 @@ HAL_I2S_DeInit:
         THUMB
 //  380  __weak void HAL_I2S_MspInit(I2S_HandleTypeDef *hi2s)
 //  381 {
-//  382   /* NOTE : This function Should not be modified, when the callback is needed,
-//  383             the HAL_I2S_MspInit could be implemented in the user file
-//  384    */ 
-//  385 }
+//  382   /* Prevent unused argument(s) compilation warning */
+//  383   UNUSED(hi2s);
+//  384   
+//  385   /* NOTE : This function Should not be modified, when the callback is needed,
+//  386             the HAL_I2S_MspInit could be implemented in the user file
+//  387    */ 
+//  388 }
 HAL_I2S_MspInit:
         BX       LR               ;; return
           CFI EndBlock cfiBlock2
-//  386 
-//  387 /**
-//  388   * @brief I2S MSP DeInit
-//  389   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
-//  390   *         the configuration information for I2S module
-//  391   * @retval None
-//  392   */
+//  389 
+//  390 /**
+//  391   * @brief I2S MSP DeInit
+//  392   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
+//  393   *         the configuration information for I2S module
+//  394   * @retval None
+//  395   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock3 Using cfiCommon0
           CFI Function HAL_I2S_MspDeInit
           CFI NoCalls
         THUMB
-//  393  __weak void HAL_I2S_MspDeInit(I2S_HandleTypeDef *hi2s)
-//  394 {
-//  395   /* NOTE : This function Should not be modified, when the callback is needed,
-//  396             the HAL_I2S_MspDeInit could be implemented in the user file
-//  397    */ 
-//  398 }
+//  396  __weak void HAL_I2S_MspDeInit(I2S_HandleTypeDef *hi2s)
+//  397 {
+//  398   /* Prevent unused argument(s) compilation warning */
+//  399   UNUSED(hi2s);
+//  400   
+//  401   /* NOTE : This function Should not be modified, when the callback is needed,
+//  402             the HAL_I2S_MspDeInit could be implemented in the user file
+//  403    */ 
+//  404 }
 HAL_I2S_MspDeInit:
         BX       LR               ;; return
           CFI EndBlock cfiBlock3
-//  399 
-//  400 /**
-//  401   * @}
-//  402   */
-//  403 
-//  404 /** @defgroup I2S_Exported_Functions_Group2 Input and Output operation functions 
-//  405   *  @brief Data transfers functions 
-//  406   *
-//  407 @verbatim   
-//  408  ===============================================================================
-//  409                       ##### IO operation functions #####
-//  410  ===============================================================================  
-//  411     [..]
-//  412     This subsection provides a set of functions allowing to manage the I2S data 
-//  413     transfers.
-//  414 
-//  415     (#) There are two modes of transfer:
-//  416        (++) Blocking mode : The communication is performed in the polling mode. 
-//  417             The status of all data processing is returned by the same function 
-//  418             after finishing transfer.  
-//  419        (++) No-Blocking mode : The communication is performed using Interrupts 
-//  420             or DMA. These functions return the status of the transfer startup.
-//  421             The end of the data processing will be indicated through the 
-//  422             dedicated I2S IRQ when using Interrupt mode or the DMA IRQ when 
-//  423             using DMA mode.
-//  424 
-//  425     (#) Blocking mode functions are :
-//  426         (++) HAL_I2S_Transmit()
-//  427         (++) HAL_I2S_Receive()
-//  428         
-//  429     (#) No-Blocking mode functions with Interrupt are :
-//  430         (++) HAL_I2S_Transmit_IT()
-//  431         (++) HAL_I2S_Receive_IT()
-//  432 
-//  433     (#) No-Blocking mode functions with DMA are :
-//  434         (++) HAL_I2S_Transmit_DMA()
-//  435         (++) HAL_I2S_Receive_DMA()
-//  436 
-//  437     (#) A set of Transfer Complete Callbacks are provided in non Blocking mode:
-//  438         (++) HAL_I2S_TxCpltCallback()
-//  439         (++) HAL_I2S_RxCpltCallback()
-//  440         (++) HAL_I2S_ErrorCallback()
-//  441 
-//  442 @endverbatim
-//  443   * @{
-//  444   */
-//  445 
-//  446 /**
-//  447   * @brief Transmit an amount of data in blocking mode
-//  448   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
-//  449   *         the configuration information for I2S module
-//  450   * @param pData: a 16-bit pointer to data buffer.
-//  451   * @param Size: number of data sample to be sent:
-//  452   * @note When a 16-bit data frame or a 16-bit data frame extended is selected during the I2S
-//  453   *       configuration phase, the Size parameter means the number of 16-bit data length 
-//  454   *       in the transaction and when a 24-bit data frame or a 32-bit data frame is selected 
-//  455   *       the Size parameter means the number of 16-bit data length. 
-//  456   * @param  Timeout: Timeout duration
-//  457   * @note The I2S is kept enabled at the end of transaction to avoid the clock de-synchronization 
-//  458   *       between Master and Slave(example: audio streaming).
-//  459   * @retval HAL status
-//  460   */
+//  405 
+//  406 /**
+//  407   * @}
+//  408   */
+//  409 
+//  410 /** @defgroup I2S_Exported_Functions_Group2 Input and Output operation functions 
+//  411   *  @brief Data transfers functions 
+//  412   *
+//  413 @verbatim   
+//  414  ===============================================================================
+//  415                       ##### IO operation functions #####
+//  416  ===============================================================================  
+//  417     [..]
+//  418     This subsection provides a set of functions allowing to manage the I2S data 
+//  419     transfers.
+//  420 
+//  421     (#) There are two modes of transfer:
+//  422        (++) Blocking mode : The communication is performed in the polling mode. 
+//  423             The status of all data processing is returned by the same function 
+//  424             after finishing transfer.  
+//  425        (++) No-Blocking mode : The communication is performed using Interrupts 
+//  426             or DMA. These functions return the status of the transfer startup.
+//  427             The end of the data processing will be indicated through the 
+//  428             dedicated I2S IRQ when using Interrupt mode or the DMA IRQ when 
+//  429             using DMA mode.
+//  430 
+//  431     (#) Blocking mode functions are :
+//  432         (++) HAL_I2S_Transmit()
+//  433         (++) HAL_I2S_Receive()
+//  434         
+//  435     (#) No-Blocking mode functions with Interrupt are :
+//  436         (++) HAL_I2S_Transmit_IT()
+//  437         (++) HAL_I2S_Receive_IT()
+//  438 
+//  439     (#) No-Blocking mode functions with DMA are :
+//  440         (++) HAL_I2S_Transmit_DMA()
+//  441         (++) HAL_I2S_Receive_DMA()
+//  442 
+//  443     (#) A set of Transfer Complete Callbacks are provided in non Blocking mode:
+//  444         (++) HAL_I2S_TxCpltCallback()
+//  445         (++) HAL_I2S_RxCpltCallback()
+//  446         (++) HAL_I2S_ErrorCallback()
+//  447 
+//  448 @endverbatim
+//  449   * @{
+//  450   */
+//  451 
+//  452 /**
+//  453   * @brief Transmit an amount of data in blocking mode
+//  454   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
+//  455   *         the configuration information for I2S module
+//  456   * @param pData: a 16-bit pointer to data buffer.
+//  457   * @param Size: number of data sample to be sent:
+//  458   * @note When a 16-bit data frame or a 16-bit data frame extended is selected during the I2S
+//  459   *       configuration phase, the Size parameter means the number of 16-bit data length 
+//  460   *       in the transaction and when a 24-bit data frame or a 32-bit data frame is selected 
+//  461   *       the Size parameter means the number of 16-bit data length. 
+//  462   * @param  Timeout: Timeout duration
+//  463   * @note The I2S is kept enabled at the end of transaction to avoid the clock de-synchronization 
+//  464   *       between Master and Slave(example: audio streaming).
+//  465   * @retval HAL status
+//  466   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock4 Using cfiCommon0
           CFI Function HAL_I2S_Transmit
         THUMB
-//  461 HAL_StatusTypeDef HAL_I2S_Transmit(I2S_HandleTypeDef *hi2s, uint16_t *pData, uint16_t Size, uint32_t Timeout)
-//  462 {
+//  467 HAL_StatusTypeDef HAL_I2S_Transmit(I2S_HandleTypeDef *hi2s, uint16_t *pData, uint16_t Size, uint32_t Timeout)
+//  468 {
 HAL_I2S_Transmit:
         PUSH     {R4-R7,LR}
           CFI R14 Frame(CFA, -4)
@@ -824,21 +830,21 @@ HAL_I2S_Transmit:
           CFI CFA R13+24
         MOV      R4,R0
         MOV      R6,R3
-//  463   if((pData == NULL ) || (Size == 0)) 
+//  469   if((pData == NULL ) || (Size == 0)) 
         IT       NE 
         CMPNE    R2,#+0
         BEQ.N    ??HAL_I2S_Transmit_0
-//  464   {
-//  465     return  HAL_ERROR;                                    
-//  466   }
-//  467   
-//  468   if(hi2s->State == HAL_I2S_STATE_READY)
+//  470   {
+//  471     return  HAL_ERROR;                                    
+//  472   }
+//  473   
+//  474   if(hi2s->State == HAL_I2S_STATE_READY)
         LDRB     R0,[R4, #+57]
         CMP      R0,#+1
         BNE.W    ??HAL_I2S_Transmit_1
-//  469   { 
-//  470     if(((hi2s->Instance->I2SCFGR & (SPI_I2SCFGR_DATLEN | SPI_I2SCFGR_CHLEN)) == I2S_DATAFORMAT_24B)||\ 
-//  471        ((hi2s->Instance->I2SCFGR & (SPI_I2SCFGR_DATLEN | SPI_I2SCFGR_CHLEN)) == I2S_DATAFORMAT_32B))
+//  475   { 
+//  476     if(((hi2s->Instance->I2SCFGR & (SPI_I2SCFGR_DATLEN | SPI_I2SCFGR_CHLEN)) == I2S_DATAFORMAT_24B)||\ 
+//  477        ((hi2s->Instance->I2SCFGR & (SPI_I2SCFGR_DATLEN | SPI_I2SCFGR_CHLEN)) == I2S_DATAFORMAT_32B))
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+28]
         AND      R1,R1,#0x7
@@ -848,67 +854,67 @@ HAL_I2S_Transmit:
         ANDNE    R1,R1,#0x7
         CMPNE    R1,#+5
         BNE.N    ??HAL_I2S_Transmit_2
-//  472     {
-//  473       hi2s->TxXferSize = (Size << 1);
+//  478     {
+//  479       hi2s->TxXferSize = (Size << 1);
         LSLS     R1,R2,#+1
         STRH     R1,[R4, #+36]
-//  474       hi2s->TxXferCount = (Size << 1);
+//  480       hi2s->TxXferCount = (Size << 1);
         STRH     R1,[R4, #+38]
         B.N      ??HAL_I2S_Transmit_3
-//  475     }
-//  476     else
-//  477     {
-//  478       hi2s->TxXferSize = Size;
+//  481     }
+//  482     else
+//  483     {
+//  484       hi2s->TxXferSize = Size;
 ??HAL_I2S_Transmit_2:
         STRH     R2,[R4, #+36]
-//  479       hi2s->TxXferCount = Size;
+//  485       hi2s->TxXferCount = Size;
         STRH     R2,[R4, #+38]
-//  480     }
-//  481     
-//  482     /* Process Locked */
-//  483     __HAL_LOCK(hi2s);
+//  486     }
+//  487     
+//  488     /* Process Locked */
+//  489     __HAL_LOCK(hi2s);
 ??HAL_I2S_Transmit_3:
         LDRB     R1,[R4, #+56]
         CMP      R1,#+1
         BEQ.N    ??HAL_I2S_Transmit_1
         MOVS     R1,#+1
         STRB     R1,[R4, #+56]
-//  484     
-//  485     hi2s->ErrorCode = HAL_I2S_ERROR_NONE;
+//  490     
+//  491     hi2s->ErrorCode = HAL_I2S_ERROR_NONE;
         MOVS     R1,#+0
         STR      R1,[R4, #+60]
-//  486     hi2s->State = HAL_I2S_STATE_BUSY_TX;
+//  492     hi2s->State = HAL_I2S_STATE_BUSY_TX;
         MOVS     R1,#+3
         STRB     R1,[R4, #+57]
-//  487    
-//  488     /* Check if the I2S is already enabled */ 
-//  489     if((hi2s->Instance->I2SCFGR &SPI_I2SCFGR_I2SE) != SPI_I2SCFGR_I2SE)
+//  493    
+//  494     /* Check if the I2S is already enabled */ 
+//  495     if((hi2s->Instance->I2SCFGR &SPI_I2SCFGR_I2SE) != SPI_I2SCFGR_I2SE)
         LDR      R1,[R0, #+28]
         LSLS     R1,R1,#+21
         BMI.N    ??HAL_I2S_Transmit_4
-//  490     {
-//  491       /* Enable I2S peripheral */    
-//  492       __HAL_I2S_ENABLE(hi2s);
+//  496     {
+//  497       /* Enable I2S peripheral */    
+//  498       __HAL_I2S_ENABLE(hi2s);
         LDR      R1,[R0, #+28]
         ORR      R1,R1,#0x400
         STR      R1,[R0, #+28]
-//  493     }
-//  494     
-//  495     while(hi2s->TxXferCount > 0)
+//  499     }
+//  500     
+//  501     while(hi2s->TxXferCount > 0)
 ??HAL_I2S_Transmit_4:
         LDR      R0,[R4, #+0]
         LDRH     R1,[R4, #+38]
         CBZ.N    R1,??HAL_I2S_Transmit_5
-//  496     {
-//  497       hi2s->Instance->DR = (*pData++);
+//  502     {
+//  503       hi2s->Instance->DR = (*pData++);
         LDRH     R1,[R5], #+2
         STR      R1,[R0, #+12]
-//  498       hi2s->TxXferCount--;   
+//  504       hi2s->TxXferCount--;   
         LDRH     R0,[R4, #+38]
         SUBS     R0,R0,#+1
         STRH     R0,[R4, #+38]
-//  499       /* Wait until TXE flag is set */
-//  500       if (I2S_WaitFlagStateUntilTimeout(hi2s, I2S_FLAG_TXE, SET, Timeout) != HAL_OK)
+//  505       /* Wait until TXE flag is set */
+//  506       if (I2S_WaitFlagStateUntilTimeout(hi2s, I2S_FLAG_TXE, SET, Timeout) != HAL_OK)
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         MOV      R7,R0
@@ -926,52 +932,52 @@ HAL_I2S_Transmit:
         CMP      R6,R0
         BCS.N    ??HAL_I2S_Transmit_6
         B.N      ??HAL_I2S_Transmit_8
-//  501       {
-//  502         /* Set the error code and execute error callback*/
-//  503         hi2s->ErrorCode |= HAL_I2S_ERROR_TIMEOUT;
-//  504         HAL_I2S_ErrorCallback(hi2s);
-//  505         return HAL_TIMEOUT;
-//  506       }
-//  507 
-//  508       /* Check if an underrun occurs */
-//  509       if(__HAL_I2S_GET_FLAG(hi2s, I2S_FLAG_UDR) == SET) 
+//  507       {
+//  508         /* Set the error code and execute error callback*/
+//  509         hi2s->ErrorCode |= HAL_I2S_ERROR_TIMEOUT;
+//  510         HAL_I2S_ErrorCallback(hi2s);
+//  511         return HAL_TIMEOUT;
+//  512       }
+//  513 
+//  514       /* Check if an underrun occurs */
+//  515       if(__HAL_I2S_GET_FLAG(hi2s, I2S_FLAG_UDR) == SET) 
 ??HAL_I2S_Transmit_7:
         LDR      R0,[R0, #+8]
         LSLS     R0,R0,#+28
         BPL.N    ??HAL_I2S_Transmit_4
-//  510       {
-//  511         /* Set the I2S State ready */
-//  512         hi2s->State = HAL_I2S_STATE_READY; 
+//  516       {
+//  517         /* Set the I2S State ready */
+//  518         hi2s->State = HAL_I2S_STATE_READY; 
         MOVS     R0,#+1
         STRB     R0,[R4, #+57]
-//  513 
-//  514         /* Process Unlocked */
-//  515         __HAL_UNLOCK(hi2s);
+//  519 
+//  520         /* Process Unlocked */
+//  521         __HAL_UNLOCK(hi2s);
         MOVS     R0,#+0
         STRB     R0,[R4, #+56]
-//  516 
-//  517         /* Set the error code and execute error callback*/
-//  518         hi2s->ErrorCode |= HAL_I2S_ERROR_UDR;
+//  522 
+//  523         /* Set the error code and execute error callback*/
+//  524         hi2s->ErrorCode |= HAL_I2S_ERROR_UDR;
         LDR      R0,[R4, #+60]
         ORR      R0,R0,#0x4
         STR      R0,[R4, #+60]
-//  519         HAL_I2S_ErrorCallback(hi2s);
+//  525         HAL_I2S_ErrorCallback(hi2s);
         MOV      R0,R4
           CFI FunCall HAL_I2S_ErrorCallback
         BL       HAL_I2S_ErrorCallback
-//  520 
-//  521         return HAL_ERROR;
+//  526 
+//  527         return HAL_ERROR;
 ??HAL_I2S_Transmit_0:
         MOVS     R0,#+1
         ADD      SP,SP,#+4
           CFI CFA R13+20
         POP      {R4-R7,PC}
           CFI CFA R13+24
-//  522       }
-//  523     }      
-//  524     
-//  525     /* Check if Slave mode is selected */
-//  526     if(((hi2s->Instance->I2SCFGR & SPI_I2SCFGR_I2SCFG) == I2S_MODE_SLAVE_TX) || ((hi2s->Instance->I2SCFGR & SPI_I2SCFGR_I2SCFG) == I2S_MODE_SLAVE_RX))
+//  528       }
+//  529     }      
+//  530     
+//  531     /* Check if Slave mode is selected */
+//  532     if(((hi2s->Instance->I2SCFGR & SPI_I2SCFGR_I2SCFG) == I2S_MODE_SLAVE_TX) || ((hi2s->Instance->I2SCFGR & SPI_I2SCFGR_I2SCFG) == I2S_MODE_SLAVE_RX))
 ??HAL_I2S_Transmit_5:
         LDR      R1,[R0, #+28]
         TST      R1,#0x300
@@ -980,9 +986,9 @@ HAL_I2S_Transmit:
         ANDNE    R0,R0,#0x300
         CMPNE    R0,#+256
         BNE.N    ??HAL_I2S_Transmit_9
-//  527     {
-//  528       /* Wait until Busy flag is reset */
-//  529       if (I2S_WaitFlagStateUntilTimeout(hi2s, I2S_FLAG_BSY, RESET, Timeout) != HAL_OK) 
+//  533     {
+//  534       /* Wait until Busy flag is reset */
+//  535       if (I2S_WaitFlagStateUntilTimeout(hi2s, I2S_FLAG_BSY, SET, Timeout) != HAL_OK) 
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         MOV      R5,R0
@@ -990,7 +996,7 @@ HAL_I2S_Transmit:
         LDR      R0,[R4, #+0]
         LDR      R0,[R0, #+8]
         LSLS     R0,R0,#+24
-        BMI.N    ??HAL_I2S_Transmit_9
+        BPL.N    ??HAL_I2S_Transmit_9
         CMN      R6,#+1
         BEQ.N    ??HAL_I2S_Transmit_10
         CBZ.N    R6,??HAL_I2S_Transmit_8
@@ -1004,77 +1010,77 @@ HAL_I2S_Transmit:
         STRB     R0,[R4, #+57]
         MOVS     R0,#+0
         STRB     R0,[R4, #+56]
-//  530       {
-//  531         /* Set the error code and execute error callback*/
-//  532         hi2s->ErrorCode |= HAL_I2S_ERROR_TIMEOUT;
+//  536       {
+//  537         /* Set the error code and execute error callback*/
+//  538         hi2s->ErrorCode |= HAL_I2S_ERROR_TIMEOUT;
         LDR      R0,[R4, #+60]
         ORR      R0,R0,#0x1
         STR      R0,[R4, #+60]
-//  533         HAL_I2S_ErrorCallback(hi2s);
+//  539         HAL_I2S_ErrorCallback(hi2s);
         MOV      R0,R4
           CFI FunCall HAL_I2S_ErrorCallback
         BL       HAL_I2S_ErrorCallback
-//  534         return HAL_TIMEOUT;
+//  540         return HAL_TIMEOUT;
         MOVS     R0,#+3
         ADD      SP,SP,#+4
           CFI CFA R13+20
         POP      {R4-R7,PC}
           CFI CFA R13+24
-//  535       }
-//  536     }
-//  537     
-//  538     hi2s->State = HAL_I2S_STATE_READY; 
+//  541       }
+//  542     }
+//  543     
+//  544     hi2s->State = HAL_I2S_STATE_READY; 
 ??HAL_I2S_Transmit_9:
         MOVS     R0,#+1
         STRB     R0,[R4, #+57]
-//  539     
-//  540     /* Process Unlocked */
-//  541     __HAL_UNLOCK(hi2s);
+//  545     
+//  546     /* Process Unlocked */
+//  547     __HAL_UNLOCK(hi2s);
         MOVS     R0,#+0
         STRB     R0,[R4, #+56]
-//  542     
-//  543     return HAL_OK;
+//  548     
+//  549     return HAL_OK;
         ADD      SP,SP,#+4
           CFI CFA R13+20
         POP      {R4-R7,PC}
           CFI CFA R13+24
-//  544   }
-//  545   else
-//  546   {
-//  547     return HAL_BUSY;
+//  550   }
+//  551   else
+//  552   {
+//  553     return HAL_BUSY;
 ??HAL_I2S_Transmit_1:
         MOVS     R0,#+2
         ADD      SP,SP,#+4
           CFI CFA R13+20
         POP      {R4-R7,PC}       ;; return
-//  548   }
-//  549 }
+//  554   }
+//  555 }
           CFI EndBlock cfiBlock4
-//  550 
-//  551 /**
-//  552   * @brief Receive an amount of data in blocking mode 
-//  553   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
-//  554   *         the configuration information for I2S module
-//  555   * @param pData: a 16-bit pointer to data buffer.
-//  556   * @param Size: number of data sample to be sent:
-//  557   * @note When a 16-bit data frame or a 16-bit data frame extended is selected during the I2S
-//  558   *       configuration phase, the Size parameter means the number of 16-bit data length 
-//  559   *       in the transaction and when a 24-bit data frame or a 32-bit data frame is selected 
-//  560   *       the Size parameter means the number of 16-bit data length. 
-//  561   * @param Timeout: Timeout duration
-//  562   * @note The I2S is kept enabled at the end of transaction to avoid the clock de-synchronization 
-//  563   *       between Master and Slave(example: audio streaming).
-//  564   * @note In I2S Master Receiver mode, just after enabling the peripheral the clock will be generate
-//  565   *       in continuous way and as the I2S is not disabled at the end of the I2S transaction.
-//  566   * @retval HAL status
-//  567   */
+//  556 
+//  557 /**
+//  558   * @brief Receive an amount of data in blocking mode 
+//  559   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
+//  560   *         the configuration information for I2S module
+//  561   * @param pData: a 16-bit pointer to data buffer.
+//  562   * @param Size: number of data sample to be sent:
+//  563   * @note When a 16-bit data frame or a 16-bit data frame extended is selected during the I2S
+//  564   *       configuration phase, the Size parameter means the number of 16-bit data length 
+//  565   *       in the transaction and when a 24-bit data frame or a 32-bit data frame is selected 
+//  566   *       the Size parameter means the number of 16-bit data length. 
+//  567   * @param Timeout: Timeout duration
+//  568   * @note The I2S is kept enabled at the end of transaction to avoid the clock de-synchronization 
+//  569   *       between Master and Slave(example: audio streaming).
+//  570   * @note In I2S Master Receiver mode, just after enabling the peripheral the clock will be generate
+//  571   *       in continuous way and as the I2S is not disabled at the end of the I2S transaction.
+//  572   * @retval HAL status
+//  573   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock5 Using cfiCommon0
           CFI Function HAL_I2S_Receive
         THUMB
-//  568 HAL_StatusTypeDef HAL_I2S_Receive(I2S_HandleTypeDef *hi2s, uint16_t *pData, uint16_t Size, uint32_t Timeout)
-//  569 {
+//  574 HAL_StatusTypeDef HAL_I2S_Receive(I2S_HandleTypeDef *hi2s, uint16_t *pData, uint16_t Size, uint32_t Timeout)
+//  575 {
 HAL_I2S_Receive:
         PUSH     {R4-R7,LR}
           CFI R14 Frame(CFA, -4)
@@ -1088,21 +1094,21 @@ HAL_I2S_Receive:
           CFI CFA R13+24
         MOV      R4,R0
         MOV      R6,R3
-//  570   if((pData == NULL ) || (Size == 0)) 
+//  576   if((pData == NULL ) || (Size == 0)) 
         IT       NE 
         CMPNE    R2,#+0
         BEQ.N    ??HAL_I2S_Receive_0
-//  571   {
-//  572     return  HAL_ERROR;                                    
-//  573   }
-//  574   
-//  575   if(hi2s->State == HAL_I2S_STATE_READY)
+//  577   {
+//  578     return  HAL_ERROR;                                    
+//  579   }
+//  580   
+//  581   if(hi2s->State == HAL_I2S_STATE_READY)
         LDRB     R0,[R4, #+57]
         CMP      R0,#+1
         BNE.N    ??HAL_I2S_Receive_1
-//  576   { 
-//  577     if(((hi2s->Instance->I2SCFGR & (SPI_I2SCFGR_DATLEN | SPI_I2SCFGR_CHLEN)) == I2S_DATAFORMAT_24B)||\ 
-//  578        ((hi2s->Instance->I2SCFGR & (SPI_I2SCFGR_DATLEN | SPI_I2SCFGR_CHLEN)) == I2S_DATAFORMAT_32B))
+//  582   { 
+//  583     if(((hi2s->Instance->I2SCFGR & (SPI_I2SCFGR_DATLEN | SPI_I2SCFGR_CHLEN)) == I2S_DATAFORMAT_24B)||\ 
+//  584        ((hi2s->Instance->I2SCFGR & (SPI_I2SCFGR_DATLEN | SPI_I2SCFGR_CHLEN)) == I2S_DATAFORMAT_32B))
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+28]
         AND      R1,R1,#0x7
@@ -1112,104 +1118,106 @@ HAL_I2S_Receive:
         ANDNE    R1,R1,#0x7
         CMPNE    R1,#+5
         BNE.N    ??HAL_I2S_Receive_2
-//  579     {
-//  580       hi2s->RxXferSize = (Size << 1);
+//  585     {
+//  586       hi2s->RxXferSize = (Size << 1);
         LSLS     R1,R2,#+1
         STRH     R1,[R4, #+44]
-//  581       hi2s->RxXferCount = (Size << 1);
+//  587       hi2s->RxXferCount = (Size << 1);
         STRH     R1,[R4, #+46]
         B.N      ??HAL_I2S_Receive_3
-//  582     }
-//  583     else
-//  584     {
-//  585       hi2s->RxXferSize = Size;
+//  588     }
+//  589     else
+//  590     {
+//  591       hi2s->RxXferSize = Size;
 ??HAL_I2S_Receive_2:
         STRH     R2,[R4, #+44]
-//  586       hi2s->RxXferCount = Size;
+//  592       hi2s->RxXferCount = Size;
         STRH     R2,[R4, #+46]
-//  587     }
-//  588     /* Process Locked */
-//  589     __HAL_LOCK(hi2s);
+//  593     }
+//  594     /* Process Locked */
+//  595     __HAL_LOCK(hi2s);
 ??HAL_I2S_Receive_3:
         LDRB     R1,[R4, #+56]
         CMP      R1,#+1
         BEQ.N    ??HAL_I2S_Receive_1
         MOVS     R1,#+1
         STRB     R1,[R4, #+56]
-//  590     
-//  591     hi2s->ErrorCode = HAL_I2S_ERROR_NONE;
+//  596     
+//  597     hi2s->ErrorCode = HAL_I2S_ERROR_NONE;
         MOVS     R1,#+0
         STR      R1,[R4, #+60]
-//  592     hi2s->State = HAL_I2S_STATE_BUSY_RX;
+//  598     hi2s->State = HAL_I2S_STATE_BUSY_RX;
         MOVS     R1,#+4
         STRB     R1,[R4, #+57]
-//  593         
-//  594     /* Check if the I2S is already enabled */ 
-//  595     if((hi2s->Instance->I2SCFGR & SPI_I2SCFGR_I2SE) != SPI_I2SCFGR_I2SE)
+//  599         
+//  600     /* Check if the I2S is already enabled */ 
+//  601     if((hi2s->Instance->I2SCFGR & SPI_I2SCFGR_I2SE) != SPI_I2SCFGR_I2SE)
         LDR      R1,[R0, #+28]
         LSLS     R1,R1,#+21
         BMI.N    ??HAL_I2S_Receive_4
-//  596     {
-//  597       /* Enable I2S peripheral */    
-//  598       __HAL_I2S_ENABLE(hi2s);
+//  602     {
+//  603       /* Enable I2S peripheral */    
+//  604       __HAL_I2S_ENABLE(hi2s);
         LDR      R1,[R0, #+28]
         ORR      R1,R1,#0x400
         STR      R1,[R0, #+28]
-//  599     }
-//  600     
-//  601     /* Check if Master Receiver mode is selected */
-//  602     if((hi2s->Instance->I2SCFGR & SPI_I2SCFGR_I2SCFG) == I2S_MODE_MASTER_RX)
+//  605     }
+//  606     
+//  607     /* Check if Master Receiver mode is selected */
+//  608     if((hi2s->Instance->I2SCFGR & SPI_I2SCFGR_I2SCFG) == I2S_MODE_MASTER_RX)
 ??HAL_I2S_Receive_4:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+28]
         AND      R1,R1,#0x300
         CMP      R1,#+768
         BNE.N    ??HAL_I2S_Receive_5
-//  603     {
-//  604       /* Clear the Overrun Flag by a read operation on the SPI_DR register followed by a read
-//  605       access to the SPI_SR register. */ 
-//  606       __HAL_I2S_CLEAR_OVRFLAG(hi2s);        
+//  609     {
+//  610       /* Clear the Overrun Flag by a read operation on the SPI_DR register followed by a read
+//  611       access to the SPI_SR register. */ 
+//  612       __HAL_I2S_CLEAR_OVRFLAG(hi2s);        
+        MOVS     R1,#+0
+        STR      R1,[SP, #+0]
         LDR      R1,[R0, #+12]
         STR      R1,[SP, #+0]
         LDR      R0,[R0, #+8]
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
         B.N      ??HAL_I2S_Receive_5
-//  607     }
-//  608     
-//  609     /* Receive data */
-//  610     while(hi2s->RxXferCount > 0)
-//  611     {
-//  612       /* Wait until RXNE flag is set */
-//  613       if (I2S_WaitFlagStateUntilTimeout(hi2s, I2S_FLAG_RXNE, SET, Timeout) != HAL_OK) 
-//  614       {
-//  615         /* Set the error code and execute error callback*/
-//  616         hi2s->ErrorCode |= HAL_I2S_ERROR_TIMEOUT;
-//  617         HAL_I2S_ErrorCallback(hi2s);
-//  618         return HAL_TIMEOUT;
-//  619       }
-//  620       
-//  621       /* Check if an overrun occurs */
-//  622       if(__HAL_I2S_GET_FLAG(hi2s, I2S_FLAG_OVR) == SET) 
-//  623       {
-//  624         /* Set the I2S State ready */
-//  625         hi2s->State = HAL_I2S_STATE_READY; 
-//  626 
-//  627         /* Process Unlocked */
-//  628         __HAL_UNLOCK(hi2s);
-//  629 
-//  630         /* Set the error code and execute error callback*/
-//  631         hi2s->ErrorCode |= HAL_I2S_ERROR_OVR;
-//  632         HAL_I2S_ErrorCallback(hi2s);
-//  633 
-//  634         return HAL_ERROR;
-//  635       }
-//  636 
-//  637       (*pData++) = hi2s->Instance->DR;
+//  613     }
+//  614     
+//  615     /* Receive data */
+//  616     while(hi2s->RxXferCount > 0)
+//  617     {
+//  618       /* Wait until RXNE flag is set */
+//  619       if (I2S_WaitFlagStateUntilTimeout(hi2s, I2S_FLAG_RXNE, SET, Timeout) != HAL_OK) 
+//  620       {
+//  621         /* Set the error code and execute error callback*/
+//  622         hi2s->ErrorCode |= HAL_I2S_ERROR_TIMEOUT;
+//  623         HAL_I2S_ErrorCallback(hi2s);
+//  624         return HAL_TIMEOUT;
+//  625       }
+//  626       
+//  627       /* Check if an overrun occurs */
+//  628       if(__HAL_I2S_GET_FLAG(hi2s, I2S_FLAG_OVR) == SET) 
+//  629       {
+//  630         /* Set the I2S State ready */
+//  631         hi2s->State = HAL_I2S_STATE_READY; 
+//  632 
+//  633         /* Process Unlocked */
+//  634         __HAL_UNLOCK(hi2s);
+//  635 
+//  636         /* Set the error code and execute error callback*/
+//  637         hi2s->ErrorCode |= HAL_I2S_ERROR_OVR;
+//  638         HAL_I2S_ErrorCallback(hi2s);
+//  639 
+//  640         return HAL_ERROR;
+//  641       }
+//  642 
+//  643       (*pData++) = hi2s->Instance->DR;
 ??HAL_I2S_Receive_6:
         LDR      R0,[R0, #+12]
         STRH     R0,[R5], #+2
-//  638       hi2s->RxXferCount--;
+//  644       hi2s->RxXferCount--;
         LDRH     R0,[R4, #+46]
         SUBS     R0,R0,#+1
         STRH     R0,[R4, #+46]
@@ -1268,80 +1276,80 @@ HAL_I2S_Receive:
           CFI CFA R13+20
         POP      {R4-R7,PC}
           CFI CFA R13+24
-//  639     }      
-//  640 
-//  641     hi2s->State = HAL_I2S_STATE_READY; 
+//  645     }      
+//  646 
+//  647     hi2s->State = HAL_I2S_STATE_READY; 
 ??HAL_I2S_Receive_7:
         MOVS     R0,#+1
         STRB     R0,[R4, #+57]
-//  642     
-//  643     /* Process Unlocked */
-//  644     __HAL_UNLOCK(hi2s);
+//  648     
+//  649     /* Process Unlocked */
+//  650     __HAL_UNLOCK(hi2s);
         MOVS     R0,#+0
         STRB     R0,[R4, #+56]
-//  645     
-//  646     return HAL_OK;
+//  651     
+//  652     return HAL_OK;
         ADD      SP,SP,#+4
           CFI CFA R13+20
         POP      {R4-R7,PC}
           CFI CFA R13+24
-//  647   }
-//  648   else
-//  649   {
-//  650     return HAL_BUSY;
+//  653   }
+//  654   else
+//  655   {
+//  656     return HAL_BUSY;
 ??HAL_I2S_Receive_1:
         MOVS     R0,#+2
         ADD      SP,SP,#+4
           CFI CFA R13+20
         POP      {R4-R7,PC}       ;; return
-//  651   }
-//  652 }
+//  657   }
+//  658 }
           CFI EndBlock cfiBlock5
-//  653 
-//  654 /**
-//  655   * @brief Transmit an amount of data in non-blocking mode with Interrupt
-//  656   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
-//  657   *         the configuration information for I2S module
-//  658   * @param pData: a 16-bit pointer to data buffer.
-//  659   * @param Size: number of data sample to be sent:
-//  660   * @note When a 16-bit data frame or a 16-bit data frame extended is selected during the I2S
-//  661   *       configuration phase, the Size parameter means the number of 16-bit data length 
-//  662   *       in the transaction and when a 24-bit data frame or a 32-bit data frame is selected 
-//  663   *       the Size parameter means the number of 16-bit data length. 
-//  664   * @note The I2S is kept enabled at the end of transaction to avoid the clock de-synchronization 
-//  665   *       between Master and Slave(example: audio streaming).
-//  666   * @retval HAL status
-//  667   */
+//  659 
+//  660 /**
+//  661   * @brief Transmit an amount of data in non-blocking mode with Interrupt
+//  662   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
+//  663   *         the configuration information for I2S module
+//  664   * @param pData: a 16-bit pointer to data buffer.
+//  665   * @param Size: number of data sample to be sent:
+//  666   * @note When a 16-bit data frame or a 16-bit data frame extended is selected during the I2S
+//  667   *       configuration phase, the Size parameter means the number of 16-bit data length 
+//  668   *       in the transaction and when a 24-bit data frame or a 32-bit data frame is selected 
+//  669   *       the Size parameter means the number of 16-bit data length. 
+//  670   * @note The I2S is kept enabled at the end of transaction to avoid the clock de-synchronization 
+//  671   *       between Master and Slave(example: audio streaming).
+//  672   * @retval HAL status
+//  673   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock6 Using cfiCommon0
           CFI Function HAL_I2S_Transmit_IT
           CFI NoCalls
         THUMB
-//  668 HAL_StatusTypeDef HAL_I2S_Transmit_IT(I2S_HandleTypeDef *hi2s, uint16_t *pData, uint16_t Size)
-//  669 {
-//  670   if(hi2s->State == HAL_I2S_STATE_READY)
+//  674 HAL_StatusTypeDef HAL_I2S_Transmit_IT(I2S_HandleTypeDef *hi2s, uint16_t *pData, uint16_t Size)
+//  675 {
+//  676   if(hi2s->State == HAL_I2S_STATE_READY)
 HAL_I2S_Transmit_IT:
         LDRB     R3,[R0, #+57]
         CMP      R3,#+1
         BNE.N    ??HAL_I2S_Transmit_IT_0
-//  671   {
-//  672     if((pData == NULL) || (Size == 0)) 
+//  677   {
+//  678     if((pData == NULL) || (Size == 0)) 
         CMP      R1,#+0
         IT       NE 
         CMPNE    R2,#+0
         BNE.N    ??HAL_I2S_Transmit_IT_1
-//  673     {
-//  674       return  HAL_ERROR;                                    
+//  679     {
+//  680       return  HAL_ERROR;                                    
         MOVS     R0,#+1
         BX       LR
-//  675     }
-//  676     
-//  677     hi2s->pTxBuffPtr = pData;
+//  681     }
+//  682     
+//  683     hi2s->pTxBuffPtr = pData;
 ??HAL_I2S_Transmit_IT_1:
         STR      R1,[R0, #+32]
-//  678     if(((hi2s->Instance->I2SCFGR & (SPI_I2SCFGR_DATLEN | SPI_I2SCFGR_CHLEN)) == I2S_DATAFORMAT_24B)||\ 
-//  679       ((hi2s->Instance->I2SCFGR & (SPI_I2SCFGR_DATLEN | SPI_I2SCFGR_CHLEN)) == I2S_DATAFORMAT_32B))
+//  684     if(((hi2s->Instance->I2SCFGR & (SPI_I2SCFGR_DATLEN | SPI_I2SCFGR_CHLEN)) == I2S_DATAFORMAT_24B)||\ 
+//  685       ((hi2s->Instance->I2SCFGR & (SPI_I2SCFGR_DATLEN | SPI_I2SCFGR_CHLEN)) == I2S_DATAFORMAT_32B))
         LDR      R1,[R0, #+0]
         LDR      R3,[R1, #+28]
         AND      R3,R3,#0x7
@@ -1351,119 +1359,119 @@ HAL_I2S_Transmit_IT:
         ANDNE    R3,R3,#0x7
         CMPNE    R3,#+5
         LSLEQ    R2,R2,#+1
-//  680     {
-//  681       hi2s->TxXferSize = (Size << 1);
-//  682       hi2s->TxXferCount = (Size << 1);
-//  683     }  
-//  684     else
-//  685     {
-//  686       hi2s->TxXferSize = Size;
+//  686     {
+//  687       hi2s->TxXferSize = (Size << 1);
+//  688       hi2s->TxXferCount = (Size << 1);
+//  689     }  
+//  690     else
+//  691     {
+//  692       hi2s->TxXferSize = Size;
         STRH     R2,[R0, #+36]
-//  687       hi2s->TxXferCount = Size;
+//  693       hi2s->TxXferCount = Size;
         STRH     R2,[R0, #+38]
-//  688     }
-//  689     
-//  690     /* Process Locked */
-//  691     __HAL_LOCK(hi2s);
+//  694     }
+//  695     
+//  696     /* Process Locked */
+//  697     __HAL_LOCK(hi2s);
         LDRB     R2,[R0, #+56]
         CMP      R2,#+1
         BEQ.N    ??HAL_I2S_Transmit_IT_0
         MOVS     R2,#+1
         STRB     R2,[R0, #+56]
-//  692     
-//  693     hi2s->ErrorCode = HAL_I2S_ERROR_NONE;
+//  698     
+//  699     hi2s->ErrorCode = HAL_I2S_ERROR_NONE;
         MOVS     R2,#+0
         STR      R2,[R0, #+60]
-//  694     hi2s->State = HAL_I2S_STATE_BUSY_TX;
+//  700     hi2s->State = HAL_I2S_STATE_BUSY_TX;
         MOVS     R2,#+3
         STRB     R2,[R0, #+57]
-//  695 
-//  696     /* Enable TXE and ERR interrupt */
-//  697     __HAL_I2S_ENABLE_IT(hi2s, (I2S_IT_TXE | I2S_IT_ERR));
+//  701 
+//  702     /* Enable TXE and ERR interrupt */
+//  703     __HAL_I2S_ENABLE_IT(hi2s, (I2S_IT_TXE | I2S_IT_ERR));
         LDR      R2,[R1, #+4]
         ORR      R2,R2,#0xA0
         STR      R2,[R1, #+4]
-//  698     
-//  699     /* Check if the I2S is already enabled */ 
-//  700     if((hi2s->Instance->I2SCFGR &SPI_I2SCFGR_I2SE) != SPI_I2SCFGR_I2SE)
+//  704     
+//  705     /* Check if the I2S is already enabled */ 
+//  706     if((hi2s->Instance->I2SCFGR &SPI_I2SCFGR_I2SE) != SPI_I2SCFGR_I2SE)
         LDR      R1,[R0, #+0]
         LDR      R2,[R1, #+28]
         LSLS     R2,R2,#+21
         BMI.N    ??HAL_I2S_Transmit_IT_2
-//  701     {
-//  702       /* Enable I2S peripheral */    
-//  703       __HAL_I2S_ENABLE(hi2s);
+//  707     {
+//  708       /* Enable I2S peripheral */    
+//  709       __HAL_I2S_ENABLE(hi2s);
         LDR      R2,[R1, #+28]
         ORR      R2,R2,#0x400
         STR      R2,[R1, #+28]
-//  704     }
-//  705     
-//  706     /* Process Unlocked */
-//  707     __HAL_UNLOCK(hi2s);
+//  710     }
+//  711     
+//  712     /* Process Unlocked */
+//  713     __HAL_UNLOCK(hi2s);
 ??HAL_I2S_Transmit_IT_2:
         MOVS     R1,#+0
         STRB     R1,[R0, #+56]
-//  708     
-//  709     return HAL_OK;
+//  714     
+//  715     return HAL_OK;
         MOVS     R0,#+0
         BX       LR
-//  710   }
-//  711   else
-//  712   {
-//  713     return HAL_BUSY;
+//  716   }
+//  717   else
+//  718   {
+//  719     return HAL_BUSY;
 ??HAL_I2S_Transmit_IT_0:
         MOVS     R0,#+2
         BX       LR               ;; return
-//  714   }
-//  715 }
+//  720   }
+//  721 }
           CFI EndBlock cfiBlock6
-//  716 
-//  717 /**
-//  718   * @brief Receive an amount of data in non-blocking mode with Interrupt
-//  719   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
-//  720   *         the configuration information for I2S module
-//  721   * @param pData: a 16-bit pointer to the Receive data buffer.
-//  722   * @param Size: number of data sample to be sent:
-//  723   * @note When a 16-bit data frame or a 16-bit data frame extended is selected during the I2S
-//  724   *       configuration phase, the Size parameter means the number of 16-bit data length 
-//  725   *       in the transaction and when a 24-bit data frame or a 32-bit data frame is selected 
-//  726   *       the Size parameter means the number of 16-bit data length. 
-//  727   * @note The I2S is kept enabled at the end of transaction to avoid the clock de-synchronization 
-//  728   *       between Master and Slave(example: audio streaming).
-//  729   * @note It is recommended to use DMA for the I2S receiver to avoid de-synchronisation 
-//  730   * between Master and Slave otherwise the I2S interrupt should be optimized. 
-//  731   * @retval HAL status
-//  732   */
+//  722 
+//  723 /**
+//  724   * @brief Receive an amount of data in non-blocking mode with Interrupt
+//  725   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
+//  726   *         the configuration information for I2S module
+//  727   * @param pData: a 16-bit pointer to the Receive data buffer.
+//  728   * @param Size: number of data sample to be sent:
+//  729   * @note When a 16-bit data frame or a 16-bit data frame extended is selected during the I2S
+//  730   *       configuration phase, the Size parameter means the number of 16-bit data length 
+//  731   *       in the transaction and when a 24-bit data frame or a 32-bit data frame is selected 
+//  732   *       the Size parameter means the number of 16-bit data length. 
+//  733   * @note The I2S is kept enabled at the end of transaction to avoid the clock de-synchronization 
+//  734   *       between Master and Slave(example: audio streaming).
+//  735   * @note It is recommended to use DMA for the I2S receiver to avoid de-synchronisation 
+//  736   * between Master and Slave otherwise the I2S interrupt should be optimized. 
+//  737   * @retval HAL status
+//  738   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock7 Using cfiCommon0
           CFI Function HAL_I2S_Receive_IT
           CFI NoCalls
         THUMB
-//  733 HAL_StatusTypeDef HAL_I2S_Receive_IT(I2S_HandleTypeDef *hi2s, uint16_t *pData, uint16_t Size)
-//  734 {
-//  735   if(hi2s->State == HAL_I2S_STATE_READY)
+//  739 HAL_StatusTypeDef HAL_I2S_Receive_IT(I2S_HandleTypeDef *hi2s, uint16_t *pData, uint16_t Size)
+//  740 {
+//  741   if(hi2s->State == HAL_I2S_STATE_READY)
 HAL_I2S_Receive_IT:
         LDRB     R3,[R0, #+57]
         CMP      R3,#+1
         BNE.N    ??HAL_I2S_Receive_IT_0
-//  736   {
-//  737     if((pData == NULL) || (Size == 0)) 
+//  742   {
+//  743     if((pData == NULL) || (Size == 0)) 
         CMP      R1,#+0
         IT       NE 
         CMPNE    R2,#+0
         BNE.N    ??HAL_I2S_Receive_IT_1
-//  738     {
-//  739       return  HAL_ERROR;                                    
+//  744     {
+//  745       return  HAL_ERROR;                                    
         MOVS     R0,#+1
         BX       LR
-//  740     }
-//  741     
-//  742     hi2s->pRxBuffPtr = pData;
+//  746     }
+//  747     
+//  748     hi2s->pRxBuffPtr = pData;
 ??HAL_I2S_Receive_IT_1:
         STR      R1,[R0, #+40]
-//  743     if(((hi2s->Instance->I2SCFGR & (SPI_I2SCFGR_DATLEN | SPI_I2SCFGR_CHLEN)) == I2S_DATAFORMAT_24B)||\ 
-//  744       ((hi2s->Instance->I2SCFGR & (SPI_I2SCFGR_DATLEN | SPI_I2SCFGR_CHLEN)) == I2S_DATAFORMAT_32B))
+//  749     if(((hi2s->Instance->I2SCFGR & (SPI_I2SCFGR_DATLEN | SPI_I2SCFGR_CHLEN)) == I2S_DATAFORMAT_24B)||\ 
+//  750       ((hi2s->Instance->I2SCFGR & (SPI_I2SCFGR_DATLEN | SPI_I2SCFGR_CHLEN)) == I2S_DATAFORMAT_32B))
         LDR      R1,[R0, #+0]
         LDR      R3,[R1, #+28]
         AND      R3,R3,#0x7
@@ -1473,96 +1481,96 @@ HAL_I2S_Receive_IT:
         ANDNE    R3,R3,#0x7
         CMPNE    R3,#+5
         LSLEQ    R2,R2,#+1
-//  745     {
-//  746       hi2s->RxXferSize = (Size << 1);
-//  747       hi2s->RxXferCount = (Size << 1);
-//  748     }  
-//  749     else
-//  750     {
-//  751       hi2s->RxXferSize = Size;
+//  751     {
+//  752       hi2s->RxXferSize = (Size << 1);
+//  753       hi2s->RxXferCount = (Size << 1);
+//  754     }  
+//  755     else
+//  756     {
+//  757       hi2s->RxXferSize = Size;
         STRH     R2,[R0, #+44]
-//  752       hi2s->RxXferCount = Size;
+//  758       hi2s->RxXferCount = Size;
         STRH     R2,[R0, #+46]
-//  753     }
-//  754     /* Process Locked */
-//  755     __HAL_LOCK(hi2s);
+//  759     }
+//  760     /* Process Locked */
+//  761     __HAL_LOCK(hi2s);
         LDRB     R2,[R0, #+56]
         CMP      R2,#+1
         BEQ.N    ??HAL_I2S_Receive_IT_0
         MOVS     R2,#+1
         STRB     R2,[R0, #+56]
-//  756     
-//  757     hi2s->ErrorCode = HAL_I2S_ERROR_NONE;
+//  762     
+//  763     hi2s->ErrorCode = HAL_I2S_ERROR_NONE;
         MOVS     R2,#+0
         STR      R2,[R0, #+60]
-//  758     hi2s->State = HAL_I2S_STATE_BUSY_RX;
+//  764     hi2s->State = HAL_I2S_STATE_BUSY_RX;
         MOVS     R2,#+4
         STRB     R2,[R0, #+57]
-//  759 
-//  760     /* Enable TXE and ERR interrupt */
-//  761     __HAL_I2S_ENABLE_IT(hi2s, (I2S_IT_RXNE | I2S_IT_ERR));
+//  765 
+//  766     /* Enable TXE and ERR interrupt */
+//  767     __HAL_I2S_ENABLE_IT(hi2s, (I2S_IT_RXNE | I2S_IT_ERR));
         LDR      R2,[R1, #+4]
         ORR      R2,R2,#0x60
         STR      R2,[R1, #+4]
-//  762     
-//  763     /* Check if the I2S is already enabled */ 
-//  764     if((hi2s->Instance->I2SCFGR &SPI_I2SCFGR_I2SE) != SPI_I2SCFGR_I2SE)
+//  768     
+//  769     /* Check if the I2S is already enabled */ 
+//  770     if((hi2s->Instance->I2SCFGR &SPI_I2SCFGR_I2SE) != SPI_I2SCFGR_I2SE)
         LDR      R1,[R0, #+0]
         LDR      R2,[R1, #+28]
         LSLS     R2,R2,#+21
         BMI.N    ??HAL_I2S_Receive_IT_2
-//  765     {
-//  766       /* Enable I2S peripheral */    
-//  767       __HAL_I2S_ENABLE(hi2s);
+//  771     {
+//  772       /* Enable I2S peripheral */    
+//  773       __HAL_I2S_ENABLE(hi2s);
         LDR      R2,[R1, #+28]
         ORR      R2,R2,#0x400
         STR      R2,[R1, #+28]
-//  768     }
-//  769     
-//  770     /* Process Unlocked */
-//  771     __HAL_UNLOCK(hi2s);
+//  774     }
+//  775     
+//  776     /* Process Unlocked */
+//  777     __HAL_UNLOCK(hi2s);
 ??HAL_I2S_Receive_IT_2:
         MOVS     R1,#+0
         STRB     R1,[R0, #+56]
-//  772     
-//  773     return HAL_OK;
+//  778     
+//  779     return HAL_OK;
         MOVS     R0,#+0
         BX       LR
-//  774   }
-//  775   else
-//  776   {
-//  777     return HAL_BUSY; 
+//  780   }
+//  781   else
+//  782   {
+//  783     return HAL_BUSY; 
 ??HAL_I2S_Receive_IT_0:
         MOVS     R0,#+2
         BX       LR               ;; return
-//  778   } 
-//  779 }
+//  784   } 
+//  785 }
           CFI EndBlock cfiBlock7
-//  780 
-//  781 /**
-//  782   * @brief Transmit an amount of data in non-blocking mode with DMA
-//  783   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
-//  784   *         the configuration information for I2S module
-//  785   * @param pData: a 16-bit pointer to the Transmit data buffer.
-//  786   * @param Size: number of data sample to be sent:
-//  787   * @note When a 16-bit data frame or a 16-bit data frame extended is selected during the I2S
-//  788   *       configuration phase, the Size parameter means the number of 16-bit data length 
-//  789   *       in the transaction and when a 24-bit data frame or a 32-bit data frame is selected 
-//  790   *       the Size parameter means the number of 16-bit data length. 
-//  791   * @note The I2S is kept enabled at the end of transaction to avoid the clock de-synchronization 
-//  792   *       between Master and Slave(example: audio streaming).
-//  793   * @retval HAL status
-//  794   */
+//  786 
+//  787 /**
+//  788   * @brief Transmit an amount of data in non-blocking mode with DMA
+//  789   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
+//  790   *         the configuration information for I2S module
+//  791   * @param pData: a 16-bit pointer to the Transmit data buffer.
+//  792   * @param Size: number of data sample to be sent:
+//  793   * @note When a 16-bit data frame or a 16-bit data frame extended is selected during the I2S
+//  794   *       configuration phase, the Size parameter means the number of 16-bit data length 
+//  795   *       in the transaction and when a 24-bit data frame or a 32-bit data frame is selected 
+//  796   *       the Size parameter means the number of 16-bit data length. 
+//  797   * @note The I2S is kept enabled at the end of transaction to avoid the clock de-synchronization 
+//  798   *       between Master and Slave(example: audio streaming).
+//  799   * @retval HAL status
+//  800   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock8 Using cfiCommon0
           CFI Function HAL_I2S_Transmit_DMA
         THUMB
-//  795 HAL_StatusTypeDef HAL_I2S_Transmit_DMA(I2S_HandleTypeDef *hi2s, uint16_t *pData, uint16_t Size)
-//  796 {
-//  797   uint32_t *tmp;
-//  798   
-//  799   if((pData == NULL) || (Size == 0)) 
+//  801 HAL_StatusTypeDef HAL_I2S_Transmit_DMA(I2S_HandleTypeDef *hi2s, uint16_t *pData, uint16_t Size)
+//  802 {
+//  803   uint32_t *tmp;
+//  804   
+//  805   if((pData == NULL) || (Size == 0)) 
 HAL_I2S_Transmit_DMA:
         CMP      R1,#+0
         PUSH     {R4,LR}
@@ -1573,22 +1581,22 @@ HAL_I2S_Transmit_DMA:
         IT       NE 
         CMPNE    R2,#+0
         BNE.N    ??HAL_I2S_Transmit_DMA_0
-//  800   {
-//  801     return  HAL_ERROR;                                    
+//  806   {
+//  807     return  HAL_ERROR;                                    
         MOVS     R0,#+1
         POP      {R4,PC}
-//  802   }
-//  803   
-//  804   if(hi2s->State == HAL_I2S_STATE_READY)
+//  808   }
+//  809   
+//  810   if(hi2s->State == HAL_I2S_STATE_READY)
 ??HAL_I2S_Transmit_DMA_0:
         LDRB     R0,[R4, #+57]
         CMP      R0,#+1
         BNE.N    ??HAL_I2S_Transmit_DMA_1
-//  805   {  
-//  806     hi2s->pTxBuffPtr = pData;
+//  811   {  
+//  812     hi2s->pTxBuffPtr = pData;
         STR      R1,[R4, #+32]
-//  807     if(((hi2s->Instance->I2SCFGR & (SPI_I2SCFGR_DATLEN | SPI_I2SCFGR_CHLEN)) == I2S_DATAFORMAT_24B)||\ 
-//  808       ((hi2s->Instance->I2SCFGR & (SPI_I2SCFGR_DATLEN | SPI_I2SCFGR_CHLEN)) == I2S_DATAFORMAT_32B))
+//  813     if(((hi2s->Instance->I2SCFGR & (SPI_I2SCFGR_DATLEN | SPI_I2SCFGR_CHLEN)) == I2S_DATAFORMAT_24B)||\ 
+//  814       ((hi2s->Instance->I2SCFGR & (SPI_I2SCFGR_DATLEN | SPI_I2SCFGR_CHLEN)) == I2S_DATAFORMAT_32B))
         LDR      R0,[R4, #+0]
         LDR      R3,[R0, #+28]
         AND      R3,R3,#0x7
@@ -1598,131 +1606,131 @@ HAL_I2S_Transmit_DMA:
         ANDNE    R0,R0,#0x7
         CMPNE    R0,#+5
         BNE.N    ??HAL_I2S_Transmit_DMA_2
-//  809     {
-//  810       hi2s->TxXferSize = (Size << 1);
+//  815     {
+//  816       hi2s->TxXferSize = (Size << 1);
         LSLS     R0,R2,#+1
         STRH     R0,[R4, #+36]
-//  811       hi2s->TxXferCount = (Size << 1);
+//  817       hi2s->TxXferCount = (Size << 1);
         STRH     R0,[R4, #+38]
         B.N      ??HAL_I2S_Transmit_DMA_3
-//  812     }  
-//  813     else
-//  814     {
-//  815       hi2s->TxXferSize = Size;
+//  818     }  
+//  819     else
+//  820     {
+//  821       hi2s->TxXferSize = Size;
 ??HAL_I2S_Transmit_DMA_2:
         STRH     R2,[R4, #+36]
-//  816       hi2s->TxXferCount = Size;
+//  822       hi2s->TxXferCount = Size;
         STRH     R2,[R4, #+38]
-//  817     }  
-//  818     
-//  819     /* Process Locked */
-//  820     __HAL_LOCK(hi2s);
+//  823     }  
+//  824     
+//  825     /* Process Locked */
+//  826     __HAL_LOCK(hi2s);
 ??HAL_I2S_Transmit_DMA_3:
         LDRB     R0,[R4, #+56]
         CMP      R0,#+1
         BEQ.N    ??HAL_I2S_Transmit_DMA_1
         MOVS     R0,#+1
         STRB     R0,[R4, #+56]
-//  821     
-//  822     hi2s->ErrorCode = HAL_I2S_ERROR_NONE;
+//  827     
+//  828     hi2s->ErrorCode = HAL_I2S_ERROR_NONE;
         MOVS     R0,#+0
         STR      R0,[R4, #+60]
-//  823     hi2s->State = HAL_I2S_STATE_BUSY_TX;
+//  829     hi2s->State = HAL_I2S_STATE_BUSY_TX;
         MOVS     R0,#+3
         STRB     R0,[R4, #+57]
-//  824 
-//  825     /* Set the I2S Tx DMA Half transfer complete callback */
-//  826     hi2s->hdmatx->XferHalfCpltCallback = I2S_DMATxHalfCplt;
+//  830 
+//  831     /* Set the I2S Tx DMA Half transfer complete callback */
+//  832     hi2s->hdmatx->XferHalfCpltCallback = I2S_DMATxHalfCplt;
         LDR      R2,[R4, #+48]
         ADR.W    R0,I2S_DMATxHalfCplt
         STR      R0,[R2, #+64]
-//  827 
-//  828     /* Set the I2S TxDMA transfer complete callback */
-//  829     hi2s->hdmatx->XferCpltCallback = I2S_DMATxCplt;
+//  833 
+//  834     /* Set the I2S TxDMA transfer complete callback */
+//  835     hi2s->hdmatx->XferCpltCallback = I2S_DMATxCplt;
         LDR      R2,[R4, #+48]
         ADR.W    R0,I2S_DMATxCplt
         STR      R0,[R2, #+60]
-//  830     
-//  831     /* Set the DMA error callback */
-//  832     hi2s->hdmatx->XferErrorCallback = I2S_DMAError;
+//  836     
+//  837     /* Set the DMA error callback */
+//  838     hi2s->hdmatx->XferErrorCallback = I2S_DMAError;
         LDR      R2,[R4, #+48]
         ADR.W    R0,I2S_DMAError
         STR      R0,[R2, #+72]
-//  833     
-//  834     /* Enable the Tx DMA Channel */
-//  835     tmp = (uint32_t*)&pData;
-//  836     HAL_DMA_Start_IT(hi2s->hdmatx, *(uint32_t*)tmp, (uint32_t)&hi2s->Instance->DR, hi2s->TxXferSize);
+//  839     
+//  840     /* Enable the Tx DMA Channel */
+//  841     tmp = (uint32_t*)&pData;
+//  842     HAL_DMA_Start_IT(hi2s->hdmatx, *(uint32_t*)tmp, (uint32_t)&hi2s->Instance->DR, hi2s->TxXferSize);
         LDRH     R3,[R4, #+36]
         LDR      R0,[R4, #+0]
         ADD      R2,R0,#+12
         LDR      R0,[R4, #+48]
           CFI FunCall HAL_DMA_Start_IT
         BL       HAL_DMA_Start_IT
-//  837     
-//  838     /* Check if the I2S is already enabled */ 
-//  839     if((hi2s->Instance->I2SCFGR &SPI_I2SCFGR_I2SE) != SPI_I2SCFGR_I2SE)
+//  843     
+//  844     /* Check if the I2S is already enabled */ 
+//  845     if((hi2s->Instance->I2SCFGR &SPI_I2SCFGR_I2SE) != SPI_I2SCFGR_I2SE)
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+28]
         LSLS     R1,R1,#+21
         BMI.N    ??HAL_I2S_Transmit_DMA_4
-//  840     {
-//  841       /* Enable I2S peripheral */    
-//  842       __HAL_I2S_ENABLE(hi2s);
+//  846     {
+//  847       /* Enable I2S peripheral */    
+//  848       __HAL_I2S_ENABLE(hi2s);
         LDR      R1,[R0, #+28]
         ORR      R1,R1,#0x400
         STR      R1,[R0, #+28]
-//  843     }
-//  844     
-//  845     /* Enable Tx DMA Request */  
-//  846     hi2s->Instance->CR2 |= SPI_CR2_TXDMAEN;
+//  849     }
+//  850     
+//  851     /* Enable Tx DMA Request */  
+//  852     hi2s->Instance->CR2 |= SPI_CR2_TXDMAEN;
 ??HAL_I2S_Transmit_DMA_4:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
         ORR      R1,R1,#0x2
         STR      R1,[R0, #+4]
-//  847 
-//  848     /* Process Unlocked */
-//  849     __HAL_UNLOCK(hi2s);
+//  853 
+//  854     /* Process Unlocked */
+//  855     __HAL_UNLOCK(hi2s);
         MOVS     R0,#+0
         STRB     R0,[R4, #+56]
-//  850     
-//  851     return HAL_OK;
+//  856     
+//  857     return HAL_OK;
         POP      {R4,PC}
-//  852   }
-//  853   else
-//  854   {
-//  855     return HAL_BUSY;
+//  858   }
+//  859   else
+//  860   {
+//  861     return HAL_BUSY;
 ??HAL_I2S_Transmit_DMA_1:
         MOVS     R0,#+2
         POP      {R4,PC}          ;; return
-//  856   }
-//  857 }
+//  862   }
+//  863 }
           CFI EndBlock cfiBlock8
-//  858 
-//  859 /**
-//  860   * @brief Receive an amount of data in non-blocking mode with DMA 
-//  861   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
-//  862   *         the configuration information for I2S module
-//  863   * @param pData: a 16-bit pointer to the Receive data buffer.
-//  864   * @param Size: number of data sample to be sent:
-//  865   * @note When a 16-bit data frame or a 16-bit data frame extended is selected during the I2S
-//  866   *       configuration phase, the Size parameter means the number of 16-bit data length 
-//  867   *       in the transaction and when a 24-bit data frame or a 32-bit data frame is selected 
-//  868   *       the Size parameter means the number of 16-bit data length. 
-//  869   * @note The I2S is kept enabled at the end of transaction to avoid the clock de-synchronization 
-//  870   *       between Master and Slave(example: audio streaming).
-//  871   * @retval HAL status
-//  872   */
+//  864 
+//  865 /**
+//  866   * @brief Receive an amount of data in non-blocking mode with DMA 
+//  867   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
+//  868   *         the configuration information for I2S module
+//  869   * @param pData: a 16-bit pointer to the Receive data buffer.
+//  870   * @param Size: number of data sample to be sent:
+//  871   * @note When a 16-bit data frame or a 16-bit data frame extended is selected during the I2S
+//  872   *       configuration phase, the Size parameter means the number of 16-bit data length 
+//  873   *       in the transaction and when a 24-bit data frame or a 32-bit data frame is selected 
+//  874   *       the Size parameter means the number of 16-bit data length. 
+//  875   * @note The I2S is kept enabled at the end of transaction to avoid the clock de-synchronization 
+//  876   *       between Master and Slave(example: audio streaming).
+//  877   * @retval HAL status
+//  878   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock9 Using cfiCommon0
           CFI Function HAL_I2S_Receive_DMA
         THUMB
-//  873 HAL_StatusTypeDef HAL_I2S_Receive_DMA(I2S_HandleTypeDef *hi2s, uint16_t *pData, uint16_t Size)
-//  874 {
-//  875   uint32_t *tmp;
-//  876   
-//  877   if((pData == NULL) || (Size == 0)) 
+//  879 HAL_StatusTypeDef HAL_I2S_Receive_DMA(I2S_HandleTypeDef *hi2s, uint16_t *pData, uint16_t Size)
+//  880 {
+//  881   uint32_t *tmp;
+//  882   
+//  883   if((pData == NULL) || (Size == 0)) 
 HAL_I2S_Receive_DMA:
         CMP      R1,#+0
         PUSH     {R4,LR}
@@ -1735,20 +1743,20 @@ HAL_I2S_Receive_DMA:
         ITE      NE 
         CMPNE    R2,#+0
         MOVEQ    R0,#+1
-//  878   {
-//  879     return  HAL_ERROR;                                    
+//  884   {
+//  885     return  HAL_ERROR;                                    
         BEQ.N    ??HAL_I2S_Receive_DMA_0
-//  880   } 
-//  881     
-//  882   if(hi2s->State == HAL_I2S_STATE_READY)
+//  886   } 
+//  887     
+//  888   if(hi2s->State == HAL_I2S_STATE_READY)
         LDRB     R0,[R4, #+57]
         CMP      R0,#+1
         BNE.N    ??HAL_I2S_Receive_DMA_1
-//  883   {    
-//  884     hi2s->pRxBuffPtr = pData;
+//  889   {    
+//  890     hi2s->pRxBuffPtr = pData;
         STR      R1,[R4, #+40]
-//  885     if(((hi2s->Instance->I2SCFGR & (SPI_I2SCFGR_DATLEN | SPI_I2SCFGR_CHLEN)) == I2S_DATAFORMAT_24B)||\ 
-//  886       ((hi2s->Instance->I2SCFGR & (SPI_I2SCFGR_DATLEN | SPI_I2SCFGR_CHLEN)) == I2S_DATAFORMAT_32B))
+//  891     if(((hi2s->Instance->I2SCFGR & (SPI_I2SCFGR_DATLEN | SPI_I2SCFGR_CHLEN)) == I2S_DATAFORMAT_24B)||\ 
+//  892       ((hi2s->Instance->I2SCFGR & (SPI_I2SCFGR_DATLEN | SPI_I2SCFGR_CHLEN)) == I2S_DATAFORMAT_32B))
         LDR      R0,[R4, #+0]
         LDR      R3,[R0, #+28]
         AND      R3,R3,#0x7
@@ -1758,77 +1766,79 @@ HAL_I2S_Receive_DMA:
         ANDNE    R0,R0,#0x7
         CMPNE    R0,#+5
         BNE.N    ??HAL_I2S_Receive_DMA_2
-//  887     {
-//  888       hi2s->RxXferSize = (Size << 1);
+//  893     {
+//  894       hi2s->RxXferSize = (Size << 1);
         LSLS     R0,R2,#+1
         STRH     R0,[R4, #+44]
-//  889       hi2s->RxXferCount = (Size << 1);
+//  895       hi2s->RxXferCount = (Size << 1);
         STRH     R0,[R4, #+46]
         B.N      ??HAL_I2S_Receive_DMA_3
-//  890     }  
-//  891     else
-//  892     {
-//  893       hi2s->RxXferSize = Size;
+//  896     }  
+//  897     else
+//  898     {
+//  899       hi2s->RxXferSize = Size;
 ??HAL_I2S_Receive_DMA_2:
         STRH     R2,[R4, #+44]
-//  894       hi2s->RxXferCount = Size;
+//  900       hi2s->RxXferCount = Size;
         STRH     R2,[R4, #+46]
-//  895     }
-//  896     /* Process Locked */
-//  897     __HAL_LOCK(hi2s);
+//  901     }
+//  902     /* Process Locked */
+//  903     __HAL_LOCK(hi2s);
 ??HAL_I2S_Receive_DMA_3:
         LDRB     R0,[R4, #+56]
         CMP      R0,#+1
         BEQ.N    ??HAL_I2S_Receive_DMA_1
         MOVS     R0,#+1
         STRB     R0,[R4, #+56]
-//  898     
-//  899     hi2s->ErrorCode = HAL_I2S_ERROR_NONE;
+//  904     
+//  905     hi2s->ErrorCode = HAL_I2S_ERROR_NONE;
         MOVS     R0,#+0
         STR      R0,[R4, #+60]
-//  900     hi2s->State = HAL_I2S_STATE_BUSY_RX;
+//  906     hi2s->State = HAL_I2S_STATE_BUSY_RX;
         MOVS     R0,#+4
         STRB     R0,[R4, #+57]
-//  901    
-//  902     /* Set the I2S Rx DMA Half transfer complete callback */
-//  903     hi2s->hdmarx->XferHalfCpltCallback = I2S_DMARxHalfCplt;
+//  907    
+//  908     /* Set the I2S Rx DMA Half transfer complete callback */
+//  909     hi2s->hdmarx->XferHalfCpltCallback = I2S_DMARxHalfCplt;
         LDR      R2,[R4, #+52]
         ADR.W    R0,I2S_DMARxHalfCplt
         STR      R0,[R2, #+64]
-//  904 
-//  905     /* Set the I2S Rx DMA transfer complete callback */
-//  906     hi2s->hdmarx->XferCpltCallback = I2S_DMARxCplt;
+//  910 
+//  911     /* Set the I2S Rx DMA transfer complete callback */
+//  912     hi2s->hdmarx->XferCpltCallback = I2S_DMARxCplt;
         LDR      R2,[R4, #+52]
         ADR.W    R0,I2S_DMARxCplt
         STR      R0,[R2, #+60]
-//  907     
-//  908     /* Set the DMA error callback */
-//  909     hi2s->hdmarx->XferErrorCallback = I2S_DMAError;
+//  913     
+//  914     /* Set the DMA error callback */
+//  915     hi2s->hdmarx->XferErrorCallback = I2S_DMAError;
         LDR      R2,[R4, #+52]
         ADR.W    R0,I2S_DMAError
         STR      R0,[R2, #+72]
-//  910     
-//  911     /* Check if Master Receiver mode is selected */
-//  912     if((hi2s->Instance->I2SCFGR & SPI_I2SCFGR_I2SCFG) == I2S_MODE_MASTER_RX)
+//  916     
+//  917     /* Check if Master Receiver mode is selected */
+//  918     if((hi2s->Instance->I2SCFGR & SPI_I2SCFGR_I2SCFG) == I2S_MODE_MASTER_RX)
         LDR      R0,[R4, #+0]
         LDR      R2,[R0, #+28]
         AND      R2,R2,#0x300
         CMP      R2,#+768
         BNE.N    ??HAL_I2S_Receive_DMA_4
-//  913     {
-//  914       /* Clear the Overrun Flag by a read operation to the SPI_DR register followed by a read
-//  915       access to the SPI_SR register. */ 
-//  916       __HAL_I2S_CLEAR_OVRFLAG(hi2s);        
+//  919     {
+//  920       /* Clear the Overrun Flag by a read operation to the SPI_DR register followed by a read
+//  921       access to the SPI_SR register. */ 
+//  922       __HAL_I2S_CLEAR_OVRFLAG(hi2s);        
+        MOVS     R2,#+0
+        STR      R2,[SP, #+0]
         LDR      R2,[R0, #+12]
         STR      R2,[SP, #+0]
         LDR      R2,[R0, #+8]
         STR      R2,[SP, #+0]
         LDR      R2,[SP, #+0]
-//  917     }
-//  918     
-//  919     /* Enable the Rx DMA Channel */
-//  920     tmp = (uint32_t*)&pData;        
-//  921     HAL_DMA_Start_IT(hi2s->hdmarx, (uint32_t)&hi2s->Instance->DR, *(uint32_t*)tmp, hi2s->RxXferSize);
+//  923     }
+//  924     
+//  925     /* Enable the Rx DMA Channel */
+//  926     tmp = (uint32_t*)&pData;        
+//  927     HAL_DMA_Start_IT(hi2s->hdmarx, (uint32_t)&hi2s->Instance->DR, *(uint32_t*)tmp, hi2s->RxXferSize);
 ??HAL_I2S_Receive_DMA_4:
         MOV      R2,R1
         LDRH     R3,[R4, #+44]
@@ -1836,69 +1846,69 @@ HAL_I2S_Receive_DMA:
         LDR      R0,[R4, #+52]
           CFI FunCall HAL_DMA_Start_IT
         BL       HAL_DMA_Start_IT
-//  922     
-//  923     /* Check if the I2S is already enabled */ 
-//  924     if((hi2s->Instance->I2SCFGR &SPI_I2SCFGR_I2SE) != SPI_I2SCFGR_I2SE)
+//  928     
+//  929     /* Check if the I2S is already enabled */ 
+//  930     if((hi2s->Instance->I2SCFGR &SPI_I2SCFGR_I2SE) != SPI_I2SCFGR_I2SE)
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+28]
         LSLS     R1,R1,#+21
         BMI.N    ??HAL_I2S_Receive_DMA_5
-//  925     {
-//  926       /* Enable I2S peripheral */    
-//  927       __HAL_I2S_ENABLE(hi2s);
+//  931     {
+//  932       /* Enable I2S peripheral */    
+//  933       __HAL_I2S_ENABLE(hi2s);
         LDR      R1,[R0, #+28]
         ORR      R1,R1,#0x400
         STR      R1,[R0, #+28]
-//  928     }
-//  929     
-//  930     /* Enable Rx DMA Request */  
-//  931     hi2s->Instance->CR2 |= SPI_CR2_RXDMAEN;
+//  934     }
+//  935     
+//  936     /* Enable Rx DMA Request */  
+//  937     hi2s->Instance->CR2 |= SPI_CR2_RXDMAEN;
 ??HAL_I2S_Receive_DMA_5:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
         ORR      R1,R1,#0x1
         STR      R1,[R0, #+4]
-//  932     
-//  933     /* Process Unlocked */
-//  934     __HAL_UNLOCK(hi2s);
+//  938     
+//  939     /* Process Unlocked */
+//  940     __HAL_UNLOCK(hi2s);
         MOVS     R0,#+0
         STRB     R0,[R4, #+56]
-//  935 
-//  936     return HAL_OK;
+//  941 
+//  942     return HAL_OK;
         ADD      SP,SP,#+8
           CFI CFA R13+8
         POP      {R4,PC}
           CFI CFA R13+16
-//  937   }
-//  938   else
-//  939   {
-//  940     return HAL_BUSY;
+//  943   }
+//  944   else
+//  945   {
+//  946     return HAL_BUSY;
 ??HAL_I2S_Receive_DMA_1:
         MOVS     R0,#+2
 ??HAL_I2S_Receive_DMA_0:
         ADD      SP,SP,#+8
           CFI CFA R13+8
         POP      {R4,PC}          ;; return
-//  941   }
-//  942 }
+//  947   }
+//  948 }
           CFI EndBlock cfiBlock9
-//  943 
-//  944 /**
-//  945   * @brief Pauses the audio stream playing from the Media.
-//  946   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
-//  947   *         the configuration information for I2S module
-//  948   * @retval HAL status
-//  949   */
+//  949 
+//  950 /**
+//  951   * @brief Pauses the audio stream playing from the Media.
+//  952   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
+//  953   *         the configuration information for I2S module
+//  954   * @retval HAL status
+//  955   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock10 Using cfiCommon0
           CFI Function HAL_I2S_DMAPause
           CFI NoCalls
         THUMB
-//  950 HAL_StatusTypeDef HAL_I2S_DMAPause(I2S_HandleTypeDef *hi2s)
-//  951 {
-//  952   /* Process Locked */
-//  953   __HAL_LOCK(hi2s);
+//  956 HAL_StatusTypeDef HAL_I2S_DMAPause(I2S_HandleTypeDef *hi2s)
+//  957 {
+//  958   /* Process Locked */
+//  959   __HAL_LOCK(hi2s);
 HAL_I2S_DMAPause:
         LDRB     R1,[R0, #+56]
         CMP      R1,#+1
@@ -1908,51 +1918,51 @@ HAL_I2S_DMAPause:
 ??HAL_I2S_DMAPause_0:
         MOVS     R1,#+1
         STRB     R1,[R0, #+56]
-//  954 
-//  955   if(hi2s->State == HAL_I2S_STATE_BUSY_TX)
+//  960 
+//  961   if(hi2s->State == HAL_I2S_STATE_BUSY_TX)
         LDRB     R1,[R0, #+57]
         CMP      R1,#+3
         BNE.N    ??HAL_I2S_DMAPause_1
-//  956   {
-//  957     /* Disable the I2S DMA Tx request */
-//  958     hi2s->Instance->CR2 &= (uint32_t)(~SPI_CR2_TXDMAEN);
+//  962   {
+//  963     /* Disable the I2S DMA Tx request */
+//  964     hi2s->Instance->CR2 &= (uint32_t)(~SPI_CR2_TXDMAEN);
         LDR      R1,[R0, #+0]
         LDR      R2,[R1, #+4]
         BIC      R2,R2,#0x2
         B.N      ??HAL_I2S_DMAPause_2
-//  959   }
-//  960   else if(hi2s->State == HAL_I2S_STATE_BUSY_RX)
+//  965   }
+//  966   else if(hi2s->State == HAL_I2S_STATE_BUSY_RX)
 ??HAL_I2S_DMAPause_1:
         LDRB     R1,[R0, #+57]
         CMP      R1,#+4
         BEQ.N    ??HAL_I2S_DMAPause_3
-//  961   {
-//  962     /* Disable the I2S DMA Rx request */
-//  963     hi2s->Instance->CR2 &= (uint32_t)(~SPI_CR2_RXDMAEN);
-//  964   }
-//  965   else if(hi2s->State == HAL_I2S_STATE_BUSY_TX_RX)
+//  967   {
+//  968     /* Disable the I2S DMA Rx request */
+//  969     hi2s->Instance->CR2 &= (uint32_t)(~SPI_CR2_RXDMAEN);
+//  970   }
+//  971   else if(hi2s->State == HAL_I2S_STATE_BUSY_TX_RX)
         LDRB     R1,[R0, #+57]
         CMP      R1,#+5
         BNE.N    ??HAL_I2S_DMAPause_4
-//  966   {
-//  967     if((hi2s->Init.Mode == I2S_MODE_SLAVE_TX)||(hi2s->Init.Mode == I2S_MODE_MASTER_TX))
+//  972   {
+//  973     if((hi2s->Init.Mode == I2S_MODE_SLAVE_TX)||(hi2s->Init.Mode == I2S_MODE_MASTER_TX))
         LDR      R1,[R0, #+4]
         CMP      R1,#+0
         IT       NE 
         CMPNE    R1,#+512
         BNE.N    ??HAL_I2S_DMAPause_3
-//  968     {
-//  969       /* Disable the I2S DMA Tx request */
-//  970       hi2s->Instance->CR2 &= (uint32_t)(~SPI_CR2_TXDMAEN);
+//  974     {
+//  975       /* Disable the I2S DMA Tx request */
+//  976       hi2s->Instance->CR2 &= (uint32_t)(~SPI_CR2_TXDMAEN);
         LDR      R1,[R0, #+0]
         LDR      R2,[R1, #+4]
         BIC      R2,R2,#0x2
         B.N      ??HAL_I2S_DMAPause_2
-//  971     }
-//  972     else
-//  973     {
-//  974       /* Disable the I2S DMA Rx request */
-//  975       hi2s->Instance->CR2 &= (uint32_t)(~SPI_CR2_RXDMAEN);
+//  977     }
+//  978     else
+//  979     {
+//  980       /* Disable the I2S DMA Rx request */
+//  981       hi2s->Instance->CR2 &= (uint32_t)(~SPI_CR2_RXDMAEN);
 ??HAL_I2S_DMAPause_3:
         LDR      R1,[R0, #+0]
         LDR      R2,[R1, #+4]
@@ -1960,37 +1970,37 @@ HAL_I2S_DMAPause:
         LSLS     R2,R2,#+1
 ??HAL_I2S_DMAPause_2:
         STR      R2,[R1, #+4]
-//  976     }
-//  977   }
-//  978 
-//  979   /* Process Unlocked */
-//  980   __HAL_UNLOCK(hi2s);
+//  982     }
+//  983   }
+//  984 
+//  985   /* Process Unlocked */
+//  986   __HAL_UNLOCK(hi2s);
 ??HAL_I2S_DMAPause_4:
         MOVS     R1,#+0
         STRB     R1,[R0, #+56]
-//  981   
-//  982   return HAL_OK; 
+//  987   
+//  988   return HAL_OK; 
         MOVS     R0,#+0
         BX       LR               ;; return
-//  983 }
+//  989 }
           CFI EndBlock cfiBlock10
-//  984 
-//  985 /**
-//  986   * @brief Resumes the audio stream playing from the Media.
-//  987   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
-//  988   *         the configuration information for I2S module
-//  989   * @retval HAL status
-//  990   */
+//  990 
+//  991 /**
+//  992   * @brief Resumes the audio stream playing from the Media.
+//  993   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
+//  994   *         the configuration information for I2S module
+//  995   * @retval HAL status
+//  996   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock11 Using cfiCommon0
           CFI Function HAL_I2S_DMAResume
           CFI NoCalls
         THUMB
-//  991 HAL_StatusTypeDef HAL_I2S_DMAResume(I2S_HandleTypeDef *hi2s)
-//  992 {
-//  993   /* Process Locked */
-//  994   __HAL_LOCK(hi2s);
+//  997 HAL_StatusTypeDef HAL_I2S_DMAResume(I2S_HandleTypeDef *hi2s)
+//  998 {
+//  999   /* Process Locked */
+// 1000   __HAL_LOCK(hi2s);
 HAL_I2S_DMAResume:
         LDRB     R1,[R0, #+56]
         CMP      R1,#+1
@@ -2000,82 +2010,82 @@ HAL_I2S_DMAResume:
 ??HAL_I2S_DMAResume_0:
         MOVS     R1,#+1
         STRB     R1,[R0, #+56]
-//  995   
-//  996   if(hi2s->State == HAL_I2S_STATE_BUSY_TX)
+// 1001   
+// 1002   if(hi2s->State == HAL_I2S_STATE_BUSY_TX)
         LDRB     R1,[R0, #+57]
         CMP      R1,#+3
         BNE.N    ??HAL_I2S_DMAResume_1
-//  997   {
-//  998     /* Enable the I2S DMA Tx request */
-//  999     SET_BIT(hi2s->Instance->CR2, SPI_CR2_TXDMAEN);
+// 1003   {
+// 1004     /* Enable the I2S DMA Tx request */
+// 1005     SET_BIT(hi2s->Instance->CR2, SPI_CR2_TXDMAEN);
         LDR      R1,[R0, #+0]
         LDR      R2,[R1, #+4]
         ORR      R2,R2,#0x2
         B.N      ??HAL_I2S_DMAResume_2
-// 1000   }
-// 1001   else if(hi2s->State == HAL_I2S_STATE_BUSY_RX)
+// 1006   }
+// 1007   else if(hi2s->State == HAL_I2S_STATE_BUSY_RX)
 ??HAL_I2S_DMAResume_1:
         LDRB     R1,[R0, #+57]
         CMP      R1,#+4
         BNE.N    ??HAL_I2S_DMAResume_3
-// 1002   {
-// 1003     /* Enable the I2S DMA Rx request */
-// 1004     SET_BIT(hi2s->Instance->CR2, SPI_CR2_RXDMAEN);
+// 1008   {
+// 1009     /* Enable the I2S DMA Rx request */
+// 1010     SET_BIT(hi2s->Instance->CR2, SPI_CR2_RXDMAEN);
         LDR      R1,[R0, #+0]
         LDR      R2,[R1, #+4]
         ORR      R2,R2,#0x1
 ??HAL_I2S_DMAResume_2:
         STR      R2,[R1, #+4]
-// 1005   }
-// 1006   
-// 1007   /* If the I2S peripheral is still not enabled, enable it */
-// 1008   if(HAL_IS_BIT_CLR(hi2s->Instance->I2SCFGR, SPI_I2SCFGR_I2SE))
+// 1011   }
+// 1012   
+// 1013   /* If the I2S peripheral is still not enabled, enable it */
+// 1014   if(HAL_IS_BIT_CLR(hi2s->Instance->I2SCFGR, SPI_I2SCFGR_I2SE))
 ??HAL_I2S_DMAResume_3:
         LDR      R1,[R0, #+0]
         LDR      R2,[R1, #+28]
         LSLS     R2,R2,#+21
         BMI.N    ??HAL_I2S_DMAResume_4
-// 1009   {
-// 1010     /* Enable I2S peripheral */    
-// 1011     __HAL_I2S_ENABLE(hi2s);
+// 1015   {
+// 1016     /* Enable I2S peripheral */    
+// 1017     __HAL_I2S_ENABLE(hi2s);
         LDR      R2,[R1, #+28]
         ORR      R2,R2,#0x400
         STR      R2,[R1, #+28]
-// 1012   }
-// 1013   
-// 1014   /* Process Unlocked */
-// 1015   __HAL_UNLOCK(hi2s);
+// 1018   }
+// 1019   
+// 1020   /* Process Unlocked */
+// 1021   __HAL_UNLOCK(hi2s);
 ??HAL_I2S_DMAResume_4:
         MOVS     R1,#+0
         STRB     R1,[R0, #+56]
-// 1016   
-// 1017   return HAL_OK;
+// 1022   
+// 1023   return HAL_OK;
         MOVS     R0,#+0
         BX       LR               ;; return
-// 1018 }
+// 1024 }
           CFI EndBlock cfiBlock11
-// 1019 
-// 1020 /**
-// 1021   * @brief Stops the audio stream playing from the Media.
-// 1022   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
-// 1023   *         the configuration information for I2S module
-// 1024   * @retval HAL status
-// 1025   */
+// 1025 
+// 1026 /**
+// 1027   * @brief Stops the audio stream playing from the Media.
+// 1028   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
+// 1029   *         the configuration information for I2S module
+// 1030   * @retval HAL status
+// 1031   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock12 Using cfiCommon0
           CFI Function HAL_I2S_DMAStop
         THUMB
-// 1026 HAL_StatusTypeDef HAL_I2S_DMAStop(I2S_HandleTypeDef *hi2s)
-// 1027 {
+// 1032 HAL_StatusTypeDef HAL_I2S_DMAStop(I2S_HandleTypeDef *hi2s)
+// 1033 {
 HAL_I2S_DMAStop:
         PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
         MOV      R4,R0
-// 1028   /* Process Locked */
-// 1029   __HAL_LOCK(hi2s);
+// 1034   /* Process Locked */
+// 1035   __HAL_LOCK(hi2s);
         LDRB     R0,[R4, #+56]
         CMP      R0,#+1
         BNE.N    ??HAL_I2S_DMAStop_0
@@ -2084,91 +2094,91 @@ HAL_I2S_DMAStop:
 ??HAL_I2S_DMAStop_0:
         MOVS     R0,#+1
         STRB     R0,[R4, #+56]
-// 1030   
-// 1031   /* Disable the I2S Tx/Rx DMA requests */
-// 1032   CLEAR_BIT(hi2s->Instance->CR2, SPI_CR2_TXDMAEN);
+// 1036   
+// 1037   /* Disable the I2S Tx/Rx DMA requests */
+// 1038   CLEAR_BIT(hi2s->Instance->CR2, SPI_CR2_TXDMAEN);
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
         BIC      R1,R1,#0x2
         STR      R1,[R0, #+4]
-// 1033   CLEAR_BIT(hi2s->Instance->CR2, SPI_CR2_RXDMAEN);
+// 1039   CLEAR_BIT(hi2s->Instance->CR2, SPI_CR2_RXDMAEN);
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
         LSRS     R1,R1,#+1
         LSLS     R1,R1,#+1
         STR      R1,[R0, #+4]
-// 1034   
-// 1035   /* Abort the I2S DMA Channel tx */
-// 1036   if(hi2s->hdmatx != NULL)
+// 1040   
+// 1041   /* Abort the I2S DMA Channel tx */
+// 1042   if(hi2s->hdmatx != NULL)
         LDR      R0,[R4, #+48]
         CBZ.N    R0,??HAL_I2S_DMAStop_1
-// 1037   {
-// 1038     /* Disable the I2S DMA channel */
-// 1039     __HAL_DMA_DISABLE(hi2s->hdmatx);
+// 1043   {
+// 1044     /* Disable the I2S DMA channel */
+// 1045     __HAL_DMA_DISABLE(hi2s->hdmatx);
         LDR      R0,[R0, #+0]
         LDR      R1,[R0, #+0]
         LSRS     R1,R1,#+1
         LSLS     R1,R1,#+1
         STR      R1,[R0, #+0]
-// 1040     HAL_DMA_Abort(hi2s->hdmatx);
+// 1046     HAL_DMA_Abort(hi2s->hdmatx);
         LDR      R0,[R4, #+48]
           CFI FunCall HAL_DMA_Abort
         BL       HAL_DMA_Abort
-// 1041   }
-// 1042   /* Abort the I2S DMA Channel rx */
-// 1043   if(hi2s->hdmarx != NULL)
+// 1047   }
+// 1048   /* Abort the I2S DMA Channel rx */
+// 1049   if(hi2s->hdmarx != NULL)
 ??HAL_I2S_DMAStop_1:
         LDR      R0,[R4, #+52]
         CBZ.N    R0,??HAL_I2S_DMAStop_2
-// 1044   {
-// 1045     /* Disable the I2S DMA channel */
-// 1046     __HAL_DMA_DISABLE(hi2s->hdmarx);
+// 1050   {
+// 1051     /* Disable the I2S DMA channel */
+// 1052     __HAL_DMA_DISABLE(hi2s->hdmarx);
         LDR      R0,[R0, #+0]
         LDR      R1,[R0, #+0]
         LSRS     R1,R1,#+1
         LSLS     R1,R1,#+1
         STR      R1,[R0, #+0]
-// 1047     HAL_DMA_Abort(hi2s->hdmarx);
+// 1053     HAL_DMA_Abort(hi2s->hdmarx);
         LDR      R0,[R4, #+52]
           CFI FunCall HAL_DMA_Abort
         BL       HAL_DMA_Abort
-// 1048   }
-// 1049 
-// 1050   /* Disable I2S peripheral */
-// 1051   __HAL_I2S_DISABLE(hi2s);
+// 1054   }
+// 1055 
+// 1056   /* Disable I2S peripheral */
+// 1057   __HAL_I2S_DISABLE(hi2s);
 ??HAL_I2S_DMAStop_2:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+28]
         BIC      R1,R1,#0x400
         STR      R1,[R0, #+28]
-// 1052   
-// 1053   hi2s->State = HAL_I2S_STATE_READY;
+// 1058   
+// 1059   hi2s->State = HAL_I2S_STATE_READY;
         MOVS     R0,#+1
         STRB     R0,[R4, #+57]
-// 1054   
-// 1055   /* Process Unlocked */
-// 1056   __HAL_UNLOCK(hi2s);
+// 1060   
+// 1061   /* Process Unlocked */
+// 1062   __HAL_UNLOCK(hi2s);
         MOVS     R0,#+0
         STRB     R0,[R4, #+56]
-// 1057   
-// 1058   return HAL_OK;
+// 1063   
+// 1064   return HAL_OK;
         POP      {R4,PC}          ;; return
-// 1059 }
+// 1065 }
           CFI EndBlock cfiBlock12
-// 1060 
-// 1061 /**
-// 1062   * @brief  This function handles I2S interrupt request.
-// 1063   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
-// 1064   *         the configuration information for I2S module
-// 1065   * @retval HAL status
-// 1066   */
+// 1066 
+// 1067 /**
+// 1068   * @brief  This function handles I2S interrupt request.
+// 1069   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
+// 1070   *         the configuration information for I2S module
+// 1071   * @retval HAL status
+// 1072   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock13 Using cfiCommon0
           CFI Function HAL_I2S_IRQHandler
         THUMB
-// 1067 void HAL_I2S_IRQHandler(I2S_HandleTypeDef *hi2s)
-// 1068 {  
+// 1073 void HAL_I2S_IRQHandler(I2S_HandleTypeDef *hi2s)
+// 1074 {  
 HAL_I2S_IRQHandler:
         PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
@@ -2177,26 +2187,26 @@ HAL_I2S_IRQHandler:
         MOV      R4,R0
         SUB      SP,SP,#+8
           CFI CFA R13+16
-// 1069   __IO uint32_t i2ssr = hi2s->Instance->SR;
+// 1075   __IO uint32_t i2ssr = hi2s->Instance->SR;
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+8]
         STR      R1,[SP, #+0]
-// 1070 
-// 1071   if(hi2s->State == HAL_I2S_STATE_BUSY_RX)
+// 1076 
+// 1077   if(hi2s->State == HAL_I2S_STATE_BUSY_RX)
         LDRB     R1,[R4, #+57]
         CMP      R1,#+4
         BNE.N    ??HAL_I2S_IRQHandler_0
-// 1072   {  
-// 1073     /* I2S in mode Receiver ----------------------------------------------------*/
-// 1074     if(((i2ssr & I2S_FLAG_RXNE) == I2S_FLAG_RXNE) && (__HAL_I2S_GET_IT_SOURCE(hi2s, I2S_IT_RXNE) != RESET))
+// 1078   {  
+// 1079     /* I2S in mode Receiver ----------------------------------------------------*/
+// 1080     if(((i2ssr & I2S_FLAG_RXNE) == I2S_FLAG_RXNE) && (__HAL_I2S_GET_IT_SOURCE(hi2s, I2S_IT_RXNE) != RESET))
         LDR      R1,[SP, #+0]
         LSLS     R1,R1,#+31
         BPL.N    ??HAL_I2S_IRQHandler_1
         LDR      R1,[R0, #+4]
         LSLS     R1,R1,#+25
         BPL.N    ??HAL_I2S_IRQHandler_1
-// 1075     {
-// 1076       I2S_Receive_IT(hi2s);
+// 1081     {
+// 1082       I2S_Receive_IT(hi2s);
         LDR      R1,[R4, #+40]
         ADDS     R2,R1,#+2
         STR      R2,[R4, #+40]
@@ -2216,10 +2226,10 @@ HAL_I2S_IRQHandler:
         MOV      R0,R4
           CFI FunCall HAL_I2S_RxCpltCallback
         BL       HAL_I2S_RxCpltCallback
-// 1077     }
-// 1078 
-// 1079     /* I2S Overrun error interrupt occurred -------------------------------------*/
-// 1080     if(((i2ssr & I2S_FLAG_OVR) == I2S_FLAG_OVR) && (__HAL_I2S_GET_IT_SOURCE(hi2s, I2S_IT_ERR) != RESET))
+// 1083     }
+// 1084 
+// 1085     /* I2S Overrun error interrupt occurred -------------------------------------*/
+// 1086     if(((i2ssr & I2S_FLAG_OVR) == I2S_FLAG_OVR) && (__HAL_I2S_GET_IT_SOURCE(hi2s, I2S_IT_ERR) != RESET))
 ??HAL_I2S_IRQHandler_1:
         LDR      R0,[SP, #+0]
         LSLS     R0,R0,#+25
@@ -2228,42 +2238,42 @@ HAL_I2S_IRQHandler:
         LDR      R1,[R0, #+4]
         LSLS     R1,R1,#+26
         BPL.N    ??HAL_I2S_IRQHandler_2
-// 1081     {
-// 1082       /* Disable RXNE and ERR interrupt */
-// 1083       __HAL_I2S_DISABLE_IT(hi2s, (I2S_IT_RXNE | I2S_IT_ERR));
+// 1087     {
+// 1088       /* Disable RXNE and ERR interrupt */
+// 1089       __HAL_I2S_DISABLE_IT(hi2s, (I2S_IT_RXNE | I2S_IT_ERR));
         LDR      R1,[R0, #+4]
         BIC      R1,R1,#0x60
         STR      R1,[R0, #+4]
-// 1084 
-// 1085       /* Set the I2S State ready */
-// 1086       hi2s->State = HAL_I2S_STATE_READY; 
+// 1090 
+// 1091       /* Set the I2S State ready */
+// 1092       hi2s->State = HAL_I2S_STATE_READY; 
         MOVS     R0,#+1
         STRB     R0,[R4, #+57]
-// 1087 
-// 1088       /* Set the error code and execute error callback*/
-// 1089       hi2s->ErrorCode |= HAL_I2S_ERROR_OVR;
+// 1093 
+// 1094       /* Set the error code and execute error callback*/
+// 1095       hi2s->ErrorCode |= HAL_I2S_ERROR_OVR;
         LDR      R0,[R4, #+60]
         ORR      R0,R0,#0x2
         B.N      ??HAL_I2S_IRQHandler_3
-// 1090       HAL_I2S_ErrorCallback(hi2s);
-// 1091     }  
-// 1092   }
-// 1093   else if(hi2s->State == HAL_I2S_STATE_BUSY_TX)
+// 1096       HAL_I2S_ErrorCallback(hi2s);
+// 1097     }  
+// 1098   }
+// 1099   else if(hi2s->State == HAL_I2S_STATE_BUSY_TX)
 ??HAL_I2S_IRQHandler_0:
         LDRB     R1,[R4, #+57]
         CMP      R1,#+3
         BNE.N    ??HAL_I2S_IRQHandler_2
-// 1094   {  
-// 1095     /* I2S in mode Transmitter ---------------------------------------------------*/
-// 1096     if(((i2ssr & I2S_FLAG_TXE) == I2S_FLAG_TXE) && (__HAL_I2S_GET_IT_SOURCE(hi2s, I2S_IT_TXE) != RESET))
+// 1100   {  
+// 1101     /* I2S in mode Transmitter ---------------------------------------------------*/
+// 1102     if(((i2ssr & I2S_FLAG_TXE) == I2S_FLAG_TXE) && (__HAL_I2S_GET_IT_SOURCE(hi2s, I2S_IT_TXE) != RESET))
         LDR      R1,[SP, #+0]
         LSLS     R1,R1,#+30
         BPL.N    ??HAL_I2S_IRQHandler_4
         LDR      R1,[R0, #+4]
         LSLS     R1,R1,#+24
         BPL.N    ??HAL_I2S_IRQHandler_4
-// 1097     {     
-// 1098       I2S_Transmit_IT(hi2s);
+// 1103     {     
+// 1104       I2S_Transmit_IT(hi2s);
         LDR      R1,[R4, #+32]
         ADDS     R2,R1,#+2
         STR      R2,[R4, #+32]
@@ -2283,10 +2293,10 @@ HAL_I2S_IRQHandler:
         MOV      R0,R4
           CFI FunCall HAL_I2S_TxCpltCallback
         BL       HAL_I2S_TxCpltCallback
-// 1099     } 
-// 1100     
-// 1101     /* I2S Underrun error interrupt occurred ------------------------------------*/
-// 1102     if(((i2ssr & I2S_FLAG_UDR) == I2S_FLAG_UDR) && (__HAL_I2S_GET_IT_SOURCE(hi2s, I2S_IT_ERR) != RESET))
+// 1105     } 
+// 1106     
+// 1107     /* I2S Underrun error interrupt occurred ------------------------------------*/
+// 1108     if(((i2ssr & I2S_FLAG_UDR) == I2S_FLAG_UDR) && (__HAL_I2S_GET_IT_SOURCE(hi2s, I2S_IT_ERR) != RESET))
 ??HAL_I2S_IRQHandler_4:
         LDR      R0,[SP, #+0]
         LSLS     R0,R0,#+28
@@ -2295,604 +2305,619 @@ HAL_I2S_IRQHandler:
         LDR      R1,[R0, #+4]
         LSLS     R1,R1,#+26
         BPL.N    ??HAL_I2S_IRQHandler_2
-// 1103     {
-// 1104       /* Disable TXE and ERR interrupt */
-// 1105       __HAL_I2S_DISABLE_IT(hi2s, (I2S_IT_TXE | I2S_IT_ERR));
+// 1109     {
+// 1110       /* Disable TXE and ERR interrupt */
+// 1111       __HAL_I2S_DISABLE_IT(hi2s, (I2S_IT_TXE | I2S_IT_ERR));
         LDR      R1,[R0, #+4]
         BIC      R1,R1,#0xA0
         STR      R1,[R0, #+4]
-// 1106 
-// 1107       /* Set the I2S State ready */
-// 1108       hi2s->State = HAL_I2S_STATE_READY; 
+// 1112 
+// 1113       /* Set the I2S State ready */
+// 1114       hi2s->State = HAL_I2S_STATE_READY; 
         MOVS     R0,#+1
         STRB     R0,[R4, #+57]
-// 1109 
-// 1110       /* Set the error code and execute error callback*/
-// 1111       hi2s->ErrorCode |= HAL_I2S_ERROR_UDR;
+// 1115 
+// 1116       /* Set the error code and execute error callback*/
+// 1117       hi2s->ErrorCode |= HAL_I2S_ERROR_UDR;
         LDR      R0,[R4, #+60]
         ORR      R0,R0,#0x4
 ??HAL_I2S_IRQHandler_3:
         STR      R0,[R4, #+60]
-// 1112       HAL_I2S_ErrorCallback(hi2s);
+// 1118       HAL_I2S_ErrorCallback(hi2s);
         MOV      R0,R4
           CFI FunCall HAL_I2S_ErrorCallback
         BL       HAL_I2S_ErrorCallback
-// 1113     }
-// 1114   }
-// 1115 }
+// 1119     }
+// 1120   }
+// 1121 }
 ??HAL_I2S_IRQHandler_2:
         ADD      SP,SP,#+8
           CFI CFA R13+8
         POP      {R4,PC}          ;; return
           CFI EndBlock cfiBlock13
-// 1116 
-// 1117 /**
-// 1118   * @}
-// 1119   */
-// 1120 
-// 1121 /**
-// 1122   * @}
-// 1123   */
-// 1124 
-// 1125 /** @addtogroup I2S_Private_Functions I2S Private Functions
-// 1126   * @{
-// 1127   */
-// 1128 /**
-// 1129   * @brief This function handles I2S Communication Timeout.
-// 1130   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
-// 1131   *         the configuration information for I2S module
-// 1132   * @param Flag: Flag checked
-// 1133   * @param State: Value of the flag expected
-// 1134   * @param Timeout: Duration of the timeout
-// 1135   * @retval HAL status
-// 1136   */
-// 1137 static HAL_StatusTypeDef I2S_WaitFlagStateUntilTimeout(I2S_HandleTypeDef *hi2s, uint32_t Flag, 
-// 1138                                                        uint32_t State, uint32_t Timeout)
-// 1139 {
-// 1140   uint32_t tickstart = 0;
-// 1141   
-// 1142   /* Get tick */
-// 1143   tickstart = HAL_GetTick();
-// 1144   
-// 1145   /* Wait until flag is set */
-// 1146   if(State == RESET)
-// 1147   {
-// 1148     while(__HAL_I2S_GET_FLAG(hi2s, Flag) == RESET)
-// 1149     {
-// 1150       if(Timeout != HAL_MAX_DELAY)
-// 1151       {
-// 1152         if((Timeout == 0)||((HAL_GetTick() - tickstart ) > Timeout))
-// 1153         {
-// 1154           /* Set the I2S State ready */
-// 1155           hi2s->State= HAL_I2S_STATE_READY;
-// 1156 
-// 1157           /* Process Unlocked */
-// 1158           __HAL_UNLOCK(hi2s);
-// 1159 
-// 1160           return HAL_TIMEOUT;
-// 1161         }
-// 1162       }
-// 1163     }
-// 1164   }
-// 1165   else
-// 1166   {
-// 1167     while(__HAL_I2S_GET_FLAG(hi2s, Flag) != RESET)
-// 1168     {
-// 1169       if(Timeout != HAL_MAX_DELAY)
-// 1170       {
-// 1171         if((Timeout == 0)||((HAL_GetTick() - tickstart ) > Timeout))
-// 1172         {
-// 1173           /* Set the I2S State ready */
-// 1174           hi2s->State= HAL_I2S_STATE_READY;
-// 1175 
-// 1176           /* Process Unlocked */
-// 1177           __HAL_UNLOCK(hi2s);
-// 1178 
-// 1179           return HAL_TIMEOUT;
-// 1180         }
-// 1181       }
-// 1182     }
-// 1183   }
-// 1184   return HAL_OK;    
-// 1185 }
-// 1186 /**
-// 1187   * @}
-// 1188   */
-// 1189 
-// 1190 /** @addtogroup I2S_Exported_Functions I2S Exported Functions
-// 1191   * @{
-// 1192   */
-// 1193 
-// 1194 /** @addtogroup  I2S_Exported_Functions_Group2 Input and Output operation functions 
-// 1195   * @{
-// 1196   */
-// 1197 /**
-// 1198   * @brief Tx Transfer Half completed callbacks
-// 1199   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
-// 1200   *         the configuration information for I2S module
-// 1201   * @retval None
+// 1122 
+// 1123 /**
+// 1124   * @}
+// 1125   */
+// 1126 
+// 1127 /**
+// 1128   * @}
+// 1129   */
+// 1130 
+// 1131 /** @addtogroup I2S_Private_Functions I2S Private Functions
+// 1132   * @{
+// 1133   */
+// 1134 /**
+// 1135   * @brief This function handles I2S Communication Timeout.
+// 1136   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
+// 1137   *         the configuration information for I2S module
+// 1138   * @param Flag: Flag checked
+// 1139   * @param State: Value of the flag expected
+// 1140   * @param Timeout: Duration of the timeout
+// 1141   * @retval HAL status
+// 1142   */
+// 1143 static HAL_StatusTypeDef I2S_WaitFlagStateUntilTimeout(I2S_HandleTypeDef *hi2s, uint32_t Flag, 
+// 1144                                                        uint32_t State, uint32_t Timeout)
+// 1145 {
+// 1146   uint32_t tickstart = 0;
+// 1147   
+// 1148   /* Get tick */
+// 1149   tickstart = HAL_GetTick();
+// 1150   
+// 1151   /* Wait until flag is set */
+// 1152   if(State == RESET)
+// 1153   {
+// 1154     while(__HAL_I2S_GET_FLAG(hi2s, Flag) == RESET)
+// 1155     {
+// 1156       if(Timeout != HAL_MAX_DELAY)
+// 1157       {
+// 1158         if((Timeout == 0)||((HAL_GetTick() - tickstart ) > Timeout))
+// 1159         {
+// 1160           /* Set the I2S State ready */
+// 1161           hi2s->State= HAL_I2S_STATE_READY;
+// 1162 
+// 1163           /* Process Unlocked */
+// 1164           __HAL_UNLOCK(hi2s);
+// 1165 
+// 1166           return HAL_TIMEOUT;
+// 1167         }
+// 1168       }
+// 1169     }
+// 1170   }
+// 1171   else
+// 1172   {
+// 1173     while(__HAL_I2S_GET_FLAG(hi2s, Flag) != RESET)
+// 1174     {
+// 1175       if(Timeout != HAL_MAX_DELAY)
+// 1176       {
+// 1177         if((Timeout == 0)||((HAL_GetTick() - tickstart ) > Timeout))
+// 1178         {
+// 1179           /* Set the I2S State ready */
+// 1180           hi2s->State= HAL_I2S_STATE_READY;
+// 1181 
+// 1182           /* Process Unlocked */
+// 1183           __HAL_UNLOCK(hi2s);
+// 1184 
+// 1185           return HAL_TIMEOUT;
+// 1186         }
+// 1187       }
+// 1188     }
+// 1189   }
+// 1190   return HAL_OK;    
+// 1191 }
+// 1192 /**
+// 1193   * @}
+// 1194   */
+// 1195 
+// 1196 /** @addtogroup I2S_Exported_Functions I2S Exported Functions
+// 1197   * @{
+// 1198   */
+// 1199 
+// 1200 /** @addtogroup  I2S_Exported_Functions_Group2 Input and Output operation functions 
+// 1201   * @{
 // 1202   */
+// 1203 /**
+// 1204   * @brief Tx Transfer Half completed callbacks
+// 1205   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
+// 1206   *         the configuration information for I2S module
+// 1207   * @retval None
+// 1208   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock14 Using cfiCommon0
           CFI Function HAL_I2S_TxHalfCpltCallback
           CFI NoCalls
         THUMB
-// 1203  __weak void HAL_I2S_TxHalfCpltCallback(I2S_HandleTypeDef *hi2s)
-// 1204 {
-// 1205   /* NOTE : This function Should not be modified, when the callback is needed,
-// 1206             the HAL_I2S_TxHalfCpltCallback could be implemented in the user file
-// 1207    */ 
-// 1208 }
+// 1209  __weak void HAL_I2S_TxHalfCpltCallback(I2S_HandleTypeDef *hi2s)
+// 1210 {
+// 1211   /* Prevent unused argument(s) compilation warning */
+// 1212   UNUSED(hi2s);
+// 1213   
+// 1214   /* NOTE : This function Should not be modified, when the callback is needed,
+// 1215             the HAL_I2S_TxHalfCpltCallback could be implemented in the user file
+// 1216    */ 
+// 1217 }
 HAL_I2S_TxHalfCpltCallback:
         BX       LR               ;; return
           CFI EndBlock cfiBlock14
-// 1209 
-// 1210 /**
-// 1211   * @brief Tx Transfer completed callbacks
-// 1212   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
-// 1213   *         the configuration information for I2S module
-// 1214   * @retval None
-// 1215   */
+// 1218 
+// 1219 /**
+// 1220   * @brief Tx Transfer completed callbacks
+// 1221   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
+// 1222   *         the configuration information for I2S module
+// 1223   * @retval None
+// 1224   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock15 Using cfiCommon0
           CFI Function HAL_I2S_TxCpltCallback
           CFI NoCalls
         THUMB
-// 1216  __weak void HAL_I2S_TxCpltCallback(I2S_HandleTypeDef *hi2s)
-// 1217 {
-// 1218   /* NOTE : This function Should not be modified, when the callback is needed,
-// 1219             the HAL_I2S_TxCpltCallback could be implemented in the user file
-// 1220    */ 
-// 1221 }
+// 1225  __weak void HAL_I2S_TxCpltCallback(I2S_HandleTypeDef *hi2s)
+// 1226 {
+// 1227   /* Prevent unused argument(s) compilation warning */
+// 1228   UNUSED(hi2s);
+// 1229   
+// 1230   /* NOTE : This function Should not be modified, when the callback is needed,
+// 1231             the HAL_I2S_TxCpltCallback could be implemented in the user file
+// 1232    */ 
+// 1233 }
 HAL_I2S_TxCpltCallback:
         BX       LR               ;; return
           CFI EndBlock cfiBlock15
-// 1222 
-// 1223 /**
-// 1224   * @brief Rx Transfer half completed callbacks
-// 1225   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
-// 1226   *         the configuration information for I2S module
-// 1227   * @retval None
-// 1228   */
+// 1234 
+// 1235 /**
+// 1236   * @brief Rx Transfer half completed callbacks
+// 1237   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
+// 1238   *         the configuration information for I2S module
+// 1239   * @retval None
+// 1240   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock16 Using cfiCommon0
           CFI Function HAL_I2S_RxHalfCpltCallback
           CFI NoCalls
         THUMB
-// 1229 __weak void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s)
-// 1230 {
-// 1231   /* NOTE : This function Should not be modified, when the callback is needed,
-// 1232             the HAL_I2S_RxCpltCallback could be implemented in the user file
-// 1233    */
-// 1234 }
+// 1241 __weak void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s)
+// 1242 {
+// 1243   /* Prevent unused argument(s) compilation warning */
+// 1244   UNUSED(hi2s);
+// 1245   
+// 1246   /* NOTE : This function Should not be modified, when the callback is needed,
+// 1247             the HAL_I2S_RxCpltCallback could be implemented in the user file
+// 1248    */
+// 1249 }
 HAL_I2S_RxHalfCpltCallback:
         BX       LR               ;; return
           CFI EndBlock cfiBlock16
-// 1235 
-// 1236 /**
-// 1237   * @brief Rx Transfer completed callbacks
-// 1238   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
-// 1239   *         the configuration information for I2S module
-// 1240   * @retval None
-// 1241   */
+// 1250 
+// 1251 /**
+// 1252   * @brief Rx Transfer completed callbacks
+// 1253   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
+// 1254   *         the configuration information for I2S module
+// 1255   * @retval None
+// 1256   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock17 Using cfiCommon0
           CFI Function HAL_I2S_RxCpltCallback
           CFI NoCalls
         THUMB
-// 1242 __weak void HAL_I2S_RxCpltCallback(I2S_HandleTypeDef *hi2s)
-// 1243 {
-// 1244   /* NOTE : This function Should not be modified, when the callback is needed,
-// 1245             the HAL_I2S_RxCpltCallback could be implemented in the user file
-// 1246    */
-// 1247 }
+// 1257 __weak void HAL_I2S_RxCpltCallback(I2S_HandleTypeDef *hi2s)
+// 1258 {
+// 1259   /* Prevent unused argument(s) compilation warning */
+// 1260   UNUSED(hi2s);
+// 1261   
+// 1262   /* NOTE : This function Should not be modified, when the callback is needed,
+// 1263             the HAL_I2S_RxCpltCallback could be implemented in the user file
+// 1264    */
+// 1265 }
 HAL_I2S_RxCpltCallback:
         BX       LR               ;; return
           CFI EndBlock cfiBlock17
-// 1248 
-// 1249 /**
-// 1250   * @brief I2S error callbacks
-// 1251   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
-// 1252   *         the configuration information for I2S module
-// 1253   * @retval None
-// 1254   */
+// 1266 
+// 1267 /**
+// 1268   * @brief I2S error callbacks
+// 1269   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
+// 1270   *         the configuration information for I2S module
+// 1271   * @retval None
+// 1272   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock18 Using cfiCommon0
           CFI Function HAL_I2S_ErrorCallback
           CFI NoCalls
         THUMB
-// 1255  __weak void HAL_I2S_ErrorCallback(I2S_HandleTypeDef *hi2s)
-// 1256 {
-// 1257   /* NOTE : This function Should not be modified, when the callback is needed,
-// 1258             the HAL_I2S_ErrorCallback could be implemented in the user file
-// 1259    */ 
-// 1260 }
+// 1273  __weak void HAL_I2S_ErrorCallback(I2S_HandleTypeDef *hi2s)
+// 1274 {
+// 1275   /* Prevent unused argument(s) compilation warning */
+// 1276   UNUSED(hi2s);
+// 1277   
+// 1278   /* NOTE : This function Should not be modified, when the callback is needed,
+// 1279             the HAL_I2S_ErrorCallback could be implemented in the user file
+// 1280    */ 
+// 1281 }
 HAL_I2S_ErrorCallback:
         BX       LR               ;; return
           CFI EndBlock cfiBlock18
-// 1261 
-// 1262 /**
-// 1263   * @}
-// 1264   */
-// 1265 
-// 1266 /** @defgroup I2S_Exported_Functions_Group3 Peripheral State and Errors functions 
-// 1267   *  @brief   Peripheral State functions 
-// 1268   *
-// 1269 @verbatim   
-// 1270  ===============================================================================
-// 1271                       ##### Peripheral State and Errors functions #####
-// 1272  ===============================================================================  
-// 1273     [..]
-// 1274     This subsection permits to get in run-time the status of the peripheral 
-// 1275     and the data flow.
-// 1276 
-// 1277 @endverbatim
-// 1278   * @{
-// 1279   */
-// 1280 
-// 1281 /**
-// 1282   * @brief  Return the I2S state
-// 1283   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
-// 1284   *         the configuration information for I2S module
-// 1285   * @retval HAL state
-// 1286   */
+// 1282 
+// 1283 /**
+// 1284   * @}
+// 1285   */
+// 1286 
+// 1287 /** @defgroup I2S_Exported_Functions_Group3 Peripheral State and Errors functions 
+// 1288   *  @brief   Peripheral State functions 
+// 1289   *
+// 1290 @verbatim   
+// 1291  ===============================================================================
+// 1292                       ##### Peripheral State and Errors functions #####
+// 1293  ===============================================================================  
+// 1294     [..]
+// 1295     This subsection permits to get in run-time the status of the peripheral 
+// 1296     and the data flow.
+// 1297 
+// 1298 @endverbatim
+// 1299   * @{
+// 1300   */
+// 1301 
+// 1302 /**
+// 1303   * @brief  Return the I2S state
+// 1304   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
+// 1305   *         the configuration information for I2S module
+// 1306   * @retval HAL state
+// 1307   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock19 Using cfiCommon0
           CFI Function HAL_I2S_GetState
           CFI NoCalls
         THUMB
-// 1287 HAL_I2S_StateTypeDef HAL_I2S_GetState(I2S_HandleTypeDef *hi2s)
-// 1288 {
-// 1289   return hi2s->State;
+// 1308 HAL_I2S_StateTypeDef HAL_I2S_GetState(I2S_HandleTypeDef *hi2s)
+// 1309 {
+// 1310   return hi2s->State;
 HAL_I2S_GetState:
         LDRB     R0,[R0, #+57]
         BX       LR               ;; return
-// 1290 }
+// 1311 }
           CFI EndBlock cfiBlock19
-// 1291 
-// 1292 /**
-// 1293   * @brief  Return the I2S error code
-// 1294   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
-// 1295   *         the configuration information for I2S module
-// 1296   * @retval I2S Error Code
-// 1297   */
+// 1312 
+// 1313 /**
+// 1314   * @brief  Return the I2S error code
+// 1315   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
+// 1316   *         the configuration information for I2S module
+// 1317   * @retval I2S Error Code
+// 1318   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock20 Using cfiCommon0
           CFI Function HAL_I2S_GetError
           CFI NoCalls
         THUMB
-// 1298 uint32_t HAL_I2S_GetError(I2S_HandleTypeDef *hi2s)
-// 1299 {
-// 1300   return hi2s->ErrorCode;
+// 1319 uint32_t HAL_I2S_GetError(I2S_HandleTypeDef *hi2s)
+// 1320 {
+// 1321   return hi2s->ErrorCode;
 HAL_I2S_GetError:
         LDR      R0,[R0, #+60]
         BX       LR               ;; return
-// 1301 }
+// 1322 }
           CFI EndBlock cfiBlock20
-// 1302 /**
-// 1303   * @}
-// 1304   */  
-// 1305 
-// 1306 /**
-// 1307   * @}
-// 1308   */
-// 1309 
-// 1310   /**
-// 1311   * @brief  Get I2S Input Clock based on I2S source clock selection
-// 1312   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
-// 1313   *               the configuration information for I2S module.   
-// 1314   * @retval I2S Clock Input 
-// 1315   */
-// 1316 static uint32_t I2S_GetClockFreq(I2S_HandleTypeDef *hi2s)   
-// 1317 {
-// 1318   uint32_t tmpreg = 0;
-// 1319   /* This variable used to store the VCO Input (value in Hz) */
-// 1320   uint32_t vcoinput = 0;
-// 1321   /* This variable used to store the I2S_CK_x (value in Hz) */
-// 1322   uint32_t i2sclocksource = 0;
-// 1323 
-// 1324   /* Configure I2S Clock based on I2S source clock selection */ 
-// 1325   
-// 1326   /* I2S_CLK_x : I2S Block Clock configuration for different clock sources selected */
-// 1327   switch(hi2s->Init.ClockSource)
-// 1328   {
-// 1329     case I2S_CLOCK_SYSCLK :
-// 1330     {
-// 1331       /* Configure the PLLI2S division factor */
-// 1332       /* PLLI2S_VCO Input  = PLL_SOURCE/PLLI2SM */ 
-// 1333       if((RCC->PLLCFGR & RCC_PLLCFGR_PLLSRC) == RCC_PLLSOURCE_HSI)
-// 1334       {
-// 1335         /* In Case the PLL Source is HSI (Internal Clock) */
-// 1336         vcoinput = (HSI_VALUE / (uint32_t)(RCC->PLLCFGR & RCC_PLLCFGR_PLLM));
-// 1337       }
-// 1338       else
-// 1339       {
-// 1340         /* In Case the PLL Source is HSE (External Clock) */
-// 1341         vcoinput = ((HSE_VALUE / (uint32_t)(RCC->PLLCFGR & RCC_PLLCFGR_PLLM)));
-// 1342       }
-// 1343 
-// 1344       /* PLLI2S_VCO Output = PLLI2S_VCO Input * PLLI2SN */
-// 1345       /* I2S_CLK(first level) = PLLI2S_VCO Output/PLLI2SR */
-// 1346       tmpreg = (RCC->PLLI2SCFGR & RCC_PLLI2SCFGR_PLLI2SR) >> 28;
-// 1347       i2sclocksource = (vcoinput * ((RCC->PLLI2SCFGR & RCC_PLLI2SCFGR_PLLI2SN) >> 6))/(tmpreg);
-// 1348     
-// 1349       break;
-// 1350     }
-// 1351     case I2S_CLOCK_EXTERNAL :
-// 1352     {
-// 1353       i2sclocksource = EXTERNAL_CLOCK_VALUE;
-// 1354       break;
-// 1355     }
-// 1356     default :
-// 1357     {
-// 1358       break;
-// 1359     }
-// 1360   }
-// 1361 
-// 1362   /* the return result is the value of I2S clock */
-// 1363   return i2sclocksource; 
-// 1364 }
-// 1365 
-// 1366 /** @addtogroup I2S_Private_Functions I2S Private Functions
-// 1367   * @{
-// 1368   */
-// 1369 /**
-// 1370   * @brief DMA I2S transmit process complete callback 
-// 1371   * @param  hdma: pointer to a DMA_HandleTypeDef structure that contains
-// 1372   *                the configuration information for the specified DMA module.
-// 1373   * @retval None
-// 1374   */
+// 1323 /**
+// 1324   * @}
+// 1325   */  
+// 1326 
+// 1327 /**
+// 1328   * @}
+// 1329   */
+// 1330 
+// 1331   /**
+// 1332   * @brief  Get I2S Input Clock based on I2S source clock selection
+// 1333   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
+// 1334   *               the configuration information for I2S module.   
+// 1335   * @retval I2S Clock Input 
+// 1336   */
+// 1337 static uint32_t I2S_GetClockFreq(I2S_HandleTypeDef *hi2s)   
+// 1338 {
+// 1339   uint32_t tmpreg = 0;
+// 1340   /* This variable used to store the VCO Input (value in Hz) */
+// 1341   uint32_t vcoinput = 0;
+// 1342   /* This variable used to store the I2S_CK_x (value in Hz) */
+// 1343   uint32_t i2sclocksource = 0;
+// 1344 
+// 1345   /* Configure I2S Clock based on I2S source clock selection */ 
+// 1346   
+// 1347   /* I2S_CLK_x : I2S Block Clock configuration for different clock sources selected */
+// 1348   switch(hi2s->Init.ClockSource)
+// 1349   {
+// 1350     case I2S_CLOCK_SYSCLK :
+// 1351     {
+// 1352       /* Configure the PLLI2S division factor */
+// 1353       /* PLLI2S_VCO Input  = PLL_SOURCE/PLLI2SM */ 
+// 1354       if((RCC->PLLCFGR & RCC_PLLCFGR_PLLSRC) == RCC_PLLSOURCE_HSI)
+// 1355       {
+// 1356         /* In Case the PLL Source is HSI (Internal Clock) */
+// 1357         vcoinput = (HSI_VALUE / (uint32_t)(RCC->PLLCFGR & RCC_PLLCFGR_PLLM));
+// 1358       }
+// 1359       else
+// 1360       {
+// 1361         /* In Case the PLL Source is HSE (External Clock) */
+// 1362         vcoinput = ((HSE_VALUE / (uint32_t)(RCC->PLLCFGR & RCC_PLLCFGR_PLLM)));
+// 1363       }
+// 1364 
+// 1365       /* PLLI2S_VCO Output = PLLI2S_VCO Input * PLLI2SN */
+// 1366       /* I2S_CLK(first level) = PLLI2S_VCO Output/PLLI2SR */
+// 1367       tmpreg = (RCC->PLLI2SCFGR & RCC_PLLI2SCFGR_PLLI2SR) >> 28;
+// 1368       i2sclocksource = (vcoinput * ((RCC->PLLI2SCFGR & RCC_PLLI2SCFGR_PLLI2SN) >> 6))/(tmpreg);
+// 1369     
+// 1370       break;
+// 1371     }
+// 1372     case I2S_CLOCK_EXTERNAL :
+// 1373     {
+// 1374       i2sclocksource = EXTERNAL_CLOCK_VALUE;
+// 1375       break;
+// 1376     }
+// 1377     default :
+// 1378     {
+// 1379       break;
+// 1380     }
+// 1381   }
+// 1382 
+// 1383   /* the return result is the value of I2S clock */
+// 1384   return i2sclocksource; 
+// 1385 }
+// 1386 
+// 1387 /** @addtogroup I2S_Private_Functions I2S Private Functions
+// 1388   * @{
+// 1389   */
+// 1390 /**
+// 1391   * @brief DMA I2S transmit process complete callback 
+// 1392   * @param  hdma: pointer to a DMA_HandleTypeDef structure that contains
+// 1393   *                the configuration information for the specified DMA module.
+// 1394   * @retval None
+// 1395   */
 
         SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock21 Using cfiCommon0
           CFI Function I2S_DMATxCplt
         THUMB
-// 1375 static void I2S_DMATxCplt(DMA_HandleTypeDef *hdma)   
-// 1376 {
+// 1396 static void I2S_DMATxCplt(DMA_HandleTypeDef *hdma)   
+// 1397 {
 I2S_DMATxCplt:
         PUSH     {LR}
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+4
         SUB      SP,SP,#+4
           CFI CFA R13+8
-// 1377   I2S_HandleTypeDef* hi2s = (I2S_HandleTypeDef*)((DMA_HandleTypeDef*)hdma)->Parent;
+// 1398   I2S_HandleTypeDef* hi2s = (I2S_HandleTypeDef*)((DMA_HandleTypeDef*)hdma)->Parent;
         LDR      R1,[R0, #+56]
-// 1378   
-// 1379   if((hdma->Instance->CR & DMA_SxCR_CIRC) == 0)
+// 1399   
+// 1400   if((hdma->Instance->CR & DMA_SxCR_CIRC) == 0)
         LDR      R0,[R0, #+0]
         LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+23
         BMI.N    ??I2S_DMATxCplt_0
-// 1380   {
-// 1381     hi2s->TxXferCount = 0;
+// 1401   {
+// 1402     hi2s->TxXferCount = 0;
         MOVS     R0,#+0
         STRH     R0,[R1, #+38]
-// 1382 
-// 1383     /* Disable Tx DMA Request */
-// 1384     hi2s->Instance->CR2 &= (uint32_t)(~SPI_CR2_TXDMAEN);
+// 1403 
+// 1404     /* Disable Tx DMA Request */
+// 1405     hi2s->Instance->CR2 &= (uint32_t)(~SPI_CR2_TXDMAEN);
         LDR      R0,[R1, #+0]
         LDR      R2,[R0, #+4]
         BIC      R2,R2,#0x2
         STR      R2,[R0, #+4]
-// 1385     
-// 1386     if(hi2s->State == HAL_I2S_STATE_BUSY_TX_RX)
+// 1406     
+// 1407     if(hi2s->State == HAL_I2S_STATE_BUSY_TX_RX)
         LDRB     R0,[R1, #+57]
         CMP      R0,#+5
         BNE.N    ??I2S_DMATxCplt_1
-// 1387     {
-// 1388       if(hi2s->RxXferCount == 0)
+// 1408     {
+// 1409       if(hi2s->RxXferCount == 0)
         LDRH     R0,[R1, #+46]
         CBNZ.N   R0,??I2S_DMATxCplt_0
-// 1389       {
-// 1390         hi2s->State = HAL_I2S_STATE_READY;
-// 1391       }
-// 1392     }
-// 1393     else
-// 1394     {
-// 1395       hi2s->State = HAL_I2S_STATE_READY; 
+// 1410       {
+// 1411         hi2s->State = HAL_I2S_STATE_READY;
+// 1412       }
+// 1413     }
+// 1414     else
+// 1415     {
+// 1416       hi2s->State = HAL_I2S_STATE_READY; 
 ??I2S_DMATxCplt_1:
         MOVS     R0,#+1
         STRB     R0,[R1, #+57]
-// 1396     }
-// 1397   }
-// 1398   HAL_I2S_TxCpltCallback(hi2s);
+// 1417     }
+// 1418   }
+// 1419   HAL_I2S_TxCpltCallback(hi2s);
 ??I2S_DMATxCplt_0:
         MOV      R0,R1
           CFI FunCall HAL_I2S_TxCpltCallback
         BL       HAL_I2S_TxCpltCallback
-// 1399 }
+// 1420 }
         ADD      SP,SP,#+4
           CFI CFA R13+4
         POP      {PC}             ;; return
           CFI EndBlock cfiBlock21
-// 1400 
-// 1401 /**
-// 1402   * @brief DMA I2S transmit process half complete callback 
-// 1403   * @param  hdma: pointer to a DMA_HandleTypeDef structure that contains
-// 1404   *                the configuration information for the specified DMA module.
-// 1405   * @retval None
-// 1406   */
+// 1421 
+// 1422 /**
+// 1423   * @brief DMA I2S transmit process half complete callback 
+// 1424   * @param  hdma: pointer to a DMA_HandleTypeDef structure that contains
+// 1425   *                the configuration information for the specified DMA module.
+// 1426   * @retval None
+// 1427   */
 
         SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock22 Using cfiCommon0
           CFI Function I2S_DMATxHalfCplt
         THUMB
-// 1407 static void I2S_DMATxHalfCplt(DMA_HandleTypeDef *hdma)
-// 1408 {
+// 1428 static void I2S_DMATxHalfCplt(DMA_HandleTypeDef *hdma)
+// 1429 {
 I2S_DMATxHalfCplt:
         PUSH     {LR}
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+4
         SUB      SP,SP,#+4
           CFI CFA R13+8
-// 1409   I2S_HandleTypeDef* hi2s = (I2S_HandleTypeDef*)((DMA_HandleTypeDef*)hdma)->Parent;
-// 1410 
-// 1411   HAL_I2S_TxHalfCpltCallback(hi2s);
+// 1430   I2S_HandleTypeDef* hi2s = (I2S_HandleTypeDef*)((DMA_HandleTypeDef*)hdma)->Parent;
+// 1431 
+// 1432   HAL_I2S_TxHalfCpltCallback(hi2s);
         LDR      R0,[R0, #+56]
           CFI FunCall HAL_I2S_TxHalfCpltCallback
         BL       HAL_I2S_TxHalfCpltCallback
-// 1412 }
+// 1433 }
         ADD      SP,SP,#+4
           CFI CFA R13+4
         POP      {PC}             ;; return
           CFI EndBlock cfiBlock22
-// 1413 
-// 1414 /**
-// 1415   * @brief DMA I2S receive process complete callback 
-// 1416   * @param  hdma: pointer to a DMA_HandleTypeDef structure that contains
-// 1417   *                the configuration information for the specified DMA module.
-// 1418   * @retval None
-// 1419   */
+// 1434 
+// 1435 /**
+// 1436   * @brief DMA I2S receive process complete callback 
+// 1437   * @param  hdma: pointer to a DMA_HandleTypeDef structure that contains
+// 1438   *                the configuration information for the specified DMA module.
+// 1439   * @retval None
+// 1440   */
 
         SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock23 Using cfiCommon0
           CFI Function I2S_DMARxCplt
         THUMB
-// 1420 static void I2S_DMARxCplt(DMA_HandleTypeDef *hdma)   
-// 1421 {
+// 1441 static void I2S_DMARxCplt(DMA_HandleTypeDef *hdma)   
+// 1442 {
 I2S_DMARxCplt:
         PUSH     {LR}
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+4
         SUB      SP,SP,#+4
           CFI CFA R13+8
-// 1422   I2S_HandleTypeDef* hi2s = (I2S_HandleTypeDef*)((DMA_HandleTypeDef*)hdma)->Parent;
+// 1443   I2S_HandleTypeDef* hi2s = (I2S_HandleTypeDef*)((DMA_HandleTypeDef*)hdma)->Parent;
         LDR      R1,[R0, #+56]
-// 1423 
-// 1424   if((hdma->Instance->CR & DMA_SxCR_CIRC) == 0)
+// 1444 
+// 1445   if((hdma->Instance->CR & DMA_SxCR_CIRC) == 0)
         LDR      R0,[R0, #+0]
         LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+23
         BMI.N    ??I2S_DMARxCplt_0
-// 1425   {
-// 1426     /* Disable Rx DMA Request */
-// 1427     hi2s->Instance->CR2 &= (uint32_t)(~SPI_CR2_RXDMAEN);
+// 1446   {
+// 1447     /* Disable Rx DMA Request */
+// 1448     hi2s->Instance->CR2 &= (uint32_t)(~SPI_CR2_RXDMAEN);
         LDR      R0,[R1, #+0]
         LDR      R2,[R0, #+4]
         LSRS     R2,R2,#+1
         LSLS     R2,R2,#+1
         STR      R2,[R0, #+4]
-// 1428 
-// 1429     hi2s->RxXferCount = 0;
+// 1449 
+// 1450     hi2s->RxXferCount = 0;
         MOVS     R0,#+0
         STRH     R0,[R1, #+46]
-// 1430     if(hi2s->State == HAL_I2S_STATE_BUSY_TX_RX)
+// 1451     if(hi2s->State == HAL_I2S_STATE_BUSY_TX_RX)
         LDRB     R0,[R1, #+57]
         CMP      R0,#+5
         BNE.N    ??I2S_DMARxCplt_1
-// 1431     {
-// 1432       if(hi2s->TxXferCount == 0)
+// 1452     {
+// 1453       if(hi2s->TxXferCount == 0)
         LDRH     R0,[R1, #+38]
         CBNZ.N   R0,??I2S_DMARxCplt_0
-// 1433       {
-// 1434         hi2s->State = HAL_I2S_STATE_READY;
-// 1435       }
-// 1436     }
-// 1437     else
-// 1438     {
-// 1439       hi2s->State = HAL_I2S_STATE_READY; 
+// 1454       {
+// 1455         hi2s->State = HAL_I2S_STATE_READY;
+// 1456       }
+// 1457     }
+// 1458     else
+// 1459     {
+// 1460       hi2s->State = HAL_I2S_STATE_READY; 
 ??I2S_DMARxCplt_1:
         MOVS     R0,#+1
         STRB     R0,[R1, #+57]
-// 1440     }
-// 1441   }
-// 1442   HAL_I2S_RxCpltCallback(hi2s); 
+// 1461     }
+// 1462   }
+// 1463   HAL_I2S_RxCpltCallback(hi2s); 
 ??I2S_DMARxCplt_0:
         MOV      R0,R1
           CFI FunCall HAL_I2S_RxCpltCallback
         BL       HAL_I2S_RxCpltCallback
-// 1443 }
+// 1464 }
         ADD      SP,SP,#+4
           CFI CFA R13+4
         POP      {PC}             ;; return
           CFI EndBlock cfiBlock23
-// 1444       
-// 1445 /**
-// 1446   * @brief DMA I2S receive process half complete callback 
-// 1447   * @param  hdma: pointer to a DMA_HandleTypeDef structure that contains
-// 1448   *                the configuration information for the specified DMA module.
-// 1449   * @retval None
-// 1450   */
+// 1465       
+// 1466 /**
+// 1467   * @brief DMA I2S receive process half complete callback 
+// 1468   * @param  hdma: pointer to a DMA_HandleTypeDef structure that contains
+// 1469   *                the configuration information for the specified DMA module.
+// 1470   * @retval None
+// 1471   */
 
         SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock24 Using cfiCommon0
           CFI Function I2S_DMARxHalfCplt
         THUMB
-// 1451 static void I2S_DMARxHalfCplt(DMA_HandleTypeDef *hdma)
-// 1452 {
+// 1472 static void I2S_DMARxHalfCplt(DMA_HandleTypeDef *hdma)
+// 1473 {
 I2S_DMARxHalfCplt:
         PUSH     {LR}
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+4
         SUB      SP,SP,#+4
           CFI CFA R13+8
-// 1453   I2S_HandleTypeDef* hi2s = (I2S_HandleTypeDef*)((DMA_HandleTypeDef*)hdma)->Parent;
-// 1454 
-// 1455   HAL_I2S_RxHalfCpltCallback(hi2s); 
+// 1474   I2S_HandleTypeDef* hi2s = (I2S_HandleTypeDef*)((DMA_HandleTypeDef*)hdma)->Parent;
+// 1475 
+// 1476   HAL_I2S_RxHalfCpltCallback(hi2s); 
         LDR      R0,[R0, #+56]
           CFI FunCall HAL_I2S_RxHalfCpltCallback
         BL       HAL_I2S_RxHalfCpltCallback
-// 1456 }
+// 1477 }
         ADD      SP,SP,#+4
           CFI CFA R13+4
         POP      {PC}             ;; return
           CFI EndBlock cfiBlock24
-// 1457 
-// 1458 /**
-// 1459   * @brief DMA I2S communication error callback 
-// 1460   * @param  hdma: pointer to a DMA_HandleTypeDef structure that contains
-// 1461   *                the configuration information for the specified DMA module.
-// 1462   * @retval None
-// 1463   */
+// 1478 
+// 1479 /**
+// 1480   * @brief DMA I2S communication error callback 
+// 1481   * @param  hdma: pointer to a DMA_HandleTypeDef structure that contains
+// 1482   *                the configuration information for the specified DMA module.
+// 1483   * @retval None
+// 1484   */
 
         SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock25 Using cfiCommon0
           CFI Function I2S_DMAError
         THUMB
-// 1464 static void I2S_DMAError(DMA_HandleTypeDef *hdma)   
-// 1465 {
+// 1485 static void I2S_DMAError(DMA_HandleTypeDef *hdma)   
+// 1486 {
 I2S_DMAError:
         PUSH     {LR}
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+4
         SUB      SP,SP,#+4
           CFI CFA R13+8
-// 1466   I2S_HandleTypeDef* hi2s = ( I2S_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
+// 1487   I2S_HandleTypeDef* hi2s = ( I2S_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
         LDR      R0,[R0, #+56]
-// 1467   
-// 1468   /* Disable Rx and Tx DMA Request */
-// 1469   hi2s->Instance->CR2 &= (uint32_t)(~(SPI_CR2_RXDMAEN | SPI_CR2_TXDMAEN));
+// 1488   
+// 1489   /* Disable Rx and Tx DMA Request */
+// 1490   hi2s->Instance->CR2 &= (uint32_t)(~(SPI_CR2_RXDMAEN | SPI_CR2_TXDMAEN));
         LDR      R1,[R0, #+0]
         LDR      R2,[R1, #+4]
         LSRS     R2,R2,#+2
         LSLS     R2,R2,#+2
         STR      R2,[R1, #+4]
-// 1470   hi2s->TxXferCount = 0;
+// 1491   hi2s->TxXferCount = 0;
         MOVS     R1,#+0
         STRH     R1,[R0, #+38]
-// 1471   hi2s->RxXferCount = 0;
+// 1492   hi2s->RxXferCount = 0;
         STRH     R1,[R0, #+46]
-// 1472   
-// 1473   hi2s->State= HAL_I2S_STATE_READY;
+// 1493   
+// 1494   hi2s->State= HAL_I2S_STATE_READY;
         MOVS     R1,#+1
         STRB     R1,[R0, #+57]
-// 1474 
-// 1475   /* Set the error code and execute error callback*/
-// 1476   hi2s->ErrorCode |= HAL_I2S_ERROR_DMA;
+// 1495 
+// 1496   /* Set the error code and execute error callback*/
+// 1497   hi2s->ErrorCode |= HAL_I2S_ERROR_DMA;
         LDR      R1,[R0, #+60]
         ORR      R1,R1,#0x8
         STR      R1,[R0, #+60]
-// 1477   HAL_I2S_ErrorCallback(hi2s);
+// 1498   HAL_I2S_ErrorCallback(hi2s);
           CFI FunCall HAL_I2S_ErrorCallback
         BL       HAL_I2S_ErrorCallback
-// 1478 }
+// 1499 }
         ADD      SP,SP,#+4
           CFI CFA R13+4
         POP      {PC}             ;; return
@@ -2910,67 +2935,67 @@ I2S_DMAError:
         SECTION_TYPE SHT_PROGBITS, 0
 
         END
-// 1479 
-// 1480 /**
-// 1481   * @brief Transmit an amount of data in non-blocking mode with Interrupt
-// 1482   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
-// 1483   *         the configuration information for I2S module
-// 1484   * @retval None
-// 1485   */
-// 1486 static void I2S_Transmit_IT(I2S_HandleTypeDef *hi2s)
-// 1487 {
-// 1488   /* Transmit data */
-// 1489   hi2s->Instance->DR = (*hi2s->pTxBuffPtr++);
-// 1490   hi2s->TxXferCount--;	
-// 1491 
-// 1492   if(hi2s->TxXferCount == 0)
-// 1493   {
-// 1494     /* Disable TXE and ERR interrupt */
-// 1495     __HAL_I2S_DISABLE_IT(hi2s, (I2S_IT_TXE | I2S_IT_ERR));
-// 1496 
-// 1497     hi2s->State = HAL_I2S_STATE_READY;
-// 1498     HAL_I2S_TxCpltCallback(hi2s);
-// 1499   }
-// 1500 }
-// 1501 
-// 1502 /**
-// 1503   * @brief Receive an amount of data in non-blocking mode with Interrupt
-// 1504   * @param hi2s: I2S handle
+// 1500 
+// 1501 /**
+// 1502   * @brief Transmit an amount of data in non-blocking mode with Interrupt
+// 1503   * @param  hi2s: pointer to a I2S_HandleTypeDef structure that contains
+// 1504   *         the configuration information for I2S module
 // 1505   * @retval None
 // 1506   */
-// 1507 static void I2S_Receive_IT(I2S_HandleTypeDef *hi2s)
+// 1507 static void I2S_Transmit_IT(I2S_HandleTypeDef *hi2s)
 // 1508 {
-// 1509   /* Receive data */    
-// 1510   (*hi2s->pRxBuffPtr++) = hi2s->Instance->DR;
-// 1511   hi2s->RxXferCount--;
+// 1509   /* Transmit data */
+// 1510   hi2s->Instance->DR = (*hi2s->pTxBuffPtr++);
+// 1511   hi2s->TxXferCount--;	
 // 1512 
-// 1513   if(hi2s->RxXferCount == 0)
-// 1514   {    
-// 1515     /* Disable RXNE and ERR interrupt */
-// 1516     __HAL_I2S_DISABLE_IT(hi2s, (I2S_IT_RXNE | I2S_IT_ERR));
+// 1513   if(hi2s->TxXferCount == 0)
+// 1514   {
+// 1515     /* Disable TXE and ERR interrupt */
+// 1516     __HAL_I2S_DISABLE_IT(hi2s, (I2S_IT_TXE | I2S_IT_ERR));
 // 1517 
-// 1518     hi2s->State = HAL_I2S_STATE_READY;     
-// 1519     HAL_I2S_RxCpltCallback(hi2s); 
+// 1518     hi2s->State = HAL_I2S_STATE_READY;
+// 1519     HAL_I2S_TxCpltCallback(hi2s);
 // 1520   }
 // 1521 }
-// 1522 /**
-// 1523   * @}
-// 1524   */
-// 1525   
-// 1526 #endif /* HAL_I2S_MODULE_ENABLED */
-// 1527 /**
-// 1528   * @}
-// 1529   */
-// 1530 
-// 1531 /**
-// 1532   * @}
-// 1533   */
-// 1534 
-// 1535 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+// 1522 
+// 1523 /**
+// 1524   * @brief Receive an amount of data in non-blocking mode with Interrupt
+// 1525   * @param hi2s: I2S handle
+// 1526   * @retval None
+// 1527   */
+// 1528 static void I2S_Receive_IT(I2S_HandleTypeDef *hi2s)
+// 1529 {
+// 1530   /* Receive data */    
+// 1531   (*hi2s->pRxBuffPtr++) = hi2s->Instance->DR;
+// 1532   hi2s->RxXferCount--;
+// 1533 
+// 1534   if(hi2s->RxXferCount == 0)
+// 1535   {    
+// 1536     /* Disable RXNE and ERR interrupt */
+// 1537     __HAL_I2S_DISABLE_IT(hi2s, (I2S_IT_RXNE | I2S_IT_ERR));
+// 1538 
+// 1539     hi2s->State = HAL_I2S_STATE_READY;     
+// 1540     HAL_I2S_RxCpltCallback(hi2s); 
+// 1541   }
+// 1542 }
+// 1543 /**
+// 1544   * @}
+// 1545   */
+// 1546   
+// 1547 #endif /* HAL_I2S_MODULE_ENABLED */
+// 1548 /**
+// 1549   * @}
+// 1550   */
+// 1551 
+// 1552 /**
+// 1553   * @}
+// 1554   */
+// 1555 
+// 1556 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 2 138 bytes in section .text
+// 2 146 bytes in section .text
 // 
-// 2 138 bytes of CODE memory
+// 2 146 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

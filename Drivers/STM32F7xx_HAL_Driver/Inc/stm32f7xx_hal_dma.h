@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f7xx_hal_dma.h
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    25-June-2015
+  * @version V1.0.4
+  * @date    09-December-2015
   * @brief   Header file of DMA HAL module.
   ******************************************************************************
   * @attention
@@ -165,6 +165,11 @@ typedef struct __DMA_HandleTypeDef
   void                       (* XferErrorCallback)( struct __DMA_HandleTypeDef * hdma);    /*!< DMA transfer error callback            */
 
  __IO uint32_t              ErrorCode;                                                    /*!< DMA Error code                          */
+
+ uint32_t                    StreamBaseAddress;                                            /*!< DMA Stream Base Address                */
+
+ uint32_t                    StreamIndex;                                                  /*!< DMA Stream Index                       */
+ 
 }DMA_HandleTypeDef;
 
 /**
@@ -657,11 +662,6 @@ HAL_StatusTypeDef HAL_DMA_Start_IT(DMA_HandleTypeDef *hdma, uint32_t SrcAddress,
 HAL_StatusTypeDef HAL_DMA_Abort(DMA_HandleTypeDef *hdma);
 HAL_StatusTypeDef HAL_DMA_PollForTransfer(DMA_HandleTypeDef *hdma, uint32_t CompleteLevel, uint32_t Timeout);
 void              HAL_DMA_IRQHandler(DMA_HandleTypeDef *hdma);
-
-
-//sop1hc
-void DMA_SetConfig(DMA_HandleTypeDef *hdma, uint32_t SrcAddress, uint32_t DstAddress, uint32_t DataLength);
-
 /**
   * @}
   */ 

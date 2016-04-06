@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      31/Mar/2016  20:53:42
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      06/Apr/2016  18:05:28
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -322,6 +322,7 @@ DmaHandle:
         DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
         DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
         DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 0, 0, 0, 0, 0
 hi2c1:
         DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
         DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -409,7 +410,7 @@ AUDIO_Init:
         LDR.W    R1,??DataTable12
         SUB      SP,SP,#+4
           CFI CFA R13+8
-        LDRB     R1,[R1, #+141]
+        LDRB     R1,[R1, #+149]
         CMP      R1,#+101
         IT       GE 
         MOVGE    R1,#+100
@@ -503,11 +504,11 @@ AUDIO_DeInit:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R4,#+80
+        ADD      R0,R4,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??AUDIO_DeInit_3
-        ADD      R0,R4,#+80
+        ADD      R0,R4,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -558,6 +559,8 @@ AUDIO_DeInit:
         LDR      R1,[R0, #+28]
         BIC      R1,R1,#0x400
         STR      R1,[R0, #+28]
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR      R0,[R5, #+32]
         ORR      R0,R0,#0x8000
         STR      R0,[R5, #+32]
@@ -611,7 +614,7 @@ AUDIO_Play:
           CFI R4 Frame(CFA, -12)
           CFI CFA R13+12
         LDR.W    R2,??DataTable12
-        STR      R1,[R2, #+144]
+        STR      R1,[R2, #+152]
         ITTE     CC 
         LSLCC    R3,R3,#+16
         LSRCC    R4,R3,#+17
@@ -653,7 +656,7 @@ AUDIO_Play:
 //  228   
 //  229   /* Update the remaining number of data to be played */
 //  230   AudioRemSize = (Size/2) - DMA_MAX(AudioTotalSize)/2;//1 sop1hc: change "DMA_MAX(AudioTotalSize)" to "DMA_MAX(AudioTotalSize)/2"
-        LDR      R3,[R2, #+144]
+        LDR      R3,[R2, #+152]
         CMP      R3,#+65536
         ITE      CC 
         LSRCC    R4,R3,#+1
@@ -663,12 +666,12 @@ AUDIO_Play:
 //  232   /* Update the current audio pointer position */
 //  233   CurrentPos = pBuffer + DMA_MAX(AudioTotalSize);
         CMP      R3,#+65536
-        STR      R1,[R2, #+148]
+        STR      R1,[R2, #+156]
         ITE      CC 
         LSLCC    R1,R3,#+1
-        LDRCS.W  R1,??DataTable14  ;; 0x1fffe
+        LDRCS.W  R1,??DataTable13  ;; 0x1fffe
         ADDS     R0,R1,R0
-        STR      R0,[R2, #+152]
+        STR      R0,[R2, #+160]
 //  234   
 //  235   return 0;
         MOVS     R0,#+0
@@ -726,11 +729,11 @@ AUDIO_PauseResume:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??AUDIO_PauseResume_2
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -752,11 +755,11 @@ AUDIO_PauseResume:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??AUDIO_PauseResume_5
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -767,7 +770,7 @@ AUDIO_PauseResume:
         ADDS     R0,R0,R6
         B.N      ??AUDIO_PauseResume_6
 ??AUDIO_PauseResume_0:
-        LDRB     R0,[R5, #+140]
+        LDRB     R0,[R5, #+148]
         MOVS     R1,#+4
         STRB     R1,[SP, #+4]
         STRB     R0,[SP, #+5]
@@ -777,11 +780,11 @@ AUDIO_PauseResume:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??AUDIO_PauseResume_8
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -793,7 +796,7 @@ AUDIO_PauseResume:
 ??AUDIO_PauseResume_8:
         MOVS     R6,#+0
 ??AUDIO_PauseResume_9:
-        LDRB     R0,[R5, #+140]
+        LDRB     R0,[R5, #+148]
         MOVS.W   R1,#+4
         STRB     R1,[SP, #+4]
         STRB     R0,[SP, #+5]
@@ -803,11 +806,11 @@ AUDIO_PauseResume:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??AUDIO_PauseResume_11
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -829,11 +832,11 @@ AUDIO_PauseResume:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??AUDIO_PauseResume_14
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -858,7 +861,7 @@ AUDIO_PauseResume:
 //  260     /* Call the Media layer pause/resume function */
 //  261     Audio_MAL_PauseResume(Cmd, 0);
 ??AUDIO_PauseResume_15:
-        LDR.W    R1,??DataTable14_1  ;; 0x40003c04
+        LDR.W    R1,??DataTable14  ;; 0x40003c04
         CMP      R4,#+0
         LDR.W    R0,??DataTable16  ;; 0x400260b8
         LDR      R2,[R1, #+0]
@@ -933,11 +936,11 @@ AUDIO_Stop:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R4,#+80
+        ADD      R0,R4,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??AUDIO_Stop_1
-        ADD      R0,R4,#+80
+        ADD      R0,R4,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -957,12 +960,12 @@ AUDIO_Stop:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R4,#+80
+        ADD      R0,R4,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CMP      R0,#+0
         BEQ.N    ??AUDIO_Stop_4
-        ADD      R0,R4,#+80
+        ADD      R0,R4,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -982,11 +985,11 @@ AUDIO_Stop:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R4,#+80
+        ADD      R0,R4,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??AUDIO_Stop_7
-        ADD      R0,R4,#+80
+        ADD      R0,R4,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -1034,8 +1037,8 @@ AUDIO_Stop:
 //  288     
 //  289     /* Update the remaining data number */
 //  290     AudioRemSize = AudioTotalSize;    
-        LDR      R0,[R4, #+144]
-        STR      R0,[R4, #+148]
+        LDR      R0,[R4, #+152]
+        STR      R0,[R4, #+156]
 //  291     
 //  292     /* Return 0 when all operations are correctly done */
 //  293     return 0;
@@ -1071,7 +1074,7 @@ AUDIO_VolumeCtl:
         LDR.W    R4,??DataTable16_1
         SUB      SP,SP,#+12
           CFI CFA R13+24
-        LDRB     R0,[R4, #+141]
+        LDRB     R0,[R4, #+149]
         ADD      R1,R0,#+25
         MOVS.W   R0,#+32
         STRB     R0,[SP, #+4]
@@ -1082,11 +1085,11 @@ AUDIO_VolumeCtl:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R4,#+80
+        ADD      R0,R4,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??AUDIO_VolumeCtl_1
-        ADD      R0,R4,#+80
+        ADD      R0,R4,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -1100,7 +1103,7 @@ AUDIO_VolumeCtl:
 ??AUDIO_VolumeCtl_2:
         MOVS     R0,#+33
         STRB     R0,[SP, #+4]
-        LDRB     R0,[R4, #+141]
+        LDRB     R0,[R4, #+149]
         ADDS     R0,R0,#+25
         STRB     R0,[SP, #+5]
 ??AUDIO_VolumeCtl_3:
@@ -1109,11 +1112,11 @@ AUDIO_VolumeCtl:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R4,#+80
+        ADD      R0,R4,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??AUDIO_VolumeCtl_4
-        ADD      R0,R4,#+80
+        ADD      R0,R4,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -1158,7 +1161,7 @@ AUDIO_Mute:
         MOVS     R0,#+255
         B.N      ??AUDIO_Mute_1
 ??AUDIO_Mute_0:
-        LDRB     R0,[R4, #+140]
+        LDRB     R0,[R4, #+148]
         MOVS     R1,#+4
         STRB     R1,[SP, #+4]
 ??AUDIO_Mute_1:
@@ -1169,11 +1172,11 @@ AUDIO_Mute:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R4,#+80
+        ADD      R0,R4,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??AUDIO_Mute_3
-        ADD      R0,R4,#+80
+        ADD      R0,R4,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -1508,14 +1511,16 @@ Codec_Init:
           CFI R5 Frame(CFA, -16)
           CFI R4 Frame(CFA, -20)
           CFI CFA R13+20
+        SUB      SP,SP,#+28
+          CFI CFA R13+48
 //  406   uint32_t counter = 0; 
 //  407   uint32_t stReadReg;
 //  408 
 //  409   /* Configure the Codec related IOs */
 //  410   Codec_GPIO_Init();   //only reset Pin configuration
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR.W    R0,??DataTable16_18  ;; 0x40023830
-        SUB      SP,SP,#+28
-          CFI CFA R13+48
         LDR.W    R5,??DataTable12_1  ;; 0x40020c00
         MOV      R4,R2
         LDR      R1,[R0, #+0]
@@ -1581,11 +1586,11 @@ Codec_Init:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??Codec_Init_3
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -1610,11 +1615,11 @@ Codec_Init:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??Codec_Init_6
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -1635,11 +1640,11 @@ Codec_Init:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??Codec_Init_8
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -1648,7 +1653,7 @@ Codec_Init:
         BL       Codec_TIMEOUT_UserCallback
         ADDS     R6,R0,R6
 //  427 
-//  428   //3. Write ‘1’b to bit 7 in register 0x32. 
+//  428   //3. Write ?1?b to bit 7 in register 0x32. 
 //  429   stReadReg = Codec_ReadRegister(0x32);
 ??Codec_Init_8:
         MOVS     R0,#+50
@@ -1661,11 +1666,11 @@ Codec_Init:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+5
         MOVS     R1,#+148
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??Codec_Init_10
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -1678,11 +1683,11 @@ Codec_Init:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_Master_Receive
         BL       HAL_I2C_Master_Receive
         CBZ.N    R0,??Codec_Init_12
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -1706,11 +1711,11 @@ Codec_Init:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??Codec_Init_15
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -1718,7 +1723,7 @@ Codec_Init:
           CFI FunCall Codec_TIMEOUT_UserCallback
         BL       Codec_TIMEOUT_UserCallback
         ADDS     R6,R0,R6
-//  431   //4. Write ‘0’b to bit 7 in register 0x32. 
+//  431   //4. Write ?0?b to bit 7 in register 0x32. 
 //  432     counter += Codec_WriteRegister(0x32, (uint8_t)(0xBF&stReadReg)); 
 ??Codec_Init_15:
         MOVS.W   R0,#+50
@@ -1731,11 +1736,11 @@ Codec_Init:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??Codec_Init_17
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -1755,11 +1760,11 @@ Codec_Init:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??Codec_Init_19
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -1780,11 +1785,11 @@ Codec_Init:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??Codec_Init_21
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -1795,7 +1800,7 @@ Codec_Init:
 //  437   OutputDev = 0xAF;
 ??Codec_Init_21:
         MOVS     R0,#+175
-        STRB     R0,[R5, #+140]
+        STRB     R0,[R5, #+148]
 //  438   
 //  439 
 //  440   
@@ -1811,11 +1816,11 @@ Codec_Init:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??Codec_Init_23
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -1838,11 +1843,11 @@ Codec_Init:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??Codec_Init_25
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -1857,7 +1862,7 @@ Codec_Init:
 //  451   /* Set the Master volume */
 //  452   Codec_VolumeCtrl(Vol);
 ??Codec_Init_25:
-        LDRB     R0,[R5, #+141]
+        LDRB     R0,[R5, #+149]
         ADD      R1,R0,#+25
         MOVS.W   R0,#+32
         STRB     R0,[SP, #+4]
@@ -1868,11 +1873,11 @@ Codec_Init:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??Codec_Init_27
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -1882,7 +1887,7 @@ Codec_Init:
 ??Codec_Init_27:
         MOVS     R0,#+33
         STRB     R0,[SP, #+4]
-        LDRB     R0,[R5, #+141]
+        LDRB     R0,[R5, #+149]
         ADDS.W   R0,R0,#+25
         STRB     R0,[SP, #+5]
 ??Codec_Init_28:
@@ -1891,11 +1896,11 @@ Codec_Init:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??Codec_Init_29
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -1916,11 +1921,11 @@ Codec_Init:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??Codec_Init_31
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -1949,11 +1954,11 @@ Codec_Init:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??Codec_Init_33
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -1978,11 +1983,11 @@ Codec_Init:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??Codec_Init_35
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -2003,11 +2008,11 @@ Codec_Init:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??Codec_Init_37
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -2028,11 +2033,11 @@ Codec_Init:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??Codec_Init_39
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -2052,11 +2057,11 @@ Codec_Init:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??Codec_Init_41
-        ADD      R0,R5,#+80
+        ADD      R0,R5,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -2119,11 +2124,11 @@ codec_sendBeep:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R4,#+80
+        ADD      R0,R4,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??codec_sendBeep_1
-        ADD      R0,R4,#+80
+        ADD      R0,R4,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -2142,11 +2147,11 @@ codec_sendBeep:
         STR      R0,[SP, #+0]
         ADD      R2,SP,#+4
         MOVS     R1,#+148
-        ADD      R0,R4,#+80
+        ADD      R0,R4,#+88
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CBZ.N    R0,??codec_sendBeep_3
-        ADD      R0,R4,#+80
+        ADD      R0,R4,#+88
           CFI FunCall HAL_I2C_GetError
         BL       HAL_I2C_GetError
         CMP      R0,#+4
@@ -2393,242 +2398,241 @@ codec_sendBeep:
 //  733   /* Start the config sequence */
 //  734   I2C_GENERATE_START(I2C_ADDRESSINGMODE_7BIT,CODEC_I2C);
 //  735   hi2c1.Instance->CR2 = I2C_GENERATE_START(hi2c1.Init.AddressingMode,DevAddress);
-//  736 
-//  737     /* Test on EV5 and clear it */
-//  738   CODECTimeout = CODEC_FLAG_TIMEOUT;
-//  739   while (!I2C_CheckEvent(CODEC_I2C, I2C_EVENT_MASTER_MODE_SELECT))
-//  740   {
-//  741     if((CODECTimeout--) == 0) return Codec_TIMEOUT_UserCallback();
-//  742   }
+//  736     /* Test on EV5 and clear it */
+//  737   CODECTimeout = CODEC_FLAG_TIMEOUT;
+//  738   while (!I2C_CheckEvent(CODEC_I2C, I2C_EVENT_MASTER_MODE_SELECT))
+//  739   {
+//  740     if((CODECTimeout--) == 0) return Codec_TIMEOUT_UserCallback();
+//  741   }
+//  742   
 //  743   
-//  744   
-//  745 #endif
-//  746   return result;  
-//  747 }
-//  748 
-//  749 /**
-//  750   * @brief  Reads and returns the value of an audio codec register through the
-//  751   *         control interface (I2C).
-//  752   * @param  RegisterAddr: Address of the register to be read.
-//  753   * @retval Value of the register to be read or dummy value if the communication
-//  754   *         fails.
-//  755   */
-//  756 static uint32_t Codec_ReadRegister(uint8_t RegisterAddr)
-//  757 {
-//  758   uint8_t result = 0;
-//  759 
-//  760   /* Transmit the register address to be read */
-//  761   /* Transmit the first address for write operation */
-//  762   while(HAL_I2C_Master_Transmit(&hi2c1, CODEC_ADDRESS, &RegisterAddr,1,CODEC_LONG_TIMEOUT)!= HAL_OK)
-//  763   {
-//  764 	/* Error_Handler() function is called when Timeout error occurs.
-//  765 	When Acknowledge failure occurs (Slave don't acknowledge its address)
-//  766 	Master restarts communication */
-//  767     if (HAL_I2C_GetError(&hi2c1) != HAL_I2C_ERROR_AF)
-//  768     {
-//  769       return Codec_TIMEOUT_UserCallback();
-//  770     }  
-//  771   }
-//  772   
-//  773   /*!< Read the byte received from the Codec */
-//  774   //result = I2C_ReceiveData(CODEC_I2C);
-//  775   while(HAL_I2C_Master_Receive(&hi2c1, (uint16_t)CODEC_ADDRESS, &result, 1, CODEC_LONG_TIMEOUT) != HAL_OK)
-//  776   {
-//  777     /* Error_Handler() function is called when Timeout error occurs.
-//  778        When Acknowledge failure occurs (Slave don't acknowledge it's address)
-//  779        Master restarts communication */
-//  780     if (HAL_I2C_GetError(&hi2c1) != HAL_I2C_ERROR_AF)
-//  781     {
-//  782       return Codec_TIMEOUT_UserCallback();
-//  783     }
-//  784   }
-//  785   
-//  786   /* Return the byte read from Codec */
-//  787   return (uint32_t)result;
-//  788 }
-//  789 
-//  790 /**
-//  791   * @brief  Initializes the Audio Codec control interface (I2C).
-//  792   * @param  None
-//  793   * @retval None
-//  794   */
-//  795 static void Codec_CtrlInterface_Init(void)
-//  796 {
-//  797     MX_I2C1_Init();   
-//  798 }
-//  799 
-//  800 /**
-//  801   * @brief  Restore the Audio Codec control interface to its default state.
-//  802   *         This function doesn't de-initialize the I2C because the I2C peripheral
-//  803   *         may be used by other modules.
-//  804   * @param  None
-//  805   * @retval None
-//  806   */
-//  807 static void Codec_CtrlInterface_DeInit(void)
-//  808 {
-//  809   /* Disable the I2C peripheral */ /* This step is not done here because 
-//  810      the I2C interface can be used by other modules */
-//  811   /* I2C_DeInit(CODEC_I2C); */
-//  812   HAL_I2C_MspDeInit(&hi2c1);
-//  813 }
-//  814 
-//  815 /**
-//  816   * @brief  Initializes the Audio Codec audio interface (I2S)
-//  817   * @note   This function assumes that the I2S input clock (through PLL_R in 
-//  818   *         Devices RevA/Z and through dedicated PLLI2S_R in Devices RevB/Y)
-//  819   *         is already configured and ready to be used.    
-//  820   * @param  AudioFreq: Audio frequency to be configured for the I2S peripheral. 
-//  821   * @retval None
-//  822   */
-//  823 static void Codec_AudioInterface_Init(uint32_t AudioFreq)
-//  824 {
-//  825   I2S3_Init(AudioFreq); 
-//  826   //SPI3_Init(AudioFreq); 
-//  827 }
-//  828 
-//  829 /**
-//  830   * @brief  Restores the Audio Codec audio interface to its default state.
-//  831   * @param  None
-//  832   * @retval None
-//  833   */
-//  834 static void Codec_AudioInterface_DeInit(void)
-//  835 {
-//  836   /* Disable the CODEC_I2S peripheral (in case it hasn't already been disabled) */
-//  837   //I2S_Cmd(CODEC_I2S, DISABLE);
-//  838   __HAL_I2S_DISABLE(&hi2s3);
-//  839   /* Deinitialize the CODEC_I2S peripheral */
-//  840   SPI_I2S_DeInit(CODEC_I2S);
-//  841   
-//  842   /* Disable the CODEC_I2S peripheral clock */
-//  843   //RCC_APB1PeriphClockCmd(CODEC_I2S_CLK, DISABLE); 
-//  844   __HAL_RCC_SPI3_CLK_DISABLE();
-//  845 }
-//  846 
-//  847 /**
-//  848   * @brief Initializes IOs used by the Audio Codec (on the control and audio 
-//  849   *        interfaces).
-//  850   * @param  None
-//  851   * @retval None
-//  852   */
-//  853 static void Codec_GPIO_Init(void)
-//  854 {
-//  855   GPIO_InitTypeDef GPIO_InitStructure;
-//  856   
-//  857   __GPIOD_CLK_ENABLE();
-//  858   
-//  859   /* Audio reset pin configuration -------------------------------------------------*/
-//  860   GPIO_InitStructure.Pin = AUDIO_RESET_PIN; 
-//  861   GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;//GPIO_Mode_OUT;
-//  862   GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;//GPIO_Speed_50MHz;
-//  863   GPIO_InitStructure.Pull  = GPIO_NOPULL ;//GPIO_PuPd_NOPULL;
-//  864    
-//  865   HAL_GPIO_Init(AUDIO_RESET_GPIO, &GPIO_InitStructure);    
-//  866   
-//  867 }
-//  868 
-//  869 /**
-//  870   * @brief  Restores the IOs used by the Audio Codec interface to their default state.
-//  871   * @param  None
-//  872   * @retval None
-//  873   */
-//  874 static void Codec_GPIO_DeInit(void)
-//  875 {
-//  876   GPIO_InitTypeDef GPIO_InitStructure;
-//  877   
-//  878   GPIO_InitStructure.Pin = CODEC_I2S_SCK_PIN | CODEC_I2S_SD_PIN; 
-//  879   GPIO_InitStructure.Mode = GPIO_MODE_INPUT;
-//  880   GPIO_InitStructure.Speed = GPIO_SPEED_LOW;
-//  881   GPIO_InitStructure.Pull = GPIO_NOPULL;
-//  882   HAL_GPIO_Init(CODEC_I2S_GPIO, &GPIO_InitStructure);
-//  883       
-//  884   GPIO_InitStructure.Pin = CODEC_I2S_WS_PIN ;
-//  885   HAL_GPIO_Init(CODEC_I2S_WS_GPIO, &GPIO_InitStructure); 
-//  886   
-//  887 #ifdef CODEC_MCLK_ENABLED
-//  888   GPIO_InitStructure.Pin = CODEC_I2S_MCK_PIN; 
-//  889   HAL_GPIO_Init(CODEC_I2S_MCK_GPIO, &GPIO_InitStructure); 
-//  890 #endif /* CODEC_MCLK_ENABLED */    
-//  891 }
-//  892 
-//  893 /**
-//  894   * @brief  Inserts a delay time (not accurate timing).
-//  895   * @param  nCount: specifies the delay time length.
-//  896   * @retval None
-//  897   */
-//  898 static void Delay( __IO uint32_t nCount)
-//  899 {
-//  900   for (; nCount != 0; nCount--);
-//  901 }
-//  902 
-//  903 #ifdef USE_DEFAULT_TIMEOUT_CALLBACK
-//  904 /**
-//  905   * @brief  Basic management of the timeout situation.
-//  906   * @param  None
-//  907   * @retval None
-//  908   */
-//  909 uint32_t Codec_TIMEOUT_UserCallback(void)
-//  910 {
-//  911   /* Block communication and all processes */
-//  912   
-//  913 }
-//  914 #endif /* USE_DEFAULT_TIMEOUT_CALLBACK */
-//  915 /*========================
-//  916                 Audio MAL Interface Control Functions
-//  917                                                 ==============================*/
+//  744 #endif
+//  745   return result;  
+//  746 }
+//  747 
+//  748 /**
+//  749   * @brief  Reads and returns the value of an audio codec register through the
+//  750   *         control interface (I2C).
+//  751   * @param  RegisterAddr: Address of the register to be read.
+//  752   * @retval Value of the register to be read or dummy value if the communication
+//  753   *         fails.
+//  754   */
+//  755 static uint32_t Codec_ReadRegister(uint8_t RegisterAddr)
+//  756 {
+//  757   uint8_t result = 0;
+//  758 
+//  759   /* Transmit the register address to be read */
+//  760   /* Transmit the first address for write operation */
+//  761   while(HAL_I2C_Master_Transmit(&hi2c1, CODEC_ADDRESS, &RegisterAddr,1,CODEC_LONG_TIMEOUT)!= HAL_OK)
+//  762   {
+//  763 	/* Error_Handler() function is called when Timeout error occurs.
+//  764 	When Acknowledge failure occurs (Slave don't acknowledge its address)
+//  765 	Master restarts communication */
+//  766     if (HAL_I2C_GetError(&hi2c1) != HAL_I2C_ERROR_AF)
+//  767     {
+//  768       return Codec_TIMEOUT_UserCallback();
+//  769     }  
+//  770   }
+//  771   
+//  772   /*!< Read the byte received from the Codec */
+//  773   //result = I2C_ReceiveData(CODEC_I2C);
+//  774   while(HAL_I2C_Master_Receive(&hi2c1, (uint16_t)CODEC_ADDRESS, &result, 1, CODEC_LONG_TIMEOUT) != HAL_OK)
+//  775   {
+//  776     /* Error_Handler() function is called when Timeout error occurs.
+//  777        When Acknowledge failure occurs (Slave don't acknowledge it's address)
+//  778        Master restarts communication */
+//  779     if (HAL_I2C_GetError(&hi2c1) != HAL_I2C_ERROR_AF)
+//  780     {
+//  781       return Codec_TIMEOUT_UserCallback();
+//  782     }
+//  783   }
+//  784   
+//  785   /* Return the byte read from Codec */
+//  786   return (uint32_t)result;
+//  787 }
+//  788 
+//  789 /**
+//  790   * @brief  Initializes the Audio Codec control interface (I2C).
+//  791   * @param  None
+//  792   * @retval None
+//  793   */
+//  794 static void Codec_CtrlInterface_Init(void)
+//  795 {
+//  796     MX_I2C1_Init();   
+//  797 }
+//  798 
+//  799 /**
+//  800   * @brief  Restore the Audio Codec control interface to its default state.
+//  801   *         This function doesn't de-initialize the I2C because the I2C peripheral
+//  802   *         may be used by other modules.
+//  803   * @param  None
+//  804   * @retval None
+//  805   */
+//  806 static void Codec_CtrlInterface_DeInit(void)
+//  807 {
+//  808   /* Disable the I2C peripheral */ /* This step is not done here because 
+//  809      the I2C interface can be used by other modules */
+//  810   /* I2C_DeInit(CODEC_I2C); */
+//  811   HAL_I2C_MspDeInit(&hi2c1);
+//  812 }
+//  813 
+//  814 /**
+//  815   * @brief  Initializes the Audio Codec audio interface (I2S)
+//  816   * @note   This function assumes that the I2S input clock (through PLL_R in 
+//  817   *         Devices RevA/Z and through dedicated PLLI2S_R in Devices RevB/Y)
+//  818   *         is already configured and ready to be used.    
+//  819   * @param  AudioFreq: Audio frequency to be configured for the I2S peripheral. 
+//  820   * @retval None
+//  821   */
+//  822 static void Codec_AudioInterface_Init(uint32_t AudioFreq)
+//  823 {
+//  824   I2S3_Init(AudioFreq); 
+//  825   //SPI3_Init(AudioFreq); 
+//  826 }
+//  827 
+//  828 /**
+//  829   * @brief  Restores the Audio Codec audio interface to its default state.
+//  830   * @param  None
+//  831   * @retval None
+//  832   */
+//  833 static void Codec_AudioInterface_DeInit(void)
+//  834 {
+//  835   /* Disable the CODEC_I2S peripheral (in case it hasn't already been disabled) */
+//  836   //I2S_Cmd(CODEC_I2S, DISABLE);
+//  837   __HAL_I2S_DISABLE(&hi2s3);
+//  838   /* Deinitialize the CODEC_I2S peripheral */
+//  839   SPI_I2S_DeInit(CODEC_I2S);
+//  840   
+//  841   /* Disable the CODEC_I2S peripheral clock */
+//  842   //RCC_APB1PeriphClockCmd(CODEC_I2S_CLK, DISABLE); 
+//  843   __HAL_RCC_SPI3_CLK_DISABLE();
+//  844 }
+//  845 
+//  846 /**
+//  847   * @brief Initializes IOs used by the Audio Codec (on the control and audio 
+//  848   *        interfaces).
+//  849   * @param  None
+//  850   * @retval None
+//  851   */
+//  852 static void Codec_GPIO_Init(void)
+//  853 {
+//  854   GPIO_InitTypeDef GPIO_InitStructure;
+//  855   
+//  856   __GPIOD_CLK_ENABLE();
+//  857   
+//  858   /* Audio reset pin configuration -------------------------------------------------*/
+//  859   GPIO_InitStructure.Pin = AUDIO_RESET_PIN; 
+//  860   GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;//GPIO_Mode_OUT;
+//  861   GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;//GPIO_Speed_50MHz;
+//  862   GPIO_InitStructure.Pull  = GPIO_NOPULL ;//GPIO_PuPd_NOPULL;
+//  863    
+//  864   HAL_GPIO_Init(AUDIO_RESET_GPIO, &GPIO_InitStructure);    
+//  865   
+//  866 }
+//  867 
+//  868 /**
+//  869   * @brief  Restores the IOs used by the Audio Codec interface to their default state.
+//  870   * @param  None
+//  871   * @retval None
+//  872   */
+//  873 static void Codec_GPIO_DeInit(void)
+//  874 {
+//  875   GPIO_InitTypeDef GPIO_InitStructure;
+//  876   
+//  877   GPIO_InitStructure.Pin = CODEC_I2S_SCK_PIN | CODEC_I2S_SD_PIN; 
+//  878   GPIO_InitStructure.Mode = GPIO_MODE_INPUT;
+//  879   GPIO_InitStructure.Speed = GPIO_SPEED_LOW;
+//  880   GPIO_InitStructure.Pull = GPIO_NOPULL;
+//  881   HAL_GPIO_Init(CODEC_I2S_GPIO, &GPIO_InitStructure);
+//  882       
+//  883   GPIO_InitStructure.Pin = CODEC_I2S_WS_PIN ;
+//  884   HAL_GPIO_Init(CODEC_I2S_WS_GPIO, &GPIO_InitStructure); 
+//  885   
+//  886 #ifdef CODEC_MCLK_ENABLED
+//  887   GPIO_InitStructure.Pin = CODEC_I2S_MCK_PIN; 
+//  888   HAL_GPIO_Init(CODEC_I2S_MCK_GPIO, &GPIO_InitStructure); 
+//  889 #endif /* CODEC_MCLK_ENABLED */    
+//  890 }
+//  891 
+//  892 /**
+//  893   * @brief  Inserts a delay time (not accurate timing).
+//  894   * @param  nCount: specifies the delay time length.
+//  895   * @retval None
+//  896   */
+//  897 static void Delay( __IO uint32_t nCount)
+//  898 {
+//  899   for (; nCount != 0; nCount--);
+//  900 }
+//  901 
+//  902 #ifdef USE_DEFAULT_TIMEOUT_CALLBACK
+//  903 /**
+//  904   * @brief  Basic management of the timeout situation.
+//  905   * @param  None
+//  906   * @retval None
+//  907   */
+//  908 uint32_t Codec_TIMEOUT_UserCallback(void)
+//  909 {
+//  910   /* Block communication and all processes */
+//  911   
+//  912 }
+//  913 #endif /* USE_DEFAULT_TIMEOUT_CALLBACK */
+//  914 /*========================
+//  915                 Audio MAL Interface Control Functions
+//  916                                                 ==============================*/
+//  917 
 //  918 
-//  919 
-//  920 /**
-//  921   * @brief  Restore default state of the used Media.
-//  922   * @param  None
-//  923   * @retval None
-//  924   */
-//  925 static void Audio_MAL_DeInit(void)  
-//  926 {   
-//  927 #if defined(AUDIO_MAL_DMA_IT_TC_EN) || defined(AUDIO_MAL_DMA_IT_HT_EN) || defined(AUDIO_MAL_DMA_IT_TE_EN)
-//  928   //NVIC_InitTypeDef NVIC_InitStructure;  
-//  929   
-//  930   /* Deinitialize the NVIC interrupt for the I2S DMA Stream */
-//  931   //NVIC_InitStructure.NVIC_IRQChannel = AUDIO_I2S_DMA_IRQ;
-//  932   //NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = AUDIO_IRQ_PREPRIO;
-//  933   //NVIC_InitStructure.NVIC_IRQChannelSubPriority = AUDIO_IRQ_SUBRIO;
-//  934   //NVIC_InitStructure.NVIC_IRQChannelCmd = DISABLE;
-//  935   //NVIC_Init(&NVIC_InitStructure);  
-//  936    HAL_NVIC_DisableIRQ(SPI3_IRQn); 
-//  937 #endif 
-//  938   
-//  939   /* Disable the DMA stream before the deinit */
-//  940   HAL_NVIC_DisableIRQ(DMA1_Stream7_IRQn); 
-//  941   HAL_NVIC_DisableIRQ(SPI3_IRQn); 
-//  942   
-//  943 }
-//  944 
-//  945 /**
-//  946   * @brief  Starts playing audio stream from the audio Media.
-//  947   * @param  None
-//  948   * @retval None
-//  949   */
+//  919 /**
+//  920   * @brief  Restore default state of the used Media.
+//  921   * @param  None
+//  922   * @retval None
+//  923   */
+//  924 static void Audio_MAL_DeInit(void)  
+//  925 {   
+//  926 #if defined(AUDIO_MAL_DMA_IT_TC_EN) || defined(AUDIO_MAL_DMA_IT_HT_EN) || defined(AUDIO_MAL_DMA_IT_TE_EN)
+//  927   //NVIC_InitTypeDef NVIC_InitStructure;  
+//  928   
+//  929   /* Deinitialize the NVIC interrupt for the I2S DMA Stream */
+//  930   //NVIC_InitStructure.NVIC_IRQChannel = AUDIO_I2S_DMA_IRQ;
+//  931   //NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = AUDIO_IRQ_PREPRIO;
+//  932   //NVIC_InitStructure.NVIC_IRQChannelSubPriority = AUDIO_IRQ_SUBRIO;
+//  933   //NVIC_InitStructure.NVIC_IRQChannelCmd = DISABLE;
+//  934   //NVIC_Init(&NVIC_InitStructure);  
+//  935    HAL_NVIC_DisableIRQ(SPI3_IRQn); 
+//  936 #endif 
+//  937   
+//  938   /* Disable the DMA stream before the deinit */
+//  939   HAL_NVIC_DisableIRQ(DMA1_Stream7_IRQn); 
+//  940   HAL_NVIC_DisableIRQ(SPI3_IRQn); 
+//  941   
+//  942 }
+//  943 
+//  944 /**
+//  945   * @brief  Starts playing audio stream from the audio Media.
+//  946   * @param  None
+//  947   * @retval None
+//  948   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock12 Using cfiCommon0
           CFI Function Audio_MAL_Play
           CFI NoCalls
         THUMB
-//  950 void Audio_MAL_Play(uint32_t Addr, uint16_t Size)
-//  951 {
-//  952    //HAL_I2S_Transmit_DMA(&hi2s3,Addr,(uint16_t)Size/2);  
-//  953    /* Configure the source, destination address and the data length */
-//  954     //DMA_SetConfig(&DmaHandle,(uint32_t)&SPI3->DR , (uint32_t)Addr, Size/2);
-//  955       /* Configure DMA Stream destination address */
-//  956    /* Clear DBM bit */
-//  957 
-//  958       /* Enable the Peripheral */
-//  959   __HAL_DMA_DISABLE(&DmaHandle);
+//  949 void Audio_MAL_Play(uint32_t Addr, uint16_t Size)
+//  950 {
+//  951    //HAL_I2S_Transmit_DMA(&hi2s3,Addr,(uint16_t)Size/2);  
+//  952    /* Configure the source, destination address and the data length */
+//  953     //DMA_SetConfig(&DmaHandle,(uint32_t)&SPI3->DR , (uint32_t)Addr, Size/2);
+//  954       /* Configure DMA Stream destination address */
+//  955    /* Clear DBM bit */
+//  956 
+//  957       /* Enable the Peripheral */
+//  958   __HAL_DMA_DISABLE(&DmaHandle);
 Audio_MAL_Play:
         LDR.N    R2,??DataTable12
-//  960    DmaHandle.Instance->CR &= (uint32_t)(~DMA_SxCR_DBM);
-//  961 	 
-//  962    /* Configure DMA Stream data length */
-//  963    DmaHandle.Instance->NDTR = Size/2;
+//  959    DmaHandle.Instance->CR &= (uint32_t)(~DMA_SxCR_DBM);
+//  960 	 
+//  961    /* Configure DMA Stream data length */
+//  962    DmaHandle.Instance->NDTR = Size/2;
         LSRS     R1,R1,#+1
         LDR      R2,[R2, #+0]
         LDR      R3,[R2, #+0]
@@ -2639,137 +2643,137 @@ Audio_MAL_Play:
         BIC      R3,R3,#0x40000
         STR      R3,[R2, #+0]
         STR      R1,[R2, #+4]
+//  963 
 //  964 
-//  965 
-//  966    DmaHandle.Instance->PAR = (uint32_t)&SPI3->DR;
+//  965    DmaHandle.Instance->PAR = (uint32_t)&SPI3->DR;
         LDR.N    R1,??DataTable12_7  ;; 0x40003c0c
         STR      R1,[R2, #+8]
-//  967     /* Configure DMA Stream source address */
-//  968     DmaHandle.Instance->M0AR = (uint32_t)Addr;
+//  966     /* Configure DMA Stream source address */
+//  967     DmaHandle.Instance->M0AR = (uint32_t)Addr;
         STR      R0,[R2, #+12]
-//  969     DmaHandle.Instance->M1AR = (uint32_t)Addr;
+//  968     DmaHandle.Instance->M1AR = (uint32_t)Addr;
         STR      R0,[R2, #+16]
-//  970     /* Enable Tx DMA Request */  
-//  971     hi2s3.Instance->CR2 |= SPI_CR2_TXDMAEN;
+//  969     /* Enable Tx DMA Request */  
+//  970     hi2s3.Instance->CR2 |= SPI_CR2_TXDMAEN;
         LDR.N    R0,??DataTable12_6
         LDR      R1,[R0, #+0]
         LDR      R3,[R1, #+4]
         ORR      R3,R3,#0x2
         STR      R3,[R1, #+4]
-//  972   /* Enable the transfer complete interrupt */
-//  973    __HAL_DMA_ENABLE_IT(&DmaHandle, DMA_IT_TC);
+//  971   /* Enable the transfer complete interrupt */
+//  972    __HAL_DMA_ENABLE_IT(&DmaHandle, DMA_IT_TC);
         LDR      R1,[R2, #+0]
         ORR      R1,R1,#0x10
         STR      R1,[R2, #+0]
-//  974  
-//  975  /* Enable the Peripheral */
-//  976   __HAL_DMA_ENABLE(&DmaHandle);
+//  973  
+//  974  /* Enable the Peripheral */
+//  975   __HAL_DMA_ENABLE(&DmaHandle);
         LDR      R1,[R2, #+0]
         ORR      R1,R1,#0x1
         STR      R1,[R2, #+0]
-//  977 
-//  978    
-//  979    /* Check if the I2S is already enabled */ 
-//  980    if((hi2s3.Instance->I2SCFGR &SPI_I2SCFGR_I2SE) != SPI_I2SCFGR_I2SE)
+//  976 
+//  977    
+//  978    /* Check if the I2S is already enabled */ 
+//  979    if((hi2s3.Instance->I2SCFGR &SPI_I2SCFGR_I2SE) != SPI_I2SCFGR_I2SE)
         LDR      R1,[R0, #+0]
         LDR      R2,[R1, #+28]
         LSLS     R2,R2,#+21
         BMI.N    ??Audio_MAL_Play_0
-//  981    {
-//  982    	 /* Enable I2S peripheral */	
-//  983    	 __HAL_I2S_ENABLE(&hi2s3);
+//  980    {
+//  981    	 /* Enable I2S peripheral */	
+//  982    	 __HAL_I2S_ENABLE(&hi2s3);
         LDR      R2,[R1, #+28]
         ORR      R2,R2,#0x400
         STR      R2,[R1, #+28]
-//  984    }
-//  985 	   
-//  986 
-//  987      /* Process Unlocked */
-//  988     __HAL_UNLOCK(&hi2s3);
+//  983    }
+//  984 	   
+//  985 
+//  986      /* Process Unlocked */
+//  987     __HAL_UNLOCK(&hi2s3);
 ??Audio_MAL_Play_0:
         MOVS     R1,#+0
         STRB     R1,[R0, #+56]
+//  988 
 //  989 
-//  990 
-//  991 }
+//  990 }
         BX       LR               ;; return
           CFI EndBlock cfiBlock12
-//  992 
-//  993 /**
-//  994   * @brief  Pauses or Resumes the audio stream playing from the Media.
-//  995   * @param  Cmd: AUDIO_PAUSE (or 0) to pause, AUDIO_RESUME (or any value different
-//  996   *              from 0) to resume. 
-//  997   * @param  Addr: Address from/at which the audio stream should resume/pause.
-//  998   * @retval None
-//  999   */
-// 1000 static void Audio_MAL_PauseResume(uint32_t Cmd, uint32_t Addr)
-// 1001 {
-// 1002   /* Pause the audio file playing */
-// 1003   if (Cmd == AUDIO_PAUSE)
-// 1004   {   
-// 1005     /* Disable the I2S DMA request */
-// 1006     SPI_I2S_DMACmd(CODEC_I2S, SPI_I2S_DMAReq_Tx, DISABLE);
-// 1007 
-// 1008     /* Pause the I2S DMA Stream 
-// 1009         Note. For the STM32F40x devices, the DMA implements a pause feature, 
-// 1010               by disabling the stream, all configuration is preserved and data 
-// 1011               transfer is paused till the next enable of the stream.
-// 1012               This feature is not available on STM32F40x devices. */
-// 1013     DMA_Cmd(AUDIO_I2S_DMA_STREAM, DISABLE);
-// 1014   }
-// 1015   else /* AUDIO_RESUME */
-// 1016   {
-// 1017     /* Enable the I2S DMA request */
-// 1018     SPI_I2S_DMACmd(CODEC_I2S, SPI_I2S_DMAReq_Tx, ENABLE);
-// 1019   
-// 1020     /* Resume the I2S DMA Stream 
-// 1021         Note. For the STM32F40x devices, the DMA implements a pause feature, 
-// 1022               by disabling the stream, all configuration is preserved and data 
-// 1023               transfer is paused till the next enable of the stream.
-// 1024               This feature is not available on STM32F40x devices. */
-// 1025     DMA_Cmd(AUDIO_I2S_DMA_STREAM, ENABLE);
-// 1026     
-// 1027     /* If the I2S peripheral is still not enabled, enable it */
-// 1028     if ((CODEC_I2S->I2SCFGR & I2S_ENABLE_MASK) == 0)
-// 1029     {
-// 1030       I2S_Cmd(CODEC_I2S, ENABLE);
-// 1031     }    
-// 1032   } 
-// 1033 }
-// 1034 
-// 1035 /**
-// 1036   * @brief  Stops audio stream playing on the used Media.
-// 1037   * @param  None
-// 1038   * @retval None
-// 1039   */
+//  991 
+//  992 /**
+//  993   * @brief  Pauses or Resumes the audio stream playing from the Media.
+//  994   * @param  Cmd: AUDIO_PAUSE (or 0) to pause, AUDIO_RESUME (or any value different
+//  995   *              from 0) to resume. 
+//  996   * @param  Addr: Address from/at which the audio stream should resume/pause.
+//  997   * @retval None
+//  998   */
+//  999 static void Audio_MAL_PauseResume(uint32_t Cmd, uint32_t Addr)
+// 1000 {
+// 1001   /* Pause the audio file playing */
+// 1002   if (Cmd == AUDIO_PAUSE)
+// 1003   {   
+// 1004     /* Disable the I2S DMA request */
+// 1005     SPI_I2S_DMACmd(CODEC_I2S, SPI_I2S_DMAReq_Tx, DISABLE);
+// 1006 
+// 1007     /* Pause the I2S DMA Stream 
+// 1008         Note. For the STM32F40x devices, the DMA implements a pause feature, 
+// 1009               by disabling the stream, all configuration is preserved and data 
+// 1010               transfer is paused till the next enable of the stream.
+// 1011               This feature is not available on STM32F40x devices. */
+// 1012     DMA_Cmd(AUDIO_I2S_DMA_STREAM, DISABLE);
+// 1013   }
+// 1014   else /* AUDIO_RESUME */
+// 1015   {
+// 1016     /* Enable the I2S DMA request */
+// 1017     SPI_I2S_DMACmd(CODEC_I2S, SPI_I2S_DMAReq_Tx, ENABLE);
+// 1018   
+// 1019     /* Resume the I2S DMA Stream 
+// 1020         Note. For the STM32F40x devices, the DMA implements a pause feature, 
+// 1021               by disabling the stream, all configuration is preserved and data 
+// 1022               transfer is paused till the next enable of the stream.
+// 1023               This feature is not available on STM32F40x devices. */
+// 1024     DMA_Cmd(AUDIO_I2S_DMA_STREAM, ENABLE);
+// 1025     
+// 1026     /* If the I2S peripheral is still not enabled, enable it */
+// 1027     if ((CODEC_I2S->I2SCFGR & I2S_ENABLE_MASK) == 0)
+// 1028     {
+// 1029       I2S_Cmd(CODEC_I2S, ENABLE);
+// 1030     }    
+// 1031   } 
+// 1032 }
+// 1033 
+// 1034 /**
+// 1035   * @brief  Stops audio stream playing on the used Media.
+// 1036   * @param  None
+// 1037   * @retval None
+// 1038   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock13 Using cfiCommon0
           CFI Function Audio_MAL_Stop
         THUMB
-// 1040 void Audio_MAL_Stop(void)
-// 1041 {   
-// 1042   /* Stop the Transfer on the I2S side: Stop and disable the DMA stream */
-// 1043   //DMA_Cmd(AUDIO_I2S_DMA_STREAM, DISABLE);
-// 1044 
-// 1045   /* Clear all the DMA flags for the next transfer */
-// 1046   //DMA_ClearFlag(AUDIO_I2S_DMA_STREAM, AUDIO_I2S_DMA_FLAG_TC |AUDIO_I2S_DMA_FLAG_HT | \ 
-// 1047    //                               AUDIO_I2S_DMA_FLAG_FE | AUDIO_I2S_DMA_FLAG_TE);
-// 1048   
-// 1049   /*  
-// 1050            The I2S DMA requests are not disabled here.
-// 1051                                                             */
-// 1052   
-// 1053   /* In all modes, disable the I2S peripheral */
-// 1054   //I2S_Cmd(CODEC_I2S, DISABLE);
-// 1055 
-// 1056   //HAL_SPI_MspDeInit(&hi2s3);
-// 1057   HAL_I2S_DMAStop(&hi2s3);
+// 1039 void Audio_MAL_Stop(void)
+// 1040 {   
+// 1041   /* Stop the Transfer on the I2S side: Stop and disable the DMA stream */
+// 1042   //DMA_Cmd(AUDIO_I2S_DMA_STREAM, DISABLE);
+// 1043 
+// 1044   /* Clear all the DMA flags for the next transfer */
+// 1045   //DMA_ClearFlag(AUDIO_I2S_DMA_STREAM, AUDIO_I2S_DMA_FLAG_TC |AUDIO_I2S_DMA_FLAG_HT | \ 
+// 1046    //                               AUDIO_I2S_DMA_FLAG_FE | AUDIO_I2S_DMA_FLAG_TE);
+// 1047   
+// 1048   /*  
+// 1049            The I2S DMA requests are not disabled here.
+// 1050                                                             */
+// 1051   
+// 1052   /* In all modes, disable the I2S peripheral */
+// 1053   //I2S_Cmd(CODEC_I2S, DISABLE);
+// 1054 
+// 1055   //HAL_SPI_MspDeInit(&hi2s3);
+// 1056   HAL_I2S_DMAStop(&hi2s3);
 Audio_MAL_Stop:
         LDR.N    R0,??DataTable12_6
           CFI FunCall HAL_I2S_DMAStop
         B.W      HAL_I2S_DMAStop
-// 1058 }
+// 1057 }
           CFI EndBlock cfiBlock13
 
         SECTION `.text`:CODE:NOROOT(2)
@@ -2819,181 +2823,181 @@ Audio_MAL_Stop:
         DATA
 ??DataTable12_7:
         DC32     0x40003c0c
-// 1059 
-// 1060 /**
-// 1061   * @brief  DAC  Channel1 Configuration
-// 1062   * @param  None
-// 1063   * @retval None
-// 1064   */
+// 1058 
+// 1059 /**
+// 1060   * @brief  DAC  Channel1 Configuration
+// 1061   * @param  None
+// 1062   * @retval None
+// 1063   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock14 Using cfiCommon0
           CFI Function DAC_Config
           CFI NoCalls
         THUMB
-// 1065 void DAC_Config(void)
-// 1066 {
-// 1067 
-// 1068 }
+// 1064 void DAC_Config(void)
+// 1065 {
+// 1066 
+// 1067 }
 DAC_Config:
         BX       LR               ;; return
           CFI EndBlock cfiBlock14
+// 1068 
 // 1069 
 // 1070 
 // 1071 
 // 1072 
 // 1073 
 // 1074 
-// 1075 
-// 1076 /**
-// 1077   * @brief  Enables or disables the specified SPI peripheral (in I2S mode).
-// 1078   * @param  SPIx: where x can be 2 or 3 to select the SPI peripheral (or I2Sxext 
-// 1079   *         for full duplex mode).
-// 1080   * @param  NewState: new state of the SPIx peripheral. 
-// 1081   *         This parameter can be: ENABLE or DISABLE.
-// 1082   * @retval None
-// 1083   */
-// 1084 static void I2S_Cmd(SPI_TypeDef* SPIx, FunctionalState NewState)
-// 1085 {  
-// 1086   if (NewState != DISABLE)
-// 1087   {
-// 1088     /* Enable the selected SPI peripheral (in I2S mode) */
-// 1089     SPIx->I2SCFGR |= SPI_I2SCFGR_I2SE;
-// 1090   }
-// 1091   else
-// 1092   {
-// 1093     /* Disable the selected SPI peripheral in I2S mode */
-// 1094     SPIx->I2SCFGR &= (uint16_t)~((uint16_t)SPI_I2SCFGR_I2SE);
-// 1095   }
-// 1096 }
-// 1097 
-// 1098 /**
-// 1099   * @brief  Deinitialize the SPIx peripheral registers to their default reset values.
-// 1100   * @param  SPIx: To select the SPIx/I2Sx peripheral, where x can be: 1, 2 or 3 
-// 1101   *         in SPI mode or 2 or 3 in I2S mode.   
-// 1102   *         
-// 1103   * @note   The extended I2S blocks (ie. I2S2ext and I2S3ext blocks) are deinitialized
-// 1104   *         when the relative I2S peripheral is deinitialized (the extended block's clock
-// 1105   *         is managed by the I2S peripheral clock).
-// 1106   *             
-// 1107   * @retval None
-// 1108   */
-// 1109 static void SPI_I2S_DeInit(SPI_TypeDef* SPIx)
-// 1110 {
-// 1111 
-// 1112   if (SPIx == SPI1)
-// 1113   {
-// 1114     /* Enable SPI1 reset state */
-// 1115     //RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI1, ENABLE);
-// 1116     __HAL_RCC_SPI1_CLK_ENABLE();
-// 1117     /* Release SPI1 from reset state */
-// 1118     //RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI1, DISABLE);
-// 1119     __HAL_RCC_SPI1_CLK_DISABLE();
-// 1120   }
-// 1121   else if (SPIx == SPI2)
-// 1122   {
-// 1123     /* Enable SPI2 reset state */
-// 1124     //RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI2, ENABLE);
-// 1125     __HAL_RCC_SPI2_CLK_ENABLE();
-// 1126     /* Release SPI2 from reset state */
-// 1127     //RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI2, DISABLE);
-// 1128     __HAL_RCC_SPI2_CLK_DISABLE();
-// 1129   }
-// 1130   else
-// 1131   {
-// 1132     if (SPIx == SPI3)
-// 1133     {
-// 1134       /* Enable SPI3 reset state */
-// 1135       //RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, ENABLE);
-// 1136       __HAL_RCC_SPI3_CLK_ENABLE();
-// 1137       /* Release SPI3 from reset state */
-// 1138       //RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, DISABLE);
-// 1139       __HAL_RCC_SPI3_CLK_DISABLE();
-// 1140     }
-// 1141   }
-// 1142 }
-// 1143 
-// 1144 /**
-// 1145   * @brief  Enables or disables the specified DMAy Streamx.
-// 1146   * @param  DMAy_Streamx: where y can be 1 or 2 to select the DMA and x can be 0
-// 1147   *         to 7 to select the DMA Stream.
-// 1148   * @param  NewState: new state of the DMAy Streamx. 
-// 1149   *          This parameter can be: ENABLE or DISABLE.
-// 1150   *
-// 1151   * @note  This function may be used to perform Pause-Resume operation. When a
-// 1152   *        transfer is ongoing, calling this function to disable the Stream will
-// 1153   *        cause the transfer to be paused. All configuration registers and the
-// 1154   *        number of remaining data will be preserved. When calling again this
-// 1155   *        function to re-enable the Stream, the transfer will be resumed from
-// 1156   *        the point where it was paused.          
-// 1157   *    
-// 1158   * @note  After configuring the DMA Stream (DMA_Init() function) and enabling the
-// 1159   *        stream, it is recommended to check (or wait until) the DMA Stream is
-// 1160   *        effectively enabled. A Stream may remain disabled if a configuration 
-// 1161   *        parameter is wrong.
-// 1162   *        After disabling a DMA Stream, it is also recommended to check (or wait
-// 1163   *        until) the DMA Stream is effectively disabled. If a Stream is disabled 
-// 1164   *        while a data transfer is ongoing, the current data will be transferred
-// 1165   *        and the Stream will be effectively disabled only after the transfer of
-// 1166   *        this single data is finished.            
-// 1167   *    
-// 1168   * @retval None
-// 1169   */
-// 1170 static void DMA_Cmd(DMA_Stream_TypeDef* DMAy_Streamx, FunctionalState NewState)
-// 1171 {
+// 1075 /**
+// 1076   * @brief  Enables or disables the specified SPI peripheral (in I2S mode).
+// 1077   * @param  SPIx: where x can be 2 or 3 to select the SPI peripheral (or I2Sxext 
+// 1078   *         for full duplex mode).
+// 1079   * @param  NewState: new state of the SPIx peripheral. 
+// 1080   *         This parameter can be: ENABLE or DISABLE.
+// 1081   * @retval None
+// 1082   */
+// 1083 static void I2S_Cmd(SPI_TypeDef* SPIx, FunctionalState NewState)
+// 1084 {  
+// 1085   if (NewState != DISABLE)
+// 1086   {
+// 1087     /* Enable the selected SPI peripheral (in I2S mode) */
+// 1088     SPIx->I2SCFGR |= SPI_I2SCFGR_I2SE;
+// 1089   }
+// 1090   else
+// 1091   {
+// 1092     /* Disable the selected SPI peripheral in I2S mode */
+// 1093     SPIx->I2SCFGR &= (uint16_t)~((uint16_t)SPI_I2SCFGR_I2SE);
+// 1094   }
+// 1095 }
+// 1096 
+// 1097 /**
+// 1098   * @brief  Deinitialize the SPIx peripheral registers to their default reset values.
+// 1099   * @param  SPIx: To select the SPIx/I2Sx peripheral, where x can be: 1, 2 or 3 
+// 1100   *         in SPI mode or 2 or 3 in I2S mode.   
+// 1101   *         
+// 1102   * @note   The extended I2S blocks (ie. I2S2ext and I2S3ext blocks) are deinitialized
+// 1103   *         when the relative I2S peripheral is deinitialized (the extended block's clock
+// 1104   *         is managed by the I2S peripheral clock).
+// 1105   *             
+// 1106   * @retval None
+// 1107   */
+// 1108 static void SPI_I2S_DeInit(SPI_TypeDef* SPIx)
+// 1109 {
+// 1110 
+// 1111   if (SPIx == SPI1)
+// 1112   {
+// 1113     /* Enable SPI1 reset state */
+// 1114     //RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI1, ENABLE);
+// 1115     __HAL_RCC_SPI1_CLK_ENABLE();
+// 1116     /* Release SPI1 from reset state */
+// 1117     //RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI1, DISABLE);
+// 1118     __HAL_RCC_SPI1_CLK_DISABLE();
+// 1119   }
+// 1120   else if (SPIx == SPI2)
+// 1121   {
+// 1122     /* Enable SPI2 reset state */
+// 1123     //RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI2, ENABLE);
+// 1124     __HAL_RCC_SPI2_CLK_ENABLE();
+// 1125     /* Release SPI2 from reset state */
+// 1126     //RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI2, DISABLE);
+// 1127     __HAL_RCC_SPI2_CLK_DISABLE();
+// 1128   }
+// 1129   else
+// 1130   {
+// 1131     if (SPIx == SPI3)
+// 1132     {
+// 1133       /* Enable SPI3 reset state */
+// 1134       //RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, ENABLE);
+// 1135       __HAL_RCC_SPI3_CLK_ENABLE();
+// 1136       /* Release SPI3 from reset state */
+// 1137       //RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, DISABLE);
+// 1138       __HAL_RCC_SPI3_CLK_DISABLE();
+// 1139     }
+// 1140   }
+// 1141 }
+// 1142 
+// 1143 /**
+// 1144   * @brief  Enables or disables the specified DMAy Streamx.
+// 1145   * @param  DMAy_Streamx: where y can be 1 or 2 to select the DMA and x can be 0
+// 1146   *         to 7 to select the DMA Stream.
+// 1147   * @param  NewState: new state of the DMAy Streamx. 
+// 1148   *          This parameter can be: ENABLE or DISABLE.
+// 1149   *
+// 1150   * @note  This function may be used to perform Pause-Resume operation. When a
+// 1151   *        transfer is ongoing, calling this function to disable the Stream will
+// 1152   *        cause the transfer to be paused. All configuration registers and the
+// 1153   *        number of remaining data will be preserved. When calling again this
+// 1154   *        function to re-enable the Stream, the transfer will be resumed from
+// 1155   *        the point where it was paused.          
+// 1156   *    
+// 1157   * @note  After configuring the DMA Stream (DMA_Init() function) and enabling the
+// 1158   *        stream, it is recommended to check (or wait until) the DMA Stream is
+// 1159   *        effectively enabled. A Stream may remain disabled if a configuration 
+// 1160   *        parameter is wrong.
+// 1161   *        After disabling a DMA Stream, it is also recommended to check (or wait
+// 1162   *        until) the DMA Stream is effectively disabled. If a Stream is disabled 
+// 1163   *        while a data transfer is ongoing, the current data will be transferred
+// 1164   *        and the Stream will be effectively disabled only after the transfer of
+// 1165   *        this single data is finished.            
+// 1166   *    
+// 1167   * @retval None
+// 1168   */
+// 1169 static void DMA_Cmd(DMA_Stream_TypeDef* DMAy_Streamx, FunctionalState NewState)
+// 1170 {
+// 1171 
 // 1172 
-// 1173 
-// 1174   if (NewState != DISABLE)
-// 1175   {
-// 1176     /* Enable the selected DMAy Streamx by setting EN bit */
-// 1177     DMAy_Streamx->CR |= (uint32_t)DMA_SxCR_EN;
-// 1178   }
-// 1179   else
-// 1180   {
-// 1181     /* Disable the selected DMAy Streamx by clearing EN bit */
-// 1182     DMAy_Streamx->CR &= ~(uint32_t)DMA_SxCR_EN;
-// 1183   }
-// 1184 }
+// 1173   if (NewState != DISABLE)
+// 1174   {
+// 1175     /* Enable the selected DMAy Streamx by setting EN bit */
+// 1176     DMAy_Streamx->CR |= (uint32_t)DMA_SxCR_EN;
+// 1177   }
+// 1178   else
+// 1179   {
+// 1180     /* Disable the selected DMAy Streamx by clearing EN bit */
+// 1181     DMAy_Streamx->CR &= ~(uint32_t)DMA_SxCR_EN;
+// 1182   }
+// 1183 }
+// 1184 
 // 1185 
-// 1186 
-// 1187 /**
-// 1188   * @brief  Enables or disables the SPIx/I2Sx DMA interface.
-// 1189   * @param  SPIx: To select the SPIx/I2Sx peripheral, where x can be: 1, 2 or 3 
-// 1190   *         in SPI mode or 2 or 3 in I2S mode or I2Sxext for I2S full duplex mode. 
-// 1191   * @param  SPI_I2S_DMAReq: specifies the SPI DMA transfer request to be enabled or disabled. 
-// 1192   *          This parameter can be any combination of the following values:
-// 1193   *            @arg SPI_I2S_DMAReq_Tx: Tx buffer DMA transfer request
-// 1194   *            @arg SPI_I2S_DMAReq_Rx: Rx buffer DMA transfer request
-// 1195   * @param  NewState: new state of the selected SPI DMA transfer request.
-// 1196   *          This parameter can be: ENABLE or DISABLE.
-// 1197   * @retval None
-// 1198   */
-// 1199 static void SPI_I2S_DMACmd(SPI_TypeDef* SPIx, uint16_t SPI_I2S_DMAReq, FunctionalState NewState)
-// 1200 {
-// 1201   /* Check the parameters */
-// 1202   assert_param(IS_SPI_ALL_PERIPH_EXT(SPIx));
-// 1203   assert_param(IS_FUNCTIONAL_STATE(NewState));
-// 1204   assert_param(IS_SPI_I2S_DMAREQ(SPI_I2S_DMAReq));
-// 1205 
-// 1206   if (NewState != DISABLE)
-// 1207   {
-// 1208     /* Enable the selected SPI DMA requests */
-// 1209     SPIx->CR2 |= SPI_I2S_DMAReq;
-// 1210   }
-// 1211   else
-// 1212   {
-// 1213     /* Disable the selected SPI DMA requests */
-// 1214     SPIx->CR2 &= (uint16_t)~SPI_I2S_DMAReq;
-// 1215   }
-// 1216 }
-// 1217 
+// 1186 /**
+// 1187   * @brief  Enables or disables the SPIx/I2Sx DMA interface.
+// 1188   * @param  SPIx: To select the SPIx/I2Sx peripheral, where x can be: 1, 2 or 3 
+// 1189   *         in SPI mode or 2 or 3 in I2S mode or I2Sxext for I2S full duplex mode. 
+// 1190   * @param  SPI_I2S_DMAReq: specifies the SPI DMA transfer request to be enabled or disabled. 
+// 1191   *          This parameter can be any combination of the following values:
+// 1192   *            @arg SPI_I2S_DMAReq_Tx: Tx buffer DMA transfer request
+// 1193   *            @arg SPI_I2S_DMAReq_Rx: Rx buffer DMA transfer request
+// 1194   * @param  NewState: new state of the selected SPI DMA transfer request.
+// 1195   *          This parameter can be: ENABLE or DISABLE.
+// 1196   * @retval None
+// 1197   */
+// 1198 static void SPI_I2S_DMACmd(SPI_TypeDef* SPIx, uint16_t SPI_I2S_DMAReq, FunctionalState NewState)
+// 1199 {
+// 1200   /* Check the parameters */
+// 1201   assert_param(IS_SPI_ALL_PERIPH_EXT(SPIx));
+// 1202   assert_param(IS_FUNCTIONAL_STATE(NewState));
+// 1203   assert_param(IS_SPI_I2S_DMAREQ(SPI_I2S_DMAReq));
+// 1204 
+// 1205   if (NewState != DISABLE)
+// 1206   {
+// 1207     /* Enable the selected SPI DMA requests */
+// 1208     SPIx->CR2 |= SPI_I2S_DMAReq;
+// 1209   }
+// 1210   else
+// 1211   {
+// 1212     /* Disable the selected SPI DMA requests */
+// 1213     SPIx->CR2 &= (uint16_t)~SPI_I2S_DMAReq;
+// 1214   }
+// 1215 }
+// 1216 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock15 Using cfiCommon0
           CFI Function HAL_I2S_MspInit
         THUMB
-// 1218 void HAL_I2S_MspInit(I2S_HandleTypeDef *hi2s)
-// 1219 {
+// 1217 void HAL_I2S_MspInit(I2S_HandleTypeDef *hi2s)
+// 1218 {
 HAL_I2S_MspInit:
         PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
@@ -3004,37 +3008,39 @@ HAL_I2S_MspInit:
         MOV      R4,R0
         SUB      SP,SP,#+48
           CFI CFA R13+64
-// 1220    GPIO_InitTypeDef GPIO_InitStructure;
-// 1221 	
-// 1222    
-// 1223    GPIO_InitTypeDef GPIO_InitStruct;
-// 1224   if(hi2s->Instance==SPI1)
+// 1219    GPIO_InitTypeDef GPIO_InitStructure;
+// 1220 	
+// 1221    
+// 1222    GPIO_InitTypeDef GPIO_InitStruct;
+// 1223   if(hi2s->Instance==SPI1)
         LDR.N    R1,??DataTable16_19  ;; 0x40013000
         LDR      R0,[R4, #+0]
         CMP      R0,R1
         BNE.N    ??HAL_I2S_MspInit_0
-// 1225   {
-// 1226   /* USER CODE BEGIN SPI1_MspInit 0 */
-// 1227 
-// 1228   /* USER CODE END SPI1_MspInit 0 */
-// 1229   /* Peripheral clock enable */
-// 1230   __SPI1_CLK_ENABLE();
+// 1224   {
+// 1225   /* USER CODE BEGIN SPI1_MspInit 0 */
+// 1226 
+// 1227   /* USER CODE END SPI1_MspInit 0 */
+// 1228   /* Peripheral clock enable */
+// 1229   __SPI1_CLK_ENABLE();
+        MOVS     R0,#+0
         LDR.N    R5,??DataTable16_18  ;; 0x40023830
-// 1231   __GPIOA_CLK_ENABLE();
-// 1232   __GPIOC_CLK_ENABLE();
-// 1233 
-// 1234   /**I2S1 GPIO Configuration    
-// 1235     PA4     ------> I2S1_WS --> LRCKO
-// 1236     PA5     ------> I2S1_CK --> BICKO
-// 1237     PA7     ------> I2S1_SD --> SDO12
-// 1238     PC4     ------> I2S1_MCK
-// 1239     */
-// 1240 	GPIO_InitStruct.Pin =  GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_7;
-// 1241 	GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-// 1242 	GPIO_InitStruct.Pull = GPIO_NOPULL;
-// 1243 	GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-// 1244 	GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
-// 1245 	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+        STR      R0,[SP, #+0]
+// 1230   __GPIOA_CLK_ENABLE();
+// 1231   __GPIOC_CLK_ENABLE();
+// 1232 
+// 1233   /**I2S1 GPIO Configuration    
+// 1234     PA4     ------> I2S1_WS --> LRCKO
+// 1235     PA5     ------> I2S1_CK --> BICKO
+// 1236     PA7     ------> I2S1_SD --> SDO12
+// 1237     PC4     ------> I2S1_MCK
+// 1238     */
+// 1239 	GPIO_InitStruct.Pin =  GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_7;
+// 1240 	GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+// 1241 	GPIO_InitStruct.Pull = GPIO_NOPULL;
+// 1242 	GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+// 1243 	GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
+// 1244 	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
         ADD      R1,SP,#+4
         LDR      R0,[R5, #+20]
         ORR      R0,R0,#0x1000
@@ -3043,6 +3049,8 @@ HAL_I2S_MspInit:
         AND      R0,R0,#0x1000
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR      R0,[R5, #+0]
         ORR      R0,R0,#0x1
         STR      R0,[R5, #+0]
@@ -3050,6 +3058,8 @@ HAL_I2S_MspInit:
         AND      R0,R0,#0x1
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR      R0,[R5, #+0]
         ORR      R0,R0,#0x4
         STR      R0,[R5, #+0]
@@ -3070,14 +3080,14 @@ HAL_I2S_MspInit:
         LDR.N    R0,??DataTable16_20  ;; 0x40020000
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
-// 1246 
-// 1247     GPIO_InitStruct.Pin = GPIO_PIN_4;
+// 1245 
+// 1246     GPIO_InitStruct.Pin = GPIO_PIN_4;
         MOVS     R0,#+16
-// 1248     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-// 1249     GPIO_InitStruct.Pull = GPIO_NOPULL;
-// 1250     GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-// 1251     GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
-// 1252     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+// 1247     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+// 1248     GPIO_InitStruct.Pull = GPIO_NOPULL;
+// 1249     GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+// 1250     GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
+// 1251     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
         ADD      R1,SP,#+4
         STR      R0,[SP, #+4]
         MOVS     R0,#+2
@@ -3091,50 +3101,52 @@ HAL_I2S_MspInit:
         LDR.N    R0,??DataTable16_21  ;; 0x40020800
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
-// 1253 	
-// 1254   /* Peripheral interrupt init*/
-// 1255     HAL_NVIC_SetPriority(SPI1_IRQn, INTERRUPT_PRI_SDO12, 0);
+// 1252 	
+// 1253   /* Peripheral interrupt init*/
+// 1254     HAL_NVIC_SetPriority(SPI1_IRQn, INTERRUPT_PRI_SDO12, 0);
         MOVS     R2,#+0
         MOVS     R1,#+0
         MOVS     R0,#+35
           CFI FunCall HAL_NVIC_SetPriority
         BL       HAL_NVIC_SetPriority
-// 1256     HAL_NVIC_EnableIRQ(SPI1_IRQn);
+// 1255     HAL_NVIC_EnableIRQ(SPI1_IRQn);
         MOVS     R0,#+35
         B.N      ??HAL_I2S_MspInit_1
-// 1257   /* USER CODE BEGIN SPI1_MspInit 1 */
-// 1258 
-// 1259   /* USER CODE END SPI1_MspInit 1 */
-// 1260   }
-// 1261   else if(hi2s->Instance==SPI2)
+// 1256   /* USER CODE BEGIN SPI1_MspInit 1 */
+// 1257 
+// 1258   /* USER CODE END SPI1_MspInit 1 */
+// 1259   }
+// 1260   else if(hi2s->Instance==SPI2)
 ??HAL_I2S_MspInit_0:
         LDR.N    R1,??DataTable16_22  ;; 0x40003800
         CMP      R0,R1
         BNE.N    ??HAL_I2S_MspInit_2
-// 1262   {
-// 1263 	  /* USER CODE BEGIN SPI2_MspInit 0 */
-// 1264 	  
-// 1265 	  /* USER CODE END SPI2_MspInit 0 */
-// 1266 		/* Peripheral clock enable */
-// 1267 		__SPI2_CLK_ENABLE();
+// 1261   {
+// 1262 	  /* USER CODE BEGIN SPI2_MspInit 0 */
+// 1263 	  
+// 1264 	  /* USER CODE END SPI2_MspInit 0 */
+// 1265 		/* Peripheral clock enable */
+// 1266 		__SPI2_CLK_ENABLE();
+        MOVS     R0,#+0
         LDR.N    R5,??DataTable16_18  ;; 0x40023830
-// 1268 		__GPIOI_CLK_ENABLE();
-// 1269 		__GPIOB_CLK_ENABLE();
-// 1270 		__GPIOC_CLK_ENABLE();
-// 1271 	  
-// 1272 		/**I2S2 GPIO Configuration	   
-// 1273 		PC1 	------> I2S2_SD  : PI3 PC1 PC3 PB15 	
-// 1274 		PB13	 ------> I2S2_CK :PD3 PB10 PB13 PA9 PI1 
-// 1275 		PB12	 ------> I2S2_WS : PB12 PI0 PB4 PB9  
+        STR      R0,[SP, #+0]
+// 1267 		__GPIOI_CLK_ENABLE();
+// 1268 		__GPIOB_CLK_ENABLE();
+// 1269 		__GPIOC_CLK_ENABLE();
+// 1270 	  
+// 1271 		/**I2S2 GPIO Configuration	   
+// 1272 		PC1 	------> I2S2_SD  : PI3 PC1 PC3 PB15 	
+// 1273 		PB13	 ------> I2S2_CK :PD3 PB10 PB13 PA9 PI1 
+// 1274 		PB12	 ------> I2S2_WS : PB12 PI0 PB4 PB9  
+// 1275 	  
 // 1276 	  
-// 1277 	  
-// 1278 		*/
-// 1279 		GPIO_InitStruct.Pin = GPIO_PIN_1; //SD
-// 1280 		GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-// 1281 		GPIO_InitStruct.Pull = GPIO_NOPULL;
-// 1282 		GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-// 1283 		GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
-// 1284 		HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+// 1277 		*/
+// 1278 		GPIO_InitStruct.Pin = GPIO_PIN_1; //SD
+// 1279 		GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+// 1280 		GPIO_InitStruct.Pull = GPIO_NOPULL;
+// 1281 		GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+// 1282 		GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
+// 1283 		HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
         ADD      R1,SP,#+4
         LDR      R0,[R5, #+16]
         ORR      R0,R0,#0x4000
@@ -3143,6 +3155,8 @@ HAL_I2S_MspInit:
         AND      R0,R0,#0x4000
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR      R0,[R5, #+0]
         ORR      R0,R0,#0x100
         STR      R0,[R5, #+0]
@@ -3150,6 +3164,8 @@ HAL_I2S_MspInit:
         AND      R0,R0,#0x100
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR      R0,[R5, #+0]
         ORR      R0,R0,#0x2
         STR      R0,[R5, #+0]
@@ -3157,6 +3173,8 @@ HAL_I2S_MspInit:
         AND      R0,R0,#0x2
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR      R0,[R5, #+0]
         ORR      R0,R0,#0x4
         STR      R0,[R5, #+0]
@@ -3176,14 +3194,14 @@ HAL_I2S_MspInit:
         LDR.N    R0,??DataTable16_21  ;; 0x40020800
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
-// 1285 	  
-// 1286 		GPIO_InitStruct.Pin = GPIO_PIN_12|GPIO_PIN_13;//WS --> GPIO_PIN_12
+// 1284 	  
+// 1285 		GPIO_InitStruct.Pin = GPIO_PIN_12|GPIO_PIN_13;//WS --> GPIO_PIN_12
         MOV      R0,#+12288
-// 1287 		GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-// 1288 		GPIO_InitStruct.Pull = GPIO_NOPULL;
-// 1289 		GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-// 1290 		GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
-// 1291 		HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+// 1286 		GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+// 1287 		GPIO_InitStruct.Pull = GPIO_NOPULL;
+// 1288 		GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+// 1289 		GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
+// 1290 		HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
         ADD      R1,SP,#+4
         STR      R0,[SP, #+4]
         MOVS     R0,#+2
@@ -3197,60 +3215,64 @@ HAL_I2S_MspInit:
         LDR.N    R0,??DataTable16_23  ;; 0x40020400
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
+// 1291 	  
 // 1292 	  
-// 1293 	  
-// 1294 		/* Peripheral interrupt init*/
-// 1295 		HAL_NVIC_SetPriority(SPI2_IRQn, INTERRUPT_PRI_SDO34, 1);
+// 1293 		/* Peripheral interrupt init*/
+// 1294 		HAL_NVIC_SetPriority(SPI2_IRQn, INTERRUPT_PRI_SDO34, 1);
         MOVS     R2,#+1
         MOVS     R1,#+1
         MOVS     R0,#+36
           CFI FunCall HAL_NVIC_SetPriority
         BL       HAL_NVIC_SetPriority
-// 1296 		HAL_NVIC_EnableIRQ(SPI2_IRQn);
+// 1295 		HAL_NVIC_EnableIRQ(SPI2_IRQn);
         MOVS     R0,#+36
         B.N      ??HAL_I2S_MspInit_1
-// 1297 		/* USER CODE BEGIN SPI2_MspInit 1 */
-// 1298 	  
-// 1299 	  /* USER CODE END SPI2_MspInit 1 */
-// 1300 
-// 1301   }
-// 1302   else if(hi2s->Instance==SPI3)
+// 1296 		/* USER CODE BEGIN SPI2_MspInit 1 */
+// 1297 	  
+// 1298 	  /* USER CODE END SPI2_MspInit 1 */
+// 1299 
+// 1300   }
+// 1301   else if(hi2s->Instance==SPI3)
 ??HAL_I2S_MspInit_2:
         LDR.N    R1,??DataTable16_24  ;; 0x40003c00
         CMP      R0,R1
         BNE.W    ??HAL_I2S_MspInit_3
-// 1303   {
+// 1302   {
+// 1303 
 // 1304 
-// 1305 
-// 1306   
-// 1307     /**I2S3 GPIO Configuration    
-// 1308        PB2     ------> I2S3_SD
-// 1309        PA15     ------> I2S3_WS (LRCK)
-// 1310        PB3     ------> I2S3_CK 
-// 1311 	 PC7    ------> MCLK
-// 1312     */
-// 1313  
-// 1314   /* USER CODE BEGIN SPI3_MspInit 1 */
-// 1315   __SPI3_CLK_ENABLE();
+// 1305   
+// 1306     /**I2S3 GPIO Configuration    
+// 1307        PB2     ------> I2S3_SD
+// 1308        PA15     ------> I2S3_WS (LRCK)
+// 1309        PB3     ------> I2S3_CK 
+// 1310 	 PC7    ------> MCLK
+// 1311     */
+// 1312  
+// 1313   /* USER CODE BEGIN SPI3_MspInit 1 */
+// 1314   __SPI3_CLK_ENABLE();
+        MOVS     R0,#+0
         LDR.N    R5,??DataTable16_18  ;; 0x40023830
-// 1316   __GPIOA_CLK_ENABLE();
-// 1317   __GPIOB_CLK_ENABLE();
-// 1318   __GPIOC_CLK_ENABLE();
-// 1319   GPIO_InitStructure.Pin = GPIO_PIN_3; 
-// 1320   GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
-// 1321   GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
-// 1322   GPIO_InitStructure.Pull = GPIO_NOPULL;
-// 1323   GPIO_InitStructure.Alternate = GPIO_AF6_SPI3;
-// 1324   HAL_GPIO_Init(GPIOB, &GPIO_InitStructure);
+        STR      R0,[SP, #+0]
+// 1315   __GPIOA_CLK_ENABLE();
+// 1316   __GPIOB_CLK_ENABLE();
+// 1317   __GPIOC_CLK_ENABLE();
+// 1318   GPIO_InitStructure.Pin = GPIO_PIN_3; 
+// 1319   GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
+// 1320   GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
+// 1321   GPIO_InitStructure.Pull = GPIO_NOPULL;
+// 1322   GPIO_InitStructure.Alternate = GPIO_AF6_SPI3;
+// 1323   HAL_GPIO_Init(GPIOB, &GPIO_InitStructure);
         LDR.N    R6,??DataTable16_23  ;; 0x40020400
-        ADD      R1,SP,#+24
         LDR      R0,[R5, #+16]
+        ADD      R1,SP,#+24
         ORR      R0,R0,#0x8000
         STR      R0,[R5, #+16]
         LDR      R0,[R5, #+16]
         AND      R0,R0,#0x8000
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR      R0,[R5, #+0]
         ORR      R0,R0,#0x1
         STR      R0,[R5, #+0]
@@ -3258,6 +3280,8 @@ HAL_I2S_MspInit:
         AND      R0,R0,#0x1
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR      R0,[R5, #+0]
         ORR      R0,R0,#0x2
         STR      R0,[R5, #+0]
@@ -3265,6 +3289,8 @@ HAL_I2S_MspInit:
         AND      R0,R0,#0x2
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR      R0,[R5, #+0]
         ORR      R0,R0,#0x4
         STR      R0,[R5, #+0]
@@ -3285,14 +3311,14 @@ HAL_I2S_MspInit:
         MOV      R0,R6
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
-// 1325 
-// 1326     GPIO_InitStructure.Pin = GPIO_PIN_2; 
+// 1324 
+// 1325     GPIO_InitStructure.Pin = GPIO_PIN_2; 
         MOVS     R0,#+4
-// 1327   GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
-// 1328   GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
-// 1329   GPIO_InitStructure.Pull = GPIO_NOPULL;
-// 1330   GPIO_InitStructure.Alternate = GPIO_AF7_SPI3;
-// 1331   HAL_GPIO_Init(GPIOB, &GPIO_InitStructure);
+// 1326   GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
+// 1327   GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
+// 1328   GPIO_InitStructure.Pull = GPIO_NOPULL;
+// 1329   GPIO_InitStructure.Alternate = GPIO_AF7_SPI3;
+// 1330   HAL_GPIO_Init(GPIOB, &GPIO_InitStructure);
         ADD      R1,SP,#+24
         STR      R0,[SP, #+24]
         MOVS     R0,#+2
@@ -3306,13 +3332,13 @@ HAL_I2S_MspInit:
         MOV      R0,R6
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
+// 1331 
 // 1332 
-// 1333 
-// 1334   GPIO_InitStructure.Pin = GPIO_PIN_15;
+// 1333   GPIO_InitStructure.Pin = GPIO_PIN_15;
         MOV      R0,#+32768
-// 1335   GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
-// 1336   GPIO_InitStructure.Alternate = GPIO_AF6_SPI3;
-// 1337   HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
+// 1334   GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
+// 1335   GPIO_InitStructure.Alternate = GPIO_AF6_SPI3;
+// 1336   HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
         ADD      R1,SP,#+24
         STR      R0,[SP, #+24]
         MOVS     R0,#+2
@@ -3322,18 +3348,18 @@ HAL_I2S_MspInit:
         LDR.N    R0,??DataTable16_20  ;; 0x40020000
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
+// 1337 
 // 1338 
-// 1339 
-// 1340    
-// 1341 #ifdef CODEC_MCLK_ENABLED
-// 1342 
-// 1343   GPIO_InitStructure.Pin = GPIO_PIN_7; 
+// 1339    
+// 1340 #ifdef CODEC_MCLK_ENABLED
+// 1341 
+// 1342   GPIO_InitStructure.Pin = GPIO_PIN_7; 
         MOVS     R0,#+128
-// 1344   GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
-// 1345   GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
-// 1346   GPIO_InitStructure.Pull = GPIO_NOPULL;
-// 1347   GPIO_InitStructure.Alternate = GPIO_AF6_SPI3;
-// 1348   HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
+// 1343   GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
+// 1344   GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
+// 1345   GPIO_InitStructure.Pull = GPIO_NOPULL;
+// 1346   GPIO_InitStructure.Alternate = GPIO_AF6_SPI3;
+// 1347   HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
         ADD      R1,SP,#+24
         STR      R0,[SP, #+24]
         MOVS     R0,#+2
@@ -3347,110 +3373,112 @@ HAL_I2S_MspInit:
         LDR.N    R0,??DataTable16_21  ;; 0x40020800
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
-// 1349 
-// 1350 #endif /* CODEC_MCLK_ENABLED */ 
-// 1351 
-// 1352 #ifdef I2S_INTERRUPT   
-// 1353      /* Enable and set Button EXTI Interrupt to the lowest priority */
-// 1354      //HAL_NVIC_SetPriority((IRQn_Type)SPI3_IRQn, 0x00, 0x01);
-// 1355      //HAL_NVIC_EnableIRQ((IRQn_Type)SPI3_IRQn);
-// 1356 
-// 1357      /* Enable the I2S DMA request */
-// 1358      //__HAL_I2S_ENABLE_IT(&hi2s3, SPI_I2S_DMAReq_Tx);
-// 1359      //__HAL_I2S_ENABLE(&hi2s3);
-// 1360   	    /* Peripheral interrupt init*/
-// 1361 		HAL_NVIC_SetPriority(SPI3_IRQn, INTERRUPT_PRI_AUDIOOUT, 0);
-// 1362 		HAL_NVIC_EnableIRQ(SPI3_IRQn);
-// 1363 #endif
-// 1364 
-// 1365       /* Enable the DMA clock */ 
-// 1366 	  __HAL_RCC_DMA1_CLK_ENABLE();
+// 1348 
+// 1349 #endif /* CODEC_MCLK_ENABLED */ 
+// 1350 
+// 1351 #ifdef I2S_INTERRUPT   
+// 1352      /* Enable and set Button EXTI Interrupt to the lowest priority */
+// 1353      //HAL_NVIC_SetPriority((IRQn_Type)SPI3_IRQn, 0x00, 0x01);
+// 1354      //HAL_NVIC_EnableIRQ((IRQn_Type)SPI3_IRQn);
+// 1355 
+// 1356      /* Enable the I2S DMA request */
+// 1357      //__HAL_I2S_ENABLE_IT(&hi2s3, SPI_I2S_DMAReq_Tx);
+// 1358      //__HAL_I2S_ENABLE(&hi2s3);
+// 1359   	    /* Peripheral interrupt init*/
+// 1360 		HAL_NVIC_SetPriority(SPI3_IRQn, INTERRUPT_PRI_AUDIOOUT, 0);
+// 1361 		HAL_NVIC_EnableIRQ(SPI3_IRQn);
+// 1362 #endif
+// 1363 
+// 1364       /* Enable the DMA clock */ 
+// 1365 	  __HAL_RCC_DMA1_CLK_ENABLE();
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR      R0,[R5, #+0]
         ORR      R0,R0,#0x200000
         STR      R0,[R5, #+0]
         LDR      R0,[R5, #+0]
-// 1367 
-// 1368       /* Configure the DMA Stream */
-// 1369       //HAL_DMA_DeInit(&DmaHandle);
-// 1370 
-// 1371       /* Set the parameters to be configured */ 
-// 1372 	  DmaHandle.Instance = DMA1_Stream7;
+// 1366 
+// 1367       /* Configure the DMA Stream */
+// 1368       //HAL_DMA_DeInit(&DmaHandle);
+// 1369 
+// 1370       /* Set the parameters to be configured */ 
+// 1371 	  DmaHandle.Instance = DMA1_Stream7;
         LDR.N    R5,??DataTable16_1
         AND      R0,R0,#0x200000
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
         LDR.N    R0,??DataTable16  ;; 0x400260b8
         STR      R0,[R5, #+0]
-// 1373       DmaHandle.Init.Channel = DMA_CHANNEL_0;
+// 1372       DmaHandle.Init.Channel = DMA_CHANNEL_0;
         MOVS     R0,#+0
         STR      R0,[R5, #+4]
-// 1374 	  DmaHandle.Init.Direction = DMA_MEMORY_TO_PERIPH;
+// 1373 	  DmaHandle.Init.Direction = DMA_MEMORY_TO_PERIPH;
         MOVS     R0,#+64
         STR      R0,[R5, #+8]
-// 1375 	  DmaHandle.Init.PeriphInc = DMA_PINC_DISABLE;
+// 1374 	  DmaHandle.Init.PeriphInc = DMA_PINC_DISABLE;
         MOVS     R0,#+0
         STR      R0,[R5, #+12]
-// 1376 	  DmaHandle.Init.MemInc = DMA_MINC_ENABLE;
+// 1375 	  DmaHandle.Init.MemInc = DMA_MINC_ENABLE;
         MOV      R0,#+1024
         STR      R0,[R5, #+16]
-// 1377 	  DmaHandle.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
+// 1376 	  DmaHandle.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
         MOV      R0,#+2048
         STR      R0,[R5, #+20]
-// 1378       DmaHandle.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD; 
+// 1377       DmaHandle.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD; 
         MOV      R0,#+8192
         STR      R0,[R5, #+24]
-// 1379 #if  (AUDIO_OUT_STREAM_NORMAL)
-// 1380 	  DmaHandle.Init.Mode = DMA_NORMAL;
-// 1381 #else
-// 1382       DmaHandle.Init.Mode = DMA_CIRCULAR;
+// 1378 #if  (AUDIO_OUT_STREAM_NORMAL)
+// 1379 	  DmaHandle.Init.Mode = DMA_NORMAL;
+// 1380 #else
+// 1381       DmaHandle.Init.Mode = DMA_CIRCULAR;
         MOV      R0,#+256
         STR      R0,[R5, #+28]
-// 1383 #endif
-// 1384       DmaHandle.Init.Priority = DMA_PRIORITY_HIGH; 
+// 1382 #endif
+// 1383       DmaHandle.Init.Priority = DMA_PRIORITY_HIGH; 
         MOV      R0,#+131072
         STR      R0,[R5, #+32]
-// 1385 	  DmaHandle.Init.FIFOMode = DMA_FIFOMODE_ENABLE;//DMA_FIFOMODE_DISABLE
+// 1384 	  DmaHandle.Init.FIFOMode = DMA_FIFOMODE_ENABLE;//DMA_FIFOMODE_DISABLE
         MOVS     R0,#+4
         STR      R0,[R5, #+36]
-// 1386       DmaHandle.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
+// 1385       DmaHandle.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
         MOVS     R0,#+3
         STR      R0,[R5, #+40]
-// 1387       DmaHandle.Init.MemBurst = DMA_MBURST_SINGLE;
+// 1386       DmaHandle.Init.MemBurst = DMA_MBURST_SINGLE;
         MOVS     R0,#+0
         STR      R0,[R5, #+44]
-// 1388       DmaHandle.Init.PeriphBurst = DMA_PBURST_SINGLE;	  
-// 1389       DmaHandle.Instance->PAR =(uint32_t)&SPI3->DR;//CODEC_I2S_ADDRESS
+// 1387       DmaHandle.Init.PeriphBurst = DMA_PBURST_SINGLE;	  
+// 1388       DmaHandle.Instance->PAR =(uint32_t)&SPI3->DR;//CODEC_I2S_ADDRESS
         LDR      R1,[R5, #+0]
         STR      R0,[R5, #+48]
         LDR.N    R0,??DataTable16_25  ;; 0x40003c0c
         STR      R0,[R1, #+8]
-// 1390       //DmaHandle.Instance->M0AR = (uint32_t)0;
-// 1391       //DmaHandle.Instance->NDTR = (uint32_t)0xFFFE;
-// 1392       //DmaHandle.XferCpltCallback = &TC_Callback;
-// 1393  
-// 1394 
-// 1395       /* Associate the initialized DMA handle to the the SPI handle */
-// 1396       __HAL_LINKDMA(hi2s, hdmatx, DmaHandle);
-// 1397       //__HAL_DMA_ENABLE_IT(&DmaHandle, DMA_IT_TC);
-// 1398 
-// 1399 	   /* Deinitialize the Stream for new transfer */
-// 1400        HAL_DMA_DeInit(&DmaHandle);
+// 1389       //DmaHandle.Instance->M0AR = (uint32_t)0;
+// 1390       //DmaHandle.Instance->NDTR = (uint32_t)0xFFFE;
+// 1391       //DmaHandle.XferCpltCallback = &TC_Callback;
+// 1392  
+// 1393 
+// 1394       /* Associate the initialized DMA handle to the the SPI handle */
+// 1395       __HAL_LINKDMA(hi2s, hdmatx, DmaHandle);
+// 1396       //__HAL_DMA_ENABLE_IT(&DmaHandle, DMA_IT_TC);
+// 1397 
+// 1398 	   /* Deinitialize the Stream for new transfer */
+// 1399        HAL_DMA_DeInit(&DmaHandle);
         MOV      R0,R5
         STR      R5,[R4, #+48]
         STR      R4,[R5, #+56]
           CFI FunCall HAL_DMA_DeInit
         BL       HAL_DMA_DeInit
-// 1401        /* Configure the DMA Stream */
-// 1402 	   HAL_DMA_Init(&DmaHandle);
+// 1400        /* Configure the DMA Stream */
+// 1401 	   HAL_DMA_Init(&DmaHandle);
         MOV      R0,R5
           CFI FunCall HAL_DMA_Init
         BL       HAL_DMA_Init
-// 1403 
-// 1404       __HAL_I2S_ENABLE(&hi2s3);
+// 1402 
+// 1403       __HAL_I2S_ENABLE(&hi2s3);
         LDR.N    R0,??DataTable16_26
-// 1405 
-// 1406       /* Set Interrupt Group Priority */
-// 1407       HAL_NVIC_SetPriority(DMA1_Stream7_IRQn, 2, 1);
+// 1404 
+// 1405       /* Set Interrupt Group Priority */
+// 1406       HAL_NVIC_SetPriority(DMA1_Stream7_IRQn, 2, 1);
         MOVS     R2,#+1
         LDR      R0,[R0, #+0]
         LDR      R1,[R0, #+28]
@@ -3460,47 +3488,53 @@ HAL_I2S_MspInit:
         MOVS     R0,#+47
           CFI FunCall HAL_NVIC_SetPriority
         BL       HAL_NVIC_SetPriority
-// 1408       /* Enable the DMA STREAM global Interrupt */
-// 1409       HAL_NVIC_EnableIRQ(DMA1_Stream7_IRQn);    
+// 1407       /* Enable the DMA STREAM global Interrupt */
+// 1408       HAL_NVIC_EnableIRQ(DMA1_Stream7_IRQn);    
         MOVS     R0,#+47
 ??HAL_I2S_MspInit_1:
           CFI FunCall HAL_NVIC_EnableIRQ
         BL       HAL_NVIC_EnableIRQ
-// 1410 
-// 1411  }
-// 1412 
-// 1413 }
+// 1409 
+// 1410  }
+// 1411 
+// 1412 }
 ??HAL_I2S_MspInit_3:
         ADD      SP,SP,#+48
           CFI CFA R13+16
         POP      {R4-R6,PC}       ;; return
           CFI EndBlock cfiBlock15
-// 1414 
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable13:
+        DC32     0x1fffe
+// 1413 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock16 Using cfiCommon0
           CFI Function HAL_SPI_MspDeInit
         THUMB
-// 1415 void HAL_SPI_MspDeInit(SPI_HandleTypeDef *hspi)
-// 1416 {
+// 1414 void HAL_SPI_MspDeInit(SPI_HandleTypeDef *hspi)
+// 1415 {
 HAL_SPI_MspDeInit:
         PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-// 1417   if(hspi->Instance == SPI3)
+// 1416   if(hspi->Instance == SPI3)
         LDR      R0,[R0, #+0]
         LDR.N    R1,??DataTable16_24  ;; 0x40003c00
         CMP      R0,R1
         BNE.N    ??HAL_SPI_MspDeInit_0
-// 1418   {   
-// 1419     /*##-1- Reset peripherals ##################################################*/
-// 1420     __HAL_RCC_SPI3_FORCE_RESET();
+// 1417   {   
+// 1418     /*##-1- Reset peripherals ##################################################*/
+// 1419     __HAL_RCC_SPI3_FORCE_RESET();
         LDR.N    R0,??DataTable16_27  ;; 0x40023820
-// 1421     __HAL_RCC_SPI3_RELEASE_RESET();
-// 1422 
-// 1423     /*##-2- Disable peripherals and GPIO Clocks ################################*/
-// 1424     HAL_GPIO_DeInit(CODEC_I2S_GPIO, CODEC_I2S_SCK_PIN);
+// 1420     __HAL_RCC_SPI3_RELEASE_RESET();
+// 1421 
+// 1422     /*##-2- Disable peripherals and GPIO Clocks ################################*/
+// 1423     HAL_GPIO_DeInit(CODEC_I2S_GPIO, CODEC_I2S_SCK_PIN);
         LDR.N    R4,??DataTable16_23  ;; 0x40020400
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x8000
@@ -3512,32 +3546,32 @@ HAL_SPI_MspDeInit:
         MOV      R0,R4
           CFI FunCall HAL_GPIO_DeInit
         BL       HAL_GPIO_DeInit
-// 1425     HAL_GPIO_DeInit(CODEC_I2S_GPIO, CODEC_I2S_SD_PIN);
+// 1424     HAL_GPIO_DeInit(CODEC_I2S_GPIO, CODEC_I2S_SD_PIN);
         MOVS     R1,#+4
         MOV      R0,R4
           CFI FunCall HAL_GPIO_DeInit
         BL       HAL_GPIO_DeInit
-// 1426     HAL_GPIO_DeInit(CODEC_I2S_WS_GPIO, CODEC_I2S_WS_PIN);
+// 1425     HAL_GPIO_DeInit(CODEC_I2S_WS_GPIO, CODEC_I2S_WS_PIN);
         MOV      R1,#+32768
         LDR.N    R0,??DataTable16_20  ;; 0x40020000
           CFI FunCall HAL_GPIO_DeInit
         BL       HAL_GPIO_DeInit
-// 1427 	HAL_GPIO_DeInit(CODEC_I2S_MCK_GPIO, CODEC_I2S_MCK_PIN);
+// 1426 	HAL_GPIO_DeInit(CODEC_I2S_MCK_GPIO, CODEC_I2S_MCK_PIN);
         MOVS     R1,#+128
         LDR.N    R0,??DataTable16_21  ;; 0x40020800
           CFI FunCall HAL_GPIO_DeInit
         BL       HAL_GPIO_DeInit
-// 1428 
-// 1429     /*##-3- Disable the DMA ####################################################*/
-// 1430     /* De-Initialize the DMA associated to transmission process */
-// 1431     HAL_DMA_DeInit(&DmaHandle);
+// 1427 
+// 1428     /*##-3- Disable the DMA ####################################################*/
+// 1429     /* De-Initialize the DMA associated to transmission process */
+// 1430     HAL_DMA_DeInit(&DmaHandle);
         LDR.N    R0,??DataTable16_1
           CFI FunCall HAL_DMA_DeInit
         BL       HAL_DMA_DeInit
+// 1431 
 // 1432 
-// 1433 
-// 1434     /*##-4- Disable the NVIC for DMA ###########################################*/
-// 1435     HAL_NVIC_DisableIRQ(DMA1_Stream7_IRQn);
+// 1433     /*##-4- Disable the NVIC for DMA ###########################################*/
+// 1434     HAL_NVIC_DisableIRQ(DMA1_Stream7_IRQn);
         MOVS     R0,#+47
         POP      {R4,LR}
           CFI R4 SameValue
@@ -3548,8 +3582,8 @@ HAL_SPI_MspDeInit:
           CFI R4 Frame(CFA, -8)
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+8
-// 1436   }
-// 1437 }
+// 1435   }
+// 1436 }
 ??HAL_SPI_MspDeInit_0:
         POP      {R4,PC}          ;; return
           CFI EndBlock cfiBlock16
@@ -3558,24 +3592,18 @@ HAL_SPI_MspDeInit:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable14:
-        DC32     0x1fffe
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable14_1:
         DC32     0x40003c04
+// 1437 
 // 1438 
-// 1439 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock17 Using cfiCommon0
           CFI Function HAL_I2C_MspDeInit
         THUMB
-// 1440 void HAL_I2C_MspDeInit(I2C_HandleTypeDef *hi2c)
-// 1441 {
-// 1442     /*##-1- Reset peripherals ##################################################*/
-// 1443     __HAL_RCC_I2C1_FORCE_RESET();
+// 1439 void HAL_I2C_MspDeInit(I2C_HandleTypeDef *hi2c)
+// 1440 {
+// 1441     /*##-1- Reset peripherals ##################################################*/
+// 1442     __HAL_RCC_I2C1_FORCE_RESET();
 HAL_I2C_MspDeInit:
         LDR.N    R0,??DataTable16_27  ;; 0x40023820
         PUSH     {R4,LR}
@@ -3583,12 +3611,12 @@ HAL_I2C_MspDeInit:
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
         LDR      R1,[R0, #+0]
-// 1444     __HAL_RCC_I2C1_RELEASE_RESET();
+// 1443     __HAL_RCC_I2C1_RELEASE_RESET();
+// 1444 
 // 1445 
-// 1446 
-// 1447   /*##-2- Disable peripherals and GPIO Clocks #################################*/
-// 1448   /* Configure I2C Tx as alternate function  */
-// 1449   HAL_GPIO_DeInit(CODEC_I2C_GPIO, CODEC_I2C_SCL_PIN);
+// 1446   /*##-2- Disable peripherals and GPIO Clocks #################################*/
+// 1447   /* Configure I2C Tx as alternate function  */
+// 1448   HAL_GPIO_DeInit(CODEC_I2C_GPIO, CODEC_I2C_SCL_PIN);
         LDR.N    R4,??DataTable16_23  ;; 0x40020400
         ORR      R1,R1,#0x200000
         STR      R1,[R0, #+0]
@@ -3599,8 +3627,8 @@ HAL_I2C_MspDeInit:
         MOV      R0,R4
           CFI FunCall HAL_GPIO_DeInit
         BL       HAL_GPIO_DeInit
-// 1450   /* Configure I2C Rx as alternate function  */
-// 1451   HAL_GPIO_DeInit(CODEC_I2C_GPIO, CODEC_I2C_SDA_PIN);
+// 1449   /* Configure I2C Rx as alternate function  */
+// 1450   HAL_GPIO_DeInit(CODEC_I2C_GPIO, CODEC_I2C_SDA_PIN);
         MOV      R0,R4
         MOVS     R1,#+128
         POP      {R4,LR}
@@ -3609,60 +3637,60 @@ HAL_I2C_MspDeInit:
           CFI CFA R13+0
           CFI FunCall HAL_GPIO_DeInit
         B.W      HAL_GPIO_DeInit
-// 1452 }
+// 1451 }
           CFI EndBlock cfiBlock17
+// 1452 
 // 1453 
 // 1454 
-// 1455 
-// 1456  /* I2C1 init function */
+// 1455  /* I2C1 init function */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock18 Using cfiCommon0
           CFI Function MX_I2C1_Init
         THUMB
-// 1457 void MX_I2C1_Init(void)
-// 1458 {
+// 1456 void MX_I2C1_Init(void)
+// 1457 {
 MX_I2C1_Init:
         PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
+// 1458 
 // 1459 
-// 1460 
-// 1461   hi2c1.Instance = I2C1;
+// 1460   hi2c1.Instance = I2C1;
         LDR.N    R4,??DataTable16_1
         LDR.N    R0,??DataTable16_28  ;; 0x40005400
-        STR      R0,[R4, #+80]
-// 1462   hi2c1.Init.Timing =0x00A0689A;           //I2C_SPEED DISCOVERY_I2Cx_TIMING; 0x00C0EFFF
-        LDR.N    R0,??DataTable16_29  ;; 0xa0689a
-        STR      R0,[R4, #+84]
-// 1463                                            //I2C_TIMING ;//I2C_TIMING  0x00303D5D
-// 1464                                            //DISCOVERY_I2Cx_TIMING
-// 1465   hi2c1.Init.OwnAddress1 = 0x33;
-        MOVS     R0,#+51
         STR      R0,[R4, #+88]
-// 1466   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
-        MOVS     R0,#+1
+// 1461   hi2c1.Init.Timing =0x00A0689A;           //I2C_SPEED DISCOVERY_I2Cx_TIMING; 0x00C0EFFF
+        LDR.N    R0,??DataTable16_29  ;; 0xa0689a
         STR      R0,[R4, #+92]
-// 1467   hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
-        MOVS     R0,#+0
+// 1462                                            //I2C_TIMING ;//I2C_TIMING  0x00303D5D
+// 1463                                            //DISCOVERY_I2Cx_TIMING
+// 1464   hi2c1.Init.OwnAddress1 = 0x33;
+        MOVS     R0,#+51
         STR      R0,[R4, #+96]
-// 1468   hi2c1.Init.OwnAddress2 = 0;
+// 1465   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+        MOVS     R0,#+1
         STR      R0,[R4, #+100]
-// 1469   hi2c1.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
+// 1466   hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+        MOVS     R0,#+0
         STR      R0,[R4, #+104]
-// 1470   hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+// 1467   hi2c1.Init.OwnAddress2 = 0;
         STR      R0,[R4, #+108]
-// 1471   hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+// 1468   hi2c1.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
         STR      R0,[R4, #+112]
-// 1472   HAL_I2C_Init(&hi2c1);
-        ADD      R0,R4,#+80
+// 1469   hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+        STR      R0,[R4, #+116]
+// 1470   hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+        STR      R0,[R4, #+120]
+// 1471   HAL_I2C_Init(&hi2c1);
+        ADD      R0,R4,#+88
           CFI FunCall HAL_I2C_Init
         BL       HAL_I2C_Init
-// 1473 
-// 1474    /*Configure Analogue filter */
-// 1475   HAL_I2CEx_AnalogFilter_Config(&hi2c1, I2C_ANALOGFILTER_ENABLE);
-        ADD      R0,R4,#+80
+// 1472 
+// 1473    /*Configure Analogue filter */
+// 1474   HAL_I2CEx_AnalogFilter_Config(&hi2c1, I2C_ANALOGFILTER_ENABLE);
+        ADD      R0,R4,#+88
         MOVS     R1,#+0
         POP      {R4,LR}
           CFI R4 SameValue
@@ -3670,8 +3698,8 @@ MX_I2C1_Init:
           CFI CFA R13+0
           CFI FunCall HAL_I2CEx_ConfigAnalogFilter
         B.W      HAL_I2CEx_ConfigAnalogFilter
-// 1476 
-// 1477 }
+// 1475 
+// 1476 }
           CFI EndBlock cfiBlock18
 
         SECTION `.text`:CODE:NOROOT(2)
@@ -3866,14 +3894,14 @@ MX_I2C1_Init:
         SECTION_TYPE SHT_PROGBITS, 0
 
         END
-// 1478 
+// 1477 
 // 
 //   156 bytes in section .bss
-//   164 bytes in section .data
-// 4 052 bytes in section .text
+//   172 bytes in section .data
+// 4 108 bytes in section .text
 // 
-// 4 052 bytes of CODE memory
-//   320 bytes of DATA memory
+// 4 108 bytes of CODE memory
+//   328 bytes of DATA memory
 //
 //Errors: none
 //Warnings: none

@@ -58,7 +58,6 @@ void AudioUSBSend(uint16_t idxFrm) /* This function called every ms */
 					default:
 					  break;
 				  }   
-
 					break;
 			  case 1:
 				  switch (buffer_switch)
@@ -75,7 +74,6 @@ void AudioUSBSend(uint16_t idxFrm) /* This function called every ms */
 					default:
 					  break;
 				  }   
-
 					break;
 			  case 2:
 				  switch (buffer_switch)
@@ -92,7 +90,6 @@ void AudioUSBSend(uint16_t idxFrm) /* This function called every ms */
 					default:
 					  break;
 				  }   
-
 					break;
 			  case 3:
 				  switch (buffer_switch)
@@ -109,7 +106,6 @@ void AudioUSBSend(uint16_t idxFrm) /* This function called every ms */
 					default:
 					  break;
 				  }   
-
 					break;
 			  case 4:
 				  switch (buffer_switch)
@@ -126,7 +122,6 @@ void AudioUSBSend(uint16_t idxFrm) /* This function called every ms */
 					default:
 					  break;
 				  }   
-
 				  break;
 			  case 5:
 				  switch (buffer_switch)
@@ -143,7 +138,6 @@ void AudioUSBSend(uint16_t idxFrm) /* This function called every ms */
 					default:
 					  break;
 				  }   
-
 				  break;
 			  case 6:
 				  switch (buffer_switch)
@@ -160,7 +154,6 @@ void AudioUSBSend(uint16_t idxFrm) /* This function called every ms */
 					default:
 					  break;
 				  }   
-
 				  break;
 			  case 7:
 				  switch (buffer_switch)
@@ -177,13 +170,10 @@ void AudioUSBSend(uint16_t idxFrm) /* This function called every ms */
 					default:
 					  break;
 				  }   
-
 				  break;
 			  default:
 				   break;
 			}
-
-
 #else
     //Send_Audio_to_USB((int16_t *)PCM_Buffer1, AUDIO_OUT_BUFFER_SIZE*AUDIO_CHANNELS);
     
@@ -488,6 +478,5 @@ switch (buffer_switch)
 #endif
 
 }
-
 
 

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      31/Mar/2016  20:53:47
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      06/Apr/2016  18:05:31
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -131,8 +131,8 @@
 //    2   ******************************************************************************
 //    3   * @file    stm32f7xx_hal_pwr_ex.c
 //    4   * @author  MCD Application Team
-//    5   * @version V1.0.1
-//    6   * @date    25-June-2015
+//    5   * @version V1.0.4
+//    6   * @date    09-December-2015
 //    7   * @brief   Extended PWR HAL module driver.
 //    8   *          This file provides firmware functions to manage the following 
 //    9   *          functionalities of PWR extension peripheral:           
@@ -557,12 +557,14 @@ HAL_PWREx_EnableOverDrive:
           CFI R5 Frame(CFA, -12)
           CFI R4 Frame(CFA, -16)
           CFI CFA R13+16
+        SUB      SP,SP,#+8
+          CFI CFA R13+24
 //  271   uint32_t tickstart = 0;
 //  272 
 //  273   __HAL_RCC_PWR_CLK_ENABLE();
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR.N    R0,??DataTable12_2  ;; 0x40023840
-        SUB      SP,SP,#+8
-          CFI CFA R13+24
 //  274   
 //  275   /* Enable the Over-drive to extend the clock frequency to 216 MHz */
 //  276   __HAL_PWR_OVERDRIVE_ENABLE();
@@ -674,12 +676,14 @@ HAL_PWREx_DisableOverDrive:
           CFI R5 Frame(CFA, -12)
           CFI R4 Frame(CFA, -16)
           CFI CFA R13+16
+        SUB      SP,SP,#+8
+          CFI CFA R13+24
 //  317   uint32_t tickstart = 0;
 //  318   
 //  319   __HAL_RCC_PWR_CLK_ENABLE();
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR.N    R0,??DataTable12_2  ;; 0x40023840
-        SUB      SP,SP,#+8
-          CFI CFA R13+24
 //  320     
 //  321   /* Disable the Over-drive switch */
 //  322   __HAL_PWR_OVERDRIVESWITCHING_DISABLE();
@@ -821,7 +825,9 @@ HAL_PWREx_EnterUnderDriveSTOPMode:
           CFI R5 Frame(CFA, -20)
           CFI R4 Frame(CFA, -24)
           CFI CFA R13+24
-        MOV      R5,R0
+        MOV      R4,R0
+        SUB      SP,SP,#+8
+          CFI CFA R13+32
 //  391   uint32_t tempreg = 0;
 //  392   uint32_t tickstart = 0;
 //  393   
@@ -831,11 +837,10 @@ HAL_PWREx_EnterUnderDriveSTOPMode:
 //  397   
 //  398   /* Enable Power ctrl clock */
 //  399   __HAL_RCC_PWR_CLK_ENABLE();
+        MOVS     R0,#+0
+        MOV      R5,R1
+        STR      R0,[SP, #+0]
         LDR.N    R0,??DataTable12_2  ;; 0x40023840
-        SUB      SP,SP,#+8
-          CFI CFA R13+32
-        MOV      R4,R1
-        LDR      R1,[R0, #+0]
 //  400   /* Enable the Under-drive Mode ---------------------------------------------*/
 //  401   /* Clear Under-drive flag */
 //  402   __HAL_PWR_CLEAR_ODRUDR_FLAG();
@@ -844,6 +849,7 @@ HAL_PWREx_EnterUnderDriveSTOPMode:
 //  404   /* Enable the Under-drive */ 
 //  405   __HAL_PWR_UNDERDRIVE_ENABLE();
         MOVW     R8,#+1001
+        LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x10000000
         STR      R1,[R0, #+0]
         LDR      R0,[R0, #+0]
@@ -901,7 +907,7 @@ HAL_PWREx_EnterUnderDriveSTOPMode:
 //  428   PWR->CR1 = tempreg;
         LDR.N    R1,??DataTable12_3  ;; 0xfffff3fc
         ANDS     R0,R1,R0
-        ORRS     R0,R5,R0
+        ORRS     R0,R4,R0
         STR      R0,[R6, #+0]
 //  429   
 //  430   /* Set SLEEPDEEP bit of Cortex System Control Register */
@@ -910,7 +916,7 @@ HAL_PWREx_EnterUnderDriveSTOPMode:
 //  432   
 //  433   /* Select STOP mode entry --------------------------------------------------*/
 //  434   if(STOPEntry == PWR_SLEEPENTRY_WFI)
-        CMP      R4,#+1
+        CMP      R5,#+1
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x4
         STR      R1,[R0, #+0]
@@ -1004,36 +1010,38 @@ HAL_PWREx_ControlVoltageScaling:
           CFI R5 Frame(CFA, -16)
           CFI R4 Frame(CFA, -20)
           CFI CFA R13+20
+        MOV      R4,R0
+        SUB      SP,SP,#+4
+          CFI CFA R13+24
 //  489   uint32_t tickstart = 0;
 //  490 
 //  491   assert_param(IS_PWR_REGULATOR_VOLTAGE(VoltageScaling));
 //  492 
 //  493   /* Enable Power ctrl clock */
 //  494   __HAL_RCC_PWR_CLK_ENABLE();
-        LDR.N    R4,??DataTable12_5  ;; 0x40023800
-        SUB      SP,SP,#+4
-          CFI CFA R13+24
-        MOV      R5,R0
-        LDR      R0,[R4, #+64]
+        MOVS     R0,#+0
+        LDR.N    R5,??DataTable12_5  ;; 0x40023800
+        STR      R0,[SP, #+0]
+        LDR      R0,[R5, #+64]
         ORR      R0,R0,#0x10000000
-        STR      R0,[R4, #+64]
-        LDR      R0,[R4, #+64]
+        STR      R0,[R5, #+64]
+        LDR      R0,[R5, #+64]
         AND      R0,R0,#0x10000000
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
 //  495 
 //  496   /* Check if the PLL is used as system clock or not */
 //  497   if(__HAL_RCC_GET_SYSCLK_SOURCE() != RCC_CFGR_SWS_PLL)
-        LDR      R0,[R4, #+8]
+        LDR      R0,[R5, #+8]
         AND      R0,R0,#0xC
         CMP      R0,#+8
         BEQ.N    ??HAL_PWREx_ControlVoltageScaling_0
 //  498   {
 //  499     /* Disable the main PLL */
 //  500     __HAL_RCC_PLL_DISABLE();
-        LDR      R0,[R4, #+0]
+        LDR      R0,[R5, #+0]
         BIC      R0,R0,#0x1000000
-        STR      R0,[R4, #+0]
+        STR      R0,[R5, #+0]
 //  501     
 //  502     /* Get Start Tick */
 //  503     tickstart = HAL_GetTick();    
@@ -1043,7 +1051,7 @@ HAL_PWREx_ControlVoltageScaling:
 //  504     /* Wait till PLL is disabled */  
 //  505     while(__HAL_RCC_GET_FLAG(RCC_FLAG_PLLRDY) != RESET)
 ??HAL_PWREx_ControlVoltageScaling_1:
-        LDR      R0,[R4, #+0]
+        LDR      R0,[R5, #+0]
         LSLS     R0,R0,#+6
         BPL.N    ??HAL_PWREx_ControlVoltageScaling_2
 //  506     {
@@ -1088,23 +1096,25 @@ HAL_PWREx_ControlVoltageScaling:
         POP      {R4-R7,PC}
           CFI CFA R13+24
 ??HAL_PWREx_ControlVoltageScaling_2:
+        MOVS     R0,#+0
         LDR.N    R6,??DataTable12_1  ;; 0x40007000
+        STR      R0,[SP, #+0]
         LDR      R0,[R6, #+0]
         BIC      R0,R0,#0xC000
-        ORRS     R0,R5,R0
+        ORRS     R0,R4,R0
         STR      R0,[R6, #+0]
         LDR      R0,[R6, #+0]
         AND      R0,R0,#0xC000
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
-        LDR      R0,[R4, #+0]
+        LDR      R0,[R5, #+0]
         ORR      R0,R0,#0x1000000
-        STR      R0,[R4, #+0]
+        STR      R0,[R5, #+0]
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         MOV      R7,R0
 ??HAL_PWREx_ControlVoltageScaling_3:
-        LDR      R0,[R4, #+0]
+        LDR      R0,[R5, #+0]
         LSLS     R0,R0,#+6
         BMI.N    ??HAL_PWREx_ControlVoltageScaling_4
           CFI FunCall HAL_GetTick
@@ -1226,9 +1236,9 @@ HAL_PWREx_ControlVoltageScaling:
 //  563 
 //  564 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 720 bytes in section .text
+// 740 bytes in section .text
 // 
-// 720 bytes of CODE memory
+// 740 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

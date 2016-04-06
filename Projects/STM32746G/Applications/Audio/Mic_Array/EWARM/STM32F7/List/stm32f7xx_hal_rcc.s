@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      31/Mar/2016  20:53:47
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      06/Apr/2016  18:05:32
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -136,8 +136,8 @@
 //    2   ******************************************************************************
 //    3   * @file    stm32f7xx_hal_rcc.c
 //    4   * @author  MCD Application Team
-//    5   * @version V1.0.1
-//    6   * @date    25-June-2015
+//    5   * @version V1.0.4
+//    6   * @date    09-December-2015
 //    7   * @brief   RCC HAL module driver.
 //    8   *          This file provides firmware functions to manage the following 
 //    9   *          functionalities of the Reset and Clock Control (RCC) peripheral:
@@ -1004,8 +1004,10 @@ HAL_RCC_OscConfig:
         LDRB     R0,[R4, #+0]
         LSLS     R0,R0,#+29
         BPL.N    ??HAL_RCC_OscConfig_23
-        LDR      R0,[R5, #+64]
+        MOVS     R0,#+0
         LDR.W    R7,??DataTable13_3  ;; 0x40007000
+        STR      R0,[SP, #+0]
+        LDR      R0,[R5, #+64]
         ORR      R0,R0,#0x10000000
         STR      R0,[R5, #+64]
         LDR      R0,[R5, #+64]
@@ -1706,7 +1708,7 @@ HAL_RCC_ClockConfig:
 //  807   }
 //  808 
 //  809   /* Configure the source of time base considering new system clocks settings*/
-//  810   HAL_InitTick (TICK_INT_PRIORITY);//TICK_INT_PRIORITY
+//  810   HAL_InitTick (TICK_INT_PRIORITY);
 ??HAL_RCC_ClockConfig_23:
         MOVS     R0,#+7
           CFI FunCall HAL_InitTick
@@ -1779,6 +1781,10 @@ HAL_RCC_MCOConfig:
           CFI R5 Frame(CFA, -12)
           CFI R4 Frame(CFA, -16)
           CFI CFA R13+16
+        SUB      SP,SP,#+24
+          CFI CFA R13+40
+        MOV      R4,R1
+        MOV      R5,R2
 //  862   GPIO_InitTypeDef GPIO_InitStruct;
 //  863   /* Check the parameters */
 //  864   assert_param(IS_RCC_MCO(RCC_MCOx));
@@ -1786,19 +1792,14 @@ HAL_RCC_MCOConfig:
 //  866   /* RCC_MCO1 */
 //  867   if(RCC_MCOx == RCC_MCO1)
         LDR.N    R6,??DataTable13_4  ;; 0x40023808
-        SUB      SP,SP,#+24
-          CFI CFA R13+40
-        CMP      R0,#+0
-        MOV      R4,R1
-        MOV      R5,R2
-        LDR      R0,[R6, #+40]
-        BNE.N    ??HAL_RCC_MCOConfig_0
+        CBNZ.N   R0,??HAL_RCC_MCOConfig_0
 //  868   {
 //  869     assert_param(IS_RCC_MCO1SOURCE(RCC_MCOSource));
 //  870     
 //  871     /* MCO1 Clock Enable */
 //  872     MCO1_CLK_ENABLE();
-        ORR      R0,R0,#0x1
+        STR      R0,[SP, #+0]
+        LDR      R0,[R6, #+40]
 //  873     
 //  874     /* Configure the MCO1 pin in alternate function mode */    
 //  875     GPIO_InitStruct.Pin = MCO1_PIN;
@@ -1808,6 +1809,7 @@ HAL_RCC_MCOConfig:
 //  879     GPIO_InitStruct.Alternate = GPIO_AF0_MCO;
 //  880     HAL_GPIO_Init(MCO1_GPIO_PORT, &GPIO_InitStruct);
         ADD      R1,SP,#+4
+        ORR      R0,R0,#0x1
         STR      R0,[R6, #+40]
         LDR      R0,[R6, #+40]
         AND      R0,R0,#0x1
@@ -1858,8 +1860,11 @@ HAL_RCC_MCOConfig:
         POP      {R4-R6,PC}
           CFI CFA R13+40
 ??HAL_RCC_MCOConfig_0:
-        ORR      R0,R0,#0x4
+        MOVS     R0,#+0
         ADD      R1,SP,#+4
+        STR      R0,[SP, #+0]
+        LDR      R0,[R6, #+40]
+        ORR      R0,R0,#0x4
         STR      R0,[R6, #+40]
         LDR      R0,[R6, #+40]
         AND      R0,R0,#0x4
@@ -2551,9 +2556,9 @@ APBAHBPrescTable:
 // 1196 
 // 1197 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 2 062 bytes in section .text
+// 2 072 bytes in section .text
 // 
-// 2 062 bytes of CODE memory
+// 2 072 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

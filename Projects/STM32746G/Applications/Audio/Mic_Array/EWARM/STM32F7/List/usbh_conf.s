@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      31/Mar/2016  20:53:49
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      06/Apr/2016  18:05:35
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -238,7 +238,9 @@ HAL_HCD_MspInit:
 //   58   {
 //   59     /* Configure USB FS GPIOs */
 //   60     __HAL_RCC_GPIOA_CLK_ENABLE();
+        MOVS     R0,#+0
         LDR.N    R4,??DataTable5  ;; 0x40023830
+        STR      R0,[SP, #+0]
 //   61     __HAL_RCC_GPIOD_CLK_ENABLE();
 //   62     
 //   63     GPIO_InitStruct.Pin = (GPIO_PIN_11 | GPIO_PIN_12);
@@ -255,6 +257,8 @@ HAL_HCD_MspInit:
         AND      R0,R0,#0x1
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR      R0,[R4, #+0]
         ORR      R0,R0,#0x8
         STR      R0,[R4, #+0]
@@ -294,11 +298,13 @@ HAL_HCD_MspInit:
 //   75     
 //   76     /* Enable USB FS Clocks */ 
 //   77     __HAL_RCC_USB_OTG_FS_CLK_ENABLE();
-        LDR      R0,[R4, #+4]
+        MOVS     R0,#+0
 //   78     
 //   79     /* Set USBFS Interrupt to the lowest priority */
 //   80     HAL_NVIC_SetPriority(OTG_FS_IRQn, 6, 0);
         MOVS     R2,#+0
+        STR      R0,[SP, #+0]
+        LDR      R0,[R4, #+4]
         MOVS     R1,#+6
         ORR      R0,R0,#0x80
         STR      R0,[R4, #+4]
@@ -306,6 +312,8 @@ HAL_HCD_MspInit:
         AND      R0,R0,#0x80
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR      R0,[R4, #+20]
         ORR      R0,R0,#0x4000
         STR      R0,[R4, #+20]
@@ -330,7 +338,9 @@ HAL_HCD_MspInit:
 //   86   {
 //   87     /* Configure USB HS GPIOs */
 //   88     __HAL_RCC_GPIOA_CLK_ENABLE();
+        MOVS     R0,#+0
         LDR.N    R4,??DataTable5  ;; 0x40023830
+        STR      R0,[SP, #+0]
 //   89     __HAL_RCC_GPIOB_CLK_ENABLE();
 //   90     __HAL_RCC_GPIOC_CLK_ENABLE();
 //   91     __HAL_RCC_GPIOH_CLK_ENABLE();
@@ -352,14 +362,16 @@ HAL_HCD_MspInit:
 //  107     GPIO_InitStruct.Alternate = GPIO_AF10_OTG_HS;
 //  108     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); 
         ADD      R1,SP,#+4
-        LDR.N    R5,??DataTable5_4  ;; 0x40020800
         LDR      R0,[R4, #+0]
+        LDR.N    R5,??DataTable5_4  ;; 0x40020800
         ORR      R0,R0,#0x1
         STR      R0,[R4, #+0]
         LDR      R0,[R4, #+0]
         AND      R0,R0,#0x1
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR      R0,[R4, #+0]
         ORR      R0,R0,#0x2
         STR      R0,[R4, #+0]
@@ -367,6 +379,8 @@ HAL_HCD_MspInit:
         AND      R0,R0,#0x2
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR      R0,[R4, #+0]
         ORR      R0,R0,#0x4
         STR      R0,[R4, #+0]
@@ -374,6 +388,8 @@ HAL_HCD_MspInit:
         AND      R0,R0,#0x4
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR      R0,[R4, #+0]
         ORR      R0,R0,#0x80
         STR      R0,[R4, #+0]
@@ -472,7 +488,7 @@ HAL_HCD_MspInit:
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 //  138     __HAL_RCC_USB_OTG_HS_ULPI_CLK_ENABLE();
-        LDR      R0,[R4, #+0]
+        MOVS     R0,#+0
 //  139 
 //  140     /* Enable USB HS Clocks */ 
 //  141     __HAL_RCC_USB_OTG_HS_CLK_ENABLE();
@@ -480,6 +496,8 @@ HAL_HCD_MspInit:
 //  143     /* Set USBHS Interrupt to the lowest priority */
 //  144     HAL_NVIC_SetPriority(OTG_HS_IRQn, 6, 0);
         MOVS     R2,#+0
+        STR      R0,[SP, #+0]
+        LDR      R0,[R4, #+0]
         MOVS     R1,#+6
         ORR      R0,R0,#0x40000000
         STR      R0,[R4, #+0]
@@ -487,6 +505,8 @@ HAL_HCD_MspInit:
         AND      R0,R0,#0x40000000
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR      R0,[R4, #+0]
         ORR      R0,R0,#0x20000000
         STR      R0,[R4, #+0]
@@ -537,9 +557,6 @@ HAL_HCD_MspDeInit:
         LDR      R1,[R0, #+4]
         BIC      R1,R1,#0x80
         STR      R1,[R0, #+4]
-        LDR      R1,[R0, #+20]
-        BIC      R1,R1,#0x4000
-        STR      R1,[R0, #+20]
         BX       LR
 //  162   }
 //  163   else if(hhcd->Instance == USB_OTG_HS)
@@ -1348,9 +1365,9 @@ USBH_Delay:
 //  540 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
 // 660 bytes in section .bss
-// 896 bytes in section .text
+// 928 bytes in section .text
 // 
-// 896 bytes of CODE memory
+// 928 bytes of CODE memory
 // 660 bytes of DATA memory
 //
 //Errors: none

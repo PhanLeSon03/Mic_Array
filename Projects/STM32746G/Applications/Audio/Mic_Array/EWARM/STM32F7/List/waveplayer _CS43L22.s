@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      31/Mar/2016  20:53:50
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      06/Apr/2016  18:05:35
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -677,14 +677,16 @@ TimingDelay_Decrement:
         THUMB
 //  328 void I2S3_Init(uint32_t AudioFreq)
 //  329 {
+I2S3_Init:
+        SUB      SP,SP,#+8
+          CFI CFA R13+8
 //  330 
 //  331   // static I2S_HandleTypeDef hi2s3;
 //  332   /* Enable the CODEC_I2S peripheral clock */
 //  333   __HAL_RCC_SPI3_CLK_ENABLE();
-I2S3_Init:
+        MOVS     R1,#+0
+        STR      R1,[SP, #+0]
         LDR.N    R1,??DataTable4_2  ;; 0x40023840
-        SUB      SP,SP,#+8
-          CFI CFA R13+8
         LDR      R2,[R1, #+0]
         ORR      R2,R2,#0x8000
         STR      R2,[R1, #+0]
@@ -759,13 +761,15 @@ SPI3_Init:
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
+        SUB      SP,SP,#+8
+          CFI CFA R13+16
 //  369 
 //  370   // static I2S_HandleTypeDef hi2s3;
 //  371   /* Enable the CODEC_I2S peripheral clock */
 //  372   __SPI3_CLK_ENABLE();
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR.N    R0,??DataTable4_2  ;; 0x40023840
-        SUB      SP,SP,#+8
-          CFI CFA R13+16
 //  373 
 //  374   hspi3.Instance = SPI3;
         LDR.N    R4,??DataTable4_5
@@ -907,9 +911,9 @@ AUDIO_InitApplication:
 // 
 // 189 bytes in section .bss
 //   1 byte  in section .data
-// 312 bytes in section .text
+// 320 bytes in section .text
 // 
-// 312 bytes of CODE memory
+// 320 bytes of CODE memory
 // 190 bytes of DATA memory
 //
 //Errors: none

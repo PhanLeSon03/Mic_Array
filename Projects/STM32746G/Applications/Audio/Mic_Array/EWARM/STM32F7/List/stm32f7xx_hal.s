@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      31/Mar/2016  20:53:45
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      06/Apr/2016  18:05:29
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -144,8 +144,8 @@
 //    2   ******************************************************************************
 //    3   * @file    stm32f7xx_hal.c
 //    4   * @author  MCD Application Team
-//    5   * @version V1.0.1
-//    6   * @date    25-June-2015
+//    5   * @version V1.0.4
+//    6   * @date    09-December-2015
 //    7   * @brief   HAL module driver.
 //    8   *          This is the common part of the HAL initialization
 //    9   *
@@ -210,11 +210,11 @@
 //   68   * @{
 //   69   */
 //   70 /**
-//   71  * @brief STM32F7xx HAL Driver version number V1.0.1
+//   71  * @brief STM32F7xx HAL Driver version number V1.0.4
 //   72    */
 //   73 #define __STM32F7xx_HAL_VERSION_MAIN   (0x01) /*!< [31:24] main version */
 //   74 #define __STM32F7xx_HAL_VERSION_SUB1   (0x00) /*!< [23:16] sub1 version */
-//   75 #define __STM32F7xx_HAL_VERSION_SUB2   (0x01) /*!< [15:8]  sub2 version */
+//   75 #define __STM32F7xx_HAL_VERSION_SUB2   (0x04) /*!< [15:8]  sub2 version */
 //   76 #define __STM32F7xx_HAL_VERSION_RC     (0x00) /*!< [7:0]  release candidate */ 
 //   77 #define __STM32F7xx_HAL_VERSION         ((__STM32F7xx_HAL_VERSION_MAIN << 24)\ 
 //   78                                         |(__STM32F7xx_HAL_VERSION_SUB1 << 16)\ 
@@ -312,7 +312,7 @@ HAL_Init:
 //  156   /* Configure Flash prefetch and Instruction cache through ART accelerator */ 
 //  157 #if (ART_ACCLERATOR_ENABLE != 0)
 //  158    __HAL_FLASH_ART_ENABLE();
-        LDR.N    R0,??DataTable17  ;; 0x40023c00
+        LDR.N    R0,??DataTable18  ;; 0x40023c00
         SUB      SP,SP,#+4
           CFI CFA R13+8
         LDR      R1,[R0, #+0]
@@ -321,8 +321,8 @@ HAL_Init:
 //  159 #endif /* ART_ACCLERATOR_ENABLE */
 //  160 
 //  161   /* Set Interrupt Group Priority */
-//  162   HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_3);
-        MOVS     R0,#+4
+//  162   HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
+        MOVS     R0,#+3
           CFI FunCall HAL_NVIC_SetPriorityGrouping
         BL       HAL_NVIC_SetPriorityGrouping
 //  163 
@@ -366,7 +366,7 @@ HAL_DeInit:
           CFI CFA R13+8
 //  181   /* Reset of all peripherals */
 //  182   __HAL_RCC_APB1_FORCE_RESET();
-        LDR.N    R0,??DataTable17_1  ;; 0x40023810
+        LDR.N    R0,??DataTable18_1  ;; 0x40023810
         MOV      R1,#-1
 //  183   __HAL_RCC_APB1_RELEASE_RESET();
         MOVS     R2,#+0
@@ -428,7 +428,7 @@ HAL_MspInit:
           CFI EndBlock cfiBlock2
 //  214 
 //  215 /**
-//  216   * @brief  DeInitializes the MSP.  
+//  216   * @brief  DeInitializes the MSP.
 //  217   * @retval None
 //  218   */
 
@@ -546,7 +546,7 @@ HAL_InitTick:
 //  291 {
 //  292   uwTick++;
 HAL_IncTick:
-        LDR.N    R0,??DataTable17_2
+        LDR.N    R0,??DataTable18_2
         LDR      R1,[R0, #+0]
         ADDS     R1,R1,#+1
         STR      R1,[R0, #+0]
@@ -570,7 +570,7 @@ HAL_IncTick:
 //  302 {
 //  303   return uwTick;
 HAL_GetTick:
-        LDR.N    R0,??DataTable17_2
+        LDR.N    R0,??DataTable18_2
         LDR      R0,[R0, #+0]
         BX       LR               ;; return
 //  304 }
@@ -582,7 +582,7 @@ HAL_GetTick:
 //  309   * @note In the default implementation , SysTick timer is the source of time base.
 //  310   *       It is used to generate interrupts at regular time intervals where uwTick
 //  311   *       is incremented.
-//  312   * @note ThiS function is declared as __weak to be overwritten in case of other
+//  312   * @note This function is declared as __weak to be overwritten in case of other
 //  313   *       implementations in user file.
 //  314   * @param Delay: specifies the delay time length, in milliseconds.
 //  315   * @retval None
@@ -626,7 +626,7 @@ HAL_Delay:
 //  327   * @brief Suspend Tick increment.
 //  328   * @note In the default implementation , SysTick timer is the source of time base. It is
 //  329   *       used to generate interrupts at regular time intervals. Once HAL_SuspendTick()
-//  330   *       is called, the the SysTick interrupt will be disabled and so Tick increment 
+//  330   *       is called, the SysTick interrupt will be disabled and so Tick increment 
 //  331   *       is suspended.
 //  332   * @note This function is declared as __weak to be overwritten in case of other
 //  333   *       implementations in user file.
@@ -643,7 +643,7 @@ HAL_Delay:
 //  338   /* Disable SysTick Interrupt */
 //  339   SysTick->CTRL &= ~SysTick_CTRL_TICKINT_Msk;
 HAL_SuspendTick:
-        LDR.N    R0,??DataTable17_3  ;; 0xe000e010
+        LDR.N    R0,??DataTable18_3  ;; 0xe000e010
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x2
         STR      R1,[R0, #+0]
@@ -655,7 +655,7 @@ HAL_SuspendTick:
 //  343   * @brief Resume Tick increment.
 //  344   * @note In the default implementation , SysTick timer is the source of time base. It is
 //  345   *       used to generate interrupts at regular time intervals. Once HAL_ResumeTick()
-//  346   *       is called, the the SysTick interrupt will be enabled and so Tick increment 
+//  346   *       is called, the SysTick interrupt will be enabled and so Tick increment 
 //  347   *       is resumed.
 //  348   * @note This function is declared as __weak to be overwritten in case of other
 //  349   *       implementations in user file.
@@ -672,7 +672,7 @@ HAL_SuspendTick:
 //  354   /* Enable SysTick Interrupt */
 //  355   SysTick->CTRL  |= SysTick_CTRL_TICKINT_Msk;
 HAL_ResumeTick:
-        LDR.N    R0,??DataTable17_3  ;; 0xe000e010
+        LDR.N    R0,??DataTable18_3  ;; 0xe000e010
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x2
         STR      R1,[R0, #+0]
@@ -694,7 +694,7 @@ HAL_ResumeTick:
 //  363 {
 //  364  return __STM32F7xx_HAL_VERSION;
 HAL_GetHalVersion:
-        MOV      R0,#+16777472
+        LDR.N    R0,??DataTable18_4  ;; 0x1000400
         BX       LR               ;; return
 //  365 }
           CFI EndBlock cfiBlock10
@@ -713,7 +713,7 @@ HAL_GetHalVersion:
 //  372 {
 //  373    return((DBGMCU->IDCODE) >> 16);
 HAL_GetREVID:
-        LDR.N    R0,??DataTable17_4  ;; 0xe0042000
+        LDR.N    R0,??DataTable18_5  ;; 0xe0042000
         LDR      R0,[R0, #+0]
         LSRS     R0,R0,#+16
         BX       LR               ;; return
@@ -734,7 +734,7 @@ HAL_GetREVID:
 //  381 {
 //  382    return((DBGMCU->IDCODE) & IDCODE_DEVID_MASK);
 HAL_GetDEVID:
-        LDR.N    R0,??DataTable17_4  ;; 0xe0042000
+        LDR.N    R0,??DataTable18_5  ;; 0xe0042000
         LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+20
         LSRS     R0,R0,#+20
@@ -756,7 +756,7 @@ HAL_GetDEVID:
 //  390 {
 //  391   SET_BIT(DBGMCU->CR, DBGMCU_CR_DBG_SLEEP);
 HAL_DBGMCU_EnableDBGSleepMode:
-        LDR.N    R0,??DataTable17_5  ;; 0xe0042004
+        LDR.N    R0,??DataTable18_6  ;; 0xe0042004
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x1
         STR      R1,[R0, #+0]
@@ -778,7 +778,7 @@ HAL_DBGMCU_EnableDBGSleepMode:
 //  399 {
 //  400   CLEAR_BIT(DBGMCU->CR, DBGMCU_CR_DBG_SLEEP);
 HAL_DBGMCU_DisableDBGSleepMode:
-        LDR.N    R0,??DataTable17_5  ;; 0xe0042004
+        LDR.N    R0,??DataTable18_6  ;; 0xe0042004
         LDR      R1,[R0, #+0]
         LSRS     R1,R1,#+1
         LSLS     R1,R1,#+1
@@ -801,7 +801,7 @@ HAL_DBGMCU_DisableDBGSleepMode:
 //  408 {
 //  409   SET_BIT(DBGMCU->CR, DBGMCU_CR_DBG_STOP);
 HAL_DBGMCU_EnableDBGStopMode:
-        LDR.N    R0,??DataTable17_5  ;; 0xe0042004
+        LDR.N    R0,??DataTable18_6  ;; 0xe0042004
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x2
         STR      R1,[R0, #+0]
@@ -823,7 +823,7 @@ HAL_DBGMCU_EnableDBGStopMode:
 //  417 {
 //  418   CLEAR_BIT(DBGMCU->CR, DBGMCU_CR_DBG_STOP);
 HAL_DBGMCU_DisableDBGStopMode:
-        LDR.N    R0,??DataTable17_5  ;; 0xe0042004
+        LDR.N    R0,??DataTable18_6  ;; 0xe0042004
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x2
         STR      R1,[R0, #+0]
@@ -845,7 +845,7 @@ HAL_DBGMCU_DisableDBGStopMode:
 //  426 {
 //  427   SET_BIT(DBGMCU->CR, DBGMCU_CR_DBG_STANDBY);
 HAL_DBGMCU_EnableDBGStandbyMode:
-        LDR.N    R0,??DataTable17_5  ;; 0xe0042004
+        LDR.N    R0,??DataTable18_6  ;; 0xe0042004
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x4
         STR      R1,[R0, #+0]
@@ -867,7 +867,7 @@ HAL_DBGMCU_EnableDBGStandbyMode:
 //  435 {
 //  436   CLEAR_BIT(DBGMCU->CR, DBGMCU_CR_DBG_STANDBY);
 HAL_DBGMCU_DisableDBGStandbyMode:
-        LDR.N    R0,??DataTable17_5  ;; 0xe0042004
+        LDR.N    R0,??DataTable18_6  ;; 0xe0042004
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x4
         STR      R1,[R0, #+0]
@@ -891,7 +891,7 @@ HAL_DBGMCU_DisableDBGStandbyMode:
 //  446 {
 //  447   SYSCFG->CMPCR |= SYSCFG_CMPCR_CMP_PD;
 HAL_EnableCompensationCell:
-        LDR.N    R0,??DataTable17_6  ;; 0x40013820
+        LDR.N    R0,??DataTable18_7  ;; 0x40013820
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x1
         STR      R1,[R0, #+0]
@@ -915,7 +915,7 @@ HAL_EnableCompensationCell:
 //  457 {
 //  458   SYSCFG->CMPCR &= (uint32_t)~((uint32_t)SYSCFG_CMPCR_CMP_PD);
 HAL_DisableCompensationCell:
-        LDR.N    R0,??DataTable17_6  ;; 0x40013820
+        LDR.N    R0,??DataTable18_7  ;; 0x40013820
         LDR      R1,[R0, #+0]
         LSRS     R1,R1,#+1
         LSLS     R1,R1,#+1
@@ -942,7 +942,7 @@ HAL_DisableCompensationCell:
 //  470 {
 //  471   SYSCFG->MEMRMP |= SYSCFG_MEMRMP_SWP_FMC_0;
 HAL_EnableFMCMemorySwapping:
-        LDR.N    R0,??DataTable17_7  ;; 0x40013800
+        LDR.N    R0,??DataTable18_8  ;; 0x40013800
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x400
         STR      R1,[R0, #+0]
@@ -969,7 +969,7 @@ HAL_EnableFMCMemorySwapping:
 //  484 
 //  485   SYSCFG->MEMRMP &= (uint32_t)~((uint32_t)SYSCFG_MEMRMP_SWP_FMC);
 HAL_DisableFMCMemorySwapping:
-        LDR.N    R0,??DataTable17_7  ;; 0x40013800
+        LDR.N    R0,??DataTable18_8  ;; 0x40013800
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0xC00
         STR      R1,[R0, #+0]
@@ -980,49 +980,55 @@ HAL_DisableFMCMemorySwapping:
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable17:
+??DataTable18:
         DC32     0x40023c00
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable17_1:
+??DataTable18_1:
         DC32     0x40023810
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable17_2:
+??DataTable18_2:
         DC32     uwTick
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable17_3:
+??DataTable18_3:
         DC32     0xe000e010
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable17_4:
+??DataTable18_4:
+        DC32     0x1000400
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable18_5:
         DC32     0xe0042000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable17_5:
+??DataTable18_6:
         DC32     0xe0042004
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable17_6:
+??DataTable18_7:
         DC32     0x40013820
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable17_7:
+??DataTable18_8:
         DC32     0x40013800
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
@@ -1057,9 +1063,9 @@ HAL_DisableFMCMemorySwapping:
 //  504 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
 //   4 bytes in section .bss
-// 362 bytes in section .text
+// 364 bytes in section .text
 // 
-// 362 bytes of CODE memory
+// 364 bytes of CODE memory
 //   4 bytes of DATA memory
 //
 //Errors: none

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      31/Mar/2016  20:53:45
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      06/Apr/2016  18:05:30
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -132,8 +132,8 @@
 //    2   ******************************************************************************
 //    3   * @file    stm32f7xx_hal_flash.c
 //    4   * @author  MCD Application Team
-//    5   * @version V1.0.1
-//    6   * @date    25-June-2015
+//    5   * @version V1.0.4
+//    6   * @date    09-December-2015
 //    7   * @brief   FLASH HAL module driver.
 //    8   *          This file provides firmware functions to manage the following 
 //    9   *          functionalities of the internal FLASH memory:
@@ -897,8 +897,8 @@ HAL_FLASH_IRQHandler:
         LDR      R4,[R6, #+16]
 //  416         break;
 //  417       }
-//  418 			default :
-//  419 				break;
+//  418     default :
+//  419       break;
 //  420     }
 //  421     /*Save the Error code*/
 //  422     FLASH_SetErrorCode();
@@ -967,203 +967,207 @@ HAL_FLASH_IRQHandler:
         THUMB
 //  456 __weak void HAL_FLASH_EndOfOperationCallback(uint32_t ReturnValue)
 //  457 {
-//  458   /* NOTE : This function Should not be modified, when the callback is needed,
-//  459             the HAL_FLASH_EndOfOperationCallback could be implemented in the user file
-//  460    */ 
-//  461 }
+//  458   /* Prevent unused argument(s) compilation warning */
+//  459   UNUSED(ReturnValue);
+//  460   /* NOTE : This function Should not be modified, when the callback is needed,
+//  461   the HAL_FLASH_EndOfOperationCallback could be implemented in the user file
+//  462   */ 
+//  463 }
 HAL_FLASH_EndOfOperationCallback:
         BX       LR               ;; return
           CFI EndBlock cfiBlock3
-//  462 
-//  463 /**
-//  464   * @brief  FLASH operation error interrupt callback
-//  465   * @param  ReturnValue: The value saved in this parameter depends on the ongoing procedure
-//  466   *                 - Sectors Erase: Sector which has been erased (if 0xFFFFFFFF, it means that 
-//  467   *                                  all the selected sectors have been erased)
-//  468   *                 - Program      : Address which was selected for data program
-//  469   *                 - Mass Erase   : No return value expected
-//  470   * @retval None
-//  471   */
+//  464 
+//  465 /**
+//  466   * @brief  FLASH operation error interrupt callback
+//  467   * @param  ReturnValue: The value saved in this parameter depends on the ongoing procedure
+//  468   *                 - Sectors Erase: Sector which has been erased (if 0xFFFFFFFF, it means that 
+//  469   *                                  all the selected sectors have been erased)
+//  470   *                 - Program      : Address which was selected for data program
+//  471   *                 - Mass Erase   : No return value expected
+//  472   * @retval None
+//  473   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock4 Using cfiCommon0
           CFI Function HAL_FLASH_OperationErrorCallback
           CFI NoCalls
         THUMB
-//  472 __weak void HAL_FLASH_OperationErrorCallback(uint32_t ReturnValue)
-//  473 {
-//  474   /* NOTE : This function Should not be modified, when the callback is needed,
-//  475             the HAL_FLASH_OperationErrorCallback could be implemented in the user file
-//  476    */ 
-//  477 }
+//  474 __weak void HAL_FLASH_OperationErrorCallback(uint32_t ReturnValue)
+//  475 {
+//  476   /* Prevent unused argument(s) compilation warning */
+//  477   UNUSED(ReturnValue);
+//  478   /* NOTE : This function Should not be modified, when the callback is needed,
+//  479   the HAL_FLASH_OperationErrorCallback could be implemented in the user file
+//  480    */ 
+//  481 }
 HAL_FLASH_OperationErrorCallback:
         BX       LR               ;; return
           CFI EndBlock cfiBlock4
-//  478 
-//  479 /**
-//  480   * @}
-//  481   */
 //  482 
-//  483 /** @defgroup FLASH_Exported_Functions_Group2 Peripheral Control functions 
-//  484  *  @brief   management functions 
-//  485  *
-//  486 @verbatim   
-//  487  ===============================================================================
-//  488                       ##### Peripheral Control functions #####
-//  489  ===============================================================================  
-//  490     [..]
-//  491     This subsection provides a set of functions allowing to control the FLASH 
-//  492     memory operations.
-//  493 
-//  494 @endverbatim
-//  495   * @{
-//  496   */
+//  483 /**
+//  484   * @}
+//  485   */
+//  486 
+//  487 /** @defgroup FLASH_Exported_Functions_Group2 Peripheral Control functions 
+//  488  *  @brief   management functions 
+//  489  *
+//  490 @verbatim   
+//  491  ===============================================================================
+//  492                       ##### Peripheral Control functions #####
+//  493  ===============================================================================  
+//  494     [..]
+//  495     This subsection provides a set of functions allowing to control the FLASH 
+//  496     memory operations.
 //  497 
-//  498 /**
-//  499   * @brief  Unlock the FLASH control register access
-//  500   * @retval HAL Status
-//  501   */
+//  498 @endverbatim
+//  499   * @{
+//  500   */
+//  501 
+//  502 /**
+//  503   * @brief  Unlock the FLASH control register access
+//  504   * @retval HAL Status
+//  505   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock5 Using cfiCommon0
           CFI Function HAL_FLASH_Unlock
           CFI NoCalls
         THUMB
-//  502 HAL_StatusTypeDef HAL_FLASH_Unlock(void)
-//  503 {
-//  504   if((FLASH->CR & FLASH_CR_LOCK) != RESET)
+//  506 HAL_StatusTypeDef HAL_FLASH_Unlock(void)
+//  507 {
+//  508   if((FLASH->CR & FLASH_CR_LOCK) != RESET)
 HAL_FLASH_Unlock:
         LDR.N    R0,??DataTable10_2  ;; 0x40023c04
         LDR      R1,[R0, #+12]
         CMP      R1,#+0
         BPL.N    ??HAL_FLASH_Unlock_0
-//  505   {
-//  506     /* Authorize the FLASH Registers access */
-//  507     FLASH->KEYR = FLASH_KEY1;
+//  509   {
+//  510     /* Authorize the FLASH Registers access */
+//  511     FLASH->KEYR = FLASH_KEY1;
         LDR.N    R1,??DataTable10_3  ;; 0x45670123
         STR      R1,[R0, #+0]
-//  508     FLASH->KEYR = FLASH_KEY2;
+//  512     FLASH->KEYR = FLASH_KEY2;
         LDR.N    R1,??DataTable10_4  ;; 0xcdef89ab
         STR      R1,[R0, #+0]
-//  509   }
-//  510   else
-//  511   {
-//  512     return HAL_ERROR;
 //  513   }
-//  514   
-//  515   return HAL_OK; 
+//  514   else
+//  515   {
+//  516     return HAL_ERROR;
+//  517   }
+//  518   
+//  519   return HAL_OK; 
         MOVS     R0,#+0
         BX       LR
 ??HAL_FLASH_Unlock_0:
         MOVS     R0,#+1
         BX       LR               ;; return
-//  516 }
+//  520 }
           CFI EndBlock cfiBlock5
-//  517 
-//  518 /**
-//  519   * @brief  Locks the FLASH control register access
-//  520   * @retval HAL Status
-//  521   */
+//  521 
+//  522 /**
+//  523   * @brief  Locks the FLASH control register access
+//  524   * @retval HAL Status
+//  525   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock6 Using cfiCommon0
           CFI Function HAL_FLASH_Lock
           CFI NoCalls
         THUMB
-//  522 HAL_StatusTypeDef HAL_FLASH_Lock(void)
-//  523 {
-//  524   /* Set the LOCK Bit to lock the FLASH Registers access */
-//  525   FLASH->CR |= FLASH_CR_LOCK;
+//  526 HAL_StatusTypeDef HAL_FLASH_Lock(void)
+//  527 {
+//  528   /* Set the LOCK Bit to lock the FLASH Registers access */
+//  529   FLASH->CR |= FLASH_CR_LOCK;
 HAL_FLASH_Lock:
         LDR.N    R0,??DataTable10_5  ;; 0x40023c10
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x80000000
         STR      R1,[R0, #+0]
-//  526   
-//  527   return HAL_OK;  
+//  530   
+//  531   return HAL_OK;  
         MOVS     R0,#+0
         BX       LR               ;; return
-//  528 }
+//  532 }
           CFI EndBlock cfiBlock6
-//  529 
-//  530 /**
-//  531   * @brief  Unlock the FLASH Option Control Registers access.
-//  532   * @retval HAL Status
-//  533   */
+//  533 
+//  534 /**
+//  535   * @brief  Unlock the FLASH Option Control Registers access.
+//  536   * @retval HAL Status
+//  537   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock7 Using cfiCommon0
           CFI Function HAL_FLASH_OB_Unlock
           CFI NoCalls
         THUMB
-//  534 HAL_StatusTypeDef HAL_FLASH_OB_Unlock(void)
-//  535 {
-//  536   if((FLASH->OPTCR & FLASH_OPTCR_OPTLOCK) != RESET)
+//  538 HAL_StatusTypeDef HAL_FLASH_OB_Unlock(void)
+//  539 {
+//  540   if((FLASH->OPTCR & FLASH_OPTCR_OPTLOCK) != RESET)
 HAL_FLASH_OB_Unlock:
         LDR.N    R0,??DataTable10_6  ;; 0x40023c08
         LDR      R1,[R0, #+12]
         LSLS     R1,R1,#+31
         BPL.N    ??HAL_FLASH_OB_Unlock_0
-//  537   {
-//  538     /* Authorizes the Option Byte register programming */
-//  539     FLASH->OPTKEYR = FLASH_OPT_KEY1;
+//  541   {
+//  542     /* Authorizes the Option Byte register programming */
+//  543     FLASH->OPTKEYR = FLASH_OPT_KEY1;
         LDR.N    R1,??DataTable10_7  ;; 0x8192a3b
         STR      R1,[R0, #+0]
-//  540     FLASH->OPTKEYR = FLASH_OPT_KEY2;
+//  544     FLASH->OPTKEYR = FLASH_OPT_KEY2;
         LDR.N    R1,??DataTable10_8  ;; 0x4c5d6e7f
         STR      R1,[R0, #+0]
-//  541   }
-//  542   else
-//  543   {
-//  544     return HAL_ERROR;
-//  545   }  
-//  546   
-//  547   return HAL_OK;  
+//  545   }
+//  546   else
+//  547   {
+//  548     return HAL_ERROR;
+//  549   }  
+//  550   
+//  551   return HAL_OK;  
         MOVS     R0,#+0
         BX       LR
 ??HAL_FLASH_OB_Unlock_0:
         MOVS     R0,#+1
         BX       LR               ;; return
-//  548 }
+//  552 }
           CFI EndBlock cfiBlock7
-//  549 
-//  550 /**
-//  551   * @brief  Lock the FLASH Option Control Registers access.
-//  552   * @retval HAL Status 
-//  553   */
+//  553 
+//  554 /**
+//  555   * @brief  Lock the FLASH Option Control Registers access.
+//  556   * @retval HAL Status 
+//  557   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock8 Using cfiCommon0
           CFI Function HAL_FLASH_OB_Lock
           CFI NoCalls
         THUMB
-//  554 HAL_StatusTypeDef HAL_FLASH_OB_Lock(void)
-//  555 {
-//  556   /* Set the OPTLOCK Bit to lock the FLASH Option Byte Registers access */
-//  557   FLASH->OPTCR |= FLASH_OPTCR_OPTLOCK;
+//  558 HAL_StatusTypeDef HAL_FLASH_OB_Lock(void)
+//  559 {
+//  560   /* Set the OPTLOCK Bit to lock the FLASH Option Byte Registers access */
+//  561   FLASH->OPTCR |= FLASH_OPTCR_OPTLOCK;
 HAL_FLASH_OB_Lock:
         LDR.N    R0,??DataTable10_9  ;; 0x40023c14
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x1
         STR      R1,[R0, #+0]
-//  558   
-//  559   return HAL_OK;  
+//  562   
+//  563   return HAL_OK;  
         MOVS     R0,#+0
         BX       LR               ;; return
-//  560 }
+//  564 }
           CFI EndBlock cfiBlock8
-//  561 
-//  562 /**
-//  563   * @brief  Launch the option byte loading.
-//  564   * @retval HAL Status
-//  565   */
+//  565 
+//  566 /**
+//  567   * @brief  Launch the option byte loading.
+//  568   * @retval HAL Status
+//  569   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock9 Using cfiCommon0
           CFI Function HAL_FLASH_OB_Launch
         THUMB
-//  566 HAL_StatusTypeDef HAL_FLASH_OB_Launch(void)
-//  567 {
+//  570 HAL_StatusTypeDef HAL_FLASH_OB_Launch(void)
+//  571 {
 HAL_FLASH_OB_Launch:
         PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
@@ -1171,12 +1175,12 @@ HAL_FLASH_OB_Launch:
           CFI R5 Frame(CFA, -12)
           CFI R4 Frame(CFA, -16)
           CFI CFA R13+16
-//  568   /* Set the OPTSTRT bit in OPTCR register */
-//  569   FLASH->OPTCR |= FLASH_OPTCR_OPTSTRT;
+//  572   /* Set the OPTSTRT bit in OPTCR register */
+//  573   FLASH->OPTCR |= FLASH_OPTCR_OPTSTRT;
         LDR.N    R4,??DataTable10_1  ;; 0x40023c0c
-//  570 
-//  571   /* Wait for last operation to be completed */
-//  572   return(FLASH_WaitForLastOperation((uint32_t)FLASH_TIMEOUT_VALUE)); 
+//  574 
+//  575   /* Wait for last operation to be completed */
+//  576   return(FLASH_WaitForLastOperation((uint32_t)FLASH_TIMEOUT_VALUE)); 
         LDR.N    R1,??DataTable10
         MOVW     R6,#+50001
         LDR      R0,[R4, #+8]
@@ -1209,68 +1213,68 @@ HAL_FLASH_OB_Launch:
 ??HAL_FLASH_OB_Launch_2:
         MOVS     R0,#+0
         POP      {R4-R6,PC}       ;; return
-//  573 }
+//  577 }
           CFI EndBlock cfiBlock9
-//  574 
-//  575 /**
-//  576   * @}
-//  577   */
 //  578 
-//  579 /** @defgroup FLASH_Exported_Functions_Group3 Peripheral State and Errors functions 
-//  580  *  @brief   Peripheral Errors functions 
-//  581  *
-//  582 @verbatim   
-//  583  ===============================================================================
-//  584                 ##### Peripheral Errors functions #####
-//  585  ===============================================================================  
-//  586     [..]
-//  587     This subsection permits to get in run-time Errors of the FLASH peripheral.
-//  588 
-//  589 @endverbatim
-//  590   * @{
-//  591   */
+//  579 /**
+//  580   * @}
+//  581   */
+//  582 
+//  583 /** @defgroup FLASH_Exported_Functions_Group3 Peripheral State and Errors functions 
+//  584  *  @brief   Peripheral Errors functions 
+//  585  *
+//  586 @verbatim   
+//  587  ===============================================================================
+//  588                 ##### Peripheral Errors functions #####
+//  589  ===============================================================================  
+//  590     [..]
+//  591     This subsection permits to get in run-time Errors of the FLASH peripheral.
 //  592 
-//  593 /**
-//  594   * @brief  Get the specific FLASH error flag.
-//  595   * @retval FLASH_ErrorCode: The returned value can be:
-//  596   *            @arg FLASH_ERROR_ERS: FLASH Erasing Sequence error flag 
-//  597   *            @arg FLASH_ERROR_PGP: FLASH Programming Parallelism error flag  
-//  598   *            @arg FLASH_ERROR_PGA: FLASH Programming Alignment error flag
-//  599   *            @arg FLASH_ERROR_WRP: FLASH Write protected error flag
-//  600   *            @arg FLASH_ERROR_OPERATION: FLASH operation Error flag 
-//  601   */
+//  593 @endverbatim
+//  594   * @{
+//  595   */
+//  596 
+//  597 /**
+//  598   * @brief  Get the specific FLASH error flag.
+//  599   * @retval FLASH_ErrorCode: The returned value can be:
+//  600   *            @arg FLASH_ERROR_ERS: FLASH Erasing Sequence error flag 
+//  601   *            @arg FLASH_ERROR_PGP: FLASH Programming Parallelism error flag  
+//  602   *            @arg FLASH_ERROR_PGA: FLASH Programming Alignment error flag
+//  603   *            @arg FLASH_ERROR_WRP: FLASH Write protected error flag
+//  604   *            @arg FLASH_ERROR_OPERATION: FLASH operation Error flag 
+//  605   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock10 Using cfiCommon0
           CFI Function HAL_FLASH_GetError
           CFI NoCalls
         THUMB
-//  602 uint32_t HAL_FLASH_GetError(void)
-//  603 { 
-//  604    return pFlash.ErrorCode;
+//  606 uint32_t HAL_FLASH_GetError(void)
+//  607 { 
+//  608    return pFlash.ErrorCode;
 HAL_FLASH_GetError:
         LDR.N    R0,??DataTable10
         LDR      R0,[R0, #+24]
         BX       LR               ;; return
-//  605 }  
+//  609 }  
           CFI EndBlock cfiBlock10
-//  606   
-//  607 /**
-//  608   * @}
-//  609   */    
-//  610 
+//  610   
 //  611 /**
-//  612   * @brief  Wait for a FLASH operation to complete.
-//  613   * @param  Timeout: maximum flash operationtimeout
-//  614   * @retval HAL Status
-//  615   */
+//  612   * @}
+//  613   */    
+//  614 
+//  615 /**
+//  616   * @brief  Wait for a FLASH operation to complete.
+//  617   * @param  Timeout: maximum flash operationtimeout
+//  618   * @retval HAL Status
+//  619   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock11 Using cfiCommon0
           CFI Function FLASH_WaitForLastOperation
         THUMB
-//  616 HAL_StatusTypeDef FLASH_WaitForLastOperation(uint32_t Timeout)
-//  617 { 
+//  620 HAL_StatusTypeDef FLASH_WaitForLastOperation(uint32_t Timeout)
+//  621 { 
 FLASH_WaitForLastOperation:
         PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
@@ -1279,267 +1283,267 @@ FLASH_WaitForLastOperation:
           CFI R4 Frame(CFA, -16)
           CFI CFA R13+16
         MOV      R4,R0
-//  618   uint32_t tickstart = 0;
-//  619   
-//  620   /* Clear Error Code */
-//  621   pFlash.ErrorCode = HAL_FLASH_ERROR_NONE;
+//  622   uint32_t tickstart = 0;
+//  623   
+//  624   /* Clear Error Code */
+//  625   pFlash.ErrorCode = HAL_FLASH_ERROR_NONE;
         MOVS     R0,#+0
         LDR.N    R1,??DataTable10
         LDR.N    R6,??DataTable10_1  ;; 0x40023c0c
         STR      R0,[R1, #+24]
-//  622   
-//  623   /* Wait for the FLASH operation to complete by polling on BUSY flag to be reset.
-//  624      Even if the FLASH operation fails, the BUSY flag will be reset and an error
-//  625      flag will be set */
-//  626   /* Get tick */
-//  627   tickstart = HAL_GetTick();
+//  626   
+//  627   /* Wait for the FLASH operation to complete by polling on BUSY flag to be reset.
+//  628      Even if the FLASH operation fails, the BUSY flag will be reset and an error
+//  629      flag will be set */
+//  630   /* Get tick */
+//  631   tickstart = HAL_GetTick();
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         MOV      R5,R0
-//  628 
-//  629   while(__HAL_FLASH_GET_FLAG(FLASH_FLAG_BSY) != RESET) 
+//  632 
+//  633   while(__HAL_FLASH_GET_FLAG(FLASH_FLAG_BSY) != RESET) 
 ??FLASH_WaitForLastOperation_0:
         LDR      R0,[R6, #+0]
         LSLS     R0,R0,#+15
         BPL.N    ??FLASH_WaitForLastOperation_1
-//  630   { 
-//  631     if(Timeout != HAL_MAX_DELAY)
+//  634   { 
+//  635     if(Timeout != HAL_MAX_DELAY)
         CMN      R4,#+1
         BEQ.N    ??FLASH_WaitForLastOperation_0
-//  632     {
-//  633       if((Timeout == 0)||((HAL_GetTick() - tickstart ) > Timeout))
+//  636     {
+//  637       if((Timeout == 0)||((HAL_GetTick() - tickstart ) > Timeout))
         CBZ.N    R4,??FLASH_WaitForLastOperation_2
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         SUBS     R0,R0,R5
         CMP      R4,R0
         BCS.N    ??FLASH_WaitForLastOperation_0
-//  634       {
-//  635         return HAL_TIMEOUT;
+//  638       {
+//  639         return HAL_TIMEOUT;
 ??FLASH_WaitForLastOperation_2:
         MOVS     R0,#+3
         POP      {R4-R6,PC}
-//  636       }
-//  637     } 
-//  638   }
-//  639   
-//  640   if(__HAL_FLASH_GET_FLAG((FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | \ 
-//  641                            FLASH_FLAG_PGPERR | FLASH_FLAG_ERSERR )) != RESET)
+//  640       }
+//  641     } 
+//  642   }
+//  643   
+//  644   if(__HAL_FLASH_GET_FLAG((FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | \ 
+//  645                            FLASH_FLAG_PGPERR | FLASH_FLAG_ERSERR )) != RESET)
 ??FLASH_WaitForLastOperation_1:
         LDR      R0,[R6, #+0]
         TST      R0,#0xF2
         BEQ.N    ??FLASH_WaitForLastOperation_3
-//  642   {
-//  643     /*Save the error code*/
-//  644     FLASH_SetErrorCode();
+//  646   {
+//  647     /*Save the error code*/
+//  648     FLASH_SetErrorCode();
           CFI FunCall FLASH_SetErrorCode
         BL       FLASH_SetErrorCode
-//  645     return HAL_ERROR;
+//  649     return HAL_ERROR;
         MOVS     R0,#+1
         POP      {R4-R6,PC}
-//  646   }
-//  647 
-//  648   /* If there is an error flag set */
-//  649   return HAL_OK;
+//  650   }
+//  651 
+//  652   /* If there is an error flag set */
+//  653   return HAL_OK;
 ??FLASH_WaitForLastOperation_3:
         MOVS     R0,#+0
         POP      {R4-R6,PC}       ;; return
-//  650   
-//  651 }  
+//  654   
+//  655 }  
           CFI EndBlock cfiBlock11
-//  652 
-//  653 /**
-//  654   * @brief  Program a double word (64-bit) at a specified address.
-//  655   * @note   This function must be used when the device voltage range is from
-//  656   *         2.7V to 3.6V and an External Vpp is present.
-//  657   *
-//  658   * @note   If an erase and a program operations are requested simultaneously,    
-//  659   *         the erase operation is performed before the program one.
-//  660   *  
-//  661   * @param  Address: specifies the address to be programmed.
-//  662   * @param  Data: specifies the data to be programmed.
-//  663   * @retval None
-//  664   */
-//  665 static void FLASH_Program_DoubleWord(uint32_t Address, uint64_t Data)
-//  666 {
-//  667   /* Check the parameters */
-//  668   assert_param(IS_FLASH_ADDRESS(Address));
-//  669   
-//  670   /* If the previous operation is completed, proceed to program the new data */
-//  671   FLASH->CR &= CR_PSIZE_MASK;
-//  672   FLASH->CR |= FLASH_PSIZE_DOUBLE_WORD;
-//  673   FLASH->CR |= FLASH_CR_PG;
-//  674   
-//  675   *(__IO uint64_t*)Address = Data;
-//  676   
-//  677   /* Data synchronous Barrier (DSB) Just after the write operation
-//  678      This will force the CPU to respect the sequence of instruction (no optimization).*/
-//  679   __DSB();
-//  680 }
-//  681 
-//  682 
-//  683 /**
-//  684   * @brief  Program word (32-bit) at a specified address.
-//  685   * @note   This function must be used when the device voltage range is from
-//  686   *         2.7V to 3.6V.
-//  687   *
-//  688   * @note   If an erase and a program operations are requested simultaneously,    
-//  689   *         the erase operation is performed before the program one.
-//  690   *  
-//  691   * @param  Address: specifies the address to be programmed.
-//  692   * @param  Data: specifies the data to be programmed.
-//  693   * @retval None
-//  694   */
-//  695 static void FLASH_Program_Word(uint32_t Address, uint32_t Data)
-//  696 {
-//  697   /* Check the parameters */
-//  698   assert_param(IS_FLASH_ADDRESS(Address));
-//  699   
-//  700   /* If the previous operation is completed, proceed to program the new data */
-//  701   FLASH->CR &= CR_PSIZE_MASK;
-//  702   FLASH->CR |= FLASH_PSIZE_WORD;
-//  703   FLASH->CR |= FLASH_CR_PG;
-//  704 
-//  705   *(__IO uint32_t*)Address = Data;
-//  706   
-//  707   /* Data synchronous Barrier (DSB) Just after the write operation
-//  708      This will force the CPU to respect the sequence of instruction (no optimization).*/
-//  709   __DSB();
-//  710 }
-//  711 
-//  712 /**
-//  713   * @brief  Program a half-word (16-bit) at a specified address.
-//  714   * @note   This function must be used when the device voltage range is from
-//  715   *         2.7V to 3.6V.
-//  716   *
-//  717   * @note   If an erase and a program operations are requested simultaneously,    
-//  718   *         the erase operation is performed before the program one.
-//  719   *  
-//  720   * @param  Address: specifies the address to be programmed.
-//  721   * @param  Data: specifies the data to be programmed.
-//  722   * @retval None
-//  723   */
-//  724 static void FLASH_Program_HalfWord(uint32_t Address, uint16_t Data)
-//  725 {
-//  726   /* Check the parameters */
-//  727   assert_param(IS_FLASH_ADDRESS(Address));
-//  728   
-//  729   /* If the previous operation is completed, proceed to program the new data */
-//  730   FLASH->CR &= CR_PSIZE_MASK;
-//  731   FLASH->CR |= FLASH_PSIZE_HALF_WORD;
-//  732   FLASH->CR |= FLASH_CR_PG;
-//  733 
-//  734   *(__IO uint16_t*)Address = Data;
-//  735 
-//  736   /* Data synchronous Barrier (DSB) Just after the write operation
-//  737      This will force the CPU to respect the sequence of instruction (no optimization).*/
-//  738   __DSB();
-//  739   
-//  740 }
-//  741 
-//  742 /**
-//  743   * @brief  Program byte (8-bit) at a specified address.
-//  744   * @note   This function must be used when the device voltage range is from
-//  745   *         2.7V to 3.6V.
-//  746   *
-//  747   * @note   If an erase and a program operations are requested simultaneously,    
-//  748   *         the erase operation is performed before the program one.
-//  749   *  
-//  750   * @param  Address: specifies the address to be programmed.
-//  751   * @param  Data: specifies the data to be programmed.
-//  752   * @retval None
-//  753   */
-//  754 static void FLASH_Program_Byte(uint32_t Address, uint8_t Data)
-//  755 {
-//  756   /* Check the parameters */
-//  757   assert_param(IS_FLASH_ADDRESS(Address));
-//  758   
-//  759   /* If the previous operation is completed, proceed to program the new data */
-//  760   FLASH->CR &= CR_PSIZE_MASK;
-//  761   FLASH->CR |= FLASH_PSIZE_BYTE;
-//  762   FLASH->CR |= FLASH_CR_PG;
-//  763 
-//  764   *(__IO uint8_t*)Address = Data;
-//  765 
-//  766   /* Data synchronous Barrier (DSB) Just after the write operation
-//  767      This will force the CPU to respect the sequence of instruction (no optimization).*/
-//  768   __DSB();
-//  769 }
-//  770 
-//  771 /**
-//  772   * @brief  Set the specific FLASH error flag.
-//  773   * @retval None
-//  774   */
+//  656 
+//  657 /**
+//  658   * @brief  Program a double word (64-bit) at a specified address.
+//  659   * @note   This function must be used when the device voltage range is from
+//  660   *         2.7V to 3.6V and an External Vpp is present.
+//  661   *
+//  662   * @note   If an erase and a program operations are requested simultaneously,    
+//  663   *         the erase operation is performed before the program one.
+//  664   *  
+//  665   * @param  Address: specifies the address to be programmed.
+//  666   * @param  Data: specifies the data to be programmed.
+//  667   * @retval None
+//  668   */
+//  669 static void FLASH_Program_DoubleWord(uint32_t Address, uint64_t Data)
+//  670 {
+//  671   /* Check the parameters */
+//  672   assert_param(IS_FLASH_ADDRESS(Address));
+//  673   
+//  674   /* If the previous operation is completed, proceed to program the new data */
+//  675   FLASH->CR &= CR_PSIZE_MASK;
+//  676   FLASH->CR |= FLASH_PSIZE_DOUBLE_WORD;
+//  677   FLASH->CR |= FLASH_CR_PG;
+//  678   
+//  679   *(__IO uint64_t*)Address = Data;
+//  680   
+//  681   /* Data synchronous Barrier (DSB) Just after the write operation
+//  682      This will force the CPU to respect the sequence of instruction (no optimization).*/
+//  683   __DSB();
+//  684 }
+//  685 
+//  686 
+//  687 /**
+//  688   * @brief  Program word (32-bit) at a specified address.
+//  689   * @note   This function must be used when the device voltage range is from
+//  690   *         2.7V to 3.6V.
+//  691   *
+//  692   * @note   If an erase and a program operations are requested simultaneously,    
+//  693   *         the erase operation is performed before the program one.
+//  694   *  
+//  695   * @param  Address: specifies the address to be programmed.
+//  696   * @param  Data: specifies the data to be programmed.
+//  697   * @retval None
+//  698   */
+//  699 static void FLASH_Program_Word(uint32_t Address, uint32_t Data)
+//  700 {
+//  701   /* Check the parameters */
+//  702   assert_param(IS_FLASH_ADDRESS(Address));
+//  703   
+//  704   /* If the previous operation is completed, proceed to program the new data */
+//  705   FLASH->CR &= CR_PSIZE_MASK;
+//  706   FLASH->CR |= FLASH_PSIZE_WORD;
+//  707   FLASH->CR |= FLASH_CR_PG;
+//  708 
+//  709   *(__IO uint32_t*)Address = Data;
+//  710   
+//  711   /* Data synchronous Barrier (DSB) Just after the write operation
+//  712      This will force the CPU to respect the sequence of instruction (no optimization).*/
+//  713   __DSB();
+//  714 }
+//  715 
+//  716 /**
+//  717   * @brief  Program a half-word (16-bit) at a specified address.
+//  718   * @note   This function must be used when the device voltage range is from
+//  719   *         2.7V to 3.6V.
+//  720   *
+//  721   * @note   If an erase and a program operations are requested simultaneously,    
+//  722   *         the erase operation is performed before the program one.
+//  723   *  
+//  724   * @param  Address: specifies the address to be programmed.
+//  725   * @param  Data: specifies the data to be programmed.
+//  726   * @retval None
+//  727   */
+//  728 static void FLASH_Program_HalfWord(uint32_t Address, uint16_t Data)
+//  729 {
+//  730   /* Check the parameters */
+//  731   assert_param(IS_FLASH_ADDRESS(Address));
+//  732   
+//  733   /* If the previous operation is completed, proceed to program the new data */
+//  734   FLASH->CR &= CR_PSIZE_MASK;
+//  735   FLASH->CR |= FLASH_PSIZE_HALF_WORD;
+//  736   FLASH->CR |= FLASH_CR_PG;
+//  737 
+//  738   *(__IO uint16_t*)Address = Data;
+//  739 
+//  740   /* Data synchronous Barrier (DSB) Just after the write operation
+//  741      This will force the CPU to respect the sequence of instruction (no optimization).*/
+//  742   __DSB();
+//  743   
+//  744 }
+//  745 
+//  746 /**
+//  747   * @brief  Program byte (8-bit) at a specified address.
+//  748   * @note   This function must be used when the device voltage range is from
+//  749   *         2.7V to 3.6V.
+//  750   *
+//  751   * @note   If an erase and a program operations are requested simultaneously,    
+//  752   *         the erase operation is performed before the program one.
+//  753   *  
+//  754   * @param  Address: specifies the address to be programmed.
+//  755   * @param  Data: specifies the data to be programmed.
+//  756   * @retval None
+//  757   */
+//  758 static void FLASH_Program_Byte(uint32_t Address, uint8_t Data)
+//  759 {
+//  760   /* Check the parameters */
+//  761   assert_param(IS_FLASH_ADDRESS(Address));
+//  762   
+//  763   /* If the previous operation is completed, proceed to program the new data */
+//  764   FLASH->CR &= CR_PSIZE_MASK;
+//  765   FLASH->CR |= FLASH_PSIZE_BYTE;
+//  766   FLASH->CR |= FLASH_CR_PG;
+//  767 
+//  768   *(__IO uint8_t*)Address = Data;
+//  769 
+//  770   /* Data synchronous Barrier (DSB) Just after the write operation
+//  771      This will force the CPU to respect the sequence of instruction (no optimization).*/
+//  772   __DSB();
+//  773 }
+//  774 
+//  775 /**
+//  776   * @brief  Set the specific FLASH error flag.
+//  777   * @retval None
+//  778   */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock12 Using cfiCommon0
           CFI Function FLASH_SetErrorCode
           CFI NoCalls
         THUMB
-//  775 static void FLASH_SetErrorCode(void)
-//  776 { 
-//  777   if(__HAL_FLASH_GET_FLAG(FLASH_FLAG_WRPERR) != RESET)
+//  779 static void FLASH_SetErrorCode(void)
+//  780 { 
+//  781   if(__HAL_FLASH_GET_FLAG(FLASH_FLAG_WRPERR) != RESET)
 FLASH_SetErrorCode:
         LDR.N    R1,??DataTable10_1  ;; 0x40023c0c
         LDR.N    R0,??DataTable10
         LDR      R2,[R1, #+0]
         LSLS     R2,R2,#+27
         BPL.N    ??FLASH_SetErrorCode_0
-//  778   {
-//  779    pFlash.ErrorCode |= HAL_FLASH_ERROR_WRP;
+//  782   {
+//  783    pFlash.ErrorCode |= HAL_FLASH_ERROR_WRP;
         LDR      R2,[R0, #+24]
         ORR      R2,R2,#0x10
         STR      R2,[R0, #+24]
-//  780   }
-//  781   
-//  782   if(__HAL_FLASH_GET_FLAG(FLASH_FLAG_PGAERR) != RESET)
+//  784   }
+//  785   
+//  786   if(__HAL_FLASH_GET_FLAG(FLASH_FLAG_PGAERR) != RESET)
 ??FLASH_SetErrorCode_0:
         LDR      R2,[R1, #+0]
         LSLS     R2,R2,#+26
         BPL.N    ??FLASH_SetErrorCode_1
-//  783   {
-//  784    pFlash.ErrorCode |= HAL_FLASH_ERROR_PGA;
+//  787   {
+//  788    pFlash.ErrorCode |= HAL_FLASH_ERROR_PGA;
         LDR      R2,[R0, #+24]
         ORR      R2,R2,#0x8
         STR      R2,[R0, #+24]
-//  785   }
-//  786   
-//  787   if(__HAL_FLASH_GET_FLAG(FLASH_FLAG_PGPERR) != RESET)
+//  789   }
+//  790   
+//  791   if(__HAL_FLASH_GET_FLAG(FLASH_FLAG_PGPERR) != RESET)
 ??FLASH_SetErrorCode_1:
         LDR      R2,[R1, #+0]
         LSLS     R2,R2,#+25
         BPL.N    ??FLASH_SetErrorCode_2
-//  788   {
-//  789     pFlash.ErrorCode |= HAL_FLASH_ERROR_PGP;
+//  792   {
+//  793     pFlash.ErrorCode |= HAL_FLASH_ERROR_PGP;
         LDR      R2,[R0, #+24]
         ORR      R2,R2,#0x4
         STR      R2,[R0, #+24]
-//  790   }
-//  791   
-//  792   if(__HAL_FLASH_GET_FLAG(FLASH_FLAG_ERSERR) != RESET)
+//  794   }
+//  795   
+//  796   if(__HAL_FLASH_GET_FLAG(FLASH_FLAG_ERSERR) != RESET)
 ??FLASH_SetErrorCode_2:
         LDR      R2,[R1, #+0]
         LSLS     R2,R2,#+24
         BPL.N    ??FLASH_SetErrorCode_3
-//  793   {
-//  794     pFlash.ErrorCode |= HAL_FLASH_ERROR_ERS;
+//  797   {
+//  798     pFlash.ErrorCode |= HAL_FLASH_ERROR_ERS;
         LDR      R2,[R0, #+24]
         ORR      R2,R2,#0x2
         STR      R2,[R0, #+24]
-//  795   }
-//  796   
-//  797   if(__HAL_FLASH_GET_FLAG(FLASH_FLAG_OPERR) != RESET)
+//  799   }
+//  800   
+//  801   if(__HAL_FLASH_GET_FLAG(FLASH_FLAG_OPERR) != RESET)
 ??FLASH_SetErrorCode_3:
         LDR      R1,[R1, #+0]
         LSLS     R1,R1,#+30
         BPL.N    ??FLASH_SetErrorCode_4
-//  798   {
-//  799     pFlash.ErrorCode |= HAL_FLASH_ERROR_OPERATION;
+//  802   {
+//  803     pFlash.ErrorCode |= HAL_FLASH_ERROR_OPERATION;
         LDR      R1,[R0, #+24]
         ORR      R1,R1,#0x20
         STR      R1,[R0, #+24]
-//  800   }
-//  801 }
+//  804   }
+//  805 }
 ??FLASH_SetErrorCode_4:
         BX       LR               ;; return
           CFI EndBlock cfiBlock12
@@ -1616,22 +1620,22 @@ FLASH_SetErrorCode:
         SECTION_TYPE SHT_PROGBITS, 0
 
         END
-//  802 
-//  803 /**
-//  804   * @}
-//  805   */
 //  806 
-//  807 #endif /* HAL_FLASH_MODULE_ENABLED */
-//  808 
-//  809 /**
-//  810   * @}
-//  811   */
+//  807 /**
+//  808   * @}
+//  809   */
+//  810 
+//  811 #endif /* HAL_FLASH_MODULE_ENABLED */
 //  812 
 //  813 /**
 //  814   * @}
 //  815   */
 //  816 
-//  817 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+//  817 /**
+//  818   * @}
+//  819   */
+//  820 
+//  821 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
 //    28 bytes in section .bss
 // 1 010 bytes in section .text

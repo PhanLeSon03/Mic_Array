@@ -245,7 +245,7 @@ SPI_I2S_ReceiveData(SPI1);
   * @retval None
 */
 
-void SPI1_IRQHandler(void)
+	void SPI1_IRQHandler(void)
 {  
       int16_t tmpTest;
 	  static uint8_t stLR,stLROld;
@@ -274,44 +274,44 @@ void SPI1_IRQHandler(void)
 					{
 					   switch (buffer_switch)
 					   {
-							case BUF1_PLAY:
-									Buffer2.bufMIC1[WaveRec_idxSens1] = vRawSens1;//vRawSens1;								
-									break;
-							case BUF2_PLAY:
-									Buffer3.bufMIC1[WaveRec_idxSens1] = vRawSens1;//vRawSens1;
-									break;
-							case BUF3_PLAY:
-									Buffer1.bufMIC1[WaveRec_idxSens1] = vRawSens1;//vRawSens1;									
-									break;
-							default:
-									break; 
+                                              case BUF1_PLAY:
+                                                  Buffer2.bufMIC1[WaveRec_idxSens1] = vRawSens1;//vRawSens1;								
+                                                  break;
+                                              case BUF2_PLAY:
+                                                  Buffer3.bufMIC1[WaveRec_idxSens1] = vRawSens1;//vRawSens1;
+                                                  break;
+                                              case BUF3_PLAY:
+                                                  Buffer1.bufMIC1[WaveRec_idxSens1] = vRawSens1;//vRawSens1;									
+                                                  break;
+                                              default:
+                                                  break; 
 					   
 					   }
 					  
 					}
-					else
-					{
-						switch (buffer_switch)
-						{
-						    case BUF1_PLAY:
-						                    Buffer1.bufMIC1[WaveRec_idxSens1%AUDIO_OUT_BUFFER_SIZE] = vRawSens1;//vRawSens1;									
-						                    break;
-						    case BUF2_PLAY:
-						                    Buffer2.bufMIC1[WaveRec_idxSens1%AUDIO_OUT_BUFFER_SIZE] = vRawSens1;//vRawSens1;	
-						                    break;
-						    case BUF3_PLAY:
-						                    Buffer3.bufMIC1[WaveRec_idxSens1%AUDIO_OUT_BUFFER_SIZE] = vRawSens1;//vRawSens1;										
-						                    break;
-						    default:
-						                    break; 
-						}
-					}
+//					else
+//					{
+//						switch (buffer_switch)
+//						{
+//						    case BUF1_PLAY:
+//						                    Buffer1.bufMIC1[WaveRec_idxSens1%AUDIO_OUT_BUFFER_SIZE] = vRawSens1;//vRawSens1;									
+//						                    break;
+//						    case BUF2_PLAY:
+//						                    Buffer2.bufMIC1[WaveRec_idxSens1%AUDIO_OUT_BUFFER_SIZE] = vRawSens1;//vRawSens1;	
+//						                    break;
+//						    case BUF3_PLAY:
+//						                    Buffer3.bufMIC1[WaveRec_idxSens1%AUDIO_OUT_BUFFER_SIZE] = vRawSens1;//vRawSens1;										
+//						                    break;
+//						    default:
+//						                    break; 
+//						}
+//					}
 
 					 WaveRec_idxSens1++;
 
-			if ((WaveRec_idxSens1 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x01;
-
-			if (flgRacing==0x3F)  SubFrameFinished();                    
+//			      if ((WaveRec_idxSens1 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x01;
+//
+//			       if (flgRacing==0x3F)  SubFrameFinished();                    
 		       	}
 		}
 		else
@@ -340,33 +340,33 @@ void SPI1_IRQHandler(void)
 				        }
 					
                  }
-                 else
-                 {
-
-					 /* Recording Audio Data */ 					  
-					 switch (buffer_switch)
-					 {
-						 case BUF1_PLAY:
-							 Buffer1.bufMIC2[WaveRec_idxSens2%AUDIO_OUT_BUFFER_SIZE] = vRawSens2;								 
-							 break;
-						 case BUF2_PLAY:
-							 Buffer2.bufMIC2[WaveRec_idxSens2%AUDIO_OUT_BUFFER_SIZE] = vRawSens2;
-							 break;
-						 case BUF3_PLAY:
-							 Buffer3.bufMIC2[WaveRec_idxSens2%AUDIO_OUT_BUFFER_SIZE] = vRawSens2;									 
-							 break;
-						 default:
-							 break; 
-					
-					}
-
-			       }
+//                 else
+//                 {
+//
+//					 /* Recording Audio Data */ 					  
+//					 switch (buffer_switch)
+//					 {
+//						 case BUF1_PLAY:
+//							 Buffer1.bufMIC2[WaveRec_idxSens2%AUDIO_OUT_BUFFER_SIZE] = vRawSens2;								 
+//							 break;
+//						 case BUF2_PLAY:
+//							 Buffer2.bufMIC2[WaveRec_idxSens2%AUDIO_OUT_BUFFER_SIZE] = vRawSens2;
+//							 break;
+//						 case BUF3_PLAY:
+//							 Buffer3.bufMIC2[WaveRec_idxSens2%AUDIO_OUT_BUFFER_SIZE] = vRawSens2;									 
+//							 break;
+//						 default:
+//							 break; 
+//					
+//					}
+//
+//			       }
 
 				    WaveRec_idxSens2++;
 
-			if ((WaveRec_idxSens2 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x02;
-
-			if (flgRacing==0x3F)  SubFrameFinished();			      
+//			if ((WaveRec_idxSens2 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x02;
+//
+//			if (flgRacing==0x3F)  SubFrameFinished();			      
 					
 
 			  }
@@ -403,12 +403,10 @@ void SPI1_IRQHandler(void)
 				   switch (buffer_switch)
 				   {
 							case BUF1_PLAY:
-
                                 if (WaveRec_idxSens1<=WaveRec_idxSens2)
 									Buffer2.bufMIC1[WaveRec_idxSens1++] = vRawSens1;
 							    else
 									Buffer2.bufMIC2[WaveRec_idxSens2++] = vRawSens2;									
-
 	
 									break;
 							case BUF2_PLAY:
@@ -416,14 +414,12 @@ void SPI1_IRQHandler(void)
 									Buffer3.bufMIC1[WaveRec_idxSens1++] = vRawSens1;
 							    else
 									Buffer3.bufMIC2[WaveRec_idxSens2++] = vRawSens2;	
-
 									break;
 							case BUF3_PLAY:
                                 if (WaveRec_idxSens1<=WaveRec_idxSens2)
 									Buffer1.bufMIC1[WaveRec_idxSens1++] = vRawSens1;
 							    else
 									Buffer1.bufMIC2[WaveRec_idxSens2++] = vRawSens2;									
-
 									break;
 							default:
 									break; 
@@ -488,29 +484,29 @@ void SPI2_IRQHandler(void)
 				}
 				
 			}
-			else
-			{
-				switch (buffer_switch)
-				{
-					case BUF1_PLAY:
-						Buffer1.bufMIC3[WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE] = vRawSens3;								
-						break;
-					case BUF2_PLAY:
-						Buffer2.bufMIC3[WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE] = vRawSens3;
-						break;
-					case BUF3_PLAY:
-						Buffer3.bufMIC3[WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE] = vRawSens3;									
-						break;
-					default:
-						break; 
-				}
-			}
+//			else
+//			{
+//				switch (buffer_switch)
+//				{
+//					case BUF1_PLAY:
+//						Buffer1.bufMIC3[WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE] = vRawSens3;								
+//						break;
+//					case BUF2_PLAY:
+//						Buffer2.bufMIC3[WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE] = vRawSens3;
+//						break;
+//					case BUF3_PLAY:
+//						Buffer3.bufMIC3[WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE] = vRawSens3;									
+//						break;
+//					default:
+//						break; 
+//				}
+//			}
 
 		    WaveRec_idxSens3++;
 
-			if ((WaveRec_idxSens3 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x04;
-
-			if (flgRacing==0x3F)  SubFrameFinished();
+//			if ((WaveRec_idxSens3 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x04;
+//
+//			if (flgRacing==0x3F)  SubFrameFinished();
 			
 		}
 		
@@ -539,27 +535,27 @@ void SPI2_IRQHandler(void)
 
 						
                   }
-                  else
-                  {
-                      switch (buffer_switch)
-                      {	 
-                          case BUF1_PLAY:
-                                  Buffer1.bufMIC4[WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE] = vRawSens4;								
-                                  break;
-                          case BUF2_PLAY:
-                                  Buffer2.bufMIC4[WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE] = vRawSens4;
-                                  break;
-                          case BUF3_PLAY:
-                                  Buffer3.bufMIC4[WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE] = vRawSens4;									
-                                  break;
-                          default:
-                                  break; 
-                      }
-                    }
+//                  else
+//                  {
+//                      switch (buffer_switch)
+//                      {	 
+//                          case BUF1_PLAY:
+//                                  Buffer1.bufMIC4[WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE] = vRawSens4;								
+//                                  break;
+//                          case BUF2_PLAY:
+//                                  Buffer2.bufMIC4[WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE] = vRawSens4;
+//                                  break;
+//                          case BUF3_PLAY:
+//                                  Buffer3.bufMIC4[WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE] = vRawSens4;									
+//                                  break;
+//                          default:
+//                                  break; 
+//                      }
+//                    }
 				  WaveRec_idxSens4++;
 
-			if ((WaveRec_idxSens4 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x08;
-			if (flgRacing==0x3F)  SubFrameFinished();				  
+//			if ((WaveRec_idxSens4 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x08;
+//			if (flgRacing==0x3F)  SubFrameFinished();				  
                     
             }
 	 }//else
@@ -574,7 +570,6 @@ void SPI2_IRQHandler(void)
 	 {
 		 iSDO34=0;
 	 }
-
 	 if ((WaveRec_idxSens3 < (2*AUDIO_OUT_BUFFER_SIZE+5))&&(WaveRec_idxSens4 < (2*AUDIO_OUT_BUFFER_SIZE+5)))
 //             &&(I2S2_stLR!=I2S2_stLROld))
 	 {
@@ -688,32 +683,32 @@ void SPI4_IRQHandler(void)
 
 					
                }
-               else
-               {
-                 /* Recording Audio Data */			             
-                 switch (buffer_switch)
-                 {
-                     case BUF1_PLAY:
-                         Buffer1.bufMIC5[WaveRec_idxSens5%AUDIO_OUT_BUFFER_SIZE] = vRawSens5;
-
-                         break;
-                     case BUF2_PLAY:
-                         Buffer2.bufMIC5[WaveRec_idxSens5%AUDIO_OUT_BUFFER_SIZE] = vRawSens5;
-
-                         break;
-                     case BUF3_PLAY:
-                         Buffer3.bufMIC5[WaveRec_idxSens5%AUDIO_OUT_BUFFER_SIZE] = vRawSens5;
-
-                         break;                          
-                     default:
-                         break;
-                 }
-               }
+//               else
+//               {
+//                 /* Recording Audio Data */			             
+//                 switch (buffer_switch)
+//                 {
+//                     case BUF1_PLAY:
+//                         Buffer1.bufMIC5[WaveRec_idxSens5%AUDIO_OUT_BUFFER_SIZE] = vRawSens5;
+//
+//                         break;
+//                     case BUF2_PLAY:
+//                         Buffer2.bufMIC5[WaveRec_idxSens5%AUDIO_OUT_BUFFER_SIZE] = vRawSens5;
+//
+//                         break;
+//                     case BUF3_PLAY:
+//                         Buffer3.bufMIC5[WaveRec_idxSens5%AUDIO_OUT_BUFFER_SIZE] = vRawSens5;
+//
+//                         break;                          
+//                     default:
+//                         break;
+//                 }
+//               }
 
 			    WaveRec_idxSens5++;
-			if ((WaveRec_idxSens5 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x10;
-
-			if (flgRacing==0x3F)  SubFrameFinished();				
+//			if ((WaveRec_idxSens5 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x10;
+//
+//			if (flgRacing==0x3F)  SubFrameFinished();				
 	   }
         }
 	else
@@ -759,34 +754,34 @@ void SPI4_IRQHandler(void)
 
 					  
                }
-               else
-               {
-                  /* Recording Audio Data */						 
-                   switch (buffer_switch)
-                   {
-                           case BUF1_PLAY:
-                                   Buffer1.bufMIC6[WaveRec_idxSens6 % AUDIO_OUT_BUFFER_SIZE] = vRawSens6;
-                  
-                                   break;
-                           case BUF2_PLAY:
-                                   Buffer2.bufMIC6[WaveRec_idxSens6 % AUDIO_OUT_BUFFER_SIZE] = vRawSens6;
-                  
-                                   break;
-                           case BUF3_PLAY:
-                                   Buffer3.bufMIC6[WaveRec_idxSens6 % AUDIO_OUT_BUFFER_SIZE] = vRawSens6;
-                  
-                                   break; 						 
-                           default:
-                                   break;
-                   }
-
-                }
+//               else
+//               {
+//                  /* Recording Audio Data */						 
+//                   switch (buffer_switch)
+//                   {
+//                           case BUF1_PLAY:
+//                                   Buffer1.bufMIC6[WaveRec_idxSens6 % AUDIO_OUT_BUFFER_SIZE] = vRawSens6;
+//                  
+//                                   break;
+//                           case BUF2_PLAY:
+//                                   Buffer2.bufMIC6[WaveRec_idxSens6 % AUDIO_OUT_BUFFER_SIZE] = vRawSens6;
+//                  
+//                                   break;
+//                           case BUF3_PLAY:
+//                                   Buffer3.bufMIC6[WaveRec_idxSens6 % AUDIO_OUT_BUFFER_SIZE] = vRawSens6;
+//                  
+//                                   break; 						 
+//                           default:
+//                                   break;
+//                   }
+//
+//                }
                
 		       
-			   WaveRec_idxSens6++;
-			if ((WaveRec_idxSens6 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x20;
-
-			if (flgRacing==0x3F)  SubFrameFinished();			   
+		        WaveRec_idxSens6++;
+//			if ((WaveRec_idxSens6 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x20;
+//
+//			if (flgRacing==0x3F)  SubFrameFinished();			   
                
           }		
 	}
@@ -915,14 +910,14 @@ void MIC1TO8_Init(void)
   //HAL_Delay(2);
 
 
-  //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
-  //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
+//  while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
+//  while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
   I2S1_Init(); /* I2S1   --> SDO12 */
-  //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
-  //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
+//  while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
+//  while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
   I2S2_Init(); /* I2S2   --> SDO34 */
-  //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
-  //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
+//  while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
+//  while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
   SPI4_Init(); /* SPI4   --> SDO56 */
   SPI5_Init();
   SPI6_Init();  
@@ -976,13 +971,10 @@ static void I2S1_Init(void)
 	hspi1.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
 	//hspi4.RxISR = SPI5_CallBack;
 	HAL_SPI_Init(&hspi1);
-
 	  //HAL_GPIO_WritePin(GPIOF,GPIO_PIN_6,GPIO_PIN_SET);
   /* Enable TXE, RXNE and ERR interrupt */
  __HAL_SPI_ENABLE_IT(&hspi1, (SPI_IT_RXNE| SPI_IT_ERR));
-
  __HAL_SPI_ENABLE(&hspi1);
-
 #endif
 }
 
@@ -1023,13 +1015,10 @@ static void I2S2_Init(void)
    hspi2.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
    hspi2.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
    HAL_SPI_Init(&hspi2);
-
 	 //HAL_GPIO_WritePin(GPIOF,GPIO_PIN_6,GPIO_PIN_SET);
  /* Enable TXE, RXNE and ERR interrupt */
 __HAL_SPI_ENABLE_IT(&hspi2, (SPI_IT_RXNE| SPI_IT_ERR));
-
 __HAL_SPI_ENABLE(&hspi2);
-
 #endif
 
 
@@ -1082,7 +1071,7 @@ void SPI5_Init(void)
 	{
 		/* Filter LP & HP Init */
 		Filter[i].LP_HZ = 8000;   //sop1hc 8000
-		Filter[i].HP_HZ = 10;
+		Filter[i].HP_HZ = 30;
 		Filter[i].Fs = 16000;    //sop1hc: 16000
 		Filter[i].Out_MicChannels = 1;
 		Filter[i].In_MicChannels = 1;
@@ -1382,7 +1371,6 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
   /* Peripheral interrupt init*/
     HAL_NVIC_SetPriority(SPI5_IRQn, INTERRUPT_PRI_SDO7, 0);
     HAL_NVIC_EnableIRQ(SPI5_IRQn);
-
 #else
 	/* Peripheral DMA init*/
     __HAL_RCC_DMA2_CLK_ENABLE();
@@ -1397,8 +1385,8 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
 	hdma_spi5_rx.Init.Priority = DMA_PRIORITY_HIGH;
 	hdma_spi5_rx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
 	hdma_spi5_rx.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
-	hdma_spi5_rx.Init.MemBurst = DMA_MBURST_SINGLE;
-	hdma_spi5_rx.Init.PeriphBurst = DMA_PBURST_SINGLE;
+	hdma_spi5_rx.Init.MemBurst = DMA_MBURST_INC4;
+	hdma_spi5_rx.Init.PeriphBurst = DMA_PBURST_INC4;
 	HAL_DMA_Init(&hdma_spi5_rx);
 
     __HAL_LINKDMA(hspi,hdmarx,hdma_spi5_rx);
@@ -1447,8 +1435,8 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
 	hdma_spi6_rx.Init.Priority = DMA_PRIORITY_HIGH;
 	hdma_spi6_rx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
 	hdma_spi6_rx.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
-	hdma_spi6_rx.Init.MemBurst = DMA_MBURST_SINGLE;
-	hdma_spi6_rx.Init.PeriphBurst = DMA_PBURST_SINGLE;
+	hdma_spi6_rx.Init.MemBurst = DMA_PBURST_INC4;
+	hdma_spi6_rx.Init.PeriphBurst = DMA_PBURST_INC4;
 	HAL_DMA_Init(&hdma_spi6_rx);
 
 	__HAL_LINKDMA(hspi,hdmarx,hdma_spi6_rx);
@@ -1596,6 +1584,7 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
     if (hspi->Instance==SPI5)
     {
         MIC7Rec();
+		MIC8Rec();
     }
     else
     {
@@ -1605,7 +1594,6 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
     if (hspi->Instance==SPI6) //MIC8
     {
 #if 0							
-
     if (swtSDO8==0x01)
    {
        HAL_SPI_Receive_DMA(&hspi6,( uint8_t *)&TestSDO8_1[64*idxFrmPDMMic8],4*(AUDIO_SAMPLING_FREQUENCY/1000));
@@ -1615,7 +1603,6 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
 	   HAL_SPI_Receive_DMA(&hspi6,( uint8_t *)&TestSDO8[64*idxFrmPDMMic8],4*(AUDIO_SAMPLING_FREQUENCY/1000));
    }      
    AudioUSBSend(idxFrmPDMMic8++);
-
    if(idxFrmPDMMic8==(4*AUDIO_OUT_BUFFER_SIZE/64))
    {
        swtSDO8^=0x01;
@@ -1637,17 +1624,14 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
 	        default:
 	          break;
 		}
-
 		/* Last player Frame is finished */
 		AudioPlayerUpd(); 		
 		
 		if (cntStrt<100) cntStrt++;		   
         
    }
-
-
 #else
-    MIC8Rec();
+    
 	
 #endif
 
@@ -1671,23 +1655,27 @@ buffer_switch_tmp = buffer_switch;
 			  
 	3-------  Buffer2						  Buffer3				  Buffer1 (BUF1_PLAY)
  ---------------------------------------------------------------------------------------------------------------*/
+	/* Data in Mic8 finished recording */
 
     /* Data in Mic7 finished recording */
-    if (WaveRecord_flgSDO7Finish==1)
+    if ((WaveRecord_flgSDO7Finish==1)&&(WaveRecord_flgSDO8Finish==1))
     {
+		
         WaveRecord_flgSDO7Finish=0;
-
+        WaveRecord_flgSDO8Finish=0;
         uint8_t swtSDO7_tmp;
         swtSDO7_tmp = swtSDO7;
 		for (uint16_t i=0; i< 4*AUDIO_OUT_BUFFER_SIZE;i++)
 		{
 	        if(swtSDO7_tmp==0x01)
 	        {
-	            pDataMic7[i%64] = HTONS(TestSDO7[i]);					
+                    pDataMic7[i%64] = HTONS(TestSDO7[i]);	
+                    pDataMic8[i%64] = HTONS(TestSDO8[i]);
 	        }
 	        else
 	        {
-	           pDataMic7[i%64] = HTONS(TestSDO7_1[i]);
+		           pDataMic7[i%64] = HTONS(TestSDO7_1[i]);
+				   pDataMic8[i%64] = HTONS(TestSDO8_1[i]);
 	        }
 
 	        /* PDM conversion for frame of 64 inputs, 16 outputs */
@@ -1697,23 +1685,57 @@ buffer_switch_tmp = buffer_switch;
 	          /* Recording Audio Data */						 
 	          switch (buffer_switch_tmp)
 	          {
-			    case BUF1_PLAY:								
-                  PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer2.bufMIC7 + (i/64)*16), 54 ,
-                  (PDMFilter_InitStruct *)&Filter[0]);						  
-                  break;	              
-	            case BUF2_PLAY:
-					PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer3.bufMIC7 + (i/64)*16), 54 ,
-					(PDMFilter_InitStruct *)&Filter[0]);							
-					break;
-	            case BUF3_PLAY:
-					PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer1.bufMIC7 + (i/64)*16), 54 ,
-					(PDMFilter_InitStruct *)&Filter[0]);		
-					break;
-	            default:
-	                break; 
+			              case BUF1_PLAY:								
+                              PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer2.bufMIC7 + (i/64)*16), 48 ,
+                              (PDMFilter_InitStruct *)&Filter[0]);	
+                              PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer2.bufMIC8 + (i/64)*16), 48 ,
+                              (PDMFilter_InitStruct *)&Filter[1]);				  
+                               break;	               
+                          case BUF2_PLAY:
+                              PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer3.bufMIC7 + (i/64)*16), 48 ,
+                              (PDMFilter_InitStruct *)&Filter[0]);	
+                              PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer3.bufMIC8 + (i/64)*16), 48 ,
+                              (PDMFilter_InitStruct *)&Filter[1]);	
+                              break;
+                          case BUF3_PLAY:
+                              PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer1.bufMIC7 + (i/64)*16), 48 ,
+                              (PDMFilter_InitStruct *)&Filter[0]);	
+                              PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer1.bufMIC8 + (i/64)*16), 48 ,
+                              (PDMFilter_InitStruct *)&Filter[1]);					
+                              break;
+                          default:
+                              break; 
 	          }
 	        }
+
+// 			if (i%4==0) Buffer2.bufMIC8[i/4] = (i/4)*10;
 	     }
+		switch (buffer_switch)
+		{
+			case BUF1_PLAY: 				
+				Buffer2.bufMIC7[0]=Buffer2.bufMIC7[2];
+				Buffer2.bufMIC8[0]=Buffer2.bufMIC8[2];
+				Buffer2.bufMIC7[1]=Buffer2.bufMIC7[2];
+				Buffer2.bufMIC8[1]=Buffer2.bufMIC8[2];				
+			    break;
+			case BUF2_PLAY:
+
+				Buffer3.bufMIC7[0]=Buffer3.bufMIC7[2];
+				Buffer3.bufMIC8[0]=Buffer3.bufMIC8[2];
+				Buffer3.bufMIC7[1]=Buffer3.bufMIC7[2];
+				Buffer3.bufMIC8[1]=Buffer3.bufMIC8[2];				
+				break;
+			case BUF3_PLAY:
+				
+				Buffer1.bufMIC7[0]=Buffer1.bufMIC7[2];
+				Buffer1.bufMIC8[0]=Buffer1.bufMIC8[2];				
+				Buffer1.bufMIC7[1]=Buffer1.bufMIC7[2];
+				Buffer1.bufMIC8[1]=Buffer1.bufMIC8[2];				
+			    break;
+			default:
+			break; 
+		}	
+#if 0		
         /* LowPass Filter 
               dT = 1/16000
               K = T/dT  => T = dT*K = 1/16000*2 = 1/fc => fc = 8000
@@ -1722,129 +1744,20 @@ buffer_switch_tmp = buffer_switch;
 		{
 			case BUF1_PLAY: 
 				LowPassIIR(Buffer2.bufMIC7 ,Buffer2.bufMIC7 ,&Mic7LPOld,AUDIO_OUT_BUFFER_SIZE,4);
-			    break;
-			case BUF2_PLAY:
-				LowPassIIR(Buffer3.bufMIC7 ,Buffer3.bufMIC7 ,&Mic7LPOld,AUDIO_OUT_BUFFER_SIZE,4);
-			    break;
-			case BUF3_PLAY:
-			    LowPassIIR(Buffer1.bufMIC7 ,Buffer1.bufMIC7 ,&Mic7LPOld,AUDIO_OUT_BUFFER_SIZE,4);						
-			    break;
-			default:
-			break; 
-		}
-
-
-	}
-#if 0
-            /* Recording Audio Data */						 
-		    switch (buffer_switch)//buffer_switch
-		    {
-		        case BUF1_PLAY:								
-					        /* Update for left-right channel */
-			        for (int16_t i=AUDIO_OUT_BUFFER_SIZE-1; i>1;i--)
-			        {
-	                    Buffer2.bufMIC7[2*i+1]=  Buffer2.bufMIC7[i];
-                        Buffer2.bufMIC7[2*i] = Buffer2.bufMIC7[i];
-			        }
-					  Buffer2.bufMIC7[0] = Buffer2.bufMIC7[4];
-					  Buffer2.bufMIC7[1] = Buffer2.bufMIC7[5];
-					  Buffer2.bufMIC7[2] = Buffer2.bufMIC7[6];
-					  Buffer2.bufMIC7[3] = Buffer2.bufMIC7[7];
-			            break;
-			     case BUF2_PLAY:
-			        /* Update for left-right channel */
-			        for (int16_t i=AUDIO_OUT_BUFFER_SIZE-1; i>1;i--)
-			        {				 	
-		                Buffer3.bufMIC7[2*i+1]= Buffer3.bufMIC7[i];
-		                Buffer3.bufMIC7[2*i]= Buffer3.bufMIC7[i];;	
-			        }
-					  Buffer3.bufMIC7[0] = Buffer3.bufMIC7[4];
-					  Buffer3.bufMIC7[1] = Buffer3.bufMIC7[5];
-					  Buffer3.bufMIC7[2] = Buffer3.bufMIC7[6];
-					  Buffer3.bufMIC7[3] = Buffer3.bufMIC7[7];					
-	                break;
-	            case BUF3_PLAY:
-			        /* Update for left-right channel */
-			        for (int16_t i=AUDIO_OUT_BUFFER_SIZE-1; i>1;i--)
-			        {					
-	                    Buffer1.bufMIC7[2*i+1]= Buffer1.bufMIC7[i];
-	                    Buffer1.bufMIC7[2*i]= Buffer1.bufMIC7[i];;	
-			        }
-					  Buffer1.bufMIC7[0] = Buffer1.bufMIC7[4];
-					  Buffer1.bufMIC7[1] = Buffer1.bufMIC7[5];
-					  Buffer1.bufMIC7[2] = Buffer1.bufMIC7[6];
-					  Buffer1.bufMIC7[3] = Buffer1.bufMIC7[7];						
-	                break;
-	            default:
-	                break; 
-	        }
-	    
-
-     }
-    
-#endif	
-
-	/* Data in Mic8 finished recording */
-	if (WaveRecord_flgSDO8Finish==1)
-	{
-		WaveRecord_flgSDO8Finish=0;
-		uint8_t swtSDO8_tmp;
-		swtSDO8_tmp = swtSDO8;
-		for (uint16_t i=0; i< 4*AUDIO_OUT_BUFFER_SIZE;i++)
-		{
-                  if(swtSDO8_tmp==0x01)
-                  {
-                     pDataMic8[i%64] = HTONS(TestSDO8[i]);
-                  }
-                  else
-                  {
-                     pDataMic8[i%64] = HTONS(TestSDO8_1[i]);
-                  }
-		
-                  /* PDM conversion for frame of 64 inputs, 16 outputs */
-                  if (i%64==63)
-                  {
-                      /* Recording Audio Data */						 
-                      switch (buffer_switch)
-                      {
-                              case BUF1_PLAY: 							
-                                      PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer2.bufMIC8 + (i/64)*16), 54 ,
-                                      (PDMFilter_InitStruct *)&Filter[1]);
-                                      break;
-                              case BUF2_PLAY:
-                                      PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer3.bufMIC8 + (i/64)*16), 54 ,
-                                      (PDMFilter_InitStruct *)&Filter[1]);	
-                                      break;
-                              case BUF3_PLAY:
-                                      PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer1.bufMIC8 + (i/64)*16), 54 ,
-                                      (PDMFilter_InitStruct *)&Filter[1]);									
-                                       break;
-                              default:
-                                       break; 
-                      }		
-                   }					 
-		}
-
-        /* LowPass Filter 
-              dT = 1/16000
-              K = T/dT  => T = dT*K = 1/16000*2 = 1/fc => fc = 8000
-		*/						 
-		switch (buffer_switch)
-		{
-			case BUF1_PLAY: 
 				LowPassIIR(Buffer2.bufMIC8 ,Buffer2.bufMIC8 ,&Mic8LPOld,AUDIO_OUT_BUFFER_SIZE,4);
 			    break;
 			case BUF2_PLAY:
+				LowPassIIR(Buffer3.bufMIC7 ,Buffer3.bufMIC7 ,&Mic7LPOld,AUDIO_OUT_BUFFER_SIZE,4);
 				LowPassIIR(Buffer3.bufMIC8 ,Buffer3.bufMIC8 ,&Mic8LPOld,AUDIO_OUT_BUFFER_SIZE,4);
 			    break;
 			case BUF3_PLAY:
-			    LowPassIIR(Buffer1.bufMIC8 ,Buffer1.bufMIC8 ,&Mic8LPOld,AUDIO_OUT_BUFFER_SIZE,4);						
+			    LowPassIIR(Buffer1.bufMIC7 ,Buffer1.bufMIC7 ,&Mic7LPOld,AUDIO_OUT_BUFFER_SIZE,4);	
+				LowPassIIR(Buffer1.bufMIC8 ,Buffer1.bufMIC8 ,&Mic8LPOld,AUDIO_OUT_BUFFER_SIZE,4);
 			    break;
 			default:
 			break; 
-		}
-          					 
-               	  
+		}	
+#endif		
    }//if (WaveRecord_flgSDO8Finish==1)
 }
 
@@ -1852,13 +1765,14 @@ void MIC7Rec (void)
 {
 	swtSDO7^=0x01;
 	WaveRecord_flgSDO7Finish = 1;
+	//HAL_SPI_DMAStop(&hspi5);
 	if (swtSDO7==0x01)
 	{
-		HAL_SPI_Receive_DMA(&hspi5,( uint8_t *)TestSDO7_1,4*AUDIO_OUT_BUFFER_SIZE);
+          HAL_SPI_Receive_DMA(&hspi5,( uint8_t *)TestSDO7_1,4*AUDIO_OUT_BUFFER_SIZE);
 	}
 	else
 	{
-		HAL_SPI_Receive_DMA(&hspi5,( uint8_t *)TestSDO7,4*AUDIO_OUT_BUFFER_SIZE);
+          HAL_SPI_Receive_DMA(&hspi5,( uint8_t *)TestSDO7,4*AUDIO_OUT_BUFFER_SIZE);
 	} 
 
 }
@@ -1867,6 +1781,7 @@ void MIC8Rec (void)
 {
      swtSDO8^=0x01;
     WaveRecord_flgSDO8Finish = 1;
+	//HAL_SPI_DMAStop(&hspi6);
     if (swtSDO8==0x01)
     {
         HAL_SPI_Receive_DMA(&hspi6,( uint8_t *)TestSDO8_1,4*AUDIO_OUT_BUFFER_SIZE);
@@ -1878,5 +1793,4 @@ void MIC8Rec (void)
     }
 
 }
-
 

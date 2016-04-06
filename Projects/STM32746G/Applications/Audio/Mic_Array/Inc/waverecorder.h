@@ -1,5 +1,4 @@
 
-  
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __WAVERECORDER_H
 #define __WAVERECORDER_H
@@ -54,4 +53,3 @@ void MIC8Rec (void);
 
 #endif /* __WAVERECORDER_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

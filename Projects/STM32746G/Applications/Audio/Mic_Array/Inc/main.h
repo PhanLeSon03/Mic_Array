@@ -1,30 +1,10 @@
-/**
-  ******************************************************************************
-  * @file    Audio/Audio_playback_and_record/Inc/main.h 
-  * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    25-June-2015
-  * @brief   Header for main.c module
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
-  *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
-  *
-  *        http://www.st.com/software_license_agreement_liberty_v2
-  *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
-  *
-  ******************************************************************************
-  */
-  
+
+/*****************************************************************************
+  *    Author: Phan Le Son                                                                                           
+  *    Company: Autonomous.ai                                            
+  *    email: plson03@gmail.com
+  *****************************************************************************/
+
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __MAIN_H
 #define __MAIN_H
@@ -71,7 +51,7 @@
 #define INTERRUPT_PRI_SDO56     2
 #define INTERRUPT_PRI_AUDIOOUT  5
 #define INTERRUPT_PRI_SDO7      4
-#define INTERRUPT_PRI_SDO8      7
+#define INTERRUPT_PRI_SDO8      3
 #define INTERRUPT_PRI_DMA       0
 #define INTERRUPT_PRI_EXT_LRCK  6
 
@@ -290,14 +270,14 @@ void SubFrameFinished(void);
 
 
 #define RESET_IDX   {                                                           \
-WaveRec_idxSens1 = WaveRec_idxSens1%AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 1*/     \
-WaveRec_idxSens2 = WaveRec_idxSens2%AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 2*/     \
+WaveRec_idxSens1 = 0; /* reset position store data in buffer for sensor 1*/     \
+WaveRec_idxSens2 = 0; /* reset position store data in buffer for sensor 2*/     \
 idxSPI5DataBuf3 = 0; /* reset position store data in temporary buffer */        \
-WaveRec_idxSens3 = WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 3 */    \
-WaveRec_idxSens4 = WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 4 */    \
+WaveRec_idxSens3 = 0; /* reset position store data in buffer for sensor 3 */    \
+WaveRec_idxSens4 = 0; /* reset position store data in buffer for sensor 4 */    \
 I2S2_idxTmp = 0; /* reset position store data in temporary buffer */            \
-WaveRec_idxSens5 = WaveRec_idxSens5%AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 3 */	\
-WaveRec_idxSens6 = WaveRec_idxSens6%AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 4 */	\
+WaveRec_idxSens5 = 0; /* reset position store data in buffer for sensor 3 */	\
+WaveRec_idxSens6 = 0; /* reset position store data in buffer for sensor 4 */	\
 flgDlyUpd=0;                                                                    \
 }
 
@@ -555,4 +535,3 @@ inline uint8_t SrvB_Debound(uint8_t * Ins,uint8_t *Out, uint8_t In, uint16_t Del
 
 #endif /* __MAIN_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

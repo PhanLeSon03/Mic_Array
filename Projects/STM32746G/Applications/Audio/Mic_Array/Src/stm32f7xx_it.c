@@ -160,7 +160,6 @@ void SysTick_Handler(void)
 {
   HAL_IncTick(); 
   //Toggle_Leds();
-  //SubFrameFinished();
 
   cntOS++;
 #if USB_STREAMING

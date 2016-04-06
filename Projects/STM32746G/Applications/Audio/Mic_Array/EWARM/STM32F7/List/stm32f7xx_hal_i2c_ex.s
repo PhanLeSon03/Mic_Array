@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      31/Mar/2016  20:53:45
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      06/Apr/2016  18:05:30
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -118,8 +118,8 @@
 //    2   ******************************************************************************
 //    3   * @file    stm32f7xx_hal_i2c_ex.c
 //    4   * @author  MCD Application Team
-//    5   * @version V1.0.1
-//    6   * @date    25-June-2015
+//    5   * @version V1.0.4
+//    6   * @date    09-December-2015
 //    7   * @brief   I2C Extended HAL module driver.
 //    8   *          This file provides firmware functions to manage the following 
 //    9   *          functionalities of I2C Extended peripheral:
@@ -206,7 +206,7 @@
 //   90                       ##### Extended features functions #####
 //   91  ===============================================================================  
 //   92     [..] This section provides functions allowing to:
-//   93       (+) Configure Noise Filters 
+//   93       (+) Configure Noise Filters
 //   94 
 //   95 @endverbatim
 //   96   * @{
@@ -385,7 +385,7 @@ HAL_I2CEx_ConfigDigitalFilter:
         LDR      R3,[R2, #+0]
 //  173   
 //  174   /* Reset I2Cx DNF bits [11:8] */
-//  175   tmpreg &= ~(I2C_CR1_DFN);
+//  175   tmpreg &= ~(I2C_CR1_DNF);
 //  176   
 //  177   /* Set I2Cx DNF coefficient */
 //  178   tmpreg |= DigitalFilter << 8;
@@ -414,7 +414,7 @@ HAL_I2CEx_ConfigDigitalFilter:
 //  190   return HAL_OK; 
         MOVS     R0,#+0
         BX       LR               ;; return
-//  191 }  
+//  191 }
           CFI EndBlock cfiBlock1
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)

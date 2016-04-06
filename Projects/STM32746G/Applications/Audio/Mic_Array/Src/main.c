@@ -354,7 +354,6 @@ inline static void Audio_Play_Out(void)
                   break;
             }
 
-			
           if (cntStrt<100) cntStrt++;
 
 
@@ -1217,9 +1216,9 @@ void MX_I2C2_Init(void)
 
  void HAL_I2S_TxCpltCallback(I2S_HandleTypeDef *hi2s)
 {  
-  //Audio_Play_Out();  
+  Audio_Play_Out();  
   #if (AUDIO_OUT_STREAM_NORMAL)
-      Audio_MAL_Play((uint32_t)&bufferSum[AUDIO_CHANNELS*(6*AUDIO_SAMPLING_FREQUENCY/1000)], 2*6*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
+      Audio_MAL_Play((uint32_t)&bufferSum[(6*AUDIO_SAMPLING_FREQUENCY/1000)], 6*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
   #else
 
   #endif  
@@ -1262,9 +1261,10 @@ void MX_I2C2_Init(void)
 		 }
 	}
 #endif	
-     StartRecMic7_8();	         
+     	   
+	 //HAL_Delay(1);
 	 /*------------------------PLAYER------------------------------------------*/
-	 Audio_MAL_Play((uint32_t)bufferSum,2*6*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
+	 Audio_MAL_Play((uint32_t)bufferSum,6*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
 	 /*------------------------------------------------------------------------*/	
 	 WaveRec_idxSens1 = 0;
 	 WaveRec_idxSens2 = 0;
@@ -1274,6 +1274,7 @@ void MX_I2C2_Init(void)
 	 WaveRec_idxSens6 = 0; 
 	 idxFrmPDMMic8 = 0;
 	 buffer_switch = BUF1_PLAY;
+	 StartRecMic7_8();
      //AudioUSBSend(idxFrmPDMMic8);	 
 	 
  }

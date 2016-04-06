@@ -425,10 +425,10 @@ static uint32_t Codec_Init(uint16_t OutputDevice, uint8_t Vol, uint32_t AudioFre
   //2. Write 0x80 to register 0x47.
   counter += Codec_WriteRegister(0x47, 0x08); 
 
-  //3. Write ‘1’b to bit 7 in register 0x32. 
+  //3. Write ?1?b to bit 7 in register 0x32. 
   stReadReg = Codec_ReadRegister(0x32);
   counter += Codec_WriteRegister(0x32, (uint8_t)(0x40|stReadReg)); 
-  //4. Write ‘0’b to bit 7 in register 0x32. 
+  //4. Write ?0?b to bit 7 in register 0x32. 
     counter += Codec_WriteRegister(0x32, (uint8_t)(0xBF&stReadReg)); 
   //5. Write 0x00 to register 0x00.
     counter += Codec_WriteRegister(0x00, 0x00); 
@@ -733,7 +733,6 @@ static uint32_t Codec_WriteRegister(uint8_t RegisterAddr, uint8_t RegisterValue)
   /* Start the config sequence */
   I2C_GENERATE_START(I2C_ADDRESSINGMODE_7BIT,CODEC_I2C);
   hi2c1.Instance->CR2 = I2C_GENERATE_START(hi2c1.Init.AddressingMode,DevAddress);
-
     /* Test on EV5 and clear it */
   CODECTimeout = CODEC_FLAG_TIMEOUT;
   while (!I2C_CheckEvent(CODEC_I2C, I2C_EVENT_MASTER_MODE_SELECT))

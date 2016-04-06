@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      31/Mar/2016  20:53:44
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      06/Apr/2016  18:05:29
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -923,14 +923,14 @@ BSP_SDRAM_MspInit:
           CFI R4 Frame(CFA, -12)
           CFI CFA R13+12
         MOV      R4,R0
+        SUB      SP,SP,#+28
+          CFI CFA R13+40
 //  379   static DMA_HandleTypeDef dma_handle;
 //  380   GPIO_InitTypeDef gpio_init_structure;
 //  381   
 //  382   /* Enable FMC clock */
 //  383   __HAL_RCC_FMC_CLK_ENABLE();
-        LDR.N    R0,??DataTable10_2  ;; 0x40023830
-        SUB      SP,SP,#+28
-          CFI CFA R13+40
+        MOVS     R0,#+0
 //  384   
 //  385   /* Enable chosen DMAx clock */
 //  386   __DMAx_CLK_ENABLE();
@@ -952,7 +952,9 @@ BSP_SDRAM_MspInit:
 //  402   /* GPIOC configuration */
 //  403   gpio_init_structure.Pin   = GPIO_PIN_3;
 //  404   HAL_GPIO_Init(GPIOC, &gpio_init_structure);
-        LDR.N    R5,??DataTable10_3
+        LDR.N    R5,??DataTable10_2
+        STR      R0,[SP, #+0]
+        LDR.N    R0,??DataTable10_3  ;; 0x40023830
         LDR      R1,[R0, #+8]
         ORR      R1,R1,#0x1
         STR      R1,[R0, #+8]
@@ -960,6 +962,8 @@ BSP_SDRAM_MspInit:
         AND      R1,R1,#0x1
         STR      R1,[SP, #+0]
         LDR      R1,[SP, #+0]
+        MOVS     R1,#+0
+        STR      R1,[SP, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x400000
         STR      R1,[R0, #+0]
@@ -967,6 +971,8 @@ BSP_SDRAM_MspInit:
         AND      R1,R1,#0x400000
         STR      R1,[SP, #+0]
         LDR      R1,[SP, #+0]
+        MOVS     R1,#+0
+        STR      R1,[SP, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x4
         STR      R1,[R0, #+0]
@@ -974,6 +980,8 @@ BSP_SDRAM_MspInit:
         AND      R1,R1,#0x4
         STR      R1,[SP, #+0]
         LDR      R1,[SP, #+0]
+        MOVS     R1,#+0
+        STR      R1,[SP, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x8
         STR      R1,[R0, #+0]
@@ -981,6 +989,8 @@ BSP_SDRAM_MspInit:
         AND      R1,R1,#0x8
         STR      R1,[SP, #+0]
         LDR      R1,[SP, #+0]
+        MOVS     R1,#+0
+        STR      R1,[SP, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x10
         STR      R1,[R0, #+0]
@@ -988,6 +998,8 @@ BSP_SDRAM_MspInit:
         AND      R1,R1,#0x10
         STR      R1,[SP, #+0]
         LDR      R1,[SP, #+0]
+        MOVS     R1,#+0
+        STR      R1,[SP, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x20
         STR      R1,[R0, #+0]
@@ -995,6 +1007,8 @@ BSP_SDRAM_MspInit:
         AND      R1,R1,#0x20
         STR      R1,[SP, #+0]
         LDR      R1,[SP, #+0]
+        MOVS     R1,#+0
+        STR      R1,[SP, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x40
         STR      R1,[R0, #+0]
@@ -1002,6 +1016,8 @@ BSP_SDRAM_MspInit:
         AND      R1,R1,#0x40
         STR      R1,[SP, #+0]
         LDR      R1,[SP, #+0]
+        MOVS     R1,#+0
+        STR      R1,[SP, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x80
         STR      R1,[R0, #+0]
@@ -1158,7 +1174,7 @@ BSP_SDRAM_MspInit:
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
 ??dma_handle:
-        DS8 80
+        DS8 88
 //  461 
 //  462 /**
 //  463   * @brief  DeInitializes SDRAM MSP.
@@ -1222,13 +1238,13 @@ BSP_SDRAM_MspDeInit:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable10_2:
-        DC32     0x40023830
+        DC32     ??dma_handle
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable10_3:
-        DC32     ??dma_handle
+        DC32     0x40023830
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -1281,7 +1297,7 @@ BSP_SDRAM_MspDeInit:
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
 ??dma_handle_1:
-        DS8 80
+        DS8 88
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -1314,12 +1330,12 @@ BSP_SDRAM_MspDeInit:
 //  498 
 //  499 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-//   160 bytes in section .bss
+//   176 bytes in section .bss
 //    98 bytes in section .data
-// 1 024 bytes in section .text
+// 1 056 bytes in section .text
 // 
-// 1 024 bytes of CODE memory
-//   258 bytes of DATA memory
+// 1 056 bytes of CODE memory
+//   274 bytes of DATA memory
 //
 //Errors: none
 //Warnings: none

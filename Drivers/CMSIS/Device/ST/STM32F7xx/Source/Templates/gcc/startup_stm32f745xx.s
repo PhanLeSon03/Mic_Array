@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file      startup_stm32f745xx.s
   * @author    MCD Application Team
-  * @Version    V1.0.1
-  * @Date       25-June-2015
+  * @Version    V1.0.2
+  * @Date       21-September-2015
   * @brief     STM32F745xx Devices vector table for GCC toolchain based application. 
   *            This module performs:
   *                - Set the initial SP
