@@ -89,12 +89,13 @@ extern __IO uint16_t  idxSPI5DataBuf3;
 int16_t TestSDO12[4*AUDIO_OUT_BUFFER_SIZE];
 int16_t TestSDO34[4*AUDIO_OUT_BUFFER_SIZE];
 int16_t TestSDO56[4*AUDIO_OUT_BUFFER_SIZE];
-uint16_t TestSDO7[4*AUDIO_OUT_BUFFER_SIZE];
-uint16_t TestSDO8[4*AUDIO_OUT_BUFFER_SIZE];
+uint16_t TestSDO7[8*AUDIO_OUT_BUFFER_SIZE];
+uint16_t TestSDO8[8*AUDIO_OUT_BUFFER_SIZE];
 uint16_t TestSDO7_1[4*AUDIO_OUT_BUFFER_SIZE];
 uint16_t TestSDO8_1[4*AUDIO_OUT_BUFFER_SIZE];
 __IO uint16_t  WaveRec_idxTest;
 __IO uint8_t flgRacing;
+
 
 
 SPI_HandleTypeDef hspi1,hspi2;
@@ -925,14 +926,14 @@ void MIC1TO8_Init(void)
 
 void StartRecMic7_8 (void)
 {
-	  HAL_SPI_Receive_DMA(&hspi5,( uint8_t *)TestSDO7,4*AUDIO_OUT_BUFFER_SIZE);
+	  HAL_SPI_Receive_DMA(&hspi5,( uint8_t *)TestSDO7,8*AUDIO_OUT_BUFFER_SIZE);
 #if (0)
 	  HAL_SPI_Receive_DMA(&hspi6,( uint8_t *)TestSDO8,4*(AUDIO_SAMPLING_FREQUENCY/1000));
 #else
-	  HAL_SPI_Receive_DMA(&hspi6,( uint8_t *)TestSDO8,4*AUDIO_OUT_BUFFER_SIZE);
+	  HAL_SPI_Receive_DMA(&hspi6,( uint8_t *)TestSDO8,8*AUDIO_OUT_BUFFER_SIZE);
 #endif
-	  swtSDO7 = 0;
-	  swtSDO8 = 0;
+	  swtSDO7 = 1;
+	  swtSDO8 = 1;
 
 }
 
@@ -1381,7 +1382,7 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
 	hdma_spi5_rx.Init.MemInc = DMA_MINC_ENABLE;
 	hdma_spi5_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
 	hdma_spi5_rx.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
-	hdma_spi5_rx.Init.Mode = DMA_NORMAL;
+	hdma_spi5_rx.Init.Mode = DMA_CIRCULAR;
 	hdma_spi5_rx.Init.Priority = DMA_PRIORITY_HIGH;
 	hdma_spi5_rx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
 	hdma_spi5_rx.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
@@ -1393,6 +1394,8 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
 
 	HAL_NVIC_SetPriority(DMA2_Stream5_IRQn, INTERRUPT_PRI_SDO7, 0);
 	HAL_NVIC_EnableIRQ(DMA2_Stream5_IRQn);
+	  __HAL_DMA_ENABLE_IT(&hdma_spi5_rx, DMA_IT_TC);
+	  __HAL_DMA_ENABLE_IT(&hdma_spi5_rx, DMA_IT_HT);
 
 #endif
   /* USER CODE END SPI5_MspInit 1 */
@@ -1431,7 +1434,7 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
 	hdma_spi6_rx.Init.MemInc = DMA_MINC_ENABLE;
 	hdma_spi6_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
 	hdma_spi6_rx.Init.MemDataAlignment = DMA_PDATAALIGN_HALFWORD;
-	hdma_spi6_rx.Init.Mode = DMA_NORMAL;
+	hdma_spi6_rx.Init.Mode = DMA_CIRCULAR;
 	hdma_spi6_rx.Init.Priority = DMA_PRIORITY_HIGH;
 	hdma_spi6_rx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
 	hdma_spi6_rx.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
@@ -1443,6 +1446,9 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
 
 	HAL_NVIC_SetPriority(DMA2_Stream6_IRQn, INTERRUPT_PRI_SDO8, 1);
 	HAL_NVIC_EnableIRQ(DMA2_Stream6_IRQn);
+
+    __HAL_DMA_ENABLE_IT(&hdma_spi6_rx, DMA_IT_TC);
+	__HAL_DMA_ENABLE_IT(&hdma_spi6_rx, DMA_IT_HT);
 
 #endif
   }
@@ -1559,6 +1565,18 @@ void DMA2_Stream6_IRQHandler(void)
   /* USER CODE END DMA2_Stream6_IRQn 1 */
 }
 
+void HAL_SPI_RxHalfCpltCallback(SPI_HandleTypeDef *hspi)
+{
+
+    if (hspi->Instance==SPI6) //MIC8
+    {
+       swtSDO7=0x00;
+       WaveRecord_flgSDO7Finish = 1;
+       WaveRecord_flgSDO8Finish = 1;
+    }
+
+}
+
 void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
 {
     if(hspi->Instance==SPI1)
@@ -1583,8 +1601,7 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
 
     if (hspi->Instance==SPI5)
     {
-        MIC7Rec();
-		MIC8Rec();
+
     }
     else
     {
@@ -1631,7 +1648,12 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
         
    }
 #else
-    
+
+	//MIC7Rec();
+	//MIC8Rec();   
+	swtSDO7=0x01;
+	WaveRecord_flgSDO7Finish = 1;
+	WaveRecord_flgSDO8Finish = 1;
 	
 #endif
 
@@ -1663,19 +1685,19 @@ buffer_switch_tmp = buffer_switch;
 		
         WaveRecord_flgSDO7Finish=0;
         WaveRecord_flgSDO8Finish=0;
-        uint8_t swtSDO7_tmp;
-        swtSDO7_tmp = swtSDO7;
-		for (uint16_t i=0; i< 4*AUDIO_OUT_BUFFER_SIZE;i++)
-		{
-	        if(swtSDO7_tmp==0x01)
+
+		
+        for (uint16_t i=0; i< 4*AUDIO_OUT_BUFFER_SIZE;i++)
+        {
+	        if(swtSDO7==0x00)
 	        {
-                    pDataMic7[i%64] = HTONS(TestSDO7[i]);	
-                    pDataMic8[i%64] = HTONS(TestSDO8[i]);
+	            pDataMic7[i%64] = HTONS(TestSDO7[i]);	
+	            pDataMic8[i%64] = HTONS(TestSDO8[i]);
 	        }
 	        else
 	        {
-		           pDataMic7[i%64] = HTONS(TestSDO7_1[i]);
-				   pDataMic8[i%64] = HTONS(TestSDO8_1[i]);
+	            pDataMic7[i%64] = HTONS(TestSDO7[4*AUDIO_OUT_BUFFER_SIZE + i]);
+	            pDataMic8[i%64] = HTONS(TestSDO8[4*AUDIO_OUT_BUFFER_SIZE + i]);
 	        }
 
 	        /* PDM conversion for frame of 64 inputs, 16 outputs */
@@ -1686,21 +1708,21 @@ buffer_switch_tmp = buffer_switch;
 	          switch (buffer_switch_tmp)
 	          {
 			              case BUF1_PLAY:								
-                              PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer2.bufMIC7 + (i/64)*16), 48 ,
-                              (PDMFilter_InitStruct *)&Filter[0]);	
-                              PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer2.bufMIC8 + (i/64)*16), 48 ,
-                              (PDMFilter_InitStruct *)&Filter[1]);				  
-                               break;	               
-                          case BUF2_PLAY:
                               PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer3.bufMIC7 + (i/64)*16), 48 ,
                               (PDMFilter_InitStruct *)&Filter[0]);	
                               PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer3.bufMIC8 + (i/64)*16), 48 ,
-                              (PDMFilter_InitStruct *)&Filter[1]);	
-                              break;
-                          case BUF3_PLAY:
+                              (PDMFilter_InitStruct *)&Filter[1]);				  
+                               break;	               
+                          case BUF2_PLAY:
                               PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer1.bufMIC7 + (i/64)*16), 48 ,
                               (PDMFilter_InitStruct *)&Filter[0]);	
                               PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer1.bufMIC8 + (i/64)*16), 48 ,
+                              (PDMFilter_InitStruct *)&Filter[1]);	
+                              break;
+                          case BUF3_PLAY:
+                              PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer2.bufMIC7 + (i/64)*16), 48 ,
+                              (PDMFilter_InitStruct *)&Filter[0]);	
+                              PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer2.bufMIC8 + (i/64)*16), 48 ,
                               (PDMFilter_InitStruct *)&Filter[1]);					
                               break;
                           default:
@@ -1710,31 +1732,31 @@ buffer_switch_tmp = buffer_switch;
 
 // 			if (i%4==0) Buffer2.bufMIC8[i/4] = (i/4)*10;
 	     }
-		switch (buffer_switch)
-		{
-			case BUF1_PLAY: 				
-				Buffer2.bufMIC7[0]=Buffer2.bufMIC7[2];
-				Buffer2.bufMIC8[0]=Buffer2.bufMIC8[2];
-				Buffer2.bufMIC7[1]=Buffer2.bufMIC7[2];
-				Buffer2.bufMIC8[1]=Buffer2.bufMIC8[2];				
-			    break;
-			case BUF2_PLAY:
-
-				Buffer3.bufMIC7[0]=Buffer3.bufMIC7[2];
-				Buffer3.bufMIC8[0]=Buffer3.bufMIC8[2];
-				Buffer3.bufMIC7[1]=Buffer3.bufMIC7[2];
-				Buffer3.bufMIC8[1]=Buffer3.bufMIC8[2];				
-				break;
-			case BUF3_PLAY:
-				
-				Buffer1.bufMIC7[0]=Buffer1.bufMIC7[2];
-				Buffer1.bufMIC8[0]=Buffer1.bufMIC8[2];				
-				Buffer1.bufMIC7[1]=Buffer1.bufMIC7[2];
-				Buffer1.bufMIC8[1]=Buffer1.bufMIC8[2];				
-			    break;
-			default:
-			break; 
-		}	
+//		switch (buffer_switch)
+//		{
+//			case BUF1_PLAY: 				
+//				Buffer3.bufMIC7[0]=Buffer3.bufMIC7[2];
+//				Buffer3.bufMIC8[0]=Buffer3.bufMIC8[2];
+//				Buffer3.bufMIC7[1]=Buffer3.bufMIC7[2];
+//				Buffer3.bufMIC8[1]=Buffer3.bufMIC8[2];				
+//			    break;
+//			case BUF2_PLAY:
+//
+//				Buffer1.bufMIC7[0]=Buffer1.bufMIC7[2];
+//				Buffer1.bufMIC8[0]=Buffer1.bufMIC8[2];
+//				Buffer1.bufMIC7[1]=Buffer1.bufMIC7[2];
+//				Buffer1.bufMIC8[1]=Buffer1.bufMIC8[2];				
+//				break;
+//			case BUF3_PLAY:
+//				
+//				Buffer2.bufMIC7[0]=Buffer2.bufMIC7[2];
+//				Buffer2.bufMIC8[0]=Buffer2.bufMIC8[2];				
+//				Buffer2.bufMIC7[1]=Buffer2.bufMIC7[2];
+//				Buffer2.bufMIC8[1]=Buffer2.bufMIC8[2];				
+//			    break;
+//			default:
+//			break; 
+//		}	
 #if 0		
         /* LowPass Filter 
               dT = 1/16000
@@ -1763,17 +1785,17 @@ buffer_switch_tmp = buffer_switch;
 
 void MIC7Rec (void)
 {
-	swtSDO7^=0x01;
+	swtSDO7=0x01;
 	WaveRecord_flgSDO7Finish = 1;
 	//HAL_SPI_DMAStop(&hspi5);
-	if (swtSDO7==0x01)
-	{
-          HAL_SPI_Receive_DMA(&hspi5,( uint8_t *)TestSDO7_1,4*AUDIO_OUT_BUFFER_SIZE);
-	}
-	else
-	{
-          HAL_SPI_Receive_DMA(&hspi5,( uint8_t *)TestSDO7,4*AUDIO_OUT_BUFFER_SIZE);
-	} 
+//	if (swtSDO7==0x01)
+//	{
+//          HAL_SPI_Receive_DMA(&hspi5,( uint8_t *)TestSDO7_1,4*AUDIO_OUT_BUFFER_SIZE);
+//	}
+//	else
+//	{
+//          HAL_SPI_Receive_DMA(&hspi5,( uint8_t *)TestSDO7,4*AUDIO_OUT_BUFFER_SIZE);
+//	} 
 
 }
 
@@ -1782,15 +1804,15 @@ void MIC8Rec (void)
      swtSDO8^=0x01;
     WaveRecord_flgSDO8Finish = 1;
 	//HAL_SPI_DMAStop(&hspi6);
-    if (swtSDO8==0x01)
-    {
-        HAL_SPI_Receive_DMA(&hspi6,( uint8_t *)TestSDO8_1,4*AUDIO_OUT_BUFFER_SIZE);
-    }
-    else
-    {
-        HAL_SPI_Receive_DMA(&hspi6,( uint8_t *)TestSDO8,4*AUDIO_OUT_BUFFER_SIZE);
-
-    }
+//    if (swtSDO8==0x01)
+//    {
+//        HAL_SPI_Receive_DMA(&hspi6,( uint8_t *)TestSDO8_1,4*AUDIO_OUT_BUFFER_SIZE);
+//    }
+//    else
+//    {
+//        HAL_SPI_Receive_DMA(&hspi6,( uint8_t *)TestSDO8,4*AUDIO_OUT_BUFFER_SIZE);
+//
+//    }
 
 }
 

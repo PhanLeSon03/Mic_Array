@@ -1,13 +1,9 @@
----- HAL_I2S_TxCpltCallback Matches (12 in 4 files) ----
-Audio_codec.c (projects\stm32746g\applications\audio\mic_array\src):					 HAL_I2S_TxCpltCallback(&hi2s3);
-Main.c (projects\stm32746g\applications\audio\mic_array\src): void HAL_I2S_TxCpltCallback(I2S_HandleTypeDef *hi2s)
-Stm32f7xx_hal_i2s.c (drivers\stm32f7xx_hal_driver\src):     (+) At transmission end of transfer HAL_I2S_TxCpltCallback is executed and user can 
-Stm32f7xx_hal_i2s.c (drivers\stm32f7xx_hal_driver\src):         add his own code by customization of function pointer HAL_I2S_TxCpltCallback
-Stm32f7xx_hal_i2s.c (drivers\stm32f7xx_hal_driver\src):     (+) At transmission end of transfer HAL_I2S_TxCpltCallback is executed and user can 
-Stm32f7xx_hal_i2s.c (drivers\stm32f7xx_hal_driver\src):         add his own code by customization of function pointer HAL_I2S_TxCpltCallback
-Stm32f7xx_hal_i2s.c (drivers\stm32f7xx_hal_driver\src):        (++) HAL_I2S_TxCpltCallback()
-Stm32f7xx_hal_i2s.c (drivers\stm32f7xx_hal_driver\src): __weak void HAL_I2S_TxCpltCallback(I2S_HandleTypeDef *hi2s)
-Stm32f7xx_hal_i2s.c (drivers\stm32f7xx_hal_driver\src):            the HAL_I2S_TxCpltCallback could be implemented in the user file
-Stm32f7xx_hal_i2s.c (drivers\stm32f7xx_hal_driver\src):  HAL_I2S_TxCpltCallback(hi2s);
-Stm32f7xx_hal_i2s.c (drivers\stm32f7xx_hal_driver\src):    HAL_I2S_TxCpltCallback(hi2s);
-Stm32f7xx_hal_i2s.h (drivers\stm32f7xx_hal_driver\inc):void HAL_I2S_TxCpltCallback(I2S_HandleTypeDef *hi2s);
+---- HAL_SPI_RxCpltCallback Matches (8 in 3 files) ----
+Stm32f7xx_hal_spi.c (drivers\stm32f7xx_hal_driver\src):__weak void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
+Stm32f7xx_hal_spi.c (drivers\stm32f7xx_hal_driver\src):      HAL_SPI_RxCpltCallback(hspi);
+Stm32f7xx_hal_spi.c (drivers\stm32f7xx_hal_driver\src):        HAL_SPI_RxCpltCallback(hspi);
+Stm32f7xx_hal_spi.c (drivers\stm32f7xx_hal_driver\src):    HAL_SPI_RxCpltCallback(hspi);
+Stm32f7xx_hal_spi.c (drivers\stm32f7xx_hal_driver\src):        HAL_SPI_RxCpltCallback(hspi);
+Stm32f7xx_hal_spi.c (drivers\stm32f7xx_hal_driver\src):        HAL_SPI_RxCpltCallback(hspi);
+Stm32f7xx_hal_spi.h (drivers\stm32f7xx_hal_driver\inc):void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi);
+Waverecorder.c (projects\stm32746g\applications\audio\mic_array\src):void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)

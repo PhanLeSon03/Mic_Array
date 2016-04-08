@@ -68,6 +68,8 @@ __IO uint8_t   cntBtnPress;
 extern __IO uint16_t  WaveRec_idxTest;
 extern __IO uint8_t  swtBufUSBOut;
 extern __IO uint8_t flgRacing;
+
+
 /* Buffer used for reception */
 uint8_t aRxBuffer[1024];
 uint8_t idxDec,stFrstFrmStore;
@@ -354,6 +356,7 @@ inline static void Audio_Play_Out(void)
                   break;
             }
 
+          if (cntStrt==2) 	 StartRecMic7_8();
           if (cntStrt<100) cntStrt++;
 
 
@@ -1274,7 +1277,7 @@ void MX_I2C2_Init(void)
 	 WaveRec_idxSens6 = 0; 
 	 idxFrmPDMMic8 = 0;
 	 buffer_switch = BUF1_PLAY;
-	 StartRecMic7_8();
+
      //AudioUSBSend(idxFrmPDMMic8);	 
 	 
  }
