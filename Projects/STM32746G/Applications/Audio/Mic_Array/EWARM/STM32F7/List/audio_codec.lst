@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       08/Apr/2016  18:41:51
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       12/Apr/2016  09:55:46
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -2757,7 +2757,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \   00000090   0x.... 0x....      BL       HAL_NVIC_SetPriority
    1255              HAL_NVIC_EnableIRQ(SPI1_IRQn);
    \   00000094   0x2023             MOVS     R0,#+35
-   \   00000096   0xE0FA             B.N      ??HAL_I2S_MspInit_1
+   \   00000096   0xE051             B.N      ??HAL_I2S_MspInit_1
    1256            /* USER CODE BEGIN SPI1_MspInit 1 */
    1257          
    1258            /* USER CODE END SPI1_MspInit 1 */
@@ -2766,7 +2766,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \                     ??HAL_I2S_MspInit_0: (+1)
    \   00000098   0x....             LDR.N    R1,??DataTable16_22  ;; 0x40003800
    \   0000009A   0x4288             CMP      R0,R1
-   \   0000009C   0xD14F             BNE.N    ??HAL_I2S_MspInit_2
+   \   0000009C   0xD152             BNE.N    ??HAL_I2S_MspInit_2
    1261            {
    1262          	  /* USER CODE BEGIN SPI2_MspInit 0 */
    1263          	  
@@ -2869,17 +2869,14 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \   00000136   0x.... 0x....      BL       HAL_NVIC_SetPriority
    1295          		HAL_NVIC_EnableIRQ(SPI2_IRQn);
    \   0000013A   0x2024             MOVS     R0,#+36
-   \   0000013C   0xE0A7             B.N      ??HAL_I2S_MspInit_1
+   \                     ??HAL_I2S_MspInit_1: (+1)
+   \   0000013C   0x.... 0x....      BL       HAL_NVIC_EnableIRQ
    1296          		/* USER CODE BEGIN SPI2_MspInit 1 */
    1297          	  
    1298          	  /* USER CODE END SPI2_MspInit 1 */
    1299          
    1300            }
    1301            else if(hi2s->Instance==SPI3)
-   \                     ??HAL_I2S_MspInit_2: (+1)
-   \   0000013E   0x....             LDR.N    R1,??DataTable16_24  ;; 0x40003c00
-   \   00000140   0x4288             CMP      R0,R1
-   \   00000142   0xF040 0x80A6      BNE.W    ??HAL_I2S_MspInit_3
    1302            {
    1303          
    1304          
@@ -2893,9 +2890,6 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    1312           
    1313            /* USER CODE BEGIN SPI3_MspInit 1 */
    1314            __SPI3_CLK_ENABLE();
-   \   00000146   0x2000             MOVS     R0,#+0
-   \   00000148   0x....             LDR.N    R5,??DataTable16_18  ;; 0x40023830
-   \   0000014A   0x9000             STR      R0,[SP, #+0]
    1315            __GPIOA_CLK_ENABLE();
    1316            __GPIOB_CLK_ENABLE();
    1317            __GPIOC_CLK_ENABLE();
@@ -2905,113 +2899,30 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    1321            GPIO_InitStructure.Pull = GPIO_NOPULL;
    1322            GPIO_InitStructure.Alternate = GPIO_AF6_SPI3;
    1323            HAL_GPIO_Init(GPIOB, &GPIO_InitStructure);
-   \   0000014C   0x....             LDR.N    R6,??DataTable16_23  ;; 0x40020400
-   \   0000014E   0x6928             LDR      R0,[R5, #+16]
-   \   00000150   0xA906             ADD      R1,SP,#+24
-   \   00000152   0xF440 0x4000      ORR      R0,R0,#0x8000
-   \   00000156   0x6128             STR      R0,[R5, #+16]
-   \   00000158   0x6928             LDR      R0,[R5, #+16]
-   \   0000015A   0xF400 0x4000      AND      R0,R0,#0x8000
-   \   0000015E   0x9000             STR      R0,[SP, #+0]
-   \   00000160   0x9800             LDR      R0,[SP, #+0]
-   \   00000162   0x2000             MOVS     R0,#+0
-   \   00000164   0x9000             STR      R0,[SP, #+0]
-   \   00000166   0x6828             LDR      R0,[R5, #+0]
-   \   00000168   0xF040 0x0001      ORR      R0,R0,#0x1
-   \   0000016C   0x6028             STR      R0,[R5, #+0]
-   \   0000016E   0x6828             LDR      R0,[R5, #+0]
-   \   00000170   0xF000 0x0001      AND      R0,R0,#0x1
-   \   00000174   0x9000             STR      R0,[SP, #+0]
-   \   00000176   0x9800             LDR      R0,[SP, #+0]
-   \   00000178   0x2000             MOVS     R0,#+0
-   \   0000017A   0x9000             STR      R0,[SP, #+0]
-   \   0000017C   0x6828             LDR      R0,[R5, #+0]
-   \   0000017E   0xF040 0x0002      ORR      R0,R0,#0x2
-   \   00000182   0x6028             STR      R0,[R5, #+0]
-   \   00000184   0x6828             LDR      R0,[R5, #+0]
-   \   00000186   0xF000 0x0002      AND      R0,R0,#0x2
-   \   0000018A   0x9000             STR      R0,[SP, #+0]
-   \   0000018C   0x9800             LDR      R0,[SP, #+0]
-   \   0000018E   0x2000             MOVS     R0,#+0
-   \   00000190   0x9000             STR      R0,[SP, #+0]
-   \   00000192   0x6828             LDR      R0,[R5, #+0]
-   \   00000194   0xF040 0x0004      ORR      R0,R0,#0x4
-   \   00000198   0x6028             STR      R0,[R5, #+0]
-   \   0000019A   0x6828             LDR      R0,[R5, #+0]
-   \   0000019C   0xF000 0x0004      AND      R0,R0,#0x4
-   \   000001A0   0x9000             STR      R0,[SP, #+0]
-   \   000001A2   0x9800             LDR      R0,[SP, #+0]
-   \   000001A4   0x2008             MOVS     R0,#+8
-   \   000001A6   0x9006             STR      R0,[SP, #+24]
-   \   000001A8   0x2002             MOVS     R0,#+2
-   \   000001AA   0x9007             STR      R0,[SP, #+28]
-   \   000001AC   0x2003             MOVS     R0,#+3
-   \   000001AE   0x9009             STR      R0,[SP, #+36]
-   \   000001B0   0x2000             MOVS     R0,#+0
-   \   000001B2   0x9008             STR      R0,[SP, #+32]
-   \   000001B4   0x2006             MOVS     R0,#+6
-   \   000001B6   0x900A             STR      R0,[SP, #+40]
-   \   000001B8   0x4630             MOV      R0,R6
-   \   000001BA   0x.... 0x....      BL       HAL_GPIO_Init
    1324          
    1325              GPIO_InitStructure.Pin = GPIO_PIN_2; 
-   \   000001BE   0x2004             MOVS     R0,#+4
    1326            GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
    1327            GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
    1328            GPIO_InitStructure.Pull = GPIO_NOPULL;
    1329            GPIO_InitStructure.Alternate = GPIO_AF7_SPI3;
    1330            HAL_GPIO_Init(GPIOB, &GPIO_InitStructure);
-   \   000001C0   0xA906             ADD      R1,SP,#+24
-   \   000001C2   0x9006             STR      R0,[SP, #+24]
-   \   000001C4   0x2002             MOVS     R0,#+2
-   \   000001C6   0x9007             STR      R0,[SP, #+28]
-   \   000001C8   0x2003             MOVS     R0,#+3
-   \   000001CA   0x9009             STR      R0,[SP, #+36]
-   \   000001CC   0x2000             MOVS     R0,#+0
-   \   000001CE   0x9008             STR      R0,[SP, #+32]
-   \   000001D0   0x2007             MOVS     R0,#+7
-   \   000001D2   0x900A             STR      R0,[SP, #+40]
-   \   000001D4   0x4630             MOV      R0,R6
-   \   000001D6   0x.... 0x....      BL       HAL_GPIO_Init
    1331          
    1332          
    1333            GPIO_InitStructure.Pin = GPIO_PIN_15;
-   \   000001DA   0xF44F 0x4000      MOV      R0,#+32768
    1334            GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
    1335            GPIO_InitStructure.Alternate = GPIO_AF6_SPI3;
    1336            HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
-   \   000001DE   0xA906             ADD      R1,SP,#+24
-   \   000001E0   0x9006             STR      R0,[SP, #+24]
-   \   000001E2   0x2002             MOVS     R0,#+2
-   \   000001E4   0x9007             STR      R0,[SP, #+28]
-   \   000001E6   0x2006             MOVS     R0,#+6
-   \   000001E8   0x900A             STR      R0,[SP, #+40]
-   \   000001EA   0x....             LDR.N    R0,??DataTable16_20  ;; 0x40020000
-   \   000001EC   0x.... 0x....      BL       HAL_GPIO_Init
    1337          
    1338          
    1339             
    1340          #ifdef CODEC_MCLK_ENABLED
    1341          
    1342            GPIO_InitStructure.Pin = GPIO_PIN_7; 
-   \   000001F0   0x2080             MOVS     R0,#+128
    1343            GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
    1344            GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
    1345            GPIO_InitStructure.Pull = GPIO_NOPULL;
    1346            GPIO_InitStructure.Alternate = GPIO_AF6_SPI3;
    1347            HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
-   \   000001F2   0xA906             ADD      R1,SP,#+24
-   \   000001F4   0x9006             STR      R0,[SP, #+24]
-   \   000001F6   0x2002             MOVS     R0,#+2
-   \   000001F8   0x9007             STR      R0,[SP, #+28]
-   \   000001FA   0x2003             MOVS     R0,#+3
-   \   000001FC   0x9009             STR      R0,[SP, #+36]
-   \   000001FE   0x2000             MOVS     R0,#+0
-   \   00000200   0x9008             STR      R0,[SP, #+32]
-   \   00000202   0x2006             MOVS     R0,#+6
-   \   00000204   0x900A             STR      R0,[SP, #+40]
-   \   00000206   0x....             LDR.N    R0,??DataTable16_21  ;; 0x40020800
-   \   00000208   0x.... 0x....      BL       HAL_GPIO_Init
    1348          
    1349          #endif /* CODEC_MCLK_ENABLED */ 
    1350          
@@ -3030,67 +2941,29 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    1363          
    1364                /* Enable the DMA clock */ 
    1365          	  __HAL_RCC_DMA1_CLK_ENABLE();
-   \   0000020C   0x2000             MOVS     R0,#+0
-   \   0000020E   0x9000             STR      R0,[SP, #+0]
-   \   00000210   0x6828             LDR      R0,[R5, #+0]
-   \   00000212   0xF440 0x1000      ORR      R0,R0,#0x200000
-   \   00000216   0x6028             STR      R0,[R5, #+0]
-   \   00000218   0x6828             LDR      R0,[R5, #+0]
    1366          
    1367                /* Configure the DMA Stream */
    1368                //HAL_DMA_DeInit(&DmaHandle);
    1369          
    1370                /* Set the parameters to be configured */ 
    1371          	  DmaHandle.Instance = DMA1_Stream7;
-   \   0000021A   0x....             LDR.N    R5,??DataTable16_1
-   \   0000021C   0xF400 0x1000      AND      R0,R0,#0x200000
-   \   00000220   0x9000             STR      R0,[SP, #+0]
-   \   00000222   0x9800             LDR      R0,[SP, #+0]
-   \   00000224   0x....             LDR.N    R0,??DataTable16  ;; 0x400260b8
-   \   00000226   0x6028             STR      R0,[R5, #+0]
    1372                DmaHandle.Init.Channel = DMA_CHANNEL_0;
-   \   00000228   0x2000             MOVS     R0,#+0
-   \   0000022A   0x6068             STR      R0,[R5, #+4]
    1373          	  DmaHandle.Init.Direction = DMA_MEMORY_TO_PERIPH;
-   \   0000022C   0x2040             MOVS     R0,#+64
-   \   0000022E   0x60A8             STR      R0,[R5, #+8]
    1374          	  DmaHandle.Init.PeriphInc = DMA_PINC_DISABLE;
-   \   00000230   0x2000             MOVS     R0,#+0
-   \   00000232   0x60E8             STR      R0,[R5, #+12]
    1375          	  DmaHandle.Init.MemInc = DMA_MINC_ENABLE;
-   \   00000234   0xF44F 0x6080      MOV      R0,#+1024
-   \   00000238   0x6128             STR      R0,[R5, #+16]
    1376          	  DmaHandle.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
-   \   0000023A   0xF44F 0x6000      MOV      R0,#+2048
-   \   0000023E   0x6168             STR      R0,[R5, #+20]
    1377                DmaHandle.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD; 
-   \   00000240   0xF44F 0x5000      MOV      R0,#+8192
-   \   00000244   0x61A8             STR      R0,[R5, #+24]
    1378          #if  (AUDIO_OUT_STREAM_NORMAL)
    1379          	  DmaHandle.Init.Mode = DMA_NORMAL;
    1380          #else
    1381                DmaHandle.Init.Mode = DMA_CIRCULAR;
-   \   00000246   0xF44F 0x7080      MOV      R0,#+256
-   \   0000024A   0x61E8             STR      R0,[R5, #+28]
    1382          #endif
    1383                DmaHandle.Init.Priority = DMA_PRIORITY_HIGH; 
-   \   0000024C   0xF44F 0x3000      MOV      R0,#+131072
-   \   00000250   0x6228             STR      R0,[R5, #+32]
    1384          	  DmaHandle.Init.FIFOMode = DMA_FIFOMODE_ENABLE;//DMA_FIFOMODE_DISABLE
-   \   00000252   0x2004             MOVS     R0,#+4
-   \   00000254   0x6268             STR      R0,[R5, #+36]
    1385                DmaHandle.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
-   \   00000256   0x2003             MOVS     R0,#+3
-   \   00000258   0x62A8             STR      R0,[R5, #+40]
    1386                DmaHandle.Init.MemBurst = DMA_MBURST_SINGLE;
-   \   0000025A   0x2000             MOVS     R0,#+0
-   \   0000025C   0x62E8             STR      R0,[R5, #+44]
    1387                DmaHandle.Init.PeriphBurst = DMA_PBURST_SINGLE;	  
    1388                DmaHandle.Instance->PAR =(uint32_t)&SPI3->DR;//CODEC_I2S_ADDRESS
-   \   0000025E   0x6829             LDR      R1,[R5, #+0]
-   \   00000260   0x6328             STR      R0,[R5, #+48]
-   \   00000262   0x....             LDR.N    R0,??DataTable16_25  ;; 0x40003c0c
-   \   00000264   0x6088             STR      R0,[R1, #+8]
    1389                //DmaHandle.Instance->M0AR = (uint32_t)0;
    1390                //DmaHandle.Instance->NDTR = (uint32_t)0xFFFE;
    1391                //DmaHandle.XferCpltCallback = &TC_Callback;
@@ -3102,40 +2975,163 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    1397          
    1398          	   /* Deinitialize the Stream for new transfer */
    1399                 HAL_DMA_DeInit(&DmaHandle);
-   \   00000266   0x4628             MOV      R0,R5
-   \   00000268   0x6325             STR      R5,[R4, #+48]
-   \   0000026A   0x63AC             STR      R4,[R5, #+56]
-   \   0000026C   0x.... 0x....      BL       HAL_DMA_DeInit
    1400                 /* Configure the DMA Stream */
    1401          	   HAL_DMA_Init(&DmaHandle);
-   \   00000270   0x4628             MOV      R0,R5
-   \   00000272   0x.... 0x....      BL       HAL_DMA_Init
    1402          
    1403                __HAL_I2S_ENABLE(&hi2s3);
-   \   00000276   0x....             LDR.N    R0,??DataTable16_26
    1404          
    1405                /* Set Interrupt Group Priority */
-   1406                HAL_NVIC_SetPriority(DMA1_Stream7_IRQn, 2, 1);
-   \   00000278   0x2201             MOVS     R2,#+1
-   \   0000027A   0x6800             LDR      R0,[R0, #+0]
-   \   0000027C   0x69C1             LDR      R1,[R0, #+28]
-   \   0000027E   0xF441 0x6180      ORR      R1,R1,#0x400
-   \   00000282   0x61C1             STR      R1,[R0, #+28]
-   \   00000284   0x2102             MOVS     R1,#+2
-   \   00000286   0x202F             MOVS     R0,#+47
-   \   00000288   0x.... 0x....      BL       HAL_NVIC_SetPriority
+   1406                //HAL_NVIC_SetPriority(DMA1_Stream7_IRQn, INTERRUPT_PRI_I2S_OUT, 1);
    1407                /* Enable the DMA STREAM global Interrupt */
-   1408                HAL_NVIC_EnableIRQ(DMA1_Stream7_IRQn);    
-   \   0000028C   0x202F             MOVS     R0,#+47
-   \                     ??HAL_I2S_MspInit_1: (+1)
-   \   0000028E   0x.... 0x....      BL       HAL_NVIC_EnableIRQ
+   1408                //HAL_NVIC_EnableIRQ(DMA1_Stream7_IRQn);    
    1409          
    1410           }
    1411          
    1412          }
+   \   00000140   0xB00C             ADD      SP,SP,#+48
+   \   00000142   0xBD70             POP      {R4-R6,PC}
+   \                     ??HAL_I2S_MspInit_2: (+1)
+   \   00000144   0x....             LDR.N    R1,??DataTable16_24  ;; 0x40003c00
+   \   00000146   0x4288             CMP      R0,R1
+   \   00000148   0xF040 0x809E      BNE.W    ??HAL_I2S_MspInit_3
+   \   0000014C   0x2000             MOVS     R0,#+0
+   \   0000014E   0x....             LDR.N    R5,??DataTable16_18  ;; 0x40023830
+   \   00000150   0x9000             STR      R0,[SP, #+0]
+   \   00000152   0x....             LDR.N    R6,??DataTable16_23  ;; 0x40020400
+   \   00000154   0x6928             LDR      R0,[R5, #+16]
+   \   00000156   0xA906             ADD      R1,SP,#+24
+   \   00000158   0xF440 0x4000      ORR      R0,R0,#0x8000
+   \   0000015C   0x6128             STR      R0,[R5, #+16]
+   \   0000015E   0x6928             LDR      R0,[R5, #+16]
+   \   00000160   0xF400 0x4000      AND      R0,R0,#0x8000
+   \   00000164   0x9000             STR      R0,[SP, #+0]
+   \   00000166   0x9800             LDR      R0,[SP, #+0]
+   \   00000168   0x2000             MOVS     R0,#+0
+   \   0000016A   0x9000             STR      R0,[SP, #+0]
+   \   0000016C   0x6828             LDR      R0,[R5, #+0]
+   \   0000016E   0xF040 0x0001      ORR      R0,R0,#0x1
+   \   00000172   0x6028             STR      R0,[R5, #+0]
+   \   00000174   0x6828             LDR      R0,[R5, #+0]
+   \   00000176   0xF000 0x0001      AND      R0,R0,#0x1
+   \   0000017A   0x9000             STR      R0,[SP, #+0]
+   \   0000017C   0x9800             LDR      R0,[SP, #+0]
+   \   0000017E   0x2000             MOVS     R0,#+0
+   \   00000180   0x9000             STR      R0,[SP, #+0]
+   \   00000182   0x6828             LDR      R0,[R5, #+0]
+   \   00000184   0xF040 0x0002      ORR      R0,R0,#0x2
+   \   00000188   0x6028             STR      R0,[R5, #+0]
+   \   0000018A   0x6828             LDR      R0,[R5, #+0]
+   \   0000018C   0xF000 0x0002      AND      R0,R0,#0x2
+   \   00000190   0x9000             STR      R0,[SP, #+0]
+   \   00000192   0x9800             LDR      R0,[SP, #+0]
+   \   00000194   0x2000             MOVS     R0,#+0
+   \   00000196   0x9000             STR      R0,[SP, #+0]
+   \   00000198   0x6828             LDR      R0,[R5, #+0]
+   \   0000019A   0xF040 0x0004      ORR      R0,R0,#0x4
+   \   0000019E   0x6028             STR      R0,[R5, #+0]
+   \   000001A0   0x6828             LDR      R0,[R5, #+0]
+   \   000001A2   0xF000 0x0004      AND      R0,R0,#0x4
+   \   000001A6   0x9000             STR      R0,[SP, #+0]
+   \   000001A8   0x9800             LDR      R0,[SP, #+0]
+   \   000001AA   0x2008             MOVS     R0,#+8
+   \   000001AC   0x9006             STR      R0,[SP, #+24]
+   \   000001AE   0x2002             MOVS     R0,#+2
+   \   000001B0   0x9007             STR      R0,[SP, #+28]
+   \   000001B2   0x2003             MOVS     R0,#+3
+   \   000001B4   0x9009             STR      R0,[SP, #+36]
+   \   000001B6   0x2000             MOVS     R0,#+0
+   \   000001B8   0x9008             STR      R0,[SP, #+32]
+   \   000001BA   0x2006             MOVS     R0,#+6
+   \   000001BC   0x900A             STR      R0,[SP, #+40]
+   \   000001BE   0x4630             MOV      R0,R6
+   \   000001C0   0x.... 0x....      BL       HAL_GPIO_Init
+   \   000001C4   0x2004             MOVS     R0,#+4
+   \   000001C6   0xA906             ADD      R1,SP,#+24
+   \   000001C8   0x9006             STR      R0,[SP, #+24]
+   \   000001CA   0x2002             MOVS     R0,#+2
+   \   000001CC   0x9007             STR      R0,[SP, #+28]
+   \   000001CE   0x2003             MOVS     R0,#+3
+   \   000001D0   0x9009             STR      R0,[SP, #+36]
+   \   000001D2   0x2000             MOVS     R0,#+0
+   \   000001D4   0x9008             STR      R0,[SP, #+32]
+   \   000001D6   0x2007             MOVS     R0,#+7
+   \   000001D8   0x900A             STR      R0,[SP, #+40]
+   \   000001DA   0x4630             MOV      R0,R6
+   \   000001DC   0x.... 0x....      BL       HAL_GPIO_Init
+   \   000001E0   0xF44F 0x4000      MOV      R0,#+32768
+   \   000001E4   0xA906             ADD      R1,SP,#+24
+   \   000001E6   0x9006             STR      R0,[SP, #+24]
+   \   000001E8   0x2002             MOVS     R0,#+2
+   \   000001EA   0x9007             STR      R0,[SP, #+28]
+   \   000001EC   0x2006             MOVS     R0,#+6
+   \   000001EE   0x900A             STR      R0,[SP, #+40]
+   \   000001F0   0x....             LDR.N    R0,??DataTable16_20  ;; 0x40020000
+   \   000001F2   0x.... 0x....      BL       HAL_GPIO_Init
+   \   000001F6   0x2080             MOVS     R0,#+128
+   \   000001F8   0xA906             ADD      R1,SP,#+24
+   \   000001FA   0x9006             STR      R0,[SP, #+24]
+   \   000001FC   0x2002             MOVS     R0,#+2
+   \   000001FE   0x9007             STR      R0,[SP, #+28]
+   \   00000200   0x2003             MOVS     R0,#+3
+   \   00000202   0x9009             STR      R0,[SP, #+36]
+   \   00000204   0x2000             MOVS     R0,#+0
+   \   00000206   0x9008             STR      R0,[SP, #+32]
+   \   00000208   0x2006             MOVS     R0,#+6
+   \   0000020A   0x900A             STR      R0,[SP, #+40]
+   \   0000020C   0x....             LDR.N    R0,??DataTable16_21  ;; 0x40020800
+   \   0000020E   0x.... 0x....      BL       HAL_GPIO_Init
+   \   00000212   0x2000             MOVS     R0,#+0
+   \   00000214   0x9000             STR      R0,[SP, #+0]
+   \   00000216   0x6828             LDR      R0,[R5, #+0]
+   \   00000218   0xF440 0x1000      ORR      R0,R0,#0x200000
+   \   0000021C   0x6028             STR      R0,[R5, #+0]
+   \   0000021E   0x6828             LDR      R0,[R5, #+0]
+   \   00000220   0x....             LDR.N    R5,??DataTable16_1
+   \   00000222   0xF400 0x1000      AND      R0,R0,#0x200000
+   \   00000226   0x9000             STR      R0,[SP, #+0]
+   \   00000228   0x9800             LDR      R0,[SP, #+0]
+   \   0000022A   0x....             LDR.N    R0,??DataTable16  ;; 0x400260b8
+   \   0000022C   0x6028             STR      R0,[R5, #+0]
+   \   0000022E   0x2000             MOVS     R0,#+0
+   \   00000230   0x6068             STR      R0,[R5, #+4]
+   \   00000232   0x2040             MOVS     R0,#+64
+   \   00000234   0x60A8             STR      R0,[R5, #+8]
+   \   00000236   0x2000             MOVS     R0,#+0
+   \   00000238   0x60E8             STR      R0,[R5, #+12]
+   \   0000023A   0xF44F 0x6080      MOV      R0,#+1024
+   \   0000023E   0x6128             STR      R0,[R5, #+16]
+   \   00000240   0xF44F 0x6000      MOV      R0,#+2048
+   \   00000244   0x6168             STR      R0,[R5, #+20]
+   \   00000246   0xF44F 0x5000      MOV      R0,#+8192
+   \   0000024A   0x61A8             STR      R0,[R5, #+24]
+   \   0000024C   0xF44F 0x7080      MOV      R0,#+256
+   \   00000250   0x61E8             STR      R0,[R5, #+28]
+   \   00000252   0xF44F 0x3000      MOV      R0,#+131072
+   \   00000256   0x6228             STR      R0,[R5, #+32]
+   \   00000258   0x2004             MOVS     R0,#+4
+   \   0000025A   0x6268             STR      R0,[R5, #+36]
+   \   0000025C   0x2003             MOVS     R0,#+3
+   \   0000025E   0x62A8             STR      R0,[R5, #+40]
+   \   00000260   0x2000             MOVS     R0,#+0
+   \   00000262   0x62E8             STR      R0,[R5, #+44]
+   \   00000264   0x6829             LDR      R1,[R5, #+0]
+   \   00000266   0x6328             STR      R0,[R5, #+48]
+   \   00000268   0x....             LDR.N    R0,??DataTable16_25  ;; 0x40003c0c
+   \   0000026A   0x6088             STR      R0,[R1, #+8]
+   \   0000026C   0x4628             MOV      R0,R5
+   \   0000026E   0x6325             STR      R5,[R4, #+48]
+   \   00000270   0x63AC             STR      R4,[R5, #+56]
+   \   00000272   0x.... 0x....      BL       HAL_DMA_DeInit
+   \   00000276   0x4628             MOV      R0,R5
+   \   00000278   0x.... 0x....      BL       HAL_DMA_Init
+   \   0000027C   0x....             LDR.N    R0,??DataTable16_26
+   \   0000027E   0x6800             LDR      R0,[R0, #+0]
+   \   00000280   0x69C1             LDR      R1,[R0, #+28]
+   \   00000282   0xF441 0x6180      ORR      R1,R1,#0x400
+   \   00000286   0x61C1             STR      R1,[R0, #+28]
    \                     ??HAL_I2S_MspInit_3: (+1)
-   \   00000292   0xB00C             ADD      SP,SP,#+48
-   \   00000294   0xBD70             POP      {R4-R6,PC}       ;; return
+   \   00000288   0xB00C             ADD      SP,SP,#+48
+   \   0000028A   0xBD70             POP      {R4-R6,PC}       ;; return
    1413          
 
    \                                 In section .text, align 2, keep-with-next
@@ -3582,7 +3578,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
           AudioRemSize
           CurrentPos
       42  HAL_I2C_MspDeInit
-     662  HAL_I2S_MspInit
+     652  HAL_I2S_MspInit
       82  HAL_SPI_MspDeInit
       54  MX_I2C1_Init
       10  SPI3_IRQHandler
@@ -3592,9 +3588,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
  
    156 bytes in section .bss
    172 bytes in section .data
- 4 108 bytes in section .text
+ 4 098 bytes in section .text
  
- 4 108 bytes of CODE memory
+ 4 098 bytes of CODE memory
    328 bytes of DATA memory
 
 Errors: none

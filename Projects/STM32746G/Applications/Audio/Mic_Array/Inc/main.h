@@ -51,14 +51,13 @@
 #define INTERRUPT_PRI_SDO56     2
 #define INTERRUPT_PRI_AUDIOOUT  5
 #define INTERRUPT_PRI_SDO7      4
-#define INTERRUPT_PRI_SDO8      3
-#define INTERRUPT_PRI_DMA       0
+#define INTERRUPT_PRI_SDO8      7
+#define INTERRUPT_PRI_DMA       7
 #define INTERRUPT_PRI_EXT_LRCK  6
+#define INTERRUPT_PRI_I2S_OUT   3
 
-
-
-#define AUDIO_CHANNELS 				            2
-#define AUDIO_SAMPLING_FREQUENCY 		            16000
+#define AUDIO_CHANNELS 				               2
+#define AUDIO_SAMPLING_FREQUENCY 		           16000
 
 #define COEFLOWPASS_MIC                            8
 #define AUDIO_OUT_BUFFER_SIZE                      1024
@@ -270,14 +269,14 @@ void SubFrameFinished(void);
 
 
 #define RESET_IDX   {                                                           \
-WaveRec_idxSens1 = 0; /* reset position store data in buffer for sensor 1*/     \
-WaveRec_idxSens2 = 0; /* reset position store data in buffer for sensor 2*/     \
+WaveRec_idxSens1 = WaveRec_idxSens1%AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 1*/     \
+WaveRec_idxSens2 = WaveRec_idxSens2%AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 2*/     \
 idxSPI5DataBuf3 = 0; /* reset position store data in temporary buffer */        \
-WaveRec_idxSens3 = 0; /* reset position store data in buffer for sensor 3 */    \
-WaveRec_idxSens4 = 0; /* reset position store data in buffer for sensor 4 */    \
+WaveRec_idxSens3 =  WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 3 */    \
+WaveRec_idxSens4 =  WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 4 */    \
 I2S2_idxTmp = 0; /* reset position store data in temporary buffer */            \
-WaveRec_idxSens5 = 0; /* reset position store data in buffer for sensor 3 */	\
-WaveRec_idxSens6 = 0; /* reset position store data in buffer for sensor 4 */	\
+WaveRec_idxSens5 =  WaveRec_idxSens5%AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 3 */	\
+WaveRec_idxSens6 =  WaveRec_idxSens6%AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 4 */	\
 flgDlyUpd=0;                                                                    \
 }
 

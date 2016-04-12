@@ -165,8 +165,9 @@ void SysTick_Handler(void)
 #if USB_STREAMING
   //if(cntOS%2==0)
   //{
-      //AudioProcess();
+   //AudioProcess();
   //}
+  //SubFrameFinished();
 #endif   
   if (cntOS==10)
   {

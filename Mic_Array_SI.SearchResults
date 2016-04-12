@@ -1,9 +1,5 @@
----- HAL_SPI_RxCpltCallback Matches (8 in 3 files) ----
-Stm32f7xx_hal_spi.c (drivers\stm32f7xx_hal_driver\src):__weak void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
-Stm32f7xx_hal_spi.c (drivers\stm32f7xx_hal_driver\src):      HAL_SPI_RxCpltCallback(hspi);
-Stm32f7xx_hal_spi.c (drivers\stm32f7xx_hal_driver\src):        HAL_SPI_RxCpltCallback(hspi);
-Stm32f7xx_hal_spi.c (drivers\stm32f7xx_hal_driver\src):    HAL_SPI_RxCpltCallback(hspi);
-Stm32f7xx_hal_spi.c (drivers\stm32f7xx_hal_driver\src):        HAL_SPI_RxCpltCallback(hspi);
-Stm32f7xx_hal_spi.c (drivers\stm32f7xx_hal_driver\src):        HAL_SPI_RxCpltCallback(hspi);
-Stm32f7xx_hal_spi.h (drivers\stm32f7xx_hal_driver\inc):void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi);
-Waverecorder.c (projects\stm32746g\applications\audio\mic_array\src):void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
+---- HAL_SPI_RxHalfCpltCallback Matches (4 in 3 files) ----
+Stm32f7xx_hal_spi.c (drivers\stm32f7xx_hal_driver\src):__weak void HAL_SPI_RxHalfCpltCallback(SPI_HandleTypeDef *hspi)
+Stm32f7xx_hal_spi.c (drivers\stm32f7xx_hal_driver\src):  HAL_SPI_RxHalfCpltCallback(hspi);
+Stm32f7xx_hal_spi.h (drivers\stm32f7xx_hal_driver\inc):void HAL_SPI_RxHalfCpltCallback(SPI_HandleTypeDef *hspi);
+Waverecorder.c (projects\stm32746g\applications\audio\mic_array\src):void HAL_SPI_RxHalfCpltCallback(SPI_HandleTypeDef *hspi)

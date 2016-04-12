@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      08/Apr/2016  18:41:51
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      12/Apr/2016  09:55:46
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -3226,17 +3226,15 @@ HAL_I2S_MspInit:
         BL       HAL_NVIC_SetPriority
 // 1295 		HAL_NVIC_EnableIRQ(SPI2_IRQn);
         MOVS     R0,#+36
-        B.N      ??HAL_I2S_MspInit_1
+??HAL_I2S_MspInit_1:
+          CFI FunCall HAL_NVIC_EnableIRQ
+        BL       HAL_NVIC_EnableIRQ
 // 1296 		/* USER CODE BEGIN SPI2_MspInit 1 */
 // 1297 	  
 // 1298 	  /* USER CODE END SPI2_MspInit 1 */
 // 1299 
 // 1300   }
 // 1301   else if(hi2s->Instance==SPI3)
-??HAL_I2S_MspInit_2:
-        LDR.N    R1,??DataTable16_24  ;; 0x40003c00
-        CMP      R0,R1
-        BNE.W    ??HAL_I2S_MspInit_3
 // 1302   {
 // 1303 
 // 1304 
@@ -3250,9 +3248,6 @@ HAL_I2S_MspInit:
 // 1312  
 // 1313   /* USER CODE BEGIN SPI3_MspInit 1 */
 // 1314   __SPI3_CLK_ENABLE();
-        MOVS     R0,#+0
-        LDR.N    R5,??DataTable16_18  ;; 0x40023830
-        STR      R0,[SP, #+0]
 // 1315   __GPIOA_CLK_ENABLE();
 // 1316   __GPIOB_CLK_ENABLE();
 // 1317   __GPIOC_CLK_ENABLE();
@@ -3262,6 +3257,106 @@ HAL_I2S_MspInit:
 // 1321   GPIO_InitStructure.Pull = GPIO_NOPULL;
 // 1322   GPIO_InitStructure.Alternate = GPIO_AF6_SPI3;
 // 1323   HAL_GPIO_Init(GPIOB, &GPIO_InitStructure);
+// 1324 
+// 1325     GPIO_InitStructure.Pin = GPIO_PIN_2; 
+// 1326   GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
+// 1327   GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
+// 1328   GPIO_InitStructure.Pull = GPIO_NOPULL;
+// 1329   GPIO_InitStructure.Alternate = GPIO_AF7_SPI3;
+// 1330   HAL_GPIO_Init(GPIOB, &GPIO_InitStructure);
+// 1331 
+// 1332 
+// 1333   GPIO_InitStructure.Pin = GPIO_PIN_15;
+// 1334   GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
+// 1335   GPIO_InitStructure.Alternate = GPIO_AF6_SPI3;
+// 1336   HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
+// 1337 
+// 1338 
+// 1339    
+// 1340 #ifdef CODEC_MCLK_ENABLED
+// 1341 
+// 1342   GPIO_InitStructure.Pin = GPIO_PIN_7; 
+// 1343   GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
+// 1344   GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
+// 1345   GPIO_InitStructure.Pull = GPIO_NOPULL;
+// 1346   GPIO_InitStructure.Alternate = GPIO_AF6_SPI3;
+// 1347   HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
+// 1348 
+// 1349 #endif /* CODEC_MCLK_ENABLED */ 
+// 1350 
+// 1351 #ifdef I2S_INTERRUPT   
+// 1352      /* Enable and set Button EXTI Interrupt to the lowest priority */
+// 1353      //HAL_NVIC_SetPriority((IRQn_Type)SPI3_IRQn, 0x00, 0x01);
+// 1354      //HAL_NVIC_EnableIRQ((IRQn_Type)SPI3_IRQn);
+// 1355 
+// 1356      /* Enable the I2S DMA request */
+// 1357      //__HAL_I2S_ENABLE_IT(&hi2s3, SPI_I2S_DMAReq_Tx);
+// 1358      //__HAL_I2S_ENABLE(&hi2s3);
+// 1359   	    /* Peripheral interrupt init*/
+// 1360 		HAL_NVIC_SetPriority(SPI3_IRQn, INTERRUPT_PRI_AUDIOOUT, 0);
+// 1361 		HAL_NVIC_EnableIRQ(SPI3_IRQn);
+// 1362 #endif
+// 1363 
+// 1364       /* Enable the DMA clock */ 
+// 1365 	  __HAL_RCC_DMA1_CLK_ENABLE();
+// 1366 
+// 1367       /* Configure the DMA Stream */
+// 1368       //HAL_DMA_DeInit(&DmaHandle);
+// 1369 
+// 1370       /* Set the parameters to be configured */ 
+// 1371 	  DmaHandle.Instance = DMA1_Stream7;
+// 1372       DmaHandle.Init.Channel = DMA_CHANNEL_0;
+// 1373 	  DmaHandle.Init.Direction = DMA_MEMORY_TO_PERIPH;
+// 1374 	  DmaHandle.Init.PeriphInc = DMA_PINC_DISABLE;
+// 1375 	  DmaHandle.Init.MemInc = DMA_MINC_ENABLE;
+// 1376 	  DmaHandle.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
+// 1377       DmaHandle.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD; 
+// 1378 #if  (AUDIO_OUT_STREAM_NORMAL)
+// 1379 	  DmaHandle.Init.Mode = DMA_NORMAL;
+// 1380 #else
+// 1381       DmaHandle.Init.Mode = DMA_CIRCULAR;
+// 1382 #endif
+// 1383       DmaHandle.Init.Priority = DMA_PRIORITY_HIGH; 
+// 1384 	  DmaHandle.Init.FIFOMode = DMA_FIFOMODE_ENABLE;//DMA_FIFOMODE_DISABLE
+// 1385       DmaHandle.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
+// 1386       DmaHandle.Init.MemBurst = DMA_MBURST_SINGLE;
+// 1387       DmaHandle.Init.PeriphBurst = DMA_PBURST_SINGLE;	  
+// 1388       DmaHandle.Instance->PAR =(uint32_t)&SPI3->DR;//CODEC_I2S_ADDRESS
+// 1389       //DmaHandle.Instance->M0AR = (uint32_t)0;
+// 1390       //DmaHandle.Instance->NDTR = (uint32_t)0xFFFE;
+// 1391       //DmaHandle.XferCpltCallback = &TC_Callback;
+// 1392  
+// 1393 
+// 1394       /* Associate the initialized DMA handle to the the SPI handle */
+// 1395       __HAL_LINKDMA(hi2s, hdmatx, DmaHandle);
+// 1396       //__HAL_DMA_ENABLE_IT(&DmaHandle, DMA_IT_TC);
+// 1397 
+// 1398 	   /* Deinitialize the Stream for new transfer */
+// 1399        HAL_DMA_DeInit(&DmaHandle);
+// 1400        /* Configure the DMA Stream */
+// 1401 	   HAL_DMA_Init(&DmaHandle);
+// 1402 
+// 1403       __HAL_I2S_ENABLE(&hi2s3);
+// 1404 
+// 1405       /* Set Interrupt Group Priority */
+// 1406       //HAL_NVIC_SetPriority(DMA1_Stream7_IRQn, INTERRUPT_PRI_I2S_OUT, 1);
+// 1407       /* Enable the DMA STREAM global Interrupt */
+// 1408       //HAL_NVIC_EnableIRQ(DMA1_Stream7_IRQn);    
+// 1409 
+// 1410  }
+// 1411 
+// 1412 }
+        ADD      SP,SP,#+48
+          CFI CFA R13+16
+        POP      {R4-R6,PC}
+          CFI CFA R13+64
+??HAL_I2S_MspInit_2:
+        LDR.N    R1,??DataTable16_24  ;; 0x40003c00
+        CMP      R0,R1
+        BNE.W    ??HAL_I2S_MspInit_3
+        MOVS     R0,#+0
+        LDR.N    R5,??DataTable16_18  ;; 0x40023830
+        STR      R0,[SP, #+0]
         LDR.N    R6,??DataTable16_23  ;; 0x40020400
         LDR      R0,[R5, #+16]
         ADD      R1,SP,#+24
@@ -3311,14 +3406,7 @@ HAL_I2S_MspInit:
         MOV      R0,R6
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
-// 1324 
-// 1325     GPIO_InitStructure.Pin = GPIO_PIN_2; 
         MOVS     R0,#+4
-// 1326   GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
-// 1327   GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
-// 1328   GPIO_InitStructure.Pull = GPIO_NOPULL;
-// 1329   GPIO_InitStructure.Alternate = GPIO_AF7_SPI3;
-// 1330   HAL_GPIO_Init(GPIOB, &GPIO_InitStructure);
         ADD      R1,SP,#+24
         STR      R0,[SP, #+24]
         MOVS     R0,#+2
@@ -3332,13 +3420,7 @@ HAL_I2S_MspInit:
         MOV      R0,R6
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
-// 1331 
-// 1332 
-// 1333   GPIO_InitStructure.Pin = GPIO_PIN_15;
         MOV      R0,#+32768
-// 1334   GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
-// 1335   GPIO_InitStructure.Alternate = GPIO_AF6_SPI3;
-// 1336   HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
         ADD      R1,SP,#+24
         STR      R0,[SP, #+24]
         MOVS     R0,#+2
@@ -3348,18 +3430,7 @@ HAL_I2S_MspInit:
         LDR.N    R0,??DataTable16_20  ;; 0x40020000
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
-// 1337 
-// 1338 
-// 1339    
-// 1340 #ifdef CODEC_MCLK_ENABLED
-// 1341 
-// 1342   GPIO_InitStructure.Pin = GPIO_PIN_7; 
         MOVS     R0,#+128
-// 1343   GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
-// 1344   GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
-// 1345   GPIO_InitStructure.Pull = GPIO_NOPULL;
-// 1346   GPIO_InitStructure.Alternate = GPIO_AF6_SPI3;
-// 1347   HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
         ADD      R1,SP,#+24
         STR      R0,[SP, #+24]
         MOVS     R0,#+2
@@ -3373,131 +3444,57 @@ HAL_I2S_MspInit:
         LDR.N    R0,??DataTable16_21  ;; 0x40020800
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
-// 1348 
-// 1349 #endif /* CODEC_MCLK_ENABLED */ 
-// 1350 
-// 1351 #ifdef I2S_INTERRUPT   
-// 1352      /* Enable and set Button EXTI Interrupt to the lowest priority */
-// 1353      //HAL_NVIC_SetPriority((IRQn_Type)SPI3_IRQn, 0x00, 0x01);
-// 1354      //HAL_NVIC_EnableIRQ((IRQn_Type)SPI3_IRQn);
-// 1355 
-// 1356      /* Enable the I2S DMA request */
-// 1357      //__HAL_I2S_ENABLE_IT(&hi2s3, SPI_I2S_DMAReq_Tx);
-// 1358      //__HAL_I2S_ENABLE(&hi2s3);
-// 1359   	    /* Peripheral interrupt init*/
-// 1360 		HAL_NVIC_SetPriority(SPI3_IRQn, INTERRUPT_PRI_AUDIOOUT, 0);
-// 1361 		HAL_NVIC_EnableIRQ(SPI3_IRQn);
-// 1362 #endif
-// 1363 
-// 1364       /* Enable the DMA clock */ 
-// 1365 	  __HAL_RCC_DMA1_CLK_ENABLE();
         MOVS     R0,#+0
         STR      R0,[SP, #+0]
         LDR      R0,[R5, #+0]
         ORR      R0,R0,#0x200000
         STR      R0,[R5, #+0]
         LDR      R0,[R5, #+0]
-// 1366 
-// 1367       /* Configure the DMA Stream */
-// 1368       //HAL_DMA_DeInit(&DmaHandle);
-// 1369 
-// 1370       /* Set the parameters to be configured */ 
-// 1371 	  DmaHandle.Instance = DMA1_Stream7;
         LDR.N    R5,??DataTable16_1
         AND      R0,R0,#0x200000
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
         LDR.N    R0,??DataTable16  ;; 0x400260b8
         STR      R0,[R5, #+0]
-// 1372       DmaHandle.Init.Channel = DMA_CHANNEL_0;
         MOVS     R0,#+0
         STR      R0,[R5, #+4]
-// 1373 	  DmaHandle.Init.Direction = DMA_MEMORY_TO_PERIPH;
         MOVS     R0,#+64
         STR      R0,[R5, #+8]
-// 1374 	  DmaHandle.Init.PeriphInc = DMA_PINC_DISABLE;
         MOVS     R0,#+0
         STR      R0,[R5, #+12]
-// 1375 	  DmaHandle.Init.MemInc = DMA_MINC_ENABLE;
         MOV      R0,#+1024
         STR      R0,[R5, #+16]
-// 1376 	  DmaHandle.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
         MOV      R0,#+2048
         STR      R0,[R5, #+20]
-// 1377       DmaHandle.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD; 
         MOV      R0,#+8192
         STR      R0,[R5, #+24]
-// 1378 #if  (AUDIO_OUT_STREAM_NORMAL)
-// 1379 	  DmaHandle.Init.Mode = DMA_NORMAL;
-// 1380 #else
-// 1381       DmaHandle.Init.Mode = DMA_CIRCULAR;
         MOV      R0,#+256
         STR      R0,[R5, #+28]
-// 1382 #endif
-// 1383       DmaHandle.Init.Priority = DMA_PRIORITY_HIGH; 
         MOV      R0,#+131072
         STR      R0,[R5, #+32]
-// 1384 	  DmaHandle.Init.FIFOMode = DMA_FIFOMODE_ENABLE;//DMA_FIFOMODE_DISABLE
         MOVS     R0,#+4
         STR      R0,[R5, #+36]
-// 1385       DmaHandle.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
         MOVS     R0,#+3
         STR      R0,[R5, #+40]
-// 1386       DmaHandle.Init.MemBurst = DMA_MBURST_SINGLE;
         MOVS     R0,#+0
         STR      R0,[R5, #+44]
-// 1387       DmaHandle.Init.PeriphBurst = DMA_PBURST_SINGLE;	  
-// 1388       DmaHandle.Instance->PAR =(uint32_t)&SPI3->DR;//CODEC_I2S_ADDRESS
         LDR      R1,[R5, #+0]
         STR      R0,[R5, #+48]
         LDR.N    R0,??DataTable16_25  ;; 0x40003c0c
         STR      R0,[R1, #+8]
-// 1389       //DmaHandle.Instance->M0AR = (uint32_t)0;
-// 1390       //DmaHandle.Instance->NDTR = (uint32_t)0xFFFE;
-// 1391       //DmaHandle.XferCpltCallback = &TC_Callback;
-// 1392  
-// 1393 
-// 1394       /* Associate the initialized DMA handle to the the SPI handle */
-// 1395       __HAL_LINKDMA(hi2s, hdmatx, DmaHandle);
-// 1396       //__HAL_DMA_ENABLE_IT(&DmaHandle, DMA_IT_TC);
-// 1397 
-// 1398 	   /* Deinitialize the Stream for new transfer */
-// 1399        HAL_DMA_DeInit(&DmaHandle);
         MOV      R0,R5
         STR      R5,[R4, #+48]
         STR      R4,[R5, #+56]
           CFI FunCall HAL_DMA_DeInit
         BL       HAL_DMA_DeInit
-// 1400        /* Configure the DMA Stream */
-// 1401 	   HAL_DMA_Init(&DmaHandle);
         MOV      R0,R5
           CFI FunCall HAL_DMA_Init
         BL       HAL_DMA_Init
-// 1402 
-// 1403       __HAL_I2S_ENABLE(&hi2s3);
         LDR.N    R0,??DataTable16_26
-// 1404 
-// 1405       /* Set Interrupt Group Priority */
-// 1406       HAL_NVIC_SetPriority(DMA1_Stream7_IRQn, 2, 1);
-        MOVS     R2,#+1
         LDR      R0,[R0, #+0]
         LDR      R1,[R0, #+28]
         ORR      R1,R1,#0x400
         STR      R1,[R0, #+28]
-        MOVS     R1,#+2
-        MOVS     R0,#+47
-          CFI FunCall HAL_NVIC_SetPriority
-        BL       HAL_NVIC_SetPriority
-// 1407       /* Enable the DMA STREAM global Interrupt */
-// 1408       HAL_NVIC_EnableIRQ(DMA1_Stream7_IRQn);    
-        MOVS     R0,#+47
-??HAL_I2S_MspInit_1:
-          CFI FunCall HAL_NVIC_EnableIRQ
-        BL       HAL_NVIC_EnableIRQ
-// 1409 
-// 1410  }
-// 1411 
-// 1412 }
 ??HAL_I2S_MspInit_3:
         ADD      SP,SP,#+48
           CFI CFA R13+16
@@ -3898,9 +3895,9 @@ MX_I2C1_Init:
 // 
 //   156 bytes in section .bss
 //   172 bytes in section .data
-// 4 108 bytes in section .text
+// 4 098 bytes in section .text
 // 
-// 4 108 bytes of CODE memory
+// 4 098 bytes of CODE memory
 //   328 bytes of DATA memory
 //
 //Errors: none

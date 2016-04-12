@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       08/Apr/2016  18:41:56
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       12/Apr/2016  09:55:51
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -275,137 +275,138 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     165          #if USB_STREAMING
     166            //if(cntOS%2==0)
     167            //{
-    168                //AudioProcess();
+    168             //AudioProcess();
     169            //}
-    170          #endif   
-    171            if (cntOS==10)
+    170            //SubFrameFinished();
+    171          #endif   
+    172            if (cntOS==10)
    \   0000000E   0x290A             CMP      R1,#+10
    \   00000010   0xD103             BNE.N    ??SysTick_Handler_0
-    172            {
-    173                cntOS=0;
-    174                flg10ms = 1;
+    173            {
+    174                cntOS=0;
+    175                flg10ms = 1;
    \   00000012   0x2201             MOVS     R2,#+1
    \   00000014   0x....             LDR.N    R3,??DataTable4_1
    \   00000016   0x2100             MOVS     R1,#+0
    \   00000018   0x701A             STRB     R2,[R3, #+0]
    \                     ??SysTick_Handler_0: (+1)
    \   0000001A   0x6001             STR      R1,[R0, #+0]
-    175            }
-    176            	
-    177          }
+    176            }
+    177            	
+    178          }
    \   0000001C   0xB001             ADD      SP,SP,#+4
    \   0000001E   0xBD00             POP      {PC}             ;; return
-    178          
+    179          
 
    \                                 In section .text, align 2, keep-with-next
-    179          void USART6_IRQHandler(void)
-    180          {
-    181          //  HAL_UART_IRQHandler(&huart6);
-    182          }
+    180          void USART6_IRQHandler(void)
+    181          {
+    182          //  HAL_UART_IRQHandler(&huart6);
+    183          }
    \                     USART6_IRQHandler: (+1)
    \   00000000   0x4770             BX       LR               ;; return
-    183          
+    184          
 
    \                                 In section .text, align 2, keep-with-next
-    184          void USART3_IRQHandler(void)
-    185          {
-    186            HAL_UART_IRQHandler(&huart3);
+    185          void USART3_IRQHandler(void)
+    186          {
+    187            HAL_UART_IRQHandler(&huart3);
    \                     USART3_IRQHandler: (+1)
    \   00000000   0x....             LDR.N    R0,??DataTable4_2
    \   00000002   0x.... 0x....      B.W      HAL_UART_IRQHandler
-    187          }
-    188          
+    188          }
     189          
+    190          
 
    \                                 In section .text, align 2, keep-with-next
-    190          void I2C1_EV_IRQHandler(void)
-    191          {
-    192            /* USER CODE BEGIN I2C1_EV_IRQn 0 */
-    193          
-    194            /* USER CODE END I2C1_EV_IRQn 0 */
-    195            HAL_I2C_EV_IRQHandler(&hi2c1);
+    191          void I2C1_EV_IRQHandler(void)
+    192          {
+    193            /* USER CODE BEGIN I2C1_EV_IRQn 0 */
+    194          
+    195            /* USER CODE END I2C1_EV_IRQn 0 */
+    196            HAL_I2C_EV_IRQHandler(&hi2c1);
    \                     I2C1_EV_IRQHandler: (+1)
    \   00000000   0x....             LDR.N    R0,??DataTable4_3
    \   00000002   0x.... 0x....      B.W      HAL_I2C_EV_IRQHandler
-    196            /* USER CODE BEGIN I2C1_EV_IRQn 1 */
-    197          
-    198            /* USER CODE END I2C1_EV_IRQn 1 */
-    199          }
-    200          
+    197            /* USER CODE BEGIN I2C1_EV_IRQn 1 */
+    198          
+    199            /* USER CODE END I2C1_EV_IRQn 1 */
+    200          }
     201          
+    202          
 
    \                                 In section .text, align 2, keep-with-next
-    202          void I2C2_EV_IRQHandler(void)
-    203          {
-    204            /* USER CODE BEGIN I2C1_EV_IRQn 0 */
-    205          
-    206            /* USER CODE END I2C1_EV_IRQn 0 */
-    207            HAL_I2C_EV_IRQHandler(&hi2c2);
+    203          void I2C2_EV_IRQHandler(void)
+    204          {
+    205            /* USER CODE BEGIN I2C1_EV_IRQn 0 */
+    206          
+    207            /* USER CODE END I2C1_EV_IRQn 0 */
+    208            HAL_I2C_EV_IRQHandler(&hi2c2);
    \                     I2C2_EV_IRQHandler: (+1)
    \   00000000   0x....             LDR.N    R0,??DataTable4_4
    \   00000002   0x.... 0x....      B.W      HAL_I2C_EV_IRQHandler
-    208            /* USER CODE BEGIN I2C1_EV_IRQn 1 */
-    209          
-    210            /* USER CODE END I2C1_EV_IRQn 1 */
-    211          }
-    212          
+    209            /* USER CODE BEGIN I2C1_EV_IRQn 1 */
+    210          
+    211            /* USER CODE END I2C1_EV_IRQn 1 */
+    212          }
     213          
     214          
     215          
     216          
     217          
-    218          /******************************************************************************/
-    219          /*                 STM32F7xx Peripherals Interrupt Handlers                   */
-    220          /*  Add here the Interrupt Handler for the used peripheral(s) (PPP), for the  */
-    221          /*  available peripheral interrupt handler's name please refer to the startup */
-    222          /*  file (startup_stm32f7xx.s).                                               */
-    223          /******************************************************************************/
-    224          
-    225          /**
-    226            * @brief  This function handles USB-On-The-Go FS/HS global interrupt request.
-    227            * @param  None
-    228            * @retval None
-    229            */
-    230          #ifdef USE_USB_FS
+    218          
+    219          /******************************************************************************/
+    220          /*                 STM32F7xx Peripherals Interrupt Handlers                   */
+    221          /*  Add here the Interrupt Handler for the used peripheral(s) (PPP), for the  */
+    222          /*  available peripheral interrupt handler's name please refer to the startup */
+    223          /*  file (startup_stm32f7xx.s).                                               */
+    224          /******************************************************************************/
+    225          
+    226          /**
+    227            * @brief  This function handles USB-On-The-Go FS/HS global interrupt request.
+    228            * @param  None
+    229            * @retval None
+    230            */
+    231          #ifdef USE_USB_FS
 
    \                                 In section .text, align 2, keep-with-next
-    231          void OTG_FS_IRQHandler(void)
-    232          #else
-    233          void OTG_HS_IRQHandler(void)
-    234          #endif
-    235          {
-    236            //sop1hc HAL_HCD_IRQHandler(&hhcd);
-    237            HAL_PCD_IRQHandler(&hpcd);
+    232          void OTG_FS_IRQHandler(void)
+    233          #else
+    234          void OTG_HS_IRQHandler(void)
+    235          #endif
+    236          {
+    237            //sop1hc HAL_HCD_IRQHandler(&hhcd);
+    238            HAL_PCD_IRQHandler(&hpcd);
    \                     OTG_FS_IRQHandler: (+1)
    \   00000000   0x....             LDR.N    R0,??DataTable4_5
    \   00000002   0x.... 0x....      B.W      HAL_PCD_IRQHandler
-    238          }
-    239          
-    240          /**
-    241            * @brief This function handles DMA2 Stream 4 interrupt request.
-    242            * @param None
-    243            * @retval None
-    244            */
+    239          }
+    240          
+    241          /**
+    242            * @brief This function handles DMA2 Stream 4 interrupt request.
+    243            * @param None
+    244            * @retval None
+    245            */
 
    \                                 In section .text, align 2, keep-with-next
-    245          void AUDIO_OUT_SAIx_DMAx_IRQHandler(void)
-    246          {
-    247            //HAL_DMA_IRQHandler(haudio_out_sai.hdmatx);
-    248          }
+    246          void AUDIO_OUT_SAIx_DMAx_IRQHandler(void)
+    247          {
+    248            //HAL_DMA_IRQHandler(haudio_out_sai.hdmatx);
+    249          }
    \                     DMA2_Stream4_IRQHandler: (+1)
    \   00000000   0x4770             BX       LR               ;; return
-    249          
-    250          /**
-    251            * @brief This function handles DMA2 Stream 7 interrupt request.
-    252            * @param None
-    253            * @retval None
-    254            */
+    250          
+    251          /**
+    252            * @brief This function handles DMA2 Stream 7 interrupt request.
+    253            * @param None
+    254            * @retval None
+    255            */
 
    \                                 In section .text, align 2, keep-with-next
-    255          void AUDIO_IN_SAIx_DMAx_IRQHandler(void)
-    256          {
-    257            //HAL_DMA_IRQHandler(haudio_in_sai.hdmarx);
-    258          }
+    256          void AUDIO_IN_SAIx_DMAx_IRQHandler(void)
+    257          {
+    258            //HAL_DMA_IRQHandler(haudio_in_sai.hdmarx);
+    259          }
    \                     DMA2_Stream7_IRQHandler: (+1)
    \   00000000   0x4770             BX       LR               ;; return
 
@@ -432,17 +433,17 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable4_5:
    \   00000000   0x........         DC32     hpcd
-    259          
-    260          /**
-    261            * @brief  This function handles PPP interrupt request.
-    262            * @param  None
-    263            * @retval None
-    264            */
-    265          /*void PPP_IRQHandler(void)
-    266          {
-    267          }*/
-    268          
-    269          /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+    260          
+    261          /**
+    262            * @brief  This function handles PPP interrupt request.
+    263            * @param  None
+    264            * @retval None
+    265            */
+    266          /*void PPP_IRQHandler(void)
+    267          {
+    268          }*/
+    269          
+    270          /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 
    Maximum stack usage in bytes:
 

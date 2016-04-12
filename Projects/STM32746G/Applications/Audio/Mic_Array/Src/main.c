@@ -1,3 +1,4 @@
+
 /*****************************************************************************
   *    Author: Phan Le Son                                                                                           
   *    Company: Autonomous.ai                                            
@@ -326,8 +327,9 @@ inline static void Audio_Play_Out(void)
     flgRacing=0;
 
 #if USB_STREAMING
-			  AudioUSBSend(idxFrmPDMMic8);
+				  AudioUSBSend(idxFrmPDMMic8);
 #endif
+
 
     ++idxFrmPDMMic8;
 	/* if player is finished for curent buffer                                  */ 
@@ -356,13 +358,15 @@ inline static void Audio_Play_Out(void)
                   break;
             }
 
-          if (cntStrt==2) 	 StartRecMic7_8();
+          //if (cntStrt==2) 	 StartRecMic7_8();
           if (cntStrt<100) cntStrt++;
 
 
 		 /* Tongle status to switch the USB audio buffer out */
 
 	}			 
+
+
 
 }
 
@@ -1219,7 +1223,7 @@ void MX_I2C2_Init(void)
 
  void HAL_I2S_TxCpltCallback(I2S_HandleTypeDef *hi2s)
 {  
-  Audio_Play_Out();  
+  //Audio_Play_Out();  
   #if (AUDIO_OUT_STREAM_NORMAL)
       Audio_MAL_Play((uint32_t)&bufferSum[(6*AUDIO_SAMPLING_FREQUENCY/1000)], 6*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
   #else
@@ -1266,6 +1270,7 @@ void MX_I2C2_Init(void)
 #endif	
      	   
 	 //HAL_Delay(1);
+	 StartRecMic7_8();
 	 /*------------------------PLAYER------------------------------------------*/
 	 Audio_MAL_Play((uint32_t)bufferSum,6*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
 	 /*------------------------------------------------------------------------*/	
@@ -1277,7 +1282,7 @@ void MX_I2C2_Init(void)
 	 WaveRec_idxSens6 = 0; 
 	 idxFrmPDMMic8 = 0;
 	 buffer_switch = BUF1_PLAY;
-
+   
      //AudioUSBSend(idxFrmPDMMic8);	 
 	 
  }

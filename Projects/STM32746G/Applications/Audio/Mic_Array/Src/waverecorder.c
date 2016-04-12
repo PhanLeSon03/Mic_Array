@@ -1,3 +1,4 @@
+
 /*****************************************************************************
   *    Author: Phan Le Son                                                                                           
   *    Company: Autonomous.ai                                            
@@ -246,7 +247,7 @@ SPI_I2S_ReceiveData(SPI1);
   * @retval None
 */
 
-	void SPI1_IRQHandler(void)
+void SPI1_IRQHandler(void)
 {  
       int16_t tmpTest;
 	  static uint8_t stLR,stLROld;
@@ -271,6 +272,7 @@ SPI_I2S_ReceiveData(SPI1);
 				   vRawSens1 = (tmpTest);
 			       WaveRec_idxTest++;
 				   /* Recording Audio Data */						 
+#if 1
 					if (WaveRec_idxSens1<AUDIO_OUT_BUFFER_SIZE) 
 					{
 					   switch (buffer_switch)
@@ -290,29 +292,30 @@ SPI_I2S_ReceiveData(SPI1);
 					   }
 					  
 					}
-//					else
-//					{
-//						switch (buffer_switch)
-//						{
-//						    case BUF1_PLAY:
-//						                    Buffer1.bufMIC1[WaveRec_idxSens1%AUDIO_OUT_BUFFER_SIZE] = vRawSens1;//vRawSens1;									
-//						                    break;
-//						    case BUF2_PLAY:
-//						                    Buffer2.bufMIC1[WaveRec_idxSens1%AUDIO_OUT_BUFFER_SIZE] = vRawSens1;//vRawSens1;	
-//						                    break;
-//						    case BUF3_PLAY:
-//						                    Buffer3.bufMIC1[WaveRec_idxSens1%AUDIO_OUT_BUFFER_SIZE] = vRawSens1;//vRawSens1;										
-//						                    break;
-//						    default:
-//						                    break; 
-//						}
-//					}
+					else
+#endif						
+					{
+						switch (buffer_switch)
+						{
+						    case BUF1_PLAY:
+						                    Buffer1.bufMIC1[WaveRec_idxSens1%AUDIO_OUT_BUFFER_SIZE] = vRawSens1;//vRawSens1;									
+						                    break;
+						    case BUF2_PLAY:
+						                    Buffer2.bufMIC1[WaveRec_idxSens1%AUDIO_OUT_BUFFER_SIZE] = vRawSens1;//vRawSens1;	
+						                    break;
+						    case BUF3_PLAY:
+						                    Buffer3.bufMIC1[WaveRec_idxSens1%AUDIO_OUT_BUFFER_SIZE] = vRawSens1;//vRawSens1;										
+						                    break;
+						    default:
+						                    break; 
+						}
+					}
 
 					 WaveRec_idxSens1++;
 
-//			      if ((WaveRec_idxSens1 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x01;
-//
-//			       if (flgRacing==0x3F)  SubFrameFinished();                    
+                  if ((WaveRec_idxSens1 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x01;
+
+			       if (flgRacing==0x3F)  SubFrameFinished();                    
 		       	}
 		}
 		else
@@ -321,6 +324,7 @@ SPI_I2S_ReceiveData(SPI1);
           {
 				vRawSens2 = (tmpTest);
 				WaveRec_idxTest++;
+#if 1				
 				if (WaveRec_idxSens2<AUDIO_OUT_BUFFER_SIZE)
 				{
 					/* Recording Audio Data */						 
@@ -341,33 +345,34 @@ SPI_I2S_ReceiveData(SPI1);
 				        }
 					
                  }
-//                 else
-//                 {
-//
-//					 /* Recording Audio Data */ 					  
-//					 switch (buffer_switch)
-//					 {
-//						 case BUF1_PLAY:
-//							 Buffer1.bufMIC2[WaveRec_idxSens2%AUDIO_OUT_BUFFER_SIZE] = vRawSens2;								 
-//							 break;
-//						 case BUF2_PLAY:
-//							 Buffer2.bufMIC2[WaveRec_idxSens2%AUDIO_OUT_BUFFER_SIZE] = vRawSens2;
-//							 break;
-//						 case BUF3_PLAY:
-//							 Buffer3.bufMIC2[WaveRec_idxSens2%AUDIO_OUT_BUFFER_SIZE] = vRawSens2;									 
-//							 break;
-//						 default:
-//							 break; 
-//					
-//					}
-//
-//			       }
+                 else
+#endif				 	
+                 {
+
+					 /* Recording Audio Data */ 					  
+					 switch (buffer_switch)
+					 {
+						 case BUF1_PLAY:
+							 Buffer1.bufMIC2[WaveRec_idxSens2%AUDIO_OUT_BUFFER_SIZE] = vRawSens2;								 
+							 break;
+						 case BUF2_PLAY:
+							 Buffer2.bufMIC2[WaveRec_idxSens2%AUDIO_OUT_BUFFER_SIZE] = vRawSens2;
+							 break;
+						 case BUF3_PLAY:
+							 Buffer3.bufMIC2[WaveRec_idxSens2%AUDIO_OUT_BUFFER_SIZE] = vRawSens2;									 
+							 break;
+						 default:
+							 break; 
+					
+					}
+
+			       }
 
 				    WaveRec_idxSens2++;
 
-//			if ((WaveRec_idxSens2 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x02;
-//
-//			if (flgRacing==0x3F)  SubFrameFinished();			      
+		if ((WaveRec_idxSens2 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x02;
+
+		if (flgRacing==0x3F)  SubFrameFinished();			      
 					
 
 			  }
@@ -467,6 +472,7 @@ void SPI2_IRQHandler(void)
 		if ((I2S2_stLROld==GPIO_PIN_RESET)) 
 		{
 			vRawSens3 = app;
+#if 1			
 			if (WaveRec_idxSens3 < AUDIO_OUT_BUFFER_SIZE)
 			{
 				switch (buffer_switch)
@@ -484,30 +490,31 @@ void SPI2_IRQHandler(void)
 						break; 
 				}
 				
+			}			
+			else
+#endif				
+			{
+				switch (buffer_switch)
+				{
+					case BUF1_PLAY:
+						Buffer1.bufMIC3[WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE] = vRawSens3;								
+						break;
+					case BUF2_PLAY:
+						Buffer2.bufMIC3[WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE] = vRawSens3;
+						break;
+					case BUF3_PLAY:
+						Buffer3.bufMIC3[WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE] = vRawSens3;									
+						break;
+					default:
+						break; 
+				}
 			}
-//			else
-//			{
-//				switch (buffer_switch)
-//				{
-//					case BUF1_PLAY:
-//						Buffer1.bufMIC3[WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE] = vRawSens3;								
-//						break;
-//					case BUF2_PLAY:
-//						Buffer2.bufMIC3[WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE] = vRawSens3;
-//						break;
-//					case BUF3_PLAY:
-//						Buffer3.bufMIC3[WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE] = vRawSens3;									
-//						break;
-//					default:
-//						break; 
-//				}
-//			}
 
 		    WaveRec_idxSens3++;
 
-//			if ((WaveRec_idxSens3 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x04;
-//
-//			if (flgRacing==0x3F)  SubFrameFinished();
+			if ((WaveRec_idxSens3 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x04;
+
+			if (flgRacing==0x3F)  SubFrameFinished();
 			
 		}
 		
@@ -517,6 +524,7 @@ void SPI2_IRQHandler(void)
             if ((I2S2_stLROld==GPIO_PIN_SET))   
             {
                   vRawSens4 =app;
+#if 1
                   if ((WaveRec_idxSens4<AUDIO_OUT_BUFFER_SIZE))
                   {
 	                    switch (buffer_switch)
@@ -536,27 +544,28 @@ void SPI2_IRQHandler(void)
 
 						
                   }
-//                  else
-//                  {
-//                      switch (buffer_switch)
-//                      {	 
-//                          case BUF1_PLAY:
-//                                  Buffer1.bufMIC4[WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE] = vRawSens4;								
-//                                  break;
-//                          case BUF2_PLAY:
-//                                  Buffer2.bufMIC4[WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE] = vRawSens4;
-//                                  break;
-//                          case BUF3_PLAY:
-//                                  Buffer3.bufMIC4[WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE] = vRawSens4;									
-//                                  break;
-//                          default:
-//                                  break; 
-//                      }
-//                    }
+                  else
+#endif				  	
+                  {
+                      switch (buffer_switch)
+                      {	 
+                          case BUF1_PLAY:
+                                  Buffer1.bufMIC4[WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE] = vRawSens4;								
+                                  break;
+                          case BUF2_PLAY:
+                                  Buffer2.bufMIC4[WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE] = vRawSens4;
+                                  break;
+                          case BUF3_PLAY:
+                                  Buffer3.bufMIC4[WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE] = vRawSens4;									
+                                  break;
+                          default:
+                                  break; 
+                      }
+                    }
 				  WaveRec_idxSens4++;
 
-//			if ((WaveRec_idxSens4 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x08;
-//			if (flgRacing==0x3F)  SubFrameFinished();				  
+			if ((WaveRec_idxSens4 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x08;
+			if (flgRacing==0x3F)  SubFrameFinished();				  
                     
             }
 	 }//else
@@ -651,7 +660,8 @@ void SPI4_IRQHandler(void)
             }
             else
             {
-               vRawSens5 =((test>>SPI4_stPosShft)|(SPI4_stNipple<<(SDOLEN-SPI4_stPosShft)));	
+               vRawSens5 =((test>>SPI4_stPosShft)|(SPI4_stNipple<<(SDOLEN-SPI4_stPosShft)));
+#if 1		   
                if (WaveRec_idxSens5 < AUDIO_OUT_BUFFER_SIZE)
                {
                     /*-------------------------------------------------------------------------------------------------------------                                             
@@ -684,32 +694,33 @@ void SPI4_IRQHandler(void)
 
 					
                }
-//               else
-//               {
-//                 /* Recording Audio Data */			             
-//                 switch (buffer_switch)
-//                 {
-//                     case BUF1_PLAY:
-//                         Buffer1.bufMIC5[WaveRec_idxSens5%AUDIO_OUT_BUFFER_SIZE] = vRawSens5;
-//
-//                         break;
-//                     case BUF2_PLAY:
-//                         Buffer2.bufMIC5[WaveRec_idxSens5%AUDIO_OUT_BUFFER_SIZE] = vRawSens5;
-//
-//                         break;
-//                     case BUF3_PLAY:
-//                         Buffer3.bufMIC5[WaveRec_idxSens5%AUDIO_OUT_BUFFER_SIZE] = vRawSens5;
-//
-//                         break;                          
-//                     default:
-//                         break;
-//                 }
-//               }
+               else
+#endif			   	
+               {
+                 /* Recording Audio Data */			             
+                 switch (buffer_switch)
+                 {
+                     case BUF1_PLAY:
+                         Buffer1.bufMIC5[WaveRec_idxSens5%AUDIO_OUT_BUFFER_SIZE] = vRawSens5;
+
+                         break;
+                     case BUF2_PLAY:
+                         Buffer2.bufMIC5[WaveRec_idxSens5%AUDIO_OUT_BUFFER_SIZE] = vRawSens5;
+
+                         break;
+                     case BUF3_PLAY:
+                         Buffer3.bufMIC5[WaveRec_idxSens5%AUDIO_OUT_BUFFER_SIZE] = vRawSens5;
+
+                         break;                          
+                     default:
+                         break;
+                 }
+               }
 
 			    WaveRec_idxSens5++;
-//			if ((WaveRec_idxSens5 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x10;
-//
-//			if (flgRacing==0x3F)  SubFrameFinished();				
+			if ((WaveRec_idxSens5 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x10;
+
+			if (flgRacing==0x3F)  SubFrameFinished();				
 	   }
         }
 	else
@@ -722,6 +733,7 @@ void SPI4_IRQHandler(void)
           else
           {
                vRawSens6 =((test>>SPI4_stPosShft)|(SPI4_stNipple<<(SDOLEN-SPI4_stPosShft)));
+#if 1			   
                if (WaveRec_idxSens6 < AUDIO_OUT_BUFFER_SIZE)
                {
                     /*-------------------------------------------------------------------------------------------------------------                                             
@@ -755,34 +767,35 @@ void SPI4_IRQHandler(void)
 
 					  
                }
-//               else
-//               {
-//                  /* Recording Audio Data */						 
-//                   switch (buffer_switch)
-//                   {
-//                           case BUF1_PLAY:
-//                                   Buffer1.bufMIC6[WaveRec_idxSens6 % AUDIO_OUT_BUFFER_SIZE] = vRawSens6;
-//                  
-//                                   break;
-//                           case BUF2_PLAY:
-//                                   Buffer2.bufMIC6[WaveRec_idxSens6 % AUDIO_OUT_BUFFER_SIZE] = vRawSens6;
-//                  
-//                                   break;
-//                           case BUF3_PLAY:
-//                                   Buffer3.bufMIC6[WaveRec_idxSens6 % AUDIO_OUT_BUFFER_SIZE] = vRawSens6;
-//                  
-//                                   break; 						 
-//                           default:
-//                                   break;
-//                   }
-//
-//                }
+               else
+#endif			   	
+               {
+                  /* Recording Audio Data */						 
+                   switch (buffer_switch)
+                   {
+                           case BUF1_PLAY:
+                                   Buffer1.bufMIC6[WaveRec_idxSens6 % AUDIO_OUT_BUFFER_SIZE] = vRawSens6;
+                  
+                                   break;
+                           case BUF2_PLAY:
+                                   Buffer2.bufMIC6[WaveRec_idxSens6 % AUDIO_OUT_BUFFER_SIZE] = vRawSens6;
+                  
+                                   break;
+                           case BUF3_PLAY:
+                                   Buffer3.bufMIC6[WaveRec_idxSens6 % AUDIO_OUT_BUFFER_SIZE] = vRawSens6;
+                  
+                                   break; 						 
+                           default:
+                                   break;
+                   }
+
+                }
                
 		       
 		        WaveRec_idxSens6++;
-//			if ((WaveRec_idxSens6 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x20;
-//
-//			if (flgRacing==0x3F)  SubFrameFinished();			   
+			if ((WaveRec_idxSens6 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x20;
+
+			if (flgRacing==0x3F)  SubFrameFinished();			   
                
           }		
 	}
@@ -1568,12 +1581,19 @@ void DMA2_Stream6_IRQHandler(void)
 void HAL_SPI_RxHalfCpltCallback(SPI_HandleTypeDef *hspi)
 {
 
-    if (hspi->Instance==SPI6) //MIC8
+    if (hspi->Instance==SPI5) //MIC8
     {
        swtSDO7=0x00;
        WaveRecord_flgSDO7Finish = 1;
-       WaveRecord_flgSDO8Finish = 1;
+  	   WaveRecord_flgSDO8Finish = 1;
+    
     }
+    if (hspi->Instance==SPI6)
+	{
+		swtSDO8=0x00;
+
+
+	}
 
 }
 
@@ -1601,7 +1621,9 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
 
     if (hspi->Instance==SPI5)
     {
-
+		swtSDO7=0x01;
+		WaveRecord_flgSDO7Finish = 1;
+       	WaveRecord_flgSDO8Finish = 1;
     }
     else
     {
@@ -1651,9 +1673,8 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
 
 	//MIC7Rec();
 	//MIC8Rec();   
-	swtSDO7=0x01;
-	WaveRecord_flgSDO7Finish = 1;
-	WaveRecord_flgSDO8Finish = 1;
+    swtSDO8 =0x01;
+
 	
 #endif
 
@@ -1815,4 +1836,3 @@ void MIC8Rec (void)
 //    }
 
 }
-

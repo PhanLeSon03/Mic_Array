@@ -1403,9 +1403,9 @@ void HAL_I2S_MspInit(I2S_HandleTypeDef *hi2s)
       __HAL_I2S_ENABLE(&hi2s3);
 
       /* Set Interrupt Group Priority */
-      HAL_NVIC_SetPriority(DMA1_Stream7_IRQn, 2, 1);
+      //HAL_NVIC_SetPriority(DMA1_Stream7_IRQn, INTERRUPT_PRI_I2S_OUT, 1);
       /* Enable the DMA STREAM global Interrupt */
-      HAL_NVIC_EnableIRQ(DMA1_Stream7_IRQn);    
+      //HAL_NVIC_EnableIRQ(DMA1_Stream7_IRQn);    
 
  }
 
