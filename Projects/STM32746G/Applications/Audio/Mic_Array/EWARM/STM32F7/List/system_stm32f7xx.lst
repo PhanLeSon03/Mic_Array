@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       12/Apr/2016  09:55:52
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       13/Apr/2016  13:47:34
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7 --relaxed_fp
 #    List file    =  
@@ -194,11 +194,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
 
    \                                 In section .data, align 4
     133            uint32_t SystemCoreClock = 16000000;
-   \                     SystemCoreClock:
-   \   00000000   0x00F42400         DC32 16000000
     134            __IO const uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
    \                     AHBPrescTable:
-   \   00000004   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9
+   \   00000000   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9
    \              0x00 0x00    
    \              0x00 0x00    
    \              0x00 0x00    
@@ -206,6 +204,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \              0x03 0x04    
    \              0x06 0x07    
    \              0x08 0x09    
+   \                     SystemCoreClock:
+   \   00000010   0x00F42400         DC32 16000000
     135          
     136          /**
     137            * @}
@@ -241,7 +241,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     165            #if (__FPU_PRESENT == 1) && (__FPU_USED == 1)
     166              SCB->CPACR |= ((3UL << 10*2)|(3UL << 11*2));  /* set CP10 and CP11 Full Access */
    \                     SystemInit: (+1)
-   \   00000000   0x....             LDR.N    R0,??DataTable1  ;; 0xe000ed08
+   \   00000000   0x....             LDR.N    R0,??DataTable1  ;; 0xe000ed88
     167            #endif
     168            /* Reset the RCC clock configuration to the default reset state ------------*/
     169            /* Set HSION bit */
@@ -252,35 +252,35 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     174          
     175            /* Reset HSEON, CSSON and PLLON bits */
     176            RCC->CR &= (uint32_t)0xFEF6FFFF;
-   \   00000002   0x....             LDR.N    R3,??DataTable1_1  ;; 0xfef6ffff
-   \   00000004   0xF8D0 0x1080      LDR      R1,[R0, #+128]
-   \   00000008   0xF441 0x0170      ORR      R1,R1,#0xF00000
-   \   0000000C   0xF8C0 0x1080      STR      R1,[R0, #+128]
-   \   00000010   0x....             LDR.N    R1,??DataTable1_2  ;; 0x40023800
-   \   00000012   0x680A             LDR      R2,[R1, #+0]
-   \   00000014   0xF042 0x0201      ORR      R2,R2,#0x1
-   \   00000018   0x600A             STR      R2,[R1, #+0]
-   \   0000001A   0x2200             MOVS     R2,#+0
-   \   0000001C   0x608A             STR      R2,[R1, #+8]
-   \   0000001E   0x680A             LDR      R2,[R1, #+0]
-   \   00000020   0x401A             ANDS     R2,R3,R2
-   \   00000022   0x600A             STR      R2,[R1, #+0]
+   \   00000002   0x....             LDR.N    R2,??DataTable1_1  ;; 0xfef6ffff
+   \   00000004   0x6801             LDR      R1,[R0, #+0]
+   \   00000006   0xF441 0x0170      ORR      R1,R1,#0xF00000
+   \   0000000A   0x6001             STR      R1,[R0, #+0]
+   \   0000000C   0x....             LDR.N    R0,??DataTable1_2  ;; 0x40023800
+   \   0000000E   0x6801             LDR      R1,[R0, #+0]
+   \   00000010   0xF041 0x0101      ORR      R1,R1,#0x1
+   \   00000014   0x6001             STR      R1,[R0, #+0]
+   \   00000016   0x2100             MOVS     R1,#+0
+   \   00000018   0x6081             STR      R1,[R0, #+8]
+   \   0000001A   0x6801             LDR      R1,[R0, #+0]
+   \   0000001C   0x4011             ANDS     R1,R2,R1
+   \   0000001E   0x6001             STR      R1,[R0, #+0]
     177          
     178            /* Reset PLLCFGR register */
     179            RCC->PLLCFGR = 0x24003010;
-   \   00000024   0x....             LDR.N    R2,??DataTable1_3  ;; 0x24003010
-   \   00000026   0x604A             STR      R2,[R1, #+4]
+   \   00000020   0x....             LDR.N    R1,??DataTable1_3  ;; 0x24003010
+   \   00000022   0x6041             STR      R1,[R0, #+4]
     180          
     181            /* Reset HSEBYP bit */
     182            RCC->CR &= (uint32_t)0xFFFBFFFF;
-   \   00000028   0x680A             LDR      R2,[R1, #+0]
-   \   0000002A   0xF422 0x2280      BIC      R2,R2,#0x40000
-   \   0000002E   0x600A             STR      R2,[R1, #+0]
+   \   00000024   0x6801             LDR      R1,[R0, #+0]
+   \   00000026   0xF421 0x2180      BIC      R1,R1,#0x40000
+   \   0000002A   0x6001             STR      R1,[R0, #+0]
     183          
     184            /* Disable all interrupts */
     185            RCC->CIR = 0x00000000;
-   \   00000030   0x2200             MOVS     R2,#+0
-   \   00000032   0x60CA             STR      R2,[R1, #+12]
+   \   0000002C   0x2100             MOVS     R1,#+0
+   \   0000002E   0x60C1             STR      R1,[R0, #+12]
     186          
     187          #if defined (DATA_IN_ExtSRAM) || defined (DATA_IN_ExtSDRAM)
     188            SystemInit_ExtMemCtl(); 
@@ -291,11 +291,12 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     193            SCB->VTOR = SRAM1_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal SRAM */
     194          #else
     195            SCB->VTOR = FLASH_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal FLASH */
-   \   00000034   0xF04F 0x6100      MOV      R1,#+134217728
-   \   00000038   0x6001             STR      R1,[R0, #+0]
+   \   00000030   0xF04F 0x6000      MOV      R0,#+134217728
+   \   00000034   0x....             LDR.N    R1,??DataTable1_4  ;; 0xe000ed08
+   \   00000036   0x6008             STR      R0,[R1, #+0]
     196          #endif
     197          }
-   \   0000003A   0x4770             BX       LR               ;; return
+   \   00000038   0x4770             BX       LR               ;; return
     198          
     199          /**
     200             * @brief  Update SystemCoreClock variable according to Clock Register Values.
@@ -342,7 +343,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     239            /* Get SYSCLK source -------------------------------------------------------*/
     240            tmp = RCC->CFGR & RCC_CFGR_SWS;
    \                     SystemCoreClockUpdate: (+1)
-   \   00000000   0x....             LDR.N    R0,??DataTable1_4  ;; 0x40023804
+   \   00000000   0x....             LDR.N    R0,??DataTable1_5  ;; 0x40023804
    \   00000002   0x6841             LDR      R1,[R0, #+4]
     241          
     242            switch (tmp)
@@ -359,7 +360,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     247              case 0x04:  /* HSE used as system clock source */
     248                SystemCoreClock = HSE_VALUE;
    \                     ??SystemCoreClockUpdate_0: (+1)
-   \   00000012   0x....             LDR.N    R1,??DataTable1_5  ;; 0x17d7840
+   \   00000012   0x....             LDR.N    R1,??DataTable1_6  ;; 0x17d7840
     249                break;
    \   00000014   0xE018             B.N      ??SystemCoreClockUpdate_3
     250              case 0x08:  /* PLL used as system clock source */
@@ -378,8 +379,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \   0000001E   0x2900             CMP      R1,#+0
    \   00000020   0xF002 0x023F      AND      R2,R2,#0x3F
    \   00000024   0xBF14             ITE      NE 
-   \   00000026   0x....             LDRNE.N  R1,??DataTable1_5  ;; 0x17d7840
-   \   00000028   0x....             LDREQ.N  R1,??DataTable1_6  ;; 0xf42400
+   \   00000026   0x....             LDRNE.N  R1,??DataTable1_6  ;; 0x17d7840
+   \   00000028   0x....             LDREQ.N  R1,??DataTable1_7  ;; 0xf42400
     259                {
     260                  /* HSE used as PLL clock source */
     261                  pllvco = (HSE_VALUE / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);
@@ -391,7 +392,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \   0000002A   0xFBB1 0xF1F2      UDIV     R1,R1,R2
    \   0000002E   0x6802             LDR      R2,[R0, #+0]
    \   00000030   0xF3C2 0x1288      UBFX     R2,R2,#+6,#+9
-   \   00000034   0x4351             MULS     R1,R1,R2
+   \   00000034   0x4351             MULS     R1,R2,R1
     267                }
     268          
     269                pllp = (((RCC->PLLCFGR & RCC_PLLCFGR_PLLP) >>16) + 1 ) *2;
@@ -406,11 +407,11 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     272              default:
     273                SystemCoreClock = HSI_VALUE;
    \                     ??SystemCoreClockUpdate_2: (+1)
-   \   00000046   0x....             LDR.N    R1,??DataTable1_6  ;; 0xf42400
+   \   00000046   0x....             LDR.N    R1,??DataTable1_7  ;; 0xf42400
     274                break;
    \                     ??SystemCoreClockUpdate_3: (+1)
-   \   00000048   0x....             LDR.N    R2,??DataTable1_7
-   \   0000004A   0x6011             STR      R1,[R2, #+0]
+   \   00000048   0x....             LDR.N    R2,??DataTable1_8
+   \   0000004A   0x6111             STR      R1,[R2, #+16]
     275            }
     276            /* Compute HCLK frequency --------------------------------------------------*/
     277            /* Get HCLK prescaler */
@@ -419,16 +420,15 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     280            SystemCoreClock >>= tmp;
    \   0000004C   0x6840             LDR      R0,[R0, #+4]
    \   0000004E   0xF3C0 0x1003      UBFX     R0,R0,#+4,#+4
-   \   00000052   0x1880             ADDS     R0,R0,R2
-   \   00000054   0x7900             LDRB     R0,[R0, #+4]
-   \   00000056   0x40C1             LSRS     R1,R1,R0
-   \   00000058   0x6011             STR      R1,[R2, #+0]
+   \   00000052   0x5C80             LDRB     R0,[R0, R2]
+   \   00000054   0x40C1             LSRS     R1,R1,R0
+   \   00000056   0x6111             STR      R1,[R2, #+16]
     281          }
-   \   0000005A   0x4770             BX       LR               ;; return
+   \   00000058   0x4770             BX       LR               ;; return
 
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable1:
-   \   00000000   0xE000ED08         DC32     0xe000ed08
+   \   00000000   0xE000ED88         DC32     0xe000ed88
 
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable1_1:
@@ -444,19 +444,23 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
 
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable1_4:
-   \   00000000   0x40023804         DC32     0x40023804
+   \   00000000   0xE000ED08         DC32     0xe000ed08
 
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable1_5:
-   \   00000000   0x017D7840         DC32     0x17d7840
+   \   00000000   0x40023804         DC32     0x40023804
 
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable1_6:
-   \   00000000   0x00F42400         DC32     0xf42400
+   \   00000000   0x017D7840         DC32     0x17d7840
 
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable1_7:
-   \   00000000   0x........         DC32     SystemCoreClock
+   \   00000000   0x00F42400         DC32     0xf42400
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_8:
+   \   00000000   0x........         DC32     AHBPrescTable
     282          
     283          #if defined (DATA_IN_ExtSRAM) || defined (DATA_IN_ExtSDRAM)
     284          /**
@@ -701,10 +705,11 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
        4  ??DataTable1_5
        4  ??DataTable1_6
        4  ??DataTable1_7
-      20  SystemCoreClock
-          AHBPrescTable
-      92  SystemCoreClockUpdate
-      60  SystemInit
+       4  ??DataTable1_8
+      20  AHBPrescTable
+          SystemCoreClock
+      90  SystemCoreClockUpdate
+      58  SystemInit
 
  
   20 bytes in section .data

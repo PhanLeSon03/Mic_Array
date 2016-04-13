@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       12/Apr/2016  09:55:53
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       13/Apr/2016  13:47:35
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7 --relaxed_fp
 #    List file    =  
@@ -186,13 +186,20 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
    \   00000012   0x9100             STR      R1,[SP, #+0]
    \   00000014   0x2300             MOVS     R3,#+0
    \   00000016   0x2200             MOVS     R2,#+0
-   \   00000018   0x4621             MOV      R1,R4
-   \   0000001A   0x.... 0x....      BL       USBH_LL_SubmitURB
+   \   00000018   0x....             B.N      ??Subroutine0_0
     113            return USBH_OK;  
-   \   0000001E   0x2000             MOVS     R0,#+0
-   \   00000020   0xB004             ADD      SP,SP,#+16
-   \   00000022   0xBD10             POP      {R4,PC}          ;; return
     114          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine0: (+1)
+   \   00000000   0x9100             STR      R1,[SP, #+0]
+   \   00000002   0x2201             MOVS     R2,#+1
+   \                     ??Subroutine0_0: (+1)
+   \   00000004   0x4621             MOV      R1,R4
+   \   00000006   0x.... 0x....      BL       USBH_LL_SubmitURB
+   \   0000000A   0x2000             MOVS     R0,#+0
+   \   0000000C   0xB004             ADD      SP,SP,#+16
+   \   0000000E   0xBD10             POP      {R4,PC}          ;; return
     115          
     116          
     117          /**
@@ -238,17 +245,21 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
    \   00000012   0x2101             MOVS     R1,#+1
    \   00000014   0x9303             STR      R3,[SP, #+12]
    \   00000016   0x2300             MOVS     R3,#+0
-   \   00000018   0x9202             STR      R2,[SP, #+8]
-   \   0000001A   0x2200             MOVS     R2,#+0
-   \   0000001C   0x9100             STR      R1,[SP, #+0]
-   \   0000001E   0x4621             MOV      R1,R4
-   \   00000020   0x.... 0x....      BL       USBH_LL_SubmitURB
+   \   00000018   0x....             B.N      ?Subroutine1
     145            
     146            return USBH_OK;
-   \   00000024   0x2000             MOVS     R0,#+0
-   \   00000026   0xB005             ADD      SP,SP,#+20
-   \   00000028   0xBD30             POP      {R4,R5,PC}       ;; return
     147          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine1: (+1)
+   \   00000000   0x9202             STR      R2,[SP, #+8]
+   \   00000002   0x2200             MOVS     R2,#+0
+   \   00000004   0x9100             STR      R1,[SP, #+0]
+   \   00000006   0x4621             MOV      R1,R4
+   \   00000008   0x.... 0x....      BL       USBH_LL_SubmitURB
+   \   0000000C   0x2000             MOVS     R0,#+0
+   \   0000000E   0xB005             ADD      SP,SP,#+20
+   \   00000010   0xBD30             POP      {R4,R5,PC}       ;; return
     148          
     149          
     150          /**
@@ -286,12 +297,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
    \   0000000E   0x9100             STR      R1,[SP, #+0]
    \   00000010   0x2201             MOVS     R2,#+1
    \   00000012   0x9303             STR      R3,[SP, #+12]
-   \   00000014   0x4621             MOV      R1,R4
-   \   00000016   0x.... 0x....      BL       USBH_LL_SubmitURB
+   \   00000014   0x....             B.N      ??Subroutine0_0
     172            return USBH_OK;
-   \   0000001A   0x2000             MOVS     R0,#+0
-   \   0000001C   0xB004             ADD      SP,SP,#+16
-   \   0000001E   0xBD10             POP      {R4,PC}          ;; return
     173            
     174          }
     175          
@@ -339,15 +346,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
    \   00000012   0x2101             MOVS     R1,#+1
    \   00000014   0x9303             STR      R3,[SP, #+12]
    \   00000016   0x2302             MOVS     R3,#+2
-   \   00000018   0x9202             STR      R2,[SP, #+8]
-   \   0000001A   0x2200             MOVS     R2,#+0
-   \   0000001C   0x9100             STR      R1,[SP, #+0]
-   \   0000001E   0x4621             MOV      R1,R4
-   \   00000020   0x.... 0x....      BL       USBH_LL_SubmitURB
+   \   00000018                      REQUIRE ?Subroutine1
+   \   00000018                      ;; // Fall through to label ?Subroutine1
     205            return USBH_OK;
-   \   00000024   0x2000             MOVS     R0,#+0
-   \   00000026   0xB005             ADD      SP,SP,#+20
-   \   00000028   0xBD30             POP      {R4,R5,PC}       ;; return
     206          }
     207          
     208          
@@ -385,14 +386,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
    \   0000000C   0x9303             STR      R3,[SP, #+12]
    \   0000000E   0x9202             STR      R2,[SP, #+8]
    \   00000010   0x2302             MOVS     R3,#+2
-   \   00000012   0x9100             STR      R1,[SP, #+0]
-   \   00000014   0x2201             MOVS     R2,#+1
-   \   00000016   0x4621             MOV      R1,R4
-   \   00000018   0x.... 0x....      BL       USBH_LL_SubmitURB
+   \   00000012   0x....             B.N      ?Subroutine0
     231            return USBH_OK;
-   \   0000001C   0x2000             MOVS     R0,#+0
-   \   0000001E   0xB004             ADD      SP,SP,#+16
-   \   00000020   0xBD10             POP      {R4,PC}          ;; return
     232          }
     233          
     234          
@@ -430,15 +425,10 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
    \   0000000C   0x9303             STR      R3,[SP, #+12]
    \   0000000E   0x9202             STR      R2,[SP, #+8]
    \   00000010   0x2303             MOVS     R3,#+3
-   \   00000012   0x9100             STR      R1,[SP, #+0]
-   \   00000014   0x2201             MOVS     R2,#+1
-   \   00000016   0x4621             MOV      R1,R4
-   \   00000018   0x.... 0x....      BL       USBH_LL_SubmitURB
+   \   00000012                      REQUIRE ?Subroutine0
+   \   00000012                      ;; // Fall through to label ?Subroutine0
     257            
     258            return USBH_OK;
-   \   0000001C   0x2000             MOVS     R0,#+0
-   \   0000001E   0xB004             ADD      SP,SP,#+16
-   \   00000020   0xBD10             POP      {R4,PC}          ;; return
     259          }
     260          
     261          /**
@@ -477,13 +467,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
    \   00000010   0x2303             MOVS     R3,#+3
    \   00000012   0x9100             STR      R1,[SP, #+0]
    \   00000014   0x2200             MOVS     R2,#+0
-   \   00000016   0x4621             MOV      R1,R4
-   \   00000018   0x.... 0x....      BL       USBH_LL_SubmitURB
+   \   00000016   0x....             B.N      ??Subroutine0_0
     283            
     284            return USBH_OK;
-   \   0000001C   0x2000             MOVS     R0,#+0
-   \   0000001E   0xB004             ADD      SP,SP,#+16
-   \   00000020   0xBD10             POP      {R4,PC}          ;; return
     285          }
     286          
     287          /**
@@ -523,14 +509,10 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
    \   00000012   0x9202             STR      R2,[SP, #+8]
    \   00000014   0x2201             MOVS     R2,#+1
    \   00000016   0x9100             STR      R1,[SP, #+0]
-   \   00000018   0x4621             MOV      R1,R4
-   \   0000001A   0x.... 0x....      BL       USBH_LL_SubmitURB
+   \   00000018   0x....             B.N      ??Subroutine0_0
     309          
     310            
     311            return USBH_OK;
-   \   0000001E   0x2000             MOVS     R0,#+0
-   \   00000020   0xB004             ADD      SP,SP,#+16
-   \   00000022   0xBD10             POP      {R4,PC}          ;; return
     312          }
     313          
     314          /**
@@ -570,13 +552,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
    \   00000012   0x9202             STR      R2,[SP, #+8]
    \   00000014   0x2200             MOVS     R2,#+0
    \   00000016   0x9100             STR      R1,[SP, #+0]
-   \   00000018   0x4621             MOV      R1,R4
-   \   0000001A   0x.... 0x....      BL       USBH_LL_SubmitURB
+   \   00000018   0x....             B.N      ??Subroutine0_0
     336            
     337            return USBH_OK;
-   \   0000001E   0x2000             MOVS     R0,#+0
-   \   00000020   0xB004             ADD      SP,SP,#+16
-   \   00000022   0xBD10             POP      {R4,PC}          ;; return
     338          }
     339          /**
     340          * @}
@@ -627,20 +605,22 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Middlewares\ST\STM32
 
    Bytes  Function/Label
    -----  --------------
-      34  USBH_BulkReceiveData
-      42  USBH_BulkSendData
-      32  USBH_CtlReceiveData
-      42  USBH_CtlSendData
-      36  USBH_CtlSendSetup
-      34  USBH_InterruptReceiveData
-      34  USBH_InterruptSendData
-      36  USBH_IsocReceiveData
-      36  USBH_IsocSendData
+      16  ?Subroutine0
+      18  ?Subroutine1
+      20  USBH_BulkReceiveData
+      24  USBH_BulkSendData
+      22  USBH_CtlReceiveData
+      26  USBH_CtlSendData
+      26  USBH_CtlSendSetup
+      18  USBH_InterruptReceiveData
+      24  USBH_InterruptSendData
+      26  USBH_IsocReceiveData
+      26  USBH_IsocSendData
 
  
- 326 bytes in section .text
+ 246 bytes in section .text
  
- 326 bytes of CODE memory
+ 246 bytes of CODE memory
 
 Errors: none
 Warnings: none

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      12/Apr/2016  09:55:46
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      13/Apr/2016  13:47:29
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -407,9 +407,7 @@ ft5336_ReadID:
 //  199   return (ucReadId);
 ??ft5336_ReadID_1:
         LDRB     R0,[SP, #+0]
-        ADD      SP,SP,#+8
-          CFI CFA R13+16
-        POP      {R4-R6,PC}       ;; return
+        POP      {R1,R2,R4-R6,PC}  ;; return
 //  200 }
           CFI EndBlock cfiBlock2
 //  201 
@@ -422,6 +420,7 @@ ft5336_ReadID:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock3 Using cfiCommon0
           CFI Function ft5336_TS_Start
+          CFI NoCalls
         THUMB
 //  207 void ft5336_TS_Start(uint16_t DeviceAddr)
 //  208 {
@@ -432,11 +431,7 @@ ft5336_ReadID:
 //  213   /* Note TS_INT is active low                                                                      */
 //  214   ft5336_TS_DisableIT(DeviceAddr);
 ft5336_TS_Start:
-        MOVS     R2,#+0
-        MOVS     R1,#+164
-        UXTB     R0,R0
-          CFI FunCall TS_IO_Write
-        B.W      TS_IO_Write
+        B.N      ?Subroutine0
 //  215 }
           CFI EndBlock cfiBlock3
 //  216 
@@ -455,19 +450,17 @@ ft5336_TS_Start:
 //  224 uint8_t ft5336_TS_DetectTouch(uint16_t DeviceAddr)
 //  225 {
 ft5336_TS_DetectTouch:
-        PUSH     {LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI CFA R13+4
-        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  226   volatile uint8_t nbTouch = 0;
         MOVS     R1,#+0
-        STRB     R1,[SP, #+0]
 //  227 
 //  228   /* Read register FT5336_TD_STAT_REG to check number of touches detection */
 //  229   nbTouch = TS_IO_Read(DeviceAddr, FT5336_TD_STAT_REG);
-        MOVS     R1,#+2
         UXTB     R0,R0
+        STRB     R1,[SP, #+0]
+        MOVS     R1,#+2
           CFI FunCall TS_IO_Read
         BL       TS_IO_Read
         STRB     R0,[SP, #+0]
@@ -500,9 +493,7 @@ ft5336_TS_DetectTouch:
 //  243 
 //  244   return(nbTouch);
         LDRB     R0,[SP, #+0]
-        ADD      SP,SP,#+4
-          CFI CFA R13+4
-        POP      {PC}             ;; return
+        POP      {R1,PC}          ;; return
 //  245 }
           CFI EndBlock cfiBlock4
 //  246 
@@ -769,9 +760,7 @@ ft5336_TS_GetXY:
 //  368   } /* of if(ft5336_handle.currActiveTouchIdx < ft5336_handle.currActiveTouchNb) */
 //  369 }
 ??ft5336_TS_GetXY_1:
-        ADD      SP,SP,#+8
-          CFI CFA R13+32
-        POP      {R4-R10,PC}      ;; return
+        POP      {R0,R1,R4-R10,PC}  ;; return
           CFI EndBlock cfiBlock5
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
@@ -790,6 +779,7 @@ ft5336_handle:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock6 Using cfiCommon0
           CFI Function ft5336_TS_EnableIT
+          CFI NoCalls
         THUMB
 //  377 void ft5336_TS_EnableIT(uint16_t DeviceAddr)
 //  378 {
@@ -800,10 +790,7 @@ ft5336_handle:
 //  383    TS_IO_Write(DeviceAddr, FT5336_GMODE_REG, regValue);
 ft5336_TS_EnableIT:
         MOVS     R2,#+1
-        MOVS     R1,#+164
-        UXTB     R0,R0
-          CFI FunCall TS_IO_Write
-        B.W      TS_IO_Write
+        B.N      ??Subroutine0_0
 //  384 }
           CFI EndBlock cfiBlock6
 //  385 
@@ -817,22 +804,36 @@ ft5336_TS_EnableIT:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock7 Using cfiCommon0
           CFI Function ft5336_TS_DisableIT
+          CFI NoCalls
         THUMB
 //  392 void ft5336_TS_DisableIT(uint16_t DeviceAddr)
+ft5336_TS_DisableIT:
+        Nop      
 //  393 {
 //  394   uint8_t regValue = 0;
 //  395   regValue = (FT5336_G_MODE_INTERRUPT_POLLING & (FT5336_G_MODE_INTERRUPT_MASK >> FT5336_G_MODE_INTERRUPT_SHIFT)) << FT5336_G_MODE_INTERRUPT_SHIFT;
 //  396 
 //  397   /* Set interrupt polling mode in FT5336_GMODE_REG */
 //  398   TS_IO_Write(DeviceAddr, FT5336_GMODE_REG, regValue);
-ft5336_TS_DisableIT:
+          CFI EndBlock cfiBlock7
+        REQUIRE ?Subroutine0
+        ;; // Fall through to label ?Subroutine0
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock8 Using cfiCommon0
+          CFI NoFunction
+        THUMB
+?Subroutine0:
         MOVS     R2,#+0
+??Subroutine0_0:
         MOVS     R1,#+164
         UXTB     R0,R0
-          CFI FunCall TS_IO_Write
+          CFI FunCall ft5336_TS_Start TS_IO_Write
+          CFI FunCall ft5336_TS_DisableIT TS_IO_Write
+          CFI FunCall ft5336_TS_EnableIT TS_IO_Write
         B.W      TS_IO_Write
+          CFI EndBlock cfiBlock8
 //  399 }
-          CFI EndBlock cfiBlock7
 //  400 
 //  401 /**
 //  402   * @brief  Get IT status from FT5336 interrupt status registers
@@ -844,7 +845,7 @@ ft5336_TS_DisableIT:
 //  408   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock8 Using cfiCommon0
+          CFI Block cfiBlock9 Using cfiCommon0
           CFI Function ft5336_TS_ITStatus
           CFI NoCalls
         THUMB
@@ -856,7 +857,7 @@ ft5336_TS_ITStatus:
         MOVS     R0,#+0
         BX       LR               ;; return
 //  413 }
-          CFI EndBlock cfiBlock8
+          CFI EndBlock cfiBlock9
 //  414 
 //  415 /**
 //  416   * @brief  Clear IT status in FT5336 interrupt status clear registers
@@ -867,7 +868,7 @@ ft5336_TS_ITStatus:
 //  421   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock9 Using cfiCommon0
+          CFI Block cfiBlock10 Using cfiCommon0
           CFI Function ft5336_TS_ClearIT
           CFI NoCalls
         THUMB
@@ -877,7 +878,7 @@ ft5336_TS_ITStatus:
 //  425 }
 ft5336_TS_ClearIT:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock9
+          CFI EndBlock cfiBlock10
 //  426 
 //  427 /**** NEW FEATURES enabled when Multi-touch support is enabled ****/
 //  428 
@@ -891,7 +892,7 @@ ft5336_TS_ClearIT:
 //  436   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock10 Using cfiCommon0
+          CFI Block cfiBlock11 Using cfiCommon0
           CFI Function ft5336_TS_GetGestureID
         THUMB
 //  437 void ft5336_TS_GetGestureID(uint16_t DeviceAddr, uint32_t * pGestureId)
@@ -919,10 +920,8 @@ ft5336_TS_GetGestureID:
         LDRB     R0,[SP, #+0]
         STR      R0,[R4, #+0]
 //  444 }
-        ADD      SP,SP,#+8
-          CFI CFA R13+8
-        POP      {R4,PC}          ;; return
-          CFI EndBlock cfiBlock10
+        POP      {R0,R1,R4,PC}    ;; return
+          CFI EndBlock cfiBlock11
 //  445 
 //  446 /**
 //  447   * @brief  Get the touch detailed informations on touch number 'touchIdx' (0..1)
@@ -941,7 +940,7 @@ ft5336_TS_GetGestureID:
 //  460   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock11 Using cfiCommon0
+          CFI Block cfiBlock12 Using cfiCommon0
           CFI Function ft5336_TS_GetTouchInfo
         THUMB
 //  461 void ft5336_TS_GetTouchInfo(uint16_t   DeviceAddr,
@@ -1145,10 +1144,8 @@ ft5336_TS_GetTouchInfo:
 //  553   } /* of if(touchIdx < ft5336_handle.currActiveTouchNb) */
 //  554 }
 ??ft5336_TS_GetTouchInfo_1:
-        ADD      SP,SP,#+8
-          CFI CFA R13+24
-        POP      {R4-R8,PC}       ;; return
-          CFI EndBlock cfiBlock11
+        POP      {R0,R1,R4-R8,PC}  ;; return
+          CFI EndBlock cfiBlock12
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -1242,9 +1239,9 @@ ft5336_TS_GetTouchInfo:
 // 
 //   6 bytes in section .bss
 //  40 bytes in section .data
-// 700 bytes in section .text
+// 676 bytes in section .text
 // 
-// 700 bytes of CODE memory
+// 676 bytes of CODE memory
 //  46 bytes of DATA memory
 //
 //Errors: none

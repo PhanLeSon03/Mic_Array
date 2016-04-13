@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       12/Apr/2016  09:55:51
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       13/Apr/2016  13:47:34
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7 --relaxed_fp
 #    List file    =  
@@ -260,7 +260,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     195                              Init->ContinuousClock      |\
     196                              Init->PageSize             |\
     197                              Init->WriteFifo);
-   \   00000002   0x....             LDR.N    R5,??DataTable2  ;; 0xffc00480
+   \   00000002   0x....             LDR.N    R5,??DataTable1  ;; 0xffc00480
    \   00000004   0x680A             LDR      R2,[R1, #+0]
    \   00000006   0xF850 0x4022      LDR      R4,[R0, R2, LSL #+2]
    \   0000000A   0x688B             LDR      R3,[R1, #+8]
@@ -426,7 +426,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     282            tmpr = Device->BTCR[Bank + 1];
    \                     FMC_NORSRAM_Timing_Init: (+1)
    \   00000000   0xEB00 0x0282      ADD      R2,R0,R2, LSL #+2
-   \   00000004   0x6853             LDR      R3,[R2, #+4]
+   \   00000004   0xB410             PUSH     {R4}
+   \   00000006   0x6853             LDR      R3,[R2, #+4]
     283          
     284            /* Clear ADDSET, ADDHLD, DATAST, BUSTURN, CLKDIV, DATLAT and ACCMOD bits */
     285            tmpr &= ((uint32_t)~(FMC_BTR1_ADDSET  | FMC_BTR1_ADDHLD | FMC_BTR1_DATAST | \
@@ -444,47 +445,52 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     297                              );
     298            
     299            Device->BTCR[Bank + 1] = tmpr;
-   \   00000006   0xF8D1 0xC000      LDR      R12,[R1, #+0]
+   \   00000008   0x680C             LDR      R4,[R1, #+0]
    \   0000000A   0xF003 0x4340      AND      R3,R3,#0xC0000000
-   \   0000000E   0xEA4C 0x0303      ORR      R3,R12,R3
-   \   00000012   0xF8D1 0xC004      LDR      R12,[R1, #+4]
-   \   00000016   0xEA43 0x130C      ORR      R3,R3,R12, LSL #+4
-   \   0000001A   0xF8D1 0xC008      LDR      R12,[R1, #+8]
-   \   0000001E   0xEA43 0x230C      ORR      R3,R3,R12, LSL #+8
-   \   00000022   0xF8D1 0xC00C      LDR      R12,[R1, #+12]
-   \   00000026   0xEA43 0x430C      ORR      R3,R3,R12, LSL #+16
-   \   0000002A   0xF8D1 0xC010      LDR      R12,[R1, #+16]
-   \   0000002E   0xF1AC 0x0C01      SUB      R12,R12,#+1
-   \   00000032   0xEA43 0x530C      ORR      R3,R3,R12, LSL #+20
-   \   00000036   0xF8D1 0xC014      LDR      R12,[R1, #+20]
-   \   0000003A   0xF1AC 0x0C02      SUB      R12,R12,#+2
-   \   0000003E   0xEA43 0x630C      ORR      R3,R3,R12, LSL #+24
-   \   00000042   0xF8D1 0xC018      LDR      R12,[R1, #+24]
-   \   00000046   0xEA4C 0x0303      ORR      R3,R12,R3
-   \   0000004A   0x6053             STR      R3,[R2, #+4]
+   \   0000000E   0x4323             ORRS     R3,R4,R3
+   \   00000010   0x684C             LDR      R4,[R1, #+4]
+   \   00000012   0xEA43 0x1304      ORR      R3,R3,R4, LSL #+4
+   \   00000016   0x688C             LDR      R4,[R1, #+8]
+   \   00000018   0xEA43 0x2304      ORR      R3,R3,R4, LSL #+8
+   \   0000001C   0x68CC             LDR      R4,[R1, #+12]
+   \   0000001E   0xEA43 0x4304      ORR      R3,R3,R4, LSL #+16
+   \   00000022   0x690C             LDR      R4,[R1, #+16]
+   \   00000024   0x1E64             SUBS     R4,R4,#+1
+   \   00000026   0xEA43 0x5304      ORR      R3,R3,R4, LSL #+20
+   \   0000002A   0x694C             LDR      R4,[R1, #+20]
+   \   0000002C   0x1EA4             SUBS     R4,R4,#+2
+   \   0000002E   0xEA43 0x6304      ORR      R3,R3,R4, LSL #+24
+   \   00000032   0x698C             LDR      R4,[R1, #+24]
+   \   00000034   0x4323             ORRS     R3,R4,R3
+   \   00000036   0x6053             STR      R3,[R2, #+4]
     300            
     301            /* Configure Clock division value (in NORSRAM bank 1) when continuous clock is enabled */
     302            if(HAL_IS_BIT_SET(Device->BTCR[FMC_NORSRAM_BANK1], FMC_BCR1_CCLKEN))
-   \   0000004C   0x6802             LDR      R2,[R0, #+0]
-   \   0000004E   0x02D2             LSLS     R2,R2,#+11
-   \   00000050   0xD507             BPL.N    ??FMC_NORSRAM_Timing_Init_0
+   \   00000038   0x6802             LDR      R2,[R0, #+0]
+   \   0000003A   0x02D2             LSLS     R2,R2,#+11
+   \   0000003C   0xD507             BPL.N    ??FMC_NORSRAM_Timing_Init_0
     303            {
     304              tmpr = (uint32_t)(Device->BTCR[FMC_NORSRAM_BANK1 + 1] & ~(((uint32_t)0x0F) << 20)); 
-   \   00000052   0x6842             LDR      R2,[R0, #+4]
+   \   0000003E   0x6842             LDR      R2,[R0, #+4]
     305              tmpr |= (uint32_t)(((Timing->CLKDivision)-1) << 20);
     306              Device->BTCR[FMC_NORSRAM_BANK1 + 1] = tmpr;
-   \   00000054   0x6909             LDR      R1,[R1, #+16]
-   \   00000056   0xF422 0x0270      BIC      R2,R2,#0xF00000
-   \   0000005A   0x1E49             SUBS     R1,R1,#+1
-   \   0000005C   0xEA42 0x5101      ORR      R1,R2,R1, LSL #+20
-   \   00000060   0x6041             STR      R1,[R0, #+4]
+   \   00000040   0x6909             LDR      R1,[R1, #+16]
+   \   00000042   0xF422 0x0270      BIC      R2,R2,#0xF00000
+   \   00000046   0x1E49             SUBS     R1,R1,#+1
+   \   00000048   0xEA42 0x5101      ORR      R1,R2,R1, LSL #+20
+   \   0000004C   0x6041             STR      R1,[R0, #+4]
     307            }  
     308            
     309            return HAL_OK;   
    \                     ??FMC_NORSRAM_Timing_Init_0: (+1)
-   \   00000062   0x2000             MOVS     R0,#+0
-   \   00000064   0x4770             BX       LR               ;; return
+   \   0000004E   0x....             B.N      ?Subroutine1
     310          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine1: (+1)
+   \   00000000   0x2000             MOVS     R0,#+0
+   \   00000002   0xBC10             POP      {R4}
+   \   00000004   0x4770             BX       LR               ;; return
     311          
     312          /**
     313            * @brief  Initialize the FMC_NORSRAM Extended mode Timing according to the specified
@@ -507,7 +513,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     328            if(ExtendedMode == FMC_EXTENDED_MODE_ENABLE)
    \                     FMC_NORSRAM_Extended_Timing_Init: (+1)
    \   00000000   0xF5B3 0x4F80      CMP      R3,#+16384
-   \   00000004   0xD11B             BNE.N    ??FMC_NORSRAM_Extended_Timing_Init_0
+   \   00000004   0xB410             PUSH     {R4}
+   \   00000006   0xD111             BNE.N    ??FMC_NORSRAM_Extended_Timing_Init_0
     329            {
     330              /* Check the parameters */
     331              assert_param(IS_FMC_NORSRAM_EXTENDED_DEVICE(Device));  
@@ -534,34 +541,33 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     352                                (Timing->AccessMode));
     353          
     354              Device->BWTR[Bank] = tmpr;
-   \   00000006   0xF850 0x3022      LDR      R3,[R0, R2, LSL #+2]
-   \   0000000A   0x.... 0x....      LDR.W    R12,??DataTable2_1  ;; 0xcff00000
-   \   0000000E   0xEA0C 0x0303      AND      R3,R12,R3
-   \   00000012   0xF8D1 0xC000      LDR      R12,[R1, #+0]
-   \   00000016   0xEA4C 0x0303      ORR      R3,R12,R3
-   \   0000001A   0xF8D1 0xC004      LDR      R12,[R1, #+4]
-   \   0000001E   0xEA43 0x130C      ORR      R3,R3,R12, LSL #+4
-   \   00000022   0xF8D1 0xC008      LDR      R12,[R1, #+8]
-   \   00000026   0xEA43 0x230C      ORR      R3,R3,R12, LSL #+8
-   \   0000002A   0xF8D1 0xC00C      LDR      R12,[R1, #+12]
-   \   0000002E   0x6989             LDR      R1,[R1, #+24]
-   \   00000030   0xEA43 0x430C      ORR      R3,R3,R12, LSL #+16
-   \   00000034   0x4319             ORRS     R1,R1,R3
-   \   00000036   0xF840 0x1022      STR      R1,[R0, R2, LSL #+2]
+   \   00000008   0xF850 0x3022      LDR      R3,[R0, R2, LSL #+2]
+   \   0000000C   0x....             LDR.N    R4,??DataTable1_1  ;; 0xcff00000
+   \   0000000E   0x4023             ANDS     R3,R4,R3
+   \   00000010   0x680C             LDR      R4,[R1, #+0]
+   \   00000012   0x4323             ORRS     R3,R4,R3
+   \   00000014   0x684C             LDR      R4,[R1, #+4]
+   \   00000016   0xEA43 0x1304      ORR      R3,R3,R4, LSL #+4
+   \   0000001A   0x688C             LDR      R4,[R1, #+8]
+   \   0000001C   0xEA43 0x2304      ORR      R3,R3,R4, LSL #+8
+   \   00000020   0x68CC             LDR      R4,[R1, #+12]
+   \   00000022   0x6989             LDR      R1,[R1, #+24]
+   \   00000024   0xEA43 0x4304      ORR      R3,R3,R4, LSL #+16
+   \   00000028   0x4319             ORRS     R1,R1,R3
+   \   0000002A   0xE001             B.N      ??FMC_NORSRAM_Extended_Timing_Init_1
     355            }
     356            else
     357            {
     358              Device->BWTR[Bank] = 0x0FFFFFFF;
+   \                     ??FMC_NORSRAM_Extended_Timing_Init_0: (+1)
+   \   0000002C   0xF06F 0x4170      MVN      R1,#-268435456
+   \                     ??FMC_NORSRAM_Extended_Timing_Init_1: (+1)
+   \   00000030   0xF840 0x1022      STR      R1,[R0, R2, LSL #+2]
     359            }   
     360            
     361            return HAL_OK;  
-   \   0000003A   0x2000             MOVS     R0,#+0
-   \   0000003C   0x4770             BX       LR
-   \                     ??FMC_NORSRAM_Extended_Timing_Init_0: (+1)
-   \   0000003E   0xF06F 0x4170      MVN      R1,#-268435456
-   \   00000042   0xF840 0x1022      STR      R1,[R0, R2, LSL #+2]
-   \   00000046   0x2000             MOVS     R0,#+0
-   \   00000048   0x4770             BX       LR               ;; return
+   \   00000034                      REQUIRE ?Subroutine1
+   \   00000034                      ;; // Fall through to label ?Subroutine1
     362          }
     363          /**
     364            * @}
@@ -601,12 +607,16 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                     FMC_NORSRAM_WriteOperation_Enable: (+1)
    \   00000000   0xF850 0x2021      LDR      R2,[R0, R1, LSL #+2]
    \   00000004   0xF442 0x5280      ORR      R2,R2,#0x1000
-   \   00000008   0xF840 0x2021      STR      R2,[R0, R1, LSL #+2]
+   \   00000008   0x....             B.N      ?Subroutine0
     396          
     397            return HAL_OK;  
-   \   0000000C   0x2000             MOVS     R0,#+0
-   \   0000000E   0x4770             BX       LR               ;; return
     398          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine0: (+1)
+   \   00000000   0xF840 0x2021      STR      R2,[R0, R1, LSL #+2]
+   \   00000004   0x2000             MOVS     R0,#+0
+   \   00000006   0x4770             BX       LR               ;; return
     399          
     400          /**
     401            * @brief  Disables dynamically FMC_NORSRAM write operation.
@@ -627,11 +637,10 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                     FMC_NORSRAM_WriteOperation_Disable: (+1)
    \   00000000   0xF850 0x2021      LDR      R2,[R0, R1, LSL #+2]
    \   00000004   0xF422 0x5280      BIC      R2,R2,#0x1000
-   \   00000008   0xF840 0x2021      STR      R2,[R0, R1, LSL #+2]
+   \   00000008                      REQUIRE ?Subroutine0
+   \   00000008                      ;; // Fall through to label ?Subroutine0
     414          
     415            return HAL_OK;  
-   \   0000000C   0x2000             MOVS     R0,#+0
-   \   0000000E   0x4770             BX       LR               ;; return
     416          }
     417          
     418          /**
@@ -727,7 +736,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     506              Device->PCR  = tmpr;
    \                     FMC_NAND_Init: (+1)
    \   00000000   0x6802             LDR      R2,[R0, #+0]
-   \   00000002   0x....             LDR.N    R3,??DataTable2_2  ;; 0xfff00181
+   \   00000002   0x....             LDR.N    R3,??DataTable1_2  ;; 0xfff00181
    \   00000004   0x401A             ANDS     R2,R3,R2
    \   00000006   0x684B             LDR      R3,[R1, #+4]
    \   00000008   0x431A             ORRS     R2,R3,R2
@@ -742,13 +751,17 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   0000001A   0xEA42 0x2243      ORR      R2,R2,R3, LSL #+9
    \   0000001E   0xEA42 0x3141      ORR      R1,R2,R1, LSL #+13
    \   00000022   0xF041 0x0108      ORR      R1,R1,#0x8
-   \   00000026   0x6001             STR      R1,[R0, #+0]
+   \   00000026   0x....             B.N      ?Subroutine2
     507            
     508            return HAL_OK;
-   \   00000028   0x2000             MOVS     R0,#+0
-   \   0000002A   0x4770             BX       LR               ;; return
     509          
     510          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine2: (+1)
+   \   00000000   0x6001             STR      R1,[R0, #+0]
+   \   00000002   0x2000             MOVS     R0,#+0
+   \   00000004   0x4770             BX       LR               ;; return
     511          
     512          /**
     513            * @brief  Initializes the FMC_NAND Common space Timing according to the specified
@@ -848,12 +861,16 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   0000000C   0x68C9             LDR      R1,[R1, #+12]
    \   0000000E   0xEA42 0x4203      ORR      R2,R2,R3, LSL #+16
    \   00000012   0xEA42 0x6101      ORR      R1,R2,R1, LSL #+24
-   \   00000016   0x60C1             STR      R1,[R0, #+12]
+   \   00000016   0x....             B.N      ?Subroutine3
     585            
     586            return HAL_OK;
-   \   00000018   0x2000             MOVS     R0,#+0
-   \   0000001A   0x4770             BX       LR               ;; return
     587          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine3: (+1)
+   \   00000000   0x60C1             STR      R1,[R0, #+12]
+   \   00000002   0x2000             MOVS     R0,#+0
+   \   00000004   0x4770             BX       LR               ;; return
     588          
     589          /**
     590            * @brief  DeInitializes the FMC_NAND device 
@@ -887,11 +904,10 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   00000010   0xF04F 0x31FC      MOV      R1,#-50529028
    \   00000014   0x6081             STR      R1,[R0, #+8]
     608              Device->PATT = 0xFCFCFCFC; 
-   \   00000016   0x60C1             STR      R1,[R0, #+12]
+   \   00000016                      REQUIRE ?Subroutine3
+   \   00000016                      ;; // Fall through to label ?Subroutine3
     609            
     610            return HAL_OK;
-   \   00000018   0x2000             MOVS     R0,#+0
-   \   0000001A   0x4770             BX       LR               ;; return
     611          }
     612          
     613          /**
@@ -933,11 +949,10 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                     FMC_NAND_ECC_Enable: (+1)
    \   00000000   0x6801             LDR      R1,[R0, #+0]
    \   00000002   0xF041 0x0140      ORR      R1,R1,#0x40
-   \   00000006   0x6001             STR      R1,[R0, #+0]
+   \   00000006                      REQUIRE ?Subroutine2
+   \   00000006                      ;; // Fall through to label ?Subroutine2
     647            
     648            return HAL_OK;  
-   \   00000008   0x2000             MOVS     R0,#+0
-   \   0000000A   0x4770             BX       LR               ;; return
     649          }
     650          
     651          
@@ -960,11 +975,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                     FMC_NAND_ECC_Disable: (+1)
    \   00000000   0x6801             LDR      R1,[R0, #+0]
    \   00000002   0xF021 0x0140      BIC      R1,R1,#0x40
-   \   00000006   0x6001             STR      R1,[R0, #+0]
+   \   00000006   0x....             B.N      ?Subroutine2
     666          
     667            return HAL_OK;  
-   \   00000008   0x2000             MOVS     R0,#+0
-   \   0000000A   0x4770             BX       LR               ;; return
     668          }
     669          
     670          /**
@@ -980,11 +993,10 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     678          HAL_StatusTypeDef FMC_NAND_GetECC(FMC_NAND_TypeDef *Device, uint32_t *ECCval, uint32_t Bank, uint32_t Timeout)
     679          {
    \                     FMC_NAND_GetECC: (+1)
-   \   00000000   0xB5F0             PUSH     {R4-R7,LR}
-   \   00000002   0xB081             SUB      SP,SP,#+4
-   \   00000004   0x4604             MOV      R4,R0
-   \   00000006   0x460D             MOV      R5,R1
-   \   00000008   0x461E             MOV      R6,R3
+   \   00000000   0xB5F8             PUSH     {R3-R7,LR}
+   \   00000002   0x4604             MOV      R4,R0
+   \   00000004   0x460D             MOV      R5,R1
+   \   00000006   0x461E             MOV      R6,R3
     680            uint32_t tickstart = 0;
     681          
     682            /* Check the parameters */ 
@@ -993,33 +1005,32 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     685          
     686            /* Get tick */ 
     687            tickstart = HAL_GetTick();
-   \   0000000A   0x.... 0x....      BL       HAL_GetTick
-   \   0000000E   0x4607             MOV      R7,R0
+   \   00000008   0x.... 0x....      BL       HAL_GetTick
+   \   0000000C   0x4607             MOV      R7,R0
     688          
     689            /* Wait until FIFO is empty */
     690            while(__FMC_NAND_GET_FLAG(Device, Bank, FMC_FLAG_FEMPT) == RESET)
    \                     ??FMC_NAND_GetECC_0: (+1)
-   \   00000010   0x6860             LDR      R0,[R4, #+4]
-   \   00000012   0x0640             LSLS     R0,R0,#+25
-   \   00000014   0xD40B             BMI.N    ??FMC_NAND_GetECC_1
+   \   0000000E   0x6860             LDR      R0,[R4, #+4]
+   \   00000010   0x0640             LSLS     R0,R0,#+25
+   \   00000012   0xD40A             BMI.N    ??FMC_NAND_GetECC_1
     691            {
     692              /* Check for the Timeout */
     693              if(Timeout != HAL_MAX_DELAY)
-   \   00000016   0xF116 0x0F01      CMN      R6,#+1
-   \   0000001A   0xD0F9             BEQ.N    ??FMC_NAND_GetECC_0
+   \   00000014   0xF116 0x0F01      CMN      R6,#+1
+   \   00000018   0xD0F9             BEQ.N    ??FMC_NAND_GetECC_0
     694              {
     695                if((Timeout == 0)||((HAL_GetTick() - tickstart ) > Timeout))
-   \   0000001C   0xB126             CBZ.N    R6,??FMC_NAND_GetECC_2
-   \   0000001E   0x.... 0x....      BL       HAL_GetTick
-   \   00000022   0x1BC0             SUBS     R0,R0,R7
-   \   00000024   0x4286             CMP      R6,R0
-   \   00000026   0xD2F3             BCS.N    ??FMC_NAND_GetECC_0
+   \   0000001A   0xB126             CBZ.N    R6,??FMC_NAND_GetECC_2
+   \   0000001C   0x.... 0x....      BL       HAL_GetTick
+   \   00000020   0x1BC0             SUBS     R0,R0,R7
+   \   00000022   0x4286             CMP      R6,R0
+   \   00000024   0xD2F3             BCS.N    ??FMC_NAND_GetECC_0
     696                {
     697                  return HAL_TIMEOUT;
    \                     ??FMC_NAND_GetECC_2: (+1)
-   \   00000028   0x2003             MOVS     R0,#+3
-   \   0000002A   0xB001             ADD      SP,SP,#+4
-   \   0000002C   0xBDF0             POP      {R4-R7,PC}
+   \   00000026   0x2003             MOVS     R0,#+3
+   \   00000028   0xBDF2             POP      {R1,R4-R7,PC}
     698                }
     699              }  
     700            }
@@ -1027,13 +1038,12 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     702            /* Get the ECCR register value */
     703            *ECCval = (uint32_t)Device->ECCR;
    \                     ??FMC_NAND_GetECC_1: (+1)
-   \   0000002E   0x6960             LDR      R0,[R4, #+20]
-   \   00000030   0x6028             STR      R0,[R5, #+0]
+   \   0000002A   0x6960             LDR      R0,[R4, #+20]
+   \   0000002C   0x6028             STR      R0,[R5, #+0]
     704          
     705            return HAL_OK;  
-   \   00000032   0x2000             MOVS     R0,#+0
-   \   00000034   0xB001             ADD      SP,SP,#+4
-   \   00000036   0xBDF0             POP      {R4-R7,PC}       ;; return
+   \   0000002E   0x2000             MOVS     R0,#+0
+   \   00000030   0xBDF2             POP      {R1,R4-R7,PC}    ;; return
     706          }
     707          
     708          /**
@@ -1126,7 +1136,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   0000001C   0x6809             LDR      R1,[R1, #+0]
    \   0000001E   0x2901             CMP      R1,#+1
    \   00000020   0x6801             LDR      R1,[R0, #+0]
-   \   00000022   0xD011             BEQ.N    ??FMC_SDRAM_Init_0
+   \   00000022   0xD00F             BEQ.N    ??FMC_SDRAM_Init_0
     782            { 
     783              tmpr1 = Device->SDCR[FMC_SDRAM_BANK1];
     784              
@@ -1157,6 +1167,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   0000003A   0x431A             ORRS     R2,R3,R2
    \   0000003C   0xEA42 0x31C1      ORR      R1,R2,R1, LSL #+15
    \   00000040   0x6001             STR      R1,[R0, #+0]
+   \   00000042   0xE014             B.N      ??FMC_SDRAM_Init_1
     801            }
     802            else /* FMC_Bank2_SDRAM */                      
     803            {
@@ -1184,31 +1195,30 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     825                                 Init->InternalBankNumber |\
     826                                 Init->CASLatency         |\
     827                                 Init->WriteProtection);
+   \                     ??FMC_SDRAM_Init_0: (+1)
+   \   00000044   0xF8D0 0x9004      LDR      R9,[R0, #+4]
     828          
     829              Device->SDCR[FMC_SDRAM_BANK1] = tmpr1;
+   \   00000048   0x0BC9             LSRS     R1,R1,#+15
+   \   0000004A   0xEA44 0x31C1      ORR      R1,R4,R1, LSL #+15
+   \   0000004E   0xEA4F 0x39D9      LSR      R9,R9,#+15
+   \   00000052   0xEA48 0x38C9      ORR      R8,R8,R9, LSL #+15
+   \   00000056   0x4319             ORRS     R1,R3,R1
+   \   00000058   0x4311             ORRS     R1,R2,R1
+   \   0000005A   0xEA4E 0x0E08      ORR      LR,LR,R8
+   \   0000005E   0xEA4C 0x0C0E      ORR      R12,R12,LR
+   \   00000062   0xEA47 0x070C      ORR      R7,R7,R12
+   \   00000066   0x433E             ORRS     R6,R6,R7
+   \   00000068   0x4335             ORRS     R5,R5,R6
+   \   0000006A   0x6001             STR      R1,[R0, #+0]
     830              Device->SDCR[FMC_SDRAM_BANK2] = tmpr2;
+   \   0000006C   0x6045             STR      R5,[R0, #+4]
     831            }  
     832            
     833            return HAL_OK;
-   \   00000042   0x2000             MOVS     R0,#+0
-   \   00000044   0xE8BD 0x83F0      POP      {R4-R9,PC}
-   \                     ??FMC_SDRAM_Init_0: (+1)
-   \   00000048   0xF8D0 0x9004      LDR      R9,[R0, #+4]
-   \   0000004C   0x0BC9             LSRS     R1,R1,#+15
-   \   0000004E   0xEA44 0x31C1      ORR      R1,R4,R1, LSL #+15
-   \   00000052   0xEA4F 0x39D9      LSR      R9,R9,#+15
-   \   00000056   0xEA48 0x38C9      ORR      R8,R8,R9, LSL #+15
-   \   0000005A   0x4319             ORRS     R1,R3,R1
-   \   0000005C   0x4311             ORRS     R1,R2,R1
-   \   0000005E   0xEA4E 0x0E08      ORR      LR,LR,R8
-   \   00000062   0xEA4C 0x0C0E      ORR      R12,R12,LR
-   \   00000066   0xEA47 0x070C      ORR      R7,R7,R12
-   \   0000006A   0x433E             ORRS     R6,R6,R7
-   \   0000006C   0x4335             ORRS     R5,R5,R6
-   \   0000006E   0x6001             STR      R1,[R0, #+0]
-   \   00000070   0x6045             STR      R5,[R0, #+4]
-   \   00000072   0x2000             MOVS     R0,#+0
-   \   00000074   0xE8BD 0x83F0      POP      {R4-R9,PC}       ;; return
+   \                     ??FMC_SDRAM_Init_1: (+1)
+   \   0000006E   0x2000             MOVS     R0,#+0
+   \   00000070   0xE8BD 0x83F0      POP      {R4-R9,PC}       ;; return
     834          }
     835          
     836          /**
@@ -1256,7 +1266,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   0000001C   0x2A01             CMP      R2,#+1
    \   0000001E   0xF1AC 0x0C01      SUB      R12,R12,#+1
    \   00000022   0xF1A1 0x0E01      SUB      LR,R1,#+1
-   \   00000026   0xD012             BEQ.N    ??FMC_SDRAM_Timing_Init_0
+   \   00000026   0xD011             BEQ.N    ??FMC_SDRAM_Timing_Init_0
     862            { 
     863              tmpr1 = Device->SDTR[FMC_SDRAM_BANK1];
     864              
@@ -1283,10 +1293,13 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   00000042   0xEA42 0x5204      ORR      R2,R2,R4, LSL #+20
    \   00000046   0x4311             ORRS     R1,R2,R1
    \   00000048   0x6081             STR      R1,[R0, #+8]
+   \   0000004A   0xE015             B.N      ??FMC_SDRAM_Timing_Init_1
     878            }
     879            else /* FMC_Bank2_SDRAM */
     880            {  
     881              tmpr1 = Device->SDTR[FMC_SDRAM_BANK2];
+   \                     ??FMC_SDRAM_Timing_Init_0: (+1)
+   \   0000004C   0x68C1             LDR      R1,[R0, #+12]
     882              
     883              /* Clear TMRD, TXSR, TRAS, TRC, TWR, TRP and TRCD bits */
     884              tmpr1 &= ((uint32_t)~(FMC_SDTR1_TMRD  | FMC_SDTR1_TXSR | FMC_SDTR1_TRAS | \
@@ -1307,30 +1320,27 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     899                                    FMC_SDTR1_TRCD));
     900              tmpr2 |= (uint32_t)((((Timing->RowCycleDelay)-1) << 12)       |\
     901                                  (((Timing->RPDelay)-1) << 20)); 
+   \   0000004E   0x6882             LDR      R2,[R0, #+8]
     902          
     903              Device->SDTR[FMC_SDRAM_BANK2] = tmpr1;
+   \   00000050   0xF001 0x4170      AND      R1,R1,#0xF0000000
+   \   00000054   0xEA4E 0x0101      ORR      R1,LR,R1
+   \   00000058   0xEA41 0x110C      ORR      R1,R1,R12, LSL #+4
+   \   0000005C   0xF002 0x4270      AND      R2,R2,#0xF0000000
+   \   00000060   0xEA42 0x3206      ORR      R2,R2,R6, LSL #+12
+   \   00000064   0xEA41 0x2107      ORR      R1,R1,R7, LSL #+8
+   \   00000068   0xEA42 0x5204      ORR      R2,R2,R4, LSL #+20
+   \   0000006C   0xEA41 0x4105      ORR      R1,R1,R5, LSL #+16
+   \   00000070   0xEA41 0x6103      ORR      R1,R1,R3, LSL #+24
+   \   00000074   0x60C1             STR      R1,[R0, #+12]
     904              Device->SDTR[FMC_SDRAM_BANK1] = tmpr2;
+   \   00000076   0x6082             STR      R2,[R0, #+8]
     905            }   
     906            
     907            return HAL_OK;
-   \   0000004A   0x2000             MOVS     R0,#+0
-   \   0000004C   0xBDF0             POP      {R4-R7,PC}
-   \                     ??FMC_SDRAM_Timing_Init_0: (+1)
-   \   0000004E   0x68C1             LDR      R1,[R0, #+12]
-   \   00000050   0x6882             LDR      R2,[R0, #+8]
-   \   00000052   0xF001 0x4170      AND      R1,R1,#0xF0000000
-   \   00000056   0xEA4E 0x0101      ORR      R1,LR,R1
-   \   0000005A   0xEA41 0x110C      ORR      R1,R1,R12, LSL #+4
-   \   0000005E   0xF002 0x4270      AND      R2,R2,#0xF0000000
-   \   00000062   0xEA42 0x3206      ORR      R2,R2,R6, LSL #+12
-   \   00000066   0xEA41 0x2107      ORR      R1,R1,R7, LSL #+8
-   \   0000006A   0xEA42 0x5204      ORR      R2,R2,R4, LSL #+20
-   \   0000006E   0xEA41 0x4105      ORR      R1,R1,R5, LSL #+16
-   \   00000072   0xEA41 0x6103      ORR      R1,R1,R3, LSL #+24
-   \   00000076   0x60C1             STR      R1,[R0, #+12]
-   \   00000078   0x6082             STR      R2,[R0, #+8]
-   \   0000007A   0x2000             MOVS     R0,#+0
-   \   0000007C   0xBDF0             POP      {R4-R7,PC}       ;; return
+   \                     ??FMC_SDRAM_Timing_Init_1: (+1)
+   \   00000078   0x2000             MOVS     R0,#+0
+   \   0000007A   0xBDF0             POP      {R4-R7,PC}       ;; return
     908          }
     909          
     910          /**
@@ -1406,11 +1416,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                     FMC_SDRAM_WriteProtection_Enable: (+1)
    \   00000000   0xF850 0x2021      LDR      R2,[R0, R1, LSL #+2]
    \   00000004   0xF442 0x7200      ORR      R2,R2,#0x200
-   \   00000008   0xF840 0x2021      STR      R2,[R0, R1, LSL #+2]
+   \   00000008   0x....             B.N      ?Subroutine0
     964            
     965            return HAL_OK;  
-   \   0000000C   0x2000             MOVS     R0,#+0
-   \   0000000E   0x4770             BX       LR               ;; return
     966          }
     967          
     968          /**
@@ -1431,11 +1439,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                     FMC_SDRAM_WriteProtection_Disable: (+1)
    \   00000000   0xF850 0x2021      LDR      R2,[R0, R1, LSL #+2]
    \   00000004   0xF422 0x7200      BIC      R2,R2,#0x200
-   \   00000008   0xF840 0x2021      STR      R2,[R0, R1, LSL #+2]
+   \   00000008   0x....             B.N      ?Subroutine0
     981            
     982            return HAL_OK;
-   \   0000000C   0x2000             MOVS     R0,#+0
-   \   0000000E   0x4770             BX       LR               ;; return
     983          }
     984            
     985          /**
@@ -1497,7 +1503,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                     ??FMC_SDRAM_SendCommand_0: (+1)
    \   0000002C   0x69A0             LDR      R0,[R4, #+24]
    \   0000002E   0x0680             LSLS     R0,R0,#+26
-   \   00000030   0xD50B             BPL.N    ??FMC_SDRAM_SendCommand_1
+   \   00000030   0xD50A             BPL.N    ??FMC_SDRAM_SendCommand_1
    1019            {
    1020              /* Check for the Timeout */
    1021              if(Timeout != HAL_MAX_DELAY)
@@ -1514,17 +1520,15 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    1025                  return HAL_TIMEOUT;
    \                     ??FMC_SDRAM_SendCommand_2: (+1)
    \   00000044   0x2003             MOVS     R0,#+3
-   \   00000046   0xB002             ADD      SP,SP,#+8
-   \   00000048   0xBD70             POP      {R4-R6,PC}
+   \   00000046   0xBD76             POP      {R1,R2,R4-R6,PC}
    1026                }
    1027              }     
    1028            }
    1029            
    1030            return HAL_OK;  
    \                     ??FMC_SDRAM_SendCommand_1: (+1)
-   \   0000004A   0x2000             MOVS     R0,#+0
-   \   0000004C   0xB002             ADD      SP,SP,#+8
-   \   0000004E   0xBD70             POP      {R4-R6,PC}       ;; return
+   \   00000048   0x2000             MOVS     R0,#+0
+   \   0000004A   0xBD76             POP      {R1,R2,R4-R6,PC}  ;; return
    1031          }
    1032          
    1033          /**
@@ -1620,15 +1624,15 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    1098          }
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable2:
+   \                     ??DataTable1:
    \   00000000   0xFFC00480         DC32     0xffc00480
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable2_1:
+   \                     ??DataTable1_1:
    \   00000000   0xCFF00000         DC32     0xcff00000
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable2_2:
+   \                     ??DataTable1_2:
    \   00000000   0xFFF00181         DC32     0xfff00181
    1099          
    1100          /**
@@ -1667,9 +1671,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
         24   -> HAL_GetTick
        0   FMC_NAND_Init
        0   FMC_NORSRAM_DeInit
-       0   FMC_NORSRAM_Extended_Timing_Init
+       4   FMC_NORSRAM_Extended_Timing_Init
        8   FMC_NORSRAM_Init
-       0   FMC_NORSRAM_Timing_Init
+       4   FMC_NORSRAM_Timing_Init
        0   FMC_NORSRAM_WriteOperation_Disable
        0   FMC_NORSRAM_WriteOperation_Enable
        0   FMC_SDRAM_DeInit
@@ -1688,36 +1692,40 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
 
    Bytes  Function/Label
    -----  --------------
-       4  ??DataTable2
-       4  ??DataTable2_1
-       4  ??DataTable2_2
-      28  FMC_NAND_AttributeSpace_Timing_Init
+       4  ??DataTable1
+       4  ??DataTable1_1
+       4  ??DataTable1_2
+       8  ?Subroutine0
+       6  ?Subroutine1
+       6  ?Subroutine2
+       6  ?Subroutine3
+      24  FMC_NAND_AttributeSpace_Timing_Init
       28  FMC_NAND_CommonSpace_Timing_Init
-      28  FMC_NAND_DeInit
-      12  FMC_NAND_ECC_Disable
-      12  FMC_NAND_ECC_Enable
-      56  FMC_NAND_GetECC
-      44  FMC_NAND_Init
+      22  FMC_NAND_DeInit
+       8  FMC_NAND_ECC_Disable
+       6  FMC_NAND_ECC_Enable
+      50  FMC_NAND_GetECC
+      40  FMC_NAND_Init
       48  FMC_NORSRAM_DeInit
-      74  FMC_NORSRAM_Extended_Timing_Init
+      52  FMC_NORSRAM_Extended_Timing_Init
      128  FMC_NORSRAM_Init
-     102  FMC_NORSRAM_Timing_Init
-      16  FMC_NORSRAM_WriteOperation_Disable
-      16  FMC_NORSRAM_WriteOperation_Enable
+      80  FMC_NORSRAM_Timing_Init
+       8  FMC_NORSRAM_WriteOperation_Disable
+      10  FMC_NORSRAM_WriteOperation_Enable
       30  FMC_SDRAM_DeInit
       14  FMC_SDRAM_GetModeStatus
-     120  FMC_SDRAM_Init
+     116  FMC_SDRAM_Init
       12  FMC_SDRAM_ProgramRefreshRate
-      80  FMC_SDRAM_SendCommand
+      76  FMC_SDRAM_SendCommand
       12  FMC_SDRAM_SetAutoRefreshNumber
-     126  FMC_SDRAM_Timing_Init
-      16  FMC_SDRAM_WriteProtection_Disable
-      16  FMC_SDRAM_WriteProtection_Enable
+     124  FMC_SDRAM_Timing_Init
+      10  FMC_SDRAM_WriteProtection_Disable
+      10  FMC_SDRAM_WriteProtection_Enable
 
  
- 1 030 bytes in section .text
+ 946 bytes in section .text
  
- 1 030 bytes of CODE memory
+ 946 bytes of CODE memory
 
 Errors: none
 Warnings: none

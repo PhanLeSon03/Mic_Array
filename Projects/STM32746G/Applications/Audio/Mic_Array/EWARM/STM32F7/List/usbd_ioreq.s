@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      12/Apr/2016  09:55:52
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      13/Apr/2016  13:47:35
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -222,38 +222,32 @@
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock0 Using cfiCommon0
           CFI Function USBD_CtlSendData
+          CFI NoCalls
         THUMB
 //   95 USBD_StatusTypeDef  USBD_CtlSendData (USBD_HandleTypeDef  *pdev, 
 //   96                                uint8_t *pbuf,
 //   97                                uint16_t len)
 //   98 {
 USBD_CtlSendData:
-        PUSH     {LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI CFA R13+4
-        SUB      SP,SP,#+4
           CFI CFA R13+8
 //   99   /* Set EP0 State */
 //  100   pdev->ep0_state          = USBD_EP0_DATA_IN;                                      
         MOVS     R3,#+2
         STR      R3,[R0, #+500]
 //  101   pdev->ep_in[0].total_length = len;
+        ADD      R3,R0,#+24
+        STR      R2,[R3, #+0]
 //  102   pdev->ep_in[0].rem_length   = len;
+        STR      R2,[R3, #+4]
 //  103  /* Start the transfer */
 //  104   USBD_LL_Transmit (pdev, 0x00, pbuf, len);  
         MOV      R3,R2
-        STR      R2,[R0, #+24]
-        STR      R2,[R0, #+28]
         MOV      R2,R1
-        MOVS     R1,#+0
-          CFI FunCall USBD_LL_Transmit
-        BL       USBD_LL_Transmit
+        B.N      ?Subroutine0
 //  105   
 //  106   return USBD_OK;
-        MOVS     R0,#+0
-        ADD      SP,SP,#+4
-          CFI CFA R13+4
-        POP      {PC}             ;; return
 //  107 }
           CFI EndBlock cfiBlock0
 //  108 
@@ -269,6 +263,7 @@ USBD_CtlSendData:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock1 Using cfiCommon0
           CFI Function USBD_CtlContinueSendData
+          CFI NoCalls
         THUMB
 //  117 USBD_StatusTypeDef  USBD_CtlContinueSendData (USBD_HandleTypeDef  *pdev, 
 //  118                                        uint8_t *pbuf,
@@ -279,22 +274,29 @@ USBD_CtlSendData:
 USBD_CtlContinueSendData:
         MOV      R3,R2
         MOV      R2,R1
-        PUSH     {LR}
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+4
-        SUB      SP,SP,#+4
-          CFI CFA R13+8
-        MOVS     R1,#+0
-          CFI FunCall USBD_LL_Transmit
-        BL       USBD_LL_Transmit
+        PUSH     {R7,LR}
+          CFI EndBlock cfiBlock1
+        REQUIRE ?Subroutine0
+        ;; // Fall through to label ?Subroutine0
 //  123   
 //  124   return USBD_OK;
-        MOVS     R0,#+0
-        ADD      SP,SP,#+4
-          CFI CFA R13+4
-        POP      {PC}             ;; return
 //  125 }
-          CFI EndBlock cfiBlock1
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock2 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+8
+          CFI R14 Frame(CFA, -4)
+        THUMB
+?Subroutine0:
+        MOVS     R1,#+0
+          CFI FunCall USBD_CtlSendData USBD_LL_Transmit
+          CFI FunCall USBD_CtlContinueSendData USBD_LL_Transmit
+          CFI FunCall USBD_CtlSendStatus USBD_LL_Transmit
+        BL       USBD_LL_Transmit
+        MOVS     R0,#+0
+        POP      {R1,PC}          ;; return
+          CFI EndBlock cfiBlock2
 //  126 
 //  127 /**
 //  128 * @brief  USBD_CtlPrepareRx
@@ -306,45 +308,39 @@ USBD_CtlContinueSendData:
 //  134 */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock2 Using cfiCommon0
+          CFI Block cfiBlock3 Using cfiCommon0
           CFI Function USBD_CtlPrepareRx
+          CFI NoCalls
         THUMB
 //  135 USBD_StatusTypeDef  USBD_CtlPrepareRx (USBD_HandleTypeDef  *pdev,
 //  136                                   uint8_t *pbuf,                                  
 //  137                                   uint16_t len)
 //  138 {
 USBD_CtlPrepareRx:
-        PUSH     {LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI CFA R13+4
-        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  139   /* Set EP0 State */
 //  140   pdev->ep0_state = USBD_EP0_DATA_OUT; 
         MOVS     R3,#+3
         STR      R3,[R0, #+500]
 //  141   pdev->ep_out[0].total_length = len;
+        ADD      R3,R0,#+264
+        STR      R2,[R3, #+0]
 //  142   pdev->ep_out[0].rem_length   = len;
+        STR      R2,[R3, #+4]
 //  143   /* Start the transfer */
 //  144   USBD_LL_PrepareReceive (pdev,
 //  145                           0,
 //  146                           pbuf,
 //  147                          len);
         MOV      R3,R2
-        STR      R2,[R0, #+264]
-        STR      R2,[R0, #+268]
         MOV      R2,R1
-        MOVS     R1,#+0
-          CFI FunCall USBD_LL_PrepareReceive
-        BL       USBD_LL_PrepareReceive
+        B.N      ?Subroutine1
 //  148   
 //  149   return USBD_OK;
-        MOVS     R0,#+0
-        ADD      SP,SP,#+4
-          CFI CFA R13+4
-        POP      {PC}             ;; return
 //  150 }
-          CFI EndBlock cfiBlock2
+          CFI EndBlock cfiBlock3
 //  151 
 //  152 /**
 //  153 * @brief  USBD_CtlContinueRx
@@ -356,8 +352,9 @@ USBD_CtlPrepareRx:
 //  159 */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock3 Using cfiCommon0
+          CFI Block cfiBlock4 Using cfiCommon0
           CFI Function USBD_CtlContinueRx
+          CFI NoCalls
         THUMB
 //  160 USBD_StatusTypeDef  USBD_CtlContinueRx (USBD_HandleTypeDef  *pdev, 
 //  161                                           uint8_t *pbuf,                                          
@@ -371,21 +368,28 @@ USBD_CtlPrepareRx:
 USBD_CtlContinueRx:
         MOV      R3,R2
         MOV      R2,R1
-        PUSH     {LR}
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+4
-        SUB      SP,SP,#+4
-          CFI CFA R13+8
-        MOVS     R1,#+0
-          CFI FunCall USBD_LL_PrepareReceive
-        BL       USBD_LL_PrepareReceive
+        PUSH     {R7,LR}
+          CFI EndBlock cfiBlock4
+        REQUIRE ?Subroutine1
+        ;; // Fall through to label ?Subroutine1
 //  169   return USBD_OK;
-        MOVS     R0,#+0
-        ADD      SP,SP,#+4
-          CFI CFA R13+4
-        POP      {PC}             ;; return
 //  170 }
-          CFI EndBlock cfiBlock3
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock5 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+8
+          CFI R14 Frame(CFA, -4)
+        THUMB
+?Subroutine1:
+        MOVS     R1,#+0
+          CFI FunCall USBD_CtlPrepareRx USBD_LL_PrepareReceive
+          CFI FunCall USBD_CtlContinueRx USBD_LL_PrepareReceive
+          CFI FunCall USBD_CtlReceiveStatus USBD_LL_PrepareReceive
+        BL       USBD_LL_PrepareReceive
+        MOVS     R0,#+0
+        POP      {R1,PC}          ;; return
+          CFI EndBlock cfiBlock5
 //  171 /**
 //  172 * @brief  USBD_CtlSendStatus
 //  173 *         send zero lzngth packet on the ctl pipe
@@ -394,38 +398,31 @@ USBD_CtlContinueRx:
 //  176 */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock4 Using cfiCommon0
+          CFI Block cfiBlock6 Using cfiCommon0
           CFI Function USBD_CtlSendStatus
+          CFI NoCalls
         THUMB
 //  177 USBD_StatusTypeDef  USBD_CtlSendStatus (USBD_HandleTypeDef  *pdev)
 //  178 {
 USBD_CtlSendStatus:
-        PUSH     {LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI CFA R13+4
-        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  179 
 //  180   /* Set EP0 State */
 //  181   pdev->ep0_state = USBD_EP0_STATUS_IN;
         MOVS     R1,#+4
-        STR      R1,[R0, #+500]
 //  182   
 //  183  /* Start the transfer */
 //  184   USBD_LL_Transmit (pdev, 0x00, NULL, 0);   
         MOVS     R3,#+0
+        STR      R1,[R0, #+500]
         MOVS     R2,#+0
-        MOVS     R1,#+0
-          CFI FunCall USBD_LL_Transmit
-        BL       USBD_LL_Transmit
+        B.N      ?Subroutine0
 //  185   
 //  186   return USBD_OK;
-        MOVS     R0,#+0
-        ADD      SP,SP,#+4
-          CFI CFA R13+4
-        POP      {PC}             ;; return
 //  187 }
-          CFI EndBlock cfiBlock4
+          CFI EndBlock cfiBlock6
 //  188 
 //  189 /**
 //  190 * @brief  USBD_CtlReceiveStatus
@@ -435,21 +432,19 @@ USBD_CtlSendStatus:
 //  194 */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock5 Using cfiCommon0
+          CFI Block cfiBlock7 Using cfiCommon0
           CFI Function USBD_CtlReceiveStatus
+          CFI NoCalls
         THUMB
 //  195 USBD_StatusTypeDef  USBD_CtlReceiveStatus (USBD_HandleTypeDef  *pdev)
 //  196 {
 USBD_CtlReceiveStatus:
-        PUSH     {LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI CFA R13+4
-        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  197   /* Set EP0 State */
 //  198   pdev->ep0_state = USBD_EP0_STATUS_OUT; 
         MOVS     R1,#+5
-        STR      R1,[R0, #+500]
 //  199   
 //  200  /* Start the transfer */  
 //  201   USBD_LL_PrepareReceive ( pdev,
@@ -457,18 +452,13 @@ USBD_CtlReceiveStatus:
 //  203                     NULL,
 //  204                     0);  
         MOVS     R3,#+0
+        STR      R1,[R0, #+500]
         MOVS     R2,#+0
-        MOVS     R1,#+0
-          CFI FunCall USBD_LL_PrepareReceive
-        BL       USBD_LL_PrepareReceive
+        B.N      ?Subroutine1
 //  205 
 //  206   return USBD_OK;
-        MOVS     R0,#+0
-        ADD      SP,SP,#+4
-          CFI CFA R13+4
-        POP      {PC}             ;; return
 //  207 }
-          CFI EndBlock cfiBlock5
+          CFI EndBlock cfiBlock7
 //  208 
 //  209 
 //  210 /**
@@ -480,26 +470,22 @@ USBD_CtlReceiveStatus:
 //  216 */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock6 Using cfiCommon0
+          CFI Block cfiBlock8 Using cfiCommon0
           CFI Function USBD_GetRxCount
         THUMB
 //  217 uint16_t  USBD_GetRxCount (USBD_HandleTypeDef  *pdev , uint8_t ep_addr)
 //  218 {
 USBD_GetRxCount:
-        PUSH     {LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI CFA R13+4
-        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  219   return USBD_LL_GetRxDataSize(pdev, ep_addr);
           CFI FunCall USBD_LL_GetRxDataSize
         BL       USBD_LL_GetRxDataSize
         UXTH     R0,R0
-        ADD      SP,SP,#+4
-          CFI CFA R13+4
-        POP      {PC}             ;; return
+        POP      {R1,PC}          ;; return
 //  220 }
-          CFI EndBlock cfiBlock6
+          CFI EndBlock cfiBlock8
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -530,9 +516,9 @@ USBD_GetRxCount:
 //  235 
 //  236 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 170 bytes in section .text
+// 114 bytes in section .text
 // 
-// 170 bytes of CODE memory
+// 114 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

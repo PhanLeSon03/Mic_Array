@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       12/Apr/2016  09:55:49
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       13/Apr/2016  13:47:32
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7 --relaxed_fp
 #    List file    =  
@@ -461,13 +461,14 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                     ??HAL_PWREx_EnableOverDrive_0: (+1)
    \   00000030   0x6860             LDR      R0,[R4, #+4]
    \   00000032   0x03C0             LSLS     R0,R0,#+15
-   \   00000034   0xD407             BMI.N    ??HAL_PWREx_EnableOverDrive_1
+   \   00000034   0xD405             BMI.N    ??HAL_PWREx_EnableOverDrive_1
     282            {
     283              if((HAL_GetTick() - tickstart ) > PWR_OVERDRIVE_TIMEOUT_VALUE)
    \   00000036   0x.... 0x....      BL       HAL_GetTick
    \   0000003A   0x1B40             SUBS     R0,R0,R5
    \   0000003C   0x42B0             CMP      R0,R6
    \   0000003E   0xD3F7             BCC.N    ??HAL_PWREx_EnableOverDrive_0
+   \   00000040   0xE00E             B.N      ??HAL_PWREx_EnableOverDrive_2
     284              {
     285                return HAL_TIMEOUT;
     286              }
@@ -475,42 +476,38 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     288            
     289            /* Enable the Over-drive switch */
     290            __HAL_PWR_OVERDRIVESWITCHING_ENABLE();
+   \                     ??HAL_PWREx_EnableOverDrive_1: (+1)
+   \   00000042   0x6820             LDR      R0,[R4, #+0]
+   \   00000044   0xF440 0x3000      ORR      R0,R0,#0x20000
+   \   00000048   0x6020             STR      R0,[R4, #+0]
     291          
     292            /* Get tick */
     293            tickstart = HAL_GetTick();
+   \   0000004A   0x.... 0x....      BL       HAL_GetTick
+   \   0000004E   0x4605             MOV      R5,R0
     294          
     295            while(!__HAL_PWR_GET_FLAG(PWR_FLAG_ODSWRDY))
+   \                     ??HAL_PWREx_EnableOverDrive_3: (+1)
+   \   00000050   0x6860             LDR      R0,[R4, #+4]
+   \   00000052   0x0380             LSLS     R0,R0,#+14
+   \   00000054   0xD406             BMI.N    ??HAL_PWREx_EnableOverDrive_4
     296            {
     297              if((HAL_GetTick() - tickstart ) > PWR_OVERDRIVE_TIMEOUT_VALUE)
+   \   00000056   0x.... 0x....      BL       HAL_GetTick
+   \   0000005A   0x1B40             SUBS     R0,R0,R5
+   \   0000005C   0x42B0             CMP      R0,R6
+   \   0000005E   0xD3F7             BCC.N    ??HAL_PWREx_EnableOverDrive_3
     298              {
     299                return HAL_TIMEOUT;
-   \   00000040   0x2003             MOVS     R0,#+3
-   \   00000042   0xB002             ADD      SP,SP,#+8
-   \   00000044   0xBD70             POP      {R4-R6,PC}
-   \                     ??HAL_PWREx_EnableOverDrive_1: (+1)
-   \   00000046   0x6820             LDR      R0,[R4, #+0]
-   \   00000048   0xF440 0x3000      ORR      R0,R0,#0x20000
-   \   0000004C   0x6020             STR      R0,[R4, #+0]
-   \   0000004E   0x.... 0x....      BL       HAL_GetTick
-   \   00000052   0x4605             MOV      R5,R0
    \                     ??HAL_PWREx_EnableOverDrive_2: (+1)
-   \   00000054   0x6860             LDR      R0,[R4, #+4]
-   \   00000056   0x0380             LSLS     R0,R0,#+14
-   \   00000058   0xD407             BMI.N    ??HAL_PWREx_EnableOverDrive_3
-   \   0000005A   0x.... 0x....      BL       HAL_GetTick
-   \   0000005E   0x1B40             SUBS     R0,R0,R5
-   \   00000060   0x42B0             CMP      R0,R6
-   \   00000062   0xD3F7             BCC.N    ??HAL_PWREx_EnableOverDrive_2
-   \   00000064   0x2003             MOVS     R0,#+3
-   \   00000066   0xB002             ADD      SP,SP,#+8
-   \   00000068   0xBD70             POP      {R4-R6,PC}
+   \   00000060   0x2003             MOVS     R0,#+3
+   \   00000062   0xBD76             POP      {R1,R2,R4-R6,PC}
     300              }
     301            } 
     302            return HAL_OK;
-   \                     ??HAL_PWREx_EnableOverDrive_3: (+1)
-   \   0000006A   0x2000             MOVS     R0,#+0
-   \   0000006C   0xB002             ADD      SP,SP,#+8
-   \   0000006E   0xBD70             POP      {R4-R6,PC}       ;; return
+   \                     ??HAL_PWREx_EnableOverDrive_4: (+1)
+   \   00000064   0x2000             MOVS     R0,#+0
+   \   00000066   0xBD76             POP      {R1,R2,R4-R6,PC}  ;; return
     303          }
     304          
     305          /**
@@ -561,13 +558,14 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                     ??HAL_PWREx_DisableOverDrive_0: (+1)
    \   00000030   0x6860             LDR      R0,[R4, #+4]
    \   00000032   0x0380             LSLS     R0,R0,#+14
-   \   00000034   0xD507             BPL.N    ??HAL_PWREx_DisableOverDrive_1
+   \   00000034   0xD505             BPL.N    ??HAL_PWREx_DisableOverDrive_1
     328            {
     329              if((HAL_GetTick() - tickstart ) > PWR_OVERDRIVE_TIMEOUT_VALUE)
    \   00000036   0x.... 0x....      BL       HAL_GetTick
    \   0000003A   0x1B40             SUBS     R0,R0,R5
    \   0000003C   0x42B0             CMP      R0,R6
    \   0000003E   0xD3F7             BCC.N    ??HAL_PWREx_DisableOverDrive_0
+   \   00000040   0xE00E             B.N      ??HAL_PWREx_DisableOverDrive_2
     330              {
     331                return HAL_TIMEOUT;
     332              }
@@ -575,43 +573,39 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     334            
     335            /* Disable the Over-drive */
     336            __HAL_PWR_OVERDRIVE_DISABLE();
+   \                     ??HAL_PWREx_DisableOverDrive_1: (+1)
+   \   00000042   0x6820             LDR      R0,[R4, #+0]
+   \   00000044   0xF420 0x3080      BIC      R0,R0,#0x10000
+   \   00000048   0x6020             STR      R0,[R4, #+0]
     337          
     338            /* Get tick */
     339            tickstart = HAL_GetTick();
+   \   0000004A   0x.... 0x....      BL       HAL_GetTick
+   \   0000004E   0x4605             MOV      R5,R0
     340          
     341            while(__HAL_PWR_GET_FLAG(PWR_FLAG_ODRDY))
+   \                     ??HAL_PWREx_DisableOverDrive_3: (+1)
+   \   00000050   0x6860             LDR      R0,[R4, #+4]
+   \   00000052   0x03C0             LSLS     R0,R0,#+15
+   \   00000054   0xD506             BPL.N    ??HAL_PWREx_DisableOverDrive_4
     342            {
     343              if((HAL_GetTick() - tickstart ) > PWR_OVERDRIVE_TIMEOUT_VALUE)
+   \   00000056   0x.... 0x....      BL       HAL_GetTick
+   \   0000005A   0x1B40             SUBS     R0,R0,R5
+   \   0000005C   0x42B0             CMP      R0,R6
+   \   0000005E   0xD3F7             BCC.N    ??HAL_PWREx_DisableOverDrive_3
     344              {
     345                return HAL_TIMEOUT;
-   \   00000040   0x2003             MOVS     R0,#+3
-   \   00000042   0xB002             ADD      SP,SP,#+8
-   \   00000044   0xBD70             POP      {R4-R6,PC}
-   \                     ??HAL_PWREx_DisableOverDrive_1: (+1)
-   \   00000046   0x6820             LDR      R0,[R4, #+0]
-   \   00000048   0xF420 0x3080      BIC      R0,R0,#0x10000
-   \   0000004C   0x6020             STR      R0,[R4, #+0]
-   \   0000004E   0x.... 0x....      BL       HAL_GetTick
-   \   00000052   0x4605             MOV      R5,R0
    \                     ??HAL_PWREx_DisableOverDrive_2: (+1)
-   \   00000054   0x6860             LDR      R0,[R4, #+4]
-   \   00000056   0x03C0             LSLS     R0,R0,#+15
-   \   00000058   0xD507             BPL.N    ??HAL_PWREx_DisableOverDrive_3
-   \   0000005A   0x.... 0x....      BL       HAL_GetTick
-   \   0000005E   0x1B40             SUBS     R0,R0,R5
-   \   00000060   0x42B0             CMP      R0,R6
-   \   00000062   0xD3F7             BCC.N    ??HAL_PWREx_DisableOverDrive_2
-   \   00000064   0x2003             MOVS     R0,#+3
-   \   00000066   0xB002             ADD      SP,SP,#+8
-   \   00000068   0xBD70             POP      {R4-R6,PC}
+   \   00000060   0x2003             MOVS     R0,#+3
+   \   00000062   0xBD76             POP      {R1,R2,R4-R6,PC}
     346              }
     347            }
     348            
     349            return HAL_OK;
-   \                     ??HAL_PWREx_DisableOverDrive_3: (+1)
-   \   0000006A   0x2000             MOVS     R0,#+0
-   \   0000006C   0xB002             ADD      SP,SP,#+8
-   \   0000006E   0xBD70             POP      {R4-R6,PC}       ;; return
+   \                     ??HAL_PWREx_DisableOverDrive_4: (+1)
+   \   00000064   0x2000             MOVS     R0,#+0
+   \   00000066   0xBD76             POP      {R1,R2,R4-R6,PC}  ;; return
     350          }
     351          
     352          /**
@@ -705,7 +699,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   0000003E   0x6870             LDR      R0,[R6, #+4]
    \   00000040   0xF400 0x2040      AND      R0,R0,#0xC0000
    \   00000044   0xF5B0 0x2F40      CMP      R0,#+786432
-   \   00000048   0xD108             BNE.N    ??HAL_PWREx_EnterUnderDriveSTOPMode_1
+   \   00000048   0xD107             BNE.N    ??HAL_PWREx_EnterUnderDriveSTOPMode_1
     412            {
     413              if((HAL_GetTick() - tickstart ) > PWR_UDERDRIVE_TIMEOUT_VALUE)
    \   0000004A   0x.... 0x....      BL       HAL_GetTick
@@ -715,15 +709,14 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     414              {
     415                return HAL_TIMEOUT;
    \   00000054   0x2003             MOVS     R0,#+3
-   \   00000056   0xB002             ADD      SP,SP,#+8
-   \   00000058   0xE8BD 0x81F0      POP      {R4-R8,PC}
+   \   00000056   0xE8BD 0x81F6      POP      {R1,R2,R4-R8,PC}
     416              }
     417            }
     418            
     419            /* Select the regulator state in STOP mode ---------------------------------*/
     420            tempreg = PWR->CR1;
    \                     ??HAL_PWREx_EnterUnderDriveSTOPMode_1: (+1)
-   \   0000005C   0x6830             LDR      R0,[R6, #+0]
+   \   0000005A   0x6830             LDR      R0,[R6, #+0]
     421            /* Clear PDDS, LPDS, MRLUDS and LPLUDS bits */
     422            tempreg &= (uint32_t)~(PWR_CR1_PDDS | PWR_CR1_LPDS | PWR_CR1_LPUDS | PWR_CR1_MRUDS);
     423            
@@ -732,24 +725,24 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     426            
     427            /* Store the new value */
     428            PWR->CR1 = tempreg;
-   \   0000005E   0x....             LDR.N    R1,??DataTable12_3  ;; 0xfffff3fc
-   \   00000060   0x4008             ANDS     R0,R1,R0
-   \   00000062   0x4320             ORRS     R0,R4,R0
-   \   00000064   0x6030             STR      R0,[R6, #+0]
+   \   0000005C   0x....             LDR.N    R1,??DataTable12_3  ;; 0xfffff3fc
+   \   0000005E   0x4008             ANDS     R0,R1,R0
+   \   00000060   0x4320             ORRS     R0,R4,R0
+   \   00000062   0x6030             STR      R0,[R6, #+0]
     429            
     430            /* Set SLEEPDEEP bit of Cortex System Control Register */
     431            SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
-   \   00000066   0x....             LDR.N    R0,??DataTable12_4  ;; 0xe000ed10
+   \   00000064   0x....             LDR.N    R0,??DataTable12_4  ;; 0xe000ed10
     432            
     433            /* Select STOP mode entry --------------------------------------------------*/
     434            if(STOPEntry == PWR_SLEEPENTRY_WFI)
-   \   00000068   0x2D01             CMP      R5,#+1
-   \   0000006A   0x6801             LDR      R1,[R0, #+0]
-   \   0000006C   0xF041 0x0104      ORR      R1,R1,#0x4
-   \   00000070   0x6001             STR      R1,[R0, #+0]
-   \   00000072   0xBF0C             ITE      EQ 
-   \   00000074   0xBF30             WFIEQ    
-   \   00000076   0xBF20             WFENE    
+   \   00000066   0x2D01             CMP      R5,#+1
+   \   00000068   0x6801             LDR      R1,[R0, #+0]
+   \   0000006A   0xF041 0x0104      ORR      R1,R1,#0x4
+   \   0000006E   0x6001             STR      R1,[R0, #+0]
+   \   00000070   0xBF0C             ITE      EQ 
+   \   00000072   0xBF30             WFIEQ    
+   \   00000074   0xBF20             WFENE    
     435            {   
     436              /* Request Wait For Interrupt */
     437              __WFI();
@@ -761,14 +754,13 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     443            }
     444            /* Reset SLEEPDEEP bit of Cortex System Control Register */
     445            SCB->SCR &= (uint32_t)~((uint32_t)SCB_SCR_SLEEPDEEP_Msk);
-   \   00000078   0x6801             LDR      R1,[R0, #+0]
-   \   0000007A   0xF021 0x0104      BIC      R1,R1,#0x4
-   \   0000007E   0x6001             STR      R1,[R0, #+0]
+   \   00000076   0x6801             LDR      R1,[R0, #+0]
+   \   00000078   0xF021 0x0104      BIC      R1,R1,#0x4
+   \   0000007C   0x6001             STR      R1,[R0, #+0]
     446          
     447            return HAL_OK;  
-   \   00000080   0x2000             MOVS     R0,#+0
-   \   00000082   0xB002             ADD      SP,SP,#+8
-   \   00000084   0xE8BD 0x81F0      POP      {R4-R8,PC}       ;; return
+   \   0000007E   0x2000             MOVS     R0,#+0
+   \   00000080   0xE8BD 0x81F6      POP      {R1,R2,R4-R8,PC}  ;; return
     448          }
     449          
     450          /**
@@ -820,55 +812,55 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     487          HAL_StatusTypeDef HAL_PWREx_ControlVoltageScaling(uint32_t VoltageScaling)
     488          {
    \                     HAL_PWREx_ControlVoltageScaling: (+1)
-   \   00000000   0xB5F0             PUSH     {R4-R7,LR}
+   \   00000000   0xB5F8             PUSH     {R3-R7,LR}
    \   00000002   0x4604             MOV      R4,R0
-   \   00000004   0xB081             SUB      SP,SP,#+4
     489            uint32_t tickstart = 0;
     490          
     491            assert_param(IS_PWR_REGULATOR_VOLTAGE(VoltageScaling));
     492          
     493            /* Enable Power ctrl clock */
     494            __HAL_RCC_PWR_CLK_ENABLE();
-   \   00000006   0x2000             MOVS     R0,#+0
-   \   00000008   0x....             LDR.N    R5,??DataTable12_5  ;; 0x40023800
-   \   0000000A   0x9000             STR      R0,[SP, #+0]
-   \   0000000C   0x6C28             LDR      R0,[R5, #+64]
-   \   0000000E   0xF040 0x5080      ORR      R0,R0,#0x10000000
-   \   00000012   0x6428             STR      R0,[R5, #+64]
-   \   00000014   0x6C28             LDR      R0,[R5, #+64]
-   \   00000016   0xF000 0x5080      AND      R0,R0,#0x10000000
-   \   0000001A   0x9000             STR      R0,[SP, #+0]
-   \   0000001C   0x9800             LDR      R0,[SP, #+0]
+   \   00000004   0x2000             MOVS     R0,#+0
+   \   00000006   0x....             LDR.N    R5,??DataTable12_5  ;; 0x40023800
+   \   00000008   0x9000             STR      R0,[SP, #+0]
+   \   0000000A   0x6C28             LDR      R0,[R5, #+64]
+   \   0000000C   0xF040 0x5080      ORR      R0,R0,#0x10000000
+   \   00000010   0x6428             STR      R0,[R5, #+64]
+   \   00000012   0x6C28             LDR      R0,[R5, #+64]
+   \   00000014   0xF000 0x5080      AND      R0,R0,#0x10000000
+   \   00000018   0x9000             STR      R0,[SP, #+0]
+   \   0000001A   0x9800             LDR      R0,[SP, #+0]
     495          
     496            /* Check if the PLL is used as system clock or not */
     497            if(__HAL_RCC_GET_SYSCLK_SOURCE() != RCC_CFGR_SWS_PLL)
-   \   0000001E   0x68A8             LDR      R0,[R5, #+8]
-   \   00000020   0xF000 0x000C      AND      R0,R0,#0xC
-   \   00000024   0x2808             CMP      R0,#+8
-   \   00000026   0xD043             BEQ.N    ??HAL_PWREx_ControlVoltageScaling_0
+   \   0000001C   0x68A8             LDR      R0,[R5, #+8]
+   \   0000001E   0xF000 0x000C      AND      R0,R0,#0xC
+   \   00000022   0x2808             CMP      R0,#+8
+   \   00000024   0xD03D             BEQ.N    ??HAL_PWREx_ControlVoltageScaling_0
     498            {
     499              /* Disable the main PLL */
     500              __HAL_RCC_PLL_DISABLE();
-   \   00000028   0x6828             LDR      R0,[R5, #+0]
-   \   0000002A   0xF020 0x7080      BIC      R0,R0,#0x1000000
-   \   0000002E   0x6028             STR      R0,[R5, #+0]
+   \   00000026   0x6828             LDR      R0,[R5, #+0]
+   \   00000028   0xF020 0x7080      BIC      R0,R0,#0x1000000
+   \   0000002C   0x6028             STR      R0,[R5, #+0]
     501              
     502              /* Get Start Tick */
     503              tickstart = HAL_GetTick();    
-   \   00000030   0x.... 0x....      BL       HAL_GetTick
-   \   00000034   0x4607             MOV      R7,R0
+   \   0000002E   0x.... 0x....      BL       HAL_GetTick
+   \   00000032   0x4607             MOV      R7,R0
     504              /* Wait till PLL is disabled */  
     505              while(__HAL_RCC_GET_FLAG(RCC_FLAG_PLLRDY) != RESET)
    \                     ??HAL_PWREx_ControlVoltageScaling_1: (+1)
-   \   00000036   0x6828             LDR      R0,[R5, #+0]
-   \   00000038   0x0180             LSLS     R0,R0,#+6
-   \   0000003A   0xD507             BPL.N    ??HAL_PWREx_ControlVoltageScaling_2
+   \   00000034   0x6828             LDR      R0,[R5, #+0]
+   \   00000036   0x0180             LSLS     R0,R0,#+6
+   \   00000038   0xD505             BPL.N    ??HAL_PWREx_ControlVoltageScaling_2
     506              {
     507                if((HAL_GetTick() - tickstart ) > PLL_TIMEOUT_VALUE)
-   \   0000003C   0x.... 0x....      BL       HAL_GetTick
-   \   00000040   0x1BC0             SUBS     R0,R0,R7
-   \   00000042   0x2865             CMP      R0,#+101
-   \   00000044   0xD3F7             BCC.N    ??HAL_PWREx_ControlVoltageScaling_1
+   \   0000003A   0x.... 0x....      BL       HAL_GetTick
+   \   0000003E   0x1BC0             SUBS     R0,R0,R7
+   \   00000040   0x2865             CMP      R0,#+101
+   \   00000042   0xD3F7             BCC.N    ??HAL_PWREx_ControlVoltageScaling_1
+   \   00000044   0xE029             B.N      ??HAL_PWREx_ControlVoltageScaling_3
     508                {
     509                  return HAL_TIMEOUT;
     510                }
@@ -876,16 +868,42 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     512              
     513              /* Set Range */
     514              __HAL_PWR_VOLTAGESCALING_CONFIG(VoltageScaling);
+   \                     ??HAL_PWREx_ControlVoltageScaling_2: (+1)
+   \   00000046   0x2000             MOVS     R0,#+0
+   \   00000048   0x....             LDR.N    R6,??DataTable12_1  ;; 0x40007000
+   \   0000004A   0x9000             STR      R0,[SP, #+0]
+   \   0000004C   0x6830             LDR      R0,[R6, #+0]
+   \   0000004E   0xF420 0x4040      BIC      R0,R0,#0xC000
+   \   00000052   0x4320             ORRS     R0,R4,R0
+   \   00000054   0x6030             STR      R0,[R6, #+0]
+   \   00000056   0x6830             LDR      R0,[R6, #+0]
+   \   00000058   0xF400 0x4040      AND      R0,R0,#0xC000
+   \   0000005C   0x9000             STR      R0,[SP, #+0]
+   \   0000005E   0x9800             LDR      R0,[SP, #+0]
     515              
     516              /* Enable the main PLL */
     517              __HAL_RCC_PLL_ENABLE();
+   \   00000060   0x6828             LDR      R0,[R5, #+0]
+   \   00000062   0xF040 0x7080      ORR      R0,R0,#0x1000000
+   \   00000066   0x6028             STR      R0,[R5, #+0]
     518              
     519              /* Get Start Tick */
     520              tickstart = HAL_GetTick();
+   \   00000068   0x.... 0x....      BL       HAL_GetTick
+   \   0000006C   0x4607             MOV      R7,R0
     521              /* Wait till PLL is ready */  
     522              while(__HAL_RCC_GET_FLAG(RCC_FLAG_PLLRDY) == RESET)
+   \                     ??HAL_PWREx_ControlVoltageScaling_4: (+1)
+   \   0000006E   0x6828             LDR      R0,[R5, #+0]
+   \   00000070   0x0180             LSLS     R0,R0,#+6
+   \   00000072   0xD405             BMI.N    ??HAL_PWREx_ControlVoltageScaling_5
     523              {
     524                if((HAL_GetTick() - tickstart ) > PLL_TIMEOUT_VALUE)
+   \   00000074   0x.... 0x....      BL       HAL_GetTick
+   \   00000078   0x1BC0             SUBS     R0,R0,R7
+   \   0000007A   0x2865             CMP      R0,#+101
+   \   0000007C   0xD3F7             BCC.N    ??HAL_PWREx_ControlVoltageScaling_4
+   \   0000007E   0xE00C             B.N      ??HAL_PWREx_ControlVoltageScaling_3
     525                {
     526                  return HAL_TIMEOUT;
     527                } 
@@ -893,57 +911,26 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     529              
     530              /* Get Start Tick */
     531              tickstart = HAL_GetTick();
+   \                     ??HAL_PWREx_ControlVoltageScaling_5: (+1)
+   \   00000080   0x.... 0x....      BL       HAL_GetTick
+   \   00000084   0x4607             MOV      R7,R0
+   \   00000086   0xF240 0x34E9      MOVW     R4,#+1001
     532              while((__HAL_PWR_GET_FLAG(PWR_FLAG_VOSRDY) == RESET))
+   \                     ??HAL_PWREx_ControlVoltageScaling_6: (+1)
+   \   0000008A   0x6870             LDR      R0,[R6, #+4]
+   \   0000008C   0x0440             LSLS     R0,R0,#+17
+   \   0000008E   0xD406             BMI.N    ??HAL_PWREx_ControlVoltageScaling_7
     533              {
     534                if((HAL_GetTick() - tickstart ) > PWR_VOSRDY_TIMEOUT_VALUE)
+   \   00000090   0x.... 0x....      BL       HAL_GetTick
+   \   00000094   0x1BC0             SUBS     R0,R0,R7
+   \   00000096   0x42A0             CMP      R0,R4
+   \   00000098   0xD3F7             BCC.N    ??HAL_PWREx_ControlVoltageScaling_6
     535                {
     536                  return HAL_TIMEOUT;
-   \   00000046   0x2003             MOVS     R0,#+3
-   \   00000048   0xB001             ADD      SP,SP,#+4
-   \   0000004A   0xBDF0             POP      {R4-R7,PC}
-   \                     ??HAL_PWREx_ControlVoltageScaling_2: (+1)
-   \   0000004C   0x2000             MOVS     R0,#+0
-   \   0000004E   0x....             LDR.N    R6,??DataTable12_1  ;; 0x40007000
-   \   00000050   0x9000             STR      R0,[SP, #+0]
-   \   00000052   0x6830             LDR      R0,[R6, #+0]
-   \   00000054   0xF420 0x4040      BIC      R0,R0,#0xC000
-   \   00000058   0x4320             ORRS     R0,R4,R0
-   \   0000005A   0x6030             STR      R0,[R6, #+0]
-   \   0000005C   0x6830             LDR      R0,[R6, #+0]
-   \   0000005E   0xF400 0x4040      AND      R0,R0,#0xC000
-   \   00000062   0x9000             STR      R0,[SP, #+0]
-   \   00000064   0x9800             LDR      R0,[SP, #+0]
-   \   00000066   0x6828             LDR      R0,[R5, #+0]
-   \   00000068   0xF040 0x7080      ORR      R0,R0,#0x1000000
-   \   0000006C   0x6028             STR      R0,[R5, #+0]
-   \   0000006E   0x.... 0x....      BL       HAL_GetTick
-   \   00000072   0x4607             MOV      R7,R0
    \                     ??HAL_PWREx_ControlVoltageScaling_3: (+1)
-   \   00000074   0x6828             LDR      R0,[R5, #+0]
-   \   00000076   0x0180             LSLS     R0,R0,#+6
-   \   00000078   0xD407             BMI.N    ??HAL_PWREx_ControlVoltageScaling_4
-   \   0000007A   0x.... 0x....      BL       HAL_GetTick
-   \   0000007E   0x1BC0             SUBS     R0,R0,R7
-   \   00000080   0x2865             CMP      R0,#+101
-   \   00000082   0xD3F7             BCC.N    ??HAL_PWREx_ControlVoltageScaling_3
-   \   00000084   0x2003             MOVS     R0,#+3
-   \   00000086   0xB001             ADD      SP,SP,#+4
-   \   00000088   0xBDF0             POP      {R4-R7,PC}
-   \                     ??HAL_PWREx_ControlVoltageScaling_4: (+1)
-   \   0000008A   0x.... 0x....      BL       HAL_GetTick
-   \   0000008E   0x4607             MOV      R7,R0
-   \   00000090   0xF240 0x34E9      MOVW     R4,#+1001
-   \                     ??HAL_PWREx_ControlVoltageScaling_5: (+1)
-   \   00000094   0x6870             LDR      R0,[R6, #+4]
-   \   00000096   0x0440             LSLS     R0,R0,#+17
-   \   00000098   0xD407             BMI.N    ??HAL_PWREx_ControlVoltageScaling_6
-   \   0000009A   0x.... 0x....      BL       HAL_GetTick
-   \   0000009E   0x1BC0             SUBS     R0,R0,R7
-   \   000000A0   0x42A0             CMP      R0,R4
-   \   000000A2   0xD3F7             BCC.N    ??HAL_PWREx_ControlVoltageScaling_5
-   \   000000A4   0x2003             MOVS     R0,#+3
-   \   000000A6   0xB001             ADD      SP,SP,#+4
-   \   000000A8   0xBDF0             POP      {R4-R7,PC}
+   \   0000009A   0x2003             MOVS     R0,#+3
+   \   0000009C   0xBDF2             POP      {R1,R4-R7,PC}
     537                } 
     538              }
     539            }
@@ -952,14 +939,12 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     542              return HAL_ERROR;
     543            }
     544            return HAL_OK;
-   \                     ??HAL_PWREx_ControlVoltageScaling_6: (+1)
-   \   000000AA   0x2000             MOVS     R0,#+0
-   \   000000AC   0xB001             ADD      SP,SP,#+4
-   \   000000AE   0xBDF0             POP      {R4-R7,PC}
+   \                     ??HAL_PWREx_ControlVoltageScaling_7: (+1)
+   \   0000009E   0x2000             MOVS     R0,#+0
+   \   000000A0   0xBDF2             POP      {R1,R4-R7,PC}
    \                     ??HAL_PWREx_ControlVoltageScaling_0: (+1)
-   \   000000B0   0x2001             MOVS     R0,#+1
-   \   000000B2   0xB001             ADD      SP,SP,#+4
-   \   000000B4   0xBDF0             POP      {R4-R7,PC}       ;; return
+   \   000000A2   0x2001             MOVS     R0,#+1
+   \   000000A4   0xBDF2             POP      {R1,R4-R7,PC}    ;; return
     545          }
 
    \                                 In section .text, align 4, keep-with-next
@@ -1040,24 +1025,24 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
        4  ??DataTable12_3
        4  ??DataTable12_4
        4  ??DataTable12_5
-     182  HAL_PWREx_ControlVoltageScaling
+     166  HAL_PWREx_ControlVoltageScaling
       46  HAL_PWREx_DisableBkUpReg
       12  HAL_PWREx_DisableFlashPowerDown
       12  HAL_PWREx_DisableLowRegulatorLowVoltage
       12  HAL_PWREx_DisableMainRegulatorLowVoltage
-     112  HAL_PWREx_DisableOverDrive
+     104  HAL_PWREx_DisableOverDrive
       46  HAL_PWREx_EnableBkUpReg
       12  HAL_PWREx_EnableFlashPowerDown
       12  HAL_PWREx_EnableLowRegulatorLowVoltage
       12  HAL_PWREx_EnableMainRegulatorLowVoltage
-     112  HAL_PWREx_EnableOverDrive
-     136  HAL_PWREx_EnterUnderDriveSTOPMode
+     104  HAL_PWREx_EnableOverDrive
+     132  HAL_PWREx_EnterUnderDriveSTOPMode
       10  HAL_PWREx_GetVoltageRange
 
  
- 740 bytes in section .text
+ 704 bytes in section .text
  
- 740 bytes of CODE memory
+ 704 bytes of CODE memory
 
 Errors: none
 Warnings: none

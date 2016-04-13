@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      12/Apr/2016  09:55:53
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      13/Apr/2016  13:47:36
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -274,10 +274,8 @@ USBH_OpenPipe:
 //  122                             uint8_t pipe_num)
 //  123 {
 USBH_ClosePipe:
-        PUSH     {LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI CFA R13+4
-        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  124 
 //  125   USBH_LL_ClosePipe(phost, pipe_num);
@@ -286,9 +284,7 @@ USBH_ClosePipe:
 //  126   
 //  127   return USBH_OK; 
         MOVS     R0,#+0
-        ADD      SP,SP,#+4
-          CFI CFA R13+4
-        POP      {PC}             ;; return
+        POP      {R1,PC}          ;; return
 //  128 
 //  129 }
           CFI EndBlock cfiBlock1
@@ -301,7 +297,7 @@ USBH_ClosePipe:
 //  136   * @retval Pipe number
 //  137   */
 
-        SECTION `.text`:CODE:NOROOT(2)
+        SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock2 Using cfiCommon0
           CFI Function USBH_AllocPipe
           CFI NoCalls
@@ -312,7 +308,7 @@ USBH_ClosePipe:
 //  141   
 //  142   pipe =  USBH_GetFreePipe(phost);
 USBH_AllocPipe:
-        MOVS.W   R2,#+0
+        MOVS     R2,#+0
         ADD      R3,R0,#+620
 ??USBH_AllocPipe_0:
         LDR      R12,[R3], #+4
@@ -323,21 +319,20 @@ USBH_AllocPipe:
         CMP      R2,#+11
         BLT.N    ??USBH_AllocPipe_0
         MOVW     R2,#+65535
+        B.N      ??USBH_AllocPipe_2
 //  143 
 //  144   if (pipe != 0xFFFF)
-//  145   {
-//  146 	phost->Pipes[pipe] = 0x8000 | ep_addr;
-//  147   }
-//  148   return pipe;
-        UXTB     R0,R2
-        BX       LR
 ??USBH_AllocPipe_1:
         MOVW     R3,#+65535
         CMP      R2,R3
         BEQ.N    ??USBH_AllocPipe_2
+//  145   {
+//  146 	phost->Pipes[pipe] = 0x8000 | ep_addr;
         ADD      R0,R0,R2, LSL #+2
         ORR      R1,R1,#0x8000
         STR      R1,[R0, #+620]
+//  147   }
+//  148   return pipe;
 ??USBH_AllocPipe_2:
         UXTB     R0,R2
         BX       LR               ;; return
@@ -430,9 +425,9 @@ USBH_FreePipe:
 //  203 
 //  204 
 // 
-// 122 bytes in section .text
+// 114 bytes in section .text
 // 
-// 122 bytes of CODE memory
+// 114 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

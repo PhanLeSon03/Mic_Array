@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      12/Apr/2016  09:55:46
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      13/Apr/2016  13:47:29
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -465,14 +465,14 @@ vDataOut:
 //  243 /*------------------------------------------------------------------------------------------------------------*/
 //  244 /* Discreate Fourier Transform */
 
-        SECTION `.text`:CODE:NOROOT(2)
+        SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock0 Using cfiCommon0
           CFI Function DFT
         THUMB
 //  245 void DFT (float *x, float *Out, int N)
 //  246 {
 DFT:
-        PUSH     {R4-R11,LR}
+        PUSH     {R3-R11,LR}
           CFI R14 Frame(CFA, -4)
           CFI R11 Frame(CFA, -8)
           CFI R10 Frame(CFA, -12)
@@ -482,14 +482,12 @@ DFT:
           CFI R6 Frame(CFA, -28)
           CFI R5 Frame(CFA, -32)
           CFI R4 Frame(CFA, -36)
-          CFI CFA R13+36
+          CFI CFA R13+40
         MOV      R10,R2
 //  247 	int m,n;
 //  248 	
 //  249 	for(m=0; m<N; m++)  // update for e very bar 
         MOVS     R5,#+0
-        SUB      SP,SP,#+4
-          CFI CFA R13+40
         CMP      R10,#+1
         MOV      R11,R0
         VPUSH    {D8}
@@ -507,14 +505,14 @@ DFT:
         STR      R0,[R4, #+4]
         MOVS     R6,#+0
         STR      R0,[R4, #+0]
-        MOV.W    R7,R11
+        MOV      R7,R11
         VCVT.F32.S32 S16,S0
 ??DFT_2:
         VMOV     R0,S16
           CFI FunCall __aeabi_f2d
         BL       __aeabi_f2d
-        LDR.W    R2,??DataTable13_1  ;; 0x5a7ed197
-        LDR.W    R3,??DataTable13_2  ;; 0x401921fb
+        LDR.W    R2,??DataTable12_1  ;; 0x5a7ed197
+        LDR.W    R3,??DataTable12_2  ;; 0x401921fb
           CFI FunCall __aeabi_dmul
         BL       __aeabi_dmul
         VMOV     S0,R6
@@ -580,9 +578,7 @@ DFT:
         VPOP     {D8}
           CFI D8 SameValue
           CFI CFA R13+40
-        ADD      SP,SP,#+4
-          CFI CFA R13+36
-        POP      {R4-R11,PC}      ;; return
+        POP      {R0,R4-R11,PC}   ;; return
           CFI EndBlock cfiBlock0
 //  264 
 //  265 /* revert of Discrete Fourier Transform */
@@ -609,7 +605,7 @@ rDFT:
 //  268     int n,m;
 //  269 	
 //  270     for (n= 0; n < N; n++)
-        MOVS     R4,#+0
+        MOVS     R5,#+0
         CMP      R10,#+1
         MOV      R11,R1
         VPUSH    {D8-D10}
@@ -619,7 +615,7 @@ rDFT:
           CFI CFA R13+64
         BLT.N    ??rDFT_0
         VMOV     S0,R10
-        MOV.W    R5,R3
+        MOV      R4,R3
         VCVT.F32.S32 S16,S0
 //  271 	{
 //  272         float xOfn, xOfn_m; // temporary variable for the imagine and real 
@@ -628,18 +624,18 @@ rDFT:
 //  275 
 //  276 		for (m = 0; m < N; m++)
 ??rDFT_1:
-        VMOV     S0,R4
+        VMOV     S0,R5
         MOVS     R6,#+0
-        VLDR.W   S18,??DataTable6  ;; 0x0
+        VLDR.W   S18,??DataTable5  ;; 0x0
         LDR      R7,[SP, #+24]
-        VLDR.W   S17,??DataTable6  ;; 0x0
+        VLDR.W   S17,??DataTable5  ;; 0x0
         VCVT.F32.S32 S19,S0
 ??rDFT_2:
         MOV      R0,R11
           CFI FunCall __aeabi_i2d
         BL       __aeabi_i2d
-        LDR.W    R2,??DataTable13_1  ;; 0x5a7ed197
-        LDR.W    R3,??DataTable13_2  ;; 0x401921fb
+        LDR.W    R2,??DataTable12_1  ;; 0x5a7ed197
+        LDR.W    R3,??DataTable12_2  ;; 0x401921fb
           CFI FunCall __aeabi_dmul
         BL       __aeabi_dmul
         VMOV     S0,R6
@@ -717,10 +713,10 @@ rDFT:
         VADD.F32 S0,S0,S1
 //  289 
 //  290 	}
-        ADDS     R4,R4,#+1
-        VSTR     S0,[R5, #0]
-        ADDS     R5,R5,#+4
-        CMP      R4,R10
+        ADDS     R5,R5,#+1
+        VSTR     S0,[R4, #0]
+        ADDS     R4,R4,#+4
+        CMP      R5,R10
         BLT.N    ??rDFT_1
 //  291 }
 ??rDFT_0:
@@ -729,9 +725,7 @@ rDFT:
           CFI D9 SameValue
           CFI D10 SameValue
           CFI CFA R13+40
-        ADD      SP,SP,#+4
-          CFI CFA R13+36
-        POP      {R4-R11,PC}      ;; return
+        POP      {R0,R4-R11,PC}   ;; return
           CFI EndBlock cfiBlock1
 //  292 
 //  293 /****************************** IIR filter *****************************************
@@ -849,7 +843,7 @@ iirFilter:
 //  336 
 //  337 
 
-        SECTION `.text`:CODE:NOROOT(2)
+        SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock3 Using cfiCommon0
           CFI Function LowPass
           CFI NoCalls
@@ -871,12 +865,12 @@ LowPass:
 //  342 	int16_t Out=0;
 //  343 
 //  344 	for(uint16_t i=0; i<Size; i++)
-        LDR.W    R4,??DataTable15
+        LDR.W    R4,??DataTable13
         CMP      R2,#+0
         MOV      R12,#+0
         LDRSH    R5,[R4, #+0]
         BEQ.N    ??LowPass_0
-        LDR.W    R9,??DataTable15_1  ;; 0xffff8000
+        LDR.W    R9,??DataTable13_1  ;; 0xffff8000
         MOVW     R7,#+32767
 //  345 	{
 //  346         Out = ADD_S16(Out_Old,SUB_S16(*(Input+i), Out_Old)/K);
@@ -1013,7 +1007,7 @@ LowPass2ndOder:
 //  394         uint16_t i;
 //  395 	 
 //  396     for(i=0; i<Size; i++)
-        LDR.W    R4,??DataTable15_2
+        LDR.W    R4,??DataTable13_2
         MOVS     R5,#+0
         MOVS     R3,#+0
         LDRSH    R8,[R4, #+2]
@@ -1023,7 +1017,7 @@ LowPass2ndOder:
         CBZ.N    R2,??LowPass2ndOder_0
         MOV      R11,R0
         MOVW     R12,#+9322
-        LDR.W    LR,??DataTable16  ;; 0xffffb486
+        LDR.W    LR,??DataTable14  ;; 0xffffb486
         B.N      ??LowPass2ndOder_1
 //  397 	{
 //  398 
@@ -1063,24 +1057,23 @@ LowPass2ndOder:
         MOV      R10,R5
         BLT.N    ??LowPass2ndOder_2
 ??LowPass2ndOder_0:
-        STRH     R6,[R4, #+6]
+        B.N      ?Subroutine0
 //  412 
 //  413 	*Output = (int16_t)Out;
 //  414 
 //  415     InOld1 = InOld;
 //  416 	InOld = Input[i-1];
-        ADD      R0,R0,R3, LSL #+1
-        STRH     R10,[R4, #+4]
-        STRH     R5,[R1, #+0]
-        STRH     R9,[R4, #+2]
-        LDRH     R0,[R0, #-2]
-        STRH     R0,[R4, #+0]
 //  417 
 //  418 
 //  419 
 //  420 }
-        POP      {R4-R11,PC}      ;; return
           CFI EndBlock cfiBlock4
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable5:
+        DC32     0x0
 
         SECTION `.bss`:DATA:REORDER:NOROOT(1)
         DATA
@@ -1121,7 +1114,7 @@ LowPass2ndOder_1:
 //  432         uint16_t i;
 //  433 	 
 //  434     for(i=0; i<Size; i++)
-        LDR.W    R4,??DataTable15_3
+        LDR.W    R4,??DataTable14_1
         MOVS     R5,#+0
         MOVS     R3,#+0
         LDRSH    R8,[R4, #+2]
@@ -1131,7 +1124,7 @@ LowPass2ndOder_1:
         CBZ.N    R2,??LowPass2ndOder_1_0
         MOV      R11,R0
         MOVW     R12,#+9322
-        LDR.W    LR,??DataTable16  ;; 0xffffb486
+        LDR.W    LR,??DataTable14  ;; 0xffffb486
         B.N      ??LowPass2ndOder_1_1
 //  435 	{
 //  436 
@@ -1171,30 +1164,43 @@ LowPass2ndOder_1:
         MOV      R10,R5
         BLT.N    ??LowPass2ndOder_1_2
 ??LowPass2ndOder_1_0:
-        STRH     R6,[R4, #+6]
+          CFI EndBlock cfiBlock5
+        REQUIRE ?Subroutine0
+        ;; // Fall through to label ?Subroutine0
 //  450 
 //  451 	*Output = (int16_t)Out;
 //  452 
 //  453     InOld1 = InOld;
 //  454 	InOld = Input[i-1];
+//  455 
+//  456 
+//  457 	
+//  458 }
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock6 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+36
+          CFI R4 Frame(CFA, -36)
+          CFI R5 Frame(CFA, -32)
+          CFI R6 Frame(CFA, -28)
+          CFI R7 Frame(CFA, -24)
+          CFI R8 Frame(CFA, -20)
+          CFI R9 Frame(CFA, -16)
+          CFI R10 Frame(CFA, -12)
+          CFI R11 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+        THUMB
+?Subroutine0:
+        STRH     R6,[R4, #+6]
         ADD      R0,R0,R3, LSL #+1
         STRH     R10,[R4, #+4]
         STRH     R5,[R1, #+0]
         STRH     R9,[R4, #+2]
         LDRH     R0,[R0, #-2]
         STRH     R0,[R4, #+0]
-//  455 
-//  456 
-//  457 	
-//  458 }
         POP      {R4-R11,PC}      ;; return
-          CFI EndBlock cfiBlock5
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable6:
-        DC32     0x0
+          CFI EndBlock cfiBlock6
 
         SECTION `.bss`:DATA:REORDER:NOROOT(1)
         DATA
@@ -1206,8 +1212,8 @@ LowPass2ndOder_1:
 //  459 
 //  460 /* K = dT/T */
 
-        SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock6 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock7 Using cfiCommon0
           CFI Function LowPassIIR
           CFI NoCalls
         THUMB
@@ -1221,7 +1227,7 @@ LowPassIIR:
         CBNZ.N   R3,??LowPassIIR_0
         BX       LR
 ??LowPassIIR_0:
-        PUSH     {R4-R8,R10,LR}
+        PUSH     {R3-R8,R10,LR}
           CFI R14 Frame(CFA, -4)
           CFI R10 Frame(CFA, -8)
           CFI R8 Frame(CFA, -12)
@@ -1229,10 +1235,8 @@ LowPassIIR:
           CFI R6 Frame(CFA, -20)
           CFI R5 Frame(CFA, -24)
           CFI R4 Frame(CFA, -28)
-          CFI CFA R13+28
-        SUB      SP,SP,#+4
           CFI CFA R13+32
-        LDR.W    R5,??DataTable15_1  ;; 0xffff8000
+        LDR.W    R5,??DataTable13_1  ;; 0xffff8000
         MOVW     R8,#+32767
         LDR      R4,[SP, #+32]
 //  467 	{
@@ -1295,15 +1299,13 @@ LowPassIIR:
         STRH     R7,[R2, #+0]
         BNE.N    ??LowPassIIR_1
 //  471 }
-        ADD      SP,SP,#+4
-          CFI CFA R13+28
-        POP      {R4-R8,R10,PC}   ;; return
-          CFI EndBlock cfiBlock6
+        POP      {R0,R4-R8,R10,PC}  ;; return
+          CFI EndBlock cfiBlock7
 //  472 
 //  473 
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock7 Using cfiCommon0
+          CFI Block cfiBlock8 Using cfiCommon0
           CFI Function Decimation
         THUMB
 //  474 void Decimation(uint8_t *Input, int16_t *Output, int16_t PreCalcBuff[129][256]) //128 bytes input 32 bytes output
@@ -1352,9 +1354,9 @@ Decimation:
 //  496 
 //  497 	for (uint8_t i=0;i<16; i++) //index of output sample 16 ouput
         MOVS     R0,#+16
-        VLDR.W   S0,??DataTable9  ;; 0xc2c80000
-        LDR.W    R1,??DataTable17
-        VLDR.W   S1,??DataTable9_1  ;; 0x42c80000
+        VLDR.W   S0,??DataTable8  ;; 0xc2c80000
+        LDR.W    R1,??DataTable15
+        VLDR.W   S1,??DataTable8_1  ;; 0x42c80000
 //  498 	{
 //  499 
 //  500 	   Sigma = 0;
@@ -1386,7 +1388,7 @@ Decimation:
 //  515      			{
 //  516      			    //Sigma -=2;
 //  517 					Data = Data_Old + (-100 - Data_Old)/200;		
-        VLDR.W   S4,??DataTable9_2  ;; 0x43480000
+        VLDR.W   S4,??DataTable8_2  ;; 0x43480000
         ITE      MI 
         VSUBMI.F32 S3,S1,S2
         VSUBPL.F32 S3,S0,S2
@@ -1485,7 +1487,7 @@ Decimation:
         ADD      SP,SP,#+520
           CFI CFA R13+32
         POP      {R4-R10,PC}      ;; return
-          CFI EndBlock cfiBlock7
+          CFI EndBlock cfiBlock8
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
@@ -1531,18 +1533,16 @@ Decimation:
 //  564 
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock8 Using cfiCommon0
+          CFI Block cfiBlock9 Using cfiCommon0
           CFI Function Window
         THUMB
 //  565 void Window(float *fir64Coff)
 //  566 {
 Window:
-        PUSH     {R4,R5,LR}
+        PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
-        SUB      SP,SP,#+4
           CFI CFA R13+16
         MOV      R4,R0
 //  567     for (int i = 0; i < DSP_NUMCOFFHANNIING; i++) //DSP_NUMCOFF
@@ -1553,10 +1553,10 @@ Window:
           CFI D9 Frame(CFA, -40)
           CFI D8 Frame(CFA, -48)
           CFI CFA R13+48
-        VLDR.W   D8,??DataTable11
-        VLDR.W   D9,??DataTable11_1
-        VLDR.W   D10,??DataTable11_2
-        VLDR.W   D11,??DataTable11_3
+        VLDR.W   D8,??DataTable10
+        VLDR.W   D9,??DataTable10_1
+        VLDR.W   D10,??DataTable10_2
+        VLDR.W   D11,??DataTable10_3
 //  568 	{
 //  569         //fir64Coff[i] = (double_t)((1 << 10)-1);
 //  570         fir64Coff[i] = (float)(DSP_NUMCOFFHANNIING);
@@ -1587,7 +1587,7 @@ Window:
           CFI FunCall __aeabi_dmul
         BL       __aeabi_dmul
         MOVS     R2,#+0
-        LDR.W    R3,??DataTable18_12  ;; 0x408ff800
+        LDR.W    R3,??DataTable15_15  ;; 0x408ff800
           CFI FunCall __aeabi_ddiv
         BL       __aeabi_ddiv
         VMOV     D0,R0,R1
@@ -1617,27 +1617,25 @@ Window:
           CFI D10 SameValue
           CFI D11 SameValue
           CFI CFA R13+16
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}       ;; return
-          CFI EndBlock cfiBlock8
+        POP      {R0,R4,R5,PC}    ;; return
+          CFI EndBlock cfiBlock9
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable9:
+??DataTable8:
         DC32     0xc2c80000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable9_1:
+??DataTable8_1:
         DC32     0x42c80000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable9_2:
+??DataTable8_2:
         DC32     0x43480000
 //  591 
 //  592 /*
@@ -1653,7 +1651,7 @@ Window:
 //  602 */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock9 Using cfiCommon0
+          CFI Block cfiBlock10 Using cfiCommon0
           CFI Function PCM2PDM
           CFI NoCalls
         THUMB
@@ -1738,7 +1736,7 @@ PCM2PDM:
 //  624 }
 ??PCM2PDM_0:
         POP      {R4-R7,PC}       ;; return
-          CFI EndBlock cfiBlock9
+          CFI EndBlock cfiBlock10
 //  625 
 //  626 /*
 //  627 PDM = Pulse Density Modulation
@@ -1757,32 +1755,35 @@ PCM2PDM:
 //  640 
 //  641 
 
-        SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock10 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock11 Using cfiCommon0
           CFI Function PDM2PCM
           CFI NoCalls
         THUMB
 //  642 void PDM2PCM(uint8_t *InBuff,int16_t *OutBuff,int16_t PreCalcBuff[DSP_NUMBYTECONV][256])
 //  643 {
 PDM2PCM:
-        PUSH     {R0,R2,R4-R8,R10,R11,LR}
+        PUSH     {R0,R4-R11,LR}
           CFI R14 Frame(CFA, -4)
           CFI R11 Frame(CFA, -8)
           CFI R10 Frame(CFA, -12)
-          CFI R8 Frame(CFA, -16)
-          CFI R7 Frame(CFA, -20)
-          CFI R6 Frame(CFA, -24)
-          CFI R5 Frame(CFA, -28)
-          CFI R4 Frame(CFA, -32)
+          CFI R9 Frame(CFA, -16)
+          CFI R8 Frame(CFA, -20)
+          CFI R7 Frame(CFA, -24)
+          CFI R6 Frame(CFA, -28)
+          CFI R5 Frame(CFA, -32)
+          CFI R4 Frame(CFA, -36)
           CFI CFA R13+40
+        SUB      SP,SP,#+4
+          CFI CFA R13+44
 //  644     int32_t BuffInPos = -DSP_NUMBYTECONV/2;
         MVN      R0,#+3
 //  645 	static uint8_t Initial_Array[DSP_NUMBYTECONV/2];
 //  646 	
 //  647     for (uint32_t currentSample = 0; currentSample < 16; currentSample++) // go for all the output sample
-        MOVS     R2,#+16
-        LDR.W    R3,??DataTable15_1  ;; 0xffff8000
-        MOVW     R8,#+32767
+        MOVS     R3,#+16
+        LDR.W    R8,??DataTable13_1  ;; 0xffff8000
+        MOVW     R9,#+32767
 //  648 	{                                                                     // 32*16 = 512 bytes of input steam 
 //  649         int16_t stSum=0;
 //  650 //		int16_t coefficientIndex=0;
@@ -1791,10 +1792,10 @@ PDM2PCM:
 //  653 		/* First half of frame */
 //  654         for (uint16_t i = 0; i < DSP_NUMBYTECONV; i++) // DSP_NUMBYTECONV = 8
 ??PDM2PCM_0:
-        LDR      R6,[SP, #+0]
-        MOVS     R5,#+0
-        LDR.W    R7,??DataTable18_13
-        LDR      R12,[SP, #+4]
+        LDR      R6,[SP, #+4]
+        MOVS     R4,#+0
+        LDR.W    R7,??DataTable15_16
+        MOV      R12,R2
         ADDS     R6,R0,R6
         MOV      LR,#+8
 //  655         {         
@@ -1812,32 +1813,33 @@ PDM2PCM:
 //  665 			temp = (int16_t)PreCalcBuff[i][temp1];        // convolution for 1 bytes which take from the Pre-calculation array
 //  666 		
 //  667             stSum = ADD_S16(stSum,temp);  //These are the pre-calculated window values
-        SXTH     R5,R5
+        SXTH     R4,R4
         ITE      MI 
-        LDRBMI   R4,[R7, #+0]
-        LDRBPL   R4,[R6, #+0]
-        LDRSH    R4,[R12, R4, LSL #+1]
-        CMP      R5,#+0
+        LDRBMI   R5,[R7, #+0]
+        LDRBPL   R5,[R6, #+0]
+        LDRSH    R5,[R12, R5, LSL #+1]
+        CMP      R4,#+0
         IT       PL 
-        CMPPL    R4,#+0
+        CMPPL    R5,#+0
         BMI.N    ??PDM2PCM_2
-        SUB      R10,R8,R4
-        CMP      R10,R5
+        SUB      R11,R9,R5
+        CMP      R11,R4
         BGE.N    ??PDM2PCM_3
-        MOV      R5,R8
+        MOV      R4,R9
         B.N      ??PDM2PCM_4
 ??PDM2PCM_2:
-        CMP      R5,#+0
+        CMP      R4,#+0
         IT       MI 
-        CMPMI    R4,#+0
+        CMPMI    R5,#+0
         BPL.N    ??PDM2PCM_3
-        SUB      R10,R3,R4
-        CMP      R5,R10
+        SUB      R10,R8,R5
+        CMP      R4,R10
+        STR      R4,[SP, #+0]
         IT       LT 
-        MOVLT    R5,R3
+        MOVLT    R4,R8
         BLT.N    ??PDM2PCM_4
 ??PDM2PCM_3:
-        ADDS     R5,R4,R5
+        ADDS     R4,R5,R4
 //  668 				
 //  669             
 //  670             BuffInPos++;  //next byte of the input sample stream:0-->255
@@ -1854,7 +1856,7 @@ PDM2PCM:
 //  674 
 //  675 		/* Second half of frame */
 //  676         for (uint16_t i = 0; i < DSP_NUMBYTECONV; i++) // DSP_NUMBYTECONV = 8
-        LDR      R7,[SP, #+0]
+        LDR      R7,[SP, #+4]
         SUBS     R0,R0,#+4
         MOVS     R6,#+0
         ADDS     R7,R0,R7
@@ -1869,32 +1871,31 @@ PDM2PCM:
 //  685 		
 //  686             stSum = ADD_S16(stSum,temp);  //These are the pre-calculated window values
 ??PDM2PCM_5:
-        LDR      R12,[SP, #+4]
+        ADD      R12,R2,R6, LSL #+9
         LDRB     LR,[R7, #+0]
-        SXTH     R5,R5
-        CMP      R5,#+0
-        ADD      R12,R12,R6, LSL #+9
+        SXTH     R4,R4
+        CMP      R4,#+0
         LDRSH    R12,[R12, LR, LSL #+1]
         IT       PL 
         CMPPL    R12,#+0
         BMI.N    ??PDM2PCM_6
-        SUB      R4,R8,R12
-        CMP      R4,R5
+        SUB      R5,R9,R12
+        CMP      R5,R4
         BGE.N    ??PDM2PCM_7
-        MOV      R5,R8
+        MOV      R4,R9
         B.N      ??PDM2PCM_8
 ??PDM2PCM_6:
-        CMP      R5,#+0
+        CMP      R4,#+0
         IT       MI 
         CMPMI    R12,#+0
         BPL.N    ??PDM2PCM_7
-        SUB      R4,R3,R12
-        CMP      R5,R4
+        SUB      R5,R8,R12
+        CMP      R4,R5
         IT       LT 
-        MOVLT    R5,R3
+        MOVLT    R4,R8
         BLT.N    ??PDM2PCM_8
 ??PDM2PCM_7:
-        ADD      R5,R12,R5
+        ADD      R4,R12,R4
 //  687 				
 //  688             
 //  689             BuffInPos++;  //next byte of the input sample stream:0-->255
@@ -1907,27 +1908,27 @@ PDM2PCM:
         BLT.N    ??PDM2PCM_5
 //  691 
 //  692         OutBuff[currentSample] = (int16_t)stSum;
-        STRH     R5,[R1, #+0]
+        STRH     R4,[R1, #+0]
 //  693 		
 //  694 		
 //  695 
 //  696 		for (uint16_t i=0; i< (DSP_NUMBYTECONV/2); i++)
-        LDR      R6,[SP, #+0]
-        LDR.W    R5,??DataTable18_13
-        MOVS     R7,#+4
-        ADDS     R6,R0,R6
-        SUBS     R6,R6,#+5
+        LDR      R7,[SP, #+4]
+        LDR.W    R6,??DataTable15_16
+        MOV      R12,#+4
+        ADDS     R7,R0,R7
+        SUBS     R7,R7,#+5
 //  697 		{
 //  698              Initial_Array[i]=InBuff[BuffInPos - 1 - DSP_NUMBYTECONV/2 + i];
 ??PDM2PCM_9:
-        LDRB     R12,[R6], #+1
+        LDRB     LR,[R7], #+1
 //  699 		}
-        SUBS     R7,R7,#+1
-        STRB     R12,[R5], #+1
+        SUBS     R12,R12,#+1
+        STRB     LR,[R6], #+1
         BNE.N    ??PDM2PCM_9
 //  700     }
         ADDS     R1,R1,#+2
-        SUBS     R2,R2,#+1
+        SUBS     R3,R3,#+1
         BNE.N    ??PDM2PCM_0
 //  701 
 //  702 
@@ -1954,10 +1955,8 @@ PDM2PCM:
 //  723 #endif
 //  724 
 //  725 }
-        ADD      SP,SP,#+8
-          CFI CFA R13+32
-        POP      {R4-R8,R10,R11,PC}  ;; return
-          CFI EndBlock cfiBlock10
+        POP      {R0,R1,R4-R11,PC}  ;; return
+          CFI EndBlock cfiBlock11
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
@@ -1972,8 +1971,8 @@ PDM2PCM:
 //  732 
 //  733 
 
-        SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock11 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock12 Using cfiCommon0
           CFI Function Precalculation
           CFI NoCalls
         THUMB
@@ -1987,13 +1986,13 @@ Precalculation:
           CFI CFA R13+12
 //  736     for (uint8_t i = 0; i < 129; i++)  /* from byte 0th to byth 7th of data input */
         MOVS     R2,#+129
-        LDR.W    R3,??DataTable18_2  ;; 0xffff8000
+        LDR.W    R3,??DataTable15_1  ;; 0xffff8000
         MOVW     R5,#+32767
 //  737 	{ 
 //  738 
 //  739         for (uint16_t j = 0; j < 256; j++)    /* list all the cases can happen for the input data */ 
 ??Precalculation_0:
-        MOVS.W   R6,#+0
+        MOVS     R6,#+0
 //  740 		{         
 //  741             // check overflow 
 //  742 			if ((int32_t)(fir64Coff[i]*(j-128)) > 32767)
@@ -2043,30 +2042,30 @@ Precalculation:
           CFI R7 SameValue
           CFI CFA R13+0
         BX       LR               ;; return
-          CFI EndBlock cfiBlock11
+          CFI EndBlock cfiBlock12
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable11:
+??DataTable10:
         DC32     0x0,0x40900000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable11_1:
+??DataTable10_1:
         DC32     0x0,0x3FE00000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable11_2:
+??DataTable10_2:
         DC32     0x0,0x3FF00000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable11_3:
+??DataTable10_3:
         DC32     0x5A7ED197,0x401921FB
 //  758 
 //  759 
@@ -2078,13 +2077,13 @@ Precalculation:
 //  765 
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock12 Using cfiCommon0
+          CFI Block cfiBlock13 Using cfiCommon0
           CFI Function lowpassFIR
         THUMB
 //  766 float lowpassFIR(float * firBuffer,uint64_t M,uint64_t Fs,uint64_t Fc)
 //  767 {    
 lowpassFIR:
-        PUSH     {R4-R6,R8-R11,LR}
+        PUSH     {R2-R6,R8-R11,LR}
           CFI R14 Frame(CFA, -4)
           CFI R11 Frame(CFA, -8)
           CFI R10 Frame(CFA, -12)
@@ -2093,13 +2092,10 @@ lowpassFIR:
           CFI R6 Frame(CFA, -24)
           CFI R5 Frame(CFA, -28)
           CFI R4 Frame(CFA, -32)
-          CFI CFA R13+32
-        SUB      SP,SP,#+8
           CFI CFA R13+40
         MOV      R6,R0
 //  768     M = M -1;
         SUBS     R0,R2,#+1
-        SBC      R1,R3,#+0
         VPUSH    {D8-D12}
           CFI D12 Frame(CFA, -48)
           CFI D11 Frame(CFA, -56)
@@ -2109,20 +2105,21 @@ lowpassFIR:
           CFI CFA R13+80
         SUB      SP,SP,#+8
           CFI CFA R13+88
+        SBC      R1,R3,#+0
+        STRD     R0,R1,[SP, #+0]
 //  769 	
 //  770     float Ft = (float)Fc / (float)Fs;
+        LDRD     R0,R1,[SP, #+96]
+          CFI FunCall __aeabi_ul2f
+        BL       __aeabi_ul2f
 //  771 
 //  772 
 //  773     float sum = 0.0f;
 //  774     
 //  775     for (uint64_t i = 0; i < M; i++) 
         MOVS     R4,#+0
-        STRD     R0,R1,[SP, #+0]
-        LDRD     R0,R1,[SP, #+96]
-          CFI FunCall __aeabi_ul2f
-        BL       __aeabi_ul2f
-        MOVS     R5,#+0
         VMOV     S16,R0
+        MOVS     R5,#+0
         LDRD     R0,R1,[SP, #+88]
           CFI FunCall __aeabi_ul2f
         BL       __aeabi_ul2f
@@ -2130,15 +2127,15 @@ lowpassFIR:
         LDRD     R0,R1,[SP, #+0]
         CMP      R1,#+0
         VDIV.F32 S20,S16,S0
-        VLDR.W   S16,??DataTable13  ;; 0x0
+        VLDR.W   S16,??DataTable12  ;; 0x0
         IT       EQ 
         CMPEQ    R0,#+0
         BEQ.N    ??lowpassFIR_0
         VMOV     R0,S20
           CFI FunCall __aeabi_f2d
         BL       __aeabi_f2d
-        LDR.N    R2,??DataTable13_1  ;; 0x5a7ed197
-        LDR.N    R3,??DataTable13_2  ;; 0x401921fb
+        LDR.N    R2,??DataTable12_1  ;; 0x5a7ed197
+        LDR.N    R3,??DataTable12_2  ;; 0x401921fb
           CFI FunCall __aeabi_dmul
         BL       __aeabi_dmul
         VMOV     D9,R0,R1
@@ -2150,7 +2147,7 @@ lowpassFIR:
         VMUL.F32 S17,S0,S1
         VMOV.F32 S0,#2.0
         VMUL.F32 S22,S20,S0
-        VLDR.W   D10,??DataTable13_3
+        VLDR.W   D10,??DataTable12_3
 //  776 	{
 //  777         if (i != ((float)M / 2)) 
 ??lowpassFIR_1:
@@ -2243,42 +2240,38 @@ lowpassFIR:
           CFI D11 SameValue
           CFI D12 SameValue
           CFI CFA R13+40
-        ADD      SP,SP,#+8
-          CFI CFA R13+32
-        POP      {R4-R6,R8-R11,PC}  ;; return
+        POP      {R0,R1,R4-R6,R8-R11,PC}  ;; return
 //  791 }
-          CFI EndBlock cfiBlock12
+          CFI EndBlock cfiBlock13
 //  792 
 //  793 /* */
 //  794 
 
-        SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock13 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock14 Using cfiCommon0
           CFI Function CrssCor
         THUMB
 //  795 int8_t CrssCor(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen, uint32_t * CrssCorVal )
 //  796 {
 CrssCor:
-        PUSH     {R4-R10,LR}
+        PUSH     {R3-R7,R9-R11,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R10 Frame(CFA, -8)
-          CFI R9 Frame(CFA, -12)
-          CFI R8 Frame(CFA, -16)
+          CFI R11 Frame(CFA, -8)
+          CFI R10 Frame(CFA, -12)
+          CFI R9 Frame(CFA, -16)
           CFI R7 Frame(CFA, -20)
           CFI R6 Frame(CFA, -24)
           CFI R5 Frame(CFA, -28)
           CFI R4 Frame(CFA, -32)
-          CFI CFA R13+32
-        SUB      SP,SP,#+4
           CFI CFA R13+36
-        MOV      R4,R0
         PUSH     {R2,R3}
           CFI CFA R13+44
-        LSLS     R6,R2,#+1
+        MOV      R6,R0
+        LSLS     R4,R2,#+1
         SUB      SP,SP,#+20
           CFI CFA R13+64
-        MOV      R5,R1
-        MOV      R0,R6
+        MOV      R9,R1
+        MOV      R0,R4
 //  797     static int16_t vDataIn1Old, vDataIn2Old;
 //  798     int64_t Sum, SumMax;
 //  799 	int8_t idxPos;
@@ -2288,14 +2281,14 @@ CrssCor:
         BL       malloc
         STR      R0,[SP, #+4]
 //  802 	int16_t *vDataIn2Out = malloc(sizeof(int16_t)*numLen);
-        MOV      R0,R6
+        MOV      R0,R4
           CFI FunCall malloc
         BL       malloc
         STR      R0,[SP, #+0]
 //  803 #endif
 //  804 
 //  805     SumMax=0;
-        MOVS     R6,#+0
+        MOVS     R4,#+0
 //  806     Sum=0;
 //  807 #if 0	
 //  808 	LowPassIIR(vDataIn1,vDataIn1Out ,&vDataIn1Old, numLen,8);
@@ -2304,8 +2297,8 @@ CrssCor:
 //  811 
 //  812     for (uint16_t i=0;i<numLen;i++)
         LDRH     R0,[SP, #+20]
-        MOV      R8,R6
-        MOV      R9,R6
+        MOV      R10,R4
+        MOV      R11,R4
         CBZ.N    R0,??CrssCor_0
         LDR      R0,[SP, #+4]
         LDR      R1,[SP, #+0]
@@ -2313,12 +2306,12 @@ CrssCor:
 //  813     {
 //  814         vDataIn1Out[i]= (int16_t)(vDataIn1[i]);//fir256Coff[i]
 ??CrssCor_1:
-        LDRH     R3,[R4], #+2
+        LDRH     R3,[R6], #+2
 //  815         vDataIn2Out[i]= (int16_t)(vDataIn2[i]);//fir256Coff[i]
 //  816     }
         SUBS     R2,R2,#+1
         STRH     R3,[R0], #+2
-        LDRH     R3,[R5], #+2
+        LDRH     R3,[R9], #+2
         STRH     R3,[R1], #+2
         BNE.N    ??CrssCor_1
 //  817 	
@@ -2326,11 +2319,11 @@ CrssCor:
 ??CrssCor_0:
         LDR      R0,[SP, #+4]
         MOVS     R1,#+0
-        MVN      R4,#+7
-        SUB      R10,R0,#+16
+        MVN      R6,#+7
+        SUB      R9,R0,#+16
         LDRH     R0,[SP, #+20]
         STRD     R0,R1,[SP, #+8]
-        MOVS.W   R0,#+0
+        MOVS     R0,#+0
 //  819     {
 //  820            Sum = 0;
 //  821 	   if (i>=0)
@@ -2348,38 +2341,38 @@ CrssCor:
         LDRH     R2,[SP, #+20]
         CBZ.N    R2,??CrssCor_3
         LDR      R2,[SP, #+0]
-        RSBS     R3,R4,#+0
-        LDR      R5,[SP, #+4]
-        LDRH     R12,[SP, #+20]
+        RSBS     R3,R6,#+0
+        LDR      R12,[SP, #+4]
+        LDRH     R5,[SP, #+20]
         ADD      LR,R2,R3, LSL #+1
 //  832 	       {
 //  833 	           Sum += vDataIn1Out[j]*vDataIn2Out[j-i];   
 ??CrssCor_4:
         MOV      R2,R0
         MOV      R3,R1
-        LDRSH    R0,[R5], #+2
+        LDRSH    R0,[R12], #+2
         LDRSH    R1,[LR], #+2
         SMULBB   R0,R0,R1
         ASRS     R1,R0,#+31
         ADDS     R0,R2,R0
         ADCS     R1,R3,R1
 //  834 	       }
-        SUBS     R12,R12,#+1
+        SUBS     R5,R5,#+1
         BNE.N    ??CrssCor_4
 //  835 	   }
 //  836 
 //  837 	   if (Sum > SumMax) 
 ??CrssCor_3:
-        CMP      R9,R1
+        CMP      R11,R1
         BGT.N    ??CrssCor_5
         BLT.N    ??CrssCor_6
-        CMP      R8,R0
+        CMP      R10,R0
         BCS.N    ??CrssCor_5
 //  838 	   {
 //  839 	       SumMax = Sum;  	
 ??CrssCor_6:
-        MOV      R8,R0
-        MOV      R9,R1
+        MOV      R10,R0
+        MOV      R11,R1
 //  840 		   
 //  841 	       idxPos = i;
 //  842 	       *CrssCorVal = (SumMax/numLen);//(uint32_t)((SumMax>>15));
@@ -2387,31 +2380,34 @@ CrssCor:
           CFI FunCall __aeabi_ldivmod
         BL       __aeabi_ldivmod
         LDR      R1,[SP, #+24]
-        MOV      R7,R4
+        MOV      R7,R6
         STR      R0,[R1, #+0]
 //  843 	   }
 ??CrssCor_5:
-        ADDS     R4,R4,#+1
-        CMP      R4,#+8
-        ADD      R10,R10,#+2
+        ADDS     R6,R6,#+1
+        CMP      R6,#+8
+        ADD      R9,R9,#+2
         BGE.N    ??CrssCor_7
         MOVS     R0,#+0
         MOVS     R1,#+0
-        CMP      R4,#+0
+        CMP      R6,#+0
         BMI.N    ??CrssCor_2
         LDRH     R2,[SP, #+20]
         CMP      R2,#+0
         BEQ.N    ??CrssCor_3
-        MOV      R5,R10
-        LDR      R12,[SP, #+0]
-        MOV.W    LR,R2
+        MOV      R12,R9
+        LDR      LR,[SP, #+0]
+        MOV      R5,R2
 ??CrssCor_8:
-        LDRSH    R2,[R5], #+2
-        LDRSH    R3,[R12], #+2
-        SMULBB   R2,R2,R3
-        ADDS     R0,R0,R2
-        ADC      R1,R1,R2, ASR #+31
-        SUBS     LR,LR,#+1
+        MOV      R2,R0
+        MOV      R3,R1
+        LDRSH    R0,[R12], #+2
+        LDRSH    R1,[LR], #+2
+        SMULBB   R0,R0,R1
+        ASRS     R1,R0,#+31
+        ADDS     R0,R2,R0
+        ADCS     R1,R3,R1
+        SUBS     R5,R5,#+1
         BNE.N    ??CrssCor_8
         B.N      ??CrssCor_3
 //  844 	         
@@ -2437,11 +2433,9 @@ CrssCor:
         MOVCC    R0,R7
 //  852 	
 //  853     return idxPos;
-        ADD      SP,SP,#+32
-          CFI CFA R13+32
-        POP      {R4-R10,PC}      ;; return
+        B.N      ?Subroutine1
 //  854 }
-          CFI EndBlock cfiBlock13
+          CFI EndBlock cfiBlock14
 //  855 
 //  856 
 //  857 /*****************************************************************************************************
@@ -2465,8 +2459,8 @@ CrssCor:
 //  875 *******************************************************************************************************/
 //  876 
 
-        SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock14 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock15 Using cfiCommon0
           CFI Function Std_CrssCor
           CFI NoCalls
         THUMB
@@ -2491,7 +2485,7 @@ Std_CrssCor:
 ??Std_CrssCor_1:
         MOV      R6,R0
         MOV      R7,R1
-        MOV.W    R12,R3
+        MOV      R12,R3
 //  881     {
 //  882        Out = 0;
 //  883        for(uint16_t j=0;j<numLen;j++)
@@ -2518,7 +2512,7 @@ Std_CrssCor:
 //  888 
 //  889 }
         POP      {R4-R8,PC}       ;; return
-          CFI EndBlock cfiBlock14
+          CFI EndBlock cfiBlock15
 //  890 
 //  891 /*********************************************************************************************************
 //  892 function y=atcorr(X) %this function computes autocorrelation
@@ -2533,7 +2527,7 @@ Std_CrssCor:
 //  901 
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock15 Using cfiCommon0
+          CFI Block cfiBlock16 Using cfiCommon0
           CFI Function Std_AutoCorr
           CFI NoCalls
         THUMB
@@ -2555,10 +2549,10 @@ Std_AutoCorr:
         MOV      R4,R0
         MOV      R5,R2
 ??Std_AutoCorr_1:
-        VLDR.W   S0,??DataTable13  ;; 0x0
+        VLDR.W   S0,??DataTable12  ;; 0x0
         MOV      R6,R4
         MOV      R7,R0
-        MOV.W    R12,R2
+        MOV      R12,R2
 //  905     {
 //  906        Out[i] = 0;
 //  907        for(uint16_t j=0;j<numLen;j++)
@@ -2583,30 +2577,30 @@ Std_AutoCorr:
         BNE.N    ??Std_AutoCorr_1
 //  912 }
         POP      {R4-R8,PC}       ;; return
-          CFI EndBlock cfiBlock15
+          CFI EndBlock cfiBlock16
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable13:
+??DataTable12:
         DC32     0x0
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable13_1:
+??DataTable12_1:
         DC32     0x5a7ed197
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable13_2:
+??DataTable12_2:
         DC32     0x401921fb
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable13_3:
+??DataTable12_3:
         DC32     0x5A7ED197,0x400921FB
 //  913 
 //  914 /**********************************************************************************************************
@@ -2626,7 +2620,7 @@ Std_AutoCorr:
 //  928 *************************************************************************************************************/
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock16 Using cfiCommon0
+          CFI Block cfiBlock17 Using cfiCommon0
           CFI Function Std_MatCorr
           CFI NoCalls
         THUMB
@@ -2688,7 +2682,7 @@ Std_MatCorr:
 //  943 
 //  944 }
         POP      {R4-R7,PC}       ;; return
-          CFI EndBlock cfiBlock16
+          CFI EndBlock cfiBlock17
 //  945 
 //  946 
 //  947 
@@ -2697,14 +2691,14 @@ Std_MatCorr:
 //  950 
 //  951 *************************************************************************************************************/
 
-        SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock17 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock18 Using cfiCommon0
           CFI Function Delay_Sum_FFT
         THUMB
 //  952 void Delay_Sum_FFT(const Mic_Array_Data * MicData, Mic_Array_Coef_f *coefMics,int16_t * stBufOut, int16_t lenFFT)
 //  953 {
 Delay_Sum_FFT:
-        PUSH     {R4-R7,R9-R11,LR}
+        PUSH     {R2-R7,R9-R11,LR}
           CFI R14 Frame(CFA, -4)
           CFI R11 Frame(CFA, -8)
           CFI R10 Frame(CFA, -12)
@@ -2713,150 +2707,52 @@ Delay_Sum_FFT:
           CFI R6 Frame(CFA, -24)
           CFI R5 Frame(CFA, -28)
           CFI R4 Frame(CFA, -32)
-          CFI CFA R13+32
-        SUB      SP,SP,#+4
-          CFI CFA R13+36
-        MOV      R9,R0
-        PUSH     {R2}
           CFI CFA R13+40
+        MOV      R9,R0
         MOV      R6,R3
         SUB      SP,SP,#+24
           CFI CFA R13+64
-        MOV      R10,R1
 //  954      int32_t         _value,_value1,_value2;
 //  955     
 //  956 	for (uint16_t iFrm=0;iFrm<AUDIO_OUT_BUFFER_SIZE/(2*lenFFT);iFrm++)
         LSLS     R0,R6,#+1
+        MOV      R10,R1
         STR      R0,[SP, #+0]
         LDR      R1,[SP, #+0]
         MOV      R0,#+1024
-        LDR.W    R4,??DataTable18_3
+        LDR.W    R4,??DataTable15_2
+        MOVW     R5,#+4136
         SDIV     R0,R0,R1
-        STR      R0,[SP, #+4]
+        STR      R0,[SP, #+20]
         ADD      R0,R4,#+33024
         ADDS     R0,R0,#+64
-        MOVW     R5,#+4136
-        STR      R0,[SP, #+20]
-        ADD      R0,R4,#+12288
-        ADDS     R0,R0,#+120
         MOVS     R7,#+0
         STR      R0,[SP, #+16]
+        ADD      R0,R4,#+12288
+        ADDS     R0,R0,#+120
+        LDR.W    R11,??DataTable15_3
+        STR      R0,[SP, #+12]
         ADD      R0,R4,#+8192
         ADDS     R0,R0,#+80
-        LDR.W    R11,??DataTable18_4
-        STR      R0,[SP, #+12]
-        ADDS     R0,R5,R4
         STR      R0,[SP, #+8]
-        LDR      R0,[SP, #+4]
-        CMP      R0,#+1
-        BLT.W    ??Delay_Sum_FFT_0
+        ADDS     R0,R5,R4
+        STR      R0,[SP, #+4]
+        B.N      ??Delay_Sum_FFT_0
 //  957 	{
 //  958           RFFT_INT(MicData->bufMIC1,S1,DataFFT.bufMIC1);  
-??Delay_Sum_FFT_1:
-        CMP      R6,#+1
-        BLT.N    ??Delay_Sum_FFT_2
-        MUL      R0,R6,R7
-        MOV      R1,R11
-        MOV.W    R2,R6
-        ADD      R0,R9,R0, LSL #+1
-??Delay_Sum_FFT_3:
-        LDRSH    R3,[R0], #+2
-        VMOV     S0,R3
-        VCVT.F32.S32 S0,S0
-        VSTR     S0,[R1, #0]
-        ADDS     R1,R1,#+4
-        SUBS     R2,R2,#+1
-        BNE.N    ??Delay_Sum_FFT_3
-??Delay_Sum_FFT_2:
-        MOVS     R3,#+0
-        MOV      R2,R4
-        MOV      R1,R11
-        LDR.W    R0,??DataTable18_5
-          CFI FunCall arm_rfft_fast_f32
-        BL       arm_rfft_fast_f32
 //  959           RFFT_INT(MicData->bufMIC2,S2,DataFFT.bufMIC2);
-        CMP      R6,#+1
-        BLT.N    ??Delay_Sum_FFT_4
-        MUL      R0,R6,R7
-        MOV      R1,R11
-        MOV      R2,R6
-        ADD      R0,R9,R0, LSL #+1
-        ADD      R0,R0,#+2048
-??Delay_Sum_FFT_5:
-        LDRSH    R3,[R0], #+2
-        VMOV     S0,R3
-        VCVT.F32.S32 S0,S0
-        VSTR     S0,[R1, #0]
-        ADDS     R1,R1,#+4
-        SUBS     R2,R2,#+1
-        BNE.N    ??Delay_Sum_FFT_5
-??Delay_Sum_FFT_4:
-        LDR      R2,[SP, #+8]
-        MOVS     R3,#+0
-        MOV      R1,R11
-        LDR.W    R0,??DataTable18_6
-          CFI FunCall arm_rfft_fast_f32
-        BL       arm_rfft_fast_f32
 //  960           RFFT_INT(MicData->bufMIC3,S3,DataFFT.bufMIC3);
-        CMP      R6,#+1
-        BLT.N    ??Delay_Sum_FFT_6
-        MUL      R0,R6,R7
-        MOV      R1,R11
-        MOV      R2,R6
-        ADD      R0,R9,R0, LSL #+1
-        ADD      R0,R0,#+4096
-??Delay_Sum_FFT_7:
-        LDRSH    R3,[R0], #+2
-        VMOV     S0,R3
-        VCVT.F32.S32 S0,S0
-        VSTR     S0,[R1, #0]
-        ADDS     R1,R1,#+4
-        SUBS     R2,R2,#+1
-        BNE.N    ??Delay_Sum_FFT_7
-??Delay_Sum_FFT_6:
-        LDR      R2,[SP, #+12]
-        MOVS     R3,#+0
-        MOV      R1,R11
-        LDR.W    R0,??DataTable18_7
-          CFI FunCall arm_rfft_fast_f32
-        BL       arm_rfft_fast_f32
 //  961           RFFT_INT(MicData->bufMIC4,S4,DataFFT.bufMIC4);
-        CMP      R6,#+1
-        BLT.N    ??Delay_Sum_FFT_8
-        MUL      R0,R6,R7
-        MOV      R1,R11
-        MOV      R2,R6
-        ADD      R0,R9,R0, LSL #+1
-        ADD      R0,R0,#+6144
-??Delay_Sum_FFT_9:
-        LDRSH    R3,[R0], #+2
-        VMOV     S0,R3
-        VCVT.F32.S32 S0,S0
-        VSTR     S0,[R1, #0]
-        ADDS     R1,R1,#+4
-        SUBS     R2,R2,#+1
-        BNE.N    ??Delay_Sum_FFT_9
-??Delay_Sum_FFT_8:
-        LDR      R2,[SP, #+16]
-        MOVS     R3,#+0
-        MOV      R1,R11
-        LDR.W    R0,??DataTable18_8
-          CFI FunCall arm_rfft_fast_f32
-        BL       arm_rfft_fast_f32
 //  962 
 //  963           /* Adding in Fourier Domain */			 
 //  964           //arm_add_f32((float *)bufferFFT,(float *)bufferFFT_1, (float *)bufferFFTSum,lenFFT*2);
 //  965           for (uint16_t ii=0;ii<lenFFT*2;ii++)
-        LDR      R1,[SP, #+0]
-        MOVS     R0,#+0
-        CMP      R1,#+1
-        BLT.N    ??Delay_Sum_FFT_10
 //  966           {
 //  967               bufferFFTSum[ii]= ((DataFFT.bufMIC1[ii]*coefMics->facMIC1) + 
 //  968                                 (DataFFT.bufMIC2[ii]*coefMics->facMIC2) +
 //  969                                 (DataFFT.bufMIC3[ii]*coefMics->facMIC3) +
 //  970                                 (DataFFT.bufMIC4[ii]*coefMics->facMIC4)); 
-??Delay_Sum_FFT_11:
+??Delay_Sum_FFT_1:
         ADD      R2,R4,R0, LSL #+2
         VLDR     S1,[R10, #0]
         ADD      R1,R4,R0, LSL #+2
@@ -2882,33 +2778,123 @@ Delay_Sum_FFT:
         ADDS     R1,R1,#+64
         VMLA.F32 S0,S1,S2
         VSTR     S0,[R1, #0]
+??Delay_Sum_FFT_2:
         LDR      R1,[SP, #+0]
         CMP      R0,R1
-        BLT.N    ??Delay_Sum_FFT_11
+        BLT.N    ??Delay_Sum_FFT_1
 //  972 
 //  973           /* Revert FFT*/
 //  974           arm_rfft_fast_f32(&IS, (float *)bufferFFTSum, (float *)&fbufferOut[iFrm*lenFFT],1);
-??Delay_Sum_FFT_10:
         MUL      R0,R6,R7
-        LDR      R1,[SP, #+20]
+        LDR      R1,[SP, #+16]
         MOVS     R3,#+1
         ADDS     R7,R7,#+1
         ADD      R0,R4,R0, LSL #+2
         UXTH     R7,R7
         ADD      R2,R0,#+37376
         ADDS     R2,R2,#+208
-        LDR.W    R0,??DataTable18_14
+        LDR.W    R0,??DataTable15_4
           CFI FunCall arm_rfft_fast_f32
         BL       arm_rfft_fast_f32
+??Delay_Sum_FFT_0:
+        LDR      R0,[SP, #+20]
+        CMP      R7,R0
+        BGE.N    ??Delay_Sum_FFT_3
+        CMP      R6,#+1
+        BLT.N    ??Delay_Sum_FFT_4
+        MUL      R0,R6,R7
+        MOV      R1,R11
+        MOV      R2,R6
+        ADD      R0,R9,R0, LSL #+1
+??Delay_Sum_FFT_5:
+        LDRSH    R3,[R0], #+2
+        VMOV     S0,R3
+        VCVT.F32.S32 S0,S0
+        VSTR     S0,[R1, #0]
+        ADDS     R1,R1,#+4
+        SUBS     R2,R2,#+1
+        BNE.N    ??Delay_Sum_FFT_5
+??Delay_Sum_FFT_4:
+        MOVS     R3,#+0
+        MOV      R2,R4
+        MOV      R1,R11
+        LDR.W    R0,??DataTable15_5
+          CFI FunCall arm_rfft_fast_f32
+        BL       arm_rfft_fast_f32
+        CMP      R6,#+1
+        BLT.N    ??Delay_Sum_FFT_6
+        MUL      R0,R6,R7
+        MOV      R1,R11
+        MOV      R2,R6
+        ADD      R0,R9,R0, LSL #+1
+        ADD      R0,R0,#+2048
+??Delay_Sum_FFT_7:
+        LDRSH    R3,[R0], #+2
+        VMOV     S0,R3
+        VCVT.F32.S32 S0,S0
+        VSTR     S0,[R1, #0]
+        ADDS     R1,R1,#+4
+        SUBS     R2,R2,#+1
+        BNE.N    ??Delay_Sum_FFT_7
+??Delay_Sum_FFT_6:
+        LDR      R2,[SP, #+4]
+        MOVS     R3,#+0
+        MOV      R1,R11
+        LDR.W    R0,??DataTable15_6
+          CFI FunCall arm_rfft_fast_f32
+        BL       arm_rfft_fast_f32
+        CMP      R6,#+1
+        BLT.N    ??Delay_Sum_FFT_8
+        MUL      R0,R6,R7
+        MOV      R1,R11
+        MOV      R2,R6
+        ADD      R0,R9,R0, LSL #+1
+        ADD      R0,R0,#+4096
+??Delay_Sum_FFT_9:
+        LDRSH    R3,[R0], #+2
+        VMOV     S0,R3
+        VCVT.F32.S32 S0,S0
+        VSTR     S0,[R1, #0]
+        ADDS     R1,R1,#+4
+        SUBS     R2,R2,#+1
+        BNE.N    ??Delay_Sum_FFT_9
+??Delay_Sum_FFT_8:
+        LDR      R2,[SP, #+8]
+        MOVS     R3,#+0
+        MOV      R1,R11
+        LDR.W    R0,??DataTable15_7
+          CFI FunCall arm_rfft_fast_f32
+        BL       arm_rfft_fast_f32
+        CMP      R6,#+1
+        BLT.N    ??Delay_Sum_FFT_10
+        MUL      R0,R6,R7
+        MOV      R1,R11
+        MOV      R2,R6
+        ADD      R0,R9,R0, LSL #+1
+        ADD      R0,R0,#+6144
+??Delay_Sum_FFT_11:
+        LDRSH    R3,[R0], #+2
+        VMOV     S0,R3
+        VCVT.F32.S32 S0,S0
+        VSTR     S0,[R1, #0]
+        ADDS     R1,R1,#+4
+        SUBS     R2,R2,#+1
+        BNE.N    ??Delay_Sum_FFT_11
+??Delay_Sum_FFT_10:
+        LDR      R2,[SP, #+12]
+        MOVS     R3,#+0
+        MOV      R1,R11
+        LDR.W    R0,??DataTable15_8
+          CFI FunCall arm_rfft_fast_f32
+        BL       arm_rfft_fast_f32
+        MOVS     R0,#+0
+        B.N      ??Delay_Sum_FFT_2
 //  975           //arm_rfft_fast_f32(&IS, (float *)bufferFFTSum, (float *)&fbufferOut[iFrm*lenFFT], 1);
 //  976 	}
-        LDR      R0,[SP, #+4]
-        CMP      R7,R0
-        BLT.W    ??Delay_Sum_FFT_1
 //  977 
 //  978         /*covert from float to integer*/
 //  979 	for (uint16_t i=0; i<AUDIO_OUT_BUFFER_SIZE;)
-??Delay_Sum_FFT_0:
+??Delay_Sum_FFT_3:
         MOVS     R0,#+0
 //  980 	{
 //  981 	    _value1 = (int32_t)fbufferOut[(i>>1)];
@@ -2934,23 +2920,41 @@ Delay_Sum_FFT:
         STRH     R1,[R2, R0, LSL #+1]
         ADDS     R0,R0,#+1
         UXTH     R0,R0
+//  985 	}
         CMP      R0,#+1024
         BLT.N    ??Delay_Sum_FFT_12
-//  985 	}
 //  986 	
 //  987 	//arm_float_to_q15((float32_t *)fbufferOut,(q15_t *)stBufOut,AUDIO_OUT_BUFFER_SIZE); 
 //  988 	
 //  989 }
+          CFI EndBlock cfiBlock18
+        REQUIRE ?Subroutine1
+        ;; // Fall through to label ?Subroutine1
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock19 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+64
+          CFI R4 Frame(CFA, -32)
+          CFI R5 Frame(CFA, -28)
+          CFI R6 Frame(CFA, -24)
+          CFI R7 Frame(CFA, -20)
+          CFI R9 Frame(CFA, -16)
+          CFI R10 Frame(CFA, -12)
+          CFI R11 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+        THUMB
+?Subroutine1:
         ADD      SP,SP,#+32
           CFI CFA R13+32
         POP      {R4-R7,R9-R11,PC}  ;; return
-          CFI EndBlock cfiBlock17
+          CFI EndBlock cfiBlock19
 //  990 /******************************************************************************/
 //  991 /*                  Factor Update                                             */ 
 //  992 /******************************************************************************/
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock18 Using cfiCommon0
+          CFI Block cfiBlock20 Using cfiCommon0
           CFI Function FactorUpd
           CFI NoCalls
         THUMB
@@ -2968,13 +2972,13 @@ FactorUpd:
         VSTR     S0,[R0, #+12]
 //  999 }
         BX       LR               ;; return
-          CFI EndBlock cfiBlock18
+          CFI EndBlock cfiBlock20
 // 1000 
 // 1001 
 // 1002 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock19 Using cfiCommon0
+          CFI Block cfiBlock21 Using cfiCommon0
           CFI Function FFT_SUM
           CFI NoCalls
         THUMB
@@ -3010,104 +3014,95 @@ FactorUpd:
 // 1032 }
 FFT_SUM:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock19
+          CFI EndBlock cfiBlock21
 // 1033 
 
-        SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock20 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock22 Using cfiCommon0
           CFI Function EnergyNoiseCalc
         THUMB
 // 1034 int32_t EnergyNoiseCalc(uint16_t numLen)
 // 1035 {
 EnergyNoiseCalc:
-        PUSH     {R4-R6,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+16
-        MOV      R4,R0
+        MOV      R2,R0
 // 1036 	int64_t SumError;
 // 1037         SumError=0;
         MOVS     R0,#+0
+        PUSH     {R4,R6,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R6 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
         MOVS     R1,#+0
 // 1038 	/* noise energy */
 // 1039 	for(uint16_t j=0;j<numLen;j++)
-        CBZ.N    R4,??EnergyNoiseCalc_0
-        ADR.W    R5,NoiseBG
-        MOV      R6,R4
+        CBZ.N    R2,??EnergyNoiseCalc_0
+        ADR.W    R3,NoiseBG
+        MOV      R6,R2
 // 1040 	{
 // 1041 		//EnergySignal += pRef[i] * pRef[i];
 // 1042 		//EnergyError += (pRef[i] - pTest[i]) * (pRef[i] - pTest[i]); 
 // 1043 		SumError += NoiseBG[j]*NoiseBG[j];   
 ??EnergyNoiseCalc_1:
-        LDRSH    R2,[R5], #+2
-        SMULBB   R2,R2,R2
-        ADDS     R0,R0,R2
-        ADC      R1,R1,R2, ASR #+31
+        LDRSH    R4,[R3], #+2
+        SMULBB   R4,R4,R4
+        ADDS     R0,R0,R4
+        ADC      R1,R1,R4, ASR #+31
 // 1044 	}
         SUBS     R6,R6,#+1
         BNE.N    ??EnergyNoiseCalc_1
 // 1045 
 // 1046 	EnergyError = SumError/numLen;
 ??EnergyNoiseCalc_0:
-        MOV      R2,R4
         MOVS     R3,#+0
-        LDR.N    R5,??DataTable18_15
+        LDR.N    R4,??DataTable15_17
           CFI FunCall __aeabi_ldivmod
         BL       __aeabi_ldivmod
-        STR      R0,[R5, #+0]
+        STR      R0,[R4, #+0]
 // 1047 
 // 1048 	return EnergyError;
-        POP      {R4-R6,PC}       ;; return
+        POP      {R4,R6,PC}       ;; return
 // 1049 
 // 1050 }
-          CFI EndBlock cfiBlock20
+          CFI EndBlock cfiBlock22
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable15:
+??DataTable13:
         DC32     ??Out_Old
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable15_1:
+??DataTable13_1:
         DC32     0xffff8000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable15_2:
+??DataTable13_2:
         DC32     ??InOld
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable15_3:
-        DC32     ??InOld_1
 // 1051 
 // 1052 /* Generalized Cross Correlation with Phase Transform (GCC-PHAT)  */
 // 1053 /* Input: data from 2 microphones in time domain, length of data       */
 // 1054 /* Output: Generlize Cross Correlation value                                    */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock21 Using cfiCommon0
+          CFI Block cfiBlock23 Using cfiCommon0
           CFI Function GCC_PHAT
         THUMB
 // 1055 int16_t GCC_PHAT(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen, float * CrssCorVal )
 // 1056 {
 GCC_PHAT:
-        PUSH     {R4-R10,LR}
+        PUSH     {R3-R9,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R10 Frame(CFA, -8)
-          CFI R9 Frame(CFA, -12)
-          CFI R8 Frame(CFA, -16)
-          CFI R7 Frame(CFA, -20)
-          CFI R6 Frame(CFA, -24)
-          CFI R5 Frame(CFA, -28)
-          CFI R4 Frame(CFA, -32)
+          CFI R9 Frame(CFA, -8)
+          CFI R8 Frame(CFA, -12)
+          CFI R7 Frame(CFA, -16)
+          CFI R6 Frame(CFA, -20)
+          CFI R5 Frame(CFA, -24)
+          CFI R4 Frame(CFA, -28)
           CFI CFA R13+32
         MOVS     R4,R2
         MOV      R7,R1
@@ -3124,7 +3119,7 @@ GCC_PHAT:
 // 1059 
 // 1060 	/* Fourier Transform for Data In 1 */
 // 1061 	RFFT_GCC(vDataIn1,S,vDataIn1_FFT,numLen);
-        LDR.W    R8,??DataTable18_4
+        LDR.W    R8,??DataTable15_3
         BEQ.N    ??GCC_PHAT_0
         MOV      R1,R8
 ??GCC_PHAT_1:
@@ -3136,10 +3131,10 @@ GCC_PHAT:
         SUBS     R2,R2,#+1
         BNE.N    ??GCC_PHAT_1
 ??GCC_PHAT_0:
-        LDR.W    R9,??DataTable18_9
-        LDR.W    R10,??DataTable18_10
+        LDR.W    R9,??DataTable15_9
+        LDR.N    R6,??DataTable15_10
         MOVS     R3,#+0
-        MOV      R2,R10
+        MOV      R2,R6
         MOV      R1,R8
         MOV      R0,R9
           CFI FunCall arm_rfft_fast_f32
@@ -3159,12 +3154,12 @@ GCC_PHAT:
         SUBS     R1,R1,#+1
         BNE.N    ??GCC_PHAT_3
 ??GCC_PHAT_2:
-        ADD      R7,R10,#+8192
+        ADD      R7,R6,#+8192
         MOV      R1,R8
         MOVS     R3,#+0
         MOV      R2,R7
         MOV      R0,R9
-        ADD      R8,R10,#+32768
+        ADD      R8,R6,#+32768
           CFI FunCall arm_rfft_fast_f32
         BL       arm_rfft_fast_f32
 // 1065 
@@ -3173,7 +3168,7 @@ GCC_PHAT:
         MOV      R2,R4
         MOV      R1,R8
         MOV      R0,R7
-        LSLS     R6,R4,#+1
+        VLDR.W   S18,??DataTable15_11  ;; 0x358637be
           CFI FunCall arm_cmplx_conj_f32
         BL       arm_cmplx_conj_f32
 // 1068     
@@ -3182,14 +3177,14 @@ GCC_PHAT:
         MOV      R3,R4
         MOV      R2,R7
         MOV      R1,R8
-        MOV      R0,R10
+        MOV      R0,R6
           CFI FunCall arm_cmplx_mult_cmplx_f32
         BL       arm_cmplx_mult_cmplx_f32
 // 1071 
 // 1072     /* magnitude */
 // 1073 	arm_cmplx_mag_f32(vDataIn2_FFT,vDataIn1_FFT, numLen); /* vDataIn1_FFT is  using at the destination output to save the memory */
         MOV      R2,R4
-        MOV      R1,R10
+        MOV      R1,R6
         MOV      R0,R7
         MOVS     R7,#+0
           CFI FunCall arm_cmplx_mag_f32
@@ -3197,31 +3192,15 @@ GCC_PHAT:
 // 1074 
 // 1075 	/* Output normalize */
 // 1076 	for (uint16_t i=0; i<2*numLen;i++)
-        CMP      R6,#+1
-        VLDR.W   S18,??DataTable18  ;; 0x358637be
-        VLDR.W   D8,??DataTable18_16
-        BLT.W    ??GCC_PHAT_4
+        VLDR.W   D8,??DataTable15_12
+        B.N      ??GCC_PHAT_4
 // 1077 	{
 // 1078        vDataIn_FFT[i] = vDataIn2_FFT[i]/MAX(vDataIn1_FFT[i%2],0.000001);
 ??GCC_PHAT_5:
-        ADD      R0,R7,R7, LSR #+31
-        ASRS     R0,R0,#+1
-        SUB      R0,R7,R0, LSL #+1
-        LDR      R0,[R10, R0, LSL #+2]
-        VMOV     S0,R0
-        VCMP.F32 S0,S18
-        FMSTAT   
-        BLT.N    ??GCC_PHAT_6
-          CFI FunCall __aeabi_f2d
-        BL       __aeabi_f2d
-        VMOV     D10,R0,R1
-        B.N      ??GCC_PHAT_7
-??GCC_PHAT_6:
         VMOV.F32 S20,S16
         VMOV.F32 S21,S17
-??GCC_PHAT_7:
-        ADD      R8,R10,R7, LSL #+2
-// 1079 	}
+??GCC_PHAT_6:
+        ADD      R8,R6,R7, LSL #+2
         ADDS     R7,R7,#+1
         UXTH     R7,R7
         ADD      R0,R8,#+8192
@@ -3233,18 +3212,32 @@ GCC_PHAT:
         BL       __aeabi_ddiv
           CFI FunCall __aeabi_d2f
         BL       __aeabi_d2f
-        CMP      R7,R6
         ADD      R1,R8,#+16384
         STR      R0,[R1, #+0]
+??GCC_PHAT_4:
+        CMP      R7,R4, LSL #+1
+        BGE.N    ??GCC_PHAT_7
+        ADD      R0,R7,R7, LSR #+31
+        ASRS     R0,R0,#+1
+        SUB      R0,R7,R0, LSL #+1
+        LDR      R0,[R6, R0, LSL #+2]
+        VMOV     S0,R0
+        VCMP.F32 S0,S18
+        FMSTAT   
         BLT.N    ??GCC_PHAT_5
+          CFI FunCall __aeabi_f2d
+        BL       __aeabi_f2d
+        VMOV     D10,R0,R1
+        B.N      ??GCC_PHAT_6
+// 1079 	}
 // 1080 
 // 1081 	/* Invert FFT */
 // 1082     arm_rfft_fast_f32(&S, (float *)vDataIn_FFT, (float *)vDataIn,1);
-??GCC_PHAT_4:
-        ADD      R7,R10,#+24576
+??GCC_PHAT_7:
+        ADD      R7,R6,#+24576
         MOVS     R3,#+1
         MOV      R2,R7
-        ADD      R1,R10,#+16384
+        ADD      R1,R6,#+16384
         MOV      R0,R9
           CFI FunCall arm_rfft_fast_f32
         BL       arm_rfft_fast_f32
@@ -3252,29 +3245,28 @@ GCC_PHAT:
 // 1084 	/*Get Real component */
 // 1085 	for (uint16_t i=0; i<2*numLen;i=i+2)
         MOVS     R0,#+0
-        CMP      R6,#+1
         MOV      R1,#+24576
-        BLT.W    ??GCC_PHAT_8
+        B.N      ??GCC_PHAT_8
 // 1086 	{
 // 1087       vDataIn[i%2] = vDataIn[i];
 ??GCC_PHAT_9:
         ADD      R2,R0,R0, LSR #+31
-        ADD      R3,R10,R0, LSL #+2
+        ADD      R3,R6,R0, LSL #+2
         ASRS     R2,R2,#+1
         SUB      R2,R0,R2, LSL #+1
 // 1088 	}    
         ADDS     R0,R0,#+2
+        ADD      R2,R6,R2, LSL #+2
         UXTH     R0,R0
-        CMP      R0,R6
-        ADD      R2,R10,R2, LSL #+2
         LDR      R3,[R1, R3]
         STR      R3,[R1, R2]
+??GCC_PHAT_8:
+        CMP      R0,R4, LSL #+1
         BLT.N    ??GCC_PHAT_9
 // 1089     FFTShift(vDataIn,vDataOut,numLen); 
-??GCC_PHAT_8:
-        ADD      R10,R10,#+40960
+        ADD      R6,R6,#+40960
         MOV      R2,R4
-        MOV      R1,R10
+        MOV      R1,R6
         MOV      R0,R7
           CFI FunCall FFTShift
         BL       FFTShift
@@ -3283,7 +3275,7 @@ GCC_PHAT:
         ADD      R3,SP,#+4
         MOV      R2,SP
         MOV      R1,R4
-        MOV      R0,R10
+        MOV      R0,R6
           CFI FunCall arm_max_f32
         BL       arm_max_f32
 // 1092 	
@@ -3301,15 +3293,7 @@ GCC_PHAT:
 // 1096 	    return (int16_t)(idxArgMax-numLen/2);
         ADD      SP,SP,#+8
           CFI CFA R13+56
-        VPOP     {D8-D10}
-          CFI D8 SameValue
-          CFI D9 SameValue
-          CFI D10 SameValue
-          CFI CFA R13+32
-        POP      {R4-R10,PC}
-          CFI D8 Frame(CFA, -56)
-          CFI D9 Frame(CFA, -48)
-          CFI D10 Frame(CFA, -40)
+        B.N      ?Subroutine2
           CFI CFA R13+64
 // 1097 	}
 // 1098 	else
@@ -3321,22 +3305,36 @@ GCC_PHAT:
 // 1101 		return 255;
         ADD      SP,SP,#+8
           CFI CFA R13+56
-        MOVS     R0,#+255
+        MOVS.W   R0,#+255
+          CFI EndBlock cfiBlock23
+        REQUIRE ?Subroutine2
+        ;; // Fall through to label ?Subroutine2
+// 1102 	}
+// 1103 }
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock24 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+56
+          CFI R4 Frame(CFA, -28)
+          CFI R5 Frame(CFA, -24)
+          CFI R6 Frame(CFA, -20)
+          CFI R7 Frame(CFA, -16)
+          CFI R8 Frame(CFA, -12)
+          CFI R9 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI D8 Frame(CFA, -56)
+          CFI D9 Frame(CFA, -48)
+          CFI D10 Frame(CFA, -40)
+        THUMB
+?Subroutine2:
         VPOP     {D8-D10}
+          CFI CFA R13+32
           CFI D8 SameValue
           CFI D9 SameValue
           CFI D10 SameValue
-          CFI CFA R13+32
-        POP      {R4-R10,PC}      ;; return
-// 1102 	}
-// 1103 }
-          CFI EndBlock cfiBlock21
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable16:
-        DC32     0xffffb486
+        POP      {R1,R4-R9,PC}    ;; return
+          CFI EndBlock cfiBlock24
 // 1104 
 // 1105 /** COPY from Wooters
 // 1106  * Shift the output of an FFT.
@@ -3346,23 +3344,21 @@ GCC_PHAT:
 // 1110  */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock22 Using cfiCommon0
+          CFI Block cfiBlock25 Using cfiCommon0
           CFI Function FFTShift
         THUMB
 // 1111 void FFTShift(const float * const in, float * const out, const uint16_t N)
 // 1112 {
 FFTShift:
-        PUSH     {R4-R7,LR}
+        PUSH     {R3-R7,LR}
           CFI R14 Frame(CFA, -4)
           CFI R7 Frame(CFA, -8)
           CFI R6 Frame(CFA, -12)
           CFI R5 Frame(CFA, -16)
           CFI R4 Frame(CFA, -20)
-          CFI CFA R13+20
+          CFI CFA R13+24
         MOV      R4,R0
         MOV      R6,R2
-        SUB      SP,SP,#+4
-          CFI CFA R13+24
         MOV      R5,R1
 // 1113   /* mid-point of out[] will be located at index ceil(N/2) */
 // 1114   uint16_t xx = (uint16_t) floor((int16_t) N/2.0);
@@ -3370,7 +3366,7 @@ FFTShift:
           CFI FunCall __aeabi_i2d
         BL       __aeabi_i2d
         MOVS     R2,#+0
-        LDR.N    R3,??DataTable18_17  ;; 0x3fe00000
+        LDR.N    R3,??DataTable15_18  ;; 0x3fe00000
           CFI FunCall __aeabi_dmul
         BL       __aeabi_dmul
         VMOV     D0,R0,R1
@@ -3396,9 +3392,7 @@ FFTShift:
         LSLS     R2,R7,#+2
         MOV      R1,R4
         ADD      R0,R5,R0, LSL #+2
-        ADD      SP,SP,#+4
-          CFI CFA R13+20
-        POP      {R4-R7,LR}
+        POP      {R3-R7,LR}
           CFI R4 SameValue
           CFI R5 SameValue
           CFI R6 SameValue
@@ -3408,13 +3402,19 @@ FFTShift:
           CFI FunCall __aeabi_memcpy
         B.W      __aeabi_memcpy
 // 1121 }
-          CFI EndBlock cfiBlock22
+          CFI EndBlock cfiBlock25
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable17:
-        DC32     ??iRing
+??DataTable14:
+        DC32     0xffffb486
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable14_1:
+        DC32     ??InOld_1
 // 1122 
 // 1123 
 // 1124 /** COPY from Wooters
@@ -3435,13 +3435,13 @@ FFTShift:
 // 1139  */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock23 Using cfiCommon0
+          CFI Block cfiBlock26 Using cfiCommon0
           CFI Function MD_entropy
         THUMB
 // 1140 float MD_entropy(const float* const a, uint16_t N, const uint8_t clip) 
 // 1141 {
 MD_entropy:
-        PUSH     {R4-R11,LR}
+        PUSH     {R3-R11,LR}
           CFI R14 Frame(CFA, -4)
           CFI R11 Frame(CFA, -8)
           CFI R10 Frame(CFA, -12)
@@ -3451,22 +3451,20 @@ MD_entropy:
           CFI R6 Frame(CFA, -28)
           CFI R5 Frame(CFA, -32)
           CFI R4 Frame(CFA, -36)
-          CFI CFA R13+36
-        MOV      R7,R1
-        SUB      SP,SP,#+4
           CFI CFA R13+40
+        MOV      R7,R1
 // 1142   if (N <= 1) return 0.0;
         CMP      R7,#+2
-        MOV      R11,R0
         VPUSH    {D8-D11}
           CFI D11 Frame(CFA, -48)
           CFI D10 Frame(CFA, -56)
           CFI D9 Frame(CFA, -64)
           CFI D8 Frame(CFA, -72)
           CFI CFA R13+72
+        MOV      R10,R0
         MOV      R6,R2
         IT       LT 
-        VLDRLT.W S0,??DataTable18_1  ;; 0x0
+        VLDRLT.W S0,??DataTable15_14  ;; 0x0
         BLT.W    ??MD_entropy_0
 // 1143 
 // 1144   float maxe = -log2(1.0/(float)N); /* max entropy */
@@ -3479,7 +3477,7 @@ MD_entropy:
         MOV      R2,R0
         MOV      R3,R1
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable18_11  ;; 0x3ff00000
+        LDR.N    R1,??DataTable15_13  ;; 0x3ff00000
           CFI FunCall __aeabi_ddiv
         BL       __aeabi_ddiv
         VMOV     D0,R0,R1
@@ -3489,20 +3487,20 @@ MD_entropy:
         VMOV     R0,R1,D0
         EOR      R1,R1,#0x80000000
 // 1145   float ent = 0.0;
-        VLDR.W   S18,??DataTable18_1  ;; 0x0
+        VLDR.W   S18,??DataTable15_14  ;; 0x0
           CFI FunCall __aeabi_d2f
         BL       __aeabi_d2f
         VMOV     S16,R0
 // 1146   float tot = 0.0;
-        VLDR.W   S17,??DataTable18_1  ;; 0x0
+        VLDR.W   S17,??DataTable15_14  ;; 0x0
 // 1147   uint16_t i;
 // 1148   float p;
 // 1149 
 // 1150   if (clip) 
         CBZ.N    R6,??MD_entropy_1
-        MOV      R4,R11
+        MOV      R4,R10
         MOV      R5,R7
-        VLDR.W   D10,??DataTable18_18
+        VLDR.W   D10,??DataTable15_19
 // 1151   {
 // 1152     for (i=0;i<N;i++) tot += (a[i]<0.0) ? 0.0 : a[i];
 ??MD_entropy_2:
@@ -3534,7 +3532,7 @@ MD_entropy:
         B.N      ??MD_entropy_5
 // 1153   } 
 ??MD_entropy_1:
-        MOV      R0,R11
+        MOV      R0,R10
         MOV      R1,R7
 // 1154   else
 // 1155   {
@@ -3553,13 +3551,13 @@ MD_entropy:
         FMSTAT   
         IT       EQ 
         VMOVEQ.F32 S0,S16
-        BEQ.W    ??MD_entropy_0
+        BEQ.N    ??MD_entropy_0
 // 1160 
 // 1161   for (i=0;i<N;i++)
 // 1162   {
 // 1163     if (a[i] == 0.0) continue;
 ??MD_entropy_7:
-        VLDR     S0,[R11, #0]
+        VLDR     S0,[R10, #0]
         VCMP.F32 S0,#0.0
         FMSTAT   
         BEQ.N    ??MD_entropy_8
@@ -3581,7 +3579,7 @@ MD_entropy:
 // 1170 
 // 1171     ent += p * log2(p);
         VMOV     R0,S18
-        MOV      R10,#-1
+        MOV      R11,#-1
           CFI FunCall __aeabi_f2d
         BL       __aeabi_f2d
         MOV      R8,R0
@@ -3595,7 +3593,7 @@ MD_entropy:
           CFI FunCall __aeabi_f2d
         BL       __aeabi_f2d
         VMOV     D0,R0,R1
-        MOV      R0,R10
+        MOV      R0,R11
           CFI FunCall __iar_Log
         BL       __iar_Log
         VMOV     R0,R1,D0
@@ -3613,7 +3611,7 @@ MD_entropy:
 // 1172   }
 ??MD_entropy_8:
         SUBS     R7,R7,#+1
-        ADD      R11,R11,#+4
+        ADD      R10,R10,#+4
         BNE.N    ??MD_entropy_7
 // 1173 
 // 1174   return -ent/maxe;
@@ -3626,124 +3624,128 @@ MD_entropy:
           CFI D10 SameValue
           CFI D11 SameValue
           CFI CFA R13+40
-        ADD      SP,SP,#+4
-          CFI CFA R13+36
-        POP      {R4-R11,PC}      ;; return
+        POP      {R0,R4-R11,PC}   ;; return
 // 1175 }
-          CFI EndBlock cfiBlock23
+          CFI EndBlock cfiBlock26
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable18:
-        DC32     0x358637be
+??DataTable15:
+        DC32     ??iRing
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable18_1:
-        DC32     0x0
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable18_2:
+??DataTable15_1:
         DC32     0xffff8000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable18_3:
+??DataTable15_2:
         DC32     DataFFT
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable18_4:
+??DataTable15_3:
         DC32     fbuffer
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable18_5:
-        DC32     `S1`
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable18_6:
-        DC32     `S2`
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable18_7:
-        DC32     `S3`
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable18_8:
-        DC32     `S4`
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable18_9:
-        DC32     S
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable18_10:
-        DC32     vDataIn1_FFT
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable18_11:
-        DC32     0x3ff00000
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable18_12:
-        DC32     0x408ff800
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable18_13:
-        DC32     ??Initial_Array
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable18_14:
+??DataTable15_4:
         DC32     IS
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable18_15:
-        DC32     EnergyError
+??DataTable15_5:
+        DC32     `S1`
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable18_16:
+??DataTable15_6:
+        DC32     `S2`
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable15_7:
+        DC32     `S3`
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable15_8:
+        DC32     `S4`
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable15_9:
+        DC32     S
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable15_10:
+        DC32     vDataIn1_FFT
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable15_11:
+        DC32     0x358637be
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable15_12:
         DC32     0xA0B5ED8D,0x3EB0C6F7
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable18_17:
+??DataTable15_13:
+        DC32     0x3ff00000
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable15_14:
+        DC32     0x0
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable15_15:
+        DC32     0x408ff800
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable15_16:
+        DC32     ??Initial_Array
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable15_17:
+        DC32     EnergyError
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable15_18:
         DC32     0x3fe00000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable18_18:
+??DataTable15_19:
         DC32     0x0,0x0
 
         SECTION `.text`:CODE:NOROOT(2)
@@ -3853,9 +3855,9 @@ NoiseBG:
 // 1176 
 // 
 // 96 030 bytes in section .bss
-//  6 878 bytes in section .text
+//  6 776 bytes in section .text
 // 
-//  6 878 bytes of CODE memory
+//  6 776 bytes of CODE memory
 // 96 030 bytes of DATA memory
 //
 //Errors: none

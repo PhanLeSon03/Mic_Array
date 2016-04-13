@@ -1270,7 +1270,7 @@ void MX_I2C2_Init(void)
 #endif	
      	   
 	 //HAL_Delay(1);
-	 StartRecMic7_8();
+	 
 	 /*------------------------PLAYER------------------------------------------*/
 	 Audio_MAL_Play((uint32_t)bufferSum,6*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
 	 /*------------------------------------------------------------------------*/	
@@ -1282,7 +1282,7 @@ void MX_I2C2_Init(void)
 	 WaveRec_idxSens6 = 0; 
 	 idxFrmPDMMic8 = 0;
 	 buffer_switch = BUF1_PLAY;
-   
+     StartRecMic7_8();
      //AudioUSBSend(idxFrmPDMMic8);	 
 	 
  }

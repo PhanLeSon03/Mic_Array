@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      12/Apr/2016  09:55:50
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      13/Apr/2016  13:47:33
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -429,27 +429,25 @@
 //  277   
 //  278   switch(protocol)
 HAL_SAI_InitProtocol:
-        CMP      R1,#+8
+        CMP      R1,#+2
         PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
         MOV      R4,R0
-        BHI.N    ??HAL_SAI_InitProtocol_2
-        TBB      [PC, R1]
-        DATA
-??HAL_SAI_InitProtocol_0:
-        DC8      0x5,0x5,0x5,0x41
-        DC8      0xD,0x41,0x41,0x41
-        DC8      0xD,0x0
-          CFI FunCall SAI_InitI2S
-        THUMB
+        BLS.N    ??HAL_SAI_InitProtocol_1
+        SUBS     R0,R1,#+4
+        BEQ.N    ??HAL_SAI_InitProtocol_2
+        SUBS     R0,R0,#+4
+        BEQ.N    ??HAL_SAI_InitProtocol_2
+        B.N      ??HAL_SAI_InitProtocol_3
 //  279   {
 //  280   case SAI_I2S_STANDARD :
 //  281   case SAI_I2S_MSBJUSTIFIED :
 //  282   case SAI_I2S_LSBJUSTIFIED :
 //  283     status = SAI_InitI2S(hsai, protocol, datasize, nbslot);
-??HAL_SAI_InitProtocol_3:
+??HAL_SAI_InitProtocol_1:
+          CFI FunCall SAI_InitI2S
         BL       SAI_InitI2S
 //  284     break;  
 //  285   case SAI_PCM_LONG :
@@ -481,7 +479,7 @@ HAL_SAI_InitProtocol:
 //  299   return status;
 ??HAL_SAI_InitProtocol_4:
         POP      {R4,PC}          ;; return
-??HAL_SAI_InitProtocol_6:
+??HAL_SAI_InitProtocol_2:
         MOVS     R0,#+0
         STR      R3,[R4, #+92]
         STR      R0,[R4, #+48]
@@ -497,50 +495,49 @@ HAL_SAI_InitProtocol:
         MOVW     R0,#+65535
         CMP      R1,#+4
         STR      R0,[R4, #+96]
-        BEQ.N    ??HAL_SAI_InitProtocol_7
+        BEQ.N    ??HAL_SAI_InitProtocol_6
         CMP      R1,#+8
-        BEQ.N    ??HAL_SAI_InitProtocol_8
-        MOVS     R0,#+1
-        POP      {R4,PC}
-??HAL_SAI_InitProtocol_7:
+        BEQ.N    ??HAL_SAI_InitProtocol_7
+        B.N      ??HAL_SAI_InitProtocol_3
+??HAL_SAI_InitProtocol_6:
         MOVS     R0,#+13
-        B.N      ??HAL_SAI_InitProtocol_9
-??HAL_SAI_InitProtocol_8:
+        B.N      ??HAL_SAI_InitProtocol_8
+??HAL_SAI_InitProtocol_7:
         MOVS     R0,#+1
-??HAL_SAI_InitProtocol_9:
+??HAL_SAI_InitProtocol_8:
         CMP      R2,#+4
         STR      R0,[R4, #+68]
-        BHI.N    ??HAL_SAI_InitProtocol_2
+        BHI.N    ??HAL_SAI_InitProtocol_3
         TBB      [PC, R2]
         DATA
-??HAL_SAI_InitProtocol_1:
-        DC8      0xE,0xC,0xA,0x15
+??HAL_SAI_InitProtocol_0:
+        DC8      0xE,0xC,0xA,0x14
         DC8      0x3,0x0
         THUMB
-??HAL_SAI_InitProtocol_10:
+??HAL_SAI_InitProtocol_9:
         MOVS     R0,#+224
-??HAL_SAI_InitProtocol_11:
+??HAL_SAI_InitProtocol_10:
         STR      R0,[R4, #+52]
         LSLS     R0,R3,#+5
         STR      R0,[R4, #+64]
         MOVS     R0,#+128
+??HAL_SAI_InitProtocol_11:
         STR      R0,[R4, #+88]
         B.N      ??HAL_SAI_InitProtocol_5
 ??HAL_SAI_InitProtocol_12:
         MOVS     R0,#+192
-        B.N      ??HAL_SAI_InitProtocol_11
+        B.N      ??HAL_SAI_InitProtocol_10
 ??HAL_SAI_InitProtocol_13:
         MOVS     R0,#+128
-        B.N      ??HAL_SAI_InitProtocol_11
+        B.N      ??HAL_SAI_InitProtocol_10
 ??HAL_SAI_InitProtocol_14:
         MOVS     R0,#+128
         STR      R0,[R4, #+52]
         LSLS     R0,R3,#+4
         STR      R0,[R4, #+64]
         MOVS     R0,#+64
-        STR      R0,[R4, #+88]
-        B.N      ??HAL_SAI_InitProtocol_5
-??HAL_SAI_InitProtocol_2:
+        B.N      ??HAL_SAI_InitProtocol_11
+??HAL_SAI_InitProtocol_3:
         MOVS     R0,#+1
         POP      {R4,PC}
 //  300 }
@@ -574,7 +571,7 @@ HAL_SAI_Init:
 //  314   uint32_t freq = 0;
 //  315   
 //  316   uint32_t syncen_bits = 0;
-        MOVS     R5,#+0
+        MOVS     R6,#+0
 //  317   
 //  318   /* Check the SAI handle allocation */
 //  319   if(hsai == NULL)
@@ -616,12 +613,13 @@ HAL_SAI_Init:
 //  352   
 //  353   if(hsai->State == HAL_SAI_STATE_RESET)
 ??HAL_SAI_Init_0:
-        LDRB     R0,[R4, #+125]
+        ADD      R5,R4,#+124
+        LDRB     R0,[R5, #+1]
         CBNZ.N   R0,??HAL_SAI_Init_1
 //  354   {
 //  355     /* Allocate lock resource and initialize it */
 //  356     hsai->Lock = HAL_UNLOCKED;
-        STRB     R0,[R4, #+124]
+        STRB     R0,[R5, #+0]
 //  357     
 //  358     /* Init the low level hardware : GPIO, CLOCK, NVIC and DMA */
 //  359     HAL_SAI_MspInit(hsai);
@@ -633,34 +631,16 @@ HAL_SAI_Init:
 //  362   hsai->State = HAL_SAI_STATE_BUSY;
 ??HAL_SAI_Init_1:
         MOVS     R0,#+2
-        STRB     R0,[R4, #+125]
+        STRB     R0,[R5, #+1]
 //  363   
 //  364   /* Disable the selected SAI peripheral */
 //  365   SAI_Disable(hsai);
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        MOV      R6,R0
-        LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+0]
-        BIC      R1,R1,#0x10000
-        STR      R1,[R0, #+0]
-??HAL_SAI_Init_2:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+15
-        BPL.N    ??HAL_SAI_Init_3
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUBS     R0,R0,R6
-        CMP      R0,#+11
-        BCC.N    ??HAL_SAI_Init_2
-        LDR      R0,[R4, #+128]
-        ORR      R0,R0,#0x40
-        STR      R0,[R4, #+128]
+        MOV      R0,R4
+          CFI FunCall SAI_Disable
+        BL       SAI_Disable
 //  366   
 //  367   /* SAI Block Synchro Configuration -----------------------------------------*/
 //  368   SAI_BlockSynchroConfig(hsai);
-??HAL_SAI_Init_3:
         MOV      R0,R4
           CFI FunCall SAI_BlockSynchroConfig
         BL       SAI_BlockSynchroConfig
@@ -671,7 +651,7 @@ HAL_SAI_Init:
 //  373      MCKDIV[3:0] = SAI_CK_x / FS * 512 */
 //  374   if(hsai->Init.AudioFrequency != SAI_AUDIO_FREQUENCY_MCKDIV)
         LDR      R0,[R4, #+28]
-        CBZ.N    R0,??HAL_SAI_Init_4
+        CBZ.N    R0,??HAL_SAI_Init_2
 //  375   { 
 //  376   /* Get SAI clock source based on Source clock selection from RCC */
 //  377   freq = SAI_GetInputClock(hsai);
@@ -707,14 +687,14 @@ HAL_SAI_Init:
 //  390   
 //  391   /* SAI Block Configuration ------------------------------------------------------------*/
 //  392   switch(hsai->Init.Synchro)
-??HAL_SAI_Init_4:
+??HAL_SAI_Init_2:
         LDR      R0,[R4, #+8]
         SUBS     R0,R0,#+1
-        BEQ.N    ??HAL_SAI_Init_5
+        BEQ.N    ??HAL_SAI_Init_3
         SUBS     R0,R0,#+1
         CMP      R0,#+1
         IT       LS 
-        MOVLS    R5,#+2048
+        MOVLS    R6,#+2048
 //  393   {
 //  394     case SAI_ASYNCHRONOUS :
 //  395       {
@@ -730,10 +710,10 @@ HAL_SAI_Init:
 //  405     case SAI_SYNCHRONOUS_EXT_SAI2 :  
 //  406       {
 //  407         syncen_bits = SAI_xCR1_SYNCEN_1;
-        B.N      ??HAL_SAI_Init_6
+        B.N      ??HAL_SAI_Init_4
 //  408       }
-??HAL_SAI_Init_5:
-        MOV      R5,#+1024
+??HAL_SAI_Init_3:
+        MOV      R6,#+1024
 //  409       break;
 //  410   }  
 //  411   /* SAI CR1 Configuration */
@@ -741,7 +721,7 @@ HAL_SAI_Init:
 //  413                          SAI_xCR1_LSBFIRST | SAI_xCR1_CKSTR | SAI_xCR1_SYNCEN |\ 
 //  414                          SAI_xCR1_MONO | SAI_xCR1_OUTDRIV  | SAI_xCR1_DMAEN |  \ 
 //  415                          SAI_xCR1_NODIV | SAI_xCR1_MCKDIV);
-??HAL_SAI_Init_6:
+??HAL_SAI_Init_4:
         LDR      R0,[R4, #+0]
         LDR.N    R2,??DataTable0  ;; 0xff05c010
         LDR      R1,[R0, #+0]
@@ -765,7 +745,7 @@ HAL_SAI_Init:
         LDR      R3,[R4, #+60]
         ORRS     R2,R3,R2
         LDR      R3,[R4, #+36]
-        ORRS     R2,R5,R2
+        ORRS     R2,R6,R2
         ORRS     R2,R3,R2
         LDR      R3,[R4, #+16]
         ORRS     R2,R3,R2
@@ -851,17 +831,17 @@ HAL_SAI_Init:
 //  444   /* Initialize the error code */
 //  445   hsai->ErrorCode = HAL_SAI_ERROR_NONE;
         MOVS     R0,#+0
-        STR      R0,[R4, #+128]
+        STR      R0,[R5, #+4]
 //  446   
 //  447   /* Initialize the SAI state */
 //  448   hsai->State= HAL_SAI_STATE_READY;
         MOVS     R0,#+1
-        STRB     R0,[R4, #+125]
+        STRB     R0,[R5, #+1]
 //  449   
 //  450   /* Release Lock */
 //  451   __HAL_UNLOCK(hsai);
         MOVS     R0,#+0
-        STRB     R0,[R4, #+124]
+        STRB     R0,[R5, #+0]
 //  452   
 //  453   return HAL_OK;
         POP      {R4-R6,PC}       ;; return
@@ -900,26 +880,27 @@ HAL_SAI_Init:
 //  462 HAL_StatusTypeDef HAL_SAI_DeInit(SAI_HandleTypeDef *hsai)
 //  463 {
 HAL_SAI_DeInit:
-        PUSH     {R4,R5,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
-        MOVS     R4,R0
-        SUB      SP,SP,#+4
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
           CFI CFA R13+16
+        MOVS     R4,R0
 //  464   /* Check the SAI handle allocation */
 //  465   if(hsai == NULL)
-        IT       EQ 
-        MOVEQ    R0,#+1
+        BNE.N    ??HAL_SAI_DeInit_0
 //  466   {
 //  467     return HAL_ERROR;
-        BEQ.N    ??HAL_SAI_DeInit_0
+        MOVS     R0,#+1
+        POP      {R4-R6,PC}
 //  468   }
 //  469 
 //  470   hsai->State = HAL_SAI_STATE_BUSY;
+??HAL_SAI_DeInit_0:
+        ADD      R5,R4,#+124
         MOVS     R0,#+2
-        STRB     R0,[R4, #+125]
+        STRB     R0,[R5, #+1]
 //  471 
 //  472   /* Disabled All interrupt and clear all the flag */
 //  473   hsai->Instance->IMR = 0;
@@ -935,7 +916,7 @@ HAL_SAI_DeInit:
 //  477   SAI_Disable(hsai);
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R5,R0
+        MOV      R6,R0
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x10000
@@ -947,12 +928,12 @@ HAL_SAI_DeInit:
         BPL.N    ??HAL_SAI_DeInit_2
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUBS     R0,R0,R5
+        SUBS     R0,R0,R6
         CMP      R0,#+11
         BCC.N    ??HAL_SAI_DeInit_1
-        LDR      R0,[R4, #+128]
+        LDR      R0,[R5, #+4]
         ORR      R0,R0,#0x40
-        STR      R0,[R4, #+128]
+        STR      R0,[R5, #+4]
 //  478 
 //  479   /* Flush the fifo */
 //  480   SET_BIT(hsai->Instance->CR2, SAI_xCR2_FFLUSH);
@@ -971,21 +952,18 @@ HAL_SAI_DeInit:
 //  485   /* Initialize the error code */
 //  486   hsai->ErrorCode = HAL_SAI_ERROR_NONE;
         MOVS     R0,#+0
-        STR      R0,[R4, #+128]
+        STR      R0,[R5, #+4]
 //  487   
 //  488   /* Initialize the SAI state */
 //  489   hsai->State = HAL_SAI_STATE_RESET;
-        STRB     R0,[R4, #+125]
+        STRB     R0,[R5, #+1]
 //  490 
 //  491   /* Release Lock */
 //  492   __HAL_UNLOCK(hsai);
-        STRB     R0,[R4, #+124]
+        STRB     R0,[R5, #+0]
 //  493 
 //  494   return HAL_OK;
-??HAL_SAI_DeInit_0:
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}       ;; return
+        POP      {R4-R6,PC}       ;; return
 //  495 }
           CFI EndBlock cfiBlock2
 //  496 
@@ -1105,27 +1083,28 @@ HAL_SAI_MspDeInit:
 //  587 HAL_StatusTypeDef HAL_SAI_Transmit(SAI_HandleTypeDef *hsai, uint8_t* pData, uint16_t Size, uint32_t Timeout)
 //  588 {
 HAL_SAI_Transmit:
-        PUSH     {R4-R8,LR}
+        PUSH     {R3-R9,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R8 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -20)
-          CFI R4 Frame(CFA, -24)
-          CFI CFA R13+24
+          CFI R9 Frame(CFA, -8)
+          CFI R8 Frame(CFA, -12)
+          CFI R7 Frame(CFA, -16)
+          CFI R6 Frame(CFA, -20)
+          CFI R5 Frame(CFA, -24)
+          CFI R4 Frame(CFA, -28)
+          CFI CFA R13+32
         MOV      R4,R0
-        MOV      R7,R1
-        MOV      R8,R2
-        MOV      R5,R3
+        MOV      R5,R1
+        MOV      R6,R2
+        MOV      R8,R3
 //  589   uint32_t tickstart = HAL_GetTick();
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
 //  590   
 //  591   if((pData == NULL ) || (Size == 0)) 
-        CMP      R7,#+0
-        MOV      R6,R0
+        CMP      R5,#+0
+        MOV      R9,R0
         ITE      NE 
-        CMPNE    R8,#+0
+        CMPNE    R6,#+0
         MOVEQ    R0,#+1
 //  592   {
 //  593     return  HAL_ERROR;
@@ -1133,30 +1112,31 @@ HAL_SAI_Transmit:
 //  594   }
 //  595   
 //  596   if(hsai->State == HAL_SAI_STATE_READY)
-        LDRB     R0,[R4, #+125]
+        ADD      R7,R4,#+104
+        LDRB     R0,[R7, #+21]
         CMP      R0,#+1
         BNE.N    ??HAL_SAI_Transmit_1
 //  597   {  
 //  598     /* Process Locked */
 //  599     __HAL_LOCK(hsai);
-        LDRB     R0,[R4, #+124]
+        LDRB     R0,[R7, #+20]
         CMP      R0,#+1
         BEQ.N    ??HAL_SAI_Transmit_1
         MOVS     R0,#+1
+        STRB     R0,[R7, #+20]
 //  600     
 //  601     hsai->XferSize = Size;
-        STRH     R8,[R4, #+104]
-        STRB     R0,[R4, #+124]
 //  602     hsai->XferCount = Size;
 //  603     hsai->pBuffPtr = pData;
 //  604     hsai->State = HAL_SAI_STATE_BUSY_TX;
         MOVS     R0,#+18
-        STRH     R8,[R4, #+106]
-        STR      R7,[R4, #+100]
-        STRB     R0,[R4, #+125]
+        STRH     R6,[R7, #+0]
+        STRH     R6,[R7, #+2]
+        STR      R5,[R4, #+100]
+        STRB     R0,[R7, #+21]
 //  605     hsai->ErrorCode = HAL_SAI_ERROR_NONE;
         MOVS     R0,#+0
-        STR      R0,[R4, #+128]
+        STR      R0,[R7, #+24]
 //  606     
 //  607     /* Check if the SAI is already enabled */ 
 //  608     if((hsai->Instance->CR1 & SAI_xCR1_SAIEN) == RESET)
@@ -1208,11 +1188,11 @@ HAL_SAI_Transmit:
 //  634         }       
 //  635         hsai->XferCount--; 
 ??HAL_SAI_Transmit_5:
-        LDRH     R0,[R4, #+106]
+        LDRH     R0,[R7, #+2]
         SUBS     R0,R0,#+1
-        STRH     R0,[R4, #+106]
+        STRH     R0,[R7, #+2]
 ??HAL_SAI_Transmit_2:
-        LDRH     R0,[R4, #+106]
+        LDRH     R0,[R7, #+2]
         CBZ.N    R0,??HAL_SAI_Transmit_6
 ??HAL_SAI_Transmit_7:
         LDR      R0,[R4, #+0]
@@ -1247,44 +1227,36 @@ HAL_SAI_Transmit:
 //  639         /* Check for the Timeout */
 //  640         if((Timeout != HAL_MAX_DELAY) && ((Timeout == 0)||((HAL_GetTick() - tickstart ) > Timeout)))
 ??HAL_SAI_Transmit_8:
-        CMN      R5,#+1
+        CMN      R8,#+1
         BEQ.N    ??HAL_SAI_Transmit_7
-        CBZ.N    R5,??HAL_SAI_Transmit_11
+        CMP      R8,#+0
+        BEQ.N    ??HAL_SAI_Transmit_11
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUBS     R0,R0,R6
-        CMP      R5,R0
+        SUB      R0,R0,R9
+        CMP      R8,R0
         BCS.N    ??HAL_SAI_Transmit_2
 //  641         {
 //  642           /* Update error code */
 //  643           hsai->ErrorCode |= HAL_SAI_ERROR_TIMEOUT;
 ??HAL_SAI_Transmit_11:
-        LDR      R0,[R4, #+128]
-        ORR      R0,R0,#0x40
-        STR      R0,[R4, #+128]
+        B.N      ?Subroutine3
 //  644           /* Change the SAI state */
 //  645           hsai->State = HAL_SAI_STATE_TIMEOUT;
-        MOVS     R0,#+3
-        STRB     R0,[R4, #+125]
 //  646           
 //  647           return HAL_TIMEOUT;
-        POP      {R4-R8,PC}
 //  648         }
 //  649       }
 //  650     }      
 //  651     
 //  652     hsai->State = HAL_SAI_STATE_READY; 
 ??HAL_SAI_Transmit_6:
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+125]
+        B.N      ?Subroutine4
 //  653     
 //  654     /* Process Unlocked */
 //  655     __HAL_UNLOCK(hsai);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+124]
 //  656     
 //  657     return HAL_OK;
-        POP      {R4-R8,PC}
 //  658   }
 //  659   else
 //  660   {
@@ -1292,7 +1264,7 @@ HAL_SAI_Transmit:
 ??HAL_SAI_Transmit_1:
         MOVS     R0,#+2
 ??HAL_SAI_Transmit_0:
-        POP      {R4-R8,PC}       ;; return
+        POP      {R1,R4-R9,PC}    ;; return
 //  662   }
 //  663 }
           CFI EndBlock cfiBlock5
@@ -1314,27 +1286,28 @@ HAL_SAI_Transmit:
 //  674 HAL_StatusTypeDef HAL_SAI_Receive(SAI_HandleTypeDef *hsai, uint8_t *pData, uint16_t Size, uint32_t Timeout)
 //  675 {
 HAL_SAI_Receive:
-        PUSH     {R4-R8,LR}
+        PUSH     {R3-R9,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R8 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -20)
-          CFI R4 Frame(CFA, -24)
-          CFI CFA R13+24
+          CFI R9 Frame(CFA, -8)
+          CFI R8 Frame(CFA, -12)
+          CFI R7 Frame(CFA, -16)
+          CFI R6 Frame(CFA, -20)
+          CFI R5 Frame(CFA, -24)
+          CFI R4 Frame(CFA, -28)
+          CFI CFA R13+32
         MOV      R4,R0
-        MOV      R7,R1
-        MOV      R8,R2
-        MOV      R5,R3
+        MOV      R5,R1
+        MOV      R6,R2
+        MOV      R8,R3
 //  676   uint32_t tickstart = HAL_GetTick();
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
 //  677   
 //  678   if((pData == NULL ) || (Size == 0)) 
-        CMP      R7,#+0
-        MOV      R6,R0
+        CMP      R5,#+0
+        MOV      R9,R0
         ITE      NE 
-        CMPNE    R8,#+0
+        CMPNE    R6,#+0
         MOVEQ    R0,#+1
 //  679   {
 //  680     return  HAL_ERROR;
@@ -1342,30 +1315,31 @@ HAL_SAI_Receive:
 //  681   }
 //  682   
 //  683   if(hsai->State == HAL_SAI_STATE_READY)
-        LDRB     R0,[R4, #+125]
+        ADD      R7,R4,#+104
+        LDRB     R0,[R7, #+21]
         CMP      R0,#+1
         BNE.N    ??HAL_SAI_Receive_1
 //  684   { 
 //  685     /* Process Locked */
 //  686     __HAL_LOCK(hsai);
-        LDRB     R0,[R4, #+124]
+        LDRB     R0,[R7, #+20]
         CMP      R0,#+1
         BEQ.N    ??HAL_SAI_Receive_1
         MOVS     R0,#+1
+        STRB     R0,[R7, #+20]
 //  687     
 //  688     hsai->pBuffPtr = pData;
-        STR      R7,[R4, #+100]
-        STRB     R0,[R4, #+124]
 //  689     hsai->XferSize = Size;
 //  690     hsai->XferCount = Size;
 //  691     hsai->State = HAL_SAI_STATE_BUSY_RX;
         MOVS     R0,#+34
-        STRH     R8,[R4, #+104]
-        STRH     R8,[R4, #+106]
-        STRB     R0,[R4, #+125]
+        STR      R5,[R4, #+100]
+        STRH     R6,[R7, #+0]
+        STRH     R6,[R7, #+2]
+        STRB     R0,[R7, #+21]
 //  692     hsai->ErrorCode = HAL_SAI_ERROR_NONE;
         MOVS     R0,#+0
-        STR      R0,[R4, #+128]
+        STR      R0,[R7, #+24]
 //  693     
 //  694     /* Check if the SAI is already enabled */ 
 //  695     if((hsai->Instance->CR1 & SAI_xCR1_SAIEN) == RESET)
@@ -1411,15 +1385,14 @@ HAL_SAI_Receive:
 //  719         }  
 //  720         hsai->XferCount--; 
 ??HAL_SAI_Receive_5:
-        LDRH     R0,[R4, #+106]
+        LDRH     R0,[R7, #+2]
         SUBS     R0,R0,#+1
-        STRH     R0,[R4, #+106]
+        STRH     R0,[R7, #+2]
 ??HAL_SAI_Receive_2:
-        LDRH     R0,[R4, #+106]
-        CMP      R0,#+0
-        LDR      R0,[R4, #+0]
-        BEQ.N    ??HAL_SAI_Receive_6
+        LDRH     R0,[R7, #+2]
+        CBZ.N    R0,??HAL_SAI_Receive_6
 ??HAL_SAI_Receive_7:
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+20]
         TST      R1,#0x70000
         BEQ.N    ??HAL_SAI_Receive_8
@@ -1450,44 +1423,36 @@ HAL_SAI_Receive:
 //  724         /* Check for the Timeout */
 //  725         if((Timeout != HAL_MAX_DELAY) && ((Timeout == 0)||((HAL_GetTick() - tickstart ) > Timeout)))
 ??HAL_SAI_Receive_8:
-        CMN      R5,#+1
+        CMN      R8,#+1
         BEQ.N    ??HAL_SAI_Receive_7
-        CBZ.N    R5,??HAL_SAI_Receive_11
+        CMP      R8,#+0
+        BEQ.N    ??HAL_SAI_Receive_11
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUBS     R0,R0,R6
-        CMP      R5,R0
+        SUB      R0,R0,R9
+        CMP      R8,R0
         BCS.N    ??HAL_SAI_Receive_2
 //  726         {
 //  727           /* Update error code */
 //  728           hsai->ErrorCode |= HAL_SAI_ERROR_TIMEOUT;
 ??HAL_SAI_Receive_11:
-        LDR      R0,[R4, #+128]
-        ORR      R0,R0,#0x40
-        STR      R0,[R4, #+128]
+        B.N      ?Subroutine3
 //  729           /* Change the SAI state */
 //  730           hsai->State = HAL_SAI_STATE_TIMEOUT;
-        MOVS     R0,#+3
-        STRB     R0,[R4, #+125]
 //  731           
 //  732           return HAL_TIMEOUT;
-        POP      {R4-R8,PC}
 //  733         }
 //  734       }
 //  735     }      
 //  736     
 //  737     hsai->State = HAL_SAI_STATE_READY; 
 ??HAL_SAI_Receive_6:
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+125]
+        B.N      ?Subroutine4
 //  738     
 //  739     /* Process Unlocked */
 //  740     __HAL_UNLOCK(hsai);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+124]
 //  741     
 //  742     return HAL_OK;
-        POP      {R4-R8,PC}
 //  743   }
 //  744   else
 //  745   {
@@ -1495,10 +1460,51 @@ HAL_SAI_Receive:
 ??HAL_SAI_Receive_1:
         MOVS     R0,#+2
 ??HAL_SAI_Receive_0:
-        POP      {R4-R8,PC}       ;; return
+        POP      {R1,R4-R9,PC}    ;; return
 //  747   }
 //  748 }
           CFI EndBlock cfiBlock6
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock7 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+32
+          CFI R4 Frame(CFA, -28)
+          CFI R5 Frame(CFA, -24)
+          CFI R6 Frame(CFA, -20)
+          CFI R7 Frame(CFA, -16)
+          CFI R8 Frame(CFA, -12)
+          CFI R9 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+        THUMB
+?Subroutine4:
+        MOVS     R0,#+1
+        STRB     R0,[R7, #+21]
+        MOVS     R0,#+0
+        STRB     R0,[R7, #+20]
+        POP      {R1,R4-R9,PC}
+          CFI EndBlock cfiBlock7
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock8 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+32
+          CFI R4 Frame(CFA, -28)
+          CFI R5 Frame(CFA, -24)
+          CFI R6 Frame(CFA, -20)
+          CFI R7 Frame(CFA, -16)
+          CFI R8 Frame(CFA, -12)
+          CFI R9 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+        THUMB
+?Subroutine3:
+        LDR      R0,[R7, #+24]
+        ORR      R0,R0,#0x40
+        STR      R0,[R7, #+24]
+        MOVS     R0,#+3
+        STRB     R0,[R7, #+21]
+        POP      {R1,R4-R9,PC}
+          CFI EndBlock cfiBlock8
 //  749 
 //  750 /**
 //  751   * @brief  Transmits an amount of data in no-blocking mode with Interrupt.
@@ -1510,192 +1516,133 @@ HAL_SAI_Receive:
 //  757   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock7 Using cfiCommon0
+          CFI Block cfiBlock9 Using cfiCommon0
           CFI Function HAL_SAI_Transmit_IT
-          CFI NoCalls
         THUMB
 //  758 HAL_StatusTypeDef HAL_SAI_Transmit_IT(SAI_HandleTypeDef *hsai, uint8_t *pData, uint16_t Size)
 //  759 {
 //  760     if((pData == NULL) || (Size == 0)) 
 HAL_SAI_Transmit_IT:
         CMP      R1,#+0
+        PUSH     {R3-R5,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+16
+        MOV      R5,R0
         IT       NE 
         CMPNE    R2,#+0
         BNE.N    ??HAL_SAI_Transmit_IT_0
 //  761     {
 //  762       return  HAL_ERROR;
         MOVS     R0,#+1
-        BX       LR
+        POP      {R1,R4,R5,PC}
 //  763     }
 //  764     
 //  765   if(hsai->State == HAL_SAI_STATE_READY)
 ??HAL_SAI_Transmit_IT_0:
-        LDRB     R3,[R0, #+125]
-        CMP      R3,#+1
+        ADD      R4,R5,#+104
+        LDRB     R0,[R4, #+21]
+        CMP      R0,#+1
         BNE.N    ??HAL_SAI_Transmit_IT_1
 //  766   {    
 //  767     /* Process Locked */
 //  768     __HAL_LOCK(hsai);
-        LDRB     R3,[R0, #+124]
-        CMP      R3,#+1
+        LDRB     R0,[R4, #+20]
+        CMP      R0,#+1
         BEQ.N    ??HAL_SAI_Transmit_IT_1
-        MOVS     R3,#+1
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+20]
 //  769     
 //  770     hsai->pBuffPtr = pData;
-        STR      R1,[R0, #+100]
-        STRB     R3,[R0, #+124]
 //  771     hsai->XferSize = Size;
 //  772     hsai->XferCount = Size;
 //  773     hsai->ErrorCode = HAL_SAI_ERROR_NONE;    
-        MOVS     R1,#+0
-        STRH     R2,[R0, #+104]
-        STRH     R2,[R0, #+106]
-        STR      R1,[R0, #+128]
+        MOVS     R0,#+0
+        STR      R1,[R5, #+100]
+        STRH     R2,[R4, #+0]
+        STRH     R2,[R4, #+2]
+        STR      R0,[R4, #+24]
 //  774     hsai->State = HAL_SAI_STATE_BUSY_TX;
-        MOVS     R1,#+18
-        STRB     R1,[R0, #+125]
+        MOVS     R0,#+18
+        STRB     R0,[R4, #+21]
 //  775     
 //  776     if((hsai->Init.DataSize == SAI_DATASIZE_8) && (hsai->Init.CompandingMode == SAI_NOCOMPANDING))
-        LDR      R1,[R0, #+52]
-        CMP      R1,#+64
+        LDR      R0,[R5, #+52]
+        CMP      R0,#+64
         BNE.N    ??HAL_SAI_Transmit_IT_2
-        LDR      R1,[R0, #+40]
-        CBNZ.N   R1,??HAL_SAI_Transmit_IT_3
+        LDR      R0,[R5, #+40]
+        CBNZ.N   R0,??HAL_SAI_Transmit_IT_3
 //  777     {
 //  778       hsai->InterruptServiceRoutine = SAI_Transmit_IT8Bit;
-        ADR.W    R1,SAI_Transmit_IT8Bit
-        STR      R1,[R0, #+120]
+        ADR.W    R0,SAI_Transmit_IT8Bit
         B.N      ??HAL_SAI_Transmit_IT_4
 //  779     }
 //  780     else if(hsai->Init.DataSize <= SAI_DATASIZE_16)
 ??HAL_SAI_Transmit_IT_2:
-        CMP      R1,#+129
+        CMP      R0,#+129
         BCS.N    ??HAL_SAI_Transmit_IT_5
 //  781     {
 //  782       hsai->InterruptServiceRoutine = SAI_Transmit_IT16Bit;
 ??HAL_SAI_Transmit_IT_3:
-        ADR.W    R1,SAI_Transmit_IT16Bit
-        STR      R1,[R0, #+120]
+        ADR.W    R0,SAI_Transmit_IT16Bit
         B.N      ??HAL_SAI_Transmit_IT_4
 //  783     }
 //  784     else
 //  785     {
 //  786       hsai->InterruptServiceRoutine = SAI_Transmit_IT32Bit;
 ??HAL_SAI_Transmit_IT_5:
-        ADR.W    R1,SAI_Transmit_IT32Bit
-        STR      R1,[R0, #+120]
-        B.N      ??HAL_SAI_Transmit_IT_4
-??HAL_SAI_Transmit_IT_6:
-        LDR      R2,[R0, #+100]
-        LDR      R2,[R2, #+0]
-        STR      R2,[R1, #+28]
-        LDR      R1,[R0, #+100]
-        ADDS     R1,R1,#+4
-??HAL_SAI_Transmit_IT_7:
-        STR      R1,[R0, #+100]
-??HAL_SAI_Transmit_IT_8:
-        LDRH     R1,[R0, #+106]
-        SUBS     R1,R1,#+1
-        STRH     R1,[R0, #+106]
+        ADR.W    R0,SAI_Transmit_IT32Bit
 ??HAL_SAI_Transmit_IT_4:
-        LDR      R1,[R0, #+0]
-        LDR      R2,[R1, #+20]
-        AND      R2,R2,#0x70000
-        CMP      R2,#+327680
-        ITT      NE 
-        LDRHNE   R2,[R0, #+106]
-        CMPNE    R2,#+0
-        BEQ.N    ??HAL_SAI_Transmit_IT_9
-        LDR      R2,[R0, #+52]
-        CMP      R2,#+64
-        BNE.N    ??HAL_SAI_Transmit_IT_10
-        LDR      R2,[R0, #+40]
-        CBNZ.N   R2,??HAL_SAI_Transmit_IT_11
-        LDR      R2,[R0, #+100]
-        ADDS     R3,R2,#+1
-        STR      R3,[R0, #+100]
-        LDRB     R2,[R2, #+0]
-        STR      R2,[R1, #+28]
-        B.N      ??HAL_SAI_Transmit_IT_8
-??HAL_SAI_Transmit_IT_10:
-        CMP      R2,#+129
-        BCS.N    ??HAL_SAI_Transmit_IT_6
-??HAL_SAI_Transmit_IT_11:
-        LDR      R2,[R0, #+100]
-        LDR      R2,[R2, #+0]
-        STR      R2,[R1, #+28]
-        LDR      R1,[R0, #+100]
-        ADDS     R1,R1,#+2
-        B.N      ??HAL_SAI_Transmit_IT_7
+        STR      R0,[R4, #+16]
 //  787     }
 //  788     
 //  789     /* Fill the fifo before starting the communication */
 //  790     SAI_FillFifo(hsai);
+        MOV      R0,R5
+          CFI FunCall SAI_FillFifo
+        BL       SAI_FillFifo
 //  791     
 //  792     /* Enable FRQ and OVRUDR interrupts */
 //  793     __HAL_SAI_ENABLE_IT(hsai, SAI_InterruptFlag(hsai, SAI_MODE_IT));
-??HAL_SAI_Transmit_IT_9:
-        LDR      R3,[R0, #+48]
-        MOVS     R2,#+9
-        CMP      R3,#+8
-        BNE.N    ??HAL_SAI_Transmit_IT_12
-        LDR      R3,[R0, #+4]
-        CMP      R3,#+3
-        BNE.N    ??HAL_SAI_Transmit_IT_13
-        MOVS     R2,#+25
-??HAL_SAI_Transmit_IT_14:
-        ORR      R2,R2,#0x60
-??HAL_SAI_Transmit_IT_15:
-        LDR      R3,[R1, #+16]
-        ORRS     R2,R2,R3
-        STR      R2,[R1, #+16]
+        MOVS     R1,#+1
+        MOV      R0,R5
+          CFI FunCall SAI_InterruptFlag
+        BL       SAI_InterruptFlag
+        LDR      R1,[R5, #+0]
+        LDR      R2,[R1, #+16]
+        ORRS     R0,R0,R2
+        STR      R0,[R1, #+16]
 //  794     
 //  795     /* Check if the SAI is already enabled */ 
 //  796     if((hsai->Instance->CR1 & SAI_xCR1_SAIEN) == RESET)
+        LDR      R0,[R5, #+0]
         LDR      R1,[R0, #+0]
-        LDR      R2,[R1, #+0]
-        LSLS     R2,R2,#+15
-        BMI.N    ??HAL_SAI_Transmit_IT_16
+        LSLS     R1,R1,#+15
+        BMI.N    ??HAL_SAI_Transmit_IT_6
 //  797     {      
 //  798       /* Enable SAI peripheral */    
 //  799       __HAL_SAI_ENABLE(hsai);
-        LDR      R2,[R1, #+0]
-        ORR      R2,R2,#0x10000
-        STR      R2,[R1, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x10000
+        STR      R1,[R0, #+0]
 //  800     }
 //  801     /* Process Unlocked */
 //  802     __HAL_UNLOCK(hsai);
-??HAL_SAI_Transmit_IT_16:
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+124]
+??HAL_SAI_Transmit_IT_6:
+        B.N      ??Subroutine10_0
 //  803     
 //  804     return HAL_OK;
-        MOVS     R0,#+0
-        BX       LR
-??HAL_SAI_Transmit_IT_13:
-        CMP      R3,#+1
-        IT       EQ 
-        MOVEQ    R2,#+25
-        BEQ.N    ??HAL_SAI_Transmit_IT_17
-??HAL_SAI_Transmit_IT_12:
-        LDR      R3,[R0, #+4]
-        CMP      R3,#+3
-        IT       NE 
-        CMPNE    R3,#+2
-        BEQ.N    ??HAL_SAI_Transmit_IT_14
-??HAL_SAI_Transmit_IT_17:
-        ORR      R2,R2,#0x4
-        B.N      ??HAL_SAI_Transmit_IT_15
 //  805   }
 //  806   else
 //  807   {
 //  808     return HAL_BUSY;
 ??HAL_SAI_Transmit_IT_1:
         MOVS     R0,#+2
-        BX       LR               ;; return
+        POP      {R1,R4,R5,PC}    ;; return
 //  809   }
 //  810 }
-          CFI EndBlock cfiBlock7
+          CFI EndBlock cfiBlock9
 //  811 
 //  812 /**
 //  813   * @brief  Receives an amount of data in no-blocking mode with Interrupt.
@@ -1707,7 +1654,7 @@ HAL_SAI_Transmit_IT:
 //  819   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock8 Using cfiCommon0
+          CFI Block cfiBlock10 Using cfiCommon0
           CFI Function HAL_SAI_Receive_IT
           CFI NoCalls
         THUMB
@@ -1716,41 +1663,43 @@ HAL_SAI_Transmit_IT:
 //  822     if((pData == NULL) || (Size == 0)) 
 HAL_SAI_Receive_IT:
         CMP      R1,#+0
-        IT       NE 
+        PUSH     {R4}
+          CFI R4 Frame(CFA, -4)
+          CFI CFA R13+4
+        ITE      NE 
         CMPNE    R2,#+0
-        BNE.N    ??HAL_SAI_Receive_IT_0
+        MOVEQ    R0,#+1
 //  823     {
 //  824       return  HAL_ERROR;
-        MOVS     R0,#+1
-        BX       LR
+        BEQ.N    ??HAL_SAI_Receive_IT_0
 //  825     }
 //  826     
 //  827   if(hsai->State == HAL_SAI_STATE_READY)
-??HAL_SAI_Receive_IT_0:
-        LDRB     R3,[R0, #+125]
-        CMP      R3,#+1
+        ADD      R3,R0,#+104
+        LDRB     R4,[R3, #+21]
+        CMP      R4,#+1
         BNE.N    ??HAL_SAI_Receive_IT_1
 //  828   {   
 //  829     /* Process Locked */
 //  830     __HAL_LOCK(hsai);
-        LDRB     R3,[R0, #+124]
-        CMP      R3,#+1
+        LDRB     R4,[R3, #+20]
+        CMP      R4,#+1
         BEQ.N    ??HAL_SAI_Receive_IT_1
-        MOVS     R3,#+1
+        MOVS     R4,#+1
+        STRB     R4,[R3, #+20]
 //  831     
 //  832     hsai->pBuffPtr = pData;
         STR      R1,[R0, #+100]
-        STRB     R3,[R0, #+124]
 //  833     hsai->XferSize = Size;
 //  834     hsai->XferCount = Size;
 //  835     hsai->ErrorCode = HAL_SAI_ERROR_NONE;    
         MOVS     R1,#+0
-        STRH     R2,[R0, #+104]
-        STRH     R2,[R0, #+106]
-        STR      R1,[R0, #+128]
+        STRH     R2,[R3, #+0]
+        STRH     R2,[R3, #+2]
+        STR      R1,[R3, #+24]
 //  836     hsai->State = HAL_SAI_STATE_BUSY_RX;
         MOVS     R1,#+34
-        STRB     R1,[R0, #+125]
+        STRB     R1,[R3, #+21]
 //  837     
 //  838     if((hsai->Init.DataSize == SAI_DATASIZE_8) && (hsai->Init.CompandingMode == SAI_NOCOMPANDING))
         LDR      R1,[R0, #+52]
@@ -1779,7 +1728,7 @@ HAL_SAI_Receive_IT:
 ??HAL_SAI_Receive_IT_5:
         ADR.W    R1,SAI_Receive_IT32Bit
 ??HAL_SAI_Receive_IT_4:
-        STR      R1,[R0, #+120]
+        STR      R1,[R3, #+16]
 //  849     }
 //  850     
 //  851     /* Enable TXE and OVRUDR interrupts */
@@ -1796,33 +1745,37 @@ HAL_SAI_Receive_IT:
         ORR      R1,R1,#0x60
 ??HAL_SAI_Receive_IT_9:
         LDR      R2,[R0, #+0]
-        LDR      R3,[R2, #+16]
-        ORRS     R1,R1,R3
+        LDR      R4,[R2, #+16]
+        ORRS     R1,R1,R4
         STR      R1,[R2, #+16]
 //  853     
 //  854     /* Check if the SAI is already enabled */ 
 //  855     if((hsai->Instance->CR1 & SAI_xCR1_SAIEN) == RESET)
+        LDR      R0,[R0, #+0]
         LDR      R1,[R0, #+0]
-        LDR      R2,[R1, #+0]
-        LSLS     R2,R2,#+15
+        LSLS     R1,R1,#+15
         BMI.N    ??HAL_SAI_Receive_IT_10
 //  856     {
 //  857       /* Enable SAI peripheral */    
 //  858       __HAL_SAI_ENABLE(hsai);
-        LDR      R2,[R1, #+0]
-        ORR      R2,R2,#0x10000
-        STR      R2,[R1, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x10000
+        STR      R1,[R0, #+0]
 //  859     }
 //  860     
 //  861     /* Process Unlocked */
 //  862     __HAL_UNLOCK(hsai);
 ??HAL_SAI_Receive_IT_10:
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+124]
+        MOVS     R0,#+0
+        STRB     R0,[R3, #+20]
 //  863     
 //  864     return HAL_OK;
-        MOVS     R0,#+0
+        POP      {R4}
+          CFI R4 SameValue
+          CFI CFA R13+0
         BX       LR
+          CFI R4 Frame(CFA, -4)
+          CFI CFA R13+4
 ??HAL_SAI_Receive_IT_7:
         CMP      R2,#+1
         IT       EQ 
@@ -1843,10 +1796,14 @@ HAL_SAI_Receive_IT:
 //  868     return HAL_BUSY; 
 ??HAL_SAI_Receive_IT_1:
         MOVS     R0,#+2
+??HAL_SAI_Receive_IT_0:
+        POP      {R4}
+          CFI R4 SameValue
+          CFI CFA R13+0
         BX       LR               ;; return
 //  869   } 
 //  870 }
-          CFI EndBlock cfiBlock8
+          CFI EndBlock cfiBlock10
 //  871 
 //  872 /**
 //  873   * @brief Pauses the audio stream playing from the Media.
@@ -1856,7 +1813,7 @@ HAL_SAI_Receive_IT:
 //  877   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock9 Using cfiCommon0
+          CFI Block cfiBlock11 Using cfiCommon0
           CFI Function HAL_SAI_DMAPause
           CFI NoCalls
         THUMB
@@ -1883,14 +1840,11 @@ HAL_SAI_DMAPause:
 //  885 
 //  886   /* Process Unlocked */
 //  887   __HAL_UNLOCK(hsai);
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+124]
+        B.N      ?Subroutine6
 //  888   
 //  889   return HAL_OK; 
-        MOVS     R0,#+0
-        BX       LR               ;; return
 //  890 }
-          CFI EndBlock cfiBlock9
+          CFI EndBlock cfiBlock11
 //  891 
 //  892 /**
 //  893   * @brief Resumes the audio stream playing from the Media.
@@ -1900,7 +1854,7 @@ HAL_SAI_DMAPause:
 //  897   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock10 Using cfiCommon0
+          CFI Block cfiBlock12 Using cfiCommon0
           CFI Function HAL_SAI_DMAResume
           CFI NoCalls
         THUMB
@@ -1941,14 +1895,23 @@ HAL_SAI_DMAResume:
 //  913   /* Process Unlocked */
 //  914   __HAL_UNLOCK(hsai);
 ??HAL_SAI_DMAResume_1:
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+124]
+          CFI EndBlock cfiBlock12
+        REQUIRE ?Subroutine6
+        ;; // Fall through to label ?Subroutine6
 //  915   
 //  916   return HAL_OK;
+//  917 }
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock13 Using cfiCommon0
+          CFI NoFunction
+        THUMB
+?Subroutine6:
+        MOVS     R1,#+0
+        STRB     R1,[R0, #+124]
         MOVS     R0,#+0
         BX       LR               ;; return
-//  917 }
-          CFI EndBlock cfiBlock10
+          CFI EndBlock cfiBlock13
 //  918 
 //  919 /**
 //  920   * @brief Stops the audio stream playing from the Media.
@@ -1958,40 +1921,40 @@ HAL_SAI_DMAResume:
 //  924   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock11 Using cfiCommon0
+          CFI Block cfiBlock14 Using cfiCommon0
           CFI Function HAL_SAI_DMAStop
         THUMB
 //  925 HAL_StatusTypeDef HAL_SAI_DMAStop(SAI_HandleTypeDef *hsai)
 //  926 {
 HAL_SAI_DMAStop:
-        PUSH     {R4,R5,LR}
+        PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
-        MOV      R4,R0
-        SUB      SP,SP,#+4
           CFI CFA R13+16
+        MOV      R5,R0
 //  927   /* Process Locked */
 //  928   __HAL_LOCK(hsai);
-        LDRB     R0,[R4, #+124]
+        ADD      R4,R5,#+124
+        LDRB     R0,[R4, #+0]
         CMP      R0,#+1
-        IT       EQ 
-        MOVEQ    R0,#+2
-        BEQ.N    ??HAL_SAI_DMAStop_0
+        BNE.N    ??HAL_SAI_DMAStop_0
+        MOVS     R0,#+2
+        POP      {R1,R4,R5,PC}
+??HAL_SAI_DMAStop_0:
         MOVS     R0,#+1
-        STRB     R0,[R4, #+124]
+        STRB     R0,[R4, #+0]
 //  929   
 //  930   /* Disable the SAI DMA request */
 //  931   hsai->Instance->CR1 &= ~SAI_xCR1_DMAEN;
-        LDR      R0,[R4, #+0]
+        LDR      R0,[R5, #+0]
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x20000
         STR      R1,[R0, #+0]
 //  932   
 //  933   /* Abort the SAI DMA Tx Stream */
 //  934   if(hsai->hdmatx != NULL)
-        LDR      R0,[R4, #+108]
+        LDR      R0,[R5, #+108]
         CBZ.N    R0,??HAL_SAI_DMAStop_1
 //  935   {
 //  936     if(HAL_DMA_Abort(hsai->hdmatx) != HAL_OK)
@@ -2005,7 +1968,7 @@ HAL_SAI_DMAStop:
 //  941   /* Abort the SAI DMA Rx Stream */
 //  942   if(hsai->hdmarx != NULL)
 ??HAL_SAI_DMAStop_1:
-        LDR      R0,[R4, #+112]
+        LDR      R0,[R5, #+112]
         CBZ.N    R0,??HAL_SAI_DMAStop_3
 //  943   {  
 //  944     if(HAL_DMA_Abort(hsai->hdmarx) != HAL_OK)
@@ -2016,54 +1979,30 @@ HAL_SAI_DMAStop:
 //  946       return HAL_ERROR;
 ??HAL_SAI_DMAStop_2:
         MOVS     R0,#+1
+        POP      {R1,R4,R5,PC}
 //  947     }
 //  948   }
 //  949   
 //  950   /* Disable SAI peripheral */
 //  951   SAI_Disable(hsai);
+??HAL_SAI_DMAStop_3:
+        MOV      R0,R5
+          CFI FunCall SAI_Disable
+        BL       SAI_Disable
 //  952   
 //  953   hsai->State = HAL_SAI_STATE_READY;
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+1]
 //  954   
 //  955   /* Process Unlocked */
 //  956   __HAL_UNLOCK(hsai);
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+0]
 //  957   
 //  958   return HAL_OK;
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}
-          CFI CFA R13+16
-??HAL_SAI_DMAStop_3:
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        MOV      R5,R0
-        LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+0]
-        BIC      R1,R1,#0x10000
-        STR      R1,[R0, #+0]
-??HAL_SAI_DMAStop_4:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+15
-        BPL.N    ??HAL_SAI_DMAStop_5
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUBS     R0,R0,R5
-        CMP      R0,#+11
-        BCC.N    ??HAL_SAI_DMAStop_4
-        LDR      R0,[R4, #+128]
-        ORR      R0,R0,#0x40
-        STR      R0,[R4, #+128]
-??HAL_SAI_DMAStop_5:
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+125]
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+124]
-??HAL_SAI_DMAStop_0:
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}       ;; return
+        POP      {R1,R4,R5,PC}    ;; return
 //  959 }
-          CFI EndBlock cfiBlock11
+          CFI EndBlock cfiBlock14
 //  960 
 //  961 /**
 //  962   * @brief Abort the current transfer and disbaled the SAI.
@@ -2073,20 +2012,17 @@ HAL_SAI_DMAStop:
 //  966   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock12 Using cfiCommon0
+          CFI Block cfiBlock15 Using cfiCommon0
           CFI Function HAL_SAI_Abort
         THUMB
 //  967 HAL_StatusTypeDef HAL_SAI_Abort(SAI_HandleTypeDef *hsai)
 //  968 {
 HAL_SAI_Abort:
-        PUSH     {R4,R5,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
         MOV      R4,R0
-        SUB      SP,SP,#+4
-          CFI CFA R13+16
 //  969   /* Disable the SAI DMA request */
 //  970   hsai->Instance->CR1 &= ~SAI_xCR1_DMAEN;
         LDR      R0,[R4, #+0]
@@ -2121,70 +2057,49 @@ HAL_SAI_Abort:
 //  985       return HAL_ERROR;
 ??HAL_SAI_Abort_1:
         MOVS     R0,#+1
+        POP      {R4,PC}
 //  986     }
 //  987   }
 //  988 
 //  989   /* Disabled All interrupt and clear all the flag */
 //  990   hsai->Instance->IMR = 0;
-//  991   hsai->Instance->CLRFR = 0xFFFFFFFF;
-//  992   
-//  993   /* Disable SAI peripheral */
-//  994   SAI_Disable(hsai);
-//  995   
-//  996   /* Flush the fifo */
-//  997   SET_BIT(hsai->Instance->CR2, SAI_xCR2_FFLUSH);
-//  998   
-//  999   hsai->State = HAL_SAI_STATE_READY;
-// 1000   
-// 1001   /* Process Unlocked */
-// 1002   __HAL_UNLOCK(hsai);
-// 1003   
-// 1004   return HAL_OK;
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}
-          CFI CFA R13+16
 ??HAL_SAI_Abort_2:
         LDR      R1,[R4, #+0]
         MOVS     R0,#+0
         STR      R0,[R1, #+16]
+//  991   hsai->Instance->CLRFR = 0xFFFFFFFF;
         LDR      R1,[R4, #+0]
         MOV      R0,#-1
         STR      R0,[R1, #+24]
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        MOV      R5,R0
-        LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+0]
-        BIC      R1,R1,#0x10000
-        STR      R1,[R0, #+0]
-??HAL_SAI_Abort_3:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+0]
-        LSLS     R0,R0,#+15
-        BPL.N    ??HAL_SAI_Abort_4
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUBS     R0,R0,R5
-        CMP      R0,#+11
-        BCC.N    ??HAL_SAI_Abort_3
-        LDR      R0,[R4, #+128]
-        ORR      R0,R0,#0x40
-        STR      R0,[R4, #+128]
-??HAL_SAI_Abort_4:
+//  992   
+//  993   /* Disable SAI peripheral */
+//  994   SAI_Disable(hsai);
+        MOV      R0,R4
+          CFI FunCall SAI_Disable
+        BL       SAI_Disable
+//  995   
+//  996   /* Flush the fifo */
+//  997   SET_BIT(hsai->Instance->CR2, SAI_xCR2_FFLUSH);
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
         ORR      R1,R1,#0x8
         STR      R1,[R0, #+4]
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+125]
+//  998   
+//  999   hsai->State = HAL_SAI_STATE_READY;
+        ADD      R0,R4,#+124
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+1]
+// 1000   
+// 1001   /* Process Unlocked */
+// 1002   __HAL_UNLOCK(hsai);
+        MOVS     R1,#+0
+        STRB     R1,[R0, #+0]
+// 1003   
+// 1004   return HAL_OK;
         MOVS     R0,#+0
-        STRB     R0,[R4, #+124]
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}       ;; return
+        POP      {R4,PC}          ;; return
 // 1005 }
-          CFI EndBlock cfiBlock12
+          CFI EndBlock cfiBlock15
 // 1006 
 // 1007 /**
 // 1008   * @brief  Transmits an amount of data in no-blocking mode with DMA.
@@ -2196,7 +2111,7 @@ HAL_SAI_Abort:
 // 1014   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock13 Using cfiCommon0
+          CFI Block cfiBlock16 Using cfiCommon0
           CFI Function HAL_SAI_Transmit_DMA
         THUMB
 // 1015 HAL_StatusTypeDef HAL_SAI_Transmit_DMA(SAI_HandleTypeDef *hsai, uint8_t *pData, uint16_t Size)
@@ -2206,78 +2121,80 @@ HAL_SAI_Abort:
 // 1019   if((pData == NULL) || (Size == 0)) 
 HAL_SAI_Transmit_DMA:
         CMP      R1,#+0
-        PUSH     {R4,LR}
+        PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOV      R4,R0
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+16
+        MOV      R5,R0
         IT       NE 
         CMPNE    R2,#+0
         BNE.N    ??HAL_SAI_Transmit_DMA_0
 // 1020   {
 // 1021     return  HAL_ERROR;
         MOVS     R0,#+1
-        POP      {R4,PC}
+        POP      {R1,R4,R5,PC}
 // 1022   }
 // 1023   
 // 1024   if(hsai->State == HAL_SAI_STATE_READY)
 ??HAL_SAI_Transmit_DMA_0:
-        LDRB     R0,[R4, #+125]
+        ADD      R4,R5,#+104
+        LDRB     R0,[R4, #+21]
         CMP      R0,#+1
         BNE.N    ??HAL_SAI_Transmit_DMA_1
 // 1025   {  
 // 1026     /* Process Locked */
 // 1027     __HAL_LOCK(hsai);
-        LDRB     R0,[R4, #+124]
+        LDRB     R0,[R4, #+20]
         CMP      R0,#+1
         BEQ.N    ??HAL_SAI_Transmit_DMA_1
         MOVS     R0,#+1
+        STRB     R0,[R4, #+20]
 // 1028     
 // 1029     hsai->pBuffPtr = pData;
-        STR      R1,[R4, #+100]
-        STRB     R0,[R4, #+124]
 // 1030     hsai->XferSize = Size;
 // 1031     hsai->XferCount = Size;
 // 1032     hsai->ErrorCode = HAL_SAI_ERROR_NONE;
         MOVS     R0,#+0
-        STRH     R2,[R4, #+104]
-        STRH     R2,[R4, #+106]
-        STR      R0,[R4, #+128]
+        STR      R1,[R5, #+100]
+        STRH     R2,[R4, #+0]
+        STRH     R2,[R4, #+2]
+        STR      R0,[R4, #+24]
 // 1033     hsai->State = HAL_SAI_STATE_BUSY_TX;
         MOVS     R0,#+18
-        STRB     R0,[R4, #+125]
+        STRB     R0,[R4, #+21]
 // 1034     
 // 1035     /* Set the SAI Tx DMA Half transfer complete callback */
 // 1036     hsai->hdmatx->XferHalfCpltCallback = SAI_DMATxHalfCplt;
-        LDR      R2,[R4, #+108]
+        LDR      R2,[R4, #+4]
         ADR.W    R0,SAI_DMATxHalfCplt
         STR      R0,[R2, #+64]
 // 1037     
 // 1038     /* Set the SAI TxDMA transfer complete callback */
 // 1039     hsai->hdmatx->XferCpltCallback = SAI_DMATxCplt;
-        LDR      R2,[R4, #+108]
+        LDR      R2,[R4, #+4]
         ADR.W    R0,SAI_DMATxCplt
         STR      R0,[R2, #+60]
 // 1040     
 // 1041     /* Set the DMA error callback */
 // 1042     hsai->hdmatx->XferErrorCallback = SAI_DMAError;
-        LDR      R2,[R4, #+108]
+        LDR      R2,[R4, #+4]
         ADR.W    R0,SAI_DMAError
         STR      R0,[R2, #+72]
 // 1043     
 // 1044     /* Enable the Tx DMA Stream */
 // 1045     tmp = (uint32_t*)&pData;
 // 1046     HAL_DMA_Start_IT(hsai->hdmatx, *(uint32_t*)tmp, (uint32_t)&hsai->Instance->DR, hsai->XferSize);
-        LDR      R0,[R4, #+0]
-        LDRH     R3,[R4, #+104]
+        LDR      R0,[R5, #+0]
+        LDRH     R3,[R4, #+0]
         ADD      R2,R0,#+28
-        LDR      R0,[R4, #+108]
+        LDR      R0,[R4, #+4]
           CFI FunCall HAL_DMA_Start_IT
         BL       HAL_DMA_Start_IT
 // 1047     
 // 1048     /* Check if the SAI is already enabled */ 
 // 1049     if((hsai->Instance->CR1 & SAI_xCR1_SAIEN) == RESET)
-        LDR      R0,[R4, #+0]
+        LDR      R0,[R5, #+0]
         LDR      R1,[R0, #+0]
         LSLS     R1,R1,#+15
         BMI.N    ??HAL_SAI_Transmit_DMA_2
@@ -2292,43 +2209,25 @@ HAL_SAI_Transmit_DMA:
 // 1055     /* Enable the interrupts for error handling */
 // 1056     __HAL_SAI_ENABLE_IT(hsai, SAI_InterruptFlag(hsai, SAI_MODE_DMA));
 ??HAL_SAI_Transmit_DMA_2:
-        LDR      R1,[R4, #+48]
+        LDR      R1,[R5, #+48]
         MOVS     R0,#+1
         CMP      R1,#+8
         BNE.N    ??HAL_SAI_Transmit_DMA_3
-        LDR      R1,[R4, #+4]
+        LDR      R1,[R5, #+4]
         CMP      R1,#+3
         BNE.N    ??HAL_SAI_Transmit_DMA_4
         MOVS     R0,#+17
 ??HAL_SAI_Transmit_DMA_5:
         ORR      R0,R0,#0x60
 ??HAL_SAI_Transmit_DMA_6:
-        LDR      R1,[R4, #+0]
-        LDR      R2,[R1, #+16]
-        ORRS     R0,R0,R2
-        STR      R0,[R1, #+16]
-// 1057     
-// 1058     /* Enable SAI Tx DMA Request */  
-// 1059     hsai->Instance->CR1 |= SAI_xCR1_DMAEN;
-        LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x20000
-        STR      R1,[R0, #+0]
-// 1060     
-// 1061     /* Process Unlocked */
-// 1062     __HAL_UNLOCK(hsai);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+124]
-// 1063     
-// 1064     return HAL_OK;
-        POP      {R4,PC}
+        B.N      ?Subroutine5
 ??HAL_SAI_Transmit_DMA_4:
         CMP      R1,#+1
         IT       EQ 
         MOVEQ    R0,#+17
         BEQ.N    ??HAL_SAI_Transmit_DMA_7
 ??HAL_SAI_Transmit_DMA_3:
-        LDR      R1,[R4, #+4]
+        LDR      R1,[R5, #+4]
         CMP      R1,#+3
         IT       NE 
         CMPNE    R1,#+2
@@ -2336,16 +2235,24 @@ HAL_SAI_Transmit_DMA:
 ??HAL_SAI_Transmit_DMA_7:
         ORR      R0,R0,#0x4
         B.N      ??HAL_SAI_Transmit_DMA_6
+// 1057     
+// 1058     /* Enable SAI Tx DMA Request */  
+// 1059     hsai->Instance->CR1 |= SAI_xCR1_DMAEN;
+// 1060     
+// 1061     /* Process Unlocked */
+// 1062     __HAL_UNLOCK(hsai);
+// 1063     
+// 1064     return HAL_OK;
 // 1065   }
 // 1066   else
 // 1067   {
 // 1068     return HAL_BUSY;
 ??HAL_SAI_Transmit_DMA_1:
         MOVS     R0,#+2
-        POP      {R4,PC}          ;; return
+        POP      {R1,R4,R5,PC}    ;; return
 // 1069   }
 // 1070 }
-          CFI EndBlock cfiBlock13
+          CFI EndBlock cfiBlock16
 // 1071 
 // 1072 /**
 // 1073   * @brief  Receives an amount of data in no-blocking mode with DMA. 
@@ -2357,7 +2264,7 @@ HAL_SAI_Transmit_DMA:
 // 1079   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock14 Using cfiCommon0
+          CFI Block cfiBlock17 Using cfiCommon0
           CFI Function HAL_SAI_Receive_DMA
         THUMB
 // 1080 HAL_StatusTypeDef HAL_SAI_Receive_DMA(SAI_HandleTypeDef *hsai, uint8_t *pData, uint16_t Size)
@@ -2367,79 +2274,81 @@ HAL_SAI_Transmit_DMA:
 // 1084   if((pData == NULL) || (Size == 0))
 HAL_SAI_Receive_DMA:
         CMP      R1,#+0
-        PUSH     {R4,LR}
+        PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOV      R4,R0
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+16
+        MOV      R5,R0
         IT       NE 
         CMPNE    R2,#+0
         BNE.N    ??HAL_SAI_Receive_DMA_0
 // 1085   {
 // 1086     return  HAL_ERROR;
         MOVS     R0,#+1
-        POP      {R4,PC}
+        POP      {R1,R4,R5,PC}
 // 1087   } 
 // 1088   
 // 1089   if(hsai->State == HAL_SAI_STATE_READY)
 ??HAL_SAI_Receive_DMA_0:
-        LDRB     R0,[R4, #+125]
+        ADD      R4,R5,#+104
+        LDRB     R0,[R4, #+21]
         CMP      R0,#+1
         BNE.N    ??HAL_SAI_Receive_DMA_1
 // 1090   {   
 // 1091     /* Process Locked */
 // 1092     __HAL_LOCK(hsai);
-        LDRB     R0,[R4, #+124]
+        LDRB     R0,[R4, #+20]
         CMP      R0,#+1
         BEQ.N    ??HAL_SAI_Receive_DMA_1
         MOVS     R0,#+1
+        STRB     R0,[R4, #+20]
 // 1093     
 // 1094     hsai->pBuffPtr = pData;
-        STR      R1,[R4, #+100]
-        STRB     R0,[R4, #+124]
 // 1095     hsai->XferSize = Size;
 // 1096     hsai->XferCount = Size;
 // 1097     hsai->ErrorCode = HAL_SAI_ERROR_NONE;    
         MOVS     R0,#+0
-        STRH     R2,[R4, #+104]
-        STRH     R2,[R4, #+106]
-        STR      R0,[R4, #+128]
+        STR      R1,[R5, #+100]
+        STRH     R2,[R4, #+0]
+        STRH     R2,[R4, #+2]
+        STR      R0,[R4, #+24]
 // 1098     hsai->State = HAL_SAI_STATE_BUSY_RX;
         MOVS     R0,#+34
-        STRB     R0,[R4, #+125]
+        STRB     R0,[R4, #+21]
 // 1099     
 // 1100     /* Set the SAI Rx DMA Half transfer complete callback */
 // 1101     hsai->hdmarx->XferHalfCpltCallback = SAI_DMARxHalfCplt;
-        LDR      R2,[R4, #+112]
+        LDR      R2,[R4, #+8]
         ADR.W    R0,SAI_DMARxHalfCplt
         STR      R0,[R2, #+64]
 // 1102     
 // 1103     /* Set the SAI Rx DMA transfer complete callback */
 // 1104     hsai->hdmarx->XferCpltCallback = SAI_DMARxCplt;
-        LDR      R2,[R4, #+112]
+        LDR      R2,[R4, #+8]
         ADR.W    R0,SAI_DMARxCplt
         STR      R0,[R2, #+60]
 // 1105     
 // 1106     /* Set the DMA error callback */
 // 1107     hsai->hdmarx->XferErrorCallback = SAI_DMAError;
-        LDR      R2,[R4, #+112]
+        LDR      R2,[R4, #+8]
         ADR.W    R0,SAI_DMAError
         STR      R0,[R2, #+72]
 // 1108     
 // 1109     /* Enable the Rx DMA Stream */
 // 1110     tmp = (uint32_t*)&pData;
 // 1111     HAL_DMA_Start_IT(hsai->hdmarx, (uint32_t)&hsai->Instance->DR, *(uint32_t*)tmp, hsai->XferSize);
-        LDR      R0,[R4, #+0]
+        LDR      R0,[R5, #+0]
         MOV      R2,R1
-        LDRH     R3,[R4, #+104]
+        LDRH     R3,[R4, #+0]
         ADD      R1,R0,#+28
-        LDR      R0,[R4, #+112]
+        LDR      R0,[R4, #+8]
           CFI FunCall HAL_DMA_Start_IT
         BL       HAL_DMA_Start_IT
 // 1112     
 // 1113     /* Check if the SAI is already enabled */
 // 1114     if((hsai->Instance->CR1 & SAI_xCR1_SAIEN) == RESET)
-        LDR      R0,[R4, #+0]
+        LDR      R0,[R5, #+0]
         LDR      R1,[R0, #+0]
         LSLS     R1,R1,#+15
         BMI.N    ??HAL_SAI_Receive_DMA_2
@@ -2454,43 +2363,25 @@ HAL_SAI_Receive_DMA:
 // 1120     /* Enable the interrupts for error handling */
 // 1121     __HAL_SAI_ENABLE_IT(hsai, SAI_InterruptFlag(hsai, SAI_MODE_DMA));
 ??HAL_SAI_Receive_DMA_2:
-        LDR      R1,[R4, #+48]
+        LDR      R1,[R5, #+48]
         MOVS     R0,#+1
         CMP      R1,#+8
         BNE.N    ??HAL_SAI_Receive_DMA_3
-        LDR      R1,[R4, #+4]
+        LDR      R1,[R5, #+4]
         CMP      R1,#+3
         BNE.N    ??HAL_SAI_Receive_DMA_4
         MOVS     R0,#+17
 ??HAL_SAI_Receive_DMA_5:
         ORR      R0,R0,#0x60
 ??HAL_SAI_Receive_DMA_6:
-        LDR      R1,[R4, #+0]
-        LDR      R2,[R1, #+16]
-        ORRS     R0,R0,R2
-        STR      R0,[R1, #+16]
-// 1122     
-// 1123     /* Enable SAI Rx DMA Request */
-// 1124     hsai->Instance->CR1 |= SAI_xCR1_DMAEN;
-        LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x20000
-        STR      R1,[R0, #+0]
-// 1125     
-// 1126     /* Process Unlocked */
-// 1127     __HAL_UNLOCK(hsai);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+124]
-// 1128     
-// 1129     return HAL_OK;
-        POP      {R4,PC}
+        B.N      ?Subroutine5
 ??HAL_SAI_Receive_DMA_4:
         CMP      R1,#+1
         IT       EQ 
         MOVEQ    R0,#+17
         BEQ.N    ??HAL_SAI_Receive_DMA_7
 ??HAL_SAI_Receive_DMA_3:
-        LDR      R1,[R4, #+4]
+        LDR      R1,[R5, #+4]
         CMP      R1,#+3
         IT       NE 
         CMPNE    R1,#+2
@@ -2498,16 +2389,59 @@ HAL_SAI_Receive_DMA:
 ??HAL_SAI_Receive_DMA_7:
         ORR      R0,R0,#0x4
         B.N      ??HAL_SAI_Receive_DMA_6
+// 1122     
+// 1123     /* Enable SAI Rx DMA Request */
+// 1124     hsai->Instance->CR1 |= SAI_xCR1_DMAEN;
+// 1125     
+// 1126     /* Process Unlocked */
+// 1127     __HAL_UNLOCK(hsai);
+// 1128     
+// 1129     return HAL_OK;
 // 1130   }
 // 1131   else
 // 1132   {
 // 1133     return HAL_BUSY;
 ??HAL_SAI_Receive_DMA_1:
         MOVS     R0,#+2
-        POP      {R4,PC}          ;; return
+        POP      {R1,R4,R5,PC}    ;; return
 // 1134   }
 // 1135 }
-          CFI EndBlock cfiBlock14
+          CFI EndBlock cfiBlock17
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock18 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+16
+          CFI R4 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+        THUMB
+?Subroutine5:
+        LDR      R1,[R5, #+0]
+        LDR      R2,[R1, #+16]
+        ORRS     R0,R0,R2
+        STR      R0,[R1, #+16]
+        LDR      R0,[R5, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x20000
+        STR      R1,[R0, #+0]
+          CFI EndBlock cfiBlock18
+        REQUIRE ??Subroutine10_0
+        ;; // Fall through to label ??Subroutine10_0
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock19 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+16
+          CFI R4 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+        THUMB
+??Subroutine10_0:
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+20]
+        POP      {R1,R4,R5,PC}
+          CFI EndBlock cfiBlock19
 // 1136 
 // 1137 /**
 // 1138   * @brief  Enable the tx mute mode.
@@ -2518,7 +2452,7 @@ HAL_SAI_Receive_DMA:
 // 1143   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock15 Using cfiCommon0
+          CFI Block cfiBlock20 Using cfiCommon0
           CFI Function HAL_SAI_EnableTxMuteMode
           CFI NoCalls
         THUMB
@@ -2541,17 +2475,15 @@ HAL_SAI_EnableTxMuteMode:
         LDR      R0,[R0, #+0]
         LDR      R2,[R0, #+4]
         ORRS     R1,R1,R2
-        STR      R1,[R0, #+4]
+        B.N      ?Subroutine7
 // 1152     return HAL_OK;
-        MOVS     R0,#+0
-        BX       LR
 // 1153   }
 // 1154   return HAL_ERROR;
 ??HAL_SAI_EnableTxMuteMode_0:
         MOVS     R0,#+1
         BX       LR               ;; return
 // 1155 }
-          CFI EndBlock cfiBlock15
+          CFI EndBlock cfiBlock20
 // 1156 
 // 1157 /**
 // 1158   * @brief  Disable the tx mute mode.
@@ -2561,7 +2493,7 @@ HAL_SAI_EnableTxMuteMode:
 // 1162   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock16 Using cfiCommon0
+          CFI Block cfiBlock21 Using cfiCommon0
           CFI Function HAL_SAI_DisableTxMuteMode
           CFI NoCalls
         THUMB
@@ -2576,17 +2508,25 @@ HAL_SAI_DisableTxMuteMode:
         LDR      R0,[R0, #+0]
         LDR      R1,[R0, #+4]
         BIC      R1,R1,#0x60
-        STR      R1,[R0, #+4]
+        B.N      ?Subroutine7
 // 1168     return HAL_OK;
-        MOVS     R0,#+0
-        BX       LR
 // 1169   }
 // 1170   return HAL_ERROR;
 ??HAL_SAI_DisableTxMuteMode_0:
         MOVS     R0,#+1
         BX       LR               ;; return
 // 1171 }
-          CFI EndBlock cfiBlock16
+          CFI EndBlock cfiBlock21
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock22 Using cfiCommon0
+          CFI NoFunction
+        THUMB
+?Subroutine7:
+        STR      R1,[R0, #+4]
+        MOVS     R0,#+0
+        BX       LR
+          CFI EndBlock cfiBlock22
 // 1172 
 // 1173 /**
 // 1174   * @brief  Enable the rx mute detection.
@@ -2598,29 +2538,32 @@ HAL_SAI_DisableTxMuteMode:
 // 1180   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock17 Using cfiCommon0
+          CFI Block cfiBlock23 Using cfiCommon0
           CFI Function HAL_SAI_EnableRxMuteMode
           CFI NoCalls
         THUMB
 // 1181 HAL_StatusTypeDef HAL_SAI_EnableRxMuteMode(SAI_HandleTypeDef *hsai, SAIcallback callback, uint16_t counter)
 // 1182 {
+HAL_SAI_EnableRxMuteMode:
+        PUSH     {R4}
+          CFI R4 Frame(CFA, -4)
+          CFI CFA R13+4
 // 1183   assert_param(IS_SAI_BLOCK_MUTE_COUNTER(counter));
 // 1184   
 // 1185   if(hsai->State != HAL_SAI_STATE_RESET)
-HAL_SAI_EnableRxMuteMode:
         LDRB     R3,[R0, #+125]
         CBZ.N    R3,??HAL_SAI_EnableRxMuteMode_0
 // 1186   {
 // 1187     /* set the mute counter */
 // 1188     CLEAR_BIT(hsai->Instance->CR2, SAI_xCR2_MUTECNT);
         LDR      R3,[R0, #+0]
-        LDR      R12,[R3, #+4]
-        BIC      R12,R12,#0x1F80
-        STR      R12,[R3, #+4]
+        LDR      R4,[R3, #+4]
+        BIC      R4,R4,#0x1F80
+        STR      R4,[R3, #+4]
 // 1189     SET_BIT(hsai->Instance->CR2, (uint32_t)((uint32_t)counter << SAI_xCR2_MUTECNT_OFFSET));
         LDR      R3,[R0, #+0]
-        LDR      R12,[R3, #+4]
-        ORR      R2,R12,R2, LSL #+7
+        LDR      R4,[R3, #+4]
+        ORR      R2,R4,R2, LSL #+7
         STR      R2,[R3, #+4]
 // 1190     hsai->mutecallback = callback;
         STR      R1,[R0, #+116]
@@ -2631,15 +2574,28 @@ HAL_SAI_EnableRxMuteMode:
         ORR      R1,R1,#0x2
         STR      R1,[R0, #+16]
 // 1193     return HAL_OK;
-        MOVS     R0,#+0
-        BX       LR
+        B.N      ?Subroutine9
 // 1194   }
 // 1195   return HAL_ERROR;
 ??HAL_SAI_EnableRxMuteMode_0:
-        MOVS     R0,#+1
-        BX       LR               ;; return
+          CFI EndBlock cfiBlock23
+        REQUIRE ?Subroutine8
+        ;; // Fall through to label ?Subroutine8
 // 1196 }
-          CFI EndBlock cfiBlock17
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock24 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+4
+          CFI R4 Frame(CFA, -4)
+        THUMB
+?Subroutine8:
+        MOVS     R0,#+1
+        POP      {R4}
+          CFI CFA R13+0
+          CFI R4 SameValue
+        BX       LR               ;; return
+          CFI EndBlock cfiBlock24
 // 1197 
 // 1198 /**
 // 1199   * @brief  Disable the rx mute detection.
@@ -2649,7 +2605,7 @@ HAL_SAI_EnableRxMuteMode:
 // 1203   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock18 Using cfiCommon0
+          CFI Block cfiBlock25 Using cfiCommon0
           CFI Function HAL_SAI_DisableRxMuteMode
           CFI NoCalls
         THUMB
@@ -2679,7 +2635,7 @@ HAL_SAI_DisableRxMuteMode:
         MOVS     R0,#+1
         BX       LR               ;; return
 // 1215 }
-          CFI EndBlock cfiBlock18
+          CFI EndBlock cfiBlock25
 // 1216 
 // 1217 /**
 // 1218   * @brief  This function handles SAI interrupt request.
@@ -2689,7 +2645,7 @@ HAL_SAI_DisableRxMuteMode:
 // 1222   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock19 Using cfiCommon0
+          CFI Block cfiBlock26 Using cfiCommon0
           CFI Function HAL_SAI_IRQHandler
         THUMB
 // 1223 void HAL_SAI_IRQHandler(SAI_HandleTypeDef *hsai)
@@ -2877,7 +2833,7 @@ HAL_SAI_IRQHandler:
 // 1300 }
 ??HAL_SAI_IRQHandler_0:
         POP      {R4-R6,PC}       ;; return
-          CFI EndBlock cfiBlock19
+          CFI EndBlock cfiBlock26
 // 1301 
 // 1302 /**
 // 1303   * @brief Tx Transfer completed callbacks.
@@ -2887,7 +2843,7 @@ HAL_SAI_IRQHandler:
 // 1307   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock20 Using cfiCommon0
+          CFI Block cfiBlock27 Using cfiCommon0
           CFI Function HAL_SAI_TxCpltCallback
           CFI NoCalls
         THUMB
@@ -2902,7 +2858,7 @@ HAL_SAI_IRQHandler:
 // 1316 }
 HAL_SAI_TxCpltCallback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock20
+          CFI EndBlock cfiBlock27
 // 1317 
 // 1318 /**
 // 1319   * @brief Tx Transfer Half completed callbacks
@@ -2912,7 +2868,7 @@ HAL_SAI_TxCpltCallback:
 // 1323   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock21 Using cfiCommon0
+          CFI Block cfiBlock28 Using cfiCommon0
           CFI Function HAL_SAI_TxHalfCpltCallback
           CFI NoCalls
         THUMB
@@ -2927,7 +2883,7 @@ HAL_SAI_TxCpltCallback:
 // 1332 }
 HAL_SAI_TxHalfCpltCallback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock21
+          CFI EndBlock cfiBlock28
 // 1333 
 // 1334 /**
 // 1335   * @brief Rx Transfer completed callbacks.
@@ -2937,7 +2893,7 @@ HAL_SAI_TxHalfCpltCallback:
 // 1339   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock22 Using cfiCommon0
+          CFI Block cfiBlock29 Using cfiCommon0
           CFI Function HAL_SAI_RxCpltCallback
           CFI NoCalls
         THUMB
@@ -2952,7 +2908,7 @@ HAL_SAI_TxHalfCpltCallback:
 // 1348 }
 HAL_SAI_RxCpltCallback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock22
+          CFI EndBlock cfiBlock29
 // 1349 
 // 1350 /**
 // 1351   * @brief Rx Transfer half completed callbacks
@@ -2962,7 +2918,7 @@ HAL_SAI_RxCpltCallback:
 // 1355   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock23 Using cfiCommon0
+          CFI Block cfiBlock30 Using cfiCommon0
           CFI Function HAL_SAI_RxHalfCpltCallback
           CFI NoCalls
         THUMB
@@ -2977,7 +2933,7 @@ HAL_SAI_RxCpltCallback:
 // 1364 }
 HAL_SAI_RxHalfCpltCallback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock23
+          CFI EndBlock cfiBlock30
 // 1365 
 // 1366 /**
 // 1367   * @brief SAI error callbacks.
@@ -2987,7 +2943,7 @@ HAL_SAI_RxHalfCpltCallback:
 // 1371   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock24 Using cfiCommon0
+          CFI Block cfiBlock31 Using cfiCommon0
           CFI Function HAL_SAI_ErrorCallback
           CFI NoCalls
         THUMB
@@ -3002,7 +2958,7 @@ HAL_SAI_RxHalfCpltCallback:
 // 1380 }
 HAL_SAI_ErrorCallback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock24
+          CFI EndBlock cfiBlock31
 // 1381 
 // 1382 /**
 // 1383   * @}
@@ -3032,7 +2988,7 @@ HAL_SAI_ErrorCallback:
 // 1407   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock25 Using cfiCommon0
+          CFI Block cfiBlock32 Using cfiCommon0
           CFI Function HAL_SAI_GetState
           CFI NoCalls
         THUMB
@@ -3043,7 +2999,7 @@ HAL_SAI_GetState:
         LDRB     R0,[R0, #+125]
         BX       LR               ;; return
 // 1411 }
-          CFI EndBlock cfiBlock25
+          CFI EndBlock cfiBlock32
 // 1412 
 // 1413 /**
 // 1414 * @brief  Return the SAI error code
@@ -3053,7 +3009,7 @@ HAL_SAI_GetState:
 // 1418 */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock26 Using cfiCommon0
+          CFI Block cfiBlock33 Using cfiCommon0
           CFI Function HAL_SAI_GetError
           CFI NoCalls
         THUMB
@@ -3064,7 +3020,7 @@ HAL_SAI_GetError:
         LDR      R0,[R0, #+128]
         BX       LR               ;; return
 // 1422 }
-          CFI EndBlock cfiBlock26
+          CFI EndBlock cfiBlock33
 // 1423 /**
 // 1424   * @}
 // 1425   */
@@ -3083,7 +3039,7 @@ HAL_SAI_GetError:
 // 1438   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock27 Using cfiCommon0
+          CFI Block cfiBlock34 Using cfiCommon0
           CFI Function SAI_InitI2S
           CFI NoCalls
         THUMB
@@ -3129,15 +3085,25 @@ SAI_InitI2S:
         CMP      R1,#+2
         BEQ.N    ??SAI_InitI2S_3
         BCC.N    ??SAI_InitI2S_3
+        B.N      ??SAI_InitI2S_1
 // 1460   {
 // 1461   case SAI_I2S_STANDARD :
 // 1462     hsai->FrameInit.FSPolarity = SAI_FS_ACTIVE_LOW;
+??SAI_InitI2S_2:
+        MOVS     R4,#+0
+        STR      R4,[R0, #+76]
 // 1463     hsai->FrameInit.FSOffset   = SAI_FS_BEFOREFIRSTBIT;
+        MOV      R4,#+262144
+        B.N      ??SAI_InitI2S_4
 // 1464     break;
 // 1465   case SAI_I2S_MSBJUSTIFIED :
 // 1466   case SAI_I2S_LSBJUSTIFIED :
 // 1467     hsai->FrameInit.FSPolarity = SAI_FS_ACTIVE_HIGH;
+??SAI_InitI2S_3:
+        MOV      R4,#+131072
+        STR      R4,[R0, #+76]
 // 1468     hsai->FrameInit.FSOffset   = SAI_FS_FIRSTBIT;
+        MOVS     R4,#+0
 // 1469     break;
 // 1470   default :
 // 1471     return HAL_ERROR;
@@ -3145,12 +3111,31 @@ SAI_InitI2S:
 // 1473   
 // 1474   /* Frame definition */
 // 1475   switch(datasize)
+??SAI_InitI2S_4:
+        CMP      R2,#+4
+        STR      R4,[R0, #+80]
+        BHI.N    ??SAI_InitI2S_1
+        TBB      [PC, R2]
+        DATA
+??SAI_InitI2S_0:
+        DC8      0x3,0x12,0x1B,0x2D
+        DC8      0x24,0x0
+        THUMB
 // 1476   {
 // 1477   case SAI_PROTOCOL_DATASIZE_16BIT:
 // 1478     hsai->Init.DataSize = SAI_DATASIZE_16;
+??SAI_InitI2S_5:
+        MOVS     R4,#+128
 // 1479     hsai->FrameInit.FrameLength = 32*(nbslot/2);
+        LSRS     R3,R3,#+1
+        STR      R4,[R0, #+52]
+        LSLS     R4,R3,#+5
 // 1480     hsai->FrameInit.ActiveFrameLength = 16*(nbslot/2);
+        LSLS     R3,R3,#+4
+        STR      R4,[R0, #+64]
+        STR      R3,[R0, #+68]
 // 1481     hsai->SlotInit.SlotSize = SAI_SLOTSIZE_16B;
+        MOVS     R3,#+64
 // 1482     break; 
 // 1483   case SAI_PROTOCOL_DATASIZE_16BITEXTENDED :
 // 1484     hsai->Init.DataSize = SAI_DATASIZE_16;
@@ -3172,41 +3157,6 @@ SAI_InitI2S:
 // 1500     break;
 // 1501   default :
 // 1502     return HAL_ERROR;  
-        MOVS     R0,#+1
-        POP      {R4}
-          CFI R4 SameValue
-          CFI CFA R13+0
-        BX       LR
-          CFI R4 Frame(CFA, -4)
-          CFI CFA R13+4
-??SAI_InitI2S_2:
-        MOVS     R4,#+0
-        STR      R4,[R0, #+76]
-        MOV      R4,#+262144
-        B.N      ??SAI_InitI2S_4
-??SAI_InitI2S_3:
-        MOV      R4,#+131072
-        STR      R4,[R0, #+76]
-        MOVS     R4,#+0
-??SAI_InitI2S_4:
-        CMP      R2,#+4
-        STR      R4,[R0, #+80]
-        BHI.N    ??SAI_InitI2S_1
-        TBB      [PC, R2]
-        DATA
-??SAI_InitI2S_0:
-        DC8      0x3,0x12,0x1B,0x2D
-        DC8      0x24,0x0
-        THUMB
-??SAI_InitI2S_5:
-        MOVS     R4,#+128
-        LSRS     R3,R3,#+1
-        STR      R4,[R0, #+52]
-        LSLS     R4,R3,#+5
-        LSLS     R3,R3,#+4
-        STR      R4,[R0, #+64]
-        STR      R3,[R0, #+68]
-        MOVS     R3,#+64
 // 1503   }
 // 1504   if(protocol == SAI_I2S_LSBJUSTIFIED)
 ??SAI_InitI2S_6:
@@ -3250,13 +3200,7 @@ SAI_InitI2S:
         MOVS     R3,#+128
         B.N      ??SAI_InitI2S_6
 ??SAI_InitI2S_1:
-        MOVS     R0,#+1
-        POP      {R4}
-          CFI R4 SameValue
-          CFI CFA R13+0
-        BX       LR
-          CFI R4 Frame(CFA, -4)
-          CFI CFA R13+4
+        B.N      ?Subroutine8
 // 1507     {
 // 1508       hsai->SlotInit.FirstBitOffset = 16;
 // 1509     }
@@ -3273,13 +3217,24 @@ SAI_InitI2S:
 // 1514   }
 // 1515   return HAL_OK;
 ??SAI_InitI2S_7:
+          CFI EndBlock cfiBlock34
+        REQUIRE ?Subroutine9
+        ;; // Fall through to label ?Subroutine9
+// 1516 }
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock35 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+4
+          CFI R4 Frame(CFA, -4)
+        THUMB
+?Subroutine9:
         MOVS     R0,#+0
         POP      {R4}
-          CFI R4 SameValue
           CFI CFA R13+0
-        BX       LR               ;; return
-// 1516 }
-          CFI EndBlock cfiBlock27
+          CFI R4 SameValue
+        BX       LR
+          CFI EndBlock cfiBlock35
 // 1517 
 // 1518 /**
 // 1519   * @brief  Initializes the SAI PCM protocol according to the specified parameters 
@@ -3356,13 +3311,18 @@ SAI_InitI2S:
 // 1590   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock28 Using cfiCommon0
+          CFI Block cfiBlock36 Using cfiCommon0
           CFI Function SAI_FillFifo
           CFI NoCalls
         THUMB
 // 1591 static void SAI_FillFifo(SAI_HandleTypeDef *hsai)
 // 1592 {
 SAI_FillFifo:
+        PUSH     {R4,R5}
+          CFI R5 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        ADD      R1,R0,#+100
         B.N      ??SAI_FillFifo_0
 // 1593   /* fill the fifo with data before to enabled the SAI */
 // 1594   while(((hsai->Instance->SR & SAI_xSR_FLVL) != SAI_FIFOSTATUS_FULL) && (hsai->XferCount > 0))   
@@ -3380,51 +3340,55 @@ SAI_FillFifo:
 // 1606     {
 // 1607       hsai->Instance->DR = *((uint32_t *)hsai->pBuffPtr);
 ??SAI_FillFifo_1:
-        LDR      R1,[R0, #+100]
-        LDR      R12,[R1], #+4
-        STR      R12,[R2, #+28]
+        LDR      R2,[R1, #+0]
+        LDR      R5,[R2], #+4
+        STR      R5,[R3, #+28]
 // 1608       hsai->pBuffPtr+= 4;
 ??SAI_FillFifo_2:
-        STR      R1,[R0, #+100]
+        STR      R2,[R1, #+0]
 // 1609     }
 // 1610     hsai->XferCount--;
 ??SAI_FillFifo_3:
-        SUBS     R1,R3,#+1
-        STRH     R1,[R0, #+106]
+        SUBS     R2,R4,#+1
+        STRH     R2,[R1, #+6]
 ??SAI_FillFifo_0:
-        LDR      R2,[R0, #+0]
-        LDR      R1,[R2, #+20]
-        AND      R1,R1,#0x70000
-        CMP      R1,#+327680
+        LDR      R3,[R0, #+0]
+        LDR      R2,[R3, #+20]
+        AND      R2,R2,#0x70000
+        CMP      R2,#+327680
         ITT      NE 
-        LDRHNE   R3,[R0, #+106]
-        CMPNE    R3,#+0
+        LDRHNE   R4,[R1, #+6]
+        CMPNE    R4,#+0
         BEQ.N    ??SAI_FillFifo_4
-        LDR      R1,[R0, #+52]
-        CMP      R1,#+64
+        LDR      R2,[R0, #+52]
+        CMP      R2,#+64
         BNE.N    ??SAI_FillFifo_5
-        LDR      R1,[R0, #+40]
-        CBNZ.N   R1,??SAI_FillFifo_6
-        LDR      R1,[R0, #+100]
-        ADDS     R1,R1,#+1
-        STR      R1,[R0, #+100]
-        SUBS     R1,R1,#+1
-        LDRB     R1,[R1, #+0]
-        STR      R1,[R2, #+28]
+        LDR      R2,[R0, #+40]
+        CBNZ.N   R2,??SAI_FillFifo_6
+        LDR      R2,[R1, #+0]
+        ADDS     R2,R2,#+1
+        STR      R2,[R1, #+0]
+        SUBS     R2,R2,#+1
+        LDRB     R2,[R2, #+0]
+        STR      R2,[R3, #+28]
         B.N      ??SAI_FillFifo_3
 ??SAI_FillFifo_5:
-        CMP      R1,#+129
+        CMP      R2,#+129
         BCS.N    ??SAI_FillFifo_1
 ??SAI_FillFifo_6:
-        LDR      R1,[R0, #+100]
-        LDR      R12,[R1], #+2
-        STR      R12,[R2, #+28]
+        LDR      R2,[R1, #+0]
+        LDR      R5,[R2], #+2
+        STR      R5,[R3, #+28]
         B.N      ??SAI_FillFifo_2
 // 1611   }
 // 1612 }
 ??SAI_FillFifo_4:
+        POP      {R4,R5}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI CFA R13+0
         BX       LR               ;; return
-          CFI EndBlock cfiBlock28
+          CFI EndBlock cfiBlock36
 // 1613 
 // 1614 /**
 // 1615   * @brief  return the interrupt flag to set according the SAI setup 
@@ -3433,17 +3397,39 @@ SAI_FillFifo:
 // 1618   * @param  mode : SAI_MODE_DMA or SAI_MODE_IT
 // 1619   * @retval the list of the IT flag to enable
 // 1620  */
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock37 Using cfiCommon0
+          CFI Function SAI_InterruptFlag
+          CFI NoCalls
+        THUMB
 // 1621 static uint32_t SAI_InterruptFlag(SAI_HandleTypeDef *hsai, uint32_t mode)
 // 1622 {
 // 1623   uint32_t tmpIT = SAI_IT_OVRUDR; 
+SAI_InterruptFlag:
+        MOVS     R2,#+1
 // 1624   
 // 1625   if(mode == SAI_MODE_IT)
+        CMP      R1,#+1
+        IT       EQ 
+        MOVEQ    R2,#+9
 // 1626   {
 // 1627     tmpIT|= SAI_IT_FREQ;
 // 1628   }
 // 1629 
 // 1630   if((hsai->Init.Protocol == SAI_AC97_PROTOCOL) && 
 // 1631     ((hsai->Init.AudioMode == SAI_MODESLAVE_RX) || (hsai->Init.AudioMode == SAI_MODEMASTER_RX)))
+        LDR      R1,[R0, #+4]
+        LDR      R0,[R0, #+48]
+        CMP      R0,#+8
+        BNE.N    ??SAI_InterruptFlag_0
+        CMP      R1,#+3
+        IT       EQ 
+        ORREQ    R2,R2,#0x10
+        BEQ.N    ??SAI_InterruptFlag_1
+        CMP      R1,#+1
+        BNE.N    ??SAI_InterruptFlag_2
+        ORR      R2,R2,#0x10
 // 1632   {
 // 1633     tmpIT|= SAI_IT_CNRDY;
 // 1634   }
@@ -3456,9 +3442,22 @@ SAI_FillFifo:
 // 1641   {
 // 1642     /* hsai has been configured in master mode */
 // 1643     tmpIT|= SAI_IT_WCKCFG;
+??SAI_InterruptFlag_3:
+        ORR      R0,R2,#0x4
 // 1644   }
 // 1645   return tmpIT;
+        BX       LR               ;; return
+??SAI_InterruptFlag_0:
+        CMP      R1,#+3
+        BEQ.N    ??SAI_InterruptFlag_1
+??SAI_InterruptFlag_2:
+        CMP      R1,#+2
+        BNE.N    ??SAI_InterruptFlag_3
+??SAI_InterruptFlag_1:
+        ORR      R0,R2,#0x60
+        BX       LR
 // 1646 }
+          CFI EndBlock cfiBlock37
 // 1647 
 // 1648 /**
 // 1649   * @brief  disable the SAI and wait the disabling
@@ -3466,25 +3465,63 @@ SAI_FillFifo:
 // 1651   *                the configuration information for SAI module.
 // 1652   * @retval None.
 // 1653   */
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock38 Using cfiCommon0
+          CFI Function SAI_Disable
+        THUMB
 // 1654 static HAL_StatusTypeDef SAI_Disable(SAI_HandleTypeDef *hsai)
 // 1655 {
+SAI_Disable:
+        PUSH     {R3-R5,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+16
+        MOV      R4,R0
 // 1656   uint32_t tickstart = HAL_GetTick();
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
 // 1657   HAL_StatusTypeDef status = HAL_OK;
 // 1658   
 // 1659   __HAL_SAI_DISABLE(hsai);
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+0]
+        BIC      R1,R1,#0x10000
+        STR      R1,[R0, #+0]
 // 1660   while((hsai->Instance->CR1 & SAI_xCR1_SAIEN) != RESET)
+??SAI_Disable_0:
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+0]
+        LSLS     R0,R0,#+15
+        BPL.N    ??SAI_Disable_1
 // 1661   {
 // 1662     /* Check for the Timeout */
 // 1663     if((HAL_GetTick() - tickstart ) > SAI_TIMEOUT_VALUE)
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R0,#+11
+        BCC.N    ??SAI_Disable_0
 // 1664     {         
 // 1665       /* Update error code */
 // 1666       hsai->ErrorCode |= HAL_SAI_ERROR_TIMEOUT;
+        LDR      R0,[R4, #+128]
+        ORR      R0,R0,#0x40
+        STR      R0,[R4, #+128]
 // 1667       
 // 1668       return HAL_TIMEOUT;
+        MOVS     R0,#+3
+        POP      {R1,R4,R5,PC}
 // 1669     }
 // 1670   }
 // 1671   return status;
+??SAI_Disable_1:
+        MOVS     R0,#+0
+        POP      {R1,R4,R5,PC}    ;; return
 // 1672 }
+          CFI EndBlock cfiBlock38
 // 1673 
 // 1674 /**
 // 1675   * @brief  Tx Handler for Transmit in Interrupt mode 8Bit transfer
@@ -3494,85 +3531,70 @@ SAI_FillFifo:
 // 1679   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock29 Using cfiCommon0
+          CFI Block cfiBlock39 Using cfiCommon0
           CFI Function SAI_Transmit_IT8Bit
+          CFI NoCalls
         THUMB
 // 1680 static void SAI_Transmit_IT8Bit(SAI_HandleTypeDef *hsai)
 // 1681 {
-SAI_Transmit_IT8Bit:
-        PUSH     {LR}
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+4
-        SUB      SP,SP,#+4
-          CFI CFA R13+8
 // 1682   if(hsai->XferCount == 0)
-        LDRH     R1,[R0, #+106]
-        CBNZ.N   R1,??SAI_Transmit_IT8Bit_0
+SAI_Transmit_IT8Bit:
+        ADD      R1,R0,#+106
+        PUSH     {R4,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        LDRH     R2,[R1, #+0]
+        CBNZ.N   R2,??SAI_Transmit_IT8Bit_0
 // 1683   {
 // 1684     /* Handle the end of the transmission */
 // 1685     /* Disable FREQ and OVRUDR interrupts */
 // 1686     __HAL_SAI_DISABLE_IT(hsai, SAI_InterruptFlag(hsai, SAI_MODE_IT)); 
-        LDR      R2,[R0, #+48]
-        MOVS     R1,#+9
-        CMP      R2,#+8
+        LDR      R3,[R0, #+48]
+        MOVS     R2,#+9
+        CMP      R3,#+8
         BNE.N    ??SAI_Transmit_IT8Bit_1
-        LDR      R2,[R0, #+4]
-        CMP      R2,#+3
+        LDR      R3,[R0, #+4]
+        CMP      R3,#+3
         BNE.N    ??SAI_Transmit_IT8Bit_2
-        MOVS     R1,#+25
+        MOVS     R2,#+25
 ??SAI_Transmit_IT8Bit_3:
-        ORR      R1,R1,#0x60
+        ORR      R2,R2,#0x60
 ??SAI_Transmit_IT8Bit_4:
-        LDR      R2,[R0, #+0]
-        LDR      R3,[R2, #+16]
-        BIC      R1,R3,R1
-        STR      R1,[R2, #+16]
+        B.N      ?Subroutine1
+??SAI_Transmit_IT8Bit_2:
+        CMP      R3,#+1
+        IT       EQ 
+        MOVEQ    R2,#+25
+        BEQ.N    ??SAI_Transmit_IT8Bit_5
+??SAI_Transmit_IT8Bit_1:
+        LDR      R3,[R0, #+4]
+        CMP      R3,#+3
+        IT       NE 
+        CMPNE    R3,#+2
+        BEQ.N    ??SAI_Transmit_IT8Bit_3
+??SAI_Transmit_IT8Bit_5:
+        ORR      R2,R2,#0x4
+        B.N      ??SAI_Transmit_IT8Bit_4
 // 1687     hsai->State = HAL_SAI_STATE_READY;
-        MOVS     R1,#+1
-        STRB     R1,[R0, #+125]
 // 1688     HAL_SAI_TxCpltCallback(hsai);
-          CFI FunCall HAL_SAI_TxCpltCallback
-        BL       HAL_SAI_TxCpltCallback
 // 1689   }
 // 1690   else
 // 1691   {
 // 1692     /* Write data on DR register */
 // 1693     hsai->Instance->DR = (*hsai->pBuffPtr++);
+??SAI_Transmit_IT8Bit_0:
+        LDR      R2,[R0, #+100]
+        ADDS     R3,R2,#+1
+        STR      R3,[R0, #+100]
+        LDRB     R2,[R2, #+0]
+        LDR      R0,[R0, #+0]
+        STR      R2,[R0, #+28]
 // 1694     hsai->XferCount--;
+        B.N      ??Subroutine2_0
 // 1695   }  
 // 1696 }
-        ADD      SP,SP,#+4
-          CFI CFA R13+4
-        POP      {PC}
-          CFI CFA R13+8
-??SAI_Transmit_IT8Bit_2:
-        CMP      R2,#+1
-        IT       EQ 
-        MOVEQ    R1,#+25
-        BEQ.N    ??SAI_Transmit_IT8Bit_5
-??SAI_Transmit_IT8Bit_1:
-        LDR      R2,[R0, #+4]
-        CMP      R2,#+3
-        IT       NE 
-        CMPNE    R2,#+2
-        BEQ.N    ??SAI_Transmit_IT8Bit_3
-??SAI_Transmit_IT8Bit_5:
-        ORR      R1,R1,#0x4
-        B.N      ??SAI_Transmit_IT8Bit_4
-??SAI_Transmit_IT8Bit_0:
-        LDR      R1,[R0, #+100]
-        ADDS     R2,R1,#+1
-        STR      R2,[R0, #+100]
-        LDRB     R1,[R1, #+0]
-        LDR      R2,[R0, #+0]
-        STR      R1,[R2, #+28]
-        LDRH     R1,[R0, #+106]
-        SUBS     R1,R1,#+1
-        STRH     R1,[R0, #+106]
-        ADD      SP,SP,#+4
-          CFI CFA R13+4
-        POP      {PC}             ;; return
-          CFI EndBlock cfiBlock29
+          CFI EndBlock cfiBlock39
 // 1697 
 // 1698 /**
 // 1699   * @brief  Tx Handler for Transmit in Interrupt mode for 16Bit transfer
@@ -3582,87 +3604,105 @@ SAI_Transmit_IT8Bit:
 // 1703   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock30 Using cfiCommon0
+          CFI Block cfiBlock40 Using cfiCommon0
           CFI Function SAI_Transmit_IT16Bit
+          CFI NoCalls
         THUMB
 // 1704 static void SAI_Transmit_IT16Bit(SAI_HandleTypeDef *hsai)
 // 1705 {
-SAI_Transmit_IT16Bit:
-        PUSH     {LR}
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+4
-        SUB      SP,SP,#+4
-          CFI CFA R13+8
 // 1706   if(hsai->XferCount == 0)
-        LDRH     R1,[R0, #+106]
-        CBNZ.N   R1,??SAI_Transmit_IT16Bit_0
+SAI_Transmit_IT16Bit:
+        ADD      R1,R0,#+106
+        PUSH     {R4,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        LDRH     R2,[R1, #+0]
+        CBNZ.N   R2,??SAI_Transmit_IT16Bit_0
 // 1707   {
 // 1708     /* Handle the end of the transmission */    
 // 1709     /* Disable FREQ and OVRUDR interrupts */
 // 1710     __HAL_SAI_DISABLE_IT(hsai, SAI_InterruptFlag(hsai, SAI_MODE_IT)); 
-        LDR      R2,[R0, #+48]
-        MOVS     R1,#+9
-        CMP      R2,#+8
+        LDR      R3,[R0, #+48]
+        MOVS     R2,#+9
+        CMP      R3,#+8
         BNE.N    ??SAI_Transmit_IT16Bit_1
-        LDR      R2,[R0, #+4]
-        CMP      R2,#+3
+        LDR      R3,[R0, #+4]
+        CMP      R3,#+3
         BNE.N    ??SAI_Transmit_IT16Bit_2
-        MOVS     R1,#+25
+        MOVS     R2,#+25
 ??SAI_Transmit_IT16Bit_3:
-        ORR      R1,R1,#0x60
+        ORR      R2,R2,#0x60
 ??SAI_Transmit_IT16Bit_4:
-        LDR      R2,[R0, #+0]
-        LDR      R3,[R2, #+16]
-        BIC      R1,R3,R1
-        STR      R1,[R2, #+16]
+        B.N      ?Subroutine1
+??SAI_Transmit_IT16Bit_2:
+        CMP      R3,#+1
+        IT       EQ 
+        MOVEQ    R2,#+25
+        BEQ.N    ??SAI_Transmit_IT16Bit_5
+??SAI_Transmit_IT16Bit_1:
+        LDR      R3,[R0, #+4]
+        CMP      R3,#+3
+        IT       NE 
+        CMPNE    R3,#+2
+        BEQ.N    ??SAI_Transmit_IT16Bit_3
+??SAI_Transmit_IT16Bit_5:
+        ORR      R2,R2,#0x4
+        B.N      ??SAI_Transmit_IT16Bit_4
 // 1711     hsai->State = HAL_SAI_STATE_READY;
-        MOVS     R1,#+1
-        STRB     R1,[R0, #+125]
 // 1712     HAL_SAI_TxCpltCallback(hsai);
-          CFI FunCall HAL_SAI_TxCpltCallback
-        BL       HAL_SAI_TxCpltCallback
 // 1713   }
 // 1714   else
 // 1715   {
 // 1716     /* Write data on DR register */
 // 1717     hsai->Instance->DR = *(uint16_t *)hsai->pBuffPtr;
+??SAI_Transmit_IT16Bit_0:
+        LDR      R2,[R0, #+100]
+        LDR      R3,[R0, #+0]
+        LDRH     R2,[R2, #+0]
+        STR      R2,[R3, #+28]
 // 1718     hsai->pBuffPtr+=2;
+        LDR      R2,[R0, #+100]
+        ADDS     R2,R2,#+2
+        B.N      ?Subroutine2
 // 1719     hsai->XferCount--;
 // 1720   }  
 // 1721 }
-        ADD      SP,SP,#+4
-          CFI CFA R13+4
-        POP      {PC}
+          CFI EndBlock cfiBlock40
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock41 Using cfiCommon0
+          CFI NoFunction
           CFI CFA R13+8
-??SAI_Transmit_IT16Bit_2:
-        CMP      R2,#+1
-        IT       EQ 
-        MOVEQ    R1,#+25
-        BEQ.N    ??SAI_Transmit_IT16Bit_5
-??SAI_Transmit_IT16Bit_1:
-        LDR      R2,[R0, #+4]
-        CMP      R2,#+3
-        IT       NE 
-        CMPNE    R2,#+2
-        BEQ.N    ??SAI_Transmit_IT16Bit_3
-??SAI_Transmit_IT16Bit_5:
-        ORR      R1,R1,#0x4
-        B.N      ??SAI_Transmit_IT16Bit_4
-??SAI_Transmit_IT16Bit_0:
-        LDR      R1,[R0, #+100]
-        LDR      R2,[R0, #+0]
-        LDRH     R1,[R1, #+0]
-        STR      R1,[R2, #+28]
-        LDR      R1,[R0, #+100]
-        ADDS     R1,R1,#+2
-        STR      R1,[R0, #+100]
-        LDRH     R1,[R0, #+106]
-        SUBS     R1,R1,#+1
-        STRH     R1,[R0, #+106]
-        ADD      SP,SP,#+4
-          CFI CFA R13+4
-        POP      {PC}             ;; return
-          CFI EndBlock cfiBlock30
+          CFI R4 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+        THUMB
+?Subroutine1:
+        LDR      R3,[R0, #+0]
+        LDR      R4,[R3, #+16]
+        BIC      R2,R4,R2
+        STR      R2,[R3, #+16]
+        MOVS     R2,#+1
+        STRB     R2,[R1, #+19]
+          CFI EndBlock cfiBlock41
+        REQUIRE ??Subroutine11_0
+        ;; // Fall through to label ??Subroutine11_0
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock42 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+8
+          CFI R4 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI FunCall SAI_DMATxCplt HAL_SAI_TxCpltCallback
+          CFI FunCall SAI_Transmit_IT8Bit HAL_SAI_TxCpltCallback
+          CFI FunCall SAI_Transmit_IT16Bit HAL_SAI_TxCpltCallback
+          CFI FunCall SAI_Transmit_IT32Bit HAL_SAI_TxCpltCallback
+        THUMB
+??Subroutine11_0:
+        BL       HAL_SAI_TxCpltCallback
+        POP      {R4,PC}
+          CFI EndBlock cfiBlock42
 // 1722 
 // 1723 /**
 // 1724   * @brief  Tx Handler for Transmit in Interrupt mode for 32Bit transfer
@@ -3672,87 +3712,88 @@ SAI_Transmit_IT16Bit:
 // 1728   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock31 Using cfiCommon0
+          CFI Block cfiBlock43 Using cfiCommon0
           CFI Function SAI_Transmit_IT32Bit
+          CFI NoCalls
         THUMB
 // 1729 static void SAI_Transmit_IT32Bit(SAI_HandleTypeDef *hsai)
 // 1730 {
-SAI_Transmit_IT32Bit:
-        PUSH     {LR}
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+4
-        SUB      SP,SP,#+4
-          CFI CFA R13+8
 // 1731   if(hsai->XferCount == 0)
-        LDRH     R1,[R0, #+106]
-        CBNZ.N   R1,??SAI_Transmit_IT32Bit_0
+SAI_Transmit_IT32Bit:
+        ADD      R1,R0,#+106
+        PUSH     {R4,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        LDRH     R2,[R1, #+0]
+        CBNZ.N   R2,??SAI_Transmit_IT32Bit_0
 // 1732   {
 // 1733     /* Handle the end of the transmission */
 // 1734     /* Disable FREQ and OVRUDR interrupts */
 // 1735     __HAL_SAI_DISABLE_IT(hsai, SAI_InterruptFlag(hsai, SAI_MODE_IT)); 
-        LDR      R2,[R0, #+48]
-        MOVS     R1,#+9
-        CMP      R2,#+8
+        LDR      R3,[R0, #+48]
+        MOVS     R2,#+9
+        CMP      R3,#+8
         BNE.N    ??SAI_Transmit_IT32Bit_1
-        LDR      R2,[R0, #+4]
-        CMP      R2,#+3
+        LDR      R3,[R0, #+4]
+        CMP      R3,#+3
         BNE.N    ??SAI_Transmit_IT32Bit_2
-        MOVS     R1,#+25
+        MOVS     R2,#+25
 ??SAI_Transmit_IT32Bit_3:
-        ORR      R1,R1,#0x60
+        ORR      R2,R2,#0x60
 ??SAI_Transmit_IT32Bit_4:
-        LDR      R2,[R0, #+0]
-        LDR      R3,[R2, #+16]
-        BIC      R1,R3,R1
-        STR      R1,[R2, #+16]
+        B.N      ?Subroutine1
+??SAI_Transmit_IT32Bit_2:
+        CMP      R3,#+1
+        IT       EQ 
+        MOVEQ    R2,#+25
+        BEQ.N    ??SAI_Transmit_IT32Bit_5
+??SAI_Transmit_IT32Bit_1:
+        LDR      R3,[R0, #+4]
+        CMP      R3,#+3
+        IT       NE 
+        CMPNE    R3,#+2
+        BEQ.N    ??SAI_Transmit_IT32Bit_3
+??SAI_Transmit_IT32Bit_5:
+        ORR      R2,R2,#0x4
+        B.N      ??SAI_Transmit_IT32Bit_4
 // 1736     hsai->State = HAL_SAI_STATE_READY;
-        MOVS     R1,#+1
-        STRB     R1,[R0, #+125]
 // 1737     HAL_SAI_TxCpltCallback(hsai);
-          CFI FunCall HAL_SAI_TxCpltCallback
-        BL       HAL_SAI_TxCpltCallback
 // 1738   }
 // 1739   else
 // 1740   {
 // 1741     /* Write data on DR register */
 // 1742     hsai->Instance->DR = *(uint32_t *)hsai->pBuffPtr;
+??SAI_Transmit_IT32Bit_0:
+        LDR      R2,[R0, #+100]
+        LDR      R3,[R0, #+0]
+        LDR      R2,[R2, #+0]
+        STR      R2,[R3, #+28]
 // 1743     hsai->pBuffPtr+=4;
+        LDR      R2,[R0, #+100]
+        ADDS     R2,R2,#+4
+          CFI EndBlock cfiBlock43
+        REQUIRE ?Subroutine2
+        ;; // Fall through to label ?Subroutine2
 // 1744     hsai->XferCount--;
 // 1745   }
 // 1746 }
-        ADD      SP,SP,#+4
-          CFI CFA R13+4
-        POP      {PC}
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock44 Using cfiCommon0
+          CFI NoFunction
           CFI CFA R13+8
-??SAI_Transmit_IT32Bit_2:
-        CMP      R2,#+1
-        IT       EQ 
-        MOVEQ    R1,#+25
-        BEQ.N    ??SAI_Transmit_IT32Bit_5
-??SAI_Transmit_IT32Bit_1:
-        LDR      R2,[R0, #+4]
-        CMP      R2,#+3
-        IT       NE 
-        CMPNE    R2,#+2
-        BEQ.N    ??SAI_Transmit_IT32Bit_3
-??SAI_Transmit_IT32Bit_5:
-        ORR      R1,R1,#0x4
-        B.N      ??SAI_Transmit_IT32Bit_4
-??SAI_Transmit_IT32Bit_0:
-        LDR      R1,[R0, #+100]
-        LDR      R2,[R0, #+0]
-        LDR      R1,[R1, #+0]
-        STR      R1,[R2, #+28]
-        LDR      R1,[R0, #+100]
-        ADDS     R1,R1,#+4
-        STR      R1,[R0, #+100]
-        LDRH     R1,[R0, #+106]
-        SUBS     R1,R1,#+1
-        STRH     R1,[R0, #+106]
-        ADD      SP,SP,#+4
-          CFI CFA R13+4
-        POP      {PC}             ;; return
-          CFI EndBlock cfiBlock31
+          CFI R4 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+        THUMB
+?Subroutine2:
+        STR      R2,[R0, #+100]
+??Subroutine2_0:
+        LDRH     R0,[R1, #+0]
+        SUBS     R0,R0,#+1
+        STRH     R0,[R1, #+0]
+        POP      {R4,PC}          ;; return
+          CFI EndBlock cfiBlock44
 // 1747 
 // 1748 /**
 // 1749   * @brief  Rx Handler for Receive in Interrupt mode 8Bit transfer
@@ -3762,8 +3803,9 @@ SAI_Transmit_IT32Bit:
 // 1753   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock32 Using cfiCommon0
+          CFI Block cfiBlock45 Using cfiCommon0
           CFI Function SAI_Receive_IT8Bit
+          CFI NoCalls
         THUMB
 // 1754 static void SAI_Receive_IT8Bit(SAI_HandleTypeDef *hsai)
 // 1755 {
@@ -3777,72 +3819,59 @@ SAI_Receive_IT8Bit:
         LDR      R2,[R2, #+28]
         STRB     R2,[R1, #+0]
 // 1758   hsai->XferCount--;
-        LDRH     R1,[R0, #+106]
-        SUBS     R1,R1,#+1
-        STRH     R1,[R0, #+106]
+        ADD      R1,R0,#+106
+        LDRH     R2,[R1, #+0]
+        SUBS     R2,R2,#+1
+        STRH     R2,[R1, #+0]
 // 1759   
 // 1760   /* Check end of the transfer */  
 // 1761   if(hsai->XferCount == 0)
-        UXTH     R1,R1
-        CBZ.N    R1,??SAI_Receive_IT8Bit_0
+        UXTH     R2,R2
+        CBZ.N    R2,??SAI_Receive_IT8Bit_0
         BX       LR
 // 1762   {    
 // 1763     /* Disable TXE and OVRUDR interrupts */
 // 1764     __HAL_SAI_DISABLE_IT(hsai, SAI_InterruptFlag(hsai, SAI_MODE_IT));
 ??SAI_Receive_IT8Bit_0:
-        PUSH     {LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI CFA R13+4
-        SUB      SP,SP,#+4
+          CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-        LDR      R2,[R0, #+48]
-        MOVS     R1,#+9
-        CMP      R2,#+8
+        LDR      R3,[R0, #+48]
+        MOVS     R2,#+9
+        CMP      R3,#+8
         BNE.N    ??SAI_Receive_IT8Bit_1
-        LDR      R2,[R0, #+4]
-        CMP      R2,#+3
+        LDR      R3,[R0, #+4]
+        CMP      R3,#+3
         BNE.N    ??SAI_Receive_IT8Bit_2
-        MOVS     R1,#+25
+        MOVS     R2,#+25
 ??SAI_Receive_IT8Bit_3:
-        ORR      R1,R1,#0x60
+        ORR      R2,R2,#0x60
 ??SAI_Receive_IT8Bit_4:
-        LDR      R2,[R0, #+0]
-        LDR      R3,[R2, #+16]
-        BIC      R1,R3,R1
-        STR      R1,[R2, #+16]
+        B.N      ?Subroutine0
+??SAI_Receive_IT8Bit_2:
+        CMP      R3,#+1
+        IT       EQ 
+        MOVEQ    R2,#+25
+        BEQ.N    ??SAI_Receive_IT8Bit_5
+??SAI_Receive_IT8Bit_1:
+        LDR      R3,[R0, #+4]
+        CMP      R3,#+3
+        IT       NE 
+        CMPNE    R3,#+2
+        BEQ.N    ??SAI_Receive_IT8Bit_3
+??SAI_Receive_IT8Bit_5:
+        ORR      R2,R2,#0x4
+        B.N      ??SAI_Receive_IT8Bit_4
 // 1765     
 // 1766     /* Clear the SAI Overrun flag */
 // 1767     __HAL_SAI_CLEAR_FLAG(hsai, SAI_FLAG_OVRUDR);
-        LDR      R2,[R0, #+0]
-        MOVS     R1,#+1
-        STR      R1,[R2, #+24]
 // 1768     
 // 1769     hsai->State = HAL_SAI_STATE_READY;
-        STRB     R1,[R0, #+125]
 // 1770     HAL_SAI_RxCpltCallback(hsai); 
-          CFI FunCall HAL_SAI_RxCpltCallback
-        BL       HAL_SAI_RxCpltCallback
 // 1771   }
 // 1772 }
-        ADD      SP,SP,#+4
-          CFI CFA R13+4
-        POP      {PC}             ;; return
-          CFI CFA R13+8
-??SAI_Receive_IT8Bit_2:
-        CMP      R2,#+1
-        IT       EQ 
-        MOVEQ    R1,#+25
-        BEQ.N    ??SAI_Receive_IT8Bit_5
-??SAI_Receive_IT8Bit_1:
-        LDR      R2,[R0, #+4]
-        CMP      R2,#+3
-        IT       NE 
-        CMPNE    R2,#+2
-        BEQ.N    ??SAI_Receive_IT8Bit_3
-??SAI_Receive_IT8Bit_5:
-        ORR      R1,R1,#0x4
-        B.N      ??SAI_Receive_IT8Bit_4
-          CFI EndBlock cfiBlock32
+          CFI EndBlock cfiBlock45
 // 1773 
 // 1774 /**
 // 1775   * @brief  Rx Handler for Receive in Interrupt mode for 16Bit transfer
@@ -3852,8 +3881,9 @@ SAI_Receive_IT8Bit:
 // 1779   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock33 Using cfiCommon0
+          CFI Block cfiBlock46 Using cfiCommon0
           CFI Function SAI_Receive_IT16Bit
+          CFI NoCalls
         THUMB
 // 1780 static void SAI_Receive_IT16Bit(SAI_HandleTypeDef *hsai)
 // 1781 {
@@ -3869,72 +3899,95 @@ SAI_Receive_IT16Bit:
         ADDS     R1,R1,#+2
         STR      R1,[R0, #+100]
 // 1785   hsai->XferCount--;
-        LDRH     R1,[R0, #+106]
-        SUBS     R1,R1,#+1
-        STRH     R1,[R0, #+106]
+        ADD      R1,R0,#+106
+        LDRH     R2,[R1, #+0]
+        SUBS     R2,R2,#+1
+        STRH     R2,[R1, #+0]
 // 1786   
 // 1787   /* Check end of the transfer */  
 // 1788   if(hsai->XferCount == 0)
-        UXTH     R1,R1
-        CBZ.N    R1,??SAI_Receive_IT16Bit_0
+        UXTH     R2,R2
+        CBZ.N    R2,??SAI_Receive_IT16Bit_0
         BX       LR
 // 1789   {    
 // 1790     /* Disable TXE and OVRUDR interrupts */
 // 1791     __HAL_SAI_DISABLE_IT(hsai, SAI_InterruptFlag(hsai, SAI_MODE_IT));
 ??SAI_Receive_IT16Bit_0:
-        PUSH     {LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI CFA R13+4
-        SUB      SP,SP,#+4
+          CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-        LDR      R2,[R0, #+48]
-        MOVS     R1,#+9
-        CMP      R2,#+8
+        LDR      R3,[R0, #+48]
+        MOVS     R2,#+9
+        CMP      R3,#+8
         BNE.N    ??SAI_Receive_IT16Bit_1
-        LDR      R2,[R0, #+4]
-        CMP      R2,#+3
+        LDR      R3,[R0, #+4]
+        CMP      R3,#+3
         BNE.N    ??SAI_Receive_IT16Bit_2
-        MOVS     R1,#+25
+        MOVS     R2,#+25
 ??SAI_Receive_IT16Bit_3:
-        ORR      R1,R1,#0x60
+        ORR      R2,R2,#0x60
 ??SAI_Receive_IT16Bit_4:
-        LDR      R2,[R0, #+0]
-        LDR      R3,[R2, #+16]
-        BIC      R1,R3,R1
-        STR      R1,[R2, #+16]
+        B.N      ?Subroutine0
+??SAI_Receive_IT16Bit_2:
+        CMP      R3,#+1
+        IT       EQ 
+        MOVEQ    R2,#+25
+        BEQ.N    ??SAI_Receive_IT16Bit_5
+??SAI_Receive_IT16Bit_1:
+        LDR      R3,[R0, #+4]
+        CMP      R3,#+3
+        IT       NE 
+        CMPNE    R3,#+2
+        BEQ.N    ??SAI_Receive_IT16Bit_3
+??SAI_Receive_IT16Bit_5:
+        ORR      R2,R2,#0x4
+        B.N      ??SAI_Receive_IT16Bit_4
 // 1792     
 // 1793     /* Clear the SAI Overrun flag */
 // 1794     __HAL_SAI_CLEAR_FLAG(hsai, SAI_FLAG_OVRUDR);
-        LDR      R2,[R0, #+0]
-        MOVS     R1,#+1
-        STR      R1,[R2, #+24]
 // 1795     
 // 1796     hsai->State = HAL_SAI_STATE_READY;
-        STRB     R1,[R0, #+125]
 // 1797     HAL_SAI_RxCpltCallback(hsai); 
-          CFI FunCall HAL_SAI_RxCpltCallback
-        BL       HAL_SAI_RxCpltCallback
 // 1798   }
 // 1799 }
-        ADD      SP,SP,#+4
-          CFI CFA R13+4
-        POP      {PC}             ;; return
+          CFI EndBlock cfiBlock46
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock47 Using cfiCommon0
+          CFI NoFunction
           CFI CFA R13+8
-??SAI_Receive_IT16Bit_2:
-        CMP      R2,#+1
-        IT       EQ 
-        MOVEQ    R1,#+25
-        BEQ.N    ??SAI_Receive_IT16Bit_5
-??SAI_Receive_IT16Bit_1:
-        LDR      R2,[R0, #+4]
-        CMP      R2,#+3
-        IT       NE 
-        CMPNE    R2,#+2
-        BEQ.N    ??SAI_Receive_IT16Bit_3
-??SAI_Receive_IT16Bit_5:
-        ORR      R1,R1,#0x4
-        B.N      ??SAI_Receive_IT16Bit_4
-          CFI EndBlock cfiBlock33
+          CFI R4 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+        THUMB
+?Subroutine0:
+        LDR      R3,[R0, #+0]
+        LDR      R4,[R3, #+16]
+        BIC      R2,R4,R2
+        STR      R2,[R3, #+16]
+        LDR      R3,[R0, #+0]
+        MOVS     R2,#+1
+        STR      R2,[R3, #+24]
+        STRB     R2,[R1, #+19]
+          CFI EndBlock cfiBlock47
+        REQUIRE ??Subroutine12_0
+        ;; // Fall through to label ??Subroutine12_0
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock48 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+8
+          CFI R4 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+          CFI FunCall SAI_DMARxCplt HAL_SAI_RxCpltCallback
+          CFI FunCall SAI_Receive_IT8Bit HAL_SAI_RxCpltCallback
+          CFI FunCall SAI_Receive_IT16Bit HAL_SAI_RxCpltCallback
+          CFI FunCall SAI_Receive_IT32Bit HAL_SAI_RxCpltCallback
+        THUMB
+??Subroutine12_0:
+        BL       HAL_SAI_RxCpltCallback
+        POP      {R4,PC}          ;; return
+          CFI EndBlock cfiBlock48
 // 1800 /**
 // 1801   * @brief  Rx Handler for Receive in Interrupt mode for 32Bit transfer
 // 1802   * @param  hsai : pointer to a SAI_HandleTypeDef structure that contains
@@ -3943,8 +3996,9 @@ SAI_Receive_IT16Bit:
 // 1805   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock34 Using cfiCommon0
+          CFI Block cfiBlock49 Using cfiCommon0
           CFI Function SAI_Receive_IT32Bit
+          CFI NoCalls
         THUMB
 // 1806 static void SAI_Receive_IT32Bit(SAI_HandleTypeDef *hsai)
 // 1807 {
@@ -3960,72 +4014,59 @@ SAI_Receive_IT32Bit:
         ADDS     R1,R1,#+4
         STR      R1,[R0, #+100]
 // 1811   hsai->XferCount--;
-        LDRH     R1,[R0, #+106]
-        SUBS     R1,R1,#+1
-        STRH     R1,[R0, #+106]
+        ADD      R1,R0,#+106
+        LDRH     R2,[R1, #+0]
+        SUBS     R2,R2,#+1
+        STRH     R2,[R1, #+0]
 // 1812   
 // 1813   /* Check end of the transfer */  
 // 1814   if(hsai->XferCount == 0)
-        UXTH     R1,R1
-        CBZ.N    R1,??SAI_Receive_IT32Bit_0
+        UXTH     R2,R2
+        CBZ.N    R2,??SAI_Receive_IT32Bit_0
         BX       LR
 // 1815   {    
 // 1816     /* Disable TXE and OVRUDR interrupts */
 // 1817     __HAL_SAI_DISABLE_IT(hsai, SAI_InterruptFlag(hsai, SAI_MODE_IT));
 ??SAI_Receive_IT32Bit_0:
-        PUSH     {LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI CFA R13+4
-        SUB      SP,SP,#+4
+          CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-        LDR      R2,[R0, #+48]
-        MOVS     R1,#+9
-        CMP      R2,#+8
+        LDR      R3,[R0, #+48]
+        MOVS     R2,#+9
+        CMP      R3,#+8
         BNE.N    ??SAI_Receive_IT32Bit_1
-        LDR      R2,[R0, #+4]
-        CMP      R2,#+3
+        LDR      R3,[R0, #+4]
+        CMP      R3,#+3
         BNE.N    ??SAI_Receive_IT32Bit_2
-        MOVS     R1,#+25
+        MOVS     R2,#+25
 ??SAI_Receive_IT32Bit_3:
-        ORR      R1,R1,#0x60
+        ORR      R2,R2,#0x60
 ??SAI_Receive_IT32Bit_4:
-        LDR      R2,[R0, #+0]
-        LDR      R3,[R2, #+16]
-        BIC      R1,R3,R1
-        STR      R1,[R2, #+16]
+        B.N      ?Subroutine0
+??SAI_Receive_IT32Bit_2:
+        CMP      R3,#+1
+        IT       EQ 
+        MOVEQ    R2,#+25
+        BEQ.N    ??SAI_Receive_IT32Bit_5
+??SAI_Receive_IT32Bit_1:
+        LDR      R3,[R0, #+4]
+        CMP      R3,#+3
+        IT       NE 
+        CMPNE    R3,#+2
+        BEQ.N    ??SAI_Receive_IT32Bit_3
+??SAI_Receive_IT32Bit_5:
+        ORR      R2,R2,#0x4
+        B.N      ??SAI_Receive_IT32Bit_4
 // 1818     
 // 1819     /* Clear the SAI Overrun flag */
 // 1820     __HAL_SAI_CLEAR_FLAG(hsai, SAI_FLAG_OVRUDR);
-        LDR      R2,[R0, #+0]
-        MOVS     R1,#+1
-        STR      R1,[R2, #+24]
 // 1821     
 // 1822     hsai->State = HAL_SAI_STATE_READY;
-        STRB     R1,[R0, #+125]
 // 1823     HAL_SAI_RxCpltCallback(hsai); 
-          CFI FunCall HAL_SAI_RxCpltCallback
-        BL       HAL_SAI_RxCpltCallback
 // 1824   }
 // 1825 }
-        ADD      SP,SP,#+4
-          CFI CFA R13+4
-        POP      {PC}             ;; return
-          CFI CFA R13+8
-??SAI_Receive_IT32Bit_2:
-        CMP      R2,#+1
-        IT       EQ 
-        MOVEQ    R1,#+25
-        BEQ.N    ??SAI_Receive_IT32Bit_5
-??SAI_Receive_IT32Bit_1:
-        LDR      R2,[R0, #+4]
-        CMP      R2,#+3
-        IT       NE 
-        CMPNE    R2,#+2
-        BEQ.N    ??SAI_Receive_IT32Bit_3
-??SAI_Receive_IT32Bit_5:
-        ORR      R1,R1,#0x4
-        B.N      ??SAI_Receive_IT32Bit_4
-          CFI EndBlock cfiBlock34
+          CFI EndBlock cfiBlock49
 // 1826 
 // 1827 /**
 // 1828   * @brief DMA SAI transmit process complete callback.
@@ -4035,84 +4076,80 @@ SAI_Receive_IT32Bit:
 // 1832   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock35 Using cfiCommon0
+          CFI Block cfiBlock50 Using cfiCommon0
           CFI Function SAI_DMATxCplt
+          CFI NoCalls
         THUMB
 // 1833 static void SAI_DMATxCplt(DMA_HandleTypeDef *hdma)   
 // 1834 {
 SAI_DMATxCplt:
-        PUSH     {LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI CFA R13+4
-        MOV      R1,R0
-        SUB      SP,SP,#+4
+          CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
 // 1835   SAI_HandleTypeDef* hsai = (SAI_HandleTypeDef*)((DMA_HandleTypeDef* )hdma)->Parent;
-        LDR      R0,[R1, #+56]
+        LDR      R1,[R0, #+56]
 // 1836   
 // 1837   if((hdma->Instance->CR & DMA_SxCR_CIRC) == 0)
-        LDR      R1,[R1, #+0]
-        LDR      R1,[R1, #+0]
-        LSLS     R1,R1,#+23
+        LDR      R0,[R0, #+0]
+        LDR      R0,[R0, #+0]
+        LSLS     R0,R0,#+23
         BMI.N    ??SAI_DMATxCplt_0
 // 1838   { 
 // 1839     hsai->XferCount = 0;
-        MOVS     R1,#+0
-        STRH     R1,[R0, #+106]
+        ADD      R0,R1,#+106
+        MOVS     R2,#+0
+        STRH     R2,[R0, #+0]
 // 1840     
 // 1841     /* Disable SAI Tx DMA Request */  
 // 1842     hsai->Instance->CR1 &= (uint32_t)(~SAI_xCR1_DMAEN);
-        LDR      R1,[R0, #+0]
         LDR      R2,[R1, #+0]
-        BIC      R2,R2,#0x20000
-        STR      R2,[R1, #+0]
+        LDR      R3,[R2, #+0]
+        BIC      R3,R3,#0x20000
+        STR      R3,[R2, #+0]
 // 1843 
 // 1844     /* Stop the interrupts error handling */
 // 1845     __HAL_SAI_DISABLE_IT(hsai, SAI_InterruptFlag(hsai, SAI_MODE_DMA));
-        LDR      R2,[R0, #+48]
-        MOVS     R1,#+1
-        CMP      R2,#+8
+        LDR      R3,[R1, #+48]
+        MOVS     R2,#+1
+        CMP      R3,#+8
         BNE.N    ??SAI_DMATxCplt_1
-        LDR      R2,[R0, #+4]
-        CMP      R2,#+3
+        LDR      R3,[R1, #+4]
+        CMP      R3,#+3
         BNE.N    ??SAI_DMATxCplt_2
-        MOVS     R1,#+17
+        MOVS     R2,#+17
 ??SAI_DMATxCplt_3:
-        ORR      R1,R1,#0x60
+        ORR      R2,R2,#0x60
 ??SAI_DMATxCplt_4:
-        LDR      R2,[R0, #+0]
-        LDR      R3,[R2, #+16]
-        BIC      R1,R3,R1
-        STR      R1,[R2, #+16]
+        LDR      R3,[R1, #+0]
+        LDR      R4,[R3, #+16]
+        BIC      R2,R4,R2
+        STR      R2,[R3, #+16]
 // 1846     
 // 1847     hsai->State= HAL_SAI_STATE_READY;
-        MOVS     R1,#+1
-        STRB     R1,[R0, #+125]
+        MOVS     R2,#+1
+        STRB     R2,[R0, #+19]
 // 1848   }
 // 1849   HAL_SAI_TxCpltCallback(hsai);
 ??SAI_DMATxCplt_0:
-          CFI FunCall HAL_SAI_TxCpltCallback
-        BL       HAL_SAI_TxCpltCallback
-// 1850 }
-        ADD      SP,SP,#+4
-          CFI CFA R13+4
-        POP      {PC}             ;; return
-          CFI CFA R13+8
+        MOV      R0,R1
+        B.N      ??Subroutine11_0
 ??SAI_DMATxCplt_2:
-        CMP      R2,#+1
+        CMP      R3,#+1
         IT       EQ 
-        MOVEQ    R1,#+17
+        MOVEQ    R2,#+17
         BEQ.N    ??SAI_DMATxCplt_5
 ??SAI_DMATxCplt_1:
-        LDR      R2,[R0, #+4]
-        CMP      R2,#+3
+        LDR      R3,[R1, #+4]
+        CMP      R3,#+3
         IT       NE 
-        CMPNE    R2,#+2
+        CMPNE    R3,#+2
         BEQ.N    ??SAI_DMATxCplt_3
 ??SAI_DMATxCplt_5:
-        ORR      R1,R1,#0x4
+        ORR      R2,R2,#0x4
         B.N      ??SAI_DMATxCplt_4
-          CFI EndBlock cfiBlock35
+// 1850 }
+          CFI EndBlock cfiBlock50
 // 1851 
 // 1852 /**
 // 1853   * @brief DMA SAI transmit process half complete callback 
@@ -4122,16 +4159,14 @@ SAI_DMATxCplt:
 // 1857   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock36 Using cfiCommon0
+          CFI Block cfiBlock51 Using cfiCommon0
           CFI Function SAI_DMATxHalfCplt
         THUMB
 // 1858 static void SAI_DMATxHalfCplt(DMA_HandleTypeDef *hdma)
 // 1859 {
 SAI_DMATxHalfCplt:
-        PUSH     {LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI CFA R13+4
-        SUB      SP,SP,#+4
           CFI CFA R13+8
 // 1860   SAI_HandleTypeDef* hsai = (SAI_HandleTypeDef*)((DMA_HandleTypeDef*)hdma)->Parent;
 // 1861 
@@ -4140,10 +4175,8 @@ SAI_DMATxHalfCplt:
           CFI FunCall HAL_SAI_TxHalfCpltCallback
         BL       HAL_SAI_TxHalfCpltCallback
 // 1863 }
-        ADD      SP,SP,#+4
-          CFI CFA R13+4
-        POP      {PC}             ;; return
-          CFI EndBlock cfiBlock36
+        POP      {R0,PC}          ;; return
+          CFI EndBlock cfiBlock51
 // 1864 
 // 1865 /**
 // 1866   * @brief DMA SAI receive process complete callback. 
@@ -4153,17 +4186,17 @@ SAI_DMATxHalfCplt:
 // 1870   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock37 Using cfiCommon0
+          CFI Block cfiBlock52 Using cfiCommon0
           CFI Function SAI_DMARxCplt
+          CFI NoCalls
         THUMB
 // 1871 static void SAI_DMARxCplt(DMA_HandleTypeDef *hdma)   
 // 1872 {
 SAI_DMARxCplt:
-        PUSH     {LR}
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+4
         MOV      R1,R0
-        SUB      SP,SP,#+4
+        PUSH     {R4,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
 // 1873   SAI_HandleTypeDef* hsai = ( SAI_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
         LDR      R0,[R1, #+56]
@@ -4180,55 +4213,51 @@ SAI_DMARxCplt:
         BIC      R2,R2,#0x20000
         STR      R2,[R1, #+0]
 // 1878     hsai->XferCount = 0;
-        MOVS     R1,#+0
-        STRH     R1,[R0, #+106]
+        ADD      R1,R0,#+106
+        MOVS     R2,#+0
+        STRH     R2,[R1, #+0]
 // 1879     
 // 1880     /* Stop the interrupts error handling */
 // 1881     __HAL_SAI_DISABLE_IT(hsai, SAI_InterruptFlag(hsai, SAI_MODE_DMA));
-        LDR      R2,[R0, #+48]
-        MOVS     R1,#+1
-        CMP      R2,#+8
+        LDR      R3,[R0, #+48]
+        MOVS     R2,#+1
+        CMP      R3,#+8
         BNE.N    ??SAI_DMARxCplt_1
-        LDR      R2,[R0, #+4]
-        CMP      R2,#+3
+        LDR      R3,[R0, #+4]
+        CMP      R3,#+3
         BNE.N    ??SAI_DMARxCplt_2
-        MOVS     R1,#+17
+        MOVS     R2,#+17
 ??SAI_DMARxCplt_3:
-        ORR      R1,R1,#0x60
+        ORR      R2,R2,#0x60
 ??SAI_DMARxCplt_4:
-        LDR      R2,[R0, #+0]
-        LDR      R3,[R2, #+16]
-        BIC      R1,R3,R1
-        STR      R1,[R2, #+16]
+        LDR      R3,[R0, #+0]
+        LDR      R4,[R3, #+16]
+        BIC      R2,R4,R2
+        STR      R2,[R3, #+16]
 // 1882     
 // 1883     hsai->State = HAL_SAI_STATE_READY;
-        MOVS     R1,#+1
-        STRB     R1,[R0, #+125]
+        MOVS     R2,#+1
+        STRB     R2,[R1, #+19]
 // 1884   }
 // 1885   HAL_SAI_RxCpltCallback(hsai); 
 ??SAI_DMARxCplt_0:
-          CFI FunCall HAL_SAI_RxCpltCallback
-        BL       HAL_SAI_RxCpltCallback
-// 1886 }
-        ADD      SP,SP,#+4
-          CFI CFA R13+4
-        POP      {PC}             ;; return
-          CFI CFA R13+8
+        B.N      ??Subroutine12_0
 ??SAI_DMARxCplt_2:
-        CMP      R2,#+1
+        CMP      R3,#+1
         IT       EQ 
-        MOVEQ    R1,#+17
+        MOVEQ    R2,#+17
         BEQ.N    ??SAI_DMARxCplt_5
 ??SAI_DMARxCplt_1:
-        LDR      R2,[R0, #+4]
-        CMP      R2,#+3
+        LDR      R3,[R0, #+4]
+        CMP      R3,#+3
         IT       NE 
-        CMPNE    R2,#+2
+        CMPNE    R3,#+2
         BEQ.N    ??SAI_DMARxCplt_3
 ??SAI_DMARxCplt_5:
-        ORR      R1,R1,#0x4
+        ORR      R2,R2,#0x4
         B.N      ??SAI_DMARxCplt_4
-          CFI EndBlock cfiBlock37
+// 1886 }
+          CFI EndBlock cfiBlock52
 // 1887 
 // 1888 /**
 // 1889   * @brief DMA SAI receive process half complete callback 
@@ -4238,16 +4267,14 @@ SAI_DMARxCplt:
 // 1893   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock38 Using cfiCommon0
+          CFI Block cfiBlock53 Using cfiCommon0
           CFI Function SAI_DMARxHalfCplt
         THUMB
 // 1894 static void SAI_DMARxHalfCplt(DMA_HandleTypeDef *hdma)
 // 1895 {
 SAI_DMARxHalfCplt:
-        PUSH     {LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI CFA R13+4
-        SUB      SP,SP,#+4
           CFI CFA R13+8
 // 1896   SAI_HandleTypeDef* hsai = (SAI_HandleTypeDef*)((DMA_HandleTypeDef*)hdma)->Parent;
 // 1897 
@@ -4256,10 +4283,8 @@ SAI_DMARxHalfCplt:
           CFI FunCall HAL_SAI_RxHalfCpltCallback
         BL       HAL_SAI_RxHalfCpltCallback
 // 1899 }
-        ADD      SP,SP,#+4
-          CFI CFA R13+4
-        POP      {PC}             ;; return
-          CFI EndBlock cfiBlock38
+        POP      {R0,PC}          ;; return
+          CFI EndBlock cfiBlock53
 // 1900 /**
 // 1901   * @brief DMA SAI communication error callback. 
 // 1902   * @param  hdma: pointer to a DMA_HandleTypeDef structure that contains
@@ -4268,16 +4293,17 @@ SAI_DMARxHalfCplt:
 // 1905   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock39 Using cfiCommon0
+          CFI Block cfiBlock54 Using cfiCommon0
           CFI Function SAI_DMAError
         THUMB
 // 1906 static void SAI_DMAError(DMA_HandleTypeDef *hdma)   
 // 1907 {
 SAI_DMAError:
-        PUSH     {R4,LR}
+        PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+16
 // 1908   SAI_HandleTypeDef* hsai = ( SAI_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
         LDR      R4,[R0, #+56]
 // 1909   
@@ -4289,8 +4315,9 @@ SAI_DMAError:
 // 1912   
 // 1913   /* Set the SAI state ready to be able to start again the process */
 // 1914   hsai->State= HAL_SAI_STATE_READY;
+        ADD      R5,R4,#+106
         MOVS     R0,#+1
-        STRB     R0,[R4, #+125]
+        STRB     R0,[R5, #+19]
 // 1915   HAL_SAI_ErrorCallback(hsai);
         MOV      R0,R4
           CFI FunCall HAL_SAI_ErrorCallback
@@ -4298,10 +4325,10 @@ SAI_DMAError:
 // 1916   
 // 1917   hsai->XferCount = 0;
         MOVS     R0,#+0
-        STRH     R0,[R4, #+106]
+        STRH     R0,[R5, #+0]
 // 1918 }
-        POP      {R4,PC}          ;; return
-          CFI EndBlock cfiBlock39
+        POP      {R0,R4,R5,PC}    ;; return
+          CFI EndBlock cfiBlock54
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -4331,9 +4358,9 @@ SAI_DMAError:
 // 1932 
 // 1933 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 3 760 bytes in section .text
+// 3 272 bytes in section .text
 // 
-// 3 760 bytes of CODE memory
+// 3 272 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

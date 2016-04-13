@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       12/Apr/2016  09:55:46
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       13/Apr/2016  13:47:29
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7 --relaxed_fp
 #    List file    =  
@@ -318,8 +318,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\BSP\Componen
     199            return (ucReadId);
    \                     ??ft5336_ReadID_1: (+1)
    \   00000038   0xF89D 0x0000      LDRB     R0,[SP, #+0]
-   \   0000003C   0xB002             ADD      SP,SP,#+8
-   \   0000003E   0xBD70             POP      {R4-R6,PC}       ;; return
+   \   0000003C   0xBD76             POP      {R1,R2,R4-R6,PC}  ;; return
     200          }
     201          
     202          /**
@@ -338,10 +337,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\BSP\Componen
     213            /* Note TS_INT is active low                                                                      */
     214            ft5336_TS_DisableIT(DeviceAddr);
    \                     ft5336_TS_Start: (+1)
-   \   00000000   0x2200             MOVS     R2,#+0
-   \   00000002   0x21A4             MOVS     R1,#+164
-   \   00000004   0xB2C0             UXTB     R0,R0
-   \   00000006   0x.... 0x....      B.W      TS_IO_Write
+   \   00000000   0x....             B.N      ?Subroutine0
     215          }
     216          
     217          /**
@@ -356,29 +352,28 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\BSP\Componen
     224          uint8_t ft5336_TS_DetectTouch(uint16_t DeviceAddr)
     225          {
    \                     ft5336_TS_DetectTouch: (+1)
-   \   00000000   0xB500             PUSH     {LR}
-   \   00000002   0xB081             SUB      SP,SP,#+4
+   \   00000000   0xB580             PUSH     {R7,LR}
     226            volatile uint8_t nbTouch = 0;
-   \   00000004   0x2100             MOVS     R1,#+0
-   \   00000006   0xF88D 0x1000      STRB     R1,[SP, #+0]
+   \   00000002   0x2100             MOVS     R1,#+0
     227          
     228            /* Read register FT5336_TD_STAT_REG to check number of touches detection */
     229            nbTouch = TS_IO_Read(DeviceAddr, FT5336_TD_STAT_REG);
+   \   00000004   0xB2C0             UXTB     R0,R0
+   \   00000006   0xF88D 0x1000      STRB     R1,[SP, #+0]
    \   0000000A   0x2102             MOVS     R1,#+2
-   \   0000000C   0xB2C0             UXTB     R0,R0
-   \   0000000E   0x.... 0x....      BL       TS_IO_Read
-   \   00000012   0xF88D 0x0000      STRB     R0,[SP, #+0]
+   \   0000000C   0x.... 0x....      BL       TS_IO_Read
+   \   00000010   0xF88D 0x0000      STRB     R0,[SP, #+0]
     230            nbTouch &= FT5336_TD_STAT_MASK;
-   \   00000016   0xF89D 0x0000      LDRB     R0,[SP, #+0]
-   \   0000001A   0xF000 0x000F      AND      R0,R0,#0xF
-   \   0000001E   0xF88D 0x0000      STRB     R0,[SP, #+0]
+   \   00000014   0xF89D 0x0000      LDRB     R0,[SP, #+0]
+   \   00000018   0xF000 0x000F      AND      R0,R0,#0xF
+   \   0000001C   0xF88D 0x0000      STRB     R0,[SP, #+0]
     231          
     232            if(nbTouch > FT5336_MAX_DETECTABLE_TOUCH)
-   \   00000022   0xF89D 0x0000      LDRB     R0,[SP, #+0]
-   \   00000026   0x2806             CMP      R0,#+6
-   \   00000028   0xBFA4             ITT      GE 
-   \   0000002A   0x2000             MOVGE    R0,#+0
-   \   0000002C   0xF88D 0x0000      STRBGE   R0,[SP, #+0]
+   \   00000020   0xF89D 0x0000      LDRB     R0,[SP, #+0]
+   \   00000024   0x2806             CMP      R0,#+6
+   \   00000026   0xBFA4             ITT      GE 
+   \   00000028   0x2000             MOVGE    R0,#+0
+   \   0000002A   0xF88D 0x0000      STRBGE   R0,[SP, #+0]
     233            {
     234              /* If invalid number of touch detected, set it to zero */
     235              nbTouch = 0;
@@ -386,19 +381,18 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\BSP\Componen
     237          
     238            /* Update ft5336 driver internal global : current number of active touches */
     239            ft5336_handle.currActiveTouchNb = nbTouch;
-   \   00000030   0xF89D 0x1000      LDRB     R1,[SP, #+0]
-   \   00000034   0x....             LDR.N    R0,??DataTable4
-   \   00000036   0x7041             STRB     R1,[R0, #+1]
+   \   0000002E   0xF89D 0x1000      LDRB     R1,[SP, #+0]
+   \   00000032   0x....             LDR.N    R0,??DataTable4
+   \   00000034   0x7041             STRB     R1,[R0, #+1]
     240          
     241            /* Reset current active touch index on which to work on */
     242            ft5336_handle.currActiveTouchIdx = 0;
-   \   00000038   0x2100             MOVS     R1,#+0
-   \   0000003A   0x7081             STRB     R1,[R0, #+2]
+   \   00000036   0x2100             MOVS     R1,#+0
+   \   00000038   0x7081             STRB     R1,[R0, #+2]
     243          
     244            return(nbTouch);
-   \   0000003C   0xF89D 0x0000      LDRB     R0,[SP, #+0]
-   \   00000040   0xB001             ADD      SP,SP,#+4
-   \   00000042   0xBD00             POP      {PC}             ;; return
+   \   0000003A   0xF89D 0x0000      LDRB     R0,[SP, #+0]
+   \   0000003E   0xBD02             POP      {R1,PC}          ;; return
     245          }
     246          
     247          /**
@@ -647,8 +641,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\BSP\Componen
     368            } /* of if(ft5336_handle.currActiveTouchIdx < ft5336_handle.currActiveTouchNb) */
     369          }
    \                     ??ft5336_TS_GetXY_1: (+1)
-   \   00000108   0xB002             ADD      SP,SP,#+8
-   \   0000010A   0xE8BD 0x87F0      POP      {R4-R10,PC}      ;; return
+   \   00000108   0xE8BD 0x87F3      POP      {R0,R1,R4-R10,PC}  ;; return
 
    \                                 In section .bss, align 4
    \                     ft5336_handle:
@@ -672,10 +665,16 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\BSP\Componen
     383             TS_IO_Write(DeviceAddr, FT5336_GMODE_REG, regValue);
    \                     ft5336_TS_EnableIT: (+1)
    \   00000000   0x2201             MOVS     R2,#+1
+   \   00000002   0x....             B.N      ??Subroutine0_0
+    384          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine0: (+1)
+   \   00000000   0x2200             MOVS     R2,#+0
+   \                     ??Subroutine0_0: (+1)
    \   00000002   0x21A4             MOVS     R1,#+164
    \   00000004   0xB2C0             UXTB     R0,R0
    \   00000006   0x.... 0x....      B.W      TS_IO_Write
-    384          }
     385          
     386          /**
     387            * @brief  Configure the FT5336 device to stop generating IT on the given INT pin
@@ -686,17 +685,16 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\BSP\Componen
 
    \                                 In section .text, align 2, keep-with-next
     392          void ft5336_TS_DisableIT(uint16_t DeviceAddr)
+   \                     ft5336_TS_DisableIT: (+1)
+   \   00000000   0xBF00             Nop      
     393          {
     394            uint8_t regValue = 0;
     395            regValue = (FT5336_G_MODE_INTERRUPT_POLLING & (FT5336_G_MODE_INTERRUPT_MASK >> FT5336_G_MODE_INTERRUPT_SHIFT)) << FT5336_G_MODE_INTERRUPT_SHIFT;
     396          
     397            /* Set interrupt polling mode in FT5336_GMODE_REG */
     398            TS_IO_Write(DeviceAddr, FT5336_GMODE_REG, regValue);
-   \                     ft5336_TS_DisableIT: (+1)
-   \   00000000   0x2200             MOVS     R2,#+0
-   \   00000002   0x21A4             MOVS     R1,#+164
-   \   00000004   0xB2C0             UXTB     R0,R0
-   \   00000006   0x.... 0x....      B.W      TS_IO_Write
+   \   00000002                      REQUIRE ?Subroutine0
+   \   00000002                      ;; // Fall through to label ?Subroutine0
     399          }
     400          
     401          /**
@@ -766,8 +764,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\BSP\Componen
    \   00000018   0xF89D 0x0000      LDRB     R0,[SP, #+0]
    \   0000001C   0x6020             STR      R0,[R4, #+0]
     444          }
-   \   0000001E   0xB002             ADD      SP,SP,#+8
-   \   00000020   0xBD10             POP      {R4,PC}          ;; return
+   \   0000001E   0xBD13             POP      {R0,R1,R4,PC}    ;; return
     445          
     446          /**
     447            * @brief  Get the touch detailed informations on touch number 'touchIdx' (0..1)
@@ -976,8 +973,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\BSP\Componen
     553            } /* of if(touchIdx < ft5336_handle.currActiveTouchNb) */
     554          }
    \                     ??ft5336_TS_GetTouchInfo_1: (+1)
-   \   000000C0   0xB002             ADD      SP,SP,#+8
-   \   000000C2   0xE8BD 0x81F0      POP      {R4-R8,PC}       ;; return
+   \   000000C0   0xE8BD 0x81F3      POP      {R0,R1,R4-R8,PC}  ;; return
 
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable4:
@@ -1088,18 +1084,19 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\BSP\Componen
    Bytes  Function/Label
    -----  --------------
        4  ??DataTable4
+      10  ?Subroutine0
       24  ft5336_Init
-      64  ft5336_ReadID
+      62  ft5336_ReadID
        2  ft5336_Reset
        2  ft5336_TS_ClearIT
-      68  ft5336_TS_DetectTouch
-      10  ft5336_TS_DisableIT
-      10  ft5336_TS_EnableIT
-      34  ft5336_TS_GetGestureID
-     198  ft5336_TS_GetTouchInfo
-     270  ft5336_TS_GetXY
+      64  ft5336_TS_DetectTouch
+       2  ft5336_TS_DisableIT
+       4  ft5336_TS_EnableIT
+      32  ft5336_TS_GetGestureID
+     196  ft5336_TS_GetTouchInfo
+     268  ft5336_TS_GetXY
        4  ft5336_TS_ITStatus
-      10  ft5336_TS_Start
+       2  ft5336_TS_Start
        6  ft5336_handle
           coord
       40  ft5336_ts_drv
@@ -1107,9 +1104,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\BSP\Componen
  
    6 bytes in section .bss
   40 bytes in section .data
- 700 bytes in section .text
+ 676 bytes in section .text
  
- 700 bytes of CODE memory
+ 676 bytes of CODE memory
   46 bytes of DATA memory
 
 Errors: none

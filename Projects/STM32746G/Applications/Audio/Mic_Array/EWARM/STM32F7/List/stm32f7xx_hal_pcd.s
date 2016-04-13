@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      12/Apr/2016  09:55:49
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      13/Apr/2016  13:47:32
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -504,10 +504,11 @@ HAL_PCD_Init:
 //  210 HAL_StatusTypeDef HAL_PCD_DeInit(PCD_HandleTypeDef *hpcd)
 //  211 {
 HAL_PCD_DeInit:
-        PUSH     {R4,LR}
+        PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+16
         MOVS     R4,R0
 //  212   /* Check the PCD handle allocation */
 //  213   if(hpcd == NULL)
@@ -515,21 +516,22 @@ HAL_PCD_DeInit:
 //  214   {
 //  215     return HAL_ERROR;
         MOVS     R0,#+1
-        POP      {R4,PC}
+        POP      {R1,R4,R5,PC}
 //  216   }
 //  217 
 //  218   hpcd->State = HAL_PCD_STATE_BUSY;
 ??HAL_PCD_DeInit_0:
+        ADD      R5,R4,#+892
         MOVS     R0,#+3
-        STRB     R0,[R4, #+893]
+        STRB     R0,[R5, #+1]
 //  219   
 //  220   /* Stop Device */
 //  221   HAL_PCD_Stop(hpcd);
-        LDRB     R0,[R4, #+892]
+        LDRB     R0,[R5, #+0]
         CMP      R0,#+1
         BEQ.N    ??HAL_PCD_DeInit_1
         MOVS     R0,#+1
-        STRB     R0,[R4, #+892]
+        STRB     R0,[R5, #+0]
         LDR      R0,[R4, #+0]
           CFI FunCall USB_DisableGlobalInt
         BL       USB_DisableGlobalInt
@@ -540,7 +542,7 @@ HAL_PCD_DeInit:
           CFI FunCall USB_DevDisconnect
         BL       USB_DevDisconnect
         MOVS     R0,#+0
-        STRB     R0,[R4, #+892]
+        STRB     R0,[R5, #+0]
 //  222     
 //  223   /* DeInit the low level hardware */
 //  224   HAL_PCD_MspDeInit(hpcd);
@@ -551,10 +553,10 @@ HAL_PCD_DeInit:
 //  225   
 //  226   hpcd->State = HAL_PCD_STATE_RESET; 
         MOVS     R0,#+0
-        STRB     R0,[R4, #+893]
+        STRB     R0,[R5, #+1]
 //  227   
 //  228   return HAL_OK;
-        POP      {R4,PC}          ;; return
+        POP      {R1,R4,R5,PC}    ;; return
 //  229 }
           CFI EndBlock cfiBlock1
 //  230 
@@ -661,10 +663,8 @@ HAL_PCD_Start:
           CFI FunCall USB_EnableGlobalInt
         BL       USB_EnableGlobalInt
 //  290   __HAL_UNLOCK(hpcd); 
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+892]
+        B.N      ??Subroutine2_0
 //  291   return HAL_OK;
-        POP      {R4,PC}          ;; return
 //  292 }
           CFI EndBlock cfiBlock4
 //  293 
@@ -704,14 +704,9 @@ HAL_PCD_Stop:
           CFI FunCall USB_StopDevice
         BL       USB_StopDevice
 //  304   USB_DevDisconnect (hpcd->Instance);
-        LDR      R0,[R4, #+0]
-          CFI FunCall USB_DevDisconnect
-        BL       USB_DevDisconnect
+        B.N      ?Subroutine1
 //  305   __HAL_UNLOCK(hpcd); 
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+892]
 //  306   return HAL_OK;
-        POP      {R4,PC}          ;; return
 //  307 }
           CFI EndBlock cfiBlock5
 //  308 
@@ -728,19 +723,20 @@ HAL_PCD_Stop:
 //  314 void HAL_PCD_IRQHandler(PCD_HandleTypeDef *hpcd)
 //  315 {
 HAL_PCD_IRQHandler:
-        PUSH     {R4-R10,LR}
+        PUSH     {R4-R11,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R10 Frame(CFA, -8)
-          CFI R9 Frame(CFA, -12)
-          CFI R8 Frame(CFA, -16)
-          CFI R7 Frame(CFA, -20)
-          CFI R6 Frame(CFA, -24)
-          CFI R5 Frame(CFA, -28)
-          CFI R4 Frame(CFA, -32)
-          CFI CFA R13+32
+          CFI R11 Frame(CFA, -8)
+          CFI R10 Frame(CFA, -12)
+          CFI R9 Frame(CFA, -16)
+          CFI R8 Frame(CFA, -20)
+          CFI R7 Frame(CFA, -24)
+          CFI R6 Frame(CFA, -28)
+          CFI R5 Frame(CFA, -32)
+          CFI R4 Frame(CFA, -36)
+          CFI CFA R13+36
         MOV      R4,R0
-        SUB      SP,SP,#+8
-          CFI CFA R13+40
+        SUB      SP,SP,#+12
+          CFI CFA R13+48
 //  316   USB_OTG_GlobalTypeDef *USBx = hpcd->Instance;
 //  317   uint32_t i = 0, ep_intr = 0, epint = 0, epnum = 0;
         MOVS     R5,#+0
@@ -795,31 +791,31 @@ HAL_PCD_IRQHandler:
 //  340       /* Read in the device interrupt bits */
 //  341       ep_intr = USB_ReadDevAllOutEpInterrupt(hpcd->Instance);
         LDR      R0,[R4, #+0]
-        ADD      R9,R4,#+480
+        ADD      R8,R4,#+480
           CFI FunCall USB_ReadDevAllOutEpInterrupt
         BL       USB_ReadDevAllOutEpInterrupt
-        MOVS     R7,R0
+        MOV      R7,R0
         LDR      R0,[SP, #+4]
         ADD      R6,R0,#+2816
+        B.N      ??HAL_PCD_IRQHandler_3
 //  342       
 //  343       while ( ep_intr )
-        BEQ.N    ??HAL_PCD_IRQHandler_2
 //  344       {
 //  345         if (ep_intr & 0x1)
-??HAL_PCD_IRQHandler_3:
+??HAL_PCD_IRQHandler_4:
         LSLS     R0,R7,#+31
-        BPL.N    ??HAL_PCD_IRQHandler_4
+        BPL.N    ??HAL_PCD_IRQHandler_5
 //  346         {
 //  347           epint = USB_ReadDevOutEPInterrupt(hpcd->Instance, epnum);
         LDR      R0,[R4, #+0]
         UXTB     R1,R5
           CFI FunCall USB_ReadDevOutEPInterrupt
         BL       USB_ReadDevOutEPInterrupt
-        MOV      R8,R0
+        MOV      R9,R0
 //  348           
 //  349           if(( epint & USB_OTG_DOEPINT_XFRC) == USB_OTG_DOEPINT_XFRC)
-        LSLS     R0,R8,#+31
-        BPL.N    ??HAL_PCD_IRQHandler_5
+        LSLS     R0,R9,#+31
+        BPL.N    ??HAL_PCD_IRQHandler_6
 //  350           {
 //  351             CLEAR_OUT_EP_INTR(epnum, USB_OTG_DOEPINT_XFRC);
         MOVS     R1,#+1
@@ -828,22 +824,22 @@ HAL_PCD_IRQHandler:
 //  353             if(hpcd->Init.dma_enable == 1)
         LDR      R1,[R4, #+16]
         CMP      R1,#+1
-        BNE.N    ??HAL_PCD_IRQHandler_6
+        BNE.N    ??HAL_PCD_IRQHandler_7
 //  354             {
 //  355               hpcd->OUT_ep[epnum].xfer_count = hpcd->OUT_ep[epnum].maxpacket- (USBx_OUTEP(epnum)->DOEPTSIZ & USB_OTG_DOEPTSIZ_XFRSIZ); 
-        LDR      R1,[R9, #+0]
+        LDR      R1,[R8, #+0]
         LDR      R0,[R6, #+16]
         LSLS     R0,R0,#+13
         SUBS     R0,R1,R0, LSR #+13
-        STR      R0,[R9, #+16]
+        STR      R0,[R8, #+16]
 //  356               hpcd->OUT_ep[epnum].xfer_buff += hpcd->OUT_ep[epnum].maxpacket;            
-        LDR      R0,[R9, #+4]
+        LDR      R0,[R8, #+4]
         ADDS     R0,R1,R0
-        STR      R0,[R9, #+4]
+        STR      R0,[R8, #+4]
 //  357             }
 //  358             
 //  359             HAL_PCD_DataOutStageCallback(hpcd, epnum);
-??HAL_PCD_IRQHandler_6:
+??HAL_PCD_IRQHandler_7:
         UXTB     R1,R5
         MOV      R0,R4
           CFI FunCall HAL_PCD_DataOutStageCallback
@@ -855,9 +851,9 @@ HAL_PCD_IRQHandler:
         CMPEQ    R5,#+0
 //  361             {
 //  362               if((epnum == 0) && (hpcd->OUT_ep[epnum].xfer_len == 0))
-        BNE.N    ??HAL_PCD_IRQHandler_5
+        BNE.N    ??HAL_PCD_IRQHandler_6
         LDR      R0,[R4, #+492]
-        CBNZ.N   R0,??HAL_PCD_IRQHandler_5
+        CBNZ.N   R0,??HAL_PCD_IRQHandler_6
 //  363               {
 //  364                  /* this is ZLP, so prepare EP0 for next setup */
 //  365                 USB_EP0_OutStart(hpcd->Instance, 1, (uint8_t *)hpcd->Setup);
@@ -871,9 +867,9 @@ HAL_PCD_IRQHandler:
 //  368           }
 //  369           
 //  370           if(( epint & USB_OTG_DOEPINT_STUP) == USB_OTG_DOEPINT_STUP)
-??HAL_PCD_IRQHandler_5:
-        LSLS     R0,R8,#+28
-        BPL.N    ??HAL_PCD_IRQHandler_7
+??HAL_PCD_IRQHandler_6:
+        LSLS     R0,R9,#+28
+        BPL.N    ??HAL_PCD_IRQHandler_8
 //  371           {
 //  372             /* Inform the upper layer that a setup packet is available */
 //  373             HAL_PCD_SetupStageCallback(hpcd);
@@ -886,8 +882,8 @@ HAL_PCD_IRQHandler:
 //  375           }
 //  376           
 //  377           if(( epint & USB_OTG_DOEPINT_OTEPDIS) == USB_OTG_DOEPINT_OTEPDIS)
-??HAL_PCD_IRQHandler_7:
-        LSLS     R0,R8,#+27
+??HAL_PCD_IRQHandler_8:
+        LSLS     R0,R9,#+27
         ITT      MI 
         MOVMI    R0,#+16
         STRMI    R0,[R6, #+8]
@@ -896,7 +892,7 @@ HAL_PCD_IRQHandler:
 //  380           }
 //  381           /* Clear Status Phase Received interrupt */
 //  382           if(( epint & USB_OTG_DOEPINT_OTEPSPR) == USB_OTG_DOEPINT_OTEPSPR)
-        LSLS     R0,R8,#+26
+        LSLS     R0,R9,#+26
         ITT      MI 
         MOVMI    R0,#+32
         STRMI    R0,[R6, #+8]
@@ -905,15 +901,16 @@ HAL_PCD_IRQHandler:
 //  385           }
 //  386         }
 //  387         epnum++;
-??HAL_PCD_IRQHandler_4:
+??HAL_PCD_IRQHandler_5:
         ADDS     R5,R5,#+1
 //  388         ep_intr >>= 1;
         LSRS     R7,R7,#+1
         ADDS     R6,R6,#+32
-        CMP      R7,#+0
-        ADD      R9,R9,#+28
-        BNE.N    ??HAL_PCD_IRQHandler_3
+        ADD      R8,R8,#+28
 //  389       }
+??HAL_PCD_IRQHandler_3:
+        CMP      R7,#+0
+        BNE.N    ??HAL_PCD_IRQHandler_4
 //  390     }
 //  391     
 //  392     if(__HAL_PCD_GET_FLAG(hpcd, USB_OTG_GINTSTS_IEPINT))
@@ -925,68 +922,70 @@ HAL_PCD_IRQHandler:
           CFI FunCall USB_ReadInterrupts
         BL       USB_ReadInterrupts
         LSLS     R0,R0,#+13
-        BPL.N    ??HAL_PCD_IRQHandler_8
+        BPL.N    ??HAL_PCD_IRQHandler_9
 //  393     {
 //  394       /* Read in the device interrupt bits */
 //  395       ep_intr = USB_ReadDevAllInEpInterrupt(hpcd->Instance);
         LDR      R0,[R4, #+0]
-        MOV      R5,R10
-        ADD      R9,R4,#+64
+        MOVS     R5,#+0
+        ADD      R8,R4,#+64
           CFI FunCall USB_ReadDevAllInEpInterrupt
         BL       USB_ReadDevAllInEpInterrupt
-        MOVS     R7,R0
+        MOV      R7,R0
 //  396       
 //  397       epnum = 0;
         LDR      R0,[SP, #+4]
-        ADD      R6,R0,#+2304
+        ADD      R0,R0,#+2304
+        STR      R0,[SP, #+8]
+        LDR      R0,[SP, #+0]
+        ADDS     R6,R0,#+4
+        B.N      ??HAL_PCD_IRQHandler_10
 //  398       
 //  399       while ( ep_intr )
-        BEQ.N    ??HAL_PCD_IRQHandler_8
 //  400       {
 //  401         if (ep_intr & 0x1) /* In ITR */
-??HAL_PCD_IRQHandler_9:
+??HAL_PCD_IRQHandler_11:
         LSLS     R0,R7,#+31
-        BPL.N    ??HAL_PCD_IRQHandler_10
+        BPL.N    ??HAL_PCD_IRQHandler_12
 //  402         {
 //  403           epint = USB_ReadDevInEPInterrupt(hpcd->Instance, epnum);
         LDR      R0,[R4, #+0]
         UXTB     R1,R5
           CFI FunCall USB_ReadDevInEPInterrupt
         BL       USB_ReadDevInEPInterrupt
-        MOV      R8,R0
+        MOV      R9,R0
 //  404 
 //  405            if(( epint & USB_OTG_DIEPINT_XFRC) == USB_OTG_DIEPINT_XFRC)
-        LSLS     R0,R8,#+31
-        BPL.N    ??HAL_PCD_IRQHandler_11
+        LSLS     R0,R9,#+31
+        LDR      R11,[SP, #+8]
+        BPL.N    ??HAL_PCD_IRQHandler_13
 //  406           {
 //  407             fifoemptymsk = 0x1 << epnum;
 //  408             USBx_DEVICE->DIEPEMPMSK &= ~fifoemptymsk;
-        LDR      R0,[SP, #+0]
+        LDR      R0,[R6, #+48]
         MOVS     R1,#+1
         LSLS     R1,R1,R5
-        LDR      R0,[R0, #+52]
         BICS     R0,R0,R1
-        LDR      R1,[SP, #+0]
-        STR      R0,[R1, #+52]
+        STR      R0,[R6, #+48]
 //  409             
 //  410             CLEAR_IN_EP_INTR(epnum, USB_OTG_DIEPINT_XFRC);
         MOVS     R0,#+1
-        STR      R0,[R6, #+8]
+        STR      R0,[R11, #+8]
 //  411             
 //  412             if (hpcd->Init.dma_enable == 1)
         LDR      R0,[R4, #+16]
         CMP      R0,#+1
-        BNE.N    ??HAL_PCD_IRQHandler_12
+        BNE.N    ??HAL_PCD_IRQHandler_14
 //  413             {
 //  414               hpcd->IN_ep[epnum].xfer_buff += hpcd->IN_ep[epnum].maxpacket; 
-        LDR      R0,[R9, #+0]
-        LDR      R1,[R9, #-4]
+        LDR      R0,[R8, #+0]
+        LDR      R1,[R8, #-4]
         ADDS     R0,R1,R0
-        STR      R0,[R9, #+0]
+        STR      R0,[R8, #+0]
 //  415             }
 //  416                                       
 //  417             HAL_PCD_DataInStageCallback(hpcd, epnum);
-??HAL_PCD_IRQHandler_12:
+??HAL_PCD_IRQHandler_14:
         UXTB     R1,R5
         MOV      R0,R4
           CFI FunCall HAL_PCD_DataInStageCallback
@@ -1000,9 +999,9 @@ HAL_PCD_IRQHandler:
 //  420             {
 //  421               /* this is ZLP, so prepare EP0 for next setup */
 //  422               if((epnum == 0) && (hpcd->IN_ep[epnum].xfer_len == 0))
-        BNE.N    ??HAL_PCD_IRQHandler_11
+        BNE.N    ??HAL_PCD_IRQHandler_13
         LDR      R0,[R4, #+72]
-        CBNZ.N   R0,??HAL_PCD_IRQHandler_11
+        CBNZ.N   R0,??HAL_PCD_IRQHandler_13
 //  423               {
 //  424                 /* prepare to rx more setup packets */
 //  425                 USB_EP0_OutStart(hpcd->Instance, 1, (uint8_t *)hpcd->Setup);
@@ -1015,41 +1014,41 @@ HAL_PCD_IRQHandler:
 //  427             }           
 //  428           }
 //  429            if(( epint & USB_OTG_DIEPINT_TOC) == USB_OTG_DIEPINT_TOC)
-??HAL_PCD_IRQHandler_11:
-        LSLS     R0,R8,#+28
+??HAL_PCD_IRQHandler_13:
+        LSLS     R0,R9,#+28
         ITT      MI 
         MOVMI    R0,#+8
-        STRMI    R0,[R6, #+8]
+        STRMI    R0,[R11, #+8]
 //  430           {
 //  431             CLEAR_IN_EP_INTR(epnum, USB_OTG_DIEPINT_TOC);
 //  432           }
 //  433           if(( epint & USB_OTG_DIEPINT_ITTXFE) == USB_OTG_DIEPINT_ITTXFE)
-        LSLS     R0,R8,#+27
+        LSLS     R0,R9,#+27
         ITT      MI 
         MOVMI    R0,#+16
-        STRMI    R0,[R6, #+8]
+        STRMI    R0,[R11, #+8]
 //  434           {
 //  435             CLEAR_IN_EP_INTR(epnum, USB_OTG_DIEPINT_ITTXFE);
 //  436           }
 //  437           if(( epint & USB_OTG_DIEPINT_INEPNE) == USB_OTG_DIEPINT_INEPNE)
-        LSLS     R0,R8,#+25
+        LSLS     R0,R9,#+25
         ITT      MI 
         MOVMI    R0,#+64
-        STRMI    R0,[R6, #+8]
+        STRMI    R0,[R11, #+8]
 //  438           {
 //  439             CLEAR_IN_EP_INTR(epnum, USB_OTG_DIEPINT_INEPNE);
 //  440           }
 //  441           if(( epint & USB_OTG_DIEPINT_EPDISD) == USB_OTG_DIEPINT_EPDISD)
-        LSLS     R0,R8,#+30
+        LSLS     R0,R9,#+30
         ITT      MI 
         MOVMI    R0,#+2
-        STRMI    R0,[R6, #+8]
+        STRMI    R0,[R11, #+8]
 //  442           {
 //  443             CLEAR_IN_EP_INTR(epnum, USB_OTG_DIEPINT_EPDISD);
 //  444           }       
 //  445           if(( epint & USB_OTG_DIEPINT_TXFE) == USB_OTG_DIEPINT_TXFE)
-        LSLS     R0,R8,#+24
-        BPL.N    ??HAL_PCD_IRQHandler_10
+        LSLS     R0,R9,#+24
+        BPL.N    ??HAL_PCD_IRQHandler_12
 //  446           {
 //  447             PCD_WriteEmptyTxFifo(hpcd , epnum);
         MOV      R1,R5
@@ -1059,59 +1058,63 @@ HAL_PCD_IRQHandler:
 //  448           }
 //  449         }
 //  450         epnum++;
-??HAL_PCD_IRQHandler_10:
-        ADDS     R5,R5,#+1
 //  451         ep_intr >>= 1;
+??HAL_PCD_IRQHandler_12:
+        LDR      R0,[SP, #+8]
+        ADDS     R5,R5,#+1
         LSRS     R7,R7,#+1
-        ADDS     R6,R6,#+32
-        CMP      R7,#+0
-        ADD      R9,R9,#+28
-        BNE.N    ??HAL_PCD_IRQHandler_9
+        ADD      R8,R8,#+28
+        ADDS     R0,R0,#+32
+        STR      R0,[SP, #+8]
 //  452       }
+??HAL_PCD_IRQHandler_10:
+        CMP      R7,#+0
+        BNE.N    ??HAL_PCD_IRQHandler_11
 //  453     }
 //  454     
 //  455     /* Handle Resume Interrupt */
 //  456     if(__HAL_PCD_GET_FLAG(hpcd, USB_OTG_GINTSTS_WKUINT))
-??HAL_PCD_IRQHandler_8:
+??HAL_PCD_IRQHandler_9:
         LDR      R0,[R4, #+0]
           CFI FunCall USB_ReadInterrupts
         BL       USB_ReadInterrupts
         CMP      R0,#+0
-        BPL.N    ??HAL_PCD_IRQHandler_13
+        BPL.N    ??HAL_PCD_IRQHandler_15
 //  457     {
 //  458       /* Clear the Remote Wake-up Signaling */
 //  459       USBx_DEVICE->DCTL &= ~USB_OTG_DCTL_RWUSIG;
         LDR      R0,[SP, #+0]
-        LDR      R0,[R0, #+4]
-        LDR      R1,[SP, #+0]
+        ADDS     R6,R0,#+4
+        LDR      R0,[R6, #+0]
         LSRS     R0,R0,#+1
         LSLS     R0,R0,#+1
-        STR      R0,[R1, #+4]
+        STR      R0,[R6, #+0]
 //  460       
 //  461       if(hpcd->LPM_State == LPM_L1)
-        LDRB     R0,[R4, #+944]
-        CMP      R0,#+1
-        BNE.N    ??HAL_PCD_IRQHandler_14
+        ADD      R0,R4,#+944
+        LDRB     R1,[R0, #+0]
+        CMP      R1,#+1
+        BNE.N    ??HAL_PCD_IRQHandler_16
 //  462       {
 //  463         hpcd->LPM_State = LPM_L0;
-        STRB     R10,[R4, #+944]
-//  464         HAL_PCDEx_LPM_Callback(hpcd, PCD_LPM_L0_ACTIVE);
         MOVS     R1,#+0
+        STRB     R1,[R0, #+0]
+//  464         HAL_PCDEx_LPM_Callback(hpcd, PCD_LPM_L0_ACTIVE);
         MOV      R0,R4
           CFI FunCall HAL_PCDEx_LPM_Callback
         BL       HAL_PCDEx_LPM_Callback
-        B.N      ??HAL_PCD_IRQHandler_15
+        B.N      ??HAL_PCD_IRQHandler_17
 //  465       }
 //  466       else
 //  467       {
 //  468         HAL_PCD_ResumeCallback(hpcd);
-??HAL_PCD_IRQHandler_14:
+??HAL_PCD_IRQHandler_16:
         MOV      R0,R4
           CFI FunCall HAL_PCD_ResumeCallback
         BL       HAL_PCD_ResumeCallback
 //  469       }
 //  470       __HAL_PCD_CLEAR_FLAG(hpcd, USB_OTG_GINTSTS_WKUINT);
-??HAL_PCD_IRQHandler_15:
+??HAL_PCD_IRQHandler_17:
         LDR      R1,[R4, #+0]
         MOV      R0,#-2147483648
         STR      R0,[R1, #+20]
@@ -1119,16 +1122,17 @@ HAL_PCD_IRQHandler:
 //  472     
 //  473     /* Handle Suspend Interrupt */
 //  474     if(__HAL_PCD_GET_FLAG(hpcd, USB_OTG_GINTSTS_USBSUSP))
-??HAL_PCD_IRQHandler_13:
+??HAL_PCD_IRQHandler_15:
         LDR      R0,[R4, #+0]
           CFI FunCall USB_ReadInterrupts
         BL       USB_ReadInterrupts
         LSLS     R0,R0,#+20
-        BPL.N    ??HAL_PCD_IRQHandler_16
+        BPL.N    ??HAL_PCD_IRQHandler_18
 //  475     {
 //  476       if((USBx_DEVICE->DSTS & USB_OTG_DSTS_SUSPSTS) == USB_OTG_DSTS_SUSPSTS)
         LDR      R0,[SP, #+0]
-        LDR      R0,[R0, #+8]
+        ADDS     R0,R0,#+4
+        LDR      R0,[R0, #+4]
         LSLS     R0,R0,#+31
         ITT      MI 
 //  477       {
@@ -1146,38 +1150,40 @@ HAL_PCD_IRQHandler:
 //  483     
 //  484     /* Handle LPM Interrupt */ 
 //  485     if(__HAL_PCD_GET_FLAG(hpcd, USB_OTG_GINTSTS_LPMINT))
-??HAL_PCD_IRQHandler_16:
+??HAL_PCD_IRQHandler_18:
         LDR      R0,[R4, #+0]
           CFI FunCall USB_ReadInterrupts
         BL       USB_ReadInterrupts
         LSLS     R0,R0,#+4
-        BPL.N    ??HAL_PCD_IRQHandler_17
+        BPL.N    ??HAL_PCD_IRQHandler_19
 //  486     {
 //  487       __HAL_PCD_CLEAR_FLAG(hpcd, USB_OTG_GINTSTS_LPMINT);      
-        LDR      R0,[R4, #+0]
-        MOV      R1,#+134217728
-        STR      R1,[R0, #+20]
+        LDR      R1,[R4, #+0]
+        MOV      R0,#+134217728
+        STR      R0,[R1, #+20]
 //  488       if( hpcd->LPM_State == LPM_L0)
-        LDRB     R1,[R4, #+944]
-        CBNZ.N   R1,??HAL_PCD_IRQHandler_18
+        ADD      R0,R4,#+944
+        LDRB     R2,[R0, #+0]
+        CBNZ.N   R2,??HAL_PCD_IRQHandler_20
 //  489       {
 //  490         hpcd->LPM_State = LPM_L1;
-        MOVS     R1,#+1
-        STRB     R1,[R4, #+944]
+        MOVS     R2,#+1
+        STRB     R2,[R0, #+0]
 //  491         hpcd->BESL = (hpcd->Instance->GLPMCFG & USB_OTG_GLPMCFG_BESL) >>2 ;
-        LDR      R0,[R0, #+84]
-        UBFX     R0,R0,#+2,#+4
-        STR      R0,[R4, #+948]
+        LDR      R1,[R1, #+84]
+        UBFX     R1,R1,#+2,#+4
+        STR      R1,[R0, #+4]
 //  492         HAL_PCDEx_LPM_Callback(hpcd, PCD_LPM_L1_ACTIVE);
+        MOVS     R1,#+1
         MOV      R0,R4
           CFI FunCall HAL_PCDEx_LPM_Callback
         BL       HAL_PCDEx_LPM_Callback
-        B.N      ??HAL_PCD_IRQHandler_17
+        B.N      ??HAL_PCD_IRQHandler_19
 //  493       }
 //  494       else
 //  495       {
 //  496         HAL_PCD_SuspendCallback(hpcd);
-??HAL_PCD_IRQHandler_18:
+??HAL_PCD_IRQHandler_20:
         MOV      R0,R4
           CFI FunCall HAL_PCD_SuspendCallback
         BL       HAL_PCD_SuspendCallback
@@ -1186,95 +1192,85 @@ HAL_PCD_IRQHandler:
 //  499     
 //  500     /* Handle Reset Interrupt */
 //  501     if(__HAL_PCD_GET_FLAG(hpcd, USB_OTG_GINTSTS_USBRST))
-??HAL_PCD_IRQHandler_17:
+??HAL_PCD_IRQHandler_19:
         LDR      R0,[R4, #+0]
           CFI FunCall USB_ReadInterrupts
         BL       USB_ReadInterrupts
         LSLS     R0,R0,#+19
-        BPL.N    ??HAL_PCD_IRQHandler_19
+        BPL.N    ??HAL_PCD_IRQHandler_21
 //  502     {
 //  503       USBx_DEVICE->DCTL &= ~USB_OTG_DCTL_RWUSIG; 
         LDR      R0,[SP, #+0]
-        LDR      R0,[R0, #+4]
-        LDR      R1,[SP, #+0]
+//  504       USB_FlushTxFifo(hpcd->Instance ,  0 );
+        MOVS     R1,#+0
+        ADDS     R6,R0,#+4
+        LDR      R0,[R6, #+0]
         LSRS     R0,R0,#+1
         LSLS     R0,R0,#+1
-        STR      R0,[R1, #+4]
-//  504       USB_FlushTxFifo(hpcd->Instance ,  0 );
+        STR      R0,[R6, #+0]
         LDR      R0,[R4, #+0]
-        MOVS     R1,#+0
           CFI FunCall USB_FlushTxFifo
         BL       USB_FlushTxFifo
 //  505       
 //  506       for (i = 0; i < hpcd->Init.dev_endpoints ; i++)
         LDR      R0,[SP, #+4]
-        LDR      R2,[R4, #+4]
         MOVS     R1,#+255
         ADD      R0,R0,#+2304
-        CBZ.N    R2,??HAL_PCD_IRQHandler_20
+        B.N      ??HAL_PCD_IRQHandler_22
 //  507       {
 //  508         USBx_INEP(i)->DIEPINT = 0xFF;
-??HAL_PCD_IRQHandler_21:
+??HAL_PCD_IRQHandler_23:
         STR      R1,[R0, #+8]
 //  509         USBx_OUTEP(i)->DOEPINT = 0xFF;
         ADD      R2,R0,#+512
         STR      R1,[R2, #+8]
 //  510       }
-        LDR      R2,[R4, #+4]
         ADD      R10,R10,#+1
         ADDS     R0,R0,#+32
+??HAL_PCD_IRQHandler_22:
+        LDR      R2,[R4, #+4]
         CMP      R10,R2
-        BCC.N    ??HAL_PCD_IRQHandler_21
+        BCC.N    ??HAL_PCD_IRQHandler_23
 //  511       USBx_DEVICE->DAINT = 0xFFFFFFFF;
-??HAL_PCD_IRQHandler_20:
-        LDR      R1,[SP, #+0]
         MOV      R0,#-1
-        STR      R0,[R1, #+24]
+        STR      R0,[R6, #+20]
 //  512       USBx_DEVICE->DAINTMSK |= 0x10001;
-        LDR      R0,[SP, #+0]
-        LDR      R0,[R0, #+28]
-        LDR      R1,[SP, #+0]
+        LDR      R0,[R6, #+24]
         ORR      R0,R0,#0x10001
-        STR      R0,[R1, #+28]
+        STR      R0,[R6, #+24]
 //  513       
 //  514       if(hpcd->Init.use_dedicated_ep1)
         LDR      R0,[R4, #+44]
-        CMP      R0,#+0
-        LDR      R0,[SP, #+0]
-        BEQ.N    ??HAL_PCD_IRQHandler_22
+        CBZ.N    R0,??HAL_PCD_IRQHandler_24
 //  515       {
 //  516         USBx_DEVICE->DOUTEP1MSK |= (USB_OTG_DOEPMSK_STUPM | USB_OTG_DOEPMSK_XFRCM | USB_OTG_DOEPMSK_EPDM); 
+        LDR      R0,[SP, #+0]
         LDR      R0,[R0, #+132]
         LDR      R1,[SP, #+0]
         ORR      R0,R0,#0xB
         STR      R0,[R1, #+132]
 //  517         USBx_DEVICE->DINEP1MSK |= (USB_OTG_DIEPMSK_TOM | USB_OTG_DIEPMSK_XFRCM | USB_OTG_DIEPMSK_EPDM);  
-        LDR      R0,[SP, #+0]
-        LDR      R0,[R0, #+68]
-        LDR      R1,[SP, #+0]
+        LDR      R0,[R6, #+64]
         ORR      R0,R0,#0xB
-        STR      R0,[R1, #+68]
-        B.N      ??HAL_PCD_IRQHandler_23
+        STR      R0,[R6, #+64]
+        B.N      ??HAL_PCD_IRQHandler_25
 //  518       }
 //  519       else
 //  520       {
 //  521         USBx_DEVICE->DOEPMSK |= (USB_OTG_DOEPMSK_STUPM | USB_OTG_DOEPMSK_XFRCM | USB_OTG_DOEPMSK_EPDM | USB_OTG_DOEPMSK_OTEPSPRM);
-??HAL_PCD_IRQHandler_22:
-        LDR      R0,[R0, #+20]
-        LDR      R1,[SP, #+0]
+??HAL_PCD_IRQHandler_24:
+        LDR      R0,[R6, #+16]
         ORR      R0,R0,#0x2B
-        STR      R0,[R1, #+20]
+        STR      R0,[R6, #+16]
 //  522         USBx_DEVICE->DIEPMSK |= (USB_OTG_DIEPMSK_TOM | USB_OTG_DIEPMSK_XFRCM | USB_OTG_DIEPMSK_EPDM);
-        LDR      R0,[SP, #+0]
-        LDR      R0,[R0, #+16]
-        LDR      R1,[SP, #+0]
+        LDR      R0,[R6, #+12]
         ORR      R0,R0,#0xB
-        STR      R0,[R1, #+16]
+        STR      R0,[R6, #+12]
 //  523       }
 //  524       
 //  525       /* Set Default Address to 0 */
 //  526       USBx_DEVICE->DCFG &= ~USB_OTG_DCFG_DAD;
-??HAL_PCD_IRQHandler_23:
+??HAL_PCD_IRQHandler_25:
         LDR      R0,[SP, #+0]
 //  527       
 //  528       /* setup EP0 to receive SETUP packets */
@@ -1298,12 +1294,12 @@ HAL_PCD_IRQHandler:
 //  533     
 //  534     /* Handle Enumeration done Interrupt */
 //  535     if(__HAL_PCD_GET_FLAG(hpcd, USB_OTG_GINTSTS_ENUMDNE))
-??HAL_PCD_IRQHandler_19:
+??HAL_PCD_IRQHandler_21:
         LDR      R0,[R4, #+0]
           CFI FunCall USB_ReadInterrupts
         BL       USB_ReadInterrupts
         LSLS     R0,R0,#+18
-        BPL.N    ??HAL_PCD_IRQHandler_24
+        BPL.N    ??HAL_PCD_IRQHandler_26
 //  536     {
 //  537       USB_ActivateSetup(hpcd->Instance);
         LDR      R0,[R4, #+0]
@@ -1318,7 +1314,7 @@ HAL_PCD_IRQHandler:
 //  540       if ( USB_GetDevSpeed(hpcd->Instance) == USB_OTG_SPEED_HIGH)
           CFI FunCall USB_GetDevSpeed
         BL       USB_GetDevSpeed
-        CBNZ.N   R0,??HAL_PCD_IRQHandler_25
+        CBNZ.N   R0,??HAL_PCD_IRQHandler_27
 //  541       {
 //  542         hpcd->Init.speed            = USB_OTG_SPEED_HIGH;
         STR      R0,[R4, #+12]
@@ -1329,12 +1325,12 @@ HAL_PCD_IRQHandler:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+12]
         ORR      R1,R1,#0x2400
-        B.N      ??HAL_PCD_IRQHandler_26
+        B.N      ??HAL_PCD_IRQHandler_28
 //  545       }
 //  546       else
 //  547       {
 //  548         hpcd->Init.speed            = USB_OTG_SPEED_FULL;
-??HAL_PCD_IRQHandler_25:
+??HAL_PCD_IRQHandler_27:
         MOVS     R0,#+3
         STR      R0,[R4, #+12]
 //  549         hpcd->Init.ep0_mps          = USB_OTG_FS_MAX_PACKET_SIZE ;  
@@ -1344,7 +1340,7 @@ HAL_PCD_IRQHandler:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+12]
         ORR      R1,R1,#0x1400
-??HAL_PCD_IRQHandler_26:
+??HAL_PCD_IRQHandler_28:
         STR      R1,[R0, #+12]
 //  551       }
 //  552       
@@ -1361,12 +1357,12 @@ HAL_PCD_IRQHandler:
 //  557     
 //  558     /* Handle RxQLevel Interrupt */
 //  559     if(__HAL_PCD_GET_FLAG(hpcd, USB_OTG_GINTSTS_RXFLVL))
-??HAL_PCD_IRQHandler_24:
+??HAL_PCD_IRQHandler_26:
         LDR      R0,[R4, #+0]
           CFI FunCall USB_ReadInterrupts
         BL       USB_ReadInterrupts
         LSLS     R0,R0,#+27
-        BPL.N    ??HAL_PCD_IRQHandler_27
+        BPL.N    ??HAL_PCD_IRQHandler_29
 //  560     {
 //  561       USB_MASK_INTERRUPT(hpcd->Instance, USB_OTG_GINTSTS_RXFLVL);
         LDR      R0,[R4, #+0]
@@ -1385,12 +1381,12 @@ HAL_PCD_IRQHandler:
 //  565       if(((temp & USB_OTG_GRXSTSP_PKTSTS) >> 17) ==  STS_DATA_UPDT)
         UBFX     R0,R10,#+17,#+4
         CMP      R0,#+2
-        BNE.N    ??HAL_PCD_IRQHandler_28
+        BNE.N    ??HAL_PCD_IRQHandler_30
 //  566       {
 //  567         if((temp & USB_OTG_GRXSTSP_BCNT) != 0)
         MOVW     R0,#+32752
         TST      R10,R0
-        BEQ.N    ??HAL_PCD_IRQHandler_29
+        BEQ.N    ??HAL_PCD_IRQHandler_31
 //  568         {
 //  569           USB_ReadPacket(USBx, ep->xfer_buff, (temp & USB_OTG_GRXSTSP_BCNT) >> 4);
         LDR      R1,[R7, #+12]
@@ -1406,13 +1402,13 @@ HAL_PCD_IRQHandler:
 //  571           ep->xfer_count += (temp & USB_OTG_GRXSTSP_BCNT) >> 4;
         LDR      R1,[R7, #+24]
         ADDS     R0,R0,R1
-        B.N      ??HAL_PCD_IRQHandler_30
+        B.N      ??HAL_PCD_IRQHandler_32
 //  572         }
 //  573       }
 //  574       else if (((temp & USB_OTG_GRXSTSP_PKTSTS) >> 17) ==  STS_SETUP_UPDT)
-??HAL_PCD_IRQHandler_28:
+??HAL_PCD_IRQHandler_30:
         CMP      R0,#+6
-        BNE.N    ??HAL_PCD_IRQHandler_29
+        BNE.N    ??HAL_PCD_IRQHandler_31
 //  575       {
 //  576         USB_ReadPacket(USBx, (uint8_t *)hpcd->Setup, 8);
         LDR      R0,[SP, #+4]
@@ -1424,11 +1420,11 @@ HAL_PCD_IRQHandler:
         LDR      R0,[R7, #+24]
         UBFX     R1,R10,#+4,#+11
         ADDS     R0,R1,R0
-??HAL_PCD_IRQHandler_30:
+??HAL_PCD_IRQHandler_32:
         STR      R0,[R7, #+24]
 //  578       }
 //  579       USB_UNMASK_INTERRUPT(hpcd->Instance, USB_OTG_GINTSTS_RXFLVL);
-??HAL_PCD_IRQHandler_29:
+??HAL_PCD_IRQHandler_31:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+24]
         ORR      R1,R1,#0x10
@@ -1437,12 +1433,12 @@ HAL_PCD_IRQHandler:
 //  581     
 //  582     /* Handle SOF Interrupt */
 //  583     if(__HAL_PCD_GET_FLAG(hpcd, USB_OTG_GINTSTS_SOF))
-??HAL_PCD_IRQHandler_27:
+??HAL_PCD_IRQHandler_29:
         LDR      R0,[R4, #+0]
           CFI FunCall USB_ReadInterrupts
         BL       USB_ReadInterrupts
         LSLS     R0,R0,#+28
-        BPL.N    ??HAL_PCD_IRQHandler_31
+        BPL.N    ??HAL_PCD_IRQHandler_33
 //  584     {
 //  585       HAL_PCD_SOFCallback(hpcd);
         MOV      R0,R4
@@ -1456,12 +1452,12 @@ HAL_PCD_IRQHandler:
 //  588     
 //  589     /* Handle Incomplete ISO IN Interrupt */
 //  590     if(__HAL_PCD_GET_FLAG(hpcd, USB_OTG_GINTSTS_IISOIXFR))
-??HAL_PCD_IRQHandler_31:
+??HAL_PCD_IRQHandler_33:
         LDR      R0,[R4, #+0]
           CFI FunCall USB_ReadInterrupts
         BL       USB_ReadInterrupts
         LSLS     R0,R0,#+11
-        BPL.N    ??HAL_PCD_IRQHandler_32
+        BPL.N    ??HAL_PCD_IRQHandler_34
 //  591     {
 //  592       HAL_PCD_ISOINIncompleteCallback(hpcd, epnum);
         UXTB     R1,R5
@@ -1476,12 +1472,12 @@ HAL_PCD_IRQHandler:
 //  595     
 //  596     /* Handle Incomplete ISO OUT Interrupt */
 //  597     if(__HAL_PCD_GET_FLAG(hpcd, USB_OTG_GINTSTS_PXFR_INCOMPISOOUT))
-??HAL_PCD_IRQHandler_32:
+??HAL_PCD_IRQHandler_34:
         LDR      R0,[R4, #+0]
           CFI FunCall USB_ReadInterrupts
         BL       USB_ReadInterrupts
         LSLS     R0,R0,#+10
-        BPL.N    ??HAL_PCD_IRQHandler_33
+        BPL.N    ??HAL_PCD_IRQHandler_35
 //  598     {
 //  599       HAL_PCD_ISOOUTIncompleteCallback(hpcd, epnum);
         UXTB     R1,R5
@@ -1496,12 +1492,12 @@ HAL_PCD_IRQHandler:
 //  602     
 //  603     /* Handle Connection event Interrupt */
 //  604     if(__HAL_PCD_GET_FLAG(hpcd, USB_OTG_GINTSTS_SRQINT))
-??HAL_PCD_IRQHandler_33:
+??HAL_PCD_IRQHandler_35:
         LDR      R0,[R4, #+0]
           CFI FunCall USB_ReadInterrupts
         BL       USB_ReadInterrupts
         LSLS     R0,R0,#+1
-        BPL.N    ??HAL_PCD_IRQHandler_34
+        BPL.N    ??HAL_PCD_IRQHandler_36
 //  605     {
 //  606       HAL_PCD_ConnectCallback(hpcd);
         MOV      R0,R4
@@ -1515,7 +1511,7 @@ HAL_PCD_IRQHandler:
 //  609     
 //  610     /* Handle Disconnection event Interrupt */
 //  611     if(__HAL_PCD_GET_FLAG(hpcd, USB_OTG_GINTSTS_OTGINT))
-??HAL_PCD_IRQHandler_34:
+??HAL_PCD_IRQHandler_36:
         LDR      R0,[R4, #+0]
           CFI FunCall USB_ReadInterrupts
         BL       USB_ReadInterrupts
@@ -1544,9 +1540,9 @@ HAL_PCD_IRQHandler:
 //  621   }
 //  622 }
 ??HAL_PCD_IRQHandler_0:
-        ADD      SP,SP,#+8
-          CFI CFA R13+32
-        POP      {R4-R10,PC}      ;; return
+        ADD      SP,SP,#+12
+          CFI CFA R13+36
+        POP      {R4-R11,PC}      ;; return
           CFI EndBlock cfiBlock6
 //  623 
 //  624 /**
@@ -1867,10 +1863,8 @@ HAL_PCD_DevConnect:
           CFI FunCall USB_DevConnect
         BL       USB_DevConnect
 //  820   __HAL_UNLOCK(hpcd); 
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+892]
+        B.N      ??Subroutine2_0
 //  821   return HAL_OK;
-        POP      {R4,PC}          ;; return
 //  822 }
           CFI EndBlock cfiBlock18
 //  823 
@@ -1883,6 +1877,7 @@ HAL_PCD_DevConnect:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock19 Using cfiCommon0
           CFI Function HAL_PCD_DevDisconnect
+          CFI NoCalls
         THUMB
 //  829 HAL_StatusTypeDef HAL_PCD_DevDisconnect(PCD_HandleTypeDef *hpcd)
 //  830 {
@@ -1902,16 +1897,41 @@ HAL_PCD_DevDisconnect:
         MOVS     R0,#+1
         STRB     R0,[R4, #+892]
 //  832   USB_DevDisconnect(hpcd->Instance);
-        LDR      R0,[R4, #+0]
-          CFI FunCall USB_DevDisconnect
-        BL       USB_DevDisconnect
+          CFI EndBlock cfiBlock19
+        REQUIRE ?Subroutine1
+        ;; // Fall through to label ?Subroutine1
 //  833   __HAL_UNLOCK(hpcd); 
+//  834   return HAL_OK;
+//  835 }
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock20 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+8
+          CFI R4 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+        THUMB
+?Subroutine1:
+        LDR      R0,[R4, #+0]
+          CFI FunCall HAL_PCD_Stop USB_DevDisconnect
+          CFI FunCall HAL_PCD_DevDisconnect USB_DevDisconnect
+        BL       USB_DevDisconnect
+          CFI EndBlock cfiBlock20
+        REQUIRE ??Subroutine2_0
+        ;; // Fall through to label ??Subroutine2_0
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock21 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+8
+          CFI R4 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+        THUMB
+??Subroutine2_0:
         MOVS     R0,#+0
         STRB     R0,[R4, #+892]
-//  834   return HAL_OK;
         POP      {R4,PC}          ;; return
-//  835 }
-          CFI EndBlock cfiBlock19
+          CFI EndBlock cfiBlock21
 //  836 
 //  837 /**
 //  838   * @brief  Set the USB Device address. 
@@ -1921,7 +1941,7 @@ HAL_PCD_DevDisconnect:
 //  842   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock20 Using cfiCommon0
+          CFI Block cfiBlock22 Using cfiCommon0
           CFI Function HAL_PCD_SetAddress
         THUMB
 //  843 HAL_StatusTypeDef HAL_PCD_SetAddress(PCD_HandleTypeDef *hpcd, uint8_t address)
@@ -1946,12 +1966,10 @@ HAL_PCD_SetAddress:
           CFI FunCall USB_SetDevAddress
         BL       USB_SetDevAddress
 //  847   __HAL_UNLOCK(hpcd);   
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+892]
+        B.N      ??Subroutine2_0
 //  848   return HAL_OK;
-        POP      {R4,PC}          ;; return
 //  849 }
-          CFI EndBlock cfiBlock20
+          CFI EndBlock cfiBlock22
 //  850 /**
 //  851   * @brief  Open and configure an endpoint.
 //  852   * @param  hpcd: PCD handle
@@ -1962,17 +1980,17 @@ HAL_PCD_SetAddress:
 //  857   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock21 Using cfiCommon0
+          CFI Block cfiBlock23 Using cfiCommon0
           CFI Function HAL_PCD_EP_Open
         THUMB
 //  858 HAL_StatusTypeDef HAL_PCD_EP_Open(PCD_HandleTypeDef *hpcd, uint8_t ep_addr, uint16_t ep_mps, uint8_t ep_type)
 //  859 {
 HAL_PCD_EP_Open:
-        PUSH     {R4,R5,LR}
+        PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
+          CFI CFA R13+16
         MOV      R4,R0
 //  860   HAL_StatusTypeDef  ret = HAL_OK;
 //  861   USB_OTG_EPTypeDef *ep;
@@ -1980,8 +1998,6 @@ HAL_PCD_EP_Open:
 //  863   if ((ep_addr & 0x80) == 0x80)
         AND      R0,R1,#0x7F
         RSB      R5,R0,R0, LSL #+3
-        SUB      SP,SP,#+4
-          CFI CFA R13+16
         ADD      R0,R4,R5, LSL #+2
         LSLS     R5,R1,#+24
 //  864   {
@@ -2028,9 +2044,10 @@ HAL_PCD_EP_Open:
 //  887   __HAL_LOCK(hpcd); 
         LDRB     R1,[R4, #+892]
         CMP      R1,#+1
-        IT       EQ 
-        MOVEQ    R0,#+2
-        BEQ.N    ??HAL_PCD_EP_Open_1
+        BNE.N    ??HAL_PCD_EP_Open_1
+        MOVS     R0,#+2
+        POP      {R1,R4,R5,PC}
+??HAL_PCD_EP_Open_1:
         MOVS     R1,#+1
         STRB     R1,[R4, #+892]
 //  888   USB_ActivateEndpoint(hpcd->Instance , ep);
@@ -2039,15 +2056,10 @@ HAL_PCD_EP_Open:
           CFI FunCall USB_ActivateEndpoint
         BL       USB_ActivateEndpoint
 //  889   __HAL_UNLOCK(hpcd);   
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+892]
+        B.N      ??Subroutine0_0
 //  890   return ret;
-??HAL_PCD_EP_Open_1:
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}       ;; return
 //  891 }
-          CFI EndBlock cfiBlock21
+          CFI EndBlock cfiBlock23
 //  892 
 //  893 
 //  894 /**
@@ -2058,7 +2070,7 @@ HAL_PCD_EP_Open:
 //  899   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock22 Using cfiCommon0
+          CFI Block cfiBlock24 Using cfiCommon0
           CFI Function HAL_PCD_EP_Close
         THUMB
 //  900 HAL_StatusTypeDef HAL_PCD_EP_Close(PCD_HandleTypeDef *hpcd, uint8_t ep_addr)
@@ -2109,12 +2121,10 @@ HAL_PCD_EP_Close:
           CFI FunCall USB_DeactivateEndpoint
         BL       USB_DeactivateEndpoint
 //  918   __HAL_UNLOCK(hpcd);   
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+892]
+        B.N      ??Subroutine2_0
 //  919   return HAL_OK;
-        POP      {R4,PC}          ;; return
 //  920 }
-          CFI EndBlock cfiBlock22
+          CFI EndBlock cfiBlock24
 //  921 
 //  922 
 //  923 /**
@@ -2127,25 +2137,24 @@ HAL_PCD_EP_Close:
 //  930   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock23 Using cfiCommon0
+          CFI Block cfiBlock25 Using cfiCommon0
           CFI Function HAL_PCD_EP_Receive
+          CFI NoCalls
         THUMB
 //  931 HAL_StatusTypeDef HAL_PCD_EP_Receive(PCD_HandleTypeDef *hpcd, uint8_t ep_addr, uint8_t *pBuf, uint32_t len)
 //  932 {
 HAL_PCD_EP_Receive:
-        PUSH     {R4,R5,LR}
+        PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
+          CFI CFA R13+16
         MOV      R4,R0
         MOV      R0,R1
 //  933   USB_OTG_EPTypeDef *ep;
 //  934   
 //  935   ep = &hpcd->OUT_ep[ep_addr & 0x7F];
         AND      R1,R0,#0x7F
-        SUB      SP,SP,#+4
-          CFI CFA R13+16
         RSB      R5,R1,R1, LSL #+3
         ADD      R1,R4,R5, LSL #+2
         ADD      R1,R1,#+472
@@ -2176,43 +2185,25 @@ HAL_PCD_EP_Receive:
 //  949   __HAL_LOCK(hpcd); 
         LDRB     R0,[R4, #+892]
         CMP      R0,#+1
-        IT       EQ 
-        MOVEQ    R0,#+2
-        BEQ.N    ??HAL_PCD_EP_Receive_0
-        MOVS     R0,#+1
+        BNE.N    ??HAL_PCD_EP_Receive_0
+        MOVS     R0,#+2
+        POP      {R1,R4,R5,PC}
+??HAL_PCD_EP_Receive_0:
+        B.N      ?Subroutine0
 //  950   
 //  951   if ((ep_addr & 0x7F) == 0 )
-        LDR      R2,[R4, #+16]
-        CMP      R3,#+0
-        STRB     R0,[R4, #+892]
-        LDR      R0,[R4, #+0]
-        UXTB     R2,R2
-        BNE.N    ??HAL_PCD_EP_Receive_1
 //  952   {
 //  953     USB_EP0StartXfer(hpcd->Instance , ep, hpcd->Init.dma_enable);
-          CFI FunCall USB_EP0StartXfer
-        BL       USB_EP0StartXfer
-        B.N      ??HAL_PCD_EP_Receive_2
 //  954   }
 //  955   else
 //  956   {
 //  957     USB_EPStartXfer(hpcd->Instance , ep, hpcd->Init.dma_enable);
-??HAL_PCD_EP_Receive_1:
-          CFI FunCall USB_EPStartXfer
-        BL       USB_EPStartXfer
 //  958   }
 //  959   __HAL_UNLOCK(hpcd); 
-??HAL_PCD_EP_Receive_2:
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+892]
 //  960   
 //  961   return HAL_OK;
-??HAL_PCD_EP_Receive_0:
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}       ;; return
 //  962 }
-          CFI EndBlock cfiBlock23
+          CFI EndBlock cfiBlock25
 //  963 
 //  964 /**
 //  965   * @brief  Get Received Data Size.
@@ -2222,7 +2213,7 @@ HAL_PCD_EP_Receive:
 //  969   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock24 Using cfiCommon0
+          CFI Block cfiBlock26 Using cfiCommon0
           CFI Function HAL_PCD_EP_GetRxCount
           CFI NoCalls
         THUMB
@@ -2237,7 +2228,7 @@ HAL_PCD_EP_GetRxCount:
         UXTH     R0,R0
         BX       LR               ;; return
 //  973 }
-          CFI EndBlock cfiBlock24
+          CFI EndBlock cfiBlock26
 //  974 /**
 //  975   * @brief  Send an amount of data.  
 //  976   * @param  hpcd: PCD handle
@@ -2248,25 +2239,24 @@ HAL_PCD_EP_GetRxCount:
 //  981   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock25 Using cfiCommon0
+          CFI Block cfiBlock27 Using cfiCommon0
           CFI Function HAL_PCD_EP_Transmit
+          CFI NoCalls
         THUMB
 //  982 HAL_StatusTypeDef HAL_PCD_EP_Transmit(PCD_HandleTypeDef *hpcd, uint8_t ep_addr, uint8_t *pBuf, uint32_t len)
 //  983 {
 HAL_PCD_EP_Transmit:
-        PUSH     {R4,R5,LR}
+        PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
+          CFI CFA R13+16
         MOV      R4,R0
         MOV      R0,R1
 //  984   USB_OTG_EPTypeDef *ep;
 //  985   
 //  986   ep = &hpcd->IN_ep[ep_addr & 0x7F];
         AND      R1,R0,#0x7F
-        SUB      SP,SP,#+4
-          CFI CFA R13+16
         RSB      R5,R1,R1, LSL #+3
         ADD      R1,R4,R5, LSL #+2
         ADDS     R1,R1,#+52
@@ -2298,44 +2288,57 @@ HAL_PCD_EP_Transmit:
 // 1000   __HAL_LOCK(hpcd); 
         LDRB     R0,[R4, #+892]
         CMP      R0,#+1
-        IT       EQ 
-        MOVEQ    R0,#+2
-        BEQ.N    ??HAL_PCD_EP_Transmit_0
-        MOVS     R0,#+1
+        BNE.N    ??HAL_PCD_EP_Transmit_0
+        MOVS     R0,#+2
+        POP      {R1,R4,R5,PC}
+??HAL_PCD_EP_Transmit_0:
+          CFI EndBlock cfiBlock27
+        REQUIRE ?Subroutine0
+        ;; // Fall through to label ?Subroutine0
 // 1001   
 // 1002   if ((ep_addr & 0x7F) == 0 )
+// 1003   {
+// 1004     USB_EP0StartXfer(hpcd->Instance , ep, hpcd->Init.dma_enable);
+// 1005   }
+// 1006   else
+// 1007   {
+// 1008     USB_EPStartXfer(hpcd->Instance , ep, hpcd->Init.dma_enable);
+// 1009   }
+// 1010   
+// 1011   __HAL_UNLOCK(hpcd);
+// 1012      
+// 1013   return HAL_OK;
+// 1014 }
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock28 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+16
+          CFI R4 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+        THUMB
+?Subroutine0:
+        MOVS     R0,#+1
         LDR      R2,[R4, #+16]
         CMP      R3,#+0
         STRB     R0,[R4, #+892]
         LDR      R0,[R4, #+0]
         UXTB     R2,R2
-        BNE.N    ??HAL_PCD_EP_Transmit_1
-// 1003   {
-// 1004     USB_EP0StartXfer(hpcd->Instance , ep, hpcd->Init.dma_enable);
-          CFI FunCall USB_EP0StartXfer
+        BNE.N    ??Subroutine0_1
+          CFI FunCall HAL_PCD_EP_Receive USB_EP0StartXfer
+          CFI FunCall HAL_PCD_EP_Transmit USB_EP0StartXfer
         BL       USB_EP0StartXfer
-        B.N      ??HAL_PCD_EP_Transmit_2
-// 1005   }
-// 1006   else
-// 1007   {
-// 1008     USB_EPStartXfer(hpcd->Instance , ep, hpcd->Init.dma_enable);
-??HAL_PCD_EP_Transmit_1:
-          CFI FunCall USB_EPStartXfer
+        B.N      ??Subroutine0_0
+??Subroutine0_1:
+          CFI FunCall HAL_PCD_EP_Receive USB_EPStartXfer
+          CFI FunCall HAL_PCD_EP_Transmit USB_EPStartXfer
         BL       USB_EPStartXfer
-// 1009   }
-// 1010   
-// 1011   __HAL_UNLOCK(hpcd);
-??HAL_PCD_EP_Transmit_2:
+??Subroutine0_0:
         MOVS     R0,#+0
         STRB     R0,[R4, #+892]
-// 1012      
-// 1013   return HAL_OK;
-??HAL_PCD_EP_Transmit_0:
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}       ;; return
-// 1014 }
-          CFI EndBlock cfiBlock25
+        POP      {R1,R4,R5,PC}    ;; return
+          CFI EndBlock cfiBlock28
 // 1015 
 // 1016 /**
 // 1017   * @brief  Set a STALL condition over an endpoint.
@@ -2345,7 +2348,7 @@ HAL_PCD_EP_Transmit:
 // 1021   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock26 Using cfiCommon0
+          CFI Block cfiBlock29 Using cfiCommon0
           CFI Function HAL_PCD_EP_SetStall
         THUMB
 // 1022 HAL_StatusTypeDef HAL_PCD_EP_SetStall(PCD_HandleTypeDef *hpcd, uint8_t ep_addr)
@@ -2355,12 +2358,10 @@ HAL_PCD_EP_Transmit:
 // 1026   if ((0x80 & ep_addr) == 0x80)
 HAL_PCD_EP_SetStall:
         LSLS     R2,R1,#+24
-        PUSH     {R4,R5,LR}
+        PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
-        SUB      SP,SP,#+4
           CFI CFA R13+16
         MOV      R4,R0
         BPL.N    ??HAL_PCD_EP_SetStall_0
@@ -2396,9 +2397,10 @@ HAL_PCD_EP_SetStall:
 // 1040   __HAL_LOCK(hpcd); 
         LDRB     R1,[R4, #+892]
         CMP      R1,#+1
-        IT       EQ 
-        MOVEQ    R0,#+2
-        BEQ.N    ??HAL_PCD_EP_SetStall_2
+        BNE.N    ??HAL_PCD_EP_SetStall_2
+        MOVS     R0,#+2
+        POP      {R1,R4,R5,PC}
+??HAL_PCD_EP_SetStall_2:
         STRB     R2,[R4, #+892]
 // 1041   USB_EPSetStall(hpcd->Instance , ep);
         MOV      R1,R0
@@ -2418,16 +2420,11 @@ HAL_PCD_EP_SetStall:
 // 1045   }
 // 1046   __HAL_UNLOCK(hpcd); 
 ??HAL_PCD_EP_SetStall_3:
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+892]
+        B.N      ??Subroutine0_0
 // 1047   
 // 1048   return HAL_OK;
-??HAL_PCD_EP_SetStall_2:
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}       ;; return
 // 1049 }
-          CFI EndBlock cfiBlock26
+          CFI EndBlock cfiBlock29
 // 1050 
 // 1051 /**
 // 1052   * @brief  Clear a STALL condition over in an endpoint.
@@ -2437,7 +2434,7 @@ HAL_PCD_EP_SetStall:
 // 1056   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock27 Using cfiCommon0
+          CFI Block cfiBlock30 Using cfiCommon0
           CFI Function HAL_PCD_EP_ClrStall
         THUMB
 // 1057 HAL_StatusTypeDef HAL_PCD_EP_ClrStall(PCD_HandleTypeDef *hpcd, uint8_t ep_addr)
@@ -2496,13 +2493,11 @@ HAL_PCD_EP_ClrStall:
           CFI FunCall USB_EPClearStall
         BL       USB_EPClearStall
 // 1076   __HAL_UNLOCK(hpcd); 
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+892]
+        B.N      ??Subroutine2_0
 // 1077     
 // 1078   return HAL_OK;
-        POP      {R4,PC}          ;; return
 // 1079 }
-          CFI EndBlock cfiBlock27
+          CFI EndBlock cfiBlock30
 // 1080 
 // 1081 /**
 // 1082   * @brief  Flush an endpoint.
@@ -2512,7 +2507,7 @@ HAL_PCD_EP_ClrStall:
 // 1086   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock28 Using cfiCommon0
+          CFI Block cfiBlock31 Using cfiCommon0
           CFI Function HAL_PCD_EP_Flush
         THUMB
 // 1087 HAL_StatusTypeDef HAL_PCD_EP_Flush(PCD_HandleTypeDef *hpcd, uint8_t ep_addr)
@@ -2542,26 +2537,23 @@ HAL_PCD_EP_Flush:
         AND      R1,R1,#0x7F
           CFI FunCall USB_FlushTxFifo
         BL       USB_FlushTxFifo
+        B.N      ??HAL_PCD_EP_Flush_2
 // 1094   }
 // 1095   else
 // 1096   {
 // 1097     USB_FlushRxFifo(hpcd->Instance);
-// 1098   }
-// 1099   
-// 1100   __HAL_UNLOCK(hpcd); 
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+892]
-// 1101     
-// 1102   return HAL_OK;
-        POP      {R4,PC}
 ??HAL_PCD_EP_Flush_1:
           CFI FunCall USB_FlushRxFifo
         BL       USB_FlushRxFifo
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+892]
-        POP      {R4,PC}          ;; return
+// 1098   }
+// 1099   
+// 1100   __HAL_UNLOCK(hpcd); 
+??HAL_PCD_EP_Flush_2:
+        B.N      ??Subroutine2_0
+// 1101     
+// 1102   return HAL_OK;
 // 1103 }
-          CFI EndBlock cfiBlock28
+          CFI EndBlock cfiBlock31
 // 1104 
 // 1105 /**
 // 1106   * @brief  Activate remote wakeup signalling.
@@ -2570,7 +2562,7 @@ HAL_PCD_EP_Flush:
 // 1109   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock29 Using cfiCommon0
+          CFI Block cfiBlock32 Using cfiCommon0
           CFI Function HAL_PCD_ActivateRemoteWakeup
           CFI NoCalls
         THUMB
@@ -2597,7 +2589,7 @@ HAL_PCD_ActivateRemoteWakeup:
         MOVS     R0,#+0
         BX       LR               ;; return
 // 1120 }
-          CFI EndBlock cfiBlock29
+          CFI EndBlock cfiBlock32
 // 1121 
 // 1122 /**
 // 1123   * @brief  De-activate remote wakeup signalling.
@@ -2606,7 +2598,7 @@ HAL_PCD_ActivateRemoteWakeup:
 // 1126   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock30 Using cfiCommon0
+          CFI Block cfiBlock33 Using cfiCommon0
           CFI Function HAL_PCD_DeActivateRemoteWakeup
           CFI NoCalls
         THUMB
@@ -2627,7 +2619,7 @@ HAL_PCD_DeActivateRemoteWakeup:
         MOVS     R0,#+0
         BX       LR               ;; return
 // 1134 }
-          CFI EndBlock cfiBlock30
+          CFI EndBlock cfiBlock33
 // 1135 /**
 // 1136   * @}
 // 1137   */
@@ -2654,7 +2646,7 @@ HAL_PCD_DeActivateRemoteWakeup:
 // 1158   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock31 Using cfiCommon0
+          CFI Block cfiBlock34 Using cfiCommon0
           CFI Function HAL_PCD_GetState
           CFI NoCalls
         THUMB
@@ -2665,7 +2657,7 @@ HAL_PCD_GetState:
         LDRB     R0,[R0, #+893]
         BX       LR               ;; return
 // 1162 }
-          CFI EndBlock cfiBlock31
+          CFI EndBlock cfiBlock34
 // 1163 /**
 // 1164   * @}
 // 1165   */
@@ -2687,7 +2679,7 @@ HAL_PCD_GetState:
 // 1181   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock32 Using cfiCommon0
+          CFI Block cfiBlock35 Using cfiCommon0
           CFI Function PCD_WriteEmptyTxFifo
         THUMB
 // 1182 static HAL_StatusTypeDef PCD_WriteEmptyTxFifo(PCD_HandleTypeDef *hpcd, uint32_t epnum)
@@ -2816,11 +2808,9 @@ PCD_WriteEmptyTxFifo:
 // 1227   return HAL_OK;  
 ??PCD_WriteEmptyTxFifo_3:
         MOVS     R0,#+0
-        ADD      SP,SP,#+8
-          CFI CFA R13+32
-        POP      {R4-R8,R10,R11,PC}  ;; return
+        POP      {R1,R2,R4-R8,R10,R11,PC}  ;; return
 // 1228 }
-          CFI EndBlock cfiBlock32
+          CFI EndBlock cfiBlock35
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -2850,9 +2840,9 @@ PCD_WriteEmptyTxFifo:
 // 1242 
 // 1243 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 2 396 bytes in section .text
+// 2 276 bytes in section .text
 // 
-// 2 396 bytes of CODE memory
+// 2 276 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

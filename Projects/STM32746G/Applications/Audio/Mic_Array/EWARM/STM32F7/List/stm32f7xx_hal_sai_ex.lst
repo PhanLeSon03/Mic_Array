@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       12/Apr/2016  09:55:50
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       13/Apr/2016  13:47:33
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7 --relaxed_fp
 #    List file    =  
@@ -213,23 +213,21 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   0000001A   0xF041 0x0101      ORREQ    R1,R1,#0x1
    \   0000001E   0x6800             LDR      R0,[R0, #+0]
    \   00000020   0x4290             CMP      R0,R2
-   \   00000022   0xBF1C             ITT      NE 
+   \   00000022   0xBF1B             ITTET    NE 
    \   00000024   0x....             LDRNE.N  R2,??DataTable1_1  ;; 0x40015824
    \   00000026   0x4290             CMPNE    R0,R2
-   \   00000028   0xBF07             ITTEE    EQ 
-   \   0000002A   0x....             LDREQ.N  R0,??DataTable1_2  ;; 0x40015800
-   \   0000002C   0x6001             STREQ    R1,[R0, #+0]
-   \   0000002E   0x....             LDRNE.N  R0,??DataTable1_2  ;; 0x40015800
-   \   00000030   0xF8C0 0x1400      STRNE    R1,[R0, #+1024]
+   \   00000028   0x....             LDREQ.N  R0,??DataTable1_2  ;; 0x40015800
+   \   0000002A   0x....             LDRNE.N  R0,??DataTable1_3  ;; 0x40015c00
     134            {
     135              SAI1->GCR = tmpregisterGCR;
     136            }
     137            else 
     138            {
     139              SAI2->GCR = tmpregisterGCR;
-   \   00000034   0x4770             BX       LR
+   \   0000002C   0x6001             STR      R1,[R0, #+0]
     140            }
     141          }
+   \   0000002E   0x4770             BX       LR               ;; return
     142            /**
     143            * @brief  Get SAI Input Clock based on SAI source clock selection
     144            * @param  hsai: pointer to a SAI_HandleTypeDef structure that contains
@@ -276,6 +274,10 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable1_2:
    \   00000000   0x40015800         DC32     0x40015800
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_3:
+   \   00000000   0x40015C00         DC32     0x40015c00
     164          
     165          /**
     166            * @}
@@ -312,13 +314,14 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
        4  ??DataTable1
        4  ??DataTable1_1
        4  ??DataTable1_2
-      54  SAI_BlockSynchroConfig
+       4  ??DataTable1_3
+      48  SAI_BlockSynchroConfig
       24  SAI_GetInputClock
 
  
- 90 bytes in section .text
+ 88 bytes in section .text
  
- 90 bytes of CODE memory
+ 88 bytes of CODE memory
 
 Errors: none
 Warnings: none

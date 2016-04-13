@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      12/Apr/2016  09:55:46
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      13/Apr/2016  13:47:29
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -199,11 +199,11 @@ swtBufUSBOut:
 //   41 void AudioUSBSend(uint16_t idxFrm) /* This function called every ms */
 //   42 {
 AudioUSBSend:
-        PUSH     {R4,R5,LR}
+        PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
+          CFI CFA R13+16
 //   43 #if 0
 //   44 	switch (cntBtnPress)
 //   45 			{
@@ -344,8 +344,6 @@ AudioUSBSend:
 //  180     (swtBufUSBOut)?Send_Audio_to_USB((int16_t *)&PCM_Buffer2[(8*AUDIO_SAMPLING_FREQUENCY/1000)*idxFrm], (8*AUDIO_SAMPLING_FREQUENCY/1000))://AUDIO_CHANNELS
 //  181                    Send_Audio_to_USB((int16_t *)&PCM_Buffer1[(8*AUDIO_SAMPLING_FREQUENCY/1000)*idxFrm], (8*AUDIO_SAMPLING_FREQUENCY/1000));//AUDIO_CHANNELS
         LDR.N    R5,??DataTable1
-        SUB      SP,SP,#+4
-          CFI CFA R13+16
         MOV      R4,R0
         LDRB     R1,[R5, #+0]
         CMP      R1,#+0
@@ -368,9 +366,7 @@ AudioUSBSend:
 //  185 #endif			   
 //  186 }
 ??AudioUSBSend_0:
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}       ;; return
+        POP      {R0,R4,R5,PC}    ;; return
           CFI EndBlock cfiBlock0
 //  187 
 //  188 /* This function should be called after data processing */
@@ -386,7 +382,7 @@ AudioUSBSend:
 //  198  ---------------------------------------------------------------------------------------------------------------*/
 //  199 
 
-        SECTION `.text`:CODE:NOROOT(2)
+        SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock1 Using cfiCommon0
           CFI Function AudioPlayerUpd
           CFI NoCalls
@@ -397,16 +393,19 @@ AudioUSBSend:
 //  203 	switch (buffer_switch)
 AudioPlayerUpd:
         LDR.N    R0,??DataTable1_3
-        PUSH     {R4-R7}
-          CFI R7 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+16
+        PUSH     {R4-R9,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R9 Frame(CFA, -8)
+          CFI R8 Frame(CFA, -12)
+          CFI R7 Frame(CFA, -16)
+          CFI R6 Frame(CFA, -20)
+          CFI R5 Frame(CFA, -24)
+          CFI R4 Frame(CFA, -28)
+          CFI CFA R13+28
         LDRB     R0,[R0, #+0]
         CBZ.N    R0,??AudioPlayerUpd_0
         CMP      R0,#+2
-        BEQ.W    ??AudioPlayerUpd_1
+        BEQ.N    ??AudioPlayerUpd_1
         BCC.N    ??AudioPlayerUpd_2
 //  204     {
 //  205       case BUF1_PLAY:
@@ -688,215 +687,87 @@ AudioPlayerUpd:
 //  481 #endif
 //  482 
 //  483 }
-        POP      {R4-R7}
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI R6 SameValue
-          CFI R7 SameValue
-          CFI CFA R13+0
-        BX       LR
-          CFI R4 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -4)
-          CFI CFA R13+16
+        POP      {R4-R9,PC}
 ??AudioPlayerUpd_0:
-        LDR.N    R2,??DataTable1_4
-        LDR.N    R3,??DataTable1_2
-        LDR.N    R4,??DataTable1_1
-        MOV      R5,#+1024
-        LDR.N    R0,??DataTable1
-??AudioPlayerUpd_3:
-        MOV      R1,#+12288
-        ADDS     R6,R1,R2
-        MOV      R1,#+8192
-        ADDS     R7,R1,R2
-        LDRB     R12,[R0, #+0]
-        MOV      R1,#+4096
-        ADDS     R1,R1,R2
-        CMP      R12,#+0
-        LDRH     R12,[R2, #+0]
-        BEQ.N    ??AudioPlayerUpd_4
-        STRH     R12,[R3, #+0]
-        LDRH     R12,[R2, #+2048]
-        STRH     R12,[R3, #+2]
-        LDRH     R12,[R1, #+0]
-        STRH     R12,[R3, #+4]
-        LDRH     R1,[R1, #+2048]
-        STRH     R1,[R3, #+6]
-        LDRH     R1,[R7, #+0]
-        STRH     R1,[R3, #+8]
-        LDRH     R1,[R7, #+2048]
-        STRH     R1,[R3, #+10]
-        LDRH     R1,[R6, #+0]
-        STRH     R1,[R3, #+12]
-        LDRH     R1,[R6, #+2048]
-        STRH     R1,[R3, #+14]
-        B.N      ??AudioPlayerUpd_5
-??AudioPlayerUpd_4:
-        STRH     R12,[R4, #+0]
-        LDRH     R12,[R2, #+2048]
-        STRH     R12,[R4, #+2]
-        LDRH     R12,[R1, #+0]
-        STRH     R12,[R4, #+4]
-        LDRH     R1,[R1, #+2048]
-        STRH     R1,[R4, #+6]
-        LDRH     R1,[R7, #+0]
-        STRH     R1,[R4, #+8]
-        LDRH     R1,[R7, #+2048]
-        STRH     R1,[R4, #+10]
-        LDRH     R1,[R6, #+0]
-        STRH     R1,[R4, #+12]
-        LDRH     R1,[R6, #+2048]
-        STRH     R1,[R4, #+14]
-??AudioPlayerUpd_5:
-        ADDS     R4,R4,#+16
-        ADDS     R3,R3,#+16
-        ADDS     R2,R2,#+2
-        SUBS     R5,R5,#+1
-        BNE.N    ??AudioPlayerUpd_3
-        POP      {R4-R7}
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI R6 SameValue
-          CFI R7 SameValue
-          CFI CFA R13+0
-        BX       LR
-          CFI R4 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -4)
-          CFI CFA R13+16
+        LDR.N    R7,??DataTable1_4
+        B.N      ?Subroutine0
 ??AudioPlayerUpd_2:
-        LDR.N    R2,??DataTable1_5
-        LDR.N    R3,??DataTable1_2
-        LDR.N    R4,??DataTable1_1
-        MOV      R5,#+1024
-        LDR.N    R0,??DataTable1
-??AudioPlayerUpd_6:
-        MOV      R1,#+12288
-        ADDS     R6,R1,R2
-        MOV      R1,#+8192
-        ADDS     R7,R1,R2
-        LDRB     R12,[R0, #+0]
-        MOV      R1,#+4096
-        ADDS     R1,R1,R2
-        CMP      R12,#+0
-        LDRH     R12,[R2, #+0]
-        BEQ.N    ??AudioPlayerUpd_7
-        STRH     R12,[R3, #+0]
-        LDRH     R12,[R2, #+2048]
-        STRH     R12,[R3, #+2]
-        LDRH     R12,[R1, #+0]
-        STRH     R12,[R3, #+4]
-        LDRH     R1,[R1, #+2048]
-        STRH     R1,[R3, #+6]
-        LDRH     R1,[R7, #+0]
-        STRH     R1,[R3, #+8]
-        LDRH     R1,[R7, #+2048]
-        STRH     R1,[R3, #+10]
-        LDRH     R1,[R6, #+0]
-        STRH     R1,[R3, #+12]
-        LDRH     R1,[R6, #+2048]
-        STRH     R1,[R3, #+14]
-        B.N      ??AudioPlayerUpd_8
-??AudioPlayerUpd_7:
-        STRH     R12,[R4, #+0]
-        LDRH     R12,[R2, #+2048]
-        STRH     R12,[R4, #+2]
-        LDRH     R12,[R1, #+0]
-        STRH     R12,[R4, #+4]
-        LDRH     R1,[R1, #+2048]
-        STRH     R1,[R4, #+6]
-        LDRH     R1,[R7, #+0]
-        STRH     R1,[R4, #+8]
-        LDRH     R1,[R7, #+2048]
-        STRH     R1,[R4, #+10]
-        LDRH     R1,[R6, #+0]
-        STRH     R1,[R4, #+12]
-        LDRH     R1,[R6, #+2048]
-        STRH     R1,[R4, #+14]
-??AudioPlayerUpd_8:
-        ADDS     R4,R4,#+16
-        ADDS     R3,R3,#+16
-        ADDS     R2,R2,#+2
-        SUBS     R5,R5,#+1
-        BNE.N    ??AudioPlayerUpd_6
-        POP      {R4-R7}
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI R6 SameValue
-          CFI R7 SameValue
-          CFI CFA R13+0
-        BX       LR
-          CFI R4 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -4)
-          CFI CFA R13+16
+        LDR.N    R7,??DataTable1_5
+        B.N      ?Subroutine0
 ??AudioPlayerUpd_1:
-        LDR.N    R2,??DataTable1_6
-        LDR.N    R3,??DataTable1_2
-        LDR.N    R4,??DataTable1_1
-        MOV      R5,#+1024
-        LDR.N    R0,??DataTable1
-??AudioPlayerUpd_9:
-        MOV      R1,#+12288
-        ADDS     R6,R1,R2
-        MOV      R1,#+8192
-        ADDS     R7,R1,R2
-        LDRB     R12,[R0, #+0]
-        MOV      R1,#+4096
-        ADDS     R1,R1,R2
-        CMP      R12,#+0
-        LDRH     R12,[R2, #+0]
-        BEQ.N    ??AudioPlayerUpd_10
-        STRH     R12,[R3, #+0]
-        LDRH     R12,[R2, #+2048]
-        STRH     R12,[R3, #+2]
-        LDRH     R12,[R1, #+0]
-        STRH     R12,[R3, #+4]
-        LDRH     R1,[R1, #+2048]
-        STRH     R1,[R3, #+6]
-        LDRH     R1,[R7, #+0]
-        STRH     R1,[R3, #+8]
-        LDRH     R1,[R7, #+2048]
-        STRH     R1,[R3, #+10]
-        LDRH     R1,[R6, #+0]
-        STRH     R1,[R3, #+12]
-        LDRH     R1,[R6, #+2048]
-        STRH     R1,[R3, #+14]
-        B.N      ??AudioPlayerUpd_11
-??AudioPlayerUpd_10:
-        STRH     R12,[R4, #+0]
-        LDRH     R12,[R2, #+2048]
-        STRH     R12,[R4, #+2]
-        LDRH     R12,[R1, #+0]
-        STRH     R12,[R4, #+4]
-        LDRH     R1,[R1, #+2048]
-        STRH     R1,[R4, #+6]
-        LDRH     R1,[R7, #+0]
-        STRH     R1,[R4, #+8]
-        LDRH     R1,[R7, #+2048]
-        STRH     R1,[R4, #+10]
-        LDRH     R1,[R6, #+0]
-        STRH     R1,[R4, #+12]
-        LDRH     R1,[R6, #+2048]
-        STRH     R1,[R4, #+14]
-??AudioPlayerUpd_11:
-        ADDS     R4,R4,#+16
-        ADDS     R3,R3,#+16
-        ADDS     R2,R2,#+2
-        SUBS     R5,R5,#+1
-        BNE.N    ??AudioPlayerUpd_9
-        POP      {R4-R7}
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI R6 SameValue
-          CFI R7 SameValue
-          CFI CFA R13+0
-        BX       LR               ;; return
+        LDR.N    R7,??DataTable1_6
           CFI EndBlock cfiBlock1
+        REQUIRE ?Subroutine0
+        ;; // Fall through to label ?Subroutine0
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock2 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+28
+          CFI R4 Frame(CFA, -28)
+          CFI R5 Frame(CFA, -24)
+          CFI R6 Frame(CFA, -20)
+          CFI R7 Frame(CFA, -16)
+          CFI R8 Frame(CFA, -12)
+          CFI R9 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+        THUMB
+?Subroutine0:
+        LDR.W    R12,??DataTable1_2
+        LDR.W    LR,??DataTable1_1
+        MOV      R8,#+1024
+        LDR.N    R0,??DataTable1
+??Subroutine0_0:
+        LDRB     R6,[R0, #+0]
+        MOV      R1,#+14336
+        MOV      R2,#+12288
+        MOV      R3,#+10240
+        MOV      R4,#+8192
+        MOV      R5,#+6144
+        CMP      R6,#+0
+        MOV      R9,#+4096
+        LDRH     R6,[R7, #+0]
+        BEQ.N    ??Subroutine0_1
+        STRH     R6,[R12, #+0]
+        LDRH     R6,[R7, #+2048]
+        STRH     R6,[R12, #+2]
+        LDRH     R9,[R9, R7]
+        STRH     R9,[R12, #+4]
+        LDRH     R5,[R5, R7]
+        STRH     R5,[R12, #+6]
+        LDRH     R4,[R4, R7]
+        STRH     R4,[R12, #+8]
+        LDRH     R3,[R3, R7]
+        STRH     R3,[R12, #+10]
+        LDRH     R2,[R2, R7]
+        STRH     R2,[R12, #+12]
+        LDRH     R1,[R1, R7]
+        STRH     R1,[R12, #+14]
+        B.N      ??Subroutine0_2
+??Subroutine0_1:
+        STRH     R6,[LR, #+0]
+        LDRH     R6,[R7, #+2048]
+        STRH     R6,[LR, #+2]
+        LDRH     R9,[R9, R7]
+        STRH     R9,[LR, #+4]
+        LDRH     R5,[R5, R7]
+        STRH     R5,[LR, #+6]
+        LDRH     R4,[R4, R7]
+        STRH     R4,[LR, #+8]
+        LDRH     R3,[R3, R7]
+        STRH     R3,[LR, #+10]
+        LDRH     R2,[R2, R7]
+        STRH     R2,[LR, #+12]
+        LDRH     R1,[R1, R7]
+        STRH     R1,[LR, #+14]
+??Subroutine0_2:
+        ADDS     R7,R7,#+2
+        SUBS     R8,R8,#+1
+        ADD      LR,LR,#+16
+        ADD      R12,R12,#+16
+        BNE.N    ??Subroutine0_0
+        POP      {R4-R9,PC}       ;; return
+          CFI EndBlock cfiBlock2
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -956,9 +827,9 @@ AudioPlayerUpd:
 //  485 
 // 
 // 49 155 bytes in section .bss
-//    550 bytes in section .text
+//    268 bytes in section .text
 // 
-//    550 bytes of CODE memory
+//    268 bytes of CODE memory
 // 49 155 bytes of DATA memory
 //
 //Errors: none

@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       12/Apr/2016  09:55:53
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       13/Apr/2016  13:47:36
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -49,7 +49,7 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7 --relaxed_fp
 #    List file    =  
@@ -340,14 +340,12 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     227          uint8_t WaveplayerCtrlVolume(uint8_t vol)
     228          { 
    \                     WaveplayerCtrlVolume: (+1)
-   \   00000000   0xB500             PUSH     {LR}
-   \   00000002   0xB081             SUB      SP,SP,#+4
+   \   00000000   0xB580             PUSH     {R7,LR}
     229            AUDIO_VolumeCtl(vol);
-   \   00000004   0x.... 0x....      BL       AUDIO_VolumeCtl
+   \   00000002   0x.... 0x....      BL       AUDIO_VolumeCtl
     230            return 0;
-   \   00000008   0x2000             MOVS     R0,#+0
-   \   0000000A   0xB001             ADD      SP,SP,#+4
-   \   0000000C   0xBD00             POP      {PC}             ;; return
+   \   00000006   0x2000             MOVS     R0,#+0
+   \   00000008   0xBD02             POP      {R1,PC}          ;; return
     231          }
     232          
     233          
@@ -375,22 +373,20 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \                                 In section .text, align 2, keep-with-next
     249          int WavePlayerInit(uint32_t AudioFreq)
     250          { 
-   \                     WavePlayerInit: (+1)
-   \   00000000   0xB500             PUSH     {LR}
     251          
     252            
     253            /* Initialize the Audio codec and all related peripherals (I2S, I2C, IOExpander, IOs...) */  
     254            AUDIO_Init(OUTPUT_DEVICE_AUTO, 80, AudioFreq );  
-   \   00000002   0x4602             MOV      R2,R0
-   \   00000004   0xB081             SUB      SP,SP,#+4
-   \   00000006   0x2150             MOVS     R1,#+80
-   \   00000008   0x2004             MOVS     R0,#+4
-   \   0000000A   0x.... 0x....      BL       AUDIO_Init
+   \                     WavePlayerInit: (+1)
+   \   00000000   0x4602             MOV      R2,R0
+   \   00000002   0x2150             MOVS     R1,#+80
+   \   00000004   0xB580             PUSH     {R7,LR}
+   \   00000006   0x2004             MOVS     R0,#+4
+   \   00000008   0x.... 0x....      BL       AUDIO_Init
     255            
     256            return 0;
-   \   0000000E   0x2000             MOVS     R0,#+0
-   \   00000010   0xB001             ADD      SP,SP,#+4
-   \   00000012   0xBD00             POP      {PC}             ;; return
+   \   0000000C   0x2000             MOVS     R0,#+0
+   \   0000000E   0xBD02             POP      {R1,PC}          ;; return
     257          }
     258          
     259          
@@ -404,15 +400,13 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     265          uint32_t AudioFlashPlay(uint16_t* pBuffer, uint32_t FullSize, uint32_t StartAdd)
     266          { 
    \                     AudioFlashPlay: (+1)
-   \   00000000   0xB500             PUSH     {LR}
-   \   00000002   0xB081             SUB      SP,SP,#+4
+   \   00000000   0xB580             PUSH     {R7,LR}
     267            AUDIO_Play((uint16_t*)pBuffer, (FullSize - StartAdd));
-   \   00000004   0x1A89             SUBS     R1,R1,R2
-   \   00000006   0x.... 0x....      BL       AUDIO_Play
+   \   00000002   0x1A89             SUBS     R1,R1,R2
+   \   00000004   0x.... 0x....      BL       AUDIO_Play
     268            return 0;
-   \   0000000A   0x2000             MOVS     R0,#+0
-   \   0000000C   0xB001             ADD      SP,SP,#+4
-   \   0000000E   0xBD00             POP      {PC}             ;; return
+   \   00000008   0x2000             MOVS     R0,#+0
+   \   0000000A   0xBD02             POP      {R1,PC}          ;; return
     269          }
     270          
 
@@ -658,8 +652,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     395                 or by user functions if DMA mode not enabled */
     396          
     397          }
-   \   00000066   0xB002             ADD      SP,SP,#+8
-   \   00000068   0xBD10             POP      {R4,PC}          ;; return
+   \   00000066   0xBD13             POP      {R0,R1,R4,PC}    ;; return
     398          
     399          
 
@@ -741,23 +734,23 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
        4  ??DataTable4_5
        2  AUDIO_HalfTransfer_CallBack
       12  AUDIO_InitApplication
-      16  AudioFlashPlay
+      12  AudioFlashPlay
        1  AudioPlayStart
        8  Buffer
        4  Codec_TIMEOUT_UserCallback
       18  Delay
       70  I2S3_Init
-     106  SPI3_Init
+     104  SPI3_Init
        2  TC_Callback
        4  TimingDelay
       14  TimingDelay_Decrement
        4  WaveCounter
        4  WaveDataLength
        8  WavePlayBack
-      20  WavePlayerInit
+      16  WavePlayerInit
        4  WavePlayerPauseResume
        6  WavePlayerStop
-      14  WaveplayerCtrlVolume
+      10  WaveplayerCtrlVolume
        4  XferCplt
       64  hi2s3
      100  hspi3
@@ -766,9 +759,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
  
  189 bytes in section .bss
    1 byte  in section .data
- 320 bytes in section .text
+ 306 bytes in section .text
  
- 320 bytes of CODE memory
+ 306 bytes of CODE memory
  190 bytes of DATA memory
 
 Errors: none

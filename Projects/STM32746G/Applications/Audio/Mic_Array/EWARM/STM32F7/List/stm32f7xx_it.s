@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      12/Apr/2016  09:55:51
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      13/Apr/2016  13:47:34
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -387,10 +387,8 @@ PendSV_Handler:
 //  159 void SysTick_Handler(void)
 //  160 {
 SysTick_Handler:
-        PUSH     {LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI CFA R13+4
-        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  161   HAL_IncTick(); 
           CFI FunCall HAL_IncTick
@@ -423,9 +421,7 @@ SysTick_Handler:
 //  176   }
 //  177   	
 //  178 }
-        ADD      SP,SP,#+4
-          CFI CFA R13+4
-        POP      {PC}             ;; return
+        POP      {R0,PC}          ;; return
           CFI EndBlock cfiBlock8
 //  179 
 
@@ -636,11 +632,11 @@ DMA2_Stream7_IRQHandler:
 //  269 
 //  270 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-//   4 bytes in section .bss
-// 102 bytes in section .text
+//  4 bytes in section .bss
+// 98 bytes in section .text
 // 
-// 102 bytes of CODE memory
-//   4 bytes of DATA memory
+// 98 bytes of CODE memory
+//  4 bytes of DATA memory
 //
 //Errors: none
 //Warnings: none

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      12/Apr/2016  09:55:52
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      13/Apr/2016  13:47:34
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -303,7 +303,7 @@ Audio_Record:
 //  145 * @retval AUDIO_OK in case of success, AUDIO_ERROR otherwise
 //  146 */
 
-        SECTION `.text`:CODE:NOROOT(2)
+        SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock3 Using cfiCommon0
           CFI Function Audio_VolumeCtl
           CFI NoCalls
@@ -316,7 +316,7 @@ Audio_Record:
 //  152   j = 0;
 Audio_VolumeCtl:
         ADR.W    R1,vol_table
-        MOVS.W   R2,#+64
+        MOVS     R2,#+64
 ??Audio_VolumeCtl_0:
         LDRSH    R3,[R1, #+2]
         SUBS     R3,R0,R3
@@ -524,9 +524,9 @@ vol_table:
 //  245 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
 //  36 bytes in section .data
-// 224 bytes in section .text
+// 222 bytes in section .text
 // 
-// 224 bytes of CODE memory
+// 222 bytes of CODE memory
 //  36 bytes of DATA memory
 //
 //Errors: none

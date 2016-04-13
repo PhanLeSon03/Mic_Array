@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      12/Apr/2016  09:55:48
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      13/Apr/2016  13:47:31
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -278,41 +278,43 @@
 //  155 HAL_StatusTypeDef HAL_DMAEx_MultiBufferStart(DMA_HandleTypeDef *hdma, uint32_t SrcAddress, uint32_t DstAddress, uint32_t SecondMemAddress, uint32_t DataLength)
 //  156 {
 HAL_DMAEx_MultiBufferStart:
-        PUSH     {R4,R5}
-          CFI R5 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
+        PUSH     {R4-R6}
+          CFI R6 Frame(CFA, -4)
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
 //  157   /* Process Locked */
 //  158   __HAL_LOCK(hdma);
-        LDRB     R4,[R0, #+52]
-        CMP      R4,#+1
+        ADD      R4,R0,#+52
+        LDRB     R5,[R4, #+0]
+        CMP      R5,#+1
         IT       EQ 
         MOVEQ    R0,#+2
         BEQ.N    ??HAL_DMAEx_MultiBufferStart_0
-        MOVS     R4,#+1
-        STRB     R4,[R0, #+52]
+        MOVS     R5,#+1
+        STRB     R5,[R4, #+0]
 //  159 
 //  160   /* Current memory buffer used is Memory 0 */
 //  161   if((hdma->Instance->CR & DMA_SxCR_CT) == 0)
-        LDR      R4,[R0, #+0]
-        LDR      R5,[R4, #+0]
-        LSLS     R5,R5,#+12
+        LDR      R5,[R0, #+0]
+        LDR      R6,[R5, #+0]
+        LSLS     R6,R6,#+12
         IT       PL 
-        MOVPL    R5,#+18
+        MOVPL    R6,#+18
 //  162   {
 //  163     hdma->State = HAL_DMA_STATE_BUSY_MEM0;
         BPL.N    ??HAL_DMAEx_MultiBufferStart_1
 //  164   }
 //  165   /* Current memory buffer used is Memory 1 */
 //  166   else if((hdma->Instance->CR & DMA_SxCR_CT) != 0)
-        LDR      R5,[R4, #+0]
-        LSLS     R5,R5,#+12
+        LDR      R6,[R5, #+0]
+        LSLS     R6,R6,#+12
         BPL.N    ??HAL_DMAEx_MultiBufferStart_2
 //  167   {
 //  168     hdma->State = HAL_DMA_STATE_BUSY_MEM1;
-        MOVS     R5,#+34
+        MOVS     R6,#+34
 ??HAL_DMAEx_MultiBufferStart_1:
-        STRB     R5,[R0, #+53]
+        STRB     R6,[R4, #+1]
 //  169   }
 //  170 
 //  171    /* Check the parameters */
@@ -321,10 +323,10 @@ HAL_DMAEx_MultiBufferStart:
 //  174   /* Disable the peripheral */
 //  175   __HAL_DMA_DISABLE(hdma);  
 ??HAL_DMAEx_MultiBufferStart_2:
-        LDR      R5,[R4, #+0]
-        LSRS     R5,R5,#+1
-        LSLS     R5,R5,#+1
-        STR      R5,[R4, #+0]
+        LDR      R4,[R5, #+0]
+        LSRS     R4,R4,#+1
+        LSLS     R4,R4,#+1
+        STR      R4,[R5, #+0]
 //  176 
 //  177   /* Enable the double buffer mode */
 //  178   hdma->Instance->CR |= (uint32_t)DMA_SxCR_DBM;
@@ -340,7 +342,7 @@ HAL_DMAEx_MultiBufferStart:
 //  182 
 //  183   /* Configure the source, destination address and the data length */
 //  184   DMA_MultiBufferSetConfig(hdma, SrcAddress, DstAddress, DataLength);
-        LDR      R3,[SP, #+8]
+        LDR      R3,[SP, #+12]
         LDR      R4,[R0, #+0]
         STR      R3,[R4, #+4]
         LDR      R3,[R0, #+8]
@@ -367,9 +369,10 @@ HAL_DMAEx_MultiBufferStart:
 //  189   return HAL_OK;
         MOVS     R0,#+0
 ??HAL_DMAEx_MultiBufferStart_0:
-        POP      {R4,R5}
+        POP      {R4-R6}
           CFI R4 SameValue
           CFI R5 SameValue
+          CFI R6 SameValue
           CFI CFA R13+0
         BX       LR               ;; return
 //  190 }
@@ -394,41 +397,43 @@ HAL_DMAEx_MultiBufferStart:
 //  202 HAL_StatusTypeDef HAL_DMAEx_MultiBufferStart_IT(DMA_HandleTypeDef *hdma, uint32_t SrcAddress, uint32_t DstAddress, uint32_t SecondMemAddress, uint32_t DataLength)
 //  203 {
 HAL_DMAEx_MultiBufferStart_IT:
-        PUSH     {R4,R5}
-          CFI R5 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
+        PUSH     {R4-R6}
+          CFI R6 Frame(CFA, -4)
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
 //  204   /* Process Locked */
 //  205   __HAL_LOCK(hdma);
-        LDRB     R4,[R0, #+52]
-        CMP      R4,#+1
+        ADD      R4,R0,#+52
+        LDRB     R5,[R4, #+0]
+        CMP      R5,#+1
         IT       EQ 
         MOVEQ    R0,#+2
         BEQ.N    ??HAL_DMAEx_MultiBufferStart_IT_0
-        MOVS     R4,#+1
-        STRB     R4,[R0, #+52]
+        MOVS     R5,#+1
+        STRB     R5,[R4, #+0]
 //  206 
 //  207   /* Current memory buffer used is Memory 0 */
 //  208   if((hdma->Instance->CR & DMA_SxCR_CT) == 0)
-        LDR      R4,[R0, #+0]
-        LDR      R5,[R4, #+0]
-        LSLS     R5,R5,#+12
+        LDR      R5,[R0, #+0]
+        LDR      R6,[R5, #+0]
+        LSLS     R6,R6,#+12
         IT       PL 
-        MOVPL    R5,#+18
+        MOVPL    R6,#+18
 //  209   {
 //  210     hdma->State = HAL_DMA_STATE_BUSY_MEM0;
         BPL.N    ??HAL_DMAEx_MultiBufferStart_IT_1
 //  211   }
 //  212   /* Current memory buffer used is Memory 1 */
 //  213   else if((hdma->Instance->CR & DMA_SxCR_CT) != 0)
-        LDR      R5,[R4, #+0]
-        LSLS     R5,R5,#+12
+        LDR      R6,[R5, #+0]
+        LSLS     R6,R6,#+12
         BPL.N    ??HAL_DMAEx_MultiBufferStart_IT_2
 //  214   {
 //  215     hdma->State = HAL_DMA_STATE_BUSY_MEM1;
-        MOVS     R5,#+34
+        MOVS     R6,#+34
 ??HAL_DMAEx_MultiBufferStart_IT_1:
-        STRB     R5,[R0, #+53]
+        STRB     R6,[R4, #+1]
 //  216   }
 //  217 
 //  218   /* Check the parameters */
@@ -437,10 +442,10 @@ HAL_DMAEx_MultiBufferStart_IT:
 //  221   /* Disable the peripheral */
 //  222   __HAL_DMA_DISABLE(hdma);  
 ??HAL_DMAEx_MultiBufferStart_IT_2:
-        LDR      R5,[R4, #+0]
-        LSRS     R5,R5,#+1
-        LSLS     R5,R5,#+1
-        STR      R5,[R4, #+0]
+        LDR      R4,[R5, #+0]
+        LSRS     R4,R4,#+1
+        LSLS     R4,R4,#+1
+        STR      R4,[R5, #+0]
 //  223 
 //  224   /* Enable the Double buffer mode */
 //  225   hdma->Instance->CR |= (uint32_t)DMA_SxCR_DBM;
@@ -456,7 +461,7 @@ HAL_DMAEx_MultiBufferStart_IT:
 //  229 
 //  230   /* Configure the source, destination address and the data length */
 //  231   DMA_MultiBufferSetConfig(hdma, SrcAddress, DstAddress, DataLength); 
-        LDR      R3,[SP, #+8]
+        LDR      R3,[SP, #+12]
         LDR      R4,[R0, #+0]
         STR      R3,[R4, #+4]
         LDR      R3,[R0, #+8]
@@ -518,9 +523,10 @@ HAL_DMAEx_MultiBufferStart_IT:
 //  251   return HAL_OK; 
         MOVS     R0,#+0
 ??HAL_DMAEx_MultiBufferStart_IT_0:
-        POP      {R4,R5}
+        POP      {R4-R6}
           CFI R4 SameValue
           CFI R5 SameValue
+          CFI R6 SameValue
           CFI CFA R13+0
         BX       LR               ;; return
 //  252 }
@@ -603,9 +609,9 @@ HAL_DMAEx_ChangeMemory:
 //  300 
 //  301 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 284 bytes in section .text
+// 280 bytes in section .text
 // 
-// 284 bytes of CODE memory
+// 280 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

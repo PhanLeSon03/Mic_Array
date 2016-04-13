@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       12/Apr/2016  09:55:52
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       13/Apr/2016  13:47:35
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7 --relaxed_fp
 #    List file    =  
@@ -537,46 +537,45 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     227          USBH_StatusTypeDef USBH_LL_Init(USBH_HandleTypeDef *phost)
     228          {
    \                     USBH_LL_Init: (+1)
-   \   00000000   0xB530             PUSH     {R4,R5,LR}
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
    \   00000002   0x4604             MOV      R4,R0
-   \   00000004   0xB081             SUB      SP,SP,#+4
     229          #ifdef USE_USB_FS  
     230            /* Set the LL driver parameters */
     231            hhcd.Instance = USB_OTG_FS;
-   \   00000006   0x....             LDR.N    R5,??DataTable5_7
-   \   00000008   0xF04F 0x40A0      MOV      R0,#+1342177280
-   \   0000000C   0x6028             STR      R0,[R5, #+0]
+   \   00000004   0x....             LDR.N    R5,??DataTable5_7
+   \   00000006   0xF04F 0x40A0      MOV      R0,#+1342177280
     232            hhcd.Init.Host_channels = 11; 
-   \   0000000E   0x200B             MOVS     R0,#+11
-   \   00000010   0x60A8             STR      R0,[R5, #+8]
     233            hhcd.Init.dma_enable = 0;
-   \   00000012   0x2000             MOVS     R0,#+0
-   \   00000014   0x6128             STR      R0,[R5, #+16]
     234            hhcd.Init.low_power_enable = 0;
-   \   00000016   0x6228             STR      R0,[R5, #+32]
     235            hhcd.Init.phy_itface = HCD_PHY_EMBEDDED; 
-   \   00000018   0x2002             MOVS     R0,#+2
-   \   0000001A   0x61A8             STR      R0,[R5, #+24]
     236            hhcd.Init.Sof_enable = 0;
-   \   0000001C   0x2000             MOVS     R0,#+0
-   \   0000001E   0x61E8             STR      R0,[R5, #+28]
     237            hhcd.Init.speed = HCD_SPEED_FULL;
-   \   00000020   0x2003             MOVS     R0,#+3
-   \   00000022   0x60E8             STR      R0,[R5, #+12]
     238            hhcd.Init.vbus_sensing_enable = 0;
-   \   00000024   0x2000             MOVS     R0,#+0
-   \   00000026   0x62A8             STR      R0,[R5, #+40]
     239            
     240            /* Link the driver to the stack */
     241            hhcd.pData = phost;
+   \   0000000A   0xF8C5 0x4290      STR      R4,[R5, #+656]
+   \   0000000E   0x6028             STR      R0,[R5, #+0]
+   \   00000010   0x200B             MOVS     R0,#+11
+   \   00000012   0x60A8             STR      R0,[R5, #+8]
+   \   00000014   0x2000             MOVS     R0,#+0
+   \   00000016   0x6128             STR      R0,[R5, #+16]
+   \   00000018   0x6228             STR      R0,[R5, #+32]
+   \   0000001A   0x2002             MOVS     R0,#+2
+   \   0000001C   0x61A8             STR      R0,[R5, #+24]
+   \   0000001E   0x2000             MOVS     R0,#+0
+   \   00000020   0x61E8             STR      R0,[R5, #+28]
+   \   00000022   0x2003             MOVS     R0,#+3
+   \   00000024   0x60E8             STR      R0,[R5, #+12]
+   \   00000026   0x2000             MOVS     R0,#+0
+   \   00000028   0x62A8             STR      R0,[R5, #+40]
     242            phost->pData = &hhcd;
     243            
     244            /* Initialize the LL Driver */
     245            HAL_HCD_Init(&hhcd);
-   \   00000028   0x4628             MOV      R0,R5
-   \   0000002A   0xF8C5 0x4290      STR      R4,[R5, #+656]
-   \   0000002E   0xF8C4 0x52B0      STR      R5,[R4, #+688]
-   \   00000032   0x.... 0x....      BL       HAL_HCD_Init
+   \   0000002A   0x4628             MOV      R0,R5
+   \   0000002C   0xF8C4 0x52B0      STR      R5,[R4, #+688]
+   \   00000030   0x.... 0x....      BL       HAL_HCD_Init
     246          #endif 
     247          #ifdef USE_USB_HS  
     248            /* Set the LL driver parameters */
@@ -598,16 +597,15 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     264          #endif /*USE_USB_HS*/ 
     265          
     266            USBH_LL_SetTimer(phost, HAL_HCD_GetCurrentFrame(&hhcd));
-   \   00000036   0x4628             MOV      R0,R5
-   \   00000038   0x.... 0x....      BL       HAL_HCD_GetCurrentFrame
-   \   0000003C   0x4601             MOV      R1,R0
-   \   0000003E   0x4620             MOV      R0,R4
-   \   00000040   0x.... 0x....      BL       USBH_LL_SetTimer
+   \   00000034   0x4628             MOV      R0,R5
+   \   00000036   0x.... 0x....      BL       HAL_HCD_GetCurrentFrame
+   \   0000003A   0x4601             MOV      R1,R0
+   \   0000003C   0x4620             MOV      R0,R4
+   \   0000003E   0x.... 0x....      BL       USBH_LL_SetTimer
     267            
     268            return USBH_OK;
-   \   00000044   0x2000             MOVS     R0,#+0
-   \   00000046   0xB001             ADD      SP,SP,#+4
-   \   00000048   0xBD30             POP      {R4,R5,PC}       ;; return
+   \   00000042   0x2000             MOVS     R0,#+0
+   \   00000044   0xBD32             POP      {R1,R4,R5,PC}    ;; return
     269          }
     270          
     271          /**
@@ -620,15 +618,13 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     276          USBH_StatusTypeDef USBH_LL_DeInit(USBH_HandleTypeDef *phost)
     277          {
    \                     USBH_LL_DeInit: (+1)
-   \   00000000   0xB500             PUSH     {LR}
-   \   00000002   0xB081             SUB      SP,SP,#+4
+   \   00000000   0xB580             PUSH     {R7,LR}
     278            HAL_HCD_DeInit(phost->pData);
-   \   00000004   0xF8D0 0x02B0      LDR      R0,[R0, #+688]
-   \   00000008   0x.... 0x....      BL       HAL_HCD_DeInit
+   \   00000002   0xF8D0 0x02B0      LDR      R0,[R0, #+688]
+   \   00000006   0x.... 0x....      BL       HAL_HCD_DeInit
     279            return USBH_OK; 
-   \   0000000C   0x2000             MOVS     R0,#+0
-   \   0000000E   0xB001             ADD      SP,SP,#+4
-   \   00000010   0xBD00             POP      {PC}             ;; return
+   \   0000000A   0x2000             MOVS     R0,#+0
+   \   0000000C   0xBD02             POP      {R1,PC}          ;; return
     280          }
     281          
     282          /**
@@ -641,15 +637,13 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     287          USBH_StatusTypeDef USBH_LL_Start(USBH_HandleTypeDef *phost)
     288          {
    \                     USBH_LL_Start: (+1)
-   \   00000000   0xB500             PUSH     {LR}
-   \   00000002   0xB081             SUB      SP,SP,#+4
+   \   00000000   0xB580             PUSH     {R7,LR}
     289            HAL_HCD_Start(phost->pData);
-   \   00000004   0xF8D0 0x02B0      LDR      R0,[R0, #+688]
-   \   00000008   0x.... 0x....      BL       HAL_HCD_Start
+   \   00000002   0xF8D0 0x02B0      LDR      R0,[R0, #+688]
+   \   00000006   0x.... 0x....      BL       HAL_HCD_Start
     290            return USBH_OK; 
-   \   0000000C   0x2000             MOVS     R0,#+0
-   \   0000000E   0xB001             ADD      SP,SP,#+4
-   \   00000010   0xBD00             POP      {PC}             ;; return
+   \   0000000A   0x2000             MOVS     R0,#+0
+   \   0000000C   0xBD02             POP      {R1,PC}          ;; return
     291          }
     292          
     293          /**
@@ -662,15 +656,13 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     298          USBH_StatusTypeDef USBH_LL_Stop(USBH_HandleTypeDef *phost)
     299          {
    \                     USBH_LL_Stop: (+1)
-   \   00000000   0xB500             PUSH     {LR}
-   \   00000002   0xB081             SUB      SP,SP,#+4
+   \   00000000   0xB580             PUSH     {R7,LR}
     300            HAL_HCD_Stop(phost->pData);
-   \   00000004   0xF8D0 0x02B0      LDR      R0,[R0, #+688]
-   \   00000008   0x.... 0x....      BL       HAL_HCD_Stop
+   \   00000002   0xF8D0 0x02B0      LDR      R0,[R0, #+688]
+   \   00000006   0x.... 0x....      BL       HAL_HCD_Stop
     301            return USBH_OK; 
-   \   0000000C   0x2000             MOVS     R0,#+0
-   \   0000000E   0xB001             ADD      SP,SP,#+4
-   \   00000010   0xBD00             POP      {PC}             ;; return
+   \   0000000A   0x2000             MOVS     R0,#+0
+   \   0000000C   0xBD02             POP      {R1,PC}          ;; return
     302          }
     303          
     304          /**
@@ -690,7 +682,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \   00000002   0xF8D0 0x02B0      LDR      R0,[R0, #+688]
    \   00000006   0x2401             MOVS     R4,#+1
    \   00000008   0x.... 0x....      BL       HAL_HCD_GetCurrentSpeed
-   \   0000000C   0xB120             CBZ.N    R0,??USBH_LL_GetSpeed_0
+   \   0000000C   0xB118             CBZ.N    R0,??USBH_LL_GetSpeed_0
    \   0000000E   0x2802             CMP      R0,#+2
    \   00000010   0xBF08             IT       EQ 
    \   00000012   0x2402             MOVEQ    R4,#+2
@@ -705,6 +697,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     322              
     323            case 2: 
     324              speed = USBH_SPEED_LOW;   
+   \   00000014   0xE000             B.N      ??USBH_LL_GetSpeed_1
+   \                     ??USBH_LL_GetSpeed_0: (+1)
+   \   00000016   0x2400             MOVS     R4,#+0
     325              break;
     326              
     327            default:  
@@ -712,12 +707,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     329              break;    
     330            }
     331            return speed;
-   \   00000014   0x4620             MOV      R0,R4
-   \   00000016   0xBD10             POP      {R4,PC}
-   \                     ??USBH_LL_GetSpeed_0: (+1)
-   \   00000018   0x2400             MOVS     R4,#+0
-   \   0000001A   0x4620             MOV      R0,R4
-   \   0000001C   0xBD10             POP      {R4,PC}          ;; return
+   \                     ??USBH_LL_GetSpeed_1: (+1)
+   \   00000018   0x4620             MOV      R0,R4
+   \   0000001A   0xBD10             POP      {R4,PC}          ;; return
     332          }
     333          
     334          /**
@@ -730,15 +722,13 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     339          USBH_StatusTypeDef USBH_LL_ResetPort (USBH_HandleTypeDef *phost) 
     340          {
    \                     USBH_LL_ResetPort: (+1)
-   \   00000000   0xB500             PUSH     {LR}
-   \   00000002   0xB081             SUB      SP,SP,#+4
+   \   00000000   0xB580             PUSH     {R7,LR}
     341            HAL_HCD_ResetPort(phost->pData);
-   \   00000004   0xF8D0 0x02B0      LDR      R0,[R0, #+688]
-   \   00000008   0x.... 0x....      BL       HAL_HCD_ResetPort
+   \   00000002   0xF8D0 0x02B0      LDR      R0,[R0, #+688]
+   \   00000006   0x.... 0x....      BL       HAL_HCD_ResetPort
     342            return USBH_OK; 
-   \   0000000C   0x2000             MOVS     R0,#+0
-   \   0000000E   0xB001             ADD      SP,SP,#+4
-   \   00000010   0xBD00             POP      {PC}             ;; return
+   \   0000000A   0x2000             MOVS     R0,#+0
+   \   0000000C   0xBD02             POP      {R1,PC}          ;; return
     343          }
     344          
     345          /**
@@ -797,10 +787,14 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \   00000010   0xF8D0 0x02B0      LDR      R0,[R0, #+688]
    \   00000014   0x.... 0x....      BL       HAL_HCD_HC_Init
     382            return USBH_OK; 
-   \   00000018   0x2000             MOVS     R0,#+0
-   \   0000001A   0xB004             ADD      SP,SP,#+16
-   \   0000001C   0xBD10             POP      {R4,PC}          ;; return
+   \   00000018   0x....             B.N      ?Subroutine0
     383          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine0: (+1)
+   \   00000000   0x2000             MOVS     R0,#+0
+   \   00000002   0xB004             ADD      SP,SP,#+16
+   \   00000004   0xBD10             POP      {R4,PC}          ;; return
     384          
     385          /**
     386            * @brief  Closes a pipe of the Low Level Driver.
@@ -813,15 +807,13 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     391          USBH_StatusTypeDef USBH_LL_ClosePipe(USBH_HandleTypeDef *phost, uint8_t pipe)   
     392          {
    \                     USBH_LL_ClosePipe: (+1)
-   \   00000000   0xB500             PUSH     {LR}
-   \   00000002   0xB081             SUB      SP,SP,#+4
+   \   00000000   0xB580             PUSH     {R7,LR}
     393            HAL_HCD_HC_Halt(phost->pData, pipe);
-   \   00000004   0xF8D0 0x02B0      LDR      R0,[R0, #+688]
-   \   00000008   0x.... 0x....      BL       HAL_HCD_HC_Halt
+   \   00000002   0xF8D0 0x02B0      LDR      R0,[R0, #+688]
+   \   00000006   0x.... 0x....      BL       HAL_HCD_HC_Halt
     394            return USBH_OK; 
-   \   0000000C   0x2000             MOVS     R0,#+0
-   \   0000000E   0xB001             ADD      SP,SP,#+4
-   \   00000010   0xBD00             POP      {PC}             ;; return
+   \   0000000A   0x2000             MOVS     R0,#+0
+   \   0000000C   0xBD02             POP      {R1,PC}          ;; return
     395          }
     396          
     397          /**
@@ -884,9 +876,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \   00000014   0xF8D0 0x02B0      LDR      R0,[R0, #+688]
    \   00000018   0x.... 0x....      BL       HAL_HCD_HC_SubmitRequest
     441            return USBH_OK;   
-   \   0000001C   0x2000             MOVS     R0,#+0
-   \   0000001E   0xB004             ADD      SP,SP,#+16
-   \   00000020   0xBD10             POP      {R4,PC}          ;; return
+   \   0000001C                      REQUIRE ?Subroutine0
+   \   0000001C                      ;; // Fall through to label ?Subroutine0
     442          }
     443          
     444          /**
@@ -931,29 +922,27 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \                     USBH_LL_DriverVBUS: (+1)
    \   00000000   0x2900             CMP      R1,#+0
    \   00000002   0x....             LDR.N    R0,??DataTable5_2  ;; 0x40020c00
-   \   00000004   0xB500             PUSH     {LR}
-   \   00000006   0xB081             SUB      SP,SP,#+4
-   \   00000008   0xBF0C             ITE      EQ 
-   \   0000000A   0x2201             MOVEQ    R2,#+1
-   \   0000000C   0x2200             MOVNE    R2,#+0
+   \   00000004   0xB580             PUSH     {R7,LR}
+   \   00000006   0xBF0C             ITE      EQ 
+   \   00000008   0x2201             MOVEQ    R2,#+1
+   \   0000000A   0x2200             MOVNE    R2,#+0
     476            {
     477              HAL_GPIO_WritePin(GPIOD, GPIO_PIN_5, GPIO_PIN_SET);
     478            }
     479            else
     480            {
     481              HAL_GPIO_WritePin(GPIOD, GPIO_PIN_5, GPIO_PIN_RESET);
-   \   0000000E   0x2120             MOVS     R1,#+32
-   \   00000010   0x.... 0x....      BL       HAL_GPIO_WritePin
+   \   0000000C   0x2120             MOVS     R1,#+32
+   \   0000000E   0x.... 0x....      BL       HAL_GPIO_WritePin
     482            }
     483            
     484            HAL_Delay(200);
-   \   00000014   0x20C8             MOVS     R0,#+200
-   \   00000016   0x.... 0x....      BL       HAL_Delay
+   \   00000012   0x20C8             MOVS     R0,#+200
+   \   00000014   0x.... 0x....      BL       HAL_Delay
     485          #endif /* USE_USB_FS */
     486            return USBH_OK;  
-   \   0000001A   0x2000             MOVS     R0,#+0
-   \   0000001C   0xB001             ADD      SP,SP,#+4
-   \   0000001E   0xBD00             POP      {PC}             ;; return
+   \   00000018   0x2000             MOVS     R0,#+0
+   \   0000001A   0xBD02             POP      {R1,PC}          ;; return
     487          }
     488          
     489          /**
@@ -972,11 +961,11 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \   00000000   0xEB01 0x0381      ADD      R3,R1,R1, LSL #+2
    \   00000004   0x....             LDR.N    R0,??DataTable5_7
    \   00000006   0xEB00 0x00C3      ADD      R0,R0,R3, LSL #+3
-   \   0000000A   0xF890 0x1037      LDRB     R1,[R0, #+55]
+   \   0000000A   0xF810 0x1F37      LDRB     R1,[R0, #+55]!
    \   0000000E   0x2900             CMP      R1,#+0
    \   00000010   0xBF14             ITE      NE 
-   \   00000012   0xF880 0x204C      STRBNE   R2,[R0, #+76]
-   \   00000016   0xF880 0x204D      STRBEQ   R2,[R0, #+77]
+   \   00000012   0x7542             STRBNE   R2,[R0, #+21]
+   \   00000014   0x7582             STRBEQ   R2,[R0, #+22]
     499            {
     500              hhcd.hc[pipe].toggle_in = toggle;
     501            }
@@ -985,8 +974,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     504              hhcd.hc[pipe].toggle_out = toggle;
     505            }
     506            return USBH_OK; 
-   \   0000001A   0x2000             MOVS     R0,#+0
-   \   0000001C   0x4770             BX       LR               ;; return
+   \   00000016   0x2000             MOVS     R0,#+0
+   \   00000018   0x4770             BX       LR               ;; return
     507          }
     508          
     509          /**
@@ -1006,18 +995,18 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \   00000000   0xEB01 0x0281      ADD      R2,R1,R1, LSL #+2
    \   00000004   0x....             LDR.N    R0,??DataTable5_7
    \   00000006   0xEB00 0x00C2      ADD      R0,R0,R2, LSL #+3
-   \   0000000A   0xF890 0x1037      LDRB     R1,[R0, #+55]
+   \   0000000A   0xF810 0x1F37      LDRB     R1,[R0, #+55]!
    \   0000000E   0x2900             CMP      R1,#+0
    \   00000010   0xBF14             ITE      NE 
-   \   00000012   0xF890 0x004C      LDRBNE   R0,[R0, #+76]
-   \   00000016   0xF890 0x004D      LDRBEQ   R0,[R0, #+77]
+   \   00000012   0x7D40             LDRBNE   R0,[R0, #+21]
+   \   00000014   0x7D80             LDRBEQ   R0,[R0, #+22]
     520            {
     521              toggle = hhcd.hc[pipe].toggle_in;
     522            }
     523            else
     524            {
     525              toggle = hhcd.hc[pipe].toggle_out;
-   \   0000001A   0x4770             BX       LR
+   \   00000016   0x4770             BX       LR
     526            }
     527            return toggle; 
     528          }
@@ -1131,6 +1120,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
        4  ??DataTable5_5
        4  ??DataTable5_6
        4  ??DataTable5_7
+       6  ?Subroutine0
        8  HAL_HCD_Connect_Callback
        8  HAL_HCD_Disconnect_Callback
        2  HAL_HCD_HC_NotifyURBChange_Callback
@@ -1138,27 +1128,27 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
      456  HAL_HCD_MspInit
        8  HAL_HCD_SOF_Callback
        4  USBH_Delay
-      18  USBH_LL_ClosePipe
-      18  USBH_LL_DeInit
-      32  USBH_LL_DriverVBUS
+      14  USBH_LL_ClosePipe
+      14  USBH_LL_DeInit
+      28  USBH_LL_DriverVBUS
        8  USBH_LL_GetLastXferSize
-      30  USBH_LL_GetSpeed
-      28  USBH_LL_GetToggle
+      28  USBH_LL_GetSpeed
+      24  USBH_LL_GetToggle
        8  USBH_LL_GetURBState
-      74  USBH_LL_Init
-      30  USBH_LL_OpenPipe
-      18  USBH_LL_ResetPort
-      30  USBH_LL_SetToggle
-      18  USBH_LL_Start
-      18  USBH_LL_Stop
-      34  USBH_LL_SubmitURB
+      70  USBH_LL_Init
+      26  USBH_LL_OpenPipe
+      14  USBH_LL_ResetPort
+      26  USBH_LL_SetToggle
+      14  USBH_LL_Start
+      14  USBH_LL_Stop
+      28  USBH_LL_SubmitURB
      660  hhcd
 
  
  660 bytes in section .bss
- 928 bytes in section .text
+ 886 bytes in section .text
  
- 928 bytes of CODE memory
+ 886 bytes of CODE memory
  660 bytes of DATA memory
 
 Errors: none

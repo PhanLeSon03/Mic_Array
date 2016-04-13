@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      12/Apr/2016  09:55:49
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      13/Apr/2016  13:47:32
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -63,6 +63,8 @@
         REQUIRE8
 
         #define SHT_PROGBITS 0x1
+
+        EXTERN __aeabi_memcpy4
 
         PUBLIC HAL_LTDC_ConfigCLUT
         PUBLIC HAL_LTDC_ConfigColorKeying
@@ -291,23 +293,22 @@
 //  148 HAL_StatusTypeDef HAL_LTDC_Init(LTDC_HandleTypeDef *hltdc)
 //  149 {
 HAL_LTDC_Init:
-        PUSH     {R4,R5,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
-        MOVS     R4,R0
-        SUB      SP,SP,#+4
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
           CFI CFA R13+16
+        MOVS     R4,R0
 //  150   uint32_t tmp = 0, tmp1 = 0;
 //  151 
 //  152   /* Check the LTDC peripheral state */
 //  153   if(hltdc == NULL)
-        IT       EQ 
-        MOVEQ    R0,#+1
+        BNE.N    ??HAL_LTDC_Init_0
 //  154   {
 //  155     return HAL_ERROR;
-        BEQ.N    ??HAL_LTDC_Init_0
+        MOVS     R0,#+1
+        POP      {R4-R6,PC}
 //  156   }
 //  157 
 //  158   /* Check function parameters */
@@ -326,12 +327,14 @@ HAL_LTDC_Init:
 //  171   assert_param(IS_LTDC_PCPOL(hltdc->Init.PCPolarity));
 //  172 
 //  173   if(hltdc->State == HAL_LTDC_STATE_RESET)
-        LDRB     R0,[R4, #+161]
+??HAL_LTDC_Init_0:
+        ADD      R5,R4,#+160
+        LDRB     R0,[R5, #+1]
         CBNZ.N   R0,??HAL_LTDC_Init_1
 //  174   {
 //  175     /* Allocate lock resource and initialize it */
 //  176     hltdc->Lock = HAL_UNLOCKED;
-        STRB     R0,[R4, #+160]
+        STRB     R0,[R5, #+0]
 //  177     /* Init the low level hardware */
 //  178     HAL_LTDC_MspInit(hltdc);
         MOV      R0,R4
@@ -343,7 +346,7 @@ HAL_LTDC_Init:
 //  182   hltdc->State = HAL_LTDC_STATE_BUSY;
 ??HAL_LTDC_Init_1:
         MOVS     R0,#+2
-        STRB     R0,[R4, #+161]
+        STRB     R0,[R5, #+1]
 //  183 
 //  184   /* Configures the HS, VS, DE and PC polarity */
 //  185   hltdc->Instance->GCR &= ~(LTDC_GCR_HSPOL | LTDC_GCR_VSPOL | LTDC_GCR_DEPOL | LTDC_GCR_PCPOL);
@@ -369,7 +372,7 @@ HAL_LTDC_Init:
 //  189   /* Sets Synchronization size */
 //  190   hltdc->Instance->SSCR &= ~(LTDC_SSCR_VSH | LTDC_SSCR_HSW);
         LDR      R1,[R4, #+0]
-        LDR.W    R0,??DataTable4  ;; 0xf000f800
+        LDR.W    R0,??DataTable3  ;; 0xf000f800
         LDR      R2,[R1, #+8]
         ANDS     R2,R0,R2
         STR      R2,[R1, #+8]
@@ -378,8 +381,8 @@ HAL_LTDC_Init:
         LDR      R1,[R4, #+0]
         LDR      R2,[R1, #+8]
         LDR      R3,[R4, #+20]
-        LDR      R5,[R4, #+24]
-        ORR      R3,R5,R3, LSL #+16
+        LDR      R6,[R4, #+24]
+        ORR      R3,R6,R3, LSL #+16
         ORRS     R2,R3,R2
         STR      R2,[R1, #+8]
 //  193 
@@ -394,8 +397,8 @@ HAL_LTDC_Init:
         LDR      R1,[R4, #+0]
         LDR      R2,[R1, #+12]
         LDR      R3,[R4, #+28]
-        LDR      R5,[R4, #+32]
-        ORR      R3,R5,R3, LSL #+16
+        LDR      R6,[R4, #+32]
+        ORR      R3,R6,R3, LSL #+16
         ORRS     R2,R3,R2
         STR      R2,[R1, #+12]
 //  198 
@@ -410,8 +413,8 @@ HAL_LTDC_Init:
         LDR      R1,[R4, #+0]
         LDR      R2,[R1, #+16]
         LDR      R3,[R4, #+36]
-        LDR      R5,[R4, #+40]
-        ORR      R3,R5,R3, LSL #+16
+        LDR      R6,[R4, #+40]
+        ORR      R3,R6,R3, LSL #+16
         ORRS     R2,R3,R2
         STR      R2,[R1, #+16]
 //  203 
@@ -433,23 +436,24 @@ HAL_LTDC_Init:
 //  208 
 //  209   /* Sets the background color value */
 //  210   tmp = ((uint32_t)(hltdc->Init.Backcolor.Green) << 8);
+        ADD      R0,R4,#+52
 //  211   tmp1 = ((uint32_t)(hltdc->Init.Backcolor.Red) << 16);
 //  212   hltdc->Instance->BCCR &= ~(LTDC_BCCR_BCBLUE | LTDC_BCCR_BCGREEN | LTDC_BCCR_BCRED);
-        LDR      R2,[R4, #+0]
-        LDRB     R0,[R4, #+53]
-        LDRB     R1,[R4, #+54]
-        LDR      R3,[R2, #+44]
-        AND      R3,R3,#0xFF000000
-        STR      R3,[R2, #+44]
-        LSLS     R1,R1,#+16
+        LDR      R3,[R4, #+0]
+        LDRB     R1,[R0, #+1]
+        LDRB     R2,[R0, #+2]
+        LDR      R6,[R3, #+44]
+        AND      R6,R6,#0xFF000000
+        STR      R6,[R3, #+44]
+        LSLS     R2,R2,#+16
 //  213   hltdc->Instance->BCCR |= (tmp1 | tmp | hltdc->Init.Backcolor.Blue);
-        LDR      R2,[R4, #+0]
-        ORR      R0,R1,R0, LSL #+8
-        LDR      R3,[R2, #+44]
-        LDRB     R1,[R4, #+52]
-        ORRS     R0,R1,R0
-        ORRS     R0,R0,R3
-        STR      R0,[R2, #+44]
+        LDR      R3,[R4, #+0]
+        ORR      R1,R2,R1, LSL #+8
+        LDR      R6,[R3, #+44]
+        LDRB     R0,[R0, #+0]
+        ORRS     R0,R0,R1
+        ORRS     R0,R0,R6
+        STR      R0,[R3, #+44]
 //  214 
 //  215   /* Enable the transfer Error interrupt */
 //  216   __HAL_LTDC_ENABLE_IT(hltdc, LTDC_IT_TE);
@@ -475,19 +479,16 @@ HAL_LTDC_Init:
 //  224   /* Initialize the error code */
 //  225   hltdc->ErrorCode = HAL_LTDC_ERROR_NONE;  
         MOVS     R0,#+0
-        STR      R0,[R4, #+164]
+        STR      R0,[R5, #+4]
 //  226 
 //  227   /* Initialize the LTDC state*/
 //  228   hltdc->State = HAL_LTDC_STATE_READY;
         MOVS     R0,#+1
-        STRB     R0,[R4, #+161]
+        STRB     R0,[R5, #+1]
 //  229 
 //  230   return HAL_OK;
         MOVS     R0,#+0
-??HAL_LTDC_Init_0:
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}       ;; return
+        POP      {R4-R6,PC}       ;; return
 //  231 }
           CFI EndBlock cfiBlock0
 //  232 
@@ -519,18 +520,20 @@ HAL_LTDC_DeInit:
 //  245 
 //  246   /* Initialize the error code */
 //  247   hltdc->ErrorCode = HAL_LTDC_ERROR_NONE;
-        MOVS     R0,#+0
-        STR      R0,[R4, #+164]
+        ADD      R0,R4,#+160
+        MOVS     R1,#+0
+        STR      R1,[R0, #+4]
 //  248 
 //  249   /* Initialize the LTDC state*/
 //  250   hltdc->State = HAL_LTDC_STATE_RESET;
-        STRB     R0,[R4, #+161]
+        STRB     R1,[R0, #+1]
 //  251 
 //  252   /* Release Lock */
 //  253   __HAL_UNLOCK(hltdc);
-        STRB     R0,[R4, #+160]
+        STRB     R1,[R0, #+0]
 //  254 
 //  255   return HAL_OK;
+        MOVS     R0,#+0
         POP      {R4,PC}          ;; return
 //  256 }
           CFI EndBlock cfiBlock1
@@ -647,19 +650,20 @@ HAL_LTDC_IRQHandler:
 //  325 
 //  326       /* Update error code */
 //  327       hltdc->ErrorCode |= HAL_LTDC_ERROR_TE;
-        LDR      R0,[R4, #+164]
-        ORR      R0,R0,#0x1
-        STR      R0,[R4, #+164]
+        ADD      R0,R4,#+160
+        LDR      R1,[R0, #+4]
+        ORR      R1,R1,#0x1
+        STR      R1,[R0, #+4]
 //  328 
 //  329       /* Change LTDC state */
 //  330       hltdc->State = HAL_LTDC_STATE_ERROR;
-        MOVS     R0,#+4
-        STRB     R0,[R4, #+161]
+        MOVS     R1,#+4
+        STRB     R1,[R0, #+1]
 //  331 
 //  332       /* Process unlocked */
 //  333       __HAL_UNLOCK(hltdc);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+160]
+        MOVS     R1,#+0
+        STRB     R1,[R0, #+0]
 //  334 
 //  335       /* Transfer error Callback */
 //  336       HAL_LTDC_ErrorCallback(hltdc);
@@ -695,19 +699,20 @@ HAL_LTDC_IRQHandler:
 //  349 
 //  350       /* Update error code */
 //  351       hltdc->ErrorCode |= HAL_LTDC_ERROR_FU;
-        LDR      R0,[R4, #+164]
-        ORR      R0,R0,#0x2
-        STR      R0,[R4, #+164]
+        ADD      R0,R4,#+160
+        LDR      R1,[R0, #+4]
+        ORR      R1,R1,#0x2
+        STR      R1,[R0, #+4]
 //  352 
 //  353       /* Change LTDC state */
 //  354       hltdc->State = HAL_LTDC_STATE_ERROR;
-        MOVS     R0,#+4
-        STRB     R0,[R4, #+161]
+        MOVS     R1,#+4
+        STRB     R1,[R0, #+1]
 //  355 
 //  356       /* Process unlocked */
 //  357       __HAL_UNLOCK(hltdc);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+160]
+        MOVS     R1,#+0
+        STRB     R1,[R0, #+0]
 //  358       
 //  359       /* Transfer error Callback */
 //  360       HAL_LTDC_ErrorCallback(hltdc);
@@ -744,12 +749,14 @@ HAL_LTDC_IRQHandler:
 //  373 
 //  374       /* Change LTDC state */
 //  375       hltdc->State = HAL_LTDC_STATE_READY;
-        STRB     R0,[R4, #+161]
+        ADD      R0,R4,#+160
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+1]
 //  376 
 //  377       /* Process unlocked */
 //  378       __HAL_UNLOCK(hltdc);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+160]
+        MOVS     R1,#+0
+        STRB     R1,[R0, #+0]
 //  379 
 //  380       /* Line interrupt Callback */
 //  381       HAL_LTDC_LineEvenCallback(hltdc);
@@ -861,29 +868,29 @@ HAL_LTDC_LineEventCallback:
 //  458 HAL_StatusTypeDef HAL_LTDC_ConfigLayer(LTDC_HandleTypeDef *hltdc, LTDC_LayerCfgTypeDef *pLayerCfg, uint32_t LayerIdx)
 //  459 {   
 HAL_LTDC_ConfigLayer:
-        PUSH     {R4-R8,LR}
+        PUSH     {R3-R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R8 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -20)
-          CFI R4 Frame(CFA, -24)
+          CFI R7 Frame(CFA, -8)
+          CFI R6 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -16)
+          CFI R4 Frame(CFA, -20)
           CFI CFA R13+24
         MOV      R4,R0
 //  460   /* Process locked */
 //  461   __HAL_LOCK(hltdc);
-        LDRB     R0,[R4, #+160]
+        ADD      R7,R4,#+160
+        MOV      R5,R1
+        MOV      R6,R2
+        LDRB     R0,[R7, #+0]
         CMP      R0,#+1
-        IT       EQ 
-        MOVEQ    R0,#+2
-        BEQ.N    ??HAL_LTDC_ConfigLayer_0
+        BNE.N    ??HAL_LTDC_ConfigLayer_0
+        MOVS     R0,#+2
+        POP      {R1,R4-R7,PC}
+??HAL_LTDC_ConfigLayer_0:
         MOVS     R0,#+1
-        STRB     R0,[R4, #+160]
 //  462   
 //  463   /* Change LTDC peripheral state */
 //  464   hltdc->State = HAL_LTDC_STATE_BUSY;
-        MOVS     R0,#+2
-        STRB     R0,[R4, #+161]
 //  465 
 //  466   /* Check the parameters */
 //  467   assert_param(IS_LTDC_LAYER(LayerIdx));
@@ -900,17 +907,20 @@ HAL_LTDC_ConfigLayer:
 //  478 
 //  479   /* Copy new layer configuration into handle structure */
 //  480   hltdc->LayerCfg[LayerIdx] = *pLayerCfg;  
+        MOVS     R2,#+52
+        STRB     R0,[R7, #+0]
+        MOVS     R0,#+2
+        STRB     R0,[R7, #+1]
         MOVS     R0,#+52
-        MLA      R0,R0,R2,R4
-        LDM      R1!,{R3,R5-R8,R12,LR}
+        MLA      R0,R0,R6,R4
         ADDS     R0,R0,#+56
-        STM      R0!,{R3,R5-R8,R12,LR}
-        LDM      R1!,{R3,R5-R7,R12,LR}
-        STM      R0!,{R3,R5-R7,R12,LR}
-        SUBS     R1,R1,#+52
+          CFI FunCall __aeabi_memcpy4
+        BL       __aeabi_memcpy4
 //  481 
 //  482   /* Configure the LTDC Layer */  
 //  483   LTDC_SetConfig(hltdc, pLayerCfg, LayerIdx);
+        MOV      R2,R6
+        MOV      R1,R5
         MOV      R0,R4
           CFI FunCall LTDC_SetConfig
         BL       LTDC_SetConfig
@@ -923,16 +933,15 @@ HAL_LTDC_ConfigLayer:
 //  487 
 //  488   /* Initialize the LTDC state*/
 //  489   hltdc->State  = HAL_LTDC_STATE_READY;
-        STRB     R0,[R4, #+161]
+        STRB     R0,[R7, #+1]
 //  490 
 //  491   /* Process unlocked */
 //  492   __HAL_UNLOCK(hltdc);
         MOVS     R0,#+0
-        STRB     R0,[R4, #+160]
+        STRB     R0,[R7, #+0]
 //  493 
 //  494   return HAL_OK;
-??HAL_LTDC_ConfigLayer_0:
-        POP      {R4-R8,PC}       ;; return
+        POP      {R1,R4-R7,PC}    ;; return
 //  495 }
           CFI EndBlock cfiBlock7
 //  496 
@@ -957,54 +966,62 @@ HAL_LTDC_ConfigLayer:
 //  509   /* Process locked */
 //  510   __HAL_LOCK(hltdc);
 HAL_LTDC_ConfigColorKeying:
-        LDRB     R3,[R0, #+160]
-        CMP      R3,#+1
-        BNE.N    ??HAL_LTDC_ConfigColorKeying_0
-        MOVS     R0,#+2
-        BX       LR
-??HAL_LTDC_ConfigColorKeying_0:
-        MOVS     R3,#+1
-        STRB     R3,[R0, #+160]
+        ADD      R3,R0,#+160
+        PUSH     {R4,R5}
+          CFI R5 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        LDRB     R4,[R3, #+0]
+        CMP      R4,#+1
+        IT       EQ 
+        MOVEQ    R0,#+2
+        BEQ.N    ??HAL_LTDC_ConfigColorKeying_0
+        MOVS     R4,#+1
+        STRB     R4,[R3, #+0]
 //  511 
 //  512   /* Change LTDC peripheral state */
 //  513   hltdc->State = HAL_LTDC_STATE_BUSY;
-        MOVS     R3,#+2
-        STRB     R3,[R0, #+161]
+        MOVS     R4,#+2
+        STRB     R4,[R3, #+1]
 //  514 
 //  515   /* Check the parameters */
 //  516   assert_param(IS_LTDC_LAYER(LayerIdx));
 //  517 
 //  518   /* Configures the default color values */
 //  519   LTDC_LAYER(hltdc, LayerIdx)->CKCR &=  ~(LTDC_LxCKCR_CKBLUE | LTDC_LxCKCR_CKGREEN | LTDC_LxCKCR_CKRED);
-        LDR      R3,[R0, #+0]
-        ADD      R3,R3,R2, LSL #+7
-        ADDS     R3,R3,#+132
-        LDR      R12,[R3, #+12]
-        AND      R12,R12,#0xFF000000
-        STR      R12,[R3, #+12]
+        LDR      R4,[R0, #+0]
+        ADD      R4,R4,R2, LSL #+7
+        ADDS     R4,R4,#+132
+        LDR      R5,[R4, #+12]
+        AND      R5,R5,#0xFF000000
+        STR      R5,[R4, #+12]
 //  520   LTDC_LAYER(hltdc, LayerIdx)->CKCR  = RGBValue;
-        LDR      R3,[R0, #+0]
-        ADD      R2,R3,R2, LSL #+7
+        LDR      R4,[R0, #+0]
+        ADD      R2,R4,R2, LSL #+7
         ADDS     R2,R2,#+132
         STR      R1,[R2, #+12]
 //  521 
 //  522   /* Sets the Reload type */
 //  523   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
-        LDR      R2,[R0, #+0]
+        LDR      R0,[R0, #+0]
         MOVS     R1,#+1
-        STR      R1,[R2, #+36]
+        STR      R1,[R0, #+36]
 //  524 
 //  525   /* Change the LTDC state*/
 //  526   hltdc->State = HAL_LTDC_STATE_READY;
-        STRB     R1,[R0, #+161]
 //  527 
 //  528   /* Process unlocked */
 //  529   __HAL_UNLOCK(hltdc);
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+160]
+        MOVS     R0,#+0
+        STRB     R1,[R3, #+1]
+        STRB     R0,[R3, #+0]
 //  530 
 //  531   return HAL_OK;
-        MOVS     R0,#+0
+??HAL_LTDC_ConfigColorKeying_0:
+        POP      {R4,R5}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI CFA R13+0
         BX       LR               ;; return
 //  532 }
           CFI EndBlock cfiBlock8
@@ -1041,39 +1058,40 @@ HAL_LTDC_ConfigCLUT:
 //  550 
 //  551   /* Process locked */
 //  552   __HAL_LOCK(hltdc);
-        LDRB     R5,[R0, #+160]
+        ADD      R5,R0,#+160
         MOVS     R4,#+0
-        CMP      R5,#+1
+        LDRB     R6,[R5, #+0]
+        CMP      R6,#+1
         IT       EQ 
         MOVEQ    R0,#+2
         BEQ.N    ??HAL_LTDC_ConfigCLUT_0
-        MOVS     R5,#+1
-        STRB     R5,[R0, #+160]
+        MOVS     R6,#+1
+        STRB     R6,[R5, #+0]
 //  553 
 //  554   /* Change LTDC peripheral state */
 //  555   hltdc->State = HAL_LTDC_STATE_BUSY;  
-        MOVS     R5,#+2
-        STRB     R5,[R0, #+161]
+        MOVS     R6,#+2
+        STRB     R6,[R5, #+1]
 //  556 
 //  557   /* Check the parameters */
 //  558   assert_param(IS_LTDC_LAYER(LayerIdx)); 
 //  559 
 //  560   for(counter = 0; (counter < CLUTSize); counter++)
         CBZ.N    R2,??HAL_LTDC_ConfigCLUT_1
-        MOVS     R5,#+52
-        MLA      R5,R5,R3,R0
+        MOVS     R6,#+52
+        MLA      R6,R6,R3,R0
 //  561   {
 //  562     if(hltdc->LayerCfg[LayerIdx].PixelFormat == LTDC_PIXEL_FORMAT_AL44)
 ??HAL_LTDC_ConfigCLUT_2:
-        LDR      R6,[R1, #+0]
-        LDR      R7,[R5, #+72]
-        LSLS     R6,R6,#+8
-        LSRS     R6,R6,#+8
-        CMP      R7,#+6
+        LDR      R7,[R1, #+0]
+        LDR      R12,[R6, #+72]
+        LSLS     R7,R7,#+8
+        LSRS     R7,R7,#+8
+        CMP      R12,#+6
         ITTE     EQ 
-        ADDEQ    R7,R4,R4, LSL #+4
-        ORREQ    R6,R6,R7, LSL #+24
-        ORRNE    R6,R6,R4, LSL #+24
+        ADDEQ    R12,R4,R4, LSL #+4
+        ORREQ    R7,R7,R12, LSL #+24
+        ORRNE    R7,R7,R4, LSL #+24
 //  563     {
 //  564       tmp  = (((counter + 16*counter) << 24) | ((uint32_t)(*pCLUT) & 0xFF) | ((uint32_t)(*pCLUT) & 0xFF00) | ((uint32_t)(*pCLUT) & 0xFF0000));
 //  565     }
@@ -1086,29 +1104,28 @@ HAL_LTDC_ConfigCLUT:
 //  572 
 //  573     /* Specifies the C-LUT address and RGB value */
 //  574     LTDC_LAYER(hltdc, LayerIdx)->CLUTWR  = tmp;
-        LDR      R7,[R0, #+0]
+        LDR      R12,[R0, #+0]
         ADDS     R1,R1,#+4
 //  575   }
         ADDS     R4,R4,#+1
-        ADD      R7,R7,R3, LSL #+7
-        ADDS     R7,R7,#+132
         CMP      R4,R2
-        STR      R6,[R7, #+64]
+        ADD      R12,R12,R3, LSL #+7
+        ADD      R12,R12,#+132
+        STR      R7,[R12, #+64]
         BCC.N    ??HAL_LTDC_ConfigCLUT_2
 //  576   
 //  577   /* Change the LTDC state*/
 //  578   hltdc->State = HAL_LTDC_STATE_READY; 
 ??HAL_LTDC_ConfigCLUT_1:
-        MOVS     R1,#+1
-        STRB     R1,[R0, #+161]
+        MOVS     R0,#+1
+        STRB     R0,[R5, #+1]
 //  579 
 //  580   /* Process unlocked */
 //  581   __HAL_UNLOCK(hltdc);  
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+160]
+        MOVS     R0,#+0
+        STRB     R0,[R5, #+0]
 //  582 
 //  583   return HAL_OK;
-        MOVS     R0,#+0
 ??HAL_LTDC_ConfigCLUT_0:
         POP      {R4-R7}
           CFI R4 SameValue
@@ -1140,49 +1157,42 @@ HAL_LTDC_ConfigCLUT:
 //  597   /* Process locked */
 //  598   __HAL_LOCK(hltdc);
 HAL_LTDC_EnableColorKeying:
-        LDRB     R2,[R0, #+160]
-        CMP      R2,#+1
+        ADD      R2,R0,#+160
+        LDRB     R3,[R2, #+0]
+        CMP      R3,#+1
         BNE.N    ??HAL_LTDC_EnableColorKeying_0
         MOVS     R0,#+2
         BX       LR
 ??HAL_LTDC_EnableColorKeying_0:
-        MOVS     R2,#+1
-        STRB     R2,[R0, #+160]
+        MOVS     R3,#+1
+        STRB     R3,[R2, #+0]
 //  599 
 //  600   /* Change LTDC peripheral state */
 //  601   hltdc->State = HAL_LTDC_STATE_BUSY;
-        MOVS     R2,#+2
-        STRB     R2,[R0, #+161]
+        MOVS     R3,#+2
+        STRB     R3,[R2, #+1]
 //  602 
 //  603   /* Check the parameters */
 //  604   assert_param(IS_LTDC_LAYER(LayerIdx));
 //  605 
 //  606   /* Enable LTDC color keying by setting COLKEN bit */
 //  607   LTDC_LAYER(hltdc, LayerIdx)->CR |= (uint32_t)LTDC_LxCR_COLKEN;
-        LDR      R2,[R0, #+0]
-        ADD      R1,R2,R1, LSL #+7
-        LDR      R2,[R1, #+132]!
-        ORR      R2,R2,#0x2
-        STR      R2,[R1, #+0]
+        LDR      R3,[R0, #+0]
+        ADD      R1,R3,R1, LSL #+7
+        LDR      R3,[R1, #+132]!
+        ORR      R3,R3,#0x2
+        B.N      ?Subroutine1
 //  608 
 //  609   /* Sets the Reload type */
 //  610   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
-        LDR      R2,[R0, #+0]
-        MOVS     R1,#+1
-        STR      R1,[R2, #+36]
 //  611 
 //  612   /* Change the LTDC state*/
 //  613   hltdc->State = HAL_LTDC_STATE_READY; 
-        STRB     R1,[R0, #+161]
 //  614 
 //  615   /* Process unlocked */
 //  616   __HAL_UNLOCK(hltdc);
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+160]
 //  617 
 //  618   return HAL_OK;  
-        MOVS     R0,#+0
-        BX       LR               ;; return
 //  619 }
           CFI EndBlock cfiBlock10
 //  620   
@@ -1206,51 +1216,60 @@ HAL_LTDC_EnableColorKeying:
 //  632   /* Process locked */
 //  633   __HAL_LOCK(hltdc);
 HAL_LTDC_DisableColorKeying:
-        LDRB     R2,[R0, #+160]
-        CMP      R2,#+1
+        ADD      R2,R0,#+160
+        LDRB     R3,[R2, #+0]
+        CMP      R3,#+1
         BNE.N    ??HAL_LTDC_DisableColorKeying_0
         MOVS     R0,#+2
         BX       LR
 ??HAL_LTDC_DisableColorKeying_0:
-        MOVS     R2,#+1
-        STRB     R2,[R0, #+160]
+        MOVS     R3,#+1
+        STRB     R3,[R2, #+0]
 //  634 
 //  635   /* Change LTDC peripheral state */
 //  636   hltdc->State = HAL_LTDC_STATE_BUSY;
-        MOVS     R2,#+2
-        STRB     R2,[R0, #+161]
+        MOVS     R3,#+2
+        STRB     R3,[R2, #+1]
 //  637 
 //  638   /* Check the parameters */
 //  639   assert_param(IS_LTDC_LAYER(LayerIdx));
 //  640 
 //  641   /* Disable LTDC color keying by setting COLKEN bit */
 //  642   LTDC_LAYER(hltdc, LayerIdx)->CR &= ~(uint32_t)LTDC_LxCR_COLKEN;
-        LDR      R2,[R0, #+0]
-        ADD      R1,R2,R1, LSL #+7
-        LDR      R2,[R1, #+132]!
-        BIC      R2,R2,#0x2
-        STR      R2,[R1, #+0]
+        LDR      R3,[R0, #+0]
+        ADD      R1,R3,R1, LSL #+7
+        LDR      R3,[R1, #+132]!
+        BIC      R3,R3,#0x2
+          CFI EndBlock cfiBlock11
+        REQUIRE ?Subroutine1
+        ;; // Fall through to label ?Subroutine1
 //  643 
 //  644   /* Sets the Reload type */
 //  645   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
-        LDR      R2,[R0, #+0]
-        MOVS     R1,#+1
-        STR      R1,[R2, #+36]
 //  646 
 //  647   /* Change the LTDC state*/
 //  648   hltdc->State = HAL_LTDC_STATE_READY; 
-        STRB     R1,[R0, #+161]
 //  649 
 //  650   /* Process unlocked */
 //  651   __HAL_UNLOCK(hltdc);
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+160]
 //  652 
 //  653   return HAL_OK;
-        MOVS     R0,#+0
-        BX       LR               ;; return
 //  654 }
-          CFI EndBlock cfiBlock11
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock12 Using cfiCommon0
+          CFI NoFunction
+        THUMB
+?Subroutine1:
+        STR      R3,[R1, #+0]
+        LDR      R0,[R0, #+0]
+        MOVS     R1,#+1
+        STR      R1,[R0, #+36]
+        MOVS     R0,#+0
+        STRB     R1,[R2, #+1]
+        STRB     R0,[R2, #+0]
+        BX       LR               ;; return
+          CFI EndBlock cfiBlock12
 //  655 
 //  656 /**
 //  657   * @brief  Enable the color lookup table.
@@ -1263,7 +1282,7 @@ HAL_LTDC_DisableColorKeying:
 //  664   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock12 Using cfiCommon0
+          CFI Block cfiBlock13 Using cfiCommon0
           CFI Function HAL_LTDC_EnableCLUT
           CFI NoCalls
         THUMB
@@ -1273,51 +1292,44 @@ HAL_LTDC_DisableColorKeying:
 //  668   /* Process locked */
 //  669   __HAL_LOCK(hltdc);
 HAL_LTDC_EnableCLUT:
-        LDRB     R2,[R0, #+160]
-        CMP      R2,#+1
+        ADD      R2,R0,#+160
+        LDRB     R3,[R2, #+0]
+        CMP      R3,#+1
         BNE.N    ??HAL_LTDC_EnableCLUT_0
         MOVS     R0,#+2
         BX       LR
 ??HAL_LTDC_EnableCLUT_0:
-        MOVS     R2,#+1
-        STRB     R2,[R0, #+160]
+        MOVS     R3,#+1
+        STRB     R3,[R2, #+0]
 //  670 
 //  671   /* Change LTDC peripheral state */
 //  672   hltdc->State = HAL_LTDC_STATE_BUSY;
-        MOVS     R2,#+2
-        STRB     R2,[R0, #+161]
+        MOVS     R3,#+2
+        STRB     R3,[R2, #+1]
 //  673 
 //  674   /* Check the parameters */
 //  675   assert_param(IS_LTDC_LAYER(LayerIdx));
 //  676 
 //  677   /* Disable LTDC color lookup table by setting CLUTEN bit */
 //  678   LTDC_LAYER(hltdc, LayerIdx)->CR |= (uint32_t)LTDC_LxCR_CLUTEN;
-        LDR      R2,[R0, #+0]
-        ADD      R1,R2,R1, LSL #+7
-        LDR      R2,[R1, #+132]!
-        ORR      R2,R2,#0x10
-        STR      R2,[R1, #+0]
+        LDR      R3,[R0, #+0]
+        ADD      R1,R3,R1, LSL #+7
+        LDR      R3,[R1, #+132]!
+        ORR      R3,R3,#0x10
+        B.N      ?Subroutine1
 //  679 
 //  680   /* Sets the Reload type */
 //  681   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
-        LDR      R2,[R0, #+0]
-        MOVS     R1,#+1
-        STR      R1,[R2, #+36]
 //  682 
 //  683   /* Change the LTDC state*/
 //  684   hltdc->State = HAL_LTDC_STATE_READY; 
-        STRB     R1,[R0, #+161]
 //  685 
 //  686   /* Process unlocked */
 //  687   __HAL_UNLOCK(hltdc);
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+160]
 //  688 
 //  689   return HAL_OK;
-        MOVS     R0,#+0
-        BX       LR               ;; return
 //  690 }
-          CFI EndBlock cfiBlock12
+          CFI EndBlock cfiBlock13
 //  691 
 //  692 /**
 //  693   * @brief  Disable the color lookup table.
@@ -1330,7 +1342,7 @@ HAL_LTDC_EnableCLUT:
 //  700   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock13 Using cfiCommon0
+          CFI Block cfiBlock14 Using cfiCommon0
           CFI Function HAL_LTDC_DisableCLUT
           CFI NoCalls
         THUMB
@@ -1340,51 +1352,44 @@ HAL_LTDC_EnableCLUT:
 //  704   /* Process locked */
 //  705   __HAL_LOCK(hltdc);
 HAL_LTDC_DisableCLUT:
-        LDRB     R2,[R0, #+160]
-        CMP      R2,#+1
+        ADD      R2,R0,#+160
+        LDRB     R3,[R2, #+0]
+        CMP      R3,#+1
         BNE.N    ??HAL_LTDC_DisableCLUT_0
         MOVS     R0,#+2
         BX       LR
 ??HAL_LTDC_DisableCLUT_0:
-        MOVS     R2,#+1
-        STRB     R2,[R0, #+160]
+        MOVS     R3,#+1
+        STRB     R3,[R2, #+0]
 //  706 
 //  707   /* Change LTDC peripheral state */
 //  708   hltdc->State = HAL_LTDC_STATE_BUSY;
-        MOVS     R2,#+2
-        STRB     R2,[R0, #+161]
+        MOVS     R3,#+2
+        STRB     R3,[R2, #+1]
 //  709 
 //  710   /* Check the parameters */
 //  711   assert_param(IS_LTDC_LAYER(LayerIdx));
 //  712 
 //  713   /* Disable LTDC color lookup table by setting CLUTEN bit */
 //  714   LTDC_LAYER(hltdc, LayerIdx)->CR &= ~(uint32_t)LTDC_LxCR_CLUTEN;
-        LDR      R2,[R0, #+0]
-        ADD      R1,R2,R1, LSL #+7
-        LDR      R2,[R1, #+132]!
-        BIC      R2,R2,#0x10
-        STR      R2,[R1, #+0]
+        LDR      R3,[R0, #+0]
+        ADD      R1,R3,R1, LSL #+7
+        LDR      R3,[R1, #+132]!
+        BIC      R3,R3,#0x10
+        B.N      ?Subroutine1
 //  715 
 //  716   /* Sets the Reload type */
 //  717   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
-        LDR      R2,[R0, #+0]
-        MOVS     R1,#+1
-        STR      R1,[R2, #+36]
 //  718 
 //  719   /* Change the LTDC state*/
 //  720   hltdc->State = HAL_LTDC_STATE_READY; 
-        STRB     R1,[R0, #+161]
 //  721 
 //  722   /* Process unlocked */
 //  723   __HAL_UNLOCK(hltdc);
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+160]
 //  724 
 //  725   return HAL_OK;
-        MOVS     R0,#+0
-        BX       LR               ;; return
 //  726 }
-          CFI EndBlock cfiBlock13
+          CFI EndBlock cfiBlock14
 //  727 
 //  728 /**
 //  729   * @brief  Enables Dither.
@@ -1395,7 +1400,7 @@ HAL_LTDC_DisableCLUT:
 //  734 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock14 Using cfiCommon0
+          CFI Block cfiBlock15 Using cfiCommon0
           CFI Function HAL_LTDC_EnableDither
           CFI NoCalls
         THUMB
@@ -1404,42 +1409,36 @@ HAL_LTDC_DisableCLUT:
 //  737   /* Process locked */
 //  738   __HAL_LOCK(hltdc);
 HAL_LTDC_EnableDither:
-        LDRB     R1,[R0, #+160]
+        LDRB     R1,[R0, #+160]!
         CMP      R1,#+1
         BNE.N    ??HAL_LTDC_EnableDither_0
         MOVS     R0,#+2
         BX       LR
 ??HAL_LTDC_EnableDither_0:
         MOVS     R1,#+1
-        STRB     R1,[R0, #+160]
+        STRB     R1,[R0, #+0]
 //  739 
 //  740   /* Change LTDC peripheral state */
 //  741   hltdc->State = HAL_LTDC_STATE_BUSY;
         MOVS     R1,#+2
-        STRB     R1,[R0, #+161]
+        STRB     R1,[R0, #+1]
 //  742 
 //  743   /* Enable Dither by setting DTEN bit */
 //  744   LTDC->GCR |= (uint32_t)LTDC_GCR_DTEN;
-        LDR.N    R1,??DataTable4_1  ;; 0x40016818
+        LDR.N    R1,??DataTable3_1  ;; 0x40016818
         LDR      R2,[R1, #+0]
         ORR      R2,R2,#0x10000
-        STR      R2,[R1, #+0]
+        B.N      ?Subroutine2
 //  745 
 //  746   /* Change the LTDC state*/
 //  747   hltdc->State = HAL_LTDC_STATE_READY; 
-        MOVS     R1,#+1
-        STRB     R1,[R0, #+161]
 //  748 
 //  749   /* Process unlocked */
 //  750   __HAL_UNLOCK(hltdc);
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+160]
 //  751 
 //  752   return HAL_OK;
-        MOVS     R0,#+0
-        BX       LR               ;; return
 //  753 }
-          CFI EndBlock cfiBlock14
+          CFI EndBlock cfiBlock15
 //  754 
 //  755 /**
 //  756   * @brief  Disables Dither.
@@ -1450,7 +1449,7 @@ HAL_LTDC_EnableDither:
 //  761 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock15 Using cfiCommon0
+          CFI Block cfiBlock16 Using cfiCommon0
           CFI Function HAL_LTDC_DisableDither
           CFI NoCalls
         THUMB
@@ -1459,42 +1458,51 @@ HAL_LTDC_EnableDither:
 //  764   /* Process locked */
 //  765   __HAL_LOCK(hltdc);
 HAL_LTDC_DisableDither:
-        LDRB     R1,[R0, #+160]
+        LDRB     R1,[R0, #+160]!
         CMP      R1,#+1
         BNE.N    ??HAL_LTDC_DisableDither_0
         MOVS     R0,#+2
         BX       LR
 ??HAL_LTDC_DisableDither_0:
         MOVS     R1,#+1
-        STRB     R1,[R0, #+160]
+        STRB     R1,[R0, #+0]
 //  766 
 //  767   /* Change LTDC peripheral state */
 //  768   hltdc->State = HAL_LTDC_STATE_BUSY;
         MOVS     R1,#+2
-        STRB     R1,[R0, #+161]
+        STRB     R1,[R0, #+1]
 //  769 
 //  770   /* Disable Dither by setting DTEN bit */
 //  771   LTDC->GCR &= ~(uint32_t)LTDC_GCR_DTEN;
-        LDR.N    R1,??DataTable4_1  ;; 0x40016818
+        LDR.N    R1,??DataTable3_1  ;; 0x40016818
         LDR      R2,[R1, #+0]
         BIC      R2,R2,#0x10000
-        STR      R2,[R1, #+0]
+          CFI EndBlock cfiBlock16
+        REQUIRE ?Subroutine2
+        ;; // Fall through to label ?Subroutine2
 //  772 
 //  773   /* Change the LTDC state*/
 //  774   hltdc->State = HAL_LTDC_STATE_READY;
-        MOVS     R1,#+1
-        STRB     R1,[R0, #+161]
 //  775 
 //  776   /* Process unlocked */
 //  777   __HAL_UNLOCK(hltdc);
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+160]
 //  778 
 //  779   return HAL_OK;
+//  780 }
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock17 Using cfiCommon0
+          CFI NoFunction
+        THUMB
+?Subroutine2:
+        STR      R2,[R1, #+0]
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+1]
+        MOVS     R1,#+0
+        STRB     R1,[R0, #+0]
         MOVS     R0,#+0
         BX       LR               ;; return
-//  780 }
-          CFI EndBlock cfiBlock15
+          CFI EndBlock cfiBlock17
 //  781 
 //  782 /**
 //  783   * @brief  Set the LTDC window size.
@@ -1509,29 +1517,31 @@ HAL_LTDC_DisableDither:
 //  792   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock16 Using cfiCommon0
+          CFI Block cfiBlock18 Using cfiCommon0
           CFI Function HAL_LTDC_SetWindowSize
+          CFI NoCalls
         THUMB
 //  793 HAL_StatusTypeDef HAL_LTDC_SetWindowSize(LTDC_HandleTypeDef *hltdc, uint32_t XSize, uint32_t YSize, uint32_t LayerIdx) 
 //  794 {
 HAL_LTDC_SetWindowSize:
-        PUSH     {R4,R5,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
-        MOV      R4,R0
-        SUB      SP,SP,#+4
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
           CFI CFA R13+16
+        MOV      R4,R0
 //  795   LTDC_LayerCfgTypeDef *pLayerCfg;
 //  796 
 //  797   /* Process locked */
 //  798   __HAL_LOCK(hltdc);
-        LDRB     R0,[R4, #+160]
+        ADD      R5,R4,#+160
+        LDRB     R0,[R5, #+0]
         CMP      R0,#+1
-        IT       EQ 
-        MOVEQ    R0,#+2
-        BEQ.N    ??HAL_LTDC_SetWindowSize_0
+        BNE.N    ??HAL_LTDC_SetWindowSize_0
+        MOVS     R0,#+2
+        POP      {R4-R6,PC}
+??HAL_LTDC_SetWindowSize_0:
         MOVS     R0,#+1
 //  799 
 //  800   /* Change LTDC peripheral state */
@@ -1551,13 +1561,13 @@ HAL_LTDC_SetWindowSize:
 //  814 
 //  815   /* update horizontal start/stop */
 //  816   pLayerCfg->WindowX0 = 0;
-        MOVS     R5,#+0
-        STRB     R0,[R4, #+160]
+        MOVS     R6,#+0
+        STRB     R0,[R5, #+0]
         MOVS     R0,#+2
-        STRB     R0,[R4, #+161]
+        STRB     R0,[R5, #+1]
         MOVS     R0,#+52
         MLA      R0,R0,R3,R4
-        STR      R5,[R0, #+56]!
+        STR      R6,[R0, #+56]!
 //  817   pLayerCfg->WindowX1 = XSize + pLayerCfg->WindowX0;
         STR      R1,[R0, #+4]
 //  818 
@@ -1575,36 +1585,24 @@ HAL_LTDC_SetWindowSize:
 //  829   /* Set LTDC parameters */
 //  830   LTDC_SetConfig(hltdc, pLayerCfg, LayerIdx);
         MOV      R1,R0
-        STR      R5,[R0, #+8]
+        STR      R6,[R0, #+8]
         STR      R2,[R0, #+12]
         STR      R2,[R0, #+44]
         MOV      R2,R3
-        MOV      R0,R4
-          CFI FunCall LTDC_SetConfig
-        BL       LTDC_SetConfig
+        B.N      ?Subroutine0
 //  831 
 //  832   /* Sets the Reload type */
 //  833   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
-        LDR      R1,[R4, #+0]
-        MOVS     R0,#+1
-        STR      R0,[R1, #+36]
 //  834 
 //  835   /* Change the LTDC state*/
 //  836   hltdc->State = HAL_LTDC_STATE_READY;
-        STRB     R0,[R4, #+161]
 //  837 
 //  838   /* Process unlocked */
 //  839   __HAL_UNLOCK(hltdc);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+160]
 //  840 
 //  841   return HAL_OK;
-??HAL_LTDC_SetWindowSize_0:
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}       ;; return
 //  842 }
-          CFI EndBlock cfiBlock16
+          CFI EndBlock cfiBlock18
 //  843 
 //  844 /**
 //  845   * @brief  Set the LTDC window position.
@@ -1619,36 +1617,38 @@ HAL_LTDC_SetWindowSize:
 //  854   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock17 Using cfiCommon0
+          CFI Block cfiBlock19 Using cfiCommon0
           CFI Function HAL_LTDC_SetWindowPosition
+          CFI NoCalls
         THUMB
 //  855 HAL_StatusTypeDef HAL_LTDC_SetWindowPosition(LTDC_HandleTypeDef *hltdc, uint32_t X0, uint32_t Y0, uint32_t LayerIdx)
 //  856 {
 HAL_LTDC_SetWindowPosition:
-        PUSH     {R4,R5,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
-        MOV      R4,R0
-        SUB      SP,SP,#+4
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
           CFI CFA R13+16
+        MOV      R4,R0
 //  857   LTDC_LayerCfgTypeDef *pLayerCfg;
 //  858   
 //  859   /* Process locked */
 //  860   __HAL_LOCK(hltdc);
-        LDRB     R0,[R4, #+160]
+        ADD      R5,R4,#+160
+        LDRB     R0,[R5, #+0]
         CMP      R0,#+1
-        IT       EQ 
-        MOVEQ    R0,#+2
-        BEQ.N    ??HAL_LTDC_SetWindowPosition_0
+        BNE.N    ??HAL_LTDC_SetWindowPosition_0
+        MOVS     R0,#+2
+        POP      {R4-R6,PC}
+??HAL_LTDC_SetWindowPosition_0:
         MOVS     R0,#+1
-        STRB     R0,[R4, #+160]
+        STRB     R0,[R5, #+0]
 //  861 
 //  862   /* Change LTDC peripheral state */
 //  863   hltdc->State = HAL_LTDC_STATE_BUSY;
         MOVS     R0,#+2
-        STRB     R0,[R4, #+161]
+        STRB     R0,[R5, #+1]
 //  864 
 //  865   /* Get layer configuration from handle structure */
 //  866   pLayerCfg = &hltdc->LayerCfg[LayerIdx];
@@ -1670,8 +1670,8 @@ HAL_LTDC_SetWindowPosition:
 //  879   /* update vertical start/stop */
 //  880   pLayerCfg->WindowY0 = Y0;
         STR      R2,[R0, #+8]
-        LDR      R5,[R0, #+40]
-        ADDS     R1,R5,R1
+        LDR      R6,[R0, #+40]
+        ADDS     R1,R6,R1
         STR      R1,[R0, #+4]
 //  881   pLayerCfg->WindowY1 = Y0 + pLayerCfg->ImageHeight;
         LDR      R1,[R0, #+44]
@@ -1682,32 +1682,44 @@ HAL_LTDC_SetWindowPosition:
         MOV      R2,R3
         STR      R1,[R0, #+12]
         MOV      R1,R0
-        MOV      R0,R4
-          CFI FunCall LTDC_SetConfig
-        BL       LTDC_SetConfig
+          CFI EndBlock cfiBlock19
+        REQUIRE ?Subroutine0
+        ;; // Fall through to label ?Subroutine0
 //  885 
 //  886   /* Sets the Reload type */
 //  887   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
-        LDR      R1,[R4, #+0]
-        MOVS     R0,#+1
-        STR      R0,[R1, #+36]
 //  888 
 //  889   /* Change the LTDC state*/
 //  890   hltdc->State = HAL_LTDC_STATE_READY;
-        STRB     R0,[R4, #+161]
 //  891 
 //  892   /* Process unlocked */
 //  893   __HAL_UNLOCK(hltdc);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+160]
 //  894 
 //  895   return HAL_OK;
-??HAL_LTDC_SetWindowPosition_0:
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}       ;; return
 //  896 }
-          CFI EndBlock cfiBlock17
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock20 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+16
+          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -12)
+          CFI R6 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+        THUMB
+?Subroutine0:
+        MOV      R0,R4
+          CFI FunCall HAL_LTDC_SetWindowSize LTDC_SetConfig
+          CFI FunCall HAL_LTDC_SetWindowPosition LTDC_SetConfig
+        BL       LTDC_SetConfig
+        LDR      R1,[R4, #+0]
+        MOVS     R0,#+1
+        STR      R0,[R1, #+36]
+        STRB     R0,[R5, #+1]
+        MOVS     R0,#+0
+        STRB     R0,[R5, #+0]
+        POP      {R4-R6,PC}       ;; return
+          CFI EndBlock cfiBlock20
 //  897 
 //  898 /**
 //  899   * @brief  Reconfigure the pixel format.
@@ -1721,34 +1733,37 @@ HAL_LTDC_SetWindowPosition:
 //  907   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock18 Using cfiCommon0
+          CFI Block cfiBlock21 Using cfiCommon0
           CFI Function HAL_LTDC_SetPixelFormat
+          CFI NoCalls
         THUMB
 //  908 HAL_StatusTypeDef HAL_LTDC_SetPixelFormat(LTDC_HandleTypeDef *hltdc, uint32_t Pixelformat, uint32_t LayerIdx)
 //  909 {
 HAL_LTDC_SetPixelFormat:
-        PUSH     {R4,LR}
+        PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+16
         MOV      R4,R0
 //  910   LTDC_LayerCfgTypeDef *pLayerCfg;
 //  911 
 //  912   /* Process locked */
 //  913   __HAL_LOCK(hltdc);
-        LDRB     R0,[R4, #+160]
+        ADD      R5,R4,#+160
+        LDRB     R0,[R5, #+0]
         CMP      R0,#+1
         BNE.N    ??HAL_LTDC_SetPixelFormat_0
         MOVS     R0,#+2
-        POP      {R4,PC}
+        POP      {R1,R4,R5,PC}
 ??HAL_LTDC_SetPixelFormat_0:
         MOVS     R0,#+1
-        STRB     R0,[R4, #+160]
+        STRB     R0,[R5, #+0]
 //  914 
 //  915   /* Change LTDC peripheral state */
 //  916   hltdc->State = HAL_LTDC_STATE_BUSY;
         MOVS     R0,#+2
-        STRB     R0,[R4, #+161]
+        STRB     R0,[R5, #+1]
 //  917 
 //  918   /* Check the parameters */
 //  919   assert_param(IS_LTDC_LAYER(LayerIdx));
@@ -1766,30 +1781,20 @@ HAL_LTDC_SetPixelFormat:
 //  927 
 //  928   /* Set LTDC parameters */
 //  929   LTDC_SetConfig(hltdc, pLayerCfg, LayerIdx);   
-        MOV      R1,R0
-        MOV      R0,R4
-          CFI FunCall LTDC_SetConfig
-        BL       LTDC_SetConfig
+        B.N      ?Subroutine3
 //  930 
 //  931   /* Sets the Reload type */
 //  932   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
-        LDR      R1,[R4, #+0]
-        MOVS     R0,#+1
-        STR      R0,[R1, #+36]
 //  933 
 //  934   /* Change the LTDC state*/
 //  935   hltdc->State = HAL_LTDC_STATE_READY;
-        STRB     R0,[R4, #+161]
 //  936 
 //  937   /* Process unlocked */
 //  938   __HAL_UNLOCK(hltdc);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+160]
 //  939 
 //  940   return HAL_OK;
-        POP      {R4,PC}          ;; return
 //  941 }
-          CFI EndBlock cfiBlock18
+          CFI EndBlock cfiBlock21
 //  942 
 //  943 /**
 //  944   * @brief  Reconfigure the layer alpha value.
@@ -1803,34 +1808,37 @@ HAL_LTDC_SetPixelFormat:
 //  952   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock19 Using cfiCommon0
+          CFI Block cfiBlock22 Using cfiCommon0
           CFI Function HAL_LTDC_SetAlpha
+          CFI NoCalls
         THUMB
 //  953 HAL_StatusTypeDef HAL_LTDC_SetAlpha(LTDC_HandleTypeDef *hltdc, uint32_t Alpha, uint32_t LayerIdx)
 //  954 {
 HAL_LTDC_SetAlpha:
-        PUSH     {R4,LR}
+        PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+16
         MOV      R4,R0
 //  955   LTDC_LayerCfgTypeDef *pLayerCfg;
 //  956 
 //  957   /* Process locked */
 //  958   __HAL_LOCK(hltdc);
-        LDRB     R0,[R4, #+160]
+        ADD      R5,R4,#+160
+        LDRB     R0,[R5, #+0]
         CMP      R0,#+1
         BNE.N    ??HAL_LTDC_SetAlpha_0
         MOVS     R0,#+2
-        POP      {R4,PC}
+        POP      {R1,R4,R5,PC}
 ??HAL_LTDC_SetAlpha_0:
         MOVS     R0,#+1
-        STRB     R0,[R4, #+160]
+        STRB     R0,[R5, #+0]
 //  959 
 //  960   /* Change LTDC peripheral state */
 //  961   hltdc->State = HAL_LTDC_STATE_BUSY;
         MOVS     R0,#+2
-        STRB     R0,[R4, #+161]
+        STRB     R0,[R5, #+1]
 //  962 
 //  963   /* Check the parameters */
 //  964   assert_param(IS_LTDC_ALPHA(Alpha));
@@ -1848,30 +1856,45 @@ HAL_LTDC_SetAlpha:
 //  972 
 //  973   /* Set LTDC parameters */
 //  974   LTDC_SetConfig(hltdc, pLayerCfg, LayerIdx);
-        MOV      R1,R0
-        MOV      R0,R4
-          CFI FunCall LTDC_SetConfig
-        BL       LTDC_SetConfig
+          CFI EndBlock cfiBlock22
+        REQUIRE ?Subroutine3
+        ;; // Fall through to label ?Subroutine3
 //  975 
 //  976   /* Sets the Reload type */
 //  977   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
-        LDR      R1,[R4, #+0]
-        MOVS     R0,#+1
-        STR      R0,[R1, #+36]
 //  978 
 //  979   /* Change the LTDC state*/
 //  980   hltdc->State = HAL_LTDC_STATE_READY;
-        STRB     R0,[R4, #+161]
 //  981 
 //  982   /* Process unlocked */
 //  983   __HAL_UNLOCK(hltdc);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+160]
 //  984 
 //  985   return HAL_OK;
-        POP      {R4,PC}          ;; return
 //  986 }
-          CFI EndBlock cfiBlock19
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock23 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+16
+          CFI R4 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -8)
+          CFI R14 Frame(CFA, -4)
+        THUMB
+?Subroutine3:
+        MOV      R1,R0
+        MOV      R0,R4
+          CFI FunCall HAL_LTDC_SetPixelFormat LTDC_SetConfig
+          CFI FunCall HAL_LTDC_SetAlpha LTDC_SetConfig
+          CFI FunCall HAL_LTDC_SetAddress LTDC_SetConfig
+        BL       LTDC_SetConfig
+        LDR      R1,[R4, #+0]
+        MOVS     R0,#+1
+        STR      R0,[R1, #+36]
+        STRB     R0,[R5, #+1]
+        MOVS     R0,#+0
+        STRB     R0,[R5, #+0]
+        POP      {R1,R4,R5,PC}    ;; return
+          CFI EndBlock cfiBlock23
 //  987 /**
 //  988   * @brief  Reconfigure the frame buffer Address.
 //  989   * @param  hltdc:    pointer to a LTDC_HandleTypeDef structure that contains
@@ -1884,34 +1907,37 @@ HAL_LTDC_SetAlpha:
 //  996   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock20 Using cfiCommon0
+          CFI Block cfiBlock24 Using cfiCommon0
           CFI Function HAL_LTDC_SetAddress
+          CFI NoCalls
         THUMB
 //  997 HAL_StatusTypeDef HAL_LTDC_SetAddress(LTDC_HandleTypeDef *hltdc, uint32_t Address, uint32_t LayerIdx)
 //  998 {
 HAL_LTDC_SetAddress:
-        PUSH     {R4,LR}
+        PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+16
         MOV      R4,R0
 //  999   LTDC_LayerCfgTypeDef *pLayerCfg;
 // 1000 
 // 1001   /* Process locked */
 // 1002   __HAL_LOCK(hltdc);
-        LDRB     R0,[R4, #+160]
+        ADD      R5,R4,#+160
+        LDRB     R0,[R5, #+0]
         CMP      R0,#+1
         BNE.N    ??HAL_LTDC_SetAddress_0
         MOVS     R0,#+2
-        POP      {R4,PC}
+        POP      {R1,R4,R5,PC}
 ??HAL_LTDC_SetAddress_0:
         MOVS     R0,#+1
-        STRB     R0,[R4, #+160]
+        STRB     R0,[R5, #+0]
 // 1003 
 // 1004   /* Change LTDC peripheral state */
 // 1005   hltdc->State = HAL_LTDC_STATE_BUSY;
         MOVS     R0,#+2
-        STRB     R0,[R4, #+161]
+        STRB     R0,[R5, #+1]
 // 1006 
 // 1007   /* Check the parameters */
 // 1008   assert_param(IS_LTDC_LAYER(LayerIdx));
@@ -1928,30 +1954,20 @@ HAL_LTDC_SetAddress:
 // 1015 
 // 1016   /* Set LTDC parameters */
 // 1017   LTDC_SetConfig(hltdc, pLayerCfg, LayerIdx);
-        MOV      R1,R0
-        MOV      R0,R4
-          CFI FunCall LTDC_SetConfig
-        BL       LTDC_SetConfig
+        B.N      ?Subroutine3
 // 1018 
 // 1019   /* Sets the Reload type */
 // 1020   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
-        LDR      R1,[R4, #+0]
-        MOVS     R0,#+1
-        STR      R0,[R1, #+36]
 // 1021 
 // 1022   /* Change the LTDC state*/
 // 1023   hltdc->State = HAL_LTDC_STATE_READY;
-        STRB     R0,[R4, #+161]
 // 1024 
 // 1025   /* Process unlocked */
 // 1026   __HAL_UNLOCK(hltdc);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+160]
 // 1027 
 // 1028   return HAL_OK;
-        POP      {R4,PC}          ;; return
 // 1029 }
-          CFI EndBlock cfiBlock20
+          CFI EndBlock cfiBlock24
 // 1030 
 // 1031 /**
 // 1032   * @brief  Define the position of the line interrupt .
@@ -1962,7 +1978,7 @@ HAL_LTDC_SetAddress:
 // 1037   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock21 Using cfiCommon0
+          CFI Block cfiBlock25 Using cfiCommon0
           CFI Function HAL_LTDC_ProgramLineEvent
           CFI NoCalls
         THUMB
@@ -1971,50 +1987,50 @@ HAL_LTDC_SetAddress:
 // 1040   /* Process locked */
 // 1041   __HAL_LOCK(hltdc);
 HAL_LTDC_ProgramLineEvent:
-        LDRB     R2,[R0, #+160]
-        CMP      R2,#+1
+        ADD      R2,R0,#+160
+        LDRB     R3,[R2, #+0]
+        CMP      R3,#+1
         BNE.N    ??HAL_LTDC_ProgramLineEvent_0
         MOVS     R0,#+2
         BX       LR
 ??HAL_LTDC_ProgramLineEvent_0:
-        MOVS     R2,#+1
-        STRB     R2,[R0, #+160]
+        MOVS     R3,#+1
+        STRB     R3,[R2, #+0]
 // 1042 
 // 1043   /* Change LTDC peripheral state */
 // 1044   hltdc->State = HAL_LTDC_STATE_BUSY;
-        MOVS     R2,#+2
-        STRB     R2,[R0, #+161]
+        MOVS     R3,#+2
+        STRB     R3,[R2, #+1]
 // 1045 
 // 1046   /* Check the parameters */
 // 1047   assert_param(IS_LTDC_LIPOS(Line));
 // 1048 
 // 1049   /* Enable the Line interrupt */
 // 1050   __HAL_LTDC_ENABLE_IT(hltdc, LTDC_IT_LI);
-        LDR      R2,[R0, #+0]
-        LDR      R3,[R2, #+52]
+        LDR      R0,[R0, #+0]
+        LDR      R3,[R0, #+52]
         ORR      R3,R3,#0x1
-        STR      R3,[R2, #+52]
+        STR      R3,[R0, #+52]
 // 1051 
 // 1052   /* Sets the Line Interrupt position */
 // 1053   LTDC->LIPCR = (uint32_t)Line;
-        LDR.N    R2,??DataTable4_2  ;; 0x40016840
-        STR      R1,[R2, #+0]
+        LDR.N    R0,??DataTable3_2  ;; 0x40016840
+        STR      R1,[R0, #+0]
 // 1054 
 // 1055   /* Change the LTDC state*/
 // 1056   hltdc->State = HAL_LTDC_STATE_READY;
-        MOVS     R1,#+1
-        STRB     R1,[R0, #+161]
+        MOVS     R0,#+1
+        STRB     R0,[R2, #+1]
 // 1057 
 // 1058   /* Process unlocked */
 // 1059   __HAL_UNLOCK(hltdc);
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+160]
+        MOVS     R0,#+0
+        STRB     R0,[R2, #+0]
 // 1060 
 // 1061   return HAL_OK;
-        MOVS     R0,#+0
         BX       LR               ;; return
 // 1062 }
-          CFI EndBlock cfiBlock21
+          CFI EndBlock cfiBlock25
 // 1063 
 // 1064 /**
 // 1065   * @}
@@ -2044,7 +2060,7 @@ HAL_LTDC_ProgramLineEvent:
 // 1089   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock22 Using cfiCommon0
+          CFI Block cfiBlock26 Using cfiCommon0
           CFI Function HAL_LTDC_GetState
           CFI NoCalls
         THUMB
@@ -2055,7 +2071,7 @@ HAL_LTDC_GetState:
         LDRB     R0,[R0, #+161]
         BX       LR               ;; return
 // 1093 }
-          CFI EndBlock cfiBlock22
+          CFI EndBlock cfiBlock26
 // 1094 
 // 1095 /**
 // 1096 * @brief  Return the LTDC error code
@@ -2065,7 +2081,7 @@ HAL_LTDC_GetState:
 // 1100 */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock23 Using cfiCommon0
+          CFI Block cfiBlock27 Using cfiCommon0
           CFI Function HAL_LTDC_GetError
           CFI NoCalls
         THUMB
@@ -2076,7 +2092,7 @@ HAL_LTDC_GetError:
         LDR      R0,[R0, #+164]
         BX       LR               ;; return
 // 1104 }
-          CFI EndBlock cfiBlock23
+          CFI EndBlock cfiBlock27
 // 1105 
 // 1106 /**
 // 1107   * @}
@@ -2093,17 +2109,18 @@ HAL_LTDC_GetError:
 // 1118   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock24 Using cfiCommon0
+          CFI Block cfiBlock28 Using cfiCommon0
           CFI Function LTDC_SetConfig
           CFI NoCalls
         THUMB
 // 1119 static void LTDC_SetConfig(LTDC_HandleTypeDef *hltdc, LTDC_LayerCfgTypeDef *pLayerCfg, uint32_t LayerIdx)
 // 1120 {
 LTDC_SetConfig:
-        PUSH     {R4,R5}
-          CFI R5 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
+        PUSH     {R4-R6}
+          CFI R6 Frame(CFA, -4)
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
 // 1121   uint32_t tmp = 0;
 // 1122   uint32_t tmp1 = 0;
 // 1123   uint32_t tmp2 = 0;
@@ -2161,19 +2178,19 @@ LTDC_SetConfig:
 // 1138 
 // 1139   /* Configures the default color values */
 // 1140   tmp = ((uint32_t)(pLayerCfg->Backcolor.Green) << 8);
-        LDRB     R0,[R1, #+49]
+        ADD      R0,R1,#+48
 // 1141   tmp1 = ((uint32_t)(pLayerCfg->Backcolor.Red) << 16);
-        LDRB     R3,[R1, #+50]
 // 1142   tmp2 = (pLayerCfg->Alpha0 << 24);  
-        LDR      R4,[R1, #+24]
+        LDR      R5,[R1, #+24]
+        LDRB     R3,[R0, #+1]
+        LDRB     R4,[R0, #+2]
 // 1143   LTDC_LAYER(hltdc, LayerIdx)->DCCR &= ~(LTDC_LxDCCR_DCBLUE | LTDC_LxDCCR_DCGREEN | LTDC_LxDCCR_DCRED | LTDC_LxDCCR_DCALPHA);
-        LDR      R5,[R2, #+24]
-        MOVS     R5,#+0
-        STR      R5,[R2, #+24]
+        LDR      R6,[R2, #+24]
+        MOVS     R6,#+0
+        STR      R6,[R2, #+24]
 // 1144   LTDC_LAYER(hltdc, LayerIdx)->DCCR = (pLayerCfg->Backcolor.Blue | tmp | tmp1 | tmp2); 
-        LDRB     R5,[R1, #+48]
-        ORR      R0,R5,R0, LSL #+8
-        ORR      R0,R0,R3, LSL #+16
+        LDRB     R0,[R0, #+0]
+        ORR      R0,R0,R3, LSL #+8
 // 1145 
 // 1146   /* Specifies the constant alpha value */
 // 1147   LTDC_LAYER(hltdc, LayerIdx)->CACR &= ~(LTDC_LxCACR_CONSTA);
@@ -2181,8 +2198,9 @@ LTDC_SetConfig:
 // 1149 
 // 1150   /* Specifies the blending factors */
 // 1151   LTDC_LAYER(hltdc, LayerIdx)->BFCR &= ~(LTDC_LxBFCR_BF2 | LTDC_LxBFCR_BF1);
-        LDR.N    R3,??DataTable4_3  ;; 0xfffff8f8
-        ORR      R0,R0,R4, LSL #+24
+        LDR.N    R3,??DataTable3_3  ;; 0xfffff8f8
+        ORR      R0,R0,R4, LSL #+16
+        ORR      R0,R0,R5, LSL #+24
         STR      R0,[R2, #+24]
         LDR      R0,[R2, #+20]
         LSRS     R0,R0,#+8
@@ -2202,8 +2220,7 @@ LTDC_SetConfig:
 // 1154   /* Configures the color frame buffer start address */
 // 1155   LTDC_LAYER(hltdc, LayerIdx)->CFBAR &= ~(LTDC_LxCFBAR_CFBADD);
         LDR      R0,[R2, #+40]
-        MOVS     R0,#+0
-        STR      R0,[R2, #+40]
+        STR      R6,[R2, #+40]
 // 1156   LTDC_LAYER(hltdc, LayerIdx)->CFBAR = (pLayerCfg->FBStartAdress);
         LDR      R0,[R1, #+36]
         STR      R0,[R2, #+40]
@@ -2260,7 +2277,7 @@ LTDC_SetConfig:
         LDR      R3,[R1, #+40]
         LDR      R4,[R1, #+4]
         LDR      R5,[R1, #+0]
-        MULS     R3,R3,R0
+        MULS     R3,R0,R3
         SUBS     R4,R4,R5
         MULS     R0,R0,R4
         ADDS     R0,R0,#+3
@@ -2283,35 +2300,36 @@ LTDC_SetConfig:
         ORR      R0,R0,#0x1
         STR      R0,[R2, #+0]
 // 1188 }
-        POP      {R4,R5}
+        POP      {R4-R6}
           CFI R4 SameValue
           CFI R5 SameValue
+          CFI R6 SameValue
           CFI CFA R13+0
         BX       LR               ;; return
-          CFI EndBlock cfiBlock24
+          CFI EndBlock cfiBlock28
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable4:
+??DataTable3:
         DC32     0xf000f800
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable4_1:
+??DataTable3_1:
         DC32     0x40016818
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable4_2:
+??DataTable3_2:
         DC32     0x40016840
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable4_3:
+??DataTable3_3:
         DC32     0xfffff8f8
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
@@ -2344,9 +2362,9 @@ LTDC_SetConfig:
 // 1204 
 // 1205 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 1 738 bytes in section .text
+// 1 490 bytes in section .text
 // 
-// 1 738 bytes of CODE memory
+// 1 490 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

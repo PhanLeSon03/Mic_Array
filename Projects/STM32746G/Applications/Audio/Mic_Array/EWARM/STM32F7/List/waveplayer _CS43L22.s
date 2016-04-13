@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      12/Apr/2016  09:55:53
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      13/Apr/2016  13:47:36
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -49,7 +49,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -445,19 +445,15 @@ WavePlayerPauseResume:
 //  227 uint8_t WaveplayerCtrlVolume(uint8_t vol)
 //  228 { 
 WaveplayerCtrlVolume:
-        PUSH     {LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI CFA R13+4
-        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  229   AUDIO_VolumeCtl(vol);
           CFI FunCall AUDIO_VolumeCtl
         BL       AUDIO_VolumeCtl
 //  230   return 0;
         MOVS     R0,#+0
-        ADD      SP,SP,#+4
-          CFI CFA R13+4
-        POP      {PC}             ;; return
+        POP      {R1,PC}          ;; return
 //  231 }
           CFI EndBlock cfiBlock2
 //  232 
@@ -494,27 +490,23 @@ WavePlayerStop:
         THUMB
 //  249 int WavePlayerInit(uint32_t AudioFreq)
 //  250 { 
-WavePlayerInit:
-        PUSH     {LR}
-          CFI R14 Frame(CFA, -4)
-          CFI CFA R13+4
 //  251 
 //  252   
 //  253   /* Initialize the Audio codec and all related peripherals (I2S, I2C, IOExpander, IOs...) */  
 //  254   AUDIO_Init(OUTPUT_DEVICE_AUTO, 80, AudioFreq );  
+WavePlayerInit:
         MOV      R2,R0
-        SUB      SP,SP,#+4
-          CFI CFA R13+8
         MOVS     R1,#+80
+        PUSH     {R7,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI CFA R13+8
         MOVS     R0,#+4
           CFI FunCall AUDIO_Init
         BL       AUDIO_Init
 //  255   
 //  256   return 0;
         MOVS     R0,#+0
-        ADD      SP,SP,#+4
-          CFI CFA R13+4
-        POP      {PC}             ;; return
+        POP      {R1,PC}          ;; return
 //  257 }
           CFI EndBlock cfiBlock4
 //  258 
@@ -532,10 +524,8 @@ WavePlayerInit:
 //  265 uint32_t AudioFlashPlay(uint16_t* pBuffer, uint32_t FullSize, uint32_t StartAdd)
 //  266 { 
 AudioFlashPlay:
-        PUSH     {LR}
+        PUSH     {R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI CFA R13+4
-        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  267   AUDIO_Play((uint16_t*)pBuffer, (FullSize - StartAdd));
         SUBS     R1,R1,R2
@@ -543,9 +533,7 @@ AudioFlashPlay:
         BL       AUDIO_Play
 //  268   return 0;
         MOVS     R0,#+0
-        ADD      SP,SP,#+4
-          CFI CFA R13+4
-        POP      {PC}             ;; return
+        POP      {R1,PC}          ;; return
 //  269 }
           CFI EndBlock cfiBlock5
 //  270 
@@ -834,9 +822,7 @@ SPI3_Init:
 //  395        or by user functions if DMA mode not enabled */
 //  396 
 //  397 }
-        ADD      SP,SP,#+8
-          CFI CFA R13+8
-        POP      {R4,PC}          ;; return
+        POP      {R0,R1,R4,PC}    ;; return
           CFI EndBlock cfiBlock12
 
         SECTION `.text`:CODE:NOROOT(2)
@@ -911,9 +897,9 @@ AUDIO_InitApplication:
 // 
 // 189 bytes in section .bss
 //   1 byte  in section .data
-// 320 bytes in section .text
+// 306 bytes in section .text
 // 
-// 320 bytes of CODE memory
+// 306 bytes of CODE memory
 // 190 bytes of DATA memory
 //
 //Errors: none

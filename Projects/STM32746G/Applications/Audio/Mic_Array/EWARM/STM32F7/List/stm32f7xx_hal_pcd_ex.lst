@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       12/Apr/2016  09:55:49
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       13/Apr/2016  13:47:32
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7 --relaxed_fp
 #    List file    =  
@@ -146,7 +146,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
      85            * @retval HAL status
      86            */
 
-   \                                 In section .text, align 4, keep-with-next
+   \                                 In section .text, align 2, keep-with-next
      87          HAL_StatusTypeDef HAL_PCDEx_SetTxFiFo(PCD_HandleTypeDef *hpcd, uint8_t fifo, uint16_t size)
      88          {
    \                     HAL_PCDEx_SetTxFiFo: (+1)
@@ -169,47 +169,46 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   00000004   0x6A43             LDR      R3,[R0, #+36]
     103            
     104            if(fifo == 0)
-   \   00000006   0xB929             CBNZ.N   R1,??HAL_PCDEx_SetTxFiFo_0
+   \   00000006   0xB919             CBNZ.N   R1,??HAL_PCDEx_SetTxFiFo_0
     105            {
     106              hpcd->Instance->DIEPTXF0_HNPTXFSIZ = (uint32_t)(((uint32_t)size << 16) | Tx_Offset);
    \   00000008   0xEA43 0x4102      ORR      R1,R3,R2, LSL #+16
    \   0000000C   0x6281             STR      R1,[R0, #+40]
+   \   0000000E   0xE013             B.N      ??HAL_PCDEx_SetTxFiFo_1
     107            }
     108            else
     109            {
     110              Tx_Offset += (hpcd->Instance->DIEPTXF0_HNPTXFSIZ) >> 16;
+   \                     ??HAL_PCDEx_SetTxFiFo_0: (+1)
+   \   00000010   0x6A84             LDR      R4,[R0, #+40]
+   \   00000012   0xEB03 0x4314      ADD      R3,R3,R4, LSR #+16
     111              for (i = 0; i < (fifo - 1); i++)
+   \   00000016   0x1E4C             SUBS     R4,R1,#+1
+   \   00000018   0x2C01             CMP      R4,#+1
+   \   0000001A   0xDB07             BLT.N    ??HAL_PCDEx_SetTxFiFo_2
+   \   0000001C   0xF500 0x7582      ADD      R5,R0,#+260
     112              {
     113                Tx_Offset += (hpcd->Instance->DIEPTXF[i] >> 16);
+   \                     ??HAL_PCDEx_SetTxFiFo_3: (+1)
+   \   00000020   0xF855 0x6B04      LDR      R6,[R5], #+4
     114              }
+   \   00000024   0x1E64             SUBS     R4,R4,#+1
+   \   00000026   0xEB03 0x4316      ADD      R3,R3,R6, LSR #+16
+   \   0000002A   0xD1F9             BNE.N    ??HAL_PCDEx_SetTxFiFo_3
     115              
     116              /* Multiply Tx_Size by 2 to get higher performance */
     117              hpcd->Instance->DIEPTXF[fifo - 1] = (uint32_t)(((uint32_t)size << 16) | Tx_Offset);
+   \                     ??HAL_PCDEx_SetTxFiFo_2: (+1)
+   \   0000002C   0xEA43 0x4202      ORR      R2,R3,R2, LSL #+16
+   \   00000030   0xEB00 0x0081      ADD      R0,R0,R1, LSL #+2
+   \   00000034   0xF8C0 0x2100      STR      R2,[R0, #+256]
     118            }
     119            
     120            return HAL_OK;
-   \   0000000E   0x2000             MOVS     R0,#+0
-   \   00000010   0xBC70             POP      {R4-R6}
-   \   00000012   0x4770             BX       LR
-   \                     ??HAL_PCDEx_SetTxFiFo_0: (+1)
-   \   00000014   0x6A84             LDR      R4,[R0, #+40]
-   \   00000016   0xEB03 0x4314      ADD      R3,R3,R4, LSR #+16
-   \   0000001A   0x1E4C             SUBS     R4,R1,#+1
-   \   0000001C   0x2C01             CMP      R4,#+1
-   \   0000001E   0xDB07             BLT.N    ??HAL_PCDEx_SetTxFiFo_1
-   \   00000020   0xF500 0x7582      ADD      R5,R0,#+260
-   \                     ??HAL_PCDEx_SetTxFiFo_2: (+1)
-   \   00000024   0xF855 0x6B04      LDR      R6,[R5], #+4
-   \   00000028   0x1E64             SUBS     R4,R4,#+1
-   \   0000002A   0xEB03 0x4316      ADD      R3,R3,R6, LSR #+16
-   \   0000002E   0xD1F9             BNE.N    ??HAL_PCDEx_SetTxFiFo_2
    \                     ??HAL_PCDEx_SetTxFiFo_1: (+1)
-   \   00000030   0xEA43 0x4202      ORR      R2,R3,R2, LSL #+16
-   \   00000034   0xEB00 0x0081      ADD      R0,R0,R1, LSL #+2
-   \   00000038   0xF8C0 0x2100      STR      R2,[R0, #+256]
-   \   0000003C   0x2000             MOVS     R0,#+0
-   \   0000003E   0xBC70             POP      {R4-R6}
-   \   00000040   0x4770             BX       LR               ;; return
+   \   00000038   0x2000             MOVS     R0,#+0
+   \   0000003A   0xBC70             POP      {R4-R6}
+   \   0000003C   0x4770             BX       LR               ;; return
     121          }
     122          
     123          /**
@@ -246,11 +245,12 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   00000000   0x6801             LDR      R1,[R0, #+0]
     144            
     145            hpcd->lpm_active = ENABLE;
-   \   00000002   0x2201             MOVS     R2,#+1
-   \   00000004   0xF8C0 0x23B8      STR      R2,[R0, #+952]
+   \   00000002   0xF500 0x706C      ADD      R0,R0,#+944
+   \   00000006   0x2201             MOVS     R2,#+1
+   \   00000008   0x6082             STR      R2,[R0, #+8]
     146            hpcd->LPM_State = LPM_L0;
-   \   00000008   0x2200             MOVS     R2,#+0
-   \   0000000A   0xF880 0x23B0      STRB     R2,[R0, #+944]
+   \   0000000A   0x2200             MOVS     R2,#+0
+   \   0000000C   0x7002             STRB     R2,[R0, #+0]
     147            USBx->GINTMSK |= USB_OTG_GINTMSK_LPMINTM;
    \   0000000E   0x6988             LDR      R0,[R1, #+24]
    \   00000010   0xF040 0x6000      ORR      R0,R0,#0x8000000
@@ -259,12 +259,16 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   00000016   0x6D48             LDR      R0,[R1, #+84]
    \   00000018   0xF040 0x5080      ORR      R0,R0,#0x10000000
    \   0000001C   0xF040 0x0003      ORR      R0,R0,#0x3
-   \   00000020   0x6548             STR      R0,[R1, #+84]
+   \   00000020   0x....             B.N      ?Subroutine0
     149            
     150            return HAL_OK;  
-   \   00000022   0x2000             MOVS     R0,#+0
-   \   00000024   0x4770             BX       LR               ;; return
     151          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine0: (+1)
+   \   00000000   0x6548             STR      R0,[R1, #+84]
+   \   00000002   0x2000             MOVS     R0,#+0
+   \   00000004   0x4770             BX       LR               ;; return
     152          
     153          /**
     154            * @brief  DeActivate LPM feature.
@@ -272,7 +276,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     156            * @retval HAL status
     157            */
 
-   \                                 In section .text, align 2, keep-with-next
+   \                                 In section .text, align 4, keep-with-next
     158          HAL_StatusTypeDef HAL_PCDEx_DeActivateLPM(PCD_HandleTypeDef *hpcd)
     159          {
     160            USB_OTG_GlobalTypeDef *USBx = hpcd->Instance;  
@@ -284,17 +288,20 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   00000004   0xF8C0 0x23B8      STR      R2,[R0, #+952]
     163            USBx->GINTMSK &= ~USB_OTG_GINTMSK_LPMINTM;
     164            USBx->GLPMCFG &= ~(USB_OTG_GLPMCFG_LPMEN | USB_OTG_GLPMCFG_LPMACK | USB_OTG_GLPMCFG_ENBESL);
-   \   00000008   0x....             LDR.N    R2,??DataTable0  ;; 0xeffffffc
-   \   0000000A   0x6988             LDR      R0,[R1, #+24]
-   \   0000000C   0xF020 0x6000      BIC      R0,R0,#0x8000000
-   \   00000010   0x6188             STR      R0,[R1, #+24]
-   \   00000012   0x6D48             LDR      R0,[R1, #+84]
-   \   00000014   0x4010             ANDS     R0,R2,R0
-   \   00000016   0x6548             STR      R0,[R1, #+84]
+   \   00000008   0x4A00             LDR.N    R2,??HAL_PCDEx_DeActivateLPM_0  ;; 0xeffffffc
+   \   0000000A   0xE001             B.N      ??HAL_PCDEx_DeActivateLPM_1
+   \                     ??HAL_PCDEx_DeActivateLPM_0:
+   \   0000000C   0xEFFFFFFC         DC32     0xeffffffc
+   \                     ??HAL_PCDEx_DeActivateLPM_1: (+1)
+   \   00000010   0x6988             LDR      R0,[R1, #+24]
+   \   00000012   0xF020 0x6000      BIC      R0,R0,#0x8000000
+   \   00000016   0x6188             STR      R0,[R1, #+24]
+   \   00000018   0x6D48             LDR      R0,[R1, #+84]
+   \   0000001A   0x4010             ANDS     R0,R2,R0
+   \   0000001C                      REQUIRE ?Subroutine0
+   \   0000001C                      ;; // Fall through to label ?Subroutine0
     165            
     166            return HAL_OK;  
-   \   00000018   0x2000             MOVS     R0,#+0
-   \   0000001A   0x4770             BX       LR               ;; return
     167          }
     168          
     169          /**
@@ -317,10 +324,6 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     184          }
    \                     HAL_PCDEx_LPM_Callback: (+1)
    \   00000000   0x4770             BX       LR               ;; return
-
-   \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable0:
-   \   00000000   0xEFFFFFFC         DC32     0xeffffffc
     185          
     186          /**
     187            * @}
@@ -356,17 +359,17 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
 
    Bytes  Function/Label
    -----  --------------
-       4  ??DataTable0
-      38  HAL_PCDEx_ActivateLPM
+       6  ?Subroutine0
+      34  HAL_PCDEx_ActivateLPM
       28  HAL_PCDEx_DeActivateLPM
        2  HAL_PCDEx_LPM_Callback
        8  HAL_PCDEx_SetRxFiFo
-      66  HAL_PCDEx_SetTxFiFo
+      62  HAL_PCDEx_SetTxFiFo
 
  
- 146 bytes in section .text
+ 140 bytes in section .text
  
- 146 bytes of CODE memory
+ 140 bytes of CODE memory
 
 Errors: none
 Warnings: none

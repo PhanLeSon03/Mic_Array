@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      12/Apr/2016  09:55:48
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      13/Apr/2016  13:47:30
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -354,16 +354,24 @@
         THUMB
 //  224 HAL_StatusTypeDef HAL_DMA_Init(DMA_HandleTypeDef *hdma)
 //  225 { 
+HAL_DMA_Init:
+        PUSH     {R4}
+          CFI R4 Frame(CFA, -4)
+          CFI CFA R13+4
 //  226   uint32_t tmp = 0;
 //  227   
 //  228   /* Check the DMA peripheral state */
 //  229   if(hdma == NULL)
-HAL_DMA_Init:
         CBNZ.N   R0,??HAL_DMA_Init_0
 //  230   {
 //  231     return HAL_ERROR;
         MOVS     R0,#+1
+        POP      {R4}
+          CFI R4 SameValue
+          CFI CFA R13+0
         BX       LR
+          CFI R4 Frame(CFA, -4)
+          CFI CFA R13+4
 //  232   }
 //  233 
 //  234   /* Check the parameters */
@@ -436,8 +444,8 @@ HAL_DMA_Init:
 //  275     /* Get memory burst and peripheral burst */
 //  276     tmp |=  hdma->Init.MemBurst | hdma->Init.PeriphBurst;
         LDR      R3,[R0, #+44]
-        LDR      R12,[R0, #+48]
-        ORR      R3,R12,R3
+        LDR      R4,[R0, #+48]
+        ORRS     R3,R4,R3
         ORRS     R2,R3,R2
 //  277   }
 //  278   
@@ -449,23 +457,15 @@ HAL_DMA_Init:
 //  282   /* Get the FCR register value */
 //  283   tmp = hdma->Instance->FCR;
         LDR      R1,[R0, #+0]
-        LDR      R2,[R1, #+20]
 //  284 
 //  285   /* Clear Direct mode and FIFO threshold bits */
 //  286   tmp &= (uint32_t)~(DMA_SxFCR_DMDIS | DMA_SxFCR_FTH);
 //  287 
 //  288   /* Prepare the DMA Stream FIFO configuration */
 //  289   tmp |= hdma->Init.FIFOMode;
-        LDR      R3,[R0, #+36]
-        LSRS     R2,R2,#+3
 //  290 
 //  291   /* the FIFO threshold is not used when the FIFO mode is disabled */
 //  292   if(hdma->Init.FIFOMode == DMA_FIFOMODE_ENABLE)
-        CMP      R3,#+4
-        ORR      R2,R3,R2, LSL #+3
-        ITT      EQ 
-        LDREQ    R3,[R0, #+40]
-        ORREQ    R2,R3,R2
 //  293   {
 //  294     /* Get the FIFO threshold */
 //  295     tmp |= hdma->Init.FIFOThreshold;
@@ -473,30 +473,39 @@ HAL_DMA_Init:
 //  297   
 //  298   /* Write to DMA Stream FCR */
 //  299   hdma->Instance->FCR = tmp;
-        STR      R2,[R1, #+20]
 //  300 
 //  301   /* Initialize StreamBaseAddress and StreamIndex parameters to be used to calculate
 //  302      DMA steam Base Address needed by HAL_DMA_IRQHandler() and HAL_DMA_PollForTransfer() */
 //  303   DMA_CalcBaseAndBitshift(hdma);
+        ADR.W    R4,??flagBitshiftOffset
+        LDR      R2,[R1, #+20]
+        LDR      R3,[R0, #+36]
+        LSRS     R2,R2,#+3
+        CMP      R3,#+4
+        ORR      R2,R3,R2, LSL #+3
+        ITT      EQ 
+        LDREQ    R3,[R0, #+40]
+        ORREQ    R2,R3,R2
+        STR      R2,[R1, #+20]
         LDR      R1,[R0, #+0]
         MOVS     R3,#+24
         UXTB     R2,R1
-        SUBS     R2,R2,#+16
-        UDIV     R2,R2,R3
-        ADR.W    R3,??flagBitshiftOffset
         LSRS     R1,R1,#+10
+        SUBS     R2,R2,#+16
         LSLS     R1,R1,#+10
+        UDIV     R2,R2,R3
         CMP      R2,#+4
-        LDRB     R3,[R2, R3]
-        STR      R3,[R0, #+84]
+        ADD      R3,R0,#+76
+        LDRB     R4,[R2, R4]
+        STR      R4,[R3, #+8]
         IT       CS 
         ADDCS    R1,R1,#+4
-        STR      R1,[R0, #+80]
+        STR      R1,[R3, #+4]
 //  304 	
 //  305   /* Initialize the error code */
 //  306   hdma->ErrorCode = HAL_DMA_ERROR_NONE;
         MOVS     R1,#+0
-        STR      R1,[R0, #+76]
+        STR      R1,[R3, #+0]
 //  307 
 //  308   /* Initialize the DMA state */
 //  309   hdma->State = HAL_DMA_STATE_READY;
@@ -505,6 +514,9 @@ HAL_DMA_Init:
 //  310 
 //  311   return HAL_OK;
         MOVS     R0,#+0
+        POP      {R4}
+          CFI R4 SameValue
+          CFI CFA R13+0
         BX       LR               ;; return
 //  312 }
           CFI EndBlock cfiBlock0
@@ -529,9 +541,10 @@ HAL_DMA_Init:
 //  325   if(hdma == NULL)
 HAL_DMA_DeInit:
         CMP      R0,#+0
-        ITT      NE 
-        LDRBNE   R1,[R0, #+53]
-        CMPNE    R1,#+2
+        ITTT     NE 
+        ADDNE    R1,R0,#+52
+        LDRBNE   R2,[R1, #+1]
+        CMPNE    R2,#+2
 //  326   {
 //  327     return HAL_ERROR;
 //  328   }
@@ -548,83 +561,82 @@ HAL_DMA_DeInit:
 //  336   /* Disable the selected DMA Streamx */
 //  337   __HAL_DMA_DISABLE(hdma);
 ??HAL_DMA_DeInit_0:
-        LDR      R1,[R0, #+0]
+        LDR      R2,[R0, #+0]
+        LDR      R3,[R2, #+0]
+        LSRS     R3,R3,#+1
+        LSLS     R3,R3,#+1
+        STR      R3,[R2, #+0]
 //  338 
 //  339   /* Reset DMA Streamx control register */
 //  340   hdma->Instance->CR   = 0;
+        LDR      R3,[R0, #+0]
+        MOVS     R2,#+0
+        STR      R2,[R3, #+0]
 //  341 
 //  342   /* Reset DMA Streamx number of data to transfer register */
 //  343   hdma->Instance->NDTR = 0;
+        LDR      R3,[R0, #+0]
+        STR      R2,[R3, #+4]
 //  344 
 //  345   /* Reset DMA Streamx peripheral address register */
 //  346   hdma->Instance->PAR  = 0;
+        LDR      R3,[R0, #+0]
+        STR      R2,[R3, #+8]
 //  347 
 //  348   /* Reset DMA Streamx memory 0 address register */
 //  349   hdma->Instance->M0AR = 0;
+        LDR      R3,[R0, #+0]
+        STR      R2,[R3, #+12]
 //  350 
 //  351   /* Reset DMA Streamx memory 1 address register */
 //  352   hdma->Instance->M1AR = 0;
+        LDR      R3,[R0, #+0]
+        STR      R2,[R3, #+16]
 //  353 
 //  354   /* Reset DMA Streamx FIFO control register */
 //  355   hdma->Instance->FCR  = (uint32_t)0x00000021;
+        LDR      R3,[R0, #+0]
+        MOVS     R2,#+33
+        STR      R2,[R3, #+20]
 //  356 
 //  357   /* Get DMA steam Base Address */  
 //  358   regs = (DMA_Base_Registers *)DMA_CalcBaseAndBitshift(hdma);
+        LDR      R0,[R0, #+0]
         MOVS     R3,#+24
-        LDR      R2,[R1, #+0]
-        LSRS     R2,R2,#+1
-        LSLS     R2,R2,#+1
-        STR      R2,[R1, #+0]
-        LDR      R2,[R0, #+0]
-        MOVS     R1,#+0
-        STR      R1,[R2, #+0]
-        LDR      R2,[R0, #+0]
-        STR      R1,[R2, #+4]
-        LDR      R2,[R0, #+0]
-        STR      R1,[R2, #+8]
-        LDR      R2,[R0, #+0]
-        STR      R1,[R2, #+12]
-        LDR      R2,[R0, #+0]
-        STR      R1,[R2, #+16]
-        LDR      R2,[R0, #+0]
-        MOVS     R1,#+33
-        STR      R1,[R2, #+20]
-        LDR      R1,[R0, #+0]
-        UXTB     R2,R1
+        UXTB     R2,R0
         SUBS     R2,R2,#+16
         UDIV     R2,R2,R3
         ADR.W    R3,??flagBitshiftOffset
-        LSRS     R1,R1,#+10
-        LSLS     R1,R1,#+10
+        LSRS     R0,R0,#+10
+        LSLS     R0,R0,#+10
         CMP      R2,#+4
         LDRB     R3,[R2, R3]
-        STR      R3,[R0, #+84]
+        STR      R3,[R1, #+32]
         IT       CS 
-        ADDCS    R1,R1,#+4
-        STR      R1,[R0, #+80]
+        ADDCS    R0,R0,#+4
+        STR      R0,[R1, #+28]
 //  359   
 //  360   /* Clear all interrupt flags at correct offset within the register */
 //  361   regs->IFCR = 0x3F << hdma->StreamIndex;
-        MOVS     R1,#+63
-        LDR      R2,[R0, #+80]
-        LSLS     R1,R1,R3
-        STR      R1,[R2, #+8]
+        MOVS     R0,#+63
+        LDR      R2,[R1, #+28]
+        LSLS     R0,R0,R3
+        STR      R0,[R2, #+8]
 //  362 
 //  363   /* Initialize the error code */
 //  364   hdma->ErrorCode = HAL_DMA_ERROR_NONE;
-        MOVS     R1,#+0
-        STR      R1,[R0, #+76]
+        MOVS     R0,#+0
+        STR      R0,[R1, #+24]
 //  365 
 //  366   /* Initialize the DMA state */
 //  367   hdma->State = HAL_DMA_STATE_RESET;
-        STRB     R1,[R0, #+53]
+        STRB     R0,[R1, #+1]
 //  368 
 //  369   /* Release Lock */
 //  370   __HAL_UNLOCK(hdma);
-        STRB     R1,[R0, #+52]
+        STRB     R0,[R1, #+0]
 //  371 
 //  372   return HAL_OK;
-        MOVS     R0,#+0
         BX       LR               ;; return
 //  373 }
           CFI EndBlock cfiBlock1
@@ -675,18 +687,19 @@ HAL_DMA_Start:
           CFI CFA R13+8
 //  408   /* Process locked */
 //  409   __HAL_LOCK(hdma);
-        LDRB     R4,[R0, #+52]
-        CMP      R4,#+1
+        ADD      R4,R0,#+52
+        LDRB     R5,[R4, #+0]
+        CMP      R5,#+1
         IT       EQ 
         MOVEQ    R0,#+2
         BEQ.N    ??HAL_DMA_Start_0
-        MOVS     R4,#+1
-        STRB     R4,[R0, #+52]
+        MOVS     R5,#+1
+        STRB     R5,[R4, #+0]
 //  410 
 //  411   /* Change DMA peripheral state */
 //  412   hdma->State = HAL_DMA_STATE_BUSY;
-        MOVS     R4,#+2
-        STRB     R4,[R0, #+53]
+        MOVS     R5,#+2
+        STRB     R5,[R4, #+1]
 //  413 
 //  414    /* Check the parameters */
 //  415   assert_param(IS_DMA_BUFFER_SIZE(DataLength));
@@ -763,18 +776,19 @@ HAL_DMA_Start_IT:
           CFI CFA R13+8
 //  440   /* Process locked */
 //  441   __HAL_LOCK(hdma);
-        LDRB     R4,[R0, #+52]
-        CMP      R4,#+1
+        ADD      R4,R0,#+52
+        LDRB     R5,[R4, #+0]
+        CMP      R5,#+1
         IT       EQ 
         MOVEQ    R0,#+2
         BEQ.N    ??HAL_DMA_Start_IT_0
-        MOVS     R4,#+1
-        STRB     R4,[R0, #+52]
+        MOVS     R5,#+1
+        STRB     R5,[R4, #+0]
 //  442 
 //  443   /* Change DMA peripheral state */
 //  444   hdma->State = HAL_DMA_STATE_BUSY;
-        MOVS     R4,#+2
-        STRB     R4,[R0, #+53]
+        MOVS     R5,#+2
+        STRB     R5,[R4, #+1]
 //  445 
 //  446    /* Check the parameters */
 //  447   assert_param(IS_DMA_BUFFER_SIZE(DataLength));
@@ -901,34 +915,37 @@ HAL_DMA_Abort:
 //  492     {
 //  493       /* Update error code */
 //  494       hdma->ErrorCode |= HAL_DMA_ERROR_TIMEOUT;
-        LDR      R0,[R4, #+76]
-        ORR      R0,R0,#0x20
-        STR      R0,[R4, #+76]
+        ADD      R0,R4,#+52
+        LDR      R1,[R0, #+24]
+        ORR      R1,R1,#0x20
+        STR      R1,[R0, #+24]
 //  495       
 //  496       /* Process Unlocked */
 //  497       __HAL_UNLOCK(hdma);
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+52]
+        MOVS     R1,#+0
+        STRB     R1,[R0, #+0]
 //  498       
 //  499       /* Change the DMA state */
 //  500       hdma->State = HAL_DMA_STATE_TIMEOUT;
-        MOVS     R0,#+3
-        STRB     R0,[R4, #+53]
+        MOVS     R1,#+3
+        STRB     R1,[R0, #+1]
 //  501       
 //  502       return HAL_TIMEOUT;
+        MOVS     R0,#+3
         POP      {R4-R6,PC}
 //  503     }
 //  504   }
 //  505   /* Process Unlocked */
 //  506   __HAL_UNLOCK(hdma);
 ??HAL_DMA_Abort_1:
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+52]
+        ADD      R0,R4,#+52
+        MOVS     R1,#+0
+        STRB     R1,[R0, #+0]
 //  507 
 //  508   /* Change the DMA state*/
 //  509   hdma->State = HAL_DMA_STATE_READY;
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+53]
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+1]
 //  510 
 //  511   return HAL_OK;
         MOVS     R0,#+0
@@ -952,7 +969,7 @@ HAL_DMA_Abort:
 //  522 HAL_StatusTypeDef HAL_DMA_PollForTransfer(DMA_HandleTypeDef *hdma, uint32_t CompleteLevel, uint32_t Timeout)
 //  523 {
 HAL_DMA_PollForTransfer:
-        PUSH     {R4-R11,LR}
+        PUSH     {R3-R11,LR}
           CFI R14 Frame(CFA, -4)
           CFI R11 Frame(CFA, -8)
           CFI R10 Frame(CFA, -12)
@@ -962,12 +979,9 @@ HAL_DMA_PollForTransfer:
           CFI R6 Frame(CFA, -28)
           CFI R5 Frame(CFA, -32)
           CFI R4 Frame(CFA, -36)
-          CFI CFA R13+36
+          CFI CFA R13+40
         MOV      R4,R0
         MOVS     R5,R1
-        SUB      SP,SP,#+4
-          CFI CFA R13+40
-        MOV      R6,R2
 //  524   uint32_t temp, tmp, tmp1, tmp2;
 //  525   uint32_t tickstart = 0; 
 //  526 
@@ -975,7 +989,8 @@ HAL_DMA_PollForTransfer:
 //  528   DMA_Base_Registers *regs;
 //  529   
 //  530   regs = (DMA_Base_Registers *)hdma->StreamBaseAddress;
-        LDR      R7,[R4, #+80]
+        ADD      R7,R4,#+52
+        MOV      R8,R2
 //  531 	
 //  532   /* Get the level transfer complete flag */
 //  533   if(CompleteLevel == HAL_DMA_FULL_TRANSFER)
@@ -988,12 +1003,14 @@ HAL_DMA_PollForTransfer:
 //  540     /* Half Transfer Complete flag */
 //  541 		temp = DMA_FLAG_HTIF0_4 << hdma->StreamIndex;
         LDR.W    R10,??DataTable3_1  ;; 0x800004
+        LDR.W    R11,??DataTable3_2  ;; 0x800001
+        LDR      R6,[R7, #+28]
         ITE      EQ 
         MOVEQ    R0,#+32
         MOVNE    R0,#+16
-        LDR      R1,[R4, #+84]
-        LDR.W    R11,??DataTable3_2  ;; 0x800001
-        LSL      R8,R0,R1
+        LDR      R1,[R7, #+32]
+        LSLS     R0,R0,R1
+        STR      R0,[SP, #+0]
 //  542   }
 //  543 
 //  544   /* Get tick */
@@ -1004,23 +1021,24 @@ HAL_DMA_PollForTransfer:
 //  546 
 //  547   while((regs->ISR & temp) == RESET)
 ??HAL_DMA_PollForTransfer_0:
-        LDR      R0,[R4, #+84]
-        LDR      R1,[R7, #+0]
-        TST      R1,R8
+        LDR      R0,[R7, #+32]
+        LDR      R1,[R6, #+0]
+        LDR      R2,[SP, #+0]
+        TST      R1,R2
         BNE.N    ??HAL_DMA_PollForTransfer_1
 //  548   {
 //  549     tmp  = regs->ISR & (DMA_FLAG_TEIF0_4 << hdma->StreamIndex);
 //  550     tmp1 = regs->ISR & (DMA_FLAG_FEIF0_4 << hdma->StreamIndex);
         LSL      R12,R11,R0
         MOVS     R1,#+8
-        LDR      R2,[R7, #+0]
+        LDR      R2,[R6, #+0]
         LSLS     R1,R1,R0
-        LDR      R3,[R7, #+0]
+        LDR      R3,[R6, #+0]
 //  551     tmp2 = regs->ISR & (DMA_FLAG_DMEIF0_4 << hdma->StreamIndex);
         LSL      R0,R10,R0
         ANDS     R2,R1,R2
         AND      R3,R12,R3
-        LDR      R12,[R7, #+0]
+        LDR      R12,[R6, #+0]
         AND      R0,R0,R12
 //  552     if((tmp != RESET) || (tmp1 != RESET) || (tmp2 != RESET))
         ORR      R12,R3,R2
@@ -1032,13 +1050,13 @@ HAL_DMA_PollForTransfer:
 //  555       {
 //  556         /* Update error code */
 //  557         hdma->ErrorCode |= HAL_DMA_ERROR_TE;
-        LDR      R2,[R4, #+76]
+        LDR      R2,[R7, #+24]
         ORR      R2,R2,#0x1
-        STR      R2,[R4, #+76]
+        STR      R2,[R7, #+24]
 //  558 
 //  559         /* Clear the transfer error flag */
 //  560         regs->IFCR = DMA_FLAG_TEIF0_4 << hdma->StreamIndex;
-        STR      R1,[R7, #+8]
+        STR      R1,[R6, #+8]
 //  561       }
 //  562       if(tmp1 != RESET)
 ??HAL_DMA_PollForTransfer_3:
@@ -1046,15 +1064,15 @@ HAL_DMA_PollForTransfer:
 //  563       {
 //  564         /* Update error code */
 //  565         hdma->ErrorCode |= HAL_DMA_ERROR_FE;
-        LDR      R1,[R4, #+76]
+        LDR      R1,[R7, #+24]
         ORR      R1,R1,#0x2
-        STR      R1,[R4, #+76]
+        STR      R1,[R7, #+24]
 //  566  
 //  567         /* Clear the FIFO error flag */
 //  568         regs->IFCR = DMA_FLAG_FEIF0_4 << hdma->StreamIndex;
-        LDR      R1,[R4, #+84]
+        LDR      R1,[R7, #+32]
         LSL      R1,R11,R1
-        STR      R1,[R7, #+8]
+        STR      R1,[R6, #+8]
 //  569       }
 //  570       if(tmp2 != RESET)
 ??HAL_DMA_PollForTransfer_4:
@@ -1062,71 +1080,66 @@ HAL_DMA_PollForTransfer:
 //  571       {
 //  572         /* Update error code */
 //  573         hdma->ErrorCode |= HAL_DMA_ERROR_DME;
-        LDR      R0,[R4, #+76]
+        LDR      R0,[R7, #+24]
         ORR      R0,R0,#0x4
-        STR      R0,[R4, #+76]
+        STR      R0,[R7, #+24]
 //  574 
 //  575         /* Clear the Direct Mode error flag */
 //  576         regs->IFCR = DMA_FLAG_DMEIF0_4 << hdma->StreamIndex;
-        LDR      R0,[R4, #+84]
+        LDR      R0,[R7, #+32]
         LSL      R0,R10,R0
-        STR      R0,[R7, #+8]
+        STR      R0,[R6, #+8]
 //  577       }
 //  578       /* Change the DMA state */
 //  579       hdma->State= HAL_DMA_STATE_ERROR;
 ??HAL_DMA_PollForTransfer_5:
         MOVS     R0,#+4
-        STRB     R0,[R4, #+53]
+        STRB     R0,[R7, #+1]
 //  580       
 //  581       /* Process Unlocked */
 //  582       __HAL_UNLOCK(hdma);
         MOVS     R0,#+0
-        STRB     R0,[R4, #+52]
+        STRB     R0,[R7, #+0]
 //  583 
 //  584       return HAL_ERROR;
         MOVS     R0,#+1
-        ADD      SP,SP,#+4
-          CFI CFA R13+36
-        POP      {R4-R11,PC}
-          CFI CFA R13+40
+        POP      {R1,R4-R11,PC}
 //  585     }  
 //  586     /* Check for the Timeout */
 //  587     if(Timeout != HAL_MAX_DELAY)
 ??HAL_DMA_PollForTransfer_2:
-        CMN      R6,#+1
+        CMN      R8,#+1
         BEQ.N    ??HAL_DMA_PollForTransfer_0
 //  588     {
 //  589       if((Timeout == 0)||((HAL_GetTick() - tickstart ) > Timeout))
-        CBZ.N    R6,??HAL_DMA_PollForTransfer_6
+        CMP      R8,#+0
+        BEQ.N    ??HAL_DMA_PollForTransfer_6
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         SUB      R0,R0,R9
-        CMP      R6,R0
+        CMP      R8,R0
         BCS.N    ??HAL_DMA_PollForTransfer_0
 //  590       {
 //  591         /* Update error code */
 //  592         hdma->ErrorCode |= HAL_DMA_ERROR_TIMEOUT;
 ??HAL_DMA_PollForTransfer_6:
-        LDR      R0,[R4, #+76]
+        LDR      R0,[R7, #+24]
         ORR      R0,R0,#0x20
-        STR      R0,[R4, #+76]
+        STR      R0,[R7, #+24]
 //  593 
 //  594         /* Change the DMA state */
 //  595         hdma->State = HAL_DMA_STATE_TIMEOUT;
         MOVS     R0,#+3
-        STRB     R0,[R4, #+53]
+        STRB     R0,[R7, #+1]
 //  596 
 //  597         /* Process Unlocked */
 //  598         __HAL_UNLOCK(hdma);
         MOVS     R0,#+0
-        STRB     R0,[R4, #+52]
+        STRB     R0,[R7, #+0]
 //  599         
 //  600         return HAL_TIMEOUT;
         MOVS     R0,#+3
-        ADD      SP,SP,#+4
-          CFI CFA R13+36
-        POP      {R4-R11,PC}
-          CFI CFA R13+40
+        POP      {R1,R4-R11,PC}
 //  601       }
 //  602     }
 //  603   }
@@ -1139,7 +1152,7 @@ HAL_DMA_PollForTransfer:
 //  608     regs->IFCR = (DMA_FLAG_HTIF0_4 | DMA_FLAG_TCIF0_4) << hdma->StreamIndex;
         MOVS     R1,#+48
         LSL      R0,R1,R0
-        STR      R0,[R7, #+8]
+        STR      R0,[R6, #+8]
 //  609 		
 //  610     /* Multi_Buffering mode enabled */
 //  611     if(((hdma->Instance->CR) & (uint32_t)(DMA_SxCR_DBM)) != 0)
@@ -1177,13 +1190,13 @@ HAL_DMA_PollForTransfer:
 ??HAL_DMA_PollForTransfer_8:
         MOVS     R0,#+17
 ??HAL_DMA_PollForTransfer_10:
-        STRB     R0,[R4, #+53]
+        STRB     R0,[R7, #+1]
 //  631     }
 //  632     /* Process Unlocked */
 //  633     __HAL_UNLOCK(hdma);
 ??HAL_DMA_PollForTransfer_9:
         MOVS     R0,#+0
-        STRB     R0,[R4, #+52]
+        STRB     R0,[R7, #+0]
         B.N      ??HAL_DMA_PollForTransfer_11
 //  634   }
 //  635   else
@@ -1193,7 +1206,7 @@ HAL_DMA_PollForTransfer:
 ??HAL_DMA_PollForTransfer_7:
         MOVS     R1,#+16
         LSL      R0,R1,R0
-        STR      R0,[R7, #+8]
+        STR      R0,[R6, #+8]
 //  639 		
 //  640     /* Multi_Buffering mode enabled */
 //  641     if(((hdma->Instance->CR) & (uint32_t)(DMA_SxCR_DBM)) != 0)
@@ -1230,15 +1243,13 @@ HAL_DMA_PollForTransfer:
 ??HAL_DMA_PollForTransfer_12:
         MOVS     R0,#+49
 ??HAL_DMA_PollForTransfer_13:
-        STRB     R0,[R4, #+53]
+        STRB     R0,[R7, #+1]
 //  660     }
 //  661   }
 //  662   return HAL_OK;
 ??HAL_DMA_PollForTransfer_11:
         MOVS     R0,#+0
-        ADD      SP,SP,#+4
-          CFI CFA R13+36
-        POP      {R4-R11,PC}      ;; return
+        POP      {R1,R4-R11,PC}   ;; return
 //  663 }
           CFI EndBlock cfiBlock5
 //  664 
@@ -1256,25 +1267,25 @@ HAL_DMA_PollForTransfer:
 //  671 void HAL_DMA_IRQHandler(DMA_HandleTypeDef *hdma)
 //  672 {
 HAL_DMA_IRQHandler:
-        PUSH     {R4,R5,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
-        MOV      R4,R0
-        SUB      SP,SP,#+4
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
           CFI CFA R13+16
+        MOV      R4,R0
 //  673   /* calculate DMA base and stream number */
 //  674   DMA_Base_Registers *regs;
 //  675 
 //  676   regs = (DMA_Base_Registers *)hdma->StreamBaseAddress;
+        ADD      R5,R4,#+52
 //  677 	
 //  678   /* Transfer Error Interrupt management ***************************************/
 //  679   if ((regs->ISR & (DMA_FLAG_TEIF0_4 << hdma->StreamIndex)) != RESET)
         MOVS     R0,#+8
-        LDR      R5,[R4, #+80]
-        LDR      R1,[R5, #+0]
-        LDR      R2,[R4, #+84]
+        LDR      R6,[R5, #+28]
+        LDR      R1,[R6, #+0]
+        LDR      R2,[R5, #+32]
         LSL      R2,R0,R2
         TST      R1,R2
         BEQ.N    ??HAL_DMA_IRQHandler_0
@@ -1293,28 +1304,28 @@ HAL_DMA_IRQHandler:
 //  685 
 //  686       /* Clear the transfer error flag */
 //  687       regs->IFCR = DMA_FLAG_TEIF0_4 << hdma->StreamIndex;
-        LDR      R1,[R4, #+84]
+        LDR      R1,[R5, #+32]
         LSLS     R0,R0,R1
-        STR      R0,[R5, #+8]
+        STR      R0,[R6, #+8]
 //  688 
 //  689       /* Update error code */
 //  690       hdma->ErrorCode |= HAL_DMA_ERROR_TE;
-        LDR      R0,[R4, #+76]
+        LDR      R0,[R5, #+24]
         ORR      R0,R0,#0x1
-        STR      R0,[R4, #+76]
+        STR      R0,[R5, #+24]
 //  691 
 //  692       /* Change the DMA state */
 //  693       hdma->State = HAL_DMA_STATE_ERROR;
         MOVS     R0,#+4
-        STRB     R0,[R4, #+53]
+        STRB     R0,[R5, #+1]
 //  694 
 //  695       /* Process Unlocked */
 //  696       __HAL_UNLOCK(hdma); 
         MOVS     R0,#+0
 //  697 
 //  698       if(hdma->XferErrorCallback != NULL)
-        LDR      R1,[R4, #+72]
-        STRB     R0,[R4, #+52]
+        LDR      R1,[R5, #+20]
+        STRB     R0,[R5, #+0]
         MOVS     R0,R1
         ITT      NE 
 //  699       {
@@ -1329,8 +1340,8 @@ HAL_DMA_IRQHandler:
 //  705   /* FIFO Error Interrupt management ******************************************/
 //  706   if ((regs->ISR & (DMA_FLAG_FEIF0_4 << hdma->StreamIndex)) != RESET)
 ??HAL_DMA_IRQHandler_0:
-        LDR      R1,[R5, #+0]
-        LDR      R2,[R4, #+84]
+        LDR      R1,[R6, #+0]
+        LDR      R2,[R5, #+32]
         LDR.N    R0,??DataTable3_2  ;; 0x800001
         LSL      R2,R0,R2
         TST      R1,R2
@@ -1350,28 +1361,28 @@ HAL_DMA_IRQHandler:
 //  712 
 //  713       /* Clear the FIFO error flag */
 //  714       regs->IFCR = DMA_FLAG_FEIF0_4 << hdma->StreamIndex;
-        LDR      R1,[R4, #+84]
+        LDR      R1,[R5, #+32]
         LSLS     R0,R0,R1
-        STR      R0,[R5, #+8]
+        STR      R0,[R6, #+8]
 //  715 
 //  716       /* Update error code */
 //  717       hdma->ErrorCode |= HAL_DMA_ERROR_FE;
-        LDR      R0,[R4, #+76]
+        LDR      R0,[R5, #+24]
         ORR      R0,R0,#0x2
-        STR      R0,[R4, #+76]
+        STR      R0,[R5, #+24]
 //  718 
 //  719       /* Change the DMA state */
 //  720       hdma->State = HAL_DMA_STATE_ERROR;
         MOVS     R0,#+4
-        STRB     R0,[R4, #+53]
+        STRB     R0,[R5, #+1]
 //  721 
 //  722       /* Process Unlocked */
 //  723       __HAL_UNLOCK(hdma);
         MOVS     R0,#+0
 //  724 
 //  725       if(hdma->XferErrorCallback != NULL)
-        LDR      R1,[R4, #+72]
-        STRB     R0,[R4, #+52]
+        LDR      R1,[R5, #+20]
+        STRB     R0,[R5, #+0]
         MOVS     R0,R1
         ITT      NE 
 //  726       {
@@ -1386,8 +1397,8 @@ HAL_DMA_IRQHandler:
 //  732   /* Direct Mode Error Interrupt management ***********************************/
 //  733   if ((regs->ISR & (DMA_FLAG_DMEIF0_4 << hdma->StreamIndex)) != RESET)
 ??HAL_DMA_IRQHandler_1:
-        LDR      R1,[R5, #+0]
-        LDR      R2,[R4, #+84]
+        LDR      R1,[R6, #+0]
+        LDR      R2,[R5, #+32]
         LDR.N    R0,??DataTable3_1  ;; 0x800004
         LSL      R2,R0,R2
         TST      R1,R2
@@ -1407,28 +1418,28 @@ HAL_DMA_IRQHandler:
 //  739 
 //  740       /* Clear the direct mode error flag */
 //  741       regs->IFCR = DMA_FLAG_DMEIF0_4 << hdma->StreamIndex;
-        LDR      R1,[R4, #+84]
+        LDR      R1,[R5, #+32]
         LSLS     R0,R0,R1
-        STR      R0,[R5, #+8]
+        STR      R0,[R6, #+8]
 //  742 
 //  743       /* Update error code */
 //  744       hdma->ErrorCode |= HAL_DMA_ERROR_DME;
-        LDR      R0,[R4, #+76]
+        LDR      R0,[R5, #+24]
         ORR      R0,R0,#0x4
-        STR      R0,[R4, #+76]
+        STR      R0,[R5, #+24]
 //  745 
 //  746       /* Change the DMA state */
 //  747       hdma->State = HAL_DMA_STATE_ERROR;
         MOVS     R0,#+4
-        STRB     R0,[R4, #+53]
+        STRB     R0,[R5, #+1]
 //  748 
 //  749       /* Process Unlocked */
 //  750       __HAL_UNLOCK(hdma);
         MOVS     R0,#+0
 //  751 
 //  752       if(hdma->XferErrorCallback != NULL)
-        LDR      R1,[R4, #+72]
-        STRB     R0,[R4, #+52]
+        LDR      R1,[R5, #+20]
+        STRB     R0,[R5, #+0]
         MOVS     R0,R1
         ITT      NE 
 //  753       {
@@ -1438,9 +1449,9 @@ HAL_DMA_IRQHandler:
           CFI FunCall
         BLXNE    R1
 ??HAL_DMA_IRQHandler_2:
-        LDR      R1,[R4, #+84]
+        LDR      R1,[R5, #+32]
         MOVS     R0,#+16
-        LDR      R2,[R5, #+0]
+        LDR      R2,[R6, #+0]
         LSL      R1,R0,R1
         TST      R2,R1
         BEQ.N    ??HAL_DMA_IRQHandler_3
@@ -1464,7 +1475,7 @@ HAL_DMA_IRQHandler:
 //  766       {
 //  767         /* Clear the half transfer complete flag */
 //  768         regs->IFCR = DMA_FLAG_HTIF0_4 << hdma->StreamIndex;
-        STR      R1,[R5, #+8]
+        STR      R1,[R6, #+8]
 //  769 
 //  770         /* Current memory buffer used is Memory 0 */
 //  771         if((hdma->Instance->CR & DMA_SxCR_CT) == 0)
@@ -1506,21 +1517,21 @@ HAL_DMA_IRQHandler:
 //  791         /* Clear the half transfer complete flag */
 //  792         regs->IFCR = DMA_FLAG_HTIF0_4 << hdma->StreamIndex;
 ??HAL_DMA_IRQHandler_8:
-        LDR      R1,[R4, #+84]
+        LDR      R1,[R5, #+32]
         LSLS     R0,R0,R1
-        STR      R0,[R5, #+8]
+        STR      R0,[R6, #+8]
 //  793 
 //  794         /* Change DMA peripheral state */
 //  795         hdma->State = HAL_DMA_STATE_READY_HALF_MEM0;
 ??HAL_DMA_IRQHandler_5:
         MOVS     R0,#+49
 ??HAL_DMA_IRQHandler_7:
-        STRB     R0,[R4, #+53]
+        STRB     R0,[R5, #+1]
 //  796       }
 //  797 
 //  798       if(hdma->XferHalfCpltCallback != NULL)
 ??HAL_DMA_IRQHandler_6:
-        LDR      R1,[R4, #+64]
+        LDR      R1,[R5, #+12]
         MOVS     R0,R1
         ITT      NE 
 //  799       {
@@ -1530,9 +1541,9 @@ HAL_DMA_IRQHandler:
           CFI FunCall
         BLXNE    R1
 ??HAL_DMA_IRQHandler_3:
-        LDR      R1,[R4, #+84]
+        LDR      R1,[R5, #+32]
         MOVS     R0,#+32
-        LDR      R2,[R5, #+0]
+        LDR      R2,[R6, #+0]
         LSL      R1,R0,R1
         TST      R2,R1
         BEQ.N    ??HAL_DMA_IRQHandler_9
@@ -1555,7 +1566,7 @@ HAL_DMA_IRQHandler:
 //  811       {
 //  812         /* Clear the transfer complete flag */
 //  813         regs->IFCR = DMA_FLAG_TCIF0_4 << hdma->StreamIndex;
-        STR      R1,[R5, #+8]
+        STR      R1,[R6, #+8]
 //  814 
 //  815         /* Current memory buffer used is Memory 1 */
 //  816         if((hdma->Instance->CR & DMA_SxCR_CT) == 0)
@@ -1565,25 +1576,25 @@ HAL_DMA_IRQHandler:
         BMI.N    ??HAL_DMA_IRQHandler_11
 //  817         {
 //  818           if(hdma->XferM1CpltCallback != NULL)
-        LDR      R1,[R4, #+68]
+        LDR      R1,[R5, #+16]
         MOVS     R0,R1
         BEQ.N    ??HAL_DMA_IRQHandler_9
 //  819           {
 //  820             /* Transfer complete Callback for memory1 */
 //  821             hdma->XferM1CpltCallback(hdma);
         MOV      R0,R4
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,LR}
+        POP      {R4-R6,LR}
           CFI R4 SameValue
           CFI R5 SameValue
+          CFI R6 SameValue
           CFI R14 SameValue
           CFI CFA R13+0
           CFI FunCall
         ANOTE "tailcall"
         BX       R1
-          CFI R4 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -12)
+          CFI R6 Frame(CFA, -8)
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+16
 //  822           }
@@ -1621,46 +1632,46 @@ HAL_DMA_IRQHandler:
 //  842         /* Clear the transfer complete flag */
 //  843         regs->IFCR = DMA_FLAG_TCIF0_4 << hdma->StreamIndex;
 ??HAL_DMA_IRQHandler_13:
-        LDR      R1,[R4, #+84]
+        LDR      R1,[R5, #+32]
         LSLS     R0,R0,R1
-        STR      R0,[R5, #+8]
+        STR      R0,[R6, #+8]
 //  844 
 //  845         /* Update error code */
 //  846         hdma->ErrorCode |= HAL_DMA_ERROR_NONE;
-        LDR      R0,[R4, #+76]
-        STR      R0,[R4, #+76]
+        LDR      R0,[R5, #+24]
+        STR      R0,[R5, #+24]
 //  847 
 //  848         /* Change the DMA state */
 //  849         hdma->State = HAL_DMA_STATE_READY_MEM0;
         MOVS     R0,#+17
-        STRB     R0,[R4, #+53]
+        STRB     R0,[R5, #+1]
 //  850 
 //  851         /* Process Unlocked */
 //  852         __HAL_UNLOCK(hdma);      
         MOVS     R0,#+0
-        STRB     R0,[R4, #+52]
+        STRB     R0,[R5, #+0]
 //  853 
 //  854         if(hdma->XferCpltCallback != NULL)
 ??HAL_DMA_IRQHandler_12:
-        LDR      R1,[R4, #+60]
+        LDR      R1,[R5, #+8]
         MOVS     R0,R1
         BEQ.N    ??HAL_DMA_IRQHandler_9
 //  855         {
 //  856           /* Transfer complete callback */
 //  857           hdma->XferCpltCallback(hdma);
         MOV      R0,R4
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,LR}
+        POP      {R4-R6,LR}
           CFI R4 SameValue
           CFI R5 SameValue
+          CFI R6 SameValue
           CFI R14 SameValue
           CFI CFA R13+0
           CFI FunCall
         ANOTE "tailcall"
         BX       R1
-          CFI R4 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -12)
+          CFI R6 Frame(CFA, -8)
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+16
 //  858         }
@@ -1669,9 +1680,7 @@ HAL_DMA_IRQHandler:
 //  861   }
 //  862 }
 ??HAL_DMA_IRQHandler_9:
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}       ;; return
+        POP      {R4-R6,PC}       ;; return
           CFI EndBlock cfiBlock6
 
         SECTION `.text`:CODE:NOROOT(2)
@@ -1819,9 +1828,9 @@ HAL_DMA_GetError:
 //  949 
 //  950 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 1 266 bytes in section .text
+// 1 230 bytes in section .text
 // 
-// 1 266 bytes of CODE memory
+// 1 230 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

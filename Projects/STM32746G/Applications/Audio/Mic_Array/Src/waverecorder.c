@@ -1591,7 +1591,7 @@ void HAL_SPI_RxHalfCpltCallback(SPI_HandleTypeDef *hspi)
     if (hspi->Instance==SPI6)
 	{
 		swtSDO8=0x00;
-
+        
 
 	}
 
@@ -1623,7 +1623,7 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
     {
 		swtSDO7=0x01;
 		WaveRecord_flgSDO7Finish = 1;
-       	WaveRecord_flgSDO8Finish = 1;
+       WaveRecord_flgSDO8Finish = 1;
     }
     else
     {
@@ -1674,7 +1674,7 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
 	//MIC7Rec();
 	//MIC8Rec();   
     swtSDO8 =0x01;
-
+    	
 	
 #endif
 
@@ -1729,21 +1729,21 @@ buffer_switch_tmp = buffer_switch;
 	          switch (buffer_switch_tmp)
 	          {
 			              case BUF1_PLAY:								
-                              PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer3.bufMIC7 + (i/64)*16), 48 ,
+                              PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer3.bufMIC7 + (i/64)*16), 24 ,
                               (PDMFilter_InitStruct *)&Filter[0]);	
-                              PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer3.bufMIC8 + (i/64)*16), 48 ,
+                              PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer3.bufMIC8 + (i/64)*16), 24 ,
                               (PDMFilter_InitStruct *)&Filter[1]);				  
                                break;	               
                           case BUF2_PLAY:
-                              PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer1.bufMIC7 + (i/64)*16), 48 ,
+                              PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer1.bufMIC7 + (i/64)*16), 24 ,
                               (PDMFilter_InitStruct *)&Filter[0]);	
-                              PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer1.bufMIC8 + (i/64)*16), 48 ,
+                              PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer1.bufMIC8 + (i/64)*16), 24 ,
                               (PDMFilter_InitStruct *)&Filter[1]);	
                               break;
                           case BUF3_PLAY:
-                              PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer2.bufMIC7 + (i/64)*16), 48 ,
+                              PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer2.bufMIC7 + (i/64)*16), 24 ,
                               (PDMFilter_InitStruct *)&Filter[0]);	
-                              PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer2.bufMIC8 + (i/64)*16), 48 ,
+                              PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer2.bufMIC8 + (i/64)*16), 24 ,
                               (PDMFilter_InitStruct *)&Filter[1]);					
                               break;
                           default:

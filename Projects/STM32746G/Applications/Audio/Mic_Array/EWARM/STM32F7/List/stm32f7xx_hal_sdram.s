@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      12/Apr/2016  09:55:50
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      13/Apr/2016  13:47:33
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -291,31 +291,32 @@
 //  138 HAL_StatusTypeDef HAL_SDRAM_Init(SDRAM_HandleTypeDef *hsdram, FMC_SDRAM_TimingTypeDef *Timing)
 //  139 {   
 HAL_SDRAM_Init:
-        PUSH     {R4,R5,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
-        MOVS     R4,R0
-        SUB      SP,SP,#+4
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
           CFI CFA R13+16
+        MOVS     R4,R0
         MOV      R5,R1
 //  140   /* Check the SDRAM handle parameter */
 //  141   if(hsdram == NULL)
-        IT       EQ 
-        MOVEQ    R0,#+1
+        BNE.N    ??HAL_SDRAM_Init_0
 //  142   {
 //  143     return HAL_ERROR;
-        BEQ.N    ??HAL_SDRAM_Init_0
+        MOVS     R0,#+1
+        POP      {R4-R6,PC}
 //  144   }
 //  145   
 //  146   if(hsdram->State == HAL_SDRAM_STATE_RESET)
-        LDRB     R0,[R4, #+44]
+??HAL_SDRAM_Init_0:
+        ADD      R6,R4,#+44
+        LDRB     R0,[R6, #+0]
         CBNZ.N   R0,??HAL_SDRAM_Init_1
 //  147   {  
 //  148     /* Allocate lock resource and initialize it */
 //  149     hsdram->Lock = HAL_UNLOCKED;
-        STRB     R0,[R4, #+45]
+        STRB     R0,[R6, #+1]
 //  150     /* Initialize the low level hardware (MSP) */
 //  151     HAL_SDRAM_MspInit(hsdram);
         MOV      R0,R4
@@ -331,7 +332,7 @@ HAL_SDRAM_Init:
 //  157   /* Initialize SDRAM control Interface */
 //  158   FMC_SDRAM_Init(hsdram->Instance, &(hsdram->Init));
         ADDS     R1,R4,#+4
-        STRB     R0,[R4, #+44]
+        STRB     R0,[R6, #+0]
         LDR      R0,[R4, #+0]
           CFI FunCall FMC_SDRAM_Init
         BL       FMC_SDRAM_Init
@@ -347,14 +348,11 @@ HAL_SDRAM_Init:
 //  163   /* Update the SDRAM controller state */
 //  164   hsdram->State = HAL_SDRAM_STATE_READY;
         MOVS     R0,#+1
-        STRB     R0,[R4, #+44]
+        STRB     R0,[R6, #+0]
 //  165   
 //  166   return HAL_OK;
         MOVS     R0,#+0
-??HAL_SDRAM_Init_0:
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}       ;; return
+        POP      {R4-R6,PC}       ;; return
 //  167 }
           CFI EndBlock cfiBlock0
 //  168 
@@ -391,14 +389,16 @@ HAL_SDRAM_DeInit:
 //  182 
 //  183   /* Reset the SDRAM controller state */
 //  184   hsdram->State = HAL_SDRAM_STATE_RESET;
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+44]
+        ADD      R0,R4,#+44
+        MOVS     R1,#+0
+        STRB     R1,[R0, #+0]
 //  185 
 //  186   /* Release Lock */
 //  187   __HAL_UNLOCK(hsdram);
-        STRB     R0,[R4, #+45]
+        STRB     R1,[R0, #+1]
 //  188 
 //  189   return HAL_OK;
+        MOVS     R0,#+0
         POP      {R4,PC}          ;; return
 //  190 }
           CFI EndBlock cfiBlock1
@@ -599,7 +599,7 @@ HAL_SDRAM_DMA_XferErrorCallback:
 //  315   * @retval HAL status
 //  316   */
 
-        SECTION `.text`:CODE:NOROOT(2)
+        SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock8 Using cfiCommon0
           CFI Function HAL_SDRAM_Read_8b
           CFI NoCalls
@@ -611,26 +611,29 @@ HAL_SDRAM_DMA_XferErrorCallback:
 //  321   /* Process Locked */
 //  322   __HAL_LOCK(hsdram);
 HAL_SDRAM_Read_8b:
-        LDRB     R12,[R0, #+45]
-        CMP      R12,#+1
+        ADDS     R0,R0,#+44
+        PUSH     {R4}
+          CFI R4 Frame(CFA, -4)
+          CFI CFA R13+4
+        LDRB     R4,[R0, #+1]
+        CMP      R4,#+1
         ITTTT    NE 
-        MOVNE    R12,#+1
-        STRBNE   R12,[R0, #+45]
-        LDRBNE   R12,[R0, #+44]
-        CMPNE    R12,#+2
+        MOVNE    R4,#+1
+        STRBNE   R4,[R0, #+1]
+        LDRBNE   R4,[R0, #+0]
+        CMPNE    R4,#+2
 //  323   
 //  324   /* Check the SDRAM controller state */
 //  325   if(hsdram->State == HAL_SDRAM_STATE_BUSY)
-        BNE.N    ??HAL_SDRAM_Read_8b_0
+        IT       EQ 
+        MOVEQ    R0,#+2
 //  326   {
 //  327     return HAL_BUSY;
-        MOVS     R0,#+2
-        BX       LR
+        BEQ.N    ??HAL_SDRAM_Read_8b_0
 //  328   }
 //  329   else if(hsdram->State == HAL_SDRAM_STATE_PRECHARGED)
-??HAL_SDRAM_Read_8b_0:
-        LDRB     R12,[R0, #+44]
-        CMP      R12,#+5
+        LDRB     R4,[R0, #+0]
+        CMP      R4,#+5
         BEQ.N    ??HAL_SDRAM_Read_8b_1
         CBZ.N    R3,??HAL_SDRAM_Read_8b_2
 //  330   {
@@ -642,26 +645,31 @@ HAL_SDRAM_Read_8b:
 //  336   {
 //  337     *pDstBuffer = *(__IO uint8_t *)pSdramAddress;  
 ??HAL_SDRAM_Read_8b_3:
-        LDRB     R12,[R1], #+1
+        LDRB     R4,[R1], #+1
 //  338     pDstBuffer++;
 //  339     pSdramAddress++;
 //  340   }
         SUBS     R3,R3,#+1
-        STRB     R12,[R2], #+1
+        STRB     R4,[R2], #+1
         BNE.N    ??HAL_SDRAM_Read_8b_3
 //  341   
 //  342   /* Process Unlocked */
 //  343   __HAL_UNLOCK(hsdram);
 ??HAL_SDRAM_Read_8b_2:
         MOVS     R1,#+0
-        STRB     R1,[R0, #+45]
+        STRB     R1,[R0, #+1]
 //  344   
 //  345   return HAL_OK; 
         MOVS     R0,#+0
+??HAL_SDRAM_Read_8b_0:
+        POP      {R4}
+          CFI R4 SameValue
+          CFI CFA R13+0
         BX       LR               ;; return
+          CFI R4 Frame(CFA, -4)
+          CFI CFA R13+4
 ??HAL_SDRAM_Read_8b_1:
-        MOVS     R0,#+1
-        BX       LR
+        B.N      ?Subroutine0
 //  346 }
           CFI EndBlock cfiBlock8
 //  347 
@@ -676,7 +684,7 @@ HAL_SDRAM_Read_8b:
 //  356   * @retval HAL status
 //  357   */
 
-        SECTION `.text`:CODE:NOROOT(2)
+        SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock9 Using cfiCommon0
           CFI Function HAL_SDRAM_Write_8b
           CFI NoCalls
@@ -689,30 +697,33 @@ HAL_SDRAM_Read_8b:
 //  363   /* Process Locked */
 //  364   __HAL_LOCK(hsdram);
 HAL_SDRAM_Write_8b:
-        LDRB     R12,[R0, #+45]
-        CMP      R12,#+1
+        ADDS     R0,R0,#+44
+        PUSH     {R4}
+          CFI R4 Frame(CFA, -4)
+          CFI CFA R13+4
+        LDRB     R4,[R0, #+1]
+        CMP      R4,#+1
         ITTTT    NE 
-        MOVNE    R12,#+1
-        STRBNE   R12,[R0, #+45]
-        LDRBNE   R12,[R0, #+44]
-        CMPNE    R12,#+2
+        MOVNE    R4,#+1
+        STRBNE   R4,[R0, #+1]
+        LDRBNE   R4,[R0, #+0]
+        CMPNE    R4,#+2
 //  365   
 //  366   /* Check the SDRAM controller state */
 //  367   tmp = hsdram->State;
 //  368   
 //  369   if(tmp == HAL_SDRAM_STATE_BUSY)
-        BNE.N    ??HAL_SDRAM_Write_8b_0
+        IT       EQ 
+        MOVEQ    R0,#+2
 //  370   {
 //  371     return HAL_BUSY;
-        MOVS     R0,#+2
-        BX       LR
+        BEQ.N    ??HAL_SDRAM_Write_8b_0
 //  372   }
 //  373   else if((tmp == HAL_SDRAM_STATE_PRECHARGED) || (tmp == HAL_SDRAM_STATE_WRITE_PROTECTED))
-??HAL_SDRAM_Write_8b_0:
-        CMP      R12,#+5
+        CMP      R4,#+5
         IT       NE 
-        CMPNE    R12,#+4
-        BEQ.W    ??HAL_SDRAM_Write_8b_1
+        CMPNE    R4,#+4
+        BEQ.N    ??HAL_SDRAM_Write_8b_1
         CBZ.N    R3,??HAL_SDRAM_Write_8b_2
 //  374   {
 //  375     return  HAL_ERROR; 
@@ -723,28 +734,48 @@ HAL_SDRAM_Write_8b:
 //  380   {
 //  381     *(__IO uint8_t *)pSdramAddress = *pSrcBuffer;
 ??HAL_SDRAM_Write_8b_3:
-        LDRB     R12,[R2], #+1
+        LDRB     R4,[R2], #+1
 //  382     pSrcBuffer++;
 //  383     pSdramAddress++;
 //  384   }
         SUBS     R3,R3,#+1
-        STRB     R12,[R1], #+1
+        STRB     R4,[R1], #+1
         BNE.N    ??HAL_SDRAM_Write_8b_3
 //  385   
 //  386   /* Process Unlocked */
 //  387   __HAL_UNLOCK(hsdram);    
 ??HAL_SDRAM_Write_8b_2:
         MOVS     R1,#+0
-        STRB     R1,[R0, #+45]
+        STRB     R1,[R0, #+1]
 //  388   
 //  389   return HAL_OK;   
         MOVS     R0,#+0
+??HAL_SDRAM_Write_8b_0:
+        POP      {R4}
+          CFI R4 SameValue
+          CFI CFA R13+0
         BX       LR               ;; return
+          CFI R4 Frame(CFA, -4)
+          CFI CFA R13+4
 ??HAL_SDRAM_Write_8b_1:
-        MOVS     R0,#+1
-        BX       LR
-//  390 }
           CFI EndBlock cfiBlock9
+        REQUIRE ?Subroutine0
+        ;; // Fall through to label ?Subroutine0
+//  390 }
+
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock10 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA R13+4
+          CFI R4 Frame(CFA, -4)
+        THUMB
+?Subroutine0:
+        MOVS     R0,#+1
+        POP      {R4}
+          CFI CFA R13+0
+          CFI R4 SameValue
+        BX       LR
+          CFI EndBlock cfiBlock10
 //  391 
 //  392 
 //  393 /**
@@ -757,8 +788,8 @@ HAL_SDRAM_Write_8b:
 //  400   * @retval HAL status
 //  401   */
 
-        SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock10 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock11 Using cfiCommon0
           CFI Function HAL_SDRAM_Read_16b
           CFI NoCalls
         THUMB
@@ -769,26 +800,29 @@ HAL_SDRAM_Write_8b:
 //  406   /* Process Locked */
 //  407   __HAL_LOCK(hsdram);
 HAL_SDRAM_Read_16b:
-        LDRB     R12,[R0, #+45]
-        CMP      R12,#+1
+        ADDS     R0,R0,#+44
+        PUSH     {R4}
+          CFI R4 Frame(CFA, -4)
+          CFI CFA R13+4
+        LDRB     R4,[R0, #+1]
+        CMP      R4,#+1
         ITTTT    NE 
-        MOVNE    R12,#+1
-        STRBNE   R12,[R0, #+45]
-        LDRBNE   R12,[R0, #+44]
-        CMPNE    R12,#+2
+        MOVNE    R4,#+1
+        STRBNE   R4,[R0, #+1]
+        LDRBNE   R4,[R0, #+0]
+        CMPNE    R4,#+2
 //  408   
 //  409   /* Check the SDRAM controller state */
 //  410   if(hsdram->State == HAL_SDRAM_STATE_BUSY)
-        BNE.N    ??HAL_SDRAM_Read_16b_0
+        IT       EQ 
+        MOVEQ    R0,#+2
 //  411   {
 //  412     return HAL_BUSY;
-        MOVS     R0,#+2
-        BX       LR
+        BEQ.N    ??HAL_SDRAM_Read_16b_0
 //  413   }
 //  414   else if(hsdram->State == HAL_SDRAM_STATE_PRECHARGED)
-??HAL_SDRAM_Read_16b_0:
-        LDRB     R12,[R0, #+44]
-        CMP      R12,#+5
+        LDRB     R4,[R0, #+0]
+        CMP      R4,#+5
         BEQ.N    ??HAL_SDRAM_Read_16b_1
         CBZ.N    R3,??HAL_SDRAM_Read_16b_2
 //  415   {
@@ -800,28 +834,33 @@ HAL_SDRAM_Read_16b:
 //  421   {
 //  422     *pDstBuffer = *(__IO uint16_t *)pSdramAddress;  
 ??HAL_SDRAM_Read_16b_3:
-        LDRH     R12,[R1], #+2
+        LDRH     R4,[R1], #+2
 //  423     pDstBuffer++;
 //  424     pSdramAddress++;               
 //  425   }
         SUBS     R3,R3,#+1
-        STRH     R12,[R2], #+2
+        STRH     R4,[R2], #+2
         BNE.N    ??HAL_SDRAM_Read_16b_3
 //  426   
 //  427   /* Process Unlocked */
 //  428   __HAL_UNLOCK(hsdram);       
 ??HAL_SDRAM_Read_16b_2:
         MOVS     R1,#+0
-        STRB     R1,[R0, #+45]
+        STRB     R1,[R0, #+1]
 //  429   
 //  430   return HAL_OK; 
         MOVS     R0,#+0
+??HAL_SDRAM_Read_16b_0:
+        POP      {R4}
+          CFI R4 SameValue
+          CFI CFA R13+0
         BX       LR               ;; return
+          CFI R4 Frame(CFA, -4)
+          CFI CFA R13+4
 ??HAL_SDRAM_Read_16b_1:
-        MOVS     R0,#+1
-        BX       LR
+        B.N      ?Subroutine0
 //  431 }
-          CFI EndBlock cfiBlock10
+          CFI EndBlock cfiBlock11
 //  432 
 //  433 /**
 //  434   * @brief  Writes 16-bit data buffer to SDRAM memory. 
@@ -833,8 +872,8 @@ HAL_SDRAM_Read_16b:
 //  440   * @retval HAL status
 //  441   */
 
-        SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock11 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock12 Using cfiCommon0
           CFI Function HAL_SDRAM_Write_16b
           CFI NoCalls
         THUMB
@@ -846,30 +885,33 @@ HAL_SDRAM_Read_16b:
 //  447   /* Process Locked */
 //  448   __HAL_LOCK(hsdram);
 HAL_SDRAM_Write_16b:
-        LDRB     R12,[R0, #+45]
-        CMP      R12,#+1
+        ADDS     R0,R0,#+44
+        PUSH     {R4}
+          CFI R4 Frame(CFA, -4)
+          CFI CFA R13+4
+        LDRB     R4,[R0, #+1]
+        CMP      R4,#+1
         ITTTT    NE 
-        MOVNE    R12,#+1
-        STRBNE   R12,[R0, #+45]
-        LDRBNE   R12,[R0, #+44]
-        CMPNE    R12,#+2
+        MOVNE    R4,#+1
+        STRBNE   R4,[R0, #+1]
+        LDRBNE   R4,[R0, #+0]
+        CMPNE    R4,#+2
 //  449   
 //  450   /* Check the SDRAM controller state */
 //  451   tmp = hsdram->State;
 //  452   
 //  453   if(tmp == HAL_SDRAM_STATE_BUSY)
-        BNE.N    ??HAL_SDRAM_Write_16b_0
+        IT       EQ 
+        MOVEQ    R0,#+2
 //  454   {
 //  455     return HAL_BUSY;
-        MOVS     R0,#+2
-        BX       LR
+        BEQ.N    ??HAL_SDRAM_Write_16b_0
 //  456   }
 //  457   else if((tmp == HAL_SDRAM_STATE_PRECHARGED) || (tmp == HAL_SDRAM_STATE_WRITE_PROTECTED))
-??HAL_SDRAM_Write_16b_0:
-        CMP      R12,#+5
+        CMP      R4,#+5
         IT       NE 
-        CMPNE    R12,#+4
-        BEQ.W    ??HAL_SDRAM_Write_16b_1
+        CMPNE    R4,#+4
+        BEQ.N    ??HAL_SDRAM_Write_16b_1
         CBZ.N    R3,??HAL_SDRAM_Write_16b_2
 //  458   {
 //  459     return  HAL_ERROR; 
@@ -880,28 +922,33 @@ HAL_SDRAM_Write_16b:
 //  464   {
 //  465     *(__IO uint16_t *)pSdramAddress = *pSrcBuffer;
 ??HAL_SDRAM_Write_16b_3:
-        LDRH     R12,[R2], #+2
+        LDRH     R4,[R2], #+2
 //  466     pSrcBuffer++;
 //  467     pSdramAddress++;            
 //  468   }
         SUBS     R3,R3,#+1
-        STRH     R12,[R1], #+2
+        STRH     R4,[R1], #+2
         BNE.N    ??HAL_SDRAM_Write_16b_3
 //  469   
 //  470   /* Process Unlocked */
 //  471   __HAL_UNLOCK(hsdram);    
 ??HAL_SDRAM_Write_16b_2:
         MOVS     R1,#+0
-        STRB     R1,[R0, #+45]
+        STRB     R1,[R0, #+1]
 //  472   
 //  473   return HAL_OK;   
         MOVS     R0,#+0
+??HAL_SDRAM_Write_16b_0:
+        POP      {R4}
+          CFI R4 SameValue
+          CFI CFA R13+0
         BX       LR               ;; return
+          CFI R4 Frame(CFA, -4)
+          CFI CFA R13+4
 ??HAL_SDRAM_Write_16b_1:
-        MOVS     R0,#+1
-        BX       LR
+        B.N      ?Subroutine0
 //  474 }
-          CFI EndBlock cfiBlock11
+          CFI EndBlock cfiBlock12
 //  475 
 //  476 /**
 //  477   * @brief  Reads 32-bit data buffer from the SDRAM memory. 
@@ -913,8 +960,8 @@ HAL_SDRAM_Write_16b:
 //  483   * @retval HAL status
 //  484   */
 
-        SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock12 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock13 Using cfiCommon0
           CFI Function HAL_SDRAM_Read_32b
           CFI NoCalls
         THUMB
@@ -925,26 +972,29 @@ HAL_SDRAM_Write_16b:
 //  489   /* Process Locked */
 //  490   __HAL_LOCK(hsdram);
 HAL_SDRAM_Read_32b:
-        LDRB     R12,[R0, #+45]
-        CMP      R12,#+1
+        ADDS     R0,R0,#+44
+        PUSH     {R4}
+          CFI R4 Frame(CFA, -4)
+          CFI CFA R13+4
+        LDRB     R4,[R0, #+1]
+        CMP      R4,#+1
         ITTTT    NE 
-        MOVNE    R12,#+1
-        STRBNE   R12,[R0, #+45]
-        LDRBNE   R12,[R0, #+44]
-        CMPNE    R12,#+2
+        MOVNE    R4,#+1
+        STRBNE   R4,[R0, #+1]
+        LDRBNE   R4,[R0, #+0]
+        CMPNE    R4,#+2
 //  491   
 //  492   /* Check the SDRAM controller state */
 //  493   if(hsdram->State == HAL_SDRAM_STATE_BUSY)
-        BNE.N    ??HAL_SDRAM_Read_32b_0
+        IT       EQ 
+        MOVEQ    R0,#+2
 //  494   {
 //  495     return HAL_BUSY;
-        MOVS     R0,#+2
-        BX       LR
+        BEQ.N    ??HAL_SDRAM_Read_32b_0
 //  496   }
 //  497   else if(hsdram->State == HAL_SDRAM_STATE_PRECHARGED)
-??HAL_SDRAM_Read_32b_0:
-        LDRB     R12,[R0, #+44]
-        CMP      R12,#+5
+        LDRB     R4,[R0, #+0]
+        CMP      R4,#+5
         BEQ.N    ??HAL_SDRAM_Read_32b_1
         CBZ.N    R3,??HAL_SDRAM_Read_32b_2
 //  498   {
@@ -956,28 +1006,33 @@ HAL_SDRAM_Read_32b:
 //  504   {
 //  505     *pDstBuffer = *(__IO uint32_t *)pSdramAddress;  
 ??HAL_SDRAM_Read_32b_3:
-        LDR      R12,[R1], #+4
+        LDR      R4,[R1], #+4
 //  506     pDstBuffer++;
 //  507     pSdramAddress++;               
 //  508   }
         SUBS     R3,R3,#+1
-        STR      R12,[R2], #+4
+        STR      R4,[R2], #+4
         BNE.N    ??HAL_SDRAM_Read_32b_3
 //  509   
 //  510   /* Process Unlocked */
 //  511   __HAL_UNLOCK(hsdram);       
 ??HAL_SDRAM_Read_32b_2:
         MOVS     R1,#+0
-        STRB     R1,[R0, #+45]
+        STRB     R1,[R0, #+1]
 //  512   
 //  513   return HAL_OK; 
         MOVS     R0,#+0
+??HAL_SDRAM_Read_32b_0:
+        POP      {R4}
+          CFI R4 SameValue
+          CFI CFA R13+0
         BX       LR               ;; return
+          CFI R4 Frame(CFA, -4)
+          CFI CFA R13+4
 ??HAL_SDRAM_Read_32b_1:
-        MOVS     R0,#+1
-        BX       LR
+        B.N      ?Subroutine0
 //  514 }
-          CFI EndBlock cfiBlock12
+          CFI EndBlock cfiBlock13
 //  515 
 //  516 /**
 //  517   * @brief  Writes 32-bit data buffer to SDRAM memory. 
@@ -989,8 +1044,8 @@ HAL_SDRAM_Read_32b:
 //  523   * @retval HAL status
 //  524   */
 
-        SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock13 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock14 Using cfiCommon0
           CFI Function HAL_SDRAM_Write_32b
           CFI NoCalls
         THUMB
@@ -1002,30 +1057,33 @@ HAL_SDRAM_Read_32b:
 //  530   /* Process Locked */
 //  531   __HAL_LOCK(hsdram);
 HAL_SDRAM_Write_32b:
-        LDRB     R12,[R0, #+45]
-        CMP      R12,#+1
+        ADDS     R0,R0,#+44
+        PUSH     {R4}
+          CFI R4 Frame(CFA, -4)
+          CFI CFA R13+4
+        LDRB     R4,[R0, #+1]
+        CMP      R4,#+1
         ITTTT    NE 
-        MOVNE    R12,#+1
-        STRBNE   R12,[R0, #+45]
-        LDRBNE   R12,[R0, #+44]
-        CMPNE    R12,#+2
+        MOVNE    R4,#+1
+        STRBNE   R4,[R0, #+1]
+        LDRBNE   R4,[R0, #+0]
+        CMPNE    R4,#+2
 //  532   
 //  533   /* Check the SDRAM controller state */
 //  534   tmp = hsdram->State;
 //  535   
 //  536   if(tmp == HAL_SDRAM_STATE_BUSY)
-        BNE.N    ??HAL_SDRAM_Write_32b_0
+        IT       EQ 
+        MOVEQ    R0,#+2
 //  537   {
 //  538     return HAL_BUSY;
-        MOVS     R0,#+2
-        BX       LR
+        BEQ.N    ??HAL_SDRAM_Write_32b_0
 //  539   }
 //  540   else if((tmp == HAL_SDRAM_STATE_PRECHARGED) || (tmp == HAL_SDRAM_STATE_WRITE_PROTECTED))
-??HAL_SDRAM_Write_32b_0:
-        CMP      R12,#+5
+        CMP      R4,#+5
         IT       NE 
-        CMPNE    R12,#+4
-        BEQ.W    ??HAL_SDRAM_Write_32b_1
+        CMPNE    R4,#+4
+        BEQ.N    ??HAL_SDRAM_Write_32b_1
         CBZ.N    R3,??HAL_SDRAM_Write_32b_2
 //  541   {
 //  542     return  HAL_ERROR; 
@@ -1036,28 +1094,33 @@ HAL_SDRAM_Write_32b:
 //  547   {
 //  548     *(__IO uint32_t *)pSdramAddress = *pSrcBuffer;
 ??HAL_SDRAM_Write_32b_3:
-        LDR      R12,[R2], #+4
+        LDR      R4,[R2], #+4
 //  549     pSrcBuffer++;
 //  550     pSdramAddress++;          
 //  551   }
         SUBS     R3,R3,#+1
-        STR      R12,[R1], #+4
+        STR      R4,[R1], #+4
         BNE.N    ??HAL_SDRAM_Write_32b_3
 //  552   
 //  553   /* Process Unlocked */
 //  554   __HAL_UNLOCK(hsdram);    
 ??HAL_SDRAM_Write_32b_2:
         MOVS     R1,#+0
-        STRB     R1,[R0, #+45]
+        STRB     R1,[R0, #+1]
 //  555   
 //  556   return HAL_OK;  
         MOVS     R0,#+0
+??HAL_SDRAM_Write_32b_0:
+        POP      {R4}
+          CFI R4 SameValue
+          CFI CFA R13+0
         BX       LR               ;; return
+          CFI R4 Frame(CFA, -4)
+          CFI CFA R13+4
 ??HAL_SDRAM_Write_32b_1:
-        MOVS     R0,#+1
-        BX       LR
+        B.N      ?Subroutine0
 //  557 }
-          CFI EndBlock cfiBlock13
+          CFI EndBlock cfiBlock14
 //  558 
 //  559 /**
 //  560   * @brief  Reads a Words data from the SDRAM memory using DMA transfer. 
@@ -1070,79 +1133,76 @@ HAL_SDRAM_Write_32b:
 //  567   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock14 Using cfiCommon0
+          CFI Block cfiBlock15 Using cfiCommon0
           CFI Function HAL_SDRAM_Read_DMA
         THUMB
 //  568 HAL_StatusTypeDef HAL_SDRAM_Read_DMA(SDRAM_HandleTypeDef *hsdram, uint32_t *pAddress, uint32_t *pDstBuffer, uint32_t BufferSize)
 //  569 {
 HAL_SDRAM_Read_DMA:
-        PUSH     {R4,R5,LR}
+        PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
-        MOV      R4,R0
-        SUB      SP,SP,#+4
           CFI CFA R13+16
 //  570   uint32_t tmp = 0;
 //  571     
 //  572   /* Process Locked */
 //  573   __HAL_LOCK(hsdram);
-        LDRB     R0,[R4, #+45]
+        ADD      R4,R0,#+44
+        LDRB     R0,[R4, #+1]
         CMP      R0,#+1
         ITTTT    NE 
         MOVNE    R0,#+1
-        STRBNE   R0,[R4, #+45]
-        LDRBNE   R0,[R4, #+44]
+        STRBNE   R0,[R4, #+1]
+        LDRBNE   R0,[R4, #+0]
         CMPNE    R0,#+2
 //  574   
 //  575   /* Check the SDRAM controller state */  
 //  576   tmp = hsdram->State;
 //  577   
 //  578   if(tmp == HAL_SDRAM_STATE_BUSY)
-        IT       EQ 
-        MOVEQ    R0,#+2
+        BNE.N    ??HAL_SDRAM_Read_DMA_0
 //  579   {
 //  580     return HAL_BUSY;
-        BEQ.N    ??HAL_SDRAM_Read_DMA_0
+        MOVS     R0,#+2
+        POP      {R1,R4,R5,PC}
 //  581   }
 //  582   else if(tmp == HAL_SDRAM_STATE_PRECHARGED)
+??HAL_SDRAM_Read_DMA_0:
         CMP      R0,#+5
-        IT       EQ 
-        MOVEQ    R0,#+1
+        BNE.N    ??HAL_SDRAM_Read_DMA_1
 //  583   {
 //  584     return  HAL_ERROR; 
-        BEQ.N    ??HAL_SDRAM_Read_DMA_0
+        MOVS     R0,#+1
+        POP      {R1,R4,R5,PC}
 //  585   }  
 //  586   
 //  587   /* Configure DMA user callbacks */
 //  588   hsdram->hdma->XferCpltCallback  = HAL_SDRAM_DMA_XferCpltCallback;
-        LDR      R5,[R4, #+48]
+??HAL_SDRAM_Read_DMA_1:
+        LDR      R5,[R4, #+4]
         LDR.N    R0,??DataTable1
         STR      R0,[R5, #+60]
 //  589   hsdram->hdma->XferErrorCallback = HAL_SDRAM_DMA_XferErrorCallback;
-        LDR      R5,[R4, #+48]
+        LDR      R5,[R4, #+4]
         LDR.N    R0,??DataTable1_1
         STR      R0,[R5, #+72]
 //  590   
 //  591   /* Enable the DMA Stream */
 //  592   HAL_DMA_Start_IT(hsdram->hdma, (uint32_t)pAddress, (uint32_t)pDstBuffer, (uint32_t)BufferSize);
-        LDR      R0,[R4, #+48]
+        LDR      R0,[R4, #+4]
           CFI FunCall HAL_DMA_Start_IT
         BL       HAL_DMA_Start_IT
 //  593   
 //  594   /* Process Unlocked */
 //  595   __HAL_UNLOCK(hsdram);  
         MOVS     R0,#+0
-        STRB     R0,[R4, #+45]
+        STRB     R0,[R4, #+1]
 //  596   
 //  597   return HAL_OK; 
-??HAL_SDRAM_Read_DMA_0:
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}       ;; return
+        POP      {R1,R4,R5,PC}    ;; return
 //  598 }
-          CFI EndBlock cfiBlock14
+          CFI EndBlock cfiBlock15
 //  599 
 //  600 /**
 //  601   * @brief  Writes a Words data buffer to SDRAM memory using DMA transfer.
@@ -1155,83 +1215,81 @@ HAL_SDRAM_Read_DMA:
 //  608   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock15 Using cfiCommon0
+          CFI Block cfiBlock16 Using cfiCommon0
           CFI Function HAL_SDRAM_Write_DMA
         THUMB
 //  609 HAL_StatusTypeDef HAL_SDRAM_Write_DMA(SDRAM_HandleTypeDef *hsdram, uint32_t *pAddress, uint32_t *pSrcBuffer, uint32_t BufferSize)
 //  610 {
 HAL_SDRAM_Write_DMA:
-        PUSH     {R4,R5,LR}
+        PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
-        MOV      R4,R0
-        MOV      R0,R1
-        SUB      SP,SP,#+4
           CFI CFA R13+16
-        MOV      R1,R2
 //  611   uint32_t tmp = 0;
 //  612   
 //  613   /* Process Locked */
 //  614   __HAL_LOCK(hsdram);
-        LDRB     R2,[R4, #+45]
-        CMP      R2,#+1
+        ADD      R5,R0,#+44
+        MOV      R4,R2
+        LDRB     R0,[R5, #+1]
+        CMP      R0,#+1
         ITTTT    NE 
-        MOVNE    R2,#+1
-        STRBNE   R2,[R4, #+45]
-        LDRBNE   R2,[R4, #+44]
-        CMPNE    R2,#+2
+        MOVNE    R0,#+1
+        STRBNE   R0,[R5, #+1]
+        LDRBNE   R0,[R5, #+0]
+        CMPNE    R0,#+2
 //  615   
 //  616   /* Check the SDRAM controller state */  
 //  617   tmp = hsdram->State;
 //  618   
 //  619   if(tmp == HAL_SDRAM_STATE_BUSY)
-        IT       EQ 
-        MOVEQ    R0,#+2
+        BNE.N    ??HAL_SDRAM_Write_DMA_0
 //  620   {
 //  621     return HAL_BUSY;
-        BEQ.N    ??HAL_SDRAM_Write_DMA_0
+        MOVS     R0,#+2
+        POP      {R1,R4,R5,PC}
 //  622   }
 //  623   else if((tmp == HAL_SDRAM_STATE_PRECHARGED) || (tmp == HAL_SDRAM_STATE_WRITE_PROTECTED))
-        CMP      R2,#+5
-        ITE      NE 
-        CMPNE    R2,#+4
-        MOVEQ    R0,#+1
+??HAL_SDRAM_Write_DMA_0:
+        CMP      R0,#+5
+        IT       NE 
+        CMPNE    R0,#+4
+        BNE.N    ??HAL_SDRAM_Write_DMA_1
 //  624   {
 //  625     return  HAL_ERROR; 
-        BEQ.N    ??HAL_SDRAM_Write_DMA_0
+        MOVS     R0,#+1
+        POP      {R1,R4,R5,PC}
 //  626   }  
 //  627   
 //  628   /* Configure DMA user callbacks */
 //  629   hsdram->hdma->XferCpltCallback  = HAL_SDRAM_DMA_XferCpltCallback;
-        LDR      R5,[R4, #+48]
-        LDR.N    R2,??DataTable1
-        STR      R2,[R5, #+60]
+??HAL_SDRAM_Write_DMA_1:
+        LDR      R2,[R5, #+4]
+        LDR.N    R0,??DataTable1
+        STR      R0,[R2, #+60]
 //  630   hsdram->hdma->XferErrorCallback = HAL_SDRAM_DMA_XferErrorCallback;
-        LDR      R5,[R4, #+48]
-        LDR.N    R2,??DataTable1_1
-        STR      R2,[R5, #+72]
+        LDR      R2,[R5, #+4]
+        LDR.N    R0,??DataTable1_1
+        STR      R0,[R2, #+72]
 //  631   
 //  632   /* Enable the DMA Stream */
 //  633   HAL_DMA_Start_IT(hsdram->hdma, (uint32_t)pSrcBuffer, (uint32_t)pAddress, (uint32_t)BufferSize);
-        MOV      R2,R0
-        LDR      R0,[R4, #+48]
+        MOV      R2,R1
+        LDR      R0,[R5, #+4]
+        MOV      R1,R4
           CFI FunCall HAL_DMA_Start_IT
         BL       HAL_DMA_Start_IT
 //  634   
 //  635   /* Process Unlocked */
 //  636   __HAL_UNLOCK(hsdram);
         MOVS     R0,#+0
-        STRB     R0,[R4, #+45]
+        STRB     R0,[R5, #+1]
 //  637   
 //  638   return HAL_OK;
-??HAL_SDRAM_Write_DMA_0:
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}       ;; return
+        POP      {R1,R4,R5,PC}    ;; return
 //  639 }
-          CFI EndBlock cfiBlock15
+          CFI EndBlock cfiBlock16
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -1272,7 +1330,7 @@ HAL_SDRAM_Write_DMA:
 //  665   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock16 Using cfiCommon0
+          CFI Block cfiBlock17 Using cfiCommon0
           CFI Function HAL_SDRAM_WriteProtection_Enable
         THUMB
 //  666 HAL_StatusTypeDef HAL_SDRAM_WriteProtection_Enable(SDRAM_HandleTypeDef *hsdram)
@@ -1314,7 +1372,7 @@ HAL_SDRAM_WriteProtection_Enable:
 ??HAL_SDRAM_WriteProtection_Enable_0:
         POP      {R4,PC}          ;; return
 //  684 }
-          CFI EndBlock cfiBlock16
+          CFI EndBlock cfiBlock17
 //  685 
 //  686 /**
 //  687   * @brief  Disables dynamically SDRAM write protection.
@@ -1324,7 +1382,7 @@ HAL_SDRAM_WriteProtection_Enable:
 //  691   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock17 Using cfiCommon0
+          CFI Block cfiBlock18 Using cfiCommon0
           CFI Function HAL_SDRAM_WriteProtection_Disable
         THUMB
 //  692 HAL_StatusTypeDef HAL_SDRAM_WriteProtection_Disable(SDRAM_HandleTypeDef *hsdram)
@@ -1366,7 +1424,7 @@ HAL_SDRAM_WriteProtection_Disable:
 ??HAL_SDRAM_WriteProtection_Disable_0:
         POP      {R4,PC}          ;; return
 //  710 }
-          CFI EndBlock cfiBlock17
+          CFI EndBlock cfiBlock18
 //  711 
 //  712 /**
 //  713   * @brief  Sends Command to the SDRAM bank.
@@ -1378,20 +1436,18 @@ HAL_SDRAM_WriteProtection_Disable:
 //  719   */  
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock18 Using cfiCommon0
+          CFI Block cfiBlock19 Using cfiCommon0
           CFI Function HAL_SDRAM_SendCommand
         THUMB
 //  720 HAL_StatusTypeDef HAL_SDRAM_SendCommand(SDRAM_HandleTypeDef *hsdram, FMC_SDRAM_CommandTypeDef *Command, uint32_t Timeout)
 //  721 {
 HAL_SDRAM_SendCommand:
-        PUSH     {R4,R5,LR}
+        PUSH     {R3-R5,LR}
           CFI R14 Frame(CFA, -4)
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
-          CFI CFA R13+12
-        MOV      R4,R0
-        SUB      SP,SP,#+4
           CFI CFA R13+16
+        MOV      R4,R0
         MOV      R5,R1
 //  722   /* Check the SDRAM controller state */
 //  723   if(hsdram->State == HAL_SDRAM_STATE_BUSY)
@@ -1432,11 +1488,9 @@ HAL_SDRAM_SendCommand:
 //  744   return HAL_OK;  
         MOVS     R0,#+0
 ??HAL_SDRAM_SendCommand_0:
-        ADD      SP,SP,#+4
-          CFI CFA R13+12
-        POP      {R4,R5,PC}       ;; return
+        POP      {R1,R4,R5,PC}    ;; return
 //  745 }
-          CFI EndBlock cfiBlock18
+          CFI EndBlock cfiBlock19
 //  746 
 //  747 /**
 //  748   * @brief  Programs the SDRAM Memory Refresh rate.
@@ -1447,7 +1501,7 @@ HAL_SDRAM_SendCommand:
 //  753   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock19 Using cfiCommon0
+          CFI Block cfiBlock20 Using cfiCommon0
           CFI Function HAL_SDRAM_ProgramRefreshRate
         THUMB
 //  754 HAL_StatusTypeDef HAL_SDRAM_ProgramRefreshRate(SDRAM_HandleTypeDef *hsdram, uint32_t RefreshRate)
@@ -1488,7 +1542,7 @@ HAL_SDRAM_ProgramRefreshRate:
 ??HAL_SDRAM_ProgramRefreshRate_0:
         POP      {R4,PC}          ;; return
 //  772 }
-          CFI EndBlock cfiBlock19
+          CFI EndBlock cfiBlock20
 //  773 
 //  774 /**
 //  775   * @brief  Sets the Number of consecutive SDRAM Memory auto Refresh commands.
@@ -1499,7 +1553,7 @@ HAL_SDRAM_ProgramRefreshRate:
 //  780   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock20 Using cfiCommon0
+          CFI Block cfiBlock21 Using cfiCommon0
           CFI Function HAL_SDRAM_SetAutoRefreshNumber
         THUMB
 //  781 HAL_StatusTypeDef HAL_SDRAM_SetAutoRefreshNumber(SDRAM_HandleTypeDef *hsdram, uint32_t AutoRefreshNumber)
@@ -1540,7 +1594,7 @@ HAL_SDRAM_SetAutoRefreshNumber:
 ??HAL_SDRAM_SetAutoRefreshNumber_0:
         POP      {R4,PC}          ;; return
 //  799 }
-          CFI EndBlock cfiBlock20
+          CFI EndBlock cfiBlock21
 //  800 
 //  801 /**
 //  802   * @brief  Returns the SDRAM memory current mode.
@@ -1550,7 +1604,7 @@ HAL_SDRAM_SetAutoRefreshNumber:
 //  806   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock21 Using cfiCommon0
+          CFI Block cfiBlock22 Using cfiCommon0
           CFI Function HAL_SDRAM_GetModeStatus
         THUMB
 //  807 uint32_t HAL_SDRAM_GetModeStatus(SDRAM_HandleTypeDef *hsdram)
@@ -1563,7 +1617,7 @@ HAL_SDRAM_GetModeStatus:
           CFI FunCall FMC_SDRAM_GetModeStatus
         B.W      FMC_SDRAM_GetModeStatus
 //  811 }
-          CFI EndBlock cfiBlock21
+          CFI EndBlock cfiBlock22
 //  812 
 //  813 /**
 //  814   * @}
@@ -1592,7 +1646,7 @@ HAL_SDRAM_GetModeStatus:
 //  837   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock22 Using cfiCommon0
+          CFI Block cfiBlock23 Using cfiCommon0
           CFI Function HAL_SDRAM_GetState
           CFI NoCalls
         THUMB
@@ -1603,7 +1657,7 @@ HAL_SDRAM_GetState:
         LDRB     R0,[R0, #+44]
         BX       LR               ;; return
 //  841 }
-          CFI EndBlock cfiBlock22
+          CFI EndBlock cfiBlock23
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -1636,9 +1690,9 @@ HAL_SDRAM_GetState:
 //  858 
 //  859 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 920 bytes in section .text
+// 806 bytes in section .text
 // 
-// 920 bytes of CODE memory
+// 806 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none
