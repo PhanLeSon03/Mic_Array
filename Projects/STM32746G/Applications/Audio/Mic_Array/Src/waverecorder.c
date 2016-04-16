@@ -471,20 +471,20 @@ void SPI2_IRQHandler(void)
 	 {		
 		if ((I2S2_stLROld==GPIO_PIN_RESET)) 
 		{
-			vRawSens3 = app;
+			vRawSens4 = app;
 #if 1			
-			if (WaveRec_idxSens3 < AUDIO_OUT_BUFFER_SIZE)
+			if (WaveRec_idxSens4< AUDIO_OUT_BUFFER_SIZE)
 			{
 				switch (buffer_switch)
 				{
 					case BUF1_PLAY:
-						Buffer2.bufMIC3[WaveRec_idxSens3] = vRawSens3;								
+						Buffer2.bufMIC4[WaveRec_idxSens4] = vRawSens4;								
 						break;
 					case BUF2_PLAY:
-						Buffer3.bufMIC3[WaveRec_idxSens3] = vRawSens3;
+						Buffer3.bufMIC4[WaveRec_idxSens4] = vRawSens4;
 						break;
 					case BUF3_PLAY:
-						Buffer1.bufMIC3[WaveRec_idxSens3] = vRawSens3;									
+						Buffer1.bufMIC4[WaveRec_idxSens4] = vRawSens4;									
 						break;
 					default:
 						break; 
@@ -497,22 +497,22 @@ void SPI2_IRQHandler(void)
 				switch (buffer_switch)
 				{
 					case BUF1_PLAY:
-						Buffer1.bufMIC3[WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE] = vRawSens3;								
+						Buffer1.bufMIC4[WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE] = vRawSens4;								
 						break;
 					case BUF2_PLAY:
-						Buffer2.bufMIC3[WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE] = vRawSens3;
+						Buffer2.bufMIC4[WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE] = vRawSens4;
 						break;
 					case BUF3_PLAY:
-						Buffer3.bufMIC3[WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE] = vRawSens3;									
+						Buffer3.bufMIC4[WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE] = vRawSens4;									
 						break;
 					default:
 						break; 
 				}
 			}
 
-		    WaveRec_idxSens3++;
+		    WaveRec_idxSens4++;
 
-			if ((WaveRec_idxSens3 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x04;
+			if ((WaveRec_idxSens4 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x08;
 
 			if (flgRacing==0x3F)  SubFrameFinished();
 			
@@ -523,20 +523,20 @@ void SPI2_IRQHandler(void)
 	 {
             if ((I2S2_stLROld==GPIO_PIN_SET))   
             {
-                  vRawSens4 =app;
+                  vRawSens3 =app;
 #if 1
-                  if ((WaveRec_idxSens4<AUDIO_OUT_BUFFER_SIZE))
+                  if ((WaveRec_idxSens3<AUDIO_OUT_BUFFER_SIZE))
                   {
 	                    switch (buffer_switch)
 	                    {	 
 	                        case BUF1_PLAY:
-	                                Buffer2.bufMIC4[WaveRec_idxSens4] = vRawSens4;								
+	                                Buffer2.bufMIC3[WaveRec_idxSens3] = vRawSens3;								
 	                                break;
 	                        case BUF2_PLAY:
-	                                Buffer3.bufMIC4[WaveRec_idxSens4] = vRawSens4;
+	                                Buffer3.bufMIC3[WaveRec_idxSens3] = vRawSens3;
 	                                break;
 	                        case BUF3_PLAY:
-	                                Buffer1.bufMIC4[WaveRec_idxSens4] = vRawSens4;									
+	                                Buffer1.bufMIC3[WaveRec_idxSens3] = vRawSens3;									
 	                                break;
 	                        default:
 	                                break; 
@@ -550,21 +550,21 @@ void SPI2_IRQHandler(void)
                       switch (buffer_switch)
                       {	 
                           case BUF1_PLAY:
-                                  Buffer1.bufMIC4[WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE] = vRawSens4;								
+                                  Buffer1.bufMIC3[WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE] = vRawSens3;								
                                   break;
                           case BUF2_PLAY:
-                                  Buffer2.bufMIC4[WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE] = vRawSens4;
+                                  Buffer2.bufMIC3[WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE] = vRawSens3;
                                   break;
                           case BUF3_PLAY:
-                                  Buffer3.bufMIC4[WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE] = vRawSens4;									
+                                  Buffer3.bufMIC3[WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE] = vRawSens3;									
                                   break;
                           default:
                                   break; 
                       }
                     }
-				  WaveRec_idxSens4++;
+				  WaveRec_idxSens3++;
 
-			if ((WaveRec_idxSens4 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x08;
+			if ((WaveRec_idxSens3 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x04;
 			if (flgRacing==0x3F)  SubFrameFinished();				  
                     
             }
@@ -660,9 +660,9 @@ void SPI4_IRQHandler(void)
             }
             else
             {
-               vRawSens5 =((test>>SPI4_stPosShft)|(SPI4_stNipple<<(SDOLEN-SPI4_stPosShft)));
+               vRawSens6 =((test>>SPI4_stPosShft)|(SPI4_stNipple<<(SDOLEN-SPI4_stPosShft)));
 #if 1		   
-               if (WaveRec_idxSens5 < AUDIO_OUT_BUFFER_SIZE)
+               if (WaveRec_idxSens6 < AUDIO_OUT_BUFFER_SIZE)
                {
                     /*-------------------------------------------------------------------------------------------------------------                                             
                     Sequence  Record Data                     Processing Data                 Player Data
@@ -677,15 +677,15 @@ void SPI4_IRQHandler(void)
                      switch (buffer_switch)
                      {
                          case BUF1_PLAY:
-                             Buffer2.bufMIC5[WaveRec_idxSens5] = vRawSens5;
+                             Buffer2.bufMIC6[WaveRec_idxSens6] = vRawSens6;
 
                              break;
                          case BUF2_PLAY:
-                             Buffer3.bufMIC5[WaveRec_idxSens5] = vRawSens5;
+                             Buffer3.bufMIC6[WaveRec_idxSens6] = vRawSens6;
 
                              break;
                          case BUF3_PLAY:
-                             Buffer1.bufMIC5[WaveRec_idxSens5] = vRawSens5;
+                             Buffer1.bufMIC6[WaveRec_idxSens6] = vRawSens6;
 
                              break;                          
                          default:
@@ -701,15 +701,15 @@ void SPI4_IRQHandler(void)
                  switch (buffer_switch)
                  {
                      case BUF1_PLAY:
-                         Buffer1.bufMIC5[WaveRec_idxSens5%AUDIO_OUT_BUFFER_SIZE] = vRawSens5;
+                         Buffer1.bufMIC6[WaveRec_idxSens6%AUDIO_OUT_BUFFER_SIZE] = vRawSens6;
 
                          break;
                      case BUF2_PLAY:
-                         Buffer2.bufMIC5[WaveRec_idxSens5%AUDIO_OUT_BUFFER_SIZE] = vRawSens5;
+                         Buffer2.bufMIC6[WaveRec_idxSens6%AUDIO_OUT_BUFFER_SIZE] = vRawSens6;
 
                          break;
                      case BUF3_PLAY:
-                         Buffer3.bufMIC5[WaveRec_idxSens5%AUDIO_OUT_BUFFER_SIZE] = vRawSens5;
+                         Buffer3.bufMIC6[WaveRec_idxSens6%AUDIO_OUT_BUFFER_SIZE] = vRawSens6;
 
                          break;                          
                      default:
@@ -717,8 +717,8 @@ void SPI4_IRQHandler(void)
                  }
                }
 
-			    WaveRec_idxSens5++;
-			if ((WaveRec_idxSens5 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x10;
+			    WaveRec_idxSens6++;
+			if ((WaveRec_idxSens6 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x20;
 
 			if (flgRacing==0x3F)  SubFrameFinished();				
 	   }
@@ -732,9 +732,9 @@ void SPI4_IRQHandler(void)
           }
           else
           {
-               vRawSens6 =((test>>SPI4_stPosShft)|(SPI4_stNipple<<(SDOLEN-SPI4_stPosShft)));
+               vRawSens5 =((test>>SPI4_stPosShft)|(SPI4_stNipple<<(SDOLEN-SPI4_stPosShft)));
 #if 1			   
-               if (WaveRec_idxSens6 < AUDIO_OUT_BUFFER_SIZE)
+               if (WaveRec_idxSens5 < AUDIO_OUT_BUFFER_SIZE)
                {
                     /*-------------------------------------------------------------------------------------------------------------                                             
                     Sequence  Record Data                     Processing Data                 Player Data
@@ -749,15 +749,15 @@ void SPI4_IRQHandler(void)
                      switch (buffer_switch)
                      {
                          case BUF1_PLAY:
-                             Buffer2.bufMIC6[WaveRec_idxSens6] = vRawSens6;
+                             Buffer2.bufMIC5[WaveRec_idxSens5] = vRawSens5;
  
                              break;
                          case BUF2_PLAY:
-                             Buffer3.bufMIC6[WaveRec_idxSens6] = vRawSens6;
+                             Buffer3.bufMIC5[WaveRec_idxSens5] = vRawSens5;
        
                              break;
                          case BUF3_PLAY:
-                             Buffer1.bufMIC6[WaveRec_idxSens6] = vRawSens6;
+                             Buffer1.bufMIC5[WaveRec_idxSens5] = vRawSens5;
  
                              break;                          
                          default:
@@ -774,15 +774,15 @@ void SPI4_IRQHandler(void)
                    switch (buffer_switch)
                    {
                            case BUF1_PLAY:
-                                   Buffer1.bufMIC6[WaveRec_idxSens6 % AUDIO_OUT_BUFFER_SIZE] = vRawSens6;
+                                   Buffer1.bufMIC5[WaveRec_idxSens5 % AUDIO_OUT_BUFFER_SIZE] = vRawSens5;
                   
                                    break;
                            case BUF2_PLAY:
-                                   Buffer2.bufMIC6[WaveRec_idxSens6 % AUDIO_OUT_BUFFER_SIZE] = vRawSens6;
+                                   Buffer2.bufMIC5[WaveRec_idxSens5 % AUDIO_OUT_BUFFER_SIZE] = vRawSens5;
                   
                                    break;
                            case BUF3_PLAY:
-                                   Buffer3.bufMIC6[WaveRec_idxSens6 % AUDIO_OUT_BUFFER_SIZE] = vRawSens6;
+                                   Buffer3.bufMIC5[WaveRec_idxSens5 % AUDIO_OUT_BUFFER_SIZE] = vRawSens5;
                   
                                    break; 						 
                            default:
@@ -792,8 +792,8 @@ void SPI4_IRQHandler(void)
                 }
                
 		       
-		        WaveRec_idxSens6++;
-			if ((WaveRec_idxSens6 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x20;
+		        WaveRec_idxSens5++;
+			if ((WaveRec_idxSens5 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x10;
 
 			if (flgRacing==0x3F)  SubFrameFinished();			   
                

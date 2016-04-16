@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      13/Apr/2016  13:47:30
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      16/Apr/2016  18:30:59
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -2923,8 +2923,8 @@ StartPlay:
 // 1269 	}
 // 1270 #endif	
 // 1271      	   
-// 1272 	 //HAL_Delay(1);
-// 1273 	 
+// 1272 	 
+// 1273 
 // 1274 	 /*------------------------PLAYER------------------------------------------*/
 // 1275 	 Audio_MAL_Play((uint32_t)bufferSum,6*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
         MOVS     R1,#+192
@@ -2949,32 +2949,40 @@ StartPlay:
         STRH     R1,[R0, #+14]
         STRH     R1,[R0, #+16]
         STRH     R1,[R2, #+0]
-// 1284 	 buffer_switch = BUF1_PLAY;
+// 1284 	 buffer_switch = BUF1_PLAY;     	
         STRB     R1,[R0, #+2]
-// 1285      StartRecMic7_8();
+// 1285      //HAL_Delay(1);
+// 1286     // for (uint32_t i=0; i<2000;i++)
+// 1287     // {
+// 1288 	//   __NOP;
+// 1289 	//   __NOP;
+// 1290 	//   __NOP;
+// 1291 	//   __NOP;
+// 1292     // }
+// 1293          StartRecMic7_8();
         POP      {R0,LR}
           CFI R14 SameValue
           CFI CFA R13+0
           CFI FunCall StartRecMic7_8
         B.W      StartRecMic7_8
-// 1286      //AudioUSBSend(idxFrmPDMMic8);	 
-// 1287 	 
-// 1288  }
+// 1294      //AudioUSBSend(idxFrmPDMMic8);	 
+// 1295 	 
+// 1296  }
           CFI EndBlock cfiBlock15
-// 1289 
+// 1297 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock16 Using cfiCommon0
           CFI Function SubFrameFinished
         THUMB
-// 1290 void SubFrameFinished(void)
-// 1291 {
+// 1298 void SubFrameFinished(void)
+// 1299 {
 SubFrameFinished:
         PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-// 1292     Audio_Play_Out();
+// 1300     Audio_Play_Out();
         MOVS     R0,#+0
         LDR.N    R1,??DataTable13_34
         LDR.N    R4,??DataTable13_33
@@ -3046,7 +3054,7 @@ SubFrameFinished:
         LDRH     R1,[R0, #+0]
         ADDS     R1,R1,#+1
         STRH     R1,[R0, #+0]
-// 1293 }
+// 1301 }
 ??SubFrameFinished_0:
         POP      {R4,PC}          ;; return
           CFI EndBlock cfiBlock16
@@ -3279,7 +3287,7 @@ SubFrameFinished:
         SECTION_TYPE SHT_PROGBITS, 0
 
         END
-// 1294 /*****************************END OF FILE**************************************/
+// 1302 /*****************************END OF FILE**************************************/
 // 
 // 14 434 bytes in section .bss
 //  4 740 bytes in section .data

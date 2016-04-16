@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      13/Apr/2016  13:47:36
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      16/Apr/2016  18:31:05
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -1143,11 +1143,11 @@ SPI2_IRQHandler:
         CMP      R0,#+0
         BNE.W    ??SPI2_IRQHandler_2
 //  473 		{
-//  474 			vRawSens3 = app;
+//  474 			vRawSens4 = app;
 //  475 #if 1			
-//  476 			if (WaveRec_idxSens3 < AUDIO_OUT_BUFFER_SIZE)
+//  476 			if (WaveRec_idxSens4< AUDIO_OUT_BUFFER_SIZE)
         LDR.W    R0,??DataTable12_4
-        STRH     R5,[R4, #+16]
+        STRH     R5,[R4, #+14]
         LDR.W    R1,??DataTable11_6
         LDRH     R2,[R0, #+0]
         LDRB     R1,[R1, #+0]
@@ -1162,30 +1162,30 @@ SPI2_IRQHandler:
         B.N      ??SPI2_IRQHandler_7
 //  479 				{
 //  480 					case BUF1_PLAY:
-//  481 						Buffer2.bufMIC3[WaveRec_idxSens3] = vRawSens3;								
+//  481 						Buffer2.bufMIC4[WaveRec_idxSens4] = vRawSens4;								
 ??SPI2_IRQHandler_4:
         LDRH     R3,[R0, #+0]
         LDR.W    R2,??DataTable13
         ADD      R2,R2,R3, LSL #+1
-        ADD      R2,R2,#+20480
+        ADD      R2,R2,#+22528
         B.N      ??SPI2_IRQHandler_8
 //  482 						break;
 //  483 					case BUF2_PLAY:
-//  484 						Buffer3.bufMIC3[WaveRec_idxSens3] = vRawSens3;
+//  484 						Buffer3.bufMIC4[WaveRec_idxSens4] = vRawSens4;
 ??SPI2_IRQHandler_6:
         LDRH     R3,[R0, #+0]
         LDR.W    R2,??DataTable13
         ADD      R2,R2,R3, LSL #+1
-        ADD      R2,R2,#+36864
+        ADD      R2,R2,#+38912
         B.N      ??SPI2_IRQHandler_8
 //  485 						break;
 //  486 					case BUF3_PLAY:
-//  487 						Buffer1.bufMIC3[WaveRec_idxSens3] = vRawSens3;									
+//  487 						Buffer1.bufMIC4[WaveRec_idxSens4] = vRawSens4;									
 ??SPI2_IRQHandler_5:
         LDRH     R3,[R0, #+0]
         LDR.W    R2,??DataTable13
         ADD      R2,R2,R3, LSL #+1
-        ADD      R2,R2,#+4096
+        ADD      R2,R2,#+6144
 ??SPI2_IRQHandler_8:
         STRH     R5,[R2, #+0]
 //  488 						break;
@@ -1207,36 +1207,36 @@ SPI2_IRQHandler:
         B.N      ??SPI2_IRQHandler_7
 //  498 				{
 //  499 					case BUF1_PLAY:
-//  500 						Buffer1.bufMIC3[WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE] = vRawSens3;								
+//  500 						Buffer1.bufMIC4[WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE] = vRawSens4;								
 ??SPI2_IRQHandler_9:
         LDRH     R2,[R0, #+0]
         LDR.W    R1,??DataTable13
         LSLS     R2,R2,#+22
         LSRS     R2,R2,#+22
         ADD      R1,R1,R2, LSL #+1
-        ADD      R1,R1,#+4096
+        ADD      R1,R1,#+6144
         B.N      ??SPI2_IRQHandler_12
 //  501 						break;
 //  502 					case BUF2_PLAY:
-//  503 						Buffer2.bufMIC3[WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE] = vRawSens3;
+//  503 						Buffer2.bufMIC4[WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE] = vRawSens4;
 ??SPI2_IRQHandler_11:
         LDRH     R2,[R0, #+0]
         LDR.W    R1,??DataTable13
         LSLS     R2,R2,#+22
         LSRS     R2,R2,#+22
         ADD      R1,R1,R2, LSL #+1
-        ADD      R1,R1,#+20480
+        ADD      R1,R1,#+22528
         B.N      ??SPI2_IRQHandler_12
 //  504 						break;
 //  505 					case BUF3_PLAY:
-//  506 						Buffer3.bufMIC3[WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE] = vRawSens3;									
+//  506 						Buffer3.bufMIC4[WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE] = vRawSens4;									
 ??SPI2_IRQHandler_10:
         LDRH     R2,[R0, #+0]
         LDR.W    R1,??DataTable13
         LSLS     R2,R2,#+22
         LSRS     R2,R2,#+22
         ADD      R1,R1,R2, LSL #+1
-        ADD      R1,R1,#+36864
+        ADD      R1,R1,#+38912
 ??SPI2_IRQHandler_12:
         STRH     R5,[R1, #+0]
 //  507 						break;
@@ -1245,19 +1245,19 @@ SPI2_IRQHandler:
 //  510 				}
 //  511 			}
 //  512 
-//  513 		    WaveRec_idxSens3++;
+//  513 		    WaveRec_idxSens4++;
 ??SPI2_IRQHandler_7:
         LDRH     R1,[R0, #+0]
         ADDS     R1,R1,#+1
         STRH     R1,[R0, #+0]
 //  514 
-//  515 			if ((WaveRec_idxSens3 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x04;
+//  515 			if ((WaveRec_idxSens4 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x08;
         LDRH     R0,[R0, #+0]
         MOVS     R1,#+15
         TST      R0,R1
         BNE.N    ??SPI2_IRQHandler_13
         LDRB     R0,[R4, #+0]
-        ORR      R0,R0,#0x4
+        ORR      R0,R0,#0x8
         STRB     R0,[R4, #+0]
 //  516 
 //  517 			if (flgRacing==0x3F)  SubFrameFinished();
@@ -1273,11 +1273,11 @@ SPI2_IRQHandler:
         CMP      R0,#+1
         BNE.N    ??SPI2_IRQHandler_2
 //  525             {
-//  526                   vRawSens4 =app;
+//  526                   vRawSens3 =app;
 //  527 #if 1
-//  528                   if ((WaveRec_idxSens4<AUDIO_OUT_BUFFER_SIZE))
+//  528                   if ((WaveRec_idxSens3<AUDIO_OUT_BUFFER_SIZE))
         LDR.W    R0,??DataTable17
-        STRH     R5,[R4, #+14]
+        STRH     R5,[R4, #+16]
         LDR.W    R1,??DataTable11_6
         LDRH     R2,[R0, #+0]
         LDRB     R1,[R1, #+0]
@@ -1292,30 +1292,30 @@ SPI2_IRQHandler:
         B.N      ??SPI2_IRQHandler_18
 //  531 	                    {	 
 //  532 	                        case BUF1_PLAY:
-//  533 	                                Buffer2.bufMIC4[WaveRec_idxSens4] = vRawSens4;								
+//  533 	                                Buffer2.bufMIC3[WaveRec_idxSens3] = vRawSens3;								
 ??SPI2_IRQHandler_15:
         LDRH     R3,[R0, #+0]
         LDR.W    R2,??DataTable13
         ADD      R2,R2,R3, LSL #+1
-        ADD      R2,R2,#+22528
+        ADD      R2,R2,#+20480
         B.N      ??SPI2_IRQHandler_19
 //  534 	                                break;
 //  535 	                        case BUF2_PLAY:
-//  536 	                                Buffer3.bufMIC4[WaveRec_idxSens4] = vRawSens4;
+//  536 	                                Buffer3.bufMIC3[WaveRec_idxSens3] = vRawSens3;
 ??SPI2_IRQHandler_17:
         LDRH     R3,[R0, #+0]
         LDR.W    R2,??DataTable13
         ADD      R2,R2,R3, LSL #+1
-        ADD      R2,R2,#+38912
+        ADD      R2,R2,#+36864
         B.N      ??SPI2_IRQHandler_19
 //  537 	                                break;
 //  538 	                        case BUF3_PLAY:
-//  539 	                                Buffer1.bufMIC4[WaveRec_idxSens4] = vRawSens4;									
+//  539 	                                Buffer1.bufMIC3[WaveRec_idxSens3] = vRawSens3;									
 ??SPI2_IRQHandler_16:
         LDRH     R3,[R0, #+0]
         LDR.W    R2,??DataTable13
         ADD      R2,R2,R3, LSL #+1
-        ADD      R2,R2,#+6144
+        ADD      R2,R2,#+4096
 ??SPI2_IRQHandler_19:
         STRH     R5,[R2, #+0]
 //  540 	                                break;
@@ -1338,36 +1338,36 @@ SPI2_IRQHandler:
         B.N      ??SPI2_IRQHandler_18
 //  551                       {	 
 //  552                           case BUF1_PLAY:
-//  553                                   Buffer1.bufMIC4[WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE] = vRawSens4;								
+//  553                                   Buffer1.bufMIC3[WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE] = vRawSens3;								
 ??SPI2_IRQHandler_20:
         LDRH     R2,[R0, #+0]
         LDR.W    R1,??DataTable13
         LSLS     R2,R2,#+22
         LSRS     R2,R2,#+22
         ADD      R1,R1,R2, LSL #+1
-        ADD      R1,R1,#+6144
+        ADD      R1,R1,#+4096
         B.N      ??SPI2_IRQHandler_23
 //  554                                   break;
 //  555                           case BUF2_PLAY:
-//  556                                   Buffer2.bufMIC4[WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE] = vRawSens4;
+//  556                                   Buffer2.bufMIC3[WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE] = vRawSens3;
 ??SPI2_IRQHandler_22:
         LDRH     R2,[R0, #+0]
         LDR.W    R1,??DataTable13
         LSLS     R2,R2,#+22
         LSRS     R2,R2,#+22
         ADD      R1,R1,R2, LSL #+1
-        ADD      R1,R1,#+22528
+        ADD      R1,R1,#+20480
         B.N      ??SPI2_IRQHandler_23
 //  557                                   break;
 //  558                           case BUF3_PLAY:
-//  559                                   Buffer3.bufMIC4[WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE] = vRawSens4;									
+//  559                                   Buffer3.bufMIC3[WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE] = vRawSens3;									
 ??SPI2_IRQHandler_21:
         LDRH     R2,[R0, #+0]
         LDR.W    R1,??DataTable13
         LSLS     R2,R2,#+22
         LSRS     R2,R2,#+22
         ADD      R1,R1,R2, LSL #+1
-        ADD      R1,R1,#+38912
+        ADD      R1,R1,#+36864
 ??SPI2_IRQHandler_23:
         STRH     R5,[R1, #+0]
 //  560                                   break;
@@ -1375,19 +1375,19 @@ SPI2_IRQHandler:
 //  562                                   break; 
 //  563                       }
 //  564                     }
-//  565 				  WaveRec_idxSens4++;
+//  565 				  WaveRec_idxSens3++;
 ??SPI2_IRQHandler_18:
         LDRH     R1,[R0, #+0]
         ADDS     R1,R1,#+1
         STRH     R1,[R0, #+0]
 //  566 
-//  567 			if ((WaveRec_idxSens4 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x08;
+//  567 			if ((WaveRec_idxSens3 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x04;
         LDRH     R0,[R0, #+0]
         MOVS     R1,#+15
         TST      R0,R1
         BNE.N    ??SPI2_IRQHandler_13
         LDRB     R0,[R4, #+0]
-        ORR      R0,R0,#0x8
+        ORR      R0,R0,#0x4
         STRB     R0,[R4, #+0]
 //  568 			if (flgRacing==0x3F)  SubFrameFinished();				  
 ??SPI2_IRQHandler_13:
@@ -1527,11 +1527,11 @@ SPI4_IRQHandler:
 //  660             }
 //  661             else
 //  662             {
-//  663                vRawSens5 =((test>>SPI4_stPosShft)|(SPI4_stNipple<<(SDOLEN-SPI4_stPosShft)));
+//  663                vRawSens6 =((test>>SPI4_stPosShft)|(SPI4_stNipple<<(SDOLEN-SPI4_stPosShft)));
         LDRB     R0,[R4, #+2]
         LDRSH    R1,[R4, #+22]
 //  664 #if 1		   
-//  665                if (WaveRec_idxSens5 < AUDIO_OUT_BUFFER_SIZE)
+//  665                if (WaveRec_idxSens6 < AUDIO_OUT_BUFFER_SIZE)
         LDR.W    R2,??DataTable11_6
         LSRS     R5,R5,R0
         LDRB     R0,[R4, #+2]
@@ -1539,7 +1539,7 @@ SPI4_IRQHandler:
         LSL      R0,R1,R0
         ORR      R1,R0,R5
         LDR.W    R0,??DataTable18
-        STRH     R1,[R4, #+18]
+        STRH     R1,[R4, #+20]
         LDRH     R3,[R0, #+0]
         LDRB     R2,[R2, #+0]
         CMP      R3,#+1024
@@ -1563,17 +1563,17 @@ SPI4_IRQHandler:
         B.N      ??SPI4_IRQHandler_7
 //  678                      {
 //  679                          case BUF1_PLAY:
-//  680                              Buffer2.bufMIC5[WaveRec_idxSens5] = vRawSens5;
+//  680                              Buffer2.bufMIC6[WaveRec_idxSens6] = vRawSens6;
 ??SPI4_IRQHandler_4:
         LDRH     R3,[R0, #+0]
         LDR.W    R2,??DataTable20
         ADD      R2,R2,R3, LSL #+1
-        ADD      R2,R2,#+24576
+        ADD      R2,R2,#+26624
         B.N      ??SPI4_IRQHandler_8
 //  681 
 //  682                              break;
 //  683                          case BUF2_PLAY:
-//  684                              Buffer3.bufMIC5[WaveRec_idxSens5] = vRawSens5;
+//  684                              Buffer3.bufMIC6[WaveRec_idxSens6] = vRawSens6;
 ??SPI4_IRQHandler_6:
         LDR.W    R2,??DataTable20
         LDRH     R3,[R0, #+0]
@@ -1581,12 +1581,12 @@ SPI4_IRQHandler:
 //  685 
 //  686                              break;
 //  687                          case BUF3_PLAY:
-//  688                              Buffer1.bufMIC5[WaveRec_idxSens5] = vRawSens5;
+//  688                              Buffer1.bufMIC6[WaveRec_idxSens6] = vRawSens6;
 ??SPI4_IRQHandler_5:
         LDRH     R3,[R0, #+0]
         LDR.W    R2,??DataTable20
         ADD      R2,R2,R3, LSL #+1
-        ADD      R2,R2,#+8192
+        ADD      R2,R2,#+10240
         B.N      ??SPI4_IRQHandler_8
 //  689 
 //  690                              break;                          
@@ -1609,31 +1609,31 @@ SPI4_IRQHandler:
         B.N      ??SPI4_IRQHandler_7
 //  702                  {
 //  703                      case BUF1_PLAY:
-//  704                          Buffer1.bufMIC5[WaveRec_idxSens5%AUDIO_OUT_BUFFER_SIZE] = vRawSens5;
+//  704                          Buffer1.bufMIC6[WaveRec_idxSens6%AUDIO_OUT_BUFFER_SIZE] = vRawSens6;
 ??SPI4_IRQHandler_10:
         LDRH     R3,[R0, #+0]
         LDR.W    R2,??DataTable20
         LSLS     R3,R3,#+22
         LSRS     R3,R3,#+22
         ADD      R2,R2,R3, LSL #+1
-        ADD      R2,R2,#+8192
+        ADD      R2,R2,#+10240
         B.N      ??SPI4_IRQHandler_8
 //  705 
 //  706                          break;
 //  707                      case BUF2_PLAY:
-//  708                          Buffer2.bufMIC5[WaveRec_idxSens5%AUDIO_OUT_BUFFER_SIZE] = vRawSens5;
+//  708                          Buffer2.bufMIC6[WaveRec_idxSens6%AUDIO_OUT_BUFFER_SIZE] = vRawSens6;
 ??SPI4_IRQHandler_12:
         LDRH     R3,[R0, #+0]
         LDR.W    R2,??DataTable20
         LSLS     R3,R3,#+22
         LSRS     R3,R3,#+22
         ADD      R2,R2,R3, LSL #+1
-        ADD      R2,R2,#+24576
+        ADD      R2,R2,#+26624
         B.N      ??SPI4_IRQHandler_8
 //  709 
 //  710                          break;
 //  711                      case BUF3_PLAY:
-//  712                          Buffer3.bufMIC5[WaveRec_idxSens5%AUDIO_OUT_BUFFER_SIZE] = vRawSens5;
+//  712                          Buffer3.bufMIC6[WaveRec_idxSens6%AUDIO_OUT_BUFFER_SIZE] = vRawSens6;
 ??SPI4_IRQHandler_11:
         LDRH     R3,[R0, #+0]
         LDR.W    R2,??DataTable20
@@ -1641,7 +1641,7 @@ SPI4_IRQHandler:
         LSRS     R3,R3,#+22
 ??SPI4_IRQHandler_9:
         ADD      R2,R2,R3, LSL #+1
-        ADD      R2,R2,#+40960
+        ADD      R2,R2,#+43008
 ??SPI4_IRQHandler_8:
         STRH     R1,[R2, #+0]
 //  713 
@@ -1651,18 +1651,18 @@ SPI4_IRQHandler:
 //  717                  }
 //  718                }
 //  719 
-//  720 			    WaveRec_idxSens5++;
+//  720 			    WaveRec_idxSens6++;
 ??SPI4_IRQHandler_7:
         LDRH     R1,[R0, #+0]
         ADDS     R1,R1,#+1
         STRH     R1,[R0, #+0]
-//  721 			if ((WaveRec_idxSens5 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x10;
+//  721 			if ((WaveRec_idxSens6 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x20;
         LDRH     R0,[R0, #+0]
         MOVS     R1,#+15
         TST      R0,R1
         BNE.N    ??SPI4_IRQHandler_13
         LDRB     R0,[R4, #+0]
-        ORR      R0,R0,#0x10
+        ORR      R0,R0,#0x20
         STRB     R0,[R4, #+0]
 //  722 
 //  723 			if (flgRacing==0x3F)  SubFrameFinished();				
@@ -1683,12 +1683,12 @@ SPI4_IRQHandler:
 //  732           }
 //  733           else
 //  734           {
-//  735                vRawSens6 =((test>>SPI4_stPosShft)|(SPI4_stNipple<<(SDOLEN-SPI4_stPosShft)));
+//  735                vRawSens5 =((test>>SPI4_stPosShft)|(SPI4_stNipple<<(SDOLEN-SPI4_stPosShft)));
 ??SPI4_IRQHandler_14:
         LDRB     R0,[R4, #+2]
         LDRSH    R1,[R4, #+22]
 //  736 #if 1			   
-//  737                if (WaveRec_idxSens6 < AUDIO_OUT_BUFFER_SIZE)
+//  737                if (WaveRec_idxSens5 < AUDIO_OUT_BUFFER_SIZE)
         LDR.N    R2,??DataTable11_6
         LSRS     R5,R5,R0
         LDRB     R0,[R4, #+2]
@@ -1696,7 +1696,7 @@ SPI4_IRQHandler:
         LSL      R0,R1,R0
         ORR      R1,R0,R5
         LDR.W    R0,??DataTable20_1
-        STRH     R1,[R4, #+20]
+        STRH     R1,[R4, #+18]
         LDRH     R3,[R0, #+0]
         LDRB     R2,[R2, #+0]
         CMP      R3,#+1024
@@ -1720,17 +1720,17 @@ SPI4_IRQHandler:
         B.N      ??SPI4_IRQHandler_20
 //  750                      {
 //  751                          case BUF1_PLAY:
-//  752                              Buffer2.bufMIC6[WaveRec_idxSens6] = vRawSens6;
+//  752                              Buffer2.bufMIC5[WaveRec_idxSens5] = vRawSens5;
 ??SPI4_IRQHandler_17:
         LDRH     R3,[R0, #+0]
         LDR.W    R2,??DataTable20
         ADD      R2,R2,R3, LSL #+1
-        ADD      R2,R2,#+26624
+        ADD      R2,R2,#+24576
         B.N      ??SPI4_IRQHandler_21
 //  753  
 //  754                              break;
 //  755                          case BUF2_PLAY:
-//  756                              Buffer3.bufMIC6[WaveRec_idxSens6] = vRawSens6;
+//  756                              Buffer3.bufMIC5[WaveRec_idxSens5] = vRawSens5;
 ??SPI4_IRQHandler_19:
         LDR.W    R2,??DataTable20
         LDRH     R3,[R0, #+0]
@@ -1738,12 +1738,12 @@ SPI4_IRQHandler:
 //  757        
 //  758                              break;
 //  759                          case BUF3_PLAY:
-//  760                              Buffer1.bufMIC6[WaveRec_idxSens6] = vRawSens6;
+//  760                              Buffer1.bufMIC5[WaveRec_idxSens5] = vRawSens5;
 ??SPI4_IRQHandler_18:
         LDRH     R3,[R0, #+0]
         LDR.W    R2,??DataTable20
         ADD      R2,R2,R3, LSL #+1
-        ADD      R2,R2,#+10240
+        ADD      R2,R2,#+8192
         B.N      ??SPI4_IRQHandler_21
 //  761  
 //  762                              break;                          
@@ -1767,31 +1767,31 @@ SPI4_IRQHandler:
         B.N      ??SPI4_IRQHandler_20
 //  775                    {
 //  776                            case BUF1_PLAY:
-//  777                                    Buffer1.bufMIC6[WaveRec_idxSens6 % AUDIO_OUT_BUFFER_SIZE] = vRawSens6;
+//  777                                    Buffer1.bufMIC5[WaveRec_idxSens5 % AUDIO_OUT_BUFFER_SIZE] = vRawSens5;
 ??SPI4_IRQHandler_23:
         LDRH     R3,[R0, #+0]
         LDR.W    R2,??DataTable20
         LSLS     R3,R3,#+22
         LSRS     R3,R3,#+22
         ADD      R2,R2,R3, LSL #+1
-        ADD      R2,R2,#+10240
+        ADD      R2,R2,#+8192
         B.N      ??SPI4_IRQHandler_21
 //  778                   
 //  779                                    break;
 //  780                            case BUF2_PLAY:
-//  781                                    Buffer2.bufMIC6[WaveRec_idxSens6 % AUDIO_OUT_BUFFER_SIZE] = vRawSens6;
+//  781                                    Buffer2.bufMIC5[WaveRec_idxSens5 % AUDIO_OUT_BUFFER_SIZE] = vRawSens5;
 ??SPI4_IRQHandler_25:
         LDRH     R3,[R0, #+0]
         LDR.W    R2,??DataTable20
         LSLS     R3,R3,#+22
         LSRS     R3,R3,#+22
         ADD      R2,R2,R3, LSL #+1
-        ADD      R2,R2,#+26624
+        ADD      R2,R2,#+24576
         B.N      ??SPI4_IRQHandler_21
 //  782                   
 //  783                                    break;
 //  784                            case BUF3_PLAY:
-//  785                                    Buffer3.bufMIC6[WaveRec_idxSens6 % AUDIO_OUT_BUFFER_SIZE] = vRawSens6;
+//  785                                    Buffer3.bufMIC5[WaveRec_idxSens5 % AUDIO_OUT_BUFFER_SIZE] = vRawSens5;
 ??SPI4_IRQHandler_24:
         LDRH     R3,[R0, #+0]
         LDR.W    R2,??DataTable20
@@ -1799,7 +1799,7 @@ SPI4_IRQHandler:
         LSRS     R3,R3,#+22
 ??SPI4_IRQHandler_22:
         ADD      R2,R2,R3, LSL #+1
-        ADD      R2,R2,#+43008
+        ADD      R2,R2,#+40960
 ??SPI4_IRQHandler_21:
         STRH     R1,[R2, #+0]
 //  786                   
@@ -1811,18 +1811,18 @@ SPI4_IRQHandler:
 //  792                 }
 //  793                
 //  794 		       
-//  795 		        WaveRec_idxSens6++;
+//  795 		        WaveRec_idxSens5++;
 ??SPI4_IRQHandler_20:
         LDRH     R1,[R0, #+0]
         ADDS     R1,R1,#+1
         STRH     R1,[R0, #+0]
-//  796 			if ((WaveRec_idxSens6 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x20;
+//  796 			if ((WaveRec_idxSens5 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x10;
         LDRH     R0,[R0, #+0]
         MOVS     R1,#+15
         TST      R0,R1
         BNE.N    ??SPI4_IRQHandler_13
         LDRB     R0,[R4, #+0]
-        ORR      R0,R0,#0x20
+        ORR      R0,R0,#0x10
         STRB     R0,[R4, #+0]
 //  797 
 //  798 			if (flgRacing==0x3F)  SubFrameFinished();			   
@@ -3656,7 +3656,7 @@ HAL_SPI_MspInit:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable12_4:
-        DC32     WaveRec_idxSens3
+        DC32     WaveRec_idxSens4
 // 1470 
 // 1471 
 // 1472 
@@ -3795,7 +3795,7 @@ RecordUpdBuf:
         LDRSH    R2,[R0, #+12]
         ADD      R3,R3,#+18432
         STRH     R2,[R3, #+0]
-        LDR.N    R2,??DataTable20_34
+        LDR.N    R2,??DataTable17
         LDRH     R3,[R2, #+0]
         ADDS     R4,R3,#+1
         ADD      R3,R1,R3, LSL #+1
@@ -3803,7 +3803,7 @@ RecordUpdBuf:
         LDRSH    R2,[R0, #+16]
         ADD      R3,R3,#+20480
         STRH     R2,[R3, #+0]
-        LDR.N    R2,??DataTable17
+        LDR.N    R2,??DataTable20_34
         LDRH     R3,[R2, #+0]
         ADDS     R4,R3,#+1
         ADD      R3,R1,R3, LSL #+1
@@ -3811,7 +3811,7 @@ RecordUpdBuf:
         LDRSH    R2,[R0, #+14]
         ADD      R3,R3,#+22528
         STRH     R2,[R3, #+0]
-        LDR.N    R2,??DataTable18
+        LDR.N    R2,??DataTable20_1
         LDRH     R3,[R2, #+0]
         ADDS     R4,R3,#+1
         ADD      R3,R1,R3, LSL #+1
@@ -3819,7 +3819,7 @@ RecordUpdBuf:
         LDRSH    R2,[R0, #+18]
         ADD      R3,R3,#+24576
         STRH     R2,[R3, #+0]
-        LDR.N    R2,??DataTable20_1
+        LDR.N    R2,??DataTable18
         LDRH     R3,[R2, #+0]
         ADDS     R4,R3,#+1
         STRH     R4,[R2, #+0]
@@ -3843,7 +3843,7 @@ RecordUpdBuf:
         LDRSH    R2,[R0, #+12]
         ADD      R3,R3,#+34816
         STRH     R2,[R3, #+0]
-        LDR.N    R2,??DataTable20_34
+        LDR.N    R2,??DataTable17
         LDRH     R3,[R2, #+0]
         ADDS     R4,R3,#+1
         ADD      R3,R1,R3, LSL #+1
@@ -3851,7 +3851,7 @@ RecordUpdBuf:
         LDRSH    R2,[R0, #+16]
         ADD      R3,R3,#+36864
         STRH     R2,[R3, #+0]
-        LDR.N    R2,??DataTable17
+        LDR.N    R2,??DataTable20_34
         LDRH     R3,[R2, #+0]
         ADDS     R4,R3,#+1
         ADD      R3,R1,R3, LSL #+1
@@ -3859,7 +3859,7 @@ RecordUpdBuf:
         LDRSH    R2,[R0, #+14]
         ADD      R3,R3,#+38912
         STRH     R2,[R3, #+0]
-        LDR.N    R2,??DataTable18
+        LDR.N    R2,??DataTable20_1
         LDRH     R3,[R2, #+0]
         ADDS     R4,R3,#+1
         ADD      R3,R1,R3, LSL #+1
@@ -3867,7 +3867,7 @@ RecordUpdBuf:
         LDRSH    R2,[R0, #+18]
         ADD      R3,R3,#+40960
         STRH     R2,[R3, #+0]
-        LDR.N    R2,??DataTable20_1
+        LDR.N    R2,??DataTable18
         LDRH     R3,[R2, #+0]
         ADDS     R4,R3,#+1
         STRH     R4,[R2, #+0]
@@ -3888,7 +3888,7 @@ RecordUpdBuf:
         STRH     R4,[R2, #+0]
         LDRSH    R2,[R0, #+12]
         STRH     R2,[R3, #+2048]
-        LDR.N    R2,??DataTable20_34
+        LDR.N    R2,??DataTable17
         LDRH     R3,[R2, #+0]
         ADDS     R4,R3,#+1
         ADD      R3,R1,R3, LSL #+1
@@ -3896,7 +3896,7 @@ RecordUpdBuf:
         LDRSH    R2,[R0, #+16]
         ADD      R3,R3,#+4096
         STRH     R2,[R3, #+0]
-        LDR.N    R2,??DataTable17
+        LDR.N    R2,??DataTable20_34
         LDRH     R3,[R2, #+0]
         ADDS     R4,R3,#+1
         ADD      R3,R1,R3, LSL #+1
@@ -3904,7 +3904,7 @@ RecordUpdBuf:
         LDRSH    R2,[R0, #+14]
         ADD      R3,R3,#+6144
         STRH     R2,[R3, #+0]
-        LDR.N    R2,??DataTable18
+        LDR.N    R2,??DataTable20_1
         LDRH     R3,[R2, #+0]
         ADDS     R4,R3,#+1
         ADD      R3,R1,R3, LSL #+1
@@ -3912,7 +3912,7 @@ RecordUpdBuf:
         LDRSH    R2,[R0, #+18]
         ADD      R3,R3,#+8192
         STRH     R2,[R3, #+0]
-        LDR.N    R2,??DataTable20_1
+        LDR.N    R2,??DataTable18
         LDRH     R3,[R2, #+0]
         ADDS     R4,R3,#+1
         STRH     R4,[R2, #+0]
@@ -4142,7 +4142,7 @@ HAL_SPI_RxCpltCallback:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable17:
-        DC32     WaveRec_idxSens4
+        DC32     WaveRec_idxSens3
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -4414,7 +4414,7 @@ PDM2PCMSDO78:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable18:
-        DC32     WaveRec_idxSens5
+        DC32     WaveRec_idxSens6
 // 1806 
 
         SECTION `.text`:CODE:NOROOT(1)
@@ -4487,7 +4487,7 @@ MIC8Rec:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable20_1:
-        DC32     WaveRec_idxSens6
+        DC32     WaveRec_idxSens5
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -4685,7 +4685,7 @@ MIC8Rec:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable20_34:
-        DC32     WaveRec_idxSens3
+        DC32     WaveRec_idxSens4
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0

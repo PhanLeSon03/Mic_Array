@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       13/Apr/2016  13:47:30
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       16/Apr/2016  18:30:59
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -4605,8 +4605,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    1269          	}
    1270          #endif	
    1271               	   
-   1272          	 //HAL_Delay(1);
-   1273          	 
+   1272          	 
+   1273          
    1274          	 /*------------------------PLAYER------------------------------------------*/
    1275          	 Audio_MAL_Play((uint32_t)bufferSum,6*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
    \   00000002   0x21C0             MOVS     R1,#+192
@@ -4630,14 +4630,22 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
    \   00000018   0x81C1             STRH     R1,[R0, #+14]
    \   0000001A   0x8201             STRH     R1,[R0, #+16]
    \   0000001C   0x8011             STRH     R1,[R2, #+0]
-   1284          	 buffer_switch = BUF1_PLAY;
+   1284          	 buffer_switch = BUF1_PLAY;     	
    \   0000001E   0x7081             STRB     R1,[R0, #+2]
-   1285               StartRecMic7_8();
+   1285               //HAL_Delay(1);
+   1286              // for (uint32_t i=0; i<2000;i++)
+   1287              // {
+   1288          	//   __NOP;
+   1289          	//   __NOP;
+   1290          	//   __NOP;
+   1291          	//   __NOP;
+   1292              // }
+   1293                   StartRecMic7_8();
    \   00000020   0xE8BD 0x4001      POP      {R0,LR}
    \   00000024   0x.... 0x....      B.W      StartRecMic7_8
-   1286               //AudioUSBSend(idxFrmPDMMic8);	 
-   1287          	 
-   1288           }
+   1294               //AudioUSBSend(idxFrmPDMMic8);	 
+   1295          	 
+   1296           }
                   ^
 Warning[Pe940]: missing return statement at end of non-void function
           "StartPlay"
@@ -4646,14 +4654,14 @@ Warning[Pe940]: missing return statement at end of non-void function
               ^
 "D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\main.c",723  Warning[Pe177]: 
           function "USBH_UserProcess" was declared but never referenced
-   1289          
+   1297          
 
    \                                 In section .text, align 2, keep-with-next
-   1290          void SubFrameFinished(void)
-   1291          {
+   1298          void SubFrameFinished(void)
+   1299          {
    \                     SubFrameFinished: (+1)
    \   00000000   0xB510             PUSH     {R4,LR}
-   1292              Audio_Play_Out();
+   1300              Audio_Play_Out();
    \   00000002   0x2000             MOVS     R0,#+0
    \   00000004   0x....             LDR.N    R1,??DataTable13_34
    \   00000006   0x....             LDR.N    R4,??DataTable13_33
@@ -4724,7 +4732,7 @@ Warning[Pe940]: missing return statement at end of non-void function
    \   00000080   0x8801             LDRH     R1,[R0, #+0]
    \   00000082   0x1C49             ADDS     R1,R1,#+1
    \   00000084   0x8001             STRH     R1,[R0, #+0]
-   1293          }
+   1301          }
    \                     ??SubFrameFinished_0: (+1)
    \   00000086   0xBD10             POP      {R4,PC}          ;; return
 
@@ -4871,7 +4879,7 @@ Warning[Pe940]: missing return statement at end of non-void function
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable13_35:
    \   00000000   0x........         DC32     WaveRec_idxTest
-   1294          /*****************************END OF FILE**************************************/
+   1302          /*****************************END OF FILE**************************************/
 
    Maximum stack usage in bytes:
 
