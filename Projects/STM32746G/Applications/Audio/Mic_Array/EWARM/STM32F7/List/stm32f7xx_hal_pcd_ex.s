@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      16/Apr/2016  18:31:01
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Apr/2016  12:04:29
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -204,7 +204,7 @@
 //   85   * @retval HAL status
 //   86   */
 
-        SECTION `.text`:CODE:NOROOT(1)
+        SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock0 Using cfiCommon0
           CFI Function HAL_PCDEx_SetTxFiFo
           CFI NoCalls
@@ -240,38 +240,47 @@ HAL_PCDEx_SetTxFiFo:
 //  106     hpcd->Instance->DIEPTXF0_HNPTXFSIZ = (uint32_t)(((uint32_t)size << 16) | Tx_Offset);
         ORR      R1,R3,R2, LSL #+16
         STR      R1,[R0, #+40]
-        B.N      ??HAL_PCDEx_SetTxFiFo_1
 //  107   }
 //  108   else
 //  109   {
 //  110     Tx_Offset += (hpcd->Instance->DIEPTXF0_HNPTXFSIZ) >> 16;
-??HAL_PCDEx_SetTxFiFo_0:
-        LDR      R4,[R0, #+40]
-        ADD      R3,R3,R4, LSR #+16
 //  111     for (i = 0; i < (fifo - 1); i++)
-        SUBS     R4,R1,#+1
-        CMP      R4,#+1
-        BLT.N    ??HAL_PCDEx_SetTxFiFo_2
-        ADD      R5,R0,#+260
 //  112     {
 //  113       Tx_Offset += (hpcd->Instance->DIEPTXF[i] >> 16);
-??HAL_PCDEx_SetTxFiFo_3:
-        LDR      R6,[R5], #+4
 //  114     }
-        SUBS     R4,R4,#+1
-        ADD      R3,R3,R6, LSR #+16
-        BNE.N    ??HAL_PCDEx_SetTxFiFo_3
 //  115     
 //  116     /* Multiply Tx_Size by 2 to get higher performance */
 //  117     hpcd->Instance->DIEPTXF[fifo - 1] = (uint32_t)(((uint32_t)size << 16) | Tx_Offset);
-??HAL_PCDEx_SetTxFiFo_2:
-        ORR      R2,R3,R2, LSL #+16
-        ADD      R0,R0,R1, LSL #+2
-        STR      R2,[R0, #+256]
 //  118   }
 //  119   
 //  120   return HAL_OK;
+        MOVS     R0,#+0
+        POP      {R4-R6}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI CFA R13+0
+        BX       LR
+          CFI R4 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -8)
+          CFI R6 Frame(CFA, -4)
+          CFI CFA R13+12
+??HAL_PCDEx_SetTxFiFo_0:
+        LDR      R4,[R0, #+40]
+        ADD      R3,R3,R4, LSR #+16
+        SUBS     R4,R1,#+1
+        CMP      R4,#+1
+        BLT.N    ??HAL_PCDEx_SetTxFiFo_1
+        ADD      R5,R0,#+260
+??HAL_PCDEx_SetTxFiFo_2:
+        LDR      R6,[R5], #+4
+        SUBS     R4,R4,#+1
+        ADD      R3,R3,R6, LSR #+16
+        BNE.N    ??HAL_PCDEx_SetTxFiFo_2
 ??HAL_PCDEx_SetTxFiFo_1:
+        ORR      R2,R3,R2, LSL #+16
+        ADD      R0,R0,R1, LSL #+2
+        STR      R2,[R0, #+256]
         MOVS     R0,#+0
         POP      {R4-R6}
           CFI R4 SameValue
@@ -325,12 +334,11 @@ HAL_PCDEx_ActivateLPM:
         LDR      R1,[R0, #+0]
 //  144   
 //  145   hpcd->lpm_active = ENABLE;
-        ADD      R0,R0,#+944
         MOVS     R2,#+1
-        STR      R2,[R0, #+8]
+        STR      R2,[R0, #+952]
 //  146   hpcd->LPM_State = LPM_L0;
         MOVS     R2,#+0
-        STRB     R2,[R0, #+0]
+        STRB     R2,[R0, #+944]
 //  147   USBx->GINTMSK |= USB_OTG_GINTMSK_LPMINTM;
         LDR      R0,[R1, #+24]
         ORR      R0,R0,#0x8000000
@@ -339,9 +347,11 @@ HAL_PCDEx_ActivateLPM:
         LDR      R0,[R1, #+84]
         ORR      R0,R0,#0x10000000
         ORR      R0,R0,#0x3
-        B.N      ?Subroutine0
+        STR      R0,[R1, #+84]
 //  149   
 //  150   return HAL_OK;  
+        MOVS     R0,#+0
+        BX       LR               ;; return
 //  151 }
           CFI EndBlock cfiBlock2
 //  152 
@@ -351,7 +361,7 @@ HAL_PCDEx_ActivateLPM:
 //  156   * @retval HAL status
 //  157   */
 
-        SECTION `.text`:CODE:NOROOT(2)
+        SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock3 Using cfiCommon0
           CFI Function HAL_PCDEx_DeActivateLPM
           CFI NoCalls
@@ -367,34 +377,25 @@ HAL_PCDEx_DeActivateLPM:
         STR      R2,[R0, #+952]
 //  163   USBx->GINTMSK &= ~USB_OTG_GINTMSK_LPMINTM;
 //  164   USBx->GLPMCFG &= ~(USB_OTG_GLPMCFG_LPMEN | USB_OTG_GLPMCFG_LPMACK | USB_OTG_GLPMCFG_ENBESL);
-        LDR.N    R2,??HAL_PCDEx_DeActivateLPM_0  ;; 0xeffffffc
-        B.N      ??HAL_PCDEx_DeActivateLPM_1
-        DATA
-??HAL_PCDEx_DeActivateLPM_0:
-        DC32     0xeffffffc
-        THUMB
-??HAL_PCDEx_DeActivateLPM_1:
+        LDR.N    R2,??DataTable0  ;; 0xeffffffc
         LDR      R0,[R1, #+24]
         BIC      R0,R0,#0x8000000
         STR      R0,[R1, #+24]
         LDR      R0,[R1, #+84]
         ANDS     R0,R2,R0
-          CFI EndBlock cfiBlock3
-        REQUIRE ?Subroutine0
-        ;; // Fall through to label ?Subroutine0
+        STR      R0,[R1, #+84]
 //  165   
 //  166   return HAL_OK;  
-//  167 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock4 Using cfiCommon0
-          CFI NoFunction
-        THUMB
-?Subroutine0:
-        STR      R0,[R1, #+84]
         MOVS     R0,#+0
         BX       LR               ;; return
-          CFI EndBlock cfiBlock4
+//  167 }
+          CFI EndBlock cfiBlock3
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable0:
+        DC32     0xeffffffc
 //  168 
 //  169 /**
 //  170   * @brief  Send LPM message to user layer callback.
@@ -404,7 +405,7 @@ HAL_PCDEx_DeActivateLPM:
 //  174   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock5 Using cfiCommon0
+          CFI Block cfiBlock4 Using cfiCommon0
           CFI Function HAL_PCDEx_LPM_Callback
           CFI NoCalls
         THUMB
@@ -420,7 +421,7 @@ HAL_PCDEx_DeActivateLPM:
 //  184 }
 HAL_PCDEx_LPM_Callback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock5
+          CFI EndBlock cfiBlock4
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -454,9 +455,9 @@ HAL_PCDEx_LPM_Callback:
 //  202 
 //  203 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 140 bytes in section .text
+// 146 bytes in section .text
 // 
-// 140 bytes of CODE memory
+// 146 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

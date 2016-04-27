@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       16/Apr/2016  18:31:03
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       27/Apr/2016  12:04:31
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7 --relaxed_fp
 #    List file    =  
@@ -272,7 +272,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     145          * @retval AUDIO_OK in case of success, AUDIO_ERROR otherwise
     146          */
 
-   \                                 In section .text, align 2, keep-with-next
+   \                                 In section .text, align 4, keep-with-next
     147          static int8_t Audio_VolumeCtl(int16_t Volume)
     148          {
     149            /* Call low layer volume setting function */
@@ -281,32 +281,32 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     152            j = 0;
    \                     Audio_VolumeCtl: (+1)
    \   00000000   0x.... 0x....      ADR.W    R1,vol_table
-   \   00000004   0x2240             MOVS     R2,#+64
+   \   00000004   0xF05F 0x0240      MOVS.W   R2,#+64
    \                     ??Audio_VolumeCtl_0: (+1)
-   \   00000006   0xF9B1 0x3002      LDRSH    R3,[R1, #+2]
-   \   0000000A   0x1AC3             SUBS     R3,R0,R3
+   \   00000008   0xF9B1 0x3002      LDRSH    R3,[R1, #+2]
+   \   0000000C   0x1AC3             SUBS     R3,R0,R3
     153            /* Find the setting nearest to the desired setting */
     154            while(j<64 &&
     155                  abs(Volume-vol_table[j]) > abs(Volume-vol_table[j+1])) {
-   \   0000000C   0xBF48             IT       MI 
-   \   0000000E   0x425B             RSBMI    R3,R3,#+0
-   \   00000010   0xF9B1 0xC000      LDRSH    R12,[R1, #+0]
-   \   00000014   0xEBB0 0x0C0C      SUBS     R12,R0,R12
-   \   00000018   0xBF48             IT       MI 
-   \   0000001A   0xF1CC 0x0C00      RSBMI    R12,R12,#+0
-   \   0000001E   0x4563             CMP      R3,R12
-   \   00000020   0xDA02             BGE.N    ??Audio_VolumeCtl_1
+   \   0000000E   0xBF48             IT       MI 
+   \   00000010   0x425B             RSBMI    R3,R3,#+0
+   \   00000012   0xF9B1 0xC000      LDRSH    R12,[R1, #+0]
+   \   00000016   0xEBB0 0x0C0C      SUBS     R12,R0,R12
+   \   0000001A   0xBF48             IT       MI 
+   \   0000001C   0xF1CC 0x0C00      RSBMI    R12,R12,#+0
+   \   00000020   0x4563             CMP      R3,R12
+   \   00000022   0xDA02             BGE.N    ??Audio_VolumeCtl_1
     156                    j++;
-   \   00000022   0x1C89             ADDS     R1,R1,#+2
-   \   00000024   0x1E52             SUBS     R2,R2,#+1
+   \   00000024   0x1C89             ADDS     R1,R1,#+2
+   \   00000026   0x1E52             SUBS     R2,R2,#+1
     157                  }
-   \   00000026   0xD1EE             BNE.N    ??Audio_VolumeCtl_0
+   \   00000028   0xD1EE             BNE.N    ??Audio_VolumeCtl_0
     158            /* Now do the volume adjustment */
     159            //return BSP_AUDIO_IN_SetVolume((uint8_t)j);
     160            return 0;
    \                     ??Audio_VolumeCtl_1: (+1)
-   \   00000028   0x2000             MOVS     R0,#+0
-   \   0000002A   0x4770             BX       LR               ;; return
+   \   0000002A   0x2000             MOVS     R0,#+0
+   \   0000002C   0x4770             BX       LR               ;; return
     161            
     162            
     163          }
@@ -459,16 +459,16 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
        4  Audio_Record
        4  Audio_Resume
        4  Audio_Stop
-      44  Audio_VolumeCtl
+      46  Audio_VolumeCtl
       10  Send_Audio_to_USB
       36  USBD_AUDIO_fops
      132  vol_table
 
  
   36 bytes in section .data
- 222 bytes in section .text
+ 224 bytes in section .text
  
- 222 bytes of CODE memory
+ 224 bytes of CODE memory
   36 bytes of DATA memory
 
 Errors: none

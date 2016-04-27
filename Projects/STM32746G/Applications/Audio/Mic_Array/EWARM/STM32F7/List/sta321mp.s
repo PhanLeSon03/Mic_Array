@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      16/Apr/2016  18:30:59
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Apr/2016  12:04:26
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -163,12 +163,6 @@
         SECTION `.data`:DATA:REORDER:NOROOT(2)
         DATA
 //   25 uint8_t  pcSTAComnd[77]={/* Pre-setting */
-pcSTAComnd:
-        DC8 155, 0, 37, 254, 24, 0, 0, 126, 128, 0, 0, 84, 84, 96, 72, 72, 96
-        DC8 96, 96, 16, 16, 16, 16, 16, 16, 16, 16, 16, 50, 84, 118, 0, 128, 1
-        DC8 160, 15, 15, 15, 15, 15, 0, 0, 0, 0, 119, 0, 0, 106, 105, 106, 105
-        DC8 64, 98, 81, 115, 16, 50, 84, 118, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-        DC8 0, 0, 0, 64, 0, 0, 0, 0, 0, 0
 //   26 0x9B,//	Reg[00h]<=83h (10000011b)	Configuration Register A
 //   27 0x00,//	Reg[01h]<=00h (00000000b)	Configuration Register B
 //   28 0x25,//	Reg[02h]<=00h (00000000b)	Configuration Register C
@@ -299,8 +293,17 @@ pcSTAComnd:
 //  153 };    
 //  154 
 //  155 GPIO_InitTypeDef GPIO_STA;
+//  156 uint8_t bufCoefBiquad[15];
+bufCoefBiquad:
+        DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 GPIO_STA:
         DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+pcSTAComnd:
+        DC8 155, 0, 37, 254, 24, 0, 0, 126, 128, 0, 0, 84, 84, 96, 72, 72, 96
+        DC8 96, 96, 16, 16, 16, 16, 16, 16, 16, 16, 16, 50, 84, 118, 0, 128, 1
+        DC8 160, 15, 15, 15, 15, 15, 0, 0, 0, 0, 119, 0, 0, 106, 105, 106, 105
+        DC8 64, 98, 81, 115, 16, 50, 84, 118, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        DC8 0, 0, 0, 64, 0, 0, 0, 0, 0, 0
 pcSTAComnd1:
         DC8 0, 0
         DC8 0, 0
@@ -313,58 +316,51 @@ pcSTAComnd2:
 pcSTAComnd3:
         DC8 24, 5, 0, 255, 0, 0, 0, 0
 
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
-        DATA
-//  156 uint8_t bufCoefBiquad[15];
-bufCoefBiquad:
-        DS8 16
-
-        SECTION `.text`:CODE:NOROOT(1)
+        SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock0 Using cfiCommon0
           CFI Function STA321MP_Ini
         THUMB
 //  157 void STA321MP_Ini(void)
 //  158 {
 STA321MP_Ini:
-        PUSH     {R4-R10,LR}
+        PUSH     {R4-R9,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R10 Frame(CFA, -8)
-          CFI R9 Frame(CFA, -12)
-          CFI R8 Frame(CFA, -16)
-          CFI R7 Frame(CFA, -20)
-          CFI R6 Frame(CFA, -24)
-          CFI R5 Frame(CFA, -28)
-          CFI R4 Frame(CFA, -32)
+          CFI R9 Frame(CFA, -8)
+          CFI R8 Frame(CFA, -12)
+          CFI R7 Frame(CFA, -16)
+          CFI R6 Frame(CFA, -20)
+          CFI R5 Frame(CFA, -24)
+          CFI R4 Frame(CFA, -28)
+          CFI CFA R13+28
+        SUB      SP,SP,#+4
           CFI CFA R13+32
-        SUB      SP,SP,#+8
-          CFI CFA R13+40
 //  159 
 //  160      __GPIOC_CLK_ENABLE();
         MOVS     R0,#+0
         STR      R0,[SP, #+0]
-        LDR.W    R0,??DataTable6  ;; 0x40023830
+        LDR.W    R0,??DataTable5  ;; 0x40023830
 //  161      GPIO_STA.Pin = GPIO_PIN_0;
-        LDR.W    R4,??DataTable6_1
+        LDR.W    R4,??DataTable5_1
 //  162      GPIO_STA.Mode = GPIO_MODE_OUTPUT_PP;
 //  163      GPIO_STA.Pull = GPIO_PULLUP;
 //  164      GPIO_STA.Speed = GPIO_SPEED_LOW;
 //  165      HAL_GPIO_Init(GPIOC, &GPIO_STA);
-        LDR.W    R5,??DataTable6_2  ;; 0x40020800
+        LDR.W    R8,??DataTable5_2  ;; 0x40020800
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x4
         STR      R1,[R0, #+0]
         LDR      R0,[R0, #+0]
-        ADD      R1,R4,#+80
+        ADD      R1,R4,#+16
         AND      R0,R0,#0x4
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
         MOVS     R0,#+1
-        STR      R0,[R4, #+80]
-        STR      R0,[R4, #+84]
-        STR      R0,[R4, #+88]
+        STR      R0,[R4, #+16]
+        STR      R0,[R4, #+20]
+        STR      R0,[R4, #+24]
         MOVS     R0,#+0
-        STR      R0,[R4, #+92]
-        MOV      R0,R5
+        STR      R0,[R4, #+28]
+        MOV      R0,R8
           CFI FunCall HAL_GPIO_Init
         BL       HAL_GPIO_Init
 //  166 
@@ -373,7 +369,7 @@ STA321MP_Ini:
 //  169 	 HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
         MOVS     R2,#+0
         MOVS     R1,#+1
-        MOV      R0,R5
+        MOV      R0,R8
           CFI FunCall HAL_GPIO_WritePin
         BL       HAL_GPIO_WritePin
 //  170      HAL_Delay(300);
@@ -383,8 +379,8 @@ STA321MP_Ini:
 //  171      HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
         MOVS     R2,#+1
         MOVS     R1,#+1
-        MOV      R0,R5
-        MOVS     R5,#+255
+        MOV      R0,R8
+        MOV      R8,#+255
           CFI FunCall HAL_GPIO_WritePin
         BL       HAL_GPIO_WritePin
 //  172      HAL_Delay(300);
@@ -395,29 +391,29 @@ STA321MP_Ini:
 //  174 	  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET);
         MOVS     R2,#+1
         MOVS     R1,#+8
-        LDR.W    R0,??DataTable6_3  ;; 0x40021000
+        LDR.W    R0,??DataTable5_3  ;; 0x40021000
           CFI FunCall HAL_GPIO_WritePin
         BL       HAL_GPIO_WritePin
 //  175 	  //HAL_Delay(300);	 
 //  176 
 //  177       STA321MP_DefautLoad();
         MOVS     R2,#+77
-        MOV      R1,R4
+        ADD      R1,R4,#+36
         MOVS     R0,#+0
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
         MOVS     R2,#+2
-        ADD      R1,R4,#+100
+        ADD      R1,R4,#+116
         MOVS     R0,#+90
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
         MOVS     R2,#+33
-        ADD      R1,R4,#+104
+        ADD      R1,R4,#+120
         MOVS     R0,#+93
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
         MOVS     R2,#+6
-        ADD      R1,R4,#+104
+        ADD      R1,R4,#+120
         MOVS     R0,#+128
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -425,8 +421,8 @@ STA321MP_Ini:
         MOVS     R0,#+152
 //  179       WriteSTAByte(STA321MP_CONFA	,pcSTAComnd,1); //CONFA register
         MOVS     R2,#+1
-        STRB     R0,[R4, #+0]
-        MOV      R1,R4
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
         MOVS     R0,#+0
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -435,8 +431,8 @@ STA321MP_Ini:
         MOVS     R0,#+37
 //  182       WriteSTAByte(STA321MP_CONFC,pcSTAComnd,1); //CONFC register
         MOVS     R2,#+1
-        STRB     R0,[R4, #+0]
-        MOV      R1,R4
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
         MOVS     R0,#+2
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -456,8 +452,8 @@ STA321MP_Ini:
         MOVS     R0,#+192
 //  196        WriteSTAByte(STA321MP_CONFE,pcSTAComnd,1); //CONFE register
         MOVS     R2,#+1
-        STRB     R0,[R4, #+0]
-        MOV      R1,R4
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
         MOVS     R0,#+4
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -467,8 +463,8 @@ STA321MP_Ini:
         MOVS     R0,#+25
 //  200         WriteSTAByte(STA321MP_CONFF,pcSTAComnd,1); //CONFE register
         MOVS     R2,#+1
-        STRB     R0,[R4, #+0]
-        MOV      R1,R4
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
         MOVS     R0,#+5
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -482,8 +478,8 @@ STA321MP_Ini:
         MOVS     R0,#+120
 //  208       WriteSTAByte(STA321MP_CONFH	,pcSTAComnd,1); //CONFH register
         MOVS     R2,#+1
-        STRB     R0,[R4, #+0]
-        MOV      R1,R4
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
         MOVS     R0,#+7
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -493,8 +489,8 @@ STA321MP_Ini:
         MOVS     R0,#+128
 //  212         WriteSTAByte(STA321MP_CONFI,pcSTAComnd,1);//CONFI register
         MOVS     R2,#+1
-        STRB     R0,[R4, #+0]
-        MOV      R1,R4
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
         MOVS     R0,#+8
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -503,8 +499,8 @@ STA321MP_Ini:
         MOVS     R0,#+0
 //  215         WriteSTAByte(STA321MP_MVOL,pcSTAComnd,1);
         MOVS     R2,#+1
-        STRB     R0,[R4, #+0]
-        MOV      R1,R4
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
         MOVS     R0,#+10
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -520,15 +516,15 @@ STA321MP_Ini:
 //  224         pcSTAComnd[7] = MIC_VOL;
 //  225         WriteSTAByte(STA321MP_C1VOL,pcSTAComnd,8);
         MOVS     R2,#+8
-        STRB     R0,[R4, #+0]
-        MOV      R1,R4
-        STRB     R0,[R4, #+1]
-        STRB     R0,[R4, #+2]
-        STRB     R0,[R4, #+3]
-        STRB     R0,[R4, #+4]
-        STRB     R0,[R4, #+5]
-        STRB     R0,[R4, #+6]
-        STRB     R0,[R4, #+7]
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        STRB     R0,[R4, #+37]
+        STRB     R0,[R4, #+38]
+        STRB     R0,[R4, #+39]
+        STRB     R0,[R4, #+40]
+        STRB     R0,[R4, #+41]
+        STRB     R0,[R4, #+42]
+        STRB     R0,[R4, #+43]
         MOVS     R0,#+11
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -538,16 +534,16 @@ STA321MP_Ini:
         MOVS     R0,#+0
 //  229         WriteSTAByte(STA321MP_CHNLMIX,&pcSTAComnd[0],1);
         MOVS     R2,#+1
-        STRB     R0,[R4, #+0]
-        MOV      R1,R4
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
         MOVS     R0,#+40
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
 //  230         pcSTAComnd[0] = 0xFF;
-        STRB     R5,[R4, #+0]
+        STRB     R8,[R4, #+36]
 //  231         WriteSTAByte(STA321MP_TONEBP,&pcSTAComnd[0],1);
         MOVS     R2,#+1
-        MOV      R1,R4
+        ADD      R1,R4,#+36
         MOVS     R0,#+43
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -556,8 +552,8 @@ STA321MP_Ini:
         MOVS     R0,#+0
 //  234         WriteSTAByte(STA321MP_CBQ1,&pcSTAComnd[0],1);
         MOVS     R2,#+1
-        STRB     R0,[R4, #+0]
-        MOV      R1,R4
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
         MOVS     R0,#+119
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -566,10 +562,10 @@ STA321MP_Ini:
         MOVS     R0,#+0
 //  237         WriteSTAByte(STA321MP_CBQ2,&pcSTAComnd[0],1);
         MOVS     R2,#+1
-        STRB     R0,[R4, #+0]
-        MOV      R1,R4
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
         MOVS     R0,#+120
-        MOVS     R6,#+1
+        MOVS     R7,#+1
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
 //  238 
@@ -577,10 +573,9 @@ STA321MP_Ini:
         MOVS     R0,#+16
 //  240         WriteSTAByte(STA321MP_CBQ3,&pcSTAComnd[0],1);
         MOVS     R2,#+1
-        STRB     R0,[R4, #+0]
-        MOV      R1,R4
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
         MOVS     R0,#+121
-        LDR.W    R8,??DataTable6_4  ;; 0x7fffff
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
 //  241                
@@ -592,8 +587,8 @@ STA321MP_Ini:
         MOVS     R0,#+1
 //  247         WriteSTAByte(STA321MP_RCTR1,&pcSTAComnd[0],1);
         MOVS     R2,#+1
-        STRB     R0,[R4, #+0]
-        MOV      R1,R4
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
         MOVS     R0,#+93
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -602,8 +597,8 @@ STA321MP_Ini:
         MOVS     R0,#+0
 //  250         WriteSTAByte(STA321MP_PDMCT,&pcSTAComnd[0],1);
         MOVS     R2,#+1
-        STRB     R0,[R4, #+0]
-        MOV      R1,R4
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
         MOVS     R0,#+94
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -612,8 +607,8 @@ STA321MP_Ini:
         MOVS     R0,#+9
 //  253         WriteSTAByte(STA321MP_CFR129,pcSTAComnd,1);//Reg[81h]<=09h (00001001b)	CFR129  
         MOVS     R2,#+1
-        STRB     R0,[R4, #+0]
-        MOV      R1,R4
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
         MOVS     R0,#+129
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
@@ -623,34 +618,100 @@ STA321MP_Ini:
 //  257 		  for (char mixer = 1 ; mixer <= 2 ; mixer++)
 //  258 		    for (char channel = 1 ; channel <= 8 ; channel++)
 ??STA321MP_Ini_0:
-        LSLS     R0,R6,#+24
+        LSLS     R0,R7,#+24
         LSRS     R0,R0,#+18
-        MOVS     R7,#+1
+        MOVS     R6,#+1
         ADD      R9,R0,#+352
 //  259 		      for (char input = 1 ; input <= 8 ; input++)
 ??STA321MP_Ini_1:
-        MOV      R10,#+1
+        MOVS.W   R5,#+1
 //  260 		        if (input == channel)
 ??STA321MP_Ini_2:
-        CMP      R10,R7
+        LSL      R0,R9,#+16
+        LSRS     R0,R0,#+24
+        CMP      R5,R6
+        AND      R0,R0,#0x3
+        STRB     R0,[R4, #+36]
+        BNE.N    ??STA321MP_Ini_3
 //  261 		          sta321mp_mixer(mixer, channel, input, 0x7FFFFF); /* Setting channel 7, Mixer 1, channel 1 on  */
+        MOVS     R2,#+1
+        ADD      R1,R4,#+36
+        MOVS     R0,#+59
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        STRB     R9,[R4, #+36]
+        MOVS     R2,#+1
+        ADD      R1,R4,#+36
+        MOVS     R0,#+60
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+127
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+61
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        STRB     R8,[R4, #+36]
+        MOVS     R2,#+1
+        ADD      R1,R4,#+36
+        MOVS     R0,#+62
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        STRB     R8,[R4, #+36]
+        B.N      ??STA321MP_Ini_4
 //  262 		        else
 //  263 		          sta321mp_mixer(mixer, channel, input, 0x000000); /* Setting channel 7, Mixer 1, channel 1 on  */
-        UXTH     R0,R9
-        ADD      R10,R10,#+1
+??STA321MP_Ini_3:
+        MOVS     R2,#+1
+        ADD      R1,R4,#+36
+        MOVS     R0,#+59
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        STRB     R9,[R4, #+36]
+        MOVS     R2,#+1
+        ADD      R1,R4,#+36
+        MOVS     R0,#+60
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+0
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+61
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+0
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+62
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+36]
+??STA321MP_Ini_4:
+        MOVS     R2,#+1
+        ADD      R1,R4,#+36
+        MOVS     R0,#+63
+        ADDS     R5,R5,#+1
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+1
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+76
         ADD      R9,R9,#+1
-        ITE      EQ 
-        MOVEQ    R1,R8
-        MOVNE    R1,#+0
-          CFI FunCall SetCoefValue
-        BL       SetCoefValue
-        CMP      R10,#+9
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        CMP      R5,#+9
         BLT.N    ??STA321MP_Ini_2
-        ADDS     R7,R7,#+1
-        CMP      R7,#+9
-        BLT.N    ??STA321MP_Ini_1
         ADDS     R6,R6,#+1
-        CMP      R6,#+3
+        CMP      R6,#+9
+        BLT.N    ??STA321MP_Ini_1
+        ADDS     R7,R7,#+1
+        CMP      R7,#+3
         BLT.N    ??STA321MP_Ini_0
 //  264 
 //  265 	      // initialize all the post-scale (channel 1)
@@ -658,134 +719,282 @@ STA321MP_Ini:
         MOVS     R6,#+1
 //  267 		  {
 //  268 		    sta321mp_prescale(channel, 0x7FFFFF); 
-??STA321MP_Ini_3:
-        UXTB     R8,R6
-        ADDW     R7,R8,#+399
-        LSLS     R0,R7,#+16
+??STA321MP_Ini_5:
+        UXTB     R7,R6
+        ADDW     R5,R7,#+399
+        LSLS     R0,R5,#+16
         LSRS     R0,R0,#+24
-        STRB     R0,[R4, #+0]
+        STRB     R0,[R4, #+36]
         MOVS     R2,#+1
-        MOV      R1,R4
+        ADD      R1,R4,#+36
         MOVS     R0,#+59
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
-        STRB     R7,[R4, #+0]
+        STRB     R5,[R4, #+36]
         MOVS     R2,#+1
-        MOV      R1,R4
+        ADD      R1,R4,#+36
         MOVS     R0,#+60
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
         MOVS     R0,#+127
         MOVS     R2,#+1
-        STRB     R0,[R4, #+0]
-        MOV      R1,R4
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
         MOVS     R0,#+61
-        ADDW     R8,R8,#+407
+        ADDW     R7,R7,#+407
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
-        STRB     R5,[R4, #+0]
+        STRB     R8,[R4, #+36]
         MOVS     R2,#+1
-        MOV      R1,R4
+        ADD      R1,R4,#+36
         MOVS     R0,#+62
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
-        STRB     R5,[R4, #+0]
+        STRB     R8,[R4, #+36]
         MOVS     R2,#+1
-        MOV      R1,R4
+        ADD      R1,R4,#+36
         MOVS     R0,#+63
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
         MOVS     R0,#+1
         MOVS     R2,#+1
-        STRB     R0,[R4, #+0]
-        MOV      R1,R4
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
         MOVS     R0,#+76
         ADDS     R6,R6,#+1
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
 //  269 		    sta321mp_postscale(channel, 0x7FFFFF); 
-        LSL      R0,R8,#+16
+        LSLS     R0,R7,#+16
         LSRS     R0,R0,#+24
-        STRB     R0,[R4, #+0]
+        STRB     R0,[R4, #+36]
         MOVS     R2,#+1
-        MOV      R1,R4
+        ADD      R1,R4,#+36
         MOVS     R0,#+59
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
-        STRB     R8,[R4, #+0]
+        STRB     R7,[R4, #+36]
         MOVS     R2,#+1
-        MOV      R1,R4
+        ADD      R1,R4,#+36
         MOVS     R0,#+60
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
         MOVS     R0,#+127
         MOVS     R2,#+1
-        STRB     R0,[R4, #+0]
-        MOV      R1,R4
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
         MOVS     R0,#+61
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
-        STRB     R5,[R4, #+0]
+        STRB     R8,[R4, #+36]
         MOVS     R2,#+1
-        MOV      R1,R4
+        ADD      R1,R4,#+36
         MOVS     R0,#+62
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
-        STRB     R5,[R4, #+0]
+        STRB     R8,[R4, #+36]
         MOVS     R2,#+1
-        MOV      R1,R4
+        ADD      R1,R4,#+36
         MOVS     R0,#+63
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
         MOVS     R0,#+1
         MOVS     R2,#+1
-        STRB     R0,[R4, #+0]
-        MOV      R1,R4
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
         MOVS     R0,#+76
           CFI FunCall WriteSTAByte
         BL       WriteSTAByte
 //  270 		  }
         CMP      R6,#+9
-        BLT.N    ??STA321MP_Ini_3
+        BLT.N    ??STA321MP_Ini_5
 //  271 
 //  272 		// set pwm output (channels 1/2 to pwm 7/8)
 //  273 		sta321mp_mixer( 1, 7, 1, 0x7FFFFF); /* Setting channel 7, Mixer 1, channel 1 on  */
-        LDR.W    R8,??DataTable6_4  ;; 0x7fffff
-        MOV      R0,#+464
-        MOV      R1,R8
-          CFI FunCall SetCoefValue
-        BL       SetCoefValue
+        MOVS     R0,#+1
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+59
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+208
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+60
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+127
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+61
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        STRB     R8,[R4, #+36]
+        MOVS     R2,#+1
+        ADD      R1,R4,#+36
+        MOVS     R0,#+62
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        STRB     R8,[R4, #+36]
+        MOVS     R2,#+1
+        ADD      R1,R4,#+36
+        MOVS     R0,#+63
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+1
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+76
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
 //  274 		sta321mp_mixer( 1, 7, 7, 0x000000); /* Setting channel 7, Mixer 1, channel 7 off */
-        MOVS     R1,#+0
-        MOV      R0,#+470
-          CFI FunCall SetCoefValue
-        BL       SetCoefValue
+        MOVS     R0,#+1
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+59
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+214
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+60
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+0
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+61
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+0
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+62
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+0
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+63
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+1
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+76
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
 //  275 		sta321mp_mixer( 1, 8, 2, 0x7FFFFF); /* Setting channel 8, Mixer 1, channel 2 on  */
-        MOV      R1,R8
-        MOVW     R0,#+473
-          CFI FunCall SetCoefValue
-        BL       SetCoefValue
+        MOVS     R0,#+1
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+59
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+217
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+60
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+127
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+61
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        STRB     R8,[R4, #+36]
+        MOVS     R2,#+1
+        ADD      R1,R4,#+36
+        MOVS     R0,#+62
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        STRB     R8,[R4, #+36]
+        MOVS     R2,#+1
+        ADD      R1,R4,#+36
+        MOVS     R0,#+63
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+1
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+76
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
 //  276 		sta321mp_mixer( 1, 8, 8, 0x000000); /* Setting channel 8, Mixer 1, channel 8 off */
-        MOVS     R1,#+0
-        MOVW     R0,#+479
-          CFI FunCall SetCoefValue
-        BL       SetCoefValue
+        MOVS     R0,#+1
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+59
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+223
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+60
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+0
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+61
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+0
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+62
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+0
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+63
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+1
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+76
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
 //  277 #endif
-//  278 		STACoefSet();
-        POP      {R0,R1,R4-R10,LR}
+//  278 	STACoefSet();
+        ADD      SP,SP,#+4
+          CFI CFA R13+28
+        POP      {R4-R9,LR}
           CFI R4 SameValue
           CFI R5 SameValue
           CFI R6 SameValue
           CFI R7 SameValue
           CFI R8 SameValue
           CFI R9 SameValue
-          CFI R10 SameValue
           CFI R14 SameValue
           CFI CFA R13+0
           CFI FunCall STACoefSet
         B.N      STACoefSet
 //  279 
-//  280 		//sta321mp_LP_48kHz();
+//  280 	//sta321mp_LP_48kHz();
 //  281         //sta321mp_LP_192kHz();
 //  282         //pcSTAComnd[0] = MAN_CLKOUT;
 //  283         //WriteSTAByte(STA321MP_RCTR1,&pcSTAComnd[0],1);
@@ -794,7 +1003,7 @@ STA321MP_Ini:
 //  285  
 //  286  
 
-        SECTION `.text`:CODE:NOROOT(1)
+        SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock1 Using cfiCommon0
           CFI Function ReadSTASeq
         THUMB
@@ -811,7 +1020,7 @@ ReadSTASeq:
           CFI CFA R13+24
         MOV      R4,R1
         MOV      R5,R2
-        LDR.W    R6,??DataTable6_5
+        LDR.W    R6,??DataTable5_4
 //  289         //while(HAL_I2C_Master_Transmit_IT(&hi2c2,0x40,pI2CData,2)!= HAL_OK)
 //  290 		{
 //  291              ;
@@ -839,7 +1048,7 @@ ReadSTASeq:
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CMP      R0,#+0
-        BNE.N    ??ReadSTASeq_0
+        BNE.W    ??ReadSTASeq_0
 //  306 		 {
 //  307              ;
 //  308 		 }
@@ -859,11 +1068,13 @@ ReadSTASeq:
 //  311               ;
 //  312 	     }  
 //  313 }
-        POP      {R0,R1,R4-R6,PC}  ;; return
+        ADD      SP,SP,#+8
+          CFI CFA R13+16
+        POP      {R4-R6,PC}       ;; return
           CFI EndBlock cfiBlock1
 //  314 
 
-        SECTION `.text`:CODE:NOROOT(1)
+        SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock2 Using cfiCommon0
           CFI Function WriteSTAByte
         THUMB
@@ -895,16 +1106,16 @@ WriteSTAByte:
 //  321      /* copy data and address to buffer send*/
 //  322      for(uint8_t i=0;  i<(len+1);i++)
         MOVS     R0,#+0
-        B.N      ??WriteSTAByte_0
 //  323      {
 //  324           if(i==0)
-??WriteSTAByte_1:
-        CBNZ.N   R0,??WriteSTAByte_2
 //  325 		  {
 //  326 		      DataSeq[0]=Addr;
-??WriteSTAByte_0:
         STRB     R6,[R5, #+0]
-        B.N      ??WriteSTAByte_3
+        B.N      ??WriteSTAByte_0
+??WriteSTAByte_1:
+        CBNZ.N   R0,??WriteSTAByte_2
+        STRB     R6,[R5, #+0]
+        B.N      ??WriteSTAByte_0
 //  327           }
 //  328 		  else
 //  329 		  {
@@ -915,7 +1126,7 @@ WriteSTAByte:
         STRB     R1,[R0, R5]
 //  331 		  }
 //  332      }
-??WriteSTAByte_3:
+??WriteSTAByte_0:
         ADDS     R0,R0,#+1
         UXTB     R0,R0
         CMP      R0,R8
@@ -925,18 +1136,18 @@ WriteSTAByte:
 //  335 
 //  336 	 /* Send data to STA321 */
 //  337      while(HAL_I2C_Master_Transmit(&hi2c2,(uint16_t)STA_ADDR_1W,&DataSeq[0],len+1,1000)!=HAL_OK)
-??WriteSTAByte_4:
+??WriteSTAByte_3:
         MOV      R0,#+1000
         ADDS     R3,R4,#+1
         STR      R0,[SP, #+0]
         UXTH     R3,R3
         MOV      R2,R5
         MOVS     R1,#+64
-        LDR.W    R0,??DataTable6_5
+        LDR.W    R0,??DataTable5_4
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CMP      R0,#+0
-        BNE.N    ??WriteSTAByte_4
+        BNE.N    ??WriteSTAByte_3
 //  338 	 {
 //  339           ;
 //  340 	 }
@@ -945,7 +1156,9 @@ WriteSTAByte:
 //  343 	 
 //  344 	 free(DataSeq);
         MOV      R0,R5
-        POP      {R1,R2,R4-R8,LR}
+        ADD      SP,SP,#+8
+          CFI CFA R13+24
+        POP      {R4-R8,LR}
           CFI R4 SameValue
           CFI R5 SameValue
           CFI R6 SameValue
@@ -960,7 +1173,7 @@ WriteSTAByte:
           CFI EndBlock cfiBlock2
 //  347 
 
-        SECTION `.text`:CODE:NOROOT(1)
+        SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock3 Using cfiCommon0
           CFI Function STACoefSet
           CFI TailCall WriteCoef
@@ -972,8 +1185,6 @@ STACoefSet:
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-        SUB      SP,SP,#+16
-          CFI CFA R13+24
 //  350 
 //  351 // sta321mp_biquad(codec, 1, 2, 0x2d7d5e, 0x3faa84, 0x6599c4, 0xad9ed1,0x1fd542);
 //  352 // sta321mp_biquad(codec, 1, 3, 0xfcec16, 0x177b7b, 0x63c973, 0xa4b499,0xbbdbd);
@@ -991,414 +1202,527 @@ STACoefSet:
 //  364 
 //  365 //sta321mp_biquad(1, 1, 0x822A2D, 0x7DD5D3, 0x7DD123, 0x844AFC,0x3EEAE9);
 //  366 sta321mp_biquad(1, 1, 0x803C5C, 0x7FC3A4, 0x7FC396, 0x80789B,0x3FE1D2);
-        LDR.W    R0,??DataTable6_6  ;; 0x3fe1d2
-        STR      R0,[SP, #+8]
-        LDR.W    R0,??DataTable6_7  ;; 0x80789b
-        STR      R0,[SP, #+4]
-        LDR.W    R0,??DataTable6_8  ;; 0x7fc396
-        STR      R0,[SP, #+0]
-        LDR.W    R3,??DataTable6_9  ;; 0x7fc3a4
-        LDR.W    R2,??DataTable6_10  ;; 0x803c5c
-        MOVS     R1,#+1
-        MOVS     R0,#+1
-        LDR.W    R4,??DataTable6_11
-          CFI FunCall sta321mp_biquad
-        BL       sta321mp_biquad
+        LDR.W    R4,??DataTable5_1
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+36]
+        MOVS     R2,#+1
+        ADD      R1,R4,#+36
+        MOVS     R0,#+59
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+0
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+60
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+128
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+61
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+60
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+62
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+92
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+63
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+127
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+64
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+195
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+65
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+164
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+66
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+127
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+67
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+195
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+68
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+150
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+69
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+128
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+70
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+120
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+71
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+155
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+72
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+63
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+73
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+225
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+74
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+210
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+75
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
+        MOVS     R0,#+2
+        MOVS     R2,#+1
+        STRB     R0,[R4, #+36]
+        ADD      R1,R4,#+36
+        MOVS     R0,#+76
+          CFI FunCall WriteSTAByte
+        BL       WriteSTAByte
 //  367 
-//  368 bufCoefBiquad[0]= 41;
-        MOVS     R0,#+41
-//  369 bufCoefBiquad[1]= 20;
-//  370 bufCoefBiquad[2]= 186;
-//  371 bufCoefBiquad[3]= 69;
-//  372 bufCoefBiquad[4]= 103;
-//  373 bufCoefBiquad[5]= 10;
-//  374 bufCoefBiquad[6]= 106;
-//  375 bufCoefBiquad[7]= 110;
-//  376 bufCoefBiquad[8]= 180;
-//  377 bufCoefBiquad[9]= 166;
-//  378 bufCoefBiquad[10]= 71;
-//  379 bufCoefBiquad[11]= 204;
-//  380 bufCoefBiquad[12]= 34;
-//  381 bufCoefBiquad[13]= 179;
-//  382 bufCoefBiquad[14]= 133;
+//  368 bufCoefBiquad[0]= 46;
+        MOVS     R0,#+46
+        STRB     R0,[R4, #+0]
+//  369 bufCoefBiquad[1]= 206;
+        MOVS     R0,#+206
+        STRB     R0,[R4, #+1]
+//  370 bufCoefBiquad[2]= 106;
+        MOVS     R0,#+106
+        STRB     R0,[R4, #+2]
+//  371 bufCoefBiquad[3]= 61;
+        MOVS     R0,#+61
+        STRB     R0,[R4, #+3]
+//  372 bufCoefBiquad[4]= 186;
+        MOVS     R0,#+186
+        STRB     R0,[R4, #+4]
+//  373 bufCoefBiquad[5]= 89;
+        MOVS     R0,#+89
+        STRB     R0,[R4, #+5]
+//  374 bufCoefBiquad[6]= 99;
+        MOVS     R0,#+99
+        STRB     R0,[R4, #+6]
+//  375 bufCoefBiquad[7]= 38;
+        MOVS     R0,#+38
+        STRB     R0,[R4, #+7]
+//  376 bufCoefBiquad[8]= 209;
+        MOVS     R0,#+209
+        STRB     R0,[R4, #+8]
+//  377 bufCoefBiquad[9]= 177;
+        MOVS     R0,#+177
+//  378 bufCoefBiquad[10]= 46;
+//  379 bufCoefBiquad[11]= 37;
+//  380 bufCoefBiquad[12]= 30;
+//  381 bufCoefBiquad[13]= 221;
+//  382 bufCoefBiquad[14]= 44;
 //  383 WriteCoef(0x05, bufCoefBiquad);
         MOV      R1,R4
-        STRB     R0,[R4, #+0]
-        MOVS     R0,#+20
-        STRB     R0,[R4, #+1]
-        MOVS     R0,#+186
-        STRB     R0,[R4, #+2]
-        MOVS     R0,#+69
-        STRB     R0,[R4, #+3]
-        MOVS     R0,#+103
-        STRB     R0,[R4, #+4]
-        MOVS     R0,#+10
-        STRB     R0,[R4, #+5]
-        MOVS     R0,#+106
-        STRB     R0,[R4, #+6]
-        MOVS     R0,#+110
-        STRB     R0,[R4, #+7]
-        MOVS     R0,#+180
-        STRB     R0,[R4, #+8]
-        MOVS     R0,#+166
         STRB     R0,[R4, #+9]
-        MOVS     R0,#+71
+        MOVS     R0,#+46
         STRB     R0,[R4, #+10]
-        MOVS     R0,#+204
+        MOVS     R0,#+37
         STRB     R0,[R4, #+11]
-        MOVS     R0,#+34
+        MOVS     R0,#+30
         STRB     R0,[R4, #+12]
-        MOVS     R0,#+179
+        MOVS     R0,#+221
         STRB     R0,[R4, #+13]
-        MOVS     R0,#+133
+        MOVS     R0,#+44
         STRB     R0,[R4, #+14]
         MOVS     R0,#+5
           CFI FunCall WriteCoef
         BL       WriteCoef
-//  384 bufCoefBiquad[0]= 249;
-        MOVS     R0,#+249
-//  385 bufCoefBiquad[1]= 20;
-//  386 bufCoefBiquad[2]= 79;
-//  387 bufCoefBiquad[3]= 20;
-//  388 bufCoefBiquad[4]= 181;
-//  389 bufCoefBiquad[5]= 137;
-//  390 bufCoefBiquad[6]= 105;
-//  391 bufCoefBiquad[7]= 227;
-//  392 bufCoefBiquad[8]= 180;
-//  393 bufCoefBiquad[9]= 158;
-//  394 bufCoefBiquad[10]= 219;
-//  395 bufCoefBiquad[11]= 204;
-//  396 bufCoefBiquad[12]= 10;
-//  397 bufCoefBiquad[13]= 90;
-//  398 bufCoefBiquad[14]= 196;
+//  384 bufCoefBiquad[0]= 255;
+        MOVS     R0,#+255
+//  385 bufCoefBiquad[1]= 26;
+//  386 bufCoefBiquad[2]= 24;
+//  387 bufCoefBiquad[3]= 24;
+//  388 bufCoefBiquad[4]= 240;
+//  389 bufCoefBiquad[5]= 102;
+//  390 bufCoefBiquad[6]= 96;
+//  391 bufCoefBiquad[7]= 145;
+//  392 bufCoefBiquad[8]= 115;
+//  393 bufCoefBiquad[9]= 167;
+//  394 bufCoefBiquad[10]= 129;
+//  395 bufCoefBiquad[11]= 70;
+//  396 bufCoefBiquad[12]= 12;
+//  397 bufCoefBiquad[13]= 120;
+//  398 bufCoefBiquad[14]= 51;
 //  399 WriteCoef(0x0a, bufCoefBiquad);
         MOV      R1,R4
         STRB     R0,[R4, #+0]
-        MOVS     R0,#+20
+        MOVS     R0,#+26
         STRB     R0,[R4, #+1]
-        MOVS     R0,#+79
+        MOVS     R0,#+24
         STRB     R0,[R4, #+2]
-        MOVS     R0,#+20
         STRB     R0,[R4, #+3]
-        MOVS     R0,#+181
+        MOVS     R0,#+240
         STRB     R0,[R4, #+4]
-        MOVS     R0,#+137
+        MOVS     R0,#+102
         STRB     R0,[R4, #+5]
-        MOVS     R0,#+105
+        MOVS     R0,#+96
         STRB     R0,[R4, #+6]
-        MOVS     R0,#+227
+        MOVS     R0,#+145
         STRB     R0,[R4, #+7]
-        MOVS     R0,#+180
+        MOVS     R0,#+115
         STRB     R0,[R4, #+8]
-        MOVS     R0,#+158
+        MOVS     R0,#+167
         STRB     R0,[R4, #+9]
-        MOVS     R0,#+219
+        MOVS     R0,#+129
         STRB     R0,[R4, #+10]
-        MOVS     R0,#+204
+        MOVS     R0,#+70
         STRB     R0,[R4, #+11]
-        MOVS     R0,#+10
+        MOVS     R0,#+12
         STRB     R0,[R4, #+12]
-        MOVS     R0,#+90
+        MOVS     R0,#+120
         STRB     R0,[R4, #+13]
-        MOVS     R0,#+196
+        MOVS     R0,#+51
         STRB     R0,[R4, #+14]
         MOVS     R0,#+10
           CFI FunCall WriteCoef
         BL       WriteCoef
-//  400 bufCoefBiquad[0]= 243;
-        MOVS     R0,#+243
-//  401 bufCoefBiquad[1]= 7;
-//  402 bufCoefBiquad[2]= 255;
-//  403 bufCoefBiquad[3]= 20;
-//  404 bufCoefBiquad[4]= 181;
-//  405 bufCoefBiquad[5]= 137;
-//  406 bufCoefBiquad[6]= 105;
-//  407 bufCoefBiquad[7]= 52;
-//  408 bufCoefBiquad[8]= 233;
-//  409 bufCoefBiquad[9]= 148;
-//  410 bufCoefBiquad[10]= 200;
-//  411 bufCoefBiquad[11]= 180;
-//  412 bufCoefBiquad[12]= 10;
-//  413 bufCoefBiquad[13]= 90;
-//  414 bufCoefBiquad[14]= 196;
+//  400 bufCoefBiquad[0]= 246;
+        MOVS     R0,#+246
+//  401 bufCoefBiquad[1]= 6;
+//  402 bufCoefBiquad[2]= 2;
+//  403 bufCoefBiquad[3]= 24;
+//  404 bufCoefBiquad[4]= 240;
+//  405 bufCoefBiquad[5]= 102;
+//  406 bufCoefBiquad[6]= 93;
+//  407 bufCoefBiquad[7]= 45;
+//  408 bufCoefBiquad[8]= 199;
+//  409 bufCoefBiquad[9]= 154;
+//  410 bufCoefBiquad[10]= 124;
+//  411 bufCoefBiquad[11]= 43;
+//  412 bufCoefBiquad[12]= 12;
+//  413 bufCoefBiquad[13]= 120;
+//  414 bufCoefBiquad[14]= 51;
 //  415 WriteCoef(0x0f, bufCoefBiquad);
         MOV      R1,R4
         STRB     R0,[R4, #+0]
-        MOVS     R0,#+7
+        MOVS     R0,#+6
         STRB     R0,[R4, #+1]
-        MOVS     R0,#+255
+        MOVS     R0,#+2
         STRB     R0,[R4, #+2]
-        MOVS     R0,#+20
+        MOVS     R0,#+24
         STRB     R0,[R4, #+3]
-        MOVS     R0,#+181
+        MOVS     R0,#+240
         STRB     R0,[R4, #+4]
-        MOVS     R0,#+137
+        MOVS     R0,#+102
         STRB     R0,[R4, #+5]
-        MOVS     R0,#+105
+        MOVS     R0,#+93
         STRB     R0,[R4, #+6]
-        MOVS     R0,#+52
+        MOVS     R0,#+45
         STRB     R0,[R4, #+7]
-        MOVS     R0,#+233
+        MOVS     R0,#+199
         STRB     R0,[R4, #+8]
-        MOVS     R0,#+148
+        MOVS     R0,#+154
         STRB     R0,[R4, #+9]
-        MOVS     R0,#+200
+        MOVS     R0,#+124
         STRB     R0,[R4, #+10]
-        MOVS     R0,#+180
+        MOVS     R0,#+43
         STRB     R0,[R4, #+11]
-        MOVS     R0,#+10
+        MOVS     R0,#+12
         STRB     R0,[R4, #+12]
-        MOVS     R0,#+90
+        MOVS     R0,#+120
         STRB     R0,[R4, #+13]
-        MOVS     R0,#+196
+        MOVS     R0,#+51
         STRB     R0,[R4, #+14]
         MOVS     R0,#+15
           CFI FunCall WriteCoef
         BL       WriteCoef
-//  416 bufCoefBiquad[0]= 240;
-        MOVS     R0,#+240
-        STRB     R0,[R4, #+0]
-//  417 bufCoefBiquad[1]= 249;
-        MOVS     R0,#+249
-        STRB     R0,[R4, #+1]
-//  418 bufCoefBiquad[2]= 51;
-        MOVS     R0,#+51
-        STRB     R0,[R4, #+2]
-//  419 bufCoefBiquad[3]= 20;
-        MOVS     R0,#+20
-        STRB     R0,[R4, #+3]
-//  420 bufCoefBiquad[4]= 181;
-        MOVS     R0,#+181
-        STRB     R0,[R4, #+4]
-//  421 bufCoefBiquad[5]= 137;
-        MOVS     R0,#+137
-        STRB     R0,[R4, #+5]
-//  422 bufCoefBiquad[6]= 104;
-        MOVS     R0,#+104
-        STRB     R0,[R4, #+6]
-//  423 bufCoefBiquad[7]= 196;
-        MOVS     R0,#+196
-        STRB     R0,[R4, #+7]
-//  424 bufCoefBiquad[8]= 130;
-        MOVS     R0,#+130
-        STRB     R0,[R4, #+8]
-//  425 bufCoefBiquad[9]= 140;
-        MOVS     R0,#+140
-        STRB     R0,[R4, #+9]
-//  426 bufCoefBiquad[10]= 42;
-        MOVS     R0,#+42
-        STRB     R0,[R4, #+10]
-//  427 bufCoefBiquad[11]= 203;
-        MOVS     R0,#+203
-        STRB     R0,[R4, #+11]
-//  428 bufCoefBiquad[12]= 10;
-        MOVS     R0,#+10
-        STRB     R0,[R4, #+12]
-//  429 bufCoefBiquad[13]= 90;
-        MOVS     R0,#+90
-        STRB     R0,[R4, #+13]
-//  430 bufCoefBiquad[14]= 196;
-        MOVS     R0,#+196
-        STRB     R0,[R4, #+14]
+//  416 bufCoefBiquad[0]= 242;
+        MOVS     R0,#+242
+//  417 bufCoefBiquad[1]= 119;
+//  418 bufCoefBiquad[2]= 170;
+//  419 bufCoefBiquad[3]= 24;
+//  420 bufCoefBiquad[4]= 240;
+//  421 bufCoefBiquad[5]= 102;
+//  422 bufCoefBiquad[6]= 90;
+//  423 bufCoefBiquad[7]= 137;
+//  424 bufCoefBiquad[8]= 231;
+//  425 bufCoefBiquad[9]= 143;
+//  426 bufCoefBiquad[10]= 115;
+//  427 bufCoefBiquad[11]= 104;
+//  428 bufCoefBiquad[12]= 12;
+//  429 bufCoefBiquad[13]= 120;
+//  430 bufCoefBiquad[14]= 51;
 //  431 WriteCoef(0x014, bufCoefBiquad);
         MOV      R1,R4
+        STRB     R0,[R4, #+0]
+        MOVS     R0,#+119
+        STRB     R0,[R4, #+1]
+        MOVS     R0,#+170
+        STRB     R0,[R4, #+2]
+        MOVS     R0,#+24
+        STRB     R0,[R4, #+3]
+        MOVS     R0,#+240
+        STRB     R0,[R4, #+4]
+        MOVS     R0,#+102
+        STRB     R0,[R4, #+5]
+        MOVS     R0,#+90
+        STRB     R0,[R4, #+6]
+        MOVS     R0,#+137
+        STRB     R0,[R4, #+7]
+        MOVS     R0,#+231
+        STRB     R0,[R4, #+8]
+        MOVS     R0,#+143
+        STRB     R0,[R4, #+9]
+        MOVS     R0,#+115
+        STRB     R0,[R4, #+10]
+        MOVS     R0,#+104
+        STRB     R0,[R4, #+11]
+        MOVS     R0,#+12
+        STRB     R0,[R4, #+12]
+        MOVS     R0,#+120
+        STRB     R0,[R4, #+13]
+        MOVS     R0,#+51
+        STRB     R0,[R4, #+14]
         MOVS     R0,#+20
           CFI FunCall WriteCoef
         BL       WriteCoef
 //  432 bufCoefBiquad[0]= 240;
         MOVS     R0,#+240
-//  433 bufCoefBiquad[1]= 41;
-//  434 bufCoefBiquad[2]= 185;
-//  435 bufCoefBiquad[3]= 20;
-//  436 bufCoefBiquad[4]= 181;
-//  437 bufCoefBiquad[5]= 137;
-//  438 bufCoefBiquad[6]= 104;
-//  439 bufCoefBiquad[7]= 197;
-//  440 bufCoefBiquad[8]= 171;
-//  441 bufCoefBiquad[9]= 134;
-//  442 bufCoefBiquad[10]= 23;
-//  443 bufCoefBiquad[11]= 214;
-//  444 bufCoefBiquad[12]= 10;
-//  445 bufCoefBiquad[13]= 90;
-//  446 bufCoefBiquad[14]= 196;
+        STRB     R0,[R4, #+0]
+//  433 bufCoefBiquad[1]= 253;
+        MOVS     R0,#+253
+        STRB     R0,[R4, #+1]
+//  434 bufCoefBiquad[2]= 163;
+        MOVS     R0,#+163
+        STRB     R0,[R4, #+2]
+//  435 bufCoefBiquad[3]= 24;
+        MOVS     R0,#+24
+        STRB     R0,[R4, #+3]
+//  436 bufCoefBiquad[4]= 240;
+        MOVS     R0,#+240
+        STRB     R0,[R4, #+4]
+//  437 bufCoefBiquad[5]= 102;
+        MOVS     R0,#+102
+        STRB     R0,[R4, #+5]
+//  438 bufCoefBiquad[6]= 89;
+        MOVS     R0,#+89
+        STRB     R0,[R4, #+6]
+//  439 bufCoefBiquad[7]= 49;
+        MOVS     R0,#+49
+        STRB     R0,[R4, #+7]
+//  440 bufCoefBiquad[8]= 147;
+        MOVS     R0,#+147
+        STRB     R0,[R4, #+8]
+//  441 bufCoefBiquad[9]= 135;
+        MOVS     R0,#+135
+        STRB     R0,[R4, #+9]
+//  442 bufCoefBiquad[10]= 185;
+        MOVS     R0,#+185
+        STRB     R0,[R4, #+10]
+//  443 bufCoefBiquad[11]= 234;
+        MOVS     R0,#+234
+        STRB     R0,[R4, #+11]
+//  444 bufCoefBiquad[12]= 12;
+        MOVS     R0,#+12
+        STRB     R0,[R4, #+12]
+//  445 bufCoefBiquad[13]= 120;
+        MOVS     R0,#+120
+        STRB     R0,[R4, #+13]
+//  446 bufCoefBiquad[14]= 51;
+        MOVS     R0,#+51
+        STRB     R0,[R4, #+14]
 //  447 WriteCoef(0x019, bufCoefBiquad);
         MOV      R1,R4
-        STRB     R0,[R4, #+0]
-        MOVS     R0,#+41
-        STRB     R0,[R4, #+1]
-        MOVS     R0,#+185
-        STRB     R0,[R4, #+2]
-        MOVS     R0,#+20
-        STRB     R0,[R4, #+3]
-        MOVS     R0,#+181
-        STRB     R0,[R4, #+4]
-        MOVS     R0,#+137
-        STRB     R0,[R4, #+5]
-        MOVS     R0,#+104
-        STRB     R0,[R4, #+6]
-        MOVS     R0,#+197
-        STRB     R0,[R4, #+7]
-        MOVS     R0,#+171
-        STRB     R0,[R4, #+8]
-        MOVS     R0,#+134
-        STRB     R0,[R4, #+9]
-        MOVS     R0,#+23
-        STRB     R0,[R4, #+10]
-        MOVS     R0,#+214
-        STRB     R0,[R4, #+11]
-        MOVS     R0,#+10
-        STRB     R0,[R4, #+12]
-        MOVS     R0,#+90
-        STRB     R0,[R4, #+13]
-        MOVS     R0,#+196
-        STRB     R0,[R4, #+14]
         MOVS     R0,#+25
           CFI FunCall WriteCoef
         BL       WriteCoef
-//  448 bufCoefBiquad[0]= 239;
-        MOVS     R0,#+239
-//  449 bufCoefBiquad[1]= 221;
-//  450 bufCoefBiquad[2]= 94;
-//  451 bufCoefBiquad[3]= 20;
-//  452 bufCoefBiquad[4]= 181;
-//  453 bufCoefBiquad[5]= 137;
-//  454 bufCoefBiquad[6]= 105;
-//  455 bufCoefBiquad[7]= 97;
-//  456 bufCoefBiquad[8]= 227;
-//  457 bufCoefBiquad[9]= 129;
-//  458 bufCoefBiquad[10]= 213;
-//  459 bufCoefBiquad[11]= 134;
-//  460 bufCoefBiquad[12]= 10;
-//  461 bufCoefBiquad[13]= 90;
-//  462 bufCoefBiquad[14]= 196;
+//  448 bufCoefBiquad[0]= 240;
+        MOVS     R0,#+240
+//  449 bufCoefBiquad[1]= 111;
+//  450 bufCoefBiquad[2]= 148;
+//  451 bufCoefBiquad[3]= 24;
+//  452 bufCoefBiquad[4]= 240;
+//  453 bufCoefBiquad[5]= 102;
+//  454 bufCoefBiquad[6]= 89;
+//  455 bufCoefBiquad[7]= 58;
+//  456 bufCoefBiquad[8]= 170;
+//  457 bufCoefBiquad[9]= 130;
+//  458 bufCoefBiquad[10]= 83;
+//  459 bufCoefBiquad[11]= 229;
+//  460 bufCoefBiquad[12]= 12;
+//  461 bufCoefBiquad[13]= 120;
+//  462 bufCoefBiquad[14]= 51;
 //  463 WriteCoef(0x01e, bufCoefBiquad);
         MOV      R1,R4
         STRB     R0,[R4, #+0]
-        MOVS     R0,#+221
+        MOVS     R0,#+111
         STRB     R0,[R4, #+1]
-        MOVS     R0,#+94
+        MOVS     R0,#+148
         STRB     R0,[R4, #+2]
-        MOVS     R0,#+20
+        MOVS     R0,#+24
         STRB     R0,[R4, #+3]
-        MOVS     R0,#+181
+        MOVS     R0,#+240
         STRB     R0,[R4, #+4]
-        MOVS     R0,#+137
+        MOVS     R0,#+102
         STRB     R0,[R4, #+5]
-        MOVS     R0,#+105
+        MOVS     R0,#+89
         STRB     R0,[R4, #+6]
-        MOVS     R0,#+97
+        MOVS     R0,#+58
         STRB     R0,[R4, #+7]
-        MOVS     R0,#+227
+        MOVS     R0,#+170
         STRB     R0,[R4, #+8]
-        MOVS     R0,#+129
+        MOVS     R0,#+130
         STRB     R0,[R4, #+9]
-        MOVS     R0,#+213
+        MOVS     R0,#+83
         STRB     R0,[R4, #+10]
-        MOVS     R0,#+134
+        MOVS     R0,#+229
         STRB     R0,[R4, #+11]
-        MOVS     R0,#+10
+        MOVS     R0,#+12
         STRB     R0,[R4, #+12]
-        MOVS     R0,#+90
+        MOVS     R0,#+120
         STRB     R0,[R4, #+13]
-        MOVS     R0,#+196
+        MOVS     R0,#+51
         STRB     R0,[R4, #+14]
-        ADD      SP,SP,#+16
-          CFI CFA R13+8
         MOVS     R0,#+30
         POP      {R4,LR}
           CFI EndBlock cfiBlock3
         REQUIRE WriteCoef
         ;; // Fall through to label WriteCoef
-//  464 }
-//  465 
+//  464 
+//  465 }
+//  466 
 
-        SECTION `.text`:CODE:NOROOT(1)
+        SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock4 Using cfiCommon0
           CFI Function WriteCoef
         THUMB
-//  466 void WriteCoef(uint16_t Adrss, uint8_t * BufData)
-//  467 {
+//  467 void WriteCoef(uint16_t Adrss, uint8_t * BufData)
+//  468 {
 WriteCoef:
-        PUSH     {R3-R11,LR}
+        PUSH     {R4-R10,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R11 Frame(CFA, -8)
-          CFI R10 Frame(CFA, -12)
-          CFI R9 Frame(CFA, -16)
-          CFI R8 Frame(CFA, -20)
-          CFI R7 Frame(CFA, -24)
-          CFI R6 Frame(CFA, -28)
-          CFI R5 Frame(CFA, -32)
-          CFI R4 Frame(CFA, -36)
-          CFI CFA R13+40
-        MOV      R5,R0
-//  468 //1. Write the top 2 bits of starting address to I2C register 0x3B
-//  469 pcSTAComnd[0] = (Adrss>>8)&0x03;
+          CFI R10 Frame(CFA, -8)
+          CFI R9 Frame(CFA, -12)
+          CFI R8 Frame(CFA, -16)
+          CFI R7 Frame(CFA, -20)
+          CFI R6 Frame(CFA, -24)
+          CFI R5 Frame(CFA, -28)
+          CFI R4 Frame(CFA, -32)
+          CFI CFA R13+32
+        MOV      R7,R0
+//  469 //1. Write the top 2 bits of starting address to I2C register 0x3B
+//  470 pcSTAComnd[0] = (Adrss>>8)&0x03;
         LSRS     R0,R0,#+8
-        LDR.N    R4,??DataTable6_1
+        SUB      SP,SP,#+8
+          CFI CFA R13+40
+        LDR.W    R8,??DataTable5_1
         AND      R0,R0,#0x3
-        MOV      R6,R1
-        STRB     R0,[R4, #+0]
-//  470 WriteSTAByte(0x3B,&pcSTAComnd[0],1);
-        MOVS     R2,#+1
-        MOV      R1,R4
-        MOVS     R0,#+59
-        MOV      R9,#+5
-          CFI FunCall WriteSTAByte
-        BL       WriteSTAByte
-//  471 
-//  472 //2. Write the bottom 8 bits of starting address to I2C register 0x3C
-//  473 pcSTAComnd[0] = (Adrss);
-        STRB     R5,[R4, #+0]
-//  474 WriteSTAByte(0x3C,&pcSTAComnd[0],1);
-        MOVS     R2,#+1
-        MOV      R1,R4
-        MOVS     R0,#+60
-          CFI FunCall WriteSTAByte
-        BL       WriteSTAByte
-//  475 
-//  476 //3. Write the top 8 bits of coefficient b1 in I2C address 0x3D
-//  477 //4. Write the middle 8 bits of coefficient b1 in I2C address 0x3E
-//  478 //5. Write the bottom 8 bits of coefficient b1 in I2C address 0x3F
-//  479 //6. Write the top 8 bits of coefficient b2 in I2C address 0x40
-//  480 //7. Write the middle 8-bits of coefficient b2 in I2C address 0x41
-//  481 //8. Write the bottom 8 bits of coefficient b2 in I2C address 0x42
-//  482 //9. Write the top 8 bits of coefficient a1 in I2C address 0x43
-//  483 //10. Write the middle 8 bits of coefficient a1 in I2C address 0x44
-//  484 //11. Write the bottom 8 bits of coefficient a1 in I2C address 0x45
-//  485 //12. Write the top 8 bits of coefficient a2 in I2C address 0x46
-//  486 //13. Write the middle 8 bits of coefficient a2 in I2C address 0x47
-//  487 //14. Write the bottom 8 bits of coefficient a2 in I2C address 0x48
-//  488 //15. Write the top 8-bits of coefficient b0 in I2C address 0x49
-//  489 //16. Write the middle 8 bits of coefficient b0 in I2C address 0x4A
-//  490 //17. Write the bottom 8 bits of coefficient b0 in I2C address 0x4B
-//  491 //WriteSTAByte(0x3D,BufData,15);
-//  492 
-//  493 for (uint8_t idxCoef=0; idxCoef < 5; idxCoef++)
-        MOVS     R5,#+61
-        LDR.W    R8,??DataTable6_5
-//  494 {
-//  495 	//3. Write the top 8 bits of coefficient in I2C address 0x3D
-//  496 	//pcSTAComnd[0] = (uint8_t)((BufData[idxCoef] & 0x00FF0000)>>16);
-//  497     pcSTAComnd[0] = BufData[0+idxCoef*3];
+        MOV      R4,R1
+        STRB     R0,[R8, #+36]
+//  471 WriteSTAByte(0x3B,&pcSTAComnd[0],1);
+        MOVS     R0,#+2
+          CFI FunCall malloc
+        BL       malloc
+        MOV      R5,R0
+        MOVS     R3,#+59
+        MOVS     R0,#+0
+        MOV      R1,R5
+        ADD      R2,R8,#+35
+        LDR.W    R9,??DataTable5_4
+        STRB     R3,[R5, #+0]
+        B.N      ??WriteCoef_0
+??WriteCoef_1:
+        CBNZ.N   R0,??WriteCoef_2
+        MOVS     R3,#+59
+        STRB     R3,[R5, #+0]
+        B.N      ??WriteCoef_0
+??WriteCoef_2:
+        LDRB     R3,[R2, #+0]
+        STRB     R3,[R1, #+0]
 ??WriteCoef_0:
-        LDRB     R0,[R6, #+0]
-//  498 	WriteSTAByte(0x3D+idxCoef*3,&pcSTAComnd[0],1);
-        SUB      R11,R4,#+1
-        STRB     R0,[R4, #+0]
+        ADDS     R0,R0,#+1
+        ADDS     R2,R2,#+1
+        ADDS     R1,R1,#+1
+        CMP      R0,#+2
+        BLT.N    ??WriteCoef_1
+??WriteCoef_3:
+        MOV      R0,#+1000
+        MOVS     R3,#+2
+        STR      R0,[SP, #+0]
+        MOV      R2,R5
+        MOVS     R1,#+64
+        MOV      R0,R9
+          CFI FunCall HAL_I2C_Master_Transmit
+        BL       HAL_I2C_Master_Transmit
+        CMP      R0,#+0
+        BNE.N    ??WriteCoef_3
+        MOV      R0,R5
+          CFI FunCall free
+        BL       free
+//  472 
+//  473 //2. Write the bottom 8 bits of starting address to I2C register 0x3C
+//  474 pcSTAComnd[0] = (Adrss);
+        STRB     R7,[R8, #+36]
+//  475 WriteSTAByte(0x3C,&pcSTAComnd[0],1);
         MOVS     R0,#+2
           CFI FunCall malloc
         BL       malloc
         MOV      R7,R0
+        MOVS     R3,#+60
         MOVS     R0,#+0
         MOV      R1,R7
-        MOV      R2,R11
-        B.N      ??WriteCoef_1
-??WriteCoef_2:
-        CBNZ.N   R0,??WriteCoef_3
-??WriteCoef_1:
-        STRB     R5,[R7, #+0]
+        ADD      R2,R8,#+35
+        STRB     R3,[R7, #+0]
         B.N      ??WriteCoef_4
-??WriteCoef_3:
+??WriteCoef_5:
+        CBNZ.N   R0,??WriteCoef_6
+        MOVS     R3,#+60
+        STRB     R3,[R7, #+0]
+        B.N      ??WriteCoef_4
+??WriteCoef_6:
         LDRB     R3,[R2, #+0]
         STRB     R3,[R1, #+0]
 ??WriteCoef_4:
@@ -1406,8 +1730,293 @@ WriteCoef:
         ADDS     R2,R2,#+1
         ADDS     R1,R1,#+1
         CMP      R0,#+2
-        BLT.N    ??WriteCoef_2
-??WriteCoef_5:
+        BLT.N    ??WriteCoef_5
+??WriteCoef_7:
+        MOV      R0,#+1000
+        MOVS     R3,#+2
+        STR      R0,[SP, #+0]
+        MOV      R2,R7
+        MOVS     R1,#+64
+        MOV      R0,R9
+          CFI FunCall HAL_I2C_Master_Transmit
+        BL       HAL_I2C_Master_Transmit
+        CMP      R0,#+0
+        BNE.N    ??WriteCoef_7
+        MOV      R0,R7
+        MOVS     R7,#+61
+          CFI FunCall free
+        BL       free
+//  476 
+//  477 //3. Write the top 8 bits of coefficient b1 in I2C address 0x3D
+//  478 //4. Write the middle 8 bits of coefficient b1 in I2C address 0x3E
+//  479 //5. Write the bottom 8 bits of coefficient b1 in I2C address 0x3F
+//  480 //6. Write the top 8 bits of coefficient b2 in I2C address 0x40
+//  481 //7. Write the middle 8-bits of coefficient b2 in I2C address 0x41
+//  482 //8. Write the bottom 8 bits of coefficient b2 in I2C address 0x42
+//  483 //9. Write the top 8 bits of coefficient a1 in I2C address 0x43
+//  484 //10. Write the middle 8 bits of coefficient a1 in I2C address 0x44
+//  485 //11. Write the bottom 8 bits of coefficient a1 in I2C address 0x45
+//  486 //12. Write the top 8 bits of coefficient a2 in I2C address 0x46
+//  487 //13. Write the middle 8 bits of coefficient a2 in I2C address 0x47
+//  488 //14. Write the bottom 8 bits of coefficient a2 in I2C address 0x48
+//  489 //15. Write the top 8-bits of coefficient b0 in I2C address 0x49
+//  490 //16. Write the middle 8 bits of coefficient b0 in I2C address 0x4A
+//  491 //17. Write the bottom 8 bits of coefficient b0 in I2C address 0x4B
+//  492 //WriteSTAByte(0x3D,BufData,15);
+//  493 
+//  494 for (uint8_t idxCoef=0; idxCoef < 5; idxCoef++)
+        MOVS     R5,#+5
+//  495 {
+//  496 	//3. Write the top 8 bits of coefficient in I2C address 0x3D
+//  497 	//pcSTAComnd[0] = (uint8_t)((BufData[idxCoef] & 0x00FF0000)>>16);
+//  498     pcSTAComnd[0] = BufData[0+idxCoef*3];
+??WriteCoef_8:
+        LDRB     R0,[R4, #+0]
+        STRB     R0,[R8, #+36]
+//  499 	WriteSTAByte(0x3D+idxCoef*3,&pcSTAComnd[0],1);
+        MOVS     R0,#+2
+          CFI FunCall malloc
+        BL       malloc
+        MOV      R6,R0
+        MOVS     R0,#+0
+        MOV      R1,R6
+        ADD      R2,R8,#+35
+        STRB     R7,[R6, #+0]
+        B.N      ??WriteCoef_9
+??WriteCoef_10:
+        CBNZ.N   R0,??WriteCoef_11
+        STRB     R7,[R6, #+0]
+        B.N      ??WriteCoef_9
+??WriteCoef_11:
+        LDRB     R3,[R2, #+0]
+        STRB     R3,[R1, #+0]
+??WriteCoef_9:
+        ADDS     R0,R0,#+1
+        ADDS     R2,R2,#+1
+        ADDS     R1,R1,#+1
+        CMP      R0,#+2
+        BLT.W    ??WriteCoef_10
+??WriteCoef_12:
+        MOV      R0,#+1000
+        MOVS     R3,#+2
+        STR      R0,[SP, #+0]
+        MOV      R2,R6
+        MOVS     R1,#+64
+        MOV      R0,R9
+          CFI FunCall HAL_I2C_Master_Transmit
+        BL       HAL_I2C_Master_Transmit
+        CMP      R0,#+0
+        BNE.N    ??WriteCoef_12
+        MOV      R0,R6
+        ADDS     R6,R7,#+1
+          CFI FunCall free
+        BL       free
+//  500 
+//  501 	//4. Write the middle 8 bits of coefficient in I2C address 0x3E
+//  502 	//pcSTAComnd[0] = (uint8_t)(((BufData[idxCoef]  & 0x0000FF00)>>8);
+//  503 	pcSTAComnd[0] = BufData[1+idxCoef*3];
+        LDRB     R0,[R4, #+1]
+        STRB     R0,[R8, #+36]
+//  504 	WriteSTAByte(0x3E+idxCoef*3,&pcSTAComnd[0],1);
+        MOVS     R0,#+2
+          CFI FunCall malloc
+        BL       malloc
+        MOV      R10,R0
+        MOVS     R0,#+0
+        MOV      R1,R10
+        ADD      R2,R8,#+35
+        STRB     R6,[R10, #+0]
+        B.N      ??WriteCoef_13
+??WriteCoef_14:
+        CBNZ.N   R0,??WriteCoef_15
+        STRB     R6,[R10, #+0]
+        B.N      ??WriteCoef_13
+??WriteCoef_15:
+        LDRB     R3,[R2, #+0]
+        STRB     R3,[R1, #+0]
+??WriteCoef_13:
+        ADDS     R0,R0,#+1
+        ADDS     R2,R2,#+1
+        ADDS     R1,R1,#+1
+        CMP      R0,#+2
+        BLT.N    ??WriteCoef_14
+??WriteCoef_16:
+        MOV      R0,#+1000
+        MOVS     R3,#+2
+        STR      R0,[SP, #+0]
+        MOV      R2,R10
+        MOVS     R1,#+64
+        MOV      R0,R9
+          CFI FunCall HAL_I2C_Master_Transmit
+        BL       HAL_I2C_Master_Transmit
+        CMP      R0,#+0
+        BNE.N    ??WriteCoef_16
+        MOV      R0,R10
+        ADDS     R6,R7,#+2
+          CFI FunCall free
+        BL       free
+//  505 
+//  506 	//5. Write the bottom 8 bits of coefficient in I2C address 0x3F
+//  507 	//pcSTAComnd[0] = (uint8_t)(((BufData[idxCoef]  & 0x000000FF));
+//  508 	pcSTAComnd[0] = BufData[2+idxCoef*3];
+        LDRB     R0,[R4, #+2]
+        STRB     R0,[R8, #+36]
+//  509 	WriteSTAByte(0x3F+idxCoef*3,&pcSTAComnd[0],1);
+        MOVS     R0,#+2
+          CFI FunCall malloc
+        BL       malloc
+        MOV      R10,R0
+        MOVS     R0,#+0
+        MOV      R1,R10
+        ADD      R2,R8,#+35
+        STRB     R6,[R10, #+0]
+        B.N      ??WriteCoef_17
+??WriteCoef_18:
+        CBNZ.N   R0,??WriteCoef_19
+        STRB     R6,[R10, #+0]
+        B.N      ??WriteCoef_17
+??WriteCoef_19:
+        LDRB     R3,[R2, #+0]
+        STRB     R3,[R1, #+0]
+??WriteCoef_17:
+        ADDS     R0,R0,#+1
+        ADDS     R2,R2,#+1
+        ADDS     R1,R1,#+1
+        CMP      R0,#+2
+        BLT.N    ??WriteCoef_18
+??WriteCoef_20:
+        MOV      R0,#+1000
+        MOVS     R3,#+2
+        STR      R0,[SP, #+0]
+        MOV      R2,R10
+        MOVS     R1,#+64
+        MOV      R0,R9
+          CFI FunCall HAL_I2C_Master_Transmit
+        BL       HAL_I2C_Master_Transmit
+        CMP      R0,#+0
+        BNE.N    ??WriteCoef_20
+        MOV      R0,R10
+        ADDS     R4,R4,#+3
+          CFI FunCall free
+        BL       free
+//  510 }
+        ADDS     R7,R7,#+3
+        SUBS     R5,R5,#+1
+        BNE.W    ??WriteCoef_8
+//  511 
+//  512 
+//  513 
+//  514 //18. Write 1 to the WA bit in I2C address 0x4C
+//  515 pcSTAComnd[0] = 0x02;
+        MOVS     R0,#+2
+        STRB     R0,[R8, #+36]
+//  516 WriteSTAByte(0x4C,&pcSTAComnd[0],1);
+          CFI FunCall malloc
+        BL       malloc
+        MOV      R4,R0
+        MOVS     R3,#+76
+        MOVS     R0,#+0
+        MOV      R1,R4
+        ADD      R2,R8,#+35
+        STRB     R3,[R4, #+0]
+        B.N      ??WriteCoef_21
+??WriteCoef_22:
+        CBNZ.N   R0,??WriteCoef_23
+        MOVS     R3,#+76
+        STRB     R3,[R4, #+0]
+        B.N      ??WriteCoef_21
+??WriteCoef_23:
+        LDRB     R3,[R2, #+0]
+        STRB     R3,[R1, #+0]
+??WriteCoef_21:
+        ADDS     R0,R0,#+1
+        ADDS     R2,R2,#+1
+        ADDS     R1,R1,#+1
+        CMP      R0,#+2
+        BLT.W    ??WriteCoef_22
+??WriteCoef_24:
+        MOV      R0,#+1000
+        MOVS     R3,#+2
+        STR      R0,[SP, #+0]
+        MOV      R2,R4
+        MOVS     R1,#+64
+        MOV      R0,R9
+          CFI FunCall HAL_I2C_Master_Transmit
+        BL       HAL_I2C_Master_Transmit
+        CMP      R0,#+0
+        BNE.N    ??WriteCoef_24
+        MOV      R0,R4
+        ADD      SP,SP,#+8
+          CFI CFA R13+32
+        POP      {R4-R10,LR}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI R8 SameValue
+          CFI R9 SameValue
+          CFI R10 SameValue
+          CFI R14 SameValue
+          CFI CFA R13+0
+          CFI FunCall free
+        B.W      free
+//  517 
+//  518 }
+          CFI EndBlock cfiBlock4
+//  519 
+
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock5 Using cfiCommon0
+          CFI Function ReadCoef
+        THUMB
+//  520 void ReadCoef(uint16_t Adrss, uint8_t * BufData)
+//  521 {
+ReadCoef:
+        PUSH     {R4-R8,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R8 Frame(CFA, -8)
+          CFI R7 Frame(CFA, -12)
+          CFI R6 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -20)
+          CFI R4 Frame(CFA, -24)
+          CFI CFA R13+24
+        MOV      R6,R0
+//  522 //1. Write the top 2 bits of starting address to I2C register 0x3B
+//  523 pcSTAComnd[0] = (Adrss>>8)&0x03;
+        LSRS     R0,R0,#+8
+        SUB      SP,SP,#+8
+          CFI CFA R13+32
+        LDR.N    R5,??DataTable5_1
+        AND      R0,R0,#0x3
+        MOV      R4,R1
+        STRB     R0,[R5, #+36]
+//  524 WriteSTAByte(0x3B,&pcSTAComnd[0],1);
+        MOVS     R0,#+2
+          CFI FunCall malloc
+        BL       malloc
+        MOV      R7,R0
+        MOVS     R3,#+59
+        MOVS     R0,#+0
+        MOV      R1,R7
+        ADD      R2,R5,#+35
+        LDR.W    R8,??DataTable5_4
+        STRB     R3,[R7, #+0]
+        B.N      ??ReadCoef_0
+??ReadCoef_1:
+        CBNZ.N   R0,??ReadCoef_2
+        MOVS     R3,#+59
+        STRB     R3,[R7, #+0]
+        B.N      ??ReadCoef_0
+??ReadCoef_2:
+        LDRB     R3,[R2, #+0]
+        STRB     R3,[R1, #+0]
+??ReadCoef_0:
+        ADDS     R0,R0,#+1
+        ADDS     R2,R2,#+1
+        ADDS     R1,R1,#+1
+        CMP      R0,#+2
+        BLT.W    ??ReadCoef_1
+??ReadCoef_3:
         MOV      R0,#+1000
         MOVS     R3,#+2
         STR      R0,[SP, #+0]
@@ -1417,591 +2026,416 @@ WriteCoef:
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CMP      R0,#+0
-        BNE.N    ??WriteCoef_5
+        BNE.N    ??ReadCoef_3
         MOV      R0,R7
-        ADDS     R7,R5,#+1
           CFI FunCall free
         BL       free
-//  499 
-//  500 	//4. Write the middle 8 bits of coefficient in I2C address 0x3E
-//  501 	//pcSTAComnd[0] = (uint8_t)(((BufData[idxCoef]  & 0x0000FF00)>>8);
-//  502 	pcSTAComnd[0] = BufData[1+idxCoef*3];
-        LDRB     R0,[R6, #+1]
-        STRB     R0,[R4, #+0]
-//  503 	WriteSTAByte(0x3E+idxCoef*3,&pcSTAComnd[0],1);
+//  525 
+//  526 //2. Write the bottom 8 bits of starting address to I2C register 0x3C
+//  527 pcSTAComnd[0] = (Adrss);
+        STRB     R6,[R5, #+36]
+//  528 WriteSTAByte(0x3C,&pcSTAComnd[0],1);
         MOVS     R0,#+2
           CFI FunCall malloc
         BL       malloc
-        MOV      R10,R0
+        MOV      R6,R0
+        MOVS     R3,#+60
         MOVS     R0,#+0
-        MOV      R1,R10
-        MOV      R2,R11
-        B.N      ??WriteCoef_6
-??WriteCoef_7:
-        CBNZ.N   R0,??WriteCoef_8
-??WriteCoef_6:
-        STRB     R7,[R10, #+0]
-        B.N      ??WriteCoef_9
-??WriteCoef_8:
+        MOV      R1,R6
+        ADD      R2,R5,#+35
+        STRB     R3,[R6, #+0]
+        B.N      ??ReadCoef_4
+??ReadCoef_5:
+        CBNZ.N   R0,??ReadCoef_6
+        MOVS     R3,#+60
+        STRB     R3,[R6, #+0]
+        B.N      ??ReadCoef_4
+??ReadCoef_6:
         LDRB     R3,[R2, #+0]
         STRB     R3,[R1, #+0]
-??WriteCoef_9:
+??ReadCoef_4:
         ADDS     R0,R0,#+1
         ADDS     R2,R2,#+1
         ADDS     R1,R1,#+1
         CMP      R0,#+2
-        BLT.N    ??WriteCoef_7
-??WriteCoef_10:
+        BLT.N    ??ReadCoef_5
+??ReadCoef_7:
         MOV      R0,#+1000
         MOVS     R3,#+2
         STR      R0,[SP, #+0]
-        MOV      R2,R10
+        MOV      R2,R6
         MOVS     R1,#+64
         MOV      R0,R8
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CMP      R0,#+0
-        BNE.N    ??WriteCoef_10
-        MOV      R0,R10
-        ADDS     R7,R5,#+2
+        BNE.N    ??ReadCoef_7
+        MOV      R0,R6
           CFI FunCall free
         BL       free
-//  504 
-//  505 	//5. Write the bottom 8 bits of coefficient in I2C address 0x3F
-//  506 	//pcSTAComnd[0] = (uint8_t)(((BufData[idxCoef]  & 0x000000FF));
-//  507 	pcSTAComnd[0] = BufData[2+idxCoef*3];
-        LDRB     R0,[R6, #+2]
-        STRB     R0,[R4, #+0]
-//  508 	WriteSTAByte(0x3F+idxCoef*3,&pcSTAComnd[0],1);
+//  529 
+//  530 ReadSTASeq(0x3D,BufData,3);
+        MOVS     R0,#+61
+        STRB     R0,[SP, #+4]
+        Nop      
+??ReadCoef_8:
+        MOV      R0,#+1000
+        MOVS     R3,#+1
+        STR      R0,[SP, #+0]
+        ADD      R2,SP,#+4
+        MOVS     R1,#+64
+        MOV      R0,R8
+          CFI FunCall HAL_I2C_Master_Transmit
+        BL       HAL_I2C_Master_Transmit
+        CMP      R0,#+0
+        BNE.W    ??ReadCoef_8
+??ReadCoef_9:
+        MOV      R0,#+1000
+        MOVS     R3,#+3
+        STR      R0,[SP, #+0]
+        MOV      R2,R4
+        MOVS     R1,#+65
+        MOV      R0,R8
+          CFI FunCall HAL_I2C_Master_Receive
+        BL       HAL_I2C_Master_Receive
+        CMP      R0,#+0
+        BNE.N    ??ReadCoef_9
+//  531 
+//  532 }
+        ADD      SP,SP,#+8
+          CFI CFA R13+24
+        POP      {R4-R8,PC}       ;; return
+          CFI EndBlock cfiBlock5
+//  533 
+//  534 
+
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock6 Using cfiCommon0
+          CFI Function SetCoefValue
+        THUMB
+//  535 void SetCoefValue(uint16_t Adrss, uint32_t DataCoef)
+//  536 {
+SetCoefValue:
+        PUSH     {R4-R8,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R8 Frame(CFA, -8)
+          CFI R7 Frame(CFA, -12)
+          CFI R6 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -20)
+          CFI R4 Frame(CFA, -24)
+          CFI CFA R13+24
+        MOV      R7,R0
+//  537 //1. Write the top 2 bits of address to I2C register 0x3B
+//  538 pcSTAComnd[0] = (Adrss>>8)&0x03;
+        LSRS     R0,R0,#+8
+        SUB      SP,SP,#+8
+          CFI CFA R13+32
+        LDR.N    R5,??DataTable5_1
+        AND      R0,R0,#0x3
+        MOV      R4,R1
+        STRB     R0,[R5, #+36]
+//  539 WriteSTAByte(0x3B,&pcSTAComnd[0],1);
         MOVS     R0,#+2
           CFI FunCall malloc
         BL       malloc
-        MOV      R10,R0
+        MOV      R6,R0
+        MOVS     R3,#+59
         MOVS     R0,#+0
-        MOV      R1,R10
-        B.N      ??WriteCoef_11
-??WriteCoef_12:
-        CBNZ.N   R0,??WriteCoef_13
-??WriteCoef_11:
-        STRB     R7,[R10, #+0]
-        B.N      ??WriteCoef_14
-??WriteCoef_13:
-        LDRB     R2,[R11, #+0]
-        STRB     R2,[R1, #+0]
-??WriteCoef_14:
+        MOV      R1,R6
+        ADD      R2,R5,#+35
+        LDR.W    R8,??DataTable5_4
+        STRB     R3,[R6, #+0]
+        B.N      ??SetCoefValue_0
+??SetCoefValue_1:
+        CBNZ.N   R0,??SetCoefValue_2
+        MOVS     R3,#+59
+        STRB     R3,[R6, #+0]
+        B.N      ??SetCoefValue_0
+??SetCoefValue_2:
+        LDRB     R3,[R2, #+0]
+        STRB     R3,[R1, #+0]
+??SetCoefValue_0:
         ADDS     R0,R0,#+1
+        ADDS     R2,R2,#+1
         ADDS     R1,R1,#+1
         CMP      R0,#+2
-        ADD      R11,R11,#+1
-        BLT.N    ??WriteCoef_12
-??WriteCoef_15:
+        BLT.W    ??SetCoefValue_1
+??SetCoefValue_3:
         MOV      R0,#+1000
         MOVS     R3,#+2
         STR      R0,[SP, #+0]
-        MOV      R2,R10
+        MOV      R2,R6
         MOVS     R1,#+64
         MOV      R0,R8
           CFI FunCall HAL_I2C_Master_Transmit
         BL       HAL_I2C_Master_Transmit
         CMP      R0,#+0
-        BNE.N    ??WriteCoef_15
-        MOV      R0,R10
-        ADDS     R6,R6,#+3
+        BNE.N    ??SetCoefValue_3
+        MOV      R0,R6
           CFI FunCall free
         BL       free
-//  509 }
-        ADDS     R5,R5,#+3
-        SUBS     R9,R9,#+1
-        BNE.N    ??WriteCoef_0
-//  510 
-//  511 
-//  512 
-//  513 //18. Write 1 to the WA bit in I2C address 0x4C
-//  514 pcSTAComnd[0] = 0x02;
+//  540 
+//  541 //2. Write the bottom 8 bits of address to I2C register 0x3C
+//  542 pcSTAComnd[0] = (Adrss);
+        STRB     R7,[R5, #+36]
+//  543 WriteSTAByte(0x3C,&pcSTAComnd[0],1);
         MOVS     R0,#+2
-//  515 WriteSTAByte(0x4C,&pcSTAComnd[0],1);
+          CFI FunCall malloc
+        BL       malloc
+        MOV      R7,R0
+        MOVS     R3,#+60
+        MOVS     R0,#+0
+        MOV      R1,R7
+        ADD      R2,R5,#+35
+        STRB     R3,[R7, #+0]
+        B.N      ??SetCoefValue_4
+??SetCoefValue_5:
+        CBNZ.N   R0,??SetCoefValue_6
+        MOVS     R3,#+60
+        STRB     R3,[R7, #+0]
+        B.N      ??SetCoefValue_4
+??SetCoefValue_6:
+        LDRB     R3,[R2, #+0]
+        STRB     R3,[R1, #+0]
+??SetCoefValue_4:
+        ADDS     R0,R0,#+1
+        ADDS     R2,R2,#+1
+        ADDS     R1,R1,#+1
+        CMP      R0,#+2
+        BLT.N    ??SetCoefValue_5
+??SetCoefValue_7:
+        MOV      R0,#+1000
+        MOVS     R3,#+2
+        STR      R0,[SP, #+0]
+        MOV      R2,R7
+        MOVS     R1,#+64
+        MOV      R0,R8
+          CFI FunCall HAL_I2C_Master_Transmit
+        BL       HAL_I2C_Master_Transmit
+        CMP      R0,#+0
+        BNE.N    ??SetCoefValue_7
+        MOV      R0,R7
+          CFI FunCall free
+        BL       free
+//  544 
+//  545 //3. Write the top 8 bits of coefficient in I2C address 0x3D
+//  546 pcSTAComnd[0] = (uint8_t)((DataCoef & 0x00FF0000)>>16);
+        LSRS     R0,R4,#+16
+        STRB     R0,[R5, #+36]
+//  547 WriteSTAByte(0x3D,&pcSTAComnd[0],1);
+        MOVS     R0,#+2
+          CFI FunCall malloc
+        BL       malloc
+        MOV      R7,R0
+        MOVS     R3,#+61
+        MOVS     R0,#+0
+        MOV      R1,R7
+        ADD      R2,R5,#+35
+        STRB     R3,[R7, #+0]
+        B.N      ??SetCoefValue_8
+??SetCoefValue_9:
+        CBNZ.N   R0,??SetCoefValue_10
+        MOVS     R3,#+61
+        STRB     R3,[R7, #+0]
+        B.N      ??SetCoefValue_8
+??SetCoefValue_10:
+        LDRB     R3,[R2, #+0]
+        STRB     R3,[R1, #+0]
+??SetCoefValue_8:
+        ADDS     R0,R0,#+1
+        ADDS     R2,R2,#+1
+        ADDS     R1,R1,#+1
+        CMP      R0,#+2
+        BLT.W    ??SetCoefValue_9
+??SetCoefValue_11:
+        MOV      R0,#+1000
+        MOVS     R3,#+2
+        STR      R0,[SP, #+0]
+        MOV      R2,R7
+        MOVS     R1,#+64
+        MOV      R0,R8
+          CFI FunCall HAL_I2C_Master_Transmit
+        BL       HAL_I2C_Master_Transmit
+        CMP      R0,#+0
+        BNE.N    ??SetCoefValue_11
+        MOV      R0,R7
+          CFI FunCall free
+        BL       free
+//  548 
+//  549 //4. Write the middle 8 bits of coefficient in I2C address 0x3E
+//  550 pcSTAComnd[0] = (uint8_t)((DataCoef & 0x0000FF00)>>8);
+        LSRS     R0,R4,#+8
+        STRB     R0,[R5, #+36]
+//  551 WriteSTAByte(0x3E,&pcSTAComnd[0],1);
+        MOVS     R0,#+2
+          CFI FunCall malloc
+        BL       malloc
+        MOV      R7,R0
+        MOVS     R3,#+62
+        MOVS     R0,#+0
+        MOV      R1,R7
+        ADD      R2,R5,#+35
+        STRB     R3,[R7, #+0]
+        B.N      ??SetCoefValue_12
+??SetCoefValue_13:
+        CBNZ.N   R0,??SetCoefValue_14
+        MOVS     R3,#+62
+        STRB     R3,[R7, #+0]
+        B.N      ??SetCoefValue_12
+??SetCoefValue_14:
+        LDRB     R3,[R2, #+0]
+        STRB     R3,[R1, #+0]
+??SetCoefValue_12:
+        ADDS     R0,R0,#+1
+        ADDS     R2,R2,#+1
+        ADDS     R1,R1,#+1
+        CMP      R0,#+2
+        BLT.W    ??SetCoefValue_13
+??SetCoefValue_15:
+        MOV      R0,#+1000
+        MOVS     R3,#+2
+        STR      R0,[SP, #+0]
+        MOV      R2,R7
+        MOVS     R1,#+64
+        MOV      R0,R8
+          CFI FunCall HAL_I2C_Master_Transmit
+        BL       HAL_I2C_Master_Transmit
+        CMP      R0,#+0
+        BNE.N    ??SetCoefValue_15
+        MOV      R0,R7
+          CFI FunCall free
+        BL       free
+//  552 
+//  553 //5. Write the bottom 8 bits of coefficient in I2C address 0x3F
+//  554 pcSTAComnd[0] = (uint8_t)((DataCoef & 0x000000FF));
+        STRB     R4,[R5, #+36]
+//  555 WriteSTAByte(0x3F,&pcSTAComnd[0],1);
+        MOVS     R0,#+2
+          CFI FunCall malloc
+        BL       malloc
+        MOV      R4,R0
+        MOVS     R3,#+63
+        MOVS     R0,#+0
         MOV      R1,R4
-        STRB     R0,[R4, #+0]
-        MOVS     R2,#+1
-        MOVS     R0,#+76
-        POP      {R3-R11,LR}
+        ADD      R2,R5,#+35
+        STRB     R3,[R4, #+0]
+        B.N      ??SetCoefValue_16
+??SetCoefValue_17:
+        CBNZ.N   R0,??SetCoefValue_18
+        MOVS     R3,#+63
+        STRB     R3,[R4, #+0]
+        B.N      ??SetCoefValue_16
+??SetCoefValue_18:
+        LDRB     R3,[R2, #+0]
+        STRB     R3,[R1, #+0]
+??SetCoefValue_16:
+        ADDS     R0,R0,#+1
+        ADDS     R2,R2,#+1
+        ADDS     R1,R1,#+1
+        CMP      R0,#+2
+        BLT.N    ??SetCoefValue_17
+??SetCoefValue_19:
+        MOV      R0,#+1000
+        MOVS     R3,#+2
+        STR      R0,[SP, #+0]
+        MOV      R2,R4
+        MOVS     R1,#+64
+        MOV      R0,R8
+          CFI FunCall HAL_I2C_Master_Transmit
+        BL       HAL_I2C_Master_Transmit
+        CMP      R0,#+0
+        BNE.N    ??SetCoefValue_19
+        MOV      R0,R4
+          CFI FunCall free
+        BL       free
+//  556 
+//  557 
+//  558 //6. Write 1 to the W1 bit in I2C address 0x4C
+//  559 pcSTAComnd[0] = 0x01;
+        MOVS     R0,#+1
+        STRB     R0,[R5, #+36]
+//  560 WriteSTAByte(0x4C,&pcSTAComnd[0],1);
+        MOVS     R0,#+2
+          CFI FunCall malloc
+        BL       malloc
+        MOV      R4,R0
+        MOVS     R3,#+76
+        MOVS     R0,#+0
+        MOV      R1,R4
+        ADD      R2,R5,#+35
+        STRB     R3,[R4, #+0]
+        B.N      ??SetCoefValue_20
+??SetCoefValue_21:
+        CBNZ.N   R0,??SetCoefValue_22
+        MOVS     R3,#+76
+        STRB     R3,[R4, #+0]
+        B.N      ??SetCoefValue_20
+??SetCoefValue_22:
+        LDRB     R3,[R2, #+0]
+        STRB     R3,[R1, #+0]
+??SetCoefValue_20:
+        ADDS     R0,R0,#+1
+        ADDS     R2,R2,#+1
+        ADDS     R1,R1,#+1
+        CMP      R0,#+2
+        BLT.W    ??SetCoefValue_21
+??SetCoefValue_23:
+        MOV      R0,#+1000
+        MOVS     R3,#+2
+        STR      R0,[SP, #+0]
+        MOV      R2,R4
+        MOVS     R1,#+64
+        MOV      R0,R8
+          CFI FunCall HAL_I2C_Master_Transmit
+        BL       HAL_I2C_Master_Transmit
+        CMP      R0,#+0
+        BNE.N    ??SetCoefValue_23
+        MOV      R0,R4
+        ADD      SP,SP,#+8
+          CFI CFA R13+24
+        POP      {R4-R8,LR}
           CFI R4 SameValue
           CFI R5 SameValue
           CFI R6 SameValue
           CFI R7 SameValue
           CFI R8 SameValue
-          CFI R9 SameValue
-          CFI R10 SameValue
-          CFI R11 SameValue
           CFI R14 SameValue
           CFI CFA R13+0
-          CFI FunCall WriteSTAByte
-        B.N      WriteSTAByte
-//  516 
-//  517 }
-          CFI EndBlock cfiBlock4
-//  518 
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock5 Using cfiCommon0
-          CFI Function ReadCoef
-        THUMB
-//  519 void ReadCoef(uint16_t Adrss, uint8_t * BufData)
-//  520 {
-ReadCoef:
-        PUSH     {R4-R6,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+16
-        MOV      R4,R0
-//  521 //1. Write the top 2 bits of starting address to I2C register 0x3B
-//  522 pcSTAComnd[0] = (Adrss>>8)&0x03;
-        LSRS     R0,R0,#+8
-        LDR.N    R6,??DataTable6_1
-        AND      R0,R0,#0x3
-        MOV      R5,R1
-        STRB     R0,[R6, #+0]
-//  523 WriteSTAByte(0x3B,&pcSTAComnd[0],1);
-        MOVS     R2,#+1
-        MOV      R1,R6
-        MOVS     R0,#+59
-          CFI FunCall WriteSTAByte
-        BL       WriteSTAByte
-//  524 
-//  525 //2. Write the bottom 8 bits of starting address to I2C register 0x3C
-//  526 pcSTAComnd[0] = (Adrss);
-        STRB     R4,[R6, #+0]
-//  527 WriteSTAByte(0x3C,&pcSTAComnd[0],1);
-        MOVS     R2,#+1
-        MOV      R1,R6
-        MOVS     R0,#+60
-          CFI FunCall WriteSTAByte
-        BL       WriteSTAByte
-//  528 
-//  529 ReadSTASeq(0x3D,BufData,3);
-        MOV      R1,R5
-        MOVS     R2,#+3
-        MOVS     R0,#+61
-        POP      {R4-R6,LR}
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI R6 SameValue
-          CFI R14 SameValue
-          CFI CFA R13+0
-          CFI FunCall ReadSTASeq
-        B.N      ReadSTASeq
-//  530 
-//  531 }
-          CFI EndBlock cfiBlock5
-//  532 
-//  533 
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock6 Using cfiCommon0
-          CFI Function SetCoefValue
-        THUMB
-//  534 void SetCoefValue(uint16_t Adrss, uint32_t DataCoef)
-//  535 {
-SetCoefValue:
-        PUSH     {R4-R6,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+16
-        MOV      R5,R0
-//  536 //1. Write the top 2 bits of address to I2C register 0x3B
-//  537 pcSTAComnd[0] = (Adrss>>8)&0x03;
-        LSRS     R0,R0,#+8
-        LDR.N    R4,??DataTable6_1
-        AND      R0,R0,#0x3
-        MOV      R6,R1
-        STRB     R0,[R4, #+0]
-//  538 WriteSTAByte(0x3B,&pcSTAComnd[0],1);
-        MOVS     R2,#+1
-        MOV      R1,R4
-        MOVS     R0,#+59
-          CFI FunCall WriteSTAByte
-        BL       WriteSTAByte
-//  539 
-//  540 //2. Write the bottom 8 bits of address to I2C register 0x3C
-//  541 pcSTAComnd[0] = (Adrss);
-        STRB     R5,[R4, #+0]
-//  542 WriteSTAByte(0x3C,&pcSTAComnd[0],1);
-        MOVS     R2,#+1
-        MOV      R1,R4
-        MOVS     R0,#+60
-          CFI FunCall WriteSTAByte
-        BL       WriteSTAByte
-//  543 
-//  544 //3. Write the top 8 bits of coefficient in I2C address 0x3D
-//  545 pcSTAComnd[0] = (uint8_t)((DataCoef & 0x00FF0000)>>16);
-        LSRS     R0,R6,#+16
-//  546 WriteSTAByte(0x3D,&pcSTAComnd[0],1);
-        MOVS     R2,#+1
-        STRB     R0,[R4, #+0]
-        MOV      R1,R4
-        MOVS     R0,#+61
-          CFI FunCall WriteSTAByte
-        BL       WriteSTAByte
-//  547 
-//  548 //4. Write the middle 8 bits of coefficient in I2C address 0x3E
-//  549 pcSTAComnd[0] = (uint8_t)((DataCoef & 0x0000FF00)>>8);
-        LSRS     R0,R6,#+8
-//  550 WriteSTAByte(0x3E,&pcSTAComnd[0],1);
-        MOVS     R2,#+1
-        STRB     R0,[R4, #+0]
-        MOV      R1,R4
-        MOVS     R0,#+62
-          CFI FunCall WriteSTAByte
-        BL       WriteSTAByte
-//  551 
-//  552 //5. Write the bottom 8 bits of coefficient in I2C address 0x3F
-//  553 pcSTAComnd[0] = (uint8_t)((DataCoef & 0x000000FF));
-        STRB     R6,[R4, #+0]
-//  554 WriteSTAByte(0x3F,&pcSTAComnd[0],1);
-        MOVS     R2,#+1
-        MOV      R1,R4
-        MOVS     R0,#+63
-          CFI FunCall WriteSTAByte
-        BL       WriteSTAByte
-//  555 
-//  556 
-//  557 //6. Write 1 to the W1 bit in I2C address 0x4C
-//  558 pcSTAComnd[0] = 0x01;
-        MOVS     R0,#+1
-//  559 WriteSTAByte(0x4C,&pcSTAComnd[0],1);
-        MOV      R1,R4
-        STRB     R0,[R4, #+0]
-        MOVS     R2,#+1
-        MOVS     R0,#+76
-        POP      {R4-R6,LR}
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI R6 SameValue
-          CFI R14 SameValue
-          CFI CFA R13+0
-          CFI FunCall WriteSTAByte
-        B.N      WriteSTAByte
-//  560 
-//  561 }
+          CFI FunCall free
+        B.W      free
+//  561 
+//  562 }
           CFI EndBlock cfiBlock6
-//  562 
-//  563 
-//  564 static void sta321mp_mixer( int16_t mix, int16_t ch_out, int16_t ch_in, uint32_t value)
-//  565 {
-//  566     uint16_t address = 0x1A0 + 64*(mix-1) + 8*(ch_out-1) + (ch_in-1);
-//  567 
-//  568 	SetCoefValue(address,value);	
-//  569 }
-//  570 
-//  571 static void sta321mp_prescale(int16_t ch, uint32_t val)
-//  572 {
-//  573   unsigned int address = 0x190 + (ch-1);
-//  574   SetCoefValue(address, val);
-//  575 }
-//  576 
-//  577 
-//  578 static void sta321mp_postscale(int16_t ch, uint32_t val)
-//  579 {
-//  580   uint16_t address = 0x198 + (ch-1);
-//  581   SetCoefValue(address, val);
-//  582 }
-//  583 
-//  584 /* set the biquad coefficients in RAM */
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock7 Using cfiCommon0
-          CFI Function sta321mp_biquad
-        THUMB
-//  585 static void sta321mp_biquad(int16_t channel, int16_t biquad, 
-//  586                             uint32_t b1_2, uint32_t b2, uint32_t a1_2, uint32_t a2, uint32_t b0_2)
-//  587 {
-sta321mp_biquad:
-        PUSH     {R3-R7,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+24
-//  588 
-//  589    uint16_t Adrss = 50*(channel-1) + 5*(biquad-1);
-        SUBS     R1,R1,#+1
-        MOV      R4,R2
-        ADD      R1,R1,R1, LSL #+2
-        SUBS     R0,R0,#+1
-        MOVS     R2,#+50
-//  590 
-//  591 	//1. Write the top 2 bits of address to I2C register 0x3B
-//  592 	pcSTAComnd[0] = (Adrss>>8)&0x03;
-        LDR.N    R6,??DataTable6_1
-        MLA      R7,R2,R0,R1
-        MOV      R5,R3
-//  593 	WriteSTAByte(0x3B,&pcSTAComnd[0],1);
-        MOVS     R2,#+1
-        MOV      R1,R6
-        UXTH     R7,R7
-        LSRS     R0,R7,#+8
-        AND      R0,R0,#0x3
-        STRB     R0,[R6, #+0]
-        MOVS     R0,#+59
-          CFI FunCall WriteSTAByte
-        BL       WriteSTAByte
-//  594 	
-//  595 	//2. Write the bottom 8 bits of address to I2C register 0x3C
-//  596 	pcSTAComnd[0] = (Adrss);
-        STRB     R7,[R6, #+0]
-//  597 	WriteSTAByte(0x3C,&pcSTAComnd[0],1);
-        MOVS     R2,#+1
-        MOV      R1,R6
-        MOVS     R0,#+60
-          CFI FunCall WriteSTAByte
-        BL       WriteSTAByte
-//  598 
-//  599     pcSTAComnd[0]= 0xFF & (b1_2 >> 16);
-        LSRS     R0,R4,#+16
-//  600 	WriteSTAByte(0x3D,&pcSTAComnd[0],1);
-        MOVS     R2,#+1
-        STRB     R0,[R6, #+0]
-        MOV      R1,R6
-        MOVS     R0,#+61
-          CFI FunCall WriteSTAByte
-        BL       WriteSTAByte
-//  601 
-//  602 	
-//  603     pcSTAComnd[0]= 0xFF & (b1_2 >> 8);
-        LSRS     R0,R4,#+8
-//  604 	WriteSTAByte(0x3E,&pcSTAComnd[0],1  );
-        MOVS     R2,#+1
-        STRB     R0,[R6, #+0]
-        MOV      R1,R6
-        MOVS     R0,#+62
-          CFI FunCall WriteSTAByte
-        BL       WriteSTAByte
-//  605 	
-//  606     pcSTAComnd[0]= 0xFF & b1_2;
-        STRB     R4,[R6, #+0]
-//  607 	WriteSTAByte(0x3F, &pcSTAComnd[0],1 );
-        MOVS     R2,#+1
-        MOV      R1,R6
-        MOVS     R0,#+63
-          CFI FunCall WriteSTAByte
-        BL       WriteSTAByte
-//  608 	
-//  609     pcSTAComnd[0]= 0xFF & (b2 >> 16);
-        LSRS     R0,R5,#+16
-//  610 	WriteSTAByte(0x40, &pcSTAComnd[0],1 );
-        MOVS     R2,#+1
-        STRB     R0,[R6, #+0]
-        MOV      R1,R6
-        MOVS     R0,#+64
-          CFI FunCall WriteSTAByte
-        BL       WriteSTAByte
-//  611 	
-//  612     pcSTAComnd[0]= 0xFF & (b2 >> 8);
-        LSRS     R0,R5,#+8
-//  613 	WriteSTAByte(0x41, &pcSTAComnd[0],1 );
-        MOVS     R2,#+1
-        STRB     R0,[R6, #+0]
-        MOV      R1,R6
-        MOVS     R0,#+65
-          CFI FunCall WriteSTAByte
-        BL       WriteSTAByte
-//  614 	
-//  615     pcSTAComnd[0]= 0xFF & b2;
-        STRB     R5,[R6, #+0]
-//  616 	WriteSTAByte( 0x42,&pcSTAComnd[0],1 );
-        MOVS     R2,#+1
-        MOV      R1,R6
-        MOVS     R0,#+66
-          CFI FunCall WriteSTAByte
-        BL       WriteSTAByte
-        LDR      R4,[SP, #+24]
-//  617 	
-//  618     pcSTAComnd[0]= 0xFF & (a1_2 >> 16);
-//  619 	WriteSTAByte( 0x43, &pcSTAComnd[0],1 );
-        MOVS     R2,#+1
-        MOV      R1,R6
-        LSRS     R0,R4,#+16
-        STRB     R0,[R6, #+0]
-        MOVS     R0,#+67
-          CFI FunCall WriteSTAByte
-        BL       WriteSTAByte
-//  620 	
-//  621     pcSTAComnd[0]= 0xFF & (a1_2 >> 8);
-        LSRS     R0,R4,#+8
-//  622 	WriteSTAByte( 0x44,  &pcSTAComnd[0],1);
-        MOVS     R2,#+1
-        STRB     R0,[R6, #+0]
-        MOV      R1,R6
-        MOVS     R0,#+68
-          CFI FunCall WriteSTAByte
-        BL       WriteSTAByte
-//  623 	
-//  624     pcSTAComnd[0]= 0xFF & a1_2;
-        STRB     R4,[R6, #+0]
-//  625 	WriteSTAByte( 0x45, &pcSTAComnd[0],1 );
-        MOVS     R2,#+1
-        MOV      R1,R6
-        MOVS     R0,#+69
-          CFI FunCall WriteSTAByte
-        BL       WriteSTAByte
-        LDR      R4,[SP, #+28]
-//  626 	
-//  627     pcSTAComnd[0]= 0xFF & (a2 >> 16);
-//  628 	WriteSTAByte( 0x46, &pcSTAComnd[0],1 );
-        MOVS     R2,#+1
-        MOV      R1,R6
-        LSRS     R0,R4,#+16
-        STRB     R0,[R6, #+0]
-        MOVS     R0,#+70
-          CFI FunCall WriteSTAByte
-        BL       WriteSTAByte
-//  629 
-//  630     pcSTAComnd[0]=  0xFF & (a2 >> 8);
-        LSRS     R0,R4,#+8
-//  631 	WriteSTAByte( 0x47, &pcSTAComnd[0],1);
-        MOVS     R2,#+1
-        STRB     R0,[R6, #+0]
-        MOV      R1,R6
-        MOVS     R0,#+71
-          CFI FunCall WriteSTAByte
-        BL       WriteSTAByte
-//  632 	
-//  633     pcSTAComnd[0]= 0xFF & a2;
-        STRB     R4,[R6, #+0]
-//  634 	WriteSTAByte( 0x48, &pcSTAComnd[0],1 );
-        MOVS     R2,#+1
-        MOV      R1,R6
-        MOVS     R0,#+72
-          CFI FunCall WriteSTAByte
-        BL       WriteSTAByte
-        LDR      R4,[SP, #+32]
-//  635 	
-//  636     pcSTAComnd[0]= 0xFF & (b0_2 >> 16);
-//  637 	WriteSTAByte( 0x49, &pcSTAComnd[0],1 );
-        MOVS     R2,#+1
-        MOV      R1,R6
-        LSRS     R0,R4,#+16
-        STRB     R0,[R6, #+0]
-        MOVS     R0,#+73
-          CFI FunCall WriteSTAByte
-        BL       WriteSTAByte
-//  638 	
-//  639     pcSTAComnd[0]= 0xFF & (b0_2 >> 8);
-        LSRS     R0,R4,#+8
-//  640 	WriteSTAByte( 0x4A, &pcSTAComnd[0],1 );
-        MOVS     R2,#+1
-        STRB     R0,[R6, #+0]
-        MOV      R1,R6
-        MOVS     R0,#+74
-          CFI FunCall WriteSTAByte
-        BL       WriteSTAByte
-//  641 	
-//  642     pcSTAComnd[0]= 0xFF & b0_2 ;
-        STRB     R4,[R6, #+0]
-//  643 	WriteSTAByte( 0x4B,&pcSTAComnd[0],1 );
-        MOVS     R2,#+1
-        MOV      R1,R6
-        MOVS     R0,#+75
-          CFI FunCall WriteSTAByte
-        BL       WriteSTAByte
-//  644 	
-//  645 	//18. Write 1 to the WA bit in I2C address 0x4C
-//  646 	pcSTAComnd[0] = 0x02;
-        MOVS     R0,#+2
-//  647 	WriteSTAByte(0x4C,&pcSTAComnd[0],1);
-        MOV      R1,R6
-        STRB     R0,[R6, #+0]
-        MOVS     R2,#+1
-        MOVS     R0,#+76
-        POP      {R3-R7,LR}
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI R6 SameValue
-          CFI R7 SameValue
-          CFI R14 SameValue
-          CFI CFA R13+0
-          CFI FunCall WriteSTAByte
-        B.N      WriteSTAByte
-//  648 
-//  649 }
-          CFI EndBlock cfiBlock7
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable6:
+??DataTable5:
         DC32     0x40023830
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable6_1:
-        DC32     pcSTAComnd
+??DataTable5_1:
+        DC32     bufCoefBiquad
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable6_2:
+??DataTable5_2:
         DC32     0x40020800
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable6_3:
+??DataTable5_3:
         DC32     0x40021000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable6_4:
-        DC32     0x7fffff
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable6_5:
+??DataTable5_4:
         DC32     hi2c2
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable6_6:
-        DC32     0x3fe1d2
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable6_7:
-        DC32     0x80789b
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable6_8:
-        DC32     0x7fc396
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable6_9:
-        DC32     0x7fc3a4
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable6_10:
-        DC32     0x803c5c
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable6_11:
-        DC32     bufCoefBiquad
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -2015,58 +2449,145 @@ sta321mp_biquad:
         SECTION_TYPE SHT_PROGBITS, 0
 
         END
-//  650 
+//  563 
+//  564 
+//  565 static void sta321mp_mixer( int16_t mix, int16_t ch_out, int16_t ch_in, uint32_t value)
+//  566 {
+//  567     uint16_t address = 0x1A0 + 64*(mix-1) + 8*(ch_out-1) + (ch_in-1);
+//  568 
+//  569 	SetCoefValue(address,value);	
+//  570 }
+//  571 
+//  572 static void sta321mp_prescale(int16_t ch, uint32_t val)
+//  573 {
+//  574   unsigned int address = 0x190 + (ch-1);
+//  575   SetCoefValue(address, val);
+//  576 }
+//  577 
+//  578 
+//  579 static void sta321mp_postscale(int16_t ch, uint32_t val)
+//  580 {
+//  581   uint16_t address = 0x198 + (ch-1);
+//  582   SetCoefValue(address, val);
+//  583 }
+//  584 
+//  585 /* set the biquad coefficients in RAM */
+//  586 static void sta321mp_biquad(int16_t channel, int16_t biquad, 
+//  587                             uint32_t b1_2, uint32_t b2, uint32_t a1_2, uint32_t a2, uint32_t b0_2)
+//  588 {
+//  589 
+//  590    uint16_t Adrss = 50*(channel-1) + 5*(biquad-1);
+//  591 
+//  592 	//1. Write the top 2 bits of address to I2C register 0x3B
+//  593 	pcSTAComnd[0] = (Adrss>>8)&0x03;
+//  594 	WriteSTAByte(0x3B,&pcSTAComnd[0],1);
+//  595 	
+//  596 	//2. Write the bottom 8 bits of address to I2C register 0x3C
+//  597 	pcSTAComnd[0] = (Adrss);
+//  598 	WriteSTAByte(0x3C,&pcSTAComnd[0],1);
+//  599 
+//  600     pcSTAComnd[0]= 0xFF & (b1_2 >> 16);
+//  601 	WriteSTAByte(0x3D,&pcSTAComnd[0],1);
+//  602 
+//  603 	
+//  604     pcSTAComnd[0]= 0xFF & (b1_2 >> 8);
+//  605 	WriteSTAByte(0x3E,&pcSTAComnd[0],1  );
+//  606 	
+//  607     pcSTAComnd[0]= 0xFF & b1_2;
+//  608 	WriteSTAByte(0x3F, &pcSTAComnd[0],1 );
+//  609 	
+//  610     pcSTAComnd[0]= 0xFF & (b2 >> 16);
+//  611 	WriteSTAByte(0x40, &pcSTAComnd[0],1 );
+//  612 	
+//  613     pcSTAComnd[0]= 0xFF & (b2 >> 8);
+//  614 	WriteSTAByte(0x41, &pcSTAComnd[0],1 );
+//  615 	
+//  616     pcSTAComnd[0]= 0xFF & b2;
+//  617 	WriteSTAByte( 0x42,&pcSTAComnd[0],1 );
+//  618 	
+//  619     pcSTAComnd[0]= 0xFF & (a1_2 >> 16);
+//  620 	WriteSTAByte( 0x43, &pcSTAComnd[0],1 );
+//  621 	
+//  622     pcSTAComnd[0]= 0xFF & (a1_2 >> 8);
+//  623 	WriteSTAByte( 0x44,  &pcSTAComnd[0],1);
+//  624 	
+//  625     pcSTAComnd[0]= 0xFF & a1_2;
+//  626 	WriteSTAByte( 0x45, &pcSTAComnd[0],1 );
+//  627 	
+//  628     pcSTAComnd[0]= 0xFF & (a2 >> 16);
+//  629 	WriteSTAByte( 0x46, &pcSTAComnd[0],1 );
+//  630 
+//  631     pcSTAComnd[0]=  0xFF & (a2 >> 8);
+//  632 	WriteSTAByte( 0x47, &pcSTAComnd[0],1);
+//  633 	
+//  634     pcSTAComnd[0]= 0xFF & a2;
+//  635 	WriteSTAByte( 0x48, &pcSTAComnd[0],1 );
+//  636 	
+//  637     pcSTAComnd[0]= 0xFF & (b0_2 >> 16);
+//  638 	WriteSTAByte( 0x49, &pcSTAComnd[0],1 );
+//  639 	
+//  640     pcSTAComnd[0]= 0xFF & (b0_2 >> 8);
+//  641 	WriteSTAByte( 0x4A, &pcSTAComnd[0],1 );
+//  642 	
+//  643     pcSTAComnd[0]= 0xFF & b0_2 ;
+//  644 	WriteSTAByte( 0x4B,&pcSTAComnd[0],1 );
+//  645 	
+//  646 	//18. Write 1 to the WA bit in I2C address 0x4C
+//  647 	pcSTAComnd[0] = 0x02;
+//  648 	WriteSTAByte(0x4C,&pcSTAComnd[0],1);
+//  649 
+//  650 }
 //  651 
-//  652 static void sta321mp_LP_48kHz(void)
-//  653 {
-//  654   /*
-//  655    * This function sets the biquads as a 14th order elliptic
-//  656    * Low pass filter with cutoff at 40kHz
-//  657    */
-//  658   sta321mp_biquad( 1, 1, 0x000000, 0x000000, 0x000000, 0x000000,0x400000); 
-//  659   sta321mp_biquad( 1, 2,  0x2d7d5e, 0x3faa84, 0x6599c4, 0xad9ed1,0x1fd542);
-//  660   sta321mp_biquad( 1, 3, 0xfcec16, 0x177b7b, 0x63c973, 0xa4b499,0xbbdbd);
-//  661   sta321mp_biquad( 1, 4, 0xf4caac, 0x177b7b, 0x616997, 0x98a93a,0xbbdbd);
-//  662   sta321mp_biquad( 1, 5, 0xf1c0e3, 0x177b7b, 0x5f9823, 0x8e691f,0xbbdbd);
-//  663   sta321mp_biquad( 1, 6, 0xf083cb, 0x177b7b, 0x5ec1ab, 0x873641,0xbbdbd);
-//  664   sta321mp_biquad( 1, 7, 0xf00d82, 0x177b7b, 0x5f0547, 0x822c2a,0xbbdbd);
-//  665   sta321mp_biquad( 1, 8, 0x000000, 0x000000, 0x000000, 0x000000,0x400000);
-//  666   sta321mp_biquad( 1, 9, 0x000000, 0x000000, 0x000000, 0x000000,0x400000);
-//  667   sta321mp_biquad( 1, 10,0x000000, 0x000000, 0x000000, 0x000000,0x400000);
-//  668 }
-//  669 
-//  670 static void sta321mp_LP_192kHz(void)
-//  671 {
-//  672   /*
-//  673    * This function sets the biquads as a 18th order butterworth
-//  674    * Low pass filter with cutoff at 40kHz
-//  675    */
-//  676   sta321mp_biquad(1, 2, 0x34417a, 0x34417a, 0x10e211, 0xfd899c,0x1a20bd);
-//  677   sta321mp_biquad(1, 3, 0x1be34f, 0x1be34f, 0x112371, 0xfb9073,0xdf1a7);
-//  678   sta321mp_biquad(1, 4, 0x1be34f, 0x1be34f, 0x11aa29, 0xf77f69,0xdf1a7);
-//  679   sta321mp_biquad(1, 5, 0x1be34f, 0x1be34f, 0x127eb2, 0xf1150f,0xdf1a7);
-//  680   sta321mp_biquad(1, 6, 0x1be34f, 0x1be34f, 0x13af2a, 0xe7e44f,0xdf1a7);
-//  681   sta321mp_biquad(1, 7, 0x1be34f, 0x1be34f, 0x155167, 0xdb446c,0xdf1a7);
-//  682   sta321mp_biquad(1, 8, 0x1be34f, 0x1be34f, 0x17867e, 0xca35c0,0xdf1a7);
-//  683   sta321mp_biquad(1, 9, 0x1be34f, 0x1be34f, 0x1a80c9, 0xb33334,0xdf1a7);
-//  684   sta321mp_biquad(1, 10, 0x1be34f, 0x1be34f, 0x1e8e71, 0x93e0cf,0xdf1a7);
-//  685 }
-//  686 
+//  652 
+//  653 static void sta321mp_LP_48kHz(void)
+//  654 {
+//  655   /*
+//  656    * This function sets the biquads as a 14th order elliptic
+//  657    * Low pass filter with cutoff at 40kHz
+//  658    */
+//  659   sta321mp_biquad( 1, 1, 0x000000, 0x000000, 0x000000, 0x000000,0x400000); 
+//  660   sta321mp_biquad( 1, 2,  0x2d7d5e, 0x3faa84, 0x6599c4, 0xad9ed1,0x1fd542);
+//  661   sta321mp_biquad( 1, 3, 0xfcec16, 0x177b7b, 0x63c973, 0xa4b499,0xbbdbd);
+//  662   sta321mp_biquad( 1, 4, 0xf4caac, 0x177b7b, 0x616997, 0x98a93a,0xbbdbd);
+//  663   sta321mp_biquad( 1, 5, 0xf1c0e3, 0x177b7b, 0x5f9823, 0x8e691f,0xbbdbd);
+//  664   sta321mp_biquad( 1, 6, 0xf083cb, 0x177b7b, 0x5ec1ab, 0x873641,0xbbdbd);
+//  665   sta321mp_biquad( 1, 7, 0xf00d82, 0x177b7b, 0x5f0547, 0x822c2a,0xbbdbd);
+//  666   sta321mp_biquad( 1, 8, 0x000000, 0x000000, 0x000000, 0x000000,0x400000);
+//  667   sta321mp_biquad( 1, 9, 0x000000, 0x000000, 0x000000, 0x000000,0x400000);
+//  668   sta321mp_biquad( 1, 10,0x000000, 0x000000, 0x000000, 0x000000,0x400000);
+//  669 }
+//  670 
+//  671 static void sta321mp_LP_192kHz(void)
+//  672 {
+//  673   /*
+//  674    * This function sets the biquads as a 18th order butterworth
+//  675    * Low pass filter with cutoff at 40kHz
+//  676    */
+//  677   sta321mp_biquad(1, 2, 0x34417a, 0x34417a, 0x10e211, 0xfd899c,0x1a20bd);
+//  678   sta321mp_biquad(1, 3, 0x1be34f, 0x1be34f, 0x112371, 0xfb9073,0xdf1a7);
+//  679   sta321mp_biquad(1, 4, 0x1be34f, 0x1be34f, 0x11aa29, 0xf77f69,0xdf1a7);
+//  680   sta321mp_biquad(1, 5, 0x1be34f, 0x1be34f, 0x127eb2, 0xf1150f,0xdf1a7);
+//  681   sta321mp_biquad(1, 6, 0x1be34f, 0x1be34f, 0x13af2a, 0xe7e44f,0xdf1a7);
+//  682   sta321mp_biquad(1, 7, 0x1be34f, 0x1be34f, 0x155167, 0xdb446c,0xdf1a7);
+//  683   sta321mp_biquad(1, 8, 0x1be34f, 0x1be34f, 0x17867e, 0xca35c0,0xdf1a7);
+//  684   sta321mp_biquad(1, 9, 0x1be34f, 0x1be34f, 0x1a80c9, 0xb33334,0xdf1a7);
+//  685   sta321mp_biquad(1, 10, 0x1be34f, 0x1be34f, 0x1e8e71, 0x93e0cf,0xdf1a7);
+//  686 }
 //  687 
-//  688 static void STA321MP_DefautLoad(void)
-//  689 {
-//  690       WriteSTAByte(STA321MP_CONFA,pcSTAComnd,77);
-//  691       WriteSTAByte(0x5A,pcSTAComnd1,2);
-//  692       WriteSTAByte(0x5D,pcSTAComnd2,33);
-//  693 	  WriteSTAByte(0x80,pcSTAComnd2,6);
-//  694 	  
-//  695 }
+//  688 
+//  689 static void STA321MP_DefautLoad(void)
+//  690 {
+//  691       WriteSTAByte(STA321MP_CONFA,pcSTAComnd,77);
+//  692       WriteSTAByte(0x5A,pcSTAComnd1,2);
+//  693       WriteSTAByte(0x5D,pcSTAComnd2,33);
+//  694 	  WriteSTAByte(0x80,pcSTAComnd2,6);
+//  695 	  
+//  696 }
 // 
-//    16 bytes in section .bss
-//   148 bytes in section .data
-// 2 048 bytes in section .text
+//   164 bytes in section .data
+// 3 510 bytes in section .text
 // 
-// 2 048 bytes of CODE memory
+// 3 510 bytes of CODE memory
 //   164 bytes of DATA memory
 //
 //Errors: none

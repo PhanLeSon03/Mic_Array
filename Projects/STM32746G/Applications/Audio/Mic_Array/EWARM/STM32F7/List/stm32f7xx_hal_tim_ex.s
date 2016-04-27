@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      16/Apr/2016  18:31:02
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Apr/2016  12:04:30
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -509,44 +509,45 @@ HAL_TIMEx_HallSensor_DeInit:
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
+        MOV      R4,R0
 //  241   /* Check the parameters */
 //  242   assert_param(IS_TIM_INSTANCE(htim->Instance));
 //  243 
 //  244   htim->State = HAL_TIM_STATE_BUSY;
-        ADD      R4,R0,#+56
-        MOVS     R1,#+2
-        STRB     R1,[R4, #+1]
+        MOVS     R0,#+2
+        STRB     R0,[R4, #+57]
 //  245   
 //  246   /* Disable the TIM Peripheral Clock */
 //  247   __HAL_TIM_DISABLE(htim);
-        LDR      R1,[R0, #+0]
-        MOVW     R3,#+4369
-        LDR      R2,[R1, #+32]
-        TST      R2,R3
+        MOVW     R2,#+4369
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+32]
+        TST      R1,R2
         ITTT     EQ 
-        LDREQ    R2,[R1, #+32]
-        MOVWEQ   R3,#+1092
-        TSTEQ    R2,R3
+        LDREQ    R1,[R0, #+32]
+        MOVWEQ   R2,#+1092
+        TSTEQ    R1,R2
         BNE.N    ??HAL_TIMEx_HallSensor_DeInit_0
-        LDR      R2,[R1, #+0]
-        LSRS     R2,R2,#+1
-        LSLS     R2,R2,#+1
-        STR      R2,[R1, #+0]
+        LDR      R1,[R0, #+0]
+        LSRS     R1,R1,#+1
+        LSLS     R1,R1,#+1
+        STR      R1,[R0, #+0]
 //  248     
 //  249   /* DeInit the low level hardware: GPIO, CLOCK, NVIC */
 //  250   HAL_TIMEx_HallSensor_MspDeInit(htim);
 ??HAL_TIMEx_HallSensor_DeInit_0:
+        MOV      R0,R4
           CFI FunCall HAL_TIMEx_HallSensor_MspDeInit
         BL       HAL_TIMEx_HallSensor_MspDeInit
 //  251     
 //  252   /* Change TIM state */  
 //  253   htim->State = HAL_TIM_STATE_RESET; 
         MOVS     R0,#+0
-        STRB     R0,[R4, #+1]
+        STRB     R0,[R4, #+57]
 //  254 
 //  255   /* Release Lock */
 //  256   __HAL_UNLOCK(htim);
-        STRB     R0,[R4, #+0]
+        STRB     R0,[R4, #+56]
 //  257 
 //  258   return HAL_OK;
         POP      {R4,PC}          ;; return
@@ -613,7 +614,6 @@ HAL_TIMEx_HallSensor_MspDeInit:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock4 Using cfiCommon0
           CFI Function HAL_TIMEx_HallSensor_Start
-          CFI NoCalls
         THUMB
 //  299 HAL_StatusTypeDef HAL_TIMEx_HallSensor_Start(TIM_HandleTypeDef *htim)
 //  300 {
@@ -632,13 +632,20 @@ HAL_TIMEx_HallSensor_Start:
         MOVS     R2,#+1
         MOVS     R1,#+0
         LDR      R0,[R4, #+0]
-        B.N      ?Subroutine0
+          CFI FunCall TIM_CCxChannelCmd
+        BL       TIM_CCxChannelCmd
 //  307   
 //  308   /* Enable the Peripheral */
 //  309   __HAL_TIM_ENABLE(htim);
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x1
+        STR      R1,[R0, #+0]
 //  310   
 //  311   /* Return function status */
 //  312   return HAL_OK;
+        MOVS     R0,#+0
+        POP      {R4,PC}          ;; return
 //  313 }
           CFI EndBlock cfiBlock4
 //  314 
@@ -683,10 +690,17 @@ HAL_TIMEx_HallSensor_Stop:
         LDREQ    R1,[R0, #+32]
         MOVWEQ   R2,#+1092
         TSTEQ    R1,R2
-        B.N      ?Subroutine1
+        BNE.N    ??HAL_TIMEx_HallSensor_Stop_0
+        LDR      R1,[R0, #+0]
+        LSRS     R1,R1,#+1
+        LSLS     R1,R1,#+1
+        STR      R1,[R0, #+0]
 //  332   
 //  333   /* Return function status */
 //  334   return HAL_OK;
+??HAL_TIMEx_HallSensor_Stop_0:
+        MOVS     R0,#+0
+        POP      {R4,PC}          ;; return
 //  335 }
           CFI EndBlock cfiBlock5
 //  336 
@@ -700,7 +714,6 @@ HAL_TIMEx_HallSensor_Stop:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock6 Using cfiCommon0
           CFI Function HAL_TIMEx_HallSensor_Start_IT
-          CFI NoCalls
         THUMB
 //  343 HAL_StatusTypeDef HAL_TIMEx_HallSensor_Start_IT(TIM_HandleTypeDef *htim)
 //  344 { 
@@ -725,35 +738,22 @@ HAL_TIMEx_HallSensor_Start_IT:
         ORR      R1,R1,#0x2
         STR      R1,[R0, #+12]
         MOVS     R1,#+0
-          CFI EndBlock cfiBlock6
-        REQUIRE ?Subroutine0
-        ;; // Fall through to label ?Subroutine0
+          CFI FunCall TIM_CCxChannelCmd
+        BL       TIM_CCxChannelCmd
 //  354   
 //  355   /* Enable the Peripheral */
 //  356   __HAL_TIM_ENABLE(htim);
-//  357   
-//  358   /* Return function status */
-//  359   return HAL_OK;
-//  360 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock7 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+8
-          CFI R4 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-          CFI FunCall HAL_TIMEx_HallSensor_Start TIM_CCxChannelCmd
-          CFI FunCall HAL_TIMEx_HallSensor_Start_IT TIM_CCxChannelCmd
-        THUMB
-?Subroutine0:
-        BL       TIM_CCxChannelCmd
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x1
         STR      R1,[R0, #+0]
+//  357   
+//  358   /* Return function status */
+//  359   return HAL_OK;
         MOVS     R0,#+0
         POP      {R4,PC}          ;; return
-          CFI EndBlock cfiBlock7
+//  360 }
+          CFI EndBlock cfiBlock6
 //  361 
 //  362 /**
 //  363   * @brief  Stops the TIM Hall Sensor Interface in interrupt mode.
@@ -763,7 +763,7 @@ HAL_TIMEx_HallSensor_Start_IT:
 //  367   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock8 Using cfiCommon0
+          CFI Block cfiBlock7 Using cfiCommon0
           CFI Function HAL_TIMEx_HallSensor_Stop_IT
         THUMB
 //  368 HAL_StatusTypeDef HAL_TIMEx_HallSensor_Stop_IT(TIM_HandleTypeDef *htim)
@@ -802,31 +802,19 @@ HAL_TIMEx_HallSensor_Stop_IT:
         LDREQ    R1,[R0, #+32]
         MOVWEQ   R2,#+1092
         TSTEQ    R1,R2
-          CFI EndBlock cfiBlock8
-        REQUIRE ?Subroutine1
-        ;; // Fall through to label ?Subroutine1
-//  382   
-//  383   /* Return function status */
-//  384   return HAL_OK;
-//  385 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock9 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+8
-          CFI R4 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine1:
-        BNE.N    ??Subroutine1_0
+        BNE.N    ??HAL_TIMEx_HallSensor_Stop_IT_0
         LDR      R1,[R0, #+0]
         LSRS     R1,R1,#+1
         LSLS     R1,R1,#+1
         STR      R1,[R0, #+0]
-??Subroutine1_0:
+//  382   
+//  383   /* Return function status */
+//  384   return HAL_OK;
+??HAL_TIMEx_HallSensor_Stop_IT_0:
         MOVS     R0,#+0
         POP      {R4,PC}          ;; return
-          CFI EndBlock cfiBlock9
+//  385 }
+          CFI EndBlock cfiBlock7
 //  386 
 //  387 /**
 //  388   * @brief  Starts the TIM Hall Sensor Interface in DMA mode.
@@ -838,7 +826,7 @@ HAL_TIMEx_HallSensor_Stop_IT:
 //  394   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock10 Using cfiCommon0
+          CFI Block cfiBlock8 Using cfiCommon0
           CFI Function HAL_TIMEx_HallSensor_Start_DMA
         THUMB
 //  395 HAL_StatusTypeDef HAL_TIMEx_HallSensor_Start_DMA(TIM_HandleTypeDef *htim, uint32_t *pData, uint16_t Length)
@@ -895,7 +883,7 @@ HAL_TIMEx_HallSensor_Start_DMA:
 //  419   /* Set the DMA Input Capture 1 Callback */
 //  420   htim->hdma[TIM_DMA_ID_CC1]->XferCpltCallback = HAL_TIM_DMACaptureCplt;     
         LDR      R1,[R4, #+32]
-        LDR.W    R0,??DataTable5_1
+        LDR.W    R0,??DataTable7
 //  421   /* Set the DMA error callback */
 //  422   htim->hdma[TIM_DMA_ID_CC1]->XferErrorCallback = HAL_TIM_DMAError ;
 //  423   
@@ -905,7 +893,7 @@ HAL_TIMEx_HallSensor_Start_DMA:
         MOV      R2,R6
         STR      R0,[R1, #+60]
         LDR      R1,[R4, #+32]
-        LDR.W    R0,??DataTable5_2
+        LDR.W    R0,??DataTable7_1
         STR      R0,[R1, #+72]
         LDR      R0,[R4, #+0]
         ADD      R1,R0,#+52
@@ -933,7 +921,7 @@ HAL_TIMEx_HallSensor_Start_DMA:
 ??HAL_TIMEx_HallSensor_Start_DMA_0:
         POP      {R4-R6,PC}       ;; return
 //  435 }
-          CFI EndBlock cfiBlock10
+          CFI EndBlock cfiBlock8
 //  436 
 //  437 /**
 //  438   * @brief  Stops the TIM Hall Sensor Interface in DMA mode.
@@ -943,7 +931,7 @@ HAL_TIMEx_HallSensor_Start_DMA:
 //  442   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock11 Using cfiCommon0
+          CFI Block cfiBlock9 Using cfiCommon0
           CFI Function HAL_TIMEx_HallSensor_Stop_DMA
         THUMB
 //  443 HAL_StatusTypeDef HAL_TIMEx_HallSensor_Stop_DMA(TIM_HandleTypeDef *htim)
@@ -983,12 +971,19 @@ HAL_TIMEx_HallSensor_Stop_DMA:
         LDREQ    R1,[R0, #+32]
         MOVWEQ   R2,#+1092
         TSTEQ    R1,R2
-        B.N      ?Subroutine1
+        BNE.N    ??HAL_TIMEx_HallSensor_Stop_DMA_0
+        LDR      R1,[R0, #+0]
+        LSRS     R1,R1,#+1
+        LSLS     R1,R1,#+1
+        STR      R1,[R0, #+0]
 //  458   
 //  459   /* Return function status */
 //  460   return HAL_OK;
+??HAL_TIMEx_HallSensor_Stop_DMA_0:
+        MOVS     R0,#+0
+        POP      {R4,PC}          ;; return
 //  461 }
-          CFI EndBlock cfiBlock11
+          CFI EndBlock cfiBlock9
 //  462 
 //  463 /**
 //  464   * @}
@@ -1029,7 +1024,7 @@ HAL_TIMEx_HallSensor_Stop_DMA:
 //  499   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock12 Using cfiCommon0
+          CFI Block cfiBlock10 Using cfiCommon0
           CFI Function HAL_TIMEx_OCN_Start
           CFI NoCalls
         THUMB
@@ -1041,18 +1036,34 @@ HAL_TIMEx_HallSensor_Stop_DMA:
 //  505      /* Enable the Capture compare channel N */
 //  506      TIM_CCxNChannelCmd(htim->Instance, Channel, TIM_CCxN_ENABLE);
 HAL_TIMEx_OCN_Start:
-        B.N      ?Subroutine3
+        LDR      R0,[R0, #+0]
+        MOVS     R2,#+4
+        LSL      R1,R2,R1
+        LDR      R2,[R0, #+32]
+        BICS     R2,R2,R1
+        STR      R2,[R0, #+32]
+        LDR      R2,[R0, #+32]
+        ORRS     R1,R1,R2
+        STR      R1,[R0, #+32]
 //  507     
 //  508   /* Enable the Main Output */
 //  509     __HAL_TIM_MOE_ENABLE(htim);
+        LDR      R1,[R0, #+68]
+        ORR      R1,R1,#0x8000
+        STR      R1,[R0, #+68]
 //  510 
 //  511   /* Enable the Peripheral */
 //  512   __HAL_TIM_ENABLE(htim);
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x1
+        STR      R1,[R0, #+0]
 //  513   
 //  514   /* Return function status */
 //  515   return HAL_OK;
+        MOVS     R0,#+0
+        BX       LR               ;; return
 //  516 } 
-          CFI EndBlock cfiBlock12
+          CFI EndBlock cfiBlock10
 //  517 
 //  518 /**
 //  519   * @brief  Stops the TIM Output Compare signal generation on the complementary
@@ -1069,7 +1080,7 @@ HAL_TIMEx_OCN_Start:
 //  530   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock13 Using cfiCommon0
+          CFI Block cfiBlock11 Using cfiCommon0
           CFI Function HAL_TIMEx_OCN_Stop
           CFI NoCalls
         THUMB
@@ -1113,12 +1124,19 @@ HAL_TIMEx_OCN_Stop:
         LDREQ    R1,[R0, #+32]
         MOVWEQ   R2,#+1092
         TSTEQ    R1,R2
-        B.N      ?Subroutine6
+        BNE.N    ??HAL_TIMEx_OCN_Stop_1
+        LDR      R1,[R0, #+0]
+        LSRS     R1,R1,#+1
+        LSLS     R1,R1,#+1
+        STR      R1,[R0, #+0]
 //  544   
 //  545   /* Return function status */
 //  546   return HAL_OK;
+??HAL_TIMEx_OCN_Stop_1:
+        MOVS     R0,#+0
+        BX       LR               ;; return
 //  547 } 
-          CFI EndBlock cfiBlock13
+          CFI EndBlock cfiBlock11
 //  548 
 //  549 /**
 //  550   * @brief  Starts the TIM Output Compare signal generation in interrupt mode 
@@ -1134,8 +1152,8 @@ HAL_TIMEx_OCN_Stop:
 //  560   * @retval HAL status
 //  561   */
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock14 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock12 Using cfiCommon0
           CFI Function HAL_TIMEx_OCN_Start_IT
           CFI NoCalls
         THUMB
@@ -1146,12 +1164,26 @@ HAL_TIMEx_OCN_Stop:
 //  566   
 //  567   switch (Channel)
 HAL_TIMEx_OCN_Start_IT:
-        B.N      ?Subroutine2
+        CMP      R1,#+12
+        BHI.N    ??HAL_TIMEx_OCN_Start_IT_1
+        TBB      [PC, R1]
+        DATA
+??HAL_TIMEx_OCN_Start_IT_0:
+        DC8      0x7,0x1B,0x1B,0x1B
+        DC8      0xC,0x1B,0x1B,0x1B
+        DC8      0x11,0x1B,0x1B,0x1B
+        DC8      0x16,0x0
+        THUMB
 //  568   {
 //  569     case TIM_CHANNEL_1:
 //  570     {       
 //  571       /* Enable the TIM Output Compare interrupt */
 //  572       __HAL_TIM_ENABLE_IT(htim, TIM_IT_CC1);
+??HAL_TIMEx_OCN_Start_IT_2:
+        LDR      R2,[R0, #+0]
+        LDR      R3,[R2, #+12]
+        ORR      R3,R3,#0x2
+        B.N      ??HAL_TIMEx_OCN_Start_IT_3
 //  573     }
 //  574     break;
 //  575     
@@ -1159,6 +1191,11 @@ HAL_TIMEx_OCN_Start_IT:
 //  577     {
 //  578       /* Enable the TIM Output Compare interrupt */
 //  579       __HAL_TIM_ENABLE_IT(htim, TIM_IT_CC2);
+??HAL_TIMEx_OCN_Start_IT_4:
+        LDR      R2,[R0, #+0]
+        LDR      R3,[R2, #+12]
+        ORR      R3,R3,#0x4
+        B.N      ??HAL_TIMEx_OCN_Start_IT_3
 //  580     }
 //  581     break;
 //  582     
@@ -1166,6 +1203,11 @@ HAL_TIMEx_OCN_Start_IT:
 //  584     {
 //  585       /* Enable the TIM Output Compare interrupt */
 //  586       __HAL_TIM_ENABLE_IT(htim, TIM_IT_CC3);
+??HAL_TIMEx_OCN_Start_IT_5:
+        LDR      R2,[R0, #+0]
+        LDR      R3,[R2, #+12]
+        ORR      R3,R3,#0x8
+        B.N      ??HAL_TIMEx_OCN_Start_IT_3
 //  587     }
 //  588     break;
 //  589     
@@ -1173,6 +1215,12 @@ HAL_TIMEx_OCN_Start_IT:
 //  591     {
 //  592       /* Enable the TIM Output Compare interrupt */
 //  593       __HAL_TIM_ENABLE_IT(htim, TIM_IT_CC4);
+??HAL_TIMEx_OCN_Start_IT_6:
+        LDR      R2,[R0, #+0]
+        LDR      R3,[R2, #+12]
+        ORR      R3,R3,#0x10
+??HAL_TIMEx_OCN_Start_IT_3:
+        STR      R3,[R2, #+12]
 //  594     }
 //  595     break;
 //  596     
@@ -1182,20 +1230,41 @@ HAL_TIMEx_OCN_Start_IT:
 //  600   
 //  601   /* Enable the TIM Break interrupt */
 //  602   __HAL_TIM_ENABLE_IT(htim, TIM_IT_BREAK);
+??HAL_TIMEx_OCN_Start_IT_1:
+        LDR      R2,[R0, #+0]
+        LDR      R0,[R2, #+12]
+        ORR      R0,R0,#0x80
+        STR      R0,[R2, #+12]
 //  603   
 //  604   /* Enable the Capture compare channel N */
 //  605   TIM_CCxNChannelCmd(htim->Instance, Channel, TIM_CCxN_ENABLE);
+        MOVS     R0,#+4
+        LSLS     R0,R0,R1
+        LDR      R1,[R2, #+32]
+        BICS     R1,R1,R0
+        STR      R1,[R2, #+32]
+        LDR      R1,[R2, #+32]
+        ORRS     R0,R0,R1
+        STR      R0,[R2, #+32]
 //  606 
 //  607   /* Enable the Main Output */
 //  608  __HAL_TIM_MOE_ENABLE(htim);
+        LDR      R0,[R2, #+68]
+        ORR      R0,R0,#0x8000
+        STR      R0,[R2, #+68]
 //  609 
 //  610   /* Enable the Peripheral */
 //  611   __HAL_TIM_ENABLE(htim);
+        LDR      R0,[R2, #+0]
+        ORR      R0,R0,#0x1
+        STR      R0,[R2, #+0]
 //  612   
 //  613   /* Return function status */
 //  614   return HAL_OK;
+        MOVS     R0,#+0
+        BX       LR               ;; return
 //  615 } 
-          CFI EndBlock cfiBlock14
+          CFI EndBlock cfiBlock12
 //  616 
 //  617 /**
 //  618   * @brief  Stops the TIM Output Compare signal generation in interrupt mode 
@@ -1211,8 +1280,8 @@ HAL_TIMEx_OCN_Start_IT:
 //  628   * @retval HAL status
 //  629   */
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock15 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock13 Using cfiCommon0
           CFI Function HAL_TIMEx_OCN_Stop_IT
           CFI NoCalls
         THUMB
@@ -1225,25 +1294,26 @@ HAL_TIMEx_OCN_Start_IT:
 //  636   
 //  637   switch (Channel)
 HAL_TIMEx_OCN_Stop_IT:
-        MOVS     R2,R1
-        BEQ.N    ??HAL_TIMEx_OCN_Stop_IT_0
-        CMP      R1,#+4
-        BEQ.N    ??HAL_TIMEx_OCN_Stop_IT_1
-        CMP      R1,#+8
-        BEQ.N    ??HAL_TIMEx_OCN_Stop_IT_2
         CMP      R1,#+12
-        BEQ.N    ??HAL_TIMEx_OCN_Stop_IT_3
-        B.N      ??HAL_TIMEx_OCN_Stop_IT_4
+        BHI.N    ??HAL_TIMEx_OCN_Stop_IT_1
+        TBB      [PC, R1]
+        DATA
+??HAL_TIMEx_OCN_Stop_IT_0:
+        DC8      0x7,0x1B,0x1B,0x1B
+        DC8      0xC,0x1B,0x1B,0x1B
+        DC8      0x11,0x1B,0x1B,0x1B
+        DC8      0x16,0x0
+        THUMB
 //  638   {
 //  639     case TIM_CHANNEL_1:
 //  640     {       
 //  641       /* Disable the TIM Output Compare interrupt */
 //  642       __HAL_TIM_DISABLE_IT(htim, TIM_IT_CC1);
-??HAL_TIMEx_OCN_Stop_IT_0:
+??HAL_TIMEx_OCN_Stop_IT_2:
         LDR      R2,[R0, #+0]
         LDR      R3,[R2, #+12]
         BIC      R3,R3,#0x2
-        B.N      ??HAL_TIMEx_OCN_Stop_IT_5
+        B.N      ??HAL_TIMEx_OCN_Stop_IT_3
 //  643     }
 //  644     break;
 //  645     
@@ -1251,11 +1321,11 @@ HAL_TIMEx_OCN_Stop_IT:
 //  647     {
 //  648       /* Disable the TIM Output Compare interrupt */
 //  649       __HAL_TIM_DISABLE_IT(htim, TIM_IT_CC2);
-??HAL_TIMEx_OCN_Stop_IT_1:
+??HAL_TIMEx_OCN_Stop_IT_4:
         LDR      R2,[R0, #+0]
         LDR      R3,[R2, #+12]
         BIC      R3,R3,#0x4
-        B.N      ??HAL_TIMEx_OCN_Stop_IT_5
+        B.N      ??HAL_TIMEx_OCN_Stop_IT_3
 //  650     }
 //  651     break;
 //  652     
@@ -1263,11 +1333,11 @@ HAL_TIMEx_OCN_Stop_IT:
 //  654     {
 //  655       /* Disable the TIM Output Compare interrupt */
 //  656       __HAL_TIM_DISABLE_IT(htim, TIM_IT_CC3);
-??HAL_TIMEx_OCN_Stop_IT_2:
+??HAL_TIMEx_OCN_Stop_IT_5:
         LDR      R2,[R0, #+0]
         LDR      R3,[R2, #+12]
         BIC      R3,R3,#0x8
-        B.N      ??HAL_TIMEx_OCN_Stop_IT_5
+        B.N      ??HAL_TIMEx_OCN_Stop_IT_3
 //  657     }
 //  658     break;
 //  659     
@@ -1275,11 +1345,11 @@ HAL_TIMEx_OCN_Stop_IT:
 //  661     {
 //  662       /* Disable the TIM Output Compare interrupt */
 //  663       __HAL_TIM_DISABLE_IT(htim, TIM_IT_CC4);
-??HAL_TIMEx_OCN_Stop_IT_3:
+??HAL_TIMEx_OCN_Stop_IT_6:
         LDR      R2,[R0, #+0]
         LDR      R3,[R2, #+12]
         BIC      R3,R3,#0x10
-??HAL_TIMEx_OCN_Stop_IT_5:
+??HAL_TIMEx_OCN_Stop_IT_3:
         STR      R3,[R2, #+12]
 //  664     }
 //  665     break;
@@ -1290,7 +1360,7 @@ HAL_TIMEx_OCN_Stop_IT:
 //  670 
 //  671   /* Disable the Capture compare channel N */
 //  672   TIM_CCxNChannelCmd(htim->Instance, Channel, TIM_CCxN_DISABLE);
-??HAL_TIMEx_OCN_Stop_IT_4:
+??HAL_TIMEx_OCN_Stop_IT_1:
         LDR      R2,[R0, #+0]
         MOVS     R3,#+4
         LSL      R1,R3,R1
@@ -1306,7 +1376,7 @@ HAL_TIMEx_OCN_Stop_IT:
         STR      R0,[R2, #+32]
         LDR      R0,[R2, #+32]
         TST      R0,R1
-        BNE.N    ??HAL_TIMEx_OCN_Stop_IT_6
+        BNE.N    ??HAL_TIMEx_OCN_Stop_IT_7
 //  677   {
 //  678     __HAL_TIM_DISABLE_IT(htim, TIM_IT_BREAK);
         LDR      R0,[R2, #+12]
@@ -1316,32 +1386,39 @@ HAL_TIMEx_OCN_Stop_IT:
 //  680 
 //  681   /* Disable the Main Output */
 //  682   __HAL_TIM_MOE_DISABLE(htim);
-??HAL_TIMEx_OCN_Stop_IT_6:
+??HAL_TIMEx_OCN_Stop_IT_7:
         LDR      R3,[R2, #+32]
         MOVW     R0,#+4369
         TST      R3,R0
         ITT      EQ 
         LDREQ    R3,[R2, #+32]
         TSTEQ    R3,R1
-        BNE.N    ??HAL_TIMEx_OCN_Stop_IT_7
+        BNE.N    ??HAL_TIMEx_OCN_Stop_IT_8
         LDR      R3,[R2, #+68]
         BIC      R3,R3,#0x8000
         STR      R3,[R2, #+68]
 //  683 
 //  684   /* Disable the Peripheral */
 //  685   __HAL_TIM_DISABLE(htim);
-??HAL_TIMEx_OCN_Stop_IT_7:
+??HAL_TIMEx_OCN_Stop_IT_8:
         LDR      R3,[R2, #+32]
         TST      R3,R0
         ITT      EQ 
         LDREQ    R0,[R2, #+32]
         TSTEQ    R0,R1
-        B.N      ?Subroutine7
+        BNE.N    ??HAL_TIMEx_OCN_Stop_IT_9
+        LDR      R0,[R2, #+0]
+        LSRS     R0,R0,#+1
+        LSLS     R0,R0,#+1
+        STR      R0,[R2, #+0]
 //  686   
 //  687   /* Return function status */
 //  688   return HAL_OK;
+??HAL_TIMEx_OCN_Stop_IT_9:
+        MOVS     R0,#+0
+        BX       LR               ;; return
 //  689 } 
-          CFI EndBlock cfiBlock15
+          CFI EndBlock cfiBlock13
 //  690 
 //  691 /**
 //  692   * @brief  Starts the TIM Output Compare signal generation in DMA mode 
@@ -1359,54 +1436,95 @@ HAL_TIMEx_OCN_Stop_IT:
 //  704   * @retval HAL status
 //  705   */
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock16 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock14 Using cfiCommon0
           CFI Function HAL_TIMEx_OCN_Start_DMA
-          CFI NoCalls
         THUMB
 //  706 HAL_StatusTypeDef HAL_TIMEx_OCN_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Channel, uint32_t *pData, uint16_t Length)
+//  707 {
 HAL_TIMEx_OCN_Start_DMA:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
+        MOV      R4,R0
+        SUB      SP,SP,#+4
           CFI CFA R13+16
-        B.N      ?Subroutine9
-          CFI EndBlock cfiBlock16
-//  707 {
+        MOV      R5,R1
+        MOV      R1,R2
 //  708   /* Check the parameters */
 //  709   assert_param(IS_TIM_CCXN_INSTANCE(htim->Instance, Channel)); 
 //  710   
 //  711   if((htim->State == HAL_TIM_STATE_BUSY))
+        LDRB     R0,[R4, #+57]
+        CMP      R0,#+2
+        BEQ.N    ??HAL_TIMEx_OCN_Start_DMA_1
 //  712   {
 //  713      return HAL_BUSY;
 //  714   }
 //  715   else if((htim->State == HAL_TIM_STATE_READY))
+        LDRB     R0,[R4, #+57]
+        CMP      R0,#+1
+        BNE.N    ??HAL_TIMEx_OCN_Start_DMA_2
 //  716   {
 //  717     if(((uint32_t)pData == 0 ) && (Length > 0)) 
+        CBNZ.N   R1,??HAL_TIMEx_OCN_Start_DMA_3
+        CMP      R3,#+0
+        BNE.N    ??HAL_TIMEx_OCN_Start_DMA_1
 //  718     {
 //  719       return HAL_ERROR;                                    
 //  720     }
 //  721     else
 //  722     {
 //  723       htim->State = HAL_TIM_STATE_BUSY;
+??HAL_TIMEx_OCN_Start_DMA_3:
+        MOVS     R0,#+2
+        STRB     R0,[R4, #+57]
 //  724     }
 //  725   }    
 //  726   switch (Channel)
+??HAL_TIMEx_OCN_Start_DMA_2:
+        CMP      R5,#+12
+        BHI.N    ??HAL_TIMEx_OCN_Start_DMA_4
+        TBB      [PC, R5]
+        DATA
+??HAL_TIMEx_OCN_Start_DMA_0:
+        DC8      0x7,0x53,0x53,0x53
+        DC8      0x1A,0x53,0x53,0x53
+        DC8      0x2D,0x53,0x53,0x53
+        DC8      0x40,0x0
+        THUMB
 //  727   {
 //  728     case TIM_CHANNEL_1:
 //  729     {      
 //  730       /* Set the DMA Period elapsed callback */
 //  731       htim->hdma[TIM_DMA_ID_CC1]->XferCpltCallback = HAL_TIM_DMADelayPulseCplt;
+??HAL_TIMEx_OCN_Start_DMA_5:
+        LDR      R2,[R4, #+32]
+        LDR.W    R0,??DataTable7_2
+        STR      R0,[R2, #+60]
 //  732      
 //  733       /* Set the DMA error callback */
 //  734       htim->hdma[TIM_DMA_ID_CC1]->XferErrorCallback = HAL_TIM_DMAError ;
+        LDR      R2,[R4, #+32]
+        LDR.W    R0,??DataTable7_1
+        STR      R0,[R2, #+72]
 //  735       
 //  736       /* Enable the DMA Stream */
 //  737       HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_CC1], (uint32_t)pData, (uint32_t)&htim->Instance->CCR1, Length);
+        LDR      R0,[R4, #+0]
+        ADD      R2,R0,#+52
+        LDR      R0,[R4, #+32]
+          CFI FunCall HAL_DMA_Start_IT
+        BL       HAL_DMA_Start_IT
 //  738       
 //  739       /* Enable the TIM Output Compare DMA request */
 //  740       __HAL_TIM_ENABLE_DMA(htim, TIM_DMA_CC1);
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+12]
+        ORR      R1,R1,#0x200
+        B.N      ??HAL_TIMEx_OCN_Start_DMA_6
 //  741     }
 //  742     break;
 //  743     
@@ -1414,15 +1532,31 @@ HAL_TIMEx_OCN_Start_DMA:
 //  745     {
 //  746       /* Set the DMA Period elapsed callback */
 //  747       htim->hdma[TIM_DMA_ID_CC2]->XferCpltCallback = HAL_TIM_DMADelayPulseCplt;
+??HAL_TIMEx_OCN_Start_DMA_7:
+        LDR      R2,[R4, #+36]
+        LDR.W    R0,??DataTable7_2
+        STR      R0,[R2, #+60]
 //  748      
 //  749       /* Set the DMA error callback */
 //  750       htim->hdma[TIM_DMA_ID_CC2]->XferErrorCallback = HAL_TIM_DMAError ;
+        LDR      R2,[R4, #+36]
+        LDR.W    R0,??DataTable7_1
+        STR      R0,[R2, #+72]
 //  751       
 //  752       /* Enable the DMA Stream */
 //  753       HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_CC2], (uint32_t)pData, (uint32_t)&htim->Instance->CCR2, Length);
+        LDR      R0,[R4, #+0]
+        ADD      R2,R0,#+56
+        LDR      R0,[R4, #+36]
+          CFI FunCall HAL_DMA_Start_IT
+        BL       HAL_DMA_Start_IT
 //  754       
 //  755       /* Enable the TIM Output Compare DMA request */
 //  756       __HAL_TIM_ENABLE_DMA(htim, TIM_DMA_CC2);
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+12]
+        ORR      R1,R1,#0x400
+        B.N      ??HAL_TIMEx_OCN_Start_DMA_6
 //  757     }
 //  758     break;
 //  759     
@@ -1430,15 +1564,31 @@ HAL_TIMEx_OCN_Start_DMA:
 //  761 {
 //  762       /* Set the DMA Period elapsed callback */
 //  763       htim->hdma[TIM_DMA_ID_CC3]->XferCpltCallback = HAL_TIM_DMADelayPulseCplt;
+??HAL_TIMEx_OCN_Start_DMA_8:
+        LDR      R2,[R4, #+40]
+        LDR.W    R0,??DataTable7_2
+        STR      R0,[R2, #+60]
 //  764      
 //  765       /* Set the DMA error callback */
 //  766       htim->hdma[TIM_DMA_ID_CC3]->XferErrorCallback = HAL_TIM_DMAError ;
+        LDR      R2,[R4, #+40]
+        LDR.W    R0,??DataTable7_1
+        STR      R0,[R2, #+72]
 //  767       
 //  768       /* Enable the DMA Stream */
 //  769       HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_CC3], (uint32_t)pData, (uint32_t)&htim->Instance->CCR3,Length);
+        LDR      R0,[R4, #+0]
+        ADD      R2,R0,#+60
+        LDR      R0,[R4, #+40]
+          CFI FunCall HAL_DMA_Start_IT
+        BL       HAL_DMA_Start_IT
 //  770       
 //  771       /* Enable the TIM Output Compare DMA request */
 //  772       __HAL_TIM_ENABLE_DMA(htim, TIM_DMA_CC3);
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+12]
+        ORR      R1,R1,#0x800
+        B.N      ??HAL_TIMEx_OCN_Start_DMA_6
 //  773     }
 //  774     break;
 //  775     
@@ -1446,15 +1596,32 @@ HAL_TIMEx_OCN_Start_DMA:
 //  777     {
 //  778      /* Set the DMA Period elapsed callback */
 //  779       htim->hdma[TIM_DMA_ID_CC4]->XferCpltCallback = HAL_TIM_DMADelayPulseCplt;
+??HAL_TIMEx_OCN_Start_DMA_9:
+        LDR      R2,[R4, #+44]
+        LDR.W    R0,??DataTable7_2
+        STR      R0,[R2, #+60]
 //  780      
 //  781       /* Set the DMA error callback */
 //  782       htim->hdma[TIM_DMA_ID_CC4]->XferErrorCallback = HAL_TIM_DMAError ;
+        LDR      R2,[R4, #+44]
+        LDR.W    R0,??DataTable7_1
+        STR      R0,[R2, #+72]
 //  783       
 //  784       /* Enable the DMA Stream */
 //  785       HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_CC4], (uint32_t)pData, (uint32_t)&htim->Instance->CCR4, Length);
+        LDR      R0,[R4, #+0]
+        ADD      R2,R0,#+64
+        LDR      R0,[R4, #+44]
+          CFI FunCall HAL_DMA_Start_IT
+        BL       HAL_DMA_Start_IT
 //  786       
 //  787       /* Enable the TIM Output Compare DMA request */
 //  788       __HAL_TIM_ENABLE_DMA(htim, TIM_DMA_CC4);
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+12]
+        ORR      R1,R1,#0x1000
+??HAL_TIMEx_OCN_Start_DMA_6:
+        STR      R1,[R0, #+12]
 //  789     }
 //  790     break;
 //  791     
@@ -1464,16 +1631,40 @@ HAL_TIMEx_OCN_Start_DMA:
 //  795 
 //  796   /* Enable the Capture compare channel N */
 //  797   TIM_CCxNChannelCmd(htim->Instance, Channel, TIM_CCxN_ENABLE);
+??HAL_TIMEx_OCN_Start_DMA_4:
+        LDR      R0,[R4, #+0]
+        MOVS     R1,#+4
+        LSLS     R1,R1,R5
+        LDR      R2,[R0, #+32]
+        BICS     R2,R2,R1
+        STR      R2,[R0, #+32]
+        LDR      R2,[R0, #+32]
+        ORRS     R1,R1,R2
+        STR      R1,[R0, #+32]
 //  798   
 //  799   /* Enable the Main Output */
 //  800   __HAL_TIM_MOE_ENABLE(htim);
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+68]
+        ORR      R1,R1,#0x8000
+        STR      R1,[R0, #+68]
 //  801   
 //  802   /* Enable the Peripheral */
 //  803   __HAL_TIM_ENABLE(htim); 
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x1
+        STR      R1,[R0, #+0]
 //  804   
 //  805   /* Return function status */
 //  806   return HAL_OK;
+        MOVS     R0,#+0
+??HAL_TIMEx_OCN_Start_DMA_1:
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
 //  807 }
+          CFI EndBlock cfiBlock14
 //  808 
 //  809 /**
 //  810   * @brief  Stops the TIM Output Compare signal generation in DMA mode 
@@ -1489,8 +1680,8 @@ HAL_TIMEx_OCN_Start_DMA:
 //  820   * @retval HAL status
 //  821   */
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock17 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock15 Using cfiCommon0
           CFI Function HAL_TIMEx_OCN_Stop_DMA
           CFI NoCalls
         THUMB
@@ -1501,25 +1692,29 @@ HAL_TIMEx_OCN_Start_DMA:
 //  826   
 //  827   switch (Channel)
 HAL_TIMEx_OCN_Stop_DMA:
-        MOVS     R2,R1
-        BEQ.N    ??HAL_TIMEx_OCN_Stop_DMA_0
-        CMP      R1,#+4
-        BEQ.N    ??HAL_TIMEx_OCN_Stop_DMA_1
-        CMP      R1,#+8
-        BEQ.N    ??HAL_TIMEx_OCN_Stop_DMA_2
         CMP      R1,#+12
-        BEQ.N    ??HAL_TIMEx_OCN_Stop_DMA_3
-        B.N      ??HAL_TIMEx_OCN_Stop_DMA_4
+        PUSH     {R4}
+          CFI R4 Frame(CFA, -4)
+          CFI CFA R13+4
+        BHI.N    ??HAL_TIMEx_OCN_Stop_DMA_1
+        TBB      [PC, R1]
+        DATA
+??HAL_TIMEx_OCN_Stop_DMA_0:
+        DC8      0x7,0x1B,0x1B,0x1B
+        DC8      0xC,0x1B,0x1B,0x1B
+        DC8      0x11,0x1B,0x1B,0x1B
+        DC8      0x16,0x0
+        THUMB
 //  828   {
 //  829     case TIM_CHANNEL_1:
 //  830     {       
 //  831       /* Disable the TIM Output Compare DMA request */
 //  832       __HAL_TIM_DISABLE_DMA(htim, TIM_DMA_CC1);
-??HAL_TIMEx_OCN_Stop_DMA_0:
+??HAL_TIMEx_OCN_Stop_DMA_2:
         LDR      R2,[R0, #+0]
         LDR      R3,[R2, #+12]
         BIC      R3,R3,#0x200
-        B.N      ??HAL_TIMEx_OCN_Stop_DMA_5
+        B.N      ??HAL_TIMEx_OCN_Stop_DMA_3
 //  833     }
 //  834     break;
 //  835     
@@ -1527,11 +1722,11 @@ HAL_TIMEx_OCN_Stop_DMA:
 //  837     {
 //  838       /* Disable the TIM Output Compare DMA request */
 //  839       __HAL_TIM_DISABLE_DMA(htim, TIM_DMA_CC2);
-??HAL_TIMEx_OCN_Stop_DMA_1:
+??HAL_TIMEx_OCN_Stop_DMA_4:
         LDR      R2,[R0, #+0]
         LDR      R3,[R2, #+12]
         BIC      R3,R3,#0x400
-        B.N      ??HAL_TIMEx_OCN_Stop_DMA_5
+        B.N      ??HAL_TIMEx_OCN_Stop_DMA_3
 //  840     }
 //  841     break;
 //  842     
@@ -1539,11 +1734,11 @@ HAL_TIMEx_OCN_Stop_DMA:
 //  844     {
 //  845       /* Disable the TIM Output Compare DMA request */
 //  846       __HAL_TIM_DISABLE_DMA(htim, TIM_DMA_CC3);
-??HAL_TIMEx_OCN_Stop_DMA_2:
+??HAL_TIMEx_OCN_Stop_DMA_5:
         LDR      R2,[R0, #+0]
         LDR      R3,[R2, #+12]
         BIC      R3,R3,#0x800
-        B.N      ??HAL_TIMEx_OCN_Stop_DMA_5
+        B.N      ??HAL_TIMEx_OCN_Stop_DMA_3
 //  847     }
 //  848     break;
 //  849     
@@ -1551,11 +1746,11 @@ HAL_TIMEx_OCN_Stop_DMA:
 //  851     {
 //  852       /* Disable the TIM Output Compare interrupt */
 //  853       __HAL_TIM_DISABLE_DMA(htim, TIM_DMA_CC4);
-??HAL_TIMEx_OCN_Stop_DMA_3:
+??HAL_TIMEx_OCN_Stop_DMA_6:
         LDR      R2,[R0, #+0]
         LDR      R3,[R2, #+12]
         BIC      R3,R3,#0x1000
-??HAL_TIMEx_OCN_Stop_DMA_5:
+??HAL_TIMEx_OCN_Stop_DMA_3:
         STR      R3,[R2, #+12]
 //  854     }
 //  855     break;
@@ -1566,10 +1761,10 @@ HAL_TIMEx_OCN_Stop_DMA:
 //  860   
 //  861   /* Disable the Capture compare channel N */
 //  862   TIM_CCxNChannelCmd(htim->Instance, Channel, TIM_CCxN_DISABLE);
-??HAL_TIMEx_OCN_Stop_DMA_4:
+??HAL_TIMEx_OCN_Stop_DMA_1:
         LDR      R2,[R0, #+0]
-        MOV      R12,#+4
-        LSL      R1,R12,R1
+        MOVS     R4,#+4
+        LSL      R1,R4,R1
         LDR      R3,[R2, #+32]
         BIC      R1,R3,R1
         STR      R1,[R2, #+32]
@@ -1584,16 +1779,16 @@ HAL_TIMEx_OCN_Stop_DMA:
         TST      R3,R2
         ITTT     EQ 
         LDREQ    R3,[R1, #+32]
-        MOVWEQ   R12,#+1092
-        TSTEQ    R3,R12
-        BNE.N    ??HAL_TIMEx_OCN_Stop_DMA_6
+        MOVWEQ   R4,#+1092
+        TSTEQ    R3,R4
+        BNE.N    ??HAL_TIMEx_OCN_Stop_DMA_7
         LDR      R3,[R1, #+68]
         BIC      R3,R3,#0x8000
         STR      R3,[R1, #+68]
 //  866   
 //  867   /* Disable the Peripheral */
 //  868   __HAL_TIM_DISABLE(htim);
-??HAL_TIMEx_OCN_Stop_DMA_6:
+??HAL_TIMEx_OCN_Stop_DMA_7:
         LDR      R1,[R0, #+0]
         LDR      R3,[R1, #+32]
         TST      R3,R2
@@ -1601,15 +1796,27 @@ HAL_TIMEx_OCN_Stop_DMA:
         LDREQ    R2,[R1, #+32]
         MOVWEQ   R3,#+1092
         TSTEQ    R2,R3
-        B.N      ?Subroutine5
+        BNE.N    ??HAL_TIMEx_OCN_Stop_DMA_8
+        LDR      R2,[R1, #+0]
+        LSRS     R2,R2,#+1
+        LSLS     R2,R2,#+1
+        STR      R2,[R1, #+0]
 //  869   
 //  870   /* Change the htim state */
 //  871   htim->State = HAL_TIM_STATE_READY;
+??HAL_TIMEx_OCN_Stop_DMA_8:
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+57]
 //  872   
 //  873   /* Return function status */
 //  874   return HAL_OK;
+        MOVS     R0,#+0
+        POP      {R4}
+          CFI R4 SameValue
+          CFI CFA R13+0
+        BX       LR               ;; return
 //  875 }
-          CFI EndBlock cfiBlock17
+          CFI EndBlock cfiBlock15
 //  876 
 //  877 /**
 //  878   * @}
@@ -1659,28 +1866,18 @@ HAL_TIMEx_OCN_Stop_DMA:
 //  922   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock18 Using cfiCommon0
+          CFI Block cfiBlock16 Using cfiCommon0
           CFI Function HAL_TIMEx_PWMN_Start
           CFI NoCalls
         THUMB
 //  923 HAL_StatusTypeDef HAL_TIMEx_PWMN_Start(TIM_HandleTypeDef *htim, uint32_t Channel)
-HAL_TIMEx_PWMN_Start:
-        Nop      
 //  924 {
 //  925   /* Check the parameters */
 //  926   assert_param(IS_TIM_CCXN_INSTANCE(htim->Instance, Channel)); 
 //  927   
 //  928   /* Enable the complementary PWM output  */
 //  929   TIM_CCxNChannelCmd(htim->Instance, Channel, TIM_CCxN_ENABLE);
-          CFI EndBlock cfiBlock18
-        REQUIRE ?Subroutine3
-        ;; // Fall through to label ?Subroutine3
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock19 Using cfiCommon0
-          CFI NoFunction
-        THUMB
-?Subroutine3:
+HAL_TIMEx_PWMN_Start:
         LDR      R0,[R0, #+0]
         MOVS     R2,#+4
         LSL      R1,R2,R1
@@ -1707,8 +1904,8 @@ HAL_TIMEx_PWMN_Start:
 //  938   return HAL_OK;
         MOVS     R0,#+0
         BX       LR               ;; return
-          CFI EndBlock cfiBlock19
 //  939 } 
+          CFI EndBlock cfiBlock16
 //  940 
 //  941 /**
 //  942   * @brief  Stops the PWM signal generation on the complementary output.
@@ -1724,7 +1921,7 @@ HAL_TIMEx_PWMN_Start:
 //  952   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock20 Using cfiCommon0
+          CFI Block cfiBlock17 Using cfiCommon0
           CFI Function HAL_TIMEx_PWMN_Stop
           CFI NoCalls
         THUMB
@@ -1768,28 +1965,19 @@ HAL_TIMEx_PWMN_Stop:
         LDREQ    R1,[R0, #+32]
         MOVWEQ   R2,#+1092
         TSTEQ    R1,R2
-          CFI EndBlock cfiBlock20
-        REQUIRE ?Subroutine6
-        ;; // Fall through to label ?Subroutine6
-//  966   
-//  967   /* Return function status */
-//  968   return HAL_OK;
-//  969 } 
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock21 Using cfiCommon0
-          CFI NoFunction
-        THUMB
-?Subroutine6:
-        BNE.N    ??Subroutine6_0
+        BNE.N    ??HAL_TIMEx_PWMN_Stop_1
         LDR      R1,[R0, #+0]
         LSRS     R1,R1,#+1
         LSLS     R1,R1,#+1
         STR      R1,[R0, #+0]
-??Subroutine6_0:
+//  966   
+//  967   /* Return function status */
+//  968   return HAL_OK;
+??HAL_TIMEx_PWMN_Stop_1:
         MOVS     R0,#+0
         BX       LR               ;; return
-          CFI EndBlock cfiBlock21
+//  969 } 
+          CFI EndBlock cfiBlock17
 //  970 
 //  971 /**
 //  972   * @brief  Starts the PWM signal generation in interrupt mode on the 
@@ -1805,47 +1993,38 @@ HAL_TIMEx_PWMN_Stop:
 //  982   * @retval HAL status
 //  983   */
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock22 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock18 Using cfiCommon0
           CFI Function HAL_TIMEx_PWMN_Start_IT
           CFI NoCalls
         THUMB
 //  984 HAL_StatusTypeDef HAL_TIMEx_PWMN_Start_IT(TIM_HandleTypeDef *htim, uint32_t Channel)
-HAL_TIMEx_PWMN_Start_IT:
-        Nop      
 //  985 {
 //  986   /* Check the parameters */
 //  987   assert_param(IS_TIM_CCXN_INSTANCE(htim->Instance, Channel)); 
 //  988   
 //  989   switch (Channel)
-          CFI EndBlock cfiBlock22
-        REQUIRE ?Subroutine2
-        ;; // Fall through to label ?Subroutine2
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock23 Using cfiCommon0
-          CFI NoFunction
-        THUMB
-?Subroutine2:
-        MOVS     R2,R1
-        BEQ.N    ??Subroutine2_0
-        CMP      R1,#+4
-        BEQ.N    ??Subroutine2_1
-        CMP      R1,#+8
-        BEQ.N    ??Subroutine2_2
+HAL_TIMEx_PWMN_Start_IT:
         CMP      R1,#+12
-        BEQ.N    ??Subroutine2_3
-        B.N      ??Subroutine2_4
+        BHI.N    ??HAL_TIMEx_PWMN_Start_IT_1
+        TBB      [PC, R1]
+        DATA
+??HAL_TIMEx_PWMN_Start_IT_0:
+        DC8      0x7,0x1B,0x1B,0x1B
+        DC8      0xC,0x1B,0x1B,0x1B
+        DC8      0x11,0x1B,0x1B,0x1B
+        DC8      0x16,0x0
+        THUMB
 //  990   {
 //  991     case TIM_CHANNEL_1:
 //  992     {       
 //  993       /* Enable the TIM Capture/Compare 1 interrupt */
 //  994       __HAL_TIM_ENABLE_IT(htim, TIM_IT_CC1);
-??Subroutine2_0:
+??HAL_TIMEx_PWMN_Start_IT_2:
         LDR      R2,[R0, #+0]
         LDR      R3,[R2, #+12]
         ORR      R3,R3,#0x2
-        B.N      ??Subroutine2_5
+        B.N      ??HAL_TIMEx_PWMN_Start_IT_3
 //  995     }
 //  996     break;
 //  997     
@@ -1853,11 +2032,11 @@ HAL_TIMEx_PWMN_Start_IT:
 //  999     {
 // 1000       /* Enable the TIM Capture/Compare 2 interrupt */
 // 1001       __HAL_TIM_ENABLE_IT(htim, TIM_IT_CC2);
-??Subroutine2_1:
+??HAL_TIMEx_PWMN_Start_IT_4:
         LDR      R2,[R0, #+0]
         LDR      R3,[R2, #+12]
         ORR      R3,R3,#0x4
-        B.N      ??Subroutine2_5
+        B.N      ??HAL_TIMEx_PWMN_Start_IT_3
 // 1002     }
 // 1003     break;
 // 1004     
@@ -1865,11 +2044,11 @@ HAL_TIMEx_PWMN_Start_IT:
 // 1006     {
 // 1007       /* Enable the TIM Capture/Compare 3 interrupt */
 // 1008       __HAL_TIM_ENABLE_IT(htim, TIM_IT_CC3);
-??Subroutine2_2:
+??HAL_TIMEx_PWMN_Start_IT_5:
         LDR      R2,[R0, #+0]
         LDR      R3,[R2, #+12]
         ORR      R3,R3,#0x8
-        B.N      ??Subroutine2_5
+        B.N      ??HAL_TIMEx_PWMN_Start_IT_3
 // 1009     }
 // 1010     break;
 // 1011     
@@ -1877,11 +2056,11 @@ HAL_TIMEx_PWMN_Start_IT:
 // 1013     {
 // 1014       /* Enable the TIM Capture/Compare 4 interrupt */
 // 1015       __HAL_TIM_ENABLE_IT(htim, TIM_IT_CC4);
-??Subroutine2_3:
+??HAL_TIMEx_PWMN_Start_IT_6:
         LDR      R2,[R0, #+0]
         LDR      R3,[R2, #+12]
         ORR      R3,R3,#0x10
-??Subroutine2_5:
+??HAL_TIMEx_PWMN_Start_IT_3:
         STR      R3,[R2, #+12]
 // 1016     }
 // 1017     break;
@@ -1892,7 +2071,7 @@ HAL_TIMEx_PWMN_Start_IT:
 // 1022   
 // 1023   /* Enable the TIM Break interrupt */
 // 1024   __HAL_TIM_ENABLE_IT(htim, TIM_IT_BREAK);
-??Subroutine2_4:
+??HAL_TIMEx_PWMN_Start_IT_1:
         LDR      R2,[R0, #+0]
         LDR      R0,[R2, #+12]
         ORR      R0,R0,#0x80
@@ -1925,8 +2104,8 @@ HAL_TIMEx_PWMN_Start_IT:
 // 1036   return HAL_OK;
         MOVS     R0,#+0
         BX       LR               ;; return
-          CFI EndBlock cfiBlock23
 // 1037 } 
+          CFI EndBlock cfiBlock18
 // 1038 
 // 1039 /**
 // 1040   * @brief  Stops the PWM signal generation in interrupt mode on the 
@@ -1942,8 +2121,8 @@ HAL_TIMEx_PWMN_Start_IT:
 // 1050   * @retval HAL status
 // 1051   */
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock24 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock19 Using cfiCommon0
           CFI Function HAL_TIMEx_PWMN_Stop_IT
           CFI NoCalls
         THUMB
@@ -1956,25 +2135,26 @@ HAL_TIMEx_PWMN_Start_IT:
 // 1058 
 // 1059   switch (Channel)
 HAL_TIMEx_PWMN_Stop_IT:
-        MOVS     R2,R1
-        BEQ.N    ??HAL_TIMEx_PWMN_Stop_IT_0
-        CMP      R1,#+4
-        BEQ.N    ??HAL_TIMEx_PWMN_Stop_IT_1
-        CMP      R1,#+8
-        BEQ.N    ??HAL_TIMEx_PWMN_Stop_IT_2
         CMP      R1,#+12
-        BEQ.N    ??HAL_TIMEx_PWMN_Stop_IT_3
-        B.N      ??HAL_TIMEx_PWMN_Stop_IT_4
+        BHI.N    ??HAL_TIMEx_PWMN_Stop_IT_1
+        TBB      [PC, R1]
+        DATA
+??HAL_TIMEx_PWMN_Stop_IT_0:
+        DC8      0x7,0x1B,0x1B,0x1B
+        DC8      0xC,0x1B,0x1B,0x1B
+        DC8      0x11,0x1B,0x1B,0x1B
+        DC8      0x16,0x0
+        THUMB
 // 1060   {
 // 1061     case TIM_CHANNEL_1:
 // 1062     {       
 // 1063       /* Disable the TIM Capture/Compare 1 interrupt */
 // 1064       __HAL_TIM_DISABLE_IT(htim, TIM_IT_CC1);
-??HAL_TIMEx_PWMN_Stop_IT_0:
+??HAL_TIMEx_PWMN_Stop_IT_2:
         LDR      R2,[R0, #+0]
         LDR      R3,[R2, #+12]
         BIC      R3,R3,#0x2
-        B.N      ??HAL_TIMEx_PWMN_Stop_IT_5
+        B.N      ??HAL_TIMEx_PWMN_Stop_IT_3
 // 1065     }
 // 1066     break;
 // 1067     
@@ -1982,11 +2162,11 @@ HAL_TIMEx_PWMN_Stop_IT:
 // 1069     {
 // 1070       /* Disable the TIM Capture/Compare 2 interrupt */
 // 1071       __HAL_TIM_DISABLE_IT(htim, TIM_IT_CC2);
-??HAL_TIMEx_PWMN_Stop_IT_1:
+??HAL_TIMEx_PWMN_Stop_IT_4:
         LDR      R2,[R0, #+0]
         LDR      R3,[R2, #+12]
         BIC      R3,R3,#0x4
-        B.N      ??HAL_TIMEx_PWMN_Stop_IT_5
+        B.N      ??HAL_TIMEx_PWMN_Stop_IT_3
 // 1072     }
 // 1073     break;
 // 1074     
@@ -1994,11 +2174,11 @@ HAL_TIMEx_PWMN_Stop_IT:
 // 1076     {
 // 1077       /* Disable the TIM Capture/Compare 3 interrupt */
 // 1078       __HAL_TIM_DISABLE_IT(htim, TIM_IT_CC3);
-??HAL_TIMEx_PWMN_Stop_IT_2:
+??HAL_TIMEx_PWMN_Stop_IT_5:
         LDR      R2,[R0, #+0]
         LDR      R3,[R2, #+12]
         BIC      R3,R3,#0x8
-        B.N      ??HAL_TIMEx_PWMN_Stop_IT_5
+        B.N      ??HAL_TIMEx_PWMN_Stop_IT_3
 // 1079     }
 // 1080     break;
 // 1081     
@@ -2006,11 +2186,11 @@ HAL_TIMEx_PWMN_Stop_IT:
 // 1083     {
 // 1084       /* Disable the TIM Capture/Compare 3 interrupt */
 // 1085       __HAL_TIM_DISABLE_IT(htim, TIM_IT_CC4);
-??HAL_TIMEx_PWMN_Stop_IT_3:
+??HAL_TIMEx_PWMN_Stop_IT_6:
         LDR      R2,[R0, #+0]
         LDR      R3,[R2, #+12]
         BIC      R3,R3,#0x10
-??HAL_TIMEx_PWMN_Stop_IT_5:
+??HAL_TIMEx_PWMN_Stop_IT_3:
         STR      R3,[R2, #+12]
 // 1086     }
 // 1087     break;
@@ -2021,7 +2201,7 @@ HAL_TIMEx_PWMN_Stop_IT:
 // 1092   
 // 1093   /* Disable the complementary PWM output  */
 // 1094   TIM_CCxNChannelCmd(htim->Instance, Channel, TIM_CCxN_DISABLE);
-??HAL_TIMEx_PWMN_Stop_IT_4:
+??HAL_TIMEx_PWMN_Stop_IT_1:
         LDR      R2,[R0, #+0]
         MOVS     R3,#+4
         LSL      R1,R3,R1
@@ -2037,7 +2217,7 @@ HAL_TIMEx_PWMN_Stop_IT:
         STR      R0,[R2, #+32]
         LDR      R0,[R2, #+32]
         TST      R0,R1
-        BNE.N    ??HAL_TIMEx_PWMN_Stop_IT_6
+        BNE.N    ??HAL_TIMEx_PWMN_Stop_IT_7
 // 1099   {
 // 1100     __HAL_TIM_DISABLE_IT(htim, TIM_IT_BREAK);
         LDR      R0,[R2, #+12]
@@ -2047,48 +2227,39 @@ HAL_TIMEx_PWMN_Stop_IT:
 // 1102   
 // 1103   /* Disable the Main Output */
 // 1104   __HAL_TIM_MOE_DISABLE(htim);
-??HAL_TIMEx_PWMN_Stop_IT_6:
+??HAL_TIMEx_PWMN_Stop_IT_7:
         LDR      R3,[R2, #+32]
         MOVW     R0,#+4369
         TST      R3,R0
         ITT      EQ 
         LDREQ    R3,[R2, #+32]
         TSTEQ    R3,R1
-        BNE.N    ??HAL_TIMEx_PWMN_Stop_IT_7
+        BNE.N    ??HAL_TIMEx_PWMN_Stop_IT_8
         LDR      R3,[R2, #+68]
         BIC      R3,R3,#0x8000
         STR      R3,[R2, #+68]
 // 1105   
 // 1106   /* Disable the Peripheral */
 // 1107   __HAL_TIM_DISABLE(htim);
-??HAL_TIMEx_PWMN_Stop_IT_7:
+??HAL_TIMEx_PWMN_Stop_IT_8:
         LDR      R3,[R2, #+32]
         TST      R3,R0
         ITT      EQ 
         LDREQ    R0,[R2, #+32]
         TSTEQ    R0,R1
-          CFI EndBlock cfiBlock24
-        REQUIRE ?Subroutine7
-        ;; // Fall through to label ?Subroutine7
-// 1108   
-// 1109   /* Return function status */
-// 1110   return HAL_OK;
-// 1111 } 
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock25 Using cfiCommon0
-          CFI NoFunction
-        THUMB
-?Subroutine7:
-        BNE.N    ??Subroutine7_0
+        BNE.N    ??HAL_TIMEx_PWMN_Stop_IT_9
         LDR      R0,[R2, #+0]
         LSRS     R0,R0,#+1
         LSLS     R0,R0,#+1
         STR      R0,[R2, #+0]
-??Subroutine7_0:
+// 1108   
+// 1109   /* Return function status */
+// 1110   return HAL_OK;
+??HAL_TIMEx_PWMN_Stop_IT_9:
         MOVS     R0,#+0
         BX       LR               ;; return
-          CFI EndBlock cfiBlock25
+// 1111 } 
+          CFI EndBlock cfiBlock19
 // 1112 
 // 1113 /**
 // 1114   * @brief  Starts the TIM PWM signal generation in DMA mode on the 
@@ -2106,29 +2277,21 @@ HAL_TIMEx_PWMN_Stop_IT:
 // 1126   * @retval HAL status
 // 1127   */
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock26 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock20 Using cfiCommon0
           CFI Function HAL_TIMEx_PWMN_Start_DMA
-          CFI NoCalls
         THUMB
 // 1128 HAL_StatusTypeDef HAL_TIMEx_PWMN_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Channel, uint32_t *pData, uint16_t Length)
-HAL_TIMEx_PWMN_Start_DMA:
-        PUSH     {R3-R5,LR}
-          CFI EndBlock cfiBlock26
-        REQUIRE ?Subroutine9
-        ;; // Fall through to label ?Subroutine9
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock27 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+16
-          CFI R4 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
 // 1129 {
-?Subroutine9:
+HAL_TIMEx_PWMN_Start_DMA:
+        PUSH     {R4,R5,LR}
+          CFI R14 Frame(CFA, -4)
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
         MOV      R4,R0
+        SUB      SP,SP,#+4
+          CFI CFA R13+16
         MOV      R5,R1
         MOV      R1,R2
 // 1130   /* Check the parameters */
@@ -2137,55 +2300,56 @@ HAL_TIMEx_PWMN_Start_DMA:
 // 1133   if((htim->State == HAL_TIM_STATE_BUSY))
         LDRB     R0,[R4, #+57]
         CMP      R0,#+2
-        BEQ.N    ??Subroutine9_0
+        BEQ.N    ??HAL_TIMEx_PWMN_Start_DMA_1
 // 1134   {
 // 1135      return HAL_BUSY;
 // 1136   }
 // 1137   else if((htim->State == HAL_TIM_STATE_READY))
         LDRB     R0,[R4, #+57]
         CMP      R0,#+1
-        BNE.N    ??Subroutine9_1
+        BNE.N    ??HAL_TIMEx_PWMN_Start_DMA_2
 // 1138   {
 // 1139     if(((uint32_t)pData == 0 ) && (Length > 0)) 
-        CBNZ.N   R1,??Subroutine9_2
+        CBNZ.N   R1,??HAL_TIMEx_PWMN_Start_DMA_3
         CMP      R3,#+0
-        BNE.N    ??Subroutine9_0
+        BNE.N    ??HAL_TIMEx_PWMN_Start_DMA_1
 // 1140     {
 // 1141       return HAL_ERROR;                                    
 // 1142     }
 // 1143     else
 // 1144     {
 // 1145       htim->State = HAL_TIM_STATE_BUSY;
-??Subroutine9_2:
+??HAL_TIMEx_PWMN_Start_DMA_3:
         MOVS     R0,#+2
         STRB     R0,[R4, #+57]
 // 1146     }
 // 1147   }    
 // 1148   switch (Channel)
-??Subroutine9_1:
-        MOVS     R0,R5
-        BEQ.N    ??Subroutine9_3
-        CMP      R5,#+4
-        BEQ.N    ??Subroutine9_4
-        CMP      R5,#+8
-        BEQ.N    ??Subroutine9_5
+??HAL_TIMEx_PWMN_Start_DMA_2:
         CMP      R5,#+12
-        BEQ.N    ??Subroutine9_6
-        B.N      ??Subroutine9_7
+        BHI.N    ??HAL_TIMEx_PWMN_Start_DMA_4
+        TBB      [PC, R5]
+        DATA
+??HAL_TIMEx_PWMN_Start_DMA_0:
+        DC8      0x7,0x53,0x53,0x53
+        DC8      0x1A,0x53,0x53,0x53
+        DC8      0x2D,0x53,0x53,0x53
+        DC8      0x40,0x0
+        THUMB
 // 1149   {
 // 1150     case TIM_CHANNEL_1:
 // 1151     {      
 // 1152       /* Set the DMA Period elapsed callback */
 // 1153       htim->hdma[TIM_DMA_ID_CC1]->XferCpltCallback = HAL_TIM_DMADelayPulseCplt;
-??Subroutine9_3:
+??HAL_TIMEx_PWMN_Start_DMA_5:
         LDR      R2,[R4, #+32]
-        LDR.W    R0,??DataTable5_3
+        LDR.W    R0,??DataTable7_2
         STR      R0,[R2, #+60]
 // 1154      
 // 1155       /* Set the DMA error callback */
 // 1156       htim->hdma[TIM_DMA_ID_CC1]->XferErrorCallback = HAL_TIM_DMAError ;
         LDR      R2,[R4, #+32]
-        LDR.W    R0,??DataTable5_2
+        LDR.W    R0,??DataTable7_1
         STR      R0,[R2, #+72]
 // 1157       
 // 1158       /* Enable the DMA Stream */
@@ -2193,8 +2357,7 @@ HAL_TIMEx_PWMN_Start_DMA:
         LDR      R0,[R4, #+0]
         ADD      R2,R0,#+52
         LDR      R0,[R4, #+32]
-          CFI FunCall HAL_TIMEx_OCN_Start_DMA HAL_DMA_Start_IT
-          CFI FunCall HAL_TIMEx_PWMN_Start_DMA HAL_DMA_Start_IT
+          CFI FunCall HAL_DMA_Start_IT
         BL       HAL_DMA_Start_IT
 // 1160       
 // 1161       /* Enable the TIM Capture/Compare 1 DMA request */
@@ -2202,7 +2365,7 @@ HAL_TIMEx_PWMN_Start_DMA:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+12]
         ORR      R1,R1,#0x200
-        B.N      ??Subroutine9_8
+        B.N      ??HAL_TIMEx_PWMN_Start_DMA_6
 // 1163     }
 // 1164     break;
 // 1165     
@@ -2210,15 +2373,15 @@ HAL_TIMEx_PWMN_Start_DMA:
 // 1167     {
 // 1168       /* Set the DMA Period elapsed callback */
 // 1169       htim->hdma[TIM_DMA_ID_CC2]->XferCpltCallback = HAL_TIM_DMADelayPulseCplt;
-??Subroutine9_4:
+??HAL_TIMEx_PWMN_Start_DMA_7:
         LDR      R2,[R4, #+36]
-        LDR.W    R0,??DataTable5_3
+        LDR.W    R0,??DataTable7_2
         STR      R0,[R2, #+60]
 // 1170      
 // 1171       /* Set the DMA error callback */
 // 1172       htim->hdma[TIM_DMA_ID_CC2]->XferErrorCallback = HAL_TIM_DMAError ;
         LDR      R2,[R4, #+36]
-        LDR.W    R0,??DataTable5_2
+        LDR.W    R0,??DataTable7_1
         STR      R0,[R2, #+72]
 // 1173       
 // 1174       /* Enable the DMA Stream */
@@ -2226,8 +2389,7 @@ HAL_TIMEx_PWMN_Start_DMA:
         LDR      R0,[R4, #+0]
         ADD      R2,R0,#+56
         LDR      R0,[R4, #+36]
-          CFI FunCall HAL_TIMEx_OCN_Start_DMA HAL_DMA_Start_IT
-          CFI FunCall HAL_TIMEx_PWMN_Start_DMA HAL_DMA_Start_IT
+          CFI FunCall HAL_DMA_Start_IT
         BL       HAL_DMA_Start_IT
 // 1176       
 // 1177       /* Enable the TIM Capture/Compare 2 DMA request */
@@ -2235,7 +2397,7 @@ HAL_TIMEx_PWMN_Start_DMA:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+12]
         ORR      R1,R1,#0x400
-        B.N      ??Subroutine9_8
+        B.N      ??HAL_TIMEx_PWMN_Start_DMA_6
 // 1179     }
 // 1180     break;
 // 1181     
@@ -2243,15 +2405,15 @@ HAL_TIMEx_PWMN_Start_DMA:
 // 1183     {
 // 1184       /* Set the DMA Period elapsed callback */
 // 1185       htim->hdma[TIM_DMA_ID_CC3]->XferCpltCallback = HAL_TIM_DMADelayPulseCplt;
-??Subroutine9_5:
+??HAL_TIMEx_PWMN_Start_DMA_8:
         LDR      R2,[R4, #+40]
-        LDR.W    R0,??DataTable5_3
+        LDR.W    R0,??DataTable7_2
         STR      R0,[R2, #+60]
 // 1186      
 // 1187       /* Set the DMA error callback */
 // 1188       htim->hdma[TIM_DMA_ID_CC3]->XferErrorCallback = HAL_TIM_DMAError ;
         LDR      R2,[R4, #+40]
-        LDR.W    R0,??DataTable5_2
+        LDR.W    R0,??DataTable7_1
         STR      R0,[R2, #+72]
 // 1189       
 // 1190       /* Enable the DMA Stream */
@@ -2259,8 +2421,7 @@ HAL_TIMEx_PWMN_Start_DMA:
         LDR      R0,[R4, #+0]
         ADD      R2,R0,#+60
         LDR      R0,[R4, #+40]
-          CFI FunCall HAL_TIMEx_OCN_Start_DMA HAL_DMA_Start_IT
-          CFI FunCall HAL_TIMEx_PWMN_Start_DMA HAL_DMA_Start_IT
+          CFI FunCall HAL_DMA_Start_IT
         BL       HAL_DMA_Start_IT
 // 1192       
 // 1193       /* Enable the TIM Capture/Compare 3 DMA request */
@@ -2268,7 +2429,7 @@ HAL_TIMEx_PWMN_Start_DMA:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+12]
         ORR      R1,R1,#0x800
-        B.N      ??Subroutine9_8
+        B.N      ??HAL_TIMEx_PWMN_Start_DMA_6
 // 1195     }
 // 1196     break;
 // 1197     
@@ -2276,15 +2437,15 @@ HAL_TIMEx_PWMN_Start_DMA:
 // 1199     {
 // 1200      /* Set the DMA Period elapsed callback */
 // 1201       htim->hdma[TIM_DMA_ID_CC4]->XferCpltCallback = HAL_TIM_DMADelayPulseCplt;
-??Subroutine9_6:
+??HAL_TIMEx_PWMN_Start_DMA_9:
         LDR      R2,[R4, #+44]
-        LDR.W    R0,??DataTable5_3
+        LDR.W    R0,??DataTable7_2
         STR      R0,[R2, #+60]
 // 1202      
 // 1203       /* Set the DMA error callback */
 // 1204       htim->hdma[TIM_DMA_ID_CC4]->XferErrorCallback = HAL_TIM_DMAError ;
         LDR      R2,[R4, #+44]
-        LDR.W    R0,??DataTable5_2
+        LDR.W    R0,??DataTable7_1
         STR      R0,[R2, #+72]
 // 1205       
 // 1206       /* Enable the DMA Stream */
@@ -2292,8 +2453,7 @@ HAL_TIMEx_PWMN_Start_DMA:
         LDR      R0,[R4, #+0]
         ADD      R2,R0,#+64
         LDR      R0,[R4, #+44]
-          CFI FunCall HAL_TIMEx_OCN_Start_DMA HAL_DMA_Start_IT
-          CFI FunCall HAL_TIMEx_PWMN_Start_DMA HAL_DMA_Start_IT
+          CFI FunCall HAL_DMA_Start_IT
         BL       HAL_DMA_Start_IT
 // 1208       
 // 1209       /* Enable the TIM Capture/Compare 4 DMA request */
@@ -2301,7 +2461,7 @@ HAL_TIMEx_PWMN_Start_DMA:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+12]
         ORR      R1,R1,#0x1000
-??Subroutine9_8:
+??HAL_TIMEx_PWMN_Start_DMA_6:
         STR      R1,[R0, #+12]
 // 1211     }
 // 1212     break;
@@ -2312,7 +2472,7 @@ HAL_TIMEx_PWMN_Start_DMA:
 // 1217 
 // 1218   /* Enable the complementary PWM output  */
 // 1219      TIM_CCxNChannelCmd(htim->Instance, Channel, TIM_CCxN_ENABLE);
-??Subroutine9_7:
+??HAL_TIMEx_PWMN_Start_DMA_4:
         LDR      R0,[R4, #+0]
         MOVS     R1,#+4
         LSLS     R1,R1,R5
@@ -2340,10 +2500,12 @@ HAL_TIMEx_PWMN_Start_DMA:
 // 1227   /* Return function status */
 // 1228   return HAL_OK;
         MOVS     R0,#+0
-??Subroutine9_0:
-        POP      {R1,R4,R5,PC}    ;; return
-          CFI EndBlock cfiBlock27
+??HAL_TIMEx_PWMN_Start_DMA_1:
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
 // 1229 }
+          CFI EndBlock cfiBlock20
 // 1230 
 // 1231 /**
 // 1232   * @brief  Stops the TIM PWM signal generation in DMA mode on the complementary
@@ -2359,8 +2521,8 @@ HAL_TIMEx_PWMN_Start_DMA:
 // 1242   * @retval HAL status
 // 1243   */
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock28 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock21 Using cfiCommon0
           CFI Function HAL_TIMEx_PWMN_Stop_DMA
           CFI NoCalls
         THUMB
@@ -2371,25 +2533,29 @@ HAL_TIMEx_PWMN_Start_DMA:
 // 1248   
 // 1249   switch (Channel)
 HAL_TIMEx_PWMN_Stop_DMA:
-        MOVS     R2,R1
-        BEQ.N    ??HAL_TIMEx_PWMN_Stop_DMA_0
-        CMP      R1,#+4
-        BEQ.N    ??HAL_TIMEx_PWMN_Stop_DMA_1
-        CMP      R1,#+8
-        BEQ.N    ??HAL_TIMEx_PWMN_Stop_DMA_2
         CMP      R1,#+12
-        BEQ.N    ??HAL_TIMEx_PWMN_Stop_DMA_3
-        B.N      ??HAL_TIMEx_PWMN_Stop_DMA_4
+        PUSH     {R4}
+          CFI R4 Frame(CFA, -4)
+          CFI CFA R13+4
+        BHI.N    ??HAL_TIMEx_PWMN_Stop_DMA_1
+        TBB      [PC, R1]
+        DATA
+??HAL_TIMEx_PWMN_Stop_DMA_0:
+        DC8      0x7,0x1B,0x1B,0x1B
+        DC8      0xC,0x1B,0x1B,0x1B
+        DC8      0x11,0x1B,0x1B,0x1B
+        DC8      0x16,0x0
+        THUMB
 // 1250   {
 // 1251     case TIM_CHANNEL_1:
 // 1252     {       
 // 1253       /* Disable the TIM Capture/Compare 1 DMA request */
 // 1254       __HAL_TIM_DISABLE_DMA(htim, TIM_DMA_CC1);
-??HAL_TIMEx_PWMN_Stop_DMA_0:
+??HAL_TIMEx_PWMN_Stop_DMA_2:
         LDR      R2,[R0, #+0]
         LDR      R3,[R2, #+12]
         BIC      R3,R3,#0x200
-        B.N      ??HAL_TIMEx_PWMN_Stop_DMA_5
+        B.N      ??HAL_TIMEx_PWMN_Stop_DMA_3
 // 1255     }
 // 1256     break;
 // 1257     
@@ -2397,11 +2563,11 @@ HAL_TIMEx_PWMN_Stop_DMA:
 // 1259     {
 // 1260       /* Disable the TIM Capture/Compare 2 DMA request */
 // 1261       __HAL_TIM_DISABLE_DMA(htim, TIM_DMA_CC2);
-??HAL_TIMEx_PWMN_Stop_DMA_1:
+??HAL_TIMEx_PWMN_Stop_DMA_4:
         LDR      R2,[R0, #+0]
         LDR      R3,[R2, #+12]
         BIC      R3,R3,#0x400
-        B.N      ??HAL_TIMEx_PWMN_Stop_DMA_5
+        B.N      ??HAL_TIMEx_PWMN_Stop_DMA_3
 // 1262     }
 // 1263     break;
 // 1264     
@@ -2409,11 +2575,11 @@ HAL_TIMEx_PWMN_Stop_DMA:
 // 1266     {
 // 1267       /* Disable the TIM Capture/Compare 3 DMA request */
 // 1268       __HAL_TIM_DISABLE_DMA(htim, TIM_DMA_CC3);
-??HAL_TIMEx_PWMN_Stop_DMA_2:
+??HAL_TIMEx_PWMN_Stop_DMA_5:
         LDR      R2,[R0, #+0]
         LDR      R3,[R2, #+12]
         BIC      R3,R3,#0x800
-        B.N      ??HAL_TIMEx_PWMN_Stop_DMA_5
+        B.N      ??HAL_TIMEx_PWMN_Stop_DMA_3
 // 1269     }
 // 1270     break;
 // 1271     
@@ -2421,11 +2587,11 @@ HAL_TIMEx_PWMN_Stop_DMA:
 // 1273     {
 // 1274       /* Disable the TIM Capture/Compare 4 DMA request */
 // 1275       __HAL_TIM_DISABLE_DMA(htim, TIM_DMA_CC4);
-??HAL_TIMEx_PWMN_Stop_DMA_3:
+??HAL_TIMEx_PWMN_Stop_DMA_6:
         LDR      R2,[R0, #+0]
         LDR      R3,[R2, #+12]
         BIC      R3,R3,#0x1000
-??HAL_TIMEx_PWMN_Stop_DMA_5:
+??HAL_TIMEx_PWMN_Stop_DMA_3:
         STR      R3,[R2, #+12]
 // 1276     }
 // 1277     break;
@@ -2436,10 +2602,10 @@ HAL_TIMEx_PWMN_Stop_DMA:
 // 1282   
 // 1283   /* Disable the complementary PWM output */
 // 1284     TIM_CCxNChannelCmd(htim->Instance, Channel, TIM_CCxN_DISABLE);
-??HAL_TIMEx_PWMN_Stop_DMA_4:
+??HAL_TIMEx_PWMN_Stop_DMA_1:
         LDR      R2,[R0, #+0]
-        MOV      R12,#+4
-        LSL      R1,R12,R1
+        MOVS     R4,#+4
+        LSL      R1,R4,R1
         LDR      R3,[R2, #+32]
         BIC      R1,R3,R1
         STR      R1,[R2, #+32]
@@ -2454,16 +2620,16 @@ HAL_TIMEx_PWMN_Stop_DMA:
         TST      R3,R2
         ITTT     EQ 
         LDREQ    R3,[R1, #+32]
-        MOVWEQ   R12,#+1092
-        TSTEQ    R3,R12
-        BNE.N    ??HAL_TIMEx_PWMN_Stop_DMA_6
+        MOVWEQ   R4,#+1092
+        TSTEQ    R3,R4
+        BNE.N    ??HAL_TIMEx_PWMN_Stop_DMA_7
         LDR      R3,[R1, #+68]
         BIC      R3,R3,#0x8000
         STR      R3,[R1, #+68]
 // 1288 
 // 1289   /* Disable the Peripheral */
 // 1290   __HAL_TIM_DISABLE(htim);
-??HAL_TIMEx_PWMN_Stop_DMA_6:
+??HAL_TIMEx_PWMN_Stop_DMA_7:
         LDR      R1,[R0, #+0]
         LDR      R3,[R1, #+32]
         TST      R3,R2
@@ -2471,33 +2637,27 @@ HAL_TIMEx_PWMN_Stop_DMA:
         LDREQ    R2,[R1, #+32]
         MOVWEQ   R3,#+1092
         TSTEQ    R2,R3
-          CFI EndBlock cfiBlock28
-        REQUIRE ?Subroutine5
-        ;; // Fall through to label ?Subroutine5
-// 1291   
-// 1292   /* Change the htim state */
-// 1293   htim->State = HAL_TIM_STATE_READY;
-// 1294   
-// 1295   /* Return function status */
-// 1296   return HAL_OK;
-// 1297 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock29 Using cfiCommon0
-          CFI NoFunction
-        THUMB
-?Subroutine5:
-        BNE.N    ??Subroutine5_0
+        BNE.N    ??HAL_TIMEx_PWMN_Stop_DMA_8
         LDR      R2,[R1, #+0]
         LSRS     R2,R2,#+1
         LSLS     R2,R2,#+1
         STR      R2,[R1, #+0]
-??Subroutine5_0:
+// 1291   
+// 1292   /* Change the htim state */
+// 1293   htim->State = HAL_TIM_STATE_READY;
+??HAL_TIMEx_PWMN_Stop_DMA_8:
         MOVS     R1,#+1
         STRB     R1,[R0, #+57]
+// 1294   
+// 1295   /* Return function status */
+// 1296   return HAL_OK;
         MOVS     R0,#+0
+        POP      {R4}
+          CFI R4 SameValue
+          CFI CFA R13+0
         BX       LR               ;; return
-          CFI EndBlock cfiBlock29
+// 1297 }
+          CFI EndBlock cfiBlock21
 // 1298 
 // 1299 /**
 // 1300   * @}
@@ -2534,7 +2694,7 @@ HAL_TIMEx_PWMN_Stop_DMA:
 // 1331   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock30 Using cfiCommon0
+          CFI Block cfiBlock22 Using cfiCommon0
           CFI Function HAL_TIMEx_OnePulseN_Start
           CFI NoCalls
         THUMB
@@ -2547,15 +2707,27 @@ HAL_TIMEx_PWMN_Stop_DMA:
 // 1338   TIM_CCxNChannelCmd(htim->Instance, OutputChannel, TIM_CCxN_ENABLE); 
 HAL_TIMEx_OnePulseN_Start:
         LDR      R0,[R0, #+0]
-        B.N      ?Subroutine4
+        MOVS     R2,#+4
+        LSL      R1,R2,R1
+        LDR      R2,[R0, #+32]
+        BICS     R2,R2,R1
+        STR      R2,[R0, #+32]
+        LDR      R2,[R0, #+32]
+        ORRS     R1,R1,R2
+        STR      R1,[R0, #+32]
 // 1339   
 // 1340   /* Enable the Main Output */
 // 1341   __HAL_TIM_MOE_ENABLE(htim);
+        LDR      R1,[R0, #+68]
+        ORR      R1,R1,#0x8000
+        STR      R1,[R0, #+68]
 // 1342   
 // 1343   /* Return function status */
 // 1344   return HAL_OK;
+        MOVS     R0,#+0
+        BX       LR               ;; return
 // 1345 }
-          CFI EndBlock cfiBlock30
+          CFI EndBlock cfiBlock22
 // 1346 
 // 1347 /**
 // 1348   * @brief  Stops the TIM One Pulse signal generation on the complementary 
@@ -2570,7 +2742,7 @@ HAL_TIMEx_OnePulseN_Start:
 // 1357   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock31 Using cfiCommon0
+          CFI Block cfiBlock23 Using cfiCommon0
           CFI Function HAL_TIMEx_OnePulseN_Stop
           CFI NoCalls
         THUMB
@@ -2615,12 +2787,19 @@ HAL_TIMEx_OnePulseN_Stop:
         LDREQ    R1,[R0, #+32]
         MOVWEQ   R2,#+1092
         TSTEQ    R1,R2
-        B.N      ?Subroutine6
+        BNE.N    ??HAL_TIMEx_OnePulseN_Stop_1
+        LDR      R1,[R0, #+0]
+        LSRS     R1,R1,#+1
+        LSLS     R1,R1,#+1
+        STR      R1,[R0, #+0]
 // 1372    
 // 1373   /* Return function status */
 // 1374   return HAL_OK;
+??HAL_TIMEx_OnePulseN_Stop_1:
+        MOVS     R0,#+0
+        BX       LR               ;; return
 // 1375 }
-          CFI EndBlock cfiBlock31
+          CFI EndBlock cfiBlock23
 // 1376 
 // 1377 /**
 // 1378   * @brief  Starts the TIM One Pulse signal generation in interrupt mode on the
@@ -2635,7 +2814,7 @@ HAL_TIMEx_OnePulseN_Stop:
 // 1387   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock32 Using cfiCommon0
+          CFI Block cfiBlock24 Using cfiCommon0
           CFI Function HAL_TIMEx_OnePulseN_Start_IT
           CFI NoCalls
         THUMB
@@ -2660,22 +2839,6 @@ HAL_TIMEx_OnePulseN_Start_IT:
 // 1398   
 // 1399   /* Enable the complementary One Pulse output */
 // 1400   TIM_CCxNChannelCmd(htim->Instance, OutputChannel, TIM_CCxN_ENABLE); 
-          CFI EndBlock cfiBlock32
-        REQUIRE ?Subroutine4
-        ;; // Fall through to label ?Subroutine4
-// 1401   
-// 1402   /* Enable the Main Output */
-// 1403   __HAL_TIM_MOE_ENABLE(htim);
-// 1404   
-// 1405   /* Return function status */
-// 1406   return HAL_OK;
-// 1407   } 
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock33 Using cfiCommon0
-          CFI NoFunction
-        THUMB
-?Subroutine4:
         MOVS     R2,#+4
         LSL      R1,R2,R1
         LDR      R2,[R0, #+32]
@@ -2684,12 +2847,19 @@ HAL_TIMEx_OnePulseN_Start_IT:
         LDR      R2,[R0, #+32]
         ORRS     R1,R1,R2
         STR      R1,[R0, #+32]
+// 1401   
+// 1402   /* Enable the Main Output */
+// 1403   __HAL_TIM_MOE_ENABLE(htim);
         LDR      R1,[R0, #+68]
         ORR      R1,R1,#0x8000
         STR      R1,[R0, #+68]
+// 1404   
+// 1405   /* Return function status */
+// 1406   return HAL_OK;
         MOVS     R0,#+0
         BX       LR               ;; return
-          CFI EndBlock cfiBlock33
+// 1407   } 
+          CFI EndBlock cfiBlock24
 // 1408   
 // 1409 /**
 // 1410   * @brief  Stops the TIM One Pulse signal generation in interrupt mode on the
@@ -2704,7 +2874,7 @@ HAL_TIMEx_OnePulseN_Start_IT:
 // 1419   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock34 Using cfiCommon0
+          CFI Block cfiBlock25 Using cfiCommon0
           CFI Function HAL_TIMEx_OnePulseN_Stop_IT
           CFI NoCalls
         THUMB
@@ -2760,12 +2930,19 @@ HAL_TIMEx_OnePulseN_Stop_IT:
         LDREQ    R1,[R0, #+32]
         MOVWEQ   R2,#+1092
         TSTEQ    R1,R2
-        B.N      ?Subroutine6
+        BNE.N    ??HAL_TIMEx_OnePulseN_Stop_IT_1
+        LDR      R1,[R0, #+0]
+        LSRS     R1,R1,#+1
+        LSLS     R1,R1,#+1
+        STR      R1,[R0, #+0]
 // 1439   
 // 1440   /* Return function status */
 // 1441   return HAL_OK;
+??HAL_TIMEx_OnePulseN_Stop_IT_1:
+        MOVS     R0,#+0
+        BX       LR               ;; return
 // 1442 }
-          CFI EndBlock cfiBlock34
+          CFI EndBlock cfiBlock25
 // 1443 
 // 1444 /**
 // 1445   * @}
@@ -2815,26 +2992,24 @@ HAL_TIMEx_OnePulseN_Stop_IT:
 // 1489   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock35 Using cfiCommon0
+          CFI Block cfiBlock26 Using cfiCommon0
           CFI Function HAL_TIMEx_ConfigCommutationEvent
           CFI NoCalls
         THUMB
 // 1490 HAL_StatusTypeDef HAL_TIMEx_ConfigCommutationEvent(TIM_HandleTypeDef *htim, uint32_t  InputTrigger, uint32_t  CommutationSource)
 // 1491 {
-HAL_TIMEx_ConfigCommutationEvent:
-        PUSH     {R4}
-          CFI R4 Frame(CFA, -4)
-          CFI CFA R13+4
 // 1492   /* Check the parameters */
 // 1493   assert_param(IS_TIM_ADVANCED_INSTANCE(htim->Instance));
 // 1494   assert_param(IS_TIM_INTERNAL_TRIGGEREVENT_SELECTION(InputTrigger));
 // 1495   
 // 1496   __HAL_LOCK(htim);
+HAL_TIMEx_ConfigCommutationEvent:
         LDRB     R3,[R0, #+56]
         CMP      R3,#+1
-        IT       EQ 
-        MOVEQ    R0,#+2
-        BEQ.N    ??HAL_TIMEx_ConfigCommutationEvent_0
+        BNE.N    ??HAL_TIMEx_ConfigCommutationEvent_0
+        MOVS     R0,#+2
+        BX       LR
+??HAL_TIMEx_ConfigCommutationEvent_0:
         MOVS     R3,#+1
 // 1497   
 // 1498   if ((InputTrigger == TIM_TS_ITR0) || (InputTrigger == TIM_TS_ITR1) ||
@@ -2853,12 +3028,12 @@ HAL_TIMEx_ConfigCommutationEvent:
 // 1502     htim->Instance->SMCR &= ~TIM_SMCR_TS;
 ??HAL_TIMEx_ConfigCommutationEvent_1:
         LDR      R3,[R0, #+0]
-        LDR      R4,[R3, #+8]
-        BIC      R4,R4,#0x70
-        STR      R4,[R3, #+8]
+        LDR      R12,[R3, #+8]
+        BIC      R12,R12,#0x70
+        STR      R12,[R3, #+8]
 // 1503     htim->Instance->SMCR |= InputTrigger;
-        LDR      R4,[R3, #+8]
-        ORRS     R1,R1,R4
+        LDR      R12,[R3, #+8]
+        ORR      R1,R1,R12
         STR      R1,[R3, #+8]
 // 1504   }
 // 1505     
@@ -2885,13 +3060,9 @@ HAL_TIMEx_ConfigCommutationEvent:
 // 1513   
 // 1514   return HAL_OK;
         MOVS     R0,#+0
-??HAL_TIMEx_ConfigCommutationEvent_0:
-        POP      {R4}
-          CFI R4 SameValue
-          CFI CFA R13+0
         BX       LR               ;; return
 // 1515 }
-          CFI EndBlock cfiBlock35
+          CFI EndBlock cfiBlock26
 // 1516 
 // 1517 /**
 // 1518   * @brief  Configure the TIM commutation event sequence with interrupt.
@@ -2918,26 +3089,24 @@ HAL_TIMEx_ConfigCommutationEvent:
 // 1539   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock36 Using cfiCommon0
+          CFI Block cfiBlock27 Using cfiCommon0
           CFI Function HAL_TIMEx_ConfigCommutationEvent_IT
           CFI NoCalls
         THUMB
 // 1540 HAL_StatusTypeDef HAL_TIMEx_ConfigCommutationEvent_IT(TIM_HandleTypeDef *htim, uint32_t  InputTrigger, uint32_t  CommutationSource)
 // 1541 {
-HAL_TIMEx_ConfigCommutationEvent_IT:
-        PUSH     {R4}
-          CFI R4 Frame(CFA, -4)
-          CFI CFA R13+4
 // 1542   /* Check the parameters */
 // 1543   assert_param(IS_TIM_ADVANCED_INSTANCE(htim->Instance));
 // 1544   assert_param(IS_TIM_INTERNAL_TRIGGEREVENT_SELECTION(InputTrigger));
 // 1545   
 // 1546   __HAL_LOCK(htim);
+HAL_TIMEx_ConfigCommutationEvent_IT:
         LDRB     R3,[R0, #+56]
         CMP      R3,#+1
-        IT       EQ 
-        MOVEQ    R0,#+2
-        BEQ.N    ??HAL_TIMEx_ConfigCommutationEvent_IT_0
+        BNE.N    ??HAL_TIMEx_ConfigCommutationEvent_IT_0
+        MOVS     R0,#+2
+        BX       LR
+??HAL_TIMEx_ConfigCommutationEvent_IT_0:
         MOVS     R3,#+1
 // 1547   
 // 1548   if ((InputTrigger == TIM_TS_ITR0) || (InputTrigger == TIM_TS_ITR1) ||
@@ -2956,12 +3125,12 @@ HAL_TIMEx_ConfigCommutationEvent_IT:
 // 1552     htim->Instance->SMCR &= ~TIM_SMCR_TS;
 ??HAL_TIMEx_ConfigCommutationEvent_IT_1:
         LDR      R3,[R0, #+0]
-        LDR      R4,[R3, #+8]
-        BIC      R4,R4,#0x70
-        STR      R4,[R3, #+8]
+        LDR      R12,[R3, #+8]
+        BIC      R12,R12,#0x70
+        STR      R12,[R3, #+8]
 // 1553     htim->Instance->SMCR |= InputTrigger;
-        LDR      R4,[R3, #+8]
-        ORRS     R1,R1,R4
+        LDR      R12,[R3, #+8]
+        ORR      R1,R1,R12
         STR      R1,[R3, #+8]
 // 1554   }
 // 1555   
@@ -2994,13 +3163,9 @@ HAL_TIMEx_ConfigCommutationEvent_IT:
 // 1566   
 // 1567   return HAL_OK;
         MOVS     R0,#+0
-??HAL_TIMEx_ConfigCommutationEvent_IT_0:
-        POP      {R4}
-          CFI R4 SameValue
-          CFI CFA R13+0
         BX       LR               ;; return
 // 1568 }
-          CFI EndBlock cfiBlock36
+          CFI EndBlock cfiBlock27
 // 1569 
 // 1570 /**
 // 1571   * @brief  Configure the TIM commutation event sequence with DMA.
@@ -3028,26 +3193,24 @@ HAL_TIMEx_ConfigCommutationEvent_IT:
 // 1593   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock37 Using cfiCommon0
+          CFI Block cfiBlock28 Using cfiCommon0
           CFI Function HAL_TIMEx_ConfigCommutationEvent_DMA
           CFI NoCalls
         THUMB
 // 1594 HAL_StatusTypeDef HAL_TIMEx_ConfigCommutationEvent_DMA(TIM_HandleTypeDef *htim, uint32_t  InputTrigger, uint32_t  CommutationSource)
 // 1595 {
-HAL_TIMEx_ConfigCommutationEvent_DMA:
-        PUSH     {R4}
-          CFI R4 Frame(CFA, -4)
-          CFI CFA R13+4
 // 1596   /* Check the parameters */
 // 1597   assert_param(IS_TIM_ADVANCED_INSTANCE(htim->Instance));
 // 1598   assert_param(IS_TIM_INTERNAL_TRIGGEREVENT_SELECTION(InputTrigger));
 // 1599   
 // 1600   __HAL_LOCK(htim);
+HAL_TIMEx_ConfigCommutationEvent_DMA:
         LDRB     R3,[R0, #+56]
         CMP      R3,#+1
-        IT       EQ 
-        MOVEQ    R0,#+2
-        BEQ.N    ??HAL_TIMEx_ConfigCommutationEvent_DMA_0
+        BNE.N    ??HAL_TIMEx_ConfigCommutationEvent_DMA_0
+        MOVS     R0,#+2
+        BX       LR
+??HAL_TIMEx_ConfigCommutationEvent_DMA_0:
         MOVS     R3,#+1
 // 1601   
 // 1602   if ((InputTrigger == TIM_TS_ITR0) || (InputTrigger == TIM_TS_ITR1) ||
@@ -3066,12 +3229,12 @@ HAL_TIMEx_ConfigCommutationEvent_DMA:
 // 1606     htim->Instance->SMCR &= ~TIM_SMCR_TS;
 ??HAL_TIMEx_ConfigCommutationEvent_DMA_1:
         LDR      R3,[R0, #+0]
-        LDR      R4,[R3, #+8]
-        BIC      R4,R4,#0x70
-        STR      R4,[R3, #+8]
+        LDR      R12,[R3, #+8]
+        BIC      R12,R12,#0x70
+        STR      R12,[R3, #+8]
 // 1607     htim->Instance->SMCR |= InputTrigger;
-        LDR      R4,[R3, #+8]
-        ORRS     R1,R1,R4
+        LDR      R12,[R3, #+8]
+        ORR      R1,R1,R12
         STR      R1,[R3, #+8]
 // 1608   }
 // 1609   
@@ -3101,7 +3264,7 @@ HAL_TIMEx_ConfigCommutationEvent_DMA:
 // 1619   /* Set the DMA error callback */
 // 1620   htim->hdma[TIM_DMA_ID_COMMUTATION]->XferErrorCallback = HAL_TIM_DMAError;
         LDR      R2,[R0, #+48]
-        LDR.W    R1,??DataTable5_2
+        LDR.W    R1,??DataTable7_1
         STR      R1,[R2, #+72]
 // 1621   
 // 1622   /* Enable the Commutation DMA Request */
@@ -3116,13 +3279,9 @@ HAL_TIMEx_ConfigCommutationEvent_DMA:
 // 1626   
 // 1627   return HAL_OK;
         MOVS     R0,#+0
-??HAL_TIMEx_ConfigCommutationEvent_DMA_0:
-        POP      {R4}
-          CFI R4 SameValue
-          CFI CFA R13+0
         BX       LR               ;; return
 // 1628 }
-          CFI EndBlock cfiBlock37
+          CFI EndBlock cfiBlock28
 // 1629 
 // 1630 /**
 // 1631   * @brief  Initializes the TIM Output Compare Channels according to the specified
@@ -3141,8 +3300,8 @@ HAL_TIMEx_ConfigCommutationEvent_DMA:
 // 1644   * @retval HAL status
 // 1645   */
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock38 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock29 Using cfiCommon0
           CFI Function HAL_TIM_OC_ConfigChannel
         THUMB
 // 1646 HAL_StatusTypeDef HAL_TIM_OC_ConfigChannel(TIM_HandleTypeDef *htim, TIM_OC_InitTypeDef* sConfig, uint32_t Channel)
@@ -3152,6 +3311,7 @@ HAL_TIM_OC_ConfigChannel:
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
+        MOV      R4,R0
 // 1648   /* Check the parameters */
 // 1649   assert_param(IS_TIM_CHANNELS(Channel)); 
 // 1650   assert_param(IS_TIM_OC_MODE(sConfig->OCMode));
@@ -3159,32 +3319,32 @@ HAL_TIM_OC_ConfigChannel:
 // 1652   
 // 1653   /* Check input state */
 // 1654   __HAL_LOCK(htim); 
-        ADD      R4,R0,#+56
-        LDRB     R3,[R4, #+0]
-        CMP      R3,#+1
-        BNE.N    ??HAL_TIM_OC_ConfigChannel_0
+        LDRB     R0,[R4, #+56]
+        CMP      R0,#+1
+        BNE.N    ??HAL_TIM_OC_ConfigChannel_1
         MOVS     R0,#+2
         POP      {R4,PC}
-??HAL_TIM_OC_ConfigChannel_0:
-        MOVS     R3,#+1
-        STRB     R3,[R4, #+0]
+??HAL_TIM_OC_ConfigChannel_1:
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+56]
 // 1655   
 // 1656   htim->State = HAL_TIM_STATE_BUSY;
-        MOVS     R3,#+2
-        STRB     R3,[R4, #+1]
+        MOVS     R0,#+2
 // 1657   
 // 1658   switch (Channel)
-        CBZ.N    R2,??HAL_TIM_OC_ConfigChannel_1
-        CMP      R2,#+4
-        BEQ.N    ??HAL_TIM_OC_ConfigChannel_2
-        CMP      R2,#+8
-        BEQ.N    ??HAL_TIM_OC_ConfigChannel_3
-        CMP      R2,#+12
-        BEQ.N    ??HAL_TIM_OC_ConfigChannel_4
-        CMP      R2,#+16
-        BEQ.N    ??HAL_TIM_OC_ConfigChannel_5
         CMP      R2,#+20
-        ITT      EQ 
+        STRB     R0,[R4, #+57]
+        BHI.N    ??HAL_TIM_OC_ConfigChannel_2
+        TBB      [PC, R2]
+        DATA
+??HAL_TIM_OC_ConfigChannel_0:
+        DC8      0xB,0x22,0x22,0x22
+        DC8      0xF,0x22,0x22,0x22
+        DC8      0x13,0x22,0x22,0x22
+        DC8      0x17,0x22,0x22,0x22
+        DC8      0x1B,0x22,0x22,0x22
+        DC8      0x1F,0x0
+        THUMB
 // 1659   {
 // 1660     case TIM_CHANNEL_1:
 // 1661     {
@@ -3193,8 +3353,13 @@ HAL_TIM_OC_ConfigChannel:
 // 1664       
 // 1665      /* Configure the TIM Channel 1 in Output Compare */
 // 1666       TIM_OC1_SetConfig(htim->Instance, sConfig);
+??HAL_TIM_OC_ConfigChannel_3:
+        LDR      R0,[R4, #+0]
+          CFI FunCall TIM_OC1_SetConfig
+        BL       TIM_OC1_SetConfig
 // 1667     }
 // 1668     break;
+        B.N      ??HAL_TIM_OC_ConfigChannel_2
 // 1669     
 // 1670     case TIM_CHANNEL_2:
 // 1671     {
@@ -3203,8 +3368,13 @@ HAL_TIM_OC_ConfigChannel:
 // 1674       
 // 1675       /* Configure the TIM Channel 2 in Output Compare */
 // 1676       TIM_OC2_SetConfig(htim->Instance, sConfig);
+??HAL_TIM_OC_ConfigChannel_4:
+        LDR      R0,[R4, #+0]
+          CFI FunCall TIM_OC2_SetConfig
+        BL       TIM_OC2_SetConfig
 // 1677     }
 // 1678     break;
+        B.N      ??HAL_TIM_OC_ConfigChannel_2
 // 1679     
 // 1680     case TIM_CHANNEL_3:
 // 1681     {
@@ -3213,8 +3383,13 @@ HAL_TIM_OC_ConfigChannel:
 // 1684       
 // 1685       /* Configure the TIM Channel 3 in Output Compare */
 // 1686       TIM_OC3_SetConfig(htim->Instance, sConfig);
+??HAL_TIM_OC_ConfigChannel_5:
+        LDR      R0,[R4, #+0]
+          CFI FunCall TIM_OC3_SetConfig
+        BL       TIM_OC3_SetConfig
 // 1687     }
 // 1688     break;
+        B.N      ??HAL_TIM_OC_ConfigChannel_2
 // 1689     
 // 1690     case TIM_CHANNEL_4:
 // 1691     {
@@ -3223,8 +3398,13 @@ HAL_TIM_OC_ConfigChannel:
 // 1694       
 // 1695        /* Configure the TIM Channel 4 in Output Compare */
 // 1696        TIM_OC4_SetConfig(htim->Instance, sConfig);
+??HAL_TIM_OC_ConfigChannel_6:
+        LDR      R0,[R4, #+0]
+          CFI FunCall TIM_OC4_SetConfig
+        BL       TIM_OC4_SetConfig
 // 1697     }
 // 1698     break;
+        B.N      ??HAL_TIM_OC_ConfigChannel_2
 // 1699     
 // 1700     case TIM_CHANNEL_5:
 // 1701     {
@@ -3233,8 +3413,13 @@ HAL_TIM_OC_ConfigChannel:
 // 1704       
 // 1705        /* Configure the TIM Channel 5 in Output Compare */
 // 1706        TIM_OC5_SetConfig(htim->Instance, sConfig);
+??HAL_TIM_OC_ConfigChannel_7:
+        LDR      R0,[R4, #+0]
+          CFI FunCall TIM_OC5_SetConfig
+        BL       TIM_OC5_SetConfig
 // 1707     }
 // 1708     break;
+        B.N      ??HAL_TIM_OC_ConfigChannel_2
 // 1709     
 // 1710     case TIM_CHANNEL_6:
 // 1711     {
@@ -3243,35 +3428,11 @@ HAL_TIM_OC_ConfigChannel:
 // 1714       
 // 1715        /* Configure the TIM Channel 6 in Output Compare */
 // 1716        TIM_OC6_SetConfig(htim->Instance, sConfig);
-        LDREQ    R0,[R0, #+0]
+??HAL_TIM_OC_ConfigChannel_8:
+        LDR      R0,[R4, #+0]
           CFI FunCall TIM_OC6_SetConfig
-        BLEQ     TIM_OC6_SetConfig
-        B.N      ??HAL_TIM_OC_ConfigChannel_6
+        BL       TIM_OC6_SetConfig
 // 1717     }
-??HAL_TIM_OC_ConfigChannel_1:
-        LDR      R0,[R0, #+0]
-          CFI FunCall TIM_OC1_SetConfig
-        BL       TIM_OC1_SetConfig
-        B.N      ??HAL_TIM_OC_ConfigChannel_6
-??HAL_TIM_OC_ConfigChannel_2:
-        LDR      R0,[R0, #+0]
-          CFI FunCall TIM_OC2_SetConfig
-        BL       TIM_OC2_SetConfig
-        B.N      ??HAL_TIM_OC_ConfigChannel_6
-??HAL_TIM_OC_ConfigChannel_3:
-        LDR      R0,[R0, #+0]
-          CFI FunCall TIM_OC3_SetConfig
-        BL       TIM_OC3_SetConfig
-        B.N      ??HAL_TIM_OC_ConfigChannel_6
-??HAL_TIM_OC_ConfigChannel_4:
-        LDR      R0,[R0, #+0]
-          CFI FunCall TIM_OC4_SetConfig
-        BL       TIM_OC4_SetConfig
-        B.N      ??HAL_TIM_OC_ConfigChannel_6
-??HAL_TIM_OC_ConfigChannel_5:
-        LDR      R0,[R0, #+0]
-          CFI FunCall TIM_OC5_SetConfig
-        BL       TIM_OC5_SetConfig
 // 1718     break;
 // 1719         
 // 1720     default:
@@ -3279,18 +3440,18 @@ HAL_TIM_OC_ConfigChannel:
 // 1722   }
 // 1723   
 // 1724   htim->State = HAL_TIM_STATE_READY;
-??HAL_TIM_OC_ConfigChannel_6:
+??HAL_TIM_OC_ConfigChannel_2:
         MOVS     R0,#+1
-        STRB     R0,[R4, #+1]
+        STRB     R0,[R4, #+57]
 // 1725   
 // 1726   __HAL_UNLOCK(htim); 
         MOVS     R0,#+0
-        STRB     R0,[R4, #+0]
+        STRB     R0,[R4, #+56]
 // 1727   
 // 1728   return HAL_OK;
         POP      {R4,PC}          ;; return
 // 1729 }
-          CFI EndBlock cfiBlock38
+          CFI EndBlock cfiBlock29
 // 1730 
 // 1731 /**
 // 1732   * @brief  Initializes the TIM PWM  channels according to the specified
@@ -3309,8 +3470,8 @@ HAL_TIM_OC_ConfigChannel:
 // 1745   * @retval HAL status
 // 1746   */
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock39 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock30 Using cfiCommon0
           CFI Function HAL_TIM_PWM_ConfigChannel
         THUMB
 // 1747 HAL_StatusTypeDef HAL_TIM_PWM_ConfigChannel(TIM_HandleTypeDef *htim, 
@@ -3318,13 +3479,15 @@ HAL_TIM_OC_ConfigChannel:
 // 1749                                             uint32_t Channel)
 // 1750 {
 HAL_TIM_PWM_ConfigChannel:
-        PUSH     {R4-R6,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
+        MOV      R4,R0
+        SUB      SP,SP,#+4
           CFI CFA R13+16
-        MOV      R6,R0
+        MOV      R5,R1
 // 1751   /* Check the parameters */
 // 1752   assert_param(IS_TIM_CHANNELS(Channel)); 
 // 1753   assert_param(IS_TIM_PWM_MODE(sConfig->OCMode));
@@ -3333,34 +3496,31 @@ HAL_TIM_PWM_ConfigChannel:
 // 1756   
 // 1757   /* Check input state */
 // 1758   __HAL_LOCK(htim);
-        ADD      R4,R6,#+56
-        MOV      R5,R1
-        LDRB     R0,[R4, #+0]
+        LDRB     R0,[R4, #+56]
         CMP      R0,#+1
-        BNE.N    ??HAL_TIM_PWM_ConfigChannel_0
-        MOVS     R0,#+2
-        POP      {R4-R6,PC}
-??HAL_TIM_PWM_ConfigChannel_0:
+        IT       EQ 
+        MOVEQ    R0,#+2
+        BEQ.W    ??HAL_TIM_PWM_ConfigChannel_1
         MOVS     R0,#+1
-        STRB     R0,[R4, #+0]
+        STRB     R0,[R4, #+56]
 // 1759   
 // 1760   htim->State = HAL_TIM_STATE_BUSY;
         MOVS     R0,#+2
-        STRB     R0,[R4, #+1]
 // 1761     
 // 1762   switch (Channel)
-        CBZ.N    R2,??HAL_TIM_PWM_ConfigChannel_1
-        CMP      R2,#+4
-        BEQ.N    ??HAL_TIM_PWM_ConfigChannel_2
-        CMP      R2,#+8
-        BEQ.N    ??HAL_TIM_PWM_ConfigChannel_3
-        CMP      R2,#+12
-        BEQ.N    ??HAL_TIM_PWM_ConfigChannel_4
-        CMP      R2,#+16
-        BEQ.N    ??HAL_TIM_PWM_ConfigChannel_5
         CMP      R2,#+20
-        BEQ.N    ??HAL_TIM_PWM_ConfigChannel_6
-        B.N      ??HAL_TIM_PWM_ConfigChannel_7
+        STRB     R0,[R4, #+57]
+        BHI.W    ??HAL_TIM_PWM_ConfigChannel_2
+        TBB      [PC, R2]
+        DATA
+??HAL_TIM_PWM_ConfigChannel_0:
+        DC8      0xB,0x7E,0x7E,0x7E
+        DC8      0x1E,0x7E,0x7E,0x7E
+        DC8      0x32,0x7E,0x7E,0x7E
+        DC8      0x45,0x7E,0x7E,0x7E
+        DC8      0x59,0x7E,0x7E,0x7E
+        DC8      0x6B,0x0
+        THUMB
 // 1763   {
 // 1764     case TIM_CHANNEL_1:
 // 1765     {
@@ -3369,30 +3529,30 @@ HAL_TIM_PWM_ConfigChannel:
 // 1768       
 // 1769       /* Configure the Channel 1 in PWM mode */
 // 1770       TIM_OC1_SetConfig(htim->Instance, sConfig);
-??HAL_TIM_PWM_ConfigChannel_1:
-        LDR      R0,[R6, #+0]
+??HAL_TIM_PWM_ConfigChannel_3:
+        LDR      R0,[R4, #+0]
           CFI FunCall TIM_OC1_SetConfig
         BL       TIM_OC1_SetConfig
 // 1771       
 // 1772       /* Set the Preload enable bit for channel1 */
 // 1773       htim->Instance->CCMR1 |= TIM_CCMR1_OC1PE;
-        LDR      R0,[R6, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+24]
         ORR      R1,R1,#0x8
         STR      R1,[R0, #+24]
 // 1774       
 // 1775       /* Configure the Output Fast mode */
 // 1776       htim->Instance->CCMR1 &= ~TIM_CCMR1_OC1FE;
-        LDR      R0,[R6, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+24]
         BIC      R1,R1,#0x4
         STR      R1,[R0, #+24]
 // 1777       htim->Instance->CCMR1 |= sConfig->OCFastMode;
-        LDR      R0,[R6, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+24]
         LDR      R2,[R5, #+16]
         ORRS     R1,R2,R1
-        B.N      ??HAL_TIM_PWM_ConfigChannel_8
+        STR      R1,[R0, #+24]
 // 1778     }
 // 1779     break;
 // 1780     
@@ -3403,34 +3563,34 @@ HAL_TIM_PWM_ConfigChannel:
 // 1785       
 // 1786       /* Configure the Channel 2 in PWM mode */
 // 1787       TIM_OC2_SetConfig(htim->Instance, sConfig);
-??HAL_TIM_PWM_ConfigChannel_2:
-        LDR      R0,[R6, #+0]
-          CFI FunCall TIM_OC2_SetConfig
-        BL       TIM_OC2_SetConfig
 // 1788       
 // 1789       /* Set the Preload enable bit for channel2 */
 // 1790       htim->Instance->CCMR1 |= TIM_CCMR1_OC2PE;
-        LDR      R0,[R6, #+0]
-        LDR      R1,[R0, #+24]
-        ORR      R1,R1,#0x800
-        STR      R1,[R0, #+24]
 // 1791       
 // 1792       /* Configure the Output Fast mode */
 // 1793       htim->Instance->CCMR1 &= ~TIM_CCMR1_OC2FE;
-        LDR      R0,[R6, #+0]
+// 1794       htim->Instance->CCMR1 |= sConfig->OCFastMode << 8;
+// 1795     }
+// 1796     break;
+        B.N      ??HAL_TIM_PWM_ConfigChannel_2
+??HAL_TIM_PWM_ConfigChannel_4:
+        LDR      R0,[R4, #+0]
+          CFI FunCall TIM_OC2_SetConfig
+        BL       TIM_OC2_SetConfig
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        ORR      R1,R1,#0x800
+        STR      R1,[R0, #+24]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+24]
         BIC      R1,R1,#0x400
         STR      R1,[R0, #+24]
-// 1794       htim->Instance->CCMR1 |= sConfig->OCFastMode << 8;
-        LDR      R0,[R6, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+24]
         LDR      R2,[R5, #+16]
         ORR      R1,R1,R2, LSL #+8
-??HAL_TIM_PWM_ConfigChannel_8:
         STR      R1,[R0, #+24]
-// 1795     }
-// 1796     break;
-        B.N      ??HAL_TIM_PWM_ConfigChannel_7
+        B.N      ??HAL_TIM_PWM_ConfigChannel_2
 // 1797     
 // 1798     case TIM_CHANNEL_3:
 // 1799     {
@@ -3439,30 +3599,30 @@ HAL_TIM_PWM_ConfigChannel:
 // 1802       
 // 1803       /* Configure the Channel 3 in PWM mode */
 // 1804       TIM_OC3_SetConfig(htim->Instance, sConfig);
-??HAL_TIM_PWM_ConfigChannel_3:
-        LDR      R0,[R6, #+0]
+??HAL_TIM_PWM_ConfigChannel_5:
+        LDR      R0,[R4, #+0]
           CFI FunCall TIM_OC3_SetConfig
         BL       TIM_OC3_SetConfig
 // 1805       
 // 1806       /* Set the Preload enable bit for channel3 */
 // 1807       htim->Instance->CCMR2 |= TIM_CCMR2_OC3PE;
-        LDR      R0,[R6, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+28]
         ORR      R1,R1,#0x8
         STR      R1,[R0, #+28]
 // 1808       
 // 1809      /* Configure the Output Fast mode */
 // 1810       htim->Instance->CCMR2 &= ~TIM_CCMR2_OC3FE;
-        LDR      R0,[R6, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+28]
         BIC      R1,R1,#0x4
         STR      R1,[R0, #+28]
 // 1811       htim->Instance->CCMR2 |= sConfig->OCFastMode;  
-        LDR      R0,[R6, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+28]
         LDR      R2,[R5, #+16]
         ORRS     R1,R2,R1
-        B.N      ??HAL_TIM_PWM_ConfigChannel_9
+        STR      R1,[R0, #+28]
 // 1812     }
 // 1813     break;
 // 1814     
@@ -3473,34 +3633,34 @@ HAL_TIM_PWM_ConfigChannel:
 // 1819       
 // 1820       /* Configure the Channel 4 in PWM mode */
 // 1821       TIM_OC4_SetConfig(htim->Instance, sConfig);
-??HAL_TIM_PWM_ConfigChannel_4:
-        LDR      R0,[R6, #+0]
-          CFI FunCall TIM_OC4_SetConfig
-        BL       TIM_OC4_SetConfig
 // 1822       
 // 1823       /* Set the Preload enable bit for channel4 */
 // 1824       htim->Instance->CCMR2 |= TIM_CCMR2_OC4PE;
-        LDR      R0,[R6, #+0]
-        LDR      R1,[R0, #+28]
-        ORR      R1,R1,#0x800
-        STR      R1,[R0, #+28]
 // 1825       
 // 1826      /* Configure the Output Fast mode */
 // 1827       htim->Instance->CCMR2 &= ~TIM_CCMR2_OC4FE;
-        LDR      R0,[R6, #+0]
+// 1828       htim->Instance->CCMR2 |= sConfig->OCFastMode << 8;  
+// 1829     }
+// 1830     break;
+        B.N      ??HAL_TIM_PWM_ConfigChannel_2
+??HAL_TIM_PWM_ConfigChannel_6:
+        LDR      R0,[R4, #+0]
+          CFI FunCall TIM_OC4_SetConfig
+        BL       TIM_OC4_SetConfig
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+28]
+        ORR      R1,R1,#0x800
+        STR      R1,[R0, #+28]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+28]
         BIC      R1,R1,#0x400
         STR      R1,[R0, #+28]
-// 1828       htim->Instance->CCMR2 |= sConfig->OCFastMode << 8;  
-        LDR      R0,[R6, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+28]
         LDR      R2,[R5, #+16]
         ORR      R1,R1,R2, LSL #+8
-??HAL_TIM_PWM_ConfigChannel_9:
         STR      R1,[R0, #+28]
-// 1829     }
-// 1830     break;
-        B.N      ??HAL_TIM_PWM_ConfigChannel_7
+        B.N      ??HAL_TIM_PWM_ConfigChannel_2
 // 1831     
 // 1832     case TIM_CHANNEL_5:
 // 1833     {
@@ -3509,30 +3669,30 @@ HAL_TIM_PWM_ConfigChannel:
 // 1836       
 // 1837      /* Configure the Channel 5 in PWM mode */
 // 1838       TIM_OC5_SetConfig(htim->Instance, sConfig);
-??HAL_TIM_PWM_ConfigChannel_5:
-        LDR      R0,[R6, #+0]
+??HAL_TIM_PWM_ConfigChannel_7:
+        LDR      R0,[R4, #+0]
           CFI FunCall TIM_OC5_SetConfig
         BL       TIM_OC5_SetConfig
 // 1839       
 // 1840       /* Set the Preload enable bit for channel5*/
 // 1841       htim->Instance->CCMR3 |= TIM_CCMR3_OC5PE;
-        LDR      R0,[R6, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+84]
         ORR      R1,R1,#0x8
         STR      R1,[R0, #+84]
 // 1842       
 // 1843      /* Configure the Output Fast mode */
 // 1844       htim->Instance->CCMR3 &= ~TIM_CCMR3_OC5FE;
-        LDR      R0,[R6, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+84]
         BIC      R1,R1,#0x4
         STR      R1,[R0, #+84]
 // 1845       htim->Instance->CCMR3 |= sConfig->OCFastMode;  
-        LDR      R0,[R6, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+84]
         LDR      R2,[R5, #+16]
         ORRS     R1,R2,R1
-        B.N      ??HAL_TIM_PWM_ConfigChannel_10
+        B.N      ??HAL_TIM_PWM_ConfigChannel_8
 // 1846     }
 // 1847     break;
 // 1848     
@@ -3543,30 +3703,30 @@ HAL_TIM_PWM_ConfigChannel:
 // 1853       
 // 1854      /* Configure the Channel 5 in PWM mode */
 // 1855       TIM_OC6_SetConfig(htim->Instance, sConfig);
-??HAL_TIM_PWM_ConfigChannel_6:
-        LDR      R0,[R6, #+0]
+??HAL_TIM_PWM_ConfigChannel_9:
+        LDR      R0,[R4, #+0]
           CFI FunCall TIM_OC6_SetConfig
         BL       TIM_OC6_SetConfig
 // 1856       
 // 1857       /* Set the Preload enable bit for channel6 */
 // 1858       htim->Instance->CCMR3 |= TIM_CCMR3_OC6PE;
-        LDR      R0,[R6, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+84]
         ORR      R1,R1,#0x800
         STR      R1,[R0, #+84]
 // 1859       
 // 1860      /* Configure the Output Fast mode */
 // 1861       htim->Instance->CCMR3 &= ~TIM_CCMR3_OC6FE;
-        LDR      R0,[R6, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+84]
         BIC      R1,R1,#0x400
         STR      R1,[R0, #+84]
 // 1862       htim->Instance->CCMR3 |= sConfig->OCFastMode << 8;  
-        LDR      R0,[R6, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+84]
         LDR      R2,[R5, #+16]
         ORR      R1,R1,R2, LSL #+8
-??HAL_TIM_PWM_ConfigChannel_10:
+??HAL_TIM_PWM_ConfigChannel_8:
         STR      R1,[R0, #+84]
 // 1863     }
 // 1864     break;
@@ -3576,18 +3736,21 @@ HAL_TIM_PWM_ConfigChannel:
 // 1868   }
 // 1869   
 // 1870   htim->State = HAL_TIM_STATE_READY;
-??HAL_TIM_PWM_ConfigChannel_7:
+??HAL_TIM_PWM_ConfigChannel_2:
         MOVS     R0,#+1
-        STRB     R0,[R4, #+1]
+        STRB     R0,[R4, #+57]
 // 1871     
 // 1872   __HAL_UNLOCK(htim);
         MOVS     R0,#+0
-        STRB     R0,[R4, #+0]
+        STRB     R0,[R4, #+56]
 // 1873   
 // 1874   return HAL_OK;
-        POP      {R4-R6,PC}       ;; return
+??HAL_TIM_PWM_ConfigChannel_1:
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
 // 1875 }
-          CFI EndBlock cfiBlock39
+          CFI EndBlock cfiBlock30
 // 1876 
 // 1877 /**
 // 1878   * @brief  Configures the OCRef clear feature
@@ -3605,8 +3768,8 @@ HAL_TIM_PWM_ConfigChannel:
 // 1890   * @retval None
 // 1891   */ 
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock40 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock31 Using cfiCommon0
           CFI Function HAL_TIM_ConfigOCrefClear
         THUMB
 // 1892 HAL_StatusTypeDef HAL_TIM_ConfigOCrefClear(TIM_HandleTypeDef *htim,
@@ -3633,20 +3796,20 @@ HAL_TIM_ConfigOCrefClear:
 // 1903   __HAL_LOCK(htim);
         LDRB     R0,[R4, #+56]
         CMP      R0,#+1
-        BNE.N    ??HAL_TIM_ConfigOCrefClear_0
+        BNE.N    ??HAL_TIM_ConfigOCrefClear_1
         MOVS     R0,#+2
         POP      {R4-R6,PC}
-??HAL_TIM_ConfigOCrefClear_0:
+??HAL_TIM_ConfigOCrefClear_1:
         MOVS     R0,#+1
         STRB     R0,[R4, #+56]
 // 1904   
 // 1905   switch (sClearInputConfig->ClearInputSource)
         LDR      R0,[R5, #+4]
-        CBZ.N    R0,??HAL_TIM_ConfigOCrefClear_1
+        CBZ.N    R0,??HAL_TIM_ConfigOCrefClear_2
         CMP      R0,#+2
-        BEQ.N    ??HAL_TIM_ConfigOCrefClear_2
-        BCC.N    ??HAL_TIM_ConfigOCrefClear_3
-        B.N      ??HAL_TIM_ConfigOCrefClear_4
+        BEQ.N    ??HAL_TIM_ConfigOCrefClear_3
+        BCC.N    ??HAL_TIM_ConfigOCrefClear_4
+        B.N      ??HAL_TIM_ConfigOCrefClear_5
 // 1906   {
 // 1907     case TIM_CLEARINPUTSOURCE_NONE:
 // 1908     {
@@ -3658,22 +3821,22 @@ HAL_TIM_ConfigOCrefClear:
 // 1914       
 // 1915       /* Set TIMx_SMCR */
 // 1916       htim->Instance->SMCR = tmpsmcr;
-??HAL_TIM_ConfigOCrefClear_1:
+??HAL_TIM_ConfigOCrefClear_2:
         LDR      R1,[R4, #+0]
         STR      R0,[R1, #+8]
 // 1917    }
 // 1918     break;
-        B.N      ??HAL_TIM_ConfigOCrefClear_4
+        B.N      ??HAL_TIM_ConfigOCrefClear_5
 // 1919     
 // 1920     case TIM_CLEARINPUTSOURCE_OCREFCLR:
 // 1921     {
 // 1922       /* Clear the OCREF clear selection bit */
 // 1923       htim->Instance->SMCR &= ~TIM_SMCR_OCCS;
-??HAL_TIM_ConfigOCrefClear_2:
+??HAL_TIM_ConfigOCrefClear_3:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+8]
         BIC      R1,R1,#0x8
-        B.N      ??HAL_TIM_ConfigOCrefClear_5
+        B.N      ??HAL_TIM_ConfigOCrefClear_6
 // 1924     }
 // 1925     break;
 // 1926     
@@ -3688,7 +3851,7 @@ HAL_TIM_ConfigOCrefClear:
 // 1935                         sClearInputConfig->ClearInputPrescaler,
 // 1936                         sClearInputConfig->ClearInputPolarity,
 // 1937                         sClearInputConfig->ClearInputFilter);
-??HAL_TIM_ConfigOCrefClear_3:
+??HAL_TIM_ConfigOCrefClear_4:
         LDR      R3,[R5, #+16]
         LDR      R2,[R5, #+8]
         LDR      R1,[R5, #+12]
@@ -3701,7 +3864,7 @@ HAL_TIM_ConfigOCrefClear:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+8]
         ORR      R1,R1,#0x8
-??HAL_TIM_ConfigOCrefClear_5:
+??HAL_TIM_ConfigOCrefClear_6:
         STR      R1,[R0, #+8]
 // 1941     }
 // 1942     break;
@@ -3710,24 +3873,24 @@ HAL_TIM_ConfigOCrefClear:
 // 1945   }
 // 1946   
 // 1947   switch (Channel)
-??HAL_TIM_ConfigOCrefClear_4:
-        CBZ.N    R6,??HAL_TIM_ConfigOCrefClear_6
-        CMP      R6,#+4
-        BEQ.N    ??HAL_TIM_ConfigOCrefClear_7
-        CMP      R6,#+8
-        BEQ.N    ??HAL_TIM_ConfigOCrefClear_8
-        CMP      R6,#+12
-        BEQ.N    ??HAL_TIM_ConfigOCrefClear_9
-        CMP      R6,#+16
-        BEQ.N    ??HAL_TIM_ConfigOCrefClear_10
+??HAL_TIM_ConfigOCrefClear_5:
         CMP      R6,#+20
-        BEQ.N    ??HAL_TIM_ConfigOCrefClear_11
-        B.N      ??HAL_TIM_ConfigOCrefClear_12
+        BHI.N    ??HAL_TIM_ConfigOCrefClear_7
+        TBB      [PC, R6]
+        DATA
+??HAL_TIM_ConfigOCrefClear_0:
+        DC8      0xB,0x57,0x57,0x57
+        DC8      0x19,0x57,0x57,0x57
+        DC8      0x27,0x57,0x57,0x57
+        DC8      0x35,0x57,0x57,0x57
+        DC8      0x43,0x57,0x57,0x57
+        DC8      0x4D,0x0
+        THUMB
 // 1948   { 
 // 1949     case TIM_CHANNEL_1:
 // 1950       {
 // 1951         if(sClearInputConfig->ClearInputState != RESET)
-??HAL_TIM_ConfigOCrefClear_6:
+??HAL_TIM_ConfigOCrefClear_8:
         LDR      R0,[R4, #+0]
         LDR      R1,[R5, #+0]
         CMP      R1,#+0
@@ -3743,21 +3906,13 @@ HAL_TIM_ConfigOCrefClear:
 // 1957         {
 // 1958           /* Disable the Ocref clear feature for Channel 1 */
 // 1959           htim->Instance->CCMR1 &= ~TIM_CCMR1_OC1CE;      
-        B.N      ??HAL_TIM_ConfigOCrefClear_13
+        STR      R1,[R0, #+24]
 // 1960         }
 // 1961       }    
 // 1962       break;
 // 1963     case TIM_CHANNEL_2:    
 // 1964       {
 // 1965         if(sClearInputConfig->ClearInputState != RESET)
-??HAL_TIM_ConfigOCrefClear_7:
-        LDR      R0,[R4, #+0]
-        LDR      R1,[R5, #+0]
-        CMP      R1,#+0
-        LDR      R1,[R0, #+24]
-        ITE      NE 
-        ORRNE    R1,R1,#0x8000
-        BICEQ    R1,R1,#0x8000
 // 1966         {
 // 1967           /* Enable the Ocref clear feature for Channel 2 */
 // 1968           htim->Instance->CCMR1 |= TIM_CCMR1_OC2CE;
@@ -3766,23 +3921,12 @@ HAL_TIM_ConfigOCrefClear:
 // 1971         {
 // 1972           /* Disable the Ocref clear feature for Channel 2 */
 // 1973           htim->Instance->CCMR1 &= ~TIM_CCMR1_OC2CE;      
-??HAL_TIM_ConfigOCrefClear_13:
-        STR      R1,[R0, #+24]
-        B.N      ??HAL_TIM_ConfigOCrefClear_12
 // 1974         }
 // 1975       }    
 // 1976     break;
 // 1977     case TIM_CHANNEL_3:    
 // 1978       {
 // 1979         if(sClearInputConfig->ClearInputState != RESET)
-??HAL_TIM_ConfigOCrefClear_8:
-        LDR      R0,[R4, #+0]
-        LDR      R1,[R5, #+0]
-        CMP      R1,#+0
-        LDR      R1,[R0, #+28]
-        ITE      EQ 
-        BICEQ    R1,R1,#0x80
-        ORRNE    R1,R1,#0x80
 // 1980         {
 // 1981           /* Enable the Ocref clear feature for Channel 3 */
 // 1982           htim->Instance->CCMR2 |= TIM_CCMR2_OC3CE;
@@ -3791,21 +3935,12 @@ HAL_TIM_ConfigOCrefClear:
 // 1985         {
 // 1986           /* Disable the Ocref clear feature for Channel 3 */
 // 1987           htim->Instance->CCMR2 &= ~TIM_CCMR2_OC3CE;      
-        B.N      ??HAL_TIM_ConfigOCrefClear_14
 // 1988         }
 // 1989       }    
 // 1990     break;
 // 1991     case TIM_CHANNEL_4:    
 // 1992       {
 // 1993         if(sClearInputConfig->ClearInputState != RESET)
-??HAL_TIM_ConfigOCrefClear_9:
-        LDR      R0,[R4, #+0]
-        LDR      R1,[R5, #+0]
-        CMP      R1,#+0
-        LDR      R1,[R0, #+28]
-        ITE      NE 
-        ORRNE    R1,R1,#0x8000
-        BICEQ    R1,R1,#0x8000
 // 1994         {
 // 1995           /* Enable the Ocref clear feature for Channel 4 */
 // 1996           htim->Instance->CCMR2 |= TIM_CCMR2_OC4CE;
@@ -3814,23 +3949,12 @@ HAL_TIM_ConfigOCrefClear:
 // 1999         {
 // 2000           /* Disable the Ocref clear feature for Channel 4 */
 // 2001           htim->Instance->CCMR2 &= ~TIM_CCMR2_OC4CE;      
-??HAL_TIM_ConfigOCrefClear_14:
-        STR      R1,[R0, #+28]
-        B.N      ??HAL_TIM_ConfigOCrefClear_12
 // 2002         }
 // 2003       }    
 // 2004     break;
 // 2005     case TIM_CHANNEL_5:    
 // 2006       {
 // 2007         if(sClearInputConfig->ClearInputState != RESET)
-??HAL_TIM_ConfigOCrefClear_10:
-        LDR      R0,[R4, #+0]
-        LDR      R1,[R5, #+0]
-        CMP      R1,#+0
-        LDR      R1,[R0, #+84]
-        ITE      EQ 
-        BICEQ    R1,R1,#0x80
-        ORRNE    R1,R1,#0x80
 // 2008         {
 // 2009           /* Enable the Ocref clear feature for Channel 1 */
 // 2010           htim->Instance->CCMR3 |= TIM_CCMR3_OC5CE;
@@ -3839,21 +3963,12 @@ HAL_TIM_ConfigOCrefClear:
 // 2013         {
 // 2014           /* Disable the Ocref clear feature for Channel 1 */
 // 2015           htim->Instance->CCMR3 &= ~TIM_CCMR3_OC5CE;      
-        B.N      ??HAL_TIM_ConfigOCrefClear_15
 // 2016         }
 // 2017       }    
 // 2018     break;
 // 2019     case TIM_CHANNEL_6:    
 // 2020       {
 // 2021         if(sClearInputConfig->ClearInputState != RESET)
-??HAL_TIM_ConfigOCrefClear_11:
-        LDR      R0,[R4, #+0]
-        LDR      R1,[R5, #+0]
-        CMP      R1,#+0
-        LDR      R1,[R0, #+84]
-        ITE      NE 
-        ORRNE    R1,R1,#0x8000
-        BICEQ    R1,R1,#0x8000
 // 2022         {
 // 2023           /* Enable the Ocref clear feature for Channel 1 */
 // 2024           htim->Instance->CCMR3 |= TIM_CCMR3_OC6CE;
@@ -3862,8 +3977,6 @@ HAL_TIM_ConfigOCrefClear:
 // 2027         {
 // 2028           /* Disable the Ocref clear feature for Channel 1 */
 // 2029           htim->Instance->CCMR3 &= ~TIM_CCMR3_OC6CE;      
-??HAL_TIM_ConfigOCrefClear_15:
-        STR      R1,[R0, #+84]
 // 2030         }
 // 2031       }    
 // 2032     break;
@@ -3872,14 +3985,72 @@ HAL_TIM_ConfigOCrefClear:
 // 2035   } 
 // 2036   
 // 2037   __HAL_UNLOCK(htim);
-??HAL_TIM_ConfigOCrefClear_12:
         MOVS     R0,#+0
         STRB     R0,[R4, #+56]
 // 2038 
 // 2039   return HAL_OK;  
+        POP      {R4-R6,PC}
+??HAL_TIM_ConfigOCrefClear_9:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R5, #+0]
+        CMP      R1,#+0
+        LDR      R1,[R0, #+24]
+        ITE      NE 
+        ORRNE    R1,R1,#0x8000
+        BICEQ    R1,R1,#0x8000
+        STR      R1,[R0, #+24]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+56]
+        POP      {R4-R6,PC}
+??HAL_TIM_ConfigOCrefClear_10:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R5, #+0]
+        CMP      R1,#+0
+        LDR      R1,[R0, #+28]
+        ITE      EQ 
+        BICEQ    R1,R1,#0x80
+        ORRNE    R1,R1,#0x80
+        STR      R1,[R0, #+28]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+56]
+        POP      {R4-R6,PC}
+??HAL_TIM_ConfigOCrefClear_11:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R5, #+0]
+        CMP      R1,#+0
+        LDR      R1,[R0, #+28]
+        ITE      NE 
+        ORRNE    R1,R1,#0x8000
+        BICEQ    R1,R1,#0x8000
+        STR      R1,[R0, #+28]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+56]
+        POP      {R4-R6,PC}
+??HAL_TIM_ConfigOCrefClear_12:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R5, #+0]
+        CMP      R1,#+0
+        LDR      R1,[R0, #+84]
+        ITE      EQ 
+        BICEQ    R1,R1,#0x80
+        ORRNE    R1,R1,#0x80
+        B.N      ??HAL_TIM_ConfigOCrefClear_13
+??HAL_TIM_ConfigOCrefClear_14:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R5, #+0]
+        CMP      R1,#+0
+        LDR      R1,[R0, #+84]
+        ITE      NE 
+        ORRNE    R1,R1,#0x8000
+        BICEQ    R1,R1,#0x8000
+??HAL_TIM_ConfigOCrefClear_13:
+        STR      R1,[R0, #+84]
+??HAL_TIM_ConfigOCrefClear_7:
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+56]
         POP      {R4-R6,PC}       ;; return
 // 2040 }  
-          CFI EndBlock cfiBlock40
+          CFI EndBlock cfiBlock31
 // 2041 
 // 2042 /**
 // 2043   * @brief  Configures the TIM in master mode.
@@ -3892,7 +4063,7 @@ HAL_TIM_ConfigOCrefClear:
 // 2050   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock41 Using cfiCommon0
+          CFI Block cfiBlock32 Using cfiCommon0
           CFI Function HAL_TIMEx_MasterConfigSynchronization
           CFI NoCalls
         THUMB
@@ -3928,14 +4099,14 @@ HAL_TIMEx_MasterConfigSynchronization:
 // 2069 
 // 2070   /* If the timer supports ADC synchronization through TRGO2, set the master mode selection 2 */
 // 2071   if (IS_TIM_TRGO2_INSTANCE(htim->Instance))
-        LDR.N    R5,??DataTable5_4  ;; 0x40010000
+        LDR.N    R5,??DataTable7_3  ;; 0x40010000
         STRB     R2,[R0, #+56]
         LDR      R2,[R0, #+0]
         CMP      R2,R5
         LDR      R3,[R2, #+4]
         LDR      R4,[R2, #+8]
         ITT      NE 
-        LDRNE.N  R5,??DataTable5_5  ;; 0x40010400
+        LDRNE.N  R5,??DataTable7_4  ;; 0x40010400
         CMPNE    R2,R5
         BNE.N    ??HAL_TIMEx_MasterConfigSynchronization_1
 // 2072   {
@@ -3989,7 +4160,13 @@ HAL_TIMEx_MasterConfigSynchronization:
           CFI CFA R13+0
         BX       LR               ;; return
 // 2101 } 
-          CFI EndBlock cfiBlock41
+          CFI EndBlock cfiBlock32
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable5:
+        DC32     0xfffefff8
 // 2102                                                      
 // 2103 /**
 // 2104   * @brief   Configures the Break feature, dead time, Lock level, OSSI/OSSR State
@@ -4002,7 +4179,7 @@ HAL_TIMEx_MasterConfigSynchronization:
 // 2111   */    
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock42 Using cfiCommon0
+          CFI Block cfiBlock33 Using cfiCommon0
           CFI Function HAL_TIMEx_ConfigBreakDeadTime
           CFI NoCalls
         THUMB
@@ -4028,21 +4205,18 @@ HAL_TIMEx_MasterConfigSynchronization:
 // 2131   /* Check input state */
 // 2132   __HAL_LOCK(htim);
 HAL_TIMEx_ConfigBreakDeadTime:
-        ADD      R2,R0,#+56
-        PUSH     {R4}
-          CFI R4 Frame(CFA, -4)
-          CFI CFA R13+4
-        LDRB     R3,[R2, #+0]
-        CMP      R3,#+1
-        IT       EQ 
-        MOVEQ    R0,#+2
-        BEQ.N    ??HAL_TIMEx_ConfigBreakDeadTime_0
-        MOVS     R3,#+1
-        STRB     R3,[R2, #+0]
+        LDRB     R2,[R0, #+56]
+        CMP      R2,#+1
+        BNE.N    ??HAL_TIMEx_ConfigBreakDeadTime_0
+        MOVS     R0,#+2
+        BX       LR
+??HAL_TIMEx_ConfigBreakDeadTime_0:
+        MOVS     R2,#+1
+        STRB     R2,[R0, #+56]
 // 2133   
 // 2134   htim->State = HAL_TIM_STATE_BUSY;
-        MOVS     R3,#+2
-        STRB     R3,[R2, #+1]
+        MOVS     R2,#+2
+        STRB     R2,[R0, #+57]
 // 2135 
 // 2136   /* Set the Lock level, the Break enable Bit and the Polarity, the OSSR State,
 // 2137      the OSSI State, the dead time value and the Automatic Output Enable Bit */
@@ -4068,42 +4242,39 @@ HAL_TIMEx_ConfigBreakDeadTime:
 // 2157   
 // 2158   /* Set TIMx_BDTR */
 // 2159   htim->Instance->BDTR = tmpbdtr;
-        LDR      R3,[R1, #+12]
-        LDR      R4,[R1, #+8]
-        LDR      R0,[R0, #+0]
-        ORRS     R3,R4,R3
-        LDR      R4,[R1, #+4]
-        ORRS     R3,R4,R3
-        LDR      R4,[R1, #+0]
-        ORRS     R3,R4,R3
-        LDR      R4,[R1, #+16]
-        ORRS     R3,R4,R3
-        LDR      R4,[R1, #+20]
-        ORRS     R3,R4,R3
-        LDR      R4,[R1, #+40]
-        ORRS     R3,R4,R3
-        LDR      R4,[R1, #+24]
-        ORR      R3,R3,R4, LSL #+16
-        LDR      R4,[R1, #+36]
-        ORR      R3,R3,R4, LSL #+20
-        LDR      R4,[R1, #+28]
+        LDR      R2,[R1, #+12]
+        LDR      R3,[R1, #+8]
+        ORRS     R2,R3,R2
+        LDR      R3,[R1, #+4]
+        ORRS     R2,R3,R2
+        LDR      R3,[R1, #+0]
+        ORRS     R2,R3,R2
+        LDR      R3,[R1, #+16]
+        ORRS     R2,R3,R2
+        LDR      R3,[R1, #+20]
+        ORRS     R2,R3,R2
+        LDR      R3,[R1, #+40]
+        ORRS     R2,R3,R2
+        LDR      R3,[R1, #+24]
+        ORR      R2,R2,R3, LSL #+16
+        LDR      R3,[R1, #+36]
+        ORR      R2,R2,R3, LSL #+20
+        LDR      R3,[R1, #+28]
         LDR      R1,[R1, #+32]
-        ORRS     R3,R4,R3
-        ORRS     R1,R1,R3
-        STR      R1,[R0, #+68]
+        ORRS     R2,R3,R2
+        ORRS     R1,R1,R2
+        LDR      R2,[R0, #+0]
+        STR      R1,[R2, #+68]
 // 2160   
 // 2161   __HAL_UNLOCK(htim);
-        MOVS     R0,#+0
-        STRB     R0,[R2, #+0]
+        MOVS     R1,#+0
+        STRB     R1,[R0, #+56]
 // 2162   
 // 2163   return HAL_OK;
-??HAL_TIMEx_ConfigBreakDeadTime_0:
-        POP      {R4}
-          CFI R4 SameValue
-          CFI CFA R13+0
+        MOVS     R0,#+0
         BX       LR               ;; return
 // 2164 }
-          CFI EndBlock cfiBlock42
+          CFI EndBlock cfiBlock33
 // 2165 
 // 2166 /**
 // 2167   * @brief  Configures the TIM2, TIM5 and TIM11 Remapping input capabilities.
@@ -4128,7 +4299,7 @@ HAL_TIMEx_ConfigBreakDeadTime:
 // 2186   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock43 Using cfiCommon0
+          CFI Block cfiBlock34 Using cfiCommon0
           CFI Function HAL_TIMEx_RemapConfig
           CFI NoCalls
         THUMB
@@ -4136,15 +4307,14 @@ HAL_TIMEx_ConfigBreakDeadTime:
 // 2188 {
 // 2189   __HAL_LOCK(htim);
 HAL_TIMEx_RemapConfig:
-        ADD      R2,R0,#+56
-        LDRB     R3,[R2, #+0]
-        CMP      R3,#+1
+        LDRB     R2,[R0, #+56]
+        CMP      R2,#+1
         BNE.N    ??HAL_TIMEx_RemapConfig_0
         MOVS     R0,#+2
         BX       LR
 ??HAL_TIMEx_RemapConfig_0:
-        MOVS     R3,#+1
-        STRB     R3,[R2, #+0]
+        MOVS     R2,#+1
+        STRB     R2,[R0, #+56]
 // 2190     
 // 2191   /* Check parameters */
 // 2192   assert_param(IS_TIM_REMAP_INSTANCE(htim->Instance));
@@ -4152,20 +4322,22 @@ HAL_TIMEx_RemapConfig:
 // 2194   
 // 2195   /* Set the Timer remapping configuration */
 // 2196   htim->Instance->OR = Remap;
-        LDR      R0,[R0, #+0]
-        STR      R1,[R0, #+80]
+        LDR      R2,[R0, #+0]
+        STR      R1,[R2, #+80]
 // 2197   
 // 2198   htim->State = HAL_TIM_STATE_READY;
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+57]
 // 2199   
 // 2200   __HAL_UNLOCK(htim);  
-        MOVS     R0,#+0
-        STRB     R3,[R2, #+1]
-        STRB     R0,[R2, #+0]
+        MOVS     R1,#+0
+        STRB     R1,[R0, #+56]
 // 2201   
 // 2202   return HAL_OK;
+        MOVS     R0,#+0
         BX       LR               ;; return
 // 2203 }
-          CFI EndBlock cfiBlock43
+          CFI EndBlock cfiBlock34
 // 2204 
 // 2205 /**
 // 2206   * @brief  Group channel 5 and channel 1, 2 or 3
@@ -4180,7 +4352,7 @@ HAL_TIMEx_RemapConfig:
 // 2215   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock44 Using cfiCommon0
+          CFI Block cfiBlock35 Using cfiCommon0
           CFI Function HAL_TIMEx_GroupChannel5
           CFI NoCalls
         THUMB
@@ -4193,47 +4365,47 @@ HAL_TIMEx_RemapConfig:
 // 2222   /* Process Locked */
 // 2223   __HAL_LOCK(htim);
 HAL_TIMEx_GroupChannel5:
-        ADD      R2,R0,#+56
-        LDRB     R3,[R2, #+0]
-        CMP      R3,#+1
+        LDRB     R2,[R0, #+56]
+        CMP      R2,#+1
         BNE.N    ??HAL_TIMEx_GroupChannel5_0
         MOVS     R0,#+2
         BX       LR
 ??HAL_TIMEx_GroupChannel5_0:
-        MOVS     R3,#+1
-        STRB     R3,[R2, #+0]
+        MOVS     R2,#+1
+        STRB     R2,[R0, #+56]
 // 2224   
 // 2225   htim->State = HAL_TIM_STATE_BUSY;
-        MOVS     R3,#+2
-        STRB     R3,[R2, #+1]
+        MOVS     R2,#+2
+        STRB     R2,[R0, #+57]
 // 2226   
 // 2227   /* Clear GC5Cx bit fields */
 // 2228   htim->Instance->CCR5 &= ~(TIM_CCR5_GC5C3|TIM_CCR5_GC5C2|TIM_CCR5_GC5C1);
-        LDR      R3,[R0, #+0]
-        LDR      R12,[R3, #+88]
-        LSL      R12,R12,#+3
-        LSR      R12,R12,#+3
-        STR      R12,[R3, #+88]
+        LDR      R2,[R0, #+0]
+        LDR      R3,[R2, #+88]
+        LSLS     R3,R3,#+3
+        LSRS     R3,R3,#+3
+        STR      R3,[R2, #+88]
 // 2229   
 // 2230   /* Set GC5Cx bit fields */
 // 2231   htim->Instance->CCR5 |= OCRef;
-        LDR      R0,[R0, #+0]
-        LDR      R3,[R0, #+88]
+        LDR      R2,[R0, #+0]
+        LDR      R3,[R2, #+88]
         ORRS     R1,R1,R3
-        STR      R1,[R0, #+88]
+        STR      R1,[R2, #+88]
 // 2232                                    
 // 2233   htim->State = HAL_TIM_STATE_READY;                                 
-        MOVS     R0,#+1
-        STRB     R0,[R2, #+1]
+        MOVS     R1,#+1
+        STRB     R1,[R0, #+57]
 // 2234   
 // 2235   __HAL_UNLOCK(htim);
-        MOVS     R0,#+0
-        STRB     R0,[R2, #+0]
+        MOVS     R1,#+0
+        STRB     R1,[R0, #+56]
 // 2236   
 // 2237   return HAL_OK;
+        MOVS     R0,#+0
         BX       LR               ;; return
 // 2238 }
-          CFI EndBlock cfiBlock44
+          CFI EndBlock cfiBlock35
 // 2239 
 // 2240 /**
 // 2241   * @}
@@ -4263,7 +4435,7 @@ HAL_TIMEx_GroupChannel5:
 // 2265   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock45 Using cfiCommon0
+          CFI Block cfiBlock36 Using cfiCommon0
           CFI Function HAL_TIMEx_CommutationCallback
           CFI NoCalls
         THUMB
@@ -4278,7 +4450,7 @@ HAL_TIMEx_GroupChannel5:
 // 2274 }
 HAL_TIMEx_CommutationCallback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock45
+          CFI EndBlock cfiBlock36
 // 2275 
 // 2276 /**
 // 2277   * @brief  Hall Break detection callback in non blocking mode 
@@ -4288,7 +4460,7 @@ HAL_TIMEx_CommutationCallback:
 // 2281   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock46 Using cfiCommon0
+          CFI Block cfiBlock37 Using cfiCommon0
           CFI Function HAL_TIMEx_BreakCallback
           CFI NoCalls
         THUMB
@@ -4303,7 +4475,7 @@ HAL_TIMEx_CommutationCallback:
 // 2290 }
 HAL_TIMEx_BreakCallback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock46
+          CFI EndBlock cfiBlock37
 // 2291 
 // 2292 /**
 // 2293   * @}
@@ -4332,7 +4504,7 @@ HAL_TIMEx_BreakCallback:
 // 2316   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock47 Using cfiCommon0
+          CFI Block cfiBlock38 Using cfiCommon0
           CFI Function HAL_TIMEx_HallSensor_GetState
           CFI NoCalls
         THUMB
@@ -4343,7 +4515,7 @@ HAL_TIMEx_HallSensor_GetState:
         LDRB     R0,[R0, #+57]
         BX       LR               ;; return
 // 2320 }
-          CFI EndBlock cfiBlock47
+          CFI EndBlock cfiBlock38
 // 2321 
 // 2322 /**
 // 2323   * @}
@@ -4357,14 +4529,16 @@ HAL_TIMEx_HallSensor_GetState:
 // 2331   */
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock48 Using cfiCommon0
+          CFI Block cfiBlock39 Using cfiCommon0
           CFI Function TIMEx_DMACommutationCplt
         THUMB
 // 2332 void HAL_TIMEx_DMACommutationCplt(DMA_HandleTypeDef *hdma)
 // 2333 {
 TIMEx_DMACommutationCplt:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 // 2334   TIM_HandleTypeDef* htim = ( TIM_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
         LDR      R0,[R0, #+56]
@@ -4377,8 +4551,10 @@ TIMEx_DMACommutationCplt:
           CFI FunCall HAL_TIMEx_CommutationCallback
         BL       HAL_TIMEx_CommutationCallback
 // 2339 }
-        POP      {R0,PC}          ;; return
-          CFI EndBlock cfiBlock48
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
+          CFI EndBlock cfiBlock39
 // 2340 
 // 2341 /**
 // 2342   * @brief  Enables or disables the TIM Capture Compare Channel xN.
@@ -4417,7 +4593,7 @@ TIMEx_DMACommutationCplt:
 // 2375   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock49 Using cfiCommon0
+          CFI Block cfiBlock40 Using cfiCommon0
           CFI Function TIM_OC5_SetConfig
           CFI NoCalls
         THUMB
@@ -4447,7 +4623,7 @@ TIM_OC5_SetConfig:
 // 2393   tmpccmrx &= ~(TIM_CCMR3_OC5M);
 // 2394   /* Select the Output Compare Mode */
 // 2395   tmpccmrx |= OC_Config->OCMode;
-        LDR.N    R5,??DataTable5_6  ;; 0xfffeff8f
+        LDR.N    R5,??DataTable7_5  ;; 0xfffeff8f
         BIC      R2,R2,#0x10000
         STR      R2,[R0, #+32]
         LDR      R2,[R0, #+32]
@@ -4466,10 +4642,10 @@ TIM_OC5_SetConfig:
         ORR      R2,R2,R5, LSL #+16
 // 2401 
 // 2402   if(IS_TIM_BREAK_INSTANCE(TIMx))
-        LDR.N    R5,??DataTable5_4  ;; 0x40010000
+        LDR.N    R5,??DataTable7_3  ;; 0x40010000
         CMP      R0,R5
         ITT      NE 
-        LDRNE.N  R5,??DataTable5_5  ;; 0x40010400
+        LDRNE.N  R5,??DataTable7_4  ;; 0x40010400
         CMPNE    R0,R5
         BNE.N    ??TIM_OC5_SetConfig_0
 // 2403   {   
@@ -4497,51 +4673,14 @@ TIM_OC5_SetConfig:
 // 2417   
 // 2418   /* Write to TIMx CCER */
 // 2419   TIMx->CCER = tmpccer;  
-        B.N      ?Subroutine8
+        STR      R2,[R0, #+32]
 // 2420 }
-          CFI EndBlock cfiBlock49
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable5:
-        DC32     0xfffefff8
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable5_1:
-        DC32     TIM_DMACaptureCplt
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable5_2:
-        DC32     TIM_DMAError
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable5_3:
-        DC32     TIM_DMADelayPulseCplt
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable5_4:
-        DC32     0x40010000
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable5_5:
-        DC32     0x40010400
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable5_6:
-        DC32     0xfffeff8f
+        POP      {R4,R5}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI CFA R13+0
+        BX       LR               ;; return
+          CFI EndBlock cfiBlock40
 // 2421 
 // 2422 /**
 // 2423   * @brief  Timer Output Compare 6 configuration
@@ -4550,8 +4689,8 @@ TIM_OC5_SetConfig:
 // 2426   * @retval None
 // 2427   */
 
-        SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock50 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock41 Using cfiCommon0
           CFI Function TIM_OC6_SetConfig
           CFI NoCalls
         THUMB
@@ -4581,7 +4720,7 @@ TIM_OC6_SetConfig:
 // 2445   tmpccmrx &= ~(TIM_CCMR3_OC6M);
 // 2446   /* Select the Output Compare Mode */
 // 2447   tmpccmrx |= (OC_Config->OCMode << 8);
-        LDR.N    R5,??TIM_OC6_SetConfig_0  ;; 0xfeff8fff
+        LDR.N    R5,??DataTable7_6  ;; 0xfeff8fff
         BIC      R2,R2,#0x100000
         STR      R2,[R0, #+32]
         LDR      R2,[R0, #+32]
@@ -4600,20 +4739,12 @@ TIM_OC6_SetConfig:
         ORR      R2,R2,R5, LSL #+20
 // 2453 
 // 2454   if(IS_TIM_BREAK_INSTANCE(TIMx))
-        LDR.N    R5,??TIM_OC6_SetConfig_0+0x4  ;; 0x40010000
+        LDR.N    R5,??DataTable7_3  ;; 0x40010000
         CMP      R0,R5
         ITT      NE 
-        LDRNE.N  R5,??TIM_OC6_SetConfig_0+0x8  ;; 0x40010400
+        LDRNE.N  R5,??DataTable7_4  ;; 0x40010400
         CMPNE    R0,R5
-        B.N      ??TIM_OC6_SetConfig_1
-        DATA
-??TIM_OC6_SetConfig_0:
-        DC32     0xfeff8fff
-        DC32     0x40010000
-        DC32     0x40010400
-        THUMB
-??TIM_OC6_SetConfig_1:
-        BNE.N    ??TIM_OC6_SetConfig_2
+        BNE.N    ??TIM_OC6_SetConfig_0
 // 2455   {   
 // 2456     /* Reset the Output Compare IDLE State */
 // 2457     tmpcr2 &= ~TIM_CR2_OIS6;
@@ -4626,7 +4757,7 @@ TIM_OC6_SetConfig:
 // 2461   
 // 2462   /* Write to TIMx CR2 */
 // 2463   TIMx->CR2 = tmpcr2;
-??TIM_OC6_SetConfig_2:
+??TIM_OC6_SetConfig_0:
         STR      R3,[R0, #+4]
 // 2464   
 // 2465   /* Write to TIMx CCMR3 */
@@ -4640,26 +4771,56 @@ TIM_OC6_SetConfig:
 // 2470   
 // 2471   /* Write to TIMx CCER */
 // 2472   TIMx->CCER = tmpccer;  
-          CFI EndBlock cfiBlock50
-        REQUIRE ?Subroutine8
-        ;; // Fall through to label ?Subroutine8
-// 2473 } 
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock51 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+8
-          CFI R4 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -4)
-        THUMB
-?Subroutine8:
         STR      R2,[R0, #+32]
+// 2473 } 
         POP      {R4,R5}
-          CFI CFA R13+0
           CFI R4 SameValue
           CFI R5 SameValue
+          CFI CFA R13+0
         BX       LR               ;; return
-          CFI EndBlock cfiBlock51
+          CFI EndBlock cfiBlock41
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable7:
+        DC32     TIM_DMACaptureCplt
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable7_1:
+        DC32     TIM_DMAError
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable7_2:
+        DC32     TIM_DMADelayPulseCplt
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable7_3:
+        DC32     0x40010000
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable7_4:
+        DC32     0x40010400
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable7_5:
+        DC32     0xfffeff8f
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable7_6:
+        DC32     0xfeff8fff
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -4688,9 +4849,9 @@ TIM_OC6_SetConfig:
 // 2486   */ 
 // 2487 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 3 182 bytes in section .text
+// 3 836 bytes in section .text
 // 
-// 3 182 bytes of CODE memory
+// 3 836 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

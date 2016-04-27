@@ -965,10 +965,7 @@ static void I2S1_Init(void)
   hi2s1.Init.ClockSource = I2S_CLOCK_SYSCLK;
   HAL_I2S_Init(&hi2s1);
 
-  /* Enable TXE and ERR interrupt */
- __HAL_I2S_ENABLE_IT(&hi2s1, (I2S_IT_RXNE));
- 
- __HAL_I2S_ENABLE(&hi2s1);
+
 #else
 	hspi1.Instance = SPI1;
 	hspi1.Init.Mode = SPI_MODE_SLAVE;
@@ -992,6 +989,15 @@ static void I2S1_Init(void)
 #endif
 }
 
+void I2S1_Enable(void)
+{
+   /* Enable TXE and ERR interrupt */
+ __HAL_I2S_ENABLE_IT(&hi2s1, (I2S_IT_RXNE));
+ 
+ __HAL_I2S_ENABLE(&hi2s1);
+}
+
+
 /* I2S2 init function */
 /* Read data of MIC34 */
 
@@ -1010,9 +1016,7 @@ static void I2S2_Init(void)
  hi2s2.Init.ClockSource = I2S_CLOCK_SYSCLK;
 
  HAL_I2S_Init(&hi2s2);
- /* Enable TXE and ERR interrupt */
- __HAL_I2S_ENABLE_IT(&hi2s2, (I2S_IT_RXNE));
- __HAL_I2S_ENABLE(&hi2s2);
+
 
 #else
    hspi2.Instance = SPI2;
@@ -1038,7 +1042,15 @@ __HAL_SPI_ENABLE(&hspi2);
 
 }
 
-/* SPI5 init function */
+void I2S2_Enable(void)
+{
+    /* Enable TXE and ERR interrupt */
+    __HAL_I2S_ENABLE_IT(&hi2s2, (I2S_IT_RXNE));
+    __HAL_I2S_ENABLE(&hi2s2);
+}
+
+
+/* SPI4 init function */
 void SPI4_Init(void)
 {
 
@@ -1057,11 +1069,18 @@ void SPI4_Init(void)
   hspi4.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
   HAL_SPI_Init(&hspi4);
 
-  /* Enable TXE, RXNE and ERR interrupt */
+
+}
+
+
+void SPI4_Enable(void)
+{
+ /* Enable TXE, RXNE and ERR interrupt */
  __HAL_SPI_ENABLE_IT(&hspi4, (SPI_IT_RXNE| SPI_IT_ERR));
 
  __HAL_SPI_ENABLE(&hspi4);
 }
+
 
 
 void Mic7Rec(void)

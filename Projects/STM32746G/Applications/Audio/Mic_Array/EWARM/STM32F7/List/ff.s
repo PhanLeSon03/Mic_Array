@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      16/Apr/2016  18:30:58
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Apr/2016  12:04:28
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -663,22 +663,18 @@
         DATA
 //  510 static FATFS *FatFs[_VOLUMES];	/* Pointer to the file system objects (logical drives) */
 //  511 static WORD Fsid;				/* File system mount ID */
-Fsid:
-        DS8 2
-        DS8 2
-        DS8 4
 //  512 
 //  513 #if _FS_RPATH && _VOLUMES >= 2
 //  514 static BYTE CurrVol;			/* Current drive */
 //  515 #endif
 //  516 
 //  517 #if _FS_LOCK
-
-        SECTION `.bss`:DATA:REORDER:NOROOT(2)
-        DATA
 //  518 static FILESEM Files[_FS_LOCK];	/* Open object lock semaphores */
 Files:
         DS8 24
+        DS8 2
+        DS8 2
+        DS8 4
 //  519 #endif
 //  520 
 //  521 #if _USE_LFN == 0			/* Non LFN feature */
@@ -848,7 +844,6 @@ chk_lock:
         MOVS     R2,#+0
         MOVS     R3,#+0
         MOV      R5,R4
-        ADD      R0,R0,#+512
 //  671 		if (Files[i].fs) {	/* Existing entry */
 ??chk_lock_0:
         LDR      R6,[R5, #+0]
@@ -856,15 +851,15 @@ chk_lock:
 //  672 			if (Files[i].fs == dp->fs &&	 	/* Check if the object matched with an open object */
 //  673 				Files[i].clu == dp->sclust &&
 //  674 				Files[i].idx == dp->index) break;
-        LDR      R7,[R0, #+0]
+        LDR      R7,[R0, #+512]
         CMP      R6,R7
         ITTT     EQ 
         LDREQ    R6,[R5, #+4]
-        LDREQ    R7,[R0, #+8]
+        LDREQ    R7,[R0, #+520]
         CMPEQ    R6,R7
         ITTT     EQ 
         LDRHEQ   R6,[R5, #+8]
-        LDRHEQ   R7,[R0, #+6]
+        LDRHEQ   R7,[R0, #+518]
         CMPEQ    R6,R7
         BNE.N    ??chk_lock_2
         B.N      ??chk_lock_3
@@ -925,30 +920,16 @@ chk_lock:
           CFI R7 Frame(CFA, -4)
           CFI CFA R13+16
 ??chk_lock_5:
-          CFI EndBlock cfiBlock0
-        REQUIRE ?Subroutine0
-        ;; // Fall through to label ?Subroutine0
-//  684 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock1 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+16
-          CFI R4 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -4)
-        THUMB
-?Subroutine0:
         MOVS     R0,#+0
         POP      {R4-R7}
-          CFI CFA R13+0
           CFI R4 SameValue
           CFI R5 SameValue
           CFI R6 SameValue
           CFI R7 SameValue
+          CFI CFA R13+0
         BX       LR               ;; return
-          CFI EndBlock cfiBlock1
+//  684 }
+          CFI EndBlock cfiBlock0
 //  685 
 //  686 
 //  687 static
@@ -962,8 +943,8 @@ chk_lock:
 //  695 
 //  696 
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock2 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock1 Using cfiCommon0
           CFI Function inc_lock
           CFI NoCalls
         THUMB
@@ -973,24 +954,23 @@ chk_lock:
 //  700 	int acc		/* Desired access (0:Read, 1:Write, 2:Delete/Rename) */
 //  701 )
 //  702 {
-//  703 	UINT i;
-//  704 
-//  705 
-//  706 	for (i = 0; i < _FS_LOCK; i++) {	/* Find the object */
 inc_lock:
-        ADD      R0,R0,#+512
-        LDR.N    R3,??DataTable9
         PUSH     {R4-R7}
           CFI R7 Frame(CFA, -4)
           CFI R6 Frame(CFA, -8)
           CFI R5 Frame(CFA, -12)
           CFI R4 Frame(CFA, -16)
           CFI CFA R13+16
+//  703 	UINT i;
+//  704 
+//  705 
+//  706 	for (i = 0; i < _FS_LOCK; i++) {	/* Find the object */
+        LDR.N    R3,??DataTable9
         MOVS     R2,#+0
         MOV      R5,R3
-        LDRH     R6,[R0, #+6]
-        LDR      R7,[R0, #+8]
-        LDR      R4,[R0, #+0]
+        LDRH     R6,[R0, #+518]
+        LDR      R7,[R0, #+520]
+        LDR      R4,[R0, #+512]
 //  707 		if (Files[i].fs == dp->fs &&
 //  708 			Files[i].clu == dp->sclust &&
 //  709 			Files[i].idx == dp->index) break;
@@ -1015,7 +995,7 @@ inc_lock:
         BNE.N    ??inc_lock_2
 //  713 		for (i = 0; i < _FS_LOCK && Files[i].fs; i++) ;
         MOVS     R2,#+0
-        MOV      R5,R3
+        MOV.W    R5,R3
 ??inc_lock_3:
         LDR      R6,[R5], #+12
         CBZ.N    R6,??inc_lock_4
@@ -1031,10 +1011,10 @@ inc_lock:
         ADD      R5,R3,R5, LSL #+2
         STR      R4,[R5, #+0]
 //  716 		Files[i].clu = dp->sclust;
-        LDR      R4,[R0, #+8]
+        LDR      R4,[R0, #+520]
         STR      R4,[R5, #+4]
 //  717 		Files[i].idx = dp->index;
-        LDRH     R0,[R0, #+6]
+        LDRH     R0,[R0, #+518]
         STRH     R0,[R5, #+8]
 //  718 		Files[i].ctr = 0;
         MOVS     R0,#+0
@@ -1049,7 +1029,19 @@ inc_lock:
         CBZ.N    R1,??inc_lock_6
         CBZ.N    R3,??inc_lock_7
 ??inc_lock_5:
-        B.N      ?Subroutine0
+        MOVS     R0,#+0
+        POP      {R4-R7}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI CFA R13+0
+        BX       LR
+          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -12)
+          CFI R6 Frame(CFA, -8)
+          CFI R7 Frame(CFA, -4)
+          CFI CFA R13+16
 ??inc_lock_7:
         MOV      R1,#+256
         B.N      ??inc_lock_8
@@ -1070,12 +1062,12 @@ inc_lock:
           CFI CFA R13+0
         BX       LR               ;; return
 //  726 }
-          CFI EndBlock cfiBlock2
+          CFI EndBlock cfiBlock1
 //  727 
 //  728 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock3 Using cfiCommon0
+          CFI Block cfiBlock2 Using cfiCommon0
           CFI Function dec_lock
           CFI NoCalls
         THUMB
@@ -1130,15 +1122,15 @@ dec_lock:
 //  748 	return res;
         BX       LR               ;; return
 //  749 }
-          CFI EndBlock cfiBlock3
+          CFI EndBlock cfiBlock2
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable9:
+        DC32     Files
 //  750 
 //  751 
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock4 Using cfiCommon0
-          CFI Function clear_lock
-          CFI NoCalls
-        THUMB
 //  752 static
 //  753 void clear_lock (	/* Clear lock entries of the volume */
 //  754 	FATFS *fs
@@ -1147,29 +1139,9 @@ dec_lock:
 //  757 	UINT i;
 //  758 
 //  759 	for (i = 0; i < _FS_LOCK; i++) {
-clear_lock:
-        LDR.N    R1,??DataTable9
-        MOVS     R2,#+2
 //  760 		if (Files[i].fs == fs) Files[i].fs = 0;
-??clear_lock_0:
-        LDR      R3,[R1, #+0]
-        CMP      R3,R0
-        ITT      EQ 
-        MOVEQ    R3,#+0
-        STREQ    R3,[R1, #+0]
 //  761 	}
-        ADDS     R1,R1,#+12
-        SUBS     R2,R2,#+1
-        BNE.N    ??clear_lock_0
 //  762 }
-        BX       LR               ;; return
-          CFI EndBlock cfiBlock4
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable9:
-        DC32     Files
 //  763 #endif
 //  764 
 //  765 
@@ -1180,8 +1152,8 @@ clear_lock:
 //  770 /*-----------------------------------------------------------------------*/
 //  771 #if !_FS_READONLY
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock5 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock3 Using cfiCommon0
           CFI Function sync_window
         THUMB
 //  772 static
@@ -1190,84 +1162,88 @@ clear_lock:
 //  775 )
 //  776 {
 sync_window:
-        PUSH     {R3-R9,LR}
+        PUSH     {R4-R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R9 Frame(CFA, -8)
-          CFI R8 Frame(CFA, -12)
-          CFI R7 Frame(CFA, -16)
-          CFI R6 Frame(CFA, -20)
-          CFI R5 Frame(CFA, -24)
-          CFI R4 Frame(CFA, -28)
-          CFI CFA R13+32
-        MOV      R8,R0
+          CFI R7 Frame(CFA, -8)
+          CFI R6 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -16)
+          CFI R4 Frame(CFA, -20)
+          CFI CFA R13+20
+        MOV      R5,R0
+        SUB      SP,SP,#+4
+          CFI CFA R13+24
 //  777 	DWORD wsect;
 //  778 	UINT nf;
 //  779 	FRESULT res = FR_OK;
+        MOVS     R4,#+0
 //  780 
 //  781 
 //  782 	if (fs->wflag) {	/* Write back the sector if it is dirty */
-        ADDW     R6,R8,#+513
-        MOVS     R4,#+0
-        LDRB     R0,[R6, #+3]
+        LDRB     R0,[R5, #+516]
         CBZ.N    R0,??sync_window_0
 //  783 		wsect = fs->winsect;	/* Current sector number */
-        ADD      R7,R8,#+536
+        LDR      R6,[R5, #+556]
 //  784 		if (disk_write(fs->drv, fs->win.d8, wsect, 1) != RES_OK) {
-        LDRB     R0,[R6, #+0]
+        LDRB     R0,[R5, #+513]
         MOVS     R3,#+1
-        MOV      R1,R8
-        LDR      R5,[R7, #+20]
-        MOV      R2,R5
+        MOV      R1,R5
+        MOV      R2,R6
           CFI FunCall disk_write
         BL       disk_write
         CBZ.N    R0,??sync_window_1
 //  785 			res = FR_DISK_ERR;
         MOVS     R4,#+1
-        B.N      ??sync_window_0
 //  786 		} else {
 //  787 			fs->wflag = 0;
-??sync_window_1:
-        STRB     R0,[R6, #+3]
 //  788 			if (wsect - fs->fatbase < fs->fsize) {		/* Is it in the FAT area? */
-        LDR      R0,[R7, #+8]
-        LDR      R1,[R7, #+0]
-        SUBS     R0,R5,R0
-        CMP      R0,R1
-        BCS.N    ??sync_window_0
-        LDRB     R0,[R6, #+2]
-        CMP      R0,#+2
-        BCC.N    ??sync_window_0
-        SUB      R9,R0,#+1
 //  789 				for (nf = fs->n_fats; nf >= 2; nf--) {	/* Reflect the change to all FAT copies */
 //  790 					wsect += fs->fsize;
-??sync_window_2:
-        LDR      R0,[R7, #+0]
 //  791 					disk_write(fs->drv, fs->win.d8, wsect, 1);
-        MOVS     R3,#+1
-        MOV      R1,R8
-        ADDS     R5,R0,R5
-        LDRB     R0,[R6, #+0]
-        MOV      R2,R5
-          CFI FunCall disk_write
-        BL       disk_write
 //  792 				}
-        SUBS     R9,R9,#+1
-        BNE.N    ??sync_window_2
 //  793 			}
 //  794 		}
 //  795 	}
 //  796 	return res;
+        MOV      R0,R4
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
+??sync_window_1:
+        STRB     R0,[R5, #+516]
+        LDR      R0,[R5, #+544]
+        LDR      R1,[R5, #+536]
+        SUBS     R0,R6,R0
+        CMP      R0,R1
+        BCS.N    ??sync_window_0
+        LDRB     R0,[R5, #+515]
+        CMP      R0,#+2
+        BCC.N    ??sync_window_0
+        SUBS.W   R7,R0,#+1
+??sync_window_2:
+        LDR      R0,[R5, #+536]
+        MOVS     R3,#+1
+        MOV      R1,R5
+        ADDS     R6,R0,R6
+        LDRB     R0,[R5, #+513]
+        MOV      R2,R6
+          CFI FunCall disk_write
+        BL       disk_write
+        SUBS     R7,R7,#+1
+        BNE.N    ??sync_window_2
 ??sync_window_0:
         MOV      R0,R4
-        POP      {R1,R4-R9,PC}    ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}       ;; return
 //  797 }
-          CFI EndBlock cfiBlock5
+          CFI EndBlock cfiBlock3
 //  798 #endif
 //  799 
 //  800 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock6 Using cfiCommon0
+          CFI Block cfiBlock4 Using cfiCommon0
           CFI Function move_window
         THUMB
 //  801 static
@@ -1325,7 +1301,7 @@ move_window:
         MOV      R0,R6
         POP      {R4-R6,PC}       ;; return
 //  823 }
-          CFI EndBlock cfiBlock6
+          CFI EndBlock cfiBlock4
 //  824 
 //  825 
 //  826 
@@ -1336,7 +1312,7 @@ move_window:
 //  831 #if !_FS_READONLY
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock7 Using cfiCommon0
+          CFI Block cfiBlock5 Using cfiCommon0
           CFI Function sync_fs
         THUMB
 //  832 static
@@ -1345,11 +1321,12 @@ move_window:
 //  835 )
 //  836 {
 sync_fs:
-        PUSH     {R4-R6,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
+        SUB      SP,SP,#+4
           CFI CFA R13+16
         MOV      R4,R0
 //  837 	FRESULT res;
@@ -1363,8 +1340,7 @@ sync_fs:
         BNE.N    ??sync_fs_0
 //  842 		/* Update FSINFO sector if needed */
 //  843 		if (fs->fs_type == FS_FAT32 && fs->fsi_flag == 1) {
-        ADD      R6,R4,#+484
-        LDRB     R0,[R6, #+28]
+        LDRB     R0,[R4, #+512]
         CMP      R0,#+3
         ITT      EQ 
         LDRBEQ   R0,[R4, #+517]
@@ -1386,53 +1362,52 @@ sync_fs:
 //  852 			fs->winsect = fs->volbase + 1;
 //  853 			disk_write(fs->drv, fs->win.d8, fs->winsect, 1);
         MOVS     R3,#+1
-        STRB     R0,[R6, #+26]
+        STRB     R0,[R4, #+510]
         MOVS     R0,#+170
-        STRB     R0,[R6, #+27]
+        STRB     R0,[R4, #+511]
         MOVS     R0,#+82
         STRB     R0,[R4, #+0]
+        MOV      R1,R4
         STRB     R0,[R4, #+1]
         MOVS     R0,#+97
         STRB     R0,[R4, #+2]
         MOVS     R0,#+65
         STRB     R0,[R4, #+3]
         MOVS     R0,#+114
-        STRB     R0,[R6, #+0]
-        STRB     R0,[R6, #+1]
+        STRB     R0,[R4, #+484]
+        STRB     R0,[R4, #+485]
         MOVS     R0,#+65
-        STRB     R0,[R6, #+2]
+        STRB     R0,[R4, #+486]
         MOVS     R0,#+97
-        STRB     R0,[R6, #+3]
-        ADD      R0,R4,#+524
-        LDR      R1,[R0, #+4]
-        STRB     R1,[R6, #+4]
-        LDR      R1,[R0, #+4]
-        LSLS     R1,R1,#+16
-        LSRS     R1,R1,#+24
-        STRB     R1,[R6, #+5]
-        LDR      R1,[R0, #+4]
-        LSRS     R1,R1,#+16
-        STRB     R1,[R6, #+6]
-        LDR      R1,[R0, #+4]
-        LSRS     R1,R1,#+24
-        STRB     R1,[R6, #+7]
-        LDR      R1,[R0, #+0]
-        STRB     R1,[R6, #+8]
-        LDR      R1,[R0, #+0]
-        LSLS     R1,R1,#+16
-        LSRS     R1,R1,#+24
-        STRB     R1,[R6, #+9]
-        LDR      R1,[R0, #+0]
-        LSRS     R1,R1,#+16
-        STRB     R1,[R6, #+10]
-        LDR      R1,[R0, #+0]
-        LSRS     R1,R1,#+24
-        STRB     R1,[R6, #+11]
-        LDR      R1,[R0, #+16]
-        ADDS     R2,R1,#+1
-        MOV      R1,R4
-        STR      R2,[R0, #+32]
-        LDRB     R0,[R6, #+29]
+        STRB     R0,[R4, #+487]
+        LDR      R0,[R4, #+528]
+        STRB     R0,[R4, #+488]
+        LDR      R0,[R4, #+528]
+        LSLS     R0,R0,#+16
+        LSRS     R0,R0,#+24
+        STRB     R0,[R4, #+489]
+        LDR      R0,[R4, #+528]
+        LSRS     R0,R0,#+16
+        STRB     R0,[R4, #+490]
+        LDR      R0,[R4, #+528]
+        LSRS     R0,R0,#+24
+        STRB     R0,[R4, #+491]
+        LDR      R0,[R4, #+524]
+        STRB     R0,[R4, #+492]
+        LDR      R0,[R4, #+524]
+        LSLS     R0,R0,#+16
+        LSRS     R0,R0,#+24
+        STRB     R0,[R4, #+493]
+        LDR      R0,[R4, #+524]
+        LSRS     R0,R0,#+16
+        STRB     R0,[R4, #+494]
+        LDR      R0,[R4, #+524]
+        LSRS     R0,R0,#+24
+        STRB     R0,[R4, #+495]
+        LDR      R0,[R4, #+540]
+        ADDS     R2,R0,#+1
+        LDRB     R0,[R4, #+513]
+        STR      R2,[R4, #+556]
           CFI FunCall disk_write
         BL       disk_write
 //  854 			fs->fsi_flag = 0;
@@ -1442,7 +1417,7 @@ sync_fs:
 //  856 		/* Make sure that no pending write process in the physical drive */
 //  857 		if (disk_ioctl(fs->drv, CTRL_SYNC, 0) != RES_OK)
 ??sync_fs_1:
-        LDRB     R0,[R6, #+29]
+        LDRB     R0,[R4, #+513]
         MOVS     R2,#+0
         MOVS     R1,#+0
           CFI FunCall disk_ioctl
@@ -1455,9 +1430,11 @@ sync_fs:
 //  861 	return res;
 ??sync_fs_0:
         MOV      R0,R5
-        POP      {R4-R6,PC}       ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
 //  862 }
-          CFI EndBlock cfiBlock7
+          CFI EndBlock cfiBlock5
 //  863 #endif
 //  864 
 //  865 
@@ -1470,7 +1447,7 @@ sync_fs:
 //  872 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock8 Using cfiCommon0
+          CFI Block cfiBlock6 Using cfiCommon0
           CFI Function clust2sect
           CFI NoCalls
         THUMB
@@ -1482,20 +1459,19 @@ sync_fs:
 //  878 	clst -= 2;
 //  879 	if (clst >= fs->n_fatent - 2) return 0;		/* Invalid cluster# */
 clust2sect:
-        ADD      R2,R0,#+532
+        LDR      R2,[R0, #+532]
         SUBS     R1,R1,#+2
-        LDR      R3,[R2, #+0]
-        SUBS     R3,R3,#+2
-        CMP      R1,R3
+        SUBS     R2,R2,#+2
+        CMP      R1,R2
         ITEEE    CS 
         MOVCS    R0,#+0
-        LDRBCC   R0,[R0, #+514]
-        LDRCC    R2,[R2, #+20]
-        MLACC    R0,R0,R1,R2
+        LDRBCC   R2,[R0, #+514]
+        LDRCC    R0,[R0, #+552]
+        MLACC    R0,R2,R1,R0
 //  880 	return clst * fs->csize + fs->database;
         BX       LR
 //  881 }
-          CFI EndBlock cfiBlock8
+          CFI EndBlock cfiBlock6
 //  882 
 //  883 
 //  884 
@@ -1507,7 +1483,7 @@ clust2sect:
 //  890 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock9 Using cfiCommon0
+          CFI Block cfiBlock7 Using cfiCommon0
           CFI Function get_fat
         THUMB
 //  891 DWORD get_fat (	/* 0xFFFFFFFF:Disk error, 1:Internal error, 2..0x0FFFFFFF:Cluster status */
@@ -1516,15 +1492,14 @@ clust2sect:
 //  894 )
 //  895 {
 get_fat:
-        PUSH     {R3-R9,LR}
+        PUSH     {R4-R8,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R9 Frame(CFA, -8)
-          CFI R8 Frame(CFA, -12)
-          CFI R7 Frame(CFA, -16)
-          CFI R6 Frame(CFA, -20)
-          CFI R5 Frame(CFA, -24)
-          CFI R4 Frame(CFA, -28)
-          CFI CFA R13+32
+          CFI R8 Frame(CFA, -8)
+          CFI R7 Frame(CFA, -12)
+          CFI R6 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -20)
+          CFI R4 Frame(CFA, -24)
+          CFI CFA R13+24
         MOV      R5,R1
 //  896 	UINT wc, bc;
 //  897 	BYTE *p;
@@ -1535,8 +1510,7 @@ get_fat:
         CMP      R5,#+2
         MOV      R8,R0
         BCC.N    ??get_fat_0
-        ADD      R6,R8,#+512
-        LDR      R0,[R6, #+20]
+        LDR      R0,[R8, #+532]
         CMP      R5,R0
         BCS.N    ??get_fat_0
 //  902 		val = 1;	/* Internal error */
@@ -1545,8 +1519,8 @@ get_fat:
 //  905 		val = 0xFFFFFFFF;	/* Default value falls on disk error */
 //  906 
 //  907 		switch (fs->fs_type) {
-        LDRB     R0,[R6, #+0]
-        MOV      R7,#-1
+        LDRB     R0,[R8, #+512]
+        MOV      R6,#-1
         CMP      R0,#+1
         BEQ.N    ??get_fat_1
         BCC.N    ??get_fat_0
@@ -1559,7 +1533,7 @@ get_fat:
 ??get_fat_1:
         ADD      R4,R5,R5, LSR #+1
 //  910 			if (move_window(fs, fs->fatbase + (bc / SS(fs))) != FR_OK) break;
-        LDR      R0,[R6, #+32]
+        LDR      R0,[R8, #+544]
         ADD      R1,R0,R4, LSR #+9
         MOV      R0,R8
           CFI FunCall move_window
@@ -1570,9 +1544,9 @@ get_fat:
         LSLS     R0,R4,#+23
         LSRS     R0,R0,#+23
         ADDS     R4,R4,#+1
-        LDRB     R9,[R0, R8]
+        LDRB     R7,[R0, R8]
 //  912 			if (move_window(fs, fs->fatbase + (bc / SS(fs))) != FR_OK) break;
-        LDR      R0,[R6, #+32]
+        LDR      R0,[R8, #+544]
         ADD      R1,R0,R4, LSR #+9
         MOV      R0,R8
           CFI FunCall move_window
@@ -1582,50 +1556,60 @@ get_fat:
         LSLS     R0,R4,#+23
         LSRS     R0,R0,#+23
         LDRB     R0,[R0, R8]
-        ORR      R9,R9,R0, LSL #+8
+        ORR      R7,R7,R0, LSL #+8
 //  914 			val = clst & 1 ? wc >> 4 : (wc & 0xFFF);
         LSLS     R0,R5,#+31
         ITTE     PL 
-        LSLPL    R7,R9,#+20
-        LSRPL    R7,R7,#+20
-        LSRMI    R7,R9,#+4
-        B.N      ??get_fat_4
+        LSLPL    R6,R7,#+20
+        LSRPL    R6,R6,#+20
+        LSRMI    R6,R7,#+4
 //  915 			break;
 //  916 
 //  917 		case FS_FAT16 :
 //  918 			if (move_window(fs, fs->fatbase + (clst / (SS(fs) / 2))) != FR_OK) break;
+//  919 			p = &fs->win.d8[clst * 2 % SS(fs)];
+//  920 			val = LD_WORD(p);
+//  921 			break;
+//  922 
+//  923 		case FS_FAT32 :
+//  924 			if (move_window(fs, fs->fatbase + (clst / (SS(fs) / 4))) != FR_OK) break;
+//  925 			p = &fs->win.d8[clst * 4 % SS(fs)];
+//  926 			val = LD_DWORD(p) & 0x0FFFFFFF;
+//  927 			break;
+//  928 
+//  929 		default:
+//  930 			val = 1;	/* Internal error */
+//  931 		}
+//  932 	}
+//  933 
+//  934 	return val;
+        MOV      R0,R6
+        POP      {R4-R8,PC}
 ??get_fat_3:
-        LDR      R0,[R6, #+32]
+        LDR      R0,[R8, #+544]
         ADD      R1,R0,R5, LSR #+8
         MOV      R0,R8
           CFI FunCall move_window
         BL       move_window
         CBNZ.N   R0,??get_fat_4
-//  919 			p = &fs->win.d8[clst * 2 % SS(fs)];
         LSLS     R0,R5,#+1
         LSLS     R0,R0,#+23
         ADD      R0,R8,R0, LSR #+23
-//  920 			val = LD_WORD(p);
         LDRB     R1,[R0, #+1]
         LDRB     R0,[R0, #+0]
-        ORR      R7,R0,R1, LSL #+8
-//  921 			break;
-        B.N      ??get_fat_4
-//  922 
-//  923 		case FS_FAT32 :
-//  924 			if (move_window(fs, fs->fatbase + (clst / (SS(fs) / 4))) != FR_OK) break;
+        ORR      R6,R0,R1, LSL #+8
+        MOV      R0,R6
+        POP      {R4-R8,PC}
 ??get_fat_2:
-        LDR      R0,[R6, #+32]
+        LDR      R0,[R8, #+544]
         ADD      R1,R0,R5, LSR #+7
         MOV      R0,R8
           CFI FunCall move_window
         BL       move_window
         CBNZ.N   R0,??get_fat_4
-//  925 			p = &fs->win.d8[clst * 4 % SS(fs)];
         LSLS     R0,R5,#+2
         LSLS     R0,R0,#+23
         ADD      R0,R8,R0, LSR #+23
-//  926 			val = LD_DWORD(p) & 0x0FFFFFFF;
         LDRB     R2,[R0, #+2]
         LDRB     R1,[R0, #+3]
         LSLS     R2,R2,#+16
@@ -1634,23 +1618,17 @@ get_fat:
         LDRB     R0,[R0, #+0]
         ORR      R1,R1,R2, LSL #+8
         ORRS     R0,R0,R1
-        LSLS     R7,R0,#+4
-        LSRS     R7,R7,#+4
-//  927 			break;
-        B.N      ??get_fat_4
-//  928 
-//  929 		default:
-//  930 			val = 1;	/* Internal error */
+        LSLS     R6,R0,#+4
+        LSRS     R6,R6,#+4
+        MOV      R0,R6
+        POP      {R4-R8,PC}
 ??get_fat_0:
-        MOVS     R7,#+1
-//  931 		}
-//  932 	}
-//  933 
-//  934 	return val;
+        MOVS     R6,#+1
 ??get_fat_4:
-        B.N      ?Subroutine1
+        MOV      R0,R6
+        POP      {R4-R8,PC}       ;; return
 //  935 }
-          CFI EndBlock cfiBlock9
+          CFI EndBlock cfiBlock7
 //  936 
 //  937 
 //  938 
@@ -1663,7 +1641,7 @@ get_fat:
 //  945 #if !_FS_READONLY
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock10 Using cfiCommon0
+          CFI Block cfiBlock8 Using cfiCommon0
           CFI Function put_fat
         THUMB
 //  946 FRESULT put_fat (
@@ -1673,34 +1651,34 @@ get_fat:
 //  950 )
 //  951 {
 put_fat:
-        PUSH     {R4-R8,LR}
+        PUSH     {R4-R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R8 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -20)
-          CFI R4 Frame(CFA, -24)
-          CFI CFA R13+24
-        MOV      R4,R1
+          CFI R7 Frame(CFA, -8)
+          CFI R6 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -16)
+          CFI R4 Frame(CFA, -20)
+          CFI CFA R13+20
+        MOV      R6,R1
 //  952 	UINT bc;
 //  953 	BYTE *p;
 //  954 	FRESULT res;
 //  955 
 //  956 
 //  957 	if (clst < 2 || clst >= fs->n_fatent) {	/* Check range */
-        CMP      R4,#+2
-        MOV      R8,R0
+        CMP      R6,#+2
+        SUB      SP,SP,#+4
+          CFI CFA R13+24
+        MOV      R4,R0
         MOV      R5,R2
         BCC.N    ??put_fat_0
-        ADD      R6,R8,#+512
-        LDR      R0,[R6, #+20]
-        CMP      R4,R0
+        LDR      R0,[R4, #+532]
+        CMP      R6,R0
         BCS.N    ??put_fat_0
 //  958 		res = FR_INT_ERR;
 //  959 
 //  960 	} else {
 //  961 		switch (fs->fs_type) {
-        LDRB     R0,[R6, #+0]
+        LDRB     R0,[R4, #+512]
         CMP      R0,#+1
         BEQ.N    ??put_fat_1
         BCC.N    ??put_fat_0
@@ -1711,11 +1689,11 @@ put_fat:
 //  962 		case FS_FAT12 :
 //  963 			bc = (UINT)clst; bc += bc / 2;
 ??put_fat_1:
-        ADD      R7,R4,R4, LSR #+1
+        ADD      R7,R6,R6, LSR #+1
 //  964 			res = move_window(fs, fs->fatbase + (bc / SS(fs)));
-        LDR      R0,[R6, #+32]
+        LDR      R0,[R4, #+544]
         ADD      R1,R0,R7, LSR #+9
-        MOV      R0,R8
+        MOV      R0,R4
           CFI FunCall move_window
         BL       move_window
 //  965 			if (res != FR_OK) break;
@@ -1724,9 +1702,9 @@ put_fat:
 //  966 			p = &fs->win.d8[bc++ % SS(fs)];
         LSLS     R0,R7,#+23
         ADDS     R7,R7,#+1
-        ADD      R1,R8,R0, LSR #+23
+        ADDS     R1,R4,R0, LSR #+23
 //  967 			*p = (clst & 1) ? ((*p & 0x0F) | ((BYTE)val << 4)) : (BYTE)val;
-        ANDS     R4,R4,#0x1
+        ANDS     R6,R6,#0x1
         ITTTE    NE 
         LDRBNE   R0,[R1, #+0]
         ANDNE    R0,R0,#0xF
@@ -1735,11 +1713,11 @@ put_fat:
         STRB     R0,[R1, #+0]
 //  968 			fs->wflag = 1;
         MOVS     R0,#+1
-        STRB     R0,[R6, #+4]
+        STRB     R0,[R4, #+516]
 //  969 			res = move_window(fs, fs->fatbase + (bc / SS(fs)));
-        LDR      R0,[R6, #+32]
+        LDR      R0,[R4, #+544]
         ADD      R1,R0,R7, LSR #+9
-        MOV      R0,R8
+        MOV      R0,R4
           CFI FunCall move_window
         BL       move_window
 //  970 			if (res != FR_OK) break;
@@ -1747,78 +1725,31 @@ put_fat:
         BNE.N    ??put_fat_4
 //  971 			p = &fs->win.d8[bc % SS(fs)];
         LSLS     R1,R7,#+23
-        ADD      R1,R8,R1, LSR #+23
+        ADDS     R1,R4,R1, LSR #+23
 //  972 			*p = (clst & 1) ? (BYTE)(val >> 4) : ((*p & 0xF0) | ((BYTE)(val >> 8) & 0x0F));
-        CBZ.N    R4,??put_fat_5
+        CBZ.N    R6,??put_fat_5
         LSRS     R2,R5,#+4
-        B.N      ??put_fat_6
-??put_fat_5:
-        LDRB     R2,[R1, #+0]
-        LSRS     R3,R5,#+8
-        AND      R3,R3,#0xF
-        AND      R2,R2,#0xF0
-        ORRS     R2,R3,R2
-??put_fat_6:
         STRB     R2,[R1, #+0]
 //  973 			fs->wflag = 1;
-        B.N      ??put_fat_7
 //  974 			break;
 //  975 
 //  976 		case FS_FAT16 :
 //  977 			res = move_window(fs, fs->fatbase + (clst / (SS(fs) / 2)));
-??put_fat_3:
-        LDR      R0,[R6, #+32]
-        ADD      R1,R0,R4, LSR #+8
-        MOV      R0,R8
-          CFI FunCall move_window
-        BL       move_window
 //  978 			if (res != FR_OK) break;
-        CBNZ.N   R0,??put_fat_4
 //  979 			p = &fs->win.d8[clst * 2 % SS(fs)];
-        LSLS     R1,R4,#+1
-        LSLS     R1,R1,#+23
-        ADD      R1,R8,R1, LSR #+23
 //  980 			ST_WORD(p, (WORD)val);
-        STRB     R5,[R1, #+0]
-        LSLS     R5,R5,#+16
-        LSRS     R2,R5,#+24
-        STRB     R2,[R1, #+1]
 //  981 			fs->wflag = 1;
-        B.N      ??put_fat_7
 //  982 			break;
 //  983 
 //  984 		case FS_FAT32 :
 //  985 			res = move_window(fs, fs->fatbase + (clst / (SS(fs) / 4)));
-??put_fat_2:
-        LDR      R0,[R6, #+32]
-        ADD      R1,R0,R4, LSR #+7
-        MOV      R0,R8
-          CFI FunCall move_window
-        BL       move_window
 //  986 			if (res != FR_OK) break;
-        CBNZ.N   R0,??put_fat_4
 //  987 			p = &fs->win.d8[clst * 4 % SS(fs)];
-        LSLS     R1,R4,#+2
-        LSLS     R1,R1,#+23
-        ADD      R1,R8,R1, LSR #+23
 //  988 			val |= LD_DWORD(p) & 0xF0000000;
-        LDRB     R2,[R1, #+3]
-        LSLS     R2,R2,#+24
-        AND      R2,R2,#0xF0000000
-        ORRS     R5,R2,R5
 //  989 			ST_DWORD(p, val);
-        LSLS     R2,R5,#+16
-        LSRS     R2,R2,#+24
-        STRB     R5,[R1, #+0]
-        STRB     R2,[R1, #+1]
-        LSRS     R2,R5,#+16
-        STRB     R2,[R1, #+2]
-        LSRS     R2,R5,#+24
-        STRB     R2,[R1, #+3]
 //  990 			fs->wflag = 1;
-??put_fat_7:
         MOVS     R1,#+1
-        STRB     R1,[R6, #+4]
+        STRB     R1,[R4, #+516]
 //  991 			break;
 //  992 
 //  993 		default :
@@ -1827,13 +1758,79 @@ put_fat:
 //  996 	}
 //  997 
 //  998 	return res;
-        POP      {R4-R8,PC}
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
+??put_fat_5:
+        LDRB     R2,[R1, #+0]
+        LSRS     R3,R5,#+8
+        AND      R3,R3,#0xF
+        AND      R2,R2,#0xF0
+        ORRS     R2,R3,R2
+        STRB     R2,[R1, #+0]
+        MOVS     R1,#+1
+        STRB     R1,[R4, #+516]
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
+??put_fat_3:
+        LDR      R0,[R4, #+544]
+        ADD      R1,R0,R6, LSR #+8
+        MOV      R0,R4
+          CFI FunCall move_window
+        BL       move_window
+        CBNZ.N   R0,??put_fat_4
+        LSLS     R1,R6,#+1
+        LSLS     R1,R1,#+23
+        ADDS     R1,R4,R1, LSR #+23
+        STRB     R5,[R1, #+0]
+        LSLS     R5,R5,#+16
+        LSRS     R2,R5,#+24
+        STRB     R2,[R1, #+1]
+        MOVS     R1,#+1
+        STRB     R1,[R4, #+516]
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
+??put_fat_2:
+        LDR      R0,[R4, #+544]
+        ADD      R1,R0,R6, LSR #+7
+        MOV      R0,R4
+          CFI FunCall move_window
+        BL       move_window
+        CBNZ.N   R0,??put_fat_4
+        LSLS     R1,R6,#+2
+        LSLS     R1,R1,#+23
+        ADDS     R1,R4,R1, LSR #+23
+        LDRB     R2,[R1, #+3]
+        LSLS     R2,R2,#+24
+        AND      R2,R2,#0xF0000000
+        ORRS     R5,R2,R5
+        LSLS     R2,R5,#+16
+        LSRS     R2,R2,#+24
+        STRB     R5,[R1, #+0]
+        STRB     R2,[R1, #+1]
+        LSRS     R2,R5,#+16
+        STRB     R2,[R1, #+2]
+        LSRS     R2,R5,#+24
+        STRB     R2,[R1, #+3]
+        MOVS     R1,#+1
+        STRB     R1,[R4, #+516]
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
 ??put_fat_0:
         MOVS     R0,#+2
 ??put_fat_4:
-        POP      {R4-R8,PC}       ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}       ;; return
 //  999 }
-          CFI EndBlock cfiBlock10
+          CFI EndBlock cfiBlock8
 // 1000 #endif /* !_FS_READONLY */
 // 1001 
 // 1002 
@@ -1845,7 +1842,7 @@ put_fat:
 // 1008 #if !_FS_READONLY
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock11 Using cfiCommon0
+          CFI Block cfiBlock9 Using cfiCommon0
           CFI Function remove_chain
         THUMB
 // 1009 static
@@ -1855,16 +1852,15 @@ put_fat:
 // 1013 )
 // 1014 {
 remove_chain:
-        PUSH     {R3-R9,LR}
+        PUSH     {R4-R8,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R9 Frame(CFA, -8)
-          CFI R8 Frame(CFA, -12)
-          CFI R7 Frame(CFA, -16)
-          CFI R6 Frame(CFA, -20)
-          CFI R5 Frame(CFA, -24)
-          CFI R4 Frame(CFA, -28)
-          CFI CFA R13+32
-        MOV      R6,R1
+          CFI R8 Frame(CFA, -8)
+          CFI R7 Frame(CFA, -12)
+          CFI R6 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -20)
+          CFI R4 Frame(CFA, -24)
+          CFI CFA R13+24
+        MOV      R7,R1
 // 1015 	FRESULT res;
 // 1016 	DWORD nxt;
 // 1017 #if _USE_TRIM
@@ -1872,146 +1868,38 @@ remove_chain:
 // 1019 #endif
 // 1020 
 // 1021 	if (clst < 2 || clst >= fs->n_fatent) {	/* Check range */
-        CMP      R6,#+2
+        CMP      R7,#+2
         MOV      R8,R0
         BCC.N    ??remove_chain_0
-        ADD      R5,R8,#+512
-        LDR      R0,[R5, #+20]
-        CMP      R6,R0
+        LDR      R0,[R8, #+532]
+        CMP      R7,R0
         BCS.N    ??remove_chain_0
 // 1022 		res = FR_INT_ERR;
 // 1023 
 // 1024 	} else {
 // 1025 		res = FR_OK;
-        MOVS     R7,#+0
+        MOVS     R6,#+0
 // 1026 		while (clst < fs->n_fatent) {			/* Not a last link? */
 // 1027 			nxt = get_fat(fs, clst);			/* Get cluster status */
 ??remove_chain_1:
-        MOV      R1,R6
+        MOV      R1,R7
         MOV      R0,R8
           CFI FunCall get_fat
         BL       get_fat
-        MOVS     R9,R0
+        MOVS     R5,R0
 // 1028 			if (nxt == 0) break;				/* Empty cluster? */
-        BEQ.N    ??remove_chain_2
+        BEQ.W    ??remove_chain_2
 // 1029 			if (nxt == 1) { res = FR_INT_ERR; break; }	/* Internal error? */
-        CMP      R9,#+1
+        CMP      R5,#+1
         BNE.N    ??remove_chain_3
 ??remove_chain_0:
-        MOVS     R7,#+2
-        B.N      ??remove_chain_2
+        MOVS     R6,#+2
 // 1030 			if (nxt == 0xFFFFFFFF) { res = FR_DISK_ERR; break; }	/* Disk error? */
-??remove_chain_3:
-        CMN      R9,#+1
-        BNE.N    ??remove_chain_4
-        MOVS     R7,#+1
-        B.N      ??remove_chain_2
 // 1031 			res = put_fat(fs, clst, 0);			/* Mark the cluster "empty" */
-??remove_chain_4:
-        CMP      R6,#+2
-        BCC.N    ??remove_chain_5
-        LDR      R0,[R5, #+20]
-        CMP      R6,R0
-        BCS.N    ??remove_chain_5
-        LDRB     R0,[R5, #+0]
-        CMP      R0,#+1
-        BEQ.N    ??remove_chain_6
-        BCC.N    ??remove_chain_5
-        CMP      R0,#+3
-        BEQ.N    ??remove_chain_7
-        BCC.N    ??remove_chain_8
-        B.N      ??remove_chain_5
-??remove_chain_7:
-        LDR      R0,[R5, #+32]
-        ADD      R1,R0,R6, LSR #+7
-        MOV      R0,R8
-          CFI FunCall move_window
-        BL       move_window
-        MOVS     R7,R0
-        BNE.N    ??remove_chain_9
-        LSLS     R0,R6,#+2
-        LSLS     R0,R0,#+23
-        ADD      R0,R8,R0, LSR #+23
-        MOVS     R2,#+0
-        LDRB     R1,[R0, #+3]
-        STRB     R2,[R0, #+0]
-        STRB     R2,[R0, #+1]
-        LSLS     R1,R1,#+24
-        AND      R1,R1,#0xF0000000
-        LSRS     R1,R1,#+24
-        STRB     R2,[R0, #+2]
-        STRB     R1,[R0, #+3]
-        B.N      ??remove_chain_10
-??remove_chain_8:
-        LDR      R0,[R5, #+32]
-        ADD      R1,R0,R6, LSR #+8
-        MOV      R0,R8
-          CFI FunCall move_window
-        BL       move_window
-        MOVS     R7,R0
-        BNE.N    ??remove_chain_9
-        LSLS     R0,R6,#+1
-        LSLS     R0,R0,#+23
-        ADD      R0,R8,R0, LSR #+23
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+0]
-        STRB     R1,[R0, #+1]
-        B.N      ??remove_chain_10
-??remove_chain_6:
-        ADD      R4,R6,R6, LSR #+1
-        LDR      R0,[R5, #+32]
-        ADD      R1,R0,R4, LSR #+9
-        MOV      R0,R8
-          CFI FunCall move_window
-        BL       move_window
-        MOVS     R7,R0
-        BNE.N    ??remove_chain_9
-        LSLS     R0,R4,#+23
-        ADDS     R4,R4,#+1
-        ADD      R0,R8,R0, LSR #+23
-        ANDS     R6,R6,#0x1
-        ITTE     NE 
-        LDRBNE   R1,[R0, #+0]
-        ANDNE    R1,R1,#0xF
-        MOVEQ    R1,#+0
-        STRB     R1,[R0, #+0]
-        MOVS     R0,#+1
-        STRB     R0,[R5, #+4]
-        LDR      R0,[R5, #+32]
-        ADD      R1,R0,R4, LSR #+9
-        MOV      R0,R8
-          CFI FunCall move_window
-        BL       move_window
-        MOVS     R7,R0
-        BNE.N    ??remove_chain_9
-        LSLS     R0,R4,#+23
-        CMP      R6,#+0
-        ADD      R0,R8,R0, LSR #+23
-        ITEE     NE 
-        MOVNE    R1,#+0
-        LDRBEQ   R1,[R0, #+0]
-        ANDEQ    R1,R1,#0xF0
-        STRB     R1,[R0, #+0]
-??remove_chain_10:
-        MOVS     R0,#+1
-        STRB     R0,[R5, #+4]
-        B.N      ??remove_chain_9
-??remove_chain_5:
-        MOVS     R7,#+2
 // 1032 			if (res != FR_OK) break;
-??remove_chain_9:
-        CBNZ.N   R7,??remove_chain_2
 // 1033 			if (fs->free_clust != 0xFFFFFFFF) {	/* Update FSINFO */
-        LDR      R0,[R5, #+16]
-        CMN      R0,#+1
-        BEQ.N    ??remove_chain_11
 // 1034 				fs->free_clust++;
-        ADDS     R0,R0,#+1
-        STR      R0,[R5, #+16]
 // 1035 				fs->fsi_flag |= 1;
-        LDRB     R0,[R5, #+5]
-        ORR      R0,R0,#0x1
-        STRB     R0,[R5, #+5]
 // 1036 			}
 // 1037 #if _USE_TRIM
 // 1038 			if (ecl + 1 == nxt) {	/* Is next cluster contiguous? */
@@ -2025,36 +1913,131 @@ remove_chain:
 // 1046 #endif
 // 1047 			clst = nxt;	/* Next cluster */
 // 1048 		}
-??remove_chain_11:
-        LDR      R0,[R5, #+20]
-        MOV      R6,R9
-        CMP      R6,R0
-        BCC.W    ??remove_chain_1
 // 1049 	}
 // 1050 
 // 1051 	return res;
+        MOV      R0,R6
+        POP      {R4-R8,PC}
+??remove_chain_3:
+        CMN      R5,#+1
+        BNE.N    ??remove_chain_4
+        MOVS     R6,#+1
+        MOV      R0,R6
+        POP      {R4-R8,PC}
+??remove_chain_4:
+        CMP      R7,#+2
+        BCC.N    ??remove_chain_5
+        LDR      R0,[R8, #+532]
+        CMP      R7,R0
+        BCS.N    ??remove_chain_5
+        LDRB     R0,[R8, #+512]
+        CMP      R0,#+1
+        BEQ.N    ??remove_chain_6
+        BCC.N    ??remove_chain_5
+        CMP      R0,#+3
+        BEQ.N    ??remove_chain_7
+        BCC.N    ??remove_chain_8
+        B.N      ??remove_chain_5
+??remove_chain_7:
+        LDR      R0,[R8, #+544]
+        ADD      R1,R0,R7, LSR #+7
+        MOV      R0,R8
+          CFI FunCall move_window
+        BL       move_window
+        MOVS     R6,R0
+        BNE.N    ??remove_chain_9
+        LSLS     R0,R7,#+2
+        LSLS     R0,R0,#+23
+        ADD      R0,R8,R0, LSR #+23
+        MOVS     R2,#+0
+        LDRB     R1,[R0, #+3]
+        STRB     R2,[R0, #+0]
+        STRB     R2,[R0, #+1]
+        LSLS     R1,R1,#+24
+        AND      R1,R1,#0xF0000000
+        LSRS     R1,R1,#+24
+        STRB     R2,[R0, #+2]
+        STRB     R1,[R0, #+3]
+        MOVS     R0,#+1
+        STRB     R0,[R8, #+516]
+        B.N      ??remove_chain_9
+??remove_chain_8:
+        LDR      R0,[R8, #+544]
+        ADD      R1,R0,R7, LSR #+8
+        MOV      R0,R8
+          CFI FunCall move_window
+        BL       move_window
+        MOVS     R6,R0
+        BNE.N    ??remove_chain_9
+        LSLS     R0,R7,#+1
+        LSLS     R0,R0,#+23
+        ADD      R0,R8,R0, LSR #+23
+        MOVS     R1,#+0
+        STRB     R1,[R0, #+0]
+        STRB     R1,[R0, #+1]
+        MOVS     R0,#+1
+        STRB     R0,[R8, #+516]
+        B.N      ??remove_chain_9
+??remove_chain_6:
+        ADD      R4,R7,R7, LSR #+1
+        LDR      R0,[R8, #+544]
+        ADD      R1,R0,R4, LSR #+9
+        MOV      R0,R8
+          CFI FunCall move_window
+        BL       move_window
+        MOVS     R6,R0
+        BNE.N    ??remove_chain_9
+        LSLS     R0,R4,#+23
+        ADDS     R4,R4,#+1
+        ADD      R0,R8,R0, LSR #+23
+        ANDS     R7,R7,#0x1
+        ITTE     NE 
+        LDRBNE   R1,[R0, #+0]
+        ANDNE    R1,R1,#0xF
+        MOVEQ    R1,#+0
+        STRB     R1,[R0, #+0]
+        MOVS     R0,#+1
+        STRB     R0,[R8, #+516]
+        LDR      R0,[R8, #+544]
+        ADD      R1,R0,R4, LSR #+9
+        MOV      R0,R8
+          CFI FunCall move_window
+        BL       move_window
+        MOVS     R6,R0
+        BNE.N    ??remove_chain_9
+        LSLS     R0,R4,#+23
+        CMP      R7,#+0
+        ADD      R0,R8,R0, LSR #+23
+        ITEE     NE 
+        MOVNE    R1,#+0
+        LDRBEQ   R1,[R0, #+0]
+        ANDEQ    R1,R1,#0xF0
+        STRB     R1,[R0, #+0]
+        MOVS     R0,#+1
+        STRB     R0,[R8, #+516]
+        B.N      ??remove_chain_9
+??remove_chain_5:
+        MOVS     R6,#+2
+??remove_chain_9:
+        CBNZ.N   R6,??remove_chain_2
+        LDR      R0,[R8, #+528]
+        CMN      R0,#+1
+        BEQ.N    ??remove_chain_10
+        ADDS     R0,R0,#+1
+        STR      R0,[R8, #+528]
+        LDRB     R0,[R8, #+517]
+        ORR      R0,R0,#0x1
+        STRB     R0,[R8, #+517]
+??remove_chain_10:
+        LDR      R0,[R8, #+532]
+        MOV      R7,R5
+        CMP      R7,R0
+        BCC.W    ??remove_chain_1
 ??remove_chain_2:
-          CFI EndBlock cfiBlock11
-        REQUIRE ?Subroutine1
-        ;; // Fall through to label ?Subroutine1
+        MOV      R0,R6
+        POP      {R4-R8,PC}       ;; return
 // 1052 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock12 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+32
-          CFI R4 Frame(CFA, -28)
-          CFI R5 Frame(CFA, -24)
-          CFI R6 Frame(CFA, -20)
-          CFI R7 Frame(CFA, -16)
-          CFI R8 Frame(CFA, -12)
-          CFI R9 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine1:
-        MOV      R0,R7
-        POP      {R1,R4-R9,PC}    ;; return
-          CFI EndBlock cfiBlock12
+          CFI EndBlock cfiBlock9
 // 1053 #endif
 // 1054 
 // 1055 
@@ -2065,8 +2048,8 @@ remove_chain:
 // 1060 /*-----------------------------------------------------------------------*/
 // 1061 #if !_FS_READONLY
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock13 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock10 Using cfiCommon0
           CFI Function create_chain
         THUMB
 // 1062 static
@@ -2085,7 +2068,7 @@ create_chain:
           CFI R4 Frame(CFA, -24)
           CFI CFA R13+24
         MOVS     R5,R1
-        MOV      R8,R0
+        MOV      R4,R0
 // 1068 	DWORD cs, ncl, scl;
 // 1069 	FRESULT res;
 // 1070 
@@ -2093,15 +2076,14 @@ create_chain:
 // 1072 	if (clst == 0) {		/* Create a new chain */
         BNE.N    ??create_chain_0
 // 1073 		scl = fs->last_clust;			/* Get suggested start point */
-        ADD      R6,R8,#+524
-        LDR      R4,[R6, #+0]
+        LDR      R7,[R4, #+524]
 // 1074 		if (!scl || scl >= fs->n_fatent) scl = 1;
-        CBZ.N    R4,??create_chain_1
-        LDR      R0,[R6, #+8]
-        CMP      R4,R0
+        CBZ.N    R7,??create_chain_1
+        LDR      R0,[R4, #+532]
+        CMP      R7,R0
         BCC.N    ??create_chain_2
 ??create_chain_1:
-        MOVS     R4,#+1
+        MOVS     R7,#+1
         B.N      ??create_chain_2
 // 1075 	}
 // 1076 	else {					/* Stretch the current chain */
@@ -2113,84 +2095,170 @@ create_chain:
         CMP      R0,#+2
         IT       CC 
         MOVCC    R0,#+1
-        BCC.N    ??create_chain_3
+        BCC.W    ??create_chain_3
 // 1079 		if (cs == 0xFFFFFFFF) return cs;	/* A disk error occurred */
         CMN      R0,#+1
-        BEQ.N    ??create_chain_3
+        BEQ.W    ??create_chain_3
 // 1080 		if (cs < fs->n_fatent) return cs;	/* It is already followed by next cluster */
-        ADD      R1,R8,#+524
-        LDR      R1,[R1, #+8]
+        LDR      R1,[R4, #+532]
         CMP      R0,R1
-        BCC.N    ??create_chain_3
+        BCC.W    ??create_chain_3
 // 1081 		scl = clst;
-        MOV      R4,R5
+        MOV      R7,R5
 // 1082 	}
 // 1083 
 // 1084 	ncl = scl;				/* Start cluster */
 ??create_chain_2:
-        MOV      R7,R4
-        ADD      R6,R8,#+524
+        MOV      R6,R7
 // 1085 	for (;;) {
 // 1086 		ncl++;							/* Next cluster */
 // 1087 		if (ncl >= fs->n_fatent) {		/* Check wrap around */
 ??create_chain_4:
-        LDR      R0,[R6, #+8]
-        ADDS     R7,R7,#+1
-        CMP      R7,R0
+        LDR      R0,[R4, #+532]
+        ADDS     R6,R6,#+1
+        CMP      R6,R0
         BCC.N    ??create_chain_5
 // 1088 			ncl = 2;
-        MOVS     R7,#+2
+        MOVS     R6,#+2
 // 1089 			if (ncl > scl) return 0;	/* No free cluster */
-        CMP      R4,#+2
-        BCC.N    ??create_chain_6
+        CMP      R7,#+2
+        BCC.W    ??create_chain_6
 // 1090 		}
 // 1091 		cs = get_fat(fs, ncl);			/* Get the cluster status */
 ??create_chain_5:
-        MOV      R1,R7
-        MOV      R0,R8
+        MOV      R1,R6
+        MOV      R0,R4
           CFI FunCall get_fat
         BL       get_fat
 // 1092 		if (cs == 0) break;				/* Found a free cluster */
-        CBNZ.N   R0,??create_chain_7
+        CMP      R0,#+0
+        BNE.W    ??create_chain_7
 // 1093 		if (cs == 0xFFFFFFFF || cs == 1)/* An error occurred */
 // 1094 			return cs;
 // 1095 		if (ncl == scl) return 0;		/* No free cluster */
 // 1096 	}
 // 1097 
 // 1098 	res = put_fat(fs, ncl, 0x0FFFFFFF);	/* Mark the new cluster "last link" */
-        MVN      R2,#-268435456
-        MOV      R1,R7
-        MOV      R0,R8
-          CFI FunCall put_fat
-        BL       put_fat
+        CMP      R6,#+2
+        BCC.N    ??create_chain_8
+        LDR      R0,[R4, #+532]
+        CMP      R6,R0
+        BCS.N    ??create_chain_8
+        LDRB     R0,[R4, #+512]
+        CMP      R0,#+1
+        BEQ.N    ??create_chain_9
+        BCC.N    ??create_chain_8
+        CMP      R0,#+3
+        BEQ.N    ??create_chain_10
+        BCC.N    ??create_chain_11
+        B.N      ??create_chain_8
+??create_chain_10:
+        LDR      R0,[R4, #+544]
+        ADD      R1,R0,R6, LSR #+7
+        MOV      R0,R4
+          CFI FunCall move_window
+        BL       move_window
+        CMP      R0,#+0
+        BNE.N    ??create_chain_12
+        LSLS     R1,R6,#+2
+        LSLS     R1,R1,#+23
+        ADDS     R1,R4,R1, LSR #+23
+        MVN      R3,#-268435456
+        LDRB     R2,[R1, #+3]
+        ORR      R2,R3,R2, LSL #+24
+        MOVS     R3,#+255
+        STRB     R3,[R1, #+0]
+        LSRS     R2,R2,#+24
+        STRB     R3,[R1, #+1]
+        STRB     R3,[R1, #+2]
+        STRB     R2,[R1, #+3]
+        MOVS     R1,#+1
+        STRB     R1,[R4, #+516]
+        B.N      ??create_chain_12
+??create_chain_11:
+        LDR      R0,[R4, #+544]
+        ADD      R1,R0,R6, LSR #+8
+        MOV      R0,R4
+          CFI FunCall move_window
+        BL       move_window
+        CMP      R0,#+0
+        BNE.N    ??create_chain_12
+        LSLS     R1,R6,#+1
+        LSLS     R1,R1,#+23
+        ADDS     R1,R4,R1, LSR #+23
+        MOVS     R3,#+255
+        STRB     R3,[R1, #+0]
+        STRB     R3,[R1, #+1]
+        MOVS     R1,#+1
+        STRB     R1,[R4, #+516]
+        B.N      ??create_chain_12
+??create_chain_9:
+        ADD      R7,R6,R6, LSR #+1
+        LDR      R0,[R4, #+544]
+        ADD      R1,R0,R7, LSR #+9
+        MOV      R0,R4
+          CFI FunCall move_window
+        BL       move_window
+        CBNZ.N   R0,??create_chain_12
+        LSLS     R0,R7,#+23
+        ADDS     R7,R7,#+1
+        ADDS     R1,R4,R0, LSR #+23
+        ANDS     R8,R6,#0x1
+        ITTE     NE 
+        LDRBNE   R0,[R1, #+0]
+        ORRNE    R0,R0,#0xF0
+        MOVEQ    R0,#+255
+        STRB     R0,[R1, #+0]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+516]
+        LDR      R0,[R4, #+544]
+        ADD      R1,R0,R7, LSR #+9
+        MOV      R0,R4
+          CFI FunCall move_window
+        BL       move_window
+        CBNZ.N   R0,??create_chain_12
+        LSLS     R1,R7,#+23
+        ADDS     R1,R4,R1, LSR #+23
+        CMP      R8,#+0
+        ITEE     NE 
+        MOVNE    R2,#+255
+        LDRBEQ   R2,[R1, #+0]
+        ORREQ    R2,R2,#0xF
+        STRB     R2,[R1, #+0]
+        MOVS     R1,#+1
+        STRB     R1,[R4, #+516]
+        B.N      ??create_chain_12
+??create_chain_8:
+        MOVS     R0,#+2
 // 1099 	if (res == FR_OK && clst != 0) {
-        CBNZ.N   R0,??create_chain_8
-        CBZ.N    R5,??create_chain_9
+??create_chain_12:
+        CBNZ.N   R0,??create_chain_13
+        CBZ.N    R5,??create_chain_14
 // 1100 		res = put_fat(fs, clst, ncl);	/* Link it to the previous one if needed */
-        MOV      R2,R7
+        MOV      R2,R6
         MOV      R1,R5
-        MOV      R0,R8
+        MOV      R0,R4
           CFI FunCall put_fat
         BL       put_fat
 // 1101 	}
 // 1102 	if (res == FR_OK) {
-??create_chain_8:
-        CBNZ.N   R0,??create_chain_10
+??create_chain_13:
+        CBNZ.N   R0,??create_chain_15
 // 1103 		fs->last_clust = ncl;			/* Update FSINFO */
 // 1104 		if (fs->free_clust != 0xFFFFFFFF) {
-??create_chain_9:
-        LDR      R0,[R6, #+4]
-        STR      R7,[R6, #+0]
+??create_chain_14:
+        LDR      R0,[R4, #+528]
+        STR      R6,[R4, #+524]
         CMN      R0,#+1
-        BEQ.N    ??create_chain_11
+        BEQ.N    ??create_chain_16
 // 1105 			fs->free_clust--;
         SUBS     R0,R0,#+1
-        STR      R0,[R6, #+4]
+        STR      R0,[R4, #+528]
 // 1106 			fs->fsi_flag |= 1;
-        LDRB     R0,[R8, #+517]
+        LDRB     R0,[R4, #+517]
         ORR      R0,R0,#0x1
-        STRB     R0,[R8, #+517]
-        B.N      ??create_chain_11
+        STRB     R0,[R4, #+517]
+        B.N      ??create_chain_16
 // 1107 		}
 // 1108 	} else {
 ??create_chain_7:
@@ -2198,26 +2266,26 @@ create_chain:
         IT       NE 
         CMPNE    R0,#+1
         BEQ.N    ??create_chain_3
-        CMP      R7,R4
-        BNE.N    ??create_chain_4
+        CMP      R6,R7
+        BNE.W    ??create_chain_4
 ??create_chain_6:
         MOVS     R0,#+0
         POP      {R4-R8,PC}
 // 1109 		ncl = (res == FR_DISK_ERR) ? 0xFFFFFFFF : 1;
-??create_chain_10:
+??create_chain_15:
         CMP      R0,#+1
         ITE      EQ 
-        MOVEQ    R7,#-1
-        MOVNE    R7,#+1
+        MOVEQ    R6,#-1
+        MOVNE    R6,#+1
 // 1110 	}
 // 1111 
 // 1112 	return ncl;		/* Return new cluster number or error code */
-??create_chain_11:
-        MOV      R0,R7
+??create_chain_16:
+        MOV      R0,R6
 ??create_chain_3:
         POP      {R4-R8,PC}       ;; return
 // 1113 }
-          CFI EndBlock cfiBlock13
+          CFI EndBlock cfiBlock10
 // 1114 #endif /* !_FS_READONLY */
 // 1115 
 // 1116 
@@ -2258,7 +2326,7 @@ create_chain:
 // 1151 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock14 Using cfiCommon0
+          CFI Block cfiBlock11 Using cfiCommon0
           CFI Function dir_sdi
         THUMB
 // 1152 static
@@ -2268,58 +2336,56 @@ create_chain:
 // 1156 )
 // 1157 {
 dir_sdi:
-        PUSH     {R3-R7,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+24
-        MOV      R4,R1
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
+        MOV      R4,R0
+        MOV      R5,R1
 // 1158 	DWORD clst, sect;
 // 1159 	UINT ic;
 // 1160 
 // 1161 
 // 1162 	dp->index = (WORD)idx;	/* Current index */
-        ADD      R5,R0,#+512
-        STRH     R4,[R5, #+6]
+        STRH     R5,[R4, #+518]
 // 1163 	clst = dp->sclust;		/* Table start cluster (0:root) */
-        LDR      R6,[R5, #+8]
+        LDR      R0,[R4, #+520]
 // 1164 	if (clst == 1 || clst >= dp->fs->n_fatent)	/* Check start cluster range */
-        CMP      R6,#+1
+        CMP      R0,#+1
         BEQ.N    ??dir_sdi_0
-        LDR      R0,[R5, #+0]
-        ADD      R0,R0,#+512
-        LDR      R1,[R0, #+20]
-        CMP      R6,R1
+        LDR      R1,[R4, #+512]
+        LDR      R2,[R1, #+532]
+        CMP      R0,R2
         BCS.N    ??dir_sdi_0
 // 1165 		return FR_INT_ERR;
 // 1166 	if (!clst && dp->fs->fs_type == FS_FAT32)	/* Replace cluster# 0 with root cluster# if in FAT32 */
-        CBNZ.N   R6,??dir_sdi_1
-        LDRB     R1,[R0, #+0]
-        CMP      R1,#+3
+        CBNZ.N   R0,??dir_sdi_1
+        LDRB     R2,[R1, #+512]
+        CMP      R2,#+3
         BNE.N    ??dir_sdi_2
 // 1167 		clst = dp->fs->dirbase;
-        LDR      R6,[R0, #+36]
+        LDR      R0,[R1, #+548]
 // 1168 
 // 1169 	if (clst == 0) {	/* Static table (root-directory in FAT12/16) */
 ??dir_sdi_1:
-        CBNZ.N   R6,??dir_sdi_3
+        CBNZ.N   R0,??dir_sdi_3
 // 1170 		if (idx >= dp->fs->n_rootdir)	/* Is index out of range? */
 ??dir_sdi_2:
-        LDRH     R1,[R0, #+8]
-        CMP      R4,R1
+        LDRH     R2,[R1, #+520]
+        CMP      R5,R2
         BCS.N    ??dir_sdi_0
 // 1171 			return FR_INT_ERR;
 // 1172 		sect = dp->fs->dirbase;
-        LDR      R0,[R0, #+36]
+        LDR      R1,[R1, #+548]
         B.N      ??dir_sdi_4
 // 1173 	}
 // 1174 	else {				/* Dynamic table (root-directory in FAT32 or sub-directory) */
 // 1175 		ic = SS(dp->fs) / SZ_DIRE * dp->fs->csize;	/* Entries per cluster */
 ??dir_sdi_3:
-        LDRB     R0,[R0, #+2]
-        LSLS     R7,R0,#+4
+        LDRB     R1,[R1, #+514]
+        LSLS     R6,R1,#+4
         B.N      ??dir_sdi_5
 // 1176 		while (idx >= ic) {	/* Follow cluster chain */
 // 1177 			clst = get_fat(dp->fs, clst);				/* Get next cluster */
@@ -2328,56 +2394,64 @@ dir_sdi:
 // 1180 				return FR_INT_ERR;
 // 1181 			idx -= ic;
 ??dir_sdi_6:
-        SUBS     R4,R4,R7
+        SUBS     R5,R5,R6
 ??dir_sdi_5:
-        CMP      R4,R7
-        LDR      R0,[R5, #+0]
-        MOV      R1,R6
+        CMP      R5,R6
+        LDR      R2,[R4, #+512]
         BCC.N    ??dir_sdi_7
+        MOV      R1,R0
+        MOV      R0,R2
           CFI FunCall get_fat
         BL       get_fat
-        MOV      R6,R0
-        CMN      R6,#+1
+        CMN      R0,#+1
         BNE.N    ??dir_sdi_8
         MOVS     R0,#+1
-        POP      {R1,R4-R7,PC}
+        POP      {R4-R6,PC}
 ??dir_sdi_8:
-        CMP      R6,#+2
+        CMP      R0,#+2
         BCC.N    ??dir_sdi_0
-        LDR      R0,[R5, #+0]
-        LDR      R0,[R0, #+532]
-        CMP      R6,R0
+        LDR      R1,[R4, #+512]
+        LDR      R1,[R1, #+532]
+        CMP      R0,R1
         BCC.N    ??dir_sdi_6
-        B.N      ??dir_sdi_0
 // 1182 		}
 // 1183 		sect = clust2sect(dp->fs, clst);
-??dir_sdi_7:
-          CFI FunCall clust2sect
-        BL       clust2sect
 // 1184 	}
 // 1185 	dp->clust = clst;	/* Current cluster# */
-??dir_sdi_4:
-        STR      R6,[R5, #+12]
 // 1186 	if (!sect) return FR_INT_ERR;
-        CBNZ.N   R0,??dir_sdi_9
+        MOVS     R0,#+2
+        POP      {R4-R6,PC}
+??dir_sdi_7:
+        LDR      R3,[R2, #+532]
+        SUBS     R1,R0,#+2
+        SUBS     R3,R3,#+2
+        CMP      R1,R3
+        ITEEE    CS 
+        MOVCS    R1,#+0
+        LDRBCC   R3,[R2, #+514]
+        LDRCC    R2,[R2, #+552]
+        MLACC    R1,R3,R1,R2
+??dir_sdi_4:
+        STR      R0,[R4, #+524]
+        CBNZ.N   R1,??dir_sdi_9
 ??dir_sdi_0:
         MOVS     R0,#+2
-        POP      {R1,R4-R7,PC}
+        POP      {R4-R6,PC}
 // 1187 	dp->sect = sect + idx / (SS(dp->fs) / SZ_DIRE);					/* Sector# of the directory entry */
 ??dir_sdi_9:
-        ADD      R0,R0,R4, LSR #+4
+        ADD      R0,R1,R5, LSR #+4
 // 1188 	dp->dir = dp->fs->win.d8 + (idx % (SS(dp->fs) / SZ_DIRE)) * SZ_DIRE;	/* Ptr to the entry in the sector */
-        AND      R1,R4,#0xF
-        STR      R0,[R5, #+16]
-        LDR      R0,[R5, #+0]
+        AND      R1,R5,#0xF
+        STR      R0,[R4, #+528]
+        LDR      R0,[R4, #+512]
         ADD      R0,R0,R1, LSL #+5
-        STR      R0,[R5, #+20]
+        STR      R0,[R4, #+532]
 // 1189 
 // 1190 	return FR_OK;
         MOVS     R0,#+0
-        POP      {R1,R4-R7,PC}    ;; return
+        POP      {R4-R6,PC}       ;; return
 // 1191 }
-          CFI EndBlock cfiBlock14
+          CFI EndBlock cfiBlock11
 // 1192 
 // 1193 
 // 1194 
@@ -2386,25 +2460,12 @@ dir_sdi:
 // 1197 /* Directory handling - Move directory table index next                  */
 // 1198 /*-----------------------------------------------------------------------*/
 // 1199 
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock15 Using cfiCommon0
-          CFI Function dir_next
-        THUMB
 // 1200 static
 // 1201 FRESULT dir_next (	/* FR_OK:Succeeded, FR_NO_FILE:End of table, FR_DENIED:Could not stretch */
 // 1202 	DIR* dp,		/* Pointer to the directory object */
 // 1203 	int stretch		/* 0: Do not stretch table, 1: Stretch table if needed */
 // 1204 )
 // 1205 {
-dir_next:
-        PUSH     {R3-R7,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+24
 // 1206 	DWORD clst;
 // 1207 	UINT i;
 // 1208 #if !_FS_READONLY
@@ -2413,138 +2474,38 @@ dir_next:
 // 1211 
 // 1212 
 // 1213 	i = dp->index + 1;
-        ADD      R4,R0,#+512
-        MOV      R7,R1
-        LDRH     R0,[R4, #+6]
-        ADDS     R5,R0,#+1
 // 1214 	if (!(i & 0xFFFF) || !dp->sect)	/* Report EOT when index has reached 65535 */
-        LSLS     R0,R5,#+16
-        ITT      NE 
-        LDRNE    R0,[R4, #+16]
-        CMPNE    R0,#+0
-        BEQ.N    ??dir_next_0
 // 1215 		return FR_NO_FILE;
 // 1216 
 // 1217 	if (!(i % (SS(dp->fs) / SZ_DIRE))) {	/* Sector changed? */
-        TST      R5,#0xF
-        BNE.N    ??dir_next_1
 // 1218 		dp->sect++;					/* Next sector */
-        ADDS     R0,R0,#+1
 // 1219 
 // 1220 		if (!dp->clust) {		/* Static table */
-        LDR      R1,[R4, #+12]
-        STR      R0,[R4, #+16]
-        LDR      R0,[R4, #+0]
-        ADDW     R2,R0,#+514
-        CBNZ.N   R1,??dir_next_2
 // 1221 			if (i >= dp->fs->n_rootdir)	/* Report EOT if it reached end of static table */
-        LDRH     R0,[R2, #+6]
-        CMP      R5,R0
-        BCC.N    ??dir_next_1
-        B.N      ??dir_next_0
 // 1222 				return FR_NO_FILE;
 // 1223 		}
 // 1224 		else {					/* Dynamic table */
 // 1225 			if (((i / (SS(dp->fs) / SZ_DIRE)) & (dp->fs->csize - 1)) == 0) {	/* Cluster changed? */
-??dir_next_2:
-        LDRB     R2,[R2, #+0]
-        SUBS     R2,R2,#+1
-        TST      R2,R5, LSR #+4
-        BNE.N    ??dir_next_1
 // 1226 				clst = get_fat(dp->fs, dp->clust);				/* Get next cluster */
-          CFI FunCall get_fat
-        BL       get_fat
-        MOV      R6,R0
 // 1227 				if (clst <= 1) return FR_INT_ERR;
-        CMP      R6,#+2
-        BCC.N    ??dir_next_3
 // 1228 				if (clst == 0xFFFFFFFF) return FR_DISK_ERR;
-        CMN      R6,#+1
-        BEQ.N    ??dir_next_4
 // 1229 				if (clst >= dp->fs->n_fatent) {					/* If it reached end of dynamic table, */
-        LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+532]
-        CMP      R6,R1
-        BCC.N    ??dir_next_5
 // 1230 #if !_FS_READONLY
 // 1231 					if (!stretch) return FR_NO_FILE;			/* If do not stretch, report EOT */
-        CBNZ.N   R7,??dir_next_6
-??dir_next_0:
-        MOVS     R0,#+4
-        POP      {R1,R4-R7,PC}
 // 1232 					clst = create_chain(dp->fs, dp->clust);		/* Stretch cluster chain */
-??dir_next_6:
-        LDR      R1,[R4, #+12]
-          CFI FunCall create_chain
-        BL       create_chain
-        MOVS     R6,R0
 // 1233 					if (clst == 0) return FR_DENIED;			/* No free cluster */
-        BNE.N    ??dir_next_7
-        MOVS     R0,#+7
-        POP      {R1,R4-R7,PC}
 // 1234 					if (clst == 1) return FR_INT_ERR;
-??dir_next_7:
-        CMP      R6,#+1
-        BNE.N    ??dir_next_8
-??dir_next_3:
-        MOVS     R0,#+2
-        POP      {R1,R4-R7,PC}
 // 1235 					if (clst == 0xFFFFFFFF) return FR_DISK_ERR;
-??dir_next_8:
-        CMN      R6,#+1
-        BEQ.N    ??dir_next_4
 // 1236 					/* Clean-up stretched table */
 // 1237 					if (sync_window(dp->fs)) return FR_DISK_ERR;/* Flush disk access window */
-        LDR      R0,[R4, #+0]
-          CFI FunCall sync_window
-        BL       sync_window
-        CBNZ.N   R0,??dir_next_4
 // 1238 					mem_set(dp->fs->win.d8, 0, SS(dp->fs));		/* Clear window buffer */
-        LDR      R0,[R4, #+0]
-        MOV      R1,#+512
 // 1239 					dp->fs->winsect = clust2sect(dp->fs, clst);	/* Cluster start sector */
-        MOVS     R7,#+0
-          CFI FunCall __aeabi_memclr
-        BL       __aeabi_memclr
-        LDR      R0,[R4, #+0]
-        MOV      R1,R6
-          CFI FunCall clust2sect
-        BL       clust2sect
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+556]
 // 1240 					for (c = 0; c < dp->fs->csize; c++) {		/* Fill the new cluster with 0 */
-        B.N      ??dir_next_9
 // 1241 						dp->fs->wflag = 1;
 // 1242 						if (sync_window(dp->fs)) return FR_DISK_ERR;
 // 1243 						dp->fs->winsect++;
-??dir_next_10:
-        LDR      R0,[R4, #+0]
-        ADDS     R7,R7,#+1
-        LDR      R1,[R0, #+556]
-        ADDS     R1,R1,#+1
-        STR      R1,[R0, #+556]
-??dir_next_9:
-        LDR      R0,[R4, #+0]
-        ADDW     R1,R0,#+514
-        LDRB     R2,[R1, #+0]
-        CMP      R7,R2
-        BCS.N    ??dir_next_11
-        MOVS     R0,#+1
-        STRB     R0,[R1, #+2]
-        LDR      R0,[R4, #+0]
-          CFI FunCall sync_window
-        BL       sync_window
-        CMP      R0,#+0
-        BEQ.N    ??dir_next_10
-??dir_next_4:
-        MOVS     R0,#+1
-        POP      {R1,R4-R7,PC}
 // 1244 					}
 // 1245 					dp->fs->winsect -= c;						/* Rewind window offset */
-??dir_next_11:
-        LDR      R1,[R0, #+556]
-        SUBS     R1,R1,R7
-        STR      R1,[R0, #+556]
 // 1246 #else
 // 1247 					if (!stretch) return FR_NO_FILE;			/* If do not stretch, report EOT (this is to suppress warning) */
 // 1248 					return FR_NO_FILE;							/* Report EOT */
@@ -2552,31 +2513,15 @@ dir_next:
 // 1250 				}
 // 1251 				dp->clust = clst;				/* Initialize data for new cluster */
 // 1252 				dp->sect = clust2sect(dp->fs, clst);
-??dir_next_5:
-        LDR      R0,[R4, #+0]
-        STR      R6,[R4, #+12]
-        MOV      R1,R6
-          CFI FunCall clust2sect
-        BL       clust2sect
-        STR      R0,[R4, #+16]
 // 1253 			}
 // 1254 		}
 // 1255 	}
 // 1256 
 // 1257 	dp->index = (WORD)i;	/* Current index */
 // 1258 	dp->dir = dp->fs->win.d8 + (i % (SS(dp->fs) / SZ_DIRE)) * SZ_DIRE;	/* Current entry in the window */
-??dir_next_1:
-        LDR      R0,[R4, #+0]
-        AND      R1,R5,#0xF
-        STRH     R5,[R4, #+6]
-        ADD      R0,R0,R1, LSL #+5
-        STR      R0,[R4, #+20]
 // 1259 
 // 1260 	return FR_OK;
-        MOVS     R0,#+0
-        POP      {R1,R4-R7,PC}    ;; return
 // 1261 }
-          CFI EndBlock cfiBlock15
 // 1262 
 // 1263 
 // 1264 
@@ -2624,7 +2569,7 @@ dir_next:
 // 1306 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock16 Using cfiCommon0
+          CFI Block cfiBlock12 Using cfiCommon0
           CFI Function ld_clust
           CFI NoCalls
         THUMB
@@ -2656,16 +2601,10 @@ ld_clust:
         MOV      R0,R2
         BX       LR               ;; return
 // 1320 }
-          CFI EndBlock cfiBlock16
+          CFI EndBlock cfiBlock12
 // 1321 
 // 1322 
 // 1323 #if !_FS_READONLY
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock17 Using cfiCommon0
-          CFI Function st_clust
-          CFI NoCalls
-        THUMB
 // 1324 static
 // 1325 void st_clust (
 // 1326 	BYTE* dir,	/* Pointer to the directory entry */
@@ -2673,19 +2612,8 @@ ld_clust:
 // 1328 )
 // 1329 {
 // 1330 	ST_WORD(dir + DIR_FstClusLO, cl);
-st_clust:
-        STRB     R1,[R0, #+26]
-        LSLS     R2,R1,#+16
 // 1331 	ST_WORD(dir + DIR_FstClusHI, cl >> 16);
-        LSRS     R1,R1,#+16
-        LSRS     R2,R2,#+24
-        STRB     R1,[R0, #+20]
-        LSRS     R1,R1,#+8
-        STRB     R2,[R0, #+27]
-        STRB     R1,[R0, #+21]
 // 1332 }
-        BX       LR               ;; return
-          CFI EndBlock cfiBlock17
 // 1333 #endif
 // 1334 
 // 1335 
@@ -2943,7 +2871,7 @@ st_clust:
 // 1587 #if _FS_MINIMIZE <= 1 || _USE_LABEL || _FS_RPATH >= 2
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock18 Using cfiCommon0
+          CFI Block cfiBlock13 Using cfiCommon0
           CFI Function dir_read
         THUMB
 // 1588 static
@@ -2953,13 +2881,15 @@ st_clust:
 // 1592 )
 // 1593 {
 dir_read:
-        PUSH     {R4-R6,LR}
+        PUSH     {R4-R8,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+16
-        MOV      R5,R0
+          CFI R8 Frame(CFA, -8)
+          CFI R7 Frame(CFA, -12)
+          CFI R6 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -20)
+          CFI R4 Frame(CFA, -24)
+          CFI CFA R13+24
+        MOV      R4,R0
         MOV      R6,R1
 // 1594 	FRESULT res;
 // 1595 	BYTE a, c, *dir;
@@ -2968,29 +2898,15 @@ dir_read:
 // 1598 #endif
 // 1599 
 // 1600 	res = FR_NO_FILE;
-        MOVS     R0,#+4
-        ADD      R4,R5,#+512
+        MOVS     R5,#+4
+        B.N      ??dir_read_0
 // 1601 	while (dp->sect) {
-??dir_read_0:
-        LDR      R1,[R4, #+16]
-        CBZ.N    R1,??dir_read_1
 // 1602 		res = move_window(dp->fs, dp->sect);
-        LDR      R0,[R4, #+0]
-          CFI FunCall move_window
-        BL       move_window
 // 1603 		if (res != FR_OK) break;
-        CBNZ.N   R0,??dir_read_1
 // 1604 		dir = dp->dir;					/* Ptr to the directory entry of current index */
-        LDR      R1,[R4, #+20]
 // 1605 		c = dir[DIR_Name];
-        LDRB     R2,[R1, #+0]
 // 1606 		if (c == 0) { res = FR_NO_FILE; break; }	/* Reached to end of table */
-        CBNZ.N   R2,??dir_read_2
-        MOVS     R0,#+4
-        B.N      ??dir_read_3
 // 1607 		a = dir[DIR_Attr] & AM_MASK;
-??dir_read_2:
-        LDRB     R1,[R1, #+11]
 // 1608 #if _USE_LFN	/* LFN configuration */
 // 1609 		if (c == DDEM || (!_FS_RPATH && c == '.') || (int)((a & ~AM_ARC) == AM_VOL) != vol) {	/* An entry without valid data */
 // 1610 			ord = 0xFF;
@@ -3011,44 +2927,129 @@ dir_read:
 // 1625 		}
 // 1626 #else		/* Non LFN configuration */
 // 1627 		if (c != DDEM && (_FS_RPATH || c != '.') && a != AM_LFN && (int)((a & ~AM_ARC) == AM_VOL) == vol)	/* Is it a valid entry? */
-        CMP      R2,#+229
-        AND      R1,R1,#0x3F
-        ITT      NE 
-        CMPNE    R2,#+46
-        CMPNE    R1,#+15
-        BEQ.N    ??dir_read_4
-        BIC      R1,R1,#0x20
-        CMP      R1,#+8
-        ITE      EQ 
-        MOVEQ    R1,#+1
-        MOVNE    R1,#+0
-        CMP      R1,R6
-        BEQ.N    ??dir_read_5
+??dir_read_1:
+        CMP      R0,R6
+        BEQ.W    ??dir_read_2
 // 1628 			break;
 // 1629 #endif
 // 1630 		res = dir_next(dp, 0);				/* Next entry */
+??dir_read_3:
+        LDRH     R0,[R4, #+518]
+        ADDS     R7,R0,#+1
+        LSLS     R0,R7,#+16
+        ITT      NE 
+        LDRNE    R0,[R4, #+528]
+        CMPNE    R0,#+0
+        BEQ.N    ??dir_read_4
+        ANDS     R8,R7,#0xF
+        BNE.N    ??dir_read_5
+        ADDS     R0,R0,#+1
+        LDR      R1,[R4, #+524]
+        STR      R0,[R4, #+528]
+        LDR      R0,[R4, #+512]
+        CBNZ.N   R1,??dir_read_6
+        LDRH     R0,[R0, #+520]
+        CMP      R7,R0
+        BCC.N    ??dir_read_5
 ??dir_read_4:
-        MOVS     R1,#+0
-        MOV      R0,R5
-          CFI FunCall dir_next
-        BL       dir_next
+        MOVS     R5,#+4
+        B.N      ??dir_read_7
+??dir_read_6:
+        LDRB     R2,[R0, #+514]
+        SUBS     R2,R2,#+1
+        TST      R2,R7, LSR #+4
+        BNE.N    ??dir_read_5
+          CFI FunCall get_fat
+        BL       get_fat
+        CMP      R0,#+2
+        BCC.N    ??dir_read_8
+        CMN      R0,#+1
+        BEQ.N    ??dir_read_9
+        LDR      R1,[R4, #+512]
+        LDR      R2,[R1, #+532]
+        CMP      R0,R2
+        BCS.N    ??dir_read_4
+        STR      R0,[R4, #+524]
+        LDR      R2,[R1, #+532]
+        SUBS     R0,R0,#+2
+        SUBS     R2,R2,#+2
+        CMP      R0,R2
+        ITEEE    CS 
+        MOVCS    R0,#+0
+        LDRBCC   R2,[R1, #+514]
+        LDRCC    R1,[R1, #+552]
+        MLACC    R0,R2,R0,R1
+        STR      R0,[R4, #+528]
+??dir_read_5:
+        LDR      R0,[R4, #+512]
+        STRH     R7,[R4, #+518]
+        ADD      R0,R0,R8, LSL #+5
+        STR      R0,[R4, #+532]
+??dir_read_0:
+        LDR      R7,[R4, #+528]
+        CBZ.N    R7,??dir_read_10
+        LDR      R8,[R4, #+512]
+        MOVS     R5,#+0
+        LDR      R0,[R8, #+556]
+        CMP      R7,R0
+        BEQ.N    ??dir_read_11
+        MOV      R0,R8
+          CFI FunCall sync_window
+        BL       sync_window
+        MOVS     R5,R0
+        BNE.N    ??dir_read_11
+        LDRB     R0,[R8, #+513]
+        MOVS     R3,#+1
+        MOV      R2,R7
+        MOV      R1,R8
+          CFI FunCall disk_read
+        BL       disk_read
+        CBZ.N    R0,??dir_read_12
+        MOV      R7,#-1
+        MOVS     R5,#+1
+??dir_read_12:
+        STR      R7,[R8, #+556]
+??dir_read_11:
+        CBNZ.N   R5,??dir_read_10
+        LDR      R0,[R4, #+532]
+        LDRB     R1,[R0, #+0]
+        CMP      R1,#+0
+        BEQ.N    ??dir_read_4
+        LDRB     R0,[R0, #+11]
+        CMP      R1,#+229
+        AND      R0,R0,#0x3F
+        ITT      NE 
+        CMPNE    R1,#+46
+        CMPNE    R0,#+15
+        BEQ.N    ??dir_read_3
+        BIC      R0,R0,#0x20
+        CMP      R0,#+8
+        ITE      EQ 
+        MOVEQ    R0,#+1
+        MOVNE    R0,#+0
+        B.N      ??dir_read_1
 // 1631 		if (res != FR_OK) break;
-        CMP      R0,#+0
-        BEQ.N    ??dir_read_0
 // 1632 	}
+??dir_read_9:
+        MOVS     R5,#+1
+        B.N      ??dir_read_7
+??dir_read_8:
+        MOVS     R5,#+2
+        B.N      ??dir_read_7
 // 1633 
 // 1634 	if (res != FR_OK) dp->sect = 0;
-??dir_read_1:
-        CBZ.N    R0,??dir_read_5
-??dir_read_3:
-        MOVS     R1,#+0
-        STR      R1,[R4, #+16]
+??dir_read_10:
+        CBZ.N    R5,??dir_read_2
+??dir_read_7:
+        MOVS     R0,#+0
+        STR      R0,[R4, #+528]
 // 1635 
 // 1636 	return res;
-??dir_read_5:
-        POP      {R4-R6,PC}       ;; return
+??dir_read_2:
+        MOV      R0,R5
+        POP      {R4-R8,PC}       ;; return
 // 1637 }
-          CFI EndBlock cfiBlock18
+          CFI EndBlock cfiBlock13
 // 1638 #endif	/* _FS_MINIMIZE <= 1 || _USE_LABEL || _FS_RPATH >= 2 */
 // 1639 
 // 1640 
@@ -3059,8 +3060,8 @@ dir_read:
 // 1645 /*-----------------------------------------------------------------------*/
 // 1646 #if !_FS_READONLY
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock19 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock14 Using cfiCommon0
           CFI Function dir_register
         THUMB
 // 1647 static
@@ -3077,7 +3078,7 @@ dir_register:
           CFI R5 Frame(CFA, -20)
           CFI R4 Frame(CFA, -24)
           CFI CFA R13+24
-        MOV      R4,R0
+        MOV      R8,R0
 // 1652 	FRESULT res;
 // 1653 #if _USE_LFN	/* LFN configuration */
 // 1654 	UINT n, nent;
@@ -3130,7 +3131,6 @@ dir_register:
           CFI FunCall dir_sdi
         BL       dir_sdi
         MOVS     R6,R0
-        ADD      R4,R4,#+512
         BNE.W    ??dir_register_0
         MOVS     R5,#+0
         B.N      ??dir_register_1
@@ -3139,38 +3139,56 @@ dir_register:
         CMP      R5,#+1
         BEQ.W    ??dir_register_3
 ??dir_register_4:
-        LDRH     R0,[R4, #+6]
+        LDRH     R0,[R8, #+518]
         ADDS     R6,R0,#+1
         LSLS     R0,R6,#+16
         ITT      NE 
-        LDRNE    R0,[R4, #+16]
+        LDRNE    R0,[R8, #+528]
         CMPNE    R0,#+0
         BEQ.N    ??dir_register_5
         TST      R6,#0xF
         BNE.N    ??dir_register_6
         ADDS     R0,R0,#+1
-        LDR      R1,[R4, #+12]
-        STR      R0,[R4, #+16]
-        LDR      R0,[R4, #+0]
-        ADDW     R2,R0,#+514
+        LDR      R1,[R8, #+524]
+        STR      R0,[R8, #+528]
+        LDR      R0,[R8, #+512]
         CBNZ.N   R1,??dir_register_7
-        LDRH     R0,[R2, #+6]
+        LDRH     R0,[R0, #+520]
         CMP      R6,R0
         BCS.N    ??dir_register_5
 ??dir_register_6:
-        LDR      R0,[R4, #+0]
+        LDR      R0,[R8, #+512]
         AND      R1,R6,#0xF
-        STRH     R6,[R4, #+6]
+        STRH     R6,[R8, #+518]
         ADD      R0,R0,R1, LSL #+5
-        STR      R0,[R4, #+20]
+        STR      R0,[R8, #+532]
 ??dir_register_1:
-        LDR      R1,[R4, #+16]
-        LDR      R0,[R4, #+0]
-          CFI FunCall move_window
-        BL       move_window
+        LDR      R4,[R8, #+512]
+        LDR      R7,[R8, #+528]
+        MOVS     R6,#+0
+        LDR      R0,[R4, #+556]
+        CMP      R7,R0
+        BEQ.N    ??dir_register_8
+        MOV      R0,R4
+          CFI FunCall sync_window
+        BL       sync_window
         MOVS     R6,R0
+        BNE.N    ??dir_register_8
+        LDRB     R0,[R4, #+513]
+        MOVS     R3,#+1
+        MOV      R2,R7
+        MOV      R1,R4
+          CFI FunCall disk_read
+        BL       disk_read
+        CBZ.N    R0,??dir_register_9
+        MOV      R7,#-1
+        MOVS     R6,#+1
+??dir_register_9:
+        STR      R7,[R4, #+556]
+??dir_register_8:
+        CMP      R6,#+0
         BNE.N    ??dir_register_0
-        LDR      R0,[R4, #+20]
+        LDR      R0,[R8, #+532]
         LDRB     R0,[R0, #+0]
         CMP      R0,#+229
         IT       NE 
@@ -3179,7 +3197,7 @@ dir_register:
         MOVS     R5,#+0
         B.N      ??dir_register_4
 ??dir_register_7:
-        LDRB     R2,[R2, #+0]
+        LDRB     R2,[R0, #+514]
         SUBS     R2,R2,#+1
         TST      R2,R6, LSR #+4
         BNE.N    ??dir_register_6
@@ -3187,75 +3205,87 @@ dir_register:
         BL       get_fat
         MOV      R7,R0
         CMP      R7,#+2
-        BCC.N    ??dir_register_8
+        BCC.N    ??dir_register_10
         CMN      R7,#+1
-        BEQ.N    ??dir_register_9
-        LDR      R0,[R4, #+0]
+        BEQ.N    ??dir_register_11
+        LDR      R0,[R8, #+512]
         LDR      R1,[R0, #+532]
         CMP      R7,R1
-        BCC.N    ??dir_register_10
-        LDR      R1,[R4, #+12]
+        BCC.N    ??dir_register_12
+        LDR      R1,[R8, #+524]
           CFI FunCall create_chain
         BL       create_chain
         MOVS     R7,R0
-        BNE.N    ??dir_register_11
+        BNE.N    ??dir_register_13
 ??dir_register_5:
         MOVS     R6,#+7
         B.N      ??dir_register_3
-??dir_register_11:
+??dir_register_13:
         CMP      R7,#+1
-        BEQ.N    ??dir_register_8
+        BEQ.N    ??dir_register_10
         CMN      R7,#+1
-        BEQ.N    ??dir_register_9
-        LDR      R0,[R4, #+0]
+        BEQ.N    ??dir_register_11
+        LDR      R0,[R8, #+512]
           CFI FunCall sync_window
         BL       sync_window
-        CBNZ.N   R0,??dir_register_9
-        LDR      R0,[R4, #+0]
+        CMP      R0,#+0
+        BNE.N    ??dir_register_11
+        LDR      R0,[R8, #+512]
         MOV      R1,#+512
-        MOV      R8,#+0
           CFI FunCall __aeabi_memclr
         BL       __aeabi_memclr
-        LDR      R0,[R4, #+0]
-        MOV      R1,R7
-          CFI FunCall clust2sect
-        BL       clust2sect
-        LDR      R1,[R4, #+0]
-        STR      R0,[R1, #+556]
-        B.N      ??dir_register_12
-??dir_register_13:
+        LDR      R0,[R8, #+512]
+        SUBS     R2,R7,#+2
+        ADD      R3,R0,#+532
+        LDR      R12,[R3, #+0]
+        SUB      R12,R12,#+2
+        CMP      R2,R12
+        ITEEE    CS 
+        MOVCS    R1,#+0
+        LDRBCC   R1,[R0, #+514]
+        LDRCC    R3,[R3, #+20]
+        MLACC    R1,R1,R2,R3
+        STR      R1,[R0, #+556]
+        MOVS     R4,#+0
+        B.N      ??dir_register_14
+??dir_register_15:
         MOVS     R1,#+1
-        STRB     R1,[R0, #+2]
-        LDR      R0,[R4, #+0]
+        STRB     R1,[R0, #+516]
+        LDR      R0,[R8, #+512]
           CFI FunCall sync_window
         BL       sync_window
-        CBNZ.N   R0,??dir_register_9
-        LDR      R0,[R4, #+0]
-        ADD      R8,R8,#+1
+        CBNZ.N   R0,??dir_register_11
+        LDR      R0,[R8, #+512]
+        ADDS     R4,R4,#+1
         LDR      R1,[R0, #+556]
         ADDS     R1,R1,#+1
         STR      R1,[R0, #+556]
+??dir_register_14:
+        LDR      R0,[R8, #+512]
+        LDRB     R1,[R0, #+514]
+        CMP      R4,R1
+        BCC.N    ??dir_register_15
+        LDR      R1,[R0, #+556]
+        SUBS     R1,R1,R4
+        STR      R1,[R0, #+556]
 ??dir_register_12:
-        LDR      R1,[R4, #+0]
-        ADDW     R0,R1,#+514
-        LDRB     R2,[R0, #+0]
-        CMP      R8,R2
-        BCC.N    ??dir_register_13
-        LDR      R0,[R1, #+556]
-        SUB      R0,R0,R8
-        STR      R0,[R1, #+556]
-??dir_register_10:
-        LDR      R0,[R4, #+0]
-        STR      R7,[R4, #+12]
-        MOV      R1,R7
-          CFI FunCall clust2sect
-        BL       clust2sect
-        STR      R0,[R4, #+16]
+        LDR      R0,[R8, #+512]
+        STR      R7,[R8, #+524]
+        SUBS     R1,R7,#+2
+        LDR      R2,[R0, #+532]
+        SUBS     R2,R2,#+2
+        CMP      R1,R2
+        ITEEE    CS 
+        MOVCS    R0,#+0
+        LDRBCC   R2,[R0, #+514]
+        LDRCC    R0,[R0, #+552]
+        MLACC    R0,R2,R1,R0
+        STR      R0,[R8, #+528]
         B.N      ??dir_register_6
-??dir_register_9:
+??dir_register_11:
         MOVS     R6,#+1
         B.N      ??dir_register_3
-??dir_register_8:
+??dir_register_10:
         MOVS     R6,#+2
         B.N      ??dir_register_3
 ??dir_register_0:
@@ -3265,45 +3295,45 @@ dir_register:
 // 1701 
 // 1702 	if (res == FR_OK) {				/* Set SFN entry */
 ??dir_register_3:
-        CBNZ.N   R6,??dir_register_14
+        CBNZ.N   R6,??dir_register_16
 // 1703 		res = move_window(dp->fs, dp->sect);
-        LDR      R1,[R4, #+16]
-        LDR      R0,[R4, #+0]
+        LDR      R1,[R8, #+528]
+        LDR      R0,[R8, #+512]
           CFI FunCall move_window
         BL       move_window
         MOVS     R6,R0
 // 1704 		if (res == FR_OK) {
-        BNE.N    ??dir_register_14
+        BNE.N    ??dir_register_16
 // 1705 			mem_set(dp->dir, 0, SZ_DIRE);	/* Clean the entry */
-        LDR      R0,[R4, #+20]
+        LDR      R0,[R8, #+532]
         MOVS     R1,#+32
           CFI FunCall __aeabi_memclr
         BL       __aeabi_memclr
 // 1706 			mem_cpy(dp->dir, dp->fn, 11);	/* Put SFN */
-        LDR      R0,[R4, #+20]
-        LDR      R1,[R4, #+24]
-        MOVS     R2,#+11
-??dir_register_15:
+        LDR      R0,[R8, #+532]
+        LDR      R1,[R8, #+536]
+        MOVS.W   R2,#+11
+??dir_register_17:
         LDRB     R3,[R1], #+1
         SUBS     R2,R2,#+1
         STRB     R3,[R0], #+1
-        BNE.N    ??dir_register_15
+        BNE.N    ??dir_register_17
 // 1707 #if _USE_LFN
 // 1708 			dp->dir[DIR_NTres] = dp->fn[NSFLAG] & (NS_BODY | NS_EXT);	/* Put NT flag */
 // 1709 #endif
 // 1710 			dp->fs->wflag = 1;
-        LDR      R1,[R4, #+0]
+        LDR      R1,[R8, #+512]
         MOVS     R0,#+1
         STRB     R0,[R1, #+516]
 // 1711 		}
 // 1712 	}
 // 1713 
 // 1714 	return res;
-??dir_register_14:
+??dir_register_16:
         MOV      R0,R6
         POP      {R4-R8,PC}       ;; return
 // 1715 }
-          CFI EndBlock cfiBlock19
+          CFI EndBlock cfiBlock14
 // 1716 #endif /* !_FS_READONLY */
 // 1717 
 // 1718 
@@ -3315,7 +3345,7 @@ dir_register:
 // 1724 #if !_FS_READONLY && !_FS_MINIMIZE
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock20 Using cfiCommon0
+          CFI Block cfiBlock15 Using cfiCommon0
           CFI Function dir_remove
         THUMB
 // 1725 static
@@ -3324,10 +3354,13 @@ dir_register:
 // 1728 )
 // 1729 {
 dir_remove:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
+        MOV      R4,R0
+        SUB      SP,SP,#+4
           CFI CFA R13+16
 // 1730 	FRESULT res;
 // 1731 #if _USE_LFN	/* LFN configuration */
@@ -3350,32 +3383,31 @@ dir_remove:
 // 1748 
 // 1749 #else			/* Non LFN configuration */
 // 1750 	res = dir_sdi(dp, dp->index);
-        ADD      R4,R0,#+512
-        LDRH     R1,[R4, #+6]
+        LDRH     R1,[R4, #+518]
           CFI FunCall dir_sdi
         BL       dir_sdi
         MOVS     R5,R0
 // 1751 	if (res == FR_OK) {
         BNE.N    ??dir_remove_0
 // 1752 		res = move_window(dp->fs, dp->sect);
-        LDR      R1,[R4, #+16]
-        LDR      R0,[R4, #+0]
+        LDR      R1,[R4, #+528]
+        LDR      R0,[R4, #+512]
           CFI FunCall move_window
         BL       move_window
         MOVS     R5,R0
 // 1753 		if (res == FR_OK) {
         BNE.N    ??dir_remove_0
 // 1754 			mem_set(dp->dir, 0, SZ_DIRE);	/* Clear and mark the entry "deleted" */
-        LDR      R0,[R4, #+20]
+        LDR      R0,[R4, #+532]
         MOVS     R1,#+32
           CFI FunCall __aeabi_memclr
         BL       __aeabi_memclr
 // 1755 			*dp->dir = DDEM;
-        LDR      R1,[R4, #+20]
+        LDR      R1,[R4, #+532]
         MOVS     R0,#+229
         STRB     R0,[R1, #+0]
 // 1756 			dp->fs->wflag = 1;
-        LDR      R1,[R4, #+0]
+        LDR      R1,[R4, #+512]
         MOVS     R0,#+1
         STRB     R0,[R1, #+516]
 // 1757 		}
@@ -3385,9 +3417,11 @@ dir_remove:
 // 1761 	return res;
 ??dir_remove_0:
         MOV      R0,R5
-        POP      {R1,R4,R5,PC}    ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
 // 1762 }
-          CFI EndBlock cfiBlock20
+          CFI EndBlock cfiBlock15
 // 1763 #endif /* !_FS_READONLY */
 // 1764 
 // 1765 
@@ -3399,7 +3433,7 @@ dir_remove:
 // 1771 #if _FS_MINIMIZE <= 1 || _FS_RPATH >= 2
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock21 Using cfiCommon0
+          CFI Block cfiBlock16 Using cfiCommon0
           CFI Function get_fileinfo
           CFI NoCalls
         THUMB
@@ -3409,6 +3443,11 @@ dir_remove:
 // 1775 	FILINFO* fno	 	/* Pointer to the file information to be filled */
 // 1776 )
 // 1777 {
+get_fileinfo:
+        PUSH     {R4,R5}
+          CFI R5 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
 // 1778 	UINT i;
 // 1779 	TCHAR *p, c;
 // 1780 	BYTE *dir;
@@ -3418,17 +3457,11 @@ dir_remove:
 // 1784 
 // 1785 	p = fno->fname;
 // 1786 	if (dp->sect) {		/* Get SFN */
-get_fileinfo:
-        ADD      R0,R0,#+528
+        LDR      R3,[R0, #+528]
         ADD      R2,R1,#+9
-        PUSH     {R4,R5}
-          CFI R5 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        LDR      R3,[R0, #+0]
         CBZ.N    R3,??get_fileinfo_0
 // 1787 		dir = dp->dir;
-        LDR      R0,[R0, #+4]
+        LDR      R0,[R0, #+532]
 // 1788 		i = 0;
         MOVS     R3,#+0
 // 1789 		while (i < 11) {		/* Copy name body and extension */
@@ -3518,7 +3551,7 @@ get_fileinfo:
           CFI R5 SameValue
           CFI CFA R13+0
         BX       LR               ;; return
-          CFI EndBlock cfiBlock21
+          CFI EndBlock cfiBlock16
 // 1833 #endif /* _FS_MINIMIZE <= 1 || _FS_RPATH >= 2 */
 // 1834 
 // 1835 
@@ -3599,8 +3632,8 @@ get_fileinfo:
 // 1910 /*-----------------------------------------------------------------------*/
 // 1911 
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock22 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock17 Using cfiCommon0
           CFI Function create_name
         THUMB
 // 1912 static
@@ -3880,8 +3913,10 @@ create_name:
         CMP      R7,#+26
         BCS.N    ??create_name_11
         ORR      R2,R2,#0x2
+        STRB     LR,[R0, R6]
         UXTB     R2,R2
-        B.N      ??create_name_12
+        ADDS     R0,R0,#+1
+        B.N      ??create_name_2
 ??create_name_11:
         SUB      R7,LR,#+97
         CMP      R7,#+26
@@ -3932,7 +3967,7 @@ create_name:
         POP      {R4-R10,PC}      ;; return
 // 2114 #endif
 // 2115 }
-          CFI EndBlock cfiBlock22
+          CFI EndBlock cfiBlock17
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -3964,8 +3999,8 @@ ExCvt:
 // 2122 /*-----------------------------------------------------------------------*/
 // 2123 
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock23 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock18 Using cfiCommon0
           CFI Function follow_path
         THUMB
 // 2124 static
@@ -3975,15 +4010,14 @@ ExCvt:
 // 2128 )
 // 2129 {
 follow_path:
-        PUSH     {R0,R1,R4-R8,LR}
+        PUSH     {R1,R4-R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R8 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -20)
-          CFI R4 Frame(CFA, -24)
-          CFI CFA R13+32
-        MOV      R8,R0
+          CFI R7 Frame(CFA, -8)
+          CFI R6 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -16)
+          CFI R4 Frame(CFA, -20)
+          CFI CFA R13+24
+        MOV      R4,R0
 // 2130 	FRESULT res;
 // 2131 	BYTE *dir, ns;
 // 2132 
@@ -3997,33 +4031,31 @@ follow_path:
 // 2140 #else
 // 2141 	if (*path == '/' || *path == '\\')		/* Strip heading separator if exist */
         LDRB     R0,[R1, #+0]
-// 2142 		path++;
-// 2143 	dp->sclust = 0;							/* Always start from the root directory */
-        ADD      R5,R8,#+512
         CMP      R0,#+47
         ITEE     NE 
         CMPNE    R0,#+92
         ADDEQ    R0,R1,#+1
-        STREQ    R0,[SP, #+4]
+        STREQ    R0,[SP, #+0]
+// 2142 		path++;
+// 2143 	dp->sclust = 0;							/* Always start from the root directory */
         MOVS     R0,#+0
-        STR      R0,[R5, #+8]
+        STR      R0,[R4, #+520]
 // 2144 #endif
 // 2145 
 // 2146 	if ((UINT)*path < ' ') {				/* Null path name is the origin directory itself */
-        LDR      R0,[SP, #+4]
+        LDR      R0,[SP, #+0]
         LDRB     R0,[R0, #+0]
         CMP      R0,#+32
         BCS.N    ??follow_path_0
 // 2147 		res = dir_sdi(dp, 0);
         MOVS     R1,#+0
-        MOV      R0,R8
+        MOV      R0,R4
           CFI FunCall dir_sdi
         BL       dir_sdi
-        MOV      R6,R0
+        MOV      R5,R0
 // 2148 		dp->dir = 0;
         MOVS     R0,#+0
-        STR      R0,[R5, #+20]
-        B.N      ??follow_path_1
+        STR      R0,[R4, #+532]
 // 2149 	} else {								/* Follow path */
 // 2150 		for (;;) {
 // 2151 			res = create_name(dp, &path);	/* Get a segment name of the path */
@@ -4048,150 +4080,224 @@ follow_path:
 // 2170 				res = FR_NO_PATH; break;
 // 2171 			}
 // 2172 			dp->sclust = ld_clust(dp->fs, dir);
-??follow_path_2:
-        LDR      R0,[R5, #+0]
-          CFI FunCall ld_clust
-        BL       ld_clust
-        STR      R0,[R5, #+8]
-??follow_path_0:
-        ADD      R1,SP,#+4
-        MOV      R0,R8
-          CFI FunCall create_name
-        BL       create_name
-        MOVS     R6,R0
-        BNE.N    ??follow_path_1
-        MOVS     R1,#+0
-        MOV      R0,R8
-          CFI FunCall dir_sdi
-        BL       dir_sdi
-        MOVS     R6,R0
-        BNE.N    ??follow_path_3
-        B.N      ??follow_path_4
-??follow_path_5:
-        LDRB     R2,[R2, #+0]
-        SUBS     R2,R2,#+1
-        TST      R2,R6, LSR #+4
-        BNE.N    ??follow_path_6
-          CFI FunCall get_fat
-        BL       get_fat
-        MOV      R1,R0
-        CMP      R1,#+2
-        BCC.N    ??follow_path_7
-        CMN      R1,#+1
-        BEQ.N    ??follow_path_8
-        LDR      R0,[R5, #+0]
-        LDR      R2,[R0, #+532]
-        CMP      R1,R2
-        BCS.N    ??follow_path_9
-        STR      R1,[R5, #+12]
-          CFI FunCall clust2sect
-        BL       clust2sect
-        STR      R0,[R5, #+16]
-??follow_path_6:
-        LDR      R0,[R5, #+0]
-        AND      R1,R6,#0xF
-        STRH     R6,[R5, #+6]
-        ADD      R0,R0,R1, LSL #+5
-        STR      R0,[R5, #+20]
-??follow_path_4:
-        LDR      R4,[R5, #+0]
-        LDR      R7,[R5, #+16]
-        MOVS     R6,#+0
-        LDR      R0,[R4, #+556]
-        CMP      R7,R0
-        BEQ.N    ??follow_path_10
-        MOV      R0,R4
-          CFI FunCall sync_window
-        BL       sync_window
-        MOVS     R6,R0
-        BNE.N    ??follow_path_10
-        LDRB     R0,[R4, #+513]
-        MOVS     R3,#+1
-        MOV      R2,R7
-        MOV      R1,R4
-          CFI FunCall disk_read
-        BL       disk_read
-        CBZ.N    R0,??follow_path_11
-        MOV      R7,#-1
-        MOVS     R6,#+1
-??follow_path_11:
-        STR      R7,[R4, #+556]
-??follow_path_10:
-        CBNZ.N   R6,??follow_path_3
-        LDR      R0,[R5, #+20]
-        LDRB     R1,[R0, #+0]
-        CBZ.N    R1,??follow_path_9
-        LDRB     R1,[R0, #+11]
-        LSLS     R1,R1,#+28
-        BMI.N    ??follow_path_12
-        MOVS     R1,#+11
-        LDR      R2,[R5, #+24]
-        MOVS     R3,#+0
-??follow_path_13:
-        MOV      R7,R1
-        SUBS     R1,R7,#+1
-        CBZ.N    R7,??follow_path_14
-        LDRB     R3,[R0], #+1
-        LDRB     R7,[R2], #+1
-        SUBS     R3,R3,R7
-        BEQ.N    ??follow_path_13
-??follow_path_14:
-        CBZ.N    R3,??follow_path_3
-??follow_path_12:
-        LDRH     R0,[R5, #+6]
-        ADDS     R6,R0,#+1
-        LSLS     R0,R6,#+16
-        ITT      NE 
-        LDRNE    R0,[R5, #+16]
-        CMPNE    R0,#+0
-        BEQ.N    ??follow_path_9
-        TST      R6,#0xF
-        BNE.N    ??follow_path_6
-        ADDS     R0,R0,#+1
-        LDR      R1,[R5, #+12]
-        STR      R0,[R5, #+16]
-        LDR      R0,[R5, #+0]
-        CMP      R1,#+0
-        ADDW     R2,R0,#+514
-        BNE.N    ??follow_path_5
-        LDRH     R0,[R2, #+6]
-        CMP      R6,R0
-        BCC.N    ??follow_path_6
-??follow_path_9:
-        MOVS     R6,#+4
-??follow_path_3:
-        LDR      R0,[R5, #+24]
-        LDRB     R0,[R0, #+11]
-        CBZ.N    R6,??follow_path_15
-        CMP      R6,#+4
-        BNE.N    ??follow_path_1
-        LSLS     R0,R0,#+29
-        BMI.N    ??follow_path_1
-        B.N      ??follow_path_16
-??follow_path_8:
-        MOVS     R6,#+1
-        B.N      ??follow_path_3
-??follow_path_7:
-        MOVS     R6,#+2
-        B.N      ??follow_path_3
-??follow_path_15:
-        LSLS     R0,R0,#+29
-        BMI.N    ??follow_path_1
-        LDR      R1,[R5, #+20]
-        LDRB     R0,[R1, #+11]
-        LSLS     R0,R0,#+27
-        BMI.W    ??follow_path_2
-??follow_path_16:
-        MOVS     R6,#+5
 // 2173 		}
 // 2174 	}
 // 2175 
 // 2176 	return res;
+        MOV      R0,R5
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
 ??follow_path_1:
-        MOV      R0,R6
-        POP      {R1,R2,R4-R8,PC}  ;; return
+        LDRB     R0,[R1, #+27]
+        LDRB     R2,[R1, #+26]
+        ORR      R0,R2,R0, LSL #+8
+        LDR      R2,[R4, #+512]
+        LDRB     R2,[R2, #+512]
+        CMP      R2,#+3
+        BNE.N    ??follow_path_2
+        LDRB     R2,[R1, #+21]
+        LDRB     R1,[R1, #+20]
+        ORR      R1,R1,R2, LSL #+8
+        ORR      R0,R0,R1, LSL #+16
+??follow_path_2:
+        STR      R0,[R4, #+520]
+??follow_path_0:
+        MOV      R1,SP
+        MOV      R0,R4
+          CFI FunCall create_name
+        BL       create_name
+        MOVS     R5,R0
+        BNE.W    ??follow_path_3
+        LDR      R0,[R4, #+520]
+        MOVS     R5,#+0
+        STRH     R5,[R4, #+518]
+        CMP      R0,#+1
+        BEQ.N    ??follow_path_4
+        LDR      R1,[R4, #+512]
+        LDR      R2,[R1, #+532]
+        CMP      R0,R2
+        BCS.N    ??follow_path_4
+        CBNZ.N   R0,??follow_path_5
+        LDRB     R2,[R1, #+512]
+        CMP      R2,#+3
+        BNE.N    ??follow_path_6
+        LDR      R0,[R1, #+548]
+??follow_path_5:
+        CBNZ.N   R0,??follow_path_7
+??follow_path_6:
+        LDRH     R2,[R1, #+520]
+        CBZ.N    R2,??follow_path_4
+        LDR      R1,[R1, #+548]
+        B.N      ??follow_path_8
+??follow_path_7:
+        LDRB     R1,[R1, #+514]
+        LSLS     R6,R1,#+4
+        B.N      ??follow_path_9
+??follow_path_10:
+        CMP      R0,#+2
+        BCC.N    ??follow_path_4
+        LDR      R1,[R4, #+512]
+        LDR      R1,[R1, #+532]
+        CMP      R0,R1
+        BCS.N    ??follow_path_4
+        SUBS     R5,R5,R6
+??follow_path_9:
+        CMP      R5,R6
+        BCC.N    ??follow_path_11
+        MOV      R1,R0
+        LDR      R0,[R4, #+512]
+          CFI FunCall get_fat
+        BL       get_fat
+        CMN      R0,#+1
+        BNE.N    ??follow_path_10
+??follow_path_12:
+        MOVS     R5,#+1
+        B.N      ??follow_path_13
+??follow_path_11:
+        LDR      R1,[R4, #+512]
+        SUBS     R2,R0,#+2
+        LDR      R3,[R1, #+532]
+        SUBS     R3,R3,#+2
+        CMP      R2,R3
+        ITEEE    CS 
+        MOVCS    R1,#+0
+        LDRBCC   R3,[R1, #+514]
+        LDRCC    R1,[R1, #+552]
+        MLACC    R1,R3,R2,R1
+??follow_path_8:
+        STR      R0,[R4, #+524]
+        CBZ.N    R1,??follow_path_4
+        ADD      R0,R1,R5, LSR #+4
+        STR      R0,[R4, #+528]
+        B.N      ??follow_path_14
+??follow_path_4:
+        MOVS     R5,#+2
+        B.N      ??follow_path_13
+??follow_path_15:
+        STR      R0,[R4, #+528]
+??follow_path_16:
+        STRH     R5,[R4, #+518]
+??follow_path_14:
+        LDR      R0,[R4, #+512]
+        AND      R1,R5,#0xF
+        LDR      R7,[R4, #+512]
+        LDR      R6,[R4, #+528]
+        ADD      R0,R0,R1, LSL #+5
+        MOVS     R5,#+0
+        STR      R0,[R4, #+532]
+        LDR      R0,[R7, #+556]
+        CMP      R6,R0
+        BEQ.N    ??follow_path_17
+        MOV      R0,R7
+          CFI FunCall sync_window
+        BL       sync_window
+        MOVS     R5,R0
+        BNE.N    ??follow_path_17
+        LDRB     R0,[R7, #+513]
+        MOVS     R3,#+1
+        MOV      R2,R6
+        MOV      R1,R7
+          CFI FunCall disk_read
+        BL       disk_read
+        CBZ.N    R0,??follow_path_18
+        MOV      R6,#-1
+        MOVS     R5,#+1
+??follow_path_18:
+        STR      R6,[R7, #+556]
+??follow_path_17:
+        CBNZ.N   R5,??follow_path_13
+        LDR      R0,[R4, #+532]
+        LDRB     R1,[R0, #+0]
+        CBZ.N    R1,??follow_path_19
+        LDRB     R1,[R0, #+11]
+        LSLS     R1,R1,#+28
+        BMI.N    ??follow_path_20
+        MOVS     R1,#+11
+        LDR      R2,[R4, #+536]
+        MOVS     R3,#+0
+??follow_path_21:
+        MOV      R6,R1
+        SUBS     R1,R6,#+1
+        CBZ.N    R6,??follow_path_22
+        LDRB     R3,[R0], #+1
+        LDRB     R6,[R2], #+1
+        SUBS     R3,R3,R6
+        BEQ.N    ??follow_path_21
+??follow_path_22:
+        CBZ.N    R3,??follow_path_13
+??follow_path_20:
+        LDRH     R0,[R4, #+518]
+        ADDS     R5,R0,#+1
+        LSLS     R0,R5,#+16
+        ITT      NE 
+        LDRNE    R0,[R4, #+528]
+        CMPNE    R0,#+0
+        BEQ.N    ??follow_path_19
+        TST      R5,#0xF
+        BNE.N    ??follow_path_16
+        ADDS     R0,R0,#+1
+        LDR      R1,[R4, #+524]
+        STR      R0,[R4, #+528]
+        LDR      R0,[R4, #+512]
+        CBNZ.N   R1,??follow_path_23
+        LDRH     R0,[R0, #+520]
+        CMP      R5,R0
+        BCC.N    ??follow_path_16
+??follow_path_19:
+        MOVS     R5,#+4
+??follow_path_13:
+        LDR      R0,[R4, #+536]
+        LDRB     R0,[R0, #+11]
+        CBZ.N    R5,??follow_path_24
+        CMP      R5,#+4
+        BNE.N    ??follow_path_3
+        LSLS     R0,R0,#+29
+        BMI.N    ??follow_path_3
+        B.N      ??follow_path_25
+??follow_path_23:
+        LDRB     R2,[R0, #+514]
+        SUBS     R2,R2,#+1
+        TST      R2,R5, LSR #+4
+        BNE.N    ??follow_path_16
+          CFI FunCall get_fat
+        BL       get_fat
+        CMP      R0,#+2
+        BCC.N    ??follow_path_4
+        CMN      R0,#+1
+        BEQ.W    ??follow_path_12
+        LDR      R1,[R4, #+512]
+        LDR      R2,[R1, #+532]
+        CMP      R0,R2
+        BCS.N    ??follow_path_19
+        STR      R0,[R4, #+524]
+        LDR      R2,[R1, #+532]
+        SUBS     R0,R0,#+2
+        SUBS     R2,R2,#+2
+        CMP      R0,R2
+        ITEEE    CS 
+        MOVCS    R0,#+0
+        LDRBCC   R2,[R1, #+514]
+        LDRCC    R1,[R1, #+552]
+        MLACC    R0,R2,R0,R1
+        B.N      ??follow_path_15
+??follow_path_24:
+        LSLS     R0,R0,#+29
+        BMI.N    ??follow_path_3
+        LDR      R1,[R4, #+532]
+        LDRB     R0,[R1, #+11]
+        LSLS     R0,R0,#+27
+        BMI.W    ??follow_path_1
+??follow_path_25:
+        MOVS     R5,#+5
+??follow_path_3:
+        MOV      R0,R5
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}       ;; return
 // 2177 }
-          CFI EndBlock cfiBlock23
+          CFI EndBlock cfiBlock18
 // 2178 
 // 2179 
 // 2180 
@@ -4202,7 +4308,7 @@ follow_path:
 // 2185 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock24 Using cfiCommon0
+          CFI Block cfiBlock19 Using cfiCommon0
           CFI Function get_ldnumber
           CFI NoCalls
         THUMB
@@ -4211,10 +4317,6 @@ follow_path:
 // 2188 	const TCHAR** path	/* Pointer to pointer to the path name */
 // 2189 )
 // 2190 {
-get_ldnumber:
-        PUSH     {R4}
-          CFI R4 Frame(CFA, -4)
-          CFI CFA R13+4
 // 2191 	const TCHAR *tp, *tt;
 // 2192 	UINT i;
 // 2193 	int vol = -1;
@@ -4227,6 +4329,7 @@ get_ldnumber:
 // 2200 
 // 2201 
 // 2202 	if (*path) {	/* If the pointer is not a null */
+get_ldnumber:
         LDR      R2,[R0, #+0]
         MOV      R1,#-1
         CBZ.N    R2,??get_ldnumber_0
@@ -4236,25 +4339,25 @@ get_ldnumber:
 ??get_ldnumber_2:
         ADDS     R3,R3,#+1
 ??get_ldnumber_1:
-        LDRB     R4,[R3, #+0]
-        CMP      R4,#+33
+        LDRB     R12,[R3, #+0]
+        CMP      R12,#+33
         BCC.N    ??get_ldnumber_3
-        CMP      R4,#+58
+        CMP      R12,#+58
         BNE.N    ??get_ldnumber_2
 // 2204 		if (*tt == ':') {	/* If a ':' is exist in the path name */
 ??get_ldnumber_3:
-        CMP      R4,#+58
+        CMP      R12,#+58
         BNE.N    ??get_ldnumber_4
 // 2205 			tp = *path;
 // 2206 			i = *tp++ - '0'; 
-        LDRB     R4,[R2], #+1
-        SUBS     R4,R4,#+48
+        LDRB     R12,[R2], #+1
+        SUB      R12,R12,#+48
 // 2207 			if (i < 10 && tp == tt) {	/* Is there a numeric drive id? */
-        CMP      R4,#+10
+        CMP      R12,#+10
         BCS.N    ??get_ldnumber_0
         CMP      R2,R3
         IT       EQ 
-        CMPEQ    R4,#+0
+        CMPEQ    R12,#+0
 // 2208 				if (i < _VOLUMES) {	/* If a drive id is found, get the value and strip it */
         BNE.N    ??get_ldnumber_0
 // 2209 					vol = (int)i;
@@ -4262,7 +4365,6 @@ get_ldnumber:
         ADDS     R2,R3,#+1
         MOVS     R1,#+0
         STR      R2,[R0, #+0]
-        B.N      ??get_ldnumber_0
 // 2211 				}
 // 2212 			}
 // 2213 #if _STR_VOLUME_ID
@@ -4287,19 +4389,18 @@ get_ldnumber:
 // 2232 		vol = CurrVol;	/* Current drive */
 // 2233 #else
 // 2234 		vol = 0;		/* Drive 0 */
-??get_ldnumber_4:
-        MOVS     R1,#+0
 // 2235 #endif
 // 2236 	}
 // 2237 	return vol;
+        MOV      R0,R1
+        BX       LR
+??get_ldnumber_4:
+        MOVS     R1,#+0
 ??get_ldnumber_0:
         MOV      R0,R1
-        POP      {R4}
-          CFI R4 SameValue
-          CFI CFA R13+0
         BX       LR               ;; return
 // 2238 }
-          CFI EndBlock cfiBlock24
+          CFI EndBlock cfiBlock19
 // 2239 
 // 2240 
 // 2241 
@@ -4310,7 +4411,7 @@ get_ldnumber:
 // 2246 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock25 Using cfiCommon0
+          CFI Block cfiBlock20 Using cfiCommon0
           CFI Function check_fs
         THUMB
 // 2247 static
@@ -4320,16 +4421,14 @@ get_ldnumber:
 // 2251 )
 // 2252 {
 check_fs:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
         MOV      R4,R0
 // 2253 	fs->wflag = 0; fs->winsect = 0xFFFFFFFF;	/* Invaidate window */
-        ADD      R5,R4,#+510
         MOVS     R0,#+0
-        STRB     R0,[R5, #+6]
+        STRB     R0,[R4, #+516]
         MOV      R0,#-1
         STR      R0,[R4, #+556]
 // 2254 	if (move_window(fs, sect) != FR_OK)			/* Load boot record */
@@ -4339,53 +4438,52 @@ check_fs:
         CBZ.N    R0,??check_fs_0
 // 2255 		return 3;
         MOVS     R0,#+3
-        POP      {R1,R4,R5,PC}
+        POP      {R4,PC}
 // 2256 
 // 2257 	if (LD_WORD(&fs->win.d8[BS_55AA]) != 0xAA55)	/* Check boot record signature (always placed at offset 510 even if the sector size is >512) */
 ??check_fs_0:
-        LDRB     R0,[R5, #+1]
-        LDRB     R1,[R5, #+0]
+        LDRB     R0,[R4, #+511]
+        LDRB     R1,[R4, #+510]
         ORR      R0,R1,R0, LSL #+8
         MOVW     R1,#+43605
         CMP      R0,R1
         BEQ.N    ??check_fs_1
 // 2258 		return 2;
         MOVS     R0,#+2
-        POP      {R1,R4,R5,PC}
+        POP      {R4,PC}
 // 2259 
 // 2260 	if ((LD_DWORD(&fs->win.d8[BS_FilSysType]) & 0xFFFFFF) == 0x544146)		/* Check "FAT" string */
 ??check_fs_1:
-        ADD      R0,R4,#+54
-        LDR.W    R1,??DataTable11  ;; 0x544146
-        LDRB     R3,[R0, #+1]
-        LDRB     R2,[R0, #+2]
-        LSLS     R3,R3,#+8
-        ORR      R2,R3,R2, LSL #+16
-        LDRB     R3,[R0, #+0]
-        ORRS     R2,R3,R2
-        CMP      R2,R1
+        LDRB     R2,[R4, #+55]
+        LDRB     R1,[R4, #+56]
+        LDR.W    R0,??DataTable13  ;; 0x544146
+        LSLS     R2,R2,#+8
+        ORR      R1,R2,R1, LSL #+16
+        LDRB     R2,[R4, #+54]
+        ORRS     R1,R2,R1
+        CMP      R1,R0
         BEQ.N    ??check_fs_2
 // 2261 		return 0;
 // 2262 	if ((LD_DWORD(&fs->win.d8[BS_FilSysType32]) & 0xFFFFFF) == 0x544146)	/* Check "FAT" string */
-        LDRB     R3,[R0, #+29]
-        LDRB     R2,[R0, #+30]
-        LDRB     R0,[R0, #+28]
-        LSLS     R3,R3,#+8
-        ORR      R2,R3,R2, LSL #+16
-        ORRS     R0,R0,R2
-        CMP      R0,R1
+        LDRB     R2,[R4, #+83]
+        LDRB     R1,[R4, #+84]
+        LSLS     R2,R2,#+8
+        ORR      R1,R2,R1, LSL #+16
+        LDRB     R2,[R4, #+82]
+        ORRS     R1,R2,R1
+        CMP      R1,R0
         BNE.N    ??check_fs_3
 // 2263 		return 0;
 ??check_fs_2:
         MOVS     R0,#+0
-        POP      {R1,R4,R5,PC}
+        POP      {R4,PC}
 // 2264 
 // 2265 	return 1;
 ??check_fs_3:
         MOVS     R0,#+1
-        POP      {R1,R4,R5,PC}    ;; return
+        POP      {R4,PC}          ;; return
 // 2266 }
-          CFI EndBlock cfiBlock25
+          CFI EndBlock cfiBlock20
 // 2267 
 // 2268 
 // 2269 
@@ -4395,8 +4493,8 @@ check_fs:
 // 2273 /*-----------------------------------------------------------------------*/
 // 2274 
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock26 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock21 Using cfiCommon0
           CFI Function find_volume
         THUMB
 // 2275 static
@@ -4407,18 +4505,17 @@ check_fs:
 // 2280 )
 // 2281 {
 find_volume:
-        PUSH     {R4-R10,LR}
+        PUSH     {R4-R9,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R10 Frame(CFA, -8)
-          CFI R9 Frame(CFA, -12)
-          CFI R8 Frame(CFA, -16)
-          CFI R7 Frame(CFA, -20)
-          CFI R6 Frame(CFA, -24)
-          CFI R5 Frame(CFA, -28)
-          CFI R4 Frame(CFA, -32)
-          CFI CFA R13+32
-        MOV      R7,R0
-        SUB      SP,SP,#+16
+          CFI R9 Frame(CFA, -8)
+          CFI R8 Frame(CFA, -12)
+          CFI R7 Frame(CFA, -16)
+          CFI R6 Frame(CFA, -20)
+          CFI R5 Frame(CFA, -24)
+          CFI R4 Frame(CFA, -28)
+          CFI CFA R13+28
+        MOV      R8,R0
+        SUB      SP,SP,#+20
           CFI CFA R13+48
 // 2282 	BYTE fmt, *pt;
 // 2283 	int vol;
@@ -4433,52 +4530,57 @@ find_volume:
 // 2292 	*rfs = 0;
         MOVS     R0,#+0
         MOV      R4,R2
-        STR      R0,[R7, #+0]
+        STR      R0,[R8, #+0]
 // 2293 	vol = get_ldnumber(path);
         MOV      R0,R1
           CFI FunCall get_ldnumber
         BL       get_ldnumber
-        MOV      R8,R0
+        MOVS     R7,R0
 // 2294 	if (vol < 0) return FR_INVALID_DRIVE;
-        CMP      R8,#+0
         IT       MI 
         MOVMI    R0,#+11
         BMI.W    ??find_volume_0
 // 2295 
 // 2296 	/* Check if the file system object is valid or not */
 // 2297 	fs = FatFs[vol];					/* Get pointer to the file system object */
-        LDR.W    R9,??DataTable11_1
-        ADD      R0,R9,R8, LSL #+2
-        LDR      R6,[R0, #+4]
+        LDR.W    R5,??DataTable13_1
+        ADD      R0,R5,R7, LSL #+2
+        LDR      R6,[R0, #+28]
 // 2298 	if (!fs) return FR_NOT_ENABLED;		/* Is the file system object available? */
         CBNZ.N   R6,??find_volume_1
         MOVS     R0,#+12
-        B.N      ?Subroutine4
+        ADD      SP,SP,#+20
+          CFI CFA R13+28
+        POP      {R4-R9,PC}
+          CFI CFA R13+48
 // 2299 
 // 2300 	ENTER_FF(fs);						/* Lock the volume */
 // 2301 	*rfs = fs;							/* Return pointer to the file system object */
 ??find_volume_1:
-        STR      R6,[R7, #+0]
+        STR      R6,[R8, #+0]
 // 2302 
 // 2303 	if (fs->fs_type) {					/* If the volume has been mounted */
-        ADD      R7,R6,#+484
-        LDRB     R0,[R7, #+28]
+        LDRB     R0,[R6, #+512]
         CBZ.N    R0,??find_volume_2
 // 2304 		stat = disk_status(fs->drv);
-        LDRB     R0,[R7, #+29]
+        LDRB     R0,[R6, #+513]
           CFI FunCall disk_status
         BL       disk_status
 // 2305 		if (!(stat & STA_NOINIT)) {		/* and the physical drive is kept initialized */
         LSLS     R1,R0,#+31
         BMI.N    ??find_volume_2
 // 2306 			if (!_FS_READONLY && wmode && (stat & STA_PROTECT))	/* Check write protection if needed */
-        CMP      R4,#+0
-        BEQ.W    ??find_volume_3
+        CBZ.N    R4,??find_volume_3
         LSLS     R0,R0,#+29
         BMI.N    ??find_volume_4
 // 2307 				return FR_WRITE_PROTECTED;
 // 2308 			return FR_OK;				/* The file system object is valid */
-        B.N      ??find_volume_3
+??find_volume_3:
+        MOVS     R0,#+0
+        ADD      SP,SP,#+20
+          CFI CFA R13+28
+        POP      {R4-R9,PC}
+          CFI CFA R13+48
 // 2309 		}
 // 2310 	}
 // 2311 
@@ -4489,10 +4591,10 @@ find_volume:
 ??find_volume_2:
         MOVS     R0,#+0
 // 2316 	fs->drv = LD2PD(vol);				/* Bind the logical drive and a physical drive */
-        STRB     R8,[R7, #+29]
-        STRB     R0,[R7, #+28]
+        STRB     R7,[R6, #+513]
+        STRB     R0,[R6, #+512]
 // 2317 	stat = disk_initialize(fs->drv);	/* Initialize the physical drive */
-        LDRB     R0,[R7, #+29]
+        LDRB     R0,[R6, #+513]
           CFI FunCall disk_initialize
         BL       disk_initialize
 // 2318 	if (stat & STA_NOINIT)				/* Check if the initialization succeeded */
@@ -4508,7 +4610,10 @@ find_volume:
 // 2321 		return FR_WRITE_PROTECTED;
 ??find_volume_4:
         MOVS     R0,#+10
-        B.N      ?Subroutine4
+        ADD      SP,SP,#+20
+          CFI CFA R13+28
+        POP      {R4-R9,PC}
+          CFI CFA R13+48
 // 2322 #if _MAX_SS != _MIN_SS						/* Get sector size (multiple sector size cfg only) */
 // 2323 	if (disk_ioctl(fs->drv, GET_SECTOR_SIZE, &SS(fs)) != RES_OK
 // 2324 		|| SS(fs) < _MIN_SS || SS(fs) > _MAX_SS) return FR_DISK_ERR;
@@ -4521,10 +4626,10 @@ find_volume:
         MOV      R0,R6
           CFI FunCall check_fs
         BL       check_fs
+        MOVS     R7,#+0
         MOV      R4,R0
 // 2329 	if (fmt == 1 || (!fmt && (LD2PT(vol)))) {	/* Not an FAT boot sector or forced partition number */
         CMP      R4,#+1
-        MOV      R8,#+0
         BNE.N    ??find_volume_6
 // 2330 		for (i = 0; i < 4; i++) {			/* Get partition offset */
         MOVS     R0,#+0
@@ -4551,17 +4656,16 @@ find_volume:
         STR      R3,[R1], #+4
         BCC.N    ??find_volume_7
 // 2334 		i = LD2PT(vol);						/* Partition number: 0:auto, 1-4:forced */
-        MOVS     R5,#+0
+        MOV      R8,R7
 // 2335 		if (i) i--;
-        MOV      R10,SP
+        MOV.W    R9,SP
 // 2336 		do {								/* Find an FAT volume */
 // 2337 			bsect = br[i];
 ??find_volume_9:
-        LDR      R8,[R10, #+0]
+        LDR      R7,[R9, #+0]
 // 2338 			fmt = bsect ? check_fs(fs, bsect) : 2;	/* Check the partition */
-        CMP      R8,#+0
-        BEQ.N    ??find_volume_10
-        MOV      R1,R8
+        CBZ.N    R7,??find_volume_10
+        MOV      R1,R7
         MOV      R0,R6
           CFI FunCall check_fs
         BL       check_fs
@@ -4572,9 +4676,9 @@ find_volume:
         MOVS     R4,R0
 // 2339 		} while (!LD2PT(vol) && fmt && ++i < 4);
         BEQ.N    ??find_volume_6
-        ADDS     R5,R5,#+1
-        CMP      R5,#+4
-        ADD      R10,R10,#+4
+        ADD      R8,R8,#+1
+        CMP      R8,#+4
+        ADD      R9,R9,#+4
         BCC.N    ??find_volume_9
 // 2340 	}
 // 2341 	if (fmt == 3) return FR_DISK_ERR;		/* An error occured in the disk I/O layer */
@@ -4600,149 +4704,144 @@ find_volume:
 // 2349 	fasize = LD_WORD(fs->win.d8 + BPB_FATSz16);			/* Number of sectors per FAT */
         LDRB     R0,[R6, #+23]
         LDRB     R1,[R6, #+22]
-        ORRS     R1,R1,R0, LSL #+8
+        ORRS     R0,R1,R0, LSL #+8
 // 2350 	if (!fasize) fasize = LD_DWORD(fs->win.d8 + BPB_FATSz32);
         BNE.N    ??find_volume_13
-        ADD      R0,R6,#+33
-        LDRB     R2,[R0, #+5]
-        LDRB     R1,[R0, #+6]
-        LSLS     R2,R2,#+16
-        ORR      R1,R2,R1, LSL #+24
-        LDRB     R2,[R0, #+4]
-        LDRB     R0,[R0, #+3]
-        ORR      R1,R1,R2, LSL #+8
-        ORRS     R1,R0,R1
+        LDRB     R1,[R6, #+38]
+        LDRB     R0,[R6, #+39]
+        LSLS     R1,R1,#+16
+        ORR      R0,R1,R0, LSL #+24
+        LDRB     R1,[R6, #+37]
+        ORR      R0,R0,R1, LSL #+8
+        LDRB     R1,[R6, #+36]
+        ORRS     R0,R1,R0
 // 2351 	fs->fsize = fasize;
-??find_volume_13:
-        ADD      R5,R6,#+524
-        STR      R1,[R5, #+12]
 // 2352 
 // 2353 	fs->n_fats = fs->win.d8[BPB_NumFATs];					/* Number of FAT copies */
-        LDRB     R0,[R6, #+16]
+??find_volume_13:
+        LDRB     R1,[R6, #+16]
+        STR      R0,[R6, #+536]
 // 2354 	if (fs->n_fats != 1 && fs->n_fats != 2)				/* (Must be 1 or 2) */
-        CMP      R0,#+1
-        STRB     R0,[R7, #+31]
+        CMP      R1,#+1
+        STRB     R1,[R6, #+515]
         IT       NE 
-        CMPNE    R0,#+2
+        CMPNE    R1,#+2
         BNE.N    ??find_volume_12
 // 2355 		return FR_NO_FILESYSTEM;
 // 2356 	fasize *= fs->n_fats;								/* Number of sectors for FAT area */
-        MULS     R1,R0,R1
+        MULS     R0,R0,R1
 // 2357 
 // 2358 	fs->csize = fs->win.d8[BPB_SecPerClus];				/* Number of sectors per cluster */
-        LDRB     R2,[R6, #+13]
+        LDRB     R1,[R6, #+13]
 // 2359 	if (!fs->csize || (fs->csize & (fs->csize - 1)))	/* (Must be power of 2) */
-        CMP      R2,#+0
-        STRB     R2,[R7, #+30]
+        CMP      R1,#+0
+        STRB     R1,[R6, #+514]
         BEQ.N    ??find_volume_12
-        SUBS     R3,R2,#+1
-        TST      R2,R3
+        SUBS     R2,R1,#+1
+        TST      R1,R2
         BNE.N    ??find_volume_12
 // 2360 		return FR_NO_FILESYSTEM;
 // 2361 
 // 2362 	fs->n_rootdir = LD_WORD(fs->win.d8 + BPB_RootEntCnt);	/* Number of root directory entries */
-        LDRB     R0,[R6, #+18]
+        LDRB     R2,[R6, #+18]
         LDRB     R3,[R6, #+17]
+        ORR      R2,R3,R2, LSL #+8
 // 2363 	if (fs->n_rootdir % (SS(fs) / SZ_DIRE))				/* (Must be sector aligned) */
-        MOVS     R4,#+15
-        ADDW     R10,R6,#+518
-        ORR      R3,R3,R0, LSL #+8
-        TST      R3,R4
-        STRH     R3,[R10, #+2]
+        MOVS     R3,#+15
+        TST      R2,R3
+        STRH     R2,[R6, #+520]
         BNE.N    ??find_volume_12
 // 2364 		return FR_NO_FILESYSTEM;
 // 2365 
 // 2366 	tsect = LD_WORD(fs->win.d8 + BPB_TotSec16);			/* Number of sectors on the volume */
-        LDRB     R0,[R6, #+20]
+        LDRB     R3,[R6, #+20]
         LDRB     R4,[R6, #+19]
-        ORRS     R0,R4,R0, LSL #+8
+        ORRS     R4,R4,R3, LSL #+8
 // 2367 	if (!tsect) tsect = LD_DWORD(fs->win.d8 + BPB_TotSec32);
         BNE.N    ??find_volume_14
-        ADD      R0,R6,#+33
-        LDRB     R12,[R0, #+1]
-        LDRB     R4,[R0, #+2]
-        LDRB     R0,[R0, #+0]
-        LSL      R12,R12,#+16
-        ORR      R4,R12,R4, LSL #+24
-        ORR      R0,R4,R0, LSL #+8
+        LDRB     R4,[R6, #+34]
+        LDRB     R3,[R6, #+35]
+        LSLS     R4,R4,#+16
+        ORR      R3,R4,R3, LSL #+24
+        LDRB     R4,[R6, #+33]
+        ORR      R3,R3,R4, LSL #+8
         LDRB     R4,[R6, #+32]
-        ORRS     R0,R4,R0
+        ORRS     R4,R4,R3
 // 2368 
 // 2369 	nrsv = LD_WORD(fs->win.d8 + BPB_RsvdSecCnt);			/* Number of reserved sectors */
 ??find_volume_14:
-        LDRB     R4,[R6, #+15]
+        LDRB     R3,[R6, #+15]
         LDRB     R12,[R6, #+14]
-        ORRS     R12,R12,R4, LSL #+8
+        ORRS     R3,R12,R3, LSL #+8
 // 2370 	if (!nrsv) return FR_NO_FILESYSTEM;					/* (Must not be 0) */
         BEQ.N    ??find_volume_12
 // 2371 
 // 2372 	/* Determine the FAT sub type */
 // 2373 	sysect = nrsv + fasize + fs->n_rootdir / (SS(fs) / SZ_DIRE);	/* RSV + FAT + DIR */
-        ADD      R4,R1,R12
-        ADD      LR,R4,R3, LSR #+4
+        ADD      R12,R0,R3
+        ADD      R12,R12,R2, LSR #+4
 // 2374 	if (tsect < sysect) return FR_NO_FILESYSTEM;		/* (Invalid volume size) */
-        CMP      R0,LR
+        CMP      R4,R12
         BCC.N    ??find_volume_12
 // 2375 	nclst = (tsect - sysect) / fs->csize;				/* Number of clusters */
-        SUB      R0,R0,LR
-        UDIV     R0,R0,R2
+        SUB      R4,R4,R12
+        UDIV     R1,R4,R1
 // 2376 	if (!nclst) return FR_NO_FILESYSTEM;				/* (Invalid volume size) */
-        CMP      R0,#+0
+        CMP      R1,#+0
         BEQ.N    ??find_volume_12
 // 2377 	fmt = FS_FAT12;
         MOVS     R4,#+1
 // 2378 	if (nclst >= MIN_FAT16) fmt = FS_FAT16;
-        MOVW     R2,#+4086
-        CMP      R0,R2
+        MOVW     LR,#+4086
+        CMP      R1,LR
 // 2379 	if (nclst >= MIN_FAT32) fmt = FS_FAT32;
-        MOVW     R2,#+65526
+        MOVW     LR,#+65526
         IT       CS 
         MOVCS    R4,#+2
-        CMP      R0,R2
+        CMP      R1,LR
         IT       CS 
         MOVCS    R4,#+3
 // 2380 
 // 2381 	/* Boundaries and Limits */
 // 2382 	fs->n_fatent = nclst + 2;							/* Number of FAT entries */
-        ADDS     R0,R0,#+2
+        ADDS     R1,R1,#+2
 // 2383 	fs->volbase = bsect;								/* Volume start sector */
+        STR      R7,[R6, #+540]
+        STR      R1,[R6, #+532]
 // 2384 	fs->fatbase = bsect + nrsv; 						/* FAT start sector */
+        ADDS     R1,R3,R7
+        STR      R1,[R6, #+544]
 // 2385 	fs->database = bsect + sysect;						/* Data start sector */
+        ADD      R1,R12,R7
 // 2386 	if (fmt == FS_FAT32) {
         CMP      R4,#+3
-        STR      R0,[R5, #+8]
-        ADD      R0,R12,R8
-        STR      R8,[R5, #+16]
-        STR      R0,[R5, #+20]
-        ADD      R0,LR,R8
-        STR      R0,[R5, #+28]
+        STR      R1,[R6, #+552]
         BNE.N    ??find_volume_15
 // 2387 		if (fs->n_rootdir) return FR_NO_FILESYSTEM;		/* (BPB_RootEntCnt must be 0) */
-        CBNZ.N   R3,??find_volume_12
+        CBNZ.N   R2,??find_volume_12
 // 2388 		fs->dirbase = LD_DWORD(fs->win.d8 + BPB_RootClus);	/* Root directory start cluster */
-        ADD      R0,R6,#+33
-        LDRB     R2,[R0, #+13]
-        LDRB     R1,[R0, #+14]
-        LSLS     R2,R2,#+16
-        ORR      R1,R2,R1, LSL #+24
-        LDRB     R2,[R0, #+12]
-        LDRB     R0,[R0, #+11]
-        ORR      R1,R1,R2, LSL #+8
-        ORRS     R0,R0,R1
+        LDRB     R1,[R6, #+46]
+        LDRB     R0,[R6, #+47]
+        LSLS     R1,R1,#+16
+        ORR      R0,R1,R0, LSL #+24
+        LDRB     R1,[R6, #+45]
+        ORR      R0,R0,R1, LSL #+8
+        LDRB     R1,[R6, #+44]
+        ORRS     R0,R1,R0
 // 2389 		szbfat = fs->n_fatent * 4;						/* (Needed FAT size) */
-        LDR      R1,[R5, #+8]
+        LDR      R1,[R6, #+532]
         LSLS     R1,R1,#+2
         B.N      ??find_volume_16
 // 2390 	} else {
 // 2391 		if (!fs->n_rootdir)	return FR_NO_FILESYSTEM;	/* (BPB_RootEntCnt must not be 0) */
 ??find_volume_15:
-        CBZ.N    R3,??find_volume_12
+        CBZ.N    R2,??find_volume_12
 // 2392 		fs->dirbase = fs->fatbase + fasize;				/* Root directory start sector */
-        LDR      R0,[R5, #+20]
-        ADDS     R0,R1,R0
+        LDR      R1,[R6, #+544]
+        ADDS     R0,R0,R1
 // 2393 		szbfat = (fmt == FS_FAT16) ?					/* (Needed FAT size) */
 // 2394 			fs->n_fatent * 2 : fs->n_fatent * 3 / 2 + (fs->n_fatent & 1);
-        LDR      R1,[R5, #+8]
+        LDR      R1,[R6, #+532]
         CMP      R4,#+2
         ITEEE    EQ 
         LSLEQ    R1,R1,#+1
@@ -4750,25 +4849,28 @@ find_volume:
         ANDNE    R1,R1,#0x1
         ADDNE    R1,R1,R2, LSR #+1
 ??find_volume_16:
-        STR      R0,[R5, #+24]
+        STR      R0,[R6, #+548]
 // 2395 	}
 // 2396 	if (fs->fsize < (szbfat + (SS(fs) - 1)) / SS(fs))	/* (BPB_FATSz must not be less than the size needed) */
-        LDR      R0,[R5, #+12]
+        LDR      R0,[R6, #+536]
         ADDW     R1,R1,#+511
         CMP      R0,R1, LSR #+9
         BCS.N    ??find_volume_17
 // 2397 		return FR_NO_FILESYSTEM;
 ??find_volume_12:
         MOVS     R0,#+13
-        B.N      ?Subroutine4
+        ADD      SP,SP,#+20
+          CFI CFA R13+28
+        POP      {R4-R9,PC}
+          CFI CFA R13+48
 // 2398 
 // 2399 #if !_FS_READONLY
 // 2400 	/* Initialize cluster allocation information */
 // 2401 	fs->last_clust = fs->free_clust = 0xFFFFFFFF;
 ??find_volume_17:
         MOV      R0,#-1
-        STR      R0,[R5, #+4]
-        STR      R0,[R5, #+0]
+        STR      R0,[R6, #+528]
+        STR      R0,[R6, #+524]
 // 2402 
 // 2403 	/* Get fsinfo if available */
 // 2404 	fs->fsi_flag = 0x80;
@@ -4779,14 +4881,13 @@ find_volume:
 // 2408 		&& move_window(fs, bsect + 1) == FR_OK)
         CMP      R4,#+3
         STRB     R0,[R6, #+517]
+        ITTTT    EQ 
+        LDRBEQ   R0,[R6, #+49]
+        LDRBEQ   R1,[R6, #+48]
+        ORREQ    R0,R1,R0, LSL #+8
+        CMPEQ    R0,#+1
         BNE.N    ??find_volume_18
-        ADD      R0,R6,#+33
-        LDRB     R1,[R0, #+16]
-        LDRB     R0,[R0, #+15]
-        ORR      R0,R0,R1, LSL #+8
-        CMP      R0,#+1
-        BNE.N    ??find_volume_18
-        ADD      R1,R8,#+1
+        ADDS     R1,R7,#+1
         MOV      R0,R6
           CFI FunCall move_window
         BL       move_window
@@ -4798,8 +4899,8 @@ find_volume:
 // 2411 		if (LD_WORD(fs->win.d8 + BS_55AA) == 0xAA55	/* Load FSINFO data if available */
 // 2412 			&& LD_DWORD(fs->win.d8 + FSI_LeadSig) == 0x41615252
 // 2413 			&& LD_DWORD(fs->win.d8 + FSI_StrucSig) == 0x61417272)
-        LDRB     R0,[R7, #+27]
-        LDRB     R1,[R7, #+26]
+        LDRB     R0,[R6, #+511]
+        LDRB     R1,[R6, #+510]
         ORR      R0,R1,R0, LSL #+8
         MOVW     R1,#+43605
         CMP      R0,R1
@@ -4812,44 +4913,44 @@ find_volume:
         ORR      R0,R0,R1, LSL #+8
         LDRB     R1,[R6, #+0]
         ORRS     R0,R1,R0
-        LDR.N    R1,??DataTable11_2  ;; 0x41615252
+        LDR.N    R1,??DataTable13_2  ;; 0x41615252
         CMP      R0,R1
         BNE.N    ??find_volume_18
-        LDRB     R1,[R7, #+2]
-        LDRB     R0,[R7, #+3]
+        LDRB     R1,[R6, #+486]
+        LDRB     R0,[R6, #+487]
         LSLS     R1,R1,#+16
         ORR      R0,R1,R0, LSL #+24
-        LDRB     R1,[R7, #+1]
+        LDRB     R1,[R6, #+485]
         ORR      R0,R0,R1, LSL #+8
-        LDRB     R1,[R7, #+0]
+        LDRB     R1,[R6, #+484]
         ORRS     R0,R1,R0
-        LDR.N    R1,??DataTable11_3  ;; 0x61417272
+        LDR.N    R1,??DataTable13_3  ;; 0x61417272
         CMP      R0,R1
         BNE.N    ??find_volume_18
 // 2414 		{
 // 2415 #if (_FS_NOFSINFO & 1) == 0
 // 2416 			fs->free_clust = LD_DWORD(fs->win.d8 + FSI_Free_Count);
-        LDRB     R1,[R7, #+6]
-        LDRB     R0,[R7, #+7]
+        LDRB     R1,[R6, #+490]
+        LDRB     R0,[R6, #+491]
         LSLS     R1,R1,#+16
         ORR      R0,R1,R0, LSL #+24
-        LDRB     R1,[R7, #+5]
+        LDRB     R1,[R6, #+489]
         ORR      R0,R0,R1, LSL #+8
-        LDRB     R1,[R7, #+4]
+        LDRB     R1,[R6, #+488]
         ORRS     R0,R1,R0
-        STR      R0,[R5, #+4]
 // 2417 #endif
 // 2418 #if (_FS_NOFSINFO & 2) == 0
 // 2419 			fs->last_clust = LD_DWORD(fs->win.d8 + FSI_Nxt_Free);
-        LDRB     R1,[R7, #+10]
-        LDRB     R0,[R7, #+11]
+        LDRB     R1,[R6, #+494]
+        STR      R0,[R6, #+528]
+        LDRB     R0,[R6, #+495]
         LSLS     R1,R1,#+16
         ORR      R0,R1,R0, LSL #+24
-        LDRB     R1,[R7, #+9]
+        LDRB     R1,[R6, #+493]
         ORR      R0,R0,R1, LSL #+8
-        LDRB     R1,[R7, #+8]
+        LDRB     R1,[R6, #+492]
         ORRS     R0,R1,R0
-        STR      R0,[R5, #+0]
+        STR      R0,[R6, #+524]
 // 2420 #endif
 // 2421 		}
 // 2422 	}
@@ -4857,49 +4958,36 @@ find_volume:
 // 2424 #endif
 // 2425 	fs->fs_type = fmt;	/* FAT sub-type */
 ??find_volume_18:
-        STRB     R4,[R7, #+28]
+        STRB     R4,[R6, #+512]
 // 2426 	fs->id = ++Fsid;	/* File system mount ID */
-        LDRH     R0,[R9, #+0]
+        LDRH     R0,[R5, #+24]
         ADDS     R0,R0,#+1
-        STRH     R0,[R9, #+0]
-        STRH     R0,[R10, #+0]
+        STRH     R0,[R5, #+24]
+        STRH     R0,[R6, #+518]
 // 2427 #if _FS_RPATH
 // 2428 	fs->cdir = 0;		/* Set current directory to root */
 // 2429 #endif
 // 2430 #if _FS_LOCK			/* Clear file lock semaphores */
 // 2431 	clear_lock(fs);
-        MOV      R0,R6
-          CFI FunCall clear_lock
-        BL       clear_lock
+        MOVS     R0,#+2
+??find_volume_19:
+        LDR      R1,[R5, #+0]
+        CMP      R1,R6
+        ITT      EQ 
+        MOVEQ    R1,#+0
+        STREQ    R1,[R5, #+0]
+        ADDS     R5,R5,#+12
+        SUBS     R0,R0,#+1
+        BNE.N    ??find_volume_19
+??find_volume_0:
+        ADD      SP,SP,#+20
+          CFI CFA R13+28
+        POP      {R4-R9,PC}       ;; return
 // 2432 #endif
 // 2433 
 // 2434 	return FR_OK;
-??find_volume_3:
-        MOVS     R0,#+0
-??find_volume_0:
-          CFI EndBlock cfiBlock26
-        REQUIRE ?Subroutine4
-        ;; // Fall through to label ?Subroutine4
 // 2435 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock27 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+48
-          CFI R4 Frame(CFA, -32)
-          CFI R5 Frame(CFA, -28)
-          CFI R6 Frame(CFA, -24)
-          CFI R7 Frame(CFA, -20)
-          CFI R8 Frame(CFA, -16)
-          CFI R9 Frame(CFA, -12)
-          CFI R10 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine4:
-        ADD      SP,SP,#+16
-          CFI CFA R13+32
-        POP      {R4-R10,PC}      ;; return
-          CFI EndBlock cfiBlock27
+          CFI EndBlock cfiBlock21
 // 2436 
 // 2437 
 // 2438 
@@ -4910,7 +4998,7 @@ find_volume:
 // 2443 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock28 Using cfiCommon0
+          CFI Block cfiBlock22 Using cfiCommon0
           CFI Function validate
         THUMB
 // 2444 static
@@ -4924,22 +5012,22 @@ find_volume:
 // 2452 	if (!fil || !fil->fs || !fil->fs->fs_type || fil->fs->id != fil->id || (disk_status(fil->fs->drv) & STA_NOINIT))
 validate:
         CMP      R0,#+0
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
-        ITTT     NE 
-        ADDNE    R0,R0,#+512
-        LDRNE    R1,[R0, #+0]
+        ITT      NE 
+        LDRNE    R1,[R0, #+512]
         CMPNE    R1,#+0
         BEQ.N    ??validate_0
-        ADD      R1,R1,#+512
-        LDRB     R2,[R1, #+0]
+        LDRB     R2,[R1, #+512]
         CBZ.N    R2,??validate_0
-        LDRH     R2,[R1, #+6]
-        LDRH     R0,[R0, #+4]
+        LDRH     R2,[R1, #+518]
+        LDRH     R0,[R0, #+516]
         CMP      R2,R0
         BNE.N    ??validate_0
-        LDRB     R0,[R1, #+1]
+        LDRB     R0,[R1, #+513]
           CFI FunCall disk_status
         BL       disk_status
         LSLS     R0,R0,#+31
@@ -4947,16 +5035,21 @@ validate:
 // 2453 		return FR_INVALID_OBJECT;
 ??validate_0:
         MOVS     R0,#+9
-        POP      {R1,PC}
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}
+          CFI CFA R13+8
 // 2454 
 // 2455 	ENTER_FF(fil->fs);		/* Lock file system */
 // 2456 
 // 2457 	return FR_OK;
 ??validate_1:
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 // 2458 }
-          CFI EndBlock cfiBlock28
+          CFI EndBlock cfiBlock22
 // 2459 
 // 2460 
 // 2461 
@@ -4975,7 +5068,7 @@ validate:
 // 2474 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock29 Using cfiCommon0
+          CFI Block cfiBlock23 Using cfiCommon0
           CFI Function f_mount
         THUMB
 // 2475 FRESULT f_mount (
@@ -4985,12 +5078,11 @@ validate:
 // 2479 )
 // 2480 {
 f_mount:
-        PUSH     {R0,R1,R4-R6,LR}
+        PUSH     {R0,R1,R4,R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+24
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+20
 // 2481 	FATFS *cfs;
 // 2482 	int vol;
 // 2483 	FRESULT res;
@@ -4999,7 +5091,8 @@ f_mount:
 // 2486 
 // 2487 	vol = get_ldnumber(&rp);
         MOVS     R0,R1
-        MOV      R4,R2
+        SUB      SP,SP,#+4
+          CFI CFA R13+24
         BEQ.N    ??f_mount_0
         B.N      ??f_mount_1
 ??f_mount_2:
@@ -5013,101 +5106,93 @@ f_mount:
 ??f_mount_3:
         CMP      R1,#+58
         BNE.N    ??f_mount_4
-        LDR      R1,[SP, #+4]
-        LDRB     R2,[R1], #+1
-        SUBS     R2,R2,#+48
-        CMP      R2,#+10
+        LDR      R1,[SP, #+8]
+        LDRB     R3,[R1], #+1
+        SUBS     R3,R3,#+48
+        CMP      R3,#+10
         BCS.N    ??f_mount_0
         CMP      R1,R0
         IT       EQ 
-        CMPEQ    R2,#+0
+        CMPEQ    R3,#+0
         BNE.N    ??f_mount_0
 // 2488 	if (vol < 0) return FR_INVALID_DRIVE;
 // 2489 	cfs = FatFs[vol];					/* Pointer to fs object */
 ??f_mount_4:
-        LDR.N    R5,??DataTable11_1
-        LDR      R6,[R5, #+4]
+        LDR.N    R0,??DataTable13_1
+        LDR      R1,[R0, #+28]
 // 2490 
 // 2491 	if (cfs) {
-        CBZ.N    R6,??f_mount_5
+        CBZ.N    R1,??f_mount_5
 // 2492 #if _FS_LOCK
 // 2493 		clear_lock(cfs);
-        MOV      R0,R6
-          CFI FunCall clear_lock
-        BL       clear_lock
+        MOV      R3,R0
+        MOVS     R4,#+2
+??f_mount_6:
+        LDR      R5,[R3, #+0]
+        CMP      R5,R1
+        ITT      EQ 
+        MOVEQ    R5,#+0
+        STREQ    R5,[R3, #+0]
+        ADDS     R3,R3,#+12
+        SUBS     R4,R4,#+1
+        BNE.N    ??f_mount_6
 // 2494 #endif
 // 2495 #if _FS_REENTRANT						/* Discard sync object of the current volume */
 // 2496 		if (!ff_del_syncobj(cfs->sobj)) return FR_INT_ERR;
 // 2497 #endif
 // 2498 		cfs->fs_type = 0;				/* Clear old fs object */
-        MOVS     R0,#+0
-        STRB     R0,[R6, #+512]
+        MOVS     R3,#+0
+        STRB     R3,[R1, #+512]
 // 2499 	}
 // 2500 
 // 2501 	if (fs) {
 ??f_mount_5:
-        LDR      R0,[SP, #+0]
-        CBZ.N    R0,??f_mount_6
+        LDR      R1,[SP, #+4]
+        CBZ.N    R1,??f_mount_7
 // 2502 		fs->fs_type = 0;				/* Clear new fs object */
-        LDR      R1,[SP, #+0]
-        MOVS     R0,#+0
-        STRB     R0,[R1, #+512]
+        LDR      R3,[SP, #+4]
+        MOVS     R1,#+0
+        STRB     R1,[R3, #+512]
 // 2503 #if _FS_REENTRANT						/* Create sync object for the new volume */
 // 2504 		if (!ff_cre_syncobj((BYTE)vol, &fs->sobj)) return FR_INT_ERR;
 // 2505 #endif
 // 2506 	}
 // 2507 	FatFs[vol] = fs;					/* Register new fs object */
-??f_mount_6:
-        LDR      R0,[SP, #+0]
-        STR      R0,[R5, #+4]
+??f_mount_7:
+        LDR      R1,[SP, #+4]
+        STR      R1,[R0, #+28]
 // 2508 
 // 2509 	if (!fs || opt != 1) return FR_OK;	/* Do not mount now, it will be mounted later */
-        LDR      R0,[SP, #+0]
-        CBZ.N    R0,??f_mount_7
-        CMP      R4,#+1
-        BEQ.N    ??f_mount_8
-??f_mount_7:
+        LDR      R0,[SP, #+4]
+        CBZ.N    R0,??f_mount_8
+        CMP      R2,#+1
+        BEQ.N    ??f_mount_9
+??f_mount_8:
         MOVS     R0,#+0
-        POP      {R1,R2,R4-R6,PC}
+        ADD      SP,SP,#+12
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+24
 ??f_mount_0:
         MOVS     R0,#+11
-        POP      {R1,R2,R4-R6,PC}
+        ADD      SP,SP,#+12
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+24
 // 2510 
 // 2511 	res = find_volume(&fs, &path, 0);	/* Force mounted the volume */
 // 2512 	LEAVE_FF(fs, res);
-??f_mount_8:
+??f_mount_9:
         MOVS     R2,#+0
-        ADD      R1,SP,#+4
-        MOV      R0,SP
+        ADD      R1,SP,#+8
+        ADD      R0,SP,#+4
           CFI FunCall find_volume
         BL       find_volume
-        POP      {R1,R2,R4-R6,PC}  ;; return
+        ADD      SP,SP,#+12
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
 // 2513 }
-          CFI EndBlock cfiBlock29
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable11:
-        DC32     0x544146
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable11_1:
-        DC32     Fsid
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable11_2:
-        DC32     0x41615252
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable11_3:
-        DC32     0x61417272
+          CFI EndBlock cfiBlock23
 // 2514 
 // 2515 
 // 2516 
@@ -5118,7 +5203,7 @@ f_mount:
 // 2521 
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock30 Using cfiCommon0
+          CFI Block cfiBlock24 Using cfiCommon0
           CFI Function f_open
         THUMB
 // 2522 FRESULT f_open (
@@ -5137,6 +5222,7 @@ f_open:
           CFI R5 Frame(CFA, -24)
           CFI R4 Frame(CFA, -28)
           CFI CFA R13+32
+        MOVS     R8,R0
         SUB      SP,SP,#+560
           CFI CFA R13+592
 // 2528 	FRESULT res;
@@ -5149,19 +5235,17 @@ f_open:
 // 2535 
 // 2536 
 // 2537 	if (!fp) return FR_INVALID_OBJECT;
-        CBNZ.N   R0,??f_open_0
-        MOVS     R0,#+9
-        B.N      ?Subroutine5
+        IT       EQ 
+        MOVEQ    R0,#+9
+        BEQ.W    ??f_open_0
 // 2538 	fp->fs = 0;			/* Clear file object */
-??f_open_0:
-        ADD      R4,R0,#+512
         MOVS     R0,#+0
-        STR      R0,[R4, #+0]
 // 2539 
 // 2540 	/* Get logical drive number */
 // 2541 #if !_FS_READONLY
 // 2542 	mode &= FA_READ | FA_WRITE | FA_CREATE_ALWAYS | FA_OPEN_ALWAYS | FA_CREATE_NEW;
         AND      R5,R2,#0x1F
+        STR      R0,[R8, #+512]
 // 2543 	res = find_volume(&dj.fs, &path, (BYTE)(mode & ~FA_READ));
         AND      R2,R5,#0xFE
         ADD      R1,SP,#+560
@@ -5176,16 +5260,15 @@ f_open:
 // 2548 	if (res == FR_OK) {
         BNE.W    ??f_open_1
 // 2549 		INIT_BUF(dj);
-        ADD      R8,SP,#+524
 // 2550 		res = follow_path(&dj, path);	/* Follow the file path */
         LDR      R1,[SP, #+560]
-        STR      SP,[R8, #+24]
+        STR      SP,[SP, #+548]
         ADD      R0,SP,#+12
           CFI FunCall follow_path
         BL       follow_path
         MOVS     R7,R0
 // 2551 		dir = dj.dir;
-        LDR      R6,[R8, #+20]
+        LDR      R6,[SP, #+544]
 // 2552 #if !_FS_READONLY	/* R/W configuration */
 // 2553 		if (res == FR_OK) {
         BNE.N    ??f_open_2
@@ -5224,14 +5307,14 @@ f_open:
 // 2565 #if _FS_LOCK
 // 2566 					res = enq_lock() ? dir_register(&dj) : FR_TOO_MANY_OPEN_FILES;
         MOVS     R0,#+0
-        LDR.N    R1,??f_open_7
-??f_open_8:
+        LDR.W    R1,??DataTable13_1
+??f_open_7:
         LDR      R2,[R1], #+12
-        CBZ.N    R2,??f_open_9
+        CBZ.N    R2,??f_open_8
         ADDS     R0,R0,#+1
         CMP      R0,#+2
-        BCC.N    ??f_open_8
-??f_open_9:
+        BCC.N    ??f_open_7
+??f_open_8:
         CMP      R0,#+2
         IT       EQ 
         MOVEQ    R7,#+18
@@ -5247,7 +5330,7 @@ f_open:
 ??f_open_6:
         ORR      R5,R5,#0x8
 // 2571 				dir = dj.dir;					/* New entry */
-        LDR      R6,[R8, #+20]
+        LDR      R6,[SP, #+544]
 // 2572 			}
 // 2573 			else {								/* Any object is already existing */
 // 2574 				if (dir[DIR_Attr] & (AM_RDO | AM_DIR)) {	/* Cannot overwrite it (R/O or DIR) */
@@ -5258,22 +5341,22 @@ f_open:
 // 2579 				}
 // 2580 			}
 // 2581 			if (res == FR_OK && (mode & FA_CREATE_ALWAYS)) {	/* Truncate it if overwrite mode */
-        CBNZ.N   R7,??f_open_10
-??f_open_11:
+        CBNZ.N   R7,??f_open_9
+??f_open_10:
         LSLS     R0,R5,#+28
-        BPL.N    ??f_open_12
+        BPL.N    ??f_open_11
 // 2582 				dw = GET_FATTIME();				/* Created time */
           CFI FunCall get_fattime
         BL       get_fattime
-        MOV      R8,R0
+        MOV      R4,R0
 // 2583 				ST_DWORD(dir + DIR_CrtTime, dw);
         LSLS     R0,R0,#+16
+        STRB     R4,[R6, #+14]
         LSRS     R0,R0,#+24
-        STRB     R8,[R6, #+14]
         STRB     R0,[R6, #+15]
-        LSR      R0,R8,#+16
+        LSRS     R0,R4,#+16
         STRB     R0,[R6, #+16]
-        LSR      R0,R8,#+24
+        LSRS     R0,R4,#+24
         STRB     R0,[R6, #+17]
 // 2584 				dir[DIR_Attr] = 0;				/* Reset attribute */
         MOVS     R0,#+0
@@ -5301,23 +5384,23 @@ f_open:
 // 2589 				if (cl) {						/* Remove the cluster chain if exist */
         CMP      R9,#+0
         STRB     R0,[R1, #+516]
-        BEQ.N    ??f_open_13
+        BEQ.N    ??f_open_12
 // 2590 					dw = dj.fs->winsect;
         LDR      R0,[SP, #+524]
 // 2591 					res = remove_chain(dj.fs, cl);
         MOV      R1,R9
-        LDR      R8,[R0, #+556]
+        LDR      R4,[R0, #+556]
           CFI FunCall remove_chain
         BL       remove_chain
         MOVS     R7,R0
 // 2592 					if (res == FR_OK) {
-        BNE.N    ??f_open_10
+        BNE.N    ??f_open_9
 // 2593 						dj.fs->last_clust = cl - 1;	/* Reuse the cluster hole */
         LDR      R0,[SP, #+524]
         SUB      R1,R9,#+1
         STR      R1,[R0, #+524]
 // 2594 						res = move_window(dj.fs, dw);
-        MOV      R1,R8
+        MOV      R1,R4
           CFI FunCall move_window
         BL       move_window
         MOV      R7,R0
@@ -5336,22 +5419,22 @@ f_open:
 // 2607 			}
 // 2608 		}
 // 2609 		if (res == FR_OK) {
-??f_open_10:
+??f_open_9:
         CMP      R7,#+0
         BNE.N    ??f_open_1
 // 2610 			if (mode & FA_CREATE_ALWAYS)		/* Set file change flag if created or overwritten */
-??f_open_13:
+??f_open_12:
         LSLS     R0,R5,#+28
         IT       MI 
         ORRMI    R5,R5,#0x20
 // 2611 				mode |= FA__WRITTEN;
 // 2612 			fp->dir_sect = dj.fs->winsect;		/* Pointer to the directory entry */
-??f_open_12:
+??f_open_11:
         LDR      R0,[SP, #+524]
         LDR      R0,[R0, #+556]
 // 2613 			fp->dir_ptr = dir;
-        STR      R6,[R4, #+32]
-        STR      R0,[R4, #+28]
+        STR      R6,[R8, #+544]
+        STR      R0,[R8, #+540]
 // 2614 #if _FS_LOCK
 // 2615 			fp->lockid = inc_lock(&dj, (mode & ~FA_READ) ? 1 : 0);
         AND      R0,R5,#0xFE
@@ -5362,40 +5445,35 @@ f_open:
         ADD      R0,SP,#+12
           CFI FunCall inc_lock
         BL       inc_lock
-        STR      R0,[R4, #+36]
+        STR      R0,[R8, #+548]
 // 2616 			if (!fp->lockid) res = FR_INT_ERR;
-        CBNZ.N   R0,??f_open_14
+        CBNZ.N   R0,??f_open_13
         MOVS     R7,#+2
         B.N      ??f_open_1
-        Nop      
-        DATA
-??f_open_7:
-        DC32     Files
-        THUMB
 // 2617 #endif
 // 2618 		}
 ??f_open_5:
         LDRB     R0,[R6, #+11]
         MOVS     R1,#+17
         TST      R0,R1
-        BNE.N    ??f_open_15
+        BNE.N    ??f_open_14
         LSLS     R0,R5,#+29
-        BPL.N    ??f_open_11
+        BPL.N    ??f_open_10
         MOVS     R7,#+8
         B.N      ??f_open_1
 ??f_open_4:
         CMP      R7,#+0
-        BNE.N    ??f_open_10
+        BNE.N    ??f_open_9
         LDRB     R0,[R6, #+11]
         LSLS     R1,R0,#+27
         IT       MI 
         MOVMI    R7,#+4
         BMI.N    ??f_open_1
         LSLS     R1,R5,#+30
-        BPL.N    ??f_open_13
+        BPL.N    ??f_open_12
         LSLS     R0,R0,#+31
-        BPL.N    ??f_open_13
-??f_open_15:
+        BPL.N    ??f_open_12
+??f_open_14:
         MOVS     R7,#+7
         B.N      ??f_open_1
 // 2619 
@@ -5415,17 +5493,17 @@ f_open:
 // 2633 		if (res == FR_OK) {
 // 2634 			fp->flag = mode;					/* File access mode */
 // 2635 			fp->err = 0;						/* Clear error flag */
-??f_open_14:
+??f_open_13:
         MOVS     R0,#+0
-        STRB     R5,[R4, #+6]
-        STRB     R0,[R4, #+7]
+        STRB     R5,[R8, #+518]
+        STRB     R0,[R8, #+519]
 // 2636 			fp->sclust = ld_clust(dj.fs, dir);	/* File start cluster */
         LDR      R5,[SP, #+524]
         MOV      R1,R6
         MOV      R0,R5
           CFI FunCall ld_clust
         BL       ld_clust
-        STR      R0,[R4, #+16]
+        STR      R0,[R8, #+528]
 // 2637 			fp->fsize = LD_DWORD(dir + DIR_FileSize);	/* File size */
         LDRB     R1,[R6, #+30]
         LDRB     R0,[R6, #+31]
@@ -5440,43 +5518,51 @@ f_open:
 // 2641 			fp->cltbl = 0;						/* Normal seek mode */
 // 2642 #endif
 // 2643 			fp->fs = dj.fs;	 					/* Validate file object */
-        STR      R5,[R4, #+0]
+        STR      R5,[R8, #+512]
         ORRS     R0,R1,R0
-        STR      R0,[R4, #+12]
+        STR      R0,[R8, #+524]
         MOVS     R0,#+0
-        STR      R0,[R4, #+8]
-        STR      R0,[R4, #+24]
+        STR      R0,[R8, #+520]
+        STR      R0,[R8, #+536]
 // 2644 			fp->id = fp->fs->id;
         LDRH     R0,[R5, #+518]
-        STRH     R0,[R4, #+4]
+        STRH     R0,[R8, #+516]
 // 2645 		}
 // 2646 	}
 // 2647 
 // 2648 	LEAVE_FF(dj.fs, res);
 ??f_open_1:
         MOV      R0,R7
-          CFI EndBlock cfiBlock30
-        REQUIRE ?Subroutine5
-        ;; // Fall through to label ?Subroutine5
-// 2649 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock31 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+592
-          CFI R4 Frame(CFA, -28)
-          CFI R5 Frame(CFA, -24)
-          CFI R6 Frame(CFA, -20)
-          CFI R7 Frame(CFA, -16)
-          CFI R8 Frame(CFA, -12)
-          CFI R9 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine5:
+??f_open_0:
         ADD      SP,SP,#+564
           CFI CFA R13+28
         POP      {R4-R9,PC}       ;; return
-          CFI EndBlock cfiBlock31
+// 2649 }
+          CFI EndBlock cfiBlock24
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable13:
+        DC32     0x544146
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable13_1:
+        DC32     Files
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable13_2:
+        DC32     0x41615252
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable13_3:
+        DC32     0x61417272
 // 2650 
 // 2651 
 // 2652 
@@ -5486,8 +5572,8 @@ f_open:
 // 2656 /*-----------------------------------------------------------------------*/
 // 2657 
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock32 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock25 Using cfiCommon0
           CFI Function f_read
         THUMB
 // 2658 FRESULT f_read (
@@ -5498,18 +5584,17 @@ f_open:
 // 2663 )
 // 2664 {
 f_read:
-        PUSH     {R3-R11,LR}
+        PUSH     {R4-R10,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R11 Frame(CFA, -8)
-          CFI R10 Frame(CFA, -12)
-          CFI R9 Frame(CFA, -16)
-          CFI R8 Frame(CFA, -20)
-          CFI R7 Frame(CFA, -24)
-          CFI R6 Frame(CFA, -28)
-          CFI R5 Frame(CFA, -32)
-          CFI R4 Frame(CFA, -36)
-          CFI CFA R13+40
-        MOV      R9,R0
+          CFI R10 Frame(CFA, -8)
+          CFI R9 Frame(CFA, -12)
+          CFI R8 Frame(CFA, -16)
+          CFI R7 Frame(CFA, -20)
+          CFI R6 Frame(CFA, -24)
+          CFI R5 Frame(CFA, -28)
+          CFI R4 Frame(CFA, -32)
+          CFI CFA R13+32
+        MOV      R10,R0
         MOV      R6,R3
 // 2665 	FRESULT res;
 // 2666 	DWORD clst, sect, remain;
@@ -5519,38 +5604,37 @@ f_read:
 // 2670 
 // 2671 	*br = 0;	/* Clear read byte counter */
         MOVS     R0,#+0
-        MOV      R10,R2
+        MOV      R7,R2
         STR      R0,[R6, #+0]
         MOV      R8,R1
 // 2672 
 // 2673 	res = validate(fp);							/* Check validity */
-        MOV      R0,R9
+        MOV      R0,R10
           CFI FunCall validate
         BL       validate
 // 2674 	if (res != FR_OK) LEAVE_FF(fp->fs, res);
         CMP      R0,#+0
-        ITTT     EQ 
-        ADDEQ    R4,R9,#+512
-        LDRBEQ   R0,[R4, #+7]
+        ITT      EQ 
+        LDRBEQ   R0,[R10, #+519]
         CMPEQ    R0,#+0
 // 2675 	if (fp->err)								/* Check error */
         BNE.W    ??f_read_0
 // 2676 		LEAVE_FF(fp->fs, (FRESULT)fp->err);
 // 2677 	if (!(fp->flag & FA_READ)) 					/* Check access mode */
-        LDRB     R0,[R4, #+6]
+        LDRB     R0,[R10, #+518]
         LSLS     R0,R0,#+31
         IT       PL 
         MOVPL    R0,#+7
 // 2678 		LEAVE_FF(fp->fs, FR_DENIED);
         BPL.W    ??f_read_0
 // 2679 	remain = fp->fsize - fp->fptr;
-        LDR      R0,[R4, #+12]
-        LDR      R1,[R4, #+8]
+        LDR      R0,[R10, #+524]
+        LDR      R1,[R10, #+520]
         SUBS     R0,R0,R1
 // 2680 	if (btr > remain) btr = (UINT)remain;		/* Truncate btr by remaining bytes */
-        CMP      R0,R10
+        CMP      R0,R7
         BHI.N    ??f_read_1
-        MOV      R10,R0
+        MOV      R7,R0
         B.N      ??f_read_1
 // 2681 
 // 2682 	for ( ;  btr;								/* Repeat until all data read */
@@ -5608,11 +5692,11 @@ f_read:
 // 2734 #endif
 // 2735 			fp->dsect = sect;
 ??f_read_2:
-        STR      R7,[R4, #+24]
+        STR      R9,[R10, #+536]
 // 2736 		}
 // 2737 		rcnt = SS(fp->fs) - ((UINT)fp->fptr % SS(fp->fs));	/* Get partial sector data from sector buffer */
 ??f_read_3:
-        LDR      R0,[R4, #+8]
+        LDR      R0,[R10, #+520]
 // 2738 		if (rcnt > btr) rcnt = btr;
 // 2739 #if _FS_TINY
 // 2740 		if (move_window(fp->fs, fp->dsect) != FR_OK)		/* Move sector window */
@@ -5621,55 +5705,55 @@ f_read:
 // 2743 #else
 // 2744 		mem_cpy(rbuff, &fp->buf.d8[fp->fptr % SS(fp->fs)], rcnt);	/* Pick partial sector */
         MOV      R2,R8
-        LSLS     R1,R0,#+23
-        LSRS     R1,R1,#+23
-        RSB      R0,R1,#+512
-        CMP      R10,R0
-        ADD      R1,R1,R9
+        LSLS     R0,R0,#+23
+        LSRS     R0,R0,#+23
+        RSB      R1,R0,#+512
+        CMP      R7,R1
+        ADD      R0,R0,R10
         IT       LS 
-        MOVLS    R0,R10
-        CBZ.N    R0,??f_read_4
-        MOV      R3,R0
+        MOVLS    R1,R7
+        CBZ.N    R1,??f_read_4
+        MOV.W    R3,R1
 ??f_read_5:
-        LDRB     R12,[R1], #+1
+        LDRB     R12,[R0], #+1
         SUBS     R3,R3,#+1
         STRB     R12,[R2], #+1
         BNE.N    ??f_read_5
 ??f_read_4:
-        LDR      R1,[R4, #+8]
-        ADD      R8,R0,R8
-        SUB      R10,R10,R0
-        ADDS     R1,R0,R1
-        STR      R1,[R4, #+8]
-        LDR      R1,[R6, #+0]
-        ADDS     R1,R0,R1
-        STR      R1,[R6, #+0]
+        LDR      R0,[R10, #+520]
+        ADD      R8,R1,R8
+        SUBS     R7,R7,R1
+        ADDS     R0,R1,R0
+        STR      R0,[R10, #+520]
+        LDR      R0,[R6, #+0]
+        ADDS     R0,R1,R0
+        STR      R0,[R6, #+0]
 ??f_read_1:
-        CMP      R10,#+0
-        BEQ.N    ??f_read_6
-        LDR      R1,[R4, #+8]
+        CMP      R7,#+0
+        BEQ.W    ??f_read_6
+        LDR      R1,[R10, #+520]
         LSLS     R0,R1,#+23
         BNE.N    ??f_read_3
-        LDR      R0,[R4, #+0]
+        LDR      R0,[R10, #+512]
         LDRB     R3,[R0, #+514]
         SUBS     R3,R3,#+1
-        AND      R5,R3,R1, LSR #+9
-        UXTB     R5,R5
-        CBNZ.N   R5,??f_read_7
+        AND      R4,R3,R1, LSR #+9
+        UXTB     R4,R4
+        CBNZ.N   R4,??f_read_7
         CMP      R1,#+0
         ITEE     EQ 
-        LDREQ    R0,[R4, #+16]
-        LDRNE    R1,[R4, #+20]
+        LDREQ    R0,[R10, #+528]
+        LDRNE    R1,[R10, #+532]
           CFI FunCall get_fat
         BLNE     get_fat
         CMP      R0,#+2
         BCC.N    ??f_read_8
         CMN      R0,#+1
         BEQ.N    ??f_read_9
-        STR      R0,[R4, #+20]
+        STR      R0,[R10, #+532]
 ??f_read_7:
-        LDR      R0,[R4, #+0]
-        LDR      R2,[R4, #+20]
+        LDR      R0,[R10, #+512]
+        LDR      R2,[R10, #+532]
         ADD      R3,R0,#+532
         SUBS     R2,R2,#+2
         LDR      R12,[R3, #+0]
@@ -5682,61 +5766,62 @@ f_read:
         CBNZ.N   R2,??f_read_10
 ??f_read_8:
         MOVS     R0,#+2
-        B.N      ??f_read_11
+        STRB     R0,[R10, #+519]
+        POP      {R4-R10,PC}
 ??f_read_10:
-        ADDS     R7,R5,R2
-        LSRS     R11,R10,#+9
-        BEQ.N    ??f_read_12
-        ADD      R2,R11,R5
+        LSRS     R5,R7,#+9
+        ADD      R9,R4,R2
+        BEQ.N    ??f_read_11
+        ADDS     R2,R5,R4
         CMP      R1,R2
-        MOV      R2,R7
+        MOV      R2,R9
         IT       CC 
-        SUBCC    R11,R1,R5
+        SUBCC    R5,R1,R4
         LDRB     R0,[R0, #+513]
-        MOV      R3,R11
+        MOV      R3,R5
         MOV      R1,R8
           CFI FunCall disk_read
         BL       disk_read
         CBNZ.N   R0,??f_read_9
-        LDRB     R0,[R4, #+6]
+        LDRB     R0,[R10, #+518]
         LSLS     R0,R0,#+25
-        BPL.N    ??f_read_13
-        LDR      R0,[R4, #+24]
-        SUBS     R0,R0,R7
-        CMP      R0,R11
-        BCS.N    ??f_read_13
+        BPL.N    ??f_read_12
+        LDR      R0,[R10, #+536]
+        SUB      R0,R0,R9
+        CMP      R0,R5
+        BCS.N    ??f_read_12
         ADD      R0,R8,R0, LSL #+9
-        MOV      R1,R9
+        MOV      R1,R10
         MOV      R2,#+512
-??f_read_14:
+??f_read_13:
         LDRB     R3,[R1], #+1
         SUBS     R2,R2,#+1
         STRB     R3,[R0], #+1
-        BNE.N    ??f_read_14
-??f_read_13:
-        LSL      R0,R11,#+9
-        B.N      ??f_read_4
+        BNE.N    ??f_read_13
 ??f_read_12:
-        LDR      R2,[R4, #+24]
-        CMP      R2,R7
-        BEQ.N    ??f_read_2
-        LDRB     R1,[R4, #+6]
+        LSLS     R1,R5,#+9
+        B.N      ??f_read_4
+??f_read_11:
+        LDR      R2,[R10, #+536]
+        CMP      R2,R9
+        BEQ.W    ??f_read_2
+        LDRB     R1,[R10, #+518]
         LSLS     R1,R1,#+25
-        BPL.N    ??f_read_15
+        BPL.N    ??f_read_14
         LDRB     R0,[R0, #+513]
         MOVS     R3,#+1
-        MOV      R1,R9
+        MOV      R1,R10
           CFI FunCall disk_write
         BL       disk_write
         CBNZ.N   R0,??f_read_9
-        LDRB     R0,[R4, #+6]
+        LDRB     R0,[R10, #+518]
         AND      R0,R0,#0xBF
-        STRB     R0,[R4, #+6]
-??f_read_15:
-        LDR      R0,[R4, #+0]
+        STRB     R0,[R10, #+518]
+??f_read_14:
+        LDR      R0,[R10, #+512]
         MOVS     R3,#+1
-        MOV      R2,R7
-        MOV      R1,R9
+        MOV      R2,R9
+        MOV      R1,R10
         LDRB     R0,[R0, #+513]
           CFI FunCall disk_read
         BL       disk_read
@@ -5744,18 +5829,18 @@ f_read:
         BEQ.W    ??f_read_2
 ??f_read_9:
         MOVS     R0,#+1
+        STRB     R0,[R10, #+519]
+        POP      {R4-R10,PC}
 // 2745 #endif
 // 2746 	}
-??f_read_11:
-        B.N      ?Subroutine6
 // 2747 
 // 2748 	LEAVE_FF(fp->fs, FR_OK);
 ??f_read_6:
         MOVS     R0,#+0
 ??f_read_0:
-        POP      {R1,R4-R11,PC}   ;; return
+        POP      {R4-R10,PC}      ;; return
 // 2749 }
-          CFI EndBlock cfiBlock32
+          CFI EndBlock cfiBlock25
 // 2750 
 // 2751 
 // 2752 
@@ -5766,8 +5851,8 @@ f_read:
 // 2757 /*-----------------------------------------------------------------------*/
 // 2758 
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock33 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock26 Using cfiCommon0
           CFI Function f_write
         THUMB
 // 2759 FRESULT f_write (
@@ -5790,7 +5875,6 @@ f_write:
           CFI R4 Frame(CFA, -36)
           CFI CFA R13+40
         MOV      R9,R0
-        MOV      R11,R3
 // 2766 	FRESULT res;
 // 2767 	DWORD clst, sect;
 // 2768 	UINT wcnt, cc;
@@ -5800,8 +5884,8 @@ f_write:
 // 2772 
 // 2773 	*bw = 0;	/* Clear write byte counter */
         MOVS     R0,#+0
-        MOV      R7,R2
-        STR      R0,[R11, #+0]
+        STR      R0,[R3, #+0]
+        MOV      R10,R2
         MOV      R8,R1
 // 2774 
 // 2775 	res = validate(fp);						/* Check validity */
@@ -5810,23 +5894,22 @@ f_write:
         BL       validate
 // 2776 	if (res != FR_OK) LEAVE_FF(fp->fs, res);
         CMP      R0,#+0
-        ITTT     EQ 
-        ADDEQ    R4,R9,#+512
-        LDRBEQ   R0,[R4, #+7]
+        ITT      EQ 
+        LDRBEQ   R0,[R9, #+519]
         CMPEQ    R0,#+0
 // 2777 	if (fp->err)							/* Check error */
         BNE.N    ??f_write_0
 // 2778 		LEAVE_FF(fp->fs, (FRESULT)fp->err);
 // 2779 	if (!(fp->flag & FA_WRITE))				/* Check access mode */
-        LDRB     R0,[R4, #+6]
+        LDRB     R0,[R9, #+518]
         LSLS     R0,R0,#+30
         IT       PL 
         MOVPL    R0,#+7
 // 2780 		LEAVE_FF(fp->fs, FR_DENIED);
         BPL.N    ??f_write_0
 // 2781 	if (fp->fptr + btw < fp->fptr) btw = 0;	/* File size cannot reach 4GB */
-        LDR      R0,[R4, #+8]
-        ADDS     R1,R7,R0
+        LDR      R0,[R9, #+520]
+        ADD      R1,R10,R0
         CMP      R1,R0
         BCS.N    ??f_write_1
 // 2782 
@@ -5917,192 +6000,331 @@ f_write:
 // 2867 
 // 2868 	if (fp->fptr > fp->fsize) fp->fsize = fp->fptr;	/* Update file size if needed */
 ??f_write_2:
-        LDR      R0,[R4, #+12]
-        LDR      R1,[R4, #+8]
+        LDR      R0,[R9, #+524]
+        LDR      R1,[R9, #+520]
         CMP      R0,R1
         IT       CC 
         MOVCC    R0,R1
-        STR      R0,[R4, #+12]
+        STR      R0,[R9, #+524]
 // 2869 	fp->flag |= FA__WRITTEN;						/* Set file change flag */
-        LDRB     R0,[R4, #+6]
+        LDRB     R0,[R9, #+518]
         ORR      R0,R0,#0x20
-        STRB     R0,[R4, #+6]
+        STRB     R0,[R9, #+518]
 // 2870 
 // 2871 	LEAVE_FF(fp->fs, FR_OK);
         MOVS     R0,#+0
 ??f_write_0:
-        POP      {R1,R4-R11,PC}   ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}      ;; return
+        Nop      
+          CFI CFA R13+40
 ??f_write_3:
-        STR      R10,[R4, #+24]
+        STR      R5,[R9, #+536]
 ??f_write_4:
-        LDR      R0,[R4, #+8]
+        LDR      R0,[R9, #+520]
         MOV      R2,R8
         LSLS     R1,R0,#+23
         LSRS     R1,R1,#+23
         RSB      R0,R1,#+512
-        CMP      R7,R0
+        CMP      R10,R0
         ADD      R1,R1,R9
         IT       LS 
-        MOVLS    R0,R7
+        MOVLS    R0,R10
         CBZ.N    R0,??f_write_5
-        MOV      R3,R0
+        MOV.W    R3,R0
 ??f_write_6:
-        LDRB     R12,[R2], #+1
+        LDRB     R7,[R2], #+1
         SUBS     R3,R3,#+1
-        STRB     R12,[R1], #+1
+        STRB     R7,[R1], #+1
         BNE.N    ??f_write_6
 ??f_write_5:
-        LDRB     R1,[R4, #+6]
+        LDRB     R1,[R9, #+518]
         ORR      R1,R1,#0x40
-        STRB     R1,[R4, #+6]
+        STRB     R1,[R9, #+518]
 ??f_write_7:
-        LDR      R1,[R4, #+8]
+        LDR      R1,[R9, #+520]
         ADD      R8,R0,R8
-        SUBS     R7,R7,R0
+        SUB      R10,R10,R0
         ADDS     R1,R0,R1
-        STR      R1,[R4, #+8]
-        LDR      R1,[R11, #+0]
+        STR      R1,[R9, #+520]
+        LDR      R1,[SP, #+0]
+        LDR      R2,[SP, #+0]
+        LDR      R1,[R1, #+0]
         ADDS     R1,R0,R1
-        STR      R1,[R11, #+0]
+        STR      R1,[R2, #+0]
 ??f_write_1:
-        CMP      R7,#+0
+        CMP      R10,#+0
         BEQ.N    ??f_write_2
-        LDR      R1,[R4, #+8]
-        LSLS     R0,R1,#+23
+        LDR      R0,[R9, #+520]
+        LSLS     R1,R0,#+23
         BNE.N    ??f_write_4
-        LDR      R0,[R4, #+0]
-        LDRB     R3,[R0, #+514]
-        SUBS     R3,R3,#+1
-        AND      R5,R3,R1, LSR #+9
-        UXTB     R5,R5
-        CBNZ.N   R5,??f_write_8
-        CBNZ.N   R1,??f_write_9
-        LDR      R1,[R4, #+16]
-        CBNZ.N   R1,??f_write_10
-        B.N      ??f_write_11
-??f_write_9:
-        LDR      R1,[R4, #+20]
+        LDR      R4,[R9, #+512]
+        LDRB     R2,[R4, #+514]
+        SUBS     R2,R2,#+1
+        AND      R7,R2,R0, LSR #+9
+        UXTB     R7,R7
+        CMP      R7,#+0
+        BNE.W    ??f_write_8
+        CMP      R0,#+0
+        BNE.W    ??f_write_9
+        LDR      R0,[R9, #+528]
+        CMP      R0,#+0
+        BNE.W    ??f_write_10
+        LDR      R6,[R4, #+524]
+        CBZ.N    R6,??f_write_11
+        LDR      R0,[R4, #+532]
+        CMP      R6,R0
+        BCC.N    ??f_write_12
 ??f_write_11:
+        MOVS     R6,#+1
+??f_write_12:
+        MOV      R5,R6
+??f_write_13:
+        LDR      R0,[R4, #+532]
+        ADDS     R5,R5,#+1
+        CMP      R5,R0
+        BCC.N    ??f_write_14
+        MOVS     R5,#+2
+        CMP      R6,#+2
+        BCC.N    ??f_write_2
+??f_write_14:
+        MOV      R1,R5
+        MOV      R0,R4
+          CFI FunCall get_fat
+        BL       get_fat
+        CMP      R0,#+0
+        BNE.W    ??f_write_15
+        CMP      R5,#+2
+        BCC.N    ??f_write_16
+        LDR      R0,[R4, #+532]
+        CMP      R5,R0
+        BCS.N    ??f_write_16
+        LDRB     R0,[R4, #+512]
+        CMP      R0,#+1
+        BEQ.N    ??f_write_17
+        BCC.N    ??f_write_16
+        CMP      R0,#+3
+        BEQ.N    ??f_write_18
+        BCC.N    ??f_write_19
+        B.N      ??f_write_16
+??f_write_18:
+        LDR      R0,[R4, #+544]
+        ADD      R1,R0,R5, LSR #+7
+        MOV      R0,R4
+          CFI FunCall move_window
+        BL       move_window
+        CMP      R0,#+0
+        BNE.N    ??f_write_20
+        LSLS     R1,R5,#+2
+        LSLS     R1,R1,#+23
+        ADDS     R1,R4,R1, LSR #+23
+        MVN      R3,#-268435456
+        LDRB     R2,[R1, #+3]
+        ORR      R2,R3,R2, LSL #+24
+        MOVS     R3,#+255
+        STRB     R3,[R1, #+0]
+        LSRS     R2,R2,#+24
+        STRB     R3,[R1, #+1]
+        STRB     R3,[R1, #+2]
+        STRB     R2,[R1, #+3]
+        MOVS     R1,#+1
+        STRB     R1,[R4, #+516]
+        B.N      ??f_write_20
+??f_write_19:
+        LDR      R0,[R4, #+544]
+        ADD      R1,R0,R5, LSR #+8
+        MOV      R0,R4
+          CFI FunCall move_window
+        BL       move_window
+        CMP      R0,#+0
+        BNE.N    ??f_write_20
+        LSLS     R1,R5,#+1
+        LSLS     R1,R1,#+23
+        ADDS     R1,R4,R1, LSR #+23
+        MOVS     R3,#+255
+        STRB     R3,[R1, #+0]
+        STRB     R3,[R1, #+1]
+        MOVS     R1,#+1
+        STRB     R1,[R4, #+516]
+        B.N      ??f_write_20
+??f_write_17:
+        ADD      R6,R5,R5, LSR #+1
+        LDR      R0,[R4, #+544]
+        ADD      R1,R0,R6, LSR #+9
+        MOV      R0,R4
+          CFI FunCall move_window
+        BL       move_window
+        CBNZ.N   R0,??f_write_20
+        LSLS     R0,R6,#+23
+        ADDS     R6,R6,#+1
+        ADDS     R1,R4,R0, LSR #+23
+        ANDS     R11,R5,#0x1
+        ITTE     NE 
+        LDRBNE   R0,[R1, #+0]
+        ORRNE    R0,R0,#0xF0
+        MOVEQ    R0,#+255
+        STRB     R0,[R1, #+0]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+516]
+        LDR      R0,[R4, #+544]
+        ADD      R1,R0,R6, LSR #+9
+        MOV      R0,R4
+          CFI FunCall move_window
+        BL       move_window
+        CBNZ.N   R0,??f_write_20
+        LSLS     R1,R6,#+23
+        ADDS     R1,R4,R1, LSR #+23
+        CMP      R11,#+0
+        ITEE     NE 
+        MOVNE    R2,#+255
+        LDRBEQ   R2,[R1, #+0]
+        ORREQ    R2,R2,#0xF
+        STRB     R2,[R1, #+0]
+        MOVS     R1,#+1
+        STRB     R1,[R4, #+516]
+        B.N      ??f_write_20
+??f_write_16:
+        MOVS     R0,#+2
+??f_write_20:
+        CBNZ.N   R0,??f_write_21
+        LDR      R0,[R4, #+528]
+        STR      R5,[R4, #+524]
+        CMN      R0,#+1
+        BEQ.N    ??f_write_22
+        SUBS     R0,R0,#+1
+        STR      R0,[R4, #+528]
+        LDRB     R0,[R4, #+517]
+        ORR      R0,R0,#0x1
+        STRB     R0,[R4, #+517]
+        MOV      R0,R5
+        B.N      ??f_write_10
+??f_write_21:
+        CMP      R0,#+1
+        ITE      EQ 
+        MOVEQ    R5,#-1
+        MOVNE    R5,#+1
+??f_write_22:
+        MOV      R0,R5
+        B.N      ??f_write_10
+??f_write_15:
+        CMN      R0,#+1
+        IT       NE 
+        CMPNE    R0,#+1
+        BEQ.N    ??f_write_23
+        CMP      R5,R6
+        BNE.W    ??f_write_13
+        B.N      ??f_write_2
+??f_write_9:
+        LDR      R1,[R9, #+532]
+        MOV      R0,R4
           CFI FunCall create_chain
         BL       create_chain
-        MOV      R1,R0
 ??f_write_10:
-        CMP      R1,#+0
-        BEQ.N    ??f_write_2
-        CMP      R1,#+1
-        BEQ.N    ??f_write_12
-        CMN      R1,#+1
-        BEQ.N    ??f_write_13
-        STR      R1,[R4, #+20]
-        LDR      R0,[R4, #+16]
-        CBNZ.N   R0,??f_write_8
-        STR      R1,[R4, #+16]
+        CMP      R0,#+0
+        BEQ.W    ??f_write_2
+??f_write_23:
+        CMP      R0,#+1
+        BEQ.N    ??f_write_24
+        CMN      R0,#+1
+        BEQ.N    ??f_write_25
+        LDR      R1,[R9, #+528]
+        STR      R0,[R9, #+532]
+        CBNZ.N   R1,??f_write_8
+        STR      R0,[R9, #+528]
 ??f_write_8:
-        LDRB     R0,[R4, #+6]
+        LDRB     R0,[R9, #+518]
         LSLS     R0,R0,#+25
-        BPL.N    ??f_write_14
-        LDR      R0,[R4, #+0]
-        LDR      R2,[R4, #+24]
+        BPL.N    ??f_write_26
+        LDR      R0,[R9, #+512]
+        LDR      R2,[R9, #+536]
         MOVS     R3,#+1
         MOV      R1,R9
         LDRB     R0,[R0, #+513]
           CFI FunCall disk_write
         BL       disk_write
         CMP      R0,#+0
-        BNE.N    ??f_write_13
-        LDRB     R0,[R4, #+6]
+        BNE.N    ??f_write_25
+        LDRB     R0,[R9, #+518]
         AND      R0,R0,#0xBF
-        STRB     R0,[R4, #+6]
-??f_write_14:
-        LDR      R0,[R4, #+0]
-        LDR      R2,[R4, #+20]
+        STRB     R0,[R9, #+518]
+??f_write_26:
+        LDR      R0,[R9, #+512]
+        LDR      R2,[R9, #+532]
         ADD      R3,R0,#+532
         SUBS     R2,R2,#+2
         LDR      R12,[R3, #+0]
         SUB      R12,R12,#+2
         CMP      R2,R12
-        BCS.N    ??f_write_12
+        BCS.N    ??f_write_24
         LDRB     R1,[R0, #+514]
         LDR      R3,[R3, #+20]
         MLA      R2,R1,R2,R3
-        CBNZ.N   R2,??f_write_15
-??f_write_12:
+        CBNZ.N   R2,??f_write_27
+??f_write_24:
         MOVS     R0,#+2
-??f_write_16:
-        B.N      ?Subroutine6
-??f_write_15:
-        LSRS     R6,R7,#+9
-        ADD      R10,R5,R2
-        BEQ.N    ??f_write_17
-        ADDS     R2,R6,R5
+        STRB     R0,[R9, #+519]
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+40
+??f_write_27:
+        ADDS     R5,R7,R2
+        LSRS     R4,R10,#+9
+        BEQ.N    ??f_write_28
+        ADDS     R2,R4,R7
         CMP      R1,R2
-        MOV      R2,R10
+        MOV      R2,R5
         IT       CC 
-        SUBCC    R6,R1,R5
+        SUBCC    R4,R1,R7
         LDRB     R0,[R0, #+513]
-        MOV      R3,R6
+        MOV      R3,R4
         MOV      R1,R8
           CFI FunCall disk_write
         BL       disk_write
-        CBNZ.N   R0,??f_write_13
-        LDR      R0,[R4, #+24]
-        SUB      R0,R0,R10
-        CMP      R0,R6
-        BCS.N    ??f_write_18
-        MOV      R1,R9
+        CBNZ.N   R0,??f_write_25
+        LDR      R0,[R9, #+536]
+        SUBS     R0,R0,R5
+        CMP      R0,R4
+        BCS.N    ??f_write_29
+        MOV.W    R1,R9
         ADD      R0,R8,R0, LSL #+9
         MOV      R2,#+512
-??f_write_19:
+??f_write_30:
         LDRB     R3,[R0], #+1
         SUBS     R2,R2,#+1
         STRB     R3,[R1], #+1
-        BNE.N    ??f_write_19
-        LDRB     R0,[R4, #+6]
+        BNE.N    ??f_write_30
+        LDRB     R0,[R9, #+518]
         AND      R0,R0,#0xBF
-        STRB     R0,[R4, #+6]
-??f_write_18:
-        LSLS     R0,R6,#+9
+        STRB     R0,[R9, #+518]
+??f_write_29:
+        LSLS     R0,R4,#+9
         B.N      ??f_write_7
-??f_write_17:
-        LDR      R1,[R4, #+24]
-        CMP      R1,R10
+??f_write_28:
+        LDR      R1,[R9, #+536]
+        CMP      R1,R5
         BEQ.W    ??f_write_3
-        LDR      R1,[R4, #+8]
-        LDR      R2,[R4, #+12]
+        LDR      R1,[R9, #+520]
+        LDR      R2,[R9, #+524]
         CMP      R1,R2
         BCS.W    ??f_write_3
         LDRB     R0,[R0, #+513]
         MOVS     R3,#+1
-        MOV      R2,R10
+        MOV      R2,R5
         MOV      R1,R9
           CFI FunCall disk_read
         BL       disk_read
         CMP      R0,#+0
         BEQ.W    ??f_write_3
-??f_write_13:
+??f_write_25:
         MOVS     R0,#+1
-        B.N      ??f_write_16
+        STRB     R0,[R9, #+519]
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
 // 2872 }
-          CFI EndBlock cfiBlock33
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock34 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+40
-          CFI R4 Frame(CFA, -36)
-          CFI R5 Frame(CFA, -32)
-          CFI R6 Frame(CFA, -28)
-          CFI R7 Frame(CFA, -24)
-          CFI R8 Frame(CFA, -20)
-          CFI R9 Frame(CFA, -16)
-          CFI R10 Frame(CFA, -12)
-          CFI R11 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine6:
-        STRB     R0,[R4, #+7]
-        POP      {R1,R4-R11,PC}
-          CFI EndBlock cfiBlock34
+          CFI EndBlock cfiBlock26
 // 2873 
 // 2874 
 // 2875 
@@ -6113,7 +6335,7 @@ f_write:
 // 2880 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock35 Using cfiCommon0
+          CFI Block cfiBlock27 Using cfiCommon0
           CFI Function f_sync
         THUMB
 // 2881 FRESULT f_sync (
@@ -6121,12 +6343,14 @@ f_write:
 // 2883 )
 // 2884 {
 f_sync:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
+        SUB      SP,SP,#+4
           CFI CFA R13+16
-        MOV      R5,R0
+        MOV      R4,R0
 // 2885 	FRESULT res;
 // 2886 	DWORD tm;
 // 2887 	BYTE *dir;
@@ -6139,8 +6363,7 @@ f_sync:
         CMP      R0,#+0
         BNE.N    ??f_sync_0
 // 2892 		if (fp->flag & FA__WRITTEN) {	/* Has the file been written? */
-        ADD      R4,R5,#+512
-        LDRB     R1,[R4, #+6]
+        LDRB     R1,[R4, #+518]
         LSLS     R2,R1,#+26
         BPL.N    ??f_sync_0
 // 2893 			/* Write-back dirty buffer */
@@ -6149,61 +6372,79 @@ f_sync:
         LSLS     R0,R1,#+25
         BPL.N    ??f_sync_1
 // 2896 				if (disk_write(fp->fs->drv, fp->buf.d8, fp->dsect, 1) != RES_OK)
-        LDR      R0,[R4, #+0]
-        LDR      R2,[R4, #+24]
+        LDR      R0,[R4, #+512]
+        LDR      R2,[R4, #+536]
         MOVS     R3,#+1
-        MOV      R1,R5
+        MOV      R1,R4
         LDRB     R0,[R0, #+513]
           CFI FunCall disk_write
         BL       disk_write
         CBZ.N    R0,??f_sync_2
 // 2897 					LEAVE_FF(fp->fs, FR_DISK_ERR);
         MOVS     R0,#+1
-        POP      {R1,R4,R5,PC}
 // 2898 				fp->flag &= ~FA__DIRTY;
-??f_sync_2:
-        LDRB     R0,[R4, #+6]
-        AND      R0,R0,#0xBF
-        STRB     R0,[R4, #+6]
 // 2899 			}
 // 2900 #endif
 // 2901 			/* Update the directory entry */
 // 2902 			res = move_window(fp->fs, fp->dir_sect);
+// 2903 			if (res == FR_OK) {
+// 2904 				dir = fp->dir_ptr;
+// 2905 				dir[DIR_Attr] |= AM_ARC;					/* Set archive bit */
+// 2906 				ST_DWORD(dir + DIR_FileSize, fp->fsize);	/* Update file size */
+// 2907 				st_clust(dir, fp->sclust);					/* Update start cluster */
+// 2908 				tm = GET_FATTIME();							/* Update updated time */
+// 2909 				ST_DWORD(dir + DIR_WrtTime, tm);
+// 2910 				ST_WORD(dir + DIR_LstAccDate, 0);
+// 2911 				fp->flag &= ~FA__WRITTEN;
+// 2912 				fp->fs->wflag = 1;
+// 2913 				res = sync_fs(fp->fs);
+// 2914 			}
+// 2915 		}
+// 2916 	}
+// 2917 
+// 2918 	LEAVE_FF(fp->fs, res);
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
+??f_sync_2:
+        LDRB     R0,[R4, #+518]
+        AND      R0,R0,#0xBF
+        STRB     R0,[R4, #+518]
 ??f_sync_1:
-        LDR      R1,[R4, #+28]
-        LDR      R0,[R4, #+0]
+        LDR      R1,[R4, #+540]
+        LDR      R0,[R4, #+512]
           CFI FunCall move_window
         BL       move_window
-// 2903 			if (res == FR_OK) {
-        CBNZ.N   R0,??f_sync_0
-// 2904 				dir = fp->dir_ptr;
-        LDR      R5,[R4, #+32]
-// 2905 				dir[DIR_Attr] |= AM_ARC;					/* Set archive bit */
+        CMP      R0,#+0
+        BNE.N    ??f_sync_0
+        LDR      R5,[R4, #+544]
         LDRB     R0,[R5, #+11]
         ORR      R0,R0,#0x20
         STRB     R0,[R5, #+11]
-// 2906 				ST_DWORD(dir + DIR_FileSize, fp->fsize);	/* Update file size */
-        LDR      R0,[R4, #+12]
+        LDR      R0,[R4, #+524]
         STRB     R0,[R5, #+28]
-        LDR      R0,[R4, #+12]
+        LDR      R0,[R4, #+524]
         LSLS     R0,R0,#+16
         LSRS     R0,R0,#+24
         STRB     R0,[R5, #+29]
-        LDR      R0,[R4, #+12]
+        LDR      R0,[R4, #+524]
         LSRS     R0,R0,#+16
         STRB     R0,[R5, #+30]
-        LDR      R0,[R4, #+12]
+        LDR      R0,[R4, #+524]
         LSRS     R0,R0,#+24
         STRB     R0,[R5, #+31]
-// 2907 				st_clust(dir, fp->sclust);					/* Update start cluster */
-        LDR      R1,[R4, #+16]
-        MOV      R0,R5
-          CFI FunCall st_clust
-        BL       st_clust
-// 2908 				tm = GET_FATTIME();							/* Update updated time */
+        LDR      R0,[R4, #+528]
+        STRB     R0,[R5, #+26]
+        LSLS     R1,R0,#+16
+        LSRS     R0,R0,#+16
+        STRB     R0,[R5, #+20]
+        LSRS     R1,R1,#+24
+        LSRS     R0,R0,#+8
+        STRB     R1,[R5, #+27]
+        STRB     R0,[R5, #+21]
           CFI FunCall get_fattime
         BL       get_fattime
-// 2909 				ST_DWORD(dir + DIR_WrtTime, tm);
         STRB     R0,[R5, #+22]
         LSLS     R1,R0,#+16
         LSRS     R1,R1,#+24
@@ -6212,21 +6453,19 @@ f_sync:
         LSRS     R0,R0,#+24
         STRB     R1,[R5, #+24]
         STRB     R0,[R5, #+25]
-// 2910 				ST_WORD(dir + DIR_LstAccDate, 0);
         MOVS     R0,#+0
         STRB     R0,[R5, #+18]
         STRB     R0,[R5, #+19]
-// 2911 				fp->flag &= ~FA__WRITTEN;
-        LDRB     R0,[R4, #+6]
-// 2912 				fp->fs->wflag = 1;
-        LDR      R1,[R4, #+0]
+        LDRB     R0,[R4, #+518]
+        LDR      R1,[R4, #+512]
         AND      R0,R0,#0xDF
-        STRB     R0,[R4, #+6]
+        STRB     R0,[R4, #+518]
         MOVS     R0,#+1
         STRB     R0,[R1, #+516]
-// 2913 				res = sync_fs(fp->fs);
-        LDR      R0,[R4, #+0]
-        POP      {R1,R4,R5,LR}
+        LDR      R0,[R4, #+512]
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,LR}
           CFI R4 SameValue
           CFI R5 SameValue
           CFI R14 SameValue
@@ -6237,15 +6476,12 @@ f_sync:
           CFI R5 Frame(CFA, -8)
           CFI R14 Frame(CFA, -4)
           CFI CFA R13+16
-// 2914 			}
-// 2915 		}
-// 2916 	}
-// 2917 
-// 2918 	LEAVE_FF(fp->fs, res);
 ??f_sync_0:
-        POP      {R1,R4,R5,PC}    ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
 // 2919 }
-          CFI EndBlock cfiBlock35
+          CFI EndBlock cfiBlock27
 // 2920 
 // 2921 #endif /* !_FS_READONLY */
 // 2922 
@@ -6258,7 +6494,7 @@ f_sync:
 // 2929 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock36 Using cfiCommon0
+          CFI Block cfiBlock28 Using cfiCommon0
           CFI Function f_close
         THUMB
 // 2930 FRESULT f_close (
@@ -6293,8 +6529,7 @@ f_close:
 // 2946 #endif
 // 2947 #if _FS_LOCK
 // 2948 			res = dec_lock(fp->lockid);	/* Decrement file open counter */
-        ADD      R4,R4,#+512
-        LDR      R0,[R4, #+36]
+        LDR      R0,[R4, #+548]
           CFI FunCall dec_lock
         BL       dec_lock
 // 2949 			if (res == FR_OK)
@@ -6302,7 +6537,7 @@ f_close:
 // 2950 #endif
 // 2951 				fp->fs = 0;				/* Invalidate file object */
         MOVS     R1,#+0
-        STR      R1,[R4, #+0]
+        STR      R1,[R4, #+512]
 // 2952 #if _FS_REENTRANT
 // 2953 			unlock_fs(fs, FR_OK);		/* Unlock volume */
 // 2954 #endif
@@ -6312,7 +6547,7 @@ f_close:
 ??f_close_0:
         POP      {R4,PC}          ;; return
 // 2958 }
-          CFI EndBlock cfiBlock36
+          CFI EndBlock cfiBlock28
 // 2959 
 // 2960 
 // 2961 
@@ -6457,8 +6692,8 @@ f_close:
 // 3100 /*-----------------------------------------------------------------------*/
 // 3101 
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock37 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock29 Using cfiCommon0
           CFI Function f_lseek
         THUMB
 // 3102 FRESULT f_lseek (
@@ -6467,17 +6702,21 @@ f_close:
 // 3105 )
 // 3106 {
 f_lseek:
-        PUSH     {R3-R9,LR}
+        PUSH     {R4-R11,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R9 Frame(CFA, -8)
-          CFI R8 Frame(CFA, -12)
-          CFI R7 Frame(CFA, -16)
-          CFI R6 Frame(CFA, -20)
-          CFI R5 Frame(CFA, -24)
-          CFI R4 Frame(CFA, -28)
-          CFI CFA R13+32
+          CFI R11 Frame(CFA, -8)
+          CFI R10 Frame(CFA, -12)
+          CFI R9 Frame(CFA, -16)
+          CFI R8 Frame(CFA, -20)
+          CFI R7 Frame(CFA, -24)
+          CFI R6 Frame(CFA, -28)
+          CFI R5 Frame(CFA, -32)
+          CFI R4 Frame(CFA, -36)
+          CFI CFA R13+36
+        SUB      SP,SP,#+12
+          CFI CFA R13+48
         MOV      R8,R0
-        MOV      R5,R1
+        MOV      R10,R1
 // 3107 	FRESULT res;
 // 3108 	DWORD clst, bcs, nsect, ifptr;
 // 3109 #if _USE_FASTSEEK
@@ -6488,12 +6727,12 @@ f_lseek:
 // 3114 	res = validate(fp);					/* Check validity of the object */
           CFI FunCall validate
         BL       validate
-        MOVS     R9,R0
 // 3115 	if (res != FR_OK) LEAVE_FF(fp->fs, res);
+        CMP      R0,#+0
+        STRB     R0,[SP, #+4]
         BNE.W    ??f_lseek_0
 // 3116 	if (fp->err)						/* Check error */
-        ADD      R7,R8,#+512
-        LDRB     R0,[R7, #+7]
+        LDRB     R0,[R8, #+519]
         CMP      R0,#+0
         BNE.W    ??f_lseek_1
 // 3117 		LEAVE_FF(fp->fs, (FRESULT)fp->err);
@@ -6560,73 +6799,222 @@ f_lseek:
 // 3178 			 && !(fp->flag & FA_WRITE)
 // 3179 #endif
 // 3180 			) ofs = fp->fsize;
-        LDR      R0,[R7, #+12]
-        CMP      R0,R5
+        LDR      R0,[R8, #+524]
+        CMP      R0,R10
         BCS.N    ??f_lseek_2
-        LDRB     R1,[R7, #+6]
+        LDRB     R1,[R8, #+518]
         LSLS     R1,R1,#+30
         IT       PL 
-        MOVPL    R5,R0
+        MOVPL    R10,R0
 // 3181 
 // 3182 		ifptr = fp->fptr;
-??f_lseek_2:
-        LDR      R1,[R7, #+8]
 // 3183 		fp->fptr = nsect = 0;
-        MOVS     R4,#+0
 // 3184 		if (ofs) {
-        CMP      R5,#+0
-        STR      R4,[R7, #+8]
-        BEQ.N    ??f_lseek_3
+??f_lseek_2:
+        CMP      R10,#+0
+        LDR      R0,[R8, #+520]
+        MOV      R9,#+0
+        STR      R9,[R8, #+520]
+        BEQ.W    ??f_lseek_3
 // 3185 			bcs = (DWORD)fp->fs->csize * SS(fp->fs);	/* Cluster size (byte) */
-        LDR      R0,[R7, #+0]
-        LDRB     R2,[R0, #+514]
-        LSLS     R6,R2,#+9
+        LDR      R4,[R8, #+512]
+        LDRB     R1,[R4, #+514]
+        LSLS     R1,R1,#+9
+        STR      R1,[SP, #+0]
 // 3186 			if (ifptr > 0 &&
 // 3187 				(ofs - 1) / bcs >= (ifptr - 1) / bcs) {	/* When seek to same or following cluster, */
-        CBZ.N    R1,??f_lseek_4
-        SUBS     R1,R1,#+1
-        SUBS     R3,R5,#+1
-        UDIV     R2,R1,R6
-        UDIV     R3,R3,R6
-        CMP      R3,R2
+        CBZ.N    R0,??f_lseek_4
+        LDR      R1,[SP, #+0]
+        LDR      R3,[SP, #+0]
+        SUBS     R0,R0,#+1
+        SUB      R2,R10,#+1
+        UDIV     R1,R0,R1
+        UDIV     R2,R2,R3
+        CMP      R2,R1
         BCC.N    ??f_lseek_4
 // 3188 				fp->fptr = (ifptr - 1) & ~(bcs - 1);	/* start from the current cluster */
-        SUBS     R0,R6,#+1
-        BIC      R0,R1,R0
-        STR      R0,[R7, #+8]
+        SUBS     R1,R3,#+1
+        BICS     R0,R0,R1
+        STR      R0,[R8, #+520]
 // 3189 				ofs -= fp->fptr;
-        SUBS     R5,R5,R0
+        SUB      R10,R10,R0
 // 3190 				clst = fp->clust;
-        LDR      R1,[R7, #+20]
+        LDR      R6,[R8, #+532]
         B.N      ??f_lseek_5
 // 3191 			} else {									/* When seek to back cluster, */
 // 3192 				clst = fp->sclust;						/* start from the first cluster */
 ??f_lseek_4:
-        LDR      R1,[R7, #+16]
+        LDR      R6,[R8, #+528]
 // 3193 #if !_FS_READONLY
 // 3194 				if (clst == 0) {						/* If no cluster chain, create a new chain */
-        CBNZ.N   R1,??f_lseek_6
+        CMP      R6,#+0
+        BNE.W    ??f_lseek_6
 // 3195 					clst = create_chain(fp->fs, 0);
-          CFI FunCall create_chain
-        BL       create_chain
-        MOV      R1,R0
+        LDR      R7,[R4, #+524]
+        CBZ.N    R7,??f_lseek_7
+        LDR      R0,[R4, #+532]
+        CMP      R7,R0
+        BCC.N    ??f_lseek_8
+??f_lseek_7:
+        MOVS     R7,#+1
+??f_lseek_8:
+        MOV.W    R5,R7
+??f_lseek_9:
+        LDR      R0,[R4, #+532]
+        ADDS     R5,R5,#+1
+        CMP      R5,R0
+        BCC.N    ??f_lseek_10
+        MOVS     R5,#+2
+        CMP      R7,#+2
+        BCC.W    ??f_lseek_11
+??f_lseek_10:
+        MOV      R1,R5
+        MOV      R0,R4
+          CFI FunCall get_fat
+        BL       get_fat
+        CMP      R0,#+0
+        BNE.W    ??f_lseek_12
+        CMP      R5,#+2
+        BCC.N    ??f_lseek_13
+        LDR      R0,[R4, #+532]
+        CMP      R5,R0
+        BCS.N    ??f_lseek_13
+        LDRB     R0,[R4, #+512]
+        CMP      R0,#+1
+        BEQ.N    ??f_lseek_14
+        BCC.N    ??f_lseek_13
+        CMP      R0,#+3
+        BEQ.N    ??f_lseek_15
+        BCC.N    ??f_lseek_16
+        B.N      ??f_lseek_13
+??f_lseek_15:
+        LDR      R0,[R4, #+544]
+        ADD      R1,R0,R5, LSR #+7
+        MOV      R0,R4
+          CFI FunCall move_window
+        BL       move_window
+        CMP      R0,#+0
+        BNE.N    ??f_lseek_17
+        LSLS     R1,R5,#+2
+        LSLS     R1,R1,#+23
+        ADDS     R2,R4,R1, LSR #+23
+        MVN      R3,#-268435456
+        LDRB     R1,[R2, #+3]
+        ORR      R3,R3,R1, LSL #+24
+        MOVS     R1,#+255
+        STRB     R1,[R2, #+0]
+        STRB     R1,[R2, #+1]
+        STRB     R1,[R2, #+2]
+        LSRS     R1,R3,#+24
+        STRB     R1,[R2, #+3]
+        MOVS     R1,#+1
+        STRB     R1,[R4, #+516]
+        B.N      ??f_lseek_17
+??f_lseek_16:
+        LDR      R0,[R4, #+544]
+        ADD      R1,R0,R5, LSR #+8
+        MOV      R0,R4
+          CFI FunCall move_window
+        BL       move_window
+        CMP      R0,#+0
+        BNE.N    ??f_lseek_17
+        LSLS     R1,R5,#+1
+        LSLS     R1,R1,#+23
+        ADDS     R2,R4,R1, LSR #+23
+        MOVS     R1,#+255
+        STRB     R1,[R2, #+0]
+        STRB     R1,[R2, #+1]
+        MOVS     R1,#+1
+        STRB     R1,[R4, #+516]
+        B.N      ??f_lseek_17
+??f_lseek_14:
+        ADD      R6,R5,R5, LSR #+1
+        LDR      R0,[R4, #+544]
+        ADD      R1,R0,R6, LSR #+9
+        MOV      R0,R4
+          CFI FunCall move_window
+        BL       move_window
+        CBNZ.N   R0,??f_lseek_17
+        LSLS     R0,R6,#+23
+        ADDS     R6,R6,#+1
+        ADDS     R2,R4,R0, LSR #+23
+        ANDS     R7,R5,#0x1
+        ITTE     NE 
+        LDRBNE   R0,[R2, #+0]
+        ORRNE    R0,R0,#0xF0
+        MOVEQ    R0,#+255
+        STRB     R0,[R2, #+0]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+516]
+        LDR      R0,[R4, #+544]
+        ADD      R1,R0,R6, LSR #+9
+        MOV      R0,R4
+          CFI FunCall move_window
+        BL       move_window
+        CBNZ.N   R0,??f_lseek_17
+        LSLS     R1,R6,#+23
+        ADDS     R2,R4,R1, LSR #+23
+        CMP      R7,#+0
+        ITEE     NE 
+        MOVNE    R1,#+255
+        LDRBEQ   R1,[R2, #+0]
+        ORREQ    R1,R1,#0xF
+        STRB     R1,[R2, #+0]
+        MOVS     R1,#+1
+        STRB     R1,[R4, #+516]
+        B.N      ??f_lseek_17
+??f_lseek_13:
+        MOVS     R0,#+2
+??f_lseek_17:
+        CBNZ.N   R0,??f_lseek_18
+        LDR      R0,[R4, #+528]
+        STR      R5,[R4, #+524]
+        CMN      R0,#+1
+        BEQ.N    ??f_lseek_19
+        SUBS     R0,R0,#+1
+        MOV      R6,R5
+        STR      R0,[R4, #+528]
+        LDRB     R0,[R4, #+517]
+        ORR      R0,R0,#0x1
+        STRB     R0,[R4, #+517]
+        B.N      ??f_lseek_20
+??f_lseek_18:
+        CMP      R0,#+1
+        ITE      EQ 
+        MOVEQ    R5,#-1
+        MOVNE    R5,#+1
+??f_lseek_19:
+        MOV      R6,R5
+        B.N      ??f_lseek_20
+??f_lseek_12:
+        CMN      R0,#+1
+        IT       NE 
+        CMPNE    R0,#+1
+        BEQ.N    ??f_lseek_21
+        CMP      R5,R7
+        BNE.W    ??f_lseek_9
+        B.N      ??f_lseek_11
+??f_lseek_21:
+        MOV      R6,R0
 // 3196 					if (clst == 1) ABORT(fp->fs, FR_INT_ERR);
-        CMP      R1,#+1
-        BEQ.N    ??f_lseek_7
+??f_lseek_20:
+        CMP      R6,#+1
+        BEQ.W    ??f_lseek_22
 // 3197 					if (clst == 0xFFFFFFFF) ABORT(fp->fs, FR_DISK_ERR);
-        CMN      R1,#+1
-        BEQ.N    ??f_lseek_8
+        CMN      R6,#+1
+        BEQ.W    ??f_lseek_23
 // 3198 					fp->sclust = clst;
-        STR      R1,[R7, #+16]
+??f_lseek_11:
+        STR      R6,[R8, #+528]
 // 3199 				}
 // 3200 #endif
 // 3201 				fp->clust = clst;
 ??f_lseek_6:
-        STR      R1,[R7, #+20]
+        STR      R6,[R8, #+532]
 // 3202 			}
 // 3203 			if (clst != 0) {
 ??f_lseek_5:
-        CBNZ.N   R1,??f_lseek_9
+        CBNZ.N   R6,??f_lseek_24
         B.N      ??f_lseek_3
 // 3204 				while (ofs > bcs) {						/* Cluster following loop */
 // 3205 #if !_FS_READONLY
@@ -6638,139 +7026,408 @@ f_lseek:
 // 3211 					} else
 // 3212 #endif
 // 3213 						clst = get_fat(fp->fs, clst);	/* Follow cluster chain if not in write mode */
-??f_lseek_10:
+??f_lseek_25:
+        LDR      R0,[R8, #+512]
+        MOV      R1,R6
           CFI FunCall get_fat
         BL       get_fat
-        MOV      R1,R0
+        MOV      R6,R0
 // 3214 					if (clst == 0xFFFFFFFF) ABORT(fp->fs, FR_DISK_ERR);
-??f_lseek_11:
-        CMN      R1,#+1
-        BEQ.N    ??f_lseek_8
+??f_lseek_26:
+        CMN      R6,#+1
+        BEQ.W    ??f_lseek_23
 // 3215 					if (clst <= 1 || clst >= fp->fs->n_fatent) ABORT(fp->fs, FR_INT_ERR);
-        CMP      R1,#+2
-        BCC.N    ??f_lseek_7
-        LDR      R0,[R7, #+0]
+        CMP      R6,#+2
+        BCC.W    ??f_lseek_22
+        LDR      R0,[R8, #+512]
         LDR      R0,[R0, #+532]
-        CMP      R1,R0
-        BCS.N    ??f_lseek_7
+        CMP      R6,R0
+        BCS.W    ??f_lseek_22
 // 3216 					fp->clust = clst;
+        STR      R6,[R8, #+532]
 // 3217 					fp->fptr += bcs;
-        LDR      R0,[R7, #+8]
-        STR      R1,[R7, #+20]
+        LDR      R0,[R8, #+520]
+        LDR      R1,[SP, #+0]
+        ADDS     R0,R1,R0
+        STR      R0,[R8, #+520]
 // 3218 					ofs -= bcs;
-        SUBS     R5,R5,R6
-        ADDS     R0,R6,R0
-        STR      R0,[R7, #+8]
-??f_lseek_9:
-        CMP      R6,R5
-        BCS.N    ??f_lseek_12
-        LDRB     R2,[R7, #+6]
-        LDR      R0,[R7, #+0]
-        LSLS     R2,R2,#+30
-        BPL.N    ??f_lseek_10
-          CFI FunCall create_chain
-        BL       create_chain
-        MOVS     R1,R0
-        BNE.N    ??f_lseek_11
-        MOV      R5,R6
+        LDR      R0,[SP, #+0]
+        SUB      R10,R10,R0
+??f_lseek_24:
+        LDR      R0,[SP, #+0]
+        CMP      R0,R10
+        BCS.W    ??f_lseek_27
+        LDRB     R0,[R8, #+518]
+        LSLS     R0,R0,#+30
+        BPL.N    ??f_lseek_25
+        LDR      R4,[R8, #+512]
+        CBNZ.N   R6,??f_lseek_28
+        LDR      R7,[R4, #+524]
+        CBZ.N    R7,??f_lseek_29
+        LDR      R0,[R4, #+532]
+        CMP      R7,R0
+        BCC.N    ??f_lseek_30
+??f_lseek_29:
+        MOVS     R7,#+1
+        B.N      ??f_lseek_30
+??f_lseek_28:
+        CMP      R6,#+2
+        BCC.N    ??f_lseek_31
+        LDR      R0,[R4, #+532]
+        CMP      R6,R0
+        BCS.N    ??f_lseek_31
+        LDRB     R0,[R4, #+512]
+        MOV      R5,#-1
+        CMP      R0,#+1
+        BEQ.N    ??f_lseek_32
+        BCC.N    ??f_lseek_31
+        CMP      R0,#+3
+        BEQ.N    ??f_lseek_33
+        BCC.N    ??f_lseek_34
+        B.N      ??f_lseek_31
+??f_lseek_33:
+        LDR      R0,[R4, #+544]
+        ADD      R1,R0,R6, LSR #+7
+        MOV      R0,R4
+          CFI FunCall move_window
+        BL       move_window
+        CMP      R0,#+0
+        BNE.N    ??f_lseek_35
+        LSLS     R0,R6,#+2
+        LSLS     R0,R0,#+23
+        ADDS     R0,R4,R0, LSR #+23
+        LDRB     R2,[R0, #+2]
+        LDRB     R1,[R0, #+3]
+        LSLS     R2,R2,#+16
+        ORR      R1,R2,R1, LSL #+24
+        LDRB     R2,[R0, #+1]
+        LDRB     R0,[R0, #+0]
+        ORR      R1,R1,R2, LSL #+8
+        ORRS     R0,R0,R1
+        LSLS     R5,R0,#+4
+        LSRS     R5,R5,#+4
+        B.N      ??f_lseek_35
+??f_lseek_34:
+        LDR      R0,[R4, #+544]
+        ADD      R1,R0,R6, LSR #+8
+        MOV      R0,R4
+          CFI FunCall move_window
+        BL       move_window
+        CBNZ.N   R0,??f_lseek_35
+        LSLS     R0,R6,#+1
+        LSLS     R0,R0,#+23
+        ADDS     R0,R4,R0, LSR #+23
+        LDRB     R1,[R0, #+1]
+        LDRB     R0,[R0, #+0]
+        ORR      R5,R0,R1, LSL #+8
+        B.N      ??f_lseek_35
+??f_lseek_32:
+        ADD      R7,R6,R6, LSR #+1
+        LDR      R0,[R4, #+544]
+        ADD      R1,R0,R7, LSR #+9
+        MOV      R0,R4
+          CFI FunCall move_window
+        BL       move_window
+        CBNZ.N   R0,??f_lseek_35
+        LSLS     R0,R7,#+23
+        LSRS     R0,R0,#+23
+        ADDS     R7,R7,#+1
+        LDRB     R11,[R0, R4]
+        LDR      R0,[R4, #+544]
+        ADD      R1,R0,R7, LSR #+9
+        MOV      R0,R4
+          CFI FunCall move_window
+        BL       move_window
+        CBNZ.N   R0,??f_lseek_35
+        LSLS     R0,R7,#+23
+        LSRS     R0,R0,#+23
+        LDRB     R0,[R0, R4]
+        ORR      R11,R11,R0, LSL #+8
+        LSLS     R0,R6,#+31
+        ITTE     PL 
+        LSLPL    R5,R11,#+20
+        LSRPL    R5,R5,#+20
+        LSRMI    R5,R11,#+4
+        B.N      ??f_lseek_35
+??f_lseek_31:
+        MOVS     R5,#+1
+??f_lseek_35:
+        MOV      R0,R5
+        CMP      R0,#+2
+        BCC.W    ??f_lseek_22
+        CMN      R0,#+1
+        BEQ.W    ??f_lseek_36
+        LDR      R1,[R4, #+532]
+        CMP      R0,R1
+        BCC.W    ??f_lseek_36
+        MOV      R7,R6
+??f_lseek_30:
+        MOV.W    R5,R7
+??f_lseek_37:
+        LDR      R0,[R4, #+532]
+        ADDS     R5,R5,#+1
+        CMP      R5,R0
+        BCC.N    ??f_lseek_38
+        MOVS     R5,#+2
+        CMP      R7,#+2
+        BCC.W    ??f_lseek_39
+??f_lseek_38:
+        MOV      R1,R5
+        MOV      R0,R4
+          CFI FunCall get_fat
+        BL       get_fat
+        CMP      R0,#+0
+        BNE.W    ??f_lseek_40
+        CMP      R5,#+2
+        BCC.N    ??f_lseek_41
+        LDR      R0,[R4, #+532]
+        CMP      R5,R0
+        BCS.N    ??f_lseek_41
+        LDRB     R0,[R4, #+512]
+        CMP      R0,#+1
+        BEQ.N    ??f_lseek_42
+        BCC.N    ??f_lseek_41
+        CMP      R0,#+3
+        BEQ.N    ??f_lseek_43
+        BCC.N    ??f_lseek_44
+        B.N      ??f_lseek_41
+??f_lseek_43:
+        LDR      R0,[R4, #+544]
+        ADD      R1,R0,R5, LSR #+7
+        MOV      R0,R4
+          CFI FunCall move_window
+        BL       move_window
+        CMP      R0,#+0
+        BNE.N    ??f_lseek_45
+        LSLS     R1,R5,#+2
+        LSLS     R1,R1,#+23
+        ADDS     R2,R4,R1, LSR #+23
+        MVN      R3,#-268435456
+        LDRB     R1,[R2, #+3]
+        ORR      R3,R3,R1, LSL #+24
+        MOVS     R1,#+255
+        STRB     R1,[R2, #+0]
+        STRB     R1,[R2, #+1]
+        STRB     R1,[R2, #+2]
+        LSRS     R1,R3,#+24
+        STRB     R1,[R2, #+3]
+        MOVS     R1,#+1
+        STRB     R1,[R4, #+516]
+        B.N      ??f_lseek_45
+??f_lseek_44:
+        LDR      R0,[R4, #+544]
+        ADD      R1,R0,R5, LSR #+8
+        MOV      R0,R4
+          CFI FunCall move_window
+        BL       move_window
+        CMP      R0,#+0
+        BNE.N    ??f_lseek_45
+        LSLS     R1,R5,#+1
+        LSLS     R1,R1,#+23
+        ADDS     R2,R4,R1, LSR #+23
+        MOVS     R1,#+255
+        STRB     R1,[R2, #+0]
+        STRB     R1,[R2, #+1]
+        MOVS     R1,#+1
+        STRB     R1,[R4, #+516]
+        B.N      ??f_lseek_45
+??f_lseek_42:
+        ADD      R7,R5,R5, LSR #+1
+        LDR      R0,[R4, #+544]
+        ADD      R1,R0,R7, LSR #+9
+        MOV      R0,R4
+          CFI FunCall move_window
+        BL       move_window
+        CBNZ.N   R0,??f_lseek_45
+        LSLS     R0,R7,#+23
+        ADDS     R7,R7,#+1
+        ADDS     R2,R4,R0, LSR #+23
+        ANDS     R11,R5,#0x1
+        ITTE     NE 
+        LDRBNE   R0,[R2, #+0]
+        ORRNE    R0,R0,#0xF0
+        MOVEQ    R0,#+255
+        STRB     R0,[R2, #+0]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+516]
+        LDR      R0,[R4, #+544]
+        ADD      R1,R0,R7, LSR #+9
+        MOV      R0,R4
+          CFI FunCall move_window
+        BL       move_window
+        CBNZ.N   R0,??f_lseek_45
+        LSLS     R1,R7,#+23
+        ADDS     R2,R4,R1, LSR #+23
+        CMP      R11,#+0
+        ITEE     NE 
+        MOVNE    R1,#+255
+        LDRBEQ   R1,[R2, #+0]
+        ORREQ    R1,R1,#0xF
+        STRB     R1,[R2, #+0]
+        MOVS     R1,#+1
+        STRB     R1,[R4, #+516]
+        B.N      ??f_lseek_45
+??f_lseek_41:
+        MOVS     R0,#+2
+??f_lseek_45:
+        CBNZ.N   R0,??f_lseek_46
+        CBZ.N    R6,??f_lseek_47
+        MOV      R2,R5
+        MOV      R1,R6
+        MOV      R0,R4
+          CFI FunCall put_fat
+        BL       put_fat
+??f_lseek_46:
+        CBNZ.N   R0,??f_lseek_48
+??f_lseek_47:
+        LDR      R0,[R4, #+528]
+        STR      R5,[R4, #+524]
+        CMN      R0,#+1
+        BEQ.N    ??f_lseek_49
+        SUBS     R0,R0,#+1
+        MOV      R6,R5
+        STR      R0,[R4, #+528]
+        LDRB     R0,[R4, #+517]
+        ORR      R0,R0,#0x1
+        STRB     R0,[R4, #+517]
+        B.N      ??f_lseek_50
+??f_lseek_48:
+        CMP      R0,#+1
+        ITE      EQ 
+        MOVEQ    R5,#-1
+        MOVNE    R5,#+1
+??f_lseek_49:
+        MOV      R6,R5
+        B.N      ??f_lseek_50
+??f_lseek_40:
+        CMN      R0,#+1
+        IT       NE 
+        CMPNE    R0,#+1
+        BEQ.N    ??f_lseek_36
+        CMP      R5,R7
+        BNE.W    ??f_lseek_37
+??f_lseek_39:
+        MOVS     R6,#+0
+        B.N      ??f_lseek_51
+??f_lseek_36:
+        MOV      R6,R0
+??f_lseek_50:
+        CMP      R6,#+0
+        BNE.W    ??f_lseek_26
+??f_lseek_51:
+        LDR      R10,[SP, #+0]
 // 3219 				}
 // 3220 				fp->fptr += ofs;
-??f_lseek_12:
-        LDR      R0,[R7, #+8]
-        ADDS     R0,R5,R0
-        STR      R0,[R7, #+8]
+??f_lseek_27:
+        LDR      R0,[R8, #+520]
+        ADD      R0,R10,R0
+        STR      R0,[R8, #+520]
 // 3221 				if (ofs % SS(fp->fs)) {
-        LSLS     R0,R5,#+23
+        LSLS     R0,R10,#+23
         BEQ.N    ??f_lseek_3
 // 3222 					nsect = clust2sect(fp->fs, clst);	/* Current sector */
-        LDR      R0,[R7, #+0]
-          CFI FunCall clust2sect
-        BL       clust2sect
+        LDR      R0,[R8, #+512]
+        SUBS     R1,R6,#+2
+        LDR      R2,[R0, #+532]
+        SUBS     R2,R2,#+2
+        CMP      R1,R2
+        BCS.N    ??f_lseek_22
+        LDRB     R2,[R0, #+514]
+        LDR      R0,[R0, #+552]
+        MLA      R0,R2,R1,R0
 // 3223 					if (!nsect) ABORT(fp->fs, FR_INT_ERR);
-        CBNZ.N   R0,??f_lseek_13
-??f_lseek_7:
+        CBNZ.N   R0,??f_lseek_52
+??f_lseek_22:
         MOVS     R0,#+2
-        B.N      ??f_lseek_14
+        STRB     R0,[R8, #+519]
 // 3224 					nsect += ofs / SS(fp->fs);
-??f_lseek_13:
-        ADD      R4,R0,R5, LSR #+9
 // 3225 				}
 // 3226 			}
 // 3227 		}
 // 3228 		if (fp->fptr % SS(fp->fs) && nsect != fp->dsect) {	/* Fill sector cache if needed */
-??f_lseek_3:
-        LDR      R0,[R7, #+8]
-        LSLS     R0,R0,#+23
-        ITT      NE 
-        LDRNE    R2,[R7, #+24]
-        CMPNE    R4,R2
-        BEQ.N    ??f_lseek_15
 // 3229 #if !_FS_TINY
 // 3230 #if !_FS_READONLY
 // 3231 			if (fp->flag & FA__DIRTY) {			/* Write-back dirty sector cache */
-        LDRB     R0,[R7, #+6]
-        LSLS     R0,R0,#+25
-        BPL.N    ??f_lseek_16
 // 3232 				if (disk_write(fp->fs->drv, fp->buf.d8, fp->dsect, 1) != RES_OK)
-        LDR      R0,[R7, #+0]
+// 3233 					ABORT(fp->fs, FR_DISK_ERR);
+// 3234 				fp->flag &= ~FA__DIRTY;
+// 3235 			}
+// 3236 #endif
+// 3237 			if (disk_read(fp->fs->drv, fp->buf.d8, nsect, 1) != RES_OK)	/* Fill sector cache */
+// 3238 				ABORT(fp->fs, FR_DISK_ERR);
+        ADD      SP,SP,#+12
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+48
+??f_lseek_52:
+        ADD      R9,R0,R10, LSR #+9
+??f_lseek_3:
+        LDR      R0,[R8, #+520]
+        LSLS     R0,R0,#+23
+        ITT      NE 
+        LDRNE    R2,[R8, #+536]
+        CMPNE    R9,R2
+        BEQ.N    ??f_lseek_53
+        LDRB     R0,[R8, #+518]
+        LSLS     R0,R0,#+25
+        BPL.N    ??f_lseek_54
+        LDR      R0,[R8, #+512]
         MOVS     R3,#+1
         MOV      R1,R8
         LDRB     R0,[R0, #+513]
           CFI FunCall disk_write
         BL       disk_write
-        CBNZ.N   R0,??f_lseek_8
-// 3233 					ABORT(fp->fs, FR_DISK_ERR);
-// 3234 				fp->flag &= ~FA__DIRTY;
-        LDRB     R0,[R7, #+6]
+        CBNZ.N   R0,??f_lseek_23
+        LDRB     R0,[R8, #+518]
         AND      R0,R0,#0xBF
-        STRB     R0,[R7, #+6]
-// 3235 			}
-// 3236 #endif
-// 3237 			if (disk_read(fp->fs->drv, fp->buf.d8, nsect, 1) != RES_OK)	/* Fill sector cache */
-??f_lseek_16:
-        LDR      R0,[R7, #+0]
+        STRB     R0,[R8, #+518]
+??f_lseek_54:
+        LDR      R0,[R8, #+512]
         MOVS     R3,#+1
-        MOV      R2,R4
+        MOV      R2,R9
         MOV      R1,R8
         LDRB     R0,[R0, #+513]
           CFI FunCall disk_read
         BL       disk_read
-        CBZ.N    R0,??f_lseek_17
-// 3238 				ABORT(fp->fs, FR_DISK_ERR);
-??f_lseek_8:
+        CBZ.N    R0,??f_lseek_55
+??f_lseek_23:
         MOVS     R0,#+1
-??f_lseek_14:
-        STRB     R0,[R7, #+7]
-        POP      {R1,R4-R9,PC}
+        STRB     R0,[R8, #+519]
+        ADD      SP,SP,#+12
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+48
 // 3239 #endif
 // 3240 			fp->dsect = nsect;
-??f_lseek_17:
-        STR      R4,[R7, #+24]
+??f_lseek_55:
+        STR      R9,[R8, #+536]
 // 3241 		}
 // 3242 #if !_FS_READONLY
 // 3243 		if (fp->fptr > fp->fsize) {			/* Set file change flag if the file size is extended */
-??f_lseek_15:
-        LDR      R0,[R7, #+8]
-        LDR      R1,[R7, #+12]
+??f_lseek_53:
+        LDR      R0,[R8, #+520]
+        LDR      R1,[R8, #+524]
         CMP      R1,R0
         BCS.N    ??f_lseek_0
 // 3244 			fp->fsize = fp->fptr;
-        STR      R0,[R7, #+12]
+        STR      R0,[R8, #+524]
 // 3245 			fp->flag |= FA__WRITTEN;
-        LDRB     R0,[R7, #+6]
+        LDRB     R0,[R8, #+518]
         ORR      R0,R0,#0x20
-        STRB     R0,[R7, #+6]
+        STRB     R0,[R8, #+518]
 // 3246 		}
 // 3247 #endif
 // 3248 	}
 // 3249 
 // 3250 	LEAVE_FF(fp->fs, res);
 ??f_lseek_0:
-        MOV      R0,R9
+        LDRB     R0,[SP, #+4]
 ??f_lseek_1:
-        POP      {R1,R4-R9,PC}    ;; return
+        ADD      SP,SP,#+12
+          CFI CFA R13+36
+        POP      {R4-R11,PC}      ;; return
 // 3251 }
-          CFI EndBlock cfiBlock37
+          CFI EndBlock cfiBlock29
 // 3252 
 // 3253 
 // 3254 
@@ -6780,8 +7437,8 @@ f_lseek:
 // 3258 /*-----------------------------------------------------------------------*/
 // 3259 
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock38 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock30 Using cfiCommon0
           CFI Function f_opendir
         THUMB
 // 3260 FRESULT f_opendir (
@@ -6790,14 +7447,15 @@ f_lseek:
 // 3263 )
 // 3264 {
 f_opendir:
-        PUSH     {R1,R4-R6,LR}
+        PUSH     {R1,R4-R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+20
+          CFI R7 Frame(CFA, -8)
+          CFI R6 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -16)
+          CFI R4 Frame(CFA, -20)
+          CFI CFA R13+24
         MOVS     R4,R0
-        SUB      SP,SP,#+20
+        SUB      SP,SP,#+16
           CFI CFA R13+40
 // 3265 	FRESULT res;
 // 3266 	FATFS* fs;
@@ -6812,31 +7470,30 @@ f_opendir:
 // 3272 	/* Get logical drive number */
 // 3273 	res = find_volume(&fs, &path, 0);
         MOVS     R2,#+0
-        ADD      R1,SP,#+20
+        ADD      R1,SP,#+16
         MOV      R0,SP
           CFI FunCall find_volume
         BL       find_volume
-        MOVS     R6,R0
 // 3274 	if (res == FR_OK) {
+        CMP      R0,#+0
         BNE.N    ??f_opendir_1
 // 3275 		dp->fs = fs;
         LDR      R0,[SP, #+0]
-        ADD      R5,R4,#+512
-        STR      R0,[R5, #+0]
+        STR      R0,[R4, #+512]
 // 3276 		INIT_BUF(*dp);
         ADD      R0,SP,#+4
-        STR      R0,[R5, #+24]
+        STR      R0,[R4, #+536]
 // 3277 		res = follow_path(dp, path);			/* Follow the path to the directory */
-        LDR      R1,[SP, #+20]
+        LDR      R1,[SP, #+16]
         MOV      R0,R4
           CFI FunCall follow_path
         BL       follow_path
-        MOVS     R6,R0
 // 3278 		FREE_BUF();
 // 3279 		if (res == FR_OK) {						/* Follow completed */
+        CMP      R0,#+0
         BNE.N    ??f_opendir_2
 // 3280 			if (dp->dir) {						/* It is not the origin directory itself */
-        LDR      R1,[R5, #+20]
+        LDR      R1,[R4, #+532]
         CBZ.N    R1,??f_opendir_3
 // 3281 				if (dp->dir[DIR_Attr] & AM_DIR)	/* The object is a sub directory */
         LDRB     R0,[R1, #+11]
@@ -6846,7 +7503,7 @@ f_opendir:
         LDR      R0,[SP, #+0]
           CFI FunCall ld_clust
         BL       ld_clust
-        STR      R0,[R5, #+8]
+        STR      R0,[R4, #+520]
 // 3283 				else							/* The object is a file */
 // 3284 					res = FR_NO_PATH;
 // 3285 			}
@@ -6857,31 +7514,22 @@ f_opendir:
 // 3288 				res = dir_sdi(dp, 0);			/* Rewind directory */
         MOVS     R1,#+0
         LDRH     R0,[R0, #+518]
-        STRH     R0,[R5, #+4]
+        STRH     R0,[R4, #+516]
         MOV      R0,R4
           CFI FunCall dir_sdi
         BL       dir_sdi
-        MOVS     R6,R0
 // 3289 #if _FS_LOCK
 // 3290 				if (res == FR_OK) {
+        CMP      R0,#+0
         BNE.N    ??f_opendir_2
 // 3291 					if (dp->sclust) {
-        LDR      R0,[R5, #+8]
-        CBNZ.N   R0,??f_opendir_5
-        STR      R0,[R5, #+28]
-        B.N      ??f_opendir_6
-// 3292 						dp->lockid = inc_lock(dp, 0);	/* Lock the sub directory */
-??f_opendir_5:
+        LDR      R2,[R4, #+520]
+        CBNZ.N   R2,??f_opendir_5
         MOVS     R1,#+0
-        MOV      R0,R4
-          CFI FunCall inc_lock
-        BL       inc_lock
-        STR      R0,[R5, #+28]
+        STR      R1,[R4, #+540]
+// 3292 						dp->lockid = inc_lock(dp, 0);	/* Lock the sub directory */
 // 3293 						if (!dp->lockid)
-        CBNZ.N   R0,??f_opendir_6
 // 3294 							res = FR_TOO_MANY_OPEN_FILES;
-        MOVS     R6,#+18
-        B.N      ??f_opendir_7
 // 3295 					} else {
 // 3296 						dp->lockid = 0;	/* Root directory need not to be locked */
 // 3297 					}
@@ -6890,29 +7538,87 @@ f_opendir:
 // 3300 			}
 // 3301 		}
 // 3302 		if (res == FR_NO_FILE) res = FR_NO_PATH;
-??f_opendir_2:
-        CMP      R6,#+4
-        BNE.N    ??f_opendir_1
-??f_opendir_4:
-        MOVS     R6,#+5
-        B.N      ??f_opendir_7
 // 3303 	}
 // 3304 	if (res != FR_OK) dp->fs = 0;		/* Invalidate the directory object if function faild */
-??f_opendir_1:
-        CBZ.N    R6,??f_opendir_6
-??f_opendir_7:
-        MOVS     R0,#+0
-        STR      R0,[R4, #+512]
 // 3305 
 // 3306 	LEAVE_FF(fs, res);
+        ADD      SP,SP,#+20
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+40
+??f_opendir_5:
+        LDR.W    R3,??DataTable17
+        MOVS     R1,#+0
+        MOV.W    R6,R3
+        LDRH     R7,[R4, #+518]
+        LDR      R5,[R4, #+512]
 ??f_opendir_6:
-        MOV      R0,R6
+        LDR      R12,[R6, #+0]
+        CMP      R12,R5
+        ITTTT    EQ 
+        LDREQ    R12,[R6, #+4]
+        CMPEQ    R12,R2
+        LDRHEQ   R12,[R6, #+8]
+        CMPEQ    R12,R7
+        BEQ.N    ??f_opendir_7
+        ADDS     R1,R1,#+1
+        ADDS     R6,R6,#+12
+        CMP      R1,#+2
+        BCC.N    ??f_opendir_6
+??f_opendir_7:
+        CMP      R1,#+2
+        BNE.N    ??f_opendir_8
+        MOVS     R1,#+0
+        MOV.W    R6,R3
+??f_opendir_9:
+        LDR      R7,[R6], #+12
+        CBZ.N    R7,??f_opendir_10
+        ADDS     R1,R1,#+1
+        CMP      R1,#+2
+        BCC.N    ??f_opendir_9
+??f_opendir_10:
+        CMP      R1,#+2
+        BEQ.N    ??f_opendir_11
+        ADD      R6,R1,R1, LSL #+1
+        ADD      R6,R3,R6, LSL #+2
+        STR      R5,[R6, #+0]
+        STR      R2,[R6, #+4]
+        LDRH     R2,[R4, #+518]
+        STRH     R2,[R6, #+8]
+        MOVS     R2,#+0
+        STRH     R2,[R6, #+10]
+??f_opendir_8:
+        ADD      R2,R1,R1, LSL #+1
+        ADDS     R1,R1,#+1
+        ADD      R2,R3,R2, LSL #+2
+        LDRH     R3,[R2, #+10]
+        ADDS     R3,R3,#+1
+        STRH     R3,[R2, #+10]
+??f_opendir_12:
+        STR      R1,[R4, #+540]
+        CBNZ.N   R1,??f_opendir_0
+        MOVS     R0,#+18
+        B.N      ??f_opendir_13
+??f_opendir_11:
+        MOVS     R1,#+0
+        B.N      ??f_opendir_12
+??f_opendir_2:
+        CMP      R0,#+4
+        BNE.N    ??f_opendir_1
+??f_opendir_4:
+        MOVS     R0,#+5
+        B.N      ??f_opendir_13
+??f_opendir_1:
+        CBZ.N    R0,??f_opendir_0
+??f_opendir_13:
+        MOVS     R1,#+0
+        STR      R1,[R4, #+512]
 ??f_opendir_0:
-        ADD      SP,SP,#+24
-          CFI CFA R13+16
-        POP      {R4-R6,PC}       ;; return
+        ADD      SP,SP,#+20
+          CFI CFA R13+20
+        POP      {R4-R7,PC}       ;; return
 // 3307 }
-          CFI EndBlock cfiBlock38
+          CFI EndBlock cfiBlock30
 // 3308 
 // 3309 
 // 3310 
@@ -6923,7 +7629,7 @@ f_opendir:
 // 3315 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock39 Using cfiCommon0
+          CFI Block cfiBlock31 Using cfiCommon0
           CFI Function f_closedir
         THUMB
 // 3316 FRESULT f_closedir (
@@ -6931,47 +7637,96 @@ f_opendir:
 // 3318 )
 // 3319 {
 f_closedir:
-        PUSH     {R4,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        MOV      R4,R0
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
+        MOVS     R4,R0
+        SUB      SP,SP,#+4
+          CFI CFA R13+16
 // 3320 	FRESULT res;
 // 3321 
 // 3322 
 // 3323 	res = validate(dp);
-          CFI FunCall validate
-        BL       validate
+        ITT      NE 
+        LDRNE    R0,[R4, #+512]
+        CMPNE    R0,#+0
+        BEQ.N    ??f_closedir_0
+        LDRB     R1,[R0, #+512]
+        CBZ.N    R1,??f_closedir_0
+        LDRH     R1,[R0, #+518]
+        LDRH     R2,[R4, #+516]
+        CMP      R1,R2
+        BNE.N    ??f_closedir_0
+        LDRB     R0,[R0, #+513]
+          CFI FunCall disk_status
+        BL       disk_status
+        LSLS     R0,R0,#+31
+        BMI.N    ??f_closedir_0
 // 3324 	if (res == FR_OK) {
-        CBNZ.N   R0,??f_closedir_0
 // 3325 #if _FS_REENTRANT
 // 3326 		FATFS *fs = dp->fs;
 // 3327 #endif
 // 3328 #if _FS_LOCK
 // 3329 		if (dp->lockid)				/* Decrement sub-directory open counter */
-        ADD      R4,R4,#+512
-        LDR      R1,[R4, #+28]
-        CBZ.N    R1,??f_closedir_1
+        LDR      R1,[R4, #+540]
+        MOVS     R0,#+0
+        CBNZ.N   R1,??f_closedir_1
 // 3330 			res = dec_lock(dp->lockid);
-        MOV      R0,R1
-          CFI FunCall dec_lock
-        BL       dec_lock
 // 3331 		if (res == FR_OK)
-        CBNZ.N   R0,??f_closedir_0
 // 3332 #endif
 // 3333 			dp->fs = 0;				/* Invalidate directory object */
-??f_closedir_1:
-        MOVS     R1,#+0
-        STR      R1,[R4, #+0]
+??f_closedir_2:
+        STR      R0,[R4, #+512]
 // 3334 #if _FS_REENTRANT
 // 3335 		unlock_fs(fs, FR_OK);		/* Unlock volume */
 // 3336 #endif
 // 3337 	}
 // 3338 	return res;
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
+          CFI CFA R13+16
 ??f_closedir_0:
-        POP      {R4,PC}          ;; return
+        MOVS     R0,#+9
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
+??f_closedir_1:
+        SUBS     R1,R1,#+1
+        CMP      R1,#+2
+        BCS.N    ??f_closedir_3
+        ADD      R2,R1,R1, LSL #+1
+        LSLS     R1,R2,#+2
+        LDR.W    R2,??DataTable17
+        ADDS     R3,R1,R2
+        LDRH     R5,[R3, #+10]
+        CMP      R5,#+256
+        IT       EQ 
+        STRHEQ   R0,[R3, #+10]
+        BEQ.N    ??f_closedir_4
+        CBNZ.N   R5,??f_closedir_5
+        STRH     R5,[R3, #+10]
+??f_closedir_4:
+        STR      R0,[R1, R2]
+        B.N      ??f_closedir_2
+??f_closedir_5:
+        SUBS     R5,R5,#+1
+        STRH     R5,[R3, #+10]
+        UXTH     R5,R5
+        CMP      R5,#+0
+        BNE.N    ??f_closedir_2
+        STR      R0,[R1, R2]
+        B.N      ??f_closedir_2
+??f_closedir_3:
+        MOVS     R0,#+2
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
 // 3339 }
-          CFI EndBlock cfiBlock39
+          CFI EndBlock cfiBlock31
 // 3340 
 // 3341 
 // 3342 
@@ -6982,7 +7737,7 @@ f_closedir:
 // 3347 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock40 Using cfiCommon0
+          CFI Block cfiBlock32 Using cfiCommon0
           CFI Function f_readdir
         THUMB
 // 3348 FRESULT f_readdir (
@@ -7000,7 +7755,7 @@ f_readdir:
         SUB      SP,SP,#+16
           CFI CFA R13+32
         MOV      R4,R0
-        MOV      R5,R1
+        MOV      R6,R1
 // 3353 	FRESULT res;
 // 3354 	DEFINE_NAMEBUF;
 // 3355 
@@ -7008,15 +7763,17 @@ f_readdir:
 // 3357 	res = validate(dp);						/* Check validity of the object */
           CFI FunCall validate
         BL       validate
+        MOVS     R5,R0
 // 3358 	if (res == FR_OK) {
-        CBNZ.N   R0,??f_readdir_0
+        BNE.N    ??f_readdir_0
 // 3359 		if (!fno) {
-        CBNZ.N   R5,??f_readdir_1
+        CBNZ.N   R6,??f_readdir_1
 // 3360 			res = dir_sdi(dp, 0);			/* Rewind the directory object */
         MOVS     R1,#+0
         MOV      R0,R4
           CFI FunCall dir_sdi
         BL       dir_sdi
+        MOV      R5,R0
 // 3361 		} else {
 // 3362 			INIT_BUF(*dp);
 // 3363 			res = dir_read(dp, 0);			/* Read an item */
@@ -7037,43 +7794,110 @@ f_readdir:
 // 3378 	}
 // 3379 
 // 3380 	LEAVE_FF(dp->fs, res);
+        MOV      R0,R5
         ADD      SP,SP,#+16
           CFI CFA R13+16
         POP      {R4-R6,PC}
           CFI CFA R13+32
 ??f_readdir_1:
-        ADD      R6,R4,#+528
+        STR      SP,[R4, #+536]
         MOVS     R1,#+0
-        STR      SP,[R6, #+8]
         MOV      R0,R4
           CFI FunCall dir_read
         BL       dir_read
-        CMP      R0,#+4
+        MOV      R5,R0
+        CMP      R5,#+4
         BNE.N    ??f_readdir_2
         MOVS     R0,#+0
-        STR      R0,[R6, #+0]
+        MOVS     R5,#+0
+        STR      R0,[R4, #+528]
         B.N      ??f_readdir_3
 ??f_readdir_2:
-        CBNZ.N   R0,??f_readdir_0
+        CBNZ.N   R5,??f_readdir_0
 ??f_readdir_3:
-        MOV      R1,R5
+        MOV      R1,R6
         MOV      R0,R4
           CFI FunCall get_fileinfo
         BL       get_fileinfo
-        MOVS     R1,#+0
-        MOV      R0,R4
-          CFI FunCall dir_next
-        BL       dir_next
-        CMP      R0,#+4
-        ITT      EQ 
-        MOVEQ    R0,#+0
-        STREQ    R0,[R6, #+0]
+        LDRH     R0,[R4, #+518]
+        ADDS     R6,R0,#+1
+        LSLS     R0,R6,#+16
+        ITT      NE 
+        LDRNE    R0,[R4, #+528]
+        CMPNE    R0,#+0
+        BEQ.N    ??f_readdir_4
+        TST      R6,#0xF
+        BNE.N    ??f_readdir_5
+        ADDS     R0,R0,#+1
+        LDR      R1,[R4, #+524]
+        STR      R0,[R4, #+528]
+        LDR      R0,[R4, #+512]
+        CBNZ.N   R1,??f_readdir_6
+        LDRH     R0,[R0, #+520]
+        CMP      R6,R0
+        BCC.N    ??f_readdir_5
+??f_readdir_4:
+        MOVS     R0,#+0
+        MOVS     R5,#+0
+        STR      R0,[R4, #+528]
 ??f_readdir_0:
+        MOV      R0,R5
         ADD      SP,SP,#+16
           CFI CFA R13+16
         POP      {R4-R6,PC}       ;; return
+          CFI CFA R13+32
+??f_readdir_6:
+        LDRB     R2,[R0, #+514]
+        SUBS     R2,R2,#+1
+        TST      R2,R6, LSR #+4
+        BNE.N    ??f_readdir_5
+          CFI FunCall get_fat
+        BL       get_fat
+        CMP      R0,#+2
+        BCC.N    ??f_readdir_7
+        CMN      R0,#+1
+        BEQ.N    ??f_readdir_8
+        LDR      R1,[R4, #+512]
+        LDR      R2,[R1, #+532]
+        CMP      R0,R2
+        BCS.N    ??f_readdir_4
+        STR      R0,[R4, #+524]
+        LDR      R2,[R1, #+532]
+        SUBS     R0,R0,#+2
+        SUBS     R2,R2,#+2
+        CMP      R0,R2
+        ITEEE    CS 
+        MOVCS    R0,#+0
+        LDRBCC   R2,[R1, #+514]
+        LDRCC    R1,[R1, #+552]
+        MLACC    R0,R2,R0,R1
+        STR      R0,[R4, #+528]
+??f_readdir_5:
+        LDR      R0,[R4, #+512]
+        AND      R1,R6,#0xF
+        STRH     R6,[R4, #+518]
+        ADD      R0,R0,R1, LSL #+5
+        STR      R0,[R4, #+532]
+        MOV      R0,R5
+        ADD      SP,SP,#+16
+          CFI CFA R13+16
+        POP      {R4-R6,PC}
+          CFI CFA R13+32
+??f_readdir_8:
+        MOVS     R5,#+1
+        MOV      R0,R5
+        ADD      SP,SP,#+16
+          CFI CFA R13+16
+        POP      {R4-R6,PC}
+          CFI CFA R13+32
+??f_readdir_7:
+        MOVS     R5,#+2
+        MOV      R0,R5
+        ADD      SP,SP,#+16
+          CFI CFA R13+16
+        POP      {R4-R6,PC}
 // 3381 }
-          CFI EndBlock cfiBlock40
+          CFI EndBlock cfiBlock32
 // 3382 
 // 3383 
 // 3384 
@@ -7136,7 +7960,7 @@ f_readdir:
 // 3441 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock41 Using cfiCommon0
+          CFI Block cfiBlock33 Using cfiCommon0
           CFI Function f_stat
         THUMB
 // 3442 FRESULT f_stat (
@@ -7187,22 +8011,28 @@ f_stat:
         ADD      R0,SP,#+12
           CFI FunCall get_fileinfo
         BL       get_fileinfo
-        B.N      ??f_stat_0
 // 3460 			} else {			/* It is root directory */
 // 3461 				res = FR_INVALID_NAME;
-??f_stat_1:
-        MOVS     R5,#+6
 // 3462 			}
 // 3463 		}
 // 3464 		FREE_BUF();
 // 3465 	}
 // 3466 
 // 3467 	LEAVE_FF(dj.fs, res);
+        MOV      R0,R5
+        ADD      SP,SP,#+564
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+576
+??f_stat_1:
+        MOVS     R5,#+6
 ??f_stat_0:
         MOV      R0,R5
-        B.N      ?Subroutine7
+        ADD      SP,SP,#+564
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
 // 3468 }
-          CFI EndBlock cfiBlock41
+          CFI EndBlock cfiBlock33
 // 3469 
 // 3470 
 // 3471 
@@ -7213,7 +8043,7 @@ f_stat:
 // 3476 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock42 Using cfiCommon0
+          CFI Block cfiBlock34 Using cfiCommon0
           CFI Function f_getfree
         THUMB
 // 3477 FRESULT f_getfree (
@@ -7234,8 +8064,8 @@ f_getfree:
           CFI R5 Frame(CFA, -32)
           CFI R4 Frame(CFA, -36)
           CFI CFA R13+40
-        MOV      R8,R1
-        MOV      R4,R2
+        MOV      R6,R1
+        MOV      R5,R2
 // 3483 	FRESULT res;
 // 3484 	FATFS *fs;
 // 3485 	DWORD n, clst, sect, stat;
@@ -7247,70 +8077,69 @@ f_getfree:
 // 3491 	res = find_volume(fatfs, &path, 0);
         MOVS     R2,#+0
         MOV      R1,SP
-        MOV      R0,R4
+        MOV      R0,R5
           CFI FunCall find_volume
         BL       find_volume
-        MOVS     R10,R0
+        MOVS     R4,R0
 // 3492 	fs = *fatfs;
-        LDR      R9,[R4, #+0]
+        LDR      R8,[R5, #+0]
 // 3493 	if (res == FR_OK) {
         BNE.N    ??f_getfree_0
 // 3494 		/* If free_clust is valid, return it without full cluster scan */
 // 3495 		if (fs->free_clust <= fs->n_fatent - 2) {
-        ADD      R6,R9,#+512
-        LDR      R4,[R6, #+20]
-        LDR      R0,[R6, #+16]
-        SUBS     R1,R4,#+2
+        LDR      R5,[R8, #+532]
+        LDR      R0,[R8, #+528]
+        SUBS     R1,R5,#+2
         CMP      R1,R0
         IT       CS 
-        STRCS    R0,[R8, #+0]
+        STRCS    R0,[R6, #+0]
 // 3496 			*nclst = fs->free_clust;
         BCS.N    ??f_getfree_0
 // 3497 		} else {
 // 3498 			/* Get number of free clusters */
 // 3499 			fat = fs->fs_type;
-        LDRB     R7,[R6, #+0]
+        LDRB     R9,[R8, #+512]
 // 3500 			n = 0;
-        MOVS     R5,#+0
+        MOVS     R7,#+0
 // 3501 			if (fat == FS_FAT12) {
-        CMP      R7,#+1
+        CMP      R9,#+1
         BNE.N    ??f_getfree_1
 // 3502 				clst = 2;
-        MOVS     R4,#+2
+        MOVS     R5,#+2
 // 3503 				do {
 // 3504 					stat = get_fat(fs, clst);
 ??f_getfree_2:
-        MOV      R1,R4
-        MOV      R0,R9
+        MOV      R1,R5
+        MOV      R0,R8
           CFI FunCall get_fat
         BL       get_fat
 // 3505 					if (stat == 0xFFFFFFFF) { res = FR_DISK_ERR; break; }
         CMN      R0,#+1
         BNE.N    ??f_getfree_3
-        MOV      R10,#+1
+        MOVS     R4,#+1
         B.N      ??f_getfree_4
 // 3506 					if (stat == 1) { res = FR_INT_ERR; break; }
 ??f_getfree_3:
         CMP      R0,#+1
         BNE.N    ??f_getfree_5
-        MOV      R10,#+2
+        MOVS     R4,#+2
         B.N      ??f_getfree_4
 // 3507 					if (stat == 0) n++;
 ??f_getfree_5:
         CBNZ.N   R0,??f_getfree_6
-        ADDS     R5,R5,#+1
+        ADDS     R7,R7,#+1
 // 3508 				} while (++clst < fs->n_fatent);
 ??f_getfree_6:
-        LDR      R0,[R6, #+20]
-        ADDS     R4,R4,#+1
-        CMP      R4,R0
+        LDR      R0,[R8, #+532]
+        ADDS     R5,R5,#+1
+        CMP      R5,R0
         BCC.N    ??f_getfree_2
         B.N      ??f_getfree_4
 // 3509 			} else {
 // 3510 				clst = fs->n_fatent;
 // 3511 				sect = fs->fatbase;
 ??f_getfree_1:
-        LDR      R11,[R6, #+32]
+        LDR      R10,[R8, #+544]
 // 3512 				i = 0; p = 0;
         B.N      ??f_getfree_7
 // 3513 				do {
@@ -7319,36 +8148,53 @@ f_getfree:
         CBNZ.N   R1,??f_getfree_9
 // 3515 						res = move_window(fs, sect++);
 ??f_getfree_7:
-        MOV      R1,R11
-        MOV      R0,R9
-          CFI FunCall move_window
-        BL       move_window
-        MOVS     R10,R0
-        ADD      R11,R11,#+1
+        LDR      R0,[R8, #+556]
+        MOV      R11,R10
+        MOVS     R4,#+0
+        CMP      R11,R0
+        BEQ.N    ??f_getfree_10
+        MOV      R0,R8
+          CFI FunCall sync_window
+        BL       sync_window
+        MOVS     R4,R0
+        BNE.N    ??f_getfree_10
+        LDRB     R0,[R8, #+513]
+        MOVS     R3,#+1
+        MOV      R2,R11
+        MOV      R1,R8
+          CFI FunCall disk_read
+        BL       disk_read
+        CBZ.N    R0,??f_getfree_11
+        MOV      R11,#-1
+        MOVS     R4,#+1
+??f_getfree_11:
+        STR      R11,[R8, #+556]
+??f_getfree_10:
+        ADD      R10,R10,#+1
 // 3516 						if (res != FR_OK) break;
-        BNE.N    ??f_getfree_4
+        CBNZ.N   R4,??f_getfree_4
 // 3517 						p = fs->win.d8;
-        MOV      R0,R9
+        MOV      R0,R8
 // 3518 						i = SS(fs);
         MOV      R1,#+512
 // 3519 					}
 // 3520 					if (fat == FS_FAT16) {
 ??f_getfree_9:
-        CMP      R7,#+2
-        BNE.N    ??f_getfree_10
+        CMP      R9,#+2
+        BNE.N    ??f_getfree_12
 // 3521 						if (LD_WORD(p) == 0) n++;
         LDRB     R2,[R0, #+1]
         LDRB     R3,[R0, #+0]
         ORRS     R2,R3,R2, LSL #+8
         IT       EQ 
-        ADDEQ    R5,R5,#+1
+        ADDEQ    R7,R7,#+1
 // 3522 						p += 2; i -= 2;
         ADDS     R0,R0,#+2
         SUBS     R1,R1,#+2
-        B.N      ??f_getfree_11
+        B.N      ??f_getfree_13
 // 3523 					} else {
 // 3524 						if ((LD_DWORD(p) & 0x0FFFFFFF) == 0) n++;
-??f_getfree_10:
+??f_getfree_12:
         LDRB     R3,[R0, #+2]
         LDRB     R2,[R0, #+3]
         LSLS     R3,R3,#+16
@@ -7359,33 +8205,35 @@ f_getfree:
         ORRS     R2,R3,R2
         LSLS     R2,R2,#+4
         IT       EQ 
-        ADDEQ    R5,R5,#+1
+        ADDEQ    R7,R7,#+1
 // 3525 						p += 4; i -= 4;
         ADDS     R0,R0,#+4
         SUBS     R1,R1,#+4
 // 3526 					}
 // 3527 				} while (--clst);
-??f_getfree_11:
-        SUBS     R4,R4,#+1
+??f_getfree_13:
+        SUBS     R5,R5,#+1
         BNE.N    ??f_getfree_8
 // 3528 			}
 // 3529 			fs->free_clust = n;
-??f_getfree_4:
-        STR      R5,[R6, #+16]
 // 3530 			fs->fsi_flag |= 1;
-        LDRB     R0,[R6, #+5]
+??f_getfree_4:
+        LDRB     R0,[R8, #+517]
+        STR      R7,[R8, #+528]
         ORR      R0,R0,#0x1
-        STRB     R0,[R6, #+5]
+        STRB     R0,[R8, #+517]
 // 3531 			*nclst = n;
-        STR      R5,[R8, #+0]
+        STR      R7,[R6, #+0]
 // 3532 		}
 // 3533 	}
 // 3534 	LEAVE_FF(fs, res);
 ??f_getfree_0:
-        MOV      R0,R10
-        POP      {R1,R4-R11,PC}   ;; return
+        MOV      R0,R4
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}      ;; return
 // 3535 }
-          CFI EndBlock cfiBlock42
+          CFI EndBlock cfiBlock34
 // 3536 
 // 3537 
 // 3538 
@@ -7396,7 +8244,7 @@ f_getfree:
 // 3543 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock43 Using cfiCommon0
+          CFI Block cfiBlock35 Using cfiCommon0
           CFI Function f_truncate
         THUMB
 // 3544 FRESULT f_truncate (
@@ -7404,14 +8252,18 @@ f_getfree:
 // 3546 )
 // 3547 {
 f_truncate:
-        PUSH     {R3-R7,LR}
+        PUSH     {R4-R9,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+24
-        MOV      R5,R0
+          CFI R9 Frame(CFA, -8)
+          CFI R8 Frame(CFA, -12)
+          CFI R7 Frame(CFA, -16)
+          CFI R6 Frame(CFA, -20)
+          CFI R5 Frame(CFA, -24)
+          CFI R4 Frame(CFA, -28)
+          CFI CFA R13+28
+        SUB      SP,SP,#+4
+          CFI CFA R13+32
+        MOV      R8,R0
 // 3548 	FRESULT res;
 // 3549 	DWORD ncl;
 // 3550 
@@ -7419,63 +8271,30 @@ f_truncate:
 // 3552 	res = validate(fp);						/* Check validity of the object */
           CFI FunCall validate
         BL       validate
-        MOVS     R4,R0
+        MOVS     R5,R0
 // 3553 	if (res == FR_OK) {
         BNE.N    ??f_truncate_0
 // 3554 		if (fp->err) {						/* Check error */
-        ADD      R6,R5,#+512
-        LDRB     R0,[R6, #+7]
+        LDRB     R0,[R8, #+519]
         CBZ.N    R0,??f_truncate_1
 // 3555 			res = (FRESULT)fp->err;
-        MOV      R4,R0
-        B.N      ??f_truncate_0
+        MOV      R5,R0
 // 3556 		} else {
 // 3557 			if (!(fp->flag & FA_WRITE))		/* Check access mode */
-??f_truncate_1:
-        LDRB     R0,[R6, #+6]
-        LSLS     R1,R0,#+30
-        IT       PL 
-        MOVPL    R4,#+7
 // 3558 				res = FR_DENIED;
-        BPL.N    ??f_truncate_0
 // 3559 		}
 // 3560 	}
 // 3561 	if (res == FR_OK) {
 // 3562 		if (fp->fsize > fp->fptr) {
-        LDR      R1,[R6, #+8]
-        LDR      R2,[R6, #+12]
-        CMP      R1,R2
-        BCS.N    ??f_truncate_0
 // 3563 			fp->fsize = fp->fptr;	/* Set file size to current R/W point */
 // 3564 			fp->flag |= FA__WRITTEN;
-        ORR      R0,R0,#0x20
-        STR      R1,[R6, #+12]
-        STRB     R0,[R6, #+6]
 // 3565 			if (fp->fptr == 0) {	/* When set file size to zero, remove entire cluster chain */
-        LDR      R0,[R6, #+0]
-        CBNZ.N   R1,??f_truncate_2
 // 3566 				res = remove_chain(fp->fs, fp->sclust);
-        LDR      R1,[R6, #+16]
-          CFI FunCall remove_chain
-        BL       remove_chain
-        MOV      R4,R0
 // 3567 				fp->sclust = 0;
-        MOVS     R0,#+0
-        STR      R0,[R6, #+16]
-        B.N      ??f_truncate_3
 // 3568 			} else {				/* When truncate a part of the file, remove remaining clusters */
 // 3569 				ncl = get_fat(fp->fs, fp->clust);
-??f_truncate_2:
-        LDR      R1,[R6, #+20]
-          CFI FunCall get_fat
-        BL       get_fat
-        MOV      R7,R0
 // 3570 				res = FR_OK;
 // 3571 				if (ncl == 0xFFFFFFFF) res = FR_DISK_ERR;
-        CMN      R7,#+1
-        BNE.N    ??f_truncate_4
-??f_truncate_5:
-        MOVS     R4,#+1
 // 3572 				if (ncl == 1) res = FR_INT_ERR;
 // 3573 				if (res == FR_OK && ncl < fp->fs->n_fatent) {
 // 3574 					res = put_fat(fp->fs, fp->clust, 0x0FFFFFFF);
@@ -7492,56 +8311,187 @@ f_truncate:
 // 3585 #endif
 // 3586 		}
 // 3587 		if (res != FR_OK) fp->err = (FRESULT)res;
-??f_truncate_6:
-        STRB     R4,[R6, #+7]
 // 3588 	}
 // 3589 
 // 3590 	LEAVE_FF(fp->fs, res);
-??f_truncate_0:
-        MOV      R0,R4
-        POP      {R1,R4-R7,PC}    ;; return
-??f_truncate_4:
-        CMP      R7,#+1
-        IT       EQ 
-        MOVEQ    R4,#+2
-        BEQ.N    ??f_truncate_6
-        LDR      R0,[R6, #+0]
-        LDR      R1,[R0, #+532]
-        CMP      R7,R1
-        BCS.N    ??f_truncate_7
-        LDR      R1,[R6, #+20]
-        MVN      R2,#-268435456
-          CFI FunCall put_fat
-        BL       put_fat
-        MOVS     R4,R0
-        BNE.N    ??f_truncate_3
-        LDR      R0,[R6, #+0]
-        MOV      R1,R7
+        MOV      R0,R5
+        ADD      SP,SP,#+4
+          CFI CFA R13+28
+        POP      {R4-R9,PC}
+          CFI CFA R13+32
+??f_truncate_1:
+        LDRB     R0,[R8, #+518]
+        LSLS     R1,R0,#+30
+        IT       PL 
+        MOVPL    R5,#+7
+        BPL.N    ??f_truncate_0
+        LDR      R1,[R8, #+520]
+        LDR      R2,[R8, #+524]
+        CMP      R1,R2
+        BCS.N    ??f_truncate_0
+        ORR      R0,R0,#0x20
+        STR      R1,[R8, #+524]
+        STRB     R0,[R8, #+518]
+        LDR      R0,[R8, #+512]
+        CBNZ.N   R1,??f_truncate_2
+        LDR      R1,[R8, #+528]
           CFI FunCall remove_chain
         BL       remove_chain
-        MOV      R4,R0
+        MOV      R5,R0
+        MOVS     R0,#+0
+        STR      R0,[R8, #+528]
+        B.N      ??f_truncate_3
+??f_truncate_2:
+        LDR      R1,[R8, #+532]
+          CFI FunCall get_fat
+        BL       get_fat
+        MOV      R6,R0
+        CMN      R6,#+1
+        BNE.N    ??f_truncate_4
+??f_truncate_5:
+        MOVS     R5,#+1
+??f_truncate_6:
+        STRB     R5,[R8, #+519]
+??f_truncate_0:
+        MOV      R0,R5
+        ADD      SP,SP,#+4
+          CFI CFA R13+28
+        POP      {R4-R9,PC}       ;; return
+          CFI CFA R13+32
+??f_truncate_4:
+        CMP      R6,#+1
+        IT       EQ 
+        MOVEQ    R5,#+2
+        BEQ.N    ??f_truncate_6
+        LDR      R9,[R8, #+512]
+        LDR      R0,[R9, #+532]
+        CMP      R6,R0
+        BCS.N    ??f_truncate_7
+        LDR      R7,[R8, #+532]
+        CMP      R7,#+2
+        BCC.N    ??f_truncate_8
+        CMP      R7,R0
+        BCS.N    ??f_truncate_8
+        LDRB     R0,[R9, #+512]
+        CMP      R0,#+1
+        BEQ.N    ??f_truncate_9
+        BCC.N    ??f_truncate_8
+        CMP      R0,#+3
+        BEQ.N    ??f_truncate_10
+        BCC.N    ??f_truncate_11
+        B.N      ??f_truncate_8
+??f_truncate_10:
+        LDR      R0,[R9, #+544]
+        ADD      R1,R0,R7, LSR #+7
+        MOV      R0,R9
+          CFI FunCall move_window
+        BL       move_window
+        MOVS     R5,R0
+        BNE.N    ??f_truncate_12
+        LSLS     R0,R7,#+2
+        LSLS     R0,R0,#+23
+        ADD      R0,R9,R0, LSR #+23
+        MVN      R2,#-268435456
+        LDRB     R1,[R0, #+3]
+        ORR      R1,R2,R1, LSL #+24
+        MOVS     R2,#+255
+        STRB     R2,[R0, #+0]
+        LSRS     R1,R1,#+24
+        STRB     R2,[R0, #+1]
+        STRB     R2,[R0, #+2]
+        STRB     R1,[R0, #+3]
+        MOVS     R0,#+1
+        STRB     R0,[R9, #+516]
+        B.N      ??f_truncate_12
+??f_truncate_11:
+        LDR      R0,[R9, #+544]
+        ADD      R1,R0,R7, LSR #+8
+        MOV      R0,R9
+          CFI FunCall move_window
+        BL       move_window
+        MOVS     R5,R0
+        BNE.N    ??f_truncate_12
+        LSLS     R0,R7,#+1
+        LSLS     R0,R0,#+23
+        ADD      R0,R9,R0, LSR #+23
+        MOVS     R2,#+255
+        STRB     R2,[R0, #+0]
+        STRB     R2,[R0, #+1]
+        MOVS     R0,#+1
+        STRB     R0,[R9, #+516]
+        B.N      ??f_truncate_12
+??f_truncate_9:
+        ADD      R4,R7,R7, LSR #+1
+        LDR      R0,[R9, #+544]
+        ADD      R1,R0,R4, LSR #+9
+        MOV      R0,R9
+          CFI FunCall move_window
+        BL       move_window
+        MOVS     R5,R0
+        BNE.N    ??f_truncate_12
+        LSLS     R0,R4,#+23
+        ADDS     R4,R4,#+1
+        ADD      R0,R9,R0, LSR #+23
+        ANDS     R7,R7,#0x1
+        ITTE     NE 
+        LDRBNE   R1,[R0, #+0]
+        ORRNE    R1,R1,#0xF0
+        MOVEQ    R1,#+255
+        STRB     R1,[R0, #+0]
+        MOVS     R0,#+1
+        STRB     R0,[R9, #+516]
+        LDR      R0,[R9, #+544]
+        ADD      R1,R0,R4, LSR #+9
+        MOV      R0,R9
+          CFI FunCall move_window
+        BL       move_window
+        MOVS     R5,R0
+        BNE.N    ??f_truncate_12
+        LSLS     R0,R4,#+23
+        CMP      R7,#+0
+        ADD      R0,R9,R0, LSR #+23
+        ITEE     NE 
+        MOVNE    R1,#+255
+        LDRBEQ   R1,[R0, #+0]
+        ORREQ    R1,R1,#0xF
+        STRB     R1,[R0, #+0]
+        MOVS     R0,#+1
+        STRB     R0,[R9, #+516]
+        B.N      ??f_truncate_12
+??f_truncate_8:
+        MOVS     R5,#+2
+??f_truncate_12:
+        CBNZ.N   R5,??f_truncate_3
+        LDR      R0,[R8, #+512]
+        MOV      R1,R6
+          CFI FunCall remove_chain
+        BL       remove_chain
+        MOV      R5,R0
 ??f_truncate_3:
-        CMP      R4,#+0
-        BNE.N    ??f_truncate_6
+        CMP      R5,#+0
+        BNE.W    ??f_truncate_6
 ??f_truncate_7:
-        LDRB     R0,[R6, #+6]
+        LDRB     R0,[R8, #+518]
         LSLS     R0,R0,#+25
-        BPL.N    ??f_truncate_0
-        LDR      R0,[R6, #+0]
-        LDR      R2,[R6, #+24]
+        BPL.W    ??f_truncate_0
+        LDR      R0,[R8, #+512]
+        LDR      R2,[R8, #+536]
         MOVS     R3,#+1
-        MOV      R1,R5
+        MOV      R1,R8
         LDRB     R0,[R0, #+513]
           CFI FunCall disk_write
         BL       disk_write
         CMP      R0,#+0
-        BNE.N    ??f_truncate_5
-        LDRB     R0,[R6, #+6]
+        BNE.W    ??f_truncate_5
+        LDRB     R0,[R8, #+518]
         AND      R0,R0,#0xBF
-        STRB     R0,[R6, #+6]
-        B.N      ??f_truncate_0
+        STRB     R0,[R8, #+518]
+        MOV      R0,R5
+        ADD      SP,SP,#+4
+          CFI CFA R13+28
+        POP      {R4-R9,PC}
 // 3591 }
-          CFI EndBlock cfiBlock43
+          CFI EndBlock cfiBlock35
 // 3592 
 // 3593 
 // 3594 
@@ -7552,7 +8502,7 @@ f_truncate:
 // 3599 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock44 Using cfiCommon0
+          CFI Block cfiBlock36 Using cfiCommon0
           CFI Function f_unlink
         THUMB
 // 3600 FRESULT f_unlink (
@@ -7586,11 +8536,9 @@ f_unlink:
         CMP      R0,#+0
         BNE.N    ??f_unlink_0
 // 3614 		INIT_BUF(dj);
-        ADD      R4,SP,#+1020
-        ADDS     R4,R4,#+48
 // 3615 		res = follow_path(&dj, path);		/* Follow the file path */
         LDR      R1,[SP, #+1104]
-        STR      SP,[R4, #+24]
+        STR      SP,[SP, #+1092]
         ADD      R0,SP,#+556
           CFI FunCall follow_path
         BL       follow_path
@@ -7598,20 +8546,38 @@ f_unlink:
 // 3617 			res = FR_INVALID_NAME;			/* Cannot remove dot entry */
 // 3618 #if _FS_LOCK
 // 3619 		if (res == FR_OK) res = chk_lock(&dj, 2);	/* Cannot remove open object */
-        CBNZ.N   R0,??f_unlink_1
-        MOVS     R1,#+2
-        ADD      R0,SP,#+556
-          CFI FunCall chk_lock
-        BL       chk_lock
-// 3620 #endif
-// 3621 		if (res == FR_OK) {					/* The object is accessible */
-??f_unlink_1:
         CMP      R0,#+0
         BNE.N    ??f_unlink_0
+        LDR.W    R1,??DataTable18
+        LDRH     R2,[SP, #+1074]
+        LDR      R3,[SP, #+1076]
+        LDR      R4,[SP, #+1068]
+??f_unlink_1:
+        LDR      R5,[R1, #+0]
+        CBZ.N    R5,??f_unlink_2
+        CMP      R5,R4
+        ITTTT    EQ 
+        LDREQ    R5,[R1, #+4]
+        CMPEQ    R5,R3
+        LDRHEQ   R5,[R1, #+8]
+        CMPEQ    R5,R2
+        BEQ.N    ??f_unlink_3
+??f_unlink_2:
+        ADDS     R0,R0,#+1
+        ADDS     R1,R1,#+12
+        CMP      R0,#+2
+        BCC.N    ??f_unlink_1
+??f_unlink_3:
+        CMP      R0,#+2
+        IT       NE 
+        MOVNE    R0,#+16
+        BNE.N    ??f_unlink_0
+// 3620 #endif
+// 3621 		if (res == FR_OK) {					/* The object is accessible */
 // 3622 			dir = dj.dir;
-        LDR      R4,[R4, #+20]
+        LDR      R4,[SP, #+1088]
 // 3623 			if (!dir) {
-        CBNZ.N   R4,??f_unlink_2
+        CBNZ.N   R4,??f_unlink_4
 // 3624 				res = FR_INVALID_NAME;		/* Cannot remove the origin directory */
         MOVS     R0,#+6
 // 3625 			} else {
@@ -7649,20 +8615,23 @@ f_unlink:
 // 3657 	}
 // 3658 
 // 3659 	LEAVE_FF(dj.fs, res);
-        B.N      ?Subroutine8
-??f_unlink_2:
+        ADDW     SP,SP,#+1108
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+1120
+??f_unlink_4:
         LDRB     R0,[R4, #+11]
         LSLS     R0,R0,#+31
-        BMI.N    ??f_unlink_3
+        BMI.N    ??f_unlink_5
         LDR      R0,[SP, #+1068]
         MOV      R1,R4
           CFI FunCall ld_clust
         BL       ld_clust
         MOVS     R5,R0
-        BEQ.N    ??f_unlink_4
+        BEQ.N    ??f_unlink_6
         LDRB     R0,[R4, #+11]
         LSLS     R0,R0,#+27
-        BPL.N    ??f_unlink_4
+        BPL.N    ??f_unlink_6
         MOV      R2,#+544
         ADD      R1,SP,#+556
         ADD      R0,SP,#+12
@@ -7678,48 +8647,38 @@ f_unlink:
         ADD      R0,SP,#+12
           CFI FunCall dir_read
         BL       dir_read
-        CBNZ.N   R0,??f_unlink_5
-??f_unlink_3:
-        MOVS     R0,#+7
-        B.N      ?Subroutine8
+        CBNZ.N   R0,??f_unlink_7
 ??f_unlink_5:
+        MOVS     R0,#+7
+        ADDW     SP,SP,#+1108
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+1120
+??f_unlink_7:
         CMP      R0,#+4
         BNE.N    ??f_unlink_0
-??f_unlink_4:
+??f_unlink_6:
         ADD      R0,SP,#+556
           CFI FunCall dir_remove
         BL       dir_remove
-        CBNZ.N   R0,??f_unlink_6
-        CBZ.N    R5,??f_unlink_7
+        CBNZ.N   R0,??f_unlink_8
+        CBZ.N    R5,??f_unlink_9
         LDR      R0,[SP, #+1068]
         MOV      R1,R5
           CFI FunCall remove_chain
         BL       remove_chain
-??f_unlink_6:
+??f_unlink_8:
         CBNZ.N   R0,??f_unlink_0
-??f_unlink_7:
+??f_unlink_9:
         LDR      R0,[SP, #+1068]
           CFI FunCall sync_fs
         BL       sync_fs
 ??f_unlink_0:
-          CFI EndBlock cfiBlock44
-        REQUIRE ?Subroutine8
-        ;; // Fall through to label ?Subroutine8
-// 3660 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock45 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+1120
-          CFI R4 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine8:
         ADDW     SP,SP,#+1108
           CFI CFA R13+12
         POP      {R4,R5,PC}       ;; return
-          CFI EndBlock cfiBlock45
+// 3660 }
+          CFI EndBlock cfiBlock36
 // 3661 
 // 3662 
 // 3663 
@@ -7729,8 +8688,8 @@ f_unlink:
 // 3667 /*-----------------------------------------------------------------------*/
 // 3668 
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock46 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock37 Using cfiCommon0
           CFI Function f_mkdir
         THUMB
 // 3669 FRESULT f_mkdir (
@@ -7757,7 +8716,7 @@ f_mkdir:
 // 3676 	DWORD dsc, dcl, pcl, tm = GET_FATTIME();
           CFI FunCall get_fattime
         BL       get_fattime
-        MOV      R5,R0
+        STR      R0,[SP, #+0]
 // 3677 	DEFINE_NAMEBUF;
 // 3678 
 // 3679 
@@ -7765,18 +8724,18 @@ f_mkdir:
 // 3681 	res = find_volume(&dj.fs, &path, 1);
         MOVS     R2,#+1
         ADD      R1,SP,#+560
-        ADD      R0,SP,#+524
+        ADD      R0,SP,#+528
           CFI FunCall find_volume
         BL       find_volume
         MOVS     R7,R0
 // 3682 	if (res == FR_OK) {
         BNE.W    ??f_mkdir_0
 // 3683 		INIT_BUF(dj);
-        ADD      R6,SP,#+524
+        ADD      R0,SP,#+4
 // 3684 		res = follow_path(&dj, path);			/* Follow the file path */
         LDR      R1,[SP, #+560]
-        STR      SP,[R6, #+24]
-        ADD      R0,SP,#+12
+        STR      R0,[SP, #+552]
+        ADD      R0,SP,#+16
           CFI FunCall follow_path
         BL       follow_path
         MOVS     R7,R0
@@ -7790,52 +8749,198 @@ f_mkdir:
         CMP      R7,#+4
         BNE.W    ??f_mkdir_0
 // 3689 			dcl = create_chain(dj.fs, 0);		/* Allocate a cluster for the new directory table */
-        LDR      R0,[SP, #+524]
-        MOVS     R1,#+0
-          CFI FunCall create_chain
-        BL       create_chain
-        MOVS     R9,R0
+        LDR      R5,[SP, #+528]
+        LDR      R6,[R5, #+524]
+        CBZ.N    R6,??f_mkdir_1
+        LDR      R0,[R5, #+532]
+        CMP      R6,R0
+        BCC.N    ??f_mkdir_2
+??f_mkdir_1:
+        MOVS     R6,#+1
+??f_mkdir_2:
+        MOV.W    R4,R6
+??f_mkdir_3:
+        LDR      R0,[R5, #+532]
+        ADDS     R4,R4,#+1
+        CMP      R4,R0
+        BCC.N    ??f_mkdir_4
+        MOVS     R4,#+2
+        CMP      R6,#+2
+        BCC.W    ??f_mkdir_5
+??f_mkdir_4:
+        MOV      R1,R4
+        MOV      R0,R5
+          CFI FunCall get_fat
+        BL       get_fat
+        CMP      R0,#+0
+        BNE.W    ??f_mkdir_6
+        CMP      R4,#+2
+        BCC.N    ??f_mkdir_7
+        LDR      R0,[R5, #+532]
+        CMP      R4,R0
+        BCS.N    ??f_mkdir_7
+        LDRB     R0,[R5, #+512]
+        CMP      R0,#+1
+        BEQ.N    ??f_mkdir_8
+        BCC.N    ??f_mkdir_7
+        CMP      R0,#+3
+        BEQ.N    ??f_mkdir_9
+        BCC.N    ??f_mkdir_10
+        B.N      ??f_mkdir_7
+??f_mkdir_9:
+        LDR      R0,[R5, #+544]
+        ADD      R1,R0,R4, LSR #+7
+        MOV      R0,R5
+          CFI FunCall move_window
+        BL       move_window
+        CMP      R0,#+0
+        BNE.N    ??f_mkdir_11
+        LSLS     R1,R4,#+2
+        LSLS     R1,R1,#+23
+        ADDS     R1,R5,R1, LSR #+23
+        MVN      R3,#-268435456
+        LDRB     R2,[R1, #+3]
+        ORR      R2,R3,R2, LSL #+24
+        MOVS     R3,#+255
+        STRB     R3,[R1, #+0]
+        LSRS     R2,R2,#+24
+        STRB     R3,[R1, #+1]
+        STRB     R3,[R1, #+2]
+        STRB     R2,[R1, #+3]
+        MOVS     R1,#+1
+        STRB     R1,[R5, #+516]
+        B.N      ??f_mkdir_11
+??f_mkdir_10:
+        LDR      R0,[R5, #+544]
+        ADD      R1,R0,R4, LSR #+8
+        MOV      R0,R5
+          CFI FunCall move_window
+        BL       move_window
+        CMP      R0,#+0
+        BNE.N    ??f_mkdir_11
+        LSLS     R1,R4,#+1
+        LSLS     R1,R1,#+23
+        ADDS     R1,R5,R1, LSR #+23
+        MOVS     R3,#+255
+        STRB     R3,[R1, #+0]
+        STRB     R3,[R1, #+1]
+        MOVS     R1,#+1
+        STRB     R1,[R5, #+516]
+        B.N      ??f_mkdir_11
+??f_mkdir_8:
+        ADD      R6,R4,R4, LSR #+1
+        LDR      R0,[R5, #+544]
+        ADD      R1,R0,R6, LSR #+9
+        MOV      R0,R5
+          CFI FunCall move_window
+        BL       move_window
+        CBNZ.N   R0,??f_mkdir_11
+        LSLS     R0,R6,#+23
+        ADDS     R6,R6,#+1
+        ADDS     R1,R5,R0, LSR #+23
+        ANDS     R10,R4,#0x1
+        ITTE     NE 
+        LDRBNE   R0,[R1, #+0]
+        ORRNE    R0,R0,#0xF0
+        MOVEQ    R0,#+255
+        STRB     R0,[R1, #+0]
+        MOVS     R0,#+1
+        STRB     R0,[R5, #+516]
+        LDR      R0,[R5, #+544]
+        ADD      R1,R0,R6, LSR #+9
+        MOV      R0,R5
+          CFI FunCall move_window
+        BL       move_window
+        CBNZ.N   R0,??f_mkdir_11
+        LSLS     R1,R6,#+23
+        ADDS     R1,R5,R1, LSR #+23
+        CMP      R10,#+0
+        ITEE     NE 
+        MOVNE    R2,#+255
+        LDRBEQ   R2,[R1, #+0]
+        ORREQ    R2,R2,#0xF
+        STRB     R2,[R1, #+0]
+        MOVS     R1,#+1
+        STRB     R1,[R5, #+516]
+        B.N      ??f_mkdir_11
+??f_mkdir_7:
+        MOVS     R0,#+2
+??f_mkdir_11:
+        CBNZ.N   R0,??f_mkdir_12
+        LDR      R0,[R5, #+528]
+        STR      R4,[R5, #+524]
+        CMN      R0,#+1
+        BEQ.N    ??f_mkdir_13
+        SUBS     R0,R0,#+1
+        STR      R0,[R5, #+528]
+        LDRB     R0,[R5, #+517]
+        ORR      R0,R0,#0x1
+        STRB     R0,[R5, #+517]
+        B.N      ??f_mkdir_13
+??f_mkdir_12:
+        CMP      R0,#+1
+        ITE      EQ 
+        MOVEQ    R4,#-1
+        MOVNE    R4,#+1
 // 3690 			res = FR_OK;
 // 3691 			if (dcl == 0) res = FR_DENIED;		/* No space to allocate a new cluster */
-        IT       EQ 
-        MOVEQ    R7,#+7
-        BEQ.N    ??f_mkdir_1
+??f_mkdir_13:
+        CBNZ.N   R4,??f_mkdir_14
+        MOVS     R7,#+7
+        B.N      ??f_mkdir_15
+??f_mkdir_6:
+        CMN      R0,#+1
+        IT       NE 
+        CMPNE    R0,#+1
+        BEQ.N    ??f_mkdir_16
+        CMP      R4,R6
+        BNE.W    ??f_mkdir_3
+??f_mkdir_5:
+        MOVS     R4,#+0
+        MOVS     R7,#+7
+        B.N      ??f_mkdir_15
+??f_mkdir_16:
+        MOV      R4,R0
 // 3692 			if (dcl == 1) res = FR_INT_ERR;
-        CMP      R9,#+1
+??f_mkdir_14:
+        CMP      R4,#+1
         IT       EQ 
         MOVEQ    R7,#+2
-        BEQ.N    ??f_mkdir_1
+        BEQ.W    ??f_mkdir_15
 // 3693 			if (dcl == 0xFFFFFFFF) res = FR_DISK_ERR;
-        CMN      R9,#+1
+        CMN      R4,#+1
         IT       EQ 
         MOVEQ    R7,#+1
-        BEQ.N    ??f_mkdir_1
+        BEQ.W    ??f_mkdir_15
 // 3694 			if (res == FR_OK)					/* Flush FAT */
 // 3695 				res = sync_window(dj.fs);
-        LDR      R0,[SP, #+524]
+        LDR      R0,[SP, #+528]
           CFI FunCall sync_window
         BL       sync_window
         MOVS     R7,R0
 // 3696 			if (res == FR_OK) {					/* Initialize the new directory table */
-        BNE.N    ??f_mkdir_2
+        BNE.W    ??f_mkdir_17
 // 3697 				dsc = clust2sect(dj.fs, dcl);
-        LDR      R4,[SP, #+524]
-        MOV      R1,R9
-        MOV      R8,#+512
-        MOV      R0,R4
-          CFI FunCall clust2sect
-        BL       clust2sect
-        MOV      R11,R0
+        LDR      R5,[SP, #+528]
+        SUBS     R1,R4,#+2
+        LDR      R2,[R5, #+532]
+        SUBS     R2,R2,#+2
+        CMP      R1,R2
+        ITEEE    CS 
+        MOVCS    R6,#+0
+        LDRBCC   R2,[R5, #+514]
+        LDRCC    R0,[R5, #+552]
+        MLACC    R6,R2,R1,R0
 // 3698 				dir = dj.fs->win.d8;
-// 3699 				mem_set(dir, 0, SS(dj.fs));
-        MOV      R1,R8
-        MOV      R0,R4
+        MOV      R1,#+512
+        MOV      R0,R5
           CFI FunCall __aeabi_memclr
         BL       __aeabi_memclr
+// 3699 				mem_set(dir, 0, SS(dj.fs));
 // 3700 				mem_set(dir + DIR_Name, ' ', 11);	/* Create "." entry */
         MOVS     R2,#+32
         MOVS     R1,#+11
-        MOV      R0,R4
+        MOV      R0,R5
           CFI FunCall __aeabi_memset
         BL       __aeabi_memset
 // 3701 				dir[DIR_Name] = '.';
@@ -7843,140 +8948,196 @@ f_mkdir:
 // 3702 				dir[DIR_Attr] = AM_DIR;
 // 3703 				ST_DWORD(dir + DIR_WrtTime, tm);
 // 3704 				st_clust(dir, dcl);
-        MOV      R1,R9
-        STRB     R0,[R4, #+0]
-        MOVS     R0,#+16
-        STRB     R0,[R4, #+11]
-        LSLS     R0,R5,#+16
-        STRB     R5,[R4, #+22]
-        LSRS     R0,R0,#+24
-        STRB     R0,[R4, #+23]
-        LSRS     R0,R5,#+16
-        STRB     R0,[R4, #+24]
-        LSRS     R0,R5,#+24
-        STRB     R0,[R4, #+25]
-        MOV      R0,R4
-          CFI FunCall st_clust
-        BL       st_clust
 // 3705 				mem_cpy(dir + SZ_DIRE, dir, SZ_DIRE); 	/* Create ".." entry */
-        ADD      R0,R4,#+32
-        MOV      R1,R4
+        MOV      R1,R5
+        STRB     R0,[R5, #+0]
+        MOVS     R0,#+16
+        STRB     R0,[R5, #+11]
+        LDR      R0,[SP, #+0]
         MOVS     R2,#+32
-??f_mkdir_3:
+        STRB     R0,[R5, #+22]
+        LDR      R0,[SP, #+0]
+        LSLS     R0,R0,#+16
+        LSRS     R0,R0,#+24
+        STRB     R0,[R5, #+23]
+        LDR      R0,[SP, #+0]
+        LSRS     R0,R0,#+16
+        STRB     R0,[R5, #+24]
+        LDR      R0,[SP, #+0]
+        STRB     R4,[R5, #+26]
+        LSRS     R0,R0,#+24
+        STRB     R0,[R5, #+25]
+        LSLS     R0,R4,#+16
+        LSRS     R0,R0,#+24
+        STRB     R0,[R5, #+27]
+        LSRS     R0,R4,#+16
+        STRB     R0,[R5, #+20]
+        LSRS     R0,R0,#+8
+        STRB.W   R0,[R5, #+21]
+        ADD      R0,R5,#+32
+??f_mkdir_18:
         LDRB     R3,[R1], #+1
         SUBS     R2,R2,#+1
         STRB     R3,[R0], #+1
-        BNE.N    ??f_mkdir_3
+        BNE.N    ??f_mkdir_18
 // 3706 				dir[SZ_DIRE + 1] = '.'; pcl = dj.sclust;
         MOVS     R0,#+46
-        STRB     R0,[R4, #+33]
+        STRB     R0,[R5, #+33]
 // 3707 				if (dj.fs->fs_type == FS_FAT32 && pcl == dj.fs->dirbase)
-        LDR      R0,[SP, #+524]
-        LDR      R1,[R6, #+8]
-        ADD      R0,R0,#+512
-        LDRB     R2,[R0, #+0]
+        LDR      R1,[SP, #+528]
+        LDR      R0,[SP, #+536]
+        LDRB     R2,[R1, #+512]
         CMP      R2,#+3
         ITTT     EQ 
-        LDREQ    R0,[R0, #+36]
-        CMPEQ    R1,R0
-        MOVEQ    R1,#+0
+        LDREQ    R1,[R1, #+548]
+        CMPEQ    R0,R1
+        MOVEQ    R0,#+0
 // 3708 					pcl = 0;
 // 3709 				st_clust(dir + SZ_DIRE, pcl);
-        ADD      R0,R4,#+32
-          CFI FunCall st_clust
-        BL       st_clust
+        ADD      R1,R5,#+32
+        LSLS     R2,R0,#+16
+        STRB     R0,[R1, #+26]
+        LSRS     R0,R0,#+16
+        STRB     R0,[R1, #+20]
+        LSRS     R2,R2,#+24
+        LSRS     R0,R0,#+8
+        STRB     R2,[R1, #+27]
+        STRB     R0,[R1, #+21]
 // 3710 				for (n = dj.fs->csize; n; n--) {	/* Write dot entries and clear following sectors */
-        LDR      R0,[SP, #+524]
+        LDR      R0,[SP, #+528]
         LDRB     R10,[R0, #+514]
         CMP      R10,#+0
-        BEQ.N    ??f_mkdir_4
+        BEQ.N    ??f_mkdir_19
 // 3711 					dj.fs->winsect = dsc++;
 // 3712 					dj.fs->wflag = 1;
-??f_mkdir_5:
+??f_mkdir_20:
         MOVS     R1,#+1
-        LDR      R0,[SP, #+524]
-        ADD      R0,R0,#+516
-        STRB     R1,[R0, #+0]
-        STR      R11,[R0, #+40]
+        LDR      R0,[SP, #+528]
+        STRB     R1,[R0, #+516]
+        STR      R6,[R0, #+556]
 // 3713 					res = sync_window(dj.fs);
-        LDR      R0,[SP, #+524]
-        ADD      R11,R11,#+1
-          CFI FunCall sync_window
-        BL       sync_window
-        MOVS     R7,R0
-// 3714 					if (res != FR_OK) break;
-        BNE.N    ??f_mkdir_2
-// 3715 					mem_set(dir, 0, SS(dj.fs));
+        LDR      R8,[SP, #+528]
+        ADDS     R6,R6,#+1
+        LDRB     R0,[R8, #+516]
+        CBZ.N    R0,??f_mkdir_21
+        LDR      R9,[R8, #+556]
+        LDRB     R0,[R8, #+513]
+        MOVS     R3,#+1
         MOV      R1,R8
-        MOV      R0,R4
+        MOV      R2,R9
+          CFI FunCall disk_write
+        BL       disk_write
+        CBZ.N    R0,??f_mkdir_22
+        MOVS     R7,#+1
+        B.N      ??f_mkdir_21
+??f_mkdir_22:
+        STRB     R0,[R8, #+516]
+        LDR      R0,[R8, #+544]
+        LDR      R1,[R8, #+536]
+        SUB      R0,R9,R0
+        CMP      R0,R1
+        BCS.N    ??f_mkdir_21
+        LDRB     R0,[R8, #+515]
+        CMP      R0,#+2
+        BCC.W    ??f_mkdir_21
+        SUB      R11,R0,#+1
+??f_mkdir_23:
+        LDR      R0,[R8, #+536]
+        MOVS     R3,#+1
+        MOV      R1,R8
+        ADD      R9,R0,R9
+        LDRB     R0,[R8, #+513]
+        MOV      R2,R9
+          CFI FunCall disk_write
+        BL       disk_write
+        SUBS     R11,R11,#+1
+        BNE.N    ??f_mkdir_23
+// 3714 					if (res != FR_OK) break;
+??f_mkdir_21:
+        CBNZ.N   R7,??f_mkdir_17
+// 3715 					mem_set(dir, 0, SS(dj.fs));
+        MOV      R1,#+512
+        MOV      R0,R5
           CFI FunCall __aeabi_memclr
         BL       __aeabi_memclr
 // 3716 				}
         SUBS     R10,R10,#+1
-        BNE.N    ??f_mkdir_5
-        B.N      ??f_mkdir_4
+        BNE.N    ??f_mkdir_20
+        B.N      ??f_mkdir_19
 // 3717 			}
 // 3718 			if (res == FR_OK) res = dir_register(&dj);	/* Register the object to the directoy */
-??f_mkdir_2:
-        CBNZ.N   R7,??f_mkdir_6
-??f_mkdir_4:
-        ADD      R0,SP,#+12
+??f_mkdir_17:
+        CBNZ.N   R7,??f_mkdir_24
+??f_mkdir_19:
+        ADD      R0,SP,#+16
           CFI FunCall dir_register
         BL       dir_register
         MOV      R7,R0
 // 3719 			if (res != FR_OK) {
-??f_mkdir_6:
-        CBZ.N    R7,??f_mkdir_7
+??f_mkdir_24:
+        CBZ.N    R7,??f_mkdir_25
 // 3720 				remove_chain(dj.fs, dcl);			/* Could not register, remove cluster chain */
-??f_mkdir_1:
-        LDR      R0,[SP, #+524]
-        MOV      R1,R9
+??f_mkdir_15:
+        LDR      R0,[SP, #+528]
+        MOV      R1,R4
           CFI FunCall remove_chain
         BL       remove_chain
-        B.N      ??f_mkdir_0
 // 3721 			} else {
 // 3722 				dir = dj.dir;
-??f_mkdir_7:
-        LDR      R4,[R6, #+20]
 // 3723 				dir[DIR_Attr] = AM_DIR;				/* Attribute */
-        MOVS     R0,#+16
 // 3724 				ST_DWORD(dir + DIR_WrtTime, tm);	/* Created time */
 // 3725 				st_clust(dir, dcl);					/* Table start cluster */
-        MOV      R1,R9
-        STRB     R0,[R4, #+11]
-        LSLS     R0,R5,#+16
-        STRB     R5,[R4, #+22]
-        LSRS     R0,R0,#+24
-        STRB     R0,[R4, #+23]
-        LSRS     R0,R5,#+16
-        STRB     R0,[R4, #+24]
-        LSRS     R0,R5,#+24
-        STRB     R0,[R4, #+25]
-        MOV      R0,R4
-          CFI FunCall st_clust
-        BL       st_clust
 // 3726 				dj.fs->wflag = 1;
-        LDR      R1,[SP, #+524]
-        MOVS     R0,#+1
-        STRB     R0,[R1, #+516]
 // 3727 				res = sync_fs(dj.fs);
-        LDR      R0,[SP, #+524]
-          CFI FunCall sync_fs
-        BL       sync_fs
-        MOV      R7,R0
 // 3728 			}
 // 3729 		}
 // 3730 		FREE_BUF();
 // 3731 	}
 // 3732 
 // 3733 	LEAVE_FF(dj.fs, res);
+        MOV      R0,R7
+        ADD      SP,SP,#+564
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+600
+??f_mkdir_25:
+        LDR      R5,[SP, #+548]
+        MOVS     R0,#+16
+        STRB     R0,[R5, #+11]
+        LDR      R0,[SP, #+0]
+        STRB     R0,[R5, #+22]
+        LDR      R0,[SP, #+0]
+        LSLS     R0,R0,#+16
+        LSRS     R0,R0,#+24
+        STRB     R0,[R5, #+23]
+        LDR      R0,[SP, #+0]
+        LSRS     R0,R0,#+16
+        STRB     R0,[R5, #+24]
+        LDR      R0,[SP, #+0]
+        STRB     R4,[R5, #+26]
+        LSRS     R0,R0,#+24
+        STRB     R0,[R5, #+25]
+        LSLS     R0,R4,#+16
+        LSRS     R0,R0,#+24
+        STRB     R0,[R5, #+27]
+        LSRS     R0,R4,#+16
+        STRB     R0,[R5, #+20]
+        LSRS     R0,R0,#+8
+        STRB     R0,[R5, #+21]
+        LDR      R1,[SP, #+528]
+        MOVS     R0,#+1
+        STRB     R0,[R1, #+516]
+        LDR      R0,[SP, #+528]
+          CFI FunCall sync_fs
+        BL       sync_fs
+        MOV      R7,R0
 ??f_mkdir_0:
         MOV      R0,R7
         ADD      SP,SP,#+564
           CFI CFA R13+36
         POP      {R4-R11,PC}      ;; return
 // 3734 }
-          CFI EndBlock cfiBlock46
+          CFI EndBlock cfiBlock37
 // 3735 
 // 3736 
 // 3737 
@@ -7987,7 +9148,7 @@ f_mkdir:
 // 3742 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock47 Using cfiCommon0
+          CFI Block cfiBlock38 Using cfiCommon0
           CFI Function f_chmod
         THUMB
 // 3743 FRESULT f_chmod (
@@ -7997,13 +9158,12 @@ f_mkdir:
 // 3747 )
 // 3748 {
 f_chmod:
-        PUSH     {R0,R4-R6,LR}
+        PUSH     {R0,R4,R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+20
-        SUB      SP,SP,#+556
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+16
+        SUB      SP,SP,#+560
           CFI CFA R13+576
         MOV      R4,R1
         MOV      R5,R2
@@ -8016,17 +9176,16 @@ f_chmod:
 // 3755 	/* Get logical drive number */
 // 3756 	res = find_volume(&dj.fs, &path, 1);
         MOVS     R2,#+1
-        ADD      R1,SP,#+556
+        ADD      R1,SP,#+560
         ADD      R0,SP,#+524
           CFI FunCall find_volume
         BL       find_volume
 // 3757 	if (res == FR_OK) {
         CBNZ.N   R0,??f_chmod_0
 // 3758 		INIT_BUF(dj);
-        ADD      R6,SP,#+524
 // 3759 		res = follow_path(&dj, path);		/* Follow the file path */
-        LDR      R1,[SP, #+556]
-        STR      SP,[R6, #+24]
+        LDR      R1,[SP, #+560]
+        STR      SP,[SP, #+548]
         ADD      R0,SP,#+12
           CFI FunCall follow_path
         BL       follow_path
@@ -8036,7 +9195,7 @@ f_chmod:
 // 3763 		if (res == FR_OK) {
         CBNZ.N   R0,??f_chmod_0
 // 3764 			dir = dj.dir;
-        LDR      R0,[R6, #+20]
+        LDR      R0,[SP, #+544]
 // 3765 			if (!dir) {						/* Is it a root directory? */
         CBNZ.N   R0,??f_chmod_1
 // 3766 				res = FR_INVALID_NAME;
@@ -8051,7 +9210,10 @@ f_chmod:
 // 3774 	}
 // 3775 
 // 3776 	LEAVE_FF(dj.fs, res);
-        B.N      ?Subroutine2
+        ADD      SP,SP,#+564
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+576
 ??f_chmod_1:
         LDRB     R2,[R0, #+11]
         AND      R5,R5,#0x27
@@ -8066,25 +9228,11 @@ f_chmod:
           CFI FunCall sync_fs
         BL       sync_fs
 ??f_chmod_0:
-          CFI EndBlock cfiBlock47
-        REQUIRE ?Subroutine2
-        ;; // Fall through to label ?Subroutine2
+        ADD      SP,SP,#+564
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
 // 3777 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock48 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+576
-          CFI R4 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine2:
-        ADD      SP,SP,#+560
-          CFI CFA R13+16
-        POP      {R4-R6,PC}       ;; return
-          CFI EndBlock cfiBlock48
+          CFI EndBlock cfiBlock38
 // 3778 
 // 3779 
 // 3780 
@@ -8094,8 +9242,8 @@ f_chmod:
 // 3784 /*-----------------------------------------------------------------------*/
 // 3785 
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock49 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock39 Using cfiCommon0
           CFI Function f_rename
         THUMB
 // 3786 FRESULT f_rename (
@@ -8112,7 +9260,7 @@ f_rename:
           CFI CFA R13+20
         SUBW     SP,SP,#+1124
           CFI CFA R13+1144
-        MOV      R5,R1
+        MOV      R4,R1
 // 3791 	FRESULT res;
 // 3792 	DIR djo, djn;
 // 3793 	BYTE buf[21], *dir;
@@ -8135,32 +9283,48 @@ f_rename:
 // 3801 		djn.fs = djo.fs;
         LDR      R0,[SP, #+1092]
 // 3802 		INIT_BUF(djo);
-        ADD      R4,SP,#+1020
-        ADDS     R4,R4,#+72
 // 3803 		res = follow_path(&djo, path_old);		/* Check old object */
         LDR      R1,[SP, #+1124]
+        STR      SP,[SP, #+1116]
         STR      R0,[SP, #+548]
         ADD      R0,SP,#+580
-        STR      SP,[R4, #+24]
           CFI FunCall follow_path
         BL       follow_path
 // 3804 		if (_FS_RPATH && res == FR_OK && (djo.fn[NSFLAG] & NS_DOT))
 // 3805 			res = FR_INVALID_NAME;
 // 3806 #if _FS_LOCK
 // 3807 		if (res == FR_OK) res = chk_lock(&djo, 2);
-        CBNZ.N   R0,??f_rename_1
-        MOVS     R1,#+2
-        ADD      R0,SP,#+580
-          CFI FunCall chk_lock
-        BL       chk_lock
-// 3808 #endif
-// 3809 		if (res == FR_OK) {						/* Old object is found */
-??f_rename_1:
         CMP      R0,#+0
         BNE.W    ??f_rename_0
+        LDR.W    R1,??DataTable18
+        LDRH     R2,[SP, #+1098]
+        LDR      R3,[SP, #+1100]
+        LDR      R5,[SP, #+1092]
+??f_rename_1:
+        LDR      R6,[R1, #+0]
+        CBZ.N    R6,??f_rename_2
+        CMP      R6,R5
+        ITTTT    EQ 
+        LDREQ    R6,[R1, #+4]
+        CMPEQ    R6,R3
+        LDRHEQ   R6,[R1, #+8]
+        CMPEQ    R6,R2
+        BEQ.N    ??f_rename_3
+??f_rename_2:
+        ADDS     R0,R0,#+1
+        ADDS     R1,R1,#+12
+        CMP      R0,#+2
+        BCC.N    ??f_rename_1
+??f_rename_3:
+        CMP      R0,#+2
+        IT       NE 
+        MOVNE    R0,#+16
+        BNE.W    ??f_rename_0
+// 3808 #endif
+// 3809 		if (res == FR_OK) {						/* Old object is found */
 // 3810 			if (!djo.dir) {						/* Is root dir? */
-        LDR      R0,[R4, #+20]
-        CBNZ.N   R0,??f_rename_2
+        LDR      R0,[SP, #+1112]
+        CBNZ.N   R0,??f_rename_4
 // 3811 				res = FR_NO_FILE;
         MOVS     R0,#+4
 // 3812 			} else {
@@ -8206,56 +9370,65 @@ f_rename:
 // 3852 	}
 // 3853 
 // 3854 	LEAVE_FF(djo.fs, res);
-        B.N      ?Subroutine3
-??f_rename_2:
+        ADD      SP,SP,#+1128
+          CFI CFA R13+16
+        POP      {R4-R6,PC}
+          CFI CFA R13+1144
+??f_rename_4:
         ADD      R1,SP,#+12
         ADDS     R0,R0,#+11
-        MOVS     R2,#+21
-??f_rename_3:
+        MOVS.W   R2,#+21
+??f_rename_5:
         LDRB     R3,[R0], #+1
         SUBS     R2,R2,#+1
         STRB     R3,[R1], #+1
-        BNE.N    ??f_rename_3
+        BNE.N    ??f_rename_5
         MOV      R2,#+544
         ADD      R1,SP,#+580
         ADD      R0,SP,#+36
           CFI FunCall __aeabi_memcpy4
         BL       __aeabi_memcpy4
-        CBZ.N    R5,??f_rename_4
-        MOV      R0,R5
-        B.N      ??f_rename_5
-??f_rename_6:
+        CBZ.N    R4,??f_rename_6
+        MOV      R0,R4
+        B.N      ??f_rename_7
+??f_rename_8:
         ADDS     R0,R0,#+1
-??f_rename_5:
+??f_rename_7:
         LDRB     R1,[R0, #+0]
         CMP      R1,#+33
-        BCC.N    ??f_rename_7
-        CMP      R1,#+58
-        BNE.N    ??f_rename_6
-??f_rename_7:
+        BCC.N    ??f_rename_9
         CMP      R1,#+58
         BNE.N    ??f_rename_8
-        LDRB     R1,[R5], #+1
+??f_rename_9:
+        CMP      R1,#+58
+        BNE.N    ??f_rename_10
+        LDRB     R1,[R4], #+1
         SUBS     R1,R1,#+48
         CMP      R1,#+10
-        BCS.N    ??f_rename_4
-        CMP      R5,R0
+        BCS.N    ??f_rename_6
+        CMP      R4,R0
         IT       EQ 
         CMPEQ    R1,#+0
-        BNE.N    ??f_rename_4
-        ADDS     R5,R0,#+1
-??f_rename_8:
-        MOV      R1,R5
+        BNE.N    ??f_rename_6
+        ADDS     R4,R0,#+1
+??f_rename_10:
+        MOV      R1,R4
         ADD      R0,SP,#+36
           CFI FunCall follow_path
         BL       follow_path
-        CBNZ.N   R0,??f_rename_9
+        CBNZ.N   R0,??f_rename_11
         MOVS     R0,#+8
-        B.N      ?Subroutine3
-??f_rename_4:
+        ADD      SP,SP,#+1128
+          CFI CFA R13+16
+        POP      {R4-R6,PC}
+          CFI CFA R13+1144
+??f_rename_6:
         MOVS     R0,#+11
-        B.N      ?Subroutine3
-??f_rename_9:
+        ADD      SP,SP,#+1128
+          CFI CFA R13+16
+        POP      {R4-R6,PC}
+          CFI CFA R13+1144
+??f_rename_11:
         CMP      R0,#+4
         BNE.N    ??f_rename_0
         ADD      R0,SP,#+36
@@ -8263,59 +9436,70 @@ f_rename:
         BL       dir_register
         CMP      R0,#+0
         BNE.N    ??f_rename_0
-        ADD      R5,SP,#+548
-        ADD      R1,SP,#+14
-        MOVS     R3,#+19
-        LDR      R2,[R5, #+20]
-        ADD      R0,R2,#+13
-??f_rename_10:
-        LDRB     R6,[R1], #+1
+        LDR      R1,[SP, #+568]
+        ADD      R2,SP,#+14
+        MOVS.W   R3,#+19
+        ADD      R0,R1,#+13
+??f_rename_12:
+        LDRB     R4,[R2], #+1
         SUBS     R3,R3,#+1
-        STRB     R6,[R0], #+1
-        BNE.N    ??f_rename_10
+        STRB     R4,[R0], #+1
+        BNE.N    ??f_rename_12
         LDRB     R0,[SP, #+12]
         ORR      R0,R0,#0x20
-        STRB     R0,[R2, #+11]
-        LDR      R1,[SP, #+1092]
+        STRB     R0,[R1, #+11]
+        LDR      R2,[SP, #+1092]
         MOVS     R0,#+1
-        STRB     R0,[R1, #+516]
-        LDRB     R0,[R2, #+11]
+        STRB     R0,[R2, #+516]
+        LDRB     R0,[R1, #+11]
         LSLS     R0,R0,#+27
-        BPL.N    ??f_rename_11
-        LDR      R0,[R4, #+8]
-        LDR      R1,[R5, #+8]
-        CMP      R0,R1
-        BEQ.N    ??f_rename_11
+        BPL.N    ??f_rename_13
+        LDR      R0,[SP, #+1100]
+        LDR      R2,[SP, #+556]
+        CMP      R0,R2
+        BEQ.N    ??f_rename_13
         LDR      R4,[SP, #+1092]
-        MOV      R1,R2
         MOV      R0,R4
           CFI FunCall ld_clust
         BL       ld_clust
-        MOV      R1,R0
-        MOV      R0,R4
-          CFI FunCall clust2sect
-        BL       clust2sect
-        MOVS     R1,R0
-        IT       EQ 
-        MOVEQ    R0,#+2
-        BEQ.N    ??f_rename_0
+        LDR      R2,[R4, #+532]
+        SUBS     R0,R0,#+2
+        SUBS     R2,R2,#+2
+        CMP      R0,R2
+        BCS.N    ??f_rename_14
+        LDRB     R2,[R4, #+514]
+        LDR      R1,[R4, #+552]
+        MLA      R1,R2,R0,R1
+        CBNZ.N   R1,??f_rename_15
+??f_rename_14:
+        MOVS     R0,#+2
+        ADD      SP,SP,#+1128
+          CFI CFA R13+16
+        POP      {R4-R6,PC}
+          CFI CFA R13+1144
+??f_rename_15:
         MOV      R0,R4
           CFI FunCall move_window
         BL       move_window
         LDR      R1,[SP, #+1092]
-        ADD      R2,R1,#+32
+        ADDS     R1,R1,#+32
         CBNZ.N   R0,??f_rename_0
-        LDRB     R0,[R2, #+1]
+        LDRB     R0,[R1, #+1]
         CMP      R0,#+46
-        BNE.N    ??f_rename_11
-        LDR      R1,[R5, #+8]
-        MOV      R0,R2
-          CFI FunCall st_clust
-        BL       st_clust
+        BNE.N    ??f_rename_13
+        LDR      R0,[SP, #+556]
+        STRB     R0,[R1, #+26]
+        LSLS     R2,R0,#+16
+        LSRS     R0,R0,#+16
+        LSRS     R2,R2,#+24
+        STRB     R0,[R1, #+20]
+        STRB     R2,[R1, #+27]
+        LSRS     R0,R0,#+8
+        STRB     R0,[R1, #+21]
         LDR      R1,[SP, #+1092]
         MOVS     R0,#+1
         STRB     R0,[R1, #+516]
-??f_rename_11:
+??f_rename_13:
         ADD      R0,SP,#+580
           CFI FunCall dir_remove
         BL       dir_remove
@@ -8324,25 +9508,17 @@ f_rename:
           CFI FunCall sync_fs
         BL       sync_fs
 ??f_rename_0:
-          CFI EndBlock cfiBlock49
-        REQUIRE ?Subroutine3
-        ;; // Fall through to label ?Subroutine3
-// 3855 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock50 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+1144
-          CFI R4 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine3:
         ADD      SP,SP,#+1128
           CFI CFA R13+16
         POP      {R4-R6,PC}       ;; return
-          CFI EndBlock cfiBlock50
+// 3855 }
+          CFI EndBlock cfiBlock39
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable17:
+        DC32     Files
 // 3856 
 // 3857 
 // 3858 
@@ -8353,7 +9529,7 @@ f_rename:
 // 3863 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock51 Using cfiCommon0
+          CFI Block cfiBlock40 Using cfiCommon0
           CFI Function f_utime
         THUMB
 // 3864 FRESULT f_utime (
@@ -8362,13 +9538,12 @@ f_rename:
 // 3867 )
 // 3868 {
 f_utime:
-        PUSH     {R0,R4,R5,LR}
+        PUSH     {R0,R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
-        SUB      SP,SP,#+560
-          CFI CFA R13+576
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+12
+        SUB      SP,SP,#+556
+          CFI CFA R13+568
         MOV      R4,R1
 // 3869 	FRESULT res;
 // 3870 	DIR dj;
@@ -8379,17 +9554,16 @@ f_utime:
 // 3875 	/* Get logical drive number */
 // 3876 	res = find_volume(&dj.fs, &path, 1);
         MOVS     R2,#+1
-        ADD      R1,SP,#+560
+        ADD      R1,SP,#+556
         ADD      R0,SP,#+524
           CFI FunCall find_volume
         BL       find_volume
 // 3877 	if (res == FR_OK) {
         CBNZ.N   R0,??f_utime_0
 // 3878 		INIT_BUF(dj);
-        ADD      R5,SP,#+524
 // 3879 		res = follow_path(&dj, path);	/* Follow the file path */
-        LDR      R1,[SP, #+560]
-        STR      SP,[R5, #+24]
+        LDR      R1,[SP, #+556]
+        STR      SP,[SP, #+548]
         ADD      R0,SP,#+12
           CFI FunCall follow_path
         BL       follow_path
@@ -8399,7 +9573,7 @@ f_utime:
 // 3883 		if (res == FR_OK) {
         CBNZ.N   R0,??f_utime_0
 // 3884 			dir = dj.dir;
-        LDR      R0,[R5, #+20]
+        LDR      R0,[SP, #+544]
 // 3885 			if (!dir) {					/* Root directory */
         CBNZ.N   R0,??f_utime_1
 // 3886 				res = FR_INVALID_NAME;
@@ -8414,7 +9588,10 @@ f_utime:
 // 3894 	}
 // 3895 
 // 3896 	LEAVE_FF(dj.fs, res);
-        B.N      ?Subroutine7
+        ADD      SP,SP,#+560
+          CFI CFA R13+8
+        POP      {R4,PC}
+          CFI CFA R13+568
 ??f_utime_1:
         LDRH     R1,[R4, #+6]
         STRB     R1,[R0, #+22]
@@ -8433,24 +9610,11 @@ f_utime:
           CFI FunCall sync_fs
         BL       sync_fs
 ??f_utime_0:
-          CFI EndBlock cfiBlock51
-        REQUIRE ?Subroutine7
-        ;; // Fall through to label ?Subroutine7
+        ADD      SP,SP,#+560
+          CFI CFA R13+8
+        POP      {R4,PC}          ;; return
 // 3897 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock52 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+576
-          CFI R4 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine7:
-        ADD      SP,SP,#+564
-          CFI CFA R13+12
-        POP      {R4,R5,PC}       ;; return
-          CFI EndBlock cfiBlock52
+          CFI EndBlock cfiBlock40
 // 3898 
 // 3899 #endif /* !_FS_READONLY */
 // 3900 #endif /* _FS_MINIMIZE == 0 */
@@ -8693,7 +9857,7 @@ f_utime:
 // 4137 
 
         SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock53 Using cfiCommon0
+          CFI Block cfiBlock41 Using cfiCommon0
           CFI Function f_mkfs
         THUMB
 // 4138 FRESULT f_mkfs (
@@ -8734,7 +9898,7 @@ f_mkfs:
           CFI CFA R13+40
         SUB      SP,SP,#+24
           CFI CFA R13+64
-        MOV      R11,R2
+        MOV      R8,R2
         IT       GE 
         MOVGE    R0,#+19
         BGE.W    ??f_mkfs_0
@@ -8764,20 +9928,25 @@ f_mkfs:
 // 4162 	if (vol < 0) return FR_INVALID_DRIVE;
 // 4163 	fs = FatFs[vol];
 ??f_mkfs_5:
-        LDR.W    R0,??f_mkfs_6
-        LDR      R4,[R0, #+4]
+        LDR.W    R0,??DataTable18
+        LDR      R5,[R0, #+28]
 // 4164 	if (!fs) return FR_NOT_ENABLED;
-        CBNZ.N   R4,??f_mkfs_7
+        CBNZ.N   R5,??f_mkfs_6
         MOVS     R0,#+12
-        B.N      ?Subroutine9
+        ADD      SP,SP,#+28
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+64
 ??f_mkfs_1:
         MOVS     R0,#+11
-        B.N      ?Subroutine9
+        ADD      SP,SP,#+28
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+64
 // 4165 	fs->fs_type = 0;
-??f_mkfs_7:
-        ADD      R5,R4,#+484
+??f_mkfs_6:
         MOVS     R0,#+0
-        STRB     R0,[R5, #+28]
+        STRB     R0,[R5, #+512]
 // 4166 	pdrv = LD2PD(vol);	/* Physical drive */
 // 4167 	part = LD2PT(vol);	/* Partition (0:auto detect, 1-4:get from partition table)*/
 // 4168 
@@ -8816,10 +9985,10 @@ f_mkfs:
           CFI FunCall disk_ioctl
         BL       disk_ioctl
         CMP      R0,#+0
-        BNE.W    ??f_mkfs_8
+        BNE.W    ??f_mkfs_7
         LDR      R0,[SP, #+4]
         CMP      R0,#+128
-        BCC.W    ??f_mkfs_8
+        BCC.W    ??f_mkfs_7
 // 4188 			return FR_DISK_ERR;
 // 4189 		b_vol = (sfd) ? 0 : 63;		/* Volume start sector */
         LDRB     R0,[SP, #+24]
@@ -8834,120 +10003,119 @@ f_mkfs:
 // 4191 	}
 // 4192 
 // 4193 	if (au & (au - 1)) au = 0;
-        SUB      R0,R11,#+1
-        TST      R11,R0
-        BNE.N    ??f_mkfs_9
+        SUB      R0,R8,#+1
+        TST      R8,R0
+        BNE.N    ??f_mkfs_8
 // 4194 	if (!au) {						/* AU auto selection */
-        CMP      R11,#+0
-        BNE.N    ??f_mkfs_10
+        CMP      R8,#+0
+        BNE.N    ??f_mkfs_9
 // 4195 		vs = n_vol / (2000 / (SS(fs) / 512));
-??f_mkfs_9:
+??f_mkfs_8:
         LDR      R0,[SP, #+4]
         MOV      R1,#+2000
 // 4196 		for (i = 0; vs < vst[i]; i++) ;
         MOVS     R7,#+0
         UDIV     R0,R0,R1
         ADR.W    R1,??vst
-        B.N      ??f_mkfs_11
-??f_mkfs_12:
-        ADDS     R7,R7,#+1
-??f_mkfs_11:
-        LDRH     R2,[R1], #+2
+        LDRH     R2,[R1, #+0]
         CMP      R0,R2
-        BCC.N    ??f_mkfs_12
+        BCS.W    ??f_mkfs_10
+??f_mkfs_11:
+        LDRH     R2,[R1, #+2]!
+        ADDS     R7,R7,#+1
+        CMP      R0,R2
+        BCC.N    ??f_mkfs_11
 // 4197 		au = cst[i];
+??f_mkfs_10:
         ADR.W    R0,??cst
-        LDRH     R11,[R0, R7, LSL #+1]
+        LDRH     R8,[R0, R7, LSL #+1]
 // 4198 	}
 // 4199 	if (au >= _MIN_SS) au /= SS(fs);	/* Number of sectors per cluster */
-??f_mkfs_10:
-        CMP      R11,#+512
+??f_mkfs_9:
+        CMP      R8,#+512
         IT       CS 
-        LSRCS    R11,R11,#+9
+        LSRCS    R8,R8,#+9
 // 4200 	if (!au) au = 1;
-        CMP      R11,#+0
+        CMP      R8,#+0
         IT       EQ 
-        MOVEQ    R11,#+1
-        BEQ.N    ??f_mkfs_13
+        MOVEQ    R8,#+1
+        BEQ.N    ??f_mkfs_12
 // 4201 	if (au > 128) au = 128;
-        CMP      R11,#+129
+        CMP      R8,#+129
         IT       CS 
-        MOVCS    R11,#+128
+        MOVCS    R8,#+128
 // 4202 
 // 4203 	/* Pre-compute number of clusters and FAT sub-type */
 // 4204 	n_clst = n_vol / au;
-??f_mkfs_13:
+??f_mkfs_12:
         LDR      R0,[SP, #+4]
 // 4205 	fmt = FS_FAT12;
-        MOV      R9,#+1
+        MOVS     R4,#+1
 // 4206 	if (n_clst >= MIN_FAT16) fmt = FS_FAT16;
 // 4207 	if (n_clst >= MIN_FAT32) fmt = FS_FAT32;
         MOVW     R7,#+65526
-        UDIV     R8,R0,R11
+        UDIV     R11,R0,R8
         MOVW     R0,#+4086
-        CMP      R8,R0
+        CMP      R11,R0
         IT       CS 
-        MOVCS    R9,#+2
-        CMP      R8,R7
+        MOVCS    R4,#+2
+        CMP      R11,R7
         IT       CS 
-        MOVCS    R9,#+3
-        BCS.N    ??f_mkfs_14
+        MOVCS    R4,#+3
+        BCS.N    ??f_mkfs_13
 // 4208 
 // 4209 	/* Determine offset and size of FAT structure */
 // 4210 	if (fmt == FS_FAT32) {
-        CMP      R9,#+3
-        BNE.N    ??f_mkfs_15
+        CMP      R4,#+3
+        BNE.N    ??f_mkfs_14
 // 4211 		n_fat = ((n_clst * 4) + 8 + SS(fs) - 1) / SS(fs);
-??f_mkfs_14:
-        LSL      R0,R8,#+2
+??f_mkfs_13:
+        LSL      R0,R11,#+2
         ADDW     R0,R0,#+519
-        LSRS     R0,R0,#+9
+        LSR      R9,R0,#+9
 // 4212 		n_rsv = 32;
         MOVS     R6,#+32
-        STR      R0,[SP, #+8]
 // 4213 		n_dir = 0;
         MOVS     R0,#+0
-        B.N      ??f_mkfs_16
+        B.N      ??f_mkfs_15
 // 4214 	} else {
 // 4215 		n_fat = (fmt == FS_FAT12) ? (n_clst * 3 + 1) / 2 + 3 : (n_clst * 2) + 4;
-??f_mkfs_15:
-        CMP      R9,#+1
-        BNE.N    ??f_mkfs_17
-        ADD      R0,R8,R8, LSL #+1
+??f_mkfs_14:
+        CMP      R4,#+1
+        BNE.N    ??f_mkfs_16
+        ADD      R0,R11,R11, LSL #+1
         ADDS     R0,R0,#+1
         LSRS     R0,R0,#+1
         ADDS     R0,R0,#+3
-        B.N      ??f_mkfs_18
-??f_mkfs_17:
-        LSL      R0,R8,#+1
+        B.N      ??f_mkfs_17
+??f_mkfs_16:
+        LSL      R0,R11,#+1
         ADDS     R0,R0,#+4
 // 4216 		n_fat = (n_fat + SS(fs) - 1) / SS(fs);
-??f_mkfs_18:
+??f_mkfs_17:
         ADDW     R0,R0,#+511
-        LSRS     R0,R0,#+9
-        STR      R0,[SP, #+8]
+        LSR      R9,R0,#+9
 // 4217 		n_rsv = 1;
         MOVS     R6,#+1
 // 4218 		n_dir = (DWORD)N_ROOTDIR * SZ_DIRE / SS(fs);
         MOVS     R0,#+32
-??f_mkfs_16:
-        STR      R0,[SP, #+16]
+??f_mkfs_15:
+        STR      R0,[SP, #+12]
 // 4219 	}
 // 4220 	b_fat = b_vol + n_rsv;				/* FAT area start sector */
         ADD      R0,R6,R10
+        STR      R0,[SP, #+8]
 // 4221 	b_dir = b_fat + n_fat * N_FATS;		/* Directory area start sector */
 // 4222 	b_data = b_dir + n_dir;				/* Data area start sector */
-        LDR      R1,[SP, #+8]
-        STR      R0,[SP, #+12]
-        ADDS     R0,R1,R0
-        LDR      R1,[SP, #+16]
-        ADD      R8,R1,R0
+        LDR      R1,[SP, #+12]
+        ADD      R0,R9,R0
+        ADD      R11,R1,R0
 // 4223 	if (n_vol < b_data + au - b_vol) return FR_MKFS_ABORTED;	/* Too small volume */
         LDR      R0,[SP, #+4]
-        ADD      R1,R11,R8
+        ADD      R1,R8,R11
         SUB      R1,R1,R10
         CMP      R0,R1
-        BCC.N    ??f_mkfs_19
+        BCC.N    ??f_mkfs_18
 // 4224 
 // 4225 	/* Align data start sector to erase block boundary (for flash memory media) */
 // 4226 	if (disk_ioctl(pdrv, GET_BLOCK_SIZE, &n) != RES_OK || !n || n > 32768) n = 1;
@@ -8956,101 +10124,100 @@ f_mkfs:
         MOVS     R0,#+0
           CFI FunCall disk_ioctl
         BL       disk_ioctl
-        CBNZ.N   R0,??f_mkfs_20
+        CBNZ.N   R0,??f_mkfs_19
         LDR      R0,[SP, #+0]
-        CBZ.N    R0,??f_mkfs_20
+        CBZ.N    R0,??f_mkfs_19
         CMP      R0,#+32768
-        BLS.N    ??f_mkfs_21
-??f_mkfs_20:
+        BLS.N    ??f_mkfs_20
+??f_mkfs_19:
         MOVS     R0,#+1
         STR      R0,[SP, #+0]
 // 4227 	n = (b_data + n - 1) & ~(n - 1);	/* Next nearest erase block from current data start */
 // 4228 	n = (n - b_data) / N_FATS;
-??f_mkfs_21:
+??f_mkfs_20:
         LDR      R0,[SP, #+0]
         LDR      R1,[SP, #+0]
-        ADD      R0,R0,R8
+        ADD      R0,R0,R11
         SUBS     R0,R0,#+1
         SUBS     R1,R1,#+1
         BICS     R0,R0,R1
 // 4229 	if (fmt == FS_FAT32) {		/* FAT32: Move FAT offset */
-        CMP      R9,#+3
-        SUB      R0,R0,R8
+        CMP      R4,#+3
+        SUB      R0,R0,R11
         STR      R0,[SP, #+0]
-        BNE.N    ??f_mkfs_22
+        BNE.N    ??f_mkfs_21
 // 4230 		n_rsv += n;
         ADDS     R6,R0,R6
 // 4231 		b_fat += n;
-        LDR      R0,[SP, #+12]
-        LDR      R1,[SP, #+0]
-        ADDS     R0,R1,R0
-        STR      R0,[SP, #+12]
-        B.N      ??f_mkfs_23
-// 4232 	} else {					/* FAT12/16: Expand FAT size */
-// 4233 		n_fat += n;
-??f_mkfs_22:
         LDR      R0,[SP, #+8]
         LDR      R1,[SP, #+0]
         ADDS     R0,R1,R0
         STR      R0,[SP, #+8]
+        B.N      ??f_mkfs_22
+// 4232 	} else {					/* FAT12/16: Expand FAT size */
+// 4233 		n_fat += n;
+??f_mkfs_21:
+        ADD      R9,R0,R9
 // 4234 	}
 // 4235 
 // 4236 	/* Determine number of clusters and final check of validity of the FAT sub-type */
 // 4237 	n_clst = (n_vol - n_rsv - n_fat * N_FATS - n_dir) / au;
-??f_mkfs_23:
+??f_mkfs_22:
         LDR      R0,[SP, #+4]
-        LDR      R1,[SP, #+8]
+        LDR      R1,[SP, #+12]
         SUBS     R0,R0,R6
-        SUBS     R0,R0,R1
-        LDR      R1,[SP, #+16]
+        SUB      R0,R0,R9
         SUBS     R0,R0,R1
 // 4238 	if (   (fmt == FS_FAT16 && n_clst < MIN_FAT16)
 // 4239 		|| (fmt == FS_FAT32 && n_clst < MIN_FAT32))
-        CMP      R9,#+2
-        UDIV     R8,R0,R11
-        BNE.N    ??f_mkfs_24
+        CMP      R4,#+2
+        UDIV     R11,R0,R8
+        BNE.N    ??f_mkfs_23
         MOVW     R0,#+4086
-        CMP      R8,R0
-        BCC.N    ??f_mkfs_19
-??f_mkfs_24:
-        CMP      R9,#+3
-        BNE.N    ??f_mkfs_25
-        CMP      R8,R7
-        BCS.N    ??f_mkfs_25
+        CMP      R11,R0
+        BCC.N    ??f_mkfs_18
+??f_mkfs_23:
+        CMP      R4,#+3
+        BNE.N    ??f_mkfs_24
+        CMP      R11,R7
+        BCS.N    ??f_mkfs_24
 // 4240 		return FR_MKFS_ABORTED;
-??f_mkfs_19:
+??f_mkfs_18:
         MOVS     R0,#+14
-        B.N      ?Subroutine9
+        ADD      SP,SP,#+28
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+64
 // 4241 
 // 4242 	/* Determine system ID in the partition table */
 // 4243 	if (fmt == FS_FAT32) {
-??f_mkfs_25:
-        CMP      R9,#+3
+??f_mkfs_24:
+        CMP      R4,#+3
         IT       EQ 
         MOVEQ    R7,#+12
 // 4244 		sys = 0x0C;		/* FAT32X */
-        BEQ.N    ??f_mkfs_26
+        BEQ.N    ??f_mkfs_25
 // 4245 	} else {
 // 4246 		if (fmt == FS_FAT12 && n_vol < 0x10000) {
-        CMP      R9,#+1
-        BNE.N    ??f_mkfs_27
+        CMP      R4,#+1
+        BNE.N    ??f_mkfs_26
         LDR      R0,[SP, #+4]
         CMP      R0,#+65536
         IT       CC 
         MOVCC    R7,#+1
 // 4247 			sys = 0x01;	/* FAT12(<65536) */
-        BCC.N    ??f_mkfs_26
+        BCC.N    ??f_mkfs_25
 // 4248 		} else {
 // 4249 			sys = (n_vol < 0x10000) ? 0x04 : 0x06;	/* FAT16(<65536) : FAT12/16(>=65536) */
-??f_mkfs_27:
+??f_mkfs_26:
         LDR      R0,[SP, #+4]
         CMP      R0,#+65536
         ITE      CC 
         MOVCC    R7,#+4
         MOVCS    R7,#+6
-??f_mkfs_26:
+??f_mkfs_25:
         LDRB     R0,[SP, #+24]
-        CBZ.N    R0,??f_mkfs_28
+        CBZ.N    R0,??f_mkfs_27
 // 4250 		}
 // 4251 	}
 // 4252 
@@ -9065,16 +10232,16 @@ f_mkfs:
 // 4261 		if (sfd) {	/* No partition table (SFD) */
 // 4262 			md = 0xF0;
         MOVS     R0,#+240
-        B.N      ??f_mkfs_29
+        B.N      ??f_mkfs_28
 // 4263 		} else {	/* Create partition table (FDISK) */
 // 4264 			mem_set(fs->win.d8, 0, SS(fs));
-??f_mkfs_28:
+??f_mkfs_27:
         MOV      R1,#+512
-        MOV      R0,R4
+        MOV      R0,R5
           CFI FunCall __aeabi_memclr
         BL       __aeabi_memclr
 // 4265 			tbl = fs->win.d8 + MBR_Table;	/* Create partition table for single partition in the drive */
-        ADD      R0,R4,#+446
+        ADD      R0,R5,#+446
 // 4266 			tbl[1] = 1;						/* Partition start head */
         MOVS     R1,#+1
         STRB     R1,[R0, #+1]
@@ -9128,20 +10295,20 @@ f_mkfs:
         LSRS     R1,R1,#+24
         STRB     R1,[R0, #+15]
         MOVS     R0,#+85
-        STRB     R0,[R5, #+26]
+        STRB     R0,[R5, #+510]
         MOVS     R0,#+170
-        STRB     R0,[R5, #+27]
-        MOV      R1,R4
+        STRB     R0,[R5, #+511]
+        MOV      R1,R5
         MOVS     R0,#+0
           CFI FunCall disk_write
         BL       disk_write
         CMP      R0,#+0
-        BNE.W    ??f_mkfs_8
+        BNE.W    ??f_mkfs_7
 // 4278 				return FR_DISK_ERR;
 // 4279 			md = 0xF8;
         MOVS     R0,#+248
-??f_mkfs_29:
-        STR      R0,[SP, #+20]
+??f_mkfs_28:
+        STR      R0,[SP, #+16]
 // 4280 		}
 // 4281 	}
 // 4282 
@@ -9149,116 +10316,102 @@ f_mkfs:
 // 4284 	tbl = fs->win.d8;							/* Clear sector */
 // 4285 	mem_set(tbl, 0, SS(fs));
         MOV      R1,#+512
-        MOV      R0,R4
+        MOV      R0,R5
           CFI FunCall __aeabi_memclr
         BL       __aeabi_memclr
 // 4286 	mem_cpy(tbl, "\xEB\xFE\x90" "MSDOS5.0", 11);/* Boot jump code, OEM name */
-        MOV      R0,R4
+        MOV      R0,R5
         ADR.W    R1,?_1
-        MOVS     R2,#+11
-??f_mkfs_30:
+        MOVS.W   R2,#+11
+??f_mkfs_29:
         LDRB     R3,[R1], #+1
         SUBS     R2,R2,#+1
         STRB     R3,[R0], #+1
-        BNE.N    ??f_mkfs_30
+        BNE.N    ??f_mkfs_29
 // 4287 	i = SS(fs);								/* Sector size */
 // 4288 	ST_WORD(tbl + BPB_BytsPerSec, i);
         MOVS     R0,#+0
 // 4289 	tbl[BPB_SecPerClus] = (BYTE)au;			/* Sectors per cluster */
-        STRB     R11,[R4, #+13]
-        STRB     R0,[R4, #+11]
+        STRB     R8,[R5, #+13]
+        STRB     R0,[R5, #+11]
         MOVS     R0,#+2
-        STRB     R0,[R4, #+12]
+        STRB     R0,[R5, #+12]
         MOV      R7,#+512
 // 4290 	ST_WORD(tbl + BPB_RsvdSecCnt, n_rsv);	/* Reserved sectors */
-        STRB     R6,[R4, #+14]
+        STRB     R6,[R5, #+14]
         LSLS     R6,R6,#+16
         LSRS     R0,R6,#+24
+        STRB     R0,[R5, #+15]
 // 4291 	tbl[BPB_NumFATs] = N_FATS;				/* Number of FATs */
-// 4292 	i = (fmt == FS_FAT32) ? 0 : N_ROOTDIR;	/* Number of root directory entries */
-// 4293 	ST_WORD(tbl + BPB_RootEntCnt, i);
-// 4294 	if (n_vol < 0x10000) {					/* Number of total sectors */
-        ADD      R6,R4,#+33
-        STRB     R0,[R4, #+15]
         MOVS     R0,#+1
-        CMP      R9,#+3
-        STRB     R0,[R4, #+16]
+// 4292 	i = (fmt == FS_FAT32) ? 0 : N_ROOTDIR;	/* Number of root directory entries */
+        CMP      R4,#+3
+        STRB     R0,[R5, #+16]
         IT       EQ 
         MOVEQ    R7,#+0
+// 4293 	ST_WORD(tbl + BPB_RootEntCnt, i);
         MOVS     R0,#+0
-        STRB     R0,[R4, #+17]
+        STRB     R0,[R5, #+17]
         LSRS     R0,R7,#+8
-        STRB     R0,[R4, #+18]
+        STRB     R0,[R5, #+18]
+// 4294 	if (n_vol < 0x10000) {					/* Number of total sectors */
         LDR      R0,[SP, #+4]
         CMP      R0,#+65536
-        BCS.N    ??f_mkfs_31
+        BCS.N    ??f_mkfs_30
 // 4295 		ST_WORD(tbl + BPB_TotSec16, n_vol);
-        STRB     R0,[R4, #+19]
+        STRB     R0,[R5, #+19]
         LDR      R0,[SP, #+4]
         LSLS     R0,R0,#+16
         LSRS     R0,R0,#+24
-        STRB     R0,[R4, #+20]
-        B.N      ??f_mkfs_32
+        STRB     R0,[R5, #+20]
+        B.N      ??f_mkfs_31
 // 4296 	} else {
 // 4297 		ST_DWORD(tbl + BPB_TotSec32, n_vol);
-??f_mkfs_31:
-        STRB     R0,[R4, #+32]
+??f_mkfs_30:
+        STRB     R0,[R5, #+32]
         LDR      R0,[SP, #+4]
         LSLS     R0,R0,#+16
         LSRS     R0,R0,#+24
-        STRB     R0,[R6, #+0]
+        STRB     R0,[R5, #+33]
         LDR      R0,[SP, #+4]
         LSRS     R0,R0,#+16
-        STRB     R0,[R6, #+1]
+        STRB     R0,[R5, #+34]
         LDR      R0,[SP, #+4]
         LSRS     R0,R0,#+24
-        STRB     R0,[R6, #+2]
+        STRB     R0,[R5, #+35]
 // 4298 	}
 // 4299 	tbl[BPB_Media] = md;					/* Media descriptor */
-??f_mkfs_32:
-        LDR      R0,[SP, #+20]
+??f_mkfs_31:
+        LDR      R0,[SP, #+16]
 // 4300 	ST_WORD(tbl + BPB_SecPerTrk, 63);		/* Number of sectors per track */
 // 4301 	ST_WORD(tbl + BPB_NumHeads, 255);		/* Number of heads */
         MOVS     R7,#+255
-        STRB     R0,[R4, #+21]
+        STRB     R0,[R5, #+21]
         MOVS     R0,#+63
-        STRB     R0,[R4, #+24]
+        STRB     R0,[R5, #+24]
         MOVS     R0,#+0
-        STRB     R0,[R4, #+25]
-        STRB     R7,[R4, #+26]
-        STRB     R0,[R4, #+27]
+        STRB     R0,[R5, #+25]
+        STRB     R7,[R5, #+26]
+        STRB     R0,[R5, #+27]
 // 4302 	ST_DWORD(tbl + BPB_HiddSec, b_vol);		/* Hidden sectors */
-        STRB     R10,[R4, #+28]
-        STRB     R0,[R4, #+29]
-        STRB     R0,[R4, #+30]
-        STRB     R0,[R4, #+31]
+        STRB     R10,[R5, #+28]
+        STRB     R0,[R5, #+29]
+        STRB     R0,[R5, #+30]
+        STRB     R0,[R5, #+31]
 // 4303 	n = GET_FATTIME();						/* Use current time as VSN */
           CFI FunCall get_fattime
         BL       get_fattime
         STR      R0,[SP, #+0]
 // 4304 	if (fmt == FS_FAT32) {
-        LDR      R0,[SP, #+8]
-        LSLS     R0,R0,#+16
+        LSL      R0,R9,#+16
         LSRS     R0,R0,#+24
-        CMP      R9,#+3
-        BNE.N    ??f_mkfs_33
+        CMP      R4,#+3
+        LDR      R1,[SP, #+0]
+        BNE.N    ??f_mkfs_32
 // 4305 		ST_DWORD(tbl + BS_VolID32, n);		/* VSN */
-        LDR      R2,[SP, #+0]
-        ADD      R1,R4,#+66
-        STRB     R2,[R1, #+1]
-        LDR      R2,[SP, #+0]
-        LSLS     R2,R2,#+16
-        LSRS     R2,R2,#+24
-        STRB     R2,[R1, #+2]
-        LDR      R2,[SP, #+0]
-        LSRS     R2,R2,#+16
-        STRB     R2,[R1, #+3]
-        LDR      R2,[SP, #+0]
-        LSRS     R2,R2,#+24
-        STRB     R2,[R1, #+4]
+        STRB     R1,[R5, #+67]
+        LDR      R1,[SP, #+0]
 // 4306 		ST_DWORD(tbl + BPB_FATSz32, n_fat);	/* Number of sectors per FAT */
-        LDR      R2,[SP, #+8]
-        STRB     R2,[R6, #+3]
 // 4307 		ST_DWORD(tbl + BPB_RootClus, 2);	/* Root directory start cluster (2) */
 // 4308 		ST_WORD(tbl + BPB_FSInfo, 1);		/* FSINFO record offset (VBR + 1) */
 // 4309 		ST_WORD(tbl + BPB_BkBootSec, 6);	/* Backup boot record offset (VBR + 6) */
@@ -9266,240 +10419,242 @@ f_mkfs:
 // 4311 		tbl[BS_BootSig32] = 0x29;			/* Extended boot signature */
 // 4312 		mem_cpy(tbl + BS_VolLab32, "NO NAME    " "FAT32   ", 19);	/* Volume label, FAT signature */
         MOVS     R2,#+19
-        STRB     R0,[R6, #+4]
-        LDR      R0,[SP, #+8]
-        LSRS     R0,R0,#+16
-        STRB     R0,[R6, #+5]
-        LDR      R0,[SP, #+8]
-        LSRS     R0,R0,#+24
-        STRB     R0,[R6, #+6]
+        LSLS     R1,R1,#+16
+        LSRS     R1,R1,#+24
+        STRB     R1,[R5, #+68]
+        LDR      R1,[SP, #+0]
+        LSRS     R1,R1,#+16
+        STRB     R1,[R5, #+69]
+        LDR      R1,[SP, #+0]
+        STRB     R0,[R5, #+37]
+        LSR      R0,R9,#+16
+        STRB     R0,[R5, #+38]
+        LSR      R0,R9,#+24
+        STRB     R0,[R5, #+39]
         MOVS     R0,#+2
-        STRB     R0,[R6, #+11]
+        STRB     R0,[R5, #+44]
         MOVS     R0,#+0
-        STRB     R0,[R6, #+12]
-        STRB     R0,[R6, #+13]
-        STRB     R0,[R6, #+14]
+        STRB     R0,[R5, #+45]
+        LSRS     R1,R1,#+24
+        STRB     R0,[R5, #+46]
+        STRB     R0,[R5, #+47]
         MOVS     R0,#+1
-        STRB     R0,[R6, #+15]
+        STRB     R0,[R5, #+48]
         MOVS     R0,#+0
-        STRB     R0,[R6, #+16]
+        STRB     R0,[R5, #+49]
         MOVS     R0,#+6
-        STRB     R0,[R6, #+17]
+        STRB     R0,[R5, #+50]
         MOVS     R0,#+0
-        STRB     R0,[R6, #+18]
+        STRB     R0,[R5, #+51]
         MOVS     R0,#+128
-        STRB     R0,[R6, #+31]
-        MOVS     R0,#+41
-        STRB     R0,[R1, #+0]
-        ADD      R0,R4,#+71
+        STRB     R0,[R5, #+64]
+        MOVS.W   R0,#+41
+        STRB     R1,[R5, #+70]
         ADR.W    R1,?_2
-??f_mkfs_34:
+        STRB     R0,[R5, #+66]
+        ADD      R0,R5,#+71
+        STRB     R9,[R5, #+36]
+??f_mkfs_33:
         LDRB     R3,[R1], #+1
         SUBS     R2,R2,#+1
         STRB     R3,[R0], #+1
-        BNE.N    ??f_mkfs_34
-        B.N      ??f_mkfs_35
+        BNE.N    ??f_mkfs_33
+        B.N      ??f_mkfs_34
 // 4313 	} else {
 // 4314 		ST_DWORD(tbl + BS_VolID, n);		/* VSN */
-??f_mkfs_33:
+??f_mkfs_32:
+        STRB     R1,[R5, #+39]
         LDR      R1,[SP, #+0]
 // 4315 		ST_WORD(tbl + BPB_FATSz16, n_fat);	/* Number of sectors per FAT */
 // 4316 		tbl[BS_DrvNum] = 0x80;				/* Drive number */
 // 4317 		tbl[BS_BootSig] = 0x29;				/* Extended boot signature */
 // 4318 		mem_cpy(tbl + BS_VolLab, "NO NAME    " "FAT     ", 19);	/* Volume label, FAT signature */
         MOVS     R2,#+19
-        STRB     R1,[R6, #+6]
-        LDR      R1,[SP, #+0]
         LSLS     R1,R1,#+16
         LSRS     R1,R1,#+24
-        STRB     R1,[R6, #+7]
+        STRB     R1,[R5, #+40]
         LDR      R1,[SP, #+0]
         LSRS     R1,R1,#+16
-        STRB     R1,[R6, #+8]
+        STRB     R1,[R5, #+41]
         LDR      R1,[SP, #+0]
-        LSRS     R1,R1,#+24
-        STRB     R1,[R6, #+9]
-        LDR      R1,[SP, #+8]
-        STRB     R0,[R4, #+23]
+        STRB     R0,[R5, #+23]
         MOVS     R0,#+128
-        STRB     R1,[R4, #+22]
-        ADR.W    R1,?_3
-        STRB     R0,[R6, #+3]
+        STRB     R0,[R5, #+36]
+        LSRS     R1,R1,#+24
         MOVS     R0,#+41
-        STRB     R0,[R6, #+5]
-        ADD      R0,R4,#+43
-??f_mkfs_36:
+        STRB     R1,[R5, #+42]
+        STRB     R0,[R5, #+38]
+        ADD      R0,R5,#+43
+        STRB     R9,[R5, #+22]
+        ADR.W    R1,?_3
+??f_mkfs_35:
         LDRB     R3,[R1], #+1
         SUBS     R2,R2,#+1
         STRB     R3,[R0], #+1
-        BNE.N    ??f_mkfs_36
+        BNE.N    ??f_mkfs_35
 // 4319 	}
 // 4320 	ST_WORD(tbl + BS_55AA, 0xAA55);			/* Signature (Offset is fixed here regardless of sector size) */
-??f_mkfs_35:
+??f_mkfs_34:
         MOVS     R0,#+85
 // 4321 	if (disk_write(pdrv, tbl, b_vol, 1) != RES_OK)	/* Write it to the VBR sector */
         MOVS     R3,#+1
-        STRB     R0,[R5, #+26]
+        STRB     R0,[R5, #+510]
         MOVS     R0,#+170
-        STRB     R0,[R5, #+27]
+        STRB     R0,[R5, #+511]
         MOV      R2,R10
-        MOV      R1,R4
+        MOV      R1,R5
         MOVS     R0,#+0
           CFI FunCall disk_write
         BL       disk_write
         CMP      R0,#+0
-        BNE.N    ??f_mkfs_8
+        BNE.N    ??f_mkfs_7
 // 4322 		return FR_DISK_ERR;
 // 4323 	if (fmt == FS_FAT32)					/* Write backup VBR if needed (VBR + 6) */
-        CMP      R9,#+3
-        BNE.N    ??f_mkfs_37
+        CMP      R4,#+3
+        BNE.N    ??f_mkfs_36
 // 4324 		disk_write(pdrv, tbl, b_vol + 6, 1);
         MOVS     R3,#+1
         ADD      R2,R10,#+6
-        MOV      R1,R4
+        MOV      R1,R5
           CFI FunCall disk_write
         BL       disk_write
 // 4325 
 // 4326 	/* Initialize FAT area */
 // 4327 	wsect = b_fat;
-??f_mkfs_37:
-        LDR      R6,[SP, #+12]
+??f_mkfs_36:
+        LDR      R6,[SP, #+8]
 // 4328 	for (i = 0; i < N_FATS; i++) {		/* Initialize each FAT copy */
 // 4329 		mem_set(tbl, 0, SS(fs));			/* 1st sector of the FAT  */
         MOV      R1,#+512
-        MOV      R0,R4
+        MOV      R0,R5
           CFI FunCall __aeabi_memclr
         BL       __aeabi_memclr
 // 4330 		n = md;								/* Media descriptor byte */
-        LDR      R0,[SP, #+20]
+        LDR      R0,[SP, #+16]
 // 4331 		if (fmt != FS_FAT32) {
-        CMP      R9,#+3
+        CMP      R4,#+3
         STR      R0,[SP, #+0]
-        BEQ.N    ??f_mkfs_38
+        BEQ.N    ??f_mkfs_37
 // 4332 			n |= (fmt == FS_FAT12) ? 0x00FFFF00 : 0xFFFFFF00;
-        CMP      R9,#+1
+        CMP      R4,#+1
         ITE      EQ 
-        LDREQ.N  R0,??f_mkfs_6+0x4  ;; 0xffff00
+        LDREQ.N  R0,??DataTable18_1  ;; 0xffff00
         MVNNE    R0,#+255
         LDR      R1,[SP, #+0]
         ORRS     R0,R0,R1
         STR      R0,[SP, #+0]
 // 4333 			ST_DWORD(tbl + 0, n);			/* Reserve cluster #0-1 (FAT12/16) */
         LDR      R0,[SP, #+0]
-        STRB     R0,[R4, #+0]
+        STRB     R0,[R5, #+0]
         LDR      R0,[SP, #+0]
         LSLS     R0,R0,#+16
         LSRS     R0,R0,#+24
-        STRB     R0,[R4, #+1]
+        STRB     R0,[R5, #+1]
         LDR      R0,[SP, #+0]
         LSRS     R0,R0,#+16
-        STRB     R0,[R4, #+2]
+        STRB     R0,[R5, #+2]
         LDR      R0,[SP, #+0]
         LSRS     R0,R0,#+24
-        STRB     R0,[R4, #+3]
-        B.N      ??f_mkfs_39
-        Nop      
-        DATA
-??f_mkfs_6:
-        DC32     Fsid
-        DC32     0xffff00
-        THUMB
+        STRB     R0,[R5, #+3]
+        B.N      ??f_mkfs_38
 // 4334 		} else {
 // 4335 			n |= 0xFFFFFF00;
-??f_mkfs_38:
+??f_mkfs_37:
         ORN      R0,R0,#+255
         STR      R0,[SP, #+0]
 // 4336 			ST_DWORD(tbl + 0, n);			/* Reserve cluster #0-1 (FAT32) */
         LDR      R0,[SP, #+0]
-        STRB     R0,[R4, #+0]
+        STRB     R0,[R5, #+0]
         LDR      R0,[SP, #+0]
         LSLS     R0,R0,#+16
         LSRS     R0,R0,#+24
-        STRB     R0,[R4, #+1]
+        STRB     R0,[R5, #+1]
         LDR      R0,[SP, #+0]
         LSRS     R0,R0,#+16
-        STRB     R0,[R4, #+2]
+        STRB     R0,[R5, #+2]
         LDR      R0,[SP, #+0]
         LSRS     R0,R0,#+24
-        STRB     R0,[R4, #+3]
+        STRB     R0,[R5, #+3]
 // 4337 			ST_DWORD(tbl + 4, 0xFFFFFFFF);
 // 4338 			ST_DWORD(tbl + 8, 0x0FFFFFFF);	/* Reserve cluster #2 for root directory */
         MOVS     R0,#+15
-        STRB     R7,[R4, #+4]
-        STRB     R7,[R4, #+5]
-        STRB     R7,[R4, #+6]
-        STRB     R7,[R4, #+7]
-        STRB     R7,[R4, #+8]
-        STRB     R7,[R4, #+9]
-        STRB     R7,[R4, #+10]
-        STRB     R0,[R4, #+11]
+        STRB     R7,[R5, #+4]
+        STRB     R7,[R5, #+5]
+        STRB     R7,[R5, #+6]
+        STRB     R7,[R5, #+7]
+        STRB     R7,[R5, #+8]
+        STRB     R7,[R5, #+9]
+        STRB     R7,[R5, #+10]
+        STRB     R0,[R5, #+11]
 // 4339 		}
 // 4340 		if (disk_write(pdrv, tbl, wsect++, 1) != RES_OK)
-??f_mkfs_39:
+??f_mkfs_38:
         MOVS     R3,#+1
         MOV      R2,R6
-        MOV      R1,R4
+        MOV      R1,R5
         MOVS     R0,#+0
           CFI FunCall disk_write
         BL       disk_write
         ADDS     R6,R6,#+1
-        CBNZ.N   R0,??f_mkfs_8
+        CBNZ.N   R0,??f_mkfs_7
 // 4341 			return FR_DISK_ERR;
 // 4342 		mem_set(tbl, 0, SS(fs));			/* Fill following FAT entries with zero */
         MOV      R1,#+512
-        MOV      R0,R4
+        MOV      R0,R5
           CFI FunCall __aeabi_memclr
         BL       __aeabi_memclr
 // 4343 		for (n = 1; n < n_fat; n++) {		/* This loop may take a time on FAT32 volume due to many single sector writes */
         MOVS     R0,#+1
-        B.N      ??f_mkfs_40
+        B.N      ??f_mkfs_39
 // 4344 			if (disk_write(pdrv, tbl, wsect++, 1) != RES_OK)
-??f_mkfs_41:
+??f_mkfs_40:
         MOVS     R3,#+1
         MOV      R2,R6
-        MOV      R1,R4
+        MOV      R1,R5
         MOVS     R0,#+0
           CFI FunCall disk_write
         BL       disk_write
         ADDS     R6,R6,#+1
-        CBNZ.N   R0,??f_mkfs_8
+        CBNZ.N   R0,??f_mkfs_7
 // 4345 				return FR_DISK_ERR;
 // 4346 		}
         LDR      R0,[SP, #+0]
         ADDS     R0,R0,#+1
-??f_mkfs_40:
+??f_mkfs_39:
         STR      R0,[SP, #+0]
         LDR      R0,[SP, #+0]
-        LDR      R1,[SP, #+8]
-        CMP      R0,R1
-        BCC.N    ??f_mkfs_41
+        CMP      R0,R9
+        BCC.N    ??f_mkfs_40
 // 4347 	}
 // 4348 
 // 4349 	/* Initialize root directory */
 // 4350 	i = (fmt == FS_FAT32) ? au : (UINT)n_dir;
-        CMP      R9,#+3
+        CMP      R4,#+3
         ITE      EQ 
-        MOVEQ    R7,R11
-        LDRNE    R7,[SP, #+16]
+        MOVEQ    R7,R8
+        LDRNE    R7,[SP, #+12]
 // 4351 	do {
 // 4352 		if (disk_write(pdrv, tbl, wsect++, 1) != RES_OK)
-??f_mkfs_42:
+??f_mkfs_41:
         MOVS     R3,#+1
         MOV      R2,R6
-        MOV      R1,R4
+        MOV      R1,R5
         MOVS     R0,#+0
           CFI FunCall disk_write
         BL       disk_write
         ADDS     R6,R6,#+1
-        CBZ.N    R0,??f_mkfs_43
+        CBZ.N    R0,??f_mkfs_42
 // 4353 			return FR_DISK_ERR;
-??f_mkfs_8:
+??f_mkfs_7:
         MOVS     R0,#+1
-        B.N      ?Subroutine9
+        ADD      SP,SP,#+28
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+64
 // 4354 	} while (--i);
-??f_mkfs_43:
+??f_mkfs_42:
         SUBS     R7,R7,#+1
-        BNE.N    ??f_mkfs_42
+        BNE.N    ??f_mkfs_41
 // 4355 
 // 4356 #if _USE_TRIM	/* Erase data area if needed */
 // 4357 	{
@@ -9510,8 +10665,8 @@ f_mkfs:
 // 4362 
 // 4363 	/* Create FSINFO if needed */
 // 4364 	if (fmt == FS_FAT32) {
-        CMP      R9,#+3
-        BNE.N    ??f_mkfs_44
+        CMP      R4,#+3
+        BNE.N    ??f_mkfs_43
 // 4365 		ST_DWORD(tbl + FSI_LeadSig, 0x41615252);
         MOVS     R0,#+82
 // 4366 		ST_DWORD(tbl + FSI_StrucSig, 0x61417272);
@@ -9520,55 +10675,55 @@ f_mkfs:
 // 4369 		ST_WORD(tbl + BS_55AA, 0xAA55);
 // 4370 		disk_write(pdrv, tbl, b_vol + 1, 1);	/* Write original (VBR + 1) */
         MOVS     R3,#+1
-        STRB     R0,[R4, #+0]
-        ADD      R2,R10,#+1
-        STRB     R0,[R4, #+1]
-        MOVS     R0,#+97
-        STRB     R0,[R4, #+2]
-        MOVS     R0,#+65
-        STRB     R0,[R4, #+3]
-        MOVS     R0,#+114
         STRB     R0,[R5, #+0]
+        ADD      R2,R10,#+1
         STRB     R0,[R5, #+1]
-        MOVS     R0,#+65
-        STRB     R0,[R5, #+2]
         MOVS     R0,#+97
+        STRB     R0,[R5, #+2]
+        MOVS     R0,#+65
         STRB     R0,[R5, #+3]
-        SUB      R0,R8,#+1
-        STRB     R0,[R5, #+4]
+        MOVS     R0,#+114
+        STRB     R0,[R5, #+484]
+        STRB     R0,[R5, #+485]
+        MOVS     R0,#+65
+        STRB     R0,[R5, #+486]
+        MOVS     R0,#+97
+        STRB     R0,[R5, #+487]
+        SUB      R0,R11,#+1
+        STRB     R0,[R5, #+488]
         LSLS     R0,R0,#+16
         LSRS     R0,R0,#+24
-        STRB     R0,[R5, #+5]
-        SUB      R0,R8,#+1
+        STRB     R0,[R5, #+489]
+        SUB      R0,R11,#+1
         LSRS     R1,R0,#+16
         LSRS     R0,R0,#+24
-        STRB     R0,[R5, #+7]
+        STRB     R0,[R5, #+491]
         MOVS     R0,#+2
-        STRB     R0,[R5, #+8]
+        STRB     R0,[R5, #+492]
         MOVS     R0,#+0
-        STRB     R0,[R5, #+9]
-        STRB     R0,[R5, #+10]
-        STRB     R0,[R5, #+11]
+        STRB     R0,[R5, #+493]
+        STRB     R0,[R5, #+494]
+        STRB     R0,[R5, #+495]
         MOVS     R0,#+85
-        STRB     R0,[R5, #+26]
+        STRB     R0,[R5, #+510]
         MOVS     R0,#+170
-        STRB     R1,[R5, #+6]
-        MOV      R1,R4
-        STRB     R0,[R5, #+27]
+        STRB     R1,[R5, #+490]
+        MOV      R1,R5
+        STRB     R0,[R5, #+511]
         MOVS     R0,#+0
           CFI FunCall disk_write
         BL       disk_write
 // 4371 		disk_write(pdrv, tbl, b_vol + 7, 1);	/* Write backup (VBR + 7) */
         MOVS     R3,#+1
         ADD      R2,R10,#+7
-        MOV      R1,R4
+        MOV      R1,R5
         MOVS     R0,#+0
           CFI FunCall disk_write
         BL       disk_write
 // 4372 	}
 // 4373 
 // 4374 	return (disk_ioctl(pdrv, CTRL_SYNC, 0) == RES_OK) ? FR_OK : FR_DISK_ERR;
-??f_mkfs_44:
+??f_mkfs_43:
         MOVS     R2,#+0
         MOVS     R1,#+0
         MOVS     R0,#+0
@@ -9579,30 +10734,55 @@ f_mkfs:
         MVNS     R0,R0
         LSRS     R0,R0,#+31
 ??f_mkfs_0:
-          CFI EndBlock cfiBlock53
-        REQUIRE ?Subroutine9
-        ;; // Fall through to label ?Subroutine9
-// 4375 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock54 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+64
-          CFI R4 Frame(CFA, -36)
-          CFI R5 Frame(CFA, -32)
-          CFI R6 Frame(CFA, -28)
-          CFI R7 Frame(CFA, -24)
-          CFI R8 Frame(CFA, -20)
-          CFI R9 Frame(CFA, -16)
-          CFI R10 Frame(CFA, -12)
-          CFI R11 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine9:
         ADD      SP,SP,#+28
           CFI CFA R13+36
         POP      {R4-R11,PC}      ;; return
-          CFI EndBlock cfiBlock54
+// 4375 }
+          CFI EndBlock cfiBlock41
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable18:
+        DC32     Files
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable18_1:
+        DC32     0xffff00
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??vst:
+        DC16 1024, 512, 256, 128, 64, 32, 16, 8, 4, 2, 0
+        DC8 0, 0
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??cst:
+        DC16 32768, 16384, 8192, 4096, 2048, 16384, 8192, 4096, 2048, 1024, 512
+        DC8 0, 0
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+?_1:
+        DC8 "\353\376\220MSDOS5.0"
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+?_2:
+        DC8 "NO NAME    FAT32   "
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+?_3:
+        DC8 "NO NAME    FAT     "
 // 4376 
 // 4377 
 // 4378 
@@ -9685,8 +10865,8 @@ f_mkfs:
 // 4455 /*-----------------------------------------------------------------------*/
 // 4456 
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock55 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock42 Using cfiCommon0
           CFI Function f_gets
         THUMB
 // 4457 TCHAR* f_gets (
@@ -9696,29 +10876,34 @@ f_mkfs:
 // 4461 )
 // 4462 {
 f_gets:
-        PUSH     {R2-R8,LR}
+        PUSH     {R0,R1,R4-R11,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R8 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -20)
-          CFI R4 Frame(CFA, -24)
-          CFI CFA R13+32
-        MOV      R4,R0
-        MOV      R8,R2
+          CFI R11 Frame(CFA, -8)
+          CFI R10 Frame(CFA, -12)
+          CFI R9 Frame(CFA, -16)
+          CFI R8 Frame(CFA, -20)
+          CFI R7 Frame(CFA, -24)
+          CFI R6 Frame(CFA, -28)
+          CFI R5 Frame(CFA, -32)
+          CFI R4 Frame(CFA, -36)
+          CFI CFA R13+44
+        SUB      SP,SP,#+12
+          CFI CFA R13+56
+        MOV      R9,R2
 // 4463 	int n = 0;
-        MOVS     R6,#+0
+        MOVS     R5,#+0
 // 4464 	TCHAR c, *p = buff;
-        MOV      R5,R4
-        SUBS     R7,R1,#+1
+        STR      R0,[SP, #+4]
 // 4465 	BYTE s[2];
 // 4466 	UINT rc;
 // 4467 
 // 4468 
 // 4469 	while (n < len - 1) {	/* Read characters until buffer gets filled */
 ??f_gets_0:
-        CMP      R6,R7
-        BGE.N    ??f_gets_1
+        LDR      R0,[SP, #+16]
+        SUBS     R0,R0,#+1
+        CMP      R5,R0
+        BGE.W    ??f_gets_1
 // 4470 #if _USE_LFN && _LFN_UNICODE
 // 4471 #if _STRF_ENCODE == 3		/* Read a character in UTF-8 */
 // 4472 		f_read(fp, s, 1, &rc);
@@ -9765,42 +10950,187 @@ f_gets:
 // 4513 #else						/* Read a character without conversion */
 // 4514 		f_read(fp, s, 1, &rc);
 ??f_gets_2:
-        MOV      R3,SP
-        MOVS     R2,#+1
-        ADD      R1,SP,#+4
-        MOV      R0,R8
-          CFI FunCall f_read
-        BL       f_read
+        MOV      R0,R9
+        MOVS     R7,#+1
+          CFI FunCall validate
+        BL       validate
+        CMP      R0,#+0
+        MOV      R8,SP
+        MOV      R11,#+0
+        ITT      EQ 
+        LDRBEQ   R0,[R9, #+519]
+        CMPEQ    R0,#+0
+        BNE.W    ??f_gets_1
+        LDRB     R0,[R9, #+518]
+        LSLS     R0,R0,#+31
+        BPL.W    ??f_gets_1
+        LDR      R0,[R9, #+524]
+        LDR      R1,[R9, #+520]
+        SUBS.W   R0,R0,R1
+        BEQ.W    ??f_gets_1
+??f_gets_3:
+        LDR      R1,[R9, #+520]
+        LSLS     R0,R1,#+23
+        BNE.N    ??f_gets_4
+        LDR      R0,[R9, #+512]
+        LDRB     R3,[R0, #+514]
+        SUBS     R3,R3,#+1
+        AND      R4,R3,R1, LSR #+9
+        UXTB     R4,R4
+        CBNZ.N   R4,??f_gets_5
+        CMP      R1,#+0
+        ITEE     EQ 
+        LDREQ    R0,[R9, #+528]
+        LDRNE    R1,[R9, #+532]
+          CFI FunCall get_fat
+        BLNE     get_fat
+        CMP      R0,#+2
+        BCC.N    ??f_gets_6
+        CMN      R0,#+1
+        BEQ.W    ??f_gets_7
+        STR      R0,[R9, #+532]
+??f_gets_5:
+        LDR      R0,[R9, #+512]
+        LDR      R2,[R9, #+532]
+        ADD      R3,R0,#+532
+        SUBS     R2,R2,#+2
+        LDR      R12,[R3, #+0]
+        SUB      R12,R12,#+2
+        CMP      R2,R12
+        BCS.N    ??f_gets_6
+        LDRB     R1,[R0, #+514]
+        LDR      R3,[R3, #+20]
+        MLA      R2,R1,R2,R3
+        CBNZ.N   R2,??f_gets_8
+??f_gets_6:
+        MOVS     R0,#+2
+        B.N      ??f_gets_9
+??f_gets_8:
+        LSRS     R6,R7,#+9
+        ADD      R10,R4,R2
+        BEQ.N    ??f_gets_10
+        ADDS     R2,R6,R4
+        CMP      R1,R2
+        MOV      R2,R10
+        IT       CC 
+        SUBCC    R6,R1,R4
+        LDRB     R0,[R0, #+513]
+        MOV      R3,R6
+        MOV      R1,R8
+          CFI FunCall disk_read
+        BL       disk_read
+        CMP      R0,#+0
+        BNE.N    ??f_gets_7
+        LDRB     R0,[R9, #+518]
+        LSLS     R0,R0,#+25
+        BPL.N    ??f_gets_11
+        LDR      R0,[R9, #+536]
+        SUB      R0,R0,R10
+        CMP      R0,R6
+        BCS.N    ??f_gets_11
+        ADD      R0,R8,R0, LSL #+9
+        MOV      R1,R9
+        MOV      R2,#+512
+??f_gets_12:
+        LDRB     R3,[R1], #+1
+        SUBS     R2,R2,#+1
+        STRB     R3,[R0], #+1
+        BNE.N    ??f_gets_12
+??f_gets_11:
+        LSLS     R0,R6,#+9
+        B.N      ??f_gets_13
+??f_gets_10:
+        LDR      R2,[R9, #+536]
+        CMP      R2,R10
+        BEQ.N    ??f_gets_14
+        LDRB     R1,[R9, #+518]
+        LSLS     R1,R1,#+25
+        BPL.N    ??f_gets_15
+        LDRB     R0,[R0, #+513]
+        MOVS     R3,#+1
+        MOV      R1,R9
+          CFI FunCall disk_write
+        BL       disk_write
+        CBNZ.N   R0,??f_gets_7
+        LDRB     R0,[R9, #+518]
+        AND      R0,R0,#0xBF
+        STRB     R0,[R9, #+518]
+??f_gets_15:
+        LDR      R0,[R9, #+512]
+        MOVS     R3,#+1
+        MOV      R2,R10
+        MOV      R1,R9
+        LDRB     R0,[R0, #+513]
+          CFI FunCall disk_read
+        BL       disk_read
+        CBNZ.N   R0,??f_gets_7
+??f_gets_14:
+        STR      R10,[R9, #+536]
+??f_gets_4:
+        LDR      R0,[R9, #+520]
+        MOV      R2,R8
+        LSLS     R1,R0,#+23
+        LSRS     R1,R1,#+23
+        RSB      R0,R1,#+512
+        CMP      R7,R0
+        ADD      R1,R1,R9
+        IT       LS 
+        MOVLS    R0,R7
+        CBZ.N    R0,??f_gets_13
+        MOV      R3,R0
+??f_gets_16:
+        LDRB     R12,[R1], #+1
+        SUBS     R3,R3,#+1
+        STRB     R12,[R2], #+1
+        BNE.N    ??f_gets_16
+??f_gets_13:
+        LDR      R1,[R9, #+520]
+        ADD      R8,R0,R8
+        ADD      R11,R0,R11
+        ADDS     R1,R0,R1
+        SUBS     R7,R7,R0
+        STR      R1,[R9, #+520]
+        BNE.W    ??f_gets_3
+        B.N      ??f_gets_17
+??f_gets_7:
+        MOVS     R0,#+1
+??f_gets_9:
+        STRB     R0,[R9, #+519]
 // 4515 		if (rc != 1) break;
-        LDR      R0,[SP, #+0]
-        CMP      R0,#+1
+??f_gets_17:
+        CMP      R11,#+1
         BNE.N    ??f_gets_1
 // 4516 		c = s[0];
-        LDRB     R0,[SP, #+4]
+        LDRB     R0,[SP, #+0]
 // 4517 #endif
 // 4518 		if (_USE_STRFUNC == 2 && c == '\r') continue;	/* Strip '\r' */
         CMP      R0,#+13
-        BEQ.N    ??f_gets_2
+        BEQ.W    ??f_gets_2
 // 4519 		*p++ = c;
+        LDR      R2,[SP, #+4]
 // 4520 		n++;
-        ADDS     R6,R6,#+1
+        ADDS     R5,R5,#+1
+        ADDS     R2,R2,#+1
 // 4521 		if (c == '\n') break;		/* Break on EOL */
         CMP      R0,#+10
-        STRB     R0,[R5], #+1
-        BNE.N    ??f_gets_0
+        STR      R2,[SP, #+4]
+        STRB     R0,[R2, #-1]!
+        BNE.W    ??f_gets_0
 // 4522 	}
 // 4523 	*p = 0;
 ??f_gets_1:
+        LDR      R1,[SP, #+4]
         MOVS     R0,#+0
-        STRB     R0,[R5, #+0]
+        STRB     R0,[R1, #+0]
 // 4524 	return n ? buff : 0;			/* When no data read (eof or error), return with error. */
-        CBNZ.N   R6,??f_gets_3
-        MOVS     R4,#+0
-??f_gets_3:
-        MOV      R0,R4
-        POP      {R1,R2,R4-R8,PC}  ;; return
+        CBZ.N    R5,??f_gets_18
+        LDR      R0,[SP, #+12]
+??f_gets_18:
+        ADD      SP,SP,#+20
+          CFI CFA R13+36
+        POP      {R4-R11,PC}      ;; return
 // 4525 }
-          CFI EndBlock cfiBlock55
+          CFI EndBlock cfiBlock42
 // 4526 
 // 4527 
 // 4528 
@@ -9820,7 +11150,7 @@ f_gets:
 // 4542 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock56 Using cfiCommon0
+          CFI Block cfiBlock43 Using cfiCommon0
           CFI Function putc_bfd
         THUMB
 // 4543 static
@@ -9917,14 +11247,16 @@ putc_bfd:
         STR      R0,[R4, #+8]
 // 4595 }
 ??putc_bfd_0:
-        POP      {R0,R1,R4-R6,PC}  ;; return
-          CFI EndBlock cfiBlock56
+        ADD      SP,SP,#+8
+          CFI CFA R13+16
+        POP      {R4-R6,PC}       ;; return
+          CFI EndBlock cfiBlock43
 // 4596 
 // 4597 
 // 4598 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock57 Using cfiCommon0
+          CFI Block cfiBlock44 Using cfiCommon0
           CFI Function f_putc
         THUMB
 // 4599 int f_putc (
@@ -10013,7 +11345,7 @@ f_putc:
           CFI CFA R13+12
         POP      {R4,R5,PC}       ;; return
 // 4617 }
-          CFI EndBlock cfiBlock57
+          CFI EndBlock cfiBlock44
 // 4618 
 // 4619 
 // 4620 
@@ -10024,7 +11356,7 @@ f_putc:
 // 4625 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock58 Using cfiCommon0
+          CFI Block cfiBlock45 Using cfiCommon0
           CFI Function f_puts
         THUMB
 // 4626 int f_puts (
@@ -10124,7 +11456,7 @@ f_puts:
           CFI CFA R13+20
         POP      {R4-R7,PC}       ;; return
 // 4645 }
-          CFI EndBlock cfiBlock58
+          CFI EndBlock cfiBlock45
 // 4646 
 // 4647 
 // 4648 
@@ -10134,8 +11466,8 @@ f_puts:
 // 4652 /*-----------------------------------------------------------------------*/
 // 4653 
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock59 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock46 Using cfiCommon0
           CFI Function f_printf
         THUMB
 // 4654 int f_printf (
@@ -10145,22 +11477,21 @@ f_puts:
 // 4658 )
 // 4659 {
 f_printf:
-        PUSH     {R2,R3}
-          CFI CFA R13+8
+        PUSH     {R1-R3}
+          CFI CFA R13+12
         PUSH     {R4-R11,LR}
-          CFI R14 Frame(CFA, -12)
-          CFI R11 Frame(CFA, -16)
-          CFI R10 Frame(CFA, -20)
-          CFI R9 Frame(CFA, -24)
-          CFI R8 Frame(CFA, -28)
-          CFI R7 Frame(CFA, -32)
-          CFI R6 Frame(CFA, -36)
-          CFI R5 Frame(CFA, -40)
-          CFI R4 Frame(CFA, -44)
-          CFI CFA R13+44
-        SUB      SP,SP,#+100
-          CFI CFA R13+144
-        MOV      R8,R1
+          CFI R14 Frame(CFA, -16)
+          CFI R11 Frame(CFA, -20)
+          CFI R10 Frame(CFA, -24)
+          CFI R9 Frame(CFA, -28)
+          CFI R8 Frame(CFA, -32)
+          CFI R7 Frame(CFA, -36)
+          CFI R6 Frame(CFA, -40)
+          CFI R5 Frame(CFA, -44)
+          CFI R4 Frame(CFA, -48)
+          CFI CFA R13+48
+        SUB      SP,SP,#+120
+          CFI CFA R13+168
 // 4660 	va_list arp;
 // 4661 	BYTE f, r;
 // 4662 	UINT nw, i, j, w;
@@ -10170,14 +11501,15 @@ f_printf:
 // 4666 
 // 4667 
 // 4668 	pb.fp = fp;				/* Initialize output buffer */
-        STR      R0,[SP, #+8]
+        STR      R0,[SP, #+20]
 // 4669 	pb.nchr = pb.idx = 0;
         MOVS     R0,#+0
-        STR      R0,[SP, #+12]
+        STR      R0,[SP, #+24]
+        STR      R0,[SP, #+28]
 // 4670 
 // 4671 	va_start(arp, fmt);
-        ADD      R9,SP,#+136
-        STR      R0,[SP, #+16]
+        ADD      R0,SP,#+160
+        STR      R0,[SP, #+12]
         B.N      ??f_printf_0
 // 4672 
 // 4673 	for (;;) {
@@ -10219,21 +11551,32 @@ f_printf:
 // 4709 		case 'C' :					/* Character */
 // 4710 			putc_bfd(&pb, (TCHAR)va_arg(arp, int)); continue;
 ??f_printf_1:
-        LDR      R0,[R9], #+4
+        LDR      R0,[SP, #+12]
+        ADDS     R0,R0,#+4
+        STR      R0,[SP, #+12]
+        SUBS     R0,R0,#+4
+        LDR      R0,[R0, #+0]
         UXTB     R1,R0
 ??f_printf_2:
-        ADD      R0,SP,#+8
+        ADD      R0,SP,#+20
           CFI FunCall putc_bfd
         BL       putc_bfd
 ??f_printf_0:
-        LDRB     R1,[R8], #+1
+        LDR      R0,[SP, #+156]
+        ADDS     R0,R0,#+1
+        STR      R0,[SP, #+156]
+        LDRB     R1,[R0, #-1]!
         CMP      R1,#+0
         BEQ.W    ??f_printf_3
         CMP      R1,#+37
         BNE.N    ??f_printf_2
-        LDRB     R1,[R8], #+1
+        LDR      R1,[SP, #+156]
         MOVS     R0,#+0
-        MOV      R10,R0
+        STR      R0,[SP, #+8]
+        ADDS     R1,R1,#+1
+        STR      R1,[SP, #+156]
+        SUBS     R1,R1,#+1
+        LDRB     R1,[R1, #+0]
         CMP      R1,#+48
         IT       EQ 
         MOVEQ    R0,#+1
@@ -10241,163 +11584,852 @@ f_printf:
         CMP      R1,#+45
         BNE.N    ??f_printf_5
         MOVS     R0,#+2
-        B.N      ??f_printf_4
-??f_printf_6:
-        ADD      R2,R10,R10, LSL #+2
-        ADD      R1,R1,R2, LSL #+1
-        SUB      R10,R1,#+48
 ??f_printf_4:
-        LDRB     R1,[R8], #+1
+        LDR      R1,[SP, #+156]
+        ADDS     R1,R1,#+1
+        STR      R1,[SP, #+156]
+        SUBS     R1,R1,#+1
+        LDRB     R1,[R1, #+0]
 ??f_printf_5:
         SUB      R2,R1,#+48
         CMP      R2,#+10
-        BCC.N    ??f_printf_6
+        BCS.N    ??f_printf_6
+??f_printf_7:
+        LDR      R2,[SP, #+8]
+        ADD      R3,R2,R2, LSL #+2
+        ADD      R1,R1,R3, LSL #+1
+        SUBS     R1,R1,#+48
+        STR      R1,[SP, #+8]
+        LDR      R1,[SP, #+156]
+        ADDS     R1,R1,#+1
+        STR      R1,[SP, #+156]
+        SUBS     R1,R1,#+1
+        LDRB     R1,[R1, #+0]
+        SUB      R2,R1,#+48
+        CMP      R2,#+10
+        BCC.N    ??f_printf_7
+??f_printf_6:
         CMP      R1,#+108
-        ITEE     NE 
+        IT       NE 
         CMPNE    R1,#+76
-        ORREQ    R0,R0,#0x4
-        LDRBEQ   R1,[R8], #+1
+        BNE.N    ??f_printf_8
+        LDR      R1,[SP, #+156]
+        ORR      R0,R0,#0x4
+        ADDS     R1,R1,#+1
+        STR      R1,[SP, #+156]
+        SUBS     R1,R1,#+1
+        LDRB     R1,[R1, #+0]
+??f_printf_8:
         CMP      R1,#+0
         BEQ.W    ??f_printf_3
-        MOV      R7,R1
-        SUB      R2,R7,#+97
+        MOV      R4,R1
+        SUB      R2,R4,#+97
         CMP      R2,#+26
         ITT      CC 
-        SUBCC    R7,R7,#+32
-        UXTBCC   R7,R7
-        CMP      R7,#+66
-        BEQ.N    ??f_printf_7
-        CMP      R7,#+67
+        SUBCC    R4,R4,#+32
+        UXTBCC   R4,R4
+        CMP      R4,#+66
+        BEQ.W    ??f_printf_9
+        CMP      R4,#+67
         BEQ.N    ??f_printf_1
-        CMP      R7,#+68
-        BEQ.N    ??f_printf_8
-        CMP      R7,#+79
-        BEQ.N    ??f_printf_9
-        CMP      R7,#+83
-        BEQ.N    ??f_printf_10
-        CMP      R7,#+85
-        BEQ.N    ??f_printf_8
-        CMP      R7,#+88
-        BEQ.N    ??f_printf_11
+        CMP      R4,#+68
+        BEQ.W    ??f_printf_10
+        CMP      R4,#+79
+        BEQ.W    ??f_printf_11
+        CMP      R4,#+83
+        BEQ.N    ??f_printf_12
+        CMP      R4,#+85
+        BEQ.W    ??f_printf_10
+        CMP      R4,#+88
+        BEQ.W    ??f_printf_13
         B.N      ??f_printf_2
-??f_printf_10:
-        LDR      R7,[R9], #+4
-        MOVS     R4,#+0
-        MOV      R1,R7
-        B.N      ??f_printf_12
-??f_printf_13:
-        ADDS     R4,R4,#+1
 ??f_printf_12:
-        LDRB     R2,[R1], #+1
-        CMP      R2,#+0
-        BNE.N    ??f_printf_13
-        LSLS     R0,R0,#+30
-        BMI.N    ??f_printf_14
-        B.N      ??f_printf_15
-??f_printf_16:
-        STR      R5,[SP, #+12]
-        LDR      R0,[SP, #+16]
-        ADDS     R0,R0,#+1
-        STR      R0,[SP, #+16]
+        LDR      R1,[SP, #+12]
+        MOV      R10,#+0
+        ADDS     R1,R1,#+4
+        STR      R1,[SP, #+12]
+        SUBS     R1,R1,#+4
+        LDR      R1,[R1, #+0]
+        STR      R1,[SP, #+16]
+        LDRB     R2,[R1, #+0]
+        CBZ.N    R2,??f_printf_14
 ??f_printf_15:
-        ADDS     R0,R4,#+1
-        CMP      R4,R10
-        MOV      R4,R0
-        BCS.N    ??f_printf_14
-        LDR      R5,[SP, #+12]
-        CMP      R5,#+0
-        BMI.N    ??f_printf_15
-        ADD      R1,SP,#+8
-        MOVS     R0,#+32
-        ADDS     R1,R5,R1
-        ADDS     R5,R5,#+1
-        CMP      R5,#+61
-        STRB     R0,[R1, #+12]
-        BLT.N    ??f_printf_16
-        LDR      R0,[SP, #+8]
-        MOV      R3,SP
-        MOV      R2,R5
-        ADD      R1,SP,#+20
-          CFI FunCall f_write
-        BL       f_write
+        LDRB     R2,[R1, #+1]!
+        ADD      R10,R10,#+1
+        CMP      R2,#+0
+        BNE.N    ??f_printf_15
+??f_printf_14:
+        LSLS     R0,R0,#+30
+        BMI.W    ??f_printf_16
+        B.N      ??f_printf_17
+??f_printf_18:
+        STR      R0,[SP, #+0]
+??f_printf_19:
         LDR      R0,[SP, #+0]
-        CMP      R0,R5
-        ITE      EQ 
-        MOVEQ    R5,#+0
-        MOVNE    R5,#-1
-        B.N      ??f_printf_16
+        STR      R0,[SP, #+24]
+        LDR      R0,[SP, #+28]
+        ADDS     R0,R0,#+1
+        STR      R0,[SP, #+28]
 ??f_printf_17:
-        STR      R5,[SP, #+12]
+        LDR      R1,[SP, #+8]
+        ADD      R0,R10,#+1
+        CMP      R10,R1
+        MOV      R10,R0
+        BCS.W    ??f_printf_16
+        LDR      R0,[SP, #+24]
+        CMP      R0,#+0
+        STR      R0,[SP, #+0]
+        BMI.N    ??f_printf_17
+        LDR      R2,[SP, #+0]
+        ADD      R1,SP,#+20
+        MOVS     R0,#+32
+        ADDS     R1,R2,R1
+        STRB     R0,[R1, #+12]
+        LDR      R0,[SP, #+0]
+        ADDS     R0,R0,#+1
+        CMP      R0,#+61
+        STR      R0,[SP, #+0]
+        BLT.N    ??f_printf_19
+        LDR      R4,[SP, #+20]
+        MOV      R8,R0
+        MOVS     R7,#+0
+        ADD      R6,SP,#+32
+        MOV      R0,R4
+          CFI FunCall validate
+        BL       validate
+        CMP      R0,#+0
+        ITT      EQ 
+        LDRBEQ   R0,[R4, #+519]
+        CMPEQ    R0,#+0
+        BNE.N    ??f_printf_20
+        LDRB     R0,[R4, #+518]
+        LSLS     R0,R0,#+30
+        BPL.N    ??f_printf_20
+        LDR      R0,[R4, #+520]
+        ADD      R1,R8,R0
+        CMP      R1,R0
+        BCS.N    ??f_printf_21
+??f_printf_22:
+        LDR      R0,[R4, #+524]
+        LDR      R1,[R4, #+520]
+        CMP      R0,R1
+        IT       CC 
+        MOVCC    R0,R1
+        STR      R0,[R4, #+524]
+        LDRB     R0,[R4, #+518]
+        ORR      R0,R0,#0x20
+        STRB     R0,[R4, #+518]
+??f_printf_20:
+        LDR      R0,[SP, #+0]
+        CMP      R7,R0
+        ITE      EQ 
+        MOVEQ    R0,#+0
+        MOVNE    R0,#-1
+        B.N      ??f_printf_18
+??f_printf_23:
+        STR      R9,[R4, #+536]
+??f_printf_24:
+        LDR      R0,[R4, #+520]
+        MOV      R2,R6
+        LSLS     R1,R0,#+23
+        LSRS     R1,R1,#+23
+        RSB      R0,R1,#+512
+        CMP      R8,R0
+        IT       LS 
+        MOVLS    R0,R8
+        ADDS     R1,R1,R4
+        CBZ.N    R0,??f_printf_25
+        MOV.W    R3,R0
+??f_printf_26:
+        LDRB     R12,[R2], #+1
+        SUBS     R3,R3,#+1
+        STRB     R12,[R1], #+1
+        BNE.N    ??f_printf_26
+??f_printf_25:
+        LDRB     R1,[R4, #+518]
+        ORR      R1,R1,#0x40
+        STRB     R1,[R4, #+518]
+??f_printf_27:
+        LDR      R1,[R4, #+520]
+        ADDS     R6,R0,R6
+        ADDS     R7,R0,R7
+        SUB      R8,R8,R0
+        ADDS     R1,R0,R1
+        STR      R1,[R4, #+520]
+??f_printf_21:
+        CMP      R8,#+0
+        BEQ.N    ??f_printf_22
+        LDR      R0,[R4, #+520]
+        LSLS     R1,R0,#+23
+        BNE.N    ??f_printf_24
+        LDR      R9,[R4, #+512]
+        LDRB     R2,[R9, #+514]
+        SUBS     R2,R2,#+1
+        AND      R1,R2,R0, LSR #+9
+        UXTB     R1,R1
+        CMP      R1,#+0
+        STR      R1,[SP, #+4]
+        BNE.W    ??f_printf_28
+        CMP      R0,#+0
+        BNE.W    ??f_printf_29
+        LDR      R0,[R4, #+528]
+        CMP      R0,#+0
+        BNE.W    ??f_printf_30
+        LDR      R11,[R9, #+524]
+        CMP      R11,#+0
+        BEQ.N    ??f_printf_31
+        LDR      R0,[R9, #+532]
+        CMP      R11,R0
+        BCC.N    ??f_printf_32
+??f_printf_31:
+        MOV      R11,#+1
+??f_printf_32:
+        MOV      R5,R11
+??f_printf_33:
+        LDR      R0,[R9, #+532]
+        ADDS     R5,R5,#+1
+        CMP      R5,R0
+        BCC.N    ??f_printf_34
+        MOVS     R5,#+2
+        CMP      R11,#+2
+        BCC.N    ??f_printf_22
+??f_printf_34:
+        MOV      R1,R5
+        MOV      R0,R9
+          CFI FunCall get_fat
+        BL       get_fat
+        CMP      R0,#+0
+        BNE.W    ??f_printf_35
+        CMP      R5,#+2
+        BCC.N    ??f_printf_36
+        LDR      R0,[R9, #+532]
+        CMP      R5,R0
+        BCS.N    ??f_printf_36
+        LDRB     R0,[R9, #+512]
+        CMP      R0,#+1
+        BEQ.N    ??f_printf_37
+        BCC.N    ??f_printf_36
+        CMP      R0,#+3
+        BEQ.N    ??f_printf_38
+        BCC.N    ??f_printf_39
+        B.N      ??f_printf_36
+??f_printf_38:
+        LDR      R0,[R9, #+544]
+        ADD      R1,R0,R5, LSR #+7
+        MOV      R0,R9
+          CFI FunCall move_window
+        BL       move_window
+        CMP      R0,#+0
+        BNE.N    ??f_printf_40
+        LSLS     R1,R5,#+2
+        LSLS     R1,R1,#+23
+        ADD      R1,R9,R1, LSR #+23
+        MVN      R3,#-268435456
+        LDRB     R2,[R1, #+3]
+        ORR      R2,R3,R2, LSL #+24
+        MOVS     R3,#+255
+        STRB     R3,[R1, #+0]
+        LSRS     R2,R2,#+24
+        STRB     R3,[R1, #+1]
+        STRB     R3,[R1, #+2]
+        STRB     R2,[R1, #+3]
+        MOVS     R1,#+1
+        STRB     R1,[R9, #+516]
+        B.N      ??f_printf_40
+??f_printf_39:
+        LDR      R0,[R9, #+544]
+        ADD      R1,R0,R5, LSR #+8
+        MOV      R0,R9
+          CFI FunCall move_window
+        BL       move_window
+        CMP      R0,#+0
+        BNE.N    ??f_printf_40
+        LSLS     R1,R5,#+1
+        LSLS     R1,R1,#+23
+        ADD      R1,R9,R1, LSR #+23
+        MOVS     R2,#+255
+        STRB     R2,[R1, #+0]
+        STRB     R2,[R1, #+1]
+        MOVS     R1,#+1
+        STRB     R1,[R9, #+516]
+        B.N      ??f_printf_40
+??f_printf_37:
+        ADD      R11,R5,R5, LSR #+1
+        LDR      R0,[R9, #+544]
+        ADD      R1,R0,R11, LSR #+9
+        MOV      R0,R9
+          CFI FunCall move_window
+        BL       move_window
+        CBNZ.N   R0,??f_printf_40
+        LSL      R0,R11,#+23
+        ADD      R11,R11,#+1
+        ADD      R1,R9,R0, LSR #+23
+        LSLS     R0,R5,#+31
+        ITTE     MI 
+        LDRBMI   R0,[R1, #+0]
+        ORRMI    R0,R0,#0xF0
+        MOVPL    R0,#+255
+        STRB     R0,[R1, #+0]
+        MOVS     R0,#+1
+        STRB     R0,[R9, #+516]
+        LDR      R0,[R9, #+544]
+        ADD      R1,R0,R11, LSR #+9
+        MOV      R0,R9
+          CFI FunCall move_window
+        BL       move_window
+        CBNZ.N   R0,??f_printf_40
+        LSLS     R2,R5,#+31
+        LSL      R1,R11,#+23
+        ADD      R1,R9,R1, LSR #+23
+        ITEE     MI 
+        MOVMI    R2,#+255
+        LDRBPL   R2,[R1, #+0]
+        ORRPL    R2,R2,#0xF
+        STRB     R2,[R1, #+0]
+        MOVS     R1,#+1
+        STRB     R1,[R9, #+516]
+        B.N      ??f_printf_40
+??f_printf_36:
+        MOVS     R0,#+2
+??f_printf_40:
+        CBNZ.N   R0,??f_printf_41
+        LDR      R0,[R9, #+528]
+        STR      R5,[R9, #+524]
+        CMN      R0,#+1
+        BEQ.N    ??f_printf_42
+        SUBS     R0,R0,#+1
+        STR      R0,[R9, #+528]
+        LDRB     R0,[R9, #+517]
+        ORR      R0,R0,#0x1
+        STRB     R0,[R9, #+517]
+        MOV      R0,R5
+        B.N      ??f_printf_30
+??f_printf_41:
+        CMP      R0,#+1
+        ITE      EQ 
+        MOVEQ    R5,#-1
+        MOVNE    R5,#+1
+??f_printf_42:
+        MOV      R0,R5
+        B.N      ??f_printf_30
+??f_printf_35:
+        CMN      R0,#+1
+        IT       NE 
+        CMPNE    R0,#+1
+        BEQ.N    ??f_printf_43
+        CMP      R5,R11
+        BNE.W    ??f_printf_33
+        B.N      ??f_printf_22
+??f_printf_29:
+        LDR      R1,[R4, #+532]
+        MOV      R0,R9
+          CFI FunCall create_chain
+        BL       create_chain
+??f_printf_30:
+        CMP      R0,#+0
+        BEQ.W    ??f_printf_22
+??f_printf_43:
+        CMP      R0,#+1
+        BEQ.N    ??f_printf_44
+        CMN      R0,#+1
+        BEQ.N    ??f_printf_45
+        LDR      R1,[R4, #+528]
+        STR      R0,[R4, #+532]
+        CBNZ.N   R1,??f_printf_28
+        STR      R0,[R4, #+528]
+??f_printf_28:
+        LDRB     R0,[R4, #+518]
+        LSLS     R0,R0,#+25
+        BPL.N    ??f_printf_46
+        LDR      R0,[R4, #+512]
+        LDR      R2,[R4, #+536]
+        MOVS     R3,#+1
+        MOV      R1,R4
+        LDRB     R0,[R0, #+513]
+          CFI FunCall disk_write
+        BL       disk_write
+        CMP      R0,#+0
+        BNE.N    ??f_printf_45
+        LDRB     R0,[R4, #+518]
+        AND      R0,R0,#0xBF
+        STRB     R0,[R4, #+518]
+??f_printf_46:
+        LDR      R0,[R4, #+512]
+        LDR      R2,[R4, #+532]
+        ADD      R3,R0,#+532
+        SUBS     R2,R2,#+2
+        LDR      R12,[R3, #+0]
+        SUB      R12,R12,#+2
+        CMP      R2,R12
+        BCS.N    ??f_printf_44
+        LDRB     R1,[R0, #+514]
+        LDR      R3,[R3, #+20]
+        MLA      R2,R1,R2,R3
+        CBNZ.N   R2,??f_printf_47
+??f_printf_44:
+        MOVS     R0,#+2
+        STRB     R0,[R4, #+519]
+        B.N      ??f_printf_20
+??f_printf_47:
+        LDR      R3,[SP, #+4]
+        LSRS     R5,R8,#+9
+        ADD      R9,R3,R2
+        BEQ.N    ??f_printf_48
+        ADDS     R2,R5,R3
+        CMP      R1,R2
+        MOV      R2,R9
+        IT       CC 
+        SUBCC    R5,R1,R3
+        LDRB     R0,[R0, #+513]
+        MOV      R3,R5
+        MOV      R1,R6
+          CFI FunCall disk_write
+        BL       disk_write
+        CBNZ.N   R0,??f_printf_45
+        LDR      R0,[R4, #+536]
+        SUB      R0,R0,R9
+        CMP      R0,R5
+        BCS.N    ??f_printf_49
+        MOV      R1,R4
+        ADD      R0,R6,R0, LSL #+9
+        MOV      R2,#+512
+??f_printf_50:
+        LDRB     R3,[R0], #+1
+        SUBS     R2,R2,#+1
+        STRB     R3,[R1], #+1
+        BNE.N    ??f_printf_50
+        LDRB     R0,[R4, #+518]
+        AND      R0,R0,#0xBF
+        STRB     R0,[R4, #+518]
+??f_printf_49:
+        LSLS     R0,R5,#+9
+        B.N      ??f_printf_27
+??f_printf_48:
+        LDR      R1,[R4, #+536]
+        CMP      R1,R9
+        BEQ.W    ??f_printf_23
+        LDR      R1,[R4, #+520]
+        LDR      R2,[R4, #+524]
+        CMP      R1,R2
+        BCS.W    ??f_printf_23
+        LDRB     R0,[R0, #+513]
+        MOVS     R3,#+1
+        MOV      R2,R9
+        MOV      R1,R4
+          CFI FunCall disk_read
+        BL       disk_read
+        CMP      R0,#+0
+        BEQ.W    ??f_printf_23
+??f_printf_45:
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+519]
+        B.N      ??f_printf_20
+??f_printf_51:
+        LDR      R0,[SP, #+28]
+        STR      R4,[SP, #+24]
+        ADDS     R0,R0,#+1
+        STR      R0,[SP, #+28]
+??f_printf_52:
         LDR      R0,[SP, #+16]
         ADDS     R0,R0,#+1
         STR      R0,[SP, #+16]
-??f_printf_18:
-        ADDS     R7,R7,#+1
-??f_printf_14:
-        LDRB     R6,[R7, #+0]
-        CBZ.N    R6,??f_printf_19
+??f_printf_16:
+        LDR      R0,[SP, #+16]
+        LDRB     R6,[R0, #+0]
+        CBZ.N    R6,??f_printf_53
         CMP      R6,#+10
-        BNE.N    ??f_printf_20
+        BNE.N    ??f_printf_54
         MOVS     R1,#+13
-        ADD      R0,SP,#+8
+        ADD      R0,SP,#+20
           CFI FunCall putc_bfd
         BL       putc_bfd
-??f_printf_20:
-        LDR      R5,[SP, #+12]
-        CMP      R5,#+0
-        BMI.N    ??f_printf_18
-        ADD      R0,SP,#+8
-        ADDS     R0,R5,R0
-        ADDS     R5,R5,#+1
-        CMP      R5,#+61
-        STRB     R6,[R0, #+12]
-        BLT.N    ??f_printf_17
-        LDR      R0,[SP, #+8]
-        MOV      R3,SP
-        MOV      R2,R5
-        ADD      R1,SP,#+20
-          CFI FunCall f_write
-        BL       f_write
-        LDR      R0,[SP, #+0]
-        CMP      R0,R5
-        ITE      EQ 
-        MOVEQ    R5,#+0
-        MOVNE    R5,#-1
-        B.N      ??f_printf_17
-??f_printf_21:
-        LDR      R0,[SP, #+16]
-        STR      R7,[SP, #+12]
-        ADDS     R0,R0,#+1
-        STR      R0,[SP, #+16]
-??f_printf_19:
-        CMP      R4,R10
-        BCS.W    ??f_printf_0
-        LDR      R7,[SP, #+12]
+??f_printf_54:
+        LDR      R4,[SP, #+24]
+        CMP      R4,#+0
+        BMI.N    ??f_printf_52
+        ADD      R0,SP,#+20
+        ADDS     R0,R4,R0
         ADDS     R4,R4,#+1
-        CMP      R7,#+0
-        BMI.N    ??f_printf_19
-        ADD      R1,SP,#+8
-        MOVS     R0,#+32
-        ADDS     R1,R7,R1
-        ADDS     R7,R7,#+1
-        CMP      R7,#+61
-        STRB     R0,[R1, #+12]
-        BLT.N    ??f_printf_21
-        LDR      R0,[SP, #+8]
+        CMP      R4,#+61
+        STRB     R6,[R0, #+12]
+        BLT.N    ??f_printf_51
+        LDR      R0,[SP, #+20]
         MOV      R3,SP
-        MOV      R2,R7
-        ADD      R1,SP,#+20
+        MOV      R2,R4
+        ADD      R1,SP,#+32
           CFI FunCall f_write
         BL       f_write
         LDR      R0,[SP, #+0]
-        CMP      R0,R7
+        CMP      R0,R4
         ITE      EQ 
-        MOVEQ    R7,#+0
-        MOVNE    R7,#-1
-        B.N      ??f_printf_21
+        MOVEQ    R4,#+0
+        MOVNE    R4,#-1
+        B.N      ??f_printf_51
+??f_printf_55:
+        STR      R0,[SP, #+4]
+??f_printf_56:
+        LDR      R0,[SP, #+4]
+        STR      R0,[SP, #+24]
+        LDR      R0,[SP, #+28]
+        ADDS     R0,R0,#+1
+        STR      R0,[SP, #+28]
+??f_printf_53:
+        LDR      R0,[SP, #+8]
+        CMP      R10,R0
+        BCS.W    ??f_printf_0
+        LDR      R0,[SP, #+24]
+        ADD      R10,R10,#+1
+        CMP      R0,#+0
+        STR      R0,[SP, #+4]
+        BMI.N    ??f_printf_53
+        LDR      R2,[SP, #+4]
+        ADD      R1,SP,#+20
+        MOVS     R0,#+32
+        ADDS     R1,R2,R1
+        STRB     R0,[R1, #+12]
+        LDR      R0,[SP, #+4]
+        ADDS     R0,R0,#+1
+        CMP      R0,#+61
+        STR      R0,[SP, #+4]
+        BLT.N    ??f_printf_56
+        LDR      R6,[SP, #+20]
+        MOV      R9,R0
+        ADD      R7,SP,#+32
+        MOV      R8,#+0
+        MOV      R0,R6
+          CFI FunCall validate
+        BL       validate
+        CMP      R0,#+0
+        ITT      EQ 
+        LDRBEQ   R0,[R6, #+519]
+        CMPEQ    R0,#+0
+        BNE.N    ??f_printf_57
+        LDRB     R0,[R6, #+518]
+        LSLS     R0,R0,#+30
+        BPL.N    ??f_printf_57
+        LDR      R0,[R6, #+520]
+        ADD      R1,R9,R0
+        CMP      R1,R0
+        BCS.N    ??f_printf_58
+??f_printf_59:
+        LDR      R0,[R6, #+524]
+        LDR      R1,[R6, #+520]
+        CMP      R0,R1
+        IT       CC 
+        MOVCC    R0,R1
+        STR      R0,[R6, #+524]
+        LDRB     R0,[R6, #+518]
+        ORR      R0,R0,#0x20
+        STRB     R0,[R6, #+518]
+??f_printf_57:
+        LDR      R0,[SP, #+4]
+        CMP      R8,R0
+        ITE      EQ 
+        MOVEQ    R0,#+0
+        MOVNE    R0,#-1
+        B.N      ??f_printf_55
+??f_printf_60:
+        STR      R4,[R6, #+536]
+??f_printf_61:
+        LDR      R0,[R6, #+520]
+        MOV      R2,R7
+        LSLS     R1,R0,#+23
+        LSRS     R1,R1,#+23
+        RSB      R0,R1,#+512
+        CMP      R9,R0
+        IT       LS 
+        MOVLS    R0,R9
+        ADDS     R1,R1,R6
+        CBZ.N    R0,??f_printf_62
+        MOV.W    R3,R0
+??f_printf_63:
+        LDRB     R4,[R2], #+1
+        SUBS     R3,R3,#+1
+        STRB     R4,[R1], #+1
+        BNE.N    ??f_printf_63
+??f_printf_62:
+        LDRB     R1,[R6, #+518]
+        ORR      R1,R1,#0x40
+        STRB     R1,[R6, #+518]
+??f_printf_64:
+        LDR      R1,[R6, #+520]
+        ADDS     R7,R0,R7
+        ADD      R8,R0,R8
+        SUB      R9,R9,R0
+        ADDS     R1,R0,R1
+        STR      R1,[R6, #+520]
+??f_printf_58:
+        CMP      R9,#+0
+        BEQ.N    ??f_printf_59
+        LDR      R1,[R6, #+520]
+        LSLS     R0,R1,#+23
+        BNE.N    ??f_printf_61
+        LDR      R0,[R6, #+512]
+        LDRB     R3,[R0, #+514]
+        SUBS     R3,R3,#+1
+        AND      R2,R3,R1, LSR #+9
+        UXTB     R2,R2
+        CMP      R2,#+0
+        STR      R2,[SP, #+0]
+        BNE.W    ??f_printf_65
+        CMP      R1,#+0
+        BNE.W    ??f_printf_66
+        LDR      R1,[R6, #+528]
+        CMP      R1,#+0
+        BNE.W    ??f_printf_67
+        MOV      R4,R0
+        LDR      R11,[R4, #+524]
+        CMP      R11,#+0
+        BEQ.N    ??f_printf_68
+        LDR      R0,[R4, #+532]
+        CMP      R11,R0
+        BCC.N    ??f_printf_69
+??f_printf_68:
+        MOV      R11,#+1
+??f_printf_69:
+        MOV.W    R5,R11
+??f_printf_70:
+        LDR      R0,[R4, #+532]
+        ADDS     R5,R5,#+1
+        CMP      R5,R0
+        BCC.N    ??f_printf_71
+        MOVS     R5,#+2
+        CMP      R11,#+2
+        BCC.N    ??f_printf_59
+??f_printf_71:
+        MOV      R1,R5
+        MOV      R0,R4
+          CFI FunCall get_fat
+        BL       get_fat
+        MOVS     R1,R0
+        BNE.W    ??f_printf_72
+        CMP      R5,#+2
+        BCC.N    ??f_printf_73
+        LDR      R0,[R4, #+532]
+        CMP      R5,R0
+        BCS.N    ??f_printf_73
+        LDRB     R0,[R4, #+512]
+        CMP      R0,#+1
+        BEQ.N    ??f_printf_74
+        BCC.N    ??f_printf_73
+        CMP      R0,#+3
+        BEQ.N    ??f_printf_75
+        BCC.N    ??f_printf_76
+        B.N      ??f_printf_73
+??f_printf_75:
+        LDR      R0,[R4, #+544]
+        ADD      R1,R0,R5, LSR #+7
+        MOV      R0,R4
+          CFI FunCall move_window
+        BL       move_window
+        CMP      R0,#+0
+        BNE.N    ??f_printf_77
+        LSLS     R1,R5,#+2
+        LSLS     R1,R1,#+23
+        ADDS     R1,R4,R1, LSR #+23
+        MVN      R3,#-268435456
+        LDRB     R2,[R1, #+3]
+        ORR      R2,R3,R2, LSL #+24
+        MOVS     R3,#+255
+        STRB     R3,[R1, #+0]
+        LSRS     R2,R2,#+24
+        STRB     R3,[R1, #+1]
+        STRB     R3,[R1, #+2]
+        STRB     R2,[R1, #+3]
+        MOVS     R1,#+1
+        STRB     R1,[R4, #+516]
+        B.N      ??f_printf_77
+??f_printf_76:
+        LDR      R0,[R4, #+544]
+        ADD      R1,R0,R5, LSR #+8
+        MOV      R0,R4
+          CFI FunCall move_window
+        BL       move_window
+        CMP      R0,#+0
+        BNE.N    ??f_printf_77
+        LSLS     R1,R5,#+1
+        LSLS     R1,R1,#+23
+        ADDS     R1,R4,R1, LSR #+23
+        MOVS     R2,#+255
+        STRB     R2,[R1, #+0]
+        STRB     R2,[R1, #+1]
+        MOVS     R1,#+1
+        STRB     R1,[R4, #+516]
+        B.N      ??f_printf_77
+??f_printf_74:
+        ADD      R11,R5,R5, LSR #+1
+        LDR      R0,[R4, #+544]
+        ADD      R1,R0,R11, LSR #+9
+        MOV      R0,R4
+          CFI FunCall move_window
+        BL       move_window
+        CBNZ.N   R0,??f_printf_77
+        LSL      R0,R11,#+23
+        ADD      R11,R11,#+1
+        ADDS     R1,R4,R0, LSR #+23
+        LSLS     R0,R5,#+31
+        ITTE     MI 
+        LDRBMI   R0,[R1, #+0]
+        ORRMI    R0,R0,#0xF0
+        MOVPL    R0,#+255
+        STRB     R0,[R1, #+0]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+516]
+        LDR      R0,[R4, #+544]
+        ADD      R1,R0,R11, LSR #+9
+        MOV      R0,R4
+          CFI FunCall move_window
+        BL       move_window
+        CBNZ.N   R0,??f_printf_77
+        LSL      R1,R11,#+23
+        ADDS     R1,R4,R1, LSR #+23
+        LSLS     R2,R5,#+31
+        ITEE     MI 
+        MOVMI    R2,#+255
+        LDRBPL   R2,[R1, #+0]
+        ORRPL    R2,R2,#0xF
+        STRB     R2,[R1, #+0]
+        MOVS     R1,#+1
+        STRB     R1,[R4, #+516]
+        B.N      ??f_printf_77
+??f_printf_73:
+        MOVS     R0,#+2
+??f_printf_77:
+        CBNZ.N   R0,??f_printf_78
+        LDR      R0,[R4, #+528]
+        STR      R5,[R4, #+524]
+        CMN      R0,#+1
+        BEQ.N    ??f_printf_79
+        SUBS     R0,R0,#+1
+        MOV      R1,R5
+        STR      R0,[R4, #+528]
+        LDRB     R0,[R4, #+517]
+        ORR      R0,R0,#0x1
+        STRB     R0,[R4, #+517]
+        B.N      ??f_printf_67
+??f_printf_78:
+        CMP      R0,#+1
+        ITE      EQ 
+        MOVEQ    R5,#-1
+        MOVNE    R5,#+1
+??f_printf_79:
+        MOV      R1,R5
+        B.N      ??f_printf_67
+??f_printf_72:
+        CMN      R1,#+1
+        IT       NE 
+        CMPNE    R1,#+1
+        BEQ.N    ??f_printf_80
+        CMP      R5,R11
+        BNE.W    ??f_printf_70
+        B.N      ??f_printf_59
+??f_printf_66:
+        LDR      R1,[R6, #+532]
+          CFI FunCall create_chain
+        BL       create_chain
+        MOV      R1,R0
+??f_printf_67:
+        CMP      R1,#+0
+        BEQ.W    ??f_printf_59
+??f_printf_80:
+        CMP      R1,#+1
+        BEQ.N    ??f_printf_81
+        CMN      R1,#+1
+        BEQ.N    ??f_printf_82
+        LDR      R0,[R6, #+528]
+        STR      R1,[R6, #+532]
+        CBNZ.N   R0,??f_printf_65
+        STR      R1,[R6, #+528]
+??f_printf_65:
+        LDRB     R0,[R6, #+518]
+        LSLS     R0,R0,#+25
+        BPL.N    ??f_printf_83
+        LDR      R0,[R6, #+512]
+        LDR      R2,[R6, #+536]
+        MOVS     R3,#+1
+        MOV      R1,R6
+        LDRB     R0,[R0, #+513]
+          CFI FunCall disk_write
+        BL       disk_write
+        CMP      R0,#+0
+        BNE.N    ??f_printf_82
+        LDRB     R0,[R6, #+518]
+        AND      R0,R0,#0xBF
+        STRB     R0,[R6, #+518]
+??f_printf_83:
+        LDR      R0,[R6, #+512]
+        LDR      R2,[R6, #+532]
+        ADD      R3,R0,#+532
+        SUBS     R2,R2,#+2
+        LDR      R4,[R3, #+0]
+        SUBS     R4,R4,#+2
+        CMP      R2,R4
+        BCS.N    ??f_printf_81
+        LDRB     R1,[R0, #+514]
+        LDR      R3,[R3, #+20]
+        MLA      R2,R1,R2,R3
+        CBNZ.N   R2,??f_printf_84
+??f_printf_81:
+        MOVS     R0,#+2
+        STRB     R0,[R6, #+519]
+        B.N      ??f_printf_57
+??f_printf_84:
+        LDR      R3,[SP, #+0]
+        ADDS     R4,R3,R2
+        LSRS     R5,R9,#+9
+        BEQ.N    ??f_printf_85
+        ADDS     R2,R5,R3
+        CMP      R1,R2
+        MOV      R2,R4
+        IT       CC 
+        SUBCC    R5,R1,R3
+        LDRB     R0,[R0, #+513]
+        MOV      R3,R5
+        MOV      R1,R7
+          CFI FunCall disk_write
+        BL       disk_write
+        CBNZ.N   R0,??f_printf_82
+        LDR      R0,[R6, #+536]
+        SUBS     R0,R0,R4
+        CMP      R0,R5
+        BCS.N    ??f_printf_86
+        MOV      R1,R6
+        ADD      R0,R7,R0, LSL #+9
+        MOV      R2,#+512
+??f_printf_87:
+        LDRB     R3,[R0], #+1
+        SUBS     R2,R2,#+1
+        STRB     R3,[R1], #+1
+        BNE.N    ??f_printf_87
+        LDRB     R0,[R6, #+518]
+        AND      R0,R0,#0xBF
+        STRB     R0,[R6, #+518]
+??f_printf_86:
+        LSLS     R0,R5,#+9
+        B.N      ??f_printf_64
+??f_printf_85:
+        LDR      R1,[R6, #+536]
+        CMP      R1,R4
+        BEQ.W    ??f_printf_60
+        LDR      R1,[R6, #+520]
+        LDR      R2,[R6, #+524]
+        CMP      R1,R2
+        BCS.W    ??f_printf_60
+        LDRB     R0,[R0, #+513]
+        MOVS     R3,#+1
+        MOV      R2,R4
+        MOV      R1,R6
+          CFI FunCall disk_read
+        BL       disk_read
+        CMP      R0,#+0
+        BEQ.W    ??f_printf_60
+??f_printf_82:
+        MOVS     R0,#+1
+        STRB     R0,[R6, #+519]
+        B.N      ??f_printf_57
 // 4711 		case 'B' :					/* Binary */
 // 4712 			r = 2; break;
-??f_printf_7:
+??f_printf_9:
         MOVS     R2,#+2
 // 4713 		case 'O' :					/* Octal */
 // 4714 			r = 8; break;
@@ -10412,22 +12444,29 @@ f_printf:
 // 4723 
 // 4724 		/* Get an argument and put it in numeral */
 // 4725 		v = (f & 4) ? (DWORD)va_arg(arp, long) : ((d == 'D') ? (DWORD)(long)va_arg(arp, int) : (DWORD)va_arg(arp, unsigned int));
-??f_printf_22:
-        LDR      R3,[R9], #+4
-        B.N      ??f_printf_23
-??f_printf_9:
-        MOVS     R2,#+8
-        B.N      ??f_printf_22
-??f_printf_8:
-        MOVS     R2,#+10
-        B.N      ??f_printf_22
+??f_printf_88:
+        LSLS     R3,R0,#+29
+        ITE      MI 
+        LDRMI    R3,[SP, #+12]
+        LDRPL    R3,[SP, #+12]
+        B.N      ??f_printf_89
 ??f_printf_11:
+        MOVS     R2,#+8
+        B.N      ??f_printf_88
+??f_printf_10:
+        MOVS     R2,#+10
+        B.N      ??f_printf_88
+??f_printf_13:
         MOVS     R2,#+16
-        B.N      ??f_printf_22
+        B.N      ??f_printf_88
+??f_printf_89:
+        ADDS     R3,R3,#+4
+        STR      R3,[SP, #+12]
+        SUBS     R3,R3,#+4
 // 4726 		if (d == 'D' && (v & 0x80000000)) {
-??f_printf_23:
-        CMP      R7,#+68
-        BNE.N    ??f_printf_24
+        CMP      R4,#+68
+        LDR      R3,[R3, #+0]
+        BNE.N    ??f_printf_90
         CMP      R3,#+0
         ITT      MI 
         RSBMI    R3,R3,#+0
@@ -10436,141 +12475,171 @@ f_printf:
 // 4728 			f |= 8;
 // 4729 		}
 // 4730 		i = 0;
-??f_printf_24:
-        MOVS     R5,#+0
-        ADD      R12,SP,#+84
+??f_printf_90:
+        MOVS     R6,#+0
+        ADD      R10,SP,#+100
 // 4731 		do {
 // 4732 			d = (TCHAR)(v % r); v /= r;
-??f_printf_25:
-        UDIV     LR,R3,R2
-        MLS      R7,R2,LR,R3
-        MOV      R3,LR
-        UXTB     R7,R7
+??f_printf_91:
+        UDIV     R7,R3,R2
+        MLS      R4,R2,R7,R3
+        MOV      R3,R7
+        UXTB     R4,R4
 // 4733 			if (d > 9) d += (c == 'x') ? 0x27 : 0x07;
-        CMP      R7,#+10
-        BLT.N    ??f_printf_26
+        CMP      R4,#+10
+        BLT.N    ??f_printf_92
         CMP      R1,#+120
         ITE      EQ 
-        MOVEQ    LR,#+39
-        MOVNE    LR,#+7
-        ADD      R7,LR,R7
-        UXTB     R7,R7
+        MOVEQ    R7,#+39
+        MOVNE    R7,#+7
+        ADDS     R4,R7,R4
+        UXTB     R4,R4
 // 4734 			s[i++] = d + '0';
-??f_printf_26:
-        ADDS     R7,R7,#+48
-        ADDS     R5,R5,#+1
-        STRB     R7,[R12], #+1
+??f_printf_92:
+        ADDS     R4,R4,#+48
+        ADDS     R6,R6,#+1
+        STRB     R4,[R10], #+1
 // 4735 		} while (v && i < sizeof s / sizeof s[0]);
-        CBZ.N    R3,??f_printf_27
-        CMP      R5,#+16
-        BCC.N    ??f_printf_25
+        CBZ.N    R3,??f_printf_93
+        CMP      R6,#+16
+        BCC.N    ??f_printf_91
 // 4736 		if (f & 8) s[i++] = '-';
-??f_printf_27:
+??f_printf_93:
         LSLS     R1,R0,#+28
-        BPL.N    ??f_printf_28
+        BPL.N    ??f_printf_94
         MOVS     R1,#+45
-        ADD      R2,SP,#+84
-        STRB     R1,[R5, R2]
-        ADDS     R5,R5,#+1
+        ADD      R2,SP,#+100
+        STRB     R1,[R6, R2]
+        ADDS     R6,R6,#+1
 // 4737 		j = i; d = (f & 1) ? '0' : ' ';
-??f_printf_28:
+??f_printf_94:
         LSLS     R1,R0,#+31
-        MOV      R4,R5
+        MOV      R10,R6
         ITE      MI 
-        MOVMI    R7,#+48
-        MOVPL    R7,#+32
+        MOVMI    R4,#+48
+        MOVPL    R4,#+32
 // 4738 		while (!(f & 2) && j++ < w) putc_bfd(&pb, d);
         LSLS     R0,R0,#+30
-        BMI.N    ??f_printf_29
-        B.N      ??f_printf_30
-??f_printf_31:
-        MOV      R1,R7
-        ADD      R0,SP,#+8
-          CFI FunCall putc_bfd
-        BL       putc_bfd
-??f_printf_30:
-        MOV      R0,R4
-        ADDS     R4,R0,#+1
-        CMP      R0,R10
-        BCC.N    ??f_printf_31
+        BPL.N    ??f_printf_95
 // 4739 		do putc_bfd(&pb, s[--i]); while (i);
-??f_printf_29:
-        ADD      R0,SP,#+84
-        SUBS     R5,R5,#+1
-        LDRB     R11,[R5, R0]
-        CMP      R11,#+10
-        BNE.N    ??f_printf_32
+??f_printf_96:
+        ADD      R0,SP,#+100
+        SUBS     R6,R6,#+1
+        LDRB     R8,[R6, R0]
+        CMP      R8,#+10
+        BNE.N    ??f_printf_97
         MOVS     R1,#+13
-        ADD      R0,SP,#+8
+        ADD      R0,SP,#+20
           CFI FunCall putc_bfd
         BL       putc_bfd
-??f_printf_32:
-        LDR      R6,[SP, #+12]
+??f_printf_97:
+        LDR      R7,[SP, #+24]
+        CMP      R7,#+0
+        BMI.N    ??f_printf_98
+        ADD      R0,SP,#+20
+        ADDS     R0,R7,R0
+        ADDS     R7,R7,#+1
+        CMP      R7,#+61
+        STRB     R8,[R0, #+12]
+        BLT.N    ??f_printf_99
+        LDR      R0,[SP, #+20]
+        MOV      R3,SP
+        MOV      R2,R7
+        ADD      R1,SP,#+32
+          CFI FunCall f_write
+        BL       f_write
+        LDR      R0,[SP, #+0]
+        CMP      R0,R7
+        ITE      EQ 
+        MOVEQ    R7,#+0
+        MOVNE    R7,#-1
+        B.N      ??f_printf_99
+??f_printf_100:
+        LDR      R0,[SP, #+28]
+        STR      R7,[SP, #+24]
+        ADDS     R0,R0,#+1
+        STR      R0,[SP, #+28]
+??f_printf_95:
+        LDR      R1,[SP, #+8]
+        MOV      R0,R10
+        ADD      R10,R0,#+1
+        CMP      R0,R1
+        BCS.N    ??f_printf_96
+        CMP      R4,#+10
+        BNE.N    ??f_printf_101
+        MOVS     R1,#+13
+        ADD      R0,SP,#+20
+          CFI FunCall putc_bfd
+        BL       putc_bfd
+??f_printf_101:
+        LDR      R7,[SP, #+24]
+        CMP      R7,#+0
+        BMI.N    ??f_printf_95
+        ADD      R0,SP,#+20
+        ADDS     R0,R7,R0
+        ADDS     R7,R7,#+1
+        CMP      R7,#+61
+        STRB     R4,[R0, #+12]
+        BLT.N    ??f_printf_100
+        LDR      R0,[SP, #+20]
+        MOV      R3,SP
+        MOV      R2,R7
+        ADD      R1,SP,#+32
+          CFI FunCall f_write
+        BL       f_write
+        LDR      R0,[SP, #+0]
+        CMP      R0,R7
+        ITE      EQ 
+        MOVEQ    R7,#+0
+        MOVNE    R7,#-1
+        B.N      ??f_printf_100
+??f_printf_99:
+        LDR      R0,[SP, #+28]
+        STR      R7,[SP, #+24]
+        ADDS     R0,R0,#+1
+        STR      R0,[SP, #+28]
+??f_printf_98:
         CMP      R6,#+0
-        BMI.N    ??f_printf_33
-        ADD      R0,SP,#+8
-        ADDS     R0,R6,R0
-        ADDS     R6,R6,#+1
-        CMP      R6,#+61
-        STRB     R11,[R0, #+12]
-        BLT.N    ??f_printf_34
-        LDR      R0,[SP, #+8]
-        MOV      R3,SP
-        MOV      R2,R6
-        ADD      R1,SP,#+20
-          CFI FunCall f_write
-        BL       f_write
-        LDR      R0,[SP, #+0]
-        CMP      R0,R6
-        ITE      EQ 
-        MOVEQ    R6,#+0
-        MOVNE    R6,#-1
-??f_printf_34:
-        STR      R6,[SP, #+12]
-        LDR      R0,[SP, #+16]
-        ADDS     R0,R0,#+1
-        STR      R0,[SP, #+16]
-??f_printf_33:
-        CMP      R5,#+0
-        BNE.N    ??f_printf_29
+        BNE.N    ??f_printf_96
 // 4740 		while (j++ < w) putc_bfd(&pb, d);
-??f_printf_35:
-        CMP      R4,R10
+??f_printf_102:
+        LDR      R0,[SP, #+8]
+        CMP      R10,R0
         BCS.W    ??f_printf_0
-        ADDS     R4,R4,#+1
-        CMP      R7,#+10
-        BNE.N    ??f_printf_36
+        CMP      R4,#+10
+        ADD      R10,R10,#+1
+        BNE.N    ??f_printf_103
         MOVS     R1,#+13
-        ADD      R0,SP,#+8
+        ADD      R0,SP,#+20
           CFI FunCall putc_bfd
         BL       putc_bfd
-??f_printf_36:
-        LDR      R5,[SP, #+12]
-        CMP      R5,#+0
-        BMI.N    ??f_printf_35
-        ADD      R0,SP,#+8
-        ADDS     R0,R5,R0
-        ADDS     R5,R5,#+1
-        CMP      R5,#+61
-        STRB     R7,[R0, #+12]
-        BLT.N    ??f_printf_37
-        LDR      R0,[SP, #+8]
+??f_printf_103:
+        LDR      R7,[SP, #+24]
+        CMP      R7,#+0
+        BMI.N    ??f_printf_102
+        ADD      R0,SP,#+20
+        ADDS     R0,R7,R0
+        ADDS     R7,R7,#+1
+        CMP      R7,#+61
+        STRB     R4,[R0, #+12]
+        BLT.N    ??f_printf_104
+        LDR      R0,[SP, #+20]
         MOV      R3,SP
-        MOV      R2,R5
-        ADD      R1,SP,#+20
+        MOV      R2,R7
+        ADD      R1,SP,#+32
           CFI FunCall f_write
         BL       f_write
         LDR      R0,[SP, #+0]
-        CMP      R0,R5
+        CMP      R0,R7
         ITE      EQ 
-        MOVEQ    R5,#+0
-        MOVNE    R5,#-1
-??f_printf_37:
-        STR      R5,[SP, #+12]
-        LDR      R0,[SP, #+16]
+        MOVEQ    R7,#+0
+        MOVNE    R7,#-1
+??f_printf_104:
+        LDR      R0,[SP, #+28]
+        STR      R7,[SP, #+24]
         ADDS     R0,R0,#+1
-        STR      R0,[SP, #+16]
-        B.N      ??f_printf_35
+        STR      R0,[SP, #+28]
+        B.N      ??f_printf_102
 // 4741 	}
 // 4742 
 // 4743 	va_end(arp);
@@ -10579,27 +12648,27 @@ f_printf:
 // 4746 		&& f_write(pb.fp, pb.buf, (UINT)pb.idx, &nw) == FR_OK
 // 4747 		&& (UINT)pb.idx == nw) return pb.nchr;
 ??f_printf_3:
-        LDR      R2,[SP, #+12]
+        LDR      R2,[SP, #+24]
         CMP      R2,#+0
-        BMI.N    ??f_printf_38
-        LDR      R0,[SP, #+8]
-        ADD      R3,SP,#+4
-        ADD      R1,SP,#+20
+        BMI.N    ??f_printf_105
+        LDR      R0,[SP, #+20]
+        ADD      R3,SP,#+96
+        ADD      R1,SP,#+32
           CFI FunCall f_write
         BL       f_write
         CMP      R0,#+0
         ITTTT    EQ 
-        LDREQ    R0,[SP, #+12]
-        LDREQ    R1,[SP, #+4]
+        LDREQ    R0,[SP, #+24]
+        LDREQ    R1,[SP, #+96]
         CMPEQ    R0,R1
-        LDREQ    R0,[SP, #+16]
-        BEQ.N    ??f_printf_39
+        LDREQ    R0,[SP, #+28]
+        BEQ.N    ??f_printf_106
 // 4748 	return EOF;
-??f_printf_38:
+??f_printf_105:
         MOV      R0,#-1
-??f_printf_39:
-        ADD      SP,SP,#+100
-          CFI CFA R13+44
+??f_printf_106:
+        ADD      SP,SP,#+120
+          CFI CFA R13+48
         POP      {R4-R11}
           CFI R4 SameValue
           CFI R5 SameValue
@@ -10609,42 +12678,10 @@ f_printf:
           CFI R9 SameValue
           CFI R10 SameValue
           CFI R11 SameValue
-          CFI CFA R13+12
-        LDR      PC,[SP], #+12    ;; return
+          CFI CFA R13+16
+        LDR      PC,[SP], #+16    ;; return
 // 4749 }
-          CFI EndBlock cfiBlock59
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-?_1:
-        DC8 "\353\376\220MSDOS5.0"
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-?_2:
-        DC8 "NO NAME    FAT32   "
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-?_3:
-        DC8 "NO NAME    FAT     "
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??vst:
-        DC16 1024, 512, 256, 128, 64, 32, 16, 8, 4, 2, 0
-        DC8 0, 0
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??cst:
-        DC16 32768, 16384, 8192, 4096, 2048, 16384, 8192, 4096, 2048, 1024, 512
-        DC8 0, 0
+          CFI EndBlock cfiBlock46
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -10663,9 +12700,9 @@ f_printf:
 // 4752 #endif /* _USE_STRFUNC */
 // 
 //     32 bytes in section .bss
-// 10 332 bytes in section .text
+// 16 380 bytes in section .text
 // 
-// 10 332 bytes of CODE memory
+// 16 380 bytes of CODE memory
 //     32 bytes of DATA memory
 //
 //Errors: none

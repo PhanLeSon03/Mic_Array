@@ -199,7 +199,8 @@ void AudioUSBSend(uint16_t idxFrm) /* This function called every ms */
 
 void AudioPlayerUpd(void) /* This function called with period of 64ms */
 {
-#if (!0)
+#if (1)
+	
 	switch (buffer_switch)
     {
       case BUF1_PLAY:
@@ -297,11 +298,12 @@ void AudioPlayerUpd(void) /* This function called with period of 64ms */
         break;
     }
 
+  
 	
 #else
 
-swtBufUSBOut^=0x01;
 
+swtBufUSBOut^=0x01;
 
 switch (buffer_switch)
 {

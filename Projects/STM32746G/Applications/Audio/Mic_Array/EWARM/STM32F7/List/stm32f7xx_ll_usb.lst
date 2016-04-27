@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       16/Apr/2016  18:31:03
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       27/Apr/2016  12:04:32
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7 --relaxed_fp
 #    List file    =  
@@ -175,7 +175,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     106          
     107              /* Init The ULPI Interface */
     108              USBx->GUSBCFG &= ~(USB_OTG_GUSBCFG_TSDPS | USB_OTG_GUSBCFG_ULPIFSLS | USB_OTG_GUSBCFG_PHYSEL);
-   \   0000000A   0x.... 0x....      LDR.W    R2,??DataTable7  ;; 0xffbdffbf
+   \   0000000A   0x.... 0x....      LDR.W    R2,??DataTable8  ;; 0xffbdffbf
    \   0000000E   0xF421 0x3180      BIC      R1,R1,#0x10000
    \   00000012   0x6381             STR      R1,[R0, #+56]
    \   00000014   0x68C1             LDR      R1,[R0, #+12]
@@ -200,7 +200,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     116              /* Reset after a PHY select  */
     117              USB_CoreReset(USBx); 
    \                     ??USB_CoreInit_1: (+1)
-   \   00000030   0x.... 0x....      LDR.W    R1,??DataTable7_1  ;; 0x30d41
+   \   00000030   0x.... 0x....      LDR.W    R1,??DataTable8_1  ;; 0x30d41
    \   00000034   0x460A             MOV      R2,R1
    \                     ??USB_CoreInit_2: (+1)
    \   00000036   0x1E52             SUBS     R2,R2,#+1
@@ -230,7 +230,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     123              
     124              /* Reset after a PHY select and set Host mode */
     125              USB_CoreReset(USBx);
-   \   0000005C   0x.... 0x....      LDR.W    R1,??DataTable7_1  ;; 0x30d41
+   \   0000005C   0x.... 0x....      LDR.W    R1,??DataTable8_1  ;; 0x30d41
    \   00000060   0x460A             MOV      R2,R1
    \                     ??USB_CoreInit_5: (+1)
    \   00000062   0x1E52             SUBS     R2,R2,#+1
@@ -292,15 +292,11 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                     USB_EnableGlobalInt: (+1)
    \   00000000   0x6881             LDR      R1,[R0, #+8]
    \   00000002   0xF041 0x0101      ORR      R1,R1,#0x1
-   \   00000006   0x....             B.N      ?Subroutine2
+   \   00000006   0x6081             STR      R1,[R0, #+8]
     149            return HAL_OK;
+   \   00000008   0x2000             MOVS     R0,#+0
+   \   0000000A   0x4770             BX       LR               ;; return
     150          }
-
-   \                                 In section .text, align 2, keep-with-next
-   \                     ?Subroutine2: (+1)
-   \   00000000   0x6081             STR      R1,[R0, #+8]
-   \   00000002   0x2000             MOVS     R0,#+0
-   \   00000004   0x4770             BX       LR               ;; return
     151          
     152          
     153          /**
@@ -318,9 +314,10 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   00000000   0x6881             LDR      R1,[R0, #+8]
    \   00000002   0x0849             LSRS     R1,R1,#+1
    \   00000004   0x0049             LSLS     R1,R1,#+1
-   \   00000006                      REQUIRE ?Subroutine2
-   \   00000006                      ;; // Fall through to label ?Subroutine2
+   \   00000006   0x6081             STR      R1,[R0, #+8]
     162            return HAL_OK;
+   \   00000008   0x2000             MOVS     R0,#+0
+   \   0000000A   0x4770             BX       LR               ;; return
     163          }
     164             
     165          /**
@@ -338,47 +335,42 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     175          HAL_StatusTypeDef USB_SetCurrentMode(USB_OTG_GlobalTypeDef *USBx , USB_OTG_ModeTypeDef mode)
     176          {
    \                     USB_SetCurrentMode: (+1)
-   \   00000000   0xB580             PUSH     {R7,LR}
+   \   00000000   0xB500             PUSH     {LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
     177            USBx->GUSBCFG &= ~(USB_OTG_GUSBCFG_FHMOD | USB_OTG_GUSBCFG_FDMOD); 
-   \   00000002   0x68C2             LDR      R2,[R0, #+12]
+   \   00000004   0x68C2             LDR      R2,[R0, #+12]
     178            
     179            if ( mode == USB_OTG_HOST_MODE)
-   \   00000004   0x2901             CMP      R1,#+1
-   \   00000006   0xF022 0x42C0      BIC      R2,R2,#0x60000000
-   \   0000000A   0x60C2             STR      R2,[R0, #+12]
-   \   0000000C   0xD103             BNE.N    ??USB_SetCurrentMode_0
+   \   00000006   0x2901             CMP      R1,#+1
+   \   00000008   0xF022 0x42C0      BIC      R2,R2,#0x60000000
+   \   0000000C   0x60C2             STR      R2,[R0, #+12]
+   \   0000000E   0xD103             BNE.N    ??USB_SetCurrentMode_0
     180            {
     181              USBx->GUSBCFG |= USB_OTG_GUSBCFG_FHMOD; 
-   \   0000000E   0x68C1             LDR      R1,[R0, #+12]
-   \   00000010   0xF041 0x5100      ORR      R1,R1,#0x20000000
-   \   00000014   0xE003             B.N      ??USB_SetCurrentMode_1
+   \   00000010   0x68C1             LDR      R1,[R0, #+12]
+   \   00000012   0xF041 0x5100      ORR      R1,R1,#0x20000000
+   \   00000016   0xE003             B.N      ??USB_SetCurrentMode_1
     182            }
     183            else if ( mode == USB_OTG_DEVICE_MODE)
    \                     ??USB_SetCurrentMode_0: (+1)
-   \   00000016   0xB919             CBNZ.N   R1,??USB_SetCurrentMode_2
+   \   00000018   0xB919             CBNZ.N   R1,??USB_SetCurrentMode_2
     184            {
     185              USBx->GUSBCFG |= USB_OTG_GUSBCFG_FDMOD; 
-   \   00000018   0x68C1             LDR      R1,[R0, #+12]
-   \   0000001A   0xF041 0x4180      ORR      R1,R1,#0x40000000
+   \   0000001A   0x68C1             LDR      R1,[R0, #+12]
+   \   0000001C   0xF041 0x4180      ORR      R1,R1,#0x40000000
    \                     ??USB_SetCurrentMode_1: (+1)
-   \   0000001E   0x60C1             STR      R1,[R0, #+12]
+   \   00000020   0x60C1             STR      R1,[R0, #+12]
     186            }
     187            HAL_Delay(50);
    \                     ??USB_SetCurrentMode_2: (+1)
-   \   00000020   0x2032             MOVS     R0,#+50
-   \   00000022   0x.... 0x....      B.W      ??Subroutine6_0
+   \   00000022   0x2032             MOVS     R0,#+50
+   \   00000024   0x.... 0x....      BL       HAL_Delay
     188            
     189            return HAL_OK;
+   \   00000028   0x2000             MOVS     R0,#+0
+   \   0000002A   0xB001             ADD      SP,SP,#+4
+   \   0000002C   0xBD00             POP      {PC}             ;; return
     190          }
-
-   \                                 In section .text, align 2, keep-with-next
-   \                     ?Subroutine6: (+1)
-   \   00000000   0x6041             STR      R1,[R0, #+4]
-   \   00000002   0x2003             MOVS     R0,#+3
-   \                     ??Subroutine6_0: (+1)
-   \   00000004   0x.... 0x....      BL       HAL_Delay
-   \   00000008   0x2000             MOVS     R0,#+0
-   \   0000000A   0xBD02             POP      {R1,PC}          ;; return
     191          
     192          /**
     193            * @brief  USB_DevInit : Initializes the USB_OTG controller registers 
@@ -389,7 +381,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     198            * @retval HAL status
     199            */
 
-   \                                 In section .text, align 2, keep-with-next
+   \                                 In section .text, align 4, keep-with-next
     200          HAL_StatusTypeDef USB_DevInit (USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef cfg)
     201          {
    \                     USB_DevInit: (+1)
@@ -474,7 +466,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     243            USB_FlushTxFifo(USBx , 0x10); /* all Tx FIFOs */
    \   00000054   0xF44F 0x6484      MOV      R4,#+1056
    \   00000058   0x6104             STR      R4,[R0, #+16]
-   \   0000005A   0x.... 0x....      LDR.W    R4,??DataTable7_1  ;; 0x30d41
+   \   0000005A   0x.... 0x....      LDR.W    R4,??DataTable8_1  ;; 0x30d41
    \   0000005E   0x4625             MOV      R5,R4
    \                     ??USB_DevInit_3: (+1)
    \   00000060   0x1E6D             SUBS     R5,R5,#+1
@@ -509,7 +501,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     251            
     252            for (i = 0; i < cfg.dev_endpoints; i++)
    \   00000088   0x9C05             LDR      R4,[SP, #+20]
-   \   0000008A   0xB344             CBZ.N    R4,??USB_DevInit_7
+   \   0000008A   0xB34C             CBZ.N    R4,??USB_DevInit_7
    \   0000008C   0x4627             MOV      R7,R4
    \   0000008E   0xF500 0x6610      ADD      R6,R0,#+2304
    \   00000092   0x24FF             MOVS     R4,#+255
@@ -541,17 +533,17 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   000000B8   0x1E7F             SUBS     R7,R7,#+1
    \   000000BA   0xD1ED             BNE.N    ??USB_DevInit_8
    \   000000BC   0xF500 0x6330      ADD      R3,R0,#+2816
-   \   000000C0   0x9E05             LDR      R6,[SP, #+20]
+   \   000000C0   0xF8DD 0x6014      LDR.W    R6,[SP, #+20]
     266            
     267            for (i = 0; i < cfg.dev_endpoints; i++)
     268            {
     269              if ((USBx_OUTEP(i)->DOEPCTL & USB_OTG_DOEPCTL_EPENA) == USB_OTG_DOEPCTL_EPENA)
    \                     ??USB_DevInit_9: (+1)
-   \   000000C2   0xF8D3 0xC000      LDR      R12,[R3, #+0]
-   \   000000C6   0xF1BC 0x0F00      CMP      R12,#+0
-   \   000000CA   0xBF4C             ITE      MI 
-   \   000000CC   0x601D             STRMI    R5,[R3, #+0]
-   \   000000CE   0xF8C3 0xE000      STRPL    LR,[R3, #+0]
+   \   000000C4   0xF8D3 0xC000      LDR      R12,[R3, #+0]
+   \   000000C8   0xF1BC 0x0F00      CMP      R12,#+0
+   \   000000CC   0xBF4C             ITE      MI 
+   \   000000CE   0x601D             STRMI    R5,[R3, #+0]
+   \   000000D0   0xF8C3 0xE000      STRPL    LR,[R3, #+0]
     270              {
     271                USBx_OUTEP(i)->DOEPCTL = (USB_OTG_DOEPCTL_EPDIS | USB_OTG_DOEPCTL_SNAK);
     272              }
@@ -561,58 +553,58 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     276              }
     277              
     278              USBx_OUTEP(i)->DOEPTSIZ = 0;
-   \   000000D2   0xF8C3 0xE010      STR      LR,[R3, #+16]
+   \   000000D4   0xF8C3 0xE010      STR      LR,[R3, #+16]
     279              USBx_OUTEP(i)->DOEPINT  = 0xFF;
-   \   000000D6   0x609C             STR      R4,[R3, #+8]
+   \   000000D8   0x609C             STR      R4,[R3, #+8]
     280            }
-   \   000000D8   0x3320             ADDS     R3,R3,#+32
-   \   000000DA   0x1E76             SUBS     R6,R6,#+1
-   \   000000DC   0xD1F1             BNE.N    ??USB_DevInit_9
+   \   000000DA   0x3320             ADDS     R3,R3,#+32
+   \   000000DC   0x1E76             SUBS     R6,R6,#+1
+   \   000000DE   0xD1F1             BNE.N    ??USB_DevInit_9
     281            
     282            USBx_DEVICE->DIEPMSK &= ~(USB_OTG_DIEPMSK_TXFURM);
    \                     ??USB_DevInit_7: (+1)
-   \   000000DE   0x6913             LDR      R3,[R2, #+16]
-   \   000000E0   0xF423 0x7380      BIC      R3,R3,#0x100
-   \   000000E4   0x6113             STR      R3,[R2, #+16]
+   \   000000E0   0x6913             LDR      R3,[R2, #+16]
+   \   000000E2   0xF423 0x7380      BIC      R3,R3,#0x100
+   \   000000E6   0x6113             STR      R3,[R2, #+16]
     283            
     284            if (cfg.dma_enable == 1)
-   \   000000E6   0x9B08             LDR      R3,[SP, #+32]
-   \   000000E8   0x2B01             CMP      R3,#+1
-   \   000000EA   0xD109             BNE.N    ??USB_DevInit_10
+   \   000000E8   0x9B08             LDR      R3,[SP, #+32]
+   \   000000EA   0x2B01             CMP      R3,#+1
+   \   000000EC   0xD109             BNE.N    ??USB_DevInit_10
     285            {
     286              /*Set threshold parameters */
     287              USBx_DEVICE->DTHRCTL = (USB_OTG_DTHRCTL_TXTHRLEN_6 | USB_OTG_DTHRCTL_RXTHRLEN_6);
-   \   000000EC   0x.... 0x....      LDR.W    R4,??DataTable10  ;; 0x800100
-   \   000000F0   0x6314             STR      R4,[R2, #+48]
+   \   000000EE   0x.... 0x....      LDR.W    R4,??DataTable10  ;; 0x800100
+   \   000000F2   0x6314             STR      R4,[R2, #+48]
     288              USBx_DEVICE->DTHRCTL |= (USB_OTG_DTHRCTL_RXTHREN | USB_OTG_DTHRCTL_ISOTHREN | USB_OTG_DTHRCTL_NONISOTHREN);
-   \   000000F2   0x6B14             LDR      R4,[R2, #+48]
-   \   000000F4   0xF444 0x3480      ORR      R4,R4,#0x10000
-   \   000000F8   0xF044 0x0403      ORR      R4,R4,#0x3
-   \   000000FC   0x6314             STR      R4,[R2, #+48]
+   \   000000F4   0x6B14             LDR      R4,[R2, #+48]
+   \   000000F6   0xF444 0x3480      ORR      R4,R4,#0x10000
+   \   000000FA   0xF044 0x0403      ORR      R4,R4,#0x3
+   \   000000FE   0x6314             STR      R4,[R2, #+48]
     289              
     290              i= USBx_DEVICE->DTHRCTL;
-   \   000000FE   0x6B12             LDR      R2,[R2, #+48]
+   \   00000100   0x6B12             LDR      R2,[R2, #+48]
     291            }
     292            
     293            /* Disable all interrupts. */
     294            USBx->GINTMSK = 0;
    \                     ??USB_DevInit_10: (+1)
-   \   00000100   0x2200             MOVS     R2,#+0
-   \   00000102   0x6182             STR      R2,[R0, #+24]
+   \   00000102   0x2200             MOVS     R2,#+0
+   \   00000104   0x6182             STR      R2,[R0, #+24]
     295            
     296            /* Clear any pending interrupts */
     297            USBx->GINTSTS = 0xBFFFFFFF;
-   \   00000104   0xF06F 0x4280      MVN      R2,#+1073741824
-   \   00000108   0x6142             STR      R2,[R0, #+20]
+   \   00000106   0xF06F 0x4280      MVN      R2,#+1073741824
+   \   0000010A   0x6142             STR      R2,[R0, #+20]
     298          
     299            /* Enable the common interrupts */
     300            if (cfg.dma_enable == DISABLE)
-   \   0000010A   0xB91B             CBNZ.N   R3,??USB_DevInit_11
+   \   0000010C   0xB91B             CBNZ.N   R3,??USB_DevInit_11
     301            {
     302              USBx->GINTMSK |= USB_OTG_GINTMSK_RXFLVLM; 
-   \   0000010C   0x6982             LDR      R2,[R0, #+24]
-   \   0000010E   0xF042 0x0210      ORR      R2,R2,#0x10
-   \   00000112   0x6182             STR      R2,[R0, #+24]
+   \   0000010E   0x6982             LDR      R2,[R0, #+24]
+   \   00000110   0xF042 0x0210      ORR      R2,R2,#0x10
+   \   00000114   0x6182             STR      R2,[R0, #+24]
     303            }
     304            
     305            /* Enable interrupts matching to the Device mode ONLY */
@@ -621,38 +613,38 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     308                              USB_OTG_GINTMSK_OEPINT   | USB_OTG_GINTMSK_IISOIXFRM|\
     309                              USB_OTG_GINTMSK_PXFRM_IISOOXFRM | USB_OTG_GINTMSK_WUIM);
    \                     ??USB_DevInit_11: (+1)
-   \   00000114   0x6982             LDR      R2,[R0, #+24]
-   \   00000116   0x.... 0x....      LDR.W    R3,??DataTable10_1  ;; 0x803c3800
-   \   0000011A   0x431A             ORRS     R2,R3,R2
-   \   0000011C   0x6182             STR      R2,[R0, #+24]
+   \   00000116   0x6982             LDR      R2,[R0, #+24]
+   \   00000118   0x.... 0x....      LDR.W    R3,??DataTable11  ;; 0x803c3800
+   \   0000011C   0x431A             ORRS     R2,R3,R2
+   \   0000011E   0x6182             STR      R2,[R0, #+24]
     310            
     311            if(cfg.Sof_enable)
-   \   0000011E   0x9A0B             LDR      R2,[SP, #+44]
-   \   00000120   0xB11A             CBZ.N    R2,??USB_DevInit_12
+   \   00000120   0x9A0B             LDR      R2,[SP, #+44]
+   \   00000122   0xB11A             CBZ.N    R2,??USB_DevInit_12
     312            {
     313              USBx->GINTMSK |= USB_OTG_GINTMSK_SOFM;
-   \   00000122   0x6982             LDR      R2,[R0, #+24]
-   \   00000124   0xF042 0x0208      ORR      R2,R2,#0x8
-   \   00000128   0x6182             STR      R2,[R0, #+24]
+   \   00000124   0x6982             LDR      R2,[R0, #+24]
+   \   00000126   0xF042 0x0208      ORR      R2,R2,#0x8
+   \   0000012A   0x6182             STR      R2,[R0, #+24]
     314            }
     315          
     316            if (cfg.vbus_sensing_enable == ENABLE)
    \                     ??USB_DevInit_12: (+1)
-   \   0000012A   0x2901             CMP      R1,#+1
-   \   0000012C   0xD105             BNE.N    ??USB_DevInit_13
+   \   0000012C   0x2901             CMP      R1,#+1
+   \   0000012E   0xD105             BNE.N    ??USB_DevInit_13
     317            {
     318              USBx->GINTMSK |= (USB_OTG_GINTMSK_SRQIM | USB_OTG_GINTMSK_OTGINT); 
-   \   0000012E   0x6981             LDR      R1,[R0, #+24]
-   \   00000130   0xF041 0x4180      ORR      R1,R1,#0x40000000
-   \   00000134   0xF041 0x0104      ORR      R1,R1,#0x4
-   \   00000138   0x6181             STR      R1,[R0, #+24]
+   \   00000130   0x6981             LDR      R1,[R0, #+24]
+   \   00000132   0xF041 0x4180      ORR      R1,R1,#0x40000000
+   \   00000136   0xF041 0x0104      ORR      R1,R1,#0x4
+   \   0000013A   0x6181             STR      R1,[R0, #+24]
     319            }
     320            
     321            return HAL_OK;
    \                     ??USB_DevInit_13: (+1)
-   \   0000013A   0xBCF0             POP      {R4-R7}
-   \   0000013C   0x2000             MOVS     R0,#+0
-   \   0000013E   0xF85D 0xFB10      LDR      PC,[SP], #+16    ;; return
+   \   0000013C   0xBCF0             POP      {R4-R7}
+   \   0000013E   0x2000             MOVS     R0,#+0
+   \   00000140   0xF85D 0xFB10      LDR      PC,[SP], #+16    ;; return
     322          }
     323          
     324          
@@ -760,18 +752,13 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     389            USBx_DEVICE->DCFG |= speed;
    \                     USB_SetDevSpeed: (+1)
    \   00000000   0xF500 0x6000      ADD      R0,R0,#+2048
-   \   00000004   0x....             B.N      ?Subroutine0
+   \   00000004   0x6802             LDR      R2,[R0, #+0]
+   \   00000006   0x4311             ORRS     R1,R1,R2
+   \   00000008   0x6001             STR      R1,[R0, #+0]
     390            return HAL_OK;
+   \   0000000A   0x2000             MOVS     R0,#+0
+   \   0000000C   0x4770             BX       LR               ;; return
     391          }
-
-   \                                 In section .text, align 2, keep-with-next
-   \                     ?Subroutine0: (+1)
-   \   00000000   0x6802             LDR      R2,[R0, #+0]
-   \   00000002   0x4311             ORRS     R1,R1,R2
-   \                     ??Subroutine0_0: (+1)
-   \   00000004   0x6001             STR      R1,[R0, #+0]
-   \   00000006   0x2000             MOVS     R0,#+0
-   \   00000008   0x4770             BX       LR               ;; return
     392          
     393          /**
     394            * @brief  USB_GetDevSpeed :Return the  Dev Speed 
@@ -838,44 +825,43 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                                 In section .text, align 2, keep-with-next
     429          HAL_StatusTypeDef USB_ActivateEndpoint(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep)
     430          {
-   \                     USB_ActivateEndpoint: (+1)
-   \   00000000   0xB410             PUSH     {R4}
     431            if (ep->is_in == 1)
-   \   00000002   0xF991 0x4000      LDRSB    R4,[R1, #+0]
-   \   00000006   0x2301             MOVS     R3,#+1
-   \   00000008   0xF500 0x6200      ADD      R2,R0,#+2048
-   \   0000000C   0x40A3             LSLS     R3,R3,R4
-   \   0000000E   0x784C             LDRB     R4,[R1, #+1]
-   \   00000010   0x2C01             CMP      R4,#+1
-   \   00000012   0x69D4             LDR      R4,[R2, #+28]
-   \   00000014   0xD119             BNE.N    ??USB_ActivateEndpoint_0
+   \                     USB_ActivateEndpoint: (+1)
+   \   00000000   0xF991 0xC000      LDRSB    R12,[R1, #+0]
+   \   00000004   0x2301             MOVS     R3,#+1
+   \   00000006   0xF500 0x6200      ADD      R2,R0,#+2048
+   \   0000000A   0xFA03 0xF30C      LSL      R3,R3,R12
+   \   0000000E   0xF891 0xC001      LDRB     R12,[R1, #+1]
+   \   00000012   0xF1BC 0x0F01      CMP      R12,#+1
+   \   00000016   0xF8D2 0xC01C      LDR      R12,[R2, #+28]
+   \   0000001A   0xD11D             BNE.N    ??USB_ActivateEndpoint_0
     432            {
     433             USBx_DEVICE->DAINTMSK |= USB_OTG_DAINTMSK_IEPM & ((1 << (ep->num)));
-   \   00000016   0xB29B             UXTH     R3,R3
-   \   00000018   0x4323             ORRS     R3,R3,R4
-   \   0000001A   0x61D3             STR      R3,[R2, #+28]
+   \   0000001C   0xB29B             UXTH     R3,R3
+   \   0000001E   0xEA43 0x030C      ORR      R3,R3,R12
+   \   00000022   0x61D3             STR      R3,[R2, #+28]
     434             
     435              if (((USBx_INEP(ep->num)->DIEPCTL) & USB_OTG_DIEPCTL_USBAEP) == 0)
-   \   0000001C   0x780A             LDRB     R2,[R1, #+0]
-   \   0000001E   0xEB00 0x1042      ADD      R0,R0,R2, LSL #+5
-   \   00000022   0xF500 0x6010      ADD      R0,R0,#+2304
-   \   00000026   0x6803             LDR      R3,[R0, #+0]
-   \   00000028   0x041B             LSLS     R3,R3,#+16
-   \   0000002A   0xD426             BMI.N    ??USB_ActivateEndpoint_1
+   \   00000024   0x780A             LDRB     R2,[R1, #+0]
+   \   00000026   0xEB00 0x1042      ADD      R0,R0,R2, LSL #+5
+   \   0000002A   0xF500 0x6010      ADD      R0,R0,#+2304
+   \   0000002E   0x6803             LDR      R3,[R0, #+0]
+   \   00000030   0x041B             LSLS     R3,R3,#+16
+   \   00000032   0xD429             BMI.N    ??USB_ActivateEndpoint_1
     436              {
     437                USBx_INEP(ep->num)->DIEPCTL |= ((ep->maxpacket & USB_OTG_DIEPCTL_MPSIZ ) | (ep->type << 18 ) |\
     438                  ((ep->num) << 22 ) | (USB_OTG_DIEPCTL_SD0PID_SEVNFRM) | (USB_OTG_DIEPCTL_USBAEP)); 
-   \   0000002C   0x6803             LDR      R3,[R0, #+0]
-   \   0000002E   0x688C             LDR      R4,[R1, #+8]
-   \   00000030   0x78C9             LDRB     R1,[R1, #+3]
-   \   00000032   0x0564             LSLS     R4,R4,#+21
-   \   00000034   0x0D64             LSRS     R4,R4,#+21
-   \   00000036   0xEA44 0x4181      ORR      R1,R4,R1, LSL #+18
-   \   0000003A   0xEA41 0x5182      ORR      R1,R1,R2, LSL #+22
-   \   0000003E   0xF041 0x5180      ORR      R1,R1,#0x10000000
-   \   00000042   0xF441 0x4100      ORR      R1,R1,#0x8000
-   \   00000046   0x4319             ORRS     R1,R1,R3
-   \   00000048   0xE016             B.N      ??USB_ActivateEndpoint_2
+   \   00000034   0x6803             LDR      R3,[R0, #+0]
+   \   00000036   0xF8D1 0xC008      LDR      R12,[R1, #+8]
+   \   0000003A   0x78C9             LDRB     R1,[R1, #+3]
+   \   0000003C   0xEA4F 0x5C4C      LSL      R12,R12,#+21
+   \   00000040   0xEA4F 0x5C5C      LSR      R12,R12,#+21
+   \   00000044   0xEA4C 0x4181      ORR      R1,R12,R1, LSL #+18
+   \   00000048   0xEA41 0x5182      ORR      R1,R1,R2, LSL #+22
+   \   0000004C   0xF041 0x5180      ORR      R1,R1,#0x10000000
+   \   00000050   0xF441 0x4100      ORR      R1,R1,#0x8000
+   \   00000054   0x4319             ORRS     R1,R1,R3
+   \   00000056   0xE016             B.N      ??USB_ActivateEndpoint_2
     439              } 
     440          
     441            }
@@ -883,42 +869,37 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     443            {
     444               USBx_DEVICE->DAINTMSK |= USB_OTG_DAINTMSK_OEPM & ((1 << (ep->num)) << 16);
    \                     ??USB_ActivateEndpoint_0: (+1)
-   \   0000004A   0xEA44 0x4303      ORR      R3,R4,R3, LSL #+16
-   \   0000004E   0x61D3             STR      R3,[R2, #+28]
+   \   00000058   0xEA4C 0x4303      ORR      R3,R12,R3, LSL #+16
+   \   0000005C   0x61D3             STR      R3,[R2, #+28]
     445               
     446              if (((USBx_OUTEP(ep->num)->DOEPCTL) & USB_OTG_DOEPCTL_USBAEP) == 0)
-   \   00000050   0x780A             LDRB     R2,[R1, #+0]
-   \   00000052   0xEB00 0x1042      ADD      R0,R0,R2, LSL #+5
-   \   00000056   0xF500 0x6030      ADD      R0,R0,#+2816
-   \   0000005A   0x6802             LDR      R2,[R0, #+0]
-   \   0000005C   0x0412             LSLS     R2,R2,#+16
-   \   0000005E   0xD40C             BMI.N    ??USB_ActivateEndpoint_1
+   \   0000005E   0x780A             LDRB     R2,[R1, #+0]
+   \   00000060   0xEB00 0x1042      ADD      R0,R0,R2, LSL #+5
+   \   00000064   0xF500 0x6030      ADD      R0,R0,#+2816
+   \   00000068   0x6802             LDR      R2,[R0, #+0]
+   \   0000006A   0x0412             LSLS     R2,R2,#+16
+   \   0000006C   0xD40C             BMI.N    ??USB_ActivateEndpoint_1
     447              {
     448                USBx_OUTEP(ep->num)->DOEPCTL |= ((ep->maxpacket & USB_OTG_DOEPCTL_MPSIZ ) | (ep->type << 18 ) |\
     449                 (USB_OTG_DIEPCTL_SD0PID_SEVNFRM)| (USB_OTG_DOEPCTL_USBAEP));
-   \   00000060   0x6802             LDR      R2,[R0, #+0]
-   \   00000062   0x688B             LDR      R3,[R1, #+8]
-   \   00000064   0x78C9             LDRB     R1,[R1, #+3]
-   \   00000066   0x055B             LSLS     R3,R3,#+21
-   \   00000068   0x0D5B             LSRS     R3,R3,#+21
-   \   0000006A   0xEA43 0x4181      ORR      R1,R3,R1, LSL #+18
-   \   0000006E   0xF041 0x5180      ORR      R1,R1,#0x10000000
-   \   00000072   0xF441 0x4100      ORR      R1,R1,#0x8000
-   \   00000076   0x4311             ORRS     R1,R1,R2
+   \   0000006E   0x6802             LDR      R2,[R0, #+0]
+   \   00000070   0x688B             LDR      R3,[R1, #+8]
+   \   00000072   0x78C9             LDRB     R1,[R1, #+3]
+   \   00000074   0x055B             LSLS     R3,R3,#+21
+   \   00000076   0x0D5B             LSRS     R3,R3,#+21
+   \   00000078   0xEA43 0x4181      ORR      R1,R3,R1, LSL #+18
+   \   0000007C   0xF041 0x5180      ORR      R1,R1,#0x10000000
+   \   00000080   0xF441 0x4100      ORR      R1,R1,#0x8000
+   \   00000084   0x4311             ORRS     R1,R1,R2
    \                     ??USB_ActivateEndpoint_2: (+1)
-   \   00000078   0x6001             STR      R1,[R0, #+0]
+   \   00000086   0x6001             STR      R1,[R0, #+0]
     450              } 
     451            }
     452            return HAL_OK;
    \                     ??USB_ActivateEndpoint_1: (+1)
-   \   0000007A   0x....             B.N      ?Subroutine3
+   \   00000088   0x2000             MOVS     R0,#+0
+   \   0000008A   0x4770             BX       LR               ;; return
     453          }
-
-   \                                 In section .text, align 2, keep-with-next
-   \                     ?Subroutine3: (+1)
-   \   00000000   0x2000             MOVS     R0,#+0
-   \   00000002   0xBC10             POP      {R4}
-   \   00000004   0x4770             BX       LR               ;; return
     454          /**
     455            * @brief  Activate and configure a dedicated endpoint
     456            * @param  USBx : Selected device
@@ -939,9 +920,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   00000004   0x780A             LDRB     R2,[R1, #+0]
    \   00000006   0x2C01             CMP      R4,#+1
    \   00000008   0xEB00 0x1342      ADD      R3,R0,R2, LSL #+5
-   \   0000000C   0xD12C             BNE.N    ??USB_ActivateDedicatedEndpoint_0
+   \   0000000C   0xD12F             BNE.N    ??USB_ActivateDedicatedEndpoint_0
    \   0000000E   0xF503 0x6410      ADD      R4,R3,#+2304
-   \   00000012   0x.... 0x....      LDR.W    R3,??DataTable10_2  ;; 0x10008000
+   \   00000012   0x.... 0x....      LDR.W    R3,??DataTable11_1  ;; 0x10008000
    \   00000016   0x6825             LDR      R5,[R4, #+0]
    \   00000018   0x042D             LSLS     R5,R5,#+16
    \   0000001A   0xD40B             BMI.N    ??USB_ActivateDedicatedEndpoint_1
@@ -966,7 +947,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     474              debug  |= ((ep->maxpacket & USB_OTG_DIEPCTL_MPSIZ ) | (ep->type << 18 ) |\
     475                  ((ep->num) << 22 ) | (USB_OTG_DIEPCTL_SD0PID_SEVNFRM) | (USB_OTG_DIEPCTL_USBAEP)); 
    \                     ??USB_ActivateDedicatedEndpoint_1: (+1)
-   \   00000034   0x.... 0x....      LDR.W    R2,??DataTable10_3
+   \   00000034   0x.... 0x....      LDR.W    R2,??DataTable11_2
     476              
     477             USBx_DEVICE->DEACHMSK |= USB_OTG_DAINTMSK_IEPM & ((1 << (ep->num)));
    \   00000038   0xF500 0x6000      ADD      R0,R0,#+2048
@@ -987,75 +968,73 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   0000005E   0xFA03 0xF101      LSL      R1,R3,R1
    \   00000062   0xB289             UXTH     R1,R1
    \   00000064   0x4311             ORRS     R1,R1,R2
-   \   00000066   0xE034             B.N      ??USB_ActivateDedicatedEndpoint_2
+   \   00000066   0x63C1             STR      R1,[R0, #+60]
     478            }
-   \                     ??USB_ActivateDedicatedEndpoint_0: (+1)
-   \   00000068   0xF503 0x6330      ADD      R3,R3,#+2816
-   \   0000006C   0x681C             LDR      R4,[R3, #+0]
-   \   0000006E   0x0424             LSLS     R4,R4,#+16
-   \   00000070   0xD425             BMI.N    ??USB_ActivateDedicatedEndpoint_3
     479            else
     480            {
     481              if (((USBx_OUTEP(ep->num)->DOEPCTL) & USB_OTG_DOEPCTL_USBAEP) == 0)
     482              {
     483                USBx_OUTEP(ep->num)->DOEPCTL |= ((ep->maxpacket & USB_OTG_DOEPCTL_MPSIZ ) | (ep->type << 18 ) |\
     484                  ((ep->num) << 22 ) | (USB_OTG_DOEPCTL_USBAEP));
-   \   00000072   0x681C             LDR      R4,[R3, #+0]
-   \   00000074   0x688D             LDR      R5,[R1, #+8]
-   \   00000076   0x78CE             LDRB     R6,[R1, #+3]
-   \   00000078   0x056D             LSLS     R5,R5,#+21
-   \   0000007A   0x0D6D             LSRS     R5,R5,#+21
-   \   0000007C   0xEA45 0x4586      ORR      R5,R5,R6, LSL #+18
-   \   00000080   0xEA45 0x5282      ORR      R2,R5,R2, LSL #+22
-   \   00000084   0xF442 0x4200      ORR      R2,R2,#0x8000
-   \   00000088   0x4322             ORRS     R2,R2,R4
-   \   0000008A   0x601A             STR      R2,[R3, #+0]
     485                
     486                debug = (uint32_t)(((uint32_t )USBx) + USB_OTG_OUT_ENDPOINT_BASE + (0)*USB_OTG_EP_REG_SIZE);
-   \   0000008C   0x.... 0x....      LDR.W    R2,??DataTable10_3
-   \   00000090   0xF500 0x6330      ADD      R3,R0,#+2816
-   \   00000094   0x6013             STR      R3,[R2, #+0]
     487                debug = (uint32_t )&USBx_OUTEP(ep->num)->DOEPCTL;
-   \   00000096   0x780B             LDRB     R3,[R1, #+0]
-   \   00000098   0xEB00 0x1343      ADD      R3,R0,R3, LSL #+5
-   \   0000009C   0xF503 0x6330      ADD      R3,R3,#+2816
-   \   000000A0   0x6013             STR      R3,[R2, #+0]
     488                debug |= ((ep->maxpacket & USB_OTG_DOEPCTL_MPSIZ ) | (ep->type << 18 ) |\
     489                  ((ep->num) << 22 ) | (USB_OTG_DOEPCTL_USBAEP)); 
-   \   000000A2   0x6813             LDR      R3,[R2, #+0]
-   \   000000A4   0x688C             LDR      R4,[R1, #+8]
-   \   000000A6   0x78CD             LDRB     R5,[R1, #+3]
-   \   000000A8   0x0564             LSLS     R4,R4,#+21
-   \   000000AA   0x0D64             LSRS     R4,R4,#+21
-   \   000000AC   0xEA44 0x4485      ORR      R4,R4,R5, LSL #+18
-   \   000000B0   0x780D             LDRB     R5,[R1, #+0]
-   \   000000B2   0xEA44 0x5485      ORR      R4,R4,R5, LSL #+22
-   \   000000B6   0xF444 0x4400      ORR      R4,R4,#0x8000
-   \   000000BA   0x4323             ORRS     R3,R4,R3
-   \   000000BC   0x6013             STR      R3,[R2, #+0]
     490              } 
     491              
     492               USBx_DEVICE->DEACHMSK |= USB_OTG_DAINTMSK_OEPM & ((1 << (ep->num)) << 16);
-   \                     ??USB_ActivateDedicatedEndpoint_3: (+1)
-   \   000000BE   0xF500 0x6000      ADD      R0,R0,#+2048
-   \   000000C2   0x2301             MOVS     R3,#+1
-   \   000000C4   0x6BC2             LDR      R2,[R0, #+60]
-   \   000000C6   0xF991 0x1000      LDRSB    R1,[R1, #+0]
-   \   000000CA   0xFA03 0xF101      LSL      R1,R3,R1
-   \   000000CE   0xEA42 0x4101      ORR      R1,R2,R1, LSL #+16
-   \                     ??USB_ActivateDedicatedEndpoint_2: (+1)
-   \   000000D2   0x63C1             STR      R1,[R0, #+60]
     493            }
     494          
     495            return HAL_OK;
-   \   000000D4   0x.... 0x....      B.W      ?Subroutine4
+   \   00000068   0x2000             MOVS     R0,#+0
+   \   0000006A   0xBCF0             POP      {R4-R7}
+   \   0000006C   0x4770             BX       LR
+   \                     ??USB_ActivateDedicatedEndpoint_0: (+1)
+   \   0000006E   0xF503 0x6330      ADD      R3,R3,#+2816
+   \   00000072   0x681C             LDR      R4,[R3, #+0]
+   \   00000074   0x0424             LSLS     R4,R4,#+16
+   \   00000076   0xD425             BMI.N    ??USB_ActivateDedicatedEndpoint_2
+   \   00000078   0x681C             LDR      R4,[R3, #+0]
+   \   0000007A   0x688D             LDR      R5,[R1, #+8]
+   \   0000007C   0x78CE             LDRB     R6,[R1, #+3]
+   \   0000007E   0x056D             LSLS     R5,R5,#+21
+   \   00000080   0x0D6D             LSRS     R5,R5,#+21
+   \   00000082   0xEA45 0x4586      ORR      R5,R5,R6, LSL #+18
+   \   00000086   0xEA45 0x5282      ORR      R2,R5,R2, LSL #+22
+   \   0000008A   0xF442 0x4200      ORR      R2,R2,#0x8000
+   \   0000008E   0x4322             ORRS     R2,R2,R4
+   \   00000090   0x601A             STR      R2,[R3, #+0]
+   \   00000092   0x.... 0x....      LDR.W    R2,??DataTable11_2
+   \   00000096   0xF500 0x6330      ADD      R3,R0,#+2816
+   \   0000009A   0x6013             STR      R3,[R2, #+0]
+   \   0000009C   0x780B             LDRB     R3,[R1, #+0]
+   \   0000009E   0xEB00 0x1343      ADD      R3,R0,R3, LSL #+5
+   \   000000A2   0xF503 0x6330      ADD      R3,R3,#+2816
+   \   000000A6   0x6013             STR      R3,[R2, #+0]
+   \   000000A8   0x6813             LDR      R3,[R2, #+0]
+   \   000000AA   0x688C             LDR      R4,[R1, #+8]
+   \   000000AC   0x78CD             LDRB     R5,[R1, #+3]
+   \   000000AE   0x0564             LSLS     R4,R4,#+21
+   \   000000B0   0x0D64             LSRS     R4,R4,#+21
+   \   000000B2   0xEA44 0x4485      ORR      R4,R4,R5, LSL #+18
+   \   000000B6   0x780D             LDRB     R5,[R1, #+0]
+   \   000000B8   0xEA44 0x5485      ORR      R4,R4,R5, LSL #+22
+   \   000000BC   0xF444 0x4400      ORR      R4,R4,#0x8000
+   \   000000C0   0x4323             ORRS     R3,R4,R3
+   \   000000C2   0x6013             STR      R3,[R2, #+0]
+   \                     ??USB_ActivateDedicatedEndpoint_2: (+1)
+   \   000000C4   0xF500 0x6000      ADD      R0,R0,#+2048
+   \   000000C8   0x2301             MOVS     R3,#+1
+   \   000000CA   0x6BC2             LDR      R2,[R0, #+60]
+   \   000000CC   0xF991 0x1000      LDRSB    R1,[R1, #+0]
+   \   000000D0   0xFA03 0xF101      LSL      R1,R3,R1
+   \   000000D4   0xEA42 0x4101      ORR      R1,R2,R1, LSL #+16
+   \   000000D8   0x63C1             STR      R1,[R0, #+60]
+   \   000000DA   0x2000             MOVS     R0,#+0
+   \   000000DC   0xBCF0             POP      {R4-R7}
+   \   000000DE   0x4770             BX       LR               ;; return
     496          }
-
-   \                                 In section .text, align 2, keep-with-next
-   \                     ?Subroutine4: (+1)
-   \   00000000   0x2000             MOVS     R0,#+0
-   \   00000002   0xBCF0             POP      {R4-R7}
-   \   00000004   0x4770             BX       LR               ;; return
 
    \                                 In section .bss, align 4
    \                     ??debug:
@@ -1119,18 +1098,13 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                     ??USB_DeactivateEndpoint_1: (+1)
    \   0000005A   0x6801             LDR      R1,[R0, #+0]
    \   0000005C   0xF421 0x4100      BIC      R1,R1,#0x8000
+   \   00000060   0x6001             STR      R1,[R0, #+0]
     517            }
-   \   00000060   0x....             B.N      ?Subroutine1
     518            return HAL_OK;
+   \   00000062   0x2000             MOVS     R0,#+0
+   \   00000064   0xBC30             POP      {R4,R5}
+   \   00000066   0x4770             BX       LR               ;; return
     519          }
-
-   \                                 In section .text, align 2, keep-with-next
-   \                     ?Subroutine1: (+1)
-   \   00000000   0x6001             STR      R1,[R0, #+0]
-   \                     ??Subroutine1_0: (+1)
-   \   00000002   0x2000             MOVS     R0,#+0
-   \   00000004   0xBC30             POP      {R4,R5}
-   \   00000006   0x4770             BX       LR               ;; return
     520          
     521          /**
     522            * @brief  De-activate and de-initialize a dedicated endpoint
@@ -1142,50 +1116,50 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                                 In section .text, align 2, keep-with-next
     527          HAL_StatusTypeDef USB_DeactivateDedicatedEndpoint(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep)
     528          {
-   \                     USB_DeactivateDedicatedEndpoint: (+1)
-   \   00000000   0xB410             PUSH     {R4}
     529            /* Read DEPCTLn register */
     530            if (ep->is_in == 1)
-   \   00000002   0x784C             LDRB     R4,[R1, #+1]
+   \                     USB_DeactivateDedicatedEndpoint: (+1)
+   \   00000000   0xF891 0xC001      LDRB     R12,[R1, #+1]
    \   00000004   0x780A             LDRB     R2,[R1, #+0]
    \   00000006   0xEB00 0x1342      ADD      R3,R0,R2, LSL #+5
    \   0000000A   0x2201             MOVS     R2,#+1
    \   0000000C   0xF500 0x6000      ADD      R0,R0,#+2048
-   \   00000010   0x2C01             CMP      R4,#+1
-   \   00000012   0xD10E             BNE.N    ??USB_DeactivateDedicatedEndpoint_0
-   \   00000014   0xF503 0x6310      ADD      R3,R3,#+2304
-   \   00000018   0x681C             LDR      R4,[R3, #+0]
-   \   0000001A   0xF424 0x4400      BIC      R4,R4,#0x8000
-   \   0000001E   0x601C             STR      R4,[R3, #+0]
+   \   00000010   0xF1BC 0x0F01      CMP      R12,#+1
+   \   00000014   0xD112             BNE.N    ??USB_DeactivateDedicatedEndpoint_0
+   \   00000016   0xF503 0x6310      ADD      R3,R3,#+2304
+   \   0000001A   0xF8D3 0xC000      LDR      R12,[R3, #+0]
+   \   0000001E   0xF42C 0x4C00      BIC      R12,R12,#0x8000
+   \   00000022   0xF8C3 0xC000      STR      R12,[R3, #+0]
     531            {
     532             USBx_INEP(ep->num)->DIEPCTL &= ~ USB_OTG_DIEPCTL_USBAEP;
     533             USBx_DEVICE->DAINTMSK &= ~(USB_OTG_DAINTMSK_IEPM & ((1 << (ep->num))));
-   \   00000020   0x69C3             LDR      R3,[R0, #+28]
-   \   00000022   0xF991 0x1000      LDRSB    R1,[R1, #+0]
-   \   00000026   0xFA02 0xF101      LSL      R1,R2,R1
-   \   0000002A   0xB289             UXTH     R1,R1
-   \   0000002C   0xEA23 0x0101      BIC      R1,R3,R1
-   \   00000030   0xE00C             B.N      ??USB_DeactivateDedicatedEndpoint_1
+   \   00000026   0x69C3             LDR      R3,[R0, #+28]
+   \   00000028   0xF991 0x1000      LDRSB    R1,[R1, #+0]
+   \   0000002C   0xFA02 0xF101      LSL      R1,R2,R1
+   \   00000030   0xB289             UXTH     R1,R1
+   \   00000032   0xEA23 0x0101      BIC      R1,R3,R1
+   \   00000036   0x61C1             STR      R1,[R0, #+28]
     534            }
-   \                     ??USB_DeactivateDedicatedEndpoint_0: (+1)
-   \   00000032   0xF503 0x6330      ADD      R3,R3,#+2816
-   \   00000036   0x681C             LDR      R4,[R3, #+0]
-   \   00000038   0xF424 0x4400      BIC      R4,R4,#0x8000
-   \   0000003C   0x601C             STR      R4,[R3, #+0]
     535            else
     536            {
     537               USBx_OUTEP(ep->num)->DOEPCTL &= ~USB_OTG_DOEPCTL_USBAEP; 
     538               USBx_DEVICE->DAINTMSK &= ~(USB_OTG_DAINTMSK_OEPM & ((1 << (ep->num)) << 16));
-   \   0000003E   0x69C3             LDR      R3,[R0, #+28]
-   \   00000040   0xF991 0x1000      LDRSB    R1,[R1, #+0]
-   \   00000044   0xFA02 0xF101      LSL      R1,R2,R1
-   \   00000048   0xEA23 0x4101      BIC      R1,R3,R1, LSL #+16
-   \                     ??USB_DeactivateDedicatedEndpoint_1: (+1)
-   \   0000004C   0x61C1             STR      R1,[R0, #+28]
     539            }
     540            return HAL_OK;
-   \   0000004E                      REQUIRE ?Subroutine3
-   \   0000004E                      ;; // Fall through to label ?Subroutine3
+   \   00000038   0x2000             MOVS     R0,#+0
+   \   0000003A   0x4770             BX       LR
+   \                     ??USB_DeactivateDedicatedEndpoint_0: (+1)
+   \   0000003C   0xF503 0x6330      ADD      R3,R3,#+2816
+   \   00000040   0xF8D3 0xC000      LDR      R12,[R3, #+0]
+   \   00000044   0xF42C 0x4C00      BIC      R12,R12,#0x8000
+   \   00000048   0xF8C3 0xC000      STR      R12,[R3, #+0]
+   \   0000004C   0x69C3             LDR      R3,[R0, #+28]
+   \   0000004E   0xF991 0x1000      LDRSB    R1,[R1, #+0]
+   \   00000052   0xFA02 0xF101      LSL      R1,R2,R1
+   \   00000056   0xEA23 0x4101      BIC      R1,R3,R1, LSL #+16
+   \   0000005A   0x61C1             STR      R1,[R0, #+28]
+   \   0000005C   0x2000             MOVS     R0,#+0
+   \   0000005E   0x4770             BX       LR               ;; return
     541          }
     542          
     543          /**
@@ -1199,7 +1173,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     551            * @retval HAL status
     552            */
 
-   \                                 In section .text, align 2, keep-with-next
+   \                                 In section .text, align 4, keep-with-next
     553          HAL_StatusTypeDef USB_EPStartXfer(USB_OTG_GlobalTypeDef *USBx , USB_OTG_EPTypeDef *ep, uint8_t dma)
     554          {
    \                     USB_EPStartXfer: (+1)
@@ -1212,8 +1186,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   00000004   0x780B             LDRB     R3,[R1, #+0]
    \   00000006   0x2D01             CMP      R5,#+1
    \   00000008   0xEB00 0x1443      ADD      R4,R0,R3, LSL #+5
-   \   0000000C   0x.... 0x....      LDR.W    R3,??DataTable10_4  ;; 0xe007ffff
-   \   00000010   0xF040 0x80A3      BNE.W    ??USB_EPStartXfer_0
+   \   0000000C   0x.... 0x....      LDR.W    R3,??DataTable11_3  ;; 0xe007ffff
+   \   00000010   0xF040 0x80A6      BNE.W    ??USB_EPStartXfer_0
    \   00000014   0x694D             LDR      R5,[R1, #+20]
    \   00000016   0xF504 0x6410      ADD      R4,R4,#+2304
    \   0000001A   0x2D00             CMP      R5,#+0
@@ -1271,7 +1245,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   0000006E   0x19A6             ADDS     R6,R4,R6
    \   00000070   0x1E76             SUBS     R6,R6,#+1
    \   00000072   0xFBB6 0xF4F4      UDIV     R4,R6,R4
-   \   00000076   0x.... 0x....      LDR.W    R6,??DataTable10_5  ;; 0x1ff80000
+   \   00000076   0x.... 0x....      LDR.W    R6,??DataTable11_4  ;; 0x1ff80000
    \   0000007A   0xEA06 0x44C4      AND      R4,R6,R4, LSL #+19
    \   0000007E   0x432C             ORRS     R4,R4,R5
    \   00000080   0x611C             STR      R4,[R3, #+16]
@@ -1393,29 +1367,22 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   00000134   0x2A00             CMPEQ    R2,#+0
     618              {
     619                USB_WritePacket(USBx, ep->xfer_buff, ep->num, ep->xfer_len, dma);   
-   \   00000136   0xD171             BNE.N    ??USB_EPStartXfer_8
+   \   00000136   0xD174             BNE.N    ??USB_EPStartXfer_8
    \   00000138   0x8A89             LDRH     R1,[R1, #+20]
    \   0000013A   0x1CC9             ADDS     R1,R1,#+3
    \   0000013C   0x104A             ASRS     R2,R1,#+1
    \   0000013E   0xEB01 0x7192      ADD      R1,R1,R2, LSR #+30
    \   00000142   0x1089             ASRS     R1,R1,#+2
-   \   00000144   0xD06A             BEQ.N    ??USB_EPStartXfer_8
-   \   00000146   0xEB00 0x3003      ADD      R0,R0,R3, LSL #+12
-   \   0000014A   0xF500 0x5080      ADD      R0,R0,#+4096
+   \   00000144   0xF000 0x806D      BEQ.W    ??USB_EPStartXfer_8
+   \   00000148   0xEB00 0x3003      ADD      R0,R0,R3, LSL #+12
+   \   0000014C   0xF500 0x5080      ADD      R0,R0,#+4096
    \                     ??USB_EPStartXfer_9: (+1)
-   \   0000014E   0xF854 0x2B04      LDR      R2,[R4], #+4
-   \   00000152   0x1E49             SUBS     R1,R1,#+1
-   \   00000154   0x6002             STR      R2,[R0, #+0]
-   \   00000156   0xD1FA             BNE.N    ??USB_EPStartXfer_9
-   \   00000158   0xE060             B.N      ??USB_EPStartXfer_8
+   \   00000150   0xF854 0x2B04      LDR      R2,[R4], #+4
+   \   00000154   0x1E49             SUBS     R1,R1,#+1
+   \   00000156   0x6002             STR      R2,[R0, #+0]
+   \   00000158   0xD1FA             BNE.N    ??USB_EPStartXfer_9
     620              }    
     621            }
-   \                     ??USB_EPStartXfer_0: (+1)
-   \   0000015A   0xF504 0x6430      ADD      R4,R4,#+2816
-   \   0000015E   0x6925             LDR      R5,[R4, #+16]
-   \   00000160   0x0CED             LSRS     R5,R5,#+19
-   \   00000162   0x04ED             LSLS     R5,R5,#+19
-   \   00000164   0x6125             STR      R5,[R4, #+16]
     622            else /* OUT endpoint */
     623            {
     624              /* Program the transfer size and packet count as follows:
@@ -1424,114 +1391,123 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     627              */  
     628              USBx_OUTEP(ep->num)->DOEPTSIZ &= ~(USB_OTG_DOEPTSIZ_XFRSIZ); 
     629              USBx_OUTEP(ep->num)->DOEPTSIZ &= ~(USB_OTG_DOEPTSIZ_PKTCNT); 
-   \   00000166   0x780C             LDRB     R4,[R1, #+0]
-   \   00000168   0xEB00 0x1444      ADD      R4,R0,R4, LSL #+5
-   \   0000016C   0xF504 0x6430      ADD      R4,R4,#+2816
-   \   00000170   0x6925             LDR      R5,[R4, #+16]
-   \   00000172   0x402B             ANDS     R3,R3,R5
-   \   00000174   0x6123             STR      R3,[R4, #+16]
     630                
     631              if (ep->xfer_len == 0)
-   \   00000176   0x780B             LDRB     R3,[R1, #+0]
-   \   00000178   0x694D             LDR      R5,[R1, #+20]
-   \   0000017A   0x688C             LDR      R4,[R1, #+8]
-   \   0000017C   0xEB00 0x1343      ADD      R3,R0,R3, LSL #+5
-   \   00000180   0xF503 0x6330      ADD      R3,R3,#+2816
-   \   00000184   0xB96D             CBNZ.N   R5,??USB_EPStartXfer_10
     632              {
     633                USBx_OUTEP(ep->num)->DOEPTSIZ |= (USB_OTG_DOEPTSIZ_XFRSIZ & ep->maxpacket);
-   \   00000186   0x691D             LDR      R5,[R3, #+16]
-   \   00000188   0x0364             LSLS     R4,R4,#+13
-   \   0000018A   0xEA55 0x3454      ORRS     R4,R5,R4, LSR #+13
-   \   0000018E   0x611C             STR      R4,[R3, #+16]
     634                USBx_OUTEP(ep->num)->DOEPTSIZ |= (USB_OTG_DOEPTSIZ_PKTCNT & (1 << 19)) ;      
-   \   00000190   0x780B             LDRB     R3,[R1, #+0]
-   \   00000192   0xEB00 0x1343      ADD      R3,R0,R3, LSL #+5
-   \   00000196   0xF503 0x6330      ADD      R3,R3,#+2816
-   \   0000019A   0x691C             LDR      R4,[R3, #+16]
-   \   0000019C   0xF444 0x2400      ORR      R4,R4,#0x80000
-   \   000001A0   0xE016             B.N      ??USB_EPStartXfer_11
     635              }
     636              else
     637              {
     638                pktcnt = (ep->xfer_len + ep->maxpacket -1)/ ep->maxpacket; 
-   \                     ??USB_EPStartXfer_10: (+1)
-   \   000001A2   0x1965             ADDS     R5,R4,R5
-   \   000001A4   0x1E6D             SUBS     R5,R5,#+1
-   \   000001A6   0xFBB5 0xF4F4      UDIV     R4,R5,R4
-   \   000001AA   0xB2A4             UXTH     R4,R4
     639                USBx_OUTEP(ep->num)->DOEPTSIZ |= (USB_OTG_DOEPTSIZ_PKTCNT & (pktcnt << 19));
-   \   000001AC   0x.... 0x....      LDR.W    R6,??DataTable10_5  ;; 0x1ff80000
-   \   000001B0   0x691D             LDR      R5,[R3, #+16]
-   \   000001B2   0xEA06 0x46C4      AND      R6,R6,R4, LSL #+19
-   \   000001B6   0x4335             ORRS     R5,R6,R5
-   \   000001B8   0x611D             STR      R5,[R3, #+16]
     640                USBx_OUTEP(ep->num)->DOEPTSIZ |= (USB_OTG_DOEPTSIZ_XFRSIZ & (ep->maxpacket * pktcnt)); 
-   \   000001BA   0x780B             LDRB     R3,[R1, #+0]
-   \   000001BC   0xEB00 0x1343      ADD      R3,R0,R3, LSL #+5
-   \   000001C0   0xF503 0x6330      ADD      R3,R3,#+2816
-   \   000001C4   0x691D             LDR      R5,[R3, #+16]
-   \   000001C6   0x688E             LDR      R6,[R1, #+8]
-   \   000001C8   0x4374             MULS     R4,R4,R6
-   \   000001CA   0x0364             LSLS     R4,R4,#+13
-   \   000001CC   0xEA55 0x3454      ORRS     R4,R5,R4, LSR #+13
     641              }
     642          
     643              if (dma == 1)
-   \                     ??USB_EPStartXfer_11: (+1)
-   \   000001D0   0x2A01             CMP      R2,#+1
-   \   000001D2   0x611C             STR      R4,[R3, #+16]
-   \   000001D4   0xD106             BNE.N    ??USB_EPStartXfer_12
     644              {
     645                USBx_OUTEP(ep->num)->DOEPDMA = (uint32_t)ep->xfer_buff;
-   \   000001D6   0x780A             LDRB     R2,[R1, #+0]
-   \   000001D8   0x68CB             LDR      R3,[R1, #+12]
-   \   000001DA   0xEB00 0x1242      ADD      R2,R0,R2, LSL #+5
-   \   000001DE   0xF502 0x6230      ADD      R2,R2,#+2816
-   \   000001E2   0x6153             STR      R3,[R2, #+20]
     646              }
     647              
     648              if (ep->type == EP_TYPE_ISOC)
-   \                     ??USB_EPStartXfer_12: (+1)
-   \   000001E4   0x78CA             LDRB     R2,[R1, #+3]
-   \   000001E6   0x2A01             CMP      R2,#+1
-   \   000001E8   0xD10F             BNE.N    ??USB_EPStartXfer_13
     649              {
     650                if ((USBx_DEVICE->DSTS & ( 1 << 8 )) == 0)
-   \   000001EA   0x780A             LDRB     R2,[R1, #+0]
-   \   000001EC   0xF500 0x6300      ADD      R3,R0,#+2048
-   \   000001F0   0xEB00 0x1242      ADD      R2,R0,R2, LSL #+5
-   \   000001F4   0x689B             LDR      R3,[R3, #+8]
-   \   000001F6   0xF502 0x6230      ADD      R2,R2,#+2816
-   \   000001FA   0x05DB             LSLS     R3,R3,#+23
-   \   000001FC   0x6813             LDR      R3,[R2, #+0]
-   \   000001FE   0xBF54             ITE      PL 
-   \   00000200   0xF043 0x5300      ORRPL    R3,R3,#0x20000000
-   \   00000204   0xF043 0x5380      ORRMI    R3,R3,#0x10000000
     651                {
     652                  USBx_OUTEP(ep->num)->DOEPCTL |= USB_OTG_DOEPCTL_SODDFRM;
     653                }
     654                else
     655                {
     656                  USBx_OUTEP(ep->num)->DOEPCTL |= USB_OTG_DOEPCTL_SD0PID_SEVNFRM;
-   \   00000208   0x6013             STR      R3,[R2, #+0]
     657                }
     658              }
     659              /* EP enable */
     660              USBx_OUTEP(ep->num)->DOEPCTL |= (USB_OTG_DOEPCTL_CNAK | USB_OTG_DOEPCTL_EPENA);
-   \                     ??USB_EPStartXfer_13: (+1)
-   \   0000020A   0x7809             LDRB     R1,[R1, #+0]
-   \   0000020C   0xEB00 0x1041      ADD      R0,R0,R1, LSL #+5
-   \   00000210   0xF500 0x6030      ADD      R0,R0,#+2816
-   \   00000214   0x6801             LDR      R1,[R0, #+0]
-   \   00000216   0xF041 0x4104      ORR      R1,R1,#0x84000000
-   \   0000021A   0x6001             STR      R1,[R0, #+0]
     661            }
     662            return HAL_OK;
+   \   0000015A   0x2000             MOVS     R0,#+0
+   \   0000015C   0xBC70             POP      {R4-R6}
+   \   0000015E   0x4770             BX       LR
+   \                     ??USB_EPStartXfer_0: (+1)
+   \   00000160   0xF504 0x6430      ADD      R4,R4,#+2816
+   \   00000164   0x6925             LDR      R5,[R4, #+16]
+   \   00000166   0x0CED             LSRS     R5,R5,#+19
+   \   00000168   0x04ED             LSLS     R5,R5,#+19
+   \   0000016A   0x6125             STR      R5,[R4, #+16]
+   \   0000016C   0x780C             LDRB     R4,[R1, #+0]
+   \   0000016E   0xEB00 0x1444      ADD      R4,R0,R4, LSL #+5
+   \   00000172   0xF504 0x6430      ADD      R4,R4,#+2816
+   \   00000176   0x6925             LDR      R5,[R4, #+16]
+   \   00000178   0x402B             ANDS     R3,R3,R5
+   \   0000017A   0x6123             STR      R3,[R4, #+16]
+   \   0000017C   0x780B             LDRB     R3,[R1, #+0]
+   \   0000017E   0x694D             LDR      R5,[R1, #+20]
+   \   00000180   0x688C             LDR      R4,[R1, #+8]
+   \   00000182   0xEB00 0x1343      ADD      R3,R0,R3, LSL #+5
+   \   00000186   0xF503 0x6330      ADD      R3,R3,#+2816
+   \   0000018A   0xB96D             CBNZ.N   R5,??USB_EPStartXfer_10
+   \   0000018C   0x691D             LDR      R5,[R3, #+16]
+   \   0000018E   0x0364             LSLS     R4,R4,#+13
+   \   00000190   0xEA55 0x3454      ORRS     R4,R5,R4, LSR #+13
+   \   00000194   0x611C             STR      R4,[R3, #+16]
+   \   00000196   0x780B             LDRB     R3,[R1, #+0]
+   \   00000198   0xEB00 0x1343      ADD      R3,R0,R3, LSL #+5
+   \   0000019C   0xF503 0x6330      ADD      R3,R3,#+2816
+   \   000001A0   0x691C             LDR      R4,[R3, #+16]
+   \   000001A2   0xF444 0x2400      ORR      R4,R4,#0x80000
+   \   000001A6   0xE016             B.N      ??USB_EPStartXfer_11
+   \                     ??USB_EPStartXfer_10: (+1)
+   \   000001A8   0x1965             ADDS     R5,R4,R5
+   \   000001AA   0x1E6D             SUBS     R5,R5,#+1
+   \   000001AC   0xFBB5 0xF4F4      UDIV     R4,R5,R4
+   \   000001B0   0xB2A4             UXTH     R4,R4
+   \   000001B2   0x.... 0x....      LDR.W    R6,??DataTable11_4  ;; 0x1ff80000
+   \   000001B6   0x691D             LDR      R5,[R3, #+16]
+   \   000001B8   0xEA06 0x46C4      AND      R6,R6,R4, LSL #+19
+   \   000001BC   0x4335             ORRS     R5,R6,R5
+   \   000001BE   0x611D             STR      R5,[R3, #+16]
+   \   000001C0   0x780B             LDRB     R3,[R1, #+0]
+   \   000001C2   0xEB00 0x1343      ADD      R3,R0,R3, LSL #+5
+   \   000001C6   0xF503 0x6330      ADD      R3,R3,#+2816
+   \   000001CA   0x691D             LDR      R5,[R3, #+16]
+   \   000001CC   0x688E             LDR      R6,[R1, #+8]
+   \   000001CE   0x4374             MULS     R4,R4,R6
+   \   000001D0   0x0364             LSLS     R4,R4,#+13
+   \   000001D2   0xEA55 0x3454      ORRS     R4,R5,R4, LSR #+13
+   \                     ??USB_EPStartXfer_11: (+1)
+   \   000001D6   0x2A01             CMP      R2,#+1
+   \   000001D8   0x611C             STR      R4,[R3, #+16]
+   \   000001DA   0xD106             BNE.N    ??USB_EPStartXfer_12
+   \   000001DC   0x780A             LDRB     R2,[R1, #+0]
+   \   000001DE   0x68CB             LDR      R3,[R1, #+12]
+   \   000001E0   0xEB00 0x1242      ADD      R2,R0,R2, LSL #+5
+   \   000001E4   0xF502 0x6230      ADD      R2,R2,#+2816
+   \   000001E8   0x6153             STR      R3,[R2, #+20]
+   \                     ??USB_EPStartXfer_12: (+1)
+   \   000001EA   0x78CA             LDRB     R2,[R1, #+3]
+   \   000001EC   0x2A01             CMP      R2,#+1
+   \   000001EE   0xD10F             BNE.N    ??USB_EPStartXfer_13
+   \   000001F0   0x780A             LDRB     R2,[R1, #+0]
+   \   000001F2   0xF500 0x6300      ADD      R3,R0,#+2048
+   \   000001F6   0xEB00 0x1242      ADD      R2,R0,R2, LSL #+5
+   \   000001FA   0x689B             LDR      R3,[R3, #+8]
+   \   000001FC   0xF502 0x6230      ADD      R2,R2,#+2816
+   \   00000200   0x05DB             LSLS     R3,R3,#+23
+   \   00000202   0x6813             LDR      R3,[R2, #+0]
+   \   00000204   0xBF54             ITE      PL 
+   \   00000206   0xF043 0x5300      ORRPL    R3,R3,#0x20000000
+   \   0000020A   0xF043 0x5380      ORRMI    R3,R3,#0x10000000
+   \   0000020E   0x6013             STR      R3,[R2, #+0]
+   \                     ??USB_EPStartXfer_13: (+1)
+   \   00000210   0x7809             LDRB     R1,[R1, #+0]
+   \   00000212   0xEB00 0x1041      ADD      R0,R0,R1, LSL #+5
+   \   00000216   0xF500 0x6030      ADD      R0,R0,#+2816
+   \   0000021A   0x6801             LDR      R1,[R0, #+0]
+   \   0000021C   0xF041 0x4104      ORR      R1,R1,#0x84000000
+   \   00000220   0x6001             STR      R1,[R0, #+0]
    \                     ??USB_EPStartXfer_8: (+1)
-   \   0000021C   0x2000             MOVS     R0,#+0
-   \   0000021E   0xBC70             POP      {R4-R6}
-   \   00000220   0x4770             BX       LR               ;; return
+   \   00000222   0x2000             MOVS     R0,#+0
+   \   00000224   0xBC70             POP      {R4-R6}
+   \   00000226   0x4770             BX       LR               ;; return
     663          }
     664          
     665          /**
@@ -1556,8 +1532,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   00000004   0x780B             LDRB     R3,[R1, #+0]
    \   00000006   0x2D01             CMP      R5,#+1
    \   00000008   0xEB00 0x1443      ADD      R4,R0,R3, LSL #+5
-   \   0000000C   0x.... 0x....      LDR.W    R3,??DataTable10_4  ;; 0xe007ffff
-   \   00000010   0xD159             BNE.N    ??USB_EP0StartXfer_0
+   \   0000000C   0x.... 0x....      LDR.W    R3,??DataTable11_3  ;; 0xe007ffff
+   \   00000010   0xD15E             BNE.N    ??USB_EP0StartXfer_0
    \   00000012   0x694D             LDR      R5,[R1, #+20]
    \   00000014   0xF504 0x6410      ADD      R4,R4,#+2304
    \   00000018   0x2D00             CMP      R5,#+0
@@ -1638,7 +1614,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                     ??USB_EP0StartXfer_2: (+1)
    \   0000008E   0x2A01             CMP      R2,#+1
    \   00000090   0x611C             STR      R4,[R3, #+16]
-   \   00000092   0xD107             BNE.N    ??USB_EP0StartXfer_3
+   \   00000092   0xD10C             BNE.N    ??USB_EP0StartXfer_3
     707              {
     708                USBx_INEP(ep->num)->DIEPDMA = (uint32_t)(ep->dma_addr);
    \   00000094   0x780A             LDRB     R2,[R1, #+0]
@@ -1646,41 +1622,44 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   00000098   0xEB00 0x1242      ADD      R2,R0,R2, LSL #+5
    \   0000009C   0xF502 0x6210      ADD      R2,R2,#+2304
    \   000000A0   0x6153             STR      R3,[R2, #+20]
-   \   000000A2   0xE00A             B.N      ??USB_EP0StartXfer_4
     709              }
     710              else
     711              {
     712                /* Enable the Tx FIFO Empty Interrupt for this EP */
     713                if (ep->xfer_len > 0)
-   \                     ??USB_EP0StartXfer_3: (+1)
-   \   000000A4   0x694A             LDR      R2,[R1, #+20]
-   \   000000A6   0xB142             CBZ.N    R2,??USB_EP0StartXfer_4
     714                {
     715                  USBx_DEVICE->DIEPEMPMSK |= 1 << (ep->num);
-   \   000000A8   0xF500 0x6200      ADD      R2,R0,#+2048
-   \   000000AC   0x2401             MOVS     R4,#+1
-   \   000000AE   0x6B53             LDR      R3,[R2, #+52]
-   \   000000B0   0xF991 0x5000      LDRSB    R5,[R1, #+0]
-   \   000000B4   0x40AC             LSLS     R4,R4,R5
-   \   000000B6   0x4323             ORRS     R3,R4,R3
-   \   000000B8   0x6353             STR      R3,[R2, #+52]
     716                }
     717              }
     718              
     719              /* EP enable, IN data in FIFO */
     720              USBx_INEP(ep->num)->DIEPCTL |= (USB_OTG_DIEPCTL_CNAK | USB_OTG_DIEPCTL_EPENA);   
-   \                     ??USB_EP0StartXfer_4: (+1)
-   \   000000BA   0x7809             LDRB     R1,[R1, #+0]
-   \   000000BC   0xEB00 0x1041      ADD      R0,R0,R1, LSL #+5
-   \   000000C0   0xF500 0x6010      ADD      R0,R0,#+2304
-   \   000000C4   0xE033             B.N      ??USB_EP0StartXfer_5
+   \   000000A2   0x7809             LDRB     R1,[R1, #+0]
+   \   000000A4   0xEB00 0x1041      ADD      R0,R0,R1, LSL #+5
+   \   000000A8   0xF500 0x6010      ADD      R0,R0,#+2304
+   \   000000AC   0xE044             B.N      ??USB_EP0StartXfer_4
+   \                     ??USB_EP0StartXfer_3: (+1)
+   \   000000AE   0x694A             LDR      R2,[R1, #+20]
+   \   000000B0   0xB142             CBZ.N    R2,??USB_EP0StartXfer_5
+   \   000000B2   0xF500 0x6200      ADD      R2,R0,#+2048
+   \   000000B6   0x2401             MOVS     R4,#+1
+   \   000000B8   0x6B53             LDR      R3,[R2, #+52]
+   \   000000BA   0xF991 0x5000      LDRSB    R5,[R1, #+0]
+   \   000000BE   0x40AC             LSLS     R4,R4,R5
+   \   000000C0   0x4323             ORRS     R3,R4,R3
+   \   000000C2   0x6353             STR      R3,[R2, #+52]
+   \                     ??USB_EP0StartXfer_5: (+1)
+   \   000000C4   0x7809             LDRB     R1,[R1, #+0]
+   \   000000C6   0xEB00 0x1041      ADD      R0,R0,R1, LSL #+5
+   \   000000CA   0xF500 0x6010      ADD      R0,R0,#+2304
+   \   000000CE   0xE033             B.N      ??USB_EP0StartXfer_4
     721            }
    \                     ??USB_EP0StartXfer_0: (+1)
-   \   000000C6   0xF504 0x6430      ADD      R4,R4,#+2816
-   \   000000CA   0x6925             LDR      R5,[R4, #+16]
-   \   000000CC   0x0CED             LSRS     R5,R5,#+19
-   \   000000CE   0x04ED             LSLS     R5,R5,#+19
-   \   000000D0   0x6125             STR      R5,[R4, #+16]
+   \   000000D0   0xF504 0x6430      ADD      R4,R4,#+2816
+   \   000000D4   0x6925             LDR      R5,[R4, #+16]
+   \   000000D6   0x0CED             LSRS     R5,R5,#+19
+   \   000000D8   0x04ED             LSLS     R5,R5,#+19
+   \   000000DA   0x6125             STR      R5,[R4, #+16]
     722            else /* OUT endpoint */
     723            {
     724              /* Program the transfer size and packet count as follows:
@@ -1689,66 +1668,68 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     727              */
     728              USBx_OUTEP(ep->num)->DOEPTSIZ &= ~(USB_OTG_DOEPTSIZ_XFRSIZ); 
     729              USBx_OUTEP(ep->num)->DOEPTSIZ &= ~(USB_OTG_DOEPTSIZ_PKTCNT); 
-   \   000000D2   0x780C             LDRB     R4,[R1, #+0]
-   \   000000D4   0xEB00 0x1444      ADD      R4,R0,R4, LSL #+5
-   \   000000D8   0xF504 0x6430      ADD      R4,R4,#+2816
-   \   000000DC   0x6925             LDR      R5,[R4, #+16]
-   \   000000DE   0x402B             ANDS     R3,R3,R5
-   \   000000E0   0x6123             STR      R3,[R4, #+16]
+   \   000000DC   0x780C             LDRB     R4,[R1, #+0]
+   \   000000DE   0xEB00 0x1444      ADD      R4,R0,R4, LSL #+5
+   \   000000E2   0xF504 0x6430      ADD      R4,R4,#+2816
+   \   000000E6   0x6925             LDR      R5,[R4, #+16]
+   \   000000E8   0x402B             ANDS     R3,R3,R5
+   \   000000EA   0x6123             STR      R3,[R4, #+16]
     730                
     731              if (ep->xfer_len > 0)
-   \   000000E2   0x694B             LDR      R3,[R1, #+20]
-   \   000000E4   0xB10B             CBZ.N    R3,??USB_EP0StartXfer_6
+   \   000000EC   0x694B             LDR      R3,[R1, #+20]
+   \   000000EE   0xB10B             CBZ.N    R3,??USB_EP0StartXfer_6
     732              {
     733                ep->xfer_len = ep->maxpacket;
-   \   000000E6   0x688B             LDR      R3,[R1, #+8]
-   \   000000E8   0x614B             STR      R3,[R1, #+20]
+   \   000000F0   0x688B             LDR      R3,[R1, #+8]
+   \   000000F2   0x614B             STR      R3,[R1, #+20]
     734              }
     735              
     736              USBx_OUTEP(ep->num)->DOEPTSIZ |= (USB_OTG_DOEPTSIZ_PKTCNT & (1 << 19));
    \                     ??USB_EP0StartXfer_6: (+1)
-   \   000000EA   0x780B             LDRB     R3,[R1, #+0]
-   \   000000EC   0xEB00 0x1343      ADD      R3,R0,R3, LSL #+5
-   \   000000F0   0xF503 0x6330      ADD      R3,R3,#+2816
-   \   000000F4   0x691C             LDR      R4,[R3, #+16]
-   \   000000F6   0xF444 0x2400      ORR      R4,R4,#0x80000
-   \   000000FA   0x611C             STR      R4,[R3, #+16]
+   \   000000F4   0x780B             LDRB     R3,[R1, #+0]
+   \   000000F6   0xEB00 0x1343      ADD      R3,R0,R3, LSL #+5
+   \   000000FA   0xF503 0x6330      ADD      R3,R3,#+2816
+   \   000000FE   0x691C             LDR      R4,[R3, #+16]
+   \   00000100   0xF444 0x2400      ORR      R4,R4,#0x80000
+   \   00000104   0x611C             STR      R4,[R3, #+16]
     737              USBx_OUTEP(ep->num)->DOEPTSIZ |= (USB_OTG_DOEPTSIZ_XFRSIZ & (ep->maxpacket)); 
-   \   000000FC   0x780B             LDRB     R3,[R1, #+0]
-   \   000000FE   0xEB00 0x1343      ADD      R3,R0,R3, LSL #+5
-   \   00000102   0xF503 0x6330      ADD      R3,R3,#+2816
-   \   00000106   0x691C             LDR      R4,[R3, #+16]
-   \   00000108   0x688D             LDR      R5,[R1, #+8]
-   \   0000010A   0x036D             LSLS     R5,R5,#+13
-   \   0000010C   0xEA54 0x3455      ORRS     R4,R4,R5, LSR #+13
+   \   00000106   0x780B             LDRB     R3,[R1, #+0]
+   \   00000108   0xEB00 0x1343      ADD      R3,R0,R3, LSL #+5
+   \   0000010C   0xF503 0x6330      ADD      R3,R3,#+2816
+   \   00000110   0x691C             LDR      R4,[R3, #+16]
+   \   00000112   0x688D             LDR      R5,[R1, #+8]
+   \   00000114   0x036D             LSLS     R5,R5,#+13
+   \   00000116   0xEA54 0x3455      ORRS     R4,R4,R5, LSR #+13
     738              
     739          
     740              if (dma == 1)
-   \   00000110   0x2A01             CMP      R2,#+1
-   \   00000112   0x611C             STR      R4,[R3, #+16]
-   \   00000114   0xD106             BNE.N    ??USB_EP0StartXfer_7
+   \   0000011A   0x2A01             CMP      R2,#+1
+   \   0000011C   0x611C             STR      R4,[R3, #+16]
+   \   0000011E   0xD106             BNE.N    ??USB_EP0StartXfer_7
     741              {
     742                USBx_OUTEP(ep->num)->DOEPDMA = (uint32_t)(ep->xfer_buff);
-   \   00000116   0x780A             LDRB     R2,[R1, #+0]
-   \   00000118   0x68CB             LDR      R3,[R1, #+12]
-   \   0000011A   0xEB00 0x1242      ADD      R2,R0,R2, LSL #+5
-   \   0000011E   0xF502 0x6230      ADD      R2,R2,#+2816
-   \   00000122   0x6153             STR      R3,[R2, #+20]
+   \   00000120   0x780A             LDRB     R2,[R1, #+0]
+   \   00000122   0x68CB             LDR      R3,[R1, #+12]
+   \   00000124   0xEB00 0x1242      ADD      R2,R0,R2, LSL #+5
+   \   00000128   0xF502 0x6230      ADD      R2,R2,#+2816
+   \   0000012C   0x6153             STR      R3,[R2, #+20]
     743              }
     744              
     745              /* EP enable */
     746              USBx_OUTEP(ep->num)->DOEPCTL |= (USB_OTG_DOEPCTL_CNAK | USB_OTG_DOEPCTL_EPENA);    
    \                     ??USB_EP0StartXfer_7: (+1)
-   \   00000124   0x7809             LDRB     R1,[R1, #+0]
-   \   00000126   0xEB00 0x1041      ADD      R0,R0,R1, LSL #+5
-   \   0000012A   0xF500 0x6030      ADD      R0,R0,#+2816
-   \                     ??USB_EP0StartXfer_5: (+1)
-   \   0000012E   0x6801             LDR      R1,[R0, #+0]
-   \   00000130   0xF041 0x4104      ORR      R1,R1,#0x84000000
+   \   0000012E   0x7809             LDRB     R1,[R1, #+0]
+   \   00000130   0xEB00 0x1041      ADD      R0,R0,R1, LSL #+5
+   \   00000134   0xF500 0x6030      ADD      R0,R0,#+2816
+   \                     ??USB_EP0StartXfer_4: (+1)
+   \   00000138   0x6801             LDR      R1,[R0, #+0]
+   \   0000013A   0xF041 0x4104      ORR      R1,R1,#0x84000000
+   \   0000013E   0x6001             STR      R1,[R0, #+0]
     747            }
-   \   00000134                      REQUIRE ?Subroutine1
-   \   00000134                      ;; // Fall through to label ?Subroutine1
     748            return HAL_OK;
+   \   00000140   0x2000             MOVS     R0,#+0
+   \   00000142   0xBC30             POP      {R4,R5}
+   \   00000144   0x4770             BX       LR               ;; return
     749          }
     750          
     751          /**
@@ -1765,7 +1746,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     762            * @retval HAL status
     763            */
 
-   \                                 In section .text, align 2, keep-with-next
+   \                                 In section .text, align 4, keep-with-next
     764          HAL_StatusTypeDef USB_WritePacket(USB_OTG_GlobalTypeDef *USBx, uint8_t *src, uint8_t ch_ep_num, uint16_t len, uint8_t dma)
     765          {
    \                     USB_WritePacket: (+1)
@@ -1775,7 +1756,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     768            if (dma == 0)
    \   00000002   0xF8DD 0xC004      LDR      R12,[SP, #+4]
    \   00000006   0xF1BC 0x0F00      CMP      R12,#+0
-   \   0000000A   0xD10F             BNE.N    ??USB_WritePacket_0
+   \   0000000A   0xD110             BNE.N    ??USB_WritePacket_0
     769            {
     770              count32b =  (len + 3) / 4;
    \   0000000C   0x1CDB             ADDS     R3,R3,#+3
@@ -1783,28 +1764,24 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   00000012   0xEB03 0x739C      ADD      R3,R3,R12, LSR #+30
    \   00000016   0x109B             ASRS     R3,R3,#+2
     771              for (i = 0; i < count32b; i++, src += 4)
-   \   00000018   0xD008             BEQ.N    ??USB_WritePacket_0
-   \   0000001A   0xEB00 0x3002      ADD      R0,R0,R2, LSL #+12
-   \   0000001E   0xF500 0x5080      ADD      R0,R0,#+4096
+   \   00000018   0xF000 0x8009      BEQ.W    ??USB_WritePacket_0
+   \   0000001C   0xEB00 0x3002      ADD      R0,R0,R2, LSL #+12
+   \   00000020   0xF500 0x5080      ADD      R0,R0,#+4096
     772              {
     773                USBx_DFIFO(ch_ep_num) = *((__packed uint32_t *)src);
    \                     ??USB_WritePacket_1: (+1)
-   \   00000022   0xF851 0x2B04      LDR      R2,[R1], #+4
+   \   00000024   0xF851 0x2B04      LDR      R2,[R1], #+4
     774              }
-   \   00000026   0x1E5B             SUBS     R3,R3,#+1
-   \   00000028   0x6002             STR      R2,[R0, #+0]
-   \   0000002A   0xD1FA             BNE.N    ??USB_WritePacket_1
+   \   00000028   0x1E5B             SUBS     R3,R3,#+1
+   \   0000002A   0x6002             STR      R2,[R0, #+0]
+   \   0000002C   0xD1FA             BNE.N    ??USB_WritePacket_1
     775            }
     776            return HAL_OK;
    \                     ??USB_WritePacket_0: (+1)
-   \   0000002C   0x....             B.N      ?Subroutine5
+   \   0000002E   0x2000             MOVS     R0,#+0
+   \   00000030   0xB001             ADD      SP,SP,#+4
+   \   00000032   0x4770             BX       LR               ;; return
     777          }
-
-   \                                 In section .text, align 2, keep-with-next
-   \                     ?Subroutine5: (+1)
-   \   00000000   0x2000             MOVS     R0,#+0
-   \   00000002   0xB001             ADD      SP,SP,#+4
-   \   00000004   0x4770             BX       LR               ;; return
     778          
     779          /**
     780            * @brief  USB_ReadPacket : read a packet from the Tx FIFO associated 
@@ -1907,9 +1884,11 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                     ??USB_EPSetStall_2: (+1)
    \   00000046   0x6801             LDR      R1,[R0, #+0]
    \   00000048   0xF441 0x1100      ORR      R1,R1,#0x200000
+   \   0000004C   0x6001             STR      R1,[R0, #+0]
     828            }
-   \   0000004C   0x....             B.N      ??Subroutine0_0
     829            return HAL_OK;
+   \   0000004E   0x2000             MOVS     R0,#+0
+   \   00000050   0x4770             BX       LR               ;; return
     830          }
     831          
     832          
@@ -2049,7 +2028,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
     885            
     886            return HAL_OK;
    \                     ??USB_StopDevice_4: (+1)
-   \   0000004E   0x....             B.N      ??Subroutine1_0
+   \   0000004E   0x2000             MOVS     R0,#+0
+   \   00000050   0xBC30             POP      {R4,R5}
+   \   00000052   0x4770             BX       LR               ;; return
     887          }
     888          
     889          /**
@@ -2072,10 +2053,13 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   0000000A   0x6802             LDR      R2,[R0, #+0]
    \   0000000C   0xF422 0x62FE      BIC      R2,R2,#0x7F0
    \   00000010   0x6002             STR      R2,[R0, #+0]
-   \   00000012                      REQUIRE ?Subroutine0
-   \   00000012                      ;; // Fall through to label ?Subroutine0
+   \   00000012   0x6802             LDR      R2,[R0, #+0]
+   \   00000014   0x4311             ORRS     R1,R1,R2
+   \   00000016   0x6001             STR      R1,[R0, #+0]
     900            
     901            return HAL_OK;  
+   \   00000018   0x2000             MOVS     R0,#+0
+   \   0000001A   0x4770             BX       LR               ;; return
     902          }
     903          
     904          /**
@@ -2087,16 +2071,22 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                                 In section .text, align 2, keep-with-next
     909          HAL_StatusTypeDef  USB_DevConnect (USB_OTG_GlobalTypeDef *USBx)
     910          {
-    911            USBx_DEVICE->DCTL &= ~USB_OTG_DCTL_SDIS ;
    \                     USB_DevConnect: (+1)
-   \   00000000   0xF500 0x6000      ADD      R0,R0,#+2048
-   \   00000004   0xB580             PUSH     {R7,LR}
-   \   00000006   0x6841             LDR      R1,[R0, #+4]
-   \   00000008   0xF021 0x0102      BIC      R1,R1,#0x2
-   \   0000000C   0x....             B.N      ?Subroutine6
+   \   00000000   0xB500             PUSH     {LR}
+    911            USBx_DEVICE->DCTL &= ~USB_OTG_DCTL_SDIS ;
+   \   00000002   0xF500 0x6000      ADD      R0,R0,#+2048
+   \   00000006   0xB081             SUB      SP,SP,#+4
+   \   00000008   0x6841             LDR      R1,[R0, #+4]
+   \   0000000A   0xF021 0x0102      BIC      R1,R1,#0x2
+   \   0000000E   0x6041             STR      R1,[R0, #+4]
     912            HAL_Delay(3);
+   \   00000010   0x2003             MOVS     R0,#+3
+   \   00000012   0x.... 0x....      BL       HAL_Delay
     913            
     914            return HAL_OK;  
+   \   00000016   0x2000             MOVS     R0,#+0
+   \   00000018   0xB001             ADD      SP,SP,#+4
+   \   0000001A   0xBD00             POP      {PC}             ;; return
     915          }
     916          
     917          /**
@@ -2108,17 +2098,22 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \                                 In section .text, align 2, keep-with-next
     922          HAL_StatusTypeDef  USB_DevDisconnect (USB_OTG_GlobalTypeDef *USBx)
     923          {
-    924            USBx_DEVICE->DCTL |= USB_OTG_DCTL_SDIS ;
    \                     USB_DevDisconnect: (+1)
-   \   00000000   0xF500 0x6000      ADD      R0,R0,#+2048
-   \   00000004   0xB580             PUSH     {R7,LR}
-   \   00000006   0x6841             LDR      R1,[R0, #+4]
-   \   00000008   0xF041 0x0102      ORR      R1,R1,#0x2
-   \   0000000C                      REQUIRE ?Subroutine6
-   \   0000000C                      ;; // Fall through to label ?Subroutine6
+   \   00000000   0xB500             PUSH     {LR}
+    924            USBx_DEVICE->DCTL |= USB_OTG_DCTL_SDIS ;
+   \   00000002   0xF500 0x6000      ADD      R0,R0,#+2048
+   \   00000006   0xB081             SUB      SP,SP,#+4
+   \   00000008   0x6841             LDR      R1,[R0, #+4]
+   \   0000000A   0xF041 0x0102      ORR      R1,R1,#0x2
+   \   0000000E   0x6041             STR      R1,[R0, #+4]
     925            HAL_Delay(3);
+   \   00000010   0x2003             MOVS     R0,#+3
+   \   00000012   0x.... 0x....      BL       HAL_Delay
     926            
     927            return HAL_OK;  
+   \   00000016   0x2000             MOVS     R0,#+0
+   \   00000018   0xB001             ADD      SP,SP,#+4
+   \   0000001A   0xBD00             POP      {PC}             ;; return
     928          }
     929          
     930          /**
@@ -2471,7 +2466,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    1142            USB_FlushTxFifo(USBx, 0x10 ); /* all Tx FIFOs */
    \   0000003C   0xF44F 0x6184      MOV      R1,#+1056
    \   00000040   0x6121             STR      R1,[R4, #+16]
-   \   00000042   0x....             LDR.N    R1,??DataTable7_1  ;; 0x30d41
+   \   00000042   0x....             LDR.N    R1,??DataTable8_1  ;; 0x30d41
    \   00000044   0x460A             MOV      R2,R1
    \                     ??USB_HostInit_2: (+1)
    \   00000046   0x1E52             SUBS     R2,R2,#+1
@@ -2543,47 +2538,46 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   000000A2   0x61A0             STR      R0,[R4, #+24]
    \   000000A4   0xF04F 0x30FF      MOV      R0,#-1
    \   000000A8   0x6160             STR      R0,[R4, #+20]
-   \   000000AA   0xD10C             BNE.N    ??USB_HostInit_9
+   \   000000AA   0xD10B             BNE.N    ??USB_HostInit_9
    1164            {
    1165              /* set Rx FIFO size */
    1166              USBx->GRXFSIZ  = (uint32_t )0x80; 
-   \   000000AC   0x.... 0x....      LDR.W    R0,??DataTable10_6  ;; 0x50000024
+   \   000000AC   0x.... 0x....      LDR.W    R0,??DataTable11_5  ;; 0x50000024
    \   000000B0   0x2180             MOVS     R1,#+128
    \   000000B2   0x6001             STR      R1,[R0, #+0]
    1167              USBx->DIEPTXF0_HNPTXFSIZ = (uint32_t )(((0x60 << 16)& USB_OTG_NPTXFD) | 0x80);
-   \   000000B4   0x.... 0x....      LDR.W    R1,??DataTable10_7  ;; 0x600080
+   \   000000B4   0x.... 0x....      LDR.W    R1,??DataTable11_6  ;; 0x600080
    \   000000B8   0x6041             STR      R1,[R0, #+4]
    1168              USBx->HPTXFSIZ = (uint32_t )(((0x40 << 16)& USB_OTG_HPTXFSIZ_PTXFD) | 0xE0);
-   \   000000BA   0x.... 0x....      LDR.W    R0,??DataTable10_8  ;; 0x4000e0
-   \   000000BE   0x.... 0x....      LDR.W    R1,??DataTable10_9  ;; 0x50000100
-   \   000000C2   0x6008             STR      R0,[R1, #+0]
-   \   000000C4   0xE009             B.N      ??USB_HostInit_10
+   \   000000BA   0x.... 0x....      LDR.W    R1,??DataTable11_7  ;; 0x4000e0
+   \   000000BE   0xF8C0 0x10DC      STR      R1,[R0, #+220]
+   \   000000C2   0xE009             B.N      ??USB_HostInit_10
    1169            }
    1170            else
    1171            {
    1172              /* set Rx FIFO size */
    1173              USBx->GRXFSIZ  = (uint32_t )0x200; 
    \                     ??USB_HostInit_9: (+1)
-   \   000000C6   0xF44F 0x7000      MOV      R0,#+512
-   \   000000CA   0x6260             STR      R0,[R4, #+36]
+   \   000000C4   0xF44F 0x7000      MOV      R0,#+512
+   \   000000C8   0x6260             STR      R0,[R4, #+36]
    1174              USBx->DIEPTXF0_HNPTXFSIZ = (uint32_t )(((0x100 << 16)& USB_OTG_NPTXFD) | 0x200);
-   \   000000CC   0x.... 0x....      LDR.W    R0,??DataTable10_10  ;; 0x1000200
-   \   000000D0   0x62A0             STR      R0,[R4, #+40]
+   \   000000CA   0x.... 0x....      LDR.W    R0,??DataTable11_8  ;; 0x1000200
+   \   000000CE   0x62A0             STR      R0,[R4, #+40]
    1175              USBx->HPTXFSIZ = (uint32_t )(((0xE0 << 16)& USB_OTG_HPTXFSIZ_PTXFD) | 0x300);
-   \   000000D2   0x.... 0x....      LDR.W    R0,??DataTable10_11  ;; 0xe00300
-   \   000000D6   0xF8C4 0x0100      STR      R0,[R4, #+256]
+   \   000000D0   0x.... 0x....      LDR.W    R0,??DataTable11_9  ;; 0xe00300
+   \   000000D4   0xF8C4 0x0100      STR      R0,[R4, #+256]
    1176            }
    1177            
    1178            /* Enable the common interrupts */
    1179            if (cfg.dma_enable == DISABLE)
    \                     ??USB_HostInit_10: (+1)
-   \   000000DA   0x9808             LDR      R0,[SP, #+32]
-   \   000000DC   0xB918             CBNZ.N   R0,??USB_HostInit_11
+   \   000000D8   0x9808             LDR      R0,[SP, #+32]
+   \   000000DA   0xB918             CBNZ.N   R0,??USB_HostInit_11
    1180            {
    1181              USBx->GINTMSK |= USB_OTG_GINTMSK_RXFLVLM; 
-   \   000000DE   0x69A0             LDR      R0,[R4, #+24]
-   \   000000E0   0xF040 0x0010      ORR      R0,R0,#0x10
-   \   000000E4   0x61A0             STR      R0,[R4, #+24]
+   \   000000DC   0x69A0             LDR      R0,[R4, #+24]
+   \   000000DE   0xF040 0x0010      ORR      R0,R0,#0x10
+   \   000000E2   0x61A0             STR      R0,[R4, #+24]
    1182            }
    1183            
    1184            /* Enable interrupts matching to the Host mode ONLY */
@@ -2591,14 +2585,15 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    1186                              USB_OTG_GINTMSK_SOFM             |USB_OTG_GINTSTS_DISCINT|\
    1187                              USB_OTG_GINTMSK_PXFRM_IISOOXFRM  | USB_OTG_GINTMSK_WUIM);
    \                     ??USB_HostInit_11: (+1)
-   \   000000E6   0x69A0             LDR      R0,[R4, #+24]
-   \   000000E8   0x.... 0x....      LDR.W    R1,??DataTable10_12  ;; 0xa3200008
-   \   000000EC   0x4308             ORRS     R0,R1,R0
-   \   000000EE   0x61A0             STR      R0,[R4, #+24]
+   \   000000E4   0x69A0             LDR      R0,[R4, #+24]
+   \   000000E6   0x.... 0x....      LDR.W    R1,??DataTable11_10  ;; 0xa3200008
+   \   000000EA   0x4308             ORRS     R0,R1,R0
+   \   000000EC   0x61A0             STR      R0,[R4, #+24]
    1188          
    1189            return HAL_OK;
-   \   000000F0   0x2000             MOVS     R0,#+0
-   \   000000F2   0xBC36             POP      {R1,R2,R4,R5}
+   \   000000EE   0xB002             ADD      SP,SP,#+8
+   \   000000F0   0xBC30             POP      {R4,R5}
+   \   000000F2   0x2000             MOVS     R0,#+0
    \   000000F4   0xF85D 0xFB10      LDR      PC,[SP], #+16    ;; return
    1190          }
    1191          
@@ -2692,7 +2687,8 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   00000028   0x6020             STR      R0,[R4, #+0]
    1237            return HAL_OK;
    \   0000002A   0x2000             MOVS     R0,#+0
-   \   0000002C   0xBD16             POP      {R1,R2,R4,PC}    ;; return
+   \   0000002C   0xB002             ADD      SP,SP,#+8
+   \   0000002E   0xBD10             POP      {R4,PC}          ;; return
    1238          }
    1239          
    1240          /**
@@ -2724,33 +2720,36 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    1256            if (((hprt0 & USB_OTG_HPRT_PPWR) == 0 ) && (state == 1 ))
    \   00000012   0x9A00             LDR      R2,[SP, #+0]
    \   00000014   0x04D2             LSLS     R2,R2,#+19
-   \   00000016   0xD407             BMI.N    ??USB_DriveVbus_0
+   \   00000016   0xD409             BMI.N    ??USB_DriveVbus_0
    \   00000018   0x2901             CMP      R1,#+1
-   \   0000001A   0xD105             BNE.N    ??USB_DriveVbus_0
+   \   0000001A   0xD107             BNE.N    ??USB_DriveVbus_0
    1257            {
    1258              USBx_HPRT0 = (USB_OTG_HPRT_PPWR | hprt0); 
    \   0000001C   0x9900             LDR      R1,[SP, #+0]
    \   0000001E   0xF441 0x5180      ORR      R1,R1,#0x1000
    \   00000022   0x6001             STR      R1,[R0, #+0]
    \   00000024   0x9800             LDR      R0,[SP, #+0]
-   \   00000026   0xE007             B.N      ??USB_DriveVbus_1
    1259            }
    1260            if (((hprt0 & USB_OTG_HPRT_PPWR) == USB_OTG_HPRT_PPWR) && (state == 0 ))
-   \                     ??USB_DriveVbus_0: (+1)
-   \   00000028   0x9A00             LDR      R2,[SP, #+0]
-   \   0000002A   0x04D2             LSLS     R2,R2,#+19
-   \   0000002C   0xD504             BPL.N    ??USB_DriveVbus_1
-   \   0000002E   0xB919             CBNZ.N   R1,??USB_DriveVbus_1
    1261            {
    1262              USBx_HPRT0 = ((~USB_OTG_HPRT_PPWR) & hprt0); 
-   \   00000030   0x9900             LDR      R1,[SP, #+0]
-   \   00000032   0xF421 0x5180      BIC      R1,R1,#0x1000
-   \   00000036   0x6001             STR      R1,[R0, #+0]
    1263            }
    1264            return HAL_OK; 
+   \   00000026   0x2000             MOVS     R0,#+0
+   \   00000028   0xB001             ADD      SP,SP,#+4
+   \   0000002A   0x4770             BX       LR
+   \                     ??USB_DriveVbus_0: (+1)
+   \   0000002C   0x9A00             LDR      R2,[SP, #+0]
+   \   0000002E   0x04D2             LSLS     R2,R2,#+19
+   \   00000030   0xD504             BPL.N    ??USB_DriveVbus_1
+   \   00000032   0xB919             CBNZ.N   R1,??USB_DriveVbus_1
+   \   00000034   0x9900             LDR      R1,[SP, #+0]
+   \   00000036   0xF421 0x5180      BIC      R1,R1,#0x1000
+   \   0000003A   0x6001             STR      R1,[R0, #+0]
    \                     ??USB_DriveVbus_1: (+1)
-   \   00000038                      REQUIRE ?Subroutine5
-   \   00000038                      ;; // Fall through to label ?Subroutine5
+   \   0000003C   0x2000             MOVS     R0,#+0
+   \   0000003E   0xB001             ADD      SP,SP,#+4
+   \   00000040   0x4770             BX       LR               ;; return
    1265          }
    1266          
    1267          /**
@@ -2992,8 +2991,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    1404          
    1405            return HAL_OK; 
    \                     ??USB_HC_Init_7: (+1)
-   \   000000BC                      REQUIRE ?Subroutine4
-   \   000000BC                      ;; // Fall through to label ?Subroutine4
+   \   000000BC   0x2000             MOVS     R0,#+0
+   \   000000BE   0xBCF0             POP      {R4-R7}
+   \   000000C0   0x4770             BX       LR               ;; return
    1406          }
    1407          
    1408          /**
@@ -3026,174 +3026,82 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   00000000   0xF1B0 0x4FA0      CMP      R0,#+1342177280
    \   00000004   0x4603             MOV      R3,R0
    \   00000006   0xB4F0             PUSH     {R4-R7}
-   \   00000008   0xD021             BEQ.N    ??USB_HC_StartXfer_1
+   \   00000008   0xD023             BEQ.N    ??USB_HC_StartXfer_1
    \   0000000A   0x790C             LDRB     R4,[R1, #+4]
-   \   0000000C   0xB9FC             CBNZ.N   R4,??USB_HC_StartXfer_1
+   \   0000000C   0xBB0C             CBNZ.N   R4,??USB_HC_StartXfer_1
    1432            {
    1433              if((dma == 0) && (hc->do_ping == 1))
    \   0000000E   0x2A00             CMP      R2,#+0
    \   00000010   0xBF04             ITT      EQ 
    \   00000012   0x794C             LDRBEQ   R4,[R1, #+5]
    \   00000014   0x2C01             CMPEQ    R4,#+1
-   \   00000016   0xD10D             BNE.N    ??USB_HC_StartXfer_2
+   \   00000016   0xD10F             BNE.N    ??USB_HC_StartXfer_2
    1434              {
    1435                USB_DoPing(USBx, hc->ch_num);
    \   00000018   0x7848             LDRB     R0,[R1, #+1]
    \   0000001A   0xEB03 0x1040      ADD      R0,R3,R0, LSL #+5
    \   0000001E   0xF500 0x64A0      ADD      R4,R0,#+1280
-   \   00000022   0x....             LDR.N    R0,??DataTable10_13  ;; 0x80080000
+   \   00000022   0x....             LDR.N    R0,??DataTable11_11  ;; 0x80080000
    \   00000024   0x6120             STR      R0,[R4, #+16]
    \   00000026   0x6820             LDR      R0,[R4, #+0]
    \   00000028   0xF020 0x4080      BIC      R0,R0,#0x40000000
    \   0000002C   0xF040 0x4000      ORR      R0,R0,#0x80000000
    \   00000030   0x6020             STR      R0,[R4, #+0]
    1436                return HAL_OK;
-   \   00000032   0xE096             B.N      ??USB_HC_StartXfer_3
    1437              }
    1438              else if(dma == 1)
-   \                     ??USB_HC_StartXfer_2: (+1)
-   \   00000034   0x2A01             CMP      R2,#+1
-   \   00000036   0xD10A             BNE.N    ??USB_HC_StartXfer_1
-   \   00000038   0x784C             LDRB     R4,[R1, #+1]
-   \   0000003A   0xEB03 0x1444      ADD      R4,R3,R4, LSL #+5
-   \   0000003E   0xF504 0x64A0      ADD      R4,R4,#+1280
-   \   00000042   0x68E5             LDR      R5,[R4, #+12]
-   \   00000044   0xF025 0x0560      BIC      R5,R5,#0x60
-   \   00000048   0x60E5             STR      R5,[R4, #+12]
    1439              {
    1440                USBx_HC(hc->ch_num)->HCINTMSK &= ~(USB_OTG_HCINTMSK_NYET | USB_OTG_HCINTMSK_ACKM);
    1441                hc->do_ping = 0;
-   \   0000004A   0x2400             MOVS     R4,#+0
-   \   0000004C   0x714C             STRB     R4,[R1, #+5]
    1442              }
    1443            }
    1444            
    1445            /* Compute the expected number of packets associated to the transfer */
    1446            if (hc->xfer_len > 0)
-   \                     ??USB_HC_StartXfer_1: (+1)
-   \   0000004E   0x690C             LDR      R4,[R1, #+16]
-   \   00000050   0xB16C             CBZ.N    R4,??USB_HC_StartXfer_4
    1447            {
    1448              num_packets = (hc->xfer_len + hc->max_packet - 1) / hc->max_packet;
-   \   00000052   0x890D             LDRH     R5,[R1, #+8]
-   \   00000054   0x192C             ADDS     R4,R5,R4
-   \   00000056   0x1E64             SUBS     R4,R4,#+1
-   \   00000058   0xFBB4 0xF4F5      UDIV     R4,R4,R5
-   \   0000005C   0xB2A4             UXTH     R4,R4
    1449              
    1450              if (num_packets > max_hc_pkt_count)
-   \   0000005E   0xF5B4 0x7F80      CMP      R4,#+256
-   \   00000062   0xDD05             BLE.N    ??USB_HC_StartXfer_5
    1451              {
    1452                num_packets = max_hc_pkt_count;
    1453                hc->xfer_len = num_packets * hc->max_packet;
-   \   00000064   0x022D             LSLS     R5,R5,#+8
-   \   00000066   0xF44F 0x7480      MOV      R4,#+256
-   \   0000006A   0x610D             STR      R5,[R1, #+16]
-   \   0000006C   0xE000             B.N      ??USB_HC_StartXfer_5
    1454              }
    1455            }
    1456            else
    1457            {
    1458              num_packets = 1;
-   \                     ??USB_HC_StartXfer_4: (+1)
-   \   0000006E   0x2401             MOVS     R4,#+1
    1459            }
    1460            if (hc->ep_is_in)
-   \                     ??USB_HC_StartXfer_5: (+1)
-   \   00000070   0x78CD             LDRB     R5,[R1, #+3]
-   \   00000072   0xB115             CBZ.N    R5,??USB_HC_StartXfer_6
    1461            {
    1462              hc->xfer_len = num_packets * hc->max_packet;
-   \   00000074   0x890D             LDRH     R5,[R1, #+8]
-   \   00000076   0x4365             MULS     R5,R5,R4
-   \   00000078   0x610D             STR      R5,[R1, #+16]
    1463            }
    1464            
    1465            /* Initialize the HCTSIZn register */
    1466            USBx_HC(hc->ch_num)->HCTSIZ = (((hc->xfer_len) & USB_OTG_HCTSIZ_XFRSIZ)) |\
    1467              ((num_packets << 19) & USB_OTG_HCTSIZ_PKTCNT) |\
    1468                (((hc->data_pid) << 29) & USB_OTG_HCTSIZ_DPID);
-   \                     ??USB_HC_StartXfer_6: (+1)
-   \   0000007A   0x690E             LDR      R6,[R1, #+16]
-   \   0000007C   0x....             LDR.N    R7,??DataTable10_5  ;; 0x1ff80000
-   \   0000007E   0xEA07 0x44C4      AND      R4,R7,R4, LSL #+19
-   \   00000082   0x784D             LDRB     R5,[R1, #+1]
-   \   00000084   0x0376             LSLS     R6,R6,#+13
-   \   00000086   0xEA54 0x3456      ORRS     R4,R4,R6, LSR #+13
-   \   0000008A   0x7A8E             LDRB     R6,[R1, #+10]
-   \   0000008C   0xEB03 0x1545      ADD      R5,R3,R5, LSL #+5
-   \   00000090   0x0776             LSLS     R6,R6,#+29
-   \   00000092   0xF006 0x46C0      AND      R6,R6,#0x60000000
-   \   00000096   0xF505 0x65A0      ADD      R5,R5,#+1280
-   \   0000009A   0x4334             ORRS     R4,R6,R4
    1469            
    1470            if (dma)
-   \   0000009C   0x2A00             CMP      R2,#+0
-   \   0000009E   0x612C             STR      R4,[R5, #+16]
-   \   000000A0   0xD006             BEQ.N    ??USB_HC_StartXfer_7
    1471            {
    1472              /* xfer_buff MUST be 32-bits aligned */
    1473              USBx_HC(hc->ch_num)->HCDMA = (uint32_t)hc->xfer_buff;
-   \   000000A2   0x784C             LDRB     R4,[R1, #+1]
-   \   000000A4   0x68CD             LDR      R5,[R1, #+12]
-   \   000000A6   0xEB03 0x1444      ADD      R4,R3,R4, LSL #+5
-   \   000000AA   0xF504 0x64A0      ADD      R4,R4,#+1280
-   \   000000AE   0x6165             STR      R5,[R4, #+20]
    1474            }
    1475            
    1476            is_oddframe = (USBx_HOST->HFNUM & 0x01) ? 0 : 1;
-   \                     ??USB_HC_StartXfer_7: (+1)
-   \   000000B0   0xF503 0x6480      ADD      R4,R3,#+1024
-   \   000000B4   0x68A5             LDR      R5,[R4, #+8]
    1477            USBx_HC(hc->ch_num)->HCCHAR &= ~USB_OTG_HCCHAR_ODDFRM;
-   \   000000B6   0x784E             LDRB     R6,[R1, #+1]
-   \   000000B8   0xEB03 0x1646      ADD      R6,R3,R6, LSL #+5
    1478            USBx_HC(hc->ch_num)->HCCHAR |= (is_oddframe << 29);
-   \   000000BC   0xF005 0x0501      AND      R5,R5,#0x1
-   \   000000C0   0xF085 0x0501      EOR      R5,R5,#0x1
-   \   000000C4   0xF506 0x66A0      ADD      R6,R6,#+1280
-   \   000000C8   0x6837             LDR      R7,[R6, #+0]
-   \   000000CA   0xF027 0x5700      BIC      R7,R7,#0x20000000
-   \   000000CE   0x6037             STR      R7,[R6, #+0]
-   \   000000D0   0x784E             LDRB     R6,[R1, #+1]
-   \   000000D2   0xEB03 0x1646      ADD      R6,R3,R6, LSL #+5
-   \   000000D6   0xF506 0x66A0      ADD      R6,R6,#+1280
-   \   000000DA   0x6837             LDR      R7,[R6, #+0]
-   \   000000DC   0xEA47 0x7545      ORR      R5,R7,R5, LSL #+29
-   \   000000E0   0x6035             STR      R5,[R6, #+0]
    1479            
    1480            /* Set host channel enable */
    1481            tmpreg = USBx_HC(hc->ch_num)->HCCHAR;
-   \   000000E2   0x784D             LDRB     R5,[R1, #+1]
-   \   000000E4   0xEB03 0x1545      ADD      R5,R3,R5, LSL #+5
-   \   000000E8   0xF505 0x65A0      ADD      R5,R5,#+1280
-   \   000000EC   0x682E             LDR      R6,[R5, #+0]
    1482            tmpreg &= ~USB_OTG_HCCHAR_CHDIS;
    1483            tmpreg |= USB_OTG_HCCHAR_CHENA;
    1484            USBx_HC(hc->ch_num)->HCCHAR = tmpreg;
-   \   000000EE   0xF026 0x4680      BIC      R6,R6,#0x40000000
-   \   000000F2   0xF046 0x4600      ORR      R6,R6,#0x80000000
-   \   000000F6   0x602E             STR      R6,[R5, #+0]
    1485            
    1486            if (dma == 0) /* Slave mode */
-   \   000000F8   0xBF04             ITT      EQ 
-   \   000000FA   0x78CA             LDRBEQ   R2,[R1, #+3]
-   \   000000FC   0x2A00             CMPEQ    R2,#+0
    1487            {  
    1488              if((hc->ep_is_in == 0) && (hc->xfer_len > 0))
-   \   000000FE   0xD130             BNE.N    ??USB_HC_StartXfer_3
-   \   00000100   0x690A             LDR      R2,[R1, #+16]
-   \   00000102   0xB372             CBZ.N    R2,??USB_HC_StartXfer_3
    1489              {
    1490                switch(hc->ep_type) 
-   \   00000104   0x79CD             LDRB     R5,[R1, #+7]
-   \   00000106   0x2D03             CMP      R5,#+3
-   \   00000108   0xD819             BHI.N    ??USB_HC_StartXfer_8
-   \   0000010A   0xE8DF 0xF005      TBB      [PC, R5]
-   \                     ??USB_HC_StartXfer_0:
-   \   0000010E   0x02 0x0D          DC8      0x2,0xD,0x2,0xD
-   \              0x02 0x0D    
    1491                {
    1492                  /* Non periodic transfer */
    1493                case EP_TYPE_CTRL:
@@ -3203,19 +3111,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    1497                  
    1498                  /* check if there is enough space in FIFO space */
    1499                  if(len_words > (USBx->HNPTXSTS & 0xFFFF))
-   \                     ??USB_HC_StartXfer_9: (+1)
-   \   00000112   0x6AC4             LDR      R4,[R0, #+44]
-   \   00000114   0x1CD2             ADDS     R2,R2,#+3
-   \   00000116   0x0392             LSLS     R2,R2,#+14
-   \   00000118   0xB2A4             UXTH     R4,R4
-   \   0000011A   0xEBB4 0x4F12      CMP      R4,R2, LSR #+16
-   \   0000011E   0xD20E             BCS.N    ??USB_HC_StartXfer_8
    1500                  {
    1501                    /* need to process data in nptxfempty interrupt */
    1502                    USBx->GINTMSK |= USB_OTG_GINTMSK_NPTXFEM;
-   \   00000120   0x6982             LDR      R2,[R0, #+24]
-   \   00000122   0xF042 0x0220      ORR      R2,R2,#0x20
-   \   00000126   0xE009             B.N      ??USB_HC_StartXfer_10
    1503                  }
    1504                  break;
    1505                  /* Periodic transfer */
@@ -3224,20 +3122,9 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    1508                  len_words = (hc->xfer_len + 3) / 4;
    1509                  /* check if there is enough space in FIFO space */
    1510                  if(len_words > (USBx_HOST->HPTXSTS & 0xFFFF)) /* split the transfer */
-   \                     ??USB_HC_StartXfer_11: (+1)
-   \   00000128   0x6924             LDR      R4,[R4, #+16]
-   \   0000012A   0x1CD2             ADDS     R2,R2,#+3
-   \   0000012C   0x0392             LSLS     R2,R2,#+14
-   \   0000012E   0xB2A4             UXTH     R4,R4
-   \   00000130   0xEBB4 0x4F12      CMP      R4,R2, LSR #+16
-   \   00000134   0xD203             BCS.N    ??USB_HC_StartXfer_8
    1511                  {
    1512                    /* need to process data in ptxfempty interrupt */
    1513                    USBx->GINTMSK |= USB_OTG_GINTMSK_PTXFEM;          
-   \   00000136   0x6982             LDR      R2,[R0, #+24]
-   \   00000138   0xF042 0x6280      ORR      R2,R2,#0x4000000
-   \                     ??USB_HC_StartXfer_10: (+1)
-   \   0000013C   0x6182             STR      R2,[R0, #+24]
    1514                  }
    1515                  break;
    1516                  
@@ -3247,28 +3134,145 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    1520                
    1521                /* Write packet into the Tx FIFO. */
    1522                USB_WritePacket(USBx, hc->xfer_buff, hc->ch_num, hc->xfer_len, 0);
-   \                     ??USB_HC_StartXfer_8: (+1)
-   \   0000013E   0x7848             LDRB     R0,[R1, #+1]
-   \   00000140   0x68CA             LDR      R2,[R1, #+12]
-   \   00000142   0x8A09             LDRH     R1,[R1, #+16]
-   \   00000144   0x1CC9             ADDS     R1,R1,#+3
-   \   00000146   0x104C             ASRS     R4,R1,#+1
-   \   00000148   0xEB01 0x7194      ADD      R1,R1,R4, LSR #+30
-   \   0000014C   0x1089             ASRS     R1,R1,#+2
-   \   0000014E   0xD008             BEQ.N    ??USB_HC_StartXfer_3
-   \   00000150   0xEB03 0x3000      ADD      R0,R3,R0, LSL #+12
-   \   00000154   0xF500 0x5080      ADD      R0,R0,#+4096
-   \                     ??USB_HC_StartXfer_12: (+1)
-   \   00000158   0xF852 0x3B04      LDR      R3,[R2], #+4
-   \   0000015C   0x1E49             SUBS     R1,R1,#+1
-   \   0000015E   0x6003             STR      R3,[R0, #+0]
-   \   00000160   0xD1FA             BNE.N    ??USB_HC_StartXfer_12
    1523              }
    1524            }
    1525            
    1526            return HAL_OK;
+   \   00000032   0x2000             MOVS     R0,#+0
+   \   00000034   0xBCF0             POP      {R4-R7}
+   \   00000036   0x4770             BX       LR
+   \                     ??USB_HC_StartXfer_2: (+1)
+   \   00000038   0x2A01             CMP      R2,#+1
+   \   0000003A   0xD10A             BNE.N    ??USB_HC_StartXfer_1
+   \   0000003C   0x784C             LDRB     R4,[R1, #+1]
+   \   0000003E   0xEB03 0x1444      ADD      R4,R3,R4, LSL #+5
+   \   00000042   0xF504 0x64A0      ADD      R4,R4,#+1280
+   \   00000046   0x68E5             LDR      R5,[R4, #+12]
+   \   00000048   0xF025 0x0560      BIC      R5,R5,#0x60
+   \   0000004C   0x60E5             STR      R5,[R4, #+12]
+   \   0000004E   0x2400             MOVS     R4,#+0
+   \   00000050   0x714C             STRB     R4,[R1, #+5]
+   \                     ??USB_HC_StartXfer_1: (+1)
+   \   00000052   0x690C             LDR      R4,[R1, #+16]
+   \   00000054   0xB16C             CBZ.N    R4,??USB_HC_StartXfer_3
+   \   00000056   0x890D             LDRH     R5,[R1, #+8]
+   \   00000058   0x192C             ADDS     R4,R5,R4
+   \   0000005A   0x1E64             SUBS     R4,R4,#+1
+   \   0000005C   0xFBB4 0xF4F5      UDIV     R4,R4,R5
+   \   00000060   0xB2A4             UXTH     R4,R4
+   \   00000062   0xF5B4 0x7F80      CMP      R4,#+256
+   \   00000066   0xDD05             BLE.N    ??USB_HC_StartXfer_4
+   \   00000068   0x022D             LSLS     R5,R5,#+8
+   \   0000006A   0xF44F 0x7480      MOV      R4,#+256
+   \   0000006E   0x610D             STR      R5,[R1, #+16]
+   \   00000070   0xE000             B.N      ??USB_HC_StartXfer_4
    \                     ??USB_HC_StartXfer_3: (+1)
-   \   00000162   0x....             B.N      ?Subroutine4
+   \   00000072   0x2401             MOVS     R4,#+1
+   \                     ??USB_HC_StartXfer_4: (+1)
+   \   00000074   0x78CD             LDRB     R5,[R1, #+3]
+   \   00000076   0xB115             CBZ.N    R5,??USB_HC_StartXfer_5
+   \   00000078   0x890D             LDRH     R5,[R1, #+8]
+   \   0000007A   0x4365             MULS     R5,R5,R4
+   \   0000007C   0x610D             STR      R5,[R1, #+16]
+   \                     ??USB_HC_StartXfer_5: (+1)
+   \   0000007E   0x690E             LDR      R6,[R1, #+16]
+   \   00000080   0x....             LDR.N    R7,??DataTable11_4  ;; 0x1ff80000
+   \   00000082   0xEA07 0x44C4      AND      R4,R7,R4, LSL #+19
+   \   00000086   0x784D             LDRB     R5,[R1, #+1]
+   \   00000088   0x0376             LSLS     R6,R6,#+13
+   \   0000008A   0xEA54 0x3456      ORRS     R4,R4,R6, LSR #+13
+   \   0000008E   0x7A8E             LDRB     R6,[R1, #+10]
+   \   00000090   0xEB03 0x1545      ADD      R5,R3,R5, LSL #+5
+   \   00000094   0x0776             LSLS     R6,R6,#+29
+   \   00000096   0xF006 0x46C0      AND      R6,R6,#0x60000000
+   \   0000009A   0xF505 0x65A0      ADD      R5,R5,#+1280
+   \   0000009E   0x4334             ORRS     R4,R6,R4
+   \   000000A0   0x2A00             CMP      R2,#+0
+   \   000000A2   0x612C             STR      R4,[R5, #+16]
+   \   000000A4   0xD006             BEQ.N    ??USB_HC_StartXfer_6
+   \   000000A6   0x784C             LDRB     R4,[R1, #+1]
+   \   000000A8   0x68CD             LDR      R5,[R1, #+12]
+   \   000000AA   0xEB03 0x1444      ADD      R4,R3,R4, LSL #+5
+   \   000000AE   0xF504 0x64A0      ADD      R4,R4,#+1280
+   \   000000B2   0x6165             STR      R5,[R4, #+20]
+   \                     ??USB_HC_StartXfer_6: (+1)
+   \   000000B4   0xF503 0x6480      ADD      R4,R3,#+1024
+   \   000000B8   0x68A5             LDR      R5,[R4, #+8]
+   \   000000BA   0x784E             LDRB     R6,[R1, #+1]
+   \   000000BC   0xEB03 0x1646      ADD      R6,R3,R6, LSL #+5
+   \   000000C0   0xF005 0x0501      AND      R5,R5,#0x1
+   \   000000C4   0xF085 0x0501      EOR      R5,R5,#0x1
+   \   000000C8   0xF506 0x66A0      ADD      R6,R6,#+1280
+   \   000000CC   0x6837             LDR      R7,[R6, #+0]
+   \   000000CE   0xF027 0x5700      BIC      R7,R7,#0x20000000
+   \   000000D2   0x6037             STR      R7,[R6, #+0]
+   \   000000D4   0x784E             LDRB     R6,[R1, #+1]
+   \   000000D6   0xEB03 0x1646      ADD      R6,R3,R6, LSL #+5
+   \   000000DA   0xF506 0x66A0      ADD      R6,R6,#+1280
+   \   000000DE   0x6837             LDR      R7,[R6, #+0]
+   \   000000E0   0xEA47 0x7545      ORR      R5,R7,R5, LSL #+29
+   \   000000E4   0x6035             STR      R5,[R6, #+0]
+   \   000000E6   0x784D             LDRB     R5,[R1, #+1]
+   \   000000E8   0xEB03 0x1545      ADD      R5,R3,R5, LSL #+5
+   \   000000EC   0xF505 0x65A0      ADD      R5,R5,#+1280
+   \   000000F0   0x682E             LDR      R6,[R5, #+0]
+   \   000000F2   0xF026 0x4680      BIC      R6,R6,#0x40000000
+   \   000000F6   0xF046 0x4600      ORR      R6,R6,#0x80000000
+   \   000000FA   0x602E             STR      R6,[R5, #+0]
+   \   000000FC   0xBF04             ITT      EQ 
+   \   000000FE   0x78CA             LDRBEQ   R2,[R1, #+3]
+   \   00000100   0x2A00             CMPEQ    R2,#+0
+   \   00000102   0xD130             BNE.N    ??USB_HC_StartXfer_7
+   \   00000104   0x690A             LDR      R2,[R1, #+16]
+   \   00000106   0xB372             CBZ.N    R2,??USB_HC_StartXfer_7
+   \   00000108   0x79CD             LDRB     R5,[R1, #+7]
+   \   0000010A   0x2D03             CMP      R5,#+3
+   \   0000010C   0xD819             BHI.N    ??USB_HC_StartXfer_8
+   \   0000010E   0xE8DF 0xF005      TBB      [PC, R5]
+   \                     ??USB_HC_StartXfer_0:
+   \   00000112   0x02 0x0D          DC8      0x2,0xD,0x2,0xD
+   \              0x02 0x0D    
+   \                     ??USB_HC_StartXfer_9: (+1)
+   \   00000116   0x6AC4             LDR      R4,[R0, #+44]
+   \   00000118   0x1CD2             ADDS     R2,R2,#+3
+   \   0000011A   0x0392             LSLS     R2,R2,#+14
+   \   0000011C   0xB2A4             UXTH     R4,R4
+   \   0000011E   0xEBB4 0x4F12      CMP      R4,R2, LSR #+16
+   \   00000122   0xD20E             BCS.N    ??USB_HC_StartXfer_8
+   \   00000124   0x6982             LDR      R2,[R0, #+24]
+   \   00000126   0xF042 0x0220      ORR      R2,R2,#0x20
+   \   0000012A   0xE009             B.N      ??USB_HC_StartXfer_10
+   \                     ??USB_HC_StartXfer_11: (+1)
+   \   0000012C   0x6924             LDR      R4,[R4, #+16]
+   \   0000012E   0x1CD2             ADDS     R2,R2,#+3
+   \   00000130   0x0392             LSLS     R2,R2,#+14
+   \   00000132   0xB2A4             UXTH     R4,R4
+   \   00000134   0xEBB4 0x4F12      CMP      R4,R2, LSR #+16
+   \   00000138   0xD203             BCS.N    ??USB_HC_StartXfer_8
+   \   0000013A   0x6982             LDR      R2,[R0, #+24]
+   \   0000013C   0xF042 0x6280      ORR      R2,R2,#0x4000000
+   \                     ??USB_HC_StartXfer_10: (+1)
+   \   00000140   0x6182             STR      R2,[R0, #+24]
+   \                     ??USB_HC_StartXfer_8: (+1)
+   \   00000142   0x7848             LDRB     R0,[R1, #+1]
+   \   00000144   0x68CA             LDR      R2,[R1, #+12]
+   \   00000146   0x8A09             LDRH     R1,[R1, #+16]
+   \   00000148   0x1CC9             ADDS     R1,R1,#+3
+   \   0000014A   0x104C             ASRS     R4,R1,#+1
+   \   0000014C   0xEB01 0x7194      ADD      R1,R1,R4, LSR #+30
+   \   00000150   0x1089             ASRS     R1,R1,#+2
+   \   00000152   0xD008             BEQ.N    ??USB_HC_StartXfer_7
+   \   00000154   0xEB03 0x3000      ADD      R0,R3,R0, LSL #+12
+   \   00000158   0xF500 0x5080      ADD      R0,R0,#+4096
+   \                     ??USB_HC_StartXfer_12: (+1)
+   \   0000015C   0xF852 0x3B04      LDR      R3,[R2], #+4
+   \   00000160   0x1E49             SUBS     R1,R1,#+1
+   \   00000162   0x6003             STR      R3,[R0, #+0]
+   \   00000164   0xD1FA             BNE.N    ??USB_HC_StartXfer_12
+   \                     ??USB_HC_StartXfer_7: (+1)
+   \   00000166   0x2000             MOVS     R0,#+0
+   \   00000168   0xBCF0             POP      {R4-R7}
+   \   0000016A   0x4770             BX       LR               ;; return
    1527          }
    1528          
    1529          /**
@@ -3345,7 +3349,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    1578              if ((USBx_HOST->HPTXSTS & 0xFFFF) == 0)
    \   00000020   0x0400             LSLS     R0,R0,#+16
    \   00000022   0x6808             LDR      R0,[R1, #+0]
-   \   00000024   0xD112             BNE.N    ??USB_HC_Halt_0
+   \   00000024   0xD113             BNE.N    ??USB_HC_Halt_0
    1579              {
    1580                USBx_HC(hc_num)->HCCHAR &= ~USB_OTG_HCCHAR_CHENA;
    \   00000026   0x0040             LSLS     R0,R0,#+1
@@ -3365,7 +3369,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    1585                  if (++count > 1000) 
    \                     ??USB_HC_Halt_1: (+1)
    \   00000040   0x1E40             SUBS     R0,R0,#+1
-   \   00000042   0xD006             BEQ.N    ??USB_HC_Halt_2
+   \   00000042   0xD007             BEQ.N    ??USB_HC_Halt_2
    1586                  {
    1587                    break;
    1588                  }
@@ -3374,21 +3378,22 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   00000044   0x680A             LDR      R2,[R1, #+0]
    \   00000046   0x2A00             CMP      R2,#+0
    \   00000048   0xD4FA             BMI.N    ??USB_HC_Halt_1
-   \   0000004A   0xE002             B.N      ??USB_HC_Halt_2
    1591              }
    1592              else
    1593              {
    1594                 USBx_HC(hc_num)->HCCHAR |= USB_OTG_HCCHAR_CHENA; 
-   \                     ??USB_HC_Halt_0: (+1)
-   \   0000004C   0xF040 0x4000      ORR      R0,R0,#0x80000000
-   \   00000050   0x6008             STR      R0,[R1, #+0]
    1595              }
    1596            }
    1597            
    1598            return HAL_OK;
+   \   0000004A   0x2000             MOVS     R0,#+0
+   \   0000004C   0x4770             BX       LR
+   \                     ??USB_HC_Halt_0: (+1)
+   \   0000004E   0xF040 0x4000      ORR      R0,R0,#0x80000000
+   \   00000052   0x6008             STR      R0,[R1, #+0]
    \                     ??USB_HC_Halt_2: (+1)
-   \   00000052   0x2000             MOVS     R0,#+0
-   \   00000054   0x4770             BX       LR               ;; return
+   \   00000054   0x2000             MOVS     R0,#+0
+   \   00000056   0x4770             BX       LR               ;; return
    1599          }
    1600          
    1601          /**
@@ -3409,7 +3414,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    1614                                          USB_OTG_HCTSIZ_DOPING;
    \                     USB_DoPing: (+1)
    \   00000000   0xEB00 0x1041      ADD      R0,R0,R1, LSL #+5
-   \   00000004   0x....             LDR.N    R1,??DataTable10_13  ;; 0x80080000
+   \   00000004   0x....             LDR.N    R1,??DataTable11_11  ;; 0x80080000
    \   00000006   0xF500 0x60A0      ADD      R0,R0,#+1280
    \   0000000A   0x6101             STR      R1,[R0, #+16]
    1615            
@@ -3421,9 +3426,11 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    1620            USBx_HC(ch_num)->HCCHAR = tmpreg;
    \   0000000E   0xF021 0x4180      BIC      R1,R1,#0x40000000
    \   00000012   0xF041 0x4100      ORR      R1,R1,#0x80000000
-   \   00000016   0x....             B.N      ??Subroutine0_0
+   \   00000016   0x6001             STR      R1,[R0, #+0]
    1621            
    1622            return HAL_OK;  
+   \   00000018   0x2000             MOVS     R0,#+0
+   \   0000001A   0x4770             BX       LR               ;; return
    1623          }
    1624          
    1625          /**
@@ -3452,7 +3459,7 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    1639            USB_FlushTxFifo(USBx, 0x10);
    \   0000000C   0xF44F 0x6284      MOV      R2,#+1056
    \   00000010   0x6102             STR      R2,[R0, #+16]
-   \   00000012   0x....             LDR.N    R2,??DataTable10_14  ;; 0x30d41
+   \   00000012   0x....             LDR.N    R2,??DataTable11_12  ;; 0x30d41
    \   00000014   0x4613             MOV      R3,R2
    \                     ??USB_StopHost_0: (+1)
    \   00000016   0x1E5B             SUBS     R3,R3,#+1
@@ -3544,15 +3551,17 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   0000007C   0xF041 0x0101      ORR      R1,R1,#0x1
    \   00000080   0x6081             STR      R1,[R0, #+8]
    1677            return HAL_OK;  
-   \   00000082   0x....             B.N      ?Subroutine4
+   \   00000082   0x2000             MOVS     R0,#+0
+   \   00000084   0xBCF0             POP      {R4-R7}
+   \   00000086   0x4770             BX       LR               ;; return
    1678          }
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable7:
+   \                     ??DataTable8:
    \   00000000   0xFFBDFFBF         DC32     0xffbdffbf
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable7_1:
+   \                     ??DataTable8_1:
    \   00000000   0x00030D41         DC32     0x30d41
 
    \                                 In section .text, align 4, keep-with-next
@@ -3564,59 +3573,55 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    \   00000000   0x00800100         DC32     0x800100
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable10_1:
+   \                     ??DataTable11:
    \   00000000   0x803C3800         DC32     0x803c3800
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable10_2:
+   \                     ??DataTable11_1:
    \   00000000   0x10008000         DC32     0x10008000
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable10_3:
+   \                     ??DataTable11_2:
    \   00000000   0x........         DC32     ??debug
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable10_4:
+   \                     ??DataTable11_3:
    \   00000000   0xE007FFFF         DC32     0xe007ffff
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable10_5:
+   \                     ??DataTable11_4:
    \   00000000   0x1FF80000         DC32     0x1ff80000
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable10_6:
+   \                     ??DataTable11_5:
    \   00000000   0x50000024         DC32     0x50000024
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable10_7:
+   \                     ??DataTable11_6:
    \   00000000   0x00600080         DC32     0x600080
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable10_8:
+   \                     ??DataTable11_7:
    \   00000000   0x004000E0         DC32     0x4000e0
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable10_9:
-   \   00000000   0x50000100         DC32     0x50000100
-
-   \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable10_10:
+   \                     ??DataTable11_8:
    \   00000000   0x01000200         DC32     0x1000200
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable10_11:
+   \                     ??DataTable11_9:
    \   00000000   0x00E00300         DC32     0xe00300
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable10_12:
+   \                     ??DataTable11_10:
    \   00000000   0xA3200008         DC32     0xa3200008
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable10_13:
+   \                     ??DataTable11_11:
    \   00000000   0x80080000         DC32     0x80080000
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable10_14:
+   \                     ??DataTable11_12:
    \   00000000   0x00030D41         DC32     0x30d41
    1679          /**
    1680            * @}
@@ -3635,11 +3640,11 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    .cstack Function
    ------- --------
       16   USB_ActivateDedicatedEndpoint
-       4   USB_ActivateEndpoint
+       0   USB_ActivateEndpoint
        0   USB_ActivateSetup
        0   USB_ClearInterrupts
       12   USB_CoreInit
-       4   USB_DeactivateDedicatedEndpoint
+       0   USB_DeactivateDedicatedEndpoint
        8   USB_DeactivateEndpoint
        8   USB_DevConnect
          8   -> HAL_Delay
@@ -3690,59 +3695,51 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
    Bytes  Function/Label
    -----  --------------
        4  ??DataTable10
-       4  ??DataTable10_1
-       4  ??DataTable10_10
-       4  ??DataTable10_11
-       4  ??DataTable10_12
-       4  ??DataTable10_13
-       4  ??DataTable10_14
-       4  ??DataTable10_2
-       4  ??DataTable10_3
-       4  ??DataTable10_4
-       4  ??DataTable10_5
-       4  ??DataTable10_6
-       4  ??DataTable10_7
-       4  ??DataTable10_8
-       4  ??DataTable10_9
-       4  ??DataTable7
-       4  ??DataTable7_1
+       4  ??DataTable11
+       4  ??DataTable11_1
+       4  ??DataTable11_10
+       4  ??DataTable11_11
+       4  ??DataTable11_12
+       4  ??DataTable11_2
+       4  ??DataTable11_3
+       4  ??DataTable11_4
+       4  ??DataTable11_5
+       4  ??DataTable11_6
+       4  ??DataTable11_7
+       4  ??DataTable11_8
+       4  ??DataTable11_9
+       4  ??DataTable8
+       4  ??DataTable8_1
        4  ??DataTable9
-      10  ?Subroutine0
-       8  ?Subroutine1
-       6  ?Subroutine2
-       6  ?Subroutine3
-       6  ?Subroutine4
-       6  ?Subroutine5
-      12  ?Subroutine6
-     216  USB_ActivateDedicatedEndpoint
-     124  USB_ActivateEndpoint
+     224  USB_ActivateDedicatedEndpoint
+     140  USB_ActivateEndpoint
       46  USB_ActivateSetup
        8  USB_ClearInterrupts
      160  USB_CoreInit
-      78  USB_DeactivateDedicatedEndpoint
-      98  USB_DeactivateEndpoint
-      14  USB_DevConnect
-      12  USB_DevDisconnect
-     322  USB_DevInit
-       6  USB_DisableGlobalInt
-      24  USB_DoPing
-      56  USB_DriveVbus
-     308  USB_EP0StartXfer
+      96  USB_DeactivateDedicatedEndpoint
+     104  USB_DeactivateEndpoint
+      28  USB_DevConnect
+      28  USB_DevDisconnect
+     324  USB_DevInit
+      12  USB_DisableGlobalInt
+      28  USB_DoPing
+      66  USB_DriveVbus
+     326  USB_EP0StartXfer
       48  USB_EP0_OutStart
       90  USB_EPClearStall
-      78  USB_EPSetStall
-     546  USB_EPStartXfer
-       8  USB_EnableGlobalInt
+      82  USB_EPSetStall
+     552  USB_EPStartXfer
+      12  USB_EnableGlobalInt
       26  USB_FlushRxFifo
       30  USB_FlushTxFifo
       10  USB_GetCurrentFrame
       52  USB_GetDevSpeed
       20  USB_GetHostSpeed
        8  USB_GetMode
-      86  USB_HC_Halt
-     188  USB_HC_Init
+      88  USB_HC_Halt
+     194  USB_HC_Init
       10  USB_HC_ReadInterrupt
-     356  USB_HC_StartXfer
+     364  USB_HC_StartXfer
      248  USB_HostInit
       46  USB_InitFSLSPClkSel
       14  USB_ReadDevAllInEpInterrupt
@@ -3751,20 +3748,20 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Drivers\STM32F7xx_HA
       20  USB_ReadDevOutEPInterrupt
        8  USB_ReadInterrupts
       30  USB_ReadPacket
-      46  USB_ResetPort
-      38  USB_SetCurrentMode
-      18  USB_SetDevAddress
-       6  USB_SetDevSpeed
-      80  USB_StopDevice
-     132  USB_StopHost
-      46  USB_WritePacket
+      48  USB_ResetPort
+      46  USB_SetCurrentMode
+      28  USB_SetDevAddress
+      14  USB_SetDevSpeed
+      84  USB_StopDevice
+     136  USB_StopHost
+      52  USB_WritePacket
        4  debug
 
  
      4 bytes in section .bss
- 3 932 bytes in section .text
+ 4 064 bytes in section .text
  
- 3 932 bytes of CODE memory
+ 4 064 bytes of CODE memory
      4 bytes of DATA memory
 
 Errors: none

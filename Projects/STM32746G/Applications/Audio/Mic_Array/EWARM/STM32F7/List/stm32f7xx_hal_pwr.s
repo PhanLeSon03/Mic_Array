@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      16/Apr/2016  18:31:01
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Apr/2016  12:04:29
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -256,7 +256,7 @@
 //  119 {
 //  120   __HAL_RCC_PWR_FORCE_RESET();
 HAL_PWR_DeInit:
-        LDR.N    R0,??DataTable13  ;; 0x40023820
+        LDR.N    R0,??DataTable15  ;; 0x40023820
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x10000000
         STR      R1,[R0, #+0]
@@ -286,7 +286,7 @@ HAL_PWR_DeInit:
 //  133   /* Enable access to RTC and backup registers */
 //  134   SET_BIT(PWR->CR1, PWR_CR1_DBP);
 HAL_PWR_EnableBkUpAccess:
-        LDR.N    R0,??DataTable13_1  ;; 0x40007000
+        LDR.N    R0,??DataTable15_1  ;; 0x40007000
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x100
         STR      R1,[R0, #+0]
@@ -312,7 +312,7 @@ HAL_PWR_EnableBkUpAccess:
 //  146   /* Disable access to RTC and backup registers */
 //  147 	CLEAR_BIT(PWR->CR1, PWR_CR1_DBP);
 HAL_PWR_DisableBkUpAccess:
-        LDR.N    R0,??DataTable13_1  ;; 0x40007000
+        LDR.N    R0,??DataTable15_1  ;; 0x40007000
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x100
         STR      R1,[R0, #+0]
@@ -463,7 +463,7 @@ HAL_PWR_DisableBkUpAccess:
 //  284   /* Set PLS[7:5] bits according to PVDLevel value */
 //  285   MODIFY_REG(PWR->CR1, PWR_CR1_PLS, sConfigPVD->PVDLevel);
 HAL_PWR_ConfigPVD:
-        LDR.N    R1,??DataTable13_1  ;; 0x40007000
+        LDR.N    R1,??DataTable15_1  ;; 0x40007000
         LDR      R2,[R1, #+0]
         LDR      R3,[R0, #+0]
         BIC      R2,R2,#0xE0
@@ -472,7 +472,7 @@ HAL_PWR_ConfigPVD:
 //  286   
 //  287   /* Clear any previous config. Keep it clear if no event or IT mode is selected */
 //  288   __HAL_PWR_PVD_EXTI_DISABLE_EVENT();
-        LDR.N    R1,??DataTable13_2  ;; 0x40013c00
+        LDR.N    R1,??DataTable15_2  ;; 0x40013c00
         LDR      R2,[R1, #+4]
         BIC      R2,R2,#0x10000
         STR      R2,[R1, #+4]
@@ -558,9 +558,12 @@ HAL_PWR_ConfigPVD:
 //  323   /* Enable the power voltage detector */
 //  324 	SET_BIT(PWR->CR1, PWR_CR1_PVDE);
 HAL_PWR_EnablePVD:
-        LDR.N    R0,??DataTable13_1  ;; 0x40007000
-        B.N      ?Subroutine0
+        LDR.N    R0,??DataTable15_1  ;; 0x40007000
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x10
+        STR      R1,[R0, #+0]
 //  325 }
+        BX       LR               ;; return
           CFI EndBlock cfiBlock4
 //  326 
 //  327 /**
@@ -578,9 +581,12 @@ HAL_PWR_EnablePVD:
 //  333   /* Disable the power voltage detector */
 //  334 	CLEAR_BIT(PWR->CR1, PWR_CR1_PVDE);
 HAL_PWR_DisablePVD:
-        LDR.N    R0,??DataTable13_1  ;; 0x40007000
-        B.N      ?Subroutine1
+        LDR.N    R0,??DataTable15_1  ;; 0x40007000
+        LDR      R1,[R0, #+0]
+        BIC      R1,R1,#0x10
+        STR      R1,[R0, #+0]
 //  335 }
+        BX       LR               ;; return
           CFI EndBlock cfiBlock5
 //  336 
 //  337 /**
@@ -613,7 +619,7 @@ HAL_PWR_DisablePVD:
 //  358   /* Enable wake-up pin */
 //  359   SET_BIT(PWR->CSR2, (PWR_EWUP_MASK & WakeUpPinPolarity));
 HAL_PWR_EnableWakeUpPin:
-        LDR.N    R2,??DataTable13_3  ;; 0x40007008
+        LDR.N    R2,??DataTable15_3  ;; 0x40007008
         AND      R1,R0,#0x3F00
         LDR      R3,[R2, #+4]
         ORRS     R3,R1,R3
@@ -654,7 +660,7 @@ HAL_PWR_EnableWakeUpPin:
 //  381 
 //  382   CLEAR_BIT(PWR->CSR2, WakeUpPinx);
 HAL_PWR_DisableWakeUpPin:
-        LDR.N    R1,??DataTable13_4  ;; 0x4000700c
+        LDR.N    R1,??DataTable15_4  ;; 0x4000700c
         LDR      R2,[R1, #+0]
         BIC      R0,R2,R0
         STR      R0,[R1, #+0]
@@ -697,7 +703,7 @@ HAL_PWR_DisableWakeUpPin:
 //  411   /* Clear SLEEPDEEP bit of Cortex System Control Register */
 //  412   CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPDEEP_Msk));
 HAL_PWR_EnterSLEEPMode:
-        LDR.N    R0,??DataTable13_5  ;; 0xe000ed10
+        LDR.N    R0,??DataTable15_5  ;; 0xe000ed10
 //  413 
 //  414   /* Select SLEEP mode entry -------------------------------------------------*/
 //  415   if(SLEEPEntry == PWR_SLEEPENTRY_WFI)
@@ -761,7 +767,7 @@ HAL_PWR_EnterSLEEPMode:
 //  456   /* Select the regulator state in Stop mode ---------------------------------*/
 //  457   tmpreg = PWR->CR1;
 HAL_PWR_EnterSTOPMode:
-        LDR.N    R2,??DataTable13_1  ;; 0x40007000
+        LDR.N    R2,??DataTable15_1  ;; 0x40007000
         LDR      R3,[R2, #+0]
 //  458   /* Clear PDDS and LPDS bits */
 //  459   tmpreg &= (uint32_t)~(PWR_CR1_PDDS | PWR_CR1_LPDS);
@@ -781,7 +787,7 @@ HAL_PWR_EnterSTOPMode:
         CMP      R1,#+1
         ORR      R0,R0,R3, LSL #+2
         STR      R0,[R2, #+0]
-        LDR.N    R0,??DataTable13_5  ;; 0xe000ed10
+        LDR.N    R0,??DataTable15_5  ;; 0xe000ed10
         LDR      R2,[R0, #+0]
         ORR      R2,R2,#0x4
         STR      R2,[R0, #+0]
@@ -831,14 +837,14 @@ HAL_PWR_EnterSTOPMode:
 //  499   /* Select Standby mode */
 //  500   PWR->CR1 |= PWR_CR1_PDDS;
 HAL_PWR_EnterSTANDBYMode:
-        LDR.N    R0,??DataTable13_1  ;; 0x40007000
+        LDR.N    R0,??DataTable15_1  ;; 0x40007000
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x2
         STR      R1,[R0, #+0]
 //  501   
 //  502   /* Set SLEEPDEEP bit of Cortex System Control Register */
 //  503   SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
-        LDR.N    R0,??DataTable13_5  ;; 0xe000ed10
+        LDR.N    R0,??DataTable15_5  ;; 0xe000ed10
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x4
         STR      R1,[R0, #+0]
@@ -873,7 +879,7 @@ HAL_PWR_PVD_IRQHandler:
           CFI CFA R13+8
 //  520   /* Check PWR Exti flag */
 //  521   if(__HAL_PWR_PVD_EXTI_GET_FLAG() != RESET)
-        LDR.N    R4,??DataTable13_6  ;; 0x40013c14
+        LDR.N    R4,??DataTable15_6  ;; 0x40013c14
         LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+15
         BPL.N    ??HAL_PWR_PVD_IRQHandler_0
@@ -932,7 +938,7 @@ HAL_PWR_PVDCallback:
 //  552   /* Set SLEEPONEXIT bit of Cortex System Control Register */
 //  553   SET_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPONEXIT_Msk));
 HAL_PWR_EnableSleepOnExit:
-        LDR.N    R0,??DataTable13_5  ;; 0xe000ed10
+        LDR.N    R0,??DataTable15_5  ;; 0xe000ed10
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x2
         STR      R1,[R0, #+0]
@@ -957,55 +963,13 @@ HAL_PWR_EnableSleepOnExit:
 //  564   /* Clear SLEEPONEXIT bit of Cortex System Control Register */
 //  565   CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPONEXIT_Msk));
 HAL_PWR_DisableSleepOnExit:
-        LDR.N    R0,??DataTable13_5  ;; 0xe000ed10
+        LDR.N    R0,??DataTable15_5  ;; 0xe000ed10
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x2
         STR      R1,[R0, #+0]
 //  566 }
         BX       LR               ;; return
           CFI EndBlock cfiBlock14
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable13:
-        DC32     0x40023820
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable13_1:
-        DC32     0x40007000
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable13_2:
-        DC32     0x40013c00
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable13_3:
-        DC32     0x40007008
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable13_4:
-        DC32     0x4000700c
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable13_5:
-        DC32     0xe000ed10
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable13_6:
-        DC32     0x40013c14
 //  567 
 //  568 /**
 //  569   * @brief Enables CORTEX M4 SEVONPEND bit. 
@@ -1014,7 +978,7 @@ HAL_PWR_DisableSleepOnExit:
 //  572   * @retval None
 //  573   */
 
-        SECTION `.text`:CODE:NOROOT(2)
+        SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock15 Using cfiCommon0
           CFI Function HAL_PWR_EnableSEVOnPend
           CFI NoCalls
@@ -1024,28 +988,13 @@ HAL_PWR_DisableSleepOnExit:
 //  576   /* Set SEVONPEND bit of Cortex System Control Register */
 //  577   SET_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SEVONPEND_Msk));
 HAL_PWR_EnableSEVOnPend:
-        LDR.N    R0,??HAL_PWR_EnableSEVOnPend_0  ;; 0xe000ed10
-        B.N      ??HAL_PWR_EnableSEVOnPend_1
-        DATA
-??HAL_PWR_EnableSEVOnPend_0:
-        DC32     0xe000ed10
-        THUMB
-??HAL_PWR_EnableSEVOnPend_1:
-          CFI EndBlock cfiBlock15
-        REQUIRE ?Subroutine0
-        ;; // Fall through to label ?Subroutine0
-//  578 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock16 Using cfiCommon0
-          CFI NoFunction
-        THUMB
-?Subroutine0:
+        LDR.N    R0,??DataTable15_5  ;; 0xe000ed10
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x10
         STR      R1,[R0, #+0]
+//  578 }
         BX       LR               ;; return
-          CFI EndBlock cfiBlock16
+          CFI EndBlock cfiBlock15
 //  579 
 //  580 /**
 //  581   * @brief Disables CORTEX M4 SEVONPEND bit. 
@@ -1054,8 +1003,8 @@ HAL_PWR_EnableSEVOnPend:
 //  584   * @retval None
 //  585   */
 
-        SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock17 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock16 Using cfiCommon0
           CFI Function HAL_PWR_DisableSEVOnPend
           CFI NoCalls
         THUMB
@@ -1064,28 +1013,55 @@ HAL_PWR_EnableSEVOnPend:
 //  588   /* Clear SEVONPEND bit of Cortex System Control Register */
 //  589   CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SEVONPEND_Msk));
 HAL_PWR_DisableSEVOnPend:
-        LDR.N    R0,??HAL_PWR_DisableSEVOnPend_0  ;; 0xe000ed10
-        B.N      ??HAL_PWR_DisableSEVOnPend_1
-        DATA
-??HAL_PWR_DisableSEVOnPend_0:
-        DC32     0xe000ed10
-        THUMB
-??HAL_PWR_DisableSEVOnPend_1:
-          CFI EndBlock cfiBlock17
-        REQUIRE ?Subroutine1
-        ;; // Fall through to label ?Subroutine1
-//  590 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock18 Using cfiCommon0
-          CFI NoFunction
-        THUMB
-?Subroutine1:
+        LDR.N    R0,??DataTable15_5  ;; 0xe000ed10
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x10
         STR      R1,[R0, #+0]
+//  590 }
         BX       LR               ;; return
-          CFI EndBlock cfiBlock18
+          CFI EndBlock cfiBlock16
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable15:
+        DC32     0x40023820
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable15_1:
+        DC32     0x40007000
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable15_2:
+        DC32     0x40013c00
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable15_3:
+        DC32     0x40007008
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable15_4:
+        DC32     0x4000700c
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable15_5:
+        DC32     0xe000ed10
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable15_6:
+        DC32     0x40013c14
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -1119,9 +1095,9 @@ HAL_PWR_DisableSEVOnPend:
 //  608 
 //  609 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 400 bytes in section .text
+// 404 bytes in section .text
 // 
-// 400 bytes of CODE memory
+// 404 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

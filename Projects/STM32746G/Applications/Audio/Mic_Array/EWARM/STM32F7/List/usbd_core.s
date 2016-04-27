@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      16/Apr/2016  18:31:03
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Apr/2016  12:04:32
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -252,9 +252,10 @@
 //   96 USBD_StatusTypeDef USBD_Init(USBD_HandleTypeDef *pdev, USBD_DescriptorsTypeDef *pdesc, uint8_t id)
 //   97 {
 USBD_Init:
-        PUSH     {R4,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 //   98   /* Check whether the USB Host handle is valid */
 //   99   if(pdev == NULL)
@@ -263,19 +264,21 @@ USBD_Init:
 //  101     USBD_ErrLog("Invalid Device handle");
 //  102     return USBD_FAIL; 
         MOVS     R0,#+2
-        POP      {R4,PC}
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}
+          CFI CFA R13+8
 //  103   }
 //  104   
 //  105   /* Unlink previous class*/
 //  106   if(pdev->pClass != NULL)
 ??USBD_Init_0:
-        ADD      R3,R0,#+508
-        LDR      R4,[R3, #+24]
-        CBZ.N    R4,??USBD_Init_1
+        LDR      R3,[R0, #+532]
+        CBZ.N    R3,??USBD_Init_1
 //  107   {
 //  108     pdev->pClass = NULL;
-        MOVS     R4,#+0
-        STR      R4,[R3, #+24]
+        MOVS     R3,#+0
+        STR      R3,[R0, #+532]
 //  109   }
 //  110   
 //  111   /* Assign USBD Descriptors */
@@ -284,14 +287,14 @@ USBD_Init:
         CBZ.N    R1,??USBD_Init_2
 //  113   {
 //  114     pdev->pDesc = pdesc;
-        STR      R1,[R3, #+20]
+        STR      R1,[R0, #+528]
 //  115   }
 //  116   
 //  117   /* Set Device initial State */
 //  118   pdev->dev_state  = USBD_STATE_DEFAULT;
 ??USBD_Init_2:
         MOVS     R1,#+1
-        STRB     R1,[R3, #+0]
+        STRB     R1,[R0, #+508]
 //  119   pdev->id = id;
         STRB     R2,[R0, #+0]
 //  120   /* Initialize low level driver */
@@ -301,7 +304,9 @@ USBD_Init:
 //  122   
 //  123   return USBD_OK; 
         MOVS     R0,#+0
-        POP      {R4,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 //  124 }
           CFI EndBlock cfiBlock0
 //  125 
@@ -326,15 +331,14 @@ USBD_DeInit:
         MOV      R4,R0
 //  134   /* Set Default State */
 //  135   pdev->dev_state  = USBD_STATE_DEFAULT;
-        ADD      R2,R4,#+508
         MOVS     R0,#+1
-        STRB     R0,[R2, #+0]
+        STRB     R0,[R4, #+508]
 //  136   
 //  137   /* Free Class Resources */
 //  138   pdev->pClass->DeInit(pdev, pdev->dev_config);  
-        LDR      R2,[R2, #+24]
-        LDR      R1,[R4, #+4]
         MOV      R0,R4
+        LDR      R2,[R4, #+532]
+        LDR      R1,[R4, #+4]
         LDR      R2,[R2, #+4]
         UXTB     R1,R1
           CFI FunCall
@@ -413,8 +417,10 @@ USBD_RegisterClass:
 //  181 USBD_StatusTypeDef  USBD_Start  (USBD_HandleTypeDef *pdev)
 //  182 {
 USBD_Start:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  183   
 //  184   /* Start the low level driver  */
@@ -424,7 +430,9 @@ USBD_Start:
 //  186   
 //  187   return USBD_OK;  
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 //  188 }
           CFI EndBlock cfiBlock3
 //  189 
@@ -546,19 +554,26 @@ USBD_SetClassConfig:
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock7 Using cfiCommon0
           CFI Function USBD_ClrClassConfig
-          CFI NoCalls
         THUMB
 //  249 USBD_StatusTypeDef USBD_ClrClassConfig(USBD_HandleTypeDef  *pdev, uint8_t cfgidx)
 //  250 {
 USBD_ClrClassConfig:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  251   /* Clear configuration  and De-initialize the Class process*/
 //  252   pdev->pClass->DeInit(pdev, cfgidx);  
         LDR      R2,[R0, #+532]
-        B.N      ?Subroutine1
+        LDR      R2,[R2, #+4]
+          CFI FunCall
+        BLX      R2
 //  253   return USBD_OK;
+        MOVS     R0,#+0
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 //  254 }
           CFI EndBlock cfiBlock7
 //  255 
@@ -577,29 +592,26 @@ USBD_ClrClassConfig:
 //  263 USBD_StatusTypeDef USBD_LL_SetupStage(USBD_HandleTypeDef *pdev, uint8_t *psetup)
 //  264 {
 USBD_LL_SetupStage:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
         MOV      R4,R0
 //  265 
 //  266   USBD_ParseSetupRequest(&pdev->request, psetup);
-        ADD      R5,R4,#+520
-        MOV      R0,R5
+        ADD      R0,R4,#+520
           CFI FunCall USBD_ParseSetupRequest
         BL       USBD_ParseSetupRequest
 //  267   
 //  268   pdev->ep0_state = USBD_EP0_SETUP;
-        ADD      R0,R4,#+500
-        MOVS     R1,#+1
-        STR      R1,[R0, #+0]
+        MOVS     R0,#+1
+        STR      R0,[R4, #+500]
 //  269   pdev->ep0_data_len = pdev->request.wLength;
-        LDRH     R1,[R0, #+26]
-        STR      R1,[R0, #+4]
+        LDRH     R0,[R4, #+526]
+        STR      R0,[R4, #+504]
 //  270   
 //  271   switch (pdev->request.bmRequest & 0x1F) 
-        LDRB     R0,[R0, #+20]
+        LDRB     R0,[R4, #+520]
         ANDS     R1,R0,#0x1F
         BEQ.N    ??USBD_LL_SetupStage_0
         CMP      R1,#+2
@@ -610,46 +622,48 @@ USBD_LL_SetupStage:
 //  273   case USB_REQ_RECIPIENT_DEVICE:   
 //  274     USBD_StdDevReq (pdev, &pdev->request);
 ??USBD_LL_SetupStage_0:
-        MOV      R1,R5
+        ADD      R1,R4,#+520
         MOV      R0,R4
           CFI FunCall USBD_StdDevReq
         BL       USBD_StdDevReq
 //  275     break;
-        B.N      ??USBD_LL_SetupStage_4
 //  276     
 //  277   case USB_REQ_RECIPIENT_INTERFACE:     
 //  278     USBD_StdItfReq(pdev, &pdev->request);
-??USBD_LL_SetupStage_2:
-        MOV      R1,R5
-        MOV      R0,R4
-          CFI FunCall USBD_StdItfReq
-        BL       USBD_StdItfReq
 //  279     break;
-        B.N      ??USBD_LL_SetupStage_4
 //  280     
 //  281   case USB_REQ_RECIPIENT_ENDPOINT:        
 //  282     USBD_StdEPReq(pdev, &pdev->request);   
-??USBD_LL_SetupStage_1:
-        MOV      R1,R5
-        MOV      R0,R4
-          CFI FunCall USBD_StdEPReq
-        BL       USBD_StdEPReq
 //  283     break;
-        B.N      ??USBD_LL_SetupStage_4
 //  284     
 //  285   default:           
 //  286     USBD_LL_StallEP(pdev , pdev->request.bmRequest & 0x80);
+//  287     break;
+//  288   }  
+//  289   return USBD_OK;  
+        MOVS     R0,#+0
+        POP      {R4,PC}
+??USBD_LL_SetupStage_2:
+        ADD      R1,R4,#+520
+        MOV      R0,R4
+          CFI FunCall USBD_StdItfReq
+        BL       USBD_StdItfReq
+        MOVS     R0,#+0
+        POP      {R4,PC}
+??USBD_LL_SetupStage_1:
+        ADD      R1,R4,#+520
+        MOV      R0,R4
+          CFI FunCall USBD_StdEPReq
+        BL       USBD_StdEPReq
+        MOVS     R0,#+0
+        POP      {R4,PC}
 ??USBD_LL_SetupStage_3:
         AND      R1,R0,#0x80
         MOV      R0,R4
           CFI FunCall USBD_LL_StallEP
         BL       USBD_LL_StallEP
-//  287     break;
-//  288   }  
-//  289   return USBD_OK;  
-??USBD_LL_SetupStage_4:
         MOVS     R0,#+0
-        POP      {R1,R4,R5,PC}    ;; return
+        POP      {R4,PC}          ;; return
 //  290 }
           CFI EndBlock cfiBlock8
 //  291 
@@ -668,35 +682,33 @@ USBD_LL_SetupStage:
 //  299 USBD_StatusTypeDef USBD_LL_DataOutStage(USBD_HandleTypeDef *pdev , uint8_t epnum, uint8_t *pdata)
 //  300 {
 USBD_LL_DataOutStage:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
         MOV      R4,R0
         MOV      R0,R2
 //  301   USBD_EndpointTypeDef    *pep;
 //  302   
 //  303   if(epnum == 0) 
-        ADD      R3,R4,#+500
         CBNZ.N   R1,??USBD_LL_DataOutStage_0
 //  304   {
 //  305     pep = &pdev->ep_out[0];
 //  306     
 //  307     if ( pdev->ep0_state == USBD_EP0_DATA_OUT)
-        LDR      R2,[R3, #+0]
+        LDR      R2,[R4, #+500]
         ADD      R1,R4,#+260
         CMP      R2,#+3
         BNE.N    ??USBD_LL_DataOutStage_1
 //  308     {
 //  309       if(pep->rem_length > pep->maxpacket)
-        LDR      R5,[R1, #+8]
+        LDR      R3,[R1, #+8]
         LDR      R2,[R1, #+12]
-        CMP      R2,R5
+        CMP      R2,R3
         BCS.N    ??USBD_LL_DataOutStage_2
 //  310       {
 //  311         pep->rem_length -=  pep->maxpacket;
-        SUBS     R3,R5,R2
+        SUBS     R3,R3,R2
 //  312        
 //  313         USBD_CtlContinueRx (pdev, 
 //  314                             pdata,
@@ -710,55 +722,57 @@ USBD_LL_DataOutStage:
         UXTH     R2,R2
           CFI FunCall USBD_CtlContinueRx
         BL       USBD_CtlContinueRx
-        B.N      ??USBD_LL_DataOutStage_1
 //  316       }
 //  317       else
 //  318       {
 //  319         if((pdev->pClass->EP0_RxReady != NULL)&&
 //  320            (pdev->dev_state == USBD_STATE_CONFIGURED))
-??USBD_LL_DataOutStage_2:
-        LDR      R0,[R3, #+32]
-        LDR      R1,[R0, #+16]
-        MOVS     R0,R1
-        BEQ.N    ??USBD_LL_DataOutStage_3
-        LDRB     R0,[R3, #+8]
-        CMP      R0,#+3
-        ITT      EQ 
 //  321         {
 //  322           pdev->pClass->EP0_RxReady(pdev); 
-        MOVEQ    R0,R4
-          CFI FunCall
-        BLXEQ    R1
 //  323         }
 //  324         USBD_CtlSendStatus(pdev);
-??USBD_LL_DataOutStage_3:
-        MOV      R0,R4
-          CFI FunCall USBD_CtlSendStatus
-        BL       USBD_CtlSendStatus
-        B.N      ??USBD_LL_DataOutStage_1
 //  325       }
 //  326     }
 //  327   }
 //  328   else if((pdev->pClass->DataOut != NULL)&&
 //  329           (pdev->dev_state == USBD_STATE_CONFIGURED))
+//  330   {
+//  331     pdev->pClass->DataOut(pdev, epnum); 
+//  332   }  
+//  333   return USBD_OK;
+        MOVS     R0,#+0
+        POP      {R4,PC}
+??USBD_LL_DataOutStage_2:
+        LDR      R0,[R4, #+532]
+        LDR      R1,[R0, #+16]
+        MOVS     R0,R1
+        BEQ.N    ??USBD_LL_DataOutStage_3
+        LDRB     R0,[R4, #+508]
+        CMP      R0,#+3
+        ITT      EQ 
+        MOVEQ    R0,R4
+          CFI FunCall
+        BLXEQ    R1
+??USBD_LL_DataOutStage_3:
+        MOV      R0,R4
+          CFI FunCall USBD_CtlSendStatus
+        BL       USBD_CtlSendStatus
+        MOVS     R0,#+0
+        POP      {R4,PC}
 ??USBD_LL_DataOutStage_0:
-        LDR      R0,[R3, #+32]
+        LDR      R0,[R4, #+532]
         LDR      R2,[R0, #+24]
         MOVS     R0,R2
         BEQ.N    ??USBD_LL_DataOutStage_1
-        LDRB     R0,[R3, #+8]
+        LDRB     R0,[R4, #+508]
         CMP      R0,#+3
         ITT      EQ 
-//  330   {
-//  331     pdev->pClass->DataOut(pdev, epnum); 
         MOVEQ    R0,R4
           CFI FunCall
         BLXEQ    R2
-//  332   }  
-//  333   return USBD_OK;
 ??USBD_LL_DataOutStage_1:
         MOVS     R0,#+0
-        POP      {R1,R4,R5,PC}    ;; return
+        POP      {R4,PC}          ;; return
 //  334 }
           CFI EndBlock cfiBlock9
 //  335 
@@ -777,25 +791,23 @@ USBD_LL_DataOutStage:
 //  343 USBD_StatusTypeDef USBD_LL_DataInStage(USBD_HandleTypeDef *pdev ,uint8_t epnum, uint8_t *pdata)
 //  344 {
 USBD_LL_DataInStage:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
 //  345   USBD_EndpointTypeDef    *pep;
 //  346     
 //  347   if(epnum == 0) 
         CMP      R1,#+0
-        MOV      R5,R0
+        MOV      R4,R0
         MOV      R0,R2
-        ADD      R4,R5,#+500
         BNE.N    ??USBD_LL_DataInStage_0
 //  348   {
 //  349     pep = &pdev->ep_in[0];
 //  350     
 //  351     if ( pdev->ep0_state == USBD_EP0_DATA_IN)
-        LDR      R2,[R4, #+0]
-        ADD      R1,R5,#+20
+        LDR      R2,[R4, #+500]
+        ADD      R1,R4,#+20
         CMP      R2,#+2
         BNE.N    ??USBD_LL_DataInStage_1
 //  352     {
@@ -814,7 +826,7 @@ USBD_LL_DataInStage:
 //  359                                   pep->rem_length);
         MOV      R1,R0
         UXTH     R2,R2
-        MOV      R0,R5
+        MOV      R0,R4
           CFI FunCall USBD_CtlContinueSendData
         BL       USBD_CtlContinueSendData
 //  360         
@@ -840,7 +852,7 @@ USBD_LL_DataInStage:
         CBNZ.N   R1,??USBD_LL_DataInStage_4
         CMP      R0,R3
         BCC.N    ??USBD_LL_DataInStage_4
-        LDR      R1,[R4, #+4]
+        LDR      R1,[R4, #+504]
         CMP      R0,R1
         BCS.N    ??USBD_LL_DataInStage_4
 //  372         {
@@ -848,7 +860,7 @@ USBD_LL_DataInStage:
 //  374           USBD_CtlContinueSendData(pdev , NULL, 0);
         MOVS     R2,#+0
         MOVS     R1,#+0
-        MOV      R0,R5
+        MOV      R0,R4
           CFI FunCall USBD_CtlContinueSendData
         BL       USBD_CtlContinueSendData
 //  375           pdev->ep0_data_len = 0;
@@ -860,11 +872,11 @@ USBD_LL_DataInStage:
 //  380                                 NULL,
 //  381                                 0);
         MOVS     R3,#+0
-        STR      R0,[R4, #+4]
+        STR      R0,[R4, #+504]
         MOVS     R2,#+0
         MOVS     R1,#+0
 ??USBD_LL_DataInStage_3:
-        MOV      R0,R5
+        MOV      R0,R4
           CFI FunCall USBD_LL_PrepareReceive
         BL       USBD_LL_PrepareReceive
         B.N      ??USBD_LL_DataInStage_1
@@ -874,22 +886,22 @@ USBD_LL_DataInStage:
 //  385           if((pdev->pClass->EP0_TxSent != NULL)&&
 //  386              (pdev->dev_state == USBD_STATE_CONFIGURED))
 ??USBD_LL_DataInStage_4:
-        LDR      R0,[R4, #+32]
+        LDR      R0,[R4, #+532]
         LDR      R1,[R0, #+12]
         MOVS     R0,R1
         BEQ.N    ??USBD_LL_DataInStage_5
-        LDRB     R0,[R4, #+8]
+        LDRB     R0,[R4, #+508]
         CMP      R0,#+3
         ITT      EQ 
 //  387           {
 //  388             pdev->pClass->EP0_TxSent(pdev); 
-        MOVEQ    R0,R5
+        MOVEQ    R0,R4
           CFI FunCall
         BLXEQ    R1
 //  389           }          
 //  390           USBD_CtlReceiveStatus(pdev);
 ??USBD_LL_DataInStage_5:
-        MOV      R0,R5
+        MOV      R0,R4
           CFI FunCall USBD_CtlReceiveStatus
         BL       USBD_CtlReceiveStatus
 //  391         }
@@ -897,37 +909,38 @@ USBD_LL_DataInStage:
 //  393     }
 //  394     if (pdev->dev_test_mode == 1)
 ??USBD_LL_DataInStage_1:
-        LDRB     R0,[R4, #+12]
+        LDRB     R0,[R4, #+512]
         CMP      R0,#+1
         BNE.N    ??USBD_LL_DataInStage_6
 //  395     {
 //  396       USBD_RunTestMode(pdev); 
 //  397       pdev->dev_test_mode = 0;
         MOVS     R0,#+0
-        STRB     R0,[R4, #+12]
-        B.N      ??USBD_LL_DataInStage_6
+        STRB     R0,[R4, #+512]
 //  398     }
 //  399   }
 //  400   else if((pdev->pClass->DataIn != NULL)&& 
 //  401           (pdev->dev_state == USBD_STATE_CONFIGURED))
+//  402   {
+//  403     pdev->pClass->DataIn(pdev, epnum); 
+//  404   }  
+//  405   return USBD_OK;
+        MOVS     R0,#+0
+        POP      {R4,PC}
 ??USBD_LL_DataInStage_0:
-        LDR      R0,[R4, #+32]
+        LDR      R0,[R4, #+532]
         LDR      R2,[R0, #+20]
         MOVS     R0,R2
         BEQ.N    ??USBD_LL_DataInStage_6
-        LDRB     R0,[R4, #+8]
+        LDRB     R0,[R4, #+508]
         CMP      R0,#+3
         ITT      EQ 
-//  402   {
-//  403     pdev->pClass->DataIn(pdev, epnum); 
-        MOVEQ    R0,R5
+        MOVEQ    R0,R4
           CFI FunCall
         BLXEQ    R2
-//  404   }  
-//  405   return USBD_OK;
 ??USBD_LL_DataInStage_6:
         MOVS     R0,#+0
-        POP      {R1,R4,R5,PC}    ;; return
+        POP      {R4,PC}          ;; return
 //  406 }
           CFI EndBlock cfiBlock10
 //  407 
@@ -979,21 +992,19 @@ USBD_LL_Reset:
         BL       USBD_LL_OpenEP
 //  430   
 //  431   pdev->ep_in[0].maxpacket = USB_MAX_EP0_SIZE;
-        ADDS     R0,R4,#+4
-        MOVS     R1,#+64
-        STR      R1,[R0, #+28]
+        MOVS     R0,#+64
+        STR      R0,[R4, #+32]
 //  432   /* Upon Reset call user call back */
 //  433   pdev->dev_state = USBD_STATE_DEFAULT;
-        ADD      R2,R4,#+508
-        MOVS     R1,#+1
-        STRB     R1,[R2, #+0]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+508]
 //  434   
 //  435   if (pdev->pClassData) 
-        LDR      R1,[R2, #+28]
-        CBZ.N    R1,??USBD_LL_Reset_0
+        LDR      R0,[R4, #+536]
+        CBZ.N    R0,??USBD_LL_Reset_0
 //  436     pdev->pClass->DeInit(pdev, pdev->dev_config);  
-        LDR      R2,[R2, #+24]
-        LDR      R1,[R0, #+0]
+        LDR      R2,[R4, #+532]
+        LDR      R1,[R4, #+4]
         MOV      R0,R4
         UXTB     R1,R1
         LDR      R2,[R2, #+4]
@@ -1051,13 +1062,14 @@ USBD_LL_SetSpeed:
 //  465 {
 //  466   pdev->dev_old_state =  pdev->dev_state;
 USBD_LL_Suspend:
-        ADD      R0,R0,#+508
-        LDRB     R1,[R0, #+0]
-        STRB     R1,[R0, #+1]
+        LDRB     R1,[R0, #+508]
+        STRB     R1,[R0, #+509]
 //  467   pdev->dev_state  = USBD_STATE_SUSPENDED;
         MOVS     R1,#+4
-        B.N      ?Subroutine0
+        STRB     R1,[R0, #+508]
 //  468   return USBD_OK;
+        MOVS     R0,#+0
+        BX       LR               ;; return
 //  469 }
           CFI EndBlock cfiBlock13
 //  470 
@@ -1078,23 +1090,13 @@ USBD_LL_Suspend:
 //  479 {
 //  480   pdev->dev_state = pdev->dev_old_state;  
 USBD_LL_Resume:
-        ADD      R0,R0,#+508
-        LDRB     R1,[R0, #+1]
-          CFI EndBlock cfiBlock14
-        REQUIRE ?Subroutine0
-        ;; // Fall through to label ?Subroutine0
+        LDRB     R1,[R0, #+509]
+        STRB     R1,[R0, #+508]
 //  481   return USBD_OK;
-//  482 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock15 Using cfiCommon0
-          CFI NoFunction
-        THUMB
-?Subroutine0:
-        STRB     R1,[R0, #+0]
         MOVS     R0,#+0
         BX       LR               ;; return
-          CFI EndBlock cfiBlock15
+//  482 }
+          CFI EndBlock cfiBlock14
 //  483 
 //  484 /**
 //  485 * @brief  USBD_SOF 
@@ -1105,21 +1107,22 @@ USBD_LL_Resume:
 //  490 
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock16 Using cfiCommon0
+          CFI Block cfiBlock15 Using cfiCommon0
           CFI Function USBD_LL_SOF
         THUMB
 //  491 USBD_StatusTypeDef USBD_LL_SOF(USBD_HandleTypeDef  *pdev)
 //  492 {
-//  493   if(pdev->dev_state == USBD_STATE_CONFIGURED)
 USBD_LL_SOF:
-        ADD      R1,R0,#+508
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
-        LDRB     R2,[R1, #+0]
-        CMP      R2,#+3
+//  493   if(pdev->dev_state == USBD_STATE_CONFIGURED)
+        LDRB     R1,[R0, #+508]
+        CMP      R1,#+3
         BNE.N    ??USBD_LL_SOF_0
-        LDR      R1,[R1, #+24]
+        LDR      R1,[R0, #+532]
         LDR      R1,[R1, #+28]
         MOVS     R2,R1
         IT       NE 
@@ -1134,9 +1137,11 @@ USBD_LL_SOF:
 //  500   return USBD_OK;
 ??USBD_LL_SOF_0:
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
 //  501 }
-          CFI EndBlock cfiBlock16
+          CFI EndBlock cfiBlock15
 //  502 
 //  503 /**
 //  504 * @brief  USBD_IsoINIncomplete 
@@ -1146,7 +1151,7 @@ USBD_LL_SOF:
 //  508 */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock17 Using cfiCommon0
+          CFI Block cfiBlock16 Using cfiCommon0
           CFI Function USBD_LL_IsoINIncomplete
           CFI NoCalls
         THUMB
@@ -1157,7 +1162,7 @@ USBD_LL_IsoINIncomplete:
         MOVS     R0,#+0
         BX       LR               ;; return
 //  512 }
-          CFI EndBlock cfiBlock17
+          CFI EndBlock cfiBlock16
 //  513 
 //  514 /**
 //  515 * @brief  USBD_IsoOUTIncomplete 
@@ -1167,7 +1172,7 @@ USBD_LL_IsoINIncomplete:
 //  519 */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock18 Using cfiCommon0
+          CFI Block cfiBlock17 Using cfiCommon0
           CFI Function USBD_LL_IsoOUTIncomplete
           CFI NoCalls
         THUMB
@@ -1178,7 +1183,7 @@ USBD_LL_IsoOUTIncomplete:
         MOVS     R0,#+0
         BX       LR               ;; return
 //  523 }
-          CFI EndBlock cfiBlock18
+          CFI EndBlock cfiBlock17
 //  524 
 //  525 /**
 //  526 * @brief  USBD_DevConnected 
@@ -1188,7 +1193,7 @@ USBD_LL_IsoOUTIncomplete:
 //  530 */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock19 Using cfiCommon0
+          CFI Block cfiBlock18 Using cfiCommon0
           CFI Function USBD_LL_DevConnected
           CFI NoCalls
         THUMB
@@ -1199,7 +1204,7 @@ USBD_LL_DevConnected:
         MOVS     R0,#+0
         BX       LR               ;; return
 //  534 }
-          CFI EndBlock cfiBlock19
+          CFI EndBlock cfiBlock18
 //  535 
 //  536 /**
 //  537 * @brief  USBD_DevDisconnected 
@@ -1209,46 +1214,36 @@ USBD_LL_DevConnected:
 //  541 */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock20 Using cfiCommon0
+          CFI Block cfiBlock19 Using cfiCommon0
           CFI Function USBD_LL_DevDisconnected
-          CFI NoCalls
         THUMB
 //  542 USBD_StatusTypeDef USBD_LL_DevDisconnected(USBD_HandleTypeDef  *pdev)
 //  543 {
 USBD_LL_DevDisconnected:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 //  544   /* Free Class Resources */
 //  545   pdev->dev_state = USBD_STATE_DEFAULT;
-        ADD      R2,R0,#+508
         MOVS     R1,#+1
-        STRB     R1,[R2, #+0]
 //  546   pdev->pClass->DeInit(pdev, pdev->dev_config);  
+        LDR      R2,[R0, #+532]
+        STRB     R1,[R0, #+508]
         LDR      R1,[R0, #+4]
-        LDR      R2,[R2, #+24]
+        LDR      R2,[R2, #+4]
         UXTB     R1,R1
-          CFI EndBlock cfiBlock20
-        REQUIRE ?Subroutine1
-        ;; // Fall through to label ?Subroutine1
+          CFI FunCall
+        BLX      R2
 //  547    
 //  548   return USBD_OK;
-//  549 }
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock21 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+8
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine1:
-        LDR      R2,[R2, #+4]
-          CFI FunCall USBD_ClrClassConfig
-          CFI FunCall USBD_LL_DevDisconnected
-        BLX      R2
         MOVS     R0,#+0
-        POP      {R1,PC}          ;; return
-          CFI EndBlock cfiBlock21
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
+//  549 }
+          CFI EndBlock cfiBlock19
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -1279,9 +1274,9 @@ USBD_LL_DevDisconnected:
 //  564 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 //  565 
 // 
-// 670 bytes in section .text
+// 748 bytes in section .text
 // 
-// 670 bytes of CODE memory
+// 748 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

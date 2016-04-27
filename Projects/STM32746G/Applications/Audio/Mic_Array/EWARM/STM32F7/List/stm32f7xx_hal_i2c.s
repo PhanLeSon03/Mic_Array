@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      16/Apr/2016  18:31:01
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Apr/2016  12:04:30
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -447,19 +447,18 @@
 //  290 HAL_StatusTypeDef HAL_I2C_Init(I2C_HandleTypeDef *hi2c)
 //  291 { 
 HAL_I2C_Init:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
-        MOVS     R5,R0
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
+        MOVS     R4,R0
 //  292   /* Check the I2C handle allocation */
 //  293   if(hi2c == NULL)
         BNE.N    ??HAL_I2C_Init_0
 //  294   {
 //  295     return HAL_ERROR;
         MOVS     R0,#+1
-        POP      {R1,R4,R5,PC}
+        POP      {R4,PC}
 //  296   }
 //  297   
 //  298   /* Check the parameters */
@@ -474,16 +473,15 @@ HAL_I2C_Init:
 //  307 
 //  308   if(hi2c->State == HAL_I2C_STATE_RESET)
 ??HAL_I2C_Init_0:
-        ADD      R4,R5,#+52
-        LDRB     R0,[R4, #+1]
+        LDRB     R0,[R4, #+53]
         CBNZ.N   R0,??HAL_I2C_Init_1
 //  309   {
 //  310     /* Allocate lock resource and initialize it */
 //  311     hi2c->Lock = HAL_UNLOCKED;
-        STRB     R0,[R4, #+0]
+        STRB     R0,[R4, #+52]
 //  312     /* Init the low level hardware : GPIO, CLOCK, CORTEX...etc */
 //  313     HAL_I2C_MspInit(hi2c);
-        MOV      R0,R5
+        MOV      R0,R4
           CFI FunCall HAL_I2C_MspInit
         BL       HAL_I2C_MspInit
 //  314   }
@@ -491,11 +489,11 @@ HAL_I2C_Init:
 //  316   hi2c->State = HAL_I2C_STATE_BUSY;
 ??HAL_I2C_Init_1:
         MOVS     R0,#+2
-        STRB     R0,[R4, #+1]
+        STRB     R0,[R4, #+53]
 //  317   
 //  318   /* Disable the selected I2C peripheral */
 //  319   __HAL_I2C_DISABLE(hi2c);
-        LDR      R0,[R5, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         LSRS     R1,R1,#+1
         LSLS     R1,R1,#+1
@@ -504,24 +502,24 @@ HAL_I2C_Init:
 //  321   /*---------------------------- I2Cx TIMINGR Configuration ------------------*/
 //  322   /* Configure I2Cx: Frequency range */
 //  323   hi2c->Instance->TIMINGR = hi2c->Init.Timing & TIMING_CLEAR_MASK;
-        LDR      R0,[R5, #+4]
-        LDR      R1,[R5, #+0]
+        LDR      R0,[R4, #+4]
+        LDR      R1,[R4, #+0]
         BIC      R0,R0,#0xF000000
         STR      R0,[R1, #+16]
 //  324   
 //  325   /*---------------------------- I2Cx OAR1 Configuration ---------------------*/
 //  326   /* Configure I2Cx: Own Address1 and ack own address1 mode */
 //  327   hi2c->Instance->OAR1 &= ~I2C_OAR1_OA1EN;
-        LDR      R0,[R5, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+8]
         BIC      R1,R1,#0x8000
         STR      R1,[R0, #+8]
 //  328   if(hi2c->Init.OwnAddress1 != 0)
-        LDR      R0,[R5, #+8]
+        LDR      R0,[R4, #+8]
         CBZ.N    R0,??HAL_I2C_Init_2
 //  329   {
 //  330     if(hi2c->Init.AddressingMode == I2C_ADDRESSINGMODE_7BIT)
-        LDR      R1,[R5, #+12]
+        LDR      R1,[R4, #+12]
         CMP      R1,#+1
         ITE      EQ 
         ORREQ    R0,R0,#0x8000
@@ -532,7 +530,7 @@ HAL_I2C_Init:
 //  334     else /* I2C_ADDRESSINGMODE_10BIT */
 //  335     {
 //  336       hi2c->Instance->OAR1 = (I2C_OAR1_OA1EN | I2C_OAR1_OA1MODE | hi2c->Init.OwnAddress1);
-        LDR      R1,[R5, #+0]
+        LDR      R1,[R4, #+0]
         STR      R0,[R1, #+8]
 //  337     }
 //  338   }
@@ -541,19 +539,19 @@ HAL_I2C_Init:
 //  341   /* Configure I2Cx: Addressing Master mode */
 //  342   if(hi2c->Init.AddressingMode == I2C_ADDRESSINGMODE_10BIT)
 ??HAL_I2C_Init_2:
-        LDR      R0,[R5, #+12]
+        LDR      R0,[R4, #+12]
         CMP      R0,#+2
         BNE.N    ??HAL_I2C_Init_3
 //  343   {
 //  344     hi2c->Instance->CR2 = (I2C_CR2_ADD10);
-        LDR      R1,[R5, #+0]
+        LDR      R1,[R4, #+0]
         MOV      R0,#+2048
         STR      R0,[R1, #+4]
 //  345   }
 //  346   /* Enable the AUTOEND by default, and enable NACK (should be disable only during Slave process */
 //  347   hi2c->Instance->CR2 |= (I2C_CR2_AUTOEND | I2C_CR2_NACK);
 ??HAL_I2C_Init_3:
-        LDR      R0,[R5, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
         ORR      R1,R1,#0x2000000
         ORR      R1,R1,#0x8000
@@ -562,40 +560,40 @@ HAL_I2C_Init:
 //  349   /*---------------------------- I2Cx OAR2 Configuration ---------------------*/
 //  350   /* Configure I2Cx: Dual mode and Own Address2 */
 //  351   hi2c->Instance->OAR2 = (hi2c->Init.DualAddressMode | hi2c->Init.OwnAddress2 | (hi2c->Init.OwnAddress2Masks << 8));
-        LDR      R0,[R5, #+16]
-        LDR      R1,[R5, #+20]
+        LDR      R0,[R4, #+16]
+        LDR      R1,[R4, #+20]
         ORRS     R0,R1,R0
-        LDR      R1,[R5, #+24]
+        LDR      R1,[R4, #+24]
         ORR      R0,R0,R1, LSL #+8
-        LDR      R1,[R5, #+0]
+        LDR      R1,[R4, #+0]
         STR      R0,[R1, #+12]
 //  352 
 //  353   /*---------------------------- I2Cx CR1 Configuration ----------------------*/
 //  354   /* Configure I2Cx: Generalcall and NoStretch mode */
 //  355   hi2c->Instance->CR1 = (hi2c->Init.GeneralCallMode | hi2c->Init.NoStretchMode);
-        LDR      R0,[R5, #+28]
-        LDR      R1,[R5, #+32]
+        LDR      R0,[R4, #+28]
+        LDR      R1,[R4, #+32]
         ORRS     R0,R1,R0
-        LDR      R1,[R5, #+0]
+        LDR      R1,[R4, #+0]
         STR      R0,[R1, #+0]
 //  356   
 //  357   /* Enable the selected I2C peripheral */
 //  358   __HAL_I2C_ENABLE(hi2c);
-        LDR      R0,[R5, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x1
         STR      R1,[R0, #+0]
 //  359   
 //  360   hi2c->ErrorCode = HAL_I2C_ERROR_NONE;
         MOVS     R0,#+0
-        STR      R0,[R4, #+4]
+        STR      R0,[R4, #+56]
 //  361   hi2c->State = HAL_I2C_STATE_READY;
         MOVS     R0,#+1
-        STRB     R0,[R4, #+1]
+        STRB     R0,[R4, #+53]
 //  362   
 //  363   return HAL_OK;
         MOVS     R0,#+0
-        POP      {R1,R4,R5,PC}    ;; return
+        POP      {R4,PC}          ;; return
 //  364 }
           CFI EndBlock cfiBlock0
 //  365 
@@ -617,9 +615,10 @@ HAL_I2C_DeInit:
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
+        MOVS     R4,R0
 //  374   /* Check the I2C handle allocation */
 //  375   if(hi2c == NULL)
-        CBNZ.N   R0,??HAL_I2C_DeInit_0
+        BNE.N    ??HAL_I2C_DeInit_0
 //  376   {
 //  377     return HAL_ERROR;
         MOVS     R0,#+1
@@ -631,33 +630,33 @@ HAL_I2C_DeInit:
 //  382   
 //  383   hi2c->State = HAL_I2C_STATE_BUSY;
 ??HAL_I2C_DeInit_0:
-        ADD      R4,R0,#+52
-        MOVS     R1,#+2
-        STRB     R1,[R4, #+1]
+        MOVS     R0,#+2
+        STRB     R0,[R4, #+53]
 //  384   
 //  385   /* Disable the I2C Peripheral Clock */
 //  386   __HAL_I2C_DISABLE(hi2c);
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
-        LDR      R2,[R1, #+0]
-        LSRS     R2,R2,#+1
-        LSLS     R2,R2,#+1
-        STR      R2,[R1, #+0]
+        LSRS     R1,R1,#+1
+        LSLS     R1,R1,#+1
+        STR      R1,[R0, #+0]
 //  387   
 //  388   /* DeInit the low level hardware: GPIO, CLOCK, NVIC */
 //  389   HAL_I2C_MspDeInit(hi2c);
+        MOV      R0,R4
           CFI FunCall HAL_I2C_MspDeInit
         BL       HAL_I2C_MspDeInit
 //  390   
 //  391   hi2c->ErrorCode = HAL_I2C_ERROR_NONE;
         MOVS     R0,#+0
-        STR      R0,[R4, #+4]
+        STR      R0,[R4, #+56]
 //  392 
 //  393   hi2c->State = HAL_I2C_STATE_RESET;
-        STRB     R0,[R4, #+1]
+        STRB     R0,[R4, #+53]
 //  394   
 //  395   /* Release Lock */
 //  396   __HAL_UNLOCK(hi2c);
-        STRB     R0,[R4, #+0]
+        STRB     R0,[R4, #+52]
 //  397 
 //  398   return HAL_OK;
         POP      {R4,PC}          ;; return
@@ -788,14 +787,14 @@ HAL_I2C_MspDeInit:
 //  504   * @retval HAL status
 //  505   */
 
-        SECTION `.text`:CODE:NOROOT(1)
+        SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock4 Using cfiCommon0
           CFI Function HAL_I2C_Master_Transmit
         THUMB
 //  506 HAL_StatusTypeDef HAL_I2C_Master_Transmit(I2C_HandleTypeDef *hi2c, uint16_t DevAddress, uint8_t *pData, uint16_t Size, uint32_t Timeout)
 //  507 {
 HAL_I2C_Master_Transmit:
-        PUSH     {R3-R11,LR}
+        PUSH     {R4-R11,LR}
           CFI R14 Frame(CFA, -4)
           CFI R11 Frame(CFA, -8)
           CFI R10 Frame(CFA, -12)
@@ -805,21 +804,21 @@ HAL_I2C_Master_Transmit:
           CFI R6 Frame(CFA, -28)
           CFI R5 Frame(CFA, -32)
           CFI R4 Frame(CFA, -36)
-          CFI CFA R13+40
+          CFI CFA R13+36
         MOV      R4,R0
+        SUB      SP,SP,#+4
+          CFI CFA R13+40
+        MOV      R10,R2
+        MOV      R6,R3
 //  508   uint32_t sizetmp = 0;
 //  509   
 //  510   if(hi2c->State == HAL_I2C_STATE_READY)
-        ADD      R5,R4,#+52
-        MOV      R8,R1
-        MOV      R9,R2
-        LDRB     R0,[R5, #+1]
-        MOV      R6,R3
+        LDRB     R0,[R4, #+53]
         CMP      R0,#+1
         BNE.W    ??HAL_I2C_Master_Transmit_0
 //  511   {    
 //  512     if((pData == NULL ) || (Size == 0)) 
-        CMP      R9,#+0
+        CMP      R10,#+0
         IT       NE 
         CMPNE    R6,#+0
         BEQ.W    ??HAL_I2C_Master_Transmit_1
@@ -829,8 +828,8 @@ HAL_I2C_Master_Transmit:
 //  516     
 //  517     if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_BUSY) == SET)
         LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+24]
-        LSLS     R0,R0,#+16
+        LDR      R2,[R0, #+24]
+        LSLS     R2,R2,#+16
         BMI.W    ??HAL_I2C_Master_Transmit_0
 //  518     {
 //  519       return HAL_BUSY;
@@ -838,51 +837,53 @@ HAL_I2C_Master_Transmit:
 //  521     
 //  522     /* Process Locked */
 //  523     __HAL_LOCK(hi2c);
-        LDRB     R0,[R5, #+0]
-        CMP      R0,#+1
+        LDRB     R2,[R4, #+52]
+        CMP      R2,#+1
         BEQ.W    ??HAL_I2C_Master_Transmit_0
-        MOVS     R0,#+1
-        STRB     R0,[R5, #+0]
+        MOVS     R2,#+1
 //  524     
 //  525     hi2c->State = HAL_I2C_STATE_MASTER_BUSY_TX;
-        MOVS     R0,#+18
-        STRB     R0,[R5, #+1]
 //  526     hi2c->ErrorCode   = HAL_I2C_ERROR_NONE;
-        MOVS     R0,#+0
-        STR      R0,[R5, #+4]
 //  527     
 //  528     /* Send Slave Address */
 //  529     /* Set NBYTES to write and reload if size > 255 and generate RESTART */
 //  530     /* Size > 255, need to set RELOAD bit */
 //  531     if(Size > 255)
+        LSLS     R7,R1,#+22
+        STRB     R2,[R4, #+52]
+        MOVS     R2,#+18
+        STRB     R2,[R4, #+53]
+        MOVS     R2,#+0
+        STR      R2,[R4, #+56]
         CMP      R6,#+255
-        MOV      R0,#+8192
-        STR      R0,[SP, #+0]
+        LDR      R1,[R0, #+4]
+        LDR.W    R8,??DataTable8  ;; 0xfc009800
+        AND      R1,R8,R1
         BLE.N    ??HAL_I2C_Master_Transmit_2
 //  532     {
 //  533       I2C_TransferConfig(hi2c,DevAddress,255, I2C_RELOAD_MODE, I2C_GENERATE_START_WRITE);
-        MOV      R3,#+16777216
-        MOVS     R2,#+255
-        MOV      R0,R4
-        MOVS     R7,#+255
-          CFI FunCall I2C_TransferConfig
-        BL       I2C_TransferConfig
+        ORRS     R1,R1,R7, LSR #+22
 //  534       sizetmp = 255;
-??HAL_I2C_Master_Transmit_3:
-        LDR      R10,[SP, #+40]
-        B.N      ??HAL_I2C_Master_Transmit_4
+        MOVS     R5,#+255
+        ORR      R1,R1,#0x1E00000
+        ORR      R1,R1,#0x1F2000
+        STR      R1,[R0, #+4]
+        LDR      R9,[SP, #+40]
+        B.N      ??HAL_I2C_Master_Transmit_3
 //  535     }
 //  536     else
 //  537     {
 //  538       I2C_TransferConfig(hi2c,DevAddress,Size, I2C_AUTOEND_MODE, I2C_GENERATE_START_WRITE);
 ??HAL_I2C_Master_Transmit_2:
-        MOV      R3,#+33554432
+        ORRS     R1,R1,R7, LSR #+22
         UXTB     R2,R6
-        MOV      R0,R4
-        MOV      R7,R6
-          CFI FunCall I2C_TransferConfig
-        BL       I2C_TransferConfig
 //  539       sizetmp = Size;
+        MOV      R5,R6
+        ORR      R1,R1,R2, LSL #+16
+        ORR      R1,R1,#0x2000000
+        ORR      R1,R1,#0x2000
+        STR      R1,[R0, #+4]
+        LDR      R9,[SP, #+40]
         B.N      ??HAL_I2C_Master_Transmit_3
 //  540     }
 //  541     
@@ -921,142 +922,169 @@ HAL_I2C_Master_Transmit:
 //  574         else
 //  575         {
 //  576           I2C_TransferConfig(hi2c,DevAddress,Size, I2C_AUTOEND_MODE, I2C_NO_STARTSTOP);
-??HAL_I2C_Master_Transmit_5:
-        MOVS     R0,#+0
-        MOV      R3,#+33554432
-        STR      R0,[SP, #+0]
-        UXTB     R2,R6
-        MOV      R1,R8
-        MOV      R0,R4
-          CFI FunCall I2C_TransferConfig
-        BL       I2C_TransferConfig
-//  577           sizetmp = Size;
-        MOV      R7,R6
-//  578         }
 ??HAL_I2C_Master_Transmit_4:
+        ORRS     R1,R1,R7, LSR #+22
+        UXTB     R2,R6
+//  577           sizetmp = Size;
+        MOV      R5,R6
+        ORR      R1,R1,R2, LSL #+16
+        ORR      R1,R1,#0x2000000
+        STR      R1,[R0, #+4]
+//  578         }
+??HAL_I2C_Master_Transmit_3:
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         MOV      R11,R0
-??HAL_I2C_Master_Transmit_6:
+??HAL_I2C_Master_Transmit_5:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+24]
         LSLS     R1,R1,#+30
-        BMI.N    ??HAL_I2C_Master_Transmit_7
-        MOV      R1,R10
+        BMI.N    ??HAL_I2C_Master_Transmit_6
+        MOV      R1,R9
         MOV      R0,R4
           CFI FunCall I2C_IsAcknowledgeFailed
         BL       I2C_IsAcknowledgeFailed
-        CBNZ.N   R0,??HAL_I2C_Master_Transmit_8
-        CMN      R10,#+1
-        BEQ.N    ??HAL_I2C_Master_Transmit_6
-        CMP      R10,#+0
-        BEQ.N    ??HAL_I2C_Master_Transmit_9
+        CBNZ.N   R0,??HAL_I2C_Master_Transmit_7
+        CMN      R9,#+1
+        BEQ.N    ??HAL_I2C_Master_Transmit_5
+        CMP      R9,#+0
+        BEQ.N    ??HAL_I2C_Master_Transmit_8
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         SUB      R0,R0,R11
-        CMP      R10,R0
-        BCS.N    ??HAL_I2C_Master_Transmit_6
-??HAL_I2C_Master_Transmit_9:
-        LDR      R0,[R5, #+4]
-        ORR      R0,R0,#0x20
-        STR      R0,[R5, #+4]
-        MOVS     R0,#+1
-        STRB     R0,[R5, #+1]
-        MOVS     R0,#+0
-        STRB     R0,[R5, #+0]
+        CMP      R9,R0
+        BCS.N    ??HAL_I2C_Master_Transmit_5
 ??HAL_I2C_Master_Transmit_8:
-        LDR      R0,[R5, #+4]
-        CMP      R0,#+4
-        BNE.N    ??HAL_I2C_Master_Transmit_10
-        B.N      ??HAL_I2C_Master_Transmit_11
-??HAL_I2C_Master_Transmit_7:
-        LDRB     R1,[R9], #+1
-        SUBS     R7,R7,#+1
-        SUB      R6,R6,#+1
-        UXTH     R6,R6
-        STR      R1,[R0, #+40]
-        BNE.N    ??HAL_I2C_Master_Transmit_12
-        CBZ.N    R6,??HAL_I2C_Master_Transmit_13
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        MOV      R7,R0
-??HAL_I2C_Master_Transmit_14:
-        LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+24]
-        LSLS     R1,R1,#+24
-        BMI.N    ??HAL_I2C_Master_Transmit_15
-        CMN      R10,#+1
-        BEQ.N    ??HAL_I2C_Master_Transmit_14
-        CMP      R10,#+0
-        BEQ.N    ??HAL_I2C_Master_Transmit_16
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUBS     R0,R0,R7
-        CMP      R10,R0
-        BCS.N    ??HAL_I2C_Master_Transmit_14
-??HAL_I2C_Master_Transmit_16:
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
         MOVS     R0,#+1
-        STRB     R0,[R5, #+1]
+        STRB     R0,[R4, #+53]
         MOVS     R0,#+0
-        STRB     R0,[R5, #+0]
-        B.N      ??HAL_I2C_Master_Transmit_10
-??HAL_I2C_Master_Transmit_15:
-        CMP      R6,#+255
-        BLE.N    ??HAL_I2C_Master_Transmit_5
-        LDR      R1,[R0, #+4]
-        LDR.W    R3,??DataTable9  ;; 0xfc009800
-        LSL      R2,R8,#+22
-        MOVS     R7,#+255
-        ANDS     R1,R3,R1
-        ORRS     R1,R1,R2, LSR #+22
-        LDR.W    R2,??DataTable9_1  ;; 0x1ff0000
-        ORRS     R1,R2,R1
-        STR      R1,[R0, #+4]
-        B.N      ??HAL_I2C_Master_Transmit_4
+        STRB     R0,[R4, #+52]
+??HAL_I2C_Master_Transmit_7:
+        LDR      R0,[R4, #+56]
+        CMP      R0,#+4
+        BNE.N    ??HAL_I2C_Master_Transmit_9
 //  579       }
 //  580       
 //  581     }while(Size > 0);
-??HAL_I2C_Master_Transmit_12:
-        CMP      R6,#+0
-        BNE.N    ??HAL_I2C_Master_Transmit_4
 //  582     
 //  583     /* No need to Check TC flag, with AUTOEND mode the stop is automatically generated */
 //  584     /* Wait until STOPF flag is set */
 //  585     if(I2C_WaitOnSTOPFlagUntilTimeout(hi2c, Timeout) != HAL_OK)
-??HAL_I2C_Master_Transmit_13:
-        MOV      R1,R10
-        MOV      R0,R4
-          CFI FunCall I2C_WaitOnSTOPFlagUntilTimeout
-        BL       I2C_WaitOnSTOPFlagUntilTimeout
-        CBZ.N    R0,??HAL_I2C_Master_Transmit_17
 //  586     {
 //  587       if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R5, #+4]
-        CMP      R0,#+4
-        BNE.N    ??HAL_I2C_Master_Transmit_10
 //  588       {
 //  589         return HAL_ERROR;
-??HAL_I2C_Master_Transmit_11:
-        B.N      ?Subroutine4
+        MOVS     R0,#+1
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+40
+??HAL_I2C_Master_Transmit_6:
+        LDRB     R1,[R10], #+1
+        SUBS     R5,R5,#+1
+        SUB      R6,R6,#+1
+        UXTH     R6,R6
+        STR      R1,[R0, #+40]
+        BNE.N    ??HAL_I2C_Master_Transmit_10
+        CBZ.N    R6,??HAL_I2C_Master_Transmit_11
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??HAL_I2C_Master_Transmit_12:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+24
+        BMI.N    ??HAL_I2C_Master_Transmit_13
+        CMN      R9,#+1
+        BEQ.N    ??HAL_I2C_Master_Transmit_12
+        CMP      R9,#+0
+        BEQ.N    ??HAL_I2C_Master_Transmit_14
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R9,R0
+        BCS.N    ??HAL_I2C_Master_Transmit_12
+??HAL_I2C_Master_Transmit_14:
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 //  590       }
 //  591       else
 //  592       {
 //  593         return HAL_TIMEOUT;
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+40
+??HAL_I2C_Master_Transmit_13:
+        CMP      R6,#+255
+        LDR      R1,[R0, #+4]
+        AND      R1,R8,R1
+        BLE.N    ??HAL_I2C_Master_Transmit_4
+        ORRS     R1,R1,R7, LSR #+22
+        LDR.W    R2,??DataTable8_1  ;; 0x1ff0000
+        MOVS     R5,#+255
+        ORRS     R1,R2,R1
+        STR      R1,[R0, #+4]
+        B.N      ??HAL_I2C_Master_Transmit_3
 ??HAL_I2C_Master_Transmit_10:
-        B.N      ?Subroutine3
+        CMP      R6,#+0
+        BNE.N    ??HAL_I2C_Master_Transmit_3
+??HAL_I2C_Master_Transmit_11:
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R10,R0
+??HAL_I2C_Master_Transmit_15:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+26
+        BMI.N    ??HAL_I2C_Master_Transmit_16
+        MOV      R1,R9
+        MOV      R0,R4
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??HAL_I2C_Master_Transmit_17
+        CMP      R9,#+0
+        BEQ.N    ??HAL_I2C_Master_Transmit_18
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUB      R0,R0,R10
+        CMP      R9,R0
+        BCS.N    ??HAL_I2C_Master_Transmit_15
+??HAL_I2C_Master_Transmit_18:
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+??HAL_I2C_Master_Transmit_17:
+        LDR      R0,[R4, #+56]
+        CMP      R0,#+4
+        BNE.N    ??HAL_I2C_Master_Transmit_9
+        MOVS     R0,#+1
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+40
 //  594       }
 //  595     }
 //  596     
 //  597     /* Clear STOP Flag */
 //  598     __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
-??HAL_I2C_Master_Transmit_17:
-        LDR      R1,[R4, #+0]
-        MOVS     R0,#+32
+??HAL_I2C_Master_Transmit_16:
+        MOVS     R1,#+32
 //  599   	
 //  600     /* Clear Configuration Register 2 */
 //  601     I2C_RESET_CR2(hi2c);
-        LDR.W    R2,??DataTable9_2  ;; 0xfe00e800
-        STR      R0,[R1, #+28]
+        LDR.W    R2,??DataTable8_2  ;; 0xfe00e800
+        STR      R1,[R0, #+28]
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
         ANDS     R1,R2,R1
@@ -1064,15 +1092,24 @@ HAL_I2C_Master_Transmit:
 //  602     
 //  603     hi2c->State = HAL_I2C_STATE_READY; 	  
         MOVS     R0,#+1
-        STRB     R0,[R5, #+1]
+        STRB     R0,[R4, #+53]
 //  604     
 //  605     /* Process Unlocked */
 //  606     __HAL_UNLOCK(hi2c);
         MOVS     R0,#+0
-        STRB     R0,[R5, #+0]
+        STRB     R0,[R4, #+52]
 //  607     
 //  608     return HAL_OK;
-        POP      {R1,R4-R11,PC}
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+40
+??HAL_I2C_Master_Transmit_9:
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+40
 //  609   }
 //  610   else
 //  611   {
@@ -1080,7 +1117,9 @@ HAL_I2C_Master_Transmit:
 ??HAL_I2C_Master_Transmit_0:
         MOVS     R0,#+2
 ??HAL_I2C_Master_Transmit_1:
-        POP      {R1,R4-R11,PC}   ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}      ;; return
 //  613   }
 //  614 }
           CFI EndBlock cfiBlock4
@@ -1096,14 +1135,14 @@ HAL_I2C_Master_Transmit:
 //  624   * @retval HAL status
 //  625   */
 
-        SECTION `.text`:CODE:NOROOT(1)
+        SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock5 Using cfiCommon0
           CFI Function HAL_I2C_Master_Receive
         THUMB
 //  626 HAL_StatusTypeDef HAL_I2C_Master_Receive(I2C_HandleTypeDef *hi2c, uint16_t DevAddress, uint8_t *pData, uint16_t Size, uint32_t Timeout)
 //  627 {
 HAL_I2C_Master_Receive:
-        PUSH     {R3-R11,LR}
+        PUSH     {R4-R11,LR}
           CFI R14 Frame(CFA, -4)
           CFI R11 Frame(CFA, -8)
           CFI R10 Frame(CFA, -12)
@@ -1113,16 +1152,16 @@ HAL_I2C_Master_Receive:
           CFI R6 Frame(CFA, -28)
           CFI R5 Frame(CFA, -32)
           CFI R4 Frame(CFA, -36)
+          CFI CFA R13+36
+        MOV      R4,R0
+        SUB      SP,SP,#+4
           CFI CFA R13+40
-        MOV      R5,R0
+        MOV      R10,R2
+        MOV      R6,R3
 //  628   uint32_t sizetmp = 0;
 //  629   
 //  630   if(hi2c->State == HAL_I2C_STATE_READY)
-        ADD      R4,R5,#+52
-        MOV      R9,R1
-        MOV      R10,R2
-        LDRB     R0,[R4, #+1]
-        MOV      R6,R3
+        LDRB     R0,[R4, #+53]
         CMP      R0,#+1
         BNE.W    ??HAL_I2C_Master_Receive_0
 //  631   {    
@@ -1136,9 +1175,9 @@ HAL_I2C_Master_Receive:
 //  635     }
 //  636     
 //  637     if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_BUSY) == SET)
-        LDR      R0,[R5, #+0]
-        LDR      R0,[R0, #+24]
-        LSLS     R0,R0,#+16
+        LDR      R0,[R4, #+0]
+        LDR      R2,[R0, #+24]
+        LSLS     R2,R2,#+16
         BMI.W    ??HAL_I2C_Master_Receive_0
 //  638     {
 //  639       return HAL_BUSY;
@@ -1146,51 +1185,53 @@ HAL_I2C_Master_Receive:
 //  641     
 //  642     /* Process Locked */
 //  643     __HAL_LOCK(hi2c);
-        LDRB     R0,[R4, #+0]
-        CMP      R0,#+1
+        LDRB     R2,[R4, #+52]
+        CMP      R2,#+1
         BEQ.W    ??HAL_I2C_Master_Receive_0
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+0]
+        MOVS     R2,#+1
 //  644     
 //  645     hi2c->State = HAL_I2C_STATE_MASTER_BUSY_RX;
-        MOVS     R0,#+34
-        STRB     R0,[R4, #+1]
 //  646     hi2c->ErrorCode   = HAL_I2C_ERROR_NONE;
-        MOVS     R0,#+0
-        STR      R0,[R4, #+4]
 //  647     
 //  648     /* Send Slave Address */
 //  649     /* Set NBYTES to write and reload if size > 255 and generate RESTART */
 //  650     /* Size > 255, need to set RELOAD bit */
 //  651     if(Size > 255)
+        LSLS     R7,R1,#+22
+        STRB     R2,[R4, #+52]
+        MOVS     R2,#+34
+        STRB     R2,[R4, #+53]
+        MOVS     R2,#+0
+        STR      R2,[R4, #+56]
         CMP      R6,#+255
-        MOV      R0,#+9216
-        STR      R0,[SP, #+0]
+        LDR      R1,[R0, #+4]
+        LDR.W    R8,??DataTable8  ;; 0xfc009800
+        AND      R1,R8,R1
         BLE.N    ??HAL_I2C_Master_Receive_2
 //  652     {
 //  653       I2C_TransferConfig(hi2c,DevAddress,255, I2C_RELOAD_MODE, I2C_GENERATE_START_READ);
-        MOV      R3,#+16777216
-        MOVS     R2,#+255
-        MOV      R0,R5
-        MOVS     R7,#+255
-          CFI FunCall I2C_TransferConfig
-        BL       I2C_TransferConfig
+        ORRS     R1,R1,R7, LSR #+22
 //  654       sizetmp = 255;
-??HAL_I2C_Master_Receive_3:
-        LDR      R8,[SP, #+40]
-        B.N      ??HAL_I2C_Master_Receive_4
+        MOVS     R5,#+255
+        ORR      R1,R1,#0x1FC0000
+        ORR      R1,R1,#0x32400
+        STR      R1,[R0, #+4]
+        LDR      R9,[SP, #+40]
+        B.N      ??HAL_I2C_Master_Receive_3
 //  655     }
 //  656     else
 //  657     {
 //  658       I2C_TransferConfig(hi2c,DevAddress,Size, I2C_AUTOEND_MODE, I2C_GENERATE_START_READ);
 ??HAL_I2C_Master_Receive_2:
-        MOV      R3,#+33554432
+        ORRS     R1,R1,R7, LSR #+22
         UXTB     R2,R6
-        MOV      R0,R5
-        MOV      R7,R6
-          CFI FunCall I2C_TransferConfig
-        BL       I2C_TransferConfig
 //  659       sizetmp = Size;
+        MOV      R5,R6
+        ORR      R1,R1,R2, LSL #+16
+        ORR      R1,R1,#0x2000000
+        ORR      R1,R1,#0x2400
+        STR      R1,[R0, #+4]
+        LDR      R9,[SP, #+40]
         B.N      ??HAL_I2C_Master_Receive_3
 //  660     }
 //  661     
@@ -1230,168 +1271,201 @@ HAL_I2C_Master_Receive:
 //  695         else
 //  696         {
 //  697           I2C_TransferConfig(hi2c,DevAddress,Size, I2C_AUTOEND_MODE, I2C_NO_STARTSTOP);
-??HAL_I2C_Master_Receive_5:
-        MOVS     R0,#+0
-        MOV      R3,#+33554432
-        STR      R0,[SP, #+0]
-        UXTB     R2,R6
-        MOV      R1,R9
-        MOV      R0,R5
-          CFI FunCall I2C_TransferConfig
-        BL       I2C_TransferConfig
-//  698           sizetmp = Size;
-        MOV      R7,R6
-//  699         }
 ??HAL_I2C_Master_Receive_4:
+        ORRS     R1,R1,R7, LSR #+22
+        UXTB     R2,R6
+//  698           sizetmp = Size;
+        MOV      R5,R6
+        ORR      R1,R1,R2, LSL #+16
+        ORR      R1,R1,#0x2000000
+        STR      R1,[R0, #+4]
+//  699         }
+??HAL_I2C_Master_Receive_3:
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         MOV      R11,R0
-??HAL_I2C_Master_Receive_6:
-        LDR      R0,[R5, #+0]
+??HAL_I2C_Master_Receive_5:
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+24]
         LSLS     R1,R1,#+29
-        BMI.N    ??HAL_I2C_Master_Receive_7
+        BMI.N    ??HAL_I2C_Master_Receive_6
         MOVS     R1,#+4
-        MOV      R0,R5
+        MOV      R0,R4
           CFI FunCall I2C_IsAcknowledgeFailed
         BL       I2C_IsAcknowledgeFailed
-        CBNZ.N   R0,??HAL_I2C_Master_Receive_8
-        LDR      R0,[R5, #+0]
+        CBNZ.N   R0,??HAL_I2C_Master_Receive_7
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+24]
         LSLS     R1,R1,#+26
-        BPL.N    ??HAL_I2C_Master_Receive_9
+        BPL.N    ??HAL_I2C_Master_Receive_8
         MOVS     R1,#+32
-        LDR.W    R2,??DataTable9_2  ;; 0xfe00e800
+        LDR.W    R2,??DataTable8_2  ;; 0xfe00e800
         STR      R1,[R0, #+28]
-        LDR      R0,[R5, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
         ANDS     R1,R2,R1
         STR      R1,[R0, #+4]
         MOVS     R0,#+0
-??HAL_I2C_Master_Receive_10:
-        STR      R0,[R4, #+4]
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+1]
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+0]
-??HAL_I2C_Master_Receive_8:
-        LDR      R0,[R4, #+4]
-        CMP      R0,#+4
-        BNE.N    ??HAL_I2C_Master_Receive_11
-        B.N      ??HAL_I2C_Master_Receive_12
 ??HAL_I2C_Master_Receive_9:
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUB      R0,R0,R11
-        CMP      R0,#+5
-        BCC.N    ??HAL_I2C_Master_Receive_6
-        LDR      R0,[R4, #+4]
-        ORR      R0,R0,#0x20
-        B.N      ??HAL_I2C_Master_Receive_10
-??HAL_I2C_Master_Receive_7:
-        LDR      R0,[R0, #+36]
-        SUBS     R7,R7,#+1
-        SUB      R6,R6,#+1
-        UXTH     R6,R6
-        STRB     R0,[R10], #+1
-        BNE.N    ??HAL_I2C_Master_Receive_13
-        CBZ.N    R6,??HAL_I2C_Master_Receive_14
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        MOV      R7,R0
-??HAL_I2C_Master_Receive_15:
-        LDR      R0,[R5, #+0]
-        LDR      R1,[R0, #+24]
-        LSLS     R1,R1,#+24
-        BMI.N    ??HAL_I2C_Master_Receive_16
-        CMN      R8,#+1
-        BEQ.N    ??HAL_I2C_Master_Receive_15
-        CMP      R8,#+0
-        BEQ.N    ??HAL_I2C_Master_Receive_17
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUBS     R0,R0,R7
-        CMP      R8,R0
-        BCS.N    ??HAL_I2C_Master_Receive_15
-??HAL_I2C_Master_Receive_17:
+        STR      R0,[R4, #+56]
         MOVS     R0,#+1
-        STRB     R0,[R4, #+1]
+        STRB     R0,[R4, #+53]
         MOVS     R0,#+0
-        STRB     R0,[R4, #+0]
-        B.N      ??HAL_I2C_Master_Receive_11
-??HAL_I2C_Master_Receive_16:
-        CMP      R6,#+255
-        BLE.N    ??HAL_I2C_Master_Receive_5
-        LDR      R1,[R0, #+4]
-        LDR.W    R3,??DataTable9  ;; 0xfc009800
-        LSL      R2,R9,#+22
-        MOVS     R7,#+255
-        ANDS     R1,R3,R1
-        ORRS     R1,R1,R2, LSR #+22
-        LDR.W    R2,??DataTable9_1  ;; 0x1ff0000
-        ORRS     R1,R2,R1
-        STR      R1,[R0, #+4]
-        B.N      ??HAL_I2C_Master_Receive_4
+        STRB     R0,[R4, #+52]
+??HAL_I2C_Master_Receive_7:
+        LDR      R0,[R4, #+56]
+        CMP      R0,#+4
+        BNE.N    ??HAL_I2C_Master_Receive_10
 //  700       }
 //  701       
 //  702     }while(Size > 0);
-??HAL_I2C_Master_Receive_13:
-        CMP      R6,#+0
-        BNE.N    ??HAL_I2C_Master_Receive_4
 //  703     
 //  704     /* No need to Check TC flag, with AUTOEND mode the stop is automatically generated */
 //  705     /* Wait until STOPF flag is set */
 //  706     if(I2C_WaitOnSTOPFlagUntilTimeout(hi2c, I2C_TIMEOUT_STOPF) != HAL_OK)
-??HAL_I2C_Master_Receive_14:
-        MOVS     R1,#+25
-        MOV      R0,R5
-          CFI FunCall I2C_WaitOnSTOPFlagUntilTimeout
-        BL       I2C_WaitOnSTOPFlagUntilTimeout
-        CBZ.N    R0,??HAL_I2C_Master_Receive_18
 //  707     {
 //  708       if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R4, #+4]
-        CMP      R0,#+4
-        BNE.N    ??HAL_I2C_Master_Receive_11
 //  709       {
 //  710         return HAL_ERROR;
-??HAL_I2C_Master_Receive_12:
-        B.N      ?Subroutine4
+        MOVS     R0,#+1
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+40
+??HAL_I2C_Master_Receive_8:
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUB      R0,R0,R11
+        CMP      R0,#+5
+        BCC.N    ??HAL_I2C_Master_Receive_5
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        B.N      ??HAL_I2C_Master_Receive_9
+??HAL_I2C_Master_Receive_6:
+        LDR      R0,[R0, #+36]
+        SUBS     R5,R5,#+1
+        SUB      R6,R6,#+1
+        UXTH     R6,R6
+        STRB     R0,[R10], #+1
+        BNE.N    ??HAL_I2C_Master_Receive_11
+        CBZ.N    R6,??HAL_I2C_Master_Receive_12
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??HAL_I2C_Master_Receive_13:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+24
+        BMI.N    ??HAL_I2C_Master_Receive_14
+        CMN      R9,#+1
+        BEQ.N    ??HAL_I2C_Master_Receive_13
+        CMP      R9,#+0
+        BEQ.N    ??HAL_I2C_Master_Receive_15
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R9,R0
+        BCS.N    ??HAL_I2C_Master_Receive_13
+??HAL_I2C_Master_Receive_15:
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 //  711       }
 //  712       else
 //  713       {
 //  714         return HAL_TIMEOUT;
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+40
+??HAL_I2C_Master_Receive_14:
+        CMP      R6,#+255
+        LDR      R1,[R0, #+4]
+        AND      R1,R8,R1
+        BLE.N    ??HAL_I2C_Master_Receive_4
+        ORRS     R1,R1,R7, LSR #+22
+        LDR.W    R2,??DataTable8_1  ;; 0x1ff0000
+        MOVS     R5,#+255
+        ORRS     R1,R2,R1
+        STR      R1,[R0, #+4]
+        B.N      ??HAL_I2C_Master_Receive_3
 ??HAL_I2C_Master_Receive_11:
-        B.N      ?Subroutine3
+        CMP      R6,#+0
+        BNE.N    ??HAL_I2C_Master_Receive_3
+??HAL_I2C_Master_Receive_12:
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R10,R0
+??HAL_I2C_Master_Receive_16:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+26
+        BMI.N    ??HAL_I2C_Master_Receive_17
+        MOVS     R1,#+25
+        MOV      R0,R4
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??HAL_I2C_Master_Receive_18
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUB      R0,R0,R10
+        CMP      R0,#+26
+        BCC.N    ??HAL_I2C_Master_Receive_16
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+??HAL_I2C_Master_Receive_18:
+        LDR      R0,[R4, #+56]
+        CMP      R0,#+4
+        BNE.N    ??HAL_I2C_Master_Receive_10
+        MOVS     R0,#+1
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+40
 //  715       }
 //  716     }
 //  717     
 //  718     /* Clear STOP Flag */
 //  719     __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
-??HAL_I2C_Master_Receive_18:
-        LDR      R1,[R5, #+0]
-        MOVS     R0,#+32
+??HAL_I2C_Master_Receive_17:
+        MOVS     R1,#+32
 //  720   	
 //  721     /* Clear Configuration Register 2 */
 //  722     I2C_RESET_CR2(hi2c);
-        LDR.W    R2,??DataTable9_2  ;; 0xfe00e800
-        STR      R0,[R1, #+28]
-        LDR      R0,[R5, #+0]
+        LDR.W    R2,??DataTable8_2  ;; 0xfe00e800
+        STR      R1,[R0, #+28]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
         ANDS     R1,R2,R1
         STR      R1,[R0, #+4]
 //  723     
 //  724     hi2c->State = HAL_I2C_STATE_READY; 	  
         MOVS     R0,#+1
-        STRB     R0,[R4, #+1]
+        STRB     R0,[R4, #+53]
 //  725     
 //  726     /* Process Unlocked */
 //  727     __HAL_UNLOCK(hi2c);
         MOVS     R0,#+0
-        STRB     R0,[R4, #+0]
+        STRB     R0,[R4, #+52]
 //  728     
 //  729     return HAL_OK;
-        POP      {R1,R4-R11,PC}
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+40
+??HAL_I2C_Master_Receive_10:
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+40
 //  730   }
 //  731   else
 //  732   {
@@ -1399,48 +1473,12 @@ HAL_I2C_Master_Receive:
 ??HAL_I2C_Master_Receive_0:
         MOVS     R0,#+2
 ??HAL_I2C_Master_Receive_1:
-        POP      {R1,R4-R11,PC}   ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}      ;; return
 //  734   }
 //  735 }
           CFI EndBlock cfiBlock5
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock6 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+40
-          CFI R4 Frame(CFA, -36)
-          CFI R5 Frame(CFA, -32)
-          CFI R6 Frame(CFA, -28)
-          CFI R7 Frame(CFA, -24)
-          CFI R8 Frame(CFA, -20)
-          CFI R9 Frame(CFA, -16)
-          CFI R10 Frame(CFA, -12)
-          CFI R11 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine4:
-        MOVS     R0,#+1
-        POP      {R1,R4-R11,PC}
-          CFI EndBlock cfiBlock6
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock7 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+40
-          CFI R4 Frame(CFA, -36)
-          CFI R5 Frame(CFA, -32)
-          CFI R6 Frame(CFA, -28)
-          CFI R7 Frame(CFA, -24)
-          CFI R8 Frame(CFA, -20)
-          CFI R9 Frame(CFA, -16)
-          CFI R10 Frame(CFA, -12)
-          CFI R11 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine3:
-        MOVS     R0,#+3
-        POP      {R1,R4-R11,PC}
-          CFI EndBlock cfiBlock7
 //  736 
 //  737 /**
 //  738   * @brief  Transmits in slave mode an amount of data in blocking mode. 
@@ -1452,36 +1490,34 @@ HAL_I2C_Master_Receive:
 //  744   * @retval HAL status
 //  745   */
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock8 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock6 Using cfiCommon0
           CFI Function HAL_I2C_Slave_Transmit
         THUMB
 //  746 HAL_StatusTypeDef HAL_I2C_Slave_Transmit(I2C_HandleTypeDef *hi2c, uint8_t *pData, uint16_t Size, uint32_t Timeout)
 //  747 {
 HAL_I2C_Slave_Transmit:
-        PUSH     {R3-R9,LR}
+        PUSH     {R4-R8,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R9 Frame(CFA, -8)
-          CFI R8 Frame(CFA, -12)
-          CFI R7 Frame(CFA, -16)
-          CFI R6 Frame(CFA, -20)
-          CFI R5 Frame(CFA, -24)
-          CFI R4 Frame(CFA, -28)
-          CFI CFA R13+32
-        MOV      R5,R0
-//  748   if(hi2c->State == HAL_I2C_STATE_READY)
-        ADD      R4,R5,#+52
+          CFI R8 Frame(CFA, -8)
+          CFI R7 Frame(CFA, -12)
+          CFI R6 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -20)
+          CFI R4 Frame(CFA, -24)
+          CFI CFA R13+24
+        MOV      R4,R0
         MOV      R8,R1
-        MOV      R7,R2
-        LDRB     R0,[R4, #+1]
-        MOV      R6,R3
+        MOV      R6,R2
+        MOV      R7,R3
+//  748   if(hi2c->State == HAL_I2C_STATE_READY)
+        LDRB     R0,[R4, #+53]
         CMP      R0,#+1
         BNE.W    ??HAL_I2C_Slave_Transmit_0
 //  749   {    
 //  750     if((pData == NULL ) || (Size == 0)) 
         CMP      R8,#+0
         IT       NE 
-        CMPNE    R7,#+0
+        CMPNE    R6,#+0
         BEQ.W    ??HAL_I2C_Slave_Transmit_1
 //  751     {
 //  752       return  HAL_ERROR;                                    
@@ -1489,157 +1525,96 @@ HAL_I2C_Slave_Transmit:
 //  754     
 //  755     /* Process Locked */
 //  756     __HAL_LOCK(hi2c);
-        LDRB     R0,[R4, #+0]
+        LDRB     R0,[R4, #+52]
         CMP      R0,#+1
         BEQ.W    ??HAL_I2C_Slave_Transmit_0
         MOVS     R0,#+1
+        STRB     R0,[R4, #+52]
 //  757     
 //  758     hi2c->State = HAL_I2C_STATE_SLAVE_BUSY_RX;
+        MOVS     R0,#+66
+        STRB     R0,[R4, #+53]
 //  759     hi2c->ErrorCode   = HAL_I2C_ERROR_NONE;
+        MOVS     R0,#+0
+        STR      R0,[R4, #+56]
 //  760     
 //  761     /* Enable Address Acknowledge */
 //  762     hi2c->Instance->CR2 &= ~I2C_CR2_NACK;
-//  763     
-//  764     /* Wait until ADDR flag is set */
-//  765     if(I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_ADDR, RESET, Timeout) != HAL_OK)      
-        MOVS     R2,#+0
-        STRB     R0,[R4, #+0]
-        MOVS     R0,#+66
-        STRB     R0,[R4, #+1]
-        MOVS     R0,#+0
-        STR      R0,[R4, #+4]
-        LDR      R0,[R5, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
         BIC      R1,R1,#0x8000
         STR      R1,[R0, #+4]
-        MOVS     R1,#+8
-        MOV      R0,R5
-          CFI FunCall I2C_WaitOnFlagUntilTimeout
-        BL       I2C_WaitOnFlagUntilTimeout
-        CBZ.N    R0,??HAL_I2C_Slave_Transmit_2
+//  763     
+//  764     /* Wait until ADDR flag is set */
+//  765     if(I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_ADDR, RESET, Timeout) != HAL_OK)      
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??HAL_I2C_Slave_Transmit_2:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+28
+        BMI.N    ??HAL_I2C_Slave_Transmit_3
+        CMN      R7,#+1
+        BEQ.N    ??HAL_I2C_Slave_Transmit_2
+        CBZ.N    R7,??HAL_I2C_Slave_Transmit_4
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R7,R0
+        BCS.N    ??HAL_I2C_Slave_Transmit_2
+??HAL_I2C_Slave_Transmit_4:
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 //  766     {
 //  767       /* Disable Address Acknowledge */
 //  768       hi2c->Instance->CR2 |= I2C_CR2_NACK;
-        LDR      R0,[R5, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
         ORR      R1,R1,#0x8000
         STR      R1,[R0, #+4]
 //  769       return HAL_TIMEOUT;
-        B.N      ??HAL_I2C_Slave_Transmit_3
 //  770     }
 //  771     
 //  772     /* Clear ADDR flag */
 //  773     __HAL_I2C_CLEAR_FLAG(hi2c,I2C_FLAG_ADDR);
-??HAL_I2C_Slave_Transmit_2:
-        LDR      R1,[R5, #+0]
-        MOVS     R0,#+8
-        STR      R0,[R1, #+28]
 //  774     
 //  775     /* If 10bit addressing mode is selected */
 //  776     if(hi2c->Init.AddressingMode == I2C_ADDRESSINGMODE_10BIT)
-        LDR      R0,[R5, #+12]
-        CMP      R0,#+2
-        BNE.N    ??HAL_I2C_Slave_Transmit_4
 //  777     {
 //  778       /* Wait until ADDR flag is set */
 //  779       if(I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_ADDR, RESET, Timeout) != HAL_OK)      
-        MOV      R3,R6
-        MOVS     R2,#+0
-        MOVS     R1,#+8
-        MOV      R0,R5
-          CFI FunCall I2C_WaitOnFlagUntilTimeout
-        BL       I2C_WaitOnFlagUntilTimeout
-        CBZ.N    R0,??HAL_I2C_Slave_Transmit_5
 //  780       {
 //  781         /* Disable Address Acknowledge */
 //  782         hi2c->Instance->CR2 |= I2C_CR2_NACK;
-        LDR      R0,[R5, #+0]
-        LDR      R1,[R0, #+4]
-        ORR      R1,R1,#0x8000
-        STR      R1,[R0, #+4]
 //  783         return HAL_TIMEOUT;
-        B.N      ??HAL_I2C_Slave_Transmit_3
 //  784       }
 //  785       
 //  786       /* Clear ADDR flag */
 //  787       __HAL_I2C_CLEAR_FLAG(hi2c,I2C_FLAG_ADDR);
-??HAL_I2C_Slave_Transmit_5:
-        LDR      R1,[R5, #+0]
-        MOVS     R0,#+8
-        STR      R0,[R1, #+28]
 //  788     }
 //  789     
 //  790     /* Wait until DIR flag is set Transmitter mode */
 //  791     if(I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_DIR, RESET, Timeout) != HAL_OK)      
-??HAL_I2C_Slave_Transmit_4:
-        MOV      R3,R6
-        MOVS     R2,#+0
-        MOV      R1,#+65536
-        MOV      R0,R5
-          CFI FunCall I2C_WaitOnFlagUntilTimeout
-        BL       I2C_WaitOnFlagUntilTimeout
-        CBZ.N    R0,??HAL_I2C_Slave_Transmit_6
 //  792     {
 //  793       /* Disable Address Acknowledge */
 //  794       hi2c->Instance->CR2 |= I2C_CR2_NACK;
-        LDR      R0,[R5, #+0]
-        LDR      R1,[R0, #+4]
-        ORR      R1,R1,#0x8000
-        STR      R1,[R0, #+4]
 //  795       return HAL_TIMEOUT;
-        B.N      ??HAL_I2C_Slave_Transmit_3
 //  796     }
 //  797     
 //  798     do
 //  799     {
 //  800       /* Wait until TXIS flag is set */
 //  801       if(I2C_WaitOnTXISFlagUntilTimeout(hi2c, Timeout) != HAL_OK)
-??HAL_I2C_Slave_Transmit_6:
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        MOV      R9,R0
-??HAL_I2C_Slave_Transmit_7:
-        LDR      R0,[R5, #+0]
-        LDR      R1,[R0, #+24]
-        LSLS     R1,R1,#+30
-        BMI.N    ??HAL_I2C_Slave_Transmit_8
-        MOV      R1,R6
-        MOV      R0,R5
-          CFI FunCall I2C_IsAcknowledgeFailed
-        BL       I2C_IsAcknowledgeFailed
-        CBNZ.N   R0,??HAL_I2C_Slave_Transmit_9
-        CMN      R6,#+1
-        BEQ.N    ??HAL_I2C_Slave_Transmit_7
-        CBZ.N    R6,??HAL_I2C_Slave_Transmit_10
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUB      R0,R0,R9
-        CMP      R6,R0
-        BCS.N    ??HAL_I2C_Slave_Transmit_7
-??HAL_I2C_Slave_Transmit_10:
-        LDR      R0,[R4, #+4]
-        ORR      R0,R0,#0x20
-        STR      R0,[R4, #+4]
-        MOVS     R0,#+1
-        STRB     R0,[R4, #+1]
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+0]
 //  802       {
 //  803         /* Disable Address Acknowledge */
 //  804         hi2c->Instance->CR2 |= I2C_CR2_NACK;
-??HAL_I2C_Slave_Transmit_9:
-        LDR      R0,[R5, #+0]
-        LDR      R1,[R0, #+4]
-        ORR      R1,R1,#0x8000
-        STR      R1,[R0, #+4]
 //  805         
 //  806         if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R4, #+4]
-        CMP      R0,#+4
-        BNE.N    ??HAL_I2C_Slave_Transmit_3
 //  807         {
 //  808           return HAL_ERROR;
-        B.N      ?Subroutine6
 //  809         }
 //  810         else
 //  811         {
@@ -1650,91 +1625,235 @@ HAL_I2C_Slave_Transmit:
 //  816       /* Read data from TXDR */
 //  817       hi2c->Instance->TXDR = (*pData++);
 //  818       Size--;
-??HAL_I2C_Slave_Transmit_8:
-        SUBS     R7,R7,#+1
-        LDRB     R1,[R8], #+1
 //  819     }while(Size > 0);
-        UXTH     R7,R7
-        CMP      R7,#+0
-        STR      R1,[R0, #+40]
-        BNE.N    ??HAL_I2C_Slave_Transmit_6
 //  820     
 //  821     /* Wait until STOP flag is set */
 //  822     if(I2C_WaitOnSTOPFlagUntilTimeout(hi2c, I2C_TIMEOUT_STOPF) != HAL_OK)
-        MOVS     R1,#+25
-        MOV      R0,R5
-          CFI FunCall I2C_WaitOnSTOPFlagUntilTimeout
-        BL       I2C_WaitOnSTOPFlagUntilTimeout
-        CBZ.N    R0,??HAL_I2C_Slave_Transmit_11
 //  823     {
 //  824       /* Disable Address Acknowledge */
 //  825       hi2c->Instance->CR2 |= I2C_CR2_NACK;
-        LDR      R0,[R5, #+0]
-        LDR      R1,[R0, #+4]
-        ORR      R1,R1,#0x8000
-        STR      R1,[R0, #+4]
 //  826       
 //  827       if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R4, #+4]
-        CMP      R0,#+4
-        BNE.N    ??HAL_I2C_Slave_Transmit_3
 //  828       {
 //  829         /* Normal use case for Transmitter mode */
 //  830         /* A NACK is generated to confirm the end of transfer */
 //  831         hi2c->ErrorCode = HAL_I2C_ERROR_NONE;
-        MOVS     R0,#+0
-        STR      R0,[R4, #+4]
 //  832       }
 //  833       else
 //  834       {
 //  835         return HAL_TIMEOUT;
+        MOVS     R0,#+3
+        POP      {R4-R8,PC}
+??HAL_I2C_Slave_Transmit_3:
+        MOVS     R1,#+8
+        STR      R1,[R0, #+28]
+        LDR      R0,[R4, #+12]
+        CMP      R0,#+2
+        BNE.N    ??HAL_I2C_Slave_Transmit_5
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??HAL_I2C_Slave_Transmit_6:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+28
+        BMI.N    ??HAL_I2C_Slave_Transmit_7
+        CMN      R7,#+1
+        BEQ.N    ??HAL_I2C_Slave_Transmit_6
+        CBZ.N    R7,??HAL_I2C_Slave_Transmit_8
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R7,R0
+        BCS.N    ??HAL_I2C_Slave_Transmit_6
+??HAL_I2C_Slave_Transmit_8:
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+4]
+        ORR      R1,R1,#0x8000
+        STR      R1,[R0, #+4]
+        MOVS     R0,#+3
+        POP      {R4-R8,PC}
+??HAL_I2C_Slave_Transmit_7:
+        MOVS     R1,#+8
+        STR      R1,[R0, #+28]
+??HAL_I2C_Slave_Transmit_5:
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??HAL_I2C_Slave_Transmit_9:
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+24]
+        LSLS     R0,R0,#+15
+        BMI.N    ??HAL_I2C_Slave_Transmit_10
+        CMN      R7,#+1
+        BEQ.N    ??HAL_I2C_Slave_Transmit_9
+        CBZ.N    R7,??HAL_I2C_Slave_Transmit_11
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R7,R0
+        BCS.N    ??HAL_I2C_Slave_Transmit_9
+??HAL_I2C_Slave_Transmit_11:
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+4]
+        ORR      R1,R1,#0x8000
+        STR      R1,[R0, #+4]
+        MOVS     R0,#+3
+        POP      {R4-R8,PC}
+??HAL_I2C_Slave_Transmit_10:
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??HAL_I2C_Slave_Transmit_12:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+30
+        BMI.N    ??HAL_I2C_Slave_Transmit_13
+        MOV      R1,R7
+        MOV      R0,R4
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??HAL_I2C_Slave_Transmit_14
+        CMN      R7,#+1
+        BEQ.N    ??HAL_I2C_Slave_Transmit_12
+        CBZ.N    R7,??HAL_I2C_Slave_Transmit_15
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R7,R0
+        BCS.N    ??HAL_I2C_Slave_Transmit_12
+??HAL_I2C_Slave_Transmit_15:
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+??HAL_I2C_Slave_Transmit_14:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+4]
+        ORR      R1,R1,#0x8000
+        STR      R1,[R0, #+4]
+        LDR      R0,[R4, #+56]
+        CMP      R0,#+4
+        BNE.N    ??HAL_I2C_Slave_Transmit_16
+        MOVS     R0,#+1
+        POP      {R4-R8,PC}
+??HAL_I2C_Slave_Transmit_13:
+        SUBS     R6,R6,#+1
+        LDRB     R1,[R8], #+1
+        UXTH     R6,R6
+        CMP      R6,#+0
+        STR      R1,[R0, #+40]
+        BNE.N    ??HAL_I2C_Slave_Transmit_10
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R8,R0
+??HAL_I2C_Slave_Transmit_17:
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+24]
+        LSLS     R0,R0,#+26
+        BMI.N    ??HAL_I2C_Slave_Transmit_18
+        MOVS     R1,#+25
+        MOV      R0,R4
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??HAL_I2C_Slave_Transmit_19
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUB      R0,R0,R8
+        CMP      R0,#+26
+        BCC.N    ??HAL_I2C_Slave_Transmit_17
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+??HAL_I2C_Slave_Transmit_19:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+4]
+        ORR      R1,R1,#0x8000
+        STR      R1,[R0, #+4]
+        LDR      R0,[R4, #+56]
+        CMP      R0,#+4
+        BNE.N    ??HAL_I2C_Slave_Transmit_16
+        MOVS     R0,#+0
+        STR      R0,[R4, #+56]
 //  836       }
 //  837     }
 //  838     
 //  839     /* Clear STOP flag */
 //  840     __HAL_I2C_CLEAR_FLAG(hi2c,I2C_FLAG_STOPF);
-??HAL_I2C_Slave_Transmit_11:
-        LDR      R1,[R5, #+0]
+??HAL_I2C_Slave_Transmit_18:
+        LDR      R1,[R4, #+0]
         MOVS     R0,#+32
+        STR      R0,[R1, #+28]
 //  841     
 //  842     /* Wait until BUSY flag is reset */ 
 //  843     if(I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_BUSY, SET, Timeout) != HAL_OK)      
-        MOV      R3,R6
-        MOVS     R2,#+1
-        STR      R0,[R1, #+28]
-        MOV      R1,#+32768
-        MOV      R0,R5
-          CFI FunCall I2C_WaitOnFlagUntilTimeout
-        BL       I2C_WaitOnFlagUntilTimeout
-        CMP      R0,#+0
-        LDR      R0,[R5, #+0]
-        LDR      R1,[R0, #+4]
-        ORR      R1,R1,#0x8000
-        STR      R1,[R0, #+4]
-        BEQ.N    ??HAL_I2C_Slave_Transmit_12
-??HAL_I2C_Slave_Transmit_3:
-        B.N      ?Subroutine5
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R8,R0
+??HAL_I2C_Slave_Transmit_20:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+16
+        BPL.N    ??HAL_I2C_Slave_Transmit_21
+        CMN      R7,#+1
+        BEQ.N    ??HAL_I2C_Slave_Transmit_20
+        CBZ.N    R7,??HAL_I2C_Slave_Transmit_22
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUB      R0,R0,R8
+        CMP      R7,R0
+        BCS.N    ??HAL_I2C_Slave_Transmit_20
+??HAL_I2C_Slave_Transmit_22:
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 //  844     {
 //  845       /* Disable Address Acknowledge */
 //  846       hi2c->Instance->CR2 |= I2C_CR2_NACK;
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+4]
+        ORR      R1,R1,#0x8000
+        STR      R1,[R0, #+4]
 //  847       return HAL_TIMEOUT;
 //  848     }
+??HAL_I2C_Slave_Transmit_16:
+        MOVS     R0,#+3
+        POP      {R4-R8,PC}
 //  849     
 //  850     /* Disable Address Acknowledge */
 //  851     hi2c->Instance->CR2 |= I2C_CR2_NACK;
+??HAL_I2C_Slave_Transmit_21:
+        LDR      R1,[R0, #+4]
+        ORR      R1,R1,#0x8000
+        STR      R1,[R0, #+4]
 //  852     
 //  853     hi2c->State = HAL_I2C_STATE_READY;
-??HAL_I2C_Slave_Transmit_12:
         MOVS     R0,#+1
-        STRB     R0,[R4, #+1]
+        STRB     R0,[R4, #+53]
 //  854     
 //  855     /* Process Unlocked */
 //  856     __HAL_UNLOCK(hi2c);
         MOVS     R0,#+0
-        STRB     R0,[R4, #+0]
+        STRB     R0,[R4, #+52]
 //  857     
 //  858     return HAL_OK;
-        POP      {R1,R4-R9,PC}
+        POP      {R4-R8,PC}
 //  859   }
 //  860   else
 //  861   {
@@ -1742,10 +1861,10 @@ HAL_I2C_Slave_Transmit:
 ??HAL_I2C_Slave_Transmit_0:
         MOVS     R0,#+2
 ??HAL_I2C_Slave_Transmit_1:
-        POP      {R1,R4-R9,PC}    ;; return
+        POP      {R4-R8,PC}       ;; return
 //  863   }
 //  864 }
-          CFI EndBlock cfiBlock8
+          CFI EndBlock cfiBlock6
 //  865 
 //  866 /**
 //  867   * @brief  Receive in slave mode an amount of data in blocking mode 
@@ -1757,36 +1876,34 @@ HAL_I2C_Slave_Transmit:
 //  873   * @retval HAL status
 //  874   */
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock9 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock7 Using cfiCommon0
           CFI Function HAL_I2C_Slave_Receive
         THUMB
 //  875 HAL_StatusTypeDef HAL_I2C_Slave_Receive(I2C_HandleTypeDef *hi2c, uint8_t *pData, uint16_t Size, uint32_t Timeout)
 //  876 {
 HAL_I2C_Slave_Receive:
-        PUSH     {R3-R9,LR}
+        PUSH     {R4-R8,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R9 Frame(CFA, -8)
-          CFI R8 Frame(CFA, -12)
-          CFI R7 Frame(CFA, -16)
-          CFI R6 Frame(CFA, -20)
-          CFI R5 Frame(CFA, -24)
-          CFI R4 Frame(CFA, -28)
-          CFI CFA R13+32
+          CFI R8 Frame(CFA, -8)
+          CFI R7 Frame(CFA, -12)
+          CFI R6 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -20)
+          CFI R4 Frame(CFA, -24)
+          CFI CFA R13+24
         MOV      R4,R0
-//  877   if(hi2c->State == HAL_I2C_STATE_READY)
-        ADD      R7,R4,#+52
         MOV      R5,R1
-        MOV      R6,R2
-        LDRB     R0,[R7, #+1]
-        MOV      R8,R3
+        MOV      R8,R2
+        MOV      R7,R3
+//  877   if(hi2c->State == HAL_I2C_STATE_READY)
+        LDRB     R0,[R4, #+53]
         CMP      R0,#+1
         BNE.W    ??HAL_I2C_Slave_Receive_0
 //  878   {  
 //  879     if((pData == NULL ) || (Size == 0)) 
         CMP      R5,#+0
         IT       NE 
-        CMPNE    R6,#+0
+        CMPNE    R8,#+0
         BEQ.W    ??HAL_I2C_Slave_Receive_1
 //  880     {
 //  881       return  HAL_ERROR;                                    
@@ -1794,61 +1911,79 @@ HAL_I2C_Slave_Receive:
 //  883     
 //  884     /* Process Locked */
 //  885     __HAL_LOCK(hi2c);
-        LDRB     R0,[R7, #+0]
+        LDRB     R0,[R4, #+52]
         CMP      R0,#+1
         BEQ.W    ??HAL_I2C_Slave_Receive_0
         MOVS     R0,#+1
+        STRB     R0,[R4, #+52]
 //  886     
 //  887     hi2c->State = HAL_I2C_STATE_SLAVE_BUSY_RX;
+        MOVS     R0,#+66
+        STRB     R0,[R4, #+53]
 //  888     hi2c->ErrorCode   = HAL_I2C_ERROR_NONE;
+        MOVS     R0,#+0
+        STR      R0,[R4, #+56]
 //  889     
 //  890     /* Enable Address Acknowledge */
 //  891     hi2c->Instance->CR2 &= ~I2C_CR2_NACK;
-//  892     
-//  893     /* Wait until ADDR flag is set */
-//  894     if(I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_ADDR, RESET, Timeout) != HAL_OK)      
-        MOVS     R2,#+0
-        STRB     R0,[R7, #+0]
-        MOVS     R0,#+66
-        STRB     R0,[R7, #+1]
-        MOVS     R0,#+0
-        STR      R0,[R7, #+4]
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
         BIC      R1,R1,#0x8000
         STR      R1,[R0, #+4]
-        MOVS     R1,#+8
-        MOV      R0,R4
-          CFI FunCall I2C_WaitOnFlagUntilTimeout
-        BL       I2C_WaitOnFlagUntilTimeout
-        CBZ.N    R0,??HAL_I2C_Slave_Receive_2
+//  892     
+//  893     /* Wait until ADDR flag is set */
+//  894     if(I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_ADDR, RESET, Timeout) != HAL_OK)      
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R6,R0
+??HAL_I2C_Slave_Receive_2:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+28
+        BMI.N    ??HAL_I2C_Slave_Receive_3
+        CMN      R7,#+1
+        BEQ.N    ??HAL_I2C_Slave_Receive_2
+        CMP      R7,#+0
+        BEQ.W    ??HAL_I2C_Slave_Receive_4
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R6
+        CMP      R7,R0
+        BCS.N    ??HAL_I2C_Slave_Receive_2
+        B.N      ??HAL_I2C_Slave_Receive_4
 //  895     {
 //  896       /* Disable Address Acknowledge */
 //  897       hi2c->Instance->CR2 |= I2C_CR2_NACK;
-        LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+4]
-        ORR      R1,R1,#0x8000
-        STR      R1,[R0, #+4]
 //  898       return HAL_TIMEOUT;
-        B.N      ??HAL_I2C_Slave_Receive_3
 //  899     }
 //  900     
 //  901     /* Clear ADDR flag */
 //  902     __HAL_I2C_CLEAR_FLAG(hi2c,I2C_FLAG_ADDR);
-??HAL_I2C_Slave_Receive_2:
-        LDR      R1,[R4, #+0]
-        MOVS     R0,#+8
+??HAL_I2C_Slave_Receive_3:
+        MOVS     R1,#+8
+        STR      R1,[R0, #+28]
 //  903     
 //  904     /* Wait until DIR flag is reset Receiver mode */
 //  905     if(I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_DIR, SET, Timeout) != HAL_OK)      
-        MOV      R3,R8
-        MOVS     R2,#+1
-        STR      R0,[R1, #+28]
-        MOV      R1,#+65536
-        MOV      R0,R4
-          CFI FunCall I2C_WaitOnFlagUntilTimeout
-        BL       I2C_WaitOnFlagUntilTimeout
-        CBNZ.N   R0,??HAL_I2C_Slave_Receive_4
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R6,R0
+??HAL_I2C_Slave_Receive_5:
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+24]
+        LSLS     R0,R0,#+15
+        BPL.N    ??HAL_I2C_Slave_Receive_6
+        CMN      R7,#+1
+        BEQ.N    ??HAL_I2C_Slave_Receive_5
+        CMP      R7,#+0
+        BEQ.W    ??HAL_I2C_Slave_Receive_4
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R6
+        CMP      R7,R0
+        BCS.N    ??HAL_I2C_Slave_Receive_5
+        B.N      ??HAL_I2C_Slave_Receive_4
+        Nop      
 //  906     {
 //  907       /* Disable Address Acknowledge */
 //  908       hi2c->Instance->CR2 |= I2C_CR2_NACK;
@@ -1859,42 +1994,42 @@ HAL_I2C_Slave_Receive:
 //  913     {
 //  914       /* Wait until RXNE flag is set */
 //  915       if(I2C_WaitOnRXNEFlagUntilTimeout(hi2c, Timeout) != HAL_OK)      
-??HAL_I2C_Slave_Receive_5:
+??HAL_I2C_Slave_Receive_6:
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R9,R0
-??HAL_I2C_Slave_Receive_6:
+        MOV      R6,R0
+??HAL_I2C_Slave_Receive_7:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+24]
         LSLS     R1,R1,#+29
-        BMI.N    ??HAL_I2C_Slave_Receive_7
-        MOV      R1,R8
+        BMI.N    ??HAL_I2C_Slave_Receive_8
+        MOV      R1,R7
         MOV      R0,R4
           CFI FunCall I2C_IsAcknowledgeFailed
         BL       I2C_IsAcknowledgeFailed
-        CBNZ.N   R0,??HAL_I2C_Slave_Receive_8
+        CBNZ.N   R0,??HAL_I2C_Slave_Receive_9
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+24]
         LSLS     R1,R1,#+26
-        BPL.N    ??HAL_I2C_Slave_Receive_9
+        BPL.N    ??HAL_I2C_Slave_Receive_10
         MOVS     R1,#+32
-        LDR.W    R2,??DataTable9_2  ;; 0xfe00e800
+        LDR.W    R2,??DataTable8_2  ;; 0xfe00e800
         STR      R1,[R0, #+28]
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
         ANDS     R1,R2,R1
         STR      R1,[R0, #+4]
         MOVS     R0,#+0
-??HAL_I2C_Slave_Receive_10:
-        STR      R0,[R7, #+4]
+??HAL_I2C_Slave_Receive_11:
+        STR      R0,[R4, #+56]
         MOVS     R0,#+1
-        STRB     R0,[R7, #+1]
+        STRB     R0,[R4, #+53]
         MOVS     R0,#+0
-        STRB     R0,[R7, #+0]
+        STRB     R0,[R4, #+52]
 //  916       {
 //  917         /* Disable Address Acknowledge */
 //  918         hi2c->Instance->CR2 |= I2C_CR2_NACK;
-??HAL_I2C_Slave_Receive_8:
+??HAL_I2C_Slave_Receive_9:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
         ORR      R1,R1,#0x8000
@@ -1914,31 +2049,12 @@ HAL_I2C_Slave_Receive:
 //  925         }
 //  926         
 //  927         if(hi2c->ErrorCode == HAL_I2C_ERROR_TIMEOUT)
-        LDR      R0,[R7, #+4]
+        LDR      R0,[R4, #+56]
         CMP      R0,#+32
-        BNE.N    ??HAL_I2C_Slave_Receive_11
+        BNE.N    ??HAL_I2C_Slave_Receive_12
 //  928         {
 //  929           return HAL_TIMEOUT;
-        B.N      ??HAL_I2C_Slave_Receive_3
 //  930         }
-??HAL_I2C_Slave_Receive_4:
-        LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+4]
-        ORR      R1,R1,#0x8000
-        STR      R1,[R0, #+4]
-        B.N      ??HAL_I2C_Slave_Receive_3
-??HAL_I2C_Slave_Receive_9:
-        CMP      R8,#+0
-        BEQ.N    ??HAL_I2C_Slave_Receive_12
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUB      R0,R0,R9
-        CMP      R8,R0
-        BCS.N    ??HAL_I2C_Slave_Receive_6
-??HAL_I2C_Slave_Receive_12:
-        LDR      R0,[R7, #+4]
-        ORR      R0,R0,#0x20
-        B.N      ??HAL_I2C_Slave_Receive_10
 //  931         else
 //  932         {
 //  933           return HAL_ERROR;
@@ -1947,33 +2063,16 @@ HAL_I2C_Slave_Receive:
 //  936       
 //  937       /* Read data from RXDR */
 //  938       (*pData++) = hi2c->Instance->RXDR;
-??HAL_I2C_Slave_Receive_7:
-        LDR      R0,[R0, #+36]
 //  939       Size--;
-        SUBS     R6,R6,#+1
-        STRB     R0,[R5], #+1
-        BNE.N    ??HAL_I2C_Slave_Receive_5
 //  940     }
 //  941     
 //  942     /* Wait until STOP flag is set */
 //  943     if(I2C_WaitOnSTOPFlagUntilTimeout(hi2c, I2C_TIMEOUT_STOPF) != HAL_OK)
-        MOVS     R1,#+25
-        MOV      R0,R4
-          CFI FunCall I2C_WaitOnSTOPFlagUntilTimeout
-        BL       I2C_WaitOnSTOPFlagUntilTimeout
-        CBZ.N    R0,??HAL_I2C_Slave_Receive_13
 //  944     {
 //  945       /* Disable Address Acknowledge */
 //  946       hi2c->Instance->CR2 |= I2C_CR2_NACK;
-        LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+4]
-        ORR      R1,R1,#0x8000
-        STR      R1,[R0, #+4]
 //  947       
 //  948       if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R7, #+4]
-        CMP      R0,#+4
-        BNE.N    ??HAL_I2C_Slave_Receive_3
 //  949       {
 //  950         return HAL_ERROR;
 //  951       }
@@ -1982,54 +2081,122 @@ HAL_I2C_Slave_Receive:
 //  954         return HAL_TIMEOUT;
 //  955       }
 //  956     }
-??HAL_I2C_Slave_Receive_11:
-        B.N      ?Subroutine6
 //  957     
 //  958     /* Clear STOP flag */
 //  959     __HAL_I2C_CLEAR_FLAG(hi2c,I2C_FLAG_STOPF);
-??HAL_I2C_Slave_Receive_13:
-        LDR      R1,[R4, #+0]
-        MOVS     R0,#+32
 //  960     
 //  961     /* Wait until BUSY flag is reset */ 
 //  962     if(I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_BUSY, SET, Timeout) != HAL_OK)      
-        MOV      R3,R8
-        MOVS     R2,#+1
-        STR      R0,[R1, #+28]
-        MOV      R1,#+32768
-        MOV      R0,R4
-          CFI FunCall I2C_WaitOnFlagUntilTimeout
-        BL       I2C_WaitOnFlagUntilTimeout
-        CMP      R0,#+0
-        LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+4]
-        ORR      R1,R1,#0x8000
-        STR      R1,[R0, #+4]
-        BEQ.N    ??HAL_I2C_Slave_Receive_14
 //  963     {
 //  964       /* Disable Address Acknowledge */
 //  965       hi2c->Instance->CR2 |= I2C_CR2_NACK;
 //  966       return HAL_TIMEOUT;
-??HAL_I2C_Slave_Receive_3:
-        B.N      ?Subroutine5
+        MOVS     R0,#+3
+        POP      {R4-R8,PC}
+??HAL_I2C_Slave_Receive_10:
+        CBZ.N    R7,??HAL_I2C_Slave_Receive_13
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R6
+        CMP      R7,R0
+        BCS.N    ??HAL_I2C_Slave_Receive_7
+??HAL_I2C_Slave_Receive_13:
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        B.N      ??HAL_I2C_Slave_Receive_11
+??HAL_I2C_Slave_Receive_8:
+        LDR      R0,[R0, #+36]
+        SUBS     R8,R8,#+1
+        STRB     R0,[R5], #+1
+        BNE.N    ??HAL_I2C_Slave_Receive_6
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??HAL_I2C_Slave_Receive_14:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+26
+        BMI.N    ??HAL_I2C_Slave_Receive_15
+        MOVS     R1,#+25
+        MOV      R0,R4
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??HAL_I2C_Slave_Receive_16
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R0,#+26
+        BCC.N    ??HAL_I2C_Slave_Receive_14
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+??HAL_I2C_Slave_Receive_16:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+4]
+        ORR      R1,R1,#0x8000
+        STR      R1,[R0, #+4]
+        LDR      R0,[R4, #+56]
+        CMP      R0,#+4
+        BNE.N    ??HAL_I2C_Slave_Receive_17
+??HAL_I2C_Slave_Receive_12:
+        MOVS     R0,#+1
+        POP      {R4-R8,PC}
+??HAL_I2C_Slave_Receive_15:
+        MOVS     R1,#+32
+        STR      R1,[R0, #+28]
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??HAL_I2C_Slave_Receive_18:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+16
+        BPL.N    ??HAL_I2C_Slave_Receive_19
+        CMN      R7,#+1
+        BEQ.N    ??HAL_I2C_Slave_Receive_18
+        CBZ.N    R7,??HAL_I2C_Slave_Receive_4
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R7,R0
+        BCS.N    ??HAL_I2C_Slave_Receive_18
+??HAL_I2C_Slave_Receive_4:
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+4]
+        ORR      R1,R1,#0x8000
+        STR      R1,[R0, #+4]
+??HAL_I2C_Slave_Receive_17:
+        MOVS     R0,#+3
+        POP      {R4-R8,PC}
 //  967     }
 //  968     
 //  969     
 //  970     /* Disable Address Acknowledge */
 //  971     hi2c->Instance->CR2 |= I2C_CR2_NACK;
+??HAL_I2C_Slave_Receive_19:
+        LDR      R1,[R0, #+4]
+        ORR      R1,R1,#0x8000
+        STR      R1,[R0, #+4]
 //  972     
 //  973     hi2c->State = HAL_I2C_STATE_READY;
-??HAL_I2C_Slave_Receive_14:
         MOVS     R0,#+1
-        STRB     R0,[R7, #+1]
+        STRB     R0,[R4, #+53]
 //  974     
 //  975     /* Process Unlocked */
 //  976     __HAL_UNLOCK(hi2c);
         MOVS     R0,#+0
-        STRB     R0,[R7, #+0]
+        STRB     R0,[R4, #+52]
 //  977     
 //  978     return HAL_OK;
-        POP      {R1,R4-R9,PC}
+        POP      {R4-R8,PC}
 //  979   }
 //  980   else
 //  981   {
@@ -2037,44 +2204,10 @@ HAL_I2C_Slave_Receive:
 ??HAL_I2C_Slave_Receive_0:
         MOVS     R0,#+2
 ??HAL_I2C_Slave_Receive_1:
-        POP      {R1,R4-R9,PC}    ;; return
+        POP      {R4-R8,PC}       ;; return
 //  983   } 
 //  984 }
-          CFI EndBlock cfiBlock9
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock10 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+32
-          CFI R4 Frame(CFA, -28)
-          CFI R5 Frame(CFA, -24)
-          CFI R6 Frame(CFA, -20)
-          CFI R7 Frame(CFA, -16)
-          CFI R8 Frame(CFA, -12)
-          CFI R9 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine6:
-        MOVS     R0,#+1
-        POP      {R1,R4-R9,PC}
-          CFI EndBlock cfiBlock10
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock11 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+32
-          CFI R4 Frame(CFA, -28)
-          CFI R5 Frame(CFA, -24)
-          CFI R6 Frame(CFA, -20)
-          CFI R7 Frame(CFA, -16)
-          CFI R8 Frame(CFA, -12)
-          CFI R9 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine5:
-        MOVS     R0,#+3
-        POP      {R1,R4-R9,PC}
-          CFI EndBlock cfiBlock11
+          CFI EndBlock cfiBlock7
 //  985 
 //  986 /**
 //  987   * @brief  Transmit in master mode an amount of data in no-blocking mode with Interrupt
@@ -2087,37 +2220,36 @@ HAL_I2C_Slave_Receive:
 //  994   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock12 Using cfiCommon0
+          CFI Block cfiBlock8 Using cfiCommon0
           CFI Function HAL_I2C_Master_Transmit_IT
+          CFI NoCalls
         THUMB
 //  995 HAL_StatusTypeDef HAL_I2C_Master_Transmit_IT(I2C_HandleTypeDef *hi2c, uint16_t DevAddress, uint8_t *pData, uint16_t Size)
 //  996 {   
 HAL_I2C_Master_Transmit_IT:
-        PUSH     {R3-R5,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
-        MOV      R4,R0
+        PUSH     {R4,R5}
+          CFI R5 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
 //  997   if(hi2c->State == HAL_I2C_STATE_READY)
-        ADD      R5,R4,#+52
-        LDRB     R0,[R5, #+1]
-        CMP      R0,#+1
+        LDRB     R4,[R0, #+53]
+        CMP      R4,#+1
         BNE.N    ??HAL_I2C_Master_Transmit_IT_0
 //  998   {
 //  999     if((pData == NULL) || (Size == 0)) 
         CMP      R2,#+0
-        IT       NE 
+        ITE      NE 
         CMPNE    R3,#+0
-        BEQ.N    ??HAL_I2C_Master_Transmit_IT_1
+        MOVEQ    R0,#+1
 // 1000     {
 // 1001       return  HAL_ERROR;                                    
+        BEQ.N    ??HAL_I2C_Master_Transmit_IT_1
 // 1002     }
 // 1003     
 // 1004     if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_BUSY) == SET)
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+24]
-        LSLS     R0,R0,#+16
+        LDR      R4,[R0, #+0]
+        LDR      R5,[R4, #+24]
+        LSLS     R5,R5,#+16
         BMI.N    ??HAL_I2C_Master_Transmit_IT_0
 // 1005     {
 // 1006       return HAL_BUSY;
@@ -2125,29 +2257,29 @@ HAL_I2C_Master_Transmit_IT:
 // 1008     
 // 1009     /* Process Locked */
 // 1010     __HAL_LOCK(hi2c);
-        LDRB     R0,[R5, #+0]
-        CMP      R0,#+1
+        LDRB     R5,[R0, #+52]
+        CMP      R5,#+1
         BEQ.N    ??HAL_I2C_Master_Transmit_IT_0
-        MOVS     R0,#+1
-        STRB     R0,[R5, #+0]
+        MOVS     R5,#+1
+        STRB     R5,[R0, #+52]
 // 1011     
 // 1012     hi2c->State = HAL_I2C_STATE_MASTER_BUSY_TX;
-        MOVS     R0,#+18
-        STRB     R0,[R5, #+1]
+        MOVS     R5,#+18
+        STRB     R5,[R0, #+53]
 // 1013     hi2c->ErrorCode   = HAL_I2C_ERROR_NONE;
-        MOVS     R0,#+0
-        STR      R0,[R5, #+4]
+        MOVS     R5,#+0
+        STR      R5,[R0, #+56]
 // 1014     
 // 1015     hi2c->pBuffPtr = pData;
 // 1016     hi2c->XferCount = Size;
 // 1017     if(Size > 255)
         CMP      R3,#+255
-        STR      R2,[R4, #+36]
-        STRH     R3,[R4, #+42]
+        STR      R2,[R0, #+36]
+        STRH     R3,[R0, #+42]
         ITTE     GT 
-        MOVGT    R0,#+255
-        STRHGT   R0,[R4, #+40]
-        STRHLE   R3,[R4, #+40]
+        MOVGT    R2,#+255
+        STRHGT   R2,[R0, #+40]
+        STRHLE   R3,[R0, #+40]
 // 1018     {
 // 1019       hi2c->XferSize = 255;
 // 1020     }
@@ -2159,37 +2291,44 @@ HAL_I2C_Master_Transmit_IT:
 // 1026     /* Send Slave Address */
 // 1027     /* Set NBYTES to write and reload if size > 255 and generate RESTART */
 // 1028     if( (hi2c->XferSize == 255) && (hi2c->XferSize < hi2c->XferCount) )
-        LDRH     R2,[R4, #+40]
+        LDRH     R2,[R0, #+40]
         CMP      R2,#+255
         BNE.N    ??HAL_I2C_Master_Transmit_IT_2
-        LDRH     R0,[R4, #+42]
-        CMP      R2,R0
+        LDRH     R3,[R0, #+42]
+        CMP      R2,R3
         BCS.N    ??HAL_I2C_Master_Transmit_IT_2
 // 1029     {
 // 1030       I2C_TransferConfig(hi2c,DevAddress,hi2c->XferSize, I2C_RELOAD_MODE, I2C_GENERATE_START_WRITE);
-        MOV      R0,#+8192
-        MOV      R3,#+16777216
-        STR      R0,[SP, #+0]
+        LDR      R3,[R4, #+4]
+        LDR.W    R5,??DataTable8  ;; 0xfc009800
+        LSLS     R1,R1,#+22
+        ANDS     R3,R5,R3
+        ORRS     R1,R3,R1, LSR #+22
+        ORR      R1,R1,R2, LSL #+16
+        ORR      R1,R1,#0x1000000
         B.N      ??HAL_I2C_Master_Transmit_IT_3
 // 1031     }
 // 1032     else
 // 1033     {
 // 1034       I2C_TransferConfig(hi2c,DevAddress,hi2c->XferSize, I2C_AUTOEND_MODE, I2C_GENERATE_START_WRITE);
 ??HAL_I2C_Master_Transmit_IT_2:
-        MOV      R0,#+8192
-        MOV      R3,#+33554432
-        STR      R0,[SP, #+0]
+        LDR      R3,[R4, #+4]
+        LDR.W    R5,??DataTable8  ;; 0xfc009800
+        LSLS     R1,R1,#+22
         UXTB     R2,R2
+        ANDS     R3,R5,R3
+        ORRS     R1,R3,R1, LSR #+22
+        ORR      R1,R1,R2, LSL #+16
+        ORR      R1,R1,#0x2000000
 ??HAL_I2C_Master_Transmit_IT_3:
-        MOV      R0,R4
-          CFI FunCall I2C_TransferConfig
-        BL       I2C_TransferConfig
+        ORR      R1,R1,#0x2000
+        STR      R1,[R4, #+4]
 // 1035     }
 // 1036     
 // 1037     /* Process Unlocked */
 // 1038     __HAL_UNLOCK(hi2c); 
-        MOVS     R0,#+0
-        STRB     R0,[R5, #+0]
+        MOVS     R1,#+0
+        STRB     R1,[R0, #+52]
 // 1039     
 // 1040     /* Note : The I2C interrupts must be enabled after unlocking current process 
 // 1041     to avoid the risk of I2C interrupt handle execution before current
@@ -2200,12 +2339,21 @@ HAL_I2C_Master_Transmit_IT:
 // 1046     /* possible to enable all of these */
 // 1047     /* I2C_IT_ERRI | I2C_IT_TCI| I2C_IT_STOPI| I2C_IT_NACKI | I2C_IT_ADDRI | I2C_IT_RXI | I2C_IT_TXI */
 // 1048     __HAL_I2C_ENABLE_IT(hi2c,I2C_IT_ERRI | I2C_IT_TCI| I2C_IT_STOPI| I2C_IT_NACKI | I2C_IT_TXI );
-        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0xF2
-        B.N      ?Subroutine0
+        STR      R1,[R0, #+0]
 // 1049     
 // 1050     return HAL_OK;
+        MOVS     R0,#+0
+        POP      {R4,R5}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI CFA R13+0
+        BX       LR
+          CFI R4 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -4)
+          CFI CFA R13+8
 // 1051   }
 // 1052   else
 // 1053   {
@@ -2213,10 +2361,14 @@ HAL_I2C_Master_Transmit_IT:
 ??HAL_I2C_Master_Transmit_IT_0:
         MOVS     R0,#+2
 ??HAL_I2C_Master_Transmit_IT_1:
-        POP      {R1,R4,R5,PC}    ;; return
+        POP      {R4,R5}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI CFA R13+0
+        BX       LR               ;; return
 // 1055   } 
 // 1056 }
-          CFI EndBlock cfiBlock12
+          CFI EndBlock cfiBlock8
 // 1057 
 // 1058 /**
 // 1059   * @brief  Receive in master mode an amount of data in no-blocking mode with Interrupt
@@ -2229,37 +2381,36 @@ HAL_I2C_Master_Transmit_IT:
 // 1066   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock13 Using cfiCommon0
+          CFI Block cfiBlock9 Using cfiCommon0
           CFI Function HAL_I2C_Master_Receive_IT
+          CFI NoCalls
         THUMB
 // 1067 HAL_StatusTypeDef HAL_I2C_Master_Receive_IT(I2C_HandleTypeDef *hi2c, uint16_t DevAddress, uint8_t *pData, uint16_t Size)
 // 1068 {
 HAL_I2C_Master_Receive_IT:
-        PUSH     {R3-R5,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R5 Frame(CFA, -8)
-          CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
-        MOV      R4,R0
+        PUSH     {R4,R5}
+          CFI R5 Frame(CFA, -4)
+          CFI R4 Frame(CFA, -8)
+          CFI CFA R13+8
 // 1069   if(hi2c->State == HAL_I2C_STATE_READY)
-        ADD      R5,R4,#+52
-        LDRB     R0,[R5, #+1]
-        CMP      R0,#+1
+        LDRB     R4,[R0, #+53]
+        CMP      R4,#+1
         BNE.N    ??HAL_I2C_Master_Receive_IT_0
 // 1070   {
 // 1071     if((pData == NULL) || (Size == 0)) 
         CMP      R2,#+0
-        IT       NE 
+        ITE      NE 
         CMPNE    R3,#+0
-        BEQ.N    ??HAL_I2C_Master_Receive_IT_1
+        MOVEQ    R0,#+1
 // 1072     {
 // 1073       return  HAL_ERROR;                                    
+        BEQ.N    ??HAL_I2C_Master_Receive_IT_1
 // 1074     }
 // 1075     
 // 1076     if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_BUSY) == SET)
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+24]
-        LSLS     R0,R0,#+16
+        LDR      R4,[R0, #+0]
+        LDR      R5,[R4, #+24]
+        LSLS     R5,R5,#+16
         BMI.N    ??HAL_I2C_Master_Receive_IT_0
 // 1077     {
 // 1078       return HAL_BUSY;
@@ -2267,29 +2418,29 @@ HAL_I2C_Master_Receive_IT:
 // 1080     
 // 1081     /* Process Locked */
 // 1082     __HAL_LOCK(hi2c);
-        LDRB     R0,[R5, #+0]
-        CMP      R0,#+1
+        LDRB     R5,[R0, #+52]
+        CMP      R5,#+1
         BEQ.N    ??HAL_I2C_Master_Receive_IT_0
-        MOVS     R0,#+1
-        STRB     R0,[R5, #+0]
+        MOVS     R5,#+1
+        STRB     R5,[R0, #+52]
 // 1083     
 // 1084     hi2c->State = HAL_I2C_STATE_MASTER_BUSY_RX;
-        MOVS     R0,#+34
-        STRB     R0,[R5, #+1]
+        MOVS     R5,#+34
+        STRB     R5,[R0, #+53]
 // 1085     hi2c->ErrorCode   = HAL_I2C_ERROR_NONE;
-        MOVS     R0,#+0
-        STR      R0,[R5, #+4]
+        MOVS     R5,#+0
+        STR      R5,[R0, #+56]
 // 1086     
 // 1087     hi2c->pBuffPtr = pData;
 // 1088     hi2c->XferCount = Size;
 // 1089     if(Size > 255)
         CMP      R3,#+255
-        STR      R2,[R4, #+36]
-        STRH     R3,[R4, #+42]
+        STR      R2,[R0, #+36]
+        STRH     R3,[R0, #+42]
         ITTE     GT 
-        MOVGT    R0,#+255
-        STRHGT   R0,[R4, #+40]
-        STRHLE   R3,[R4, #+40]
+        MOVGT    R2,#+255
+        STRHGT   R2,[R0, #+40]
+        STRHLE   R3,[R0, #+40]
 // 1090     {
 // 1091       hi2c->XferSize = 255;
 // 1092     }
@@ -2301,37 +2452,44 @@ HAL_I2C_Master_Receive_IT:
 // 1098     /* Send Slave Address */
 // 1099     /* Set NBYTES to write and reload if size > 255 and generate RESTART */
 // 1100     if( (hi2c->XferSize == 255) && (hi2c->XferSize < hi2c->XferCount) )
-        LDRH     R2,[R4, #+40]
+        LDRH     R2,[R0, #+40]
         CMP      R2,#+255
         BNE.N    ??HAL_I2C_Master_Receive_IT_2
-        LDRH     R0,[R4, #+42]
-        CMP      R2,R0
+        LDRH     R3,[R0, #+42]
+        CMP      R2,R3
         BCS.N    ??HAL_I2C_Master_Receive_IT_2
 // 1101     {
 // 1102       I2C_TransferConfig(hi2c,DevAddress,hi2c->XferSize, I2C_RELOAD_MODE, I2C_GENERATE_START_READ);
-        MOV      R0,#+9216
-        MOV      R3,#+16777216
-        STR      R0,[SP, #+0]
+        LDR      R3,[R4, #+4]
+        LDR.W    R5,??DataTable8  ;; 0xfc009800
+        LSLS     R1,R1,#+22
+        ANDS     R3,R5,R3
+        ORRS     R1,R3,R1, LSR #+22
+        ORR      R1,R1,R2, LSL #+16
+        ORR      R1,R1,#0x1000000
         B.N      ??HAL_I2C_Master_Receive_IT_3
 // 1103     }
 // 1104     else
 // 1105     {
 // 1106       I2C_TransferConfig(hi2c,DevAddress,hi2c->XferSize, I2C_AUTOEND_MODE, I2C_GENERATE_START_READ);
 ??HAL_I2C_Master_Receive_IT_2:
-        MOV      R0,#+9216
-        MOV      R3,#+33554432
-        STR      R0,[SP, #+0]
+        LDR      R3,[R4, #+4]
+        LDR.W    R5,??DataTable8  ;; 0xfc009800
+        LSLS     R1,R1,#+22
         UXTB     R2,R2
+        ANDS     R3,R5,R3
+        ORRS     R1,R3,R1, LSR #+22
+        ORR      R1,R1,R2, LSL #+16
+        ORR      R1,R1,#0x2000000
 ??HAL_I2C_Master_Receive_IT_3:
-        MOV      R0,R4
-          CFI FunCall I2C_TransferConfig
-        BL       I2C_TransferConfig
+        ORR      R1,R1,#0x2400
+        STR      R1,[R4, #+4]
 // 1107     }
 // 1108     
 // 1109     /* Process Unlocked */
 // 1110     __HAL_UNLOCK(hi2c); 
-        MOVS     R0,#+0
-        STRB     R0,[R5, #+0]
+        MOVS     R1,#+0
+        STRB     R1,[R0, #+52]
 // 1111     
 // 1112     /* Note : The I2C interrupts must be enabled after unlocking current process 
 // 1113     to avoid the risk of I2C interrupt handle execution before current
@@ -2341,12 +2499,21 @@ HAL_I2C_Master_Receive_IT:
 // 1117     /* possible to enable all of these */
 // 1118     /* I2C_IT_ERRI | I2C_IT_TCI| I2C_IT_STOPI| I2C_IT_NACKI | I2C_IT_ADDRI | I2C_IT_RXI | I2C_IT_TXI */
 // 1119     __HAL_I2C_ENABLE_IT(hi2c,I2C_IT_ERRI | I2C_IT_TCI | I2C_IT_STOPI | I2C_IT_NACKI | I2C_IT_RXI );
-        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0xF4
-        B.N      ?Subroutine0
+        STR      R1,[R0, #+0]
 // 1120     
 // 1121     return HAL_OK;
+        MOVS     R0,#+0
+        POP      {R4,R5}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI CFA R13+0
+        BX       LR
+          CFI R4 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -4)
+          CFI CFA R13+8
 // 1122   }
 // 1123   else
 // 1124   {
@@ -2354,24 +2521,14 @@ HAL_I2C_Master_Receive_IT:
 ??HAL_I2C_Master_Receive_IT_0:
         MOVS     R0,#+2
 ??HAL_I2C_Master_Receive_IT_1:
-        POP      {R1,R4,R5,PC}    ;; return
+        POP      {R4,R5}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI CFA R13+0
+        BX       LR               ;; return
 // 1126   } 
 // 1127 }
-          CFI EndBlock cfiBlock13
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock14 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+16
-          CFI R4 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine0:
-        STR      R1,[R0, #+0]
-        MOVS     R0,#+0
-        POP      {R1,R4,R5,PC}
-          CFI EndBlock cfiBlock14
+          CFI EndBlock cfiBlock9
 // 1128 
 // 1129 /**
 // 1130   * @brief  Transmit in slave mode an amount of data in no-blocking mode with Interrupt 
@@ -2383,7 +2540,7 @@ HAL_I2C_Master_Receive_IT:
 // 1136   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock15 Using cfiCommon0
+          CFI Block cfiBlock10 Using cfiCommon0
           CFI Function HAL_I2C_Slave_Transmit_IT
           CFI NoCalls
         THUMB
@@ -2391,46 +2548,43 @@ HAL_I2C_Master_Receive_IT:
 // 1138 {
 // 1139   if(hi2c->State == HAL_I2C_STATE_READY)
 HAL_I2C_Slave_Transmit_IT:
-        ADD      R3,R0,#+52
-        PUSH     {R4,R5}
-          CFI R5 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        LDRB     R4,[R3, #+1]
-        CMP      R4,#+1
+        LDRB     R3,[R0, #+53]
+        CMP      R3,#+1
         BNE.N    ??HAL_I2C_Slave_Transmit_IT_0
 // 1140   {
 // 1141     if((pData == NULL) || (Size == 0)) 
         CMP      R1,#+0
-        ITE      NE 
+        IT       NE 
         CMPNE    R2,#+0
-        MOVEQ    R0,#+1
+        BNE.N    ??HAL_I2C_Slave_Transmit_IT_1
 // 1142     {
 // 1143       return  HAL_ERROR;                                    
-        BEQ.N    ??HAL_I2C_Slave_Transmit_IT_1
+        MOVS     R0,#+1
+        BX       LR
 // 1144     }
 // 1145     
 // 1146     /* Process Locked */
 // 1147     __HAL_LOCK(hi2c);
-        LDRB     R4,[R3, #+0]
-        CMP      R4,#+1
+??HAL_I2C_Slave_Transmit_IT_1:
+        LDRB     R3,[R0, #+52]
+        CMP      R3,#+1
         BEQ.N    ??HAL_I2C_Slave_Transmit_IT_0
-        MOVS     R4,#+1
-        STRB     R4,[R3, #+0]
+        MOVS     R3,#+1
+        STRB     R3,[R0, #+52]
 // 1148     
 // 1149     hi2c->State = HAL_I2C_STATE_SLAVE_BUSY_TX;
-        MOVS     R4,#+50
-        STRB     R4,[R3, #+1]
+        MOVS     R3,#+50
+        STRB     R3,[R0, #+53]
 // 1150     hi2c->ErrorCode   = HAL_I2C_ERROR_NONE;
-        MOVS     R4,#+0
-        STR      R4,[R3, #+4]
+        MOVS     R3,#+0
+        STR      R3,[R0, #+56]
 // 1151     
 // 1152     /* Enable Address Acknowledge */
 // 1153     hi2c->Instance->CR2 &= ~I2C_CR2_NACK;
-        LDR      R4,[R0, #+0]
-        LDR      R5,[R4, #+4]
-        BIC      R5,R5,#0x8000
-        STR      R5,[R4, #+4]
+        LDR      R3,[R0, #+0]
+        LDR      R12,[R3, #+4]
+        BIC      R12,R12,#0x8000
+        STR      R12,[R3, #+4]
 // 1154     
 // 1155     hi2c->pBuffPtr = pData;
         STR      R1,[R0, #+36]
@@ -2442,7 +2596,7 @@ HAL_I2C_Slave_Transmit_IT:
         MOVS     R1,#+0
         STRH     R2,[R0, #+40]
         STRH     R2,[R0, #+42]
-        STRB     R1,[R3, #+0]
+        STRB     R1,[R0, #+52]
 // 1161     
 // 1162     /* Note : The I2C interrupts must be enabled after unlocking current process 
 // 1163     to avoid the risk of I2C interrupt handle execution before current
@@ -2455,24 +2609,21 @@ HAL_I2C_Slave_Transmit_IT:
         LDR      R0,[R0, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0xFA
-        B.N      ?Subroutine7
+        STR      R1,[R0, #+0]
 // 1170     
 // 1171     return HAL_OK;
+        MOVS     R0,#+0
+        BX       LR
 // 1172   }
 // 1173   else
 // 1174   {
 // 1175     return HAL_BUSY; 
 ??HAL_I2C_Slave_Transmit_IT_0:
         MOVS     R0,#+2
-??HAL_I2C_Slave_Transmit_IT_1:
-        POP      {R4,R5}
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI CFA R13+0
         BX       LR               ;; return
 // 1176   } 
 // 1177 }
-          CFI EndBlock cfiBlock15
+          CFI EndBlock cfiBlock10
 // 1178 
 // 1179 /**
 // 1180   * @brief  Receive in slave mode an amount of data in no-blocking mode with Interrupt 
@@ -2484,7 +2635,7 @@ HAL_I2C_Slave_Transmit_IT:
 // 1186   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock16 Using cfiCommon0
+          CFI Block cfiBlock11 Using cfiCommon0
           CFI Function HAL_I2C_Slave_Receive_IT
           CFI NoCalls
         THUMB
@@ -2492,46 +2643,43 @@ HAL_I2C_Slave_Transmit_IT:
 // 1188 {
 // 1189   if(hi2c->State == HAL_I2C_STATE_READY)
 HAL_I2C_Slave_Receive_IT:
-        ADD      R3,R0,#+52
-        PUSH     {R4,R5}
-          CFI R5 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
-        LDRB     R4,[R3, #+1]
-        CMP      R4,#+1
+        LDRB     R3,[R0, #+53]
+        CMP      R3,#+1
         BNE.N    ??HAL_I2C_Slave_Receive_IT_0
 // 1190   {
 // 1191     if((pData == NULL) || (Size == 0)) 
         CMP      R1,#+0
-        ITE      NE 
+        IT       NE 
         CMPNE    R2,#+0
-        MOVEQ    R0,#+1
+        BNE.N    ??HAL_I2C_Slave_Receive_IT_1
 // 1192     {
 // 1193       return  HAL_ERROR;                                    
-        BEQ.N    ??HAL_I2C_Slave_Receive_IT_1
+        MOVS     R0,#+1
+        BX       LR
 // 1194     }
 // 1195     
 // 1196     /* Process Locked */
 // 1197     __HAL_LOCK(hi2c);
-        LDRB     R4,[R3, #+0]
-        CMP      R4,#+1
+??HAL_I2C_Slave_Receive_IT_1:
+        LDRB     R3,[R0, #+52]
+        CMP      R3,#+1
         BEQ.N    ??HAL_I2C_Slave_Receive_IT_0
-        MOVS     R4,#+1
-        STRB     R4,[R3, #+0]
+        MOVS     R3,#+1
+        STRB     R3,[R0, #+52]
 // 1198     
 // 1199     hi2c->State = HAL_I2C_STATE_SLAVE_BUSY_RX;
-        MOVS     R4,#+66
-        STRB     R4,[R3, #+1]
+        MOVS     R3,#+66
+        STRB     R3,[R0, #+53]
 // 1200     hi2c->ErrorCode   = HAL_I2C_ERROR_NONE;
-        MOVS     R4,#+0
-        STR      R4,[R3, #+4]
+        MOVS     R3,#+0
+        STR      R3,[R0, #+56]
 // 1201     
 // 1202     /* Enable Address Acknowledge */
 // 1203     hi2c->Instance->CR2 &= ~I2C_CR2_NACK;
-        LDR      R4,[R0, #+0]
-        LDR      R5,[R4, #+4]
-        BIC      R5,R5,#0x8000
-        STR      R5,[R4, #+4]
+        LDR      R3,[R0, #+0]
+        LDR      R12,[R3, #+4]
+        BIC      R12,R12,#0x8000
+        STR      R12,[R3, #+4]
 // 1204     
 // 1205     hi2c->pBuffPtr = pData;
         STR      R1,[R0, #+36]
@@ -2543,7 +2691,7 @@ HAL_I2C_Slave_Receive_IT:
         MOVS     R1,#+0
         STRH     R2,[R0, #+40]
         STRH     R2,[R0, #+42]
-        STRB     R1,[R3, #+0]
+        STRB     R1,[R0, #+52]
 // 1211     
 // 1212     /* Note : The I2C interrupts must be enabled after unlocking current process 
 // 1213     to avoid the risk of I2C interrupt handle execution before current
@@ -2556,41 +2704,21 @@ HAL_I2C_Slave_Receive_IT:
         LDR      R0,[R0, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0xFC
-        B.N      ?Subroutine7
+        STR      R1,[R0, #+0]
 // 1220     
 // 1221     return HAL_OK;
+        MOVS     R0,#+0
+        BX       LR
 // 1222   }
 // 1223   else
 // 1224   {
 // 1225     return HAL_BUSY; 
 ??HAL_I2C_Slave_Receive_IT_0:
         MOVS     R0,#+2
-??HAL_I2C_Slave_Receive_IT_1:
-        POP      {R4,R5}
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI CFA R13+0
         BX       LR               ;; return
 // 1226   }
 // 1227 }
-          CFI EndBlock cfiBlock16
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock17 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+8
-          CFI R4 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -4)
-        THUMB
-?Subroutine7:
-        STR      R1,[R0, #+0]
-        MOVS     R0,#+0
-        POP      {R4,R5}
-          CFI CFA R13+0
-          CFI R4 SameValue
-          CFI R5 SameValue
-        BX       LR
-          CFI EndBlock cfiBlock17
+          CFI EndBlock cfiBlock11
 // 1228 
 // 1229 /**
 // 1230   * @brief  Transmit in master mode an amount of data in no-blocking mode with DMA
@@ -2603,26 +2731,24 @@ HAL_I2C_Slave_Receive_IT:
 // 1237   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock18 Using cfiCommon0
+          CFI Block cfiBlock12 Using cfiCommon0
           CFI Function HAL_I2C_Master_Transmit_DMA
         THUMB
 // 1238 HAL_StatusTypeDef HAL_I2C_Master_Transmit_DMA(I2C_HandleTypeDef *hi2c, uint16_t DevAddress, uint8_t *pData, uint16_t Size)
 // 1239 {
 HAL_I2C_Master_Transmit_DMA:
-        PUSH     {R4-R6,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+16
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
         MOV      R4,R0
-// 1240   if(hi2c->State == HAL_I2C_STATE_READY)
-        ADD      R5,R4,#+52
-        SUB      SP,SP,#+8
-          CFI CFA R13+24
-        MOV      R6,R1
-        LDRB     R0,[R5, #+1]
+        SUB      SP,SP,#+4
+          CFI CFA R13+16
+        MOV      R5,R1
         MOV      R1,R2
+// 1240   if(hi2c->State == HAL_I2C_STATE_READY)
+        LDRB     R0,[R4, #+53]
         CMP      R0,#+1
         BNE.N    ??HAL_I2C_Master_Transmit_DMA_0
 // 1241   {
@@ -2646,18 +2772,18 @@ HAL_I2C_Master_Transmit_DMA:
 // 1251     
 // 1252     /* Process Locked */
 // 1253     __HAL_LOCK(hi2c);
-        LDRB     R0,[R5, #+0]
+        LDRB     R0,[R4, #+52]
         CMP      R0,#+1
         BEQ.N    ??HAL_I2C_Master_Transmit_DMA_0
         MOVS     R0,#+1
-        STRB     R0,[R5, #+0]
+        STRB     R0,[R4, #+52]
 // 1254     
 // 1255     hi2c->State = HAL_I2C_STATE_MASTER_BUSY_TX;
         MOVS     R0,#+18
-        STRB     R0,[R5, #+1]
+        STRB     R0,[R4, #+53]
 // 1256     hi2c->ErrorCode   = HAL_I2C_ERROR_NONE;
         MOVS     R0,#+0
-        STR      R0,[R5, #+4]
+        STR      R0,[R4, #+56]
 // 1257     
 // 1258     hi2c->pBuffPtr = pData;
 // 1259     hi2c->XferCount = Size;
@@ -2680,13 +2806,13 @@ HAL_I2C_Master_Transmit_DMA:
 // 1269     /* Set the I2C DMA transfer complete callback */
 // 1270     hi2c->hdmatx->XferCpltCallback = I2C_DMAMasterTransmitCplt;
         LDR      R2,[R4, #+44]
-        LDR.W    R0,??DataTable13
+        LDR.W    R0,??DataTable12
         STR      R0,[R2, #+60]
 // 1271     
 // 1272     /* Set the DMA error callback */
 // 1273     hi2c->hdmatx->XferErrorCallback = I2C_DMAError;
         LDR      R2,[R4, #+44]
-        LDR.W    R0,??DataTable13_1
+        LDR.W    R0,??DataTable12_1
         STR      R0,[R2, #+72]
 // 1274     
 // 1275     /* Enable the DMA channel */
@@ -2701,46 +2827,74 @@ HAL_I2C_Master_Transmit_DMA:
 // 1278     /* Send Slave Address */
 // 1279     /* Set NBYTES to write and reload if size > 255 and generate RESTART */
 // 1280     if( (hi2c->XferSize == 255) && (hi2c->XferSize < hi2c->XferCount) )
-        LDRH     R2,[R4, #+40]
-        CMP      R2,#+255
+        LDRH     R1,[R4, #+40]
+        CMP      R1,#+255
         BNE.N    ??HAL_I2C_Master_Transmit_DMA_2
         LDRH     R0,[R4, #+42]
-        CMP      R2,R0
+        CMP      R1,R0
         BCS.N    ??HAL_I2C_Master_Transmit_DMA_2
 // 1281     {
 // 1282       I2C_TransferConfig(hi2c,DevAddress,hi2c->XferSize, I2C_RELOAD_MODE, I2C_GENERATE_START_WRITE);
-        MOV      R0,#+8192
-        MOV      R3,#+16777216
-        STR      R0,[SP, #+0]
+        LDR      R0,[R4, #+0]
+        LDR.N    R3,??DataTable8  ;; 0xfc009800
+        LDR      R2,[R0, #+4]
+        ANDS     R2,R3,R2
+        LSLS     R3,R5,#+22
+        ORRS     R2,R2,R3, LSR #+22
+        ORR      R1,R2,R1, LSL #+16
+        ORR      R1,R1,#0x1000000
         B.N      ??HAL_I2C_Master_Transmit_DMA_3
 // 1283     }
 // 1284     else
 // 1285     {
 // 1286       I2C_TransferConfig(hi2c,DevAddress,hi2c->XferSize, I2C_AUTOEND_MODE, I2C_GENERATE_START_WRITE);
 ??HAL_I2C_Master_Transmit_DMA_2:
-        MOV      R0,#+8192
-        MOV      R3,#+33554432
-        STR      R0,[SP, #+0]
-        UXTB     R2,R2
+        LDR      R0,[R4, #+0]
+        LDR.N    R3,??DataTable8  ;; 0xfc009800
+        UXTB     R1,R1
+        LDR      R2,[R0, #+4]
+        ANDS     R2,R3,R2
+        LSLS     R3,R5,#+22
+        ORRS     R2,R2,R3, LSR #+22
+        ORR      R1,R2,R1, LSL #+16
+        ORR      R1,R1,#0x2000000
 ??HAL_I2C_Master_Transmit_DMA_3:
-        MOV      R1,R6
-        MOV      R0,R4
-          CFI FunCall I2C_TransferConfig
-        BL       I2C_TransferConfig
+        ORR      R1,R1,#0x2000
+        STR      R1,[R0, #+4]
 // 1287     }  
 // 1288     
 // 1289     /* Wait until TXIS flag is set */
 // 1290     if(I2C_WaitOnTXISFlagUntilTimeout(hi2c, I2C_TIMEOUT_TXIS) != HAL_OK)
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??HAL_I2C_Master_Transmit_DMA_4:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+30
+        BMI.N    ??HAL_I2C_Master_Transmit_DMA_5
         MOVS     R1,#+25
         MOV      R0,R4
-          CFI FunCall I2C_WaitOnTXISFlagUntilTimeout
-        BL       I2C_WaitOnTXISFlagUntilTimeout
-        CMP      R0,#+0
-        LDR      R0,[R4, #+0]
-        BEQ.N    ??HAL_I2C_Master_Transmit_DMA_4
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??HAL_I2C_Master_Transmit_DMA_6
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R0,#+26
+        BCC.N    ??HAL_I2C_Master_Transmit_DMA_4
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 1291     {
 // 1292       /* Disable Address Acknowledge */
 // 1293       hi2c->Instance->CR2 |= I2C_CR2_NACK;
+??HAL_I2C_Master_Transmit_DMA_6:
+        LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
         ORR      R1,R1,#0x8000
         STR      R1,[R0, #+4]
@@ -2752,24 +2906,27 @@ HAL_I2C_Master_Transmit_DMA:
         BL       HAL_DMA_Abort
 // 1297       
 // 1298       if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R5, #+4]
+        LDR      R0,[R4, #+56]
         CMP      R0,#+4
-        ITE      EQ 
-        MOVEQ    R0,#+1
+        ITE      NE 
         MOVNE    R0,#+3
+        MOVEQ    R0,#+1
 // 1299       {
 // 1300         return HAL_ERROR;
 // 1301       }
 // 1302       else
 // 1303       {
 // 1304         return HAL_TIMEOUT;
-        POP      {R1,R2,R4-R6,PC}
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
 // 1305       }
 // 1306     }
 // 1307     
 // 1308     /* Enable DMA Request */
 // 1309     hi2c->Instance->CR1 |= I2C_CR1_TXDMAEN;   
-??HAL_I2C_Master_Transmit_DMA_4:
+??HAL_I2C_Master_Transmit_DMA_5:
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x4000
         STR      R1,[R0, #+0]
@@ -2777,10 +2934,13 @@ HAL_I2C_Master_Transmit_DMA:
 // 1311     /* Process Unlocked */
 // 1312     __HAL_UNLOCK(hi2c);
         MOVS     R0,#+0
-        STRB     R0,[R5, #+0]
+        STRB     R0,[R4, #+52]
 // 1313     
 // 1314     return HAL_OK;
-        POP      {R1,R2,R4-R6,PC}
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
 // 1315   }
 // 1316   else
 // 1317   {
@@ -2788,10 +2948,12 @@ HAL_I2C_Master_Transmit_DMA:
 ??HAL_I2C_Master_Transmit_DMA_0:
         MOVS     R0,#+2
 ??HAL_I2C_Master_Transmit_DMA_1:
-        POP      {R1,R2,R4-R6,PC}  ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
 // 1319   }
 // 1320 }
-          CFI EndBlock cfiBlock18
+          CFI EndBlock cfiBlock12
 // 1321 
 // 1322 /**
 // 1323   * @brief  Receive in master mode an amount of data in no-blocking mode with DMA 
@@ -2804,39 +2966,37 @@ HAL_I2C_Master_Transmit_DMA:
 // 1330   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock19 Using cfiCommon0
+          CFI Block cfiBlock13 Using cfiCommon0
           CFI Function HAL_I2C_Master_Receive_DMA
         THUMB
 // 1331 HAL_StatusTypeDef HAL_I2C_Master_Receive_DMA(I2C_HandleTypeDef *hi2c, uint16_t DevAddress, uint8_t *pData, uint16_t Size)
 // 1332 {
 HAL_I2C_Master_Receive_DMA:
-        PUSH     {R4-R6,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
+        MOV      R4,R0
+        SUB      SP,SP,#+4
           CFI CFA R13+16
-        MOV      R5,R0
+        MOV      R5,R1
 // 1333   if(hi2c->State == HAL_I2C_STATE_READY)
-        ADD      R4,R5,#+52
-        SUB      SP,SP,#+8
-          CFI CFA R13+24
-        MOV      R6,R1
-        LDRB     R0,[R4, #+1]
+        LDRB     R0,[R4, #+53]
         CMP      R0,#+1
-        BNE.N    ??HAL_I2C_Master_Receive_DMA_0
+        BNE.W    ??HAL_I2C_Master_Receive_DMA_0
 // 1334   {
 // 1335     if((pData == NULL) || (Size == 0)) 
         CMP      R2,#+0
         IT       NE 
         CMPNE    R3,#+0
-        BEQ.N    ??HAL_I2C_Master_Receive_DMA_1
+        BEQ.W    ??HAL_I2C_Master_Receive_DMA_1
 // 1336     {
 // 1337       return  HAL_ERROR;                                    
 // 1338     }  
 // 1339     
 // 1340     if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_BUSY) == SET)
-        LDR      R0,[R5, #+0]
+        LDR      R0,[R4, #+0]
         LDR      R0,[R0, #+24]
         LSLS     R0,R0,#+16
         BMI.N    ??HAL_I2C_Master_Receive_DMA_0
@@ -2846,29 +3006,29 @@ HAL_I2C_Master_Receive_DMA:
 // 1344     
 // 1345     /* Process Locked */
 // 1346     __HAL_LOCK(hi2c);
-        LDRB     R0,[R4, #+0]
+        LDRB     R0,[R4, #+52]
         CMP      R0,#+1
         BEQ.N    ??HAL_I2C_Master_Receive_DMA_0
         MOVS     R0,#+1
-        STRB     R0,[R4, #+0]
+        STRB     R0,[R4, #+52]
 // 1347     
 // 1348     hi2c->State = HAL_I2C_STATE_MASTER_BUSY_RX;
         MOVS     R0,#+34
-        STRB     R0,[R4, #+1]
+        STRB     R0,[R4, #+53]
 // 1349     hi2c->ErrorCode   = HAL_I2C_ERROR_NONE;
         MOVS     R0,#+0
-        STR      R0,[R4, #+4]
+        STR      R0,[R4, #+56]
 // 1350     
 // 1351     hi2c->pBuffPtr = pData;
 // 1352     hi2c->XferCount = Size;
 // 1353     if(Size > 255)
         CMP      R3,#+255
-        STR      R2,[R5, #+36]
-        STRH     R3,[R5, #+42]
+        STR      R2,[R4, #+36]
+        STRH     R3,[R4, #+42]
         ITTE     GT 
         MOVGT    R0,#+255
-        STRHGT   R0,[R5, #+40]
-        STRHLE   R3,[R5, #+40]
+        STRHGT   R0,[R4, #+40]
+        STRHLE   R3,[R4, #+40]
 // 1354     {
 // 1355       hi2c->XferSize = 255;
 // 1356     }
@@ -2879,90 +3039,136 @@ HAL_I2C_Master_Receive_DMA:
 // 1361     
 // 1362     /* Set the I2C DMA transfer complete callback */
 // 1363     hi2c->hdmarx->XferCpltCallback = I2C_DMAMasterReceiveCplt;
-        LDR      R1,[R5, #+48]
-        LDR.W    R0,??DataTable13_2
+        LDR      R1,[R4, #+48]
+        LDR.W    R0,??DataTable13
         STR      R0,[R1, #+60]
 // 1364     
 // 1365     /* Set the DMA error callback */
 // 1366     hi2c->hdmarx->XferErrorCallback = I2C_DMAError;
-        LDR      R1,[R5, #+48]
-        LDR.W    R0,??DataTable13_1
+        LDR      R1,[R4, #+48]
+        LDR.W    R0,??DataTable12_1
         STR      R0,[R1, #+72]
 // 1367     
 // 1368     /* Enable the DMA channel */
 // 1369     HAL_DMA_Start_IT(hi2c->hdmarx, (uint32_t)&hi2c->Instance->RXDR, (uint32_t)pData, hi2c->XferSize);
-        LDR      R0,[R5, #+0]
-        LDRH     R3,[R5, #+40]
+        LDR      R0,[R4, #+0]
+        LDRH     R3,[R4, #+40]
         ADD      R1,R0,#+36
-        LDR      R0,[R5, #+48]
+        LDR      R0,[R4, #+48]
           CFI FunCall HAL_DMA_Start_IT
         BL       HAL_DMA_Start_IT
 // 1370     
 // 1371     /* Send Slave Address */
 // 1372     /* Set NBYTES to write and reload if size > 255 and generate RESTART */
 // 1373     if( (hi2c->XferSize == 255) && (hi2c->XferSize < hi2c->XferCount) )
-        LDRH     R2,[R5, #+40]
-        CMP      R2,#+255
+        LDRH     R1,[R4, #+40]
+        CMP      R1,#+255
         BNE.N    ??HAL_I2C_Master_Receive_DMA_2
-        LDRH     R0,[R5, #+42]
-        CMP      R2,R0
+        LDRH     R0,[R4, #+42]
+        CMP      R1,R0
         BCS.N    ??HAL_I2C_Master_Receive_DMA_2
 // 1374     {
 // 1375       I2C_TransferConfig(hi2c,DevAddress,hi2c->XferSize, I2C_RELOAD_MODE, I2C_GENERATE_START_READ);
-        MOV      R0,#+9216
-        MOV      R3,#+16777216
-        STR      R0,[SP, #+0]
+        LDR      R0,[R4, #+0]
+        LDR.N    R3,??DataTable8  ;; 0xfc009800
+        LDR      R2,[R0, #+4]
+        ANDS     R2,R3,R2
+        LSLS     R3,R5,#+22
+        ORRS     R2,R2,R3, LSR #+22
+        ORR      R1,R2,R1, LSL #+16
+        ORR      R1,R1,#0x1000000
         B.N      ??HAL_I2C_Master_Receive_DMA_3
 // 1376     }
 // 1377     else
 // 1378     {
 // 1379       I2C_TransferConfig(hi2c,DevAddress,hi2c->XferSize, I2C_AUTOEND_MODE, I2C_GENERATE_START_READ);
 ??HAL_I2C_Master_Receive_DMA_2:
-        MOV      R0,#+9216
-        MOV      R3,#+33554432
-        STR      R0,[SP, #+0]
-        UXTB     R2,R2
+        LDR      R0,[R4, #+0]
+        LDR.N    R3,??DataTable8  ;; 0xfc009800
+        UXTB     R1,R1
+        LDR      R2,[R0, #+4]
+        ANDS     R2,R3,R2
+        LSLS     R3,R5,#+22
+        ORRS     R2,R2,R3, LSR #+22
+        ORR      R1,R2,R1, LSL #+16
+        ORR      R1,R1,#0x2000000
 ??HAL_I2C_Master_Receive_DMA_3:
-        MOV      R1,R6
-        MOV      R0,R5
-          CFI FunCall I2C_TransferConfig
-        BL       I2C_TransferConfig
+        ORR      R1,R1,#0x2400
+        STR      R1,[R0, #+4]
 // 1380     }
 // 1381     
 // 1382     /* Wait until RXNE flag is set */
 // 1383     if(I2C_WaitOnRXNEFlagUntilTimeout(hi2c, I2C_FLAG_RXNE) != HAL_OK)      
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??HAL_I2C_Master_Receive_DMA_4:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+29
+        BMI.N    ??HAL_I2C_Master_Receive_DMA_5
         MOVS     R1,#+4
-        MOV      R0,R5
-          CFI FunCall I2C_WaitOnRXNEFlagUntilTimeout
-        BL       I2C_WaitOnRXNEFlagUntilTimeout
-        CBZ.N    R0,??HAL_I2C_Master_Receive_DMA_4
+        MOV      R0,R4
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??HAL_I2C_Master_Receive_DMA_6
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+26
+        BPL.N    ??HAL_I2C_Master_Receive_DMA_7
+        MOVS     R1,#+32
+        LDR.N    R2,??DataTable8_2  ;; 0xfe00e800
+        STR      R1,[R0, #+28]
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+4]
+        ANDS     R1,R2,R1
+        STR      R1,[R0, #+4]
+        MOVS     R0,#+0
+??HAL_I2C_Master_Receive_DMA_8:
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 1384     {
 // 1385       /* Abort DMA */
 // 1386       HAL_DMA_Abort(hi2c->hdmarx);
-        LDR      R0,[R5, #+48]
+??HAL_I2C_Master_Receive_DMA_6:
+        LDR      R0,[R4, #+48]
           CFI FunCall HAL_DMA_Abort
         BL       HAL_DMA_Abort
 // 1387       
 // 1388       if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R4, #+4]
+        LDR      R0,[R4, #+56]
         CMP      R0,#+4
-        ITE      EQ 
-        MOVEQ    R0,#+1
+        ITE      NE 
         MOVNE    R0,#+3
+        MOVEQ    R0,#+1
 // 1389       {
 // 1390         return HAL_ERROR;
 // 1391       }
 // 1392       else
 // 1393       {
 // 1394         return HAL_TIMEOUT;
-        POP      {R1,R2,R4-R6,PC}
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
 // 1395       }
 // 1396 	}
+??HAL_I2C_Master_Receive_DMA_7:
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R0,#+5
+        BCC.N    ??HAL_I2C_Master_Receive_DMA_4
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        B.N      ??HAL_I2C_Master_Receive_DMA_8
 // 1397     
 // 1398     /* Enable DMA Request */
 // 1399     hi2c->Instance->CR1 |= I2C_CR1_RXDMAEN;   
-??HAL_I2C_Master_Receive_DMA_4:
-        LDR      R0,[R5, #+0]
+??HAL_I2C_Master_Receive_DMA_5:
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x8000
         STR      R1,[R0, #+0]
@@ -2970,10 +3176,13 @@ HAL_I2C_Master_Receive_DMA:
 // 1401     /* Process Unlocked */
 // 1402     __HAL_UNLOCK(hi2c);
         MOVS     R0,#+0
-        STRB     R0,[R4, #+0]
+        STRB     R0,[R4, #+52]
 // 1403     
 // 1404     return HAL_OK;
-        POP      {R1,R2,R4-R6,PC}
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
 // 1405   }
 // 1406   else
 // 1407   {
@@ -2981,10 +3190,12 @@ HAL_I2C_Master_Receive_DMA:
 ??HAL_I2C_Master_Receive_DMA_0:
         MOVS     R0,#+2
 ??HAL_I2C_Master_Receive_DMA_1:
-        POP      {R1,R2,R4-R6,PC}  ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
 // 1409   }
 // 1410 }
-          CFI EndBlock cfiBlock19
+          CFI EndBlock cfiBlock13
 // 1411 
 // 1412 /**
 // 1413   * @brief  Transmit in slave mode an amount of data in no-blocking mode with DMA 
@@ -2996,23 +3207,21 @@ HAL_I2C_Master_Receive_DMA:
 // 1419   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock20 Using cfiCommon0
+          CFI Block cfiBlock14 Using cfiCommon0
           CFI Function HAL_I2C_Slave_Transmit_DMA
         THUMB
 // 1420 HAL_StatusTypeDef HAL_I2C_Slave_Transmit_DMA(I2C_HandleTypeDef *hi2c, uint8_t *pData, uint16_t Size)
 // 1421 {
 HAL_I2C_Slave_Transmit_DMA:
-        PUSH     {R3-R7,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+24
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
         MOV      R4,R0
 // 1422   if(hi2c->State == HAL_I2C_STATE_READY)
-        ADD      R5,R4,#+52
-        LDRB     R0,[R5, #+1]
+        LDRB     R0,[R4, #+53]
         CMP      R0,#+1
         BNE.N    ??HAL_I2C_Slave_Transmit_DMA_0
 // 1423   {
@@ -3026,7 +3235,7 @@ HAL_I2C_Slave_Transmit_DMA:
 // 1427     }   
 // 1428     /* Process Locked */
 // 1429     __HAL_LOCK(hi2c); 
-        LDRB     R0,[R5, #+0]
+        LDRB     R0,[R4, #+52]
         CMP      R0,#+1
         BEQ.N    ??HAL_I2C_Slave_Transmit_DMA_0
         MOVS     R0,#+1
@@ -3046,20 +3255,20 @@ HAL_I2C_Slave_Transmit_DMA:
 // 1443     
 // 1444     /* Enable the DMA channel */
 // 1445     HAL_DMA_Start_IT(hi2c->hdmatx, (uint32_t)pData, (uint32_t)&hi2c->Instance->TXDR, hi2c->XferSize);
-        MOVW     R6,#+10001
-        STRB     R0,[R5, #+0]
+        MOVW     R5,#+10001
+        STRB     R0,[R4, #+52]
         MOVS     R0,#+50
-        STRB     R0,[R5, #+1]
+        STRB     R0,[R4, #+53]
         MOVS     R0,#+0
-        STR      R0,[R5, #+4]
-        LDR.W    R0,??DataTable13_3
+        STR      R0,[R4, #+56]
+        LDR.W    R0,??DataTable13_1
         STR      R1,[R4, #+36]
         STRH     R2,[R4, #+42]
         STRH     R2,[R4, #+40]
         LDR      R2,[R4, #+44]
         STR      R0,[R2, #+60]
         LDR      R2,[R4, #+44]
-        LDR.W    R0,??DataTable13_1
+        LDR.W    R0,??DataTable12_1
         STR      R0,[R2, #+72]
         LDR      R0,[R4, #+0]
         LDRH     R3,[R4, #+40]
@@ -3079,7 +3288,7 @@ HAL_I2C_Slave_Transmit_DMA:
 // 1451     if(I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_ADDR, RESET, I2C_TIMEOUT_ADDR) != HAL_OK)      
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R7,R0
+        MOV      R6,R0
 ??HAL_I2C_Slave_Transmit_DMA_2:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+24]
@@ -3087,8 +3296,8 @@ HAL_I2C_Slave_Transmit_DMA:
         BMI.N    ??HAL_I2C_Slave_Transmit_DMA_3
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUBS     R0,R0,R7
-        CMP      R0,R6
+        SUBS     R0,R0,R6
+        CMP      R0,R5
         BCC.N    ??HAL_I2C_Slave_Transmit_DMA_2
         B.N      ??HAL_I2C_Slave_Transmit_DMA_4
 // 1452     {
@@ -3113,7 +3322,7 @@ HAL_I2C_Slave_Transmit_DMA:
 // 1465       if(I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_ADDR, RESET, I2C_TIMEOUT_ADDR) != HAL_OK)      
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R7,R0
+        MOV      R6,R0
 ??HAL_I2C_Slave_Transmit_DMA_6:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+24]
@@ -3121,8 +3330,8 @@ HAL_I2C_Slave_Transmit_DMA:
         BMI.N    ??HAL_I2C_Slave_Transmit_DMA_7
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUBS     R0,R0,R7
-        CMP      R0,R6
+        SUBS     R0,R0,R6
+        CMP      R0,R5
         BCC.N    ??HAL_I2C_Slave_Transmit_DMA_6
         B.N      ??HAL_I2C_Slave_Transmit_DMA_4
 // 1466       {
@@ -3143,7 +3352,7 @@ HAL_I2C_Slave_Transmit_DMA:
 ??HAL_I2C_Slave_Transmit_DMA_5:
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R6,R0
+        MOV      R5,R0
 ??HAL_I2C_Slave_Transmit_DMA_8:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+24]
@@ -3151,15 +3360,24 @@ HAL_I2C_Slave_Transmit_DMA:
         BMI.N    ??HAL_I2C_Slave_Transmit_DMA_9
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUBS     R0,R0,R6
+        SUBS     R0,R0,R5
         CMP      R0,#+26
         BCC.N    ??HAL_I2C_Slave_Transmit_DMA_8
 ??HAL_I2C_Slave_Transmit_DMA_4:
-        B.N      ?Subroutine8
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 1478     {
 // 1479       /* Disable Address Acknowledge */
 // 1480       hi2c->Instance->CR2 |= I2C_CR2_NACK;
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+4]
+        ORR      R1,R1,#0x8000
+        STR      R1,[R0, #+4]
 // 1481       return HAL_TIMEOUT;
+        MOVS     R0,#+3
+        POP      {R4-R6,PC}
 // 1482     }
 // 1483     
 // 1484     /* Enable DMA Request */
@@ -3167,12 +3385,15 @@ HAL_I2C_Slave_Transmit_DMA:
 ??HAL_I2C_Slave_Transmit_DMA_9:
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x4000
-        B.N      ?Subroutine9
+        STR      R1,[R0, #+0]
 // 1486     
 // 1487     /* Process Unlocked */
 // 1488     __HAL_UNLOCK(hi2c);
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 1489     
 // 1490     return HAL_OK;
+        POP      {R4-R6,PC}
 // 1491   }
 // 1492   else
 // 1493   {
@@ -3180,10 +3401,10 @@ HAL_I2C_Slave_Transmit_DMA:
 ??HAL_I2C_Slave_Transmit_DMA_0:
         MOVS     R0,#+2
 ??HAL_I2C_Slave_Transmit_DMA_1:
-        POP      {R1,R4-R7,PC}    ;; return
+        POP      {R4-R6,PC}       ;; return
 // 1495   }
 // 1496 }
-          CFI EndBlock cfiBlock20
+          CFI EndBlock cfiBlock14
 // 1497 
 // 1498 /**
 // 1499   * @brief  Receive in slave mode an amount of data in no-blocking mode with DMA 
@@ -3195,23 +3416,21 @@ HAL_I2C_Slave_Transmit_DMA:
 // 1505   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock21 Using cfiCommon0
+          CFI Block cfiBlock15 Using cfiCommon0
           CFI Function HAL_I2C_Slave_Receive_DMA
         THUMB
 // 1506 HAL_StatusTypeDef HAL_I2C_Slave_Receive_DMA(I2C_HandleTypeDef *hi2c, uint8_t *pData, uint16_t Size)
 // 1507 {
 HAL_I2C_Slave_Receive_DMA:
-        PUSH     {R3-R7,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+24
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
         MOV      R4,R0
 // 1508   if(hi2c->State == HAL_I2C_STATE_READY)
-        ADD      R5,R4,#+52
-        LDRB     R0,[R5, #+1]
+        LDRB     R0,[R4, #+53]
         CMP      R0,#+1
         BNE.N    ??HAL_I2C_Slave_Receive_DMA_0
 // 1509   {
@@ -3225,7 +3444,7 @@ HAL_I2C_Slave_Receive_DMA:
 // 1513     }   
 // 1514     /* Process Locked */
 // 1515     __HAL_LOCK(hi2c);
-        LDRB     R0,[R5, #+0]
+        LDRB     R0,[R4, #+52]
         CMP      R0,#+1
         BEQ.N    ??HAL_I2C_Slave_Receive_DMA_0
         MOVS     R0,#+1
@@ -3245,20 +3464,20 @@ HAL_I2C_Slave_Receive_DMA:
 // 1529     
 // 1530     /* Enable the DMA channel */
 // 1531     HAL_DMA_Start_IT(hi2c->hdmarx, (uint32_t)&hi2c->Instance->RXDR, (uint32_t)pData, Size);
-        MOVW     R7,#+10001
-        STRB     R0,[R5, #+0]
+        MOVW     R6,#+10001
+        STRB     R0,[R4, #+52]
         MOVS     R0,#+66
-        STRB     R0,[R5, #+1]
+        STRB     R0,[R4, #+53]
         MOVS     R0,#+0
-        STR      R0,[R5, #+4]
-        LDR.W    R0,??DataTable13_4
+        STR      R0,[R4, #+56]
+        LDR.W    R0,??DataTable14
         STR      R1,[R4, #+36]
         STRH     R2,[R4, #+40]
         STRH     R2,[R4, #+42]
         LDR      R3,[R4, #+48]
         STR      R0,[R3, #+60]
         LDR      R3,[R4, #+48]
-        LDR.W    R0,??DataTable13_1
+        LDR.W    R0,??DataTable12_1
         STR      R0,[R3, #+72]
         MOV      R3,R2
         LDR      R0,[R4, #+0]
@@ -3279,7 +3498,7 @@ HAL_I2C_Slave_Receive_DMA:
 // 1537     if(I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_ADDR, RESET, I2C_TIMEOUT_ADDR) != HAL_OK)      
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R6,R0
+        MOV      R5,R0
 ??HAL_I2C_Slave_Receive_DMA_2:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+24]
@@ -3287,8 +3506,8 @@ HAL_I2C_Slave_Receive_DMA:
         BMI.N    ??HAL_I2C_Slave_Receive_DMA_3
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUBS     R0,R0,R6
-        CMP      R0,R7
+        SUBS     R0,R0,R5
+        CMP      R0,R6
         BCC.N    ??HAL_I2C_Slave_Receive_DMA_2
         B.N      ??HAL_I2C_Slave_Receive_DMA_4
 // 1538     {
@@ -3307,7 +3526,7 @@ HAL_I2C_Slave_Receive_DMA:
 // 1548     if(I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_DIR, SET, I2C_TIMEOUT_DIR) != HAL_OK)      
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R6,R0
+        MOV      R5,R0
 ??HAL_I2C_Slave_Receive_DMA_5:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+24]
@@ -3315,15 +3534,24 @@ HAL_I2C_Slave_Receive_DMA:
         BPL.N    ??HAL_I2C_Slave_Receive_DMA_6
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUBS     R0,R0,R6
+        SUBS     R0,R0,R5
         CMP      R0,#+26
         BCC.N    ??HAL_I2C_Slave_Receive_DMA_5
 ??HAL_I2C_Slave_Receive_DMA_4:
-        B.N      ?Subroutine8
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 1549     {
 // 1550       /* Disable Address Acknowledge */
 // 1551       hi2c->Instance->CR2 |= I2C_CR2_NACK;
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+4]
+        ORR      R1,R1,#0x8000
+        STR      R1,[R0, #+4]
 // 1552       return HAL_TIMEOUT;
+        MOVS     R0,#+3
+        POP      {R4-R6,PC}
 // 1553     }
 // 1554     
 // 1555     /* Enable DMA Request */
@@ -3331,12 +3559,15 @@ HAL_I2C_Slave_Receive_DMA:
 ??HAL_I2C_Slave_Receive_DMA_6:
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x8000
-        B.N      ?Subroutine9
+        STR      R1,[R0, #+0]
 // 1557     
 // 1558     /* Process Unlocked */
 // 1559     __HAL_UNLOCK(hi2c);
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 1560     
 // 1561     return HAL_OK;
+        POP      {R4-R6,PC}
 // 1562   }
 // 1563   else
 // 1564   {
@@ -3344,50 +3575,28 @@ HAL_I2C_Slave_Receive_DMA:
 ??HAL_I2C_Slave_Receive_DMA_0:
         MOVS     R0,#+2
 ??HAL_I2C_Slave_Receive_DMA_1:
-        POP      {R1,R4-R7,PC}    ;; return
+        POP      {R4-R6,PC}       ;; return
 // 1566   }
 // 1567 }
-          CFI EndBlock cfiBlock21
+          CFI EndBlock cfiBlock15
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock22 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+24
-          CFI R4 Frame(CFA, -20)
-          CFI R5 Frame(CFA, -16)
-          CFI R6 Frame(CFA, -12)
-          CFI R7 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine9:
-        STR      R1,[R0, #+0]
-        MOVS     R0,#+0
-        STRB     R0,[R5, #+0]
-        POP      {R1,R4-R7,PC}
-          CFI EndBlock cfiBlock22
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable8:
+        DC32     0xfc009800
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock23 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+24
-          CFI R4 Frame(CFA, -20)
-          CFI R5 Frame(CFA, -16)
-          CFI R6 Frame(CFA, -12)
-          CFI R7 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine8:
-        MOVS     R0,#+1
-        STRB     R0,[R5, #+1]
-        MOVS     R0,#+0
-        STRB     R0,[R5, #+0]
-        LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+4]
-        ORR      R1,R1,#0x8000
-        STR      R1,[R0, #+4]
-        MOVS     R0,#+3
-        POP      {R1,R4-R7,PC}
-          CFI EndBlock cfiBlock23
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable8_1:
+        DC32     0x1ff0000
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable8_2:
+        DC32     0xfe00e800
 // 1568 /**
 // 1569   * @brief  Write an amount of data in blocking mode to a specific memory address
 // 1570   * @param  hi2c : Pointer to a I2C_HandleTypeDef structure that contains
@@ -3401,14 +3610,14 @@ HAL_I2C_Slave_Receive_DMA:
 // 1578   * @retval HAL status
 // 1579   */
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock24 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock16 Using cfiCommon0
           CFI Function HAL_I2C_Mem_Write
         THUMB
 // 1580 HAL_StatusTypeDef HAL_I2C_Mem_Write(I2C_HandleTypeDef *hi2c, uint16_t DevAddress, uint16_t MemAddress, uint16_t MemAddSize, uint8_t *pData, uint16_t Size, uint32_t Timeout)
 // 1581 {
 HAL_I2C_Mem_Write:
-        PUSH     {R3-R11,LR}
+        PUSH     {R4-R11,LR}
           CFI R14 Frame(CFA, -4)
           CFI R11 Frame(CFA, -8)
           CFI R10 Frame(CFA, -12)
@@ -3418,23 +3627,25 @@ HAL_I2C_Mem_Write:
           CFI R6 Frame(CFA, -28)
           CFI R5 Frame(CFA, -32)
           CFI R4 Frame(CFA, -36)
-          CFI CFA R13+40
+          CFI CFA R13+36
         MOV      R5,R0
+        SUB      SP,SP,#+4
+          CFI CFA R13+40
+        MOV      R6,R2
+        MOV      R9,R3
 // 1582   uint32_t Sizetmp = 0;
 // 1583   
 // 1584   /* Check the parameters */
 // 1585   assert_param(IS_I2C_MEMADD_SIZE(MemAddSize));
 // 1586   
 // 1587   if(hi2c->State == HAL_I2C_STATE_READY)
-        ADD      R6,R5,#+52
-        MOV      R9,R1
-        LDRB     R0,[R6, #+1]
+        LDRB     R0,[R5, #+53]
         CMP      R0,#+1
         BNE.W    ??HAL_I2C_Mem_Write_0
-        LDR      R10,[SP, #+40]
+        LDR      R8,[SP, #+40]
 // 1588   { 
 // 1589     if((pData == NULL) || (Size == 0)) 
-        CMP      R10,#+0
+        CMP      R8,#+0
         ITT      NE 
         LDRNE    R4,[SP, #+44]
         CMPNE    R4,#+0
@@ -3445,8 +3656,8 @@ HAL_I2C_Mem_Write:
 // 1593     
 // 1594     if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_BUSY) == SET)
         LDR      R0,[R5, #+0]
-        LDR      R0,[R0, #+24]
-        LSLS     R0,R0,#+16
+        LDR      R2,[R0, #+24]
+        LSLS     R2,R2,#+16
         BMI.W    ??HAL_I2C_Mem_Write_0
 // 1595     {
 // 1596       return HAL_BUSY;
@@ -3454,84 +3665,97 @@ HAL_I2C_Mem_Write:
 // 1598     
 // 1599     /* Process Locked */
 // 1600     __HAL_LOCK(hi2c);
-        LDRB     R0,[R6, #+0]
-        CMP      R0,#+1
+        LDRB     R2,[R5, #+52]
+        CMP      R2,#+1
         BEQ.W    ??HAL_I2C_Mem_Write_0
-        MOVS     R0,#+1
-        STRB     R0,[R6, #+0]
+        MOVS     R2,#+1
 // 1601     
 // 1602     hi2c->State = HAL_I2C_STATE_MEM_BUSY_TX;
-        MOVS     R0,#+82
-        STRB     R0,[R6, #+1]
 // 1603     hi2c->ErrorCode = HAL_I2C_ERROR_NONE;
-        MOVS     R0,#+0
-        STR      R0,[R6, #+4]
-        LDR      R8,[SP, #+48]
 // 1604     
 // 1605     /* Send Slave Address and Memory Address */
 // 1606     if(I2C_RequestMemoryWrite(hi2c, DevAddress, MemAddress, MemAddSize, Timeout) != HAL_OK)
+        LSLS     R7,R1,#+22
+        STRB     R2,[R5, #+52]
+        MOVS     R2,#+82
+        STRB     R2,[R5, #+53]
+        MOVS     R2,#+0
+        STR      R2,[R5, #+56]
+        LDR      R1,[R0, #+4]
+        LDR.W    R10,??DataTable15  ;; 0xfc009800
+        UXTB     R2,R9
+        AND      R1,R10,R1
+        ORRS     R1,R1,R7, LSR #+22
+        ORR      R1,R1,R2, LSL #+16
+        ORR      R1,R1,#0x1000000
+        ORR      R1,R1,#0x2000
+        STR      R1,[R0, #+4]
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        STR      R0,[SP, #+0]
+        LDR      R11,[SP, #+48]
+??HAL_I2C_Mem_Write_2:
+        LDR      R1,[R5, #+0]
+        LDR      R0,[R1, #+24]
+        LSLS     R0,R0,#+30
+        BMI.N    ??HAL_I2C_Mem_Write_3
+        MOV      R1,R11
         MOV      R0,R5
-        STR      R8,[SP, #+0]
-          CFI FunCall I2C_RequestMemoryWrite
-        BL       I2C_RequestMemoryWrite
-        CBZ.N    R0,??HAL_I2C_Mem_Write_2
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??HAL_I2C_Mem_Write_4
+        CMN      R11,#+1
+        BEQ.N    ??HAL_I2C_Mem_Write_2
+        CMP      R11,#+0
+        BEQ.N    ??HAL_I2C_Mem_Write_5
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        LDR      R1,[SP, #+0]
+        SUBS     R0,R0,R1
+        CMP      R11,R0
+        BCS.N    ??HAL_I2C_Mem_Write_2
+??HAL_I2C_Mem_Write_5:
+        LDR      R0,[R5, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R5, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R5, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R5, #+52]
+??HAL_I2C_Mem_Write_4:
+        LDR      R0,[R5, #+56]
 // 1607     {
 // 1608       if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R6, #+4]
+??HAL_I2C_Mem_Write_6:
+        LDR      R0,[R5, #+56]
         CMP      R0,#+4
-        BNE.N    ??HAL_I2C_Mem_Write_3
+        BNE.N    ??HAL_I2C_Mem_Write_7
 // 1609       {
 // 1610         /* Process Unlocked */
 // 1611         __HAL_UNLOCK(hi2c);
         MOVS     R0,#+0
-        STRB     R0,[R6, #+0]
+        STRB     R0,[R5, #+52]
 // 1612         return HAL_ERROR;
-        B.N      ??HAL_I2C_Mem_Write_4
 // 1613       }
 // 1614       else
 // 1615       {
 // 1616         /* Process Unlocked */
 // 1617         __HAL_UNLOCK(hi2c);
-??HAL_I2C_Mem_Write_3:
-        MOVS     R0,#+0
-        STRB     R0,[R6, #+0]
 // 1618         return HAL_TIMEOUT;
-        B.N      ??HAL_I2C_Mem_Write_5
 // 1619       }
 // 1620     }
 // 1621     
 // 1622     /* Set NBYTES to write and reload if size > 255 */
 // 1623     /* Size > 255, need to set RELOAD bit */
 // 1624     if(Size > 255)
-??HAL_I2C_Mem_Write_2:
-        CMP      R4,#+255
-        STR      R0,[SP, #+0]
-        BLE.N    ??HAL_I2C_Mem_Write_6
 // 1625     {
 // 1626       I2C_TransferConfig(hi2c,DevAddress,255, I2C_RELOAD_MODE, I2C_NO_STARTSTOP);
-        MOV      R3,#+16777216
-        MOVS     R2,#+255
-        MOV      R1,R9
-        MOV      R0,R5
-          CFI FunCall I2C_TransferConfig
-        BL       I2C_TransferConfig
 // 1627       Sizetmp = 255;
-??HAL_I2C_Mem_Write_7:
-        MOVS     R7,#+255
-        B.N      ??HAL_I2C_Mem_Write_8
 // 1628     }
 // 1629     else
 // 1630     {
 // 1631       I2C_TransferConfig(hi2c,DevAddress,Size, I2C_AUTOEND_MODE, I2C_NO_STARTSTOP);
-??HAL_I2C_Mem_Write_6:
-        MOV      R3,#+33554432
-        UXTB     R2,R4
-        MOV      R1,R9
-        MOV      R0,R5
-          CFI FunCall I2C_TransferConfig
-        BL       I2C_TransferConfig
 // 1632       Sizetmp = Size;
-        B.N      ??HAL_I2C_Mem_Write_9
 // 1633     }
 // 1634     
 // 1635     do
@@ -3571,144 +3795,276 @@ HAL_I2C_Mem_Write:
 // 1669         else
 // 1670         {
 // 1671           I2C_TransferConfig(hi2c,DevAddress,Size, I2C_AUTOEND_MODE, I2C_NO_STARTSTOP);
-??HAL_I2C_Mem_Write_10:
-        ANDS     R1,R2,R1
-        UXTB     R2,R4
-        ORRS     R1,R1,R3, LSR #+22
-        ORR      R1,R1,R2, LSL #+16
-        ORR      R1,R1,#0x2000000
-        STR      R1,[R0, #+4]
 // 1672           Sizetmp = Size;
-??HAL_I2C_Mem_Write_9:
-        MOV      R7,R4
 // 1673         }
-??HAL_I2C_Mem_Write_8:
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        MOV      R11,R0
-??HAL_I2C_Mem_Write_11:
-        LDR      R0,[R5, #+0]
-        LDR      R1,[R0, #+24]
-        LSLS     R1,R1,#+30
-        BMI.N    ??HAL_I2C_Mem_Write_12
-        MOV      R1,R8
-        MOV      R0,R5
-          CFI FunCall I2C_IsAcknowledgeFailed
-        BL       I2C_IsAcknowledgeFailed
-        CBNZ.N   R0,??HAL_I2C_Mem_Write_13
-        CMN      R8,#+1
-        BEQ.N    ??HAL_I2C_Mem_Write_11
-        CMP      R8,#+0
-        BEQ.N    ??HAL_I2C_Mem_Write_14
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUB      R0,R0,R11
-        CMP      R8,R0
-        BCS.N    ??HAL_I2C_Mem_Write_11
-??HAL_I2C_Mem_Write_14:
-        LDR      R0,[R6, #+4]
-        ORR      R0,R0,#0x20
-        STR      R0,[R6, #+4]
-        MOVS     R0,#+1
-        STRB     R0,[R6, #+1]
-        MOVS     R0,#+0
-        STRB     R0,[R6, #+0]
-??HAL_I2C_Mem_Write_13:
-        LDR      R0,[R6, #+4]
-        CMP      R0,#+4
-        BNE.N    ??HAL_I2C_Mem_Write_5
-        B.N      ??HAL_I2C_Mem_Write_4
-??HAL_I2C_Mem_Write_12:
-        LDRB     R1,[R10], #+1
-        SUBS     R7,R7,#+1
-        SUB      R4,R4,#+1
-        UXTH     R4,R4
-        STR      R1,[R0, #+40]
-        BNE.N    ??HAL_I2C_Mem_Write_15
-        CBZ.N    R4,??HAL_I2C_Mem_Write_16
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        MOV      R7,R0
-??HAL_I2C_Mem_Write_17:
-        LDR      R0,[R5, #+0]
-        LDR      R1,[R0, #+24]
-        LSLS     R1,R1,#+24
-        BMI.N    ??HAL_I2C_Mem_Write_18
-        CMN      R8,#+1
-        BEQ.N    ??HAL_I2C_Mem_Write_17
-        CMP      R8,#+0
-        BEQ.N    ??HAL_I2C_Mem_Write_19
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUBS     R0,R0,R7
-        CMP      R8,R0
-        BCS.N    ??HAL_I2C_Mem_Write_17
-??HAL_I2C_Mem_Write_19:
-        MOVS     R0,#+1
-        STRB     R0,[R6, #+1]
-        MOVS     R0,#+0
-        STRB     R0,[R6, #+0]
-        B.N      ??HAL_I2C_Mem_Write_5
-??HAL_I2C_Mem_Write_18:
-        CMP      R4,#+255
-        LSL      R3,R9,#+22
-        LDR.N    R2,??DataTable9  ;; 0xfc009800
-        LDR      R1,[R0, #+4]
-        BLE.N    ??HAL_I2C_Mem_Write_10
-        ANDS     R1,R2,R1
-        LDR.N    R2,??DataTable9_1  ;; 0x1ff0000
-        ORRS     R1,R1,R3, LSR #+22
-        ORRS     R1,R2,R1
-        STR      R1,[R0, #+4]
-        B.N      ??HAL_I2C_Mem_Write_7
 // 1674       }
 // 1675       
 // 1676     }while(Size > 0);
-??HAL_I2C_Mem_Write_15:
-        CMP      R4,#+0
-        BNE.N    ??HAL_I2C_Mem_Write_8
 // 1677     
 // 1678     /* No need to Check TC flag, with AUTOEND mode the stop is automatically generated */
 // 1679     /* Wait until STOPF flag is reset */ 
 // 1680     if(I2C_WaitOnSTOPFlagUntilTimeout(hi2c, I2C_TIMEOUT_STOPF) != HAL_OK)
-??HAL_I2C_Mem_Write_16:
-        MOVS     R1,#+25
-        MOV      R0,R5
-          CFI FunCall I2C_WaitOnSTOPFlagUntilTimeout
-        BL       I2C_WaitOnSTOPFlagUntilTimeout
-        CBZ.N    R0,??HAL_I2C_Mem_Write_20
 // 1681     {
 // 1682       if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R6, #+4]
-        CMP      R0,#+4
-        BNE.N    ??HAL_I2C_Mem_Write_5
 // 1683       {
 // 1684         return HAL_ERROR;
-??HAL_I2C_Mem_Write_4:
-        B.W      ?Subroutine4
+        MOVS     R0,#+1
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+40
+??HAL_I2C_Mem_Write_3:
+        CMP      R9,#+1
+        BEQ.N    ??HAL_I2C_Mem_Write_8
+        LSRS     R0,R6,#+8
+        STR      R0,[R1, #+40]
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R9,R0
+??HAL_I2C_Mem_Write_9:
+        LDR      R0,[R5, #+0]
+        LDR      R0,[R0, #+24]
+        LSLS     R0,R0,#+30
+        BMI.N    ??HAL_I2C_Mem_Write_8
+        MOV      R1,R11
+        MOV      R0,R5
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CMP      R0,#+0
+        BNE.N    ??HAL_I2C_Mem_Write_4
+        CMN      R11,#+1
+        BEQ.N    ??HAL_I2C_Mem_Write_9
+        CMP      R11,#+0
+        BEQ.N    ??HAL_I2C_Mem_Write_10
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUB      R0,R0,R9
+        CMP      R11,R0
+        BCS.N    ??HAL_I2C_Mem_Write_9
+??HAL_I2C_Mem_Write_10:
+        LDR      R0,[R5, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R5, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R5, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R5, #+52]
+        B.N      ??HAL_I2C_Mem_Write_4
+??HAL_I2C_Mem_Write_8:
+        LDR      R0,[R5, #+0]
+        UXTB     R6,R6
+        STR      R6,[R0, #+40]
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R6,R0
+??HAL_I2C_Mem_Write_11:
+        LDR      R0,[R5, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+24
+        BMI.N    ??HAL_I2C_Mem_Write_12
+        CMN      R11,#+1
+        BEQ.N    ??HAL_I2C_Mem_Write_11
+        CMP      R11,#+0
+        BEQ.N    ??HAL_I2C_Mem_Write_13
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R6
+        CMP      R11,R0
+        BCS.N    ??HAL_I2C_Mem_Write_11
+??HAL_I2C_Mem_Write_13:
+        MOVS     R0,#+1
+        STRB     R0,[R5, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R5, #+52]
+        B.N      ??HAL_I2C_Mem_Write_6
+??HAL_I2C_Mem_Write_12:
+        CMP      R4,#+255
+        LDR      R1,[R0, #+4]
+        AND      R1,R10,R1
+        BLE.N    ??HAL_I2C_Mem_Write_14
+        ORRS     R1,R1,R7, LSR #+22
+??HAL_I2C_Mem_Write_15:
+        LDR.W    R2,??DataTable15_1  ;; 0x1ff0000
+        MOVS     R6,#+255
+        ORRS     R1,R2,R1
+        STR      R1,[R0, #+4]
+        B.N      ??HAL_I2C_Mem_Write_16
+??HAL_I2C_Mem_Write_7:
+        MOVS     R0,#+0
+        STRB     R0,[R5, #+52]
 // 1685       }
 // 1686       else
 // 1687       {
 // 1688         return HAL_TIMEOUT;
-??HAL_I2C_Mem_Write_5:
-        B.W      ?Subroutine3
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+40
+??HAL_I2C_Mem_Write_14:
+        ORRS     R1,R1,R7, LSR #+22
+        UXTB     R2,R4
+        MOV      R6,R4
+        ORR      R1,R1,R2, LSL #+16
+        ORR      R1,R1,#0x2000000
+        STR      R1,[R0, #+4]
+??HAL_I2C_Mem_Write_16:
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R9,R0
+??HAL_I2C_Mem_Write_17:
+        LDR      R0,[R5, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+30
+        BMI.N    ??HAL_I2C_Mem_Write_18
+        MOV      R1,R11
+        MOV      R0,R5
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??HAL_I2C_Mem_Write_19
+        CMN      R11,#+1
+        BEQ.N    ??HAL_I2C_Mem_Write_17
+        CMP      R11,#+0
+        BEQ.N    ??HAL_I2C_Mem_Write_20
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUB      R0,R0,R9
+        CMP      R11,R0
+        BCS.N    ??HAL_I2C_Mem_Write_17
+??HAL_I2C_Mem_Write_20:
+        LDR      R0,[R5, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R5, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R5, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R5, #+52]
+??HAL_I2C_Mem_Write_19:
+        LDR      R0,[R5, #+56]
+        CMP      R0,#+4
+        BNE.N    ??HAL_I2C_Mem_Write_21
+        MOVS     R0,#+1
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+40
+??HAL_I2C_Mem_Write_18:
+        LDRB     R1,[R8], #+1
+        SUBS     R6,R6,#+1
+        SUB      R4,R4,#+1
+        UXTH     R4,R4
+        STR      R1,[R0, #+40]
+        BNE.N    ??HAL_I2C_Mem_Write_22
+        CBZ.N    R4,??HAL_I2C_Mem_Write_23
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R6,R0
+??HAL_I2C_Mem_Write_24:
+        LDR      R0,[R5, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+24
+        BMI.N    ??HAL_I2C_Mem_Write_25
+        CMN      R11,#+1
+        BEQ.N    ??HAL_I2C_Mem_Write_24
+        CMP      R11,#+0
+        BEQ.N    ??HAL_I2C_Mem_Write_26
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R6
+        CMP      R11,R0
+        BCS.N    ??HAL_I2C_Mem_Write_24
+??HAL_I2C_Mem_Write_26:
+        MOVS     R0,#+1
+        STRB     R0,[R5, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R5, #+52]
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+40
+??HAL_I2C_Mem_Write_25:
+        CMP      R4,#+255
+        LDR      R1,[R0, #+4]
+        AND      R1,R10,R1
+        BLE.N    ??HAL_I2C_Mem_Write_14
+        ORRS     R1,R1,R7, LSR #+22
+        B.N      ??HAL_I2C_Mem_Write_15
+??HAL_I2C_Mem_Write_22:
+        CMP      R4,#+0
+        BNE.N    ??HAL_I2C_Mem_Write_16
+??HAL_I2C_Mem_Write_23:
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R4,R0
+??HAL_I2C_Mem_Write_27:
+        LDR      R0,[R5, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+26
+        BMI.N    ??HAL_I2C_Mem_Write_28
+        MOVS     R1,#+25
+        MOV      R0,R5
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??HAL_I2C_Mem_Write_29
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R4
+        CMP      R0,#+26
+        BCC.N    ??HAL_I2C_Mem_Write_27
+        LDR      R0,[R5, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R5, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R5, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R5, #+52]
+??HAL_I2C_Mem_Write_29:
+        LDR      R0,[R5, #+56]
+        CMP      R0,#+4
+        BNE.N    ??HAL_I2C_Mem_Write_21
+        MOVS     R0,#+1
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+40
 // 1689       }
 // 1690     }
 // 1691     
 // 1692     /* Clear STOP Flag */
 // 1693     __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
-??HAL_I2C_Mem_Write_20:
-        B.N      ?Subroutine2
+??HAL_I2C_Mem_Write_28:
+        MOVS     R1,#+32
 // 1694   	
 // 1695     /* Clear Configuration Register 2 */
 // 1696     I2C_RESET_CR2(hi2c);
+        LDR.W    R2,??DataTable15_2  ;; 0xfe00e800
+        STR      R1,[R0, #+28]
+        LDR      R0,[R5, #+0]
+        LDR      R1,[R0, #+4]
+        ANDS     R1,R2,R1
+        STR      R1,[R0, #+4]
 // 1697     
 // 1698     hi2c->State = HAL_I2C_STATE_READY; 	  
+        MOVS     R0,#+1
+        STRB     R0,[R5, #+53]
 // 1699     
 // 1700     /* Process Unlocked */
 // 1701     __HAL_UNLOCK(hi2c);
+        MOVS     R0,#+0
+        STRB     R0,[R5, #+52]
 // 1702     
 // 1703     return HAL_OK;
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+40
+??HAL_I2C_Mem_Write_21:
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+40
 // 1704   }
 // 1705   else
 // 1706   {
@@ -3716,10 +4072,12 @@ HAL_I2C_Mem_Write:
 ??HAL_I2C_Mem_Write_0:
         MOVS     R0,#+2
 ??HAL_I2C_Mem_Write_1:
-        POP      {R1,R4-R11,PC}   ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}      ;; return
 // 1708   }
 // 1709 }
-          CFI EndBlock cfiBlock24
+          CFI EndBlock cfiBlock16
 // 1710 
 // 1711 /**
 // 1712   * @brief  Read an amount of data in blocking mode from a specific memory address
@@ -3734,14 +4092,14 @@ HAL_I2C_Mem_Write:
 // 1721   * @retval HAL status
 // 1722   */
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock25 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(2)
+          CFI Block cfiBlock17 Using cfiCommon0
           CFI Function HAL_I2C_Mem_Read
         THUMB
 // 1723 HAL_StatusTypeDef HAL_I2C_Mem_Read(I2C_HandleTypeDef *hi2c, uint16_t DevAddress, uint16_t MemAddress, uint16_t MemAddSize, uint8_t *pData, uint16_t Size, uint32_t Timeout)
 // 1724 {
 HAL_I2C_Mem_Read:
-        PUSH     {R3-R11,LR}
+        PUSH     {R4-R11,LR}
           CFI R14 Frame(CFA, -4)
           CFI R11 Frame(CFA, -8)
           CFI R10 Frame(CFA, -12)
@@ -3751,23 +4109,25 @@ HAL_I2C_Mem_Read:
           CFI R6 Frame(CFA, -28)
           CFI R5 Frame(CFA, -32)
           CFI R4 Frame(CFA, -36)
-          CFI CFA R13+40
+          CFI CFA R13+36
         MOV      R5,R0
+        SUB      SP,SP,#+4
+          CFI CFA R13+40
+        MOV      R6,R2
+        MOV      R9,R3
 // 1725   uint32_t Sizetmp = 0;
 // 1726   
 // 1727   /* Check the parameters */
 // 1728   assert_param(IS_I2C_MEMADD_SIZE(MemAddSize));
 // 1729   
 // 1730   if(hi2c->State == HAL_I2C_STATE_READY)
-        ADD      R6,R5,#+52
-        MOV      R9,R1
-        LDRB     R0,[R6, #+1]
+        LDRB     R0,[R5, #+53]
         CMP      R0,#+1
         BNE.W    ??HAL_I2C_Mem_Read_0
-        LDR      R10,[SP, #+40]
+        LDR      R8,[SP, #+40]
 // 1731   {    
 // 1732     if((pData == NULL) || (Size == 0)) 
-        CMP      R10,#+0
+        CMP      R8,#+0
         ITT      NE 
         LDRNE    R4,[SP, #+44]
         CMPNE    R4,#+0
@@ -3778,8 +4138,8 @@ HAL_I2C_Mem_Read:
 // 1736     
 // 1737     if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_BUSY) == SET)
         LDR      R0,[R5, #+0]
-        LDR      R0,[R0, #+24]
-        LSLS     R0,R0,#+16
+        LDR      R2,[R0, #+24]
+        LSLS     R2,R2,#+16
         BMI.W    ??HAL_I2C_Mem_Read_0
 // 1738     {
 // 1739       return HAL_BUSY;
@@ -3787,49 +4147,82 @@ HAL_I2C_Mem_Read:
 // 1741     
 // 1742     /* Process Locked */
 // 1743     __HAL_LOCK(hi2c);
-        LDRB     R0,[R6, #+0]
-        CMP      R0,#+1
+        LDRB     R2,[R5, #+52]
+        CMP      R2,#+1
         BEQ.W    ??HAL_I2C_Mem_Read_0
-        MOVS     R0,#+1
-        STRB     R0,[R6, #+0]
+        MOVS     R2,#+1
 // 1744     
 // 1745     hi2c->State = HAL_I2C_STATE_MEM_BUSY_RX;
-        MOVS     R0,#+98
-        STRB     R0,[R6, #+1]
 // 1746     hi2c->ErrorCode = HAL_I2C_ERROR_NONE;
-        MOVS     R0,#+0
-        STR      R0,[R6, #+4]
-        LDR      R8,[SP, #+48]
 // 1747     
 // 1748     /* Send Slave Address and Memory Address */
 // 1749     if(I2C_RequestMemoryRead(hi2c, DevAddress, MemAddress, MemAddSize, Timeout) != HAL_OK)
+        LSLS     R7,R1,#+22
+        STRB     R2,[R5, #+52]
+        MOVS     R2,#+98
+        STRB     R2,[R5, #+53]
+        MOVS     R2,#+0
+        STR      R2,[R5, #+56]
+        LDR      R1,[R0, #+4]
+        LDR.W    R10,??DataTable15  ;; 0xfc009800
+        UXTB     R2,R9
+        AND      R1,R10,R1
+        ORRS     R1,R1,R7, LSR #+22
+        ORR      R1,R1,R2, LSL #+16
+        ORR      R1,R1,#0x2000
+        STR      R1,[R0, #+4]
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        STR      R0,[SP, #+0]
+        LDR      R11,[SP, #+48]
+??HAL_I2C_Mem_Read_2:
+        LDR      R1,[R5, #+0]
+        LDR      R0,[R1, #+24]
+        LSLS     R0,R0,#+30
+        BMI.N    ??HAL_I2C_Mem_Read_3
+        MOV      R1,R11
         MOV      R0,R5
-        STR      R8,[SP, #+0]
-          CFI FunCall I2C_RequestMemoryRead
-        BL       I2C_RequestMemoryRead
-        CBZ.N    R0,??HAL_I2C_Mem_Read_2
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??HAL_I2C_Mem_Read_4
+        CMN      R11,#+1
+        BEQ.N    ??HAL_I2C_Mem_Read_2
+        CMP      R11,#+0
+        BEQ.N    ??HAL_I2C_Mem_Read_5
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        LDR      R1,[SP, #+0]
+        SUBS     R0,R0,R1
+        CMP      R11,R0
+        BCS.N    ??HAL_I2C_Mem_Read_2
+??HAL_I2C_Mem_Read_5:
+        LDR      R0,[R5, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R5, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R5, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R5, #+52]
+??HAL_I2C_Mem_Read_4:
+        LDR      R0,[R5, #+56]
 // 1750     {
 // 1751       if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R6, #+4]
+??HAL_I2C_Mem_Read_6:
+        LDR      R0,[R5, #+56]
         CMP      R0,#+4
-        BNE.N    ??HAL_I2C_Mem_Read_3
+        BNE.N    ??HAL_I2C_Mem_Read_7
 // 1752       {
 // 1753         /* Process Unlocked */
 // 1754         __HAL_UNLOCK(hi2c);
         MOVS     R0,#+0
-        STRB     R0,[R6, #+0]
+        STRB     R0,[R5, #+52]
 // 1755         return HAL_ERROR;
-        B.N      ??HAL_I2C_Mem_Read_4
 // 1756       }
 // 1757       else
 // 1758       {
 // 1759         /* Process Unlocked */
 // 1760         __HAL_UNLOCK(hi2c);
-??HAL_I2C_Mem_Read_3:
-        MOVS     R0,#+0
-        STRB     R0,[R6, #+0]
 // 1761         return HAL_TIMEOUT;
-        B.N      ??HAL_I2C_Mem_Read_5
 // 1762       }
 // 1763     }
 // 1764     
@@ -3837,36 +4230,14 @@ HAL_I2C_Mem_Read:
 // 1766     /* Set NBYTES to write and reload if size > 255 and generate RESTART */
 // 1767     /* Size > 255, need to set RELOAD bit */
 // 1768     if(Size > 255)
-??HAL_I2C_Mem_Read_2:
-        CMP      R4,#+255
-        MOV      R0,#+9216
-        STR      R0,[SP, #+0]
-        BLE.N    ??HAL_I2C_Mem_Read_6
 // 1769     {
 // 1770       I2C_TransferConfig(hi2c,DevAddress,255, I2C_RELOAD_MODE, I2C_GENERATE_START_READ);
-        MOV      R3,#+16777216
-        MOVS     R2,#+255
-        MOV      R1,R9
-        MOV      R0,R5
-          CFI FunCall I2C_TransferConfig
-        BL       I2C_TransferConfig
 // 1771       Sizetmp = 255;
-??HAL_I2C_Mem_Read_7:
-        MOVS     R7,#+255
-        B.N      ??HAL_I2C_Mem_Read_8
 // 1772     }
 // 1773     else
 // 1774     {
 // 1775       I2C_TransferConfig(hi2c,DevAddress,Size, I2C_AUTOEND_MODE, I2C_GENERATE_START_READ);
-??HAL_I2C_Mem_Read_6:
-        MOV      R3,#+33554432
-        UXTB     R2,R4
-        MOV      R1,R9
-        MOV      R0,R5
-          CFI FunCall I2C_TransferConfig
-        BL       I2C_TransferConfig
 // 1776       Sizetmp = Size;
-        B.N      ??HAL_I2C_Mem_Read_9
 // 1777     }
 // 1778     
 // 1779     do
@@ -3900,132 +4271,275 @@ HAL_I2C_Mem_Read:
 // 1807         else
 // 1808         {
 // 1809           I2C_TransferConfig(hi2c,DevAddress,Size, I2C_AUTOEND_MODE, I2C_NO_STARTSTOP);
-??HAL_I2C_Mem_Read_10:
-        ANDS     R1,R2,R1
-        UXTB     R2,R4
-        ORRS     R1,R1,R3, LSR #+22
-        ORR      R1,R1,R2, LSL #+16
-        ORR      R1,R1,#0x2000000
-        STR      R1,[R0, #+4]
 // 1810           Sizetmp = Size;
-??HAL_I2C_Mem_Read_9:
-        MOV      R7,R4
 // 1811         }
-??HAL_I2C_Mem_Read_8:
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        MOV      R11,R0
-??HAL_I2C_Mem_Read_11:
-        LDR      R0,[R5, #+0]
-        LDR      R1,[R0, #+24]
-        LSLS     R1,R1,#+29
-        BMI.N    ??HAL_I2C_Mem_Read_12
-        CMN      R8,#+1
-        BEQ.N    ??HAL_I2C_Mem_Read_11
-        CMP      R8,#+0
-        BEQ.N    ??HAL_I2C_Mem_Read_13
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUB      R0,R0,R11
-        CMP      R8,R0
-        BCS.N    ??HAL_I2C_Mem_Read_11
-??HAL_I2C_Mem_Read_13:
-        MOVS     R0,#+1
-        STRB     R0,[R6, #+1]
-        MOVS     R0,#+0
-        STRB     R0,[R6, #+0]
-        B.N      ??HAL_I2C_Mem_Read_5
-??HAL_I2C_Mem_Read_12:
-        LDR      R0,[R0, #+36]
-        SUBS     R7,R7,#+1
-        SUB      R4,R4,#+1
-        UXTH     R4,R4
-        STRB     R0,[R10], #+1
-        BNE.N    ??HAL_I2C_Mem_Read_14
-        CBZ.N    R4,??HAL_I2C_Mem_Read_15
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        MOV      R7,R0
-??HAL_I2C_Mem_Read_16:
-        LDR      R0,[R5, #+0]
-        LDR      R1,[R0, #+24]
-        LSLS     R1,R1,#+24
-        BMI.N    ??HAL_I2C_Mem_Read_17
-        CMN      R8,#+1
-        BEQ.N    ??HAL_I2C_Mem_Read_16
-        CMP      R8,#+0
-        BEQ.N    ??HAL_I2C_Mem_Read_18
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUBS     R0,R0,R7
-        CMP      R8,R0
-        BCS.N    ??HAL_I2C_Mem_Read_16
-??HAL_I2C_Mem_Read_18:
-        MOVS     R0,#+1
-        STRB     R0,[R6, #+1]
-        MOVS     R0,#+0
-        STRB     R0,[R6, #+0]
-        B.N      ??HAL_I2C_Mem_Read_5
-??HAL_I2C_Mem_Read_17:
-        CMP      R4,#+255
-        LSL      R3,R9,#+22
-        LDR.N    R2,??DataTable9  ;; 0xfc009800
-        LDR      R1,[R0, #+4]
-        BLE.N    ??HAL_I2C_Mem_Read_10
-        ANDS     R1,R2,R1
-        LDR.N    R2,??DataTable9_1  ;; 0x1ff0000
-        ORRS     R1,R1,R3, LSR #+22
-        ORRS     R1,R2,R1
-        STR      R1,[R0, #+4]
-        B.N      ??HAL_I2C_Mem_Read_7
 // 1812       }
 // 1813       
 // 1814     }while(Size > 0);
-??HAL_I2C_Mem_Read_14:
-        CMP      R4,#+0
-        BNE.N    ??HAL_I2C_Mem_Read_8
 // 1815     
 // 1816     /* No need to Check TC flag, with AUTOEND mode the stop is automatically generated */
 // 1817     /* Wait until STOPF flag is reset */ 
 // 1818     if(I2C_WaitOnSTOPFlagUntilTimeout(hi2c, I2C_TIMEOUT_STOPF) != HAL_OK)
-??HAL_I2C_Mem_Read_15:
-        MOVS     R1,#+25
-        MOV      R0,R5
-          CFI FunCall I2C_WaitOnSTOPFlagUntilTimeout
-        BL       I2C_WaitOnSTOPFlagUntilTimeout
-        CBZ.N    R0,??HAL_I2C_Mem_Read_19
 // 1819     {
 // 1820       if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R6, #+4]
-        CMP      R0,#+4
-        BNE.N    ??HAL_I2C_Mem_Read_5
 // 1821       {
 // 1822         return HAL_ERROR;
-??HAL_I2C_Mem_Read_4:
-        B.W      ?Subroutine4
+        MOVS     R0,#+1
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+40
+??HAL_I2C_Mem_Read_3:
+        CMP      R9,#+1
+        BEQ.N    ??HAL_I2C_Mem_Read_8
+        LSRS     R0,R6,#+8
+        STR      R0,[R1, #+40]
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R9,R0
+??HAL_I2C_Mem_Read_9:
+        LDR      R0,[R5, #+0]
+        LDR      R0,[R0, #+24]
+        LSLS     R0,R0,#+30
+        BMI.N    ??HAL_I2C_Mem_Read_8
+        MOV      R1,R11
+        MOV      R0,R5
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CMP      R0,#+0
+        BNE.N    ??HAL_I2C_Mem_Read_4
+        CMN      R11,#+1
+        BEQ.N    ??HAL_I2C_Mem_Read_9
+        CMP      R11,#+0
+        BEQ.N    ??HAL_I2C_Mem_Read_10
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUB      R0,R0,R9
+        CMP      R11,R0
+        BCS.N    ??HAL_I2C_Mem_Read_9
+??HAL_I2C_Mem_Read_10:
+        LDR      R0,[R5, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R5, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R5, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R5, #+52]
+        B.N      ??HAL_I2C_Mem_Read_4
+??HAL_I2C_Mem_Read_8:
+        LDR      R0,[R5, #+0]
+        UXTB     R6,R6
+        STR      R6,[R0, #+40]
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R6,R0
+??HAL_I2C_Mem_Read_11:
+        LDR      R0,[R5, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+25
+        BMI.N    ??HAL_I2C_Mem_Read_12
+        CMN      R11,#+1
+        BEQ.N    ??HAL_I2C_Mem_Read_11
+        CMP      R11,#+0
+        BEQ.N    ??HAL_I2C_Mem_Read_13
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R6
+        CMP      R11,R0
+        BCS.N    ??HAL_I2C_Mem_Read_11
+??HAL_I2C_Mem_Read_13:
+        MOVS     R0,#+1
+        STRB     R0,[R5, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R5, #+52]
+        B.N      ??HAL_I2C_Mem_Read_6
+??HAL_I2C_Mem_Read_12:
+        CMP      R4,#+255
+        LDR      R1,[R0, #+4]
+        AND      R1,R10,R1
+        BLE.N    ??HAL_I2C_Mem_Read_14
+        ORRS     R1,R1,R7, LSR #+22
+        MOVS     R6,#+255
+        ORR      R1,R1,#0x1FC0000
+        ORR      R1,R1,#0x32400
+        STR      R1,[R0, #+4]
+        B.N      ??HAL_I2C_Mem_Read_15
+??HAL_I2C_Mem_Read_7:
+        MOVS     R0,#+0
+        STRB     R0,[R5, #+52]
 // 1823       }
 // 1824       else
 // 1825       {
 // 1826         return HAL_TIMEOUT;
-??HAL_I2C_Mem_Read_5:
-        B.W      ?Subroutine3
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+40
+??HAL_I2C_Mem_Read_14:
+        ORRS     R1,R1,R7, LSR #+22
+        UXTB     R2,R4
+        ORR      R1,R1,R2, LSL #+16
+        ORR      R1,R1,#0x2000000
+        ORR      R1,R1,#0x2400
+        B.N      ??HAL_I2C_Mem_Read_16
+??HAL_I2C_Mem_Read_17:
+        ORRS     R1,R1,R7, LSR #+22
+        UXTB     R2,R4
+        ORR      R1,R1,R2, LSL #+16
+        ORR      R1,R1,#0x2000000
+??HAL_I2C_Mem_Read_16:
+        STR      R1,[R0, #+4]
+        MOV.W    R6,R4
+??HAL_I2C_Mem_Read_15:
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R9,R0
+??HAL_I2C_Mem_Read_18:
+        LDR      R0,[R5, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+29
+        BMI.N    ??HAL_I2C_Mem_Read_19
+        CMN      R11,#+1
+        BEQ.N    ??HAL_I2C_Mem_Read_18
+        CMP      R11,#+0
+        BEQ.N    ??HAL_I2C_Mem_Read_20
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUB      R0,R0,R9
+        CMP      R11,R0
+        BCS.N    ??HAL_I2C_Mem_Read_18
+??HAL_I2C_Mem_Read_20:
+        MOVS     R0,#+1
+        STRB     R0,[R5, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R5, #+52]
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+40
+??HAL_I2C_Mem_Read_19:
+        LDR      R0,[R0, #+36]
+        SUBS     R6,R6,#+1
+        SUB      R4,R4,#+1
+        UXTH     R4,R4
+        STRB     R0,[R8], #+1
+        BNE.N    ??HAL_I2C_Mem_Read_21
+        CBZ.N    R4,??HAL_I2C_Mem_Read_22
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R6,R0
+??HAL_I2C_Mem_Read_23:
+        LDR      R0,[R5, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+24
+        BMI.N    ??HAL_I2C_Mem_Read_24
+        CMN      R11,#+1
+        BEQ.N    ??HAL_I2C_Mem_Read_23
+        CMP      R11,#+0
+        BEQ.N    ??HAL_I2C_Mem_Read_25
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R6
+        CMP      R11,R0
+        BCS.N    ??HAL_I2C_Mem_Read_23
+??HAL_I2C_Mem_Read_25:
+        MOVS     R0,#+1
+        STRB     R0,[R5, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R5, #+52]
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+40
+??HAL_I2C_Mem_Read_24:
+        CMP      R4,#+255
+        LDR      R1,[R0, #+4]
+        AND      R1,R10,R1
+        BLE.N    ??HAL_I2C_Mem_Read_17
+        ORRS     R1,R1,R7, LSR #+22
+        LDR.W    R2,??DataTable15_1  ;; 0x1ff0000
+        MOVS     R6,#+255
+        ORRS     R1,R2,R1
+        STR      R1,[R0, #+4]
+        B.N      ??HAL_I2C_Mem_Read_15
+??HAL_I2C_Mem_Read_21:
+        CMP      R4,#+0
+        BNE.N    ??HAL_I2C_Mem_Read_15
+??HAL_I2C_Mem_Read_22:
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R4,R0
+??HAL_I2C_Mem_Read_26:
+        LDR      R0,[R5, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+26
+        BMI.N    ??HAL_I2C_Mem_Read_27
+        MOVS     R1,#+25
+        MOV      R0,R5
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??HAL_I2C_Mem_Read_28
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R4
+        CMP      R0,#+26
+        BCC.N    ??HAL_I2C_Mem_Read_26
+        LDR      R0,[R5, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R5, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R5, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R5, #+52]
+??HAL_I2C_Mem_Read_28:
+        LDR      R0,[R5, #+56]
+        CMP      R0,#+4
+        BNE.N    ??HAL_I2C_Mem_Read_29
+        MOVS     R0,#+1
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+40
 // 1827       }
 // 1828     }
 // 1829     
 // 1830     /* Clear STOP Flag */
 // 1831     __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
-??HAL_I2C_Mem_Read_19:
-        B.N      ?Subroutine2
+??HAL_I2C_Mem_Read_27:
+        MOVS     R1,#+32
 // 1832   	
 // 1833     /* Clear Configuration Register 2 */
 // 1834     I2C_RESET_CR2(hi2c);
+        LDR.W    R2,??DataTable15_2  ;; 0xfe00e800
+        STR      R1,[R0, #+28]
+        LDR      R0,[R5, #+0]
+        LDR      R1,[R0, #+4]
+        ANDS     R1,R2,R1
+        STR      R1,[R0, #+4]
 // 1835     
 // 1836     hi2c->State = HAL_I2C_STATE_READY;
+        MOVS     R0,#+1
+        STRB     R0,[R5, #+53]
 // 1837     
 // 1838     /* Process Unlocked */
 // 1839     __HAL_UNLOCK(hi2c);
+        MOVS     R0,#+0
+        STRB     R0,[R5, #+52]
 // 1840     
 // 1841     return HAL_OK;
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+40
+??HAL_I2C_Mem_Read_29:
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}
+          CFI CFA R13+40
 // 1842   }
 // 1843   else
 // 1844   {
@@ -4033,58 +4547,12 @@ HAL_I2C_Mem_Read:
 ??HAL_I2C_Mem_Read_0:
         MOVS     R0,#+2
 ??HAL_I2C_Mem_Read_1:
-        POP      {R1,R4-R11,PC}   ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}      ;; return
 // 1846   }
 // 1847 }
-          CFI EndBlock cfiBlock25
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock26 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+40
-          CFI R4 Frame(CFA, -36)
-          CFI R5 Frame(CFA, -32)
-          CFI R6 Frame(CFA, -28)
-          CFI R7 Frame(CFA, -24)
-          CFI R8 Frame(CFA, -20)
-          CFI R9 Frame(CFA, -16)
-          CFI R10 Frame(CFA, -12)
-          CFI R11 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine2:
-        LDR      R1,[R5, #+0]
-        MOVS     R0,#+32
-        LDR.N    R2,??DataTable9_2  ;; 0xfe00e800
-        STR      R0,[R1, #+28]
-        LDR      R0,[R5, #+0]
-        LDR      R1,[R0, #+4]
-        ANDS     R1,R2,R1
-        STR      R1,[R0, #+4]
-        MOVS     R0,#+1
-        STRB     R0,[R6, #+1]
-        MOVS     R0,#+0
-        STRB     R0,[R6, #+0]
-        POP      {R1,R4-R11,PC}
-          CFI EndBlock cfiBlock26
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable9:
-        DC32     0xfc009800
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable9_1:
-        DC32     0x1ff0000
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable9_2:
-        DC32     0xfe00e800
+          CFI EndBlock cfiBlock17
 // 1848 /**
 // 1849   * @brief  Write an amount of data in no-blocking mode with Interrupt to a specific memory address
 // 1850   * @param  hi2c : Pointer to a I2C_HandleTypeDef structure that contains
@@ -4098,35 +4566,39 @@ HAL_I2C_Mem_Read:
 // 1858   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock27 Using cfiCommon0
+          CFI Block cfiBlock18 Using cfiCommon0
           CFI Function HAL_I2C_Mem_Write_IT
         THUMB
 // 1859 HAL_StatusTypeDef HAL_I2C_Mem_Write_IT(I2C_HandleTypeDef *hi2c, uint16_t DevAddress, uint16_t MemAddress, uint16_t MemAddSize, uint8_t *pData, uint16_t Size)
 // 1860 {
 HAL_I2C_Mem_Write_IT:
-        PUSH     {R3-R7,LR}
+        PUSH     {R4-R9,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+24
+          CFI R9 Frame(CFA, -8)
+          CFI R8 Frame(CFA, -12)
+          CFI R7 Frame(CFA, -16)
+          CFI R6 Frame(CFA, -20)
+          CFI R5 Frame(CFA, -24)
+          CFI R4 Frame(CFA, -28)
+          CFI CFA R13+28
         MOV      R4,R0
+        SUB      SP,SP,#+4
+          CFI CFA R13+32
+        MOV      R5,R2
+        MOV      R6,R3
 // 1861   /* Check the parameters */
 // 1862   assert_param(IS_I2C_MEMADD_SIZE(MemAddSize));
 // 1863   
 // 1864   if(hi2c->State == HAL_I2C_STATE_READY)
-        ADD      R6,R4,#+52
-        MOV      R5,R1
-        LDRB     R0,[R6, #+1]
+        LDRB     R0,[R4, #+53]
         CMP      R0,#+1
-        BNE.N    ??HAL_I2C_Mem_Write_IT_0
-        LDR      R1,[SP, #+24]
+        BNE.W    ??HAL_I2C_Mem_Write_IT_0
+        LDR      R3,[SP, #+32]
 // 1865   {
 // 1866     if((pData == NULL) || (Size == 0)) 
-        CMP      R1,#+0
+        CMP      R3,#+0
         ITT      NE 
-        LDRNE    R0,[SP, #+28]
+        LDRNE    R0,[SP, #+36]
         CMPNE    R0,#+0
         BEQ.N    ??HAL_I2C_Mem_Write_IT_1
 // 1867     {
@@ -4134,34 +4606,27 @@ HAL_I2C_Mem_Write_IT:
 // 1869     }
 // 1870     
 // 1871     if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_BUSY) == SET)
-        LDR      R7,[R4, #+0]
-        LDR      R7,[R7, #+24]
+        LDR      R2,[R4, #+0]
+        LDR      R7,[R2, #+24]
         LSLS     R7,R7,#+16
-        BMI.N    ??HAL_I2C_Mem_Write_IT_0
+        BMI.W    ??HAL_I2C_Mem_Write_IT_0
 // 1872     {
 // 1873       return HAL_BUSY;
 // 1874     }
 // 1875     
 // 1876     /* Process Locked */
 // 1877     __HAL_LOCK(hi2c);
-        LDRB     R7,[R6, #+0]
+        LDRB     R7,[R4, #+52]
         CMP      R7,#+1
-        BEQ.N    ??HAL_I2C_Mem_Write_IT_0
+        BEQ.W    ??HAL_I2C_Mem_Write_IT_0
         MOVS     R7,#+1
-        STRB     R7,[R6, #+0]
 // 1878     
 // 1879     hi2c->State = HAL_I2C_STATE_MEM_BUSY_TX;
-        MOVS     R7,#+82
-        STRB     R7,[R6, #+1]
 // 1880     hi2c->ErrorCode = HAL_I2C_ERROR_NONE;
-        MOVS     R7,#+0
-        STR      R7,[R6, #+4]
 // 1881     
 // 1882     hi2c->pBuffPtr = pData;
 // 1883     hi2c->XferCount = Size;
 // 1884     if(Size > 255)
-        CMP      R0,#+255
-        STR      R1,[R4, #+36]
 // 1885     {
 // 1886       hi2c->XferSize = 255;
 // 1887     }
@@ -4172,75 +4637,180 @@ HAL_I2C_Mem_Write_IT:
 // 1892     
 // 1893     /* Send Slave Address and Memory Address */
 // 1894     if(I2C_RequestMemoryWrite(hi2c, DevAddress, MemAddress, MemAddSize, I2C_TIMEOUT_FLAG) != HAL_OK)
-        MOV      R1,R5
+        LDR.W    R8,??DataTable15  ;; 0xfc009800
+        STRB     R7,[R4, #+52]
+        MOVS     R7,#+82
+        STRB     R7,[R4, #+53]
+        MOVS     R7,#+0
+        STR      R7,[R4, #+56]
+        CMP      R0,#+255
+        STR      R3,[R4, #+36]
         STRH     R0,[R4, #+42]
         IT       GT 
         MOVGT    R0,#+255
         STRH     R0,[R4, #+40]
-        MOVS     R0,#+25
-        STR      R0,[SP, #+0]
+        LSLS     R7,R1,#+22
+        LDR      R0,[R2, #+4]
+        UXTB     R1,R6
+        AND      R0,R8,R0
+        ORRS     R0,R0,R7, LSR #+22
+        ORR      R0,R0,R1, LSL #+16
+        ORR      R0,R0,#0x1000000
+        ORR      R0,R0,#0x2000
+        STR      R0,[R2, #+4]
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R9,R0
+??HAL_I2C_Mem_Write_IT_2:
+        LDR      R1,[R4, #+0]
+        LDR      R0,[R1, #+24]
+        LSLS     R0,R0,#+30
+        BMI.N    ??HAL_I2C_Mem_Write_IT_3
+        MOVS     R1,#+25
         MOV      R0,R4
-          CFI FunCall I2C_RequestMemoryWrite
-        BL       I2C_RequestMemoryWrite
-        CBZ.N    R0,??HAL_I2C_Mem_Write_IT_2
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??HAL_I2C_Mem_Write_IT_4
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUB      R0,R0,R9
+        CMP      R0,#+26
+        BCC.N    ??HAL_I2C_Mem_Write_IT_2
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+??HAL_I2C_Mem_Write_IT_4:
+        LDR      R0,[R4, #+56]
 // 1895     {
 // 1896       if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R6, #+4]
-        STRB     R7,[R6, #+0]
+??HAL_I2C_Mem_Write_IT_5:
+        LDR      R0,[R4, #+56]
         CMP      R0,#+4
-        BNE.N    ??HAL_I2C_Mem_Write_IT_3
+        BNE.N    ??HAL_I2C_Mem_Write_IT_6
 // 1897       {
 // 1898         /* Process Unlocked */
 // 1899         __HAL_UNLOCK(hi2c);
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 1900         return HAL_ERROR;
 ??HAL_I2C_Mem_Write_IT_1:
         MOVS     R0,#+1
-        POP      {R1,R4-R7,PC}
+        ADD      SP,SP,#+4
+          CFI CFA R13+28
+        POP      {R4-R9,PC}
+          CFI CFA R13+32
 // 1901       }
+??HAL_I2C_Mem_Write_IT_3:
+        CMP      R6,#+1
+        BEQ.N    ??HAL_I2C_Mem_Write_IT_7
+        LSRS     R0,R5,#+8
+        STR      R0,[R1, #+40]
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R6,R0
+??HAL_I2C_Mem_Write_IT_8:
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+24]
+        LSLS     R0,R0,#+30
+        BMI.N    ??HAL_I2C_Mem_Write_IT_7
+        MOVS     R1,#+25
+        MOV      R0,R4
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CMP      R0,#+0
+        BNE.N    ??HAL_I2C_Mem_Write_IT_4
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R6
+        CMP      R0,#+26
+        BCC.N    ??HAL_I2C_Mem_Write_IT_8
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+        B.N      ??HAL_I2C_Mem_Write_IT_4
+??HAL_I2C_Mem_Write_IT_7:
+        LDR      R0,[R4, #+0]
+        UXTB     R5,R5
+        STR      R5,[R0, #+40]
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??HAL_I2C_Mem_Write_IT_9:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+24
+        BMI.N    ??HAL_I2C_Mem_Write_IT_10
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R0,#+26
+        BCC.N    ??HAL_I2C_Mem_Write_IT_9
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+        B.N      ??HAL_I2C_Mem_Write_IT_5
 // 1902       else
 // 1903       {
 // 1904         /* Process Unlocked */
 // 1905         __HAL_UNLOCK(hi2c);
 // 1906         return HAL_TIMEOUT;
-??HAL_I2C_Mem_Write_IT_3:
-        MOVS     R0,#+3
-        POP      {R1,R4-R7,PC}
 // 1907       }
 // 1908     }
 // 1909     
 // 1910     /* Set NBYTES to write and reload if size > 255 */
 // 1911     /* Size > 255, need to set RELOAD bit */
 // 1912     if( (hi2c->XferSize == 255) && (hi2c->XferSize < hi2c->XferCount) )
-??HAL_I2C_Mem_Write_IT_2:
-        LDRH     R2,[R4, #+40]
-        CMP      R2,#+255
-        BNE.N    ??HAL_I2C_Mem_Write_IT_4
-        LDRH     R0,[R4, #+42]
-        CMP      R2,R0
-        BCS.N    ??HAL_I2C_Mem_Write_IT_4
+??HAL_I2C_Mem_Write_IT_10:
+        LDRH     R1,[R4, #+40]
+        CMP      R1,#+255
+        BNE.N    ??HAL_I2C_Mem_Write_IT_11
+        LDRH     R2,[R4, #+42]
+        CMP      R1,R2
+        BCS.N    ??HAL_I2C_Mem_Write_IT_11
 // 1913     {
 // 1914       I2C_TransferConfig(hi2c,DevAddress,hi2c->XferSize, I2C_RELOAD_MODE, I2C_NO_STARTSTOP);
-        STR      R7,[SP, #+0]
-        MOV      R3,#+16777216
-        B.N      ??HAL_I2C_Mem_Write_IT_5
+        LDR      R2,[R0, #+4]
+        AND      R2,R8,R2
+        ORRS     R2,R2,R7, LSR #+22
+        ORR      R1,R2,R1, LSL #+16
+        ORR      R1,R1,#0x1000000
+        B.N      ??HAL_I2C_Mem_Write_IT_12
 // 1915     }
+??HAL_I2C_Mem_Write_IT_6:
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+28
+        POP      {R4-R9,PC}
+          CFI CFA R13+32
 // 1916     else
 // 1917     {
 // 1918       I2C_TransferConfig(hi2c,DevAddress,hi2c->XferSize, I2C_AUTOEND_MODE, I2C_NO_STARTSTOP);
-??HAL_I2C_Mem_Write_IT_4:
-        STR      R7,[SP, #+0]
-        MOV      R3,#+33554432
-        UXTB     R2,R2
-??HAL_I2C_Mem_Write_IT_5:
-        MOV      R1,R5
-        MOV      R0,R4
-          CFI FunCall I2C_TransferConfig
-        BL       I2C_TransferConfig
+??HAL_I2C_Mem_Write_IT_11:
+        LDR      R2,[R0, #+4]
+        UXTB     R1,R1
+        AND      R2,R8,R2
+        ORRS     R2,R2,R7, LSR #+22
+        ORR      R1,R2,R1, LSL #+16
+        ORR      R1,R1,#0x2000000
+??HAL_I2C_Mem_Write_IT_12:
+        STR      R1,[R0, #+4]
 // 1919     }  
 // 1920     
 // 1921     /* Process Unlocked */
 // 1922     __HAL_UNLOCK(hi2c); 
-        STRB     R7,[R6, #+0]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 1923     
 // 1924     /* Note : The I2C interrupts must be enabled after unlocking current process 
 // 1925     to avoid the risk of I2C interrupt handle execution before current
@@ -4253,19 +4823,26 @@ HAL_I2C_Mem_Write_IT:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0xF2
-        B.N      ?Subroutine10
+        STR      R1,[R0, #+0]
 // 1932     
 // 1933     return HAL_OK;
+        MOVS     R0,#+0
+        ADD      SP,SP,#+4
+          CFI CFA R13+28
+        POP      {R4-R9,PC}
+          CFI CFA R13+32
 // 1934   }
 // 1935   else
 // 1936   {
 // 1937     return HAL_BUSY;
 ??HAL_I2C_Mem_Write_IT_0:
         MOVS     R0,#+2
-        POP      {R1,R4-R7,PC}    ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+28
+        POP      {R4-R9,PC}       ;; return
 // 1938   }
 // 1939 }
-          CFI EndBlock cfiBlock27
+          CFI EndBlock cfiBlock18
 // 1940 
 // 1941 /**
 // 1942   * @brief  Read an amount of data in no-blocking mode with Interrupt from a specific memory address
@@ -4280,35 +4857,39 @@ HAL_I2C_Mem_Write_IT:
 // 1951   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock28 Using cfiCommon0
+          CFI Block cfiBlock19 Using cfiCommon0
           CFI Function HAL_I2C_Mem_Read_IT
         THUMB
 // 1952 HAL_StatusTypeDef HAL_I2C_Mem_Read_IT(I2C_HandleTypeDef *hi2c, uint16_t DevAddress, uint16_t MemAddress, uint16_t MemAddSize, uint8_t *pData, uint16_t Size)
 // 1953 {
 HAL_I2C_Mem_Read_IT:
-        PUSH     {R3-R7,LR}
+        PUSH     {R4-R9,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+24
+          CFI R9 Frame(CFA, -8)
+          CFI R8 Frame(CFA, -12)
+          CFI R7 Frame(CFA, -16)
+          CFI R6 Frame(CFA, -20)
+          CFI R5 Frame(CFA, -24)
+          CFI R4 Frame(CFA, -28)
+          CFI CFA R13+28
         MOV      R4,R0
+        SUB      SP,SP,#+4
+          CFI CFA R13+32
+        MOV      R5,R2
+        MOV      R6,R3
 // 1954   /* Check the parameters */
 // 1955   assert_param(IS_I2C_MEMADD_SIZE(MemAddSize));
 // 1956   
 // 1957   if(hi2c->State == HAL_I2C_STATE_READY)
-        ADD      R6,R4,#+52
-        MOV      R5,R1
-        LDRB     R0,[R6, #+1]
+        LDRB     R0,[R4, #+53]
         CMP      R0,#+1
-        BNE.N    ??HAL_I2C_Mem_Read_IT_0
-        LDR      R1,[SP, #+24]
+        BNE.W    ??HAL_I2C_Mem_Read_IT_0
+        LDR      R3,[SP, #+32]
 // 1958   {
 // 1959     if((pData == NULL) || (Size == 0)) 
-        CMP      R1,#+0
+        CMP      R3,#+0
         ITT      NE 
-        LDRNE    R0,[SP, #+28]
+        LDRNE    R0,[SP, #+36]
         CMPNE    R0,#+0
         BEQ.N    ??HAL_I2C_Mem_Read_IT_1
 // 1960     {
@@ -4316,31 +4897,26 @@ HAL_I2C_Mem_Read_IT:
 // 1962     }
 // 1963     
 // 1964     if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_BUSY) == SET)
-        LDR      R7,[R4, #+0]
-        LDR      R7,[R7, #+24]
+        LDR      R2,[R4, #+0]
+        LDR      R7,[R2, #+24]
         LSLS     R7,R7,#+16
-        BMI.N    ??HAL_I2C_Mem_Read_IT_0
+        BMI.W    ??HAL_I2C_Mem_Read_IT_0
 // 1965     {
 // 1966       return HAL_BUSY;
 // 1967     }
 // 1968     
 // 1969     /* Process Locked */
 // 1970     __HAL_LOCK(hi2c);
-        LDRB     R7,[R6, #+0]
+        LDRB     R7,[R4, #+52]
         CMP      R7,#+1
-        BEQ.N    ??HAL_I2C_Mem_Read_IT_0
+        BEQ.W    ??HAL_I2C_Mem_Read_IT_0
         MOVS     R7,#+1
-        STRB     R7,[R6, #+0]
 // 1971     
 // 1972     hi2c->State = HAL_I2C_STATE_MEM_BUSY_RX;
-        MOVS     R7,#+98
-        STRB     R7,[R6, #+1]
 // 1973     
 // 1974     hi2c->pBuffPtr = pData;
 // 1975     hi2c->XferCount = Size;
 // 1976     if(Size > 255)
-        CMP      R0,#+255
-        STR      R1,[R4, #+36]
 // 1977     {
 // 1978       hi2c->XferSize = 255;
 // 1979     }
@@ -4351,81 +4927,178 @@ HAL_I2C_Mem_Read_IT:
 // 1984     
 // 1985     /* Send Slave Address and Memory Address */
 // 1986     if(I2C_RequestMemoryRead(hi2c, DevAddress, MemAddress, MemAddSize, I2C_TIMEOUT_FLAG) != HAL_OK)
-        MOV      R1,R5
+        LDR.W    R8,??DataTable15  ;; 0xfc009800
+        STRB     R7,[R4, #+52]
+        MOVS     R7,#+98
+        STRB     R7,[R4, #+53]
+        CMP      R0,#+255
+        STR      R3,[R4, #+36]
         STRH     R0,[R4, #+42]
         IT       GT 
         MOVGT    R0,#+255
         STRH     R0,[R4, #+40]
-        MOVS     R0,#+25
-        STR      R0,[SP, #+0]
+        LSLS     R7,R1,#+22
+        LDR      R0,[R2, #+4]
+        UXTB     R1,R6
+        AND      R0,R8,R0
+        ORRS     R0,R0,R7, LSR #+22
+        ORR      R0,R0,R1, LSL #+16
+        ORR      R0,R0,#0x2000
+        STR      R0,[R2, #+4]
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R9,R0
+??HAL_I2C_Mem_Read_IT_2:
+        LDR      R1,[R4, #+0]
+        LDR      R0,[R1, #+24]
+        LSLS     R0,R0,#+30
+        BMI.N    ??HAL_I2C_Mem_Read_IT_3
+        MOVS     R1,#+25
         MOV      R0,R4
-          CFI FunCall I2C_RequestMemoryRead
-        BL       I2C_RequestMemoryRead
-        CBZ.N    R0,??HAL_I2C_Mem_Read_IT_2
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??HAL_I2C_Mem_Read_IT_4
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUB      R0,R0,R9
+        CMP      R0,#+26
+        BCC.N    ??HAL_I2C_Mem_Read_IT_2
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+??HAL_I2C_Mem_Read_IT_4:
+        LDR      R0,[R4, #+56]
 // 1987     {
 // 1988       if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R6, #+4]
+??HAL_I2C_Mem_Read_IT_5:
+        LDR      R0,[R4, #+56]
         CMP      R0,#+4
-        BNE.N    ??HAL_I2C_Mem_Read_IT_3
+        BNE.N    ??HAL_I2C_Mem_Read_IT_6
 // 1989       {
 // 1990         /* Process Unlocked */
 // 1991         __HAL_UNLOCK(hi2c);
         MOVS     R0,#+0
-        STRB     R0,[R6, #+0]
+        STRB     R0,[R4, #+52]
 // 1992         return HAL_ERROR;
 ??HAL_I2C_Mem_Read_IT_1:
         MOVS     R0,#+1
-        POP      {R1,R4-R7,PC}
+        ADD      SP,SP,#+4
+          CFI CFA R13+28
+        POP      {R4-R9,PC}
+          CFI CFA R13+32
 // 1993       }
+??HAL_I2C_Mem_Read_IT_3:
+        CMP      R6,#+1
+        BEQ.N    ??HAL_I2C_Mem_Read_IT_7
+        LSRS     R0,R5,#+8
+        STR      R0,[R1, #+40]
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R6,R0
+??HAL_I2C_Mem_Read_IT_8:
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+24]
+        LSLS     R0,R0,#+30
+        BMI.N    ??HAL_I2C_Mem_Read_IT_7
+        MOVS     R1,#+25
+        MOV      R0,R4
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CMP      R0,#+0
+        BNE.N    ??HAL_I2C_Mem_Read_IT_4
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R6
+        CMP      R0,#+26
+        BCC.N    ??HAL_I2C_Mem_Read_IT_8
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+        B.N      ??HAL_I2C_Mem_Read_IT_4
+??HAL_I2C_Mem_Read_IT_7:
+        LDR      R0,[R4, #+0]
+        UXTB     R5,R5
+        STR      R5,[R0, #+40]
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??HAL_I2C_Mem_Read_IT_9:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+25
+        BMI.N    ??HAL_I2C_Mem_Read_IT_10
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R0,#+26
+        BCC.N    ??HAL_I2C_Mem_Read_IT_9
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+        B.N      ??HAL_I2C_Mem_Read_IT_5
 // 1994       else
 // 1995       {
 // 1996         /* Process Unlocked */
 // 1997         __HAL_UNLOCK(hi2c);
-??HAL_I2C_Mem_Read_IT_3:
-        MOVS     R0,#+0
-        STRB     R0,[R6, #+0]
 // 1998         return HAL_TIMEOUT;
-        MOVS     R0,#+3
-        POP      {R1,R4-R7,PC}
 // 1999       }
 // 2000     }
 // 2001     
 // 2002     /* Set NBYTES to write and reload if size > 255 and generate RESTART */
 // 2003     /* Size > 255, need to set RELOAD bit */
 // 2004     if( (hi2c->XferSize == 255) && (hi2c->XferSize < hi2c->XferCount) )
-??HAL_I2C_Mem_Read_IT_2:
-        LDRH     R2,[R4, #+40]
-        CMP      R2,#+255
-        BNE.N    ??HAL_I2C_Mem_Read_IT_4
-        LDRH     R0,[R4, #+42]
-        CMP      R2,R0
-        BCS.N    ??HAL_I2C_Mem_Read_IT_4
+??HAL_I2C_Mem_Read_IT_10:
+        LDRH     R1,[R4, #+40]
+        CMP      R1,#+255
+        BNE.N    ??HAL_I2C_Mem_Read_IT_11
+        LDRH     R2,[R4, #+42]
+        CMP      R1,R2
+        BCS.N    ??HAL_I2C_Mem_Read_IT_11
 // 2005     {
 // 2006       I2C_TransferConfig(hi2c,DevAddress,hi2c->XferSize, I2C_RELOAD_MODE, I2C_GENERATE_START_READ);
-        MOV      R0,#+9216
-        MOV      R3,#+16777216
-        STR      R0,[SP, #+0]
-        B.N      ??HAL_I2C_Mem_Read_IT_5
+        LDR      R2,[R0, #+4]
+        AND      R2,R8,R2
+        ORRS     R2,R2,R7, LSR #+22
+        ORR      R1,R2,R1, LSL #+16
+        ORR      R1,R1,#0x1000000
+        B.N      ??HAL_I2C_Mem_Read_IT_12
 // 2007     }
+??HAL_I2C_Mem_Read_IT_6:
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+28
+        POP      {R4-R9,PC}
+          CFI CFA R13+32
 // 2008     else
 // 2009     {
 // 2010       I2C_TransferConfig(hi2c,DevAddress,hi2c->XferSize, I2C_AUTOEND_MODE, I2C_GENERATE_START_READ);
-??HAL_I2C_Mem_Read_IT_4:
-        MOV      R0,#+9216
-        MOV      R3,#+33554432
-        STR      R0,[SP, #+0]
-        UXTB     R2,R2
-??HAL_I2C_Mem_Read_IT_5:
-        MOV      R1,R5
-        MOV      R0,R4
-          CFI FunCall I2C_TransferConfig
-        BL       I2C_TransferConfig
+??HAL_I2C_Mem_Read_IT_11:
+        LDR      R2,[R0, #+4]
+        UXTB     R1,R1
+        AND      R2,R8,R2
+        ORRS     R2,R2,R7, LSR #+22
+        ORR      R1,R2,R1, LSL #+16
+        ORR      R1,R1,#0x2000000
+??HAL_I2C_Mem_Read_IT_12:
+        ORR      R1,R1,#0x2400
+        STR      R1,[R0, #+4]
 // 2011     }
 // 2012     
 // 2013     /* Process Unlocked */
 // 2014     __HAL_UNLOCK(hi2c); 
         MOVS     R0,#+0
-        STRB     R0,[R6, #+0]
+        STRB     R0,[R4, #+52]
 // 2015     
 // 2016     /* Note : The I2C interrupts must be enabled after unlocking current process 
 // 2017     to avoid the risk of I2C interrupt handle execution before current
@@ -4438,35 +5111,38 @@ HAL_I2C_Mem_Read_IT:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0xF4
-        B.N      ?Subroutine10
+        STR      R1,[R0, #+0]
 // 2024     
 // 2025     return HAL_OK;
+        MOVS     R0,#+0
+        ADD      SP,SP,#+4
+          CFI CFA R13+28
+        POP      {R4-R9,PC}
+          CFI CFA R13+32
 // 2026   }
 // 2027   else
 // 2028   {
 // 2029     return HAL_BUSY; 
 ??HAL_I2C_Mem_Read_IT_0:
         MOVS     R0,#+2
-        POP      {R1,R4-R7,PC}    ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+28
+        POP      {R4-R9,PC}       ;; return
 // 2030   }   
 // 2031 }
-          CFI EndBlock cfiBlock28
+          CFI EndBlock cfiBlock19
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock29 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+24
-          CFI R4 Frame(CFA, -20)
-          CFI R5 Frame(CFA, -16)
-          CFI R6 Frame(CFA, -12)
-          CFI R7 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine10:
-        STR      R1,[R0, #+0]
-        MOVS     R0,#+0
-        POP      {R1,R4-R7,PC}
-          CFI EndBlock cfiBlock29
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable12:
+        DC32     I2C_DMAMasterTransmitCplt
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable12_1:
+        DC32     I2C_DMAError
 // 2032 /**
 // 2033   * @brief  Write an amount of data in no-blocking mode with DMA to a specific memory address
 // 2034   * @param  hi2c : Pointer to a I2C_HandleTypeDef structure that contains
@@ -4480,34 +5156,34 @@ HAL_I2C_Mem_Read_IT:
 // 2042   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock30 Using cfiCommon0
+          CFI Block cfiBlock20 Using cfiCommon0
           CFI Function HAL_I2C_Mem_Write_DMA
         THUMB
 // 2043 HAL_StatusTypeDef HAL_I2C_Mem_Write_DMA(I2C_HandleTypeDef *hi2c, uint16_t DevAddress, uint16_t MemAddress, uint16_t MemAddSize, uint8_t *pData, uint16_t Size)
 // 2044 {
 HAL_I2C_Mem_Write_DMA:
-        PUSH     {R4-R8,LR}
+        PUSH     {R4-R9,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R8 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -20)
-          CFI R4 Frame(CFA, -24)
-          CFI CFA R13+24
-        MOV      R5,R0
+          CFI R9 Frame(CFA, -8)
+          CFI R8 Frame(CFA, -12)
+          CFI R7 Frame(CFA, -16)
+          CFI R6 Frame(CFA, -20)
+          CFI R5 Frame(CFA, -24)
+          CFI R4 Frame(CFA, -28)
+          CFI CFA R13+28
+        MOV      R4,R0
+        SUB      SP,SP,#+4
+          CFI CFA R13+32
+        MOV      R6,R1
+        MOV      R5,R2
 // 2045   /* Check the parameters */
 // 2046   assert_param(IS_I2C_MEMADD_SIZE(MemAddSize));
 // 2047   
 // 2048   if(hi2c->State == HAL_I2C_STATE_READY)
-        ADD      R4,R5,#+52
-        SUB      SP,SP,#+8
-          CFI CFA R13+32
-        MOV      R6,R1
-        LDRB     R0,[R4, #+1]
-        MOV      R7,R2
+        LDRB     R0,[R4, #+53]
         MOV      R8,R3
         CMP      R0,#+1
-        BNE.N    ??HAL_I2C_Mem_Write_DMA_0
+        BNE.W    ??HAL_I2C_Mem_Write_DMA_0
         LDR      R1,[SP, #+32]
 // 2049   {
 // 2050     if((pData == NULL) || (Size == 0)) 
@@ -4515,170 +5191,285 @@ HAL_I2C_Mem_Write_DMA:
         ITT      NE 
         LDRNE    R0,[SP, #+36]
         CMPNE    R0,#+0
-        BEQ.N    ??HAL_I2C_Mem_Write_DMA_1
+        BEQ.W    ??HAL_I2C_Mem_Write_DMA_1
 // 2051     {
 // 2052       return  HAL_ERROR;                                    
 // 2053     }
 // 2054     
 // 2055     if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_BUSY) == SET)
-        LDR      R2,[R5, #+0]
+        LDR      R2,[R4, #+0]
         LDR      R2,[R2, #+24]
         LSLS     R2,R2,#+16
-        BMI.N    ??HAL_I2C_Mem_Write_DMA_0
+        BMI.W    ??HAL_I2C_Mem_Write_DMA_0
 // 2056     {
 // 2057       return HAL_BUSY;
 // 2058     }
 // 2059     
 // 2060     /* Process Locked */
 // 2061     __HAL_LOCK(hi2c);
-        LDRB     R2,[R4, #+0]
+        LDRB     R2,[R4, #+52]
         CMP      R2,#+1
-        BEQ.N    ??HAL_I2C_Mem_Write_DMA_0
+        BEQ.W    ??HAL_I2C_Mem_Write_DMA_0
         MOVS     R2,#+1
-        STRB     R2,[R4, #+0]
 // 2062     
 // 2063     hi2c->State = HAL_I2C_STATE_MEM_BUSY_TX;
-        MOVS     R2,#+82
-        STRB     R2,[R4, #+1]
 // 2064     hi2c->ErrorCode = HAL_I2C_ERROR_NONE;
-        MOVS     R2,#+0
-        STR      R2,[R4, #+4]
 // 2065     
 // 2066     hi2c->pBuffPtr = pData;
 // 2067     hi2c->XferCount = Size;
 // 2068     if(Size > 255)
-        CMP      R0,#+255
-        STR      R1,[R5, #+36]
-        STRH     R0,[R5, #+42]
-        IT       GT 
-        MOVGT    R0,#+255
 // 2069     {
 // 2070       hi2c->XferSize = 255;
 // 2071     }
 // 2072     else
 // 2073     {
 // 2074       hi2c->XferSize = Size;
-        STRH     R0,[R5, #+40]
 // 2075     }
 // 2076     
 // 2077     /* Set the I2C DMA transfer complete callback */
 // 2078     hi2c->hdmatx->XferCpltCallback = I2C_DMAMemTransmitCplt;
-        LDR      R2,[R5, #+44]
-        ADR.W    R0,I2C_DMAMemTransmitCplt
-        STR      R0,[R2, #+60]
 // 2079     
 // 2080     /* Set the DMA error callback */
 // 2081     hi2c->hdmatx->XferErrorCallback = I2C_DMAError;
-        LDR      R2,[R5, #+44]
-        LDR.W    R0,??DataTable13_1
-        STR      R0,[R2, #+72]
 // 2082     
 // 2083     /* Enable the DMA channel */
 // 2084     HAL_DMA_Start_IT(hi2c->hdmatx, (uint32_t)pData, (uint32_t)&hi2c->Instance->TXDR, hi2c->XferSize);
-        LDR      R0,[R5, #+0]
-        LDRH     R3,[R5, #+40]
+        LDR.W    R7,??DataTable15  ;; 0xfc009800
+        STRB     R2,[R4, #+52]
+        MOVS     R2,#+82
+        STRB     R2,[R4, #+53]
+        MOVS     R2,#+0
+        STR      R2,[R4, #+56]
+        CMP      R0,#+255
+        STR      R1,[R4, #+36]
+        STRH     R0,[R4, #+42]
+        IT       GT 
+        MOVGT    R0,#+255
+        STRH     R0,[R4, #+40]
+        LDR      R2,[R4, #+44]
+        LDR.W    R0,??DataTable18
+        LSLS     R6,R6,#+22
+        STR      R0,[R2, #+60]
+        LDR      R2,[R4, #+44]
+        LDR.W    R0,??DataTable18_1
+        STR      R0,[R2, #+72]
+        LDR      R0,[R4, #+0]
+        LDRH     R3,[R4, #+40]
         ADD      R2,R0,#+40
-        LDR      R0,[R5, #+44]
+        LDR      R0,[R4, #+44]
           CFI FunCall HAL_DMA_Start_IT
         BL       HAL_DMA_Start_IT
 // 2085     
 // 2086     /* Send Slave Address and Memory Address */
 // 2087     if(I2C_RequestMemoryWrite(hi2c, DevAddress, MemAddress, MemAddSize, I2C_TIMEOUT_FLAG) != HAL_OK)
-        MOVS     R0,#+25
-        MOV      R3,R8
-        STR      R0,[SP, #+0]
-        MOV      R2,R7
-        MOV      R1,R6
-        MOV      R0,R5
-          CFI FunCall I2C_RequestMemoryWrite
-        BL       I2C_RequestMemoryWrite
-        CBZ.N    R0,??HAL_I2C_Mem_Write_DMA_2
+        LDR      R0,[R4, #+0]
+        UXTB     R2,R8
+        LDR      R1,[R0, #+4]
+        ANDS     R1,R7,R1
+        ORRS     R1,R1,R6, LSR #+22
+        ORR      R1,R1,R2, LSL #+16
+        ORR      R1,R1,#0x1000000
+        ORR      R1,R1,#0x2000
+        STR      R1,[R0, #+4]
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R9,R0
+??HAL_I2C_Mem_Write_DMA_2:
+        LDR      R1,[R4, #+0]
+        LDR      R0,[R1, #+24]
+        LSLS     R0,R0,#+30
+        BMI.N    ??HAL_I2C_Mem_Write_DMA_3
+        MOVS     R1,#+25
+        MOV      R0,R4
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??HAL_I2C_Mem_Write_DMA_4
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUB      R0,R0,R9
+        CMP      R0,#+26
+        BCC.N    ??HAL_I2C_Mem_Write_DMA_2
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+??HAL_I2C_Mem_Write_DMA_4:
+        LDR      R0,[R4, #+56]
 // 2088     {
 // 2089       if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R4, #+4]
+??HAL_I2C_Mem_Write_DMA_5:
+        LDR      R0,[R4, #+56]
         CMP      R0,#+4
-        BNE.N    ??HAL_I2C_Mem_Write_DMA_3
+        BNE.N    ??HAL_I2C_Mem_Write_DMA_6
 // 2090       {
 // 2091         /* Process Unlocked */
 // 2092         __HAL_UNLOCK(hi2c);
         MOVS     R0,#+0
-        STRB     R0,[R4, #+0]
+        STRB     R0,[R4, #+52]
 // 2093         return HAL_ERROR;
-        B.N      ??HAL_I2C_Mem_Write_DMA_1
 // 2094       }
 // 2095       else
 // 2096       {
 // 2097         /* Process Unlocked */
 // 2098         __HAL_UNLOCK(hi2c);
-??HAL_I2C_Mem_Write_DMA_3:
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+0]
 // 2099         return HAL_TIMEOUT;
-        B.N      ??HAL_I2C_Mem_Write_DMA_4
 // 2100       }
 // 2101     }
 // 2102     
 // 2103     /* Send Slave Address */
 // 2104     /* Set NBYTES to write and reload if size > 255 */
 // 2105     if( (hi2c->XferSize == 255) && (hi2c->XferSize < hi2c->XferCount) )
-??HAL_I2C_Mem_Write_DMA_2:
-        LDRH     R2,[R5, #+40]
-        CMP      R2,#+255
-        BNE.N    ??HAL_I2C_Mem_Write_DMA_5
-        LDRH     R0,[R5, #+42]
-        CMP      R2,R0
-        BCS.N    ??HAL_I2C_Mem_Write_DMA_5
 // 2106     {
 // 2107       I2C_TransferConfig(hi2c,DevAddress,hi2c->XferSize, I2C_RELOAD_MODE, I2C_NO_STARTSTOP);
-        MOVS     R0,#+0
-        MOV      R3,#+16777216
-        STR      R0,[SP, #+0]
-        B.N      ??HAL_I2C_Mem_Write_DMA_6
 // 2108     }
 // 2109     else
 // 2110     {
 // 2111       I2C_TransferConfig(hi2c,DevAddress,hi2c->XferSize, I2C_AUTOEND_MODE, I2C_NO_STARTSTOP);
-??HAL_I2C_Mem_Write_DMA_5:
-        MOVS     R0,#+0
-        MOV      R3,#+33554432
-        STR      R0,[SP, #+0]
-        UXTB     R2,R2
-??HAL_I2C_Mem_Write_DMA_6:
-        MOV      R1,R6
-        MOV      R0,R5
-          CFI FunCall I2C_TransferConfig
-        BL       I2C_TransferConfig
 // 2112     }
 // 2113     
 // 2114     /* Wait until TXIS flag is set */
 // 2115     if(I2C_WaitOnTXISFlagUntilTimeout(hi2c, I2C_TIMEOUT_TXIS) != HAL_OK)
-        MOVS     R1,#+25
-        MOV      R0,R5
-          CFI FunCall I2C_WaitOnTXISFlagUntilTimeout
-        BL       I2C_WaitOnTXISFlagUntilTimeout
-        CBZ.N    R0,??HAL_I2C_Mem_Write_DMA_7
 // 2116     {
 // 2117       if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R4, #+4]
-        CMP      R0,#+4
-        BNE.N    ??HAL_I2C_Mem_Write_DMA_4
 // 2118       {
 // 2119         return HAL_ERROR;
-??HAL_I2C_Mem_Write_DMA_1:
-        B.N      ?Subroutine13
+        MOVS     R0,#+1
+        ADD      SP,SP,#+4
+          CFI CFA R13+28
+        POP      {R4-R9,PC}
+          CFI CFA R13+32
+??HAL_I2C_Mem_Write_DMA_3:
+        CMP      R8,#+1
+        BEQ.N    ??HAL_I2C_Mem_Write_DMA_7
+        LSRS     R0,R5,#+8
+        STR      R0,[R1, #+40]
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R8,R0
+??HAL_I2C_Mem_Write_DMA_8:
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+24]
+        LSLS     R0,R0,#+30
+        BMI.N    ??HAL_I2C_Mem_Write_DMA_7
+        MOVS     R1,#+25
+        MOV      R0,R4
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CMP      R0,#+0
+        BNE.N    ??HAL_I2C_Mem_Write_DMA_4
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUB      R0,R0,R8
+        CMP      R0,#+26
+        BCC.N    ??HAL_I2C_Mem_Write_DMA_8
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+        B.N      ??HAL_I2C_Mem_Write_DMA_4
+??HAL_I2C_Mem_Write_DMA_7:
+        LDR      R0,[R4, #+0]
+        UXTB     R5,R5
+        STR      R5,[R0, #+40]
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??HAL_I2C_Mem_Write_DMA_9:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+24
+        BMI.N    ??HAL_I2C_Mem_Write_DMA_10
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R0,#+26
+        BCC.N    ??HAL_I2C_Mem_Write_DMA_9
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+        B.N      ??HAL_I2C_Mem_Write_DMA_5
+??HAL_I2C_Mem_Write_DMA_10:
+        LDRH     R1,[R4, #+40]
+        CMP      R1,#+255
+        BNE.N    ??HAL_I2C_Mem_Write_DMA_11
+        LDRH     R2,[R4, #+42]
+        CMP      R1,R2
+        BCS.N    ??HAL_I2C_Mem_Write_DMA_11
+        LDR      R2,[R0, #+4]
+        ANDS     R2,R7,R2
+        ORRS     R2,R2,R6, LSR #+22
+        ORR      R1,R2,R1, LSL #+16
+        ORR      R1,R1,#0x1000000
+        B.N      ??HAL_I2C_Mem_Write_DMA_12
+??HAL_I2C_Mem_Write_DMA_6:
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 2120       }
 // 2121       else
 // 2122       {
 // 2123         return HAL_TIMEOUT;
-??HAL_I2C_Mem_Write_DMA_4:
-        B.N      ?Subroutine12
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+28
+        POP      {R4-R9,PC}
+          CFI CFA R13+32
+??HAL_I2C_Mem_Write_DMA_11:
+        LDR      R2,[R0, #+4]
+        UXTB     R1,R1
+        ANDS     R2,R7,R2
+        ORRS     R2,R2,R6, LSR #+22
+        ORR      R1,R2,R1, LSL #+16
+        ORR      R1,R1,#0x2000000
+??HAL_I2C_Mem_Write_DMA_12:
+        STR      R1,[R0, #+4]
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??HAL_I2C_Mem_Write_DMA_13:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+30
+        BMI.N    ??HAL_I2C_Mem_Write_DMA_14
+        MOVS     R1,#+25
+        MOV      R0,R4
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??HAL_I2C_Mem_Write_DMA_15
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R0,#+26
+        BCC.N    ??HAL_I2C_Mem_Write_DMA_13
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+??HAL_I2C_Mem_Write_DMA_15:
+        LDR      R0,[R4, #+56]
+        CMP      R0,#+4
+        BNE.N    ??HAL_I2C_Mem_Write_DMA_16
+??HAL_I2C_Mem_Write_DMA_1:
+        MOVS     R0,#+1
+        ADD      SP,SP,#+4
+          CFI CFA R13+28
+        POP      {R4-R9,PC}
+          CFI CFA R13+32
 // 2124       }
 // 2125     }
 // 2126     
 // 2127     /* Enable DMA Request */
 // 2128     hi2c->Instance->CR1 |= I2C_CR1_TXDMAEN;  
-??HAL_I2C_Mem_Write_DMA_7:
-        LDR      R0,[R5, #+0]
+??HAL_I2C_Mem_Write_DMA_14:
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x4000
         STR      R1,[R0, #+0]
@@ -4686,19 +5477,43 @@ HAL_I2C_Mem_Write_DMA:
 // 2130     /* Process Unlocked */
 // 2131     __HAL_UNLOCK(hi2c);
         MOVS     R0,#+0
-        STRB     R0,[R4, #+0]
+        STRB     R0,[R4, #+52]
 // 2132     
 // 2133     return HAL_OK;
-        POP      {R1,R2,R4-R8,PC}
+        ADD      SP,SP,#+4
+          CFI CFA R13+28
+        POP      {R4-R9,PC}
+          CFI CFA R13+32
+??HAL_I2C_Mem_Write_DMA_16:
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+28
+        POP      {R4-R9,PC}
+          CFI CFA R13+32
 // 2134   }
 // 2135   else
 // 2136   {
 // 2137     return HAL_BUSY;
 ??HAL_I2C_Mem_Write_DMA_0:
-        B.N      ?Subroutine11
+        MOVS     R0,#+2
+        ADD      SP,SP,#+4
+          CFI CFA R13+28
+        POP      {R4-R9,PC}       ;; return
 // 2138   }
 // 2139 }
-          CFI EndBlock cfiBlock30
+          CFI EndBlock cfiBlock20
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable13:
+        DC32     I2C_DMAMasterReceiveCplt
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable13_1:
+        DC32     I2C_DMASlaveTransmitCplt
 // 2140 
 // 2141 /**
 // 2142   * @brief  Reads an amount of data in no-blocking mode with DMA from a specific memory address.
@@ -4713,34 +5528,34 @@ HAL_I2C_Mem_Write_DMA:
 // 2151   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock31 Using cfiCommon0
+          CFI Block cfiBlock21 Using cfiCommon0
           CFI Function HAL_I2C_Mem_Read_DMA
         THUMB
 // 2152 HAL_StatusTypeDef HAL_I2C_Mem_Read_DMA(I2C_HandleTypeDef *hi2c, uint16_t DevAddress, uint16_t MemAddress, uint16_t MemAddSize, uint8_t *pData, uint16_t Size)
 // 2153 {
 HAL_I2C_Mem_Read_DMA:
-        PUSH     {R4-R8,LR}
+        PUSH     {R4-R9,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R8 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -20)
-          CFI R4 Frame(CFA, -24)
-          CFI CFA R13+24
+          CFI R9 Frame(CFA, -8)
+          CFI R8 Frame(CFA, -12)
+          CFI R7 Frame(CFA, -16)
+          CFI R6 Frame(CFA, -20)
+          CFI R5 Frame(CFA, -24)
+          CFI R4 Frame(CFA, -28)
+          CFI CFA R13+28
         MOV      R4,R0
+        SUB      SP,SP,#+4
+          CFI CFA R13+32
+        MOV      R6,R1
+        MOV      R5,R2
 // 2154   /* Check the parameters */
 // 2155   assert_param(IS_I2C_MEMADD_SIZE(MemAddSize));
 // 2156   
 // 2157   if(hi2c->State == HAL_I2C_STATE_READY)
-        ADD      R5,R4,#+52
-        SUB      SP,SP,#+8
-          CFI CFA R13+32
-        MOV      R6,R1
-        LDRB     R0,[R5, #+1]
-        MOV      R7,R2
+        LDRB     R0,[R4, #+53]
         MOV      R8,R3
         CMP      R0,#+1
-        BNE.N    ??HAL_I2C_Mem_Read_DMA_0
+        BNE.W    ??HAL_I2C_Mem_Read_DMA_0
         LDR      R2,[SP, #+32]
 // 2158   {
 // 2159     if((pData == NULL) || (Size == 0)) 
@@ -4757,54 +5572,56 @@ HAL_I2C_Mem_Read_DMA:
         LDR      R1,[R4, #+0]
         LDR      R1,[R1, #+24]
         LSLS     R1,R1,#+16
-        BMI.N    ??HAL_I2C_Mem_Read_DMA_0
+        BMI.W    ??HAL_I2C_Mem_Read_DMA_0
 // 2165     {
 // 2166       return HAL_BUSY;
 // 2167     }
 // 2168     
 // 2169     /* Process Locked */
 // 2170     __HAL_LOCK(hi2c);
-        LDRB     R1,[R5, #+0]
+        LDRB     R1,[R4, #+52]
         CMP      R1,#+1
-        BEQ.N    ??HAL_I2C_Mem_Read_DMA_0
+        BEQ.W    ??HAL_I2C_Mem_Read_DMA_0
         MOVS     R1,#+1
-        STRB     R1,[R5, #+0]
 // 2171     
 // 2172     hi2c->State = HAL_I2C_STATE_MEM_BUSY_RX;
-        MOVS     R1,#+98
-        STRB     R1,[R5, #+1]
 // 2173     
 // 2174     hi2c->pBuffPtr = pData;
 // 2175     hi2c->XferCount = Size;
 // 2176     if(Size > 255)
-        CMP      R0,#+255
-        STR      R2,[R4, #+36]
-        STRH     R0,[R4, #+42]
-        IT       GT 
-        MOVGT    R0,#+255
 // 2177     {
 // 2178       hi2c->XferSize = 255;
 // 2179     }
 // 2180     else
 // 2181     {
 // 2182       hi2c->XferSize = Size;
-        STRH     R0,[R4, #+40]
 // 2183     }
 // 2184     
 // 2185     /* Set the I2C DMA transfer complete callback */
 // 2186     hi2c->hdmarx->XferCpltCallback = I2C_DMAMemReceiveCplt;
-        LDR      R1,[R4, #+48]
-        LDR.W    R0,??DataTable15
-        STR      R0,[R1, #+60]
 // 2187     
 // 2188     /* Set the DMA error callback */
 // 2189     hi2c->hdmarx->XferErrorCallback = I2C_DMAError;
-        LDR      R1,[R4, #+48]
-        LDR.W    R0,??DataTable13_1
-        STR      R0,[R1, #+72]
 // 2190     
 // 2191     /* Enable the DMA channel */
 // 2192     HAL_DMA_Start_IT(hi2c->hdmarx, (uint32_t)&hi2c->Instance->RXDR, (uint32_t)pData, hi2c->XferSize);
+        LDR.N    R7,??DataTable15  ;; 0xfc009800
+        STRB     R1,[R4, #+52]
+        MOVS     R1,#+98
+        STRB     R1,[R4, #+53]
+        CMP      R0,#+255
+        STR      R2,[R4, #+36]
+        STRH     R0,[R4, #+42]
+        IT       GT 
+        MOVGT    R0,#+255
+        STRH     R0,[R4, #+40]
+        LDR      R1,[R4, #+48]
+        LDR.W    R0,??DataTable18_2
+        LSLS     R6,R6,#+22
+        STR      R0,[R1, #+60]
+        LDR      R1,[R4, #+48]
+        LDR.W    R0,??DataTable18_1
+        STR      R0,[R1, #+72]
         LDR      R0,[R4, #+0]
         LDRH     R3,[R4, #+40]
         ADD      R1,R0,#+36
@@ -4814,26 +5631,59 @@ HAL_I2C_Mem_Read_DMA:
 // 2193     
 // 2194     /* Send Slave Address and Memory Address */
 // 2195     if(I2C_RequestMemoryRead(hi2c, DevAddress, MemAddress, MemAddSize, I2C_TIMEOUT_FLAG) != HAL_OK)
-        MOVS     R0,#+25
-        MOV      R3,R8
-        STR      R0,[SP, #+0]
-        MOV      R2,R7
-        MOV      R1,R6
+        LDR      R0,[R4, #+0]
+        UXTB     R2,R8
+        LDR      R1,[R0, #+4]
+        ANDS     R1,R7,R1
+        ORRS     R1,R1,R6, LSR #+22
+        ORR      R1,R1,R2, LSL #+16
+        ORR      R1,R1,#0x2000
+        STR      R1,[R0, #+4]
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R9,R0
+??HAL_I2C_Mem_Read_DMA_2:
+        LDR      R1,[R4, #+0]
+        LDR      R0,[R1, #+24]
+        LSLS     R0,R0,#+30
+        BMI.N    ??HAL_I2C_Mem_Read_DMA_3
+        MOVS     R1,#+25
         MOV      R0,R4
-          CFI FunCall I2C_RequestMemoryRead
-        BL       I2C_RequestMemoryRead
-        CBZ.N    R0,??HAL_I2C_Mem_Read_DMA_2
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??HAL_I2C_Mem_Read_DMA_4
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUB      R0,R0,R9
+        CMP      R0,#+26
+        BCC.N    ??HAL_I2C_Mem_Read_DMA_2
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+??HAL_I2C_Mem_Read_DMA_4:
+        LDR      R0,[R4, #+56]
 // 2196     {
 // 2197       if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R5, #+4]
+??HAL_I2C_Mem_Read_DMA_5:
+        LDR      R0,[R4, #+56]
         CMP      R0,#+4
-        BNE.N    ??HAL_I2C_Mem_Read_DMA_3
+        BNE.N    ??HAL_I2C_Mem_Read_DMA_6
 // 2198       {
 // 2199         /* Process Unlocked */
 // 2200         __HAL_UNLOCK(hi2c);
         MOVS     R0,#+0
-        STRB     R0,[R5, #+0]
+        STRB     R0,[R4, #+52]
 // 2201         return HAL_ERROR;
+??HAL_I2C_Mem_Read_DMA_1:
+        MOVS     R0,#+1
+        ADD      SP,SP,#+4
+          CFI CFA R13+28
+        POP      {R4-R9,PC}
+          CFI CFA R13+32
 // 2202       }
 // 2203       else
 // 2204       {
@@ -4842,68 +5692,126 @@ HAL_I2C_Mem_Read_DMA:
 // 2207         return HAL_TIMEOUT;
 // 2208       }
 // 2209     }
-??HAL_I2C_Mem_Read_DMA_1:
-        B.N      ?Subroutine13
+??HAL_I2C_Mem_Read_DMA_3:
+        CMP      R8,#+1
+        BEQ.N    ??HAL_I2C_Mem_Read_DMA_7
+        LSRS     R0,R5,#+8
+        STR      R0,[R1, #+40]
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R8,R0
+??HAL_I2C_Mem_Read_DMA_8:
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+24]
+        LSLS     R0,R0,#+30
+        BMI.N    ??HAL_I2C_Mem_Read_DMA_7
+        MOVS     R1,#+25
+        MOV      R0,R4
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CMP      R0,#+0
+        BNE.N    ??HAL_I2C_Mem_Read_DMA_4
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUB      R0,R0,R8
+        CMP      R0,#+26
+        BCC.N    ??HAL_I2C_Mem_Read_DMA_8
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+        B.N      ??HAL_I2C_Mem_Read_DMA_4
+??HAL_I2C_Mem_Read_DMA_7:
+        LDR      R0,[R4, #+0]
+        UXTB     R5,R5
+        STR      R5,[R0, #+40]
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??HAL_I2C_Mem_Read_DMA_9:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+25
+        BMI.N    ??HAL_I2C_Mem_Read_DMA_10
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R0,#+26
+        BCC.N    ??HAL_I2C_Mem_Read_DMA_9
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+        B.N      ??HAL_I2C_Mem_Read_DMA_5
 // 2210     
 // 2211     /* Set NBYTES to write and reload if size > 255 and generate RESTART */
 // 2212     if( (hi2c->XferSize == 255) && (hi2c->XferSize < hi2c->XferCount) )
-??HAL_I2C_Mem_Read_DMA_2:
-        LDRH     R2,[R4, #+40]
-        CMP      R2,#+255
-        BNE.N    ??HAL_I2C_Mem_Read_DMA_4
-        LDRH     R0,[R4, #+42]
-        CMP      R2,R0
-        BCS.N    ??HAL_I2C_Mem_Read_DMA_4
+??HAL_I2C_Mem_Read_DMA_10:
+        LDRH     R1,[R4, #+40]
+        CMP      R1,#+255
+        BNE.N    ??HAL_I2C_Mem_Read_DMA_11
+        LDRH     R2,[R4, #+42]
+        CMP      R1,R2
+        BCS.N    ??HAL_I2C_Mem_Read_DMA_11
 // 2213     {
 // 2214       I2C_TransferConfig(hi2c,DevAddress,hi2c->XferSize, I2C_RELOAD_MODE, I2C_GENERATE_START_READ);
-        MOV      R0,#+9216
-        MOV      R3,#+16777216
-        STR      R0,[SP, #+0]
-        B.N      ??HAL_I2C_Mem_Read_DMA_5
+        LDR      R2,[R0, #+4]
+        ANDS     R2,R7,R2
+        ORRS     R2,R2,R6, LSR #+22
+        ORR      R1,R2,R1, LSL #+16
+        ORR      R1,R1,#0x1000000
+        B.N      ??HAL_I2C_Mem_Read_DMA_12
 // 2215     }
 // 2216     else
 // 2217     {
 // 2218       I2C_TransferConfig(hi2c,DevAddress,hi2c->XferSize, I2C_AUTOEND_MODE, I2C_GENERATE_START_READ);
-??HAL_I2C_Mem_Read_DMA_4:
-        MOV      R0,#+9216
-        MOV      R3,#+33554432
-        STR      R0,[SP, #+0]
-        UXTB     R2,R2
-??HAL_I2C_Mem_Read_DMA_5:
-        MOV      R1,R6
-        MOV      R0,R4
-          CFI FunCall I2C_TransferConfig
-        BL       I2C_TransferConfig
+??HAL_I2C_Mem_Read_DMA_11:
+        LDR      R2,[R0, #+4]
+        UXTB     R1,R1
+        ANDS     R2,R7,R2
+        ORRS     R2,R2,R6, LSR #+22
+        ORR      R1,R2,R1, LSL #+16
+        ORR      R1,R1,#0x2000000
+??HAL_I2C_Mem_Read_DMA_12:
+        ORR      R1,R1,#0x2400
+        STR      R1,[R0, #+4]
 // 2219     }
 // 2220     
 // 2221     /* Wait until RXNE flag is set */
 // 2222     if(I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_RXNE, RESET, I2C_TIMEOUT_RXNE) != HAL_OK)      
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R6,R0
-??HAL_I2C_Mem_Read_DMA_6:
+        MOV      R5,R0
+??HAL_I2C_Mem_Read_DMA_13:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+24]
         LSLS     R1,R1,#+29
-        BMI.N    ??HAL_I2C_Mem_Read_DMA_7
+        BMI.N    ??HAL_I2C_Mem_Read_DMA_14
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUBS     R0,R0,R6
+        SUBS     R0,R0,R5
         CMP      R0,#+26
-        BCC.N    ??HAL_I2C_Mem_Read_DMA_6
+        BCC.N    ??HAL_I2C_Mem_Read_DMA_13
         MOVS     R0,#+1
-        STRB     R0,[R5, #+1]
-??HAL_I2C_Mem_Read_DMA_3:
+        STRB     R0,[R4, #+53]
+??HAL_I2C_Mem_Read_DMA_6:
         MOVS     R0,#+0
-        STRB     R0,[R5, #+0]
+        STRB     R0,[R4, #+52]
 // 2223     {
 // 2224       return HAL_TIMEOUT;
-        B.N      ?Subroutine12
+        MOVS     R0,#+3
+        ADD      SP,SP,#+4
+          CFI CFA R13+28
+        POP      {R4-R9,PC}
+          CFI CFA R13+32
 // 2225     }
 // 2226     
 // 2227     /* Enable DMA Request */
 // 2228     hi2c->Instance->CR1 |= I2C_CR1_RXDMAEN;  
-??HAL_I2C_Mem_Read_DMA_7:
+??HAL_I2C_Mem_Read_DMA_14:
         LDR      R1,[R0, #+0]
         ORR      R1,R1,#0x8000
         STR      R1,[R0, #+0]
@@ -4911,67 +5819,31 @@ HAL_I2C_Mem_Read_DMA:
 // 2230     /* Process Unlocked */
 // 2231     __HAL_UNLOCK(hi2c);
         MOVS     R0,#+0
-        STRB     R0,[R5, #+0]
+        STRB     R0,[R4, #+52]
 // 2232     
 // 2233     return HAL_OK;
-        POP      {R1,R2,R4-R8,PC}
+        ADD      SP,SP,#+4
+          CFI CFA R13+28
+        POP      {R4-R9,PC}
+          CFI CFA R13+32
 // 2234   }
 // 2235   else
 // 2236   {
 // 2237     return HAL_BUSY;
 ??HAL_I2C_Mem_Read_DMA_0:
-        B.N      ?Subroutine11
+        MOVS     R0,#+2
+        ADD      SP,SP,#+4
+          CFI CFA R13+28
+        POP      {R4-R9,PC}       ;; return
 // 2238   }
 // 2239 }
-          CFI EndBlock cfiBlock31
+          CFI EndBlock cfiBlock21
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock32 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+32
-          CFI R4 Frame(CFA, -24)
-          CFI R5 Frame(CFA, -20)
-          CFI R6 Frame(CFA, -16)
-          CFI R7 Frame(CFA, -12)
-          CFI R8 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine13:
-        MOVS     R0,#+1
-        POP      {R1,R2,R4-R8,PC}
-          CFI EndBlock cfiBlock32
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock33 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+32
-          CFI R4 Frame(CFA, -24)
-          CFI R5 Frame(CFA, -20)
-          CFI R6 Frame(CFA, -16)
-          CFI R7 Frame(CFA, -12)
-          CFI R8 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine12:
-        MOVS     R0,#+3
-        POP      {R1,R2,R4-R8,PC}
-          CFI EndBlock cfiBlock33
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock34 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+32
-          CFI R4 Frame(CFA, -24)
-          CFI R5 Frame(CFA, -20)
-          CFI R6 Frame(CFA, -16)
-          CFI R7 Frame(CFA, -12)
-          CFI R8 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine11:
-        MOVS     R0,#+2
-        POP      {R1,R2,R4-R8,PC}  ;; return
-          CFI EndBlock cfiBlock34
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable14:
+        DC32     I2C_DMASlaveReceiveCplt
 // 2240 
 // 2241 /**
 // 2242   * @brief  Checks if target device is ready for communication. 
@@ -4985,35 +5857,33 @@ HAL_I2C_Mem_Read_DMA:
 // 2250   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock35 Using cfiCommon0
+          CFI Block cfiBlock22 Using cfiCommon0
           CFI Function HAL_I2C_IsDeviceReady
         THUMB
 // 2251 HAL_StatusTypeDef HAL_I2C_IsDeviceReady(I2C_HandleTypeDef *hi2c, uint16_t DevAddress, uint32_t Trials, uint32_t Timeout)
 // 2252 {  
 HAL_I2C_IsDeviceReady:
-        PUSH     {R4-R10,LR}
+        PUSH     {R4-R9,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R10 Frame(CFA, -8)
-          CFI R9 Frame(CFA, -12)
-          CFI R8 Frame(CFA, -16)
-          CFI R7 Frame(CFA, -20)
-          CFI R6 Frame(CFA, -24)
-          CFI R5 Frame(CFA, -28)
-          CFI R4 Frame(CFA, -32)
-          CFI CFA R13+32
+          CFI R9 Frame(CFA, -8)
+          CFI R8 Frame(CFA, -12)
+          CFI R7 Frame(CFA, -16)
+          CFI R6 Frame(CFA, -20)
+          CFI R5 Frame(CFA, -24)
+          CFI R4 Frame(CFA, -28)
+          CFI CFA R13+28
         MOV      R4,R0
-        SUB      SP,SP,#+8
-          CFI CFA R13+40
+        SUB      SP,SP,#+4
+          CFI CFA R13+32
 // 2253   uint32_t tickstart = 0;
 // 2254   
 // 2255   __IO uint32_t I2C_Trials = 0;
         MOVS     R0,#+0
+        MOV      R5,R2
+        STR      R0,[SP, #+0]
 // 2256   
 // 2257   if(hi2c->State == HAL_I2C_STATE_READY)
-        ADD      R7,R4,#+52
-        STR      R0,[SP, #+0]
-        MOV      R10,R2
-        LDRB     R0,[R7, #+1]
+        LDRB     R0,[R4, #+53]
         MOV      R6,R3
         CMP      R0,#+1
         BNE.W    ??HAL_I2C_IsDeviceReady_0
@@ -5029,23 +5899,23 @@ HAL_I2C_IsDeviceReady:
 // 2263     
 // 2264     /* Process Locked */
 // 2265     __HAL_LOCK(hi2c);
-        LDRB     R0,[R7, #+0]
+        LDRB     R0,[R4, #+52]
         CMP      R0,#+1
-        BEQ.N    ??HAL_I2C_IsDeviceReady_0
+        BEQ.W    ??HAL_I2C_IsDeviceReady_0
         MOVS     R0,#+1
-        STRB     R0,[R7, #+0]
+        STRB     R0,[R4, #+52]
 // 2266     
 // 2267     hi2c->State = HAL_I2C_STATE_BUSY;
         MOVS     R0,#+2
-        STRB     R0,[R7, #+1]
+        STRB     R0,[R4, #+53]
 // 2268     hi2c->ErrorCode = HAL_I2C_ERROR_NONE;
         MOVS     R0,#+0
-        STR      R0,[R7, #+4]
+        STR      R0,[R4, #+56]
         LSLS     R0,R1,#+22
         LSRS     R0,R0,#+22
-        LDR.W    R1,??DataTable16  ;; 0x2002000
-        ORR      R8,R0,#0x2800
-        ORR      R9,R1,R0
+        LDR.W    R1,??DataTable19  ;; 0x2002000
+        ORR      R9,R0,#0x2800
+        ORR      R8,R1,R0
 // 2269     
 // 2270     do
 // 2271     {
@@ -5055,8 +5925,8 @@ HAL_I2C_IsDeviceReady:
         LDR      R0,[R4, #+12]
         CMP      R0,#+1
         ITE      EQ 
-        MOVEQ    R0,R9
-        MOVNE    R0,R8
+        MOVEQ    R0,R8
+        MOVNE    R0,R9
         LDR      R1,[R4, #+0]
         STR      R0,[R1, #+4]
 // 2274       
@@ -5065,7 +5935,7 @@ HAL_I2C_IsDeviceReady:
 // 2277       tickstart = HAL_GetTick();
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R5,R0
+        MOV      R7,R0
 // 2278       while((__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_STOPF) == RESET) && (__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_AF) == RESET) && (hi2c->State != HAL_I2C_STATE_TIMEOUT))
 ??HAL_I2C_IsDeviceReady_2:
         LDR      R0,[R4, #+0]
@@ -5075,7 +5945,7 @@ HAL_I2C_IsDeviceReady:
         LDR      R1,[R0, #+24]
         LSLS     R1,R1,#+27
         BMI.N    ??HAL_I2C_IsDeviceReady_3
-        LDRB     R1,[R7, #+1]
+        LDRB     R1,[R4, #+53]
         CMP      R1,#+3
         BEQ.N    ??HAL_I2C_IsDeviceReady_3
 // 2279       {
@@ -5088,7 +5958,7 @@ HAL_I2C_IsDeviceReady:
         BEQ.N    ??HAL_I2C_IsDeviceReady_4
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUBS     R0,R0,R5
+        SUBS     R0,R0,R7
         CMP      R6,R0
         BCS.N    ??HAL_I2C_IsDeviceReady_2
         B.N      ??HAL_I2C_IsDeviceReady_4
@@ -5111,36 +5981,49 @@ HAL_I2C_IsDeviceReady:
 // 2295       {
 // 2296         /* Wait until STOPF flag is reset */ 
 // 2297         if(I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_STOPF, RESET, Timeout) != HAL_OK)
-        MOV      R3,R6
-        MOVS     R2,#+0
-        MOVS     R1,#+32
-        MOV      R0,R4
-          CFI FunCall I2C_WaitOnFlagUntilTimeout
-        BL       I2C_WaitOnFlagUntilTimeout
-        CMP      R0,#+0
-        BNE.N    ??HAL_I2C_IsDeviceReady_6
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??HAL_I2C_IsDeviceReady_6:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+26
+        BMI.N    ??HAL_I2C_IsDeviceReady_7
+        CMN      R6,#+1
+        BEQ.N    ??HAL_I2C_IsDeviceReady_6
+        CMP      R6,#+0
+        BEQ.N    ??HAL_I2C_IsDeviceReady_4
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R6,R0
+        BCS.N    ??HAL_I2C_IsDeviceReady_6
+        B.N      ??HAL_I2C_IsDeviceReady_4
 // 2298         {
 // 2299           return HAL_TIMEOUT;
 // 2300         }
 // 2301         
 // 2302         /* Clear STOP Flag */
 // 2303         __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
-        LDR      R1,[R4, #+0]
-        MOVS     R0,#+32
-        STR      R0,[R1, #+28]
+??HAL_I2C_IsDeviceReady_7:
+        MOVS     R1,#+32
+        STR      R1,[R0, #+28]
 // 2304         
 // 2305         /* Device is ready */
 // 2306         hi2c->State = HAL_I2C_STATE_READY;
         MOVS     R0,#+1
-        STRB     R0,[R7, #+1]
+        STRB     R0,[R4, #+53]
 // 2307         
 // 2308         /* Process Unlocked */
 // 2309         __HAL_UNLOCK(hi2c);
         MOVS     R0,#+0
-        STRB     R0,[R7, #+0]
+        STRB     R0,[R4, #+52]
 // 2310         
 // 2311         return HAL_OK;
-        POP      {R1,R2,R4-R10,PC}
+        ADD      SP,SP,#+4
+          CFI CFA R13+28
+        POP      {R4-R9,PC}
+          CFI CFA R13+32
 // 2312       }
 // 2313       else
 // 2314       {
@@ -5149,20 +6032,20 @@ HAL_I2C_IsDeviceReady:
 ??HAL_I2C_IsDeviceReady_5:
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R5,R0
-??HAL_I2C_IsDeviceReady_7:
+        MOV      R7,R0
+??HAL_I2C_IsDeviceReady_8:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+24]
         LSLS     R1,R1,#+26
-        BMI.N    ??HAL_I2C_IsDeviceReady_8
+        BMI.N    ??HAL_I2C_IsDeviceReady_9
         CMN      R6,#+1
-        BEQ.N    ??HAL_I2C_IsDeviceReady_7
+        BEQ.N    ??HAL_I2C_IsDeviceReady_8
         CBZ.N    R6,??HAL_I2C_IsDeviceReady_4
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUBS     R0,R0,R5
+        SUBS     R0,R0,R7
         CMP      R6,R0
-        BCS.N    ??HAL_I2C_IsDeviceReady_7
+        BCS.N    ??HAL_I2C_IsDeviceReady_8
         B.N      ??HAL_I2C_IsDeviceReady_4
 // 2317         {
 // 2318           return HAL_TIMEOUT;
@@ -5170,7 +6053,7 @@ HAL_I2C_IsDeviceReady:
 // 2320         
 // 2321         /* Clear NACK Flag */
 // 2322         __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_AF);
-??HAL_I2C_IsDeviceReady_8:
+??HAL_I2C_IsDeviceReady_9:
         MOVS     R1,#+16
         STR      R1,[R0, #+28]
 // 2323         
@@ -5185,9 +6068,9 @@ HAL_I2C_IsDeviceReady:
 // 2329       if (I2C_Trials++ == Trials)
         LDR      R0,[SP, #+0]
         ADDS     R1,R0,#+1
-        CMP      R0,R10
+        CMP      R0,R5
         STR      R1,[SP, #+0]
-        BNE.N    ??HAL_I2C_IsDeviceReady_9
+        BNE.N    ??HAL_I2C_IsDeviceReady_10
 // 2330       {
 // 2331         /* Generate Stop */
 // 2332         hi2c->Instance->CR2 |= I2C_CR2_STOP;
@@ -5200,20 +6083,20 @@ HAL_I2C_IsDeviceReady:
 // 2335         if(I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_STOPF, RESET, Timeout) != HAL_OK)
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R5,R0
-??HAL_I2C_IsDeviceReady_10:
+        MOV      R7,R0
+??HAL_I2C_IsDeviceReady_11:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+24]
         LSLS     R1,R1,#+26
-        BMI.N    ??HAL_I2C_IsDeviceReady_11
+        BMI.N    ??HAL_I2C_IsDeviceReady_12
         CMN      R6,#+1
-        BEQ.N    ??HAL_I2C_IsDeviceReady_10
+        BEQ.N    ??HAL_I2C_IsDeviceReady_11
         CBZ.N    R6,??HAL_I2C_IsDeviceReady_4
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUBS     R0,R0,R5
+        SUBS     R0,R0,R7
         CMP      R6,R0
-        BCS.N    ??HAL_I2C_IsDeviceReady_10
+        BCS.N    ??HAL_I2C_IsDeviceReady_11
         B.N      ??HAL_I2C_IsDeviceReady_4
 // 2336         {
 // 2337           return HAL_TIMEOUT;
@@ -5221,40 +6104,62 @@ HAL_I2C_IsDeviceReady:
 // 2339         
 // 2340         /* Clear STOP Flag */
 // 2341         __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
-??HAL_I2C_IsDeviceReady_11:
+??HAL_I2C_IsDeviceReady_12:
         MOVS     R1,#+32
         STR      R1,[R0, #+28]
 // 2342       }      
 // 2343     }while(I2C_Trials < Trials);
-??HAL_I2C_IsDeviceReady_9:
+??HAL_I2C_IsDeviceReady_10:
         LDR      R0,[SP, #+0]
-        CMP      R0,R10
+        CMP      R0,R5
         BCC.N    ??HAL_I2C_IsDeviceReady_1
 // 2344     
 // 2345     hi2c->State = HAL_I2C_STATE_READY;
 ??HAL_I2C_IsDeviceReady_4:
         MOVS     R0,#+1
-        STRB     R0,[R7, #+1]
+        STRB     R0,[R4, #+53]
 // 2346     
 // 2347     /* Process Unlocked */
 // 2348     __HAL_UNLOCK(hi2c);
         MOVS     R0,#+0
-        STRB     R0,[R7, #+0]
+        STRB     R0,[R4, #+52]
 // 2349     
 // 2350     return HAL_TIMEOUT;
-??HAL_I2C_IsDeviceReady_6:
         MOVS     R0,#+3
-        POP      {R1,R2,R4-R10,PC}
+        ADD      SP,SP,#+4
+          CFI CFA R13+28
+        POP      {R4-R9,PC}
+          CFI CFA R13+32
 // 2351   }
 // 2352   else
 // 2353   {
 // 2354     return HAL_BUSY;
 ??HAL_I2C_IsDeviceReady_0:
         MOVS     R0,#+2
-        POP      {R1,R2,R4-R10,PC}  ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+28
+        POP      {R4-R9,PC}       ;; return
 // 2355   }
 // 2356 }
-          CFI EndBlock cfiBlock35
+          CFI EndBlock cfiBlock22
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable15:
+        DC32     0xfc009800
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable15_1:
+        DC32     0x1ff0000
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable15_2:
+        DC32     0xfe00e800
 // 2357 /**
 // 2358   * @}
 // 2359   */
@@ -5271,7 +6176,7 @@ HAL_I2C_IsDeviceReady:
 // 2370   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock36 Using cfiCommon0
+          CFI Block cfiBlock23 Using cfiCommon0
           CFI Function HAL_I2C_EV_IRQHandler
         THUMB
 // 2371 void HAL_I2C_EV_IRQHandler(I2C_HandleTypeDef *hi2c)
@@ -5448,7 +6353,7 @@ HAL_I2C_EV_IRQHandler:
 // 2409 }
 ??HAL_I2C_EV_IRQHandler_7:
         POP      {R4,PC}          ;; return
-          CFI EndBlock cfiBlock36
+          CFI EndBlock cfiBlock23
 // 2410 
 // 2411 /**
 // 2412   * @brief  This function handles I2C error interrupt request.
@@ -5458,14 +6363,16 @@ HAL_I2C_EV_IRQHandler:
 // 2416   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock37 Using cfiCommon0
+          CFI Block cfiBlock24 Using cfiCommon0
           CFI Function HAL_I2C_ER_IRQHandler
         THUMB
 // 2417 void HAL_I2C_ER_IRQHandler(I2C_HandleTypeDef *hi2c)
 // 2418 {
 HAL_I2C_ER_IRQHandler:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 // 2419   /* I2C Bus error interrupt occurred ------------------------------------*/
 // 2420   if((__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_BERR) == SET) && (__HAL_I2C_GET_IT_SOURCE(hi2c, I2C_IT_ERRI) == SET))
@@ -5548,8 +6455,10 @@ HAL_I2C_ER_IRQHandler:
 // 2452   }
 // 2453 }
 ??HAL_I2C_ER_IRQHandler_3:
-        POP      {R0,PC}          ;; return
-          CFI EndBlock cfiBlock37
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
+          CFI EndBlock cfiBlock24
 // 2454 
 // 2455 /**
 // 2456   * @brief  Master Tx Transfer completed callbacks.
@@ -5559,7 +6468,7 @@ HAL_I2C_ER_IRQHandler:
 // 2460   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock38 Using cfiCommon0
+          CFI Block cfiBlock25 Using cfiCommon0
           CFI Function HAL_I2C_MasterTxCpltCallback
           CFI NoCalls
         THUMB
@@ -5574,7 +6483,7 @@ HAL_I2C_ER_IRQHandler:
 // 2469 }
 HAL_I2C_MasterTxCpltCallback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock38
+          CFI EndBlock cfiBlock25
 // 2470 
 // 2471 /**
 // 2472   * @brief  Master Rx Transfer completed callbacks.
@@ -5584,7 +6493,7 @@ HAL_I2C_MasterTxCpltCallback:
 // 2476   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock39 Using cfiCommon0
+          CFI Block cfiBlock26 Using cfiCommon0
           CFI Function HAL_I2C_MasterRxCpltCallback
           CFI NoCalls
         THUMB
@@ -5599,7 +6508,7 @@ HAL_I2C_MasterTxCpltCallback:
 // 2485 }
 HAL_I2C_MasterRxCpltCallback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock39
+          CFI EndBlock cfiBlock26
 // 2486 
 // 2487 /** @brief  Slave Tx Transfer completed callbacks.
 // 2488   * @param  hi2c : Pointer to a I2C_HandleTypeDef structure that contains
@@ -5608,7 +6517,7 @@ HAL_I2C_MasterRxCpltCallback:
 // 2491   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock40 Using cfiCommon0
+          CFI Block cfiBlock27 Using cfiCommon0
           CFI Function HAL_I2C_SlaveTxCpltCallback
           CFI NoCalls
         THUMB
@@ -5623,7 +6532,7 @@ HAL_I2C_MasterRxCpltCallback:
 // 2500 }
 HAL_I2C_SlaveTxCpltCallback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock40
+          CFI EndBlock cfiBlock27
 // 2501 
 // 2502 /**
 // 2503   * @brief  Slave Rx Transfer completed callbacks.
@@ -5633,7 +6542,7 @@ HAL_I2C_SlaveTxCpltCallback:
 // 2507   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock41 Using cfiCommon0
+          CFI Block cfiBlock28 Using cfiCommon0
           CFI Function HAL_I2C_SlaveRxCpltCallback
           CFI NoCalls
         THUMB
@@ -5648,7 +6557,7 @@ HAL_I2C_SlaveTxCpltCallback:
 // 2516 }
 HAL_I2C_SlaveRxCpltCallback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock41
+          CFI EndBlock cfiBlock28
 // 2517 
 // 2518 /**
 // 2519   * @brief  Memory Tx Transfer completed callbacks.
@@ -5658,7 +6567,7 @@ HAL_I2C_SlaveRxCpltCallback:
 // 2523   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock42 Using cfiCommon0
+          CFI Block cfiBlock29 Using cfiCommon0
           CFI Function HAL_I2C_MemTxCpltCallback
           CFI NoCalls
         THUMB
@@ -5673,7 +6582,7 @@ HAL_I2C_SlaveRxCpltCallback:
 // 2532 }
 HAL_I2C_MemTxCpltCallback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock42
+          CFI EndBlock cfiBlock29
 // 2533 
 // 2534 /**
 // 2535   * @brief  Memory Rx Transfer completed callbacks.
@@ -5683,7 +6592,7 @@ HAL_I2C_MemTxCpltCallback:
 // 2539   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock43 Using cfiCommon0
+          CFI Block cfiBlock30 Using cfiCommon0
           CFI Function HAL_I2C_MemRxCpltCallback
           CFI NoCalls
         THUMB
@@ -5698,7 +6607,7 @@ HAL_I2C_MemTxCpltCallback:
 // 2548 }
 HAL_I2C_MemRxCpltCallback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock43
+          CFI EndBlock cfiBlock30
 // 2549 
 // 2550 /**
 // 2551   * @brief  I2C error callbacks.
@@ -5708,7 +6617,7 @@ HAL_I2C_MemRxCpltCallback:
 // 2555   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock44 Using cfiCommon0
+          CFI Block cfiBlock31 Using cfiCommon0
           CFI Function HAL_I2C_ErrorCallback
           CFI NoCalls
         THUMB
@@ -5723,7 +6632,7 @@ HAL_I2C_MemRxCpltCallback:
 // 2564 }
 HAL_I2C_ErrorCallback:
         BX       LR               ;; return
-          CFI EndBlock cfiBlock44
+          CFI EndBlock cfiBlock31
 // 2565 
 // 2566 /**
 // 2567   * @}
@@ -5752,7 +6661,7 @@ HAL_I2C_ErrorCallback:
 // 2590   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock45 Using cfiCommon0
+          CFI Block cfiBlock32 Using cfiCommon0
           CFI Function HAL_I2C_GetState
           CFI NoCalls
         THUMB
@@ -5763,7 +6672,7 @@ HAL_I2C_GetState:
         LDRB     R0,[R0, #+53]
         BX       LR               ;; return
 // 2594 }
-          CFI EndBlock cfiBlock45
+          CFI EndBlock cfiBlock32
 // 2595 
 // 2596 /**
 // 2597   * @brief  Return the I2C error code
@@ -5773,7 +6682,7 @@ HAL_I2C_GetState:
 // 2601 */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock46 Using cfiCommon0
+          CFI Block cfiBlock33 Using cfiCommon0
           CFI Function HAL_I2C_GetError
           CFI NoCalls
         THUMB
@@ -5784,7 +6693,7 @@ HAL_I2C_GetError:
         LDR      R0,[R0, #+56]
         BX       LR               ;; return
 // 2605 }
-          CFI EndBlock cfiBlock46
+          CFI EndBlock cfiBlock33
 // 2606 
 // 2607 /**
 // 2608   * @}
@@ -5806,104 +6715,104 @@ HAL_I2C_GetError:
 // 2624   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock47 Using cfiCommon0
+          CFI Block cfiBlock34 Using cfiCommon0
           CFI Function I2C_MasterTransmit_ISR
         THUMB
 // 2625 static HAL_StatusTypeDef I2C_MasterTransmit_ISR(I2C_HandleTypeDef *hi2c) 
 // 2626 {
 I2C_MasterTransmit_ISR:
-        PUSH     {R4-R6,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
+        MOV      R4,R0
+        SUB      SP,SP,#+4
           CFI CFA R13+16
 // 2627   uint16_t DevAddress;
 // 2628   
 // 2629   /* Process Locked */
 // 2630   __HAL_LOCK(hi2c); 
-        ADD      R4,R0,#+52
-        LDRB     R1,[R4, #+0]
-        CMP      R1,#+1
-        BNE.N    ??I2C_MasterTransmit_ISR_0
-        MOVS     R0,#+2
-        POP      {R4-R6,PC}
-??I2C_MasterTransmit_ISR_0:
-        MOVS     R1,#+1
-        STRB     R1,[R4, #+0]
+        LDRB     R0,[R4, #+52]
+        CMP      R0,#+1
+        IT       EQ 
+        MOVEQ    R0,#+2
+        BEQ.W    ??I2C_MasterTransmit_ISR_0
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+52]
 // 2631   
 // 2632   if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_TXIS) == SET)
-        LDR      R1,[R0, #+0]
-        LDR      R2,[R1, #+24]
-        LSLS     R2,R2,#+30
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+30
         BPL.N    ??I2C_MasterTransmit_ISR_1
 // 2633   {
 // 2634     /* Write data to TXDR */
 // 2635     hi2c->Instance->TXDR = (*hi2c->pBuffPtr++);
-        LDR      R2,[R0, #+36]
-        ADDS     R3,R2,#+1
-        STR      R3,[R0, #+36]
-        LDRB     R2,[R2, #+0]
-        STR      R2,[R1, #+40]
+        LDR      R1,[R4, #+36]
+        ADDS     R2,R1,#+1
+        STR      R2,[R4, #+36]
+        LDRB     R1,[R1, #+0]
+        STR      R1,[R0, #+40]
 // 2636     hi2c->XferSize--;
-        LDRH     R1,[R0, #+40]
-        SUBS     R1,R1,#+1
-        STRH     R1,[R0, #+40]
+        LDRH     R0,[R4, #+40]
+        SUBS     R0,R0,#+1
+        STRH     R0,[R4, #+40]
 // 2637     hi2c->XferCount--;	
-        LDRH     R1,[R0, #+42]
-        SUBS     R1,R1,#+1
-        STRH     R1,[R0, #+42]
+        LDRH     R0,[R4, #+42]
+        SUBS     R0,R0,#+1
+        STRH     R0,[R4, #+42]
         B.N      ??I2C_MasterTransmit_ISR_2
 // 2638   }
 // 2639   else if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_TCR) == SET)
 ??I2C_MasterTransmit_ISR_1:
-        LDR      R2,[R1, #+24]
-        LSLS     R2,R2,#+24
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+24
         BPL.N    ??I2C_MasterTransmit_ISR_3
 // 2640   {
 // 2641     if((hi2c->XferSize == 0)&&(hi2c->XferCount!=0))
-        LDRH     R2,[R0, #+40]
-        CBNZ.N   R2,??I2C_MasterTransmit_ISR_4
-        LDRH     R2,[R0, #+42]
-        CBZ.N    R2,??I2C_MasterTransmit_ISR_4
+        LDRH     R1,[R4, #+40]
+        CBNZ.N   R1,??I2C_MasterTransmit_ISR_4
+        LDRH     R1,[R4, #+42]
+        CBZ.N    R1,??I2C_MasterTransmit_ISR_4
 // 2642     {
 // 2643       DevAddress = (hi2c->Instance->CR2 & I2C_CR2_SADD);
-        LDR      R2,[R1, #+4]
+        LDR      R1,[R0, #+4]
 // 2644       
 // 2645       if(hi2c->XferCount > 255)
-        LDRH     R5,[R0, #+42]
-        LDR.W    R3,??DataTable19  ;; 0xfc009800
-        LSLS     R2,R2,#+22
-        CMP      R5,#+255
+        LDRH     R3,[R4, #+42]
+        LDR.W    R2,??DataTable20  ;; 0xfc009800
+        LSLS     R1,R1,#+22
+        CMP      R3,#+255
         BLE.N    ??I2C_MasterTransmit_ISR_5
 // 2646       {    
 // 2647         I2C_TransferConfig(hi2c,DevAddress,255, I2C_RELOAD_MODE, I2C_NO_STARTSTOP);
-        LDR      R5,[R1, #+4]
-        ANDS     R3,R3,R5
-        ORRS     R2,R3,R2, LSR #+22
-        LDR.W    R3,??DataTable20  ;; 0x1ff0000
-        ORRS     R2,R3,R2
-        STR      R2,[R1, #+4]
+        LDR      R3,[R0, #+4]
+        ANDS     R2,R2,R3
+        ORRS     R1,R2,R1, LSR #+22
+        LDR.W    R2,??DataTable20_1  ;; 0x1ff0000
+        ORRS     R1,R2,R1
+        STR      R1,[R0, #+4]
 // 2648         hi2c->XferSize = 255;
-        MOVS     R1,#+255
-        B.N      ??I2C_MasterTransmit_ISR_6
+        MOVS     R0,#+255
+        STRH     R0,[R4, #+40]
+        B.N      ??I2C_MasterTransmit_ISR_2
 // 2649       }
 // 2650       else
 // 2651       {
 // 2652         I2C_TransferConfig(hi2c,DevAddress,hi2c->XferCount, I2C_AUTOEND_MODE, I2C_NO_STARTSTOP);
 ??I2C_MasterTransmit_ISR_5:
-        LDRH     R5,[R0, #+42]
-        LDR      R6,[R1, #+4]
-        ANDS     R3,R3,R6
-        ORRS     R2,R3,R2, LSR #+22
-        UXTB     R5,R5
-        ORR      R2,R2,R5, LSL #+16
-        ORR      R2,R2,#0x2000000
-        STR      R2,[R1, #+4]
+        LDRH     R3,[R4, #+42]
+        LDR      R5,[R0, #+4]
+        ANDS     R2,R2,R5
+        ORRS     R1,R2,R1, LSR #+22
+        UXTB     R3,R3
+        ORR      R1,R1,R3, LSL #+16
+        ORR      R1,R1,#0x2000000
+        STR      R1,[R0, #+4]
 // 2653         hi2c->XferSize = hi2c->XferCount;
-        LDRH     R1,[R0, #+42]
-??I2C_MasterTransmit_ISR_6:
-        STRH     R1,[R0, #+40]
+        LDRH     R0,[R4, #+42]
+        STRH     R0,[R4, #+40]
         B.N      ??I2C_MasterTransmit_ISR_2
 // 2654       }
 // 2655     }
@@ -5912,141 +6821,142 @@ I2C_MasterTransmit_ISR:
 // 2658       /* Process Unlocked */
 // 2659       __HAL_UNLOCK(hi2c);
 ??I2C_MasterTransmit_ISR_4:
-        MOVS     R1,#+0
-        STRB     R1,[R4, #+0]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 2660       
 // 2661       /* Wrong size Status regarding TCR flag event */
 // 2662       hi2c->ErrorCode |= HAL_I2C_ERROR_SIZE;
-        LDR      R1,[R4, #+4]
-        ORR      R1,R1,#0x40
-        B.N      ??I2C_MasterTransmit_ISR_7
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x40
+        B.N      ??I2C_MasterTransmit_ISR_6
 // 2663       HAL_I2C_ErrorCallback(hi2c);
 // 2664     }
 // 2665   }
 // 2666   else if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_TC) == SET)
 ??I2C_MasterTransmit_ISR_3:
-        LDR      R2,[R1, #+24]
-        LSLS     R2,R2,#+25
-        BPL.N    ??I2C_MasterTransmit_ISR_8
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+25
+        BPL.N    ??I2C_MasterTransmit_ISR_7
 // 2667   {
 // 2668     if(hi2c->XferCount == 0)
-        LDRH     R2,[R0, #+42]
-        CBNZ.N   R2,??I2C_MasterTransmit_ISR_9
+        LDRH     R1,[R4, #+42]
+        CBNZ.N   R1,??I2C_MasterTransmit_ISR_8
 // 2669     {
 // 2670       /* Generate Stop */
 // 2671       hi2c->Instance->CR2 |= I2C_CR2_STOP;
-        LDR      R0,[R1, #+4]
-        ORR      R0,R0,#0x4000
-        STR      R0,[R1, #+4]
+        LDR      R1,[R0, #+4]
+        ORR      R1,R1,#0x4000
+        STR      R1,[R0, #+4]
         B.N      ??I2C_MasterTransmit_ISR_2
 // 2672     }
 // 2673     else
 // 2674     {
 // 2675       /* Process Unlocked */
 // 2676       __HAL_UNLOCK(hi2c);
-??I2C_MasterTransmit_ISR_9:
-        MOVS     R1,#+0
-        STRB     R1,[R4, #+0]
+??I2C_MasterTransmit_ISR_8:
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 2677       
 // 2678       /* Wrong size Status regarding TCR flag event */
 // 2679       hi2c->ErrorCode |= HAL_I2C_ERROR_SIZE;
-        LDR      R1,[R4, #+4]
-        ORR      R1,R1,#0x40
-        B.N      ??I2C_MasterTransmit_ISR_7
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x40
+        B.N      ??I2C_MasterTransmit_ISR_6
 // 2680       HAL_I2C_ErrorCallback(hi2c);
 // 2681     }
 // 2682   }
 // 2683   else if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_STOPF) == SET)
-??I2C_MasterTransmit_ISR_8:
-        LDR      R2,[R1, #+24]
-        LSLS     R2,R2,#+26
-        LDR      R2,[R1, #+24]
-        BPL.N    ??I2C_MasterTransmit_ISR_10
+??I2C_MasterTransmit_ISR_7:
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+26
+        LDR      R1,[R0, #+24]
+        BPL.N    ??I2C_MasterTransmit_ISR_9
 // 2684   {
 // 2685     if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_AF) == SET)
-        LSLS     R2,R2,#+27
-        BPL.N    ??I2C_MasterTransmit_ISR_11
+        LSLS     R1,R1,#+27
+        BPL.N    ??I2C_MasterTransmit_ISR_10
 // 2686     {
 // 2687       /* Clear NACK Flag */
 // 2688       __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_AF);
-        MOVS     R2,#+16
-        STR      R2,[R1, #+28]
+        MOVS     R1,#+16
+        STR      R1,[R0, #+28]
 // 2689       
 // 2690       hi2c->ErrorCode |= HAL_I2C_ERROR_AF;
-        LDR      R1,[R4, #+4]
-        ORR      R1,R1,#0x4
-        STR      R1,[R4, #+4]
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x4
+        STR      R0,[R4, #+56]
 // 2691     }
 // 2692     
 // 2693     /* Disable ERR, TC, STOP, NACK, TXI interrupt */
 // 2694     __HAL_I2C_DISABLE_IT(hi2c,I2C_IT_ERRI | I2C_IT_TCI| I2C_IT_STOPI| I2C_IT_NACKI | I2C_IT_TXI );
-??I2C_MasterTransmit_ISR_11:
-        LDR      R1,[R0, #+0]
+??I2C_MasterTransmit_ISR_10:
+        LDR      R0,[R4, #+0]
 // 2695     
 // 2696     /* Clear STOP Flag */
 // 2697     __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
 // 2698     
 // 2699     /* Clear Configuration Register 2 */
 // 2700     I2C_RESET_CR2(hi2c);
-        LDR.W    R3,??DataTable20_1  ;; 0xfe00e800
-        LDR      R2,[R1, #+0]
-        BIC      R2,R2,#0xF2
-        STR      R2,[R1, #+0]
-        LDR      R2,[R0, #+0]
-        MOVS     R1,#+32
-        STR      R1,[R2, #+28]
+        LDR.W    R2,??DataTable21  ;; 0xfe00e800
         LDR      R1,[R0, #+0]
-        LDR      R2,[R1, #+4]
-        ANDS     R2,R3,R2
-        STR      R2,[R1, #+4]
+        BIC      R1,R1,#0xF2
+        STR      R1,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        MOVS     R0,#+32
+        STR      R0,[R1, #+28]
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+4]
+        ANDS     R1,R2,R1
+        STR      R1,[R0, #+4]
 // 2701     
 // 2702     /* Flush TX register if not empty */
 // 2703     if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_TXE) == RESET)
-        LDR      R1,[R0, #+0]
-        LDR      R2,[R1, #+24]
-        LSLS     R2,R2,#+31
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+31
         ITT      PL 
-        MOVPL    R2,#+1
-        STRPL    R2,[R1, #+28]
+        MOVPL    R1,#+1
+        STRPL    R1,[R0, #+28]
 // 2704     {
 // 2705       __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_TXE);
 // 2706     }
 // 2707     
 // 2708     /* Call the correct callback to inform upper layer */
 // 2709     if(hi2c->ErrorCode != HAL_I2C_ERROR_NONE)
-        LDR      R1,[R4, #+4]
-        CBZ.N    R1,??I2C_MasterTransmit_ISR_12
+        LDR      R0,[R4, #+56]
+        CBZ.N    R0,??I2C_MasterTransmit_ISR_11
 // 2710     {
 // 2711       hi2c->State = HAL_I2C_STATE_READY;
-        MOVS     R1,#+1
-        STRB     R1,[R4, #+1]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
 // 2712       
 // 2713       /* Process Unlocked */
 // 2714       __HAL_UNLOCK(hi2c);
-        MOVS     R1,#+0
-        STRB     R1,[R4, #+0]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 2715       
 // 2716       HAL_I2C_ErrorCallback(hi2c);
-        B.N      ??I2C_MasterTransmit_ISR_13
+        B.N      ??I2C_MasterTransmit_ISR_12
 // 2717     }
 // 2718     else
 // 2719     {
 // 2720       if(hi2c->State == HAL_I2C_STATE_MEM_BUSY_TX)
-??I2C_MasterTransmit_ISR_12:
-        LDRB     R1,[R4, #+1]
-        CMP      R1,#+82
-        BNE.N    ??I2C_MasterTransmit_ISR_14
+??I2C_MasterTransmit_ISR_11:
+        LDRB     R0,[R4, #+53]
+        CMP      R0,#+82
+        BNE.N    ??I2C_MasterTransmit_ISR_13
 // 2721       {
 // 2722         hi2c->State = HAL_I2C_STATE_READY;
-        MOVS     R1,#+1
-        STRB     R1,[R4, #+1]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
 // 2723         
 // 2724         /* Process Unlocked */
 // 2725         __HAL_UNLOCK(hi2c);
-        MOVS     R1,#+0
-        STRB     R1,[R4, #+0]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 2726         
 // 2727         HAL_I2C_MemTxCpltCallback(hi2c);
+        MOV      R0,R4
           CFI FunCall HAL_I2C_MemTxCpltCallback
         BL       HAL_I2C_MemTxCpltCallback
         B.N      ??I2C_MasterTransmit_ISR_2
@@ -6054,16 +6964,17 @@ I2C_MasterTransmit_ISR:
 // 2729       else
 // 2730       {
 // 2731         hi2c->State = HAL_I2C_STATE_READY;
-??I2C_MasterTransmit_ISR_14:
-        MOVS     R1,#+1
-        STRB     R1,[R4, #+1]
+??I2C_MasterTransmit_ISR_13:
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
 // 2732         
 // 2733         /* Process Unlocked */
 // 2734         __HAL_UNLOCK(hi2c);
-        MOVS     R1,#+0
-        STRB     R1,[R4, #+0]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 2735         
 // 2736         HAL_I2C_MasterTxCpltCallback(hi2c);
+        MOV      R0,R4
           CFI FunCall HAL_I2C_MasterTxCpltCallback
         BL       HAL_I2C_MasterTxCpltCallback
         B.N      ??I2C_MasterTransmit_ISR_2
@@ -6071,27 +6982,28 @@ I2C_MasterTransmit_ISR:
 // 2738     }
 // 2739   }
 // 2740   else if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_AF) == SET)
-??I2C_MasterTransmit_ISR_10:
-        LSLS     R2,R2,#+27
+??I2C_MasterTransmit_ISR_9:
+        LSLS     R1,R1,#+27
         BPL.N    ??I2C_MasterTransmit_ISR_2
 // 2741   {
 // 2742     /* Clear NACK Flag */
 // 2743     __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_AF);
-        MOVS     R2,#+16
-        STR      R2,[R1, #+28]
+        MOVS     R1,#+16
+        STR      R1,[R0, #+28]
 // 2744     
 // 2745     /* Process Unlocked */
 // 2746     __HAL_UNLOCK(hi2c);
-        MOVS     R1,#+0
-        STRB     R1,[R4, #+0]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 2747     
 // 2748     hi2c->ErrorCode |= HAL_I2C_ERROR_AF;
-        LDR      R1,[R4, #+4]
-        ORR      R1,R1,#0x4
-??I2C_MasterTransmit_ISR_7:
-        STR      R1,[R4, #+4]
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x4
+??I2C_MasterTransmit_ISR_6:
+        STR      R0,[R4, #+56]
 // 2749     HAL_I2C_ErrorCallback(hi2c);
-??I2C_MasterTransmit_ISR_13:
+??I2C_MasterTransmit_ISR_12:
+        MOV      R0,R4
           CFI FunCall HAL_I2C_ErrorCallback
         BL       HAL_I2C_ErrorCallback
 // 2750   }
@@ -6099,41 +7011,16 @@ I2C_MasterTransmit_ISR:
 // 2752   /* Process Unlocked */
 // 2753   __HAL_UNLOCK(hi2c);
 ??I2C_MasterTransmit_ISR_2:
-        B.N      ?Subroutine15
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 2754   
 // 2755   return HAL_OK;    
+??I2C_MasterTransmit_ISR_0:
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
 // 2756 }  
-          CFI EndBlock cfiBlock47
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable13:
-        DC32     I2C_DMAMasterTransmitCplt
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable13_1:
-        DC32     I2C_DMAError
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable13_2:
-        DC32     I2C_DMAMasterReceiveCplt
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable13_3:
-        DC32     I2C_DMASlaveTransmitCplt
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable13_4:
-        DC32     I2C_DMASlaveReceiveCplt
+          CFI EndBlock cfiBlock34
 // 2757 
 // 2758 /**
 // 2759   * @brief  Handle Interrupt Flags Master Receive Mode
@@ -6143,104 +7030,104 @@ I2C_MasterTransmit_ISR:
 // 2763   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock48 Using cfiCommon0
+          CFI Block cfiBlock35 Using cfiCommon0
           CFI Function I2C_MasterReceive_ISR
         THUMB
 // 2764 static HAL_StatusTypeDef I2C_MasterReceive_ISR(I2C_HandleTypeDef *hi2c) 
 // 2765 {
 I2C_MasterReceive_ISR:
-        PUSH     {R4-R6,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
+        MOV      R4,R0
+        SUB      SP,SP,#+4
           CFI CFA R13+16
 // 2766   uint16_t DevAddress;
 // 2767   
 // 2768   /* Process Locked */
 // 2769   __HAL_LOCK(hi2c);
-        ADD      R4,R0,#+52
-        LDRB     R1,[R4, #+0]
-        CMP      R1,#+1
-        BNE.N    ??I2C_MasterReceive_ISR_0
-        MOVS     R0,#+2
-        POP      {R4-R6,PC}
-??I2C_MasterReceive_ISR_0:
-        MOVS     R1,#+1
-        STRB     R1,[R4, #+0]
+        LDRB     R0,[R4, #+52]
+        CMP      R0,#+1
+        IT       EQ 
+        MOVEQ    R0,#+2
+        BEQ.W    ??I2C_MasterReceive_ISR_0
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+52]
 // 2770   
 // 2771   if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_RXNE) == SET)
-        LDR      R1,[R0, #+0]
-        LDR      R2,[R1, #+24]
-        LSLS     R2,R2,#+29
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+29
         BPL.N    ??I2C_MasterReceive_ISR_1
 // 2772   {  
 // 2773     /* Read data from RXDR */
 // 2774     (*hi2c->pBuffPtr++) = hi2c->Instance->RXDR;
-        LDR      R2,[R0, #+36]
-        ADDS     R3,R2,#+1
-        STR      R3,[R0, #+36]
-        LDR      R1,[R1, #+36]
-        STRB     R1,[R2, #+0]
+        LDR      R1,[R4, #+36]
+        ADDS     R2,R1,#+1
+        STR      R2,[R4, #+36]
+        LDR      R0,[R0, #+36]
+        STRB     R0,[R1, #+0]
 // 2775     hi2c->XferSize--;
-        LDRH     R1,[R0, #+40]
-        SUBS     R1,R1,#+1
-        STRH     R1,[R0, #+40]
+        LDRH     R0,[R4, #+40]
+        SUBS     R0,R0,#+1
+        STRH     R0,[R4, #+40]
 // 2776     hi2c->XferCount--;
-        LDRH     R1,[R0, #+42]
-        SUBS     R1,R1,#+1
-        STRH     R1,[R0, #+42]
+        LDRH     R0,[R4, #+42]
+        SUBS     R0,R0,#+1
+        STRH     R0,[R4, #+42]
         B.N      ??I2C_MasterReceive_ISR_2
 // 2777   }
 // 2778   else if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_TCR) == SET)
 ??I2C_MasterReceive_ISR_1:
-        LDR      R2,[R1, #+24]
-        LSLS     R2,R2,#+24
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+24
         BPL.N    ??I2C_MasterReceive_ISR_3
 // 2779   {
 // 2780     if((hi2c->XferSize == 0)&&(hi2c->XferCount!=0))
-        LDRH     R2,[R0, #+40]
-        CBNZ.N   R2,??I2C_MasterReceive_ISR_4
-        LDRH     R2,[R0, #+42]
-        CBZ.N    R2,??I2C_MasterReceive_ISR_4
+        LDRH     R1,[R4, #+40]
+        CBNZ.N   R1,??I2C_MasterReceive_ISR_4
+        LDRH     R1,[R4, #+42]
+        CBZ.N    R1,??I2C_MasterReceive_ISR_4
 // 2781     {                  
 // 2782       DevAddress = (hi2c->Instance->CR2 & I2C_CR2_SADD);
-        LDR      R2,[R1, #+4]
+        LDR      R1,[R0, #+4]
 // 2783       
 // 2784       if(hi2c->XferCount > 255)
-        LDRH     R5,[R0, #+42]
-        LDR.W    R3,??DataTable19  ;; 0xfc009800
-        LSLS     R2,R2,#+22
-        CMP      R5,#+255
+        LDRH     R3,[R4, #+42]
+        LDR.W    R2,??DataTable20  ;; 0xfc009800
+        LSLS     R1,R1,#+22
+        CMP      R3,#+255
         BLE.N    ??I2C_MasterReceive_ISR_5
 // 2785       {
 // 2786         I2C_TransferConfig(hi2c,DevAddress,255, I2C_RELOAD_MODE, I2C_NO_STARTSTOP);
-        LDR      R5,[R1, #+4]
-        ANDS     R3,R3,R5
-        ORRS     R2,R3,R2, LSR #+22
-        LDR.W    R3,??DataTable20  ;; 0x1ff0000
-        ORRS     R2,R3,R2
-        STR      R2,[R1, #+4]
+        LDR      R3,[R0, #+4]
+        ANDS     R2,R2,R3
+        ORRS     R1,R2,R1, LSR #+22
+        LDR.W    R2,??DataTable20_1  ;; 0x1ff0000
+        ORRS     R1,R2,R1
+        STR      R1,[R0, #+4]
 // 2787         hi2c->XferSize = 255;
-        MOVS     R1,#+255
-        B.N      ??I2C_MasterReceive_ISR_6
+        MOVS     R0,#+255
+        STRH     R0,[R4, #+40]
+        B.N      ??I2C_MasterReceive_ISR_2
 // 2788       }      
 // 2789       else
 // 2790       {    
 // 2791         I2C_TransferConfig(hi2c,DevAddress,hi2c->XferCount, I2C_AUTOEND_MODE, I2C_NO_STARTSTOP);
 ??I2C_MasterReceive_ISR_5:
-        LDRH     R5,[R0, #+42]
-        LDR      R6,[R1, #+4]
-        ANDS     R3,R3,R6
-        ORRS     R2,R3,R2, LSR #+22
-        UXTB     R5,R5
-        ORR      R2,R2,R5, LSL #+16
-        ORR      R2,R2,#0x2000000
-        STR      R2,[R1, #+4]
+        LDRH     R3,[R4, #+42]
+        LDR      R5,[R0, #+4]
+        ANDS     R2,R2,R5
+        ORRS     R1,R2,R1, LSR #+22
+        UXTB     R3,R3
+        ORR      R1,R1,R3, LSL #+16
+        ORR      R1,R1,#0x2000000
+        STR      R1,[R0, #+4]
 // 2792         hi2c->XferSize = hi2c->XferCount;
-        LDRH     R1,[R0, #+42]
-??I2C_MasterReceive_ISR_6:
-        STRH     R1,[R0, #+40]
+        LDRH     R0,[R4, #+42]
+        STRH     R0,[R4, #+40]
         B.N      ??I2C_MasterReceive_ISR_2
 // 2793       } 
 // 2794     } 
@@ -6249,129 +7136,130 @@ I2C_MasterReceive_ISR:
 // 2797       /* Process Unlocked */
 // 2798       __HAL_UNLOCK(hi2c);
 ??I2C_MasterReceive_ISR_4:
-        MOVS     R1,#+0
-        STRB     R1,[R4, #+0]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 2799       
 // 2800       /* Wrong size Status regarding TCR flag event */
 // 2801       hi2c->ErrorCode |= HAL_I2C_ERROR_SIZE;
-        LDR      R1,[R4, #+4]
-        ORR      R1,R1,#0x40
-        B.N      ??I2C_MasterReceive_ISR_7
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x40
+        B.N      ??I2C_MasterReceive_ISR_6
 // 2802       HAL_I2C_ErrorCallback(hi2c);
 // 2803     }
 // 2804   }
 // 2805   else if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_TC) == SET)
 ??I2C_MasterReceive_ISR_3:
-        LDR      R2,[R1, #+24]
-        LSLS     R2,R2,#+25
-        BPL.N    ??I2C_MasterReceive_ISR_8
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+25
+        BPL.N    ??I2C_MasterReceive_ISR_7
 // 2806   {
 // 2807     if(hi2c->XferCount == 0)
-        LDRH     R2,[R0, #+42]
-        CBNZ.N   R2,??I2C_MasterReceive_ISR_9
+        LDRH     R1,[R4, #+42]
+        CBNZ.N   R1,??I2C_MasterReceive_ISR_8
 // 2808     {
 // 2809       /* Generate Stop */
 // 2810       hi2c->Instance->CR2 |= I2C_CR2_STOP;
-        LDR      R0,[R1, #+4]
-        ORR      R0,R0,#0x4000
-        STR      R0,[R1, #+4]
+        LDR      R1,[R0, #+4]
+        ORR      R1,R1,#0x4000
+        STR      R1,[R0, #+4]
         B.N      ??I2C_MasterReceive_ISR_2
 // 2811     }
 // 2812     else
 // 2813     {
 // 2814       /* Process Unlocked */
 // 2815       __HAL_UNLOCK(hi2c);
-??I2C_MasterReceive_ISR_9:
-        MOVS     R1,#+0
-        STRB     R1,[R4, #+0]
+??I2C_MasterReceive_ISR_8:
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 2816       
 // 2817       /* Wrong size Status regarding TCR flag event */
 // 2818       hi2c->ErrorCode |= HAL_I2C_ERROR_SIZE;
-        LDR      R1,[R4, #+4]
-        ORR      R1,R1,#0x40
-        B.N      ??I2C_MasterReceive_ISR_7
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x40
+        B.N      ??I2C_MasterReceive_ISR_6
 // 2819       HAL_I2C_ErrorCallback(hi2c);
 // 2820     }
 // 2821   }
 // 2822   else if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_STOPF) == SET)
-??I2C_MasterReceive_ISR_8:
-        LDR      R2,[R1, #+24]
-        LSLS     R2,R2,#+26
-        LDR      R2,[R1, #+24]
-        BPL.N    ??I2C_MasterReceive_ISR_10
+??I2C_MasterReceive_ISR_7:
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+26
+        LDR      R1,[R0, #+24]
+        BPL.N    ??I2C_MasterReceive_ISR_9
 // 2823   {
 // 2824     if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_AF) == SET)
-        LSLS     R2,R2,#+27
-        BPL.N    ??I2C_MasterReceive_ISR_11
+        LSLS     R1,R1,#+27
+        BPL.N    ??I2C_MasterReceive_ISR_10
 // 2825     {
 // 2826       /* Clear NACK Flag */
 // 2827       __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_AF);
-        MOVS     R2,#+16
-        STR      R2,[R1, #+28]
+        MOVS     R1,#+16
+        STR      R1,[R0, #+28]
 // 2828       
 // 2829       hi2c->ErrorCode |= HAL_I2C_ERROR_AF;
-        LDR      R1,[R4, #+4]
-        ORR      R1,R1,#0x4
-        STR      R1,[R4, #+4]
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x4
+        STR      R0,[R4, #+56]
 // 2830     }
 // 2831     
 // 2832     /* Disable ERR, TC, STOP, NACK, TXI interrupt */
 // 2833     __HAL_I2C_DISABLE_IT(hi2c,I2C_IT_ERRI | I2C_IT_TCI| I2C_IT_STOPI| I2C_IT_NACKI | I2C_IT_RXI );
-??I2C_MasterReceive_ISR_11:
-        LDR      R1,[R0, #+0]
+??I2C_MasterReceive_ISR_10:
+        LDR      R0,[R4, #+0]
 // 2834     
 // 2835     /* Clear STOP Flag */
 // 2836     __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
 // 2837     
 // 2838     /* Clear Configuration Register 2 */
 // 2839     I2C_RESET_CR2(hi2c);
-        LDR.W    R3,??DataTable20_1  ;; 0xfe00e800
-        LDR      R2,[R1, #+0]
-        BIC      R2,R2,#0xF4
-        STR      R2,[R1, #+0]
-        LDR      R2,[R0, #+0]
-        MOVS     R1,#+32
-        STR      R1,[R2, #+28]
+        LDR.W    R2,??DataTable21  ;; 0xfe00e800
         LDR      R1,[R0, #+0]
-        LDR      R2,[R1, #+4]
-        ANDS     R2,R3,R2
-        STR      R2,[R1, #+4]
+        BIC      R1,R1,#0xF4
+        STR      R1,[R0, #+0]
+        LDR      R1,[R4, #+0]
+        MOVS     R0,#+32
+        STR      R0,[R1, #+28]
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+4]
+        ANDS     R1,R2,R1
+        STR      R1,[R0, #+4]
 // 2840     
 // 2841     /* Call the correct callback to inform upper layer */
 // 2842     if(hi2c->ErrorCode != HAL_I2C_ERROR_NONE)
-        LDR      R1,[R4, #+4]
-        CBZ.N    R1,??I2C_MasterReceive_ISR_12
+        LDR      R0,[R4, #+56]
+        CBZ.N    R0,??I2C_MasterReceive_ISR_11
 // 2843     {
 // 2844       hi2c->State = HAL_I2C_STATE_READY;
-        MOVS     R1,#+1
-        STRB     R1,[R4, #+1]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
 // 2845       
 // 2846       /* Process Unlocked */
 // 2847       __HAL_UNLOCK(hi2c);
-        MOVS     R1,#+0
-        STRB     R1,[R4, #+0]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 2848       
 // 2849       HAL_I2C_ErrorCallback(hi2c);
-        B.N      ??I2C_MasterReceive_ISR_13
+        B.N      ??I2C_MasterReceive_ISR_12
 // 2850     }
 // 2851     else
 // 2852     {
 // 2853       if(hi2c->State == HAL_I2C_STATE_MEM_BUSY_RX)
-??I2C_MasterReceive_ISR_12:
-        LDRB     R1,[R4, #+1]
-        CMP      R1,#+98
-        BNE.N    ??I2C_MasterReceive_ISR_14
+??I2C_MasterReceive_ISR_11:
+        LDRB     R0,[R4, #+53]
+        CMP      R0,#+98
+        BNE.N    ??I2C_MasterReceive_ISR_13
 // 2854       {
 // 2855         hi2c->State = HAL_I2C_STATE_READY;
-        MOVS     R1,#+1
-        STRB     R1,[R4, #+1]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
 // 2856         
 // 2857         /* Process Unlocked */
 // 2858         __HAL_UNLOCK(hi2c);
-        MOVS     R1,#+0
-        STRB     R1,[R4, #+0]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 2859         
 // 2860         HAL_I2C_MemRxCpltCallback(hi2c);
+        MOV      R0,R4
           CFI FunCall HAL_I2C_MemRxCpltCallback
         BL       HAL_I2C_MemRxCpltCallback
         B.N      ??I2C_MasterReceive_ISR_2
@@ -6379,16 +7267,17 @@ I2C_MasterReceive_ISR:
 // 2862       else
 // 2863       {
 // 2864         hi2c->State = HAL_I2C_STATE_READY;
-??I2C_MasterReceive_ISR_14:
-        MOVS     R1,#+1
-        STRB     R1,[R4, #+1]
+??I2C_MasterReceive_ISR_13:
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
 // 2865         
 // 2866         /* Process Unlocked */
 // 2867         __HAL_UNLOCK(hi2c);
-        MOVS     R1,#+0
-        STRB     R1,[R4, #+0]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 2868         
 // 2869         HAL_I2C_MasterRxCpltCallback(hi2c);
+        MOV      R0,R4
           CFI FunCall HAL_I2C_MasterRxCpltCallback
         BL       HAL_I2C_MasterRxCpltCallback
         B.N      ??I2C_MasterReceive_ISR_2
@@ -6396,27 +7285,28 @@ I2C_MasterReceive_ISR:
 // 2871     }
 // 2872   }
 // 2873   else if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_AF) == SET)
-??I2C_MasterReceive_ISR_10:
-        LSLS     R2,R2,#+27
+??I2C_MasterReceive_ISR_9:
+        LSLS     R1,R1,#+27
         BPL.N    ??I2C_MasterReceive_ISR_2
 // 2874   {
 // 2875     /* Clear NACK Flag */
 // 2876     __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_AF);
-        MOVS     R2,#+16
-        STR      R2,[R1, #+28]
+        MOVS     R1,#+16
+        STR      R1,[R0, #+28]
 // 2877     
 // 2878     /* Process Unlocked */
 // 2879     __HAL_UNLOCK(hi2c);
-        MOVS     R1,#+0
-        STRB     R1,[R4, #+0]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 2880     
 // 2881     hi2c->ErrorCode |= HAL_I2C_ERROR_AF;
-        LDR      R1,[R4, #+4]
-        ORR      R1,R1,#0x4
-??I2C_MasterReceive_ISR_7:
-        STR      R1,[R4, #+4]
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x4
+??I2C_MasterReceive_ISR_6:
+        STR      R0,[R4, #+56]
 // 2882     HAL_I2C_ErrorCallback(hi2c);
-??I2C_MasterReceive_ISR_13:
+??I2C_MasterReceive_ISR_12:
+        MOV      R0,R4
           CFI FunCall HAL_I2C_ErrorCallback
         BL       HAL_I2C_ErrorCallback
 // 2883   }
@@ -6424,28 +7314,17 @@ I2C_MasterReceive_ISR:
 // 2885   /* Process Unlocked */
 // 2886   __HAL_UNLOCK(hi2c); 
 ??I2C_MasterReceive_ISR_2:
-          CFI EndBlock cfiBlock48
-        REQUIRE ?Subroutine15
-        ;; // Fall through to label ?Subroutine15
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 2887   
 // 2888   return HAL_OK; 
+??I2C_MasterReceive_ISR_0:
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
 // 2889   
 // 2890 }  
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock49 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+16
-          CFI R4 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine15:
-        MOVS     R0,#+0
-        STRB     R0,[R4, #+0]
-        POP      {R4-R6,PC}       ;; return
-          CFI EndBlock cfiBlock49
+          CFI EndBlock cfiBlock35
 // 2891 
 // 2892 /**
 // 2893   * @brief  Handle Interrupt Flags Slave Transmit Mode
@@ -6455,7 +7334,7 @@ I2C_MasterReceive_ISR:
 // 2897   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock50 Using cfiCommon0
+          CFI Block cfiBlock36 Using cfiCommon0
           CFI Function I2C_SlaveTransmit_ISR
         THUMB
 // 2898 static HAL_StatusTypeDef I2C_SlaveTransmit_ISR(I2C_HandleTypeDef *hi2c) 
@@ -6465,22 +7344,22 @@ I2C_SlaveTransmit_ISR:
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
+        MOV      R4,R0
 // 2900   /* Process locked */
 // 2901   __HAL_LOCK(hi2c);
-        ADD      R4,R0,#+52
-        LDRB     R1,[R4, #+0]
-        CMP      R1,#+1
+        LDRB     R0,[R4, #+52]
+        CMP      R0,#+1
         BNE.N    ??I2C_SlaveTransmit_ISR_0
         MOVS     R0,#+2
         POP      {R4,PC}
 ??I2C_SlaveTransmit_ISR_0:
-        MOVS     R1,#+1
-        STRB     R1,[R4, #+0]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+52]
 // 2902   
 // 2903   if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_AF) != RESET)
-        LDR      R1,[R0, #+0]
-        LDR      R2,[R1, #+24]
-        LSLS     R2,R2,#+27
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+27
         BPL.N    ??I2C_SlaveTransmit_ISR_1
 // 2904   {
 // 2905     /* Check that I2C transfer finished */
@@ -6488,136 +7367,148 @@ I2C_SlaveTransmit_ISR:
 // 2907     /* Mean XferCount == 0*/
 // 2908     /* So clear Flag NACKF only */
 // 2909     if(hi2c->XferCount == 0)
-        LDRH     R2,[R0, #+42]
-        CBNZ.N   R2,??I2C_SlaveTransmit_ISR_2
+        LDRH     R1,[R4, #+42]
+        CBNZ.N   R1,??I2C_SlaveTransmit_ISR_2
 // 2910     {
 // 2911       /* Clear NACK Flag */
 // 2912       __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_AF);
-        MOVS     R0,#+16
-        STR      R0,[R1, #+28]
+        MOVS     R1,#+16
+        STR      R1,[R0, #+28]
 // 2913       
 // 2914       /* Process Unlocked */
 // 2915       __HAL_UNLOCK(hi2c);
         MOVS     R0,#+0
-        STRB     R0,[R4, #+0]
-        B.N      ??I2C_SlaveTransmit_ISR_3
+        STRB     R0,[R4, #+52]
 // 2916     }
 // 2917     else
 // 2918     {
 // 2919       /* if no, error usecase, a Non-Acknowledge of last Data is generated by the MASTER*/
 // 2920       /* Clear NACK Flag */
 // 2921       __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_AF);
-??I2C_SlaveTransmit_ISR_2:
-        MOVS     R2,#+16
-        STR      R2,[R1, #+28]
 // 2922       
 // 2923       /* Set ErrorCode corresponding to a Non-Acknowledge */
 // 2924       hi2c->ErrorCode |= HAL_I2C_ERROR_AF;
-        LDR      R1,[R4, #+4]
-        ORR      R1,R1,#0x4
-        STR      R1,[R4, #+4]
 // 2925       
 // 2926       /* Process Unlocked */
 // 2927       __HAL_UNLOCK(hi2c);
-        MOVS     R1,#+0
-        STRB     R1,[R4, #+0]
 // 2928       
 // 2929       /* Call the Error callback to prevent upper layer */
 // 2930       HAL_I2C_ErrorCallback(hi2c);
-          CFI FunCall HAL_I2C_ErrorCallback
-        BL       HAL_I2C_ErrorCallback
-        B.N      ??I2C_SlaveTransmit_ISR_3
 // 2931     }
 // 2932   }
 // 2933   else if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_ADDR) == SET)
-??I2C_SlaveTransmit_ISR_1:
-        LDR      R2,[R1, #+24]
-        LSLS     R2,R2,#+28
-        BPL.N    ??I2C_SlaveTransmit_ISR_4
 // 2934   {
 // 2935     /* Clear ADDR flag */
 // 2936     __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_ADDR);
-        MOVS     R0,#+8
-        STR      R0,[R1, #+28]
-        B.N      ??I2C_SlaveTransmit_ISR_3
 // 2937   }
 // 2938   /* Check first if STOPF is set          */
 // 2939   /* to prevent a Write Data in TX buffer */
 // 2940   /* which is stuck in TXDR until next    */
 // 2941   /* communication with Master            */
 // 2942   else if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_STOPF) == SET)
-??I2C_SlaveTransmit_ISR_4:
-        LDR      R2,[R1, #+24]
-        LSLS     R2,R2,#+26
-        BPL.N    ??I2C_SlaveTransmit_ISR_5
 // 2943   {
 // 2944     /* Disable ERRI, TCI, STOPI, NACKI, ADDRI, RXI, TXI interrupt */
 // 2945     __HAL_I2C_DISABLE_IT(hi2c,I2C_IT_ERRI | I2C_IT_TCI| I2C_IT_STOPI| I2C_IT_NACKI | I2C_IT_ADDRI | I2C_IT_RXI | I2C_IT_TXI );
-        LDR      R2,[R1, #+0]
-        BIC      R2,R2,#0xFE
-        STR      R2,[R1, #+0]
 // 2946     
 // 2947     /* Disable Address Acknowledge */
 // 2948     hi2c->Instance->CR2 |= I2C_CR2_NACK;
-        LDR      R1,[R0, #+0]
-        LDR      R2,[R1, #+4]
-        ORR      R2,R2,#0x8000
-        STR      R2,[R1, #+4]
 // 2949     
 // 2950     /* Clear STOP Flag */
 // 2951     __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
-        LDR      R2,[R0, #+0]
-        MOVS     R1,#+32
-        STR      R1,[R2, #+28]
 // 2952     
 // 2953     hi2c->State = HAL_I2C_STATE_READY;
-        MOVS     R1,#+1
-        STRB     R1,[R4, #+1]
 // 2954     
 // 2955     /* Process Unlocked */
 // 2956     __HAL_UNLOCK(hi2c);
-        MOVS     R1,#+0
-        STRB     R1,[R4, #+0]
 // 2957     
 // 2958     HAL_I2C_SlaveTxCpltCallback(hi2c);
-          CFI FunCall HAL_I2C_SlaveTxCpltCallback
-        BL       HAL_I2C_SlaveTxCpltCallback
-        B.N      ??I2C_SlaveTransmit_ISR_3
 // 2959   }
 // 2960   else if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_TXIS) == SET)
-??I2C_SlaveTransmit_ISR_5:
-        LDR      R2,[R1, #+24]
-        LSLS     R2,R2,#+30
-        BPL.N    ??I2C_SlaveTransmit_ISR_3
 // 2961   {
 // 2962     /* Write data to TXDR only if XferCount not reach "0" */
 // 2963     /* A TXIS flag can be set, during STOP treatment      */
 // 2964     if(hi2c->XferCount > 0)
-        LDRH     R2,[R0, #+42]
-        CBZ.N    R2,??I2C_SlaveTransmit_ISR_3
 // 2965     {
 // 2966       /* Write data to TXDR */
 // 2967       hi2c->Instance->TXDR = (*hi2c->pBuffPtr++);
-        LDR      R2,[R0, #+36]
-        ADDS     R3,R2,#+1
-        STR      R3,[R0, #+36]
-        LDRB     R2,[R2, #+0]
-        STR      R2,[R1, #+40]
 // 2968       hi2c->XferCount--;
-        LDRH     R1,[R0, #+42]
-        SUBS     R1,R1,#+1
-        STRH     R1,[R0, #+42]
 // 2969     }
 // 2970   }
 // 2971   
 // 2972   /* Process Unlocked */
 // 2973   __HAL_UNLOCK(hi2c);
-??I2C_SlaveTransmit_ISR_3:
-        B.N      ?Subroutine1
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 2974   
 // 2975   return HAL_OK;
+        POP      {R4,PC}
+??I2C_SlaveTransmit_ISR_2:
+        MOVS     R1,#+16
+        STR      R1,[R0, #+28]
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x4
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+        MOV      R0,R4
+          CFI FunCall HAL_I2C_ErrorCallback
+        BL       HAL_I2C_ErrorCallback
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+        POP      {R4,PC}
+??I2C_SlaveTransmit_ISR_1:
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+28
+        BPL.N    ??I2C_SlaveTransmit_ISR_3
+        MOVS     R1,#+8
+        STR      R1,[R0, #+28]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+        POP      {R4,PC}
+??I2C_SlaveTransmit_ISR_3:
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+26
+        BPL.N    ??I2C_SlaveTransmit_ISR_4
+        LDR      R1,[R0, #+0]
+        BIC      R1,R1,#0xFE
+        STR      R1,[R0, #+0]
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+4]
+        ORR      R1,R1,#0x8000
+        STR      R1,[R0, #+4]
+        LDR      R1,[R4, #+0]
+        MOVS     R0,#+32
+        STR      R0,[R1, #+28]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+        MOV      R0,R4
+          CFI FunCall HAL_I2C_SlaveTxCpltCallback
+        BL       HAL_I2C_SlaveTxCpltCallback
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+        POP      {R4,PC}
+??I2C_SlaveTransmit_ISR_4:
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+30
+        BPL.N    ??I2C_SlaveTransmit_ISR_5
+        LDRH     R1,[R4, #+42]
+        CBZ.N    R1,??I2C_SlaveTransmit_ISR_5
+        LDR      R1,[R4, #+36]
+        ADDS     R2,R1,#+1
+        STR      R2,[R4, #+36]
+        LDRB     R1,[R1, #+0]
+        STR      R1,[R0, #+40]
+        LDRH     R0,[R4, #+42]
+        SUBS     R0,R0,#+1
+        STRH     R0,[R4, #+42]
+??I2C_SlaveTransmit_ISR_5:
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+        POP      {R4,PC}          ;; return
 // 2976 }  
-          CFI EndBlock cfiBlock50
+          CFI EndBlock cfiBlock36
 // 2977 
 // 2978 /**
 // 2979   * @brief  Handle Interrupt Flags Slave Receive Mode
@@ -6627,7 +7518,7 @@ I2C_SlaveTransmit_ISR:
 // 2983   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock51 Using cfiCommon0
+          CFI Block cfiBlock37 Using cfiCommon0
           CFI Function I2C_SlaveReceive_ISR
         THUMB
 // 2984 static HAL_StatusTypeDef I2C_SlaveReceive_ISR(I2C_HandleTypeDef *hi2c) 
@@ -6637,139 +7528,135 @@ I2C_SlaveReceive_ISR:
           CFI R14 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
+        MOV      R4,R0
 // 2986   /* Process Locked */
 // 2987   __HAL_LOCK(hi2c);
-        ADD      R4,R0,#+52
-        LDRB     R1,[R4, #+0]
-        CMP      R1,#+1
+        LDRB     R0,[R4, #+52]
+        CMP      R0,#+1
         BNE.N    ??I2C_SlaveReceive_ISR_0
         MOVS     R0,#+2
         POP      {R4,PC}
 ??I2C_SlaveReceive_ISR_0:
-        MOVS     R1,#+1
-        STRB     R1,[R4, #+0]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+52]
 // 2988   
 // 2989   if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_AF) != RESET)
-        LDR      R1,[R0, #+0]
-        LDR      R2,[R1, #+24]
-        LSLS     R2,R2,#+27
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+27
         BPL.N    ??I2C_SlaveReceive_ISR_1
 // 2990   {
 // 2991     /* Clear NACK Flag */
 // 2992     __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_AF);
-        MOVS     R2,#+16
-        STR      R2,[R1, #+28]
+        MOVS     R1,#+16
+        STR      R1,[R0, #+28]
 // 2993     
 // 2994     /* Process Unlocked */
 // 2995     __HAL_UNLOCK(hi2c);
-        MOVS     R1,#+0
-        STRB     R1,[R4, #+0]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 2996     
 // 2997     hi2c->ErrorCode |= HAL_I2C_ERROR_AF;
-        LDR      R1,[R4, #+4]
-        ORR      R1,R1,#0x4
-        STR      R1,[R4, #+4]
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x4
+        STR      R0,[R4, #+56]
 // 2998     HAL_I2C_ErrorCallback(hi2c);
+        MOV      R0,R4
           CFI FunCall HAL_I2C_ErrorCallback
         BL       HAL_I2C_ErrorCallback
-        B.N      ??I2C_SlaveReceive_ISR_2
 // 2999   }
 // 3000   else if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_ADDR) == SET)
-??I2C_SlaveReceive_ISR_1:
-        LDR      R2,[R1, #+24]
-        LSLS     R2,R2,#+28
-        BPL.N    ??I2C_SlaveReceive_ISR_3
 // 3001   {
 // 3002     /* Clear ADDR flag */
 // 3003     __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_ADDR);
-        MOVS     R0,#+8
-        STR      R0,[R1, #+28]
-        B.N      ??I2C_SlaveReceive_ISR_2
 // 3004   }
 // 3005   else if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_RXNE) == SET)
-??I2C_SlaveReceive_ISR_3:
-        LDR      R2,[R1, #+24]
-        LSLS     R2,R2,#+29
-        BPL.N    ??I2C_SlaveReceive_ISR_4
 // 3006   {
 // 3007     /* Read data from RXDR */
 // 3008     (*hi2c->pBuffPtr++) = hi2c->Instance->RXDR;
-        LDR      R2,[R0, #+36]
-        ADDS     R3,R2,#+1
-        STR      R3,[R0, #+36]
-        LDR      R1,[R1, #+36]
-        STRB     R1,[R2, #+0]
 // 3009     hi2c->XferSize--;
-        LDRH     R1,[R0, #+40]
-        SUBS     R1,R1,#+1
-        STRH     R1,[R0, #+40]
 // 3010     hi2c->XferCount--;
-        LDRH     R1,[R0, #+42]
-        SUBS     R1,R1,#+1
-        STRH     R1,[R0, #+42]
-        B.N      ??I2C_SlaveReceive_ISR_2
 // 3011   }
 // 3012   else if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_STOPF) == SET)
-??I2C_SlaveReceive_ISR_4:
-        LDR      R2,[R1, #+24]
-        LSLS     R2,R2,#+26
-        BPL.N    ??I2C_SlaveReceive_ISR_2
 // 3013   {
 // 3014     /* Disable ERRI, TCI, STOPI, NACKI, ADDRI, RXI, TXI interrupt */
 // 3015     __HAL_I2C_DISABLE_IT(hi2c,I2C_IT_ERRI | I2C_IT_TCI| I2C_IT_STOPI| I2C_IT_NACKI | I2C_IT_ADDRI | I2C_IT_RXI | I2C_IT_RXI );
-        LDR      R2,[R1, #+0]
-        BIC      R2,R2,#0xFC
-        STR      R2,[R1, #+0]
 // 3016     
 // 3017     /* Disable Address Acknowledge */
 // 3018     hi2c->Instance->CR2 |= I2C_CR2_NACK;
-        LDR      R1,[R0, #+0]
-        LDR      R2,[R1, #+4]
-        ORR      R2,R2,#0x8000
-        STR      R2,[R1, #+4]
 // 3019     
 // 3020     /* Clear STOP Flag */
 // 3021     __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
-        LDR      R2,[R0, #+0]
-        MOVS     R1,#+32
-        STR      R1,[R2, #+28]
 // 3022     
 // 3023     hi2c->State = HAL_I2C_STATE_READY;
-        MOVS     R1,#+1
-        STRB     R1,[R4, #+1]
 // 3024     
 // 3025     /* Process Unlocked */
 // 3026     __HAL_UNLOCK(hi2c);
-        MOVS     R1,#+0
-        STRB     R1,[R4, #+0]
 // 3027     
 // 3028     HAL_I2C_SlaveRxCpltCallback(hi2c);
-          CFI FunCall HAL_I2C_SlaveRxCpltCallback
-        BL       HAL_I2C_SlaveRxCpltCallback
 // 3029   }
 // 3030   
 // 3031   /* Process Unlocked */
 // 3032   __HAL_UNLOCK(hi2c);
-??I2C_SlaveReceive_ISR_2:
-          CFI EndBlock cfiBlock51
-        REQUIRE ?Subroutine1
-        ;; // Fall through to label ?Subroutine1
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 3033   
 // 3034   return HAL_OK;     
-// 3035 }  
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock52 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+8
-          CFI R4 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine1:
+        POP      {R4,PC}
+??I2C_SlaveReceive_ISR_1:
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+28
+        BPL.N    ??I2C_SlaveReceive_ISR_2
+        MOVS     R1,#+8
+        STR      R1,[R0, #+28]
         MOVS     R0,#+0
-        STRB     R0,[R4, #+0]
+        STRB     R0,[R4, #+52]
+        POP      {R4,PC}
+??I2C_SlaveReceive_ISR_2:
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+29
+        BPL.N    ??I2C_SlaveReceive_ISR_3
+        LDR      R1,[R4, #+36]
+        ADDS     R2,R1,#+1
+        STR      R2,[R4, #+36]
+        LDR      R0,[R0, #+36]
+        STRB     R0,[R1, #+0]
+        LDRH     R0,[R4, #+40]
+        SUBS     R0,R0,#+1
+        STRH     R0,[R4, #+40]
+        LDRH     R0,[R4, #+42]
+        SUBS     R0,R0,#+1
+        STRH     R0,[R4, #+42]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+        POP      {R4,PC}
+??I2C_SlaveReceive_ISR_3:
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+26
+        BPL.N    ??I2C_SlaveReceive_ISR_4
+        LDR      R1,[R0, #+0]
+        BIC      R1,R1,#0xFC
+        STR      R1,[R0, #+0]
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+4]
+        ORR      R1,R1,#0x8000
+        STR      R1,[R0, #+4]
+        LDR      R1,[R4, #+0]
+        MOVS     R0,#+32
+        STR      R0,[R1, #+28]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+        MOV      R0,R4
+          CFI FunCall HAL_I2C_SlaveRxCpltCallback
+        BL       HAL_I2C_SlaveRxCpltCallback
+??I2C_SlaveReceive_ISR_4:
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
         POP      {R4,PC}          ;; return
-          CFI EndBlock cfiBlock52
+// 3035 }  
+          CFI EndBlock cfiBlock37
 // 3036 
 // 3037 /**
 // 3038   * @brief  Master sends target device address followed by internal memory address for write request.
@@ -6781,49 +7668,16 @@ I2C_SlaveReceive_ISR:
 // 3044   * @param  Timeout: Timeout duration
 // 3045   * @retval HAL status
 // 3046   */
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock53 Using cfiCommon0
-          CFI Function I2C_RequestMemoryWrite
-        THUMB
 // 3047 static HAL_StatusTypeDef I2C_RequestMemoryWrite(I2C_HandleTypeDef *hi2c, uint16_t DevAddress, uint16_t MemAddress, uint16_t MemAddSize, uint32_t Timeout)   
 // 3048 {
-I2C_RequestMemoryWrite:
-        PUSH     {R3-R7,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+24
-        MOV      R4,R0
 // 3049   I2C_TransferConfig(hi2c,DevAddress,MemAddSize, I2C_RELOAD_MODE, I2C_GENERATE_START_WRITE);
-        MOV      R0,#+8192
-        MOV      R5,R2
-        MOV      R6,R3
-        STR      R0,[SP, #+0]
-        MOV      R3,#+16777216
-        UXTB     R2,R6
-        MOV      R0,R4
-          CFI FunCall I2C_TransferConfig
-        BL       I2C_TransferConfig
-        LDR      R7,[SP, #+24]
 // 3050   
 // 3051   /* Wait until TXIS flag is set */
 // 3052   if(I2C_WaitOnTXISFlagUntilTimeout(hi2c, Timeout) != HAL_OK)
-        MOV      R0,R4
-        MOV      R1,R7
-          CFI FunCall I2C_WaitOnTXISFlagUntilTimeout
-        BL       I2C_WaitOnTXISFlagUntilTimeout
-        CBZ.N    R0,??I2C_RequestMemoryWrite_0
 // 3053   {
 // 3054     if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R4, #+56]
-        CMP      R0,#+4
-        BNE.N    ??I2C_RequestMemoryWrite_1
 // 3055     {
 // 3056       return HAL_ERROR;
-        B.N      ??I2C_RequestMemoryWrite_2
 // 3057     }
 // 3058     else
 // 3059     {
@@ -6833,9 +7687,6 @@ I2C_RequestMemoryWrite:
 // 3063   
 // 3064   /* If Memory address size is 8Bit */
 // 3065   if(MemAddSize == I2C_MEMADD_SIZE_8BIT)
-??I2C_RequestMemoryWrite_0:
-        CMP      R6,#+1
-        BEQ.N    ??I2C_RequestMemoryWrite_3
 // 3066   {
 // 3067     /* Send Memory Address */
 // 3068     hi2c->Instance->TXDR = I2C_MEM_ADD_LSB(MemAddress);    
@@ -6845,27 +7696,13 @@ I2C_RequestMemoryWrite:
 // 3072   {
 // 3073     /* Send MSB of Memory Address */
 // 3074     hi2c->Instance->TXDR = I2C_MEM_ADD_MSB(MemAddress); 
-        LDR      R1,[R4, #+0]
-        LSRS     R0,R5,#+8
-        STR      R0,[R1, #+40]
 // 3075     
 // 3076     /* Wait until TXIS flag is set */
 // 3077     if(I2C_WaitOnTXISFlagUntilTimeout(hi2c, Timeout) != HAL_OK)
-        MOV      R1,R7
-        MOV      R0,R4
-          CFI FunCall I2C_WaitOnTXISFlagUntilTimeout
-        BL       I2C_WaitOnTXISFlagUntilTimeout
-        CBZ.N    R0,??I2C_RequestMemoryWrite_3
 // 3078     {
 // 3079       if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R4, #+56]
-        CMP      R0,#+4
-        BNE.N    ??I2C_RequestMemoryWrite_1
 // 3080       {
 // 3081         return HAL_ERROR;
-??I2C_RequestMemoryWrite_2:
-        MOVS     R0,#+1
-        POP      {R1,R4-R7,PC}
 // 3082       }
 // 3083       else
 // 3084       {
@@ -6875,32 +7712,16 @@ I2C_RequestMemoryWrite:
 // 3088     
 // 3089     /* Send LSB of Memory Address */
 // 3090     hi2c->Instance->TXDR = I2C_MEM_ADD_LSB(MemAddress);  
-??I2C_RequestMemoryWrite_3:
-        LDR      R0,[R4, #+0]
-        UXTB     R5,R5
 // 3091   }
 // 3092   
 // 3093   /* Wait until TCR flag is set */
 // 3094   if(I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_TCR, RESET, Timeout) != HAL_OK)      
-        MOV      R3,R7
-        MOVS     R2,#+0
-        STR      R5,[R0, #+40]
-        MOVS     R1,#+128
-        MOV      R0,R4
-          CFI FunCall I2C_WaitOnFlagUntilTimeout
-        BL       I2C_WaitOnFlagUntilTimeout
-        CBZ.N    R0,??I2C_RequestMemoryWrite_4
 // 3095   {
 // 3096     return HAL_TIMEOUT;
-??I2C_RequestMemoryWrite_1:
-        MOVS     R0,#+3
 // 3097   }
 // 3098   
 // 3099   return HAL_OK;
-??I2C_RequestMemoryWrite_4:
-        POP      {R1,R4-R7,PC}    ;; return
 // 3100 }
-          CFI EndBlock cfiBlock53
 // 3101 
 // 3102 /**
 // 3103   * @brief  Master sends target device address followed by internal memory address for read request.
@@ -6912,49 +7733,16 @@ I2C_RequestMemoryWrite:
 // 3109   * @param  Timeout: Timeout duration
 // 3110   * @retval HAL status
 // 3111   */
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock54 Using cfiCommon0
-          CFI Function I2C_RequestMemoryRead
-        THUMB
 // 3112 static HAL_StatusTypeDef I2C_RequestMemoryRead(I2C_HandleTypeDef *hi2c, uint16_t DevAddress, uint16_t MemAddress, uint16_t MemAddSize, uint32_t Timeout)
 // 3113 {
-I2C_RequestMemoryRead:
-        PUSH     {R3-R7,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+24
-        MOV      R4,R0
 // 3114   I2C_TransferConfig(hi2c,DevAddress,MemAddSize, I2C_SOFTEND_MODE, I2C_GENERATE_START_WRITE);
-        MOV      R0,#+8192
-        MOV      R5,R2
-        MOV      R6,R3
-        STR      R0,[SP, #+0]
-        MOVS     R3,#+0
-        UXTB     R2,R6
-        MOV      R0,R4
-          CFI FunCall I2C_TransferConfig
-        BL       I2C_TransferConfig
-        LDR      R7,[SP, #+24]
 // 3115   
 // 3116   /* Wait until TXIS flag is set */
 // 3117   if(I2C_WaitOnTXISFlagUntilTimeout(hi2c, Timeout) != HAL_OK)
-        MOV      R0,R4
-        MOV      R1,R7
-          CFI FunCall I2C_WaitOnTXISFlagUntilTimeout
-        BL       I2C_WaitOnTXISFlagUntilTimeout
-        CBZ.N    R0,??I2C_RequestMemoryRead_0
 // 3118   {
 // 3119     if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R4, #+56]
-        CMP      R0,#+4
-        BNE.N    ??I2C_RequestMemoryRead_1
 // 3120     {
 // 3121       return HAL_ERROR;
-        B.N      ??I2C_RequestMemoryRead_2
 // 3122     }
 // 3123     else
 // 3124     {
@@ -6964,9 +7752,6 @@ I2C_RequestMemoryRead:
 // 3128   
 // 3129   /* If Memory address size is 8Bit */
 // 3130   if(MemAddSize == I2C_MEMADD_SIZE_8BIT)
-??I2C_RequestMemoryRead_0:
-        CMP      R6,#+1
-        BEQ.N    ??I2C_RequestMemoryRead_3
 // 3131   {
 // 3132     /* Send Memory Address */
 // 3133     hi2c->Instance->TXDR = I2C_MEM_ADD_LSB(MemAddress);    
@@ -6976,27 +7761,13 @@ I2C_RequestMemoryRead:
 // 3137   {
 // 3138     /* Send MSB of Memory Address */
 // 3139     hi2c->Instance->TXDR = I2C_MEM_ADD_MSB(MemAddress); 
-        LDR      R1,[R4, #+0]
-        LSRS     R0,R5,#+8
-        STR      R0,[R1, #+40]
 // 3140     
 // 3141     /* Wait until TXIS flag is set */
 // 3142     if(I2C_WaitOnTXISFlagUntilTimeout(hi2c, Timeout) != HAL_OK)
-        MOV      R1,R7
-        MOV      R0,R4
-          CFI FunCall I2C_WaitOnTXISFlagUntilTimeout
-        BL       I2C_WaitOnTXISFlagUntilTimeout
-        CBZ.N    R0,??I2C_RequestMemoryRead_3
 // 3143     {
 // 3144       if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R4, #+56]
-        CMP      R0,#+4
-        BNE.N    ??I2C_RequestMemoryRead_1
 // 3145       {
 // 3146         return HAL_ERROR;
-??I2C_RequestMemoryRead_2:
-        MOVS     R0,#+1
-        POP      {R1,R4-R7,PC}
 // 3147       }
 // 3148       else
 // 3149       {
@@ -7006,32 +7777,16 @@ I2C_RequestMemoryRead:
 // 3153     
 // 3154     /* Send LSB of Memory Address */
 // 3155     hi2c->Instance->TXDR = I2C_MEM_ADD_LSB(MemAddress);  
-??I2C_RequestMemoryRead_3:
-        LDR      R0,[R4, #+0]
-        UXTB     R5,R5
 // 3156   }
 // 3157   
 // 3158   /* Wait until TC flag is set */
 // 3159   if(I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_TC, RESET, Timeout) != HAL_OK)      
-        MOV      R3,R7
-        MOVS     R2,#+0
-        STR      R5,[R0, #+40]
-        MOVS     R1,#+64
-        MOV      R0,R4
-          CFI FunCall I2C_WaitOnFlagUntilTimeout
-        BL       I2C_WaitOnFlagUntilTimeout
-        CBZ.N    R0,??I2C_RequestMemoryRead_4
 // 3160   {
 // 3161     return HAL_TIMEOUT;
-??I2C_RequestMemoryRead_1:
-        MOVS     R0,#+3
 // 3162   }
 // 3163   
 // 3164   return HAL_OK;
-??I2C_RequestMemoryRead_4:
-        POP      {R1,R4-R7,PC}    ;; return
 // 3165 }
-          CFI EndBlock cfiBlock54
 // 3166 
 // 3167 /**
 // 3168   * @brief  DMA I2C master transmit process complete callback.
@@ -7040,20 +7795,19 @@ I2C_RequestMemoryRead:
 // 3171   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock55 Using cfiCommon0
+          CFI Block cfiBlock38 Using cfiCommon0
           CFI Function I2C_DMAMasterTransmitCplt
         THUMB
 // 3172 static void I2C_DMAMasterTransmitCplt(DMA_HandleTypeDef *hdma) 
 // 3173 {
 I2C_DMAMasterTransmitCplt:
-        PUSH     {R4-R6,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
+        SUB      SP,SP,#+4
           CFI CFA R13+16
-        SUB      SP,SP,#+8
-          CFI CFA R13+24
 // 3174   uint16_t DevAddress;
 // 3175   I2C_HandleTypeDef* hi2c = (I2C_HandleTypeDef*)((DMA_HandleTypeDef*)hdma)->Parent;
         LDR      R4,[R0, #+56]
@@ -7083,45 +7837,64 @@ I2C_DMAMasterTransmitCplt:
         SUBS     R0,R0,R5
         CMP      R0,#+26
         BCC.N    ??I2C_DMAMasterTransmitCplt_1
-        ADD      R5,R4,#+52
         MOVS     R0,#+1
-        STRB     R0,[R5, #+1]
+        STRB     R0,[R4, #+53]
         MOVS     R0,#+0
-        STRB     R0,[R5, #+0]
+        STRB     R0,[R4, #+52]
 // 3183     {
 // 3184       hi2c->ErrorCode |= HAL_I2C_ERROR_TIMEOUT;
-        LDR      R0,[R5, #+4]
+        LDR      R0,[R4, #+56]
         ORR      R0,R0,#0x20
-        STR      R0,[R5, #+4]
+        STR      R0,[R4, #+56]
 // 3185     }
 // 3186     
 // 3187     /* Disable DMA Request */
 // 3188     hi2c->Instance->CR1 &= ~I2C_CR1_TXDMAEN; 
 ??I2C_DMAMasterTransmitCplt_2:
         LDR      R0,[R4, #+0]
-// 3189     
-// 3190     /* Check if Errors has been detected during transfer */
-// 3191     if(hi2c->ErrorCode != HAL_I2C_ERROR_NONE)
-        ADD      R5,R4,#+52
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x4000
         STR      R1,[R0, #+0]
-        LDR      R0,[R5, #+4]
+// 3189     
+// 3190     /* Check if Errors has been detected during transfer */
+// 3191     if(hi2c->ErrorCode != HAL_I2C_ERROR_NONE)
+        LDR      R0,[R4, #+56]
         CBZ.N    R0,??I2C_DMAMasterTransmitCplt_3
 // 3192     {
 // 3193       /* No need to Check TC flag, with AUTOEND mode the stop is automatically generated */
 // 3194       /* Wait until STOPF flag is reset */ 
 // 3195       if(I2C_WaitOnSTOPFlagUntilTimeout(hi2c, I2C_TIMEOUT_STOPF) != HAL_OK)
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??I2C_DMAMasterTransmitCplt_4:
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+24]
+        LSLS     R0,R0,#+26
+        BMI.N    ??I2C_DMAMasterTransmitCplt_5
         MOVS     R1,#+25
         MOV      R0,R4
-          CFI FunCall I2C_WaitOnSTOPFlagUntilTimeout
-        BL       I2C_WaitOnSTOPFlagUntilTimeout
-        CBZ.N    R0,??I2C_DMAMasterTransmitCplt_4
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??I2C_DMAMasterTransmitCplt_6
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R0,#+26
+        BCC.N    ??I2C_DMAMasterTransmitCplt_4
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 3196       {
 // 3197         if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R5, #+4]
+??I2C_DMAMasterTransmitCplt_6:
+        LDR      R0,[R4, #+56]
         CMP      R0,#+4
-        LDR      R0,[R5, #+4]
+        LDR      R0,[R4, #+56]
         ITE      EQ 
         ORREQ    R0,R0,#0x4
         ORRNE    R0,R0,#0x20
@@ -7131,19 +7904,19 @@ I2C_DMAMasterTransmitCplt:
 // 3201         else
 // 3202         {
 // 3203           hi2c->ErrorCode |= HAL_I2C_ERROR_TIMEOUT;
-        STR      R0,[R5, #+4]
+        STR      R0,[R4, #+56]
 // 3204         }
 // 3205       }
 // 3206       
 // 3207       /* Clear STOP Flag */
 // 3208       __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
-??I2C_DMAMasterTransmitCplt_4:
+??I2C_DMAMasterTransmitCplt_5:
         LDR      R1,[R4, #+0]
         MOVS     R0,#+32
 // 3209       
 // 3210       /* Clear Configuration Register 2 */
 // 3211       I2C_RESET_CR2(hi2c);
-        LDR.W    R2,??DataTable20_1  ;; 0xfe00e800
+        LDR.W    R2,??DataTable21  ;; 0xfe00e800
         STR      R0,[R1, #+28]
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
@@ -7156,10 +7929,10 @@ I2C_DMAMasterTransmitCplt:
 // 3214       
 // 3215       hi2c->State = HAL_I2C_STATE_READY;
         MOVS     R0,#+1
-        STRB     R0,[R5, #+1]
+        STRB     R0,[R4, #+53]
 // 3216       HAL_I2C_ErrorCallback(hi2c);
         MOV      R0,R4
-        B.N      ??I2C_DMAMasterTransmitCplt_5
+        B.N      ??I2C_DMAMasterTransmitCplt_7
 // 3217     }
 // 3218     else
 // 3219     {
@@ -7195,65 +7968,111 @@ I2C_DMAMasterTransmitCplt:
 // 3233       /* Enable the DMA channel */
 // 3234       HAL_DMA_Start_IT(hi2c->hdmatx, (uint32_t)hi2c->pBuffPtr, (uint32_t)&hi2c->Instance->TXDR, hi2c->XferSize);
         LDRH     R3,[R4, #+40]
-        LSLS     R6,R2,#+22
+        LSLS     R5,R2,#+22
         ADD      R2,R0,#+40
         LDR      R0,[R4, #+44]
-        LSRS     R6,R6,#+22
           CFI FunCall HAL_DMA_Start_IT
         BL       HAL_DMA_Start_IT
 // 3235       
 // 3236       /* Send Slave Address */
 // 3237       /* Set NBYTES to write and reload if size > 255 */
 // 3238       if( (hi2c->XferSize == 255) && (hi2c->XferSize < hi2c->XferCount) )
-        LDRH     R2,[R4, #+40]
-        CMP      R2,#+255
-        BNE.N    ??I2C_DMAMasterTransmitCplt_6
+        LDRH     R1,[R4, #+40]
+        CMP      R1,#+255
+        BNE.N    ??I2C_DMAMasterTransmitCplt_8
         LDRH     R0,[R4, #+42]
-        CMP      R2,R0
-        BCS.N    ??I2C_DMAMasterTransmitCplt_6
+        CMP      R1,R0
+        BCS.N    ??I2C_DMAMasterTransmitCplt_8
 // 3239       {
 // 3240         I2C_TransferConfig(hi2c,DevAddress,hi2c->XferSize, I2C_RELOAD_MODE, I2C_NO_STARTSTOP);
-        MOVS     R0,#+0
-        MOV      R3,#+16777216
-        STR      R0,[SP, #+0]
-        B.N      ??I2C_DMAMasterTransmitCplt_7
+        LDR      R0,[R4, #+0]
+        LDR.W    R3,??DataTable20  ;; 0xfc009800
+        LDR      R2,[R0, #+4]
+        ANDS     R2,R3,R2
+        ORRS     R2,R2,R5, LSR #+22
+        ORR      R1,R2,R1, LSL #+16
+        ORR      R1,R1,#0x1000000
+        B.N      ??I2C_DMAMasterTransmitCplt_9
 // 3241       }
 // 3242       else
 // 3243       {
 // 3244         I2C_TransferConfig(hi2c,DevAddress,hi2c->XferSize, I2C_AUTOEND_MODE, I2C_NO_STARTSTOP);
-??I2C_DMAMasterTransmitCplt_6:
-        MOVS     R0,#+0
-        MOV      R3,#+33554432
-        STR      R0,[SP, #+0]
-        UXTB     R2,R2
-??I2C_DMAMasterTransmitCplt_7:
-        MOV      R1,R6
-        MOV      R0,R4
-          CFI FunCall I2C_TransferConfig
-        BL       I2C_TransferConfig
+??I2C_DMAMasterTransmitCplt_8:
+        LDR      R0,[R4, #+0]
+        LDR.W    R3,??DataTable20  ;; 0xfc009800
+        UXTB     R1,R1
+        LDR      R2,[R0, #+4]
+        ANDS     R2,R3,R2
+        ORRS     R2,R2,R5, LSR #+22
+        ORR      R1,R2,R1, LSL #+16
+        ORR      R1,R1,#0x2000000
+??I2C_DMAMasterTransmitCplt_9:
+        STR      R1,[R0, #+4]
 // 3245       }  
 // 3246       
 // 3247       /* Wait until TXIS flag is set */
 // 3248       if(I2C_WaitOnTXISFlagUntilTimeout(hi2c, I2C_TIMEOUT_TXIS) != HAL_OK)
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??I2C_DMAMasterTransmitCplt_10:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+30
+        BMI.N    ??I2C_DMAMasterTransmitCplt_11
         MOVS     R1,#+25
         MOV      R0,R4
-          CFI FunCall I2C_WaitOnTXISFlagUntilTimeout
-        BL       I2C_WaitOnTXISFlagUntilTimeout
-        CBZ.N    R0,??I2C_DMAMasterTransmitCplt_8
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??I2C_DMAMasterTransmitCplt_12
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R0,#+26
+        BCC.N    ??I2C_DMAMasterTransmitCplt_10
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 3249       {
 // 3250         /* No need to Check TC flag, with AUTOEND mode the stop is automatically generated */
 // 3251         /* Wait until STOPF flag is reset */ 
 // 3252         if(I2C_WaitOnSTOPFlagUntilTimeout(hi2c, I2C_TIMEOUT_STOPF) != HAL_OK)
+??I2C_DMAMasterTransmitCplt_12:
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??I2C_DMAMasterTransmitCplt_13:
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+24]
+        LSLS     R0,R0,#+26
+        BMI.N    ??I2C_DMAMasterTransmitCplt_14
         MOVS     R1,#+25
         MOV      R0,R4
-          CFI FunCall I2C_WaitOnSTOPFlagUntilTimeout
-        BL       I2C_WaitOnSTOPFlagUntilTimeout
-        CBZ.N    R0,??I2C_DMAMasterTransmitCplt_9
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??I2C_DMAMasterTransmitCplt_15
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R0,#+26
+        BCC.N    ??I2C_DMAMasterTransmitCplt_13
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 3253         {
 // 3254           if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R5, #+4]
+??I2C_DMAMasterTransmitCplt_15:
+        LDR      R0,[R4, #+56]
         CMP      R0,#+4
-        LDR      R0,[R5, #+4]
+        LDR      R0,[R4, #+56]
         ITE      EQ 
         ORREQ    R0,R0,#0x4
         ORRNE    R0,R0,#0x20
@@ -7263,42 +8082,29 @@ I2C_DMAMasterTransmitCplt:
 // 3258           else
 // 3259           {
 // 3260             hi2c->ErrorCode |= HAL_I2C_ERROR_TIMEOUT;
-        STR      R0,[R5, #+4]
+        B.N      ??I2C_DMAMasterTransmitCplt_16
 // 3261           }
 // 3262         }
 // 3263         
 // 3264         /* Clear STOP Flag */
 // 3265         __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
-??I2C_DMAMasterTransmitCplt_9:
-        LDR      R1,[R4, #+0]
-        MOVS     R0,#+32
 // 3266         
 // 3267         /* Clear Configuration Register 2 */
 // 3268         I2C_RESET_CR2(hi2c);
-        LDR.W    R2,??DataTable20_1  ;; 0xfe00e800
-        STR      R0,[R1, #+28]
-        LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+4]
-        ANDS     R1,R2,R1
-        STR      R1,[R0, #+4]
 // 3269         
 // 3270         hi2c->XferCount = 0;
-        MOVS     R0,#+0
-        STRH     R0,[R4, #+42]
 // 3271         
 // 3272         hi2c->State = HAL_I2C_STATE_READY;
-        MOVS     R0,#+1
-        STRB     R0,[R5, #+1]
 // 3273         HAL_I2C_ErrorCallback(hi2c);
-        MOV      R0,R4
-        B.N      ??I2C_DMAMasterTransmitCplt_5
 // 3274       }
 // 3275       else
 // 3276       {
 // 3277         /* Enable DMA Request */
 // 3278         hi2c->Instance->CR1 |= I2C_CR1_TXDMAEN;
-??I2C_DMAMasterTransmitCplt_8:
-        B.N      ?Subroutine16
+??I2C_DMAMasterTransmitCplt_11:
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x4000
+        STR      R1,[R0, #+0]
 // 3279       }
 // 3280     }
 // 3281   }
@@ -7307,83 +8113,149 @@ I2C_DMAMasterTransmitCplt:
 // 3284     /* No need to Check TC flag, with AUTOEND mode the stop is automatically generated */
 // 3285     /* Wait until STOPF flag is reset */ 
 // 3286     if(I2C_WaitOnSTOPFlagUntilTimeout(hi2c, I2C_TIMEOUT_STOPF) != HAL_OK)
-??I2C_DMAMasterTransmitCplt_0:
-        MOVS     R1,#+25
-        MOV      R0,R4
-          CFI FunCall I2C_WaitOnSTOPFlagUntilTimeout
-        BL       I2C_WaitOnSTOPFlagUntilTimeout
-        ADD      R5,R4,#+52
-        CBZ.N    R0,??I2C_DMAMasterTransmitCplt_10
 // 3287     {
 // 3288       if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R5, #+4]
-        CMP      R0,#+4
-        LDR      R0,[R5, #+4]
-        ITE      EQ 
-        ORREQ    R0,R0,#0x4
-        ORRNE    R0,R0,#0x20
 // 3289       {
 // 3290         hi2c->ErrorCode |= HAL_I2C_ERROR_AF;
 // 3291       }
 // 3292       else
 // 3293       {
 // 3294         hi2c->ErrorCode |= HAL_I2C_ERROR_TIMEOUT;
-        STR      R0,[R5, #+4]
 // 3295       }
 // 3296     }
 // 3297     
 // 3298     /* Clear STOP Flag */
 // 3299     __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
-??I2C_DMAMasterTransmitCplt_10:
-        LDR      R1,[R4, #+0]
-        MOVS     R0,#+32
 // 3300   	
 // 3301     /* Clear Configuration Register 2 */
 // 3302     I2C_RESET_CR2(hi2c);
-        LDR.W    R2,??DataTable20_1  ;; 0xfe00e800
+// 3303     
+// 3304     /* Disable DMA Request */
+// 3305     hi2c->Instance->CR1 &= ~I2C_CR1_TXDMAEN; 
+// 3306     
+// 3307     hi2c->XferCount = 0;
+// 3308     
+// 3309     hi2c->State = HAL_I2C_STATE_READY;
+// 3310     
+// 3311     /* Check if Errors has been detected during transfer */
+// 3312     if(hi2c->ErrorCode != HAL_I2C_ERROR_NONE)
+// 3313     {
+// 3314       HAL_I2C_ErrorCallback(hi2c);
+// 3315     }
+// 3316     else
+// 3317     {
+// 3318       HAL_I2C_MasterTxCpltCallback(hi2c);
+// 3319     }
+// 3320   }
+// 3321 }
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
+??I2C_DMAMasterTransmitCplt_16:
+        STR      R0,[R4, #+56]
+??I2C_DMAMasterTransmitCplt_14:
+        LDR      R1,[R4, #+0]
+        MOVS     R0,#+32
+        LDR.W    R2,??DataTable21  ;; 0xfe00e800
         STR      R0,[R1, #+28]
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
         ANDS     R1,R2,R1
         STR      R1,[R0, #+4]
-// 3303     
-// 3304     /* Disable DMA Request */
-// 3305     hi2c->Instance->CR1 &= ~I2C_CR1_TXDMAEN; 
+        MOVS     R0,#+0
+        STRH     R0,[R4, #+42]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOV      R0,R4
+        B.N      ??I2C_DMAMasterTransmitCplt_7
+??I2C_DMAMasterTransmitCplt_0:
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??I2C_DMAMasterTransmitCplt_17:
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+24]
+        LSLS     R0,R0,#+26
+        BMI.N    ??I2C_DMAMasterTransmitCplt_18
+        MOVS     R1,#+25
+        MOV      R0,R4
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??I2C_DMAMasterTransmitCplt_19
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R0,#+26
+        BCC.N    ??I2C_DMAMasterTransmitCplt_17
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+??I2C_DMAMasterTransmitCplt_19:
+        LDR      R0,[R4, #+56]
+        CMP      R0,#+4
+        LDR      R0,[R4, #+56]
+        ITE      EQ 
+        ORREQ    R0,R0,#0x4
+        ORRNE    R0,R0,#0x20
+        STR      R0,[R4, #+56]
+??I2C_DMAMasterTransmitCplt_18:
+        LDR      R1,[R4, #+0]
+        MOVS     R0,#+32
+        LDR.W    R2,??DataTable21  ;; 0xfe00e800
+        STR      R0,[R1, #+28]
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+4]
+        ANDS     R1,R2,R1
+        STR      R1,[R0, #+4]
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x4000
         STR      R1,[R0, #+0]
-// 3306     
-// 3307     hi2c->XferCount = 0;
         MOVS     R0,#+0
         STRH     R0,[R4, #+42]
-// 3308     
-// 3309     hi2c->State = HAL_I2C_STATE_READY;
         MOVS     R0,#+1
-        STRB     R0,[R5, #+1]
-// 3310     
-// 3311     /* Check if Errors has been detected during transfer */
-// 3312     if(hi2c->ErrorCode != HAL_I2C_ERROR_NONE)
-        LDR      R0,[R5, #+4]
+        STRB     R0,[R4, #+53]
+        LDR      R0,[R4, #+56]
         CMP      R0,#+0
         MOV      R0,R4
-        BEQ.N    ??I2C_DMAMasterTransmitCplt_11
-// 3313     {
-// 3314       HAL_I2C_ErrorCallback(hi2c);
-??I2C_DMAMasterTransmitCplt_5:
-        B.N      ?Subroutine18
-// 3315     }
-// 3316     else
-// 3317     {
-// 3318       HAL_I2C_MasterTxCpltCallback(hi2c);
-??I2C_DMAMasterTransmitCplt_11:
+        BEQ.N    ??I2C_DMAMasterTransmitCplt_20
+??I2C_DMAMasterTransmitCplt_7:
+          CFI FunCall HAL_I2C_ErrorCallback
+        BL       HAL_I2C_ErrorCallback
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
+??I2C_DMAMasterTransmitCplt_20:
           CFI FunCall HAL_I2C_MasterTxCpltCallback
         BL       HAL_I2C_MasterTxCpltCallback
-// 3319     }
-// 3320   }
-// 3321 }
-        POP      {R0,R1,R4-R6,PC}  ;; return
-          CFI EndBlock cfiBlock55
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
+          CFI EndBlock cfiBlock38
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable18:
+        DC32     I2C_DMAMemTransmitCplt
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable18_1:
+        DC32     I2C_DMAError
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable18_2:
+        DC32     I2C_DMAMemReceiveCplt
 // 3322 
 // 3323 /**
 // 3324   * @brief  DMA I2C slave transmit process complete callback. 
@@ -7392,36 +8264,58 @@ I2C_DMAMasterTransmitCplt:
 // 3327   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock56 Using cfiCommon0
+          CFI Block cfiBlock39 Using cfiCommon0
           CFI Function I2C_DMASlaveTransmitCplt
         THUMB
 // 3328 static void I2C_DMASlaveTransmitCplt(DMA_HandleTypeDef *hdma) 
 // 3329 {
 I2C_DMASlaveTransmitCplt:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
+        SUB      SP,SP,#+4
           CFI CFA R13+16
 // 3330   I2C_HandleTypeDef* hi2c = (I2C_HandleTypeDef*)((DMA_HandleTypeDef*)hdma)->Parent;
         LDR      R4,[R0, #+56]
 // 3331   
 // 3332   /* Wait until STOP flag is set */
 // 3333   if(I2C_WaitOnSTOPFlagUntilTimeout(hi2c, I2C_TIMEOUT_STOPF) != HAL_OK)
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??I2C_DMASlaveTransmitCplt_0:
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+24]
+        LSLS     R0,R0,#+26
+        BMI.N    ??I2C_DMASlaveTransmitCplt_1
         MOVS     R1,#+25
         MOV      R0,R4
-          CFI FunCall I2C_WaitOnSTOPFlagUntilTimeout
-        BL       I2C_WaitOnSTOPFlagUntilTimeout
-        CBZ.N    R0,??I2C_DMASlaveTransmitCplt_0
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??I2C_DMASlaveTransmitCplt_2
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R0,#+26
+        BCC.N    ??I2C_DMASlaveTransmitCplt_0
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 3334   {
 // 3335     if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        ADD      R0,R4,#+52
-        LDR      R1,[R0, #+4]
-        CMP      R1,#+4
+??I2C_DMASlaveTransmitCplt_2:
+        LDR      R0,[R4, #+56]
+        CMP      R0,#+4
         ITEE     EQ 
-        MOVEQ    R1,#+0
-        LDRNE    R1,[R0, #+4]
-        ORRNE    R1,R1,#0x20
+        MOVEQ    R0,#+0
+        LDRNE    R0,[R4, #+56]
+        ORRNE    R0,R0,#0x20
 // 3336     {
 // 3337       /* Normal Use case, a AF is generated by master */
 // 3338       /* to inform slave the end of transfer */
@@ -7430,13 +8324,13 @@ I2C_DMASlaveTransmitCplt:
 // 3341     else
 // 3342     {
 // 3343       hi2c->ErrorCode |= HAL_I2C_ERROR_TIMEOUT;
-        STR      R1,[R0, #+4]
+        STR      R0,[R4, #+56]
 // 3344     }
 // 3345   }
 // 3346   
 // 3347   /* Clear STOP flag */
 // 3348   __HAL_I2C_CLEAR_FLAG(hi2c,I2C_FLAG_STOPF);
-??I2C_DMASlaveTransmitCplt_0:
+??I2C_DMASlaveTransmitCplt_1:
         LDR      R1,[R4, #+0]
         MOVS     R0,#+32
         STR      R0,[R1, #+28]
@@ -7446,31 +8340,30 @@ I2C_DMASlaveTransmitCplt:
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         MOV      R5,R0
-??I2C_DMASlaveTransmitCplt_1:
+??I2C_DMASlaveTransmitCplt_3:
         LDR      R0,[R4, #+0]
         LDR      R0,[R0, #+24]
         LSLS     R0,R0,#+16
-        BPL.N    ??I2C_DMASlaveTransmitCplt_2
+        BPL.N    ??I2C_DMASlaveTransmitCplt_4
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         SUBS     R0,R0,R5
         CMP      R0,#+26
-        BCC.N    ??I2C_DMASlaveTransmitCplt_1
-        ADD      R0,R4,#+52
-        MOVS     R1,#+1
-        STRB     R1,[R0, #+1]
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+0]
+        BCC.N    ??I2C_DMASlaveTransmitCplt_3
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 3352   {
 // 3353     hi2c->ErrorCode |= HAL_I2C_ERROR_TIMEOUT;
-        LDR      R1,[R0, #+4]
-        ORR      R1,R1,#0x20
-        STR      R1,[R0, #+4]
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
 // 3354   }
 // 3355   
 // 3356   /* Disable DMA Request */
 // 3357   hi2c->Instance->CR1 &= ~I2C_CR1_TXDMAEN; 
-??I2C_DMASlaveTransmitCplt_2:
+??I2C_DMASlaveTransmitCplt_4:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x4000
@@ -7481,30 +8374,36 @@ I2C_DMASlaveTransmitCplt:
         STRH     R0,[R4, #+42]
 // 3360   
 // 3361   hi2c->State = HAL_I2C_STATE_READY;
-        ADD      R0,R4,#+52
-        MOVS     R1,#+1
-        STRB     R1,[R0, #+1]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
 // 3362   
 // 3363   /* Check if Errors has been detected during transfer */
 // 3364   if(hi2c->ErrorCode != HAL_I2C_ERROR_NONE)
-        LDR      R0,[R0, #+4]
+        LDR      R0,[R4, #+56]
         CMP      R0,#+0
         MOV      R0,R4
-        BEQ.N    ??I2C_DMASlaveTransmitCplt_3
+        BEQ.N    ??I2C_DMASlaveTransmitCplt_5
 // 3365   {
 // 3366     HAL_I2C_ErrorCallback(hi2c);
-        B.N      ?Subroutine19
+          CFI FunCall HAL_I2C_ErrorCallback
+        BL       HAL_I2C_ErrorCallback
 // 3367   }
 // 3368   else
 // 3369   {
 // 3370     HAL_I2C_SlaveTxCpltCallback(hi2c);
-??I2C_DMASlaveTransmitCplt_3:
-          CFI FunCall HAL_I2C_SlaveTxCpltCallback
-        BL       HAL_I2C_SlaveTxCpltCallback
 // 3371   }
 // 3372 }
-        POP      {R0,R4,R5,PC}    ;; return
-          CFI EndBlock cfiBlock56
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
+??I2C_DMASlaveTransmitCplt_5:
+          CFI FunCall HAL_I2C_SlaveTxCpltCallback
+        BL       HAL_I2C_SlaveTxCpltCallback
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
+          CFI EndBlock cfiBlock39
 // 3373 
 // 3374 /**
 // 3375   * @brief DMA I2C master receive process complete callback 
@@ -7513,20 +8412,19 @@ I2C_DMASlaveTransmitCplt:
 // 3378   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock57 Using cfiCommon0
+          CFI Block cfiBlock40 Using cfiCommon0
           CFI Function I2C_DMAMasterReceiveCplt
         THUMB
 // 3379 static void I2C_DMAMasterReceiveCplt(DMA_HandleTypeDef *hdma) 
 // 3380 {
 I2C_DMAMasterReceiveCplt:
-        PUSH     {R4-R6,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
+        SUB      SP,SP,#+4
           CFI CFA R13+16
-        SUB      SP,SP,#+8
-          CFI CFA R13+24
 // 3381   I2C_HandleTypeDef* hi2c = (I2C_HandleTypeDef*)((DMA_HandleTypeDef*)hdma)->Parent;
         LDR      R4,[R0, #+56]
 // 3382   uint16_t DevAddress;
@@ -7556,45 +8454,64 @@ I2C_DMAMasterReceiveCplt:
         SUBS     R0,R0,R5
         CMP      R0,#+26
         BCC.N    ??I2C_DMAMasterReceiveCplt_1
-        ADD      R5,R4,#+52
         MOVS     R0,#+1
-        STRB     R0,[R5, #+1]
+        STRB     R0,[R4, #+53]
         MOVS     R0,#+0
-        STRB     R0,[R5, #+0]
+        STRB     R0,[R4, #+52]
 // 3390     {
 // 3391       hi2c->ErrorCode |= HAL_I2C_ERROR_TIMEOUT;
-        LDR      R0,[R5, #+4]
+        LDR      R0,[R4, #+56]
         ORR      R0,R0,#0x20
-        STR      R0,[R5, #+4]
+        STR      R0,[R4, #+56]
 // 3392     }
 // 3393     
 // 3394     /* Disable DMA Request */
 // 3395     hi2c->Instance->CR1 &= ~I2C_CR1_RXDMAEN; 
 ??I2C_DMAMasterReceiveCplt_2:
         LDR      R0,[R4, #+0]
-// 3396     
-// 3397     /* Check if Errors has been detected during transfer */
-// 3398     if(hi2c->ErrorCode != HAL_I2C_ERROR_NONE)
-        ADD      R5,R4,#+52
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x8000
         STR      R1,[R0, #+0]
-        LDR      R0,[R5, #+4]
+// 3396     
+// 3397     /* Check if Errors has been detected during transfer */
+// 3398     if(hi2c->ErrorCode != HAL_I2C_ERROR_NONE)
+        LDR      R0,[R4, #+56]
         CBZ.N    R0,??I2C_DMAMasterReceiveCplt_3
 // 3399     {
 // 3400       /* No need to Check TC flag, with AUTOEND mode the stop is automatically generated */
 // 3401       /* Wait until STOPF flag is reset */ 
 // 3402       if(I2C_WaitOnSTOPFlagUntilTimeout(hi2c, I2C_TIMEOUT_STOPF) != HAL_OK)
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??I2C_DMAMasterReceiveCplt_4:
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+24]
+        LSLS     R0,R0,#+26
+        BMI.N    ??I2C_DMAMasterReceiveCplt_5
         MOVS     R1,#+25
         MOV      R0,R4
-          CFI FunCall I2C_WaitOnSTOPFlagUntilTimeout
-        BL       I2C_WaitOnSTOPFlagUntilTimeout
-        CBZ.N    R0,??I2C_DMAMasterReceiveCplt_4
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??I2C_DMAMasterReceiveCplt_6
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R0,#+26
+        BCC.N    ??I2C_DMAMasterReceiveCplt_4
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 3403       {
 // 3404         if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R5, #+4]
+??I2C_DMAMasterReceiveCplt_6:
+        LDR      R0,[R4, #+56]
         CMP      R0,#+4
-        LDR      R0,[R5, #+4]
+        LDR      R0,[R4, #+56]
         ITE      EQ 
         ORREQ    R0,R0,#0x4
         ORRNE    R0,R0,#0x20
@@ -7604,19 +8521,19 @@ I2C_DMAMasterReceiveCplt:
 // 3408         else
 // 3409         {
 // 3410           hi2c->ErrorCode |= HAL_I2C_ERROR_TIMEOUT;
-        STR      R0,[R5, #+4]
+        STR      R0,[R4, #+56]
 // 3411         }
 // 3412       }
 // 3413       
 // 3414       /* Clear STOP Flag */
 // 3415       __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
-??I2C_DMAMasterReceiveCplt_4:
+??I2C_DMAMasterReceiveCplt_5:
         LDR      R1,[R4, #+0]
         MOVS     R0,#+32
 // 3416       
 // 3417       /* Clear Configuration Register 2 */
 // 3418       I2C_RESET_CR2(hi2c);
-        LDR.W    R2,??DataTable20_1  ;; 0xfe00e800
+        LDR.W    R2,??DataTable21  ;; 0xfe00e800
         STR      R0,[R1, #+28]
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
@@ -7629,10 +8546,10 @@ I2C_DMAMasterReceiveCplt:
 // 3421       
 // 3422       hi2c->State = HAL_I2C_STATE_READY;
         MOVS     R0,#+1
-        STRB     R0,[R5, #+1]
+        STRB     R0,[R4, #+53]
 // 3423       HAL_I2C_ErrorCallback(hi2c);
         MOV      R0,R4
-        B.N      ??I2C_DMAMasterReceiveCplt_5
+        B.N      ??I2C_DMAMasterReceiveCplt_7
 // 3424     }
 // 3425     else
 // 3426     {
@@ -7668,89 +8585,114 @@ I2C_DMAMasterReceiveCplt:
 // 3440       /* Enable the DMA channel */
 // 3441       HAL_DMA_Start_IT(hi2c->hdmarx, (uint32_t)&hi2c->Instance->RXDR, (uint32_t)hi2c->pBuffPtr, hi2c->XferSize);
         LDRH     R3,[R4, #+40]
-        LSLS     R6,R1,#+22
+        LSLS     R5,R1,#+22
         ADD      R1,R0,#+36
         LDR      R0,[R4, #+48]
-        LSRS     R6,R6,#+22
           CFI FunCall HAL_DMA_Start_IT
         BL       HAL_DMA_Start_IT
 // 3442       
 // 3443       /* Send Slave Address */
 // 3444       /* Set NBYTES to write and reload if size > 255 */
 // 3445       if( (hi2c->XferSize == 255) && (hi2c->XferSize < hi2c->XferCount) )
-        LDRH     R2,[R4, #+40]
-        CMP      R2,#+255
-        BNE.N    ??I2C_DMAMasterReceiveCplt_6
+        LDRH     R1,[R4, #+40]
+        CMP      R1,#+255
+        BNE.N    ??I2C_DMAMasterReceiveCplt_8
         LDRH     R0,[R4, #+42]
-        CMP      R2,R0
-        BCS.N    ??I2C_DMAMasterReceiveCplt_6
+        CMP      R1,R0
+        BCS.N    ??I2C_DMAMasterReceiveCplt_8
 // 3446       {
 // 3447         I2C_TransferConfig(hi2c,DevAddress,hi2c->XferSize, I2C_RELOAD_MODE, I2C_NO_STARTSTOP);
-        MOVS     R0,#+0
-        MOV      R3,#+16777216
-        STR      R0,[SP, #+0]
-        B.N      ??I2C_DMAMasterReceiveCplt_7
+        LDR      R0,[R4, #+0]
+        LDR.W    R3,??DataTable20  ;; 0xfc009800
+        LDR      R2,[R0, #+4]
+        ANDS     R2,R3,R2
+        ORRS     R2,R2,R5, LSR #+22
+        ORR      R1,R2,R1, LSL #+16
+        ORR      R1,R1,#0x1000000
+        B.N      ??I2C_DMAMasterReceiveCplt_9
 // 3448       }
 // 3449       else
 // 3450       {
 // 3451         I2C_TransferConfig(hi2c,DevAddress,hi2c->XferSize, I2C_AUTOEND_MODE, I2C_NO_STARTSTOP);
-??I2C_DMAMasterReceiveCplt_6:
-        MOVS     R0,#+0
-        MOV      R3,#+33554432
-        STR      R0,[SP, #+0]
-        UXTB     R2,R2
-??I2C_DMAMasterReceiveCplt_7:
-        MOV      R1,R6
-        MOV      R0,R4
-          CFI FunCall I2C_TransferConfig
-        BL       I2C_TransferConfig
+??I2C_DMAMasterReceiveCplt_8:
+        LDR      R0,[R4, #+0]
+        LDR.W    R3,??DataTable20  ;; 0xfc009800
+        UXTB     R1,R1
+        LDR      R2,[R0, #+4]
+        ANDS     R2,R3,R2
+        ORRS     R2,R2,R5, LSR #+22
+        ORR      R1,R2,R1, LSL #+16
+        ORR      R1,R1,#0x2000000
+??I2C_DMAMasterReceiveCplt_9:
+        STR      R1,[R0, #+4]
 // 3452       }  
 // 3453       
 // 3454       /* Wait until RXNE flag is set */
 // 3455       if(I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_RXNE, RESET, I2C_TIMEOUT_RXNE) != HAL_OK)      
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R6,R0
-??I2C_DMAMasterReceiveCplt_8:
+        MOV      R5,R0
+??I2C_DMAMasterReceiveCplt_10:
         LDR      R0,[R4, #+0]
         LDR      R0,[R0, #+24]
         LSLS     R0,R0,#+29
-        BMI.N    ??I2C_DMAMasterReceiveCplt_9
+        BMI.N    ??I2C_DMAMasterReceiveCplt_11
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUBS     R0,R0,R6
+        SUBS     R0,R0,R5
         CMP      R0,#+26
-        BCC.N    ??I2C_DMAMasterReceiveCplt_8
+        BCC.N    ??I2C_DMAMasterReceiveCplt_10
         MOVS     R0,#+1
-        STRB     R0,[R5, #+1]
+        STRB     R0,[R4, #+53]
         MOVS     R0,#+0
-        STRB     R0,[R5, #+0]
+        STRB     R0,[R4, #+52]
 // 3456       {
 // 3457         hi2c->ErrorCode |= HAL_I2C_ERROR_TIMEOUT;
-        LDR      R0,[R5, #+4]
+        LDR      R0,[R4, #+56]
         ORR      R0,R0,#0x20
-        STR      R0,[R5, #+4]
+        STR      R0,[R4, #+56]
 // 3458       }
 // 3459       
 // 3460       /* Check if Errors has been detected during transfer */
 // 3461       if(hi2c->ErrorCode != HAL_I2C_ERROR_NONE)
-??I2C_DMAMasterReceiveCplt_9:
-        LDR      R0,[R5, #+4]
-        CBZ.N    R0,??I2C_DMAMasterReceiveCplt_10
+??I2C_DMAMasterReceiveCplt_11:
+        LDR      R0,[R4, #+56]
+        CBZ.N    R0,??I2C_DMAMasterReceiveCplt_12
 // 3462       {
 // 3463         /* No need to Check TC flag, with AUTOEND mode the stop is automatically generated */
 // 3464         /* Wait until STOPF flag is reset */ 
 // 3465         if(I2C_WaitOnSTOPFlagUntilTimeout(hi2c, I2C_TIMEOUT_STOPF) != HAL_OK)
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??I2C_DMAMasterReceiveCplt_13:
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+24]
+        LSLS     R0,R0,#+26
+        BMI.N    ??I2C_DMAMasterReceiveCplt_14
         MOVS     R1,#+25
         MOV      R0,R4
-          CFI FunCall I2C_WaitOnSTOPFlagUntilTimeout
-        BL       I2C_WaitOnSTOPFlagUntilTimeout
-        CBZ.N    R0,??I2C_DMAMasterReceiveCplt_11
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??I2C_DMAMasterReceiveCplt_15
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R0,#+26
+        BCC.N    ??I2C_DMAMasterReceiveCplt_13
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 3466         {
 // 3467           if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R5, #+4]
+??I2C_DMAMasterReceiveCplt_15:
+        LDR      R0,[R4, #+56]
         CMP      R0,#+4
-        LDR      R0,[R5, #+4]
+        LDR      R0,[R4, #+56]
         ITE      EQ 
         ORREQ    R0,R0,#0x4
         ORRNE    R0,R0,#0x20
@@ -7760,19 +8702,19 @@ I2C_DMAMasterReceiveCplt:
 // 3471           else
 // 3472           {
 // 3473             hi2c->ErrorCode |= HAL_I2C_ERROR_TIMEOUT;
-        STR      R0,[R5, #+4]
+        STR      R0,[R4, #+56]
 // 3474           }
 // 3475         }
 // 3476         
 // 3477         /* Clear STOP Flag */
 // 3478         __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
-??I2C_DMAMasterReceiveCplt_11:
+??I2C_DMAMasterReceiveCplt_14:
         LDR      R1,[R4, #+0]
         MOVS     R0,#+32
 // 3479         
 // 3480         /* Clear Configuration Register 2 */
 // 3481         I2C_RESET_CR2(hi2c);
-        LDR.W    R2,??DataTable20_1  ;; 0xfe00e800
+        LDR.W    R2,??DataTable21  ;; 0xfe00e800
         STR      R0,[R1, #+28]
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
@@ -7785,18 +8727,21 @@ I2C_DMAMasterReceiveCplt:
 // 3484         
 // 3485         hi2c->State = HAL_I2C_STATE_READY;
         MOVS     R0,#+1
-        STRB     R0,[R5, #+1]
+        STRB     R0,[R4, #+53]
 // 3486         
 // 3487         HAL_I2C_ErrorCallback(hi2c);
         MOV      R0,R4
-        B.N      ??I2C_DMAMasterReceiveCplt_5
+        B.N      ??I2C_DMAMasterReceiveCplt_7
 // 3488       }
 // 3489       else
 // 3490       {
 // 3491         /* Enable DMA Request */
 // 3492         hi2c->Instance->CR1 |= I2C_CR1_RXDMAEN;
-??I2C_DMAMasterReceiveCplt_10:
-        B.N      ?Subroutine17
+??I2C_DMAMasterReceiveCplt_12:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x8000
+        STR      R1,[R0, #+0]
 // 3493       }
 // 3494     }
 // 3495   }
@@ -7805,107 +8750,120 @@ I2C_DMAMasterReceiveCplt:
 // 3498     /* No need to Check TC flag, with AUTOEND mode the stop is automatically generated */
 // 3499     /* Wait until STOPF flag is reset */ 
 // 3500     if(I2C_WaitOnSTOPFlagUntilTimeout(hi2c, I2C_TIMEOUT_STOPF) != HAL_OK)
-??I2C_DMAMasterReceiveCplt_0:
-        MOVS     R1,#+25
-        MOV      R0,R4
-          CFI FunCall I2C_WaitOnSTOPFlagUntilTimeout
-        BL       I2C_WaitOnSTOPFlagUntilTimeout
-        ADD      R5,R4,#+52
-        CBZ.N    R0,??I2C_DMAMasterReceiveCplt_12
 // 3501     {
 // 3502       if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R5, #+4]
-        CMP      R0,#+4
-        LDR      R0,[R5, #+4]
-        ITE      EQ 
-        ORREQ    R0,R0,#0x4
-        ORRNE    R0,R0,#0x20
 // 3503       {
 // 3504         hi2c->ErrorCode |= HAL_I2C_ERROR_AF;
 // 3505       }
 // 3506       else
 // 3507       {
 // 3508         hi2c->ErrorCode |= HAL_I2C_ERROR_TIMEOUT;
-        STR      R0,[R5, #+4]
 // 3509       }
 // 3510     }
 // 3511     
 // 3512     /* Clear STOP Flag */
 // 3513     __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
-??I2C_DMAMasterReceiveCplt_12:
-        LDR      R1,[R4, #+0]
-        MOVS     R0,#+32
 // 3514   	
 // 3515     /* Clear Configuration Register 2 */
 // 3516     I2C_RESET_CR2(hi2c);
-        LDR.W    R2,??DataTable20_1  ;; 0xfe00e800
+// 3517     
+// 3518     /* Disable DMA Request */
+// 3519     hi2c->Instance->CR1 &= ~I2C_CR1_RXDMAEN; 
+// 3520     
+// 3521     hi2c->XferCount = 0;
+// 3522     
+// 3523     hi2c->State = HAL_I2C_STATE_READY;
+// 3524     
+// 3525     /* Check if Errors has been detected during transfer */
+// 3526     if(hi2c->ErrorCode != HAL_I2C_ERROR_NONE)
+// 3527     {
+// 3528       HAL_I2C_ErrorCallback(hi2c);
+// 3529     }
+// 3530     else
+// 3531     {
+// 3532       HAL_I2C_MasterRxCpltCallback(hi2c);
+// 3533     }
+// 3534   }
+// 3535 }
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
+??I2C_DMAMasterReceiveCplt_0:
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??I2C_DMAMasterReceiveCplt_16:
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+24]
+        LSLS     R0,R0,#+26
+        BMI.N    ??I2C_DMAMasterReceiveCplt_17
+        MOVS     R1,#+25
+        MOV      R0,R4
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??I2C_DMAMasterReceiveCplt_18
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R0,#+26
+        BCC.N    ??I2C_DMAMasterReceiveCplt_16
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+??I2C_DMAMasterReceiveCplt_18:
+        LDR      R0,[R4, #+56]
+        CMP      R0,#+4
+        LDR      R0,[R4, #+56]
+        ITE      EQ 
+        ORREQ    R0,R0,#0x4
+        ORRNE    R0,R0,#0x20
+        STR      R0,[R4, #+56]
+??I2C_DMAMasterReceiveCplt_17:
+        LDR      R1,[R4, #+0]
+        MOVS     R0,#+32
+        LDR.W    R2,??DataTable21  ;; 0xfe00e800
         STR      R0,[R1, #+28]
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
         ANDS     R1,R2,R1
         STR      R1,[R0, #+4]
-// 3517     
-// 3518     /* Disable DMA Request */
-// 3519     hi2c->Instance->CR1 &= ~I2C_CR1_RXDMAEN; 
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x8000
         STR      R1,[R0, #+0]
-// 3520     
-// 3521     hi2c->XferCount = 0;
         MOVS     R0,#+0
         STRH     R0,[R4, #+42]
-// 3522     
-// 3523     hi2c->State = HAL_I2C_STATE_READY;
         MOVS     R0,#+1
-        STRB     R0,[R5, #+1]
-// 3524     
-// 3525     /* Check if Errors has been detected during transfer */
-// 3526     if(hi2c->ErrorCode != HAL_I2C_ERROR_NONE)
-        LDR      R0,[R5, #+4]
+        STRB     R0,[R4, #+53]
+        LDR      R0,[R4, #+56]
         CMP      R0,#+0
         MOV      R0,R4
-        BEQ.N    ??I2C_DMAMasterReceiveCplt_13
-// 3527     {
-// 3528       HAL_I2C_ErrorCallback(hi2c);
-??I2C_DMAMasterReceiveCplt_5:
-        B.N      ?Subroutine18
-// 3529     }
-// 3530     else
-// 3531     {
-// 3532       HAL_I2C_MasterRxCpltCallback(hi2c);
-??I2C_DMAMasterReceiveCplt_13:
+        BEQ.N    ??I2C_DMAMasterReceiveCplt_19
+??I2C_DMAMasterReceiveCplt_7:
+          CFI FunCall HAL_I2C_ErrorCallback
+        BL       HAL_I2C_ErrorCallback
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
+??I2C_DMAMasterReceiveCplt_19:
           CFI FunCall HAL_I2C_MasterRxCpltCallback
         BL       HAL_I2C_MasterRxCpltCallback
-// 3533     }
-// 3534   }
-// 3535 }
-        POP      {R0,R1,R4-R6,PC}  ;; return
-          CFI EndBlock cfiBlock57
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
+          CFI EndBlock cfiBlock40
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable15:
-        DC32     I2C_DMAMemReceiveCplt
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock58 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+24
-          CFI R4 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-          CFI FunCall I2C_DMAMasterTransmitCplt HAL_I2C_ErrorCallback
-          CFI FunCall I2C_DMAMasterReceiveCplt HAL_I2C_ErrorCallback
-          CFI FunCall I2C_DMAMemTransmitCplt HAL_I2C_ErrorCallback
-          CFI FunCall I2C_DMAMemReceiveCplt HAL_I2C_ErrorCallback
-        THUMB
-?Subroutine18:
-        BL       HAL_I2C_ErrorCallback
-        POP      {R0,R1,R4-R6,PC}
-          CFI EndBlock cfiBlock58
+??DataTable19:
+        DC32     0x2002000
 // 3536 
 // 3537 /**
 // 3538   * @brief  DMA I2C slave receive process complete callback.
@@ -7914,49 +8872,71 @@ I2C_DMAMasterReceiveCplt:
 // 3541   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock59 Using cfiCommon0
+          CFI Block cfiBlock41 Using cfiCommon0
           CFI Function I2C_DMASlaveReceiveCplt
         THUMB
 // 3542 static void I2C_DMASlaveReceiveCplt(DMA_HandleTypeDef *hdma) 
 // 3543 {  
 I2C_DMASlaveReceiveCplt:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
+        SUB      SP,SP,#+4
           CFI CFA R13+16
 // 3544   I2C_HandleTypeDef* hi2c = (I2C_HandleTypeDef*)((DMA_HandleTypeDef*)hdma)->Parent;
         LDR      R4,[R0, #+56]
 // 3545   
 // 3546   /* Wait until STOPF flag is reset */ 
 // 3547   if(I2C_WaitOnSTOPFlagUntilTimeout(hi2c, I2C_TIMEOUT_STOPF) != HAL_OK)
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??I2C_DMASlaveReceiveCplt_0:
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+24]
+        LSLS     R0,R0,#+26
+        BMI.N    ??I2C_DMASlaveReceiveCplt_1
         MOVS     R1,#+25
         MOV      R0,R4
-          CFI FunCall I2C_WaitOnSTOPFlagUntilTimeout
-        BL       I2C_WaitOnSTOPFlagUntilTimeout
-        CBZ.N    R0,??I2C_DMASlaveReceiveCplt_0
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??I2C_DMASlaveReceiveCplt_2
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R0,#+26
+        BCC.N    ??I2C_DMASlaveReceiveCplt_0
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 3548   {
 // 3549     if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        ADD      R0,R4,#+52
-        LDR      R1,[R0, #+4]
-        CMP      R1,#+4
-        LDR      R1,[R0, #+4]
+??I2C_DMASlaveReceiveCplt_2:
+        LDR      R0,[R4, #+56]
+        CMP      R0,#+4
+        LDR      R0,[R4, #+56]
         ITE      EQ 
-        ORREQ    R1,R1,#0x4
-        ORRNE    R1,R1,#0x20
+        ORREQ    R0,R0,#0x4
+        ORRNE    R0,R0,#0x20
 // 3550     {
 // 3551       hi2c->ErrorCode |= HAL_I2C_ERROR_AF;
 // 3552     }
 // 3553     else
 // 3554     {
 // 3555       hi2c->ErrorCode |= HAL_I2C_ERROR_TIMEOUT;
-        STR      R1,[R0, #+4]
+        STR      R0,[R4, #+56]
 // 3556     }
 // 3557   }
 // 3558   
 // 3559   /* Clear STOPF flag */
 // 3560   __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
-??I2C_DMASlaveReceiveCplt_0:
+??I2C_DMASlaveReceiveCplt_1:
         LDR      R1,[R4, #+0]
         MOVS     R0,#+32
         STR      R0,[R1, #+28]
@@ -7966,31 +8946,30 @@ I2C_DMASlaveReceiveCplt:
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         MOV      R5,R0
-??I2C_DMASlaveReceiveCplt_1:
+??I2C_DMASlaveReceiveCplt_3:
         LDR      R0,[R4, #+0]
         LDR      R0,[R0, #+24]
         LSLS     R0,R0,#+16
-        BPL.N    ??I2C_DMASlaveReceiveCplt_2
+        BPL.N    ??I2C_DMASlaveReceiveCplt_4
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
         SUBS     R0,R0,R5
         CMP      R0,#+26
-        BCC.N    ??I2C_DMASlaveReceiveCplt_1
-        ADD      R0,R4,#+52
-        MOVS     R1,#+1
-        STRB     R1,[R0, #+1]
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+0]
+        BCC.N    ??I2C_DMASlaveReceiveCplt_3
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 3564   {
 // 3565     hi2c->ErrorCode |= HAL_I2C_ERROR_TIMEOUT;
-        LDR      R1,[R0, #+4]
-        ORR      R1,R1,#0x20
-        STR      R1,[R0, #+4]
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
 // 3566   }
 // 3567   
 // 3568   /* Disable DMA Request */
 // 3569   hi2c->Instance->CR1 &= ~I2C_CR1_RXDMAEN; 
-??I2C_DMASlaveReceiveCplt_2:
+??I2C_DMASlaveReceiveCplt_4:
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x8000
@@ -8008,45 +8987,36 @@ I2C_DMASlaveReceiveCplt:
         STRH     R0,[R4, #+42]
 // 3575   
 // 3576   hi2c->State = HAL_I2C_STATE_READY;
-        ADD      R0,R4,#+52
-        MOVS     R1,#+1
-        STRB     R1,[R0, #+1]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
 // 3577   
 // 3578   /* Check if Errors has been detected during transfer */
 // 3579   if(hi2c->ErrorCode != HAL_I2C_ERROR_NONE)
-        LDR      R0,[R0, #+4]
+        LDR      R0,[R4, #+56]
         CMP      R0,#+0
         MOV      R0,R4
-        BEQ.N    ??I2C_DMASlaveReceiveCplt_3
+        BEQ.N    ??I2C_DMASlaveReceiveCplt_5
 // 3580   {
 // 3581     HAL_I2C_ErrorCallback(hi2c);
-        B.N      ?Subroutine19
+          CFI FunCall HAL_I2C_ErrorCallback
+        BL       HAL_I2C_ErrorCallback
 // 3582   }
 // 3583   else
 // 3584   {
 // 3585     HAL_I2C_SlaveRxCpltCallback(hi2c);
-??I2C_DMASlaveReceiveCplt_3:
-          CFI FunCall HAL_I2C_SlaveRxCpltCallback
-        BL       HAL_I2C_SlaveRxCpltCallback
 // 3586   }
 // 3587 }
-        POP      {R0,R4,R5,PC}    ;; return
-          CFI EndBlock cfiBlock59
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock60 Using cfiCommon0
-          CFI NoFunction
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
           CFI CFA R13+16
-          CFI R4 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-          CFI FunCall I2C_DMASlaveTransmitCplt HAL_I2C_ErrorCallback
-          CFI FunCall I2C_DMASlaveReceiveCplt HAL_I2C_ErrorCallback
-        THUMB
-?Subroutine19:
-        BL       HAL_I2C_ErrorCallback
-        POP      {R0,R4,R5,PC}
-          CFI EndBlock cfiBlock60
+??I2C_DMASlaveReceiveCplt_5:
+          CFI FunCall HAL_I2C_SlaveRxCpltCallback
+        BL       HAL_I2C_SlaveRxCpltCallback
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
+          CFI EndBlock cfiBlock41
 // 3588 
 // 3589 /**
 // 3590   * @brief DMA I2C Memory Write process complete callback 
@@ -8054,21 +9024,20 @@ I2C_DMASlaveReceiveCplt:
 // 3592   * @retval None
 // 3593   */
 
-        SECTION `.text`:CODE:NOROOT(2)
-          CFI Block cfiBlock61 Using cfiCommon0
+        SECTION `.text`:CODE:NOROOT(1)
+          CFI Block cfiBlock42 Using cfiCommon0
           CFI Function I2C_DMAMemTransmitCplt
         THUMB
 // 3594 static void I2C_DMAMemTransmitCplt(DMA_HandleTypeDef *hdma)   
 // 3595 {
 I2C_DMAMemTransmitCplt:
-        PUSH     {R4-R6,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
+        SUB      SP,SP,#+4
           CFI CFA R13+16
-        SUB      SP,SP,#+8
-          CFI CFA R13+24
 // 3596   uint16_t DevAddress;
 // 3597   I2C_HandleTypeDef* hi2c = ( I2C_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
         LDR      R4,[R0, #+56]
@@ -8098,45 +9067,64 @@ I2C_DMAMemTransmitCplt:
         SUBS     R0,R0,R5
         CMP      R0,#+26
         BCC.N    ??I2C_DMAMemTransmitCplt_1
-        ADD      R5,R4,#+52
         MOVS     R0,#+1
-        STRB     R0,[R5, #+1]
+        STRB     R0,[R4, #+53]
         MOVS     R0,#+0
-        STRB     R0,[R5, #+0]
+        STRB     R0,[R4, #+52]
 // 3605     {
 // 3606       hi2c->ErrorCode |= HAL_I2C_ERROR_TIMEOUT;
-        LDR      R0,[R5, #+4]
+        LDR      R0,[R4, #+56]
         ORR      R0,R0,#0x20
-        STR      R0,[R5, #+4]
+        STR      R0,[R4, #+56]
 // 3607     }
 // 3608     
 // 3609     /* Disable DMA Request */
 // 3610     hi2c->Instance->CR1 &= ~I2C_CR1_TXDMAEN; 
 ??I2C_DMAMemTransmitCplt_2:
         LDR      R0,[R4, #+0]
-// 3611     
-// 3612     /* Check if Errors has been detected during transfer */
-// 3613     if(hi2c->ErrorCode != HAL_I2C_ERROR_NONE)
-        ADD      R5,R4,#+52
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x4000
         STR      R1,[R0, #+0]
-        LDR      R0,[R5, #+4]
+// 3611     
+// 3612     /* Check if Errors has been detected during transfer */
+// 3613     if(hi2c->ErrorCode != HAL_I2C_ERROR_NONE)
+        LDR      R0,[R4, #+56]
         CBZ.N    R0,??I2C_DMAMemTransmitCplt_3
 // 3614     {
 // 3615       /* No need to Check TC flag, with AUTOEND mode the stop is automatically generated */
 // 3616       /* Wait until STOPF flag is reset */ 
 // 3617       if(I2C_WaitOnSTOPFlagUntilTimeout(hi2c, I2C_TIMEOUT_STOPF) != HAL_OK)
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??I2C_DMAMemTransmitCplt_4:
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+24]
+        LSLS     R0,R0,#+26
+        BMI.N    ??I2C_DMAMemTransmitCplt_5
         MOVS     R1,#+25
         MOV      R0,R4
-          CFI FunCall I2C_WaitOnSTOPFlagUntilTimeout
-        BL       I2C_WaitOnSTOPFlagUntilTimeout
-        CBZ.N    R0,??I2C_DMAMemTransmitCplt_4
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??I2C_DMAMemTransmitCplt_6
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R0,#+26
+        BCC.N    ??I2C_DMAMemTransmitCplt_4
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 3618       {
 // 3619         if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R5, #+4]
+??I2C_DMAMemTransmitCplt_6:
+        LDR      R0,[R4, #+56]
         CMP      R0,#+4
-        LDR      R0,[R5, #+4]
+        LDR      R0,[R4, #+56]
         ITE      EQ 
         ORREQ    R0,R0,#0x4
         ORRNE    R0,R0,#0x20
@@ -8146,19 +9134,19 @@ I2C_DMAMemTransmitCplt:
 // 3623         else
 // 3624         {
 // 3625           hi2c->ErrorCode |= HAL_I2C_ERROR_TIMEOUT;
-        STR      R0,[R5, #+4]
+        STR      R0,[R4, #+56]
 // 3626         }
 // 3627       }
 // 3628       
 // 3629       /* Clear STOP Flag */
 // 3630       __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
-??I2C_DMAMemTransmitCplt_4:
+??I2C_DMAMemTransmitCplt_5:
         LDR      R1,[R4, #+0]
         MOVS     R0,#+32
 // 3631       
 // 3632       /* Clear Configuration Register 2 */
 // 3633       I2C_RESET_CR2(hi2c);
-        LDR.W    R2,??DataTable20_1  ;; 0xfe00e800
+        LDR.W    R2,??DataTable21  ;; 0xfe00e800
         STR      R0,[R1, #+28]
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
@@ -8171,10 +9159,10 @@ I2C_DMAMemTransmitCplt:
 // 3636       
 // 3637       hi2c->State = HAL_I2C_STATE_READY;
         MOVS     R0,#+1
-        STRB     R0,[R5, #+1]
+        STRB     R0,[R4, #+53]
 // 3638       HAL_I2C_ErrorCallback(hi2c);
         MOV      R0,R4
-        B.N      ??I2C_DMAMemTransmitCplt_5
+        B.N      ??I2C_DMAMemTransmitCplt_7
 // 3639     }
 // 3640     else
 // 3641     {
@@ -8210,65 +9198,111 @@ I2C_DMAMemTransmitCplt:
 // 3655       /* Enable the DMA channel */
 // 3656       HAL_DMA_Start_IT(hi2c->hdmatx, (uint32_t)hi2c->pBuffPtr, (uint32_t)&hi2c->Instance->TXDR, hi2c->XferSize);
         LDRH     R3,[R4, #+40]
-        LSLS     R6,R2,#+22
+        LSLS     R5,R2,#+22
         ADD      R2,R0,#+40
         LDR      R0,[R4, #+44]
-        LSRS     R6,R6,#+22
           CFI FunCall HAL_DMA_Start_IT
         BL       HAL_DMA_Start_IT
 // 3657       
 // 3658       /* Send Slave Address */
 // 3659       /* Set NBYTES to write and reload if size > 255 */
 // 3660       if( (hi2c->XferSize == 255) && (hi2c->XferSize < hi2c->XferCount) )
-        LDRH     R2,[R4, #+40]
-        CMP      R2,#+255
-        BNE.N    ??I2C_DMAMemTransmitCplt_6
+        LDRH     R1,[R4, #+40]
+        CMP      R1,#+255
+        BNE.N    ??I2C_DMAMemTransmitCplt_8
         LDRH     R0,[R4, #+42]
-        CMP      R2,R0
-        BCS.N    ??I2C_DMAMemTransmitCplt_6
+        CMP      R1,R0
+        BCS.N    ??I2C_DMAMemTransmitCplt_8
 // 3661       {
 // 3662         I2C_TransferConfig(hi2c,DevAddress,hi2c->XferSize, I2C_RELOAD_MODE, I2C_NO_STARTSTOP);
-        MOVS     R0,#+0
-        MOV      R3,#+16777216
-        STR      R0,[SP, #+0]
-        B.N      ??I2C_DMAMemTransmitCplt_7
+        LDR      R0,[R4, #+0]
+        LDR.N    R3,??DataTable20  ;; 0xfc009800
+        LDR      R2,[R0, #+4]
+        ANDS     R2,R3,R2
+        ORRS     R2,R2,R5, LSR #+22
+        ORR      R1,R2,R1, LSL #+16
+        ORR      R1,R1,#0x1000000
+        B.N      ??I2C_DMAMemTransmitCplt_9
 // 3663       }
 // 3664       else
 // 3665       {
 // 3666         I2C_TransferConfig(hi2c,DevAddress,hi2c->XferSize, I2C_AUTOEND_MODE, I2C_NO_STARTSTOP);
-??I2C_DMAMemTransmitCplt_6:
-        MOVS     R0,#+0
-        MOV      R3,#+33554432
-        STR      R0,[SP, #+0]
-        UXTB     R2,R2
-??I2C_DMAMemTransmitCplt_7:
-        MOV      R1,R6
-        MOV      R0,R4
-          CFI FunCall I2C_TransferConfig
-        BL       I2C_TransferConfig
+??I2C_DMAMemTransmitCplt_8:
+        LDR      R0,[R4, #+0]
+        LDR.N    R3,??DataTable20  ;; 0xfc009800
+        UXTB     R1,R1
+        LDR      R2,[R0, #+4]
+        ANDS     R2,R3,R2
+        ORRS     R2,R2,R5, LSR #+22
+        ORR      R1,R2,R1, LSL #+16
+        ORR      R1,R1,#0x2000000
+??I2C_DMAMemTransmitCplt_9:
+        STR      R1,[R0, #+4]
 // 3667       }  
 // 3668       
 // 3669       /* Wait until TXIS flag is set */
 // 3670       if(I2C_WaitOnTXISFlagUntilTimeout(hi2c, I2C_TIMEOUT_TXIS) != HAL_OK)
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??I2C_DMAMemTransmitCplt_10:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+24]
+        LSLS     R1,R1,#+30
+        BMI.N    ??I2C_DMAMemTransmitCplt_11
         MOVS     R1,#+25
         MOV      R0,R4
-          CFI FunCall I2C_WaitOnTXISFlagUntilTimeout
-        BL       I2C_WaitOnTXISFlagUntilTimeout
-        CBZ.N    R0,??I2C_DMAMemTransmitCplt_8
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??I2C_DMAMemTransmitCplt_12
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R0,#+26
+        BCC.N    ??I2C_DMAMemTransmitCplt_10
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 3671       {
 // 3672         /* No need to Check TC flag, with AUTOEND mode the stop is automatically generated */
 // 3673         /* Wait until STOPF flag is reset */ 
 // 3674         if(I2C_WaitOnSTOPFlagUntilTimeout(hi2c, I2C_TIMEOUT_STOPF) != HAL_OK)
+??I2C_DMAMemTransmitCplt_12:
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??I2C_DMAMemTransmitCplt_13:
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+24]
+        LSLS     R0,R0,#+26
+        BMI.N    ??I2C_DMAMemTransmitCplt_14
         MOVS     R1,#+25
         MOV      R0,R4
-          CFI FunCall I2C_WaitOnSTOPFlagUntilTimeout
-        BL       I2C_WaitOnSTOPFlagUntilTimeout
-        CBZ.N    R0,??I2C_DMAMemTransmitCplt_9
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??I2C_DMAMemTransmitCplt_15
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R0,#+26
+        BCC.N    ??I2C_DMAMemTransmitCplt_13
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 3675         {
 // 3676           if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R5, #+4]
+??I2C_DMAMemTransmitCplt_15:
+        LDR      R0,[R4, #+56]
         CMP      R0,#+4
-        LDR      R0,[R5, #+4]
+        LDR      R0,[R4, #+56]
         ITE      EQ 
         ORREQ    R0,R0,#0x4
         ORRNE    R0,R0,#0x20
@@ -8278,42 +9312,29 @@ I2C_DMAMemTransmitCplt:
 // 3680           else
 // 3681           {
 // 3682             hi2c->ErrorCode |= HAL_I2C_ERROR_TIMEOUT;
-        STR      R0,[R5, #+4]
+        B.N      ??I2C_DMAMemTransmitCplt_16
 // 3683           }
 // 3684         }
 // 3685         
 // 3686         /* Clear STOP Flag */
 // 3687         __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
-??I2C_DMAMemTransmitCplt_9:
-        LDR      R1,[R4, #+0]
-        MOVS     R0,#+32
 // 3688         
 // 3689         /* Clear Configuration Register 2 */
 // 3690         I2C_RESET_CR2(hi2c);
-        LDR.W    R2,??DataTable20_1  ;; 0xfe00e800
-        STR      R0,[R1, #+28]
-        LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+4]
-        ANDS     R1,R2,R1
-        STR      R1,[R0, #+4]
 // 3691         
 // 3692         hi2c->XferCount = 0;
-        MOVS     R0,#+0
-        STRH     R0,[R4, #+42]
 // 3693         
 // 3694         hi2c->State = HAL_I2C_STATE_READY;
-        MOVS     R0,#+1
-        STRB     R0,[R5, #+1]
 // 3695         HAL_I2C_ErrorCallback(hi2c);
-        MOV      R0,R4
-        B.N      ??I2C_DMAMemTransmitCplt_5
 // 3696       }
 // 3697       else
 // 3698       {
 // 3699         /* Enable DMA Request */
 // 3700         hi2c->Instance->CR1 |= I2C_CR1_TXDMAEN;
-??I2C_DMAMemTransmitCplt_8:
-        B.N      ?Subroutine16
+??I2C_DMAMemTransmitCplt_11:
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x4000
+        STR      R1,[R0, #+0]
 // 3701       }
 // 3702     }
 // 3703   }
@@ -8322,106 +9343,143 @@ I2C_DMAMemTransmitCplt:
 // 3706     /* No need to Check TC flag, with AUTOEND mode the stop is automatically generated */
 // 3707     /* Wait until STOPF flag is reset */ 
 // 3708     if(I2C_WaitOnSTOPFlagUntilTimeout(hi2c, I2C_TIMEOUT_STOPF) != HAL_OK)
-??I2C_DMAMemTransmitCplt_0:
-        MOVS     R1,#+25
-        MOV      R0,R4
-          CFI FunCall I2C_WaitOnSTOPFlagUntilTimeout
-        BL       I2C_WaitOnSTOPFlagUntilTimeout
-        ADD      R5,R4,#+52
-        CBZ.N    R0,??I2C_DMAMemTransmitCplt_10
 // 3709     {
 // 3710       if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R5, #+4]
-        CMP      R0,#+4
-        LDR      R0,[R5, #+4]
-        ITE      EQ 
-        ORREQ    R0,R0,#0x4
-        ORRNE    R0,R0,#0x20
 // 3711       {
 // 3712         hi2c->ErrorCode |= HAL_I2C_ERROR_AF;
 // 3713       }
 // 3714       else
 // 3715       {
 // 3716         hi2c->ErrorCode |= HAL_I2C_ERROR_TIMEOUT;
-        STR      R0,[R5, #+4]
 // 3717       }
 // 3718     }
 // 3719     
 // 3720     /* Clear STOP Flag */
 // 3721     __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
-??I2C_DMAMemTransmitCplt_10:
-        LDR      R1,[R4, #+0]
-        MOVS     R0,#+32
 // 3722   	
 // 3723     /* Clear Configuration Register 2 */
 // 3724     I2C_RESET_CR2(hi2c);
-        LDR.W    R2,??DataTable20_1  ;; 0xfe00e800
+// 3725     
+// 3726     /* Disable DMA Request */
+// 3727     hi2c->Instance->CR1 &= ~I2C_CR1_TXDMAEN; 
+// 3728     
+// 3729     hi2c->XferCount = 0;
+// 3730     
+// 3731     hi2c->State = HAL_I2C_STATE_READY;
+// 3732     
+// 3733     /* Check if Errors has been detected during transfer */
+// 3734     if(hi2c->ErrorCode != HAL_I2C_ERROR_NONE)
+// 3735     {
+// 3736       HAL_I2C_ErrorCallback(hi2c);
+// 3737     }
+// 3738     else
+// 3739     {
+// 3740       HAL_I2C_MemTxCpltCallback(hi2c);
+// 3741     }
+// 3742   }
+// 3743 }
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
+??I2C_DMAMemTransmitCplt_16:
+        STR      R0,[R4, #+56]
+??I2C_DMAMemTransmitCplt_14:
+        LDR      R1,[R4, #+0]
+        MOVS     R0,#+32
+        LDR.N    R2,??DataTable21  ;; 0xfe00e800
         STR      R0,[R1, #+28]
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
         ANDS     R1,R2,R1
         STR      R1,[R0, #+4]
-// 3725     
-// 3726     /* Disable DMA Request */
-// 3727     hi2c->Instance->CR1 &= ~I2C_CR1_TXDMAEN; 
+        MOVS     R0,#+0
+        STRH     R0,[R4, #+42]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOV      R0,R4
+        B.N      ??I2C_DMAMemTransmitCplt_7
+??I2C_DMAMemTransmitCplt_0:
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??I2C_DMAMemTransmitCplt_17:
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+24]
+        LSLS     R0,R0,#+26
+        BMI.N    ??I2C_DMAMemTransmitCplt_18
+        MOVS     R1,#+25
+        MOV      R0,R4
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??I2C_DMAMemTransmitCplt_19
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R0,#+26
+        BCC.N    ??I2C_DMAMemTransmitCplt_17
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+??I2C_DMAMemTransmitCplt_19:
+        LDR      R0,[R4, #+56]
+        CMP      R0,#+4
+        LDR      R0,[R4, #+56]
+        ITE      EQ 
+        ORREQ    R0,R0,#0x4
+        ORRNE    R0,R0,#0x20
+        STR      R0,[R4, #+56]
+??I2C_DMAMemTransmitCplt_18:
+        LDR      R1,[R4, #+0]
+        MOVS     R0,#+32
+        LDR.N    R2,??DataTable21  ;; 0xfe00e800
+        STR      R0,[R1, #+28]
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+4]
+        ANDS     R1,R2,R1
+        STR      R1,[R0, #+4]
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x4000
         STR      R1,[R0, #+0]
-// 3728     
-// 3729     hi2c->XferCount = 0;
         MOVS     R0,#+0
         STRH     R0,[R4, #+42]
-// 3730     
-// 3731     hi2c->State = HAL_I2C_STATE_READY;
         MOVS     R0,#+1
-        STRB     R0,[R5, #+1]
-// 3732     
-// 3733     /* Check if Errors has been detected during transfer */
-// 3734     if(hi2c->ErrorCode != HAL_I2C_ERROR_NONE)
-        LDR      R0,[R5, #+4]
+        STRB     R0,[R4, #+53]
+        LDR      R0,[R4, #+56]
         CMP      R0,#+0
         MOV      R0,R4
-        BEQ.N    ??I2C_DMAMemTransmitCplt_11
-// 3735     {
-// 3736       HAL_I2C_ErrorCallback(hi2c);
-??I2C_DMAMemTransmitCplt_5:
-        B.N      ?Subroutine18
-// 3737     }
-// 3738     else
-// 3739     {
-// 3740       HAL_I2C_MemTxCpltCallback(hi2c);
-??I2C_DMAMemTransmitCplt_11:
+        BEQ.N    ??I2C_DMAMemTransmitCplt_20
+??I2C_DMAMemTransmitCplt_7:
+          CFI FunCall HAL_I2C_ErrorCallback
+        BL       HAL_I2C_ErrorCallback
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
+??I2C_DMAMemTransmitCplt_20:
           CFI FunCall HAL_I2C_MemTxCpltCallback
         BL       HAL_I2C_MemTxCpltCallback
-// 3741     }
-// 3742   }
-// 3743 }
-        POP      {R0,R1,R4-R6,PC}  ;; return
-          CFI EndBlock cfiBlock61
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
+          CFI EndBlock cfiBlock42
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable16:
-        DC32     0x2002000
+??DataTable20:
+        DC32     0xfc009800
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock62 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+24
-          CFI R4 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine16:
-        LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x4000
-        STR      R1,[R0, #+0]
-        POP      {R0,R1,R4-R6,PC}
-          CFI EndBlock cfiBlock62
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable20_1:
+        DC32     0x1ff0000
 // 3744 
 // 3745 /**
 // 3746   * @brief  DMA I2C Memory Read process complete callback
@@ -8430,20 +9488,19 @@ I2C_DMAMemTransmitCplt:
 // 3749   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock63 Using cfiCommon0
+          CFI Block cfiBlock43 Using cfiCommon0
           CFI Function I2C_DMAMemReceiveCplt
         THUMB
 // 3750 static void I2C_DMAMemReceiveCplt(DMA_HandleTypeDef *hdma)   
 // 3751 {  
 I2C_DMAMemReceiveCplt:
-        PUSH     {R4-R6,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
+        SUB      SP,SP,#+4
           CFI CFA R13+16
-        SUB      SP,SP,#+8
-          CFI CFA R13+24
 // 3752   I2C_HandleTypeDef* hi2c = ( I2C_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;  
         LDR      R4,[R0, #+56]
 // 3753   uint16_t DevAddress;
@@ -8473,45 +9530,64 @@ I2C_DMAMemReceiveCplt:
         SUBS     R0,R0,R5
         CMP      R0,#+26
         BCC.N    ??I2C_DMAMemReceiveCplt_1
-        ADD      R5,R4,#+52
         MOVS     R0,#+1
-        STRB     R0,[R5, #+1]
+        STRB     R0,[R4, #+53]
         MOVS     R0,#+0
-        STRB     R0,[R5, #+0]
+        STRB     R0,[R4, #+52]
 // 3761     {
 // 3762       hi2c->ErrorCode |= HAL_I2C_ERROR_TIMEOUT;
-        LDR      R0,[R5, #+4]
+        LDR      R0,[R4, #+56]
         ORR      R0,R0,#0x20
-        STR      R0,[R5, #+4]
+        STR      R0,[R4, #+56]
 // 3763     }
 // 3764     
 // 3765     /* Disable DMA Request */
 // 3766     hi2c->Instance->CR1 &= ~I2C_CR1_RXDMAEN; 
 ??I2C_DMAMemReceiveCplt_2:
         LDR      R0,[R4, #+0]
-// 3767     
-// 3768     /* Check if Errors has been detected during transfer */
-// 3769     if(hi2c->ErrorCode != HAL_I2C_ERROR_NONE)
-        ADD      R5,R4,#+52
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x8000
         STR      R1,[R0, #+0]
-        LDR      R0,[R5, #+4]
+// 3767     
+// 3768     /* Check if Errors has been detected during transfer */
+// 3769     if(hi2c->ErrorCode != HAL_I2C_ERROR_NONE)
+        LDR      R0,[R4, #+56]
         CBZ.N    R0,??I2C_DMAMemReceiveCplt_3
 // 3770     {
 // 3771       /* No need to Check TC flag, with AUTOEND mode the stop is automatically generated */
 // 3772       /* Wait until STOPF flag is reset */ 
 // 3773       if(I2C_WaitOnSTOPFlagUntilTimeout(hi2c, I2C_TIMEOUT_STOPF) != HAL_OK)
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??I2C_DMAMemReceiveCplt_4:
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+24]
+        LSLS     R0,R0,#+26
+        BMI.N    ??I2C_DMAMemReceiveCplt_5
         MOVS     R1,#+25
         MOV      R0,R4
-          CFI FunCall I2C_WaitOnSTOPFlagUntilTimeout
-        BL       I2C_WaitOnSTOPFlagUntilTimeout
-        CBZ.N    R0,??I2C_DMAMemReceiveCplt_4
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??I2C_DMAMemReceiveCplt_6
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R0,#+26
+        BCC.N    ??I2C_DMAMemReceiveCplt_4
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 3774       {
 // 3775         if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R5, #+4]
+??I2C_DMAMemReceiveCplt_6:
+        LDR      R0,[R4, #+56]
         CMP      R0,#+4
-        LDR      R0,[R5, #+4]
+        LDR      R0,[R4, #+56]
         ITE      EQ 
         ORREQ    R0,R0,#0x4
         ORRNE    R0,R0,#0x20
@@ -8521,19 +9597,19 @@ I2C_DMAMemReceiveCplt:
 // 3779         else
 // 3780         {
 // 3781           hi2c->ErrorCode |= HAL_I2C_ERROR_TIMEOUT;
-        STR      R0,[R5, #+4]
+        STR      R0,[R4, #+56]
 // 3782         }
 // 3783       }
 // 3784       
 // 3785       /* Clear STOP Flag */
 // 3786       __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
-??I2C_DMAMemReceiveCplt_4:
+??I2C_DMAMemReceiveCplt_5:
         LDR      R1,[R4, #+0]
         MOVS     R0,#+32
 // 3787       
 // 3788       /* Clear Configuration Register 2 */
 // 3789       I2C_RESET_CR2(hi2c);
-        LDR.N    R2,??DataTable20_1  ;; 0xfe00e800
+        LDR.N    R2,??DataTable21  ;; 0xfe00e800
         STR      R0,[R1, #+28]
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
@@ -8546,10 +9622,10 @@ I2C_DMAMemReceiveCplt:
 // 3792       
 // 3793       hi2c->State = HAL_I2C_STATE_READY;
         MOVS     R0,#+1
-        STRB     R0,[R5, #+1]
+        STRB     R0,[R4, #+53]
 // 3794       HAL_I2C_ErrorCallback(hi2c);
         MOV      R0,R4
-        B.N      ??I2C_DMAMemReceiveCplt_5
+        B.N      ??I2C_DMAMemReceiveCplt_7
 // 3795     }
 // 3796     else
 // 3797     {
@@ -8585,89 +9661,114 @@ I2C_DMAMemReceiveCplt:
 // 3811       /* Enable the DMA channel */
 // 3812       HAL_DMA_Start_IT(hi2c->hdmarx, (uint32_t)&hi2c->Instance->RXDR, (uint32_t)hi2c->pBuffPtr, hi2c->XferSize);
         LDRH     R3,[R4, #+40]
-        LSLS     R6,R1,#+22
+        LSLS     R5,R1,#+22
         ADD      R1,R0,#+36
         LDR      R0,[R4, #+48]
-        LSRS     R6,R6,#+22
           CFI FunCall HAL_DMA_Start_IT
         BL       HAL_DMA_Start_IT
 // 3813       
 // 3814       /* Send Slave Address */
 // 3815       /* Set NBYTES to write and reload if size > 255 */
 // 3816       if( (hi2c->XferSize == 255) && (hi2c->XferSize < hi2c->XferCount) )
-        LDRH     R2,[R4, #+40]
-        CMP      R2,#+255
-        BNE.N    ??I2C_DMAMemReceiveCplt_6
+        LDRH     R1,[R4, #+40]
+        CMP      R1,#+255
+        BNE.N    ??I2C_DMAMemReceiveCplt_8
         LDRH     R0,[R4, #+42]
-        CMP      R2,R0
-        BCS.N    ??I2C_DMAMemReceiveCplt_6
+        CMP      R1,R0
+        BCS.N    ??I2C_DMAMemReceiveCplt_8
 // 3817       {
 // 3818         I2C_TransferConfig(hi2c,DevAddress,hi2c->XferSize, I2C_RELOAD_MODE, I2C_NO_STARTSTOP);
-        MOVS     R0,#+0
-        MOV      R3,#+16777216
-        STR      R0,[SP, #+0]
-        B.N      ??I2C_DMAMemReceiveCplt_7
+        LDR      R0,[R4, #+0]
+        LDR.N    R3,??DataTable22  ;; 0xfc009800
+        LDR      R2,[R0, #+4]
+        ANDS     R2,R3,R2
+        ORRS     R2,R2,R5, LSR #+22
+        ORR      R1,R2,R1, LSL #+16
+        ORR      R1,R1,#0x1000000
+        B.N      ??I2C_DMAMemReceiveCplt_9
 // 3819       }
 // 3820       else
 // 3821       {
 // 3822         I2C_TransferConfig(hi2c,DevAddress,hi2c->XferSize, I2C_AUTOEND_MODE, I2C_NO_STARTSTOP);
-??I2C_DMAMemReceiveCplt_6:
-        MOVS     R0,#+0
-        MOV      R3,#+33554432
-        STR      R0,[SP, #+0]
-        UXTB     R2,R2
-??I2C_DMAMemReceiveCplt_7:
-        MOV      R1,R6
-        MOV      R0,R4
-          CFI FunCall I2C_TransferConfig
-        BL       I2C_TransferConfig
+??I2C_DMAMemReceiveCplt_8:
+        LDR      R0,[R4, #+0]
+        LDR.N    R3,??DataTable22  ;; 0xfc009800
+        UXTB     R1,R1
+        LDR      R2,[R0, #+4]
+        ANDS     R2,R3,R2
+        ORRS     R2,R2,R5, LSR #+22
+        ORR      R1,R2,R1, LSL #+16
+        ORR      R1,R1,#0x2000000
+??I2C_DMAMemReceiveCplt_9:
+        STR      R1,[R0, #+4]
 // 3823       }  
 // 3824       
 // 3825       /* Wait until RXNE flag is set */
 // 3826       if(I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_RXNE, RESET, I2C_TIMEOUT_RXNE) != HAL_OK)      
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        MOV      R6,R0
-??I2C_DMAMemReceiveCplt_8:
+        MOV      R5,R0
+??I2C_DMAMemReceiveCplt_10:
         LDR      R0,[R4, #+0]
         LDR      R0,[R0, #+24]
         LSLS     R0,R0,#+29
-        BMI.N    ??I2C_DMAMemReceiveCplt_9
+        BMI.N    ??I2C_DMAMemReceiveCplt_11
           CFI FunCall HAL_GetTick
         BL       HAL_GetTick
-        SUBS     R0,R0,R6
+        SUBS     R0,R0,R5
         CMP      R0,#+26
-        BCC.N    ??I2C_DMAMemReceiveCplt_8
+        BCC.N    ??I2C_DMAMemReceiveCplt_10
         MOVS     R0,#+1
-        STRB     R0,[R5, #+1]
+        STRB     R0,[R4, #+53]
         MOVS     R0,#+0
-        STRB     R0,[R5, #+0]
+        STRB     R0,[R4, #+52]
 // 3827       {
 // 3828         hi2c->ErrorCode |= HAL_I2C_ERROR_TIMEOUT;
-        LDR      R0,[R5, #+4]
+        LDR      R0,[R4, #+56]
         ORR      R0,R0,#0x20
-        STR      R0,[R5, #+4]
+        STR      R0,[R4, #+56]
 // 3829       }
 // 3830       
 // 3831       /* Check if Errors has been detected during transfer */
 // 3832       if(hi2c->ErrorCode != HAL_I2C_ERROR_NONE)
-??I2C_DMAMemReceiveCplt_9:
-        LDR      R0,[R5, #+4]
-        CBZ.N    R0,??I2C_DMAMemReceiveCplt_10
+??I2C_DMAMemReceiveCplt_11:
+        LDR      R0,[R4, #+56]
+        CBZ.N    R0,??I2C_DMAMemReceiveCplt_12
 // 3833       {
 // 3834         /* No need to Check TC flag, with AUTOEND mode the stop is automatically generated */
 // 3835         /* Wait until STOPF flag is reset */ 
 // 3836         if(I2C_WaitOnSTOPFlagUntilTimeout(hi2c, I2C_TIMEOUT_STOPF) != HAL_OK)
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??I2C_DMAMemReceiveCplt_13:
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+24]
+        LSLS     R0,R0,#+26
+        BMI.N    ??I2C_DMAMemReceiveCplt_14
         MOVS     R1,#+25
         MOV      R0,R4
-          CFI FunCall I2C_WaitOnSTOPFlagUntilTimeout
-        BL       I2C_WaitOnSTOPFlagUntilTimeout
-        CBZ.N    R0,??I2C_DMAMemReceiveCplt_11
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??I2C_DMAMemReceiveCplt_15
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R0,#+26
+        BCC.N    ??I2C_DMAMemReceiveCplt_13
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 3837         {
 // 3838           if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R5, #+4]
+??I2C_DMAMemReceiveCplt_15:
+        LDR      R0,[R4, #+56]
         CMP      R0,#+4
-        LDR      R0,[R5, #+4]
+        LDR      R0,[R4, #+56]
         ITE      EQ 
         ORREQ    R0,R0,#0x4
         ORRNE    R0,R0,#0x20
@@ -8677,19 +9778,19 @@ I2C_DMAMemReceiveCplt:
 // 3842           else
 // 3843           {
 // 3844             hi2c->ErrorCode |= HAL_I2C_ERROR_TIMEOUT;
-        STR      R0,[R5, #+4]
+        STR      R0,[R4, #+56]
 // 3845           }
 // 3846         }
 // 3847         
 // 3848         /* Clear STOP Flag */
 // 3849         __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
-??I2C_DMAMemReceiveCplt_11:
+??I2C_DMAMemReceiveCplt_14:
         LDR      R1,[R4, #+0]
         MOVS     R0,#+32
 // 3850         
 // 3851         /* Clear Configuration Register 2 */
 // 3852         I2C_RESET_CR2(hi2c);
-        LDR.N    R2,??DataTable20_1  ;; 0xfe00e800
+        LDR.N    R2,??DataTable21  ;; 0xfe00e800
         STR      R0,[R1, #+28]
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
@@ -8702,17 +9803,20 @@ I2C_DMAMemReceiveCplt:
 // 3855         
 // 3856         hi2c->State = HAL_I2C_STATE_READY;
         MOVS     R0,#+1
-        STRB     R0,[R5, #+1]
+        STRB     R0,[R4, #+53]
 // 3857         HAL_I2C_ErrorCallback(hi2c);
         MOV      R0,R4
-        B.N      ??I2C_DMAMemReceiveCplt_5
+        B.N      ??I2C_DMAMemReceiveCplt_7
 // 3858       }
 // 3859       else
 // 3860       {
 // 3861         /* Enable DMA Request */
 // 3862         hi2c->Instance->CR1 |= I2C_CR1_RXDMAEN;
-??I2C_DMAMemReceiveCplt_10:
-        B.N      ?Subroutine17
+??I2C_DMAMemReceiveCplt_12:
+        LDR      R0,[R4, #+0]
+        LDR      R1,[R0, #+0]
+        ORR      R1,R1,#0x8000
+        STR      R1,[R0, #+0]
 // 3863       }
 // 3864     }
 // 3865   }
@@ -8721,100 +9825,120 @@ I2C_DMAMemReceiveCplt:
 // 3868     /* No need to Check TC flag, with AUTOEND mode the stop is automatically generated */
 // 3869     /* Wait until STOPF flag is reset */ 
 // 3870     if(I2C_WaitOnSTOPFlagUntilTimeout(hi2c, I2C_TIMEOUT_STOPF) != HAL_OK)
-??I2C_DMAMemReceiveCplt_0:
-        MOVS     R1,#+25
-        MOV      R0,R4
-          CFI FunCall I2C_WaitOnSTOPFlagUntilTimeout
-        BL       I2C_WaitOnSTOPFlagUntilTimeout
-        ADD      R5,R4,#+52
-        CBZ.N    R0,??I2C_DMAMemReceiveCplt_12
 // 3871     {
 // 3872       if(hi2c->ErrorCode == HAL_I2C_ERROR_AF)
-        LDR      R0,[R5, #+4]
-        CMP      R0,#+4
-        LDR      R0,[R5, #+4]
-        ITE      EQ 
-        ORREQ    R0,R0,#0x4
-        ORRNE    R0,R0,#0x20
 // 3873       {
 // 3874         hi2c->ErrorCode |= HAL_I2C_ERROR_AF;
 // 3875       }
 // 3876       else
 // 3877       {
 // 3878         hi2c->ErrorCode |= HAL_I2C_ERROR_TIMEOUT;
-        STR      R0,[R5, #+4]
 // 3879       }
 // 3880     }
 // 3881     
 // 3882     /* Clear STOP Flag */
 // 3883     __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
-??I2C_DMAMemReceiveCplt_12:
-        LDR      R1,[R4, #+0]
-        MOVS     R0,#+32
 // 3884   	
 // 3885     /* Clear Configuration Register 2 */
 // 3886     I2C_RESET_CR2(hi2c);
-        LDR.N    R2,??DataTable20_1  ;; 0xfe00e800
+// 3887     
+// 3888     /* Disable DMA Request */
+// 3889     hi2c->Instance->CR1 &= ~I2C_CR1_RXDMAEN; 
+// 3890     
+// 3891     hi2c->XferCount = 0;
+// 3892     
+// 3893     hi2c->State = HAL_I2C_STATE_READY;
+// 3894     
+// 3895     /* Check if Errors has been detected during transfer */
+// 3896     if(hi2c->ErrorCode != HAL_I2C_ERROR_NONE)
+// 3897     {
+// 3898       HAL_I2C_ErrorCallback(hi2c);
+// 3899     }
+// 3900     else
+// 3901     {
+// 3902       HAL_I2C_MemRxCpltCallback(hi2c);
+// 3903     }
+// 3904   }
+// 3905 }
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
+??I2C_DMAMemReceiveCplt_0:
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        MOV      R5,R0
+??I2C_DMAMemReceiveCplt_16:
+        LDR      R0,[R4, #+0]
+        LDR      R0,[R0, #+24]
+        LSLS     R0,R0,#+26
+        BMI.N    ??I2C_DMAMemReceiveCplt_17
+        MOVS     R1,#+25
+        MOV      R0,R4
+          CFI FunCall I2C_IsAcknowledgeFailed
+        BL       I2C_IsAcknowledgeFailed
+        CBNZ.N   R0,??I2C_DMAMemReceiveCplt_18
+          CFI FunCall HAL_GetTick
+        BL       HAL_GetTick
+        SUBS     R0,R0,R5
+        CMP      R0,#+26
+        BCC.N    ??I2C_DMAMemReceiveCplt_16
+        LDR      R0,[R4, #+56]
+        ORR      R0,R0,#0x20
+        STR      R0,[R4, #+56]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
+??I2C_DMAMemReceiveCplt_18:
+        LDR      R0,[R4, #+56]
+        CMP      R0,#+4
+        LDR      R0,[R4, #+56]
+        ITE      EQ 
+        ORREQ    R0,R0,#0x4
+        ORRNE    R0,R0,#0x20
+        STR      R0,[R4, #+56]
+??I2C_DMAMemReceiveCplt_17:
+        LDR      R1,[R4, #+0]
+        MOVS     R0,#+32
+        LDR.N    R2,??DataTable21  ;; 0xfe00e800
         STR      R0,[R1, #+28]
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+4]
         ANDS     R1,R2,R1
         STR      R1,[R0, #+4]
-// 3887     
-// 3888     /* Disable DMA Request */
-// 3889     hi2c->Instance->CR1 &= ~I2C_CR1_RXDMAEN; 
         LDR      R0,[R4, #+0]
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x8000
         STR      R1,[R0, #+0]
-// 3890     
-// 3891     hi2c->XferCount = 0;
         MOVS     R0,#+0
         STRH     R0,[R4, #+42]
-// 3892     
-// 3893     hi2c->State = HAL_I2C_STATE_READY;
         MOVS     R0,#+1
-        STRB     R0,[R5, #+1]
-// 3894     
-// 3895     /* Check if Errors has been detected during transfer */
-// 3896     if(hi2c->ErrorCode != HAL_I2C_ERROR_NONE)
-        LDR      R0,[R5, #+4]
+        STRB     R0,[R4, #+53]
+        LDR      R0,[R4, #+56]
         CMP      R0,#+0
         MOV      R0,R4
-        BEQ.N    ??I2C_DMAMemReceiveCplt_13
-// 3897     {
-// 3898       HAL_I2C_ErrorCallback(hi2c);
-??I2C_DMAMemReceiveCplt_5:
-        B.N      ?Subroutine18
-// 3899     }
-// 3900     else
-// 3901     {
-// 3902       HAL_I2C_MemRxCpltCallback(hi2c);
-??I2C_DMAMemReceiveCplt_13:
+        BEQ.N    ??I2C_DMAMemReceiveCplt_19
+??I2C_DMAMemReceiveCplt_7:
+          CFI FunCall HAL_I2C_ErrorCallback
+        BL       HAL_I2C_ErrorCallback
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
+??I2C_DMAMemReceiveCplt_19:
           CFI FunCall HAL_I2C_MemRxCpltCallback
         BL       HAL_I2C_MemRxCpltCallback
-// 3903     }
-// 3904   }
-// 3905 }
-        POP      {R0,R1,R4-R6,PC}  ;; return
-          CFI EndBlock cfiBlock63
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
+          CFI EndBlock cfiBlock43
 
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock64 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+24
-          CFI R4 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine17:
-        LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x8000
-        STR      R1,[R0, #+0]
-        POP      {R0,R1,R4-R6,PC}
-          CFI EndBlock cfiBlock64
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable21:
+        DC32     0xfe00e800
 // 3906 
 // 3907 /**
 // 3908   * @brief  DMA I2C communication error callback. 
@@ -8823,14 +9947,16 @@ I2C_DMAMemReceiveCplt:
 // 3911   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock65 Using cfiCommon0
+          CFI Block cfiBlock44 Using cfiCommon0
           CFI Function I2C_DMAError
         THUMB
 // 3912 static void I2C_DMAError(DMA_HandleTypeDef *hdma)   
 // 3913 {
 I2C_DMAError:
-        PUSH     {R7,LR}
+        PUSH     {LR}
           CFI R14 Frame(CFA, -4)
+          CFI CFA R13+4
+        SUB      SP,SP,#+4
           CFI CFA R13+8
 // 3914   I2C_HandleTypeDef* hi2c = ( I2C_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
         LDR      R0,[R0, #+56]
@@ -8859,8 +9985,10 @@ I2C_DMAError:
           CFI FunCall HAL_I2C_ErrorCallback
         BL       HAL_I2C_ErrorCallback
 // 3926 }
-        POP      {R0,PC}          ;; return
-          CFI EndBlock cfiBlock65
+        ADD      SP,SP,#+4
+          CFI CFA R13+4
+        POP      {PC}             ;; return
+          CFI EndBlock cfiBlock44
 // 3927 
 // 3928 /**
 // 3929   * @brief  This function handles I2C Communication Timeout.
@@ -8871,60 +9999,19 @@ I2C_DMAError:
 // 3934   * @param  Timeout: Timeout duration
 // 3935   * @retval HAL status
 // 3936   */
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock66 Using cfiCommon0
-          CFI Function I2C_WaitOnFlagUntilTimeout
-        THUMB
 // 3937 static HAL_StatusTypeDef I2C_WaitOnFlagUntilTimeout(I2C_HandleTypeDef *hi2c, uint32_t Flag, FlagStatus Status, uint32_t Timeout)  
 // 3938 {  
-I2C_WaitOnFlagUntilTimeout:
-        PUSH     {R4-R8,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R8 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -20)
-          CFI R4 Frame(CFA, -24)
-          CFI CFA R13+24
-        MOV      R4,R0
-        MOV      R5,R1
-        MOV      R8,R2
-        MOV      R6,R3
 // 3939   uint32_t tickstart = HAL_GetTick();
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
 // 3940   
 // 3941   /* Wait until flag is set */
 // 3942   if(Status == RESET)
-        CMP      R8,#+0
-        MOV      R7,R0
-        BNE.N    ??I2C_WaitOnFlagUntilTimeout_0
 // 3943   {    
 // 3944     while(__HAL_I2C_GET_FLAG(hi2c, Flag) == RESET)
-??I2C_WaitOnFlagUntilTimeout_1:
-        LDR      R0,[R4, #+0]
-        LSLS     R1,R5,#+15
-        LDR      R0,[R0, #+24]
-        ANDS     R0,R0,R5
-        LSLS     R0,R0,#+15
-        LSRS     R0,R0,#+15
-        CMP      R0,R1, LSR #+15
-        BEQ.N    ??I2C_WaitOnFlagUntilTimeout_2
 // 3945     {
 // 3946       /* Check for the Timeout */
 // 3947       if(Timeout != HAL_MAX_DELAY)
-        CMN      R6,#+1
-        BEQ.N    ??I2C_WaitOnFlagUntilTimeout_1
 // 3948       {
 // 3949         if((Timeout == 0)||((HAL_GetTick() - tickstart ) > Timeout))
-        CBZ.N    R6,??I2C_WaitOnFlagUntilTimeout_3
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUBS     R0,R0,R7
-        CMP      R6,R0
-        BCS.N    ??I2C_WaitOnFlagUntilTimeout_1
-        B.N      ??I2C_WaitOnFlagUntilTimeout_3
 // 3950         {
 // 3951           hi2c->State= HAL_I2C_STATE_READY;
 // 3952           /* Process Unlocked */
@@ -8937,51 +10024,22 @@ I2C_WaitOnFlagUntilTimeout:
 // 3959   else
 // 3960   {
 // 3961     while(__HAL_I2C_GET_FLAG(hi2c, Flag) != RESET)
-??I2C_WaitOnFlagUntilTimeout_0:
-        LDR      R0,[R4, #+0]
-        LSLS     R1,R5,#+15
-        LDR      R0,[R0, #+24]
-        ANDS     R0,R0,R5
-        LSLS     R0,R0,#+15
-        LSRS     R0,R0,#+15
-        CMP      R0,R1, LSR #+15
-        BNE.N    ??I2C_WaitOnFlagUntilTimeout_2
 // 3962     {
 // 3963       /* Check for the Timeout */
 // 3964       if(Timeout != HAL_MAX_DELAY)
-        CMN      R6,#+1
-        BEQ.N    ??I2C_WaitOnFlagUntilTimeout_0
 // 3965       {
 // 3966         if((Timeout == 0)||((HAL_GetTick() - tickstart ) > Timeout))
-        CBZ.N    R6,??I2C_WaitOnFlagUntilTimeout_3
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUBS     R0,R0,R7
-        CMP      R6,R0
-        BCS.N    ??I2C_WaitOnFlagUntilTimeout_0
 // 3967         {
 // 3968           hi2c->State= HAL_I2C_STATE_READY;
-??I2C_WaitOnFlagUntilTimeout_3:
-        ADD      R0,R4,#+52
-        MOVS     R1,#+1
-        STRB     R1,[R0, #+1]
 // 3969           /* Process Unlocked */
 // 3970           __HAL_UNLOCK(hi2c);
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+0]
 // 3971           return HAL_TIMEOUT;
-        MOVS     R0,#+3
-        POP      {R4-R8,PC}
 // 3972         }
 // 3973       }
 // 3974     }
 // 3975   }
 // 3976   return HAL_OK;
-??I2C_WaitOnFlagUntilTimeout_2:
-        MOVS     R0,#+0
-        POP      {R4-R8,PC}       ;; return
 // 3977 }
-          CFI EndBlock cfiBlock66
 // 3978 
 // 3979 /**
 // 3980   * @brief  This function handles I2C Communication Timeout for specific usage of TXIS flag.
@@ -8990,64 +10048,24 @@ I2C_WaitOnFlagUntilTimeout:
 // 3983   * @param  Timeout: Timeout duration
 // 3984   * @retval HAL status
 // 3985   */
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock67 Using cfiCommon0
-          CFI Function I2C_WaitOnTXISFlagUntilTimeout
-        THUMB
 // 3986 static HAL_StatusTypeDef I2C_WaitOnTXISFlagUntilTimeout(I2C_HandleTypeDef *hi2c, uint32_t Timeout)  
 // 3987 {  
-I2C_WaitOnTXISFlagUntilTimeout:
-        PUSH     {R4-R6,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+16
-        MOV      R4,R0
-        MOV      R5,R1
 // 3988   uint32_t tickstart = HAL_GetTick();
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        MOV      R6,R0
 // 3989   
 // 3990   while(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_TXIS) == RESET)
-??I2C_WaitOnTXISFlagUntilTimeout_0:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+24]
-        LSLS     R0,R0,#+30
-        BMI.N    ??I2C_WaitOnTXISFlagUntilTimeout_1
 // 3991   {
 // 3992     /* Check if a NACK is detected */
 // 3993     if(I2C_IsAcknowledgeFailed(hi2c, Timeout) != HAL_OK)
-        MOV      R1,R5
-        MOV      R0,R4
-          CFI FunCall I2C_IsAcknowledgeFailed
-        BL       I2C_IsAcknowledgeFailed
-        CBZ.N    R0,??I2C_WaitOnTXISFlagUntilTimeout_2
 // 3994     {
 // 3995       return HAL_ERROR;
-        MOVS     R0,#+1
-        POP      {R4-R6,PC}
 // 3996     }
 // 3997     
 // 3998     /* Check for the Timeout */
 // 3999     if(Timeout != HAL_MAX_DELAY)
-??I2C_WaitOnTXISFlagUntilTimeout_2:
-        CMN      R5,#+1
-        BEQ.N    ??I2C_WaitOnTXISFlagUntilTimeout_0
 // 4000     {
 // 4001       if((Timeout == 0)||((HAL_GetTick() - tickstart ) > Timeout))
-        CBZ.N    R5,??I2C_WaitOnTXISFlagUntilTimeout_3
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUBS     R0,R0,R6
-        CMP      R5,R0
-        BCS.N    ??I2C_WaitOnTXISFlagUntilTimeout_0
 // 4002       {
 // 4003         hi2c->ErrorCode |= HAL_I2C_ERROR_TIMEOUT;
-??I2C_WaitOnTXISFlagUntilTimeout_3:
-        B.N      ?Subroutine14
 // 4004         hi2c->State= HAL_I2C_STATE_READY;
 // 4005         
 // 4006         /* Process Unlocked */
@@ -9058,11 +10076,7 @@ I2C_WaitOnTXISFlagUntilTimeout:
 // 4011     }
 // 4012   }
 // 4013   return HAL_OK;      
-??I2C_WaitOnTXISFlagUntilTimeout_1:
-        MOVS     R0,#+0
-        POP      {R4-R6,PC}       ;; return
 // 4014 }
-          CFI EndBlock cfiBlock67
 // 4015 
 // 4016 /**
 // 4017   * @brief  This function handles I2C Communication Timeout for specific usage of STOP flag.
@@ -9071,61 +10085,23 @@ I2C_WaitOnTXISFlagUntilTimeout:
 // 4020   * @param  Timeout: Timeout duration
 // 4021   * @retval HAL status
 // 4022   */
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock68 Using cfiCommon0
-          CFI Function I2C_WaitOnSTOPFlagUntilTimeout
-        THUMB
 // 4023 static HAL_StatusTypeDef I2C_WaitOnSTOPFlagUntilTimeout(I2C_HandleTypeDef *hi2c, uint32_t Timeout)
 // 4024 {  
-I2C_WaitOnSTOPFlagUntilTimeout:
-        PUSH     {R4-R6,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+16
-        MOV      R4,R0
-        MOV      R5,R1
 // 4025   uint32_t tickstart = 0x00;
 // 4026   tickstart = HAL_GetTick();
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        MOV      R6,R0
 // 4027   
 // 4028   while(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_STOPF) == RESET)
-??I2C_WaitOnSTOPFlagUntilTimeout_0:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+24]
-        LSLS     R0,R0,#+26
-        BMI.N    ??I2C_WaitOnSTOPFlagUntilTimeout_1
 // 4029   {
 // 4030     /* Check if a NACK is detected */
 // 4031     if(I2C_IsAcknowledgeFailed(hi2c, Timeout) != HAL_OK)
-        MOV      R1,R5
-        MOV      R0,R4
-          CFI FunCall I2C_IsAcknowledgeFailed
-        BL       I2C_IsAcknowledgeFailed
-        CBZ.N    R0,??I2C_WaitOnSTOPFlagUntilTimeout_2
 // 4032     {
 // 4033       return HAL_ERROR;
-        MOVS     R0,#+1
-        POP      {R4-R6,PC}
 // 4034     }
 // 4035     
 // 4036     /* Check for the Timeout */
 // 4037     if((Timeout == 0)||((HAL_GetTick() - tickstart ) > Timeout))
-??I2C_WaitOnSTOPFlagUntilTimeout_2:
-        CBZ.N    R5,??I2C_WaitOnSTOPFlagUntilTimeout_3
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUBS     R0,R0,R6
-        CMP      R5,R0
-        BCS.N    ??I2C_WaitOnSTOPFlagUntilTimeout_0
 // 4038     {
 // 4039       hi2c->ErrorCode |= HAL_I2C_ERROR_TIMEOUT;
-??I2C_WaitOnSTOPFlagUntilTimeout_3:
-        B.N      ?Subroutine14
 // 4040       hi2c->State= HAL_I2C_STATE_READY;
 // 4041       
 // 4042       /* Process Unlocked */
@@ -9135,47 +10111,7 @@ I2C_WaitOnSTOPFlagUntilTimeout:
 // 4046     }
 // 4047   }
 // 4048   return HAL_OK;
-??I2C_WaitOnSTOPFlagUntilTimeout_1:
-        MOVS     R0,#+0
-        POP      {R4-R6,PC}       ;; return
 // 4049 }
-          CFI EndBlock cfiBlock68
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock69 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+16
-          CFI R4 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine14:
-        ADD      R0,R4,#+52
-        LDR      R1,[R0, #+4]
-        ORR      R1,R1,#0x20
-        STR      R1,[R0, #+4]
-          CFI EndBlock cfiBlock69
-        REQUIRE ??Subroutine20_0
-        ;; // Fall through to label ??Subroutine20_0
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock70 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+16
-          CFI R4 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-??Subroutine20_0:
-        MOVS     R1,#+1
-        STRB     R1,[R0, #+1]
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+0]
-        MOVS     R0,#+3
-        POP      {R4-R6,PC}
-          CFI EndBlock cfiBlock70
 // 4050 
 // 4051 /**
 // 4052   * @brief  This function handles I2C Communication Timeout for specific usage of RXNE flag.
@@ -9184,98 +10120,41 @@ I2C_WaitOnSTOPFlagUntilTimeout:
 // 4055   * @param  Timeout: Timeout duration
 // 4056   * @retval HAL status
 // 4057   */
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock71 Using cfiCommon0
-          CFI Function I2C_WaitOnRXNEFlagUntilTimeout
-        THUMB
 // 4058 static HAL_StatusTypeDef I2C_WaitOnRXNEFlagUntilTimeout(I2C_HandleTypeDef *hi2c, uint32_t Timeout)
 // 4059 {  
-I2C_WaitOnRXNEFlagUntilTimeout:
-        PUSH     {R4-R6,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+16
-        MOV      R4,R0
-        MOV      R5,R1
 // 4060   uint32_t tickstart = 0x00;
 // 4061   tickstart = HAL_GetTick();
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        MOV      R6,R0
 // 4062   
 // 4063   while(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_RXNE) == RESET)
-??I2C_WaitOnRXNEFlagUntilTimeout_0:
-        LDR      R0,[R4, #+0]
-        LDR      R0,[R0, #+24]
-        LSLS     R0,R0,#+29
-        BMI.N    ??I2C_WaitOnRXNEFlagUntilTimeout_1
 // 4064   {
 // 4065     /* Check if a NACK is detected */
 // 4066     if(I2C_IsAcknowledgeFailed(hi2c, Timeout) != HAL_OK)
-        MOV      R1,R5
-        MOV      R0,R4
-          CFI FunCall I2C_IsAcknowledgeFailed
-        BL       I2C_IsAcknowledgeFailed
-        CBNZ.N   R0,??I2C_WaitOnRXNEFlagUntilTimeout_2
 // 4067     {
 // 4068       return HAL_ERROR;
 // 4069     }
 // 4070     
 // 4071     /* Check if a STOPF is detected */
 // 4072     if(__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_STOPF) == SET)
-        LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+24]
-        LSLS     R1,R1,#+26
-        BPL.N    ??I2C_WaitOnRXNEFlagUntilTimeout_3
 // 4073     {
 // 4074       /* Clear STOP Flag */
 // 4075       __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
-        MOVS     R1,#+32
 // 4076       
 // 4077       /* Clear Configuration Register 2 */
 // 4078       I2C_RESET_CR2(hi2c);
-        LDR.N    R2,??DataTable20_1  ;; 0xfe00e800
-        STR      R1,[R0, #+28]
-        LDR      R0,[R4, #+0]
-        LDR      R1,[R0, #+4]
-        ANDS     R1,R2,R1
-        STR      R1,[R0, #+4]
 // 4079       
 // 4080       hi2c->ErrorCode = HAL_I2C_ERROR_NONE;
-        ADD      R0,R4,#+52
-        MOVS     R1,#+0
-        STR      R1,[R0, #+4]
 // 4081       hi2c->State= HAL_I2C_STATE_READY;
-        MOVS     R1,#+1
-        STRB     R1,[R0, #+1]
 // 4082       
 // 4083       /* Process Unlocked */
 // 4084       __HAL_UNLOCK(hi2c);
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+0]
 // 4085       
 // 4086       return HAL_ERROR;
-??I2C_WaitOnRXNEFlagUntilTimeout_2:
-        MOVS     R0,#+1
-        POP      {R4-R6,PC}
 // 4087     }
 // 4088     
 // 4089     /* Check for the Timeout */
 // 4090     if((Timeout == 0)||((HAL_GetTick() - tickstart ) > Timeout))
-??I2C_WaitOnRXNEFlagUntilTimeout_3:
-        CBZ.N    R5,??I2C_WaitOnRXNEFlagUntilTimeout_4
-          CFI FunCall HAL_GetTick
-        BL       HAL_GetTick
-        SUBS     R0,R0,R6
-        CMP      R5,R0
-        BCS.N    ??I2C_WaitOnRXNEFlagUntilTimeout_0
 // 4091     {
 // 4092       hi2c->ErrorCode |= HAL_I2C_ERROR_TIMEOUT;
-??I2C_WaitOnRXNEFlagUntilTimeout_4:
-        B.N      ?Subroutine14
 // 4093       hi2c->State= HAL_I2C_STATE_READY;
 // 4094       
 // 4095       /* Process Unlocked */
@@ -9285,11 +10164,7 @@ I2C_WaitOnRXNEFlagUntilTimeout:
 // 4099     }
 // 4100   }
 // 4101   return HAL_OK;
-??I2C_WaitOnRXNEFlagUntilTimeout_1:
-        MOVS     R0,#+0
-        POP      {R4-R6,PC}       ;; return
 // 4102 }
-          CFI EndBlock cfiBlock71
 // 4103 
 // 4104 /**
 // 4105   * @brief  This function handles Acknowledge failed detection during an I2C Communication.
@@ -9300,7 +10175,7 @@ I2C_WaitOnRXNEFlagUntilTimeout:
 // 4110   */
 
         SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock72 Using cfiCommon0
+          CFI Block cfiBlock45 Using cfiCommon0
           CFI Function I2C_IsAcknowledgeFailed
         THUMB
 // 4111 static HAL_StatusTypeDef I2C_IsAcknowledgeFailed(I2C_HandleTypeDef *hi2c, uint32_t Timeout)
@@ -9350,11 +10225,15 @@ I2C_IsAcknowledgeFailed:
 // 4126         {
 // 4127           hi2c->State= HAL_I2C_STATE_READY;
 ??I2C_IsAcknowledgeFailed_3:
-        ADD      R0,R4,#+52
-        B.N      ??Subroutine20_0
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
 // 4128           /* Process Unlocked */
 // 4129           __HAL_UNLOCK(hi2c);
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 4130           return HAL_TIMEOUT;
+        MOVS     R0,#+3
+        POP      {R4-R6,PC}
 // 4131         }
 // 4132       }
 // 4133     }
@@ -9375,7 +10254,7 @@ I2C_IsAcknowledgeFailed:
 // 4146     
 // 4147     /* Clear Configuration Register 2 */
 // 4148     I2C_RESET_CR2(hi2c);
-        LDR.N    R2,??DataTable20_1  ;; 0xfe00e800
+        LDR.N    R2,??DataTable22_1  ;; 0xfe00e800
         STR      R1,[R0, #+28]
         LDR      R1,[R4, #+0]
         MOVS     R0,#+32
@@ -9392,17 +10271,16 @@ I2C_IsAcknowledgeFailed:
         STR      R1,[R0, #+4]
 // 4149     
 // 4150     hi2c->ErrorCode = HAL_I2C_ERROR_AF;
-        ADD      R0,R4,#+52
-        MOVS     R1,#+4
-        STR      R1,[R0, #+4]
+        MOVS     R0,#+4
+        STR      R0,[R4, #+56]
 // 4151     hi2c->State= HAL_I2C_STATE_READY;
-        MOVS     R1,#+1
-        STRB     R1,[R0, #+1]
+        MOVS     R0,#+1
+        STRB     R0,[R4, #+53]
 // 4152     
 // 4153     /* Process Unlocked */
 // 4154     __HAL_UNLOCK(hi2c);
-        MOVS     R1,#+0
-        STRB     R1,[R0, #+0]
+        MOVS     R0,#+0
+        STRB     R0,[R4, #+52]
 // 4155     
 // 4156     return HAL_ERROR;
         MOVS     R0,#+1
@@ -9413,13 +10291,32 @@ I2C_IsAcknowledgeFailed:
         MOVS     R0,#+0
         POP      {R4-R6,PC}       ;; return
 // 4159 }
-          CFI EndBlock cfiBlock72
+          CFI EndBlock cfiBlock45
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable19:
+??DataTable22:
         DC32     0xfc009800
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable22_1:
+        DC32     0xfe00e800
+
+        SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+        DC32 0
+
+        SECTION __DLIB_PERTHREAD:DATA:REORDER:NOROOT(0)
+        SECTION_TYPE SHT_PROGBITS, 0
+
+        SECTION __DLIB_PERTHREAD_init:DATA:REORDER:NOROOT(0)
+        SECTION_TYPE SHT_PROGBITS, 0
+
+        END
 // 4160 
 // 4161 /**
 // 4162   * @brief  Handles I2Cx communication when starting transfer or during transfer (TC or TCR flag are set).
@@ -9440,19 +10337,8 @@ I2C_IsAcknowledgeFailed:
 // 4177   *     @arg I2C_GENERATE_START_WRITE: Generate Restart for write request.
 // 4178   * @retval None
 // 4179   */
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock73 Using cfiCommon0
-          CFI Function I2C_TransferConfig
-          CFI NoCalls
-        THUMB
 // 4180 static void I2C_TransferConfig(I2C_HandleTypeDef *hi2c,  uint16_t DevAddress, uint8_t Size, uint32_t Mode, uint32_t Request)
 // 4181 {
-I2C_TransferConfig:
-        PUSH     {R4,R5}
-          CFI R5 Frame(CFA, -4)
-          CFI R4 Frame(CFA, -8)
-          CFI CFA R13+8
 // 4182   uint32_t tmpreg = 0;
 // 4183   
 // 4184   /* Check the parameters */
@@ -9462,7 +10348,6 @@ I2C_TransferConfig:
 // 4188   
 // 4189   /* Get the CR2 register value */
 // 4190   tmpreg = hi2c->Instance->CR2;
-        LDR      R0,[R0, #+0]
 // 4191   
 // 4192   /* clear tmpreg specific bits */
 // 4193   tmpreg &= (uint32_t)~((uint32_t)(I2C_CR2_SADD | I2C_CR2_NBYTES | I2C_CR2_RELOAD | I2C_CR2_AUTOEND | I2C_CR2_RD_WRN | I2C_CR2_START | I2C_CR2_STOP));
@@ -9473,54 +10358,7 @@ I2C_TransferConfig:
 // 4198   
 // 4199   /* update CR2 register */
 // 4200   hi2c->Instance->CR2 = tmpreg;  
-        LDR.N    R5,??DataTable20_2  ;; 0xfc009800
-        LSLS     R1,R1,#+22
-        LDR      R4,[R0, #+4]
-        ANDS     R4,R5,R4
-        ORRS     R1,R4,R1, LSR #+22
-        ORR      R1,R1,R2, LSL #+16
-        LDR      R2,[SP, #+8]
-        ORRS     R1,R3,R1
-        ORRS     R1,R2,R1
-        STR      R1,[R0, #+4]
 // 4201 }  
-        POP      {R4,R5}
-          CFI R4 SameValue
-          CFI R5 SameValue
-          CFI CFA R13+0
-        BX       LR               ;; return
-          CFI EndBlock cfiBlock73
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable20:
-        DC32     0x1ff0000
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable20_1:
-        DC32     0xfe00e800
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable20_2:
-        DC32     0xfc009800
-
-        SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-        DC32 0
-
-        SECTION __DLIB_PERTHREAD:DATA:REORDER:NOROOT(0)
-        SECTION_TYPE SHT_PROGBITS, 0
-
-        SECTION __DLIB_PERTHREAD_init:DATA:REORDER:NOROOT(0)
-        SECTION_TYPE SHT_PROGBITS, 0
-
-        END
 // 4202 
 // 4203 /**
 // 4204   * @}
@@ -9541,9 +10379,9 @@ I2C_TransferConfig:
 // 4219 
 // 4220 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 8 560 bytes in section .text
+// 11 522 bytes in section .text
 // 
-// 8 560 bytes of CODE memory
+// 11 522 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

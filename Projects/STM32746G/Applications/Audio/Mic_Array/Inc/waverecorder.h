@@ -47,6 +47,11 @@ void DMA2_Stream6_IRQHandler(void);
 void StartRecMic7_8 (void);
 void MIC7Rec (void);
 void MIC8Rec (void);
+void I2S1_Enable(void);
+void I2S2_Enable(void);
+void SPI4_Enable(void);
+
+
 
 
 

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      16/Apr/2016  18:31:00
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Apr/2016  12:04:28
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -295,22 +295,26 @@
 //  168 HAL_StatusTypeDef HAL_FLASHEx_Erase(FLASH_EraseInitTypeDef *pEraseInit, uint32_t *SectorError)
 //  169 {
 HAL_FLASHEx_Erase:
-        PUSH     {R3-R9,LR}
+        PUSH     {R4-R11,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R9 Frame(CFA, -8)
-          CFI R8 Frame(CFA, -12)
-          CFI R7 Frame(CFA, -16)
-          CFI R6 Frame(CFA, -20)
-          CFI R5 Frame(CFA, -24)
-          CFI R4 Frame(CFA, -28)
-          CFI CFA R13+32
+          CFI R11 Frame(CFA, -8)
+          CFI R10 Frame(CFA, -12)
+          CFI R9 Frame(CFA, -16)
+          CFI R8 Frame(CFA, -20)
+          CFI R7 Frame(CFA, -24)
+          CFI R6 Frame(CFA, -28)
+          CFI R5 Frame(CFA, -32)
+          CFI R4 Frame(CFA, -36)
+          CFI CFA R13+36
 //  170   HAL_StatusTypeDef status = HAL_ERROR;
 //  171   uint32_t index = 0;
 //  172   
 //  173   /* Process Locked */
 //  174   __HAL_LOCK(&pFlash);
         LDR.N    R4,??DataTable4
-        MOV      R5,R0
+        SUB      SP,SP,#+4
+          CFI CFA R13+40
+        MOV      R7,R0
         MOV      R8,R1
         LDRB     R0,[R4, #+20]
         CMP      R0,#+1
@@ -324,9 +328,9 @@ HAL_FLASHEx_Erase:
 //  178 
 //  179   /* Wait for last operation to be completed */
 //  180   status = FLASH_WaitForLastOperation((uint32_t)FLASH_TIMEOUT_VALUE);
-        MOVW     R9,#+50000
+        MOVW     R11,#+50000
         STRB     R0,[R4, #+20]
-        MOV      R0,R9
+        MOV      R0,R11
           CFI FunCall FLASH_WaitForLastOperation
         BL       FLASH_WaitForLastOperation
 //  181 
@@ -340,14 +344,14 @@ HAL_FLASHEx_Erase:
         STR      R1,[R8, #+0]
 //  186     
 //  187     if(pEraseInit->TypeErase == FLASH_TYPEERASE_MASSERASE)
-        LDR      R1,[R5, #+0]
+        LDR      R1,[R7, #+0]
         CMP      R1,#+1
         BNE.N    ??HAL_FLASHEx_Erase_2
 //  188     {
 //  189       /*Mass erase to be done*/
 //  190       FLASH_MassErase((uint8_t) pEraseInit->VoltageRange);
         LDR.N    R6,??DataTable4_1  ;; 0x40023c10
-        LDR      R0,[R5, #+12]
+        LDR      R0,[R7, #+12]
         LDR      R1,[R6, #+0]
         LSLS     R0,R0,#+24
         LSRS     R0,R0,#+16
@@ -364,7 +368,7 @@ HAL_FLASHEx_Erase:
 //  191 
 //  192       /* Wait for last operation to be completed */
 //  193       status = FLASH_WaitForLastOperation((uint32_t)FLASH_TIMEOUT_VALUE);
-        MOV      R0,R9
+        MOV      R0,R11
           CFI FunCall FLASH_WaitForLastOperation
         BL       FLASH_WaitForLastOperation
 //  194       
@@ -383,28 +387,56 @@ HAL_FLASHEx_Erase:
 //  203       /* Erase by sector by sector to be done*/
 //  204       for(index = pEraseInit->Sector; index < (pEraseInit->NbSectors + pEraseInit->Sector); index++)
 ??HAL_FLASHEx_Erase_2:
-        LDR      R7,[R5, #+4]
+        LDR      R5,[R7, #+4]
+        MOV      R9,#+512
+        MOV      R10,#+256
         LDR.N    R6,??DataTable4_1  ;; 0x40023c10
         B.N      ??HAL_FLASHEx_Erase_3
 ??HAL_FLASHEx_Erase_4:
-        ADDS     R7,R7,#+1
+        ADDS     R5,R5,#+1
 ??HAL_FLASHEx_Erase_3:
-        LDR      R1,[R5, #+8]
-        LDR      R2,[R5, #+4]
+        LDR      R1,[R7, #+8]
+        LDR      R2,[R7, #+4]
         ADDS     R1,R2,R1
-        CMP      R7,R1
+        CMP      R5,R1
         BCS.N    ??HAL_FLASHEx_Erase_1
 //  205       {
 //  206         FLASH_Erase_Sector(index, (uint8_t) pEraseInit->VoltageRange);
-        LDR      R1,[R5, #+12]
-        MOV      R0,R7
-        UXTB     R1,R1
-          CFI FunCall FLASH_Erase_Sector
-        BL       FLASH_Erase_Sector
+        LDR      R0,[R7, #+12]
+        MOVS     R1,#+0
+        UXTB     R0,R0
+        CBZ.N    R0,??HAL_FLASHEx_Erase_5
+        CMP      R0,#+1
+        IT       EQ 
+        MOVEQ    R1,R10
+        BEQ.N    ??HAL_FLASHEx_Erase_5
+        CMP      R0,#+2
+        ITE      EQ 
+        MOVEQ    R1,R9
+        MOVNE    R1,#+768
+??HAL_FLASHEx_Erase_5:
+        LDR      R0,[R6, #+0]
+        BIC      R0,R0,#0x300
+        STR      R0,[R6, #+0]
+        LDR      R0,[R6, #+0]
+        ORRS     R0,R1,R0
+        LSLS     R1,R5,#+3
+        STR      R0,[R6, #+0]
+        LDR      R0,[R6, #+0]
+        ORR      R1,R1,#0x2
+        BIC      R0,R0,#0xF8
+        STR      R0,[R6, #+0]
+        LDR      R0,[R6, #+0]
+        ORRS     R0,R1,R0
+        STR      R0,[R6, #+0]
+        LDR      R0,[R6, #+0]
+        ORR      R0,R0,#0x10000
+        STR      R0,[R6, #+0]
+        DSB      
 //  207 
 //  208         /* Wait for last operation to be completed */
 //  209         status = FLASH_WaitForLastOperation((uint32_t)FLASH_TIMEOUT_VALUE);
-        MOV      R0,R9
+        MOV      R0,R11
           CFI FunCall FLASH_WaitForLastOperation
         BL       FLASH_WaitForLastOperation
 //  210         
@@ -424,7 +456,7 @@ HAL_FLASHEx_Erase:
 //  216         {
 //  217           /* In case of error, stop erase procedure and return the faulty sector*/
 //  218           *SectorError = index;
-        STR      R7,[R8, #+0]
+        STR      R5,[R8, #+0]
 //  219           break;
 //  220         }
 //  221       }
@@ -439,7 +471,9 @@ HAL_FLASHEx_Erase:
 //  227 
 //  228   return status;
 ??HAL_FLASHEx_Erase_0:
-        POP      {R1,R4-R9,PC}    ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}      ;; return
 //  229 }
           CFI EndBlock cfiBlock0
 //  230 
@@ -517,45 +551,51 @@ HAL_FLASHEx_Erase_IT:
         STR      R2,[R1, #+4]
         LDR      R2,[R1, #+4]
         ORRS     R0,R0,R2
-        B.N      ??HAL_FLASHEx_Erase_IT_2
+        STR      R0,[R1, #+4]
 //  263   }
 //  264   else
 //  265   {
+        DSB      
 //  266     /* Erase by sector to be done*/
 //  267 
 //  268     /* Check the parameters */
 //  269     assert_param(IS_FLASH_NBSECTORS(pEraseInit->NbSectors + pEraseInit->Sector));
 //  270 
 //  271     pFlash.ProcedureOnGoing = FLASH_PROC_SECTERASE;
-??HAL_FLASHEx_Erase_IT_1:
-        MOVS     R3,#+1
-        STRB     R3,[R2, #+0]
 //  272     pFlash.NbSectorsToErase = pEraseInit->NbSectors;
-        LDR      R3,[R0, #+8]
-        STR      R3,[R2, #+4]
 //  273     pFlash.Sector = pEraseInit->Sector;
-        LDR      R3,[R0, #+4]
-        STR      R3,[R2, #+12]
 //  274     pFlash.VoltageForErase = (uint8_t)pEraseInit->VoltageRange;
-        LDR      R3,[R0, #+12]
-        STRB     R3,[R2, #+8]
 //  275 
 //  276     /*Erase 1st sector and wait for IT*/
 //  277     FLASH_Erase_Sector(pEraseInit->Sector, pEraseInit->VoltageRange);
+//  278   }
+//  279 
+//  280   return status;
+        MOVS     R0,#+0
+        BX       LR
+??HAL_FLASHEx_Erase_IT_1:
+        MOVS     R3,#+1
+        STRB     R3,[R2, #+0]
+        LDR      R3,[R0, #+8]
+        STR      R3,[R2, #+4]
+        LDR      R3,[R0, #+4]
+        STR      R3,[R2, #+12]
+        LDR      R3,[R0, #+12]
+        STRB     R3,[R2, #+8]
         LDR      R2,[R0, #+12]
         LDR      R0,[R0, #+4]
         MOVS     R3,#+0
         UXTB     R2,R2
-        CBZ.N    R2,??HAL_FLASHEx_Erase_IT_3
+        CBZ.N    R2,??HAL_FLASHEx_Erase_IT_2
         CMP      R2,#+1
         IT       EQ 
         MOVEQ    R3,#+256
-        BEQ.N    ??HAL_FLASHEx_Erase_IT_3
+        BEQ.N    ??HAL_FLASHEx_Erase_IT_2
         CMP      R2,#+2
         ITE      EQ 
         MOVEQ    R3,#+512
         MOVNE    R3,#+768
-??HAL_FLASHEx_Erase_IT_3:
+??HAL_FLASHEx_Erase_IT_2:
         LDR      R2,[R1, #+4]
         LSLS     R0,R0,#+3
         ORR      R0,R0,#0x2
@@ -572,12 +612,8 @@ HAL_FLASHEx_Erase_IT:
         STR      R0,[R1, #+4]
         LDR      R0,[R1, #+4]
         ORR      R0,R0,#0x10000
-??HAL_FLASHEx_Erase_IT_2:
         STR      R0,[R1, #+4]
         DSB      
-//  278   }
-//  279 
-//  280   return status;
         MOVS     R0,#+0
         BX       LR               ;; return
 //  281 }
@@ -598,7 +634,7 @@ HAL_FLASHEx_Erase_IT:
 //  290 HAL_StatusTypeDef HAL_FLASHEx_OBProgram(FLASH_OBProgramInitTypeDef *pOBInit)
 //  291 {
 HAL_FLASHEx_OBProgram:
-        PUSH     {R3-R11,LR}
+        PUSH     {R4-R11,LR}
           CFI R14 Frame(CFA, -4)
           CFI R11 Frame(CFA, -8)
           CFI R10 Frame(CFA, -12)
@@ -608,12 +644,14 @@ HAL_FLASHEx_OBProgram:
           CFI R6 Frame(CFA, -28)
           CFI R5 Frame(CFA, -32)
           CFI R4 Frame(CFA, -36)
-          CFI CFA R13+40
+          CFI CFA R13+36
 //  292   HAL_StatusTypeDef status = HAL_ERROR;
 //  293   
 //  294   /* Process Locked */
 //  295   __HAL_LOCK(&pFlash);
         LDR.N    R5,??DataTable4
+        SUB      SP,SP,#+4
+          CFI CFA R13+40
         MOV      R4,R0
         MOVS     R0,#+1
         LDRB     R1,[R5, #+20]
@@ -787,7 +825,9 @@ HAL_FLASHEx_OBProgram:
 //  353 
 //  354   return status;
 ??HAL_FLASHEx_OBProgram_0:
-        POP      {R1,R4-R11,PC}   ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+36
+        POP      {R4-R11,PC}      ;; return
 //  355 }
           CFI EndBlock cfiBlock2
 //  356 
@@ -1370,9 +1410,9 @@ FLASH_Erase_Sector:
 //  809 
 //  810 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 756 bytes in section .text
+// 842 bytes in section .text
 // 
-// 756 bytes of CODE memory
+// 842 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

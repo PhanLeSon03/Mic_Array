@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       16/Apr/2016  18:31:03
+# IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM       27/Apr/2016  12:04:31
 # Copyright 1999-2015 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 #        -I
 #        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-#        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+#        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7 --relaxed_fp
 #    List file    =  
@@ -519,13 +519,15 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     265          USBD_StatusTypeDef  USBD_LL_DeInit (USBD_HandleTypeDef *pdev)
     266          {
    \                     USBD_LL_DeInit: (+1)
-   \   00000000   0xB580             PUSH     {R7,LR}
+   \   00000000   0xB500             PUSH     {LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
     267            HAL_PCD_DeInit(pdev->pData);
-   \   00000002   0xF8D0 0x0220      LDR      R0,[R0, #+544]
-   \   00000006   0x.... 0x....      BL       HAL_PCD_DeInit
+   \   00000004   0xF8D0 0x0220      LDR      R0,[R0, #+544]
+   \   00000008   0x.... 0x....      BL       HAL_PCD_DeInit
     268            return USBD_OK; 
-   \   0000000A   0x2000             MOVS     R0,#+0
-   \   0000000C   0xBD02             POP      {R1,PC}          ;; return
+   \   0000000C   0x2000             MOVS     R0,#+0
+   \   0000000E   0xB001             ADD      SP,SP,#+4
+   \   00000010   0xBD00             POP      {PC}             ;; return
     269          }
     270          
     271          /**
@@ -539,13 +541,15 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     277          USBD_StatusTypeDef  USBD_LL_Start(USBD_HandleTypeDef *pdev)
     278          {
    \                     USBD_LL_Start: (+1)
-   \   00000000   0xB580             PUSH     {R7,LR}
+   \   00000000   0xB500             PUSH     {LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
     279            HAL_PCD_Start(pdev->pData);
-   \   00000002   0xF8D0 0x0220      LDR      R0,[R0, #+544]
-   \   00000006   0x.... 0x....      BL       HAL_PCD_Start
+   \   00000004   0xF8D0 0x0220      LDR      R0,[R0, #+544]
+   \   00000008   0x.... 0x....      BL       HAL_PCD_Start
     280            return USBD_OK; 
-   \   0000000A   0x2000             MOVS     R0,#+0
-   \   0000000C   0xBD02             POP      {R1,PC}          ;; return
+   \   0000000C   0x2000             MOVS     R0,#+0
+   \   0000000E   0xB001             ADD      SP,SP,#+4
+   \   00000010   0xBD00             POP      {PC}             ;; return
     281          }
     282          
     283          /**
@@ -559,13 +563,15 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     289          USBD_StatusTypeDef  USBD_LL_Stop (USBD_HandleTypeDef *pdev)
     290          {
    \                     USBD_LL_Stop: (+1)
-   \   00000000   0xB580             PUSH     {R7,LR}
+   \   00000000   0xB500             PUSH     {LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
     291            HAL_PCD_Stop(pdev->pData);
-   \   00000002   0xF8D0 0x0220      LDR      R0,[R0, #+544]
-   \   00000006   0x.... 0x....      BL       HAL_PCD_Stop
+   \   00000004   0xF8D0 0x0220      LDR      R0,[R0, #+544]
+   \   00000008   0x.... 0x....      BL       HAL_PCD_Stop
     292            return USBD_OK; 
-   \   0000000A   0x2000             MOVS     R0,#+0
-   \   0000000C   0xBD02             POP      {R1,PC}          ;; return
+   \   0000000C   0x2000             MOVS     R0,#+0
+   \   0000000E   0xB001             ADD      SP,SP,#+4
+   \   00000010   0xBD00             POP      {PC}             ;; return
     293          }
     294          
     295          /**
@@ -613,13 +619,15 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     324          USBD_StatusTypeDef  USBD_LL_CloseEP (USBD_HandleTypeDef *pdev, uint8_t ep_addr)   
     325          {
    \                     USBD_LL_CloseEP: (+1)
-   \   00000000   0xB580             PUSH     {R7,LR}
+   \   00000000   0xB500             PUSH     {LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
     326            HAL_PCD_EP_Close(pdev->pData, ep_addr);
-   \   00000002   0xF8D0 0x0220      LDR      R0,[R0, #+544]
-   \   00000006   0x.... 0x....      BL       HAL_PCD_EP_Close
+   \   00000004   0xF8D0 0x0220      LDR      R0,[R0, #+544]
+   \   00000008   0x.... 0x....      BL       HAL_PCD_EP_Close
     327            return USBD_OK; 
-   \   0000000A   0x2000             MOVS     R0,#+0
-   \   0000000C   0xBD02             POP      {R1,PC}          ;; return
+   \   0000000C   0x2000             MOVS     R0,#+0
+   \   0000000E   0xB001             ADD      SP,SP,#+4
+   \   00000010   0xBD00             POP      {PC}             ;; return
     328          }
     329          
     330          /**
@@ -634,13 +642,15 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     337          USBD_StatusTypeDef  USBD_LL_FlushEP (USBD_HandleTypeDef *pdev, uint8_t ep_addr)   
     338          {
    \                     USBD_LL_FlushEP: (+1)
-   \   00000000   0xB580             PUSH     {R7,LR}
+   \   00000000   0xB500             PUSH     {LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
     339            HAL_PCD_EP_Flush(pdev->pData, ep_addr);
-   \   00000002   0xF8D0 0x0220      LDR      R0,[R0, #+544]
-   \   00000006   0x.... 0x....      BL       HAL_PCD_EP_Flush
+   \   00000004   0xF8D0 0x0220      LDR      R0,[R0, #+544]
+   \   00000008   0x.... 0x....      BL       HAL_PCD_EP_Flush
     340            return USBD_OK; 
-   \   0000000A   0x2000             MOVS     R0,#+0
-   \   0000000C   0xBD02             POP      {R1,PC}          ;; return
+   \   0000000C   0x2000             MOVS     R0,#+0
+   \   0000000E   0xB001             ADD      SP,SP,#+4
+   \   00000010   0xBD00             POP      {PC}             ;; return
     341          }
     342          
     343          /**
@@ -655,13 +665,15 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     350          USBD_StatusTypeDef  USBD_LL_StallEP (USBD_HandleTypeDef *pdev, uint8_t ep_addr)   
     351          {
    \                     USBD_LL_StallEP: (+1)
-   \   00000000   0xB580             PUSH     {R7,LR}
+   \   00000000   0xB500             PUSH     {LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
     352            HAL_PCD_EP_SetStall(pdev->pData, ep_addr);
-   \   00000002   0xF8D0 0x0220      LDR      R0,[R0, #+544]
-   \   00000006   0x.... 0x....      BL       HAL_PCD_EP_SetStall
+   \   00000004   0xF8D0 0x0220      LDR      R0,[R0, #+544]
+   \   00000008   0x.... 0x....      BL       HAL_PCD_EP_SetStall
     353            return USBD_OK; 
-   \   0000000A   0x2000             MOVS     R0,#+0
-   \   0000000C   0xBD02             POP      {R1,PC}          ;; return
+   \   0000000C   0x2000             MOVS     R0,#+0
+   \   0000000E   0xB001             ADD      SP,SP,#+4
+   \   00000010   0xBD00             POP      {PC}             ;; return
     354          }
     355          
     356          /**
@@ -676,13 +688,15 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     363          USBD_StatusTypeDef  USBD_LL_ClearStallEP (USBD_HandleTypeDef *pdev, uint8_t ep_addr)   
     364          {
    \                     USBD_LL_ClearStallEP: (+1)
-   \   00000000   0xB580             PUSH     {R7,LR}
+   \   00000000   0xB500             PUSH     {LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
     365            HAL_PCD_EP_ClrStall(pdev->pData, ep_addr);  
-   \   00000002   0xF8D0 0x0220      LDR      R0,[R0, #+544]
-   \   00000006   0x.... 0x....      BL       HAL_PCD_EP_ClrStall
+   \   00000004   0xF8D0 0x0220      LDR      R0,[R0, #+544]
+   \   00000008   0x.... 0x....      BL       HAL_PCD_EP_ClrStall
     366            return USBD_OK; 
-   \   0000000A   0x2000             MOVS     R0,#+0
-   \   0000000C   0xBD02             POP      {R1,PC}          ;; return
+   \   0000000C   0x2000             MOVS     R0,#+0
+   \   0000000E   0xB001             ADD      SP,SP,#+4
+   \   00000010   0xBD00             POP      {PC}             ;; return
     367          }
     368          
     369          /**
@@ -729,13 +743,15 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     396          USBD_StatusTypeDef  USBD_LL_SetUSBAddress (USBD_HandleTypeDef *pdev, uint8_t dev_addr)   
     397          {
    \                     USBD_LL_SetUSBAddress: (+1)
-   \   00000000   0xB580             PUSH     {R7,LR}
+   \   00000000   0xB500             PUSH     {LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
     398            HAL_PCD_SetAddress(pdev->pData, dev_addr);
-   \   00000002   0xF8D0 0x0220      LDR      R0,[R0, #+544]
-   \   00000006   0x.... 0x....      BL       HAL_PCD_SetAddress
+   \   00000004   0xF8D0 0x0220      LDR      R0,[R0, #+544]
+   \   00000008   0x.... 0x....      BL       HAL_PCD_SetAddress
     399            return USBD_OK; 
-   \   0000000A   0x2000             MOVS     R0,#+0
-   \   0000000C   0xBD02             POP      {R1,PC}          ;; return
+   \   0000000C   0x2000             MOVS     R0,#+0
+   \   0000000E   0xB001             ADD      SP,SP,#+4
+   \   00000010   0xBD00             POP      {PC}             ;; return
     400          }
     401          
     402          /**
@@ -755,13 +771,15 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     414                                                uint16_t  size)
     415          {
    \                     USBD_LL_Transmit: (+1)
-   \   00000000   0xB580             PUSH     {R7,LR}
+   \   00000000   0xB500             PUSH     {LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
     416            HAL_PCD_EP_Transmit(pdev->pData, ep_addr, pbuf, size);
-   \   00000002   0xF8D0 0x0220      LDR      R0,[R0, #+544]
-   \   00000006   0x.... 0x....      BL       HAL_PCD_EP_Transmit
+   \   00000004   0xF8D0 0x0220      LDR      R0,[R0, #+544]
+   \   00000008   0x.... 0x....      BL       HAL_PCD_EP_Transmit
     417            return USBD_OK;   
-   \   0000000A   0x2000             MOVS     R0,#+0
-   \   0000000C   0xBD02             POP      {R1,PC}          ;; return
+   \   0000000C   0x2000             MOVS     R0,#+0
+   \   0000000E   0xB001             ADD      SP,SP,#+4
+   \   00000010   0xBD00             POP      {PC}             ;; return
     418          }
     419          
     420          /**
@@ -781,13 +799,15 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
     432                                                     uint16_t  size)
     433          {
    \                     USBD_LL_PrepareReceive: (+1)
-   \   00000000   0xB580             PUSH     {R7,LR}
+   \   00000000   0xB500             PUSH     {LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
     434            HAL_PCD_EP_Receive(pdev->pData, ep_addr, pbuf, size);
-   \   00000002   0xF8D0 0x0220      LDR      R0,[R0, #+544]
-   \   00000006   0x.... 0x....      BL       HAL_PCD_EP_Receive
+   \   00000004   0xF8D0 0x0220      LDR      R0,[R0, #+544]
+   \   00000008   0x.... 0x....      BL       HAL_PCD_EP_Receive
     435            return USBD_OK;   
-   \   0000000A   0x2000             MOVS     R0,#+0
-   \   0000000C   0xBD02             POP      {R1,PC}          ;; return
+   \   0000000C   0x2000             MOVS     R0,#+0
+   \   0000000E   0xB001             ADD      SP,SP,#+4
+   \   00000010   0xBD00             POP      {PC}             ;; return
     436          }
     437          
     438          /**
@@ -931,28 +951,28 @@ D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\A
        8  HAL_PCD_SOFCallback
       12  HAL_PCD_SetupStageCallback
        8  HAL_PCD_SuspendCallback
-      14  USBD_LL_ClearStallEP
-      14  USBD_LL_CloseEP
-      14  USBD_LL_DeInit
+      18  USBD_LL_ClearStallEP
+      18  USBD_LL_CloseEP
+      18  USBD_LL_DeInit
        4  USBD_LL_Delay
-      14  USBD_LL_FlushEP
+      18  USBD_LL_FlushEP
        8  USBD_LL_GetRxDataSize
       96  USBD_LL_Init
       30  USBD_LL_IsStallEP
       20  USBD_LL_OpenEP
-      14  USBD_LL_PrepareReceive
-      14  USBD_LL_SetUSBAddress
-      14  USBD_LL_StallEP
-      14  USBD_LL_Start
-      14  USBD_LL_Stop
-      14  USBD_LL_Transmit
+      18  USBD_LL_PrepareReceive
+      18  USBD_LL_SetUSBAddress
+      18  USBD_LL_StallEP
+      18  USBD_LL_Start
+      18  USBD_LL_Stop
+      18  USBD_LL_Transmit
      960  hpcd
 
  
  960 bytes in section .bss
- 608 bytes in section .text
+ 648 bytes in section .text
  
- 608 bytes of CODE memory
+ 648 bytes of CODE memory
  960 bytes of DATA memory
 
 Errors: none

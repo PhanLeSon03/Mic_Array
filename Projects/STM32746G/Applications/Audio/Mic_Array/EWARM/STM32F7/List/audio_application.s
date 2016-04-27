@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      16/Apr/2016  18:30:57
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Apr/2016  12:04:25
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -199,11 +199,11 @@ swtBufUSBOut:
 //   41 void AudioUSBSend(uint16_t idxFrm) /* This function called every ms */
 //   42 {
 AudioUSBSend:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
+          CFI CFA R13+12
 //   43 #if 0
 //   44 	switch (cntBtnPress)
 //   45 			{
@@ -344,6 +344,8 @@ AudioUSBSend:
 //  180     (swtBufUSBOut)?Send_Audio_to_USB((int16_t *)&PCM_Buffer2[(8*AUDIO_SAMPLING_FREQUENCY/1000)*idxFrm], (8*AUDIO_SAMPLING_FREQUENCY/1000))://AUDIO_CHANNELS
 //  181                    Send_Audio_to_USB((int16_t *)&PCM_Buffer1[(8*AUDIO_SAMPLING_FREQUENCY/1000)*idxFrm], (8*AUDIO_SAMPLING_FREQUENCY/1000));//AUDIO_CHANNELS
         LDR.N    R5,??DataTable1
+        SUB      SP,SP,#+4
+          CFI CFA R13+16
         MOV      R4,R0
         LDRB     R1,[R5, #+0]
         CMP      R1,#+0
@@ -366,7 +368,9 @@ AudioUSBSend:
 //  185 #endif			   
 //  186 }
 ??AudioUSBSend_0:
-        POP      {R0,R4,R5,PC}    ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
           CFI EndBlock cfiBlock0
 //  187 
 //  188 /* This function should be called after data processing */
@@ -382,392 +386,519 @@ AudioUSBSend:
 //  198  ---------------------------------------------------------------------------------------------------------------*/
 //  199 
 
-        SECTION `.text`:CODE:NOROOT(1)
+        SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock1 Using cfiCommon0
           CFI Function AudioPlayerUpd
           CFI NoCalls
         THUMB
 //  200 void AudioPlayerUpd(void) /* This function called with period of 64ms */
 //  201 {
-//  202 #if (!0)
-//  203 	switch (buffer_switch)
+//  202 #if (1)
+//  203 	
+//  204 	switch (buffer_switch)
 AudioPlayerUpd:
         LDR.N    R0,??DataTable1_3
-        PUSH     {R4-R9,LR}
-          CFI R14 Frame(CFA, -4)
-          CFI R9 Frame(CFA, -8)
-          CFI R8 Frame(CFA, -12)
-          CFI R7 Frame(CFA, -16)
-          CFI R6 Frame(CFA, -20)
-          CFI R5 Frame(CFA, -24)
-          CFI R4 Frame(CFA, -28)
-          CFI CFA R13+28
+        PUSH     {R4-R7}
+          CFI R7 Frame(CFA, -4)
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
         LDRB     R0,[R0, #+0]
         CBZ.N    R0,??AudioPlayerUpd_0
         CMP      R0,#+2
-        BEQ.N    ??AudioPlayerUpd_1
+        BEQ.W    ??AudioPlayerUpd_1
         BCC.N    ??AudioPlayerUpd_2
-//  204     {
-//  205       case BUF1_PLAY:
-//  206 		for (uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
-//  207 		{
-//  208            if (swtBufUSBOut)
-//  209            {
-//  210 			   PCM_Buffer1[8*(i)  ]= Buffer1.bufMIC1[i];
-//  211 			   PCM_Buffer1[8*(i)+1]= Buffer1.bufMIC2[i];
-//  212 			   PCM_Buffer1[8*(i)+2]= Buffer1.bufMIC3[i];
-//  213 			   PCM_Buffer1[8*(i)+3]= Buffer1.bufMIC4[i];
-//  214 			   PCM_Buffer1[8*(i)+4]= Buffer1.bufMIC5[i];
-//  215 			   PCM_Buffer1[8*(i)+5]= Buffer1.bufMIC6[i];
-//  216 			   PCM_Buffer1[8*(i)+6]= Buffer1.bufMIC7[i];
-//  217 			   PCM_Buffer1[8*(i)+7]= Buffer1.bufMIC8[i];
-//  218 
-//  219            }
-//  220 		   else
-//  221 		   {
-//  222 		  PCM_Buffer2[8*(i)  ]= Buffer1.bufMIC1[i];
-//  223 		  PCM_Buffer2[8*(i)+1]= Buffer1.bufMIC2[i];
-//  224 		  PCM_Buffer2[8*(i)+2]= Buffer1.bufMIC3[i];
-//  225 		  PCM_Buffer2[8*(i)+3]= Buffer1.bufMIC4[i];
-//  226 		  PCM_Buffer2[8*(i)+4]= Buffer1.bufMIC5[i];
-//  227 		  PCM_Buffer2[8*(i)+5]= Buffer1.bufMIC6[i];
-//  228 		  PCM_Buffer2[8*(i)+6]= Buffer1.bufMIC7[i];
-//  229 		  PCM_Buffer2[8*(i)+7]= Buffer1.bufMIC8[i];		   
-//  230 		   }
-//  231 
-//  232 		  
-//  233 		}
-//  234         break;    
-//  235       case BUF2_PLAY:
-//  236 	  	for (uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
-//  237  	  	{
-//  238            if (swtBufUSBOut)
-//  239            {
-//  240 			   PCM_Buffer1[8*(i)  ]= Buffer2.bufMIC1[i];
-//  241 			   PCM_Buffer1[8*(i)+1]= Buffer2.bufMIC2[i];
-//  242 			   PCM_Buffer1[8*(i)+2]= Buffer2.bufMIC3[i];
-//  243 			   PCM_Buffer1[8*(i)+3]= Buffer2.bufMIC4[i];
-//  244 			   PCM_Buffer1[8*(i)+4]= Buffer2.bufMIC5[i];
-//  245 			   PCM_Buffer1[8*(i)+5]= Buffer2.bufMIC6[i];
-//  246 			   PCM_Buffer1[8*(i)+6]= Buffer2.bufMIC7[i];
-//  247 			   PCM_Buffer1[8*(i)+7]= Buffer2.bufMIC8[i];
-//  248 
-//  249            }
-//  250 		   else
-//  251 		   {
-//  252 			PCM_Buffer2[8*(i)  ]= Buffer2.bufMIC1[i];
-//  253 			PCM_Buffer2[8*(i)+1]= Buffer2.bufMIC2[i];
-//  254 			PCM_Buffer2[8*(i)+2]= Buffer2.bufMIC3[i];
-//  255 			PCM_Buffer2[8*(i)+3]= Buffer2.bufMIC4[i];
-//  256 			PCM_Buffer2[8*(i)+4]= Buffer2.bufMIC5[i];
-//  257 			PCM_Buffer2[8*(i)+5]= Buffer2.bufMIC6[i];
-//  258 			PCM_Buffer2[8*(i)+6]= Buffer2.bufMIC7[i];
-//  259 			PCM_Buffer2[8*(i)+7]= Buffer2.bufMIC8[i];		   
-//  260 		   }
-//  261 
+//  205     {
+//  206       case BUF1_PLAY:
+//  207 		for (uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
+//  208 		{
+//  209            if (swtBufUSBOut)
+//  210            {
+//  211 			   PCM_Buffer1[8*(i)  ]= Buffer1.bufMIC1[i];
+//  212 			   PCM_Buffer1[8*(i)+1]= Buffer1.bufMIC2[i];
+//  213 			   PCM_Buffer1[8*(i)+2]= Buffer1.bufMIC3[i];
+//  214 			   PCM_Buffer1[8*(i)+3]= Buffer1.bufMIC4[i];
+//  215 			   PCM_Buffer1[8*(i)+4]= Buffer1.bufMIC5[i];
+//  216 			   PCM_Buffer1[8*(i)+5]= Buffer1.bufMIC6[i];
+//  217 			   PCM_Buffer1[8*(i)+6]= Buffer1.bufMIC7[i];
+//  218 			   PCM_Buffer1[8*(i)+7]= Buffer1.bufMIC8[i];
+//  219 
+//  220            }
+//  221 		   else
+//  222 		   {
+//  223 		  PCM_Buffer2[8*(i)  ]= Buffer1.bufMIC1[i];
+//  224 		  PCM_Buffer2[8*(i)+1]= Buffer1.bufMIC2[i];
+//  225 		  PCM_Buffer2[8*(i)+2]= Buffer1.bufMIC3[i];
+//  226 		  PCM_Buffer2[8*(i)+3]= Buffer1.bufMIC4[i];
+//  227 		  PCM_Buffer2[8*(i)+4]= Buffer1.bufMIC5[i];
+//  228 		  PCM_Buffer2[8*(i)+5]= Buffer1.bufMIC6[i];
+//  229 		  PCM_Buffer2[8*(i)+6]= Buffer1.bufMIC7[i];
+//  230 		  PCM_Buffer2[8*(i)+7]= Buffer1.bufMIC8[i];		   
+//  231 		   }
+//  232 
+//  233 		  
+//  234 		}
+//  235         break;    
+//  236       case BUF2_PLAY:
+//  237 	  	for (uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
+//  238  	  	{
+//  239            if (swtBufUSBOut)
+//  240            {
+//  241 			   PCM_Buffer1[8*(i)  ]= Buffer2.bufMIC1[i];
+//  242 			   PCM_Buffer1[8*(i)+1]= Buffer2.bufMIC2[i];
+//  243 			   PCM_Buffer1[8*(i)+2]= Buffer2.bufMIC3[i];
+//  244 			   PCM_Buffer1[8*(i)+3]= Buffer2.bufMIC4[i];
+//  245 			   PCM_Buffer1[8*(i)+4]= Buffer2.bufMIC5[i];
+//  246 			   PCM_Buffer1[8*(i)+5]= Buffer2.bufMIC6[i];
+//  247 			   PCM_Buffer1[8*(i)+6]= Buffer2.bufMIC7[i];
+//  248 			   PCM_Buffer1[8*(i)+7]= Buffer2.bufMIC8[i];
+//  249 
+//  250            }
+//  251 		   else
+//  252 		   {
+//  253 			PCM_Buffer2[8*(i)  ]= Buffer2.bufMIC1[i];
+//  254 			PCM_Buffer2[8*(i)+1]= Buffer2.bufMIC2[i];
+//  255 			PCM_Buffer2[8*(i)+2]= Buffer2.bufMIC3[i];
+//  256 			PCM_Buffer2[8*(i)+3]= Buffer2.bufMIC4[i];
+//  257 			PCM_Buffer2[8*(i)+4]= Buffer2.bufMIC5[i];
+//  258 			PCM_Buffer2[8*(i)+5]= Buffer2.bufMIC6[i];
+//  259 			PCM_Buffer2[8*(i)+6]= Buffer2.bufMIC7[i];
+//  260 			PCM_Buffer2[8*(i)+7]= Buffer2.bufMIC8[i];		   
+//  261 		   }
 //  262 
-//  263 		}
-//  264 		
-//  265         break;
-//  266       case BUF3_PLAY:
-//  267 	  	for (uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
-//  268  	  	{
-//  269            if (swtBufUSBOut)
-//  270            {
-//  271 			   PCM_Buffer1[8*(i)  ]= Buffer3.bufMIC1[i];
-//  272 			   PCM_Buffer1[8*(i)+1]= Buffer3.bufMIC2[i];
-//  273 			   PCM_Buffer1[8*(i)+2]= Buffer3.bufMIC3[i];
-//  274 			   PCM_Buffer1[8*(i)+3]= Buffer3.bufMIC4[i];
-//  275 			   PCM_Buffer1[8*(i)+4]= Buffer3.bufMIC5[i];
-//  276 			   PCM_Buffer1[8*(i)+5]= Buffer3.bufMIC6[i];
-//  277 			   PCM_Buffer1[8*(i)+6]= Buffer3.bufMIC7[i];
-//  278 			   PCM_Buffer1[8*(i)+7]= Buffer3.bufMIC8[i];
-//  279 
-//  280            }
-//  281 		   else
-//  282 		   {
-//  283 				PCM_Buffer2[8*(i)  ]= Buffer3.bufMIC1[i];
-//  284 				PCM_Buffer2[8*(i)+1]= Buffer3.bufMIC2[i];
-//  285 				PCM_Buffer2[8*(i)+2]= Buffer3.bufMIC3[i];
-//  286 				PCM_Buffer2[8*(i)+3]= Buffer3.bufMIC4[i];
-//  287 				PCM_Buffer2[8*(i)+4]= Buffer3.bufMIC5[i];
-//  288 				PCM_Buffer2[8*(i)+5]= Buffer3.bufMIC6[i];
-//  289 				PCM_Buffer2[8*(i)+6]= Buffer3.bufMIC7[i];
-//  290 				PCM_Buffer2[8*(i)+7]= Buffer3.bufMIC8[i];		   
-//  291 		   } 	  	
-//  292 
+//  263 
+//  264 		}
+//  265 		
+//  266         break;
+//  267       case BUF3_PLAY:
+//  268 	  	for (uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
+//  269  	  	{
+//  270            if (swtBufUSBOut)
+//  271            {
+//  272 			   PCM_Buffer1[8*(i)  ]= Buffer3.bufMIC1[i];
+//  273 			   PCM_Buffer1[8*(i)+1]= Buffer3.bufMIC2[i];
+//  274 			   PCM_Buffer1[8*(i)+2]= Buffer3.bufMIC3[i];
+//  275 			   PCM_Buffer1[8*(i)+3]= Buffer3.bufMIC4[i];
+//  276 			   PCM_Buffer1[8*(i)+4]= Buffer3.bufMIC5[i];
+//  277 			   PCM_Buffer1[8*(i)+5]= Buffer3.bufMIC6[i];
+//  278 			   PCM_Buffer1[8*(i)+6]= Buffer3.bufMIC7[i];
+//  279 			   PCM_Buffer1[8*(i)+7]= Buffer3.bufMIC8[i];
+//  280 
+//  281            }
+//  282 		   else
+//  283 		   {
+//  284 				PCM_Buffer2[8*(i)  ]= Buffer3.bufMIC1[i];
+//  285 				PCM_Buffer2[8*(i)+1]= Buffer3.bufMIC2[i];
+//  286 				PCM_Buffer2[8*(i)+2]= Buffer3.bufMIC3[i];
+//  287 				PCM_Buffer2[8*(i)+3]= Buffer3.bufMIC4[i];
+//  288 				PCM_Buffer2[8*(i)+4]= Buffer3.bufMIC5[i];
+//  289 				PCM_Buffer2[8*(i)+5]= Buffer3.bufMIC6[i];
+//  290 				PCM_Buffer2[8*(i)+6]= Buffer3.bufMIC7[i];
+//  291 				PCM_Buffer2[8*(i)+7]= Buffer3.bufMIC8[i];		   
+//  292 		   } 	  	
 //  293 
-//  294 		}	  	
-//  295         break;
-//  296       default:
-//  297         break;
-//  298     }
-//  299 
-//  300 	
-//  301 #else
-//  302 
-//  303 swtBufUSBOut^=0x01;
+//  294 
+//  295 		}	  	
+//  296         break;
+//  297       default:
+//  298         break;
+//  299     }
+//  300 
+//  301   
+//  302 	
+//  303 #else
 //  304 
 //  305 
-//  306 switch (buffer_switch)
-//  307 {
-//  308 	case BUF1_PLAY:
-//  309 		  switch (cntBtnPress)
-//  310 		  {
-//  311 			case 0:
-//  312 				  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  313 				  { 		   
-//  314 						   (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC1[i]):(PCM_Buffer2[i] = Buffer3.bufMIC1[i]);
-//  315 				  }
-//  316 				  break;
-//  317 			case 1:
-//  318 				  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  319 				  { 		   
-//  320 							(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC2[i]):(PCM_Buffer2[i] = Buffer3.bufMIC2[i]);
-//  321 				  }
-//  322 				  break;
-//  323 			case 2:
-//  324 				  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  325 				  {
-//  326 					  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC3[i]):(PCM_Buffer2[i] = Buffer3.bufMIC3[i]);
-//  327 				  }
-//  328 				  break;
-//  329 			case 3:
-//  330 				  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  331 				  { 		 
-//  332 					  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC4[i]):(PCM_Buffer2[i] = Buffer3.bufMIC4[i]);
-//  333 				  }
-//  334 				  break;
-//  335 			case 4:
-//  336 				for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  337 				{		   
-//  338 					(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC5[i]):(PCM_Buffer2[i] = Buffer3.bufMIC5[i]);
-//  339 				}
-//  340 				break;
-//  341 			case 5:
-//  342 				for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  343 				{		   
-//  344 					(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC6[i]):(PCM_Buffer2[i] = Buffer3.bufMIC6[i]);
-//  345 				}
-//  346 				break;
-//  347 			case 6:
-//  348 				for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  349 				{
-//  350 					(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC7[i]):(PCM_Buffer2[i] = Buffer3.bufMIC7[i]);
-//  351 				}
-//  352 				break;
-//  353 			case 7:
-//  354 				for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  355 				{
-//  356 					(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC8[i]):(PCM_Buffer2[i] = Buffer3.bufMIC8[i]);
-//  357 				}
-//  358 				break;
-//  359 			default:
-//  360 				 break;
-//  361 		  } 					  
-//  362 	  break;
-//  363 
-//  364   case BUF2_PLAY:
-//  365 	  switch (cntBtnPress)
-//  366 	  {
-//  367 		case 0:
-//  368 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  369 			  { 		   
-//  370 					   (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC1[i]):(PCM_Buffer2[i] = Buffer1.bufMIC1[i]);
-//  371 			  }
-//  372 			  break;
-//  373 		case 1:
-//  374 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  375 			  { 		   
-//  376 						(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC2[i]):(PCM_Buffer2[i] = Buffer1.bufMIC2[i]);
-//  377 			  }
-//  378 			  break;
-//  379 		case 2:
-//  380 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  381 			  {
-//  382 				  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC3[i]):(PCM_Buffer2[i] = Buffer1.bufMIC3[i]);
-//  383 			  }
-//  384 			  break;
-//  385 		case 3:
-//  386 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  387 			  { 		 
-//  388 				  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC4[i]):(PCM_Buffer2[i] = Buffer1.bufMIC4[i]);
-//  389 			  }
-//  390 			  break;
-//  391 		case 4:
-//  392 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  393 			{		   
-//  394 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC5[i]):(PCM_Buffer2[i] = Buffer1.bufMIC5[i]);
-//  395 			}
-//  396 			break;
-//  397 		case 5:
-//  398 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  399 			{		   
-//  400 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC6[i]):(PCM_Buffer2[i] = Buffer1.bufMIC6[i]);
-//  401 			}
-//  402 			break;
-//  403 		case 6:
-//  404 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  405 			{
-//  406 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC7[i]):(PCM_Buffer2[i] = Buffer1.bufMIC7[i]);
-//  407 			}
-//  408 			break;
-//  409 		case 7:
-//  410 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  411 			{
-//  412 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC8[i]):(PCM_Buffer2[i] = Buffer1.bufMIC8[i]);
-//  413 			}
-//  414 			break;
-//  415 		default:
-//  416 			 break;
-//  417 	  }
-//  418 	  
-//  419  
-//  420   
-//  421 	break;
-//  422   case BUF3_PLAY:
-//  423 	  switch (cntBtnPress)
-//  424 	  {
-//  425 		case 0:
-//  426 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  427 			  { 		   
-//  428 					   (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC1[i]):(PCM_Buffer2[i] = Buffer2.bufMIC1[i]);
-//  429 			  }
-//  430 			  break;
-//  431 		case 1:
-//  432 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  433 			  { 		   
-//  434 						(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC2[i]):(PCM_Buffer2[i] = Buffer2.bufMIC2[i]);
-//  435 			  }
-//  436 			  break;
-//  437 		case 2:
-//  438 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  439 			  {
-//  440 				  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC3[i]):(PCM_Buffer2[i] = Buffer2.bufMIC3[i]);
-//  441 			  }
-//  442 			  break;
-//  443 		case 3:
-//  444 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  445 			  { 		 
-//  446 				  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC4[i]):(PCM_Buffer2[i] = Buffer2.bufMIC4[i]);
-//  447 			  }
-//  448 			  break;
-//  449 		case 4:
-//  450 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  451 			{		   
-//  452 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC5[i]):(PCM_Buffer2[i] = Buffer2.bufMIC5[i]);
-//  453 			}
-//  454 			break;
-//  455 		case 5:
-//  456 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  457 			{		   
-//  458 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC6[i]):(PCM_Buffer2[i] = Buffer2.bufMIC6[i]);
-//  459 			}
-//  460 			break;
-//  461 		case 6:
-//  462 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  463 			{
-//  464 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC7[i]):(PCM_Buffer2[i] = Buffer2.bufMIC7[i]);
-//  465 			}
-//  466 			break;
-//  467 		case 7:
-//  468 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
-//  469 			{
-//  470 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC8[i]):(PCM_Buffer2[i] = Buffer2.bufMIC8[i]);
-//  471 			}
-//  472 			break;
-//  473 		default:
-//  474 			 break;
-//  475 	  }
-//  476 		  
-//  477 	break;
-//  478   default:
+//  306 swtBufUSBOut^=0x01;
+//  307 
+//  308 switch (buffer_switch)
+//  309 {
+//  310 	case BUF1_PLAY:
+//  311 		  switch (cntBtnPress)
+//  312 		  {
+//  313 			case 0:
+//  314 				  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  315 				  { 		   
+//  316 						   (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC1[i]):(PCM_Buffer2[i] = Buffer3.bufMIC1[i]);
+//  317 				  }
+//  318 				  break;
+//  319 			case 1:
+//  320 				  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  321 				  { 		   
+//  322 							(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC2[i]):(PCM_Buffer2[i] = Buffer3.bufMIC2[i]);
+//  323 				  }
+//  324 				  break;
+//  325 			case 2:
+//  326 				  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  327 				  {
+//  328 					  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC3[i]):(PCM_Buffer2[i] = Buffer3.bufMIC3[i]);
+//  329 				  }
+//  330 				  break;
+//  331 			case 3:
+//  332 				  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  333 				  { 		 
+//  334 					  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC4[i]):(PCM_Buffer2[i] = Buffer3.bufMIC4[i]);
+//  335 				  }
+//  336 				  break;
+//  337 			case 4:
+//  338 				for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  339 				{		   
+//  340 					(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC5[i]):(PCM_Buffer2[i] = Buffer3.bufMIC5[i]);
+//  341 				}
+//  342 				break;
+//  343 			case 5:
+//  344 				for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  345 				{		   
+//  346 					(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC6[i]):(PCM_Buffer2[i] = Buffer3.bufMIC6[i]);
+//  347 				}
+//  348 				break;
+//  349 			case 6:
+//  350 				for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  351 				{
+//  352 					(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC7[i]):(PCM_Buffer2[i] = Buffer3.bufMIC7[i]);
+//  353 				}
+//  354 				break;
+//  355 			case 7:
+//  356 				for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  357 				{
+//  358 					(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer3.bufMIC8[i]):(PCM_Buffer2[i] = Buffer3.bufMIC8[i]);
+//  359 				}
+//  360 				break;
+//  361 			default:
+//  362 				 break;
+//  363 		  } 					  
+//  364 	  break;
+//  365 
+//  366   case BUF2_PLAY:
+//  367 	  switch (cntBtnPress)
+//  368 	  {
+//  369 		case 0:
+//  370 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  371 			  { 		   
+//  372 					   (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC1[i]):(PCM_Buffer2[i] = Buffer1.bufMIC1[i]);
+//  373 			  }
+//  374 			  break;
+//  375 		case 1:
+//  376 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  377 			  { 		   
+//  378 						(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC2[i]):(PCM_Buffer2[i] = Buffer1.bufMIC2[i]);
+//  379 			  }
+//  380 			  break;
+//  381 		case 2:
+//  382 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  383 			  {
+//  384 				  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC3[i]):(PCM_Buffer2[i] = Buffer1.bufMIC3[i]);
+//  385 			  }
+//  386 			  break;
+//  387 		case 3:
+//  388 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  389 			  { 		 
+//  390 				  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC4[i]):(PCM_Buffer2[i] = Buffer1.bufMIC4[i]);
+//  391 			  }
+//  392 			  break;
+//  393 		case 4:
+//  394 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  395 			{		   
+//  396 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC5[i]):(PCM_Buffer2[i] = Buffer1.bufMIC5[i]);
+//  397 			}
+//  398 			break;
+//  399 		case 5:
+//  400 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  401 			{		   
+//  402 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC6[i]):(PCM_Buffer2[i] = Buffer1.bufMIC6[i]);
+//  403 			}
+//  404 			break;
+//  405 		case 6:
+//  406 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  407 			{
+//  408 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC7[i]):(PCM_Buffer2[i] = Buffer1.bufMIC7[i]);
+//  409 			}
+//  410 			break;
+//  411 		case 7:
+//  412 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  413 			{
+//  414 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer1.bufMIC8[i]):(PCM_Buffer2[i] = Buffer1.bufMIC8[i]);
+//  415 			}
+//  416 			break;
+//  417 		default:
+//  418 			 break;
+//  419 	  }
+//  420 	  
+//  421  
+//  422   
+//  423 	break;
+//  424   case BUF3_PLAY:
+//  425 	  switch (cntBtnPress)
+//  426 	  {
+//  427 		case 0:
+//  428 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  429 			  { 		   
+//  430 					   (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC1[i]):(PCM_Buffer2[i] = Buffer2.bufMIC1[i]);
+//  431 			  }
+//  432 			  break;
+//  433 		case 1:
+//  434 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  435 			  { 		   
+//  436 						(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC2[i]):(PCM_Buffer2[i] = Buffer2.bufMIC2[i]);
+//  437 			  }
+//  438 			  break;
+//  439 		case 2:
+//  440 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  441 			  {
+//  442 				  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC3[i]):(PCM_Buffer2[i] = Buffer2.bufMIC3[i]);
+//  443 			  }
+//  444 			  break;
+//  445 		case 3:
+//  446 			  for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  447 			  { 		 
+//  448 				  (swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC4[i]):(PCM_Buffer2[i] = Buffer2.bufMIC4[i]);
+//  449 			  }
+//  450 			  break;
+//  451 		case 4:
+//  452 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  453 			{		   
+//  454 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC5[i]):(PCM_Buffer2[i] = Buffer2.bufMIC5[i]);
+//  455 			}
+//  456 			break;
+//  457 		case 5:
+//  458 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  459 			{		   
+//  460 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC6[i]):(PCM_Buffer2[i] = Buffer2.bufMIC6[i]);
+//  461 			}
+//  462 			break;
+//  463 		case 6:
+//  464 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  465 			{
+//  466 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC7[i]):(PCM_Buffer2[i] = Buffer2.bufMIC7[i]);
+//  467 			}
+//  468 			break;
+//  469 		case 7:
+//  470 			for (uint16_t i=0;i<AUDIO_CHANNELS*AUDIO_OUT_BUFFER_SIZE;i++)
+//  471 			{
+//  472 				(swtBufUSBOut)?(PCM_Buffer1[i] = Buffer2.bufMIC8[i]):(PCM_Buffer2[i] = Buffer2.bufMIC8[i]);
+//  473 			}
+//  474 			break;
+//  475 		default:
+//  476 			 break;
+//  477 	  }
+//  478 		  
 //  479 	break;
-//  480 }
-//  481 #endif
-//  482 
-//  483 }
-        POP      {R4-R9,PC}
+//  480   default:
+//  481 	break;
+//  482 }
+//  483 #endif
+//  484 
+//  485 }
+        POP      {R4-R7}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI CFA R13+0
+        BX       LR
+          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -12)
+          CFI R6 Frame(CFA, -8)
+          CFI R7 Frame(CFA, -4)
+          CFI CFA R13+16
 ??AudioPlayerUpd_0:
-        LDR.N    R7,??DataTable1_4
-        B.N      ?Subroutine0
-??AudioPlayerUpd_2:
-        LDR.N    R7,??DataTable1_5
-        B.N      ?Subroutine0
-??AudioPlayerUpd_1:
-        LDR.N    R7,??DataTable1_6
-          CFI EndBlock cfiBlock1
-        REQUIRE ?Subroutine0
-        ;; // Fall through to label ?Subroutine0
-
-        SECTION `.text`:CODE:NOROOT(1)
-          CFI Block cfiBlock2 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA R13+28
-          CFI R4 Frame(CFA, -28)
-          CFI R5 Frame(CFA, -24)
-          CFI R6 Frame(CFA, -20)
-          CFI R7 Frame(CFA, -16)
-          CFI R8 Frame(CFA, -12)
-          CFI R9 Frame(CFA, -8)
-          CFI R14 Frame(CFA, -4)
-        THUMB
-?Subroutine0:
-        LDR.W    R12,??DataTable1_2
-        LDR.W    LR,??DataTable1_1
-        MOV      R8,#+1024
+        LDR.N    R2,??DataTable1_4
+        LDR.N    R3,??DataTable1_2
+        LDR.N    R4,??DataTable1_1
+        MOV      R5,#+1024
         LDR.N    R0,??DataTable1
-??Subroutine0_0:
-        LDRB     R6,[R0, #+0]
-        MOV      R1,#+14336
-        MOV      R2,#+12288
-        MOV      R3,#+10240
-        MOV      R4,#+8192
-        MOV      R5,#+6144
-        CMP      R6,#+0
-        MOV      R9,#+4096
-        LDRH     R6,[R7, #+0]
-        BEQ.N    ??Subroutine0_1
-        STRH     R6,[R12, #+0]
-        LDRH     R6,[R7, #+2048]
-        STRH     R6,[R12, #+2]
-        LDRH     R9,[R9, R7]
-        STRH     R9,[R12, #+4]
-        LDRH     R5,[R5, R7]
-        STRH     R5,[R12, #+6]
-        LDRH     R4,[R4, R7]
-        STRH     R4,[R12, #+8]
-        LDRH     R3,[R3, R7]
-        STRH     R3,[R12, #+10]
-        LDRH     R2,[R2, R7]
-        STRH     R2,[R12, #+12]
-        LDRH     R1,[R1, R7]
-        STRH     R1,[R12, #+14]
-        B.N      ??Subroutine0_2
-??Subroutine0_1:
-        STRH     R6,[LR, #+0]
-        LDRH     R6,[R7, #+2048]
-        STRH     R6,[LR, #+2]
-        LDRH     R9,[R9, R7]
-        STRH     R9,[LR, #+4]
-        LDRH     R5,[R5, R7]
-        STRH     R5,[LR, #+6]
-        LDRH     R4,[R4, R7]
-        STRH     R4,[LR, #+8]
-        LDRH     R3,[R3, R7]
-        STRH     R3,[LR, #+10]
-        LDRH     R2,[R2, R7]
-        STRH     R2,[LR, #+12]
-        LDRH     R1,[R1, R7]
-        STRH     R1,[LR, #+14]
-??Subroutine0_2:
-        ADDS     R7,R7,#+2
-        SUBS     R8,R8,#+1
-        ADD      LR,LR,#+16
-        ADD      R12,R12,#+16
-        BNE.N    ??Subroutine0_0
-        POP      {R4-R9,PC}       ;; return
-          CFI EndBlock cfiBlock2
+??AudioPlayerUpd_3:
+        MOV      R1,#+12288
+        ADDS     R6,R1,R2
+        MOV      R1,#+8192
+        ADDS     R7,R1,R2
+        LDRB     R12,[R0, #+0]
+        MOV      R1,#+4096
+        ADDS     R1,R1,R2
+        CMP      R12,#+0
+        LDRH     R12,[R2, #+0]
+        BEQ.N    ??AudioPlayerUpd_4
+        STRH     R12,[R3, #+0]
+        LDRH     R12,[R2, #+2048]
+        STRH     R12,[R3, #+2]
+        LDRH     R12,[R1, #+0]
+        STRH     R12,[R3, #+4]
+        LDRH     R1,[R1, #+2048]
+        STRH     R1,[R3, #+6]
+        LDRH     R1,[R7, #+0]
+        STRH     R1,[R3, #+8]
+        LDRH     R1,[R7, #+2048]
+        STRH     R1,[R3, #+10]
+        LDRH     R1,[R6, #+0]
+        STRH     R1,[R3, #+12]
+        LDRH     R1,[R6, #+2048]
+        STRH     R1,[R3, #+14]
+        B.N      ??AudioPlayerUpd_5
+??AudioPlayerUpd_4:
+        STRH     R12,[R4, #+0]
+        LDRH     R12,[R2, #+2048]
+        STRH     R12,[R4, #+2]
+        LDRH     R12,[R1, #+0]
+        STRH     R12,[R4, #+4]
+        LDRH     R1,[R1, #+2048]
+        STRH     R1,[R4, #+6]
+        LDRH     R1,[R7, #+0]
+        STRH     R1,[R4, #+8]
+        LDRH     R1,[R7, #+2048]
+        STRH     R1,[R4, #+10]
+        LDRH     R1,[R6, #+0]
+        STRH     R1,[R4, #+12]
+        LDRH     R1,[R6, #+2048]
+        STRH     R1,[R4, #+14]
+??AudioPlayerUpd_5:
+        ADDS     R4,R4,#+16
+        ADDS     R3,R3,#+16
+        ADDS     R2,R2,#+2
+        SUBS     R5,R5,#+1
+        BNE.N    ??AudioPlayerUpd_3
+        POP      {R4-R7}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI CFA R13+0
+        BX       LR
+          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -12)
+          CFI R6 Frame(CFA, -8)
+          CFI R7 Frame(CFA, -4)
+          CFI CFA R13+16
+??AudioPlayerUpd_2:
+        LDR.N    R2,??DataTable1_5
+        LDR.N    R3,??DataTable1_2
+        LDR.N    R4,??DataTable1_1
+        MOV      R5,#+1024
+        LDR.N    R0,??DataTable1
+??AudioPlayerUpd_6:
+        MOV      R1,#+12288
+        ADDS     R6,R1,R2
+        MOV      R1,#+8192
+        ADDS     R7,R1,R2
+        LDRB     R12,[R0, #+0]
+        MOV      R1,#+4096
+        ADDS     R1,R1,R2
+        CMP      R12,#+0
+        LDRH     R12,[R2, #+0]
+        BEQ.N    ??AudioPlayerUpd_7
+        STRH     R12,[R3, #+0]
+        LDRH     R12,[R2, #+2048]
+        STRH     R12,[R3, #+2]
+        LDRH     R12,[R1, #+0]
+        STRH     R12,[R3, #+4]
+        LDRH     R1,[R1, #+2048]
+        STRH     R1,[R3, #+6]
+        LDRH     R1,[R7, #+0]
+        STRH     R1,[R3, #+8]
+        LDRH     R1,[R7, #+2048]
+        STRH     R1,[R3, #+10]
+        LDRH     R1,[R6, #+0]
+        STRH     R1,[R3, #+12]
+        LDRH     R1,[R6, #+2048]
+        STRH     R1,[R3, #+14]
+        B.N      ??AudioPlayerUpd_8
+??AudioPlayerUpd_7:
+        STRH     R12,[R4, #+0]
+        LDRH     R12,[R2, #+2048]
+        STRH     R12,[R4, #+2]
+        LDRH     R12,[R1, #+0]
+        STRH     R12,[R4, #+4]
+        LDRH     R1,[R1, #+2048]
+        STRH     R1,[R4, #+6]
+        LDRH     R1,[R7, #+0]
+        STRH     R1,[R4, #+8]
+        LDRH     R1,[R7, #+2048]
+        STRH     R1,[R4, #+10]
+        LDRH     R1,[R6, #+0]
+        STRH     R1,[R4, #+12]
+        LDRH     R1,[R6, #+2048]
+        STRH     R1,[R4, #+14]
+??AudioPlayerUpd_8:
+        ADDS     R4,R4,#+16
+        ADDS     R3,R3,#+16
+        ADDS     R2,R2,#+2
+        SUBS     R5,R5,#+1
+        BNE.N    ??AudioPlayerUpd_6
+        POP      {R4-R7}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI CFA R13+0
+        BX       LR
+          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -12)
+          CFI R6 Frame(CFA, -8)
+          CFI R7 Frame(CFA, -4)
+          CFI CFA R13+16
+??AudioPlayerUpd_1:
+        LDR.N    R2,??DataTable1_6
+        LDR.N    R3,??DataTable1_2
+        LDR.N    R4,??DataTable1_1
+        MOV      R5,#+1024
+        LDR.N    R0,??DataTable1
+??AudioPlayerUpd_9:
+        MOV      R1,#+12288
+        ADDS     R6,R1,R2
+        MOV      R1,#+8192
+        ADDS     R7,R1,R2
+        LDRB     R12,[R0, #+0]
+        MOV      R1,#+4096
+        ADDS     R1,R1,R2
+        CMP      R12,#+0
+        LDRH     R12,[R2, #+0]
+        BEQ.N    ??AudioPlayerUpd_10
+        STRH     R12,[R3, #+0]
+        LDRH     R12,[R2, #+2048]
+        STRH     R12,[R3, #+2]
+        LDRH     R12,[R1, #+0]
+        STRH     R12,[R3, #+4]
+        LDRH     R1,[R1, #+2048]
+        STRH     R1,[R3, #+6]
+        LDRH     R1,[R7, #+0]
+        STRH     R1,[R3, #+8]
+        LDRH     R1,[R7, #+2048]
+        STRH     R1,[R3, #+10]
+        LDRH     R1,[R6, #+0]
+        STRH     R1,[R3, #+12]
+        LDRH     R1,[R6, #+2048]
+        STRH     R1,[R3, #+14]
+        B.N      ??AudioPlayerUpd_11
+??AudioPlayerUpd_10:
+        STRH     R12,[R4, #+0]
+        LDRH     R12,[R2, #+2048]
+        STRH     R12,[R4, #+2]
+        LDRH     R12,[R1, #+0]
+        STRH     R12,[R4, #+4]
+        LDRH     R1,[R1, #+2048]
+        STRH     R1,[R4, #+6]
+        LDRH     R1,[R7, #+0]
+        STRH     R1,[R4, #+8]
+        LDRH     R1,[R7, #+2048]
+        STRH     R1,[R4, #+10]
+        LDRH     R1,[R6, #+0]
+        STRH     R1,[R4, #+12]
+        LDRH     R1,[R6, #+2048]
+        STRH     R1,[R4, #+14]
+??AudioPlayerUpd_11:
+        ADDS     R4,R4,#+16
+        ADDS     R3,R3,#+16
+        ADDS     R2,R2,#+2
+        SUBS     R5,R5,#+1
+        BNE.N    ??AudioPlayerUpd_9
+        POP      {R4-R7}
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI CFA R13+0
+        BX       LR               ;; return
+          CFI EndBlock cfiBlock1
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -823,13 +954,13 @@ AudioPlayerUpd:
         SECTION_TYPE SHT_PROGBITS, 0
 
         END
-//  484 
-//  485 
+//  486 
+//  487 
 // 
 // 49 155 bytes in section .bss
-//    268 bytes in section .text
+//    550 bytes in section .text
 // 
-//    268 bytes of CODE memory
+//    550 bytes of CODE memory
 // 49 155 bytes of DATA memory
 //
 //Errors: none

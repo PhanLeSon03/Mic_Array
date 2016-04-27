@@ -140,11 +140,11 @@ uint8_t StartPlay(void);
 inline static void FFT_Update(void)
 {
 
-      PDM2PCMSDO78();      
+            
       /* Hafl buffer is filled in by I2S data stream in */
       if((flgDlyUpd==0))
       {
-            
+            PDM2PCMSDO78();
             //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_15); 
             FactorUpd(&FacMic); 
             //STM_EVAL_LEDOn(LED3);
@@ -304,7 +304,7 @@ inline static void FFT_Update(void)
 			AudioPlayerUpd();
 	       //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_15);
 	  }
-	  
+	 
 
 }
 
@@ -507,13 +507,18 @@ int main(void)
     while (1)
     {
 
-
-                /* This calculation happens once time in power cycles */
-                /* After 5 times of full frame recieved interrupt */
-               if ((cntStrt>=5))
-               {
+       
+		/* This calculation happens once time in power cycles */
+		/* After 5 times of full frame recieved interrupt */
+	   if ((cntStrt>=5))
+	   {
 		      if ((WaveRecord_flgIni<200))
 		      {
+				  for (uint32_t i=0; i<2000;i++)
+				  {
+				    __NOP;
+
+				  }
                   for(char i=0;i<16;i++)
                   {
                      if (ValBit(SPI4_stNipple,i)!=0) 
@@ -522,8 +527,19 @@ int main(void)
                      }
                   }
 		          WaveRecord_flgIni++;			
-		      }   
-		 }
+		      }
+			  else if (WaveRecord_flgIni==200)
+			  {
+				  while (1)
+				  {
+					  FFT_Update();  
+				  }
+			  }
+			  else
+			  {
+				  
+			  }
+		}
 	
 		/* USB Host Background task */
 		//USBH_Process(&hUSBHost);
@@ -531,7 +547,7 @@ int main(void)
 		/* AUDIO Menu Process */
 		//AUDIO_MenuProcess();
 		
-		FFT_Update(); 
+		; 
 
 		if (flg10ms==1)
 		{
@@ -1268,12 +1284,24 @@ void MX_I2C2_Init(void)
 		 }
 	}
 #endif	
-     	   
-	 
 
-	 /*------------------------PLAYER------------------------------------------*/
+     /*------------------------PLAYER------------------------------------------*/
 	 Audio_MAL_Play((uint32_t)bufferSum,6*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
-	 /*------------------------------------------------------------------------*/	
+	 /*------------------------------------------------------------------------*/     	   	 
+	 HAL_Delay(100);
+     	
+     //HAL_Delay(1);
+     //for (uint32_t i=0; i<2000;i++)
+     //{
+	 //  __NOP;
+	 //  __NOP;
+	 //  __NOP;
+	 //  __NOP;
+     //}
+     I2S1_Enable();
+     I2S2_Enable();
+     SPI4_Enable();
+     StartRecMic7_8();
 	 WaveRec_idxSens1 = 0;
 	 WaveRec_idxSens2 = 0;
 	 WaveRec_idxSens3 = 0;
@@ -1281,17 +1309,8 @@ void MX_I2C2_Init(void)
 	 WaveRec_idxSens5 = 0;
 	 WaveRec_idxSens6 = 0; 
 	 idxFrmPDMMic8 = 0;
-	 buffer_switch = BUF1_PLAY;     	
-     //HAL_Delay(1);
-     for (uint32_t i=0; i<2000;i++)
-     {
-	   __NOP;
-	   __NOP;
-	   __NOP;
-	   __NOP;
-     }
-     StartRecMic7_8();
-     //AudioUSBSend(idxFrmPDMMic8);	 
+	 buffer_switch = BUF1_PLAY;
+	
 	 
  }
 

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      16/Apr/2016  18:31:04
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Apr/2016  12:04:33
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -328,16 +328,15 @@ USBH_MSC_BOT_Init:
 //  156   MSC_Handle->hbot.cbw.field.Signature = BOT_CBW_SIGNATURE;
         LDR.N    R1,??DataTable1  ;; 0x43425355
         LDR      R0,[R0, #+28]
-        ADDS     R0,R0,#+80
-        STR      R1,[R0, #+4]
+        STR      R1,[R0, #+84]
 //  157   MSC_Handle->hbot.cbw.field.Tag = BOT_CBW_TAG;
         LDR.N    R1,??DataTable1_1  ;; 0x20304050
-        STR      R1,[R0, #+8]
+        STR      R1,[R0, #+88]
 //  158   MSC_Handle->hbot.state = BOT_SEND_CBW;    
         MOVS     R1,#+1
-        STRB     R1,[R0, #+0]
+        STRB     R1,[R0, #+80]
 //  159   MSC_Handle->hbot.cmd_state = BOT_CMD_SEND;   
-        STRB     R1,[R0, #+2]
+        STRB     R1,[R0, #+82]
 //  160   
 //  161   return USBH_OK;
         MOVS     R0,#+0
@@ -362,19 +361,19 @@ USBH_MSC_BOT_Init:
 //  173 USBH_StatusTypeDef USBH_MSC_BOT_Process (USBH_HandleTypeDef *phost, uint8_t lun)
 //  174 {
 USBH_MSC_BOT_Process:
-        PUSH     {R3-R7,LR}
+        PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+24
+          CFI R6 Frame(CFA, -8)
+          CFI R5 Frame(CFA, -12)
+          CFI R4 Frame(CFA, -16)
+          CFI CFA R13+16
         MOV      R5,R0
+        SUB      SP,SP,#+8
+          CFI CFA R13+24
 //  175   USBH_StatusTypeDef   status = USBH_BUSY;
         MOVS     R4,#+1
         LDR      R0,[R5, #+612]
         LDR      R0,[R0, #+28]
-        MOV      R7,R0
 //  176   USBH_StatusTypeDef   error  = USBH_BUSY;  
 //  177   BOT_CSWStatusTypeDef CSW_Status = BOT_CSW_CMD_FAILED;
 //  178   USBH_URBStateTypeDef URB_Status = USBH_URB_IDLE;
@@ -382,36 +381,35 @@ USBH_MSC_BOT_Process:
 //  180   uint8_t toggle = 0;
 //  181   
 //  182   switch (MSC_Handle->hbot.state)
-        ADD      R6,R7,#+80
-        LDRB     R2,[R6, #+0]
+        ADDS     R6,R0,#+4
+        LDRB     R2,[R6, #+76]
         SUBS     R2,R2,#+1
         CMP      R2,#+10
         BHI.W    ??USBH_MSC_BOT_Process_1
         TBB      [PC, R2]
         DATA
 ??USBH_MSC_BOT_Process_0:
-        DC8      0x6,0x10,0x2B,0x34
-        DC8      0x4F,0x59,0x7B,0x84
-        DC8      0xA9,0xB4,0xD0,0x0
+        DC8      0x6,0x11,0x2D,0x36
+        DC8      0x54,0x5E,0x84,0x8D
+        DC8      0xB5,0xC0,0xDB,0x0
         THUMB
 //  183   {
 //  184   case BOT_SEND_CBW:
 //  185     MSC_Handle->hbot.cbw.field.LUN = lun;
-//  186     MSC_Handle->hbot.state = BOT_SEND_CBW_WAIT;    
 ??USBH_MSC_BOT_Process_2:
-        MOVS     R0,#+2
-        STRB     R1,[R6, #+17]
-        STRB     R0,[R6, #+0]
+        STRB     R1,[R6, #+93]
+//  186     MSC_Handle->hbot.state = BOT_SEND_CBW_WAIT;    
+        MOVS     R1,#+2
+        STRB     R1,[R6, #+76]
 //  187     USBH_BulkSendData (phost,
 //  188                        MSC_Handle->hbot.cbw.data, 
 //  189                        BOT_CBW_LENGTH, 
 //  190                        MSC_Handle->OutPipe,
 //  191                        1);
-        ADDS     R0,R7,#+4
-        STR      R4,[SP, #+0]
         MOVS     R2,#+31
-        LDRB     R3,[R0, #+1]
-        ADD      R1,R7,#+84
+        STR      R4,[SP, #+0]
+        LDRB     R3,[R6, #+1]
+        ADD      R1,R0,#+84
         B.N      ??USBH_MSC_BOT_Process_3
 //  192     
 //  193     break;
@@ -420,8 +418,7 @@ USBH_MSC_BOT_Process:
 //  196     
 //  197     URB_Status = USBH_LL_GetURBState(phost, MSC_Handle->OutPipe); 
 ??USBH_MSC_BOT_Process_4:
-        ADDS     R0,R7,#+4
-        LDRB     R1,[R0, #+1]
+        LDRB     R1,[R6, #+1]
         MOV      R0,R5
           CFI FunCall USBH_LL_GetURBState
         BL       USBH_LL_GetURBState
@@ -431,13 +428,13 @@ USBH_MSC_BOT_Process:
         BNE.N    ??USBH_MSC_BOT_Process_5
 //  200     { 
 //  201       if ( MSC_Handle->hbot.cbw.field.DataTransferLength != 0 )
-        LDR      R0,[R6, #+12]
+        LDR      R0,[R6, #+88]
         CMP      R0,#+0
         BEQ.W    ??USBH_MSC_BOT_Process_6
 //  202       {
 //  203         /* If there is Data Transfer Stage */
 //  204         if (((MSC_Handle->hbot.cbw.field.Flags) & USB_REQ_DIR_MASK) == USB_D2H)
-        LDRB     R0,[R6, #+16]
+        LDRB     R0,[R6, #+92]
         LSLS     R0,R0,#+24
         ITE      PL 
         MOVPL    R0,#+5
@@ -467,7 +464,7 @@ USBH_MSC_BOT_Process:
 ??USBH_MSC_BOT_Process_5:
         CMP      R0,#+2
         IT       EQ 
-        STRBEQ   R4,[R6, #+0]
+        STRBEQ   R4,[R6, #+76]
 //  226     {
 //  227       /* Re-send CBW */
 //  228       MSC_Handle->hbot.state = BOT_SEND_CBW;
@@ -496,10 +493,10 @@ USBH_MSC_BOT_Process:
 //  246                           MSC_Handle->InEpSize , 
 //  247                           MSC_Handle->InPipe);
 ??USBH_MSC_BOT_Process_8:
-        LDRB     R3,[R7, #+4]!
-        LDR      R1,[R6, #+60]
+        LDRB     R3,[R6, #+0]
+        LDRH     R2,[R6, #+6]
+        LDR      R1,[R6, #+136]
         MOV      R0,R5
-        LDRH     R2,[R7, #+6]
           CFI FunCall USBH_BulkReceiveData
         BL       USBH_BulkReceiveData
 //  248     
@@ -513,7 +510,7 @@ USBH_MSC_BOT_Process:
 //  254     
 //  255     URB_Status = USBH_LL_GetURBState(phost, MSC_Handle->InPipe); 
 ??USBH_MSC_BOT_Process_9:
-        LDRB     R1,[R7, #+4]!
+        LDRB     R1,[R6, #+0]
         MOV      R0,R5
           CFI FunCall USBH_LL_GetURBState
         BL       USBH_LL_GetURBState
@@ -524,18 +521,18 @@ USBH_MSC_BOT_Process:
 //  258     {
 //  259       /* Adjust Data pointer and data length */
 //  260       if(MSC_Handle->hbot.cbw.field.DataTransferLength > MSC_Handle->InEpSize)
-        LDRH     R2,[R7, #+6]
-        LDR      R3,[R6, #+12]
+        LDRH     R2,[R6, #+6]
+        LDR      R3,[R6, #+88]
         CMP      R2,R3
         BCS.N    ??USBH_MSC_BOT_Process_11
 //  261       {
 //  262           MSC_Handle->hbot.pbuf += MSC_Handle->InEpSize;
-        LDR      R1,[R6, #+60]
+        LDR      R1,[R6, #+136]
         ADDS     R1,R2,R1
 //  263           MSC_Handle->hbot.cbw.field.DataTransferLength -= MSC_Handle->InEpSize;  
         SUBS     R0,R3,R2
-        STR      R1,[R6, #+60]
-        STR      R0,[R6, #+12]
+        STR      R1,[R6, #+136]
+        STR      R0,[R6, #+88]
 //  264       }
 //  265       else
 //  266       {
@@ -551,11 +548,10 @@ USBH_MSC_BOT_Process:
 //  275                               MSC_Handle->hbot.pbuf, 
 //  276                               MSC_Handle->InEpSize , 
 //  277                               MSC_Handle->InPipe);
-        LDRB     R3,[R7, #+0]
+        LDRB     R3,[R6, #+0]
         MOV      R0,R5
           CFI FunCall USBH_BulkReceiveData
         BL       USBH_BulkReceiveData
-        B.N      ??USBH_MSC_BOT_Process_1
 //  278         
 //  279       }
 //  280       else
@@ -568,14 +564,9 @@ USBH_MSC_BOT_Process:
 //  287       }
 //  288     }
 //  289     else if(URB_Status == USBH_URB_STALL)
-??USBH_MSC_BOT_Process_10:
-        CMP      R0,#+5
-        BNE.W    ??USBH_MSC_BOT_Process_1
 //  290     {
 //  291       /* This is Data IN Stage STALL Condition */
 //  292       MSC_Handle->hbot.state  = BOT_ERROR_IN;
-        MOVS     R0,#+9
-        B.N      ??USBH_MSC_BOT_Process_7
 //  293       
 //  294       /* Refer to USB Mass-Storage Class : BOT (www.usb.org) 
 //  295       6.7.2 Host expects to receive data from the device
@@ -597,49 +588,21 @@ USBH_MSC_BOT_Process:
 //  311                        MSC_Handle->OutEpSize , 
 //  312                        MSC_Handle->OutPipe,
 //  313                        1);
-??USBH_MSC_BOT_Process_12:
-        ADDS     R7,R7,#+4
-        STR      R4,[SP, #+0]
-        LDRB     R3,[R7, #+1]
-        LDR      R1,[R6, #+60]
-        LDRH     R2,[R7, #+4]
-        MOV      R0,R5
-          CFI FunCall USBH_BulkSendData
-        BL       USBH_BulkSendData
 //  314     
 //  315     
 //  316     MSC_Handle->hbot.state  = BOT_DATA_OUT_WAIT;
-        MOVS     R0,#+6
-        B.N      ??USBH_MSC_BOT_Process_7
 //  317     break;
 //  318     
 //  319   case BOT_DATA_OUT_WAIT:
 //  320     URB_Status = USBH_LL_GetURBState(phost, MSC_Handle->OutPipe);     
-??USBH_MSC_BOT_Process_13:
-        ADDS     R7,R7,#+4
-        MOV      R0,R5
-        LDRB     R1,[R7, #+1]
-          CFI FunCall USBH_LL_GetURBState
-        BL       USBH_LL_GetURBState
 //  321     
 //  322     if(URB_Status == USBH_URB_DONE)
-        CMP      R0,#+1
-        BNE.N    ??USBH_MSC_BOT_Process_14
 //  323     {
 //  324       /* Adjust Data pointer and data length */
 //  325       if(MSC_Handle->hbot.cbw.field.DataTransferLength > MSC_Handle->OutEpSize)
-        LDRH     R2,[R7, #+4]
-        LDR      R3,[R6, #+12]
-        CMP      R2,R3
-        BCS.N    ??USBH_MSC_BOT_Process_11
 //  326       {
 //  327           MSC_Handle->hbot.pbuf += MSC_Handle->OutEpSize;
-        LDR      R1,[R6, #+60]
-        ADDS     R1,R2,R1
 //  328           MSC_Handle->hbot.cbw.field.DataTransferLength -= MSC_Handle->OutEpSize; 
-        SUBS     R0,R3,R2
-        STR      R1,[R6, #+60]
-        STR      R0,[R6, #+12]
 //  329       }
 //  330       else
 //  331       {
@@ -648,25 +611,13 @@ USBH_MSC_BOT_Process:
 //  334       
 //  335       /* More Data To be Sent */
 //  336       if(MSC_Handle->hbot.cbw.field.DataTransferLength > 0)
-        BEQ.N    ??USBH_MSC_BOT_Process_6
 //  337       {
 //  338         USBH_BulkSendData (phost,
 //  339                            MSC_Handle->hbot.pbuf, 
 //  340                            MSC_Handle->OutEpSize , 
 //  341                            MSC_Handle->OutPipe,
 //  342                            1);
-        STR      R4,[SP, #+0]
-        LDRB     R3,[R7, #+1]
-??USBH_MSC_BOT_Process_3:
-        MOV      R0,R5
-          CFI FunCall USBH_BulkSendData
-        BL       USBH_BulkSendData
-        B.N      ??USBH_MSC_BOT_Process_1
 //  343       }
-??USBH_MSC_BOT_Process_11:
-        MOVS     R0,#+0
-        STR      R0,[R6, #+12]
-        B.N      ??USBH_MSC_BOT_Process_6
 //  344       else
 //  345       {
 //  346         /* If value was 0, and successful transfer, then change the state */
@@ -678,26 +629,17 @@ USBH_MSC_BOT_Process:
 //  352     }
 //  353     
 //  354     else if(URB_Status == USBH_URB_NOTREADY)
-??USBH_MSC_BOT_Process_14:
-        CMP      R0,#+2
-        IT       EQ 
-        MOVEQ    R0,#+5
 //  355     {
 //  356       /* Resend same data */      
 //  357       MSC_Handle->hbot.state  = BOT_DATA_OUT;
-        BEQ.N    ??USBH_MSC_BOT_Process_7
 //  358 #if (USBH_USE_OS == 1)
 //  359     osMessagePut ( phost->os_event, USBH_URB_EVENT, 0);
 //  360 #endif       
 //  361     }
 //  362     
 //  363     else if(URB_Status == USBH_URB_STALL)
-        CMP      R0,#+5
-        BNE.N    ??USBH_MSC_BOT_Process_1
 //  364     {
 //  365       MSC_Handle->hbot.state  = BOT_ERROR_OUT;
-        MOVS     R0,#+10
-        B.N      ??USBH_MSC_BOT_Process_7
 //  366       
 //  367       /* Refer to USB Mass-Storage Class : BOT (www.usb.org) 
 //  368       6.7.3 Ho - Host expects to send data to the device
@@ -717,83 +659,36 @@ USBH_MSC_BOT_Process:
 //  382                           MSC_Handle->hbot.csw.data, 
 //  383                           BOT_CSW_LENGTH , 
 //  384                           MSC_Handle->InPipe);
-??USBH_MSC_BOT_Process_15:
-        LDRB     R3,[R7, #+4]
-        MOVS     R2,#+13
-        ADD      R1,R7,#+120
-        MOV      R0,R5
-          CFI FunCall USBH_BulkReceiveData
-        BL       USBH_BulkReceiveData
 //  385     
 //  386     MSC_Handle->hbot.state  = BOT_RECEIVE_CSW_WAIT;
-        MOVS     R0,#+8
-        B.N      ??USBH_MSC_BOT_Process_7
 //  387     break;
 //  388     
 //  389   case BOT_RECEIVE_CSW_WAIT:
 //  390     
 //  391     URB_Status = USBH_LL_GetURBState(phost, MSC_Handle->InPipe); 
-??USBH_MSC_BOT_Process_16:
-        LDRB     R1,[R7, #+4]
-        MOV      R0,R5
-          CFI FunCall USBH_LL_GetURBState
-        BL       USBH_LL_GetURBState
 //  392     
 //  393     /* Decode CSW */
 //  394     if(URB_Status == USBH_URB_DONE)
-        CMP      R0,#+1
-        BNE.N    ??USBH_MSC_BOT_Process_17
 //  395     {
 //  396       MSC_Handle->hbot.state = BOT_SEND_CBW;    
-        STRB     R0,[R6, #+0]
 //  397       MSC_Handle->hbot.cmd_state = BOT_CMD_SEND;        
-        STRB     R0,[R6, #+2]
 //  398       CSW_Status = USBH_MSC_DecodeCSW(phost);
-        LDR      R0,[R5, #+612]
-        LDR      R4,[R0, #+28]
-        MOV      R0,R5
-        ADDS     R6,R4,#+4
-        LDRB     R1,[R6, #+0]
-          CFI FunCall USBH_LL_GetLastXferSize
-        BL       USBH_LL_GetLastXferSize
-        CMP      R0,#+13
-        ITTT     EQ 
-        LDREQ    R0,[R6, #+116]
-        LDREQ.N  R1,??DataTable1_2  ;; 0x53425355
-        CMPEQ    R0,R1
-        BNE.N    ??USBH_MSC_BOT_Process_18
-        LDR      R0,[R6, #+120]
-        LDR      R1,[R6, #+84]
-        CMP      R0,R1
-        ITTT     EQ 
-        LDRBEQ   R0,[R4, #+132]
-        CMPEQ    R0,#+0
-        MOVEQ    R4,#+0
 //  399       
 //  400       if(CSW_Status == BOT_CSW_CMD_PASSED)
 //  401       {
 //  402         status = USBH_OK;
-        BEQ.N    ??USBH_MSC_BOT_Process_1
 //  403       }
 //  404       else
 //  405       {
 //  406         status = USBH_FAIL;
-??USBH_MSC_BOT_Process_18:
-        MOVS     R4,#+2
-        B.N      ??USBH_MSC_BOT_Process_1
 //  407       }
 //  408 #if (USBH_USE_OS == 1)
 //  409       osMessagePut ( phost->os_event, USBH_URB_EVENT, 0);
 //  410 #endif       
 //  411     }
 //  412     else if(URB_Status == USBH_URB_STALL)     
-??USBH_MSC_BOT_Process_17:
-        CMP      R0,#+5
-        BNE.N    ??USBH_MSC_BOT_Process_1
 //  413     {
 //  414       MSC_Handle->hbot.state  = BOT_ERROR_IN;
-        MOVS     R0,#+9
-        B.N      ??USBH_MSC_BOT_Process_7
 //  415 #if (USBH_USE_OS == 1)
 //  416       osMessagePut ( phost->os_event, USBH_URB_EVENT, 0);
 //  417 #endif       
@@ -802,93 +697,41 @@ USBH_MSC_BOT_Process:
 //  420     
 //  421   case BOT_ERROR_IN: 
 //  422     error = USBH_MSC_BOT_Abort(phost, lun, BOT_DIR_IN);
-??USBH_MSC_BOT_Process_19:
-        LDRB     R1,[R0, #+7]
-        MOV      R0,R5
-          CFI FunCall USBH_ClrFeature
-        BL       USBH_ClrFeature
 //  423     
 //  424     if (error == USBH_OK)
-        CBNZ.N   R0,??USBH_MSC_BOT_Process_20
 //  425     {
 //  426       MSC_Handle->hbot.state = BOT_RECEIVE_CSW;
-??USBH_MSC_BOT_Process_6:
-        MOVS     R0,#+7
-        B.N      ??USBH_MSC_BOT_Process_7
 //  427     }
 //  428     else if (error == USBH_UNRECOVERED_ERROR)
-??USBH_MSC_BOT_Process_20:
-        CMP      R0,#+4
-        BNE.N    ??USBH_MSC_BOT_Process_1
 //  429     {
 //  430       /* This means that there is a STALL Error limit, Do Reset Recovery */
 //  431       MSC_Handle->hbot.state = BOT_UNRECOVERED_ERROR;
-        MOVS     R0,#+11
-        B.N      ??USBH_MSC_BOT_Process_7
 //  432     }
 //  433     break;
 //  434     
 //  435   case BOT_ERROR_OUT: 
 //  436     error = USBH_MSC_BOT_Abort(phost, lun, BOT_DIR_OUT);
-??USBH_MSC_BOT_Process_21:
-        LDRB     R1,[R0, #+6]
-        MOV      R0,R5
-          CFI FunCall USBH_ClrFeature
-        BL       USBH_ClrFeature
 //  437     
 //  438     if ( error == USBH_OK)
-        CBNZ.N   R0,??USBH_MSC_BOT_Process_22
 //  439     { 
 //  440       
 //  441       toggle = USBH_LL_GetToggle(phost, MSC_Handle->OutPipe); 
-        ADDS     R7,R7,#+4
-        MOV      R0,R5
-        LDRB     R1,[R7, #+1]
-          CFI FunCall USBH_LL_GetToggle
-        BL       USBH_LL_GetToggle
 //  442       USBH_LL_SetToggle(phost, MSC_Handle->OutPipe, 1- toggle);   
-        LDRB     R1,[R7, #+1]
-        RSB      R2,R0,#+1
-        UXTB     R2,R2
-        MOV      R0,R5
-          CFI FunCall USBH_LL_SetToggle
-        BL       USBH_LL_SetToggle
 //  443       USBH_LL_SetToggle(phost, MSC_Handle->InPipe, 0);  
-        LDRB     R1,[R7, #+0]
-        MOVS     R2,#+0
-        MOV      R0,R5
-          CFI FunCall USBH_LL_SetToggle
-        BL       USBH_LL_SetToggle
 //  444       MSC_Handle->hbot.state = BOT_ERROR_IN;        
-        MOVS     R0,#+9
-        B.N      ??USBH_MSC_BOT_Process_7
 //  445     }
 //  446     else if (error == USBH_UNRECOVERED_ERROR)
-??USBH_MSC_BOT_Process_22:
-        CMP      R0,#+4
-        BNE.N    ??USBH_MSC_BOT_Process_1
 //  447     {
 //  448       MSC_Handle->hbot.state = BOT_UNRECOVERED_ERROR;
-        MOVS     R0,#+11
-        B.N      ??USBH_MSC_BOT_Process_7
 //  449     }
 //  450     break;
 //  451     
 //  452     
 //  453   case BOT_UNRECOVERED_ERROR: 
 //  454     status = USBH_MSC_BOT_REQ_Reset(phost);
-??USBH_MSC_BOT_Process_23:
-        MOV      R0,R5
-          CFI FunCall USBH_MSC_BOT_REQ_Reset
-        BL       USBH_MSC_BOT_REQ_Reset
-        MOVS     R4,R0
 //  455     if ( status == USBH_OK)
-        BNE.N    ??USBH_MSC_BOT_Process_1
 //  456     {
 //  457       MSC_Handle->hbot.state = BOT_SEND_CBW; 
-        MOVS     R0,#+1
-??USBH_MSC_BOT_Process_7:
-        STRB     R0,[R6, #+0]
 //  458     }
 //  459     break;
 //  460     
@@ -896,9 +739,184 @@ USBH_MSC_BOT_Process:
 //  462     break;
 //  463   }
 //  464   return status;
+        MOV      R0,R4
+        ADD      SP,SP,#+8
+          CFI CFA R13+16
+        POP      {R4-R6,PC}
+          CFI CFA R13+24
+??USBH_MSC_BOT_Process_10:
+        CMP      R0,#+5
+        BNE.W    ??USBH_MSC_BOT_Process_1
+        MOVS     R0,#+9
+        B.N      ??USBH_MSC_BOT_Process_7
+??USBH_MSC_BOT_Process_12:
+        STR      R4,[SP, #+0]
+        LDRB     R3,[R6, #+1]
+        LDRH     R2,[R6, #+4]
+        LDR      R1,[R6, #+136]
+        MOV      R0,R5
+          CFI FunCall USBH_BulkSendData
+        BL       USBH_BulkSendData
+        MOVS     R0,#+6
+        B.N      ??USBH_MSC_BOT_Process_7
+??USBH_MSC_BOT_Process_13:
+        LDRB     R1,[R6, #+1]
+        MOV      R0,R5
+          CFI FunCall USBH_LL_GetURBState
+        BL       USBH_LL_GetURBState
+        CMP      R0,#+1
+        BNE.N    ??USBH_MSC_BOT_Process_14
+        LDRH     R2,[R6, #+4]
+        LDR      R3,[R6, #+88]
+        CMP      R2,R3
+        BCS.N    ??USBH_MSC_BOT_Process_11
+        LDR      R1,[R6, #+136]
+        ADDS     R1,R2,R1
+        SUBS     R0,R3,R2
+        STR      R1,[R6, #+136]
+        STR      R0,[R6, #+88]
+        BEQ.N    ??USBH_MSC_BOT_Process_6
+        STR      R4,[SP, #+0]
+        LDRB     R3,[R6, #+1]
+??USBH_MSC_BOT_Process_3:
+        MOV      R0,R5
+          CFI FunCall USBH_BulkSendData
+        BL       USBH_BulkSendData
+        MOV      R0,R4
+        ADD      SP,SP,#+8
+          CFI CFA R13+16
+        POP      {R4-R6,PC}
+          CFI CFA R13+24
+??USBH_MSC_BOT_Process_11:
+        MOVS     R0,#+0
+        STR      R0,[R6, #+88]
+        MOVS     R0,#+7
+        B.N      ??USBH_MSC_BOT_Process_7
+??USBH_MSC_BOT_Process_14:
+        CMP      R0,#+2
+        IT       EQ 
+        MOVEQ    R0,#+5
+        BEQ.N    ??USBH_MSC_BOT_Process_7
+        CMP      R0,#+5
+        BNE.N    ??USBH_MSC_BOT_Process_1
+        MOVS     R0,#+10
+        B.N      ??USBH_MSC_BOT_Process_7
+??USBH_MSC_BOT_Process_15:
+        LDRB     R3,[R6, #+0]
+        ADD      R1,R0,#+120
+        MOVS     R2,#+13
+        MOV      R0,R5
+          CFI FunCall USBH_BulkReceiveData
+        BL       USBH_BulkReceiveData
+        MOVS     R0,#+8
+        B.N      ??USBH_MSC_BOT_Process_7
+??USBH_MSC_BOT_Process_16:
+        LDRB     R1,[R6, #+0]
+        MOV      R0,R5
+          CFI FunCall USBH_LL_GetURBState
+        BL       USBH_LL_GetURBState
+        CMP      R0,#+1
+        BNE.N    ??USBH_MSC_BOT_Process_17
+        STRB     R0,[R6, #+76]
+        STRB     R0,[R6, #+78]
+        LDR      R0,[R5, #+612]
+        LDR      R4,[R0, #+28]
+        MOV      R0,R5
+        LDRB     R1,[R4, #+4]
+          CFI FunCall USBH_LL_GetLastXferSize
+        BL       USBH_LL_GetLastXferSize
+        CMP      R0,#+13
+        ITTT     EQ 
+        LDREQ    R0,[R4, #+120]
+        LDREQ.N  R1,??DataTable1_2  ;; 0x53425355
+        CMPEQ    R0,R1
+        BNE.N    ??USBH_MSC_BOT_Process_18
+        LDR      R0,[R4, #+124]
+        LDR      R1,[R4, #+88]
+        CMP      R0,R1
+        ITTT     EQ 
+        LDRBEQ   R0,[R4, #+132]
+        CMPEQ    R0,#+0
+        MOVEQ    R4,#+0
+        BEQ.N    ??USBH_MSC_BOT_Process_1
+??USBH_MSC_BOT_Process_18:
+        MOVS     R4,#+2
+        MOV      R0,R4
+        ADD      SP,SP,#+8
+          CFI CFA R13+16
+        POP      {R4-R6,PC}
+          CFI CFA R13+24
+??USBH_MSC_BOT_Process_17:
+        CMP      R0,#+5
+        BNE.N    ??USBH_MSC_BOT_Process_1
+        MOVS     R0,#+9
+        B.N      ??USBH_MSC_BOT_Process_7
+??USBH_MSC_BOT_Process_19:
+        LDRB     R1,[R0, #+7]
+        MOV      R0,R5
+          CFI FunCall USBH_ClrFeature
+        BL       USBH_ClrFeature
+        CBNZ.N   R0,??USBH_MSC_BOT_Process_20
+??USBH_MSC_BOT_Process_6:
+        MOVS     R0,#+7
+        B.N      ??USBH_MSC_BOT_Process_7
+??USBH_MSC_BOT_Process_20:
+        CMP      R0,#+4
+        BNE.N    ??USBH_MSC_BOT_Process_1
+        MOVS     R0,#+11
+        B.N      ??USBH_MSC_BOT_Process_7
+??USBH_MSC_BOT_Process_21:
+        LDRB     R1,[R0, #+6]
+        MOV      R0,R5
+          CFI FunCall USBH_ClrFeature
+        BL       USBH_ClrFeature
+        CBNZ.N   R0,??USBH_MSC_BOT_Process_22
+        LDRB     R1,[R6, #+1]
+        MOV      R0,R5
+          CFI FunCall USBH_LL_GetToggle
+        BL       USBH_LL_GetToggle
+        LDRB     R1,[R6, #+1]
+        RSB      R2,R0,#+1
+        UXTB     R2,R2
+        MOV      R0,R5
+          CFI FunCall USBH_LL_SetToggle
+        BL       USBH_LL_SetToggle
+        LDRB     R1,[R6, #+0]
+        MOVS     R2,#+0
+        MOV      R0,R5
+          CFI FunCall USBH_LL_SetToggle
+        BL       USBH_LL_SetToggle
+        MOVS     R0,#+9
+        B.N      ??USBH_MSC_BOT_Process_7
+??USBH_MSC_BOT_Process_22:
+        CMP      R0,#+4
+        BNE.N    ??USBH_MSC_BOT_Process_1
+        MOVS     R0,#+11
+        B.N      ??USBH_MSC_BOT_Process_7
+??USBH_MSC_BOT_Process_23:
+        MOVS     R0,#+33
+        MOVS     R2,#+0
+        STRB     R0,[R5, #+16]
+        MOVS     R0,#+255
+        STRB     R0,[R5, #+17]
+        MOVS     R0,#+0
+        STRH     R0,[R5, #+18]
+        MOVS     R1,#+0
+        STRH     R0,[R5, #+20]
+        STRH     R0,[R5, #+22]
+        MOV      R0,R5
+          CFI FunCall USBH_CtlReq
+        BL       USBH_CtlReq
+        MOVS     R4,R0
+        BNE.N    ??USBH_MSC_BOT_Process_1
+        MOVS     R0,#+1
+??USBH_MSC_BOT_Process_7:
+        STRB     R0,[R6, #+76]
 ??USBH_MSC_BOT_Process_1:
         MOV      R0,R4
-        POP      {R1,R4-R7,PC}    ;; return
+        ADD      SP,SP,#+8
+          CFI CFA R13+16
+        POP      {R4-R6,PC}       ;; return
 //  465 }
           CFI EndBlock cfiBlock3
 
@@ -1101,9 +1119,9 @@ USBH_MSC_BOT_Process:
 //  632 
 //  633 
 // 
-// 548 bytes in section .text
+// 596 bytes in section .text
 // 
-// 548 bytes of CODE memory
+// 596 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

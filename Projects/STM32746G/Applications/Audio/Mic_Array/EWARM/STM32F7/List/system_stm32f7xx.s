@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      16/Apr/2016  18:31:03
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Apr/2016  12:04:31
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -252,11 +252,11 @@
         SECTION `.data`:DATA:REORDER:NOROOT(2)
         DATA
 //  133   uint32_t SystemCoreClock = 16000000;
+SystemCoreClock:
+        DC32 16000000
 //  134   __IO const uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
 AHBPrescTable:
         DC8 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9
-SystemCoreClock:
-        DC32 16000000
 //  135 
 //  136 /**
 //  137   * @}
@@ -296,7 +296,7 @@ SystemCoreClock:
 //  165   #if (__FPU_PRESENT == 1) && (__FPU_USED == 1)
 //  166     SCB->CPACR |= ((3UL << 10*2)|(3UL << 11*2));  /* set CP10 and CP11 Full Access */
 SystemInit:
-        LDR.N    R0,??DataTable1  ;; 0xe000ed88
+        LDR.N    R0,??DataTable1  ;; 0xe000ed08
 //  167   #endif
 //  168   /* Reset the RCC clock configuration to the default reset state ------------*/
 //  169   /* Set HSION bit */
@@ -307,35 +307,35 @@ SystemInit:
 //  174 
 //  175   /* Reset HSEON, CSSON and PLLON bits */
 //  176   RCC->CR &= (uint32_t)0xFEF6FFFF;
-        LDR.N    R2,??DataTable1_1  ;; 0xfef6ffff
-        LDR      R1,[R0, #+0]
+        LDR.N    R3,??DataTable1_1  ;; 0xfef6ffff
+        LDR      R1,[R0, #+128]
         ORR      R1,R1,#0xF00000
-        STR      R1,[R0, #+0]
-        LDR.N    R0,??DataTable1_2  ;; 0x40023800
-        LDR      R1,[R0, #+0]
-        ORR      R1,R1,#0x1
-        STR      R1,[R0, #+0]
-        MOVS     R1,#+0
-        STR      R1,[R0, #+8]
-        LDR      R1,[R0, #+0]
-        ANDS     R1,R2,R1
-        STR      R1,[R0, #+0]
+        STR      R1,[R0, #+128]
+        LDR.N    R1,??DataTable1_2  ;; 0x40023800
+        LDR      R2,[R1, #+0]
+        ORR      R2,R2,#0x1
+        STR      R2,[R1, #+0]
+        MOVS     R2,#+0
+        STR      R2,[R1, #+8]
+        LDR      R2,[R1, #+0]
+        ANDS     R2,R3,R2
+        STR      R2,[R1, #+0]
 //  177 
 //  178   /* Reset PLLCFGR register */
 //  179   RCC->PLLCFGR = 0x24003010;
-        LDR.N    R1,??DataTable1_3  ;; 0x24003010
-        STR      R1,[R0, #+4]
+        LDR.N    R2,??DataTable1_3  ;; 0x24003010
+        STR      R2,[R1, #+4]
 //  180 
 //  181   /* Reset HSEBYP bit */
 //  182   RCC->CR &= (uint32_t)0xFFFBFFFF;
-        LDR      R1,[R0, #+0]
-        BIC      R1,R1,#0x40000
-        STR      R1,[R0, #+0]
+        LDR      R2,[R1, #+0]
+        BIC      R2,R2,#0x40000
+        STR      R2,[R1, #+0]
 //  183 
 //  184   /* Disable all interrupts */
 //  185   RCC->CIR = 0x00000000;
-        MOVS     R1,#+0
-        STR      R1,[R0, #+12]
+        MOVS     R2,#+0
+        STR      R2,[R1, #+12]
 //  186 
 //  187 #if defined (DATA_IN_ExtSRAM) || defined (DATA_IN_ExtSDRAM)
 //  188   SystemInit_ExtMemCtl(); 
@@ -346,9 +346,8 @@ SystemInit:
 //  193   SCB->VTOR = SRAM1_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal SRAM */
 //  194 #else
 //  195   SCB->VTOR = FLASH_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal FLASH */
-        MOV      R0,#+134217728
-        LDR.N    R1,??DataTable1_4  ;; 0xe000ed08
-        STR      R0,[R1, #+0]
+        MOV      R1,#+134217728
+        STR      R1,[R0, #+0]
 //  196 #endif
 //  197 }
         BX       LR               ;; return
@@ -403,7 +402,7 @@ SystemInit:
 //  239   /* Get SYSCLK source -------------------------------------------------------*/
 //  240   tmp = RCC->CFGR & RCC_CFGR_SWS;
 SystemCoreClockUpdate:
-        LDR.N    R0,??DataTable1_5  ;; 0x40023804
+        LDR.N    R0,??DataTable1_4  ;; 0x40023804
         LDR      R1,[R0, #+4]
 //  241 
 //  242   switch (tmp)
@@ -420,7 +419,7 @@ SystemCoreClockUpdate:
 //  247     case 0x04:  /* HSE used as system clock source */
 //  248       SystemCoreClock = HSE_VALUE;
 ??SystemCoreClockUpdate_0:
-        LDR.N    R1,??DataTable1_6  ;; 0x17d7840
+        LDR.N    R1,??DataTable1_5  ;; 0x17d7840
 //  249       break;
         B.N      ??SystemCoreClockUpdate_3
 //  250     case 0x08:  /* PLL used as system clock source */
@@ -439,8 +438,8 @@ SystemCoreClockUpdate:
         CMP      R1,#+0
         AND      R2,R2,#0x3F
         ITE      NE 
-        LDRNE.N  R1,??DataTable1_6  ;; 0x17d7840
-        LDREQ.N  R1,??DataTable1_7  ;; 0xf42400
+        LDRNE.N  R1,??DataTable1_5  ;; 0x17d7840
+        LDREQ.N  R1,??DataTable1_6  ;; 0xf42400
 //  259       {
 //  260         /* HSE used as PLL clock source */
 //  261         pllvco = (HSE_VALUE / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);
@@ -452,7 +451,7 @@ SystemCoreClockUpdate:
         UDIV     R1,R1,R2
         LDR      R2,[R0, #+0]
         UBFX     R2,R2,#+6,#+9
-        MULS     R1,R2,R1
+        MULS     R1,R1,R2
 //  267       }
 //  268 
 //  269       pllp = (((RCC->PLLCFGR & RCC_PLLCFGR_PLLP) >>16) + 1 ) *2;
@@ -467,11 +466,11 @@ SystemCoreClockUpdate:
 //  272     default:
 //  273       SystemCoreClock = HSI_VALUE;
 ??SystemCoreClockUpdate_2:
-        LDR.N    R1,??DataTable1_7  ;; 0xf42400
+        LDR.N    R1,??DataTable1_6  ;; 0xf42400
 //  274       break;
 ??SystemCoreClockUpdate_3:
-        LDR.N    R2,??DataTable1_8
-        STR      R1,[R2, #+16]
+        LDR.N    R2,??DataTable1_7
+        STR      R1,[R2, #+0]
 //  275   }
 //  276   /* Compute HCLK frequency --------------------------------------------------*/
 //  277   /* Get HCLK prescaler */
@@ -480,9 +479,10 @@ SystemCoreClockUpdate:
 //  280   SystemCoreClock >>= tmp;
         LDR      R0,[R0, #+4]
         UBFX     R0,R0,#+4,#+4
-        LDRB     R0,[R0, R2]
+        ADDS     R0,R0,R2
+        LDRB     R0,[R0, #+4]
         LSRS     R1,R1,R0
-        STR      R1,[R2, #+16]
+        STR      R1,[R2, #+0]
 //  281 }
         BX       LR               ;; return
           CFI EndBlock cfiBlock1
@@ -491,7 +491,7 @@ SystemCoreClockUpdate:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable1:
-        DC32     0xe000ed88
+        DC32     0xe000ed08
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -515,31 +515,25 @@ SystemCoreClockUpdate:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable1_4:
-        DC32     0xe000ed08
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable1_5:
         DC32     0x40023804
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1_6:
+??DataTable1_5:
         DC32     0x17d7840
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1_7:
+??DataTable1_6:
         DC32     0xf42400
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1_8:
-        DC32     AHBPrescTable
+??DataTable1_7:
+        DC32     SystemCoreClock
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0

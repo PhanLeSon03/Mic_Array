@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      16/Apr/2016  18:31:04
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Apr/2016  12:04:32
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -254,13 +254,13 @@
 //  119 USBD_StatusTypeDef  USBD_StdDevReq (USBD_HandleTypeDef *pdev , USBD_SetupReqTypedef  *req)
 //  120 {
 USBD_StdDevReq:
-        PUSH     {R3-R7,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R7 Frame(CFA, -8)
-          CFI R6 Frame(CFA, -12)
-          CFI R5 Frame(CFA, -16)
-          CFI R4 Frame(CFA, -20)
-          CFI CFA R13+24
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
+        SUB      SP,SP,#+4
+          CFI CFA R13+16
         MOV      R4,R0
 //  121   USBD_StatusTypeDef ret = USBD_OK;  
 //  122   
@@ -271,9 +271,9 @@ USBD_StdDevReq:
         TBB      [PC, R0]
         DATA
 ??USBD_StdDevReq_0:
-        DC8      0x73,0x8C,0x4B,0x86
-        DC8      0x4B,0x9,0x5,0x4B
-        DC8      0x60,0x25
+        DC8      0x79,0x91,0x4F,0x8D
+        DC8      0x4F,0xB,0x5,0x4F
+        DC8      0x67,0x2A
         THUMB
 //  124   {
 //  125   case USB_REQ_GET_DESCRIPTOR: 
@@ -284,11 +284,44 @@ USBD_StdDevReq:
           CFI FunCall USBD_GetDescriptor
         BL       USBD_GetDescriptor
 //  128     break;
-        B.N      ??USBD_StdDevReq_3
 //  129     
 //  130   case USB_REQ_SET_ADDRESS:                      
 //  131     USBD_SetAddress(pdev, req);
-??USBD_StdDevReq_4:
+//  132     break;
+//  133     
+//  134   case USB_REQ_SET_CONFIGURATION:                    
+//  135     USBD_SetConfig (pdev , req);
+//  136     break;
+//  137     
+//  138   case USB_REQ_GET_CONFIGURATION:                 
+//  139     USBD_GetConfig (pdev , req);
+//  140     break;
+//  141     
+//  142   case USB_REQ_GET_STATUS:                                  
+//  143     USBD_GetStatus (pdev , req);
+//  144     break;
+//  145     
+//  146     
+//  147   case USB_REQ_SET_FEATURE:   
+//  148     USBD_SetFeature (pdev , req);    
+//  149     break;
+//  150     
+//  151   case USB_REQ_CLEAR_FEATURE:                                   
+//  152     USBD_ClrFeature (pdev , req);
+//  153     break;
+//  154     
+//  155   default:  
+//  156     USBD_CtlError(pdev , req);
+//  157     break;
+//  158   }
+//  159   
+//  160   return ret;
+        MOVS     R0,#+0
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
+??USBD_StdDevReq_3:
         LDRH     R0,[R1, #+4]
         CMP      R0,#+0
         ITT      EQ 
@@ -296,68 +329,65 @@ USBD_StdDevReq:
         CMPEQ    R0,#+0
         BNE.N    ??USBD_StdDevReq_1
         LDRB     R0,[R1, #+2]
-        ADD      R5,R4,#+508
-        AND      R6,R0,#0x7F
-        LDRB     R0,[R5, #+0]
+        AND      R5,R0,#0x7F
+        LDRB     R0,[R4, #+508]
         CMP      R0,#+3
         BEQ.N    ??USBD_StdDevReq_1
-        STRB     R6,[R5, #+2]
-        MOV      R1,R6
+        STRB     R5,[R4, #+510]
+        MOV      R1,R5
         MOV      R0,R4
           CFI FunCall USBD_LL_SetUSBAddress
         BL       USBD_LL_SetUSBAddress
         MOV      R0,R4
           CFI FunCall USBD_CtlSendStatus
         BL       USBD_CtlSendStatus
-        CMP      R6,#+0
+        CMP      R5,#+0
         ITE      NE 
         MOVNE    R0,#+2
         MOVEQ    R0,#+1
-        STRB     R0,[R5, #+0]
-        B.N      ??USBD_StdDevReq_3
-//  132     break;
-//  133     
-//  134   case USB_REQ_SET_CONFIGURATION:                    
-//  135     USBD_SetConfig (pdev , req);
-??USBD_StdDevReq_5:
+        STRB     R0,[R4, #+508]
+        MOVS     R0,#+0
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
+??USBD_StdDevReq_4:
         LDRH     R0,[R1, #+2]
-        LDR.N    R7,??DataTable0
-        STRB     R0,[R7, #+0]
-        LDRB     R0,[R7, #+0]
+        LDR.N    R5,??DataTable0
+        STRB     R0,[R5, #+0]
+        LDRB     R0,[R5, #+0]
         CMP      R0,#+2
         BGE.N    ??USBD_StdDevReq_1
-        ADD      R5,R4,#+508
-        LDRB     R1,[R5, #+0]
+        LDRB     R1,[R4, #+508]
         CMP      R1,#+2
-        BEQ.N    ??USBD_StdDevReq_6
+        BEQ.N    ??USBD_StdDevReq_5
         CMP      R1,#+3
         BNE.N    ??USBD_StdDevReq_1
-        ADDS     R6,R4,#+4
-        CBNZ.N   R0,??USBD_StdDevReq_7
+        CBNZ.N   R0,??USBD_StdDevReq_6
         MOVS     R0,#+2
         MOVS     R1,#+0
-        STRB     R0,[R5, #+0]
+        STRB     R0,[R4, #+508]
         MOVS     R0,#+0
-        STR      R0,[R6, #+0]
+        STR      R0,[R4, #+4]
         MOV      R0,R4
           CFI FunCall USBD_ClrClassConfig
         BL       USBD_ClrClassConfig
-        B.N      ??USBD_StdDevReq_8
-??USBD_StdDevReq_7:
-        LDR      R1,[R6, #+0]
+        B.N      ??USBD_StdDevReq_7
+??USBD_StdDevReq_6:
+        LDR      R1,[R4, #+4]
         CMP      R0,R1
-        BEQ.N    ??USBD_StdDevReq_8
+        BEQ.N    ??USBD_StdDevReq_7
         UXTB     R1,R1
         MOV      R0,R4
           CFI FunCall USBD_ClrClassConfig
         BL       USBD_ClrClassConfig
-        LDRB     R1,[R7, #+0]
+        LDRB     R1,[R5, #+0]
         MOV      R0,R4
-        STR      R1,[R6, #+0]
+        STR      R1,[R4, #+4]
           CFI FunCall USBD_SetClassConfig
         BL       USBD_SetClassConfig
         CMP      R0,#+2
-        BNE.N    ??USBD_StdDevReq_8
+        BNE.N    ??USBD_StdDevReq_7
 ??USBD_StdDevReq_1:
         MOVS     R1,#+128
         MOV      R0,R4
@@ -367,114 +397,94 @@ USBD_StdDevReq:
         MOV      R0,R4
           CFI FunCall USBD_LL_StallEP
         BL       USBD_LL_StallEP
-        B.N      ??USBD_StdDevReq_3
-??USBD_StdDevReq_6:
+        MOVS     R0,#+0
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
+??USBD_StdDevReq_5:
         CMP      R0,#+0
-        BEQ.N    ??USBD_StdDevReq_8
-        STR      R0,[R4, #+4]
+        BEQ.N    ??USBD_StdDevReq_7
         MOVS     R1,#+3
-        STRB     R1,[R5, #+0]
+        STR      R0,[R4, #+4]
+        STRB     R1,[R4, #+508]
         MOV      R1,R0
         MOV      R0,R4
           CFI FunCall USBD_SetClassConfig
         BL       USBD_SetClassConfig
         CMP      R0,#+2
         BEQ.N    ??USBD_StdDevReq_1
-        B.N      ??USBD_StdDevReq_8
-//  136     break;
-//  137     
-//  138   case USB_REQ_GET_CONFIGURATION:                 
-//  139     USBD_GetConfig (pdev , req);
-??USBD_StdDevReq_9:
+        B.N      ??USBD_StdDevReq_7
+??USBD_StdDevReq_8:
         LDRH     R0,[R1, #+6]
         CMP      R0,#+1
         BNE.N    ??USBD_StdDevReq_1
         LDRB     R0,[R4, #+508]
         CMP      R0,#+2
-        BEQ.N    ??USBD_StdDevReq_10
+        BEQ.N    ??USBD_StdDevReq_9
         CMP      R0,#+3
         BNE.N    ??USBD_StdDevReq_1
         MOVS     R2,#+1
         ADDS     R1,R4,#+4
-        B.N      ??USBD_StdDevReq_11
-??USBD_StdDevReq_10:
+        B.N      ??USBD_StdDevReq_10
+??USBD_StdDevReq_9:
         MOVS     R0,#+0
-        ADDS     R1,R4,#+4
-        STR      R0,[R1, #+4]
         MOVS     R2,#+1
+        STR      R0,[R4, #+8]
         ADD      R1,R4,#+8
-        B.N      ??USBD_StdDevReq_11
-//  140     break;
-//  141     
-//  142   case USB_REQ_GET_STATUS:                                  
-//  143     USBD_GetStatus (pdev , req);
-??USBD_StdDevReq_12:
-        ADD      R5,R4,#+508
-        LDRB     R0,[R5, #+0]
+        B.N      ??USBD_StdDevReq_10
+??USBD_StdDevReq_11:
+        LDRB     R0,[R4, #+508]
         SUBS     R0,R0,#+2
         CMP      R0,#+1
         BHI.N    ??USBD_StdDevReq_1
-        LDR      R1,[R5, #+8]
+        LDR      R1,[R4, #+516]
         MOVS     R0,#+1
-        CBZ.N    R1,??USBD_StdDevReq_13
+        CBZ.N    R1,??USBD_StdDevReq_12
         MOVS     R0,#+3
-??USBD_StdDevReq_13:
-        ADDS     R1,R4,#+4
+??USBD_StdDevReq_12:
+        STR      R0,[R4, #+12]
         MOVS     R2,#+2
-        STR      R0,[R1, #+8]
         ADD      R1,R4,#+12
-??USBD_StdDevReq_11:
+??USBD_StdDevReq_10:
         MOV      R0,R4
           CFI FunCall USBD_CtlSendData
         BL       USBD_CtlSendData
-        B.N      ??USBD_StdDevReq_3
-//  144     break;
-//  145     
-//  146     
-//  147   case USB_REQ_SET_FEATURE:   
-//  148     USBD_SetFeature (pdev , req);    
-??USBD_StdDevReq_14:
+        MOVS     R0,#+0
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
+??USBD_StdDevReq_13:
         LDRH     R0,[R1, #+2]
         CMP      R0,#+1
-        BNE.N    ??USBD_StdDevReq_3
-        ADD      R5,R4,#+508
+        BNE.N    ??USBD_StdDevReq_14
         B.N      ??USBD_StdDevReq_15
-//  149     break;
-//  150     
-//  151   case USB_REQ_CLEAR_FEATURE:                                   
-//  152     USBD_ClrFeature (pdev , req);
 ??USBD_StdDevReq_16:
-        ADD      R5,R4,#+508
-        LDRB     R0,[R5, #+0]
+        LDRB     R0,[R4, #+508]
         SUBS     R0,R0,#+2
         CMP      R0,#+1
         BHI.N    ??USBD_StdDevReq_1
         LDRH     R0,[R1, #+2]
         CMP      R0,#+1
-        BNE.N    ??USBD_StdDevReq_3
+        BNE.N    ??USBD_StdDevReq_14
         MOVS     R0,#+0
 ??USBD_StdDevReq_15:
-        LDR      R2,[R5, #+24]
-        STR      R0,[R5, #+8]
+        LDR      R2,[R4, #+532]
+        STR      R0,[R4, #+516]
         MOV      R0,R4
         LDR      R2,[R2, #+8]
           CFI FunCall
         BLX      R2
-??USBD_StdDevReq_8:
+??USBD_StdDevReq_7:
         MOV      R0,R4
           CFI FunCall USBD_CtlSendStatus
         BL       USBD_CtlSendStatus
-//  153     break;
-//  154     
-//  155   default:  
-//  156     USBD_CtlError(pdev , req);
-//  157     break;
-//  158   }
-//  159   
-//  160   return ret;
-??USBD_StdDevReq_3:
+??USBD_StdDevReq_14:
         MOVS     R0,#+0
-        POP      {R1,R4-R7,PC}    ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
 //  161 }
           CFI EndBlock cfiBlock0
 
@@ -499,18 +509,19 @@ USBD_StdDevReq:
 //  170 USBD_StatusTypeDef  USBD_StdItfReq (USBD_HandleTypeDef *pdev , USBD_SetupReqTypedef  *req)
 //  171 {
 USBD_StdItfReq:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
+          CFI CFA R13+12
         MOV      R4,R0
+        SUB      SP,SP,#+4
+          CFI CFA R13+16
+        MOV      R5,R1
 //  172   USBD_StatusTypeDef ret = USBD_OK; 
 //  173   
 //  174   switch (pdev->dev_state) 
-        ADD      R2,R4,#+508
-        MOV      R5,R1
-        LDRB     R0,[R2, #+0]
+        LDRB     R0,[R4, #+508]
         CMP      R0,#+3
         BNE.N    ??USBD_StdItfReq_0
 //  175   {
@@ -522,7 +533,7 @@ USBD_StdItfReq:
         BGE.N    ??USBD_StdItfReq_0
 //  179     {
 //  180       pdev->pClass->Setup (pdev, req); 
-        LDR      R2,[R2, #+24]
+        LDR      R2,[R4, #+532]
         MOV      R0,R4
         LDR      R2,[R2, #+8]
           CFI FunCall
@@ -536,7 +547,6 @@ USBD_StdItfReq:
         MOV      R0,R4
           CFI FunCall USBD_CtlSendStatus
         BL       USBD_CtlSendStatus
-        B.N      ??USBD_StdItfReq_1
 //  185       }
 //  186     } 
 //  187     else 
@@ -547,6 +557,14 @@ USBD_StdItfReq:
 //  192     
 //  193   default:
 //  194      USBD_CtlError(pdev , req);
+//  195     break;
+//  196   }
+//  197   return USBD_OK;
+        MOVS     R0,#+0
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
 ??USBD_StdItfReq_0:
         MOVS     R1,#+128
         MOV      R0,R4
@@ -556,12 +574,11 @@ USBD_StdItfReq:
         MOV      R0,R4
           CFI FunCall USBD_LL_StallEP
         BL       USBD_LL_StallEP
-//  195     break;
-//  196   }
-//  197   return USBD_OK;
 ??USBD_StdItfReq_1:
         MOVS     R0,#+0
-        POP      {R1,R4,R5,PC}    ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
 //  198 }
           CFI EndBlock cfiBlock1
 //  199 
@@ -573,21 +590,22 @@ USBD_StdItfReq:
 //  205 * @retval status
 //  206 */
 
-        SECTION `.text`:CODE:NOROOT(1)
+        SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock2 Using cfiCommon0
           CFI Function USBD_StdEPReq
         THUMB
 //  207 USBD_StatusTypeDef  USBD_StdEPReq (USBD_HandleTypeDef *pdev , USBD_SetupReqTypedef  *req)
 //  208 {
 USBD_StdEPReq:
-        PUSH     {R4-R6,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
-          CFI CFA R13+16
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
         MOV      R4,R0
         MOV      R5,R1
+        SUB      SP,SP,#+4
+          CFI CFA R13+16
 //  209   
 //  210   uint8_t   ep_addr;
 //  211   USBD_StatusTypeDef ret = USBD_OK; 
@@ -600,84 +618,44 @@ USBD_StdEPReq:
         LDRB     R1,[R5, #+4]
         AND      R0,R0,#0x60
         CMP      R0,#+32
-        BNE.N    ??USBD_StdEPReq_0
+        BNE.N    ??USBD_StdEPReq_1
 //  217   {
 //  218     pdev->pClass->Setup (pdev, req);
-        ADD      R2,R4,#+508
+        LDR      R2,[R4, #+532]
         MOV      R1,R5
         MOV      R0,R4
-        LDR      R2,[R2, #+24]
         LDR      R2,[R2, #+8]
           CFI FunCall
         BLX      R2
 //  219     
 //  220     return USBD_OK;
-        B.N      ??USBD_StdEPReq_1
 //  221   }
 //  222   
 //  223   switch (req->bRequest) 
-??USBD_StdEPReq_0:
-        LDRB     R0,[R5, #+1]
-        CMP      R0,#+0
-        BEQ.N    ??USBD_StdEPReq_2
-        CMP      R0,#+1
-        BEQ.N    ??USBD_StdEPReq_3
-        CMP      R0,#+3
-        BNE.N    ??USBD_StdEPReq_1
 //  224   {
 //  225     
 //  226   case USB_REQ_SET_FEATURE :
 //  227     
 //  228     switch (pdev->dev_state) 
-        ADD      R6,R4,#+508
-        LDRB     R0,[R6, #+0]
-        CMP      R0,#+2
-        BEQ.N    ??USBD_StdEPReq_4
-        CMP      R0,#+3
-        BEQ.N    ??USBD_StdEPReq_5
-        B.N      ??USBD_StdEPReq_6
 //  229     {
 //  230     case USBD_STATE_ADDRESSED:          
 //  231       if ((ep_addr != 0x00) && (ep_addr != 0x80)) 
-??USBD_StdEPReq_4:
-        CMP      R1,#+0
-        IT       NE 
-        CMPNE    R1,#+128
-        BEQ.N    ??USBD_StdEPReq_1
 //  232       {
 //  233         USBD_LL_StallEP(pdev , ep_addr);
-        B.N      ??USBD_StdEPReq_7
 //  234       }
 //  235       break;	
 //  236       
 //  237     case USBD_STATE_CONFIGURED:   
 //  238       if (req->wValue == USB_FEATURE_EP_HALT)
-??USBD_StdEPReq_5:
-        LDRH     R0,[R5, #+2]
-        CBNZ.N   R0,??USBD_StdEPReq_8
 //  239       {
 //  240         if ((ep_addr != 0x00) && (ep_addr != 0x80)) 
-        CMP      R1,#+0
-        ITTT     NE 
-        CMPNE    R1,#+128
 //  241         { 
 //  242           USBD_LL_StallEP(pdev , ep_addr);
-        MOVNE    R0,R4
-          CFI FunCall USBD_LL_StallEP
-        BLNE     USBD_LL_StallEP
 //  243           
 //  244         }
 //  245       }
 //  246       pdev->pClass->Setup (pdev, req);   
-??USBD_StdEPReq_8:
-        LDR      R2,[R6, #+24]
-        MOV      R1,R5
-        MOV      R0,R4
-        LDR      R2,[R2, #+8]
-          CFI FunCall
-        BLX      R2
 //  247       USBD_CtlSendStatus(pdev);
-        B.N      ??USBD_StdEPReq_9
 //  248       
 //  249       break;
 //  250       
@@ -690,57 +668,23 @@ USBD_StdEPReq:
 //  257   case USB_REQ_CLEAR_FEATURE :
 //  258     
 //  259     switch (pdev->dev_state) 
-??USBD_StdEPReq_3:
-        ADD      R6,R4,#+508
-        LDRB     R0,[R6, #+0]
-        CMP      R0,#+2
-        BEQ.N    ??USBD_StdEPReq_10
-        CMP      R0,#+3
-        BEQ.N    ??USBD_StdEPReq_11
-        B.N      ??USBD_StdEPReq_6
 //  260     {
 //  261     case USBD_STATE_ADDRESSED:          
 //  262       if ((ep_addr != 0x00) && (ep_addr != 0x80)) 
-??USBD_StdEPReq_10:
-        CMP      R1,#+0
-        IT       NE 
-        CMPNE    R1,#+128
-        BEQ.N    ??USBD_StdEPReq_1
 //  263       {
 //  264         USBD_LL_StallEP(pdev , ep_addr);
-        B.N      ??USBD_StdEPReq_7
 //  265       }
 //  266       break;	
 //  267       
 //  268     case USBD_STATE_CONFIGURED:   
 //  269       if (req->wValue == USB_FEATURE_EP_HALT)
-??USBD_StdEPReq_11:
-        LDRH     R0,[R5, #+2]
-        CMP      R0,#+0
-        BNE.N    ??USBD_StdEPReq_1
 //  270       {
 //  271         if ((ep_addr & 0x7F) != 0x00) 
-        ANDS     R0,R1,#0x7F
-        BEQ.N    ??USBD_StdEPReq_9
 //  272         {        
 //  273           USBD_LL_ClearStallEP(pdev , ep_addr);
-        MOV      R0,R4
-          CFI FunCall USBD_LL_ClearStallEP
-        BL       USBD_LL_ClearStallEP
 //  274           pdev->pClass->Setup (pdev, req);
-        LDR      R2,[R6, #+24]
-        MOV      R1,R5
-        MOV      R0,R4
-        LDR      R2,[R2, #+8]
-          CFI FunCall
-        BLX      R2
 //  275         }
 //  276         USBD_CtlSendStatus(pdev);
-??USBD_StdEPReq_9:
-        MOV      R0,R4
-          CFI FunCall USBD_CtlSendStatus
-        BL       USBD_CtlSendStatus
-        B.N      ??USBD_StdEPReq_1
 //  277       }
 //  278       break;
 //  279       
@@ -752,44 +696,18 @@ USBD_StdEPReq:
 //  285     
 //  286   case USB_REQ_GET_STATUS:                  
 //  287     switch (pdev->dev_state) 
-??USBD_StdEPReq_2:
-        LDRB     R0,[R4, #+508]
-        CMP      R0,#+2
-        BEQ.N    ??USBD_StdEPReq_12
-        CMP      R0,#+3
-        BEQ.N    ??USBD_StdEPReq_13
-        B.N      ??USBD_StdEPReq_6
 //  288     {
 //  289     case USBD_STATE_ADDRESSED:          
 //  290       if ((ep_addr & 0x7F) != 0x00) 
-??USBD_StdEPReq_12:
-        ANDS     R0,R1,#0x7F
-        BEQ.N    ??USBD_StdEPReq_1
 //  291       {
 //  292         USBD_LL_StallEP(pdev , ep_addr);
-        B.N      ??USBD_StdEPReq_7
 //  293       }
 //  294       break;	
 //  295       
 //  296     case USBD_STATE_CONFIGURED:
 //  297       pep = ((ep_addr & 0x80) == 0x80) ? &pdev->ep_in[ep_addr & 0x7F]:\ 
 //  298                                          &pdev->ep_out[ep_addr & 0x7F];
-??USBD_StdEPReq_13:
-        AND      R0,R1,#0x7F
-        LSLS     R2,R1,#+24
-        ADD      R0,R4,R0, LSL #+4
-        ITE      MI 
-        ADDMI    R5,R0,#+20
-        ADDPL    R5,R0,#+260
 //  299       if(USBD_LL_IsStallEP(pdev, ep_addr))
-        MOV      R0,R4
-          CFI FunCall USBD_LL_IsStallEP
-        BL       USBD_LL_IsStallEP
-        SUBS     R0,R0,#+1
-        SBCS     R0,R0,R0
-        MVNS     R0,R0
-        LSRS     R0,R0,#+31
-        STR      R0,[R5, #+0]
 //  300       {
 //  301         pep->status = 0x0001;     
 //  302       }
@@ -801,16 +719,135 @@ USBD_StdEPReq:
 //  308       USBD_CtlSendData (pdev,
 //  309                         (uint8_t *)&pep->status,
 //  310                         2);
+//  311       break;
+//  312       
+//  313     default:                         
+//  314       USBD_CtlError(pdev , req);
+//  315       break;
+//  316     }
+//  317     break;
+//  318     
+//  319   default:
+//  320     break;
+//  321   }
+//  322   return ret;
+        MOVS     R0,#+0
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
+??USBD_StdEPReq_1:
+        LDRB     R0,[R5, #+1]
+        CMP      R0,#+3
+        BHI.N    ??USBD_StdEPReq_2
+        TBB      [PC, R0]
+        DATA
+??USBD_StdEPReq_0:
+        DC8      0x3E,0x1D,0x6B,0x2
+        THUMB
+??USBD_StdEPReq_3:
+        LDRB     R0,[R4, #+508]
+        CMP      R0,#+2
+        BEQ.N    ??USBD_StdEPReq_4
+        CMP      R0,#+3
+        BEQ.N    ??USBD_StdEPReq_5
+        B.N      ??USBD_StdEPReq_6
+??USBD_StdEPReq_4:
+        CMP      R1,#+0
+        IT       NE 
+        CMPNE    R1,#+128
+        BEQ.N    ??USBD_StdEPReq_2
+        B.N      ??USBD_StdEPReq_7
+??USBD_StdEPReq_5:
+        LDRH     R0,[R5, #+2]
+        CBNZ.N   R0,??USBD_StdEPReq_8
+        CMP      R1,#+0
+        ITTT     NE 
+        CMPNE    R1,#+128
+        MOVNE    R0,R4
+          CFI FunCall USBD_LL_StallEP
+        BLNE     USBD_LL_StallEP
+??USBD_StdEPReq_8:
+        LDR      R2,[R4, #+532]
+        MOV      R1,R5
+        MOV      R0,R4
+        LDR      R2,[R2, #+8]
+          CFI FunCall
+        BLX      R2
+        B.N      ??USBD_StdEPReq_9
+??USBD_StdEPReq_10:
+        LDRB     R0,[R4, #+508]
+        CMP      R0,#+2
+        BEQ.N    ??USBD_StdEPReq_11
+        CMP      R0,#+3
+        BEQ.N    ??USBD_StdEPReq_12
+        B.N      ??USBD_StdEPReq_6
+??USBD_StdEPReq_11:
+        CMP      R1,#+0
+        IT       NE 
+        CMPNE    R1,#+128
+        BEQ.N    ??USBD_StdEPReq_2
+        B.N      ??USBD_StdEPReq_7
+??USBD_StdEPReq_12:
+        LDRH     R0,[R5, #+2]
+        CMP      R0,#+0
+        BNE.N    ??USBD_StdEPReq_2
+        ANDS     R0,R1,#0x7F
+        BEQ.N    ??USBD_StdEPReq_9
+        MOV      R0,R4
+          CFI FunCall USBD_LL_ClearStallEP
+        BL       USBD_LL_ClearStallEP
+        LDR      R2,[R4, #+532]
+        MOV      R1,R5
+        MOV      R0,R4
+        LDR      R2,[R2, #+8]
+          CFI FunCall
+        BLX      R2
+??USBD_StdEPReq_9:
+        MOV      R0,R4
+          CFI FunCall USBD_CtlSendStatus
+        BL       USBD_CtlSendStatus
+        MOVS     R0,#+0
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
+??USBD_StdEPReq_13:
+        LDRB     R0,[R4, #+508]
+        CMP      R0,#+2
+        BEQ.N    ??USBD_StdEPReq_14
+        CMP      R0,#+3
+        BEQ.N    ??USBD_StdEPReq_15
+        B.N      ??USBD_StdEPReq_6
+??USBD_StdEPReq_14:
+        ANDS     R0,R1,#0x7F
+        BEQ.N    ??USBD_StdEPReq_2
+        B.N      ??USBD_StdEPReq_7
+??USBD_StdEPReq_15:
+        AND      R0,R1,#0x7F
+        LSLS     R2,R1,#+24
+        ADD      R0,R4,R0, LSL #+4
+        ITE      MI 
+        ADDMI    R5,R0,#+20
+        ADDPL    R5,R0,#+260
+        MOV      R0,R4
+          CFI FunCall USBD_LL_IsStallEP
+        BL       USBD_LL_IsStallEP
+        SUBS     R0,R0,#+1
+        SBCS     R0,R0,R0
+        MVNS     R0,R0
+        LSRS     R0,R0,#+31
+        STR      R0,[R5, #+0]
         MOVS     R2,#+2
         MOV      R1,R5
         MOV      R0,R4
           CFI FunCall USBD_CtlSendData
         BL       USBD_CtlSendData
-//  311       break;
-        B.N      ??USBD_StdEPReq_1
-//  312       
-//  313     default:                         
-//  314       USBD_CtlError(pdev , req);
+        MOVS     R0,#+0
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
 ??USBD_StdEPReq_6:
         MOVS     R1,#+128
         MOV      R0,R4
@@ -821,17 +858,11 @@ USBD_StdEPReq:
         MOV      R0,R4
           CFI FunCall USBD_LL_StallEP
         BL       USBD_LL_StallEP
-//  315       break;
-//  316     }
-//  317     break;
-//  318     
-//  319   default:
-//  320     break;
-//  321   }
-//  322   return ret;
-??USBD_StdEPReq_1:
+??USBD_StdEPReq_2:
         MOVS     R0,#+0
-        POP      {R4-R6,PC}       ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
 //  323 }
           CFI EndBlock cfiBlock2
 //  324 /**
@@ -850,12 +881,14 @@ USBD_StdEPReq:
 //  332                                USBD_SetupReqTypedef *req)
 //  333 {
 USBD_GetDescriptor:
-        PUSH     {R3-R5,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
           CFI R5 Frame(CFA, -8)
           CFI R4 Frame(CFA, -12)
-          CFI CFA R13+16
+          CFI CFA R13+12
         MOV      R5,R1
+        SUB      SP,SP,#+4
+          CFI CFA R13+16
         MOV      R4,R0
 //  334   uint16_t len;
 //  335   uint8_t *pbuf;
@@ -870,8 +903,8 @@ USBD_GetDescriptor:
         TBB      [PC, R0]
         DATA
 ??USBD_GetDescriptor_0:
-        DC8      0x4,0x1F,0x2E,0x73
-        DC8      0x73,0x60,0x69,0x0
+        DC8      0x4,0x20,0x2E,0x72
+        DC8      0x72,0x60,0x68,0x0
         THUMB
 //  339   { 
 //  340 #if (USBD_LPM_ENABLED == 1)
@@ -1000,11 +1033,13 @@ USBD_GetDescriptor:
 //  439   
 //  440 }
 ??USBD_GetDescriptor_5:
-        POP      {R0,R4,R5,PC}    ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
+          CFI CFA R13+16
 ??USBD_GetDescriptor_6:
-        ADD      R0,R4,#+528
-        LDR      R1,[R0, #+4]
         LDRB     R0,[R4, #+16]
+        LDR      R1,[R4, #+532]
         CMP      R0,#+0
         MOV      R0,SP
         BNE.N    ??USBD_GetDescriptor_7
@@ -1013,7 +1048,6 @@ USBD_GetDescriptor:
         BLX      R1
 ??USBD_GetDescriptor_8:
         MOVS     R1,#+2
-??USBD_GetDescriptor_9:
         STRB     R1,[R0, #+1]
         B.N      ??USBD_GetDescriptor_4
 ??USBD_GetDescriptor_7:
@@ -1021,7 +1055,7 @@ USBD_GetDescriptor:
           CFI FunCall
         BLX      R1
         B.N      ??USBD_GetDescriptor_8
-??USBD_GetDescriptor_10:
+??USBD_GetDescriptor_9:
         UXTB     R1,R1
         CMP      R1,#+5
         BHI.N    ??USBD_GetDescriptor_2
@@ -1031,7 +1065,7 @@ USBD_GetDescriptor:
         DC8      0x3,0xA,0x11,0x18
         DC8      0x1F,0x26
         THUMB
-??USBD_GetDescriptor_11:
+??USBD_GetDescriptor_10:
         LDR      R2,[R4, #+528]
         LDRB     R0,[R4, #+16]
         MOV      R1,SP
@@ -1039,7 +1073,7 @@ USBD_GetDescriptor:
           CFI FunCall
         BLX      R2
         B.N      ??USBD_GetDescriptor_4
-??USBD_GetDescriptor_12:
+??USBD_GetDescriptor_11:
         LDR      R2,[R4, #+528]
         LDRB     R0,[R4, #+16]
         MOV      R1,SP
@@ -1047,7 +1081,7 @@ USBD_GetDescriptor:
           CFI FunCall
         BLX      R2
         B.N      ??USBD_GetDescriptor_4
-??USBD_GetDescriptor_13:
+??USBD_GetDescriptor_12:
         LDR      R2,[R4, #+528]
         LDRB     R0,[R4, #+16]
         MOV      R1,SP
@@ -1055,7 +1089,7 @@ USBD_GetDescriptor:
           CFI FunCall
         BLX      R2
         B.N      ??USBD_GetDescriptor_4
-??USBD_GetDescriptor_14:
+??USBD_GetDescriptor_13:
         LDR      R2,[R4, #+528]
         LDRB     R0,[R4, #+16]
         MOV      R1,SP
@@ -1063,7 +1097,7 @@ USBD_GetDescriptor:
           CFI FunCall
         BLX      R2
         B.N      ??USBD_GetDescriptor_4
-??USBD_GetDescriptor_15:
+??USBD_GetDescriptor_14:
         LDR      R2,[R4, #+528]
         LDRB     R0,[R4, #+16]
         MOV      R1,SP
@@ -1071,7 +1105,7 @@ USBD_GetDescriptor:
           CFI FunCall
         BLX      R2
         B.N      ??USBD_GetDescriptor_4
-??USBD_GetDescriptor_16:
+??USBD_GetDescriptor_15:
         LDR      R2,[R4, #+528]
         LDRB     R0,[R4, #+16]
         MOV      R1,SP
@@ -1079,27 +1113,26 @@ USBD_GetDescriptor:
           CFI FunCall
         BLX      R2
         B.N      ??USBD_GetDescriptor_4
-??USBD_GetDescriptor_17:
+??USBD_GetDescriptor_16:
         LDRB     R0,[R4, #+16]
         CBNZ.N   R0,??USBD_GetDescriptor_2
-        ADD      R1,R4,#+528
+        LDR      R1,[R4, #+532]
         MOV      R0,SP
-        LDR      R1,[R1, #+4]
         LDR      R1,[R1, #+52]
           CFI FunCall
         BLX      R1
         B.N      ??USBD_GetDescriptor_4
-??USBD_GetDescriptor_18:
+??USBD_GetDescriptor_17:
         LDRB     R0,[R4, #+16]
         CBNZ.N   R0,??USBD_GetDescriptor_2
-        ADD      R1,R4,#+528
+        LDR      R1,[R4, #+532]
         MOV      R0,SP
-        LDR      R1,[R1, #+4]
         LDR      R1,[R1, #+48]
           CFI FunCall
         BLX      R1
         MOVS     R1,#+7
-        B.N      ??USBD_GetDescriptor_9
+        STRB     R1,[R0, #+1]
+        B.N      ??USBD_GetDescriptor_4
 ??USBD_GetDescriptor_2:
         MOVS     R1,#+128
         MOV      R0,R4
@@ -1109,7 +1142,9 @@ USBD_GetDescriptor:
         MOV      R0,R4
           CFI FunCall USBD_LL_StallEP
         BL       USBD_LL_StallEP
-        POP      {R0,R4,R5,PC}
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
           CFI EndBlock cfiBlock3
 //  441 
 //  442 /**
@@ -1456,7 +1491,7 @@ USBD_CtlError:
 //  730   * @retval None
 //  731   */
 
-        SECTION `.text`:CODE:NOROOT(1)
+        SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock6 Using cfiCommon0
           CFI Function USBD_GetString
           CFI NoCalls
@@ -1472,19 +1507,20 @@ USBD_GetString:
 //  737   {
 //  738     *len =  USBD_GetLen(desc) * 2 + 2;    
 ??USBD_GetString_0:
+        MOV      R3,R0
         PUSH     {R4,R5}
           CFI R5 Frame(CFA, -4)
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
-        MOV      R3,R0
-        MOVS     R4,#+0
-        B.N      ??USBD_GetString_1
+        LDRB     R5,[R3, #+0]
+        MOVS.W   R4,#+0
+        CBZ.N    R5,??USBD_GetString_1
 ??USBD_GetString_2:
+        LDRB     R5,[R3, #+1]!
         ADDS     R4,R4,#+1
-??USBD_GetString_1:
-        LDRB     R5,[R3], #+1
         CMP      R5,#+0
         BNE.N    ??USBD_GetString_2
+??USBD_GetString_1:
         LSLS     R4,R4,#+24
         LSRS     R3,R4,#+23
         ADDS     R3,R3,#+2
@@ -1497,6 +1533,7 @@ USBD_GetString:
         STRB     R2,[R1, #+1]
         MOVS     R2,#+2
         B.N      ??USBD_GetString_3
+        Nop      
 //  741     
 //  742     while (*desc != '\0') 
 //  743     {
@@ -1573,9 +1610,9 @@ USBD_GetString:
 //  782 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
 //     1 byte  in section .bss
-// 1 056 bytes in section .text
+// 1 102 bytes in section .text
 // 
-// 1 056 bytes of CODE memory
+// 1 102 bytes of CODE memory
 //     1 byte  of DATA memory
 //
 //Errors: none

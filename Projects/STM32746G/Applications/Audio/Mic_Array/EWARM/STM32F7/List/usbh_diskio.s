@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      16/Apr/2016  18:31:04
+// IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM      27/Apr/2016  12:04:32
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -48,7 +48,7 @@
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
 //        D:\sop1hc\Github\data\Mic_Array_V00\USB_STREAMING\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
-//        -Oh --use_c++_inline --require_prototypes -I "D:\Program Files
+//        -Ohs --use_c++_inline --require_prototypes -I "D:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
@@ -330,40 +330,17 @@ disk_read:
 //  119     res = RES_OK;
 ??disk_read_2:
         MOVS     R4,#+0
-        B.N      ??disk_read_5
 //  120   }
 //  121   else
 //  122   {
 //  123     USBH_MSC_GetLUNInfo(&hUSBHost, pdrv, &info); 
-??disk_read_4:
-        ADD      R2,SP,#+516
-        MOV      R1,R5
-        LDR.N    R0,??DataTable7_1
-          CFI FunCall USBH_MSC_GetLUNInfo
-        BL       USBH_MSC_GetLUNInfo
 //  124     
 //  125     switch (info.sense.asc)
-        LDRB     R0,[SP, #+529]
-        CMP      R0,#+4
-        ITT      NE 
-        CMPNE    R0,#+40
-        CMPNE    R0,#+58
-        BNE.N    ??disk_read_5
 //  126     {
 //  127     case SCSI_ASC_LOGICAL_UNIT_NOT_READY:
 //  128     case SCSI_ASC_MEDIUM_NOT_PRESENT:
 //  129     case SCSI_ASC_NOT_READY_TO_READY_CHANGE: 
 //  130       USBH_ErrLog("USB Disk is not ready!");  
-        ADR.W    R0,?_0
-        MOVS     R4,#+3
-          CFI FunCall printf
-        BL       printf
-        ADR.W    R0,?_1
-          CFI FunCall printf
-        BL       printf
-        ADR.N    R0,??DataTable7  ;; "\n"
-          CFI FunCall printf
-        BL       printf
 //  131       res = RES_NOTRDY;
 //  132       break; 
 //  133       
@@ -374,6 +351,33 @@ disk_read:
 //  138   }
 //  139   
 //  140   return res;
+        MOV      R0,R4
+        ADD      SP,SP,#+568
+          CFI CFA R13+24
+        POP      {R4-R8,PC}
+          CFI CFA R13+592
+??disk_read_4:
+        ADD      R2,SP,#+516
+        MOV      R1,R5
+        LDR.N    R0,??DataTable7_1
+          CFI FunCall USBH_MSC_GetLUNInfo
+        BL       USBH_MSC_GetLUNInfo
+        LDRB     R0,[SP, #+529]
+        CMP      R0,#+4
+        ITT      NE 
+        CMPNE    R0,#+40
+        CMPNE    R0,#+58
+        BNE.N    ??disk_read_5
+        ADR.W    R0,?_0
+        MOVS     R4,#+3
+          CFI FunCall printf
+        BL       printf
+        ADR.W    R0,?_1
+          CFI FunCall printf
+        BL       printf
+        ADR.N    R0,??DataTable7  ;; "\n"
+          CFI FunCall printf
+        BL       printf
 ??disk_read_5:
         MOV      R0,R4
         ADD      SP,SP,#+568
@@ -481,62 +485,22 @@ disk_write:
 //  179     res = RES_OK;
 ??disk_write_1:
         MOVS     R5,#+0
-        B.N      ??disk_write_5
 //  180   }
 //  181   else
 //  182   {
 //  183     USBH_MSC_GetLUNInfo(&hUSBHost, pdrv, &info); 
-??disk_write_4:
-        ADD      R2,SP,#+516
-        MOV      R1,R4
-        LDR.N    R0,??DataTable7_1
-          CFI FunCall USBH_MSC_GetLUNInfo
-        BL       USBH_MSC_GetLUNInfo
 //  184     
 //  185     switch (info.sense.asc)
-        LDRB     R0,[SP, #+529]
-        CMP      R0,#+4
-        BEQ.N    ??disk_write_6
-        CMP      R0,#+39
-        BEQ.N    ??disk_write_7
-        CMP      R0,#+40
-        IT       NE 
-        CMPNE    R0,#+58
-        BEQ.N    ??disk_write_6
-        B.N      ??disk_write_5
 //  186     {
 //  187     case SCSI_ASC_WRITE_PROTECTED:
 //  188       USBH_ErrLog("USB Disk is Write protected!");
-??disk_write_7:
-        ADR.W    R0,?_0
-        MOVS     R5,#+2
-          CFI FunCall printf
-        BL       printf
-        ADR.W    R0,?_3
-          CFI FunCall printf
-        BL       printf
-        ADR.N    R0,??DataTable7  ;; "\n"
-          CFI FunCall printf
-        BL       printf
 //  189       res = RES_WRPRT;
 //  190       break;
-        B.N      ??disk_write_5
 //  191       
 //  192     case SCSI_ASC_LOGICAL_UNIT_NOT_READY:
 //  193     case SCSI_ASC_MEDIUM_NOT_PRESENT:
 //  194     case SCSI_ASC_NOT_READY_TO_READY_CHANGE:
 //  195       USBH_ErrLog("USB Disk is not ready!");      
-??disk_write_6:
-        ADR.W    R0,?_0
-        MOVS     R5,#+3
-          CFI FunCall printf
-        BL       printf
-        ADR.W    R0,?_1
-          CFI FunCall printf
-        BL       printf
-        ADR.N    R0,??DataTable7  ;; "\n"
-          CFI FunCall printf
-        BL       printf
 //  196       res = RES_NOTRDY;
 //  197       break; 
 //  198       
@@ -547,7 +511,58 @@ disk_write:
 //  203   }
 //  204   
 //  205   return res;   
+        MOV      R0,R5
+        ADD      SP,SP,#+568
+          CFI CFA R13+32
+        POP      {R4-R10,PC}
+          CFI CFA R13+600
+??disk_write_4:
+        ADD      R2,SP,#+516
+        MOV      R1,R4
+        LDR.N    R0,??DataTable7_1
+          CFI FunCall USBH_MSC_GetLUNInfo
+        BL       USBH_MSC_GetLUNInfo
+        LDRB     R0,[SP, #+529]
+        CMP      R0,#+4
+        BEQ.N    ??disk_write_5
+        CMP      R0,#+39
+        BEQ.N    ??disk_write_6
+        CMP      R0,#+40
+        IT       NE 
+        CMPNE    R0,#+58
+        BEQ.N    ??disk_write_5
+        MOV      R0,R5
+        ADD      SP,SP,#+568
+          CFI CFA R13+32
+        POP      {R4-R10,PC}
+          CFI CFA R13+600
+??disk_write_6:
+        ADR.W    R0,?_0
+        MOVS     R5,#+2
+          CFI FunCall printf
+        BL       printf
+        ADR.W    R0,?_3
+          CFI FunCall printf
+        BL       printf
+        ADR.N    R0,??DataTable7  ;; "\n"
+          CFI FunCall printf
+        BL       printf
+        MOV      R0,R5
+        ADD      SP,SP,#+568
+          CFI CFA R13+32
+        POP      {R4-R10,PC}
+          CFI CFA R13+600
 ??disk_write_5:
+        ADR.W    R0,?_0
+        MOVS     R5,#+3
+          CFI FunCall printf
+        BL       printf
+        ADR.W    R0,?_1
+          CFI FunCall printf
+        BL       printf
+        ADR.N    R0,??DataTable7  ;; "\n"
+          CFI FunCall printf
+        BL       printf
         MOV      R0,R5
         ADD      SP,SP,#+568
           CFI CFA R13+32
@@ -590,7 +605,7 @@ disk_ioctl:
         TBB      [PC, R1]
         DATA
 ??disk_ioctl_0:
-        DC8      0x1E,0x2,0xA,0x11
+        DC8      0x28,0x2,0xD,0x17
         THUMB
 //  223     /* Make sure that no pending write process */  
 //  224   case CTRL_SYNC:		
@@ -610,7 +625,7 @@ disk_ioctl:
 //  231     {
 //  232       *(DWORD*)buff = info.capacity.block_nbr;
         LDR      R0,[SP, #+4]
-        B.N      ??disk_ioctl_4
+        STR      R0,[R4, #+0]
 //  233       res = RES_OK;
 //  234     }
 //  235     else
@@ -621,13 +636,6 @@ disk_ioctl:
 //  240     
 //  241   case GET_SECTOR_SIZE :	/* Get R/W sector size (WORD) */
 //  242     if(USBH_MSC_GetLUNInfo(&hUSBHost, pdrv, &info) == USBH_OK)
-??disk_ioctl_5:
-        MOV      R1,R0
-        MOV      R2,SP
-        LDR.N    R0,??DataTable7_1
-          CFI FunCall USBH_MSC_GetLUNInfo
-        BL       USBH_MSC_GetLUNInfo
-        CBZ.N    R0,??disk_ioctl_6
 //  243     {
 //  244       *(DWORD*)buff = info.capacity.block_size;
 //  245       res = RES_OK;
@@ -635,7 +643,6 @@ disk_ioctl:
 //  247     else
 //  248     {
 //  249       res = RES_ERROR;
-        B.N      ??disk_ioctl_3
 //  250     }
 //  251     break;
 //  252     
@@ -643,28 +650,13 @@ disk_ioctl:
 //  254   case GET_BLOCK_SIZE:	
 //  255     
 //  256     if(USBH_MSC_GetLUNInfo(&hUSBHost, pdrv, &info) == USBH_OK)
-??disk_ioctl_7:
-        MOV      R1,R0
-        MOV      R2,SP
-        LDR.N    R0,??DataTable7_1
-          CFI FunCall USBH_MSC_GetLUNInfo
-        BL       USBH_MSC_GetLUNInfo
-        CBNZ.N   R0,??disk_ioctl_3
 //  257     {
 //  258       *(DWORD*)buff = info.capacity.block_size;
-??disk_ioctl_6:
-        LDRH     R0,[SP, #+8]
-??disk_ioctl_4:
-        STR      R0,[R4, #+0]
 //  259       res = RES_OK;
-        B.N      ??disk_ioctl_8
 //  260     }
 //  261     else
 //  262     {
 //  263       res = RES_ERROR;
-??disk_ioctl_3:
-        MOVS     R5,#+1
-        B.N      ??disk_ioctl_8
 //  264     }
 //  265     
 //  266     break;
@@ -672,12 +664,52 @@ disk_ioctl:
 //  268     
 //  269   default:
 //  270     res = RES_PARERR;
-??disk_ioctl_1:
-        MOVS     R5,#+4
 //  271   }
 //  272   
 //  273   return res;
-??disk_ioctl_8:
+        MOV      R0,R5
+        ADD      SP,SP,#+52
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+64
+??disk_ioctl_4:
+        MOV      R1,R0
+        MOV      R2,SP
+        LDR.N    R0,??DataTable7_1
+          CFI FunCall USBH_MSC_GetLUNInfo
+        BL       USBH_MSC_GetLUNInfo
+        CBZ.N    R0,??disk_ioctl_5
+        MOVS     R5,#+1
+        MOV      R0,R5
+        ADD      SP,SP,#+52
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+64
+??disk_ioctl_6:
+        MOV      R1,R0
+        MOV      R2,SP
+        LDR.N    R0,??DataTable7_1
+          CFI FunCall USBH_MSC_GetLUNInfo
+        BL       USBH_MSC_GetLUNInfo
+        CBNZ.N   R0,??disk_ioctl_3
+??disk_ioctl_5:
+        LDRH     R0,[SP, #+8]
+        STR      R0,[R4, #+0]
+        MOV      R0,R5
+        ADD      SP,SP,#+52
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+64
+??disk_ioctl_3:
+        MOVS     R5,#+1
+        MOV      R0,R5
+        ADD      SP,SP,#+52
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+64
+??disk_ioctl_1:
+        MOVS     R5,#+4
+??disk_ioctl_7:
         MOV      R0,R5
         ADD      SP,SP,#+52
           CFI CFA R13+12
@@ -759,9 +791,9 @@ get_fattime:
 //  287 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
 //   2 bytes in section .rodata
-// 514 bytes in section .text
+// 566 bytes in section .text
 // 
-// 514 bytes of CODE  memory
+// 566 bytes of CODE  memory
 //   2 bytes of CONST memory
 //
 //Errors: none
