@@ -29,6 +29,7 @@
 #include "usbd_audio_in.h"
 #include "usbd_audio_if.h" 
 #include "audio_application.h"
+#include "waverecorder.h" 
 
 #define EXT_RAM                 0
 #define DEBUG                   0

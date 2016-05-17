@@ -48,14 +48,15 @@
 extern HCD_HandleTypeDef hhcd;
 extern PCD_HandleTypeDef hpcd;
 extern __IO  char flg10ms;
-
+extern __IO uint8_t   flgShipping;
+extern __IO uint8_t WaveRecord_flgIni;
 uint32_t cntOS;
 
 
 extern I2C_HandleTypeDef hi2c1,hi2c2;
 extern UART_HandleTypeDef huart3;
 extern SPI_HandleTypeDef hspi5;
-
+extern Mic_Array_Data Buffer1;
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
@@ -173,6 +174,11 @@ void SysTick_Handler(void)
   {
       cntOS=0;
       flg10ms = 1;
+      if ((cntOS==3000)||(cntOS==6000)||(cntOS==9000))
+      {
+           flgShipping = CheckEnergyEqual(&Buffer1.bufMIC1[0], &Buffer1.bufMIC5[0], 100); 
+           WaveRecord_flgIni=0;
+      }
   }
   	
 }

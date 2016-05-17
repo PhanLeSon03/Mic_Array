@@ -50,7 +50,7 @@ void MIC8Rec (void);
 void I2S1_Enable(void);
 void I2S2_Enable(void);
 void SPI4_Enable(void);
-
+uint8_t CheckEnergyEqual(int16_t * Channel_Ref, int16_t * Channel, int16_t len);
 
 
 

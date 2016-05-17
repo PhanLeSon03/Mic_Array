@@ -65,7 +65,7 @@ __IO uint16_t  cntRisingEXTI;
 __IO uint8_t   btnSW1,btnSW2;
 __IO uint8_t   flgDlyUpd; 
 __IO uint8_t   cntBtnPress;
-
+__IO uint8_t   flgShipping;
 extern __IO uint16_t  WaveRec_idxTest;
 extern __IO uint8_t  swtBufUSBOut;
 extern __IO uint8_t flgRacing;
@@ -359,8 +359,11 @@ inline static void Audio_Play_Out(void)
             }
 
           //if (cntStrt==2) 	 StartRecMic7_8();
-          if (cntStrt<100) cntStrt++;
-
+          if (cntStrt<10) 
+          {  
+            cntStrt++;
+            WaveRecord_flgIni=0; 
+          } 
 
 		 /* Tongle status to switch the USB audio buffer out */
 
@@ -510,36 +513,22 @@ int main(void)
        
 		/* This calculation happens once time in power cycles */
 		/* After 5 times of full frame recieved interrupt */
-	   if ((cntStrt>=5))
-	   {
-		      if ((WaveRecord_flgIni<200))
-		      {
-				  for (uint32_t i=0; i<2000;i++)
-				  {
-				    __NOP;
+               if ((cntStrt>=5)||(flgShipping==1))
+               {
+                      if ((WaveRecord_flgIni<200))
+                      {
+                          for(char i=0;i<16;i++)
+                          {
+                             if (ValBit(SPI4_stNipple,i)!=0) 
+                             {
+                                  SPI4_stPosShft = MAX(SPI4_stPosShft,i+1);
+                             }
+                          }
+		                  WaveRecord_flgIni++;			
+		              }
+					  flgShipping = 0;
 
-				  }
-                  for(char i=0;i<16;i++)
-                  {
-                     if (ValBit(SPI4_stNipple,i)!=0) 
-                     {
-                          SPI4_stPosShft = MAX(SPI4_stPosShft,i+1);
-                     }
-                  }
-		          WaveRecord_flgIni++;			
-		      }
-			  else if (WaveRecord_flgIni==200)
-			  {
-				  while (1)
-				  {
-					  FFT_Update();  
-				  }
-			  }
-			  else
-			  {
-				  
-			  }
-		}
+		       }
 	
 		/* USB Host Background task */
 		//USBH_Process(&hUSBHost);
@@ -547,7 +536,7 @@ int main(void)
 		/* AUDIO Menu Process */
 		//AUDIO_MenuProcess();
 		
-		; 
+		FFT_Update();   
 
 		if (flg10ms==1)
 		{

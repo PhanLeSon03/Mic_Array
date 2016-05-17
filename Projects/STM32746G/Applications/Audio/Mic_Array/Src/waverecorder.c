@@ -124,7 +124,7 @@ __IO uint16_t  pDataMic7[64];//INTERNAL_BUFF_SIZE
 __IO int16_t   pPDM2PCM[16];
 __IO uint16_t cntStrt;
 __IO uint8_t WaveRecord_flgInt;
-uint8_t WaveRecord_flgIni;
+__IO uint8_t WaveRecord_flgIni;
 
 uint16_t vRawSens1,vRawSens2,vRawSens4,vRawSens3,vRawSens5,vRawSens6;  
 __IO int16_t SPI1_stNipple,I2S1_stNipple, I2S2_stNipple,SPI4_stNipple;
@@ -1855,3 +1855,26 @@ void MIC8Rec (void)
 //    }
 
 }
+
+uint8_t CheckEnergyEqual(int16_t * Channel_Ref, int16_t * Channel, int16_t len)
+{
+    int64_t Energy_Ref=0;
+    int64_t Energy = 0;
+    float facEnergy;
+    for (int16_t i=0;i++;i<len)
+    {
+        Energy_Ref += Channel_Ref[i]*Channel_Ref[i];
+        Energy += Channel[i]*Channel[i];
+    }
+    
+    facEnergy = Energy_Ref/MAX(Energy,0.001);
+    
+    if ((facEnergy>1.1)||(facEnergy<0.9))
+    {
+         return 1; 
+    }
+    
+    return 0;
+  
+}
+
