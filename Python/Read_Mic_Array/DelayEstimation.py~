@@ -190,9 +190,9 @@ def computedelay_couple(audio_data):
     #delay_in_sample[3] = crsscorr_FFT(audio_data[:,6],audio_data[:,7])
     imax = np.argmax(r)
     delay_in_sample[3] = imax - PAR.RES
-    #xxx = crsscorr_local(audio_data[:, 0], audio_data[:, 0])
+    xxx = crsscorr_local(audio_data[:, 0], audio_data[:, 0])
 
-    #print("Test: %d"%np.argmax(xxx))
+    print("Test: %d"%np.argmax(xxx))
     return delay_in_sample
 
 

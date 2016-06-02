@@ -38,7 +38,7 @@ FS_RAW = np.linspace(0,fs,N)
 FS_H = FS[:math.floor((N+zpf+zpb)/2)+1]
 
 #offset
-OFFSET = 5 #5.75
+OFFSET = 6 #5.75
 
 #Radius of circle
 R=0.026

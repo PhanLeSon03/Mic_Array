@@ -224,9 +224,8 @@ if False:
     W = BF.BeamFormingSD_Init(Frames)
     sio.savemat('W.mat', {'W': W})
 else:
-    file =  sio.loadmat('coeff_5cm_2048.mat')
+    file =  sio.loadmat('W.mat')
     W= file['W']
-
 
 #np.savetxt('weight.txt', W)
 #W = np.loadtxt('weight.txt')
@@ -244,9 +243,8 @@ htext = ax.text(0.5,0.5,'',fontsize=80, color='red')
 Shift78 =	np.arange(1,PAR.N+1,1)
 Shift78 =   np.sinc(Shift78-(1/(PAR.RES/5*2))*(3)-PAR.N/2)
 DE.sinc_function()
-
-
 threadLock = threading.Lock()
+
 
 print("**** recording *******")
 
@@ -332,8 +330,8 @@ for i in range(0, int(numCHUNK)):  # 64000/250*10 = 2500
       
     ##Beam_Audio = BF.BeamFormingDS(Frames, 0,Delay_FFT)
     #Beam_Audio = BF.BeamFormingSD(Frames_D,0,W)
-    W_in = W[:1025,:,Dir]
-    Beam_Audio = BF.BeamFormingSD(Frames_D,0,np.transpose(W_in))
+   
+    Beam_Audio = BF.BeamFormingSD(Frames_D,0,W[Dir])
     #Beam_Audio = np.ones(PAR.N)
       
     #Storage audio output    
@@ -350,7 +348,7 @@ for i in range(0, int(numCHUNK)):  # 64000/250*10 = 2500
 
     '''Sound Source Localization'''
     
-    if(idxFrame%2==0):
+    if(idxFrame%4==0):
         #DOAEst(Frames_D,DOA)
         flgCntDOA+=1
         if(flgCntDOA==1):
