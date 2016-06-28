@@ -405,7 +405,9 @@ int main(void)
   BSP_LED_Init(LED2);
 
   /* Button Initialization */
-  ButtonInit();
+  // sop1hc: removed on 22 June 2016, since do not install 2 buttons on this version 
+  //ButtonInit();
+
   //BSP_PB_Init(BUTTON_KEY,BUTTON_MODE_EXTI);
 
   
@@ -483,7 +485,8 @@ int main(void)
 		//test GIT //USBH_Start(&hUSBHost); 					  
 #endif 
 
-   AUDIO_InitApplication();
+    
+    AUDIO_InitApplication();
  
  					  
 
@@ -525,17 +528,17 @@ int main(void)
                              }
                           }
 		                  WaveRecord_flgIni++;			
-		              }
-					  flgShipping = 0;
-
 		       }
+		       flgShipping = 0;
+
+		 }
 	
 		/* USB Host Background task */
 		//USBH_Process(&hUSBHost);
 
 		/* AUDIO Menu Process */
 		//AUDIO_MenuProcess();
-		
+
 		FFT_Update();   
 
 		if (flg10ms==1)

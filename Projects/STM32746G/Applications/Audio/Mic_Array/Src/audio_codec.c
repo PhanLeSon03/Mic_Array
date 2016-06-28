@@ -406,6 +406,9 @@ static uint32_t Codec_Init(uint16_t OutputDevice, uint8_t Vol, uint32_t AudioFre
   uint32_t counter = 0; 
   uint32_t stReadReg;
 
+//sop1hc: removed on 22 June 2016, since do not install CS43L22 in this version 
+
+#if 0
   /* Configure the Codec related IOs */
   Codec_GPIO_Init();   //only reset Pin configuration
   
@@ -474,6 +477,8 @@ static uint32_t Codec_Init(uint16_t OutputDevice, uint8_t Vol, uint32_t AudioFre
   /* Adjust PCM volume level */
   counter += Codec_WriteRegister(0x1A, 0x0A);
   counter += Codec_WriteRegister(0x1B, 0x0A);
+
+#endif
 
 #if 0
 	  for (uint8_t i=0x00;i<=0x34;i++)

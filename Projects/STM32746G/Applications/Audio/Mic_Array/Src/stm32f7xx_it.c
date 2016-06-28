@@ -174,7 +174,7 @@ void SysTick_Handler(void)
   {
       cntOS=0;
       flg10ms = 1;
-      if ((cntOS==3000)||(cntOS==6000)||(cntOS==9000))
+      if ((cntOS==3000))
       {
            flgShipping = CheckEnergyEqual(&Buffer1.bufMIC1[0], &Buffer1.bufMIC5[0], 100); 
            WaveRecord_flgIni=0;

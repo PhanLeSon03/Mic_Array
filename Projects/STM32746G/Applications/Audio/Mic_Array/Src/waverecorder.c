@@ -1861,7 +1861,7 @@ uint8_t CheckEnergyEqual(int16_t * Channel_Ref, int16_t * Channel, int16_t len)
     int64_t Energy_Ref=0;
     int64_t Energy = 0;
     float facEnergy;
-    for (int16_t i=0;i++;i<len)
+    for (int16_t i=0;i<len;i++)
     {
         Energy_Ref += Channel_Ref[i]*Channel_Ref[i];
         Energy += Channel[i]*Channel[i];
