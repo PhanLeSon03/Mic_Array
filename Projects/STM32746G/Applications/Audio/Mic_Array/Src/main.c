@@ -528,8 +528,11 @@ int main(void)
                              }
                           }
 		                  WaveRecord_flgIni++;			
-		       }
-		       flgShipping = 0;
+		              }
+					  else
+					  {
+		                  flgShipping = 0;
+					  }
 
 		 }
 	
