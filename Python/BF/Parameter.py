@@ -52,7 +52,7 @@ Fs_F = fs*RES*2/5
 #Hope
 HOP = math.floor((N)/2)
 
-GAMMA = 0.0
+GAMMA = -7.0
 
 #number of raw audio buffer frame
 CNTBUF = 8

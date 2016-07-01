@@ -4,7 +4,7 @@ mail: plson03@gmail.com
 '''
 import pyaudio
 import numpy as np
-import Parameter as PAR
+import BF.Parameter as PAR
 import sys
 import time
 import math

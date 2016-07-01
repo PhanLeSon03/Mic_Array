@@ -5,10 +5,10 @@ mail: plson03@gmail.com
 
 import numpy as np
 from scipy import signal
-import DelayEstimation as DE
-import Parameter as PAR
+import BF.DelayEstimation as DE
+import BF.Parameter as PAR
 import threading
-import mic_array_read as MAR
+import BF.mic_array_read as MAR
 
 DOA = np.array([
     [-9.7, -6.87, 0., 6.86],  # 225
@@ -52,11 +52,11 @@ class DOAEst(threading.Thread):
         Delay_In_Sample(:,0) = d*cos(alpha)/C*fs
         '''
 
-        self.power = 90000
+        self.power = 40000
         self.dynamic_power_adj_damping = 0.0225
         self.damping = self.dynamic_power_adj_damping ** (1.0/8.0)
         self.dynamic_power_ratio = 1.5
-        self.offset = 2000
+        self.offset = 0
         self.Dir = 0
         self.DirOld = 0
         self.DIR = np.zeros(16)

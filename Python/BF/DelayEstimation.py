@@ -2,7 +2,7 @@
 Phan Le Son
 mail: plson03@gmail,com
 '''
-import Parameter as PAR
+import BF.Parameter as PAR
 import numpy as np
 import math
 from scipy import signal

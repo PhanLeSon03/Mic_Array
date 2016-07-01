@@ -9,8 +9,8 @@ from scipy import signal
 from numpy import matrix
 from numpy import linalg
 import scipy.io as spio
-import Parameter as PAR
-import DelayEstimation as DE
+import BF.Parameter as PAR
+import BF.DelayEstimation as DE
 import random
 from matplotlib import pyplot as plot
 from timeit import default_timer as timer
