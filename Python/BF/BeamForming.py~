@@ -10,12 +10,11 @@ from numpy import matrix
 from numpy import linalg
 import scipy.io as spio
 import BF.Parameter as PAR
-import BF.DelayEstimation as DE
+import DBF.elayEstimation as DE
 import random
 from matplotlib import pyplot as plot
 from timeit import default_timer as timer
 import scipy.io as sio
-
 
 Audio_Data_Old = np.zeros((PAR.N, PAR.m),dtype=int)
 Frames_FFT_Old_Half = np.zeros((np.floor(PAR.N/2),PAR.m),dtype=complex)
@@ -37,18 +36,7 @@ win = np.concatenate((np.zeros(PAR.zpf),
                       Window,
                       np.zeros(PAR.zpb)))
 
-N = PAR.N
-m = PAR.m
-HOP = PAR.HOP
-L = PAR.N + PAR.zpb + PAR.zpf
-zpb = PAR.zpb
-zpf = PAR.zpf
-R_Calc = np.zeros((m,m,PAR.L_H + 1),dtype=float)
-R_CalcTest = np.zeros((m,m,64 + 1),dtype=float)
-f = []
-b, a = signal.butter(4, 6000 / PAR.fs, btype='low')
-
-def CoeffCalc (fs, gamma,angle,R_Update=False):
+def CoeffCalc (fs, gamma,angle):
     global eps
     m = PAR.m
     zpb =  PAR.zpb
@@ -60,10 +48,8 @@ def CoeffCalc (fs, gamma,angle,R_Update=False):
 
     SteerVect = np.mat(SteeringVector(angle))     # matrix 8x513
     spio.savemat('SV.mat', {'SV': SteerVect})
-    R_All = CoheCalc(fs, L_H + 1,R_Update)                        # matrix 8x8x513
+    R_All = CoheCalc(fs)                        # matrix 8x8x513
     R = np.zeros((m,m))
-
-    F_SWT = (5600.0/8000.0)*L_H
     # Compute gains for positive frequencies
     for i in range(0,L_H + 1):  # Loop for every frequency slot
         f = PAR.FS[i]
@@ -86,7 +72,7 @@ def CoeffCalc (fs, gamma,angle,R_Update=False):
         while gain<gamma:  # stop when distance(gain,gamma) <= 1
             #print(i)
             # Increasing esp will increase gain and vice versa
-            if (i<F_SWT): #717
+            if (i<717): #717
                 esp = (esp  + step)                   # matrix 8x8
                 #esp = esp-step
                 #print(esp)
@@ -139,41 +125,22 @@ def SteeringVectorX(frequency, phi, dist):
 
     return np.exp(-1j * omega * D / PAR.c)
 
-def CoheCalc(fs, len,R_Update=False):
+def CoheCalc(fs):
     m = PAR.m
     N = PAR.N
-    #ij_matrix = np.zeros((len,m,m))  # 1025x8x8
-    if (R_Update==False):
+    ij_matrix = np.zeros((N/2+1,m,m))  # 1025x8x8
 
-        #file= spio.loadmat('diffuse_8_8_1025.mat')
-        file = spio.loadmat('BF/diffuse_8_8_1025.mat')
+    #Coherence = np.zeros((m,m,N))
+    #for i in range (0,m):
+    #    for j in range (0,m):
+    #        f, ij_matrix[i,j] = signal.coherence(audio_data[i], audio_data[j], fs, nperseg=1024)
 
-        ij_matrix= file['test']  #1025x8x8
-        R = ij_matrix[:,:,::2]
+    #file= spio.loadmat('diffuse_8_8_1025.mat')
+    file = spio.loadmat('BF/diffuse_8_8_1025_sqrt_maya.mat')
 
-        for iMic in range(0,m):
-            for jMic in range(0,m):
-                tempR = np.concatenate((np.ones(128),R[iMic,jMic,:]),axis=0)
-                tempR= signal.lfilter(b, a, tempR, axis=0)
-                R[iMic, jMic, :] = tempR[128:]
-    else:
-        R = R_Calc
+    ij_matrix= file['test']  #1025x8x8
 
-    import matplotlib.pyplot as plt
-    plt.figure()
-    plt.plot(R[0, 1, :])
-    plt.plot(R[0, 3, :], 'g')
-    plt.plot(R[0, 5, :], 'r')
-    plt.plot(R[0, 7, :], 'y')
-    # plt.cohere(Noise[:,0], Noise[:,1],NFFT=128, Fs=16000)
-    # plt.cohere(Noise[:, 0], Noise[:, 3],NFFT=128,Fs=16000)
-    # plt.cohere(Noise[:, 0], Noise[:, 5],NFFT=128, Fs=16000)
-    # plt.cohere(Noise[:, 0], Noise[:, 7],NFFT=128, Fs=16000)
-    plt.xlabel('frequency [Hz]')
-    plt.ylabel('Coherence')
-    plt.show()
-
-    return R
+    return ij_matrix
 
 
 
@@ -215,12 +182,12 @@ def SteeringVector(angle):
 '''
 Update coefficient
 '''
-def BeamFormingSD_Init(R_Update=False):
+def BeamFormingSD_Init():
 
-    W = np.zeros((16,PAR.m,PAR.L_H+1),dtype=complex)
+    W = np.zeros((16,PAR.m,PAR.N+1),dtype=complex)
 
     for iAngle in range(0,16):
-       W[iAngle,:,:] = np.array(CoeffCalc(PAR.fs,PAR.GAMMA,iAngle,R_Update))
+       W[iAngle,:,:] = np.array(CoeffCalc(PAR.fs,PAR.GAMMA,iAngle))
        print('--------------------------------------------------------------')
        print(iAngle)
        print('--------------------------------------------------------------')
@@ -228,6 +195,7 @@ def BeamFormingSD_Init(R_Update=False):
 
 
 def BeamFormingSD (Audio_Data, W_ZP):
+#def BeamFormingSD (Audio_Data, Audio_Data_Old, Angle, W_ZP):
     '''
     Super-directive Beam-forming
     '''
@@ -237,6 +205,10 @@ def BeamFormingSD (Audio_Data, W_ZP):
     global test_k
     global test
 
+    N = PAR.N
+    m = PAR.m
+    HOP = PAR.HOP
+    L = PAR.N + PAR.zpb + PAR.zpf
 
     global Out_Sum_Pre, Out_Sum_Pre1, Out_Sum_Pre2, Out_Sum_Pre3, Out_Sum, y_old
 
@@ -256,6 +228,8 @@ def BeamFormingSD (Audio_Data, W_ZP):
 
     Out_Sum     = (np.real(np.fft.irfft(Out_FFT)))
 
+
+
     y_old = np.concatenate((
         np.zeros((PAR.zpf,m), dtype=int),
         Audio_Data_Old,
@@ -271,12 +245,12 @@ def BeamFormingSD (Audio_Data, W_ZP):
     Out_Sum_Pre = (np.real(np.fft.irfft(Out_FFT_Pre)))
 
     #reconstruct the signal
-    Data_Half1 =  Out_Sum_Pre[zpb:zpb+HOP] + Audio_Sum_Old
-    Data_Half2 =  Out_Sum_Pre[zpb + HOP:zpb + 2*HOP] + Out_Sum[zpb:zpb+HOP]
+    Data_Half1 =  Out_Sum_Pre[HOP:2*HOP] + Audio_Sum_Old
+    Data_Half2 =  Out_Sum_Pre[2*HOP:3*HOP] + Out_Sum[HOP:2*HOP]
 
     Audio_Sum = np.concatenate((Data_Half1,Data_Half2),axis=0)
 
-    Audio_Sum_Old = np.array(Out_Sum[zpb + HOP:zpb + 2*HOP])
+    Audio_Sum_Old = np.array(Out_Sum[2*HOP:3*HOP])
     Audio_Data_Old = np.array(Audio_Data)
     return Audio_Sum
 
@@ -341,12 +315,12 @@ def BF_PostFiltering(Audio_Data, W_ZP, W_ZP_PF):
 
 
     #reconstruct the signal
-    Data_Half1 =  Out_Sum_Pre[PAR.zpb:PAR.zpb+HOP] + Audio_Sum_Old
-    Data_Half2 =  Out_Sum_Pre[PAR.zpb + HOP:PAR.zpb + 2*HOP] + Out_Sum[PAR.zpb:PAR.zpb+HOP]
+    Data_Half1 =  Out_Sum_Pre[HOP:2*HOP] + Audio_Sum_Old
+    Data_Half2 =  Out_Sum_Pre[2*HOP:3*HOP] + Out_Sum[HOP:2*HOP]
 
     Audio_Sum = np.concatenate((Data_Half1,Data_Half2),axis=0)
 
-    Audio_Sum_Old = np.array(Out_Sum[PAR.zpb + HOP:PAR.zpb + 2*HOP])
+    Audio_Sum_Old = np.array(Out_Sum[2*HOP:3*HOP])
     Audio_Data_Old = np.array(Audio_Data)
     return Audio_Sum  
     
@@ -383,10 +357,9 @@ def BeamFormingDS_Init(Audio_Data):
 
 class BeamFormingObj(object):
     def __init__(self,Weight_Update=False):
-        self.idex = 0.0
         if Weight_Update:
-            self.W = BeamFormingSD_Init(R_Update=False)
-            sio.savemat('BF/W.mat', {'W': self.W})
+            self.W = BeamFormingSD_Init()
+            sio.savemat('W.mat', {'W': self.W})
         else:
             file = sio.loadmat('BF/W.mat')
             self.W = file['W']
@@ -395,43 +368,3 @@ class BeamFormingObj(object):
          DataBeam = BeamFormingSD(Audio_Data, self.W[Angle])
          #DataBeam = BF_PostFiltering(Audio_Data, self.W[Angle], self.W[(Angle+8)%16])
          return DataBeam
-
-    def WeightUpd(self,Audio_Data):
-        global R_Calc,f
-
-        Noise = np.array(Audio_Data)
-
-        if (self.idex<PAR.COHE_FRM):
-            for iMic in range(0,PAR.m):
-                for jMic in range(0,PAR.m):
-                    #for iSubFrame in range(0,8):
-                    iSubFrame = 0
-                    f, Cxy=  signal.coherence(Noise[iSubFrame*1024:(iSubFrame+1)*1024,iMic],Noise[iSubFrame*1024:(iSubFrame+1)*1024,jMic],PAR.fs,noverlap=0,nperseg=128)
-
-                    #print(Cxy.shape)
-                    R_CalcTest[iMic,jMic,:] += (1.0/1.0)*Cxy
-
-            self.idex += 1.0
-            return 0
-        else:
-            for iMic in range(0,PAR.m):
-                for jMic in range(0,PAR.m):
-                    R_CalcTest[iMic,jMic,:] = R_CalcTest[iMic,jMic,:]/(self.idex)
-                    temp_R = np.concatenate((np.ones(128),R_CalcTest[iMic, jMic, : ]),axis=0)
-                    temp_R = signal.lfilter(b, a, temp_R, axis=0)
-                    R_CalcTest[iMic, jMic, :] = temp_R[128:]
-                    xnew = np.linspace(0, 8000, num=PAR.L_H + 1, endpoint=True)
-
-                    R_Calc[iMic, jMic, :] = np.interp(xnew, f, R_CalcTest[iMic, jMic, :])
-
-            self.idex = 0.0
-            return 1
-
-    def ListenBGNoise(self,Audio_Data):
-        if (self.WeightUpd(Audio_Data)==1):
-            self.W = BeamFormingSD_Init(R_Update=True)
-            sio.savemat('BF/W.mat', {'W': self.W})
-            return 1
-        else:
-            return 0
-

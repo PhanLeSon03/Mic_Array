@@ -57,7 +57,7 @@
 #define INTERRUPT_PRI_EXT_LRCK  6
 #define INTERRUPT_PRI_I2S_OUT   3
 
-#define AUDIO_CHANNELS 				               2
+#define AUDIO_CHANNELS 				               8
 #define AUDIO_SAMPLING_FREQUENCY 		           16000
 
 #define COEFLOWPASS_MIC                            8

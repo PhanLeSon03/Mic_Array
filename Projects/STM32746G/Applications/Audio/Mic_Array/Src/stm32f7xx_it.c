@@ -49,8 +49,8 @@ extern HCD_HandleTypeDef hhcd;
 extern PCD_HandleTypeDef hpcd;
 extern __IO  char flg10ms;
 extern __IO uint8_t   flgShipping;
-extern __IO uint8_t WaveRecord_flgIni;
-uint32_t cntOS;
+extern __IO uint16_t WaveRecord_flgIni;
+__IO uint32_t cntOS,cntOSCheckShft;
 
 
 extern I2C_HandleTypeDef hi2c1,hi2c2;
@@ -163,6 +163,7 @@ void SysTick_Handler(void)
   //Toggle_Leds();
 
   cntOS++;
+  
 #if USB_STREAMING
   //if(cntOS%2==0)
   //{
@@ -174,12 +175,29 @@ void SysTick_Handler(void)
   {
       cntOS=0;
       flg10ms = 1;
-      if ((cntOS==3000))
-      {
-           flgShipping = CheckEnergyEqual(&Buffer1.bufMIC1[0], &Buffer1.bufMIC5[0], 100); 
-           WaveRecord_flgIni=0;
-      }
+      
   }
+  
+  if ((cntOSCheckShft>3000)&&(cntOSCheckShft<3003))
+  {
+     //flgShipping = CheckEnergyEqual(&Buffer1.bufMIC1[0], &Buffer1.bufMIC5[0], 100); 
+     //WaveRecord_flgIni=0;
+     //if (CheckEnergyEqual(&Buffer1.bufMIC1[0], &Buffer1.bufMIC5[0], 100))
+     //{
+         /* SW reset here */
+         //HAL_NVIC_SystemReset();  
+     //}
+     
+     //HAL_NVIC_SystemReset();
+     //BSP_LED_Toggle(LED2);
+     cntOSCheckShft++;
+  }
+  else
+  {
+      if (cntOSCheckShft<3000+10)
+             cntOSCheckShft++;     
+  }
+
   	
 }
 

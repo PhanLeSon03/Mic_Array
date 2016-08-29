@@ -53,21 +53,32 @@ MIC_ARRAY = READ.Mic_Array_Read()
 LOC = DOA.DOA_MicArray()
 BEAM = BF.BeamFormingObj(Weight_Update=False)
 
+if False:
+    Frames_1024 = MIC_ARRAY.Read()
+    while (BEAM.ListenBGNoise(Frames_1024)==0):
+        time.sleep(0.0001)
+
 
 print("**** recording *******")
-
+AccTime = 0
 for i in range(0, int(numCHUNK)):
+
     Frames_1024 = MIC_ARRAY.Read()
+    start = timer()
     '''Sound Source Localization'''
     idxDir = LOC.Update(Frames_1024)
-    Beam_Audio = BEAM.BFCalc(Frames_1024,idxDir)
+    Beam_Audio = BEAM.BFCalc(Frames_1024,6)
 
     # Storage audio output
     Audio_Data[ind:ind + PAR.N, 0:PAR.m] = Frames_1024[:, 0:PAR.m]
     Audio_SD[ind:ind + PAR.N] = Beam_Audio
     ind = ind + PAR.N
+    elapse = timer() - start
+    #print("Processing Time %f" %elapse)
+    AccTime = AccTime + elapse
 
 print("**** done recording **")
+print("Total calculation: %f" %AccTime)
 
 LOC.Stop()
 MIC_ARRAY.Stop_Read()
@@ -95,6 +106,25 @@ if True:
     f1 = open('./BF/ref.txt', 'r+')
     reftext = f1.read()
     f1.close()
+    WAV_FILE = path.join(path.dirname(path.realpath(__file__)), "SD.wav")
+
+    with sr.WavFile(WAV_FILE) as source:
+        audio = r.record(source)  # read the entire WAV file
+
+    # recognize speech using Google Speech Recognition
+    try:
+        # for testing purposes, we're just using the default API key
+        # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
+        # instead of `r.recognize_google(audio)`
+        testtext = r.recognize_google(audio)
+        print("Beam-forming result :::::::::::::::::::::::::" + testtext)
+        res = wer.wer(reftext, testtext)
+        print('Word Error Rate: {0:.04f}'.format(res))
+    except sr.UnknownValueError:
+        print("Google Speech Recognition could not understand audio")
+    except sr.RequestError as e:
+        print("Could not request results from Google Speech Recognition service; {0}".format(e))
+
 
     for i in range(0, 8):
         file = "channel" + str(i) + ".wav"
@@ -117,24 +147,7 @@ if True:
         except sr.RequestError as e:
             print("Could not request results from Google Speech Recognition service; {0}".format(e))
 
-    WAV_FILE = path.join(path.dirname(path.realpath(__file__)), "SD.wav")
 
-    with sr.WavFile(WAV_FILE) as source:
-        audio = r.record(source)  # read the entire WAV file
-
-    # recognize speech using Google Speech Recognition
-    try:
-        # for testing purposes, we're just using the default API key
-        # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
-        # instead of `r.recognize_google(audio)`
-        testtext = r.recognize_google(audio)
-        print("Beam-forming result :::::::::::::::::::::::::" + testtext)
-        res = wer.wer(reftext, testtext)
-        print('Word Error Rate: {0:.04f}'.format(res))
-    except sr.UnknownValueError:
-        print("Google Speech Recognition could not understand audio")
-    except sr.RequestError as e:
-        print("Could not request results from Google Speech Recognition service; {0}".format(e))
 
 
 

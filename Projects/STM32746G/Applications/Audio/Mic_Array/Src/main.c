@@ -37,7 +37,7 @@ extern __IO AUDIO_IN_BufferTypeDef BufferCtlRecIn;
 extern DMA_HandleTypeDef     DmaHandle;
 
 extern SAI_HandleTypeDef         haudio_out_sai;
-extern uint8_t WaveRecord_flgIni;
+extern uint16_t WaveRecord_flgIni;
 extern uint32_t EnergySound,EnergyError;
 extern I2C_HandleTypeDef hi2c2;
 extern __IO uint16_t cntStrt;
@@ -56,12 +56,11 @@ Mic_Array_Coef_f FacMic;
 	  
 uint16_t bufferSum[6*AUDIO_OUT_BUFFER_SIZE+10];
 float CrssCorVal78,CrssCorVal14,CrssCorVal25,CrssCorVal63;
-
+__IO uint32_t  cntRisingEXTI;
 __IO uint16_t  WaveRec_idxSens4,WaveRec_idxSens3,I2S2_idxTmp;
 __IO uint16_t  WaveRec_idxSens1,WaveRec_idxSens2;
 __IO uint16_t  WaveRec_idxSens5,WaveRec_idxSens6;
 __IO uint16_t  idxSPI5DataBuf3;
-__IO uint16_t  cntRisingEXTI;
 __IO uint8_t   btnSW1,btnSW2;
 __IO uint8_t   flgDlyUpd; 
 __IO uint8_t   cntBtnPress;
@@ -69,6 +68,9 @@ __IO uint8_t   flgShipping;
 extern __IO uint16_t  WaveRec_idxTest;
 extern __IO uint8_t  swtBufUSBOut;
 extern __IO uint8_t flgRacing;
+extern __IO GPIO_PinState stMIC56;
+extern __IO GPIO_PinState stMIC56Old;
+
 
 
 /* Buffer used for reception */
@@ -91,6 +93,7 @@ uint16_t cntTime200;
 
 uint8_t buffer_switch = 1;
 uint8_t Command_index=1;
+uint8_t swtCase1Mic56;
 
 float fir256Coff[DSP_NUMCOFFHANNIING];
 //int16_t PreCalcBuff[129][256];
@@ -361,9 +364,9 @@ inline static void Audio_Play_Out(void)
           //if (cntStrt==2) 	 StartRecMic7_8();
           if (cntStrt<10) 
           {  
-            cntStrt++;
-            WaveRecord_flgIni=0; 
-          } 
+              cntStrt++;
+              WaveRecord_flgIni=0; 
+          }
 
 		 /* Tongle status to switch the USB audio buffer out */
 
@@ -372,7 +375,6 @@ inline static void Audio_Play_Out(void)
 
 
 }
-
 
 /* Private functions ---------------------------------------------------------*/
 
@@ -383,6 +385,7 @@ inline static void Audio_Play_Out(void)
   */
 int main(void)
 {
+  //int16_t temp;
   /* Enable the CPU Cache */
   CPU_CACHE_Enable();
   
@@ -414,7 +417,9 @@ int main(void)
   /* Init TS module */
    DFT_Init();	
 
-    /* ---------PA4: LCCKO(I2S2)-------------*/
+
+    /*-----------------------*/
+	/* ---------PA4: LCCKO(I2S2)-------------*/
     __GPIOA_CLK_ENABLE();
     GPIO_INS.Pin = GPIO_PIN_4;
     GPIO_INS.Mode =GPIO_MODE_IT_RISING;
@@ -423,10 +428,10 @@ int main(void)
     HAL_GPIO_Init(GPIOA,&GPIO_INS);
 
     /* Enable and set Button EXTI Interrupt to the lowest priority */
-    HAL_NVIC_SetPriority((IRQn_Type)EXTI4_IRQn, INTERRUPT_PRI_EXT_LRCK, 0);
-    HAL_NVIC_EnableIRQ((IRQn_Type)EXTI4_IRQn);
-    /*-----------------------*/
+    //HAL_NVIC_SetPriority((IRQn_Type)EXTI4_IRQn, INTERRUPT_PRI_EXT_LRCK, 0);
+    //HAL_NVIC_EnableIRQ((IRQn_Type)EXTI4_IRQn);
 
+	
      /* ---------PB12: LCCKO (I2S2)-------------*/
     __GPIOB_CLK_ENABLE();
     GPIO_INS.Pin = GPIO_PIN_12;
@@ -465,7 +470,7 @@ int main(void)
 
 #if (USB_STREAMING)	
 		/* Initialize USB descriptor basing on channels number and sampling frequency */
-		USBD_AUDIO_Init_Microphone_Descriptor(&hUSBDDevice, 4*AUDIO_SAMPLING_FREQUENCY, AUDIO_CHANNELS);
+		USBD_AUDIO_Init_Microphone_Descriptor(&hUSBDDevice, AUDIO_SAMPLING_FREQUENCY, AUDIO_CHANNELS);
 		/* Init Device Library */
 		USBD_Init(&hUSBDDevice, &AUDIO_Desc, 0);
 		/* Add Supported Class */
@@ -487,7 +492,10 @@ int main(void)
 
     
     AUDIO_InitApplication();
- 
+
+     /*------------------------PLAYER------------------------------------------*/
+    Audio_MAL_Play((uint32_t)bufferSum,6*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
+    /*------------------------------------------------------------------------*/ 
  					  
 
     /*----------------------------------------*/
@@ -501,40 +509,74 @@ int main(void)
     BSP_LED_Toggle(LED2);
 
     buffer_switch = BUF3_PLAY;		 /* record data to buffer1 */
-    MIC1TO8_Init();
-    BSP_LED_Toggle(LED1);
 
+
+    MIC1TO8_Init();
+    StartPlay();
+
+    BSP_LED_Toggle(LED1);
     Window(fir256Coff);
 	EnergyNoiseCalc(AUDIO_OUT_BUFFER_SIZE/2);
-	StartPlay();
 
     //Precalculation(Coef,PreCalcBuff);
-
+    
     while (1)
-    {
-
-       
+    {   
 		/* This calculation happens once time in power cycles */
 		/* After 5 times of full frame recieved interrupt */
-               if ((cntStrt>=5)||(flgShipping==1))
-               {
-                      if ((WaveRecord_flgIni<200))
-                      {
-                          for(char i=0;i<16;i++)
-                          {
-                             if (ValBit(SPI4_stNipple,i)!=0) 
-                             {
-                                  SPI4_stPosShft = MAX(SPI4_stPosShft,i+1);
-                             }
-                          }
-		                  WaveRecord_flgIni++;			
-		              }
-					  else
-					  {
-		                  flgShipping = 0;
-					  }
+        
+        if ((cntStrt>=5)&&(cntStrt<48))
+        {
+            if ((WaveRecord_flgIni<900)&&(cntStrt<10))
+            {
+                if (ValBit(SPI4_stNipple,0)!=0)
+                {
+                    swtCase1Mic56 = 1;    
+                }
+                WaveRecord_flgIni++;
+            }
+            else if ((WaveRecord_flgIni<1000)&&(cntStrt<10))
+            {
+                if (swtCase1Mic56==0)
+                {
+                     stMIC56 = GPIO_PIN_SET;
+                     stMIC56Old = GPIO_PIN_RESET; 
+                     SPI4_stPosShft = 0;
+                }
+
+                WaveRecord_flgIni++;
+                
+
+            }
+            else if ((cntStrt>=10)&&(WaveRecord_flgIni<200))
+            {
+                for(char i=0;i<16;i++)
+                {
+                     if (ValBit(SPI4_stNipple,i)!=0) 
+                     {
+                          SPI4_stPosShft = MAX(SPI4_stPosShft,i+1);
+                     }
+                }
+                //temp = SPI4_stNipple;
+                //uint8_t idxPos;
+                //idxPos = 0;
+                //while (temp!=0)
+                //{
+                //    idxPos++;                    
+                //    SPI4_stPosShft = MAX(SPI4_stPosShft,idxPos);
+                //    temp =temp>>1;
+                //}
+                WaveRecord_flgIni++;			
+            }
+            else
+            {
+                flgShipping = 0;
+                WaveRecord_flgIni = 0;
+            }
+					  
 
 		 }
+		 
 	
 		/* USB Host Background task */
 		//USBH_Process(&hUSBHost);
@@ -1061,14 +1103,14 @@ void EXTI4_IRQHandler(void)
   if(__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_4) != RESET)
   {
     
-     if (cntRisingEXTI==20)
+     if (cntRisingEXTI==32000)
      {
     	/*--------------Enable read PCM data --------------------*/   
         //flgDlyUpd = 1;  
         //__HAL_SPI_ENABLE_IT(&hspi5, (SPI_IT_RXNE| SPI_IT_ERR));
 		//__HAL_UNLOCK(&hspi5);
         //__HAL_SPI_ENABLE(&hspi5);
-        cntRisingEXTI=0;
+        cntRisingEXTI++;
 
         /*Disable external interrupt */
         HAL_NVIC_DisableIRQ((IRQn_Type)(EXTI4_IRQn));
@@ -1076,7 +1118,8 @@ void EXTI4_IRQHandler(void)
      }
      else
      {
-        cntRisingEXTI++;
+        if (cntRisingEXTI < 32000 +2)
+            cntRisingEXTI++;
         //__HAL_SPI_DISABLE(&hspi5);
      }
      
@@ -1246,66 +1289,33 @@ void MX_I2C2_Init(void)
 
  uint8_t StartPlay(void)
  {
- #if 0
-	while (1)
-	{
-		 /* there is data in the buffer */	
-		 if((WaveRec_idxSens1>=(AUDIO_OUT_BUFFER_SIZE-1))&&(stFrstFrmStore<3))
-		 {
-			 RESET_IDX
-			 /* this is just run 1 time after 1st frame of I2S data full */
-			 if ((stFrstFrmStore<3))
-			 {
-                             stFrstFrmStore++;
-             
-                             buffer_switch = BUF2_PLAY; /* record data to buffer3 */
-             
-                             if (stFrstFrmStore==2)
-                             {
-                                 
-         
-                                 /*------------------------PLAYER------------------------------------------*/
-                                 Audio_MAL_Play((uint32_t)bufferSum,2*6*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
-                                 /*------------------------------------------------------------------------*/				 
-                                 buffer_switch = BUF1_PLAY;
-								 uint16_t tdelay=100;
-								 while(tdelay--);
-                                 //StartRecMic7_8();
-                                 return 0;		 
-                             }				 
-                     
-			 }
-		 
-		 }
-	}
-#endif	
 
-     /*------------------------PLAYER------------------------------------------*/
-	 Audio_MAL_Play((uint32_t)bufferSum,6*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
-	 /*------------------------------------------------------------------------*/     	   	 
-	 HAL_Delay(100);
-     	
-     //HAL_Delay(1);
-     //for (uint32_t i=0; i<2000;i++)
-     //{
-	 //  __NOP;
-	 //  __NOP;
-	 //  __NOP;
-	 //  __NOP;
-     //}
-     I2S1_Enable();
-     I2S2_Enable();
-     SPI4_Enable();
-     StartRecMic7_8();
-	 WaveRec_idxSens1 = 0;
-	 WaveRec_idxSens2 = 0;
-	 WaveRec_idxSens3 = 0;
-	 WaveRec_idxSens4 = 0;
-	 WaveRec_idxSens5 = 0;
-	 WaveRec_idxSens6 = 0; 
-	 idxFrmPDMMic8 = 0;
-	 buffer_switch = BUF1_PLAY;
-	
+
+    
+    
+    	   	 
+    //HAL_Delay(100);
+    	
+    //HAL_Delay(1);
+
+
+    I2S1_Enable();
+    I2S2_Enable();
+    //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
+    //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
+     
+    SPI4_Enable();
+    StartRecMic7_8();
+    WaveRec_idxSens1 = 0;
+    WaveRec_idxSens2 = 0;
+    WaveRec_idxSens3 = 0;
+    WaveRec_idxSens4 = 0;
+    WaveRec_idxSens5 = 0;
+    WaveRec_idxSens6 = 0; 
+    idxFrmPDMMic8 = 0;
+    buffer_switch = BUF1_PLAY;
+
+	return 0;
 	 
  }
 

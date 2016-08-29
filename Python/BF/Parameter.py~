@@ -20,16 +20,10 @@ fs = 16000
 N = 1024
 
 #Zero padding front
-zpf= 0
+zpf= 512
 
 #Zero padding bacl
-zpb = 0
-
-#Lenght with zero-padding
-L = N + zpf + zpb
-
-#Haft-lengnth
-L_H = math.floor(L/2)
+zpb = 512
 
 # Frequency slot with Zerro Padding
 FS = np.linspace(0,fs, (N+ zpb  + zpf))
@@ -58,10 +52,8 @@ Fs_F = fs*RES*2/5
 #Hope
 HOP = math.floor((N)/2)
 
-GAMMA = -0.0
+GAMMA = -3.0
 
 #number of raw audio buffer frame
 CNTBUF = 8
 
-# Number of frame to get environment noise
-COHE_FRM = 160

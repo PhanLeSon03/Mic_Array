@@ -61,7 +61,8 @@ uint16_t idxMic7=0;
 uint8_t pHeaderBuff[44];
 //uint16_t Buffer1[AUDIO_IN_PCM_BUFFER_SIZE];
 uint16_t volatile cntTransFinish;
-
+uint8_t Wave_cntClk;
+uint8_t flgSPI1Frst=0;
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 extern  AUDIO_IN_BufferTypeDef  stkBufferCtlRecIn,stkBuffer1, stkBuffer2;
@@ -89,14 +90,15 @@ extern __IO uint16_t  idxSPI5DataBuf3;
 
 int16_t TestSDO12[4*AUDIO_OUT_BUFFER_SIZE];
 int16_t TestSDO34[4*AUDIO_OUT_BUFFER_SIZE];
-int16_t TestSDO56[4*AUDIO_OUT_BUFFER_SIZE];
+int32_t TestSDO56[4*AUDIO_OUT_BUFFER_SIZE];
 uint16_t TestSDO7[8*AUDIO_OUT_BUFFER_SIZE];
 uint16_t TestSDO8[8*AUDIO_OUT_BUFFER_SIZE];
 uint16_t TestSDO7_1[4*AUDIO_OUT_BUFFER_SIZE];
 uint16_t TestSDO8_1[4*AUDIO_OUT_BUFFER_SIZE];
 __IO uint16_t  WaveRec_idxTest;
 __IO uint8_t flgRacing;
-
+__IO GPIO_PinState stMIC56=GPIO_PIN_SET;
+__IO GPIO_PinState stMIC56Old=GPIO_PIN_SET;
 
 
 SPI_HandleTypeDef hspi1,hspi2;
@@ -123,8 +125,9 @@ __IO uint16_t  pDataMic8[64];//INTERNAL_BUFF_SIZE
 __IO uint16_t  pDataMic7[64];//INTERNAL_BUFF_SIZE
 __IO int16_t   pPDM2PCM[16];
 __IO uint16_t cntStrt;
+__IO uint16_t WaveRecord_flgIni;
 __IO uint8_t WaveRecord_flgInt;
-__IO uint8_t WaveRecord_flgIni;
+
 
 uint16_t vRawSens1,vRawSens2,vRawSens4,vRawSens3,vRawSens5,vRawSens6;  
 __IO int16_t SPI1_stNipple,I2S1_stNipple, I2S2_stNipple,SPI4_stNipple;
@@ -261,7 +264,11 @@ void SPI1_IRQHandler(void)
 	
 
 	   tmpTest =  (int16_t)SPI_I2S_ReceiveData(SPI1);
-	
+       if (flgSPI1Frst==0)
+       {
+           
+           flgSPI1Frst = 1;
+       }
 	   /* Left-Right Mic data */
 	   //stLR= HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4);
 	
@@ -277,17 +284,17 @@ void SPI1_IRQHandler(void)
 					{
 					   switch (buffer_switch)
 					   {
-                                              case BUF1_PLAY:
-                                                  Buffer2.bufMIC1[WaveRec_idxSens1] = vRawSens1;//vRawSens1;								
-                                                  break;
-                                              case BUF2_PLAY:
-                                                  Buffer3.bufMIC1[WaveRec_idxSens1] = vRawSens1;//vRawSens1;
-                                                  break;
-                                              case BUF3_PLAY:
-                                                  Buffer1.bufMIC1[WaveRec_idxSens1] = vRawSens1;//vRawSens1;									
-                                                  break;
-                                              default:
-                                                  break; 
+                              case BUF1_PLAY:
+                                  Buffer2.bufMIC1[WaveRec_idxSens1] = vRawSens1;//vRawSens1;								
+                                  break;
+                              case BUF2_PLAY:
+                                  Buffer3.bufMIC1[WaveRec_idxSens1] = vRawSens1;//vRawSens1;
+                                  break;
+                              case BUF3_PLAY:
+                                  Buffer1.bufMIC1[WaveRec_idxSens1] = vRawSens1;//vRawSens1;									
+                                  break;
+                              default:
+                                  break; 
 					   
 					   }
 					  
@@ -629,34 +636,54 @@ void SPI2_IRQHandler(void)
 void SPI4_IRQHandler(void)
 {
   static uint8_t Main_stLR, Main_stLROld;
-
+  uint8_t temp = 0;
 
   /* SPI in mode Receiver ----------------------------------------------------*/
   if(
-//    (__HAL_SPI_GET_FLAG(&hspi4, SPI_FLAG_OVR) == RESET)&&
-//    (__HAL_SPI_GET_FLAG(&hspi4, SPI_FLAG_RXNE) != RESET)&&
+    (__HAL_SPI_GET_FLAG(&hspi4, SPI_FLAG_OVR) == RESET)&&
+    (__HAL_SPI_GET_FLAG(&hspi4, SPI_FLAG_RXNE) != RESET)&&
      (__HAL_SPI_GET_IT_SOURCE(&hspi4, SPI_IT_RXNE) != RESET))
   {
 
-        uint16_t test;
-        test =  SPI_I2S_ReceiveData(SPI4);
+    uint16_t test;
+    test =  SPI_I2S_ReceiveData(SPI4);
 
-        /* Left-Right Mic data */
-        Main_stLR= HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4);
-
-        /* STM32F746 read data from STA321MP, the data is shifted few bit     */
-        /* Data from STA321MP is 32bit formart                                */
-        /* SPI is just able to read 16 bit format                             */
-        /* Therefore, it needs to correct                                     */
-        
-        /* ---------------------------+++++++++++++++++++++++++++++++---------*/
-        /*                  ______DATAL_____              ______DATAR_____    */
-        /*                  _____vRawSens5__              ______vRawSens6_    */       
-	if (Main_stLR==GPIO_PIN_SET)
+    /* Left-Right Mic data */
+    Main_stLR= HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4);
+    /*
+    Wave_cntClk++;
+    if (Wave_cntClk==4)
+    {
+        Wave_cntClk = 0;
+        Main_stLR = GPIO_PIN_SET;
+    }
+    else if (Wave_cntClk==1)
+    {
+        Main_stLR = GPIO_PIN_SET;
+    }
+    else
+    {
+        Main_stLR = GPIO_PIN_RESET;
+    }
+    /* STM32F746 read data from STA321MP, the data is shifted few bit           */
+    /* Data from STA321MP is 32bit formart                                      */
+    /* SPI is just able to read 16 bit format                                   */
+    /* Therefore, it needs to correct                                           */
+    /*  First Case                                                              */
+    /* --------------------------------++++++++++++++++++++++++++++++++---------*/
+    /*                        ______DATAL_____              ______DATAR_____    */
+    /*                        _____vRawSens6__              ______vRawSens5_    */       
+    /*  Second Case                                                             */
+    /* --------------------------------++++++++++++++++++++++++++++++++---------*/
+    /*            ______DATAL_____             ______DATAR_____                 */
+    /*            _____vRawSens6__             ______vRawSens5_                 */
+	if (Main_stLR==stMIC56)
 	{
-            if (Main_stLROld==GPIO_PIN_SET)
+	        temp = 0x01;
+            if (Main_stLROld==stMIC56Old)
             {
-               SPI4_stNipple = (test);    
+               SPI4_stNipple = (test);
+			   
             }
             else
             {
@@ -722,10 +749,11 @@ void SPI4_IRQHandler(void)
 
 			if (flgRacing==0x3F)  SubFrameFinished();				
 	   }
-        }
+    }
 	else
 	{
-          if (Main_stLROld==GPIO_PIN_RESET)
+	    temp = 0x00;   
+          if (Main_stLROld!=stMIC56Old)
           {
               SPI4_stNipple = (test);	  
 
@@ -774,15 +802,15 @@ void SPI4_IRQHandler(void)
                    switch (buffer_switch)
                    {
                            case BUF1_PLAY:
-                                   Buffer1.bufMIC5[WaveRec_idxSens5 % AUDIO_OUT_BUFFER_SIZE] = vRawSens5;
+                                   Buffer1.bufMIC5[WaveRec_idxSens5%AUDIO_OUT_BUFFER_SIZE ] = vRawSens5;
                   
                                    break;
                            case BUF2_PLAY:
-                                   Buffer2.bufMIC5[WaveRec_idxSens5 % AUDIO_OUT_BUFFER_SIZE] = vRawSens5;
+                                   Buffer2.bufMIC5[WaveRec_idxSens5%AUDIO_OUT_BUFFER_SIZE ] = vRawSens5;
                   
                                    break;
                            case BUF3_PLAY:
-                                   Buffer3.bufMIC5[WaveRec_idxSens5 % AUDIO_OUT_BUFFER_SIZE] = vRawSens5;
+                                   Buffer3.bufMIC5[WaveRec_idxSens5%AUDIO_OUT_BUFFER_SIZE ] = vRawSens5;
                   
                                    break; 						 
                            default:
@@ -803,7 +831,7 @@ void SPI4_IRQHandler(void)
 	/* The code to store data in to buffer for testing purpose */
 	if (iSDO56<4*AUDIO_OUT_BUFFER_SIZE)
 	{
-		TestSDO56[iSDO56++]=test;
+		TestSDO56[iSDO56++]=(temp<<16)|test;
 	}
 	else
 	{
@@ -934,7 +962,8 @@ void MIC1TO8_Init(void)
 //  while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
   SPI4_Init(); /* SPI4   --> SDO56 */
   SPI5_Init();
-  SPI6_Init();  
+  SPI6_Init(); 
+  //StartRecMic7_8();
 }
 
 void StartRecMic7_8 (void)
@@ -1058,7 +1087,7 @@ void SPI4_Init(void)
   hspi4.Init.Mode = SPI_MODE_SLAVE;
   hspi4.Init.Direction = SPI_DIRECTION_2LINES_RXONLY;//SPI_DIRECTION_2LINES_RXONLY
   hspi4.Init.DataSize = SPI_DATASIZE_16BIT;
-  hspi4.Init.CLKPolarity = SPI_POLARITY_HIGH;
+  hspi4.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi4.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi4.Init.NSS = SPI_NSS_SOFT;//SPI_NSS_HARD_INPUT
   hspi4.Init.FirstBit = SPI_FIRSTBIT_MSB;
@@ -1116,7 +1145,7 @@ void SPI5_Init(void)
   hspi5.Init.Mode = SPI_MODE_SLAVE;
   hspi5.Init.Direction = SPI_DIRECTION_2LINES_RXONLY;//SPI_DIRECTION_2LINES_RXONLY
   hspi5.Init.DataSize = SPI_DATASIZE_16BIT;
-  hspi5.Init.CLKPolarity = SPI_POLARITY_HIGH;
+  hspi5.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi5.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi5.Init.NSS = SPI_NSS_SOFT;//SPI_NSS_HARD_INPUT
   hspi5.Init.FirstBit = SPI_FIRSTBIT_MSB;
@@ -1144,7 +1173,7 @@ void SPI6_Init(void)
   hspi6.Init.Mode = SPI_MODE_SLAVE;
   hspi6.Init.Direction = SPI_DIRECTION_2LINES_RXONLY;//SPI_DIRECTION_2LINES_RXONLY
   hspi6.Init.DataSize = SPI_DATASIZE_16BIT;
-  hspi6.Init.CLKPolarity = SPI_POLARITY_HIGH;
+  hspi6.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi6.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi6.Init.NSS = SPI_NSS_SOFT;//SPI_NSS_HARD_INPUT
   hspi6.Init.FirstBit = SPI_FIRSTBIT_MSB;
@@ -1363,9 +1392,16 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
     PE5     ------> SPI4_MISO
     PE6     ------> SPI4_MOSI 
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6;
+    GPIO_InitStruct.Pin = GPIO_PIN_2;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Pull = GPIO_PULLUP;
+    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF5_SPI4;
+    HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
+    
+    GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_PULLUP;
     GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
     GPIO_InitStruct.Alternate = GPIO_AF5_SPI4;
     HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
@@ -1685,7 +1721,7 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
 		/* Last player Frame is finished */
 		AudioPlayerUpd(); 		
 		
-		if (cntStrt<100) cntStrt++;		   
+		//if (cntStrt<100) cntStrt++;		   
         
    }
 #else
@@ -1747,26 +1783,26 @@ buffer_switch_tmp = buffer_switch;
 	          /* Recording Audio Data */						 
 	          switch (buffer_switch_tmp)
 	          {
-			              case BUF1_PLAY:								
-                              PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer3.bufMIC7 + (i/64)*16), 24 ,
-                              (PDMFilter_InitStruct *)&Filter[0]);	
-                              PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer3.bufMIC8 + (i/64)*16), 24 ,
-                              (PDMFilter_InitStruct *)&Filter[1]);				  
-                               break;	               
-                          case BUF2_PLAY:
-                              PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer1.bufMIC7 + (i/64)*16), 24 ,
-                              (PDMFilter_InitStruct *)&Filter[0]);	
-                              PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer1.bufMIC8 + (i/64)*16), 24 ,
-                              (PDMFilter_InitStruct *)&Filter[1]);	
-                              break;
-                          case BUF3_PLAY:
-                              PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer2.bufMIC7 + (i/64)*16), 24 ,
-                              (PDMFilter_InitStruct *)&Filter[0]);	
-                              PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer2.bufMIC8 + (i/64)*16), 24 ,
-                              (PDMFilter_InitStruct *)&Filter[1]);					
-                              break;
-                          default:
-                              break; 
+	              case BUF1_PLAY:								
+                      PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer3.bufMIC7 + (i/64)*16), 24 ,
+                      (PDMFilter_InitStruct *)&Filter[0]);	
+                      PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer3.bufMIC8 + (i/64)*16), 24 ,
+                      (PDMFilter_InitStruct *)&Filter[1]);				  
+                       break;	               
+                  case BUF2_PLAY:
+                      PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer1.bufMIC7 + (i/64)*16), 24 ,
+                      (PDMFilter_InitStruct *)&Filter[0]);	
+                      PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer1.bufMIC8 + (i/64)*16), 24 ,
+                      (PDMFilter_InitStruct *)&Filter[1]);	
+                      break;
+                  case BUF3_PLAY:
+                      PDM_Filter_64_LSB((uint8_t *)pDataMic7,(uint16_t *)(Buffer2.bufMIC7 + (i/64)*16), 24 ,
+                      (PDMFilter_InitStruct *)&Filter[0]);	
+                      PDM_Filter_64_LSB((uint8_t *)pDataMic8,(uint16_t *)(Buffer2.bufMIC8 + (i/64)*16), 24 ,
+                      (PDMFilter_InitStruct *)&Filter[1]);					
+                      break;
+                  default:
+                      break; 
 	          }
 	        }
 
@@ -1869,7 +1905,7 @@ uint8_t CheckEnergyEqual(int16_t * Channel_Ref, int16_t * Channel, int16_t len)
     
     facEnergy = Energy_Ref/MAX(Energy,0.001);
     
-    if ((facEnergy>1.1)||(facEnergy<0.9))
+    if ((facEnergy>1.5)||(facEnergy<0.5))
     {
          return 1; 
     }
