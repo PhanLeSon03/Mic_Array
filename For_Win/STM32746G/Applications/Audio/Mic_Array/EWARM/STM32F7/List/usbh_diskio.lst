@@ -1,0 +1,684 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM       15/May/2016  09:59:41
+# Copyright 1999-2016 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\usbh_diskio.c
+#    Command line =  
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\usbh_diskio.c
+#        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
+#        USE_IOEXPANDER -D USE_USB_FS -lC
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        -lA
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        -o
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+#        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
+#        --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        7.3\arm\INC\c\DLib_Config_Full.h" -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+#        -Ohs --use_c++_inline --require_prototypes -I "C:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
+#        ARM_MATH_CM7 --relaxed_fp
+#    List file    =  
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\usbh_diskio.lst
+#    Object file  =  
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\usbh_diskio.o
+#
+###############################################################################
+
+D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\usbh_diskio.c
+      1          /**
+      2            ******************************************************************************
+      3            * @file    Audio/Audio_playback_and_record/Src/usbh_diskio.c
+      4            * @author  MCD Application Team
+      5            * @version V1.0.0
+      6            * @date    25-June-2015
+      7            * @brief   USB diskio interface
+      8            ******************************************************************************
+      9            * @attention
+     10            *
+     11            * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+     12            *
+     13            * Redistribution and use in source and binary forms, with or without modification,
+     14            * are permitted provided that the following conditions are met:
+     15            *   1. Redistributions of source code must retain the above copyright notice,
+     16            *      this list of conditions and the following disclaimer.
+     17            *   2. Redistributions in binary form must reproduce the above copyright notice,
+     18            *      this list of conditions and the following disclaimer in the documentation
+     19            *      and/or other materials provided with the distribution.
+     20            *   3. Neither the name of STMicroelectronics nor the names of its contributors
+     21            *      may be used to endorse or promote products derived from this software
+     22            *      without specific prior written permission.
+     23            *
+     24            * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+     25            * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+     26            * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+     27            * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+     28            * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+     29            * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+     30            * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+     31            * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+     32            * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+     33            * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     34            *
+     35            ******************************************************************************
+     36            */
+     37          
+     38          /* Includes ------------------------------------------------------------------*/
+     39          #include "ffconf.h"	
+     40          #include "diskio.h"
+     41          #include "usbh_msc.h"
+     42          
+     43          /* Private typedef -----------------------------------------------------------*/
+     44          /* Private define ------------------------------------------------------------*/
+     45          extern USBH_HandleTypeDef  hUSBHost;
+     46          
+     47          /* Private function prototypes -----------------------------------------------*/
+     48          DWORD get_fattime(void);
+     49          /* Private functions ---------------------------------------------------------*/
+     50          
+     51          /**
+     52            * @brief  Initializes a Disk
+     53            * @param  pdrv: Physical drive number
+     54            * @retval DSTATUS: Operation status
+     55            */
+
+   \                                 In section .text, align 2, keep-with-next
+     56          DSTATUS disk_initialize(BYTE pdrv)
+     57          {
+     58            return RES_OK;
+   \                     disk_initialize: (+1)
+   \   00000000   0x2000             MOVS     R0,#+0
+   \   00000002   0x4770             BX       LR               ;; return
+     59          }
+     60          
+     61          /**
+     62            * @brief  Gets Disk Status
+     63            * @param  pdrv: Physical drive number
+     64            * @retval DSTATUS: Operation status
+     65            */
+
+   \                                 In section .text, align 2, keep-with-next
+     66          DSTATUS disk_status (BYTE pdrv)
+     67          {
+     68            DRESULT res = RES_ERROR;
+     69            
+     70            if(USBH_MSC_UnitIsReady (&hUSBHost, pdrv))
+   \                     disk_status: (+1)
+   \   00000000   0x4601             MOV      R1,R0
+   \   00000002   0x....             LDR.N    R0,??DataTable7_1
+   \   00000004   0xB510             PUSH     {R4,LR}
+   \   00000006   0x.... 0x....      BL       USBH_MSC_UnitIsReady
+   \   0000000A   0x2401             MOVS     R4,#+1
+   \   0000000C   0xB100             CBZ.N    R0,??disk_status_0
+     71            {
+     72              res = RES_OK;
+   \   0000000E   0x2400             MOVS     R4,#+0
+     73            }
+     74            else
+     75            {
+     76              res = RES_ERROR;
+     77            }
+     78            
+     79            return res;
+   \                     ??disk_status_0: (+1)
+   \   00000010   0x4620             MOV      R0,R4
+   \   00000012   0xBD10             POP      {R4,PC}          ;; return
+     80          }
+     81          
+     82          /**
+     83            * @brief  Reads Sector
+     84            * @param  pdrv: Physical drive number
+     85            * @param  *buff: Data buffer to store read data
+     86            * @param  sector: Sector address (LBA)
+     87            * @param  count: Number of sectors to read
+     88            * @retval DRESULT: Operation result
+     89            */
+
+   \                                 In section .text, align 2, keep-with-next
+     90          DRESULT disk_read (BYTE pdrv, BYTE *buff, DWORD sector, UINT count)
+     91          {
+   \                     disk_read: (+1)
+   \   00000000   0xE92D 0x41F0      PUSH     {R4-R8,LR}
+   \   00000004   0x4605             MOV      R5,R0
+   \   00000006   0x4688             MOV      R8,R1
+     92            DRESULT res = RES_ERROR;
+   \   00000008   0x2401             MOVS     R4,#+1
+     93            MSC_LUNTypeDef info;
+     94            USBH_StatusTypeDef  status = USBH_OK;
+     95            DWORD scratch [_MAX_SS / 4];
+     96            
+     97            if ((DWORD)buff & 3) /* DMA Alignment issue, do single up to aligned buffer */
+   \   0000000A   0xF018 0x0003      ANDS     R0,R8,#0x3
+   \   0000000E   0xF5AD 0x7D0E      SUB      SP,SP,#+568
+   \   00000012   0x4617             MOV      R7,R2
+   \   00000014   0x461E             MOV      R6,R3
+   \   00000016   0xD012             BEQ.N    ??disk_read_0
+     98            {
+     99              while ((count--)&&(status == USBH_OK))
+   \                     ??disk_read_1: (+1)
+   \   00000018   0x4630             MOV      R0,R6
+   \   0000001A   0x1E46             SUBS     R6,R0,#+1
+   \   0000001C   0xB1B0             CBZ.N    R0,??disk_read_2
+    100              {
+    101                status = USBH_MSC_Read(&hUSBHost, pdrv, sector + count, (uint8_t *)scratch, 1);
+   \   0000001E   0x9400             STR      R4,[SP, #+0]
+   \   00000020   0xAB01             ADD      R3,SP,#+4
+   \   00000022   0x19F2             ADDS     R2,R6,R7
+   \   00000024   0x4629             MOV      R1,R5
+   \   00000026   0x....             LDR.N    R0,??DataTable7_1
+   \   00000028   0x.... 0x....      BL       USBH_MSC_Read
+    102                if(status == USBH_OK)
+   \   0000002C   0xB968             CBNZ.N   R0,??disk_read_3
+    103                {
+    104                  memcpy(&buff[count * _MAX_SS], scratch, _MAX_SS);
+   \   0000002E   0xEB08 0x2046      ADD      R0,R8,R6, LSL #+9
+   \   00000032   0xF44F 0x7200      MOV      R2,#+512
+   \   00000036   0xA901             ADD      R1,SP,#+4
+   \   00000038   0x.... 0x....      BL       __aeabi_memcpy
+    105                }
+    106                else
+    107                {
+    108                  break;
+    109                }
+    110              }
+    111            }
+   \   0000003C   0xE7EC             B.N      ??disk_read_1
+    112            else
+    113            {
+    114              status = USBH_MSC_Read(&hUSBHost, pdrv, sector, buff, count);
+   \                     ??disk_read_0: (+1)
+   \   0000003E   0x9600             STR      R6,[SP, #+0]
+   \   00000040   0x4643             MOV      R3,R8
+   \   00000042   0x4629             MOV      R1,R5
+   \   00000044   0x....             LDR.N    R0,??DataTable7_1
+   \   00000046   0x.... 0x....      BL       USBH_MSC_Read
+    115            }
+    116            
+    117            if(status == USBH_OK)
+   \                     ??disk_read_3: (+1)
+   \   0000004A   0xB928             CBNZ.N   R0,??disk_read_4
+    118            {
+    119              res = RES_OK;
+   \                     ??disk_read_2: (+1)
+   \   0000004C   0x2400             MOVS     R4,#+0
+    120            }
+    121            else
+    122            {
+    123              USBH_MSC_GetLUNInfo(&hUSBHost, pdrv, &info); 
+    124              
+    125              switch (info.sense.asc)
+    126              {
+    127              case SCSI_ASC_LOGICAL_UNIT_NOT_READY:
+    128              case SCSI_ASC_MEDIUM_NOT_PRESENT:
+    129              case SCSI_ASC_NOT_READY_TO_READY_CHANGE: 
+    130                USBH_ErrLog("USB Disk is not ready!");  
+    131                res = RES_NOTRDY;
+    132                break; 
+    133                
+    134              default:
+    135                res = RES_ERROR;
+    136                break;
+    137              }
+    138            }
+    139            
+    140            return res;
+   \   0000004E   0x4620             MOV      R0,R4
+   \   00000050   0xF50D 0x7D0E      ADD      SP,SP,#+568
+   \   00000054   0xE8BD 0x81F0      POP      {R4-R8,PC}
+   \                     ??disk_read_4: (+1)
+   \   00000058   0xAA81             ADD      R2,SP,#+516
+   \   0000005A   0x4629             MOV      R1,R5
+   \   0000005C   0x....             LDR.N    R0,??DataTable7_1
+   \   0000005E   0x.... 0x....      BL       USBH_MSC_GetLUNInfo
+   \   00000062   0xF89D 0x0211      LDRB     R0,[SP, #+529]
+   \   00000066   0x2804             CMP      R0,#+4
+   \   00000068   0xBF1C             ITT      NE 
+   \   0000006A   0x2828             CMPNE    R0,#+40
+   \   0000006C   0x283A             CMPNE    R0,#+58
+   \   0000006E   0xD10B             BNE.N    ??disk_read_5
+   \   00000070   0x.... 0x....      ADR.W    R0,?_0
+   \   00000074   0x2403             MOVS     R4,#+3
+   \   00000076   0x.... 0x....      BL       printf
+   \   0000007A   0x.... 0x....      ADR.W    R0,?_1
+   \   0000007E   0x.... 0x....      BL       printf
+   \   00000082   0x....             ADR.N    R0,??DataTable7  ;; "\n"
+   \   00000084   0x.... 0x....      BL       printf
+   \                     ??disk_read_5: (+1)
+   \   00000088   0x4620             MOV      R0,R4
+   \   0000008A   0xF50D 0x7D0E      ADD      SP,SP,#+568
+   \   0000008E   0xE8BD 0x81F0      POP      {R4-R8,PC}       ;; return
+    141          }
+    142          
+    143          /**
+    144            * @brief  Writes Sector
+    145            * @param  pdrv: Physical drive number
+    146            * @param  *buff: Data to be written
+    147            * @param  sector: Sector address (LBA)
+    148            * @param  count: Number of sectors to write
+    149            * @retval DRESULT: Operation result
+    150            */
+    151          #if _USE_WRITE
+
+   \                                 In section .text, align 2, keep-with-next
+    152          DRESULT disk_write (BYTE pdrv, const BYTE* buff, DWORD sector, UINT count)
+    153          {
+   \                     disk_write: (+1)
+   \   00000000   0xE92D 0x47F0      PUSH     {R4-R10,LR}
+   \   00000004   0x4604             MOV      R4,R0
+    154            DRESULT res = RES_ERROR; 
+   \   00000006   0x2501             MOVS     R5,#+1
+    155            MSC_LUNTypeDef info;
+    156            USBH_StatusTypeDef  status = USBH_OK;  
+    157            DWORD scratch [_MAX_SS / 4];  
+    158            
+    159            if ((DWORD)buff & 3) /* DMA Alignment issue, do single up to aligned buffer */
+   \   00000008   0xF011 0x0003      ANDS     R0,R1,#0x3
+   \   0000000C   0xF5AD 0x7D0E      SUB      SP,SP,#+568
+   \   00000010   0x461E             MOV      R6,R3
+   \   00000012   0xD01F             BEQ.N    ??disk_write_0
+   \   00000014   0xB32E             CBZ.N    R6,??disk_write_1
+   \   00000016   0x18B0             ADDS     R0,R6,R2
+   \   00000018   0x1E47             SUBS     R7,R0,#+1
+   \   0000001A   0xEB01 0x2046      ADD      R0,R1,R6, LSL #+9
+   \   0000001E   0x.... 0x....      LDR.W    R9,??DataTable7_1
+   \   00000022   0xF44F 0x7A00      MOV      R10,#+512
+   \   00000026   0xF5A0 0x7800      SUB      R8,R0,#+512
+    160            {
+    161              while (count--)
+    162              {
+    163                memcpy (scratch, &buff[count * _MAX_SS], _MAX_SS);
+   \                     ??disk_write_2: (+1)
+   \   0000002A   0x4652             MOV      R2,R10
+   \   0000002C   0x4641             MOV      R1,R8
+   \   0000002E   0xA801             ADD      R0,SP,#+4
+    164                
+    165                status = USBH_MSC_Write(&hUSBHost, pdrv, sector + count, (BYTE *)scratch, 1);
+   \   00000030   0x1E76             SUBS     R6,R6,#+1
+   \   00000032   0x.... 0x....      BL       __aeabi_memcpy
+   \   00000036   0x9500             STR      R5,[SP, #+0]
+   \   00000038   0x463A             MOV      R2,R7
+   \   0000003A   0xAB01             ADD      R3,SP,#+4
+   \   0000003C   0x4621             MOV      R1,R4
+   \   0000003E   0x4648             MOV      R0,R9
+   \   00000040   0x1E7F             SUBS     R7,R7,#+1
+   \   00000042   0x.... 0x....      BL       USBH_MSC_Write
+    166                if(status == USBH_FAIL)
+   \   00000046   0x2802             CMP      R0,#+2
+   \   00000048   0xF5A8 0x7800      SUB      R8,R8,#+512
+   \   0000004C   0xD008             BEQ.N    ??disk_write_3
+    167                {
+    168                  break;
+    169                }
+    170              }
+   \   0000004E   0x2E00             CMP      R6,#+0
+   \   00000050   0xD1EB             BNE.N    ??disk_write_2
+   \   00000052   0xE005             B.N      ??disk_write_3
+    171            }
+    172            else
+    173            {
+    174              status = USBH_MSC_Write(&hUSBHost, pdrv, sector, (BYTE *)buff, count);
+   \                     ??disk_write_0: (+1)
+   \   00000054   0x460B             MOV      R3,R1
+   \   00000056   0x9600             STR      R6,[SP, #+0]
+   \   00000058   0x4621             MOV      R1,R4
+   \   0000005A   0x....             LDR.N    R0,??DataTable7_1
+   \   0000005C   0x.... 0x....      BL       USBH_MSC_Write
+    175            }
+    176            
+    177            if(status == USBH_OK)
+   \                     ??disk_write_3: (+1)
+   \   00000060   0xB928             CBNZ.N   R0,??disk_write_4
+    178            {
+    179              res = RES_OK;
+   \                     ??disk_write_1: (+1)
+   \   00000062   0x2500             MOVS     R5,#+0
+    180            }
+    181            else
+    182            {
+    183              USBH_MSC_GetLUNInfo(&hUSBHost, pdrv, &info); 
+    184              
+    185              switch (info.sense.asc)
+    186              {
+    187              case SCSI_ASC_WRITE_PROTECTED:
+    188                USBH_ErrLog("USB Disk is Write protected!");
+    189                res = RES_WRPRT;
+    190                break;
+    191                
+    192              case SCSI_ASC_LOGICAL_UNIT_NOT_READY:
+    193              case SCSI_ASC_MEDIUM_NOT_PRESENT:
+    194              case SCSI_ASC_NOT_READY_TO_READY_CHANGE:
+    195                USBH_ErrLog("USB Disk is not ready!");      
+    196                res = RES_NOTRDY;
+    197                break; 
+    198                
+    199              default:
+    200                res = RES_ERROR;
+    201                break;
+    202              }
+    203            }
+    204            
+    205            return res;   
+   \   00000064   0x4628             MOV      R0,R5
+   \   00000066   0xF50D 0x7D0E      ADD      SP,SP,#+568
+   \   0000006A   0xE8BD 0x87F0      POP      {R4-R10,PC}
+   \                     ??disk_write_4: (+1)
+   \   0000006E   0xAA81             ADD      R2,SP,#+516
+   \   00000070   0x4621             MOV      R1,R4
+   \   00000072   0x....             LDR.N    R0,??DataTable7_1
+   \   00000074   0x.... 0x....      BL       USBH_MSC_GetLUNInfo
+   \   00000078   0xF89D 0x0211      LDRB     R0,[SP, #+529]
+   \   0000007C   0x2804             CMP      R0,#+4
+   \   0000007E   0xD01B             BEQ.N    ??disk_write_5
+   \   00000080   0x2827             CMP      R0,#+39
+   \   00000082   0xD008             BEQ.N    ??disk_write_6
+   \   00000084   0x2828             CMP      R0,#+40
+   \   00000086   0xBF18             IT       NE 
+   \   00000088   0x283A             CMPNE    R0,#+58
+   \   0000008A   0xD015             BEQ.N    ??disk_write_5
+   \   0000008C   0x4628             MOV      R0,R5
+   \   0000008E   0xF50D 0x7D0E      ADD      SP,SP,#+568
+   \   00000092   0xE8BD 0x87F0      POP      {R4-R10,PC}
+   \                     ??disk_write_6: (+1)
+   \   00000096   0x.... 0x....      ADR.W    R0,?_0
+   \   0000009A   0x2502             MOVS     R5,#+2
+   \   0000009C   0x.... 0x....      BL       printf
+   \   000000A0   0x.... 0x....      ADR.W    R0,?_3
+   \   000000A4   0x.... 0x....      BL       printf
+   \   000000A8   0x....             ADR.N    R0,??DataTable7  ;; "\n"
+   \   000000AA   0x.... 0x....      BL       printf
+   \   000000AE   0x4628             MOV      R0,R5
+   \   000000B0   0xF50D 0x7D0E      ADD      SP,SP,#+568
+   \   000000B4   0xE8BD 0x87F0      POP      {R4-R10,PC}
+   \                     ??disk_write_5: (+1)
+   \   000000B8   0x.... 0x....      ADR.W    R0,?_0
+   \   000000BC   0x2503             MOVS     R5,#+3
+   \   000000BE   0x.... 0x....      BL       printf
+   \   000000C2   0x.... 0x....      ADR.W    R0,?_1
+   \   000000C6   0x.... 0x....      BL       printf
+   \   000000CA   0x....             ADR.N    R0,??DataTable7  ;; "\n"
+   \   000000CC   0x.... 0x....      BL       printf
+   \   000000D0   0x4628             MOV      R0,R5
+   \   000000D2   0xF50D 0x7D0E      ADD      SP,SP,#+568
+   \   000000D6   0xE8BD 0x87F0      POP      {R4-R10,PC}      ;; return
+    206          }
+    207          #endif
+    208          
+    209          /**
+    210            * @brief  I/O control operation
+    211            * @param  pdrv: Physical drive number
+    212            * @param  cmd: Control code
+    213            * @param  *buff: Buffer to send/receive control data
+    214            * @retval DRESULT: Operation result
+    215            */
+    216          #if _USE_IOCTL == 1
+
+   \                                 In section .text, align 4, keep-with-next
+    217          DRESULT disk_ioctl(BYTE pdrv, BYTE cmd, void *buff)
+    218          {
+   \                     disk_ioctl: (+1)
+   \   00000000   0xB530             PUSH     {R4,R5,LR}
+    219            DRESULT res = RES_OK;
+   \   00000002   0x2500             MOVS     R5,#+0
+    220            MSC_LUNTypeDef info;
+    221            
+    222            switch (cmd) {
+   \   00000004   0x2903             CMP      R1,#+3
+   \   00000006   0xB08D             SUB      SP,SP,#+52
+   \   00000008   0x4614             MOV      R4,R2
+   \   0000000A   0xD828             BHI.N    ??disk_ioctl_1
+   \   0000000C   0xE8DF 0xF001      TBB      [PC, R1]
+   \                     ??disk_ioctl_0:
+   \   00000010   0x28 0x02          DC8      0x28,0x2,0xD,0x17
+   \              0x0D 0x17    
+    223              /* Make sure that no pending write process */  
+    224            case CTRL_SYNC:		
+    225              res = RES_OK;
+    226              break;
+    227              
+    228              /* Get number of sectors on the disk (DWORD) */ 
+    229            case GET_SECTOR_COUNT:	
+    230              if(USBH_MSC_GetLUNInfo(&hUSBHost, pdrv, &info) == USBH_OK)
+   \                     ??disk_ioctl_2: (+1)
+   \   00000014   0x4601             MOV      R1,R0
+   \   00000016   0x466A             MOV      R2,SP
+   \   00000018   0x....             LDR.N    R0,??DataTable7_1
+   \   0000001A   0x.... 0x....      BL       USBH_MSC_GetLUNInfo
+   \   0000001E   0xB9D0             CBNZ.N   R0,??disk_ioctl_3
+    231              {
+    232                *(DWORD*)buff = info.capacity.block_nbr;
+   \   00000020   0x9801             LDR      R0,[SP, #+4]
+   \   00000022   0x6020             STR      R0,[R4, #+0]
+    233                res = RES_OK;
+    234              }
+    235              else
+    236              {
+    237                res = RES_ERROR;
+    238              }
+    239              break;
+    240              
+    241            case GET_SECTOR_SIZE :	/* Get R/W sector size (WORD) */
+    242              if(USBH_MSC_GetLUNInfo(&hUSBHost, pdrv, &info) == USBH_OK)
+    243              {
+    244                *(DWORD*)buff = info.capacity.block_size;
+    245                res = RES_OK;
+    246              }
+    247              else
+    248              {
+    249                res = RES_ERROR;
+    250              }
+    251              break;
+    252              
+    253              /* Get erase block size in unit of sector (DWORD) */  
+    254            case GET_BLOCK_SIZE:	
+    255              
+    256              if(USBH_MSC_GetLUNInfo(&hUSBHost, pdrv, &info) == USBH_OK)
+    257              {
+    258                *(DWORD*)buff = info.capacity.block_size;
+    259                res = RES_OK;
+    260              }
+    261              else
+    262              {
+    263                res = RES_ERROR;
+    264              }
+    265              
+    266              break;
+    267              
+    268              
+    269            default:
+    270              res = RES_PARERR;
+    271            }
+    272            
+    273            return res;
+   \   00000024   0x4628             MOV      R0,R5
+   \   00000026   0xB00D             ADD      SP,SP,#+52
+   \   00000028   0xBD30             POP      {R4,R5,PC}
+   \                     ??disk_ioctl_4: (+1)
+   \   0000002A   0x4601             MOV      R1,R0
+   \   0000002C   0x466A             MOV      R2,SP
+   \   0000002E   0x....             LDR.N    R0,??DataTable7_1
+   \   00000030   0x.... 0x....      BL       USBH_MSC_GetLUNInfo
+   \   00000034   0xB148             CBZ.N    R0,??disk_ioctl_5
+   \   00000036   0x2501             MOVS     R5,#+1
+   \   00000038   0x4628             MOV      R0,R5
+   \   0000003A   0xB00D             ADD      SP,SP,#+52
+   \   0000003C   0xBD30             POP      {R4,R5,PC}
+   \                     ??disk_ioctl_6: (+1)
+   \   0000003E   0x4601             MOV      R1,R0
+   \   00000040   0x466A             MOV      R2,SP
+   \   00000042   0x....             LDR.N    R0,??DataTable7_1
+   \   00000044   0x.... 0x....      BL       USBH_MSC_GetLUNInfo
+   \   00000048   0xB928             CBNZ.N   R0,??disk_ioctl_3
+   \                     ??disk_ioctl_5: (+1)
+   \   0000004A   0xF8BD 0x0008      LDRH     R0,[SP, #+8]
+   \   0000004E   0x6020             STR      R0,[R4, #+0]
+   \   00000050   0x4628             MOV      R0,R5
+   \   00000052   0xB00D             ADD      SP,SP,#+52
+   \   00000054   0xBD30             POP      {R4,R5,PC}
+   \                     ??disk_ioctl_3: (+1)
+   \   00000056   0x2501             MOVS     R5,#+1
+   \   00000058   0x4628             MOV      R0,R5
+   \   0000005A   0xB00D             ADD      SP,SP,#+52
+   \   0000005C   0xBD30             POP      {R4,R5,PC}
+   \                     ??disk_ioctl_1: (+1)
+   \   0000005E   0x2504             MOVS     R5,#+4
+   \                     ??disk_ioctl_7: (+1)
+   \   00000060   0x4628             MOV      R0,R5
+   \   00000062   0xB00D             ADD      SP,SP,#+52
+   \   00000064   0xBD30             POP      {R4,R5,PC}       ;; return
+    274          }
+    275          #endif
+    276          
+    277          /**
+    278            * @brief  Gets Time from RTC 
+    279            * @param  None
+    280            * @retval Time in DWORD
+    281            */
+
+   \                                 In section .text, align 2, keep-with-next
+    282          DWORD get_fattime(void)
+    283          {
+    284            return 0;
+   \                     get_fattime: (+1)
+   \   00000000   0x2000             MOVS     R0,#+0
+   \   00000002   0x4770             BX       LR               ;; return
+    285          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7:
+   \   00000000   0x0A 0x00          DC8      "\n",0x0,0x0
+   \              0x00 0x00    
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_1:
+   \   00000000   0x........         DC32     hUSBHost
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_0:
+   \   00000000   0x45 0x52          DC8 "ERROR: "
+   \              0x52 0x4F    
+   \              0x52 0x3A    
+   \              0x20 0x00    
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_1:
+   \   00000000   0x55 0x53          DC8 "USB Disk is not ready!"
+   \              0x42 0x20    
+   \              0x44 0x69    
+   \              0x73 0x6B    
+   \              0x20 0x69    
+   \              0x73 0x20    
+   \              0x6E 0x6F    
+   \              0x74 0x20    
+   \              0x72 0x65    
+   \              0x61 0x64    
+   \              0x79 0x21    
+   \              0x00         
+   \   00000017   0x00               DC8 0
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ?_3:
+   \   00000000   0x55 0x53          DC8 "USB Disk is Write protected!"
+   \              0x42 0x20    
+   \              0x44 0x69    
+   \              0x73 0x6B    
+   \              0x20 0x69    
+   \              0x73 0x20    
+   \              0x57 0x72    
+   \              0x69 0x74    
+   \              0x65 0x20    
+   \              0x70 0x72    
+   \              0x6F 0x74    
+   \              0x65 0x63    
+   \              0x74 0x65    
+   \              0x64 0x21    
+   \              0x00         
+   \   0000001D   0x00 0x00          DC8 0, 0, 0
+   \              0x00         
+
+   \                                 In section .rodata, align 2, keep-with-next
+   \                     ?_2:
+   \   00000000   0x0A 0x00          DC8 "\012"
+    286          
+    287          /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   disk_initialize
+      64   disk_ioctl
+        64   -> USBH_MSC_GetLUNInfo
+     592   disk_read
+       592   -> USBH_MSC_GetLUNInfo
+       592   -> USBH_MSC_Read
+       592   -> __aeabi_memcpy
+       592   -> printf
+       8   disk_status
+         8   -> USBH_MSC_UnitIsReady
+     600   disk_write
+       600   -> USBH_MSC_GetLUNInfo
+       600   -> USBH_MSC_Write
+       600   -> __aeabi_memcpy
+       600   -> printf
+       0   get_fattime
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable7
+       4  ??DataTable7_1
+       8  ?_0
+      24  ?_1
+       2  ?_2
+      32  ?_3
+       4  disk_initialize
+     102  disk_ioctl
+     146  disk_read
+      20  disk_status
+     218  disk_write
+       4  get_fattime
+
+ 
+   2 bytes in section .rodata
+ 566 bytes in section .text
+ 
+ 566 bytes of CODE  memory
+   2 bytes of CONST memory
+
+Errors: none
+Warnings: none

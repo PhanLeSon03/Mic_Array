@@ -1,0 +1,143 @@
+/**
+  @page MSC_RTOS USB Host Mass Storage (MSC) RTOS application
+  
+  @verbatim
+  ******************** (C) COPYRIGHT 2015 STMicroelectronics *******************
+  * @file    USB_Host/MSC_RTOS/readme.txt 
+  * @author  MCD Application Team
+  * @version V1.0.0
+  * @date    25-June-2015
+  * @brief   Description of the USB Host MSC RTOS application.
+  ******************************************************************************
+  *
+  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
+  * You may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at:
+  *
+  *        http://www.st.com/software_license_agreement_liberty_v2
+  *
+  * Unless required by applicable law or agreed to in writing, software 
+  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+  *
+  ******************************************************************************
+  @endverbatim
+
+@par Application Description
+
+This application is a part of the USB Host Library package using STM32Cube firmware. It describes how to use
+USB host application based on the Mass Storage Class (MSC) on the STM32F746xx devices in RTOS mode
+configuration.
+
+This is a typical application on how to use the STM32F746xx USB OTG Host peripheral to operate with an USB 
+flash disk using the Bulk Only Transfer (BOT) and Small Computer System Interface (SCSI) transparent
+commands combined with a file system FatFs (Middleware component).
+
+At the beginning of the main program the HAL_Init() function is called to reset all the peripherals,
+initialize the Flash interface and the systick. The user is provided with the SystemClock_Config()
+function to configure the system clock (SYSCLK) to run at 200 MHz. The Full Speed (FS) USB module uses
+internally a 48-MHz clock which is coming from a specific output of two PLLs: main PLL or PLL SAI.
+In the High Speed (HS) mode the USB clock (60 MHz) is driven by the ULPI.
+
+The 48 MHz clock for the USB FS can be derived from one of the two following sources:
+  – PLL clock (clocked by the HSE): If the USB uses the PLL as clock source, the PLL clock must be programmed
+    to output 48 MHz frequency (USBCLK = PLLVCO/PLLQ).
+  – PLLSAI clock (clocked by the HSE): If the USB uses the PLLSAI as clock source, the PLLSAI clock must be programmed
+    to output 48 MHz frequency (USBCLK = PLLSAIVCO/PLLSAIP).
+
+When the application is started, the connected USB flash disk device is detected in MSC mode and gets 
+initialized. The STM32 MCU behaves as a MSC Host, it enumerates the device and extracts VID, PID, 
+manufacturer name, Serial no and product name information and displays it on the LCD screen. 
+This application is based on read/write file and explore the USB flash disk content. It creates a normal
+priority thread, that executes a MSC routine.
+
+User can start any operations using User button:
+ - "File Operations" operation writes a small text file (less to 1 KB) on the USB flash disk.
+ - "Explorer Disk" operation explores the USB flash disk content and displays it on the LCD screen.
+    User has to press the User button to display the whole USB flash disk content (recursion level 2).
+
+@note Care must be taken when using HAL_Delay(), this function provides accurate delay (in milliseconds)
+      based on variable incremented in SysTick ISR. This implies that if HAL_Delay() is called from
+      a peripheral ISR process, then the SysTick interrupt must have higher priority (numerically lower)
+      than the peripheral interrupt. Otherwise the caller ISR process will be blocked.
+      To change the SysTick interrupt priority you have to use HAL_NVIC_SetPriority() function.
+      
+@note The application needs to ensure that the SysTick time base is always set to 1 millisecond
+      to have correct HAL operation.
+
+@note The STM32F7xx devices can reach a maximum clock frequency of 216MHz but as this application uses SDRAM,
+      the system clock is limited to 200MHz. Indeed proper functioning of the SDRAM is only guaranteed 
+      at a maximum system clock frequency of 200MHz.
+      
+For more details about the STM32Cube USB Host library, please refer to UM1720  
+"STM32Cube USB Host library".
+
+
+@par USB Library Configuration
+
+To select the appropriate USB Core to work with, user must add the following macro defines within the
+compiler preprocessor (already done in the preconfigured projects provided with this application):
+      - "USE_USB_HS" when using USB High Speed (HS) Core
+      - "USE_USB_FS" when using USB Full Speed (FS) Core 
+
+It is possible to fine tune needed USB Host features by modifying defines values in USBH configuration
+file “usbh_conf.h” available under the project includes directory, in a way to fit the application
+requirements, such as:
+- Level of debug: USBH_DEBUG_LEVEL
+                  0: No debug messages
+                  1: Only User messages are shown
+                  2: User and Error messages are shown
+                  3: All messages and internal debug messages are shown
+   By default debug messages are displayed on the debugger IO terminal; to redirect the Library
+   messages on the LCD screen, lcd_log.c driver need to be added to the application sources.
+
+Since this is an RTOS based application, built around FreeRTOS and CMSIS-OS wrapping layer common APIs,
+the RTOS is enabled by setting, #define USBH_USE_OS      1
+
+@par Directory contents
+
+  - USB_Host/MSC_RTOS/Src/main.c                  Main program
+  - USB_Host/MSC_RTOS/Src/system_STM32F7xx.c      STM32F7xx system clock configuration file
+  - USB_Host/MSC_RTOS/Src/STM32F7xx_it.c          Interrupt handlers
+  - USB_Host/MSC_RTOS/Src/menu.c                  MSC State Machine
+  - USB_Host/MSC_RTOS/Src/usbh_conf.c             General low level driver configuration
+  - USB_Host/MSC_RTOS/Src/explorer.c              Explore the USB flash disk content
+  - USB_Host/MSC_RTOS/Src/file_operations.c       Write/read file on the disk
+  - USB_Host/MSC_RTOS/Src/usbh_diskio.c           USB diskio interface for FatFs
+  - USB_Host/MSC_RTOS/Inc/main.h                  Main program header file
+  - USB_Host/MSC_RTOS/Inc/STM32F7xx_it.h          Interrupt handlers header file
+  - USB_Host/MSC_RTOS/Inc/lcd_log_conf.h          LCD log configuration file
+  - USB_Host/MSC_RTOS/Inc/STM32F7xx_hal_conf.h    HAL configuration file
+  - USB_Host/MSC_RTOS/Inc/FreeRTOSConfig.h        FreeRTOS Module Configuration file
+  - USB_Host/MSC_RTOS/Inc/usbh_conf.h             USB Host driver Configuration file
+  - USB_Host/MSC_RTOS/Inc/ffconf.h                FatFs Module Configuration file
+ 
+
+@par Hardware and Software environment
+
+  - This application runs on STM32F746xx devices.
+    
+  - This application has been tested with STMicroelectronics STM32746G-Discovery
+    boards and can be easily tailored to any other supported device and development
+    board.
+
+  - STM32746G-Discovery Set-up
+    - Plug the USB key into the STM32746G-Discovery board through 'USB micro A-Male 
+      to A-Female' cable to the connector:
+      - CN12 : to use USB High Speed (HS) 
+      - CN13: to use USB Full Speed (FS)
+
+@par How to use it ?
+
+In order to make the program work, you must do the following :
+ - Open your preferred toolchain 
+ - Rebuild all files and load your image into target memory
+ - In the workspace toolbar select the project configuration:
+   - STM32746G-DISCOVERY_USBH-HS: to configure the project for STM32F746xx devices using USB OTG HS peripheral
+   - STM32746G-DISCOVERY_USBH-FS: to configure the project for STM32F746xx devices using USB OTG FS peripheral
+ - Run the application
+ 
+ * <h3><center>&copy; COPYRIGHT STMicroelectronics</center></h3>
+ */

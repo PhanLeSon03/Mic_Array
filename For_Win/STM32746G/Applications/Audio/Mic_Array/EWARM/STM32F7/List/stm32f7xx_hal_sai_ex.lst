@@ -1,0 +1,324 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM       15/May/2016  09:59:33
+# Copyright 1999-2016 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_sai_ex.c
+#    Command line =  
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_sai_ex.c
+#        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
+#        USE_IOEXPANDER -D USE_USB_FS -lC
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        -lA
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        -o
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+#        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
+#        --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        7.3\arm\INC\c\DLib_Config_Full.h" -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+#        -Ohs --use_c++_inline --require_prototypes -I "C:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
+#        ARM_MATH_CM7 --relaxed_fp
+#    List file    =  
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_sai_ex.lst
+#    Object file  =  
+#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_sai_ex.o
+#
+###############################################################################
+
+D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_sai_ex.c
+      1          /**
+      2            ******************************************************************************
+      3            * @file    stm32f7xx_hal_sai_ex.c
+      4            * @author  MCD Application Team
+      5            * @version V1.0.4
+      6            * @date    09-December-2015
+      7            * @brief   SAI Extension HAL module driver.
+      8            *          This file provides firmware functions to manage the following 
+      9            *          functionalities of SAI extension peripheral:
+     10            *           + Extension features functions
+     11            *         
+     12            @verbatim
+     13            ==============================================================================
+     14                         ##### SAI peripheral extension features  #####
+     15            ==============================================================================
+     16             
+     17                               ##### How to use this driver #####
+     18            ==============================================================================
+     19            [..] This driver provides functions to manage several sources to clock SAI
+     20            
+     21            @endverbatim
+     22            ******************************************************************************
+     23            * @attention
+     24            *
+     25            * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+     26            *
+     27            * Redistribution and use in source and binary forms, with or without modification,
+     28            * are permitted provided that the following conditions are met:
+     29            *   1. Redistributions of source code must retain the above copyright notice,
+     30            *      this list of conditions and the following disclaimer.
+     31            *   2. Redistributions in binary form must reproduce the above copyright notice,
+     32            *      this list of conditions and the following disclaimer in the documentation
+     33            *      and/or other materials provided with the distribution.
+     34            *   3. Neither the name of STMicroelectronics nor the names of its contributors
+     35            *      may be used to endorse or promote products derived from this software
+     36            *      without specific prior written permission.
+     37            *
+     38            * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+     39            * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+     40            * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+     41            * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+     42            * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+     43            * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+     44            * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+     45            * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+     46            * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+     47            * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     48            *
+     49            ******************************************************************************
+     50            */ 
+     51          
+     52          /* Includes ------------------------------------------------------------------*/
+     53          #include "stm32f7xx_hal.h"
+     54          
+     55          /** @addtogroup STM32F7xx_HAL_Driver
+     56            * @{
+     57            */
+     58          
+     59          /** @defgroup SAIEx SAIEx
+     60            * @brief SAI Extension HAL module driver
+     61            * @{
+     62            */
+     63          
+     64          #ifdef HAL_SAI_MODULE_ENABLED
+     65          
+     66          /* Private typedef -----------------------------------------------------------*/
+     67          /* Private define ------------------------------------------------------------*/
+     68          /* SAI registers Masks */
+     69          /* Private macro -------------------------------------------------------------*/
+     70          /* Private variables ---------------------------------------------------------*/
+     71          /* Private function prototypes -----------------------------------------------*/
+     72          /* Private functions ---------------------------------------------------------*/
+     73          
+     74          /** @defgroup SAI_Private_Functions  SAI Private Functions
+     75            * @{
+     76            */
+     77           /**
+     78            * @}
+     79            */
+     80            
+     81          /* Exported functions --------------------------------------------------------*/
+     82          /** @defgroup SAIEx_Exported_Functions SAI Extended Exported Functions
+     83            * @{
+     84            */
+     85          
+     86          /** @defgroup SAIEx_Exported_Functions_Group1 Extension features functions 
+     87            *  @brief   Extension features functions
+     88            *
+     89          @verbatim    
+     90           ===============================================================================
+     91                                 ##### Extension features Functions #####
+     92           ===============================================================================  
+     93              [..]
+     94              This subsection provides a set of functions allowing to manage the possible 
+     95              SAI clock sources.
+     96          
+     97          @endverbatim
+     98            * @{
+     99            */
+    100          
+    101          /**
+    102            * @brief  Configure SAI Block synchronization mode
+    103            * @param  hsai: pointer to a SAI_HandleTypeDef structure that contains
+    104            *               the configuration information for SAI module.   
+    105            * @retval SAI Clock Input 
+    106            */
+
+   \                                 In section .text, align 2, keep-with-next
+    107          void SAI_BlockSynchroConfig(SAI_HandleTypeDef *hsai)
+    108          {
+    109            uint32_t tmpregisterGCR = 0;
+    110           
+    111            /* This setting must be done with both audio block (A & B) disabled     */
+    112            switch(hsai->Init.SynchroExt)
+   \                     SAI_BlockSynchroConfig: (+1)
+   \   00000000   0x68C2             LDR      R2,[R0, #+12]
+   \   00000002   0x2100             MOVS     R1,#+0
+   \   00000004   0x2A01             CMP      R2,#+1
+   \   00000006   0xD003             BEQ.N    ??SAI_BlockSynchroConfig_0
+   \   00000008   0x2A02             CMP      R2,#+2
+   \   0000000A   0xBF08             IT       EQ 
+   \   0000000C   0x2120             MOVEQ    R1,#+32
+    113            {
+    114              case SAI_SYNCEXT_DISABLE :
+    115                tmpregisterGCR = 0;
+    116                break;
+    117              case SAI_SYNCEXT_OUTBLOCKA_ENABLE :
+    118                tmpregisterGCR = SAI_GCR_SYNCOUT_0;
+    119                break;
+    120              case SAI_SYNCEXT_OUTBLOCKB_ENABLE :
+    121                tmpregisterGCR = SAI_GCR_SYNCOUT_1;
+   \   0000000E   0xE000             B.N      ??SAI_BlockSynchroConfig_1
+   \                     ??SAI_BlockSynchroConfig_0: (+1)
+   \   00000010   0x2110             MOVS     R1,#+16
+    122                break;
+    123            default:
+    124              tmpregisterGCR = 0;
+    125              break;
+    126            }
+    127              
+    128            if((hsai->Init.Synchro) == SAI_SYNCHRONOUS_EXT_SAI2)
+   \                     ??SAI_BlockSynchroConfig_1: (+1)
+   \   00000012   0x6882             LDR      R2,[R0, #+8]
+   \   00000014   0x2A03             CMP      R2,#+3
+    129            {
+    130                  tmpregisterGCR |= SAI_GCR_SYNCIN_0;
+    131            }
+    132            
+    133            if((hsai->Instance == SAI1_Block_A) || (hsai->Instance == SAI1_Block_B))
+   \   00000016   0x....             LDR.N    R2,??DataTable1  ;; 0x40015804
+   \   00000018   0xBF08             IT       EQ 
+   \   0000001A   0xF041 0x0101      ORREQ    R1,R1,#0x1
+   \   0000001E   0x6800             LDR      R0,[R0, #+0]
+   \   00000020   0x4290             CMP      R0,R2
+   \   00000022   0xBF1C             ITT      NE 
+   \   00000024   0x....             LDRNE.N  R2,??DataTable1_1  ;; 0x40015824
+   \   00000026   0x4290             CMPNE    R0,R2
+   \   00000028   0xBF07             ITTEE    EQ 
+   \   0000002A   0x....             LDREQ.N  R0,??DataTable1_2  ;; 0x40015800
+   \   0000002C   0x6001             STREQ    R1,[R0, #+0]
+   \   0000002E   0x....             LDRNE.N  R0,??DataTable1_2  ;; 0x40015800
+   \   00000030   0xF8C0 0x1400      STRNE    R1,[R0, #+1024]
+    134            {
+    135              SAI1->GCR = tmpregisterGCR;
+    136            }
+    137            else 
+    138            {
+    139              SAI2->GCR = tmpregisterGCR;
+   \   00000034   0x4770             BX       LR
+    140            }
+    141          }
+    142            /**
+    143            * @brief  Get SAI Input Clock based on SAI source clock selection
+    144            * @param  hsai: pointer to a SAI_HandleTypeDef structure that contains
+    145            *               the configuration information for SAI module.   
+    146            * @retval SAI Clock Input 
+    147            */
+
+   \                                 In section .text, align 2, keep-with-next
+    148          uint32_t SAI_GetInputClock(SAI_HandleTypeDef *hsai)   
+    149          {
+    150            /* This variable used to store the SAI_CK_x (value in Hz) */
+    151            uint32_t saiclocksource = 0;
+    152          
+    153            if ((hsai->Instance == SAI1_Block_A) || (hsai->Instance == SAI1_Block_B))
+   \                     SAI_GetInputClock: (+1)
+   \   00000000   0x6800             LDR      R0,[R0, #+0]
+   \   00000002   0x....             LDR.N    R1,??DataTable1  ;; 0x40015804
+   \   00000004   0x4288             CMP      R0,R1
+   \   00000006   0xBF1B             ITTET    NE 
+   \   00000008   0x....             LDRNE.N  R1,??DataTable1_1  ;; 0x40015824
+   \   0000000A   0x4288             CMPNE    R0,R1
+   \   0000000C   0xF44F 0x2000      MOVEQ    R0,#+524288
+   \   00000010   0xF44F 0x1080      MOVNE    R0,#+1048576
+    154            {
+    155              saiclocksource = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SAI1);
+    156            }
+    157            else /* SAI2_Block_A || SAI2_Block_B*/
+    158            {
+    159              saiclocksource = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SAI2); 
+   \   00000014   0x.... 0x....      B.W      HAL_RCCEx_GetPeriphCLKFreq
+    160            }
+    161            /* the return result is the value of SAI clock */
+    162            return saiclocksource;        
+    163          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1:
+   \   00000000   0x40015804         DC32     0x40015804
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_1:
+   \   00000000   0x40015824         DC32     0x40015824
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_2:
+   \   00000000   0x40015800         DC32     0x40015800
+    164          
+    165          /**
+    166            * @}
+    167            */
+    168          
+    169          /**
+    170            * @}
+    171            */
+    172          
+    173          #endif /* HAL_SAI_MODULE_ENABLED */
+    174          /**
+    175            * @}
+    176            */
+    177          
+    178          /**
+    179            * @}
+    180            */
+    181          
+    182          /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   SAI_BlockSynchroConfig
+       0   SAI_GetInputClock
+         0   -> HAL_RCCEx_GetPeriphCLKFreq
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable1
+       4  ??DataTable1_1
+       4  ??DataTable1_2
+      54  SAI_BlockSynchroConfig
+      24  SAI_GetInputClock
+
+ 
+ 90 bytes in section .text
+ 
+ 90 bytes of CODE memory
+
+Errors: none
+Warnings: none
