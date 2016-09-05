@@ -127,7 +127,7 @@ __IO int16_t   pPDM2PCM[16];
 __IO uint16_t cntStrt;
 __IO uint16_t WaveRecord_flgIni;
 __IO uint8_t WaveRecord_flgInt;
-
+__IO GPIO_PinState Main_stLR, Main_stLROld;
 
 uint16_t vRawSens1,vRawSens2,vRawSens4,vRawSens3,vRawSens5,vRawSens6;  
 __IO int16_t SPI1_stNipple,I2S1_stNipple, I2S2_stNipple,SPI4_stNipple;
@@ -473,7 +473,7 @@ void SPI2_IRQHandler(void)
      //SPI_I2S_SendData(SPI2, 3333);
 
 	 I2S2_stLR= HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4);
-
+     
 	 if (I2S2_stLR==GPIO_PIN_SET)
 	 {		
 		if ((I2S2_stLROld==GPIO_PIN_RESET)) 
@@ -635,9 +635,7 @@ void SPI2_IRQHandler(void)
 
 void SPI4_IRQHandler(void)
 {
-  static uint8_t Main_stLR, Main_stLROld;
-  uint8_t temp = 0;
-
+  uint16_t test;
   /* SPI in mode Receiver ----------------------------------------------------*/
   if(
     (__HAL_SPI_GET_FLAG(&hspi4, SPI_FLAG_OVR) == RESET)&&
@@ -645,11 +643,12 @@ void SPI4_IRQHandler(void)
      (__HAL_SPI_GET_IT_SOURCE(&hspi4, SPI_IT_RXNE) != RESET))
   {
 
-    uint16_t test;
+    
     test =  SPI_I2S_ReceiveData(SPI4);
 
     /* Left-Right Mic data */
     Main_stLR= HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4);
+    
     /*
     Wave_cntClk++;
     if (Wave_cntClk==4)
@@ -665,21 +664,23 @@ void SPI4_IRQHandler(void)
     {
         Main_stLR = GPIO_PIN_RESET;
     }
+    */
     /* STM32F746 read data from STA321MP, the data is shifted few bit           */
     /* Data from STA321MP is 32bit formart                                      */
     /* SPI is just able to read 16 bit format                                   */
     /* Therefore, it needs to correct                                           */
     /*  First Case                                                              */
-    /* --------------------------------++++++++++++++++++++++++++++++++---------*/
-    /*                        ______DATAL_____              ______DATAR_____    */
+    /* -----------------|---------------++++++++++++++++|++++++++++++++++---------*/
+    /*        000000000000000000000000000000001111111111111111111111111111110000*/  
     /*                        _____vRawSens6__              ______vRawSens5_    */       
     /*  Second Case                                                             */
-    /* --------------------------------++++++++++++++++++++++++++++++++---------*/
+    /* -----------------|---------------++++++++++++++++|++++++++++++++++---------*/
     /*            ______DATAL_____             ______DATAR_____                 */
     /*            _____vRawSens6__             ______vRawSens5_                 */
+    /* 00000000000000000000000000001111111111111111111111111111100000000000     */  
 	if (Main_stLR==stMIC56)
 	{
-	        temp = 0x01;
+	        
             if (Main_stLROld==stMIC56Old)
             {
                SPI4_stNipple = (test);
@@ -752,7 +753,7 @@ void SPI4_IRQHandler(void)
     }
 	else
 	{
-	    temp = 0x00;   
+	    
           if (Main_stLROld!=stMIC56Old)
           {
               SPI4_stNipple = (test);	  
@@ -841,7 +842,7 @@ void SPI4_IRQHandler(void)
 
 	/* Update Old value */	  
 	Main_stLROld=Main_stLR;	  
-     
+    
   }      
 }
 
@@ -952,14 +953,14 @@ void MIC1TO8_Init(void)
   //HAL_Delay(2);
 
 
-//  while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
-//  while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
+//while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
+//while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
   I2S1_Init(); /* I2S1   --> SDO12 */
 //  while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
 //  while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
   I2S2_Init(); /* I2S2   --> SDO34 */
-//  while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
-//  while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
+  //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
+  //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
   SPI4_Init(); /* SPI4   --> SDO56 */
   SPI5_Init();
   SPI6_Init(); 
@@ -1738,7 +1739,7 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
 
 void PDM2PCMSDO78(void)
 {
-static int16_t Mic7LPOld,Mic8LPOld;
+//static int16_t Mic7LPOld,Mic8LPOld;
 uint8_t buffer_switch_tmp;
 
 buffer_switch_tmp = buffer_switch;

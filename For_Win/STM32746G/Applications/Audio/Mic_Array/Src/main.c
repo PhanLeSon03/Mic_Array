@@ -362,7 +362,7 @@ inline static void Audio_Play_Out(void)
             }
 
           //if (cntStrt==2) 	 StartRecMic7_8();
-          if (cntStrt<10) 
+          if (cntStrt<20) 
           {  
               cntStrt++;
               WaveRecord_flgIni=0; 
@@ -422,7 +422,7 @@ int main(void)
 	/* ---------PA4: LCCKO(I2S2)-------------*/
     __GPIOA_CLK_ENABLE();
     GPIO_INS.Pin = GPIO_PIN_4;
-    GPIO_INS.Mode =GPIO_MODE_IT_RISING;
+    GPIO_INS.Mode =GPIO_MODE_INPUT;
     GPIO_INS.Pull =GPIO_PULLUP;
     GPIO_INS.Speed =GPIO_SPEED_HIGH;
     HAL_GPIO_Init(GPIOA,&GPIO_INS);
@@ -430,10 +430,7 @@ int main(void)
     /* Enable and set Button EXTI Interrupt to the lowest priority */
     //HAL_NVIC_SetPriority((IRQn_Type)EXTI4_IRQn, INTERRUPT_PRI_EXT_LRCK, 0);
     //HAL_NVIC_EnableIRQ((IRQn_Type)EXTI4_IRQn);
-
 	
-
-
      /* ---------PB12: LCCKO (I2S2)-------------*/
     __GPIOB_CLK_ENABLE();
     GPIO_INS.Pin = GPIO_PIN_12;
@@ -517,9 +514,8 @@ int main(void)
     StartPlay();
 
     BSP_LED_Toggle(LED1);
-    Window(fir256Coff);
-	EnergyNoiseCalc(AUDIO_OUT_BUFFER_SIZE/2);
-
+    //Window(fir256Coff);
+	//EnergyNoiseCalc(AUDIO_OUT_BUFFER_SIZE/2);
     //Precalculation(Coef,PreCalcBuff);
     
     while (1)
@@ -542,7 +538,7 @@ int main(void)
                 if (swtCase1Mic56==0)
                 {
                      stMIC56 = GPIO_PIN_SET;
-                     stMIC56Old = GPIO_PIN_RESET; 
+                     stMIC56Old = GPIO_PIN_SET; 
                      SPI4_stPosShft = 0;
                 }
 
@@ -550,7 +546,7 @@ int main(void)
                 
 
             }
-            else if ((cntStrt>=10)&&(WaveRecord_flgIni<200))
+            else if ((cntStrt==10)&&(WaveRecord_flgIni<200))
             {
                 for(char i=0;i<16;i++)
                 {
@@ -559,6 +555,9 @@ int main(void)
                           SPI4_stPosShft = MAX(SPI4_stPosShft,i+1);
                      }
                 }
+                
+                if (SPI4_stPosShft==16)  HAL_NVIC_SystemReset(); 
+               
                 WaveRecord_flgIni++;			
             }
             else
@@ -737,8 +736,8 @@ int main(void)
                     }//if(SNR)
 
 #endif
-	   	            cntTime200=0;
-        } //(cntTime200==40)
+	   	         cntTime200=0;
+              } //(cntTime200==40)
       }//if (flg10ms==1)	
   }
 }
@@ -1327,11 +1326,11 @@ void MX_I2C2_Init(void)
     //  __NOP;
     //  __NOP;
     //}
-
-    I2S1_Enable();
-    I2S2_Enable();
     //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_SET);
     //while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)==GPIO_PIN_RESET);
+    
+    I2S1_Enable();
+    I2S2_Enable();
     SPI4_Enable();
     StartRecMic7_8();
     WaveRec_idxSens1 = 0;
@@ -1343,7 +1342,7 @@ void MX_I2C2_Init(void)
     idxFrmPDMMic8 = 0;
     buffer_switch = BUF1_PLAY;
 
-	
+	return 0;
 	 
  }
 

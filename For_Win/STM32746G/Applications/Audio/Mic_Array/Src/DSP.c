@@ -794,7 +794,7 @@ float lowpassFIR(float * firBuffer,uint64_t M,uint64_t Fs,uint64_t Fc)
 
 int8_t CrssCor(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen, uint32_t * CrssCorVal )
 {
-    static int16_t vDataIn1Old, vDataIn2Old;
+    //static int16_t vDataIn1Old, vDataIn2Old;
     int64_t Sum, SumMax;
 	int8_t idxPos;
 #if 1
