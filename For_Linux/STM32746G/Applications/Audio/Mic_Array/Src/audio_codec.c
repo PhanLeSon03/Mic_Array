@@ -404,7 +404,7 @@ void SPI3_IRQHandler(void)
 static uint32_t Codec_Init(uint16_t OutputDevice, uint8_t Vol, uint32_t AudioFreq)
 {
   uint32_t counter = 0; 
-  uint32_t stReadReg;
+  //uint32_t stReadReg;
 
 //sop1hc: removed on 22 June 2016, since do not install CS43L22 in this version 
 

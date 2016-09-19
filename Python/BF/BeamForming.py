@@ -56,14 +56,14 @@ def CoeffCalc (fs, gamma,angle,R_Update=False):
     N = PAR.N
     L = N + zpb + zpf
     L_H = np.floor(L/2).astype(np.int16)
-    W = np.zeros((PAR.m,L_H+1),dtype=complex)     # matrix 8x1024
+    W_DIR = np.zeros((PAR.m,L_H+1),dtype=complex)     # matrix 8x1024
 
-    SteerVect = np.mat(SteeringVector(angle))     # matrix 8x513
+    SteerVect = np.mat(SteeringVector(angle,Algorithm=True))     # matrix 8x513
     spio.savemat('SV.mat', {'SV': SteerVect})
     R_All = CoheCalc(fs, L_H + 1,R_Update)                        # matrix 8x8x513
     R = np.zeros((m,m))
 
-    F_SWT = (5600.0/8000.0)*L_H
+    F_SWT = (80000.0/8000.0)*L_H
     # Compute gains for positive frequencies
     for i in range(0,L_H + 1):  # Loop for every frequency slot
         f = PAR.FS[i]
@@ -83,10 +83,11 @@ def CoeffCalc (fs, gamma,angle,R_Update=False):
 
 
         #Search for optimal weights by binary seaching
-        while gain<gamma:  # stop when distance(gain,gamma) <= 1
+        while gain<(gamma+(i)*5.0/(N/2)):  # stop when distance(gain,gamma) <= 1
             #print(i)
             # Increasing esp will increase gain and vice versa
             if (i<F_SWT): #717
+            #if ((i < 82) or (i>108)):
                 esp = (esp  + step)                   # matrix 8x8
                 #esp = esp-step
                 #print(esp)
@@ -106,8 +107,8 @@ def CoeffCalc (fs, gamma,angle,R_Update=False):
                 break    
 
         for iMic in range (0,m):
-            W[iMic,i] = w[iMic,0]
-    spio.savemat('W_ZP.mat', {'W': W})
+            W_DIR[iMic,i] = w[iMic,0]
+
     #print(W)
     #Infer gains for negative frequencies from positive frequencies
     #for iCopy in range(1, math.floor(L/2)):
@@ -125,7 +126,7 @@ def CoeffCalc (fs, gamma,angle,R_Update=False):
     print(W_ZP.shape)
     return W_ZP.conj()
     '''
-    return W
+    return W_DIR
 
 def SteeringVectorX(frequency, phi, dist):
 
@@ -146,16 +147,16 @@ def CoheCalc(fs, len,R_Update=False):
     if (R_Update==False):
 
         #file= spio.loadmat('diffuse_8_8_1025.mat')
-        file = spio.loadmat('BF/diffuse_8_8_1025.mat')
+        file = spio.loadmat('BF/diffuse_8_8_1025_sqrt_maya.mat')
 
         ij_matrix= file['test']  #1025x8x8
         R = ij_matrix[:,:,::2]
 
         for iMic in range(0,m):
             for jMic in range(0,m):
-                tempR = np.concatenate((np.ones(128),R[iMic,jMic,:]),axis=0)
+                tempR = np.concatenate((np.ones(512),R[iMic,jMic,:]),axis=0)
                 tempR= signal.lfilter(b, a, tempR, axis=0)
-                R[iMic, jMic, :] = tempR[128:]
+                R[iMic, jMic, :] = tempR[512:]
     else:
         R = R_Calc
 
@@ -171,6 +172,7 @@ def CoheCalc(fs, len,R_Update=False):
     # plt.cohere(Noise[:, 0], Noise[:, 7],NFFT=128, Fs=16000)
     plt.xlabel('frequency [Hz]')
     plt.ylabel('Coherence')
+    plt.axis([0, 513, 0, 1])
     plt.show()
 
     return R
@@ -204,8 +206,8 @@ def computeWNG(weight,constrnt):
     #return gain
 
  
-def SteeringVector(angle):
-    Delay = np.array(DE.Steer_Angle(angle))/(4*PAR.fs)                     # matrix 1x8
+def SteeringVector(angle, Algorithm=False):
+    Delay = np.array(DE.Steer_Angle(angle,Algorithm=Algorithm))/(4*PAR.fs)                     # matrix 1x8
     return np.exp(-1j*2*np.pi*np.mat(Delay).transpose()*np.mat(PAR.FS_H))          # matrix 8x1 * 1x512 = 8x512
 
 
@@ -217,13 +219,14 @@ Update coefficient
 '''
 def BeamFormingSD_Init(R_Update=False):
 
-    W = np.zeros((16,PAR.m,PAR.L_H+1),dtype=complex)
+    W = np.zeros((PAR.NUMDIR,PAR.m,PAR.L_H+1),dtype=complex)
 
-    for iAngle in range(0,16):
+    for iAngle in range(0,PAR.NUMDIR):
        W[iAngle,:,:] = np.array(CoeffCalc(PAR.fs,PAR.GAMMA,iAngle,R_Update))
        print('--------------------------------------------------------------')
        print(iAngle)
        print('--------------------------------------------------------------')
+
     return W
 
 
@@ -340,15 +343,16 @@ def BF_PostFiltering(Audio_Data, W_ZP, W_ZP_PF):
     Out_Sum_Pre = (np.real(np.fft.irfft(Out_FFT_Pre)))
 
 
+
     #reconstruct the signal
-    Data_Half1 =  Out_Sum_Pre[PAR.zpb:PAR.zpb+HOP] + Audio_Sum_Old
-    Data_Half2 =  Out_Sum_Pre[PAR.zpb + HOP:PAR.zpb + 2*HOP] + Out_Sum[PAR.zpb:PAR.zpb+HOP]
+    Data_Half1 =  Out_Sum_Pre[zpb:zpb+HOP] + Audio_Sum_Old
+    Data_Half2 =  Out_Sum_Pre[zpb + HOP:zpb + 2*HOP] + Out_Sum[zpb:zpb+HOP]
 
     Audio_Sum = np.concatenate((Data_Half1,Data_Half2),axis=0)
 
-    Audio_Sum_Old = np.array(Out_Sum[PAR.zpb + HOP:PAR.zpb + 2*HOP])
+    Audio_Sum_Old = np.array(Out_Sum[zpb + HOP:zpb + 2*HOP])
     Audio_Data_Old = np.array(Audio_Data)
-    return Audio_Sum  
+    return Audio_Sum
     
 
 '''
@@ -391,8 +395,11 @@ class BeamFormingObj(object):
             file = sio.loadmat('BF/W.mat')
             self.W = file['W']
 
-    def BFCalc(self, Audio_Data, Angle):
-         DataBeam = BeamFormingSD(Audio_Data, self.W[Angle])
+    def BFCalc(self, Audio_Data, Angle, Post_Filtering=False):
+         if (Post_Filtering):
+             DataBeam = BF_PostFiltering(Audio_Data, self.W[Angle],self.W[(Angle+PAR.NUMDIR/2)%PAR.NUMDIR])
+         else:
+              DataBeam = BeamFormingSD(Audio_Data, self.W[Angle])
          #DataBeam = BF_PostFiltering(Audio_Data, self.W[Angle], self.W[(Angle+8)%16])
          return DataBeam
 

@@ -147,13 +147,13 @@ class Mic_Array_Read(object):
 
         temp = np.array(Frames[:(PAR.N - PAR.OFFSET), 6])
         self.Frames_D[:, 6] = np.concatenate((self.Frame7Old, temp), axis=0)
-        Delay = np.convolve(self.Frames_D[:, 6], self.Shift78)  # Delay 1/2 sample
-        self.Frames_D[:, 6] = Delay[math.floor(PAR.N / 2) :math.floor(3 * PAR.N / 2) ]
+        #Delay = np.convolve(self.Frames_D[:, 6], self.Shift78)  # Delay 1/2 sample
+        #self.Frames_D[:, 6] = Delay[math.floor(PAR.N / 2) :math.floor(3 * PAR.N / 2) ]
 
         temp = Frames[:(PAR.N - PAR.OFFSET), 7]
         self.Frames_D[:, 7] = np.concatenate((self.Frame8Old, temp), axis=0)
-        Delay = np.convolve(self.Frames_D[:, 7], self.Shift78)  # Delay 1/2 sample
-        self.Frames_D[:, 7] = Delay[math.floor(PAR.N / 2) :math.floor(3 * PAR.N / 2) ]
+        #Delay = np.convolve(self.Frames_D[:, 7], self.Shift78)  # Delay 1/2 sample
+        #self.Frames_D[:, 7] = Delay[math.floor(PAR.N / 2) :math.floor(3 * PAR.N / 2) ]
 
         self.Frame1Old = np.array(Frame1)
         self.Frame2Old = np.array(Frame2)

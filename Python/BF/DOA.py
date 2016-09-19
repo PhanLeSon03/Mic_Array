@@ -11,24 +11,25 @@ import threading
 import BF.mic_array_read as MAR
 
 DOA = np.array([
-    [-9.7, -6.87, 0., 6.86],  # 225
-    [-8.96, -3.71, 3.71, 8.96],  # 247.5
-    [-6.87, 0., 6.86, 9.7],  # 270
-    [-3.71, 3.71, 8.96, 8.9],  # 292.5
-    [0., 6.86, 9.7, 6.86],  # 315
-    [3.71, 8.96, 8.9, 3.71],  # 337.5
-    [6.86, 9.7, 6.86, 0.],  # 0
-    [8.96, 8.9, 3.71, -3.71],  # 22.5
-    [9.7, 6.86, 0., -6.86],  # 45
-    [8.9, 3.71, -3.71, -8.96],  # 67.5
-    [6.86, 0., -6.86, -9.7],  # 90
-    [3.71, -3.71, -8.96, -8.96],  # 112.5
-    [0., -6.86, -9.7, -6.87],  # 135
-    [-3.71, -8.96, -8.96, -3.71],  # 157.5
-    [-6.86, -9.7, -6.87, 0.],  # 180
-    [-8.96, -8.96, -3.71, 3.71]])  # 202.5
+    [-9.7,     -6.87,  0.,      6.86],  #[0, 1, 5, 4],# 225
+    #[-8.96,   -3.71,  3.71,    8.96],  # 247.5
+    [-6.87,     0.,    6.86,    9.7],  #[1, 4, 8, 5], # 270
+    #[-3.71,   3.71,   8.96,    8.9],  # 292.5
+    [0.,       6.86,   9.7,     6.86],  #[4, 6, 8, 2], # 315
+    #[3.71,    8.96,   8.9,     3.71],  # 337.5
+    [6.86,     9.7,    6.86,    0.],  #[8, 9, 8, 0],# 0
+    #[8.96,    8.9,    3.71,    -3.71],  # 22.5
+    [9.7,      6.86,   0.,      -6.86],  #[7, 7, 5, -2],# 45
+    #[8.9,     3.71,   -3.71,   -8.96],  # 67.5
+    [6.86,     0.,     -6.86,   -9.7],  # [9, 6, 2, -6], #90
+    #[3.71,    -3.71,  -8.96,   -8.96],  # 112.5
+    [0,        -6.86,  -9.7,    -6.86],  # 157.5
+    #[-3.71,   -8.96,  -8.96,   -3.71],  # 135
+    [-6.86,    -9.7,   -6.86,    0.0]])  # 180
+    #[-8.96,   -8.96,  -3.71,    3.71]])  # 202.5
 
-Dir = 6
+
+Dir = 3
 DirOld = 0
 cntDeb = 0
 AngleOld = 0
@@ -59,10 +60,10 @@ class DOAEst(threading.Thread):
         self.offset = 0
         self.Dir = 0
         self.DirOld = 0
-        self.DIR = np.zeros(16)
+        self.DIR = np.zeros(PAR.NUMDIR)
         # self.Angle = [0,   22.5,  45,  67.5,  90,  112.5, 135, 157.5, 180, 202.5, 225, 247.5, 270, 292.5, 315, 337.5]
-        self.Angle = [225, 247.5, 270, 292.5, 315, 337.5, 0, 22.5, 45, 67.5, 90, 112.5, 135, 157.5, 180, 202.5]
-        self.OldSampe = np.zeros(16)
+        #self.Angle = [225, 247.5, 270, 292.5, 315, 337.5, 0, 22.5, 45, 67.5, 90, 112.5, 135, 157.5, 180, 202.5]
+        self.Angle = [225, 270,  315,  0,  45,  90,  135,  180]
 
     def run(self):
         global Dir, DirOld, cntDeb, flgContinue, b, a, numSeg
@@ -74,23 +75,24 @@ class DOAEst(threading.Thread):
 
 
         if (power_channel1 > self.power+self.offset):
-            Data = signal.lfilter(b, a, self.Frames_DOA, axis=0)
+            #Data = signal.lfilter(b, a, self.Frames_DOA, axis=0)
 
             numSeg += 1
             if (numSeg > 0):
                 numSeg = 0
                 # print("Isabella")
-                Delay_In_Sample, test17 = DE.computedelay_couple(Data)
+                Delay_In_Sample, test17 = DE.computedelay_couple(self.Frames_DOA)
                 #print(test17)
-                #print(Delay_In_Sample)
+                print(Delay_In_Sample)
                 # Delay_In_Sample = [0, 0, 0, 0]
 
-                for iDir in range(0, 16):
+
+                for iDir in range(0, 8):
                     self.DIR[iDir] = sum(
                         (np.array(Delay_In_Sample) - (DOA[iDir])) * (np.array(Delay_In_Sample) - (DOA[iDir])))
 
                 DirTmp = np.argmin(self.DIR)
-
+                #DE.TestDelay(self.Frames_DOA,DirTmp)
                 # Debouncing the input
                 if (flgContinue == 1):
                     if (DirTmp == DirOld):
@@ -139,3 +141,7 @@ class DOA_MicArray(object):
 
     def Stop(self):
         self.thread_DOA.join()
+
+    def Power(self, Beam_Data):
+        power = sum(np.array(Beam_Data) * np.array(Beam_Data)) / Beam_Data.size
+        return power

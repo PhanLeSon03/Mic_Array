@@ -22,8 +22,8 @@ def GetText(Audio_Data):
         Text = r.recognize_google(Audio)
     except sr.UnknownValueError:
         Text = "Google Speech Recognition could not understand audio"
-    #except sr.RequestError as e:
-    #    Text = "Could not request results from Google Speech Recognition service; {0}".format(e)
+    except sr.RequestError as e:
+        Text = "Could not request results from Google Speech Recognition service; {0}".format(e)
 
     return Text
 

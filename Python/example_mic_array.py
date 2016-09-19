@@ -67,7 +67,7 @@ for i in range(0, int(numCHUNK)):
     start = timer()
     '''Sound Source Localization'''
     idxDir = LOC.Update(Frames_1024)
-    Beam_Audio = BEAM.BFCalc(Frames_1024,6)
+    Beam_Audio = BEAM.BFCalc(Frames_1024,idxDir)
 
     # Storage audio output
     Audio_Data[ind:ind + PAR.N, 0:PAR.m] = Frames_1024[:, 0:PAR.m]

@@ -515,8 +515,8 @@ int main(void)
     StartPlay();
 
     BSP_LED_Toggle(LED1);
-    Window(fir256Coff);
-	EnergyNoiseCalc(AUDIO_OUT_BUFFER_SIZE/2);
+    //Window(fir256Coff);
+	//EnergyNoiseCalc(AUDIO_OUT_BUFFER_SIZE/2);
 
     //Precalculation(Coef,PreCalcBuff);
     
@@ -540,7 +540,7 @@ int main(void)
                 if (swtCase1Mic56==0)
                 {
                      stMIC56 = GPIO_PIN_SET;
-                     stMIC56Old = GPIO_PIN_RESET; 
+                     stMIC56Old = GPIO_PIN_SET; 
                      SPI4_stPosShft = 0;
                 }
 
@@ -557,6 +557,10 @@ int main(void)
                           SPI4_stPosShft = MAX(SPI4_stPosShft,i+1);
                      }
                 }
+
+                if (SPI4_stPosShft==16)  HAL_NVIC_SystemReset(); 
+
+                //HAL_Delay(1);
                 //temp = SPI4_stNipple;
                 //uint8_t idxPos;
                 //idxPos = 0;

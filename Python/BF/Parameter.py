@@ -44,7 +44,7 @@ FS_RAW = np.linspace(0,fs,N)
 FS_H = FS[:math.floor((N+zpf+zpb)/2)+1]
 
 #offset
-OFFSET = 5 #5.75
+OFFSET = 6 #5.5
 
 #Radius of circle
 R=0.026
@@ -58,10 +58,13 @@ Fs_F = fs*RES*2/5
 #Hope
 HOP = math.floor((N)/2)
 
-GAMMA = -0.0
+GAMMA = 0.0
 
 #number of raw audio buffer frame
 CNTBUF = 8
 
 # Number of frame to get environment noise
 COHE_FRM = 160
+
+#Number of direction
+NUMDIR = 8

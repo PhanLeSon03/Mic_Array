@@ -636,7 +636,7 @@ void SPI2_IRQHandler(void)
 void SPI4_IRQHandler(void)
 {
   static uint8_t Main_stLR, Main_stLROld;
-  uint8_t temp = 0;
+
 
   /* SPI in mode Receiver ----------------------------------------------------*/
   if(
@@ -665,6 +665,7 @@ void SPI4_IRQHandler(void)
     {
         Main_stLR = GPIO_PIN_RESET;
     }
+    */
     /* STM32F746 read data from STA321MP, the data is shifted few bit           */
     /* Data from STA321MP is 32bit formart                                      */
     /* SPI is just able to read 16 bit format                                   */
@@ -679,7 +680,7 @@ void SPI4_IRQHandler(void)
     /*            _____vRawSens6__             ______vRawSens5_                 */
 	if (Main_stLR==stMIC56)
 	{
-	        temp = 0x01;
+	        
             if (Main_stLROld==stMIC56Old)
             {
                SPI4_stNipple = (test);
@@ -752,7 +753,7 @@ void SPI4_IRQHandler(void)
     }
 	else
 	{
-	    temp = 0x00;   
+	    
           if (Main_stLROld!=stMIC56Old)
           {
               SPI4_stNipple = (test);	  
@@ -1738,7 +1739,7 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
 
 void PDM2PCMSDO78(void)
 {
-static int16_t Mic7LPOld,Mic8LPOld;
+
 uint8_t buffer_switch_tmp;
 
 buffer_switch_tmp = buffer_switch;
