@@ -744,6 +744,10 @@ void SPI4_IRQHandler(void)
                          break;
                  }
                }
+              if ((WaveRec_idxSens6 - WaveRec_idxSens1 != 1)&&(WaveRec_idxSens6==100))
+             {  
+                HAL_NVIC_SystemReset();
+             }  
 
 			    WaveRec_idxSens6++;
 			if ((WaveRec_idxSens6 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x20;

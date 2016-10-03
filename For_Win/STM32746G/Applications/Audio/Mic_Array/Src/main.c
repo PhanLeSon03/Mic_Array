@@ -509,10 +509,10 @@ int main(void)
 
     buffer_switch = BUF3_PLAY;		 /* record data to buffer1 */
 
-
+    __disable_irq();
     MIC1TO8_Init();
     StartPlay();
-
+    __enable_irq();
     BSP_LED_Toggle(LED1);
     //Window(fir256Coff);
 	//EnergyNoiseCalc(AUDIO_OUT_BUFFER_SIZE/2);
@@ -557,7 +557,7 @@ int main(void)
                 }
                 
                 if (SPI4_stPosShft==16)  HAL_NVIC_SystemReset(); 
-               
+        
                 WaveRecord_flgIni++;			
             }
             else

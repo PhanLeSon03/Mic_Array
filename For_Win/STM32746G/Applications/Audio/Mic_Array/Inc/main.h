@@ -91,7 +91,19 @@
 #define u16                     uint16_t
 #define s8                      int8_t
 #define u8                      uint8_t    
-    
+
+/* AUDIO FREQUENCY */
+#define AUDIO_FREQUENCY_192K          ((uint32_t)192000)
+#define AUDIO_FREQUENCY_96K           ((uint32_t)96000)
+#define AUDIO_FREQUENCY_48K           ((uint32_t)48000)
+#define AUDIO_FREQUENCY_44K           ((uint32_t)44100)
+#define AUDIO_FREQUENCY_32K           ((uint32_t)32000)
+#define AUDIO_FREQUENCY_22K           ((uint32_t)22050)
+#define AUDIO_FREQUENCY_16K           ((uint32_t)16000)
+#define AUDIO_FREQUENCY_11K           ((uint32_t)11025)
+#define AUDIO_FREQUENCY_8K            ((uint32_t)8000)  
+
+
 /* Exported types ------------------------------------------------------------*/
 /* Application State Machine Structure */
 typedef enum {

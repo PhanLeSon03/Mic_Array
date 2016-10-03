@@ -37,11 +37,11 @@ extern Mic_Array_Data Buffer1,Buffer2,Buffer3;
 extern __IO uint8_t   cntBtnPress;
 
 #define SHIFT_CHNNL1    2
-//#define SHIFT_CHNNL2    0 
+#define SHIFT_CHNNL2    0 
 #define SHIFT_CHNNL3    1
-//#define SHIFT_CHNNL4    0
+#define SHIFT_CHNNL4    0
 #define SHIFT_CHNNL5    1
-//#define SHIFT_CHNNL6    0
+#define SHIFT_CHNNL6    0
 #define SHIFT_CHNNL7    6
 #define SHIFT_CHNNL8    6
 
@@ -53,7 +53,7 @@ int16_t Frame1Old[SHIFT_CHNNL1];
 //int16_t Frame2Old[SHIFT_CHNNL2];
 int16_t Frame3Old[SHIFT_CHNNL3];
 //int16_t Frame4Old[SHIFT_CHNNL4];
-int16_t Frame5Old[SHIFT_CHNNL5+1];
+int16_t Frame5Old[SHIFT_CHNNL5];
 //int16_t Frame6Old[SHIFT_CHNNL6];
 int16_t Frame7Old[SHIFT_CHNNL7];
 int16_t Frame8Old[SHIFT_CHNNL8];
@@ -240,7 +240,17 @@ void AudioPlayerUpd(void) /* This function called with period of 64ms */
                    PCM_Buffer1[8*(i)  ]= Buffer1.bufMIC1[i-SHIFT_CHNNL1];
                }
 
-               
+               /*
+               if (i < SHIFT_CHNNL2)
+               {
+                   PCM_Buffer1[8*(i) + 1 ]= Frame2Old[i];
+                   Frame2Old[i] =  Buffer1.bufMIC2[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL2 + i];
+               }
+               else
+               {
+                   PCM_Buffer1[8*(i)+1]= Buffer1.bufMIC2[i - SHIFT_CHNNL2];
+               }
+               */
 			   PCM_Buffer1[8*(i)+1]= Buffer1.bufMIC2[i];
 
                if (i < SHIFT_CHNNL3)
@@ -253,8 +263,18 @@ void AudioPlayerUpd(void) /* This function called with period of 64ms */
                    PCM_Buffer1[8*(i)+2]= Buffer1.bufMIC3[i - SHIFT_CHNNL3];
                }
                
-               
-			   PCM_Buffer1[8*(i)+3]= Buffer1.bufMIC4[i];
+               /*
+               if (i < SHIFT_CHNNL4)
+               {
+                   PCM_Buffer1[8*(i)+3]= Frame4Old[i];
+                   Frame4Old[i] =  Buffer1.bufMIC4[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL4 + i];
+               }
+               else
+               {
+                   PCM_Buffer1[8*(i)+3]= Buffer1.bufMIC4[i - SHIFT_CHNNL4];
+               }
+               */
+               PCM_Buffer1[8*(i)+3]= Buffer1.bufMIC4[i];
 
                if (i < SHIFT_CHNNL5 + 0)
                {
@@ -308,8 +328,18 @@ void AudioPlayerUpd(void) /* This function called with period of 64ms */
                     PCM_Buffer2[8*(i)  ]= Buffer1.bufMIC1[i-SHIFT_CHNNL1];
                 }
                
-                
-                PCM_Buffer2[8*(i)+1]= Buffer1.bufMIC2[i];
+               /* 
+               if (i < SHIFT_CHNNL2)
+               {
+                   PCM_Buffer2[8*(i) + 1 ]= Frame2Old[i];
+                   Frame2Old[i] =  Buffer1.bufMIC2[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL2 + i];
+               }
+               else
+               {
+                   PCM_Buffer2[8*(i)+1]= Buffer1.bufMIC2[i - SHIFT_CHNNL2];
+               }
+               */
+               PCM_Buffer2[8*(i)+1]= Buffer1.bufMIC2[i];
                
                 if (i < SHIFT_CHNNL3)
                 {
@@ -321,8 +351,18 @@ void AudioPlayerUpd(void) /* This function called with period of 64ms */
                     PCM_Buffer2[8*(i)+2]= Buffer1.bufMIC3[i - SHIFT_CHNNL3];
                 }
                 
-                
-                PCM_Buffer2[8*(i)+3]= Buffer1.bufMIC4[i];
+               /*
+               if (i < SHIFT_CHNNL4)
+               {
+                   PCM_Buffer2[8*(i)+3]= Frame4Old[i];
+                   Frame4Old[i] =  Buffer1.bufMIC4[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL4 + i];
+               }
+               else
+               {
+                   PCM_Buffer2[8*(i)+3]= Buffer1.bufMIC4[i - SHIFT_CHNNL4];
+               }
+               */
+               PCM_Buffer2[8*(i)+3]= Buffer1.bufMIC4[i];
                
                  if (i < SHIFT_CHNNL5 + 0)
                 {
@@ -377,9 +417,20 @@ void AudioPlayerUpd(void) /* This function called with period of 64ms */
                  {
                      PCM_Buffer1[8*(i)  ]= Buffer2.bufMIC1[i-SHIFT_CHNNL1];
                  }
-          
-                 
+
+                 /*
+                 if (i < SHIFT_CHNNL2)
+                 {
+                     PCM_Buffer1[8*(i) + 1 ]= Frame2Old[i];
+                     Frame2Old[i] =  Buffer2.bufMIC2[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL2 + i];
+                 }
+                 else
+                 {
+                     PCM_Buffer1[8*(i)+1]= Buffer2.bufMIC2[i - SHIFT_CHNNL2];
+                 }
+                 */
                  PCM_Buffer1[8*(i)+1]= Buffer2.bufMIC2[i];
+                 
           
                  if (i < SHIFT_CHNNL3)
                  {
@@ -390,8 +441,17 @@ void AudioPlayerUpd(void) /* This function called with period of 64ms */
                  {
                      PCM_Buffer1[8*(i)+2]= Buffer2.bufMIC3[i - SHIFT_CHNNL3];
                  }
-                 
-                 
+                 /*
+                 if (i < SHIFT_CHNNL4)
+                 {
+                     PCM_Buffer1[8*(i)+3]= Frame4Old[i];
+                     Frame4Old[i] =  Buffer2.bufMIC4[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL4 + i];
+                 }
+                 else
+                 {
+                     PCM_Buffer1[8*(i)+3]= Buffer2.bufMIC4[i - SHIFT_CHNNL4];
+                 }
+                 */
                  PCM_Buffer1[8*(i)+3]= Buffer2.bufMIC4[i];
           
                  if (i < SHIFT_CHNNL5 + 0)
@@ -403,8 +463,8 @@ void AudioPlayerUpd(void) /* This function called with period of 64ms */
                  {
                      PCM_Buffer1[8*(i)+4]= Buffer2.bufMIC5[i - SHIFT_CHNNL5 -0];
                  } 
-                 
                  //PCM_Buffer1[8*(i)+4]= Buffer2.bufMIC5[i];
+                 
                  PCM_Buffer1[8*(i)+5]= Buffer2.bufMIC6[i];
           
                  if (i < SHIFT_CHNNL7)
@@ -446,8 +506,18 @@ void AudioPlayerUpd(void) /* This function called with period of 64ms */
                       PCM_Buffer2[8*(i)  ]= Buffer2.bufMIC1[i-SHIFT_CHNNL1];
                   }
                  
-                  
-                  PCM_Buffer2[8*(i)+1]= Buffer2.bufMIC2[i];
+                 /* 
+                 if (i < SHIFT_CHNNL2)
+                 {
+                     PCM_Buffer2[8*(i) + 1 ]= Frame2Old[i];
+                     Frame2Old[i] =  Buffer2.bufMIC2[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL2 + i];
+                 }
+                 else
+                 {
+                     PCM_Buffer2[8*(i)+1]= Buffer2.bufMIC2[i - SHIFT_CHNNL2];
+                 }
+                 */
+                 PCM_Buffer2[8*(i)+1]= Buffer2.bufMIC2[i];
                  
                   if (i < SHIFT_CHNNL3)
                   {
@@ -459,8 +529,18 @@ void AudioPlayerUpd(void) /* This function called with period of 64ms */
                       PCM_Buffer2[8*(i)+2]= Buffer2.bufMIC3[i - SHIFT_CHNNL3];
                   }
                   
-                  
-                  PCM_Buffer2[8*(i)+3]= Buffer2.bufMIC4[i];
+                 /*
+                 if (i < SHIFT_CHNNL4)
+                 {
+                     PCM_Buffer2[8*(i)+3]= Frame4Old[i];
+                     Frame4Old[i] =  Buffer2.bufMIC4[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL4 + i];
+                 }
+                 else
+                 {
+                     PCM_Buffer2[8*(i)+3]= Buffer2.bufMIC4[i - SHIFT_CHNNL4];
+                 }
+                 */
+                 PCM_Buffer2[8*(i)+3]= Buffer2.bufMIC4[i];
                  
                    if (i < SHIFT_CHNNL5 + 0)
                   {
@@ -469,7 +549,7 @@ void AudioPlayerUpd(void) /* This function called with period of 64ms */
                   }
                   else
                   {
-                      PCM_Buffer2[8*(i)+4]= Buffer2.bufMIC5[i - SHIFT_CHNNL5 - 0];
+                      PCM_Buffer2[8*(i)+4]= Buffer2.bufMIC5[i - SHIFT_CHNNL5 -0];
                   } 
                   
                   //PCM_Buffer2[8*(i)+4]= Buffer2.bufMIC5[i];
@@ -500,146 +580,187 @@ void AudioPlayerUpd(void) /* This function called with period of 64ms */
           
             
           }
+          break;    
 
-        break;
       case BUF3_PLAY:
-		for (uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
-		{
-           if (swtBufUSBOut)
-           {
-               if (i< SHIFT_CHNNL1)
-               {
-			       PCM_Buffer1[8*(i)  ]= Frame1Old[i];
-                   Frame1Old[i] =  Buffer3.bufMIC1[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL1 + i];
-               }
-               else
-               {
-                   PCM_Buffer1[8*(i)  ]= Buffer3.bufMIC1[i-SHIFT_CHNNL1];
-               }
-
-               
-			   PCM_Buffer1[8*(i)+1]= Buffer3.bufMIC2[i];
-
-               if (i < SHIFT_CHNNL3)
-               {
-                   PCM_Buffer1[8*(i)+2]= Frame3Old[i];
-                   Frame3Old[i] =  Buffer3.bufMIC3[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL3 + i];
-               }
-               else
-               {
-                   PCM_Buffer1[8*(i)+2]= Buffer3.bufMIC3[i - SHIFT_CHNNL3];
-               }
-               
-               
-			   PCM_Buffer1[8*(i)+3]= Buffer3.bufMIC4[i];
-
-               if (i < SHIFT_CHNNL5 + 0)
-               {
-                   PCM_Buffer1[8*(i)+4]= Frame5Old[i];
-                   Frame5Old[i] =  Buffer3.bufMIC5[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL5 -0 + i];
-               }
-               else
-               {
-                   PCM_Buffer1[8*(i)+4]= Buffer3.bufMIC5[i - SHIFT_CHNNL5 - 0];
-               } 
-               
-			   //PCM_Buffer1[8*(i)+4]= Buffer3.bufMIC5[i];
-			   PCM_Buffer1[8*(i)+5]= Buffer3.bufMIC6[i];
-
-               if (i < SHIFT_CHNNL7)
-               {
-                   PCM_Buffer1[8*(i)+6]= Frame7Old[i];
-                   Frame7Old[i] =  Buffer3.bufMIC7[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL7 + i];
-               }
-               else
-               {
-                   PCM_Buffer1[8*(i)+6]= Buffer3.bufMIC7[i - SHIFT_CHNNL7];
-               }
-               
-
-               if (i < SHIFT_CHNNL8)
-               {
-                   PCM_Buffer1[8*(i)+7]= Frame8Old[i];
-                   Frame8Old[i] =  Buffer3.bufMIC7[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL8 + i];
-               }
-               else
-               {
-                   PCM_Buffer1[8*(i)+7]= Buffer3.bufMIC8[i - SHIFT_CHNNL8];
-               }
-
-               
-              
-			   
-
-           }
-		   else
-		   {
-
-               if (i< SHIFT_CHNNL1)
-                {
-                    PCM_Buffer2[8*(i)  ]= Frame1Old[i];
-                    Frame1Old[i] =  Buffer3.bufMIC1[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL1 + i];
-                }
-                else
-                {
-                    PCM_Buffer2[8*(i)  ]= Buffer3.bufMIC1[i-SHIFT_CHNNL1];
-                }
-               
+          for (uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
+          {
+             if (swtBufUSBOut)
+             {
+                 if (i< SHIFT_CHNNL1)
+                 {
+                     PCM_Buffer1[8*(i)  ]= Frame1Old[i];
+                     Frame1Old[i] =  Buffer3.bufMIC1[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL1 + i];
+                 }
+                 else
+                 {
+                     PCM_Buffer1[8*(i)  ]= Buffer3.bufMIC1[i-SHIFT_CHNNL1];
+                 }
+                 /*
+                 if (i < SHIFT_CHNNL2)
+                 {
+                     PCM_Buffer1[8*(i) + 1 ]= Frame2Old[i];
+                     Frame2Old[i] =  Buffer3.bufMIC2[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL2 + i];
+                 }
+                 else
+                 {
+                     PCM_Buffer1[8*(i)+1]= Buffer3.bufMIC2[i - SHIFT_CHNNL2];
+                 }
+                 */
+                 PCM_Buffer1[8*(i)+1]= Buffer3.bufMIC2[i];
+          
+                 if (i < SHIFT_CHNNL3)
+                 {
+                     PCM_Buffer1[8*(i)+2]= Frame3Old[i];
+                     Frame3Old[i] =  Buffer3.bufMIC3[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL3 + i];
+                 }
+                 else
+                 {
+                     PCM_Buffer1[8*(i)+2]= Buffer3.bufMIC3[i - SHIFT_CHNNL3];
+                 }
+                 /*
+                 if (i < SHIFT_CHNNL4)
+                 {
+                     PCM_Buffer1[8*(i)+3]= Frame4Old[i];
+                     Frame4Old[i] =  Buffer3.bufMIC4[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL4 + i];
+                 }
+                 else
+                 {
+                     PCM_Buffer1[8*(i)+3]= Buffer3.bufMIC4[i - SHIFT_CHNNL4];
+                 }
+                 */
+                 PCM_Buffer1[8*(i)+3]= Buffer3.bufMIC4[i];
+          
+                 if (i < SHIFT_CHNNL5 + 0)
+                 {
+                     PCM_Buffer1[8*(i)+4]= Frame5Old[i];
+                     Frame5Old[i] =  Buffer3.bufMIC5[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL5 -0 + i];
+                 }
+                 else
+                 {
+                     PCM_Buffer1[8*(i)+4]= Buffer3.bufMIC5[i - SHIFT_CHNNL5 -0];
+                 } 
+                 //PCM_Buffer1[8*(i)+4]= Buffer3.bufMIC5[i];
+                 
+                 PCM_Buffer1[8*(i)+5]= Buffer3.bufMIC6[i];
+          
+                 if (i < SHIFT_CHNNL7)
+                 {
+                     PCM_Buffer1[8*(i)+6]= Frame7Old[i];
+                     Frame7Old[i] =  Buffer3.bufMIC7[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL7 + i];
+                 }
+                 else
+                 {
+                     PCM_Buffer1[8*(i)+6]= Buffer3.bufMIC7[i - SHIFT_CHNNL7];
+                 }
+                 
+          
+                 if (i < SHIFT_CHNNL8)
+                 {
+                     PCM_Buffer1[8*(i)+7]= Frame8Old[i];
+                     Frame8Old[i] =  Buffer3.bufMIC7[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL8 + i];
+                 }
+                 else
+                 {
+                     PCM_Buffer1[8*(i)+7]= Buffer3.bufMIC8[i - SHIFT_CHNNL8];
+                 }
+          
+                 
                 
-                PCM_Buffer2[8*(i)+1]= Buffer3.bufMIC2[i];
-               
-                if (i < SHIFT_CHNNL3)
-                {
-                    PCM_Buffer2[8*(i)+2]= Frame3Old[i];
-                    Frame3Old[i] =  Buffer3.bufMIC3[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL3 + i];
-                }
-                else
-                {
-                    PCM_Buffer2[8*(i)+2]= Buffer3.bufMIC3[i - SHIFT_CHNNL3];
-                }
-                
-                
-                PCM_Buffer2[8*(i)+3]= Buffer3.bufMIC4[i];
-               
-                if (i < SHIFT_CHNNL5 + 0)
-                {
-                    PCM_Buffer2[8*(i)+4]= Frame5Old[i];
-                    Frame5Old[i] =  Buffer3.bufMIC5[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL5 - 0 + i];
-                }
-                else
-                {
-                    PCM_Buffer2[8*(i)+4]= Buffer3.bufMIC5[i - SHIFT_CHNNL5 - 0];
-                } 
-                
-                //PCM_Buffer2[8*(i)+4]= Buffer3.bufMIC5[i];
-                PCM_Buffer2[8*(i)+5]= Buffer3.bufMIC6[i];
-               
-                if (i < SHIFT_CHNNL7)
-                {
-                    PCM_Buffer2[8*(i)+6]= Frame7Old[i];
-                    Frame7Old[i] =  Buffer3.bufMIC7[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL7 + i];
-                }
-                else
-                {
-                    PCM_Buffer2[8*(i)+6]= Buffer3.bufMIC7[i - SHIFT_CHNNL7];
-                }
-                
-               
-                if (i < SHIFT_CHNNL8)
-                {
-                    PCM_Buffer2[8*(i)+7]= Frame8Old[i];
-                    Frame8Old[i] =  Buffer3.bufMIC7[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL8 + i];
-                }
-                else
-                {
-                    PCM_Buffer2[8*(i)+7]= Buffer3.bufMIC8[i - SHIFT_CHNNL8];
-                }
-		   
-		   }
+                 
+          
+             }
+             else
+             {
+          
+                 if (i< SHIFT_CHNNL1)
+                  {
+                      PCM_Buffer2[8*(i)  ]= Frame1Old[i];
+                      Frame1Old[i] =  Buffer3.bufMIC1[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL1 + i];
+                  }
+                  else
+                  {
+                      PCM_Buffer2[8*(i)  ]= Buffer3.bufMIC1[i-SHIFT_CHNNL1];
+                  }
+                 
+                 /* 
+                 if (i < SHIFT_CHNNL2)
+                 {
+                     PCM_Buffer2[8*(i) + 1 ]= Frame2Old[i];
+                     Frame2Old[i] =  Buffer3.bufMIC2[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL2 + i];
+                 }
+                 else
+                 {
+                     PCM_Buffer2[8*(i)+1]= Buffer3.bufMIC2[i - SHIFT_CHNNL2];
+                 }
+                 */
+                 PCM_Buffer2[8*(i)+1]= Buffer3.bufMIC2[i];
+                 
+                  if (i < SHIFT_CHNNL3)
+                  {
+                      PCM_Buffer2[8*(i)+2]= Frame3Old[i];
+                      Frame3Old[i] =  Buffer3.bufMIC3[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL3 + i];
+                  }
+                  else
+                  {
+                      PCM_Buffer2[8*(i)+2]= Buffer3.bufMIC3[i - SHIFT_CHNNL3];
+                  }
+                  
+                 /*
+                 if (i < SHIFT_CHNNL4)
+                 {
+                     PCM_Buffer2[8*(i)+3]= Frame4Old[i];
+                     Frame4Old[i] =  Buffer3.bufMIC4[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL4 + i];
+                 }
+                 else
+                 {
+                     PCM_Buffer2[8*(i)+3]= Buffer3.bufMIC4[i - SHIFT_CHNNL4];
+                 }
+                 */
 
-		  
-		} 	
-        break;
+                 PCM_Buffer2[8*(i)+3]= Buffer3.bufMIC4[i];
+                 
+                 
+                   if (i < SHIFT_CHNNL5 + 0)
+                  {
+                      PCM_Buffer2[8*(i)+4]= Frame5Old[i];
+                      Frame5Old[i] =  Buffer3.bufMIC5[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL5 -0 + i];
+                  }
+                  else
+                  {
+                      PCM_Buffer2[8*(i)+4]= Buffer3.bufMIC5[i - SHIFT_CHNNL5 -0];
+                  } 
+                  
+                  //PCM_Buffer2[8*(i)+4]= Buffer3.bufMIC5[i];
+                  PCM_Buffer2[8*(i)+5]= Buffer3.bufMIC6[i];
+                 
+                  if (i < SHIFT_CHNNL7)
+                  {
+                      PCM_Buffer2[8*(i)+6]= Frame7Old[i];
+                      Frame7Old[i] =  Buffer3.bufMIC7[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL7 + i];
+                  }
+                  else
+                  {
+                      PCM_Buffer2[8*(i)+6]= Buffer3.bufMIC7[i - SHIFT_CHNNL7];
+                  }
+                  
+                 
+                  if (i < SHIFT_CHNNL8)
+                  {
+                      PCM_Buffer2[8*(i)+7]= Frame8Old[i];
+                      Frame8Old[i] =  Buffer3.bufMIC7[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL8 + i];
+                  }
+                  else
+                  {
+                      PCM_Buffer2[8*(i)+7]= Buffer3.bufMIC8[i - SHIFT_CHNNL8];
+                  }
+             
+             }
+          
+            
+          }
+          break;    
+
       default:
         break;
     }

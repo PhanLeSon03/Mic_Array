@@ -509,12 +509,16 @@ int main(void)
     BSP_LED_Toggle(LED2);
 
     buffer_switch = BUF3_PLAY;		 /* record data to buffer1 */
-
-
+           
+    
     MIC1TO8_Init();
+    
+    
     StartPlay();
 
     BSP_LED_Toggle(LED1);
+
+    
     //Window(fir256Coff);
 	//EnergyNoiseCalc(AUDIO_OUT_BUFFER_SIZE/2);
 
