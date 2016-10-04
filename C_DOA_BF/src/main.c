@@ -19,7 +19,6 @@
 
 
 /* Global variable define*/
-NoiseSupStructX *NSX;
 char FileName[40];
 Mic_Array_Data Frames_1024;
 int16_t Beam_Audio[PAR_N];

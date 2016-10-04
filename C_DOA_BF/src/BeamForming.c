@@ -367,7 +367,7 @@ void Window(float *fir64Coff)
         fir64Coff[i] *= 0.5f * (
 		                       1.0f - cos((2.0f * pi * i)/ ((float)DSP_NUMCOFFHANNIING - 1.0f))  
 		                      );
-		//printf("%f ", fir64Coff[i]);
+		//printf("%d %f \n", i, fir64Coff[i]);
 
         //Hamming Window
         //fir64Coff[i] *= 0.54 - 0.46 * cos((2 * M_PI * i) / (64 - 1));

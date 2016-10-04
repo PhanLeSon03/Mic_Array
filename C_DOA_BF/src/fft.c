@@ -1,5 +1,6 @@
 #include <math.h>
 #include "fft.h"
+#include <stdio.h>
 
 
 
@@ -21,7 +22,7 @@ int fft(Complex *x, int N)
     static float sR,sI,tR,tI,uR,uI;
 
     M = (int)(log(N) / log(2));
-	
+	//printf("loop: %d \n", M);
     /*
      * bit reversal sorting
      */
