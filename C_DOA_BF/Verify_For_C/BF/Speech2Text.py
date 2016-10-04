@@ -1,0 +1,75 @@
+'''
+www.autonomous.ai
+Phan Le Son
+plson03@gmail.com
+'''
+import speech_recognition as sr
+import numpy as np
+
+r = sr.Recognizer()
+Power = 35000
+flgSpeech = 0
+cntSilenceFrm = 0
+cntSpeech = 0
+facDamping = 0.622
+cntFA = 0
+def GetText(Audio_Data):
+    raw_data = Audio_Data.astype(np.int16)
+    byte_data = raw_data.tostring()
+    Audio = sr.AudioData(byte_data,16000,2)
+
+    try:
+        Text = r.recognize_google(Audio)
+    except sr.UnknownValueError:
+        Text = "Google Speech Recognition could not understand audio"
+    except sr.RequestError as e:
+        Text = "Could not request results from Google Speech Recognition service; {0}".format(e)
+
+    return Text
+
+def SilenceDetected(Frame):
+    global cntSpeech, cntSilenceFrm, flgSpeech, Power
+
+    Power_Current = sum((np.array(Frame) * np.array(Frame)) / Frame.size)
+    #print(Power_Current)
+    if (flgSpeech==1):
+        if (Power_Current<Power):
+            cntSilenceFrm = cntSilenceFrm + 1
+            '''update silence power'''
+            #target_power = Power_Current * 1.1
+            #Power = Power * facDamping + target_power * (1 - facDamping)
+            #print (str(Power)+'-'+str(Power_Current))
+
+        else:
+            cntSilenceFrm = 0
+        
+        print(cntSilenceFrm*(1.0/16.0))
+
+        if (cntSilenceFrm >=12):  #0.75s silence
+            flgSpeech = 0
+            cntSpeech = 0 
+            return True
+    else:
+        if (Power_Current > Power+20000):
+            cntSpeech = cntSpeech + 1
+            if (cntSpeech > 8):  # 1/8s
+                flgSpeech = 1
+                cntSpeech = 0
+                cntSilenceFrm = 0
+ 
+
+    return False
+
+def CheckFA(Frame):
+    global Power, cntFA
+    Power_Current = sum((np.array(Frame) * np.array(Frame)) / Frame.size)
+    #print(Power_Current + "    " + 4.5*Power)
+    if (Power_Current>4.5*Power):
+        cntFA = cntFA + 1
+        if (cntFA > 2):
+           cntFA = 0
+           return True
+    else:
+        cntFA = 0
+
+    return False
