@@ -1,0 +1,3 @@
+sudo ./mic_array hw:1,0
+cd audio_out
+python asr_only.py

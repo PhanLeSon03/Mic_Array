@@ -1,0 +1,4 @@
+sw record mic-array device, do sound source localization, superdirectivity beamforming
+build: sudo ./build_mic_array.sh
+run: sudo test_beamforming.run
+audio storage:"audio_out"
