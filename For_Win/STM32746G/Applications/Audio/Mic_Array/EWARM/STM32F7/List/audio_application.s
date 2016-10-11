@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      10/Oct/2016  13:58:49
+// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      11/Oct/2016  14:17:33
 // Copyright 1999-2016 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -145,18 +145,18 @@
 //   17 /** @defgroup AUDIO_APPLICATION_Exported_Variables 
 //   18 * @{
 //   19 */
-//   20 #if EXT_RAM
-//   21 #pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE)
-//   22 #endif
+//   20 //#if EXT_RAM
+//   21 //#pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE)
+//   22 //#endif
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
 //   23 int16_t PCM_Buffer1[8*AUDIO_OUT_BUFFER_SIZE];
 PCM_Buffer1:
         DS8 16384
-//   24 #if EXT_RAM
-//   25 #pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE+2*8*AUDIO_OUT_BUFFER_SIZE)
-//   26 #endif
+//   24 //#if EXT_RAM
+//   25 //#pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE+2*8*AUDIO_OUT_BUFFER_SIZE)
+//   26 //#endif
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA

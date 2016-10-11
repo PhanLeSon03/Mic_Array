@@ -65,6 +65,7 @@ case 2: [b,a] = butter(2,1/256); --> cut to 64Khz
 
 Mic_Array_Data MicData_Old;
 
+float const (*W_ZP)[PAR_N + 2];
 
 
 /*
@@ -1001,6 +1002,13 @@ void BeamFormingSD_Init(void)
 		arm_rfft_fast_init_f32(&S8, PAR_N);        
         arm_rfft_fast_init_f32(&IS,PAR_N);
         Window(fir1024Coff);
+        //for (uint16_t i=0; i < PAR_M; i++)
+        //{
+        //    for (uint16_t j=0; j < PAR_N+2;j++)
+        //    {
+        //        W_ZP[i][j]= W0[i][j]; 
+        //    }
+        //}
 }
 
 
@@ -1011,10 +1019,11 @@ void BeamFormingSD_Init(void)
 *************************************************************************************************************/
 void BeamFormingSD(const Mic_Array_Data * MicData, uint8_t Dir,int16_t * Audio_Sum)
 {
-    static const float (*W_ZP)[PAR_N + 2];
+
     int32_t _value,_value1,_value2;
     int16_t lenFFT= PAR_N;
-    
+    W_ZP = W3;
+#if 0   
 	switch (Dir)
 	{
 		case 0:
@@ -1045,31 +1054,33 @@ void BeamFormingSD(const Mic_Array_Data * MicData, uint8_t Dir,int16_t * Audio_S
 			W_ZP = W0;
 			break;
 	}
-    
+#endif    
     /********************* Update for Current Frame ***************************************************************************/
-	for (uint16_t iFrm=0;iFrm<PAR_N/lenFFT;iFrm++)
-	{
-          RFFT_INT(MicData->bufMIC1,S,DataFFT.bufMIC1,fir1024Coff);  
-          RFFT_INT(MicData->bufMIC2,S,DataFFT.bufMIC2,fir1024Coff);
-          RFFT_INT(MicData->bufMIC3,S,DataFFT.bufMIC3,fir1024Coff);
-          RFFT_INT(MicData->bufMIC4,S,DataFFT.bufMIC4,fir1024Coff);
-          RFFT_INT(MicData->bufMIC5,S,DataFFT.bufMIC5,fir1024Coff);
-          RFFT_INT(MicData->bufMIC6,S,DataFFT.bufMIC6,fir1024Coff);
-          RFFT_INT(MicData->bufMIC7,S,DataFFT.bufMIC7,fir1024Coff);
-          RFFT_INT(MicData->bufMIC8,S,DataFFT.bufMIC8,fir1024Coff);
-          /* Adding in Fourier Domain */			 
-          //arm_add_f32((float *)bufferFFT,(float *)bufferFFT_1, (float *)bufferFFTSum,lenFFT*2);
 
-          MUL_C(bufferFFTSum,W_ZP[0],DataFFT.bufMIC1)
-          for (uint8_t iMic=1; iMic < PAR_M; iMic++)
-          {
-              MUL_C(Tmp_FFT,W_ZP[iMic], (DataFFT.bufMIC1+PAR_N*2*iMic))
-              SUM_C(bufferFFTSum,Tmp_FFT)  
-          }
-          /* Revert FFT*/
-          arm_rfft_fast_f32(&IS, (float *)bufferFFTSum, (float *)&Out_Sum[iFrm*lenFFT],1);
-          //arm_rfft_fast_f32(&IS, (float *)bufferFFTSum, (float *)&fbufferOut[iFrm*lenFFT], 1);
-	}
+      RFFT(MicData->bufMIC1,S1,DataFFT.bufMIC1,fir1024Coff);  
+      RFFT(MicData->bufMIC2,S2,DataFFT.bufMIC2,fir1024Coff);
+      RFFT(MicData->bufMIC3,S3,DataFFT.bufMIC3,fir1024Coff);
+      RFFT(MicData->bufMIC4,S4,DataFFT.bufMIC4,fir1024Coff);
+      RFFT(MicData->bufMIC5,S5,DataFFT.bufMIC5,fir1024Coff);
+      RFFT(MicData->bufMIC6,S6,DataFFT.bufMIC6,fir1024Coff);
+      RFFT(MicData->bufMIC7,S7,DataFFT.bufMIC7,fir1024Coff);
+      RFFT(MicData->bufMIC8,S8,DataFFT.bufMIC8,fir1024Coff);
+      /* Adding in Fourier Domain */			 
+      //arm_add_f32((float *)bufferFFT,(float *)bufferFFT_1, (float *)bufferFFTSum,lenFFT*2);
+
+      MUL_C(bufferFFTSum,W_ZP[0],DataFFT.bufMIC1)
+      for (uint8_t iMic=1; iMic < PAR_M; iMic++)
+      {
+          MUL_C(Tmp_FFT,W_ZP[iMic], (DataFFT.bufMIC1+PAR_N*2*iMic))
+          SUM_C(bufferFFTSum,Tmp_FFT)  
+      }
+      /* Revert FFT*/
+      arm_rfft_fast_f32(&IS, (float *)bufferFFTSum, (float *)&Out_Sum[0],1);
+      //arm_rfft_fast_f32(&IS, (float *)bufferFFTSum, (float *)&fbufferOut[iFrm*lenFFT], 1);
+
+
+
+#if 1
      /*************************************************************************************************************************/
 	/* Concatenate the old frame with current frame */
 	for (uint16_t i=0; i<PAR_HOP; i++)
@@ -1081,29 +1092,28 @@ void BeamFormingSD(const Mic_Array_Data * MicData, uint8_t Dir,int16_t * Audio_S
 	}
     /**************************************************************************************************************************/
     /************************ Update for Old Frame ***************************************************************************/
-    for (uint16_t iFrm=0;iFrm<PAR_N/lenFFT;iFrm++)
-	{
-          RFFT_INT(MicData_Old.bufMIC1,S1,DataFFT.bufMIC1,fir1024Coff);  
-          RFFT_INT(MicData_Old.bufMIC2,S2,DataFFT.bufMIC2,fir1024Coff);
-          RFFT_INT(MicData_Old.bufMIC3,S3,DataFFT.bufMIC3,fir1024Coff);
-          RFFT_INT(MicData_Old.bufMIC4,S4,DataFFT.bufMIC4,fir1024Coff);
-          RFFT_INT(MicData_Old.bufMIC5,S5,DataFFT.bufMIC5,fir1024Coff);
-          RFFT_INT(MicData_Old.bufMIC6,S6,DataFFT.bufMIC6,fir1024Coff);
-          RFFT_INT(MicData_Old.bufMIC7,S7,DataFFT.bufMIC7,fir1024Coff);
-          RFFT_INT(MicData_Old.bufMIC8,S8,DataFFT.bufMIC8,fir1024Coff);
-          /* Adding in Fourier Domain */			 
-          //arm_add_f32((float *)bufferFFT,(float *)bufferFFT_1, (float *)bufferFFTSum,lenFFT*2);
 
-          MUL_C(bufferFFTSum,W_ZP[0],DataFFT.bufMIC1)
-          for (uint8_t iMic=1; iMic < PAR_M; iMic++)
-          {
-              MUL_C(Tmp_FFT,W_ZP[iMic], (DataFFT.bufMIC1+PAR_N*2*iMic))
-              SUM_C(bufferFFTSum,Tmp_FFT)  
-          }
-          /* Revert FFT*/
-          arm_rfft_fast_f32(&IS, (float *)bufferFFTSum, (float *)&Out_Sum_Pre[iFrm*lenFFT],1);
-          //arm_rfft_fast_f32(&IS, (float *)bufferFFTSum, (float *)&fbufferOut[iFrm*lenFFT], 1);
-	}
+      RFFT(MicData_Old.bufMIC1,S1,DataFFT.bufMIC1,fir1024Coff);  
+      RFFT(MicData_Old.bufMIC2,S2,DataFFT.bufMIC2,fir1024Coff);
+      RFFT(MicData_Old.bufMIC3,S3,DataFFT.bufMIC3,fir1024Coff);
+      RFFT(MicData_Old.bufMIC4,S4,DataFFT.bufMIC4,fir1024Coff);
+      RFFT(MicData_Old.bufMIC5,S5,DataFFT.bufMIC5,fir1024Coff);
+      RFFT(MicData_Old.bufMIC6,S6,DataFFT.bufMIC6,fir1024Coff);
+      RFFT(MicData_Old.bufMIC7,S7,DataFFT.bufMIC7,fir1024Coff);
+      RFFT(MicData_Old.bufMIC8,S8,DataFFT.bufMIC8,fir1024Coff);
+      /* Adding in Fourier Domain */			 
+      //arm_add_f32((float *)bufferFFT,(float *)bufferFFT_1, (float *)bufferFFTSum,lenFFT*2);
+
+      MUL_C(bufferFFTSum,W_ZP[0],DataFFT.bufMIC1)
+      for (uint8_t iMic=1; iMic < PAR_M; iMic++)
+      {
+          MUL_C(Tmp_FFT,W_ZP[iMic], (DataFFT.bufMIC1+PAR_N*2*iMic))
+          SUM_C(bufferFFTSum,Tmp_FFT)  
+      }
+      /* Revert FFT*/
+      arm_rfft_fast_f32(&IS, (float *)bufferFFTSum, (float *)&Out_Sum_Pre[0],1);
+      //arm_rfft_fast_f32(&IS, (float *)bufferFFTSum, (float *)&fbufferOut[iFrm*lenFFT], 1);
+	
 
     /* Recontruct the signal                                                      */
 	/* Data_Half1 =  Out_Sum_Pre[zpb:zpb+HOP] + Audio_Sum_Old                     */
@@ -1127,7 +1137,8 @@ void BeamFormingSD(const Mic_Array_Data * MicData, uint8_t Dir,int16_t * Audio_S
 		}
 	}
 	//arm_float_to_q15((float32_t *)fbufferOut,(q15_t *)stBufOut,AUDIO_OUT_BUFFER_SIZE); 
-	
+
+#endif
 }
 /******************************************************************************/
 /*                  Factor Update                                             */ 
@@ -1230,7 +1241,7 @@ int16_t GCC_PHAT(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen, float 
 	/*Get Real component */
 	for (uint16_t i=0; i<2*numLen;i=i+2)
 	{
-      vDataIn[i%2] = vDataIn[i];
+      vDataIn[i/2] = vDataIn[i];
 	}    
     FFTShift(vDataIn,vDataOut,numLen); 
 	

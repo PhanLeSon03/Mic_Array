@@ -36,7 +36,7 @@
 #define DEBUG                   0
 //#define MAIN_RECORD
 #define MAIN_CRSCORR            0
-#define MAIN_FFT                0
+#define MAIN_FFT                1
 #define USB_STREAMING           1
 #define AUDIO_OUT_STREAM_NORMAL 0
 //#define CS43L22_PLAY     /* Audio Play out via CS43L22 */

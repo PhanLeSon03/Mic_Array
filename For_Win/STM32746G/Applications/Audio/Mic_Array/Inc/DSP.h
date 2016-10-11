@@ -50,15 +50,17 @@ void BeamFormingSD(const Mic_Array_Data * MicData, uint8_t Dir,int16_t * Audio_S
 void BeamFormingSD_Init(void);
 
 
+//arm_q15_to_float((int16_t *)stBuf,fbuffer,PAR_N);                                     \
+//arm_mult_f32(win,fbuffer,fbuffer,PAR_N);                                \
 
 
-#define RFFT_INT(stBuf,S,bufferFFT,win)                                        \
+#define RFFT(stBuf,S,bufferFFT,win)                                            \
        {                                                                       \
-	   for(uint16_t j=0;j<lenFFT;j++)                                          \
-	   {                                                                       \
-	      _value = (int32_t)stBuf[iFrm*lenFFT+j];                              \
-	   	   fbuffer[j]=(float)(_value*win[j]);                                  \
-	   }                                                                       \
+       for(uint16_t j=0;j<PAR_N;j++)                                          \
+       {                                                                       \
+         _value = (int32_t)stBuf[j];                                           \
+          fbuffer[j]=(float)(_value*win[j]);                                   \
+       }                                                                       \
          arm_rfft_fast_f32(&(S), (float *)fbuffer, (float *)(bufferFFT),0);    \
        }
 
@@ -76,15 +78,15 @@ void BeamFormingSD_Init(void);
 #define MUL_C(o,w,s)            /* MULtiply complex vector (w is conjunction and only have half of bin) */  \
 {                                                                                                           \
     int _i;                                                                                                 \
-    for (_i = 0; _i < PAR_N +2; _i=_i+2)                                                                    \
+    for (_i = 0; _i < PAR_N+2; _i=_i+2)                                                                     \
 	{                                                                                                       \
         o[_i] = w[_i] * s[_i] + w[_i+1] * s[_i+1];                                                          \
 		o[_i+1] = w[_i] * s[_i+1] - w[_i+1] * s[_i];                                                        \
-		if ((_i!=0)&&(_i!=PAR_N))                                                                           \
-		{                                                                                                   \
-            o[2*PAR_N - _i] = o[_i];                                                                        \
-		    o[2*PAR_N - _i +1] = -o[_i + 1];                                                                \
-		}                                                                                                   \
+		if ((_i!=0)&&(_i!=PAR_N+1))                                                                         \
+        {                                                                                                   \
+            o[2*PAR_N -_i] = -o[_i+1];                                                                      \
+            o[2*PAR_N -_i-1] = -o[_i];                                                                      \
+        }                                                                                                   \
 	}                                                                                                       \
 }
 
@@ -96,7 +98,7 @@ void BeamFormingSD_Init(void);
     for (_i = 0; _i < 2*PAR_N; _i=_i+2)                                 \
 	{                                                                   \
 	    d[_i] += s[_i];                                                 \
-        d[_i+1] += s[_i];                                               \
+        d[_i+1] += s[_i+1];                                             \
 	}                                                                   \
 }
 

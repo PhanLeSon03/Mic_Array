@@ -139,7 +139,9 @@ inline static void FFT_Update(void)
       /* Hafl buffer is filled in by I2S data stream in */
       if((flgDlyUpd==0))
       {
+            BSP_LED_Toggle(LED2);
             PDM2PCMSDO78();
+            
             //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_15); 
             //FactorUpd(&FacMic); 
             //STM_EVAL_LEDOn(LED3);
@@ -175,11 +177,13 @@ inline static void FFT_Update(void)
                             arm_rfft_q15(&RealIFFT_Ins,    (q15_t *)&bufferFFTSum[i*256],    (q15_t *)&bufferSum[i*128]);
                     }
 #elif MAIN_FFT
-                   
+                    
                     /* Sound Source Localization */
-                    //Direction = DOACalc(&Buffer3);
+                    Direction = DOACalc(&Buffer3);
+                    
                     /* Summing in Buffer3 */
-                    //BeamFormingSD(&Buffer3,Direction,(int16_t *)Buffer3.bufMIC8);
+                    BeamFormingSD(&Buffer3,Direction,(int16_t *)Buffer3.bufMIC8);
+                    
                     //FFT_SUM((int16_t *)buffer3, (int16_t * )buffer3_1,fbuffer, 1024);				 	   
 #else
                     //LowPassIIR(Buffer3.bufMIC1,Buffer3.bufMIC1,LowPass_Mic1Old,AUDIO_OUT_BUFFER_SIZE,COEFLOWPASS_MIC);
@@ -223,9 +227,9 @@ inline static void FFT_Update(void)
                      }
 #elif MAIN_FFT
                     /* Sound Source Localization */
-                    //Direction = DOACalc(&Buffer1);
+                    Direction = DOACalc(&Buffer1);
                     /* Summing in Buffer3 */
-                    //BeamFormingSD(&Buffer1,Direction,(int16_t *)Buffer3.bufMIC8);
+                    BeamFormingSD(&Buffer1,Direction,(int16_t *)Buffer1.bufMIC8);
 
 #else
                 
@@ -272,9 +276,9 @@ inline static void FFT_Update(void)
 #elif MAIN_FFT
         
         /* Sound Source Localization */
-        //Direction = DOACalc(&Buffer2);
+        Direction = DOACalc(&Buffer2);
         /* Summing in Buffer3 */
-        //BeamFormingSD(&Buffer2,Direction,(int16_t *)Buffer2.bufMIC8);
+        BeamFormingSD(&Buffer2,Direction,(int16_t *)Buffer2.bufMIC8);
 
         /* Summing in Buffer2 */
         //Delay_Sum_FFT(&Buffer2,&FacMic, (int16_t * )Buffer2.bufMIC8, PAR_N);
@@ -306,10 +310,11 @@ inline static void FFT_Update(void)
 					break;
                
 			}
+            
 			AudioPlayerUpd();
+            BSP_LED_Toggle(LED2);
 	       //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_15);
 	  }
-	 
 
 }
 
