@@ -1,64 +1,65 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM       15/May/2016  09:59:30
+# IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM       10/Oct/2016  13:58:56
 # Copyright 1999-2016 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
 #    Endian       =  little
 #    Source file  =  
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_i2s.c
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_i2s.c
 #    Command line =  
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_i2s.c
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_i2s.c
 #        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 #        USE_IOEXPANDER -D USE_USB_FS -lC
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 #        -lA
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 #        -o
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-#        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
-#        --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded Workbench
-#        7.3\arm\INC\c\DLib_Config_Full.h" -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+#        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e
+#        --char_is_signed --fpu=VFPv5_sp --dlib_config "C:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\INC\c\DLib_Config_Full.h"
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
 #        -Ohs --use_c++_inline --require_prototypes -I "C:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7 --relaxed_fp
 #    List file    =  
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_i2s.lst
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_i2s.lst
 #    Object file  =  
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_i2s.o
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_i2s.o
 #
 ###############################################################################
 
-D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_i2s.c
+D:\sop1hc\Mic\Mic_Array\For_Window\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_i2s.c
       1          /**
       2            ******************************************************************************
       3            * @file    stm32f7xx_hal_i2s.c
@@ -308,7 +309,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
     236            
     237            if(hi2s->State == HAL_I2S_STATE_RESET)
    \                     ??HAL_I2S_Init_0: (+1)
-   \   00000010   0xF894 0x0039      LDRB     R0,[R4, #+57]
+   \   00000010   0xF994 0x0039      LDRSB    R0,[R4, #+57]
    \   00000014   0xB920             CBNZ.N   R0,??HAL_I2S_Init_1
     238            {
     239              /* Allocate lock resource and initialize it */
@@ -688,7 +689,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
     472            }
     473            
     474            if(hi2s->State == HAL_I2S_STATE_READY)
-   \   00000010   0xF894 0x0039      LDRB     R0,[R4, #+57]
+   \   00000010   0xF994 0x0039      LDRSB    R0,[R4, #+57]
    \   00000014   0x2801             CMP      R0,#+1
    \   00000016   0xF040 0x8083      BNE.W    ??HAL_I2S_Transmit_1
     475            { 
@@ -723,7 +724,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
     488              /* Process Locked */
     489              __HAL_LOCK(hi2s);
    \                     ??HAL_I2S_Transmit_3: (+1)
-   \   0000003C   0xF894 0x1038      LDRB     R1,[R4, #+56]
+   \   0000003C   0xF994 0x1038      LDRSB    R1,[R4, #+56]
    \   00000040   0x2901             CMP      R1,#+1
    \   00000042   0xD06D             BEQ.N    ??HAL_I2S_Transmit_1
    \   00000044   0x2101             MOVS     R1,#+1
@@ -928,7 +929,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
     579            }
     580            
     581            if(hi2s->State == HAL_I2S_STATE_READY)
-   \   00000010   0xF894 0x0039      LDRB     R0,[R4, #+57]
+   \   00000010   0xF994 0x0039      LDRSB    R0,[R4, #+57]
    \   00000014   0x2801             CMP      R0,#+1
    \   00000016   0xD175             BNE.N    ??HAL_I2S_Receive_1
     582            { 
@@ -962,7 +963,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
     594              /* Process Locked */
     595              __HAL_LOCK(hi2s);
    \                     ??HAL_I2S_Receive_3: (+1)
-   \   0000003A   0xF894 0x1038      LDRB     R1,[R4, #+56]
+   \   0000003A   0xF994 0x1038      LDRSB    R1,[R4, #+56]
    \   0000003E   0x2901             CMP      R1,#+1
    \   00000040   0xD060             BEQ.N    ??HAL_I2S_Receive_1
    \   00000042   0x2101             MOVS     R1,#+1
@@ -1139,7 +1140,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
     675          {
     676            if(hi2s->State == HAL_I2S_STATE_READY)
    \                     HAL_I2S_Transmit_IT: (+1)
-   \   00000000   0xF890 0x3039      LDRB     R3,[R0, #+57]
+   \   00000000   0xF990 0x3039      LDRSB    R3,[R0, #+57]
    \   00000004   0x2B01             CMP      R3,#+1
    \   00000006   0xD130             BNE.N    ??HAL_I2S_Transmit_IT_0
     677            {
@@ -1182,7 +1183,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
     695              
     696              /* Process Locked */
     697              __HAL_LOCK(hi2s);
-   \   00000030   0xF890 0x2038      LDRB     R2,[R0, #+56]
+   \   00000030   0xF990 0x2038      LDRSB    R2,[R0, #+56]
    \   00000034   0x2A01             CMP      R2,#+1
    \   00000036   0xD018             BEQ.N    ??HAL_I2S_Transmit_IT_0
    \   00000038   0x2201             MOVS     R2,#+1
@@ -1256,7 +1257,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
     740          {
     741            if(hi2s->State == HAL_I2S_STATE_READY)
    \                     HAL_I2S_Receive_IT: (+1)
-   \   00000000   0xF890 0x3039      LDRB     R3,[R0, #+57]
+   \   00000000   0xF990 0x3039      LDRSB    R3,[R0, #+57]
    \   00000004   0x2B01             CMP      R3,#+1
    \   00000006   0xD130             BNE.N    ??HAL_I2S_Receive_IT_0
     742            {
@@ -1298,7 +1299,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
     759              }
     760              /* Process Locked */
     761              __HAL_LOCK(hi2s);
-   \   00000030   0xF890 0x2038      LDRB     R2,[R0, #+56]
+   \   00000030   0xF990 0x2038      LDRSB    R2,[R0, #+56]
    \   00000034   0x2A01             CMP      R2,#+1
    \   00000036   0xD018             BEQ.N    ??HAL_I2S_Receive_IT_0
    \   00000038   0x2201             MOVS     R2,#+1
@@ -1386,7 +1387,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
     809            
     810            if(hi2s->State == HAL_I2S_STATE_READY)
    \                     ??HAL_I2S_Transmit_DMA_0: (+1)
-   \   00000010   0xF894 0x0039      LDRB     R0,[R4, #+57]
+   \   00000010   0xF994 0x0039      LDRSB    R0,[R4, #+57]
    \   00000014   0x2801             CMP      R0,#+1
    \   00000016   0xD141             BNE.N    ??HAL_I2S_Transmit_DMA_1
     811            {  
@@ -1423,7 +1424,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
     825              /* Process Locked */
     826              __HAL_LOCK(hi2s);
    \                     ??HAL_I2S_Transmit_DMA_3: (+1)
-   \   0000003C   0xF894 0x0038      LDRB     R0,[R4, #+56]
+   \   0000003C   0xF994 0x0038      LDRSB    R0,[R4, #+56]
    \   00000040   0x2801             CMP      R0,#+1
    \   00000042   0xD02B             BEQ.N    ??HAL_I2S_Transmit_DMA_1
    \   00000044   0x2001             MOVS     R0,#+1
@@ -1537,7 +1538,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
     886            } 
     887              
     888            if(hi2s->State == HAL_I2S_STATE_READY)
-   \   00000010   0xF894 0x0039      LDRB     R0,[R4, #+57]
+   \   00000010   0xF994 0x0039      LDRSB    R0,[R4, #+57]
    \   00000014   0x2801             CMP      R0,#+1
    \   00000016   0xD150             BNE.N    ??HAL_I2S_Receive_DMA_1
     889            {    
@@ -1573,7 +1574,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
     902              /* Process Locked */
     903              __HAL_LOCK(hi2s);
    \                     ??HAL_I2S_Receive_DMA_3: (+1)
-   \   0000003C   0xF894 0x0038      LDRB     R0,[R4, #+56]
+   \   0000003C   0xF994 0x0038      LDRSB    R0,[R4, #+56]
    \   00000040   0x2801             CMP      R0,#+1
    \   00000042   0xD03A             BEQ.N    ??HAL_I2S_Receive_DMA_1
    \   00000044   0x2001             MOVS     R0,#+1
@@ -1689,7 +1690,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
     958            /* Process Locked */
     959            __HAL_LOCK(hi2s);
    \                     HAL_I2S_DMAPause: (+1)
-   \   00000000   0xF890 0x1038      LDRB     R1,[R0, #+56]
+   \   00000000   0xF990 0x1038      LDRSB    R1,[R0, #+56]
    \   00000004   0x2901             CMP      R1,#+1
    \   00000006   0xD101             BNE.N    ??HAL_I2S_DMAPause_0
    \   00000008   0x2002             MOVS     R0,#+2
@@ -1699,7 +1700,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    \   0000000E   0xF880 0x1038      STRB     R1,[R0, #+56]
     960          
     961            if(hi2s->State == HAL_I2S_STATE_BUSY_TX)
-   \   00000012   0xF890 0x1039      LDRB     R1,[R0, #+57]
+   \   00000012   0xF990 0x1039      LDRSB    R1,[R0, #+57]
    \   00000016   0x2903             CMP      R1,#+3
    \   00000018   0xD104             BNE.N    ??HAL_I2S_DMAPause_1
     962            {
@@ -1712,7 +1713,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
     965            }
     966            else if(hi2s->State == HAL_I2S_STATE_BUSY_RX)
    \                     ??HAL_I2S_DMAPause_1: (+1)
-   \   00000024   0xF890 0x1039      LDRB     R1,[R0, #+57]
+   \   00000024   0xF990 0x1039      LDRSB    R1,[R0, #+57]
    \   00000028   0x2904             CMP      R1,#+4
    \   0000002A   0xD00E             BEQ.N    ??HAL_I2S_DMAPause_3
     967            {
@@ -1720,7 +1721,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
     969              hi2s->Instance->CR2 &= (uint32_t)(~SPI_CR2_RXDMAEN);
     970            }
     971            else if(hi2s->State == HAL_I2S_STATE_BUSY_TX_RX)
-   \   0000002C   0xF890 0x1039      LDRB     R1,[R0, #+57]
+   \   0000002C   0xF990 0x1039      LDRSB    R1,[R0, #+57]
    \   00000030   0x2905             CMP      R1,#+5
    \   00000032   0xD10F             BNE.N    ??HAL_I2S_DMAPause_4
     972            {
@@ -1776,7 +1777,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
     999            /* Process Locked */
    1000            __HAL_LOCK(hi2s);
    \                     HAL_I2S_DMAResume: (+1)
-   \   00000000   0xF890 0x1038      LDRB     R1,[R0, #+56]
+   \   00000000   0xF990 0x1038      LDRSB    R1,[R0, #+56]
    \   00000004   0x2901             CMP      R1,#+1
    \   00000006   0xD101             BNE.N    ??HAL_I2S_DMAResume_0
    \   00000008   0x2002             MOVS     R0,#+2
@@ -1786,7 +1787,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    \   0000000E   0xF880 0x1038      STRB     R1,[R0, #+56]
    1001            
    1002            if(hi2s->State == HAL_I2S_STATE_BUSY_TX)
-   \   00000012   0xF890 0x1039      LDRB     R1,[R0, #+57]
+   \   00000012   0xF990 0x1039      LDRSB    R1,[R0, #+57]
    \   00000016   0x2903             CMP      R1,#+3
    \   00000018   0xD104             BNE.N    ??HAL_I2S_DMAResume_1
    1003            {
@@ -1799,7 +1800,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    1006            }
    1007            else if(hi2s->State == HAL_I2S_STATE_BUSY_RX)
    \                     ??HAL_I2S_DMAResume_1: (+1)
-   \   00000024   0xF890 0x1039      LDRB     R1,[R0, #+57]
+   \   00000024   0xF990 0x1039      LDRSB    R1,[R0, #+57]
    \   00000028   0x2904             CMP      R1,#+4
    \   0000002A   0xD104             BNE.N    ??HAL_I2S_DMAResume_3
    1008            {
@@ -1853,7 +1854,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    \   00000002   0x4604             MOV      R4,R0
    1034            /* Process Locked */
    1035            __HAL_LOCK(hi2s);
-   \   00000004   0xF894 0x0038      LDRB     R0,[R4, #+56]
+   \   00000004   0xF994 0x0038      LDRSB    R0,[R4, #+56]
    \   00000008   0x2801             CMP      R0,#+1
    \   0000000A   0xD101             BNE.N    ??HAL_I2S_DMAStop_0
    \   0000000C   0x2002             MOVS     R0,#+2
@@ -1950,7 +1951,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    \   0000000A   0x9100             STR      R1,[SP, #+0]
    1076          
    1077            if(hi2s->State == HAL_I2S_STATE_BUSY_RX)
-   \   0000000C   0xF894 0x1039      LDRB     R1,[R4, #+57]
+   \   0000000C   0xF994 0x1039      LDRSB    R1,[R4, #+57]
    \   00000010   0x2904             CMP      R1,#+4
    \   00000012   0xD12C             BNE.N    ??HAL_I2S_IRQHandler_0
    1078            {  
@@ -2016,7 +2017,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    1098            }
    1099            else if(hi2s->State == HAL_I2S_STATE_BUSY_TX)
    \                     ??HAL_I2S_IRQHandler_0: (+1)
-   \   0000006E   0xF894 0x1039      LDRB     R1,[R4, #+57]
+   \   0000006E   0xF994 0x1039      LDRSB    R1,[R4, #+57]
    \   00000072   0x2903             CMP      R1,#+3
    \   00000074   0xD12F             BNE.N    ??HAL_I2S_IRQHandler_2
    1100            {  
@@ -2299,7 +2300,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    1309          {
    1310            return hi2s->State;
    \                     HAL_I2S_GetState: (+1)
-   \   00000000   0xF890 0x0039      LDRB     R0,[R0, #+57]
+   \   00000000   0xF990 0x0039      LDRSB    R0,[R0, #+57]
    \   00000004   0x4770             BX       LR               ;; return
    1311          }
    1312          
@@ -2419,7 +2420,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    \   0000001A   0x6042             STR      R2,[R0, #+4]
    1406              
    1407              if(hi2s->State == HAL_I2S_STATE_BUSY_TX_RX)
-   \   0000001C   0xF891 0x0039      LDRB     R0,[R1, #+57]
+   \   0000001C   0xF991 0x0039      LDRSB    R0,[R1, #+57]
    \   00000020   0x2805             CMP      R0,#+5
    \   00000022   0xD101             BNE.N    ??I2S_DMATxCplt_1
    1408              {
@@ -2502,7 +2503,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    \   00000018   0x2000             MOVS     R0,#+0
    \   0000001A   0x85C8             STRH     R0,[R1, #+46]
    1451              if(hi2s->State == HAL_I2S_STATE_BUSY_TX_RX)
-   \   0000001C   0xF891 0x0039      LDRB     R0,[R1, #+57]
+   \   0000001C   0xF991 0x0039      LDRSB    R0,[R1, #+57]
    \   00000020   0x2805             CMP      R0,#+5
    \   00000022   0xD101             BNE.N    ??I2S_DMARxCplt_1
    1452              {

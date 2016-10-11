@@ -1,64 +1,65 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM       15/May/2016  09:59:26
+# IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM       10/Oct/2016  13:58:52
 # Copyright 1999-2016 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
 #    Endian       =  little
 #    Source file  =  
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\sta321mp.c
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\Src\sta321mp.c
 #    Command line =  
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\sta321mp.c
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\Src\sta321mp.c
 #        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 #        USE_IOEXPANDER -D USE_USB_FS -lC
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 #        -lA
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 #        -o
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-#        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
-#        --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded Workbench
-#        7.3\arm\INC\c\DLib_Config_Full.h" -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+#        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e
+#        --char_is_signed --fpu=VFPv5_sp --dlib_config "C:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\INC\c\DLib_Config_Full.h"
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
 #        -Ohs --use_c++_inline --require_prototypes -I "C:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7 --relaxed_fp
 #    List file    =  
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\sta321mp.lst
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\sta321mp.lst
 #    Object file  =  
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\sta321mp.o
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\sta321mp.o
 #
 ###############################################################################
 
-D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\Src\sta321mp.c
+D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\Src\sta321mp.c
       1          /*****************************************************************************
       2            *    Author: Phan Le Son                                                                                           
       3            *    Company: Autonomous.ai                                            
@@ -576,7 +577,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Arra
     258          		    for (char channel = 1 ; channel <= 8 ; channel++)
    \                     ??STA321MP_Ini_0: (+1)
    \   000001DE   0x0638             LSLS     R0,R7,#+24
-   \   000001E0   0x0C80             LSRS     R0,R0,#+18
+   \   000001E0   0x1480             ASRS     R0,R0,#+18
    \   000001E2   0x2601             MOVS     R6,#+1
    \   000001E4   0xF500 0x79B0      ADD      R9,R0,#+352
     259          		      for (char input = 1 ; input <= 8 ; input++)
@@ -667,233 +668,235 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Arra
     267          		  {
     268          		    sta321mp_prescale(channel, 0x7FFFFF); 
    \                     ??STA321MP_Ini_5: (+1)
-   \   000002BE   0xB2F7             UXTB     R7,R6
+   \   000002BE   0xB277             SXTB     R7,R6
    \   000002C0   0xF207 0x158F      ADDW     R5,R7,#+399
    \   000002C4   0x0428             LSLS     R0,R5,#+16
    \   000002C6   0x0E00             LSRS     R0,R0,#+24
-   \   000002C8   0xF884 0x0024      STRB     R0,[R4, #+36]
+   \   000002C8   0xF000 0x0003      AND      R0,R0,#0x3
    \   000002CC   0x2201             MOVS     R2,#+1
-   \   000002CE   0xF104 0x0124      ADD      R1,R4,#+36
-   \   000002D2   0x203B             MOVS     R0,#+59
-   \   000002D4   0x.... 0x....      BL       WriteSTAByte
-   \   000002D8   0xF884 0x5024      STRB     R5,[R4, #+36]
-   \   000002DC   0x2201             MOVS     R2,#+1
-   \   000002DE   0xF104 0x0124      ADD      R1,R4,#+36
-   \   000002E2   0x203C             MOVS     R0,#+60
-   \   000002E4   0x.... 0x....      BL       WriteSTAByte
-   \   000002E8   0x207F             MOVS     R0,#+127
-   \   000002EA   0x2201             MOVS     R2,#+1
-   \   000002EC   0xF884 0x0024      STRB     R0,[R4, #+36]
-   \   000002F0   0xF104 0x0124      ADD      R1,R4,#+36
-   \   000002F4   0x203D             MOVS     R0,#+61
-   \   000002F6   0xF207 0x1797      ADDW     R7,R7,#+407
-   \   000002FA   0x.... 0x....      BL       WriteSTAByte
-   \   000002FE   0xF884 0x8024      STRB     R8,[R4, #+36]
-   \   00000302   0x2201             MOVS     R2,#+1
-   \   00000304   0xF104 0x0124      ADD      R1,R4,#+36
-   \   00000308   0x203E             MOVS     R0,#+62
-   \   0000030A   0x.... 0x....      BL       WriteSTAByte
-   \   0000030E   0xF884 0x8024      STRB     R8,[R4, #+36]
-   \   00000312   0x2201             MOVS     R2,#+1
-   \   00000314   0xF104 0x0124      ADD      R1,R4,#+36
-   \   00000318   0x203F             MOVS     R0,#+63
-   \   0000031A   0x.... 0x....      BL       WriteSTAByte
-   \   0000031E   0x2001             MOVS     R0,#+1
-   \   00000320   0x2201             MOVS     R2,#+1
-   \   00000322   0xF884 0x0024      STRB     R0,[R4, #+36]
-   \   00000326   0xF104 0x0124      ADD      R1,R4,#+36
-   \   0000032A   0x204C             MOVS     R0,#+76
-   \   0000032C   0x1C76             ADDS     R6,R6,#+1
-   \   0000032E   0x.... 0x....      BL       WriteSTAByte
+   \   000002CE   0xF884 0x0024      STRB     R0,[R4, #+36]
+   \   000002D2   0xF104 0x0124      ADD      R1,R4,#+36
+   \   000002D6   0x203B             MOVS     R0,#+59
+   \   000002D8   0xF207 0x1797      ADDW     R7,R7,#+407
+   \   000002DC   0x.... 0x....      BL       WriteSTAByte
+   \   000002E0   0xF884 0x5024      STRB     R5,[R4, #+36]
+   \   000002E4   0x2201             MOVS     R2,#+1
+   \   000002E6   0xF104 0x0124      ADD      R1,R4,#+36
+   \   000002EA   0x203C             MOVS     R0,#+60
+   \   000002EC   0x.... 0x....      BL       WriteSTAByte
+   \   000002F0   0x207F             MOVS     R0,#+127
+   \   000002F2   0x2201             MOVS     R2,#+1
+   \   000002F4   0xF884 0x0024      STRB     R0,[R4, #+36]
+   \   000002F8   0xF104 0x0124      ADD      R1,R4,#+36
+   \   000002FC   0x203D             MOVS     R0,#+61
+   \   000002FE   0x1C76             ADDS     R6,R6,#+1
+   \   00000300   0x.... 0x....      BL       WriteSTAByte
+   \   00000304   0xF884 0x8024      STRB     R8,[R4, #+36]
+   \   00000308   0x2201             MOVS     R2,#+1
+   \   0000030A   0xF104 0x0124      ADD      R1,R4,#+36
+   \   0000030E   0x203E             MOVS     R0,#+62
+   \   00000310   0x.... 0x....      BL       WriteSTAByte
+   \   00000314   0xF884 0x8024      STRB     R8,[R4, #+36]
+   \   00000318   0x2201             MOVS     R2,#+1
+   \   0000031A   0xF104 0x0124      ADD      R1,R4,#+36
+   \   0000031E   0x203F             MOVS     R0,#+63
+   \   00000320   0x.... 0x....      BL       WriteSTAByte
+   \   00000324   0x2001             MOVS     R0,#+1
+   \   00000326   0x2201             MOVS     R2,#+1
+   \   00000328   0xF884 0x0024      STRB     R0,[R4, #+36]
+   \   0000032C   0xF104 0x0124      ADD      R1,R4,#+36
+   \   00000330   0x204C             MOVS     R0,#+76
+   \   00000332   0x.... 0x....      BL       WriteSTAByte
     269          		    sta321mp_postscale(channel, 0x7FFFFF); 
-   \   00000332   0x0438             LSLS     R0,R7,#+16
-   \   00000334   0x0E00             LSRS     R0,R0,#+24
-   \   00000336   0xF884 0x0024      STRB     R0,[R4, #+36]
-   \   0000033A   0x2201             MOVS     R2,#+1
-   \   0000033C   0xF104 0x0124      ADD      R1,R4,#+36
-   \   00000340   0x203B             MOVS     R0,#+59
-   \   00000342   0x.... 0x....      BL       WriteSTAByte
-   \   00000346   0xF884 0x7024      STRB     R7,[R4, #+36]
-   \   0000034A   0x2201             MOVS     R2,#+1
-   \   0000034C   0xF104 0x0124      ADD      R1,R4,#+36
-   \   00000350   0x203C             MOVS     R0,#+60
-   \   00000352   0x.... 0x....      BL       WriteSTAByte
-   \   00000356   0x207F             MOVS     R0,#+127
-   \   00000358   0x2201             MOVS     R2,#+1
-   \   0000035A   0xF884 0x0024      STRB     R0,[R4, #+36]
-   \   0000035E   0xF104 0x0124      ADD      R1,R4,#+36
-   \   00000362   0x203D             MOVS     R0,#+61
-   \   00000364   0x.... 0x....      BL       WriteSTAByte
-   \   00000368   0xF884 0x8024      STRB     R8,[R4, #+36]
-   \   0000036C   0x2201             MOVS     R2,#+1
-   \   0000036E   0xF104 0x0124      ADD      R1,R4,#+36
-   \   00000372   0x203E             MOVS     R0,#+62
-   \   00000374   0x.... 0x....      BL       WriteSTAByte
-   \   00000378   0xF884 0x8024      STRB     R8,[R4, #+36]
-   \   0000037C   0x2201             MOVS     R2,#+1
-   \   0000037E   0xF104 0x0124      ADD      R1,R4,#+36
-   \   00000382   0x203F             MOVS     R0,#+63
-   \   00000384   0x.... 0x....      BL       WriteSTAByte
-   \   00000388   0x2001             MOVS     R0,#+1
-   \   0000038A   0x2201             MOVS     R2,#+1
-   \   0000038C   0xF884 0x0024      STRB     R0,[R4, #+36]
-   \   00000390   0xF104 0x0124      ADD      R1,R4,#+36
-   \   00000394   0x204C             MOVS     R0,#+76
-   \   00000396   0x.... 0x....      BL       WriteSTAByte
+   \   00000336   0x0438             LSLS     R0,R7,#+16
+   \   00000338   0x0E00             LSRS     R0,R0,#+24
+   \   0000033A   0xF000 0x0003      AND      R0,R0,#0x3
+   \   0000033E   0x2201             MOVS     R2,#+1
+   \   00000340   0xF884 0x0024      STRB     R0,[R4, #+36]
+   \   00000344   0xF104 0x0124      ADD      R1,R4,#+36
+   \   00000348   0x203B             MOVS     R0,#+59
+   \   0000034A   0x.... 0x....      BL       WriteSTAByte
+   \   0000034E   0xF884 0x7024      STRB     R7,[R4, #+36]
+   \   00000352   0x2201             MOVS     R2,#+1
+   \   00000354   0xF104 0x0124      ADD      R1,R4,#+36
+   \   00000358   0x203C             MOVS     R0,#+60
+   \   0000035A   0x.... 0x....      BL       WriteSTAByte
+   \   0000035E   0x207F             MOVS     R0,#+127
+   \   00000360   0x2201             MOVS     R2,#+1
+   \   00000362   0xF884 0x0024      STRB     R0,[R4, #+36]
+   \   00000366   0xF104 0x0124      ADD      R1,R4,#+36
+   \   0000036A   0x203D             MOVS     R0,#+61
+   \   0000036C   0x.... 0x....      BL       WriteSTAByte
+   \   00000370   0xF884 0x8024      STRB     R8,[R4, #+36]
+   \   00000374   0x2201             MOVS     R2,#+1
+   \   00000376   0xF104 0x0124      ADD      R1,R4,#+36
+   \   0000037A   0x203E             MOVS     R0,#+62
+   \   0000037C   0x.... 0x....      BL       WriteSTAByte
+   \   00000380   0xF884 0x8024      STRB     R8,[R4, #+36]
+   \   00000384   0x2201             MOVS     R2,#+1
+   \   00000386   0xF104 0x0124      ADD      R1,R4,#+36
+   \   0000038A   0x203F             MOVS     R0,#+63
+   \   0000038C   0x.... 0x....      BL       WriteSTAByte
+   \   00000390   0x2001             MOVS     R0,#+1
+   \   00000392   0x2201             MOVS     R2,#+1
+   \   00000394   0xF884 0x0024      STRB     R0,[R4, #+36]
+   \   00000398   0xF104 0x0124      ADD      R1,R4,#+36
+   \   0000039C   0x204C             MOVS     R0,#+76
+   \   0000039E   0x.... 0x....      BL       WriteSTAByte
     270          		  }
-   \   0000039A   0x2E09             CMP      R6,#+9
-   \   0000039C   0xDB8F             BLT.N    ??STA321MP_Ini_5
+   \   000003A2   0x2E09             CMP      R6,#+9
+   \   000003A4   0xDB8B             BLT.N    ??STA321MP_Ini_5
     271          
     272          		// set pwm output (channels 1/2 to pwm 7/8)
     273          		sta321mp_mixer( 1, 7, 1, 0x7FFFFF); /* Setting channel 7, Mixer 1, channel 1 on  */
-   \   0000039E   0x2001             MOVS     R0,#+1
-   \   000003A0   0x2201             MOVS     R2,#+1
-   \   000003A2   0xF884 0x0024      STRB     R0,[R4, #+36]
-   \   000003A6   0xF104 0x0124      ADD      R1,R4,#+36
-   \   000003AA   0x203B             MOVS     R0,#+59
-   \   000003AC   0x.... 0x....      BL       WriteSTAByte
-   \   000003B0   0x20D0             MOVS     R0,#+208
-   \   000003B2   0x2201             MOVS     R2,#+1
-   \   000003B4   0xF884 0x0024      STRB     R0,[R4, #+36]
-   \   000003B8   0xF104 0x0124      ADD      R1,R4,#+36
-   \   000003BC   0x203C             MOVS     R0,#+60
-   \   000003BE   0x.... 0x....      BL       WriteSTAByte
-   \   000003C2   0x207F             MOVS     R0,#+127
-   \   000003C4   0x2201             MOVS     R2,#+1
-   \   000003C6   0xF884 0x0024      STRB     R0,[R4, #+36]
-   \   000003CA   0xF104 0x0124      ADD      R1,R4,#+36
-   \   000003CE   0x203D             MOVS     R0,#+61
-   \   000003D0   0x.... 0x....      BL       WriteSTAByte
-   \   000003D4   0xF884 0x8024      STRB     R8,[R4, #+36]
-   \   000003D8   0x2201             MOVS     R2,#+1
-   \   000003DA   0xF104 0x0124      ADD      R1,R4,#+36
-   \   000003DE   0x203E             MOVS     R0,#+62
-   \   000003E0   0x.... 0x....      BL       WriteSTAByte
-   \   000003E4   0xF884 0x8024      STRB     R8,[R4, #+36]
-   \   000003E8   0x2201             MOVS     R2,#+1
-   \   000003EA   0xF104 0x0124      ADD      R1,R4,#+36
-   \   000003EE   0x203F             MOVS     R0,#+63
-   \   000003F0   0x.... 0x....      BL       WriteSTAByte
-   \   000003F4   0x2001             MOVS     R0,#+1
-   \   000003F6   0x2201             MOVS     R2,#+1
-   \   000003F8   0xF884 0x0024      STRB     R0,[R4, #+36]
-   \   000003FC   0xF104 0x0124      ADD      R1,R4,#+36
-   \   00000400   0x204C             MOVS     R0,#+76
-   \   00000402   0x.... 0x....      BL       WriteSTAByte
+   \   000003A6   0x2001             MOVS     R0,#+1
+   \   000003A8   0x2201             MOVS     R2,#+1
+   \   000003AA   0xF884 0x0024      STRB     R0,[R4, #+36]
+   \   000003AE   0xF104 0x0124      ADD      R1,R4,#+36
+   \   000003B2   0x203B             MOVS     R0,#+59
+   \   000003B4   0x.... 0x....      BL       WriteSTAByte
+   \   000003B8   0x20D0             MOVS     R0,#+208
+   \   000003BA   0x2201             MOVS     R2,#+1
+   \   000003BC   0xF884 0x0024      STRB     R0,[R4, #+36]
+   \   000003C0   0xF104 0x0124      ADD      R1,R4,#+36
+   \   000003C4   0x203C             MOVS     R0,#+60
+   \   000003C6   0x.... 0x....      BL       WriteSTAByte
+   \   000003CA   0x207F             MOVS     R0,#+127
+   \   000003CC   0x2201             MOVS     R2,#+1
+   \   000003CE   0xF884 0x0024      STRB     R0,[R4, #+36]
+   \   000003D2   0xF104 0x0124      ADD      R1,R4,#+36
+   \   000003D6   0x203D             MOVS     R0,#+61
+   \   000003D8   0x.... 0x....      BL       WriteSTAByte
+   \   000003DC   0xF884 0x8024      STRB     R8,[R4, #+36]
+   \   000003E0   0x2201             MOVS     R2,#+1
+   \   000003E2   0xF104 0x0124      ADD      R1,R4,#+36
+   \   000003E6   0x203E             MOVS     R0,#+62
+   \   000003E8   0x.... 0x....      BL       WriteSTAByte
+   \   000003EC   0xF884 0x8024      STRB     R8,[R4, #+36]
+   \   000003F0   0x2201             MOVS     R2,#+1
+   \   000003F2   0xF104 0x0124      ADD      R1,R4,#+36
+   \   000003F6   0x203F             MOVS     R0,#+63
+   \   000003F8   0x.... 0x....      BL       WriteSTAByte
+   \   000003FC   0x2001             MOVS     R0,#+1
+   \   000003FE   0x2201             MOVS     R2,#+1
+   \   00000400   0xF884 0x0024      STRB     R0,[R4, #+36]
+   \   00000404   0xF104 0x0124      ADD      R1,R4,#+36
+   \   00000408   0x204C             MOVS     R0,#+76
+   \   0000040A   0x.... 0x....      BL       WriteSTAByte
     274          		sta321mp_mixer( 1, 7, 7, 0x000000); /* Setting channel 7, Mixer 1, channel 7 off */
-   \   00000406   0x2001             MOVS     R0,#+1
-   \   00000408   0x2201             MOVS     R2,#+1
-   \   0000040A   0xF884 0x0024      STRB     R0,[R4, #+36]
-   \   0000040E   0xF104 0x0124      ADD      R1,R4,#+36
-   \   00000412   0x203B             MOVS     R0,#+59
-   \   00000414   0x.... 0x....      BL       WriteSTAByte
-   \   00000418   0x20D6             MOVS     R0,#+214
-   \   0000041A   0x2201             MOVS     R2,#+1
-   \   0000041C   0xF884 0x0024      STRB     R0,[R4, #+36]
-   \   00000420   0xF104 0x0124      ADD      R1,R4,#+36
-   \   00000424   0x203C             MOVS     R0,#+60
-   \   00000426   0x.... 0x....      BL       WriteSTAByte
-   \   0000042A   0x2000             MOVS     R0,#+0
-   \   0000042C   0x2201             MOVS     R2,#+1
-   \   0000042E   0xF884 0x0024      STRB     R0,[R4, #+36]
-   \   00000432   0xF104 0x0124      ADD      R1,R4,#+36
-   \   00000436   0x203D             MOVS     R0,#+61
-   \   00000438   0x.... 0x....      BL       WriteSTAByte
-   \   0000043C   0x2000             MOVS     R0,#+0
-   \   0000043E   0x2201             MOVS     R2,#+1
-   \   00000440   0xF884 0x0024      STRB     R0,[R4, #+36]
-   \   00000444   0xF104 0x0124      ADD      R1,R4,#+36
-   \   00000448   0x203E             MOVS     R0,#+62
-   \   0000044A   0x.... 0x....      BL       WriteSTAByte
-   \   0000044E   0x2000             MOVS     R0,#+0
-   \   00000450   0x2201             MOVS     R2,#+1
-   \   00000452   0xF884 0x0024      STRB     R0,[R4, #+36]
-   \   00000456   0xF104 0x0124      ADD      R1,R4,#+36
-   \   0000045A   0x203F             MOVS     R0,#+63
-   \   0000045C   0x.... 0x....      BL       WriteSTAByte
-   \   00000460   0x2001             MOVS     R0,#+1
-   \   00000462   0x2201             MOVS     R2,#+1
-   \   00000464   0xF884 0x0024      STRB     R0,[R4, #+36]
-   \   00000468   0xF104 0x0124      ADD      R1,R4,#+36
-   \   0000046C   0x204C             MOVS     R0,#+76
-   \   0000046E   0x.... 0x....      BL       WriteSTAByte
+   \   0000040E   0x2001             MOVS     R0,#+1
+   \   00000410   0x2201             MOVS     R2,#+1
+   \   00000412   0xF884 0x0024      STRB     R0,[R4, #+36]
+   \   00000416   0xF104 0x0124      ADD      R1,R4,#+36
+   \   0000041A   0x203B             MOVS     R0,#+59
+   \   0000041C   0x.... 0x....      BL       WriteSTAByte
+   \   00000420   0x20D6             MOVS     R0,#+214
+   \   00000422   0x2201             MOVS     R2,#+1
+   \   00000424   0xF884 0x0024      STRB     R0,[R4, #+36]
+   \   00000428   0xF104 0x0124      ADD      R1,R4,#+36
+   \   0000042C   0x203C             MOVS     R0,#+60
+   \   0000042E   0x.... 0x....      BL       WriteSTAByte
+   \   00000432   0x2000             MOVS     R0,#+0
+   \   00000434   0x2201             MOVS     R2,#+1
+   \   00000436   0xF884 0x0024      STRB     R0,[R4, #+36]
+   \   0000043A   0xF104 0x0124      ADD      R1,R4,#+36
+   \   0000043E   0x203D             MOVS     R0,#+61
+   \   00000440   0x.... 0x....      BL       WriteSTAByte
+   \   00000444   0x2000             MOVS     R0,#+0
+   \   00000446   0x2201             MOVS     R2,#+1
+   \   00000448   0xF884 0x0024      STRB     R0,[R4, #+36]
+   \   0000044C   0xF104 0x0124      ADD      R1,R4,#+36
+   \   00000450   0x203E             MOVS     R0,#+62
+   \   00000452   0x.... 0x....      BL       WriteSTAByte
+   \   00000456   0x2000             MOVS     R0,#+0
+   \   00000458   0x2201             MOVS     R2,#+1
+   \   0000045A   0xF884 0x0024      STRB     R0,[R4, #+36]
+   \   0000045E   0xF104 0x0124      ADD      R1,R4,#+36
+   \   00000462   0x203F             MOVS     R0,#+63
+   \   00000464   0x.... 0x....      BL       WriteSTAByte
+   \   00000468   0x2001             MOVS     R0,#+1
+   \   0000046A   0x2201             MOVS     R2,#+1
+   \   0000046C   0xF884 0x0024      STRB     R0,[R4, #+36]
+   \   00000470   0xF104 0x0124      ADD      R1,R4,#+36
+   \   00000474   0x204C             MOVS     R0,#+76
+   \   00000476   0x.... 0x....      BL       WriteSTAByte
     275          		sta321mp_mixer( 1, 8, 2, 0x7FFFFF); /* Setting channel 8, Mixer 1, channel 2 on  */
-   \   00000472   0x2001             MOVS     R0,#+1
-   \   00000474   0x2201             MOVS     R2,#+1
-   \   00000476   0xF884 0x0024      STRB     R0,[R4, #+36]
-   \   0000047A   0xF104 0x0124      ADD      R1,R4,#+36
-   \   0000047E   0x203B             MOVS     R0,#+59
-   \   00000480   0x.... 0x....      BL       WriteSTAByte
-   \   00000484   0x20D9             MOVS     R0,#+217
-   \   00000486   0x2201             MOVS     R2,#+1
-   \   00000488   0xF884 0x0024      STRB     R0,[R4, #+36]
-   \   0000048C   0xF104 0x0124      ADD      R1,R4,#+36
-   \   00000490   0x203C             MOVS     R0,#+60
-   \   00000492   0x.... 0x....      BL       WriteSTAByte
-   \   00000496   0x207F             MOVS     R0,#+127
-   \   00000498   0x2201             MOVS     R2,#+1
-   \   0000049A   0xF884 0x0024      STRB     R0,[R4, #+36]
-   \   0000049E   0xF104 0x0124      ADD      R1,R4,#+36
-   \   000004A2   0x203D             MOVS     R0,#+61
-   \   000004A4   0x.... 0x....      BL       WriteSTAByte
-   \   000004A8   0xF884 0x8024      STRB     R8,[R4, #+36]
-   \   000004AC   0x2201             MOVS     R2,#+1
-   \   000004AE   0xF104 0x0124      ADD      R1,R4,#+36
-   \   000004B2   0x203E             MOVS     R0,#+62
-   \   000004B4   0x.... 0x....      BL       WriteSTAByte
-   \   000004B8   0xF884 0x8024      STRB     R8,[R4, #+36]
-   \   000004BC   0x2201             MOVS     R2,#+1
-   \   000004BE   0xF104 0x0124      ADD      R1,R4,#+36
-   \   000004C2   0x203F             MOVS     R0,#+63
-   \   000004C4   0x.... 0x....      BL       WriteSTAByte
-   \   000004C8   0x2001             MOVS     R0,#+1
-   \   000004CA   0x2201             MOVS     R2,#+1
-   \   000004CC   0xF884 0x0024      STRB     R0,[R4, #+36]
-   \   000004D0   0xF104 0x0124      ADD      R1,R4,#+36
-   \   000004D4   0x204C             MOVS     R0,#+76
-   \   000004D6   0x.... 0x....      BL       WriteSTAByte
+   \   0000047A   0x2001             MOVS     R0,#+1
+   \   0000047C   0x2201             MOVS     R2,#+1
+   \   0000047E   0xF884 0x0024      STRB     R0,[R4, #+36]
+   \   00000482   0xF104 0x0124      ADD      R1,R4,#+36
+   \   00000486   0x203B             MOVS     R0,#+59
+   \   00000488   0x.... 0x....      BL       WriteSTAByte
+   \   0000048C   0x20D9             MOVS     R0,#+217
+   \   0000048E   0x2201             MOVS     R2,#+1
+   \   00000490   0xF884 0x0024      STRB     R0,[R4, #+36]
+   \   00000494   0xF104 0x0124      ADD      R1,R4,#+36
+   \   00000498   0x203C             MOVS     R0,#+60
+   \   0000049A   0x.... 0x....      BL       WriteSTAByte
+   \   0000049E   0x207F             MOVS     R0,#+127
+   \   000004A0   0x2201             MOVS     R2,#+1
+   \   000004A2   0xF884 0x0024      STRB     R0,[R4, #+36]
+   \   000004A6   0xF104 0x0124      ADD      R1,R4,#+36
+   \   000004AA   0x203D             MOVS     R0,#+61
+   \   000004AC   0x.... 0x....      BL       WriteSTAByte
+   \   000004B0   0xF884 0x8024      STRB     R8,[R4, #+36]
+   \   000004B4   0x2201             MOVS     R2,#+1
+   \   000004B6   0xF104 0x0124      ADD      R1,R4,#+36
+   \   000004BA   0x203E             MOVS     R0,#+62
+   \   000004BC   0x.... 0x....      BL       WriteSTAByte
+   \   000004C0   0xF884 0x8024      STRB     R8,[R4, #+36]
+   \   000004C4   0x2201             MOVS     R2,#+1
+   \   000004C6   0xF104 0x0124      ADD      R1,R4,#+36
+   \   000004CA   0x203F             MOVS     R0,#+63
+   \   000004CC   0x.... 0x....      BL       WriteSTAByte
+   \   000004D0   0x2001             MOVS     R0,#+1
+   \   000004D2   0x2201             MOVS     R2,#+1
+   \   000004D4   0xF884 0x0024      STRB     R0,[R4, #+36]
+   \   000004D8   0xF104 0x0124      ADD      R1,R4,#+36
+   \   000004DC   0x204C             MOVS     R0,#+76
+   \   000004DE   0x.... 0x....      BL       WriteSTAByte
     276          		sta321mp_mixer( 1, 8, 8, 0x000000); /* Setting channel 8, Mixer 1, channel 8 off */
-   \   000004DA   0x2001             MOVS     R0,#+1
-   \   000004DC   0x2201             MOVS     R2,#+1
-   \   000004DE   0xF884 0x0024      STRB     R0,[R4, #+36]
-   \   000004E2   0xF104 0x0124      ADD      R1,R4,#+36
-   \   000004E6   0x203B             MOVS     R0,#+59
-   \   000004E8   0x.... 0x....      BL       WriteSTAByte
-   \   000004EC   0x20DF             MOVS     R0,#+223
-   \   000004EE   0x2201             MOVS     R2,#+1
-   \   000004F0   0xF884 0x0024      STRB     R0,[R4, #+36]
-   \   000004F4   0xF104 0x0124      ADD      R1,R4,#+36
-   \   000004F8   0x203C             MOVS     R0,#+60
-   \   000004FA   0x.... 0x....      BL       WriteSTAByte
-   \   000004FE   0x2000             MOVS     R0,#+0
-   \   00000500   0x2201             MOVS     R2,#+1
-   \   00000502   0xF884 0x0024      STRB     R0,[R4, #+36]
-   \   00000506   0xF104 0x0124      ADD      R1,R4,#+36
-   \   0000050A   0x203D             MOVS     R0,#+61
-   \   0000050C   0x.... 0x....      BL       WriteSTAByte
-   \   00000510   0x2000             MOVS     R0,#+0
-   \   00000512   0x2201             MOVS     R2,#+1
-   \   00000514   0xF884 0x0024      STRB     R0,[R4, #+36]
-   \   00000518   0xF104 0x0124      ADD      R1,R4,#+36
-   \   0000051C   0x203E             MOVS     R0,#+62
-   \   0000051E   0x.... 0x....      BL       WriteSTAByte
-   \   00000522   0x2000             MOVS     R0,#+0
-   \   00000524   0x2201             MOVS     R2,#+1
-   \   00000526   0xF884 0x0024      STRB     R0,[R4, #+36]
-   \   0000052A   0xF104 0x0124      ADD      R1,R4,#+36
-   \   0000052E   0x203F             MOVS     R0,#+63
-   \   00000530   0x.... 0x....      BL       WriteSTAByte
-   \   00000534   0x2001             MOVS     R0,#+1
-   \   00000536   0x2201             MOVS     R2,#+1
-   \   00000538   0xF884 0x0024      STRB     R0,[R4, #+36]
-   \   0000053C   0xF104 0x0124      ADD      R1,R4,#+36
-   \   00000540   0x204C             MOVS     R0,#+76
-   \   00000542   0x.... 0x....      BL       WriteSTAByte
+   \   000004E2   0x2001             MOVS     R0,#+1
+   \   000004E4   0x2201             MOVS     R2,#+1
+   \   000004E6   0xF884 0x0024      STRB     R0,[R4, #+36]
+   \   000004EA   0xF104 0x0124      ADD      R1,R4,#+36
+   \   000004EE   0x203B             MOVS     R0,#+59
+   \   000004F0   0x.... 0x....      BL       WriteSTAByte
+   \   000004F4   0x20DF             MOVS     R0,#+223
+   \   000004F6   0x2201             MOVS     R2,#+1
+   \   000004F8   0xF884 0x0024      STRB     R0,[R4, #+36]
+   \   000004FC   0xF104 0x0124      ADD      R1,R4,#+36
+   \   00000500   0x203C             MOVS     R0,#+60
+   \   00000502   0x.... 0x....      BL       WriteSTAByte
+   \   00000506   0x2000             MOVS     R0,#+0
+   \   00000508   0x2201             MOVS     R2,#+1
+   \   0000050A   0xF884 0x0024      STRB     R0,[R4, #+36]
+   \   0000050E   0xF104 0x0124      ADD      R1,R4,#+36
+   \   00000512   0x203D             MOVS     R0,#+61
+   \   00000514   0x.... 0x....      BL       WriteSTAByte
+   \   00000518   0x2000             MOVS     R0,#+0
+   \   0000051A   0x2201             MOVS     R2,#+1
+   \   0000051C   0xF884 0x0024      STRB     R0,[R4, #+36]
+   \   00000520   0xF104 0x0124      ADD      R1,R4,#+36
+   \   00000524   0x203E             MOVS     R0,#+62
+   \   00000526   0x.... 0x....      BL       WriteSTAByte
+   \   0000052A   0x2000             MOVS     R0,#+0
+   \   0000052C   0x2201             MOVS     R2,#+1
+   \   0000052E   0xF884 0x0024      STRB     R0,[R4, #+36]
+   \   00000532   0xF104 0x0124      ADD      R1,R4,#+36
+   \   00000536   0x203F             MOVS     R0,#+63
+   \   00000538   0x.... 0x....      BL       WriteSTAByte
+   \   0000053C   0x2001             MOVS     R0,#+1
+   \   0000053E   0x2201             MOVS     R2,#+1
+   \   00000540   0xF884 0x0024      STRB     R0,[R4, #+36]
+   \   00000544   0xF104 0x0124      ADD      R1,R4,#+36
+   \   00000548   0x204C             MOVS     R0,#+76
+   \   0000054A   0x.... 0x....      BL       WriteSTAByte
     277          #endif
     278          	STACoefSet();
-   \   00000546   0xB001             ADD      SP,SP,#+4
-   \   00000548   0xE8BD 0x43F0      POP      {R4-R9,LR}
-   \   0000054C   0x....             B.N      STACoefSet
+   \   0000054E   0xB001             ADD      SP,SP,#+4
+   \   00000550   0xE8BD 0x43F0      POP      {R4-R9,LR}
+   \   00000554   0x....             B.N      STACoefSet
     279          
     280          	//sta321mp_LP_48kHz();
     281                  //sta321mp_LP_192kHz();
@@ -2346,7 +2349,7 @@ Warning[Pe177]: function "sta321mp_LP_192kHz" was declared but never referenced
        4  ??DataTable5_4
      236  ReadCoef
       62  ReadSTASeq
-    1358  STA321MP_Ini
+    1366  STA321MP_Ini
      736  STACoefSet
      498  SetCoefValue
      510  WriteCoef
@@ -2360,9 +2363,9 @@ Warning[Pe177]: function "sta321mp_LP_192kHz" was declared but never referenced
 
  
    164 bytes in section .data
- 3 510 bytes in section .text
+ 3 518 bytes in section .text
  
- 3 510 bytes of CODE memory
+ 3 518 bytes of CODE memory
    164 bytes of DATA memory
 
 Errors: none

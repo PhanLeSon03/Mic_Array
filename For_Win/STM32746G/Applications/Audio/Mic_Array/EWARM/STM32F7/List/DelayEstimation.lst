@@ -1,0 +1,536 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM       10/Oct/2016  13:58:50
+# Copyright 1999-2016 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\Src\DelayEstimation.c
+#    Command line =  
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\Src\DelayEstimation.c
+#        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
+#        USE_IOEXPANDER -D USE_USB_FS -lC
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        -lA
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        -o
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+#        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e
+#        --char_is_signed --fpu=VFPv5_sp --dlib_config "C:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\INC\c\DLib_Config_Full.h"
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+#        -Ohs --use_c++_inline --require_prototypes -I "C:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
+#        ARM_MATH_CM7 --relaxed_fp
+#    List file    =  
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\DelayEstimation.lst
+#    Object file  =  
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\DelayEstimation.o
+#
+###############################################################################
+
+D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\Src\DelayEstimation.c
+      1          /*****************************************************************************
+      2            *    Author: Phan Le Son                                                                                           
+      3            *                                             
+      4            *    email: plson03@gmail.com
+      5            *****************************************************************************/
+      6          
+      7          #include "DelayEstimation.h"
+      8          #include <stdio.h>
+      9          #include "DSP.h"
+     10          
+     11          #if 0
+     12          /* Cross-correlation */
+     13          int8_t CrssCor(const int16_t * vDataIn1, const int16_t * vDataIn2, uint16_t numLen, uint32_t * CrssCorVal )
+     14          {
+     15              int64_t Sum, SumMax;
+     16          	uint16_t j;
+     17          	int8_t idxPos=0;
+     18          	int8_t i;
+     19          
+     20          #if _MALLOC
+     21          
+     22              int16_t *vDataIn1Out = (int16_t *)malloc(sizeof(int16_t)*numLen);
+     23              int16_t *vDataIn2Out = (int16_t *)malloc(sizeof(int16_t)*numLen);
+     24              for (uint16_t i=0;i<numLen;i++)
+     25              {
+     26                  vDataIn1Out[i]= (int16_t)(vDataIn1[i]);//fir256Coff[i]
+     27                  vDataIn2Out[i]= (int16_t)(vDataIn2[i]);//fir256Coff[i]
+     28              }
+     29          
+     30          #endif
+     31          
+     32              SumMax=0;
+     33          #if 0	
+     34          	static int16_t vDataIn1Old, vDataIn2Old;
+     35          	LowPassIIR(vDataIn1,vDataIn1Out ,&vDataIn1Old, numLen,8);
+     36          	LowPassIIR(vDataIn2,vDataIn2Out ,&vDataIn2Old, numLen,8);
+     37          #endif
+     38          	
+     39              for ( i=-PAR_RES;i<=PAR_RES;i++)  /* physical limit */
+     40              {
+     41                 Sum = 0;
+     42          	   if (i>=0)
+     43          	   {
+     44          	       for( j=0;j<numLen-i;j++)
+     45          	       {
+     46          #if _MALLOC
+     47          	           Sum += vDataIn1Out[j+i]*vDataIn2Out[j];
+     48          #else
+     49          			   Sum += vDataIn1[j+i]*vDataIn2[j];
+     50          #endif 
+     51          	       }                  
+     52          	   }
+     53          	   else
+     54          	   {
+     55                     for(j=0;j<numLen + i;j++)
+     56          	       {
+     57          #if _MALLOC
+     58          	           Sum += vDataIn1Out[j]*vDataIn2Out[j-i];
+     59          #else
+     60          			   Sum += vDataIn1[j]*vDataIn2[j-i];
+     61          #endif
+     62          	       }
+     63          	   }
+     64          
+     65          	   Sum /= (numLen-i); 
+     66          
+     67          	   if (Sum > SumMax) 
+     68          	   {
+     69          	       SumMax = Sum;  	
+     70          		   
+     71          	       idxPos = i;
+     72          	       *CrssCorVal = SumMax;//(uint32_t)((SumMax>>15));
+     73          	   }
+     74          	         
+     75              }
+     76          #if _MALLOC
+     77              free(vDataIn1Out);
+     78          	free(vDataIn2Out);
+     79          #endif
+     80          
+     81              return idxPos;
+     82          }
+     83          #endif
+     84          
+     85          /* Cross-Correlation the signal after resampling     */
+     86          /* vDataIn1 is resampled                             */
+     87          /* vDataIn2 is not resampled                         */
+     88          /* numLen is the length of block without resample    */
+     89          /* Coef = NumberOfBin(Resample/Orginal)              */
+     90          /* CrssCorVal return value of max energy             */
+
+   \                                 In section .text, align 4, keep-with-next
+     91          int8_t CrssCorResample(const int16_t * vDataIn1, const int16_t * vDataIn2, uint16_t numLen,uint8_t Coef, uint32_t * CrssCorVal )
+     92          {
+   \                     CrssCorResample: (+1)
+   \   00000000   0xE92D 0x4CF0      PUSH     {R4-R7,R10,R11,LR}
+     93              int64_t Sum, SumMax;
+     94              uint16_t j;
+     95              int8_t idxPos=0;
+     96              int8_t i;
+     97          
+     98          
+     99              SumMax=-2^31;
+    100              //printf("test");
+    101          
+    102              for ( i=-PAR_RES;i<=PAR_RES;i++)  /* physical limit */
+   \   00000004   0xEB00 0x2003      ADD      R0,R0,R3, LSL #+8
+   \   00000008   0xB082             SUB      SP,SP,#+8
+   \   0000000A   0xB40E             PUSH     {R1-R3}
+   \   0000000C   0xF1A0 0x0514      SUB      R5,R0,#+20
+   \   00000010   0xB082             SUB      SP,SP,#+8
+   \   00000012   0xF5A2 0x7080      SUB      R0,R2,#+256
+   \   00000016   0x2700             MOVS     R7,#+0
+   \   00000018   0xF06F 0x041E      MVN      R4,#+30
+   \   0000001C   0xF04F 0x3AFF      MOV      R10,#-1
+   \   00000020   0xF06F 0x0609      MVN      R6,#+9
+   \   00000024   0xF8CD 0x0000      STR.W    R0,[SP, #+0]
+    103              {
+    104                  Sum = 0;
+    105                  //printf("i: %d --", i);
+    106          
+    107          
+    108          	/* Do the cross correlation for the sub-array after remove first and last 128 samples*/
+    109          	for( j=128;j<numLen-128;j++)
+   \                     ??CrssCorResample_0: (+1)
+   \   00000028   0xF8BD 0x200C      LDRH     R2,[SP, #+12]
+   \   0000002C   0x2000             MOVS     R0,#+0
+   \   0000002E   0x2100             MOVS     R1,#+0
+   \   00000030   0x46AB             MOV      R11,R5
+   \   00000032   0x3A80             SUBS     R2,R2,#+128
+   \   00000034   0x2A81             CMP      R2,#+129
+   \   00000036   0xDB15             BLT.N    ??CrssCorResample_1
+   \   00000038   0xF8DD 0x2008      LDR.W    R2,[SP, #+8]
+   \   0000003C   0xF8DD 0xE000      LDR      LR,[SP, #+0]
+   \   00000040   0xF502 0x7C80      ADD      R12,R2,#+256
+    110          	{
+    111          	    Sum += (vDataIn1[j*Coef+i])*(vDataIn2[j]);
+   \                     ??CrssCorResample_2: (+1)
+   \   00000044   0xF9BB 0x2000      LDRSH    R2,[R11, #+0]
+   \   00000048   0xF93C 0x3B02      LDRSH    R3,[R12], #+2
+   \   0000004C   0xFB12 0xF203      SMULBB   R2,R2,R3
+   \   00000050   0x1880             ADDS     R0,R0,R2
+   \   00000052   0xEB41 0x71E2      ADC      R1,R1,R2, ASR #+31
+    112          	    //printf("%d - %d ",vDataIn1[j*Coef+i],vDataIn2[j]);
+    113          	}
+   \   00000056   0xF89D 0x2010      LDRB     R2,[SP, #+16]
+   \   0000005A   0xF1BE 0x0E01      SUBS     LR,LR,#+1
+   \   0000005E   0xEB0B 0x0B42      ADD      R11,R11,R2, LSL #+1
+   \   00000062   0xD1EF             BNE.N    ??CrssCorResample_2
+    114          
+    115          	Sum /= (numLen-256);
+   \                     ??CrssCorResample_1: (+1)
+   \   00000064   0x9A00             LDR      R2,[SP, #+0]
+   \   00000066   0x17D3             ASRS     R3,R2,#+31
+   \   00000068   0x.... 0x....      BL       __aeabi_ldivmod
+    116          
+    117          	    
+    118          	   if (Sum > SumMax) 
+   \   0000006C   0x458A             CMP      R10,R1
+   \   0000006E   0xDC07             BGT.N    ??CrssCorResample_3
+   \   00000070   0xDB01             BLT.N    ??CrssCorResample_4
+   \   00000072   0x4284             CMP      R4,R0
+   \   00000074   0xD204             BCS.N    ??CrssCorResample_3
+    119          	   {
+    120          	       SumMax = Sum;  	
+   \                     ??CrssCorResample_4: (+1)
+   \   00000076   0x4604             MOV      R4,R0
+    121          		   
+    122          	       idxPos = i;
+    123          	       *CrssCorVal = SumMax;//(uint32_t)((SumMax>>15));
+   \   00000078   0x980E             LDR      R0,[SP, #+56]
+   \   0000007A   0x468A             MOV      R10,R1
+   \   0000007C   0x4637             MOV      R7,R6
+   \   0000007E   0x6004             STR      R4,[R0, #+0]
+    124          	   }
+    125          	         
+    126              }
+   \                     ??CrssCorResample_3: (+1)
+   \   00000080   0x1C76             ADDS     R6,R6,#+1
+   \   00000082   0x1CAD             ADDS     R5,R5,#+2
+   \   00000084   0x2E0B             CMP      R6,#+11
+   \   00000086   0xDBCF             BLT.N    ??CrssCorResample_0
+    127          
+    128              return idxPos;
+   \   00000088   0xB278             SXTB     R0,R7
+   \   0000008A   0xB007             ADD      SP,SP,#+28
+   \   0000008C   0xE8BD 0x8CF0      POP      {R4-R7,R10,R11,PC}  ;; return
+    129          }
+    130          
+    131          
+
+   \                                 In section .text, align 4, keep-with-next
+    132          void Resampling(const int16_t * vDataIn, int16_t * vDataOut, uint16_t numLen)
+    133          {
+   \                     Resampling: (+1)
+   \   00000000   0xE92D 0x43F0      PUSH     {R4-R9,LR}
+   \   00000004   0x4606             MOV      R6,R0
+   \   00000006   0x4617             MOV      R7,R2
+   \   00000008   0xB081             SUB      SP,SP,#+4
+   \   0000000A   0x460C             MOV      R4,R1
+    134          	Complex *FFT_In;
+    135          	Complex *FFT_Out;
+    136          	uint16_t i = 0;
+    137          	uint8_t Coef;
+    138          
+    139          	Coef = (uint8_t)(numLen/PAR_N);
+    140          
+    141          	/* ask for memory */
+    142          	FFT_In = (Complex *)malloc(sizeof(Complex)*PAR_N);
+   \   0000000C   0xF44F 0x5000      MOV      R0,#+8192
+   \   00000010   0x0ABD             LSRS     R5,R7,#+10
+   \   00000012   0x.... 0x....      BL       malloc
+   \   00000016   0xEA5F 0x0800      MOVS     R8,R0
+    143              if (FFT_In == NULL)
+   \   0000001A   0xD004             BEQ.N    ??Resampling_0
+    144              {
+    145                 //printf(" Out of memory!\n");
+    146                 exit(1);
+    147              }
+    148          	FFT_Out = (Complex *)malloc(numLen*sizeof(Complex));
+   \   0000001C   0x00F8             LSLS     R0,R7,#+3
+   \   0000001E   0x.... 0x....      BL       malloc
+   \   00000022   0x0007             MOVS     R7,R0
+    149              if (FFT_Out == NULL)
+   \   00000024   0xD102             BNE.N    ??Resampling_1
+    150              {
+    151                 //printf(" Out of memory!\n");
+    152                 exit(1);
+   \                     ??Resampling_0: (+1)
+   \   00000026   0x2001             MOVS     R0,#+1
+   \   00000028   0x.... 0x....      BL       exit
+    153              }
+    154          	/* Complex buffer storage*/
+    155          	for (i=0; i < PAR_N; i++)
+   \                     ??Resampling_1: (+1)
+   \   0000002C   0xEA4F 0x0008      MOV.W    R0,R8
+   \   00000030   0xF44F 0x6180      MOV      R1,#+1024
+    156          	{
+    157          		FFT_In[i].real = (float)(vDataIn[i]);
+   \                     ??Resampling_2: (+1)
+   \   00000034   0xF936 0x2B02      LDRSH    R2,[R6], #+2
+   \   00000038   0xEE00 0x2A10      VMOV     S0,R2
+    158          		FFT_In[i].imag = 0.0f;
+   \   0000003C   0x2200             MOVS     R2,#+0
+   \   0000003E   0xEEB8 0x0AC0      VCVT.F32.S32 S0,S0
+   \   00000042   0xED80 0x0A00      VSTR     S0,[R0, #0]
+   \   00000046   0x6042             STR      R2,[R0, #+4]
+    159          		//printf ("%d - %6f|", i,FFT_In[i].real );
+    160          	}
+   \   00000048   0x3008             ADDS     R0,R0,#+8
+   \   0000004A   0x1E49             SUBS     R1,R1,#+1
+   \   0000004C   0xD1F2             BNE.N    ??Resampling_2
+    161          	
+    162          	/* FFT transform the input */
+    163          	//TODO: change to CMSIS lib fft(FFT_In, PAR_N);
+    164          
+    165          	/* Adding zero to FFT bin */
+    166          	for (i=0; i < PAR_N/2+1;i++)  // +1: only handle for the case PAR_N is even
+   \   0000004E   0xF44F 0x7200      MOV      R2,#+512
+   \   00000052   0x463B             MOV      R3,R7
+   \   00000054   0x46C4             MOV      R12,R8
+   \   00000056   0x4696             MOV      LR,R2
+   \   00000058   0xF44F 0x40E0      MOV      R0,#+28672
+   \   0000005C   0xF44F 0x5180      MOV      R1,#+4096
+    167          	{
+    168          		FFT_Out[i].real = 4*FFT_In[i].real;
+   \                     ??Resampling_3: (+1)
+   \   00000060   0xED9C 0x0A00      VLDR     S0,[R12, #0]
+    169          		FFT_Out[i].imag = 4*FFT_In[i].imag;
+    170          		if (i < PAR_N/2)
+    171          		{
+    172          		    FFT_Out[i+3*PAR_N + PAR_N/2 ].real = 4*FFT_In[i+ PAR_N/2 ].real;
+   \   00000064   0xEB01 0x090C      ADD      R9,R1,R12
+   \   00000068   0xEEF1 0x0A00      VMOV.F32 S1,#4.0
+   \   0000006C   0x18C6             ADDS     R6,R0,R3
+   \   0000006E   0xEE20 0x0A20      VMUL.F32 S0,S0,S1
+   \   00000072   0xED83 0x0A00      VSTR     S0,[R3, #0]
+   \   00000076   0xED9C 0x0A01      VLDR     S0,[R12, #+4]
+    173          		    FFT_Out[i+3*PAR_N + PAR_N/2 ].imag = 4*FFT_In[i+ PAR_N/2 ].imag;
+   \   0000007A   0xF10C 0x0C08      ADD      R12,R12,#+8
+   \   0000007E   0xEE20 0x0A20      VMUL.F32 S0,S0,S1
+   \   00000082   0xED83 0x0A01      VSTR     S0,[R3, #+4]
+   \   00000086   0x3308             ADDS     R3,R3,#+8
+   \   00000088   0xED99 0x0A00      VLDR     S0,[R9, #0]
+   \   0000008C   0xF1BE 0x0E01      SUBS     LR,LR,#+1
+   \   00000090   0xEE20 0x0A20      VMUL.F32 S0,S0,S1
+   \   00000094   0xED86 0x0A00      VSTR     S0,[R6, #0]
+   \   00000098   0xED99 0x0A01      VLDR     S0,[R9, #+4]
+   \   0000009C   0xEE20 0x0A20      VMUL.F32 S0,S0,S1
+   \   000000A0   0xED86 0x0A01      VSTR     S0,[R6, #+4]
+   \   000000A4   0xD1DC             BNE.N    ??Resampling_3
+   \   000000A6   0x19CB             ADDS     R3,R1,R7
+   \   000000A8   0xEB01 0x0C08      ADD      R12,R1,R8
+   \   000000AC   0xF240 0x2E01      MOVW     LR,#+513
+   \                     ??Resampling_4: (+1)
+   \   000000B0   0xED9C 0x0A00      VLDR     S0,[R12, #0]
+   \   000000B4   0xF5B2 0x7F00      CMP      R2,#+512
+   \   000000B8   0xEE20 0x0A20      VMUL.F32 S0,S0,S1
+   \   000000BC   0xED83 0x0A00      VSTR     S0,[R3, #0]
+   \   000000C0   0xED9C 0x0A01      VLDR     S0,[R12, #+4]
+   \   000000C4   0xEE20 0x0A20      VMUL.F32 S0,S0,S1
+   \   000000C8   0xED83 0x0A01      VSTR     S0,[R3, #+4]
+   \   000000CC   0xDA0E             BGE.N    ??Resampling_5
+   \   000000CE   0xEB01 0x090C      ADD      R9,R1,R12
+   \   000000D2   0x18C6             ADDS     R6,R0,R3
+   \   000000D4   0xED99 0x0A00      VLDR     S0,[R9, #0]
+   \   000000D8   0xEE20 0x0A20      VMUL.F32 S0,S0,S1
+   \   000000DC   0xED86 0x0A00      VSTR     S0,[R6, #0]
+   \   000000E0   0xED99 0x0A01      VLDR     S0,[R9, #+4]
+   \   000000E4   0xEE20 0x0A20      VMUL.F32 S0,S0,S1
+   \   000000E8   0xED86 0x0A01      VSTR     S0,[R6, #+4]
+    174          		}
+    175          	}
+   \                     ??Resampling_5: (+1)
+   \   000000EC   0x1C52             ADDS     R2,R2,#+1
+   \   000000EE   0x3308             ADDS     R3,R3,#+8
+   \   000000F0   0x4572             CMP      R2,LR
+   \   000000F2   0xF10C 0x0C08      ADD      R12,R12,#+8
+   \   000000F6   0xDBDB             BLT.N    ??Resampling_4
+    176          
+    177          	/* TODO: file the library to set to zero of array */
+    178          	for (i=PAR_N/2+1; i < 4*PAR_N-PAR_N/2;i++)
+   \   000000F8   0xF507 0x5080      ADD      R0,R7,#+4096
+   \   000000FC   0x3008             ADDS     R0,R0,#+8
+   \   000000FE   0xF640 0x31FF      MOVW     R1,#+3071
+   \   00000102   0x2200             MOVS     R2,#+0
+    179          	{
+    180          		FFT_Out[i].real = 0.0f;
+   \                     ??Resampling_6: (+1)
+   \   00000104   0x6002             STR      R2,[R0, #+0]
+    181          		FFT_Out[i].imag = 0.0f;
+   \   00000106   0x6042             STR      R2,[R0, #+4]
+    182          	}
+   \   00000108   0x3008             ADDS     R0,R0,#+8
+   \   0000010A   0x1E49             SUBS     R1,R1,#+1
+   \   0000010C   0xD1FA             BNE.N    ??Resampling_6
+    183          
+    184          	/* Invert FFT transform */
+    185          	//TODO: change to CMSIS ifft(FFT_Out,Coef*PAR_N);
+    186          
+    187          	/* Update output buffer*/
+    188          	for (i=0; i < Coef*PAR_N;i++)
+   \   0000010E   0x2000             MOVS     R0,#+0
+   \   00000110   0x02A9             LSLS     R1,R5,#+10
+   \   00000112   0x2901             CMP      R1,#+1
+   \   00000114   0xF2C0 0x800E      BLT.W    ??Resampling_7
+    189          	{
+    190          		vDataOut[i] = (int16_t)FFT_Out[i].real;
+   \                     ??Resampling_8: (+1)
+   \   00000118   0xEB07 0x02C0      ADD      R2,R7,R0, LSL #+3
+   \   0000011C   0xED92 0x0A00      VLDR     S0,[R2, #0]
+   \   00000120   0xEEBD 0x0AC0      VCVT.S32.F32 S0,S0
+   \   00000124   0xEE10 0x2A10      VMOV     R2,S0
+   \   00000128   0xF824 0x2010      STRH     R2,[R4, R0, LSL #+1]
+    191                          //printf("%d ", vDataOut[i]);
+    192          	}
+   \   0000012C   0x1C40             ADDS     R0,R0,#+1
+   \   0000012E   0xB280             UXTH     R0,R0
+   \   00000130   0x4288             CMP      R0,R1
+   \   00000132   0xDBF1             BLT.N    ??Resampling_8
+    193          
+    194          	free(FFT_In);
+   \                     ??Resampling_7: (+1)
+   \   00000134   0x4640             MOV      R0,R8
+   \   00000136   0x.... 0x....      BL       free
+    195          	free(FFT_Out);
+   \   0000013A   0x4638             MOV      R0,R7
+   \   0000013C   0xB001             ADD      SP,SP,#+4
+   \   0000013E   0xE8BD 0x43F0      POP      {R4-R9,LR}
+   \   00000142   0x.... 0x....      B.W      free
+    196          }
+    197          
+
+   \                                 In section .text, align 2, keep-with-next
+    198          void ComputeDelay_Couple(const Mic_Array_Data * Audio_Data, int8_t Delay_In_Sample[])
+    199          {
+   \                     ComputeDelay_Couple: (+1)
+   \   00000000   0xB530             PUSH     {R4,R5,LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
+   \   00000004   0x4604             MOV      R4,R0
+   \   00000006   0x460D             MOV      R5,R1
+    200          #if DOA_RESAMPLE
+    201          	int16_t * In1;
+    202          	uint32_t Val;
+    203          	In1 = (int16_t *)malloc(4*PAR_N*sizeof(int16_t));// 4 is factor of resampling
+    204          	if (In1 == NULL)
+    205              {
+    206                 //printf(" Out of memory!\n");
+    207                 exit(1);
+    208              }
+    209          	/* Delay in sample of couple 1 */
+    210          	Resampling(Audio_Data->bufMIC1, In1, 4*PAR_N);
+    211          	Delay_In_Sample[0] = CrssCorResample(In1,&Audio_Data->bufMIC2[0],PAR_N,4,&Val);
+    212              //printf("D: %d \n",Delay_In_Sample[0]);
+    213              
+    214          	/* Delay in sample of couple 2 */
+    215          	Resampling(Audio_Data->bufMIC3, In1, 4*PAR_N);
+    216          	Delay_In_Sample[1] = CrssCorResample(In1,&Audio_Data->bufMIC4[0],PAR_N,4,&Val);
+    217              //printf("D: %d \n",Delay_In_Sample[1]);
+    218              
+    219          	/* Delay in sample of couple 3 */
+    220              Resampling(Audio_Data->bufMIC5, In1, 4*PAR_N);
+    221          	Delay_In_Sample[2] = CrssCorResample(In1,&Audio_Data->bufMIC6[0],PAR_N,4,&Val);
+    222          
+    223          	/* Delay in sample of couple 4 */
+    224          	Resampling(Audio_Data->bufMIC7, In1, 4*PAR_N);
+    225          	Delay_In_Sample[3] = CrssCorResample(In1,&Audio_Data->bufMIC8[0],PAR_N,4,&Val);
+    226          
+    227          	free(In1);
+    228          #else
+    229              uint32_t Val;
+    230              Delay_In_Sample[0] = CrssCor(&Audio_Data->bufMIC1[0],&Audio_Data->bufMIC2[0],PAR_N,&Val);
+   \   00000008   0x466B             MOV      R3,SP
+   \   0000000A   0xF44F 0x6280      MOV      R2,#+1024
+   \   0000000E   0xF504 0x6100      ADD      R1,R4,#+2048
+   \   00000012   0x.... 0x....      BL       CrssCor
+   \   00000016   0x7028             STRB     R0,[R5, #+0]
+    231              Delay_In_Sample[1] = CrssCor(&Audio_Data->bufMIC3[0],&Audio_Data->bufMIC4[0],PAR_N,&Val);
+   \   00000018   0x466B             MOV      R3,SP
+   \   0000001A   0xF44F 0x6280      MOV      R2,#+1024
+   \   0000001E   0xF504 0x51C0      ADD      R1,R4,#+6144
+   \   00000022   0xF504 0x5080      ADD      R0,R4,#+4096
+   \   00000026   0x.... 0x....      BL       CrssCor
+   \   0000002A   0x7068             STRB     R0,[R5, #+1]
+    232              Delay_In_Sample[2] = CrssCor(&Audio_Data->bufMIC5[0],&Audio_Data->bufMIC6[0],PAR_N,&Val);
+   \   0000002C   0x466B             MOV      R3,SP
+   \   0000002E   0xF44F 0x6280      MOV      R2,#+1024
+   \   00000032   0xF504 0x5120      ADD      R1,R4,#+10240
+   \   00000036   0xF504 0x5000      ADD      R0,R4,#+8192
+   \   0000003A   0x.... 0x....      BL       CrssCor
+   \   0000003E   0x70A8             STRB     R0,[R5, #+2]
+    233              Delay_In_Sample[3] = CrssCor(&Audio_Data->bufMIC7[0],&Audio_Data->bufMIC8[0],PAR_N,&Val);
+   \   00000040   0x466B             MOV      R3,SP
+   \   00000042   0xF44F 0x6280      MOV      R2,#+1024
+   \   00000046   0xF504 0x5160      ADD      R1,R4,#+14336
+   \   0000004A   0xF504 0x5040      ADD      R0,R4,#+12288
+   \   0000004E   0x.... 0x....      BL       CrssCor
+   \   00000052   0x70E8             STRB     R0,[R5, #+3]
+    234          #endif
+    235          }
+   \   00000054   0xB001             ADD      SP,SP,#+4
+   \   00000056   0xBD30             POP      {R4,R5,PC}       ;; return
+    236          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      16   ComputeDelay_Couple
+        16   -> CrssCor
+      56   CrssCorResample
+        56 __aeabi_ldivmod
+      32   Resampling
+        32   -> exit
+         0   -> free
+        32   -> free
+        32   -> malloc
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+      88  ComputeDelay_Couple
+     144  CrssCorResample
+     326  Resampling
+
+ 
+ 558 bytes in section .text
+ 
+ 558 bytes of CODE memory
+
+Errors: none
+Warnings: none

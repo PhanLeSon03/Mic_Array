@@ -3,6 +3,7 @@
 
 #include "main.h"
 
+
 #define PI 3.1415927
 
 /* ***** Decimation FIR Filter ***************************************************************************************
@@ -34,7 +35,7 @@ void LowPassIIR(int16_t *Input, int16_t *Output,int16_t *OutOld, uint16_t Size, 
 void LowPass(int16_t *Input, int16_t *Output, uint16_t Size, uint16_t K);
 void LowPass2ndOder(int16_t *Input, int16_t *Output, uint16_t Size);
 void LowPass2ndOder_1(int16_t *Input, int16_t *Output, uint16_t Size);
-int8_t CrssCor(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen, uint32_t * CrssCorVal );
+int8_t CrssCor(const int16_t * vDataIn1, const int16_t * vDataIn2, uint16_t numLen, uint32_t * CrssCorVal );
 void Std_CrssCor(int16_t * vDataIn1, int16_t * vDataIn2, float *Out,uint16_t numLen );
 void Std_AutoCorr(int16_t * vDataIn,float *Out, uint16_t numLen );
 void Std_MatCorr(int16_t* vDataIn, float *Out, uint16_t numLen);
@@ -45,15 +46,18 @@ int32_t EnergyNoiseCalc(uint16_t numLen);
 int16_t GCC_PHAT(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen, float * CrssCorVal );
 float MD_entropy(const float* const a, uint16_t N, const uint8_t clip) ;
 void FFTShift(const float * const in, float * const out, const uint16_t N);
+void BeamFormingSD(const Mic_Array_Data * MicData, uint8_t Dir,int16_t * Audio_Sum);
+void BeamFormingSD_Init(void);
 
 
 
-#define RFFT_INT(stBuf,S,bufferFFT)                                            \
+
+#define RFFT_INT(stBuf,S,bufferFFT,win)                                        \
        {                                                                       \
 	   for(uint16_t j=0;j<lenFFT;j++)                                          \
 	   {                                                                       \
 	      _value = (int32_t)stBuf[iFrm*lenFFT+j];                              \
-	   	   fbuffer[j]=(float)(_value*1.0f);                                    \
+	   	   fbuffer[j]=(float)(_value*win[j]);                                  \
 	   }                                                                       \
          arm_rfft_fast_f32(&(S), (float *)fbuffer, (float *)(bufferFFT),0);    \
        }
@@ -67,6 +71,35 @@ void FFTShift(const float * const in, float * const out, const uint16_t N);
 	   }                                                                       \
        arm_rfft_fast_f32(&(S), (float *)fbuffer, (float *)(bufferFFT),0);      \
        }
+
+
+#define MUL_C(o,w,s)            /* MULtiply complex vector (w is conjunction and only have half of bin) */  \
+{                                                                                                           \
+    int _i;                                                                                                 \
+    for (_i = 0; _i < PAR_N +2; _i=_i+2)                                                                    \
+	{                                                                                                       \
+        o[_i] = w[_i] * s[_i] + w[_i+1] * s[_i+1];                                                          \
+		o[_i+1] = w[_i] * s[_i+1] - w[_i+1] * s[_i];                                                        \
+		if ((_i!=0)&&(_i!=PAR_N))                                                                           \
+		{                                                                                                   \
+            o[2*PAR_N - _i] = o[_i];                                                                        \
+		    o[2*PAR_N - _i +1] = -o[_i + 1];                                                                \
+		}                                                                                                   \
+	}                                                                                                       \
+}
+
+
+
+#define SUM_C(d,s)  /* covert from float to complex */                  \
+{                                                                       \
+    int _i;                                                             \
+    for (_i = 0; _i < 2*PAR_N; _i=_i+2)                                 \
+	{                                                                   \
+	    d[_i] += s[_i];                                                 \
+        d[_i+1] += s[_i];                                               \
+	}                                                                   \
+}
+
 	   
 #endif /* __DSP_H */
 

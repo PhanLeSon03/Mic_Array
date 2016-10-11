@@ -1,0 +1,31 @@
+Expression	Value	Location	Type	
+Buffer1	10	0x20010824	<16-bit signed>	
+appli_state	Error (col 1): Unknown or ambiguous symbol. appli_state			
+AudioDemo	Error (col 1): Unknown or ambiguous symbol. AudioDemo			
+BufferCtlRecIn	Error (col 1): Unknown or ambiguous symbol. BufferCtlRecIn			
+flgTransFinish	Error (col 1): Unknown or ambiguous symbol. flgTransFinish			
+pDataI2S2	Error (col 1): Unknown or ambiguous symbol. pDataI2S2			
+hi2s2	<struct>	0x20010704	I2S_HandleTypeDef	
+Buffer2	<struct>	0x20014824	Mic_Array_Data	
+hspi5	<struct>	0x2002FE58	SPI_HandleTypeDef	
+idxSPI5DataBuf	Error (col 1): Unknown or ambiguous symbol. idxSPI5DataBuf			
+pDataMic8	<array>	0x2002FF9C	uint16_t[64]	
+pDataMic7	<array>	0x2003001C	uint16_t[64]	
+Buffer3	<struct>	0x20018824	Mic_Array_Data	
+WaveRec_idxSens1	788	0x2001033C	uint16_t	
+WaveRec_idxSens2	789	0x2001033E	uint16_t	
+WaveRec_idxSens3	789	0x20010338	uint16_t	
+WaveRec_idxSens4	789	0x20010336	uint16_t	
+WaveRec_idxSens5	788	0x20010340	uint16_t	
+WaveRec_idxSens6	790	0x20010342	uint16_t	
+WaveRec_idxTest	1576	0x20010750	uint16_t	
+PCM_Buffer1	<array>	0x20024824	int16_t[8192]	
+PCM_Buffer2	<array>	0x20028824	int16_t[8192]	
+pDataMic8	<array>	0x2002FF9C	uint16_t[64]	
+pDataMic8	<array>	0x2002FF9C	uint16_t[64]	
+SPI4_stPosShft	16	0x20010749	uint8_t	
+TestSDO56	Error (col 1): Unknown or ambiguous symbol. TestSDO56			
+SPI4_stNipple	-104	0x2001075E	int16_t	
+cntRisingEXTI	0	0x20030580	uint32_t	
+stMIC56	GPIO_PIN_SET	0x20010746	GPIO_PinState	
+stMIC56Old	GPIO_PIN_RESET	0x20010747	GPIO_PinState	

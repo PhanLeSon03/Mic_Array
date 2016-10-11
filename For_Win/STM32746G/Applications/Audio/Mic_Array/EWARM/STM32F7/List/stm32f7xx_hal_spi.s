@@ -1,58 +1,59 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      15/May/2016  09:59:35
+// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      10/Oct/2016  13:59:01
 // Copyright 1999-2016 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_spi.c
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_spi.c
 //    Command line =  
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_spi.c
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_spi.c
 //        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 //        USE_IOEXPANDER -D USE_USB_FS -lC
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -lA
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
-//        --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e
+//        --char_is_signed --fpu=VFPv5_sp --dlib_config "C:\Program Files
+//        (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
 //        -Ohs --use_c++_inline --require_prototypes -I "C:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_spi.s
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_spi.s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -141,7 +142,7 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
         
-// D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_spi.c
+// D:\sop1hc\Mic\Mic_Array\For_Window\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_spi.c
 //    1 /**
 //    2   ******************************************************************************
 //    3   * @file    stm32f7xx_hal_spi.c
@@ -378,7 +379,7 @@ HAL_SPI_Init:
 //  217   assert_param(IS_SPI_CRC_LENGTH(hspi->Init.CRCLength));
 //  218 
 //  219   if(hspi->State == HAL_SPI_STATE_RESET)
-        LDRB     R0,[R4, #+93]
+        LDRSB    R0,[R4, #+93]
         CBNZ.N   R0,??HAL_SPI_Init_1
 //  220   {
 //  221     /* Allocate lock resource and initialize it */
@@ -861,14 +862,14 @@ HAL_SPI_Transmit:
 //  409 
 //  410   /* Process Locked */
 //  411   __HAL_LOCK(hspi);
-        LDRB     R0,[R4, #+92]
+        LDRSB    R0,[R4, #+92]
         CMP      R0,#+1
         BEQ.N    ??HAL_SPI_Transmit_0
         MOVS     R0,#+1
         STRB     R0,[R4, #+92]
 //  412 
 //  413   if(hspi->State != HAL_SPI_STATE_READY)
-        LDRB     R0,[R4, #+93]
+        LDRSB    R0,[R4, #+93]
         CMP      R0,#+1
         BEQ.N    ??HAL_SPI_Transmit_1
 //  414   {
@@ -1348,6 +1349,7 @@ HAL_SPI_Transmit:
         SBCS     R0,R0,R0
         MVNS     R0,R0
         LSRS     R0,R0,#+31
+        SXTB     R0,R0
         POP      {R4-R6,PC}       ;; return
 //  539   }
 //  540 }
@@ -1384,7 +1386,7 @@ HAL_SPI_Receive:
 //  553   __IO uint16_t tmpreg;
 //  554   
 //  555   if(hspi->State != HAL_SPI_STATE_READY)
-        LDRB     R0,[R4, #+93]
+        LDRSB    R0,[R4, #+93]
         CMP      R0,#+1
         BNE.N    ??HAL_SPI_Receive_0
 //  556   {
@@ -1584,7 +1586,7 @@ HAL_SPI_Receive:
         POP      {R4-R7,PC}
           CFI CFA R13+24
 ??HAL_SPI_Receive_2:
-        LDRB     R0,[R4, #+92]
+        LDRSB    R0,[R4, #+92]
         CMP      R0,#+1
         BNE.N    ??HAL_SPI_Receive_3
 ??HAL_SPI_Receive_0:
@@ -2025,6 +2027,7 @@ HAL_SPI_Receive:
         SBCS     R0,R0,R0
         MVNS     R0,R0
         LSRS     R0,R0,#+31
+        SXTB     R0,R0
 ??HAL_SPI_Receive_1:
         ADD      SP,SP,#+4
           CFI CFA R13+20
@@ -2076,7 +2079,7 @@ HAL_SPI_TransmitReceive:
 //  750   assert_param(IS_SPI_DIRECTION_2LINES(hspi->Init.Direction));
 //  751   
 //  752   if(hspi->State != HAL_SPI_STATE_READY) 
-        LDRB     R0,[R4, #+93]
+        LDRSB    R0,[R4, #+93]
         CMP      R0,#+1
         BNE.N    ??HAL_SPI_TransmitReceive_0
 //  753   {
@@ -2096,7 +2099,7 @@ HAL_SPI_TransmitReceive:
 //  762   
 //  763   /* Process Locked */
 //  764   __HAL_LOCK(hspi); 
-        LDRB     R0,[R4, #+92]
+        LDRSB    R0,[R4, #+92]
         CMP      R0,#+1
         BNE.N    ??HAL_SPI_TransmitReceive_2
 ??HAL_SPI_TransmitReceive_0:
@@ -2745,6 +2748,7 @@ HAL_SPI_TransmitReceive:
         SBCS     R0,R0,R0
         MVNS     R0,R0
         LSRS     R0,R0,#+31
+        SXTB     R0,R0
 ??HAL_SPI_TransmitReceive_1:
         ADD      SP,SP,#+8
           CFI CFA R13+24
@@ -2773,7 +2777,7 @@ HAL_SPI_TransmitReceive:
 //  974   
 //  975   if(hspi->State == HAL_SPI_STATE_READY)
 HAL_SPI_Transmit_IT:
-        LDRB     R3,[R0, #+93]
+        LDRSB    R3,[R0, #+93]
         CMP      R3,#+1
         BNE.N    ??HAL_SPI_Transmit_IT_0
 //  976   {
@@ -2791,7 +2795,7 @@ HAL_SPI_Transmit_IT:
 //  982     /* Process Locked */
 //  983     __HAL_LOCK(hspi);
 ??HAL_SPI_Transmit_IT_1:
-        LDRB     R3,[R0, #+92]
+        LDRSB    R3,[R0, #+92]
         CMP      R3,#+1
         BEQ.N    ??HAL_SPI_Transmit_IT_0
         MOVS     R3,#+1
@@ -2926,7 +2930,7 @@ HAL_SPI_Transmit_IT:
 // 1052 {
 // 1053   if(hspi->State == HAL_SPI_STATE_READY)
 HAL_SPI_Receive_IT:
-        LDRB     R3,[R0, #+93]
+        LDRSB    R3,[R0, #+93]
         CMP      R3,#+1
         BNE.N    ??HAL_SPI_Receive_IT_0
 // 1054   {
@@ -2944,7 +2948,7 @@ HAL_SPI_Receive_IT:
 // 1060     /* Process Locked */
 // 1061     __HAL_LOCK(hspi);
 ??HAL_SPI_Receive_IT_1:
-        LDRB     R3,[R0, #+92]
+        LDRSB    R3,[R0, #+92]
         CMP      R3,#+1
         BEQ.N    ??HAL_SPI_Receive_IT_0
         MOVS     R3,#+1
@@ -3155,7 +3159,7 @@ HAL_SPI_TransmitReceive_IT:
 // 1160   
 // 1161   if((hspi->State == HAL_SPI_STATE_READY) || \ 
 // 1162      ((hspi->Init.Mode == SPI_MODE_MASTER) && (hspi->Init.Direction == SPI_DIRECTION_2LINES) && (hspi->State == HAL_SPI_STATE_BUSY_RX)))
-        LDRB     R4,[R0, #+93]
+        LDRSB    R4,[R0, #+93]
         CMP      R4,#+1
         BEQ.N    ??HAL_SPI_TransmitReceive_IT_0
         LDR      R5,[R0, #+4]
@@ -3192,7 +3196,7 @@ HAL_SPI_TransmitReceive_IT:
 // 1169     /* Process locked */
 // 1170     __HAL_LOCK(hspi);
 ??HAL_SPI_TransmitReceive_IT_3:
-        LDRB     R5,[R0, #+92]
+        LDRSB    R5,[R0, #+92]
         CMP      R5,#+1
         BEQ.N    ??HAL_SPI_TransmitReceive_IT_1
         MOVS     R5,#+1
@@ -3394,7 +3398,7 @@ HAL_SPI_Transmit_DMA:
 // 1256   assert_param(IS_SPI_DIRECTION_2LINES_OR_1LINE(hspi->Init.Direction));
 // 1257 
 // 1258   if(hspi->State != HAL_SPI_STATE_READY) 
-        LDRB     R0,[R4, #+93]
+        LDRSB    R0,[R4, #+93]
         CMP      R0,#+1
         BNE.N    ??HAL_SPI_Transmit_DMA_0
 // 1259   {
@@ -3412,7 +3416,7 @@ HAL_SPI_Transmit_DMA:
 // 1267   
 // 1268   /* Process Locked */
 // 1269   __HAL_LOCK(hspi);
-        LDRB     R0,[R4, #+92]
+        LDRSB    R0,[R4, #+92]
         CMP      R0,#+1
         BNE.N    ??HAL_SPI_Transmit_DMA_2
 ??HAL_SPI_Transmit_DMA_0:
@@ -3590,7 +3594,7 @@ HAL_SPI_Receive_DMA:
           CFI CFA R13+8
         MOV      R4,R0
 // 1346   if(hspi->State != HAL_SPI_STATE_READY)
-        LDRB     R0,[R4, #+93]
+        LDRSB    R0,[R4, #+93]
         CMP      R0,#+1
         BNE.N    ??HAL_SPI_Receive_DMA_0
 // 1347   {
@@ -3608,7 +3612,7 @@ HAL_SPI_Receive_DMA:
 // 1355   
 // 1356   /* Process Locked */
 // 1357   __HAL_LOCK(hspi);
-        LDRB     R0,[R4, #+92]
+        LDRSB    R0,[R4, #+92]
         CMP      R0,#+1
         BNE.N    ??HAL_SPI_Receive_DMA_2
 ??HAL_SPI_Receive_DMA_0:
@@ -3830,7 +3834,7 @@ HAL_SPI_TransmitReceive_DMA:
 // 1451   
 // 1452   if((hspi->State == HAL_SPI_STATE_READY) ||
 // 1453      ((hspi->Init.Mode == SPI_MODE_MASTER) && (hspi->Init.Direction == SPI_DIRECTION_2LINES) && (hspi->State == HAL_SPI_STATE_BUSY_RX)))
-        LDRB     R0,[R4, #+93]
+        LDRSB    R0,[R4, #+93]
         CMP      R0,#+1
         BEQ.N    ??HAL_SPI_TransmitReceive_DMA_0
         LDR      R5,[R4, #+4]
@@ -3861,7 +3865,7 @@ HAL_SPI_TransmitReceive_DMA:
 // 1460     /* Process locked */
 // 1461     __HAL_LOCK(hspi);
 ??HAL_SPI_TransmitReceive_DMA_3:
-        LDRB     R5,[R4, #+92]
+        LDRSB    R5,[R4, #+92]
         CMP      R5,#+1
         BEQ.W    ??HAL_SPI_TransmitReceive_DMA_1
         MOVS     R5,#+1
@@ -4023,7 +4027,7 @@ HAL_SPI_TransmitReceive_DMA:
 // 1532     the reception request (RXNE) */
 // 1533     if(hspi->State == HAL_SPI_STATE_BUSY_RX)
 ??HAL_SPI_TransmitReceive_DMA_6:
-        LDRB     R2,[R4, #+93]
+        LDRSB    R2,[R4, #+93]
         LDR      R0,[R4, #+88]
         CMP      R2,#+4
         BNE.N    ??HAL_SPI_TransmitReceive_DMA_12
@@ -4075,7 +4079,7 @@ HAL_SPI_TransmitReceive_DMA:
         STR      R1,[R0, #+60]
 // 1556 
 // 1557     if(hspi->State == HAL_SPI_STATE_BUSY_TX_RX)
-        LDRB     R1,[R4, #+93]
+        LDRSB    R1,[R4, #+93]
         CMP      R1,#+5
         ITEE     EQ 
         STREQ    R5,[R0, #+72]
@@ -4161,7 +4165,7 @@ HAL_SPI_TransmitReceive_DMA:
 // 1599   /* Process Locked */
 // 1600   __HAL_LOCK(hspi);
 HAL_SPI_DMAPause:
-        LDRB     R1,[R0, #+92]
+        LDRSB    R1,[R0, #+92]
         CMP      R1,#+1
         BNE.N    ??HAL_SPI_DMAPause_0
         MOVS     R0,#+2
@@ -4206,7 +4210,7 @@ HAL_SPI_DMAPause:
 // 1619   /* Process Locked */
 // 1620   __HAL_LOCK(hspi);
 HAL_SPI_DMAResume:
-        LDRB     R1,[R0, #+92]
+        LDRSB    R1,[R0, #+92]
         CMP      R1,#+1
         BNE.N    ??HAL_SPI_DMAResume_0
         MOVS     R0,#+2
@@ -4382,7 +4386,7 @@ HAL_SPI_IRQHandler:
         BPL.N    ??HAL_SPI_IRQHandler_3
 // 1690     {
 // 1691       if(hspi->State != HAL_SPI_STATE_BUSY_TX)
-        LDRB     R2,[R0, #+93]
+        LDRSB    R2,[R0, #+93]
         CMP      R2,#+3
         BEQ.N    ??HAL_SPI_IRQHandler_2
 // 1692       {
@@ -4684,7 +4688,7 @@ HAL_SPI_ErrorCallback:
 // 1869 {
 // 1870   return hspi->State;
 HAL_SPI_GetState:
-        LDRB     R0,[R0, #+93]
+        LDRSB    R0,[R0, #+93]
         BX       LR               ;; return
 // 1871 }
           CFI EndBlock cfiBlock24
@@ -6585,7 +6589,7 @@ SPI_CloseRxTx_ISR:
         CBNZ.N   R2,??SPI_CloseRxTx_ISR_2
 // 2658     {
 // 2659       if(hspi->State == HAL_SPI_STATE_BUSY_RX)
-        LDRB     R1,[R0, #+93]
+        LDRSB    R1,[R0, #+93]
         CMP      R1,#+4
         BNE.N    ??SPI_CloseRxTx_ISR_3
 // 2660       {
@@ -6893,9 +6897,9 @@ SPI_CloseTx_ISR:
 // 2754 
 // 2755 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 // 
-// 7 576 bytes in section .text
+// 7 582 bytes in section .text
 // 
-// 7 576 bytes of CODE memory
+// 7 582 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

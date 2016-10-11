@@ -1,58 +1,59 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      15/May/2016  09:59:37
+// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      10/Oct/2016  13:59:03
 // Copyright 1999-2016 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_uart.c
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_uart.c
 //    Command line =  
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_uart.c
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_uart.c
 //        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 //        USE_IOEXPANDER -D USE_USB_FS -lC
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -lA
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
-//        --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e
+//        --char_is_signed --fpu=VFPv5_sp --dlib_config "C:\Program Files
+//        (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
 //        -Ohs --use_c++_inline --require_prototypes -I "C:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_uart.s
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_uart.s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -152,7 +153,7 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
         
-// D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_uart.c
+// D:\sop1hc\Mic\Mic_Array\For_Window\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_uart.c
 //    1 /**
 //    2   ******************************************************************************
 //    3   * @file    stm32f7xx_hal_uart.c
@@ -410,7 +411,7 @@ HAL_UART_Init:
 //  243   }
 //  244   
 //  245   if(huart->State == HAL_UART_STATE_RESET)
-        LDRB     R0,[R4, #+105]
+        LDRSB    R0,[R4, #+105]
         CBNZ.N   R0,??HAL_UART_Init_1
 //  246   {
 //  247     /* Allocate lock resource and initialize it */
@@ -523,7 +524,7 @@ HAL_HalfDuplex_Init:
 //  295   }
 //  296   
 //  297   if(huart->State == HAL_UART_STATE_RESET)
-        LDRB     R0,[R4, #+105]
+        LDRSB    R0,[R4, #+105]
         CBNZ.N   R0,??HAL_HalfDuplex_Init_1
 //  298   {
 //  299     /* Allocate lock resource and initialize it */
@@ -656,7 +657,7 @@ HAL_LIN_Init:
 //  359   assert_param(IS_LIN_WORD_LENGTH(huart->Init.WordLength));
 //  360   	
 //  361   if(huart->State == HAL_UART_STATE_RESET)
-        LDRB     R0,[R4, #+105]
+        LDRSB    R0,[R4, #+105]
         CBNZ.N   R0,??HAL_LIN_Init_1
 //  362   {  
 //  363     /* Allocate lock resource and initialize it */
@@ -808,7 +809,7 @@ HAL_MultiProcessor_Init:
 //  431   assert_param(IS_UART_WAKEUPMETHOD(WakeUpMethod));
 //  432   
 //  433   if(huart->State == HAL_UART_STATE_RESET)
-        LDRB     R0,[R4, #+105]
+        LDRSB    R0,[R4, #+105]
         CBNZ.N   R0,??HAL_MultiProcessor_Init_1
 //  434   { 
 //  435     /* Allocate lock resource and initialize it */
@@ -1135,10 +1136,10 @@ HAL_UART_Transmit:
 //  619    uint16_t* tmp;
 //  620 
 //  621   if((huart->State == HAL_UART_STATE_READY) || (huart->State == HAL_UART_STATE_BUSY_RX))
-        LDRB     R0,[R4, #+105]
+        LDRSB    R0,[R4, #+105]
         CMP      R0,#+1
         ITT      NE 
-        LDRBNE   R0,[R4, #+105]
+        LDRSBNE  R0,[R4, #+105]
         CMPNE    R0,#+34
         BNE.N    ??HAL_UART_Transmit_0
 //  622   {
@@ -1154,7 +1155,7 @@ HAL_UART_Transmit:
 //  627 
 //  628     /* Process Locked */
 //  629     __HAL_LOCK(huart);
-        LDRB     R0,[R4, #+104]
+        LDRSB    R0,[R4, #+104]
         CMP      R0,#+1
         BEQ.N    ??HAL_UART_Transmit_0
         MOVS     R0,#+1
@@ -1165,7 +1166,7 @@ HAL_UART_Transmit:
         STR      R0,[R4, #+108]
 //  632     /* Check if a non-blocking receive process is ongoing or not */
 //  633     if(huart->State == HAL_UART_STATE_BUSY_RX) 
-        LDRB     R0,[R4, #+105]
+        LDRSB    R0,[R4, #+105]
         CMP      R0,#+34
         ITE      EQ 
         MOVEQ    R0,#+50
@@ -1291,7 +1292,7 @@ HAL_UART_Transmit:
 //  666     /* Check if a non-blocking receive Process is ongoing or not */
 //  667     if(huart->State == HAL_UART_STATE_BUSY_TX_RX) 
 ??HAL_UART_Transmit_9:
-        LDRB     R0,[R4, #+105]
+        LDRSB    R0,[R4, #+105]
         CMP      R0,#+50
         ITE      EQ 
         MOVEQ    R0,#+34
@@ -1360,10 +1361,10 @@ HAL_UART_Receive:
 //  698   uint16_t uhMask;
 //  699 
 //  700   if((huart->State == HAL_UART_STATE_READY) || (huart->State == HAL_UART_STATE_BUSY_TX))
-        LDRB     R0,[R4, #+105]
+        LDRSB    R0,[R4, #+105]
         CMP      R0,#+1
         ITT      NE 
-        LDRBNE   R0,[R4, #+105]
+        LDRSBNE  R0,[R4, #+105]
         CMPNE    R0,#+18
         BNE.W    ??HAL_UART_Receive_0
 //  701   {
@@ -1379,7 +1380,7 @@ HAL_UART_Receive:
 //  706 
 //  707     /* Process Locked */
 //  708     __HAL_LOCK(huart);
-        LDRB     R0,[R4, #+104]
+        LDRSB    R0,[R4, #+104]
         CMP      R0,#+1
         BEQ.W    ??HAL_UART_Receive_0
         MOVS     R0,#+1
@@ -1390,7 +1391,7 @@ HAL_UART_Receive:
         STR      R0,[R4, #+108]
 //  711     /* Check if a non-blocking transmit process is ongoing or not */
 //  712     if(huart->State == HAL_UART_STATE_BUSY_TX)
-        LDRB     R0,[R4, #+105]
+        LDRSB    R0,[R4, #+105]
         CMP      R0,#+18
         ITE      EQ 
         MOVEQ    R0,#+50
@@ -1527,7 +1528,7 @@ HAL_UART_Receive:
 //  748     /* Check if a non-blocking transmit Process is ongoing or not */
 //  749     if(huart->State == HAL_UART_STATE_BUSY_TX_RX) 
 ??HAL_UART_Receive_8:
-        LDRB     R0,[R4, #+105]
+        LDRSB    R0,[R4, #+105]
         CMP      R0,#+50
         ITE      EQ 
         MOVEQ    R0,#+18
@@ -1576,10 +1577,10 @@ HAL_UART_Receive:
 //  776 {  
 //  777   if((huart->State == HAL_UART_STATE_READY) || (huart->State == HAL_UART_STATE_BUSY_RX))
 HAL_UART_Transmit_IT:
-        LDRB     R3,[R0, #+105]
+        LDRSB    R3,[R0, #+105]
         CMP      R3,#+1
         ITT      NE 
-        LDRBNE   R3,[R0, #+105]
+        LDRSBNE  R3,[R0, #+105]
         CMPNE    R3,#+34
         BNE.N    ??HAL_UART_Transmit_IT_0
 //  778   {
@@ -1597,7 +1598,7 @@ HAL_UART_Transmit_IT:
 //  784     /* Process Locked */
 //  785     __HAL_LOCK(huart);
 ??HAL_UART_Transmit_IT_1:
-        LDRB     R3,[R0, #+104]
+        LDRSB    R3,[R0, #+104]
         CMP      R3,#+1
         BEQ.N    ??HAL_UART_Transmit_IT_0
         MOVS     R3,#+1
@@ -1615,7 +1616,7 @@ HAL_UART_Transmit_IT:
         STR      R1,[R0, #+108]
 //  792     /* Check if a receive process is ongoing or not */
 //  793     if(huart->State == HAL_UART_STATE_BUSY_RX) 
-        LDRB     R1,[R0, #+105]
+        LDRSB    R1,[R0, #+105]
         CMP      R1,#+34
         ITE      EQ 
         MOVEQ    R1,#+50
@@ -1679,10 +1680,10 @@ HAL_UART_Transmit_IT:
 //  827 {
 //  828   if((huart->State == HAL_UART_STATE_READY) || (huart->State == HAL_UART_STATE_BUSY_TX))
 HAL_UART_Receive_IT:
-        LDRB     R3,[R0, #+105]
+        LDRSB    R3,[R0, #+105]
         CMP      R3,#+1
         ITT      NE 
-        LDRBNE   R3,[R0, #+105]
+        LDRSBNE  R3,[R0, #+105]
         CMPNE    R3,#+18
         BNE.N    ??HAL_UART_Receive_IT_0
 //  829   {
@@ -1700,7 +1701,7 @@ HAL_UART_Receive_IT:
 //  835     /* Process Locked */
 //  836     __HAL_LOCK(huart);
 ??HAL_UART_Receive_IT_1:
-        LDRB     R3,[R0, #+104]
+        LDRSB    R3,[R0, #+104]
         CMP      R3,#+1
         BEQ.N    ??HAL_UART_Receive_IT_0
 //  837 
@@ -1749,7 +1750,7 @@ HAL_UART_Receive_IT:
         STR      R1,[R0, #+108]
 //  846     /* Check if a transmit process is ongoing or not */
 //  847     if(huart->State == HAL_UART_STATE_BUSY_TX) 
-        LDRB     R1,[R0, #+105]
+        LDRSB    R1,[R0, #+105]
         CMP      R1,#+18
         ITE      EQ 
         MOVEQ    R1,#+50
@@ -1826,10 +1827,10 @@ HAL_UART_Transmit_DMA:
 //  885   uint32_t *tmp;
 //  886   
 //  887   if((huart->State == HAL_UART_STATE_READY) || (huart->State == HAL_UART_STATE_BUSY_RX))
-        LDRB     R0,[R4, #+105]
+        LDRSB    R0,[R4, #+105]
         CMP      R0,#+1
         ITT      NE 
-        LDRBNE   R0,[R4, #+105]
+        LDRSBNE  R0,[R4, #+105]
         CMPNE    R0,#+34
         BNE.N    ??HAL_UART_Transmit_DMA_0
 //  888   {
@@ -1847,7 +1848,7 @@ HAL_UART_Transmit_DMA:
 //  894     /* Process Locked */
 //  895     __HAL_LOCK(huart);
 ??HAL_UART_Transmit_DMA_1:
-        LDRB     R0,[R4, #+104]
+        LDRSB    R0,[R4, #+104]
         CMP      R0,#+1
         BEQ.N    ??HAL_UART_Transmit_DMA_0
         MOVS     R0,#+1
@@ -1865,7 +1866,7 @@ HAL_UART_Transmit_DMA:
         STR      R0,[R4, #+108]
 //  902     /* Check if a receive process is ongoing or not */
 //  903     if(huart->State == HAL_UART_STATE_BUSY_RX) 
-        LDRB     R0,[R4, #+105]
+        LDRSB    R0,[R4, #+105]
         CMP      R0,#+34
         ITE      EQ 
         MOVEQ    R0,#+50
@@ -1965,10 +1966,10 @@ HAL_UART_Receive_DMA:
 //  955   uint32_t *tmp;
 //  956   
 //  957   if((huart->State == HAL_UART_STATE_READY) || (huart->State == HAL_UART_STATE_BUSY_TX))
-        LDRB     R0,[R4, #+105]
+        LDRSB    R0,[R4, #+105]
         CMP      R0,#+1
         ITT      NE 
-        LDRBNE   R0,[R4, #+105]
+        LDRSBNE  R0,[R4, #+105]
         CMPNE    R0,#+18
         BNE.N    ??HAL_UART_Receive_DMA_0
 //  958   {
@@ -1986,7 +1987,7 @@ HAL_UART_Receive_DMA:
 //  964     /* Process Locked */
 //  965     __HAL_LOCK(huart);
 ??HAL_UART_Receive_DMA_1:
-        LDRB     R0,[R4, #+104]
+        LDRSB    R0,[R4, #+104]
         CMP      R0,#+1
         BEQ.N    ??HAL_UART_Receive_DMA_0
         MOVS     R0,#+1
@@ -2002,7 +2003,7 @@ HAL_UART_Receive_DMA:
         STR      R0,[R4, #+108]
 //  971     /* Check if a transmit process is ongoing or not */
 //  972     if(huart->State == HAL_UART_STATE_BUSY_TX) 
-        LDRB     R0,[R4, #+105]
+        LDRSB    R0,[R4, #+105]
         CMP      R0,#+18
         ITE      EQ 
         MOVEQ    R0,#+50
@@ -2087,7 +2088,7 @@ HAL_UART_Receive_DMA:
 // 1016   /* Process Locked */
 // 1017   __HAL_LOCK(huart);
 HAL_UART_DMAPause:
-        LDRB     R1,[R0, #+104]
+        LDRSB    R1,[R0, #+104]
         CMP      R1,#+1
         BNE.N    ??HAL_UART_DMAPause_0
         MOVS     R0,#+2
@@ -2097,7 +2098,7 @@ HAL_UART_DMAPause:
         STRB     R1,[R0, #+104]
 // 1018   
 // 1019   if(huart->State == HAL_UART_STATE_BUSY_TX)
-        LDRB     R1,[R0, #+105]
+        LDRSB    R1,[R0, #+105]
         CMP      R1,#+18
         BNE.N    ??HAL_UART_DMAPause_1
 // 1020   {
@@ -2110,7 +2111,7 @@ HAL_UART_DMAPause:
 // 1023   }
 // 1024   else if(huart->State == HAL_UART_STATE_BUSY_RX)
 ??HAL_UART_DMAPause_1:
-        LDRB     R1,[R0, #+105]
+        LDRSB    R1,[R0, #+105]
         CMP      R1,#+34
         BEQ.N    ??HAL_UART_DMAPause_3
 // 1025   {
@@ -2118,7 +2119,7 @@ HAL_UART_DMAPause:
 // 1027     huart->Instance->CR3 &= (uint32_t)(~USART_CR3_DMAR);
 // 1028   }
 // 1029   else if(huart->State == HAL_UART_STATE_BUSY_TX_RX)
-        LDRB     R1,[R0, #+105]
+        LDRSB    R1,[R0, #+105]
         CMP      R1,#+50
         BNE.N    ??HAL_UART_DMAPause_4
 // 1030   {
@@ -2166,7 +2167,7 @@ HAL_UART_DMAPause:
 // 1050   /* Process Locked */
 // 1051   __HAL_LOCK(huart);
 HAL_UART_DMAResume:
-        LDRB     R1,[R0, #+104]
+        LDRSB    R1,[R0, #+104]
         CMP      R1,#+1
         BNE.N    ??HAL_UART_DMAResume_0
         MOVS     R0,#+2
@@ -2176,7 +2177,7 @@ HAL_UART_DMAResume:
         STRB     R1,[R0, #+104]
 // 1052 
 // 1053   if(huart->State == HAL_UART_STATE_BUSY_TX)
-        LDRB     R1,[R0, #+105]
+        LDRSB    R1,[R0, #+105]
         CMP      R1,#+18
         BEQ.N    ??HAL_UART_DMAResume_1
 // 1054   {
@@ -2184,7 +2185,7 @@ HAL_UART_DMAResume:
 // 1056     huart->Instance->CR3 |= USART_CR3_DMAT;
 // 1057   }
 // 1058   else if(huart->State == HAL_UART_STATE_BUSY_RX)
-        LDRB     R1,[R0, #+105]
+        LDRSB    R1,[R0, #+105]
         CMP      R1,#+34
         BNE.N    ??HAL_UART_DMAResume_2
 // 1059   {
@@ -2203,7 +2204,7 @@ HAL_UART_DMAResume:
 // 1065   }
 // 1066   else if(huart->State == HAL_UART_STATE_BUSY_TX_RX)
 ??HAL_UART_DMAResume_2:
-        LDRB     R1,[R0, #+105]
+        LDRSB    R1,[R0, #+105]
         CMP      R1,#+50
         BNE.N    ??HAL_UART_DMAResume_4
 // 1067   {
@@ -2486,10 +2487,10 @@ HAL_UART_IRQHandler:
         BPL.N    ??HAL_UART_IRQHandler_6
 // 1186   {
 // 1187     UART_Transmit_IT(huart);
-        LDRB     R1,[R4, #+105]
+        LDRSB    R1,[R4, #+105]
         CMP      R1,#+18
         ITT      NE 
-        LDRBNE   R1,[R4, #+105]
+        LDRSBNE  R1,[R4, #+105]
         CMPNE    R1,#+50
         BNE.N    ??HAL_UART_IRQHandler_6
         LDRH     R1,[R4, #+82]
@@ -2499,7 +2500,7 @@ HAL_UART_IRQHandler:
         MVN      R6,#-33554432
         BIC      R1,R1,#0x80
         STR      R1,[R0, #+0]
-        LDRB     R0,[R4, #+105]
+        LDRSB    R0,[R4, #+105]
         CMP      R0,#+50
         ITE      EQ 
         MOVEQ    R0,#+34
@@ -2588,7 +2589,7 @@ HAL_UART_IRQHandler:
         LDR      R1,[R0, #+0]
         BIC      R1,R1,#0x40
         STR      R1,[R0, #+0]
-        LDRB     R0,[R4, #+105]
+        LDRSB    R0,[R4, #+105]
         CMP      R0,#+50
         ITE      EQ 
         MOVEQ    R0,#+34
@@ -2890,7 +2891,7 @@ UART_DMAReceiveCplt:
 // 1324     
 // 1325     /* Check if a transmit Process is ongoing or not */
 // 1326     if(huart->State == HAL_UART_STATE_BUSY_TX_RX) 
-        LDRB     R0,[R1, #+105]
+        LDRSB    R0,[R1, #+105]
         CMP      R0,#+50
         ITE      EQ 
         MOVEQ    R0,#+18
@@ -3220,10 +3221,10 @@ UART_Receive_IT:
         LDRH     R1,[R0, #+92]
 // 1540 
 // 1541   if((huart->State == HAL_UART_STATE_BUSY_RX) || (huart->State == HAL_UART_STATE_BUSY_TX_RX))
-        LDRB     R2,[R0, #+105]
+        LDRSB    R2,[R0, #+105]
         CMP      R2,#+34
         ITT      NE 
-        LDRBNE   R2,[R0, #+105]
+        LDRSBNE  R2,[R0, #+105]
         CMPNE    R2,#+50
         BNE.N    ??UART_Receive_IT_0
 // 1542   {
@@ -3278,7 +3279,7 @@ UART_Receive_IT:
 // 1558 
 // 1559       /* Check if a transmit Process is ongoing or not */
 // 1560       if(huart->State == HAL_UART_STATE_BUSY_TX_RX) 
-        LDRB     R1,[R0, #+105]
+        LDRSB    R1,[R0, #+105]
         CMP      R1,#+50
         IT       EQ 
         MOVEQ    R1,#+18
@@ -3380,7 +3381,7 @@ UART_Receive_IT:
 // 1624   /* Process Locked */
 // 1625   __HAL_LOCK(huart);
 HAL_MultiProcessor_EnableMuteMode:
-        LDRB     R1,[R0, #+104]
+        LDRSB    R1,[R0, #+104]
         CMP      R1,#+1
         BNE.N    ??HAL_MultiProcessor_EnableMuteMode_0
         MOVS     R0,#+2
@@ -3426,7 +3427,7 @@ HAL_MultiProcessor_EnableMuteMode:
 // 1645   /* Process Locked */
 // 1646   __HAL_LOCK(huart);
 HAL_MultiProcessor_DisableMuteMode:
-        LDRB     R1,[R0, #+104]
+        LDRSB    R1,[R0, #+104]
         CMP      R1,#+1
         BNE.N    ??HAL_MultiProcessor_DisableMuteMode_0
         MOVS     R0,#+2
@@ -3497,7 +3498,7 @@ HAL_MultiProcessor_EnterMuteMode:
 // 1677 {
 // 1678   return huart->State;
 HAL_UART_GetState:
-        LDRB     R0,[R0, #+105]
+        LDRSB    R0,[R0, #+105]
         BX       LR               ;; return
 // 1679 }
           CFI EndBlock cfiBlock32
@@ -4293,7 +4294,7 @@ UART_CheckIdleState:
 // 1926   /* Process Locked */
 // 1927   __HAL_LOCK(huart);
 HAL_HalfDuplex_EnableTransmitter:
-        LDRB     R1,[R0, #+104]
+        LDRSB    R1,[R0, #+104]
         CMP      R1,#+1
         BNE.N    ??HAL_HalfDuplex_EnableTransmitter_0
         MOVS     R0,#+2
@@ -4348,7 +4349,7 @@ HAL_HalfDuplex_EnableTransmitter:
 // 1949   /* Process Locked */
 // 1950   __HAL_LOCK(huart);
 HAL_HalfDuplex_EnableReceiver:
-        LDRB     R1,[R0, #+104]
+        LDRSB    R1,[R0, #+104]
         CMP      R1,#+1
         BNE.N    ??HAL_HalfDuplex_EnableReceiver_0
         MOVS     R0,#+2
@@ -4407,7 +4408,7 @@ HAL_HalfDuplex_EnableReceiver:
 // 1976   /* Process Locked */
 // 1977   __HAL_LOCK(huart);
 HAL_LIN_SendBreak:
-        LDRB     R1,[R0, #+104]
+        LDRSB    R1,[R0, #+104]
         CMP      R1,#+1
         BNE.N    ??HAL_LIN_SendBreak_0
         MOVS     R0,#+2

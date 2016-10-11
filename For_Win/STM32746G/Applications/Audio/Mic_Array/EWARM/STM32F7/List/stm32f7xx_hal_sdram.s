@@ -1,58 +1,59 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      15/May/2016  09:59:34
+// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      10/Oct/2016  13:58:59
 // Copyright 1999-2016 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_sdram.c
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_sdram.c
 //    Command line =  
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_sdram.c
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_sdram.c
 //        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 //        USE_IOEXPANDER -D USE_USB_FS -lC
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -lA
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
-//        --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e
+//        --char_is_signed --fpu=VFPv5_sp --dlib_config "C:\Program Files
+//        (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
 //        -Ohs --use_c++_inline --require_prototypes -I "C:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_sdram.s
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_sdram.s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -145,7 +146,7 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
         
-// D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_sdram.c
+// D:\sop1hc\Mic\Mic_Array\For_Window\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_sdram.c
 //    1 /**
 //    2   ******************************************************************************
 //    3   * @file    stm32f7xx_hal_sdram.c
@@ -310,7 +311,7 @@ HAL_SDRAM_Init:
 //  144   }
 //  145   
 //  146   if(hsdram->State == HAL_SDRAM_STATE_RESET)
-        LDRB     R0,[R4, #+44]
+        LDRSB    R0,[R4, #+44]
         CBNZ.N   R0,??HAL_SDRAM_Init_1
 //  147   {  
 //  148     /* Allocate lock resource and initialize it */
@@ -611,12 +612,12 @@ HAL_SDRAM_DMA_XferErrorCallback:
 //  321   /* Process Locked */
 //  322   __HAL_LOCK(hsdram);
 HAL_SDRAM_Read_8b:
-        LDRB     R12,[R0, #+45]
+        LDRSB    R12,[R0, #+45]
         CMP      R12,#+1
         ITTTT    NE 
         MOVNE    R12,#+1
         STRBNE   R12,[R0, #+45]
-        LDRBNE   R12,[R0, #+44]
+        LDRSBNE  R12,[R0, #+44]
         CMPNE    R12,#+2
 //  323   
 //  324   /* Check the SDRAM controller state */
@@ -629,7 +630,7 @@ HAL_SDRAM_Read_8b:
 //  328   }
 //  329   else if(hsdram->State == HAL_SDRAM_STATE_PRECHARGED)
 ??HAL_SDRAM_Read_8b_0:
-        LDRB     R12,[R0, #+44]
+        LDRSB    R12,[R0, #+44]
         CMP      R12,#+5
         BEQ.N    ??HAL_SDRAM_Read_8b_1
         CBZ.N    R3,??HAL_SDRAM_Read_8b_2
@@ -689,12 +690,12 @@ HAL_SDRAM_Read_8b:
 //  363   /* Process Locked */
 //  364   __HAL_LOCK(hsdram);
 HAL_SDRAM_Write_8b:
-        LDRB     R12,[R0, #+45]
+        LDRSB    R12,[R0, #+45]
         CMP      R12,#+1
         ITTTT    NE 
         MOVNE    R12,#+1
         STRBNE   R12,[R0, #+45]
-        LDRBNE   R12,[R0, #+44]
+        LDRSBNE  R12,[R0, #+44]
         CMPNE    R12,#+2
 //  365   
 //  366   /* Check the SDRAM controller state */
@@ -769,12 +770,12 @@ HAL_SDRAM_Write_8b:
 //  406   /* Process Locked */
 //  407   __HAL_LOCK(hsdram);
 HAL_SDRAM_Read_16b:
-        LDRB     R12,[R0, #+45]
+        LDRSB    R12,[R0, #+45]
         CMP      R12,#+1
         ITTTT    NE 
         MOVNE    R12,#+1
         STRBNE   R12,[R0, #+45]
-        LDRBNE   R12,[R0, #+44]
+        LDRSBNE  R12,[R0, #+44]
         CMPNE    R12,#+2
 //  408   
 //  409   /* Check the SDRAM controller state */
@@ -787,7 +788,7 @@ HAL_SDRAM_Read_16b:
 //  413   }
 //  414   else if(hsdram->State == HAL_SDRAM_STATE_PRECHARGED)
 ??HAL_SDRAM_Read_16b_0:
-        LDRB     R12,[R0, #+44]
+        LDRSB    R12,[R0, #+44]
         CMP      R12,#+5
         BEQ.N    ??HAL_SDRAM_Read_16b_1
         CBZ.N    R3,??HAL_SDRAM_Read_16b_2
@@ -846,12 +847,12 @@ HAL_SDRAM_Read_16b:
 //  447   /* Process Locked */
 //  448   __HAL_LOCK(hsdram);
 HAL_SDRAM_Write_16b:
-        LDRB     R12,[R0, #+45]
+        LDRSB    R12,[R0, #+45]
         CMP      R12,#+1
         ITTTT    NE 
         MOVNE    R12,#+1
         STRBNE   R12,[R0, #+45]
-        LDRBNE   R12,[R0, #+44]
+        LDRSBNE  R12,[R0, #+44]
         CMPNE    R12,#+2
 //  449   
 //  450   /* Check the SDRAM controller state */
@@ -925,12 +926,12 @@ HAL_SDRAM_Write_16b:
 //  489   /* Process Locked */
 //  490   __HAL_LOCK(hsdram);
 HAL_SDRAM_Read_32b:
-        LDRB     R12,[R0, #+45]
+        LDRSB    R12,[R0, #+45]
         CMP      R12,#+1
         ITTTT    NE 
         MOVNE    R12,#+1
         STRBNE   R12,[R0, #+45]
-        LDRBNE   R12,[R0, #+44]
+        LDRSBNE  R12,[R0, #+44]
         CMPNE    R12,#+2
 //  491   
 //  492   /* Check the SDRAM controller state */
@@ -943,7 +944,7 @@ HAL_SDRAM_Read_32b:
 //  496   }
 //  497   else if(hsdram->State == HAL_SDRAM_STATE_PRECHARGED)
 ??HAL_SDRAM_Read_32b_0:
-        LDRB     R12,[R0, #+44]
+        LDRSB    R12,[R0, #+44]
         CMP      R12,#+5
         BEQ.N    ??HAL_SDRAM_Read_32b_1
         CBZ.N    R3,??HAL_SDRAM_Read_32b_2
@@ -1002,12 +1003,12 @@ HAL_SDRAM_Read_32b:
 //  530   /* Process Locked */
 //  531   __HAL_LOCK(hsdram);
 HAL_SDRAM_Write_32b:
-        LDRB     R12,[R0, #+45]
+        LDRSB    R12,[R0, #+45]
         CMP      R12,#+1
         ITTTT    NE 
         MOVNE    R12,#+1
         STRBNE   R12,[R0, #+45]
-        LDRBNE   R12,[R0, #+44]
+        LDRSBNE  R12,[R0, #+44]
         CMPNE    R12,#+2
 //  532   
 //  533   /* Check the SDRAM controller state */
@@ -1088,12 +1089,12 @@ HAL_SDRAM_Read_DMA:
 //  571     
 //  572   /* Process Locked */
 //  573   __HAL_LOCK(hsdram);
-        LDRB     R0,[R4, #+45]
+        LDRSB    R0,[R4, #+45]
         CMP      R0,#+1
         ITTTT    NE 
         MOVNE    R0,#+1
         STRBNE   R0,[R4, #+45]
-        LDRBNE   R0,[R4, #+44]
+        LDRSBNE  R0,[R4, #+44]
         CMPNE    R0,#+2
 //  574   
 //  575   /* Check the SDRAM controller state */  
@@ -1175,12 +1176,12 @@ HAL_SDRAM_Write_DMA:
 //  612   
 //  613   /* Process Locked */
 //  614   __HAL_LOCK(hsdram);
-        LDRB     R2,[R4, #+45]
+        LDRSB    R2,[R4, #+45]
         CMP      R2,#+1
         ITTTT    NE 
         MOVNE    R2,#+1
         STRBNE   R2,[R4, #+45]
-        LDRBNE   R2,[R4, #+44]
+        LDRSBNE  R2,[R4, #+44]
         CMPNE    R2,#+2
 //  615   
 //  616   /* Check the SDRAM controller state */  
@@ -1285,7 +1286,7 @@ HAL_SDRAM_WriteProtection_Enable:
         MOV      R4,R0
 //  668   /* Check the SDRAM controller state */ 
 //  669   if(hsdram->State == HAL_SDRAM_STATE_BUSY)
-        LDRB     R0,[R4, #+44]
+        LDRSB    R0,[R4, #+44]
         CMP      R0,#+2
         BEQ.N    ??HAL_SDRAM_WriteProtection_Enable_0
 //  670   {
@@ -1337,7 +1338,7 @@ HAL_SDRAM_WriteProtection_Disable:
         MOV      R4,R0
 //  694   /* Check the SDRAM controller state */
 //  695   if(hsdram->State == HAL_SDRAM_STATE_BUSY)
-        LDRB     R0,[R4, #+44]
+        LDRSB    R0,[R4, #+44]
         CMP      R0,#+2
         BEQ.N    ??HAL_SDRAM_WriteProtection_Disable_0
 //  696   {
@@ -1395,7 +1396,7 @@ HAL_SDRAM_SendCommand:
         MOV      R5,R1
 //  722   /* Check the SDRAM controller state */
 //  723   if(hsdram->State == HAL_SDRAM_STATE_BUSY)
-        LDRB     R0,[R4, #+44]
+        LDRSB    R0,[R4, #+44]
         CMP      R0,#+2
         BEQ.N    ??HAL_SDRAM_SendCommand_0
 //  724   {
@@ -1460,7 +1461,7 @@ HAL_SDRAM_ProgramRefreshRate:
         MOV      R4,R0
 //  756   /* Check the SDRAM controller state */
 //  757   if(hsdram->State == HAL_SDRAM_STATE_BUSY)
-        LDRB     R0,[R4, #+44]
+        LDRSB    R0,[R4, #+44]
         CMP      R0,#+2
         BEQ.N    ??HAL_SDRAM_ProgramRefreshRate_0
 //  758   {
@@ -1512,7 +1513,7 @@ HAL_SDRAM_SetAutoRefreshNumber:
         MOV      R4,R0
 //  783   /* Check the SDRAM controller state */
 //  784   if(hsdram->State == HAL_SDRAM_STATE_BUSY)
-        LDRB     R0,[R4, #+44]
+        LDRSB    R0,[R4, #+44]
         CMP      R0,#+2
         BEQ.N    ??HAL_SDRAM_SetAutoRefreshNumber_0
 //  785   {
@@ -1600,7 +1601,7 @@ HAL_SDRAM_GetModeStatus:
 //  839 {
 //  840   return hsdram->State;
 HAL_SDRAM_GetState:
-        LDRB     R0,[R0, #+44]
+        LDRSB    R0,[R0, #+44]
         BX       LR               ;; return
 //  841 }
           CFI EndBlock cfiBlock22

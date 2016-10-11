@@ -1,58 +1,59 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      15/May/2016  09:59:30
+// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      10/Oct/2016  13:58:56
 // Copyright 1999-2016 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_i2s.c
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_i2s.c
 //    Command line =  
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_i2s.c
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_i2s.c
 //        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 //        USE_IOEXPANDER -D USE_USB_FS -lC
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -lA
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
-//        --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e
+//        --char_is_signed --fpu=VFPv5_sp --dlib_config "C:\Program Files
+//        (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
 //        -Ohs --use_c++_inline --require_prototypes -I "C:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_i2s.s
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_i2s.s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -136,7 +137,7 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
         
-// D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_i2s.c
+// D:\sop1hc\Mic\Mic_Array\For_Window\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_i2s.c
 //    1 /**
 //    2   ******************************************************************************
 //    3   * @file    stm32f7xx_hal_i2s.c
@@ -398,7 +399,7 @@ HAL_I2S_Init:
 //  236   
 //  237   if(hi2s->State == HAL_I2S_STATE_RESET)
 ??HAL_I2S_Init_0:
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         CBNZ.N   R0,??HAL_I2S_Init_1
 //  238   {
 //  239     /* Allocate lock resource and initialize it */
@@ -839,7 +840,7 @@ HAL_I2S_Transmit:
 //  472   }
 //  473   
 //  474   if(hi2s->State == HAL_I2S_STATE_READY)
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         CMP      R0,#+1
         BNE.W    ??HAL_I2S_Transmit_1
 //  475   { 
@@ -874,7 +875,7 @@ HAL_I2S_Transmit:
 //  488     /* Process Locked */
 //  489     __HAL_LOCK(hi2s);
 ??HAL_I2S_Transmit_3:
-        LDRB     R1,[R4, #+56]
+        LDRSB    R1,[R4, #+56]
         CMP      R1,#+1
         BEQ.N    ??HAL_I2S_Transmit_1
         MOVS     R1,#+1
@@ -1103,7 +1104,7 @@ HAL_I2S_Receive:
 //  579   }
 //  580   
 //  581   if(hi2s->State == HAL_I2S_STATE_READY)
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         CMP      R0,#+1
         BNE.N    ??HAL_I2S_Receive_1
 //  582   { 
@@ -1137,7 +1138,7 @@ HAL_I2S_Receive:
 //  594     /* Process Locked */
 //  595     __HAL_LOCK(hi2s);
 ??HAL_I2S_Receive_3:
-        LDRB     R1,[R4, #+56]
+        LDRSB    R1,[R4, #+56]
         CMP      R1,#+1
         BEQ.N    ??HAL_I2S_Receive_1
         MOVS     R1,#+1
@@ -1330,7 +1331,7 @@ HAL_I2S_Receive:
 //  675 {
 //  676   if(hi2s->State == HAL_I2S_STATE_READY)
 HAL_I2S_Transmit_IT:
-        LDRB     R3,[R0, #+57]
+        LDRSB    R3,[R0, #+57]
         CMP      R3,#+1
         BNE.N    ??HAL_I2S_Transmit_IT_0
 //  677   {
@@ -1373,7 +1374,7 @@ HAL_I2S_Transmit_IT:
 //  695     
 //  696     /* Process Locked */
 //  697     __HAL_LOCK(hi2s);
-        LDRB     R2,[R0, #+56]
+        LDRSB    R2,[R0, #+56]
         CMP      R2,#+1
         BEQ.N    ??HAL_I2S_Transmit_IT_0
         MOVS     R2,#+1
@@ -1452,7 +1453,7 @@ HAL_I2S_Transmit_IT:
 //  740 {
 //  741   if(hi2s->State == HAL_I2S_STATE_READY)
 HAL_I2S_Receive_IT:
-        LDRB     R3,[R0, #+57]
+        LDRSB    R3,[R0, #+57]
         CMP      R3,#+1
         BNE.N    ??HAL_I2S_Receive_IT_0
 //  742   {
@@ -1494,7 +1495,7 @@ HAL_I2S_Receive_IT:
 //  759     }
 //  760     /* Process Locked */
 //  761     __HAL_LOCK(hi2s);
-        LDRB     R2,[R0, #+56]
+        LDRSB    R2,[R0, #+56]
         CMP      R2,#+1
         BEQ.N    ??HAL_I2S_Receive_IT_0
         MOVS     R2,#+1
@@ -1589,7 +1590,7 @@ HAL_I2S_Transmit_DMA:
 //  809   
 //  810   if(hi2s->State == HAL_I2S_STATE_READY)
 ??HAL_I2S_Transmit_DMA_0:
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         CMP      R0,#+1
         BNE.N    ??HAL_I2S_Transmit_DMA_1
 //  811   {  
@@ -1626,7 +1627,7 @@ HAL_I2S_Transmit_DMA:
 //  825     /* Process Locked */
 //  826     __HAL_LOCK(hi2s);
 ??HAL_I2S_Transmit_DMA_3:
-        LDRB     R0,[R4, #+56]
+        LDRSB    R0,[R4, #+56]
         CMP      R0,#+1
         BEQ.N    ??HAL_I2S_Transmit_DMA_1
         MOVS     R0,#+1
@@ -1749,7 +1750,7 @@ HAL_I2S_Receive_DMA:
 //  886   } 
 //  887     
 //  888   if(hi2s->State == HAL_I2S_STATE_READY)
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         CMP      R0,#+1
         BNE.N    ??HAL_I2S_Receive_DMA_1
 //  889   {    
@@ -1785,7 +1786,7 @@ HAL_I2S_Receive_DMA:
 //  902     /* Process Locked */
 //  903     __HAL_LOCK(hi2s);
 ??HAL_I2S_Receive_DMA_3:
-        LDRB     R0,[R4, #+56]
+        LDRSB    R0,[R4, #+56]
         CMP      R0,#+1
         BEQ.N    ??HAL_I2S_Receive_DMA_1
         MOVS     R0,#+1
@@ -1910,7 +1911,7 @@ HAL_I2S_Receive_DMA:
 //  958   /* Process Locked */
 //  959   __HAL_LOCK(hi2s);
 HAL_I2S_DMAPause:
-        LDRB     R1,[R0, #+56]
+        LDRSB    R1,[R0, #+56]
         CMP      R1,#+1
         BNE.N    ??HAL_I2S_DMAPause_0
         MOVS     R0,#+2
@@ -1920,7 +1921,7 @@ HAL_I2S_DMAPause:
         STRB     R1,[R0, #+56]
 //  960 
 //  961   if(hi2s->State == HAL_I2S_STATE_BUSY_TX)
-        LDRB     R1,[R0, #+57]
+        LDRSB    R1,[R0, #+57]
         CMP      R1,#+3
         BNE.N    ??HAL_I2S_DMAPause_1
 //  962   {
@@ -1933,7 +1934,7 @@ HAL_I2S_DMAPause:
 //  965   }
 //  966   else if(hi2s->State == HAL_I2S_STATE_BUSY_RX)
 ??HAL_I2S_DMAPause_1:
-        LDRB     R1,[R0, #+57]
+        LDRSB    R1,[R0, #+57]
         CMP      R1,#+4
         BEQ.N    ??HAL_I2S_DMAPause_3
 //  967   {
@@ -1941,7 +1942,7 @@ HAL_I2S_DMAPause:
 //  969     hi2s->Instance->CR2 &= (uint32_t)(~SPI_CR2_RXDMAEN);
 //  970   }
 //  971   else if(hi2s->State == HAL_I2S_STATE_BUSY_TX_RX)
-        LDRB     R1,[R0, #+57]
+        LDRSB    R1,[R0, #+57]
         CMP      R1,#+5
         BNE.N    ??HAL_I2S_DMAPause_4
 //  972   {
@@ -2002,7 +2003,7 @@ HAL_I2S_DMAPause:
 //  999   /* Process Locked */
 // 1000   __HAL_LOCK(hi2s);
 HAL_I2S_DMAResume:
-        LDRB     R1,[R0, #+56]
+        LDRSB    R1,[R0, #+56]
         CMP      R1,#+1
         BNE.N    ??HAL_I2S_DMAResume_0
         MOVS     R0,#+2
@@ -2012,7 +2013,7 @@ HAL_I2S_DMAResume:
         STRB     R1,[R0, #+56]
 // 1001   
 // 1002   if(hi2s->State == HAL_I2S_STATE_BUSY_TX)
-        LDRB     R1,[R0, #+57]
+        LDRSB    R1,[R0, #+57]
         CMP      R1,#+3
         BNE.N    ??HAL_I2S_DMAResume_1
 // 1003   {
@@ -2025,7 +2026,7 @@ HAL_I2S_DMAResume:
 // 1006   }
 // 1007   else if(hi2s->State == HAL_I2S_STATE_BUSY_RX)
 ??HAL_I2S_DMAResume_1:
-        LDRB     R1,[R0, #+57]
+        LDRSB    R1,[R0, #+57]
         CMP      R1,#+4
         BNE.N    ??HAL_I2S_DMAResume_3
 // 1008   {
@@ -2086,7 +2087,7 @@ HAL_I2S_DMAStop:
         MOV      R4,R0
 // 1034   /* Process Locked */
 // 1035   __HAL_LOCK(hi2s);
-        LDRB     R0,[R4, #+56]
+        LDRSB    R0,[R4, #+56]
         CMP      R0,#+1
         BNE.N    ??HAL_I2S_DMAStop_0
         MOVS     R0,#+2
@@ -2193,7 +2194,7 @@ HAL_I2S_IRQHandler:
         STR      R1,[SP, #+0]
 // 1076 
 // 1077   if(hi2s->State == HAL_I2S_STATE_BUSY_RX)
-        LDRB     R1,[R4, #+57]
+        LDRSB    R1,[R4, #+57]
         CMP      R1,#+4
         BNE.N    ??HAL_I2S_IRQHandler_0
 // 1078   {  
@@ -2260,7 +2261,7 @@ HAL_I2S_IRQHandler:
 // 1098   }
 // 1099   else if(hi2s->State == HAL_I2S_STATE_BUSY_TX)
 ??HAL_I2S_IRQHandler_0:
-        LDRB     R1,[R4, #+57]
+        LDRSB    R1,[R4, #+57]
         CMP      R1,#+3
         BNE.N    ??HAL_I2S_IRQHandler_2
 // 1100   {  
@@ -2576,7 +2577,7 @@ HAL_I2S_ErrorCallback:
 // 1309 {
 // 1310   return hi2s->State;
 HAL_I2S_GetState:
-        LDRB     R0,[R0, #+57]
+        LDRSB    R0,[R0, #+57]
         BX       LR               ;; return
 // 1311 }
           CFI EndBlock cfiBlock19
@@ -2708,7 +2709,7 @@ I2S_DMATxCplt:
         STR      R2,[R0, #+4]
 // 1406     
 // 1407     if(hi2s->State == HAL_I2S_STATE_BUSY_TX_RX)
-        LDRB     R0,[R1, #+57]
+        LDRSB    R0,[R1, #+57]
         CMP      R0,#+5
         BNE.N    ??I2S_DMATxCplt_1
 // 1408     {
@@ -2809,7 +2810,7 @@ I2S_DMARxCplt:
         MOVS     R0,#+0
         STRH     R0,[R1, #+46]
 // 1451     if(hi2s->State == HAL_I2S_STATE_BUSY_TX_RX)
-        LDRB     R0,[R1, #+57]
+        LDRSB    R0,[R1, #+57]
         CMP      R0,#+5
         BNE.N    ??I2S_DMARxCplt_1
 // 1452     {

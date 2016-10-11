@@ -1,58 +1,59 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      15/May/2016  09:59:42
+// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      10/Oct/2016  13:59:07
 // Copyright 1999-2016 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src\usbh_msc.c
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src\usbh_msc.c
 //    Command line =  
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src\usbh_msc.c
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src\usbh_msc.c
 //        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 //        USE_IOEXPANDER -D USE_USB_FS -lC
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -lA
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
-//        --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e
+//        --char_is_signed --fpu=VFPv5_sp --dlib_config "C:\Program Files
+//        (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
 //        -Ohs --use_c++_inline --require_prototypes -I "C:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\usbh_msc.s
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\usbh_msc.s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -142,7 +143,7 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
         
-// D:\sop1hc\Mic\Mic_Array\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src\usbh_msc.c
+// D:\sop1hc\Mic\Mic_Array\For_Window\Middlewares\ST\STM32_USB_Host_Library\Class\MSC\Src\usbh_msc.c
 //    1 /**
 //    2   ******************************************************************************
 //    3   * @file    usbh_msc.c
@@ -638,7 +639,7 @@ USBH_MSC_ClassRequest:
 //  274   
 //  275   /* Switch MSC REQ state machine */
 //  276   switch (MSC_Handle->req_state)
-        LDRB     R1,[R4, #+14]
+        LDRSB    R1,[R4, #+14]
         CMP      R1,#+3
         BHI.N    ??USBH_MSC_ClassRequest_1
         TBB      [PC, R1]
@@ -765,29 +766,30 @@ USBH_MSC_ClassRequest:
 //  325 static USBH_StatusTypeDef USBH_MSC_Process(USBH_HandleTypeDef *phost)
 //  326 {
 USBH_MSC_Process:
-        PUSH     {R4-R8,LR}
+        PUSH     {R4-R7,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R8 Frame(CFA, -8)
-          CFI R7 Frame(CFA, -12)
-          CFI R6 Frame(CFA, -16)
-          CFI R5 Frame(CFA, -20)
-          CFI R4 Frame(CFA, -24)
-          CFI CFA R13+24
+          CFI R7 Frame(CFA, -8)
+          CFI R6 Frame(CFA, -12)
+          CFI R5 Frame(CFA, -16)
+          CFI R4 Frame(CFA, -20)
+          CFI CFA R13+20
         MOV      R7,R0
+        SUB      SP,SP,#+4
+          CFI CFA R13+24
 //  327   MSC_HandleTypeDef *MSC_Handle =  (MSC_HandleTypeDef *) phost->pActiveClass->pData;
 //  328   USBH_StatusTypeDef error = USBH_BUSY ;
-        MOVS     R4,#+1
+        MOVS     R5,#+1
         LDR      R0,[R7, #+612]
-        LDR      R5,[R0, #+28]
+        LDR      R4,[R0, #+28]
 //  329   USBH_StatusTypeDef scsi_status = USBH_BUSY ;  
 //  330   USBH_StatusTypeDef ready_status = USBH_BUSY ;
 //  331   
 //  332   switch (MSC_Handle->state)
-        LDRB     R0,[R5, #+12]
+        LDRSB    R0,[R4, #+12]
         CBZ.N    R0,??USBH_MSC_Process_1
         CMP      R0,#+1
         IT       EQ 
-        MOVEQ    R4,#+0
+        MOVEQ    R5,#+0
 //  333   {
 //  334   case MSC_INIT:
 //  335     
@@ -957,27 +959,30 @@ USBH_MSC_Process:
 //  499     break; 
 //  500   }
 //  501   return error;
-        MOV      R0,R4
-        POP      {R4-R8,PC}
+        MOV      R0,R5
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
 ??USBH_MSC_Process_1:
-        LDRH     R0,[R5, #+248]
-        LDR      R1,[R5, #+0]
+        LDRH     R0,[R4, #+248]
+        LDR      R1,[R4, #+0]
         CMP      R0,R1
         BCS.W    ??USBH_MSC_Process_2
-        MOV      R8,#+52
-        MLA      R0,R8,R0,R5
-        STRB     R4,[R0, #+145]
-        LDRH     R1,[R5, #+248]
-        MLA      R0,R8,R1,R5
-        LDRB     R2,[R0, #+144]
+        MOVS     R6,#+52
+        MLA      R0,R6,R0,R4
+        STRB     R5,[R0, #+145]
+        LDRH     R1,[R4, #+248]
+        MLA      R0,R6,R1,R4
+        LDRSB    R2,[R0, #+144]
         CMP      R2,#+8
         BHI.W    ??USBH_MSC_Process_3
         TBH      [PC, R2, LSL #+1]
         DATA
 ??USBH_MSC_Process_0:
-        DC16     0x9,0x18F,0x5A,0xB9
-        DC16     0x1B,0x111,0x18F,0x18F
-        DC16     0x180
+        DC16     0x9,0x194,0x5A,0xBB
+        DC16     0x1B,0x113,0x194,0x194
+        DC16     0x185
         THUMB
 ??USBH_MSC_Process_4:
         ADR.W    R0,?_3
@@ -986,25 +991,25 @@ USBH_MSC_Process:
         ADR.N    R0,??DataTable16  ;; "\n"
           CFI FunCall printf
         BL       printf
-        LDRH     R0,[R5, #+248]
+        LDRH     R0,[R4, #+248]
         MOVS     R1,#+4
-        MLA      R0,R8,R0,R5
+        MLA      R0,R6,R0,R4
         STRB     R1,[R0, #+144]
         LDR      R0,[R7, #+680]
-        STR      R0,[R5, #+252]
+        STR      R0,[R4, #+252]
 ??USBH_MSC_Process_5:
-        LDRH     R1,[R5, #+248]
-        MLA      R0,R8,R1,R5
+        LDRH     R1,[R4, #+248]
+        MLA      R0,R6,R1,R4
         UXTB     R1,R1
         ADD      R2,R0,#+159
         MOV      R0,R7
           CFI FunCall USBH_MSC_SCSI_Inquiry
         BL       USBH_MSC_SCSI_Inquiry
-        MOVS     R6,R0
+        CMP      R0,#+0
         BNE.W    ??USBH_MSC_Process_6
-        LDRH     R0,[R5, #+248]
+        LDRH     R0,[R4, #+248]
         ADR.N    R7,??DataTable16  ;; "\n"
-        MLA      R0,R8,R0,R5
+        MLA      R0,R6,R0,R4
         ADD      R1,R0,#+162
         ADR.W    R0,?_4
           CFI FunCall printf
@@ -1012,8 +1017,8 @@ USBH_MSC_Process:
         MOV      R0,R7
           CFI FunCall printf
         BL       printf
-        LDRH     R0,[R5, #+248]
-        MLA      R0,R8,R0,R5
+        LDRH     R0,[R4, #+248]
+        MLA      R0,R6,R0,R4
         ADD      R1,R0,#+171
         ADR.W    R0,?_5
           CFI FunCall printf
@@ -1021,8 +1026,8 @@ USBH_MSC_Process:
         MOV      R0,R7
           CFI FunCall printf
         BL       printf
-        LDRH     R0,[R5, #+248]
-        MLA      R0,R8,R0,R5
+        LDRH     R0,[R4, #+248]
+        MLA      R0,R6,R0,R4
         ADD      R1,R0,#+188
         ADR.W    R0,?_6
           CFI FunCall printf
@@ -1030,24 +1035,26 @@ USBH_MSC_Process:
         MOV      R0,R7
           CFI FunCall printf
         BL       printf
-        LDRH     R0,[R5, #+248]
+        LDRH     R0,[R4, #+248]
         MOVS     R1,#+2
-        MLA      R0,R8,R0,R5
+        MLA      R0,R6,R0,R4
         STRB     R1,[R0, #+144]
-        MOV      R0,R4
-        POP      {R4-R8,PC}
+        MOV      R0,R5
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
 ??USBH_MSC_Process_7:
         UXTB     R1,R1
         MOV      R0,R7
           CFI FunCall USBH_MSC_SCSI_TestUnitReady
         BL       USBH_MSC_SCSI_TestUnitReady
-        MOVS     R7,R0
-        BNE.N    ??USBH_MSC_Process_8
-        LDRH     R0,[R5, #+248]
-        MLA      R0,R8,R0,R5
-        LDRB     R1,[R0, #+146]
+        CBNZ.N   R0,??USBH_MSC_Process_8
+        LDRH     R0,[R4, #+248]
+        MLA      R0,R6,R0,R4
+        LDRSB    R1,[R0, #+146]
         CBZ.N    R1,??USBH_MSC_Process_9
-        STRB     R4,[R0, #+193]
+        STRB     R5,[R0, #+193]
         ADR.W    R0,?_7
           CFI FunCall printf
         BL       printf
@@ -1058,26 +1065,31 @@ USBH_MSC_Process:
 ??USBH_MSC_Process_9:
         STRB     R1,[R0, #+193]
 ??USBH_MSC_Process_10:
-        LDRH     R0,[R5, #+248]
+        LDRH     R0,[R4, #+248]
         MOVS     R1,#+3
-        MLA      R0,R8,R0,R5
+        MLA      R0,R6,R0,R4
         STRB     R1,[R0, #+144]
-        LDRH     R0,[R5, #+248]
+        LDRH     R0,[R4, #+248]
         MOVS     R1,#+0
-        MLA      R0,R8,R0,R5
+        MLA      R0,R6,R0,R4
         STRB     R1,[R0, #+145]
-        LDRH     R0,[R5, #+248]
-        MLA      R0,R8,R0,R5
+        LDRH     R0,[R4, #+248]
+        MLA      R0,R6,R0,R4
         STRB     R1,[R0, #+146]
+        MOV      R0,R5
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
 ??USBH_MSC_Process_8:
-        CMP      R7,#+2
+        CMP      R0,#+2
         BNE.N    ??USBH_MSC_Process_11
-        LDRH     R0,[R5, #+248]
-        MLA      R0,R8,R0,R5
-        LDRB     R1,[R0, #+146]
+        LDRH     R0,[R4, #+248]
+        MLA      R0,R6,R0,R4
+        LDRSB    R1,[R0, #+146]
         CMP      R1,#+2
         BEQ.N    ??USBH_MSC_Process_12
-        STRB     R4,[R0, #+193]
+        STRB     R5,[R0, #+193]
         ADR.W    R0,?_8
           CFI FunCall printf
         BL       printf
@@ -1089,21 +1101,24 @@ USBH_MSC_Process:
         MOVS     R1,#+0
         STRB     R1,[R0, #+193]
 ??USBH_MSC_Process_13:
-        LDRH     R0,[R5, #+248]
+        LDRH     R0,[R4, #+248]
         MOVS     R1,#+5
-        MLA      R0,R8,R0,R5
+        MLA      R0,R6,R0,R4
         STRB     R1,[R0, #+144]
-        LDRH     R0,[R5, #+248]
+        LDRH     R0,[R4, #+248]
         MOVS     R1,#+2
-        MLA      R0,R8,R0,R5
-        STRB     R4,[R0, #+145]
-        LDRH     R0,[R5, #+248]
-        MLA      R0,R8,R0,R5
+        MLA      R0,R6,R0,R4
+        STRB     R5,[R0, #+145]
+        LDRH     R0,[R4, #+248]
+        MLA      R0,R6,R0,R4
         STRB     R1,[R0, #+146]
-        MOV      R0,R4
-        POP      {R4-R8,PC}
+        MOV      R0,R5
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
 ??USBH_MSC_Process_11:
-        CMP      R7,#+4
+        CMP      R0,#+4
         BNE.W    ??USBH_MSC_Process_3
         B.N      ??USBH_MSC_Process_14
 ??USBH_MSC_Process_15:
@@ -1112,10 +1127,10 @@ USBH_MSC_Process:
         MOV      R0,R7
           CFI FunCall USBH_MSC_SCSI_ReadCapacity
         BL       USBH_MSC_SCSI_ReadCapacity
-        MOVS     R6,R0
+        CMP      R0,#+0
         BNE.N    ??USBH_MSC_Process_6
-        LDRH     R0,[R5, #+248]
-        MLA      R0,R8,R0,R5
+        LDRH     R0,[R4, #+248]
+        MLA      R0,R6,R0,R4
         LDRB     R1,[R0, #+193]
         CMP      R1,#+1
         BNE.N    ??USBH_MSC_Process_16
@@ -1129,8 +1144,8 @@ USBH_MSC_Process:
         MOV      R0,R7
           CFI FunCall printf
         BL       printf
-        LDRH     R0,[R5, #+248]
-        MLA      R0,R8,R0,R5
+        LDRH     R0,[R4, #+248]
+        MLA      R0,R6,R0,R4
         LDR      R1,[R0, #+148]
         ADR.W    R0,?_10
           CFI FunCall printf
@@ -1138,8 +1153,8 @@ USBH_MSC_Process:
         MOV      R0,R7
           CFI FunCall printf
         BL       printf
-        LDRH     R0,[R5, #+248]
-        MLA      R0,R8,R0,R5
+        LDRH     R0,[R4, #+248]
+        MLA      R0,R6,R0,R4
         LDRH     R1,[R0, #+152]
         ADR.W    R0,?_11
           CFI FunCall printf
@@ -1148,44 +1163,50 @@ USBH_MSC_Process:
           CFI FunCall printf
         BL       printf
 ??USBH_MSC_Process_16:
-        LDRH     R0,[R5, #+248]
+        LDRH     R0,[R4, #+248]
         MOVS     R1,#+0
-        MLA      R0,R8,R0,R5
-        STRB     R4,[R0, #+144]
-        LDRH     R0,[R5, #+248]
-        MLA      R0,R8,R0,R5
+        MLA      R0,R6,R0,R4
+        STRB     R5,[R0, #+144]
+        LDRH     R0,[R4, #+248]
+        MLA      R0,R6,R0,R4
         STRB     R1,[R0, #+145]
-        LDRH     R0,[R5, #+248]
+        LDRH     R0,[R4, #+248]
         ADDS     R0,R0,#+1
-        STRH     R0,[R5, #+248]
-        MOV      R0,R4
-        POP      {R4-R8,PC}
+        STRH     R0,[R4, #+248]
+        MOV      R0,R5
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
 ??USBH_MSC_Process_6:
-        CMP      R6,#+2
+        CMP      R0,#+2
         BNE.N    ??USBH_MSC_Process_17
-        LDRH     R0,[R5, #+248]
+        LDRH     R0,[R4, #+248]
         MOVS     R1,#+5
-        MLA      R0,R8,R0,R5
+        MLA      R0,R6,R0,R4
         STRB     R1,[R0, #+144]
-        MOV      R0,R4
-        POP      {R4-R8,PC}
+        MOV      R0,R5
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
 ??USBH_MSC_Process_18:
         ADD      R2,R0,#+156
         UXTB     R1,R1
         MOV      R0,R7
           CFI FunCall USBH_MSC_SCSI_RequestSense
         BL       USBH_MSC_SCSI_RequestSense
-        MOVS     R6,R0
+        CMP      R0,#+0
         BNE.N    ??USBH_MSC_Process_19
-        LDRH     R0,[R5, #+248]
-        MLA      R0,R8,R0,R5
+        LDRH     R0,[R4, #+248]
+        MLA      R0,R6,R0,R4
         LDRB     R1,[R0, #+156]
         CMP      R1,#+6
         IT       NE 
         CMPNE    R1,#+2
         BNE.N    ??USBH_MSC_Process_20
         LDR      R2,[R7, #+680]
-        LDR      R3,[R5, #+252]
+        LDR      R3,[R4, #+252]
         SUBS     R2,R2,R3
         MOVW     R3,#+10001
         CMP      R2,R3
@@ -1200,8 +1221,8 @@ USBH_MSC_Process:
         MOV      R0,R7
           CFI FunCall printf
         BL       printf
-        LDRH     R0,[R5, #+248]
-        MLA      R0,R8,R0,R5
+        LDRH     R0,[R4, #+248]
+        MLA      R0,R6,R0,R4
         LDRB     R1,[R0, #+157]
         ADR.W    R0,?_13
           CFI FunCall printf
@@ -1209,8 +1230,8 @@ USBH_MSC_Process:
         MOV      R0,R7
           CFI FunCall printf
         BL       printf
-        LDRH     R0,[R5, #+248]
-        MLA      R0,R8,R0,R5
+        LDRH     R0,[R4, #+248]
+        MLA      R0,R6,R0,R4
         LDRB     R1,[R0, #+158]
         ADR.W    R0,?_14
           CFI FunCall printf
@@ -1218,14 +1239,19 @@ USBH_MSC_Process:
         MOV      R0,R7
           CFI FunCall printf
         BL       printf
-        LDRH     R0,[R5, #+248]
-        MLA      R0,R8,R0,R5
-        STRB     R4,[R0, #+144]
-        LDRH     R0,[R5, #+248]
+        LDRH     R0,[R4, #+248]
+        MLA      R0,R6,R0,R4
+        STRB     R5,[R0, #+144]
+        LDRH     R0,[R4, #+248]
         ADDS     R0,R0,#+1
-        STRH     R0,[R5, #+248]
+        STRH     R0,[R4, #+248]
+        MOV      R0,R5
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
 ??USBH_MSC_Process_19:
-        CMP      R6,#+2
+        CMP      R0,#+2
         BNE.N    ??USBH_MSC_Process_17
         ADR.W    R0,?_8
           CFI FunCall printf
@@ -1233,43 +1259,54 @@ USBH_MSC_Process:
         ADR.N    R0,??DataTable16  ;; "\n"
           CFI FunCall printf
         BL       printf
-        LDRH     R0,[R5, #+248]
+        LDRH     R0,[R4, #+248]
         MOVS     R1,#+8
-        MLA      R0,R8,R0,R5
+        MLA      R0,R6,R0,R4
 ??USBH_MSC_Process_21:
         STRB     R1,[R0, #+144]
-        MOV      R0,R4
-        POP      {R4-R8,PC}
+        MOV      R0,R5
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
 ??USBH_MSC_Process_17:
-        CMP      R6,#+4
+        CMP      R0,#+4
         BNE.N    ??USBH_MSC_Process_3
 ??USBH_MSC_Process_14:
-        LDRH     R0,[R5, #+248]
+        LDRH     R0,[R4, #+248]
         MOVS     R1,#+2
-        MLA      R0,R8,R0,R5
-        STRB     R4,[R0, #+144]
-        LDRH     R0,[R5, #+248]
-        MLA      R0,R8,R0,R5
+        MLA      R0,R6,R0,R4
+        STRB     R5,[R0, #+144]
+        LDRH     R0,[R4, #+248]
+        MLA      R0,R6,R0,R4
         STRB     R1,[R0, #+145]
-        MOV      R0,R4
-        POP      {R4-R8,PC}
+        MOV      R0,R5
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
 ??USBH_MSC_Process_22:
         ADDS     R0,R1,#+1
-        STRH     R0,[R5, #+248]
-        MOV      R0,R4
-        POP      {R4-R8,PC}
+        STRH     R0,[R4, #+248]
+        MOV      R0,R5
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}
+          CFI CFA R13+24
 ??USBH_MSC_Process_2:
         MOVS     R0,#+0
-        STRB     R4,[R5, #+12]
-        STRH     R0,[R5, #+248]
+        STRB     R5,[R4, #+12]
+        STRH     R0,[R4, #+248]
         LDR      R2,[R7, #+692]
         MOVS     R1,#+2
         MOV      R0,R7
           CFI FunCall
         BLX      R2
 ??USBH_MSC_Process_3:
-        MOV      R0,R4
-        POP      {R4-R8,PC}       ;; return
+        MOV      R0,R5
+        ADD      SP,SP,#+4
+          CFI CFA R13+20
+        POP      {R4-R7,PC}       ;; return
 //  502 }
           CFI EndBlock cfiBlock3
 
@@ -1316,14 +1353,13 @@ USBH_MSC_SOFProcess:
 //  523 static USBH_StatusTypeDef USBH_MSC_RdWrProcess(USBH_HandleTypeDef *phost, uint8_t lun)
 //  524 {
 USBH_MSC_RdWrProcess:
-        PUSH     {R4-R6,LR}
+        PUSH     {R4,R5,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R6 Frame(CFA, -8)
-          CFI R5 Frame(CFA, -12)
-          CFI R4 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -8)
+          CFI R4 Frame(CFA, -12)
+          CFI CFA R13+12
+        SUB      SP,SP,#+4
           CFI CFA R13+16
-        SUB      SP,SP,#+8
-          CFI CFA R13+24
 //  525   MSC_HandleTypeDef *MSC_Handle =  (MSC_HandleTypeDef *) phost->pActiveClass->pData;
         LDR      R2,[R0, #+612]
 //  526   USBH_StatusTypeDef error = USBH_BUSY ;
@@ -1335,7 +1371,7 @@ USBH_MSC_RdWrProcess:
         MOVS     R4,#+1
         LDR      R2,[R2, #+28]
         SMLABB   R5,R3,R1,R2
-        LDRB     R2,[R5, #+144]
+        LDRSB    R2,[R5, #+144]
         CMP      R2,#+5
         BEQ.N    ??USBH_MSC_RdWrProcess_0
         BCC.N    ??USBH_MSC_RdWrProcess_1
@@ -1351,10 +1387,9 @@ USBH_MSC_RdWrProcess:
         STR      R2,[SP, #+0]
           CFI FunCall USBH_MSC_SCSI_Read
         BL       USBH_MSC_SCSI_Read
-        MOVS     R6,R0
 //  535     
 //  536     if(scsi_status == USBH_OK)
-        BEQ.N    ??USBH_MSC_RdWrProcess_3
+        CBZ.N    R0,??USBH_MSC_RdWrProcess_3
 //  537     {
 //  538       MSC_Handle->unit[lun].state = MSC_IDLE;
 //  539       error = USBH_OK;     
@@ -1383,7 +1418,7 @@ USBH_MSC_RdWrProcess:
 //  562     }
 //  563     else if( scsi_status == USBH_FAIL)
 ??USBH_MSC_RdWrProcess_4:
-        CMP      R6,#+2
+        CMP      R0,#+2
         BNE.N    ??USBH_MSC_RdWrProcess_5
 //  564     {
 //  565       MSC_Handle->unit[lun].state = MSC_REQUEST_SENSE;  
@@ -1433,32 +1468,31 @@ USBH_MSC_RdWrProcess:
 //  607   }
 //  608   return error;
         MOV      R0,R4
-        ADD      SP,SP,#+8
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
           CFI CFA R13+16
-        POP      {R4-R6,PC}
-          CFI CFA R13+24
 ??USBH_MSC_RdWrProcess_2:
         MOVS     R2,#+0
         MOVS     R3,#+0
         STR      R2,[SP, #+0]
           CFI FunCall USBH_MSC_SCSI_Write
         BL       USBH_MSC_SCSI_Write
-        MOVS     R6,R0
+        CMP      R0,#+0
         BNE.N    ??USBH_MSC_RdWrProcess_4
 ??USBH_MSC_RdWrProcess_3:
         STRB     R4,[R5, #+144]
         MOVS     R4,#+0
         MOV      R0,R4
-        ADD      SP,SP,#+8
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
           CFI CFA R13+16
-        POP      {R4-R6,PC}
-          CFI CFA R13+24
 ??USBH_MSC_RdWrProcess_0:
         ADD      R2,R5,#+156
           CFI FunCall USBH_MSC_SCSI_RequestSense
         BL       USBH_MSC_SCSI_RequestSense
-        MOVS     R6,R0
-        BNE.N    ??USBH_MSC_RdWrProcess_6
+        CBNZ.N   R0,??USBH_MSC_RdWrProcess_6
         LDRB     R1,[R5, #+156]
         ADR.W    R0,?_12
         ADR.N    R4,??DataTable17  ;; "\n"
@@ -1486,8 +1520,13 @@ USBH_MSC_RdWrProcess:
         STRB     R0,[R5, #+144]
         MOVS     R0,#+2
         STRB     R0,[R5, #+145]
+        MOV      R0,R4
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
+          CFI CFA R13+16
 ??USBH_MSC_RdWrProcess_6:
-        CMP      R6,#+2
+        CMP      R0,#+2
         BNE.N    ??USBH_MSC_RdWrProcess_5
         ADR.W    R0,?_8
           CFI FunCall printf
@@ -1496,21 +1535,21 @@ USBH_MSC_RdWrProcess:
           CFI FunCall printf
         BL       printf
         MOV      R0,R4
-        ADD      SP,SP,#+8
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}
           CFI CFA R13+16
-        POP      {R4-R6,PC}
-          CFI CFA R13+24
 ??USBH_MSC_RdWrProcess_5:
-        CMP      R6,#+4
+        CMP      R0,#+4
         BNE.N    ??USBH_MSC_RdWrProcess_1
         MOVS     R0,#+8
         MOVS     R4,#+2
         STRB     R0,[R5, #+144]
 ??USBH_MSC_RdWrProcess_1:
         MOV      R0,R4
-        ADD      SP,SP,#+8
-          CFI CFA R13+16
-        POP      {R4-R6,PC}       ;; return
+        ADD      SP,SP,#+4
+          CFI CFA R13+12
+        POP      {R4,R5,PC}       ;; return
 //  609 }
           CFI EndBlock cfiBlock5
 
@@ -1538,12 +1577,12 @@ USBH_MSC_RdWrProcess:
 //  620     
 //  621   if(phost->gState == HOST_CLASS)
 USBH_MSC_IsReady:
-        LDRB     R1,[R0, #+0]
+        LDRSB    R1,[R0, #+0]
         CMP      R1,#+10
         ITTTT    EQ 
         LDREQ    R0,[R0, #+612]
         LDREQ    R0,[R0, #+28]
-        LDRBEQ   R0,[R0, #+12]
+        LDRSBEQ  R0,[R0, #+12]
         CMPEQ    R0,#+1
 //  622   {
 //  623     return (MSC_Handle->state == MSC_IDLE);
@@ -1578,10 +1617,10 @@ USBH_MSC_GetMaxLUN:
         LDR      R1,[R1, #+28]
 //  640   
 //  641   if ((phost->gState == HOST_CLASS) && (MSC_Handle->state == MSC_IDLE))
-        LDRB     R0,[R0, #+0]
+        LDRSB    R0,[R0, #+0]
         CMP      R0,#+10
         ITT      EQ 
-        LDRBEQ   R0,[R1, #+12]
+        LDRSBEQ  R0,[R1, #+12]
         CMPEQ    R0,#+1
         ITTE     EQ 
         LDREQ    R0,[R1, #+0]
@@ -1614,7 +1653,7 @@ USBH_MSC_GetMaxLUN:
 //  658   
 //  659   if(phost->gState == HOST_CLASS)
 USBH_MSC_UnitIsReady:
-        LDRB     R2,[R0, #+0]
+        LDRSB    R2,[R0, #+0]
         CMP      R2,#+10
         BNE.N    ??USBH_MSC_UnitIsReady_0
 //  660   {
@@ -1623,7 +1662,7 @@ USBH_MSC_UnitIsReady:
         MOVS     R2,#+52
         LDR      R0,[R0, #+28]
         SMLABB   R0,R2,R1,R0
-        LDRB     R1,[R0, #+145]
+        LDRSB    R1,[R0, #+145]
         SUBS     R0,R1,#+1
         SBCS     R0,R0,R0
         LSRS     R0,R0,#+31
@@ -1663,7 +1702,7 @@ USBH_MSC_GetLUNInfo:
         MOV      R0,R2
 //  678   MSC_HandleTypeDef *MSC_Handle =  (MSC_HandleTypeDef *) phost->pActiveClass->pData;    
 //  679   if(phost->gState == HOST_CLASS)
-        LDRB     R2,[R3, #+0]
+        LDRSB    R2,[R3, #+0]
         CMP      R2,#+10
         BNE.N    ??USBH_MSC_GetLUNInfo_0
 //  680   {
@@ -1738,12 +1777,12 @@ USBH_MSC_Read:
 //  711       (MSC_Handle->unit[lun].state != MSC_IDLE))
         LDRB     R0,[R4, #+542]
         CBZ.N    R0,??USBH_MSC_Read_0
-        LDRB     R0,[R4, #+0]
+        LDRSB    R0,[R4, #+0]
         CMP      R0,#+10
         ITTTT    EQ 
         MOVEQ    R0,#+52
         SMLABBEQ R0,R0,R8,R6
-        LDRBEQ   R1,[R0, #+144]
+        LDRSBEQ  R1,[R0, #+144]
         CMPEQ    R1,#+1
         BNE.N    ??USBH_MSC_Read_0
 //  712   {
@@ -1860,12 +1899,12 @@ USBH_MSC_Write:
 //  759       (MSC_Handle->unit[lun].state != MSC_IDLE))
         LDRB     R0,[R4, #+542]
         CBZ.N    R0,??USBH_MSC_Write_0
-        LDRB     R0,[R4, #+0]
+        LDRSB    R0,[R4, #+0]
         CMP      R0,#+10
         ITTTT    EQ 
         MOVEQ    R0,#+52
         SMLABBEQ R0,R0,R8,R6
-        LDRBEQ   R1,[R0, #+144]
+        LDRSBEQ  R1,[R0, #+144]
         CMPEQ    R1,#+1
         BNE.N    ??USBH_MSC_Write_0
 //  760   {
@@ -2072,9 +2111,9 @@ USBH_MSC_Write:
 // 
 //    32 bytes in section .data
 //     6 bytes in section .rodata
-// 2 338 bytes in section .text
+// 2 368 bytes in section .text
 // 
-// 2 338 bytes of CODE  memory
+// 2 368 bytes of CODE  memory
 //     6 bytes of CONST memory
 //    32 bytes of DATA  memory
 //

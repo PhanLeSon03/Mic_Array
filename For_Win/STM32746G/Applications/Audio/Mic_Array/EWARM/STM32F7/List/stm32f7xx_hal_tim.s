@@ -1,58 +1,59 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      15/May/2016  09:59:36
+// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      10/Oct/2016  13:59:01
 // Copyright 1999-2016 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_tim.c
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_tim.c
 //    Command line =  
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_tim.c
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_tim.c
 //        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 //        USE_IOEXPANDER -D USE_USB_FS -lC
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -lA
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
-//        --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e
+//        --char_is_signed --fpu=VFPv5_sp --dlib_config "C:\Program Files
+//        (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
 //        -Ohs --use_c++_inline --require_prototypes -I "C:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_tim.s
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_tim.s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -214,7 +215,7 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
         
-// D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_tim.c
+// D:\sop1hc\Mic\Mic_Array\For_Window\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_tim.c
 //    1 /**
 //    2   ******************************************************************************
 //    3   * @file    stm32f7xx_hal_tim.c
@@ -446,7 +447,7 @@ HAL_TIM_Base_Init:
 //  212   assert_param(IS_TIM_CLOCKDIVISION_DIV(htim->Init.ClockDivision));
 //  213   
 //  214   if(htim->State == HAL_TIM_STATE_RESET)
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         CBNZ.N   R0,??HAL_TIM_Base_Init_1
 //  215   {  
 //  216     /* Init the low level hardware : GPIO, CLOCK, NVIC */
@@ -871,14 +872,14 @@ HAL_TIM_Base_Start_DMA:
 //  392   assert_param(IS_TIM_DMA_INSTANCE(htim->Instance)); 
 //  393   
 //  394   if((htim->State == HAL_TIM_STATE_BUSY))
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         CMP      R0,#+2
         BEQ.N    ??HAL_TIM_Base_Start_DMA_0
 //  395   {
 //  396      return HAL_BUSY;
 //  397   }
 //  398   else if((htim->State == HAL_TIM_STATE_READY))
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         CMP      R0,#+1
         BNE.N    ??HAL_TIM_Base_Start_DMA_1
 //  399   {
@@ -1057,7 +1058,7 @@ HAL_TIM_OC_Init:
 //  495   assert_param(IS_TIM_CLOCKDIVISION_DIV(htim->Init.ClockDivision));
 //  496  
 //  497   if(htim->State == HAL_TIM_STATE_RESET)
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         CBNZ.N   R0,??HAL_TIM_OC_Init_1
 //  498   { 
 //  499     /* Allocate lock resource and initialize it */
@@ -1742,14 +1743,14 @@ HAL_TIM_OC_Start_DMA:
 //  794   assert_param(IS_TIM_CCX_INSTANCE(htim->Instance, Channel));
 //  795   
 //  796   if((htim->State == HAL_TIM_STATE_BUSY))
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         CMP      R0,#+2
         BEQ.W    ??HAL_TIM_OC_Start_DMA_1
 //  797   {
 //  798      return HAL_BUSY;
 //  799   }
 //  800   else if((htim->State == HAL_TIM_STATE_READY))
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         CMP      R0,#+1
         BNE.N    ??HAL_TIM_OC_Start_DMA_2
 //  801   {
@@ -2184,7 +2185,7 @@ HAL_TIM_PWM_Init:
 // 1010   assert_param(IS_TIM_CLOCKDIVISION_DIV(htim->Init.ClockDivision));
 // 1011 
 // 1012   if(htim->State == HAL_TIM_STATE_RESET)
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         CBNZ.N   R0,??HAL_TIM_PWM_Init_1
 // 1013   {
 // 1014     /* Allocate lock resource and initialize it */
@@ -2875,14 +2876,14 @@ HAL_TIM_PWM_Start_DMA:
 // 1312   assert_param(IS_TIM_CCX_INSTANCE(htim->Instance, Channel));
 // 1313   
 // 1314   if((htim->State == HAL_TIM_STATE_BUSY))
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         CMP      R0,#+2
         BEQ.W    ??HAL_TIM_PWM_Start_DMA_1
 // 1315   {
 // 1316      return HAL_BUSY;
 // 1317   }
 // 1318   else if((htim->State == HAL_TIM_STATE_READY))
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         CMP      R0,#+1
         BNE.N    ??HAL_TIM_PWM_Start_DMA_2
 // 1319   {
@@ -3341,7 +3342,7 @@ HAL_TIM_IC_Init:
 // 1528   assert_param(IS_TIM_CLOCKDIVISION_DIV(htim->Init.ClockDivision)); 
 // 1529 
 // 1530   if(htim->State == HAL_TIM_STATE_RESET)
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         CBNZ.N   R0,??HAL_TIM_IC_Init_1
 // 1531   { 
 // 1532     /* Allocate lock resource and initialize it */
@@ -3993,14 +3994,14 @@ HAL_TIM_IC_Start_DMA:
 // 1803   assert_param(IS_TIM_DMA_CC_INSTANCE(htim->Instance));
 // 1804   
 // 1805   if((htim->State == HAL_TIM_STATE_BUSY))
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         CMP      R0,#+2
         BEQ.N    ??HAL_TIM_IC_Start_DMA_1
 // 1806   {
 // 1807      return HAL_BUSY;
 // 1808   }
 // 1809   else if((htim->State == HAL_TIM_STATE_READY))
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         CMP      R0,#+1
         BNE.N    ??HAL_TIM_IC_Start_DMA_2
 // 1810   {
@@ -4406,7 +4407,7 @@ HAL_TIM_OnePulse_Init:
 // 2014   
 // 2015   if(htim->State == HAL_TIM_STATE_RESET)
 ??HAL_TIM_OnePulse_Init_0:
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         CBNZ.N   R0,??HAL_TIM_OnePulse_Init_1
 // 2016   { 
 // 2017     /* Allocate lock resource and initialize it */
@@ -5061,7 +5062,7 @@ HAL_TIM_Encoder_Init:
 // 2303 
 // 2304   if(htim->State == HAL_TIM_STATE_RESET)
 ??HAL_TIM_Encoder_Init_0:
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         CBNZ.N   R0,??HAL_TIM_Encoder_Init_1
 // 2305   { 
 // 2306     /* Allocate lock resource and initialize it */
@@ -5813,7 +5814,7 @@ HAL_TIM_Encoder_Start_DMA:
 // 2628   assert_param(IS_TIM_DMA_CC_INSTANCE(htim->Instance));
 // 2629   
 // 2630   if((htim->State == HAL_TIM_STATE_BUSY))
-        LDRB     R0,[R5, #+57]
+        LDRSB    R0,[R5, #+57]
         CMP      R0,#+2
         BEQ.W    ??HAL_TIM_Encoder_Start_DMA_0
         LDR      R4,[SP, #+24]
@@ -5821,7 +5822,7 @@ HAL_TIM_Encoder_Start_DMA:
 // 2632      return HAL_BUSY;
 // 2633   }
 // 2634   else if((htim->State == HAL_TIM_STATE_READY))
-        LDRB     R0,[R5, #+57]
+        LDRSB    R0,[R5, #+57]
         CMP      R0,#+1
         BNE.N    ??HAL_TIM_Encoder_Start_DMA_1
 // 2635   {
@@ -6613,7 +6614,7 @@ HAL_TIM_OC_ConfigChannel:
 // 2987   
 // 2988   /* Check input state */
 // 2989   __HAL_LOCK(htim); 
-        LDRB     R0,[R4, #+56]
+        LDRSB    R0,[R4, #+56]
         CMP      R0,#+1
         BNE.N    ??HAL_TIM_OC_ConfigChannel_1
         MOVS     R0,#+2
@@ -6744,7 +6745,7 @@ HAL_TIM_IC_ConfigChannel:
 // 3058   assert_param(IS_TIM_IC_FILTER(sConfig->ICFilter));
 // 3059   
 // 3060   __HAL_LOCK(htim);
-        LDRB     R3,[R0, #+56]
+        LDRSB    R3,[R0, #+56]
         CMP      R3,#+1
         BNE.N    ??HAL_TIM_IC_ConfigChannel_0
         MOVS     R0,#+2
@@ -7031,7 +7032,7 @@ HAL_TIM_PWM_ConfigChannel:
           CFI CFA R13+16
         MOV      R5,R1
 // 3150   __HAL_LOCK(htim);
-        LDRB     R0,[R4, #+56]
+        LDRSB    R0,[R4, #+56]
         CMP      R0,#+1
         IT       EQ 
         MOVEQ    R0,#+2
@@ -7259,7 +7260,7 @@ HAL_TIM_OnePulse_ConfigChannel:
         BEQ.N    ??HAL_TIM_OnePulse_ConfigChannel_0
 // 3258   {
 // 3259     __HAL_LOCK(htim);
-        LDRB     R0,[R4, #+56]
+        LDRSB    R0,[R4, #+56]
         CMP      R0,#+1
         IT       EQ 
         MOVEQ    R0,#+2
@@ -7567,7 +7568,7 @@ HAL_TIM_DMABurst_WriteStart:
 // 3393   assert_param(IS_TIM_DMA_LENGTH(BurstLength));
 // 3394   
 // 3395   if((htim->State == HAL_TIM_STATE_BUSY))
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         MOV      R1,R3
         CMP      R0,#+2
         BEQ.W    ??HAL_TIM_DMABurst_WriteStart_0
@@ -7576,7 +7577,7 @@ HAL_TIM_DMABurst_WriteStart:
 // 3397      return HAL_BUSY;
 // 3398   }
 // 3399   else if((htim->State == HAL_TIM_STATE_READY))
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         CMP      R0,#+1
         BNE.N    ??HAL_TIM_DMABurst_WriteStart_1
 // 3400   {
@@ -8018,7 +8019,7 @@ HAL_TIM_DMABurst_ReadStart:
 // 3618   assert_param(IS_TIM_DMA_LENGTH(BurstLength));
 // 3619   
 // 3620   if((htim->State == HAL_TIM_STATE_BUSY))
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         MOV      R2,R3
         CMP      R0,#+2
         BEQ.W    ??HAL_TIM_DMABurst_ReadStart_0
@@ -8027,7 +8028,7 @@ HAL_TIM_DMABurst_ReadStart:
 // 3622      return HAL_BUSY;
 // 3623   }
 // 3624   else if((htim->State == HAL_TIM_STATE_READY))
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         CMP      R0,#+1
         BNE.N    ??HAL_TIM_DMABurst_ReadStart_1
 // 3625   {
@@ -8456,7 +8457,7 @@ HAL_TIM_DMABurst_ReadStop:
 // 3824   /* Process Locked */
 // 3825   __HAL_LOCK(htim);
 HAL_TIM_GenerateEvent:
-        LDRB     R2,[R0, #+56]
+        LDRSB    R2,[R0, #+56]
         CMP      R2,#+1
         BNE.N    ??HAL_TIM_GenerateEvent_0
         MOVS     R0,#+2
@@ -8527,7 +8528,7 @@ HAL_TIM_ConfigOCrefClear:
 // 3862    
 // 3863   /* Process Locked */
 // 3864   __HAL_LOCK(htim);
-        LDRB     R3,[R0, #+56]
+        LDRSB    R3,[R0, #+56]
         CMP      R3,#+1
         IT       EQ 
         MOVEQ    R0,#+2
@@ -8726,7 +8727,7 @@ HAL_TIM_ConfigClockSource:
 // 3963     
 // 3964   /* Process Locked */
 // 3965   __HAL_LOCK(htim);
-        LDRB     R2,[R0, #+56]
+        LDRSB    R2,[R0, #+56]
         CMP      R2,#+1
         IT       EQ 
         MOVEQ    R0,#+2
@@ -9124,7 +9125,7 @@ HAL_TIM_SlaveConfigSynchronization:
 // 4158   assert_param(IS_TIM_TRIGGER_SELECTION(sSlaveConfig->InputTrigger));
 // 4159    
 // 4160   __HAL_LOCK(htim);
-        LDRB     R2,[R0, #+56]
+        LDRSB    R2,[R0, #+56]
         CMP      R2,#+1
         IT       EQ 
         MOVEQ    R0,#+2
@@ -9387,7 +9388,7 @@ HAL_TIM_SlaveConfigSynchronization_IT:
 // 4302   assert_param(IS_TIM_TRIGGER_SELECTION(sSlaveConfig->InputTrigger));
 // 4303   
 // 4304   __HAL_LOCK(htim);
-        LDRB     R2,[R0, #+56]
+        LDRSB    R2,[R0, #+56]
         CMP      R2,#+1
         IT       EQ 
         MOVEQ    R0,#+2
@@ -9541,7 +9542,7 @@ HAL_TIM_SlaveConfigSynchronization_IT:
 // 4338   
 // 4339   __HAL_LOCK(htim);
 HAL_TIM_ReadCapturedValue:
-        LDRB     R3,[R0, #+56]
+        LDRSB    R3,[R0, #+56]
         MOVS     R2,#+0
         CMP      R3,#+1
         BNE.N    ??HAL_TIM_ReadCapturedValue_1
@@ -9851,7 +9852,7 @@ HAL_TIM_ErrorCallback:
 // 4538 {
 // 4539   return htim->State;
 HAL_TIM_Base_GetState:
-        LDRB     R0,[R0, #+57]
+        LDRSB    R0,[R0, #+57]
         BX       LR               ;; return
 // 4540 }
           CFI EndBlock cfiBlock80
@@ -9872,7 +9873,7 @@ HAL_TIM_Base_GetState:
 // 4549 {
 // 4550   return htim->State;
 HAL_TIM_OC_GetState:
-        LDRB     R0,[R0, #+57]
+        LDRSB    R0,[R0, #+57]
         BX       LR               ;; return
 // 4551 }
           CFI EndBlock cfiBlock81
@@ -9893,7 +9894,7 @@ HAL_TIM_OC_GetState:
 // 4560 {
 // 4561   return htim->State;
 HAL_TIM_PWM_GetState:
-        LDRB     R0,[R0, #+57]
+        LDRSB    R0,[R0, #+57]
         BX       LR               ;; return
 // 4562 }
           CFI EndBlock cfiBlock82
@@ -9914,7 +9915,7 @@ HAL_TIM_PWM_GetState:
 // 4571 {
 // 4572   return htim->State;
 HAL_TIM_IC_GetState:
-        LDRB     R0,[R0, #+57]
+        LDRSB    R0,[R0, #+57]
         BX       LR               ;; return
 // 4573 }
           CFI EndBlock cfiBlock83
@@ -9935,7 +9936,7 @@ HAL_TIM_IC_GetState:
 // 4582 {
 // 4583   return htim->State;
 HAL_TIM_OnePulse_GetState:
-        LDRB     R0,[R0, #+57]
+        LDRSB    R0,[R0, #+57]
         BX       LR               ;; return
 // 4584 }
           CFI EndBlock cfiBlock84
@@ -9956,7 +9957,7 @@ HAL_TIM_OnePulse_GetState:
 // 4593 {
 // 4594   return htim->State;
 HAL_TIM_Encoder_GetState:
-        LDRB     R0,[R0, #+57]
+        LDRSB    R0,[R0, #+57]
         BX       LR               ;; return
 // 4595 }
           CFI EndBlock cfiBlock85

@@ -12,12 +12,13 @@
 #include <stdlib.h>
 //#include <complex.h>
 #include "arm_math.h"
-
+#include "W.h"
+#include "DelayEstimation.h"
 
 //#include <malloc.h>
 
-extern int16_t PreCalcBuff[129][256]; /* 1byte have 256 values */
-extern float fir256Coff[DSP_NUMCOFFHANNIING];
+//extern int16_t PreCalcBuff[129][256]; /* 1byte have 256 values */
+
 
 /* Manual calculation */
 //#define A0     10000
@@ -62,6 +63,7 @@ case 2: [b,a] = butter(2,1/256); --> cut to 64Khz
 #endif
 
 
+Mic_Array_Data MicData_Old;
 
 
 
@@ -217,29 +219,49 @@ https://github.com/piratfm/codec2_m4f/tree/master/lib
 /*--------------EXTERN VARIABLES-----------------------------------------------------------------------------*/
 
 #if MAIN_CRSCORR
-extern arm_rfft_instance_q15 RealFFT_Ins, RealIFFT_Ins;
+arm_rfft_instance_q15 RealFFT_Ins, RealIFFT_Ins;
 #endif
 
 //extern arm_cfft_radix4_instance_f32 SS,SS1,SS2,SS3,SS4,ISS; 
 //extern arm_rfft_instance_f32 S,S1,S2,S3,S4,IS;
-extern arm_rfft_fast_instance_f32 S,S1,S2,S3,S4,IS;
+extern const float W0[PAR_M][PAR_N + 2];
+extern const float W1[PAR_M][PAR_N + 2];
+extern const float W2[PAR_M][PAR_N + 2];
+extern const float W3[PAR_M][PAR_N + 2];
+extern const float W4[PAR_M][PAR_N + 2];
+extern const float W5[PAR_M][PAR_N + 2];
+extern const float W6[PAR_M][PAR_N + 2];
+extern const float W7[PAR_M][PAR_N + 2];
+
 
 /*------------------------------------------------------------------------------------------------------------*/
 /*--------------------- VARIABLES-----------------------------------------------------------------------------*/
+arm_rfft_fast_instance_f32 S,S1,S2,S3,S4,S4,S5,S6,S7,S8,IS;
 
-float bufferFFTSum[AUDIO_OUT_BUFFER_SIZE+100];  //storage the SUM in Furier domain
-float fbufferOut[AUDIO_OUT_BUFFER_SIZE+100];    //storage the output buffer in float type
-float fbuffer[AUDIO_OUT_BUFFER_SIZE+100];       //storage the input buffer in float type
+float fir1024Coff[DSP_NUMCOFFHANNIING];
+float bufferFFTSum[2*AUDIO_OUT_BUFFER_SIZE];    //storage the SUM in Furier domain
+
+float Out_Sum[AUDIO_OUT_BUFFER_SIZE];           //storage the output buffer in float type
+float Out_Sum_Pre[AUDIO_OUT_BUFFER_SIZE];       //storage the input buffer in float type
+float Audio_Sum_Old[PAR_HOP];
+float fbuffer[PAR_N];                           // using in Macro, should not be removed
+#if EXT_RAM
+#pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE)
+#endif
 Mic_Array_Data_f  DataFFT;                  //storage DFT's coefficients for microphones
 uint32_t EnergySound,EnergyError;
 
-float vDataIn1_FFT[2*AUDIO_OUT_BUFFER_SIZE];
-float vDataIn2_FFT[2*AUDIO_OUT_BUFFER_SIZE];
-float vDataIn2_FFT_CJ[2*AUDIO_OUT_BUFFER_SIZE];
-float vDataIn_FFT[2*AUDIO_OUT_BUFFER_SIZE];
-float vDataOut[2*AUDIO_OUT_BUFFER_SIZE];
-float vDataIn[2*AUDIO_OUT_BUFFER_SIZE];
-
+float Tmp_FFT[2*AUDIO_OUT_BUFFER_SIZE];
+//float vDataIn2_FFT[2*AUDIO_OUT_BUFFER_SIZE];
+//float vDataIn2_FFT_CJ[2*AUDIO_OUT_BUFFER_SIZE];
+//float vDataIn_FFT[2*AUDIO_OUT_BUFFER_SIZE];
+//float vDataOut[2*AUDIO_OUT_BUFFER_SIZE];
+//float vDataIn[2*AUDIO_OUT_BUFFER_SIZE];
+#define vDataIn2_FFT bufferFFTSum
+#define vDataIn Tmp_FFT
+#define vDataOut Tmp_FFT
+#define vDataIn2_FFT_CJ Tmp_FFT 
+#define vDataIn_FFT Tmp_FFT
 /*------------------------------------------------------------------------------------------------------------*/
 /* Discreate Fourier Transform */
 void DFT (float *x, float *Out, int N)
@@ -553,7 +575,6 @@ void Decimation(uint8_t *Input, int16_t *Output, int16_t PreCalcBuff[129][256]) 
 		  	   
        }
        
-	   
        iRing++;             
        if (iRing==129) iRing = 0;  
 
@@ -567,7 +588,7 @@ void Window(float *fir64Coff)
     for (int i = 0; i < DSP_NUMCOFFHANNIING; i++) //DSP_NUMCOFF
 	{
         //fir64Coff[i] = (double_t)((1 << 10)-1);
-        fir64Coff[i] = (float)(DSP_NUMCOFFHANNIING);
+        fir64Coff[i] = 1.0f; //(float)(DSP_NUMCOFFHANNIING);
 		//Hanning Window (less noise than hamming?
         fir64Coff[i] *= 0.5f * (
 		                       1.0f - cos((2.0f * PI * i)/ ((float)DSP_NUMCOFFHANNIING - 1.0f))  
@@ -790,69 +811,75 @@ float lowpassFIR(float * firBuffer,uint64_t M,uint64_t Fs,uint64_t Fc)
 	return sum;
 }
 
-/* */
 
-int8_t CrssCor(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen, uint32_t * CrssCorVal )
+/* Cross-correlation */
+int8_t CrssCor(const int16_t * vDataIn1, const int16_t * vDataIn2, uint16_t numLen, uint32_t * CrssCorVal )
 {
-    //static int16_t vDataIn1Old, vDataIn2Old;
     int64_t Sum, SumMax;
-	int8_t idxPos;
-#if 1
-	int16_t *vDataIn1Out = malloc(sizeof(int16_t)*numLen);
-	int16_t *vDataIn2Out = malloc(sizeof(int16_t)*numLen);
-#endif
-
-    SumMax=0;
-    Sum=0;
-#if 0	
-	LowPassIIR(vDataIn1,vDataIn1Out ,&vDataIn1Old, numLen,8);
-	LowPassIIR(vDataIn2,vDataIn2Out ,&vDataIn2Old, numLen,8);
-#endif
-
-    for (uint16_t i=0;i<numLen;i++)
+	uint16_t j;
+	int8_t idxPos=0;
+	int8_t i;
+#if _MALLOC
+	int16_t *vDataIn1Out = (int16_t *)malloc(sizeof(int16_t)*numLen);
+	int16_t *vDataIn2Out = (int16_t *)malloc(sizeof(int16_t)*numLen);
+	for (uint16_t i=0;i<numLen;i++)
     {
         vDataIn1Out[i]= (int16_t)(vDataIn1[i]);//fir256Coff[i]
         vDataIn2Out[i]= (int16_t)(vDataIn2[i]);//fir256Coff[i]
     }
+#endif
+
+    SumMax=0;
+#if 0	
+	static int16_t vDataIn1Old, vDataIn2Old;
+	LowPassIIR(vDataIn1,vDataIn1Out ,&vDataIn1Old, numLen,8);
+	LowPassIIR(vDataIn2,vDataIn2Out ,&vDataIn2Old, numLen,8);
+#endif
 	
-    for (int8_t i=-8;i<8;i++)
+    for ( i=-3;i<=3;i++)  /* physical limit */
     {
-           Sum = 0;
+       Sum = 0;
 	   if (i>=0)
 	   {
-	       for(uint16_t j=0;j<numLen;j++)
+	       for( j=0;j<numLen-i;j++)
 	       {
-	           Sum += vDataIn1Out[j+i]*vDataIn2Out[j];   
-	       }
-                            
+#if _MALLOC
+	           Sum += vDataIn1Out[j+i]*vDataIn2Out[j];
+#else
+			   Sum += vDataIn1[j+i]*vDataIn2[j];
+#endif 
+	       }                  
 	   }
 	   else
 	   {
-           for(uint16_t j=0;j<numLen;j++)
+           for(j=0;j<numLen + i;j++)
 	       {
-	           Sum += vDataIn1Out[j]*vDataIn2Out[j-i];   
+#if _MALLOC
+	           Sum += vDataIn1Out[j]*vDataIn2Out[j-i];
+#else
+			   Sum += vDataIn1[j]*vDataIn2[j-i];
+#endif
 	       }
 	   }
+
+	   Sum /= (numLen-i); 
 
 	   if (Sum > SumMax) 
 	   {
 	       SumMax = Sum;  	
 		   
 	       idxPos = i;
-	       *CrssCorVal = (SumMax/numLen);//(uint32_t)((SumMax>>15));
+	       *CrssCorVal = SumMax;//(uint32_t)((SumMax>>15));
 	   }
 	         
     }
-#if 1
+#if _MALLOC
     free(vDataIn1Out);
 	free(vDataIn2Out);
 #endif
 
-    if((idxPos<-7)||(idxPos>6)) return 0;
-	
     return idxPos;
 }
-
 
 /*****************************************************************************************************
 CROSSCORRELATION---------------------------------------------------------------------------------------
@@ -944,46 +971,161 @@ void Std_MatCorr(int16_t* vDataIn, float *Out, uint16_t numLen)
 }
 
 
+void BeamFormingSD_Init(void)
+{
+#if MAIN_CRSCORR
+		arm_rfft_init_q15(&RealFFT_Ins,(uint32_t)128,(uint32_t)0,(uint32_t)1);
+		arm_rfft_init_q15(&RealIFFT_Ins,(uint32_t)128,(uint32_t)1,(uint32_t)1);
+#endif  
+		/* Initialize the CFFT/CIFFT module */
+		//arm_rfft_init_f32(&S,&SS, 512,  0, 1);
+		//arm_rfft_init_f32(&S1,&SS1, 512,  0, 1); 
+		//arm_rfft_init_f32(&S2,&SS2, 512,  0, 1); 
+		//arm_rfft_init_f32(&S3,&SS3, 512,  0, 1); 
+		//arm_rfft_init_f32(&S4,&SS4, 512,  0, 1);
+		//arm_rfft_init_f32(&IS,&ISS, 512,  1, 1);
+		
+
+		//arm_rfft_fast_init_f32(&S1, 512);
+        //arm_rfft_fast_init_f32(&S2, 512);
+		//arm_rfft_fast_init_f32(&S3, 512);
+		//arm_rfft_fast_init_f32(&S4, 512);
+		//arm_rfft_fast_init_f32(&IS, 512);
+		arm_rfft_fast_init_f32(&S1, PAR_N);
+		arm_rfft_fast_init_f32(&S2, PAR_N);
+		arm_rfft_fast_init_f32(&S3, PAR_N);
+		arm_rfft_fast_init_f32(&S4, PAR_N);
+		arm_rfft_fast_init_f32(&S5, PAR_N);
+		arm_rfft_fast_init_f32(&S6, PAR_N);
+		arm_rfft_fast_init_f32(&S7, PAR_N);
+		arm_rfft_fast_init_f32(&S8, PAR_N);        
+        arm_rfft_fast_init_f32(&IS,PAR_N);
+        Window(fir1024Coff);
+}
+
+
 
 /************************************************************************************************************
------------------------------Summing in Fourier Domain-------------------------------------------------------
+-----------------------------Superdirective Beamforming------------------------------------------------------
 
 *************************************************************************************************************/
-void Delay_Sum_FFT(const Mic_Array_Data * MicData, Mic_Array_Coef_f *coefMics,int16_t * stBufOut, int16_t lenFFT)
+void BeamFormingSD(const Mic_Array_Data * MicData, uint8_t Dir,int16_t * Audio_Sum)
 {
-     int32_t         _value,_value1,_value2;
+    static const float (*W_ZP)[PAR_N + 2];
+    int32_t _value,_value1,_value2;
+    int16_t lenFFT= PAR_N;
     
-	for (uint16_t iFrm=0;iFrm<AUDIO_OUT_BUFFER_SIZE/(2*lenFFT);iFrm++)
+	switch (Dir)
 	{
-          RFFT_INT(MicData->bufMIC1,S1,DataFFT.bufMIC1);  
-          RFFT_INT(MicData->bufMIC2,S2,DataFFT.bufMIC2);
-          RFFT_INT(MicData->bufMIC3,S3,DataFFT.bufMIC3);
-          RFFT_INT(MicData->bufMIC4,S4,DataFFT.bufMIC4);
-
+		case 0:
+			W_ZP = W1;
+			break;
+		case 1:
+			W_ZP = W2;
+			break;
+		case 2:
+			W_ZP = W3;
+			break;
+		case 3:
+			W_ZP = W4;
+			break;
+		case 4:
+			W_ZP = W5;
+			break;
+		case 5:
+			W_ZP = W6;
+			break;
+		case 6:
+			W_ZP = W7;
+			break;
+		case 7:
+			W_ZP = W0;
+			break;
+		default:
+			W_ZP = W0;
+			break;
+	}
+    
+    /********************* Update for Current Frame ***************************************************************************/
+	for (uint16_t iFrm=0;iFrm<PAR_N/lenFFT;iFrm++)
+	{
+          RFFT_INT(MicData->bufMIC1,S,DataFFT.bufMIC1,fir1024Coff);  
+          RFFT_INT(MicData->bufMIC2,S,DataFFT.bufMIC2,fir1024Coff);
+          RFFT_INT(MicData->bufMIC3,S,DataFFT.bufMIC3,fir1024Coff);
+          RFFT_INT(MicData->bufMIC4,S,DataFFT.bufMIC4,fir1024Coff);
+          RFFT_INT(MicData->bufMIC5,S,DataFFT.bufMIC5,fir1024Coff);
+          RFFT_INT(MicData->bufMIC6,S,DataFFT.bufMIC6,fir1024Coff);
+          RFFT_INT(MicData->bufMIC7,S,DataFFT.bufMIC7,fir1024Coff);
+          RFFT_INT(MicData->bufMIC8,S,DataFFT.bufMIC8,fir1024Coff);
           /* Adding in Fourier Domain */			 
           //arm_add_f32((float *)bufferFFT,(float *)bufferFFT_1, (float *)bufferFFTSum,lenFFT*2);
-          for (uint16_t ii=0;ii<lenFFT*2;ii++)
-          {
-              bufferFFTSum[ii]= ((DataFFT.bufMIC1[ii]*coefMics->facMIC1) + 
-                                (DataFFT.bufMIC2[ii]*coefMics->facMIC2) +
-                                (DataFFT.bufMIC3[ii]*coefMics->facMIC3) +
-                                (DataFFT.bufMIC4[ii]*coefMics->facMIC4)); 
-          }
 
+          MUL_C(bufferFFTSum,W_ZP[0],DataFFT.bufMIC1)
+          for (uint8_t iMic=1; iMic < PAR_M; iMic++)
+          {
+              MUL_C(Tmp_FFT,W_ZP[iMic], (DataFFT.bufMIC1+PAR_N*2*iMic))
+              SUM_C(bufferFFTSum,Tmp_FFT)  
+          }
           /* Revert FFT*/
-          arm_rfft_fast_f32(&IS, (float *)bufferFFTSum, (float *)&fbufferOut[iFrm*lenFFT],1);
+          arm_rfft_fast_f32(&IS, (float *)bufferFFTSum, (float *)&Out_Sum[iFrm*lenFFT],1);
+          //arm_rfft_fast_f32(&IS, (float *)bufferFFTSum, (float *)&fbufferOut[iFrm*lenFFT], 1);
+	}
+     /*************************************************************************************************************************/
+	/* Concatenate the old frame with current frame */
+	for (uint16_t i=0; i<PAR_HOP; i++)
+	{
+		for(uint16_t j=0; j<PAR_M;j++)
+		{
+			*(&MicData_Old.bufMIC1[i+PAR_HOP]+PAR_N*j) = *(&MicData->bufMIC1[i]+PAR_N*j);
+		}
+	}
+    /**************************************************************************************************************************/
+    /************************ Update for Old Frame ***************************************************************************/
+    for (uint16_t iFrm=0;iFrm<PAR_N/lenFFT;iFrm++)
+	{
+          RFFT_INT(MicData_Old.bufMIC1,S1,DataFFT.bufMIC1,fir1024Coff);  
+          RFFT_INT(MicData_Old.bufMIC2,S2,DataFFT.bufMIC2,fir1024Coff);
+          RFFT_INT(MicData_Old.bufMIC3,S3,DataFFT.bufMIC3,fir1024Coff);
+          RFFT_INT(MicData_Old.bufMIC4,S4,DataFFT.bufMIC4,fir1024Coff);
+          RFFT_INT(MicData_Old.bufMIC5,S5,DataFFT.bufMIC5,fir1024Coff);
+          RFFT_INT(MicData_Old.bufMIC6,S6,DataFFT.bufMIC6,fir1024Coff);
+          RFFT_INT(MicData_Old.bufMIC7,S7,DataFFT.bufMIC7,fir1024Coff);
+          RFFT_INT(MicData_Old.bufMIC8,S8,DataFFT.bufMIC8,fir1024Coff);
+          /* Adding in Fourier Domain */			 
+          //arm_add_f32((float *)bufferFFT,(float *)bufferFFT_1, (float *)bufferFFTSum,lenFFT*2);
+
+          MUL_C(bufferFFTSum,W_ZP[0],DataFFT.bufMIC1)
+          for (uint8_t iMic=1; iMic < PAR_M; iMic++)
+          {
+              MUL_C(Tmp_FFT,W_ZP[iMic], (DataFFT.bufMIC1+PAR_N*2*iMic))
+              SUM_C(bufferFFTSum,Tmp_FFT)  
+          }
+          /* Revert FFT*/
+          arm_rfft_fast_f32(&IS, (float *)bufferFFTSum, (float *)&Out_Sum_Pre[iFrm*lenFFT],1);
           //arm_rfft_fast_f32(&IS, (float *)bufferFFTSum, (float *)&fbufferOut[iFrm*lenFFT], 1);
 	}
 
-        /*covert from float to integer*/
-	for (uint16_t i=0; i<AUDIO_OUT_BUFFER_SIZE;)
+    /* Recontruct the signal                                                      */
+	/* Data_Half1 =  Out_Sum_Pre[zpb:zpb+HOP] + Audio_Sum_Old                     */
+    /* Data_Half2 =  Out_Sum_Pre[zpb + HOP:zpb + 2*HOP] + Out_Sum[zpb:zpb+HOP]    */
+	/* Audio_Sum = np.concatenate((Data_Half1,Data_Half2),axis=0)                 */
+	for (uint16_t i=0;i<PAR_HOP;i++)
 	{
-	    _value1 = (int32_t)fbufferOut[(i>>1)];
-		_value2 = MicData->bufMIC2[i>>1];
-	    stBufOut[i++] = (int16_t)_value1;
-		stBufOut[i++] = (int16_t)_value2;
+		Audio_Sum[i] = (int16_t)(Out_Sum_Pre[i] + Audio_Sum_Old[i]);
+		Audio_Sum[i+PAR_HOP] = (int16_t)(Out_Sum_Pre[i+ PAR_HOP] + Out_Sum[i]);
+		Audio_Sum_Old[i] = (float)Out_Sum[i+PAR_HOP];
 	}
+    
 	
+	/*************************************************************************************************************************/
+	/* storage 2nd haft of audio data */
+	for (uint16_t i=0; i<PAR_HOP; i++)
+	{
+		for(uint16_t j=0; j<PAR_M;j++)
+		{
+			*(&MicData_Old.bufMIC1[i]+PAR_N*j) = *(&MicData->bufMIC1[i+PAR_HOP]+PAR_N*j);
+		}
+	}
 	//arm_float_to_q15((float32_t *)fbufferOut,(q15_t *)stBufOut,AUDIO_OUT_BUFFER_SIZE); 
 	
 }
@@ -992,10 +1134,14 @@ void Delay_Sum_FFT(const Mic_Array_Data * MicData, Mic_Array_Coef_f *coefMics,in
 /******************************************************************************/
 void FactorUpd(Mic_Array_Coef_f * facMic)
 {
-	facMic->facMIC1 = 0.25;
-	facMic->facMIC2 = 0.25;
-	facMic->facMIC3 = 0.25;
-	facMic->facMIC4 = 0.25;
+	facMic->facMIC1 = 0.125;
+	facMic->facMIC2 = 0.125;
+	facMic->facMIC3 = 0.125;
+	facMic->facMIC4 = 0.125;
+    facMic->facMIC5 = 0.125;
+    facMic->facMIC6 = 0.125;
+    facMic->facMIC7 = 0.125;
+    facMic->facMIC8 = 0.125;
 }
 
 
@@ -1058,7 +1204,7 @@ int16_t GCC_PHAT(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen, float 
     float ValMax;
 
 	/* Fourier Transform for Data In 1 */
-	RFFT_GCC(vDataIn1,S,vDataIn1_FFT,numLen);
+	RFFT_GCC(vDataIn1,S,Tmp_FFT,numLen);
 	
     /* Fourier Trnasform for Data In 2 */
 	RFFT_GCC(vDataIn2,S,vDataIn2_FFT,numLen);
@@ -1067,15 +1213,15 @@ int16_t GCC_PHAT(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen, float 
 	arm_cmplx_conj_f32(vDataIn2_FFT,vDataIn2_FFT_CJ, numLen);
     
 	/* cross spectra  */
-	arm_cmplx_mult_cmplx_f32(vDataIn1_FFT,vDataIn2_FFT_CJ,vDataIn2_FFT,numLen); /* vDataIn2_FFT is  using at the destination output to save the memory */
+	arm_cmplx_mult_cmplx_f32(Tmp_FFT,vDataIn2_FFT_CJ,vDataIn2_FFT,numLen); /* vDataIn2_FFT is  using at the destination output to save the memory */
 
     /* magnitude */
-	arm_cmplx_mag_f32(vDataIn2_FFT,vDataIn1_FFT, numLen); /* vDataIn1_FFT is  using at the destination output to save the memory */
+	arm_cmplx_mag_f32(vDataIn2_FFT,Tmp_FFT, numLen); /* vDataIn1_FFT is  using at the destination output to save the memory */
 
 	/* Output normalize */
 	for (uint16_t i=0; i<2*numLen;i++)
 	{
-       vDataIn_FFT[i] = vDataIn2_FFT[i]/MAX(vDataIn1_FFT[i%2],0.000001);
+       vDataIn_FFT[i] = vDataIn2_FFT[i]/MAX(Tmp_FFT[i%2],0.000001);
 	}
 
 	/* Invert FFT */

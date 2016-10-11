@@ -2,7 +2,7 @@
 stlinkserialNo=391C0B1F
 stlinkfoundProbes=
 [DebugChecksum]
-Checksum=1740215933
+Checksum=-1876804701
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -42,7 +42,7 @@ ITMlogFile=$PROJ_DIR$\ITM.log
 [FlashMemory]
 FlashEraseSelection=0 1 
 [StLinkDriver]
-stlinkserialNo=BE9DC169
+stlinkserialNo=391C0B1F
 stlinkfoundProbes=
 CStepIntDis=_ 0
 [Interrupts]

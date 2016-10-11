@@ -1,64 +1,65 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM       15/May/2016  09:59:35
+# IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM       10/Oct/2016  13:59:01
 # Copyright 1999-2016 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
 #    Endian       =  little
 #    Source file  =  
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_spi.c
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_spi.c
 #    Command line =  
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_spi.c
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_spi.c
 #        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 #        USE_IOEXPANDER -D USE_USB_FS -lC
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 #        -lA
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 #        -o
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-#        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
-#        --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded Workbench
-#        7.3\arm\INC\c\DLib_Config_Full.h" -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+#        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e
+#        --char_is_signed --fpu=VFPv5_sp --dlib_config "C:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\INC\c\DLib_Config_Full.h"
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 #        -I
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
 #        -Ohs --use_c++_inline --require_prototypes -I "C:\Program Files
 #        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 #        ARM_MATH_CM7 --relaxed_fp
 #    List file    =  
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_spi.lst
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_spi.lst
 #    Object file  =  
-#        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_spi.o
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\stm32f7xx_hal_spi.o
 #
 ###############################################################################
 
-D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_spi.c
+D:\sop1hc\Mic\Mic_Array\For_Window\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_spi.c
       1          /**
       2            ******************************************************************************
       3            * @file    stm32f7xx_hal_spi.c
@@ -287,7 +288,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
     217            assert_param(IS_SPI_CRC_LENGTH(hspi->Init.CRCLength));
     218          
     219            if(hspi->State == HAL_SPI_STATE_RESET)
-   \   0000000C   0xF894 0x005D      LDRB     R0,[R4, #+93]
+   \   0000000C   0xF994 0x005D      LDRSB    R0,[R4, #+93]
    \   00000010   0xB920             CBNZ.N   R0,??HAL_SPI_Init_1
     220            {
     221              /* Allocate lock resource and initialize it */
@@ -731,14 +732,14 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
     409          
     410            /* Process Locked */
     411            __HAL_LOCK(hspi);
-   \   00000008   0xF894 0x005C      LDRB     R0,[R4, #+92]
+   \   00000008   0xF994 0x005C      LDRSB    R0,[R4, #+92]
    \   0000000C   0x2801             CMP      R0,#+1
    \   0000000E   0xD00C             BEQ.N    ??HAL_SPI_Transmit_0
    \   00000010   0x2001             MOVS     R0,#+1
    \   00000012   0xF884 0x005C      STRB     R0,[R4, #+92]
     412          
     413            if(hspi->State != HAL_SPI_STATE_READY)
-   \   00000016   0xF894 0x005D      LDRB     R0,[R4, #+93]
+   \   00000016   0xF994 0x005D      LDRSB    R0,[R4, #+93]
    \   0000001A   0x2801             CMP      R0,#+1
    \   0000001C   0xD008             BEQ.N    ??HAL_SPI_Transmit_1
     414            {
@@ -1195,7 +1196,8 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    \   000002FC   0x4180             SBCS     R0,R0,R0
    \   000002FE   0x43C0             MVNS     R0,R0
    \   00000300   0x0FC0             LSRS     R0,R0,#+31
-   \   00000302   0xBD70             POP      {R4-R6,PC}       ;; return
+   \   00000302   0xB240             SXTB     R0,R0
+   \   00000304   0xBD70             POP      {R4-R6,PC}       ;; return
     539            }
     540          }
     541          
@@ -1220,7 +1222,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
     553            __IO uint16_t tmpreg;
     554            
     555            if(hspi->State != HAL_SPI_STATE_READY)
-   \   00000008   0xF894 0x005D      LDRB     R0,[R4, #+93]
+   \   00000008   0xF994 0x005D      LDRSB    R0,[R4, #+93]
    \   0000000C   0x2801             CMP      R0,#+1
    \   0000000E   0xD117             BNE.N    ??HAL_SPI_Receive_0
     556            {
@@ -1231,7 +1233,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    \   00000010   0x2900             CMP      R1,#+0
    \   00000012   0xBF18             IT       NE 
    \   00000014   0x2A00             CMPNE    R2,#+0
-   \   00000016   0xF000 0x81FB      BEQ.W    ??HAL_SPI_Receive_1
+   \   00000016   0xF000 0x81FC      BEQ.W    ??HAL_SPI_Receive_1
     561            {
     562              return HAL_ERROR;
     563            }
@@ -1417,7 +1419,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    \   00000034   0xB001             ADD      SP,SP,#+4
    \   00000036   0xBDF0             POP      {R4-R7,PC}
    \                     ??HAL_SPI_Receive_2: (+1)
-   \   00000038   0xF894 0x005C      LDRB     R0,[R4, #+92]
+   \   00000038   0xF994 0x005C      LDRSB    R0,[R4, #+92]
    \   0000003C   0x2801             CMP      R0,#+1
    \   0000003E   0xD102             BNE.N    ??HAL_SPI_Receive_3
    \                     ??HAL_SPI_Receive_0: (+1)
@@ -1836,9 +1838,10 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    \   0000040A   0x4180             SBCS     R0,R0,R0
    \   0000040C   0x43C0             MVNS     R0,R0
    \   0000040E   0x0FC0             LSRS     R0,R0,#+31
+   \   00000410   0xB240             SXTB     R0,R0
    \                     ??HAL_SPI_Receive_1: (+1)
-   \   00000410   0xB001             ADD      SP,SP,#+4
-   \   00000412   0xBDF0             POP      {R4-R7,PC}       ;; return
+   \   00000412   0xB001             ADD      SP,SP,#+4
+   \   00000414   0xBDF0             POP      {R4-R7,PC}       ;; return
     732            }
     733          }
     734          
@@ -1873,7 +1876,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
     750            assert_param(IS_SPI_DIRECTION_2LINES(hspi->Init.Direction));
     751            
     752            if(hspi->State != HAL_SPI_STATE_READY) 
-   \   0000001A   0xF894 0x005D      LDRB     R0,[R4, #+93]
+   \   0000001A   0xF994 0x005D      LDRSB    R0,[R4, #+93]
    \   0000001E   0x2801             CMP      R0,#+1
    \   00000020   0xD10A             BNE.N    ??HAL_SPI_TransmitReceive_0
     753            {
@@ -1885,7 +1888,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    \   00000024   0xBF1C             ITT      NE 
    \   00000026   0xF1B8 0x0F00      CMPNE    R8,#+0
    \   0000002A   0x2F00             CMPNE    R7,#+0
-   \   0000002C   0xF000 0x81F3      BEQ.W    ??HAL_SPI_TransmitReceive_1
+   \   0000002C   0xF000 0x81F4      BEQ.W    ??HAL_SPI_TransmitReceive_1
     758            {
     759              return HAL_ERROR;
     760            }
@@ -1893,7 +1896,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
     762            
     763            /* Process Locked */
     764            __HAL_LOCK(hspi); 
-   \   00000030   0xF894 0x005C      LDRB     R0,[R4, #+92]
+   \   00000030   0xF994 0x005C      LDRSB    R0,[R4, #+92]
    \   00000034   0x2801             CMP      R0,#+1
    \   00000036   0xD103             BNE.N    ??HAL_SPI_TransmitReceive_2
    \                     ??HAL_SPI_TransmitReceive_0: (+1)
@@ -2522,9 +2525,10 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    \   00000410   0x4180             SBCS     R0,R0,R0
    \   00000412   0x43C0             MVNS     R0,R0
    \   00000414   0x0FC0             LSRS     R0,R0,#+31
+   \   00000416   0xB240             SXTB     R0,R0
    \                     ??HAL_SPI_TransmitReceive_1: (+1)
-   \   00000416   0xB002             ADD      SP,SP,#+8
-   \   00000418   0xE8BD 0x81F0      POP      {R4-R8,PC}       ;; return
+   \   00000418   0xB002             ADD      SP,SP,#+8
+   \   0000041A   0xE8BD 0x81F0      POP      {R4-R8,PC}       ;; return
     960            }
     961          }
     962          
@@ -2544,7 +2548,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
     974            
     975            if(hspi->State == HAL_SPI_STATE_READY)
    \                     HAL_SPI_Transmit_IT: (+1)
-   \   00000000   0xF890 0x305D      LDRB     R3,[R0, #+93]
+   \   00000000   0xF990 0x305D      LDRSB    R3,[R0, #+93]
    \   00000004   0x2B01             CMP      R3,#+1
    \   00000006   0xD149             BNE.N    ??HAL_SPI_Transmit_IT_0
     976            {
@@ -2562,7 +2566,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
     982              /* Process Locked */
     983              __HAL_LOCK(hspi);
    \                     ??HAL_SPI_Transmit_IT_1: (+1)
-   \   00000014   0xF890 0x305C      LDRB     R3,[R0, #+92]
+   \   00000014   0xF990 0x305C      LDRSB    R3,[R0, #+92]
    \   00000018   0x2B01             CMP      R3,#+1
    \   0000001A   0xD03F             BEQ.N    ??HAL_SPI_Transmit_IT_0
    \   0000001C   0x2301             MOVS     R3,#+1
@@ -2693,7 +2697,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    1052          {
    1053            if(hspi->State == HAL_SPI_STATE_READY)
    \                     HAL_SPI_Receive_IT: (+1)
-   \   00000000   0xF890 0x305D      LDRB     R3,[R0, #+93]
+   \   00000000   0xF990 0x305D      LDRSB    R3,[R0, #+93]
    \   00000004   0x2B01             CMP      R3,#+1
    \   00000006   0xD16E             BNE.N    ??HAL_SPI_Receive_IT_0
    1054            {
@@ -2711,7 +2715,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    1060              /* Process Locked */
    1061              __HAL_LOCK(hspi);
    \                     ??HAL_SPI_Receive_IT_1: (+1)
-   \   00000014   0xF890 0x305C      LDRB     R3,[R0, #+92]
+   \   00000014   0xF990 0x305C      LDRSB    R3,[R0, #+92]
    \   00000018   0x2B01             CMP      R3,#+1
    \   0000001A   0xD064             BEQ.N    ??HAL_SPI_Receive_IT_0
    \   0000001C   0x2301             MOVS     R3,#+1
@@ -2912,7 +2916,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    1160            
    1161            if((hspi->State == HAL_SPI_STATE_READY) || \
    1162               ((hspi->Init.Mode == SPI_MODE_MASTER) && (hspi->Init.Direction == SPI_DIRECTION_2LINES) && (hspi->State == HAL_SPI_STATE_BUSY_RX)))
-   \   00000002   0xF890 0x405D      LDRB     R4,[R0, #+93]
+   \   00000002   0xF990 0x405D      LDRSB    R4,[R0, #+93]
    \   00000006   0x2C01             CMP      R4,#+1
    \   00000008   0xD007             BEQ.N    ??HAL_SPI_TransmitReceive_IT_0
    \   0000000A   0x6845             LDR      R5,[R0, #+4]
@@ -2941,7 +2945,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    1169              /* Process locked */
    1170              __HAL_LOCK(hspi);
    \                     ??HAL_SPI_TransmitReceive_IT_3: (+1)
-   \   0000002A   0xF890 0x505C      LDRB     R5,[R0, #+92]
+   \   0000002A   0xF990 0x505C      LDRSB    R5,[R0, #+92]
    \   0000002E   0x2D01             CMP      R5,#+1
    \   00000030   0xD05F             BEQ.N    ??HAL_SPI_TransmitReceive_IT_1
    \   00000032   0x2501             MOVS     R5,#+1
@@ -3124,7 +3128,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    1256            assert_param(IS_SPI_DIRECTION_2LINES_OR_1LINE(hspi->Init.Direction));
    1257          
    1258            if(hspi->State != HAL_SPI_STATE_READY) 
-   \   00000004   0xF894 0x005D      LDRB     R0,[R4, #+93]
+   \   00000004   0xF994 0x005D      LDRSB    R0,[R4, #+93]
    \   00000008   0x2801             CMP      R0,#+1
    \   0000000A   0xD107             BNE.N    ??HAL_SPI_Transmit_DMA_0
    1259            {
@@ -3142,7 +3146,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    1267            
    1268            /* Process Locked */
    1269            __HAL_LOCK(hspi);
-   \   00000014   0xF894 0x005C      LDRB     R0,[R4, #+92]
+   \   00000014   0xF994 0x005C      LDRSB    R0,[R4, #+92]
    \   00000018   0x2801             CMP      R0,#+1
    \   0000001A   0xD101             BNE.N    ??HAL_SPI_Transmit_DMA_2
    \                     ??HAL_SPI_Transmit_DMA_0: (+1)
@@ -3312,7 +3316,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    \   00000000   0xB510             PUSH     {R4,LR}
    \   00000002   0x4604             MOV      R4,R0
    1346            if(hspi->State != HAL_SPI_STATE_READY)
-   \   00000004   0xF894 0x005D      LDRB     R0,[R4, #+93]
+   \   00000004   0xF994 0x005D      LDRSB    R0,[R4, #+93]
    \   00000008   0x2801             CMP      R0,#+1
    \   0000000A   0xD107             BNE.N    ??HAL_SPI_Receive_DMA_0
    1347            {
@@ -3330,7 +3334,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    1355            
    1356            /* Process Locked */
    1357            __HAL_LOCK(hspi);
-   \   00000014   0xF894 0x005C      LDRB     R0,[R4, #+92]
+   \   00000014   0xF994 0x005C      LDRSB    R0,[R4, #+92]
    \   00000018   0x2801             CMP      R0,#+1
    \   0000001A   0xD101             BNE.N    ??HAL_SPI_Receive_DMA_2
    \                     ??HAL_SPI_Receive_DMA_0: (+1)
@@ -3535,7 +3539,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    1451            
    1452            if((hspi->State == HAL_SPI_STATE_READY) ||
    1453               ((hspi->Init.Mode == SPI_MODE_MASTER) && (hspi->Init.Direction == SPI_DIRECTION_2LINES) && (hspi->State == HAL_SPI_STATE_BUSY_RX)))
-   \   00000006   0xF894 0x005D      LDRB     R0,[R4, #+93]
+   \   00000006   0xF994 0x005D      LDRSB    R0,[R4, #+93]
    \   0000000A   0x2801             CMP      R0,#+1
    \   0000000C   0xD008             BEQ.N    ??HAL_SPI_TransmitReceive_DMA_0
    \   0000000E   0x6865             LDR      R5,[R4, #+4]
@@ -3564,7 +3568,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    1460              /* Process locked */
    1461              __HAL_LOCK(hspi);
    \                     ??HAL_SPI_TransmitReceive_DMA_3: (+1)
-   \   00000030   0xF894 0x505C      LDRB     R5,[R4, #+92]
+   \   00000030   0xF994 0x505C      LDRSB    R5,[R4, #+92]
    \   00000034   0x2D01             CMP      R5,#+1
    \   00000036   0xF000 0x80A7      BEQ.W    ??HAL_SPI_TransmitReceive_DMA_1
    \   0000003A   0x2501             MOVS     R5,#+1
@@ -3726,7 +3730,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    1532              the reception request (RXNE) */
    1533              if(hspi->State == HAL_SPI_STATE_BUSY_RX)
    \                     ??HAL_SPI_TransmitReceive_DMA_6: (+1)
-   \   00000104   0xF894 0x205D      LDRB     R2,[R4, #+93]
+   \   00000104   0xF994 0x205D      LDRSB    R2,[R4, #+93]
    \   00000108   0x6DA0             LDR      R0,[R4, #+88]
    \   0000010A   0x2A04             CMP      R2,#+4
    \   0000010C   0xD105             BNE.N    ??HAL_SPI_TransmitReceive_DMA_12
@@ -3777,7 +3781,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    \   00000146   0x63C1             STR      R1,[R0, #+60]
    1556          
    1557              if(hspi->State == HAL_SPI_STATE_BUSY_TX_RX)
-   \   00000148   0xF894 0x105D      LDRB     R1,[R4, #+93]
+   \   00000148   0xF994 0x105D      LDRSB    R1,[R4, #+93]
    \   0000014C   0x2905             CMP      R1,#+5
    \   0000014E   0xBF0E             ITEE     EQ 
    \   00000150   0x6485             STREQ    R5,[R0, #+72]
@@ -3854,7 +3858,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    1599            /* Process Locked */
    1600            __HAL_LOCK(hspi);
    \                     HAL_SPI_DMAPause: (+1)
-   \   00000000   0xF890 0x105C      LDRB     R1,[R0, #+92]
+   \   00000000   0xF990 0x105C      LDRSB    R1,[R0, #+92]
    \   00000004   0x2901             CMP      R1,#+1
    \   00000006   0xD101             BNE.N    ??HAL_SPI_DMAPause_0
    \   00000008   0x2002             MOVS     R0,#+2
@@ -3894,7 +3898,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    1619            /* Process Locked */
    1620            __HAL_LOCK(hspi);
    \                     HAL_SPI_DMAResume: (+1)
-   \   00000000   0xF890 0x105C      LDRB     R1,[R0, #+92]
+   \   00000000   0xF990 0x105C      LDRSB    R1,[R0, #+92]
    \   00000004   0x2901             CMP      R1,#+1
    \   00000006   0xD101             BNE.N    ??HAL_SPI_DMAResume_0
    \   00000008   0x2002             MOVS     R0,#+2
@@ -4040,7 +4044,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    \   00000044   0xD50E             BPL.N    ??HAL_SPI_IRQHandler_3
    1690              {
    1691                if(hspi->State != HAL_SPI_STATE_BUSY_TX)
-   \   00000046   0xF890 0x205D      LDRB     R2,[R0, #+93]
+   \   00000046   0xF990 0x205D      LDRSB    R2,[R0, #+93]
    \   0000004A   0x2A03             CMP      R2,#+3
    \   0000004C   0xD02F             BEQ.N    ??HAL_SPI_IRQHandler_2
    1692                {
@@ -4300,7 +4304,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    1869          {
    1870            return hspi->State;
    \                     HAL_SPI_GetState: (+1)
-   \   00000000   0xF890 0x005D      LDRB     R0,[R0, #+93]
+   \   00000000   0xF990 0x005D      LDRSB    R0,[R0, #+93]
    \   00000004   0x4770             BX       LR               ;; return
    1871          }
    1872          
@@ -5988,7 +5992,7 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
    \   0000002A   0xB98A             CBNZ.N   R2,??SPI_CloseRxTx_ISR_2
    2658              {
    2659                if(hspi->State == HAL_SPI_STATE_BUSY_RX)
-   \   0000002C   0xF890 0x105D      LDRB     R1,[R0, #+93]
+   \   0000002C   0xF990 0x105D      LDRSB    R1,[R0, #+93]
    \   00000030   0x2904             CMP      R1,#+4
    \   00000032   0xD106             BNE.N    ??SPI_CloseRxTx_ISR_3
    2660                {
@@ -6380,13 +6384,13 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
      186  HAL_SPI_Init
        2  HAL_SPI_MspDeInit
        2  HAL_SPI_MspInit
-    1044  HAL_SPI_Receive
+    1046  HAL_SPI_Receive
      264  HAL_SPI_Receive_DMA
      234  HAL_SPI_Receive_IT
        2  HAL_SPI_RxCpltCallback
        2  HAL_SPI_RxHalfCpltCallback
-     772  HAL_SPI_Transmit
-    1052  HAL_SPI_TransmitReceive
+     774  HAL_SPI_Transmit
+    1054  HAL_SPI_TransmitReceive
      398  HAL_SPI_TransmitReceive_DMA
      248  HAL_SPI_TransmitReceive_IT
      224  HAL_SPI_Transmit_DMA
@@ -6419,9 +6423,9 @@ D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal
       44  SPI_TxISR_8BIT
 
  
- 7 576 bytes in section .text
+ 7 582 bytes in section .text
  
- 7 576 bytes of CODE memory
+ 7 582 bytes of CODE memory
 
 Errors: none
 Warnings: none

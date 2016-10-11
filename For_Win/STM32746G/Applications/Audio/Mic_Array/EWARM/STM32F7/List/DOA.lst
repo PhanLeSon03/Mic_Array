@@ -1,0 +1,430 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM       10/Oct/2016  13:58:50
+# Copyright 1999-2016 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\Src\DOA.c
+#    Command line =  
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\Src\DOA.c
+#        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
+#        USE_IOEXPANDER -D USE_USB_FS -lC
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        -lA
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+#        -o
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+#        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e
+#        --char_is_signed --fpu=VFPv5_sp --dlib_config "C:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\INC\c\DLib_Config_Full.h"
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+#        -I
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+#        -Ohs --use_c++_inline --require_prototypes -I "C:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
+#        ARM_MATH_CM7 --relaxed_fp
+#    List file    =  
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\DOA.lst
+#    Object file  =  
+#        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj\DOA.o
+#
+###############################################################################
+
+D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\Src\DOA.c
+      1          /*****************************************************************************
+      2            *    Author: Phan Le Son                                                                                           
+      3            *                                             
+      4            *    email: plson03@gmail.com
+      5            *****************************************************************************/
+      6          
+      7          #include "DOA.h"
+      8          
+
+   \                                 In section .text, align 4, keep-with-next
+      9          const float DOA[PAR_NUMDIR][4] = 
+   \                     DOA:
+   \   00000000   0xC0000000         DC32 0C0000000H, 0C0000000H, 0H, 40000000H, 0C0000000H, 0H, 40000000H
+   \              0xC0000000   
+   \              0x00000000   
+   \              0x40000000   
+   \              0xC0000000   
+   \              0x00000000   
+   \              0x40000000   
+   \   0000001C   0x40000000         DC32 40000000H, 0H, 40000000H, 40000000H, 40000000H, 40000000H
+   \              0x00000000   
+   \              0x40000000   
+   \              0x40000000   
+   \              0x40000000   
+   \              0x40000000   
+   \   00000034   0x40000000         DC32 40000000H, 40000000H, 0H, 40000000H, 40000000H, 0H, 0C0000000H
+   \              0x40000000   
+   \              0x00000000   
+   \              0x40000000   
+   \              0x40000000   
+   \              0x00000000   
+   \              0xC0000000   
+   \   00000050   0x40000000         DC32 40000000H, 0H, 0C0000000H, 0C0000000H, 0H, 0C0000000H, 0C0000000H
+   \              0x00000000   
+   \              0xC0000000   
+   \              0xC0000000   
+   \              0x00000000   
+   \              0xC0000000   
+   \              0xC0000000   
+   \   0000006C   0xC0000000         DC32 0C0000000H, 0C0000000H, 0C0000000H, 0C0000000H, 0H
+   \              0xC0000000   
+   \              0xC0000000   
+   \              0xC0000000   
+   \              0x00000000   
+     10          {
+     11          #if DOA_RESAMPLE
+     12          	{-9.7f , -6.87f, 0.0f ,  6.86f},    //225
+     13            //{-8.96f, -3.71f, 3.71f,  8.96f},    //247.5
+     14          	{-6.87f,   0.0f, 6.86f,  9.7f},    //270
+     15            //{-3.71f,  3.71f, 8.96f,  8.9f},     //292.5
+     16          	{0.0f  ,  6.86f,  9.7f,  6.86f},     //315
+     17            //{3.71f ,  8.96f,  8.9f,  3.71f},     //337.5
+     18          	{6.86f ,  9.7f , 6.86f,  0.0f},      //0
+     19            //{8.96f ,  8.9f , 3.71f,  -3.71f},    //22.5
+     20          	{9.7f  ,  6.86f,  0.0f,  -6.86f},    //45
+     21            //{8.9f  ,  3.71f, -3.71f, -8.96f},   //67.5
+     22          	{6.86f ,  0.0f, -6.86f,  -9.7f},      //90
+     23            //{3.71f , -3.71f, -8.96f, -8.96f},   //112.5
+     24          	{0.0f  , -6.86f, -9.7f , -6.86f},   // 135
+     25            //{-3.71 , -8.96, -8.96,   -3.71f},     //157.5
+     26          	{-6.86f, -9.7f, -6.86f,   0.0f}      //180
+     27            //{-8.96f, -8.96f, -3.71f,  3.71f}     //202.5
+     28          #else
+     29              {-2.f , -2.f, 0.0f ,  2.f},    //225
+     30            //{-8.96f, -3.71f, 3.71f,  8.96f},    //247.5
+     31              {-2.f,   0.0f, 2.f,  2.f},    //270
+     32            //{-3.71f,  3.71f, 8.96f,  8.9f},     //292.5
+     33          	{0.0f  ,  2.f,  2.f,  2.f},     //315
+     34            //{3.71f ,  8.96f,  8.9f,  3.71f},     //337.5
+     35          	{2.f ,  2.f ,  2.f,  0.0f},      //0
+     36            //{8.96f ,  8.9f , 3.71f,  -3.71f},    //22.5
+     37          	{2.f  ,  2.f,  0.0f,  -2.f},    //45
+     38            //{8.9f  ,  3.71f, -3.71f, -8.96f},   //67.5
+     39          	{2.f ,  0.0f, -2.f,  -2.f},      //90
+     40            //{3.71f , -3.71f, -8.96f, -8.96f},   //112.5
+     41          	{0.0f  , -2.f, -2.f , -2.f},   // 135
+     42            //{-3.71 , -8.96, -8.96,   -3.71f},     //157.5
+     43          	{-2.f, -2.f, -2.f,   0.0f}      //180
+     44            //{-8.96f, -8.96f, -3.71f,  3.71f}     //202.5
+     45          #endif
+     46          };
+     47          
+
+   \                                 In section .rodata, align 4, keep-with-next
+     48          const float Angle[PAR_NUMDIR] = {225, 270,  315,  0,  45,  90,  135,  180};
+   \                     Angle:
+   \   00000000   0x43610000         DC32 43610000H, 43870000H, 439D8000H, 0H, 42340000H, 42B40000H
+   \              0x43870000   
+   \              0x439D8000   
+   \              0x00000000   
+   \              0x42340000   
+   \              0x42B40000   
+   \   00000018   0x43070000         DC32 43070000H, 43340000H
+   \              0x43340000   
+     49          
+
+   \                                 In section .data, align 4
+     50          static float PwrChnnl1Old;
+     51          float Power = 40000;
+     52          float dynamic_power_adj_damping = 0.0225;
+     53          float damping=0.6223; // dynamic_power_adj_damping ** (1.0/8.0)
+     54          float dynamic_power_ratio = 1.5;
+     55          float offset = 3000;
+     56          uint8_t Dir = 0;
+   \                     Dir:
+   \   00000000   0x00               DC8 0
+     57          uint8_t DirOld = 0;
+   \                     DirOld:
+   \   00000001   0x00               DC8 0
+     58          uint8_t flgContinue;
+   \                     flgContinue:
+   \   00000002   0x00               DC8 0
+     59          uint8_t cntDeb;
+   \                     cntDeb:
+   \   00000003   0x00               DC8 0
+   \   00000004   0x00 0x00          DC8 0, 0, 0, 0
+   \              0x00 0x00    
+   \                     Power:
+   \   00000008   0x471C4000         DC32 471C4000H
+   \                     damping:
+   \   0000000C   0x3F1F4F0E         DC32 3F1F4F0EH
+   \                     dynamic_power_ratio:
+   \   00000010   0x3FC00000         DC32 3FC00000H
+   \                     offset:
+   \   00000014   0x453B8000         DC32 453B8000H
+     60          int8_t Dly_Sample[4]; /* PAR_M/2 number of couple*/
+   \                     Dly_Sample:
+   \   00000018   0x00 0x00          DC8 0, 0, 0, 0
+   \              0x00 0x00    
+
+   \                                 In section .data, align 4
+   \                     dynamic_power_adj_damping:
+   \   00000000   0x3CB851EC         DC32 3CB851ECH
+     61          
+
+   \                                 In section .text, align 4, keep-with-next
+     62          uint8_t DOACalc(const Mic_Array_Data * Audio_Data)
+     63          {
+   \                     DOACalc: (+1)
+   \   00000000   0xB5F0             PUSH     {R4-R7,LR}
+   \   00000002   0xB081             SUB      SP,SP,#+4
+     64          	
+     65          	float PwrChnnl1 = 0.0f;
+   \   00000004   0xED9F 0x....      VLDR.W   S0,??DataTable2  ;; 0x0
+     66          	float Target_Power;
+     67          	uint16_t i,j;
+     68          	int16_t Likely;
+     69          	uint16_t LikelyMin=0xFFFF;
+   \   00000008   0xF64F 0x74FF      MOVW     R4,#+65535
+     70          	uint8_t idxDir=0;
+     71              uint8_t DirCurr = 0;
+   \   0000000C   0x2500             MOVS     R5,#+0
+   \   0000000E   0xED2D 0x8B02      VPUSH    {D8}
+     72          	/* Computate the power density of channel 1*/
+     73          	for (i=0; i< PAR_N; i++)
+   \   00000012   0x4601             MOV      R1,R0
+   \   00000014   0xF44F 0x6280      MOV      R2,#+1024
+     74          	{
+     75          		PwrChnnl1 += (float)(Audio_Data->bufMIC1[i]*Audio_Data->bufMIC1[i]);
+   \                     ??DOACalc_0: (+1)
+   \   00000018   0x5F4B             LDRSH    R3,[R1, R5]
+     76          	}
+   \   0000001A   0x1C89             ADDS     R1,R1,#+2
+   \   0000001C   0x1E52             SUBS     R2,R2,#+1
+   \   0000001E   0xFB13 0xF303      SMULBB   R3,R3,R3
+   \   00000022   0xEE00 0x3A90      VMOV     S1,R3
+   \   00000026   0xEEF8 0x0AE0      VCVT.F32.S32 S1,S1
+   \   0000002A   0xEE30 0x0A80      VADD.F32 S0,S1,S0
+   \   0000002E   0xD1F3             BNE.N    ??DOACalc_0
+     77          	PwrChnnl1 /= PAR_N;
+   \   00000030   0xEDDF 0x....      VLDR.W   S1,??DataTable2_1  ;; 0x3a800000
+     78          
+     79          
+     80          	//TODO: to increase the accuracy and the computation cost of DOA, Set-On detect could be considered
+     81          
+     82          	if (PwrChnnl1 > Power + offset)
+   \   00000034   0x....             LDR.N    R6,??DataTable2_2
+   \   00000036   0xEE20 0x8A20      VMUL.F32 S16,S0,S1
+   \   0000003A   0xED96 0x0A02      VLDR     S0,[R6, #+8]
+   \   0000003E   0xEDD6 0x0A05      VLDR     S1,[R6, #+20]
+   \   00000042   0xEE70 0x0A20      VADD.F32 S1,S0,S1
+   \   00000046   0xEEF4 0x0A48      VCMP.F32 S1,S16
+   \   0000004A   0xEEF1 0xFA10      FMSTAT   
+   \   0000004E   0xD54D             BPL.N    ??DOACalc_1
+     83          	{
+     84          		ComputeDelay_Couple(Audio_Data,Dly_Sample);
+   \   00000050   0xF106 0x0118      ADD      R1,R6,#+24
+   \   00000054   0x.... 0x....      BL       ComputeDelay_Couple
+     85          
+     86          		for (i=0; i < PAR_NUMDIR;i++)
+   \   00000058   0x2000             MOVS     R0,#+0
+   \   0000005A   0x.... 0x....      ADR.W    R1,DOA
+     87          		{
+     88          			Likely = 0;
+   \                     ??DOACalc_2: (+1)
+   \   0000005E   0x2200             MOVS     R2,#+0
+     89          			for (j=0; j < 4; j++)
+   \   00000060   0xF106 0x0318      ADD      R3,R6,#+24
+   \   00000064   0xF05F 0x0704      MOVS.W   R7,#+4
+     90          			{
+     91          			    Likely+=(Dly_Sample[j] - DOA[i][j])*(Dly_Sample[j] - DOA[i][j]);	
+   \                     ??DOACalc_3: (+1)
+   \   00000068   0xF913 0xCB01      LDRSB    R12,[R3], #+1
+   \   0000006C   0xEDD1 0x0A00      VLDR     S1,[R1, #0]
+     92          			}
+   \   00000070   0x1D09             ADDS     R1,R1,#+4
+   \   00000072   0x1E7F             SUBS     R7,R7,#+1
+   \   00000074   0xEE00 0xCA10      VMOV     S0,R12
+   \   00000078   0xEEB8 0x0AC0      VCVT.F32.S32 S0,S0
+   \   0000007C   0xEE30 0x0A60      VSUB.F32 S0,S0,S1
+   \   00000080   0xEE00 0x2A90      VMOV     S1,R2
+   \   00000084   0xEEF8 0x0AE0      VCVT.F32.S32 S1,S1
+   \   00000088   0xEE40 0x0A00      VMLA.F32 S1,S0,S0
+   \   0000008C   0xEEBD 0x0AE0      VCVT.S32.F32 S0,S1
+   \   00000090   0xEE10 0x2A10      VMOV     R2,S0
+   \   00000094   0xB212             SXTH     R2,R2
+   \   00000096   0xD1E7             BNE.N    ??DOACalc_3
+     93          
+     94          			if (Likely <= LikelyMin)
+   \   00000098   0xB2A4             UXTH     R4,R4
+   \   0000009A   0x4294             CMP      R4,R2
+   \   0000009C   0xBFA4             ITT      GE 
+   \   0000009E   0x4614             MOVGE    R4,R2
+   \   000000A0   0x4605             MOVGE    R5,R0
+     95          			{
+     96          				LikelyMin = Likely;
+     97          				idxDir = i;
+     98          				DirCurr = idxDir;
+     99          			}
+    100          		}
+   \   000000A2   0x1C40             ADDS     R0,R0,#+1
+   \   000000A4   0x2808             CMP      R0,#+8
+   \   000000A6   0xDBDA             BLT.N    ??DOACalc_2
+    101          
+    102          		/* Deboucing direction of sound */
+    103          		if (flgContinue)
+   \   000000A8   0x78B1             LDRB     R1,[R6, #+2]
+   \   000000AA   0x78F0             LDRB     R0,[R6, #+3]
+   \   000000AC   0xB129             CBZ.N    R1,??DOACalc_4
+    104          		{
+    105          			if (DirCurr == DirOld)
+   \   000000AE   0x7871             LDRB     R1,[R6, #+1]
+   \   000000B0   0xB2ED             UXTB     R5,R5
+   \   000000B2   0x428D             CMP      R5,R1
+   \   000000B4   0xBF0C             ITE      EQ 
+   \   000000B6   0x1C40             ADDEQ    R0,R0,#+1
+   \   000000B8   0x2000             MOVNE    R0,#+0
+    106          			{
+    107          			    cntDeb += 1;
+    108          			}
+    109          			else
+    110          			{
+    111          				cntDeb = 0;
+   \                     ??DOACalc_4: (+1)
+   \   000000BA   0x70F0             STRB     R0,[R6, #+3]
+    112          			}
+    113          		}
+    114          
+    115          		if ((cntDeb>0)&&(PwrChnnl1 > PwrChnnl1Old + offset))
+   \   000000BC   0x78F0             LDRB     R0,[R6, #+3]
+   \   000000BE   0xB158             CBZ.N    R0,??DOACalc_5
+   \   000000C0   0xED96 0x0A01      VLDR     S0,[R6, #+4]
+   \   000000C4   0xEDD6 0x0A05      VLDR     S1,[R6, #+20]
+   \   000000C8   0xEE30 0x0A20      VADD.F32 S0,S0,S1
+   \   000000CC   0xEEB4 0x0A48      VCMP.F32 S0,S16
+   \   000000D0   0xEEF1 0xFA10      FMSTAT   
+   \   000000D4   0xBF48             IT       MI 
+   \   000000D6   0x7035             STRBMI   R5,[R6, #+0]
+    116          		{
+    117          			Dir = DirCurr;
+    118                      ////printf("Likely: %f --", Likely);
+    119          			////printf("Angle: %f :[%2d %2d %2d  %2d] \n\r", Angle[idxDir], Dly_Sample[0], Dly_Sample[1], Dly_Sample[2], Dly_Sample[3]);
+    120          		}
+    121          
+    122          		flgContinue = 1;
+   \                     ??DOACalc_5: (+1)
+   \   000000D8   0x2001             MOVS     R0,#+1
+    123          		DirOld = DirCurr;
+   \   000000DA   0x7075             STRB     R5,[R6, #+1]
+    124          	}
+    125          	else
+    126          	{
+    127          		/* Update Power of background noise */
+    128          		Target_Power = PwrChnnl1*dynamic_power_ratio;
+    129          		Power = Power*damping + Target_Power*(1-damping);
+    130          		flgContinue = 0;
+    131          	}
+    132              
+    133              PwrChnnl1Old = PwrChnnl1;
+   \   000000DC   0xED86 0x8A01      VSTR     S16,[R6, #+4]
+   \   000000E0   0x70B0             STRB     R0,[R6, #+2]
+    134          
+    135          	return Dir;
+   \   000000E2   0xECBD 0x8B02      VPOP     {D8}
+   \   000000E6   0x7830             LDRB     R0,[R6, #+0]
+   \   000000E8   0xB001             ADD      SP,SP,#+4
+   \   000000EA   0xBDF0             POP      {R4-R7,PC}
+   \                     ??DOACalc_1: (+1)
+   \   000000EC   0xEDD6 0x0A03      VLDR     S1,[R6, #+12]
+   \   000000F0   0x2000             MOVS     R0,#+0
+   \   000000F2   0xEE20 0x0A20      VMUL.F32 S0,S0,S1
+   \   000000F6   0x70B0             STRB     R0,[R6, #+2]
+   \   000000F8   0xED96 0x1A04      VLDR     S2,[R6, #+16]
+   \   000000FC   0x7830             LDRB     R0,[R6, #+0]
+   \   000000FE   0xEEF7 0x1A00      VMOV.F32 S3,#1.0
+   \   00000102   0xEE28 0x1A01      VMUL.F32 S2,S16,S2
+   \   00000106   0xEE71 0x0AE0      VSUB.F32 S1,S3,S1
+   \   0000010A   0xEE01 0x0A20      VMLA.F32 S0,S2,S1
+   \   0000010E   0xED86 0x0A02      VSTR     S0,[R6, #+8]
+   \   00000112   0xED86 0x8A01      VSTR     S16,[R6, #+4]
+   \   00000116   0xECBD 0x8B02      VPOP     {D8}
+   \   0000011A   0xB001             ADD      SP,SP,#+4
+   \   0000011C   0xBDF0             POP      {R4-R7,PC}       ;; return
+    136          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2:
+   \   00000000   0x00000000         DC32     0x0
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2_1:
+   \   00000000   0x3A800000         DC32     0x3a800000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2_2:
+   \   00000000   0x........         DC32     Dir
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      32   DOACalc
+        32   -> ComputeDelay_Couple
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable2
+       4  ??DataTable2_1
+       4  ??DataTable2_2
+      32  Angle
+     128  DOA
+     286  DOACalc
+      28  Dir
+          DirOld
+          flgContinue
+          cntDeb
+          PwrChnnl1Old
+          Power
+          damping
+          dynamic_power_ratio
+          offset
+          Dly_Sample
+       4  dynamic_power_adj_damping
+
+ 
+  32 bytes in section .data
+  32 bytes in section .rodata
+ 426 bytes in section .text
+ 
+ 426 bytes of CODE  memory
+  32 bytes of CONST memory
+  32 bytes of DATA  memory
+
+Errors: none
+Warnings: none

@@ -30,6 +30,7 @@
 #include "usbd_audio_if.h" 
 #include "audio_application.h"
 #include "waverecorder.h" 
+#include "Parameter.h"
 
 #define EXT_RAM                 0
 #define DEBUG                   0
@@ -44,7 +45,8 @@
 
 /*  @brief  StartAddress   */
 #define SDRAM_BANK_ADDR                 (0xC0000000)
-#define BUFFER_SIZE_BYTE                (0x000080A0)                       
+#define BUFFER_SIZE_BYTE                (0x00004000)                      
+#define W_SIZE_BYTE                (PAR_M*(PAR_N+2)*4) 
 
 
 #define INTERRUPT_PRI_SDO12     0
@@ -103,6 +105,15 @@
 #define AUDIO_FREQUENCY_11K           ((uint32_t)11025)
 #define AUDIO_FREQUENCY_8K            ((uint32_t)8000)  
 
+
+#define SHIFT_CHNNL1    2
+#define SHIFT_CHNNL2    0 
+#define SHIFT_CHNNL3    1
+#define SHIFT_CHNNL4    0
+#define SHIFT_CHNNL5    1
+#define SHIFT_CHNNL6    0
+#define SHIFT_CHNNL7    5
+#define SHIFT_CHNNL8    5
 
 /* Exported types ------------------------------------------------------------*/
 /* Application State Machine Structure */
@@ -228,14 +239,14 @@ int16_t bufMIC8[AUDIO_OUT_BUFFER_SIZE];
 }Mic_Array_Data;
 
 typedef struct  {
-float bufMIC1[AUDIO_OUT_BUFFER_SIZE+10];
-float bufMIC2[AUDIO_OUT_BUFFER_SIZE+10];
-float bufMIC3[AUDIO_OUT_BUFFER_SIZE+10];
-float bufMIC4[AUDIO_OUT_BUFFER_SIZE+10];
-float bufMIC5[AUDIO_OUT_BUFFER_SIZE+10];
-float bufMIC6[AUDIO_OUT_BUFFER_SIZE+10];
-float bufMIC7[AUDIO_OUT_BUFFER_SIZE+10];
-float bufMIC8[AUDIO_OUT_BUFFER_SIZE+10];
+float bufMIC1[2*AUDIO_OUT_BUFFER_SIZE];
+float bufMIC2[2*AUDIO_OUT_BUFFER_SIZE];
+float bufMIC3[2*AUDIO_OUT_BUFFER_SIZE];
+float bufMIC4[2*AUDIO_OUT_BUFFER_SIZE];
+float bufMIC5[2*AUDIO_OUT_BUFFER_SIZE];
+float bufMIC6[2*AUDIO_OUT_BUFFER_SIZE];
+float bufMIC7[2*AUDIO_OUT_BUFFER_SIZE];
+float bufMIC8[2*AUDIO_OUT_BUFFER_SIZE];
 
 
 }Mic_Array_Data_f;
@@ -247,8 +258,14 @@ float facMIC3;
 float facMIC4;
 float facMIC5;
 float facMIC6;
+float facMIC7;
+float facMIC8;
+
 
 }Mic_Array_Coef_f;
+
+typedef struct{  float real;  float imag;} Complex;
+
 
 extern USBH_HandleTypeDef hUSBHost;
 extern AUDIO_ApplicationTypeDef appli_state;
@@ -274,7 +291,6 @@ void EXTI4_IRQHandler(void);
 
 void EXTI15_10_IRQHandler(void);
 void EXTI9_5_IRQHandler(void);
-void DFT_Init(void);
 void SumDelay(Mic_Array_Data *BufferIn);
 void ButtonInit(void);
 void  BSP_AUDIO_OUT_ClockConfig(uint32_t AudioFreq, void *Params);
@@ -282,14 +298,14 @@ void SubFrameFinished(void);
 
 
 #define RESET_IDX   {                                                           \
-WaveRec_idxSens1 = WaveRec_idxSens1%AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 1*/     \
-WaveRec_idxSens2 = WaveRec_idxSens2%AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 2*/     \
+WaveRec_idxSens1 = 0; /* reset position store data in buffer for sensor 1*/     \
+WaveRec_idxSens2 = 0; /* reset position store data in buffer for sensor 2*/     \
 idxSPI5DataBuf3 = 0; /* reset position store data in temporary buffer */        \
-WaveRec_idxSens3 =  WaveRec_idxSens3%AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 3 */    \
-WaveRec_idxSens4 =  WaveRec_idxSens4%AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 4 */    \
+WaveRec_idxSens3 =  0; /* reset position store data in buffer for sensor 3 */    \
+WaveRec_idxSens4 =  0; /* reset position store data in buffer for sensor 4 */    \
 I2S2_idxTmp = 0; /* reset position store data in temporary buffer */            \
-WaveRec_idxSens5 =  WaveRec_idxSens5%AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 3 */	\
-WaveRec_idxSens6 =  WaveRec_idxSens6%AUDIO_OUT_BUFFER_SIZE; /* reset position store data in buffer for sensor 4 */	\
+WaveRec_idxSens5 =  0; /* reset position store data in buffer for sensor 3 */	\
+WaveRec_idxSens6 =  0; /* reset position store data in buffer for sensor 4 */	\
 flgDlyUpd=0;                                                                    \
 }
 

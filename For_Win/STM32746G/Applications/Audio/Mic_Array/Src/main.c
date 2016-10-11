@@ -16,7 +16,7 @@
 #include "pdm_filter.h"
 #include "arm_math.h"
 #include <stdio.h>
-
+#include "DOA.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -94,19 +94,12 @@ uint16_t cntTime200;
 uint8_t buffer_switch = 1;
 uint8_t Command_index=1;
 uint8_t swtCase1Mic56;
-
-float fir256Coff[DSP_NUMCOFFHANNIING];
+uint8_t Direction;
 //int16_t PreCalcBuff[129][256];
 
 
-#if MAIN_CRSCORR
-arm_rfft_instance_q15 RealFFT_Ins, RealIFFT_Ins;
-#endif
 
-//arm_cfft_radix4_instance_f32 SS,SS1,SS2,SS3,SS4,ISS; 
-//arm_rfft_instance_f32 S,S1,S2,S3,S4,IS;
 
-arm_rfft_fast_instance_f32 S,S1,S2,S3,S4,IS;
 
 
 #if (DEBUG)
@@ -123,7 +116,6 @@ extern __IO uint16_t idxFrmPDMMic8;
 
 /* Private function prototypes -----------------------------------------------*/
 static void SystemClock_Config(void);
-static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8_t id);
 static void CPU_CACHE_Enable(void);
 
 
@@ -149,7 +141,7 @@ inline static void FFT_Update(void)
       {
             PDM2PCMSDO78();
             //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_15); 
-            FactorUpd(&FacMic); 
+            //FactorUpd(&FacMic); 
             //STM_EVAL_LEDOn(LED3);
             flgDlyUpd = 1; 
 /*-------------------------------------------------------------------------------------------------------------
@@ -167,24 +159,27 @@ inline static void FFT_Update(void)
 			{             
 			    case BUF1_PLAY:
 #if MAIN_CRSCORR
-                            for (uint16_t i=0; i<(_MAX_SS/_MAX_SS);i++)
-                            {
-                                //uint16_t i=0;
-                                    arm_rfft_q15(&RealFFT_Ins,    (q15_t *)&buffer3[i*128],    (q15_t *)&bufferFFT[i*256]);
-                                    arm_rfft_q15(&RealFFT_Ins,    (q15_t *)&buffer3_1[i*128],   (q15_t *)&bufferFFT_1[i*256]);
+                    for (uint16_t i=0; i<(_MAX_SS/_MAX_SS);i++)
+                    {
+                        //uint16_t i=0;
+                            arm_rfft_q15(&RealFFT_Ins,    (q15_t *)&buffer3[i*128],    (q15_t *)&bufferFFT[i*256]);
+                            arm_rfft_q15(&RealFFT_Ins,    (q15_t *)&buffer3_1[i*128],   (q15_t *)&bufferFFT_1[i*256]);
+                    
+                            arm_add_q15((q15_t *)&bufferFFT[i*256], (q15_t *)&bufferFFT_1[i*256],   (q15_t *)&bufferFFTSum[i*256],2*128);
+                    
+                            //for (uint16_t j=0; j<256;j++)
+                            //{
+                            //	  bufferFFTSum[i*256+j]<<=6;
+                            //}
                             
-                                    arm_add_q15((q15_t *)&bufferFFT[i*256],    (q15_t *)&bufferFFT_1[i*256],    (q15_t *)&bufferFFTSum[i*256],2*128);
-                            
-                                    //for (uint16_t j=0; j<256;j++)
-                                    //{
-                                    //	  bufferFFTSum[i*256+j]<<=6;
-                                    //}
-                                    
-                                    arm_rfft_q15(&RealIFFT_Ins,    (q15_t *)&bufferFFTSum[i*256],    (q15_t *)&bufferSum[i*128]);
-                            }
+                            arm_rfft_q15(&RealIFFT_Ins,    (q15_t *)&bufferFFTSum[i*256],    (q15_t *)&bufferSum[i*128]);
+                    }
 #elif MAIN_FFT
+                   
+                    /* Sound Source Localization */
+                    //Direction = DOACalc(&Buffer3);
                     /* Summing in Buffer3 */
-                    Delay_Sum_FFT(&Buffer3,&FacMic,(int16_t *)bufferSum, 512);
+                    //BeamFormingSD(&Buffer3,Direction,(int16_t *)Buffer3.bufMIC8);
                     //FFT_SUM((int16_t *)buffer3, (int16_t * )buffer3_1,fbuffer, 1024);				 	   
 #else
                     //LowPassIIR(Buffer3.bufMIC1,Buffer3.bufMIC1,LowPass_Mic1Old,AUDIO_OUT_BUFFER_SIZE,COEFLOWPASS_MIC);
@@ -227,27 +222,28 @@ inline static void FFT_Update(void)
                         arm_rfft_q15(&RealIFFT_Ins,(q15_t *)&bufferFFTSum[i*256],(q15_t *)&bufferSum[i*128]);
                      }
 #elif MAIN_FFT
-                    /* Summing in Buffer1 */	 
-                    Delay_Sum_FFT(&Buffer1, &FacMic,(int16_t * )bufferSum,512);
-                    //FFT_SUM((int16_t *)buffer1, (int16_t * )buffer1_1,fbuffer, 1024);
+                    /* Sound Source Localization */
+                    //Direction = DOACalc(&Buffer1);
+                    /* Summing in Buffer3 */
+                    //BeamFormingSD(&Buffer1,Direction,(int16_t *)Buffer3.bufMIC8);
 
 #else
                 
-                  //idxLatency13 = CrssCor(Buffer1.bufMIC1, Buffer1.bufMIC3, AUDIO_OUT_BUFFER_SIZE/2); 
-                  //idxLatency12 = CrssCor(Buffer1.bufMIC1, Buffer1.bufMIC2, AUDIO_OUT_BUFFER_SIZE/2);
-					//LowPassIIR(Buffer1.bufMIC1,Buffer1.bufMIC1,LowPass_Mic1Old,AUDIO_OUT_BUFFER_SIZE,COEFLOWPASS_MIC);
-					//LowPassIIR(Buffer1.bufMIC2,Buffer1.bufMIC2,LowPass_Mic2Old,AUDIO_OUT_BUFFER_SIZE,COEFLOWPASS_MIC);
-					//LowPassIIR(Buffer1.bufMIC3,Buffer1.bufMIC3,LowPass_Mic3Old,AUDIO_OUT_BUFFER_SIZE,COEFLOWPASS_MIC);
-					//LowPassIIR(Buffer1.bufMIC4,Buffer1.bufMIC4,LowPass_Mic4Old,AUDIO_OUT_BUFFER_SIZE,COEFLOWPASS_MIC);
-					//LowPassIIR(Buffer1.bufMIC5,Buffer1.bufMIC5,LowPass_Mic5Old,AUDIO_OUT_BUFFER_SIZE,COEFLOWPASS_MIC);
-					//LowPassIIR(Buffer1.bufMIC6,Buffer1.bufMIC6,LowPass_Mic6Old,AUDIO_OUT_BUFFER_SIZE,COEFLOWPASS_MIC);
-					//LowPassIIR(Buffer1.bufMIC7,Buffer1.bufMIC7,LowPass_Mic7Old,AUDIO_OUT_BUFFER_SIZE,COEFLOWPASS_MIC);
-					//LowPassIIR(Buffer1.bufMIC8,Buffer1.bufMIC8,LowPass_Mic8Old,AUDIO_OUT_BUFFER_SIZE,COEFLOWPASS_MIC);
-					
-                  //idxLatency78 = GCC_PHAT(Buffer1.bufMIC7, Buffer1.bufMIC8, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal78);	
-                  //idxLatency14 = GCC_PHAT(Buffer1.bufMIC1, Buffer1.bufMIC4, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal14);
-                  //idxLatency25 = GCC_PHAT(Buffer1.bufMIC5, Buffer1.bufMIC2, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal25);
-                  //idxLatency63 = GCC_PHAT(Buffer1.bufMIC6, Buffer1.bufMIC3, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal63);
+            //idxLatency13 = CrssCor(Buffer1.bufMIC1, Buffer1.bufMIC3, AUDIO_OUT_BUFFER_SIZE/2); 
+            //idxLatency12 = CrssCor(Buffer1.bufMIC1, Buffer1.bufMIC2, AUDIO_OUT_BUFFER_SIZE/2);
+            //LowPassIIR(Buffer1.bufMIC1,Buffer1.bufMIC1,LowPass_Mic1Old,AUDIO_OUT_BUFFER_SIZE,COEFLOWPASS_MIC);
+            //LowPassIIR(Buffer1.bufMIC2,Buffer1.bufMIC2,LowPass_Mic2Old,AUDIO_OUT_BUFFER_SIZE,COEFLOWPASS_MIC);
+            //LowPassIIR(Buffer1.bufMIC3,Buffer1.bufMIC3,LowPass_Mic3Old,AUDIO_OUT_BUFFER_SIZE,COEFLOWPASS_MIC);
+            //LowPassIIR(Buffer1.bufMIC4,Buffer1.bufMIC4,LowPass_Mic4Old,AUDIO_OUT_BUFFER_SIZE,COEFLOWPASS_MIC);
+            //LowPassIIR(Buffer1.bufMIC5,Buffer1.bufMIC5,LowPass_Mic5Old,AUDIO_OUT_BUFFER_SIZE,COEFLOWPASS_MIC);
+            //LowPassIIR(Buffer1.bufMIC6,Buffer1.bufMIC6,LowPass_Mic6Old,AUDIO_OUT_BUFFER_SIZE,COEFLOWPASS_MIC);
+            //LowPassIIR(Buffer1.bufMIC7,Buffer1.bufMIC7,LowPass_Mic7Old,AUDIO_OUT_BUFFER_SIZE,COEFLOWPASS_MIC);
+            //LowPassIIR(Buffer1.bufMIC8,Buffer1.bufMIC8,LowPass_Mic8Old,AUDIO_OUT_BUFFER_SIZE,COEFLOWPASS_MIC);
+
+            //idxLatency78 = GCC_PHAT(Buffer1.bufMIC7, Buffer1.bufMIC8, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal78);	
+            //idxLatency14 = GCC_PHAT(Buffer1.bufMIC1, Buffer1.bufMIC4, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal14);
+            //idxLatency25 = GCC_PHAT(Buffer1.bufMIC5, Buffer1.bufMIC2, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal25);
+            //idxLatency63 = GCC_PHAT(Buffer1.bufMIC6, Buffer1.bufMIC3, AUDIO_OUT_BUFFER_SIZE,&CrssCorVal63);
 
 
 
@@ -274,8 +270,14 @@ inline static void FFT_Update(void)
               arm_rfft_q15(&RealIFFT_Ins,(q15_t *)&bufferFFTSum[i*256],(q15_t *)&bufferSum[i*128]);
           }
 #elif MAIN_FFT
+        
+        /* Sound Source Localization */
+        //Direction = DOACalc(&Buffer2);
+        /* Summing in Buffer3 */
+        //BeamFormingSD(&Buffer2,Direction,(int16_t *)Buffer2.bufMIC8);
+
         /* Summing in Buffer2 */
-        Delay_Sum_FFT(&Buffer2,&FacMic, (int16_t * )bufferSum, 512);
+        //Delay_Sum_FFT(&Buffer2,&FacMic, (int16_t * )Buffer2.bufMIC8, PAR_N);
         //FFT_SUM((int16_t *)buffer2, (int16_t * )buffer2_1,fbuffer, 1024);				
 #else
 
@@ -415,7 +417,7 @@ int main(void)
 
   
   /* Init TS module */
-   DFT_Init();	
+   BeamFormingSD_Init();	
 
 
     /*-----------------------*/
@@ -514,7 +516,8 @@ int main(void)
     StartPlay();
     __enable_irq();
     BSP_LED_Toggle(LED1);
-    //Window(fir256Coff);
+    
+    
 	//EnergyNoiseCalc(AUDIO_OUT_BUFFER_SIZE/2);
     //Precalculation(Coef,PreCalcBuff);
     
@@ -523,7 +526,7 @@ int main(void)
 		/* This calculation happens once time in power cycles */
 		/* After 5 times of full frame recieved interrupt */
         
-        if ((cntStrt>=5)&&(cntStrt<48))
+        if ((cntStrt>=5)&&(cntStrt<20))
         {
             if ((WaveRecord_flgIni<900)&&(cntStrt<10))
             {
@@ -584,7 +587,6 @@ int main(void)
 	         cntTime200++;
 	         if (cntTime200==40)
 	         {
-	 
 #if (DEBUG)
                    uint32_t tmpSNR63,tmpSNR14,tmpSNR78,tmpSNR25;
                    tmpSNR78 = (uint32_t)(CrssCorVal78/EnergyError);
@@ -758,36 +760,6 @@ void Toggle_Leds(void)
   }
 }
 
-
-/**
-  * @brief  User Process
-  * @param  phost: Host Handle
-  * @param  id: Host Library user message ID
-  * @retval None
-  */
-static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8_t id)
-{
-  switch(id)
-  { 
-  case HOST_USER_SELECT_CONFIGURATION:
-    break;
-    
-  case HOST_USER_DISCONNECTION:
-    appli_state = APPLICATION_DISCONNECT;
-    break;
-
-  case HOST_USER_CLASS_ACTIVE:
-    appli_state = APPLICATION_READY;
-    break;
- 
-  case HOST_USER_CONNECTION:
-    appli_state = APPLICATION_START;
-    break;
-   
-  default:
-    break; 
-  }
-}
 
 /**
   * @brief  System Clock Configuration
@@ -1153,28 +1125,6 @@ void EXTI9_5_IRQHandler(void)
 }
 
 
-void DFT_Init(void)
-{
-#if MAIN_CRSCORR
-		arm_rfft_init_q15(&RealFFT_Ins,(uint32_t)128,(uint32_t)0,(uint32_t)1);
-		arm_rfft_init_q15(&RealIFFT_Ins,(uint32_t)128,(uint32_t)1,(uint32_t)1);
-#endif  
-		/* Initialize the CFFT/CIFFT module */
-		//arm_rfft_init_f32(&S,&SS, 512,  0, 1);
-		//arm_rfft_init_f32(&S1,&SS1, 512,  0, 1); 
-		//arm_rfft_init_f32(&S2,&SS2, 512,  0, 1); 
-		//arm_rfft_init_f32(&S3,&SS3, 512,  0, 1); 
-		//arm_rfft_init_f32(&S4,&SS4, 512,  0, 1);
-		//arm_rfft_init_f32(&IS,&ISS, 512,  1, 1);
-		
-
-		//arm_rfft_fast_init_f32(&S1, 512);
-        //arm_rfft_fast_init_f32(&S2, 512);
-		//arm_rfft_fast_init_f32(&S3, 512);
-		//arm_rfft_fast_init_f32(&S4, 512);
-		//arm_rfft_fast_init_f32(&IS, 512);
-		arm_rfft_fast_init_f32(&S, 1024);
-}
 
 
 void SumDelay(Mic_Array_Data *BufferIn)
@@ -1281,39 +1231,7 @@ void MX_I2C2_Init(void)
 
  uint8_t StartPlay(void)
  {
- #if 0
-	while (1)
-	{
-		 /* there is data in the buffer */	
-		 if((WaveRec_idxSens1>=(AUDIO_OUT_BUFFER_SIZE-1))&&(stFrstFrmStore<3))
-		 {
-			 RESET_IDX
-			 /* this is just run 1 time after 1st frame of I2S data full */
-			 if ((stFrstFrmStore<3))
-			 {
-                             stFrstFrmStore++;
-             
-                             buffer_switch = BUF2_PLAY; /* record data to buffer3 */
-             
-                             if (stFrstFrmStore==2)
-                             {
-                                 
-         
-                                 /*------------------------PLAYER------------------------------------------*/
-                                 Audio_MAL_Play((uint32_t)bufferSum,2*6*AUDIO_CHANNELS*(AUDIO_SAMPLING_FREQUENCY/1000));
-                                 /*------------------------------------------------------------------------*/				 
-                                 buffer_switch = BUF1_PLAY;
-								 uint16_t tdelay=100;
-								 while(tdelay--);
-                                 //StartRecMic7_8();
-                                 return 0;		 
-                             }				 
-                     
-			 }
-		 
-		 }
-	}
-#endif	
+
 
     	   	 
     //HAL_Delay(100);
@@ -1333,12 +1251,12 @@ void MX_I2C2_Init(void)
     I2S2_Enable();
     SPI4_Enable();
     StartRecMic7_8();
-    WaveRec_idxSens1 = 0;
-    WaveRec_idxSens2 = 0;
-    WaveRec_idxSens3 = 0;
-    WaveRec_idxSens4 = 0;
-    WaveRec_idxSens5 = 0;
-    WaveRec_idxSens6 = 0; 
+    WaveRec_idxSens1 = 0;//SHIFT_CHNNL1;
+    WaveRec_idxSens2 = 0;//SHIFT_CHNNL2;
+    WaveRec_idxSens3 = 0;//SHIFT_CHNNL3;
+    WaveRec_idxSens4 = 0;//SHIFT_CHNNL4;
+    WaveRec_idxSens5 = 0;//SHIFT_CHNNL5;
+    WaveRec_idxSens6 = 0;//SHIFT_CHNNL6; 
     idxFrmPDMMic8 = 0;
     buffer_switch = BUF1_PLAY;
 

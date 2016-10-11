@@ -1,58 +1,59 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      15/May/2016  09:59:31
+// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      10/Oct/2016  13:58:57
 // Copyright 1999-2016 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_i2c.c
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_i2c.c
 //    Command line =  
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_i2c.c
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_i2c.c
 //        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 //        USE_IOEXPANDER -D USE_USB_FS -lC
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -lA
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
-//        --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e
+//        --char_is_signed --fpu=VFPv5_sp --dlib_config "C:\Program Files
+//        (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
 //        -Ohs --use_c++_inline --require_prototypes -I "C:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_i2c.s
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_i2c.s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -149,7 +150,7 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
         
-// D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_i2c.c
+// D:\sop1hc\Mic\Mic_Array\For_Window\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_i2c.c
 //    1 /**
 //    2   ******************************************************************************
 //    3   * @file    stm32f7xx_hal_i2c.c
@@ -473,7 +474,7 @@ HAL_I2C_Init:
 //  307 
 //  308   if(hi2c->State == HAL_I2C_STATE_RESET)
 ??HAL_I2C_Init_0:
-        LDRB     R0,[R4, #+53]
+        LDRSB    R0,[R4, #+53]
         CBNZ.N   R0,??HAL_I2C_Init_1
 //  309   {
 //  310     /* Allocate lock resource and initialize it */
@@ -813,7 +814,7 @@ HAL_I2C_Master_Transmit:
 //  508   uint32_t sizetmp = 0;
 //  509   
 //  510   if(hi2c->State == HAL_I2C_STATE_READY)
-        LDRB     R0,[R4, #+53]
+        LDRSB    R0,[R4, #+53]
         CMP      R0,#+1
         BNE.W    ??HAL_I2C_Master_Transmit_0
 //  511   {    
@@ -837,7 +838,7 @@ HAL_I2C_Master_Transmit:
 //  521     
 //  522     /* Process Locked */
 //  523     __HAL_LOCK(hi2c);
-        LDRB     R2,[R4, #+52]
+        LDRSB    R2,[R4, #+52]
         CMP      R2,#+1
         BEQ.W    ??HAL_I2C_Master_Transmit_0
         MOVS     R2,#+1
@@ -1161,7 +1162,7 @@ HAL_I2C_Master_Receive:
 //  628   uint32_t sizetmp = 0;
 //  629   
 //  630   if(hi2c->State == HAL_I2C_STATE_READY)
-        LDRB     R0,[R4, #+53]
+        LDRSB    R0,[R4, #+53]
         CMP      R0,#+1
         BNE.W    ??HAL_I2C_Master_Receive_0
 //  631   {    
@@ -1185,7 +1186,7 @@ HAL_I2C_Master_Receive:
 //  641     
 //  642     /* Process Locked */
 //  643     __HAL_LOCK(hi2c);
-        LDRB     R2,[R4, #+52]
+        LDRSB    R2,[R4, #+52]
         CMP      R2,#+1
         BEQ.W    ??HAL_I2C_Master_Receive_0
         MOVS     R2,#+1
@@ -1510,7 +1511,7 @@ HAL_I2C_Slave_Transmit:
         MOV      R6,R2
         MOV      R7,R3
 //  748   if(hi2c->State == HAL_I2C_STATE_READY)
-        LDRB     R0,[R4, #+53]
+        LDRSB    R0,[R4, #+53]
         CMP      R0,#+1
         BNE.W    ??HAL_I2C_Slave_Transmit_0
 //  749   {    
@@ -1525,7 +1526,7 @@ HAL_I2C_Slave_Transmit:
 //  754     
 //  755     /* Process Locked */
 //  756     __HAL_LOCK(hi2c);
-        LDRB     R0,[R4, #+52]
+        LDRSB    R0,[R4, #+52]
         CMP      R0,#+1
         BEQ.W    ??HAL_I2C_Slave_Transmit_0
         MOVS     R0,#+1
@@ -1896,7 +1897,7 @@ HAL_I2C_Slave_Receive:
         MOV      R8,R2
         MOV      R7,R3
 //  877   if(hi2c->State == HAL_I2C_STATE_READY)
-        LDRB     R0,[R4, #+53]
+        LDRSB    R0,[R4, #+53]
         CMP      R0,#+1
         BNE.W    ??HAL_I2C_Slave_Receive_0
 //  878   {  
@@ -1911,7 +1912,7 @@ HAL_I2C_Slave_Receive:
 //  883     
 //  884     /* Process Locked */
 //  885     __HAL_LOCK(hi2c);
-        LDRB     R0,[R4, #+52]
+        LDRSB    R0,[R4, #+52]
         CMP      R0,#+1
         BEQ.W    ??HAL_I2C_Slave_Receive_0
         MOVS     R0,#+1
@@ -2232,7 +2233,7 @@ HAL_I2C_Master_Transmit_IT:
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
 //  997   if(hi2c->State == HAL_I2C_STATE_READY)
-        LDRB     R4,[R0, #+53]
+        LDRSB    R4,[R0, #+53]
         CMP      R4,#+1
         BNE.N    ??HAL_I2C_Master_Transmit_IT_0
 //  998   {
@@ -2257,7 +2258,7 @@ HAL_I2C_Master_Transmit_IT:
 // 1008     
 // 1009     /* Process Locked */
 // 1010     __HAL_LOCK(hi2c);
-        LDRB     R5,[R0, #+52]
+        LDRSB    R5,[R0, #+52]
         CMP      R5,#+1
         BEQ.N    ??HAL_I2C_Master_Transmit_IT_0
         MOVS     R5,#+1
@@ -2393,7 +2394,7 @@ HAL_I2C_Master_Receive_IT:
           CFI R4 Frame(CFA, -8)
           CFI CFA R13+8
 // 1069   if(hi2c->State == HAL_I2C_STATE_READY)
-        LDRB     R4,[R0, #+53]
+        LDRSB    R4,[R0, #+53]
         CMP      R4,#+1
         BNE.N    ??HAL_I2C_Master_Receive_IT_0
 // 1070   {
@@ -2418,7 +2419,7 @@ HAL_I2C_Master_Receive_IT:
 // 1080     
 // 1081     /* Process Locked */
 // 1082     __HAL_LOCK(hi2c);
-        LDRB     R5,[R0, #+52]
+        LDRSB    R5,[R0, #+52]
         CMP      R5,#+1
         BEQ.N    ??HAL_I2C_Master_Receive_IT_0
         MOVS     R5,#+1
@@ -2548,7 +2549,7 @@ HAL_I2C_Master_Receive_IT:
 // 1138 {
 // 1139   if(hi2c->State == HAL_I2C_STATE_READY)
 HAL_I2C_Slave_Transmit_IT:
-        LDRB     R3,[R0, #+53]
+        LDRSB    R3,[R0, #+53]
         CMP      R3,#+1
         BNE.N    ??HAL_I2C_Slave_Transmit_IT_0
 // 1140   {
@@ -2566,7 +2567,7 @@ HAL_I2C_Slave_Transmit_IT:
 // 1146     /* Process Locked */
 // 1147     __HAL_LOCK(hi2c);
 ??HAL_I2C_Slave_Transmit_IT_1:
-        LDRB     R3,[R0, #+52]
+        LDRSB    R3,[R0, #+52]
         CMP      R3,#+1
         BEQ.N    ??HAL_I2C_Slave_Transmit_IT_0
         MOVS     R3,#+1
@@ -2643,7 +2644,7 @@ HAL_I2C_Slave_Transmit_IT:
 // 1188 {
 // 1189   if(hi2c->State == HAL_I2C_STATE_READY)
 HAL_I2C_Slave_Receive_IT:
-        LDRB     R3,[R0, #+53]
+        LDRSB    R3,[R0, #+53]
         CMP      R3,#+1
         BNE.N    ??HAL_I2C_Slave_Receive_IT_0
 // 1190   {
@@ -2661,7 +2662,7 @@ HAL_I2C_Slave_Receive_IT:
 // 1196     /* Process Locked */
 // 1197     __HAL_LOCK(hi2c);
 ??HAL_I2C_Slave_Receive_IT_1:
-        LDRB     R3,[R0, #+52]
+        LDRSB    R3,[R0, #+52]
         CMP      R3,#+1
         BEQ.N    ??HAL_I2C_Slave_Receive_IT_0
         MOVS     R3,#+1
@@ -2748,7 +2749,7 @@ HAL_I2C_Master_Transmit_DMA:
         MOV      R5,R1
         MOV      R1,R2
 // 1240   if(hi2c->State == HAL_I2C_STATE_READY)
-        LDRB     R0,[R4, #+53]
+        LDRSB    R0,[R4, #+53]
         CMP      R0,#+1
         BNE.N    ??HAL_I2C_Master_Transmit_DMA_0
 // 1241   {
@@ -2772,7 +2773,7 @@ HAL_I2C_Master_Transmit_DMA:
 // 1251     
 // 1252     /* Process Locked */
 // 1253     __HAL_LOCK(hi2c);
-        LDRB     R0,[R4, #+52]
+        LDRSB    R0,[R4, #+52]
         CMP      R0,#+1
         BEQ.N    ??HAL_I2C_Master_Transmit_DMA_0
         MOVS     R0,#+1
@@ -2982,7 +2983,7 @@ HAL_I2C_Master_Receive_DMA:
           CFI CFA R13+16
         MOV      R5,R1
 // 1333   if(hi2c->State == HAL_I2C_STATE_READY)
-        LDRB     R0,[R4, #+53]
+        LDRSB    R0,[R4, #+53]
         CMP      R0,#+1
         BNE.W    ??HAL_I2C_Master_Receive_DMA_0
 // 1334   {
@@ -3006,7 +3007,7 @@ HAL_I2C_Master_Receive_DMA:
 // 1344     
 // 1345     /* Process Locked */
 // 1346     __HAL_LOCK(hi2c);
-        LDRB     R0,[R4, #+52]
+        LDRSB    R0,[R4, #+52]
         CMP      R0,#+1
         BEQ.N    ??HAL_I2C_Master_Receive_DMA_0
         MOVS     R0,#+1
@@ -3221,7 +3222,7 @@ HAL_I2C_Slave_Transmit_DMA:
           CFI CFA R13+16
         MOV      R4,R0
 // 1422   if(hi2c->State == HAL_I2C_STATE_READY)
-        LDRB     R0,[R4, #+53]
+        LDRSB    R0,[R4, #+53]
         CMP      R0,#+1
         BNE.N    ??HAL_I2C_Slave_Transmit_DMA_0
 // 1423   {
@@ -3235,7 +3236,7 @@ HAL_I2C_Slave_Transmit_DMA:
 // 1427     }   
 // 1428     /* Process Locked */
 // 1429     __HAL_LOCK(hi2c); 
-        LDRB     R0,[R4, #+52]
+        LDRSB    R0,[R4, #+52]
         CMP      R0,#+1
         BEQ.N    ??HAL_I2C_Slave_Transmit_DMA_0
         MOVS     R0,#+1
@@ -3430,7 +3431,7 @@ HAL_I2C_Slave_Receive_DMA:
           CFI CFA R13+16
         MOV      R4,R0
 // 1508   if(hi2c->State == HAL_I2C_STATE_READY)
-        LDRB     R0,[R4, #+53]
+        LDRSB    R0,[R4, #+53]
         CMP      R0,#+1
         BNE.N    ??HAL_I2C_Slave_Receive_DMA_0
 // 1509   {
@@ -3444,7 +3445,7 @@ HAL_I2C_Slave_Receive_DMA:
 // 1513     }   
 // 1514     /* Process Locked */
 // 1515     __HAL_LOCK(hi2c);
-        LDRB     R0,[R4, #+52]
+        LDRSB    R0,[R4, #+52]
         CMP      R0,#+1
         BEQ.N    ??HAL_I2C_Slave_Receive_DMA_0
         MOVS     R0,#+1
@@ -3639,7 +3640,7 @@ HAL_I2C_Mem_Write:
 // 1585   assert_param(IS_I2C_MEMADD_SIZE(MemAddSize));
 // 1586   
 // 1587   if(hi2c->State == HAL_I2C_STATE_READY)
-        LDRB     R0,[R5, #+53]
+        LDRSB    R0,[R5, #+53]
         CMP      R0,#+1
         BNE.W    ??HAL_I2C_Mem_Write_0
         LDR      R8,[SP, #+40]
@@ -3665,7 +3666,7 @@ HAL_I2C_Mem_Write:
 // 1598     
 // 1599     /* Process Locked */
 // 1600     __HAL_LOCK(hi2c);
-        LDRB     R2,[R5, #+52]
+        LDRSB    R2,[R5, #+52]
         CMP      R2,#+1
         BEQ.W    ??HAL_I2C_Mem_Write_0
         MOVS     R2,#+1
@@ -4121,7 +4122,7 @@ HAL_I2C_Mem_Read:
 // 1728   assert_param(IS_I2C_MEMADD_SIZE(MemAddSize));
 // 1729   
 // 1730   if(hi2c->State == HAL_I2C_STATE_READY)
-        LDRB     R0,[R5, #+53]
+        LDRSB    R0,[R5, #+53]
         CMP      R0,#+1
         BNE.W    ??HAL_I2C_Mem_Read_0
         LDR      R8,[SP, #+40]
@@ -4147,7 +4148,7 @@ HAL_I2C_Mem_Read:
 // 1741     
 // 1742     /* Process Locked */
 // 1743     __HAL_LOCK(hi2c);
-        LDRB     R2,[R5, #+52]
+        LDRSB    R2,[R5, #+52]
         CMP      R2,#+1
         BEQ.W    ??HAL_I2C_Mem_Read_0
         MOVS     R2,#+1
@@ -4590,7 +4591,7 @@ HAL_I2C_Mem_Write_IT:
 // 1862   assert_param(IS_I2C_MEMADD_SIZE(MemAddSize));
 // 1863   
 // 1864   if(hi2c->State == HAL_I2C_STATE_READY)
-        LDRB     R0,[R4, #+53]
+        LDRSB    R0,[R4, #+53]
         CMP      R0,#+1
         BNE.W    ??HAL_I2C_Mem_Write_IT_0
         LDR      R3,[SP, #+32]
@@ -4616,7 +4617,7 @@ HAL_I2C_Mem_Write_IT:
 // 1875     
 // 1876     /* Process Locked */
 // 1877     __HAL_LOCK(hi2c);
-        LDRB     R7,[R4, #+52]
+        LDRSB    R7,[R4, #+52]
         CMP      R7,#+1
         BEQ.W    ??HAL_I2C_Mem_Write_IT_0
         MOVS     R7,#+1
@@ -4881,7 +4882,7 @@ HAL_I2C_Mem_Read_IT:
 // 1955   assert_param(IS_I2C_MEMADD_SIZE(MemAddSize));
 // 1956   
 // 1957   if(hi2c->State == HAL_I2C_STATE_READY)
-        LDRB     R0,[R4, #+53]
+        LDRSB    R0,[R4, #+53]
         CMP      R0,#+1
         BNE.W    ??HAL_I2C_Mem_Read_IT_0
         LDR      R3,[SP, #+32]
@@ -4907,7 +4908,7 @@ HAL_I2C_Mem_Read_IT:
 // 1968     
 // 1969     /* Process Locked */
 // 1970     __HAL_LOCK(hi2c);
-        LDRB     R7,[R4, #+52]
+        LDRSB    R7,[R4, #+52]
         CMP      R7,#+1
         BEQ.W    ??HAL_I2C_Mem_Read_IT_0
         MOVS     R7,#+1
@@ -5180,7 +5181,7 @@ HAL_I2C_Mem_Write_DMA:
 // 2046   assert_param(IS_I2C_MEMADD_SIZE(MemAddSize));
 // 2047   
 // 2048   if(hi2c->State == HAL_I2C_STATE_READY)
-        LDRB     R0,[R4, #+53]
+        LDRSB    R0,[R4, #+53]
         MOV      R8,R3
         CMP      R0,#+1
         BNE.W    ??HAL_I2C_Mem_Write_DMA_0
@@ -5207,7 +5208,7 @@ HAL_I2C_Mem_Write_DMA:
 // 2059     
 // 2060     /* Process Locked */
 // 2061     __HAL_LOCK(hi2c);
-        LDRB     R2,[R4, #+52]
+        LDRSB    R2,[R4, #+52]
         CMP      R2,#+1
         BEQ.W    ??HAL_I2C_Mem_Write_DMA_0
         MOVS     R2,#+1
@@ -5552,7 +5553,7 @@ HAL_I2C_Mem_Read_DMA:
 // 2155   assert_param(IS_I2C_MEMADD_SIZE(MemAddSize));
 // 2156   
 // 2157   if(hi2c->State == HAL_I2C_STATE_READY)
-        LDRB     R0,[R4, #+53]
+        LDRSB    R0,[R4, #+53]
         MOV      R8,R3
         CMP      R0,#+1
         BNE.W    ??HAL_I2C_Mem_Read_DMA_0
@@ -5579,7 +5580,7 @@ HAL_I2C_Mem_Read_DMA:
 // 2168     
 // 2169     /* Process Locked */
 // 2170     __HAL_LOCK(hi2c);
-        LDRB     R1,[R4, #+52]
+        LDRSB    R1,[R4, #+52]
         CMP      R1,#+1
         BEQ.W    ??HAL_I2C_Mem_Read_DMA_0
         MOVS     R1,#+1
@@ -5883,7 +5884,7 @@ HAL_I2C_IsDeviceReady:
         STR      R0,[SP, #+0]
 // 2256   
 // 2257   if(hi2c->State == HAL_I2C_STATE_READY)
-        LDRB     R0,[R4, #+53]
+        LDRSB    R0,[R4, #+53]
         MOV      R6,R3
         CMP      R0,#+1
         BNE.W    ??HAL_I2C_IsDeviceReady_0
@@ -5899,7 +5900,7 @@ HAL_I2C_IsDeviceReady:
 // 2263     
 // 2264     /* Process Locked */
 // 2265     __HAL_LOCK(hi2c);
-        LDRB     R0,[R4, #+52]
+        LDRSB    R0,[R4, #+52]
         CMP      R0,#+1
         BEQ.W    ??HAL_I2C_IsDeviceReady_0
         MOVS     R0,#+1
@@ -5945,7 +5946,7 @@ HAL_I2C_IsDeviceReady:
         LDR      R1,[R0, #+24]
         LSLS     R1,R1,#+27
         BMI.N    ??HAL_I2C_IsDeviceReady_3
-        LDRB     R1,[R4, #+53]
+        LDRSB    R1,[R4, #+53]
         CMP      R1,#+3
         BEQ.N    ??HAL_I2C_IsDeviceReady_3
 // 2279       {
@@ -6216,7 +6217,7 @@ HAL_I2C_EV_IRQHandler:
 // 2375   {     
 // 2376     /* Slave mode selected */
 // 2377     if (hi2c->State == HAL_I2C_STATE_SLAVE_BUSY_TX)
-        LDRBEQ   R0,[R4, #+53]
+        LDRSBEQ  R0,[R4, #+53]
         CMPEQ    R0,#+50
 // 2378     {
 // 2379       I2C_SlaveTransmit_ISR(hi2c);
@@ -6252,10 +6253,10 @@ HAL_I2C_EV_IRQHandler:
 // 2384   {     
 // 2385     /* Master mode selected */
 // 2386     if ((hi2c->State == HAL_I2C_STATE_MASTER_BUSY_TX) || (hi2c->State == HAL_I2C_STATE_MEM_BUSY_TX))
-        LDRB     R0,[R4, #+53]
+        LDRSB    R0,[R4, #+53]
         CMP      R0,#+18
         ITTEE    NE 
-        LDRBNE   R0,[R4, #+53]
+        LDRSBNE  R0,[R4, #+53]
         CMPNE    R0,#+82
 // 2387     {
 // 2388       I2C_MasterTransmit_ISR(hi2c);
@@ -6295,7 +6296,7 @@ HAL_I2C_EV_IRQHandler:
 // 2394   {
 // 2395     /* Slave mode selected */
 // 2396     if (hi2c->State == HAL_I2C_STATE_SLAVE_BUSY_RX)
-        LDRBEQ   R0,[R4, #+53]
+        LDRSBEQ  R0,[R4, #+53]
         CMPEQ    R0,#+66
 // 2397     {
 // 2398       I2C_SlaveReceive_ISR(hi2c);
@@ -6330,10 +6331,10 @@ HAL_I2C_EV_IRQHandler:
 // 2402   {
 // 2403     /* Master mode selected */
 // 2404     if ((hi2c->State == HAL_I2C_STATE_MASTER_BUSY_RX) || (hi2c->State == HAL_I2C_STATE_MEM_BUSY_RX))
-        LDRB     R0,[R4, #+53]
+        LDRSB    R0,[R4, #+53]
         CMP      R0,#+34
         ITT      NE 
-        LDRBNE   R0,[R4, #+53]
+        LDRSBNE  R0,[R4, #+53]
         CMPNE    R0,#+98
         BNE.N    ??HAL_I2C_EV_IRQHandler_7
 // 2405     {
@@ -6669,7 +6670,7 @@ HAL_I2C_ErrorCallback:
 // 2592 {
 // 2593   return hi2c->State;
 HAL_I2C_GetState:
-        LDRB     R0,[R0, #+53]
+        LDRSB    R0,[R0, #+53]
         BX       LR               ;; return
 // 2594 }
           CFI EndBlock cfiBlock32
@@ -6733,7 +6734,7 @@ I2C_MasterTransmit_ISR:
 // 2628   
 // 2629   /* Process Locked */
 // 2630   __HAL_LOCK(hi2c); 
-        LDRB     R0,[R4, #+52]
+        LDRSB    R0,[R4, #+52]
         CMP      R0,#+1
         IT       EQ 
         MOVEQ    R0,#+2
@@ -6942,7 +6943,7 @@ I2C_MasterTransmit_ISR:
 // 2719     {
 // 2720       if(hi2c->State == HAL_I2C_STATE_MEM_BUSY_TX)
 ??I2C_MasterTransmit_ISR_11:
-        LDRB     R0,[R4, #+53]
+        LDRSB    R0,[R4, #+53]
         CMP      R0,#+82
         BNE.N    ??I2C_MasterTransmit_ISR_13
 // 2721       {
@@ -7048,7 +7049,7 @@ I2C_MasterReceive_ISR:
 // 2767   
 // 2768   /* Process Locked */
 // 2769   __HAL_LOCK(hi2c);
-        LDRB     R0,[R4, #+52]
+        LDRSB    R0,[R4, #+52]
         CMP      R0,#+1
         IT       EQ 
         MOVEQ    R0,#+2
@@ -7245,7 +7246,7 @@ I2C_MasterReceive_ISR:
 // 2852     {
 // 2853       if(hi2c->State == HAL_I2C_STATE_MEM_BUSY_RX)
 ??I2C_MasterReceive_ISR_11:
-        LDRB     R0,[R4, #+53]
+        LDRSB    R0,[R4, #+53]
         CMP      R0,#+98
         BNE.N    ??I2C_MasterReceive_ISR_13
 // 2854       {
@@ -7347,7 +7348,7 @@ I2C_SlaveTransmit_ISR:
         MOV      R4,R0
 // 2900   /* Process locked */
 // 2901   __HAL_LOCK(hi2c);
-        LDRB     R0,[R4, #+52]
+        LDRSB    R0,[R4, #+52]
         CMP      R0,#+1
         BNE.N    ??I2C_SlaveTransmit_ISR_0
         MOVS     R0,#+2
@@ -7531,7 +7532,7 @@ I2C_SlaveReceive_ISR:
         MOV      R4,R0
 // 2986   /* Process Locked */
 // 2987   __HAL_LOCK(hi2c);
-        LDRB     R0,[R4, #+52]
+        LDRSB    R0,[R4, #+52]
         CMP      R0,#+1
         BNE.N    ??I2C_SlaveReceive_ISR_0
         MOVS     R0,#+2

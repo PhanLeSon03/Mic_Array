@@ -1,58 +1,59 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      15/May/2016  09:59:36
+// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      10/Oct/2016  13:59:02
 // Copyright 1999-2016 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_tim_ex.c
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_tim_ex.c
 //    Command line =  
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_tim_ex.c
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_tim_ex.c
 //        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 //        USE_IOEXPANDER -D USE_USB_FS -lC
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -lA
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
-//        --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e
+//        --char_is_signed --fpu=VFPv5_sp --dlib_config "C:\Program Files
+//        (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
 //        -Ohs --use_c++_inline --require_prototypes -I "C:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_tim_ex.s
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\stm32f7xx_hal_tim_ex.s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -164,7 +165,7 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
         
-// D:\sop1hc\Mic\Mic_Array\Mic_Array\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_tim_ex.c
+// D:\sop1hc\Mic\Mic_Array\For_Window\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_tim_ex.c
 //    1 /**
 //    2   ******************************************************************************
 //    3   * @file    stm32f7xx_hal_tim_ex.c
@@ -845,14 +846,14 @@ HAL_TIMEx_HallSensor_Start_DMA:
 //  398   assert_param(IS_TIM_XOR_INSTANCE(htim->Instance));
 //  399   
 //  400    if((htim->State == HAL_TIM_STATE_BUSY))
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         CMP      R0,#+2
         BEQ.N    ??HAL_TIMEx_HallSensor_Start_DMA_0
 //  401   {
 //  402      return HAL_BUSY;
 //  403   }
 //  404   else if((htim->State == HAL_TIM_STATE_READY))
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         CMP      R0,#+1
         BNE.N    ??HAL_TIMEx_HallSensor_Start_DMA_1
 //  405   {
@@ -1457,14 +1458,14 @@ HAL_TIMEx_OCN_Start_DMA:
 //  709   assert_param(IS_TIM_CCXN_INSTANCE(htim->Instance, Channel)); 
 //  710   
 //  711   if((htim->State == HAL_TIM_STATE_BUSY))
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         CMP      R0,#+2
         BEQ.N    ??HAL_TIMEx_OCN_Start_DMA_1
 //  712   {
 //  713      return HAL_BUSY;
 //  714   }
 //  715   else if((htim->State == HAL_TIM_STATE_READY))
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         CMP      R0,#+1
         BNE.N    ??HAL_TIMEx_OCN_Start_DMA_2
 //  716   {
@@ -2298,14 +2299,14 @@ HAL_TIMEx_PWMN_Start_DMA:
 // 1131   assert_param(IS_TIM_CCXN_INSTANCE(htim->Instance, Channel)); 
 // 1132   
 // 1133   if((htim->State == HAL_TIM_STATE_BUSY))
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         CMP      R0,#+2
         BEQ.N    ??HAL_TIMEx_PWMN_Start_DMA_1
 // 1134   {
 // 1135      return HAL_BUSY;
 // 1136   }
 // 1137   else if((htim->State == HAL_TIM_STATE_READY))
-        LDRB     R0,[R4, #+57]
+        LDRSB    R0,[R4, #+57]
         CMP      R0,#+1
         BNE.N    ??HAL_TIMEx_PWMN_Start_DMA_2
 // 1138   {
@@ -3004,7 +3005,7 @@ HAL_TIMEx_OnePulseN_Stop_IT:
 // 1495   
 // 1496   __HAL_LOCK(htim);
 HAL_TIMEx_ConfigCommutationEvent:
-        LDRB     R3,[R0, #+56]
+        LDRSB    R3,[R0, #+56]
         CMP      R3,#+1
         BNE.N    ??HAL_TIMEx_ConfigCommutationEvent_0
         MOVS     R0,#+2
@@ -3101,7 +3102,7 @@ HAL_TIMEx_ConfigCommutationEvent:
 // 1545   
 // 1546   __HAL_LOCK(htim);
 HAL_TIMEx_ConfigCommutationEvent_IT:
-        LDRB     R3,[R0, #+56]
+        LDRSB    R3,[R0, #+56]
         CMP      R3,#+1
         BNE.N    ??HAL_TIMEx_ConfigCommutationEvent_IT_0
         MOVS     R0,#+2
@@ -3205,7 +3206,7 @@ HAL_TIMEx_ConfigCommutationEvent_IT:
 // 1599   
 // 1600   __HAL_LOCK(htim);
 HAL_TIMEx_ConfigCommutationEvent_DMA:
-        LDRB     R3,[R0, #+56]
+        LDRSB    R3,[R0, #+56]
         CMP      R3,#+1
         BNE.N    ??HAL_TIMEx_ConfigCommutationEvent_DMA_0
         MOVS     R0,#+2
@@ -3319,7 +3320,7 @@ HAL_TIM_OC_ConfigChannel:
 // 1652   
 // 1653   /* Check input state */
 // 1654   __HAL_LOCK(htim); 
-        LDRB     R0,[R4, #+56]
+        LDRSB    R0,[R4, #+56]
         CMP      R0,#+1
         BNE.N    ??HAL_TIM_OC_ConfigChannel_1
         MOVS     R0,#+2
@@ -3496,7 +3497,7 @@ HAL_TIM_PWM_ConfigChannel:
 // 1756   
 // 1757   /* Check input state */
 // 1758   __HAL_LOCK(htim);
-        LDRB     R0,[R4, #+56]
+        LDRSB    R0,[R4, #+56]
         CMP      R0,#+1
         IT       EQ 
         MOVEQ    R0,#+2
@@ -3794,7 +3795,7 @@ HAL_TIM_ConfigOCrefClear:
 // 1901                                         
 // 1902   /* Check input state */
 // 1903   __HAL_LOCK(htim);
-        LDRB     R0,[R4, #+56]
+        LDRSB    R0,[R4, #+56]
         CMP      R0,#+1
         BNE.N    ??HAL_TIM_ConfigOCrefClear_1
         MOVS     R0,#+2
@@ -4084,7 +4085,7 @@ HAL_TIMEx_MasterConfigSynchronization:
 // 2060   
 // 2061   /* Check input state */
 // 2062   __HAL_LOCK(htim);
-        LDRB     R2,[R0, #+56]
+        LDRSB    R2,[R0, #+56]
         CMP      R2,#+1
         IT       EQ 
         MOVEQ    R0,#+2
@@ -4205,7 +4206,7 @@ HAL_TIMEx_MasterConfigSynchronization:
 // 2131   /* Check input state */
 // 2132   __HAL_LOCK(htim);
 HAL_TIMEx_ConfigBreakDeadTime:
-        LDRB     R2,[R0, #+56]
+        LDRSB    R2,[R0, #+56]
         CMP      R2,#+1
         BNE.N    ??HAL_TIMEx_ConfigBreakDeadTime_0
         MOVS     R0,#+2
@@ -4307,7 +4308,7 @@ HAL_TIMEx_ConfigBreakDeadTime:
 // 2188 {
 // 2189   __HAL_LOCK(htim);
 HAL_TIMEx_RemapConfig:
-        LDRB     R2,[R0, #+56]
+        LDRSB    R2,[R0, #+56]
         CMP      R2,#+1
         BNE.N    ??HAL_TIMEx_RemapConfig_0
         MOVS     R0,#+2
@@ -4365,7 +4366,7 @@ HAL_TIMEx_RemapConfig:
 // 2222   /* Process Locked */
 // 2223   __HAL_LOCK(htim);
 HAL_TIMEx_GroupChannel5:
-        LDRB     R2,[R0, #+56]
+        LDRSB    R2,[R0, #+56]
         CMP      R2,#+1
         BNE.N    ??HAL_TIMEx_GroupChannel5_0
         MOVS     R0,#+2
@@ -4512,7 +4513,7 @@ HAL_TIMEx_BreakCallback:
 // 2318 {
 // 2319   return htim->State;
 HAL_TIMEx_HallSensor_GetState:
-        LDRB     R0,[R0, #+57]
+        LDRSB    R0,[R0, #+57]
         BX       LR               ;; return
 // 2320 }
           CFI EndBlock cfiBlock38

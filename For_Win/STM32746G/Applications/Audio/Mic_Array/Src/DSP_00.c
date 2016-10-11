@@ -423,7 +423,7 @@ void Window(float *fir64Coff)
     for (int i = 0; i < DSP_NUMCOFF; i++) //DSP_NUMCOFF
 	{
         //fir64Coff[i] = (double_t)((1 << 10)-1);
-        fir64Coff[i] = (float)(1000);
+        fir64Coff[i] = (float)(1.0);
 		//Hanning Window (less noise than hamming?
         fir64Coff[i] *= 0.5f * (
 		                       1.0f - cos((2.0f * PI * i)/ (DSP_NUMCOFF - 1.0f))  

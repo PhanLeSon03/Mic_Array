@@ -1,58 +1,59 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      15/May/2016  09:59:41
+// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      10/Oct/2016  13:59:06
 // Copyright 1999-2016 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_ctlreq.c
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_ctlreq.c
 //    Command line =  
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_ctlreq.c
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_ctlreq.c
 //        -D USE_HAL_DRIVER -D STM32F746xx -D USE_STM32746G_DISCO -D
 //        USE_IOEXPANDER -D USE_USB_FS -lC
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -lA
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List
 //        -o
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
-//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e --fpu=VFPv5_sp
-//        --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\Obj
+//        --no_unroll --debug --endian=little --cpu=Cortex-M7 -e
+//        --char_is_signed --fpu=VFPv5_sp --dlib_config "C:\Program Files
+//        (x86)\IAR Systems\Embedded Workbench
 //        7.3\arm\INC\c\DLib_Config_Full.h" -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\STM32F7xx_HAL_Driver\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Drivers\BSP\Components\Common\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Log\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\Fonts\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Utilities\CPU\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Core\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_HOST_Library\Class\MSC\Inc\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\drivers\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\
 //        -I
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\..\..\..\..\..\..\Middlewares\ST\STM32_USB_Device_Library\Class\AUDIO\Inc\
 //        -Ohs --use_c++_inline --require_prototypes -I "C:\Program Files
 //        (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include\" -D
 //        ARM_MATH_CM7 --relaxed_fp
 //    List file    =  
-//        D:\sop1hc\Mic\Mic_Array\Mic_Array\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\usbh_ctlreq.s
+//        D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Array\EWARM\STM32F7\List\usbh_ctlreq.s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -130,7 +131,7 @@
           CFI D15 SameValue
           CFI EndCommon cfiCommon0
         
-// D:\sop1hc\Mic\Mic_Array\Mic_Array\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_ctlreq.c
+// D:\sop1hc\Mic\Mic_Array\For_Window\Middlewares\ST\STM32_USB_Host_Library\Core\Src\usbh_ctlreq.c
 //    1 /**
 //    2   ******************************************************************************
 //    3   * @file    usbh_ctlreq.c 
@@ -267,7 +268,7 @@ USBH_Get_DevDesc:
 //  120                                   length)) == USBH_OK)
         MOV      R2,R5
         ADD      R1,R4,#+28
-        LDRB     R0,[R4, #+2]
+        LDRSB    R0,[R4, #+2]
         CMP      R0,#+1
         BNE.N    ??USBH_Get_DevDesc_0
         MOVS     R0,#+128
@@ -344,7 +345,7 @@ USBH_Get_CfgDesc:
 //  150                                   USB_DESC_CONFIGURATION, 
 //  151                                   pData,
 //  152                                   length)) == USBH_OK)
-        LDRB     R0,[R4, #+2]
+        LDRSB    R0,[R4, #+2]
         CMP      R0,#+1
         BNE.N    ??USBH_Get_CfgDesc_0
         MOVS     R0,#+128
@@ -421,7 +422,7 @@ USBH_Get_StringDesc:
 //  183                                   USB_DESC_STRING | string_index, 
 //  184                                   phost->device.Data,
 //  185                                   length)) == USBH_OK)
-        LDRB     R2,[R0, #+2]
+        LDRSB    R2,[R0, #+2]
         MOV      R5,R3
         ADD      R6,R0,#+28
         CMP      R2,#+1
@@ -507,7 +508,7 @@ USBH_GetDescriptor:
         SUB      SP,SP,#+4
           CFI CFA R13+16
 //  210   if(phost->RequestState == CMD_SEND)
-        LDRB     R0,[R5, #+2]
+        LDRSB    R0,[R5, #+2]
         LDR      R4,[SP, #+16]
         CMP      R0,#+1
         BNE.N    ??USBH_GetDescriptor_0
@@ -540,7 +541,7 @@ USBH_GetDescriptor:
 //  225   }
 //  226   return USBH_CtlReq(phost, buff , length );     
 ??USBH_GetDescriptor_0:
-        LDRB     R1,[R5, #+2]
+        LDRSB    R1,[R5, #+2]
         MOVS     R0,#+1
         CMP      R1,#+1
         BEQ.N    ??USBH_GetDescriptor_1
@@ -603,7 +604,7 @@ USBH_SetAddress:
           CFI CFA R13+8
         MOV      R4,R0
 //  239   if(phost->RequestState == CMD_SEND)
-        LDRB     R0,[R4, #+2]
+        LDRSB    R0,[R4, #+2]
         CMP      R0,#+1
         BNE.N    ??USBH_SetAddress_0
 //  240   {
@@ -626,7 +627,7 @@ USBH_SetAddress:
 //  249   }
 //  250   return USBH_CtlReq(phost, 0 , 0 );
 ??USBH_SetAddress_0:
-        LDRB     R1,[R4, #+2]
+        LDRSB    R1,[R4, #+2]
         MOVS     R0,#+1
         CMP      R1,#+1
         BEQ.N    ??USBH_SetAddress_1
@@ -682,7 +683,7 @@ USBH_SetCfg:
           CFI CFA R13+8
         MOV      R4,R0
 //  263   if(phost->RequestState == CMD_SEND)
-        LDRB     R0,[R4, #+2]
+        LDRSB    R0,[R4, #+2]
         CMP      R0,#+1
         BNE.N    ??USBH_SetCfg_0
 //  264   {
@@ -704,7 +705,7 @@ USBH_SetCfg:
 //  272   
 //  273   return USBH_CtlReq(phost, 0 , 0 );      
 ??USBH_SetCfg_0:
-        LDRB     R1,[R4, #+2]
+        LDRSB    R1,[R4, #+2]
         MOVS     R0,#+1
         CMP      R1,#+1
         BEQ.N    ??USBH_SetCfg_1
@@ -761,7 +762,7 @@ USBH_SetInterface:
         MOV      R4,R0
 //  286   
 //  287   if(phost->RequestState == CMD_SEND)
-        LDRB     R0,[R4, #+2]
+        LDRSB    R0,[R4, #+2]
         CMP      R0,#+1
         BNE.N    ??USBH_SetInterface_0
 //  288   {
@@ -782,7 +783,7 @@ USBH_SetInterface:
 //  296   }
 //  297   return USBH_CtlReq(phost, 0 , 0 );     
 ??USBH_SetInterface_0:
-        LDRB     R1,[R4, #+2]
+        LDRSB    R1,[R4, #+2]
         MOVS     R0,#+1
         CMP      R1,#+1
         BEQ.N    ??USBH_SetInterface_1
@@ -839,7 +840,7 @@ USBH_ClrFeature:
           CFI CFA R13+8
         MOV      R4,R0
 //  311   if(phost->RequestState == CMD_SEND)
-        LDRB     R0,[R4, #+2]
+        LDRSB    R0,[R4, #+2]
         CMP      R0,#+1
         BNE.N    ??USBH_ClrFeature_0
 //  312   {
@@ -862,7 +863,7 @@ USBH_ClrFeature:
 //  321   }
 //  322   return USBH_CtlReq(phost, 0 , 0 );   
 ??USBH_ClrFeature_0:
-        LDRB     R1,[R4, #+2]
+        LDRSB    R1,[R4, #+2]
         MOVS     R0,#+1
         CMP      R1,#+1
         BEQ.N    ??USBH_ClrFeature_1
@@ -1296,7 +1297,7 @@ USBH_CtlReq:
         MOVS     R0,#+1
 //  537   
 //  538   switch (phost->RequestState)
-        LDRB     R3,[R4, #+2]
+        LDRSB    R3,[R4, #+2]
         CMP      R3,#+1
         BEQ.N    ??USBH_CtlReq_0
         CMP      R3,#+2
@@ -1392,7 +1393,7 @@ USBH_HandleControl:
 //  585   USBH_URBStateTypeDef URB_Status = USBH_URB_IDLE;
 //  586   
 //  587   switch (phost->Control.state)
-        LDRB     R0,[R5, #+24]
+        LDRSB    R0,[R5, #+24]
         SUBS     R0,R0,#+1
         CMP      R0,#+10
         BHI.W    ??USBH_HandleControl_1
@@ -1993,9 +1994,9 @@ USBH_HandleControl:
 //  881 
 // 
 //     2 bytes in section .rodata
-// 1 548 bytes in section .text
+// 1 578 bytes in section .text
 // 
-// 1 548 bytes of CODE  memory
+// 1 578 bytes of CODE  memory
 //     2 bytes of CONST memory
 //
 //Errors: none

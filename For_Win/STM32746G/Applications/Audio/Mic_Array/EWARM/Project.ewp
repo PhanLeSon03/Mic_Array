@@ -77,7 +77,7 @@
         </option>
         <option>
           <name>OGLastSavedByProductVersion</name>
-          <state>7.50.2.10499</state>
+          <state>7.50.3.10745</state>
         </option>
         <option>
           <name>GeneralEnableMisra</name>
@@ -278,7 +278,7 @@
         </option>
         <option>
           <name>CCSignedPlainChar</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>CCRequirePrototypes</name>
@@ -662,7 +662,7 @@
       <name>ILINK</name>
       <archiveVersion>0</archiveVersion>
       <data>
-        <version>16</version>
+        <version>17</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
@@ -946,6 +946,10 @@
           <name>IlinkThreadsSlave</name>
           <state>1</state>
         </option>
+        <option>
+          <name>IlinkLogCallGraph</name>
+          <state>0</state>
+        </option>
       </data>
     </settings>
     <settings>
@@ -980,7 +984,7 @@
     <group>
       <name>EWARM</name>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\libPDMFilter_CM7_IAR.a</name>
+        <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\libPDMFilter_CM7F_IAR.a</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\ST\STM32_Audio\Addons\PDM\pdm_filter.h</name>
@@ -996,6 +1000,12 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\audio_codec.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Src\DelayEstimation.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Src\DOA.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\DSP.c</name>
@@ -1043,24 +1053,12 @@
     <group>
       <name>BSP</name>
       <group>
-        <name>Components</name>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\BSP\Components\ft5336\ft5336.c</name>
-        </file>
-      </group>
-      <group>
         <name>STM32756G_EVAL</name>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\stm32746g_discovery.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\stm32746g_discovery_lcd.c</name>
-        </file>
-        <file>
           <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\stm32746g_discovery_sdram.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\..\..\Drivers\BSP\STM32746G-Discovery\stm32746g_discovery_ts.c</name>
         </file>
       </group>
     </group>
@@ -1164,12 +1162,6 @@
   <group>
     <name>Middlewares</name>
     <group>
-      <name>FatFs</name>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\..\..\Middlewares\Third_Party\FatFs\src\ff.c</name>
-      </file>
-    </group>
-    <group>
       <name>STM32_USBH_Library</name>
       <group>
         <name>Class</name>
@@ -1220,9 +1212,6 @@
         </file>
       </group>
     </group>
-  </group>
-  <group>
-    <name>Utilities</name>
   </group>
 </project>
 
