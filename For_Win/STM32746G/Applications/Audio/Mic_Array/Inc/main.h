@@ -45,7 +45,7 @@
 
 /*  @brief  StartAddress   */
 #define SDRAM_BANK_ADDR                 (0xC0000000)
-#define BUFFER_SIZE_BYTE                (0x00004000)                      
+#define BUFFER_SIZE_BYTE                (PAR_N*PAR_M*2)                      
 #define W_SIZE_BYTE                (PAR_M*(PAR_N+2)*4) 
 
 
@@ -63,7 +63,7 @@
 #define AUDIO_SAMPLING_FREQUENCY 		           16000
 
 #define COEFLOWPASS_MIC                            8
-#define AUDIO_OUT_BUFFER_SIZE                      1024
+#define AUDIO_OUT_BUFFER_SIZE                      PAR_N
 #define AUDIO_FREQ                                 16000
 #define AUDIO_IN_PCM_BUFFER_SIZE                   2*2304 /* buffer size in half-word */
 
@@ -226,30 +226,40 @@ typedef enum {
 }AUDIO_ErrorTypeDef;
 
 typedef struct  {
-int16_t bufMIC1[AUDIO_OUT_BUFFER_SIZE];
-int16_t bufMIC2[AUDIO_OUT_BUFFER_SIZE];
-int16_t bufMIC3[AUDIO_OUT_BUFFER_SIZE];
-int16_t bufMIC4[AUDIO_OUT_BUFFER_SIZE];
-int16_t bufMIC5[AUDIO_OUT_BUFFER_SIZE];
-int16_t bufMIC6[AUDIO_OUT_BUFFER_SIZE];
-int16_t bufMIC7[AUDIO_OUT_BUFFER_SIZE];
-int16_t bufMIC8[AUDIO_OUT_BUFFER_SIZE];
-
-
+int16_t bufMIC1[ PAR_N  ];
+int16_t bufMIC2[ PAR_N  ];
+int16_t bufMIC3[ PAR_N  ];
+int16_t bufMIC4[ PAR_N  ];
+int16_t bufMIC5[ PAR_N  ];
+int16_t bufMIC6[ PAR_N  ];
+int16_t bufMIC7[ PAR_N  ];
+int16_t bufMIC8[ PAR_N  ];
 }Mic_Array_Data;
 
 typedef struct  {
-float bufMIC1[2*AUDIO_OUT_BUFFER_SIZE];
-float bufMIC2[2*AUDIO_OUT_BUFFER_SIZE];
-float bufMIC3[2*AUDIO_OUT_BUFFER_SIZE];
-float bufMIC4[2*AUDIO_OUT_BUFFER_SIZE];
-float bufMIC5[2*AUDIO_OUT_BUFFER_SIZE];
-float bufMIC6[2*AUDIO_OUT_BUFFER_SIZE];
-float bufMIC7[2*AUDIO_OUT_BUFFER_SIZE];
-float bufMIC8[2*AUDIO_OUT_BUFFER_SIZE];
+int16_t bufMIC1[PAR_FFT_LEN];
+int16_t bufMIC2[PAR_FFT_LEN];
+int16_t bufMIC3[PAR_FFT_LEN];
+int16_t bufMIC4[PAR_FFT_LEN];
+int16_t bufMIC5[PAR_FFT_LEN];
+int16_t bufMIC6[PAR_FFT_LEN];
+int16_t bufMIC7[PAR_FFT_LEN];
+int16_t bufMIC8[PAR_FFT_LEN];
+}Mic_Array_Data_Concate;
 
 
+/* Store bin of Fourier */
+typedef struct  {
+float bufMIC1[2*PAR_FFT_LEN];
+float bufMIC2[2*PAR_FFT_LEN];
+float bufMIC3[2*PAR_FFT_LEN];
+float bufMIC4[2*PAR_FFT_LEN];
+float bufMIC5[2*PAR_FFT_LEN];
+float bufMIC6[2*PAR_FFT_LEN];
+float bufMIC7[2*PAR_FFT_LEN];
+float bufMIC8[2*PAR_FFT_LEN];
 }Mic_Array_Data_f;
+
 
 typedef struct  {
 float facMIC1;
@@ -260,8 +270,6 @@ float facMIC5;
 float facMIC6;
 float facMIC7;
 float facMIC8;
-
-
 }Mic_Array_Coef_f;
 
 typedef struct{  float real;  float imag;} Complex;

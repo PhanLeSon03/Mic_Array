@@ -20,11 +20,11 @@
 //#if EXT_RAM
 //#pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE)
 //#endif
-int16_t PCM_Buffer1[8*AUDIO_OUT_BUFFER_SIZE];
+int16_t PCM_Buffer1[8*PAR_N];
 //#if EXT_RAM
 //#pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE+2*8*AUDIO_OUT_BUFFER_SIZE)
 //#endif
-int16_t PCM_Buffer2[8*AUDIO_OUT_BUFFER_SIZE];//AUDIO_CHANNELS
+int16_t PCM_Buffer2[8*PAR_N];//AUDIO_CHANNELS
 //#if EXT_RAM
 //#pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE+4*8*AUDIO_OUT_BUFFER_SIZE)
 //#endif
@@ -56,7 +56,7 @@ void AudioUSBSend(uint16_t idxFrm) /* This function called every ms */
     
     (swtBufUSBOut)?Send_Audio_to_USB((int16_t *)&PCM_Buffer2[(8*AUDIO_SAMPLING_FREQUENCY/1000)*idxFrm], (8*AUDIO_SAMPLING_FREQUENCY/1000))://AUDIO_CHANNELS
                    Send_Audio_to_USB((int16_t *)&PCM_Buffer1[(8*AUDIO_SAMPLING_FREQUENCY/1000)*idxFrm], (8*AUDIO_SAMPLING_FREQUENCY/1000));//AUDIO_CHANNELS
-    if (idxFrm == (AUDIO_OUT_BUFFER_SIZE/(AUDIO_SAMPLING_FREQUENCY/1000) -1) ) swtBufUSBOut^=0x01;				   		   
+    if (idxFrm == (PAR_N/(AUDIO_SAMPLING_FREQUENCY/1000) -1) ) swtBufUSBOut^=0x01;				   		   
 }
 
 /* This function should be called after data processing */
@@ -96,7 +96,7 @@ void AudioPlayerUpd(void) /* This function called with period of 64ms */
 		}
         break;    
       case BUF2_PLAY:
-          for (uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
+          for (uint16_t i=0;i<PAR_N;i++)
           {
             if (swtBufUSBOut)
             {               
@@ -117,7 +117,7 @@ void AudioPlayerUpd(void) /* This function called with period of 64ms */
           }
           break;
       case BUF3_PLAY:
-		for (uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
+		for (uint16_t i=0;i<PAR_N;i++)
 		{
             if (swtBufUSBOut)
             {               

@@ -1,9 +1,8 @@
 
-/*****************************************************************************
-  *    Author: Phan Le Son                                                                                           
-  *    Company: Autonomous.ai                                            
-  *    email: plson03@gmail.com
-  *****************************************************************************/
+/******************************************************************************
+ *    Author: Phan Le Son                                                                                                                                    
+ *    email: plson03@gmail.com
+ ******************************************************************************/
 
 
 
@@ -139,7 +138,7 @@ inline static void FFT_Update(void)
       /* Hafl buffer is filled in by I2S data stream in */
       if((flgDlyUpd==0))
       {
-            BSP_LED_Toggle(LED2);
+            
             PDM2PCMSDO78();
             
             //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_15); 
@@ -182,7 +181,7 @@ inline static void FFT_Update(void)
                     Direction = DOACalc(&Buffer3);
                     
                     /* Summing in Buffer3 */
-                    BeamFormingSD(&Buffer3,Direction,(int16_t *)Buffer3.bufMIC8);
+                    BeamFormingSD(&Buffer3,3,(int16_t *)Buffer3.bufMIC8);
                     
                     //FFT_SUM((int16_t *)buffer3, (int16_t * )buffer3_1,fbuffer, 1024);				 	   
 #else
@@ -229,7 +228,7 @@ inline static void FFT_Update(void)
                     /* Sound Source Localization */
                     Direction = DOACalc(&Buffer1);
                     /* Summing in Buffer3 */
-                    BeamFormingSD(&Buffer1,Direction,(int16_t *)Buffer1.bufMIC8);
+                    BeamFormingSD(&Buffer1,3,(int16_t *)Buffer1.bufMIC8);
 
 #else
                 
@@ -278,7 +277,7 @@ inline static void FFT_Update(void)
         /* Sound Source Localization */
         Direction = DOACalc(&Buffer2);
         /* Summing in Buffer3 */
-        BeamFormingSD(&Buffer2,Direction,(int16_t *)Buffer2.bufMIC8);
+        BeamFormingSD(&Buffer2,3,(int16_t *)Buffer2.bufMIC8);
 
         /* Summing in Buffer2 */
         //Delay_Sum_FFT(&Buffer2,&FacMic, (int16_t * )Buffer2.bufMIC8, PAR_N);
@@ -312,7 +311,28 @@ inline static void FFT_Update(void)
 			}
             
 			AudioPlayerUpd();
-            BSP_LED_Toggle(LED2);
+            if (Direction==3)
+            {
+                BSP_LED_Off(LED2);
+                BSP_LED_On(LED1);
+            }
+            else if ((Direction==2))
+            {
+                BSP_LED_On(LED1);
+                BSP_LED_On(LED2);
+
+            }
+            else if ((Direction==4))
+            {
+                BSP_LED_Off(LED1);
+                BSP_LED_Off(LED2);
+
+            }
+            else
+            {
+                BSP_LED_On(LED2);
+                BSP_LED_Off(LED1);
+            }
 	       //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_15);
 	  }
 
@@ -337,13 +357,13 @@ inline static void Audio_Play_Out(void)
     flgRacing=0;
 
 #if USB_STREAMING
-				  AudioUSBSend(idxFrmPDMMic8);
+    AudioUSBSend(idxFrmPDMMic8);
 #endif
 
 
     ++idxFrmPDMMic8;
 	/* if player is finished for curent buffer                                  */ 
-	if (idxFrmPDMMic8 == AUDIO_OUT_BUFFER_SIZE/(AUDIO_SAMPLING_FREQUENCY/1000))
+	if (idxFrmPDMMic8 == PAR_N/(AUDIO_SAMPLING_FREQUENCY/1000))
 	{
 	       RESET_IDX
 		   //MIC7Rec();
@@ -603,25 +623,7 @@ int main(void)
                         int16_t test[5];
                         static uint8_t flagNotMin;
                         test[0] = 0;
-						if (CrssCorVal63>10)						
-                            test[1]= idxLatency63;
-						else
-							test[1] = 0;
 
-						if (CrssCorVal14>10)
-                            test[2]= idxLatency14;
-						else
-							test[2] =0;
-
-						if (CrssCorVal25 > 10)
-                            test[3]= idxLatency25;
-						else
-							test[3] = 0;
-
-                        if (CrssCorVal78>10)
-						    test[4]= idxLatency78;                        
-						else
-							test[4]= 2;
 
 						if (((CrssCorVal63>10))||((CrssCorVal14>10))||((CrssCorVal25>10))||((CrssCorVal78>10)))
                         {

@@ -200,7 +200,9 @@ void Audio_MAL_Play(uint32_t Addr, uint16_t Size);
 void DAC_Config(void);
 void codec_sendBeep(void);
 void   Audio_MAL_Stop(void);;
-
+void Codec_CtrlInterface_Init(void);
+uint32_t Codec_ReadRegister(uint8_t RegisterAddr);
+void Codec_GPIO_Init(void);
 
 /* User Callbacks: user has to implement these functions in his code if
   they are needed. -----------------------------------------------------------*/

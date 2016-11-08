@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      11/Oct/2016  14:17:33
+// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      08/Nov/2016  10:26:22
 // Copyright 1999-2016 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -151,18 +151,18 @@
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
-//   23 int16_t PCM_Buffer1[8*AUDIO_OUT_BUFFER_SIZE];
+//   23 int16_t PCM_Buffer1[8*PAR_N];
 PCM_Buffer1:
-        DS8 16384
+        DS8 8192
 //   24 //#if EXT_RAM
 //   25 //#pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE+2*8*AUDIO_OUT_BUFFER_SIZE)
 //   26 //#endif
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
-//   27 int16_t PCM_Buffer2[8*AUDIO_OUT_BUFFER_SIZE];//AUDIO_CHANNELS
+//   27 int16_t PCM_Buffer2[8*PAR_N];//AUDIO_CHANNELS
 PCM_Buffer2:
-        DS8 16384
+        DS8 8192
 //   28 //#if EXT_RAM
 //   29 //#pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE+4*8*AUDIO_OUT_BUFFER_SIZE)
 //   30 //#endif
@@ -229,8 +229,8 @@ AudioUSBSend:
         ADD      R0,R2,R4, LSL #+8
           CFI FunCall Send_Audio_to_USB
         BL       Send_Audio_to_USB
-//   59     if (idxFrm == (AUDIO_OUT_BUFFER_SIZE/(AUDIO_SAMPLING_FREQUENCY/1000) -1) ) swtBufUSBOut^=0x01;				   		   
-        CMP      R4,#+63
+//   59     if (idxFrm == (PAR_N/(AUDIO_SAMPLING_FREQUENCY/1000) -1) ) swtBufUSBOut^=0x01;				   		   
+        CMP      R4,#+31
         BNE.N    ??AudioUSBSend_0
         LDRB     R0,[R5, #+0]
         EOR      R0,R0,#0x1
@@ -298,7 +298,7 @@ AudioPlayerUpd:
 //   96 		}
 //   97         break;    
 //   98       case BUF2_PLAY:
-//   99           for (uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
+//   99           for (uint16_t i=0;i<PAR_N;i++)
 //  100           {
 //  101             if (swtBufUSBOut)
 //  102             {               
@@ -319,7 +319,7 @@ AudioPlayerUpd:
 //  117           }
 //  118           break;
 //  119       case BUF3_PLAY:
-//  120 		for (uint16_t i=0;i<AUDIO_OUT_BUFFER_SIZE;i++)
+//  120 		for (uint16_t i=0;i<PAR_N;i++)
 //  121 		{
 //  122             if (swtBufUSBOut)
 //  123             {               
@@ -357,7 +357,7 @@ AudioPlayerUpd:
         LDR.N    R1,??DataTable1_4
         LDR.N    R2,??DataTable1_2
         LDR.N    R3,??DataTable1_1
-        MOV      R4,#+1024
+        MOV      R4,#+512
         LDR.N    R0,??DataTable1
 ??AudioPlayerUpd_3:
         LDRB     R5,[R0, #+0]
@@ -368,7 +368,7 @@ AudioPlayerUpd:
 ??AudioPlayerUpd_5:
         LDRH     R12,[R6, #+0]
         SUBS     R7,R7,#+1
-        ADD      R6,R6,#+2048
+        ADD      R6,R6,#+1024
         STRH     R12,[R5], #+2
         BNE.N    ??AudioPlayerUpd_5
         B.N      ??AudioPlayerUpd_6
@@ -379,7 +379,7 @@ AudioPlayerUpd:
 ??AudioPlayerUpd_7:
         LDRH     R12,[R6, #+0]
         SUBS     R7,R7,#+1
-        ADD      R6,R6,#+2048
+        ADD      R6,R6,#+1024
         STRH     R12,[R5], #+2
         BNE.N    ??AudioPlayerUpd_7
 ??AudioPlayerUpd_6:
@@ -393,7 +393,7 @@ AudioPlayerUpd:
         LDR.N    R1,??DataTable1_5
         LDR.N    R2,??DataTable1_2
         LDR.N    R3,??DataTable1_1
-        MOV      R4,#+1024
+        MOV      R4,#+512
         LDR.N    R0,??DataTable1
 ??AudioPlayerUpd_9:
         LDRB     R5,[R0, #+0]
@@ -404,7 +404,7 @@ AudioPlayerUpd:
 ??AudioPlayerUpd_11:
         LDRH     R12,[R6, #+0]
         SUBS     R7,R7,#+1
-        ADD      R6,R6,#+2048
+        ADD      R6,R6,#+1024
         STRH     R12,[R5], #+2
         BNE.N    ??AudioPlayerUpd_11
         B.N      ??AudioPlayerUpd_12
@@ -415,7 +415,7 @@ AudioPlayerUpd:
 ??AudioPlayerUpd_13:
         LDRH     R12,[R6, #+0]
         SUBS     R7,R7,#+1
-        ADD      R6,R6,#+2048
+        ADD      R6,R6,#+1024
         STRH     R12,[R5], #+2
         BNE.N    ??AudioPlayerUpd_13
 ??AudioPlayerUpd_12:
@@ -429,7 +429,7 @@ AudioPlayerUpd:
         LDR.N    R1,??DataTable1_6
         LDR.N    R2,??DataTable1_2
         LDR.N    R3,??DataTable1_1
-        MOV      R4,#+1024
+        MOV      R4,#+512
         LDR.N    R0,??DataTable1
 ??AudioPlayerUpd_14:
         LDRB     R5,[R0, #+0]
@@ -440,7 +440,7 @@ AudioPlayerUpd:
 ??AudioPlayerUpd_16:
         LDRH     R12,[R6, #+0]
         SUBS     R7,R7,#+1
-        ADD      R6,R6,#+2048
+        ADD      R6,R6,#+1024
         STRH     R12,[R5], #+2
         BNE.N    ??AudioPlayerUpd_16
         B.N      ??AudioPlayerUpd_17
@@ -451,7 +451,7 @@ AudioPlayerUpd:
 ??AudioPlayerUpd_18:
         LDRH     R12,[R6, #+0]
         SUBS     R7,R7,#+1
-        ADD      R6,R6,#+2048
+        ADD      R6,R6,#+1024
         STRH     R12,[R5], #+2
         BNE.N    ??AudioPlayerUpd_18
 ??AudioPlayerUpd_17:
@@ -531,11 +531,11 @@ AudioPlayerUpd:
 //  146 
 //  147 
 // 
-// 32 771 bytes in section .bss
+// 16 387 bytes in section .bss
 //    320 bytes in section .text
 // 
 //    320 bytes of CODE memory
-// 32 771 bytes of DATA memory
+// 16 387 bytes of DATA memory
 //
 //Errors: none
 //Warnings: none

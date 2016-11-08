@@ -75,7 +75,7 @@ extern FIL WavFile;
 extern AUDIO_DEMO_StateMachine AudioDemo;
 extern AUDIO_PLAYBACK_StateTypeDef AudioState;
 extern __IO uint8_t buffer_switch;
-extern __IO uint8_t volume;
+extern uint8_t volume;
 extern SPI_HandleTypeDef hspi4,hspi1;
 extern __IO uint16_t  WaveRec_idxSens1,WaveRec_idxSens2;
 extern __IO uint16_t  WaveRec_idxSens3,WaveRec_idxSens4;
@@ -129,8 +129,8 @@ __IO uint16_t cntPos7;
 __IO static uint16_t iBuff;
 __IO static uint32_t uwVolume = 70;
 __IO PDMFilter_InitStruct Filter[2];
-__IO uint16_t  pDataMic8[64];//INTERNAL_BUFF_SIZE
-__IO uint16_t  pDataMic7[64];//INTERNAL_BUFF_SIZE
+uint16_t  pDataMic8[64];//INTERNAL_BUFF_SIZE
+uint16_t  pDataMic7[64];//INTERNAL_BUFF_SIZE
 __IO int16_t   pPDM2PCM[16];
 __IO uint16_t cntStrt;
 __IO uint16_t WaveRecord_flgIni;
@@ -312,7 +312,7 @@ void SPI1_IRQHandler(void)
 				   vRawSens1 = (tmpTest);
 			       WaveRec_idxTest++;
 				   /* Recording Audio Data */						 
-					if (WaveRec_idxSens1<AUDIO_OUT_BUFFER_SIZE) 
+					if (WaveRec_idxSens1<PAR_N) 
 					{
 					   switch (buffer_switch)
 					   {
@@ -344,7 +344,7 @@ void SPI1_IRQHandler(void)
 		      vRawSens2 = (tmpTest);
 		      WaveRec_idxTest++;
 			
-			  if (WaveRec_idxSens2<AUDIO_OUT_BUFFER_SIZE)
+			  if (WaveRec_idxSens2<PAR_N)
 			  {
 					/* Recording Audio Data */						 
 					switch (buffer_switch)
@@ -415,7 +415,7 @@ void SPI2_IRQHandler(void)
 		{
 			vRawSens4 = app;
 	
-			if (WaveRec_idxSens4< AUDIO_OUT_BUFFER_SIZE)
+			if (WaveRec_idxSens4< PAR_N)
 			{
 				switch (buffer_switch)
 				{
@@ -448,7 +448,7 @@ void SPI2_IRQHandler(void)
             if ((I2S2_stLROld==GPIO_PIN_SET))   
             {
                 vRawSens3 =app;
-                if ((WaveRec_idxSens3<AUDIO_OUT_BUFFER_SIZE))
+                if ((WaveRec_idxSens3<PAR_N))
                 {
 	                switch (buffer_switch)
 	                {	 
@@ -508,9 +508,11 @@ void SPI4_IRQHandler(void)
 	{
           if (Main_stLROld==GPIO_PIN_RESET)
           {
-             vRawSens6 =((test>>SPI4_stPosShft)|(SPI4_stNipple<<(SDOLEN-SPI4_stPosShft)));
+             uint8_t _stPosShft;
+             _stPosShft = SPI4_stPosShft;
+             vRawSens6 =((test>>_stPosShft)|(SPI4_stNipple<<(SDOLEN-_stPosShft)));
 
-             if (WaveRec_idxSens6 < AUDIO_OUT_BUFFER_SIZE)
+             if (WaveRec_idxSens6 < PAR_N)
              {
                   /*-------------------------------------------------------------------------------------------------------------                                             
                   Sequence  Record Data                     Processing Data                 Player Data
@@ -546,8 +548,10 @@ void SPI4_IRQHandler(void)
                    //} 
 			
 	           }
-               if (WaveRec_idxSens6 < WaveRec_idxSens5) WaveRec_idxSens6++;
-               if ((WaveRec_idxSens6 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)) flgRacing |=0x20;
+               uint16_t _idxSens5;
+               _idxSens5 = WaveRec_idxSens5;
+               if (WaveRec_idxSens6 < _idxSens5) WaveRec_idxSens6++;
+               if ((WaveRec_idxSens6 % (AUDIO_SAMPLING_FREQUENCY/1000)==0)&&(WaveRec_idxSens6!=0)) flgRacing |=0x20;
                if (flgRacing==0x3F)  SubFrameFinished();	
        }
        else
@@ -561,9 +565,11 @@ void SPI4_IRQHandler(void)
 	    
           if (Main_stLROld==GPIO_PIN_SET)
           {
-               vRawSens5 =((test>>SPI4_stPosShft)|(SPI4_stNipple<<(SDOLEN-SPI4_stPosShft)));
+               uint8_t _stPosShft;
+               _stPosShft = SPI4_stPosShft;
+               vRawSens5 =((test>>_stPosShft)|(SPI4_stNipple<<(SDOLEN-_stPosShft)));
 		   
-               if (WaveRec_idxSens5 < AUDIO_OUT_BUFFER_SIZE)
+               if (WaveRec_idxSens5 < PAR_N)
                {
                     /*-------------------------------------------------------------------------------------------------------------                                             
                     Sequence  Record Data                     Processing Data                 Player Data
@@ -1540,7 +1546,7 @@ buffer_switch_tmp = buffer_switch;
         WaveRecord_flgSDO8Finish=0;
 
 		
-        for (uint16_t i=0; i< 4*AUDIO_OUT_BUFFER_SIZE;i++)
+        for (uint16_t i=0; i< 4*PAR_N;i++)
         {
 	        if(swtSDO7==0x00)
 	        {
@@ -1549,8 +1555,8 @@ buffer_switch_tmp = buffer_switch;
 	        }
 	        else
 	        {
-	            pDataMic7[i%64] = HTONS(TestSDO7[4*AUDIO_OUT_BUFFER_SIZE + i]);
-	            pDataMic8[i%64] = HTONS(TestSDO8[4*AUDIO_OUT_BUFFER_SIZE + i]);
+	            pDataMic7[i%64] = HTONS(TestSDO7[4*PAR_N + i]);
+	            pDataMic8[i%64] = HTONS(TestSDO8[4*PAR_N + i]);
 	        }
 
 	        /* PDM conversion for frame of 64 inputs, 16 outputs */
@@ -1592,9 +1598,9 @@ buffer_switch_tmp = buffer_switch;
                      if (i < SHIFT_CHNNL7)
                      {
                          Buffer3.bufMIC7[i] = Frame7Old[i];
-                         Frame7Old[i] = Buffer2.bufMIC7[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL7 + i];
+                         Frame7Old[i] = Buffer2.bufMIC7[PAR_N-SHIFT_CHNNL7 + i];
                          Buffer3.bufMIC8[i] = Frame8Old[i];
-                         Frame8Old[i] = Buffer2.bufMIC8[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL8 + i];
+                         Frame8Old[i] = Buffer2.bufMIC8[PAR_N-SHIFT_CHNNL8 + i];
                      }
                      else
                      {
@@ -1606,9 +1612,9 @@ buffer_switch_tmp = buffer_switch;
                      if (i < SHIFT_CHNNL7)
                      {
                          Buffer1.bufMIC7[i] = Frame7Old[i];
-                         Frame7Old[i] = Buffer3.bufMIC7[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL7 + i];
+                         Frame7Old[i] = Buffer3.bufMIC7[PAR_N-SHIFT_CHNNL7 + i];
                          Buffer1.bufMIC8[i] = Frame8Old[i];
-                         Frame8Old[i] = Buffer3.bufMIC8[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL8 + i];
+                         Frame8Old[i] = Buffer3.bufMIC8[PAR_N-SHIFT_CHNNL8 + i];
                      }
                      else
                      {
@@ -1621,9 +1627,9 @@ buffer_switch_tmp = buffer_switch;
                      if (i < SHIFT_CHNNL7)
                      {
                          Buffer2.bufMIC7[i] = Frame7Old[i];
-                         Frame7Old[i] = Buffer1.bufMIC7[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL7 + i];
+                         Frame7Old[i] = Buffer1.bufMIC7[PAR_N-SHIFT_CHNNL7 + i];
                          Buffer2.bufMIC8[i] = Frame8Old[i];
-                         Frame8Old[i] = Buffer1.bufMIC8[AUDIO_OUT_BUFFER_SIZE-SHIFT_CHNNL8 + i];
+                         Frame8Old[i] = Buffer1.bufMIC8[PAR_N-SHIFT_CHNNL8 + i];
                      }
                      else
                      {

@@ -102,6 +102,7 @@
 #include "main.h"
 
 
+
 /** 
   *      This file includes the low layer driver for CS43L22 Audio Codec
   */ 
@@ -147,21 +148,18 @@ uint8_t Volume=80;
 /*-----------------------------------
                            Audio Codec functions 
                                     ------------------------------------------*/
-static uint32_t Codec_Init(uint16_t OutputDevice, uint8_t Volume, uint32_t AudioFreq);
+static uint32_t Codec_Init(uint16_t OutputDevice, uint8_t Vol, uint32_t AudioFreq);
 static uint32_t Codec_DeInit(void);
 static uint32_t Codec_Play(void);
 static uint32_t Codec_PauseResume(uint32_t Cmd);
 static uint32_t Codec_Stop(uint32_t Cmd);
 static uint32_t Codec_VolumeCtrl(uint8_t Volume);
 static uint32_t Codec_Mute(uint32_t Cmd);
-static void     Codec_CtrlInterface_Init(void);
 static void     Codec_CtrlInterface_DeInit(void);
 static void     Codec_AudioInterface_Init(uint32_t AudioFreq);
 static void     Codec_AudioInterface_DeInit(void);
 static void     Codec_Reset(void);
 static uint32_t Codec_WriteRegister(uint8_t RegisterAddr, uint8_t RegisterValue);
-static uint32_t Codec_ReadRegister(uint8_t RegisterAddr);
-static void     Codec_GPIO_Init(void);
 static void     Codec_GPIO_DeInit(void);
 static void     Delay(__IO uint32_t nCount);
 static void     I2S_Cmd(SPI_TypeDef* SPIx, FunctionalState NewState);
@@ -757,7 +755,7 @@ static uint32_t Codec_WriteRegister(uint8_t RegisterAddr, uint8_t RegisterValue)
   * @retval Value of the register to be read or dummy value if the communication
   *         fails.
   */
-static uint32_t Codec_ReadRegister(uint8_t RegisterAddr)
+uint32_t Codec_ReadRegister(uint8_t RegisterAddr)
 {
   uint8_t result = 0;
 
@@ -796,7 +794,7 @@ static uint32_t Codec_ReadRegister(uint8_t RegisterAddr)
   * @param  None
   * @retval None
   */
-static void Codec_CtrlInterface_Init(void)
+void Codec_CtrlInterface_Init(void)
 {
     MX_I2C1_Init();   
 }
@@ -854,7 +852,7 @@ static void Codec_AudioInterface_DeInit(void)
   * @param  None
   * @retval None
   */
-static void Codec_GPIO_Init(void)
+void Codec_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStructure;
   

@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM       11/Oct/2016  14:17:34
+# IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM       08/Nov/2016  10:26:23
 # Copyright 1999-2016 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -216,7 +216,7 @@ D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Arr
      72          	/* Computate the power density of channel 1*/
      73          	for (i=0; i< PAR_N; i++)
    \   00000012   0x4601             MOV      R1,R0
-   \   00000014   0xF44F 0x6280      MOV      R2,#+1024
+   \   00000014   0xF44F 0x7200      MOV      R2,#+512
      74          	{
      75          		PwrChnnl1 += (float)(Audio_Data->bufMIC1[i]*Audio_Data->bufMIC1[i]);
    \                     ??DOACalc_0: (+1)
@@ -230,7 +230,7 @@ D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Arr
    \   0000002A   0xEE30 0x0A80      VADD.F32 S0,S1,S0
    \   0000002E   0xD1F3             BNE.N    ??DOACalc_0
      77          	PwrChnnl1 /= PAR_N;
-   \   00000030   0xEDDF 0x....      VLDR.W   S1,??DataTable2_1  ;; 0x3a800000
+   \   00000030   0xEDDF 0x....      VLDR.W   S1,??DataTable2_1  ;; 0x3b000000
      78          
      79          
      80          	//TODO: to increase the accuracy and the computation cost of DOA, Set-On detect could be considered
@@ -381,7 +381,7 @@ D:\sop1hc\Mic\Mic_Array\For_Window\Projects\STM32746G\Applications\Audio\Mic_Arr
 
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable2_1:
-   \   00000000   0x3A800000         DC32     0x3a800000
+   \   00000000   0x3B000000         DC32     0x3b000000
 
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable2_2:

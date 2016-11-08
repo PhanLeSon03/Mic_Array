@@ -14,7 +14,7 @@
 #define PAR_FS  16000
 
 // Length of frame
-#define PAR_N  1024
+#define PAR_N  512
 
 //Zero padding front
 #define PAR_ZPF  0
@@ -53,7 +53,10 @@
 #define PAR_FS_F  (int)(PAR_FS*PAR_RES*2/5)
 
 //Hope
-#define PAR_HOP (int)((PAR_N)/2)
+#define PAR_HOP PAR_N
+
+//fft len
+#define PAR_FFT_LEN 2*PAR_N
 
 #define PAR_GAMMA  0.0
 

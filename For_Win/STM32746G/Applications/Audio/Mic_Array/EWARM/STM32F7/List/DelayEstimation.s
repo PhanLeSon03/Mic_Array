@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      11/Oct/2016  14:17:33
+// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      08/Nov/2016  10:26:22
 // Copyright 1999-2016 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -338,20 +338,17 @@ CrssCorResample:
 //  132 void Resampling(const int16_t * vDataIn, int16_t * vDataOut, uint16_t numLen)
 //  133 {
 Resampling:
-        PUSH     {R4-R9,LR}
+        PUSH     {R4-R8,LR}
           CFI R14 Frame(CFA, -4)
-          CFI R9 Frame(CFA, -8)
-          CFI R8 Frame(CFA, -12)
-          CFI R7 Frame(CFA, -16)
-          CFI R6 Frame(CFA, -20)
-          CFI R5 Frame(CFA, -24)
-          CFI R4 Frame(CFA, -28)
-          CFI CFA R13+28
-        MOV      R6,R0
-        MOV      R7,R2
-        SUB      SP,SP,#+4
-          CFI CFA R13+32
+          CFI R8 Frame(CFA, -8)
+          CFI R7 Frame(CFA, -12)
+          CFI R6 Frame(CFA, -16)
+          CFI R5 Frame(CFA, -20)
+          CFI R4 Frame(CFA, -24)
+          CFI CFA R13+24
+        MOV      R8,R0
         MOV      R4,R1
+        MOV      R7,R2
 //  134 	Complex *FFT_In;
 //  135 	Complex *FFT_Out;
 //  136 	uint16_t i = 0;
@@ -361,11 +358,11 @@ Resampling:
 //  140 
 //  141 	/* ask for memory */
 //  142 	FFT_In = (Complex *)malloc(sizeof(Complex)*PAR_N);
-        MOV      R0,#+8192
-        LSRS     R5,R7,#+10
+        MOV      R0,#+4096
+        LSRS     R5,R7,#+9
           CFI FunCall malloc
         BL       malloc
-        MOVS     R8,R0
+        MOVS     R6,R0
 //  143     if (FFT_In == NULL)
         BEQ.N    ??Resampling_0
 //  144     {
@@ -390,12 +387,12 @@ Resampling:
 //  154 	/* Complex buffer storage*/
 //  155 	for (i=0; i < PAR_N; i++)
 ??Resampling_1:
-        MOV.W    R0,R8
-        MOV      R1,#+1024
+        MOV.W    R0,R6
+        MOV      R1,#+512
 //  156 	{
 //  157 		FFT_In[i].real = (float)(vDataIn[i]);
 ??Resampling_2:
-        LDRSH    R2,[R6], #+2
+        LDRSH    R2,[R8], #+2
         VMOV     S0,R2
 //  158 		FFT_In[i].imag = 0.0f;
         MOVS     R2,#+0
@@ -413,73 +410,73 @@ Resampling:
 //  164 
 //  165 	/* Adding zero to FFT bin */
 //  166 	for (i=0; i < PAR_N/2+1;i++)  // +1: only handle for the case PAR_N is even
-        MOV      R2,#+512
-        MOV      R3,R7
-        MOV      R12,R8
-        MOV      LR,R2
-        MOV      R0,#+28672
-        MOV      R1,#+4096
+        MOV      R0,#+256
+        MOV      R2,R7
+        MOV      R3,R6
+        MOV      R12,R0
+        MOV      R1,#+14336
 //  167 	{
 //  168 		FFT_Out[i].real = 4*FFT_In[i].real;
 ??Resampling_3:
-        VLDR     S0,[R12, #0]
+        VLDR     S0,[R3, #0]
 //  169 		FFT_Out[i].imag = 4*FFT_In[i].imag;
 //  170 		if (i < PAR_N/2)
 //  171 		{
 //  172 		    FFT_Out[i+3*PAR_N + PAR_N/2 ].real = 4*FFT_In[i+ PAR_N/2 ].real;
-        ADD      R9,R1,R12
+        ADD      LR,R1,R2
         VMOV.F32 S1,#4.0
-        ADDS     R6,R0,R3
         VMUL.F32 S0,S0,S1
-        VSTR     S0,[R3, #0]
-        VLDR     S0,[R12, #+4]
+        VSTR     S0,[R2, #0]
+        VLDR     S0,[R3, #+4]
+        VMUL.F32 S0,S0,S1
+        VSTR     S0,[R2, #+4]
+        LDR      R8,[R3, #+2048]
 //  173 		    FFT_Out[i+3*PAR_N + PAR_N/2 ].imag = 4*FFT_In[i+ PAR_N/2 ].imag;
-        ADD      R12,R12,#+8
+        ADDS     R2,R2,#+8
+        VMOV     S0,R8
         VMUL.F32 S0,S0,S1
-        VSTR     S0,[R3, #+4]
+        VSTR     S0,[LR, #0]
+        LDR      R8,[R3, #+2052]
         ADDS     R3,R3,#+8
-        VLDR     S0,[R9, #0]
-        SUBS     LR,LR,#+1
+        SUBS     R12,R12,#+1
+        VMOV     S0,R8
         VMUL.F32 S0,S0,S1
-        VSTR     S0,[R6, #0]
-        VLDR     S0,[R9, #+4]
-        VMUL.F32 S0,S0,S1
-        VSTR     S0,[R6, #+4]
-        BNE.N    ??Resampling_3
-        ADDS     R3,R1,R7
-        ADD      R12,R1,R8
-        MOVW     LR,#+513
+        VSTR     S0,[LR, #+4]
+        BNE.W    ??Resampling_3
+        ADD      R2,R7,#+2048
+        ADD      R3,R6,#+2048
+        MOVW     R12,#+257
 ??Resampling_4:
-        VLDR     S0,[R12, #0]
-        CMP      R2,#+512
+        VLDR     S0,[R3, #0]
+        CMP      R0,#+255
         VMUL.F32 S0,S0,S1
-        VSTR     S0,[R3, #0]
-        VLDR     S0,[R12, #+4]
+        VSTR     S0,[R2, #0]
+        VLDR     S0,[R3, #+4]
         VMUL.F32 S0,S0,S1
-        VSTR     S0,[R3, #+4]
-        BGE.N    ??Resampling_5
-        ADD      R9,R1,R12
-        ADDS     R6,R0,R3
-        VLDR     S0,[R9, #0]
+        VSTR     S0,[R2, #+4]
+        BGT.N    ??Resampling_5
+        LDR      R8,[R3, #+2048]
+        ADD      LR,R1,R2
+        VMOV     S0,R8
         VMUL.F32 S0,S0,S1
-        VSTR     S0,[R6, #0]
-        VLDR     S0,[R9, #+4]
+        VSTR     S0,[LR, #0]
+        LDR      R8,[R3, #+2052]
+        VMOV     S0,R8
         VMUL.F32 S0,S0,S1
-        VSTR     S0,[R6, #+4]
+        VSTR     S0,[LR, #+4]
 //  174 		}
 //  175 	}
 ??Resampling_5:
-        ADDS     R2,R2,#+1
+        ADDS     R0,R0,#+1
         ADDS     R3,R3,#+8
-        CMP      R2,LR
-        ADD      R12,R12,#+8
+        ADDS     R2,R2,#+8
+        CMP      R0,R12
         BLT.N    ??Resampling_4
 //  176 
 //  177 	/* TODO: file the library to set to zero of array */
 //  178 	for (i=PAR_N/2+1; i < 4*PAR_N-PAR_N/2;i++)
-        ADD      R0,R7,#+4096
-        ADDS     R0,R0,#+8
-        MOVW     R1,#+3071
+        ADDW     R0,R7,#+2056
+        MOVW     R1,#+1535
         MOVS     R2,#+0
 //  179 	{
 //  180 		FFT_Out[i].real = 0.0f;
@@ -498,7 +495,7 @@ Resampling:
 //  187 	/* Update output buffer*/
 //  188 	for (i=0; i < Coef*PAR_N;i++)
         MOVS     R0,#+0
-        LSLS     R1,R5,#+10
+        LSLS     R1,R5,#+9
         CMP      R1,#+1
         BLT.W    ??Resampling_7
 //  189 	{
@@ -518,20 +515,17 @@ Resampling:
 //  193 
 //  194 	free(FFT_In);
 ??Resampling_7:
-        MOV      R0,R8
+        MOV      R0,R6
           CFI FunCall free
         BL       free
 //  195 	free(FFT_Out);
         MOV      R0,R7
-        ADD      SP,SP,#+4
-          CFI CFA R13+28
-        POP      {R4-R9,LR}
+        POP      {R4-R8,LR}
           CFI R4 SameValue
           CFI R5 SameValue
           CFI R6 SameValue
           CFI R7 SameValue
           CFI R8 SameValue
-          CFI R9 SameValue
           CFI R14 SameValue
           CFI CFA R13+0
           CFI FunCall free
@@ -588,32 +582,32 @@ ComputeDelay_Couple:
 //  229     uint32_t Val;
 //  230     Delay_In_Sample[0] = CrssCor(&Audio_Data->bufMIC1[0],&Audio_Data->bufMIC2[0],PAR_N,&Val);
         MOV      R3,SP
-        MOV      R2,#+1024
-        ADD      R1,R4,#+2048
+        MOV      R2,#+512
+        ADD      R1,R4,#+1024
           CFI FunCall CrssCor
         BL       CrssCor
         STRB     R0,[R5, #+0]
 //  231     Delay_In_Sample[1] = CrssCor(&Audio_Data->bufMIC3[0],&Audio_Data->bufMIC4[0],PAR_N,&Val);
         MOV      R3,SP
-        MOV      R2,#+1024
-        ADD      R1,R4,#+6144
-        ADD      R0,R4,#+4096
+        MOV      R2,#+512
+        ADD      R1,R4,#+3072
+        ADD      R0,R4,#+2048
           CFI FunCall CrssCor
         BL       CrssCor
         STRB     R0,[R5, #+1]
 //  232     Delay_In_Sample[2] = CrssCor(&Audio_Data->bufMIC5[0],&Audio_Data->bufMIC6[0],PAR_N,&Val);
         MOV      R3,SP
-        MOV      R2,#+1024
-        ADD      R1,R4,#+10240
-        ADD      R0,R4,#+8192
+        MOV      R2,#+512
+        ADD      R1,R4,#+5120
+        ADD      R0,R4,#+4096
           CFI FunCall CrssCor
         BL       CrssCor
         STRB     R0,[R5, #+2]
 //  233     Delay_In_Sample[3] = CrssCor(&Audio_Data->bufMIC7[0],&Audio_Data->bufMIC8[0],PAR_N,&Val);
         MOV      R3,SP
-        MOV      R2,#+1024
-        ADD      R1,R4,#+14336
-        ADD      R0,R4,#+12288
+        MOV      R2,#+512
+        ADD      R1,R4,#+7168
+        ADD      R0,R4,#+6144
           CFI FunCall CrssCor
         BL       CrssCor
         STRB     R0,[R5, #+3]
@@ -638,9 +632,9 @@ ComputeDelay_Couple:
         END
 //  236 
 // 
-// 558 bytes in section .text
+// 556 bytes in section .text
 // 
-// 558 bytes of CODE memory
+// 556 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

@@ -14,8 +14,8 @@
 static void sta321mp_mixer( int16_t mix, int16_t ch_out, int16_t ch_in, uint32_t value);
 static void sta321mp_prescale(int16_t ch, uint32_t val);
 static void sta321mp_postscale(int16_t ch, uint32_t val);
-static void sta321mp_LP_48kHz(void);
-static void sta321mp_LP_192kHz(void);
+void sta321mp_LP_48kHz(void);
+void sta321mp_LP_192kHz(void);
 static void STA321MP_DefautLoad(void);
 static void sta321mp_biquad(int16_t channel, int16_t biquad, 
                             uint32_t b1_2, uint32_t b2, uint32_t a1_2, uint32_t a2, uint32_t b0_2);
@@ -650,7 +650,7 @@ static void sta321mp_biquad(int16_t channel, int16_t biquad,
 }
 
 
-static void sta321mp_LP_48kHz(void)
+void sta321mp_LP_48kHz(void)
 {
   /*
    * This function sets the biquads as a 14th order elliptic
@@ -668,7 +668,7 @@ static void sta321mp_LP_48kHz(void)
   sta321mp_biquad( 1, 10,0x000000, 0x000000, 0x000000, 0x000000,0x400000);
 }
 
-static void sta321mp_LP_192kHz(void)
+void sta321mp_LP_192kHz(void)
 {
   /*
    * This function sets the biquads as a 18th order butterworth

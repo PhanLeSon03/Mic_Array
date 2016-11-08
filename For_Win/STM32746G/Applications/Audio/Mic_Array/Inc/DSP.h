@@ -16,11 +16,8 @@ K (captial): number of cofficience of FIR filter: 256 , this is as much as possi
 
 ************************************************************************************************************************/
 #define DSP_NUMCOFF         64
-#define DSP_NUMCOFFHANNIING  1024
-
+#define DSP_NUMCOFFHANNIING  PAR_FFT_LEN
 #define DSP_NUMBYTECONV (DSP_NUMCOFF>>3)  /* Number of input sample bytes uses for 1 convolution */
-
-
 
 void DFT (float *x, float *Out, int N);
 void rDFT(int N, int cycles, float *IN, float *out);
@@ -53,10 +50,10 @@ void BeamFormingSD_Init(void);
 //arm_q15_to_float((int16_t *)stBuf,fbuffer,PAR_N);                                     \
 //arm_mult_f32(win,fbuffer,fbuffer,PAR_N);                                \
 
-
+// Multify with Window function and FFT transform
 #define RFFT(stBuf,S,bufferFFT,win)                                            \
        {                                                                       \
-       for(uint16_t j=0;j<PAR_N;j++)                                          \
+       for(uint16_t j=0;j<PAR_FFT_LEN;j++)                                     \
        {                                                                       \
          _value = (int32_t)stBuf[j];                                           \
           fbuffer[j]=(float)(_value*win[j]);                                   \
@@ -78,14 +75,14 @@ void BeamFormingSD_Init(void);
 #define MUL_C(o,w,s)            /* MULtiply complex vector (w is conjunction and only have half of bin) */  \
 {                                                                                                           \
     int _i;                                                                                                 \
-    for (_i = 0; _i < PAR_N+2; _i=_i+2)                                                                     \
+    for (_i = 0; _i < PAR_FFT_LEN+2; _i=_i+2)                                                               \
 	{                                                                                                       \
         o[_i] = w[_i] * s[_i] + w[_i+1] * s[_i+1];                                                          \
 		o[_i+1] = w[_i] * s[_i+1] - w[_i+1] * s[_i];                                                        \
-		if ((_i!=0)&&(_i!=PAR_N+1))                                                                         \
+		if ((_i!=0)&&(_i!=PAR_FFT_LEN+1))                                                                   \
         {                                                                                                   \
-            o[2*PAR_N -_i] = -o[_i+1];                                                                      \
-            o[2*PAR_N -_i-1] = -o[_i];                                                                      \
+            o[2*PAR_FFT_LEN -_i] = -o[_i+1];                                                                \
+            o[2*PAR_FFT_LEN -_i-1] = -o[_i];                                                                \
         }                                                                                                   \
 	}                                                                                                       \
 }
@@ -95,7 +92,7 @@ void BeamFormingSD_Init(void);
 #define SUM_C(d,s)  /* covert from float to complex */                  \
 {                                                                       \
     int _i;                                                             \
-    for (_i = 0; _i < 2*PAR_N; _i=_i+2)                                 \
+    for (_i = 0; _i < 2*PAR_FFT_LEN; _i=_i+2)                           \
 	{                                                                   \
 	    d[_i] += s[_i];                                                 \
         d[_i+1] += s[_i+1];                                             \

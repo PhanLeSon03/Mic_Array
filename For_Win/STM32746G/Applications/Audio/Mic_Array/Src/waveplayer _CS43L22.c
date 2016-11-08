@@ -39,7 +39,8 @@
 #endif
 extern uint8_t buffer_switch;
 __IO uint32_t XferCplt = 0;
-__IO uint8_t volume = 80, AudioPlayStart = 0; //sop1hc: 70
+extern uint8_t volume = 80;
+__IO uint8_t AudioPlayStart = 0; 
 __IO uint32_t WaveCounter;
 uint8_t Buffer[6];
 __IO uint32_t WaveDataLength = 0;

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      11/Oct/2016  14:17:35
+// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      08/Nov/2016  10:26:24
 // Copyright 1999-2016 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -110,9 +110,8 @@
         PUBLIC LowPass2ndOder_1
         PUBLIC LowPassIIR
         PUBLIC MD_entropy
-        PUBLIC MicData_Old
+        PUBLIC MicData_Concate
         PUBLIC NoiseBG
-        PUBLIC Out_Sum
         PUBLIC Out_Sum_Pre
         PUBLIC PCM2PDM
         PUBLIC PDM2PCM
@@ -11223,15 +11222,15 @@ W7:
 //   62 
 //   63 #endif
 //   64 
-//   65 
 
         SECTION `.bss`:DATA:REORDER:NOROOT(2)
         DATA
-//   66 Mic_Array_Data MicData_Old;
-MicData_Old:
+//   65 Mic_Array_Data_Concate MicData_Concate;
+MicData_Concate:
         DS8 16384
+//   66 //Mic_Array_Data MicData_Old;
 //   67 
-//   68 float const (*W_ZP)[PAR_N + 2];
+//   68 float const (*W_ZP)[PAR_FFT_LEN + 2];
 //   69 
 //   70 
 //   71 /*
@@ -11391,14 +11390,14 @@ MicData_Old:
 //  225 
 //  226 //extern arm_cfft_radix4_instance_f32 SS,SS1,SS2,SS3,SS4,ISS; 
 //  227 //extern arm_rfft_instance_f32 S,S1,S2,S3,S4,IS;
-//  228 extern const float W0[PAR_M][PAR_N + 2];
-//  229 extern const float W1[PAR_M][PAR_N + 2];
-//  230 extern const float W2[PAR_M][PAR_N + 2];
-//  231 extern const float W3[PAR_M][PAR_N + 2];
-//  232 extern const float W4[PAR_M][PAR_N + 2];
-//  233 extern const float W5[PAR_M][PAR_N + 2];
-//  234 extern const float W6[PAR_M][PAR_N + 2];
-//  235 extern const float W7[PAR_M][PAR_N + 2];
+//  228 extern const float W0[PAR_M][PAR_FFT_LEN + 2];
+//  229 extern const float W1[PAR_M][PAR_FFT_LEN + 2];
+//  230 extern const float W2[PAR_M][PAR_FFT_LEN + 2];
+//  231 extern const float W3[PAR_M][PAR_FFT_LEN + 2];
+//  232 extern const float W4[PAR_M][PAR_FFT_LEN + 2];
+//  233 extern const float W5[PAR_M][PAR_FFT_LEN + 2];
+//  234 extern const float W6[PAR_M][PAR_FFT_LEN + 2];
+//  235 extern const float W7[PAR_M][PAR_FFT_LEN + 2];
 //  236 
 //  237 
 //  238 /*------------------------------------------------------------------------------------------------------------*/
@@ -11406,16 +11405,14 @@ MicData_Old:
 //  240 arm_rfft_fast_instance_f32 S,S1,S2,S3,S4,S4,S5,S6,S7,S8,IS;
 //  241 
 //  242 float fir1024Coff[DSP_NUMCOFFHANNIING];
-//  243 float bufferFFTSum[2*AUDIO_OUT_BUFFER_SIZE];    //storage the SUM in Furier domain
+//  243 float bufferFFTSum[2*PAR_FFT_LEN];    //storage the SUM in Furier domain
 //  244 
-//  245 float Out_Sum[AUDIO_OUT_BUFFER_SIZE];           //storage the output buffer in float type
-Out_Sum:
-        DS8 4096
-//  246 float Out_Sum_Pre[AUDIO_OUT_BUFFER_SIZE];       //storage the input buffer in float type
+//  245 //float Out_Sum[PAR_FFT_LEN];           //storage the output buffer in float type
+//  246 float Out_Sum_Pre[PAR_FFT_LEN];       //storage the input buffer in float type
 Out_Sum_Pre:
         DS8 4096
 //  247 float Audio_Sum_Old[PAR_HOP];
-//  248 float fbuffer[PAR_N];                           // using in Macro, should not be removed
+//  248 float fbuffer[PAR_FFT_LEN];           // using in Macro, should not be removed
 //  249 #if EXT_RAM
 //  250 #pragma location= (SDRAM_BANK_ADDR+ 3*BUFFER_SIZE_BYTE)
 //  251 #endif
@@ -11433,7 +11430,7 @@ bufferFFTSum:
         DS8 8192
 //  253 uint32_t EnergySound,EnergyError;
 //  254 
-//  255 float Tmp_FFT[2*AUDIO_OUT_BUFFER_SIZE];
+//  255 float Tmp_FFT[2*PAR_FFT_LEN];
 Tmp_FFT:
         DS8 8192
 S:
@@ -11538,7 +11535,7 @@ DFT:
           CFI FunCall __aeabi_f2d
         BL       __aeabi_f2d
         LDR.W    R2,??DataTable22  ;; 0x5a7ed197
-        LDR.W    R3,??DataTable22_8  ;; 0x401921fb
+        LDR.W    R3,??DataTable22_7  ;; 0x401921fb
           CFI FunCall __aeabi_dmul
         BL       __aeabi_dmul
         VMOV     S0,R6
@@ -11663,7 +11660,7 @@ rDFT:
           CFI FunCall __aeabi_i2d
         BL       __aeabi_i2d
         LDR.W    R2,??DataTable22  ;; 0x5a7ed197
-        LDR.W    R3,??DataTable22_8  ;; 0x401921fb
+        LDR.W    R3,??DataTable22_7  ;; 0x401921fb
           CFI FunCall __aeabi_dmul
         BL       __aeabi_dmul
         VMOV     S0,R6
@@ -11900,7 +11897,7 @@ LowPass:
         MOV      R12,#+0
         LDRSH    R5,[R4, #+0]
         BEQ.N    ??LowPass_0
-        LDR.W    R9,??DataTable22_9  ;; 0xffff8000
+        LDR.W    R9,??DataTable22_8  ;; 0xffff8000
         MOVW     R7,#+32767
 //  368 	{
 //  369         Out = ADD_S16(Out_Old,SUB_S16(*(Input+i), Out_Old)/K);
@@ -12047,7 +12044,7 @@ LowPass2ndOder:
         CBZ.N    R2,??LowPass2ndOder_0
         MOV      R11,R0
         MOVW     R12,#+9322
-        LDR.W    LR,??DataTable22_10  ;; 0xffffb486
+        LDR.W    LR,??DataTable22_9  ;; 0xffffb486
         B.N      ??LowPass2ndOder_1
 //  420 	{
 //  421 
@@ -12155,7 +12152,7 @@ LowPass2ndOder_1:
         CBZ.N    R2,??LowPass2ndOder_1_0
         MOV      R11,R0
         MOVW     R12,#+9322
-        LDR.W    LR,??DataTable22_10  ;; 0xffffb486
+        LDR.W    LR,??DataTable22_9  ;; 0xffffb486
         B.N      ??LowPass2ndOder_1_1
 //  458 	{
 //  459 
@@ -12256,7 +12253,7 @@ LowPassIIR:
           CFI CFA R13+28
         SUB      SP,SP,#+4
           CFI CFA R13+32
-        LDR.W    R5,??DataTable22_9  ;; 0xffff8000
+        LDR.W    R5,??DataTable23  ;; 0xffff8000
         MOVW     R8,#+32767
         LDR      R4,[SP, #+32]
 //  490 	{
@@ -12377,7 +12374,7 @@ Decimation:
 //  520 	for (uint8_t i=0;i<16; i++) //index of output sample 16 ouput
         MOVS     R0,#+16
         VLDR.W   S0,??DataTable17  ;; 0xc2c80000
-        LDR.W    R1,??DataTable22_4
+        LDR.W    R1,??DataTable23_1
         VLDR.W   S1,??DataTable17_1  ;; 0x42c80000
 //  521 	{
 //  522 
@@ -12608,7 +12605,7 @@ Window:
           CFI FunCall __aeabi_dmul
         BL       __aeabi_dmul
         MOVS     R2,#+0
-        LDR.W    R3,??DataTable23  ;; 0x408ff800
+        LDR.W    R3,??DataTable23_2  ;; 0x408ff800
           CFI FunCall __aeabi_ddiv
         BL       __aeabi_ddiv
         VMOV     D0,R0,R1
@@ -12798,7 +12795,7 @@ PDM2PCM:
 //  668 	
 //  669     for (uint32_t currentSample = 0; currentSample < 16; currentSample++) // go for all the output sample
         MOVS     R2,#+16
-        LDR.W    R3,??DataTable22_9  ;; 0xffff8000
+        LDR.W    R3,??DataTable22_8  ;; 0xffff8000
         MOVW     R8,#+32767
 //  670 	{                                                                     // 32*16 = 512 bytes of input steam 
 //  671         int16_t stSum=0;
@@ -12810,7 +12807,7 @@ PDM2PCM:
 ??PDM2PCM_0:
         LDR      R6,[SP, #+0]
         MOVS     R5,#+0
-        LDR.W    R7,??DataTable23_1
+        LDR.W    R7,??DataTable23_3
         LDR      R12,[SP, #+4]
         ADDS     R6,R0,R6
         MOV      LR,#+8
@@ -12930,7 +12927,7 @@ PDM2PCM:
 //  717 
 //  718 		for (uint16_t i=0; i< (DSP_NUMBYTECONV/2); i++)
         LDR      R6,[SP, #+0]
-        LDR.W    R5,??DataTable23_1
+        LDR.W    R5,??DataTable23_3
         MOVS     R7,#+4
         ADDS     R6,R0,R6
         SUBS     R6,R6,#+5
@@ -13004,7 +13001,7 @@ Precalculation:
           CFI CFA R13+12
 //  758     for (uint8_t i = 0; i < 129; i++)  /* from byte 0th to byth 7th of data input */
         MOVS     R2,#+129
-        LDR.W    R3,??DataTable23_2  ;; 0xffff8000
+        LDR.W    R3,??DataTable23  ;; 0xffff8000
         MOVW     R5,#+32767
 //  759 	{ 
 //  760 
@@ -13149,7 +13146,7 @@ lowpassFIR:
           CFI FunCall __aeabi_f2d
         BL       __aeabi_f2d
         LDR.N    R2,??DataTable22  ;; 0x5a7ed197
-        LDR.N    R3,??DataTable22_8  ;; 0x401921fb
+        LDR.N    R3,??DataTable22_7  ;; 0x401921fb
           CFI FunCall __aeabi_dmul
         BL       __aeabi_dmul
         VMOV     D9,R0,R1
@@ -13161,7 +13158,7 @@ lowpassFIR:
         VMUL.F32 S17,S0,S1
         VMOV.F32 S0,#2.0
         VMUL.F32 S22,S20,S0
-        VLDR.W   D10,??DataTable22_11
+        VLDR.W   D10,??DataTable22_10
 //  798 	{
 //  799         if (i != ((float)M / 2)) 
 ??lowpassFIR_1:
@@ -13694,8 +13691,8 @@ BeamFormingSD_Init:
 //  992 		//arm_rfft_fast_init_f32(&S3, 512);
 //  993 		//arm_rfft_fast_init_f32(&S4, 512);
 //  994 		//arm_rfft_fast_init_f32(&IS, 512);
-//  995 		arm_rfft_fast_init_f32(&S1, PAR_N);
-        LDR.W    R4,??DataTable23_3
+//  995 		arm_rfft_fast_init_f32(&S1, PAR_FFT_LEN);
+        LDR.W    R4,??DataTable23_4
         MOV      R1,#+1024
         ADD      R0,R4,#+4096
         VPUSH    {D8-D10}
@@ -13705,57 +13702,57 @@ BeamFormingSD_Init:
           CFI CFA R13+40
           CFI FunCall arm_rfft_fast_init_f32
         BL       arm_rfft_fast_init_f32
-//  996 		arm_rfft_fast_init_f32(&S2, PAR_N);
+//  996 		arm_rfft_fast_init_f32(&S2, PAR_FFT_LEN);
         ADD      R0,R4,#+4096
         MOV      R1,#+1024
         ADDS     R0,R0,#+24
         MOVS     R5,#+0
           CFI FunCall arm_rfft_fast_init_f32
         BL       arm_rfft_fast_init_f32
-//  997 		arm_rfft_fast_init_f32(&S3, PAR_N);
+//  997 		arm_rfft_fast_init_f32(&S3, PAR_FFT_LEN);
         ADD      R0,R4,#+4096
         MOV      R1,#+1024
         ADDS     R0,R0,#+48
           CFI FunCall arm_rfft_fast_init_f32
         BL       arm_rfft_fast_init_f32
-//  998 		arm_rfft_fast_init_f32(&S4, PAR_N);
+//  998 		arm_rfft_fast_init_f32(&S4, PAR_FFT_LEN);
         ADD      R0,R4,#+4096
         MOV      R1,#+1024
         ADDS     R0,R0,#+72
           CFI FunCall arm_rfft_fast_init_f32
         BL       arm_rfft_fast_init_f32
-//  999 		arm_rfft_fast_init_f32(&S5, PAR_N);
+//  999 		arm_rfft_fast_init_f32(&S5, PAR_FFT_LEN);
         MOV      R1,#+1024
         ADD      R0,R4,#+4192
           CFI FunCall arm_rfft_fast_init_f32
         BL       arm_rfft_fast_init_f32
-// 1000 		arm_rfft_fast_init_f32(&S6, PAR_N);
+// 1000 		arm_rfft_fast_init_f32(&S6, PAR_FFT_LEN);
         ADD      R0,R4,#+4096
         MOV      R1,#+1024
         ADDS     R0,R0,#+120
           CFI FunCall arm_rfft_fast_init_f32
         BL       arm_rfft_fast_init_f32
-// 1001 		arm_rfft_fast_init_f32(&S7, PAR_N);
+// 1001 		arm_rfft_fast_init_f32(&S7, PAR_FFT_LEN);
         ADD      R0,R4,#+4096
         MOV      R1,#+1024
         ADDS     R0,R0,#+144
           CFI FunCall arm_rfft_fast_init_f32
         BL       arm_rfft_fast_init_f32
-// 1002 		arm_rfft_fast_init_f32(&S8, PAR_N);        
+// 1002 		arm_rfft_fast_init_f32(&S8, PAR_FFT_LEN);        
         ADD      R0,R4,#+4096
         MOV      R1,#+1024
         ADDS     R0,R0,#+168
           CFI FunCall arm_rfft_fast_init_f32
         BL       arm_rfft_fast_init_f32
-// 1003         arm_rfft_fast_init_f32(&IS,PAR_N);
+// 1003         arm_rfft_fast_init_f32(&IS, PAR_FFT_LEN);
         MOV      R1,#+1024
         ADD      R0,R4,#+4288
           CFI FunCall arm_rfft_fast_init_f32
         BL       arm_rfft_fast_init_f32
 // 1004         Window(fir1024Coff);
-        VLDR.W   D8,??DataTable22_5
-        VLDR.W   D9,??DataTable22_6
-        VLDR.W   D10,??DataTable22_7
+        VLDR.W   D8,??DataTable22_4
+        VLDR.W   D9,??DataTable22_5
+        VLDR.W   D10,??DataTable22_6
 ??BeamFormingSD_Init_0:
         MOV      R0,R5
         ADDS     R5,R5,#+1
@@ -13765,7 +13762,7 @@ BeamFormingSD_Init:
           CFI FunCall __aeabi_dmul
         BL       __aeabi_dmul
         MOVS     R2,#+0
-        LDR.W    R3,??DataTable23  ;; 0x408ff800
+        LDR.W    R3,??DataTable23_2  ;; 0x408ff800
           CFI FunCall __aeabi_ddiv
         BL       __aeabi_ddiv
         VMOV     D0,R0,R1
@@ -13830,48 +13827,42 @@ BeamFormingSD_Init:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable22_4:
-        DC32     ??iRing
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable22_5:
         DC32     0x0,0x3FE00000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable22_6:
+??DataTable22_5:
         DC32     0x0,0x3FF00000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable22_7:
+??DataTable22_6:
         DC32     0x5A7ED197,0x401921FB
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable22_8:
+??DataTable22_7:
         DC32     0x401921fb
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable22_9:
+??DataTable22_8:
         DC32     0xffff8000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable22_10:
+??DataTable22_9:
         DC32     0xffffb486
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable22_11:
+??DataTable22_10:
         DC32     0x5A7ED197,0x400921FB
 // 1013 
 // 1014 
@@ -13899,165 +13890,129 @@ BeamFormingSD:
           CFI R5 Frame(CFA, -32)
           CFI R4 Frame(CFA, -36)
           CFI CFA R13+44
-        LDR.W    R4,??DataTable23_4
+        SUB      SP,SP,#+4
+          CFI CFA R13+48
 // 1022 
-// 1023     int32_t _value,_value1,_value2;
-// 1024     int16_t lenFFT= PAR_N;
-// 1025     W_ZP = W3;
-// 1026 #if 0   
-// 1027 	switch (Dir)
-// 1028 	{
-// 1029 		case 0:
-// 1030 			W_ZP = W1;
-// 1031 			break;
-// 1032 		case 1:
-// 1033 			W_ZP = W2;
-// 1034 			break;
-// 1035 		case 2:
-// 1036 			W_ZP = W3;
-// 1037 			break;
-// 1038 		case 3:
-// 1039 			W_ZP = W4;
-// 1040 			break;
-// 1041 		case 4:
-// 1042 			W_ZP = W5;
-// 1043 			break;
-// 1044 		case 5:
-// 1045 			W_ZP = W6;
-// 1046 			break;
-// 1047 		case 6:
-// 1048 			W_ZP = W7;
-// 1049 			break;
-// 1050 		case 7:
-// 1051 			W_ZP = W0;
-// 1052 			break;
-// 1053 		default:
-// 1054 			W_ZP = W0;
-// 1055 			break;
-// 1056 	}
-// 1057 #endif    
-// 1058     /********************* Update for Current Frame ***************************************************************************/
-// 1059 
-// 1060       RFFT(MicData->bufMIC1,S1,DataFFT.bufMIC1,fir1024Coff);  
-        LDR.W    R6,??DataTable23_3
-        SUB      SP,SP,#+84
-          CFI CFA R13+128
-        MOV      R10,#+1024
+// 1023     int32_t _value;  //use in macro, should not be removed
+// 1024     W_ZP = W3;
+        LDR.W    R6,??DataTable23_5
+        MOV      R5,#+86016
         ADR.W    R0,W3
-        ADD      R1,R4,#+90112
-        STR      R0,[R1, #+0]
-        LDR.W    R5,??DataTable23_5
-        LDR      R0,[SP, #+84]
-        MOV      R1,R5
-        MOV      R2,R6
-        MOV      R3,R10
+        STR      R0,[R5, R6]
+// 1025 #if 0   
+// 1026 	switch (Dir)
+// 1027 	{
+// 1028 		case 0:
+// 1029 			W_ZP = W1;
+// 1030 			break;
+// 1031 		case 1:
+// 1032 			W_ZP = W2;
+// 1033 			break;
+// 1034 		case 2:
+// 1035 			W_ZP = W3;
+// 1036 			break;
+// 1037 		case 3:
+// 1038 			W_ZP = W4;
+// 1039 			break;
+// 1040 		case 4:
+// 1041 			W_ZP = W5;
+// 1042 			break;
+// 1043 		case 5:
+// 1044 			W_ZP = W6;
+// 1045 			break;
+// 1046 		case 6:
+// 1047 			W_ZP = W7;
+// 1048 			break;
+// 1049 		case 7:
+// 1050 			W_ZP = W0;
+// 1051 			break;
+// 1052 		default:
+// 1053 			W_ZP = W0;
+// 1054 			break;
+// 1055 	}
+// 1056 #endif    
+// 1057  
+// 1058     /*************************************************************************************************************************/
+// 1059 	/* Concatenate the old frame with current frame */
+// 1060 	for (uint16_t i=0; i< PAR_HOP; i++)
+        LDR      R0,[SP, #+4]
+        ADD      R1,R6,#+1024
+        MOV      R2,#+512
+        LDR.W    R10,??DataTable23_6  ;; 0xffffe002
+// 1061 	{
+// 1062 		for(uint16_t j=0; j< PAR_M;j++)
 ??BeamFormingSD_0:
-        LDRSH    R12,[R0], #+2
-        VLDR     S1,[R2, #0]
-        ADDS     R2,R2,#+4
-        VMOV     S0,R12
-        VCVT.F32.S32 S0,S0
-        VMUL.F32 S0,S0,S1
-        VSTR     S0,[R1, #0]
-        ADDS     R1,R1,#+4
-        SUBS     R3,R3,#+1
-        BNE.N    ??BeamFormingSD_0
-        ADD      R0,R6,#+4096
-        MOV      R1,R5
-        STR      R0,[SP, #+80]
-        ADD      R0,R4,#+24576
-        STR      R0,[SP, #+8]
-        MOV      R2,R0
-        LDR      R0,[SP, #+80]
-          CFI FunCall arm_rfft_fast_f32
-        BL       arm_rfft_fast_f32
-// 1061       RFFT(MicData->bufMIC2,S2,DataFFT.bufMIC2,fir1024Coff);
-        LDR      R0,[SP, #+84]
-        MOV      R1,R5
-        MOV      R2,R6
-        MOV.W    R3,R10
-        ADD      R0,R0,#+2048
+        MOVS     R3,#+8
+// 1063         {      
+// 1064 			*(&MicData_Concate.bufMIC1[i+PAR_HOP]+PAR_FFT_LEN*j) = *(&MicData->bufMIC1[i]+PAR_N*j);
 ??BeamFormingSD_1:
-        LDRSH    R12,[R0], #+2
-        VLDR     S1,[R2, #0]
-        ADDS     R2,R2,#+4
-        VMOV     S0,R12
-        VCVT.F32.S32 S0,S0
-        VMUL.F32 S0,S0,S1
-        VSTR     S0,[R1, #0]
-        ADDS     R1,R1,#+4
+        LDRH     R4,[R0, #+0]
+// 1065 		}
         SUBS     R3,R3,#+1
+        ADD      R0,R0,#+1024
+        STRH     R4,[R1, #+0]
+        ADD      R1,R1,#+2048
         BNE.N    ??BeamFormingSD_1
-        ADD      R0,R6,#+4096
-        ADDS     R0,R0,#+24
-        STR      R0,[SP, #+76]
-        ADD      R0,R4,#+32768
-        STR      R0,[SP, #+4]
-        MOV      R2,R0
-        LDR      R0,[SP, #+76]
-        MOV      R1,R5
-          CFI FunCall arm_rfft_fast_f32
-        BL       arm_rfft_fast_f32
-        LDR      R0,[SP, #+84]
-        MOV      R1,R5
-        MOV      R2,R6
-        MOV      R3,R10
-        ADD      R0,R0,#+4096
-// 1062       RFFT(MicData->bufMIC3,S3,DataFFT.bufMIC3,fir1024Coff);
+        LDR.W    R3,??DataTable23_7  ;; 0xffffc002
+        ADD      R0,R10,R0
+        ADDS     R1,R3,R1
+        SUBS     R2,R2,#+1
+// 1066 	}
+        BNE.N    ??BeamFormingSD_0
+// 1067 
+// 1068     /**************************************************************************************************************************/   
+// 1069     RFFT(MicData_Concate.bufMIC1,S1,DataFFT.bufMIC1,fir1024Coff);  
+        LDR.W    R7,??DataTable23_8
+        LDR.W    R8,??DataTable23_4
+        MOV      R0,R6
+        MOV      R1,R7
+        MOV.W    R2,R8
+        MOV      R3,#+1024
 ??BeamFormingSD_2:
-        LDRSH    R12,[R0], #+2
+        LDRSH    R4,[R0], #+2
         VLDR     S1,[R2, #0]
         ADDS     R2,R2,#+4
-        VMOV     S0,R12
+        VMOV     S0,R4
         VCVT.F32.S32 S0,S0
         VMUL.F32 S0,S0,S1
         VSTR     S0,[R1, #0]
         ADDS     R1,R1,#+4
         SUBS     R3,R3,#+1
         BNE.N    ??BeamFormingSD_2
-        ADD      R0,R6,#+4096
-        ADDS     R0,R0,#+48
-        STR      R0,[SP, #+72]
-        ADD      R0,R4,#+40960
-        STR      R0,[SP, #+68]
-        MOV      R2,R0
-        LDR      R0,[SP, #+72]
-        MOV      R1,R5
+        ADD      R4,R6,#+20480
+        MOV      R2,R4
+        MOV      R1,R7
+        ADD      R0,R8,#+4096
           CFI FunCall arm_rfft_fast_f32
         BL       arm_rfft_fast_f32
-        LDR      R0,[SP, #+84]
-        MOV      R1,R5
-        MOV      R2,R6
-        MOV      R3,R10
-        ADD      R0,R0,#+6144
-// 1063       RFFT(MicData->bufMIC4,S4,DataFFT.bufMIC4,fir1024Coff);
+// 1070     RFFT(MicData_Concate.bufMIC2,S2,DataFFT.bufMIC2,fir1024Coff);
+        ADD      R0,R6,#+2048
+        MOV      R1,R7
+        MOV      R2,R8
+        MOV      R3,#+1024
 ??BeamFormingSD_3:
-        LDRSH    R12,[R0], #+2
+        LDRSH    R9,[R0], #+2
         VLDR     S1,[R2, #0]
         ADDS     R2,R2,#+4
-        VMOV     S0,R12
+        VMOV     S0,R9
         VCVT.F32.S32 S0,S0
         VMUL.F32 S0,S0,S1
         VSTR     S0,[R1, #0]
         ADDS     R1,R1,#+4
         SUBS     R3,R3,#+1
         BNE.N    ??BeamFormingSD_3
-        ADD      R0,R6,#+4096
-        ADDS     R0,R0,#+72
-        STR      R0,[SP, #+64]
-        ADD      R0,R4,#+49152
-        STR      R0,[SP, #+60]
-        MOV      R2,R0
-        LDR      R0,[SP, #+64]
-        MOV      R1,R5
+        ADD      R9,R6,#+28672
+        ADD      R0,R8,#+4096
+        MOV      R2,R9
+        MOV      R1,R7
+        ADDS     R0,R0,#+24
           CFI FunCall arm_rfft_fast_f32
         BL       arm_rfft_fast_f32
-        LDR      R0,[SP, #+84]
-        MOV      R1,R5
-        MOV      R2,R6
-        MOV      R3,R10
-        ADD      R0,R0,#+8192
-// 1064       RFFT(MicData->bufMIC5,S5,DataFFT.bufMIC5,fir1024Coff);
+// 1071     RFFT(MicData_Concate.bufMIC3,S3,DataFFT.bufMIC3,fir1024Coff);
+        ADD      R0,R6,#+4096
+        MOV      R1,R7
+        MOV.W    R2,R8
+        MOV      R3,#+1024
 ??BeamFormingSD_4:
         LDRSH    R12,[R0], #+2
         VLDR     S1,[R2, #0]
@@ -14069,21 +14024,17 @@ BeamFormingSD:
         ADDS     R1,R1,#+4
         SUBS     R3,R3,#+1
         BNE.N    ??BeamFormingSD_4
-        ADD      R0,R6,#+4192
-        MOV      R1,R5
-        STR      R0,[SP, #+56]
-        ADD      R0,R4,#+57344
-        STR      R0,[SP, #+52]
-        MOV      R2,R0
-        LDR      R0,[SP, #+56]
+        ADD      R0,R8,#+4096
+        ADD      R2,R6,#+36864
+        MOV      R1,R7
+        ADDS     R0,R0,#+48
           CFI FunCall arm_rfft_fast_f32
         BL       arm_rfft_fast_f32
-        LDR      R0,[SP, #+84]
-        MOV      R1,R5
-        MOV      R2,R6
-        MOV.W    R3,R10
-        ADD      R0,R0,#+10240
-// 1065       RFFT(MicData->bufMIC6,S6,DataFFT.bufMIC6,fir1024Coff);
+// 1072     RFFT(MicData_Concate.bufMIC4,S4,DataFFT.bufMIC4,fir1024Coff);
+        ADD      R0,R6,#+6144
+        MOV      R1,R7
+        MOV      R2,R8
+        MOV      R3,#+1024
 ??BeamFormingSD_5:
         LDRSH    R12,[R0], #+2
         VLDR     S1,[R2, #0]
@@ -14095,22 +14046,17 @@ BeamFormingSD:
         ADDS     R1,R1,#+4
         SUBS     R3,R3,#+1
         BNE.N    ??BeamFormingSD_5
-        ADD      R0,R6,#+4096
-        ADDS     R0,R0,#+120
-        STR      R0,[SP, #+48]
-        ADD      R0,R4,#+65536
-        STR      R0,[SP, #+44]
-        MOV      R2,R0
-        LDR      R0,[SP, #+48]
-        MOV      R1,R5
+        ADD      R0,R8,#+4096
+        ADD      R2,R6,#+45056
+        MOV      R1,R7
+        ADDS     R0,R0,#+72
           CFI FunCall arm_rfft_fast_f32
         BL       arm_rfft_fast_f32
-        LDR      R0,[SP, #+84]
-        MOV      R1,R5
-        MOV      R2,R6
-        MOV      R3,R10
-        ADD      R0,R0,#+12288
-// 1066       RFFT(MicData->bufMIC7,S7,DataFFT.bufMIC7,fir1024Coff);
+        ADD      R0,R6,#+8192
+        MOV      R1,R7
+        MOV      R2,R8
+        MOV      R3,#+1024
+// 1073     RFFT(MicData_Concate.bufMIC5,S5,DataFFT.bufMIC5,fir1024Coff);
 ??BeamFormingSD_6:
         LDRSH    R12,[R0], #+2
         VLDR     S1,[R2, #0]
@@ -14122,22 +14068,16 @@ BeamFormingSD:
         ADDS     R1,R1,#+4
         SUBS     R3,R3,#+1
         BNE.N    ??BeamFormingSD_6
-        ADD      R0,R6,#+4096
-        ADDS     R0,R0,#+144
-        STR      R0,[SP, #+40]
-        ADD      R0,R4,#+73728
-        STR      R0,[SP, #+36]
-        MOV      R2,R0
-        LDR      R0,[SP, #+40]
-        MOV      R1,R5
+        ADD      R2,R6,#+53248
+        MOV      R1,R7
+        ADD      R0,R8,#+4192
           CFI FunCall arm_rfft_fast_f32
         BL       arm_rfft_fast_f32
-        LDR      R0,[SP, #+84]
-        MOV      R1,R5
-        MOV      R2,R6
-        MOV      R3,R10
-        ADD      R0,R0,#+14336
-// 1067       RFFT(MicData->bufMIC8,S8,DataFFT.bufMIC8,fir1024Coff);
+// 1074     RFFT(MicData_Concate.bufMIC6,S6,DataFFT.bufMIC6,fir1024Coff);
+        ADD      R0,R6,#+10240
+        MOV      R1,R7
+        MOV.W    R2,R8
+        MOV      R3,#+1024
 ??BeamFormingSD_7:
         LDRSH    R12,[R0], #+2
         VLDR     S1,[R2, #0]
@@ -14149,524 +14089,224 @@ BeamFormingSD:
         ADDS     R1,R1,#+4
         SUBS     R3,R3,#+1
         BNE.N    ??BeamFormingSD_7
-        ADD      R0,R6,#+4096
-        ADDS     R0,R0,#+168
-        STR      R0,[SP, #+32]
-        ADD      R0,R4,#+81920
-        STR      R0,[SP, #+28]
-        MOV      R2,R0
-        LDR      R0,[SP, #+32]
-        LDR.W    R8,??DataTable23_6
-        MOV      R1,R5
-        MOVW     R9,#+1026
+        ADD      R0,R8,#+4096
+        ADD      R2,R6,#+61440
+        MOV      R1,R7
+        ADDS     R0,R0,#+120
           CFI FunCall arm_rfft_fast_f32
         BL       arm_rfft_fast_f32
-// 1068       /* Adding in Fourier Domain */			 
-// 1069       //arm_add_f32((float *)bufferFFT,(float *)bufferFFT_1, (float *)bufferFFTSum,lenFFT*2);
-// 1070 
-// 1071       MUL_C(bufferFFTSum,W_ZP[0],DataFFT.bufMIC1)
-        ADD      R3,R4,#+90112
-        ADD      R1,R8,#+7936
-        ADDS     R1,R1,#+252
-        MOVS     R0,#+0
-        LDR      R3,[R3, #+0]
-        STR      R1,[SP, #+24]
+// 1075     RFFT(MicData_Concate.bufMIC7,S7,DataFFT.bufMIC7,fir1024Coff);
+        ADD      R0,R6,#+12288
+        MOV      R1,R7
         MOV      R2,R8
-        LDR      LR,[SP, #+8]
-        MOV      R12,R3
+        MOV      R3,#+1024
 ??BeamFormingSD_8:
-        VLDR     S1,[R12, #0]
-        VLDR     S2,[LR, #0]
-        VMUL.F32 S1,S1,S2
-        VLDR     S0,[LR, #+4]
-        VLDR     S2,[R12, #+4]
-        VMLA.F32 S1,S2,S0
-        VSTR     S1,[R2, #0]
-        VLDR     S1,[R12, #0]
-        VMUL.F32 S0,S1,S0
-        VLDR     S1,[R12, #+4]
-        VLDR     S2,[LR, #0]
-        VMLS.F32 S0,S1,S2
-        VSTR     S0,[R2, #+4]
-        CBZ.N    R0,??BeamFormingSD_9
-        VNEG.F32 S0,S0
-        VSTR     S0,[R1, #+4]
-        VLDR     S0,[R2, #0]
-        VNEG.F32 S0,S0
+        LDRSH    R12,[R0], #+2
+        VLDR     S1,[R2, #0]
+        ADDS     R2,R2,#+4
+        VMOV     S0,R12
+        VCVT.F32.S32 S0,S0
+        VMUL.F32 S0,S0,S1
         VSTR     S0,[R1, #0]
+        ADDS     R1,R1,#+4
+        SUBS     R3,R3,#+1
+        BNE.N    ??BeamFormingSD_8
+        ADD      R0,R8,#+4096
+        ADD      R2,R6,#+69632
+        MOV      R1,R7
+        ADDS     R0,R0,#+144
+          CFI FunCall arm_rfft_fast_f32
+        BL       arm_rfft_fast_f32
+// 1076     RFFT(MicData_Concate.bufMIC8,S8,DataFFT.bufMIC8,fir1024Coff);
+        ADD      R0,R6,#+14336
+        MOV      R1,R7
+        MOV      R2,R8
+        MOV      R3,#+1024
 ??BeamFormingSD_9:
-        ADDS     R0,R0,#+2
-        ADDS     R2,R2,#+8
-        SUBS     R1,R1,#+8
-        CMP      R0,R9
-        ADD      LR,LR,#+8
-        ADD      R12,R12,#+8
-        BLT.N    ??BeamFormingSD_8
-        ADD      R3,R3,#+4096
-        ADDS     R3,R3,#+8
-        LDR      R0,[SP, #+4]
-        MOVS.W   R1,#+7
-// 1072       for (uint8_t iMic=1; iMic < PAR_M; iMic++)
-// 1073       {
-// 1074           MUL_C(Tmp_FFT,W_ZP[iMic], (DataFFT.bufMIC1+PAR_N*2*iMic))
-??BeamFormingSD_10:
-        ADD      LR,R8,#+16128
-        ADD      LR,LR,#+252
-        STR      LR,[SP, #+20]
-        ADD      R7,R8,#+8192
-        STR      R7,[SP, #+0]
-        MOV      R12,R7
+        LDRSH    R12,[R0], #+2
+        VLDR     S1,[R2, #0]
+        ADDS     R2,R2,#+4
+        VMOV     S0,R12
+        VCVT.F32.S32 S0,S0
+        VMUL.F32 S0,S0,S1
+        VSTR     S0,[R1, #0]
+        ADDS     R1,R1,#+4
+        SUBS     R3,R3,#+1
+        BNE.N    ??BeamFormingSD_9
+        ADD      R0,R8,#+4096
+        ADD      R2,R6,#+77824
+        MOV      R1,R7
+        ADDS     R0,R0,#+168
+          CFI FunCall arm_rfft_fast_f32
+        BL       arm_rfft_fast_f32
+// 1077     /* Adding in Fourier Domain */			 
+// 1078     //arm_add_f32((float *)bufferFFT,(float *)bufferFFT_1, (float *)bufferFFTSum,lenFFT*2);
+// 1079 
+// 1080     MUL_C(bufferFFTSum,W_ZP[0],DataFFT.bufMIC1)
+        LDR.N    R1,??DataTable23_9
+        LDR      LR,[R5, R6]
+        ADD      R3,R1,#+7936
         MOVS     R2,#+0
-        MOV      R7,R3
-        MOV.W    R11,R0
+        ADDS     R3,R3,#+252
+        MOV      R12,R1
+        MOV.W    R5,LR
+        MOVW     R0,#+1026
+??BeamFormingSD_10:
+        VLDR     S1,[R5, #0]
+        VLDR     S2,[R4, #0]
+        VMUL.F32 S1,S1,S2
+        VLDR     S0,[R4, #+4]
+        VLDR     S2,[R5, #+4]
+        VMLA.F32 S1,S2,S0
+        VSTR     S1,[R12, #0]
+        VLDR     S1,[R5, #0]
+        VMUL.F32 S0,S1,S0
+        VLDR     S1,[R5, #+4]
+        VLDR     S2,[R4, #0]
+        VMLS.F32 S0,S1,S2
+        VSTR     S0,[R12, #+4]
+        CBZ.N    R2,??BeamFormingSD_11
+        VNEG.F32 S0,S0
+        VSTR     S0,[R3, #+4]
+        VLDR     S0,[R12, #0]
+        VNEG.F32 S0,S0
+        VSTR     S0,[R3, #0]
 ??BeamFormingSD_11:
+        ADDS     R2,R2,#+2
+        ADDS     R4,R4,#+8
+        ADDS     R5,R5,#+8
+        SUBS     R3,R3,#+8
+        CMP      R2,R0
+        ADD      R12,R12,#+8
+        BLT.N    ??BeamFormingSD_10
+        ADD      R2,LR,#+4096
+        ADDS     R2,R2,#+8
+        MOVS.W   R3,#+7
+// 1081     for (uint8_t iMic=1; iMic < PAR_M; iMic++)
+// 1082     {
+// 1083         MUL_C(Tmp_FFT,W_ZP[iMic], (DataFFT.bufMIC1+PAR_FFT_LEN*2*iMic))
+??BeamFormingSD_12:
+        ADD      LR,R1,#+16128
+        ADD      R4,R1,#+8192
+        MOV      R12,#+0
+        ADD      LR,LR,#+252
+        MOV      R5,R4
+        MOV      R7,R2
+        MOV.W    R11,R9
+??BeamFormingSD_13:
         VLDR     S1,[R7, #0]
+        CMP      R12,#+0
         VLDR     S2,[R11, #0]
         VMUL.F32 S1,S1,S2
         VLDR     S0,[R11, #+4]
         VLDR     S2,[R7, #+4]
         VMLA.F32 S1,S2,S0
-        VSTR     S1,[R12, #0]
+        VSTR     S1,[R5, #0]
         VLDR     S1,[R7, #0]
         VMUL.F32 S0,S1,S0
         VLDR     S1,[R7, #+4]
         VLDR     S2,[R11, #0]
         VMLS.F32 S0,S1,S2
-        VSTR     S0,[R12, #+4]
-        CBZ.N    R2,??BeamFormingSD_12
+        VSTR     S0,[R5, #+4]
+        BEQ.N    ??BeamFormingSD_14
         VNEG.F32 S0,S0
         VSTR     S0,[LR, #+4]
-        VLDR     S0,[R12, #0]
+        VLDR     S0,[R5, #0]
         VNEG.F32 S0,S0
         VSTR     S0,[LR, #0]
-??BeamFormingSD_12:
-        ADDS     R2,R2,#+2
-        ADDS     R7,R7,#+8
-        CMP      R2,R9
-        ADD      R11,R11,#+8
-        ADD      R12,R12,#+8
-        SUB      LR,LR,#+8
-        BLT.N    ??BeamFormingSD_11
-// 1075           SUM_C(bufferFFTSum,Tmp_FFT)  
-        MOV      R2,R8
-        LDR      R12,[SP, #+0]
-        MOV.W    LR,R10
-??BeamFormingSD_13:
-        VLDR     S0,[R2, #0]
-        VLDR     S1,[R12, #0]
-        VADD.F32 S0,S0,S1
-        VSTR     S0,[R2, #0]
-        VLDR     S0,[R2, #+4]
-        VLDR     S1,[R12, #+4]
-        ADD      R12,R12,#+8
-        VADD.F32 S0,S0,S1
-        VSTR     S0,[R2, #+4]
-        ADDS     R2,R2,#+8
-        SUBS     LR,LR,#+1
-        BNE.N    ??BeamFormingSD_13
-// 1076       }
-        ADD      R3,R3,#+4096
-        ADDS     R3,R3,#+8
-        SUBS     R1,R1,#+1
-        ADD      R0,R0,#+8192
-        BNE.N    ??BeamFormingSD_10
-// 1077       /* Revert FFT*/
-// 1078       arm_rfft_fast_f32(&IS, (float *)bufferFFTSum, (float *)&Out_Sum[0],1);
-        ADD      R0,R6,#+4288
-        MOVS     R3,#+1
-        STR      R0,[SP, #+16]
-        ADD      R0,R4,#+16384
-        STR      R0,[SP, #+12]
-        MOV      R2,R0
-        LDR      R0,[SP, #+16]
-        MOV      R1,R8
-        MOV      R7,#+512
-        LDR.W    R11,??DataTable23_7  ;; 0xffffc002
-          CFI FunCall arm_rfft_fast_f32
-        BL       arm_rfft_fast_f32
-// 1079       //arm_rfft_fast_f32(&IS, (float *)bufferFFTSum, (float *)&fbufferOut[iFrm*lenFFT], 1);
-// 1080 
-// 1081 
-// 1082 
-// 1083 #if 1
-// 1084      /*************************************************************************************************************************/
-// 1085 	/* Concatenate the old frame with current frame */
-// 1086 	for (uint16_t i=0; i<PAR_HOP; i++)
-        ADD      R0,R4,#+1024
-        LDR      R1,[SP, #+84]
-        MOV      R2,R7
-// 1087 	{
-// 1088 		for(uint16_t j=0; j<PAR_M;j++)
 ??BeamFormingSD_14:
-        MOVS     R3,#+8
-// 1089 		{
-// 1090 			*(&MicData_Old.bufMIC1[i+PAR_HOP]+PAR_N*j) = *(&MicData->bufMIC1[i]+PAR_N*j);
+        ADD      R12,R12,#+2
+        ADDS     R7,R7,#+8
+        ADDS     R5,R5,#+8
+        CMP      R12,R0
+        ADD      R11,R11,#+8
+        SUB      LR,LR,#+8
+        BLT.N    ??BeamFormingSD_13
+// 1084         SUM_C(bufferFFTSum,Tmp_FFT)  
+        MOV      R12,R1
+        MOV      LR,#+1024
 ??BeamFormingSD_15:
-        LDRH     R12,[R1, #+0]
-// 1091 		}
-        SUBS     R3,R3,#+1
-        ADD      R1,R1,#+2048
-        STRH     R12,[R0, #+0]
-        ADD      R0,R0,#+2048
-        BNE.N    ??BeamFormingSD_15
-// 1092 	}
-        SUBS     R2,R2,#+1
-        ADD      R1,R11,R1
-        ADD      R0,R11,R0
-        BNE.N    ??BeamFormingSD_14
-// 1093     /**************************************************************************************************************************/
-// 1094     /************************ Update for Old Frame ***************************************************************************/
-// 1095 
-// 1096       RFFT(MicData_Old.bufMIC1,S1,DataFFT.bufMIC1,fir1024Coff);  
-        MOV      R0,R4
-        MOV      R1,R5
-        MOV      R2,R6
-        MOV      R3,R10
-??BeamFormingSD_16:
-        LDRSH    R12,[R0], #+2
-        VLDR     S1,[R2, #0]
-        ADDS     R2,R2,#+4
-        VMOV     S0,R12
-        VCVT.F32.S32 S0,S0
-        VMUL.F32 S0,S0,S1
-        VSTR     S0,[R1, #0]
-        ADDS     R1,R1,#+4
-        SUBS     R3,R3,#+1
-        BNE.N    ??BeamFormingSD_16
-        LDR      R2,[SP, #+8]
-        LDR      R0,[SP, #+80]
-        MOV      R1,R5
-          CFI FunCall arm_rfft_fast_f32
-        BL       arm_rfft_fast_f32
-// 1097       RFFT(MicData_Old.bufMIC2,S2,DataFFT.bufMIC2,fir1024Coff);
-        ADD      R0,R4,#+2048
-        MOV      R1,R5
-        MOV      R2,R6
-        MOV      R3,R10
-??BeamFormingSD_17:
-        LDRSH    R12,[R0], #+2
-        VLDR     S1,[R2, #0]
-        ADDS     R2,R2,#+4
-        VMOV     S0,R12
-        VCVT.F32.S32 S0,S0
-        VMUL.F32 S0,S0,S1
-        VSTR     S0,[R1, #0]
-        ADDS     R1,R1,#+4
-        SUBS     R3,R3,#+1
-        BNE.N    ??BeamFormingSD_17
-        LDR      R2,[SP, #+4]
-        LDR      R0,[SP, #+76]
-        MOV      R1,R5
-          CFI FunCall arm_rfft_fast_f32
-        BL       arm_rfft_fast_f32
-// 1098       RFFT(MicData_Old.bufMIC3,S3,DataFFT.bufMIC3,fir1024Coff);
-        ADD      R0,R4,#+4096
-        MOV      R1,R5
-        MOV      R2,R6
-        MOV      R3,R10
-??BeamFormingSD_18:
-        LDRSH    R12,[R0], #+2
-        VLDR     S1,[R2, #0]
-        ADDS     R2,R2,#+4
-        VMOV     S0,R12
-        VCVT.F32.S32 S0,S0
-        VMUL.F32 S0,S0,S1
-        VSTR     S0,[R1, #0]
-        ADDS     R1,R1,#+4
-        SUBS     R3,R3,#+1
-        BNE.N    ??BeamFormingSD_18
-        LDR      R2,[SP, #+68]
-        LDR      R0,[SP, #+72]
-        MOV      R1,R5
-          CFI FunCall arm_rfft_fast_f32
-        BL       arm_rfft_fast_f32
-// 1099       RFFT(MicData_Old.bufMIC4,S4,DataFFT.bufMIC4,fir1024Coff);
-        ADD      R0,R4,#+6144
-        MOV      R1,R5
-        MOV      R2,R6
-        MOV      R3,R10
-??BeamFormingSD_19:
-        LDRSH    R12,[R0], #+2
-        VLDR     S1,[R2, #0]
-        ADDS     R2,R2,#+4
-        VMOV     S0,R12
-        VCVT.F32.S32 S0,S0
-        VMUL.F32 S0,S0,S1
-        VSTR     S0,[R1, #0]
-        ADDS     R1,R1,#+4
-        SUBS     R3,R3,#+1
-        BNE.N    ??BeamFormingSD_19
-        LDR      R2,[SP, #+60]
-        LDR      R0,[SP, #+64]
-        MOV      R1,R5
-          CFI FunCall arm_rfft_fast_f32
-        BL       arm_rfft_fast_f32
-// 1100       RFFT(MicData_Old.bufMIC5,S5,DataFFT.bufMIC5,fir1024Coff);
-        ADD      R0,R4,#+8192
-        MOV      R1,R5
-        MOV      R2,R6
-        MOV      R3,R10
-??BeamFormingSD_20:
-        LDRSH    R12,[R0], #+2
-        VLDR     S1,[R2, #0]
-        ADDS     R2,R2,#+4
-        VMOV     S0,R12
-        VCVT.F32.S32 S0,S0
-        VMUL.F32 S0,S0,S1
-        VSTR     S0,[R1, #0]
-        ADDS     R1,R1,#+4
-        SUBS     R3,R3,#+1
-        BNE.N    ??BeamFormingSD_20
-        LDR      R2,[SP, #+52]
-        LDR      R0,[SP, #+56]
-        MOV      R1,R5
-          CFI FunCall arm_rfft_fast_f32
-        BL       arm_rfft_fast_f32
-// 1101       RFFT(MicData_Old.bufMIC6,S6,DataFFT.bufMIC6,fir1024Coff);
-        ADD      R0,R4,#+10240
-        MOV      R1,R5
-        MOV      R2,R6
-        MOV      R3,R10
-??BeamFormingSD_21:
-        LDRSH    R12,[R0], #+2
-        VLDR     S1,[R2, #0]
-        ADDS     R2,R2,#+4
-        VMOV     S0,R12
-        VCVT.F32.S32 S0,S0
-        VMUL.F32 S0,S0,S1
-        VSTR     S0,[R1, #0]
-        ADDS     R1,R1,#+4
-        SUBS     R3,R3,#+1
-        BNE.N    ??BeamFormingSD_21
-        LDR      R2,[SP, #+44]
-        LDR      R0,[SP, #+48]
-        MOV      R1,R5
-          CFI FunCall arm_rfft_fast_f32
-        BL       arm_rfft_fast_f32
-// 1102       RFFT(MicData_Old.bufMIC7,S7,DataFFT.bufMIC7,fir1024Coff);
-        ADD      R0,R4,#+12288
-        MOV      R1,R5
-        MOV      R2,R6
-        MOV      R3,R10
-??BeamFormingSD_22:
-        LDRSH    R12,[R0], #+2
-        VLDR     S1,[R2, #0]
-        ADDS     R2,R2,#+4
-        VMOV     S0,R12
-        VCVT.F32.S32 S0,S0
-        VMUL.F32 S0,S0,S1
-        VSTR     S0,[R1, #0]
-        ADDS     R1,R1,#+4
-        SUBS     R3,R3,#+1
-        BNE.N    ??BeamFormingSD_22
-        LDR      R2,[SP, #+36]
-        LDR      R0,[SP, #+40]
-        MOV      R1,R5
-          CFI FunCall arm_rfft_fast_f32
-        BL       arm_rfft_fast_f32
-// 1103       RFFT(MicData_Old.bufMIC8,S8,DataFFT.bufMIC8,fir1024Coff);
-        ADD      R0,R4,#+14336
-        MOV      R1,R5
-        MOV.W    R2,R10
-??BeamFormingSD_23:
-        LDRSH    R3,[R0], #+2
-        VLDR     S1,[R6, #0]
-        ADDS     R6,R6,#+4
-        VMOV     S0,R3
-        VCVT.F32.S32 S0,S0
-        VMUL.F32 S0,S0,S1
-        VSTR     S0,[R1, #0]
-        ADDS     R1,R1,#+4
-        SUBS     R2,R2,#+1
-        BNE.N    ??BeamFormingSD_23
-        LDR      R2,[SP, #+28]
-        LDR      R0,[SP, #+32]
-        MOVS     R3,#+0
-        MOV      R1,R5
-          CFI FunCall arm_rfft_fast_f32
-        BL       arm_rfft_fast_f32
-// 1104       /* Adding in Fourier Domain */			 
-// 1105       //arm_add_f32((float *)bufferFFT,(float *)bufferFFT_1, (float *)bufferFFTSum,lenFFT*2);
-// 1106 
-// 1107       MUL_C(bufferFFTSum,W_ZP[0],DataFFT.bufMIC1)
-        ADD      R3,R4,#+90112
-        MOVS     R0,#+0
-        LDR      R1,[SP, #+24]
-        MOV      R2,R8
-        LDR      R3,[R3, #+0]
-        LDR      R6,[SP, #+8]
-        MOV      R5,R3
-??BeamFormingSD_24:
-        VLDR     S1,[R5, #0]
-        VLDR     S2,[R6, #0]
-        VMUL.F32 S1,S1,S2
-        VLDR     S0,[R6, #+4]
-        VLDR     S2,[R5, #+4]
-        VMLA.F32 S1,S2,S0
-        VSTR     S1,[R2, #0]
-        VLDR     S1,[R5, #0]
-        VMUL.F32 S0,S1,S0
-        VLDR     S1,[R5, #+4]
-        VLDR     S2,[R6, #0]
-        VMLS.F32 S0,S1,S2
-        VSTR     S0,[R2, #+4]
-        CBZ.N    R0,??BeamFormingSD_25
-        VNEG.F32 S0,S0
-        VSTR     S0,[R1, #+4]
-        VLDR     S0,[R2, #0]
-        VNEG.F32 S0,S0
-        VSTR     S0,[R1, #0]
-??BeamFormingSD_25:
-        ADDS     R0,R0,#+2
-        ADDS     R6,R6,#+8
-        ADDS     R5,R5,#+8
-        ADDS     R2,R2,#+8
-        SUBS     R1,R1,#+8
-        CMP      R0,R9
-        BLT.N    ??BeamFormingSD_24
-// 1108       for (uint8_t iMic=1; iMic < PAR_M; iMic++)
-        ADD      R0,R3,#+4096
-        ADDS     R0,R0,#+8
-        LDR      R1,[SP, #+4]
-        MOVS     R2,#+7
-// 1109       {
-// 1110           MUL_C(Tmp_FFT,W_ZP[iMic], (DataFFT.bufMIC1+PAR_N*2*iMic))
-??BeamFormingSD_26:
-        MOVS     R3,#+0
-        LDR      R5,[SP, #+20]
-        LDR      R6,[SP, #+0]
-        MOV      R12,R0
-        MOV      LR,R1
-??BeamFormingSD_27:
-        VLDR     S1,[R12, #0]
-        VLDR     S2,[LR, #0]
-        VMUL.F32 S1,S1,S2
-        VLDR     S0,[LR, #+4]
-        VLDR     S2,[R12, #+4]
-        VMLA.F32 S1,S2,S0
-        VSTR     S1,[R6, #0]
-        VLDR     S1,[R12, #0]
-        VMUL.F32 S0,S1,S0
-        VLDR     S1,[R12, #+4]
-        VLDR     S2,[LR, #0]
-        VMLS.F32 S0,S1,S2
-        VSTR     S0,[R6, #+4]
-        CBZ.N    R3,??BeamFormingSD_28
-        VNEG.F32 S0,S0
-        VSTR     S0,[R5, #+4]
-        VLDR     S0,[R6, #0]
-        VNEG.F32 S0,S0
-        VSTR     S0,[R5, #0]
-??BeamFormingSD_28:
-        ADDS     R3,R3,#+2
-        ADDS     R6,R6,#+8
-        SUBS     R5,R5,#+8
-        CMP      R3,R9
-        ADD      LR,LR,#+8
+        VLDR     S0,[R12, #0]
+        VLDR     S1,[R4, #0]
+        VADD.F32 S0,S0,S1
+        VSTR     S0,[R12, #0]
+        VLDR     S0,[R12, #+4]
+        VLDR     S1,[R4, #+4]
+        ADDS     R4,R4,#+8
+        VADD.F32 S0,S0,S1
+        SUBS     LR,LR,#+1
+        VSTR     S0,[R12, #+4]
         ADD      R12,R12,#+8
-        BLT.N    ??BeamFormingSD_27
-// 1111           SUM_C(bufferFFTSum,Tmp_FFT)  
-        MOV      R3,R8
-        LDR      R5,[SP, #+0]
-        MOV.W    R6,R10
-??BeamFormingSD_29:
-        VLDR     S0,[R3, #0]
-        VLDR     S1,[R5, #0]
-        VADD.F32 S0,S0,S1
-        VSTR     S0,[R3, #0]
-        VLDR     S0,[R3, #+4]
-        VLDR     S1,[R5, #+4]
-        ADDS     R5,R5,#+8
-        VADD.F32 S0,S0,S1
-        VSTR     S0,[R3, #+4]
-        ADDS     R3,R3,#+8
-        SUBS     R6,R6,#+1
-        BNE.N    ??BeamFormingSD_29
-// 1112       }
-        ADD      R0,R0,#+4096
-        ADDS     R0,R0,#+8
-        SUBS     R2,R2,#+1
-        ADD      R1,R1,#+8192
-        BNE.N    ??BeamFormingSD_26
-// 1113       /* Revert FFT*/
-// 1114       arm_rfft_fast_f32(&IS, (float *)bufferFFTSum, (float *)&Out_Sum_Pre[0],1);
-        ADD      R5,R4,#+20480
-        LDR      R0,[SP, #+16]
+        BNE.N    ??BeamFormingSD_15
+// 1085     }
+        ADD      R2,R2,#+4096
+        ADDS     R2,R2,#+8
+        SUBS     R3,R3,#+1
+        ADD      R9,R9,#+8192
+        BNE.N    ??BeamFormingSD_12
+// 1086     /* Revert FFT*/
+// 1087     arm_rfft_fast_f32(&IS, (float *)bufferFFTSum, (float *)&Out_Sum_Pre[0],1);
+        ADD      R4,R6,#+16384
         MOVS     R3,#+1
-        MOV      R2,R5
-        MOV      R1,R8
+        MOV      R2,R4
+        ADD      R0,R8,#+4288
           CFI FunCall arm_rfft_fast_f32
         BL       arm_rfft_fast_f32
-// 1115       //arm_rfft_fast_f32(&IS, (float *)bufferFFTSum, (float *)&fbufferOut[iFrm*lenFFT], 1);
-// 1116 	
-// 1117 
-// 1118     /* Recontruct the signal                                                      */
-// 1119 	/* Data_Half1 =  Out_Sum_Pre[zpb:zpb+HOP] + Audio_Sum_Old                     */
-// 1120     /* Data_Half2 =  Out_Sum_Pre[zpb + HOP:zpb + 2*HOP] + Out_Sum[zpb:zpb+HOP]    */
-// 1121 	/* Audio_Sum = np.concatenate((Data_Half1,Data_Half2),axis=0)                 */
-// 1122 	for (uint16_t i=0;i<PAR_HOP;i++)
-        ADD      R1,R4,#+90112
-        LDR      R0,[SP, #+88]
-        ADDS     R1,R1,#+4
-        LDR      R2,[SP, #+12]
-        MOV.W    R3,R7
-// 1123 	{
-// 1124 		Audio_Sum[i] = (int16_t)(Out_Sum_Pre[i] + Audio_Sum_Old[i]);
-??BeamFormingSD_30:
-        VLDR     S0,[R5, #0]
+// 1088     //arm_rfft_fast_f32(&IS, (float *)bufferFFTSum, (float *)&fbufferOut[iFrm*lenFFT], 1);
+// 1089 	
+// 1090 
+// 1091     /* Recontruct the signal and storage hop frame                */
+// 1092 	for (uint16_t i=0;i<PAR_HOP;i++)
+        ADD      R1,R6,#+86016
+        LDR      R0,[SP, #+8]
+        ADDS.W   R1,R1,#+4
+        MOV      R2,#+512
+// 1093 	{
+// 1094 		Audio_Sum[i] = (int16_t)(Out_Sum_Pre[i] + Audio_Sum_Old[i]);
+??BeamFormingSD_16:
+        VLDR     S0,[R4, #0]
         VLDR     S1,[R1, #0]
         VADD.F32 S0,S0,S1
         VCVT.S32.F32 S0,S0
-        VMOV     R6,S0
-        STRH     R6,[R0, #+0]
-// 1125 		Audio_Sum[i+PAR_HOP] = (int16_t)(Out_Sum_Pre[i+ PAR_HOP] + Out_Sum[i]);
-        LDR      R6,[R5, #+2048]
-        VLDR     S1,[R2, #0]
-// 1126 		Audio_Sum_Old[i] = (float)Out_Sum[i+PAR_HOP];
-// 1127 	}
-        ADDS     R5,R5,#+4
-        VMOV     S0,R6
-        VADD.F32 S0,S0,S1
-        VCVT.S32.F32 S0,S0
-        VMOV     R6,S0
-        STRH     R6,[R0, #+1024]
-        LDR      R6,[R2, #+2048]
-        ADDS     R2,R2,#+4
-        ADDS     R0,R0,#+2
-        SUBS     R3,R3,#+1
-        STR      R6,[R1], #+4
-        BNE.N    ??BeamFormingSD_30
-// 1128     
-// 1129 	
-// 1130 	/*************************************************************************************************************************/
-// 1131 	/* storage 2nd haft of audio data */
-// 1132 	for (uint16_t i=0; i<PAR_HOP; i++)
-        LDR      R0,[SP, #+84]
+        VMOV     R3,S0
+        STRH     R3,[R0], #+2
+// 1095 		Audio_Sum_Old[i] = (float)Out_Sum_Pre[i+PAR_HOP];
+        LDR      R3,[R4, #+2048]
+// 1096 	}
+        ADDS     R4,R4,#+4
+        SUBS     R2,R2,#+1
+        STR      R3,[R1], #+4
+        BNE.N    ??BeamFormingSD_16
+// 1097     
+// 1098 	
+// 1099 	/*************************************************************************************************************************/
+// 1100 	/* storage audio data input */
+// 1101 	for (uint16_t i=0; i<PAR_N; i++)
+        LDR      R0,[SP, #+4]
+        MOV      R1,#+512
+// 1102 	{
+// 1103 		for(uint16_t j=0; j<PAR_M;j++)
+??BeamFormingSD_17:
+        MOVS     R2,#+8
+// 1104 		{
+// 1105              *(&MicData_Concate.bufMIC1[i  ]+PAR_FFT_LEN*j) = *(&MicData->bufMIC1[i]+PAR_N*j);
+??BeamFormingSD_18:
+        LDRH     R3,[R0, #+0]
+// 1106 		}
+        SUBS     R2,R2,#+1
         ADD      R0,R0,#+1024
-// 1133 	{
-// 1134 		for(uint16_t j=0; j<PAR_M;j++)
-??BeamFormingSD_31:
-        MOVS     R1,#+8
-// 1135 		{
-// 1136 			*(&MicData_Old.bufMIC1[i]+PAR_N*j) = *(&MicData->bufMIC1[i+PAR_HOP]+PAR_N*j);
-??BeamFormingSD_32:
-        LDRH     R2,[R0, #+0]
-// 1137 		}
+        STRH     R3,[R6, #+0]
+        ADD      R6,R6,#+2048
+        BNE.N    ??BeamFormingSD_18
+// 1107 	}
+        LDR.N    R2,??DataTable23_7  ;; 0xffffc002
+        ADD      R0,R10,R0
+        ADDS     R6,R2,R6
         SUBS     R1,R1,#+1
-        ADD      R0,R0,#+2048
-        STRH     R2,[R4, #+0]
-        ADD      R4,R4,#+2048
-        BNE.N    ??BeamFormingSD_32
-// 1138 	}
-        SUBS     R7,R7,#+1
-        ADD      R0,R11,R0
-        ADD      R4,R11,R4
-        BNE.N    ??BeamFormingSD_31
-// 1139 	//arm_float_to_q15((float32_t *)fbufferOut,(q15_t *)stBufOut,AUDIO_OUT_BUFFER_SIZE); 
-// 1140 
-// 1141 #endif
-// 1142 }
-        ADD      SP,SP,#+92
+        BNE.N    ??BeamFormingSD_17
+// 1108 	//arm_float_to_q15((float32_t *)fbufferOut,(q15_t *)stBufOut,AUDIO_OUT_BUFFER_SIZE); 
+// 1109 }
+        ADD      SP,SP,#+12
           CFI CFA R13+36
         POP      {R4-R11,PC}      ;; return
           CFI EndBlock cfiBlock18
@@ -14675,49 +14315,61 @@ BeamFormingSD:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable23:
-        DC32     0x408ff800
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable23_1:
-        DC32     ??Initial_Array
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable23_2:
         DC32     0xffff8000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
+??DataTable23_1:
+        DC32     ??iRing
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable23_2:
+        DC32     0x408ff800
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
 ??DataTable23_3:
-        DC32     fir1024Coff
+        DC32     ??Initial_Array
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable23_4:
-        DC32     MicData_Old
+        DC32     fir1024Coff
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable23_5:
-        DC32     fbuffer
+        DC32     MicData_Concate
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable23_6:
-        DC32     bufferFFTSum
+        DC32     0xffffe002
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable23_7:
         DC32     0xffffc002
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable23_8:
+        DC32     fbuffer
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable23_9:
+        DC32     bufferFFTSum
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -16291,88 +15943,88 @@ W3:
         DC32 39AD8A11H, 3E2F5BE6H, 3A867AD9H, 3E3082CFH, 3ACCBC06H, 3E2FF36BH
         DC32 3AC36DA8H, 3E2DD617H, 3A8F861AH, 3E2BE2B5H, 3A3630A9H, 3E2BCFD5H
         DC32 39C5A815H, 3E2DD0D9H, 394F9E38H, 3E301605H, 3894E5D6H
-// 1143 /******************************************************************************/
-// 1144 /*                  Factor Update                                             */ 
-// 1145 /******************************************************************************/
+// 1110 /******************************************************************************/
+// 1111 /*                  Factor Update                                             */ 
+// 1112 /******************************************************************************/
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock19 Using cfiCommon0
           CFI Function FactorUpd
           CFI NoCalls
         THUMB
-// 1146 void FactorUpd(Mic_Array_Coef_f * facMic)
-// 1147 {
-// 1148 	facMic->facMIC1 = 0.125;
+// 1113 void FactorUpd(Mic_Array_Coef_f * facMic)
+// 1114 {
+// 1115 	facMic->facMIC1 = 0.125;
 FactorUpd:
         VMOV.F32 S0,#0.125
         VSTR     S0,[R0, #0]
-// 1149 	facMic->facMIC2 = 0.125;
+// 1116 	facMic->facMIC2 = 0.125;
         VSTR     S0,[R0, #+4]
-// 1150 	facMic->facMIC3 = 0.125;
+// 1117 	facMic->facMIC3 = 0.125;
         VSTR     S0,[R0, #+8]
-// 1151 	facMic->facMIC4 = 0.125;
+// 1118 	facMic->facMIC4 = 0.125;
         VSTR     S0,[R0, #+12]
-// 1152     facMic->facMIC5 = 0.125;
+// 1119     facMic->facMIC5 = 0.125;
         VSTR     S0,[R0, #+16]
-// 1153     facMic->facMIC6 = 0.125;
+// 1120     facMic->facMIC6 = 0.125;
         VSTR     S0,[R0, #+20]
-// 1154     facMic->facMIC7 = 0.125;
+// 1121     facMic->facMIC7 = 0.125;
         VSTR     S0,[R0, #+24]
-// 1155     facMic->facMIC8 = 0.125;
+// 1122     facMic->facMIC8 = 0.125;
         VSTR     S0,[R0, #+28]
-// 1156 }
+// 1123 }
         BX       LR               ;; return
           CFI EndBlock cfiBlock19
-// 1157 
-// 1158 
-// 1159 
+// 1124 
+// 1125 
+// 1126 
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock20 Using cfiCommon0
           CFI Function FFT_SUM
           CFI NoCalls
         THUMB
-// 1160 void FFT_SUM(int16_t * stBuf1, int16_t * stBuf2,float *fBufOut, uint16_t lenFFT)
-// 1161 {
-// 1162 #if 0 //using self-writing DFT function 
-// 1163    int32_t         value;
-// 1164 
-// 1165    /* covert from int to float */
-// 1166    for(uint16_t j=0;j<lenFFT;j++)
-// 1167    {
-// 1168       value = (int32_t)stBuf1[j];
-// 1169    	  fbuffer[j]=(float)value;
-// 1170    }	
-// 1171    DFT((float *)fbuffer,(float *)bufferFFT,lenFFT);
-// 1172 
-// 1173 	/* covert from int to float */
-// 1174 	for(uint16_t j=0;j<lenFFT;j++)
-// 1175 	{
-// 1176 	   value = (int32_t)stBuf2[j];
-// 1177 	   fbuffer[j]=(float)value;
-// 1178 	}	 
-// 1179 	DFT((float *)fbuffer,(float *)bufferFFT_1,lenFFT);
-// 1180 
-// 1181    /* Adding in Fourier Domain */			 
-// 1182    for(uint16_t i=0;i<lenFFT;i++)
-// 1183    {
-// 1184         bufferFFTSum[i] = bufferFFT[i]+bufferFFT_1[i];
-// 1185    }
-// 1186 
-// 1187    rDFT(lenFFT,1,bufferFFTSum,fbuffer);
-// 1188 #endif
-// 1189 }
+// 1127 void FFT_SUM(int16_t * stBuf1, int16_t * stBuf2,float *fBufOut, uint16_t lenFFT)
+// 1128 {
+// 1129 #if 0 //using self-writing DFT function 
+// 1130    int32_t         value;
+// 1131 
+// 1132    /* covert from int to float */
+// 1133    for(uint16_t j=0;j<lenFFT;j++)
+// 1134    {
+// 1135       value = (int32_t)stBuf1[j];
+// 1136    	  fbuffer[j]=(float)value;
+// 1137    }	
+// 1138    DFT((float *)fbuffer,(float *)bufferFFT,lenFFT);
+// 1139 
+// 1140 	/* covert from int to float */
+// 1141 	for(uint16_t j=0;j<lenFFT;j++)
+// 1142 	{
+// 1143 	   value = (int32_t)stBuf2[j];
+// 1144 	   fbuffer[j]=(float)value;
+// 1145 	}	 
+// 1146 	DFT((float *)fbuffer,(float *)bufferFFT_1,lenFFT);
+// 1147 
+// 1148    /* Adding in Fourier Domain */			 
+// 1149    for(uint16_t i=0;i<lenFFT;i++)
+// 1150    {
+// 1151         bufferFFTSum[i] = bufferFFT[i]+bufferFFT_1[i];
+// 1152    }
+// 1153 
+// 1154    rDFT(lenFFT,1,bufferFFTSum,fbuffer);
+// 1155 #endif
+// 1156 }
 FFT_SUM:
         BX       LR               ;; return
           CFI EndBlock cfiBlock20
-// 1190 
+// 1157 
 
         SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock21 Using cfiCommon0
           CFI Function EnergyNoiseCalc
         THUMB
-// 1191 int32_t EnergyNoiseCalc(uint16_t numLen)
-// 1192 {
+// 1158 int32_t EnergyNoiseCalc(uint16_t numLen)
+// 1159 {
 EnergyNoiseCalc:
         PUSH     {R4-R6,LR}
           CFI R14 Frame(CFA, -4)
@@ -16381,29 +16033,29 @@ EnergyNoiseCalc:
           CFI R4 Frame(CFA, -16)
           CFI CFA R13+16
         MOV      R4,R0
-// 1193 	int64_t SumError;
-// 1194         SumError=0;
+// 1160 	int64_t SumError;
+// 1161         SumError=0;
         MOVS     R0,#+0
         MOVS     R1,#+0
-// 1195 	/* noise energy */
-// 1196 	for(uint16_t j=0;j<numLen;j++)
+// 1162 	/* noise energy */
+// 1163 	for(uint16_t j=0;j<numLen;j++)
         CBZ.N    R4,??EnergyNoiseCalc_0
         ADR.W    R5,NoiseBG
         MOV      R6,R4
-// 1197 	{
-// 1198 		//EnergySignal += pRef[i] * pRef[i];
-// 1199 		//EnergyError += (pRef[i] - pTest[i]) * (pRef[i] - pTest[i]); 
-// 1200 		SumError += NoiseBG[j]*NoiseBG[j];   
+// 1164 	{
+// 1165 		//EnergySignal += pRef[i] * pRef[i];
+// 1166 		//EnergyError += (pRef[i] - pTest[i]) * (pRef[i] - pTest[i]); 
+// 1167 		SumError += NoiseBG[j]*NoiseBG[j];   
 ??EnergyNoiseCalc_1:
         LDRSH    R2,[R5], #+2
         SMULBB   R2,R2,R2
         ADDS     R0,R0,R2
         ADC      R1,R1,R2, ASR #+31
-// 1201 	}
+// 1168 	}
         SUBS     R6,R6,#+1
         BNE.N    ??EnergyNoiseCalc_1
-// 1202 
-// 1203 	EnergyError = SumError/numLen;
+// 1169 
+// 1170 	EnergyError = SumError/numLen;
 ??EnergyNoiseCalc_0:
         MOV      R2,R4
         MOVS     R3,#+0
@@ -16411,11 +16063,11 @@ EnergyNoiseCalc:
           CFI FunCall __aeabi_ldivmod
         BL       __aeabi_ldivmod
         STR      R0,[R5, #+0]
-// 1204 
-// 1205 	return EnergyError;
+// 1171 
+// 1172 	return EnergyError;
         POP      {R4-R6,PC}       ;; return
-// 1206 
-// 1207 }
+// 1173 
+// 1174 }
           CFI EndBlock cfiBlock21
 
         SECTION `.text`:CODE:NOROOT(2)
@@ -16509,17 +16161,17 @@ NoiseBG:
         DC16 -267, -788, -170, -1030, -249, -933, -287, -1127, -363, -1212
         DC16 -472, -1428, -474, -1460, -614, -1911, -813, -1824, -887, -1632
         DC16 -872, -1409, -742, -1085, -596, -999, -450, -720, -311, -732
-// 1208 
-// 1209 /* Generalized Cross Correlation with Phase Transform (GCC-PHAT)  */
-// 1210 /* Input: data from 2 microphones in time domain, length of data       */
-// 1211 /* Output: Generlize Cross Correlation value                                    */
+// 1175 
+// 1176 /* Generalized Cross Correlation with Phase Transform (GCC-PHAT)  */
+// 1177 /* Input: data from 2 microphones in time domain, length of data       */
+// 1178 /* Output: Generlize Cross Correlation value                                    */
 
         SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock22 Using cfiCommon0
           CFI Function GCC_PHAT
         THUMB
-// 1212 int16_t GCC_PHAT(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen, float * CrssCorVal )
-// 1213 {
+// 1179 int16_t GCC_PHAT(int16_t * vDataIn1, int16_t * vDataIn2, uint16_t numLen, float * CrssCorVal )
+// 1180 {
 GCC_PHAT:
         PUSH     {R4-R10,LR}
           CFI R14 Frame(CFA, -4)
@@ -16541,11 +16193,11 @@ GCC_PHAT:
         SUB      SP,SP,#+16
           CFI CFA R13+72
         MOV      R8,R3
-// 1214     uint32_t idxArgMax;
-// 1215     float ValMax;
-// 1216 
-// 1217 	/* Fourier Transform for Data In 1 */
-// 1218 	RFFT_GCC(vDataIn1,S,Tmp_FFT,numLen);
+// 1181     uint32_t idxArgMax;
+// 1182     float ValMax;
+// 1183 
+// 1184 	/* Fourier Transform for Data In 1 */
+// 1185 	RFFT_GCC(vDataIn1,S,Tmp_FFT,numLen);
         LDR.N    R5,??DataTable27_2
         BEQ.N    ??GCC_PHAT_0
         MOV.W    R1,R5
@@ -16567,9 +16219,9 @@ GCC_PHAT:
         MOV      R1,R5
           CFI FunCall arm_rfft_fast_f32
         BL       arm_rfft_fast_f32
-// 1219 	
-// 1220     /* Fourier Trnasform for Data In 2 */
-// 1221 	RFFT_GCC(vDataIn2,S,vDataIn2_FFT,numLen);
+// 1186 	
+// 1187     /* Fourier Trnasform for Data In 2 */
+// 1188 	RFFT_GCC(vDataIn2,S,vDataIn2_FFT,numLen);
         CBZ.N    R4,??GCC_PHAT_2
         MOV      R0,R5
         MOV      R1,R4
@@ -16588,43 +16240,43 @@ GCC_PHAT:
         MOV      R2,R10
           CFI FunCall arm_rfft_fast_f32
         BL       arm_rfft_fast_f32
-// 1222 
-// 1223 	/* Complex conjugate for Datat 2 FFT */
-// 1224 	arm_cmplx_conj_f32(vDataIn2_FFT,vDataIn2_FFT_CJ, numLen);
+// 1189 
+// 1190 	/* Complex conjugate for Datat 2 FFT */
+// 1191 	arm_cmplx_conj_f32(vDataIn2_FFT,vDataIn2_FFT_CJ, numLen);
         MOV      R2,R4
         MOV      R1,R9
         MOV      R0,R10
         MOVS     R7,#+0
           CFI FunCall arm_cmplx_conj_f32
         BL       arm_cmplx_conj_f32
-// 1225     
-// 1226 	/* cross spectra  */
-// 1227 	arm_cmplx_mult_cmplx_f32(Tmp_FFT,vDataIn2_FFT_CJ,vDataIn2_FFT,numLen); /* vDataIn2_FFT is  using at the destination output to save the memory */
+// 1192     
+// 1193 	/* cross spectra  */
+// 1194 	arm_cmplx_mult_cmplx_f32(Tmp_FFT,vDataIn2_FFT_CJ,vDataIn2_FFT,numLen); /* vDataIn2_FFT is  using at the destination output to save the memory */
         MOV      R3,R4
         MOV      R2,R10
         MOV      R1,R9
         MOV      R0,R9
           CFI FunCall arm_cmplx_mult_cmplx_f32
         BL       arm_cmplx_mult_cmplx_f32
-// 1228 
-// 1229     /* magnitude */
-// 1230 	arm_cmplx_mag_f32(vDataIn2_FFT,Tmp_FFT, numLen); /* vDataIn1_FFT is  using at the destination output to save the memory */
+// 1195 
+// 1196     /* magnitude */
+// 1197 	arm_cmplx_mag_f32(vDataIn2_FFT,Tmp_FFT, numLen); /* vDataIn1_FFT is  using at the destination output to save the memory */
         MOV      R2,R4
         MOV      R1,R9
         MOV      R0,R10
         LSLS     R6,R4,#+1
           CFI FunCall arm_cmplx_mag_f32
         BL       arm_cmplx_mag_f32
-// 1231 
-// 1232 	/* Output normalize */
-// 1233 	for (uint16_t i=0; i<2*numLen;i++)
+// 1198 
+// 1199 	/* Output normalize */
+// 1200 	for (uint16_t i=0; i<2*numLen;i++)
         CMP      R6,#+1
         VLDR.W   S18,??DataTable27  ;; 0x358637be
         VLDR.W   D8,??DataTable27_6
         MOV      R5,#+8192
         BLT.W    ??GCC_PHAT_4
-// 1234 	{
-// 1235        vDataIn_FFT[i] = vDataIn2_FFT[i]/MAX(Tmp_FFT[i%2],0.000001);
+// 1201 	{
+// 1202        vDataIn_FFT[i] = vDataIn2_FFT[i]/MAX(Tmp_FFT[i%2],0.000001);
 ??GCC_PHAT_5:
         ADD      R0,R7,R7, LSR #+31
         ASRS     R0,R0,#+1
@@ -16652,15 +16304,15 @@ GCC_PHAT:
           CFI FunCall __aeabi_d2f
         BL       __aeabi_d2f
         ADD      R1,R10,R7, LSL #+2
-// 1236 	}
+// 1203 	}
         ADDS     R7,R7,#+1
         UXTH     R7,R7
         CMP      R7,R6
         STR      R0,[R5, R1]
         BLT.N    ??GCC_PHAT_5
-// 1237 
-// 1238 	/* Invert FFT */
-// 1239     arm_rfft_fast_f32(&S, (float *)vDataIn_FFT, (float *)vDataIn,1);
+// 1204 
+// 1205 	/* Invert FFT */
+// 1206     arm_rfft_fast_f32(&S, (float *)vDataIn_FFT, (float *)vDataIn,1);
 ??GCC_PHAT_4:
         LDR      R0,[SP, #+0]
         MOVS     R3,#+1
@@ -16668,18 +16320,18 @@ GCC_PHAT:
         MOV      R1,R9
           CFI FunCall arm_rfft_fast_f32
         BL       arm_rfft_fast_f32
-// 1240 
-// 1241 	/*Get Real component */
-// 1242 	for (uint16_t i=0; i<2*numLen;i=i+2)
+// 1207 
+// 1208 	/*Get Real component */
+// 1209 	for (uint16_t i=0; i<2*numLen;i=i+2)
         MOVS     R0,#+0
         CMP      R6,#+1
         BLT.N    ??GCC_PHAT_8
-// 1243 	{
-// 1244       vDataIn[i/2] = vDataIn[i];
+// 1210 	{
+// 1211       vDataIn[i/2] = vDataIn[i];
 ??GCC_PHAT_9:
         ADD      R2,R10,R0, LSL #+2
         ADD      R1,R0,R0, LSR #+31
-// 1245 	}    
+// 1212 	}    
         ADDS     R0,R0,#+2
         UXTH     R0,R0
         ASRS     R1,R1,#+1
@@ -16688,34 +16340,34 @@ GCC_PHAT:
         LDR      R2,[R5, R2]
         STR      R2,[R5, R1]
         BLT.N    ??GCC_PHAT_9
-// 1246     FFTShift(vDataIn,vDataOut,numLen); 
+// 1213     FFTShift(vDataIn,vDataOut,numLen); 
 ??GCC_PHAT_8:
         MOV      R2,R4
         MOV      R1,R9
         MOV      R0,R9
           CFI FunCall FFTShift
         BL       FFTShift
-// 1247 	
-// 1248     arm_max_f32(vDataOut,numLen,&ValMax,&idxArgMax);
+// 1214 	
+// 1215     arm_max_f32(vDataOut,numLen,&ValMax,&idxArgMax);
         ADD      R3,SP,#+8
         ADD      R2,SP,#+4
         MOV      R1,R4
         MOV      R0,R9
           CFI FunCall arm_max_f32
         BL       arm_max_f32
-// 1249 	
-// 1250 	if (((int16_t)(idxArgMax-numLen/2)>-8)&&((int16_t)(idxArgMax-numLen/2)<8))
+// 1216 	
+// 1217 	if (((int16_t)(idxArgMax-numLen/2)>-8)&&((int16_t)(idxArgMax-numLen/2)<8))
         LDR      R0,[SP, #+8]
         SUB      R0,R0,R4, LSR #+1
         SXTH     R0,R0
         ADDS     R1,R0,#+7
         CMP      R1,#+15
         BCS.N    ??GCC_PHAT_10
-// 1251 	{
-// 1252 		*CrssCorVal = ValMax;
+// 1218 	{
+// 1219 		*CrssCorVal = ValMax;
         LDR      R1,[SP, #+4]
         STR      R1,[R8, #+0]
-// 1253 	    return (int16_t)(idxArgMax-numLen/2);
+// 1220 	    return (int16_t)(idxArgMax-numLen/2);
         ADD      SP,SP,#+16
           CFI CFA R13+56
         VPOP     {D8-D10}
@@ -16728,14 +16380,14 @@ GCC_PHAT:
           CFI D9 Frame(CFA, -48)
           CFI D10 Frame(CFA, -40)
           CFI CFA R13+72
-// 1254 	}
-// 1255 	else
-// 1256 	{
-// 1257 		*CrssCorVal = 0;
+// 1221 	}
+// 1222 	else
+// 1223 	{
+// 1224 		*CrssCorVal = 0;
 ??GCC_PHAT_10:
         MOVS     R0,#+0
         STR      R0,[R8, #+0]
-// 1258 		return 255;
+// 1225 		return 255;
         ADD      SP,SP,#+16
           CFI CFA R13+56
         MOVS     R0,#+255
@@ -16745,23 +16397,23 @@ GCC_PHAT:
           CFI D10 SameValue
           CFI CFA R13+32
         POP      {R4-R10,PC}      ;; return
-// 1259 	}
-// 1260 }
+// 1226 	}
+// 1227 }
           CFI EndBlock cfiBlock22
-// 1261 
-// 1262 /** COPY from Wooters
-// 1263  * Shift the output of an FFT.
-// 1264  *
-// 1265  * The index of the mid-point in the output will be located at: ceil(_N/2)
-// 1266  * @ingroup GCC
-// 1267  */
+// 1228 
+// 1229 /** COPY from Wooters
+// 1230  * Shift the output of an FFT.
+// 1231  *
+// 1232  * The index of the mid-point in the output will be located at: ceil(_N/2)
+// 1233  * @ingroup GCC
+// 1234  */
 
         SECTION `.text`:CODE:NOROOT(1)
           CFI Block cfiBlock23 Using cfiCommon0
           CFI Function FFTShift
         THUMB
-// 1268 void FFTShift(const float * const in, float * const out, const uint16_t N)
-// 1269 {
+// 1235 void FFTShift(const float * const in, float * const out, const uint16_t N)
+// 1236 {
 FFTShift:
         PUSH     {R4-R7,LR}
           CFI R14 Frame(CFA, -4)
@@ -16775,8 +16427,8 @@ FFTShift:
         SUB      SP,SP,#+4
           CFI CFA R13+24
         MOV      R5,R1
-// 1270   /* mid-point of out[] will be located at index ceil(N/2) */
-// 1271   uint16_t xx = (uint16_t) floor((int16_t) N/2.0);
+// 1237   /* mid-point of out[] will be located at index ceil(N/2) */
+// 1238   uint16_t xx = (uint16_t) floor((int16_t) N/2.0);
         SXTH     R0,R6
           CFI FunCall __aeabi_i2d
         BL       __aeabi_i2d
@@ -16791,18 +16443,18 @@ FFTShift:
           CFI FunCall __aeabi_d2iz
         BL       __aeabi_d2iz
         UXTH     R7,R0
-// 1272 
-// 1273   /* Copy last half of in[] to first half of out[] */
-// 1274   memcpy(out,&in[xx],sizeof(float)*(N-xx));
+// 1239 
+// 1240   /* Copy last half of in[] to first half of out[] */
+// 1241   memcpy(out,&in[xx],sizeof(float)*(N-xx));
         SUBS     R0,R6,R7
         LSLS     R2,R0,#+2
         ADD      R1,R4,R7, LSL #+2
         MOV      R0,R5
           CFI FunCall __aeabi_memcpy
         BL       __aeabi_memcpy
-// 1275 
-// 1276   /* Copy first half of in[] to end of out[] */
-// 1277   memcpy(&out[N-xx],in,sizeof(float)*xx);
+// 1242 
+// 1243   /* Copy first half of in[] to end of out[] */
+// 1244   memcpy(&out[N-xx],in,sizeof(float)*xx);
         SUBS     R0,R6,R7
         LSLS     R2,R7,#+2
         MOV      R1,R4
@@ -16818,33 +16470,33 @@ FFTShift:
           CFI CFA R13+0
           CFI FunCall __aeabi_memcpy
         B.W      __aeabi_memcpy
-// 1278 }
+// 1245 }
           CFI EndBlock cfiBlock23
-// 1279 
-// 1280 
-// 1281 /** COPY from Wooters
-// 1282  * Compute the entropy of the given vector of values. This actually
-// 1283  * returns a "normalized" entropy value in which the entropy of the
-// 1284  * distribution is divided by the maximum entropy possible for that
-// 1285  * distribution. That away, the return value is always between 0.0 and
-// 1286  * 1.0.
-// 1287  *
-// 1288  * @param a Pointer to an array of doubles representing the distribution.
-// 1289  * @param N The length of the array \a a[]
-// 1290  * @param clip Since negative values in the input array can cause
-// 1291  * problems when computing the entropy, we need to decide how to
-// 1292  * handle them. If \a clip is true, then negative values in \a a[] will
-// 1293  * be ignored. If it is false, then all values in \a a[] will be squared
-// 1294  * and the entropy will be computed over the a^2.
-// 1295  *
-// 1296  */
+// 1246 
+// 1247 
+// 1248 /** COPY from Wooters
+// 1249  * Compute the entropy of the given vector of values. This actually
+// 1250  * returns a "normalized" entropy value in which the entropy of the
+// 1251  * distribution is divided by the maximum entropy possible for that
+// 1252  * distribution. That away, the return value is always between 0.0 and
+// 1253  * 1.0.
+// 1254  *
+// 1255  * @param a Pointer to an array of doubles representing the distribution.
+// 1256  * @param N The length of the array \a a[]
+// 1257  * @param clip Since negative values in the input array can cause
+// 1258  * problems when computing the entropy, we need to decide how to
+// 1259  * handle them. If \a clip is true, then negative values in \a a[] will
+// 1260  * be ignored. If it is false, then all values in \a a[] will be squared
+// 1261  * and the entropy will be computed over the a^2.
+// 1262  *
+// 1263  */
 
         SECTION `.text`:CODE:NOROOT(2)
           CFI Block cfiBlock24 Using cfiCommon0
           CFI Function MD_entropy
         THUMB
-// 1297 float MD_entropy(const float* const a, uint16_t N, const uint8_t clip) 
-// 1298 {
+// 1264 float MD_entropy(const float* const a, uint16_t N, const uint8_t clip) 
+// 1265 {
 MD_entropy:
         PUSH     {R4-R11,LR}
           CFI R14 Frame(CFA, -4)
@@ -16860,7 +16512,7 @@ MD_entropy:
         MOV      R7,R1
         SUB      SP,SP,#+4
           CFI CFA R13+40
-// 1299   if (N <= 1) return 0.0;
+// 1266   if (N <= 1) return 0.0;
         CMP      R7,#+2
         MOV      R11,R0
         VPUSH    {D8-D11}
@@ -16873,8 +16525,8 @@ MD_entropy:
         IT       LT 
         VLDRLT.W S0,??DataTable27_1  ;; 0x0
         BLT.W    ??MD_entropy_0
-// 1300 
-// 1301   float maxe = -log2(1.0/(float)N); /* max entropy */
+// 1267 
+// 1268   float maxe = -log2(1.0/(float)N); /* max entropy */
         VMOV     S0,R7
         MOV      R4,#-1
         VCVT.F32.U32 S0,S0
@@ -16893,23 +16545,23 @@ MD_entropy:
         BL       __iar_Log
         VMOV     R0,R1,D0
         EOR      R1,R1,#0x80000000
-// 1302   float ent = 0.0;
+// 1269   float ent = 0.0;
         VLDR.W   S18,??DataTable27_1  ;; 0x0
           CFI FunCall __aeabi_d2f
         BL       __aeabi_d2f
         VMOV     S16,R0
-// 1303   float tot = 0.0;
+// 1270   float tot = 0.0;
         VLDR.W   S17,??DataTable27_1  ;; 0x0
-// 1304   uint16_t i;
-// 1305   float p;
-// 1306 
-// 1307   if (clip) 
+// 1271   uint16_t i;
+// 1272   float p;
+// 1273 
+// 1274   if (clip) 
         CBZ.N    R6,??MD_entropy_1
         MOV      R4,R11
         MOV      R5,R7
         VLDR.W   D10,??DataTable27_8
-// 1308   {
-// 1309     for (i=0;i<N;i++) tot += (a[i]<0.0) ? 0.0 : a[i];
+// 1275   {
+// 1276     for (i=0;i<N;i++) tot += (a[i]<0.0) ? 0.0 : a[i];
 ??MD_entropy_2:
         VLDR     S0,[R4, #0]
         VCMP.F32 S0,#0.0
@@ -16937,54 +16589,54 @@ MD_entropy:
         VMOV     S17,R0
         BNE.N    ??MD_entropy_2
         B.N      ??MD_entropy_5
-// 1310   } 
+// 1277   } 
 ??MD_entropy_1:
         MOV      R0,R11
         MOV      R1,R7
-// 1311   else
-// 1312   {
-// 1313     for (i=0;i<N;i++) tot += a[i]*a[i]; /* use a^2 */
+// 1278   else
+// 1279   {
+// 1280     for (i=0;i<N;i++) tot += a[i]*a[i]; /* use a^2 */
 ??MD_entropy_6:
         VLDR     S0,[R0, #0]
         ADDS     R0,R0,#+4
         SUBS     R1,R1,#+1
         VMLA.F32 S17,S0,S0
         BNE.N    ??MD_entropy_6
-// 1314   }
-// 1315 
-// 1316   if (tot==0.0) return maxe;
+// 1281   }
+// 1282 
+// 1283   if (tot==0.0) return maxe;
 ??MD_entropy_5:
         VCMP.F32 S17,#0.0
         FMSTAT   
         IT       EQ 
         VMOVEQ.F32 S0,S16
         BEQ.W    ??MD_entropy_0
-// 1317 
-// 1318   for (i=0;i<N;i++)
-// 1319   {
-// 1320     if (a[i] == 0.0) continue;
+// 1284 
+// 1285   for (i=0;i<N;i++)
+// 1286   {
+// 1287     if (a[i] == 0.0) continue;
 ??MD_entropy_7:
         VLDR     S0,[R11, #0]
         VCMP.F32 S0,#0.0
         FMSTAT   
         BEQ.N    ??MD_entropy_8
-// 1321     if (clip && (a[i] < 0.0)) continue;
+// 1288     if (clip && (a[i] < 0.0)) continue;
         CBZ.N    R6,??MD_entropy_9
         VCMP.F32 S0,#0.0
         FMSTAT   
         BMI.N    ??MD_entropy_8
-// 1322 
-// 1323     if (clip)
-// 1324       p = a[i]/tot; /* prob of a[i] */
+// 1289 
+// 1290     if (clip)
+// 1291       p = a[i]/tot; /* prob of a[i] */
         B.N      ??MD_entropy_10
-// 1325     else
-// 1326       p = (a[i]*a[i])/tot; /* no clipping, so prob a[i]^2 */
+// 1292     else
+// 1293       p = (a[i]*a[i])/tot; /* no clipping, so prob a[i]^2 */
 ??MD_entropy_9:
         VMUL.F32 S0,S0,S0
 ??MD_entropy_10:
         VDIV.F32 S19,S0,S17
-// 1327 
-// 1328     ent += p * log2(p);
+// 1294 
+// 1295     ent += p * log2(p);
         VMOV     R0,S18
         MOV      R10,#-1
           CFI FunCall __aeabi_f2d
@@ -17015,13 +16667,13 @@ MD_entropy:
           CFI FunCall __aeabi_d2f
         BL       __aeabi_d2f
         VMOV     S18,R0
-// 1329   }
+// 1296   }
 ??MD_entropy_8:
         SUBS     R7,R7,#+1
         ADD      R11,R11,#+4
         BNE.N    ??MD_entropy_7
-// 1330 
-// 1331   return -ent/maxe;
+// 1297 
+// 1298   return -ent/maxe;
         VDIV.F32 S0,S18,S16
         VNEG.F32 S0,S0
 ??MD_entropy_0:
@@ -17034,7 +16686,7 @@ MD_entropy:
         ADD      SP,SP,#+4
           CFI CFA R13+36
         POP      {R4-R11,PC}      ;; return
-// 1332 }
+// 1299 }
           CFI EndBlock cfiBlock24
 
         SECTION `.text`:CODE:NOROOT(2)
@@ -17103,15 +16755,15 @@ MD_entropy:
         SECTION_TYPE SHT_PROGBITS, 0
 
         END
-// 1333 
+// 1300 
 // 
-// 117 282 bytes in section .bss
+// 113 186 bytes in section .bss
 // 229 824 bytes in section .rodata
-//  41 152 bytes in section .text
+//  40 332 bytes in section .text
 // 
-//  41 152 bytes of CODE  memory
+//  40 332 bytes of CODE  memory
 // 229 824 bytes of CONST memory
-// 117 282 bytes of DATA  memory
+// 113 186 bytes of DATA  memory
 //
 //Errors: none
-//Warnings: 3
+//Warnings: none

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      11/Oct/2016  14:17:34
+// IAR ANSI C/C++ Compiler V7.50.3.10732/W32 for ARM      08/Nov/2016  10:26:23
 // Copyright 1999-2016 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -257,7 +257,7 @@ DOACalc:
 //   72 	/* Computate the power density of channel 1*/
 //   73 	for (i=0; i< PAR_N; i++)
         MOV      R1,R0
-        MOV      R2,#+1024
+        MOV      R2,#+512
 //   74 	{
 //   75 		PwrChnnl1 += (float)(Audio_Data->bufMIC1[i]*Audio_Data->bufMIC1[i]);
 ??DOACalc_0:
@@ -271,7 +271,7 @@ DOACalc:
         VADD.F32 S0,S1,S0
         BNE.N    ??DOACalc_0
 //   77 	PwrChnnl1 /= PAR_N;
-        VLDR.W   S1,??DataTable2_1  ;; 0x3a800000
+        VLDR.W   S1,??DataTable2_1  ;; 0x3b000000
 //   78 
 //   79 
 //   80 	//TODO: to increase the accuracy and the computation cost of DOA, Set-On detect could be considered
@@ -436,7 +436,7 @@ DOACalc:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable2_1:
-        DC32     0x3a800000
+        DC32     0x3b000000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
