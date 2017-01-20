@@ -19,53 +19,31 @@ def sinc_function():
         arg = (Num-float(1.0/4.0*index)-PAR.N/2)
         Shift[:,PAR.RES+index] = np.sinc(arg)           
 
-# This function don't use       
-def FFT_Shifting():       
-    for index in range(-PAR.RES,PAR.RES+1):
-        T = index/(4.0*PAR.fs)
-        Shift_FFT[:,PAR.RES+index] = np.exp(-1j*2*math.pi*PAR.FS_RAW*T)     # phase shfit 2*pi*f*T
-        print(Shift_FFT[:,PAR.RES+index])
+
     
 # PhanLeSon@Autonomous
 # Created on 14-Apr-2016
-def crsscorr_local(Z, X):
+def CrssCorr_Time(Z, X, Resample = True):
     global Shift
-    N = X.size
+    N = X.shape[0]
     
     x = X
     z = Z
-
-    Out = np.zeros(2*PAR.RES+1)
-
-    Delay = signal.resample(z,4*N)
-    Delay_X = signal.resample(x,4*N)
-    #Delay = np.reshape(z_resample,(PAR.N,4))
-    #print("-------")
-    #print(Delay[:,1])
-    #print(z)
-    for index in range(-PAR.RES,PAR.RES+1):
-        #Shift =	np.arange(1,N,1)
-        #Shift = math.sin(math.pi*(Shift-(1/4)*(index)-N/2))/(math.pi*(Shift-(1/4)*(index)-N/2))
-        #Shift = np.sinc(Shift-(1/(PAR.RES/5*2))*(index)-N/2)
-        ############ Fraction Delay:Delay = np.convolve(z,Shift[:,PAR.RES+index])
-
-        if (index>=0):
-            Shift = Delay[index::4]
-            Out[PAR.RES+index]=sum(Shift* x[:Shift.size])/Shift.size
+    Out = np.zeros(2 * PAR.RES + 1)
+    #if Resample==True:
+    #    '''Resampling the signal'''
+    #    Delay = signal.resample(z,4*N)
+    #    for index in range(-PAR.RES,PAR.RES+1):
+    #        Shift = Delay[(128*4+index):768*4 +(128*4+index):4]
+    #        Out[PAR.RES + index] = sum(Shift* x[128:128+Shift.size])/Shift.size
+    #else:
+    for index in range(-PAR.RES, PAR.RES + 1):
+        if (index >0):
+            Out[PAR.RES + index]=np.sum(z[index:]* x[:-index])/(N-index)
+        elif index==0:
+            Out[PAR.RES + index] = np.sum(z * x) / N
         else:
-            Shift = Delay_X[-index::4]
-            Out[PAR.RES + index] = sum(z[:Shift.size] * Shift) / Shift.size
-    
-    
-    '''
-    for index in range(1,21):
-        Shift =	np.arange(1,N,1)
-        #Shift = math.sin(math.pi*(Shift+(1/4)*index-N/2))/(math.pi*(Shift+(1/4)*index-N/2))
-        Shift = np.sinc(Shift+(1/4)*index-N/2)
-        #Shift = WIN.*Shift;
-        Delay = np.convolve(z,Shift)
-        Out[20-index]=sum(Delay[math.floor(N/2):math.floor(3*N/2)]* x)/(N)
-    '''
+            Out[PAR.RES + index] = np.sum(z[:index] * x[-index:]) / (N + index)
 
     '''
     import matplotlib.pyplot as plt
@@ -167,39 +145,33 @@ def phat(x1, x2):
 def computedelay_couple(audio_data):
 
     delay_in_sample = [0, 0, 0, 0]
-    # Cross-Correlation for mic 1 and mic 2
-    r = crsscorr_local(audio_data[:,0],audio_data[:,1])
-    #delay_in_sample[0] = crsscorr_FFT(audio_data[:,0],audio_data[:,1])
+    # Cross-Correlation for mic 1 and mic 5
+    r = CrssCorr_Time(audio_data[:,0],audio_data[:,4],Resample=False)
     imax = np.argmax(r)
     delay_in_sample[0] = imax - PAR.RES
 
-    # Cross-Correlation for mic 3 and mic 4
-    r = crsscorr_local(audio_data[:,2],audio_data[:,3])
-    #delay_in_sample[1] = crsscorr_FFT(audio_data[:,2],audio_data[:,3])
+    # Cross-Correlation for mic 2 and mic 6
+    r = CrssCorr_Time(audio_data[:,1],audio_data[:,5],Resample=False)
     imax = np.argmax(r)
     delay_in_sample[1] = imax - PAR.RES
 
-    # Cross-Correlation for mic 5 and mic 6
-    r = crsscorr_local(audio_data[:,4],audio_data[:,5])
-    #delay_in_sample[2] = crsscorr_FFT(audio_data[:,4],audio_data[:,5])
+    # Cross-Correlation for mic 3 and mic 7
+    r = CrssCorr_Time(audio_data[:,2],audio_data[:,6],Resample=False)
     imax = np.argmax(r)
     delay_in_sample[2] = imax - PAR.RES
 
-    # Cross-Correlation for mic 7 and mic 8
-    r = crsscorr_local(audio_data[:,6],audio_data[:,7])
-    #delay_in_sample[3] = crsscorr_FFT(audio_data[:,6],audio_data[:,7])
+    # Cross-Correlation for mic 4 and mic 8
+    r = CrssCorr_Time(audio_data[:,3],audio_data[:,7],Resample=False)
     imax = np.argmax(r)
     delay_in_sample[3] = imax - PAR.RES
-    #xxx = crsscorr_local(audio_data[:, 0], audio_data[:, 6])
-    #imax = np.argmax(xxx) - PAR.RES
-    #print("Test: %d"%np.argmax(xxx))
+
     return delay_in_sample,imax
 
 def TestDelay(audio_data, idxDir):
     SV_Delay = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-    RefChnnl = [5, 3, 1, 6, 4, 2, 0, 7]
+    #RefChnnl = [5, 3, 1, 6, 4, 2, 0, 7]
     for i in range(0,8):
-        r = crsscorr_local(audio_data[:,i],audio_data[:,RefChnnl[idxDir]])
+        r = CrssCorr_Time(audio_data[:,idxDir],audio_data[:,i],Resample=False)
         imax = np.argmax(r)
         SV_Delay[i] = imax- PAR.RES
 
@@ -211,14 +183,14 @@ def TestDelay(audio_data, idxDir):
 
 def Steer_Angle(angle,Algorithm=False):
     Delay_Map = np.array([
-        [4.0, 0.0, 4.0, -1.0, 6.0, 0.0, 1.0, 0.0],       #225
-        [1.0, 3.0, 3.0, 0.0, 7.0, -1.0, 4.0, -3.0],     #270
-        [3.0, 0.0, 4.0, -2.0, 6.0, -2.0, 2.0, -2.0],    #315
-        [4.0, -3.0, 5.0, -4.0, 5.0, -3.0, 0.0, 0.0],    #0
-        [2.0, -8.0, 1.0, -8.0, 0.0, -5.0, -6.0, -2.0],  #45
-        [2.0, -7.0, 0.0, -6.0, 0.0, -3.0, -7.0, 0.0], #90
-        [0.0, -6.0, -2.0, -4.0, -3.0, -2.0, -7.0, -2.0],#135
-        [2.0, 0.0, 2.0, 0.0, 3.0, 0.0, 0.0, 0.0]      #180
+        [2.4, -2.4, 1.71, -1.71, 0.0, 0.0, 1.71, -1.71],       #225
+        [1.71, -1.71, 0.0, 0.0, 1.71, -1.71, -2.42, 2.42],     #270
+        [0.0, 0.0, -1.71, 1.71, 2.42, -2.42, -1.71, 1.71],    #315
+        [-1.71, 1.71, 2.42, -2.42, -1.71, 1.71, 0.0, 0.0],    #0
+        [-2.4, 2.4, -1.71, 1.71, 0.0, 0.0, -1.71, 1.71],  #45
+        [-1.71, 1.71, 0.0, 0.0, -1.71, 1.71, 2.42, -2.42], #90
+        [0.0, 0.0, 1.71, -1.71, -2.42, 2.42, 1.71, -1.71],#135
+        [-1.71, 1.71, 2.42, -2.42, -1.71, 1.71, 0.0, 0.0]      #180
     ])
     delay_in_sample = [0, 0, 0, 0, 0, 0, 0, 0]
     #for i in range(0,8):
@@ -231,8 +203,8 @@ def Steer_Angle(angle,Algorithm=False):
     #delay_in_sample =     [0, 9, 1, 8, 5, 4, 9, 2]
     #[0.0, 9.70262390670554, 1.4209163734856711, 8.2817075332198691, 4.8513119533527709, 4.8513119533527691, 8.2817075332198691, 1.42091637348567]
     if (Algorithm == True):
-        temp = Delay_Geometry(angle)
-        delay_in_sample = GeoMapping(temp)
+        delay_in_sample = Delay_Geometry(angle)
+        #delay_in_sample = GeoMapping(temp)
     else:
         delay_in_sample = Delay_Map[angle]
 
@@ -242,84 +214,21 @@ def Steer_Angle(angle,Algorithm=False):
     #delay_in_sample[7] = correlation(audio_data[0],audio_data[7])
     print (delay_in_sample)
     return delay_in_sample
-'''
-[-4.85131195335277, 4.85131195335277, -3.4303955798670982, 3.4303955798670991, 8.9117154830081448e-16, -2.9705718276693811e-16, 3.4303955798671004, -3.4303955798670995]
---------------------------------------------------------------
-0   [3, 1, 3, 0, 6, 0, 3, 0]
---------------------------------------------------------------
-[-4.4820278195299741, 4.4820278195299741, -1.856516709782827, 1.8565167097828257, 1.8565167097828288, -1.8565167097828263, 4.482027819529975, -4.4820278195299741]
---------------------------------------------------------------
-1
---------------------------------------------------------------
-[-3.4303955798670995, 3.4303955798670991, 8.9117154830081448e-16, -2.9705718276693811e-16, 3.4303955798671004, -3.4303955798670995, 4.85131195335277, -4.85131195335277]
---------------------------------------------------------------
-2 [2, 1, 4, 0, 6, -1, 4, -1]
---------------------------------------------------------------
-[-1.8565167097828263, 1.8565167097828257, 1.8565167097828288, -1.8565167097828263, 4.482027819529975, -4.4820278195299741, 4.4820278195299741, -4.4820278195299741]
---------------------------------------------------------------
-3
---------------------------------------------------------------
-[-2.9705718276693811e-16, -2.9705718276693811e-16, 3.4303955798671004, -3.4303955798670995, 4.85131195335277, -4.85131195335277, 3.4303955798670991, -3.4303955798670995]
---------------------------------------------------------------
-4  [2, 0, 5, -1, 6, -2, 2, -1]
---------------------------------------------------------------
-[1.8565167097828257, -1.8565167097828263, 4.482027819529975, -4.4820278195299741, 4.4820278195299741, -4.4820278195299741, 1.8565167097828257, -1.8565167097828263]
---------------------------------------------------------------
-5
---------------------------------------------------------------
-[3.4303955798670991, -3.4303955798670995, 4.85131195335277, -4.85131195335277, 3.4303955798670991, -3.4303955798670995, -2.9705718276693811e-16, -2.9705718276693811e-16]
---------------------------------------------------------------
-6  [4, -3, 5, -4, 5, -3, 0, 0]
---------------------------------------------------------------
-[4.4820278195299741, -4.4820278195299741, 4.4820278195299741, -4.4820278195299741, 1.8565167097828257, -1.8565167097828263, -1.8565167097828263, 1.8565167097828257]
---------------------------------------------------------------
-7
---------------------------------------------------------------
-[4.85131195335277, -4.85131195335277, 3.4303955798670991, -3.4303955798670995, -2.9705718276693811e-16, -2.9705718276693811e-16, -3.4303955798670995, 3.4303955798670991]
---------------------------------------------------------------
-8 [2, -6, 1, -6, 0, -5, -4, -2]
---------------------------------------------------------------
-[4.482027819529975, -4.4820278195299741, 1.8565167097828257, -1.8565167097828263, -1.8565167097828263, 1.8565167097828257, -4.4820278195299741, 4.4820278195299741]
---------------------------------------------------------------
-9
---------------------------------------------------------------
-[3.4303955798671004, -3.4303955798670995, -2.9705718276693811e-16, -2.9705718276693811e-16, -3.4303955798670995, 3.4303955798670991, -4.85131195335277, 4.85131195335277]
---------------------------------------------------------------
-10   [1, -6, 0, -6, -1, -4, -4, -2]
---------------------------------------------------------------
-[1.8565167097828288, -1.8565167097828283, -1.8565167097828241, 1.8565167097828237, -4.4820278195299741, 4.4820278195299732, -4.4820278195299759, 4.4820278195299759]
---------------------------------------------------------------
-11
---------------------------------------------------------------
-[8.9117154830081448e-16, -2.9705718276693811e-16, -3.4303955798670995, 3.4303955798670991, -4.85131195335277, 4.85131195335277, -3.4303955798670995, 3.4303955798671004]
---------------------------------------------------------------
-12   [0, -4, -1, -3, -2, -2, -5, -3]
---------------------------------------------------------------
-[-1.856516709782827, 1.8565167097828277, -4.4820278195299759, 4.482027819529975, -4.4820278195299741, 4.4820278195299741, -1.8565167097828241, 1.8565167097828248]
---------------------------------------------------------------
-13
---------------------------------------------------------------
-[-3.4303955798670982, 3.4303955798670991, -4.85131195335277, 4.85131195335277, -3.4303955798670995, 3.4303955798671004, -2.9705718276693811e-16, 8.9117154830081448e-16]
---------------------------------------------------------------
-14 [3, 0, 1, 0, 1, 0, -1, 0]
---------------------------------------------------------------
-[-4.4820278195299732, 4.4820278195299732, -4.4820278195299759, 4.4820278195299759, -1.8565167097828283, 1.8565167097828288, 1.8565167097828237, -1.856516709782823]
---------------------------------------------------------------
-15
---------------------------------------------------------------
-'''
+
 def Delay_Geometry(angle):
     Delay = [0, 0, 0, 0, 0, 0, 0, 0]
     Angle_Mics = np.arange(0,2*np.pi,(2.0*np.pi)/PAR.NUMDIR)
 
     for iMic in range(0,PAR.m):
-        dist = PAR.R*(-np.cos(Angle_Mics[(PAR.NUMDIR/PAR.m)*iMic]-Angle_Mics[angle]))
-        Delay[iMic] = (dist / PAR.c) * (4 * PAR.fs)
+        dist = PAR.R*(-np.cos(Angle_Mics[(PAR.NUMDIR/PAR.m)*iMic]-Angle_Mics[angle]))*np.sin(np.pi/2)
+        Delay[iMic] = (dist / PAR.c) * (PAR.fs)
 
     return Delay
+
 '''
 Index in :  1 2 3 4 5 6 7 8
 Index Out:  1 8 6 4 2 7 5 3
+Adapt with different hardware layout
 '''
 def GeoMapping(DelayIn):
     DelayOut = ([0, 0, 0, 0, 0, 0, 0, 0])
@@ -342,5 +251,6 @@ def normalize_pwr(sig1, sig2):
     # average power per sample
     p1 = np.mean(sig1 ** 2)
     p2 = np.mean(sig2 ** 2)
+    print(np.sqrt(p2 / p1))
     # normalize
     return sig1.copy() * np.sqrt(p2 / p1)

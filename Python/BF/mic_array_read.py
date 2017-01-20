@@ -12,12 +12,17 @@ import math
 flgIsStop = False
 idxFrame = 0
 idxFrameLoad = 0
-flgLoad = [True]*10
-CHANNELS = 2
-CHUNK = 1024 * 4  # PAR.m*PAR.N/CHANNELS
-FORMAT = pyaudio.paInt16  # paInt8
-RATE = 64000  # sample rate
-raw_data_frames = np.zeros(CHUNK*CHANNELS*PAR.CNTBUF)
+flgLoad = [True]*PAR.CNTBUF
+CHANNELS = 10
+CHUNK = PAR.N   # PAR.m*PAR.N/CHANNELS
+FORMAT = pyaudio.paInt24  # paInt8
+RATE = PAR.fs  # sample rate
+FRAMELEN = int(CHUNK * CHANNELS*3/4)
+raw_data_frames = np.zeros((FRAMELEN*PAR.CNTBUF),dtype=np.int32)
+Frames_10Chnnl = np.zeros((CHUNK,CHANNELS))
+raw_data = np.zeros(CHANNELS * CHUNK, dtype=np.int32)
+Frame_N_m = np.zeros((PAR.N,PAR.m), dtype=np.int32)
+Beam_N = np.zeros((PAR.N,),dtype=np.int32)
 
 def callback(in_data, frame_count, time_info, status):
     global idxFrame
@@ -25,20 +30,17 @@ def callback(in_data, frame_count, time_info, status):
     global flgIsStop
     global flgLoad
 
-    raw_data = np.fromstring(in_data, np.int16)
-
     #if flgLoad[idxFrame]==False:
     #    print("Lost samples")
 
     flgLoad[idxFrame] = False
-    raw_data_frames[idxFrame * PAR.N * PAR.m:(idxFrame + 1) * PAR.N * PAR.m] = np.array(raw_data)
+
+    raw_data_frames[idxFrame * FRAMELEN:(idxFrame + 1) * FRAMELEN] = np.fromstring(in_data,np.int32)
 
     if idxFrame < PAR.CNTBUF - 1:
         idxFrame = idxFrame + 1
     else:
         idxFrame = 0
-
-    
 
     if (flgIsStop == True):
         return (raw_data, pyaudio.paComplete)
@@ -50,20 +52,6 @@ class Mic_Array_Read(object):
     the output is 8 channel microphone signal 16000Hz
     '''
     def __init__(self):
-        self.Frames_D = np.zeros((PAR.N,PAR.m),dtype=int)
-        self.Frame1Old = np.array([0, 0])
-        self.Frame2Old = 0
-        self.Frame3Old = 0
-        self.Frame4Old = 0
-        self.Frame5Old = 0
-        self.Frame6Old = 0
-        self.Frame7Old = np.array(np.zeros((PAR.OFFSET), int))
-        self.Frame8Old = np.array(np.zeros((PAR.OFFSET), int))
-
-        # channel 7 and 8 delay 1/2 sample more
-        self.Shift78 = np.arange(1, PAR.N + 1, 1)
-        self.Shift78 = np.sinc(self.Shift78 - (1.0 / 4.0) * (3.0) - PAR.N / 2)
-
         self.p = pyaudio.PyAudio()
         nMics = self.p.get_device_count()
         micIndex = None
@@ -71,11 +59,11 @@ class Mic_Array_Read(object):
             info = self.p.get_device_info_by_index(ind)
             devname = info['name']
             print(devname)
-            if 'AUTONOMOUS' in devname:
+            if 'Microchip' in devname:
                 micIndex = ind
 
         if (micIndex is not None):
-            print("Connecting to Autonomous Microphone Array")
+            print("Connecting to Microchip Microphone Device")
             self.stream = self.p.open(format=FORMAT,
                             channels=CHANNELS,
                             rate=RATE,
@@ -85,86 +73,47 @@ class Mic_Array_Read(object):
                             frames_per_buffer=CHUNK,
                             stream_callback=callback)
             # start the stream
-            self.stream.start_stream()
+
         else:
             print("*** Could not find Autonomous Microphone Array Device ")
             sys.exit()
     def Read(self):
         global idxFrame, idxFrameLoad
-        
+        global raw_data
+        self.stream.start_stream()
         while idxFrame == idxFrameLoad:
-            time.sleep(0.004)
-              
+            time.sleep(0.001)
+
         flgLoad[idxFrameLoad] = True
 
-        Data_Calc = raw_data_frames[idxFrameLoad * PAR.N * PAR.m:(idxFrameLoad + 1) * PAR.N * PAR.m]
+        byte_data = raw_data_frames[idxFrameLoad * FRAMELEN:(idxFrameLoad + 1) * FRAMELEN]
+        '''
+        raw_data[0::4] = ((byte_data[0::3] & 0x00FFFFFF) << 8)
+        raw_data[1::4] = ((byte_data[0::3] & 0xFF000000) >> 16) | ((byte_data[1::3] & 0x0000FFFF) << 16)
+        raw_data[2::4] = ((byte_data[1::3] & 0xFFFF0000) >> 8) | ((byte_data[2::3] & 0x000000FF) << 24)
+        raw_data[3::4] = (byte_data[2::3] & 0xFFFFFF00)
+        '''
+        raw_data[0::4] = ((byte_data[0::3] & 0x000000FF) << 8) | \
+                         ((byte_data[0::3] & 0x0000FF00) << 8) | ((byte_data[0::3] & 0x00FF0000) << 8)
+        raw_data[1::4] = ((byte_data[0::3] & 0xFF000000) >> 16) | \
+                         ((byte_data[1::3] & 0x000000FF) << 16) | ((byte_data[1::3] & 0x0000FF00) << 16)
+        raw_data[2::4] = ((byte_data[1::3] & 0x00FF0000) >> 8) | \
+                         ((byte_data[1::3] & 0xFF000000) >> 8) | ((byte_data[2::3] & 0x000000FF) << 24)
+        raw_data[3::4] = (byte_data[2::3] & 0x0000FF00) | \
+                         (byte_data[2::3] & 0x00FF0000) | (byte_data[2::3] & 0xFF000000)
+        Data_Calc = raw_data / 256  # correct for building 24 bit data left aligned in 32bit words
 
         if (idxFrameLoad <PAR.CNTBUF - 1):
             idxFrameLoad = idxFrameLoad + 1
         else:
             idxFrameLoad = 0
 
-        Frames = np.reshape(Data_Calc, (PAR.N, PAR.m))
+        Frames_10Chnnl = np.reshape(Data_Calc, (CHUNK, CHANNELS))
 
-        '''
-        Shifting sample
-        '''
-        
-        # time.sleep(0.5)
-        Frame1 = np.array(Frames[-2:, 0])
-        Frame2 = np.array(Frames[-1:, 1])
-        Frame3 = np.array(Frames[-1:, 2])
-        Frame4 = np.array(Frames[-1:, 3])
-        Frame5 = np.array(Frames[-1:, 4])
-        Frame6 = np.array(Frames[-1:, 5])
-        Frame7 = np.array(Frames[-(PAR.OFFSET):, 6])
-        Frame8 = np.array(Frames[-(PAR.OFFSET):, 7])
-
-        # shift 2 sample on channel 1
-        temp = Frames[:(PAR.N - 2), 0]  # delay 2 sample
-        self.Frames_D[:, 0] = np.concatenate((self.Frame1Old, temp), axis=0)
-
-        # no shift on mic channel 2
-        self.Frames_D[:, 1] = np.array(Frames[:, 1])
-
-        # shift 1 sample of channel 3
-        temp = Frames[:(PAR.N - 1), 2]  # Delay 1 sample
-        self.Frames_D[0, 2] = self.Frame3Old
-        self.Frames_D[1:, 2] = temp  # channel 3 faster 1 samples to channel1
-        # Frames_D[:, 2] = np.concatenate((Frame3Old, temp), axis=0)
-
-        # no shift on channel 4
-        self.Frames_D[:, 3] = np.array(Frames[:, 3])
-
-        # shift 1 sample on channel 5
-        temp = Frames[:(PAR.N - 1), 4]  # delay 1 sample
-        self.Frames_D[0, 4] = self.Frame5Old
-        self.Frames_D[1:, 4] = temp
-        # Frames_D[:, 4] = np.concatenate((Frame5Old, temp), axis=0)
-
-        # no shift on channel6
-        self.Frames_D[:, 5] = np.array(Frames[:, 5])
-
-        temp = np.array(Frames[:(PAR.N - PAR.OFFSET), 6])
-        self.Frames_D[:, 6] = np.concatenate((self.Frame7Old, temp), axis=0)
-        #Delay = np.convolve(self.Frames_D[:, 6], self.Shift78)  # Delay 1/2 sample
-        #self.Frames_D[:, 6] = Delay[math.floor(PAR.N / 2) :math.floor(3 * PAR.N / 2) ]
-
-        temp = Frames[:(PAR.N - PAR.OFFSET), 7]
-        self.Frames_D[:, 7] = np.concatenate((self.Frame8Old, temp), axis=0)
-        #Delay = np.convolve(self.Frames_D[:, 7], self.Shift78)  # Delay 1/2 sample
-        #self.Frames_D[:, 7] = Delay[math.floor(PAR.N / 2) :math.floor(3 * PAR.N / 2) ]
-
-        self.Frame1Old = np.array(Frame1)
-        self.Frame2Old = np.array(Frame2)
-        self.Frame3Old = np.array(Frame3)
-        self.Frame4Old = np.array(Frame4)
-        self.Frame5Old = np.array(Frame5)
-        self.Frame6Old = np.array(Frame6)
-        self.Frame7Old = np.array(Frame7)
-        self.Frame8Old = np.array(Frame8)
-
-        return self.Frames_D
+        Frame_N_m = 20*np.array(Frames_10Chnnl[:,0:PAR.m])
+        Beam_N = 20*np.array(Frames_10Chnnl[:,8])
+        Dir = Frames_10Chnnl[0,9]
+        return Frame_N_m, Beam_N, Dir
 
     def Stop_Read(self):
         global flgIsStop
