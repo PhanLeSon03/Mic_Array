@@ -1,0 +1,18 @@
+\t (00:00:07) allegro 16.6 P004 (v16-6-112G) Windows 32
+\t (00:00:07)     Journal start - Sat Jun 25 15:24:59 2016
+\t (00:00:07)         Host=DESKTOP-548CMHB User=Admin Pid=8656 CPUs=4
+\t (00:00:07) 
+\t (00:00:09) Opening existing design...
+\i (00:00:16) fillin yes 
+\d (00:00:16) Database opened: D:/sop1hc/Mic/sche/V030_250pcs/8Mics/allegro/8MICS_V021.brd
+\i (00:00:16) trapsize 7220
+\i (00:00:16) trapsize 7020
+\i (00:00:16) trapsize 7254
+\i (00:00:17) trapsize 7467
+\i (00:00:17) trapsize 7467
+\i (00:00:17) generaledit 
+\i (00:00:23) opencd D:/sop1hc/Mic/sche/V030_250pcs/Main_board/allegro/Mic_Array_main_250pcs_release.brd 
+\t (00:00:23) Opening existing design...
+\t (00:00:23) Grids are drawn 2.0000, 2.0000 apart for enhanced viewability.
+\i (00:00:23) trapsize 23726
+\t (00:00:23)     Journal end - Sat Jun 25 15:25:15 2016

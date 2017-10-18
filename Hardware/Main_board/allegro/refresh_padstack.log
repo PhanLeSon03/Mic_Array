@@ -1,0 +1,173 @@
+(---------------------------------------------------------------------)
+(                                                                     )
+(    Refresh Padstack                                                 )
+(                                                                     )
+(    Drawing          : Mic_Array_main.brd                            )
+(    Software Version : 16.6P004                                      )
+(    Date/Time        : Thu May 12 11:35:41 2016                      )
+(                                                                     )
+(---------------------------------------------------------------------)
+
+
+Thu May 12 11:35:41 2016				Page     1
+
+
+------ Pad Stack Refresh Options ------
+
+Input design = 'D:/sop1hc/Microphone/schematic/V030_250pcs/Schematic/allegro/Mic_Array_main.brd'
+Output design = ''
+Reset symbol text and size locations = 'NO'
+
+
+------ Library Paths ------
+PSMPATH =  . 
+           symbols 
+           .. 
+           ../symbols 
+           C:/Cadence/SPB_16.6/share/local/pcb/symbols 
+           C:/Cadence/SPB_16.6/share/pcb/pcb_lib/symbols 
+           C:/Cadence/SPB_16.6/share/pcb/allegrolib/symbols 
+
+PADPATH =  . 
+           symbols 
+           .. 
+           ../symbols 
+           C:/Cadence/SPB_16.6/share/local/pcb/padstacks 
+           C:/Cadence/SPB_16.6/share/pcb/pcb_lib/symbols 
+           C:/Cadence/SPB_16.6/share/pcb/allegrolib/symbols 
+
+
+------ Pad Stack Refresh Messages ------
+
+'DC_JACK_2MM_PAD'  pad stack refresh starting.
+
+     'DC_JACK_2MM_PAD'  pad stack refreshed successfully.
+     
+'SMD20_17'  pad stack refresh starting.
+
+     'SMD20_17'  pad stack refreshed successfully.
+     
+WARNING(SPMHNI-253): Unable to find pad stack, 'SMD045REC145', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, 'TQFP6410X10X1', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, 'SMD18REC20', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, 'VIADRILL03CIR06', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, 'MTG22', in directory search path.
+
+'PAD93CIR58D'  pad stack refresh starting.
+
+     'PAD93CIR58D'  pad stack refreshed successfully.
+     
+'PAD40CIR25D'  pad stack refresh starting.
+
+     'PAD40CIR25D'  pad stack refreshed successfully.
+     
+'HOLE210'  pad stack refresh starting.
+
+     'HOLE210'  pad stack refreshed successfully.
+     
+'HOLE135'  pad stack refresh starting.
+
+     'HOLE135'  pad stack refreshed successfully.
+     
+'PAD125'  pad stack refresh starting.
+
+     'PAD125'  pad stack refreshed successfully.
+     
+WARNING(SPMHNI-253): Unable to find pad stack, 'C165H110T150_195_37', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, 'S165H110T150_195_37', in directory search path.
+
+'PAD156'  pad stack refresh starting.
+
+     'PAD156'  pad stack refreshed successfully.
+     
+'PAD250'  pad stack refresh starting.
+
+     'PAD250'  pad stack refreshed successfully.
+     
+'VIA'  pad stack refresh starting.
+
+     'VIA'  pad stack refreshed successfully.
+     
+WARNING(SPMHNI-253): Unable to find pad stack, 'MTG116', in directory search path.
+
+'PAD1OBLONG3'  pad stack refresh starting.
+
+     'PAD1OBLONG3'  pad stack refreshed successfully.
+     
+WARNING(SPMHNI-253): Unable to find pad stack, 'PAD1OBLONG35', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, 'PAD12CIR10', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, 'PAD15CIR09', in directory search path.
+
+'PAD35CIR25D'  pad stack refresh starting.
+
+     'PAD35CIR25D'  pad stack refreshed successfully.
+     
+WARNING(SPMHNI-253): Unable to find pad stack, 'PAD16CIR10', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, 'PAD16SQR10', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, 'VIADRILL08CIR10', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, 'VIA1CIR0', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, '17X25CIR', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, '12X18REC', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, '023X08OBLONG', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, '43X43R', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, 'SMD03REC12', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, 'SMD325REC215', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, 'SMD095REX215', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, 'SMD06REC12', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, 'SMD20REC25', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, 'SMD05REC25', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, '045X05OBLONG', in directory search path.
+Thu May 12 11:35:41 2016				Page     2
+
+
+
+WARNING(SPMHNI-253): Unable to find pad stack, '175X25REC', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, '03X08REC', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, 'SOT23-5L', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, '1X1CIR', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, 'SMD12SQ12', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, '10X15REC', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, '50X50REC', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, '28X28REC', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, '22X28REC', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, '14X12REC', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, '09X16REC', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, '09X3REC', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, 'SMD08REC09', in directory search path.
+
+WARNING(SPMHNI-253): Unable to find pad stack, '28X35R', in directory search path.
+
+WARNING(SPMHNI-286): Completed refreshing all pad stacks successfully. Warnings detected.

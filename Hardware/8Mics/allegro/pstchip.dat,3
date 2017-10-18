@@ -1,0 +1,225 @@
+FILE_TYPE=LIBRARY_PARTS;
+{ Using PSTWRITER 16.6.0 d001Apr-05-2016 at 10:35:41}
+primitive 'CAPACITOR NON-POL_CAP_SMD_0805_';
+  pin
+    '1':
+      PIN_NUMBER='(1)';
+      PINUSE='UNSPEC';
+    '2':
+      PIN_NUMBER='(2)';
+      PINUSE='UNSPEC';
+  end_pin;
+  body
+    PART_NAME='CAPACITOR NON-POL';
+    JEDEC_TYPE='cap_smd_0805';
+    VALUE='10uF';
+  end_body;
+end_primitive;
+primitive 'CAPACITOR NON-POL_CAP_SMD_080_1';
+  pin
+    '1':
+      PIN_NUMBER='(1)';
+      PINUSE='UNSPEC';
+    '2':
+      PIN_NUMBER='(2)';
+      PINUSE='UNSPEC';
+  end_pin;
+  body
+    PART_NAME='CAPACITOR NON-POL';
+    JEDEC_TYPE='cap_smd_0805';
+    VALUE='15pF';
+  end_body;
+end_primitive;
+primitive 'CAPACITOR NON-POL_CAP_SMD_080_2';
+  pin
+    '1':
+      PIN_NUMBER='(1)';
+      PINUSE='UNSPEC';
+    '2':
+      PIN_NUMBER='(2)';
+      PINUSE='UNSPEC';
+  end_pin;
+  body
+    PART_NAME='CAPACITOR NON-POL';
+    JEDEC_TYPE='cap_smd_0805';
+    VALUE='100nF';
+  end_body;
+end_primitive;
+primitive 'CON16AP_1_16PINDUALMALEHEADER_I';
+  pin
+    '1':
+      PIN_NUMBER='(1)';
+      PINUSE='UNSPEC';
+    '2':
+      PIN_NUMBER='(2)';
+      PINUSE='UNSPEC';
+    '3':
+      PIN_NUMBER='(3)';
+      PINUSE='UNSPEC';
+    '4':
+      PIN_NUMBER='(4)';
+      PINUSE='UNSPEC';
+    '5':
+      PIN_NUMBER='(5)';
+      PINUSE='UNSPEC';
+    '6':
+      PIN_NUMBER='(6)';
+      PINUSE='UNSPEC';
+    '7':
+      PIN_NUMBER='(7)';
+      PINUSE='UNSPEC';
+    '8':
+      PIN_NUMBER='(8)';
+      PINUSE='UNSPEC';
+    '9':
+      PIN_NUMBER='(9)';
+      PINUSE='UNSPEC';
+    '10':
+      PIN_NUMBER='(10)';
+      PINUSE='UNSPEC';
+    '11':
+      PIN_NUMBER='(11)';
+      PINUSE='UNSPEC';
+    '12':
+      PIN_NUMBER='(12)';
+      PINUSE='UNSPEC';
+    '13':
+      PIN_NUMBER='(13)';
+      PINUSE='UNSPEC';
+    '14':
+      PIN_NUMBER='(14)';
+      PINUSE='UNSPEC';
+    '15':
+      PIN_NUMBER='(15)';
+      PINUSE='UNSPEC';
+    '16':
+      PIN_NUMBER='(16)';
+      PINUSE='UNSPEC';
+  end_pin;
+  body
+    PART_NAME='CON16AP_1';
+    JEDEC_TYPE='16PINDUALMALEHEADER';
+    VALUE='IDC_16_2.54mm';
+  end_body;
+end_primitive;
+primitive 'JUMPER1_J1_2_254_JUMPER1';
+  pin
+    '1':
+      PIN_NUMBER='(1)';
+      PINUSE='UNSPEC';
+    '2':
+      PIN_NUMBER='(2)';
+      PINUSE='UNSPEC';
+  end_pin;
+  body
+    PART_NAME='JUMPER1';
+    JEDEC_TYPE='J1_2_254';
+    VALUE='JUMPER1';
+  end_body;
+end_primitive;
+primitive 'CON6_6PINDUALMALEHEADER_ICD_6_2';
+  pin
+    '1':
+      PIN_NUMBER='(1)';
+      PINUSE='UNSPEC';
+    '2':
+      PIN_NUMBER='(2)';
+      PINUSE='UNSPEC';
+    '3':
+      PIN_NUMBER='(3)';
+      PINUSE='UNSPEC';
+    '4':
+      PIN_NUMBER='(4)';
+      PINUSE='UNSPEC';
+    '5':
+      PIN_NUMBER='(5)';
+      PINUSE='UNSPEC';
+    '6':
+      PIN_NUMBER='(6)';
+      PINUSE='UNSPEC';
+  end_pin;
+  body
+    PART_NAME='CON6';
+    JEDEC_TYPE='6PINDUALMALEHEADER';
+    VALUE='ICD_6_2.54mm';
+  end_body;
+end_primitive;
+primitive 'R_RES_SMD_0805_100';
+  pin
+    '1':
+      PIN_NUMBER='(1)';
+      PINUSE='UNSPEC';
+    '2':
+      PIN_NUMBER='(2)';
+      PINUSE='UNSPEC';
+  end_pin;
+  body
+    PART_NAME='R';
+    JEDEC_TYPE='res_smd_0805';
+    VALUE='100';
+  end_body;
+end_primitive;
+primitive 'R_RES_SMD_0805_10K';
+  pin
+    '1':
+      PIN_NUMBER='(1)';
+      PINUSE='UNSPEC';
+    '2':
+      PIN_NUMBER='(2)';
+      PINUSE='UNSPEC';
+  end_pin;
+  body
+    PART_NAME='R';
+    JEDEC_TYPE='res_smd_0805';
+    VALUE='10K';
+  end_body;
+end_primitive;
+primitive 'R_RES_SMD_0805_0';
+  pin
+    '1':
+      PIN_NUMBER='(1)';
+      PINUSE='UNSPEC';
+    '2':
+      PIN_NUMBER='(2)';
+      PINUSE='UNSPEC';
+  end_pin;
+  body
+    PART_NAME='R';
+    JEDEC_TYPE='res_smd_0805';
+    VALUE='0';
+  end_body;
+end_primitive;
+primitive 'MICOPHONE MP45DT02_0_MP45DT02_M';
+  pin
+    'GND':
+      PIN_NUMBER='(1)';
+      PINUSE='UNSPEC';
+    'LR':
+      PIN_NUMBER='(2)';
+      INPUT_LOAD='(*)';
+      OUTPUT_LOAD='(*)';
+      BIDIRECTIONAL='TRUE';
+    'GND1':
+      PIN_NUMBER='(3)';
+      PINUSE='UNSPEC';
+    'CLK':
+      PIN_NUMBER='(4)';
+      INPUT_LOAD='(*)';
+      OUTPUT_LOAD='(*)';
+      BIDIRECTIONAL='TRUE';
+    'DOUT':
+      PIN_NUMBER='(5)';
+      INPUT_LOAD='(*)';
+      OUTPUT_LOAD='(*)';
+      BIDIRECTIONAL='TRUE';
+    '3V3':
+      PIN_NUMBER='(6)';
+      PINUSE='POWER';
+  end_pin;
+  body
+    PART_NAME='Micophone MP45DT02_0';
+    JEDEC_TYPE='MP45DT02';
+    VALUE='Micophone MP45DT02';
+  end_body;
+end_primitive;
+END.

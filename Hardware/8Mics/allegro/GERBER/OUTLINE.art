@@ -1,0 +1,31 @@
+G04 ================== begin FILE IDENTIFICATION RECORD ==================*
+G04 Layout Name:  D:/sop1hc/Microphone/schematic/V020/8Mics/allegro/8MICS_V021.brd*
+G04 Film Name:    OUTLINE*
+G04 File Format:  Gerber RS274X*
+G04 File Origin:  Cadence Allegro 16.6-P004*
+G04 Origin Date:  Wed Apr 06 11:01:09 2016*
+G04 *
+G04 Layer:  MANUFACTURING/PHOTOPLOT_OUTLINE*
+G04 Layer:  BOARD GEOMETRY/OUTLINE*
+G04 *
+G04 Offset:    (0.0000 0.0000)*
+G04 Mirror:    No*
+G04 Mode:      Positive*
+G04 Rotation:  0*
+G04 FullContactRelief:  No*
+G04 UndefLineWidth:     0.0000*
+G04 ================== end FILE IDENTIFICATION RECORD ====================*
+%FSLAX25Y25*MOIN*%
+%IR0*IPPOS*OFA0.00000B0.00000*MIA0B0*SFA1.00000B1.00000*%
+%ADD10C,.003937*%
+G75*
+%LPD*%
+G75*
+G54D10*
+G01X-218000Y197000D02*
+G02X-109000Y88000I0J-109000D01*
+G02X-217000Y-20000I-108000J0D01*
+G02X-327000Y90000I0J110000D01*
+G02X-220000Y197000I107000J0D01*
+G01X-218000D01*
+M02*

@@ -1,0 +1,54 @@
+Date and Time : 05/12/16 15:58:04
+
+--------------------------------------------------
+Checking Schematic:  DISCOVERY KIT
+--------------------------------------------------
+Checking Electrical Rules 
+WARNING(ORCAP-1829): Possible pin type conflict U12,SA  Bidirectional Connected to Power
+                    DISCOVERY KIT, EXTERNAL CONNECTOR  (156.00, 70.80) 
+WARNING(ORCAP-1829): Possible pin type conflict U14,GND  Power Connected to Bidirectional
+                    DISCOVERY KIT, EXTERNAL CONNECTOR  (163.40, 116.20) 
+WARNING(ORCAP-1829): Possible pin type conflict U12,RESERVED(GND)  Bidirectional Connected to Power
+                    DISCOVERY KIT, EXTERNAL CONNECTOR  (147.00, 47.80) 
+WARNING(ORCAP-1829): Possible pin type conflict U9,DGND  Power Connected to Bidirectional
+                    DISCOVERY KIT, MODULE AUDIO  (62.00, 62.50) 
+WARNING(ORCAP-1829): Possible pin type conflict U9,GND/THERMAL PAD  Power Connected to Bidirectional
+                    DISCOVERY KIT, MODULE AUDIO  (62.00, 63.50) 
+WARNING(ORCAP-1829): Possible pin type conflict U9,AGND  Power Connected to Bidirectional
+                    DISCOVERY KIT, MODULE AUDIO  (81.00, 63.50) 
+WARNING(ORCAP-1829): Possible pin type conflict U10,VSSQ0  Power Connected to Bidirectional
+                    DISCOVERY KIT, MODULE AUDIO  (170.30, 58.10) 
+WARNING(ORCAP-1829): Possible pin type conflict U10,VSSQ1  Power Connected to Bidirectional
+                    DISCOVERY KIT, MODULE AUDIO  (170.30, 59.10) 
+WARNING(ORCAP-1829): Possible pin type conflict U10,VSSQ3  Power Connected to Bidirectional
+                    DISCOVERY KIT, MODULE AUDIO  (170.30, 61.10) 
+WARNING(ORCAP-1829): Possible pin type conflict U10,VSSQ2  Power Connected to Bidirectional
+                    DISCOVERY KIT, MODULE AUDIO  (170.30, 60.10) 
+WARNING(ORCAP-1829): Possible pin type conflict U10,VSSQ5  Power Connected to Bidirectional
+                    DISCOVERY KIT, MODULE AUDIO  (170.30, 63.10) 
+WARNING(ORCAP-1829): Possible pin type conflict U10,VSSQ4  Power Connected to Bidirectional
+                    DISCOVERY KIT, MODULE AUDIO  (170.30, 62.10) 
+WARNING(ORCAP-1829): Possible pin type conflict U10,VSSQ6  Power Connected to Bidirectional
+                    DISCOVERY KIT, MODULE AUDIO  (170.30, 64.10) 
+WARNING(ORCAP-1829): Possible pin type conflict U10,VSSQ7  Power Connected to Bidirectional
+                    DISCOVERY KIT, MODULE AUDIO  (170.30, 65.10) 
+WARNING(ORCAP-1829): Possible pin type conflict U10,VSS1  Power Connected to Bidirectional
+                    DISCOVERY KIT, MODULE AUDIO  (170.30, 68.10) 
+WARNING(ORCAP-1829): Possible pin type conflict U10,VSS3  Power Connected to Bidirectional
+                    DISCOVERY KIT, MODULE AUDIO  (170.30, 70.10) 
+WARNING(ORCAP-1829): Possible pin type conflict U10,VSS2  Power Connected to Bidirectional
+                    DISCOVERY KIT, MODULE AUDIO  (170.30, 69.10) 
+WARNING(ORCAP-1829): Possible pin type conflict U10,VSS0  Power Connected to Bidirectional
+                    DISCOVERY KIT, MODULE AUDIO  (170.30, 67.10) 
+WARNING(ORCAP-1829): Possible pin type conflict JP1,1  Bidirectional Connected to Power
+                    DISCOVERY KIT, EXTERNAL CONNECTOR  (122.20, 21.00) 
+WARNING(ORCAP-1829): Possible pin type conflict U14,3V3  Power Connected to Bidirectional
+                    DISCOVERY KIT, EXTERNAL CONNECTOR  (172.40, 104.20) 
+
+Checking For Single Node Nets
+WARNING(ORCAP-1600): Net has fewer than two connections 5 
+                    DISCOVERY KIT, MODULE AUDIO  (112.50, 36.00) 
+WARNING(ORCAP-1600): Net has fewer than two connections 6 
+                    DISCOVERY KIT, MODULE AUDIO  (112.50, 43.00) 
+
+Checking For Unconnected Bus Nets

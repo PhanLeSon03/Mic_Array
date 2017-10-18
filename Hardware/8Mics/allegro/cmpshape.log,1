@@ -1,0 +1,17 @@
+(---------------------------------------------------------------------)
+(                                                                     )
+(    Compose Shapes                                                   )
+(                                                                     )
+(    Drawing          : 8MICS_V022.brd                                )
+(    Software Version : 16.6P004                                      )
+(    Date/Time        : Tue Apr 05 19:00:28 2016                      )
+(                                                                     )
+(---------------------------------------------------------------------)
+
+
+current class name(ETCH)
+Find smallest gap failed. Be cautious, this may not be an error
+Retrieve closedLoop with segments (nil) failed
+Info: Can not start path from (dbid:194659280 dbid:194667512 dbid:194667552 dbid:194667592)
+Info: Can not start path from (dbid:194659280 dbid:194667512 dbid:194667552 dbid:194667592)
+A total of 1 shapes were created.

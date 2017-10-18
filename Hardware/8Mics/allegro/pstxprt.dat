@@ -1,0 +1,570 @@
+FILE_TYPE = EXPANDEDPARTLIST;
+{ Using PSTWRITER 16.6.0 d001Jul-29-2017 at 11:22:42 }
+DIRECTIVES
+ PST_VERSION='PST_HDL_CENTRIC_VERSION_0';
+ ROOT_DRAWING='8MICS';
+ POST_TIME='Sep 10 2012 04:46:09';
+ SOURCE_TOOL='CAPTURE_WRITER';
+END_DIRECTIVES;
+
+PART_NAME
+ C1 'CAPACITOR NON-POL_CAP_SMD_0805_':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS186037@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins186037@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins186037@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C10 'CAPACITOR NON-POL_CAP_SMD_080_1':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS186645@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins186645@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins186645@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C11 'CAPACITOR NON-POL_CAP_SMD_0805_':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS186699@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins186699@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins186699@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C12 'CAPACITOR NON-POL_CAP_SMD_080_2':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS186715@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins186715@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins186715@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C13 'CAPACITOR NON-POL_CAP_SMD_080_1':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS186896@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins186896@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins186896@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C14 'CAPACITOR NON-POL_CAP_SMD_080_1':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS186918@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins186918@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins186918@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C15 'CAPACITOR NON-POL_CAP_SMD_0805_':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS186972@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins186972@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins186972@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C16 'CAPACITOR NON-POL_CAP_SMD_080_2':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS186988@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins186988@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins186988@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C17 'CAPACITOR NON-POL_CAP_SMD_080_1':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS187188@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins187188@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins187188@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C18 'CAPACITOR NON-POL_CAP_SMD_080_1':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS187210@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins187210@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins187210@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C19 'CAPACITOR NON-POL_CAP_SMD_0805_':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS187264@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins187264@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins187264@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C2 'CAPACITOR NON-POL_CAP_SMD_080_2':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS186053@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins186053@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins186053@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C20 'CAPACITOR NON-POL_CAP_SMD_080_2':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS187280@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins187280@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins187280@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C21 'CAPACITOR NON-POL_CAP_SMD_080_1':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS187501@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins187501@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins187501@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C22 'CAPACITOR NON-POL_CAP_SMD_080_1':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS187523@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins187523@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins187523@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C23 'CAPACITOR NON-POL_CAP_SMD_0805_':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS187577@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins187577@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins187577@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C24 'CAPACITOR NON-POL_CAP_SMD_080_2':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS187593@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins187593@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins187593@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C25 'CAPACITOR NON-POL_CAP_SMD_080_1':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS187831@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins187831@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins187831@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C26 'CAPACITOR NON-POL_CAP_SMD_080_1':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS187853@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins187853@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins187853@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C27 'CAPACITOR NON-POL_CAP_SMD_0805_':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS187907@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins187907@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins187907@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C28 'CAPACITOR NON-POL_CAP_SMD_080_2':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS187923@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins187923@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins187923@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C29 'CAPACITOR NON-POL_CAP_SMD_080_1':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS188182@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins188182@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins188182@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C3 'CAPACITOR NON-POL_CAP_SMD_080_1':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS185223@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins185223@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins185223@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C30 'CAPACITOR NON-POL_CAP_SMD_080_1':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS188208@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins188208@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins188208@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C31 'CAPACITOR NON-POL_CAP_SMD_0805_':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS188254@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins188254@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins188254@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C32 'CAPACITOR NON-POL_CAP_SMD_080_2':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS188274@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins188274@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins188274@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C4 'CAPACITOR NON-POL_CAP_SMD_080_1':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS185476@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins185476@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins185476@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C5 'CAPACITOR NON-POL_CAP_SMD_080_1':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS186330@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins186330@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins186330@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C6 'CAPACITOR NON-POL_CAP_SMD_080_1':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS186346@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins186346@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins186346@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C7 'CAPACITOR NON-POL_CAP_SMD_0805_':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS186400@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins186400@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins186400@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C8 'CAPACITOR NON-POL_CAP_SMD_080_2':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS186416@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins186416@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins186416@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C9 'CAPACITOR NON-POL_CAP_SMD_080_1':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS186629@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins186629@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins186629@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ J1 'CON16AP_1_16PINDUALMALEHEADER_I':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS195951@8MICS.CON16AP_1.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins195951@\8mics\.\con16ap_1.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins195951@\8mics\.\con16ap_1.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ J2 'JUMPER1_J1_2_254_JUMPER1':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS196860@CONNECTOR.JUMPER1.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins196860@connector.\jumper1.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins196860@connector.\jumper1.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ J3 'CON6_6PINDUALMALEHEADER_ICD_6_2':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS200608@CONNECTOR.CON6.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins200608@connector.\con6.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins200608@connector.\con6.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R1 'R_RES_SMD_0805_100':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS182286@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins182286@discrete.\r.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins182286@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R10 'R_RES_SMD_0805_100':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS188160@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins188160@discrete.\r.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins188160@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R11 'R_RES_SMD_0805_10K':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS196835@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins196835@discrete.\r.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins196835@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R12 'R_RES_SMD_0805_0':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS210824@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins210824@discrete.\r.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins210824@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R13 'R_RES_SMD_0805_0':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS210840@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins210840@discrete.\r.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins210840@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R2 'R_RES_SMD_0805_0':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS184175@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins184175@discrete.\r.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins184175@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R3 'R_RES_SMD_0805_10K':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS184159@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins184159@discrete.\r.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins184159@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R4 'R_RES_SMD_0805_100':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS186308@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins186308@discrete.\r.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins186308@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R5 'R_RES_SMD_0805_100':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS186607@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins186607@discrete.\r.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins186607@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R6 'R_RES_SMD_0805_100':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS186880@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins186880@discrete.\r.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins186880@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R7 'R_RES_SMD_0805_100':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS187172@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins187172@discrete.\r.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins187172@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R8 'R_RES_SMD_0805_100':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS187479@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins187479@discrete.\r.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins187479@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R9 'R_RES_SMD_0805_100':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS187809@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins187809@discrete.\r.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins187809@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U1 'MICOPHONE MP45DT02_0_MP45DT02_M':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS181448@MEM_MIC_KIT.MICOPHONE MP45DT02_0.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins181448@mem_mic_kit.\micophone mp45dt02_0.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins181448@mem_mic_kit.\micophone mp45dt02_0.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U2 'MICOPHONE MP45DT02_0_MP45DT02_M':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS186248@MEM_MIC_KIT.MICOPHONE MP45DT02_0.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins186248@mem_mic_kit.\micophone mp45dt02_0.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins186248@mem_mic_kit.\micophone mp45dt02_0.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U3 'MICOPHONE MP45DT02_0_MP45DT02_M':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS186547@MEM_MIC_KIT.MICOPHONE MP45DT02_0.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins186547@mem_mic_kit.\micophone mp45dt02_0.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins186547@mem_mic_kit.\micophone mp45dt02_0.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U4 'MICOPHONE MP45DT02_0_MP45DT02_M':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS186820@MEM_MIC_KIT.MICOPHONE MP45DT02_0.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins186820@mem_mic_kit.\micophone mp45dt02_0.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins186820@mem_mic_kit.\micophone mp45dt02_0.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U5 'MICOPHONE MP45DT02_0_MP45DT02_M':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS187112@MEM_MIC_KIT.MICOPHONE MP45DT02_0.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins187112@mem_mic_kit.\micophone mp45dt02_0.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins187112@mem_mic_kit.\micophone mp45dt02_0.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U6 'MICOPHONE MP45DT02_0_MP45DT02_M':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS187425@MEM_MIC_KIT.MICOPHONE MP45DT02_0.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins187425@mem_mic_kit.\micophone mp45dt02_0.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins187425@mem_mic_kit.\micophone mp45dt02_0.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U7 'MICOPHONE MP45DT02_0_MP45DT02_M':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS187763@MEM_MIC_KIT.MICOPHONE MP45DT02_0.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins187763@mem_mic_kit.\micophone mp45dt02_0.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins187763@mem_mic_kit.\micophone mp45dt02_0.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U8 'MICOPHONE MP45DT02_0_MP45DT02_M':;
+
+SECTION_NUMBER 1
+ '@8MICS.SCHEMATIC1(SCH_1):INS188114@MEM_MIC_KIT.MICOPHONE MP45DT02_0.NORMAL(CHIPS)':
+ C_PATH='@\8mics\.schematic1(sch_1):ins188114@mem_mic_kit.\micophone mp45dt02_0.normal\(chips)',
+ P_PATH='@\8mics\.schematic1(sch_1):page2_ins188114@mem_mic_kit.\micophone mp45dt02_0.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+END.

@@ -1,0 +1,399 @@
+# Cadence Design Systems, Inc.
+# Allegro PCB Router Automatic Router
+# Allegro PCB Router v16-6-112 made 2012/09/12 at 23:00:45
+# Running on host 
+# 
+#            Command Line Parameters
+#            -----------------------
+# Design File Name : D:/SOP1HC/MIC/SCHE/RELEASE_011/SCHE/allegro\STM32F746NGH_V110_5.dsn
+# Initialization options:
+#   -do pasde.do
+# Status File Name : D:/SOP1HC/MIC/SCHE/RELEASE_011/SCHE/allegro\monitor.sts
+# -nog specified. Graphics not utilized.
+# Use Colormap In Design File.
+#
+#
+#
+#
+# do $/STM32F746NGH_V110_5_rules.do
+define (class PWR_SIGNAL N380637 GND 12V 5V_EXT 
+  5V 3.3V 2.5V VREF 
+  VDDA VDD U5V_USB )
+define (class _difpr_USB_DIFF USB_FS1_P USB_FS1_N )
+define (class _difpr_USB_OTG_FS USB_OTG_FS_DM USB_OTG_FS_DP )
+define (class _difpr_UART_DIFF UART4_RX UART4_TX )
+define (pair (nets USB_FS1_P USB_FS1_N ))
+define (pair (nets UART4_RX UART4_TX ))
+define (pair (nets USB_OTG_FS_DM USB_OTG_FS_DP ))
+rule PCB (width 0.1500)
+rule PCB (clearance 0.1270 (type buried_via_gap))
+rule PCB (clearance 0.1500 (type wire_wire))
+rule PCB (clearance 0.1270 (type wire_smd))
+rule PCB (clearance 0.1270 (type wire_pin))
+rule PCB (clearance 0.1500 (type wire_via))
+rule PCB (clearance 0.1270 (type smd_smd))
+rule PCB (clearance 0.1270 (type smd_pin))
+rule PCB (clearance 0.1270 (type smd_via))
+rule PCB (clearance 0.1270 (type pin_pin))
+rule PCB (clearance 0.1270 (type pin_via))
+rule PCB (clearance 0.1270 (type via_via))
+rule PCB (clearance 0.1270 (type test_test))
+rule PCB (clearance 0.1270 (type test_wire))
+rule PCB (clearance 0.1270 (type test_smd))
+rule PCB (clearance 0.1270 (type test_pin))
+rule PCB (clearance 0.1270 (type test_via))
+rule PCB (clearance 0 (type area_wire))
+rule PCB (clearance 0 (type area_smd))
+rule PCB (clearance 0 (type area_area))
+rule PCB (clearance 0 (type area_pin))
+rule PCB (clearance 0 (type area_via))
+rule PCB (clearance 0 (type area_test))
+rule PCB (clearance 0.1270 (type microvia_microvia))
+set microvia_microvia on
+rule PCB (clearance 0.1270 (type microvia_thrupin))
+set microvia_thrupin on
+rule PCB (clearance 0.1270 (type microvia_smdpin))
+set microvia_smdpin on
+rule PCB (clearance 0.1270 (type microvia_thruvia))
+set microvia_thruvia on
+rule PCB (clearance 0.1270 (type microvia_bbvia))
+set microvia_bbvia on
+rule PCB (clearance 0.1270 (type microvia_wire))
+set microvia_wire on
+rule PCB (clearance 0.1270 (type bbvia_bbvia))
+set bbvia_bbvia on
+rule PCB (clearance 0.1270 (type microvia_testpin))
+set microvia_testpin on
+rule PCB (clearance 0.1270 (type bbvia_thrupin))
+set bbvia_thrupin on
+rule PCB (clearance 0.1270 (type microvia_testvia))
+set microvia_testvia on
+rule PCB (clearance 0.1270 (type bbvia_smdpin))
+set bbvia_smdpin on
+rule PCB (clearance 0.1270 (type microvia_bondpad))
+set microvia_bondpad on
+rule PCB (clearance 0.1270 (type bbvia_thruvia))
+set bbvia_thruvia on
+rule PCB (clearance 0.1270 (type microvia_area))
+set microvia_area on
+rule PCB (clearance 0.1270 (type bbvia_wire))
+set bbvia_wire on
+rule PCB (clearance 0.2032 (type nhole_pin))
+set nhole_pin off
+rule PCB (clearance 0.2032 (type nhole_via))
+set nhole_via off
+rule PCB (clearance 0.1270 (type bbvia_area))
+set bbvia_area on
+rule PCB (clearance 0.2032 (type nhole_wire))
+set nhole_wire off
+rule PCB (clearance 0.2032 (type nhole_area))
+set nhole_area off
+rule PCB (clearance 0.2032 (type nhole_nhole))
+set nhole_nhole off
+rule PCB (clearance 0 (type mhole_pin))
+set mhole_pin off
+rule PCB (clearance 0.1270 (type bbvia_testpin))
+set bbvia_testpin on
+rule PCB (clearance 0 (type mhole_via))
+set mhole_via off
+rule PCB (clearance 0.1270 (type bbvia_testvia))
+set bbvia_testvia on
+rule PCB (clearance 0 (type mhole_wire))
+set mhole_wire off
+rule PCB (clearance 0 (type mhole_area))
+set mhole_area off
+rule PCB (clearance 0 (type mhole_nhole))
+set mhole_nhole off
+rule PCB (clearance 0 (type mhole_mhole))
+set mhole_mhole off
+rule PCB (clearance 0.1270 (type bbvia_bondpad))
+set bbvia_bondpad on
+rule class PWR_SIGNAL (width 0.3000)
+rule class PWR_SIGNAL (clearance 0.2900 (type wire_wire))
+rule class _difpr_USB_DIFF (clearance 0.2900 (type wire_wire))
+rule class _difpr_USB_DIFF (clearance 0.2900 (type wire_smd))
+rule class _difpr_USB_DIFF (clearance 0.5000 (type wire_pin))
+rule class _difpr_USB_DIFF (clearance 0.2900 (type wire_via))
+rule class _difpr_USB_OTG_FS (clearance 0.2900 (type wire_wire))
+rule class _difpr_USB_OTG_FS (clearance 0.2900 (type wire_smd))
+rule class _difpr_USB_OTG_FS (clearance 0.5000 (type wire_pin))
+rule class _difpr_USB_OTG_FS (clearance 0.2900 (type wire_via))
+rule class _difpr_UART_DIFF (clearance 0.2900 (type wire_wire))
+rule class _difpr_UART_DIFF (clearance 0.2900 (type wire_smd))
+rule class _difpr_UART_DIFF (clearance 0.5000 (type wire_pin))
+rule class _difpr_UART_DIFF (clearance 0.2900 (type wire_via))
+rule net VDDA (width 0.2000)
+rule net 2.5V (width 0.2000)
+rule net U5V_USB (width 0.2000)
+rule net MCLK (width 0.1500)
+rule net 5 (width 0.1500)
+rule net 3.3V (width 0.2000)
+rule net OTG_FS_POWERSWITCHON (width 0.2000)
+rule net VREF (width 0.2000)
+rule net OTG_FS_OVERCURRENT (width 0.2000)
+rule net GND (width 0.2000)
+rule net GND (clearance 0.1500 (type wire_wire))
+rule net GND (clearance 0.1270 (type wire_smd))
+rule net 5V (width 0.2000)
+rule net OSC32_OUT (width 0.1400)
+rule net OSC32_IN (width 0.1400)
+rule net VDD (width 0.2000)
+rule net NRST (width 0.1800)
+rule net OSC25M (width 0.1400)
+rule net SWCLK (width 0.1500)
+rule net LRCKO (width 0.1500)
+rule net 5V_EXT (width 0.2000)
+rule net 12V (width 0.2000)
+rule net N380637 (width 0.2000)
+rule PCB (clearance -1 same_net (type wire_wire))
+rule PCB (clearance -1 same_net (type wire_smd))
+rule PCB (clearance -1 same_net (type wire_pin))
+rule PCB (clearance -1 same_net (type wire_via))
+rule PCB (clearance -1 same_net (type smd_smd))
+rule PCB (clearance -1 same_net (type smd_pin))
+rule PCB (clearance -1 same_net (type smd_via))
+rule PCB (clearance -1 same_net (type pin_pin))
+rule PCB (clearance -1 same_net (type pin_via))
+rule PCB (clearance -1 same_net (type via_via))
+rule PCB (clearance -1 same_net (type test_test))
+rule PCB (clearance -1 same_net (type test_wire))
+rule PCB (clearance -1 same_net (type test_smd))
+rule PCB (clearance -1 same_net (type test_pin))
+rule PCB (clearance -1 same_net (type test_via))
+rule PCB (clearance 0 same_net (type area_wire))
+rule PCB (clearance 0 same_net (type area_smd))
+rule PCB (clearance 0 same_net (type area_area))
+rule PCB (clearance 0 same_net (type area_pin))
+rule PCB (clearance 0 same_net (type area_via))
+rule PCB (clearance 0 same_net (type area_test))
+rule PCB (clearance 0.1270 same_net (type microvia_microvia))
+set microvia_microvia same_net off
+rule PCB (clearance 0.1270 same_net (type microvia_thrupin))
+set microvia_thrupin same_net off
+rule PCB (clearance 0.1270 same_net (type microvia_smdpin))
+set microvia_smdpin same_net off
+rule PCB (clearance 0.1270 same_net (type microvia_thruvia))
+set microvia_thruvia same_net off
+rule PCB (clearance 0.1270 same_net (type microvia_bbvia))
+set microvia_bbvia same_net off
+rule PCB (clearance 0.1270 same_net (type microvia_wire))
+set microvia_wire same_net off
+rule PCB (clearance 0.1270 same_net (type microvia_testpin))
+set microvia_testpin same_net off
+rule PCB (clearance 0.1270 same_net (type microvia_testvia))
+set microvia_testvia same_net off
+rule PCB (clearance 0.1270 same_net (type microvia_bondpad))
+set microvia_bondpad same_net off
+rule PCB (clearance 0.1270 same_net (type microvia_area))
+set microvia_area same_net off
+rule PCB (clearance 0.2032 same_net (type nhole_pin))
+set nhole_pin same_net off
+rule PCB (clearance 0.2032 same_net (type nhole_via))
+set nhole_via same_net off
+rule PCB (clearance 0.2032 same_net (type nhole_wire))
+set nhole_wire same_net off
+rule PCB (clearance 0.2032 same_net (type nhole_area))
+set nhole_area same_net off
+rule PCB (clearance 0.2032 same_net (type nhole_nhole))
+set nhole_nhole same_net off
+rule PCB (clearance 0.1270 same_net (type bbvia_bbvia))
+set bbvia_bbvia same_net off
+rule PCB (clearance 0.1270 same_net (type bbvia_thrupin))
+set bbvia_thrupin same_net off
+rule PCB (clearance 0.1270 same_net (type bbvia_smdpin))
+set bbvia_smdpin same_net off
+rule PCB (clearance 0.1270 same_net (type bbvia_thruvia))
+set bbvia_thruvia same_net off
+rule PCB (clearance 0.1270 same_net (type bbvia_wire))
+set bbvia_wire same_net off
+rule PCB (clearance 0.1270 same_net (type bbvia_area))
+set bbvia_area same_net off
+rule PCB (clearance 0.1270 same_net (type bbvia_testpin))
+set bbvia_testpin same_net off
+rule PCB (clearance 0.1270 same_net (type bbvia_testvia))
+set bbvia_testvia same_net off
+rule PCB (clearance 0.1270 same_net (type bbvia_bondpad))
+set bbvia_bondpad same_net off
+rule pcb (tjunction on)(junction_type all)
+rule pcb (staggered_via on (min_gap 0.1270))
+rule class PWR_SIGNAL (tjunction on)(junction_type all)
+rule class PWR_SIGNAL (staggered_via on (min_gap 0.2000))
+circuit class PWR_SIGNAL (use_via VIADRILL03CIR06 VIA )
+rule class _difpr_USB_DIFF (tjunction on)(junction_type all)
+rule class _difpr_USB_DIFF (staggered_via on (min_gap 0.1270))
+circuit class _difpr_USB_DIFF (use_via VIADRILL03CIR06 VIA )
+rule class _difpr_USB_OTG_FS (tjunction on)(junction_type all)
+rule class _difpr_USB_OTG_FS (staggered_via on (min_gap 0.1270))
+circuit class _difpr_USB_OTG_FS (use_via VIADRILL03CIR06 VIA )
+rule class _difpr_UART_DIFF (tjunction on)(junction_type all)
+rule class _difpr_UART_DIFF (staggered_via on (min_gap 0.1270))
+circuit class _difpr_UART_DIFF (use_via VIADRILL03CIR06 VIA )
+rule net VDDA (tjunction on)(junction_type all)
+rule net VDDA (staggered_via on (min_gap 0.2000))
+circuit net VDDA (use_via VIADRILL03CIR06 VIA )
+rule net 2.5V (tjunction on)(junction_type all)
+rule net 2.5V (staggered_via on (min_gap 0.2000))
+circuit net 2.5V (use_via VIADRILL03CIR06 VIA )
+rule net U5V_USB (tjunction on)(junction_type all)
+rule net U5V_USB (staggered_via on (min_gap 0.2000))
+circuit net U5V_USB (use_via VIADRILL03CIR06 VIA )
+rule net 5 (tjunction on)(junction_type all)
+rule net 5 (staggered_via on (min_gap 0.1270))
+circuit net 5 (use_via VIADRILL03CIR06 VIA )
+rule net 3.3V (tjunction on)(junction_type all)
+rule net 3.3V (staggered_via on (min_gap 0.2000))
+circuit net 3.3V (use_via VIADRILL03CIR06 VIA )
+rule net VREF (tjunction on)(junction_type all)
+rule net VREF (staggered_via on (min_gap 0.2000))
+circuit net VREF (use_via VIADRILL03CIR06 VIA )
+rule net GND (tjunction on)(junction_type all)
+rule net GND (staggered_via on (min_gap 0.2000))
+circuit net GND (use_via VIADRILL03CIR06 VIA )
+rule net 5V (tjunction on)(junction_type all)
+rule net 5V (staggered_via on (min_gap 0.2000))
+circuit net 5V (use_via VIADRILL03CIR06 VIA )
+rule net OSC32_OUT (tjunction on)(junction_type all)
+rule net OSC32_OUT (staggered_via on (min_gap 0.2100))
+circuit net OSC32_OUT (use_via VIADRILL03CIR06 VIA )
+rule net OSC32_IN (tjunction on)(junction_type all)
+rule net OSC32_IN (staggered_via on (min_gap 0.2100))
+circuit net OSC32_IN (use_via VIADRILL03CIR06 VIA )
+rule net VDD (tjunction on)(junction_type all)
+rule net VDD (staggered_via on (min_gap 0.2000))
+circuit net VDD (use_via VIADRILL03CIR06 VIA )
+rule net OSC25M (tjunction on)(junction_type all)
+rule net OSC25M (staggered_via on (min_gap 0.2100))
+circuit net OSC25M (use_via VIADRILL03CIR06 VIA )
+rule net 5V_EXT (tjunction on)(junction_type all)
+rule net 5V_EXT (staggered_via on (min_gap 0.2000))
+circuit net 5V_EXT (use_via VIADRILL03CIR06 VIA )
+rule net 12V (tjunction on)(junction_type all)
+rule net 12V (staggered_via on (min_gap 0.2000))
+circuit net 12V (use_via VIADRILL03CIR06 VIA )
+rule net N380637 (tjunction on)(junction_type all)
+rule net N380637 (staggered_via on (min_gap 0.2000))
+circuit net N380637 (use_via VIADRILL03CIR06 VIA )
+rule pcb (via_at_smd off)
+rule PCB (turn_under_pad off)
+rule layer TOP (restricted_layer_length_factor 1)
+rule layer BOTTOM (restricted_layer_length_factor 1)
+circuit net FMC_NBL0 (length 61.5000 58.9600 (type actual))
+circuit net FMC_NBL1 (length 61.5000 58.9600 (type actual))
+circuit net FMC_D10 (length 61.7800 59.2400 (type actual))
+circuit net FMC_D7 (length 61.7800 59.2400 (type actual))
+circuit net FMC_D8 (length 61.7800 59.2400 (type actual))
+circuit net FMC_D6 (length 61.7800 59.2400 (type actual))
+circuit net FMC_D4 (length 61.7800 59.2400 (type actual))
+circuit net FMC_D11 (length 61.7800 59.2400 (type actual))
+circuit net FMC_D3 (length 61.7800 59.2400 (type actual))
+circuit net FMC_D0 (length 61.7800 59.2400 (type actual))
+circuit net FMC_D9 (length 61.7800 59.2400 (type actual))
+circuit net FMC_D5 (length 61.7800 59.2400 (type actual))
+circuit net FMC_D1 (length 61.7800 59.2400 (type actual))
+circuit net FMC_D2 (length 61.7800 59.2400 (type actual))
+circuit net FMC_SDCLK (length 61.5000 58.9600 (type actual))
+circuit net FMC_SDCKE0 (length 61.5000 58.9600 (type actual))
+circuit net FMC_SDNE0 (length 61.5000 58.9600 (type actual))
+circuit net FMC_SDNRAS (length 61.5000 58.9600 (type actual))
+circuit net FMC_SDNCAS (length 61.5000 58.9600 (type actual))
+circuit net FMC_SDNWE (length 61.5000 58.9600 (type actual))
+define (net USB_FS1_N (fromto R26-1 U4-2  (circuit (length 76.2000 2 (type actual)))))
+circuit net FMC_BA1 (length 61.5000 58.9600 (type actual))
+circuit net FMC_BA0 (length 61.5000 58.9600 (type actual))
+define (net USB_OTG_FS_DM (fromto U8-122 U5-3  (circuit (length 76.2000 2 (type actual)))))
+define (net USB_OTG_FS_DP (fromto U8-123 U5-1  (circuit (length 76.2000 2 (type actual)))))
+circuit net FMC_D13 (length 61.7800 59.2400 (type actual))
+circuit net FMC_D14 (length 61.7800 59.2400 (type actual))
+circuit net FMC_D15 (length 61.7800 59.2400 (type actual))
+circuit net FMC_D12 (length 61.7800 59.2400 (type actual))
+define (net UART4_RX (fromto R10-2 J3-2  (circuit (length 76.2000 2 (type actual)))))
+define (net UART4_TX (fromto R8-2 J3-3  (circuit (length 76.2000 2 (type actual)))))
+define (net USB_FS1_P (fromto R27-1 U4-3  (circuit (length 76.2000 2 (type actual)))))
+circuit net FMC_A11 (length 61.5000 58.9600 (type actual))
+circuit net FMC_A10 (length 61.5000 58.9600 (type actual))
+circuit net FMC_A9 (length 61.5000 58.9600 (type actual))
+circuit net FMC_A8 (length 61.5000 58.9600 (type actual))
+circuit net FMC_A7 (length 61.5000 58.9600 (type actual))
+circuit net FMC_A6 (length 61.5000 58.9600 (type actual))
+circuit net FMC_A5 (length 61.5000 58.9600 (type actual))
+circuit net FMC_A4 (length 61.5000 58.9600 (type actual))
+circuit net FMC_A3 (length 61.5000 58.9600 (type actual))
+circuit net FMC_A2 (length 61.5000 58.9600 (type actual))
+circuit net FMC_A1 (length 61.5000 58.9600 (type actual))
+circuit net FMC_A0 (length 61.5000 58.9600 (type actual))
+rule class _difpr_USB_DIFF (edge_primary_gap 0.3500)
+rule class _difpr_USB_DIFF (diffpair_line_width 0.2100)
+rule class _difpr_USB_DIFF (neck_down_gap 0.1270)
+rule class _difpr_USB_DIFF (neck_down_width 0.1270)
+rule class _difpr_USB_DIFF (min_line_spacing 0.1270)
+rule class _difpr_USB_DIFF (max_uncoupled_length 76.2000)
+rule class _difpr_USB_DIFF (phase_control off)
+rule class _difpr_USB_DIFF (phase_tolerance_length 2.5400)
+define (drcv_group _DRgrp_USB_FS1_N
+ (drcv R26-1 U4-2 )
+)
+define (drcv_group _DRgrp_USB_FS1_P
+ (drcv R27-1 U4-3 )
+)
+define (drcv_groupset _DRgrpset_USB_FS1_N_USB_FS1_P _DRgrp_USB_FS1_N _DRgrp_USB_FS1_P)
+rule class _difpr_USB_OTG_FS (edge_primary_gap 0.3500)
+rule class _difpr_USB_OTG_FS (diffpair_line_width 0.2100)
+rule class _difpr_USB_OTG_FS (neck_down_gap 0.1270)
+rule class _difpr_USB_OTG_FS (neck_down_width 0.1270)
+rule class _difpr_USB_OTG_FS (min_line_spacing 0.1270)
+rule class _difpr_USB_OTG_FS (max_uncoupled_length 76.2000)
+rule class _difpr_USB_OTG_FS (phase_control off)
+rule class _difpr_USB_OTG_FS (phase_tolerance_length 2.5400)
+define (drcv_group _DRgrp_USB_OTG_FS_DP
+ (drcv U8-123 U5-1 )
+)
+define (drcv_group _DRgrp_USB_OTG_FS_DM
+ (drcv U8-122 U5-3 )
+)
+define (drcv_groupset _DRgrpset_USB_OTG_FS_DP_USB_OTG_FS_DM _DRgrp_USB_OTG_FS_DP _DRgrp_USB_OTG_FS_DM)
+rule class _difpr_UART_DIFF (edge_primary_gap 0.3500)
+rule class _difpr_UART_DIFF (diffpair_line_width 0.2100)
+rule class _difpr_UART_DIFF (neck_down_gap 0.1270)
+rule class _difpr_UART_DIFF (neck_down_width 0.1270)
+rule class _difpr_UART_DIFF (min_line_spacing 0.1270)
+rule class _difpr_UART_DIFF (max_uncoupled_length 76.2000)
+rule class _difpr_UART_DIFF (phase_control off)
+rule class _difpr_UART_DIFF (phase_tolerance_length 2.5400)
+define (drcv_group _DRgrp_UART4_TX
+ (drcv R8-2 J3-3 )
+)
+define (drcv_group _DRgrp_UART4_RX
+ (drcv R10-2 J3-2 )
+)
+define (drcv_groupset _DRgrpset_UART4_TX_UART4_RX _DRgrp_UART4_TX _DRgrp_UART4_RX)
+write colormap _notify.std
+# do C:/Users/VNMKHA~1/AppData/Local/Temp/#Taaaaag03096.tmp
+unselect all routing
+set route_diagonal 0
+grid wire 0.000100 (direction x) (offset 0.000000)
+grid wire 0.000100 (direction y) (offset 0.000000)
+grid via 0.000100 (direction x) (offset 0.000000)
+grid via 0.000100 (direction y) (offset 0.000000)
+protect all wires
+direction TOP horizontal
+select layer TOP
+unprotect layer_wires TOP
+direction BOTTOM vertical
+select layer BOTTOM
+unprotect layer_wires BOTTOM
+cost via -1
+set turbo_stagger off
+limit outside -1
+rule pcb (patterns_allowed  trombone accordion)
+set pattern_stacking on
+rule pcb (sawtooth_amplitude -1 -1)
+rule pcb (sawtooth_gap -1)
+rule pcb (accordion_amplitude -1 -1)
+rule pcb (accordion_gap -1)
+rule pcb (trombone_run_length -1)
+rule pcb (trombone_gap -1)
+unprotect selected
+route 25 1
+clean 2
+write routes (changed_only) (reset_changed) C:/Users/VNMKHA~1/AppData/Local/Temp/#Taaaaah03096.tmp
+quit -c

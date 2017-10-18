@@ -1,0 +1,24 @@
+PROJECT MIC_ARRAY  Revised: Tuesday, April 05, 2016
+          Revision: 1.0
+
+AUTONOMOUS
+
+
+
+
+
+Bill Of Materials            May 13,2016      14:04:42	Page1
+
+Item	Quantity	Reference	Part
+______________________________________________
+
+1	8	C1,C7,C11,C15,C19,C23,C27,C31	10uF
+2	8	C2,C8,C12,C16,C20,C24,C28,C32	100nF
+3	16	C3,C4,C5,C6,C9,C10,C13,C14,C17,C18,C21,C22,C25,C26,C29,C30	15pF
+4	1	J1	IDC_16_2.54mm
+5	1	J2	JUMPER1
+6	1	J3	ICD_6_2.54mm
+7	8	R1,R4,R5,R6,R7,R8,R9,R10	100
+8	3	R2,R12,R13	0
+9	2	R3,R11	10K
+10	8	U1,U2,U3,U4,U5,U6,U7,U8	Micophone MP45DT02

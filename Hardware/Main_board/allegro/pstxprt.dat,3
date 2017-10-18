@@ -1,0 +1,2494 @@
+FILE_TYPE = EXPANDEDPARTLIST;
+{ Using PSTWRITER 16.6.0 d001May-13-2016 at 11:05:24 }
+DIRECTIVES
+ PST_VERSION='PST_HDL_CENTRIC_VERSION_0';
+ ROOT_DRAWING='STM32F746NGH V1';
+ POST_TIME='Sep 10 2012 04:46:09';
+ SOURCE_TOOL='CAPTURE_WRITER';
+END_DIRECTIVES;
+
+PART_NAME
+ C1 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS345339@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins345339@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins345339@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C10 'CAPACITOR NON-POL_CAP_SMD_0603_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS224555@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins224555@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins224555@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C100 'CAPACITOR POL_0_CAP_SMD_1206_10':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS791319@STM32F746NGH.CAPACITOR POL_0.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins791319@stm32f746ngh.\capacitor pol_0.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins791319@stm32f746ngh.\capacitor pol_0.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C101 'CAPACITOR NON-POL_CAP_SMD_040_1':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS846559@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins846559@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins846559@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C102 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS853420@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins853420@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins853420@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C103 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS860683@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins860683@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins860683@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C104 'CAPACITOR NON-POL_CAP_SMD_060_1':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS860699@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins860699@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins860699@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C11 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS226671@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins226671@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins226671@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C12 'CAPACITOR NON-POL_CAP_SMD_060_2':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS228374@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins228374@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins228374@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C13 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS228406@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins228406@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins228406@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C14 'CAPACITOR NON-POL_CAP_SMD_060_3':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS263764@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins263764@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins263764@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C15 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS228326@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins228326@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins228326@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C16 'CAPACITOR NON-POL_CAP_SMD_060_2':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS228390@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins228390@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins228390@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C17 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS240678@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins240678@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins240678@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C18 'C_CAP_SMD_1210_330UF_1210':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS380566@DISCRETE.C.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins380566@discrete.\c.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins380566@discrete.\c.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C19 'C_CAP_SMD_1206_150UF_1206':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS380582@DISCRETE.C.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins380582@discrete.\c.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins380582@discrete.\c.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C2 'CAPACITOR NON-POL_CAP_SMD_040_2':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS398523@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins398523@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins398523@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C20 'CAPACITOR NON-POL_CAP_SMD_040_3':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS380598@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins380598@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins380598@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C21 'CAPACITOR NON-POL_CAP_SMD_040_4':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS380614@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins380614@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins380614@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C22 'CAPACITOR NON-POL_CAP_SMD_040_3':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS381239@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins381239@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins381239@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C23 'CAPACITOR NON-POL_CAP_SMD_1210_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS381283@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins381283@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins381283@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C24 'CAPACITOR NON-POL_CAP_SMD_040_5':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS115806@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins115806@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins115806@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C25 'CAPACITOR NON-POL_CAP_SMD_040_5':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS115822@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins115822@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins115822@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C26 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS116482@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins116482@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins116482@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C27 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS117663@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins117663@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins117663@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C28 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS117679@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins117679@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins117679@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C29 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS117695@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins117695@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins117695@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C3 'CAPACITOR NON-POL_CAP_SMD_040_2':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS398455@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins398455@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins398455@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C30 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS117711@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins117711@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins117711@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C31 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS117727@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins117727@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins117727@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C32 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS117743@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins117743@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins117743@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C33 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS117615@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins117615@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins117615@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C34 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS117631@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins117631@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins117631@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C35 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS117647@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins117647@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins117647@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C36 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS117759@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins117759@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins117759@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C37 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS117775@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins117775@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins117775@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C38 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS117791@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins117791@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins117791@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C39 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS117807@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins117807@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins117807@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C4 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS346036@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins346036@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins346036@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C40 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS117823@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins117823@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins117823@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C41 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS117839@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins117839@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins117839@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C42 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS117855@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins117855@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins117855@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C43 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS117871@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins117871@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins117871@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C44 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS117887@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins117887@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins117887@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C45 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS117903@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins117903@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins117903@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C46 'CAPACITOR NON-POL_CAP_SMD_1206_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS135945@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins135945@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins135945@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C47 'CAPACITOR NON-POL_CAP_SMD_1206_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS134810@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins134810@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins134810@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C48 'CAPACITOR POL_0_CAP_SMD_1206_TA':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS173436@STM32F746NGH.CAPACITOR POL_0.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins173436@stm32f746ngh.\capacitor pol_0.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins173436@stm32f746ngh.\capacitor pol_0.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C49 'CAPACITOR POL_0_CAP_SMD_1206_TA':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS173452@STM32F746NGH.CAPACITOR POL_0.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins173452@stm32f746ngh.\capacitor pol_0.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins173452@stm32f746ngh.\capacitor pol_0.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C5 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS249889@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins249889@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins249889@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C50 'CAPACITOR POL_0_CAP_SMD_1206__1':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS174851@STM32F746NGH.CAPACITOR POL_0.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins174851@stm32f746ngh.\capacitor pol_0.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins174851@stm32f746ngh.\capacitor pol_0.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C51 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS117967@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins117967@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins117967@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C52 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS143015@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins143015@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins143015@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C53 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS143031@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins143031@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins143031@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C54 'CAP NP_CAP_SMD_0603_0.022UF_060':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS247777@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins247777@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins247777@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C55 'CAP NP_CAP_SMD_0603_0.022UF_060':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS247793@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins247793@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins247793@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C56 'CAP NP_CAP_SMD_0402_0.1UF_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS247745@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins247745@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins247745@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C57 'CAP NP_CAP_SMD_0402_0.1UF_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS247761@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins247761@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins247761@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C58 'CAP NP_CAP_SMD_0603_1UF_0603':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS247729@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins247729@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins247729@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C59 'CAP NP_CAP_SMD_0603_1UF_0603':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS247713@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins247713@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins247713@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C60 'CAP NP_CAP_SMD_0603_1UF_0603':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS247809@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins247809@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins247809@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C61 'CAP NP_CAP_SMD_0402_10NF_ 0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS247841@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins247841@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins247841@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C62 'CAP NP_CAP_SMD_0402_0.1UF_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS247697@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins247697@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins247697@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C63 'CAP NP_CAP_SMD_0402_0.1UF_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS247681@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins247681@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins247681@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C64 'CAPACITOR POL_0_CAP_SMD_1206__2':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS248493@STM32F746NGH.CAPACITOR POL_0.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins248493@stm32f746ngh.\capacitor pol_0.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins248493@stm32f746ngh.\capacitor pol_0.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C65 'CAP NP_CAP_SMD_0402_0.1UF_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS247665@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins247665@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins247665@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C66 'CAP NP_CAP_SMD_0402_0.1UF_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS247649@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins247649@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins247649@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C67 'CAP NP_CAP_SMD_0402_0.1UF_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS247825@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins247825@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins247825@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C68 'CAP NP_CAP_SMD_0402_0.1UF_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS247633@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins247633@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins247633@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C69 'CAP NP_CAP_SMD_0402_100NF_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS405078@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins405078@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins405078@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C7 'CAPACITOR NON-POL_CAP_SMD_060_2':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS223419@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins223419@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins223419@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C70 'CAP NP_CAP_SMD_0402_100NF_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS405094@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins405094@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins405094@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C71 'CAP NP_CAP_SMD_0402_100NF_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS405110@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins405110@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins405110@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C72 'CAP NP_CAP_SMD_0603_1UF_0603':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS247857@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins247857@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins247857@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C73 'CAP NP_CAP_SMD_0402_150PF_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS247873@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins247873@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins247873@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C74 'CAP NP_CAP_SMD_0402_150PF_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS247889@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins247889@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins247889@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C75 'CAP NP_CAP_SMD_0402_1UF_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS247905@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins247905@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins247905@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C76 'CAP NP_CAP_SMD_0402_100NF_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS405126@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins405126@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins405126@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C77 'CAP NP_CAP_SMD_0402_100NF_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS405142@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins405142@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins405142@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C78 'CAP NP_CAP_SMD_0402_100NF_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS405158@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins405158@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins405158@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C79 'CAP NP_CAP_SMD_0402_100NF_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS405174@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins405174@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins405174@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C8 'CAPACITOR NON-POL_CAP_SMD_060_2':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS226655@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins226655@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins226655@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C80 'CAP NP_CAP_SMD_0402_100NF_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS405190@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins405190@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins405190@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C81 'CAP NP_CAP_SMD_0402_100NF_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS412644@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins412644@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins412644@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C82 'CAP NP_CAP_SMD_0402_100NF_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS412660@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins412660@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins412660@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C83 'CAP NP_CAP_SMD_0402_100NF_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS412839@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins412839@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins412839@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C84 'CAP NP_CAP_SMD_0402_100NF_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS412855@DISCRETE.CAP NP.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins412855@discrete.\cap np.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins412855@discrete.\cap np.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C85 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS796201@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins796201@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins796201@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C86 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS796245@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins796245@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins796245@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C87 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS796317@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins796317@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins796317@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C88 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS796377@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins796377@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins796377@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C89 'CAPACITOR NON-POL_CAP_SMD_040_6':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS796397@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins796397@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins796397@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C9 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS224539@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins224539@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins224539@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C90 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS796477@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins796477@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins796477@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C91 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS796521@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins796521@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins796521@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C92 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS796557@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins796557@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins796557@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ C93 'CAPACITOR NON-POL_CAP_SMD_0402_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS796601@DISCRETE.CAPACITOR NON-POL.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins796601@discrete.\capacitor non-pol.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins796601@discrete.\capacitor non-pol.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ CN1 'ST-225-02_3_AUDIO_JACK_35_JACK':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS248045@STM32F746NGH.ST-225-02_3.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins248045@stm32f746ngh.\st-225-02_3.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins248045@stm32f746ngh.\st-225-02_3.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ D1 'LED_LED_SMD_0603_LED,RED':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS264183@DISCRETE.LED.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins264183@discrete.\led.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins264183@discrete.\led.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ D10 'DIODE_DIOD_SOD323_BAT60JFILM':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS1045015@DISCRETE.DIODE.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins1045015@discrete.\diode.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins1045015@discrete.\diode.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ D2 'LED_LED_SMD_0603_LED, GREEN':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS233247@DISCRETE.LED.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins233247@discrete.\led.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins233247@discrete.\led.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ D3 'LED_LED_SMD_0603_LED, GREEN':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS384668@DISCRETE.LED.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins384668@discrete.\led.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins384668@discrete.\led.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ D4 'DIODE_DIOD_SOD323_BAT60JFILM':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS1045130@DISCRETE.DIODE.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins1045130@discrete.\diode.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins1045130@discrete.\diode.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ D5 'LED_LED_SMD_0603_LED, GREEN':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS238448@DISCRETE.LED.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins238448@discrete.\led.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins238448@discrete.\led.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ D6 'LED_LED_SMD_0603_LED, GREEN':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS265955@DISCRETE.LED.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins265955@discrete.\led.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins265955@discrete.\led.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ D7 'DIODE_DIOD_SOD323_BAT60JFILM':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS1045146@DISCRETE.DIODE.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins1045146@discrete.\diode.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins1045146@discrete.\diode.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ D8 'LED_LED_SMD_0603_LED, GREEN':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS347502@DISCRETE.LED.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins347502@discrete.\led.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins347502@discrete.\led.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ D9 'LED_LED_SMD_0603_LED, GREEN':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS347518@DISCRETE.LED.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins347518@discrete.\led.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins347518@discrete.\led.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ J1 'HEADER 5X2_10PINDUALMALEHEADER_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS344342@CONNECTOR.HEADER 5X2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins344342@connector.\header 5x2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins344342@connector.\header 5x2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ J2 'HEADER 6_0_6PINDUALMALEHEADER_H':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS500547@STM32F746NGH V1.1_LAST.HEADER 6_0.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins500547@\stm32f746ngh v1.1_last\.\header 6_0.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins500547@\stm32f746ngh v1.1_last\.\header 6_0.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ J3 '4 HEADER_4PINFEMALEHEADER_CONN_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS324172@CONNECTOR.4 HEADER.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins324172@connector.\4 header.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins324172@connector.\4 header.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ J5 'HEADER 6_0_6PINDUALMALEHEADER_H':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS379378@STM32F746NGH V1.1_LAST.HEADER 6_0.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins379378@\stm32f746ngh v1.1_last\.\header 6_0.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins379378@\stm32f746ngh v1.1_last\.\header 6_0.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ J6 'CON16A_16PINDUALMALEHEADER_IDC_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS1014127@CONNECTOR.CON16A.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins1014127@connector.\con16a.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins1014127@connector.\con16a.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ JP1 'JUMPER_2_J1_2_254_JUMPER':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS398499@MEM_MIC_KIT.JUMPER_2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins398499@mem_mic_kit.\jumper_2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins398499@mem_mic_kit.\jumper_2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ JP2 'JUMPER2_4PINDUALMALEHEADER_JUMP':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS373032@CONNECTOR.JUMPER2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins373032@connector.\jumper2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins373032@connector.\jumper2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ JP3 'JUMPER_2_J1_2_254_JUMPER_2':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS840524@MEM_MIC_KIT.JUMPER_2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins840524@mem_mic_kit.\jumper_2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins840524@mem_mic_kit.\jumper_2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ L1 'INDUCTOR_IN_SMD_0805_2_1UH':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS380541@DISCRETE.INDUCTOR.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins380541@discrete.\inductor.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins380541@discrete.\inductor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ L2 'L_IN_SMD_0805_2_FCM1608KF-601T0':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS139319@FILTSUB.L.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins139319@filtsub.\l.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins139319@filtsub.\l.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ Q1 'PN2222_SOT23_9013-SOT23':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS238475@BIPOLAR.PN2222.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins238475@bipolar.\pn2222.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins238475@bipolar.\pn2222.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R1 'R2_RES_SMD_0402_22_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS500816@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins500816@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins500816@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R10 'R2_RES_SMD_0402_100_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS324144@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins324144@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins324144@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R100 'R_RES_SMD_0402_100_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS801259@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins801259@discrete.\r.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins801259@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R101 'R_RES_SMD_0402_0R0_0402(N.A)':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS801279@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins801279@discrete.\r.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins801279@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R102 'R_RES_SMD_0402_0R0_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS801307@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins801307@discrete.\r.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins801307@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R103 'R_RES_SMD_0402_0R0_0402(NA)':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS795829@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins795829@discrete.\r.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins795829@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R104 'R_RES_SMD_0402_0R0_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS795857@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins795857@discrete.\r.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins795857@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R105 'R_RES_SMD_0402_0R0_0402(NA)':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS795891@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins795891@discrete.\r.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins795891@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R106 'R_RES_SMD_0402_0R0_0402(NA)':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS795961@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins795961@discrete.\r.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins795961@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R107 'R_RES_SMD_0402_0R0_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS795989@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins795989@discrete.\r.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins795989@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R11 'R2_RES_SMD_0402_100_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS346052@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins346052@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins346052@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R110 'R2_RES_SMD_0402_0_0603':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS842717@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins842717@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins842717@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R111 'R2_RES_SMD_0402_10K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS846543@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins846543@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins846543@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R112 'R_RES_SMD_0402_3K3_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS860773@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins860773@discrete.\r.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins860773@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R114 'R_RES_SMD_0402_0R0_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS867039@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins867039@discrete.\r.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins867039@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R115 'R2_RES_SMD_0402_100_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS892106@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins892106@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins892106@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R116 'R2_RES_SMD_0402_2K7_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS896413@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins896413@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins896413@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R117 'R2_RES_SMD_0402_2K7_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS896429@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins896429@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins896429@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R118 'R2_RES_SMD_0402_0':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS940880@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins940880@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins940880@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R119 'R2_RES_SMD_0402_10K_0402(NA)':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS945152@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins945152@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins945152@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R12 'R_RES_SMD_0603_100_0603':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS398483@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins398483@discrete.\r.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins398483@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R13 'R_RES_SMD_0603_100_0603':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS398435@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins398435@discrete.\r.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins398435@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R14 'R2_RES_SMD_0402_100K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS249873@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins249873@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins249873@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R16 'R2_RES_SMD_0402_0_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS391526@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins391526@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins391526@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R18 'R2_RES_SMD_0603_330_0603':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS346068@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins346068@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins346068@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R19 'R2_RES_SMD_0402_220K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS346020@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins346020@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins346020@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R2 'R2_RES_SMD_0402_22_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS500800@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins500800@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins500800@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R20 'R2_RES_SMD_0603_620_0603':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS264199@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins264199@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins264199@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R21 'R2_RES_SMD_0402_47K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS264219@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins264219@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins264219@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R22 'R2_RES_SMD_0402_10K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS265510@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins265510@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins265510@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R23 'R2_RES_SMD_0402_0_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS264163@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins264163@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins264163@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R24 'R2_RES_SMD_0402_1K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS233222@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins233222@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins233222@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R25 'R2_RES_SMD_0402_0_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS265494@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins265494@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins265494@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R26 'R2_RES_SMD_0402_22_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS241693@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins241693@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins241693@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R27 'R2_RES_SMD_0402_22_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS241709@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins241709@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins241709@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R28 'R2_RES_SMD_0402_0_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS243193@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins243193@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins243193@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R29 'R2_RES_SMD_0402_1K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS384684@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins384684@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins384684@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R3 'R2_RES_SMD_0402_100_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS345355@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins345355@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins345355@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R30 'R2_RES_SMD_0402_47K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS238509@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins238509@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins238509@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R31 'R2_RES_SMD_0603_330 _0603':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS238525@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins238525@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins238525@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R32 'R2_RES_SMD_0402_1K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS266056@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins266056@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins266056@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R33 'R2_RES_SMD_0402_100K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS238493@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins238493@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins238493@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R34 'R2_RES_SMD_0402_0':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS115847@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins115847@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins115847@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R35 'R2_RES_SMD_0402_0':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS115863@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins115863@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins115863@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R36 'R2_RES_SMD_0402_10K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS116466@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins116466@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins116466@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R37 'R2_RES_SMD_0402_0':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS315067@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins315067@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins315067@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R4 'R2_RES_SMD_0402_22_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS500784@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins500784@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins500784@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R40 'R2_RES_SMD_0402_0':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS315051@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins315051@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins315051@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R41 'R2_RES_SMD_0402_0':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS315035@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins315035@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins315035@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R43 'R2_RES_SMD_0402_0':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS314987@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins314987@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins314987@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R44 'R2_RES_SMD_0402_100':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS163873@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins163873@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins163873@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R46 'R2_RES_SMD_0402_100':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS163266@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins163266@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins163266@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R49 'R2_RES_SMD_0402_100_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS117152@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins117152@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins117152@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R5 'R2_RES_SMD_0402_22_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS500752@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins500752@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins500752@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R52 'R2_0_RES_SMD_0402_10K_ 0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS162632@STM32F746NGH.R2_0.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins162632@stm32f746ngh.\r2_0.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins162632@stm32f746ngh.\r2_0.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R53 'R2_RES_SMD_0402_N.A':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS162616@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins162616@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins162616@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R54 'R2_RES_SMD_0402_100_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS164680@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins164680@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins164680@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R55 'R2_RES_SMD_0402_10K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS141819@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins141819@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins141819@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R56 'R2_RES_SMD_0402_100_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS164046@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins164046@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins164046@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R57 'R2_RES_SMD_0402_NA':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS160909@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins160909@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins160909@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R59 'R2_RES_SMD_0402_10K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS160745@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins160745@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins160745@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R61 'R2_RES_SMD_0402_0':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS316263@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins316263@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins316263@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R63 'R2_RES_SMD_0402_0':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS316302@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins316302@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins316302@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R64 'R2_RES_SMD_0402_1K':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS347534@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins347534@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins347534@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R65 'R2_RES_SMD_0402_1K':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS347550@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins347550@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins347550@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R66 'R2_RES_SMD_0402_0':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS155180@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins155180@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins155180@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R67 'R2_RES_SMD_0402_0':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS153311@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins153311@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins153311@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R68 'R2_RES_SMD_0402_100K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS414278@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins414278@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins414278@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R69 'R2_RES_SMD_0402_10K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS414438@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins414438@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins414438@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R7 'R2_RES_SMD_0603_330_0603':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS345371@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins345371@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins345371@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R70 'R2_RES_SMD_0402_10K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS414454@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins414454@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins414454@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R71 'R2_RES_SMD_0402_10K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS414470@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins414470@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins414470@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R72 'R2_RES_SMD_0402_10K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS414486@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins414486@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins414486@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R73 'R2_RES_SMD_0402_10K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS414502@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins414502@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins414502@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R74 'R2_RES_SMD_0402_10K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS414518@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins414518@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins414518@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R75 'R_RES_SMD_0603_51_0603':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS247941@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins247941@discrete.\r.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins247941@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R76 'R_RES_SMD_0603_51_0603':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS247957@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins247957@discrete.\r.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins247957@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R77 'R2_RES_SMD_0402_10K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS414534@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins414534@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins414534@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R78 'R2_RES_SMD_0402_10K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS414550@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins414550@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins414550@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R79 'R2_RES_SMD_0402_10K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS414566@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins414566@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins414566@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R8 'R2_RES_SMD_0402_100_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS324128@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins324128@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins324128@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R80 'R2_RES_SMD_0402_10K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS414582@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins414582@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins414582@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R81 'R2_RES_SMD_0402_10K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS414598@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins414598@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins414598@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R82 'R2_RES_SMD_0402_10K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS414614@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins414614@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins414614@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R83 'R2_RES_SMD_0402_10K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS414630@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins414630@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins414630@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R84 'R_RES_SMD_0402_0_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS247973@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins247973@discrete.\r.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins247973@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R85 'R2_RES_SMD_0402_10K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS414646@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins414646@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins414646@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R86 'R2_RES_SMD_0402_10K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS414662@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins414662@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins414662@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R87 'R_RES_SMD_0402_10K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS247921@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins247921@discrete.\r.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins247921@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R88 'R_RES_SMD_0402_100_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS247989@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins247989@discrete.\r.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins247989@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R89 'R_RES_SMD_0402_0_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS248013@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins248013@discrete.\r.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins248013@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R9 'R2_RES_SMD_0402_220K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS345323@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins345323@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins345323@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R90 'R2_RES_SMD_0402_100K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS403973@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins403973@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins403973@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R91 'R2_RES_SMD_0402_100K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS403989@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins403989@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins403989@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R92 'R_RES_SMD_0402_100K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS248075@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins248075@discrete.\r.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins248075@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R93 'R_RES_SMD_0402_100K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS248091@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins248091@discrete.\r.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins248091@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R94 'R_RES_SMD_0402_100K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS248107@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins248107@discrete.\r.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins248107@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R95 'R2_RES_SMD_0402_N.A 0':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS690657@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins690657@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins690657@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R96 'R_RES_SMD_0402_10K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS796361@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins796361@discrete.\r.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins796361@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R97 'R2_RES_SMD_0402_2K7_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS749037@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins749037@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins749037@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R98 'R2_RES_SMD_0402_2K7_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS749082@DISCRETE.R2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins749082@discrete.\r2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins749082@discrete.\r2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R99 'R_RES_SMD_0402_10K_0402':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS801229@DISCRETE.R.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins801229@discrete.\r.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins801229@discrete.\r.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ SW1 'SW PUSHBUTTON-SPST-2/SM_1_PUSHB':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS345267@STM32F746NGH.SW PUSHBUTTON-SPST-2/SM_1.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins345267@stm32f746ngh.\sw pushbutton-spst-2/sm_1.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins345267@stm32f746ngh.\sw pushbutton-spst-2/sm_1.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ SW2 'SW PUSHBUTTON-SPST-2/SM_2_PUSHB':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS346000@STM32F746NGH.SW PUSHBUTTON-SPST-2/SM_2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins346000@stm32f746ngh.\sw pushbutton-spst-2/sm_2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins346000@stm32f746ngh.\sw pushbutton-spst-2/sm_2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ SW3 'SW PUSHBUTTON-SPST-2/SM_0_PUSHB':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS249913@STM32F746NGH.SW PUSHBUTTON-SPST-2/SM_0.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins249913@stm32f746ngh.\sw pushbutton-spst-2/sm_0.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins249913@stm32f746ngh.\sw pushbutton-spst-2/sm_0.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ TP1 'TEST POINT_TEST_PAD1_TEST POINT':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS266774@CONNECTOR.TEST POINT.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins266774@connector.\test point.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins266774@connector.\test point.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ TP2 'TEST POINT_TEST_PAD1_TEST POINT':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS266186@CONNECTOR.TEST POINT.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins266186@connector.\test point.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins266186@connector.\test point.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ TP3 'TEST POINT_TEST_PAD1_TEST POINT':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS267428@CONNECTOR.TEST POINT.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins267428@connector.\test point.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins267428@connector.\test point.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ TP4 'TEST POINT_TEST_PAD1_TEST POINT':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS317181@CONNECTOR.TEST POINT.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins317181@connector.\test point.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins317181@connector.\test point.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ TP5 'TEST POINT_TEST_PAD1_TEST POINT':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS317155@CONNECTOR.TEST POINT.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins317155@connector.\test point.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins317155@connector.\test point.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ TP6 'TEST POINT_TEST_PAD1_TEST POINT':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS856993@CONNECTOR.TEST POINT.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins856993@connector.\test point.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins856993@connector.\test point.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ TP7 'TEST POINT_TEST_PAD1_TEST POINT':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS898679@CONNECTOR.TEST POINT.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins898679@connector.\test point.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins898679@connector.\test point.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U1 'LD3985M33R_2_SOT235L_LD3985M25R':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS223466@STM32F746NGH.LD3985M33R_2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins223466@stm32f746ngh.\ld3985m33r_2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins223466@stm32f746ngh.\ld3985m33r_2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U10 'SDRAM-MT48LC4M32B2_0_TSOPII_86_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS403347@STM32F746NGH.SDRAM-MT48LC4M32B2_0.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins403347@stm32f746ngh.\sdram-mt48lc4m32b2_0.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins403347@stm32f746ngh.\sdram-mt48lc4m32b2_0.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U11 'STMPS2141STR_2_SOT235L_STMPS214':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS644338@STM32F746NGH.STMPS2141STR_2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins644338@stm32f746ngh.\stmps2141str_2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins644338@stm32f746ngh.\stmps2141str_2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U12 'STA321MPL_0_STA321_STA321MPL':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS796053@STM32F746NGH V1.1_LAST.STA321MPL_0.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins796053@\stm32f746ngh v1.1_last\.\sta321mpl_0.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins796053@\stm32f746ngh v1.1_last\.\sta321mpl_0.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U14 '7474_0_74VHC74_74VHC74':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS805759@STM32F746NGH V1.1_LAST.7474_0.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins805759@\stm32f746ngh v1.1_last\.\7474_0.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins805759@\stm32f746ngh v1.1_last\.\7474_0.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U2 'LD39050PU33R_1_DFN6_6_3X3_LD390':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS227123@STM32F746NGH.LD39050PU33R_1.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins227123@stm32f746ngh.\ld39050pu33r_1.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins227123@stm32f746ngh.\ld39050pu33r_1.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U4 'USB_7_MINI_USB_MINI USB TYPE B':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS237936@STM32F746NGH.USB_7.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins237936@stm32f746ngh.\usb_7.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins237936@stm32f746ngh.\usb_7.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U5 'USBLC6-2_4_SOT23_6L_USBLC6-2':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS239391@STM32F746NGH.USBLC6-2_4.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins239391@stm32f746ngh.\usblc6-2_4.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins239391@stm32f746ngh.\usblc6-2_4.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U6 'DC JACK_DC-JACK_PJ-202A':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS381402@QUANGTHANH-SCHEMATIC.DC JACK.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins381402@\quangthanh-schematic\.\dc jack.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins381402@\quangthanh-schematic\.\dc jack.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U7 'LT1117IST-5PBF_1_SOT_223_LT1117':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS380721@STM32F746NGH.LT1117IST-5PBF_1.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins380721@stm32f746ngh.\lt1117ist-5pbf_1.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins380721@stm32f746ngh.\lt1117ist-5pbf_1.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U8 'STM32F746XXX_15_LQFP_176_24X24_':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS607225@STM32F746NGH V1.1_LAST.STM32F746XXX_15A.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins607225@\stm32f746ngh v1.1_last\.\stm32f746xxx_15a.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins607225@\stm32f746ngh v1.1_last\.\stm32f746xxx_15a.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='A';
+
+SECTION_NUMBER 2
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS607345@STM32F746NGH V1.1_LAST.STM32F746XXX_15B.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins607345@\stm32f746ngh v1.1_last\.\stm32f746xxx_15b.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins607345@\stm32f746ngh v1.1_last\.\stm32f746xxx_15b.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='B';
+
+SECTION_NUMBER 3
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS607537@STM32F746NGH V1.1_LAST.STM32F746XXX_15C.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins607537@\stm32f746ngh v1.1_last\.\stm32f746xxx_15c.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins607537@\stm32f746ngh v1.1_last\.\stm32f746xxx_15c.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='C';
+
+PART_NAME
+ U9 '40L QFN_2_QFN_40_6X6_CS43L22':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS247515@STM32F746NGH.40L QFN_2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins247515@stm32f746ngh.\40l qfn_2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page4_ins247515@stm32f746ngh.\40l qfn_2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ X1 'QZS32768_XTAL_32MHZ_NX3215SA-32':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS115763@XTAL.QZS32768.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins115763@xtal.\qzs32768.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins115763@xtal.\qzs32768.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ X2 'OSC4/SM_2_OSC14REC12_OSC MEMS 2':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS116009@STM32F746NGH.OSC4/SM_2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins116009@stm32f746ngh.\osc4/sm_2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins116009@stm32f746ngh.\osc4/sm_2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ X3 'OSC4/SM_2_OSC14REC12_OSC 12.288':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS846523@STM32F746NGH.OSC4/SM_2.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins846523@stm32f746ngh.\osc4/sm_2.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page3_ins846523@stm32f746ngh.\osc4/sm_2.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ X4 'XTAL_0_OSC112896_OSC 12.2888MHZ':;
+
+SECTION_NUMBER 1
+ '@STM32F746NGH V1.1_LAST.DISCOVERY KIT(SCH_1):INS913971@STM32F746NGH V1.1_LAST.XTAL_0.NORMAL(CHIPS)':
+ C_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):ins913971@\stm32f746ngh v1.1_last\.\xtal_0.normal\(chips)',
+ P_PATH='@\stm32f746ngh v1.1_last\.\discovery kit\(sch_1):page2_ins913971@\stm32f746ngh v1.1_last\.\xtal_0.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+END.

@@ -1,0 +1,726 @@
+(---------------------------------------------------------------------)
+(                                                                     )
+(    ARTWORK LOG                                                      )
+(                                                                     )
+(    Drawing          : Mic_Array_main_250pcs.brd                     )
+(    Software Version : 16.6P004                                      )
+(    Date/Time        : Fri May 13 11:32:54 2016                      )
+(                                                                     )
+(---------------------------------------------------------------------)
+
+
+
+ ******************************************
+ WARNING: DRC OUT OF DATE on this layout.
+ ******************************************
+
+ ---- Photoplot outline rectangle not found ... using drawing extents
+
+
+
+Results from parameter file ...
+    DEVICE-TYPE           GERBER_RS274X
+    OUTPUT-UNITS          MM
+    FILM-SIZE             2400000 1600000
+    FORMAT                2.5
+    ABORT-ON-ERROR        NO
+    SCALE                 1
+    SUPPRESS-LEAD-ZEROES  YES
+    SUPPRESS-TRAIL-ZEROES NO
+    SUPPRESS-EQUAL        YES
+    UNDEF-APT-CONT        NO
+
+
+================================================================
+     PROCESSING FILM < BOTTOM >
+     TO FILE < D:/sop1hc/Microphone/schematic/V030_250pcs/Schematic/allegro/BOTTOM.art > ...
+================================================================
+
+  FILM PARAMETERS :
+  ---------------------------------------------------------
+  Undefined line width                0.0000
+  Mirror code                         NONE
+  Rotate angle                        NONE
+  Offset x:                           0.0000
+  Offset y:                           0.0000
+  Plot negative                       NO
+  Suppress unconnected internal pads  NO
+  Draw holes only                     NO
+
+    WARNING: Film contains layer ROUTE KEEPOUT/ALL that should not normally be used etch (conductor) layers.
+    WARNING: Film contains layer ROUTE KEEPIN/ALL that should not normally be used etch (conductor) layers.
+    WARNING: Film contains layer PACKAGE KEEPIN/ALL that should not normally be used etch (conductor) layers.
+           
+    WARNING: rectangle or unfilled shape composed 0 width line found at (5.0000 0.0000)
+           ... ignored.
+
+    WARNING: rectangle or unfilled shape having Multiple 0 width lines; all will be treated the same as the first.
+           ... ignored.
+
+    WARNING: text composed 0 width line found at (8.2914 14.6825)
+           ... ignored.
+
+    WARNING: text having Multiple 0 width lines; all will be treated the same as the first.
+           ... ignored.
+
+    WARNING: 0 width line found at (15.1250 14.5250)
+           ... ignored.
+
+    WARNING: Multiple 0 width lines; all will be treated the same as the first.
+           ... ignored.
+
+
+
+  APERTURES USED:
+  ---------------------------------------------------------
+  TYPE       SIZE/NAME                   ROT   MIRROR MODE 
+  ---------------------------------------------------------
+  CIRCLE     0.10000                                  DARK 
+  CIRCLE     0.14000                                  DARK 
+  CIRCLE     0.15000                                  DARK 
+  CIRCLE     0.15240                                  DARK 
+  CIRCLE     0.18000                                  DARK 
+  CIRCLE     0.20000                                  DARK 
+  CIRCLE     0.25000                                  DARK 
+  CIRCLE     0.25400                                  DARK 
+  CIRCLE     0.30000                                  DARK 
+  CIRCLE     0.50000                                  DARK 
+  CIRCLE     0.60000                                  DARK 
+  CIRCLE     0.60960                                  DARK 
+  CIRCLE     0.70000                                  DARK 
+  CIRCLE     1.00000                                  DARK 
+  CIRCLE     1.20000                                  DARK 
+  CIRCLE     1.50000                                  DARK 
+  CIRCLE     1.60000                                  DARK 
+  CIRCLE     1.65000                                  DARK 
+  CIRCLE     2.50000                                  DARK 
+  CIRCLE     3.89990                                  DARK 
+  CIRCLE     5.00000                                  DARK 
+  SQUARE     1.60000                     0.000 NO     DARK 
+  SQUARE     1.65000                     0.000 NO     DARK 
+  RECTANGLE  0.40000     x 1.45000      90.000 NO     DARK 
+  RECTANGLE  0.45000     x 0.50000       0.000 NO     DARK 
+  RECTANGLE  0.50800     x 0.43180       0.000 NO     DARK 
+  RECTANGLE  0.60000     x 1.20000      90.000 NO     DARK 
+  RECTANGLE  0.71120     x 0.88900       0.000 NO     DARK 
+  RECTANGLE  0.71120     x 0.88900      90.000 NO     DARK 
+  RECTANGLE  0.80000     x 0.90000       0.000 NO     DARK 
+  RECTANGLE  0.80000     x 0.90000      90.000 NO     DARK 
+  RECTANGLE  0.90000     x 1.60000       0.000 NO     DARK 
+  RECTANGLE  1.40000     x 1.20000      90.000 NO     DARK 
+  RECTANGLE  2.50000     x 1.75000       0.000 NO     DARK 
+
+     BOTTOM created with warnings
+
+
+================================================================
+     PROCESSING FILM < TOP >
+     TO FILE < D:/sop1hc/Microphone/schematic/V030_250pcs/Schematic/allegro/TOP.art > ...
+================================================================
+
+  FILM PARAMETERS :
+  ---------------------------------------------------------
+  Undefined line width                0.0000
+  Mirror code                         NONE
+  Rotate angle                        NONE
+  Offset x:                           0.0000
+  Offset y:                           0.0000
+  Plot negative                       NO
+  Suppress unconnected internal pads  NO
+  Draw holes only                     NO
+
+    WARNING: Film contains layer ROUTE KEEPOUT/ALL that should not normally be used etch (conductor) layers.
+    WARNING: Film contains layer ROUTE KEEPIN/ALL that should not normally be used etch (conductor) layers.
+    WARNING: Film contains layer PACKAGE KEEPIN/ALL that should not normally be used etch (conductor) layers.
+           
+    WARNING: Film contains DRC error(s).
+
+
+  APERTURES USED:
+  ---------------------------------------------------------
+  TYPE       SIZE/NAME                   ROT   MIRROR MODE 
+  ---------------------------------------------------------
+  CIRCLE     0.02540                                  DARK 
+  CIRCLE     0.05000                                  DARK 
+  CIRCLE     0.10000                                  DARK 
+  CIRCLE     0.14000                                  DARK 
+  CIRCLE     0.15000                                  DARK 
+  CIRCLE     0.15240                                  DARK 
+  CIRCLE     0.18000                                  DARK 
+  CIRCLE     0.20000                                  DARK 
+  CIRCLE     0.21000                                  DARK 
+  CIRCLE     0.25000                                  DARK 
+  CIRCLE     0.25400                                  DARK 
+  CIRCLE     0.30000                                  DARK 
+  CIRCLE     0.40000                                  DARK 
+  CIRCLE     0.50000                                  DARK 
+  CIRCLE     0.60000                                  DARK 
+  CIRCLE     0.60960                                  DARK 
+  CIRCLE     0.70000                                  DARK 
+  CIRCLE     1.00000                                  DARK 
+  CIRCLE     1.20000                                  DARK 
+  CIRCLE     1.50000                                  DARK 
+  CIRCLE     1.60000                                  DARK 
+  CIRCLE     1.65000                                  DARK 
+  CIRCLE     2.50000                                  DARK 
+  CIRCLE     3.89990                                  DARK 
+  CIRCLE     5.00000                                  DARK 
+  SQUARE     1.60000                     0.000 NO     DARK 
+  SQUARE     1.65000                     0.000 NO     DARK 
+  RECTANGLE  0.22000     x 1.00000       0.000 NO     DARK 
+  RECTANGLE  0.22000     x 1.00000      90.000 NO     DARK 
+  RECTANGLE  0.30000     x 0.80000      90.000 NO     DARK 
+  RECTANGLE  0.30000     x 1.20000       0.000 NO     DARK 
+  RECTANGLE  0.30000     x 1.20000      90.000 NO     DARK 
+  RECTANGLE  0.50000     x 0.50000       0.000 NO     DARK 
+  RECTANGLE  0.50000     x 0.50000      90.000 NO     DARK 
+  RECTANGLE  0.50000     x 2.50000      90.000 NO     DARK 
+  RECTANGLE  0.60000     x 1.20000      90.000 NO     DARK 
+  RECTANGLE  0.71120     x 0.88900       0.000 NO     DARK 
+  RECTANGLE  0.71120     x 0.88900      90.000 NO     DARK 
+  RECTANGLE  0.80000     x 0.90000       0.000 NO     DARK 
+  RECTANGLE  0.80000     x 0.90000      90.000 NO     DARK 
+  RECTANGLE  0.90000     x 1.60000       0.000 NO     DARK 
+  RECTANGLE  0.90000     x 1.60000      90.000 NO     DARK 
+  RECTANGLE  0.90000     x 3.00000       0.000 NO     DARK 
+  RECTANGLE  0.95000     x 2.15000      90.000 NO     DARK 
+  RECTANGLE  1.00000     x 1.30000       0.000 NO     DARK 
+  RECTANGLE  1.00000     x 1.30000      90.000 NO     DARK 
+  RECTANGLE  1.00000     x 1.80000      90.000 NO     DARK 
+  RECTANGLE  1.40000     x 1.20000       0.000 NO     DARK 
+  RECTANGLE  1.40000     x 1.20000      90.000 NO     DARK 
+  RECTANGLE  1.80000     x 2.00000      90.000 NO     DARK 
+  RECTANGLE  2.00000     x 2.50000      90.000 NO     DARK 
+  RECTANGLE  2.20000     x 2.80000       0.000 NO     DARK 
+  RECTANGLE  2.80000     x 2.80000       0.000 NO     DARK 
+  RECTANGLE  3.25000     x 2.15000      90.000 NO     DARK 
+  RECTANGLE  4.30000     x 4.30000      90.000 NO     DARK 
+  OBLONG     0.23000     x 0.80000       0.000 NO     DARK 
+  OBLONG     0.23000     x 0.80000      90.000 NO     DARK 
+
+     TOP created with warnings
+
+
+================================================================
+     PROCESSING FILM < INT_LAYER2 >
+     TO FILE < D:/sop1hc/Microphone/schematic/V030_250pcs/Schematic/allegro/INT_LAYER2.art > ...
+================================================================
+
+  FILM PARAMETERS :
+  ---------------------------------------------------------
+  Undefined line width                0.0000
+  Mirror code                         NONE
+  Rotate angle                        NONE
+  Offset x:                           0.0000
+  Offset y:                           0.0000
+  Plot negative                       NO
+  Suppress unconnected internal pads  NO
+  Draw holes only                     NO
+
+    WARNING: Film contains layer PLAN/INT_LAYER2 that should not normally be used etch (conductor) layers.
+           
+
+
+  APERTURES USED:
+  ---------------------------------------------------------
+  TYPE       SIZE/NAME                   ROT   MIRROR MODE 
+  ---------------------------------------------------------
+  CIRCLE     0.15000                                  DARK 
+  CIRCLE     0.30000                                  DARK 
+  CIRCLE     0.60000                                  DARK 
+  CIRCLE     0.60960                                  DARK 
+
+     INT_LAYER2 created with warnings
+
+
+================================================================
+     PROCESSING FILM < INT_LAYER3 >
+     TO FILE < D:/sop1hc/Microphone/schematic/V030_250pcs/Schematic/allegro/INT_LAYER3.art > ...
+================================================================
+
+  FILM PARAMETERS :
+  ---------------------------------------------------------
+  Undefined line width                0.0000
+  Mirror code                         NONE
+  Rotate angle                        NONE
+  Offset x:                           0.0000
+  Offset y:                           0.0000
+  Plot negative                       NO
+  Suppress unconnected internal pads  NO
+  Draw holes only                     NO
+
+    WARNING: Film contains layer PLAN/INT_LAYER3 that should not normally be used etch (conductor) layers.
+           
+
+
+  APERTURES USED:
+  ---------------------------------------------------------
+  TYPE       SIZE/NAME                   ROT   MIRROR MODE 
+  ---------------------------------------------------------
+  CIRCLE     0.15000                                  DARK 
+  CIRCLE     0.25000                                  DARK 
+  CIRCLE     0.30000                                  DARK 
+  CIRCLE     0.60000                                  DARK 
+  CIRCLE     0.60960                                  DARK 
+
+     INT_LAYER3 created with warnings
+
+
+================================================================
+     PROCESSING FILM < SOLDERMASK_TOP >
+     TO FILE < D:/sop1hc/Microphone/schematic/V030_250pcs/Schematic/allegro/SOLDERMASK_TOP.art > ...
+================================================================
+
+  FILM PARAMETERS :
+  ---------------------------------------------------------
+  Undefined line width                0.0000
+  Mirror code                         NONE
+  Rotate angle                        NONE
+  Offset x:                           0.0000
+  Offset y:                           0.0000
+  Plot negative                       NO
+  Suppress unconnected internal pads  NO
+  Draw holes only                     NO
+
+
+
+  APERTURES USED:
+  ---------------------------------------------------------
+  TYPE       SIZE/NAME                   ROT   MIRROR MODE 
+  ---------------------------------------------------------
+  CIRCLE     0.65000                                  DARK 
+  CIRCLE     0.70000                                  DARK 
+  CIRCLE     1.10000                                  DARK 
+  CIRCLE     1.40000                                  DARK 
+  CIRCLE     1.65000                                  DARK 
+  CIRCLE     1.70000                                  DARK 
+  CIRCLE     1.80000                                  DARK 
+  CIRCLE     2.80000                                  DARK 
+  CIRCLE     3.89990                                  DARK 
+  CIRCLE     5.05000                                  DARK 
+  SQUARE     1.65000                     0.000 NO     DARK 
+  SQUARE     1.80000                     0.000 NO     DARK 
+  RECTANGLE  0.32000     x 1.10000       0.000 NO     DARK 
+  RECTANGLE  0.32000     x 1.10000      90.000 NO     DARK 
+  RECTANGLE  0.40000     x 0.90000      90.000 NO     DARK 
+  RECTANGLE  0.40000     x 1.30000       0.000 NO     DARK 
+  RECTANGLE  0.40000     x 1.30000      90.000 NO     DARK 
+  RECTANGLE  0.65000     x 0.65000       0.000 NO     DARK 
+  RECTANGLE  0.65000     x 0.65000      90.000 NO     DARK 
+  RECTANGLE  0.70000     x 2.70000      90.000 NO     DARK 
+  RECTANGLE  0.75000     x 1.35000      90.000 NO     DARK 
+  RECTANGLE  0.86360     x 1.04140       0.000 NO     DARK 
+  RECTANGLE  0.86360     x 1.04140      90.000 NO     DARK 
+  RECTANGLE  1.00000     x 1.10000       0.000 NO     DARK 
+  RECTANGLE  1.00000     x 1.10000      90.000 NO     DARK 
+  RECTANGLE  1.00000     x 1.70000       0.000 NO     DARK 
+  RECTANGLE  1.00000     x 1.70000      90.000 NO     DARK 
+  RECTANGLE  1.00000     x 3.10000       0.000 NO     DARK 
+  RECTANGLE  1.15000     x 2.35000      90.000 NO     DARK 
+  RECTANGLE  1.20000     x 1.70000       0.000 NO     DARK 
+  RECTANGLE  1.20000     x 1.70000      90.000 NO     DARK 
+  RECTANGLE  1.20000     x 2.00000      90.000 NO     DARK 
+  RECTANGLE  1.60000     x 1.40000       0.000 NO     DARK 
+  RECTANGLE  1.60000     x 1.40000      90.000 NO     DARK 
+  RECTANGLE  1.95000     x 2.15000      90.000 NO     DARK 
+  RECTANGLE  2.20000     x 2.70000      90.000 NO     DARK 
+  RECTANGLE  2.40000     x 3.00000       0.000 NO     DARK 
+  RECTANGLE  3.00000     x 3.00000       0.000 NO     DARK 
+  RECTANGLE  3.45000     x 2.35000      90.000 NO     DARK 
+  RECTANGLE  4.45000     x 4.45000      90.000 NO     DARK 
+  OBLONG     0.33000     x 0.90000       0.000 NO     DARK 
+  OBLONG     0.33000     x 0.90000      90.000 NO     DARK 
+
+     SOLDERMASK_TOP created with warnings
+
+
+================================================================
+     PROCESSING FILM < SOLDERMASK_BOTTOM >
+     TO FILE < D:/sop1hc/Microphone/schematic/V030_250pcs/Schematic/allegro/SOLDERMASK_BOTTOM.art > ...
+================================================================
+
+  FILM PARAMETERS :
+  ---------------------------------------------------------
+  Undefined line width                0.0000
+  Mirror code                         NONE
+  Rotate angle                        NONE
+  Offset x:                           0.0000
+  Offset y:                           0.0000
+  Plot negative                       NO
+  Suppress unconnected internal pads  NO
+  Draw holes only                     NO
+
+
+
+  APERTURES USED:
+  ---------------------------------------------------------
+  TYPE       SIZE/NAME                   ROT   MIRROR MODE 
+  ---------------------------------------------------------
+  CIRCLE     0.70000                                  DARK 
+  CIRCLE     1.10000                                  DARK 
+  CIRCLE     1.65000                                  DARK 
+  CIRCLE     1.70000                                  DARK 
+  CIRCLE     1.80000                                  DARK 
+  CIRCLE     2.80000                                  DARK 
+  CIRCLE     3.89990                                  DARK 
+  CIRCLE     5.05000                                  DARK 
+  SQUARE     1.65000                     0.000 NO     DARK 
+  SQUARE     1.80000                     0.000 NO     DARK 
+  RECTANGLE  0.55000     x 0.60000       0.000 NO     DARK 
+  RECTANGLE  0.55000     x 1.65000      90.000 NO     DARK 
+  RECTANGLE  0.63500     x 0.55880       0.000 NO     DARK 
+  RECTANGLE  0.80000     x 1.40000      90.000 NO     DARK 
+  RECTANGLE  0.86360     x 1.04140       0.000 NO     DARK 
+  RECTANGLE  0.86360     x 1.04140      90.000 NO     DARK 
+  RECTANGLE  1.00000     x 1.10000       0.000 NO     DARK 
+  RECTANGLE  1.00000     x 1.10000      90.000 NO     DARK 
+  RECTANGLE  1.00000     x 1.70000       0.000 NO     DARK 
+  RECTANGLE  1.60000     x 1.40000      90.000 NO     DARK 
+  RECTANGLE  2.60000     x 1.85000       0.000 NO     DARK 
+
+     SOLDERMASK_BOTTOM created with warnings
+
+
+================================================================
+     PROCESSING FILM < SILKSCREEN_TOP >
+     TO FILE < D:/sop1hc/Microphone/schematic/V030_250pcs/Schematic/allegro/SILKSCREEN_TOP.art > ...
+================================================================
+
+  FILM PARAMETERS :
+  ---------------------------------------------------------
+  Undefined line width                0.0000
+  Mirror code                         NONE
+  Rotate angle                        NONE
+  Offset x:                           0.0000
+  Offset y:                           0.0000
+  Plot negative                       NO
+  Suppress unconnected internal pads  NO
+  Draw holes only                     NO
+
+
+
+  APERTURES USED:
+  ---------------------------------------------------------
+  TYPE       SIZE/NAME                   ROT   MIRROR MODE 
+  ---------------------------------------------------------
+  CIRCLE     0.05000                                  DARK 
+  CIRCLE     0.10000                                  DARK 
+  CIRCLE     0.15000                                  DARK 
+  CIRCLE     0.18000                                  DARK 
+  CIRCLE     0.19990                                  DARK 
+  CIRCLE     0.20000                                  DARK 
+  CIRCLE     0.20320                                  DARK 
+  CIRCLE     0.25000                                  DARK 
+  CIRCLE     0.25400                                  DARK 
+  CIRCLE     0.30000                                  DARK 
+
+     SILKSCREEN_TOP created with warnings
+
+
+================================================================
+     PROCESSING FILM < SILKSCREEN_BOTTOM >
+     TO FILE < D:/sop1hc/Microphone/schematic/V030_250pcs/Schematic/allegro/SILKSCREEN_BOTTOM.art > ...
+================================================================
+
+  FILM PARAMETERS :
+  ---------------------------------------------------------
+  Undefined line width                0.0000
+  Mirror code                         NONE
+  Rotate angle                        NONE
+  Offset x:                           0.0000
+  Offset y:                           0.0000
+  Plot negative                       NO
+  Suppress unconnected internal pads  NO
+  Draw holes only                     NO
+
+
+
+  APERTURES USED:
+  ---------------------------------------------------------
+  TYPE       SIZE/NAME                   ROT   MIRROR MODE 
+  ---------------------------------------------------------
+  CIRCLE     0.10000                                  DARK 
+  CIRCLE     0.18000                                  DARK 
+  CIRCLE     0.20000                                  DARK 
+  CIRCLE     0.20320                                  DARK 
+  CIRCLE     0.25400                                  DARK 
+  CIRCLE     0.30000                                  DARK 
+
+     SILKSCREEN_BOTTOM created with warnings
+
+
+================================================================
+     PROCESSING FILM < FILM_TOP >
+     TO FILE < D:/sop1hc/Microphone/schematic/V030_250pcs/Schematic/allegro/FILM_TOP.art > ...
+================================================================
+
+  FILM PARAMETERS :
+  ---------------------------------------------------------
+  Undefined line width                0.0000
+  Mirror code                         X
+  Rotate angle                        NONE
+  Offset x:                           0.0000
+  Offset y:                           0.0000
+  Plot negative                       NO
+  Suppress unconnected internal pads  NO
+  Draw holes only                     NO
+
+    WARNING: Film contains DRC error(s).
+
+
+  APERTURES USED:
+  ---------------------------------------------------------
+  TYPE       SIZE/NAME                   ROT   MIRROR MODE 
+  ---------------------------------------------------------
+  CIRCLE     0.14000                                  DARK 
+  CIRCLE     0.15000                                  DARK 
+  CIRCLE     0.18000                                  DARK 
+  CIRCLE     0.20000                                  DARK 
+  CIRCLE     0.21000                                  DARK 
+  CIRCLE     0.30000                                  DARK 
+  CIRCLE     0.40000                                  DARK 
+  CIRCLE     0.50000                                  DARK 
+  CIRCLE     0.60000                                  DARK 
+  CIRCLE     0.60960                                  DARK 
+  CIRCLE     0.70000                                  DARK 
+  CIRCLE     1.00000                                  DARK 
+  CIRCLE     1.20000                                  DARK 
+  CIRCLE     1.50000                                  DARK 
+  CIRCLE     1.60000                                  DARK 
+  CIRCLE     1.65000                                  DARK 
+  CIRCLE     2.50000                                  DARK 
+  CIRCLE     3.89990                                  DARK 
+  CIRCLE     5.00000                                  DARK 
+  SQUARE     1.60000                     0.000 NO     DARK 
+  SQUARE     1.65000                     0.000 NO     DARK 
+  RECTANGLE  0.22000     x 1.00000       0.000 NO     DARK 
+  RECTANGLE  0.22000     x 1.00000      90.000 NO     DARK 
+  RECTANGLE  0.30000     x 0.80000      90.000 NO     DARK 
+  RECTANGLE  0.30000     x 1.20000       0.000 NO     DARK 
+  RECTANGLE  0.30000     x 1.20000      90.000 NO     DARK 
+  RECTANGLE  0.50000     x 0.50000       0.000 NO     DARK 
+  RECTANGLE  0.50000     x 0.50000      90.000 NO     DARK 
+  RECTANGLE  0.50000     x 2.50000      90.000 NO     DARK 
+  RECTANGLE  0.60000     x 1.20000      90.000 NO     DARK 
+  RECTANGLE  0.71120     x 0.88900       0.000 NO     DARK 
+  RECTANGLE  0.71120     x 0.88900      90.000 NO     DARK 
+  RECTANGLE  0.80000     x 0.90000       0.000 NO     DARK 
+  RECTANGLE  0.80000     x 0.90000      90.000 NO     DARK 
+  RECTANGLE  0.90000     x 1.60000       0.000 NO     DARK 
+  RECTANGLE  0.90000     x 1.60000      90.000 NO     DARK 
+  RECTANGLE  0.90000     x 3.00000       0.000 NO     DARK 
+  RECTANGLE  0.95000     x 2.15000      90.000 NO     DARK 
+  RECTANGLE  1.00000     x 1.30000       0.000 NO     DARK 
+  RECTANGLE  1.00000     x 1.30000      90.000 NO     DARK 
+  RECTANGLE  1.00000     x 1.80000      90.000 NO     DARK 
+  RECTANGLE  1.40000     x 1.20000       0.000 NO     DARK 
+  RECTANGLE  1.40000     x 1.20000      90.000 NO     DARK 
+  RECTANGLE  1.80000     x 2.00000      90.000 NO     DARK 
+  RECTANGLE  2.00000     x 2.50000      90.000 NO     DARK 
+  RECTANGLE  2.20000     x 2.80000       0.000 NO     DARK 
+  RECTANGLE  2.80000     x 2.80000       0.000 NO     DARK 
+  RECTANGLE  3.25000     x 2.15000      90.000 NO     DARK 
+  RECTANGLE  4.30000     x 4.30000      90.000 NO     DARK 
+  OBLONG     0.23000     x 0.80000       0.000 NO     DARK 
+  OBLONG     0.23000     x 0.80000      90.000 NO     DARK 
+
+     FILM_TOP created with warnings
+
+
+================================================================
+     PROCESSING FILM < FILM_BOTTOM >
+     TO FILE < D:/sop1hc/Microphone/schematic/V030_250pcs/Schematic/allegro/FILM_BOTTOM.art > ...
+================================================================
+
+  FILM PARAMETERS :
+  ---------------------------------------------------------
+  Undefined line width                0.0000
+  Mirror code                         NONE
+  Rotate angle                        NONE
+  Offset x:                           0.0000
+  Offset y:                           0.0000
+  Plot negative                       NO
+  Suppress unconnected internal pads  NO
+  Draw holes only                     NO
+
+
+
+  APERTURES USED:
+  ---------------------------------------------------------
+  TYPE       SIZE/NAME                   ROT   MIRROR MODE 
+  ---------------------------------------------------------
+  CIRCLE     0.14000                                  DARK 
+  CIRCLE     0.15000                                  DARK 
+  CIRCLE     0.18000                                  DARK 
+  CIRCLE     0.20000                                  DARK 
+  CIRCLE     0.25000                                  DARK 
+  CIRCLE     0.30000                                  DARK 
+  CIRCLE     0.50000                                  DARK 
+  CIRCLE     0.60000                                  DARK 
+  CIRCLE     0.60960                                  DARK 
+  CIRCLE     0.70000                                  DARK 
+  CIRCLE     1.00000                                  DARK 
+  CIRCLE     1.20000                                  DARK 
+  CIRCLE     1.50000                                  DARK 
+  CIRCLE     1.60000                                  DARK 
+  CIRCLE     1.65000                                  DARK 
+  CIRCLE     2.50000                                  DARK 
+  CIRCLE     3.89990                                  DARK 
+  CIRCLE     5.00000                                  DARK 
+  SQUARE     1.60000                     0.000 NO     DARK 
+  SQUARE     1.65000                     0.000 NO     DARK 
+  RECTANGLE  0.40000     x 1.45000      90.000 NO     DARK 
+  RECTANGLE  0.45000     x 0.50000       0.000 NO     DARK 
+  RECTANGLE  0.50800     x 0.43180       0.000 NO     DARK 
+  RECTANGLE  0.60000     x 1.20000      90.000 NO     DARK 
+  RECTANGLE  0.71120     x 0.88900       0.000 NO     DARK 
+  RECTANGLE  0.71120     x 0.88900      90.000 NO     DARK 
+  RECTANGLE  0.80000     x 0.90000       0.000 NO     DARK 
+  RECTANGLE  0.80000     x 0.90000      90.000 NO     DARK 
+  RECTANGLE  0.90000     x 1.60000       0.000 NO     DARK 
+  RECTANGLE  1.40000     x 1.20000      90.000 NO     DARK 
+  RECTANGLE  2.50000     x 1.75000       0.000 NO     DARK 
+
+     FILM_BOTTOM created with warnings
+
+
+================================================================
+     PROCESSING FILM < OUTLINE >
+     TO FILE < D:/sop1hc/Microphone/schematic/V030_250pcs/Schematic/allegro/OUTLINE.art > ...
+================================================================
+
+  FILM PARAMETERS :
+  ---------------------------------------------------------
+  Undefined line width                0.0000
+  Mirror code                         NONE
+  Rotate angle                        NONE
+  Offset x:                           0.0000
+  Offset y:                           0.0000
+  Plot negative                       NO
+  Suppress unconnected internal pads  NO
+  Draw holes only                     NO
+
+
+
+  APERTURES USED:
+  ---------------------------------------------------------
+  TYPE       SIZE/NAME                   ROT   MIRROR MODE 
+  ---------------------------------------------------------
+  CIRCLE     0.15000                                  DARK 
+
+     OUTLINE created with warnings
+
+
+================================================================
+     PROCESSING FILM < PATSEMASK_TOP >
+     TO FILE < D:/sop1hc/Microphone/schematic/V030_250pcs/Schematic/allegro/PATSEMASK_TOP.art > ...
+================================================================
+
+  FILM PARAMETERS :
+  ---------------------------------------------------------
+  Undefined line width                0.0000
+  Mirror code                         NONE
+  Rotate angle                        NONE
+  Offset x:                           0.0000
+  Offset y:                           0.0000
+  Plot negative                       NO
+  Suppress unconnected internal pads  NO
+  Draw holes only                     NO
+
+
+
+  APERTURES USED:
+  ---------------------------------------------------------
+  TYPE       SIZE/NAME                   ROT   MIRROR MODE 
+  ---------------------------------------------------------
+  CIRCLE     1.00000                                  DARK 
+  CIRCLE     2.50000                                  DARK 
+  RECTANGLE  0.22000     x 1.00000       0.000 NO     DARK 
+  RECTANGLE  0.22000     x 1.00000      90.000 NO     DARK 
+  RECTANGLE  0.30000     x 0.80000      90.000 NO     DARK 
+  RECTANGLE  0.30000     x 1.20000       0.000 NO     DARK 
+  RECTANGLE  0.30000     x 1.20000      90.000 NO     DARK 
+  RECTANGLE  0.50000     x 0.50000       0.000 NO     DARK 
+  RECTANGLE  0.50000     x 0.50000      90.000 NO     DARK 
+  RECTANGLE  0.50000     x 2.50000      90.000 NO     DARK 
+  RECTANGLE  0.60000     x 1.20000      90.000 NO     DARK 
+  RECTANGLE  0.71120     x 0.88900       0.000 NO     DARK 
+  RECTANGLE  0.71120     x 0.88900      90.000 NO     DARK 
+  RECTANGLE  0.80000     x 0.90000       0.000 NO     DARK 
+  RECTANGLE  0.80000     x 0.90000      90.000 NO     DARK 
+  RECTANGLE  0.90000     x 1.60000       0.000 NO     DARK 
+  RECTANGLE  0.90000     x 1.60000      90.000 NO     DARK 
+  RECTANGLE  0.90000     x 3.00000       0.000 NO     DARK 
+  RECTANGLE  0.95000     x 2.15000      90.000 NO     DARK 
+  RECTANGLE  1.00000     x 1.30000       0.000 NO     DARK 
+  RECTANGLE  1.00000     x 1.30000      90.000 NO     DARK 
+  RECTANGLE  1.00000     x 1.80000      90.000 NO     DARK 
+  RECTANGLE  1.40000     x 1.20000       0.000 NO     DARK 
+  RECTANGLE  1.40000     x 1.20000      90.000 NO     DARK 
+  RECTANGLE  1.80000     x 2.00000      90.000 NO     DARK 
+  RECTANGLE  2.00000     x 2.50000      90.000 NO     DARK 
+  RECTANGLE  2.20000     x 2.80000       0.000 NO     DARK 
+  RECTANGLE  2.80000     x 2.80000       0.000 NO     DARK 
+  RECTANGLE  3.25000     x 2.15000      90.000 NO     DARK 
+  RECTANGLE  4.30000     x 4.30000      90.000 NO     DARK 
+  OBLONG     0.23000     x 0.80000       0.000 NO     DARK 
+  OBLONG     0.23000     x 0.80000      90.000 NO     DARK 
+
+     PATSEMASK_TOP created with warnings
+
+
+================================================================
+     PROCESSING FILM < PATSEMASK_BOT >
+     TO FILE < D:/sop1hc/Microphone/schematic/V030_250pcs/Schematic/allegro/PATSEMASK_BOT.art > ...
+================================================================
+
+  FILM PARAMETERS :
+  ---------------------------------------------------------
+  Undefined line width                0.0000
+  Mirror code                         NONE
+  Rotate angle                        NONE
+  Offset x:                           0.0000
+  Offset y:                           0.0000
+  Plot negative                       NO
+  Suppress unconnected internal pads  NO
+  Draw holes only                     NO
+
+
+
+  APERTURES USED:
+  ---------------------------------------------------------
+  TYPE       SIZE/NAME                   ROT   MIRROR MODE 
+  ---------------------------------------------------------
+  CIRCLE     1.00000                                  DARK 
+  CIRCLE     2.50000                                  DARK 
+  RECTANGLE  0.40000     x 1.45000      90.000 NO     DARK 
+  RECTANGLE  0.45000     x 0.50000       0.000 NO     DARK 
+  RECTANGLE  0.60000     x 1.20000      90.000 NO     DARK 
+  RECTANGLE  0.71120     x 0.88900       0.000 NO     DARK 
+  RECTANGLE  0.71120     x 0.88900      90.000 NO     DARK 
+  RECTANGLE  0.80000     x 0.90000       0.000 NO     DARK 
+  RECTANGLE  0.80000     x 0.90000      90.000 NO     DARK 
+  RECTANGLE  0.90000     x 1.60000       0.000 NO     DARK 
+  RECTANGLE  1.40000     x 1.20000      90.000 NO     DARK 
+  RECTANGLE  2.50000     x 1.75000       0.000 NO     DARK 
+
+     PATSEMASK_BOT created with warnings
+
+
+------------------------------------------------------
+ SUMMARY:
+        BOTTOM created with warnings
+        TOP created with warnings
+        INT_LAYER2 created with warnings
+        INT_LAYER3 created with warnings
+        SOLDERMASK_TOP created with warnings
+        SOLDERMASK_BOTTOM created with warnings
+        SILKSCREEN_TOP created with warnings
+        SILKSCREEN_BOTTOM created with warnings
+        FILM_TOP created with warnings
+        FILM_BOTTOM created with warnings
+        OUTLINE created with warnings
+        PATSEMASK_TOP created with warnings
+        PATSEMASK_BOT created with warnings
+
+ ARTWORK had warnings

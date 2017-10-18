@@ -1,0 +1,76 @@
+|------------------------------------------------------------------------------|
+|                                 ECO   REPORT                                 |
+|                                                                    Page   1  |
+|------------------------------------------------------------------------------|
+|  D:/sop1hc/Microphone/schematic/V020/8Mics/allegro/8MICS_V021.brd            |
+|                                                    Tue Apr 05 10:35:43 2016  |
+|------------------------------------------------------------------------------|
+| NET CHANGES                                                                  |
+|- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |
+|   net  name |  type of change |    pin_id     |   x   |   y   |   to  net    |
+|- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |
+  MIC_DATA1    pins MOVED FROM this net (to net name listed on right)
+                                 J1.15           1235.00 1035.00
+                                                                      MIC_DATA6
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
+  MIC_DATA2    pins MOVED FROM this net (to net name listed on right)
+                                 J1.13           1135.00 1035.00
+                                                                      MIC_DATA5
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
+  MIC_DATA3    pins MOVED FROM this net (to net name listed on right)
+                                 J1.11           1035.00 1035.00
+                                                                      MIC_DATA4
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
+  MIC_DATA4    pins MOVED FROM this net (to net name listed on right)
+                                 J1.9            935.000 1035.00
+                                                                      MIC_DATA3
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
+  MIC_DATA5    pins MOVED FROM this net (to net name listed on right)
+                                 J1.7            835.000 1035.00
+                                                                      MIC_DATA2
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
+  MIC_DATA6    pins MOVED FROM this net (to net name listed on right)
+                                 J1.5            735.000 1035.00
+                                                                      MIC_DATA1
+|------------------------------------------------------------------------------|
+|                                 ECO   REPORT                                 |
+|                                                                    Page   2  |
+|------------------------------------------------------------------------------|
+|  D:/sop1hc/Microphone/schematic/V020/8Mics/allegro/8MICS_V021.brd            |
+|                                                    Tue Apr 05 10:35:43 2016  |
+|------------------------------------------------------------------------------|
+| COMPONENT DEFINITION added to board drawing                                  |
+|- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |
+|    device type                                                               |
+|- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |
+ CON16AP_1_16PINDUALMALEHEADER_I
+ CON6_6PINDUALMALEHEADER_ICD_6_2
+|------------------------------------------------------------------------------|
+|                                 ECO   REPORT                                 |
+|                                                                    Page   3  |
+|------------------------------------------------------------------------------|
+|  D:/sop1hc/Microphone/schematic/V020/8Mics/allegro/8MICS_V021.brd            |
+|                                                    Tue Apr 05 10:35:43 2016  |
+|------------------------------------------------------------------------------|
+| COMPONENTS CHANGED from one device type to another in board drawing          |
+|- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |
+|    ref des        | new device type     |   x   |   y   |  old  device type  |
+|- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |
+ J1                  CON16AP_1_16PINDUALMALEHEADER_I 535.000 1035.00 CON16AP_1_16PINDUALMALEHEADER_C
+ J3                  CON6_6PINDUALMALEHEADER_ICD_6_2 910.000 730.000 CON6_6PINDUALMALEHEADER_CON6 2.
+|------------------------------------------------------------------------------|
+|                                 ECO   REPORT                                 |
+|                                                                    Page   4  |
+|------------------------------------------------------------------------------|
+|  D:/sop1hc/Microphone/schematic/V020/8Mics/allegro/8MICS_V021.brd            |
+|                                                    Tue Apr 05 10:35:43 2016  |
+|------------------------------------------------------------------------------|
+| SLOT PROPERTIES added to board drawing                                       |
+|- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |
+|   slot_id    |   x   |   y   |   property   |             value              |
+|- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |
+ J1.9           535.000 1035.00 PRIM_FILE      .\pstchip.dat
+ J3.6           910.000 730.000 PRIM_FILE      .\pstchip.dat
+|------------------------------------------------------------------------------|
+|   total ECO changes reported  12                                             |
+|------------------------------------------------------------------------------|

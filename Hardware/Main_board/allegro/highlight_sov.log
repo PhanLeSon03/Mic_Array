@@ -1,0 +1,305 @@
+(---------------------------------------------------------------------)
+(                                                                     )
+(    Highlight Segments Over Voids Log File                           )
+(                                                                     )
+(    Drawing          : STM32F746NGH_V110_5.brd                       )
+(    Software Version : 16.6P004                                      )
+(    Date/Time        : Sun Feb 14 20:54:48 2016                      )
+(                                                                     )
+(---------------------------------------------------------------------)
+
+
+
+sov_spacing value: 0.0000
+
+Segments over voids: 46
+
+Segments with partial or missing plane coverage: 234
+
+Segments over voids:
+Layer:                Location:                       Spacing   Net Name:
+--------------------  ------------------------------  --------  --------------------------------------
+TOP                   (57.1911 65.1250)               -0.0089   PB3
+TOP                   (57.1911 65.1250)               -1.3570   PB3
+TOP                   (35.0000 33.1250)               -0.7807   MCLK
+TOP                   (35.5000 34.8750)               -0.5750   MCLK
+TOP                   (6.2478 17.9978)                -0.0379   SDO_56
+TOP                   (2.8146 36.0604)                -0.1591   PA0
+TOP                   (6.8238 36.0000)                -5.1802   PA0
+TOP                   (27.7180 72.0000)               -0.0070   OTG_FS_OVERCURRENT
+TOP                   (27.4048 50.3452)               -0.0767   N307670
+TOP                   (60.0735 65.5952)               -0.0772   PC7
+TOP                   (22.2181 61.2500)               -1.2469   NRST
+TOP                   (58.0121 39.2742)               -0.0480   FMC_D12
+TOP                   (57.9048 39.3452)               -0.0767   FMC_D12
+TOP                   (35.8762 14.6262)               -0.0426   N414891
+TOP                   (35.0000 33.6250)               -0.2504   SDO_12
+TOP                   (35.1250 34.8516)               -0.2000   SDO_12
+TOP                   (33.4680 40.5000)               -0.0072   LRCKO
+TOP                   (34.2500 35.7476)               -0.0762   LRCKO
+TOP                   (34.2798 35.7798)               -0.0763   LRCKO
+TOP                   (38.1645 19.9123)               -1.0047   FMC_A11
+TOP                   (38.1248 20.0546)               -0.3370   FMC_A11
+TOP                   (39.0837 20.5837)               -1.2239   FMC_A11
+TOP                   (47.9565 17.2598)               -0.0644   FMC_A5
+TOP                   (47.9565 17.2598)               -0.0644   FMC_A5
+TOP                   (30.7181 39.7181)               -0.2952   N343193
+TOP                   (30.8750 40.7819)               -1.2308   N343193
+TOP                   (51.3750 11.3750)               -0.9500   N415031
+BOTTOM                (40.9039 29.8461)               -0.0762   FMC_D1
+BOTTOM                (28.8738 73.6262)               -0.0133   OTG_FS_POWERSWITCHON
+BOTTOM                (32.0666 72.8750)               -0.2702   OTG_FS_POWERSWITCHON
+BOTTOM                (50.6250 74.2180)               -0.0070   OTG_FS_POWERSWITCHON
+BOTTOM                (72.9752 74.2180)               -0.0070   OTG_FS_POWERSWITCHON
+BOTTOM                (30.8392 40.7819)               -0.1240   FMC_SDCKE0
+BOTTOM                (30.8750 40.7819)               -0.1108   FMC_SDCKE0
+BOTTOM                (30.5000 39.7181)               -0.1069   FMC_SDCKE0
+BOTTOM                (30.5000 39.7181)               -0.5051   FMC_SDCKE0
+BOTTOM                (35.6548 19.3452)               -0.0767   FMC_SDCKE0
+BOTTOM                (35.5289 17.7211)               -0.4224   FMC_SDNE0
+BOTTOM                (32.2500 69.9322)               -0.0072   N206390
+BOTTOM                (52.4048 55.3452)               -0.0767   PB2
+BOTTOM                (13.2421 17.1329)               -1.2209   N898566
+BOTTOM                (41.1250 21.2819)               -0.0358   FMC_A10
+BOTTOM                (2.7522 19.2150)                -0.0487   SDO_56
+BOTTOM                (38.6737 18.8750)               -0.1889   FMC_NBL1
+BOTTOM                (6.4821 41.0598)                -0.0074   PH2
+BOTTOM                (40.8750 29.8772)               -0.0761   FMC_D1
+
+Segments with partial or missing plane coverage:
+Layer:                Location:                       Net Name:
+--------------------  ------------------------------  --------------------------------------
+TOP                   (62.6250 17.7100)               MIC_CK
+TOP                   (62.5850 17.7100)               MIC_CK
+TOP                   (61.8751 1.0001)                MIC_DATA6
+TOP                   (62.6250 1.7500)                MIC_DATA6
+TOP                   (21.1249 1.0001)                MIC_DATA6
+TOP                   (21.7499 1.0001)                MIC_DATA5
+TOP                   (40.9325 1.0000)                MIC_DATA5
+TOP                   (60.1151 1.0001)                MIC_DATA5
+TOP                   (62.6250 3.5100)                MIC_DATA5
+TOP                   (62.6250 6.1250)                MIC_DATA4
+TOP                   (62.6250 7.2500)                MIC_DATA3
+TOP                   (62.6250 8.5000)                MIC_DATA2
+TOP                   (62.6250 15.1250)               MIC_DATA1
+TOP                   (62.6700 15.1700)               MIC_DATA1
+TOP                   (59.1502 52.6250)               MCLK
+TOP                   (35.3875 33.5125)               MCLK
+TOP                   (35.3750 33.5000)               MCLK
+TOP                   (35.5000 33.7257)               MCLK
+TOP                   (35.7802 21.7500)               FMC_NBL0
+TOP                   (53.7803 47.7500)               FMC_D0
+TOP                   (52.8200 48.5000)               FMC_D1
+TOP                   (52.8912 48.5000)               FMC_D1
+TOP                   (60.5000 38.8750)               FMC_SDCLK
+TOP                   (60.5000 42.8750)               FMC_SDCLK
+TOP                   (51.6250 15.7500)               N404005
+TOP                   (52.7362 43.0070)               BICKO
+TOP                   (52.7500 42.9932)               BICKO
+TOP                   (22.8550 67.3950)               N206390
+TOP                   (52.8200 50.2500)               FMC_BA1
+TOP                   (52.8912 50.2500)               FMC_BA1
+TOP                   (53.7190 49.7500)               FMC_BA0
+TOP                   (49.0023 40.0000)               N260805
+TOP                   (48.4002 40.0000)               I2C2_SDA
+TOP                   (51.6250 14.0000)               N415068
+TOP                   (47.8750 40.0000)               I2C2_SCL
+TOP                   (47.9002 39.9748)               I2C2_SCL
+TOP                   (49.5000 13.2500)               N415042
+TOP                   (51.6250 8.8750)                N415010
+TOP                   (50.1250 11.0000)               N415010
+TOP                   (49.5022 11.7500)               N415010
+TOP                   (49.5000 11.7500)               N415010
+TOP                   (45.1460 6.5000)                N414998
+TOP                   (46.9074 6.5000)                N414986
+TOP                   (93.5114 64.4750)               N248035
+TOP                   (92.7479 64.4750)               N248035
+TOP                   (80.2500 64.5000)               N248035
+TOP                   (80.2500 64.5000)               N248035
+TOP                   (47.4647 6.5000)                N414789
+TOP                   (49.0000 6.5000)                N414777
+TOP                   (36.6251 6.5000)                N414765
+TOP                   (38.3751 6.5000)                N414753
+TOP                   (38.8426 6.5000)                N414741
+TOP                   (39.5493 6.5000)                N414729
+TOP                   (39.6248 41.1248)               FMC_A6
+TOP                   (38.9503 40.4503)               FMC_A6
+TOP                   (33.1569 16.8431)               FMC_A2
+TOP                   (34.6569 16.8431)               FMC_A1
+TOP                   (35.6549 17.3519)               FMC_A0
+TOP                   (35.6318 17.3750)               FMC_A0
+TOP                   (49.5000 12.7500)               N415031
+TOP                   (49.5022 12.7500)               N415031
+TOP                   (51.3750 11.0000)               N415031
+TOP                   (51.6250 10.7500)               N415031
+TOP                   (51.3875 10.9875)               N415031
+TOP                   (51.3750 11.0000)               N415031
+BOTTOM                (28.2500 72.5300)               OTG_FS_POWERSWITCHON
+BOTTOM                (77.0000 70.5000)               OTG_FS_POWERSWITCHON
+BOTTOM                (76.5498 70.9502)               OTG_FS_POWERSWITCHON
+BOTTOM                (78.6250 68.8750)               OTG_FS_POWERSWITCHON
+BOTTOM                (79.0000 68.5000)               OTG_FS_POWERSWITCHON
+BOTTOM                (79.0000 62.0251)               OTG_FS_POWERSWITCHON
+BOTTOM                (79.0000 63.1500)               OTG_FS_POWERSWITCHON
+BOTTOM                (79.0000 66.2751)               OTG_FS_POWERSWITCHON
+BOTTOM                (79.0000 64.0502)               OTG_FS_POWERSWITCHON
+BOTTOM                (3.3750 41.8750)                PH2
+BOTTOM                (5.0625 41.8750)                PH2
+BOTTOM                (4.2500 41.8750)                PH2
+BOTTOM                (2.5000 41.8750)                PH2
+BOTTOM                (23.2759 15.6509)               STA_RESET
+BOTTOM                (79.0752 59.5998)               N265526
+BOTTOM                (81.8807 59.3500)               N265526
+BOTTOM                (81.8774 59.3500)               N265526
+BOTTOM                (81.3498 59.5998)               N265526
+BOTTOM                (45.9681 18.4681)               FMC_SDCKE0
+BOTTOM                (23.2758 15.6508)               STA_RESET
+BOTTOM                (23.2737 15.6487)               STA_RESET
+BOTTOM                (48.6250 44.7801)               BICKO
+BOTTOM                (30.2998 72.2002)               OTG_FS_OVERCURRENT
+BOTTOM                (37.3750 72.1250)               OTG_FS_OVERCURRENT
+BOTTOM                (44.4502 72.2002)               OTG_FS_OVERCURRENT
+BOTTOM                (46.4050 73.5000)               OTG_FS_OVERCURRENT
+BOTTOM                (75.7500 70.5000)               OTG_FS_OVERCURRENT
+BOTTOM                (75.2998 70.9502)               OTG_FS_OVERCURRENT
+BOTTOM                (80.9695 58.6250)               OTG_FS_OVERCURRENT
+BOTTOM                (79.0752 58.6250)               OTG_FS_OVERCURRENT
+BOTTOM                (78.6250 58.6250)               OTG_FS_OVERCURRENT
+BOTTOM                (23.3750 17.3813)               STA_RESET
+BOTTOM                (23.3750 22.7532)               STA_RESET
+BOTTOM                (26.6466 67.6196)               N206390
+BOTTOM                (30.1250 65.6649)               SPI5_MOSI
+BOTTOM                (30.1250 65.6630)               SPI5_MOSI
+BOTTOM                (30.1250 65.6629)               SPI5_MOSI
+BOTTOM                (29.5000 64.6250)               SPI5_MOSI
+BOTTOM                (17.7500 53.0981)               SPI5_MOSI
+BOTTOM                (17.7500 53.1472)               SPI5_MOSI
+BOTTOM                (17.7500 53.7302)               SPI5_MOSI
+BOTTOM                (17.7500 53.8412)               SPI5_MOSI
+BOTTOM                (19.7998 31.7002)               STA_RESET
+BOTTOM                (22.8998 8.3750)                N398229
+BOTTOM                (22.9002 8.3750)                N398229
+BOTTOM                (20.2500 31.2500)               STA_RESET
+BOTTOM                (23.3750 28.1250)               STA_RESET
+BOTTOM                (23.8252 10.1250)               N398183
+BOTTOM                (22.9002 10.1250)               N398183
+BOTTOM                (23.3750 10.1250)               N398183
+BOTTOM                (55.7500 71.7500)               PB3
+BOTTOM                (24.2500 68.1854)               PB3
+BOTTOM                (53.8252 63.0752)               PC7
+BOTTOM                (53.3750 62.6250)               PC7
+BOTTOM                (57.0166 65.5166)               PC7
+BOTTOM                (56.9828 65.5166)               PC7
+BOTTOM                (57.0166 65.5166)               PC7
+BOTTOM                (35.0000 67.0319)               N162834
+BOTTOM                (61.1367 58.8750)               USB_OTG_FS_ID
+BOTTOM                (60.5000 58.8750)               USB_OTG_FS_ID
+BOTTOM                (70.8589 58.8750)               USB_OTG_FS_ID
+BOTTOM                (70.8626 58.8750)               USB_OTG_FS_ID
+BOTTOM                (71.3750 58.8750)               USB_OTG_FS_ID
+BOTTOM                (81.1250 57.3750)               USB_OTG_FS_ID
+BOTTOM                (79.0752 57.3750)               USB_OTG_FS_ID
+BOTTOM                (78.6250 57.3750)               USB_OTG_FS_ID
+BOTTOM                (81.5752 57.3750)               USB_OTG_FS_ID
+BOTTOM                (33.5003 66.8747)               N163230
+BOTTOM                (46.9053 72.8750)               PD4
+BOTTOM                (56.9681 72.7819)               PD4
+BOTTOM                (24.2499 46.7501)               NRST
+BOTTOM                (24.1310 53.1748)               NRST
+BOTTOM                (24.1310 53.6250)               NRST
+BOTTOM                (7.1250 16.0000)                CKOUT_4
+BOTTOM                (6.6748 16.0000)                CKOUT_4
+BOTTOM                (49.0023 41.3485)               N260805
+BOTTOM                (70.9248 52.4250)               N238566
+BOTTOM                (71.3750 52.4250)               N238566
+BOTTOM                (50.2510 43.2490)               PB2
+BOTTOM                (50.2504 43.2496)               PB2
+BOTTOM                (50.2502 43.2498)               PB2
+BOTTOM                (47.1228 41.2522)               I2C2_SDA
+BOTTOM                (47.1230 41.2520)               I2C2_SDA
+BOTTOM                (49.2500 43.9345)               PB2
+BOTTOM                (47.2520 40.2500)               I2C2_SCL
+BOTTOM                (47.2754 40.2266)               I2C2_SCL
+BOTTOM                (49.2500 44.5655)               PB2
+BOTTOM                (66.5000 71.1250)               N248601
+BOTTOM                (54.7002 63.0752)               PB2
+BOTTOM                (54.2500 62.6250)               PB2
+BOTTOM                (56.8448 64.3750)               PB2
+BOTTOM                (8.5000 45.4710)                N345423
+BOTTOM                (8.5000 49.2790)                N345423
+BOTTOM                (8.5000 50.3750)                N345423
+BOTTOM                (8.5252 43.2788)                N345423
+BOTTOM                (62.2500 71.1250)               N248225
+BOTTOM                (20.4984 41.1234)               SDO_34
+BOTTOM                (20.4988 41.1238)               SDO_34
+BOTTOM                (11.1250 33.5428)               SDO_34
+BOTTOM                (10.6748 33.0926)               SDO_34
+BOTTOM                (10.5206 30.4794)               SDO_34
+BOTTOM                (10.5159 30.4841)               SDO_34
+BOTTOM                (6.7998 25.0926)                SDO_34
+BOTTOM                (6.8002 25.0930)                SDO_34
+BOTTOM                (58.1367 61.8750)               SWDIO
+BOTTOM                (57.5000 61.8750)               SWDIO
+BOTTOM                (61.1250 64.1748)               SWDIO
+BOTTOM                (61.1250 64.6250)               SWDIO
+BOTTOM                (58.8750 68.5000)               SWDIO
+BOTTOM                (58.8762 68.4988)               SWDIO
+BOTTOM                (58.8984 68.4766)               SWDIO
+BOTTOM                (59.4250 67.9500)               SWDIO
+BOTTOM                (59.3916 67.9834)               SWDIO
+BOTTOM                (6.9126 25.2054)                SDO_34
+BOTTOM                (10.0800 28.3728)               SDO_34
+BOTTOM                (8.6250 73.5961)                N392150
+BOTTOM                (8.6250 67.5960)                N392150
+BOTTOM                (8.6250 71.4030)                N392150
+BOTTOM                (50.3749 44.6249)               MCLK
+BOTTOM                (50.3736 44.6236)               MCLK
+BOTTOM                (18.7500 71.7500)               SPI5_CK
+BOTTOM                (52.2500 43.0000)               LRCKO
+BOTTOM                (52.2500 43.0000)               LRCKO
+BOTTOM                (51.6790 43.5710)               LRCKO
+BOTTOM                (51.8176 43.4324)               LRCKO
+BOTTOM                (52.1100 43.1400)               LRCKO
+BOTTOM                (52.1909 43.0591)               LRCKO
+BOTTOM                (19.2002 72.2002)               SPI5_CK
+BOTTOM                (17.2002 65.0752)               SPI5_CK
+BOTTOM                (58.0517 64.9735)               PA15
+BOTTOM                (58.0000 65.0252)               PA15
+BOTTOM                (57.8714 66.6287)               PA15
+BOTTOM                (57.8754 66.6248)               PA15
+BOTTOM                (5.5200 17.9800)                PWDN
+BOTTOM                (5.4866 17.9800)                PWDN
+BOTTOM                (5.3950 17.9800)                PWDN
+BOTTOM                (11.1250 34.2500)               PWDN
+BOTTOM                (10.6748 33.7998)               PWDN
+BOTTOM                (23.6250 53.1748)               PWDN
+BOTTOM                (23.6250 53.6250)               PWDN
+BOTTOM                (16.7500 64.6250)               SPI5_CK
+BOTTOM                (16.7500 53.6250)               SPI5_CK
+BOTTOM                (16.7500 64.6250)               SPI5_CK
+BOTTOM                (50.2262 19.5306)               FMC_A9
+BOTTOM                (50.2500 19.5068)               FMC_A9
+BOTTOM                (47.7500 19.5319)               FMC_A8
+BOTTOM                (49.8767 18.1255)               FMC_A7
+BOTTOM                (49.8740 18.1282)               FMC_A7
+BOTTOM                (49.8698 18.1324)               FMC_A7
+BOTTOM                (49.8622 18.1400)               FMC_A7
+BOTTOM                (10.8125 39.1875)               PF8
+BOTTOM                (10.4942 38.8692)               PF8
+BOTTOM                (47.1250 19.7660)               FMC_A6
+BOTTOM                (7.1250 13.9172)                MIC_CK
+BOTTOM                (45.9681 17.2181)               FMC_A5
+BOTTOM                (45.9932 16.5000)               FMC_A4
+BOTTOM                (45.9681 16.4749)               FMC_A4
+BOTTOM                (46.0000 15.7500)               FMC_A3
+BOTTOM                (45.9681 15.7500)               FMC_A3
+BOTTOM                (11.1250 35.0178)               SDO_56
+BOTTOM                (10.6748 34.5676)               SDO_56
+BOTTOM                (23.1250 53.1748)               SDO_56
+BOTTOM                (23.1250 53.6250)               SDO_56
+BOTTOM                (46.1236 19.9986)               FMC_NBL1
+BOTTOM                (46.1238 19.9988)               FMC_NBL1
+BOTTOM                (11.1250 38.6250)               PF10
+BOTTOM                (10.6748 38.1748)               PF10
+BOTTOM                (6.6748 14.3674)                MIC_CK
+BOTTOM                (5.8750 41.8750)                PH2

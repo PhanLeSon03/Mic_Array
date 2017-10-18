@@ -1,0 +1,79 @@
+
+********************************************************************************
+*  Performance checking for design D:/sop1hc/Microphone/schematic/V020/8Mics/allegro/8MICS_V021.brd
+********************************************************************************
+
+Ratsnest schedule check
+-------------------------------
+* 3.3V net has VOLTAGE property, but the ratsnest schedule is is NOT
+  "POWER_AND_GROUND".
+* GND net has VOLTAGE property, but the ratsnest schedule is is NOT
+  "POWER_AND_GROUND".
+
+DRC checks
+----------------------
+* The number of physical/spacing csets is 0.250000 larger than the number
+  of nets Suggest examining constraint model.
+  ISSUE: Misuse of the Allegro constraint model such as using a spacing
+         cset for each diffpair in the design. Result is system
+         performance degradation.
+
+
+Constraint region check
+-------------------------------
+* OK.
+
+Dynamic shape check
+-------------------------------
+* OK.
+
+Sector table check
+-------------------------------
+* OK.
+
+Constraint set check
+---------------------------------
+* Unused csets list (2):
+  ISSUE: Design maintenance issue, slight performance impact.
+
+    PCS:	3.3V
+    PCS:	GND
+
+
+NODRC_SYM_SAME_PIN check
+---------------------------------
+* OK.
+
+Cross section check for bad dielectric constant values
+--------------------------------------------------------
+* OK.
+
+Padstack size check
+----------------------
+* OK.
+
+Conductor line check
+------------------------------
+* OK.
+
+Design Constraints Statistics
+---------------------------------
+  Physical csets       =     3
+  Spacing csets        =     3
+  Same net csets       =     1
+  Electrical csets     =     0
+  Other csets          =     0
+  Total csets        ===     7
+
+  Cset relation table  =     0
+
+  Constraint regions   =     0
+  Constraint shapes    =     0
+
+* OK.
+
+=========
+SUMMARY
+=========
+
+3 problems found.	1 maintenance problems found.

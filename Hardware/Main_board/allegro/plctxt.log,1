@@ -1,0 +1,15 @@
+(---------------------------------------------------------------------)
+(                                                                     )
+(    PLCTXT Log                                                       )
+(                                                                     )
+(    Drawing          : STM32F746NGH_V110_5.brd                       )
+(    Software Version : 16.6P004                                      )
+(    Date/Time        : Thu Feb 18 10:53:30 2016                      )
+(                                                                     )
+(---------------------------------------------------------------------)
+
+
+
+ Create a placement by text file: place_txt.txt
+
+ Successfully processed 247 placed components

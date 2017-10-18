@@ -1,0 +1,55 @@
+#
+#   ncroute_view.txt
+#
+#   NOTE: The extract for slot holes MUST(!) appear first so that it is
+#         executed first!!! If the extract for route paths is executed
+#         first and the board should NOT(!) have an NCROUTE_PATH subclass,
+#         the entire extract is immediately terminated without getting
+#         slots extracted. With slots done first any slots are extracted,
+#         and if the route extract should fail, a zero length output is
+#         created for the routes.
+#
+#   Slots ...
+#
+COMPOSITE_PAD
+  DRILL_HOLE_TYPE != CIRCLE_DRILL
+#
+  DRILL_HOLE_TYPE
+  DRILL_HOLE_NAME
+  DRILL_HOLE_NAME2
+  DRILL_FIGURE_ROTATION
+  DRILL_HOLE_X
+  DRILL_HOLE_Y
+  DRILL_HOLE_PLATING
+END
+#
+#   Route paths ...
+#
+GEOMETRY
+  CLASS=BOARD GEOMETRY
+  SUBCLASS=NCROUTE_PATH
+	OR
+  CLASS=SUBSTRATE GEOMETRY
+  SUBCLASS=NCROUTE_PATH
+        OR
+  CLASS=BOARD GEOMETRY
+  SUBCLASS=NCROUTE_PLATED
+	OR
+  CLASS=SUBSTRATE GEOMETRY
+  SUBCLASS=NCROUTE_PLATED
+#
+  CLASS
+  SUBCLASS
+  RECORD_TAG
+  GRAPHIC_DATA_NAME
+  GRAPHIC_DATA_NUMBER
+  GRAPHIC_DATA_1
+  GRAPHIC_DATA_2
+  GRAPHIC_DATA_3
+  GRAPHIC_DATA_4
+  GRAPHIC_DATA_5
+  GRAPHIC_DATA_6
+  GRAPHIC_DATA_7
+  GRAPHIC_DATA_8
+  GRAPHIC_DATA_9
+END

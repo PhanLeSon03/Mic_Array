@@ -1,0 +1,51 @@
+(---------------------------------------------------------------------)
+(                                                                     )
+(    DBDOCTOR                                                         )
+(                                                                     )
+(    Drawing          : 8MICS_V021.brd                                )
+(    Software Version : 16.6P004                                      )
+(    Date/Time        : Wed Apr 06 11:01:09 2016                      )
+(                                                                     )
+(---------------------------------------------------------------------)
+
+
+
+WARNING: The following vias/pins have connections using non-plated padstacks
+         This may cause issues with your manufacturing process.
+
+  Pin/Via         Padstack                                   Location
+  -------------------------------------------------------------------------
+  VIA             VIADRILL05CIR10                          (-66.5480 5.7150)
+  VIA             VIADRILL05CIR10                          (-59.5630 35.0520)
+  VIA             VIADRILL05CIR10                          (-46.2280 -1.0160)
+  VIA             VIADRILL05CIR10                          (-66.8020 -0.8890)
+  VIA             VIADRILL05CIR10                          (-78.9940 31.2420)
+  VIA             VIADRILL05CIR10                          (-46.9900 47.3710)
+  VIA             VIADRILL05CIR10                          (-31.6230 33.5280)
+  VIA             VIADRILL05CIR10                          (-32.2580 14.2240)
+  VIA             VIADRILL05CIR10                          (-66.5480 46.2280)
+  VIA             VIADRILL05CIR10                          (-54.8640 20.9550)
+  VIA             VIADRILL05CIR10                          (-64.3890 39.3700)
+  VIA             VIADRILL05CIR10                          (-74.3815 35.5600)
+  VIA             VIADRILL05CIR10                          (-78.3590 17.9070)
+  VIA             VIADRILL05CIR10                          (-33.4010 8.5090)
+  VIA             VIADRILL05CIR10                          (-54.7370 36.5760)
+  VIA             VIADRILL05CIR10                          (-54.7370 34.1275)
+  VIA             VIADRILL05CIR10                          (-67.1830 1.3970)
+  VIA             VIADRILL05CIR10                          (-42.0370 24.1300)
+  VIA             VIADRILL05CIR10                          (-35.9410 12.1920)
+  VIA             VIADRILL05CIR10                          (-40.7670 16.0020)
+  VIA             VIADRILL05CIR10                          (-44.3230 29.8450)
+  VIA             VIADRILL05CIR10                          (-59.4578 45.9265)
+  VIA             VIADRILL05CIR10                          (-66.2940 31.8770)
+  VIA             VIADRILL05CIR10                          (-39.7510 27.8130)
+  VIA             VIADRILL05CIR10                          (-69.3420 16.2560)
+  VIA             VIADRILL05CIR10                          (-46.8630 32.8930)
+  VIA             VIADRILL05CIR10                          (-46.7360 39.2430)
+  VIA             VIADRILL05CIR10                          (-56.8960 30.2260)
+  VIA             VIADRILL05CIR10                          (-46.6090 4.1910)
+
+
+WARNING   WARNING(SPMHDB-42): Run batch DRC to correctly regenerate DRC errs.
+
+30 warnings, 0 errors detected, 0 errors could be fixed.

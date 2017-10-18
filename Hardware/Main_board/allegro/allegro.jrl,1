@@ -1,0 +1,108 @@
+\t (00:00:00) allegro 16.6 P004 (v16-6-112G) Windows 32
+\t (00:00:00)     Journal start - Wed Jun 29 15:12:05 2016
+\t (00:00:00)         Host=DESKTOP-548CMHB User=Admin Pid=8024 CPUs=4
+\t (00:00:00) 
+\t (00:00:03) Opening existing design...
+\d (00:00:03) Database opened: D:/sop1hc/Mic/sche/V030_250pcs/Main_board/allegro/Mic_Array_main_250pcs_release.brd
+\t (00:00:03) Grids are drawn 2.0000, 2.0000 apart for enhanced viewability.
+\i (00:00:03) trapsize 22938
+\i (00:00:03) trapsize 22304
+\i (00:00:03) trapsize 23048
+\i (00:00:03) trapsize 23726
+\i (00:00:03) trapsize 23726
+\i (00:00:04) generaledit 
+\i (00:00:05) zoom in 1 
+\i (00:00:05) setwindow pcb
+\i (00:00:05) zoom in -6.8869 11.6560
+\i (00:00:05) trapsize 11863
+\i (00:00:05) zoom in 1 
+\i (00:00:05) setwindow pcb
+\i (00:00:05) zoom in -6.8869 11.6560
+\t (00:00:05) Grids are drawn 0.5000, 0.5000 apart for enhanced viewability.
+\i (00:00:05) trapsize 5931
+\i (00:00:05) zoom in 1 
+\i (00:00:05) setwindow pcb
+\i (00:00:05) zoom in -6.8868 11.6560
+\i (00:00:05) trapsize 2966
+\i (00:00:06) zoom out 1 
+\i (00:00:06) setwindow pcb
+\i (00:00:06) zoom out -6.5902 12.7830
+\i (00:00:06) trapsize 5931
+\i (00:00:07) zoom out 1 
+\i (00:00:07) setwindow pcb
+\i (00:00:07) zoom out -3.9804 25.4761
+\t (00:00:07) Grids are drawn 2.0000, 2.0000 apart for enhanced viewability.
+\i (00:00:07) trapsize 11863
+\i (00:00:07) roam start
+\i (00:00:07) roam x 16
+\i (00:00:07) roam y -112
+\i (00:00:07) roam y -32
+\i (00:00:08) roam end
+\i (00:00:08) zoom in 1 
+\i (00:00:08) setwindow pcb
+\i (00:00:08) zoom in 0.6473 69.6388
+\t (00:00:08) Grids are drawn 0.5000, 0.5000 apart for enhanced viewability.
+\i (00:00:08) trapsize 5931
+\i (00:00:08) zoom in 1 
+\i (00:00:08) setwindow pcb
+\i (00:00:08) zoom in 0.6473 69.6388
+\i (00:00:08) trapsize 2966
+\i (00:00:09) zoom in 1 
+\i (00:00:09) setwindow pcb
+\i (00:00:09) zoom in 0.4694 68.6305
+\i (00:00:09) trapsize 1483
+\i (00:00:15) pick grid 8.6250 72.2783
+\t (00:00:15) last pick:  8.6250  72.2500
+\i (00:00:16) pick grid 9.0402 72.6639
+\t (00:00:16) last pick:  9.0000  72.6250
+\i (00:00:23) setwindow form.vf_vis
+\i (00:00:23) FORM vf_vis colorview_list Film: SILKSCREEN_TOP 
+\i (00:00:24) setwindow pcb
+\i (00:00:24) zoom out 1 
+\i (00:00:24) setwindow pcb
+\i (00:00:24) zoom out 12.5101 68.4823
+\i (00:00:24) trapsize 2966
+\i (00:00:24) zoom out 1 
+\i (00:00:24) setwindow pcb
+\i (00:00:24) zoom out 12.5101 68.4822
+\i (00:00:24) trapsize 5931
+\i (00:00:25) zoom in 1 
+\i (00:00:25) setwindow pcb
+\i (00:00:25) zoom in 7.2905 59.7038
+\i (00:00:25) trapsize 2966
+\i (00:00:25) zoom in 1 
+\i (00:00:25) setwindow pcb
+\i (00:00:25) zoom in 7.2312 59.7038
+\i (00:00:25) trapsize 1483
+\i (00:37:30) zoom out 1 
+\i (00:37:30) setwindow pcb
+\i (00:37:30) zoom out 13.0143 61.7205
+\i (00:37:30) trapsize 2966
+\i (00:37:32) zoom in 1 
+\i (00:37:32) setwindow pcb
+\i (00:37:32) zoom in 4.5918 68.8382
+\i (00:37:32) trapsize 1483
+\i (00:37:38) show element 
+\i (00:37:40) pick grid 4.2360 68.6900
+\t (00:37:40) last pick:  4.2500  68.7500
+\i (00:37:42) setwindow form.vf_vis
+\i (00:37:42) FORM vf_vis 1 all_colorvisible YES 
+\i (02:33:30) setwindow pcb
+\i (02:33:30) zoom out 1 
+\i (02:33:30) setwindow pcb
+\i (02:33:30) zoom out 17.5222 62.7586
+\i (02:33:30) trapsize 2966
+\i (02:33:30) zoom out 1 
+\i (02:33:30) setwindow pcb
+\i (02:33:30) zoom out 22.4748 62.7586
+\i (02:33:30) trapsize 5931
+\i (02:33:36) opencd 'D:/sop1hc/Sche/WaterSensor/mach may bom/PCB0.1/allegro/water sensor.brd' 
+\t (02:33:36) Opening existing design...
+\i (02:33:37) fillin yes 
+\w (02:33:37) WARNING(SPMHDB-214): Allegro PCB Design Planner Option opening an Allegro Editor design.
+\w (02:33:37) WARNING(SPMHDB-213): DRC set to "out of date". This product supports a different DRC set than last product used on drawing.
+\w (02:33:37) WARNING(SPMHOD-34): Design was last saved by lower capability product (Allegro Editor). DRC is set out-of-date, you may wish to update DRC to reflect current rules.
+\i (02:33:39) fillin confirm
+\t (02:33:39) Grids are drawn 1.6000, 1.6000 apart for enhanced viewability.
+\i (02:33:39) trapsize 10349
+\t (02:33:39)     Journal end - Wed Jun 29 17:45:43 2016

@@ -1,0 +1,69 @@
+<HTML><HEAD><STYLE TYPE="text/css">.errorMessage { color:darkred; font-weight:bold; font-style:italic; text-decoration:underline; }</STYLE></HEAD><BODY><PRE>
+(---------------------------------------------------------------------)
+(                                                                     )
+(    NC DRILL Log                                                     )
+(                                                                     )
+(    Drawing          : #Taaaaay04076.tmp                             )
+(    Software Version : 16.6P004                                      )
+(    Date/Time        : Thu Feb 04 15:31:45 2016                      )
+(                                                                     )
+(---------------------------------------------------------------------)
+
+
+
+ Processing NC Parameters file 'nc_param.txt' ...
+
+ NC PARAMETERS
+ -------------
+
+ FORMAT   		2.5
+ MACHINE-OFFSET		x:0.000000	y:0.000000
+ FEEDRATE		1
+ COORDINATES		ABSOLUTE
+ OUTPUT-UNITS		ENGLISH
+ TOOL-ORDER		INCREASING
+ REPEAT-CODES		YES
+ SUPPRESS-LEAD-ZEROES	NO
+ SUPPRESS-TRAIL-ZEROES	NO
+ SUPPRESS-EQUAL		NO
+ TOOL-SELECT		NO
+ HEADER			none
+ LEADER			12
+ CODE			ASCII
+ SEPARATE		NO
+ SEPARATE-ROUTING	NO
+ OPTIMIZE_DRILLING	NO
+ ENHANCED_EXCELLON	NO
+ SCALE			1.000000
+
+ <b><i><font color="darkred">WARNING(SPMHMF-363)</i></b></font>: Units system is being switched when generating drill output file data.
+ <b><i><font color="darkred">WARNING(SPMHMF-365)</i></b></font>: This design contains 3 slot holes that can NOT be drilled.
+ <b><i><font color="darkred">WARNING(SPMHMF-366)</i></b></font>: They can be processed by NC routing instead.
+
+
+ Drill files being output to directory 'D:/sop1hc/Microphone/schematic/V01/Release_011/Sche/allegro/GERBER' ...
+
+
+
+     'STM32F746NGH_V110_2-1-4.drl' created for holes connecting TOP and BOTTOM
+     -------------------------------------------------------------------------
+
+           Num     Size      +/- Tolerance     Plating   Quantity
+
+            1.  11.8110    3.9370/  3.9370      PLATED         80
+            2.  13.0000    1.9685/  1.9685      PLATED        381
+            3.  21.6535    0.0000/  0.0000      PLATED         16
+            4.  25.0000    1.9685/  1.9685      PLATED          3
+            5.  35.4331    1.9685/  1.9685      PLATED         12
+            6.  39.3701    1.9685/  1.9685      PLATED          4
+            7.  39.3701    3.9370/  3.9370      PLATED          2
+            8.  43.3071    1.9685/  1.9685      PLATED         30
+            9. 177.1654    1.9685/  1.9685      PLATED          4
+           10.  66.9291    1.9685/  1.9685  NON_PLATED          2
+
+     ---- Total holes:                                        534
+
+     ---- Total head travel:              36.61 feet (11.16 meters)
+
+</PRE>
+</BODY></HTML>

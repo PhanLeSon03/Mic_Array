@@ -1,0 +1,1747 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head><title>./pick_and_place.txt</title></head>
+<body>
+<b><u>Design Name</u>&nbsp;D:/sop1hc/Microphone/schematic/V012/Schematic/allegro/STM32F746NGH_V110_5.brd</b><br>
+<b><u>Date</u>&nbsp;Thu Feb 18 11:54:35 2016</b><br>
+
+<table align=center border=1><caption><b><u>./pick_and_place.txt</u></b></caption>
+<tr>
+<td><b>REFDES</b></td>
+<td><b>SYM_CENTER_X</b></td>
+<td><b>SYM_CENTER_Y</b></td>
+<td><b>SYM_MIRROR</b></td>
+<td><b>PART_NUMBER</b></td>
+</tr>
+<tr>
+<td nowrap=true>C1</td>
+<td nowrap=true align=right>7.7500</td>
+<td nowrap=true align=right>52.2500</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C2</td>
+<td nowrap=true align=right>24.6250</td>
+<td nowrap=true align=right>10.1250</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C3</td>
+<td nowrap=true align=right>24.6250</td>
+<td nowrap=true align=right>8.3750</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C4</td>
+<td nowrap=true align=right>8.0000</td>
+<td nowrap=true align=right>63.3750</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C5</td>
+<td nowrap=true align=right>7.8750</td>
+<td nowrap=true align=right>74.5000</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C7</td>
+<td nowrap=true align=right>83.2500</td>
+<td nowrap=true align=right>42.7500</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C8</td>
+<td nowrap=true align=right>74.0000</td>
+<td nowrap=true align=right>42.3750</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C9</td>
+<td nowrap=true align=right>81.5000</td>
+<td nowrap=true align=right>42.7500</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C10</td>
+<td nowrap=true align=right>76.7500</td>
+<td nowrap=true align=right>40.0000</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C11</td>
+<td nowrap=true align=right>72.3750</td>
+<td nowrap=true align=right>42.3750</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C12</td>
+<td nowrap=true align=right>84.1250</td>
+<td nowrap=true align=right>31.2500</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C13</td>
+<td nowrap=true align=right>74.0000</td>
+<td nowrap=true align=right>30.5000</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C14</td>
+<td nowrap=true align=right>87.1250</td>
+<td nowrap=true align=right>59.6250</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C15</td>
+<td nowrap=true align=right>82.5000</td>
+<td nowrap=true align=right>31.2500</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C16</td>
+<td nowrap=true align=right>75.6250</td>
+<td nowrap=true align=right>30.5000</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C17</td>
+<td nowrap=true align=right>82.0000</td>
+<td nowrap=true align=right>53.2500</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C18</td>
+<td nowrap=true align=right>75.3750</td>
+<td nowrap=true align=right>4.6250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C19</td>
+<td nowrap=true align=right>75.5000</td>
+<td nowrap=true align=right>12.3750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C20</td>
+<td nowrap=true align=right>75.6250</td>
+<td nowrap=true align=right>16.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C21</td>
+<td nowrap=true align=right>75.6250</td>
+<td nowrap=true align=right>14.5000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C22</td>
+<td nowrap=true align=right>78.6250</td>
+<td nowrap=true align=right>21.6250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C23</td>
+<td nowrap=true align=right>78.5000</td>
+<td nowrap=true align=right>24.5000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C24</td>
+<td nowrap=true align=right>18.3750</td>
+<td nowrap=true align=right>59.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C25</td>
+<td nowrap=true align=right>18.3750</td>
+<td nowrap=true align=right>56.2500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C26</td>
+<td nowrap=true align=right>14.7500</td>
+<td nowrap=true align=right>47.2500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C27</td>
+<td nowrap=true align=right>65.5000</td>
+<td nowrap=true align=right>46.8750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C28</td>
+<td nowrap=true align=right>65.5000</td>
+<td nowrap=true align=right>48.3750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C29</td>
+<td nowrap=true align=right>65.5000</td>
+<td nowrap=true align=right>45.3750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C30</td>
+<td nowrap=true align=right>44.2500</td>
+<td nowrap=true align=right>39.2500</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C31</td>
+<td nowrap=true align=right>32.9002</td>
+<td nowrap=true align=right>63.7500</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C32</td>
+<td nowrap=true align=right>39.6502</td>
+<td nowrap=true align=right>63.7500</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C33</td>
+<td nowrap=true align=right>28.8750</td>
+<td nowrap=true align=right>54.7500</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C34</td>
+<td nowrap=true align=right>27.0000</td>
+<td nowrap=true align=right>44.3750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C35</td>
+<td nowrap=true align=right>28.8750</td>
+<td nowrap=true align=right>51.1250</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C36</td>
+<td nowrap=true align=right>29.0000</td>
+<td nowrap=true align=right>59.2500</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C37</td>
+<td nowrap=true align=right>44.6502</td>
+<td nowrap=true align=right>63.7500</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C38</td>
+<td nowrap=true align=right>39.0000</td>
+<td nowrap=true align=right>36.2500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C39</td>
+<td nowrap=true align=right>50.5000</td>
+<td nowrap=true align=right>36.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C40</td>
+<td nowrap=true align=right>51.1502</td>
+<td nowrap=true align=right>63.7500</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C41</td>
+<td nowrap=true align=right>33.0000</td>
+<td nowrap=true align=right>35.3750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C42</td>
+<td nowrap=true align=right>57.3750</td>
+<td nowrap=true align=right>41.1250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C43</td>
+<td nowrap=true align=right>56.5000</td>
+<td nowrap=true align=right>47.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C44</td>
+<td nowrap=true align=right>54.4002</td>
+<td nowrap=true align=right>52.5000</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C45</td>
+<td nowrap=true align=right>54.4002</td>
+<td nowrap=true align=right>59.0000</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C46</td>
+<td nowrap=true align=right>59.2500</td>
+<td nowrap=true align=right>60.3750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C47</td>
+<td nowrap=true align=right>51.8750</td>
+<td nowrap=true align=right>40.1250</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C48</td>
+<td nowrap=true align=right>65.6250</td>
+<td nowrap=true align=right>43.3750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C49</td>
+<td nowrap=true align=right>65.6250</td>
+<td nowrap=true align=right>41.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C50</td>
+<td nowrap=true align=right>23.5000</td>
+<td nowrap=true align=right>36.6250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C51</td>
+<td nowrap=true align=right>23.7500</td>
+<td nowrap=true align=right>38.6250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C52</td>
+<td nowrap=true align=right>24.5000</td>
+<td nowrap=true align=right>42.6250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C53</td>
+<td nowrap=true align=right>23.0000</td>
+<td nowrap=true align=right>42.6250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C54</td>
+<td nowrap=true align=right>78.2500</td>
+<td nowrap=true align=right>64.1250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C55</td>
+<td nowrap=true align=right>78.3750</td>
+<td nowrap=true align=right>68.3750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C56</td>
+<td nowrap=true align=right>64.2500</td>
+<td nowrap=true align=right>60.2500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C57</td>
+<td nowrap=true align=right>66.3750</td>
+<td nowrap=true align=right>61.1250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C58</td>
+<td nowrap=true align=right>68.0000</td>
+<td nowrap=true align=right>61.1250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C59</td>
+<td nowrap=true align=right>70.5000</td>
+<td nowrap=true align=right>61.8750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C60</td>
+<td nowrap=true align=right>60.3750</td>
+<td nowrap=true align=right>73.8750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C61</td>
+<td nowrap=true align=right>71.0000</td>
+<td nowrap=true align=right>74.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C62</td>
+<td nowrap=true align=right>58.2500</td>
+<td nowrap=true align=right>67.2500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C63</td>
+<td nowrap=true align=right>74.7500</td>
+<td nowrap=true align=right>67.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C64</td>
+<td nowrap=true align=right>74.8750</td>
+<td nowrap=true align=right>60.0000</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C65</td>
+<td nowrap=true align=right>72.5000</td>
+<td nowrap=true align=right>65.2500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C66</td>
+<td nowrap=true align=right>74.3750</td>
+<td nowrap=true align=right>62.0000</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C67</td>
+<td nowrap=true align=right>68.6250</td>
+<td nowrap=true align=right>73.8750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C68</td>
+<td nowrap=true align=right>58.2500</td>
+<td nowrap=true align=right>68.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C69</td>
+<td nowrap=true align=right>35.0000</td>
+<td nowrap=true align=right>27.5000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C70</td>
+<td nowrap=true align=right>37.5000</td>
+<td nowrap=true align=right>7.2500</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C71</td>
+<td nowrap=true align=right>37.5000</td>
+<td nowrap=true align=right>9.0000</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C72</td>
+<td nowrap=true align=right>71.0000</td>
+<td nowrap=true align=right>69.8750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C73</td>
+<td nowrap=true align=right>65.3750</td>
+<td nowrap=true align=right>73.8750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C74</td>
+<td nowrap=true align=right>63.7500</td>
+<td nowrap=true align=right>73.8750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C75</td>
+<td nowrap=true align=right>71.0000</td>
+<td nowrap=true align=right>71.5000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C76</td>
+<td nowrap=true align=right>37.2500</td>
+<td nowrap=true align=right>11.5000</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C77</td>
+<td nowrap=true align=right>37.2500</td>
+<td nowrap=true align=right>14.5000</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C78</td>
+<td nowrap=true align=right>49.0000</td>
+<td nowrap=true align=right>9.2500</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C79</td>
+<td nowrap=true align=right>49.0000</td>
+<td nowrap=true align=right>13.1250</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C80</td>
+<td nowrap=true align=right>35.0000</td>
+<td nowrap=true align=right>30.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C81</td>
+<td nowrap=true align=right>50.7500</td>
+<td nowrap=true align=right>27.5000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C82</td>
+<td nowrap=true align=right>35.0000</td>
+<td nowrap=true align=right>24.2500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C83</td>
+<td nowrap=true align=right>32.8750</td>
+<td nowrap=true align=right>22.6250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C84</td>
+<td nowrap=true align=right>50.7500</td>
+<td nowrap=true align=right>24.2500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C85</td>
+<td nowrap=true align=right>9.7500</td>
+<td nowrap=true align=right>12.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C86</td>
+<td nowrap=true align=right>15.1250</td>
+<td nowrap=true align=right>28.5000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C87</td>
+<td nowrap=true align=right>20.5000</td>
+<td nowrap=true align=right>19.5000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C88</td>
+<td nowrap=true align=right>20.5000</td>
+<td nowrap=true align=right>22.6250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C89</td>
+<td nowrap=true align=right>4.3750</td>
+<td nowrap=true align=right>16.2500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C90</td>
+<td nowrap=true align=right>10.6250</td>
+<td nowrap=true align=right>28.5000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C91</td>
+<td nowrap=true align=right>4.3750</td>
+<td nowrap=true align=right>23.1250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C92</td>
+<td nowrap=true align=right>4.3750</td>
+<td nowrap=true align=right>18.8750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C93</td>
+<td nowrap=true align=right>15.5000</td>
+<td nowrap=true align=right>12.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C100</td>
+<td nowrap=true align=right>10.1250</td>
+<td nowrap=true align=right>8.1250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C101</td>
+<td nowrap=true align=right>60.8750</td>
+<td nowrap=true align=right>50.2500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C102</td>
+<td nowrap=true align=right>7.5000</td>
+<td nowrap=true align=right>22.6250</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C103</td>
+<td nowrap=true align=right>26.3750</td>
+<td nowrap=true align=right>6.6250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>C104</td>
+<td nowrap=true align=right>26.3750</td>
+<td nowrap=true align=right>5.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>CN1</td>
+<td nowrap=true align=right>90.6250</td>
+<td nowrap=true align=right>68.1250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>D1</td>
+<td nowrap=true align=right>92.2500</td>
+<td nowrap=true align=right>61.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>D2</td>
+<td nowrap=true align=right>71.7500</td>
+<td nowrap=true align=right>28.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>D3</td>
+<td nowrap=true align=right>94.7500</td>
+<td nowrap=true align=right>30.6250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>D4</td>
+<td nowrap=true align=right>89.3750</td>
+<td nowrap=true align=right>43.1250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>D5</td>
+<td nowrap=true align=right>71.8750</td>
+<td nowrap=true align=right>51.6250</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>D6</td>
+<td nowrap=true align=right>94.6250</td>
+<td nowrap=true align=right>44.1250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>D7</td>
+<td nowrap=true align=right>89.7500</td>
+<td nowrap=true align=right>31.3750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>D8</td>
+<td nowrap=true align=right>20.5000</td>
+<td nowrap=true align=right>54.5000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>D9</td>
+<td nowrap=true align=right>20.5000</td>
+<td nowrap=true align=right>52.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>D10</td>
+<td nowrap=true align=right>75.2500</td>
+<td nowrap=true align=right>61.3750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>J1</td>
+<td nowrap=true align=right>4.8750</td>
+<td nowrap=true align=right>34.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>J2</td>
+<td nowrap=true align=right>22.6250</td>
+<td nowrap=true align=right>75.2500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>J3</td>
+<td nowrap=true align=right>49.3750</td>
+<td nowrap=true align=right>76.5000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>J5</td>
+<td nowrap=true align=right>35.8750</td>
+<td nowrap=true align=right>75.2500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>J6</td>
+<td nowrap=true align=right>66.5200</td>
+<td nowrap=true align=right>11.3600</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>JP1</td>
+<td nowrap=true align=right>6.8750</td>
+<td nowrap=true align=right>9.5000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>JP2</td>
+<td nowrap=true align=right>24.1250</td>
+<td nowrap=true align=right>66.1250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>JP3</td>
+<td nowrap=true align=right>15.6250</td>
+<td nowrap=true align=right>76.1250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>L1</td>
+<td nowrap=true align=right>77.2500</td>
+<td nowrap=true align=right>8.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>L2</td>
+<td nowrap=true align=right>23.5000</td>
+<td nowrap=true align=right>34.2500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>Q1</td>
+<td nowrap=true align=right>73.7500</td>
+<td nowrap=true align=right>48.4873</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R1</td>
+<td nowrap=true align=right>25.3030</td>
+<td nowrap=true align=right>70.7014</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R2</td>
+<td nowrap=true align=right>23.6492</td>
+<td nowrap=true align=right>70.7014</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R3</td>
+<td nowrap=true align=right>4.6250</td>
+<td nowrap=true align=right>52.2500</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R4</td>
+<td nowrap=true align=right>22.0000</td>
+<td nowrap=true align=right>70.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R5</td>
+<td nowrap=true align=right>20.3750</td>
+<td nowrap=true align=right>70.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R7</td>
+<td nowrap=true align=right>10.8750</td>
+<td nowrap=true align=right>45.2500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R8</td>
+<td nowrap=true align=right>50.0000</td>
+<td nowrap=true align=right>68.1250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R9</td>
+<td nowrap=true align=right>7.8750</td>
+<td nowrap=true align=right>42.5000</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R10</td>
+<td nowrap=true align=right>48.3750</td>
+<td nowrap=true align=right>68.1250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R11</td>
+<td nowrap=true align=right>4.8750</td>
+<td nowrap=true align=right>63.3750</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R12</td>
+<td nowrap=true align=right>24.6250</td>
+<td nowrap=true align=right>10.1250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R13</td>
+<td nowrap=true align=right>24.6250</td>
+<td nowrap=true align=right>8.3750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R14</td>
+<td nowrap=true align=right>10.8750</td>
+<td nowrap=true align=right>67.1250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R16</td>
+<td nowrap=true align=right>12.5000</td>
+<td nowrap=true align=right>67.1250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R18</td>
+<td nowrap=true align=right>10.8750</td>
+<td nowrap=true align=right>56.3750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R19</td>
+<td nowrap=true align=right>7.7500</td>
+<td nowrap=true align=right>53.8750</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R20</td>
+<td nowrap=true align=right>95.6250</td>
+<td nowrap=true align=right>61.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R21</td>
+<td nowrap=true align=right>84.0000</td>
+<td nowrap=true align=right>61.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R22</td>
+<td nowrap=true align=right>80.6250</td>
+<td nowrap=true align=right>60.2500</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R23</td>
+<td nowrap=true align=right>84.0000</td>
+<td nowrap=true align=right>59.3750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R24</td>
+<td nowrap=true align=right>71.7500</td>
+<td nowrap=true align=right>30.3750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R25</td>
+<td nowrap=true align=right>79.0000</td>
+<td nowrap=true align=right>60.2500</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R26</td>
+<td nowrap=true align=right>86.0000</td>
+<td nowrap=true align=right>52.3750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R27</td>
+<td nowrap=true align=right>86.0000</td>
+<td nowrap=true align=right>54.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R28</td>
+<td nowrap=true align=right>86.0000</td>
+<td nowrap=true align=right>55.6250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R29</td>
+<td nowrap=true align=right>94.7500</td>
+<td nowrap=true align=right>28.8750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R30</td>
+<td nowrap=true align=right>75.3750</td>
+<td nowrap=true align=right>51.6250</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R31</td>
+<td nowrap=true align=right>70.1250</td>
+<td nowrap=true align=right>51.6250</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R32</td>
+<td nowrap=true align=right>94.6250</td>
+<td nowrap=true align=right>42.3750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R33</td>
+<td nowrap=true align=right>73.6250</td>
+<td nowrap=true align=right>51.6250</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R34</td>
+<td nowrap=true align=right>24.1250</td>
+<td nowrap=true align=right>58.3750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R35</td>
+<td nowrap=true align=right>24.1250</td>
+<td nowrap=true align=right>56.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R36</td>
+<td nowrap=true align=right>18.1250</td>
+<td nowrap=true align=right>44.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R37</td>
+<td nowrap=true align=right>23.6250</td>
+<td nowrap=true align=right>30.6250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R40</td>
+<td nowrap=true align=right>24.0000</td>
+<td nowrap=true align=right>32.5000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R41</td>
+<td nowrap=true align=right>20.0000</td>
+<td nowrap=true align=right>32.5000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R43</td>
+<td nowrap=true align=right>20.2500</td>
+<td nowrap=true align=right>30.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R44</td>
+<td nowrap=true align=right>43.1250</td>
+<td nowrap=true align=right>68.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R46</td>
+<td nowrap=true align=right>41.5000</td>
+<td nowrap=true align=right>68.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R49</td>
+<td nowrap=true align=right>24.0000</td>
+<td nowrap=true align=right>47.8750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R52</td>
+<td nowrap=true align=right>35.0000</td>
+<td nowrap=true align=right>68.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R53</td>
+<td nowrap=true align=right>35.0000</td>
+<td nowrap=true align=right>68.3750</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R54</td>
+<td nowrap=true align=right>20.2500</td>
+<td nowrap=true align=right>51.1250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R55</td>
+<td nowrap=true align=right>31.3750</td>
+<td nowrap=true align=right>35.3750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R56</td>
+<td nowrap=true align=right>20.2500</td>
+<td nowrap=true align=right>49.5000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R57</td>
+<td nowrap=true align=right>33.3750</td>
+<td nowrap=true align=right>68.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R59</td>
+<td nowrap=true align=right>33.3750</td>
+<td nowrap=true align=right>68.3750</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R61</td>
+<td nowrap=true align=right>24.0000</td>
+<td nowrap=true align=right>51.1250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R63</td>
+<td nowrap=true align=right>24.0000</td>
+<td nowrap=true align=right>49.5000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R64</td>
+<td nowrap=true align=right>24.0000</td>
+<td nowrap=true align=right>54.3750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R65</td>
+<td nowrap=true align=right>24.0000</td>
+<td nowrap=true align=right>52.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R66</td>
+<td nowrap=true align=right>69.6250</td>
+<td nowrap=true align=right>32.6250</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R67</td>
+<td nowrap=true align=right>23.7500</td>
+<td nowrap=true align=right>40.2500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R68</td>
+<td nowrap=true align=right>53.2500</td>
+<td nowrap=true align=right>14.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R69</td>
+<td nowrap=true align=right>53.2500</td>
+<td nowrap=true align=right>12.2500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R70</td>
+<td nowrap=true align=right>53.2500</td>
+<td nowrap=true align=right>10.5000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R71</td>
+<td nowrap=true align=right>53.2500</td>
+<td nowrap=true align=right>8.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R72</td>
+<td nowrap=true align=right>43.7500</td>
+<td nowrap=true align=right>5.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R73</td>
+<td nowrap=true align=right>45.5000</td>
+<td nowrap=true align=right>5.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R74</td>
+<td nowrap=true align=right>47.2500</td>
+<td nowrap=true align=right>5.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R75</td>
+<td nowrap=true align=right>75.0000</td>
+<td nowrap=true align=right>63.3750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R76</td>
+<td nowrap=true align=right>77.5000</td>
+<td nowrap=true align=right>71.6250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R77</td>
+<td nowrap=true align=right>49.0000</td>
+<td nowrap=true align=right>5.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R78</td>
+<td nowrap=true align=right>36.7500</td>
+<td nowrap=true align=right>5.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R79</td>
+<td nowrap=true align=right>38.5000</td>
+<td nowrap=true align=right>5.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R80</td>
+<td nowrap=true align=right>40.2500</td>
+<td nowrap=true align=right>5.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R81</td>
+<td nowrap=true align=right>42.0000</td>
+<td nowrap=true align=right>5.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R82</td>
+<td nowrap=true align=right>33.0000</td>
+<td nowrap=true align=right>8.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R83</td>
+<td nowrap=true align=right>33.0000</td>
+<td nowrap=true align=right>10.5000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R84</td>
+<td nowrap=true align=right>88.6250</td>
+<td nowrap=true align=right>75.6250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R85</td>
+<td nowrap=true align=right>33.0000</td>
+<td nowrap=true align=right>12.2500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R86</td>
+<td nowrap=true align=right>33.0000</td>
+<td nowrap=true align=right>14.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R87</td>
+<td nowrap=true align=right>59.3750</td>
+<td nowrap=true align=right>71.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R88</td>
+<td nowrap=true align=right>62.1250</td>
+<td nowrap=true align=right>73.8750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R89</td>
+<td nowrap=true align=right>59.2500</td>
+<td nowrap=true align=right>64.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R90</td>
+<td nowrap=true align=right>53.2500</td>
+<td nowrap=true align=right>15.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R91</td>
+<td nowrap=true align=right>33.0000</td>
+<td nowrap=true align=right>15.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R92</td>
+<td nowrap=true align=right>58.6250</td>
+<td nowrap=true align=right>73.8750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R93</td>
+<td nowrap=true align=right>71.0000</td>
+<td nowrap=true align=right>73.1250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R94</td>
+<td nowrap=true align=right>67.0000</td>
+<td nowrap=true align=right>73.8750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R95</td>
+<td nowrap=true align=right>58.5000</td>
+<td nowrap=true align=right>52.6250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R96</td>
+<td nowrap=true align=right>4.3750</td>
+<td nowrap=true align=right>14.6250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R97</td>
+<td nowrap=true align=right>37.2500</td>
+<td nowrap=true align=right>65.0000</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R98</td>
+<td nowrap=true align=right>36.0000</td>
+<td nowrap=true align=right>65.0000</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R99</td>
+<td nowrap=true align=right>25.5000</td>
+<td nowrap=true align=right>24.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R100</td>
+<td nowrap=true align=right>26.8750</td>
+<td nowrap=true align=right>12.8750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R101</td>
+<td nowrap=true align=right>25.5000</td>
+<td nowrap=true align=right>27.2500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R102</td>
+<td nowrap=true align=right>25.5000</td>
+<td nowrap=true align=right>25.6250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R103</td>
+<td nowrap=true align=right>24.5000</td>
+<td nowrap=true align=right>12.1250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R104</td>
+<td nowrap=true align=right>24.5000</td>
+<td nowrap=true align=right>13.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R105</td>
+<td nowrap=true align=right>4.3750</td>
+<td nowrap=true align=right>13.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R106</td>
+<td nowrap=true align=right>7.2500</td>
+<td nowrap=true align=right>15.0000</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R107</td>
+<td nowrap=true align=right>19.0000</td>
+<td nowrap=true align=right>20.1250</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R110</td>
+<td nowrap=true align=right>53.2500</td>
+<td nowrap=true align=right>7.1250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R111</td>
+<td nowrap=true align=right>66.0000</td>
+<td nowrap=true align=right>52.1250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R112</td>
+<td nowrap=true align=right>23.8750</td>
+<td nowrap=true align=right>5.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R114</td>
+<td nowrap=true align=right>17.8750</td>
+<td nowrap=true align=right>12.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R115</td>
+<td nowrap=true align=right>58.5000</td>
+<td nowrap=true align=right>54.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R116</td>
+<td nowrap=true align=right>27.8750</td>
+<td nowrap=true align=right>10.1250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R117</td>
+<td nowrap=true align=right>27.8750</td>
+<td nowrap=true align=right>8.3750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R118</td>
+<td nowrap=true align=right>18.1250</td>
+<td nowrap=true align=right>42.3750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>R119</td>
+<td nowrap=true align=right>28.6250</td>
+<td nowrap=true align=right>65.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>SW1</td>
+<td nowrap=true align=right>6.0000</td>
+<td nowrap=true align=right>47.3750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>SW2</td>
+<td nowrap=true align=right>6.0000</td>
+<td nowrap=true align=right>58.5000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>SW3</td>
+<td nowrap=true align=right>6.1250</td>
+<td nowrap=true align=right>69.5000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>TP1</td>
+<td nowrap=true align=right>73.3750</td>
+<td nowrap=true align=right>43.1250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>TP2</td>
+<td nowrap=true align=right>71.8750</td>
+<td nowrap=true align=right>33.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>TP3</td>
+<td nowrap=true align=right>93.2500</td>
+<td nowrap=true align=right>36.8750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>TP4</td>
+<td nowrap=true align=right>15.3750</td>
+<td nowrap=true align=right>48.6250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>TP5</td>
+<td nowrap=true align=right>15.3750</td>
+<td nowrap=true align=right>53.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>TP6</td>
+<td nowrap=true align=right>4.1250</td>
+<td nowrap=true align=right>26.2500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>TP7</td>
+<td nowrap=true align=right>18.2500</td>
+<td nowrap=true align=right>16.2500</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>U1</td>
+<td nowrap=true align=right>77.5000</td>
+<td nowrap=true align=right>42.8750</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>U2</td>
+<td nowrap=true align=right>78.2500</td>
+<td nowrap=true align=right>31.5000</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>U4</td>
+<td nowrap=true align=right>93.1132</td>
+<td nowrap=true align=right>53.6546</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>U5</td>
+<td nowrap=true align=right>81.7500</td>
+<td nowrap=true align=right>53.2500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>U6</td>
+<td nowrap=true align=right>90.2500</td>
+<td nowrap=true align=right>10.8750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>U7</td>
+<td nowrap=true align=right>90.8750</td>
+<td nowrap=true align=right>21.3750</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>U8</td>
+<td nowrap=true align=right>41.6502</td>
+<td nowrap=true align=right>51.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>U9</td>
+<td nowrap=true align=right>65.0000</td>
+<td nowrap=true align=right>67.1250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>U10</td>
+<td nowrap=true align=right>42.9002</td>
+<td nowrap=true align=right>18.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>U11</td>
+<td nowrap=true align=right>83.8750</td>
+<td nowrap=true align=right>60.2500</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>U12</td>
+<td nowrap=true align=right>12.6250</td>
+<td nowrap=true align=right>20.6250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>U14</td>
+<td nowrap=true align=right>13.1250</td>
+<td nowrap=true align=right>18.8750</td>
+<td nowrap=true>YES</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>X1</td>
+<td nowrap=true align=right>21.2500</td>
+<td nowrap=true align=right>57.6250</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>X2</td>
+<td nowrap=true align=right>20.0000</td>
+<td nowrap=true align=right>46.7500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>X3</td>
+<td nowrap=true align=right>62.3750</td>
+<td nowrap=true align=right>53.2500</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td nowrap=true>X4</td>
+<td nowrap=true align=right>26.6250</td>
+<td nowrap=true align=right>19.0000</td>
+<td nowrap=true>NO</td>
+<td>&nbsp;</td>
+</tr>
+</table>
+</body>
+</html>

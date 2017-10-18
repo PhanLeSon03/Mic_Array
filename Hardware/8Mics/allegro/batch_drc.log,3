@@ -1,0 +1,27 @@
+(---------------------------------------------------------------------)
+(                                                                     )
+(    DRC Update                                                       )
+(                                                                     )
+(    Drawing          : 8MICS_V022.brd                                )
+(    Software Version : 16.6P004                                      )
+(    Date/Time        : Tue Apr 05 19:16:25 2016                      )
+(                                                                     )
+(---------------------------------------------------------------------)
+
+
+ ========= check shapes                       0:00:00
+ ========= check standalone pins              0:00:00
+ ========= check symbols (pins,lines,text)    0:00:00
+ ========= check xnets                        0:00:00
+ ========= check nets                         0:00:00
+ ========= check standalone branches          0:00:00
+ ========= check standalone filled rectangles 0:00:00
+ ========= check standalone lines             0:00:00
+ ========= check standalone text              0:00:00
+ ========= check standalone rectangles        0:00:00
+
+ ..... Total number of DRC errors  8
+
+ ..... DRC update completed, total CPU time   0:00:00
+ *************************************************************************
+

@@ -1,0 +1,58 @@
+(---------------------------------------------------------------------)
+(                                                                     )
+(    NC DRILL Log                                                     )
+(                                                                     )
+(    Drawing          : #Taaaagb07552.tmp                             )
+(    Software Version : 16.6P004                                      )
+(    Date/Time        : Wed Apr 06 11:02:23 2016                      )
+(                                                                     )
+(---------------------------------------------------------------------)
+
+
+
+ Processing NC Parameters file 'nc_param.txt' ...
+
+ NC PARAMETERS
+ -------------
+
+ FORMAT   		2.5
+ MACHINE-OFFSET		x:0.000000	y:0.000000
+ FEEDRATE		1
+ COORDINATES		ABSOLUTE
+ OUTPUT-UNITS		ENGLISH
+ TOOL-ORDER		INCREASING
+ REPEAT-CODES		YES
+ SUPPRESS-LEAD-ZEROES	NO
+ SUPPRESS-TRAIL-ZEROES	NO
+ SUPPRESS-EQUAL		NO
+ TOOL-SELECT		NO
+ HEADER			none
+ LEADER			12
+ CODE			ASCII
+ SEPARATE		NO
+ SEPARATE-ROUTING	NO
+ OPTIMIZE_DRILLING	NO
+ ENHANCED_EXCELLON	NO
+ SCALE			1.000000
+
+ WARNING(SPMHMF-363): Units system is being switched when generating drill output file data.
+
+
+ Drill files being output to directory 'D:/sop1hc/Microphone/schematic/V020/8Mics/allegro/GERBER' ...
+
+
+
+     '8MICS_V021-1-2.drl' created for holes connecting TOP and BOTTOM
+     ----------------------------------------------------------------
+
+           Num     Size      +/- Tolerance     Plating   Quantity
+
+            1.  13.0000    0.0000/  0.0000      PLATED         14
+            2.  39.3701    0.0000/  0.0000      PLATED          2
+            3.  43.3110    0.0000/  0.0000      PLATED         22
+            4.  19.6890    3.9409/  3.9409  NON_PLATED         31
+
+     ---- Total holes:                                         69
+
+     ---- Total head travel:              4.16 feet (1.27 meters)
+

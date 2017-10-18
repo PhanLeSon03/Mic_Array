@@ -1,0 +1,46 @@
+|------------------------------------------------------------------------------|
+|                                 ECO   REPORT                                 |
+|                                                                    Page   1  |
+|------------------------------------------------------------------------------|
+|  D:/sop1hc/Microphone/schematic/V012/Schematic/allegro/Mic_Array_main.brd    |
+|                                                    Fri May 13 10:17:56 2016  |
+|------------------------------------------------------------------------------|
+| COMPONENT DEFINITION added to board drawing                                  |
+|- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |
+|    device type                                                               |
+|- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |
+ DIODE_DIOD_SOD323_BAT60JFILM
+|------------------------------------------------------------------------------|
+|                                 ECO   REPORT                                 |
+|                                                                    Page   2  |
+|------------------------------------------------------------------------------|
+|  D:/sop1hc/Microphone/schematic/V012/Schematic/allegro/Mic_Array_main.brd    |
+|                                                    Fri May 13 10:17:56 2016  |
+|------------------------------------------------------------------------------|
+| COMPONENTS CHANGED from one device type to another in board drawing          |
+|- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |
+|    ref des        | new device type     |   x   |   y   |  old  device type  |
+|- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |
+ D4                  DIODE_DIOD_SOD323_BAT60JFILM                 DIODE_SOD323_2_05_BAT60JFILM
+ D7                  DIODE_DIOD_SOD323_BAT60JFILM                 DIODE_SOD323_2_05_BAT60JFILM
+ D10                 DIODE_DIOD_SOD323_BAT60JFILM                 DIODE_SOD323_2_05_BAT60JFILM
+|------------------------------------------------------------------------------|
+|                                 ECO   REPORT                                 |
+|                                                                    Page   3  |
+|------------------------------------------------------------------------------|
+|  D:/sop1hc/Microphone/schematic/V012/Schematic/allegro/Mic_Array_main.brd    |
+|                                                    Fri May 13 10:17:56 2016  |
+|------------------------------------------------------------------------------|
+| SLOT PROPERTIES added to board drawing                                       |
+|- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |
+|   slot_id    |   x   |   y   |   property   |             value              |
+|- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |
+ D4.1                           PRIM_FILE      .\pstchip.dat
+ D4.1                           SECTION        
+ D7.1                           PRIM_FILE      .\pstchip.dat
+ D7.1                           SECTION        
+ D10.1                          PRIM_FILE      .\pstchip.dat
+ D10.1                          SECTION        
+|------------------------------------------------------------------------------|
+|   total ECO changes reported  10                                             |
+|------------------------------------------------------------------------------|
